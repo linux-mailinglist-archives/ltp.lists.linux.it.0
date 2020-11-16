@@ -2,40 +2,49 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id E48F32B462D
-	for <lists+linux-ltp@lfdr.de>; Mon, 16 Nov 2020 15:46:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D0432B4A37
+	for <lists+linux-ltp@lfdr.de>; Mon, 16 Nov 2020 17:02:54 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 629C13C649F
-	for <lists+linux-ltp@lfdr.de>; Mon, 16 Nov 2020 15:46:40 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id C4C373C6F53
+	for <lists+linux-ltp@lfdr.de>; Mon, 16 Nov 2020 17:02:53 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id 4EB133C4F6C
- for <ltp@lists.linux.it>; Mon, 16 Nov 2020 15:46:37 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id 6086A3C5DAF
+ for <ltp@lists.linux.it>; Mon, 16 Nov 2020 17:02:49 +0100 (CET)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id B23F0200BA8
- for <ltp@lists.linux.it>; Mon, 16 Nov 2020 15:46:36 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 1D02FAC83;
- Mon, 16 Nov 2020 14:46:36 +0000 (UTC)
-References: <20191115101039.43386-1-lkml@jv-coder.de>
- <a42725d1-1469-e71f-e28d-1eff42e3e86d@jv-coder.de>
-User-agent: mu4e 1.4.13; emacs 27.1
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Joerg Vehlow <lkml@jv-coder.de>
-In-reply-to: <a42725d1-1469-e71f-e28d-1eff42e3e86d@jv-coder.de>
-Date: Mon, 16 Nov 2020 14:46:35 +0000
-Message-ID: <87blfxpdf8.fsf@suse.de>
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 66F806009AA
+ for <ltp@lists.linux.it>; Mon, 16 Nov 2020 17:02:48 +0100 (CET)
+Received: from localhost (83-86-74-64.cable.dynamic.v4.ziggo.nl [83.86.74.64])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 857D9221F9;
+ Mon, 16 Nov 2020 16:02:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1605542566;
+ bh=nMg82EAoktVc5Hpjdoyrbh8BYV3emzPyILk0yRnaVsE=;
+ h=Subject:To:Cc:From:Date:From;
+ b=FP+5WGIOGdohnb8cgTG5ExmEiQ1H1VxK8wDRoLSJZkWddLmUahMdaVx6s8qtGAiHl
+ ivY2iHmmgHjBw3YaW8TR5X+fYyhda2NTwEJl6Ix3w9oNrkulAN2ydT+V++8jyFhgJO
+ 8kWXgN3VRLNPa8TTwAqKTb9iklbhMKL4seEOKYAI=
+To: axboe@kernel.dk, gregkh@linuxfoundation.org, hch@lst.de, ltp@lists.linux.it,
+ pvorel@suse.cz
+From: <gregkh@linuxfoundation.org>
+Date: Mon, 16 Nov 2020 17:03:00 +0100
+Message-ID: <16055425807438@kroah.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-stable: commit
+X-Patchwork-Hint: ignore 
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] cpuset_regression_test: Fix for already existing
- cpusets
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: [LTP] Patch "loop: Fix occasional uevent drop" has been added to
+ the 5.9-stable tree
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,36 +56,89 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: stable-commits@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGVsbG8sCgpKb2VyZyBWZWhsb3cgPGxrbWxAanYtY29kZXIuZGU+IHdyaXRlczoKCj4gSGksCj4K
-PiBhIHBpbmcgZm9yIHRoaXMgcGF0Y2g/IElzIHNvbWV0aGluZyBsaWtlIHRoYXQgKHdvcmthcm91
-bmQgZW52aXJvbm1lbnQgCj4gaXNzdWVzKSBub3Qgd2FudGVkIGluIGx0cD8KCkdlbmVyYWxseSBz
-cGVha2luZywgeWVzLCBhZ2FpbiB5b3UgYXJlIHJpZ2h0IHRvIGJ1bXAgaXQgYW5kIHRoZXNlIHRl
-c3RzCmFyZSBpbiBuZWVkIG9mIG1vcmUgYXR0ZW50aW9uLiBIb3dldmVyIEkgaGF2ZSBhIGNvdXBs
-ZSBvZiBjb25jZXJucyBhYm91dAp0aGlzLgoKPgo+IEdyZWV0cwo+IErDtnJnCj4KPiBPbiAxMS8x
-NS8yMDE5IDExOjEwIEFNLCBKb2VyZyBWZWhsb3cgd3JvdGU6Cj4+IEZyb206IEpvZXJnIFZlaGxv
-dyA8am9lcmcudmVobG93QGFveC10ZWNoLmRlPgo+Pgo+PiBJZiB0aGVyZSBhcmUgYWxyZWFkeSBj
-cHVzZXRzIGRlZmluZWQgb24gdGhlIHN5c3RlbSwgdGhhdCB1c2UgY3B1IDAtMSwKPj4gdGhlIHRl
-c3QgZmFpbHMsIGJlY2F1c2UgaXQgdHJpZXMgdG8gZXhjbHVzaXZlbHkgdXNlIGNwdSAwLTEgZm9y
-IHRoZQo+PiB0ZXN0Y2FzZS4KPj4KPj4gVGhlIGZpeCBzZXRzIHRoZSBjcHVzZXQgZm9yIGFsbCBj
-Z3JvdXBzIHRvIDAgYW5kIGRpc2FibGVzIGV4Y2x1c2l2ZQo+PiBjcHUgdXNhZ2UgZm9yIHRoZSBk
-dXJhdGlvbiBvZiB0aGUgdGVzdCBhbmQgcmVzdG9yZXMgaXQgb24gY2xlYW51cC4KPj4gRm9yIHRo
-ZSB0ZXN0IG9ubHkgY3B1IDEgaXMgc2V0IGFzIGV4Y2x1c2l2ZS4gVGhpcyBpcyBlbm91Z2ggdG8K
-Pj4gdHJpZ2dlciB0aGUgYnVnIHRoaXMgcmVncmVzc2lvbiB0ZXN0IHdhcyBkZXNpZ25lZCBmb3Iu
-Cj4+IFRoaXMgd2FzIHRlc3RlZCBieSByZXZlcnRpbmcgdGhlIGNvbW1pdCBtZW50aW9uZWQgaW4g
-dGhlIHRlc3RjYXNlLgoKSWYgdGhlIHN5c3RlbSBoYXMgYWxyZWFkeSBzZXQgZXhjbHVzaXZlIGNw
-dXMgdGhlbiBpdCBpcyB1bmxpa2VseSB0aGlzCnJlZ3Jlc3Npb24gZWZmZWN0cyBpdC4gRWl0aGVy
-IHRoZSBrZXJuZWwgaGFzIGJlZW4gcGF0Y2hlZCBvciB0aGUgc3lzdGVtCm1hbmFnZXIgY29uZmln
-dXJlcyB0aGUgY3B1cyBmaXJzdCBiZWZvcmUgc2V0dGluZyB0aGUgZXhjbHVzaXZlIGtub2IuCgpO
-b3JtYWxseSBJIHdvdWxkIHNheSB0aGUgdGVzdCBzaG91bGQgdHJ5IHRvIHJ1biBhbnl3YXksIGJ1
-dCB5b3UgYXJlCmhhdmluZyB0byBtYWtlIHNvbWUgaW50cnVzaXZlIGNoYW5nZXMgdG8gdGhlIGNn
-cm91cCBzZXR1cCB3aGljaCBjb3VsZApsZWFkIHRvIG90aGVyIHByb2JsZW1zLgoKU28gd2h5IG5v
-dCBqdXN0IGNhbGwgJ3RzdF9icmsgVENPTkYnIGlmIHRoZSBzeXN0ZW0gYWxyZWFkeSBoYXMgZXhj
-bHVzaXZlCmNwdXMgY29uZmlndXJlZD8KCi0tIApUaGFuayB5b3UsClJpY2hhcmQuCgotLSAKTWFp
-bGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
+
+This is a note to let you know that I've just added the patch titled
+
+    loop: Fix occasional uevent drop
+
+to the 5.9-stable tree which can be found at:
+    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
+
+The filename of the patch is:
+     loop-fix-occasional-uevent-drop.patch
+and it can be found in the queue-5.9 subdirectory.
+
+If you, or anyone else, feels it should not be added to the stable tree,
+please let <stable@vger.kernel.org> know about it.
+
+
+From c01a21b77722db0474bbcc4eafc8c4e0d8fed6d8 Mon Sep 17 00:00:00 2001
+From: Petr Vorel <pvorel@suse.cz>
+Date: Thu, 12 Nov 2020 17:50:05 +0100
+Subject: loop: Fix occasional uevent drop
+
+From: Petr Vorel <pvorel@suse.cz>
+
+commit c01a21b77722db0474bbcc4eafc8c4e0d8fed6d8 upstream.
+
+Commit 716ad0986cbd ("loop: Switch to set_capacity_revalidate_and_notify")
+causes an occasional drop of loop device uevent, which are no longer
+triggered in loop_set_size() but in a different part of code.
+
+Bug is reproducible with LTP test uevent01 [1]:
+
+i=0; while true; do
+    i=$((i+1)); echo "== $i =="
+    lsmod |grep -q loop && rmmod -f loop
+    ./uevent01 || break
+done
+
+Put back triggering through code called in loop_set_size().
+
+Fix required to add yet another parameter to
+set_capacity_revalidate_and_notify().
+
+[1] https://github.com/linux-test-project/ltp/blob/master/testcases/kernel/uevents/uevent01.c
+
+[hch: rebased on a different change to the prototype of
+ set_capacity_revalidate_and_notify]
+
+Cc: stable@vger.kernel.org # v5.9
+Fixes: 716ad0986cbd ("loop: Switch to set_capacity_revalidate_and_notify")
+Reported-by: <ltp@lists.linux.it>
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+
+---
+ drivers/block/loop.c |    3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+--- a/drivers/block/loop.c
++++ b/drivers/block/loop.c
+@@ -255,7 +255,8 @@ static void loop_set_size(struct loop_de
+ 
+ 	bd_set_size(bdev, size << SECTOR_SHIFT);
+ 
+-	set_capacity_revalidate_and_notify(lo->lo_disk, size, false);
++	if (!set_capacity_revalidate_and_notify(lo->lo_disk, size, false))
++		kobject_uevent(&disk_to_dev(bdev->bd_disk)->kobj, KOBJ_CHANGE);
+ }
+ 
+ static inline int
+
+
+Patches currently in stable-queue which might be from pvorel@suse.cz are
+
+queue-5.9/block-add-a-return-value-to-set_capacity_revalidate_and_notify.patch
+queue-5.9/loop-fix-occasional-uevent-drop.patch
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
