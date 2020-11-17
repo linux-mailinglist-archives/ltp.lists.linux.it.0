@@ -2,41 +2,40 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9BF32B5AFE
-	for <lists+linux-ltp@lfdr.de>; Tue, 17 Nov 2020 09:33:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0F532B5B5F
+	for <lists+linux-ltp@lfdr.de>; Tue, 17 Nov 2020 09:55:07 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 85EB93C4F20
-	for <lists+linux-ltp@lfdr.de>; Tue, 17 Nov 2020 09:33:13 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 7F9FE3C4F26
+	for <lists+linux-ltp@lfdr.de>; Tue, 17 Nov 2020 09:55:07 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id 37C2D3C4F08
- for <ltp@lists.linux.it>; Tue, 17 Nov 2020 09:33:12 +0100 (CET)
-Received: from relay10.mail.gandi.net (relay10.mail.gandi.net [217.70.178.230])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 55A553C2F6C
+ for <ltp@lists.linux.it>; Tue, 17 Nov 2020 09:55:06 +0100 (CET)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 88749200AF1
- for <ltp@lists.linux.it>; Tue, 17 Nov 2020 09:33:11 +0100 (CET)
-Received: from kmaincent-XPS-13-7390 (212.208.113.78.rev.sfr.net
- [78.113.208.212]) (Authenticated sender: kory.maincent@bootlin.com)
- by relay10.mail.gandi.net (Postfix) with ESMTPSA id 1A42724000A;
- Tue, 17 Nov 2020 08:33:08 +0000 (UTC)
-Date: Tue, 17 Nov 2020 09:33:06 +0100
-From: =?UTF-8?B?S8O2cnk=?= Maincent <kory.maincent@bootlin.com>
-To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <20201117093306.15a64998@kmaincent-XPS-13-7390>
-In-Reply-To: <20201116184825.GB171432@pevik>
-References: <20201116101840.15433-1-kory.maincent@bootlin.com>
- <20201116184143.GA171432@pevik> <20201116184825.GB171432@pevik>
-Organization: bootlin
-X-Mailer: Claws Mail 3.16.0 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 9E28D200CE7
+ for <ltp@lists.linux.it>; Tue, 17 Nov 2020 09:55:05 +0100 (CET)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id CC400AF9F;
+ Tue, 17 Nov 2020 08:55:04 +0000 (UTC)
+References: <20201116085844.29499-1-rpalethorpe@suse.com>
+ <CAEemH2frY_yJhm1sh6YQFH84J6CzTr0z2UzW-Ofz4fnod1O3fA@mail.gmail.com>
+User-agent: mu4e 1.4.13; emacs 27.1
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Li Wang <liwang@redhat.com>
+In-reply-to: <CAEemH2frY_yJhm1sh6YQFH84J6CzTr0z2UzW-Ofz4fnod1O3fA@mail.gmail.com>
+Date: Tue, 17 Nov 2020 08:55:04 +0000
+Message-ID: <878sb0pdlj.fsf@suse.de>
 MIME-Version: 1.0
 X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] net/host: update to new api
+Subject: Re: [LTP] [PATCH] madvise06: Do no set swap limit
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,29 +47,65 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it, thomas.petazzoni@bootlin.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Reply-To: rpalethorpe@suse.de
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGVsbG8gUGV0ciwKCk9uIE1vbiwgMTYgTm92IDIwMjAgMTk6NDg6MjUgKzAxMDAKUGV0ciBWb3Jl
-bCA8cHZvcmVsQHN1c2UuY3o+IHdyb3RlOgoKPiA+ID4gKyAgICAgICAgICAgIEVYUEVDVF9QQVNT
-IGhvc3QgJHJob3N0X2FkZHIgXD4vZGV2L251bGwgMj4mMSAgCj4gPiBXZSBuZWVkIHRvIHJlZGly
-ZWN0IGFsc28gc2Vjb25kID4gYW5kICY6Cj4gPiBFWFBFQ1RfUEFTUyBob3N0ICRyaG9zdF9hZGRy
-IFw+L2Rldi9udWxsIDJcPlwmMSAgCj4gCj4gQlRXIDI+JjEgZG9lcyBub3QgbWFrZSBzZW5zZSBp
-biB0aGlzIGNvbnRleHQgKGl0J3MgYSByZWRpcmVjdGlvbiBvZiBlcnJvcgo+IG1lc3NhZ2Ugb2Yg
-RVhQRUNUX1BBU1MgZnVuY3Rpb24sIHdoaWNoIHdvdWxkIGJlIHRvIHN0ZG91dC4KPiBJIGFsc28g
-bm90aWNlZCB0aGlzIHBhcnQgb2YgdHJhY2Vyb3V0ZTAxLnNoIGlzIGFsc28gd3Jvbmc6Cj4gRVhQ
-RUNUX1BBU1MgdHJhY2Vyb3V0ZSAkaXAgJGJ5dGVzIC1uIC1tIDIgJG9wdHMgXD5vdXQubG9nIDI+
-JjEKPiAKPiBJdCBzaG91bGQgYmU6Cj4gRVhQRUNUX1BBU1MgdHJhY2Vyb3V0ZSAkaXAgJGJ5dGVz
-IC1uIC1tIDIgJG9wdHMgXD5vdXQubG9nIDJcPlwmMQo+IAo+IEJ1dCBJTUhPIGl0J2QgYmUgYmV0
-dGVyIGluIGJvdGggY2FzZXMgdG8ga2VlcCBzdGRlcnIgbm90IHJlZGlyZWN0ZWQKPiAoZG9uJ3Qg
-aGlkZSBwcm9ibGVtcykuIFRoZXJlZm9yZSwgdW5sZXNzIHlvdSdyZSBhZ2FpbnN0IGl0LCBJJ2xs
-IHJlbW92ZQo+IHJlZGlyZWN0aW9uIGZyb20gdHJhY2Vyb3V0ZTAxLnNoLgoKWWVzLCB5b3VyIHJp
-Z2h0LgpJIGFtIG5ldyB0byBMVFAgc28gSSBzdGlsbCBtYWtlIHNvbWUgb2J2aW91cyBtaXN0YWtl
-cywgdGhhbmsgeW91IGZvciB0YWtpbmcKdGltZSB0byBjb3JyZWN0IG1lLgpUaGUgc2ltcGxpZmll
-ZCB2YXJpYW50IHdpdGhvdXQgc3RkZXJyIHJlZGlyZWN0aW9uIHNlZW1zIG9rYXkgdG8gbWUuCgpS
-ZWdhcmRzLAoKS8O2cnkKCgotLSAKS8O2cnkgTWFpbmNlbnQsIEJvb3RsaW4KRW1iZWRkZWQgTGlu
-dXggYW5kIGtlcm5lbCBlbmdpbmVlcmluZwpodHRwczovL2Jvb3RsaW4uY29tCgotLSAKTWFpbGlu
-ZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
+Hello,
+
+Li Wang <liwang@redhat.com> writes:
+
+> Hi Richard,
+>
+> On Mon, Nov 16, 2020 at 4:59 PM Richard Palethorpe <rpalethorpe@suse.com>
+> wrote:
+>
+>> Setting the swap limit is unnecessary for this test. By default it
+>> appears to be set to some large value which is OK. Setting it may fail
+>> for reasons unrelated to the test's purpose making the test less
+>> reliable.
+>>
+>
+> Generally, this is right. And if the 'memory.limit_in_bytes' has been set
+> successfully, that means the default value of 'memory.memsw.limit_in_bytes'
+> is bigger than or equal to it.
+> (an invalid argument error will occur if not like this)
+>
+> But in this madvise06, set 'memory.memsw.limit_in_bytes' will safer to test.
+>
+> The reason is to make sure memsw.limit_in_bytes' is bigger(twifold) than
+> 'memory.limit_in_bytes' otherwise it can't be finished as we expected.
+> (madvise06 will be stuck when memsw.limit_in_bytes < 2 *
+> memory.limit_in_bytes)
+
+OK.
+
+>
+>
+>>
+>> Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
+>> ---
+>>
+>> I should not have included this in the first update to the test. It
+>> appears that it fails with EACCES on at least one configuration, where
+>> the test ran previously. Also it could fail with EBUSY in theory.
+>>
+>> I don't know why limit_in_bytes can be set, but memsw.limit_in_bytes
+>> results in EACCES. This is interesting, however should be the focus of
+>> a different test IMO.
+>>
+>
+> This sounds like a cgroup issue or related configuration caused.
+
+Yes, it is probably due to the memsw counter being disabled. So I will
+send a V2 of the other madvise06 patch.
+
+-- 
+Thank you,
+Richard.
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
