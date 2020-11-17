@@ -1,49 +1,38 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F38C2B5CB4
-	for <lists+linux-ltp@lfdr.de>; Tue, 17 Nov 2020 11:17:29 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3640F2B5CF1
+	for <lists+linux-ltp@lfdr.de>; Tue, 17 Nov 2020 11:32:17 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 69F293C5A21
-	for <lists+linux-ltp@lfdr.de>; Tue, 17 Nov 2020 11:17:29 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id D560F3C6486
+	for <lists+linux-ltp@lfdr.de>; Tue, 17 Nov 2020 11:32:16 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id C7D473C4AE7
- for <ltp@lists.linux.it>; Tue, 17 Nov 2020 11:17:27 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id C75213C5BAD
+ for <ltp@lists.linux.it>; Tue, 17 Nov 2020 11:32:14 +0100 (CET)
+Received: from relay10.mail.gandi.net (relay10.mail.gandi.net [217.70.178.230])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 515AA140116B
- for <ltp@lists.linux.it>; Tue, 17 Nov 2020 11:17:27 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1605608246; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Nf83TEOpol/fF4zajPSPC9lfNzr0kPhXoghxGoQ+9MM=;
- b=NEA5gODSp+9bypHHpCz+v7PAqCFKMFQkqYg2jSvk4uMSZ8CXUfgbiwCCJb6ccauR/6bDot
- xttwNTAc3n80IKT1O3WWlHgnFE3kzQAi4mlfOC2msCRwmmrYUezTiCzQdm63Bus1g0tV6q
- 8W/OCiVu+ygorCyvwcU16BqRo7QclyU=
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 97397AB3D;
- Tue, 17 Nov 2020 10:17:26 +0000 (UTC)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 2C3231000BEF
+ for <ltp@lists.linux.it>; Tue, 17 Nov 2020 11:32:13 +0100 (CET)
+Received: from localhost.localdomain (212.208.113.78.rev.sfr.net
+ [78.113.208.212]) (Authenticated sender: kory.maincent@bootlin.com)
+ by relay10.mail.gandi.net (Postfix) with ESMTPSA id EEE6F240013;
+ Tue, 17 Nov 2020 10:32:11 +0000 (UTC)
+From: Kory Maincent <kory.maincent@bootlin.com>
 To: ltp@lists.linux.it
-Date: Tue, 17 Nov 2020 10:17:17 +0000
-Message-Id: <20201117101717.30478-1-rpalethorpe@suse.com>
-X-Mailer: git-send-email 2.29.1
-In-Reply-To: <20201116105209.20395-1-rpalethorpe@suse.com>
-References: <20201116105209.20395-1-rpalethorpe@suse.com>
+Date: Tue, 17 Nov 2020 11:32:08 +0100
+Message-Id: <20201117103208.1458-1-kory.maincent@bootlin.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH v2] madvise06: Allow for kmem and memsw counters being
- disabled
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH v2] net/host: update to new api
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,90 +44,77 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Richard Palethorpe via ltp <ltp@lists.linux.it>
-Reply-To: Richard Palethorpe <rpalethorpe@suse.com>
-Cc: Richard Palethorpe <rpalethorpe@suse.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: thomas.petazzoni@bootlin.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-These may be missing in which case we can not read them for diagnostic
-info or set the swap limit to a value which is known to be large
-enough. However if there is no swap counter then there is no swap
-limit, so we just try to set the limit if the counter exists.
-
-Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
-Reviewed-by: Li Wang <liwang@redhat.com>
----
-
-V2: Check if the memsw limit exists before writing to it. This
-    replaces another patch which removed it altogether.
-
- testcases/kernel/syscalls/madvise/madvise06.c | 29 ++++++++++++-------
- 1 file changed, 19 insertions(+), 10 deletions(-)
-
-diff --git a/testcases/kernel/syscalls/madvise/madvise06.c b/testcases/kernel/syscalls/madvise/madvise06.c
-index 817faae39..7e9e9ef84 100644
---- a/testcases/kernel/syscalls/madvise/madvise06.c
-+++ b/testcases/kernel/syscalls/madvise/madvise06.c
-@@ -65,14 +65,16 @@ static void check_path(const char *path)
- }
- 
- #define READ_CGMEM(item)						\
--	({long tst_rval;						\
--	  SAFE_FILE_LINES_SCANF(MNT_NAME"/"GROUP_NAME"/memory."item, 	\
--				"%ld",					\
--				&tst_rval);				\
-+	({long tst_rval = 0;						\
-+	  const char *cgpath = MNT_NAME"/"GROUP_NAME"/memory."item;	\
-+	  if (!access(cgpath, R_OK))					\
-+		  SAFE_FILE_LINES_SCANF(cgpath, "%ld", &tst_rval);	\
- 	  tst_rval;})
- 
- static void meminfo_diag(const char *point)
- {
-+	long rval;
-+
- 	FILE_PRINTF("/proc/sys/vm/stat_refresh", "1");
- 	tst_res(TINFO, "%s", point);
- 	tst_res(TINFO, "\tSwap: %ld Kb",
-@@ -83,10 +85,14 @@ static void meminfo_diag(const char *point)
- 		SAFE_READ_MEMINFO("Cached:") - init_cached);
- 	tst_res(TINFO, "\tcgmem.usage_in_bytes: %ld Kb",
- 		READ_CGMEM("usage_in_bytes") / 1024);
--	tst_res(TINFO, "\tcgmem.memsw.usage_in_bytes: %ld Kb",
--		READ_CGMEM("memsw.usage_in_bytes") / 1024);
--	tst_res(TINFO, "\tcgmem.kmem.usage_in_bytes: %ld Kb",
--		READ_CGMEM("kmem.usage_in_bytes") / 1024);
-+
-+	rval = READ_CGMEM("memsw.usage_in_bytes") / 1024;
-+	if (rval)
-+		tst_res(TINFO, "\tcgmem.memsw.usage_in_bytes: %ld Kb", rval);
-+
-+	rval = READ_CGMEM("kmem.usage_in_bytes") / 1024;
-+	if (rval)
-+		tst_res(TINFO, "\tcgmem.kmem.usage_in_bytes: %ld Kb", rval);
- }
- 
- static void setup(void)
-@@ -124,8 +130,11 @@ static void setup(void)
- 	SAFE_FILE_PRINTF("/proc/self/oom_score_adj", "%d", -1000);
- 	SAFE_FILE_PRINTF(MNT_NAME"/"GROUP_NAME"/memory.limit_in_bytes", "%ld\n",
- 			 MEM_LIMIT);
--	SAFE_FILE_PRINTF(MNT_NAME"/"GROUP_NAME"/memory.memsw.limit_in_bytes", "%ld\n",
--			 MEMSW_LIMIT);
-+
-+	if (!access(MNT_NAME"/"GROUP_NAME"/memory.memsw.limit_in_bytes", W_OK)) {
-+		SAFE_FILE_PRINTF(MNT_NAME"/"GROUP_NAME"/memory.memsw.limit_in_bytes",
-+				 "%ld\n", MEMSW_LIMIT);
-+	}
- 	SAFE_FILE_PRINTF(MNT_NAME"/"GROUP_NAME"/memory.swappiness", "60");
- 	SAFE_FILE_PRINTF(MNT_NAME"/"GROUP_NAME"/tasks", "%d\n", getpid());
- 
--- 
-2.29.1
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+Rml4IGF3ayBmaWVsZCBzZXBhcmF0b3IgcGFyc2luZy4KQ2xlYW4gdGVzdCBieSByZW1vdmluZyBs
+b29wIGFuZCBzdGRlcnIgcmVkaXJlY3Rpb24KClNpZ25lZC1vZmYtYnk6IEtvcnkgTWFpbmNlbnQg
+PGtvcnkubWFpbmNlbnRAYm9vdGxpbi5jb20+Ci0tLQoKQ2hhbmdlcyBzaW5jZSB2MToKIC0gUmVt
+b3ZlIHRzdF9zZXR1cCwgbG9vcCB0ZXN0IGFuZCBzdGRlcnIgcmVkaXJlY3Rpb24KIC0gUmVtb3Zl
+IFJIT1NUIGFuZCByZW5hbWUgcmhvc3QKCiB0ZXN0Y2FzZXMvbmV0d29yay90Y3BfY21kcy9ob3N0
+L2hvc3QwMS5zaCB8IDk0ICsrKysrLS0tLS0tLS0tLS0tLS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwg
+MTggaW5zZXJ0aW9ucygrKSwgNzYgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvdGVzdGNhc2Vz
+L25ldHdvcmsvdGNwX2NtZHMvaG9zdC9ob3N0MDEuc2ggYi90ZXN0Y2FzZXMvbmV0d29yay90Y3Bf
+Y21kcy9ob3N0L2hvc3QwMS5zaAppbmRleCAxMzA4ODcwZjcuLjYzOGMxM2NjMyAxMDA3NTUKLS0t
+IGEvdGVzdGNhc2VzL25ldHdvcmsvdGNwX2NtZHMvaG9zdC9ob3N0MDEuc2gKKysrIGIvdGVzdGNh
+c2VzL25ldHdvcmsvdGNwX2NtZHMvaG9zdC9ob3N0MDEuc2gKQEAgLTEsODcgKzEsMjkgQEAKICMh
+L2Jpbi9zaAogIwotIyAgIENvcHlyaWdodCAoYykgSW50ZXJuYXRpb25hbCBCdXNpbmVzcyBNYWNo
+aW5lcyAgQ29ycC4sIDIwMDAKLSMKLSMgICBUaGlzIHByb2dyYW0gaXMgZnJlZSBzb2Z0d2FyZTsg
+IHlvdSBjYW4gcmVkaXN0cmlidXRlIGl0IGFuZC9vciBtb2RpZnkKLSMgICBpdCB1bmRlciB0aGUg
+dGVybXMgb2YgdGhlIEdOVSBHZW5lcmFsIFB1YmxpYyBMaWNlbnNlIGFzIHB1Ymxpc2hlZCBieQot
+IyAgIHRoZSBGcmVlIFNvZnR3YXJlIEZvdW5kYXRpb247IGVpdGhlciB2ZXJzaW9uIDIgb2YgdGhl
+IExpY2Vuc2UsIG9yCi0jICAgKGF0IHlvdXIgb3B0aW9uKSBhbnkgbGF0ZXIgdmVyc2lvbi4KLSMK
+LSMgICBUaGlzIHByb2dyYW0gaXMgZGlzdHJpYnV0ZWQgaW4gdGhlIGhvcGUgdGhhdCBpdCB3aWxs
+IGJlIHVzZWZ1bCwKLSMgICBidXQgV0lUSE9VVCBBTlkgV0FSUkFOVFk7ICB3aXRob3V0IGV2ZW4g
+dGhlIGltcGxpZWQgd2FycmFudHkgb2YKLSMgICBNRVJDSEFOVEFCSUxJVFkgb3IgRklUTkVTUyBG
+T1IgQSBQQVJUSUNVTEFSIFBVUlBPU0UuICBTZWUKLSMgICB0aGUgR05VIEdlbmVyYWwgUHVibGlj
+IExpY2Vuc2UgZm9yIG1vcmUgZGV0YWlscy4KLSMKLSMgICBZb3Ugc2hvdWxkIGhhdmUgcmVjZWl2
+ZWQgYSBjb3B5IG9mIHRoZSBHTlUgR2VuZXJhbCBQdWJsaWMgTGljZW5zZQotIyAgIGFsb25nIHdp
+dGggdGhpcyBwcm9ncmFtOyAgaWYgbm90LCB3cml0ZSB0byB0aGUgRnJlZSBTb2Z0d2FyZQotIyAg
+IEZvdW5kYXRpb24sIEluYy4sIDUxIEZyYW5rbGluIFN0cmVldCwgRmlmdGggRmxvb3IsIEJvc3Rv
+biwgTUEgMDIxMTAtMTMwMSBVU0EKLSMKLSMKLSMKLSMgIEZJTEUgICA6IGhvc3QKLSMKLSMgIFBV
+UlBPU0U6IFRvIHRlc3QgdGhlIGJhc2ljIGZ1bmN0aW9uYWxpdHkgb2YgdGhlIGBob3N0YCBjb21t
+YW5kLgotIwotIyAgU0VUVVA6IElmICJSSE9TVCIgaXMgbm90IGV4cG9ydGVkLCB0aGVuIHRoZSBs
+b2NhbCBob3N0bmFtZSBpcyB1c2VkLgotIwotIyAgSElTVE9SWToKLSMgICAgMDYvMDYvMDMgTWFu
+b2ogSXllciBtYW5qb0BtYWlsLnV0ZXhhcy5lZHUKLSMgICAgICAtIE1vZGlmaWVkIHRvIHVzZSBM
+VFAgdGVzdHMgQVBJcwotIyAgICAwMy8wMSBSb2JiaWUgV2lsbGlhbXNvbiAocm9iYmlld0B1cy5p
+Ym0uY29tKQotIyAgICAgIC1Qb3J0ZWQKLSMKLSMKLSMtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQotCi1kb19zZXR1
+cCgpCi17Ci0gICAgTlVNTE9PUFM9JHtOVU1MT09QUzotMX0KLSAgICBTTEVFUFRJTUU9JHtTTEVF
+UFRJTUU6LTB9CisjIFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiBHUEwtMi4wLW9yLWxhdGVyCisj
+IENvcHlyaWdodCAoYykgS8O2cnkgTWFpbmNlbnQgPGtvcnkubWFpbmNlbnRAYm9vdGxpbi5jb20+
+IDIwMjAKKyMgQ29weXJpZ2h0IChjKSBNYW5vaiBJeWVyIDxtYW5qb0BtYWlsLnV0ZXhhcy5lZHU+
+IDIwMDMKKyMgQ29weXJpZ2h0IChjKSBSb2JiaWUgV2lsbGlhbXNvbiA8cm9iYmlld0B1cy5pYm0u
+Y29tPiAyMDAxCisjIENvcHlyaWdodCAoYykgSW50ZXJuYXRpb25hbCBCdXNpbmVzcyBNYWNoaW5l
+cyAgQ29ycC4sIDIwMDAKIAotICAgIHRzdF9zZXR1cAorVFNUX1RFU1RGVU5DPSJkb190ZXN0Igor
+VFNUX05FRURTX0NNRFM9ImF3ayBob3N0IGhvc3RuYW1lIgogCi0gICAgZXhpc3RzIGF3ayBob3N0
+IGhvc3RuYW1lCi0KLSAgICBSSE9TVD0ke1JIT1NUOi1gaG9zdG5hbWVgfQotCi19Ci0KLSMtLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLQotIwotIyBGVU5DVElPTjogIGRvX3Rlc3QKLSMKLSMtLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQor
+LiB0c3RfbmV0LnNoCiAKIGRvX3Rlc3QoKQogeworICAgIGxvY2FsIHRlc3RfaG9zdD0kKGhvc3Ru
+YW1lKQorICAgIGxvY2FsIHRlc3RfaG9zdF9hZGRyCiAKLSAgICB0c3RfcmVzbSBUSU5GTyAidGVz
+dCBiYXNpYyBmdW5jdGlvbmFsaXR5IG9mIHRoZSBcYCRUQycgY29tbWFuZC4iCi0KLSAgICB3aGls
+ZSBbICRUU1RfQ09VTlQgLWx0ICROVU1MT09QUyBdOyBkbwotCi0gICAgICAgIGlmIHJob3N0X2Fk
+ZHI9JChob3N0ICRSSE9TVCk7IHRoZW4KLSAgICAgICAgICAgIHJob3N0X2FkZHI9JChlY2hvICIk
+cmhvc3RfYWRkciIgfCBhd2sgLUYsICd7cHJpbnQgJE5GfScpID4vZGV2L251bGwgMj4mMQotICAg
+ICAgICAgICAgaWYgISBob3N0ICRyaG9zdF9hZGRyID4vZGV2L251bGwgMj4mMTsgdGhlbgotICAg
+ICAgICAgICAgICAgIGVuZF90ZXN0Y2FzZSAicmV2ZXJzZSBsb29rdXAgd2l0aCBob3N0IGZhaWxl
+ZCIKLSAgICAgICAgICAgIGZpCi0KLSAgICAgICAgZWxzZQotICAgICAgICAgICAgZW5kX3Rlc3Rj
+YXNlICJob3N0ICRSSE9TVCBvbiBsb2NhbCBtYWNoaW5lIGZhaWxlZCIKLSAgICAgICAgZmkKLQot
+ICAgICAgICBpbmNyX3RzdF9jb3VudAotICAgICAgICBzbGVlcCAkU0xFRVBUSU1FCi0KLSAgICBk
+b25lCisgICAgdHN0X3JlcyBUSU5GTyAidGVzdCBiYXNpYyBmdW5jdGlvbmFsaXR5IG9mIHRoZSBo
+b3N0IGNvbW1hbmQuIgogCisgICAgaWYgdGVzdF9ob3N0X2FkZHI9JChob3N0ICR0ZXN0X2hvc3Qp
+OyB0aGVuCisgICAgICAgIHRlc3RfaG9zdF9hZGRyPSQoZWNobyAiJHRlc3RfaG9zdF9hZGRyIiB8
+IGF3ayAne3ByaW50ICRORn0nKSA+L2Rldi9udWxsCisgICAgICAgIEVYUEVDVF9QQVNTIGhvc3Qg
+JHRlc3RfaG9zdF9hZGRyIFw+L2Rldi9udWxsCisgICAgZWxzZQorICAgICAgICB0c3RfYnJrIFRG
+QUlMICJob3N0ICR0ZXN0X2hvc3Qgb24gbG9jYWwgbWFjaGluZSBmYWlsZWQiCisgICAgZmkKIH0K
+IAotIy0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tCi0jIEZVTkNUSU9OOiBNQUlOCi0jLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KLS4g
+bmV0X2NtZGxpYi5zaAotCi1yZWFkX29wdHMgJCoKLWRvX3NldHVwCi1kb190ZXN0Ci1lbmRfdGVz
+dGNhc2UKK3RzdF9ydW4KLS0gCjIuMTcuMQoKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6
+Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
