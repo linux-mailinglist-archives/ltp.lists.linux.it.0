@@ -1,50 +1,49 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CA722B62A0
-	for <lists+linux-ltp@lfdr.de>; Tue, 17 Nov 2020 14:30:54 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B7F12B6379
+	for <lists+linux-ltp@lfdr.de>; Tue, 17 Nov 2020 14:39:43 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 05E1E3C538E
-	for <lists+linux-ltp@lfdr.de>; Tue, 17 Nov 2020 14:30:54 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 23B453C5A22
+	for <lists+linux-ltp@lfdr.de>; Tue, 17 Nov 2020 14:39:43 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id 303613C2F6C
- for <ltp@lists.linux.it>; Tue, 17 Nov 2020 14:30:49 +0100 (CET)
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 2FF1F3C25DB
+ for <ltp@lists.linux.it>; Tue, 17 Nov 2020 14:39:40 +0100 (CET)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 2D151600C69
- for <ltp@lists.linux.it>; Tue, 17 Nov 2020 14:30:48 +0100 (CET)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 9B5C560123C
+ for <ltp@lists.linux.it>; Tue, 17 Nov 2020 14:39:39 +0100 (CET)
 Received: from localhost (83-86-74-64.cable.dynamic.v4.ziggo.nl [83.86.74.64])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 0A48920867;
- Tue, 17 Nov 2020 13:30:46 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id ECB4C2468D;
+ Tue, 17 Nov 2020 13:39:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1605619846;
- bh=6+JiWbjiMpRAJIAOZZHvDe3aPZI7EpxydlFtgIX8Fxc=;
+ s=default; t=1605620376;
+ bh=BJxXwPFVPC2oTDeqVeV3w+TrQZ3GLWMOJ91YNGurQC4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=yyLFQK0TK5EOP1ftX53QjoIcHsZZfT3qbx3X/n+jhyzpNaBifV0YEPAwvru/6poxV
- UGoBPKxmgz0HHliJV5IeRNUwVlJH7NX0ZFpO1T2TsC9PYE4wG8V6etk7EiZ8GPBm78
- L3u+upDejeUG8TzJaPWb3U7Oe1+QVUCnU6UrkgQY=
+ b=Co/jX+Fp8UqU42uprUhBHb0Ng77+Vw8yFRDzUg7iB5UBcewduS/jxIoYsRdVwgLSZ
+ DpDsGSfLVWkkTOZ8lnml50MLJ3THlmnAFh2J5Heyve8EEsxssR+ZisVjMMNUdrWG35
+ JAWzgGDrLD8yIfor8xzzsFCUNKxvTVSqHn51brcM=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: linux-kernel@vger.kernel.org
-Date: Tue, 17 Nov 2020 14:02:23 +0100
-Message-Id: <20201117122139.098694275@linuxfoundation.org>
+Date: Tue, 17 Nov 2020 14:05:38 +0100
+Message-Id: <20201117122148.567147400@linuxfoundation.org>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20201117122138.925150709@linuxfoundation.org>
 References: <20201117122138.925150709@linuxfoundation.org>
 User-Agent: quilt/0.66
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH 5.9 003/255] mm: memcg: link page counters to root if
- use_hierarchy is false
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH 5.9 198/255] loop: Fix occasional uevent drop
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,98 +55,66 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>,
+Cc: Jens Axboe <axboe@kernel.dk>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org,
- Michal Hocko <mhocko@kernel.org>, Shakeel Butt <shakeelb@google.com>,
- Richard Palethorpe <rpalethorpe@suse.com>,
- Johannes Weiner <hannes@cmpxchg.org>,
- =?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Linus Torvalds <torvalds@linux-foundation.org>, Roman Gushchin <guro@fb.com>,
- ltp@lists.linux.it
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ Christoph Hellwig <hch@lst.de>, ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-RnJvbTogUm9tYW4gR3VzaGNoaW4gPGd1cm9AZmIuY29tPgoKWyBVcHN0cmVhbSBjb21taXQgOGRl
-MTVlOTIwZGM4NWQxNzA1YWI5YzIwMmM5NWQ1Njg0NWJjMmQ0OCBdCgpSaWNoYXJkIHJlcG9ydGVk
-IGEgd2FybmluZyB3aGljaCBjYW4gYmUgcmVwcm9kdWNlZCBieSBydW5uaW5nIHRoZSBMVFAKbWFk
-dmlzZTYgdGVzdCAoY2dyb3VwIHYxIGluIHRoZSBub24taGllcmFyY2hpY2FsIG1vZGUgc2hvdWxk
-IGJlIHVzZWQpOgoKICBXQVJOSU5HOiBDUFU6IDAgUElEOiAxMiBhdCBtbS9wYWdlX2NvdW50ZXIu
-Yzo1NyBwYWdlX2NvdW50ZXJfdW5jaGFyZ2UgKG1tL3BhZ2VfY291bnRlci5jOjU3IG1tL3BhZ2Vf
-Y291bnRlci5jOjUwIG1tL3BhZ2VfY291bnRlci5jOjE1NikKICBNb2R1bGVzIGxpbmtlZCBpbjoK
-ICBDUFU6IDAgUElEOiAxMiBDb21tOiBrd29ya2VyLzA6MSBOb3QgdGFpbnRlZCA1LjkuMC1yYzct
-MjItZGVmYXVsdCAjNzcKICBIYXJkd2FyZSBuYW1lOiBRRU1VIFN0YW5kYXJkIFBDIChpNDQwRlgg
-KyBQSUlYLCAxOTk2KSwgQklPUyByZWwtMS4xMy4wLTQ4LWdkOWM4MTJkLXJlYnVpbHQub3BlbnN1
-c2Uub3JnIDA0LzAxLzIwMTQKICBXb3JrcXVldWU6IGV2ZW50cyBkcmFpbl9sb2NhbF9zdG9jawog
-IFJJUDogMDAxMDpwYWdlX2NvdW50ZXJfdW5jaGFyZ2UgKG1tL3BhZ2VfY291bnRlci5jOjU3IG1t
-L3BhZ2VfY291bnRlci5jOjUwIG1tL3BhZ2VfY291bnRlci5jOjE1NikKICBDYWxsIFRyYWNlOgog
-ICAgX19tZW1jZ19rbWVtX3VuY2hhcmdlIChtbS9tZW1jb250cm9sLmM6MzAyMikKICAgIGRyYWlu
-X29ial9zdG9jayAoLi9pbmNsdWRlL2xpbnV4L3JjdXBkYXRlLmg6Njg5IG1tL21lbWNvbnRyb2wu
-YzozMTE0KQogICAgZHJhaW5fbG9jYWxfc3RvY2sgKG1tL21lbWNvbnRyb2wuYzoyMjU1KQogICAg
-cHJvY2Vzc19vbmVfd29yayAoLi9hcmNoL3g4Ni9pbmNsdWRlL2FzbS9qdW1wX2xhYmVsLmg6MjUg
-Li9pbmNsdWRlL2xpbnV4L2p1bXBfbGFiZWwuaDoyMDAgLi9pbmNsdWRlL3RyYWNlL2V2ZW50cy93
-b3JrcXVldWUuaDoxMDgga2VybmVsL3dvcmtxdWV1ZS5jOjIyNzQpCiAgICB3b3JrZXJfdGhyZWFk
-ICguL2luY2x1ZGUvbGludXgvbGlzdC5oOjI4MiBrZXJuZWwvd29ya3F1ZXVlLmM6MjQxNikKICAg
-IGt0aHJlYWQgKGtlcm5lbC9rdGhyZWFkLmM6MjkyKQogICAgcmV0X2Zyb21fZm9yayAoYXJjaC94
-ODYvZW50cnkvZW50cnlfNjQuUzozMDApCgpUaGUgcHJvYmxlbSBvY2N1cnMgYmVjYXVzZSBpbiB0
-aGUgbm9uLWhpZXJhcmNoaWNhbCBtb2RlIG5vbi1yb290IHBhZ2UKY291bnRlcnMgYXJlIG5vdCBs
-aW5rZWQgdG8gcm9vdCBwYWdlIGNvdW50ZXJzLCBzbyB0aGUgY2hhcmdlIGlzIG5vdApwcm9wYWdh
-dGVkIHRvIHRoZSByb290IG1lbW9yeSBjZ3JvdXAuCgpBZnRlciB0aGUgcmVtb3ZhbCBvZiB0aGUg
-b3JpZ2luYWwgbWVtb3J5IGNncm91cCBhbmQgcmVwYXJlbnRpbmcgb2YgdGhlCm9iamVjdCBjZ3Jv
-dXAsIHRoZSByb290IGNncm91cCBtaWdodCBiZSB1bmNoYXJnZWQgYnkgZHJhaW5pbmcgYSBvYmpj
-ZwpzdG9jaywgZm9yIGV4YW1wbGUuICBJdCBsZWFkcyB0byBhbiBldmVudHVhbCB1bmRlcmZsb3cg
-b2YgdGhlIGNoYXJnZSBhbmQKdHJpZ2dlcnMgYSB3YXJuaW5nLgoKRml4IGl0IGJ5IGxpbmtpbmcg
-YWxsIHBhZ2UgY291bnRlcnMgdG8gY29ycmVzcG9uZGluZyByb290IHBhZ2UgY291bnRlcnMKaW4g
-dGhlIG5vbi1oaWVyYXJjaGljYWwgbW9kZS4KClBsZWFzZSBub3RlLCB0aGF0IGluIHRoZSBub24t
-aGllcmFyY2hpY2FsIG1vZGUgYWxsIG9iamNncyBhcmUgYWx3YXlzCnJlcGFyZW50ZWQgdG8gdGhl
-IHJvb3QgbWVtb3J5IGNncm91cCwgZXZlbiBpZiB0aGUgaGllcmFyY2h5IGhhcyBtb3JlCnRoYW4g
-MSBsZXZlbC4gIFRoaXMgcGF0Y2ggZG9lc24ndCBjaGFuZ2UgaXQuCgpUaGUgcGF0Y2ggYWxzbyBk
-b2Vzbid0IGFmZmVjdCBob3cgdGhlIGhpZXJhcmNoaWNhbCBtb2RlIGlzIHdvcmtpbmcsCndoaWNo
-IGlzIHRoZSBvbmx5IHNhbmUgYW5kIHRydWx5IHN1cHBvcnRlZCBtb2RlIG5vdy4KClRoYW5rcyB0
-byBSaWNoYXJkIGZvciByZXBvcnRpbmcsIGRlYnVnZ2luZyBhbmQgcHJvdmlkaW5nIGFuIGFsdGVy
-bmF0aXZlCnZlcnNpb24gb2YgdGhlIGZpeCEKCkZpeGVzOiBiZjRmMDU5OTU0ZGMgKCJtbTogbWVt
-Y2cvc2xhYjogb2JqX2Nncm91cCBBUEkiKQpSZXBvcnRlZC1ieTogPGx0cEBsaXN0cy5saW51eC5p
-dD4KU2lnbmVkLW9mZi1ieTogUm9tYW4gR3VzaGNoaW4gPGd1cm9AZmIuY29tPgpTaWduZWQtb2Zm
-LWJ5OiBBbmRyZXcgTW9ydG9uIDxha3BtQGxpbnV4LWZvdW5kYXRpb24ub3JnPgpSZXZpZXdlZC1i
-eTogU2hha2VlbCBCdXR0IDxzaGFrZWVsYkBnb29nbGUuY29tPgpSZXZpZXdlZC1ieTogTWljaGFs
-IEtvdXRuw70gPG1rb3V0bnlAc3VzZS5jb20+CkFja2VkLWJ5OiBKb2hhbm5lcyBXZWluZXIgPGhh
-bm5lc0BjbXB4Y2hnLm9yZz4KQ2M6IE1pY2hhbCBIb2NrbyA8bWhvY2tvQGtlcm5lbC5vcmc+CkNj
-OiA8c3RhYmxlQHZnZXIua2VybmVsLm9yZz4KTGluazogaHR0cHM6Ly9sa21sLmtlcm5lbC5vcmcv
-ci8yMDIwMTAyNjIzMTMyNi4zMjEyMjI1LTEtZ3Vyb0BmYi5jb20KRGVidWdnZWQtYnk6IFJpY2hh
-cmQgUGFsZXRob3JwZSA8cnBhbGV0aG9ycGVAc3VzZS5jb20+ClNpZ25lZC1vZmYtYnk6IExpbnVz
-IFRvcnZhbGRzIDx0b3J2YWxkc0BsaW51eC1mb3VuZGF0aW9uLm9yZz4KU2lnbmVkLW9mZi1ieTog
-U2FzaGEgTGV2aW4gPHNhc2hhbEBrZXJuZWwub3JnPgotLS0KIG1tL21lbWNvbnRyb2wuYyB8IDE4
-ICsrKysrKysrKysrKy0tLS0tLQogMSBmaWxlIGNoYW5nZWQsIDEyIGluc2VydGlvbnMoKyksIDYg
-ZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvbW0vbWVtY29udHJvbC5jIGIvbW0vbWVtY29udHJv
-bC5jCmluZGV4IDllZWZkYjljYzIzMDMuLmRlNTE3ODc4MzE3MjggMTAwNjQ0Ci0tLSBhL21tL21l
-bWNvbnRyb2wuYworKysgYi9tbS9tZW1jb250cm9sLmMKQEAgLTUyOTgsNyArNTI5OCwxMyBAQCBt
-ZW1fY2dyb3VwX2Nzc19hbGxvYyhzdHJ1Y3QgY2dyb3VwX3N1YnN5c19zdGF0ZSAqcGFyZW50X2Nz
-cykKIAkJbWVtY2ctPnN3YXBwaW5lc3MgPSBtZW1fY2dyb3VwX3N3YXBwaW5lc3MocGFyZW50KTsK
-IAkJbWVtY2ctPm9vbV9raWxsX2Rpc2FibGUgPSBwYXJlbnQtPm9vbV9raWxsX2Rpc2FibGU7CiAJ
-fQotCWlmIChwYXJlbnQgJiYgcGFyZW50LT51c2VfaGllcmFyY2h5KSB7CisJaWYgKCFwYXJlbnQp
-IHsKKwkJcGFnZV9jb3VudGVyX2luaXQoJm1lbWNnLT5tZW1vcnksIE5VTEwpOworCQlwYWdlX2Nv
-dW50ZXJfaW5pdCgmbWVtY2ctPnN3YXAsIE5VTEwpOworCQlwYWdlX2NvdW50ZXJfaW5pdCgmbWVt
-Y2ctPm1lbXN3LCBOVUxMKTsKKwkJcGFnZV9jb3VudGVyX2luaXQoJm1lbWNnLT5rbWVtLCBOVUxM
-KTsKKwkJcGFnZV9jb3VudGVyX2luaXQoJm1lbWNnLT50Y3BtZW0sIE5VTEwpOworCX0gZWxzZSBp
-ZiAocGFyZW50LT51c2VfaGllcmFyY2h5KSB7CiAJCW1lbWNnLT51c2VfaGllcmFyY2h5ID0gdHJ1
-ZTsKIAkJcGFnZV9jb3VudGVyX2luaXQoJm1lbWNnLT5tZW1vcnksICZwYXJlbnQtPm1lbW9yeSk7
-CiAJCXBhZ2VfY291bnRlcl9pbml0KCZtZW1jZy0+c3dhcCwgJnBhcmVudC0+c3dhcCk7CkBAIC01
-MzA2LDExICs1MzEyLDExIEBAIG1lbV9jZ3JvdXBfY3NzX2FsbG9jKHN0cnVjdCBjZ3JvdXBfc3Vi
-c3lzX3N0YXRlICpwYXJlbnRfY3NzKQogCQlwYWdlX2NvdW50ZXJfaW5pdCgmbWVtY2ctPmttZW0s
-ICZwYXJlbnQtPmttZW0pOwogCQlwYWdlX2NvdW50ZXJfaW5pdCgmbWVtY2ctPnRjcG1lbSwgJnBh
-cmVudC0+dGNwbWVtKTsKIAl9IGVsc2UgewotCQlwYWdlX2NvdW50ZXJfaW5pdCgmbWVtY2ctPm1l
-bW9yeSwgTlVMTCk7Ci0JCXBhZ2VfY291bnRlcl9pbml0KCZtZW1jZy0+c3dhcCwgTlVMTCk7Ci0J
-CXBhZ2VfY291bnRlcl9pbml0KCZtZW1jZy0+bWVtc3csIE5VTEwpOwotCQlwYWdlX2NvdW50ZXJf
-aW5pdCgmbWVtY2ctPmttZW0sIE5VTEwpOwotCQlwYWdlX2NvdW50ZXJfaW5pdCgmbWVtY2ctPnRj
-cG1lbSwgTlVMTCk7CisJCXBhZ2VfY291bnRlcl9pbml0KCZtZW1jZy0+bWVtb3J5LCAmcm9vdF9t
-ZW1fY2dyb3VwLT5tZW1vcnkpOworCQlwYWdlX2NvdW50ZXJfaW5pdCgmbWVtY2ctPnN3YXAsICZy
-b290X21lbV9jZ3JvdXAtPnN3YXApOworCQlwYWdlX2NvdW50ZXJfaW5pdCgmbWVtY2ctPm1lbXN3
-LCAmcm9vdF9tZW1fY2dyb3VwLT5tZW1zdyk7CisJCXBhZ2VfY291bnRlcl9pbml0KCZtZW1jZy0+
-a21lbSwgJnJvb3RfbWVtX2Nncm91cC0+a21lbSk7CisJCXBhZ2VfY291bnRlcl9pbml0KCZtZW1j
-Zy0+dGNwbWVtLCAmcm9vdF9tZW1fY2dyb3VwLT50Y3BtZW0pOwogCQkvKgogCQkgKiBEZWVwZXIg
-aGllcmFjaHkgd2l0aCB1c2VfaGllcmFyY2h5ID09IGZhbHNlIGRvZXNuJ3QgbWFrZQogCQkgKiBt
-dWNoIHNlbnNlIHNvIGxldCBjZ3JvdXAgc3Vic3lzdGVtIGtub3cgYWJvdXQgdGhpcwotLSAKMi4y
-Ny4wCgoKCgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlz
-dGluZm8vbHRwCg==
+From: Petr Vorel <pvorel@suse.cz>
+
+commit c01a21b77722db0474bbcc4eafc8c4e0d8fed6d8 upstream.
+
+Commit 716ad0986cbd ("loop: Switch to set_capacity_revalidate_and_notify")
+causes an occasional drop of loop device uevent, which are no longer
+triggered in loop_set_size() but in a different part of code.
+
+Bug is reproducible with LTP test uevent01 [1]:
+
+i=0; while true; do
+    i=$((i+1)); echo "== $i =="
+    lsmod |grep -q loop && rmmod -f loop
+    ./uevent01 || break
+done
+
+Put back triggering through code called in loop_set_size().
+
+Fix required to add yet another parameter to
+set_capacity_revalidate_and_notify().
+
+[1] https://github.com/linux-test-project/ltp/blob/master/testcases/kernel/uevents/uevent01.c
+
+[hch: rebased on a different change to the prototype of
+ set_capacity_revalidate_and_notify]
+
+Cc: stable@vger.kernel.org # v5.9
+Fixes: 716ad0986cbd ("loop: Switch to set_capacity_revalidate_and_notify")
+Reported-by: <ltp@lists.linux.it>
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+
+---
+ drivers/block/loop.c |    3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+--- a/drivers/block/loop.c
++++ b/drivers/block/loop.c
+@@ -255,7 +255,8 @@ static void loop_set_size(struct loop_de
+ 
+ 	bd_set_size(bdev, size << SECTOR_SHIFT);
+ 
+-	set_capacity_revalidate_and_notify(lo->lo_disk, size, false);
++	if (!set_capacity_revalidate_and_notify(lo->lo_disk, size, false))
++		kobject_uevent(&disk_to_dev(bdev->bd_disk)->kobj, KOBJ_CHANGE);
+ }
+ 
+ static inline int
+
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
