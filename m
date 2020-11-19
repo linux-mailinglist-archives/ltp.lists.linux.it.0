@@ -2,41 +2,53 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6F2F2B8696
-	for <lists+linux-ltp@lfdr.de>; Wed, 18 Nov 2020 22:27:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BD852B8A33
+	for <lists+linux-ltp@lfdr.de>; Thu, 19 Nov 2020 04:00:25 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 58C3B3C5F78
-	for <lists+linux-ltp@lfdr.de>; Wed, 18 Nov 2020 22:27:43 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id EE12A3C6457
+	for <lists+linux-ltp@lfdr.de>; Thu, 19 Nov 2020 04:00:24 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id A853D3C31D3
- for <ltp@lists.linux.it>; Wed, 18 Nov 2020 22:27:39 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 6886660096A
- for <ltp@lists.linux.it>; Wed, 18 Nov 2020 22:27:39 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id ACE22AB3D;
- Wed, 18 Nov 2020 21:27:38 +0000 (UTC)
-Date: Wed, 18 Nov 2020 22:27:37 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Joerg Vehlow <lkml@jv-coder.de>
-Message-ID: <20201118212737.GC182229@pevik>
-References: <20201117124320.783802-1-lkml@jv-coder.de>
- <20201117124320.783802-2-lkml@jv-coder.de>
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id 434F93C14BC
+ for <ltp@lists.linux.it>; Thu, 19 Nov 2020 04:00:19 +0100 (CET)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-6.smtp.seeweb.it (Postfix) with ESMTP id D753D1400B8C
+ for <ltp@lists.linux.it>; Thu, 19 Nov 2020 04:00:17 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.77,489,1596470400"; d="scan'208";a="101531864"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 19 Nov 2020 11:00:15 +0800
+Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
+ by cn.fujitsu.com (Postfix) with ESMTP id 7BD124CE5447;
+ Thu, 19 Nov 2020 11:00:09 +0800 (CST)
+Received: from [10.167.220.84] (10.167.220.84) by
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Thu, 19 Nov 2020 11:00:09 +0800
+Message-ID: <5FB5DFC5.5030500@cn.fujitsu.com>
+Date: Thu, 19 Nov 2020 11:00:21 +0800
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
+ rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20201117124320.783802-2-lkml@jv-coder.de>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+To: Feiyu Zhu <zhufy.jy@cn.fujitsu.com>
+References: <1604925271-4811-1-git-send-email-zhufy.jy@cn.fujitsu.com>
+ <20201109125938.GC9991@yuki.lan> <5FA9ED44.7080909@cn.fujitsu.com>
+ <5FAA0151.3030002@cn.fujitsu.com> <20201110102641.GA11262@yuki.lan>
+ <5FAB4274.6090505@cn.fujitsu.com> <5FB4BC97.8030300@cn.fujitsu.com>
+ <20201118211926.GA182229@pevik>
+In-Reply-To: <20201118211926.GA182229@pevik>
+X-Originating-IP: [10.167.220.84]
+X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
+X-yoursite-MailScanner-ID: 7BD124CE5447.AC590
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.4
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 2/3] network/stress/multicast/query-flood:
- Convert to new API
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] pan/ltp-pan.c: fix file descriptors leaks
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,56 +60,56 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>, ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
+Cc: ltp@lists.linux.it
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Joerg,
+Hi Feiyu
 
-Thanks for v2!
+Pushed, thanks!
 
-Main info are reported by Alexey, few more notes below.
+Best Regards
+Yang Xu
+> Hi Xu,
+>
+>> Hi Petr
+>>> Hi Cyril
+>>>> Hi!
+>>>>>> Yes, musl-libc doesn't support "e" mode for fopen[1].
+>>>>> Sorry, I ignore __fmodeflags function, musl libc supports "e" mode since
+>>>>> 0.9.7 after this commit 8582a6e9f ("add 'e' modifier (close-on-exec) to
+>>>>> fopen and fdopen").
+>
+>>>>> https://git.musl-libc.org/cgit/musl/commit/src?id=8582a6e9f25dd7b87d72961f58008052a4cac473
+>
+>
+>>>>> It is about 8 years since musl libc fopen() supports "e". glibc2.7
+>>>>> fopen() supports "e" is about 13 years. Maybe we can use "e" mode now?
+>
+>>>> To be honest I haven't had used ltp-pan for last two years, so if that
+>>>> change works for everyone still using it, then we can go ahead with it.
+>>> OK. I will wait a week. If nobody has objection, I will merge it.
+>> I plan to merge this patch today. Before it, I want to listen some advise
+>> from you( IMO, you know musl-libc a lot and other libc on embedded system).
+>
+> Acked-by: Petr Vorel<pvorel@suse.cz>
+>
+> Should be safe.
+>
+> Kind regards,
+> Petr
+>
+>>> Best Regards
+>>> Yang Xu
+>
+>
+> .
+>
 
-...
-> +# Verify that the kernel is not crashed when joining a multicast group
-> +# on a single socket, then receiving a large number of General Queries
-nit: some sort of the description could be in 
-tst_test TINFO message in do_setup() / do_test()
 
-...
-> +TST_NEEDS_ROOT=1
-> +. mcast-lib.sh
-> +
-> +do_setup()
-> +{
-> +	mcast_setup $MCASTNUM_NORMAL
-> +}
-> +
-> +do_test()
-> +{
-> +	local mcast_addr_prefix="$MCAST_IPV4_ADDR_PREFIX"
-> +	[ "$TST_IPV6" ] && mcast_addr_prefix="$MCAST_IPV6_ADDR_PREFIX"
-nit: maybe just $prefix is enough.
-> +
-> +	# Run a multicast join tool
-> +	local tmpfile=$$
-Please, when you need temporary files, use
-TST_NEEDS_TMPDIR=1
 
-> +	EXPECT_PASS $MCAST_LCMD -n 1 -p $mcast_addr_prefix \> $tmpfile
-> +	tst_res TINFO "joined $(grep groups $tmpfile)"
-> +
-> +	# Send General Query from the remote host
-> +	local params=""
-nit: no need to add =""
-
-...
-
-Kind regards,
-Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
