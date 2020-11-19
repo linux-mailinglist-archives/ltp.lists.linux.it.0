@@ -2,40 +2,40 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED1102B9018
-	for <lists+linux-ltp@lfdr.de>; Thu, 19 Nov 2020 11:29:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBB322B901A
+	for <lists+linux-ltp@lfdr.de>; Thu, 19 Nov 2020 11:30:19 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B30413C4EEB
-	for <lists+linux-ltp@lfdr.de>; Thu, 19 Nov 2020 11:29:58 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id A22483C4EED
+	for <lists+linux-ltp@lfdr.de>; Thu, 19 Nov 2020 11:30:19 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- by picard.linux.it (Postfix) with ESMTP id CEB4D3C2E4C
- for <ltp@lists.linux.it>; Thu, 19 Nov 2020 11:29:57 +0100 (CET)
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id BC5653C2E4C
+ for <ltp@lists.linux.it>; Thu, 19 Nov 2020 11:30:17 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 76D791A00E3D
- for <ltp@lists.linux.it>; Thu, 19 Nov 2020 11:29:57 +0100 (CET)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 864A8600664
+ for <ltp@lists.linux.it>; Thu, 19 Nov 2020 11:30:17 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 01B2DAA4F
- for <ltp@lists.linux.it>; Thu, 19 Nov 2020 10:29:57 +0000 (UTC)
-Date: Thu, 19 Nov 2020 11:30:45 +0100
+ by mx2.suse.de (Postfix) with ESMTP id F3AAEAD12
+ for <ltp@lists.linux.it>; Thu, 19 Nov 2020 10:30:16 +0000 (UTC)
+Date: Thu, 19 Nov 2020 11:31:06 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <20201119103045.GE2785@yuki.lan>
+Message-ID: <20201119103106.GF2785@yuki.lan>
 References: <20201113164944.26101-1-pvorel@suse.cz>
- <20201113164944.26101-5-pvorel@suse.cz>
+ <20201113164944.26101-6-pvorel@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20201113164944.26101-5-pvorel@suse.cz>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+In-Reply-To: <20201113164944.26101-6-pvorel@suse.cz>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3 4/5] fanotify: Check FAN_REPORT_{FID,
- NAME} support
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3 5/5] fanotify: Add a pedantic check for return
+ value
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,60 +54,7 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> +int safe_fanotify_init(const char *file, const int lineno,
-> +	unsigned int flags, unsigned int event_f_flags)
-> +{
-> +	int rval;
-> +
-> +#ifdef HAVE_SYS_FANOTIFY_H
-> +	rval = fanotify_init(flags, event_f_flags);
-> +
-> +	if (rval == -1) {
-> +		if (errno == ENOSYS) {
-> +			tst_brk(TCONF, "%s:%d: fanotify is not configured in this kernel",
-> +				file, lineno);
-> +		}
-> +
-> +		if (errno == EINVAL) {
-> +			if (flags & FAN_REPORT_FID) {
-> +				tst_brk(TCONF, "%s:%d: FAN_REPORT_FID not supported by kernel?",
-> +					file, lineno);
-> +			}
-> +
-> +			if (flags & FAN_REPORT_NAME) {
-> +				tst_brk(TCONF, "%s:%d: FAN_REPORT_NAME not supported by kernel?",
-> +					file, lineno);
-> +			}
-
-If we happen to have both in flags it will report only the first one
-here. So maybe we should use tst_res(TINFO, "") followed by
-tst_brk(TCONF, "Unsupported configuration, see above"); or something
-like that.
-
-> +		}
-> +
-> +		tst_brk(TBROK | TERRNO, "%s:%d: fanotify_init() failed",
-> +			file, lineno);
-> +	}
-> +#else
-> +	tst_brk(TCONF, "Header <sys/fanotify.h> is not present");
-> +#endif /* HAVE_SYS_FANOTIFY_H */
-> +
-> +	return rval;
-> +}
-> +
-> +#define SAFE_FANOTIFY_INIT(fan, mode)  \
-> +	safe_fanotify_init(__FILE__, __LINE__, (fan), (mode))
-> +
->  static inline int safe_fanotify_mark(const char *file, const int lineno,
->  			int fd, unsigned int flags, uint64_t mask,
->  			int dfd, const char *pathname)
-> -- 
-> 2.29.2
-> 
-> 
-> -- 
-> Mailing list info: https://lists.linux.it/listinfo/ltp
+This one looks obviously okay.
 
 -- 
 Cyril Hrubis
