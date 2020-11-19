@@ -2,40 +2,40 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BAC02B8FC8
-	for <lists+linux-ltp@lfdr.de>; Thu, 19 Nov 2020 11:05:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 523BF2B8FFA
+	for <lists+linux-ltp@lfdr.de>; Thu, 19 Nov 2020 11:16:10 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D73073C4EE0
-	for <lists+linux-ltp@lfdr.de>; Thu, 19 Nov 2020 11:05:56 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 1F0ED3C59EF
+	for <lists+linux-ltp@lfdr.de>; Thu, 19 Nov 2020 11:16:10 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id BCFF33C2E8F
- for <ltp@lists.linux.it>; Thu, 19 Nov 2020 11:05:55 +0100 (CET)
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id E7BC33C302E
+ for <ltp@lists.linux.it>; Thu, 19 Nov 2020 11:16:07 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 79F17100092B
- for <ltp@lists.linux.it>; Thu, 19 Nov 2020 11:05:55 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 7BC311000A22
+ for <ltp@lists.linux.it>; Thu, 19 Nov 2020 11:16:07 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id C69E3AFFD
- for <ltp@lists.linux.it>; Thu, 19 Nov 2020 10:05:54 +0000 (UTC)
-Date: Thu, 19 Nov 2020 11:06:43 +0100
+ by mx2.suse.de (Postfix) with ESMTP id C7B6BAC24
+ for <ltp@lists.linux.it>; Thu, 19 Nov 2020 10:16:06 +0000 (UTC)
+Date: Thu, 19 Nov 2020 11:16:55 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <20201119100643.GB2785@yuki.lan>
+Message-ID: <20201119101655.GC2785@yuki.lan>
 References: <20201113164944.26101-1-pvorel@suse.cz>
- <20201113164944.26101-2-pvorel@suse.cz>
+ <20201113164944.26101-3-pvorel@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20201113164944.26101-2-pvorel@suse.cz>
+In-Reply-To: <20201113164944.26101-3-pvorel@suse.cz>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3 1/5] fanotify12: Drop incorrect hint
+Subject: Re: [LTP] [PATCH v3 2/5] fanotify: Handle supported features checks
+ in setup()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,33 +54,50 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> hint "CONFIG_FANOTIFY_ACCESS_PERMISSIONS not configured in kernel?"
-> is wrong here (fanotify12 does not use FAN_ACCESS_PERM).
-> 
-> Suggested-by: Amir Goldstein <amir73il@gmail.com>
-> Signed-off-by: Petr Vorel <pvorel@suse.cz>
-> ---
->  testcases/kernel/syscalls/fanotify/fanotify12.c | 4 ----
->  1 file changed, 4 deletions(-)
-> 
-> diff --git a/testcases/kernel/syscalls/fanotify/fanotify12.c b/testcases/kernel/syscalls/fanotify/fanotify12.c
-> index fcb7ec0d3..7f23fc9dc 100644
-> --- a/testcases/kernel/syscalls/fanotify/fanotify12.c
-> +++ b/testcases/kernel/syscalls/fanotify/fanotify12.c
-> @@ -146,10 +146,6 @@ static int setup_mark(unsigned int n)
->  					"FAN_OPEN_EXEC not supported in "
->  					"kernel?");
->  				return -1;
-> -			} else if (errno == EINVAL) {
-> -				tst_brk(TCONF | TERRNO,
-> -					"CONFIG_FANOTIFY_ACCESS_PERMISSIONS "
-> -					"not configured in kernel?");
->  			}else {
->  				tst_brk(TBROK | TERRNO,
->  					"fanotify_mark(%d, FAN_MARK_ADD | %s, "
+> diff --git a/testcases/kernel/syscalls/fanotify/fanotify07.c b/testcases/kernel/syscalls/fanotify/fanotify07.c
+> index c2e185710..f4e8ac9e6 100644
+> --- a/testcases/kernel/syscalls/fanotify/fanotify07.c
+> +++ b/testcases/kernel/syscalls/fanotify/fanotify07.c
+> @@ -195,6 +195,8 @@ static void test_fanotify(void)
+>  
+>  static void setup(void)
+>  {
+> +	fanotify_access_permissions_supported_by_kernel();
+> +
+>  	sprintf(fname, "fname_%d", getpid());
+>  	SAFE_FILE_PRINTF(fname, "%s", fname);
+>  }
 
-Looking at the source there is the same message just couple of lines
-below this one, should we get rid of that one as well?
+Shouldn't we drop the check for EINVAL in setup_instance() as well?
+
+> diff --git a/testcases/kernel/syscalls/fanotify/fanotify10.c b/testcases/kernel/syscalls/fanotify/fanotify10.c
+> index 90cf5cb5f..b95efb998 100644
+> --- a/testcases/kernel/syscalls/fanotify/fanotify10.c
+> +++ b/testcases/kernel/syscalls/fanotify/fanotify10.c
+> @@ -64,6 +64,7 @@ static unsigned int fanotify_class[] = {
+>  static int fd_notify[NUM_CLASSES][GROUPS_PER_PRIO];
+>  
+>  static char event_buf[EVENT_BUF_LEN];
+> +static int support_exec_events;
+>  
+>  #define MOUNT_PATH "fs_mnt"
+>  #define MNT2_PATH "mntpoint"
+> @@ -451,6 +452,11 @@ static void test_fanotify(unsigned int n)
+>  
+>  	tst_res(TINFO, "Test #%d: %s", n, tc->tname);
+>  
+> +	if (support_exec_events != 0 && tc->expected_mask_with_ignore & FAN_OPEN_EXEC) {
+> +		tst_res(TCONF | TERRNO, "FAN_OPEN_EXEC not supported in kernel?");
+> +		return;
+> +	}
+> +
+
+Maybe we should rename the variable to "exec_events_unsupported" then
+we could write:
+
+	if (exec_events_unsupported && tc->mask & FAM_OPEN_EXEC)
+
+Which is a bit easier to understand.
 
 -- 
 Cyril Hrubis
