@@ -1,52 +1,55 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF8362B8C8B
-	for <lists+linux-ltp@lfdr.de>; Thu, 19 Nov 2020 08:50:55 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D64E2B8C7B
+	for <lists+linux-ltp@lfdr.de>; Thu, 19 Nov 2020 08:40:38 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 852A93C2F62
-	for <lists+linux-ltp@lfdr.de>; Thu, 19 Nov 2020 08:50:55 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 123A13C25AB
+	for <lists+linux-ltp@lfdr.de>; Thu, 19 Nov 2020 08:40:38 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 0883E3C2E66
- for <ltp@lists.linux.it>; Thu, 19 Nov 2020 08:50:52 +0100 (CET)
-Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id 3DFAE3C25AB
+ for <ltp@lists.linux.it>; Thu, 19 Nov 2020 08:40:32 +0100 (CET)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 7E944200745
- for <ltp@lists.linux.it>; Thu, 19 Nov 2020 08:50:52 +0100 (CET)
-Received: from [192.168.178.40] (unknown [188.192.65.157])
- by mail.jv-coder.de (Postfix) with ESMTPSA id E38C6A07FE;
- Thu, 19 Nov 2020 07:50:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
- t=1605772251; bh=5LACoAV0RFnzWLPHnZVJ2ZJbHxyJxoVZpRaRUfqf8iw=;
- h=Subject:To:From:Message-ID:Date:MIME-Version;
- b=l7f3142JBkwhW1G+7tXidUFm6OTsV0pRidQ+XtzFHzr81Z9AZERr17DHfDKpJIIjE
- w7IehkaEgB6XsnwbC/H5BOfEmMj1Fuh4eEuJZb/+LSktGYHNj4bqzTQWECvz4evMlv
- x5H2msglOnTs3C0tlk9oIS+zIGx8x/OwiVW5ziDc=
-To: Petr Vorel <pvorel@suse.cz>
-References: <20201117124320.783802-1-lkml@jv-coder.de>
- <20201117124320.783802-2-lkml@jv-coder.de> <20201118212737.GC182229@pevik>
-From: Joerg Vehlow <lkml@jv-coder.de>
-Message-ID: <359cb444-267e-47ba-7fb0-2146798b2b79@jv-coder.de>
-Date: Thu, 19 Nov 2020 08:50:51 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.1
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 341FC1400DFF
+ for <ltp@lists.linux.it>; Thu, 19 Nov 2020 08:40:29 +0100 (CET)
+IronPort-SDR: 6viDPdwBtApawLeW3h2RMDIJ0sr9tMLfmAjNQXvqdhFJSIeJhcCtWV7jP571SN73qJkEKdTeF3
+ qyALhTRok9kQ==
+X-IronPort-AV: E=McAfee;i="6000,8403,9809"; a="170466052"
+X-IronPort-AV: E=Sophos;i="5.77,489,1596524400"; d="scan'208";a="170466052"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Nov 2020 23:40:27 -0800
+IronPort-SDR: 706vSphKUxKyAUIzgdi9SDKh2p0pOMNR9vBM2ojUOOnnWEzwKLSSAcVLz+loldX0cAiG867jbY
+ bkyeZ1/vYVLA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.77,489,1596524400"; d="scan'208";a="476712394"
+Received: from fedora29.sh.intel.com ([10.239.183.87])
+ by orsmga004.jf.intel.com with ESMTP; 18 Nov 2020 23:40:24 -0800
+From: Pengfei Xu <pengfei.xu@intel.com>
+To: ltp <ltp@lists.linux.it>, Pengfei Xu <pengfei.xu@intel.com>,
+ Neri Ricardo <ricardo.neri@intel.com>, Su Heng <heng.su@intel.com>,
+ Cyril Hrubis <chrubis@suse.cz>, Li Wang <liwang@redhat.com>,
+ Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Date: Thu, 19 Nov 2020 15:28:27 -0500
+Message-Id: <20201119202827.5783-1-pengfei.xu@intel.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-In-Reply-To: <20201118212737.GC182229@pevik>
-Content-Language: en-US
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH v2 2/3] network/stress/multicast/query-flood:
- Convert to new API
+X-Spam-Status: No, score=2.5 required=7.0 tests=DATE_IN_FUTURE_12_24,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Level: **
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH] kernel/security/umip: update umip basic test for
+ kernel v5.10 update
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,29 +61,54 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>, ltp@lists.linux.it
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGkgUGV0ciwKCj4+ICsjIFZlcmlmeSB0aGF0IHRoZSBrZXJuZWwgaXMgbm90IGNyYXNoZWQgd2hl
-biBqb2luaW5nIGEgbXVsdGljYXN0IGdyb3VwCj4+ICsjIG9uIGEgc2luZ2xlIHNvY2tldCwgdGhl
-biByZWNlaXZpbmcgYSBsYXJnZSBudW1iZXIgb2YgR2VuZXJhbCBRdWVyaWVzCj4gbml0OiBzb21l
-IHNvcnQgb2YgdGhlIGRlc2NyaXB0aW9uIGNvdWxkIGJlIGluCj4gdHN0X3Rlc3QgVElORk8gbWVz
-c2FnZSBpbiBkb19zZXR1cCgpIC8gZG9fdGVzdCgpCkkgcmVtb3ZlZCB0aGlzLCBiZWNhdXNlIEkg
-dGhvdWdoIGl0IHdhcyB1c2VsZXNzLCBidXQgd2lsbCBhZGQgaXQgYmFjayBpbi4KPj4gK1RTVF9O
-RUVEU19ST09UPTEKPj4gKy4gbWNhc3QtbGliLnNoCj4+ICsKPj4gK2RvX3NldHVwKCkKPj4gK3sK
-Pj4gKwltY2FzdF9zZXR1cCAkTUNBU1ROVU1fTk9STUFMCj4+ICt9Cj4+ICsKPj4gK2RvX3Rlc3Qo
-KQo+PiArewo+PiArCWxvY2FsIG1jYXN0X2FkZHJfcHJlZml4PSIkTUNBU1RfSVBWNF9BRERSX1BS
-RUZJWCIKPj4gKwlbICIkVFNUX0lQVjYiIF0gJiYgbWNhc3RfYWRkcl9wcmVmaXg9IiRNQ0FTVF9J
-UFY2X0FERFJfUFJFRklYIgo+IG5pdDogbWF5YmUganVzdCAkcHJlZml4IGlzIGVub3VnaC4KQUNL
-Cj4+ICsKPj4gKwkjIFJ1biBhIG11bHRpY2FzdCBqb2luIHRvb2wKPj4gKwlsb2NhbCB0bXBmaWxl
-PSQkCj4gUGxlYXNlLCB3aGVuIHlvdSBuZWVkIHRlbXBvcmFyeSBmaWxlcywgdXNlCj4gVFNUX05F
-RURTX1RNUERJUj0xClRoYXQncyBhY3R1YWxseSBzZXQgaW4gbWNhc3QtbGliLnNoLCBidXQgZHVw
-bGljYXRpb24gbWFrZXMgc2Vuc2UgaGVyZSBJIApndWVzcy4KPj4gKwlFWFBFQ1RfUEFTUyAkTUNB
-U1RfTENNRCAtbiAxIC1wICRtY2FzdF9hZGRyX3ByZWZpeCBcPiAkdG1wZmlsZQo+PiArCXRzdF9y
-ZXMgVElORk8gImpvaW5lZCAkKGdyZXAgZ3JvdXBzICR0bXBmaWxlKSIKPj4gKwo+PiArCSMgU2Vu
-ZCBHZW5lcmFsIFF1ZXJ5IGZyb20gdGhlIHJlbW90ZSBob3N0Cj4+ICsJbG9jYWwgcGFyYW1zPSIi
-Cj4gbml0OiBubyBuZWVkIHRvIGFkZCA9IiIKQUNLCgoKSsO2cmcKCi0tIApNYWlsaW5nIGxpc3Qg
-aW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
+After linux kernel v5.10 mainline, SLDT and STR will return
+dummy value and not trigger SIGSEGV due to v5.10 kernel code change.
+For detailed kernel update info, you could search below in v5.10 git log:
+"x86/umip: Add emulation/spoofing for SLDT and STR instructions"
+Commit link info: https://lkml.org/lkml/2020/7/10/1206
+Update umip basic test to match with expected results.
+
+Signed-off-by: Pengfei Xu <pengfei.xu@intel.com>
+---
+ .../kernel/security/umip/umip_basic_test.c      | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
+
+diff --git a/testcases/kernel/security/umip/umip_basic_test.c b/testcases/kernel/security/umip/umip_basic_test.c
+index 13c317022..d581c5bf1 100644
+--- a/testcases/kernel/security/umip/umip_basic_test.c
++++ b/testcases/kernel/security/umip/umip_basic_test.c
+@@ -129,6 +129,23 @@ static void verify_umip_instruction(unsigned int n)
+ 			return;
+ 		} else
+ 			tst_res(TINFO, "Linux kernel version is before than v5.4");
++		break;
++	case 2:
++	case 4:
++		/* after Linux kernel v5.10 mainline, SLDT and STR will return
++		   dummy value and not trigger SIGSEGV due to kernel code change */
++		if ((tst_kvercmp(5, 10, 0)) >= 0) {
++			tst_res(TINFO, "Linux kernel version is v5.10 or higher");
++			if (WIFSIGNALED(status) && WTERMSIG(status) == SIGSEGV) {
++				tst_res(TFAIL, "Got SIGSEGV");
++				return;
++			}
++			tst_res(TPASS, "Didn't receive SIGSEGV, child exited with %s",
++				tst_strstatus(status));
++			return;
++		} else
++			tst_res(TINFO, "Linux kernel version is earlier than v5.10");
++		break;
+ 	}
+ 
+ 	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGSEGV) {
+-- 
+2.20.1
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
