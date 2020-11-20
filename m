@@ -2,50 +2,87 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDB3B2BA0F0
-	for <lists+linux-ltp@lfdr.de>; Fri, 20 Nov 2020 04:16:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D32D82BA219
+	for <lists+linux-ltp@lfdr.de>; Fri, 20 Nov 2020 06:59:25 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9DF023C643A
-	for <lists+linux-ltp@lfdr.de>; Fri, 20 Nov 2020 04:16:39 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 93A923C2E02
+	for <lists+linux-ltp@lfdr.de>; Fri, 20 Nov 2020 06:59:25 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 652F53C2F45
- for <ltp@lists.linux.it>; Fri, 20 Nov 2020 04:16:34 +0100 (CET)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-2.smtp.seeweb.it (Postfix) with ESMTP id CA6916011A1
- for <ltp@lists.linux.it>; Fri, 20 Nov 2020 04:16:33 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.78,354,1599494400"; d="scan'208";a="101570593"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 20 Nov 2020 11:16:31 +0800
-Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id 743C74CE3A6C;
- Fri, 20 Nov 2020 11:16:29 +0800 (CST)
-Received: from localhost.localdomain (10.167.220.84) by
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Fri, 20 Nov 2020 11:16:29 +0800
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-To: <chrubis@suse.cz>
-Date: Fri, 20 Nov 2020 11:16:33 +0800
-Message-ID: <1605842193-10828-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <20201119153116.GA18048@yuki.lan>
-References: <20201119153116.GA18048@yuki.lan>
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id D33023C2DE6
+ for <ltp@lists.linux.it>; Fri, 20 Nov 2020 06:59:24 +0100 (CET)
+Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id C66B010009FA
+ for <ltp@lists.linux.it>; Fri, 20 Nov 2020 06:59:23 +0100 (CET)
+Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
+ by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0AK5sjmk173639;
+ Fri, 20 Nov 2020 05:59:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=corp-2020-01-29;
+ bh=jUrZ+UZ4FMNxIoy4aZzwI2MPw7Wng6PYnE3jGJmTxvU=;
+ b=EH0MZQVIQJTvBk6IrA/elKeZHUFPD8HvWR3H6L+swf6hOd34ZfH7sHd2LyzYtRFG17Kf
+ TfewtDJ2Rf+A7Tnvak8yuhNzY1qXM6YcAolExaU/VtLrvxJmPeDYbAFl98u1oRgXL6ZF
+ O5kcCQSWGX1feuKnXc+IXmFhi1rKwtJvq7w7zR9Md8mfGKS8LlOxPMxgDHkcqzw+7zir
+ MlcCF7PVKbfSS99wJTrUu8VptaUBMMalIxOWNK8LseEmzWIT7Vxg7U2+jxCeifJ4/Wdm
+ hSSNy23ecsRG+wkqMiCdl26f4LvKXgCpaPQTV/lhpNX1QNy5A82E0oQy+WCF9SRuHJPZ xQ== 
+Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
+ by aserp2120.oracle.com with ESMTP id 34t76m9180-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Fri, 20 Nov 2020 05:59:15 +0000
+Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
+ by aserp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0AK5pPj2188731;
+ Fri, 20 Nov 2020 05:59:15 GMT
+Received: from aserv0121.oracle.com (aserv0121.oracle.com [141.146.126.235])
+ by aserp3020.oracle.com with ESMTP id 34umd30tyy-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 20 Nov 2020 05:59:15 +0000
+Received: from abhmp0018.oracle.com (abhmp0018.oracle.com [141.146.116.24])
+ by aserv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 0AK5x6O2019176;
+ Fri, 20 Nov 2020 05:59:08 GMT
+Received: from [192.168.1.35] (/95.161.221.177)
+ by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Thu, 19 Nov 2020 21:59:06 -0800
+To: Petr Vorel <pvorel@suse.cz>
+References: <20201112173609.4123-1-petr.vorel@suse.com>
+ <20201119152300.05ef03b0@kmaincent-XPS-13-7390>
+ <20201119154132.GA16438@pevik>
+ <cf76949d-32a7-7b2d-4d5b-6117676ecea6@oracle.com>
+ <20201119195618.GA3181@pevik>
+From: Alexey Kodanev <alexey.kodanev@oracle.com>
+Message-ID: <1d451c4a-6599-ac95-2b51-509fdd4c277a@oracle.com>
+Date: Fri, 20 Nov 2020 08:59:01 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: 743C74CE3A6C.AE924
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.4
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+In-Reply-To: <20201119195618.GA3181@pevik>
+Content-Language: en-US
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9810
+ signatures=668682
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
+ mlxscore=0 phishscore=0
+ spamscore=0 bulkscore=0 mlxlogscore=999 malwarescore=0 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2011200039
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9810
+ signatures=668682
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
+ phishscore=0
+ adultscore=0 priorityscore=1501 bulkscore=0 clxscore=1015 mlxlogscore=999
+ malwarescore=0 mlxscore=0 spamscore=0 lowpriorityscore=0 impostorscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2011200039
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v4] syscalls/ptrace11: Add test for tracing init
- process
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_PASS,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/1] net/traceroute01: Check also -T flag
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,95 +100,48 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Before kernel 2.6.26, ptrace can't trace init process and will get
-EPERM error. Now, it should succeed when we have enough privileges.
+On 19.11.2020 22:56, Petr Vorel wrote:
+> Hi Alexey,
+> 
+>> On 19.11.2020 18:41, Petr Vorel wrote:
+>>> Hi Kory, Alexey,
+> 
+>>>> Hello Petr,
+> 
+>>>> Just find out you didn't merge your patch which makes the code cleaner. :)
+>>> Waiting for Alexey's review.
+>>> Also hesitate about tracepath6 symlink to traceroute being always installed
+> I meant here traceroute6 symlink to traceroute.
+>>> on all distros (hopefully yes).
+> 
+>> Hi Petr,
+> 
+>> From the subject it seems you are adding a new check for -T flag
+>> but it is actually for -I option?
+> Good catch, thanks!
+> 
+>> I think it's ok using symlink or -4/-6,
+> If nobody complains I'd keep symlink version as it can check
+> traceroute from iputils. -4/-6 is more portable. If anybody complains and we
+> revert it back, I'd also put back iputils related warning.
+> 
+>> it is also adding an extra
+>> check for ipv6 that $(tst_ipaddr rhost) is indeed ipv6.
+> Sorry, I didn't get this.
+> 
 
-Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
----
- runtest/syscalls                            |  1 +
- testcases/kernel/syscalls/ptrace/.gitignore |  1 +
- testcases/kernel/syscalls/ptrace/ptrace11.c | 46 +++++++++++++++++++++
- 3 files changed, 48 insertions(+)
- create mode 100644 testcases/kernel/syscalls/ptrace/ptrace11.c
+Hi Petr,
 
-diff --git a/runtest/syscalls b/runtest/syscalls
-index a5363277f..be5e1e76c 100644
---- a/runtest/syscalls
-+++ b/runtest/syscalls
-@@ -1000,6 +1000,7 @@ ptrace07 ptrace07
- ptrace08 ptrace08
- ptrace09 ptrace09
- ptrace10 ptrace10
-+ptrace11 ptrace11
- 
- pwrite01 pwrite01
- pwrite02 pwrite02
-diff --git a/testcases/kernel/syscalls/ptrace/.gitignore b/testcases/kernel/syscalls/ptrace/.gitignore
-index 34be5148f..01cbc6072 100644
---- a/testcases/kernel/syscalls/ptrace/.gitignore
-+++ b/testcases/kernel/syscalls/ptrace/.gitignore
-@@ -7,3 +7,4 @@
- /ptrace08
- /ptrace09
- /ptrace10
-+/ptrace11
-diff --git a/testcases/kernel/syscalls/ptrace/ptrace11.c b/testcases/kernel/syscalls/ptrace/ptrace11.c
-new file mode 100644
-index 000000000..daaadcd3a
---- /dev/null
-+++ b/testcases/kernel/syscalls/ptrace/ptrace11.c
-@@ -0,0 +1,46 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2020 FUJITSU LIMITED. All rights reserved.
-+ * Author: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-+ *
-+ * Before kernel 2.6.26, we can't trace init(1) process and ptrace() will
-+ * get EPERM error. This case just check whether we can trace init(1)
-+ * process and doesn't trigger error.
-+ */
-+
-+#include <errno.h>
-+#include <signal.h>
-+#include <sys/wait.h>
-+#include <pwd.h>
-+#include <config.h>
-+#include <stdlib.h>
-+#include "ptrace.h"
-+#include "tst_test.h"
-+
-+static void verify_ptrace(void)
-+{
-+	TEST(ptrace(PTRACE_ATTACH, 1, NULL, NULL));
-+	if (TST_RET == 0)
-+		tst_res(TPASS, "ptrace() traces init process successfully");
-+	else
-+		tst_res(TFAIL | TTERRNO,
-+			"ptrace() returns %ld, failed unexpectedly", TST_RET);
-+
-+	/*
-+	 * As ptrace(2) man-page said, when using PTRACE_ATTACH option, the
-+	 * tracee is sent a SIGSTOP, but will not necessarily have stopped
-+	 * by the completion of this call. Use waitpid(2) to wait for the
-+	 * tracee into stop. Otherwise it may get ESRCH error.
-+	 * As waitpid(2) man-pages said, status for traced children which have
-+	 * stopped is provided even if WUNTRACED option is not specified.
-+	 * So using 0 option is enough.
-+	 */
-+	SAFE_WAITPID(1, NULL, 0);
-+
-+	SAFE_PTRACE(PTRACE_DETACH, 1, NULL, NULL);
-+}
-+
-+static struct tst_test test = {
-+	.test_all = verify_ptrace,
-+	.needs_root = 1,
-+};
--- 
-2.23.0
+traceroute6 127.0.0.1
+traceroute6: 127.0.0.1: Address family for hostname not supported
 
+And both ::1 and 127.0.0.1 are ok for traceroute without the address
+family option.
 
+> BTW ack this change?
+> 
 
+Acked-by: Alexey Kodanev <alexey.kodanev@oracle.com>
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
