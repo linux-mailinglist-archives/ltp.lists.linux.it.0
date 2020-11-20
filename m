@@ -1,54 +1,50 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DA482BA070
-	for <lists+linux-ltp@lfdr.de>; Fri, 20 Nov 2020 03:30:55 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id EDB3B2BA0F0
+	for <lists+linux-ltp@lfdr.de>; Fri, 20 Nov 2020 04:16:39 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 43CF73C643A
-	for <lists+linux-ltp@lfdr.de>; Fri, 20 Nov 2020 03:30:55 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 9DF023C643A
+	for <lists+linux-ltp@lfdr.de>; Fri, 20 Nov 2020 04:16:39 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 9CE8A3C4F89
- for <ltp@lists.linux.it>; Fri, 20 Nov 2020 03:30:50 +0100 (CET)
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id 652F53C2F45
+ for <ltp@lists.linux.it>; Fri, 20 Nov 2020 04:16:34 +0100 (CET)
 Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id 728526005CC
- for <ltp@lists.linux.it>; Fri, 20 Nov 2020 03:30:49 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.78,354,1599494400"; d="scan'208";a="101568773"
+ by in-2.smtp.seeweb.it (Postfix) with ESMTP id CA6916011A1
+ for <ltp@lists.linux.it>; Fri, 20 Nov 2020 04:16:33 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.78,354,1599494400"; d="scan'208";a="101570593"
 Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 20 Nov 2020 10:30:46 +0800
+ by heian.cn.fujitsu.com with ESMTP; 20 Nov 2020 11:16:31 +0800
 Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id A41584CE3A6C;
- Fri, 20 Nov 2020 10:30:43 +0800 (CST)
-Received: from [10.167.220.84] (10.167.220.84) by
+ by cn.fujitsu.com (Postfix) with ESMTP id 743C74CE3A6C;
+ Fri, 20 Nov 2020 11:16:29 +0800 (CST)
+Received: from localhost.localdomain (10.167.220.84) by
  G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Fri, 20 Nov 2020 10:30:43 +0800
-Message-ID: <5FB72A61.4010007@cn.fujitsu.com>
-Date: Fri, 20 Nov 2020 10:30:57 +0800
+ (TLS) id 15.0.1497.2; Fri, 20 Nov 2020 11:16:29 +0800
 From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
- rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
-MIME-Version: 1.0
-To: Cyril Hrubis <chrubis@suse.cz>
-References: <20201112120505.GA15765@yuki.lan>
- <1605233273-3784-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
- <20201113151239.GB16315@yuki.lan> <5FB259B2.4040106@cn.fujitsu.com>
- <20201119153116.GA18048@yuki.lan>
+To: <chrubis@suse.cz>
+Date: Fri, 20 Nov 2020 11:16:33 +0800
+Message-ID: <1605842193-10828-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
 In-Reply-To: <20201119153116.GA18048@yuki.lan>
+References: <20201119153116.GA18048@yuki.lan>
+MIME-Version: 1.0
 X-Originating-IP: [10.167.220.84]
 X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
  G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: A41584CE3A6C.AE17E
+X-yoursite-MailScanner-ID: 743C74CE3A6C.AE924
 X-yoursite-MailScanner: Found to be clean
 X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.4
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.4
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3] syscalls/ptrace11: Add test for tracing init
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH v4] syscalls/ptrace11: Add test for tracing init
  process
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -62,45 +58,97 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Cyril
-> Hi!
->>>> +	/*
->>>> +	 * Running attach/detach more times will trigger a ESRCH error because
->>>> +	 * ptrace_check_attach function in kernel will report it if its process
->>>> +	 * stats is not __TASK_TRACED.
->>>> +	 */
->>>> +	TST_RETRY_FUNC(ptrace(PTRACE_DETACH, 1, NULL, NULL), TST_RETVAL_EQ0);
->>>
->>> Why do we have to retry the detach here?
->>
->> I add a retry here because running attach/detach serval times may make
->> init process isn't traced status . Even we have do attach action, detach
->> will get ESRCH error .
->
-> Looking at the manual page it says:
->
-> PTRACE_ATTACH
->
-> ...
-> The tracee is sent a SIGSTOP, but will not necessarily have stopped by
-> the completion of this call; use waitpid(2) to wait for the tracee to
-> stop.
-Oh, I ignored it. Sorry.
-> ...
->
-> So my guess is that if we call PTRACE_ATTACH followed by the
-> PTRACE_DETACH we may end up in a state where the SIGSTOP for the traced
-> process haven't arrived yet and in this case we should get ESCRCH.
->
-> So the correct solution is waitpid() for the traced process before we
-> detach it.
-Yes, using waitpid() is ok. I Will send a v4 soon.
->
+Before kernel 2.6.26, ptrace can't trace init process and will get
+EPERM error. Now, it should succeed when we have enough privileges.
+
+Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+---
+ runtest/syscalls                            |  1 +
+ testcases/kernel/syscalls/ptrace/.gitignore |  1 +
+ testcases/kernel/syscalls/ptrace/ptrace11.c | 46 +++++++++++++++++++++
+ 3 files changed, 48 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/ptrace/ptrace11.c
+
+diff --git a/runtest/syscalls b/runtest/syscalls
+index a5363277f..be5e1e76c 100644
+--- a/runtest/syscalls
++++ b/runtest/syscalls
+@@ -1000,6 +1000,7 @@ ptrace07 ptrace07
+ ptrace08 ptrace08
+ ptrace09 ptrace09
+ ptrace10 ptrace10
++ptrace11 ptrace11
+ 
+ pwrite01 pwrite01
+ pwrite02 pwrite02
+diff --git a/testcases/kernel/syscalls/ptrace/.gitignore b/testcases/kernel/syscalls/ptrace/.gitignore
+index 34be5148f..01cbc6072 100644
+--- a/testcases/kernel/syscalls/ptrace/.gitignore
++++ b/testcases/kernel/syscalls/ptrace/.gitignore
+@@ -7,3 +7,4 @@
+ /ptrace08
+ /ptrace09
+ /ptrace10
++/ptrace11
+diff --git a/testcases/kernel/syscalls/ptrace/ptrace11.c b/testcases/kernel/syscalls/ptrace/ptrace11.c
+new file mode 100644
+index 000000000..daaadcd3a
+--- /dev/null
++++ b/testcases/kernel/syscalls/ptrace/ptrace11.c
+@@ -0,0 +1,46 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2020 FUJITSU LIMITED. All rights reserved.
++ * Author: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
++ *
++ * Before kernel 2.6.26, we can't trace init(1) process and ptrace() will
++ * get EPERM error. This case just check whether we can trace init(1)
++ * process and doesn't trigger error.
++ */
++
++#include <errno.h>
++#include <signal.h>
++#include <sys/wait.h>
++#include <pwd.h>
++#include <config.h>
++#include <stdlib.h>
++#include "ptrace.h"
++#include "tst_test.h"
++
++static void verify_ptrace(void)
++{
++	TEST(ptrace(PTRACE_ATTACH, 1, NULL, NULL));
++	if (TST_RET == 0)
++		tst_res(TPASS, "ptrace() traces init process successfully");
++	else
++		tst_res(TFAIL | TTERRNO,
++			"ptrace() returns %ld, failed unexpectedly", TST_RET);
++
++	/*
++	 * As ptrace(2) man-page said, when using PTRACE_ATTACH option, the
++	 * tracee is sent a SIGSTOP, but will not necessarily have stopped
++	 * by the completion of this call. Use waitpid(2) to wait for the
++	 * tracee into stop. Otherwise it may get ESRCH error.
++	 * As waitpid(2) man-pages said, status for traced children which have
++	 * stopped is provided even if WUNTRACED option is not specified.
++	 * So using 0 option is enough.
++	 */
++	SAFE_WAITPID(1, NULL, 0);
++
++	SAFE_PTRACE(PTRACE_DETACH, 1, NULL, NULL);
++}
++
++static struct tst_test test = {
++	.test_all = verify_ptrace,
++	.needs_root = 1,
++};
+-- 
+2.23.0
 
 
 
