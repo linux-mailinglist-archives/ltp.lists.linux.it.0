@@ -2,75 +2,60 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DF992BFFB8
-	for <lists+linux-ltp@lfdr.de>; Mon, 23 Nov 2020 06:52:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CC112C016C
+	for <lists+linux-ltp@lfdr.de>; Mon, 23 Nov 2020 09:32:00 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7C13F3C4E90
-	for <lists+linux-ltp@lfdr.de>; Mon, 23 Nov 2020 06:52:11 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id A22AA3C2D4E
+	for <lists+linux-ltp@lfdr.de>; Mon, 23 Nov 2020 09:31:59 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 994FB3C2912
- for <ltp@lists.linux.it>; Mon, 23 Nov 2020 06:52:08 +0100 (CET)
-Received: from mail-pg1-x543.google.com (mail-pg1-x543.google.com
- [IPv6:2607:f8b0:4864:20::543])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id A49173C2D45
+ for <ltp@lists.linux.it>; Mon, 23 Nov 2020 09:31:47 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+ by in-4.smtp.seeweb.it (Postfix) with ESMTP id 787271000A13
+ for <ltp@lists.linux.it>; Mon, 23 Nov 2020 09:31:46 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1606120305;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=WwAxIfyb673bkK3+ELz4MsRzY886DScTxzF6YUYk1xk=;
+ b=RTlyKY176b+2iD8MUg7nxRt3KfhZSUU7e0ngpgsUpaaEGypw4BZHrtrnnsCtTqO6pVXbIg
+ zL7QyRv2eBBPkXweIoiR2DdcmAhbQQyM5DPIZ9DUpQcw1m1PqOFFxcF/KfkewUw5lBKuEv
+ QS4gB8oW02i9Y1Av5LiQEi2Lr0rw9TA=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-364-_Lw-Yh7pNSipdNU6PWoYOw-1; Mon, 23 Nov 2020 03:31:41 -0500
+X-MC-Unique: _Lw-Yh7pNSipdNU6PWoYOw-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+ [10.5.11.14])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id A7B0C1000A8C
- for <ltp@lists.linux.it>; Mon, 23 Nov 2020 06:52:07 +0100 (CET)
-Received: by mail-pg1-x543.google.com with SMTP id m9so13236583pgb.4
- for <ltp@lists.linux.it>; Sun, 22 Nov 2020 21:52:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=SAdRt5ApkBxG1gHUPLvA5lQtSn+Dd31/fVXwTUVvKP4=;
- b=HMwiFFlI3KE2FQF+ZvfI+lmy8aNeviP+0n4k3wi+VO1+uAs6bfhmzsMrg6GxecN+cC
- HtTT0u2cILiac569UPSQ5B2dChhEaYIH08zMIkVdsTEPtiH/pouSWt1OI7iQZiQNDr9/
- nzWjALFZ6C4JmPlHIQWw06bQFJ2T8pXlAVbWBL6p24NN29MgNpbs0HLnUfp+0fagz7EI
- S7uT8/Yi4yxFw7V2ud/No0En/j44kXikS9Tn1//5RJ1Fpb3zNtVNIwvvywzR4u0lZceY
- Zgv60yjOWWb+7WDHD92Txn5nq6LPdOV6ro7qXIGrrUbZdXQ6awbvK08j6uCBpTmzOL4q
- WQ/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=SAdRt5ApkBxG1gHUPLvA5lQtSn+Dd31/fVXwTUVvKP4=;
- b=JrVik5gKDd5R8hlzBP3xYfNA+Q8xooBLjpo6VWjwlQNCQtg0v0qEFobd+qQCWkgABi
- kd8QoYBSXMrL8TW4YNDU1m0LQWp9j2qTPQPypwKMN6TzixJd/ijExlu8m2u14BUBbUtr
- 7+A4ooticZZ1UzfXNp5xwd7phXzRWZJGdRxX6ca47z7W5SX+FQDkU7gI5lNYdrnbO2JY
- QTOgWDiDi2TC5cKkFB6MuwZFcEbazPVj4lLn04XakdoM3xrFDrCnoUf2OjSBufk0I1wQ
- Y8WP+xkmkfWAE9gA6P5rJ/OYRqFjBCJ+pf5Wc7AZDU/Vz12mJ2DUFZB1BmB+nYDzAme6
- bm0A==
-X-Gm-Message-State: AOAM532qeG8gefMSuebGw7RjDLqE5skZAil7CIBHwIj7yVhdpHHiQTer
- sEWM11lasaqwyKULXGzW7+3seA==
-X-Google-Smtp-Source: ABdhPJzaltvXljr1WYFiY7CiU8A8isPk61yRTZraMr+mBdOz3xRxY05LcYmat1qdOIitDHd8FPZNHw==
-X-Received: by 2002:aa7:9387:0:b029:18b:42dd:41c with SMTP id
- t7-20020aa793870000b029018b42dd041cmr23116522pfe.60.1606110725727; 
- Sun, 22 Nov 2020 21:52:05 -0800 (PST)
-Received: from localhost ([122.172.12.172])
- by smtp.gmail.com with ESMTPSA id t21sm12465524pjr.42.2020.11.22.21.52.04
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Sun, 22 Nov 2020 21:52:05 -0800 (PST)
-Date: Mon, 23 Nov 2020 11:22:01 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <20201123055201.tvouwhjydn46jjps@vireshk-i7>
-References: <9c4453f49394a7864ec9c84ccd561663f54bae51.1605862411.git.viresh.kumar@linaro.org>
- <20201120104105.GB4910@yuki.lan>
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3EF761005E46;
+ Mon, 23 Nov 2020 08:31:40 +0000 (UTC)
+Received: from liwang-workstation.nay.redhat.com (unknown [10.66.81.246])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id E7AA85D9CC;
+ Mon, 23 Nov 2020 08:31:38 +0000 (UTC)
+From: Li Wang <liwang@redhat.com>
+To: ltp@lists.linux.it
+Date: Mon, 23 Nov 2020 08:31:36 +0000
+Message-Id: <20201123083137.11575-1-liwang@redhat.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20201120104105.GB4910@yuki.lan>
-User-Agent: NeoMutt/20180716-391-311a52
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwang@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls: Add tests for name_to_handle_at() and
- open_by_handle_at()
+Subject: [LTP] [PATCH 1/2] syscalls: avoid time() using __cvdso_gettimeofday
+ in use-level's VDSO
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,23 +67,134 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 20-11-20, 11:41, Cyril Hrubis wrote:
-> We does not seem to use it in any way, I guess that we should add
-> fallback definitions to a lapi header in the same way we do for example
-> in lapi/setns.h so that these tests would compile on older libcs.
+This shmctl01 test detect the time as the number of seconds twice
+(before and after) the shmget() instruction, then it verifies
+whether the 'struct shmid_ds ds' gets data correctly. But here it
+shows 'ds->ctime' out of the seconds range (1604298586, 1604298586),
 
-These syscalls were added long back in 2.6.38 and so I stayed away
-from adding a header and userspace (where we care) must already have
-the definitions. Should I add that header ?
+The reason is that shmget()/msgsnd() always use ktime_get_real_second
+to get real seconds, but time() on aarch64 via gettimeofday() or (it
+depends on different kernel versions) clock_gettime() in use-level's
+VDSO to return tv_sec.
 
+time()
+  __cvdso_gettimeofday
+   ...
+     do_gettimeofday
+       ktime_get_real_ts64
+        timespc64_add_ns
+
+Situation can be simplify as difference between ktime_get_real_second
+and ktime_get_real_ts64. As we can see ktime_get_real_second return
+tk->xtime_sec directly, however
+
+timespc64_add_ns more easily add 1 more second via "a->tv_sec +=..."
+on a virtual machine, that's why we got occasional errors like:
+
+shmctl01.c:183: TFAIL: SHM_STAT: shm_ctime=1604298585, expected <1604298586,1604298586>
+...
+msgsnd01.c:59: TFAIL: msg_stime = 1605730573 out of [1605730574, 1605730574]
+
+Here we propose to use '__NR_time' to invoke syscall directly that makes
+test all get real seconds via ktime_get_real_second.
+
+Signed-off-by: Li Wang <liwang@redhat.com>
+Cc: Chunyu Hu <chuhu@redhat.com>
+Cc: Cyril Hrubis <chrubis@suse.cz>
+---
+ testcases/kernel/syscalls/ipc/msgrcv/msgrcv01.c | 5 +++--
+ testcases/kernel/syscalls/ipc/msgsnd/msgsnd01.c | 5 +++--
+ testcases/kernel/syscalls/ipc/shmctl/shmctl01.c | 5 +++--
+ 3 files changed, 9 insertions(+), 6 deletions(-)
+
+diff --git a/testcases/kernel/syscalls/ipc/msgrcv/msgrcv01.c b/testcases/kernel/syscalls/ipc/msgrcv/msgrcv01.c
+index 5c1e317e9..6fdc47dc3 100644
+--- a/testcases/kernel/syscalls/ipc/msgrcv/msgrcv01.c
++++ b/testcases/kernel/syscalls/ipc/msgrcv/msgrcv01.c
+@@ -10,6 +10,7 @@
+ #include "tst_test.h"
+ #include "tst_safe_sysv_ipc.h"
+ #include "libnewipc.h"
++#include "tst_timer.h"
+ 
+ static key_t msgkey;
+ static int queue_id = -1, pid;
+@@ -25,13 +26,13 @@ static void verify_msgrcv(void)
+ 
+ 	SAFE_MSGSND(queue_id, &snd_buf, MSGSIZE, 0);
+ 
+-	time(&before_rcv);
++	tst_syscall(__NR_time, &before_rcv);
+ 	TEST(msgrcv(queue_id, &rcv_buf, MSGSIZE, 1, 0));
+ 	if (TST_RET == -1) {
+ 		tst_res(TFAIL | TTERRNO, "msgrcv failed");
+ 		return;
+ 	}
+-	time(&after_rcv);
++	tst_syscall(__NR_time, &after_rcv);
+ 
+ 	if (strcmp(rcv_buf.mtext, snd_buf.mtext) == 0)
+ 		tst_res(TPASS, "message received(%s) = message sent(%s)",
+diff --git a/testcases/kernel/syscalls/ipc/msgsnd/msgsnd01.c b/testcases/kernel/syscalls/ipc/msgsnd/msgsnd01.c
+index 5f5da52d2..9101f2668 100644
+--- a/testcases/kernel/syscalls/ipc/msgsnd/msgsnd01.c
++++ b/testcases/kernel/syscalls/ipc/msgsnd/msgsnd01.c
+@@ -16,6 +16,7 @@
+ #include "tst_test.h"
+ #include "tst_safe_sysv_ipc.h"
+ #include "libnewipc.h"
++#include "tst_timer.h"
+ 
+ static key_t msgkey;
+ static int queue_id = -1, pid;
+@@ -29,13 +30,13 @@ static void verify_msgsnd(void)
+ 	struct msqid_ds qs_buf;
+ 	time_t before_snd, after_snd;
+ 
+-	time(&before_snd);
++	tst_syscall(__NR_time, &before_snd);
+ 	TEST(msgsnd(queue_id, &snd_buf, MSGSIZE, 0));
+ 	if (TST_RET == -1) {
+ 		tst_res(TFAIL | TTERRNO, "msgsnd() failed");
+ 		return;
+ 	}
+-	time(&after_snd);
++	tst_syscall(__NR_time, &after_snd);
+ 
+ 	SAFE_MSGCTL(queue_id, IPC_STAT, &qs_buf);
+ 
+diff --git a/testcases/kernel/syscalls/ipc/shmctl/shmctl01.c b/testcases/kernel/syscalls/ipc/shmctl/shmctl01.c
+index 3a39a4d74..f5b8eaef9 100644
+--- a/testcases/kernel/syscalls/ipc/shmctl/shmctl01.c
++++ b/testcases/kernel/syscalls/ipc/shmctl/shmctl01.c
+@@ -19,6 +19,7 @@
+ #include "tst_test.h"
+ #include "tst_safe_sysv_ipc.h"
+ #include "libnewipc.h"
++#include "tst_timer.h"
+ 
+ #define NCHILD 20
+ 
+@@ -240,9 +241,9 @@ static int get_shm_idx_from_id(int shm_id)
+ 
+ static void setup(void)
+ {
+-	ctime_min = time(NULL);
++	ctime_min = tst_syscall(__NR_time, NULL);
+ 	shm_id = SAFE_SHMGET(IPC_PRIVATE, SHM_SIZE, IPC_CREAT | SHM_RW);
+-	ctime_max = time(NULL);
++	ctime_max = tst_syscall(__NR_time, NULL);
+ 
+ 	shm_idx = get_shm_idx_from_id(shm_id);
+ 
 -- 
-viresh
+2.21.1
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
