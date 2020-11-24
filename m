@@ -1,52 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id C94B72C1BC3
-	for <lists+linux-ltp@lfdr.de>; Tue, 24 Nov 2020 03:56:36 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DC1C2C1D32
+	for <lists+linux-ltp@lfdr.de>; Tue, 24 Nov 2020 06:04:01 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2AD463C5E9B
-	for <lists+linux-ltp@lfdr.de>; Tue, 24 Nov 2020 03:56:36 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id E9EDE3C5E9C
+	for <lists+linux-ltp@lfdr.de>; Tue, 24 Nov 2020 06:04:00 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id D43163C252B
- for <ltp@lists.linux.it>; Tue, 24 Nov 2020 03:56:32 +0100 (CET)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-2.smtp.seeweb.it (Postfix) with ESMTP id 16322600067
- for <ltp@lists.linux.it>; Tue, 24 Nov 2020 03:56:31 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.78,364,1599494400"; d="scan'208";a="101680874"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 24 Nov 2020 10:56:29 +0800
-Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id 14ABB4CE547C;
- Tue, 24 Nov 2020 10:56:29 +0800 (CST)
-Received: from [10.167.220.84] (10.167.220.84) by
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Tue, 24 Nov 2020 10:56:27 +0800
-Message-ID: <5FBC765A.3020102@cn.fujitsu.com>
-Date: Tue, 24 Nov 2020 10:56:26 +0800
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
- rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id 87AF33C2D3E
+ for <ltp@lists.linux.it>; Tue, 24 Nov 2020 06:03:58 +0100 (CET)
+Received: from mail-pg1-x543.google.com (mail-pg1-x543.google.com
+ [IPv6:2607:f8b0:4864:20::543])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 1892D1400B63
+ for <ltp@lists.linux.it>; Tue, 24 Nov 2020 06:03:57 +0100 (CET)
+Received: by mail-pg1-x543.google.com with SMTP id 62so16378127pgg.12
+ for <ltp@lists.linux.it>; Mon, 23 Nov 2020 21:03:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=lg6HO5zzU09FdRtqVftV1/LgP5WiHtAMU7ozCaFLHxU=;
+ b=smVoje/1tUerKJafdojEhvkge5q3VSBX/rVE4TmIknbrs9EWXWKSNASupK/r/+U6Ob
+ YPFtpqIYLuclnGqSGzYclIdAw0eXmzsB40f1ieoghcjdk4880rKGZ3UXxuziQRQ4GAwv
+ 0/7PHpKAKuk/W3fFc11y6FbpoTvHjTWUsTxMDeWokRRVaSuK+F5Kp8DosskHrUYI4yAo
+ EBrVqlmjsITFAbSDG4mHCWwgFWmN2nkfiNou6dPcoY69BQw04siNOVgXpVOZd/3bmFK8
+ UlOVvuoIM7aLbHNDipaEP09wxY1YaSCIxi7Jc3e+Bbs53FnfRrXPWPbLYIySsSGCNPuB
+ cYvg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=lg6HO5zzU09FdRtqVftV1/LgP5WiHtAMU7ozCaFLHxU=;
+ b=gjItL2X0uuUhEF1p6E1ynfoYLxI7wqNhLXX1BBKHNTXn20M3aEwROvdn0R4jnPrKR9
+ 64dDlzhUkUWtH+yjXWZ2dJr8ALFGK5mnnHcTqHDT8819+q2g4Bp3G2SvEU2VC/6mluez
+ oH0/f8ute2yn2wEzlo8Z0ykqG60UYzhFLpsNPQyaf9lGW3MIeThxrgBq/aZJPFZUAai6
+ ewWqsWbcS5GJiYQRiwfnE9/kIP1LZ7kkAGrdQLueMyz6QDdR0t/7klXdjI4l+vkwEE9N
+ q8NUX7/89aeKZEqXzhgopTLZR6YktpA/9jyffFTFEJI5WpvJtC4chEDVjv4EUXhj7+Jb
+ 41aA==
+X-Gm-Message-State: AOAM5327ZoDx39F3NWAxU6Yu+g/5xa6x0Bu96102vCmSXddawMoW1s3y
+ tP0VytB5KWoI2OoAe/pEsQmrqA==
+X-Google-Smtp-Source: ABdhPJxU7TFJVNaOddIyJu+hkFs9uHkvOjUVgvcPL/zcx/bFKfGCChNjP+BX7OSPhPWv3TJHZY5UiQ==
+X-Received: by 2002:a17:90b:e05:: with SMTP id
+ ge5mr2865921pjb.212.1606194236193; 
+ Mon, 23 Nov 2020 21:03:56 -0800 (PST)
+Received: from localhost ([122.172.12.172])
+ by smtp.gmail.com with ESMTPSA id w131sm13024789pfd.14.2020.11.23.21.03.55
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 23 Nov 2020 21:03:55 -0800 (PST)
+Date: Tue, 24 Nov 2020 10:33:53 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <20201124050353.xyvyjar5vcfwmwhk@vireshk-i7>
+References: <b758999c1bd02a52a68cbb6449bb3d82dd2a4e69.1606120441.git.viresh.kumar@linaro.org>
+ <20201123140630.GA17077@yuki.lan>
 MIME-Version: 1.0
-To: Li Wang <liwang@redhat.com>
-References: <20201123083137.11575-1-liwang@redhat.com>
- <20201123083137.11575-2-liwang@redhat.com>
-In-Reply-To: <20201123083137.11575-2-liwang@redhat.com>
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: 14ABB4CE547C.A1AD4
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.4
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20201123140630.GA17077@yuki.lan>
+User-Agent: NeoMutt/20180716-391-311a52
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 2/2] syscalls: shift to time() if __NR_time not
- support
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH V2 1/2] syscalls: Add tests for name_to_handle_at()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,121 +80,55 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Cc: Vincent Guittot <vincent.guittot@linaro.org>, ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Li
+On 23-11-20, 15:06, Cyril Hrubis wrote:
+> Hi!
+> > diff --git a/include/lapi/name_to_handle_at.h b/include/lapi/name_to_handle_at.h
+> > new file mode 100644
+> > index 000000000000..19c08545802a
+> > --- /dev/null
+> > +++ b/include/lapi/name_to_handle_at.h
+> > @@ -0,0 +1,54 @@
+> > +// SPDX-License-Identifier: GPL-2.0-or-later
+> > +/*
+> > + * Copyright (c) 2020 Linaro Limited. All rights reserved.
+> > + * Author: Viresh Kumar <viresh.kumar@linaro.org>
+> > + */
+> > +
+> > +#ifndef NAME_TO_HANDLE_AT_H__
+> > +#define NAME_TO_HANDLE_AT_H__
+> > +
+> > +#include <sys/syscall.h>
+> > +#include "config.h"
+> > +#include "tst_buffers.h"
+> > +#include "tst_test.h"
+> > +
+> > +#ifndef HAVE_NAME_TO_HANDLE_AT
+> > +struct file_handle {
+> > +	unsigned int handle_bytes;
+> > +	int handle_type;
+> > +	/* File identifier.  */
+> > +	unsigned char f_handle[0];
+> > +};
+> > +
+> > +int name_to_handle_at(int dfd, const char *pathname, struct file_handle *handle,
+> > +		      int *mount_id, int flags);
+> > +int open_by_handle_at(int mount_fd, struct file_handle *handle, int flags);
+> 
+> This still is not complete solution. As far as I can tell this will fail
+> to link on machine where libc does not implement these, so we have to
+> make them static inline functions that actually call the tst_syscall().
 
-I have seen this patchset, Can we use a function to check whether kernel 
-supports time syscall (like time_supported_by_kernel()) in setup
-and then we use time() - !return value in verify funtion?
-> On some platforms(aarch64) __NR_time is not supported, if that happens,
-> go back to invoke time() and relax 1-second in low bound for comparing.
->
-> This also to fix:
->    TFAIL: msg_stime = 1605730573 out of [1605730574, 1605730574]
->
-> Signed-off-by: Li Wang<liwang@redhat.com>
-> Cc: Chunyu Hu<chuhu@redhat.com>
-> Cc: Cyril Hrubis<chrubis@suse.cz>
-> ---
->   testcases/kernel/syscalls/ipc/msgrcv/msgrcv01.c | 14 ++++++++++++--
->   testcases/kernel/syscalls/ipc/msgsnd/msgsnd01.c | 14 ++++++++++++--
->   testcases/kernel/syscalls/ipc/shmctl/shmctl01.c | 14 ++++++++++++--
->   3 files changed, 36 insertions(+), 6 deletions(-)
->
-> diff --git a/testcases/kernel/syscalls/ipc/msgrcv/msgrcv01.c b/testcases/kernel/syscalls/ipc/msgrcv/msgrcv01.c
-> index 6fdc47dc3..9dc778ca7 100644
-> --- a/testcases/kernel/syscalls/ipc/msgrcv/msgrcv01.c
-> +++ b/testcases/kernel/syscalls/ipc/msgrcv/msgrcv01.c
-> @@ -26,13 +26,23 @@ static void verify_msgrcv(void)
->
->   	SAFE_MSGSND(queue_id,&snd_buf, MSGSIZE, 0);
->
-> -	tst_syscall(__NR_time,&before_rcv);
-> +	before_rcv = syscall(__NR_time, NULL);
-> +	if (before_rcv == -1&&  errno == ENOSYS) {
-> +		tst_res(TINFO, "__NR_time not supported");
-> +		before_rcv = time(NULL) - 1;
-> +	}
-> +
->   	TEST(msgrcv(queue_id,&rcv_buf, MSGSIZE, 1, 0));
->   	if (TST_RET == -1) {
->   		tst_res(TFAIL | TTERRNO, "msgrcv failed");
->   		return;
->   	}
-> -	tst_syscall(__NR_time,&after_rcv);
-> +
-> +	after_rcv = syscall(__NR_time, NULL);
-> +	if (after_rcv == -1&&  errno == ENOSYS) {
-> +		tst_res(TINFO, "__NR_time not supported");
-> +		after_rcv = time(NULL);
-> +	}
->
->   	if (strcmp(rcv_buf.mtext, snd_buf.mtext) == 0)
->   		tst_res(TPASS, "message received(%s) = message sent(%s)",
-> diff --git a/testcases/kernel/syscalls/ipc/msgsnd/msgsnd01.c b/testcases/kernel/syscalls/ipc/msgsnd/msgsnd01.c
-> index 9101f2668..27464e79f 100644
-> --- a/testcases/kernel/syscalls/ipc/msgsnd/msgsnd01.c
-> +++ b/testcases/kernel/syscalls/ipc/msgsnd/msgsnd01.c
-> @@ -30,13 +30,23 @@ static void verify_msgsnd(void)
->   	struct msqid_ds qs_buf;
->   	time_t before_snd, after_snd;
->
-> -	tst_syscall(__NR_time,&before_snd);
-> +	before_snd = syscall(__NR_time, NULL);
-> +	if (before_snd == -1&&  errno == ENOSYS) {
-> +		tst_res(TINFO, "__NR_time not supported");
-> +		before_snd = time(NULL) - 1;
-> +	}
-> +
->   	TEST(msgsnd(queue_id,&snd_buf, MSGSIZE, 0));
->   	if (TST_RET == -1) {
->   		tst_res(TFAIL | TTERRNO, "msgsnd() failed");
->   		return;
->   	}
-> -	tst_syscall(__NR_time,&after_snd);
-> +
-> +	after_snd = syscall(__NR_time, NULL);
-> +	if (after_snd == -1&&  errno == ENOSYS) {
-> +		tst_res(TINFO, "__NR_time not supported");
-> +		after_snd = time(NULL);
-> +	}
->
->   	SAFE_MSGCTL(queue_id, IPC_STAT,&qs_buf);
->
-> diff --git a/testcases/kernel/syscalls/ipc/shmctl/shmctl01.c b/testcases/kernel/syscalls/ipc/shmctl/shmctl01.c
-> index f5b8eaef9..356513726 100644
-> --- a/testcases/kernel/syscalls/ipc/shmctl/shmctl01.c
-> +++ b/testcases/kernel/syscalls/ipc/shmctl/shmctl01.c
-> @@ -241,9 +241,19 @@ static int get_shm_idx_from_id(int shm_id)
->
->   static void setup(void)
->   {
-> -	ctime_min = tst_syscall(__NR_time, NULL);
-> +	ctime_min = syscall(__NR_time, NULL);
-> +	if (ctime_min == -1&&  errno == ENOSYS) {
-> +		tst_res(TINFO, "__NR_time not supported");
-> +		ctime_min = time(NULL) - 1;
-> +	}
-> +
->   	shm_id = SAFE_SHMGET(IPC_PRIVATE, SHM_SIZE, IPC_CREAT | SHM_RW);
-> -	ctime_max = tst_syscall(__NR_time, NULL);
-> +
-> +	ctime_max = syscall(__NR_time, NULL);
-> +	if (ctime_max == -1&&  errno == ENOSYS) {
-> +		tst_res(TINFO, "__NR_time not supported");
-> +		ctime_max = time(NULL);
-> +	}
->
->   	shm_idx = get_shm_idx_from_id(shm_id);
->
+This is embarrassing. Not that I was doing this for the first time, I
+just completely forgot to update this path, damn. Sorry about that.
 
-
-
+-- 
+viresh
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
