@@ -2,53 +2,36 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id A67AA2C22D3
-	for <lists+linux-ltp@lfdr.de>; Tue, 24 Nov 2020 11:24:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2EC02C2520
+	for <lists+linux-ltp@lfdr.de>; Tue, 24 Nov 2020 13:00:35 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6AEED3C4E4A
-	for <lists+linux-ltp@lfdr.de>; Tue, 24 Nov 2020 11:24:54 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id B04933C3028
+	for <lists+linux-ltp@lfdr.de>; Tue, 24 Nov 2020 13:00:35 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 3ED733C22AF
- for <ltp@lists.linux.it>; Tue, 24 Nov 2020 11:24:51 +0100 (CET)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id 02AAD6008D8
- for <ltp@lists.linux.it>; Tue, 24 Nov 2020 11:24:50 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.78,365,1599494400"; d="scan'208";a="101697691"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 24 Nov 2020 18:24:47 +0800
-Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id 587B34CE5CC2;
- Tue, 24 Nov 2020 18:24:43 +0800 (CST)
-Received: from [10.167.220.84] (10.167.220.84) by
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Tue, 24 Nov 2020 18:24:42 +0800
-Message-ID: <5FBCDF6A.8050704@cn.fujitsu.com>
-Date: Tue, 24 Nov 2020 18:24:42 +0800
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
- rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id E78EC3C23F5
+ for <ltp@lists.linux.it>; Tue, 24 Nov 2020 13:00:34 +0100 (CET)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 067361000375
+ for <ltp@lists.linux.it>; Tue, 24 Nov 2020 13:00:33 +0100 (CET)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 36FF6AC2D;
+ Tue, 24 Nov 2020 12:00:33 +0000 (UTC)
+From: Cyril Hrubis <chrubis@suse.cz>
+To: ltp@lists.linux.it
+Date: Tue, 24 Nov 2020 13:01:54 +0100
+Message-Id: <20201124120154.27017-1-chrubis@suse.cz>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-To: Li Wang <liwang@redhat.com>
-References: <20201123083137.11575-1-liwang@redhat.com>
- <20201123083137.11575-2-liwang@redhat.com> <5FBC765A.3020102@cn.fujitsu.com>
- <CAEemH2eiTQMBA6g1BOeDNx+H81Yk6FvZt_0AonRY7zdpc0K14w@mail.gmail.com>
-In-Reply-To: <CAEemH2eiTQMBA6g1BOeDNx+H81Yk6FvZt_0AonRY7zdpc0K14w@mail.gmail.com>
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: 587B34CE5CC2.AD133
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.4
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 2/2] syscalls: shift to time() if __NR_time not
- support
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH] syscalls/select03: Fix segfaults on aarch64
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,54 +43,100 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
+Cc: Viresh Kumar <viresh.kumar@linaro.org>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Li
-> Hi Xu,
->
-> Yang Xu <xuyang2018.jy@cn.fujitsu.com
-> <mailto:xuyang2018.jy@cn.fujitsu.com>> wrote:
->
->     I have seen this patchset, Can we use a function to check whether
->     kernel
->
->
-> Yes, we can, I was even thinking to define a global MACRO can check
-> any syscall not only __NR_time.
-> (maybe we can achieve it for other tests)
-> But for this kind of case, I'd not suggest using that MACRO/function
-> to check __NR_time, because the test will perform twice at the moment
-> for the __NR_time syscall if it supporting(first time for support checking,
-> second time for real invoking).
->
-> Considering this is a time comparing test, that makes our seconds
-> more inaccurate to compare.
->
->     supports time syscall (like time_supported_by_kernel()) in setup
->     and then we use time() - !return value in verify funtion?
->
->
-> Though we check the syscall in setup(), shouldn't we also export a variable
-> to record the result we checked? That does not make things be simple too.
-Yes. On some platform(aarch64), it is simple because it doesn't need to 
-call tst_syscall two times and  time() two times and report non-support 
-info many times especailly when using -i parameters.
+The select() syscall is implemented via pselect6() in aarch64 glibc, which
+means that glibc has to convert the timeout from timeval to timespec hence it
+will segfault rather than return EFAULT.
 
-IMO, it is a taste perference(I usually detect kernel whether support in 
-setup). Your patchset is also ok. So
+Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
+CC: Viresh Kumar <viresh.kumar@linaro.org>
+---
+ testcases/kernel/syscalls/select/select03.c   | 30 ++++++++++++++++++-
+ testcases/kernel/syscalls/select/select_var.h |  2 ++
+ 2 files changed, 31 insertions(+), 1 deletion(-)
 
-Acked-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-
->
-> --
-> Regards,
-> Li Wang
-
-
+diff --git a/testcases/kernel/syscalls/select/select03.c b/testcases/kernel/syscalls/select/select03.c
+index fb52284ce..1cec3a4c7 100644
+--- a/testcases/kernel/syscalls/select/select03.c
++++ b/testcases/kernel/syscalls/select/select03.c
+@@ -7,8 +7,10 @@
+ 
+ #include <unistd.h>
+ #include <errno.h>
++#include <stdlib.h>
+ #include <sys/time.h>
+ #include <sys/types.h>
++#include <sys/wait.h>
+ #include <fcntl.h>
+ #include "select_var.h"
+ 
+@@ -40,7 +42,7 @@ static struct tcases {
+ 	{ "Faulty timeout", &maxfds, &preadfds_reg, &pwritefds_reg, &nullfds, &invalid_to, EFAULT },
+ };
+ 
+-static void run(unsigned int n)
++static void verify_select(unsigned int n)
+ {
+ 	struct tcases *tc = &tests[n];
+ 
+@@ -61,6 +63,31 @@ static void run(unsigned int n)
+ 	}
+ 
+ 	tst_res(TPASS | TTERRNO, "%s: select() failed as expected", tc->name);
++
++	exit(0);
++}
++
++static void run(unsigned int n)
++{
++	int pid, status;
++
++	pid = SAFE_FORK();
++	if (!pid)
++		verify_select(n);
++
++	SAFE_WAITPID(pid, &status, 0);
++
++	if (WIFEXITED(status))
++		return;
++
++	if (tst_variant == GLIBC_SELECT_VARIANT &&
++	    tests[n].timeout == &invalid_to &&
++	    WIFSIGNALED(status) && WTERMSIG(status) == SIGSEGV) {
++		tst_res(TPASS, "%s: select() killed by signal", tests[n].name);
++		return;
++	}
++
++	tst_res(TFAIL, "Child %s", tst_strstatus(status));
+ }
+ 
+ static void setup(void)
+@@ -94,4 +121,5 @@ static struct tst_test test = {
+ 	.test_variants = TEST_VARIANTS,
+ 	.setup = setup,
+ 	.needs_tmpdir = 1,
++	.forks_child = 1,
+ };
+diff --git a/testcases/kernel/syscalls/select/select_var.h b/testcases/kernel/syscalls/select/select_var.h
+index c8a8eb64e..a17b2fdd6 100644
+--- a/testcases/kernel/syscalls/select/select_var.h
++++ b/testcases/kernel/syscalls/select/select_var.h
+@@ -16,6 +16,8 @@ struct compat_sel_arg_struct {
+ 	long _tvp;
+ };
+ 
++#define GLIBC_SELECT_VARIANT 0
++
+ static int do_select_faulty_to(int nfds, fd_set *readfds, fd_set *writefds,
+ 		fd_set *exceptfds, struct timeval *timeout, int faulty_to)
+ {
+-- 
+2.26.2
 
 
 -- 
