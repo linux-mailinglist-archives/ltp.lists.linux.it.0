@@ -1,40 +1,61 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3679A2C3EF3
-	for <lists+linux-ltp@lfdr.de>; Wed, 25 Nov 2020 12:23:01 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id C73F32C3EF4
+	for <lists+linux-ltp@lfdr.de>; Wed, 25 Nov 2020 12:23:09 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DCC543C2E0E
-	for <lists+linux-ltp@lfdr.de>; Wed, 25 Nov 2020 12:23:00 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 9788F3C4E3E
+	for <lists+linux-ltp@lfdr.de>; Wed, 25 Nov 2020 12:23:09 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id E5B0F3C2350
- for <ltp@lists.linux.it>; Wed, 25 Nov 2020 12:22:59 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 4CFF93C4E34
+ for <ltp@lists.linux.it>; Wed, 25 Nov 2020 12:23:05 +0100 (CET)
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 08A6210009FA
- for <ltp@lists.linux.it>; Wed, 25 Nov 2020 12:22:58 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 73088AC41;
- Wed, 25 Nov 2020 11:22:58 +0000 (UTC)
-References: <20201125101633.30154-1-liwang@redhat.com>
-User-agent: mu4e 1.4.13; emacs 27.1
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Li Wang <liwang@redhat.com>
-In-reply-to: <20201125101633.30154-1-liwang@redhat.com>
-Date: Wed, 25 Nov 2020 11:22:57 +0000
-Message-ID: <87eekhof3i.fsf@suse.de>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id BC0F7200981
+ for <ltp@lists.linux.it>; Wed, 25 Nov 2020 12:23:04 +0100 (CET)
+Date: Wed, 25 Nov 2020 12:23:02 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020; t=1606303383;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=zddgu1xg92Bn0MiOfefrMFIbOQ+hQRLk2ZCm304FhdM=;
+ b=acGIuGJbU7UREvLEeYq30k4lzUJv9UeKuL6qFGncJg4C/V0RZp2uVBBRmIcK+bKofALZv1
+ E/i+KY42+zjgGgWIhugsxh4pK0+KzhaSx7krPIqWVaI4tBzuG1b0YjzcTWivmnnVgWxTbx
+ su45/uFa1s4kTrwltU9qXYpO2UxbVEVDVku3b9N93c58X1QU5q3xnxSKl++4RbkNi2h2wv
+ 2AzDyIO6MIXYLHTI5ThxytVN4lNv+CMzJeBA55R781I0K/LFybudsUFdcO7SCJ1/O6VI+w
+ wA3laoEwlfSFF4yg44bDycmmLFdclEUeYbHB58QerS0Zt2srzq/8EL336DEcbw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020e; t=1606303383;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=zddgu1xg92Bn0MiOfefrMFIbOQ+hQRLk2ZCm304FhdM=;
+ b=DLTtjNS3WiGZoyYE4Mj9Ou1emwbzJ/YRBd8P5jF9pfr7kPbZotaSxP0mB8Yozgu/iZNwBs
+ fq/R9KQKzyCNkKAw==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Matthew Wilcox <willy@infradead.org>
+Message-ID: <20201125112302.zh6x3hq7wyzqoz66@linutronix.de>
+References: <CA+G9fYuKZGaHVvAv=ZwOL_p6UM3YhOHy0DcJRRM_DOLGYXg1Dw@mail.gmail.com>
+ <20201124171628.dk6tle5lh3sx2jxg@linutronix.de>
+ <20201125004632.GG4327@casper.infradead.org>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20201125004632.GG4327@casper.infradead.org>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] fzsync: skip test when avaliable CPUs less than 2
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] kernel BUG at mm/highmem.c:417! invalid opcode: 0000 EIP:
+ zero_user_segments
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,76 +67,31 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
-Cc: ltp@lists.linux.it
+Cc: Song Liu <songliubraving@fb.com>, Michal Hocko <mhocko@suse.com>,
+ Jan Kara <jack@suse.cz>, Arnd Bergmann <arnd@arndb.de>, vtolkm@googlemail.com,
+ open list <linux-kernel@vger.kernel.org>, lkft-triage@lists.linaro.org,
+ linux-mm <linux-mm@kvack.org>, torvalds@linuxfoundation.org,
+ Linux-Next Mailing List <linux-next@vger.kernel.org>,
+ Thomas Gleixner <tglx@linutronix.de>, Mel Gorman <mgorman@suse.de>,
+ Zi Yan <ziy@nvidia.com>, Andrew Morton <akpm@linux-foundation.org>,
+ Yang Shi <shy828301@gmail.com>, LTP List <ltp@lists.linux.it>,
+ Marek Szyprowski <m.szyprowski@samsung.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello Li,
+On 2020-11-25 00:46:32 [+0000], Matthew Wilcox wrote:
+> 
+> Thanks for debugging this!  I didn't realise start1 was allowed to be
+> less than start2.  Try this ... (systemd is sabotaging my efforts to
+> test an i386 kernel)
 
-Li Wang <liwang@redhat.com> writes:
+You are welcome.
 
-> It makes no sense to run parallel thread to simulate race conditions on
-> system with CPU number less than two, especially for kvm guest, it does
-> not have any chance to get real parallel running and probably encounter
-> failure as below:
+Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 
-Most of the tests using FuzzySync do not need true parallism. We were
-able to reproduce a number of race conditions on a single vCPU. Infact
-it may actually benefit some races because one thread has to pause to
-allow the other to run, perhaps creating a huge race window.
-
->
-> === 100% reproducible on a 1cpu guest ===
->
-> cmdline="af_alg07"
-> contacts=""
-> analysis=exit
-> <<<test_output>>>
-> tst_test.c:1248: TINFO: Timeout per run is 0h 05m 00s
-> ../../../include/tst_fuzzy_sync.h:507: TINFO: Minimum sampling period ended
-> ../../../include/tst_fuzzy_sync.h:330: TINFO: loop = 1024, delay_bias = 0
-> ../../../include/tst_fuzzy_sync.h:318: TINFO: start_a - start_b: { avg = -137522ns, avg_dev = 854248ns, dev_ratio = 6.21 }
-> ../../../include/tst_fuzzy_sync.h:318: TINFO: end_a - start_a  : { avg =  1915ns, avg_dev =   535ns, dev_ratio = 0.28 }
-> ../../../include/tst_fuzzy_sync.h:318: TINFO: end_b - start_b  : { avg =  1885ns, avg_dev =    42ns, dev_ratio = 0.02 }
-> ../../../include/tst_fuzzy_sync.h:318: TINFO: end_a - end_b    : { avg = -137492ns, avg_dev = 854818ns, dev_ratio = 6.22 }
-> ../../../include/tst_fuzzy_sync.h:318: TINFO: spins            : { avg = 554786  , avg_dev =  7355  , dev_ratio = 0.01 }
-> ../../../include/tst_fuzzy_sync.h:636: TINFO: Exceeded execution time, requesting exit
-> af_alg07.c:96: TFAIL: fchownat() failed to fail, kernel may be vulnerable
->
-> Signed-off-by: Li Wang <liwang@redhat.com>
-> CC: Richard Palethorpe <rpalethorpe@suse.de>
-> ---
->  include/tst_fuzzy_sync.h | 3 +++
->  1 file changed, 3 insertions(+)
->
-> diff --git a/include/tst_fuzzy_sync.h b/include/tst_fuzzy_sync.h
-> index 4141f5c64..2e864b312 100644
-> --- a/include/tst_fuzzy_sync.h
-> +++ b/include/tst_fuzzy_sync.h
-> @@ -281,6 +281,9 @@ static void tst_init_stat(struct tst_fzsync_stat *s)
->  static void tst_fzsync_pair_reset(struct tst_fzsync_pair *pair,
->  				  void *(*run_b)(void *))
->  {
-> +	if (get_nprocs() < 2)
-> +		tst_brk(TCONF, "Fuzzy Sync requires at least two CPUs available");
-> +
->  	tst_fzsync_pair_cleanup(pair);
->  
->  	tst_init_stat(&pair->diff_ss);
-
-Perhaps this test would pass with more loops and a big enough delay
-range, but this is also wasting time on a single vCPU. I'm not sure
-whether we should filter this test at the LTP level; it may trigger the
-bug on some single CPU configs.
-
-Why not print a warning instead of refusing to run?
-
--- 
-Thank you,
-Richard.
+Sebastian
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
