@@ -2,42 +2,42 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BF3F2C3F63
-	for <lists+linux-ltp@lfdr.de>; Wed, 25 Nov 2020 12:57:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44E8A2C4045
+	for <lists+linux-ltp@lfdr.de>; Wed, 25 Nov 2020 13:34:50 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9CC103C2E2A
-	for <lists+linux-ltp@lfdr.de>; Wed, 25 Nov 2020 12:57:30 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 0E8023C3066
+	for <lists+linux-ltp@lfdr.de>; Wed, 25 Nov 2020 13:34:50 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 9077C3C223E
- for <ltp@lists.linux.it>; Wed, 25 Nov 2020 12:57:29 +0100 (CET)
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id A02F93C2D00
+ for <ltp@lists.linux.it>; Wed, 25 Nov 2020 13:34:44 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 474A2200C12
- for <ltp@lists.linux.it>; Wed, 25 Nov 2020 12:57:29 +0100 (CET)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 566D56009F9
+ for <ltp@lists.linux.it>; Wed, 25 Nov 2020 13:34:44 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id AD3FCAC41
- for <ltp@lists.linux.it>; Wed, 25 Nov 2020 11:57:28 +0000 (UTC)
-To: Cyril Hrubis <chrubis@suse.cz>, Richard Palethorpe <rpalethorpe@suse.de>
-References: <20201125101633.30154-1-liwang@redhat.com>
- <87eekhof3i.fsf@suse.de> <20201125115406.GD2297@yuki.lan>
-From: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <1fa5e025-ba61-30c7-d9e8-3382e939b7d0@suse.cz>
-Date: Wed, 25 Nov 2020 12:57:28 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.3
+ by mx2.suse.de (Postfix) with ESMTP id 576F3AC2F;
+ Wed, 25 Nov 2020 12:34:43 +0000 (UTC)
+Date: Wed, 25 Nov 2020 13:35:34 +0100
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Thomas Gleixner <tglx@linutronix.de>
+Message-ID: <20201125123534.GA28684@yuki.lan>
+References: <20201123083137.11575-1-liwang@redhat.com>
+ <20201124153837.GA24470@yuki.lan>
+ <875z5tllih.fsf@nanos.tec.linutronix.de>
 MIME-Version: 1.0
-In-Reply-To: <20201125115406.GD2297@yuki.lan>
-Content-Language: en-US
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <875z5tllih.fsf@nanos.tec.linutronix.de>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] fzsync: skip test when avaliable CPUs less than 2
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/2] syscalls: avoid time() using
+ __cvdso_gettimeofday in use-level's VDSO
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,37 +49,75 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Cc: Arnd Bergmann <arnd@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ LKML <linux-kernel@vger.kernel.org>, Carlos O'Donell <carlos@redhat.com>,
+ John Stultz <john.stultz@linaro.org>,
+ "Michael Kerrisk \(man-pages\)" <mtk.manpages@gmail.com>,
+ Andy Lutomirski <luto@kernel.org>,
+ Vincenzo Frascino <vincenzo.frascino@arm.com>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 25. 11. 20 12:54, Cyril Hrubis wrote:
-> Hi!
->> Perhaps this test would pass with more loops and a big enough delay
->> range, but this is also wasting time on a single vCPU. I'm not sure
->> whether we should filter this test at the LTP level; it may trigger the
->> bug on some single CPU configs.
->>
->> Why not print a warning instead of refusing to run?
+Hi!
+> This is a general problem and not really just for this particular test
+> case.
 > 
-> That's not a solution either, warning would end up in a test results as
-> well.
+> Due to the internal implementation of ktime_get_real_seconds(), which is
+> a 2038 safe replacement for the former get_seconds() function, this
+> accumulation issue can be observed. (time(2) via syscall and newer
+> versions of VDSO use the same mechanism).
 > 
-> I guess that we can add something as .min_cpus to the tst_test structure
-> and set it for this test?
+>      clock_gettime(CLOCK_REALTIME, &ts);
+>      sec = time();
+>      assert(sec >= ts.tv_sec);
+> 
+> That assert can trigger for two reasons:
+> 
+>  1) Clock was set between the clock_gettime() and time().
+> 
+>  2) The clock has advanced far enough that:
+> 
+>     timekeeper.tv_nsec + (clock_now_ns() - last_update_ns) > NSEC_PER_SEC
+> 
+> #1 is just a property of clock REALTIME. There is nothing we can do
+>    about that.
+> 
+> #2 is due to the optimized get_seconds()/time() access which avoids to
+>    read the clock. This can happen on bare metal as well, but is far
+>    more likely to be exposed on virt.
+> 
+> The same problem exists for CLOCK_XXX vs. CLOCK_XXX_COARSE
+> 
+>      clock_gettime(CLOCK_XXX, &ts);
+>      clock_gettime(CLOCK_XXX_COARSE, &tc);
+>      assert(tc.tv_sec >= ts.tv_sec);
+> 
+> The _COARSE variants return their associated timekeeper.tv_sec,tv_nsec
+> pair without reading the clock. Same as #2 above just extended to clock
+> MONOTONIC.
 
-+1 for .min_cpus from me.
+Good hint, I guess that easiest fix would be to switch to coarse timers
+for these tests.
+
+> There is no way to fix this except giving up on the fast accessors and
+> make everything take the slow path and read the clock, which might make
+> a lot of people unhappy.
+
+That's understandable and reasonable. Thanks a lot for the confirmation.
+
+> For clock REALTIME #1 is anyway an issue, so I think documenting this
+> proper is the right thing to do.
+> 
+> Thoughts?
+
+I guess that ideally BUGS section for time(2) and clock_gettime(2)
+should be updated with this explanation.
 
 -- 
-Martin Doucha   mdoucha@suse.cz
-QA Engineer for Software Maintenance
-SUSE LINUX, s.r.o.
-CORSO IIa
-Krizikova 148/34
-186 00 Prague 8
-Czech Republic
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
