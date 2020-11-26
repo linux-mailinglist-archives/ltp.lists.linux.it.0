@@ -1,51 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9BCE2C4E2D
-	for <lists+linux-ltp@lfdr.de>; Thu, 26 Nov 2020 06:16:23 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id A33912C4EF8
+	for <lists+linux-ltp@lfdr.de>; Thu, 26 Nov 2020 07:47:45 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4C7F63C5E37
-	for <lists+linux-ltp@lfdr.de>; Thu, 26 Nov 2020 06:16:23 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 4EF6B3C4E44
+	for <lists+linux-ltp@lfdr.de>; Thu, 26 Nov 2020 07:47:45 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id 77BBC3C2CF9
- for <ltp@lists.linux.it>; Thu, 26 Nov 2020 06:16:19 +0100 (CET)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-7.smtp.seeweb.it (Postfix) with ESMTP id D96AE2003A9
- for <ltp@lists.linux.it>; Thu, 26 Nov 2020 06:16:17 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.78,371,1599494400"; 
- d="scan'208,217";a="101766506"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 26 Nov 2020 13:16:14 +0800
-Received: from G08CNEXMBPEKD06.g08.fujitsu.local (unknown [10.167.33.206])
- by cn.fujitsu.com (Postfix) with ESMTP id 959924CE5CDB;
- Thu, 26 Nov 2020 13:16:09 +0800 (CST)
-Received: from [10.167.220.69] (10.167.220.69) by
- G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Thu, 26 Nov 2020 13:16:06 +0800
-Message-ID: <5FBF3A16.6090101@cn.fujitsu.com>
-Date: Thu, 26 Nov 2020 13:16:06 +0800
-From: Xiao Yang <yangx.jy@cn.fujitsu.com>
-User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
- rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id C7CC43C2C8F
+ for <ltp@lists.linux.it>; Thu, 26 Nov 2020 07:47:41 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+ by in-3.smtp.seeweb.it (Postfix) with ESMTP id 7F1AC1A00981
+ for <ltp@lists.linux.it>; Thu, 26 Nov 2020 07:47:40 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1606373259;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=C9hb2U+Haiu4H+qvL+MH2Ys4vkMPuS6+CsU3KVVWVNw=;
+ b=UvjCPbvS2vwayktayDCT9pkKeCp2JHJHbKi8sg8z4NQ5aWsM9kRSOlap+Yc7QMDtNOqg9b
+ YVeg0eEMaMwpsctoLZIa1m/xNu3/sMKcRo7ob/gxqKokoke+8Mr2/oKk3XG9N0Nd6pVm4D
+ Ed6I8De+emRP1J+2E1151M+jXXb5l7U=
+Received: from mail-yb1-f200.google.com (mail-yb1-f200.google.com
+ [209.85.219.200]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-548-A_y7oEdVOYi1U6fIKqRWqw-1; Thu, 26 Nov 2020 01:47:34 -0500
+X-MC-Unique: A_y7oEdVOYi1U6fIKqRWqw-1
+Received: by mail-yb1-f200.google.com with SMTP id u37so1551511ybi.15
+ for <ltp@lists.linux.it>; Wed, 25 Nov 2020 22:47:34 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=C9hb2U+Haiu4H+qvL+MH2Ys4vkMPuS6+CsU3KVVWVNw=;
+ b=HlvcRryoJgmFItkpmdQmaI9+bn5/1cx3V10qeFhJuwcqWcFQmcYsTaWWGOgsyQo9oK
+ OuSZSp5eHuZ/1Xzpk4lsPDPNA2qFdnECx5RlgAEV3jyN0gPUJnBagk4+rYbJ2cSara9y
+ ySw6CLzi3D2Ds6VsW6EJvd7Z/pj2/HFan/qzYoNmbsZkgoGKnpmgZcn9YnF9RthzC+da
+ zMsX750Bb0mIGx4hbS/TAc33BXO+0ZWrHBVajm27g9H6bcajCptCLKE4TJCAHkBZ8wEP
+ Si5anCAQJgbMTX/TcMBZL38X2hlQAiA3MvSacFyvT7pNBsXluzY0IjMVkqL7EbAH7C2Q
+ 3qeg==
+X-Gm-Message-State: AOAM5313Ld7wRikfhGBQpbiCKcvulWwKVpWarv4TDjfYhah4O/ZFNGru
+ c3yudLO4JgE05b4O32Z3plwmNc34O2I8jftdZGxPuE5bWlrfhC75obamoY+fdZ1ZaONdIlj0PLx
+ focJ7Bt+MFAvmhmuQNJGzoTyV+JY=
+X-Received: by 2002:a25:e088:: with SMTP id x130mr2273889ybg.97.1606373253873; 
+ Wed, 25 Nov 2020 22:47:33 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJwhs/M5tRC0t46RiTqTUlLxGHyaXIESGJNxyCAkGoYkkh9foQrTi+R4n1IXcdF5juQmXK6XHjlAKmqJem0cVA0=
+X-Received: by 2002:a25:e088:: with SMTP id x130mr2273868ybg.97.1606373253697; 
+ Wed, 25 Nov 2020 22:47:33 -0800 (PST)
 MIME-Version: 1.0
-To: Li Wang <liwang@redhat.com>
 References: <20201126012838.531070-1-yangx.jy@cn.fujitsu.com>
  <CAEemH2eQNTy9V+NSn+kwV8zZ0BTr+PEHuD_RPhx3Ns1v=+iPNw@mail.gmail.com>
-In-Reply-To: <CAEemH2eQNTy9V+NSn+kwV8zZ0BTr+PEHuD_RPhx3Ns1v=+iPNw@mail.gmail.com>
-X-Originating-IP: [10.167.220.69]
-X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
- G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206)
-X-yoursite-MailScanner-ID: 959924CE5CDB.AC59E
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: yangx.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.4 required=7.0 tests=HTML_MESSAGE, KHOP_HELO_FCRDNS,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.4
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+ <5FBF3A16.6090101@cn.fujitsu.com>
+In-Reply-To: <5FBF3A16.6090101@cn.fujitsu.com>
+From: Li Wang <liwang@redhat.com>
+Date: Thu, 26 Nov 2020 14:47:22 +0800
+Message-ID: <CAEemH2c3U7DY70QiVKZoUhdtLdr0QBc+VqAkFt9GzoUp-kmbyA@mail.gmail.com>
+To: Xiao Yang <yangx.jy@cn.fujitsu.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH] lapi/name_to_handle_at.h: Fix compiler error on
  centos6
 X-BeenThere: ltp@lists.linux.it
@@ -60,127 +83,88 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============1278014517=="
+Content-Type: multipart/mixed; boundary="===============0483603293=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1278014517==
-Content-Type: multipart/alternative;
-	boundary="------------000300020506000605070407"
+--===============0483603293==
+Content-Type: multipart/alternative; boundary="00000000000029e5b905b4fceb00"
 
---------------000300020506000605070407
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
+--00000000000029e5b905b4fceb00
+Content-Type: text/plain; charset="UTF-8"
 
-On 2020/11/26 12:33, Li Wang wrote:
+On Thu, Nov 26, 2020 at 1:16 PM Xiao Yang <yangx.jy@cn.fujitsu.com> wrote:
+
+> On 2020/11/26 12:33, Li Wang wrote:
+>
 > Hi Xiao,
 >
-> The patch itself looks good, but I remember we were planning to 
+> The patch itself looks good, but I remember we were planning to
 > drop support for the old distro e.g CentOS6.
 >
 > The previous discussion here:
 > http://lists.linux.it/pipermail/ltp/2020-March/016164.html
-Hi Li,
+>
+> Hi Li,
+>
+> Thanks for sharing the infomation.
+> When do you plan to remove old distro? next release?
+>
 
-Thanks for sharing the infomation.
-When do you plan to remove old distro? next release?
-
-BTW:
-It may also resolve the compiler error on uclibc as Fabrice Fontaine 
-reported before:
-https://github.com/linux-test-project/ltp/commit/cb11e718ce04261cb6ff4c09442b949da33b8797
-
-Best Regards,
-Xiao Yang
->
-> On Thu, Nov 26, 2020 at 9:49 AM Xiao Yang <yangx.jy@cn.fujitsu.com 
-> <mailto:yangx.jy@cn.fujitsu.com>> wrote:
->
->     From travis-ci, compiling name_to_handle_at/open_by_handle_at tests
->     failed on centos6 due to undefined AT_EMPTY_PATH and MAX_HANDLE_SZ.
->
->     Signed-off-by: Xiao Yang <yangx.jy@cn.fujitsu.com
->     <mailto:yangx.jy@cn.fujitsu.com>>
->     ---
->      include/lapi/fcntl.h             | 4 ++++
->      include/lapi/name_to_handle_at.h | 1 +
->      2 files changed, 5 insertions(+)
->
->     diff --git a/include/lapi/fcntl.h b/include/lapi/fcntl.h
->     index 576a18daf..d6665915f 100644
->     --- a/include/lapi/fcntl.h
->     +++ b/include/lapi/fcntl.h
->     @@ -136,4 +136,8 @@
->      # define SPLICE_F_NONBLOCK 2
->      #endif
->
->     +#ifndef MAX_HANDLE_SZ
->     +# define MAX_HANDLE_SZ 128
->     +#endif
->     +
->      #endif /* __LAPI_FCNTL_H__ */
->     diff --git a/include/lapi/name_to_handle_at.h
->     b/include/lapi/name_to_handle_at.h
->     index c0759c463..3484133d1 100644
->     --- a/include/lapi/name_to_handle_at.h
->     +++ b/include/lapi/name_to_handle_at.h
->     @@ -10,6 +10,7 @@
->      #include <sys/syscall.h>
->      #include "config.h"
->      #include "lapi/syscalls.h"
->     +#include "lapi/fcntl.h"
->      #include "tst_buffers.h"
->      #include "tst_test.h"
->
->     -- 
->     2.25.1
->
->
->
->
->     -- 
->     Mailing list info: https://lists.linux.it/listinfo/ltp
->
->
->
-> -- 
-> Regards,
-> Li Wang
+As discussed in the previous mail, it should be accomplished in the current
+release 20200930.
+@Petr Vorel <pvorel@suse.cz>  @Cyril Hrubis <chrubis@suse.cz> what do you
+think?
 
 
+> BTW:
+> It may also resolve the compiler error on uclibc as Fabrice Fontaine
+> reported before:
+>
+> https://github.com/linux-test-project/ltp/commit/cb11e718ce04261cb6ff4c09442b949da33b8797
+>
 
+Thanks, I helped merge this one since CentOS6 is still supported in
+Travis-CI now.
 
---------------000300020506000605070407
+-- 
+Regards,
+Li Wang
+
+--00000000000029e5b905b4fceb00
 Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-  <head>
-    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
-    <title></title>
-  </head>
-  <body bgcolor="#ffffff" text="#000000">
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Thu, Nov 26, 2020 at 1:16 PM Xiao Yang &lt;<a hr=
+ef=3D"mailto:yangx.jy@cn.fujitsu.com">yangx.jy@cn.fujitsu.com</a>&gt; wrote=
+:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.=
+8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><u></u>
+
+ =20
+   =20
+   =20
+ =20
+  <div bgcolor=3D"#ffffff">
     On 2020/11/26 12:33, Li Wang wrote:
-    <blockquote
-cite="mid:CAEemH2eQNTy9V+NSn+kwV8zZ0BTr+PEHuD_RPhx3Ns1v=+iPNw@mail.gmail.com"
-      type="cite">
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-      <div dir="ltr">
-        <div dir="ltr">
-          <div class="gmail_default" style="font-size: small;">Hi Xiao,</div>
-          <div class="gmail_default" style="font-size: small;"><br>
+    <blockquote type=3D"cite">
+     =20
+      <div dir=3D"ltr">
+        <div dir=3D"ltr">
+          <div style=3D"font-size:small">Hi Xiao,</div>
+          <div style=3D"font-size:small"><br>
           </div>
-          <div class="gmail_default" style="font-size: small;">The patch
+          <div style=3D"font-size:small">The patch
             itself looks good, but I remember we were planning to
-            drop support for the old distro e.g CentOS6. </div>
-          <div class="gmail_default" style="font-size: small;"><br>
+            drop=C2=A0support for the old distro e.g CentOS6.=C2=A0</div>
+          <div style=3D"font-size:small"><br>
           </div>
-          <div class="gmail_default" style="font-size: small;">The
+          <div style=3D"font-size:small">The
             previous discussion here:</div>
-          <div class="gmail_default" style="font-size: small;"><a
-              moz-do-not-send="true"
-              href="http://lists.linux.it/pipermail/ltp/2020-March/016164.html">http://lists.linux.it/pipermail/ltp/2020-March/016164.html</a><br>
+          <div style=3D"font-size:small"><a href=3D"http://lists.linux.it/p=
+ipermail/ltp/2020-March/016164.html" target=3D"_blank">http://lists.linux.i=
+t/pipermail/ltp/2020-March/016164.html</a><br>
           </div>
         </div>
       </div>
@@ -188,99 +172,34 @@ cite="mid:CAEemH2eQNTy9V+NSn+kwV8zZ0BTr+PEHuD_RPhx3Ns1v=+iPNw@mail.gmail.com"
     Hi Li,<br>
     <br>
     Thanks for sharing the infomation.<br>
-    When do you plan to remove old distro? next release?<br>
+    When do you plan to remove old distro? next release?<br></div></blockqu=
+ote><div><br></div><div><div class=3D"gmail_default" style=3D"font-size:sma=
+ll">As discussed in the previous mail, it should be accomplished in the cur=
+rent release 20200930.</div><div class=3D"gmail_default" style=3D"font-size=
+:small"><a class=3D"gmail_plusreply" id=3D"plusReplyChip-0" href=3D"mailto:=
+pvorel@suse.cz" tabindex=3D"-1">@Petr Vorel</a>=C2=A0=C2=A0<a class=3D"gmai=
+l_plusreply" id=3D"plusReplyChip-1" href=3D"mailto:chrubis@suse.cz" tabinde=
+x=3D"-1">@Cyril Hrubis</a>=C2=A0what do you think?<br></div></div><div><br>=
+</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;b=
+order-left:1px solid rgb(204,204,204);padding-left:1ex"><div bgcolor=3D"#ff=
+ffff">
     <br>
     BTW:<br>
     It may also resolve the compiler error on uclibc as Fabrice Fontaine
     reported before:<br>
-<a class="moz-txt-link-freetext" href="https://github.com/linux-test-project/ltp/commit/cb11e718ce04261cb6ff4c09442b949da33b8797">https://github.com/linux-test-project/ltp/commit/cb11e718ce04261cb6ff4c09442b949da33b8797</a><br>
-    <br>
-    Best Regards,<br>
-    Xiao Yang<br>
-    <blockquote
-cite="mid:CAEemH2eQNTy9V+NSn+kwV8zZ0BTr+PEHuD_RPhx3Ns1v=+iPNw@mail.gmail.com"
-      type="cite">
-      <div dir="ltr"><br>
-        <div class="gmail_quote">
-          <div dir="ltr" class="gmail_attr">On Thu, Nov 26, 2020 at 9:49
-            AM Xiao Yang &lt;<a moz-do-not-send="true"
-              href="mailto:yangx.jy@cn.fujitsu.com">yangx.jy@cn.fujitsu.com</a>&gt;
-            wrote:<br>
-          </div>
-          <blockquote class="gmail_quote" style="margin: 0px 0px 0px
-            0.8ex; border-left: 1px solid rgb(204, 204, 204);
-            padding-left: 1ex;">From travis-ci, compiling
-            name_to_handle_at/open_by_handle_at tests<br>
-            failed on centos6 due to undefined AT_EMPTY_PATH and
-            MAX_HANDLE_SZ.<br>
-            <br>
-            Signed-off-by: Xiao Yang &lt;<a moz-do-not-send="true"
-              href="mailto:yangx.jy@cn.fujitsu.com" target="_blank">yangx.jy@cn.fujitsu.com</a>&gt;<br>
-            ---<br>
-             include/lapi/fcntl.h             | 4 ++++<br>
-             include/lapi/name_to_handle_at.h | 1 +<br>
-             2 files changed, 5 insertions(+)<br>
-            <br>
-            diff --git a/include/lapi/fcntl.h b/include/lapi/fcntl.h<br>
-            index 576a18daf..d6665915f 100644<br>
-            --- a/include/lapi/fcntl.h<br>
-            +++ b/include/lapi/fcntl.h<br>
-            @@ -136,4 +136,8 @@<br>
-             # define SPLICE_F_NONBLOCK 2<br>
-             #endif<br>
-            <br>
-            +#ifndef MAX_HANDLE_SZ<br>
-            +# define MAX_HANDLE_SZ 128<br>
-            +#endif<br>
-            +<br>
-             #endif /* __LAPI_FCNTL_H__ */<br>
-            diff --git a/include/lapi/name_to_handle_at.h
-            b/include/lapi/name_to_handle_at.h<br>
-            index c0759c463..3484133d1 100644<br>
-            --- a/include/lapi/name_to_handle_at.h<br>
-            +++ b/include/lapi/name_to_handle_at.h<br>
-            @@ -10,6 +10,7 @@<br>
-             #include &lt;sys/syscall.h&gt;<br>
-             #include "config.h"<br>
-             #include "lapi/syscalls.h"<br>
-            +#include "lapi/fcntl.h"<br>
-             #include "tst_buffers.h"<br>
-             #include "tst_test.h"<br>
-            <br>
-            -- <br>
-            2.25.1<br>
-            <br>
-            <br>
-            <br>
-            <br>
-            -- <br>
-            Mailing list info: <a moz-do-not-send="true"
-              href="https://lists.linux.it/listinfo/ltp"
-              rel="noreferrer" target="_blank">https://lists.linux.it/listinfo/ltp</a><br>
-            <br>
-          </blockquote>
-        </div>
-        <br clear="all">
-        <div><br>
-        </div>
-        -- <br>
-        <div dir="ltr" class="gmail_signature">
-          <div dir="ltr">
-            <div>Regards,<br>
-            </div>
-            <div>Li Wang<br>
-            </div>
-          </div>
-        </div>
-      </div>
-    </blockquote>
-    <br>
-  </body>
-</html>
+<a href=3D"https://github.com/linux-test-project/ltp/commit/cb11e718ce04261=
+cb6ff4c09442b949da33b8797" target=3D"_blank">https://github.com/linux-test-=
+project/ltp/commit/cb11e718ce04261cb6ff4c09442b949da33b8797</a></div></bloc=
+kquote><div><br></div><div><div class=3D"gmail_default" style=3D"font-size:=
+small">Thanks, I helped merge this one since CentOS6 is still supported in =
+Travis-CI now.</div></div><div>=C2=A0</div></div>-- <br><div dir=3D"ltr" cl=
+ass=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wan=
+g<br></div></div></div></div>
 
---------------000300020506000605070407--
+--00000000000029e5b905b4fceb00--
 
---===============1278014517==
+
+--===============0483603293==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -290,4 +209,5 @@ Content-Disposition: inline
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
 
---===============1278014517==--
+--===============0483603293==--
+
