@@ -1,82 +1,73 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82B352C4D56
-	for <lists+linux-ltp@lfdr.de>; Thu, 26 Nov 2020 03:17:37 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 175312C4D93
+	for <lists+linux-ltp@lfdr.de>; Thu, 26 Nov 2020 04:01:06 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0EC0A3C5E3E
-	for <lists+linux-ltp@lfdr.de>; Thu, 26 Nov 2020 03:17:37 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 8C0CB3C5E3B
+	for <lists+linux-ltp@lfdr.de>; Thu, 26 Nov 2020 04:01:05 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id D3A2A3C2451
- for <ltp@lists.linux.it>; Thu, 26 Nov 2020 03:17:32 +0100 (CET)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- by in-3.smtp.seeweb.it (Postfix) with ESMTP id 8355F1A00695
- for <ltp@lists.linux.it>; Thu, 26 Nov 2020 03:17:31 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1606357049;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=T1PHl85Q/xnkx1/jeHiLbTy7dKkrR5GbQ8KqK2BdlIQ=;
- b=aA6qu5c4nxN/oGd9C+EYV/friGbcH+YC/jqXLc5NzdF1Vv4ePXhYRe1kQRvq0xyDJcfmS2
- eTLHea6kkpYrnOHeR6bmMYAARzh1vAJO5P3vQHPE0ZsHoM8Z9HmRKPuNnPNKLZDJGEC+jN
- Z2xTv9axQ2lFAjQKjDfqYpG9fVYZq/4=
-Received: from mail-yb1-f199.google.com (mail-yb1-f199.google.com
- [209.85.219.199]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-167-QkquE8y0MxaW1h3InMdoQw-1; Wed, 25 Nov 2020 21:17:27 -0500
-X-MC-Unique: QkquE8y0MxaW1h3InMdoQw-1
-Received: by mail-yb1-f199.google.com with SMTP id c9so936278ybs.8
- for <ltp@lists.linux.it>; Wed, 25 Nov 2020 18:17:27 -0800 (PST)
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id 687163C2246
+ for <ltp@lists.linux.it>; Thu, 26 Nov 2020 04:01:02 +0100 (CET)
+Received: from mail-io1-xd44.google.com (mail-io1-xd44.google.com
+ [IPv6:2607:f8b0:4864:20::d44])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id CA28910006B6
+ for <ltp@lists.linux.it>; Thu, 26 Nov 2020 04:01:01 +0100 (CET)
+Received: by mail-io1-xd44.google.com with SMTP id z136so419199iof.3
+ for <ltp@lists.linux.it>; Wed, 25 Nov 2020 19:01:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=RMDnxBlwe4zhphiX4GFvVzXuBVEx4jTi4Kg8+xSeXBQ=;
+ b=RQQCfC9jlH3Z9to/5/nJfA8VvKLZfcTWa77tKBCtvI+DP4dXeQ7zWNCvfec6GcXb9F
+ Yi3BRTsUWWZcJHbnI9MojycLqV6YFgsa7pQq+dUn7vJ9IGk6h9k0un/nj74xfssqfQWP
+ c/uJkoRSYCjasu6y6FWtG553CLQ7WIus5GGZ26fDjV4DbdvpVbRyRxD3bFxoBjNhb6SC
+ O9EI1uOOork3Pyhr9FMbUD90Qh0F2+GKp/UWQAG3jpYnbPirP4HRBcvx7B2JQr27lcB6
+ SRWj64096a9ShxGJIEGwkjPowLSXK8lEFWULuLo6kPuq1rgtWvxPmBxzxLI/bfNexD14
+ cExw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=T1PHl85Q/xnkx1/jeHiLbTy7dKkrR5GbQ8KqK2BdlIQ=;
- b=Hg5p0JCYxfzCZkMi4fO0rYi5sZPgACsnuVOFLl892CuxCUuJqMnIZQ0afZKIa2Wl+F
- N+alKnMAPI3XGSFki7Nm5LrZ9AS2rEBlhzIXUUfPWcX1CND0Ea2YNXjVTMHnK+izaVDo
- cAUqhWIwVdmDCtzMm0l7rw0pb1FC8CaCXxOn9waSY5i3LGmfSFCqbTQl1Pe6X7glPqc+
- 90lW5n3w3jDd76Zs+ut4+g0y1suEft4ETzsGlnmiQeSAwh1dD79Hkk6kTNK51dHnRXfM
- nwf9bKdOWwpvxEg5mwVwS58FEtiQ02aQ1ojYFREVGh0q1TP3OFwjM6/Ptoa9xY1LHNsd
- JivQ==
-X-Gm-Message-State: AOAM533ciUlJR2USx1mBbIh0A+GPzVrUn7rjgk8dgBY8BJPMyG0prHbD
- 9pmUVWPdrSya3Uq6YIcFUoUzQoXqWs2q020FT7FTxMEnE+c1Taq0UklmFdw9sPPUrTI9QdJcFdZ
- pw3Wg1iFlqrXEXk3ri+AcAXOmfTQ=
-X-Received: by 2002:a05:6902:50e:: with SMTP id
- x14mr824167ybs.252.1606357046314; 
- Wed, 25 Nov 2020 18:17:26 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJxzGzg22ZRA5Kp/PPrGRI9WLbjyOG7E6midY4DxxRNSlVrZlSuTqdLH1Dv02sQm+eQtltjBAuEKrLfiZ7lyIfo=
-X-Received: by 2002:a05:6902:50e:: with SMTP id
- x14mr824151ybs.252.1606357046047; 
- Wed, 25 Nov 2020 18:17:26 -0800 (PST)
+ bh=RMDnxBlwe4zhphiX4GFvVzXuBVEx4jTi4Kg8+xSeXBQ=;
+ b=MSxECUbpo7gIVM+xcWD/GuVBF8ew4pZhR8Vy+u3N27IVR1kq/LM6r3/Ng6ygkWiH4u
+ R/+bluC3ceRTgny60bT5ByLjCN1WqM3hEBPWCbDLJGMSfatmERooGQYmPBbX+cQ10ADc
+ 4wiiemWAFLj9C97vVL95PcAjrmyN09UsL0sC4MzlIIu+QhtFszJsfuxb6fS3E1XEgkhC
+ BPyZChVLhgwpAVW45kfMOIsvV2f0i30Vtwohp7fZv+y+HroPwz2Dji8AixRER2wouRdD
+ ztsuy7WPgFMIuVs/HMo2CScO9Ukp99Nfq8Kg5sNfxicnZ2rHNVSiMl0cFqAVhDxzi5Fl
+ eaPA==
+X-Gm-Message-State: AOAM533Lp7obLh/bpVB57rJ3ILJ+zf3HEAST4LRqukhBAxx4mqgi5ePB
+ dM0VXuhlS44T6O19+P/8MpW13AjO/fow5lGavME=
+X-Google-Smtp-Source: ABdhPJx3bZ2svHGGdAPntDuq0kwuOaS4bRWv6aCp25pQU2OHw76MQxOFvGQAkzTq9eoZPUhR9jv+DW7aiaoT2lH1v4U=
+X-Received: by 2002:a05:6602:1608:: with SMTP id
+ x8mr878873iow.72.1606359660358; 
+ Wed, 25 Nov 2020 19:01:00 -0800 (PST)
 MIME-Version: 1.0
-References: <20201113131428.13199-1-chrubis@suse.cz>
- <20201113131428.13199-2-chrubis@suse.cz>
- <20201113202828.GA2229@pevik>
- <CAEemH2fXD-gFF_7PogAPB1txUrgQmmzeK8p=MaMSn1zam0YeVg@mail.gmail.com>
- <20201119130824.GC12628@yuki.lan> <20201125131803.GB30149@yuki.lan>
- <CAEemH2dWwLD-J+cP6mJ3LAHcbGBtZ+ZaUMBiBZBDBsyK-q8Zww@mail.gmail.com>
- <20201125155716.GA5358@yuki.lan>
-In-Reply-To: <20201125155716.GA5358@yuki.lan>
-From: Li Wang <liwang@redhat.com>
-Date: Thu, 26 Nov 2020 10:17:14 +0800
-Message-ID: <CAEemH2fLWzGYfiaGfBNd+x29Ts-sO31JRRF+-UH-g=GRd0aGFw@mail.gmail.com>
-To: Cyril Hrubis <chrubis@suse.cz>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+References: <20201113164944.26101-1-pvorel@suse.cz>
+ <20201113164944.26101-4-pvorel@suse.cz>
+ <20201119102740.GD2785@yuki.lan>
+ <CAOQ4uxigsk5e7GHgDHydd03D1bAih1SJv36dB4209mpE_dU6PQ@mail.gmail.com>
+ <20201125141624.GA32471@pevik> <20201125182403.GB7323@pevik>
+ <CAOQ4uxiAppu2BMaj=ONU8fS4wriGdhPwgoHu3wjFMTTzS1EiQw@mail.gmail.com>
+ <20201125202501.GA64574@pevik>
+In-Reply-To: <20201125202501.GA64574@pevik>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Thu, 26 Nov 2020 05:00:49 +0200
+Message-ID: <CAOQ4uxjwGWBkajNa9dQXtGwgo3cFpPB=CbE+dcEA1t+zz+yaRg@mail.gmail.com>
+To: Petr Vorel <pvorel@suse.cz>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 01/10] lib: Introduce more TEST_* macros
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3 3/5] fanotify: Introduce SAFE_FANOTIFY_MARK()
+ macro
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,91 +80,163 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============1594103856=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1594103856==
-Content-Type: multipart/alternative; boundary="0000000000001cd1f105b4f9259f"
-
---0000000000001cd1f105b4f9259f
-Content-Type: text/plain; charset="UTF-8"
-
-On Wed, Nov 25, 2020 at 11:56 PM Cyril Hrubis <chrubis@suse.cz> wrote:
-
-> Hi!
-> > > Is anyone against pushing this initial patchset as it is?
-> > >
-> >
-> > Another bit of concern I have is the TEST_FAIL might cause
-> > confusion in code reading. It looks like the test will be failed here
-> > but in finish the test report pass, maybe we'd better tell people the
-> > failure is expected?
-> > (that was just my feeling on TEST_FAIL at the first glance)
-> >
-> > Or rename them to:
-> >
-> > TEST_EXP_PASS
-> > TEST_EXP_FAIL
-> > TEST_EXP_FD
+On Wed, Nov 25, 2020 at 10:25 PM Petr Vorel <pvorel@suse.cz> wrote:
 >
-> Fair enough, let's rename them like this.
+> Hi Amir,
 >
-> Any other concerns?
+> > On Wed, Nov 25, 2020 at 8:24 PM Petr Vorel <pvorel@suse.cz> wrote:
+>
+> > > Hi Amir,
+>
+> > > > > > > +++ b/testcases/kernel/syscalls/fanotify/fanotify01.c
+> > > > > > > @@ -101,19 +101,8 @@ static void test_fanotify(unsigned int n)
+> > > > > > >                       "failed", tc->init_flags);
+> > > > > > >       }
+>
+> > > > > > > -     if (fanotify_mark(fd_notify, FAN_MARK_ADD | mark->flag,
+> > > > > > > -                       FAN_ACCESS | FAN_MODIFY | FAN_CLOSE | FAN_OPEN,
+> > > > > > > -                       AT_FDCWD, fname) < 0) {
+> > > > > > > -             if (errno == EINVAL && mark->flag == FAN_MARK_FILESYSTEM) {
+> > > > > > > -                     tst_res(TCONF,
+> > > > > > > -                             "FAN_MARK_FILESYSTEM not supported in kernel?");
+> > > > > > > -                     return;
+> > > > > > > -             }
+>
+> > > > > > Here we had tst_res(TCONF, ...) followed by a return but we will can
+> > > > > > tst_brk() after the change. I guess that we may skip part of the test on
+> > > > > > older kernels with that change.
+>
+>
+> > > > > That's not good. I missed that in my review.
+> > > > > There are many tests where only the FAN_MARK_FILESYSTEM
+> > > > > test cases are expected to result in TCONF, but the rest of the test
+> > > > > cases should run.
+>
+> > > > I'm not sure if I understand you. Is my approach correct here?
+> > > OK, I got that, I cannot use SAFE_FANOTIFY_MARK() in test_fanotify() in fanotify01.c
+> > > and in setup_marks() in fanotify13.c.
+>
+> > I gave fanotify01 as an example.
+> > There are many such cases, like fanotify03.
+>
+> > The point is we cannot replace tst_res() with tst_brk() when only some of the
+> > test cases may be supported.
+>
+> Sure, I'll check in all tests that tst_res() won't be replaced with tst_brk().
+>
+> > > But FAN_REPORT_FID in is on both files already checked after fanotify_init()
+> > > call. Not sure if it must be check also for fanotify_mark(), because it's
+> > > only in FANOTIFY_INIT_FLAGS (via FANOTIFY_FID_BITS). FANOTIFY_MARK_FLAGS has
+> > > other flags.
+>
+> > > If yes, I'll probably need to create fanotify_supported_by_kernel(...), which
+> > > check for all not supported flags and will be used in those 2 places and in
+> > > safe_fanotify_init(). Something like this:
+>
+> > > typedef void (*tst_res_func_t)(const char *file, const int lineno,
+> > >                 int ttype, const char *fmt, ...);
+>
+> > > int fanotify_flags_supported_by_kernel(const char *file, const int lineno,
+> > >         unsigned int flags, int strict)
+> > > {
+> > >         tst_res_func_t res_func = tst_res_;
+> > >         int unsupported = 0;
+>
+> > >         if (strict)
+> > >                 res_func = tst_brk_;
+>
+> > >         if (errno == EINVAL) {
+> > >                 if (flags & FAN_REPORT_TID) {
+> > >                         tst_res_(file, lineno, TINFO,
+> > >                                          "FAN_REPORT_TID not supported by kernel?");
+> > >                         unsupported = 1;
+> > >                 }
+>
+> > >                 if (flags & FAN_REPORT_FID) {
+> > >                         tst_res_(file, lineno, TINFO,
+> > >                                          "FAN_REPORT_FID not supported by kernel?");
+> > >                         unsupported = 1;
+> > >                 }
+>
+> > >                 if (flags & FAN_REPORT_DIR_FID) {
+> > >                         tst_res_(file, lineno, TINFO,
+> > >                                          "FAN_REPORT_DIR_FID not supported by kernel?");
+> > >                         unsupported = 1;
+> > >                 }
+>
+> > >                 if (flags & FAN_REPORT_NAME) {
+> > >                         tst_res_(file, lineno, TINFO,
+> > >                                          "FAN_REPORT_NAME not supported by kernel?");
+> > >                         unsupported = 1;
+> > >                 }
+>
+> > >                 if (unsupported)
+> > >                         res_func(file, lineno, TCONF, "Unsupported configuration, see above");
+> > >                 else
+> > >                         tst_brk_(file, lineno, TBROK, "Unknown failure");
+>
+> > >                 return -1;
+> > >         }
+>
+> > >         return 0;
+> > > }
+>
+>
+> > That seems too much and adds more noise than valuable info in many cases
+> > or maybe I didn't understand.
+>
+> > > These are flags for fanotify_init(). Flags for fanotify_mark() are currently
+> > > handled by fanotify_exec_events_supported_by_kernel() (used for FAN_OPEN_EXEC
+> > > and FAN_OPEN_EXEC_PERM), using different approach. Testing fanotify_mark() flags
+> > > support in advance in setup makes tests faster, I'm just not happy we use
+> > > different approach. Any tip for improving this or improving readability is
+> > > welcome.
+>
+>
+> > I think the best would be to always test in advance like exec events,
+> > for FAN_REPORT_ fanotify_init() flags and FAN_MARK_FILESYSTEM
+> > fanotify_mark() flag whenever relevant.
+>
+> > I didn't go over all tests to see how that would look, but I have a feeling
+> > that would end up being the cleanest approach.
+>
+> > Thanks,
+> > Amir.
+>
+> OK, I'll have a look whether FAN_REPORT_* will be easy to transform to checks in
+> advance.
 >
 
-No more from me, thank you.
--- 
-Regards,
-Li Wang
+Be aware.
+For FAN_REPORT_FID, FAN_REPORT_FID (fanotify_init) and
+FAN_MARK_FILESYSTEM (fanotify_mark) support can be tested without
+any other flags, but FAN_REPORT_NAME is not valid by itself.
+Instead, you can check in advance support for the flag combination
+FAN_REPORT_DFID_NAME and you may also change the TCONF
+warning accordingly.
+There is no kernel where only one of the two flags is supported.
 
---0000000000001cd1f105b4f9259f
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+> I'll also try to wrote some automatic detection for testcases which use
+> struct tcase (looping the struct and collect flags with & and pass it to some
+> function). Maybe too complicated having to declare what is required to check
+> is something which is IMHO error prone (we probably forget to update what is
+> needed to be checked when we add/remove/change test structs).
+>
 
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Wed, Nov 25, 2020 at 11:56 PM Cyril Hrubis &lt;<=
-a href=3D"mailto:chrubis@suse.cz">chrubis@suse.cz</a>&gt; wrote:<br></div><=
-blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-l=
-eft:1px solid rgb(204,204,204);padding-left:1ex">Hi!<br>
-&gt; &gt; Is anyone against pushing this initial patchset as it is?<br>
-&gt; &gt;<br>
-&gt; <br>
-&gt; Another bit of concern I have is the TEST_FAIL might cause<br>
-&gt; confusion in code reading. It looks like the test will be failed here<=
-br>
-&gt; but in finish the test report pass, maybe we&#39;d better tell people =
-the<br>
-&gt; failure is expected?<br>
-&gt; (that was just my feeling on TEST_FAIL at the first glance)<br>
-&gt; <br>
-&gt; Or rename them to:<br>
-&gt; <br>
-&gt; TEST_EXP_PASS<br>
-&gt; TEST_EXP_FAIL<br>
-&gt; TEST_EXP_FD<br>
-<br>
-Fair enough, let&#39;s rename them like this.<br>
-<br>
-Any other concerns?<br></blockquote><div><br></div><div class=3D"gmail_defa=
-ult" style=3D"font-size:small">No more from me, thank you.</div><div class=
-=3D"gmail_default" style=3D"font-size:small"></div></div>-- <br><div dir=3D=
-"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><di=
-v>Li Wang<br></div></div></div></div>
+IMHO this is overengineering.
+Your cleanup is a huge improvement and big enough as is.
+Please try to get it merged first without any further cleanups.
+There is already a fix in upstream and stable kernel ("fanotify: fix logic of
+reporting name info with watched parent") for which I have posted a test
+but waiting for your cleanups to land before re-posting.
 
---0000000000001cd1f105b4f9259f--
-
-
---===============1594103856==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Thanks,
+Amir.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============1594103856==--
-
