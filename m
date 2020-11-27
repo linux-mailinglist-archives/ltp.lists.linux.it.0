@@ -2,67 +2,66 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C2882C6699
-	for <lists+linux-ltp@lfdr.de>; Fri, 27 Nov 2020 14:20:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6D052C6725
+	for <lists+linux-ltp@lfdr.de>; Fri, 27 Nov 2020 14:47:26 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id BEE6B3C56CA
-	for <lists+linux-ltp@lfdr.de>; Fri, 27 Nov 2020 14:20:34 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 8ED803C5DD7
+	for <lists+linux-ltp@lfdr.de>; Fri, 27 Nov 2020 14:47:26 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id AFA703C4E06
- for <ltp@lists.linux.it>; Fri, 27 Nov 2020 14:20:33 +0100 (CET)
-Received: from mail-io1-xd44.google.com (mail-io1-xd44.google.com
- [IPv6:2607:f8b0:4864:20::d44])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 406293C4E17
+ for <ltp@lists.linux.it>; Fri, 27 Nov 2020 14:47:24 +0100 (CET)
+Received: from mail-il1-x141.google.com (mail-il1-x141.google.com
+ [IPv6:2607:f8b0:4864:20::141])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 5B09D1A0153A
- for <ltp@lists.linux.it>; Fri, 27 Nov 2020 14:20:33 +0100 (CET)
-Received: by mail-io1-xd44.google.com with SMTP id z5so4762437iob.11
- for <ltp@lists.linux.it>; Fri, 27 Nov 2020 05:20:33 -0800 (PST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id D10156018A5
+ for <ltp@lists.linux.it>; Fri, 27 Nov 2020 14:47:23 +0100 (CET)
+Received: by mail-il1-x141.google.com with SMTP id k8so4669741ilr.4
+ for <ltp@lists.linux.it>; Fri, 27 Nov 2020 05:47:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=0SXF9ilRfl7pP0853k68I6I7/QhyEMuwoHthH/M0/pU=;
- b=cIGjTLcVIjOJDZ7ULCCRbp8V3S9IoyYMMP7JVNdGG8leeAJd544Ba7aCiyF3gvFpxz
- xdTHjvtcObIklYjiPfHuK+3DPWPg4K+RHY+lwIIV47PssU/rhM6ifesitcfnBVqxxOun
- RmE8PX4lNpzF9SIi5q3jwfDwoDvyMrfhbJjjos3uuD2OBFDnIfXrbghjbCrZRA3i+kpW
- GCweNj1DzW0geK0TI7Yqc1ySCARBCaQSlamyo8dZHiumLJ1CN+wzzoZe+zaXYi/FNzEO
- sQnwg9zKAPaW/adcbhTamBIMxjgpS4bmXbblWjAMMXoIXZHn0TArqlOfzGSp+IED0Ir3
- sRbQ==
+ :cc; bh=Gl0myECUqK+Y5c0n8pXZ6+/kj80gd0domGxqwfr2+/k=;
+ b=IgS776/L6aFCqRnK8mfhl2uihpzxwc9Gzvp4s2YZzG8bBCCKRron3NJiqfhCf4icM+
+ q3g6Zr/2Z5ZfoP1FGkNIobTaifLBCPeCJne2vH9DjA3lWwEm2r00s+36hwS/TtnMMI2R
+ 0gLHueW8uZlcn8J7RQ16MVh8iCgrH9u5LdTYIUkz7h8GoMoCy/QCSLKdfymQmSQeD5Y5
+ QL7Ap3fAIP381HZOS/Nbog73ftIS6jvqKADtUcor32lnr5IYCPIOGLibI2tkqk7HCwPn
+ 4fTSFtE7tu0Y30bi9ien5b5K6wySK/Wt2sIC7LbzL39zEMWpuN0z7mcF5NoUJ3/y2pHJ
+ Ey8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=0SXF9ilRfl7pP0853k68I6I7/QhyEMuwoHthH/M0/pU=;
- b=ihIzo6icwWDzOE7XeXhnwakpm6pQF97HfdNVgIe+mRvODykFSYzzDDC9HuYPwdciTK
- QYbxHsWwj9uMMvf+ao2whFI7h9P43yTkkJF6ow3qUnGeAme9o0w5UNME/YqOGvSEXK9n
- KM0TVbtqDR1eHhpz1NKJLfwKglCiJWkmcLVsHmB1r/+bZSk2bNFo1GUU6gEdNavhm8g2
- 52L7vgFS+Ed5qpH6QAYZFfBR17rYT2UpxsMh1I4bdc6u+V/YuUC2dl5kA5xCPJ84oTgC
- i1YwfDMCqZao7ERmiLEqk8DYy0PbDKuZbRsvuImzIj46SE3SYRydpADo+1EWftzY655d
- zg3g==
-X-Gm-Message-State: AOAM5330PScf860np+LDm8i0hFxifw0FyvUzi6JtQ7Zd1uG3ZY+T89pT
- G2tFIxnXx25D1nneU5SY4J3z5n2DAt7yQN1LMMg=
-X-Google-Smtp-Source: ABdhPJynWzLstKBYPWuMisjc0lGKUeguBJOn/F252X8ctZMCcPTNxt2hw4ZGv1yN28fVs49T+M7WAjBsOQNZ26X6SJw=
-X-Received: by 2002:a02:ccd6:: with SMTP id k22mr7431993jaq.93.1606483232057; 
- Fri, 27 Nov 2020 05:20:32 -0800 (PST)
+ bh=Gl0myECUqK+Y5c0n8pXZ6+/kj80gd0domGxqwfr2+/k=;
+ b=sPXrN665Ht4SbUMQgrr0QEQs4jRDzOUjKKVZmIu8bIX6I7GX8KAra2YbPrWWteBC8F
+ Oo4j2x9ZSxxV/RlgKzqnuG+grJxG8QFN18lmko6+DbC3LqRczwHhKr42PcOreMhOXjqF
+ n4t578kzTr4tbBjYlIBdakePZQR+k9TZ4qMRVIBTOdMDlyY8K8nXvSQ0reuWIsn+ASyr
+ iTSIc1ihmbWno8ezzNZJ4NRIvORXBe3nfH4Klqrvk9/BBgMtSnMbKY8Igk2LQUsmoTel
+ GgvcvoSGcBj6OpEO/uNhMInS9aZFxSbsZvrcAqzDt+PuLXO+N/vNlneEfvpRvcupKazH
+ V6GQ==
+X-Gm-Message-State: AOAM532fzUaZu/Facae87AKKmzZZiOrWXn2lszl5nSqcOEA5Z8v85euW
+ 7wJHzrig3DQYton300KTYTtpkRjZjxMWaS/4f5I=
+X-Google-Smtp-Source: ABdhPJwQae/aNMgI8S41OSHYRrOMsX8o2Jm+0rdUvY4wdr0lLG/4tYIDPfrTHumHJFhG1hu7t+NEmWKeUafGcCLWQAk=
+X-Received: by 2002:a92:6403:: with SMTP id y3mr7414263ilb.72.1606484842672;
+ Fri, 27 Nov 2020 05:47:22 -0800 (PST)
 MIME-Version: 1.0
 References: <20201126214121.6836-1-pvorel@suse.cz>
- <20201126214121.6836-3-pvorel@suse.cz>
-In-Reply-To: <20201126214121.6836-3-pvorel@suse.cz>
+ <20201126214121.6836-4-pvorel@suse.cz>
+In-Reply-To: <20201126214121.6836-4-pvorel@suse.cz>
 From: Amir Goldstein <amir73il@gmail.com>
-Date: Fri, 27 Nov 2020 15:20:21 +0200
-Message-ID: <CAOQ4uxhpMvwsOKRPVegkTWxOi2MqQNABtfQ7DyZQ1Z01nE5Cng@mail.gmail.com>
+Date: Fri, 27 Nov 2020 15:47:11 +0200
+Message-ID: <CAOQ4uxh8yb+GRc2cN=MNcgBu8KZO=NPzmO9tSMkgRAvbUCXjZg@mail.gmail.com>
 To: Petr Vorel <pvorel@suse.cz>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v4 2/6] fanotify: Handle supported features checks
- in setup()
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v4 3/6] fanotify: Check for FAN_REPORT_FID support
+ on fs
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,28 +81,78 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 On Thu, Nov 26, 2020 at 11:41 PM Petr Vorel <pvorel@suse.cz> wrote:
 >
-> Create 2 helpers which are used in various tests in setup() to check for
-> FAN_ACCESS_PERM enablement (caused by disabled CONFIG_FANOTIFY_ACCESS_PERMISSIONS)
-> or FAN_OPEN_EXEC and FAN_OPEN_EXEC_PERM support in kernel.
+> This is related to kernel fix
+> a8b13aa20afb ("fanotify: enable FAN_REPORT_FID init flag")
 >
-> That helps to further code simplification in next commit.
->
-> Due this change test with FAN_OPEN_EXEC_PERM in fanotify03.c no longer
-> needs to be a first test.
->
-> Also rename variable s/support_exec_events/exec_events_unsupported/
-> for readability.
->
-> Suggested-by: Amir Goldstein <amir73il@gmail.com>
 > Signed-off-by: Petr Vorel <pvorel@suse.cz>
-> ---
 
-You may add:
+Just a minor nit below.
+you may add:
 Reviewed-by: Amir Goldstein <amir73il@gmail.com>
 
-Just one nit I wrote it in review and you must have missed it.
-There is nothing related to "exec" in the helper.
-It should be called fanotify_events_supported_by_kernel().
+As far as I am concerned, you do not need to re-post for the nits
+if Cyril is going to fix my nit on merge (or even if he doesn't)
+
+> ---
+> New in v4.
+> Maybe it'd deserve better commit message.
+>
+> There might be even more cleanup: not sure if nofid_fd in fanotify13.c
+> is required. According to the description is probably required:
+
+You're right, It is required.
+
+>
+> static void do_setup(void)
+> {
+>         require_fanotify_fan_report_fid_supported_on_fs(MOUNT_PATH);
+>
+>         nofid_fd = SAFE_FANOTIFY_INIT(FAN_CLASS_NOTIF, O_RDONLY);
+>
+>         /* Create file and directory objects for testing */
+>         create_objects();
+>
+>         /*
+>          * Create a mark on first inode without FAN_REPORT_FID, to test
+>          * uninitialized connector->fsid cache. This mark remains for all test
+>          * cases and is not expected to get any events (no writes in this test).
+>          */
+>         SAFE_FANOTIFY_MARK(nofid_fd, FAN_MARK_ADD, FAN_CLOSE_WRITE, AT_FDCWD,
+>                           FILE_PATH_ONE);
+>
+>         /* Get the filesystem fsid and file handle for each created object */
+>         get_object_stats();
+>
+>  testcases/kernel/syscalls/fanotify/fanotify.h | 31 +++++++++++++++++++
+>  .../kernel/syscalls/fanotify/fanotify01.c     |  9 +++++-
+>  .../kernel/syscalls/fanotify/fanotify13.c     |  4 ++-
+>  .../kernel/syscalls/fanotify/fanotify15.c     |  6 ++--
+>  .../kernel/syscalls/fanotify/fanotify16.c     |  6 +---
+>  5 files changed, 45 insertions(+), 11 deletions(-)
+>
+> diff --git a/testcases/kernel/syscalls/fanotify/fanotify.h b/testcases/kernel/syscalls/fanotify/fanotify.h
+> index 413034336..c690b82d3 100644
+> --- a/testcases/kernel/syscalls/fanotify/fanotify.h
+> +++ b/testcases/kernel/syscalls/fanotify/fanotify.h
+> @@ -283,4 +283,35 @@ static inline int fanotify_exec_events_supported_by_kernel(uint64_t mask)
+>         return rval;
+>  }
+>
+> +static inline int fanotify_fan_report_fid_supported_on_fs(const char *fname)
+> +{
+> +       int fd;
+> +       int rval = 0;
+> +
+> +       fd = SAFE_FANOTIFY_INIT(FAN_CLASS_NOTIF | FAN_REPORT_FID, O_RDONLY);
+> +
+> +       if (fanotify_mark(fd, FAN_MARK_ADD | FAN_MARK_FILESYSTEM,
+> +                         FAN_ACCESS | FAN_MODIFY | FAN_CLOSE | FAN_OPEN,
+> +                         AT_FDCWD, fname) < 0) {
+
+All those flags are not really needed for the test.
+This minimal arg list would have been enough:
+
+fanotify_mark(fd, FAN_MARK_ADD, FAN_ACCESS, AT_FDCWD, fname)
 
 Thanks,
 Amir.
