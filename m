@@ -1,58 +1,58 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6D052C6725
-	for <lists+linux-ltp@lfdr.de>; Fri, 27 Nov 2020 14:47:26 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3BD192C67BF
+	for <lists+linux-ltp@lfdr.de>; Fri, 27 Nov 2020 15:22:48 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 8ED803C5DD7
-	for <lists+linux-ltp@lfdr.de>; Fri, 27 Nov 2020 14:47:26 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 000663C5DDE
+	for <lists+linux-ltp@lfdr.de>; Fri, 27 Nov 2020 15:22:47 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id 406293C4E17
- for <ltp@lists.linux.it>; Fri, 27 Nov 2020 14:47:24 +0100 (CET)
-Received: from mail-il1-x141.google.com (mail-il1-x141.google.com
- [IPv6:2607:f8b0:4864:20::141])
+ by picard.linux.it (Postfix) with ESMTP id 9A7863C4E16
+ for <ltp@lists.linux.it>; Fri, 27 Nov 2020 15:22:46 +0100 (CET)
+Received: from mail-io1-xd43.google.com (mail-io1-xd43.google.com
+ [IPv6:2607:f8b0:4864:20::d43])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id D10156018A5
- for <ltp@lists.linux.it>; Fri, 27 Nov 2020 14:47:23 +0100 (CET)
-Received: by mail-il1-x141.google.com with SMTP id k8so4669741ilr.4
- for <ltp@lists.linux.it>; Fri, 27 Nov 2020 05:47:23 -0800 (PST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 29ED4601703
+ for <ltp@lists.linux.it>; Fri, 27 Nov 2020 15:22:46 +0100 (CET)
+Received: by mail-io1-xd43.google.com with SMTP id o8so4984587ioh.0
+ for <ltp@lists.linux.it>; Fri, 27 Nov 2020 06:22:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Gl0myECUqK+Y5c0n8pXZ6+/kj80gd0domGxqwfr2+/k=;
- b=IgS776/L6aFCqRnK8mfhl2uihpzxwc9Gzvp4s2YZzG8bBCCKRron3NJiqfhCf4icM+
- q3g6Zr/2Z5ZfoP1FGkNIobTaifLBCPeCJne2vH9DjA3lWwEm2r00s+36hwS/TtnMMI2R
- 0gLHueW8uZlcn8J7RQ16MVh8iCgrH9u5LdTYIUkz7h8GoMoCy/QCSLKdfymQmSQeD5Y5
- QL7Ap3fAIP381HZOS/Nbog73ftIS6jvqKADtUcor32lnr5IYCPIOGLibI2tkqk7HCwPn
- 4fTSFtE7tu0Y30bi9ien5b5K6wySK/Wt2sIC7LbzL39zEMWpuN0z7mcF5NoUJ3/y2pHJ
- Ey8A==
+ :cc; bh=YcPWjBtjo8xI3sTVI2nIXaKUP4qtin40Q48cktPCdZI=;
+ b=fAmW9ogmm1WwRIT7uDjBZrcwWslyMtBFOvSeRKR3oqp0PQgzRefSibMY8NuhjAh9rO
+ wduK3zD9jgnI/tp6RtOaW5EhiB4fy55gejR1zKG8gsEEBeLvgwha4mzVvvFjQdMdSzYM
+ HVrPajPCiqZJbuABhWxQ6uQY2dCr63IIYjKkvSPs6AEdwXU+7ZSfy4HTKafmLa0APoSf
+ zaeK0+NZxgs5Cbm2+lK76ObwKtRUOYSjYTFwFw2B8UzhEBRqp8yND9QFQ0wYFAO7uinW
+ vl3ALednWHJEJdqVtP+deXx+Ns+cy8/z2o0qwo33M486BcCqeh3nNAmXNCQB5tqiqlrn
+ fzQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=Gl0myECUqK+Y5c0n8pXZ6+/kj80gd0domGxqwfr2+/k=;
- b=sPXrN665Ht4SbUMQgrr0QEQs4jRDzOUjKKVZmIu8bIX6I7GX8KAra2YbPrWWteBC8F
- Oo4j2x9ZSxxV/RlgKzqnuG+grJxG8QFN18lmko6+DbC3LqRczwHhKr42PcOreMhOXjqF
- n4t578kzTr4tbBjYlIBdakePZQR+k9TZ4qMRVIBTOdMDlyY8K8nXvSQ0reuWIsn+ASyr
- iTSIc1ihmbWno8ezzNZJ4NRIvORXBe3nfH4Klqrvk9/BBgMtSnMbKY8Igk2LQUsmoTel
- GgvcvoSGcBj6OpEO/uNhMInS9aZFxSbsZvrcAqzDt+PuLXO+N/vNlneEfvpRvcupKazH
- V6GQ==
-X-Gm-Message-State: AOAM532fzUaZu/Facae87AKKmzZZiOrWXn2lszl5nSqcOEA5Z8v85euW
- 7wJHzrig3DQYton300KTYTtpkRjZjxMWaS/4f5I=
-X-Google-Smtp-Source: ABdhPJwQae/aNMgI8S41OSHYRrOMsX8o2Jm+0rdUvY4wdr0lLG/4tYIDPfrTHumHJFhG1hu7t+NEmWKeUafGcCLWQAk=
-X-Received: by 2002:a92:6403:: with SMTP id y3mr7414263ilb.72.1606484842672;
- Fri, 27 Nov 2020 05:47:22 -0800 (PST)
+ bh=YcPWjBtjo8xI3sTVI2nIXaKUP4qtin40Q48cktPCdZI=;
+ b=GPvqIL69gDY/XtaCHKB10RWG6QJX+oxp6rkBvQpJ++hQiUKBwRTvRVXKMG5bdYOLII
+ Hw6msi45wXDHNYFkTnEMyJLLME+iTUV+r63bQay89SXrQdGkgl2W20dXf5IK75vIZ/iL
+ XZ9fjSa9ejebc/SB+9tvdXoe9Mx1Td/LvQU2qJDeTyhBfPk7yYllUfeqkhQOUzMcarTg
+ LkRZl1AFD64pzlliqb8Dca5pk5LPBCDTiQO7YWqlPa91zToH9sjcLNw6HZ4UoIBVYl+J
+ h8mzTdA3X3LgOdYm744GjgbBz3eLR7PhApJY5NCj1qWBsBQuK6NKDPxg/bNPuPeBIXSz
+ MGfg==
+X-Gm-Message-State: AOAM530gGhv8guwn2UFRdGqgu3/W45A2CotyyH5xU45aVACv7FmVHRs8
+ Jhmx7ZobcBpWZxLJhD29bHr9VYDVw64sbWCsI4QtMDRvVgU=
+X-Google-Smtp-Source: ABdhPJxKZX2k1D2W1jg5O2Rz0INWmv8cYU4TE/oN/pD6QOTeQffOZeo/go5JPidcpyuWuPSOo0eeA6nRhE+CDvXxMqc=
+X-Received: by 2002:a5d:964a:: with SMTP id d10mr6337992ios.5.1606486964878;
+ Fri, 27 Nov 2020 06:22:44 -0800 (PST)
 MIME-Version: 1.0
 References: <20201126214121.6836-1-pvorel@suse.cz>
- <20201126214121.6836-4-pvorel@suse.cz>
-In-Reply-To: <20201126214121.6836-4-pvorel@suse.cz>
+ <20201126214121.6836-6-pvorel@suse.cz>
+In-Reply-To: <20201126214121.6836-6-pvorel@suse.cz>
 From: Amir Goldstein <amir73il@gmail.com>
-Date: Fri, 27 Nov 2020 15:47:11 +0200
-Message-ID: <CAOQ4uxh8yb+GRc2cN=MNcgBu8KZO=NPzmO9tSMkgRAvbUCXjZg@mail.gmail.com>
+Date: Fri, 27 Nov 2020 16:22:33 +0200
+Message-ID: <CAOQ4uxjKjDxUgJQFYn8QcHATziLHDpQxkn7FtExuW1DeyBC9+g@mail.gmail.com>
 To: Petr Vorel <pvorel@suse.cz>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
@@ -60,8 +60,8 @@ X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v4 3/6] fanotify: Check for FAN_REPORT_FID support
- on fs
+Subject: Re: [LTP] [PATCH v4 5/6] fanotify: Check FAN_REPORT_{FID,
+ NAME} support
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,78 +81,116 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 On Thu, Nov 26, 2020 at 11:41 PM Petr Vorel <pvorel@suse.cz> wrote:
 >
-> This is related to kernel fix
-> a8b13aa20afb ("fanotify: enable FAN_REPORT_FID init flag")
+> in safe_fanotify_init()
 >
+> That require to move the definition after flags.
+>
+> Also use tst_res_()/tst_brk_() instead of tst_res()/tst_brk() in
+> safe_fanotify_init() (synchronize with safe_fanotify_mark()).
+>
+> Make use of this simplification in fanotify15.c.
+>
+> Suggested-by: Amir Goldstein <amir73il@gmail.com>
 > Signed-off-by: Petr Vorel <pvorel@suse.cz>
-
-Just a minor nit below.
-you may add:
-Reviewed-by: Amir Goldstein <amir73il@gmail.com>
-
-As far as I am concerned, you do not need to re-post for the nits
-if Cyril is going to fix my nit on merge (or even if he doesn't)
-
 > ---
-> New in v4.
-> Maybe it'd deserve better commit message.
+> Changes v3->v4:
+> * use tst_res_() and tst_brk_() for safe_*() functions
 >
-> There might be even more cleanup: not sure if nofid_fd in fanotify13.c
-> is required. According to the description is probably required:
-
-You're right, It is required.
-
->
-> static void do_setup(void)
-> {
->         require_fanotify_fan_report_fid_supported_on_fs(MOUNT_PATH);
->
->         nofid_fd = SAFE_FANOTIFY_INIT(FAN_CLASS_NOTIF, O_RDONLY);
->
->         /* Create file and directory objects for testing */
->         create_objects();
->
->         /*
->          * Create a mark on first inode without FAN_REPORT_FID, to test
->          * uninitialized connector->fsid cache. This mark remains for all test
->          * cases and is not expected to get any events (no writes in this test).
->          */
->         SAFE_FANOTIFY_MARK(nofid_fd, FAN_MARK_ADD, FAN_CLOSE_WRITE, AT_FDCWD,
->                           FILE_PATH_ONE);
->
->         /* Get the filesystem fsid and file handle for each created object */
->         get_object_stats();
->
->  testcases/kernel/syscalls/fanotify/fanotify.h | 31 +++++++++++++++++++
->  .../kernel/syscalls/fanotify/fanotify01.c     |  9 +++++-
->  .../kernel/syscalls/fanotify/fanotify13.c     |  4 ++-
->  .../kernel/syscalls/fanotify/fanotify15.c     |  6 ++--
->  .../kernel/syscalls/fanotify/fanotify16.c     |  6 +---
->  5 files changed, 45 insertions(+), 11 deletions(-)
+>  testcases/kernel/syscalls/fanotify/fanotify.h | 64 +++++++++++--------
+>  .../kernel/syscalls/fanotify/fanotify01.c     | 13 +---
+>  .../kernel/syscalls/fanotify/fanotify13.c     | 12 +---
+>  .../kernel/syscalls/fanotify/fanotify15.c     |  9 +--
+>  4 files changed, 41 insertions(+), 57 deletions(-)
 >
 > diff --git a/testcases/kernel/syscalls/fanotify/fanotify.h b/testcases/kernel/syscalls/fanotify/fanotify.h
-> index 413034336..c690b82d3 100644
+> index 2a5280636..4b725f334 100644
 > --- a/testcases/kernel/syscalls/fanotify/fanotify.h
 > +++ b/testcases/kernel/syscalls/fanotify/fanotify.h
-> @@ -283,4 +283,35 @@ static inline int fanotify_exec_events_supported_by_kernel(uint64_t mask)
->         return rval;
->  }
+> @@ -38,32 +38,6 @@ static long fanotify_mark(int fd, unsigned int flags, uint64_t mask,
 >
-> +static inline int fanotify_fan_report_fid_supported_on_fs(const char *fname)
+>  #endif /* HAVE_SYS_FANOTIFY_H */
+>
+> -int safe_fanotify_init(const char *file, const int lineno,
+> -       unsigned int flags, unsigned int event_f_flags)
+> -{
+> -       int rval;
+> -
+> -#ifdef HAVE_SYS_FANOTIFY_H
+> -       rval = fanotify_init(flags, event_f_flags);
+> -
+> -       if (rval == -1) {
+> -               if (errno == ENOSYS) {
+> -                       tst_brk(TCONF,
+> -                               "fanotify is not configured in this kernel.");
+> -               }
+> -               tst_brk(TBROK | TERRNO,
+> -                       "%s:%d: fanotify_init() failed", file, lineno);
+> -       }
+> -#else
+> -       tst_brk(TCONF, "Header <sys/fanotify.h> is not present");
+> -#endif /* HAVE_SYS_FANOTIFY_H */
+> -
+> -       return rval;
+> -}
+> -
+> -#define SAFE_FANOTIFY_INIT(fan, mode)  \
+> -       safe_fanotify_init(__FILE__, __LINE__, (fan), (mode))
+> -
+>  #ifndef FAN_REPORT_TID
+>  #define FAN_REPORT_TID         0x00000100
+>  #endif
+> @@ -190,6 +164,44 @@ struct fanotify_event_info_fid {
+>  #define MAX_HANDLE_SZ          128
+>  #endif
+>
+> +int safe_fanotify_init(const char *file, const int lineno,
+> +       unsigned int flags, unsigned int event_f_flags)
 > +{
-> +       int fd;
-> +       int rval = 0;
+> +       int rval;
 > +
-> +       fd = SAFE_FANOTIFY_INIT(FAN_CLASS_NOTIF | FAN_REPORT_FID, O_RDONLY);
+> +#ifdef HAVE_SYS_FANOTIFY_H
+> +       rval = fanotify_init(flags, event_f_flags);
 > +
-> +       if (fanotify_mark(fd, FAN_MARK_ADD | FAN_MARK_FILESYSTEM,
-> +                         FAN_ACCESS | FAN_MODIFY | FAN_CLOSE | FAN_OPEN,
-> +                         AT_FDCWD, fname) < 0) {
+> +       if (rval == -1) {
+> +               if (errno == ENOSYS) {
+> +                       tst_brk_(file, lineno, TCONF,
+> +                                "fanotify not configured in kernel");
+> +               }
+> +
+> +               if (errno == EINVAL) {
+> +                       if (flags & FAN_REPORT_FID) {
+> +                               tst_brk_(file, lineno, TCONF,
+> +                                        "FAN_REPORT_FID not supported in kernel?");
+> +                       }
 
-All those flags are not really needed for the test.
-This minimal arg list would have been enough:
+Unless I am missing something, this would make
+fanotify_fan_report_fid_supported_on_fs()
+break on old kernel in the start of fanotify01. That was not the intention...
 
-fanotify_mark(fd, FAN_MARK_ADD, FAN_ACCESS, AT_FDCWD, fname)
+The FAN_REPORT_FID test case in fanotify01 should be skipped if either
+kernel has no support for FAN_REPORT_FID (checked on fanotify_init) or
+filesystem has no support for  FAN_REPORT_FID (checked on fanotify_mark).
+
+I guess you can leave SAFE_FANOTIFY_INIT as is and change the helper
+fanotify_fan_report_fid_supported() to return a different value for
+unsupported by kernel
+and unsupported by fs and then pass that value of
+fan_report_fid_unsupported to another
+helper to decide if test case should be skipped and print the proper
+TCONF message.
+
+> +
+> +                       if (flags & FAN_REPORT_NAME) {
+> +                               tst_brk_(file, lineno, TCONF,
+> +                                        "FAN_REPORT_NAME not supported in kernel?");
+> +                       }
+
+This check should be before the check for FAN_REPORT_FID, because
+a kernel that does not support FAN_REPORT_FID also does not support
+FAN_REPORT_NAME, but not the other way around.
+
+I think that also solves the problem you mentioned in the cover letter
+about fanotify16, but if not you can leave that problem to me.
 
 Thanks,
 Amir.
