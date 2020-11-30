@@ -2,39 +2,47 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id A83BD2C696C
-	for <lists+linux-ltp@lfdr.de>; Fri, 27 Nov 2020 17:31:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B8332C7CA5
+	for <lists+linux-ltp@lfdr.de>; Mon, 30 Nov 2020 03:06:12 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 48AA03C6A33
-	for <lists+linux-ltp@lfdr.de>; Fri, 27 Nov 2020 17:31:10 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id C2F973C63C5
+	for <lists+linux-ltp@lfdr.de>; Mon, 30 Nov 2020 03:06:11 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 647F53C5DEA
- for <ltp@lists.linux.it>; Fri, 27 Nov 2020 17:30:59 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id F3344601DAF
- for <ltp@lists.linux.it>; Fri, 27 Nov 2020 17:30:58 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 943DAAD2F
- for <ltp@lists.linux.it>; Fri, 27 Nov 2020 16:30:58 +0000 (UTC)
-From: Cyril Hrubis <chrubis@suse.cz>
-To: ltp@lists.linux.it
-Date: Fri, 27 Nov 2020 17:31:50 +0100
-Message-Id: <20201127163150.22903-3-chrubis@suse.cz>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20201127163150.22903-1-chrubis@suse.cz>
-References: <20201127163150.22903-1-chrubis@suse.cz>
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 927A93C28B0
+ for <ltp@lists.linux.it>; Mon, 30 Nov 2020 03:06:08 +0100 (CET)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTP id 6A827600879
+ for <ltp@lists.linux.it>; Mon, 30 Nov 2020 03:06:06 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.78,379,1599494400"; d="scan'208";a="101868543"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 30 Nov 2020 10:06:03 +0800
+Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
+ by cn.fujitsu.com (Postfix) with ESMTP id A20C94CE5CED
+ for <ltp@lists.linux.it>; Mon, 30 Nov 2020 10:06:02 +0800 (CST)
+Received: from localhost.localdomain (10.167.220.84) by
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Mon, 30 Nov 2020 10:06:04 +0800
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+To: <ltp@lists.linux.it>
+Date: Mon, 30 Nov 2020 10:06:06 +0800
+Message-ID: <1606701966-1596-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
 MIME-Version: 1.0
+X-Originating-IP: [10.167.220.84]
+X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
+X-yoursite-MailScanner-ID: A20C94CE5CED.AEB0A
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.4
 X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/2] lib: Add test library design document
+Subject: [LTP] [PATCH] cpuset_inherit: Use the original mem value instead of
+ N_NODES
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,153 +59,95 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Which tries to explain high level overview and design choices for the
-test library.
+Since ltp commit cf33086a1ca, we add cgroup.clone_children switch for
+cpuset.cpus and mems, we used the original memory value to set in cpuset_inherit case.
 
-Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
+After ltp commit 6872ad15a, we improve the node number calculation for N_NODES,
+so it can calculate for N_NODES obtained from the file contains only "0,8".
+
+But it doesn't think about this patch will affect mem_string value, so this
+cpuset_inherit case will fail on 4 numa nodes pc, as below:
+
+cpuset_inherit 1 TPASS: cpus: Inherited information is right!
+cpuset_inherit 3 TPASS: cpus: Inherited information is right!
+cpuset_inherit 5 TPASS: cpus: Inherited information is right!
+cpuset_inherit 7 TPASS: cpus: Inherited information is right!
+cpuset_inherit 9 TPASS: cpus: Inherited information is right!
+cpuset_inherit 11 TPASS: cpus: Inherited information is right!
+cpuset_inherit 13 TPASS: mems: Inherited information is right!
+cpuset_inherit 15 TPASS: mems: Inherited information is right!
+cpuset_inherit 17 TPASS: mems: Inherited information is right!
+cpuset_inherit 19 TPASS: mems: Inherited information is right!
+cpuset_inherit 21 TPASS: mems: Inherited information is right!
+cpuset_inherit 23 TFAIL: mems: Test result - 0-3 Expected string - "4"
+
+Fix this by using original mem value.
+
+Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
 ---
- lib/README.md | 130 ++++++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 130 insertions(+)
- create mode 100644 lib/README.md
+ testcases/kernel/controllers/cpuset/cpuset_funcs.sh        | 7 +++----
+ .../cpuset/cpuset_inherit_test/cpuset_inherit_testset.sh   | 6 ++----
+ 2 files changed, 5 insertions(+), 8 deletions(-)
 
-diff --git a/lib/README.md b/lib/README.md
-new file mode 100644
-index 000000000..6efd3cf33
---- /dev/null
-+++ b/lib/README.md
-@@ -0,0 +1,130 @@
-+# Test library design document
-+
-+## Test lifetime overview
-+
-+When a test is executed the very first thing to happen is that the we check for
-+various test pre-requisities. These are described in the tst\_test structure
-+and range from simple '.require\_root' to a more complicated kernel .config
-+boolean expressions such as:
-+"CONFIG\_X86\_INTEL\_UMIP=y | CONFIG\_X86\_UMIP=y".
-+
-+If all checks are passed the process carries on with setting up the test
-+environment as requested in the tst\_test structure. There are many different
-+setup steps that have been put into the test library again ranging from rather
-+simple creation of a unique test temporary directory to a bit more complicated
-+ones such as preparing, formatting, and mounting a block device.
-+
-+The test library also intializes shrared memory used for IPC at this step.
-+
-+Once all the prerequisities are checked and test environment has been prepared
-+we can move on executing the testcase itself. The actual test is executed in a
-+forked process, however there are a few hops before we get there.
-+
-+First of all there are test variants, which means that the test is re-executed
-+several times with a slightly different settings. This is usually used to test
-+a family of similar syscalls, where we test each of these syscalls exactly the
-+same, but without re-executing the test binary itself. Test varianst are
-+implemented as a simple global variable counter that gets increased on each
-+iteration. In a case of syscall tests we switch between which syscall to call
-+based on the global counter.
-+
-+Then there is all\_filesystems flag which is mostly the same as test variants
-+but executes the test for each filesystem supported by the system. Note that we
-+can get cartesian product between test variants and all filesystems as well.
-+
-+In a pseoudo code it could be expressed as:
-+
-+```
-+for test_variants:
-+	for all_filesystems:
-+		fork_testrun()
-+```
-+
-+Before we fork() the test process the test library sets up a timeout alarm and
-+also a heartbeat signal handlers and also sets up an alarm(2) accordingly to
-+the test timeout. When a test timeouts the test library gets SIGALRM and the
-+alarm handler mercilesly kills all forked children by sending SIGKILL to the
-+whole process group. The heartbeat handler is used by the test process to reset
-+this timer for example when the test functions runs in a loop.
-+
-+With that done we finally fork() the test process. The test process firstly
-+resets signal handlers and sets its pid to be a process group leader so that we
-+can slaughter all children if needed. The test library proceeds with suspending
-+itself in waitpid() syscall and waits for the child to finish at this point.
-+
-+The test process goes ahead and call the test setup() function if present in
-+the tst\_test structure. It's important that we execute all test callbacks
-+after we have forked the process, that way we cannot crash the test library
-+process. The setup can also cause the the test to exit prematurely by either
-+direct or indirect (SAFE\_MACROS()) call to tst\_brk().  In this case the
-+fork\_testrun() function exits, but the loops for test variants or filesystems
-+carries on.
-+
-+All that is left to be done is to actually execute the tests, what happnes now
-+depends on the -i and -I command line parameters that can request that the
-+run() or run\_all() callbacks are executed N times or for a N seconds. Again
-+the test can exit at any time by direct or indirect call to tst\_brk().
-+
-+Once the test is finished all that is left for the test process is the test
-+cleanup(). So if a there is a cleanup() callback in the tst\_test strucuture
-+it's executed. Callback runs in a special context where the tst\_brk(TBROK,
-+...) calls are converted into tst\_res(TWARN, ...) calls. This is because we
-+found out that carrying up with partially broken cleanup is usually better
-+option than exitting it in the middle.
-+
-+The test cleanup() is also called by the tst\_brk() handler in order to cleanup
-+before exitting the test process, hence it must be able to cope even with
-+partiall test setup. Usually it suffices to make sure to clean up only
-+resources that already have been set up and to do that in an inverse order that
-+we did in setup().
-+
-+Once the test process exits or leaves the run() or run\_all() function the test
-+library wakes up from the waitpid() call, and checks if the test process
-+exitted normally.
-+
-+Once the testrun is finished the test library does a cleanup() as well to clean
-+up resources set up in the test library setup(), reports test results and
-+finally exits the process.
-+
-+### Test library and fork()-ing
-+
-+Things are a bit more complicated when fork()-ing is involved, however the
-+tests results are stored in a page of a shared memory and incremented by atomic
-+operations, hence the results are stored rigth after the test reporting
-+fucntion returns from the test library and the access is, by definition,
-+race-free as well.
-+
-+On the other hand the test library, apart from sending a SIGKILL to the whole
-+process group on timeout, does not track granchildren.
-+
-+This especially means that:
-+
-+- The test exits once the main test process exits.
-+
-+- While the test results are, by the desing, propagated to the test library
-+  we may still miss a child that gets killed by a signal or exits unexpectedly.
-+
-+The test writer should, because of these, take care for mourning these proceses
-+properly, in most cases this could be simply done by calling
-+tst\_reap\_children() to collect and dissect deceased.
-+
-+Also note that tst\_brk() does exit only the current process, so if child
-+process calls tst\_brk() the counters are incremented and the process exits.
-+
-+### Test library and exec()
-+
-+The piece of mapped memory to store the results to is not preserved over
-+exec(2), hence to use the test library from a binary started by an exec() it
-+has to be remaped. In this case the process must to call tst\_reinit() before
-+calling any other library functions. In order to make this happen the program
-+environment carries LTP\_IPC\_PATH variable with a path to the backing file on
-+tmpfs. This also allows us to use the test library from a shell testcases.
-+
-+### Test library and process synchronization
-+
-+The piece of mapped memory is also used as a base for a futex-based
-+synchronization primitives called checkpoints. And as said previously the
-+memory can be mapped to any process by calling the tst\_reinit() function. As a
-+matter of a fact there is even a tst\_checkpoint binary that allows use to use
-+the checkpoints from shell code as well.
-+
+diff --git a/testcases/kernel/controllers/cpuset/cpuset_funcs.sh b/testcases/kernel/controllers/cpuset/cpuset_funcs.sh
+index f4365af2c..b469140ca 100755
+--- a/testcases/kernel/controllers/cpuset/cpuset_funcs.sh
++++ b/testcases/kernel/controllers/cpuset/cpuset_funcs.sh
+@@ -28,10 +28,11 @@
+ 
+ NR_CPUS=`tst_ncpus`
+ if [ -f "/sys/devices/system/node/has_high_memory" ]; then
+-	N_NODES="`cat /sys/devices/system/node/has_high_memory | tr ',' ' '`"
++	mem_string="`cat /sys/devices/system/node/has_high_memory`"
+ else
+-	N_NODES="`cat /sys/devices/system/node/has_normal_memory | tr ',' ' '`"
++	mem_string="`cat /sys/devices/system/node/has_normal_memory`"
+ fi
++N_NODES="`echo $mem_string | tr ',' ' '`"
+ count=0
+ for item in $N_NODES; do
+ 	delta=1
+@@ -42,8 +43,6 @@ for item in $N_NODES; do
+ done
+ N_NODES=$count
+ 
+-mem_string="$N_NODES"
+-
+ CPUSET="/dev/cpuset"
+ CPUSET_TMP="/tmp/cpuset_tmp"
+ CLONE_CHILDREN="/dev/cpuset/cgroup.clone_children"
+diff --git a/testcases/kernel/controllers/cpuset/cpuset_inherit_test/cpuset_inherit_testset.sh b/testcases/kernel/controllers/cpuset/cpuset_inherit_test/cpuset_inherit_testset.sh
+index 73eed2cb9..27ff19532 100755
+--- a/testcases/kernel/controllers/cpuset/cpuset_inherit_test/cpuset_inherit_testset.sh
++++ b/testcases/kernel/controllers/cpuset/cpuset_inherit_test/cpuset_inherit_testset.sh
+@@ -31,10 +31,8 @@ export TST_COUNT=1
+ check 1 1
+ 
+ nr_cpus=$NR_CPUS
+-nr_mems=$N_NODES
+ 
+ cpus_all="$(seq -s, 0 $((nr_cpus-1)))"
+-mems_all="$(seq -s, 0 $((nr_mems-1)))"
+ 
+ exit_status=0
+ 
+@@ -134,10 +132,10 @@ test_mems()
+ 	done <<- EOF
+ 		0	NULL					EMPTY
+ 		0	0					EMPTY
+-		0	$mems_all				EMPTY
++		0	$mem_string				EMPTY
+ 		1	NULL					EMPTY
+ 		1	0					0
+-		1	$mems_all				$mem_string
++		1	$mems_string				$mem_string
+ 	EOF
+ 	# while read mems result
+ }
 -- 
-2.26.2
+2.23.0
+
+
 
 
 -- 
