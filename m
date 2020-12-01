@@ -1,51 +1,44 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4631E2CA18A
-	for <lists+linux-ltp@lfdr.de>; Tue,  1 Dec 2020 12:38:14 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 663212CA18B
+	for <lists+linux-ltp@lfdr.de>; Tue,  1 Dec 2020 12:38:23 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 040FE3C4CFC
-	for <lists+linux-ltp@lfdr.de>; Tue,  1 Dec 2020 12:38:14 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 0DC213C4D12
+	for <lists+linux-ltp@lfdr.de>; Tue,  1 Dec 2020 12:38:23 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 2AE093C2BF1
- for <ltp@lists.linux.it>; Tue,  1 Dec 2020 12:38:12 +0100 (CET)
-Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTP id 9FEA63C4CEC
+ for <ltp@lists.linux.it>; Tue,  1 Dec 2020 12:38:14 +0100 (CET)
+Received: from szxga07-in.huawei.com (szxga07-in.huawei.com [45.249.212.35])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 469A51000663
- for <ltp@lists.linux.it>; Tue,  1 Dec 2020 12:38:11 +0100 (CET)
-Received: from [192.168.178.40] (unknown [188.192.65.157])
- by mail.jv-coder.de (Postfix) with ESMTPSA id F01649F656;
- Tue,  1 Dec 2020 11:38:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
- t=1606822688; bh=U0+AGqiMBd0ouMC9K1zVhJ3GNPwb2qzL5lL7JILGLdg=;
- h=Subject:To:From:Message-ID:Date:MIME-Version;
- b=nWE+TjvFhQc2w3sdYm1IQAOJkSmWu+5QSnyf3+YOpLPtA57d7PCqlLKqvHwG+/Nls
- 2MlWEeoKjRhQX8G+Qt9q5T2CwY0wNN6xS2cqK3ToaEx/umzdSJZybhCQ8fXkDaOV6l
- +EOaMC0iknbRSug8F2dc76CY23MZGTTm4JqAtT88=
-To: ltp@lists.linux.it, Cyril Hrubis <chrubis@suse.cz>
-References: <20201127163150.22903-3-chrubis@suse.cz>
- <0f8ede1f55d67b7ff4fd17c38f9bfc6a835b43a3.1606813521.git.jstancek@redhat.com>
-From: Joerg Vehlow <lkml@jv-coder.de>
-Message-ID: <aea07ca7-5f66-f9c2-7d54-63fd315df17b@jv-coder.de>
-Date: Tue, 1 Dec 2020 12:38:13 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.0
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 67E7D10000C1
+ for <ltp@lists.linux.it>; Tue,  1 Dec 2020 12:38:12 +0100 (CET)
+Received: from DGGEMS411-HUB.china.huawei.com (unknown [172.30.72.58])
+ by szxga07-in.huawei.com (SkyGuard) with ESMTP id 4Clg7p2whYz6v6L
+ for <ltp@lists.linux.it>; Tue,  1 Dec 2020 19:37:42 +0800 (CST)
+Received: from linux-lmwb.huawei.com (10.175.103.112) by
+ DGGEMS411-HUB.china.huawei.com (10.3.19.211) with Microsoft SMTP Server id
+ 14.3.487.0; Tue, 1 Dec 2020 19:38:00 +0800
+From: Luo Fenglin <luofenglin1@huawei.com>
+To: <ltp@lists.linux.it>
+Date: Tue, 1 Dec 2020 19:49:24 +0800
+Message-ID: <1606823366-121520-1-git-send-email-luofenglin1@huawei.com>
+X-Mailer: git-send-email 2.6.2
 MIME-Version: 1.0
-In-Reply-To: <0f8ede1f55d67b7ff4fd17c38f9bfc6a835b43a3.1606813521.git.jstancek@redhat.com>
-Content-Language: en-US
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+X-Originating-IP: [10.175.103.112]
+X-CFilter-Loop: Reflected
 X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH v2 2/2] lib: Add test library design document
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/3] sched/sched_stress: Modify sched driver param to
+ run long term testcases
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,176 +50,59 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: qiangqiang.wangqiang@huawei.com, luofenglin <luofenglin1@huawei.com>,
+ claire.chenyue@huawei.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGksCgp0aGFua3MgZm9yIGFkZGluZyBkb2N1bWVudGF0aW9uLCB0aGF0IGlzIHJlYWxseSB1c2Vm
-dWwuCgpzb21lIHR5cG9zIGFuZCBhIGZldyBjb21tZW50cwoKT24gMTIvMS8yMDIwIDEwOjA3IEFN
-LCBKYW4gU3RhbmNlayB3cm90ZToKPiBGcm9tOiBDeXJpbCBIcnViaXMgPGNocnViaXNAc3VzZS5j
-ej4KPgo+IFdoaWNoIHRyaWVzIHRvIGV4cGxhaW4gaGlnaCBsZXZlbCBvdmVydmlldyBhbmQgZGVz
-aWduIGNob2ljZXMgZm9yIHRoZQo+IHRlc3QgbGlicmFyeSAoYWxzbyBrbm93IGFzICJuZXdsaWIi
-KS4KPgo+IFNpZ25lZC1vZmYtYnk6IEN5cmlsIEhydWJpcyA8Y2hydWJpc0BzdXNlLmN6Pgo+IEFj
-a2VkLWJ5OiBKYW4gU3RhbmNlayA8anN0YW5jZWtAcmVkaGF0LmNvbT4KPiAtLS0KPiAgIGxpYi9S
-RUFETUUubWQgfCAxNTMgKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
-KysrKysrKysKPiAgIDEgZmlsZSBjaGFuZ2VkLCAxNTMgaW5zZXJ0aW9ucygrKQo+ICAgY3JlYXRl
-IG1vZGUgMTAwNjQ0IGxpYi9SRUFETUUubWQKPgo+IEFkZCBhc2NpaSBwaWN0dXJlIGFuZCBmaXgg
-c21hbGwgdHlwby4KPgo+IGRpZmYgLS1naXQgYS9saWIvUkVBRE1FLm1kIGIvbGliL1JFQURNRS5t
-ZAo+IG5ldyBmaWxlIG1vZGUgMTAwNjQ0Cj4gaW5kZXggMDAwMDAwMDAwMDAwLi4yYjgxZWM5YWVh
-MzMKPiAtLS0gL2Rldi9udWxsCj4gKysrIGIvbGliL1JFQURNRS5tZAo+IEBAIC0wLDAgKzEsMTUz
-IEBACj4gKyMgVGVzdCBsaWJyYXJ5IGRlc2lnbiBkb2N1bWVudAo+ICsKPiArIyMgSGlnaC1sZXZl
-bCBwaWN0dXJlCj4gKwo+ICsgICAgbGlicmFyeSBwcm9jZXNzCj4gKyAgICArLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLSsKPiArICAgIHwgbWFpbiAgICAgICAgICAgICAgICAgICAgICAgfAo+
-ICsgICAgfCAgdHN0X3J1bl90Y2FzZXMgICAgICAgICAgICB8Cj4gKyAgICB8ICAgZG9fc2V0dXAg
-ICAgICAgICAgICAgICAgIHwKPiArICAgIHwgICBmb3JfZWFjaF92YXJpYW50ICAgICAgICAgfAo+
-ICsgICAgfCAgICBmb3JfZWFjaF9maWxlc3lzdGVtICAgICB8ICAgdGVzdCBwcm9jZXNzCj4gKyAg
-ICB8ICAgICBmb3JrX3Rlc3RydW4gLS0tLS0tLS0tLS0tLT4rLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0rCj4gKyAgICB8ICAgICAgd2FpdHBpZCAgICAgICAgICAg
-ICAgIHwgICB8IHRlc3RydW4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8Cj4g
-KyAgICB8ICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgICB8ICBkb190ZXN0X3NldHVwICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICB8Cj4gKyAgICB8ICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIHwgICB8ICAgdHN0X3Rlc3QtPnNldHVwICAgICAgICAgICAgICAgICAgICAgICAgICB8
-Cj4gKyAgICB8ICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgICB8ICBydW5fdGVzdHMgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8Cj4gKyAgICB8ICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgIHwgICB8ICAgdHN0X3Rlc3QtPnRlc3QoaSkgb3IgdHN0X3Rlc3QtPnRlc3RfYWxs
-ICB8Cj4gKyAgICB8ICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgICB8ICBkb190ZXN0X2Ns
-ZWFudXAgICAgICAgICAgICAgICAgICAgICAgICAgICB8Cj4gKyAgICB8ICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIHwgICB8ICAgdHN0X3Rlc3QtPmNsZWFudXAgICAgICAgICAgICAgICAgICAg
-ICAgICB8Cj4gKyAgICB8ICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgICB8ICBleGl0KDAp
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8Cj4gKyAgICB8ICAgZG9fZXhpdCAg
-ICAgICAgICAgICAgICAgIHwgICArLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0rCj4gKyAgICB8ICAgIGRvX2NsZWFudXAgICAgICAgICAgICAgIHwKPiArICAgIHwg
-ICAgIGV4aXQocmV0KSAgICAgICAgICAgICAgfAo+ICsgICAgKy0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0rCj4gKwo+ICsjIyBUZXN0IGxpZmV0aW1lIG92ZXJ2aWV3Cj4gKwo+ICtXaGVuIGEg
-dGVzdCBpcyBleGVjdXRlZCB0aGUgdmVyeSBmaXJzdCB0aGluZyB0byBoYXBwZW4gaXMgdGhhdCB0
-aGUgd2UgY2hlY2sgZm9yCnRoZSB3ZQo+ICt2YXJpb3VzIHRlc3QgcHJlLXJlcXVpc2l0aWVzLiBU
-aGVzZSBhcmUgZGVzY3JpYmVkIGluIHRoZSB0c3RcX3Rlc3Qgc3RydWN0dXJlCnByZXJlcXVpc2l0
-ZXMgKGJldHRlciB3aXRob3V0IGh5cGhlbiBhbmQgdHlwbykKPiArYW5kIHJhbmdlIGZyb20gc2lt
-cGxlICcucmVxdWlyZVxfcm9vdCcgdG8gYSBtb3JlIGNvbXBsaWNhdGVkIGtlcm5lbCAuY29uZmln
-Cj4gK2Jvb2xlYW4gZXhwcmVzc2lvbnMgc3VjaCBhczoKPiArIkNPTkZJR1xfWDg2XF9JTlRFTFxf
-VU1JUD15IHwgQ09ORklHXF9YODZcX1VNSVA9eSIuCj4gKwo+ICtJZiBhbGwgY2hlY2tzIGFyZSBw
-YXNzZWQgdGhlIHByb2Nlc3MgY2FycmllcyBvbiB3aXRoIHNldHRpbmcgdXAgdGhlIHRlc3QKPiAr
-ZW52aXJvbm1lbnQgYXMgcmVxdWVzdGVkIGluIHRoZSB0c3RcX3Rlc3Qgc3RydWN0dXJlLiBUaGVy
-ZSBhcmUgbWFueSBkaWZmZXJlbnQKPiArc2V0dXAgc3RlcHMgdGhhdCBoYXZlIGJlZW4gcHV0IGlu
-dG8gdGhlIHRlc3QgbGlicmFyeSBhZ2FpbiByYW5naW5nIGZyb20gcmF0aGVyCj4gK3NpbXBsZSBj
-cmVhdGlvbiBvZiBhIHVuaXF1ZSB0ZXN0IHRlbXBvcmFyeSBkaXJlY3RvcnkgdG8gYSBiaXQgbW9y
-ZSBjb21wbGljYXRlZAo+ICtvbmVzIHN1Y2ggYXMgcHJlcGFyaW5nLCBmb3JtYXR0aW5nLCBhbmQg
-bW91bnRpbmcgYSBibG9jayBkZXZpY2UuCj4gKwo+ICtUaGUgdGVzdCBsaWJyYXJ5IGFsc28gaW50
-aWFsaXplcyBzaHJhcmVkIG1lbW9yeSB1c2VkIGZvciBJUEMgYXQgdGhpcyBzdGVwLgo+ICsKPiAr
-T25jZSBhbGwgdGhlIHByZXJlcXVpc2l0aWVzIGFyZSBjaGVja2VkIGFuZCB0ZXN0IGVudmlyb25t
-ZW50IGhhcyBiZWVuIHByZXBhcmVkCnByZXJlcXVpc2l0ZXMKPiArd2UgY2FuIG1vdmUgb24gZXhl
-Y3V0aW5nIHRoZSB0ZXN0Y2FzZSBpdHNlbGYuIFRoZSBhY3R1YWwgdGVzdCBpcyBleGVjdXRlZCBp
-biBhCj4gK2ZvcmtlZCBwcm9jZXNzLCBob3dldmVyIHRoZXJlIGFyZSBhIGZldyBob3BzIGJlZm9y
-ZSB3ZSBnZXQgdGhlcmUuCj4gKwo+ICtGaXJzdCBvZiBhbGwgdGhlcmUgYXJlIHRlc3QgdmFyaWFu
-dHMsIHdoaWNoIG1lYW5zIHRoYXQgdGhlIHRlc3QgaXMgcmUtZXhlY3V0ZWQKPiArc2V2ZXJhbCB0
-aW1lcyB3aXRoIGEgc2xpZ2h0bHkgZGlmZmVyZW50IHNldHRpbmdzLiBUaGlzIGlzIHVzdWFsbHkg
-dXNlZCB0byB0ZXN0CmEgc2V0dGluZwo+ICthIGZhbWlseSBvZiBzaW1pbGFyIHN5c2NhbGxzLCB3
-aGVyZSB3ZSB0ZXN0IGVhY2ggb2YgdGhlc2Ugc3lzY2FsbHMgZXhhY3RseSB0aGUKPiArc2FtZSwg
-YnV0IHdpdGhvdXQgcmUtZXhlY3V0aW5nIHRoZSB0ZXN0IGJpbmFyeSBpdHNlbGYuIFRlc3QgdmFy
-aWFuc3QgYXJlCnZhcmlhbnRzCj4gK2ltcGxlbWVudGVkIGFzIGEgc2ltcGxlIGdsb2JhbCB2YXJp
-YWJsZSBjb3VudGVyIHRoYXQgZ2V0cyBpbmNyZWFzZWQgb24gZWFjaAo+ICtpdGVyYXRpb24uIElu
-IGEgY2FzZSBvZiBzeXNjYWxsIHRlc3RzIHdlIHN3aXRjaCBiZXR3ZWVuIHdoaWNoIHN5c2NhbGwg
-dG8gY2FsbAo+ICtiYXNlZCBvbiB0aGUgZ2xvYmFsIGNvdW50ZXIuCj4gKwo+ICtUaGVuIHRoZXJl
-IGlzIGFsbFxfZmlsZXN5c3RlbXMgZmxhZyB3aGljaCBpcyBtb3N0bHkgdGhlIHNhbWUgYXMgdGVz
-dCB2YXJpYW50cwo+ICtidXQgZXhlY3V0ZXMgdGhlIHRlc3QgZm9yIGVhY2ggZmlsZXN5c3RlbSBz
-dXBwb3J0ZWQgYnkgdGhlIHN5c3RlbS4gTm90ZSB0aGF0IHdlCj4gK2NhbiBnZXQgY2FydGVzaWFu
-IHByb2R1Y3QgYmV0d2VlbiB0ZXN0IHZhcmlhbnRzIGFuZCBhbGwgZmlsZXN5c3RlbXMgYXMgd2Vs
-bC4KPiArCj4gK0luIGEgcHNlb3VkbyBjb2RlIGl0IGNvdWxkIGJlIGV4cHJlc3NlZCBhczoKPiAr
-Cj4gK2BgYAo+ICtmb3IgdGVzdF92YXJpYW50czoKPiArCWZvciBhbGxfZmlsZXN5c3RlbXM6Cj4g
-KwkJZm9ya190ZXN0cnVuKCkKPiArYGBgCj4gKwo+ICtCZWZvcmUgd2UgZm9yaygpIHRoZSB0ZXN0
-IHByb2Nlc3MgdGhlIHRlc3QgbGlicmFyeSBzZXRzIHVwIGEgdGltZW91dCBhbGFybSBhbmQKPiAr
-YWxzbyBhIGhlYXJ0YmVhdCBzaWduYWwgaGFuZGxlcnMgYW5kIGFsc28gc2V0cyB1cCBhbiBhbGFy
-bSgyKSBhY2NvcmRpbmdseSB0bwo+ICt0aGUgdGVzdCB0aW1lb3V0LiBXaGVuIGEgdGVzdCB0aW1l
-b3V0cyB0aGUgdGVzdCBsaWJyYXJ5IGdldHMgU0lHQUxSTSBhbmQgdGhlCiJ0aW1lcyBvdXQiLCBJ
-IGd1ZXNzIHRoZXJlIGlzIG5vIHZlcmIgdGltZW91dAo+ICthbGFybSBoYW5kbGVyIG1lcmNpbGVz
-bHkga2lsbHMgYWxsIGZvcmtlZCBjaGlsZHJlbiBieSBzZW5kaW5nIFNJR0tJTEwgdG8gdGhlCm1l
-cmNpbGVzc2x5Cj4gK3dob2xlIHByb2Nlc3MgZ3JvdXAuIFRoZSBoZWFydGJlYXQgaGFuZGxlciBp
-cyB1c2VkIGJ5IHRoZSB0ZXN0IHByb2Nlc3MgdG8gcmVzZXQKPiArdGhpcyB0aW1lciBmb3IgZXhh
-bXBsZSB3aGVuIHRoZSB0ZXN0IGZ1bmN0aW9ucyBydW5zIGluIGEgbG9vcC4KZWl0aGVyICJmdW5j
-dGlvbiBydW5zIiBvciAiZnVuY3Rpb25zIHJ1biIKPiArCj4gK1dpdGggdGhhdCBkb25lIHdlIGZp
-bmFsbHkgZm9yaygpIHRoZSB0ZXN0IHByb2Nlc3MuIFRoZSB0ZXN0IHByb2Nlc3MgZmlyc3RseQo+
-ICtyZXNldHMgc2lnbmFsIGhhbmRsZXJzIGFuZCBzZXRzIGl0cyBwaWQgdG8gYmUgYSBwcm9jZXNz
-IGdyb3VwIGxlYWRlciBzbyB0aGF0IHdlCj4gK2NhbiBzbGF1Z2h0ZXIgYWxsIGNoaWxkcmVuIGlm
-IG5lZWRlZC4gVGhlIHRlc3QgbGlicmFyeSBwcm9jZWVkcyB3aXRoIHN1c3BlbmRpbmcKPiAraXRz
-ZWxmIGluIHdhaXRwaWQoKSBzeXNjYWxsIGFuZCB3YWl0cyBmb3IgdGhlIGNoaWxkIHRvIGZpbmlz
-aCBhdCB0aGlzIHBvaW50Lgo+ICsKPiArVGhlIHRlc3QgcHJvY2VzcyBnb2VzIGFoZWFkIGFuZCBj
-YWxsIHRoZSB0ZXN0IHNldHVwKCkgZnVuY3Rpb24gaWYgcHJlc2VudCBpbgpjYWxscwo+ICt0aGUg
-dHN0XF90ZXN0IHN0cnVjdHVyZS4gSXQncyBpbXBvcnRhbnQgdGhhdCB3ZSBleGVjdXRlIGFsbCB0
-ZXN0IGNhbGxiYWNrcwo+ICthZnRlciB3ZSBoYXZlIGZvcmtlZCB0aGUgcHJvY2VzcywgdGhhdCB3
-YXkgd2UgY2Fubm90IGNyYXNoIHRoZSB0ZXN0IGxpYnJhcnkKPiArcHJvY2Vzcy4gVGhlIHNldHVw
-IGNhbiBhbHNvIGNhdXNlIHRoZSB0aGUgdGVzdCB0byBleGl0IHByZW1hdHVyZWx5IGJ5IGVpdGhl
-cgpkb3VibGUgdGhlCj4gK2RpcmVjdCBvciBpbmRpcmVjdCAoU0FGRVxfTUFDUk9TKCkpIGNhbGwg
-dG8gdHN0XF9icmsoKS4gIEluIHRoaXMgY2FzZSB0aGUKPiArZm9ya1xfdGVzdHJ1bigpIGZ1bmN0
-aW9uIGV4aXRzLCBidXQgdGhlIGxvb3BzIGZvciB0ZXN0IHZhcmlhbnRzIG9yIGZpbGVzeXN0ZW1z
-Cj4gK2NhcnJpZXMgb24uCj4gKwo+ICtBbGwgdGhhdCBpcyBsZWZ0IHRvIGJlIGRvbmUgaXMgdG8g
-YWN0dWFsbHkgZXhlY3V0ZSB0aGUgdGVzdHMsIHdoYXQgaGFwcG5lcyBub3cKPiArZGVwZW5kcyBv
-biB0aGUgLWkgYW5kIC1JIGNvbW1hbmQgbGluZSBwYXJhbWV0ZXJzIHRoYXQgY2FuIHJlcXVlc3Qg
-dGhhdCB0aGUKPiArcnVuKCkgb3IgcnVuXF9hbGwoKSBjYWxsYmFja3MgYXJlIGV4ZWN1dGVkIE4g
-dGltZXMgb3IgZm9yIGEgTiBzZWNvbmRzLiBBZ2FpbgoiZm9yIE4gc2Vjb25kcyIKPiArdGhlIHRl
-c3QgY2FuIGV4aXQgYXQgYW55IHRpbWUgYnkgZGlyZWN0IG9yIGluZGlyZWN0IGNhbGwgdG8gdHN0
-XF9icmsoKS4KPiArCj4gK09uY2UgdGhlIHRlc3QgaXMgZmluaXNoZWQgYWxsIHRoYXQgaXMgbGVm
-dCBmb3IgdGhlIHRlc3QgcHJvY2VzcyBpcyB0aGUgdGVzdAo+ICtjbGVhbnVwKCkuIFNvIGlmIGEg
-dGhlcmUgaXMgYSBjbGVhbnVwKCkgY2FsbGJhY2sgaW4gdGhlIHRzdFxfdGVzdCBzdHJ1Y3V0dXJl
-CnN0cnVjdHVyZQo+ICtpdCdzIGV4ZWN1dGVkLiBDYWxsYmFjayBydW5zIGluIGEgc3BlY2lhbCBj
-b250ZXh0IHdoZXJlIHRoZSB0c3RcX2JyayhUQlJPSywKV2hpY2ggY2FsbGJhY2tzPyBPbmx5IHRo
-ZSBjbGVhbnVwIGNhbGxiYWNrLCByaWdodD8gVGhlbiB0aGlzIHNob3VsZCBiZSAKIlRoaXMgY2Fs
-bGJhY2sgcnVucyIKPiArLi4uKSBjYWxscyBhcmUgY29udmVydGVkIGludG8gdHN0XF9yZXMoVFdB
-Uk4sIC4uLikgY2FsbHMuIFRoaXMgaXMgYmVjYXVzZSB3ZQo+ICtmb3VuZCBvdXQgdGhhdCBjYXJy
-eWluZyB1cCB3aXRoIHBhcnRpYWxseSBicm9rZW4gY2xlYW51cCBpcyB1c3VhbGx5IGJldHRlcgoi
-Y2Fycnlpbmcgb24iCj4gK29wdGlvbiB0aGFuIGV4aXR0aW5nIGl0IGluIHRoZSBtaWRkbGUuCj4g
-Kwo+ICtUaGUgdGVzdCBjbGVhbnVwKCkgaXMgYWxzbyBjYWxsZWQgYnkgdGhlIHRzdFxfYnJrKCkg
-aGFuZGxlciBpbiBvcmRlciB0byBjbGVhbnVwCj4gK2JlZm9yZSBleGl0dGluZyB0aGUgdGVzdCBw
-cm9jZXNzLCBoZW5jZSBpdCBtdXN0IGJlIGFibGUgdG8gY29wZSBldmVuIHdpdGgKPiArcGFydGlh
-bGwgdGVzdCBzZXR1cC4gVXN1YWxseSBpdCBzdWZmaWNlcyB0byBtYWtlIHN1cmUgdG8gY2xlYW4g
-dXAgb25seQpwYXJ0aWFsCj4gK3Jlc291cmNlcyB0aGF0IGFscmVhZHkgaGF2ZSBiZWVuIHNldCB1
-cCBhbmQgdG8gZG8gdGhhdCBpbiBhbiBpbnZlcnNlIG9yZGVyIHRoYXQKPiArd2UgZGlkIGluIHNl
-dHVwKCkuCj4gKwo+ICtPbmNlIHRoZSB0ZXN0IHByb2Nlc3MgZXhpdHMgb3IgbGVhdmVzIHRoZSBy
-dW4oKSBvciBydW5cX2FsbCgpIGZ1bmN0aW9uIHRoZSB0ZXN0Cj4gK2xpYnJhcnkgd2FrZXMgdXAg
-ZnJvbSB0aGUgd2FpdHBpZCgpIGNhbGwsIGFuZCBjaGVja3MgaWYgdGhlIHRlc3QgcHJvY2Vzcwo+
-ICtleGl0dGVkIG5vcm1hbGx5Lgo+ICsKPiArT25jZSB0aGUgdGVzdHJ1biBpcyBmaW5pc2hlZCB0
-aGUgdGVzdCBsaWJyYXJ5IGRvZXMgYSBjbGVhbnVwKCkgYXMgd2VsbCB0byBjbGVhbgo+ICt1cCBy
-ZXNvdXJjZXMgc2V0IHVwIGluIHRoZSB0ZXN0IGxpYnJhcnkgc2V0dXAoKSwgcmVwb3J0cyB0ZXN0
-IHJlc3VsdHMgYW5kCj4gK2ZpbmFsbHkgZXhpdHMgdGhlIHByb2Nlc3MuCj4gKwo+ICsjIyMgVGVz
-dCBsaWJyYXJ5IGFuZCBmb3JrKCktaW5nCj4gKwo+ICtUaGluZ3MgYXJlIGEgYml0IG1vcmUgY29t
-cGxpY2F0ZWQgd2hlbiBmb3JrKCktaW5nIGlzIGludm9sdmVkLCBob3dldmVyIHRoZQo+ICt0ZXN0
-cyByZXN1bHRzIGFyZSBzdG9yZWQgaW4gYSBwYWdlIG9mIGEgc2hhcmVkIG1lbW9yeSBhbmQgaW5j
-cmVtZW50ZWQgYnkgYXRvbWljCmVpdGhlciAidGVzdCdzIHJlc3VsdHMiIG9yICJ0ZXN0IHJlc3Vs
-dHMiCj4gK29wZXJhdGlvbnMsIGhlbmNlIHRoZSByZXN1bHRzIGFyZSBzdG9yZWQgcmlndGggYWZ0
-ZXIgdGhlIHRlc3QgcmVwb3J0aW5nCnJpZ2h0Cj4gK2Z1Y250aW9uIHJldHVybnMgZnJvbSB0aGUg
-dGVzdCBsaWJyYXJ5IGFuZCB0aGUgYWNjZXNzIGlzLCBieSBkZWZpbml0aW9uLApmdW5jdGlvbgo+
-ICtyYWNlLWZyZWUgYXMgd2VsbC4KPiArCj4gK09uIHRoZSBvdGhlciBoYW5kIHRoZSB0ZXN0IGxp
-YnJhcnksIGFwYXJ0IGZyb20gc2VuZGluZyBhIFNJR0tJTEwgdG8gdGhlIHdob2xlCj4gK3Byb2Nl
-c3MgZ3JvdXAgb24gdGltZW91dCwgZG9lcyBub3QgdHJhY2sgZ3JhbmNoaWxkcmVuLgpncmFuZGNo
-aWxkcmVuCj4gKwo+ICtUaGlzIGVzcGVjaWFsbHkgbWVhbnMgdGhhdDoKPiArCj4gKy0gVGhlIHRl
-c3QgZXhpdHMgb25jZSB0aGUgbWFpbiB0ZXN0IHByb2Nlc3MgZXhpdHMuCj4gKwo+ICstIFdoaWxl
-IHRoZSB0ZXN0IHJlc3VsdHMgYXJlLCBieSB0aGUgZGVzaWduLCBwcm9wYWdhdGVkIHRvIHRoZSB0
-ZXN0IGxpYnJhcnkKPiArICB3ZSBtYXkgc3RpbGwgbWlzcyBhIGNoaWxkIHRoYXQgZ2V0cyBraWxs
-ZWQgYnkgYSBzaWduYWwgb3IgZXhpdHMgdW5leHBlY3RlZGx5Lgo+ICsKPiArVGhlIHRlc3Qgd3Jp
-dGVyIHNob3VsZCwgYmVjYXVzZSBvZiB0aGVzZSwgdGFrZSBjYXJlIGZvciBtb3VybmluZyB0aGVz
-ZSBwcm9jZXNlcwoiYmVjYXVzZSBvZiB0aGlzIiBhbmQgcHJvY2Vzc2VzCgptb3VybmluZyBzb3Vu
-ZHMgc3RyYW5nZSBtYXliZSBqdXN0ICJ0YWtlIGNhcmUgb2YgdGhlc2UgcHJvY2Vzc2VzIj8KPiAr
-cHJvcGVybHksIGluIG1vc3QgY2FzZXMgdGhpcyBjb3VsZCBiZSBzaW1wbHkgZG9uZSBieSBjYWxs
-aW5nCj4gK3RzdFxfcmVhcFxfY2hpbGRyZW4oKSB0byBjb2xsZWN0IGFuZCBkaXNzZWN0IGRlY2Vh
-c2VkLgo+ICsKPiArQWxzbyBub3RlIHRoYXQgdHN0XF9icmsoKSBkb2VzIGV4aXQgb25seSB0aGUg
-Y3VycmVudCBwcm9jZXNzLCBzbyBpZiBjaGlsZAoiaWYgYSBjaGlsZCIKPiArcHJvY2VzcyBjYWxs
-cyB0c3RcX2JyaygpIHRoZSBjb3VudGVycyBhcmUgaW5jcmVtZW50ZWQgYW5kIHRoZSBwcm9jZXNz
-IGV4aXRzLgo+ICsKPiArIyMjIFRlc3QgbGlicmFyeSBhbmQgZXhlYygpCj4gKwo+ICtUaGUgcGll
-Y2Ugb2YgbWFwcGVkIG1lbW9yeSB0byBzdG9yZSB0aGUgcmVzdWx0cyB0byBpcyBub3QgcHJlc2Vy
-dmVkIG92ZXIKPiArZXhlYygyKSwgaGVuY2UgdG8gdXNlIHRoZSB0ZXN0IGxpYnJhcnkgZnJvbSBh
-IGJpbmFyeSBzdGFydGVkIGJ5IGFuIGV4ZWMoKSBpdAo+ICtoYXMgdG8gYmUgcmVtYXBlZC4gSW4g
-dGhpcyBjYXNlIHRoZSBwcm9jZXNzIG11c3QgdG8gY2FsbCB0c3RcX3JlaW5pdCgpIGJlZm9yZQo+
-ICtjYWxsaW5nIGFueSBvdGhlciBsaWJyYXJ5IGZ1bmN0aW9ucy4gSW4gb3JkZXIgdG8gbWFrZSB0
-aGlzIGhhcHBlbiB0aGUgcHJvZ3JhbQo+ICtlbnZpcm9ubWVudCBjYXJyaWVzIExUUFxfSVBDXF9Q
-QVRIIHZhcmlhYmxlIHdpdGggYSBwYXRoIHRvIHRoZSBiYWNraW5nIGZpbGUgb24KPiArdG1wZnMu
-IFRoaXMgYWxzbyBhbGxvd3MgdXMgdG8gdXNlIHRoZSB0ZXN0IGxpYnJhcnkgZnJvbSBhIHNoZWxs
-IHRlc3RjYXNlcy4KImZyb20gc2hlbGwgdGVzdGNhc2VzIgo+ICsKPiArIyMjIFRlc3QgbGlicmFy
-eSBhbmQgcHJvY2VzcyBzeW5jaHJvbml6YXRpb24KPiArCj4gK1RoZSBwaWVjZSBvZiBtYXBwZWQg
-bWVtb3J5IGlzIGFsc28gdXNlZCBhcyBhIGJhc2UgZm9yIGEgZnV0ZXgtYmFzZWQKPiArc3luY2hy
-b25pemF0aW9uIHByaW1pdGl2ZXMgY2FsbGVkIGNoZWNrcG9pbnRzLiBBbmQgYXMgc2FpZCBwcmV2
-aW91c2x5IHRoZQo+ICttZW1vcnkgY2FuIGJlIG1hcHBlZCB0byBhbnkgcHJvY2VzcyBieSBjYWxs
-aW5nIHRoZSB0c3RcX3JlaW5pdCgpIGZ1bmN0aW9uLiBBcyBhCj4gK21hdHRlciBvZiBhIGZhY3Qg
-dGhlcmUgaXMgZXZlbiBhIHRzdFxfY2hlY2twb2ludCBiaW5hcnkgdGhhdCBhbGxvd3MgdXNlIHRv
-IHVzZQoidXMgdG8gdXNlIgo+ICt0aGUgY2hlY2twb2ludHMgZnJvbSBzaGVsbCBjb2RlIGFzIHdl
-bGwuCj4gKwoKSsO2cmcKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51
-eC5pdC9saXN0aW5mby9sdHAK
+From: luofenglin <luofenglin1@huawei.com>
+
+Add sched_driver process slots param to 10, then long term testcases can run.
+Additionally, add sched_driver run time 0.05 hour, long term testcases
+run 1/5 of total time.
+
+Signed-off-by: luofenglin <luofenglin1@huawei.com>
+---
+ testcases/kernel/sched/sched_stress/sched_driver.c  | 6 +++++-
+ testcases/kernel/sched/sched_stress/sched_stress.sh | 3 ++-
+ 2 files changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/testcases/kernel/sched/sched_stress/sched_driver.c b/testcases/kernel/sched/sched_stress/sched_driver.c
+index 61573d788..1bee9d130 100644
+--- a/testcases/kernel/sched/sched_stress/sched_driver.c
++++ b/testcases/kernel/sched/sched_stress/sched_driver.c
+@@ -202,8 +202,12 @@ int main(int argc, char **argv)
+
+ 	/*
+ 	 * Start the long-term testcases running
++	 * Run time set 1/5 of total
+ 	 */
+-	start_long_term_testcases(long_term_slot_total, argv[2]);
++	char run_long_term_time[20];
++	int runlongtime = runseconds / 5;
++	sprintf(run_long_term_time, "%d", runlongtime);
++	start_long_term_testcases(long_term_slot_total, run_long_term_time);
+ 	short_term_slot_total = workslots / 2;
+ 	fflush(stdout);
+
+diff --git a/testcases/kernel/sched/sched_stress/sched_stress.sh b/testcases/kernel/sched/sched_stress/sched_stress.sh
+index 797d0601b..0205446a7 100755
+--- a/testcases/kernel/sched/sched_stress/sched_stress.sh
++++ b/testcases/kernel/sched/sched_stress/sched_stress.sh
+@@ -30,6 +30,7 @@ export KERNEL=./sched_datafile
+ touch $KERNEL
+ echo 0.000000 > sch.measure
+ export RAWDEV=`df / | grep dev | awk {'print $1'}`
+-sched_driver -s 0.9 -t 0.02 -p 2 > /tmp/tmp$$
++echo "Result file: /tmp/tmp$$"
++sched_driver -s 0.9 -t 0.05 -p 10 -d > /tmp/tmp$$
+ tail -n 5 /tmp/tmp$$
+ rm -rf /tmp/tmp$$ ./sched_datafile sch.measure
+--
+2.17.1
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
