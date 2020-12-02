@@ -1,66 +1,40 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35C842CB53C
-	for <lists+linux-ltp@lfdr.de>; Wed,  2 Dec 2020 07:47:47 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id A11072CBDA4
+	for <lists+linux-ltp@lfdr.de>; Wed,  2 Dec 2020 14:02:14 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C61AC3C2CDD
-	for <lists+linux-ltp@lfdr.de>; Wed,  2 Dec 2020 07:47:46 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 3F9C23C4CDF
+	for <lists+linux-ltp@lfdr.de>; Wed,  2 Dec 2020 14:02:14 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id 3162D3C2BD7
- for <ltp@lists.linux.it>; Wed,  2 Dec 2020 07:47:43 +0100 (CET)
-Received: from mail-io1-xd42.google.com (mail-io1-xd42.google.com
- [IPv6:2607:f8b0:4864:20::d42])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id 8A83E3C4CC3
+ for <ltp@lists.linux.it>; Wed,  2 Dec 2020 14:02:13 +0100 (CET)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id D66C3600D6D
- for <ltp@lists.linux.it>; Wed,  2 Dec 2020 07:47:42 +0100 (CET)
-Received: by mail-io1-xd42.google.com with SMTP id z5so794541iob.11
- for <ltp@lists.linux.it>; Tue, 01 Dec 2020 22:47:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=QDCAyIeTmElReOQDIYG//yZQknMGT730IjsPNxDwp7c=;
- b=GgVBvF8aUwgWynnyB8mpFTtIiGi6s2jW4Rdog51x97ZS8i9jLrVOHCrPnmpNVkp0HU
- C6c65cwiSr5TNWLZwNtB4Q2ZMK/5BpF8XP4J2qHZxaVJpCtRAv1Myo2pmIm+McLRY9MC
- Wja90rRedQP5OCp4KO35rP9tFb2jXnEnMv4p5uUKIrm9LM+G8UNy+btJVPUlLaWTReom
- RYbBbfHqNJKCpnYX1QcriWhFuCzbj+hEyiXZjFElc8waLNLPVZZZFM9NO3TR3IHDRj21
- sfqEYdqKAxbZeKKsAT5uPTehMsI5RA3puOo/bEYnv3Z+wU+H9txZG/WFUDJlxsk9Ufcs
- ahRg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=QDCAyIeTmElReOQDIYG//yZQknMGT730IjsPNxDwp7c=;
- b=RI5HILcxCMMdFkE29h8wckuKR1+1tSx91pCvfqH3zT5QbHQEIE9x3sySy/l6XK02V6
- YknQmR7DqVJV2NBYB/+b+gvHgVzpg76URRpUSQFLg9cP67WW4ICtA0/EHEjLCrZSxdMO
- s2URQ3MMGyQ+2wT4qtLxliYsH+FAPjh39igzZ8WP9scuQaQue3Ae6imndzIKEIwgc5wl
- s9RcD7q4vk/7VPsNzHzNEOJwFvCm/zjWjVBzX1L+CfgJreG6Fjay/ZAoLPHOn/occda/
- ilSZJCNGJoiLcsZbAv/u5LqpZhboJTigOykBY+u0UhCI0ffI700lxSN9KgypPrX8sKyj
- 6MWA==
-X-Gm-Message-State: AOAM531ihJn8ea8YYg4aUpbZ8JP6Q89kFjTSzduOwm7BqVIWs3ARNjj0
- jw8A4BF9zRE26nQflhQdUvRWN5TRu+sLojP1NPs=
-X-Google-Smtp-Source: ABdhPJzWF/OQKcjyPPRGR+U9x7nM6Wv5GUVJUGYYSZMf9X9Mpv6xdL3ZCdajjrAWZZi37OBkzgmhjeW4VxhmKB2uLuk=
-X-Received: by 2002:a02:a60a:: with SMTP id c10mr856737jam.123.1606891661671; 
- Tue, 01 Dec 2020 22:47:41 -0800 (PST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 5CC4E1A00F65
+ for <ltp@lists.linux.it>; Wed,  2 Dec 2020 14:02:12 +0100 (CET)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 8FF1CAB63;
+ Wed,  2 Dec 2020 13:02:11 +0000 (UTC)
+Date: Wed, 2 Dec 2020 14:03:04 +0100
+From: Cyril Hrubis <chrubis@suse.cz>
+To: gengcixi@gmail.com
+Message-ID: <20201202130304.GB849@yuki.lan>
+References: <20201126110710.436277-1-gengcixi@gmail.com>
 MIME-Version: 1.0
-References: <20201201174214.24625-1-pvorel@suse.cz>
-In-Reply-To: <20201201174214.24625-1-pvorel@suse.cz>
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Wed, 2 Dec 2020 08:47:30 +0200
-Message-ID: <CAOQ4uxhVu9YHMLj-YgosMPgvP1gNE=RpZPOWocuD0tGxGpj8GQ@mail.gmail.com>
-To: Petr Vorel <pvorel@suse.cz>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20201126110710.436277-1-gengcixi@gmail.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v5 00/10] Introduce SAFE_FANOTIFY_MARK() macro +
- cleanup
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] device-drivers/rtc: add rtc02 test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,52 +46,222 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
+Cc: Xiaopeng Bai <xiaopeng.bai@unisoc.com>, Cixi Geng <cixi.geng1@unisoc.com>,
+ ltp@lists.linux.it, orsonzhai@gmail.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Tue, Dec 1, 2020 at 7:42 PM Petr Vorel <pvorel@suse.cz> wrote:
->
-> Hi Amir,
->
-> Changes v4->v5:
-> * Fix issue with "fanotify: Add helper for FAN_REPORT_FID support on fs"
->   on fanotify01 (unwanted skipping tests). FAN_REPORT_FID is now tested
->   both for general support in kernel with fanotify_init() and support on
->   tested filesystem in fanotify_mark().
->
-> * Fix issue with FAN_MARK_FILESYSTEM (new commit "fanotify: Add helper
->   for mark support check").
->
-> * Split "[v4,2/6] fanotify: Handle supported features checks in setup()"
->   into two commits:
->   fanotify: Add helper for access permission check
->   fanotify: Add helper for event support check
->   (easier to review).
->
-> * Drop commit "[v4,5/6] fanotify: Check FAN_REPORT_{FID, NAME} support"
->   => IMHO not needed now, as there are {REQUIRE_,}FANOTIFY_FAN_REPORT_FID_ERR_MSG()
->   helpers which check for FAN_REPORT_FID. Or am I'm wrong and you need it
->   for your patchset?
+Hi!
+>  runtest/kernel_misc                         |   1 +
+>  testcases/kernel/device-drivers/rtc/rtc02.c | 119 ++++++++++++++++++++
 
-You are right.
-My patch set can and will use FANOTIFY_FAN_REPORT_FID_ERR_MSG.
+Missing .gitignore entry, please add it.
 
->   There will be needed to add also helper for FAN_REPORT_NAME/FAN_REPORT_DIR_FID
->   for fanotify10.c (for kernels > 5.1 && < 5.9), but this is now covered by check
->   in create_fanotify_groups() and I don't want to block your patchset even more.
->   And this helper should eliminate a need for check in safe_fanotify_init().
->
+> diff --git a/testcases/kernel/device-drivers/rtc/rtc02.c b/testcases/kernel/device-drivers/rtc/rtc02.c
+> new file mode 100644
+> index 000000000..cce799670
+> --- /dev/null
+> +++ b/testcases/kernel/device-drivers/rtc/rtc02.c
+> @@ -0,0 +1,119 @@
+> +/*
+> + * Test for the Real Time Clock driver.
 
-My patch set grows another test case with FAN_REPORT_NAME to fanotify09
-so it is more than fare to leave that last cleanup to me ;-)
+This test description should be more verbose, e.g. what exactly we do in
+the test and in a separate documentation comment.
 
-Looking forward for the merge of your work.
-Thanks!
+See:
 
-Amir.
+https://github.com/linux-test-project/ltp/blob/master/docparse/README.md
+
+> + * 
+     ^
+Trailing whitespace.
+
+Also there are many different minor coding style violations as well.
+Please use checkpatch.pl (which is distributed along linux kernel
+sources) to check for common mistakes before sending patches to mailing
+list.
+
+> + * SPDX-License-Identifier: GPL-2.0-or-later
+
+This should be on a first line of the souce and the line should start
+with //
+
+> + * Copyright (C) 2019, Unisoc Communications Inc.
+> + *
+> + * Author: Xiaopeng Bai <xiaopeng.bai@unisoc.com>
+> + * Author: Cixi Geng  <cixi.gegn1@unisoc.com>
+> + *
+> + */
+> +#include <sys/ioctl.h>
+> +#include <stdio.h>
+> +#include <stdlib.h>
+> +#include <fcntl.h>
+> +#include <unistd.h>
+> +#include <linux/rtc.h>
+> +#include <errno.h>
+> +#include <time.h>
+> +
+> +#include "tst_test.h"
+> +
+> +int rtc_fd = -1;
+
+Missing static.
+
+> +static char *rtc_dev = "/dev/rtc";
+> +
+> +static struct tst_option rtc_options[] = {
+> +	{"d:", &rtc_dev, "test driver device name"},
+> +	{NULL, NULL, NULL}
+> +};
+> +
+> +static void help(void)
+> +{
+> +	printf("  -d xxx --> rtc device node, default is %s\n",
+> +	rtc_dev);
+> +}
+
+This is not used at all.
+
+> +static void rtc_setup(void)
+> +{
+> +	if (access(rtc_dev, F_OK) == -1)
+> +		tst_brk(TBROK | TERRNO, "setenv() failed");
+                            ^
+			    Huh, really "setenv() failed" ?
+
+			    Also this should really be TCONF
+
+
+Also we do set the during the test so that we should restore it after
+the test as well.
+
+We do this usually by:
+
+* Reading the RTC in the setup as well as timestamping with monotonic
+  timer
+
+* Getting a second monotonic timestamp in the cleanup
+
+* Setting the RTC to the value taken in setup plus the difference in
+  the monotonic timer timestamps
+
+Have a look how it's done for the system wallclock timer in
+lib/tst_wallclock.c. It would be very similar for RTC the only
+difference is that we will read/write RTC instead of realtime timer.
+
+I guess that we can as well add tst_rtc_save() and tst_rct_restore()
+functions to the tst_wallclock.c if we are expecting to use the code
+from more than one testcase.
+
+> +}
+> +
+> +static int rtc_tm_cmp(struct rtc_time *set_tm, struct rtc_time *read_tm)
+> +{
+> +	if ((set_tm->tm_sec == read_tm->tm_sec)
+> +		&& (set_tm->tm_min == read_tm->tm_min)
+> +		&& (set_tm->tm_hour == read_tm->tm_hour)
+> +		&& (set_tm->tm_mday == read_tm->tm_mday)
+> +		&& (set_tm->tm_mon == read_tm->tm_mon)
+> +		&& (set_tm->tm_year == read_tm->tm_year)) {
+> +		return 0;
+> +	}
+> +
+> +	return -1;
+> +}
+> +
+> +static void set_rtc_test(void)
+> +{
+> +	struct rtc_time set_tm, read_tm;
+> +	int ret;
+> +
+> +	rtc_fd = SAFE_OPEN(rtc_dev, O_RDONLY);
+> +
+> +	tst_res(TINFO, "RTC SET TEST :");
+
+We do not print what we are about to test in LTP, we just print the
+results.
+
+> +	/* set rtc to 2020.10.9 13:23:30 */
+> +	set_tm.tm_sec = 30;
+> +	set_tm.tm_min = 23;
+> +	set_tm.tm_hour = 13;
+> +	set_tm.tm_mday = 9;
+> +	set_tm.tm_mon = 9;
+> +	set_tm.tm_year = 120;
+
+This can be initialized on declaration as with:
+
+	struct rtc_time set_tm = {
+		.tm_sec = 30,
+		...
+	};
+
+> +	tst_res(TINFO, "set RTC date/time is %d-%d-%d, %02d:%02d:%02d.",
+> +		 set_tm.tm_mday, set_tm.tm_mon + 1, set_tm.tm_year + 1900,
+> +		 set_tm.tm_hour, set_tm.tm_min, set_tm.tm_sec);
+
+I guess that should as well make a function to print the rtc_time
+structure sice to simplify the code since this is not the only place we
+use that.
+
+> +	ret = ioctl(rtc_fd, RTC_SET_TIME, &set_tm);
+> +	if (ret != 0) {
+> +		tst_res(TFAIL | TERRNO, "RTC_SET_TIME ioctl failed");
+> +		return;
+> +	}
+> +
+> +	tst_res(TINFO, "RTC READ TEST:");
+
+Here as well, we do not announce what we are about to test.
+
+> +	/* Read current RTC Time */
+> +	ret = ioctl(rtc_fd, RTC_RD_TIME, &read_tm);
+> +	if (ret !=0) {
+> +		tst_res(TFAIL | TERRNO, "RTC_RD_TIME ioctl failed");
+> +		return;
+> +	}
+> +	tst_res(TINFO, "read RTC date/time is %d-%d-%d, %02d:%02d:%02d.",
+> +		 read_tm.tm_mday, read_tm.tm_mon + 1, read_tm.tm_year + 1900,
+> +		 read_tm.tm_hour, read_tm.tm_min, read_tm.tm_sec);
+> +	tst_res(TPASS, "RTC READ TEST Passed");
+> +
+> +	if (rtc_tm_cmp(&set_tm, &read_tm)) {
+> +		tst_res(TFAIL | TERRNO, "RTC SET TEST Failed");
+> +		return;
+> +	}
+> +
+> +	tst_res(TPASS, "RTC SET TEST Passed");
+> +
+> +	tst_res(TINFO, "RTC Tests Done!");
+
+And we do not print info like this either.
+
+> +}
+> +
+> +static void rtc_cleanup(viod)
+> +{
+> +	if(rtc_fd > 0){
+> +		SAFE_CLOSE(rtc_fd);
+> +	}
+> +}
+> +
+> +static struct tst_test test={
+> +	.setup = rtc_setup,
+> +	.test_all = set_rtc_test,
+> +	.options = rtc_options,
+> +	.cleanup = rtc_cleanup,
+> +	.needs_root = 1,
+> +};
+> -- 
+> 2.25.1
+> 
+
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
