@@ -1,58 +1,57 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8F602CB4FD
-	for <lists+linux-ltp@lfdr.de>; Wed,  2 Dec 2020 07:27:45 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 35C842CB53C
+	for <lists+linux-ltp@lfdr.de>; Wed,  2 Dec 2020 07:47:47 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5963C3C580C
-	for <lists+linux-ltp@lfdr.de>; Wed,  2 Dec 2020 07:27:45 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id C61AC3C2CDD
+	for <lists+linux-ltp@lfdr.de>; Wed,  2 Dec 2020 07:47:46 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id E95BC3C2BD7
- for <ltp@lists.linux.it>; Wed,  2 Dec 2020 07:27:41 +0100 (CET)
-Received: from mail-il1-x141.google.com (mail-il1-x141.google.com
- [IPv6:2607:f8b0:4864:20::141])
+ by picard.linux.it (Postfix) with ESMTP id 3162D3C2BD7
+ for <ltp@lists.linux.it>; Wed,  2 Dec 2020 07:47:43 +0100 (CET)
+Received: from mail-io1-xd42.google.com (mail-io1-xd42.google.com
+ [IPv6:2607:f8b0:4864:20::d42])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 9DBF0600D75
- for <ltp@lists.linux.it>; Wed,  2 Dec 2020 07:27:41 +0100 (CET)
-Received: by mail-il1-x141.google.com with SMTP id b8so526587ila.13
- for <ltp@lists.linux.it>; Tue, 01 Dec 2020 22:27:41 -0800 (PST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id D66C3600D6D
+ for <ltp@lists.linux.it>; Wed,  2 Dec 2020 07:47:42 +0100 (CET)
+Received: by mail-io1-xd42.google.com with SMTP id z5so794541iob.11
+ for <ltp@lists.linux.it>; Tue, 01 Dec 2020 22:47:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=/ErVONd6PT+717HiTmvEKxyrmUHMR/9HRdPKIZO14+k=;
- b=ONlhOn9YnwhukegZKO4e9mRUZruud2RwNEjHoCkXPHugNHZGmegY98iOylcLAbgR2F
- 3vAppfwuwPdaSVFwPcRFOr+W/Qok9rtxW1QkfURSoX6GNgyj38ienWEASrDTfH1oy4Gk
- AItiMLFtPoEW2uWdSS+oadHZZU9pWYPaVUx/vDS549WFdJGyNn0Af7PphUW+u07qF3BR
- zzxkPVfiIisPZDZsa/hqDo6ElO9z0aAMJwOx3A6hJ26pE+0GTkClmO4Pq67kmSLysKOx
- /wZHGBylPmRLyQP6l6k/9f387ZbrQ7LkcJTE5X3IDKIGfkaqX5gRYxoaLd6UnJJMSPG7
- t0WQ==
+ :cc; bh=QDCAyIeTmElReOQDIYG//yZQknMGT730IjsPNxDwp7c=;
+ b=GgVBvF8aUwgWynnyB8mpFTtIiGi6s2jW4Rdog51x97ZS8i9jLrVOHCrPnmpNVkp0HU
+ C6c65cwiSr5TNWLZwNtB4Q2ZMK/5BpF8XP4J2qHZxaVJpCtRAv1Myo2pmIm+McLRY9MC
+ Wja90rRedQP5OCp4KO35rP9tFb2jXnEnMv4p5uUKIrm9LM+G8UNy+btJVPUlLaWTReom
+ RYbBbfHqNJKCpnYX1QcriWhFuCzbj+hEyiXZjFElc8waLNLPVZZZFM9NO3TR3IHDRj21
+ sfqEYdqKAxbZeKKsAT5uPTehMsI5RA3puOo/bEYnv3Z+wU+H9txZG/WFUDJlxsk9Ufcs
+ ahRg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=/ErVONd6PT+717HiTmvEKxyrmUHMR/9HRdPKIZO14+k=;
- b=E/5mwzolIkJRCSUcaNxXYrEh7BEUjxORbcrZQDrxlu70t4LBCC2rkACAl5OmF6XeTb
- TwfCKvOGxk+wVi1xjh6ZMDu1J7xnLJcOoTdZWzVomn/HeEOpuYducnQHbJJGRR1ukF5T
- 8R0KrPBZN5wgatyYP6KyGFHGSUrakiQr+ADoXDvZPVD4ccc5/eovxxtKiWfAIrpOQyfG
- oBI++UaUfBRF/BKNnDwhKnKytjH/OE1HnOEAhBUzfDJtVjXmXRYbdzJzrX6sZxIuCfK5
- RtTX/zR7wbPrbTz/MhR20r/19+1uEn6c0mXvNpXTYPaa1j5jk0W87f9/5cn/R65y9SNL
- C/iA==
-X-Gm-Message-State: AOAM533b6SvlBv11PtMv38Um4MYnDbvQwn59Cah0rdGQ+RQCGbUeQcDn
- y+buEbLQFz0JXx7QYUY6VA8x2nnZyF+E84El+pY=
-X-Google-Smtp-Source: ABdhPJw7fVHieDnbOlZF83jzOoumhLAxakTyluyfCsLrjLXCIPLPU4qZ14s/i3qIBYe2LYQZnsBx8Ch42pzjPM+SuOc=
-X-Received: by 2002:a92:6403:: with SMTP id y3mr1143502ilb.72.1606890460471;
- Tue, 01 Dec 2020 22:27:40 -0800 (PST)
+ bh=QDCAyIeTmElReOQDIYG//yZQknMGT730IjsPNxDwp7c=;
+ b=RI5HILcxCMMdFkE29h8wckuKR1+1tSx91pCvfqH3zT5QbHQEIE9x3sySy/l6XK02V6
+ YknQmR7DqVJV2NBYB/+b+gvHgVzpg76URRpUSQFLg9cP67WW4ICtA0/EHEjLCrZSxdMO
+ s2URQ3MMGyQ+2wT4qtLxliYsH+FAPjh39igzZ8WP9scuQaQue3Ae6imndzIKEIwgc5wl
+ s9RcD7q4vk/7VPsNzHzNEOJwFvCm/zjWjVBzX1L+CfgJreG6Fjay/ZAoLPHOn/occda/
+ ilSZJCNGJoiLcsZbAv/u5LqpZhboJTigOykBY+u0UhCI0ffI700lxSN9KgypPrX8sKyj
+ 6MWA==
+X-Gm-Message-State: AOAM531ihJn8ea8YYg4aUpbZ8JP6Q89kFjTSzduOwm7BqVIWs3ARNjj0
+ jw8A4BF9zRE26nQflhQdUvRWN5TRu+sLojP1NPs=
+X-Google-Smtp-Source: ABdhPJzWF/OQKcjyPPRGR+U9x7nM6Wv5GUVJUGYYSZMf9X9Mpv6xdL3ZCdajjrAWZZi37OBkzgmhjeW4VxhmKB2uLuk=
+X-Received: by 2002:a02:a60a:: with SMTP id c10mr856737jam.123.1606891661671; 
+ Tue, 01 Dec 2020 22:47:41 -0800 (PST)
 MIME-Version: 1.0
 References: <20201201174214.24625-1-pvorel@suse.cz>
- <20201201174214.24625-7-pvorel@suse.cz>
-In-Reply-To: <20201201174214.24625-7-pvorel@suse.cz>
+In-Reply-To: <20201201174214.24625-1-pvorel@suse.cz>
 From: Amir Goldstein <amir73il@gmail.com>
-Date: Wed, 2 Dec 2020 08:27:29 +0200
-Message-ID: <CAOQ4uxg_Kwmx1K=om9aA6Sh=+L129=YpneDW1ZLP2sL96ELNgw@mail.gmail.com>
+Date: Wed, 2 Dec 2020 08:47:30 +0200
+Message-ID: <CAOQ4uxhVu9YHMLj-YgosMPgvP1gNE=RpZPOWocuD0tGxGpj8GQ@mail.gmail.com>
 To: Petr Vorel <pvorel@suse.cz>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
@@ -60,8 +59,8 @@ X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v5 06/10] fanotify: Add helper for mark support
- check
+Subject: Re: [LTP] [PATCH v5 00/10] Introduce SAFE_FANOTIFY_MARK() macro +
+ cleanup
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,56 +80,43 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 On Tue, Dec 1, 2020 at 7:42 PM Petr Vorel <pvorel@suse.cz> wrote:
 >
-> i.e. FAN_MARK_FILESYSTEM and use it in relevant tests setup().
-> The purpose is to reduce checks (cleanup).
+> Hi Amir,
 >
-> NOTE: all tests check only for FAN_MARK_FILESYSTEM, but keep helper
-> generic for future use.
+> Changes v4->v5:
+> * Fix issue with "fanotify: Add helper for FAN_REPORT_FID support on fs"
+>   on fanotify01 (unwanted skipping tests). FAN_REPORT_FID is now tested
+>   both for general support in kernel with fanotify_init() and support on
+>   tested filesystem in fanotify_mark().
 >
-> Suggested-by: Amir Goldstein <amir73il@gmail.com>
-> Signed-off-by: Petr Vorel <pvorel@suse.cz>
-> ---
-> New in v5.
+> * Fix issue with FAN_MARK_FILESYSTEM (new commit "fanotify: Add helper
+>   for mark support check").
 >
->  testcases/kernel/syscalls/fanotify/fanotify.h | 21 ++++++++++++++++
->  .../kernel/syscalls/fanotify/fanotify01.c     | 12 +++++----
->  .../kernel/syscalls/fanotify/fanotify03.c     | 25 +++++++++----------
->  .../kernel/syscalls/fanotify/fanotify10.c     | 14 +++++------
->  .../kernel/syscalls/fanotify/fanotify13.c     | 15 +++++------
->  5 files changed, 55 insertions(+), 32 deletions(-)
+> * Split "[v4,2/6] fanotify: Handle supported features checks in setup()"
+>   into two commits:
+>   fanotify: Add helper for access permission check
+>   fanotify: Add helper for event support check
+>   (easier to review).
 >
-> diff --git a/testcases/kernel/syscalls/fanotify/fanotify.h b/testcases/kernel/syscalls/fanotify/fanotify.h
-> index 821e6cb29..2275a1da3 100644
-> --- a/testcases/kernel/syscalls/fanotify/fanotify.h
-> +++ b/testcases/kernel/syscalls/fanotify/fanotify.h
-> @@ -351,4 +351,25 @@ static inline void require_fanotify_fan_report_fid_supported_on_fs(const char *f
->  #define REQUIRE_FANOTIFY_FAN_REPORT_FID_SUPPORTED_ON_FS(fname) \
->         require_fanotify_fan_report_fid_supported_on_fs(__FILE__, __LINE__, (fname))
->
-> +static inline int fanotify_mark_supported_by_kernel(uint64_t flag)
-> +{
-> +       int fd;
-> +       int rval = 0;
-> +
-> +       fd = SAFE_FANOTIFY_INIT(FAN_CLASS_CONTENT, O_RDONLY);
-> +
-> +       if (fanotify_mark(fd, FAN_MARK_ADD | flag, FAN_ACCESS_PERM, AT_FDCWD, ".") < 0) {
-> +               if (errno == EINVAL) {
-> +                       rval = -1;
-> +               } else {
-> +                       tst_brk(TBROK | TERRNO,
-> +                               "fanotify_mark (%d, FAN_MARK_ADD, ..., FAN_ACCESS_PERM, AT_FDCWD, \".\") failed", fd);
-> +               }
+> * Drop commit "[v4,5/6] fanotify: Check FAN_REPORT_{FID, NAME} support"
+>   => IMHO not needed now, as there are {REQUIRE_,}FANOTIFY_FAN_REPORT_FID_ERR_MSG()
+>   helpers which check for FAN_REPORT_FID. Or am I'm wrong and you need it
+>   for your patchset?
 
-You meant FAN_ACCESS.
+You are right.
+My patch set can and will use FANOTIFY_FAN_REPORT_FID_ERR_MSG.
 
-FAN_ACCESS_PERM requires CONFIG_FANOTIFY_ACCESS_PERMISSIONS which is not
-a requirement for most of the affected tests.
+>   There will be needed to add also helper for FAN_REPORT_NAME/FAN_REPORT_DIR_FID
+>   for fanotify10.c (for kernels > 5.1 && < 5.9), but this is now covered by check
+>   in create_fanotify_groups() and I don't want to block your patchset even more.
+>   And this helper should eliminate a need for check in safe_fanotify_init().
+>
 
-Patch set is super! it's the only issue I found, so I don't think you
-need to re-post for that.
+My patch set grows another test case with FAN_REPORT_NAME to fanotify09
+so it is more than fare to leave that last cleanup to me ;-)
 
-Thanks,
+Looking forward for the merge of your work.
+Thanks!
+
 Amir.
 
 -- 
