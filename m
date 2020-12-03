@@ -2,43 +2,38 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8529D2CD93E
-	for <lists+linux-ltp@lfdr.de>; Thu,  3 Dec 2020 15:34:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8198A2CD988
+	for <lists+linux-ltp@lfdr.de>; Thu,  3 Dec 2020 15:47:45 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4D3903C4C32
-	for <lists+linux-ltp@lfdr.de>; Thu,  3 Dec 2020 15:34:20 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id DA7883C4C90
+	for <lists+linux-ltp@lfdr.de>; Thu,  3 Dec 2020 15:47:44 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 64E973C2B70
- for <ltp@lists.linux.it>; Thu,  3 Dec 2020 15:34:19 +0100 (CET)
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id 4740A3C2B95
+ for <ltp@lists.linux.it>; Thu,  3 Dec 2020 15:47:43 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 16A121000F2B
- for <ltp@lists.linux.it>; Thu,  3 Dec 2020 15:34:18 +0100 (CET)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 8CEA81A01495
+ for <ltp@lists.linux.it>; Thu,  3 Dec 2020 15:47:42 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 56D3BAC65
- for <ltp@lists.linux.it>; Thu,  3 Dec 2020 14:34:18 +0000 (UTC)
-To: Cyril Hrubis <chrubis@suse.cz>
-References: <20201113131428.13199-1-chrubis@suse.cz>
- <20201113131428.13199-2-chrubis@suse.cz>
- <0c6f7b59-c1ec-5ff9-d261-7b4772ed9b1a@suse.cz>
- <20201203123041.GB5809@yuki.lan>
-From: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <400e683b-97a6-bab6-702c-365937c406e8@suse.cz>
-Date: Thu, 3 Dec 2020 15:34:17 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.3
+ by mx2.suse.de (Postfix) with ESMTP id 8C438ADA2;
+ Thu,  3 Dec 2020 14:47:24 +0000 (UTC)
+Date: Thu, 3 Dec 2020 15:48:18 +0100
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Joerg Vehlow <lkml@jv-coder.de>
+Message-ID: <20201203144818.GD5809@yuki.lan>
+References: <20201118102022.898238-1-lkml@jv-coder.de>
 MIME-Version: 1.0
-In-Reply-To: <20201203123041.GB5809@yuki.lan>
-Content-Language: en-US
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20201118102022.898238-1-lkml@jv-coder.de>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 01/10] lib: Introduce more TEST_* macros
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] overcommit_memory: Fix unstable subtest
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,44 +45,176 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 03. 12. 20 13:30, Cyril Hrubis wrote:
-> Hi!
->> I'd recommend adding TEST_*_IMPL() variant with extra arguments that'll
->> allow special handling of ENOSYS, ENOTSUP and possibly also a
->> zero-terminated array of allowed errnos. TEST_FD() etc. would then call
->> the respective IMPL macro with default arguments:
->>
->> #define TEST_FD_IMPL(SCALL, NOSYS_RES, NOTSUP_RES, ERRNO_LIST, ...) \
->>     ...
->>
->> #define TEST_FD(SCALL, ...) \
->>     TEST_FD_IMPL((SCALL), TFAIL, TFAIL, NULL, ##__VA_ARGS__)
+Hi!
+> The test sets overcommit policy to never overcommit and then tries
+> to allocate the commit limit reported by /proc/meminfo. This value is an exact
+> value (at least at that point in time) of memory, that can be allocated
+> according to the policy and ratio settings. This should fail, since there
+> is already some memory allocated for running the test programm, but due to
+> inaccurate memory accounting in mm/util.c __vm_enough_memory(), the allocation
+> can still succeed.
 > 
-> I do plan adding something like this later on once I run out of the
-> simple cases to convert, then I would like to review what is left there
-> and how to make best interface for the rest of the testcases.
+> The commited memory is stored in a percpu counter, that counts in 1 + ncpu
+> variables. For small allocations and deallocations, the memory is counted
+> in a counter per cpu, without locking. If this counter reaches a threshold,
+> the value is committed to a global counter. Due to this the global counter
+> can become negative. This global counter is the only thing taken into
+> account in __vm_enough_memory, propably for performance reasons, because
+> otherwise a lock is required.
 > 
-> So for now I would like to proceed with the patchset as it is in order
-> not to make it overly complicated.
+> Because of the inaccuracy the system can overcommit a bit by number of cpus
+> times threshold value. By adding this value to the exact commit limit
+> reported by /proc/meminfo, we can be sure, that we really always hit the
+> memory limit.
+> 
+> Signed-off-by: Joerg Vehlow <joerg.vehlow@aox-tech.de>
+> ---
+>  .../kernel/mem/tunable/overcommit_memory.c    | 56 +++++++++++++------
+>  1 file changed, 39 insertions(+), 17 deletions(-)
+> 
+> diff --git a/testcases/kernel/mem/tunable/overcommit_memory.c b/testcases/kernel/mem/tunable/overcommit_memory.c
+> index f77939908..8f05a3f70 100644
+> --- a/testcases/kernel/mem/tunable/overcommit_memory.c
+> +++ b/testcases/kernel/mem/tunable/overcommit_memory.c
+> @@ -1,18 +1,7 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+>  /*
+> - * Copyright (c) Linux Test Project, 2012-2020
+> - * Copyright (C) 2012-2017  Red Hat, Inc.
+> - *
+> - * This program is free software;  you can redistribute it and/or modify
+> - * it under the terms of the GNU General Public License as published by
+> - * the Free Software Foundation; either version 2 of the License, or
+> - * (at your option) any later version.
+> - *
+> - * This program is distributed in the hope that it will be useful,
+> - * but WITHOUT ANY WARRANTY;  without even the implied warranty of
+> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
+> - * the GNU General Public License for more details.
+> - *
+> - * Descriptions:
+> + * Copyright (c) 2012-2020 Linux Test Project
+> + * Copyright (c) 2012-2017 Red Hat, Inc.
+>   *
+>   * There are two tunables overcommit_memory and overcommit_ratio under
+>   * /proc/sys/vm/, which can control memory overcommitment.
+> @@ -53,12 +42,16 @@
+>   * the system is limited to CommitLimit(Swap+RAM*overcommit_ratio)
+>   * commit_left(allocatable memory) = CommitLimit - Committed_AS
+>   * a. less than commit_left:    commit_left / 2, alloc should pass
+> - * b. greater than commit_left: commit_left * 2, alloc should fail
+> - * c. overcommit limit:         CommitLimit,     alloc should fail
+> + * b. overcommit limit:         CommitLimit + TotalBatchSize, should fail
+> + * c. greater than commit_left: commit_left * 2, alloc should fail
+>   * *note: CommitLimit is the current overcommit limit.
+>   *        Committed_AS is the amount of memory that system has used.
+>   * it couldn't choose 'equal to commit_left' as a case, because
+>   * commit_left rely on Committed_AS, but the Committed_AS is not stable.
+> + * *note2: TotalBatchSize is the total number of bytes, that can be
+> + *         accounted for in the per cpu counters for the vm_committed_as
+> + *         counter. Since the check used by malloc only looks at the
+> + *         global counter of vm_committed_as, it can overallocate a bit.
+>   *
+>   * References:
+>   * - Documentation/sysctl/vm.txt
+> @@ -94,6 +87,7 @@ static int heavy_malloc(long size);
+>  static void alloc_and_check(long size, int expect_result);
+>  static void update_mem(void);
+>  static void update_mem_commit(void);
+> +static long get_total_batch_size_bytes(void);
+>  
+>  static void setup(void)
+>  {
+> @@ -154,7 +148,8 @@ static void overcommit_memory_test(void)
+>  
+>  	update_mem_commit();
+>  	alloc_and_check(commit_left * 2, EXPECT_FAIL);
+> -	alloc_and_check(commit_limit, EXPECT_FAIL);
+> +	alloc_and_check(commit_limit
+> +					+ get_total_batch_size_bytes(), EXPECT_FAIL);
 
-Great, looking forward to the follow-up patchset. I haven't reviewed
-everything so I won't add any signoff but consider my comments resolved.
-Feel free to push the patchset when you have enough reviews from others.
+Can we please call the get_total_back_size_bytes() in the test setup and
+store the value. The overcommit_memory_test() function can be looped
+over and there is no need to recompute it on each iteration.
+
+>  	update_mem_commit();
+>  	alloc_and_check(commit_left / 2, EXPECT_PASS);
+>  
+> @@ -232,6 +227,8 @@ static void update_mem_commit(void)
+>  	committed = SAFE_READ_MEMINFO("Committed_AS:");
+>  	commit_left = commit_limit - committed;
+>  
+> +	get_total_batch_size_bytes();
+
+Why do we call the function here? We do not store the value and, as far
+as I can tell, there are no side efect either.
+
+>  	if (commit_left < 0) {
+>  		tst_res(TINFO, "CommitLimit is %ld, Committed_AS is %ld",
+>  			commit_limit, committed);
+> @@ -247,6 +244,31 @@ static void update_mem_commit(void)
+>  	}
+>  }
+>  
+> +static long get_total_batch_size_bytes(void)
+> +{
+> +	struct sysinfo info;
+> +	long ncpus = tst_ncpus_conf();
+> +	long pagesize = getpagesize();
+> +	SAFE_SYSINFO(&info);
+> +
+> +	/* see linux source mm/mm_init.c mm_compute_batch() (This is in pages) */
+> +	long batch_size = MAX(
+> +			ncpus * 2,
+> +			MAX(
+> +				32,
+> +				MIN(
+> +					INT32_MAX,
+> +					(long)(info.totalram / pagesize) / ncpus / 256
+> +				)
+> +			)
+> +		);
+
+Why don't we put the first arguemnt on the same line as the MAX( or MIN(
+here? That would be much more compact but still nicely readable.
+
+	MAX(ncpus * 2,
+	    MAX(32,
+	        MIN(INT32_MAX,
+		    ...
+		)
+	    )
+	);
+
+> +	/* there are ncpu separate counters, that can all grow up to
+> +	 * batch_size. So the maximum error for __vm_enough_memory is
+> +	 * batch_size * ncpus. */
+> +	return batch_size * ncpus * pagesize;
+
+I do wonder, are the counters flushed if task is migrated between CPUs?
+If so we wouldn't need the multiplication by bcpus.
+
+> +}
+> +
+>  static struct tst_test test = {
+>  	.needs_root = 1,
+>  	.options = options,
+> -- 
+> 2.25.1
+> 
+> 
+> -- 
+> Mailing list info: https://lists.linux.it/listinfo/ltp
 
 -- 
-Martin Doucha   mdoucha@suse.cz
-QA Engineer for Software Maintenance
-SUSE LINUX, s.r.o.
-CORSO IIa
-Krizikova 148/34
-186 00 Prague 8
-Czech Republic
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
