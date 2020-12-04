@@ -2,75 +2,46 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id B83732CE66C
-	for <lists+linux-ltp@lfdr.de>; Fri,  4 Dec 2020 04:21:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F031C2CE784
+	for <lists+linux-ltp@lfdr.de>; Fri,  4 Dec 2020 06:26:25 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 70CE23C58FD
-	for <lists+linux-ltp@lfdr.de>; Fri,  4 Dec 2020 04:21:46 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 14DCB3C2B6F
+	for <lists+linux-ltp@lfdr.de>; Fri,  4 Dec 2020 06:26:22 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id 793AB3C4CAD
- for <ltp@lists.linux.it>; Fri,  4 Dec 2020 04:21:41 +0100 (CET)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id 1559B60055D
- for <ltp@lists.linux.it>; Fri,  4 Dec 2020 04:21:40 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1607052099;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=1MI2Q+CkjHlzAYLXYjN7G4XsCZTOa0ifi6ttQWH7B8E=;
- b=caVee8HOEVFAohJs/kIRon13u+QVjt9T5OKU0PWgryqQko06/PXBZKPWULi0lqyVzlPThN
- gEx4ug0rb51weCdooZmH8BYALBkEceR4sFj22zSxkmRTtxQat3q5ExyAjgfRz7Vu8U4/Si
- RKVj5euMn/P6DknPwcqlmCuSgsoTn0s=
-Received: from mail-yb1-f199.google.com (mail-yb1-f199.google.com
- [209.85.219.199]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-223-fgOdKuemO8Wpr-HpV9vfjg-1; Thu, 03 Dec 2020 22:21:37 -0500
-X-MC-Unique: fgOdKuemO8Wpr-HpV9vfjg-1
-Received: by mail-yb1-f199.google.com with SMTP id v13so5140064ybe.18
- for <ltp@lists.linux.it>; Thu, 03 Dec 2020 19:21:37 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=1MI2Q+CkjHlzAYLXYjN7G4XsCZTOa0ifi6ttQWH7B8E=;
- b=T7wdaCrBXMpQpv7muIsD3jderw4M53uiOWWDiQDDBk69PSBzUYodI/l9SzJIU+0Tvg
- wO1PrVW5PD97lE3KVTEUtjlGbDVvvAUOyIpKLWwvvdznF3l4voAZdKjJoKWM4UkLHpCk
- aY9W9sp3bAbKuJowaH+sIvWOyBRyBEhWAhrRqz8zowxmz1Hm6oxMxQOS4/aHT9iF2dhW
- OjkWYn+0dyrqsuv0GNHQW7a6wp7qT/T2L/fCaLcLRaOMY5CJISoHP3GTxCiq2IRWXXw7
- AgbF4PFK7X6ITFjr988mY6n6JYxQOYA/kJ2pXFAqtG2RyqvXE8S/AS5qg3vpYn+RuU2U
- ykXA==
-X-Gm-Message-State: AOAM5302f/bCDI974HsdrJOBn2pbbgEUKcDrSTcelAe37xHhYrRO9H6M
- s/xS9yiz7ld5dexahiCV4a5+4A10e5EcBT4pxxTg3EcJCSdegKxa9W3SSS45ewcbXbV8hNDa+uB
- GpkzSDnGKn8fIsSQwKONShPdWxM8=
-X-Received: by 2002:a05:6902:50e:: with SMTP id
- x14mr3317759ybs.252.1607052096507; 
- Thu, 03 Dec 2020 19:21:36 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJwpMwjGHDp+PRWVr4A5UguaxDdH9d45uKVUzXAxw4hySDQ2O2RInsAQYhTrMWJzdwSKzE8nms6coKLiqNDBApU=
-X-Received: by 2002:a05:6902:50e:: with SMTP id
- x14mr3317744ybs.252.1607052096311; 
- Thu, 03 Dec 2020 19:21:36 -0800 (PST)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 4AB473C2402
+ for <ltp@lists.linux.it>; Fri,  4 Dec 2020 06:25:48 +0100 (CET)
+Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 8E4B6200056
+ for <ltp@lists.linux.it>; Fri,  4 Dec 2020 06:25:43 +0100 (CET)
+Received: from ubuntu.localdomain (unknown [188.192.65.157])
+ by mail.jv-coder.de (Postfix) with ESMTPSA id 7C2AA9F6B9;
+ Fri,  4 Dec 2020 05:25:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
+ t=1607059541; bh=avZZDk3sa2Td/Z7CnylB11Wwh1h09ewjsTY5x7QF+zM=;
+ h=From:To:Subject:Date:Message-Id:MIME-Version;
+ b=JegXaVT/Nje4+62djNRf8conGGC2/ciIG/vuIcR/PxObfiV3IIaa8YDpBmtPVKMi3
+ a68scFUQE6pOs53Pqt2wKHvewxxPHlQ9SMAeKO7ek4rxiYRp+99iSahpIiBnJtCS1I
+ o+6+psarKF7CTjMZZjUlfBxd+mVcteCyPRYSKdmE=
+From: Joerg Vehlow <lkml@jv-coder.de>
+To: ltp@lists.linux.it,
+	chrubis@suse.cz
+Date: Fri,  4 Dec 2020 06:25:32 +0100
+Message-Id: <20201204052532.409635-1-lkml@jv-coder.de>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20201203152804.846-1-chrubis@suse.cz>
- <20201203152804.846-2-chrubis@suse.cz>
-In-Reply-To: <20201203152804.846-2-chrubis@suse.cz>
-From: Li Wang <liwang@redhat.com>
-Date: Fri, 4 Dec 2020 11:21:24 +0800
-Message-ID: <CAEemH2dY2ZJhJ6iqA7mUDSyPO5t+i06rC4iZ6HJhs33DxXM74Q@mail.gmail.com>
-To: Cyril Hrubis <chrubis@suse.cz>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
-X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/2] libnewipc: Add get_ipc_timestamp()
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Status: Clean
+Subject: [LTP] [PATCH] realtime: Remove robust_api check
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,150 +53,111 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============2106686219=="
+Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============2106686219==
-Content-Type: multipart/alternative; boundary="0000000000005630d905b59af9bc"
+From: Joerg Vehlow <joerg.vehlow@aox-tech.de>
 
---0000000000005630d905b59af9bc
-Content-Type: text/plain; charset="UTF-8"
+pthread_mutexattr_*robust is implemented in glibc for the last 10 years.
+It is not required anymore to check if it is available.
+Additonally the implementation is broken, because the macro
+HAS_PTHREAD_MUTEXTATTR_ROBUST_APIS was not set.
 
-Hi Cyril,
+Signed-off-by: Joerg Vehlow <joerg.vehlow@aox-tech.de>
+---
+ testcases/realtime/configure.ac               |  1 -
+ testcases/realtime/func/pi-tests/sbrk_mutex.c | 11 -----------
+ testcases/realtime/func/pi-tests/testpi-6.c   |  8 --------
+ testcases/realtime/m4/check.m4                | 10 ----------
+ 4 files changed, 30 deletions(-)
 
-On Thu, Dec 3, 2020 at 11:27 PM Cyril Hrubis <chrubis@suse.cz> wrote:
-
-> That returns timestamps that should return values comparable to the
-> stime/rtime/ctime.
->
-> From Thomas Gleixner:
->
-> > Due to the internal implementation of ktime_get_real_seconds(), which is
-> > a 2038 safe replacement for the former get_seconds() function, this
-> > accumulation issue can be observed. (time(2) via syscall and newer
-> > versions of VDSO use the same mechanism).
-> >
-> >      clock_gettime(CLOCK_REALTIME, &ts);
-> >      sec = time();
-> >      assert(sec >= ts.tv_sec);
-> >
-> > That assert can trigger for two reasons:
-> >
-> >  1) Clock was set between the clock_gettime() and time().
-> >
-> >  2) The clock has advanced far enough that:
-> >
-> >     timekeeper.tv_nsec + (clock_now_ns() - last_update_ns) > NSEC_PER_SEC
-> > The same problem exists for CLOCK_XXX vs. CLOCK_XXX_COARSE
-> >
-> >      clock_gettime(CLOCK_XXX, &ts);
-> >      clock_gettime(CLOCK_XXX_COARSE, &tc);
-> >      assert(tc.tv_sec >= ts.tv_sec);
-> >
-> > The _COARSE variants return their associated timekeeper.tv_sec,tv_nsec
-> > pair without reading the clock. Same as #2 above just extended to clock
-> > MONOTONIC.
->
-> Which means the timestamps in the structure we get from msg* calls can
-> be 1 second smaller that timestamps returned from realtime timers.
->
-> However it also means that the _COARSE timers should be the same as the
-> SysV timestamps and could be used for these tests instead. Also these
-> timers should be available since 2.6.32 which is old enough to assume
-> that they are present.
->
-
-Sounds reasonable. From Thomas's analysis, it seems the *_COARSE
-can work for us, so I'm OK to go with this way to fix.
-
-For series:
-Acked-by: Li Wang <liwang@redhat.com>
-
+diff --git a/testcases/realtime/configure.ac b/testcases/realtime/configure.ac
+index 46a616bfc..e483caf0d 100644
+--- a/testcases/realtime/configure.ac
++++ b/testcases/realtime/configure.ac
+@@ -36,7 +36,6 @@ else
+ fi
+ 
+ REALTIME_CHECK_PRIO_INHERIT
+-REALTIME_CHECK_ROBUST_APIS
+ 
+ LTP_CHECK_EXP10
+ 
+diff --git a/testcases/realtime/func/pi-tests/sbrk_mutex.c b/testcases/realtime/func/pi-tests/sbrk_mutex.c
+index c0431d7da..7ed7969d9 100644
+--- a/testcases/realtime/func/pi-tests/sbrk_mutex.c
++++ b/testcases/realtime/func/pi-tests/sbrk_mutex.c
+@@ -45,8 +45,6 @@
+ #include <unistd.h>
+ #include "librttest.h"
+ 
+-#if HAS_PTHREAD_MUTEXTATTR_ROBUST_APIS
+-
+ #define NUM_MUTEXES 5000
+ #define NUM_THREADS 50
+ #define NUM_CONCURRENT_LOCKS 50
+@@ -150,12 +148,3 @@ int main(int argc, char *argv[])
+ 
+ 	return 0;
+ }
+-
+-#else
+-int main(void)
+-{
+-	printf
+-	    ("Your system doesn't support the pthread robust mutexattr APIs\n");
+-	return 1;
+-}
+-#endif
+diff --git a/testcases/realtime/func/pi-tests/testpi-6.c b/testcases/realtime/func/pi-tests/testpi-6.c
+index 96321f622..637d38355 100644
+--- a/testcases/realtime/func/pi-tests/testpi-6.c
++++ b/testcases/realtime/func/pi-tests/testpi-6.c
+@@ -41,7 +41,6 @@
+ #include <unistd.h>
+ #include <librttest.h>
+ 
+-#if HAS_PTHREAD_MUTEXTATTR_ROBUST_APIS
+ pthread_mutex_t child_mutex;
+ 
+ void *child_thread(void *arg)
+@@ -92,12 +91,5 @@ int do_test(int argc, char **argv)
+ 
+ 	return 0;
+ }
+-#else
+-int do_test(int argc, char **argv)
+-{
+-	printf("Your system doesn't have robust pthread mutex support\n");
+-	return 1;
+-}
+-#endif
+ 
+ #include "test-skeleton.c"
+diff --git a/testcases/realtime/m4/check.m4 b/testcases/realtime/m4/check.m4
+index 5aa53bd42..e60ae1928 100644
+--- a/testcases/realtime/m4/check.m4
++++ b/testcases/realtime/m4/check.m4
+@@ -12,13 +12,3 @@ else
+ 	AC_MSG_RESULT(no)
+ fi
+ ])
+-
+-AC_DEFUN([REALTIME_CHECK_ROBUST_APIS],[
+-	AC_CHECK_DECLS([pthread_mutexattr_getrobust, pthread_mutexattr_setrobust],[],[has_robust="no"],[[#include <pthread.h>]])
+-	AC_MSG_CHECKING([for pthread_mutexattr_*robust* APIs])
+-if test "x$has_robust" != "xno"; then
+-	AC_MSG_RESULT(yes)
+-else
+-	AC_MSG_RESULT(no)
+-fi
+-])
 -- 
-Regards,
-Li Wang
-
---0000000000005630d905b59af9bc
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small">Hi Cyril,</div></div><br><div class=3D"gmail_quote"><div dir=
-=3D"ltr" class=3D"gmail_attr">On Thu, Dec 3, 2020 at 11:27 PM Cyril Hrubis =
-&lt;<a href=3D"mailto:chrubis@suse.cz" target=3D"_blank">chrubis@suse.cz</a=
->&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px=
- 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Tha=
-t returns timestamps that should return values comparable to the<br>
-stime/rtime/ctime.<br>
-<br>
-From Thomas Gleixner:<br>
-<br>
-&gt; Due to the internal implementation of ktime_get_real_seconds(), which =
-is<br>
-&gt; a 2038 safe replacement for the former get_seconds() function, this<br=
->
-&gt; accumulation issue can be observed. (time(2) via syscall and newer<br>
-&gt; versions of VDSO use the same mechanism).<br>
-&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 clock_gettime(CLOCK_REALTIME, &amp;ts);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 sec =3D time();<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 assert(sec &gt;=3D ts.tv_sec);<br>
-&gt;<br>
-&gt; That assert can trigger for two reasons:<br>
-&gt;<br>
-&gt;=C2=A0 1) Clock was set between the clock_gettime() and time().<br>
-&gt;<br>
-&gt;=C2=A0 2) The clock has advanced far enough that:<br>
-&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0timekeeper.tv_nsec + (clock_now_ns() - last_update_=
-ns) &gt; NSEC_PER_SEC<br>
-&gt; The same problem exists for CLOCK_XXX vs. CLOCK_XXX_COARSE<br>
-&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 clock_gettime(CLOCK_XXX, &amp;ts);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 clock_gettime(<span class=3D"gmail_default" style=
-=3D"font-size:small"></span>CLOCK_XXX_COARSE, &amp;tc);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 assert(tc.tv_sec &gt;=3D ts.tv_sec);<br>
-&gt;<br>
-&gt; The _COARSE variants return their associated timekeeper.tv_sec,tv_nsec=
-<br>
-&gt; pair without reading the clock. Same as #2 above just extended to cloc=
-k<br>
-&gt; MONOTONIC.<br>
-<br>
-Which means the timestamps in the structure we get from msg* calls can<br>
-be 1 second smaller that timestamps returned from realtime timers.<br>
-<br>
-However it also means that <span class=3D"gmail_default" style=3D"font-size=
-:small"></span>the _COARSE timers should be the same as the<br>
-SysV timestamps and could be used for these tests instead. Also these<br>
-timers should be available since 2.6.32 which is old enough to assume<br>
-that they are present.<br></blockquote><div><br></div><div><div class=3D"gm=
-ail_default" style=3D"font-size:small">Sounds reasonable. From Thomas&#39;s=
- analysis, it seems=C2=A0<span class=3D"gmail_default"></span>the *_COARSE<=
-/div><div class=3D"gmail_default" style=3D"font-size:small">can work for us=
-, so I&#39;m OK to go with this way to fix.</div><div class=3D"gmail_defaul=
-t" style=3D"font-size:small"><br></div><div class=3D"gmail_default" style=
-=3D"font-size:small"></div><div class=3D"gmail_default" style=3D"font-size:=
-small">For series:</div><div class=3D"gmail_default" style=3D"font-size:sma=
-ll">Acked-by: Li Wang &lt;<a href=3D"mailto:liwang@redhat.com" target=3D"_b=
-lank">liwang@redhat.com</a>&gt;</div></div><div>=C2=A0</div></div>-- <br><d=
-iv dir=3D"ltr"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></di=
-v></div></div></div>
-
---0000000000005630d905b59af9bc--
-
-
---===============2106686219==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+2.25.1
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============2106686219==--
-
