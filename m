@@ -1,74 +1,71 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA5C22CEB84
-	for <lists+linux-ltp@lfdr.de>; Fri,  4 Dec 2020 10:59:55 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E04C2CEB86
+	for <lists+linux-ltp@lfdr.de>; Fri,  4 Dec 2020 11:00:08 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7F09B3C58ED
-	for <lists+linux-ltp@lfdr.de>; Fri,  4 Dec 2020 10:59:55 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id C869F3C58F3
+	for <lists+linux-ltp@lfdr.de>; Fri,  4 Dec 2020 11:00:07 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id 29D193C4C0E
- for <ltp@lists.linux.it>; Fri,  4 Dec 2020 10:59:37 +0100 (CET)
-Received: from mail-ej1-x644.google.com (mail-ej1-x644.google.com
- [IPv6:2a00:1450:4864:20::644])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 735413C58E9
+ for <ltp@lists.linux.it>; Fri,  4 Dec 2020 10:59:38 +0100 (CET)
+Received: from mail-ed1-x542.google.com (mail-ed1-x542.google.com
+ [IPv6:2a00:1450:4864:20::542])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id BB23C1400744
- for <ltp@lists.linux.it>; Fri,  4 Dec 2020 10:59:36 +0100 (CET)
-Received: by mail-ej1-x644.google.com with SMTP id d17so7794436ejy.9
- for <ltp@lists.linux.it>; Fri, 04 Dec 2020 01:59:36 -0800 (PST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 1A2FD600708
+ for <ltp@lists.linux.it>; Fri,  4 Dec 2020 10:59:38 +0100 (CET)
+Received: by mail-ed1-x542.google.com with SMTP id b2so5203996edm.3
+ for <ltp@lists.linux.it>; Fri, 04 Dec 2020 01:59:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=Z68jG772eca5ubxG6/Rd8Cmcjn6oSanfclulof/5ulI=;
- b=sN9rGRSCg7jaKrSAB4ulAw41DaC5Kekns3vVMwwuEMBAVo//AcAo9CgW32CFW5539L
- ZYN7DxqiinYpLHpJsODZXVgyT6QwwQYea1ZSuBcJoE+WeVkS9IVdGf88eT407G0TtXx/
- DssQvQ8cm37Fsz3k6qKY9htjBDXAGb3I/uxZdQC9dlJkGeOuDWseT8KrcdHDnl4q6qDN
- FlaK37xRF3zQlqnvfsuWJIChfytC64En5wj7gyf8uPkxP+/31F8hSgJHG+2dVfz4TIcd
- 1YrI3xhIhKn0S/tbCkLnFXbgFuB5FAF5wJKHKXFoCROIXN6WOyAeWIC0V8MKt23bNust
- ZmgQ==
+ bh=txVBk56tO2gFllxzb8d5qhXnXnp0Q96rIqcLEaPRzUE=;
+ b=WCIW49XjIHQxy5BFnxhDqgggbXFjm5mjJIkLd6YhETpuYkkVCx5N2EO2La+vfOjHHf
+ ILBrMgeuJTCrNernHmlqslChk2CHVekBzroUaCQD/8KP1RZlvXyqz6XgoWjpfgSn1y2k
+ i9xw2GH0EcN97K5UN6QQTx0X5lHTFiDX1dRQ9Aa2QvvaxHo4XhPNI6AtoAqtmo6Vj4GB
+ iz4OEaLLVKABq07Dp9rfiDhchdgKOb0cCtBkC22afZ4vZ9AR1ajbJI52lnlObwwSTp30
+ eF4GXzSbIa0xRSPa2CCalIR+TYuXuHu0G7tw7vI1JrtSE7oZ3VieAHUM45YMESxOXORB
+ smNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=Z68jG772eca5ubxG6/Rd8Cmcjn6oSanfclulof/5ulI=;
- b=e7JpTozLmAlDsM7wpVR1xuM4a5ttfre7G+T4XvBJNQhihuC+C1aPsnxHqPOpzM9eVM
- doEcVEhmGy4LJM4cGIy6dZX8BQxcrnAxxXxXKo6d0TPqmk/tTlwyhZBQwSrNvfmP5DBH
- ikIFyPOPQJJCjmXJ5dOnp/VTAwnvXXfnn0SDnGAu7fMM4tqvL+fuzSKvNATYu7ptGhiP
- LADNB3W4UTXfSBEjFW4AbCzLWLIw3QFyd9b2JxdqdXUxOHaveGRoRyoEWKQhvEzmQLz8
- x+LnXt7npdZHi6Ajqb26XKIYlKdcxi+zOqHz98qGIMGOiNgJ0V1gcFpYo+L7jh5tsC14
- s2bQ==
-X-Gm-Message-State: AOAM532jFc4tTwr/rYMhDHkOFm58gANhI/L9di0VJbzsT+E8BJbBhzrp
- Jv4Lf0sYSDCO77IYWRXUnQ0MT/XqGTU=
-X-Google-Smtp-Source: ABdhPJz5xHjWqyVJy5KFvNgMp3smUWXHU6jdaedctwS939I7KN3EzwJ8N4XWvhJJRiuyJT4UBN8rGA==
-X-Received: by 2002:a17:906:b0d8:: with SMTP id
- bk24mr6261251ejb.113.1607075976351; 
- Fri, 04 Dec 2020 01:59:36 -0800 (PST)
+ bh=txVBk56tO2gFllxzb8d5qhXnXnp0Q96rIqcLEaPRzUE=;
+ b=cv7uWi03rjJcTjKAZFrpHlNM3uQu6sjmrwRF2HpxfUe9yAh6X+rSwHVOr+j654+J/o
+ 5JWmsTtjfxJJTXS0tw9Yd//mg/t9XM9/xi3u1rmgaHUBEe/6cHZafdiV6z1K64IsV4a+
+ jM9A+iI3EZzoI3Ho1rlDzIMGwXt0u5Ai+DEMapSRSdJmVc0Pd9ML7Y223Qrds9SSM8VR
+ 827w2M9pVzstoNJ0p/N8oeDlRN6IyL+FE+0WgnB1c8imEZLyA9F2HsV+svo6NIfx3MII
+ bF3YkhbUhTmOMaGvu+EEQy1t7tgr4gJ+x+b4sgfNRal/SNxoGlfy2LuUXKkGHtJ8ZKvP
+ ZoQw==
+X-Gm-Message-State: AOAM533ZCu+ZZFEgq2QRStBAZ9+F8igNAYatN5Tz14Y5cKmfLGv99Sod
+ 21tFfE0iqASjlQY6KI2eQxU=
+X-Google-Smtp-Source: ABdhPJyL1rUYtOInN0sxnoZZKHHl4+8RjXoDp1ibePwgoN7ml+t+MySuQhfQZ4OVi7JbNwCE43Z6wA==
+X-Received: by 2002:aa7:cc8f:: with SMTP id p15mr6629835edt.240.1607075977709; 
+ Fri, 04 Dec 2020 01:59:37 -0800 (PST)
 Received: from localhost.localdomain ([31.210.181.203])
- by smtp.gmail.com with ESMTPSA id qp16sm2701811ejb.74.2020.12.04.01.59.35
+ by smtp.gmail.com with ESMTPSA id qp16sm2701811ejb.74.2020.12.04.01.59.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 04 Dec 2020 01:59:35 -0800 (PST)
+ Fri, 04 Dec 2020 01:59:37 -0800 (PST)
 From: Amir Goldstein <amir73il@gmail.com>
 To: Petr Vorel <pvorel@suse.cz>
-Date: Fri,  4 Dec 2020 11:59:27 +0200
-Message-Id: <20201204095930.866421-3-amir73il@gmail.com>
+Date: Fri,  4 Dec 2020 11:59:28 +0200
+Message-Id: <20201204095930.866421-4-amir73il@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20201204095930.866421-1-amir73il@gmail.com>
 References: <20201204095930.866421-1-amir73il@gmail.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/5] syscalls/fanotify: Use generic checks for
- fanotify_init flags
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH 3/5] syscalls/fanotify09: Read variable length events
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,155 +83,150 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Convert remaining tests to SAFE_FANOTIFY_INIT and use the generic
-helpers to check requires kernel/fs support for fanotify_init flags
-in advance.
+In preparation of testing events with filename info, teach the
+how to read variable length events and parse the name info.
 
 Signed-off-by: Amir Goldstein <amir73il@gmail.com>
 ---
- .../kernel/syscalls/fanotify/fanotify10.c     | 26 ++++++++-----------
- .../kernel/syscalls/fanotify/fanotify11.c     | 21 ++++++---------
- .../kernel/syscalls/fanotify/fanotify16.c     | 14 ++--------
- 3 files changed, 21 insertions(+), 40 deletions(-)
+ .../kernel/syscalls/fanotify/fanotify09.c     | 88 +++++++++++++------
+ 1 file changed, 60 insertions(+), 28 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/fanotify/fanotify10.c b/testcases/kernel/syscalls/fanotify/fanotify10.c
-index 404e57daa..cc164359f 100644
---- a/testcases/kernel/syscalls/fanotify/fanotify10.c
-+++ b/testcases/kernel/syscalls/fanotify/fanotify10.c
-@@ -57,6 +57,7 @@ static unsigned int fanotify_class[] = {
- 	FAN_REPORT_DFID_NAME_FID,
- };
- #define NUM_CLASSES ARRAY_SIZE(fanotify_class)
-+#define NUM_PRIORITIES 3
- 
- #define GROUPS_PER_PRIO 3
- 
-@@ -64,6 +65,7 @@ static int fd_notify[NUM_CLASSES][GROUPS_PER_PRIO];
- 
- static char event_buf[EVENT_BUF_LEN];
- static int exec_events_unsupported;
-+static int fan_report_dfid_unsupported;
- static int filesystem_mark_unsupported;
- 
- #define MOUNT_PATH "fs_mnt"
-@@ -294,21 +296,8 @@ static int create_fanotify_groups(unsigned int n)
- 
- 	for (p = 0; p < num_classes; p++) {
- 		for (i = 0; i < GROUPS_PER_PRIO; i++) {
--			fd_notify[p][i] = fanotify_init(fanotify_class[p] |
--							FAN_NONBLOCK, O_RDONLY);
--			if (fd_notify[p][i] == -1) {
--				if (errno == EINVAL &&
--				    fanotify_class[p] & FAN_REPORT_NAME) {
--					tst_res(TCONF,
--						"FAN_REPORT_NAME not supported by kernel?");
--					/* Do not try creating this group again */
--					num_classes--;
--					return -1;
--				}
--
--				tst_brk(TBROK | TERRNO,
--					"fanotify_init(%x, 0) failed", fanotify_class[p]);
--			}
-+			fd_notify[p][i] = SAFE_FANOTIFY_INIT(fanotify_class[p] |
-+							     FAN_NONBLOCK, O_RDONLY);
- 
- 			/*
- 			 * Add mark for each group.
-@@ -518,6 +507,13 @@ static void setup(void)
- {
- 	exec_events_unsupported = fanotify_events_supported_by_kernel(FAN_OPEN_EXEC);
- 	filesystem_mark_unsupported = fanotify_mark_supported_by_kernel(FAN_MARK_FILESYSTEM);
-+	fan_report_dfid_unsupported = fanotify_init_flags_supported_on_fs(FAN_REPORT_DFID_NAME,
-+									  MOUNT_PATH);
-+	if (fan_report_dfid_unsupported) {
-+		FANOTIFY_INIT_FLAGS_ERR_MSG(FAN_REPORT_DFID_NAME, fan_report_dfid_unsupported);
-+		/* Limit tests to legacy priority classes */
-+		num_classes = NUM_PRIORITIES;
-+	}
- 
- 	/* Create another bind mount at another path for generating events */
- 	SAFE_MKDIR(MNT2_PATH, 0755);
-diff --git a/testcases/kernel/syscalls/fanotify/fanotify11.c b/testcases/kernel/syscalls/fanotify/fanotify11.c
-index 785b5c5a5..f3b60cecb 100644
---- a/testcases/kernel/syscalls/fanotify/fanotify11.c
-+++ b/testcases/kernel/syscalls/fanotify/fanotify11.c
-@@ -36,6 +36,8 @@
- #define gettid() syscall(SYS_gettid)
- static int tid;
- 
-+static int fan_report_tid_unsupported;
-+
- void *thread_create_file(void *arg LTP_ATTRIBUTE_UNUSED)
- {
- 	char tid_file[64] = {0};
-@@ -63,17 +65,13 @@ void test01(unsigned int i)
- 			i, (tcases[i] & FAN_REPORT_TID) ? "with" : "without",
- 			tgid, tid, event.pid);
- 
--	fd_notify = fanotify_init(tcases[i], 0);
--	if (fd_notify < 0) {
--		if (errno == EINVAL && (tcases[i] & FAN_REPORT_TID)) {
--			tst_res(TCONF,
--				"FAN_REPORT_TID not supported in kernel?");
--			return;
--		}
--		tst_brk(TBROK | TERRNO, "fanotify_init(0x%x, 0) failed",
--				tcases[i]);
-+	if (fan_report_tid_unsupported && (tcases[i] & FAN_REPORT_TID)) {
-+		FANOTIFY_INIT_FLAGS_ERR_MSG(FAN_REPORT_TID, fan_report_tid_unsupported);
-+		return;
- 	}
- 
-+	fd_notify = SAFE_FANOTIFY_INIT(tcases[i], 0);
-+
- 	SAFE_FANOTIFY_MARK(fd_notify, FAN_MARK_ADD,
- 			FAN_ALL_EVENTS | FAN_EVENT_ON_CHILD, AT_FDCWD, ".");
- 
-@@ -96,10 +94,7 @@ void test01(unsigned int i)
- 
- static void setup(void)
- {
--	int fd;
--
--	fd = SAFE_FANOTIFY_INIT(FAN_CLASS_NOTIF, O_RDONLY);
--	SAFE_CLOSE(fd);
-+	fan_report_tid_unsupported = fanotify_init_flags_supported_by_kernel(FAN_REPORT_TID);
+diff --git a/testcases/kernel/syscalls/fanotify/fanotify09.c b/testcases/kernel/syscalls/fanotify/fanotify09.c
+index daeb712d2..7bb901cf3 100644
+--- a/testcases/kernel/syscalls/fanotify/fanotify09.c
++++ b/testcases/kernel/syscalls/fanotify/fanotify09.c
+@@ -138,42 +138,73 @@ static void cleanup_fanotify_groups(void)
  }
  
- static struct tst_test test = {
-diff --git a/testcases/kernel/syscalls/fanotify/fanotify16.c b/testcases/kernel/syscalls/fanotify/fanotify16.c
-index a4409df14..5ffaec92f 100644
---- a/testcases/kernel/syscalls/fanotify/fanotify16.c
-+++ b/testcases/kernel/syscalls/fanotify/fanotify16.c
-@@ -158,17 +158,7 @@ static void do_test(unsigned int number)
+ static void event_res(int ttype, int group,
+-		      struct fanotify_event_metadata *event)
++		      struct fanotify_event_metadata *event,
++		      const char *filename)
+ {
+-	int len;
+-	sprintf(symlnk, "/proc/self/fd/%d", event->fd);
+-	len = readlink(symlnk, fdpath, sizeof(fdpath));
+-	if (len < 0)
+-		len = 0;
+-	fdpath[len] = 0;
+-	tst_res(ttype, "group %d got event: mask %llx pid=%u fd=%d path=%s",
++	if (event->fd != FAN_NOFD) {
++		int len = 0;
++		sprintf(symlnk, "/proc/self/fd/%d", event->fd);
++		len = readlink(symlnk, fdpath, sizeof(fdpath));
++		if (len < 0)
++			len = 0;
++		fdpath[len] = 0;
++		filename = fdpath;
++	}
++	tst_res(ttype, "group %d got event: mask %llx pid=%u fd=%d filename=%s",
+ 		group, (unsigned long long)event->mask,
+-		(unsigned)event->pid, event->fd, fdpath);
++		(unsigned)event->pid, event->fd, filename);
++}
++
++static const char *event_filename(struct fanotify_event_metadata *event)
++{
++	struct fanotify_event_info_fid *event_fid;
++	struct file_handle *file_handle;
++	const char *filename, *end;
++
++	if (event->event_len <= FAN_EVENT_METADATA_LEN)
++		return "";
++
++	event_fid = (struct fanotify_event_info_fid *)(event + 1);
++	file_handle = (struct file_handle *)event_fid->handle;
++	filename = (char *)file_handle->f_handle + file_handle->handle_bytes;
++	end = (char *)event_fid + event_fid->hdr.len;
++
++	/* End of event_fid could have name, zero padding, both or none */
++	return (filename == end) ? "" : filename;
+ }
  
- 	tst_res(TINFO, "Test #%d: %s", number, tc->tname);
+ static void verify_event(int group, struct fanotify_event_metadata *event,
+-			 uint32_t expect)
++			 uint32_t expect, const char *expect_filename)
+ {
++	const char *filename = event_filename(event);
++
+ 	if (event->mask != expect) {
+ 		tst_res(TFAIL, "group %d got event: mask %llx (expected %llx) "
+-			"pid=%u fd=%d", group, (unsigned long long)event->mask,
++			"pid=%u fd=%d filename=%s", group, (unsigned long long)event->mask,
+ 			(unsigned long long)expect,
+-			(unsigned)event->pid, event->fd);
++			(unsigned)event->pid, event->fd, filename);
+ 	} else if (event->pid != getpid()) {
+ 		tst_res(TFAIL, "group %d got event: mask %llx pid=%u "
+-			"(expected %u) fd=%d", group,
++			"(expected %u) fd=%d filename=%s", group,
+ 			(unsigned long long)event->mask, (unsigned)event->pid,
+-			(unsigned)getpid(), event->fd);
++			(unsigned)getpid(), event->fd, filename);
++	} else if (strcmp(filename, expect_filename)) {
++		tst_res(TFAIL, "group %d got event: mask %llx pid=%u "
++			"fd=%d filename='%s' (expected '%s')", group,
++			(unsigned long long)event->mask, (unsigned)event->pid,
++			event->fd, filename, expect_filename);
+ 	} else {
+-		event_res(TPASS, group, event);
++		event_res(TPASS, group, event, filename);
+ 	}
++	if (event->fd != FAN_NOFD)
++		SAFE_CLOSE(event->fd);
+ }
  
--	fd_notify = fanotify_init(group->flag, 0);
--	if (fd_notify == -1) {
--		if (errno == EINVAL) {
--			tst_res(TCONF,
--				"%s not supported by kernel", group->name);
--			return;
--		}
--
--		tst_brk(TBROK | TERRNO,
--			"fanotify_init(%s, 0) failed", group->name);
--	}
-+	fd_notify = SAFE_FANOTIFY_INIT(group->flag, 0);
+ static void test_fanotify(unsigned int n)
+ {
+ 	int ret, dirfd;
+ 	unsigned int i;
+-	struct fanotify_event_metadata *event, *ev;
++	struct fanotify_event_metadata *event;
+ 	struct tcase *tc = &tcases[n];
+ 
+ 	tst_res(TINFO, "Test #%d: %s", n, tc->tname);
+@@ -210,20 +241,21 @@ static void test_fanotify(unsigned int n)
+ 			ret, tc->nevents * (int)FAN_EVENT_METADATA_LEN);
+ 	}
+ 	event = (struct fanotify_event_metadata *)event_buf;
+-	verify_event(0, event, FAN_MODIFY);
+-	if (tc->ondir)
+-		verify_event(0, event + 1, FAN_CLOSE_NOWRITE);
+-	if (ret > tc->nevents * (int)FAN_EVENT_METADATA_LEN) {
++	verify_event(0, event, FAN_MODIFY, "");
++	event = FAN_EVENT_NEXT(event, ret);
++	if (tc->ondir) {
++		verify_event(0, event, FAN_CLOSE_NOWRITE, "");
++		event = FAN_EVENT_NEXT(event, ret);
++	}
++	if (ret > 0) {
+ 		tst_res(TFAIL,
+-			"first group got more than %d events (%d > %d)",
+-			tc->nevents, ret,
+-			tc->nevents * (int)FAN_EVENT_METADATA_LEN);
++			"first group got more than %d events (%d bytes)",
++			tc->nevents, ret);
+ 	}
+ 	/* Close all file descriptors of read events */
+-	for (ev = event; ret >= (int)FAN_EVENT_METADATA_LEN; ev++) {
+-		if (ev->fd != FAN_NOFD)
+-			SAFE_CLOSE(ev->fd);
+-		ret -= (int)FAN_EVENT_METADATA_LEN;
++	for (; FAN_EVENT_OK(event, ret); FAN_EVENT_NEXT(event, ret)) {
++		if (event->fd != FAN_NOFD)
++			SAFE_CLOSE(event->fd);
+ 	}
  
  	/*
- 	 * Watch dir modify events with name in filesystem/dir
-@@ -551,7 +541,7 @@ check_match:
- 
- static void setup(void)
- {
--	REQUIRE_FANOTIFY_INIT_FLAGS_SUPPORTED_ON_FS(FAN_REPORT_FID, MOUNT_PATH);
-+	REQUIRE_FANOTIFY_INIT_FLAGS_SUPPORTED_ON_FS(FAN_REPORT_DIR_FID, MOUNT_PATH);
- 
- 	sprintf(dname1, "%s/%s", MOUNT_PATH, DIR_NAME1);
- 	sprintf(dname2, "%s/%s", MOUNT_PATH, DIR_NAME2);
+@@ -233,7 +265,7 @@ static void test_fanotify(unsigned int n)
+ 	for (i = 1; i < NUM_GROUPS; i++) {
+ 		ret = read(fd_notify[i], event_buf, FAN_EVENT_METADATA_LEN);
+ 		if (ret > 0) {
+-			event_res(TFAIL, i, event);
++			event_res(TFAIL, i, event, "");
+ 			if (event->fd != FAN_NOFD)
+ 				SAFE_CLOSE(event->fd);
+ 			continue;
 -- 
 2.25.1
 
