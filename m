@@ -1,44 +1,42 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 844862CEEF7
-	for <lists+linux-ltp@lfdr.de>; Fri,  4 Dec 2020 14:47:59 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id D4AD52CEF05
+	for <lists+linux-ltp@lfdr.de>; Fri,  4 Dec 2020 14:52:54 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 367ED3C4C12
-	for <lists+linux-ltp@lfdr.de>; Fri,  4 Dec 2020 14:47:59 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 8D10F3C4C15
+	for <lists+linux-ltp@lfdr.de>; Fri,  4 Dec 2020 14:52:54 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 239F03C2B6E
- for <ltp@lists.linux.it>; Fri,  4 Dec 2020 14:47:58 +0100 (CET)
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id 25DB43C2B77
+ for <ltp@lists.linux.it>; Fri,  4 Dec 2020 14:52:52 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id C8A7A601439
- for <ltp@lists.linux.it>; Fri,  4 Dec 2020 14:47:57 +0100 (CET)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 41F81601093
+ for <ltp@lists.linux.it>; Fri,  4 Dec 2020 14:52:51 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 116E5AC9A;
- Fri,  4 Dec 2020 13:47:57 +0000 (UTC)
-Date: Fri, 4 Dec 2020 14:47:55 +0100
+ by mx2.suse.de (Postfix) with ESMTP id 96D5EAC75;
+ Fri,  4 Dec 2020 13:52:51 +0000 (UTC)
+Date: Fri, 4 Dec 2020 14:52:50 +0100
 From: Petr Vorel <pvorel@suse.cz>
 To: Amir Goldstein <amir73il@gmail.com>
-Message-ID: <X8o+C0WZV8f8VONT@pevik>
-References: <20201201174214.24625-1-pvorel@suse.cz>
- <20201201174214.24625-5-pvorel@suse.cz>
- <20201202154604.GD12342@yuki.lan> <X8fXG3ix4oq2Gab6@pevik>
- <CAOQ4uxhdW2x=gUD1D39Pc3Ke3QmkDUZswcLuA4djH6jcQZP_=w@mail.gmail.com>
+Message-ID: <X8o/MlfK7iUPeKLm@pevik>
+References: <20201204095930.866421-1-amir73il@gmail.com>
+ <20201204095930.866421-2-amir73il@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CAOQ4uxhdW2x=gUD1D39Pc3Ke3QmkDUZswcLuA4djH6jcQZP_=w@mail.gmail.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+In-Reply-To: <20201204095930.866421-2-amir73il@gmail.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v5 04/10] fanotify: Add helper for FAN_REPORT_FID
- support on fs
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/5] syscalls/fanotify: Generalize check for
+ FAN_REPORT_FID support
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,7 +49,7 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: LTP List <ltp@lists.linux.it>
+Cc: Jan Kara <jack@suse.cz>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
@@ -59,51 +57,14 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi Amir,
 
-...
-> > > Maybe this would be just easier to read as a macro:
+> Generalize the helpers to be able to check any fanotify_init() flags
+> and pass FAN_REPORT_FID as argument in call sites.
 
-> > > #define FANOTIFY_FAN_REPORT_FID_ERR_MSG(res_func, fail) do { \
-> > >       if (fail == -1) \
-> > >               res_func(TCONF, "FAN_REPORT_FID not supported in kernel?"); \
-> > >       if (fail == -2) \
-> > >               res_func(TCONF, ...); \
-> > >       } while (0)
+> Add helper fanotify_init_flags_supported_by_kernel() to check for
+> kernel support for fanotify_init flags without checking fs support
+> for those flags.
 
-
-> Sorry, I ended up reverting that back to a function.
-np, probably better anyway.
-
-...
-> > > The rest is good.
-
-> > Both your comments fixed, patchset merged.
-
-> > Thank you both for your patient review,
-
-> > Amir, I'm sorry it took me that long.
-
-> No worries.
-> I know there was a lot of black magic behind all the flag checks
-> that needed explanations.
-
-> > Looking forward to your patchset :).
-
-
-> Posted.
-Thanks!
-
-> Note that I only tested upstream, v5.8, v4.20 and not kernels
-> without permission events support and not exfat.
-
-> I trust you will help to fill those testing gaps.
-Sure! I should get into that early next week.
-
-> If I am not mistaken, before my fixes, fanotify10 was going to fail
-> instead of TCONF on exfat/ntfs and kernel >= v5.9, but I did not check.
-Don't fail on master on my openSUSE kernel 5.10.0-rc5-2.ge84a0b5-default
-
-> Thanks,
-> Amir.
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
 
 Kind regards,
 Petr
