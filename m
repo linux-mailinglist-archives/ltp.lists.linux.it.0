@@ -2,62 +2,63 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 338072CE82E
-	for <lists+linux-ltp@lfdr.de>; Fri,  4 Dec 2020 07:33:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A74C2CE82F
+	for <lists+linux-ltp@lfdr.de>; Fri,  4 Dec 2020 07:33:25 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id ED07D3C2BAA
-	for <lists+linux-ltp@lfdr.de>; Fri,  4 Dec 2020 07:33:15 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 0B6CE3C58E7
+	for <lists+linux-ltp@lfdr.de>; Fri,  4 Dec 2020 07:33:25 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 7D9173C2413
- for <ltp@lists.linux.it>; Fri,  4 Dec 2020 07:33:13 +0100 (CET)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id 341A13C2413
+ for <ltp@lists.linux.it>; Fri,  4 Dec 2020 07:33:15 +0100 (CET)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [63.128.21.124])
- by in-4.smtp.seeweb.it (Postfix) with ESMTP id BACA51001168
- for <ltp@lists.linux.it>; Fri,  4 Dec 2020 07:33:12 +0100 (CET)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id BB05E20103A
+ for <ltp@lists.linux.it>; Fri,  4 Dec 2020 07:33:14 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1607063591;
+ s=mimecast20190719; t=1607063593;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=7n4CpWjUXumR2knAzw9lGsWVOnRHO5peJ9tVU/IOmEQ=;
- b=P4XUAosSZ3SjAOrGZY8YPvQdbhkedX3/s/HpE0Nu2tm22T7CaPYEbERFFExhCFihf8ljIF
- P1FcGlNP6K8e94TYY1WXAFgK8tuMSkyRHuBKV2OFT02SV5L04u2t5jswEtsuCj4yVxJJG4
- guFi0NYfoffrzF5Wy6CcOmZ10uE0V3E=
+ bh=KsZwYL8YWPqMTczeADVoGNBuV6huuiaswZD+zRnxVzU=;
+ b=buXDBalmLy9DpNlpgPRrxy3YcS78r1naOX6ql0ElBNBInKzVQ8qz5jFizlEHcE7pdtrjWr
+ 1rIj6Q+Y0trJ7wAZ5tpDD1dxeTrvFzqyzwSbDgDelkKc0YlyA8L+2HFVl8Rl78NW8kaHcW
+ hwwtN3ovkv1ERnwV2zWymICP/VuSHSM=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-440-86zOx-6-MyKjCLfHTEUH7g-1; Fri, 04 Dec 2020 01:33:09 -0500
-X-MC-Unique: 86zOx-6-MyKjCLfHTEUH7g-1
+ us-mta-502-nmkCfAglM2O9_dBMn4aEbg-1; Fri, 04 Dec 2020 01:33:11 -0500
+X-MC-Unique: nmkCfAglM2O9_dBMn4aEbg-1
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
  [10.5.11.14])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 728D4107ACE8
- for <ltp@lists.linux.it>; Fri,  4 Dec 2020 06:33:08 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id BBE831007460
+ for <ltp@lists.linux.it>; Fri,  4 Dec 2020 06:33:10 +0000 (UTC)
 Received: from liwang-workstation.nay.redhat.com (unknown [10.66.81.246])
- by smtp.corp.redhat.com (Postfix) with ESMTP id A512D5D9CA
- for <ltp@lists.linux.it>; Fri,  4 Dec 2020 06:33:07 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id ED7305D9CA
+ for <ltp@lists.linux.it>; Fri,  4 Dec 2020 06:33:08 +0000 (UTC)
 From: Li Wang <liwang@redhat.com>
 To: ltp@lists.linux.it
-Date: Fri,  4 Dec 2020 06:33:03 +0000
-Message-Id: <20201204063305.6820-1-liwang@redhat.com>
-In-Reply-To: <20201203110616.28302-1-liwang@redhat.com>
+Date: Fri,  4 Dec 2020 06:33:04 +0000
+Message-Id: <20201204063305.6820-2-liwang@redhat.com>
+In-Reply-To: <20201204063305.6820-1-liwang@redhat.com>
 References: <20201203110616.28302-1-liwang@redhat.com>
+ <20201204063305.6820-1-liwang@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
  auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwang@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 1/3] lib: add .min_cpus in tst_test struct
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 2/3] syscalls: make use of .min_cpus
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,47 +75,58 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-As the name implies, this new field is mainly to set minimum numbers
-of CPU for LTP testcase. If system online CPUs are less than .min_cpus,
-test will be exit with TCONF.
+To set the minimum numbers of online CPU for test.
 
-Note: I wouldn't add more description in test-writing-guidelines.txt,
-because it is easy to understand the usage from the name.
+From Martin Doucha:
+
+af_alg07 requires 2 CPUs, otherwise it'll report false positives.
+The test will pass only if fchownat() hits a half-closed socket and
+returns error. But IIRC the half-closed socket will be destroyed during
+reschedule which means there's no race window to hit anymore. But it
+would be better to put the TCONF condition into the test itself.
+
+getcwd04: as itself requirements.
 
 Signed-off-by: Li Wang <liwang@redhat.com>
 ---
- include/tst_test.h | 3 +++
- lib/tst_test.c     | 3 +++
- 2 files changed, 6 insertions(+)
+ testcases/kernel/crypto/af_alg07.c          | 1 +
+ testcases/kernel/syscalls/getcwd/getcwd04.c | 6 ++----
+ 2 files changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/include/tst_test.h b/include/tst_test.h
-index c91d3f18a..b4fc4db47 100644
---- a/include/tst_test.h
-+++ b/include/tst_test.h
-@@ -157,6 +157,9 @@ struct tst_test {
- 	 */
- 	int all_filesystems:1;
+diff --git a/testcases/kernel/crypto/af_alg07.c b/testcases/kernel/crypto/af_alg07.c
+index 6ad86f4f3..539ebee11 100644
+--- a/testcases/kernel/crypto/af_alg07.c
++++ b/testcases/kernel/crypto/af_alg07.c
+@@ -110,6 +110,7 @@ static struct tst_test test = {
+ 	.setup = setup,
+ 	.cleanup = cleanup,
+ 	.min_kver = "4.10.0",
++	.min_cpus = 2,
+ 	.taint_check = TST_TAINT_W | TST_TAINT_D,
+ 	.tags = (const struct tst_tag[]) {
+ 		{"linux-git", "9060cb719e61"},
+diff --git a/testcases/kernel/syscalls/getcwd/getcwd04.c b/testcases/kernel/syscalls/getcwd/getcwd04.c
+index 2fa65fb2c..2e07e675f 100644
+--- a/testcases/kernel/syscalls/getcwd/getcwd04.c
++++ b/testcases/kernel/syscalls/getcwd/getcwd04.c
+@@ -68,9 +68,6 @@ static void verify_getcwd(void)
  
-+	/* Minimum numbers of online CPU required by the test */
-+	unsigned long min_cpus;
-+
- 	/*
- 	 * If set non-zero number of request_hugepages, test will try to reserve the
- 	 * expected number of hugepage for testing in setup phase. If system does not
-diff --git a/lib/tst_test.c b/lib/tst_test.c
-index 535c0ff4c..c4e04eb4a 100644
---- a/lib/tst_test.c
-+++ b/lib/tst_test.c
-@@ -918,6 +918,9 @@ static void do_setup(int argc, char *argv[])
- 	if (tst_test->all_filesystems)
- 		tst_test->needs_device = 1;
+ static void setup(void)
+ {
+-	if (tst_ncpus() == 1)
+-		tst_brk(TCONF, "This test needs two cpus at least");
+-
+ 	SAFE_SIGNAL(SIGALRM, sigproc);
  
-+	if (tst_test->min_cpus > tst_ncpus())
-+		tst_brk(TCONF, "Test needs at least %lu CPUs online", tst_test->min_cpus);
-+
- 	if (tst_test->request_hugepages)
- 		tst_request_hugepages(tst_test->request_hugepages);
- 
+ 	alarm(TIMEOUT);
+@@ -101,5 +98,6 @@ static struct tst_test test = {
+ 	.setup = setup,
+ 	.test_all = verify_getcwd,
+ 	.needs_tmpdir = 1,
+-	.forks_child = 1
++	.forks_child = 1,
++	.min_cpus = 2
+ };
 -- 
 2.21.3
 
