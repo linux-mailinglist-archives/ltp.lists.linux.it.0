@@ -2,41 +2,37 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2CC252D2E90
-	for <lists+linux-ltp@lfdr.de>; Tue,  8 Dec 2020 16:45:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 173CF2D2EFC
+	for <lists+linux-ltp@lfdr.de>; Tue,  8 Dec 2020 17:04:26 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DD73E3C4B92
-	for <lists+linux-ltp@lfdr.de>; Tue,  8 Dec 2020 16:45:24 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id D228E3C4B92
+	for <lists+linux-ltp@lfdr.de>; Tue,  8 Dec 2020 17:04:25 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 3AF563C4B86
- for <ltp@lists.linux.it>; Tue,  8 Dec 2020 16:45:20 +0100 (CET)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id C06A73C2C2B
+ for <ltp@lists.linux.it>; Tue,  8 Dec 2020 17:04:23 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 783A010009DB
- for <ltp@lists.linux.it>; Tue,  8 Dec 2020 16:45:20 +0100 (CET)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id D08B2200B77
+ for <ltp@lists.linux.it>; Tue,  8 Dec 2020 17:04:22 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id C58FFADD7;
- Tue,  8 Dec 2020 15:45:19 +0000 (UTC)
-Date: Tue, 8 Dec 2020 16:46:14 +0100
+ by mx2.suse.de (Postfix) with ESMTP id 26319AC94
+ for <ltp@lists.linux.it>; Tue,  8 Dec 2020 16:04:22 +0000 (UTC)
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Feiyu Zhu <zhufy.jy@cn.fujitsu.com>
-Message-ID: <X8+fxq1wppq1SjtP@yuki.lan>
-References: <1607422067-15500-1-git-send-email-zhufy.jy@cn.fujitsu.com>
- <1607422067-15500-3-git-send-email-zhufy.jy@cn.fujitsu.com>
+To: ltp@lists.linux.it
+Date: Tue,  8 Dec 2020 17:05:16 +0100
+Message-Id: <20201208160516.32672-1-chrubis@suse.cz>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1607422067-15500-3-git-send-email-zhufy.jy@cn.fujitsu.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 3/3] syscalls/ipc: msgctl06: Add a test for
- MSG_STAT_ANY
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH] [COMMITTED] syscalls/ipc/shmctl: Reformat doc comments
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,127 +44,220 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-Pushed with a few changes, thanks.
+So that they are properly picked up by the docparser.
 
-* Reformatted the top level description so that it's picked by the
-  docparser
+Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
+---
+ .../kernel/syscalls/ipc/shmctl/shmctl01.c     | 11 ++++++----
+ .../kernel/syscalls/ipc/shmctl/shmctl02.c     |  6 +++--
+ .../kernel/syscalls/ipc/shmctl/shmctl03.c     |  7 ++++--
+ .../kernel/syscalls/ipc/shmctl/shmctl04.c     |  7 ++++--
+ .../kernel/syscalls/ipc/shmctl/shmctl05.c     | 22 +++++++++++--------
+ .../kernel/syscalls/ipc/shmctl/shmctl06.c     |  8 +++++--
+ .../kernel/syscalls/ipc/shmctl/shmctl07.c     |  7 ++++--
+ .../kernel/syscalls/ipc/shmctl/shmctl08.c     |  7 ++++--
+ 8 files changed, 50 insertions(+), 25 deletions(-)
 
-* Renamed the variables in the proc parsing function to make it more
-  clear what they referring to
-
-+ Fixed some typos.
-
-Full diff:
-
-diff --git a/testcases/kernel/syscalls/ipc/msgctl/msgctl06.c b/testcases/kernel/syscalls/ipc/msgctl/msgctl06.c
-index c931bbfd3..99e44851c 100644
---- a/testcases/kernel/syscalls/ipc/msgctl/msgctl06.c
-+++ b/testcases/kernel/syscalls/ipc/msgctl/msgctl06.c
-@@ -3,7 +3,9 @@
-  * Copyright (c) 2020 FUJITSU LIMITED. All rights reserved.
-  * Author: Feiyu Zhu <zhufy.jy@cn.fujitsu.com>
+diff --git a/testcases/kernel/syscalls/ipc/shmctl/shmctl01.c b/testcases/kernel/syscalls/ipc/shmctl/shmctl01.c
+index eb5307d1e..c22a8bcc6 100644
+--- a/testcases/kernel/syscalls/ipc/shmctl/shmctl01.c
++++ b/testcases/kernel/syscalls/ipc/shmctl/shmctl01.c
+@@ -3,16 +3,19 @@
+  * Copyright (c) International Business Machines  Corp., 2001
+  * Copyright (C) 2020 Cyril Hrubis <chrubis@suse.cz>
   */
+-/*
++
++/*\
++ * [DESCRIPTION]
++ *
+  * Verify that shmctl() IPC_STAT and SHM_STAT reports correct data.
+  *
+  * The shm_nattach is excercised by:
+  *
+- * 1. forking() children that attach and detach SHM
+- * 2. attaching the SHM before fork and letting the children detach it
++ * - forking() children that attach and detach SHM
++ * - attaching the SHM before fork and letting the children detach it
+  *
+  * We check that the number shm_nattach is correct after each step we do.
+- */
++\*/
+ 
+ #define _GNU_SOURCE
+ #include <stdlib.h>
+diff --git a/testcases/kernel/syscalls/ipc/shmctl/shmctl02.c b/testcases/kernel/syscalls/ipc/shmctl/shmctl02.c
+index 677b15d40..fde17ffbb 100644
+--- a/testcases/kernel/syscalls/ipc/shmctl/shmctl02.c
++++ b/testcases/kernel/syscalls/ipc/shmctl/shmctl02.c
+@@ -8,7 +8,9 @@
+  * Copyright (C) 2020 Cyril Hrubis <chrubis@suse.cz>
+  */
+ 
 -/*
 +/*\
 + * [DESCRIPTION]
 + *
-  * Call msgctl() with MSG_INFO flag and check that:
+  * Test for EACCES, EFAULT and EINVAL errors.
   *
-  * * The returned index points to a valid MSG by calling MSG_STAT_ANY
-@@ -16,7 +18,10 @@
-  *
-  * Note what we create a MSG segment in the test setup and send msg to make sure
-  * that there is at least one during the testrun.
+  * * EACCES - segment has no read or write permissions
+@@ -23,7 +25,7 @@
+  * * EPERM  - attempt to change root-owned shm
+  * * EPERM  - attempt to lock root-owned shm
+  * * EPERM  - attempt to unlock root-owned shm
 - */
-+ *
-+ * Also note that for MSG_INFO the members of the msginfo structure have
-+ * completely different meaning than their names seems to suggest.
 +\*/
  
- #include <stdio.h>
  #include <pwd.h>
-@@ -40,8 +45,8 @@ static struct tcases {
- static void parse_proc_sysvipc(struct msginfo *info)
- {
- 	FILE *f = fopen("/proc/sysvipc/msg", "r");
--	int used_ids = 0;
--	int queue_nums = 0;
-+	int queue_cnt = 0;
-+	int msg_cnt = 0;
- 	int msg_bytes = 0;
  
- 	/* Eat header */
-@@ -52,38 +57,38 @@ static void parse_proc_sysvipc(struct msginfo *info)
- 			break;
- 	}
+diff --git a/testcases/kernel/syscalls/ipc/shmctl/shmctl03.c b/testcases/kernel/syscalls/ipc/shmctl/shmctl03.c
+index 8868ab1cb..f5d3e4f17 100644
+--- a/testcases/kernel/syscalls/ipc/shmctl/shmctl03.c
++++ b/testcases/kernel/syscalls/ipc/shmctl/shmctl03.c
+@@ -2,10 +2,13 @@
+ /*
+  * Copyright (C) 2020 Cyril Hrubis <chrubis@suse.cz>
+  */
+-/*
++
++/*\
++ * [DESCRIPTION]
++ *
+  * Call shmctl() with IPC_INFO flag and check that the data are consistent with
+  * /proc/sys/kernel/shm*.
+- */
++\*/
  
--	int msgid, cbytes, qnum;
-+	int cbytes, msgs;
+ #define _GNU_SOURCE
+ #include "tst_test.h"
+diff --git a/testcases/kernel/syscalls/ipc/shmctl/shmctl04.c b/testcases/kernel/syscalls/ipc/shmctl/shmctl04.c
+index f4235ff40..3068b7ace 100644
+--- a/testcases/kernel/syscalls/ipc/shmctl/shmctl04.c
++++ b/testcases/kernel/syscalls/ipc/shmctl/shmctl04.c
+@@ -2,7 +2,10 @@
+ /*
+  * Copyright (C) 2020 Cyril Hrubis <chrubis@suse.cz>
+  */
+-/*
++
++/*\
++ * [DESCRIPTION]
++ *
+  * Call shmctl() with SHM_INFO flag and check that:
+  *
+  * * The returned index points to a valid SHM by calling SHM_STAT_ANY
+@@ -15,7 +18,7 @@
+  *
+  * Note what we create a SHM segment in the test setup to make sure that there
+  * is at least one during the testrun.
+- */
++\*/
  
- 	/*
- 	 * Sum queue and byte for all elements listed, which should equal
- 	 * the data returned in the msginfo structure.
- 	 */
--	while (fscanf(f, "%*i %i %*i %i %i %*i %*i %*i %*i %*i %*i %*i %*i %*i",
--			&msgid, &cbytes, &qnum) > 0){
--		used_ids++;
--		queue_nums += qnum;
-+	while (fscanf(f, "%*i %*i %*i %i %i %*i %*i %*i %*i %*i %*i %*i %*i %*i",
-+	              &cbytes, &msgs) > 0){
-+		queue_cnt++;
-+		msg_cnt += msgs;
- 		msg_bytes += cbytes;
- 	}
+ #define _GNU_SOURCE
+ #include <stdio.h>
+diff --git a/testcases/kernel/syscalls/ipc/shmctl/shmctl05.c b/testcases/kernel/syscalls/ipc/shmctl/shmctl05.c
+index 50196ae99..263e06e4c 100644
+--- a/testcases/kernel/syscalls/ipc/shmctl/shmctl05.c
++++ b/testcases/kernel/syscalls/ipc/shmctl/shmctl05.c
+@@ -3,15 +3,19 @@
+  * Copyright (c) 2018 Google, Inc.
+  */
  
--	if (info->msgpool != used_ids) {
-+	if (info->msgpool != queue_cnt) {
- 		tst_res(TFAIL, "msgpool = %i, expected %i",
--			info->msgpool, used_ids);
-+			info->msgpool, queue_cnt);
- 	} else {
--		tst_res(TPASS, "used_ids = %i", used_ids);
-+		tst_res(TPASS, "queue_cnt = %i", queue_cnt);
- 	}
+-/*
+- * Regression test for commit 3f05317d9889 ("ipc/shm: fix use-after-free of shm
+- * file via remap_file_pages()").  This bug allowed the remap_file_pages()
+- * syscall to use the file of a System V shared memory segment after its ID had
+- * been reallocated and the file freed.  This test reproduces the bug as a NULL
+- * pointer dereference in touch_atime(), although it's a race condition so it's
+- * not guaranteed to work.  This test is based on the reproducer provided in the
+- * fix's commit message.
+- */
++/*\
++ * [DESCRIPTION]
++ *
++ * Regression test for commit
++ * 3f05317d9889 (ipc/shm: fix use-after-free of shm file via remap_file_pages()).
++ *
++ * This bug allowed the remap_file_pages() syscall to use the file of a System
++ * V shared memory segment after its ID had been reallocated and the file
++ * freed. This test reproduces the bug as a NULL pointer dereference in
++ * touch_atime(), although it's a race condition so it's not guaranteed to
++ * work. This test is based on the reproducer provided in the fix's commit
++ * message.
++\*/
  
--	if (info->msgmap != queue_nums) {
-+	if (info->msgmap != msg_cnt) {
- 		tst_res(TFAIL, "msgmap = %i, expected %i",
--			info->msgpool, queue_nums);
-+			info->msgpool, msg_cnt);
- 	} else {
--		tst_res(TPASS, "msgnums = %i", queue_nums);
-+		tst_res(TPASS, "msg_cnt = %i", msg_cnt);
- 	}
+ #include "lapi/syscalls.h"
+ #include "tst_test.h"
+diff --git a/testcases/kernel/syscalls/ipc/shmctl/shmctl06.c b/testcases/kernel/syscalls/ipc/shmctl/shmctl06.c
+index 368759980..c804b3208 100644
+--- a/testcases/kernel/syscalls/ipc/shmctl/shmctl06.c
++++ b/testcases/kernel/syscalls/ipc/shmctl/shmctl06.c
+@@ -1,10 +1,14 @@
+ // SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+  * Copyright (c) 2020 Viresh Kumar <viresh.kumar@linaro.org>
++ */
++
++/*\
++ * [DESCRIPTION]
+  *
+- * Description:
+  * Cross verify the _high fields being set to 0 by the kernel.
+- */
++\*/
++
+ #include <sys/shm.h>
+ #include "lapi/shmbuf.h"
+ #include "libnewipc.h"
+diff --git a/testcases/kernel/syscalls/ipc/shmctl/shmctl07.c b/testcases/kernel/syscalls/ipc/shmctl/shmctl07.c
+index 39b9ad78a..8f74435f9 100644
+--- a/testcases/kernel/syscalls/ipc/shmctl/shmctl07.c
++++ b/testcases/kernel/syscalls/ipc/shmctl/shmctl07.c
+@@ -2,9 +2,12 @@
+ /*
+  * Copyright (C) 2020 Cyril Hrubis <chrubis@suse.cz>
+  */
+-/*
++
++/*\
++ * [DESCRIPTION]
++ *
+  * Test for a SHM_LOCK and SHM_UNLOCK.
+- */
++\*/
  
- 	if (info->msgtql != msg_bytes) {
- 		tst_res(TFAIL, "msgtql = %i, expected %i",
- 			info->msgtql, msg_bytes);
- 	} else {
--		tst_res(TPASS, "msgbytes = %i", msg_bytes);
-+		tst_res(TPASS, "msg_bytes = %i", msg_bytes);
- 	}
+ #define _GNU_SOURCE
+ #include <stdio.h>
+diff --git a/testcases/kernel/syscalls/ipc/shmctl/shmctl08.c b/testcases/kernel/syscalls/ipc/shmctl/shmctl08.c
+index 157ced608..f763a07eb 100644
+--- a/testcases/kernel/syscalls/ipc/shmctl/shmctl08.c
++++ b/testcases/kernel/syscalls/ipc/shmctl/shmctl08.c
+@@ -2,12 +2,15 @@
+ /*
+  * Copyright (C) 2020 Cyril Hrubis <chrubis@suse.cz>
+  */
+-/*
++
++/*\
++ * [DESCRIPTION]
++ *
+  * Test for a SHM_SET.
+  *
+  * The test clears the group and others bits from the shm_perm.mode and checks
+  * the result as well as if the ctime was updated correctly.
+- */
++\*/
  
- 	fclose(f);
-@@ -100,7 +105,7 @@ static void verify_msgctl(unsigned int n)
- 
- 	SAFE_SETEUID(*tc->uid);
- 
--	TEST(msgctl(0, MSG_INFO, (struct msgid_ds *)&info));
-+	TEST(msgctl(0, MSG_INFO, (struct msqid_ds *)&info));
- 
- 	if (TST_RET == -1) {
- 		tst_res(TFAIL | TTERRNO, "msgctl(0, MSG_INFO, ...)");
-
+ #define _GNU_SOURCE
+ #include <stdio.h>
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+2.26.2
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
