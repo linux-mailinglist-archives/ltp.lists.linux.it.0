@@ -1,38 +1,79 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 173CF2D2EFC
-	for <lists+linux-ltp@lfdr.de>; Tue,  8 Dec 2020 17:04:26 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 060592D2FA2
+	for <lists+linux-ltp@lfdr.de>; Tue,  8 Dec 2020 17:27:07 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D228E3C4B92
-	for <lists+linux-ltp@lfdr.de>; Tue,  8 Dec 2020 17:04:25 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id B57143C4B8A
+	for <lists+linux-ltp@lfdr.de>; Tue,  8 Dec 2020 17:27:06 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id C06A73C2C2B
- for <ltp@lists.linux.it>; Tue,  8 Dec 2020 17:04:23 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id E14913C2BDC
+ for <ltp@lists.linux.it>; Tue,  8 Dec 2020 17:27:05 +0100 (CET)
+Received: from aserp2130.oracle.com (aserp2130.oracle.com [141.146.126.79])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id D08B2200B77
- for <ltp@lists.linux.it>; Tue,  8 Dec 2020 17:04:22 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 26319AC94
- for <ltp@lists.linux.it>; Tue,  8 Dec 2020 16:04:22 +0000 (UTC)
-From: Cyril Hrubis <chrubis@suse.cz>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 1F47C200B7E
+ for <ltp@lists.linux.it>; Tue,  8 Dec 2020 17:27:04 +0100 (CET)
+Received: from pps.filterd (aserp2130.oracle.com [127.0.0.1])
+ by aserp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0B8GJJCR145498
+ for <ltp@lists.linux.it>; Tue, 8 Dec 2020 16:27:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding;
+ s=corp-2020-01-29; bh=6UfGVJnGSf2l64K8hbpvuVafeZeA6Ltmd+8CQ0ZVGD8=;
+ b=o2CsgpZuLDog7EFMDqBOGN1LClBbyMl9NHbYrfjzbC8CP7w00ahhFMUUmECE/Eo4GX3I
+ LmiwgGHAstczN+5fb0Z2Td6nay+OnG/Nymg2zGLQBNpEvBhCfVlSsM7FGomlf9YSmWbD
+ NENMUB88uAoWHh3uMBJ8TnUFY4ZAJj62fbblSpAnZsUxhFWImCUtvjeOJ2ugbEX3vEoV
+ BvvwwTh8W26dR/KyrfW0sbgpa/X+BBfH26n06kC0oU4BI0bOKwtlYvX+wSMjYoXyZ9rq
+ SbDqAANNfEiUhqkNEbRYZYMxrRqwamYd0d7XgWAIk5LNxTYtuu7MdLbs2DMaGzzV5DOG 2g== 
+Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
+ by aserp2130.oracle.com with ESMTP id 357yqbusrq-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL)
+ for <ltp@lists.linux.it>; Tue, 08 Dec 2020 16:27:03 +0000
+Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
+ by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0B8GFn7D138189
+ for <ltp@lists.linux.it>; Tue, 8 Dec 2020 16:25:02 GMT
+Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
+ by userp3030.oracle.com with ESMTP id 358m4y3egn-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
+ for <ltp@lists.linux.it>; Tue, 08 Dec 2020 16:25:02 +0000
+Received: from abhmp0001.oracle.com (abhmp0001.oracle.com [141.146.116.7])
+ by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 0B8GOxQM023010
+ for <ltp@lists.linux.it>; Tue, 8 Dec 2020 16:25:01 GMT
+Received: from gyrotron.nl.oracle.com (/10.175.28.120)
+ by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Tue, 08 Dec 2020 08:24:59 -0800
+From: Alexey Kodanev <alexey.kodanev@oracle.com>
 To: ltp@lists.linux.it
-Date: Tue,  8 Dec 2020 17:05:16 +0100
-Message-Id: <20201208160516.32672-1-chrubis@suse.cz>
-X-Mailer: git-send-email 2.26.2
+Date: Tue,  8 Dec 2020 19:24:39 +0300
+Message-Id: <20201208162440.14538-1-alexey.kodanev@oracle.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9829
+ signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
+ spamscore=0 suspectscore=1
+ bulkscore=0 malwarescore=0 phishscore=0 adultscore=0 mlxlogscore=999
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2012080098
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9829
+ signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=1
+ mlxlogscore=999
+ clxscore=1015 malwarescore=0 bulkscore=0 phishscore=0 adultscore=0
+ spamscore=0 priorityscore=1501 mlxscore=0 lowpriorityscore=0
+ impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2009150000 definitions=main-2012080099
 X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,LOTS_OF_MONEY,SPF_HELO_PASS,SPF_PASS
+ autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH] [COMMITTED] syscalls/ipc/shmctl: Reformat doc comments
+Subject: [LTP] [PATCH 1/2] lib/tst_net.sh: add getopts to tst_ping()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,214 +90,184 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-So that they are properly picked up by the docparser.
+* Replace '-i 0' with '-f'
 
-Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
+* Add similar checks for the flood and interval options as
+  in ping02 test
+
+Signed-off-by: Alexey Kodanev <alexey.kodanev@oracle.com>
 ---
- .../kernel/syscalls/ipc/shmctl/shmctl01.c     | 11 ++++++----
- .../kernel/syscalls/ipc/shmctl/shmctl02.c     |  6 +++--
- .../kernel/syscalls/ipc/shmctl/shmctl03.c     |  7 ++++--
- .../kernel/syscalls/ipc/shmctl/shmctl04.c     |  7 ++++--
- .../kernel/syscalls/ipc/shmctl/shmctl05.c     | 22 +++++++++++--------
- .../kernel/syscalls/ipc/shmctl/shmctl06.c     |  8 +++++--
- .../kernel/syscalls/ipc/shmctl/shmctl07.c     |  7 ++++--
- .../kernel/syscalls/ipc/shmctl/shmctl08.c     |  7 ++++--
- 8 files changed, 50 insertions(+), 25 deletions(-)
+ testcases/lib/tst_net.sh                      | 55 +++++++++++++------
+ testcases/network/mpls/mpls02.sh              |  2 +-
+ testcases/network/mpls/mpls_lib.sh            |  4 +-
+ .../network/stress/icmp/icmp-uni-basic.sh     |  2 +-
+ testcases/network/stress/icmp/icmp-uni-vti.sh |  2 +-
+ .../network/stress/interface/if-mtu-change.sh |  2 +-
+ .../network/stress/ns-tools/tst_net_stress.sh |  2 +-
+ 7 files changed, 45 insertions(+), 24 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/ipc/shmctl/shmctl01.c b/testcases/kernel/syscalls/ipc/shmctl/shmctl01.c
-index eb5307d1e..c22a8bcc6 100644
---- a/testcases/kernel/syscalls/ipc/shmctl/shmctl01.c
-+++ b/testcases/kernel/syscalls/ipc/shmctl/shmctl01.c
-@@ -3,16 +3,19 @@
-  * Copyright (c) International Business Machines  Corp., 2001
-  * Copyright (C) 2020 Cyril Hrubis <chrubis@suse.cz>
-  */
--/*
+diff --git a/testcases/lib/tst_net.sh b/testcases/lib/tst_net.sh
+index 46d3fb88e..ef9354903 100644
+--- a/testcases/lib/tst_net.sh
++++ b/testcases/lib/tst_net.sh
+@@ -800,37 +800,58 @@ tst_netload_compare()
+ 	tst_res_ TPASS "$msg, in range [${threshold_low}:${threshold_hi}]%"
+ }
+ 
+-# tst_ping [IFACE] [DST ADDR] [MESSAGE SIZE ARRAY]
++tst_ping_opt_unsupported()
++{
++	ping $@ 2>&1 | grep -q "invalid option"
++}
 +
-+/*\
-+ * [DESCRIPTION]
-+ *
-  * Verify that shmctl() IPC_STAT and SHM_STAT reports correct data.
-  *
-  * The shm_nattach is excercised by:
-  *
-- * 1. forking() children that attach and detach SHM
-- * 2. attaching the SHM before fork and letting the children detach it
-+ * - forking() children that attach and detach SHM
-+ * - attaching the SHM before fork and letting the children detach it
-  *
-  * We check that the number shm_nattach is correct after each step we do.
-- */
-+\*/
- 
- #define _GNU_SOURCE
- #include <stdlib.h>
-diff --git a/testcases/kernel/syscalls/ipc/shmctl/shmctl02.c b/testcases/kernel/syscalls/ipc/shmctl/shmctl02.c
-index 677b15d40..fde17ffbb 100644
---- a/testcases/kernel/syscalls/ipc/shmctl/shmctl02.c
-+++ b/testcases/kernel/syscalls/ipc/shmctl/shmctl02.c
-@@ -8,7 +8,9 @@
-  * Copyright (C) 2020 Cyril Hrubis <chrubis@suse.cz>
-  */
- 
--/*
-+/*\
-+ * [DESCRIPTION]
-+ *
-  * Test for EACCES, EFAULT and EINVAL errors.
-  *
-  * * EACCES - segment has no read or write permissions
-@@ -23,7 +25,7 @@
-  * * EPERM  - attempt to change root-owned shm
-  * * EPERM  - attempt to lock root-owned shm
-  * * EPERM  - attempt to unlock root-owned shm
-- */
-+\*/
- 
- #include <pwd.h>
- 
-diff --git a/testcases/kernel/syscalls/ipc/shmctl/shmctl03.c b/testcases/kernel/syscalls/ipc/shmctl/shmctl03.c
-index 8868ab1cb..f5d3e4f17 100644
---- a/testcases/kernel/syscalls/ipc/shmctl/shmctl03.c
-+++ b/testcases/kernel/syscalls/ipc/shmctl/shmctl03.c
-@@ -2,10 +2,13 @@
- /*
-  * Copyright (C) 2020 Cyril Hrubis <chrubis@suse.cz>
-  */
--/*
++# tst_ping -c COUNT -s MESSAGE_SIZES -p PATTERN -I IFACE -H HOST
+ # Check icmp connectivity
+ # IFACE: source interface name or IP address
+-# DST ADDR: destination IPv4 or IPv6 address
+-# MESSAGE SIZE ARRAY: message size array
++# HOST: destination IPv4 or IPv6 address
++# MESSAGE_SIZES: message size array
+ tst_ping()
+ {
+ 	# The max number of ICMP echo request
+-	PING_MAX="${PING_MAX:-500}"
+-
+-	local src_iface="${1:-$(tst_iface)}"
+-	local dst_addr="${2:-$(tst_ipaddr rhost)}"; shift $(( $# >= 2 ? 2 : 0 ))
+-	local msg_sizes="$*"
+-	local msg="tst_ping $dst_addr iface/saddr $src_iface, msg_size"
++	local ping_count="${PING_MAX:-500}"
++	local flood_opt="-f"
++	local pattern_opt
++	local msg_sizes
++	local src_iface="$(tst_iface)"
++	local dst_addr="$(tst_ipaddr rhost)"
+ 	local cmd="ping"
+ 	local ret=0
++	local opts
 +
-+/*\
-+ * [DESCRIPTION]
-+ *
-  * Call shmctl() with IPC_INFO flag and check that the data are consistent with
-  * /proc/sys/kernel/shm*.
-- */
-+\*/
++	local OPTIND
++	while getopts c:s:p:I:H: opt; do
++		case "$opt" in
++		c) ping_count="$OPTARG";;
++		s) msg_sizes="$OPTARG";;
++		p) pattern_opt="-p $OPTARG";;
++		I) src_iface="$OPTARG";;
++		H) dst_addr="$OPTARG";;
++		*) tst_brk_ TBROK "tst_ping: unknown option: $OPTARG";;
++		esac
++	done
  
- #define _GNU_SOURCE
- #include "tst_test.h"
-diff --git a/testcases/kernel/syscalls/ipc/shmctl/shmctl04.c b/testcases/kernel/syscalls/ipc/shmctl/shmctl04.c
-index f4235ff40..3068b7ace 100644
---- a/testcases/kernel/syscalls/ipc/shmctl/shmctl04.c
-+++ b/testcases/kernel/syscalls/ipc/shmctl/shmctl04.c
-@@ -2,7 +2,10 @@
- /*
-  * Copyright (C) 2020 Cyril Hrubis <chrubis@suse.cz>
-  */
--/*
+ 	echo "$dst_addr" | grep -q ':' && cmd="ping6"
+ 	tst_require_cmds $cmd
+ 
++	if tst_ping_opt_unsupported $flood_opt; then
++		flood_opt="-i 0.01"
++		[ "$pattern_opt" ] && pattern_opt="-p aa"
 +
-+/*\
-+ * [DESCRIPTION]
-+ *
-  * Call shmctl() with SHM_INFO flag and check that:
-  *
-  * * The returned index points to a valid SHM by calling SHM_STAT_ANY
-@@ -15,7 +18,7 @@
-  *
-  * Note what we create a SHM segment in the test setup to make sure that there
-  * is at least one during the testrun.
-- */
-+\*/
- 
- #define _GNU_SOURCE
- #include <stdio.h>
-diff --git a/testcases/kernel/syscalls/ipc/shmctl/shmctl05.c b/testcases/kernel/syscalls/ipc/shmctl/shmctl05.c
-index 50196ae99..263e06e4c 100644
---- a/testcases/kernel/syscalls/ipc/shmctl/shmctl05.c
-+++ b/testcases/kernel/syscalls/ipc/shmctl/shmctl05.c
-@@ -3,15 +3,19 @@
-  * Copyright (c) 2018 Google, Inc.
-  */
- 
--/*
-- * Regression test for commit 3f05317d9889 ("ipc/shm: fix use-after-free of shm
-- * file via remap_file_pages()").  This bug allowed the remap_file_pages()
-- * syscall to use the file of a System V shared memory segment after its ID had
-- * been reallocated and the file freed.  This test reproduces the bug as a NULL
-- * pointer dereference in touch_atime(), although it's a race condition so it's
-- * not guaranteed to work.  This test is based on the reproducer provided in the
-- * fix's commit message.
-- */
-+/*\
-+ * [DESCRIPTION]
-+ *
-+ * Regression test for commit
-+ * 3f05317d9889 (ipc/shm: fix use-after-free of shm file via remap_file_pages()).
-+ *
-+ * This bug allowed the remap_file_pages() syscall to use the file of a System
-+ * V shared memory segment after its ID had been reallocated and the file
-+ * freed. This test reproduces the bug as a NULL pointer dereference in
-+ * touch_atime(), although it's a race condition so it's not guaranteed to
-+ * work. This test is based on the reproducer provided in the fix's commit
-+ * message.
-+\*/
- 
- #include "lapi/syscalls.h"
- #include "tst_test.h"
-diff --git a/testcases/kernel/syscalls/ipc/shmctl/shmctl06.c b/testcases/kernel/syscalls/ipc/shmctl/shmctl06.c
-index 368759980..c804b3208 100644
---- a/testcases/kernel/syscalls/ipc/shmctl/shmctl06.c
-+++ b/testcases/kernel/syscalls/ipc/shmctl/shmctl06.c
-@@ -1,10 +1,14 @@
- // SPDX-License-Identifier: GPL-2.0-or-later
- /*
-  * Copyright (c) 2020 Viresh Kumar <viresh.kumar@linaro.org>
-+ */
++		tst_ping_opt_unsupported -i $pattern_opt && \
++			tst_brk_ TCONF "unsupported ping version (old busybox?)"
++	fi
 +
-+/*\
-+ * [DESCRIPTION]
-  *
-- * Description:
-  * Cross verify the _high fields being set to 0 by the kernel.
-- */
-+\*/
-+
- #include <sys/shm.h>
- #include "lapi/shmbuf.h"
- #include "libnewipc.h"
-diff --git a/testcases/kernel/syscalls/ipc/shmctl/shmctl07.c b/testcases/kernel/syscalls/ipc/shmctl/shmctl07.c
-index 39b9ad78a..8f74435f9 100644
---- a/testcases/kernel/syscalls/ipc/shmctl/shmctl07.c
-+++ b/testcases/kernel/syscalls/ipc/shmctl/shmctl07.c
-@@ -2,9 +2,12 @@
- /*
-  * Copyright (C) 2020 Cyril Hrubis <chrubis@suse.cz>
-  */
--/*
-+
-+/*\
-+ * [DESCRIPTION]
-+ *
-  * Test for a SHM_LOCK and SHM_UNLOCK.
-- */
-+\*/
+ 	# ping cmd use 56 as default message size
+ 	for size in ${msg_sizes:-"56"}; do
+-		$cmd -I $src_iface -c $PING_MAX $dst_addr \
+-			-s $size -i 0 > /dev/null 2>&1
++		EXPECT_PASS $cmd -I $src_iface -c $ping_count -s $size \
++			$flood_opt $pattern_opt $dst_addr \>/dev/null
+ 		ret=$?
+-		if [ $ret -eq 0 ]; then
+-			tst_res_ TPASS "$msg $size: pass"
+-		else
+-			tst_res_ TFAIL "$msg $size: fail"
+-			break
+-		fi
++		[ "$ret" -ne 0 ] && break
+ 	done
+ 	return $ret
+ }
+diff --git a/testcases/network/mpls/mpls02.sh b/testcases/network/mpls/mpls02.sh
+index c263f8aa8..2fd3ec5bf 100755
+--- a/testcases/network/mpls/mpls02.sh
++++ b/testcases/network/mpls/mpls02.sh
+@@ -43,7 +43,7 @@ do_test()
+ 	local max_size=$TST_NET_MAX_PKT
  
- #define _GNU_SOURCE
- #include <stdio.h>
-diff --git a/testcases/kernel/syscalls/ipc/shmctl/shmctl08.c b/testcases/kernel/syscalls/ipc/shmctl/shmctl08.c
-index 157ced608..f763a07eb 100644
---- a/testcases/kernel/syscalls/ipc/shmctl/shmctl08.c
-+++ b/testcases/kernel/syscalls/ipc/shmctl/shmctl08.c
-@@ -2,12 +2,15 @@
- /*
-  * Copyright (C) 2020 Cyril Hrubis <chrubis@suse.cz>
-  */
--/*
-+
-+/*\
-+ * [DESCRIPTION]
-+ *
-  * Test for a SHM_SET.
-  *
-  * The test clears the group and others bits from the shm_perm.mode and checks
-  * the result as well as if the ctime was updated correctly.
-- */
-+\*/
+ 	if [ "$type" = "icmp" ]; then
+-		tst_ping $ip_loc $ip_rmt 10 100 1000 2000 $max_size
++		tst_ping -I $ip_loc -H $ip_rmt -s "10 100 1000 2000 $max_size"
+ 	else
+ 		tst_netload -S $ip_loc -H $ip_rmt -T $type -n 10 -N 10
+ 		tst_netload -S $ip_loc -H $ip_rmt -T $type -A $max_size
+diff --git a/testcases/network/mpls/mpls_lib.sh b/testcases/network/mpls/mpls_lib.sh
+index 8ebedba0f..30e069581 100755
+--- a/testcases/network/mpls/mpls_lib.sh
++++ b/testcases/network/mpls/mpls_lib.sh
+@@ -87,8 +87,8 @@ mpls_virt_test()
+ 	local max_size=$TST_NET_MAX_PKT
  
- #define _GNU_SOURCE
- #include <stdio.h>
+ 	if [ "$type" = "icmp" ]; then
+-		tst_ping $ip_virt_local $ip_virt_remote 10 100 1000 2000 $max_size
+-		tst_ping $ip6_virt_local $ip6_virt_remote 10 100 1000 2000 $max_size
++		tst_ping -I $ip_virt_local -H $ip_virt_remote -s "10 100 1000 2000 $max_size"
++		tst_ping -I $ip6_virt_local -H $ip6_virt_remote -s "10 100 1000 2000 $max_size"
+ 	else
+ 		tst_netload -S $ip_virt_local -H $ip_virt_remote -T $type -n 10 -N 10
+ 		tst_netload -S $ip6_virt_local -H $ip6_virt_remote -T $type -n 10 -N 10
+diff --git a/testcases/network/stress/icmp/icmp-uni-basic.sh b/testcases/network/stress/icmp/icmp-uni-basic.sh
+index 5980b81e5..2ae616cc3 100755
+--- a/testcases/network/stress/icmp/icmp-uni-basic.sh
++++ b/testcases/network/stress/icmp/icmp-uni-basic.sh
+@@ -19,7 +19,7 @@ do_setup()
+ 
+ do_test()
+ {
+-	tst_ping $(tst_iface) $(tst_ipaddr rhost) $2
++	tst_ping -s $2
+ }
+ 
+ tst_run
+diff --git a/testcases/network/stress/icmp/icmp-uni-vti.sh b/testcases/network/stress/icmp/icmp-uni-vti.sh
+index 24eca177c..18bc71cfb 100755
+--- a/testcases/network/stress/icmp/icmp-uni-vti.sh
++++ b/testcases/network/stress/icmp/icmp-uni-vti.sh
+@@ -18,7 +18,7 @@ do_setup()
+ 
+ do_test()
+ {
+-	tst_ping $tst_vti $ip_rmt_tun $2
++	tst_ping -I $tst_vti -H $ip_rmt_tun -s $2
+ }
+ 
+ tst_run
+diff --git a/testcases/network/stress/interface/if-mtu-change.sh b/testcases/network/stress/interface/if-mtu-change.sh
+index b945fb6ce..8112cdf0e 100755
+--- a/testcases/network/stress/interface/if-mtu-change.sh
++++ b/testcases/network/stress/interface/if-mtu-change.sh
+@@ -77,7 +77,7 @@ test_body()
+ 
+ 		tst_sleep $CHANGE_INTERVAL
+ 
+-		tst_ping $(tst_ipaddr) $(tst_ipaddr rhost) "1 1000 65507"
++		tst_ping -s "1 1000 65507"
+ 	done
+ }
+ 
+diff --git a/testcases/network/stress/ns-tools/tst_net_stress.sh b/testcases/network/stress/ns-tools/tst_net_stress.sh
+index ae040bcf1..4b00ee7f8 100644
+--- a/testcases/network/stress/ns-tools/tst_net_stress.sh
++++ b/testcases/network/stress/ns-tools/tst_net_stress.sh
+@@ -69,7 +69,7 @@ check_connectivity()
+ 
+ 	tst_res TINFO "ping through $src_iface iface to ${dst_addr}$cnt_msg"
+ 
+-	tst_ping $src_iface $dst_addr
++	tst_ping -I $src_iface -H $dst_addr
+ }
+ 
+ # check_connectivity_interval CNT [RESTORE] [SRC_IFACE] [DST_ADDR]
 -- 
-2.26.2
+2.20.1
 
 
 -- 
