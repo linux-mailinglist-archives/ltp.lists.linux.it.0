@@ -2,41 +2,47 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5A612D3E4F
-	for <lists+linux-ltp@lfdr.de>; Wed,  9 Dec 2020 10:17:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 579062D4060
+	for <lists+linux-ltp@lfdr.de>; Wed,  9 Dec 2020 11:56:25 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4CB9D3C589C
-	for <lists+linux-ltp@lfdr.de>; Wed,  9 Dec 2020 10:17:43 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id EAF1F3C2BE3
+	for <lists+linux-ltp@lfdr.de>; Wed,  9 Dec 2020 11:56:24 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id 7F3373C25D3
- for <ltp@lists.linux.it>; Wed,  9 Dec 2020 10:17:39 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id E54BA200241
- for <ltp@lists.linux.it>; Wed,  9 Dec 2020 10:17:38 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 1E0E0AD77;
- Wed,  9 Dec 2020 09:17:38 +0000 (UTC)
-References: <20201203110616.28302-1-liwang@redhat.com>
- <20201204063305.6820-1-liwang@redhat.com>
- <20201204063305.6820-3-liwang@redhat.com>
- <CAEemH2exy7xkSDxWBdGpYib+3rJPR3JhwMOi9X1x2v28+ta7TQ@mail.gmail.com>
-User-agent: mu4e 1.4.13; emacs 27.1
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Li Wang <liwang@redhat.com>
-In-reply-to: <CAEemH2exy7xkSDxWBdGpYib+3rJPR3JhwMOi9X1x2v28+ta7TQ@mail.gmail.com>
-Date: Wed, 09 Dec 2020 09:17:37 +0000
-Message-ID: <87y2i7gwy6.fsf@suse.de>
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id 015953C2B12
+ for <ltp@lists.linux.it>; Wed,  9 Dec 2020 11:56:20 +0100 (CET)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-4.smtp.seeweb.it (Postfix) with ESMTP id DBFEB1000AFC
+ for <ltp@lists.linux.it>; Wed,  9 Dec 2020 11:56:19 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.78,405,1599494400"; d="scan'208";a="102224660"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 09 Dec 2020 18:56:17 +0800
+Received: from G08CNEXMBPEKD05.g08.fujitsu.local (unknown [10.167.33.204])
+ by cn.fujitsu.com (Postfix) with ESMTP id 228734CE6011
+ for <ltp@lists.linux.it>; Wed,  9 Dec 2020 18:56:17 +0800 (CST)
+Received: from G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) by
+ G08CNEXMBPEKD05.g08.fujitsu.local (10.167.33.204) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Wed, 9 Dec 2020 18:56:16 +0800
+Received: from Fedora-31.g08.fujitsu.local (10.167.220.31) by
+ G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) with Microsoft SMTP Server
+ id 15.0.1497.2 via Frontend Transport; Wed, 9 Dec 2020 18:56:16 +0800
+From: Xiao Yang <yangx.jy@cn.fujitsu.com>
+To: <ltp@lists.linux.it>
+Date: Wed, 9 Dec 2020 18:35:46 +0800
+Message-ID: <20201209103547.1343502-1-yangx.jy@cn.fujitsu.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-yoursite-MailScanner-ID: 228734CE6011.A6081
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: yangx.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.4
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 3/3] af_alg07: add dynamic bias for ARM
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/2] docparse/docparse.c: Split the process of implied
+ flags
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,26 +54,56 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
-Cc: LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello Li,
+Check implied flags in one loop and set implied flags in another
+loop so that the following false positive can be avoided:
+----------------------------------------------------
+# docparse/docparse testcases/kernel/syscalls/chdir/chdir01.c
+testcases/kernel/syscalls/chdir/chdir01.c: useless tag: needs_device
+...
+----------------------------------------------------
 
-Li Wang <liwang@redhat.com> writes:
+Signed-off-by: Xiao Yang <yangx.jy@cn.fujitsu.com>
+---
+ docparse/docparse.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-> Hi all,
->
-> Any objection to merging this one? or comments?
-
-LGTM!
-
+diff --git a/docparse/docparse.c b/docparse/docparse.c
+index be6125353..22c5c6f2c 100644
+--- a/docparse/docparse.c
++++ b/docparse/docparse.c
+@@ -401,15 +401,15 @@ int main(int argc, char *argv[])
+ 
+ 	/* Normalize the result */
+ 	for (i = 0; implies[i].flag; i++) {
+-		if (!data_node_hash_get(res, implies[i].flag))
+-			continue;
+-
+-		if (data_node_hash_get(res, implies[i].implies)) {
++		if (data_node_hash_get(res, implies[i].flag) &&
++		    data_node_hash_get(res, implies[i].implies))
+ 			fprintf(stderr, "%s: useless tag: %s\n", argv[1], implies[i].implies);
+-			continue;
+-		}
++	}
+ 
+-		data_node_hash_add(res, implies[i].implies, data_node_string("1"));
++	for (i = 0; implies[i].flag; i++) {
++		if (data_node_hash_get(res, implies[i].flag) &&
++		    !data_node_hash_get(res, implies[i].implies))
++			data_node_hash_add(res, implies[i].implies, data_node_string("1"));
+ 	}
+ 
+ 	data_node_hash_add(res, "fname", data_node_string(argv[1]));
 -- 
-Thank you,
-Richard.
+2.25.1
+
+
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
