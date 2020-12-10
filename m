@@ -1,40 +1,38 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id DACA52D4D58
-	for <lists+linux-ltp@lfdr.de>; Wed,  9 Dec 2020 23:11:01 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id E535A2D5D43
+	for <lists+linux-ltp@lfdr.de>; Thu, 10 Dec 2020 15:15:07 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 882693C7529
-	for <lists+linux-ltp@lfdr.de>; Wed,  9 Dec 2020 23:11:01 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 6787B3C7152
+	for <lists+linux-ltp@lfdr.de>; Thu, 10 Dec 2020 15:15:07 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id D9A503C25D3
- for <ltp@lists.linux.it>; Wed,  9 Dec 2020 23:10:59 +0100 (CET)
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id 5080C3C4B5F
+ for <ltp@lists.linux.it>; Thu, 10 Dec 2020 15:14:53 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 5F9681400188
- for <ltp@lists.linux.it>; Wed,  9 Dec 2020 23:10:59 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 730AD1000C2C
+ for <ltp@lists.linux.it>; Thu, 10 Dec 2020 15:14:53 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 5740BACE1
- for <ltp@lists.linux.it>; Wed,  9 Dec 2020 22:10:58 +0000 (UTC)
-Date: Wed, 9 Dec 2020 23:10:56 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <20201209221056.GB69775@pevik>
-References: <20201208132814.16497-1-pvorel@suse.cz> <X9DO3uytgBaTrVwi@yuki.lan>
+ by mx2.suse.de (Postfix) with ESMTP id A1EA4AE2E
+ for <ltp@lists.linux.it>; Thu, 10 Dec 2020 14:14:52 +0000 (UTC)
+From: Cyril Hrubis <chrubis@suse.cz>
+To: ltp@lists.linux.it
+Date: Thu, 10 Dec 2020 15:15:38 +0100
+Message-Id: <20201210141548.10982-1-chrubis@suse.cz>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <X9DO3uytgBaTrVwi@yuki.lan>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/1] syscalls/get_mempolicy01: Rewrite to new API
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 00/10] Introduce TST_EXP_MACROS
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,79 +44,81 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Cyril,
+This patchset adds TST_EXP_MACROS() implementation.
 
-...
-> > -	if (!is_numa(NULL, NH_MEMS, 1))
-> > -		tst_brkm(TCONF, NULL, "requires NUMA with at least 1 node");
-> > +	if (get_allowed_nodes(NH_MEMS, 1, &test_node) < 0)
-> > +		tst_brk(TBROK | TERRNO, "get_allowed_nodes failed");
+These macros are intended to simplify and unify syscall unit tests.
 
-> The is_numa() and get_allowed_nodes() is deprecated API, we do have new
-> tst_get_nodemap() function that replaces them. See set_mempolicy()
-> testcases for reference.
-Thanks!
+This patchset converts a few testcases to use TST_EXP_MACROS() it's
+intenteded to serve as an example since there is a lot of testcases that
+could use them as well.
 
-> > -	TEST_PAUSE;
-> > -	tst_tmpdir();
-> > +	nodemask = numa_allocate_nodemask();
-> > +	getnodemask = numa_allocate_nodemask();
-> > +	numa_bitmask_setbit(nodemask, test_node);
-> >  }
+Also the documentation for these macros is ommited at this point, I will
+add it in a case that we agree to include them in the test library.
 
-> > -#else
-> > -int main(void)
-> > +static void do_test(unsigned int i)
-> >  {
-> > -	tst_brkm(TCONF, NULL, NUMA_ERROR_MSG);
-> > +	struct test_case *tc = &tcase[i];
-> > +	int policy;
-> > +
-> > +	tst_res(TINFO, "test #%d: %s", (i+1), tc->desc);
-> > +
-> > +	setup_node();
-> > +
-> > +	if (tc->pre_test)
-> > +		if (tc->pre_test(i) == -1)
-> > +			return;
-> > +
-> > +	if (tc->test) {
-> > +		tc->test(i);
-> > +
-> > +		if (TST_RET < 0) {
-> > +			tst_res(TFAIL | TERRNO, ".test failed");
-> > +			return;
-> > +		}
-> > +	}
 
-> We call test_mbind() here for each iteration which calls mmap()
-> and the memory is never freed. Which means that this will fail sooner or
-> later with the -i option.
+Changes in v2:
 
-> Why can't we allocate all the blocks with different mempolicy and
-> or/bind the memory once in the test setup instead? We can keep the
-> callback in-place as they are we just need to loop over them in the
-> setup() instead. Also I would rename them to alloc, setup, or something
-> like that so that it's clear that they are just preparing the
-> environment and not doing the actuall test.
-Thanks for catching this. I actually run it more with -i500,
-but it looks laptop has enough memory :). Anyway, what you suggest is obviously
-much better solution, thanks!
+- renamed the macros so that it's more clear that they do
+- added documentation to test-writing-guidelines
+- minor fixed in the converted testcases
 
-> Also I would pass the struct test_case pointer to these instead of i
-> since they convert the i to the testcase pointer as the first thing
-> anyways.
-+1
+Cyril Hrubis (10):
+  lib: Introduce TST_EXP_* macros
+  syscalls/uname: Make use of TST_EXP_MACROS
+  syscalls/accept: Make use of TST_EXP_MACROS
+  syscalls/access: Make use of TST_EXP_MACROS
+  syscalls/bind: Make use of TST_EXP_MACROS
+  syscalls/brk01: Make use of TST_EXP_MACROS
+  syscalls/cacheflush: Make use of TST_EXP_MACROS
+  syscalls/capget: Make use of TEST_MACROS
+  syscalls/capset: Make use of TST_EXP_MACROS
+  syscalls/open: Make use of TST_EXP_MACROS
 
-Kind regards,
-Petr
+ doc/test-writing-guidelines.txt               |  54 ++++++++
+ include/tst_test.h                            |  28 +---
+ include/tst_test_macros.h                     | 130 ++++++++++++++++++
+ lib/newlib_tests/.gitignore                   |   3 +
+ lib/newlib_tests/test_macros01.c              |  40 ++++++
+ lib/newlib_tests/test_macros02.c              |  42 ++++++
+ lib/newlib_tests/test_macros03.c              |  40 ++++++
+ lib/tst_test.c                                |   1 +
+ testcases/kernel/syscalls/accept/accept01.c   |  17 +--
+ testcases/kernel/syscalls/access/access01.c   |  45 +-----
+ testcases/kernel/syscalls/access/access02.c   |   8 +-
+ testcases/kernel/syscalls/access/access03.c   |  28 +---
+ testcases/kernel/syscalls/access/access04.c   |  17 +--
+ testcases/kernel/syscalls/bind/bind01.c       |  12 +-
+ testcases/kernel/syscalls/bind/bind02.c       |  11 +-
+ testcases/kernel/syscalls/bind/bind03.c       |  26 +---
+ testcases/kernel/syscalls/bind/bind04.c       |   5 +-
+ testcases/kernel/syscalls/bind/bind05.c       |   5 +-
+ testcases/kernel/syscalls/brk/brk01.c         |   9 +-
+ .../kernel/syscalls/cacheflush/cacheflush01.c |   8 +-
+ testcases/kernel/syscalls/capget/capget01.c   |  17 +--
+ testcases/kernel/syscalls/capget/capget02.c   |  26 ++--
+ testcases/kernel/syscalls/capset/capset01.c   |  14 +-
+ testcases/kernel/syscalls/capset/capset02.c   |  28 ++--
+ testcases/kernel/syscalls/capset/capset03.c   |  10 +-
+ testcases/kernel/syscalls/capset/capset04.c   |  13 +-
+ testcases/kernel/syscalls/open/open01.c       |  11 +-
+ testcases/kernel/syscalls/open/open02.c       |  25 +---
+ testcases/kernel/syscalls/open/open11.c       |  22 ++-
+ testcases/kernel/syscalls/uname/uname01.c     |  13 +-
+ testcases/kernel/syscalls/uname/uname02.c     |  17 +--
+ 31 files changed, 403 insertions(+), 322 deletions(-)
+ create mode 100644 include/tst_test_macros.h
+ create mode 100644 lib/newlib_tests/test_macros01.c
+ create mode 100644 lib/newlib_tests/test_macros02.c
+ create mode 100644 lib/newlib_tests/test_macros03.c
+
+-- 
+2.26.2
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
