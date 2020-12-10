@@ -2,39 +2,38 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id C89A52D5D47
-	for <lists+linux-ltp@lfdr.de>; Thu, 10 Dec 2020 15:15:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17E382D5D48
+	for <lists+linux-ltp@lfdr.de>; Thu, 10 Dec 2020 15:15:45 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9A96E3C7878
-	for <lists+linux-ltp@lfdr.de>; Thu, 10 Dec 2020 15:15:32 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id C1F1E3C75D2
+	for <lists+linux-ltp@lfdr.de>; Thu, 10 Dec 2020 15:15:44 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 1042B3C4B5F
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id 91E1D3C7141
  for <ltp@lists.linux.it>; Thu, 10 Dec 2020 15:14:55 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 9F1541A009A5
- for <ltp@lists.linux.it>; Thu, 10 Dec 2020 15:14:54 +0100 (CET)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 16626200C86
+ for <ltp@lists.linux.it>; Thu, 10 Dec 2020 15:14:55 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 48B19AE87
+ by mx2.suse.de (Postfix) with ESMTP id A83C7AE2E
  for <ltp@lists.linux.it>; Thu, 10 Dec 2020 14:14:54 +0000 (UTC)
 From: Cyril Hrubis <chrubis@suse.cz>
 To: ltp@lists.linux.it
-Date: Thu, 10 Dec 2020 15:15:42 +0100
-Message-Id: <20201210141548.10982-5-chrubis@suse.cz>
+Date: Thu, 10 Dec 2020 15:15:43 +0100
+Message-Id: <20201210141548.10982-6-chrubis@suse.cz>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20201210141548.10982-1-chrubis@suse.cz>
 References: <20201210141548.10982-1-chrubis@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 04/10] syscalls/access: Make use of TST_EXP_MACROS
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 05/10] syscalls/bind: Make use of TST_EXP_MACROS
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,170 +52,138 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
 ---
- testcases/kernel/syscalls/access/access01.c | 45 ++++-----------------
- testcases/kernel/syscalls/access/access02.c |  8 ++--
- testcases/kernel/syscalls/access/access03.c | 28 ++-----------
- testcases/kernel/syscalls/access/access04.c | 17 +-------
- 4 files changed, 16 insertions(+), 82 deletions(-)
+ testcases/kernel/syscalls/bind/bind01.c | 12 +++++-------
+ testcases/kernel/syscalls/bind/bind02.c | 11 ++---------
+ testcases/kernel/syscalls/bind/bind03.c | 26 ++++---------------------
+ testcases/kernel/syscalls/bind/bind04.c |  5 ++---
+ testcases/kernel/syscalls/bind/bind05.c |  5 ++---
+ 5 files changed, 15 insertions(+), 44 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/access/access01.c b/testcases/kernel/syscalls/access/access01.c
-index 1b73058d4..c9a076dfe 100644
---- a/testcases/kernel/syscalls/access/access01.c
-+++ b/testcases/kernel/syscalls/access/access01.c
-@@ -231,46 +231,15 @@ static struct tcase {
- 	{DNAME_WX"/"FNAME_X, W_OK, "W_OK", EACCES, 1}
- };
- 
--static void verify_success(struct tcase *tc, const char *user)
--{
--	if (TST_RET == -1) {
--		tst_res(TFAIL | TTERRNO,
--		        "access(%s, %s) as %s failed unexpectedly",
--		        tc->fname, tc->name, user);
--		return;
--	}
--
--	tst_res(TPASS, "access(%s, %s) as %s", tc->fname, tc->name, user);
--}
--
--static void verify_failure(struct tcase *tc, const char *user)
--{
--	if (TST_RET != -1) {
--		tst_res(TFAIL, "access(%s, %s) as %s succeded unexpectedly",
--		        tc->fname, tc->name, user);
--		return;
--	}
--
--	if (TST_ERR != tc->exp_errno) {
--		tst_res(TFAIL | TTERRNO,
--		        "access(%s, %s) as %s should fail with %s",
--		        tc->fname, tc->name, user,
--		        tst_strerrno(tc->exp_errno));
--		return;
--	}
--
--	tst_res(TPASS | TTERRNO, "access(%s, %s) as %s",
--	        tc->fname, tc->name, user);
--}
--
- static void access_test(struct tcase *tc, const char *user)
+diff --git a/testcases/kernel/syscalls/bind/bind01.c b/testcases/kernel/syscalls/bind/bind01.c
+index 2054996ac..758d12863 100644
+--- a/testcases/kernel/syscalls/bind/bind01.c
++++ b/testcases/kernel/syscalls/bind/bind01.c
+@@ -47,14 +47,12 @@ void verify_bind(unsigned int nr)
  {
--	TEST(access(tc->fname, tc->mode));
--
--	if (tc->exp_errno)
--		verify_failure(tc, user);
--	else
--		verify_success(tc, user);
-+	if (tc->exp_errno) {
-+		TST_EXP_FAIL(access(tc->fname, tc->mode), tc->exp_errno,
-+		             "access(%s, %s) as %s", tc->fname, tc->name, user);
-+	} else {
-+		TST_EXP_PASS(access(tc->fname, tc->mode),
-+		             "access(%s, %s) as %s", tc->fname, tc->name, user);
-+	}
- }
+ 	struct test_case *tcase = &tcases[nr];
  
- static void verify_access(unsigned int n)
-diff --git a/testcases/kernel/syscalls/access/access02.c b/testcases/kernel/syscalls/access/access02.c
-index db1d350bf..ff3e7b6f4 100644
---- a/testcases/kernel/syscalls/access/access02.c
-+++ b/testcases/kernel/syscalls/access/access02.c
-@@ -59,13 +59,11 @@ static void access_test(struct tcase *tc, const char *user)
- 	struct stat stat_buf;
- 	char command[64];
- 
--	TEST(access(tc->pathname, tc->mode));
-+	TST_EXP_PASS(access(tc->pathname, tc->mode),
-+	             "access(%s, %s) as %s", tc->pathname, tc->name, user);
- 
--	if (TST_RET == -1) {
--		tst_res(TFAIL | TTERRNO, "access(%s, %s) as %s failed",
--			tc->pathname, tc->name, user);
-+	if (!TST_PASS)
- 		return;
--	}
- 
- 	switch (tc->mode) {
- 	case F_OK:
-diff --git a/testcases/kernel/syscalls/access/access03.c b/testcases/kernel/syscalls/access/access03.c
-index 612256c17..ae3f676b1 100644
---- a/testcases/kernel/syscalls/access/access03.c
-+++ b/testcases/kernel/syscalls/access/access03.c
-@@ -26,34 +26,13 @@ static struct tcase {
- 	{(void *)-1, X_OK, "X_OK"},
- };
- 
--static void access_test(struct tcase *tc, const char *user)
--{
--	TEST(access(tc->addr, tc->mode));
--
--	if (TST_RET != -1) {
--		tst_res(TFAIL, "access(%p, %s) as %s succeeded unexpectedly",
--			tc->addr, tc->name, user);
--		return;
--	}
--
--	if (TST_ERR != EFAULT) {
--		tst_res(TFAIL | TTERRNO,
--			"access(%p, %s) as %s should fail with EFAULT",
--			tc->addr, tc->name, user);
--		return;
--	}
--
--	tst_res(TPASS | TTERRNO, "access(%p, %s) as %s",
--		tc->addr, tc->name, user);
--}
--
- static void verify_access(unsigned int n)
- {
- 	struct tcase *tc = &tcases[n];
- 	pid_t pid;
- 
--	/* test as root */
--	access_test(tc, "root");
-+	TST_EXP_FAIL(access(tc->addr, tc->mode), EFAULT,
-+	             "invalid address as root");
- 
- 	/* test as nobody */
- 	pid = SAFE_FORK();
-@@ -61,7 +40,8 @@ static void verify_access(unsigned int n)
- 		SAFE_WAITPID(pid, NULL, 0);
+-	TEST(bind(*tcase->socket_fd, tcase->sockaddr, tcase->salen));
+-	if (TST_RET != tcase->retval && TST_ERR != tcase->experrno) {
+-		tst_res(TFAIL, "%s ; returned"
+-			" %ld (expected %d), errno %d (expected"
+-			" %d)", tcase->desc, TST_RET, tcase->retval,
+-			TST_ERR, tcase->experrno);
++	if (tcase->experrno) {
++		TST_EXP_FAIL(bind(*tcase->socket_fd, tcase->sockaddr, tcase->salen),
++		             tcase->experrno, "%s", tcase->desc);
  	} else {
- 		SAFE_SETUID(uid);
--		access_test(tc, "nobody");
-+		TST_EXP_FAIL(access(tc->addr, tc->mode), EFAULT,
-+		             "invalid address as nobody");
+-		tst_res(TPASS, "%s successful", tcase->desc);
++		TST_EXP_PASS(bind(*tcase->socket_fd, tcase->sockaddr, tcase->salen),
++		             "%s", tcase->desc);
  	}
  }
  
-diff --git a/testcases/kernel/syscalls/access/access04.c b/testcases/kernel/syscalls/access/access04.c
-index 328be1b73..2d6dd70e8 100644
---- a/testcases/kernel/syscalls/access/access04.c
-+++ b/testcases/kernel/syscalls/access/access04.c
-@@ -58,21 +58,8 @@ static struct tcase {
- 
- static void access_test(struct tcase *tc, const char *user)
- {
--	TEST(access(tc->pathname, tc->mode));
+diff --git a/testcases/kernel/syscalls/bind/bind02.c b/testcases/kernel/syscalls/bind/bind02.c
+index 65944cbe3..a997157d6 100644
+--- a/testcases/kernel/syscalls/bind/bind02.c
++++ b/testcases/kernel/syscalls/bind/bind02.c
+@@ -36,16 +36,9 @@ static void run(void)
+ 	servaddr.sin_family = AF_INET;
+ 	servaddr.sin_port = htons(TCP_PRIVILEGED_PORT);
+ 	servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
+-	TEST(bind(sockfd, (struct sockaddr *)&servaddr, sizeof(servaddr)));
++	TST_EXP_FAIL(bind(sockfd, (struct sockaddr *)&servaddr, sizeof(servaddr)),
++	             EACCES, "bind()");
+ 	SAFE_CLOSE(sockfd);
 -
 -	if (TST_RET != -1) {
--		tst_res(TFAIL, "access as %s succeeded unexpectedly", user);
--		return;
+-		tst_res(TFAIL, "bind() returned %li, expected -1", TST_RET);
+-	} else if (TST_ERR == EACCES) {
+-		tst_res(TPASS | TTERRNO, "bind() failed as expected");
+-	} else {
+-		tst_res(TFAIL | TTERRNO, "Unexpected error");
 -	}
--
--	if (tc->exp_errno != TST_ERR) {
--		tst_res(TFAIL | TTERRNO,
--			"access as %s should fail with %s",
--			user, tst_strerrno(tc->exp_errno));
--		return;
--	}
--
--	tst_res(TPASS | TTERRNO, "access as %s failed expectedly", user);
-+	TST_EXP_FAIL(access(tc->pathname, tc->mode), tc->exp_errno,
-+	             "access as %s", user);
  }
  
- static void verify_access(unsigned int n)
+ static void setup(void)
+diff --git a/testcases/kernel/syscalls/bind/bind03.c b/testcases/kernel/syscalls/bind/bind03.c
+index dda5ca374..c39e8f197 100644
+--- a/testcases/kernel/syscalls/bind/bind03.c
++++ b/testcases/kernel/syscalls/bind/bind03.c
+@@ -51,17 +51,8 @@ void run(void)
+ 	 * Once a STREAM UNIX domain socket has been bound, it can't be
+ 	 * rebound.
+ 	 */
+-	if (bind(sock1, (struct sockaddr *)&sun2, sizeof(sun2)) == 0) {
+-		tst_res(TFAIL, "re-binding of socket succeeded");
+-		return;
+-	}
+-
+-	if (errno != EINVAL) {
+-		tst_res(TFAIL | TERRNO, "expected EINVAL");
+-		return;
+-	}
+-
+-	tst_res(TPASS, "bind() failed with EINVAL as expected");
++	TST_EXP_FAIL(bind(sock1, (struct sockaddr *)&sun2, sizeof(sun2)),
++	             EINVAL, "re-bind() socket");
+ 
+ 	sock2 = SAFE_SOCKET(PF_UNIX, SOCK_STREAM, 0);
+ 
+@@ -69,17 +60,8 @@ void run(void)
+ 	 * Since a socket is already bound to the pathname, it can't be bound
+ 	 * to a second socket. Expected error is EADDRINUSE.
+ 	 */
+-	if (bind(sock2, (struct sockaddr *)&sun1, sizeof(sun1)) == 0) {
+-		tst_res(TFAIL, "bind() succeeded with already bound pathname!");
+-		return;
+-	}
+-
+-	if (errno != EADDRINUSE) {
+-		tst_res(TFAIL | TERRNO, "expected to fail with EADDRINUSE");
+-		return;
+-	}
+-
+-	tst_res(TPASS, "bind() failed with EADDRINUSE as expected");
++	TST_EXP_FAIL(bind(sock2, (struct sockaddr *)&sun1, sizeof(sun1)),
++	             EADDRINUSE, "bind() with bound pathname");
+ }
+ 
+ static void cleanup(void)
+diff --git a/testcases/kernel/syscalls/bind/bind04.c b/testcases/kernel/syscalls/bind/bind04.c
+index 51f19c6cd..49e784ccd 100644
+--- a/testcases/kernel/syscalls/bind/bind04.c
++++ b/testcases/kernel/syscalls/bind/bind04.c
+@@ -118,10 +118,9 @@ static void test_bind(unsigned int n)
+ 	listen_sock = SAFE_SOCKET(tc->address->sa_family, tc->type,
+ 		tc->protocol);
+ 
+-	TEST(bind(listen_sock, tc->address, tc->addrlen));
++	TST_EXP_PASS(bind(listen_sock, tc->address, tc->addrlen), "bind()");
+ 
+-	if (TST_RET) {
+-		tst_res(TFAIL | TERRNO, "bind() failed");
++	if (!TST_PASS) {
+ 		SAFE_CLOSE(listen_sock);
+ 		return;
+ 	}
+diff --git a/testcases/kernel/syscalls/bind/bind05.c b/testcases/kernel/syscalls/bind/bind05.c
+index 16c9c711d..3b384cf1b 100644
+--- a/testcases/kernel/syscalls/bind/bind05.c
++++ b/testcases/kernel/syscalls/bind/bind05.c
+@@ -131,10 +131,9 @@ static void test_bind(unsigned int n)
+ 	tst_res(TINFO, "Testing %s", tc->description);
+ 	sock = SAFE_SOCKET(tc->address->sa_family, tc->type, tc->protocol);
+ 
+-	TEST(bind(sock, tc->address, tc->addrlen));
++	TST_EXP_PASS(bind(sock, tc->address, tc->addrlen), "bind()");
+ 
+-	if (TST_RET) {
+-		tst_res(TFAIL | TERRNO, "bind() failed");
++	if (!TST_PASS) {
+ 		SAFE_CLOSE(sock);
+ 		return;
+ 	}
 -- 
 2.26.2
 
