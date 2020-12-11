@@ -1,127 +1,73 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 261042D73D5
-	for <lists+linux-ltp@lfdr.de>; Fri, 11 Dec 2020 11:23:05 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C5792D7422
+	for <lists+linux-ltp@lfdr.de>; Fri, 11 Dec 2020 11:46:18 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 8E6453C620E
-	for <lists+linux-ltp@lfdr.de>; Fri, 11 Dec 2020 11:23:04 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 0CFF73C61AE
+	for <lists+linux-ltp@lfdr.de>; Fri, 11 Dec 2020 11:46:17 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id 629803C0887
- for <ltp@lists.linux.it>; Fri, 11 Dec 2020 11:23:01 +0100 (CET)
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [62.140.7.102])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
- (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id B751860136B
- for <ltp@lists.linux.it>; Fri, 11 Dec 2020 11:23:00 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com;
- s=mimecast20200619; t=1607682180;
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id 937A73C2A82
+ for <ltp@lists.linux.it>; Fri, 11 Dec 2020 11:46:13 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+ by in-6.smtp.seeweb.it (Postfix) with ESMTP id EB5C71400183
+ for <ltp@lists.linux.it>; Fri, 11 Dec 2020 11:46:12 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1607683571;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:mime-version:mime-version:content-type:content-type:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=sqm3KWGjiMQp42JPDAkr7NSDCClLg5eMrRVHIkzb3y4=;
- b=mJ6FdBP8RnX4ZsLRLTH9UsOMI+F7e9dfOyN+iox7GeE3g2yfBtUq/z5GtjOfeByy4musrQ
- hF6fdIfj+ChtlfEQXlGhG5FTY/u2v4YEX+EOUZ1gEG0NBiOxoFS1jRWZD4JAu4slNolDqX
- wNqhfeeV8HT/v5xspZnEgM5nWg2W5ZM=
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05lp2174.outbound.protection.outlook.com [104.47.17.174])
- (Using TLS) by relay.mimecast.com with ESMTP id
- de-mta-12-iMHpX-xRNIWYVy4c_3HQbA-2; Fri, 11 Dec 2020 11:22:58 +0100
-X-MC-Unique: iMHpX-xRNIWYVy4c_3HQbA-2
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZrpcM1MNzqWc61kW+8T4BJNJv04P0k+SxwVIUSTT5qWcXjICFGIgzKPjQv8kN1rgAga96kGcmLIemo+erj/zunClFqsLXMbYV40rzmvWL3NbcnauiPtnk5VG3aIeYQqh2Q98nEyMO+x45N0o1he6wK9q5PfLOGmIPePzaJ2WLHRgVm+L0zzwIAx2qSbnEU70hoAMcq0wPW6L6DgHxt3807+hZA3XxwRMn2yEjgNppCLYA4YUVgTgdUSbzyL1sO+aIjHqx55hsvpbhDUY/i32WfmnDvWpOWRvas1z+4U1j+MTYdJ+Dt0cQxn9kVioLqtGM9mvILEBvgb/EzJ+xzYBRA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sqm3KWGjiMQp42JPDAkr7NSDCClLg5eMrRVHIkzb3y4=;
- b=T3GQJw0sussO3vfncceIhxoCObHXGB/sg3793d+ieKKCyHI6mP6UjmEYidRJ6Aaye4vSKIirhRG7c2H4mILGgY4HjH/7hx1eyw5tI29KVg1cG4NqV35UrDcApz07j04IOTfGA9QSC+PhbMdSj9hzxyQMObeWkflYDZqqraR6DcvUE9sTyQL6ZdsrYLlurlcYU8l8qxUIuAYJjZ1Kctz/ItQ2aFvwyMqr/DSDeb6LGXo7ZS0Wd+llKe8ki+f9nBJUh/KDKgTWPGjbIZEXGGSdJXcnDS86BmgwQWJ/qyfkEPmINty6X45w/bhq4T7G+u+lPSNphXkG8Ps1tsesQoutsQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: lists.linux.it; dkim=none (message not signed)
- header.d=none;lists.linux.it; dmarc=none action=none header.from=suse.com;
-Received: from VI1PR04MB4958.eurprd04.prod.outlook.com (2603:10a6:803:60::23)
- by VE1PR04MB6526.eurprd04.prod.outlook.com (2603:10a6:803:11d::26)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3654.17; Fri, 11 Dec
- 2020 10:22:57 +0000
-Received: from VI1PR04MB4958.eurprd04.prod.outlook.com
- ([fe80::f8d9:6b9:eb2:bcde]) by VI1PR04MB4958.eurprd04.prod.outlook.com
- ([fe80::f8d9:6b9:eb2:bcde%7]) with mapi id 15.20.3654.012; Fri, 11 Dec 2020
- 10:22:57 +0000
-Date: Fri, 11 Dec 2020 12:22:52 +0200
-To: Cyril Hrubis <chrubis@suse.cz>, "=?utf-8?Q?ltp=40lists.linux.it?="
- <ltp@lists.linux.it>
-Message-ID: <88B56050-4D68-4B88-B20D-CA7A0711A398@getmailspring.com>
-In-Reply-To: <750CB65B-8F87-484D-9373-5CE4E1003413@getmailspring.com>
-References: <750CB65B-8F87-484D-9373-5CE4E1003413@getmailspring.com>
-X-Mailer: Mailspring
-X-Originating-IP: [77.70.99.251]
-X-ClientProxiedBy: AM0PR02CA0017.eurprd02.prod.outlook.com
- (2603:10a6:208:3e::30) To VI1PR04MB4958.eurprd04.prod.outlook.com
- (2603:10a6:803:60::23)
+ bh=n3gA0kTxfO+Xdd3oGo6q/wGlbZKaMYoZDLwxSitmWVo=;
+ b=VPQNagFRxLs98KIb3ob0unmPqIf9i7ePNn7yG8GdKiG8+YOXCcAorUDnWgqZ0AKrUdDoTF
+ IuqgT+kPtcOCQ7zwfbn0aYRY+yfccsCrdw1IXn+34xuHhmNtI08S+DKfjADuU+ofFUg/Bk
+ 41hjlf5+LCIKby6yGNruKe41Vo/QpKA=
+Received: from mail-yb1-f198.google.com (mail-yb1-f198.google.com
+ [209.85.219.198]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-458-t4TJDsaOOEi16UJUPhxqXg-1; Fri, 11 Dec 2020 05:46:09 -0500
+X-MC-Unique: t4TJDsaOOEi16UJUPhxqXg-1
+Received: by mail-yb1-f198.google.com with SMTP id e68so965273yba.7
+ for <ltp@lists.linux.it>; Fri, 11 Dec 2020 02:46:08 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=n3gA0kTxfO+Xdd3oGo6q/wGlbZKaMYoZDLwxSitmWVo=;
+ b=jk/1QlYs61AnC19Jchs5TFHC8efV+YDmjf1OVsudjx3zhgITi4bfnEf39Afiwz0HKD
+ 2cwvw/UDgXVqfA2BFMqfWtp9rhdhhqKSeq7uKyhyEc44rIL9erUKQ3jZ1chuW2+HGNk7
+ vqCe777kOXzZbfbP3WA5cCsZpa7gQEakwVAfmAG0nKi7ZOG6oVQ8mVLhU38Aq4cx4OCb
+ qDqS9rhvdM23MtnI3KEnn7xD+wM9BI9XW7UGHPZbEFrA7yOmzVfVK0/wQtvseG3jn99B
+ Jc2qClF2QOOsSlJ2LAyJGBmZ5OgLY7a9lsMz172BF62p6ld208LqMkYaCECv2YDvdDaX
+ YiCA==
+X-Gm-Message-State: AOAM531hpmpjMfNTcHSmflnFzNQlZH242Em3R7h7eGI/KFM7JcLFbfls
+ +0fSqDGi6u9SDK5y6yHjO2UYd/UPlFYO4GmZzI1vi0Dd2DV1TnBq94gnLEa8mZ8/7qluG9Youyy
+ eN9lkGK1GfLq+gvoO/1IR7PYaILA=
+X-Received: by 2002:a25:6008:: with SMTP id u8mr12304887ybb.286.1607683568573; 
+ Fri, 11 Dec 2020 02:46:08 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJycaxFdWiLLt7j/4LBstG7Z3Zk7a9sTJMYx13cnRYebvkELS+ebc85S9Vck6XEdOF4FgLGZmiri98B7YMqUjUc=
+X-Received: by 2002:a25:6008:: with SMTP id u8mr12304867ybb.286.1607683568325; 
+ Fri, 11 Dec 2020 02:46:08 -0800 (PST)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from localhost.localdomain (77.70.99.251) by
- AM0PR02CA0017.eurprd02.prod.outlook.com (2603:10a6:208:3e::30) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3654.12 via Frontend Transport; Fri, 11 Dec 2020 10:22:56 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: cd8b929b-84ce-4ac2-e172-08d89dbeba9c
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6526:
-X-Microsoft-Antispam-PRVS: <VE1PR04MB6526B761E5DBB773FA055B3593CA0@VE1PR04MB6526.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: fS31i/uRX5Nz1YOV1kbTd+COPQa114Chu1DFYK3wsmB3dTFJgvmQf8T2rrVtDXN0ru25OYtRK8QKL9u6VZ+8DzJPRla9H56smN5qDubwSZbu5e1UoiLadnEN7Smqpl0A+Ff3MQcCSatIowe5NsFEk8SCsAbM0H+09ZC/2W46VtTgXi9uF29FFR261TS2em0mRRkTdxjxQOseU3aU/Rg9EfKL2+UUpgIGXsHGFCVU11Iyvhi4JNeoLwRItpB5d5aDpp4mjH6k1/A5qDKhRjFaIyf43TcQFpjfsHRLBW5OFLnezp+XN/Nj0zDZv6Yb8yXcmzB+s3RWNH0/n+b4z7CcEnGUvbOAU6IVJU0sPOrwG/skFQLTQ9+TuoGnA21x7K+QuOf6tDFIK/rDf2PNMBqW5pfsbI/ONg/tbUYZmIABPrJaptwhRYUOyia0ApRHL7UKnahNbsc/zJhFSBsDxdXuRw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:VI1PR04MB4958.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(39860400002)(366004)(396003)(346002)(136003)(376002)(6506007)(8676002)(76236003)(956004)(44832011)(83380400001)(316002)(86362001)(110136005)(66476007)(33656002)(66946007)(478600001)(2906002)(6666004)(36756003)(66556008)(5660300002)(186003)(33964004)(69590400008)(26005)(8936002)(6486002)(16526019)(6512007)(9686003)(44144004)(52116002)(966005);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?NjFTeDFQc1RRUW05Sm5sV3R1MFFuUVY4TE15Qll4dlE1ZENkbDJqQzA2aEF1?=
- =?utf-8?B?enVSZ3prcjM1VVhFdWhPeGcrTlUrRldhUUFvTUs5VWhmQlZkZ2RQemF4eXFx?=
- =?utf-8?B?bFFiNFlxNWltZmoxbmVOQjlCN2ptZ3I1MHl4U2RKUkxEWE9La2hsUmV4ck11?=
- =?utf-8?B?dFJydUNNb2k1TjdEUzM4ZWlZdzhsejdhTkVWUUpHeWpmUyt0WThpd3J6R0hL?=
- =?utf-8?B?WlpUVzgra3E0NnNqTml4UVcyQi9rSlppWWtMRWVqc1AxSms1SFN2d3BYS1oz?=
- =?utf-8?B?ejZPWE5tZFYvckhMaE1XRzJnSnJib0ZFTThTclJqS1k0OXhSYkIrdEk3ZDAr?=
- =?utf-8?B?Tms2WXBoZXE5UmhFMlg3cFR5M1BGWGRIbC9LZVVJTVNma1dNK0tXa2hyYmNV?=
- =?utf-8?B?STJFUW9PakNzYU00a2xseXNpazk0UjA0TlJrNTVWUGc4V2hFU2x5SUQ3OTZD?=
- =?utf-8?B?MkRNd0F3MlBNRnFqM1VGRGlTWS8wQzhkV1VTcGNud3J3RWp3ejNqNkRwN2Rn?=
- =?utf-8?B?TTFoV1B5RU85ZU1rQWRCY3Q4Zld0TlI3QktiaFhnSFJpQ08vNTRmOW5tMTAz?=
- =?utf-8?B?WHhnMSt1NVM3YmtYRHRuajU3UDdEVjVqejNlM2pUMUtzK0JDM01IK3BqVnNI?=
- =?utf-8?B?a3hNZzJCYi9TREV5YUo2a3RINEo5Q3AydTZoU2VibGFGM0RhNXoxUHp6K0NS?=
- =?utf-8?B?ZGxTQmhyTllvK0ROT3ZhRzZvZk05WENCT1YzOE8rL0gwZHRSZmxkUkhZeklx?=
- =?utf-8?B?OWJVZit6eiszQW93dnhPVzJvWnY3UUJxNERGcklyQ3RNbDlhdnZWaXBTOEpN?=
- =?utf-8?B?MW5pSVQyTnBtazQwcGZFL2dseVgvQmNZYndkYldKMzE3M3YxMzR4Ri9RVjBG?=
- =?utf-8?B?c3o5aDRMY1NHTVJwQXB0eTNaV3ZLTnZ1TUVlUlErKzdyUDhmWS9ZbytFL29R?=
- =?utf-8?B?UGk5QkZtRXZ3ck1kYjE4amhTNnZsNTJneFVrY0xWcnZFQlpmalNpN29LN05N?=
- =?utf-8?B?QmRDQkJVVzdhVVVGL1poK0UrbkpBR2RnUTRISTFNRVJDdkNuODNMcUZxM3lo?=
- =?utf-8?B?djlUWmVUb0o5U1JHRWVVSjEzTEZ5VGZvU21ZRmpWaVhOSVJuQUFTdjA4Yk04?=
- =?utf-8?B?ay9OdGFQZEJwOC82UEROYkFqbXNPZ2hjZ29xa1ZHNStGZ0V0VDZ4dzJmWkxa?=
- =?utf-8?B?VVJRUTN3V2VFL3M2ZG9ySGRJR2xKY3MyM3dUTkg5eHVSUTFpblFPUDRnR3NY?=
- =?utf-8?B?U09UQVdoZGxZWUlJL3FHV0dCZjkrd2ZZcmdPVVNCR3lWVlpsbW9aa0dud1JP?=
- =?utf-8?Q?LQ7Tqc+4uOZ/g=3D?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB4958.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Dec 2020 10:22:57.2386 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-Network-Message-Id: cd8b929b-84ce-4ac2-e172-08d89dbeba9c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GHR2m4Eqw4DLExYTI9tVeBBTVdLYSfZF3uMJDS8Aj8/YOUs8z0ieHGLGFog4t0TgetRHvzVTJC/Qcoq9SPA8LoMNnKG/6XgmGVmi/8nhIUU=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR04MB6526
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+References: <20201210141548.10982-1-chrubis@suse.cz>
+In-Reply-To: <20201210141548.10982-1-chrubis@suse.cz>
+From: Li Wang <liwang@redhat.com>
+Date: Fri, 11 Dec 2020 18:45:56 +0800
+Message-ID: <CAEemH2epbXuk-npooQWxHW3THOX-3k-_9PpREqNO5hLZ9=__hA@mail.gmail.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,MSGID_FROM_MTA_HEADER,
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v1] openposix/fork/7-1.c: A bug fix
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 00/10] Introduce TST_EXP_MACROS
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,140 +79,97 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Bogdan Lezhepekov via ltp <ltp@lists.linux.it>
-Reply-To: Bogdan Lezhepekov <bogdan.lezhepekov@suse.com>
-Content-Type: multipart/mixed; boundary="===============0865814225=="
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============1149759930=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0865814225==
-Content-Type: multipart/alternative; boundary="5fd3487c_37e38aaf_198b"
+--===============1149759930==
+Content-Type: multipart/alternative; boundary="000000000000006de805b62e0017"
 
---5fd3487c_37e38aaf_198b
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+--000000000000006de805b62e0017
+Content-Type: text/plain; charset="UTF-8"
 
-Hi,
+On Thu, Dec 10, 2020 at 10:15 PM Cyril Hrubis <chrubis@suse.cz> wrote:
 
-As follow up after chat with Petr Vorel.
-A bug in the test was caused by the line "now = localtime(&nw);" in "output" function, as it sets "errno" variable somewhere.
--Bogdan
-On Dec 11 2020, at 12:04 pm, Bogdan Lezhepekov <bogdan.lezhepekov@suse.com> wrote:
-> Hi,
+> This patchset adds TST_EXP_MACROS() implementation.
 >
-> By adding this comment I wanted to stress that the place of "errno = 0" is not randomly chosen, to prevent somebody from moving it back to the beginning of the file :)
-> But if you find it not necessary, then please go ahead.
-> Thank you,
-> Bogdan
+> These macros are intended to simplify and unify syscall unit tests.
 >
-> On Dec 11 2020, at 11:54 am, Cyril Hrubis <chrubis@suse.cz> wrote:
-> > Hi!
-> > > The function output interferes with the variable errno, that leads to
-> > > the false positive result on limited test setups. The issue fixed.
-> > >
-> > > Signed-off-by: Bogdan Lezhepekov <bogdan.lezhepekov@suse.com>
-> > > ---
-> > > .../open_posix_testsuite/conformance/interfaces/fork/7-1.c | 4 +++-
-> > > 1 file changed, 3 insertions(+), 1 deletion(-)
-> > >
-> > > diff --git a/testcases/open_posix_testsuite/conformance/interfaces/fork/7-1.c b/testcases/open_posix_testsuite/conformance/interfaces/fork/7-1.c
-> > > index c3db90c00..4249d713d 100644
-> > > --- a/testcases/open_posix_testsuite/conformance/interfaces/fork/7-1.c
-> > > +++ b/testcases/open_posix_testsuite/conformance/interfaces/fork/7-1.c
-> > > @@ -53,12 +53,14 @@ static void read_catalog(nl_catd cat, char *who)
-> > > {
-> > > char *msg = NULL;
-> > > int i, j;
-> > > - errno = 0;
-> > >
-> > > #if VERBOSE > 0
-> > > output("Reading the message catalog from %s...\n", who);
-> > > #endif
-> > >
-> > > + /* the output function interferes with errno */
-> > > + errno = 0;
-> > > +
-> > > for (i = 1; i <= 2; i++) {
-> > > for (j = 1; j <= 2; j++) {
-> >
-> > This is obviously correct, but I would avoid adding the comment, it's
-> > kind of obvious that anything that calls to libc may and will interfere
-> > with errno.
-> >
-> > Also the first line of the commit description could be a bit more
-> > description, half of the commits pushed to LTP are bugfixes. So maybe
-> > something as:
-> >
-> > openposix/fork/7-1.c: Clear errno correctly
-> > ...
-> > I can push the patch with these changes if it's okay with you.
-> >
-> > --
-> > Cyril Hrubis
-> > chrubis@suse.cz
-> >
+> This patchset converts a few testcases to use TST_EXP_MACROS() it's
+> intenteded to serve as an example since there is a lot of testcases that
+> could use them as well.
+>
+> Also the documentation for these macros is ommited at this point, I will
+> add it in a case that we agree to include them in the test library.
 >
 >
-> --
-> Mailing list info: https://lists.linux.it/listinfo/ltp
+> Changes in v2:
+>
+> - renamed the macros so that it's more clear that they do
+> - added documentation to test-writing-guidelines
+> - minor fixed in the converted testcases
+>
 
+One more point, we might have to handle the unsupported syscall
+issue in TST_EXP_*. Otherwise, we can NOT make use of these
+macros in tests like madvise01.c. But, I agree to merge patchset
+as V2, and solve that in follow-up changes.
 
---5fd3487c_37e38aaf_198b
-Content-Type: text/html; charset="utf-8"
+For the series:
+Acked-by: Li Wang <liwang@redhat.com>
+
+-- 
+Regards,
+Li Wang
+
+--000000000000006de805b62e0017
+Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Disposition: inline
 
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8"><d=
-iv>Hi,</div><br><div>As follow up after chat with Petr Vorel. </div><br><di=
-v>A bug in the test was caused by the line &quot;now =3D localtime(&amp;nw)=
-;&quot; in &quot;output&quot; function,&nbsp; as it sets &quot;errno&quot; =
-variable somewhere.</div><br><div>-Bogdan</div><br><div class=3D"gmail_quot=
-e_attribution">On Dec 11 2020, at 12:04 pm, Bogdan Lezhepekov &lt;bogdan.le=
-zhepekov@suse.com&gt; wrote:</div><blockquote><div>Hi,</div><br><div>By add=
-ing this comment I wanted to stress that the place of &quot;errno =3D 0&quo=
-t; is not randomly chosen, to prevent somebody from moving it back to the b=
-eginning of the file&nbsp; :)&nbsp;</div><br><div>But if you find it not ne=
-cessary, then please go ahead.</div><br><div>Thank you,</div><div>Bogdan</d=
-iv><br><div class=3D"gmail_quote_attribution">On Dec 11 2020, at 11:54 am, =
-Cyril Hrubis &lt;chrubis@suse.cz&gt; wrote:</div><blockquote><div><div>Hi!<=
-/div><div>&gt; The function output interferes with the variable errno, that=
- leads to</div><div>&gt; the false positive result on limited test setups. =
-The issue fixed.</div><div>&gt;</div><div>&gt; Signed-off-by: Bogdan Lezhep=
-ekov &lt;bogdan.lezhepekov@suse.com&gt;</div><div>&gt; ---</div><div>&gt; .=
-../open_posix_testsuite/conformance/interfaces/fork/7-1.c | 4 +++-</div><di=
-v>&gt; 1 file changed, 3 insertions(+), 1 deletion(-)</div><div>&gt;</div><=
-div>&gt; diff --git a/testcases/open_posix_testsuite/conformance/interfaces=
-/fork/7-1.c b/testcases/open_posix_testsuite/conformance/interfaces/fork/7-=
-1.c</div><div>&gt; index c3db90c00..4249d713d 100644</div><div>&gt; --- a/t=
-estcases/open_posix_testsuite/conformance/interfaces/fork/7-1.c</div><div>&=
-gt; +++ b/testcases/open_posix_testsuite/conformance/interfaces/fork/7-1.c<=
-/div><div>&gt; @@ -53,12 +53,14 @@ static void read_catalog(nl_catd cat, ch=
-ar *who)</div><div>&gt; {</div><div>&gt; char *msg =3D NULL;</div><div>&gt;=
- int i, j;</div><div>&gt; - errno =3D 0;</div><div>&gt;</div><div>&gt; #if =
-VERBOSE &gt; 0</div><div>&gt; output(&quot;Reading the message catalog from=
- %s...\n&quot;, who);</div><div>&gt; #endif</div><div>&gt;</div><div>&gt; +=
- /* the output function interferes with errno */</div><div>&gt; + errno =3D=
- 0;</div><div>&gt; +</div><div>&gt; for (i =3D 1; i &lt;=3D 2; i++) {</div>=
-<div>&gt; for (j =3D 1; j &lt;=3D 2; j++) {</div><br><div>This is obviously=
- correct, but I would avoid adding the comment, it's</div><div>kind of obvi=
-ous that anything that calls to libc may and will interfere</div><div>with =
-errno.</div><br><div>Also the first line of the commit description could be=
- a bit more</div><div>description, half of the commits pushed to LTP are bu=
-gfixes. So maybe</div><div>something as:</div><br><div>openposix/fork/7-1.c=
-: Clear errno correctly</div><br><div>...</div><br><div>I can push the patc=
-h with these changes if it's okay with you.</div><br><br><div>--</div><div>=
-Cyril Hrubis</div><div>chrubis@suse.cz</div></div></blockquote><br><div>--<=
-/div><div>Mailing list info: https://lists.linux.it/listinfo/ltp</div></blo=
-ckquote><img class=3D"mailspring-open" alt=3D"Sent from Mailspring" width=
-=3D"0" height=3D"0" style=3D"border:0; width:0; height:0;" src=3D"https://l=
-ink.getmailspring.com/open/88B56050-4D68-4B88-B20D-CA7A0711A398@getmailspri=
-ng.com?me=3Dbf88d46f&amp;recipient=3DbHRwQGxpc3RzLmxpbnV4Lml0">=
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Thu, Dec 10, 2020 at 10:15 PM Cyril Hrubis &lt;<=
+a href=3D"mailto:chrubis@suse.cz" target=3D"_blank">chrubis@suse.cz</a>&gt;=
+ wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px =
+0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">This pat=
+chset adds TST_EXP_MACROS() implementation.<br>
+<br>
+These macros are intended to simplify and unify syscall unit tests.<br>
+<br>
+This patchset converts a few testcases to use TST_EXP_MACROS() it&#39;s<br>
+intenteded to serve as an example since there is a lot of testcases that<br=
+>
+could use them as well.<br>
+<br>
+Also the documentation for these macros is ommited at this point, I will<br=
+>
+add it in a case that we agree to include them in the test library.<br>
+<br>
+<br>
+Changes in v2:<br>
+<br>
+- renamed the macros so that it&#39;s more clear that they do<br>
+- added documentation to test-writing-guidelines<br>
+- minor fixed in the converted testcases<br></blockquote><div><br></div><di=
+v><div class=3D"gmail_default" style=3D"font-size:small">One more point, we=
+ might have to handle the unsupported syscall</div><div class=3D"gmail_defa=
+ult" style=3D"font-size:small">issue in TST_EXP_*. Otherwise, we can NOT ma=
+ke use of these</div><div class=3D"gmail_default" style=3D"font-size:small"=
+>macros in tests like madvise01.c. But, I agree to merge patchset</div><div=
+ class=3D"gmail_default" style=3D"font-size:small">as V2, and solve that in=
+ follow-up changes.</div><div class=3D"gmail_default" style=3D"font-size:sm=
+all"><br></div><div class=3D"gmail_default" style=3D"font-size:small"><div =
+class=3D"gmail_default">For the series:</div><div class=3D"gmail_default">A=
+cked-by: Li Wang &lt;<a href=3D"mailto:liwang@redhat.com" target=3D"_blank"=
+>liwang@redhat.com</a>&gt;</div><div class=3D"gmail_default"><br></div></di=
+v></div></div>-- <br><div dir=3D"ltr"><div dir=3D"ltr"><div>Regards,<br></d=
+iv><div>Li Wang<br></div></div></div></div>
 
---5fd3487c_37e38aaf_198b--
+--000000000000006de805b62e0017--
 
 
---===============0865814225==
+--===============1149759930==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -276,5 +179,5 @@ Content-Disposition: inline
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
 
---===============0865814225==--
+--===============1149759930==--
 
