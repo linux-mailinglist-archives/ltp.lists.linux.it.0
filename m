@@ -2,39 +2,36 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F8A32D5D4D
-	for <lists+linux-ltp@lfdr.de>; Thu, 10 Dec 2020 15:16:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B92432D70B5
+	for <lists+linux-ltp@lfdr.de>; Fri, 11 Dec 2020 08:15:58 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E7B833C7FDA
-	for <lists+linux-ltp@lfdr.de>; Thu, 10 Dec 2020 15:16:27 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 762E83C2C52
+	for <lists+linux-ltp@lfdr.de>; Fri, 11 Dec 2020 08:15:58 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 93B133C75CB
- for <ltp@lists.linux.it>; Thu, 10 Dec 2020 15:14:57 +0100 (CET)
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id 220013C2A79
+ for <ltp@lists.linux.it>; Fri, 11 Dec 2020 08:15:53 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 406111A009B6
- for <ltp@lists.linux.it>; Thu, 10 Dec 2020 15:14:57 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 6860F100047A
+ for <ltp@lists.linux.it>; Fri, 11 Dec 2020 08:15:53 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id D663DAE2E
- for <ltp@lists.linux.it>; Thu, 10 Dec 2020 14:14:56 +0000 (UTC)
-From: Cyril Hrubis <chrubis@suse.cz>
+ by mx2.suse.de (Postfix) with ESMTP id 64347AB91;
+ Fri, 11 Dec 2020 07:15:52 +0000 (UTC)
+From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Thu, 10 Dec 2020 15:15:48 +0100
-Message-Id: <20201210141548.10982-11-chrubis@suse.cz>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20201210141548.10982-1-chrubis@suse.cz>
-References: <20201210141548.10982-1-chrubis@suse.cz>
+Date: Fri, 11 Dec 2020 08:15:45 +0100
+Message-Id: <20201211071545.10209-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 10/10] syscalls/open: Make use of TST_EXP_MACROS
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/1] host01.sh: Allow to overwrite the default hostname
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,129 +48,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-In the newlib testcases at least.
+Using hostname for test requires DNS setup.
+Allow to set hostname (e.g. github.com) via $HOSTNAME in case host not
+set. This restores the old behavior (the legacy API version used $RHOST).
 
-Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
+Suggested-by: Petr Cervinka <pcervinka@suse.com>
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- testcases/kernel/syscalls/open/open01.c | 11 ++++-------
- testcases/kernel/syscalls/open/open02.c | 25 ++++++-------------------
- testcases/kernel/syscalls/open/open11.c | 22 ++++++++++------------
- 3 files changed, 20 insertions(+), 38 deletions(-)
+ testcases/network/tcp_cmds/host/host01.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/testcases/kernel/syscalls/open/open01.c b/testcases/kernel/syscalls/open/open01.c
-index c689a4b9b..1172f832b 100644
---- a/testcases/kernel/syscalls/open/open01.c
-+++ b/testcases/kernel/syscalls/open/open01.c
-@@ -36,8 +36,8 @@ static struct tcase {
- 	unsigned short tst_bit;
- 	char *desc;
- } tcases[] = {
--	{TEST_FILE, O_RDWR | O_CREAT, 01444, S_ISVTX, "Sticky bit"},
--	{TEST_DIR, O_DIRECTORY, 0, S_IFDIR, "Directory bit"}
-+	{TEST_FILE, O_RDWR | O_CREAT, 01444, S_ISVTX, "sticky bit"},
-+	{TEST_DIR, O_DIRECTORY, 0, S_IFDIR, "sirectory bit"}
- };
+diff --git a/testcases/network/tcp_cmds/host/host01.sh b/testcases/network/tcp_cmds/host/host01.sh
+index 662afe8b4..e6d8d4d06 100755
+--- a/testcases/network/tcp_cmds/host/host01.sh
++++ b/testcases/network/tcp_cmds/host/host01.sh
+@@ -12,7 +12,7 @@ TST_NEEDS_CMDS="awk host hostname"
  
- static void verify_open(unsigned int n)
-@@ -45,12 +45,9 @@ static void verify_open(unsigned int n)
- 	struct tcase *tc = &tcases[n];
- 	struct stat buf;
- 
--	TEST(open(tc->filename, tc->flag, tc->mode));
-+	TST_EXP_FD(open(tc->filename, tc->flag, tc->mode),
-+	           "open() with %s", tc->desc);
- 	fd = TST_RET;
--	if (fd == -1) {
--		tst_res(TFAIL, "Cannot open a file");
--		return;
--	}
- 
- 	SAFE_FSTAT(fd, &buf);
- 	if (!(buf.st_mode & tc->tst_bit))
-diff --git a/testcases/kernel/syscalls/open/open02.c b/testcases/kernel/syscalls/open/open02.c
-index 7195b1b6c..ca9839c2d 100644
---- a/testcases/kernel/syscalls/open/open02.c
-+++ b/testcases/kernel/syscalls/open/open02.c
-@@ -25,12 +25,13 @@
- #define TEST_FILE2	"test_file2"
- 
- static struct tcase {
--	char *filename;
-+	const char *filename;
- 	int flag;
- 	int exp_errno;
-+	const char *desc;
- } tcases[] = {
--	{TEST_FILE, O_RDWR, ENOENT},
--	{TEST_FILE2, O_RDONLY | O_NOATIME, EPERM},
-+	{TEST_FILE, O_RDWR, ENOENT, "new file without O_CREAT"},
-+	{TEST_FILE2, O_RDONLY | O_NOATIME, EPERM, "unpriviledget O_RDONLY | O_NOATIME"},
- };
- 
- void setup(void)
-@@ -48,22 +49,8 @@ static void verify_open(unsigned int n)
+ do_test()
  {
- 	struct tcase *tc = &tcases[n];
+-	local lhost="$(hostname)"
++	local lhost="${HOSTNAME:-$(hostname)}"
+ 	local addr
  
--	TEST(open(tc->filename, tc->flag, 0444));
--
--	if (TST_RET != -1) {
--		tst_res(TFAIL, "open(%s) succeeded unexpectedly",
--			tc->filename);
--		return;
--	}
--
--	if (tc->exp_errno != TST_ERR) {
--		tst_res(TFAIL | TTERRNO,
--			"open() should fail with %s",
--			tst_strerrno(tc->exp_errno));
--		return;
--	}
--
--	tst_res(TPASS | TTERRNO, "open() failed as expected");
-+	TST_EXP_FAIL(open(tc->filename, tc->flag, 0444),
-+	             tc->exp_errno, "open() %s", tc->desc);
- }
- 
- void cleanup(void)
-diff --git a/testcases/kernel/syscalls/open/open11.c b/testcases/kernel/syscalls/open/open11.c
-index cfd04fdcd..ded384fa8 100644
---- a/testcases/kernel/syscalls/open/open11.c
-+++ b/testcases/kernel/syscalls/open/open11.c
-@@ -277,21 +277,19 @@ static struct test_case {
- 
- static void verify_open(unsigned int n)
- {
--	int fd;
--
--	TEST(open(tc[n].path, tc[n].flags, tc[n].mode));
--	fd = TST_RET;
--
--	if (fd > 0)
--		SAFE_CLOSE(fd);
--
--	if (tc[n].err == -1 || TST_ERR == tc[n].err) {
-+	if (tc[n].err > 0) {
-+		TST_EXP_FAIL(open(tc[n].path, tc[n].flags, tc[n].mode),
-+		             tc[n].err, "%s", tc[n].desc);
-+	} else if (tc[n].err == 0) {
-+		TST_EXP_FD(open(tc[n].path, tc[n].flags, tc[n].mode),
-+		           "%s", tc[n].desc);
-+	} else {
-+		TEST(open(tc[n].path, tc[n].flags, tc[n].mode));
- 		tst_res(TPASS, "%s", tc[n].desc);
--		return;
- 	}
- 
--	tst_res(TFAIL | TTERRNO, "%s - expected %s",
--			tc[n].desc, tst_strerrno(tc[n].err));
-+	if (TST_RET > 0)
-+		SAFE_CLOSE(TST_RET);
- }
- 
- static void setup(void)
+ 	tst_res TINFO "test basic functionality of the host command"
 -- 
-2.26.2
+2.29.2
 
 
 -- 
