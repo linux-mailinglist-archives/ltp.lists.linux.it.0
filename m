@@ -2,48 +2,84 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78F312D957B
-	for <lists+linux-ltp@lfdr.de>; Mon, 14 Dec 2020 10:49:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C7432D9747
+	for <lists+linux-ltp@lfdr.de>; Mon, 14 Dec 2020 12:21:22 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3A5B13C2BB0
-	for <lists+linux-ltp@lfdr.de>; Mon, 14 Dec 2020 10:49:59 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id B32F43C2DC7
+	for <lists+linux-ltp@lfdr.de>; Mon, 14 Dec 2020 12:21:21 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id 1382E3C24CF
- for <ltp@lists.linux.it>; Mon, 14 Dec 2020 10:49:57 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id 5F2143C23F6
+ for <ltp@lists.linux.it>; Mon, 14 Dec 2020 12:21:20 +0100 (CET)
+Received: from aserp2130.oracle.com (aserp2130.oracle.com [141.146.126.79])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 6E60B200ADF
- for <ltp@lists.linux.it>; Mon, 14 Dec 2020 10:49:56 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1607939395; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=N3Byg4L/6L53mvG+ciEzRXZ6NBOcrbf2ZTH4kwnEr2M=;
- b=pYPHGumJRPH+19SKw5ZXIk63qA3G5GBGhMQtiR1UW3XLd9lhfVsiTtvsvPhAJq6ePjKgh5
- 3W1CALsVB10fg0Cf8OxU/JOwD5JvafewuFjI2EUuJOXVLQJx1Uxk7IV9k42wXy1YZ63vkL
- hai04DZlusq7J7ff2C7/tpGC/DaHN0o=
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id CA42AACC6;
- Mon, 14 Dec 2020 09:49:55 +0000 (UTC)
-To: ltp@lists.linux.it
-Date: Mon, 14 Dec 2020 09:49:51 +0000
-Message-Id: <20201214094951.24018-1-rpalethorpe@suse.com>
-X-Mailer: git-send-email 2.29.2
-In-Reply-To: <X9ONfxzTVLT4Rgfd@yuki.lan>
-References: <X9ONfxzTVLT4Rgfd@yuki.lan>
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id B8B801400DF8
+ for <ltp@lists.linux.it>; Mon, 14 Dec 2020 12:21:19 +0100 (CET)
+Received: from pps.filterd (aserp2130.oracle.com [127.0.0.1])
+ by aserp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0BEBKNib030447;
+ Mon, 14 Dec 2020 11:21:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=corp-2020-01-29;
+ bh=QPcnibjCd60/2ToWOOe+Y6QryOnCJFOiEOIp+zHMmkk=;
+ b=MKJWc6SBi0Z17OMBYFm60xXOkFVbH9K+H3zZdPGqRSuKN+MjEbNQQM3G6CdHsaePxyjx
+ IjczPbA0hscoTQ1vXbSyNMdZ++C4zSYJg3eO+6QFprqVmyPoYGMZgXMg6WnF+CiBGUCq
+ 7RuPkvVC/jraOsKE1jQJMisAn8+E7u6ejxxmJUUuxfY2BLcdAvzc0CeaDu/o90LKA0kT
+ Npe4zvaIIRl4ChwqHtw/do6/C4YvnWSE6+c5meIb4HjP/pnXSHH7TSbVmEvxv6hlZkeZ
+ yUTDxp+kFCzK//HLHIrPj0SCIOnkJFBDGVUsp3ESB6Hb+AUbgM5p9j+rL93bDoKtVyEY JA== 
+Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
+ by aserp2130.oracle.com with ESMTP id 35ckcb4t9m-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Mon, 14 Dec 2020 11:21:12 +0000
+Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
+ by aserp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0BEBKmbL132710;
+ Mon, 14 Dec 2020 11:21:12 GMT
+Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
+ by aserp3020.oracle.com with ESMTP id 35e6ens758-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 14 Dec 2020 11:21:11 +0000
+Received: from abhmp0015.oracle.com (abhmp0015.oracle.com [141.146.116.21])
+ by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 0BEBL4ib009121;
+ Mon, 14 Dec 2020 11:21:07 GMT
+Received: from [192.168.1.35] (/95.161.221.177)
+ by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Mon, 14 Dec 2020 03:21:04 -0800
+To: Petr Vorel <pvorel@suse.cz>, ltp@lists.linux.it
+References: <20201211071545.10209-1-pvorel@suse.cz>
+From: Alexey Kodanev <alexey.kodanev@oracle.com>
+Message-ID: <e504fd30-aacd-ec7b-6f09-172242573e6e@oracle.com>
+Date: Mon, 14 Dec 2020 14:21:00 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+In-Reply-To: <20201211071545.10209-1-pvorel@suse.cz>
+Content-Language: en-US
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9834
+ signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
+ mlxscore=0 phishscore=0
+ bulkscore=0 suspectscore=0 malwarescore=0 mlxlogscore=999 spamscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2012140080
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9834
+ signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0
+ mlxlogscore=999
+ priorityscore=1501 mlxscore=0 suspectscore=0 adultscore=0 phishscore=0
+ malwarescore=0 impostorscore=0 lowpriorityscore=0 clxscore=1011
+ spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2009150000 definitions=main-2012140080
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH v3] pty04: Limit the number of packets sent to avoid
- timeout
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_PASS,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/1] host01.sh: Allow to overwrite the default
+ hostname
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,260 +91,23 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Richard Palethorpe via ltp <ltp@lists.linux.it>
-Reply-To: Richard Palethorpe <rpalethorpe@suse.com>
-Cc: Richard Palethorpe <rpalethorpe@suse.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-At the end of the test we continuously write data to the PTY while
-closing the PTY to check for races in the kernel. However if the
-process which closes the PTY is delayed this can result in a very
-large number of packets being created from the data written to the
-PTY. It is easy to fill the PTY buffer with a large amount of data
-which the kernel is slow to then parse into packets. This can result
-in spurious softlockup warnings and test timeouts.
+On 11.12.2020 10:15, Petr Vorel wrote:
+> Using hostname for test requires DNS setup.
+> Allow to set hostname (e.g. github.com) via $HOSTNAME in case host not
+> set. This restores the old behavior (the legacy API version used $RHOST).
+> 
+> Suggested-by: Petr Cervinka <pcervinka@suse.com>
+> Signed-off-by: Petr Vorel <pvorel@suse.cz>
+> ---
+>  testcases/network/tcp_cmds/host/host01.sh | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 
-Theoretically the performance might be a concern for a fast enough
-serial line, but this is not supposed to be a performance test.
-
-So this commit limits the amount of data transmitted on the PTY by
-waiting for the netdev to echo the data back. This has the added
-benefit of testing data transmission in the opposite direction.
-
-Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
----
-
-V3:
-* Return after tst_brk
-* Replace retry macro with inline functions
-
- testcases/kernel/pty/pty04.c | 135 ++++++++++++++++++++++++++++-------
- 1 file changed, 109 insertions(+), 26 deletions(-)
-
-diff --git a/testcases/kernel/pty/pty04.c b/testcases/kernel/pty/pty04.c
-index 4adf2cbb7..e8f21f1d4 100644
---- a/testcases/kernel/pty/pty04.c
-+++ b/testcases/kernel/pty/pty04.c
-@@ -133,21 +133,58 @@ static int open_pty(const struct ldisc_info *ldisc)
- 	return set_ldisc(pts, ldisc);
- }
- 
--static ssize_t try_write(int fd, const char *data,
--			 ssize_t size, ssize_t *written)
-+static ssize_t try_async_write(int fd, const char *data, ssize_t size,
-+			       ssize_t *done)
- {
--	ssize_t ret = write(fd, data, size);
-+	ssize_t off = done ? *done : 0;
-+	ssize_t ret = write(fd, data + off, size - off);
- 
- 	if (ret < 0)
- 		return -(errno != EAGAIN);
- 
--	return !written || (*written += ret) >= size;
-+	if (!done)
-+		return 1;
-+
-+	*done += ret;
-+	return *done >= size;
-+}
-+
-+static ssize_t try_async_read(int fd, char *data, ssize_t size,
-+			      ssize_t *done)
-+{
-+	ssize_t off = done ? *done : 0;
-+	ssize_t ret = read(fd, data + off, size - off);
-+
-+	if (ret < 0)
-+		return -(errno != EAGAIN);
-+
-+	if (!done)
-+		return 1;
-+
-+	*done += ret;
-+	return *done >= size;
-+}
-+
-+static ssize_t retry_async_write(int fd, const char *data, ssize_t size)
-+{
-+	ssize_t done = 0;
-+
-+	return TST_RETRY_FUNC(try_async_write(fd, data, size, &done),
-+			      TST_RETVAL_NOTNULL);
- }
- 
--static void write_pty(const struct ldisc_info *ldisc)
-+static ssize_t retry_async_read(int fd, char *data, ssize_t size)
-+{
-+	ssize_t done = 0;
-+
-+	return TST_RETRY_FUNC(try_async_read(fd, data, size, &done),
-+			      TST_RETVAL_NOTNULL);
-+}
-+
-+static void do_pty(const struct ldisc_info *ldisc)
- {
- 	char *data;
--	ssize_t written, ret;
-+	ssize_t ret;
- 	size_t len = 0;
- 
- 	switch (ldisc->n) {
-@@ -171,17 +208,12 @@ static void write_pty(const struct ldisc_info *ldisc)
- 		break;
- 	}
- 
--
--	written = 0;
--	ret = TST_RETRY_FUNC(try_write(ptmx, data, len, &written),
--			     TST_RETVAL_NOTNULL);
-+	ret = retry_async_write(ptmx, data, len);
- 	if (ret < 0)
- 		tst_brk(TBROK | TERRNO, "Failed 1st write to PTY");
- 	tst_res(TPASS, "Wrote PTY %s %d (1)", ldisc->name, ptmx);
- 
--	written = 0;
--	ret = TST_RETRY_FUNC(try_write(ptmx, data, len, &written),
--			     TST_RETVAL_NOTNULL);
-+	ret = retry_async_write(ptmx, data, len);
- 	if (ret < 0)
- 		tst_brk(TBROK | TERRNO, "Failed 2nd write to PTY");
- 
-@@ -190,14 +222,28 @@ static void write_pty(const struct ldisc_info *ldisc)
- 
- 	tst_res(TPASS, "Wrote PTY %s %d (2)", ldisc->name, ptmx);
- 
--	while (try_write(ptmx, data, len, NULL) >= 0)
--		;
-+	ret = retry_async_read(ptmx, data, len);
-+	if (ret < 0)
-+		tst_brk(TBROK | TERRNO, "Failed read of PTY");
-+
-+	tst_res(TPASS, "Read PTY %s %d", ldisc->name, ptmx);
-+	TST_CHECKPOINT_WAKE(0);
-+
-+	while (1) {
-+		if (retry_async_read(ptmx, data, len) < 0)
-+			break;
-+
-+		if (retry_async_write(ptmx, data, len) < 0)
-+			break;
-+	}
- 
--	tst_res(TPASS, "Writing to PTY interrupted by hangup");
-+	tst_res(TPASS, "Transmission on PTY interrupted by hangup");
- 
- 	tst_free_all();
- }
- 
-+#undef RETRY_ASYNC
-+
- static void open_netdev(const struct ldisc_info *ldisc)
- {
- 	struct ifreq ifreq = { 0 };
-@@ -288,7 +334,7 @@ static void check_data(const struct ldisc_info *ldisc,
- 		tst_res(TINFO, "Will continue test without data checking");
- }
- 
--static void try_read(int fd, char *data, ssize_t size)
-+static ssize_t try_sync_read(int fd, char *data, ssize_t size)
- {
- 	ssize_t ret, n = 0;
- 	int retry = mtu;
-@@ -297,13 +343,35 @@ static void try_read(int fd, char *data, ssize_t size)
- 		ret = read(fd, data + n, size - n);
- 
- 		if (ret < 0)
--			break;
-+			return ret;
- 
- 		if ((n += ret) >= size)
--			return;
-+			return ret;
-+	}
-+
-+	tst_brk(TBROK | TERRNO, "Only read %zd of %zd bytes", n, size);
-+
-+	return n;
-+}
-+
-+static ssize_t try_sync_write(int fd, const char *data, ssize_t size)
-+{
-+	ssize_t ret, n = 0;
-+	int retry = mtu;
-+
-+	while (retry--) {
-+		ret = write(fd, data + n, size - n);
-+
-+		if (ret < 0)
-+			return ret;
-+
-+		if ((n += ret) >= size)
-+			return ret;
- 	}
- 
--	tst_brk(TBROK | TERRNO, "Read %zd of %zd bytes", n, size);
-+	tst_brk(TBROK | TERRNO, "Only wrote %zd of %zd bytes", n, size);
-+
-+	return n;
- }
- 
- static void read_netdev(const struct ldisc_info *ldisc)
-@@ -323,19 +391,34 @@ static void read_netdev(const struct ldisc_info *ldisc)
- 
- 	tst_res(TINFO, "Reading from socket %d", sk);
- 
--	try_read(sk, data, plen);
-+	TEST(try_sync_read(sk, data, plen));
-+	if (TST_RET < 0)
-+		tst_brk(TBROK | TTERRNO, "Read netdev %s %d (1)", ldisc->name, sk);
- 	check_data(ldisc, data, plen);
- 	tst_res(TPASS, "Read netdev %s %d (1)", ldisc->name, sk);
- 
--	try_read(sk, data, plen);
-+	TEST(try_sync_read(sk, data, plen));
-+	if (TST_RET < 0)
-+		tst_brk(TBROK | TTERRNO, "Read netdev %s %d (2)", ldisc->name, sk);
- 	check_data(ldisc, data, plen);
- 	tst_res(TPASS, "Read netdev %s %d (2)", ldisc->name, sk);
- 
--	TST_CHECKPOINT_WAKE(0);
--	while ((rlen = read(sk, data, plen)) > 0)
-+	TEST(try_sync_write(sk, data, plen));
-+	if (TST_RET < 0)
-+		tst_brk(TBROK | TTERRNO, "Write netdev %s %d", ldisc->name, sk);
-+
-+	tst_res(TPASS, "Write netdev %s %d", ldisc->name, sk);
-+
-+	while (1) {
-+		if (try_sync_write(sk, data, plen) < 0)
-+			break;
-+
-+		if ((rlen = try_sync_read(sk, data, plen)) < 0)
-+			break;
- 		check_data(ldisc, data, rlen);
-+	}
- 
--	tst_res(TPASS, "Reading data from netdev interrupted by hangup");
-+	tst_res(TPASS, "Data transmission on netdev interrupted by hangup");
- 
- 	close(sk);
- 	tst_free_all();
-@@ -356,7 +439,7 @@ static void do_test(unsigned int n)
- 	}
- 
- 	if (!SAFE_FORK()) {
--		write_pty(ldisc);
-+		do_pty(ldisc);
- 		return;
- 	}
- 
--- 
-2.29.2
-
+Acked-by: Alexey Kodanev <alexey.kodanev@oracle.com>
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
