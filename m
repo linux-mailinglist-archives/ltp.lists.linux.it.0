@@ -1,40 +1,42 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF25B2D9981
-	for <lists+linux-ltp@lfdr.de>; Mon, 14 Dec 2020 15:13:51 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id E853A2D9AAC
+	for <lists+linux-ltp@lfdr.de>; Mon, 14 Dec 2020 16:17:16 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7DF1C3C336A
-	for <lists+linux-ltp@lfdr.de>; Mon, 14 Dec 2020 15:13:51 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 71DB83C5836
+	for <lists+linux-ltp@lfdr.de>; Mon, 14 Dec 2020 16:17:16 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 2E91C3C0752
- for <ltp@lists.linux.it>; Mon, 14 Dec 2020 15:13:49 +0100 (CET)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 815583C24CF
+ for <ltp@lists.linux.it>; Mon, 14 Dec 2020 16:17:12 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id AE94B60098D
- for <ltp@lists.linux.it>; Mon, 14 Dec 2020 15:13:48 +0100 (CET)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 22EA4200B3A
+ for <ltp@lists.linux.it>; Mon, 14 Dec 2020 16:17:11 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 11E03AC10;
- Mon, 14 Dec 2020 14:13:48 +0000 (UTC)
-Date: Mon, 14 Dec 2020 15:14:44 +0100
+ by mx2.suse.de (Postfix) with ESMTP id 77B23AC10;
+ Mon, 14 Dec 2020 15:17:11 +0000 (UTC)
+Date: Mon, 14 Dec 2020 16:18:08 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Joerg Vehlow <lkml@jv-coder.de>
-Message-ID: <X9dzVDGFUdwRBuFJ@yuki.lan>
-References: <20201214065528.453216-1-lkml@jv-coder.de>
+To: Richard Palethorpe <rpalethorpe@suse.com>
+Message-ID: <X9eCMLvB37yCx5ff@yuki.lan>
+References: <X9ONfxzTVLT4Rgfd@yuki.lan>
+ <20201214094951.24018-1-rpalethorpe@suse.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20201214065528.453216-1-lkml@jv-coder.de>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+In-Reply-To: <20201214094951.24018-1-rpalethorpe@suse.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v4] overcommit_memory: Fix unstable subtest
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3] pty04: Limit the number of packets sent to
+ avoid timeout
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,15 +48,22 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>, ltp@lists.linux.it
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-I've rearranged the whitespaces around the MIN/MAX a bit and pushed,
-thanks.
+> -	tst_res(TPASS, "Writing to PTY interrupted by hangup");
+> +	tst_res(TPASS, "Transmission on PTY interrupted by hangup");
+>  
+>  	tst_free_all();
+>  }
+>  
+> +#undef RETRY_ASYNC
+
+I've removed this now unused undef and pushed, thanks.
 
 -- 
 Cyril Hrubis
