@@ -2,39 +2,44 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D968A2DA337
-	for <lists+linux-ltp@lfdr.de>; Mon, 14 Dec 2020 23:20:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 768802DA7F6
+	for <lists+linux-ltp@lfdr.de>; Tue, 15 Dec 2020 07:07:16 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 885523C6762
-	for <lists+linux-ltp@lfdr.de>; Mon, 14 Dec 2020 23:20:22 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id EE6E83C5821
+	for <lists+linux-ltp@lfdr.de>; Tue, 15 Dec 2020 07:07:15 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 9A19C3C0194
- for <ltp@lists.linux.it>; Mon, 14 Dec 2020 23:19:56 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 4A3343C2A02
+ for <ltp@lists.linux.it>; Tue, 15 Dec 2020 07:07:11 +0100 (CET)
+Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id B080E60071B
- for <ltp@lists.linux.it>; Mon, 14 Dec 2020 23:19:55 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 4461DAF32;
- Mon, 14 Dec 2020 22:19:55 +0000 (UTC)
-From: Petr Vorel <pvorel@suse.cz>
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 9DD3E600C6D
+ for <ltp@lists.linux.it>; Tue, 15 Dec 2020 07:07:10 +0100 (CET)
+Received: from ubuntu.localdomain (unknown [188.192.1.224])
+ by mail.jv-coder.de (Postfix) with ESMTPSA id BB3D69F616;
+ Tue, 15 Dec 2020 06:07:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
+ t=1608012428; bh=4peM0hhPaf8AnJnoPDWjulPGTptq5vb/qncnNlg99v8=;
+ h=From:To:Subject:Date:Message-Id:MIME-Version;
+ b=muRCNUWHxnpkUL5HwbbQKL8z+bR7Gbx4EqzjigyRiwqaMc0GeoK7VPRplYKxnxCeE
+ gzTUtCgvUN0+6SIG6FyeW2+iuYNo3EuZ2dQh0dMFXsURA+YbsqMiRy7jMJJxy9FJcM
+ 0S7lx1ON/1FDAdGsmyUfn42zEtomdjTO59mfTjUQ=
+From: Joerg Vehlow <lkml@jv-coder.de>
 To: ltp@lists.linux.it
-Date: Mon, 14 Dec 2020 23:19:46 +0100
-Message-Id: <20201214221946.6340-5-pvorel@suse.cz>
-X-Mailer: git-send-email 2.29.2
-In-Reply-To: <20201214221946.6340-1-pvorel@suse.cz>
-References: <20201214221946.6340-1-pvorel@suse.cz>
+Date: Tue, 15 Dec 2020 07:07:02 +0100
+Message-Id: <20201215060702.507970-1-lkml@jv-coder.de>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH v5 4/4] ima_tpm.sh: Fix calculating PCR aggregate
+Subject: [LTP] [RFC] openposix: Use TMPDIR instead of hardcoded /tmp
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,331 +51,55 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Lakshmi Ramasubramanian <nramas@linux.microsoft.com>,
- Tushar Sugandhi <tusharsu@linux.microsoft.com>,
- linux-integrity@vger.kernel.org, Mimi Zohar <zohar@linux.vnet.ibm.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-for TPM 2.0 and support more evmctl versions.
-
-Because exporting PCR registers for TPM 2.0 has not been upstreamed [1],
-we use user space code, which requires evmctl >= 1.3.1 and tsspcrread.
-Using evmctl allows to test for TPM devices which does not export event
-log (/sys/kernel/security/tpm0/binary_bios_measurements).
-
-For TPM 1.2 read tpm0 device's pcrs file from sysfs. (tss1pcrread could
-be also used, but it's not yet packaged by distros.)
-
-For old kernels which use SHA1/MD5, any evmctl version is required (evmctl
-ima_measurement was introduced in very old v0.7), but
-* newer sysctl path /sys/class/tpm/tpm0/device/pcrs requires evmctl 1.1
-* using ima_policy=tcb requires 1.3.1 due --ignore-violations
-
-We now support output format of ima_measurement command for various
-evmctl versions:
-* 1.3: "sha256: TPM PCR-10:" (or other algorithm, e.g. "sha1:")
-* 1.1-1.2.1: "HW PCR-10:" (the only previously supported format)
-* 0.7-1.0: "PCR-10:"
-
-NOTE: we ignore evmctl failure for evmctl < 1.3.1 (missing --ignore-violations,
-also evmctl < 1.1 fails with "PCRAgg does not match PCR-10")
-
-As for previous commit fix testing with TPM 2.0 device which does not
-export event log (/sys/kernel/security/tpm0/binary_bios_measurements):
-not wrongly assuming TPM-bypass when kernel didn't export other TPM
-2.0 files we check in get_tpm_version() but bios boot aggregate is
-correct (i.e. not 0x00s). In that case evmctl ima_boot_aggregate can get
-boot aggregate even without TPM event log.
-
-[1] https://patchwork.kernel.org/patch/11759729/
-
-Co-developed-by: Mimi Zohar <zohar@linux.ibm.com>
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
-Changes v4->v5:
-* improved TPM 2.0 detection (e.g. check for /dev/tpmrm0 and /dev/tpm0)
-* test2: if evmctl ima_measurement fails, run again with --ignore-violations
-* test2: assume TPM 2, if not detected
-* print TPM kernel config
-* cleanup
-
- .../security/integrity/ima/tests/ima_setup.sh |  14 +-
- .../security/integrity/ima/tests/ima_tpm.sh   | 176 +++++++++++++-----
- 2 files changed, 144 insertions(+), 46 deletions(-)
-
-diff --git a/testcases/kernel/security/integrity/ima/tests/ima_setup.sh b/testcases/kernel/security/integrity/ima/tests/ima_setup.sh
-index dbf8a1db4..59a7ffeac 100644
---- a/testcases/kernel/security/integrity/ima/tests/ima_setup.sh
-+++ b/testcases/kernel/security/integrity/ima/tests/ima_setup.sh
-@@ -93,7 +93,7 @@ require_ima_policy_content()
- 	fi
- }
- 
--require_ima_policy_cmdline()
-+check_ima_policy_cmdline()
- {
- 	local policy="$1"
- 	local i
-@@ -101,10 +101,18 @@ require_ima_policy_cmdline()
- 	grep -q "ima_$policy" /proc/cmdline && return
- 	for i in $(cat /proc/cmdline); do
- 		if echo "$i" | grep -q '^ima_policy='; then
--			echo "$i" | grep -q -e "|[ ]*$policy" -e "$policy[ ]*|" -e "=$policy" && return
-+			echo "$i" | grep -q -e "|[ ]*$policy" -e "$policy[ ]*|" -e "=$policy" && return 0
- 		fi
- 	done
--	tst_brk TCONF "IMA measurement tests require builtin IMA $policy policy (e.g. ima_policy=$policy kernel parameter)"
-+	return 1
-+}
-+
-+require_ima_policy_cmdline()
-+{
-+	local policy="$1"
-+
-+	check_ima_policy_cmdline $policy || \
-+		tst_brk TCONF "IMA measurement tests require builtin IMA $policy policy (e.g. ima_policy=$policy kernel parameter)"
- }
- 
- mount_helper()
-diff --git a/testcases/kernel/security/integrity/ima/tests/ima_tpm.sh b/testcases/kernel/security/integrity/ima/tests/ima_tpm.sh
-index 195fcb16c..233fdeed8 100755
---- a/testcases/kernel/security/integrity/ima/tests/ima_tpm.sh
-+++ b/testcases/kernel/security/integrity/ima/tests/ima_tpm.sh
-@@ -7,13 +7,14 @@
- # Verify the boot and PCR aggregates.
- 
- TST_CNT=2
--TST_NEEDS_CMDS="awk cut"
-+TST_NEEDS_CMDS="awk cut tail"
- TST_SETUP="setup"
- 
- . ima_setup.sh
- 
- EVMCTL_REQUIRED='1.3.1'
- ERRMSG_EVMCTL="=> install evmctl >= $EVMCTL_REQUIRED"
-+ERRMSG_TPM="TPM hardware support not enabled in kernel or no TPM chip found"
- 
- setup()
- {
-@@ -31,7 +32,7 @@ setup()
- 
- 	TPM_VERSION="$(get_tpm_version)"
- 	if [ -z "$TPM_VERSION" ]; then
--		tst_res TINFO "TPM hardware support not enabled in kernel or no TPM chip found, testing TPM-bypass"
-+		tst_res TINFO "$ERRMSG_TPM, testing TPM-bypass"
- 	else
- 		tst_res TINFO "TMP major version: $TPM_VERSION"
- 	fi
-@@ -121,6 +122,93 @@ get_tpm_version()
- 	fi
- }
- 
-+read_pcr_tpm1()
-+{
-+	local pcrs_path="/sys/class/tpm/tpm0/device/pcrs"
-+	local evmctl_required="1.1"
-+	local hash pcr
-+
-+	if [ ! -f "$pcrs_path" ]; then
-+		pcrs_path="/sys/class/misc/tpm0/device/pcrs"
-+	elif ! check_evmctl $evmctl_required; then
-+		echo "evmctl >= $evmctl_required required"
-+		return 32
-+	fi
-+
-+	if [ ! -f "$pcrs_path" ]; then
-+		echo "missing PCR file $pcrs_path ($ERRMSG_TPM)"
-+		return 32
-+	fi
-+
-+	while read line; do
-+		pcr="$(echo $line | cut -d':' -f1)"
-+		hash="$(echo $line | cut -d':' -f2 | awk '{ gsub (" ", "", $0); print tolower($0) }')"
-+		echo "$pcr: $hash"
-+	done < $pcrs_path
-+
-+	return 0
-+}
-+
-+# NOTE: TPM 1.2 would require to use tss1pcrread which is not fully adopted
-+# by distros yet.
-+read_pcr_tpm2()
-+{
-+	local pcrmax=23
-+	local pcrread="tsspcrread -halg $ALGORITHM"
-+	local i pcr
-+
-+	tst_check_cmds tsspcrread || return 1
-+
-+	for i in $(seq 0 $pcrmax); do
-+		pcr=$($pcrread -ha "$i" -ns)
-+		if [ $? -ne 0 ]; then
-+			echo "tsspcrread failed: $pcr"
-+			return 1
-+		fi
-+		printf "PCR-%02d: %s\n" $i "$pcr"
-+	done
-+
-+	return 0
-+}
-+
-+get_pcr10_aggregate()
-+{
-+	local cmd="evmctl -vv ima_measurement $BINARY_MEASUREMENTS"
-+	local msg="$ERRMSG_EVMCTL"
-+	local res=TCONF
-+	local pcr ret
-+
-+	if [ -z "$MISSING_EVMCTL" ]; then
-+		msg=
-+		res=TFAIL
-+	fi
-+
-+	$cmd > hash.txt 2>&1
-+	ret=$?
-+	if [ $ret -ne 0 -a -z "$MISSING_EVMCTL" ]; then
-+		tst_res TFAIL "evmctl failed, trying with --ignore-violations"
-+		cmd="$cmd --ignore-violations"
-+		$cmd > hash.txt 2>&1
-+		ret=$?
-+	elif [ $ret -ne 0 -a "$MISSING_EVMCTL" = 1 ]; then
-+		tst_brk TFAIL "evmctl failed $msg"
-+	fi
-+
-+	[ $ret -ne 0 ] && tst_res TWARN "evmctl failed, trying to continue $msg"
-+
-+	pcr=$(grep -E "^($ALGORITHM: )*PCRAgg(.*10)*:" hash.txt | tail -1 \
-+		| awk '{print $NF}')
-+
-+	if [ -z "$pcr" ]; then
-+		tst_res $res "failed to find aggregate PCR-10 $msg"
-+		tst_res TINFO "hash file:"
-+		cat hash.txt >&2
-+		return
-+	fi
-+
-+	echo "$pcr"
-+}
-+
- test1_tpm_bypass_mode()
- {
- 	local zero=$(echo $DIGEST | awk '{gsub(/./, "0")}; {print}')
-@@ -139,8 +227,10 @@ test1_hw_tpm()
- 	local cmd="evmctl ima_boot_aggregate -v"
- 	local boot_aggregate
- 
--	[ -z "$TPM_VERSION" ] && \
-+	if [ -z "$TPM_VERSION" ]; then
- 		tst_res TWARN "TPM-bypass failed, trying to test TPM device (unknown TPM version)"
-+		MAYBE_TPM2=1
-+	fi
- 
- 	if [ "$MISSING_EVMCTL" = 1 ]; then
- 		if [ ! -f "$tpm_bios" ]; then
-@@ -174,57 +264,57 @@ test1()
- 	[ -z "$TPM_VERSION" ] && test1_tpm_bypass_mode || test1_hw_tpm
- }
- 
--# Probably cleaner to programmatically read the PCR values directly
--# from the TPM, but that would require a TPM library. For now, use
--# the PCR values from /sys/devices.
--validate_pcr()
-+test2()
- {
--	tst_res TINFO "verify PCR (Process Control Register)"
-+	local hash pcr_aggregate out ret
- 
--	local dev_pcrs="$1"
--	local pcr hash aggregate_pcr
-+	tst_res TINFO "verify PCR values"
- 
--	aggregate_pcr="$(evmctl -v ima_measurement $BINARY_MEASUREMENTS 2>&1 | \
--		grep 'HW PCR-10:' | awk '{print $3}')"
--	if [ -z "$aggregate_pcr" ]; then
--		tst_res TFAIL "failed to get PCR-10"
--		return 1
-+	if [ "$MAYBE_TPM2" = 1 ]; then
-+		tst_res TINFO "TMP version not detected ($ERRMSG_TPM), assume TPM 2"
-+		TPM_VERSION=2
- 	fi
- 
--	while read line; do
--		pcr="$(echo $line | cut -d':' -f1)"
--		if [ "$pcr" = "PCR-10" ]; then
--			hash="$(echo $line | cut -d':' -f2 | awk '{ gsub (" ", "", $0); print tolower($0) }')"
--			[ "$hash" = "$aggregate_pcr" ]
--			return $?
--		fi
--	done < $dev_pcrs
--	return 1
--}
-+	if [ -z "$TPM_VERSION" ]; then
-+		tst_brk TCONF "TMP version not detected ($ERRMSG_TPM)"
-+	fi
- 
--test2()
--{
--	tst_res TINFO "verify PCR values"
--	tst_check_cmds evmctl || return
-+	if [ "$ALGORITHM" = "sha1" -a "$MISSING_EVMCTL" = 1 ]; then
-+		tst_check_cmds evmctl || return 1
-+	fi
- 
--	tst_res TINFO "evmctl version: $(evmctl --version)"
-+	out=$(read_pcr_tpm$TPM_VERSION)
-+	ret=$?
- 
--	local pcrs_path="/sys/class/tpm/tpm0/device/pcrs"
--	if [ -f "$pcrs_path" ]; then
--		tst_res TINFO "new PCRS path, evmctl >= 1.1 required"
--	else
--		pcrs_path="/sys/class/misc/tpm0/device/pcrs"
-+	if [ $ret -ne 0 ]; then
-+		case "$ret" in
-+			1) tst_res TFAIL "$out";;
-+			32) tst_res TCONF "$out";;
-+			*) tst_brk TBROK "unsupported return type '$1'";;
-+		esac
-+		return
- 	fi
- 
--	if [ -f "$pcrs_path" ]; then
--		validate_pcr $pcrs_path
--		if [ $? -eq 0 ]; then
--			tst_res TPASS "aggregate PCR value matches real PCR value"
--		else
--			tst_res TFAIL "aggregate PCR value does not match real PCR value"
--		fi
-+	hash=$(echo "$out" | grep "^PCR-10" | cut -d' ' -f2)
-+
-+	if [ -z "$out" ]; then
-+		tst_res TFAIL "PCR-10 hash not found"
-+		return
-+	fi
-+
-+	tst_res TINFO "real PCR-10: '$hash'"
-+
-+	get_pcr10_aggregate > tmp.txt
-+	pcr_aggregate="$(cat tmp.txt)"
-+	if [ -z "$pcr_aggregate" ]; then
-+		return
-+	fi
-+	tst_res TINFO "aggregate PCR-10: '$pcr_aggregate'"
-+
-+	if [ "$hash" = "$pcr_aggregate" ]; then
-+		tst_res TPASS "aggregate PCR value matches real PCR value"
- 	else
--		tst_res TCONF "TPM Hardware Support not enabled in kernel or no TPM chip found"
-+		tst_res TFAIL "aggregate PCR value does not match real PCR value"
- 	fi
- }
- 
--- 
-2.29.2
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+RnJvbTogSm9lcmcgVmVobG93IDxqb2VyZy52ZWhsb3dAYW94LXRlY2guZGU+CgpIaSBldmVyeW9u
+ZSwKClRoZXJlIGFyZSBsb3RzIG9mIGNvZGUgc25pcHBldHMgbGlrZQoKc25wcmludGYoZm5hbWUs
+IHNpemVvZihmbmFtZSksICIvdG1wLzxzb21lX25hbWU+XyVkIiwgZ2V0cGlkKCkpOwp1bmxpbmso
+Zm5hbWUpOwpvcGVuKGZuYW1lLCAuLi4pOwoKdGhyb3VnaG91dCB0aGUgb3BlbiBwb3NpeCB0ZXN0
+cy4KSSdkIGxpa2UgdG8gZ2V0IHJpZCBvZiB0aGUgaGFyZGNvZGVkIC90bXAgcGF0aHMgYW5kIHJl
+cGxhY2UgdGhlbQp3aXRoIFRNUERJUiwgaWYgaXQgaXMgc2V0LiBCZWNhdXNlIHRoZSBwYXR0ZXJu
+IGlzIG1vc3RseSB0aGUgc2FtZSwKSSdkIGxpa2UgdG8gZ2VuZXJhbGl6ZSB0aGUgaW1wbGVtZW50
+YXRpb24uIEN1cnJlbnRseSB0aGVyZSBpcyBubyBsaWJyYXJ5CmxpbmtlZCB0byB0aGUgb3Blbl9w
+b3NpeCB0ZXN0cywgdGhhdCdzIHdoeSBJIGNob29zZSBhIHN0YXRpYyBpbmxpbmUKZnVuY3Rpb24g
+aW1wbGVtZW50ZWQgaW4gcG9zaXh0ZXN0cy5oLgpUaGlzIGNvdWxkIGFsc28gYmUgZW5oYW5jZWQg
+dG8gdXNlIG1rc3RlbXAgYW5kIHJldHVybiB0aGUgZmlsZWhhbmRsZQpkaXJlY3RseSwgYmVjYXVz
+ZSBtb3N0IG9mIHRoZSB0aW1lIHRoZSBmaWxlIGlzIG9wZW5kIGFueXdheS4KCldoYXQgaXMgeW91
+ciBvcGlvbmlvbj8gRG9lcyBhIGNoYW5nZSBsaWtlIHRoaXMgbWFrZSBzZW5zZSBvciB3b3VsZAp5
+b3UgZG8gaXQgZGlmZmVyZW50bHk/CgpUaGFua3MsCkrDtnJnCgoKLS0tCiAuLi4vY29uZm9ybWFu
+Y2UvaW50ZXJmYWNlcy9tbWFwLzUtMS5jICAgICAgICAgICAgICAgfCAgMyArKy0KIHRlc3RjYXNl
+cy9vcGVuX3Bvc2l4X3Rlc3RzdWl0ZS9pbmNsdWRlL3Bvc2l4dGVzdC5oICB8IDEzICsrKysrKysr
+KysrKysKIDIgZmlsZXMgY2hhbmdlZCwgMTUgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQoK
+ZGlmZiAtLWdpdCBhL3Rlc3RjYXNlcy9vcGVuX3Bvc2l4X3Rlc3RzdWl0ZS9jb25mb3JtYW5jZS9p
+bnRlcmZhY2VzL21tYXAvNS0xLmMgYi90ZXN0Y2FzZXMvb3Blbl9wb3NpeF90ZXN0c3VpdGUvY29u
+Zm9ybWFuY2UvaW50ZXJmYWNlcy9tbWFwLzUtMS5jCmluZGV4IGQ5ZDQ3NmJkNS4uZmI5OGNiODc3
+IDEwMDY0NAotLS0gYS90ZXN0Y2FzZXMvb3Blbl9wb3NpeF90ZXN0c3VpdGUvY29uZm9ybWFuY2Uv
+aW50ZXJmYWNlcy9tbWFwLzUtMS5jCisrKyBiL3Rlc3RjYXNlcy9vcGVuX3Bvc2l4X3Rlc3RzdWl0
+ZS9jb25mb3JtYW5jZS9pbnRlcmZhY2VzL21tYXAvNS0xLmMKQEAgLTkzLDcgKzkzLDggQEAgaW50
+IG1haW4odm9pZCkKIAlpbnQgZmQsIGZhaWwgPSAwOwogCXVuc2lnbmVkIGludCBpOwogCi0Jc25w
+cmludGYodG1wZm5hbWUsIHNpemVvZih0bXBmbmFtZSksICIvdG1wL3B0c19tbWFwXzVfMV8lZCIs
+IGdldHBpZCgpKTsKKwlHRVRfVE1QX0ZJTEVOQU1FKHRtcGZuYW1lLCAicHRzX21tYXBfNV8xIik7
+CisKIAl1bmxpbmsodG1wZm5hbWUpOwogCWZkID0gb3Blbih0bXBmbmFtZSwgT19DUkVBVCB8IE9f
+UkRXUiB8IE9fRVhDTCwgU19JUlVTUiB8IFNfSVdVU1IpOwogCWlmIChmZCA9PSAtMSkgewpkaWZm
+IC0tZ2l0IGEvdGVzdGNhc2VzL29wZW5fcG9zaXhfdGVzdHN1aXRlL2luY2x1ZGUvcG9zaXh0ZXN0
+LmggYi90ZXN0Y2FzZXMvb3Blbl9wb3NpeF90ZXN0c3VpdGUvaW5jbHVkZS9wb3NpeHRlc3QuaApp
+bmRleCBjZjA5NTJjYmYuLmUwZjFmMDIxNCAxMDA2NDQKLS0tIGEvdGVzdGNhc2VzL29wZW5fcG9z
+aXhfdGVzdHN1aXRlL2luY2x1ZGUvcG9zaXh0ZXN0LmgKKysrIGIvdGVzdGNhc2VzL29wZW5fcG9z
+aXhfdGVzdHN1aXRlL2luY2x1ZGUvcG9zaXh0ZXN0LmgKQEAgLTksNiArOSw5IEBACiAvKgogICog
+cmV0dXJuIGNvZGVzCiAgKi8KKyNpbmNsdWRlIDxzdGRsaWIuaD4KKyNpbmNsdWRlIDxzdGRpby5o
+PgorI2luY2x1ZGUgPHVuaXN0ZC5oPgogCiAjZGVmaW5lIFBUU19QQVNTICAgICAgICAwCiAjZGVm
+aW5lIFBUU19GQUlMICAgICAgICAxCkBAIC0yMywzICsyNiwxMyBAQAogI2RlZmluZSBMVFBfQVRU
+UklCVVRFX05PUkVUVVJOCQlfX2F0dHJpYnV0ZV9fKChub3JldHVybikpCiAjZGVmaW5lIExUUF9B
+VFRSSUJVVEVfVU5VU0VECQlfX2F0dHJpYnV0ZV9fKCh1bnVzZWQpKQogI2RlZmluZSBMVFBfQVRU
+UklCVVRFX1VOVVNFRF9SRVNVTFQJX19hdHRyaWJ1dGVfXygod2Fybl91bnVzZWRfcmVzdWx0KSkK
+KworI2RlZmluZSBHRVRfVE1QX0ZJTEVOQU1FKHRhcmdldCwgcHJlZml4KSBcCisgICAgc25wcmlu
+dGYodGFyZ2V0LCBzaXplb2YodGFyZ2V0KSwgIiVzLyIgcHJlZml4ICIlZCIsICB0bXBkaXIoKSwg
+Z2V0cGlkKCkpOworCitzdGF0aWMgaW5saW5lIGNvbnN0IGNoYXIgKnRtcGRpcih2b2lkKQorewor
+ICAgIGNvbnN0IGNoYXIgKnRtcGRpcl9lbnY7CisgICAgdG1wZGlyX2VudiA9IGdldGVudigiVE1Q
+RElSIik7CisgICAgcmV0dXJuIHRtcGRpcl9lbnYgPyB0bXBkaXJfZW52IDogIi90bXAiOworfQot
+LSAKMi4yNS4xCgoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0
+L2xpc3RpbmZvL2x0cAo=
