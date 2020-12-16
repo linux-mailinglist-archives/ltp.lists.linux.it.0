@@ -1,38 +1,40 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD09C2DBE3F
-	for <lists+linux-ltp@lfdr.de>; Wed, 16 Dec 2020 11:09:20 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id B28522DBE41
+	for <lists+linux-ltp@lfdr.de>; Wed, 16 Dec 2020 11:09:34 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 337F63C5A51
-	for <lists+linux-ltp@lfdr.de>; Wed, 16 Dec 2020 11:09:20 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 7D46D3C3356
+	for <lists+linux-ltp@lfdr.de>; Wed, 16 Dec 2020 11:09:34 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 653483C2B2B
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id 298B83C2B2B
  for <ltp@lists.linux.it>; Wed, 16 Dec 2020 11:09:16 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 09674600A11
- for <ltp@lists.linux.it>; Wed, 16 Dec 2020 11:09:15 +0100 (CET)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 408C21A00CA0
+ for <ltp@lists.linux.it>; Wed, 16 Dec 2020 11:09:16 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 65D64AC7F
+ by mx2.suse.de (Postfix) with ESMTP id DCDD0AC91
  for <ltp@lists.linux.it>; Wed, 16 Dec 2020 10:09:15 +0000 (UTC)
 From: Cyril Hrubis <chrubis@suse.cz>
 To: ltp@lists.linux.it
-Date: Wed, 16 Dec 2020 11:10:07 +0100
-Message-Id: <20201216101012.14644-1-chrubis@suse.cz>
+Date: Wed, 16 Dec 2020 11:10:08 +0100
+Message-Id: <20201216101012.14644-2-chrubis@suse.cz>
 X-Mailer: git-send-email 2.26.2
+In-Reply-To: <20201216101012.14644-1-chrubis@suse.cz>
+References: <20201216101012.14644-1-chrubis@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH 0/5] Small docparser fixes
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/5] docparse/docparse: Warn on truncated docstring
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,20 +51,43 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
+---
+ docparse/docparse.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-Cyril Hrubis (5):
-  docparse/docparse: Warn on truncated docstring
-  doc_parse/data_storage: Bump the array max size
-  docparse/docparse: Eat only first whitespace for comment block
-  syscalls/abort: Remove second space before description text
-  syscalls/move_pages12: Add one more kernel git hash
-
- docparse/data_storage.h                       |  2 +-
- docparse/docparse.c                           |  9 ++--
- testcases/kernel/syscalls/abort/abort01.c     |  3 +-
- .../kernel/syscalls/move_pages/move_pages12.c | 52 ++++++++++++-------
- 4 files changed, 40 insertions(+), 26 deletions(-)
-
+diff --git a/docparse/docparse.c b/docparse/docparse.c
+index 22c5c6f2c..702820757 100644
+--- a/docparse/docparse.c
++++ b/docparse/docparse.c
+@@ -12,6 +12,8 @@
+ 
+ #include "data_storage.h"
+ 
++#define WARN(str) fprintf(stderr, "WARNING: " str "\n")
++
+ static void oneline_comment(FILE *f)
+ {
+ 	int c;
+@@ -52,7 +54,8 @@ static void multiline_comment(FILE *f, struct data_node *doc)
+ 				struct data_node *line;
+ 				buf[bufp] = 0;
+ 				line = data_node_string(eat_asterisk_space(buf));
+-				data_node_array_add(doc, line);
++				if (data_node_array_add(doc, line))
++					WARN("doc string comment truncated");
+ 				bufp = 0;
+ 				continue;
+ 			}
+@@ -194,8 +197,6 @@ exit:
+ 	return buf;
+ }
+ 
+-#define WARN(str) fprintf(stderr, str "\n")
+-
+ static int parse_array(FILE *f, struct data_node *node)
+ {
+ 	const char *token;
 -- 
 2.26.2
 
