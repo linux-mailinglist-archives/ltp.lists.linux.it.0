@@ -1,39 +1,52 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 922872DB439
-	for <lists+linux-ltp@lfdr.de>; Tue, 15 Dec 2020 20:05:56 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 80B0F2DB8C8
+	for <lists+linux-ltp@lfdr.de>; Wed, 16 Dec 2020 03:10:45 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5BF1E3C5820
-	for <lists+linux-ltp@lfdr.de>; Tue, 15 Dec 2020 20:05:56 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id F04A83C5A0C
+	for <lists+linux-ltp@lfdr.de>; Wed, 16 Dec 2020 03:10:44 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id DB7263C29FB
- for <ltp@lists.linux.it>; Tue, 15 Dec 2020 20:05:54 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id DD943100052B
- for <ltp@lists.linux.it>; Tue, 15 Dec 2020 20:05:53 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 08D58ACC4;
- Tue, 15 Dec 2020 19:05:53 +0000 (UTC)
-From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Tue, 15 Dec 2020 20:05:45 +0100
-Message-Id: <20201215190545.19939-1-pvorel@suse.cz>
-X-Mailer: git-send-email 2.29.2
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id E05573C4AE8
+ for <ltp@lists.linux.it>; Wed, 16 Dec 2020 03:10:41 +0100 (CET)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-6.smtp.seeweb.it (Postfix) with ESMTP id B289B1400DA5
+ for <ltp@lists.linux.it>; Wed, 16 Dec 2020 03:10:40 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.78,423,1599494400"; d="scan'208";a="102438555"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 16 Dec 2020 10:10:36 +0800
+Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
+ by cn.fujitsu.com (Postfix) with ESMTP id 6FFA64CE6009;
+ Wed, 16 Dec 2020 10:10:30 +0800 (CST)
+Received: from [10.167.220.84] (10.167.220.84) by
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Wed, 16 Dec 2020 10:10:29 +0800
+Message-ID: <5FD96C97.6020602@cn.fujitsu.com>
+Date: Wed, 16 Dec 2020 10:10:31 +0800
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
+ rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+To: Radoslav Kolev <radoslav.kolev@suse.com>
+References: <20201215155650.6496-1-radoslav.kolev@suse.com>
+In-Reply-To: <20201215155650.6496-1-radoslav.kolev@suse.com>
+X-Originating-IP: [10.167.220.84]
+X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
+X-yoursite-MailScanner-ID: 6FFA64CE6009.AD1BA
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.4
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH 1/1] if-mtu-change.sh: Add max packet size detection
- for IPv4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] syscalls/ioctl_loop05.c: skip test on overlay
+ filesystem
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,87 +58,42 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Radoslav Kolev via ltp <ltp@lists.linux.it>
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-QWx0aG91Z2ggdGhlb3JldGljYWwgbWF4aW11bSBJUCBwYWNrZXQgc2l6ZSBpcyA2NTUwNywgdGhp
-cyBkb2VzIG5vdCB3b3JrCm9uIHMzOTB4IG9uIGxvdyBNVFUuIEJ1dCBhY2NvcmRpbmcgdG8gV2Vu
-amlhIFpoYW5nIHRoZSBzYW1lIHByb2JsZW0gaXMKb24gbW9yZSBwbGF0Zm9ybXMsIGUuZy4geDg2
-OgoKQSBiaWcgSVAgcGFja2V0IGlzIGZyYWdtZW50ZWQgaW50byBzbWFsbCBwYWNrZXRzIGFjY29y
-ZGluZyB0byB0aGUgTVRVCnNpemUuICBFYWNoIHNtYWxsIHBhY2tldCBjb25zdW1lcyBhbiBhbW91
-bnQgb2Ygc3lzdGVtIG1lbW9yeSwgd2hpY2ggYXJlCnJlY29yZGVkIGluIOKAmHNrYi0+dHJ1ZXNp
-emXigJkuIEFuZCB0aGUgc3VtIG9mIHRoZSBzcGFjZSBhbGwgb2YgdGhlIHNtYWxsCnBhY2tldHMg
-bmVlZCBpcyBsaW1pdGVkIGJ5IOKAmDIgKiBzay0+c2tfc25kYnVm4oCZICh3aGljaCB5b3UgY2Fu
-IGZpbmQgaW4KJ19faXBfYXBwZW5kX2RhdGEnIGZ1bmN0aW9uIGluIG5ldC9pcHY0L2lwX291dHB1
-dC5jKSwgdGhhdCBpcyBpbmhlcml0ZWQKZnJvbSB0aGUgc3lzdGVtIGRlZmF1bHQgc2V0IGR1cmlu
-ZyBzb2NrZXQgaW5pdGlhbGl6YXRpb24uIFRoZSBwcm9ibGVtIG9uCnMzOTAgaXMgdGhhdCDigJhz
-a2ItPnRydWVzaXpl4oCZIGlzIGdvdCBieSBhbGlnbmluZyB0aGUgc2l6ZSBvZiB0aGUgZGF0YQpi
-dWZmZXIgdG8gdGhlIEwxIGNhY2hlIGxpbmUgKHVzaW5nIFNLQl9EQVRBX0FMSUdOKSwgd2hpY2gg
-b24gczM5MCBhbmQKb25seSBvbiBzMzkwIGlzIDI1NiBieXRlcywgd2hpbGUgb24gb3RoZXIgcHJv
-Y2Vzc29ycyBsZXNzIHRoYW4gb3IgZXF1YWwKdG8gMTI4IGJ5dGVzLiBTbyB0aGUgc3VtIG9uIHMz
-OTAgaXMgbXVjaCBlYXNpZXIgdG8gZXhjZWVkIHRoZSBsaW1pdCwKdGhhdCB0aGUgYmlnIHBhY2tl
-dCBjYW4gbm90IGJlIHNlbnQgc3VjY2Vzc2Z1bGx5LgoKQmVjYXVzZSBvZiB0aGUgYmlnIGNhY2hl
-IGxpbmUgc2l6ZSBvbiBzMzkwLCB0aGUgbWF4aW11bSBzaXplIG9mIHRoZQpwYWNrZXQgaXMgbGlt
-aXRlZCBpbiBiZXR3ZWVuIDUzODE2IGFuZCA2NDk2MCwgaWYgdGhlIE1UVSBpcyBzZXQgdG8KYmV0
-d2VlbiA0ODQgYW5kIDU4OC4KSG93ZXZlciwgdGhpcyBwcm9ibGVtIG5vdCBvbmx5IG9jY3VycyBv
-biBzMzkwLCBidXQgYWxzbyBvbiBzb21lIG90aGVyCnByb2Nlc3NvciBlLmcuIHg4Ni4gSWYgdGhl
-IE1UVSBpcyBzZXQgdG8gbGVzcyB0aGFuIDM0MCwgYW4gSVAgcGFja2V0CndpdGggdGhlIHRoZW9y
-ZXRpY2FsIG1heGltdW0gc2l6ZSAoNjU1MDcgYnl0ZXMpIGxpa2V3aXNlIGNhbiBub3QgYmUgc2Vu
-dApzdWNjZXNzZnVsbHkuCgpOT1RFOiB0aGUgZGV0ZWN0aW9uIGlzbid0IHByZWNpc2UuIEkgZGlk
-bid0IGNvbnNpZGVyIGl0IGltcG9ydGFudCBlbm91Z2gKdG8gaW1wbGVtZW50IGJpc2VjdGlvbiBt
-ZXRob2QuIERldGVjdGVkIG9ubHkgZm9yIElQdjQsIGJlY2F1c2UgSVB2NiB1c2VzCmhpZ2ggZW5v
-dWdoIE1UVSAoYW5kIGZ1bmN0aW9uIGlzIG5vdCBJUHY2IHJlYWR5KS4KCkxpbms6IGh0dHBzOi8v
-bG9yZS5rZXJuZWwub3JnL2xrbWwvYWI4Mjg5ZTUtNTQ3Yy01Mzc1LTVkMGYtZTlhMzYzMDA1ZGIx
-QGxpbnV4LmlibS5jb20vCgpTaWduZWQtb2ZmLWJ5OiBQZXRyIFZvcmVsIDxwdm9yZWxAc3VzZS5j
-ej4KLS0tCkhpIEFsZXhleSwKClRoaXMgc2ltcGxlIGNoYW5nZSB3b3VsZCBiZSBlbm91Z2g6Clsg
-IiQodW5hbWUgLW0pIiA9ICJzMzkweCIgXSAmJiBNQVhfUEFDS0VUX1NJWkU9IjYxMjQ0IgoKQnV0
-IEkgd2FudGVkIHRvIGZpeCB0aGlzIGZvciBhbGwgcGxhdGZvcm1zIGF0IG9uY2UuCgpLaW5kIHJl
-Z2FyZHMsClBldHIKCiAuLi4vbmV0d29yay9zdHJlc3MvaW50ZXJmYWNlL2lmLW10dS1jaGFuZ2Uu
-c2ggfCA2MSArKysrKysrKysrKysrKy0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgNDUgaW5zZXJ0aW9u
-cygrKSwgMTYgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvdGVzdGNhc2VzL25ldHdvcmsvc3Ry
-ZXNzL2ludGVyZmFjZS9pZi1tdHUtY2hhbmdlLnNoIGIvdGVzdGNhc2VzL25ldHdvcmsvc3RyZXNz
-L2ludGVyZmFjZS9pZi1tdHUtY2hhbmdlLnNoCmluZGV4IGY3ZWMzNTYxOS4uYmMwNWVlMTg3IDEw
-MDc1NQotLS0gYS90ZXN0Y2FzZXMvbmV0d29yay9zdHJlc3MvaW50ZXJmYWNlL2lmLW10dS1jaGFu
-Z2Uuc2gKKysrIGIvdGVzdGNhc2VzL25ldHdvcmsvc3RyZXNzL2ludGVyZmFjZS9pZi1tdHUtY2hh
-bmdlLnNoCkBAIC0yMSwxMSArMjEsNTMgQEAgQ0hBTkdFX1ZBTFVFUz0iNzg0IDExNDIgNTUyIDE1
-MDAgNTUyIDE1MDAgNTUyIDc0OCA1NTIgMTE0MiAxNTAwIgogQ0hBTkdFNl9WQUxVRVM9IjEyODAg
-MTQ0NSAxMzM1IDEzOTAgMTUwMCAxMjgwIDE1MDAgMTI4MCAxMzM1IDE1MDAiCiBzYXZlZF9tdHU9
-CiAKK01BWF9QQUNLRVRfU0laRT02NTUwNworCitzZXRfbXR1KCkKK3sKKwlsb2NhbCBtdHU9IiQx
-IgorCWxvY2FsIGNtZD0iJDIiCisJbG9jYWwgcmV0PTAKKwlsb2NhbCBpZmFjZT0kKHRzdF9pZmFj
-ZSkKKwlsb2NhbCBpZmFjZV9ybXQ9JCh0c3RfaWZhY2Ugcmhvc3QpCisKKwljYXNlICRjbWQgaW4K
-KwkJaWZjb25maWcpIGlmY29uZmlnICRpZmFjZSBtdHUgJG10dSB8fCByZXQ9MQorCQkJdHN0X3Jo
-b3N0X3J1biAtYyAiaWZjb25maWcgJGlmYWNlX3JtdCBtdHUgJG10dSIgfHwgcmV0PTEKKwkJCTs7
-CisJCWlwKSBpcCBsaW5rIHNldCAkaWZhY2UgbXR1ICRtdHUgfHwgcmV0PTEKKwkJCXRzdF9yaG9z
-dF9ydW4gLWMgImlwIGxpbmsgc2V0ICRpZmFjZV9ybXQgbXR1ICRtdHUiIHx8IHJldD0xCisJCQk7
-OworCQkqKSB0c3RfYnJrIFRCUk9LICJ1bmtub3duIGNtZCAnJGNtZCciCisJCQk7OworCWVzYWMK
-KworCXJldHVybiAkcmV0Cit9CisKK2ZpbmRfaXB2NF9tYXhfcGFja2V0X3NpemUoKQoreworCWxv
-Y2FsIG1pbl9tdHU9NTUyCisJbG9jYWwgc2l6ZT0kTUFYX1BBQ0tFVF9TSVpFCisKKwlzZXRfbXR1
-ICRtaW5fbXR1ICRDTUQgfHwgdHN0X2JyayBUQlJPSyAiZmFpbGVkIHRvIHNldCBNVFUgdG8gJG10
-dSIKKwl0c3RfcmVzIFRJTkZPICJjaGVja2luZyBtYXggTVRVIgorCXdoaWxlIFsgJHNpemUgLWd0
-IDAgXTsgZG8KKwkJaWYgcGluZyAtSSAkKHRzdF9pZmFjZSkgLWMxIC13MSAtcyAkc2l6ZSAkKHRz
-dF9pcGFkZHIgcmhvc3QpID4vZGV2L251bGw7IHRoZW4KKwkJCXRzdF9yZXMgVElORk8gInVzZSBt
-YXggTVRVICRzaXplIgorCQkJTUFYX1BBQ0tFVF9TSVpFPSRzaXplCisJCQlyZXR1cm4KKwkJZmkK
-KwkJc2l6ZT0kKChzaXplIC0gNTAwKSkKKwlkb25lCit9CisKIGRvX3NldHVwKCkKIHsKIAlbICIk
-VFNUX0lQVjYiIF0gJiYgQ0hBTkdFX1ZBTFVFUz0kQ0hBTkdFNl9WQUxVRVMKIAlpZl9zZXR1cAog
-CXNhdmVkX210dT0iJChjYXQgL3N5cy9jbGFzcy9uZXQvJCh0c3RfaWZhY2UpL210dSkiCisJWyAi
-JFRTVF9JUFY2IiBdIHx8IGZpbmRfaXB2NF9tYXhfcGFja2V0X3NpemUKIH0KIAogZG9fY2xlYW51
-cCgpCkBAIC00MSw5ICs4Myw2IEBAIHRlc3RfYm9keSgpCiB7CiAJbG9jYWwgY21kPSIkQ01EIgog
-Ci0JbG9jYWwgaWZhY2U9JCh0c3RfaWZhY2UpCi0JbG9jYWwgaWZhY2Vfcm10PSQodHN0X2lmYWNl
-IHJob3N0KQotCiAJdHN0X3JlcyBUSU5GTyAiJyRjbWQnIGNoYW5nZXMgTVRVICRNVFVfQ0hBTkdF
-X1RJTUVTIHRpbWVzIiBcCiAJICAgICAgICAgICAgICAgImV2ZXJ5ICRDSEFOR0VfSU5URVJWQUwg
-c2Vjb25kcyIKIApAQCAtNTksMjQgKzk4LDE0IEBAIHRlc3RfYm9keSgpCiAJCW1ha2VfYmFja2dy
-b3VuZF90Y3BfdHJhZmZpYwogCiAJCXRzdF9yZXMgVElORk8gInNldCBNVFUgdG8gJG10dSAkY250
-LyRNVFVfQ0hBTkdFX1RJTUVTIgotCQlsb2NhbCByZXQ9MAotCQljYXNlICRjbWQgaW4KLQkJaWZj
-b25maWcpIGlmY29uZmlnICRpZmFjZSBtdHUgJG10dSB8fCByZXQ9MQotCQkJdHN0X3Job3N0X3J1
-biAtYyAiaWZjb25maWcgJGlmYWNlX3JtdCBtdHUgJG10dSIKLQkJOzsKLQkJaXApIGlwIGxpbmsg
-c2V0ICRpZmFjZSBtdHUgJG10dSB8fCByZXQ9MQotCQkJdHN0X3Job3N0X3J1biAtYyAiaXAgbGlu
-ayBzZXQgJGlmYWNlX3JtdCBtdHUgJG10dSIKLQkJOzsKLQkJZXNhYwotCi0JCWlmIFsgJD8gLW5l
-IDAgLW8gJHJldCAtbmUgMCBdOyB0aGVuCi0JCQl0c3RfcmVzIFRGQUlMICJGYWlsZWQgdG8gY2hh
-bmdlIHRoZSBtdHUgYXQgJGNudCB0aW1lIgorCQlpZiAhIHNldF9tdHUgJG10dSAkY21kOyB0aGVu
-CisJCQl0c3RfcmVzIFRGQUlMICJmYWlsZWQgdG8gY2hhbmdlIE1UVSB0byAkbXR1IGF0ICRjbnQg
-dGltZSIKIAkJCXJldHVybgogCQlmaQogCiAJCXRzdF9zbGVlcCAkQ0hBTkdFX0lOVEVSVkFMCiAK
-LQkJdHN0X3BpbmcgLXMgIjEgMTAwMCA2NTUwNyIKKwkJdHN0X3BpbmcgLXMgIjEgMTAwMCAkTUFY
-X1BBQ0tFVF9TSVpFIgogCWRvbmUKIH0KIAotLSAKMi4yOS4yCgoKLS0gCk1haWxpbmcgbGlzdCBp
-bmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
+Hi Radoslav
+> The undelrying device can't be properly detected and causes failure
+> when running in an overlay filesystem.
+
+I guess the best way is to change tst_find_backing_dev api, so it can 
+detect the correct underlying device.
+
+>
+> Signed-off-by: Radoslav Kolev<radoslav.kolev@suse.com>
+> ---
+>   testcases/kernel/syscalls/ioctl/ioctl_loop05.c | 3 +++
+>   1 file changed, 3 insertions(+)
+>
+> diff --git a/testcases/kernel/syscalls/ioctl/ioctl_loop05.c b/testcases/kernel/syscalls/ioctl/ioctl_loop05.c
+> index e3c14faab..f8fa413a9 100644
+> --- a/testcases/kernel/syscalls/ioctl/ioctl_loop05.c
+> +++ b/testcases/kernel/syscalls/ioctl/ioctl_loop05.c
+> @@ -101,6 +101,9 @@ static void setup(void)
+>   	if (tst_fs_type(".") == TST_TMPFS_MAGIC)
+>   		tst_brk(TCONF, "tmpfd doesn't support O_DIRECT flag");
+>
+> +	if (tst_fs_type(".") == TST_OVERLAYFS_MAGIC)
+> +		tst_brk(TCONF, "device isn't properly detected in overlay fs");
+> +
+>   	dev_num = tst_find_free_loopdev(dev_path, sizeof(dev_path));
+>   	if (dev_num<  0)
+>   		tst_brk(TBROK, "Failed to find free loop device");
+
+
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
