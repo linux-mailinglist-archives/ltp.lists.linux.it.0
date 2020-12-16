@@ -2,40 +2,85 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id B186A2DBE44
-	for <lists+linux-ltp@lfdr.de>; Wed, 16 Dec 2020 11:10:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 559602DBEAD
+	for <lists+linux-ltp@lfdr.de>; Wed, 16 Dec 2020 11:31:56 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 606653C671B
-	for <lists+linux-ltp@lfdr.de>; Wed, 16 Dec 2020 11:10:04 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 0C8D93C57F9
+	for <lists+linux-ltp@lfdr.de>; Wed, 16 Dec 2020 11:31:56 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id C693F3C2B2B
- for <ltp@lists.linux.it>; Wed, 16 Dec 2020 11:09:18 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id 494CB3C2AD9
+ for <ltp@lists.linux.it>; Wed, 16 Dec 2020 11:31:52 +0100 (CET)
+Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 56ECE600101
- for <ltp@lists.linux.it>; Wed, 16 Dec 2020 11:09:18 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 02004AF2F
- for <ltp@lists.linux.it>; Wed, 16 Dec 2020 10:09:18 +0000 (UTC)
-From: Cyril Hrubis <chrubis@suse.cz>
-To: ltp@lists.linux.it
-Date: Wed, 16 Dec 2020 11:10:12 +0100
-Message-Id: <20201216101012.14644-6-chrubis@suse.cz>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20201216101012.14644-1-chrubis@suse.cz>
-References: <20201216101012.14644-1-chrubis@suse.cz>
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 1CD771A00FC6
+ for <ltp@lists.linux.it>; Wed, 16 Dec 2020 11:31:50 +0100 (CET)
+Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
+ by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0BGAOFrt074325;
+ Wed, 16 Dec 2020 10:31:43 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=corp-2020-01-29;
+ bh=z5aMwOX3p4x/CNesTYb6G3EEfbHhhsxDFnGICJ7mTCM=;
+ b=yd+EX1vrz+J8Pzxdz4QdrJYQuEt/sfUJnF2Eq+6YHx2ypnrgBobbqfALUHqlVAZcwyQj
+ 4KvMHVHlgkP5S8bZAjrdULTwaFRdYSNEXleJk6PjWuP1bTdW8fSoD8hKtZE7iJPzYXm2
+ ubc1a/fFpg/8Hk68d+GCXuBgKBDDf2APtbtkUHe0RBAmjPTwndp8K1PE+CRBUxfC2k57
+ wk9UxeiwbhoamSuxwQXtmEVls8apfIwUFNT6qYwVXji+O09yp0TdXpE0fRE0uhY0J/ZV
+ Ng8GAyhCjmbDKMexBxIbDmyFjMIxTmsLD9OiNbJK/dZ1AwUKCfT9r6NHRKsWo5BFgDrI RA== 
+Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
+ by aserp2120.oracle.com with ESMTP id 35cntm7dn7-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Wed, 16 Dec 2020 10:31:43 +0000
+Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
+ by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 0BGAQBsO101614;
+ Wed, 16 Dec 2020 10:31:43 GMT
+Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
+ by userp3030.oracle.com with ESMTP id 35d7sxm0wx-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 16 Dec 2020 10:31:42 +0000
+Received: from abhmp0019.oracle.com (abhmp0019.oracle.com [141.146.116.25])
+ by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 0BGAVdPq028533;
+ Wed, 16 Dec 2020 10:31:40 GMT
+Received: from [192.168.1.35] (/95.161.221.177)
+ by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Wed, 16 Dec 2020 02:31:39 -0800
+To: Kory Maincent <kory.maincent@bootlin.com>, ltp@lists.linux.it
+References: <20201216094037.5886-1-kory.maincent@bootlin.com>
+From: Alexey Kodanev <alexey.kodanev@oracle.com>
+Message-ID: <6abb1c7a-47d7-97dd-96c2-665c1030a554@oracle.com>
+Date: Wed, 16 Dec 2020 13:31:36 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+In-Reply-To: <20201216094037.5886-1-kory.maincent@bootlin.com>
+Content-Language: en-US
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9836
+ signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
+ bulkscore=0
+ mlxlogscore=999 spamscore=0 mlxscore=0 suspectscore=0 malwarescore=0
+ adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2009150000 definitions=main-2012160066
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9836
+ signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0
+ phishscore=0 mlxscore=0
+ lowpriorityscore=0 spamscore=0 adultscore=0 malwarescore=0 suspectscore=0
+ mlxlogscore=999 impostorscore=0 priorityscore=1501 clxscore=1015
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2012160066
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH 5/5] syscalls/move_pages12: Add one more kernel git
- hash
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_PASS,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] ipsec_lib.sh: test xfrm_user driver locally
+ before rhost
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,115 +92,40 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: thomas.petazzoni@bootlin.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-+ Reformat the comment to asciidoc
+On 16.12.2020 12:40, Kory Maincent wrote:
+> First, test the presence of the driver locally to avoid a misleading TWARN from
+> tst_net_run in case of driver not present.
+> 
+> Signed-off-by: Kory Maincent <kory.maincent@bootlin.com>
+> ---
+>  testcases/network/stress/ipsec/ipsec_lib.sh | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/testcases/network/stress/ipsec/ipsec_lib.sh b/testcases/network/stress/ipsec/ipsec_lib.sh
+> index 198c9315d..1db5fc6af 100644
+> --- a/testcases/network/stress/ipsec/ipsec_lib.sh
+> +++ b/testcases/network/stress/ipsec/ipsec_lib.sh
+> @@ -83,8 +83,9 @@ ipsec_lib_setup()
+>  	ALGR=
+>  
+>  	if [ -n "$IPSEC_MODE" ]; then
+> -		tst_net_run "tst_check_drivers xfrm_user" || \
+> -			tst_brk TCONF "xfrm_user driver not available on lhost or rhost"
+> +		tst_check_drivers xfrm_user || tst_brk TCONF "xfrm_user driver not available"
+> +		tst_rhost_run -c "tst_check_drivers xfrm_user" || \
+> +			tst_brk TCONF "xfrm_user driver not available on rhost"
 
-Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
----
- .../kernel/syscalls/move_pages/move_pages12.c | 52 ++++++++++++-------
- 1 file changed, 32 insertions(+), 20 deletions(-)
+Hi Kory,
 
-diff --git a/testcases/kernel/syscalls/move_pages/move_pages12.c b/testcases/kernel/syscalls/move_pages/move_pages12.c
-index c906acbe3..d209426c7 100644
---- a/testcases/kernel/syscalls/move_pages/move_pages12.c
-+++ b/testcases/kernel/syscalls/move_pages/move_pages12.c
-@@ -7,16 +7,17 @@
-  *  Ported: Yang Xu <xuyang2018.jy@cn.jujitsu.com>
-  */
- 
--/*
-- * Description:
-+/*\
-+ * [DESCRIPTION]
-+ *
-+ * *Test 1*
-  *
-- * Test #1:
-- *  This is a regression test for the race condition between move_pages()
-- *  and freeing hugepages, where move_pages() calls follow_page(FOLL_GET)
-- *  for hugepages internally and tries to get its refcount without
-- *  preventing concurrent freeing.
-+ * This is a regression test for the race condition between move_pages()
-+ * and freeing hugepages, where move_pages() calls follow_page(FOLL_GET)
-+ * for hugepages internally and tries to get its refcount without
-+ * preventing concurrent freeing.
-  *
-- *  This test can crash the buggy kernel, and the bug was fixed in:
-+ * This test can crash the buggy kernel, and the bug was fixed in:
-  *
-  *   commit e66f17ff71772b209eed39de35aaa99ba819c93d
-  *   Author: Naoya Horiguchi <n-horiguchi@ah.jp.nec.com>
-@@ -24,25 +25,25 @@
-  *
-  *   mm/hugetlb: take page table lock in follow_huge_pmd()
-  *
-- *  Test #2:
-- *   #2.1:
-- *   This is a regression test for the race condition, where move_pages()
-- *   and soft offline are called on a single hugetlb page concurrently.
-+ * *Test 2.1*
-  *
-- *   This bug can crash the buggy kernel, and was fixed by:
-+ * This is a regression test for the race condition, where move_pages()
-+ * and soft offline are called on a single hugetlb page concurrently.
-+ *
-+ * This test can crash the buggy kernel, and was fixed by:
-  *
-  *   commit c9d398fa237882ea07167e23bcfc5e6847066518
-  *   Author: Naoya Horiguchi <n-horiguchi@ah.jp.nec.com>
-  *   Date:   Fri Mar 31 15:11:55 2017 -0700
-  *
-- *   mm, hugetlb: use pte_present() instead of pmd_present() in
-- *   follow_huge_pmd()
-+ *   mm, hugetlb: use pte_present() instead of pmd_present() in follow_huge_pmd()
-+ *
-+ * *Test 2.2*
-  *
-- *   #2.2:
-- *   This is also a regression test for an race condition causing SIGBUS
-- *   in hugepage migration/fault.
-+ * This is also a regression test for an race condition causing SIGBUS
-+ * in hugepage migration/fault.
-  *
-- *   This bug was fixed by:
-+ * This bug was fixed by:
-  *
-  *   commit 4643d67e8cb0b3536ef0ab5cddd1cedc73fa14ad
-  *   Author: Mike Kravetz <mike.kravetz@oracle.com>
-@@ -50,7 +51,17 @@
-  *
-  *   hugetlbfs: fix hugetlb page migration/fault race causing SIGBUS
-  *
-- */
-+ * *Test 2.3*
-+ *
-+ * The madvise() in the do_soft_online() was also triggering cases where soft
-+ * online returned EIO when page migration failed, which was fixed in:
-+ *
-+ *    commit 3f4b815a439adfb8f238335612c4b28bc10084d8
-+ *    Author: Oscar Salvador <osalvador@suse.de>
-+ *    Date:   Mon Dec 14 19:11:51 2020 -0800
-+ *
-+ *    mm,hwpoison: return -EBUSY when migration fails
-+\*/
- 
- #include <errno.h>
- #include <unistd.h>
-@@ -334,6 +345,7 @@ static struct tst_test test = {
- 		{"linux-git", "e66f17ff7177"},
- 		{"linux-git", "c9d398fa2378"},
- 		{"linux-git", "4643d67e8cb0"},
-+		{"linux-git", "3f4b815a439a"},
- 		{}
- 	}
- };
--- 
-2.26.2
-
+tst_net_run() checks the driver locally first, so I don't
+quite understand why do exactly the same what tst_net_run()
+supposed to do?
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
