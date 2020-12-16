@@ -1,39 +1,40 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4A9C2DBD1A
-	for <lists+linux-ltp@lfdr.de>; Wed, 16 Dec 2020 09:56:23 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id D744C2DBDC4
+	for <lists+linux-ltp@lfdr.de>; Wed, 16 Dec 2020 10:40:46 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 76EFC3C57E8
-	for <lists+linux-ltp@lfdr.de>; Wed, 16 Dec 2020 09:56:23 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 560993C57E5
+	for <lists+linux-ltp@lfdr.de>; Wed, 16 Dec 2020 10:40:46 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- by picard.linux.it (Postfix) with ESMTP id 510123C2439
- for <ltp@lists.linux.it>; Wed, 16 Dec 2020 09:56:20 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id 3788B3C0174
+ for <ltp@lists.linux.it>; Wed, 16 Dec 2020 10:40:43 +0100 (CET)
+Received: from relay1-d.mail.gandi.net (relay1-d.mail.gandi.net
+ [217.70.183.193])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id D396B1A00F6B
- for <ltp@lists.linux.it>; Wed, 16 Dec 2020 09:56:19 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id D0021ACBA;
- Wed, 16 Dec 2020 08:56:18 +0000 (UTC)
-Date: Wed, 16 Dec 2020 09:57:16 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Viresh Kumar <viresh.kumar@linaro.org>
-Message-ID: <X9nL7DDAdsgOaQE1@yuki.lan>
-References: <a23e8cb8ae3f227d4355b89347b36d6dda6160c6.1608099138.git.viresh.kumar@linaro.org>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <a23e8cb8ae3f227d4355b89347b36d6dda6160c6.1608099138.git.viresh.kumar@linaro.org>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id B9BF41000B26
+ for <ltp@lists.linux.it>; Wed, 16 Dec 2020 10:40:42 +0100 (CET)
+X-Originating-IP: 78.113.208.212
+Received: from localhost.localdomain (212.208.113.78.rev.sfr.net
+ [78.113.208.212]) (Authenticated sender: kory.maincent@bootlin.com)
+ by relay1-d.mail.gandi.net (Postfix) with ESMTPSA id 33864240004;
+ Wed, 16 Dec 2020 09:40:40 +0000 (UTC)
+From: Kory Maincent <kory.maincent@bootlin.com>
+To: ltp@lists.linux.it
+Date: Wed, 16 Dec 2020 10:40:37 +0100
+Message-Id: <20201216094037.5886-1-kory.maincent@bootlin.com>
+X-Mailer: git-send-email 2.17.1
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls: recvmmsg: Add gitignore
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH] ipsec_lib.sh: test xfrm_user driver locally before
+ rhost
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,18 +46,40 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>, ltp@lists.linux.it
+Cc: thomas.petazzoni@bootlin.com
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-Looks like I've forgotten to do git add yesterday, sorry.
+First, test the presence of the driver locally to avoid a misleading TWARN from
+tst_net_run in case of driver not present.
 
+Signed-off-by: Kory Maincent <kory.maincent@bootlin.com>
+---
+ testcases/network/stress/ipsec/ipsec_lib.sh | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/testcases/network/stress/ipsec/ipsec_lib.sh b/testcases/network/stress/ipsec/ipsec_lib.sh
+index 198c9315d..1db5fc6af 100644
+--- a/testcases/network/stress/ipsec/ipsec_lib.sh
++++ b/testcases/network/stress/ipsec/ipsec_lib.sh
+@@ -83,8 +83,9 @@ ipsec_lib_setup()
+ 	ALGR=
+ 
+ 	if [ -n "$IPSEC_MODE" ]; then
+-		tst_net_run "tst_check_drivers xfrm_user" || \
+-			tst_brk TCONF "xfrm_user driver not available on lhost or rhost"
++		tst_check_drivers xfrm_user || tst_brk TCONF "xfrm_user driver not available"
++		tst_rhost_run -c "tst_check_drivers xfrm_user" || \
++			tst_brk TCONF "xfrm_user driver not available on rhost"
+ 		cleanup_xfrm=1
+ 	fi
+ }
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+2.17.1
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
