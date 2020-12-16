@@ -1,71 +1,72 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0F072DBEFD
-	for <lists+linux-ltp@lfdr.de>; Wed, 16 Dec 2020 11:50:46 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id EBEE82DBEFB
+	for <lists+linux-ltp@lfdr.de>; Wed, 16 Dec 2020 11:50:36 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 74A0D3C6726
-	for <lists+linux-ltp@lfdr.de>; Wed, 16 Dec 2020 11:50:46 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 97F443C57DA
+	for <lists+linux-ltp@lfdr.de>; Wed, 16 Dec 2020 11:50:36 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 296BC3C2800
- for <ltp@lists.linux.it>; Wed, 16 Dec 2020 11:50:34 +0100 (CET)
-Received: from mail-pj1-x102c.google.com (mail-pj1-x102c.google.com
- [IPv6:2607:f8b0:4864:20::102c])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id F215B3C2800
+ for <ltp@lists.linux.it>; Wed, 16 Dec 2020 11:50:32 +0100 (CET)
+Received: from mail-pl1-x62a.google.com (mail-pl1-x62a.google.com
+ [IPv6:2607:f8b0:4864:20::62a])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 0266D600856
- for <ltp@lists.linux.it>; Wed, 16 Dec 2020 11:50:29 +0100 (CET)
-Received: by mail-pj1-x102c.google.com with SMTP id m5so1370637pjv.5
- for <ltp@lists.linux.it>; Wed, 16 Dec 2020 02:50:29 -0800 (PST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 5C93C1000BDE
+ for <ltp@lists.linux.it>; Wed, 16 Dec 2020 11:50:32 +0100 (CET)
+Received: by mail-pl1-x62a.google.com with SMTP id x18so6604697pln.6
+ for <ltp@lists.linux.it>; Wed, 16 Dec 2020 02:50:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=25+sC0f4YvDtObBx5bEFrF0rvw57IUicBPESwoZM93Y=;
- b=jvqeGkCvMJMNm9kwLN6XL9dX4Arr3ZcwYnxv+80IV7CanIxyMbKqr4Wv8IY06jDy9F
- kZ9mve1L1lzq+VFfmBZcnxreejKjbxJv5kgIkdTAsriaDRY9/UxKFgeLbaRAq3/ntkSK
- v0jzMHp9hPo79sSgo+xidFIXsBS8q8EQbYCxrBVUnS2ILit1CmEOaYhfsWhOGPGYwiGN
- 3g+39S2Jfves/UQd9bpeS3aWtsk4sYZRC57hk2ZwFAcrJJjwkX24Gr5NG61ZAmUoOao/
- j1HhYiGxstbb4UjGp2ix8oyDTT0CWCuS52wtYB5mBJACvO2jb2Gg6vwA4Noqv0gHzJ0n
- 675g==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=hb/F9v7S5yG3qubwU1Adprl65nccMWIBl51V/nomFpM=;
+ b=p+FHUA9EvbDbCH3CMU/5FbyU3f5rNTLF02ICkPryoUVpBMlUYJ7KF41nKgEHACUVI4
+ kZFq94mval+IxB6uHQHjBlU+QMdLskvLQKGRSY9fXFGGUTnlrV4AIkmt9QRD3WxO3zKn
+ S6WjS6wVyFJaSaEKMK42DYH0QdFs+tf0qDKGszf2S9PIPFgrX5DNE7HRKSPXnsWFcXZA
+ URztF01cWvVQ3Z69Al32/YLj27lksH1Zyz5ZHAJiBKrnTlNsfsqPF7ZfFbhMSiMkdOAw
+ 94beGpAh+qHXbjOXuVxNj1i/y5k+VjTyDWShnf996BO73FBRAaDi4q3OaMrJFFUWSjFt
+ So0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=25+sC0f4YvDtObBx5bEFrF0rvw57IUicBPESwoZM93Y=;
- b=Z4ed9s9+yoTm/iZJWbQveaof+DN/xP8nLV4t5npBmsMPBQzn5hxhBSV9pgg8tzHg/H
- GMDSq7CGV3zqq6mZXud1iKtiomKGBdO67/Qr6cumgQqMg33sIb3+XVtGTTh45oCv0Xj4
- /UU6w/ragoxnEiC4wngH7N+J2Ezxgg4hv1lCZt2NlW6lZwT0QRNyc4ialD/GHKlDYI4T
- 82PPBXpJnwrYCktLPMvuJ0iTiu9FpblIuVX91hVF6WZToPbB5EITFLa3Stp1M+GWhiUl
- En7YBLuvJLsbOsZOliWPrM7I/Y3iED2M+j9DO5Mes6bKCOheiD+ZqE8k79/If/kAFuWz
- VUmg==
-X-Gm-Message-State: AOAM532ynrIY+XTRU8iUBG+Aa1UjaB0azQ3p2MmkUv7jq5DFp1fmUVmk
- GF6VHx0Ek3BUTVkJP+3ea2VMlau/BCig1A==
-X-Google-Smtp-Source: ABdhPJy3t6j5HVD0dtMcwWBq1XMAKpUSYN1SZ4bqWqCCTU8d6VUiCOtarJhIDFrWnecTv/A1fcDAiA==
-X-Received: by 2002:a17:902:8f90:b029:db:fc74:c59a with SMTP id
- z16-20020a1709028f90b02900dbfc74c59amr1780983plo.58.1608115827798; 
- Wed, 16 Dec 2020 02:50:27 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=hb/F9v7S5yG3qubwU1Adprl65nccMWIBl51V/nomFpM=;
+ b=bBMkRER/by3l6lBCIu1QCqeCFqVjAb62ors7QqCmAtfHLu2oW7O2CVbzmCEl2BT5Wo
+ NLgL7e5oLoiXUr4QwYKZlOs7//RTMdITZaw7NyUXcJZMGtDzsolcMKxdGquwbOqYlZCN
+ sdU7YUfhfHGBFajrPeuhrtzeJ49jAxSd+p+tgJPPWKd/NeXsQPTbYYN6OdZwhgqp6v0d
+ M30fIvXbM09y3ktLX5GuEnf8EitjJK4xsWZzolrKDgp0bCNApQYDBDwHe00rE2u2eadQ
+ 9Ekww2diguGMFHtv6jb2VchqtbNvbbmhC0Z1fEpRpCpJ3tgWa92f4SZBY1guPA0TyRHs
+ +Viw==
+X-Gm-Message-State: AOAM531qj79Vy/1KailOVnEPDYSZlmsum9dpuPgPVQotxSNy5oTPhq1O
+ OgB5/Rz7uj66DtHDKr28R2Ngro0mCt/zHQ==
+X-Google-Smtp-Source: ABdhPJzONWFkD4/AYi3gmTXKboa+tMm46H56sW/naWm6P1e6tw3jez0Mbrk6GvSB0O/bwCARP3Kzgw==
+X-Received: by 2002:a17:90b:3110:: with SMTP id
+ gc16mr2607378pjb.83.1608115830569; 
+ Wed, 16 Dec 2020 02:50:30 -0800 (PST)
 Received: from localhost ([122.172.20.109])
- by smtp.gmail.com with ESMTPSA id mq8sm1607058pjb.13.2020.12.16.02.50.26
+ by smtp.gmail.com with ESMTPSA id s5sm1746907pju.9.2020.12.16.02.50.29
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 16 Dec 2020 02:50:26 -0800 (PST)
+ Wed, 16 Dec 2020 02:50:30 -0800 (PST)
 From: Viresh Kumar <viresh.kumar@linaro.org>
 To: ltp@lists.linux.it
-Date: Wed, 16 Dec 2020 16:20:20 +0530
-Message-Id: <5b2a65fa61ea2eb897a9a79827ad7b5f0a8e61cd.1608115761.git.viresh.kumar@linaro.org>
+Date: Wed, 16 Dec 2020 16:20:21 +0530
+Message-Id: <34f9706f7dfdc232ae7b37d72edd2a9ae02faaae.1608115761.git.viresh.kumar@linaro.org>
 X-Mailer: git-send-email 2.25.0.rc1.19.g042ed3e048af
+In-Reply-To: <5b2a65fa61ea2eb897a9a79827ad7b5f0a8e61cd.1608115761.git.viresh.kumar@linaro.org>
+References: <5b2a65fa61ea2eb897a9a79827ad7b5f0a8e61cd.1608115761.git.viresh.kumar@linaro.org>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH 1/2] syscalls: init_module: Add tests
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH 2/2] syscalls: finit_module: Add tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,93 +85,76 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This patch adds success and failure tests for init_module() syscall.
+This patch adds success and failure tests for finit_module() syscall.
 
 Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
 ---
- configure.ac                                  |   1 +
- include/lapi/init_module.h                    |  21 ++++
+ include/lapi/init_module.h                    |  15 +++
  runtest/syscalls                              |   3 +
- .../kernel/syscalls/init_module/.gitignore    |   3 +
- .../kernel/syscalls/init_module/Makefile      |  21 ++++
- .../kernel/syscalls/init_module/dummy_mod.c   |  43 +++++++
- .../syscalls/init_module/init_module01.c      |  59 +++++++++
- .../syscalls/init_module/init_module02.c      | 115 ++++++++++++++++++
- 8 files changed, 266 insertions(+)
- create mode 100644 include/lapi/init_module.h
- create mode 100644 testcases/kernel/syscalls/init_module/.gitignore
- create mode 100644 testcases/kernel/syscalls/init_module/Makefile
- create mode 100644 testcases/kernel/syscalls/init_module/dummy_mod.c
- create mode 100644 testcases/kernel/syscalls/init_module/init_module01.c
- create mode 100644 testcases/kernel/syscalls/init_module/init_module02.c
+ .../kernel/syscalls/finit_module/.gitignore   |   3 +
+ .../kernel/syscalls/finit_module/Makefile     |  21 ++++
+ .../kernel/syscalls/finit_module/dummy_mod.c  |  43 ++++++++
+ .../syscalls/finit_module/finit_module01.c    |  54 ++++++++++
+ .../syscalls/finit_module/finit_module02.c    | 101 ++++++++++++++++++
+ 7 files changed, 240 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/finit_module/.gitignore
+ create mode 100644 testcases/kernel/syscalls/finit_module/Makefile
+ create mode 100644 testcases/kernel/syscalls/finit_module/dummy_mod.c
+ create mode 100644 testcases/kernel/syscalls/finit_module/finit_module01.c
+ create mode 100644 testcases/kernel/syscalls/finit_module/finit_module02.c
 
-diff --git a/configure.ac b/configure.ac
-index 06be1c09417a..9840d99525fb 100644
---- a/configure.ac
-+++ b/configure.ac
-@@ -89,6 +89,7 @@ AC_CHECK_FUNCS_ONCE([ \
-     getauxval \
-     getdents \
-     getdents64 \
-+    init_module \
-     io_pgetevents \
-     io_uring_setup \
-     io_uring_register \
 diff --git a/include/lapi/init_module.h b/include/lapi/init_module.h
-new file mode 100644
-index 000000000000..ad556aec4aaa
---- /dev/null
+index ad556aec4aaa..480ed35ddb74 100644
+--- a/include/lapi/init_module.h
 +++ b/include/lapi/init_module.h
-@@ -0,0 +1,21 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2020 Linaro Limited. All rights reserved.
-+ * Author: Viresh Kumar <viresh.kumar@linaro.org>
-+ */
+@@ -18,4 +18,19 @@ static inline int init_module(void *module_image, unsigned long len,
+ 	return tst_syscall(__NR_init_module, module_image, len, param_values);
+ }
+ #endif
 +
-+#ifndef INIT_MODULE_H__
-+#define INIT_MODULE_H__
-+
-+#include "config.h"
-+#include "lapi/syscalls.h"
-+#include "tst_test.h"
-+
-+#ifndef HAVE_INIT_MODULE
-+static inline int init_module(void *module_image, unsigned long len,
-+			      const char *param_values)
++void finit_module_supported_by_kernel(void)
 +{
-+	return tst_syscall(__NR_init_module, module_image, len, param_values);
++       if ((tst_kvercmp(3, 8, 0)) < 0) {
++               /* Check if the syscall is backported on an older kernel */
++               TEST(syscall(__NR_finit_module, 0, "", 0));
++               if (TST_RET == -1 && TST_ERR == ENOSYS)
++                       tst_brk(TCONF, "Test not supported on kernel version < v3.8");
++       }
 +}
-+#endif
-+#endif /* INIT_MODULE_H__ */
++
++static inline int finit_module(int fd, const char *param_values, int flags)
++{
++	return tst_syscall(__NR_finit_module, fd, param_values, flags);
++}
+ #endif /* INIT_MODULE_H__ */
 diff --git a/runtest/syscalls b/runtest/syscalls
-index 9c328697b4a3..28174dddd716 100644
+index 28174dddd716..961545e73834 100644
 --- a/runtest/syscalls
 +++ b/runtest/syscalls
-@@ -517,6 +517,9 @@ getxattr03 getxattr03
- getxattr04 getxattr04
- getxattr05 getxattr05
+@@ -327,6 +327,9 @@ fgetxattr01 fgetxattr01
+ fgetxattr02 fgetxattr02
+ fgetxattr03 fgetxattr03
  
-+init_module01 init_module01
-+init_module02 init_module02
++finit_module01 finit_module01
++finit_module02 finit_module02
 +
- #Needs tty device.
- #ioctl01 ioctl01 -D /dev/tty0
- #ioctl02 ioctl02 -D /dev/tty0
-diff --git a/testcases/kernel/syscalls/init_module/.gitignore b/testcases/kernel/syscalls/init_module/.gitignore
+ flistxattr01 flistxattr01
+ flistxattr02 flistxattr02
+ flistxattr03 flistxattr03
+diff --git a/testcases/kernel/syscalls/finit_module/.gitignore b/testcases/kernel/syscalls/finit_module/.gitignore
 new file mode 100644
-index 000000000000..91e8ab971ccd
+index 000000000000..d3b34a460874
 --- /dev/null
-+++ b/testcases/kernel/syscalls/init_module/.gitignore
++++ b/testcases/kernel/syscalls/finit_module/.gitignore
 @@ -0,0 +1,3 @@
-+/init_module01
-+/init_module02
++/finit_module01
++/finit_module02
 +/dummy_mod.ko
-diff --git a/testcases/kernel/syscalls/init_module/Makefile b/testcases/kernel/syscalls/init_module/Makefile
+diff --git a/testcases/kernel/syscalls/finit_module/Makefile b/testcases/kernel/syscalls/finit_module/Makefile
 new file mode 100644
-index 000000000000..ec40fb55c8fc
+index 000000000000..61880abbe9ff
 --- /dev/null
-+++ b/testcases/kernel/syscalls/init_module/Makefile
++++ b/testcases/kernel/syscalls/finit_module/Makefile
 @@ -0,0 +1,21 @@
 +# SPDX-License-Identifier: GPL-2.0-or-later
 +
@@ -184,20 +168,20 @@ index 000000000000..ec40fb55c8fc
 +
 +include $(top_srcdir)/include/mk/testcases.mk
 +
-+REQ_VERSION_MAJOR	:= 2
-+REQ_VERSION_PATCH	:= 6
++REQ_VERSION_MAJOR	:= 3
++REQ_VERSION_PATCH	:= 8
 +
-+MAKE_TARGETS		:= init_module01 init_module02 dummy_mod.ko
++MAKE_TARGETS		:= finit_module01 finit_module02 dummy_mod.ko
 +
 +include $(top_srcdir)/include/mk/module.mk
 +include $(top_srcdir)/include/mk/generic_leaf_target.mk
 +
 +endif
-diff --git a/testcases/kernel/syscalls/init_module/dummy_mod.c b/testcases/kernel/syscalls/init_module/dummy_mod.c
+diff --git a/testcases/kernel/syscalls/finit_module/dummy_mod.c b/testcases/kernel/syscalls/finit_module/dummy_mod.c
 new file mode 100644
 index 000000000000..7c0b7a06aaa4
 --- /dev/null
-+++ b/testcases/kernel/syscalls/init_module/dummy_mod.c
++++ b/testcases/kernel/syscalls/finit_module/dummy_mod.c
 @@ -0,0 +1,43 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
 +/*
@@ -242,12 +226,12 @@ index 000000000000..7c0b7a06aaa4
 +module_exit(dummy_exit);
 +
 +MODULE_LICENSE("GPL");
-diff --git a/testcases/kernel/syscalls/init_module/init_module01.c b/testcases/kernel/syscalls/init_module/init_module01.c
+diff --git a/testcases/kernel/syscalls/finit_module/finit_module01.c b/testcases/kernel/syscalls/finit_module/finit_module01.c
 new file mode 100644
-index 000000000000..9e8b03553a11
+index 000000000000..a359612e3188
 --- /dev/null
-+++ b/testcases/kernel/syscalls/init_module/init_module01.c
-@@ -0,0 +1,59 @@
++++ b/testcases/kernel/syscalls/finit_module/finit_module01.c
+@@ -0,0 +1,54 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
 +/*
 + * Copyright (c) 2020 Viresh Kumar <viresh.kumar@linaro.org>
@@ -256,7 +240,7 @@ index 000000000000..9e8b03553a11
 +/*\
 + * [DESCRIPTION]
 + *
-+ * Basic init_module() tests.
++ * Basic finit_module() tests.
 + *
 + * [ALGORITHM]
 + *
@@ -269,36 +253,31 @@ index 000000000000..9e8b03553a11
 +
 +#define MODULE_NAME	"dummy_mod.ko"
 +
-+static struct stat sb;
-+static void *buf;
++int fd;
 +
 +static void setup(void)
 +{
-+	int fd;
-+
++	finit_module_supported_by_kernel();
 +	fd = SAFE_OPEN(MODULE_NAME, O_RDONLY|O_CLOEXEC);
-+	SAFE_FSTAT(fd, &sb);
-+	buf = SAFE_MMAP(0, sb.st_size, PROT_READ|PROT_EXEC, MAP_PRIVATE, fd, 0);
-+	SAFE_CLOSE(fd);
 +}
 +
 +static void run(void)
 +{
-+	TEST(init_module(buf, sb.st_size, "status=valid"));
++	TEST(finit_module(fd, "status=valid", 0));
 +	if (TST_RET == -1) {
-+		tst_res(TFAIL | TTERRNO, "init_module() failed for %s",
++		tst_res(TFAIL | TTERRNO, "finit_module() failed for %s",
 +			MODULE_NAME);
 +		return;
 +	}
 +
 +	tst_module_unload(NULL, MODULE_NAME);
 +
-+	tst_res(TPASS, "init_module() passed");
++	tst_res(TPASS, "finit_module() passed");
 +}
 +
 +static void cleanup(void)
 +{
-+	munmap(buf, sb.st_size);
++	SAFE_CLOSE(fd);
 +}
 +
 +static struct tst_test test = {
@@ -307,12 +286,12 @@ index 000000000000..9e8b03553a11
 +	.cleanup = cleanup,
 +	.needs_root = 1,
 +};
-diff --git a/testcases/kernel/syscalls/init_module/init_module02.c b/testcases/kernel/syscalls/init_module/init_module02.c
+diff --git a/testcases/kernel/syscalls/finit_module/finit_module02.c b/testcases/kernel/syscalls/finit_module/finit_module02.c
 new file mode 100644
-index 000000000000..d93c5cec856b
+index 000000000000..c364aef28935
 --- /dev/null
-+++ b/testcases/kernel/syscalls/init_module/init_module02.c
-@@ -0,0 +1,115 @@
++++ b/testcases/kernel/syscalls/finit_module/finit_module02.c
+@@ -0,0 +1,101 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
 +/*
 + * Copyright (c) 2020 Viresh Kumar <viresh.kumar@linaro.org>
@@ -321,11 +300,11 @@ index 000000000000..d93c5cec856b
 +/*\
 + * [DESCRIPTION]
 + *
-+ * Basic init_module() failure tests.
++ * Basic finit_module() failure tests.
 + *
 + * [ALGORITHM]
 + *
-+ * Tests various failure scenarios for init_module().
++ * Tests various failure scenarios for finit_module().
 +\*/
 +
 +#include <linux/capability.h>
@@ -336,62 +315,51 @@ index 000000000000..d93c5cec856b
 +
 +#define MODULE_NAME	"dummy_mod.ko"
 +
-+static unsigned long size, zero_size;
-+static void *buf, *faulty_buf, *null_buf;
++static int fd, fd_zero, fd_invalid = -1;
 +
 +static struct tst_cap cap_req = TST_CAP(TST_CAP_REQ, CAP_SYS_MODULE);
 +static struct tst_cap cap_drop = TST_CAP(TST_CAP_DROP, CAP_SYS_MODULE);
 +
 +static struct tcase {
 +	const char *name;
-+	void **buf;
-+	unsigned long *size;
++	int *fd;
 +	const char *param;
++	int open_flags;
++	int flags;
 +	int cap;
 +	int exp_errno;
 +} tcases[] = {
-+	{"NULL-buffer", &null_buf, &size, "", 0, EFAULT},
-+	{"faulty-buffer", &faulty_buf, &size, "", 0, EFAULT},
-+	{"null-param", &buf, &size, NULL, 0, EFAULT},
-+	{"zero-size", &buf, &zero_size, "", 0, ENOEXEC},
-+	{"invalid_param", &buf, &size, "status=invalid", 0, EINVAL},
-+	{"no-perm", &buf, &size, "", 1, EPERM},
-+	{"module-exists", &buf, &size, "", 0, EEXIST},
++	{"zero-fd", &fd_zero, "", O_RDONLY | O_CLOEXEC, 0, 0, EINVAL},
++	{"invalid-fd", &fd_invalid, "", O_RDONLY | O_CLOEXEC, 0, 0, ENOEXEC},
++	{"null-param", &fd, NULL, O_RDONLY | O_CLOEXEC, 0, 0, EFAULT},
++	{"invalid-param", &fd, "status=invalid", O_RDONLY | O_CLOEXEC, 0, 0, EINVAL},
++	{"invalid-flags", &fd, "", O_RDONLY | O_CLOEXEC, -1, 0, EINVAL},
++	{"no-perm", &fd, "", O_RDONLY | O_CLOEXEC, 0, 1, EPERM},
++	{"module-exists", &fd, "", O_RDONLY | O_CLOEXEC, 0, 0, EEXIST},
++	{"file-not-readable", &fd, "", O_WRONLY | O_CLOEXEC, 0, 0, EBADF},
 +};
-+
-+static void setup(void)
-+{
-+	struct stat sb;
-+	int fd;
-+
-+	fd = SAFE_OPEN(MODULE_NAME, O_RDONLY|O_CLOEXEC);
-+	SAFE_FSTAT(fd, &sb);
-+	size = sb.st_size;
-+	buf = SAFE_MMAP(0, size, PROT_READ|PROT_EXEC, MAP_PRIVATE, fd, 0);
-+	SAFE_CLOSE(fd);
-+
-+	faulty_buf = tst_get_bad_addr(NULL);
-+}
 +
 +static void run(unsigned int n)
 +{
 +	struct tcase *tc = &tcases[n];
 +
++	fd = SAFE_OPEN(MODULE_NAME, tc->open_flags);
++
 +	if (tc->cap)
 +		tst_cap_action(&cap_drop);
 +
-+	TEST(init_module(*tc->buf, *tc->size, tc->param));
++	TEST(finit_module(*tc->fd, tc->param, tc->flags));
 +
 +	/* Insert module twice */
 +	if (tc->exp_errno == EEXIST) {
 +		if (TST_RET == -1) {
 +			tst_res(TFAIL | TTERRNO,
-+				"%s: init_module() failed unexpectedly",
++				"%s: finit_module() failed unexpectedly",
 +				tc->name);
-+			return;
++			goto out;
 +		}
 +
-+		TEST(init_module(*tc->buf, *tc->size, tc->param));
++		TEST(finit_module(*tc->fd, tc->param, tc->flags));
 +		tst_module_unload(NULL, MODULE_NAME);
 +	}
 +
@@ -400,32 +368,29 @@ index 000000000000..d93c5cec856b
 +
 +	if (TST_RET != -1) {
 +		tst_module_unload(NULL, MODULE_NAME);
-+		tst_res(TFAIL, "%s: init_module() passed unexpectedly",
++		tst_res(TFAIL, "%s: finit_module() passed unexpectedly",
 +			tc->name);
-+		return;
++		goto out;
 +	}
 +
 +	if (tc->exp_errno != TST_ERR) {
 +		tst_res(TFAIL | TTERRNO,
-+			"%s: init_module() should fail with %s", tc->name,
++			"%s: finit_module() should fail with %s", tc->name,
 +			tst_strerrno(tc->exp_errno));
-+		return;
++		goto out;
 +	}
 +
-+	tst_res(TPASS | TTERRNO, "%s: init_module() failed as expected",
++	tst_res(TPASS | TTERRNO, "%s: finit_module() failed as expected",
 +		tc->name);
-+}
 +
-+static void cleanup(void)
-+{
-+	munmap(buf, size);
++out:
++	SAFE_CLOSE(fd);
 +}
 +
 +static struct tst_test test = {
 +	.test = run,
 +	.tcnt = ARRAY_SIZE(tcases),
-+	.setup = setup,
-+	.cleanup = cleanup,
++	.setup = finit_module_supported_by_kernel,
 +	.needs_root = 1,
 +};
 -- 
