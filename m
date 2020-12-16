@@ -2,38 +2,39 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id A01B52DC067
-	for <lists+linux-ltp@lfdr.de>; Wed, 16 Dec 2020 13:38:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57A882DC08A
+	for <lists+linux-ltp@lfdr.de>; Wed, 16 Dec 2020 13:54:32 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 63BDC3C4AEA
-	for <lists+linux-ltp@lfdr.de>; Wed, 16 Dec 2020 13:38:40 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 273653C4AEA
+	for <lists+linux-ltp@lfdr.de>; Wed, 16 Dec 2020 13:54:32 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id DF3583C2ADD
- for <ltp@lists.linux.it>; Wed, 16 Dec 2020 13:38:38 +0100 (CET)
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id 474F63C2439
+ for <ltp@lists.linux.it>; Wed, 16 Dec 2020 13:54:31 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 80AD21400745
- for <ltp@lists.linux.it>; Wed, 16 Dec 2020 13:38:38 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id E3A3F1000BF3
+ for <ltp@lists.linux.it>; Wed, 16 Dec 2020 13:54:30 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id C2035ACA5;
- Wed, 16 Dec 2020 12:38:37 +0000 (UTC)
-Date: Wed, 16 Dec 2020 13:39:35 +0100
+ by mx2.suse.de (Postfix) with ESMTP id 4A4DCAC91;
+ Wed, 16 Dec 2020 12:54:30 +0000 (UTC)
+Date: Wed, 16 Dec 2020 13:55:27 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Joerg Vehlow <lkml@jv-coder.de>
-Message-ID: <X9oABycbLntsxqFk@yuki.lan>
-References: <20201215064902.518801-1-lkml@jv-coder.de>
+To: Viresh Kumar <viresh.kumar@linaro.org>
+Message-ID: <X9oDvzZGd5okFZy1@yuki.lan>
+References: <9dcf930c32cfa30d683e56d368c094367695d733.1608100564.git.viresh.kumar@linaro.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20201215064902.518801-1-lkml@jv-coder.de>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+In-Reply-To: <9dcf930c32cfa30d683e56d368c094367695d733.1608100564.git.viresh.kumar@linaro.org>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] shm_open/37-1: Remove non-portable output
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] module.mk: Remove .mod files as well during make
+ clean
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,14 +46,18 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>, ltp@lists.linux.it
+Cc: Vincent Guittot <vincent.guittot@linaro.org>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-Applied, thanks.
+Pushed, thanks.
+
+Also for me the module build generates build-in.a as well. I guess that
+we should add that one to .gitignore and clean it up on make clean as
+well.
 
 -- 
 Cyril Hrubis
