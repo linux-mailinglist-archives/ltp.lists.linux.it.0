@@ -1,88 +1,71 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 618B22DCBDD
-	for <lists+linux-ltp@lfdr.de>; Thu, 17 Dec 2020 06:23:38 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 128052DCCF1
+	for <lists+linux-ltp@lfdr.de>; Thu, 17 Dec 2020 08:28:02 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id F10053C7085
-	for <lists+linux-ltp@lfdr.de>; Thu, 17 Dec 2020 06:23:37 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 8EA813C2AC4
+	for <lists+linux-ltp@lfdr.de>; Thu, 17 Dec 2020 08:28:01 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 1B21A3C2439
- for <ltp@lists.linux.it>; Thu, 17 Dec 2020 06:23:36 +0100 (CET)
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id D79443C2A80
+ for <ltp@lists.linux.it>; Thu, 17 Dec 2020 08:27:59 +0100 (CET)
+Received: from mail-pl1-x630.google.com (mail-pl1-x630.google.com
+ [IPv6:2607:f8b0:4864:20::630])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id EF3751000C4D
- for <ltp@lists.linux.it>; Thu, 17 Dec 2020 06:23:34 +0100 (CET)
-Received: from pps.filterd (m0098413.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 0BH5LeoR176412; Thu, 17 Dec 2020 00:23:31 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
- h=message-id : subject :
- from : to : cc : date : in-reply-to : references : content-type :
- mime-version : content-transfer-encoding; s=pp1;
- bh=llkejhj818LCyBrjASo3rzEqfPiGj9/3uGNHSYRN8os=;
- b=Z8MRqozao4VzrMKjBGk67kdw6tmnRt1Jf7A12c/IE5LRHa7Y0c25EQkr2j/sxrN4AJl7
- F7TlMgxGPWg5V0Zp/I3N5UKMl4xGNV8TTjHzyrpXM0B30wIwR8a5Ho8euBet7fsygqLX
- KljIyztWeHFauyfDMOQmk1p07F2prVQyz3xYtEk7jh58X1I0qlpPTsZOKyDpSnBAk3Ok
- B+iS4ub6h0WyWRFBB81eNwaaw8jIItiaOhP4BIBlFOLQ2HuboLV+1QKgsqJGZSaP/RZ3
- WwcLEw2PZIblZJj5C7uDZhx9RjbPMJBjp4DhWjkPvvxlun1oCJP12kYWPqytMViZBQFl Uw== 
-Received: from ppma03fra.de.ibm.com (6b.4a.5195.ip4.static.sl-reverse.com
- [149.81.74.107])
- by mx0b-001b2d01.pphosted.com with ESMTP id 35g14880pp-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 17 Dec 2020 00:23:31 -0500
-Received: from pps.filterd (ppma03fra.de.ibm.com [127.0.0.1])
- by ppma03fra.de.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 0BH5NTWp013104;
- Thu, 17 Dec 2020 05:23:29 GMT
-Received: from b06cxnps3074.portsmouth.uk.ibm.com
- (d06relay09.portsmouth.uk.ibm.com [9.149.109.194])
- by ppma03fra.de.ibm.com with ESMTP id 35cng8fcuh-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 17 Dec 2020 05:23:29 +0000
-Received: from d06av22.portsmouth.uk.ibm.com (d06av22.portsmouth.uk.ibm.com
- [9.149.105.58])
- by b06cxnps3074.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 0BH5KvOR11600128
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 17 Dec 2020 05:20:57 GMT
-Received: from d06av22.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id A3B344C058;
- Thu, 17 Dec 2020 05:20:57 +0000 (GMT)
-Received: from d06av22.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 481DF4C050;
- Thu, 17 Dec 2020 05:20:56 +0000 (GMT)
-Received: from li-f45666cc-3089-11b2-a85c-c57d1a57929f.ibm.com (unknown
- [9.160.2.170]) by d06av22.portsmouth.uk.ibm.com (Postfix) with ESMTP;
- Thu, 17 Dec 2020 05:20:56 +0000 (GMT)
-Message-ID: <aec8d4d757c674b3fdb4caaf3d89317d230b91e7.camel@linux.ibm.com>
-From: Mimi Zohar <zohar@linux.ibm.com>
-To: Petr Vorel <pvorel@suse.cz>, ltp@lists.linux.it
-Date: Thu, 17 Dec 2020 00:20:55 -0500
-In-Reply-To: <20201214221946.6340-1-pvorel@suse.cz>
-References: <20201214221946.6340-1-pvorel@suse.cz>
-X-Mailer: Evolution 3.28.5 (3.28.5-12.el8) 
-Mime-Version: 1.0
-X-TM-AS-GCONF: 00
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.343, 18.0.737
- definitions=2020-12-17_03:2020-12-15,
- 2020-12-17 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015
- priorityscore=1501 spamscore=0 mlxscore=0 mlxlogscore=999 suspectscore=0
- bulkscore=0 phishscore=0 malwarescore=0 impostorscore=0 adultscore=0
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2009150000 definitions=main-2012170031
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 327A06006C6
+ for <ltp@lists.linux.it>; Thu, 17 Dec 2020 08:27:59 +0100 (CET)
+Received: by mail-pl1-x630.google.com with SMTP id v3so14642711plz.13
+ for <ltp@lists.linux.it>; Wed, 16 Dec 2020 23:27:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=9B9RuH4ke57rJWQJ1UAJyR2KAZqVO99lHqPUPjWSpMU=;
+ b=PkSrL7W4ObcUtIYScEG3/QXKvhCHrhNxFjDTol0FDse6/vmvD1LfNiy5PA9wS+jYXe
+ ZZOe7obupFA9VklAYGG41wUije/dNU2OaCpUEdO8l0r4/m8oErwC4nI1cPEJq0xyNnE0
+ J311x1bnfPIM9Tc3ydQErpkoqSTZNegyQU1ZjgqQZkKEVtiyfb1umyD7eEwO67gzy0Fe
+ CDikLrLt5cLh0YAkWck4K8PTDqK1El4TRu2+L5++o1dE0goLbco6B1FHo4xQgXsJ/hk+
+ JRZIoUEbhu0r+KsRyjR19nck9uBroxfnRC0pyXLJ9+uHWhAQIIREXLlIaBVaPTdptdsU
+ /WiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=9B9RuH4ke57rJWQJ1UAJyR2KAZqVO99lHqPUPjWSpMU=;
+ b=iD2a2mhvnjDzfRcrvIE6yYRKavhux1pmaWhIAX0SvggDgiLq75IB5lvzCn4gYYiGpM
+ HudYrUOxZi7ZENe8rXl5xEykiZYNtF+rIHYJDGfl+uY51uWRApsu69xycXKDnOX3b8hP
+ vS95BgkdbKQXauxSC3Tdh3pxBNoig6pdWsLl8ESJgyTJOydeMeil2aBHToHkOyzTkdhT
+ 7LkqNnKhUNq9jAvwvWIThRaHKGJoYhu87Ozyabl8X8BkFyXFDU3q1uCFiVlb/8VGTuX1
+ ZohL6qtsClmqsJfBYUKm5O7QwzdtpeHZ54mR0vBFglEv3BI1VH8bnXYMTE+SgUqaf/GZ
+ dg1g==
+X-Gm-Message-State: AOAM532GNO829YNriWeO0gtuyYEetMwJcvkXbV7VzKd6Fnrnsm8Umlgo
+ OZEacAmKaQcLtHUVLb6e/fRwZN7jfYn5jA==
+X-Google-Smtp-Source: ABdhPJwiBXuqE5IHD2kjmOs8dRLLMIdXAxRQHUs78wIf0ZqWI8F2dF0NTH9aex6WHloQCufH33h3tQ==
+X-Received: by 2002:a17:90a:3e05:: with SMTP id
+ j5mr6737081pjc.91.1608190077205; 
+ Wed, 16 Dec 2020 23:27:57 -0800 (PST)
+Received: from localhost ([122.172.20.109])
+ by smtp.gmail.com with ESMTPSA id j15sm4839698pfn.180.2020.12.16.23.27.55
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 16 Dec 2020 23:27:56 -0800 (PST)
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: ltp@lists.linux.it
+Date: Thu, 17 Dec 2020 12:57:51 +0530
+Message-Id: <b48115a8d6dc3036f08e0166332035fab078b34a.1608189944.git.viresh.kumar@linaro.org>
+X-Mailer: git-send-email 2.25.0.rc1.19.g042ed3e048af
+MIME-Version: 1.0
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v5 0/4] TPM 2.0 fixes in IMA tests
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH V2 1/3] tst_module: Add separate declarations of
+ helpers for new tests framework
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,72 +77,251 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Tushar Sugandhi <tusharsu@linux.microsoft.com>,
- Lakshmi Ramasubramanian <nramas@linux.microsoft.com>,
- linux-integrity@vger.kernel.org, Mimi Zohar <zohar@linux.vnet.ibm.com>
+Cc: Viresh Kumar <viresh.kumar@linaro.org>,
+ Vincent Guittot <vincent.guittot@linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Petr,
+The tests using the new test framework must not use the headers from the
+old one, fix that by declaring the helpers in tst_module.h. To achieve
+that rename the original routines in tst_module.c with an underscore and
+use static inline wrappers to call them.
 
-On Mon, 2020-12-14 at 23:19 +0100, Petr Vorel wrote:
-> The only problem which bothers me is failure on ima_policy=tcb:
-> 
-> evmctl ima_measurement /sys/kernel/security/integrity/ima/binary_runtime_measurements -vv
-> ...
-> sha256: PCRAgg  10: c19866f10132282d4cf20ca45f50078db843f95dc8d1ea8819d0e240cdf3b21c
-> sha256: TPM PCR-10: df913daa0437a2365f710f6d93a4f2d37146414425d9aaa60740dc635d187158
-> sha256: PCRAgg 10 does not match TPM PCR-10
-> Failed to match per TPM bank or SHA1 padded TPM digest(s) (count 1446)
-> errno: No such file or directory (2)
-> 
-> Thus test get failure for the fist run without --ignore-violations
-> ...
-> ima_tpm 1 TINFO: using command: evmctl ima_boot_aggregate -v
-> Using tss2-rc-decode to read PCRs.
-> ima_tpm 1 TINFO: IMA boot aggregate: '0756853d9378ff6473966e20610a8d1cb97e4dc613cb87adf5e870c8eb93fd0f'
-> ima_tpm 1 TPASS: bios boot aggregate matches IMA boot aggregate
-> ima_tpm 2 TINFO: verify PCR values
-> ima_tpm 2 TINFO: real PCR-10: '6d8aec6291c0c19efdee50e20899939135be073cd4d6e9063e53386f54f9487d'
-> ima_tpm 2 TFAIL: evmctl failed, trying with --ignore-violations
-> ima_tpm 2 TINFO: aggregate PCR-10: '6d8aec6291c0c19efdee50e20899939135be073cd4d6e9063e53386f54f9487d'
-> ima_tpm 2 TPASS: aggregate PCR value matches real PCR value
-> ima_tpm 3 TINFO: AppArmor enabled, this may affect test results
-> ima_tpm 3 TINFO: it can be disabled with TST_DISABLE_APPARMOR=1 (requires super/root)
-> ima_tpm 3 TINFO: loaded AppArmor profiles: none
-> 
-> Summary:
-> passed   2
-> failed   1
-> skipped  0
-> warnings 0
-> 
-> IMHO unless this is specific for this particular TPM we should skip test
-> if ima_policy=tcb.
+Also update the delete_module tests to use the new header.
 
-No, I don't think so.  Violations are a result of a file being opened
-for read and write at the same time.  Opening a file for write, when it
-is already open for read, results in a Time of Measure/Time of Use
-(ToMToU) violation.  Opening a file for read, when it is already open
-for write, results in an open_writer violation.  One of the more common
-reasons for these violations are log files.
+Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
+---
+V2:
+- New patch.
 
-With the builtin TCB measurement policy enabled on the boot command
-line, files are measured from the beginning, before a custom policy is
-loaded.  Normally a custom policy is loaded after an LSM policy has
-been loaded, allowing IMA policy rules to be defined in terms of LSM
-labels.
+ include/old/old_module.h                      | 27 ++++++++++++---
+ include/tst_module.h                          | 33 +++++++++++++++++++
+ lib/tst_module.c                              |  8 ++---
+ .../syscalls/delete_module/delete_module01.c  |  6 ++--
+ .../syscalls/delete_module/delete_module03.c  | 12 +++----
+ 5 files changed, 68 insertions(+), 18 deletions(-)
+ create mode 100644 include/tst_module.h
 
-Verifying the IMA measurement list against the TPM PCRs is an important
-test.  Ignoring violations doesn't make sense either.   Perhaps if a
-custom policy has not been loaded, emit an informational message and
-skip the test without "--ignore-violations".
-
-thanks,
-
-Mimi
+diff --git a/include/old/old_module.h b/include/old/old_module.h
+index c50efec76244..1af7d1f68027 100644
+--- a/include/old/old_module.h
++++ b/include/old/old_module.h
+@@ -34,6 +34,14 @@
+ #ifndef TST_MODULE
+ #define TST_MODULE
+ 
++void tst_module_exist_(void (cleanup_fn)(void), const char *mod_name,
++					 char **mod_path);
++
++void tst_module_load_(void (cleanup_fn)(void), const char *mod_name,
++					char *const argv[]);
++
++void tst_module_unload_(void (cleanup_fn)(void), const char *mod_name);
++
+ /*
+  * Check module existence.
+  *
+@@ -44,8 +52,11 @@
+  *
+  * In case of failure, test'll call cleanup_fn and exit with TCONF return value.
+  */
+-void tst_module_exist(void (cleanup_fn)(void), const char *mod_name,
+-	char **mod_path);
++static inline void tst_module_exist(void (cleanup_fn)(void),
++				    const char *mod_name, char **mod_path)
++{
++	tst_module_exist_(cleanup_fn, mod_name, mod_path);
++}
+ 
+ /*
+  * Load a module using insmod program.
+@@ -58,8 +69,11 @@ void tst_module_exist(void (cleanup_fn)(void), const char *mod_name,
+  * In case of insmod failure, test will call cleanup_fn and exit with TBROK
+  * return value.
+  */
+-void tst_module_load(void (cleanup_fn)(void),
+-	const char *mod_name, char *const argv[]);
++static inline void tst_module_load(void (cleanup_fn)(void),
++				   const char *mod_name, char *const argv[])
++{
++	tst_module_load_(cleanup_fn, mod_name, argv);
++}
+ 
+ /*
+  * Unload a module using rmmod program. In case of failure, test will call
+@@ -67,6 +81,9 @@ void tst_module_load(void (cleanup_fn)(void),
+  *
+  * @mod_name: can be module name or module's file name.
+  */
+-void tst_module_unload(void (cleanup_fn)(void), const char *mod_name);
++static inline void tst_module_unload(void (cleanup_fn)(void), const char *mod_name)
++{
++	tst_module_unload_(cleanup_fn, mod_name);
++}
+ 
+ #endif /* TST_MODULE */
+diff --git a/include/tst_module.h b/include/tst_module.h
+new file mode 100644
+index 000000000000..637e85c0bf2f
+--- /dev/null
++++ b/include/tst_module.h
+@@ -0,0 +1,33 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2013 Oracle and/or its affiliates. All Rights Reserved.
++ * Alexey Kodanev <alexey.kodanev@oracle.com>
++ */
++
++#ifndef TST_MODULE_H
++#define TST_MODULE_H
++
++void tst_module_exist_(void (cleanup_fn)(void), const char *mod_name,
++					 char **mod_path);
++
++static inline void tst_module_exist(const char *mod_name, char **mod_path)
++{
++	tst_module_exist_(NULL, mod_name, mod_path);
++}
++
++void tst_module_load_(void (cleanup_fn)(void), const char *mod_name,
++					char *const argv[]);
++
++static inline void tst_module_load(const char *mod_name, char *const argv[])
++{
++	tst_module_load_(NULL, mod_name, argv);
++}
++
++void tst_module_unload_(void (cleanup_fn)(void), const char *mod_name);
++
++static inline void tst_module_unload(const char *mod_name)
++{
++	tst_module_unload_(NULL, mod_name);
++}
++
++#endif /* TST_MODULE_H */
+diff --git a/lib/tst_module.c b/lib/tst_module.c
+index eda61872fe01..9bd443623616 100644
+--- a/lib/tst_module.c
++++ b/lib/tst_module.c
+@@ -28,7 +28,7 @@
+ #include "ltp_priv.h"
+ #include "old_module.h"
+ 
+-void tst_module_exists(void (cleanup_fn)(void),
++void tst_module_exists_(void (cleanup_fn)(void),
+ 	const char *mod_name, char **mod_path)
+ {
+ 	/* check current working directory */
+@@ -77,11 +77,11 @@ void tst_module_exists(void (cleanup_fn)(void),
+ 		free(buf);
+ }
+ 
+-void tst_module_load(void (cleanup_fn)(void),
++void tst_module_load_(void (cleanup_fn)(void),
+ 	const char *mod_name, char *const argv[])
+ {
+ 	char *mod_path = NULL;
+-	tst_module_exists(cleanup_fn, mod_name, &mod_path);
++	tst_module_exists_(cleanup_fn, mod_name, &mod_path);
+ 
+ 	const int offset = 2; /* command name & module path */
+ 	int size = 0;
+@@ -101,7 +101,7 @@ void tst_module_load(void (cleanup_fn)(void),
+ 	free(mod_path);
+ }
+ 
+-void tst_module_unload(void (cleanup_fn)(void), const char *mod_name)
++void tst_module_unload_(void (cleanup_fn)(void), const char *mod_name)
+ {
+ 	int i, rc;
+ 
+diff --git a/testcases/kernel/syscalls/delete_module/delete_module01.c b/testcases/kernel/syscalls/delete_module/delete_module01.c
+index e5cb53cc9ec3..8fb559f0c703 100644
+--- a/testcases/kernel/syscalls/delete_module/delete_module01.c
++++ b/testcases/kernel/syscalls/delete_module/delete_module01.c
+@@ -14,9 +14,9 @@
+  */
+ 
+ #include <errno.h>
+-#include "old_module.h"
+ #include "lapi/syscalls.h"
+ #include "tst_test.h"
++#include "tst_module.h"
+ 
+ #define MODULE_NAME	"dummy_del_mod"
+ #define MODULE_NAME_KO	"dummy_del_mod.ko"
+@@ -26,7 +26,7 @@ static int module_loaded;
+ static void do_delete_module(void)
+ {
+ 	if (module_loaded == 0) {
+-		tst_module_load(NULL, MODULE_NAME_KO, NULL);
++		tst_module_load(MODULE_NAME_KO, NULL);
+ 		module_loaded = 1;
+ 	}
+ 
+@@ -44,7 +44,7 @@ static void do_delete_module(void)
+ static void cleanup(void)
+ {
+ 	if (module_loaded == 1)
+-		tst_module_unload(NULL, MODULE_NAME_KO);
++		tst_module_unload(MODULE_NAME_KO);
+ }
+ 
+ static struct tst_test test = {
+diff --git a/testcases/kernel/syscalls/delete_module/delete_module03.c b/testcases/kernel/syscalls/delete_module/delete_module03.c
+index 8bd51be07dc2..7178e8ef13b0 100644
+--- a/testcases/kernel/syscalls/delete_module/delete_module03.c
++++ b/testcases/kernel/syscalls/delete_module/delete_module03.c
+@@ -14,7 +14,7 @@
+ 
+ #include <errno.h>
+ #include "tst_test.h"
+-#include "old_module.h"
++#include "tst_module.h"
+ #include "lapi/syscalls.h"
+ 
+ #define DUMMY_MOD		"dummy_del_mod"
+@@ -43,7 +43,7 @@ static void do_delete_module(void)
+ 		 * insmod DUMMY_MOD_KO again in case running
+ 		 * with -i option
+ 		 */
+-		tst_module_load(NULL, DUMMY_MOD_KO, NULL);
++		tst_module_load(DUMMY_MOD_KO, NULL);
+ 		dummy_mod_loaded = 1;
+ 	}
+ }
+@@ -51,11 +51,11 @@ static void do_delete_module(void)
+ static void setup(void)
+ {
+ 	/* Load first kernel module */
+-	tst_module_load(NULL, DUMMY_MOD_KO, NULL);
++	tst_module_load(DUMMY_MOD_KO, NULL);
+ 	dummy_mod_loaded = 1;
+ 
+ 	/* Load dependant kernel module */
+-	tst_module_load(NULL, DUMMY_MOD_DEP_KO, NULL);
++	tst_module_load(DUMMY_MOD_DEP_KO, NULL);
+ 	dummy_mod_dep_loaded = 1;
+ }
+ 
+@@ -63,11 +63,11 @@ static void cleanup(void)
+ {
+ 	/* Unload dependent kernel module */
+ 	if (dummy_mod_dep_loaded == 1)
+-		tst_module_unload(NULL, DUMMY_MOD_DEP_KO);
++		tst_module_unload(DUMMY_MOD_DEP_KO);
+ 
+ 	/* Unload first kernel module */
+ 	if (dummy_mod_loaded == 1)
+-		tst_module_unload(NULL, DUMMY_MOD_KO);
++		tst_module_unload(DUMMY_MOD_KO);
+ }
+ 
+ static struct tst_test test = {
+-- 
+2.25.0.rc1.19.g042ed3e048af
 
 
 -- 
