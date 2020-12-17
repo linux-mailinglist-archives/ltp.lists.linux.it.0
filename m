@@ -2,41 +2,40 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 463D02DD445
-	for <lists+linux-ltp@lfdr.de>; Thu, 17 Dec 2020 16:35:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1E9D2DD452
+	for <lists+linux-ltp@lfdr.de>; Thu, 17 Dec 2020 16:39:29 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0B2303C66F8
-	for <lists+linux-ltp@lfdr.de>; Thu, 17 Dec 2020 16:35:20 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 6099E3C66F6
+	for <lists+linux-ltp@lfdr.de>; Thu, 17 Dec 2020 16:39:29 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 98A8F3C57C5
- for <ltp@lists.linux.it>; Thu, 17 Dec 2020 16:35:18 +0100 (CET)
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id 3CE663C57C3
+ for <ltp@lists.linux.it>; Thu, 17 Dec 2020 16:39:28 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 4A7AD200C34
- for <ltp@lists.linux.it>; Thu, 17 Dec 2020 16:35:17 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 0E6E610000C6
+ for <ltp@lists.linux.it>; Thu, 17 Dec 2020 16:39:27 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id B3687AC7B
- for <ltp@lists.linux.it>; Thu, 17 Dec 2020 15:35:16 +0000 (UTC)
-Date: Thu, 17 Dec 2020 16:35:15 +0100
+ by mx2.suse.de (Postfix) with ESMTP id 5DF81AC79
+ for <ltp@lists.linux.it>; Thu, 17 Dec 2020 15:39:27 +0000 (UTC)
+Date: Thu, 17 Dec 2020 16:39:25 +0100
 From: Petr Vorel <pvorel@suse.cz>
 To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <X9t6sziDCZn9R0VB@pevik>
+Message-ID: <X9t7reND8h4Ofozt@pevik>
 References: <20201216101012.14644-1-chrubis@suse.cz>
- <20201216101012.14644-3-chrubis@suse.cz>
+ <20201216101012.14644-4-chrubis@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20201216101012.14644-3-chrubis@suse.cz>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+In-Reply-To: <20201216101012.14644-4-chrubis@suse.cz>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 2/5] doc_parse/data_storage: Bump the array max
- size
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 3/5] docparse/docparse: Eat only first whitespace
+ for comment block
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,11 +54,9 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-> Bump the array size to 100 from 20 for now. I will rewrite the code to
-> reallocate the array if needed later on.
-
-> At least now we won't have longer description comments cut in half.
-+1
+> Since we decided that the comment block is formatted in asciidoc we need
+> the whitespaces since they are part of the format, e.g. literal blocks.
+Makes sense.
 
 Reviewed-by: Petr Vorel <pvorel@suse.cz>
 
