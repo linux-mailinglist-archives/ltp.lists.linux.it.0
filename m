@@ -2,70 +2,69 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26E7B2DDEC6
-	for <lists+linux-ltp@lfdr.de>; Fri, 18 Dec 2020 07:58:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 003842DDED0
+	for <lists+linux-ltp@lfdr.de>; Fri, 18 Dec 2020 08:06:36 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E8EC63C2A3B
-	for <lists+linux-ltp@lfdr.de>; Fri, 18 Dec 2020 07:58:16 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id BBCC73C2A9B
+	for <lists+linux-ltp@lfdr.de>; Fri, 18 Dec 2020 08:06:36 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 7E9453C29E1
- for <ltp@lists.linux.it>; Fri, 18 Dec 2020 07:58:15 +0100 (CET)
-Received: from mail-pl1-x62a.google.com (mail-pl1-x62a.google.com
- [IPv6:2607:f8b0:4864:20::62a])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id 383E43C2A14
+ for <ltp@lists.linux.it>; Fri, 18 Dec 2020 08:06:35 +0100 (CET)
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [IPv6:2a00:1450:4864:20::630])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 09A5410000D8
- for <ltp@lists.linux.it>; Fri, 18 Dec 2020 07:58:15 +0100 (CET)
-Received: by mail-pl1-x62a.google.com with SMTP id x12so893903plr.10
- for <ltp@lists.linux.it>; Thu, 17 Dec 2020 22:58:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id C857A201082
+ for <ltp@lists.linux.it>; Fri, 18 Dec 2020 08:06:34 +0100 (CET)
+Received: by mail-ej1-x630.google.com with SMTP id b9so1741137ejy.0
+ for <ltp@lists.linux.it>; Thu, 17 Dec 2020 23:06:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=KvR3KwQUSkWRCFSjk6ugg2qjidXlDjgFGDOUOEDcVuo=;
- b=chesFf7pMWaVnpl3T2sJ0SQo4v0EX03q6nHkbXipyKK4uWngi/xkODURzShEsxCCK0
- FFIuB8jdRKBFRZQG25PPSZBbZTuTW0PNoW1Qe0V85LZNPFKWsruDca7tNpbuBDfvDIDj
- pt22YgZVGJOulD5QoVhSdJRYOA0eqN8zadz6PNqbiyHAxe2ugXuGj1VxqKDSLIuvytHe
- W0HbufoUoQvVKOLlnaQyeTczfTYOQvUlIJnMaOcSks/b8hx43fb1h3Cuw5jejS+8tdAB
- eYInGKeAdA4P/tQJ45l/O69hLUsD5l58Ki89jEvTWNC/9AQsAxU/C1aHfs9vxu6SRgWt
- vL3g==
+ bh=hVmIY40mGVAkeZqYUBhZLd9jalF0pfJif34rTHVwHdw=;
+ b=Fy/AYtfjwnGRtP6tgTITYhK274OGbRvSzBBPOryNwcSfhMf2J+2hnTHqC7KoUhEkjV
+ uqsp5Pa1HXswTUfBFhQSVkYa9HrvyieQX0XErxdy6NDWD45PadyzhIKMYRvzyad1PHoy
+ 54vPw4nLAZe3QL+LyRunAWvoK2CWAYDYeUlPm4Q19Umsk65gCcueZeVb1hozV+a7IjP1
+ 77iK/BAQV89M9qONGZNljk3d8Vzw9ZXcegWTrCu9Le9j3DhpxzrcWY2T7h/sQhl7GAJo
+ 96evXO64zK2LcezvVU2mLxYYA2eIWFrAqgmLlz4y+IBVTtEqy56vlbW4W5rJVJTxPjvn
+ jyPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=KvR3KwQUSkWRCFSjk6ugg2qjidXlDjgFGDOUOEDcVuo=;
- b=rgS8vZj6wayZdTwlyp/im+jL407H/LvOtH1pLSWZooL/NlER2jqUPciqCqerSB4ARC
- mEw89eJFl4iH9/ZQOgzK7F/7dENrFcZA0f6LsKCmHtbURfOOBcyXyUi8Ca40/E2y7zdC
- qkcSbeAnp5gOixI9kaWubQqNqQ1P1c9XQoSb+EoE9h1J2ta9G88kS6I/h3hwfuQFldco
- Vn0b+x0Bdk9HAQ9olru/Eve0He1kUVPmrYWeBvCUQZ5vRFr0Z/qJtCThm4BFB5yhqpR+
- OlrbMRipTiZIyc3PkKf3Ku9iN1anx7MGd1C/uMiUh+s6b3QsHMvPYMy1teiWqLZhc7aY
- qN2w==
-X-Gm-Message-State: AOAM533/jkb0pG+CuGHEVcdHdTtt8YgabXb2mym8KR8PSmlgJ0Wg7R66
- R8ythefxpF9tQuax9dCpCi712RpkpcTeRg==
-X-Google-Smtp-Source: ABdhPJzHUg3KAvNTq1V4hsD7SO3G9mMUhvMKJ5hhq2m/jL7g8wHi0xPK0WO4if80Ug0sa2FB8qGn+w==
-X-Received: by 2002:a17:902:e98c:b029:da:cb88:f11d with SMTP id
- f12-20020a170902e98cb02900dacb88f11dmr3094546plb.17.1608274693289; 
- Thu, 17 Dec 2020 22:58:13 -0800 (PST)
-Received: from localhost ([122.172.20.109])
- by smtp.gmail.com with ESMTPSA id mz1sm6398368pjb.33.2020.12.17.22.58.11
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 17 Dec 2020 22:58:12 -0800 (PST)
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: ltp@lists.linux.it
-Date: Fri, 18 Dec 2020 12:28:09 +0530
-Message-Id: <049a750ca35c6adc18e8aa6bc1f97d91c05d3429.1608274686.git.viresh.kumar@linaro.org>
-X-Mailer: git-send-email 2.25.0.rc1.19.g042ed3e048af
+ bh=hVmIY40mGVAkeZqYUBhZLd9jalF0pfJif34rTHVwHdw=;
+ b=PILURzLbcQ83xinCZeAsMotOU/5LV/NDEdeoTDCdxlvw5wQTJLSvw449lL+sUGCVDz
+ hjBHIng8nCW49bqSoWeUTP5+Pz8ZLxqZSmQfOTsVkSZ5AoWAO8apefH4vC7DG99Kzzuc
+ BkPFZ+rakUTYiRXQvRDyx4Rp+SxeW0sUE/Ev/X98YYLAhX2mmloK+ncd83F8/IKOQUwB
+ +6s94+CsTUIuvCZcCtmVhpfLpPm8byQEw6ilk+eYNp+TmyOxWY2wOw2IkYkVW7UuXi+j
+ 1IR70Tk+lod+NjHYLoQqAhD8HpTsaoY+4eKXRotQur9/b4QCJr1n3UvQYzKraFJMqgfa
+ xUXg==
+X-Gm-Message-State: AOAM531D95fiXg+TfseGiaakkHpi04XNJ8oQRUsuSVuKrbOyb2wVFdmo
+ 1MXtUI8w5tACfwChb0DbJWA=
+X-Google-Smtp-Source: ABdhPJzCqS1sQ7n7APHeK1ZpCKOpfXOeMij4eDvJ9SehfO+dL8ieUAQjLLxST3+cqfI9I1Apxyt9cA==
+X-Received: by 2002:a17:906:9388:: with SMTP id
+ l8mr2622765ejx.22.1608275194430; 
+ Thu, 17 Dec 2020 23:06:34 -0800 (PST)
+Received: from localhost.localdomain ([31.210.181.203])
+ by smtp.gmail.com with ESMTPSA id d13sm10852263edx.27.2020.12.17.23.06.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 17 Dec 2020 23:06:33 -0800 (PST)
+From: Amir Goldstein <amir73il@gmail.com>
+To: Petr Vorel <pvorel@suse.cz>
+Date: Fri, 18 Dec 2020 09:06:28 +0200
+Message-Id: <20201218070631.1182292-1-amir73il@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH] syscalls: init_module: Print test's name in messages
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH 0/3] inotify tests for v5.9 regression
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,37 +76,46 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Viresh Kumar <viresh.kumar@linaro.org>,
- Vincent Guittot <vincent.guittot@linaro.org>
+Cc: Hugh Dickins <hughd@google.com>, Jan Kara <jack@suse.cz>,
+ ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This was part of the original patch but got dropped while applying, lets
-get it back.
+Hi Petr,
 
-Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
----
- testcases/kernel/syscalls/init_module/init_module02.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Here is the test for the other v5.9 regression that I mentioned earlier.
+The fix commit has just been merged to master.
 
-diff --git a/testcases/kernel/syscalls/init_module/init_module02.c b/testcases/kernel/syscalls/init_module/init_module02.c
-index ff35b35e2321..88917bd7c2ed 100644
---- a/testcases/kernel/syscalls/init_module/init_module02.c
-+++ b/testcases/kernel/syscalls/init_module/init_module02.c
-@@ -71,7 +71,8 @@ static void run(unsigned int n)
- 	if (tc->exp_errno == EEXIST)
- 		tst_module_load(MODULE_NAME, NULL);
- 
--	TST_EXP_FAIL(init_module(*tc->buf, *tc->size, tc->param), tc->exp_errno);
-+	TST_EXP_FAIL(init_module(*tc->buf, *tc->size, tc->param), tc->exp_errno,
-+		     "TestName: %s", tc->name);
- 
- 	if (tc->exp_errno == EEXIST)
- 		tst_module_unload(MODULE_NAME);
+History:
+Originally, inotify10 was written to cover a bug that was detected during
+the review of the fsnotify changes for v5.9, but was not merged to v5.9.
+Later, I wrote test case #3 to cover another bug that was merged to v5.9.
+While testing the v5.9-bug-fix in linux-next, Hugh Dickins reported [1]
+a bug introduced by the v5.9-bug-fix, so I added two more test cases
+to cover the bug-in-the-bug-fix.
+The bug-in-the-bug-fix was fixed before the v5.9-bug-fix was merged.
+
+Long story short, the only test case expected to fail is test case #3 on
+kernel >= v5.9 and now fixed in master :-)
+
+Thanks,
+Amir.
+
+[1] https://lore.kernel.org/linux-fsdevel/alpine.LSU.2.11.2012101507080.1100@eggly.anvils/
+
+Amir Goldstein (3):
+  syscalls/inotify10: Generalize for more test cases
+  syscalls/inotify10: Add test cases with two groups
+  syscalls/inotify10: Test two inotify groups with parent and child
+    watches
+
+ testcases/kernel/syscalls/inotify/inotify10.c | 126 ++++++++++++++----
+ 1 file changed, 98 insertions(+), 28 deletions(-)
+
 -- 
-2.25.0.rc1.19.g042ed3e048af
+2.25.1
 
 
 -- 
