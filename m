@@ -1,70 +1,72 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 003842DDED0
-	for <lists+linux-ltp@lfdr.de>; Fri, 18 Dec 2020 08:06:36 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C5752DDED1
+	for <lists+linux-ltp@lfdr.de>; Fri, 18 Dec 2020 08:06:45 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id BBCC73C2A9B
-	for <lists+linux-ltp@lfdr.de>; Fri, 18 Dec 2020 08:06:36 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id EDBC03C2A45
+	for <lists+linux-ltp@lfdr.de>; Fri, 18 Dec 2020 08:06:44 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id 383E43C2A14
- for <ltp@lists.linux.it>; Fri, 18 Dec 2020 08:06:35 +0100 (CET)
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [IPv6:2a00:1450:4864:20::630])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id 28CB93C334A
+ for <ltp@lists.linux.it>; Fri, 18 Dec 2020 08:06:36 +0100 (CET)
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [IPv6:2a00:1450:4864:20::536])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id C857A201082
- for <ltp@lists.linux.it>; Fri, 18 Dec 2020 08:06:34 +0100 (CET)
-Received: by mail-ej1-x630.google.com with SMTP id b9so1741137ejy.0
- for <ltp@lists.linux.it>; Thu, 17 Dec 2020 23:06:34 -0800 (PST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 71EEE1A01534
+ for <ltp@lists.linux.it>; Fri, 18 Dec 2020 08:06:36 +0100 (CET)
+Received: by mail-ed1-x536.google.com with SMTP id h16so1264048edt.7
+ for <ltp@lists.linux.it>; Thu, 17 Dec 2020 23:06:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=hVmIY40mGVAkeZqYUBhZLd9jalF0pfJif34rTHVwHdw=;
- b=Fy/AYtfjwnGRtP6tgTITYhK274OGbRvSzBBPOryNwcSfhMf2J+2hnTHqC7KoUhEkjV
- uqsp5Pa1HXswTUfBFhQSVkYa9HrvyieQX0XErxdy6NDWD45PadyzhIKMYRvzyad1PHoy
- 54vPw4nLAZe3QL+LyRunAWvoK2CWAYDYeUlPm4Q19Umsk65gCcueZeVb1hozV+a7IjP1
- 77iK/BAQV89M9qONGZNljk3d8Vzw9ZXcegWTrCu9Le9j3DhpxzrcWY2T7h/sQhl7GAJo
- 96evXO64zK2LcezvVU2mLxYYA2eIWFrAqgmLlz4y+IBVTtEqy56vlbW4W5rJVJTxPjvn
- jyPA==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=OfGQUSBa5kFhO/pQmyBDlAfpoLUOWm95waI0qN36zBc=;
+ b=klZzU8Oi3jg4Xwx/2C07km2e0EJvAQAmn/8JY++980ElLrwxlT4tkQkA5V3ujjD6mX
+ 7Qdqk+Jv5hgPyNBqmSznLKinGpe+VGUh3uT5402mFTUrkzF41kKDUe+EZp6wpaGYCEVq
+ XpPR36WTtIGPk+lYQSXp/kMsDzcJ10haIPBIPWi5ElU00L6lgxgYUFHs6UTwP54JFS8B
+ WdZ0L5EKeQpWHZPZ222gHJhKrCcbtO37K4tAknmNxpKqlRxH0BsQd/D28w9I4Kic/Z/T
+ 7R8pxCVVX3bA/MFH8H9TdgXr5ULcVIHhN86vMHLjOum8dAOq351ABakHcmje83/FRDRb
+ PLag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=hVmIY40mGVAkeZqYUBhZLd9jalF0pfJif34rTHVwHdw=;
- b=PILURzLbcQ83xinCZeAsMotOU/5LV/NDEdeoTDCdxlvw5wQTJLSvw449lL+sUGCVDz
- hjBHIng8nCW49bqSoWeUTP5+Pz8ZLxqZSmQfOTsVkSZ5AoWAO8apefH4vC7DG99Kzzuc
- BkPFZ+rakUTYiRXQvRDyx4Rp+SxeW0sUE/Ev/X98YYLAhX2mmloK+ncd83F8/IKOQUwB
- +6s94+CsTUIuvCZcCtmVhpfLpPm8byQEw6ilk+eYNp+TmyOxWY2wOw2IkYkVW7UuXi+j
- 1IR70Tk+lod+NjHYLoQqAhD8HpTsaoY+4eKXRotQur9/b4QCJr1n3UvQYzKraFJMqgfa
- xUXg==
-X-Gm-Message-State: AOAM531D95fiXg+TfseGiaakkHpi04XNJ8oQRUsuSVuKrbOyb2wVFdmo
- 1MXtUI8w5tACfwChb0DbJWA=
-X-Google-Smtp-Source: ABdhPJzCqS1sQ7n7APHeK1ZpCKOpfXOeMij4eDvJ9SehfO+dL8ieUAQjLLxST3+cqfI9I1Apxyt9cA==
-X-Received: by 2002:a17:906:9388:: with SMTP id
- l8mr2622765ejx.22.1608275194430; 
- Thu, 17 Dec 2020 23:06:34 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=OfGQUSBa5kFhO/pQmyBDlAfpoLUOWm95waI0qN36zBc=;
+ b=OEagRLqeB2Dq6ONLzjsWXx0uZ0NdLJsmPQvQSuuFGQuCRi1SEuwUj01xevDHjp7NG4
+ BFsSunmX06O7zhU4ZFU0Jlj0iRsh8dZe6BVpHquFFxA1M6YbNz2ttqeHYwOLUqKAK3yC
+ iqy18A4Sw7m4VYSAmkjYqJDWrokfoxgSywcv/4D+yY5Kh8MneM4iiWm2saq8KJv3KCWO
+ JFeYfLgPXxCvVeim1QoaNm8RCowOiztK4ZgtRlgZvh7XrJbH78DVMDassR+kZ8T4DhbU
+ Y8MnFI43dI2A6qxin1v9kOf8ql36SP2YvO4h5H94MqzTFbEo3keKYY/7XHnG9DyoXFLA
+ 7x1w==
+X-Gm-Message-State: AOAM531VhQE5d7JmGPZp5UeQ1YOSF2EUSpPYud+udEUHUm60Opi+seEJ
+ DcUrvHt/3hWrYXyWdottepA=
+X-Google-Smtp-Source: ABdhPJzozJDyPT8cF1EFNk7dVYAA6yDnEf7ck/Ri/hQWiMQu/bL4FBjZY7ZuKPY1vL6YmhugURpIMQ==
+X-Received: by 2002:a50:8004:: with SMTP id 4mr2902453eda.329.1608275196070;
+ Thu, 17 Dec 2020 23:06:36 -0800 (PST)
 Received: from localhost.localdomain ([31.210.181.203])
- by smtp.gmail.com with ESMTPSA id d13sm10852263edx.27.2020.12.17.23.06.32
+ by smtp.gmail.com with ESMTPSA id d13sm10852263edx.27.2020.12.17.23.06.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 17 Dec 2020 23:06:33 -0800 (PST)
+ Thu, 17 Dec 2020 23:06:35 -0800 (PST)
 From: Amir Goldstein <amir73il@gmail.com>
 To: Petr Vorel <pvorel@suse.cz>
-Date: Fri, 18 Dec 2020 09:06:28 +0200
-Message-Id: <20201218070631.1182292-1-amir73il@gmail.com>
+Date: Fri, 18 Dec 2020 09:06:29 +0200
+Message-Id: <20201218070631.1182292-2-amir73il@gmail.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20201218070631.1182292-1-amir73il@gmail.com>
+References: <20201218070631.1182292-1-amir73il@gmail.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH 0/3] inotify tests for v5.9 regression
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/3] syscalls/inotify10: Generalize for more test cases
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,37 +85,138 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Petr,
+Generalize the parent and child watches test to allow adding new
+parent and child watch related test cases.
 
-Here is the test for the other v5.9 regression that I mentioned earlier.
-The fix commit has just been merged to master.
+Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+---
+ testcases/kernel/syscalls/inotify/inotify10.c | 81 +++++++++++++------
+ 1 file changed, 55 insertions(+), 26 deletions(-)
 
-History:
-Originally, inotify10 was written to cover a bug that was detected during
-the review of the fsnotify changes for v5.9, but was not merged to v5.9.
-Later, I wrote test case #3 to cover another bug that was merged to v5.9.
-While testing the v5.9-bug-fix in linux-next, Hugh Dickins reported [1]
-a bug introduced by the v5.9-bug-fix, so I added two more test cases
-to cover the bug-in-the-bug-fix.
-The bug-in-the-bug-fix was fixed before the v5.9-bug-fix was merged.
-
-Long story short, the only test case expected to fail is test case #3 on
-kernel >= v5.9 and now fixed in master :-)
-
-Thanks,
-Amir.
-
-[1] https://lore.kernel.org/linux-fsdevel/alpine.LSU.2.11.2012101507080.1100@eggly.anvils/
-
-Amir Goldstein (3):
-  syscalls/inotify10: Generalize for more test cases
-  syscalls/inotify10: Add test cases with two groups
-  syscalls/inotify10: Test two inotify groups with parent and child
-    watches
-
- testcases/kernel/syscalls/inotify/inotify10.c | 126 ++++++++++++++----
- 1 file changed, 98 insertions(+), 28 deletions(-)
-
+diff --git a/testcases/kernel/syscalls/inotify/inotify10.c b/testcases/kernel/syscalls/inotify/inotify10.c
+index 1c43915a8..baa955a0a 100644
+--- a/testcases/kernel/syscalls/inotify/inotify10.c
++++ b/testcases/kernel/syscalls/inotify/inotify10.c
+@@ -5,7 +5,9 @@
+  * Started by Amir Goldstein <amir73il@gmail.com>
+  *
+  * DESCRIPTION
+- *     Check that event is reported to both watching parent and watching child
++ *     Check that event is reported to watching parent and watching child
++ *     based on their interest
++ *
+  */
+ 
+ #include "config.h"
+@@ -37,48 +39,74 @@ struct event_t {
+ #define	TEST_DIR	"test_dir"
+ #define	TEST_FILE	"test_file"
+ 
++static struct tcase {
++	const char *tname;
++	unsigned int parent_mask;
++	unsigned int subdir_mask;
++	unsigned int child_mask;
++} tcases[] = {
++	{
++		"Group with parent and child watches",
++		IN_ATTRIB, IN_ATTRIB, IN_ATTRIB,
++	},
++};
++
+ struct event_t event_set[EVENT_MAX];
+ 
+ char event_buf[EVENT_BUF_LEN];
+ 
+ int fd_notify;
+ 
+-static void verify_inotify(void)
++static void verify_inotify(unsigned int n)
+ {
++	struct tcase *tc = &tcases[n];
+ 	int i = 0, test_num = 0, len;
+-	int wd_parent, wd_dir, wd_file;
++	int wd_parent = 0, wd_subdir = 0, wd_child = 0;
+ 	int test_cnt = 0;
+ 
++	tst_res(TINFO, "Test #%d: %s", n, tc->tname);
++
+ 	fd_notify = SAFE_MYINOTIFY_INIT();
+ 
+-	/* Set watch on both parent dir and children */
+-	wd_parent = SAFE_MYINOTIFY_ADD_WATCH(fd_notify, ".", IN_ATTRIB);
+-	wd_dir = SAFE_MYINOTIFY_ADD_WATCH(fd_notify, TEST_DIR, IN_ATTRIB);
+-	wd_file = SAFE_MYINOTIFY_ADD_WATCH(fd_notify, TEST_FILE, IN_ATTRIB);
++	/* Setup watches on parent dir and children */
++	if (tc->parent_mask)
++		wd_parent = SAFE_MYINOTIFY_ADD_WATCH(fd_notify, ".", tc->parent_mask);
++	if (tc->subdir_mask)
++		wd_subdir = SAFE_MYINOTIFY_ADD_WATCH(fd_notify, TEST_DIR, tc->subdir_mask);
++	if (tc->child_mask)
++		wd_child = SAFE_MYINOTIFY_ADD_WATCH(fd_notify, TEST_FILE, tc->child_mask);
+ 
+ 	/*
+-	 * Generate events on file and subdir that should be reported to parent
+-	 * dir with name and to children without name.
++	 * Generate IN_ATTRIB events on file and subdir that should be reported to parent
++	 * dir with name and to children without name if they have IN_ATTRIB in their mask.
+ 	 */
+ 	SAFE_CHMOD(TEST_DIR, 0755);
+ 	SAFE_CHMOD(TEST_FILE, 0644);
+ 
+-	event_set[test_cnt].wd = wd_parent;
+-	event_set[test_cnt].mask = IN_ATTRIB | IN_ISDIR;
+-	strcpy(event_set[test_cnt].name, TEST_DIR);
+-	test_cnt++;
+-	event_set[test_cnt].wd = wd_dir;
+-	event_set[test_cnt].mask = IN_ATTRIB | IN_ISDIR;
+-	strcpy(event_set[test_cnt].name, "");
+-	test_cnt++;
+-	event_set[test_cnt].wd = wd_parent;
+-	event_set[test_cnt].mask = IN_ATTRIB;
+-	strcpy(event_set[test_cnt].name, TEST_FILE);
+-	test_cnt++;
+-	event_set[test_cnt].wd = wd_file;
+-	event_set[test_cnt].mask = IN_ATTRIB;
+-	strcpy(event_set[test_cnt].name, "");
+-	test_cnt++;
++	if (wd_parent && (tc->parent_mask & IN_ATTRIB)) {
++		event_set[test_cnt].wd = wd_parent;
++		event_set[test_cnt].mask = tc->parent_mask | IN_ISDIR;
++		strcpy(event_set[test_cnt].name, TEST_DIR);
++		test_cnt++;
++	}
++	if (wd_subdir && (tc->subdir_mask & IN_ATTRIB)) {
++		event_set[test_cnt].wd = wd_subdir;
++		event_set[test_cnt].mask = tc->subdir_mask | IN_ISDIR;
++		strcpy(event_set[test_cnt].name, "");
++		test_cnt++;
++	}
++	if (wd_parent && (tc->parent_mask & IN_ATTRIB)) {
++		event_set[test_cnt].wd = wd_parent;
++		event_set[test_cnt].mask = tc->parent_mask;
++		strcpy(event_set[test_cnt].name, TEST_FILE);
++		test_cnt++;
++	}
++	if (wd_child && (tc->child_mask & IN_ATTRIB)) {
++		event_set[test_cnt].wd = wd_child;
++		event_set[test_cnt].mask = tc->child_mask;
++		strcpy(event_set[test_cnt].name, "");
++		test_cnt++;
++	}
+ 
+ 	len = read(fd_notify, event_buf, EVENT_BUF_LEN);
+ 	if (len == -1)
+@@ -141,7 +169,8 @@ static struct tst_test test = {
+ 	.needs_tmpdir = 1,
+ 	.setup = setup,
+ 	.cleanup = cleanup,
+-	.test_all = verify_inotify,
++	.test = verify_inotify,
++	.tcnt = ARRAY_SIZE(tcases),
+ };
+ 
+ #else
 -- 
 2.25.1
 
