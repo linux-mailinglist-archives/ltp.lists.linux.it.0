@@ -1,42 +1,40 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DF572DE198
-	for <lists+linux-ltp@lfdr.de>; Fri, 18 Dec 2020 11:58:26 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 70B582DE199
+	for <lists+linux-ltp@lfdr.de>; Fri, 18 Dec 2020 11:58:35 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1ECE23C6185
-	for <lists+linux-ltp@lfdr.de>; Fri, 18 Dec 2020 11:58:25 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 372CB3C6186
+	for <lists+linux-ltp@lfdr.de>; Fri, 18 Dec 2020 11:58:34 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id 681F83C2A45
- for <ltp@lists.linux.it>; Fri, 18 Dec 2020 11:58:21 +0100 (CET)
-Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net
- [217.70.183.196])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTP id 9EF093C617C
+ for <ltp@lists.linux.it>; Fri, 18 Dec 2020 11:58:26 +0100 (CET)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id D164A1401261
- for <ltp@lists.linux.it>; Fri, 18 Dec 2020 11:58:20 +0100 (CET)
-X-Originating-IP: 78.113.208.212
-Received: from kmaincent-XPS-13-7390 (212.208.113.78.rev.sfr.net
- [78.113.208.212]) (Authenticated sender: kory.maincent@bootlin.com)
- by relay4-d.mail.gandi.net (Postfix) with ESMTPSA id ED6B0E0005
- for <ltp@lists.linux.it>; Fri, 18 Dec 2020 10:58:19 +0000 (UTC)
-Date: Fri, 18 Dec 2020 11:58:18 +0100
-From: =?UTF-8?B?S8O2cnk=?= Maincent <kory.maincent@bootlin.com>
-To: ltp@lists.linux.it
-Message-ID: <20201218115818.43f63eff@kmaincent-XPS-13-7390>
-Organization: bootlin
-X-Mailer: Claws Mail 3.16.0 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 398C61400543
+ for <ltp@lists.linux.it>; Fri, 18 Dec 2020 11:58:25 +0100 (CET)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 527C0ABC6;
+ Fri, 18 Dec 2020 10:58:25 +0000 (UTC)
+Date: Fri, 18 Dec 2020 11:58:23 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: Kory Maincent <kory.maincent@bootlin.com>
+Message-ID: <X9yLTynGKfQ2TTjK@pevik>
+References: <20201217085852.26032-1-kory.maincent@bootlin.com>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20201217085852.26032-1-kory.maincent@bootlin.com>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] sctp/func_tests need driver sctp.
+Subject: Re: [LTP] [PATCH] fastopen: add require to sch_netem driver
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,16 +46,19 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: thomas.petazzoni@bootlin.com, ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGVsbG8sCgpJIGhhdmUgbm90aWNlZCBhbGwgdGhlIHRlc3RzIG9mIHNjdHAvZnVuY190ZXN0cyBu
-ZWVkIHRoZSBkcml2ZXIgc2N0cC4KRG8gSSBhZGQgdGhpcyB0byBhbGwgdGhlc2UgdGVzdHMgdG8g
-aGF2ZSB0aGUgcmlnaHQgVENPTkYgbWVzc2FnZToKCmlmICh0c3RfY2hlY2tfZHJpdmVyKCJzY3Rw
-IikpCgl0c3RfYnJrbShUQ09ORiwgdHN0X2V4aXQsICJzY3RwIGRyaXZlciBub3QgYXZhaWxhYmxl
-Iik7CgpPciBkbyB5b3UgaGF2ZSBhIGJldHRlciBpZGVhPwpJIHN1cHBvc2UgdGhlIGJlc3Qgc2hv
-dWxkIGJlIHRvIHVwZGF0ZSB0aGVtIHRvIHRoZSBuZXcgQVBJLgoKUmVnYXJkcywKCkvDtnJ5Cgot
-LSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRw
-Cg==
+Hi Kory,
+
+thanks, merged!
+
+Kind regards,
+Petr
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
