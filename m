@@ -2,40 +2,72 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 093B52E02CA
-	for <lists+linux-ltp@lfdr.de>; Tue, 22 Dec 2020 00:05:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 438E92E05D4
+	for <lists+linux-ltp@lfdr.de>; Tue, 22 Dec 2020 06:49:21 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 32BFD3C574C
-	for <lists+linux-ltp@lfdr.de>; Tue, 22 Dec 2020 00:05:42 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id B1A983C2998
+	for <lists+linux-ltp@lfdr.de>; Tue, 22 Dec 2020 06:49:20 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 1F2833C2965
- for <ltp@lists.linux.it>; Tue, 22 Dec 2020 00:05:34 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 153933C25D9
+ for <ltp@lists.linux.it>; Tue, 22 Dec 2020 06:49:18 +0100 (CET)
+Received: from mail-pj1-x1031.google.com (mail-pj1-x1031.google.com
+ [IPv6:2607:f8b0:4864:20::1031])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 5F9BB1000B60
- for <ltp@lists.linux.it>; Tue, 22 Dec 2020 00:05:34 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 8FAD9AC93;
- Mon, 21 Dec 2020 23:05:33 +0000 (UTC)
-Date: Tue, 22 Dec 2020 00:05:31 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Tushar Sugandhi <tusharsu@linux.microsoft.com>
-Message-ID: <20201221230531.GD4453@pevik>
-References: <20200928035605.22701-1-tusharsu@linux.microsoft.com>
- <20200928035605.22701-2-tusharsu@linux.microsoft.com>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id DD22B200C7C
+ for <ltp@lists.linux.it>; Tue, 22 Dec 2020 06:49:17 +0100 (CET)
+Received: by mail-pj1-x1031.google.com with SMTP id lj6so738301pjb.0
+ for <ltp@lists.linux.it>; Mon, 21 Dec 2020 21:49:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=klQo68XAK+45uUn+o27qnV+eWqW/PbitHxvSGgxsS1E=;
+ b=EwIXkBksT+hhR1RqmAWvY28Ye0QmFCKRlQf7YeXO89rh+EA8YX7qdQCnwwNI2i7HPM
+ RXIrdRS4FiluWzsEfj1JMKcihwOrcjrLkvv6ElyfoSLguLVhXHzfKfkH2YhjSgYi6abQ
+ 8kt1+RSU1bEoZE7s7Nw1vM4IA1ojXjQowb7i/cAzvSEnj4Q5L6zOnTvYUlAGy1CYFa1Q
+ qgrLWGvB8ZiIqRTtMpomkxb7PsW9z/Pe3e78p1DXfXmJBUODjtFrWzV7O5qMgqCV4LUr
+ B9yR7JVbflcHOsF1okYxDV0Yf4u1yFE9NJJFnF7RWUNecrC+x5hmP5M+LNn31OhF5aEz
+ F2rw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=klQo68XAK+45uUn+o27qnV+eWqW/PbitHxvSGgxsS1E=;
+ b=Tzp9kt/gNSRkQOAzJLy9DXxrr/CUzVtHpNHP1vzKl9VvWBuLCt8Gb7BxlHVtyv1viz
+ r/xde9BmzUMMcDCb+d5Y/2IIuj4GTwX1V1DIaZsFjEHlsPvqCZlN3dEmTKzA2tVCEYTC
+ 2fyndBl4qhon0g65PCVyrT7HQR0rSvqst9id9aYoAEROKcsd+YFllXf12A5oOGM3MZ/m
+ p1T1l0qZ1Hd2IEriGJSSyiM+z/xYBITrWdZ4746wn7MHNO8/jb7LWQMsd1y6voMRyT9J
+ 2J1IC84uaubmEU1ygJWqfS28pQBkQDq+c9GQZ13c3RzR7pux0qRSl1R4lYjaKkaB/z7G
+ XGdg==
+X-Gm-Message-State: AOAM533n/dpHdmd8/rybAeAOZeFu+/c9h65Y9nAUx2NsJqRnqMUiJcPC
+ 1AbgoVP2Zgq6xCBTw5kb/1FLcXgh1mHcfQ==
+X-Google-Smtp-Source: ABdhPJzVO5pQLhUa3O6OC2ps03Cg3N/mY5uSgDkSm8jkMcDfOKd2BVQDolmFGhEnx4qpQiZyx6qVLQ==
+X-Received: by 2002:a17:90b:1945:: with SMTP id
+ nk5mr20363304pjb.30.1608616156273; 
+ Mon, 21 Dec 2020 21:49:16 -0800 (PST)
+Received: from bj10039pcu.spreadtrum.com ([117.18.48.82])
+ by smtp.gmail.com with ESMTPSA id t22sm18201068pgm.18.2020.12.21.21.49.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 21 Dec 2020 21:49:15 -0800 (PST)
+From: gengcixi@gmail.com
+To: ltp@lists.linux.it,
+	pvorel@suse.cz,
+	chrubis@suse.cz
+Date: Tue, 22 Dec 2020 13:48:37 +0800
+Message-Id: <20201222054841.736529-1-gengcixi@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200928035605.22701-2-tusharsu@linux.microsoft.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 1/2] IMA: generalize key measurement tests
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH 0/4] add compiled_module_files into gitignore
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,280 +79,36 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: snitzer@redhat.com, nramas@linux.microsoft.com, dm-devel@redhat.com,
- ltp@lists.linux.it, linux-integrity@vger.kernel.org, gmazyland@gmail.com,
- agk@redhat.com
+Cc: orsonzhai@gmail.com, Cixi Geng <cixi.geng1@unisoc.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Tushar,
+From: Cixi Geng <cixi.geng1@unisoc.com>
 
-I'm very sorry about the delay. I'll finish this review in January,
-here just some quick thoughts (minor style nits, I'll fix it before merge).
+*** BLURB HERE ***
+Use Out-of-build-tree build ltp, When compile kernel module 
+under these directories, some module-build-file wil generated.
+add these files into .gitinore
 
-Generally LGTM, thanks for your work.
+Cixi Geng (4):
+  delete_module: add gitignore file
+  init_module: add gitignore file
+  insmod:add gitignore files
+  lsmod: add gitignore files
 
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
+ testcases/commands/insmod/.gitignore               |  9 +++++++++
+ testcases/commands/lsmod/.gitignore                |  9 +++++++++
+ testcases/kernel/syscalls/delete_module/.gitignore | 11 +++++++++--
+ testcases/kernel/syscalls/init_module/.gitignore   |  8 ++++++++
+ 4 files changed, 35 insertions(+), 2 deletions(-)
+ create mode 100644 testcases/commands/insmod/.gitignore
+ create mode 100644 testcases/commands/lsmod/.gitignore
 
-> New functionality is being added in IMA to measure data provided by
-> kernel components. Tests have to be added in LTP to validate this new
-> feature. The functionality in ima_keys.sh can be reused to test this new
-> feature if it is made generic.
+-- 
+2.25.1
 
-> Refactor check_keys_policy() and test1() implemented in ima_keys.sh to
-> make it generic, and move the functionality to ima_setup.sh as new
-> functions - check_policy_pattern() and check_ima_ascii_log_for_policy().
-
-> Signed-off-by: Tushar Sugandhi <tusharsu@linux.microsoft.com>
-> ---
->  .../security/integrity/ima/tests/ima_keys.sh  | 62 +++------------
->  .../security/integrity/ima/tests/ima_setup.sh | 79 +++++++++++++++++++
->  2 files changed, 92 insertions(+), 49 deletions(-)
-
-> diff --git a/testcases/kernel/security/integrity/ima/tests/ima_keys.sh b/testcases/kernel/security/integrity/ima/tests/ima_keys.sh
-> index c9eef4b68..c2120358a 100755
-> --- a/testcases/kernel/security/integrity/ima/tests/ima_keys.sh
-> +++ b/testcases/kernel/security/integrity/ima/tests/ima_keys.sh
-> @@ -6,7 +6,7 @@
-
->  # Verify that keys are measured correctly based on policy.
-
-> -TST_NEEDS_CMDS="cmp cut grep sed xxd"
-> +TST_NEEDS_CMDS="cmp cut grep xxd"
-It still requires sed, it's just hidden in check_ima_ascii_log_for_policy
-
-Maybe just put at the top of check_ima_ascii_log_for_policy():
-tst_require_cmds cut grep sed xxd
-
-And here still keep
-TST_NEEDS_CMDS="cmp cut grep tail xxd"
-
-This leads to duplicity in check, but it will not lead to hidden "command not
-found".
-
->  TST_CNT=2
->  TST_NEEDS_DEVICE=1
->  TST_SETUP=setup
-> @@ -28,64 +28,28 @@ cleanup()
->  	tst_is_num $KEYRING_ID && keyctl clear $KEYRING_ID
->  }
-
-> -check_keys_policy()
-> -{
-> -	local pattern="$1"
-> -
-> -	if ! grep -E "$pattern" $TST_TMPDIR/policy.txt; then
-> -		tst_res TCONF "IMA policy must specify $pattern, $FUNC_KEYCHECK, $TEMPLATE_BUF"
-> -		return 1
-> -	fi
-> -	return 0
-> -}
-> -
->  # Based on https://lkml.org/lkml/2019/12/13/564.
->  # (450d0fd51564 - "IMA: Call workqueue functions to measure queued keys")
-OK, it has been merged in v5.6-rc1. Any more relevant commits, changes since
-then?
-
->  test1()
->  {
->  	local keycheck_lines i keyrings templates
->  	local pattern='keyrings=[^[:space:]]+'
-> -	local test_file="file.txt" tmp_file="file2.txt"
-> +	local policy="keyrings"
-> +	local tmp_file="$TST_TMPDIR/keycheck_tmp_file.txt"
-> +	local res
-Will be unused, see below.
-
->  	tst_res TINFO "verify key measurement for keyrings and templates specified in IMA policy"
-
-> -	check_keys_policy "$pattern" > $tmp_file || return
-> -	keycheck_lines=$(cat $tmp_file)
-> -	keyrings=$(for i in $keycheck_lines; do echo "$i" | grep "keyrings" | \
-> -		sed "s/\./\\\./g" | cut -d'=' -f2; done | sed ':a;N;$!ba;s/\n/|/g')
-> -	if [ -z "$keyrings" ]; then
-> -		tst_res TCONF "IMA policy has a keyring key-value specifier, but no specified keyrings"
-> -		return
-> -	fi
-> -
-> -	templates=$(for i in $keycheck_lines; do echo "$i" | grep "template" | \
-> -		cut -d'=' -f2; done | sed ':a;N;$!ba;s/\n/|/g')
-> -
-> -	tst_res TINFO "keyrings: '$keyrings'"
-> -	tst_res TINFO "templates: '$templates'"
-> -
-> -	grep -E "($templates).*($keyrings)" $ASCII_MEASUREMENTS | while read line
-> -	do
-> -		local digest expected_digest algorithm
-> -
-> -		digest=$(echo "$line" | cut -d' ' -f4 | cut -d':' -f2)
-> -		algorithm=$(echo "$line" | cut -d' ' -f4 | cut -d':' -f1)
-> -		keyring=$(echo "$line" | cut -d' ' -f5)
-> +	check_policy_pattern "$pattern" $FUNC_KEYCHECK $TEMPLATE_BUF > $tmp_file || return
-
-> -		echo "$line" | cut -d' ' -f6 | xxd -r -p > $test_file
-> +	res="$(check_ima_ascii_log_for_policy $policy $tmp_file)"
-
-> -		if ! expected_digest="$(compute_digest $algorithm $test_file)"; then
-> -			tst_res TCONF "cannot compute digest for $algorithm"
-> -			return
-> -		fi
-> -
-> -		if [ "$digest" != "$expected_digest" ]; then
-> -			tst_res TFAIL "incorrect digest was found for $keyring keyring"
-> -			return
-> -		fi
-> -	done
-> +	if [ "$res" = "0" ]; then
-> +		tst_res TPASS "specified keyrings were measured correctly"
-> +	else
-> +		tst_res TFAIL "failed to measure specified keyrings"
-> +	fi
-
-Instead of:
-       res="$(check_ima_ascii_log_for_policy $policy $tmp_file)"
-       if [ "$res" = "0" ]; then
-
-I'd prefer to have it as:
-       check_ima_ascii_log_for_policy $policy $tmp_file
-       if [ $? -eq 0 ]; then
-
-
-> -	tst_res TPASS "specified keyrings were measured correctly"
->  }
-
->  # Create a new keyring, import a certificate into it, and verify
-> @@ -97,11 +61,11 @@ test2()
->  	local cert_file="$TST_DATAROOT/x509_ima.der"
->  	local keyring_name="key_import_test"
->  	local pattern="keyrings=[^[:space:]]*$keyring_name"
-> -	local temp_file="file.txt"
-> +	local temp_file="$TST_TMPDIR/key_import_test_file.txt"
-
->  	tst_res TINFO "verify measurement of certificate imported into a keyring"
-
-> -	check_keys_policy "$pattern" >/dev/null || return
-> +	check_policy_pattern "$pattern" $FUNC_KEYCHECK $TEMPLATE_BUF >/dev/null || return
-
->  	KEYRING_ID=$(keyctl newring $keyring_name @s) || \
->  		tst_brk TBROK "unable to create a new keyring"
-> diff --git a/testcases/kernel/security/integrity/ima/tests/ima_setup.sh b/testcases/kernel/security/integrity/ima/tests/ima_setup.sh
-> index 1f17aa707..2841d7df5 100644
-> --- a/testcases/kernel/security/integrity/ima/tests/ima_setup.sh
-> +++ b/testcases/kernel/security/integrity/ima/tests/ima_setup.sh
-> @@ -54,6 +54,85 @@ compute_digest()
->  	return 1
->  }
-
-> +check_policy_pattern()
-> +{
-> +	local pattern="$1"
-> +	local func="$2"
-> +	local template="$3"
-> +
-> +	if ! grep -E "$pattern" $TST_TMPDIR/policy.txt; then
-> +		tst_res TCONF "IMA policy must specify $pattern, $func, $template"
-> +		return 1
-> +	fi
-> +	return 0
-> +}
-Probably ok for now (yes, it removes the duplicity with function used in two
-tests, it's very policy specific).
-
-> +
-> +check_ima_ascii_log_for_policy()
-> +{
-> +	local test_file="$TST_TMPDIR/ascii_log_test_file.txt"
-> +	local grep_file="$TST_TMPDIR/ascii_log_grep_file.txt"
-nit: Since the real description is in variable, I'd just use:
-
-local test_file="$TST_TMPDIR/test.txt"
-local grep_file="$TST_TMPDIR/grep.txt"
-
-> +	local func_lines sources templates i src 
-> +	local input_digest_res=1
-> +	local policy_option="$1"
-> +	local input_digest="$3"
-
-tst_require_cmds cut grep sed xxd
-> +
-> +	func_lines=$(cat $2)
-> +
-> +	sources=$(for i in $func_lines; do echo "$i" | grep "$policy_option" | \
-> +		sed "s/\./\\\./g" | cut -d'=' -f2; done | sed ':a;N;$!ba;s/\n/|/g')
-> +	if [ -z "$sources" ]; then
-> +		tst_res TCONF "IMA policy $policy_option is a key-value specifier, but no values specified"
-> +		echo "1"
-> +		return
-> +	fi
-> +
-> +	templates=$(for i in $func_lines; do echo "$i" | grep "template" | \
-> +		cut -d'=' -f2; done | sed ':a;N;$!ba;s/\n/|/g')
-> +
-> +	tst_res TINFO "policy sources: '$sources'"
-> +	tst_res TINFO "templates: '$templates'"
-> +
-> +	grep -E "($templates).*($sources)" $ASCII_MEASUREMENTS > $grep_file
-> +
-> +	while read line
-> +	do
-> +		local digest expected_digest algorithm
-> +
-> +		digest=$(echo "$line" | cut -d' ' -f4 | cut -d':' -f2)
-> +		algorithm=$(echo "$line" | cut -d' ' -f4 | cut -d':' -f1)
-> +		src_line=$(echo "$line" | cut -d' ' -f5)
-> +
-> +		echo "$line" | cut -d' ' -f6 | xxd -r -p > $test_file
-> +
-> +		if ! expected_digest="$(compute_digest $algorithm $test_file)"; then
-> +			tst_res TCONF "cannot compute digest for $algorithm"
-> +			echo "1"
-> +			return
-> +		fi
-> +
-> +		if [ "$digest" != "$expected_digest" ]; then
-> +			tst_res TINFO "incorrect digest was found for $src_line $policy_option"
-> +			echo "1"	
-> +			return
-> +		fi
-> +
-> +		if [ "$input_digest" ]; then
-> +			if [ "$digest" = "$input_digest" ]; then
-> +				input_digest_res=0
-> +			fi
-> +		fi
-I'd prefer it as single if:
-        if [ -n "$input_digest" -a "$digest" = "$input_digest" ]; then
-            input_digest_res=0
-        fi
-
-> +
-> +	done < $grep_file
-> +
-> +	if [ "$input_digest" ]; then
-> +		echo "$input_digest_res"
-> +		return
-this return is redundant.
-> +	else
-> +		echo "0"
-> +		return
-Also this one.
-
-> +	fi
-
-And actually, instead of whole if/else block wouldn't be just this enough?
-echo "$input_digest_res"
-
-Isn't it the zero value set in the loop at:
-
-        if [ -n "$input_digest" -a "$digest" = "$input_digest" ]; then
-            input_digest_res=0
-        fi
-
-Kind regards,
-Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
