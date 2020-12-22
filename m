@@ -2,73 +2,47 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB6FD2E05D9
-	for <lists+linux-ltp@lfdr.de>; Tue, 22 Dec 2020 06:49:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A38FE2E0765
+	for <lists+linux-ltp@lfdr.de>; Tue, 22 Dec 2020 09:48:51 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 637DB3C29B2
-	for <lists+linux-ltp@lfdr.de>; Tue, 22 Dec 2020 06:49:57 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 4E0B73C5975
+	for <lists+linux-ltp@lfdr.de>; Tue, 22 Dec 2020 09:48:51 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id 6DEB73C5718
- for <ltp@lists.linux.it>; Tue, 22 Dec 2020 06:49:33 +0100 (CET)
-Received: from mail-pg1-x530.google.com (mail-pg1-x530.google.com
- [IPv6:2607:f8b0:4864:20::530])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 121F6200B7C
- for <ltp@lists.linux.it>; Tue, 22 Dec 2020 06:49:33 +0100 (CET)
-Received: by mail-pg1-x530.google.com with SMTP id g18so7707031pgk.1
- for <ltp@lists.linux.it>; Mon, 21 Dec 2020 21:49:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=kX0LeosKEGswfeeJC+77CW+zhWd++dvVSxizUY+zfxU=;
- b=T83ghm8vov9vOW8ksZwnf1QKbAHRR8UxoEqr5qXeJlkPpTHjQ5Ei0vTcA/8pcV4e+s
- apsgJZD5UorYQ869SiwZYHEw5lcLRiNiOHcQd7+nC8YcT54ewCEPC43zcsgldpymUi/j
- 8ito/060+J7tR1cvRQfQlGUxgGgbMhr4J3ajDEwO4MkAHRnb8OrSNMOEiv/rQtu7fjJr
- nn5W73LOQJh9+jLGIZofi8dX2FmWNRoz+HkMbcGmscRUvQEsfSQyXNNe0B/NsZbqClkY
- GSR6/LJqUCIfbPt3mvnOxKY/rZc4F4we6woF5zPFS0wsRdln0aIa3Cw0BIsvQbps3H01
- LBvw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=kX0LeosKEGswfeeJC+77CW+zhWd++dvVSxizUY+zfxU=;
- b=SiJgrQdYfmCltOQhY10vohTEm/JjpopVKrxz7qxBITWP5YSI3t/geeH+eL/+Y9Z36c
- q53lrbeaWSq+/W1u/LJGnX05JbPz7NK6FPvqh4OqpjzWrYpfw+tndCNIR/KVqUIv0plb
- UDSmn6rQWzwwbi8d2qt1SlAJhanUgybq63KYIMqLSa/DZaQKzOTEh3AMIp3FHH8dRl41
- +b73D4qExdvlbQFNsCS61JTlC3tyFR0GjYQeGUBfE83TRMRvf7PGez/qZQc+9OisaHWB
- 9C4H9r5JaghprF7kDRlP5WtQ19QFjQFJNVHRYiOxpxxxDM3PsY9BTT76jZoX8Rlyuhm+
- 74OA==
-X-Gm-Message-State: AOAM532fkj/Mm2i7JJKfWsNYNXzoT0aTzgqrmeWJt3Yeh6mHcAZyHkho
- WBdhuwEBq+yakF29EZ3SXmQL3h0sTKXAbQ==
-X-Google-Smtp-Source: ABdhPJxbkqZxyPDc1+4Knk2oYAFbdxYCEYgeVPagtPN4PjaxroRda846u8iTrOVF1+QBsVnlNmkK9g==
-X-Received: by 2002:aa7:904b:0:b029:19e:c8a5:5154 with SMTP id
- n11-20020aa7904b0000b029019ec8a55154mr18859772pfo.41.1608616171371; 
- Mon, 21 Dec 2020 21:49:31 -0800 (PST)
-Received: from bj10039pcu.spreadtrum.com ([117.18.48.82])
- by smtp.gmail.com with ESMTPSA id t22sm18201068pgm.18.2020.12.21.21.49.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 21 Dec 2020 21:49:31 -0800 (PST)
-From: gengcixi@gmail.com
-To: ltp@lists.linux.it,
-	pvorel@suse.cz,
-	chrubis@suse.cz
-Date: Tue, 22 Dec 2020 13:48:41 +0800
-Message-Id: <20201222054841.736529-5-gengcixi@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20201222054841.736529-1-gengcixi@gmail.com>
-References: <20201222054841.736529-1-gengcixi@gmail.com>
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id 8E3043C2978
+ for <ltp@lists.linux.it>; Tue, 22 Dec 2020 09:48:42 +0100 (CET)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-6.smtp.seeweb.it (Postfix) with ESMTP id C3199140119D
+ for <ltp@lists.linux.it>; Tue, 22 Dec 2020 09:48:41 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.78,438,1599494400"; d="scan'208";a="102815339"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 22 Dec 2020 16:48:35 +0800
+Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
+ by cn.fujitsu.com (Postfix) with ESMTP id EEF554CE6018
+ for <ltp@lists.linux.it>; Tue, 22 Dec 2020 16:48:30 +0800 (CST)
+Received: from RHEL74GA.g08.fujitsu.local (10.167.220.48) by
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Tue, 22 Dec 2020 16:48:29 +0800
+From: Feiyu Zhu <zhufy.jy@cn.fujitsu.com>
+To: <ltp@lists.linux.it>
+Date: Tue, 22 Dec 2020 03:48:26 -0500
+Message-ID: <1608626908-8117-1-git-send-email-zhufy.jy@cn.fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Originating-IP: [10.167.220.48]
+X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
+X-yoursite-MailScanner-ID: EEF554CE6018.AAC73
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: zhufy.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.4
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH 4/4] lsmod: add gitignore files
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/3] Add SAFE_SEMCTL() and SAFE_SEMGET() macro
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,49 +54,117 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: orsonzhai@gmail.com, Cixi Geng <cixi.geng1@unisoc.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-From: Cixi Geng <cixi.geng1@unisoc.com>
-
-add compile module generate files into .gitignore
-
-file:
-	testcases/commands/lsmod/.built-in.a.cmd
-	testcases/commands/lsmod/.ltp_lsmod01.ko.cmd
-	testcases/commands/lsmod/.ltp_lsmod01.mod.cmd
-	testcases/commands/lsmod/.ltp_lsmod01.mod.o.cmd
-	testcases/commands/lsmod/.ltp_lsmod01.o.cmd
-	testcases/commands/lsmod/Module.symvers
-	testcases/commands/lsmod/ltp_lsmod01.mod.c
-	testcases/commands/lsmod/modules.order
-
-Signed-off-by: Cixi Geng <cixi.geng1@unisoc.com>
+Signed-off-by: Feiyu Zhu <zhufy.jy@cn.fujitsu.com>
 ---
- testcases/commands/lsmod/.gitignore | 9 +++++++++
- 1 file changed, 9 insertions(+)
- create mode 100644 testcases/commands/lsmod/.gitignore
+ include/tst_safe_sysv_ipc.h | 14 +++++++++++++
+ lib/tst_safe_sysv_ipc.c     | 48 +++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 62 insertions(+)
 
-diff --git a/testcases/commands/lsmod/.gitignore b/testcases/commands/lsmod/.gitignore
-new file mode 100644
-index 000000000..0e19fb3fd
---- /dev/null
-+++ b/testcases/commands/lsmod/.gitignore
-@@ -0,0 +1,9 @@
-+*.ko
-+*.mod.c
-+*.ko.cmd
-+*.mod.cmd
-+*.mod.o.cmd
-+*.o.cmd
-+.built-in.a.cmd
-+Module.symvers
-+modules.order
+diff --git a/include/tst_safe_sysv_ipc.h b/include/tst_safe_sysv_ipc.h
+index 3e0e50e..bb65326 100644
+--- a/include/tst_safe_sysv_ipc.h
++++ b/include/tst_safe_sysv_ipc.h
+@@ -9,6 +9,7 @@
+ #include <sys/ipc.h>
+ #include <sys/msg.h>
+ #include <sys/shm.h>
++#include <sys/sem.h>
+ 
+ int safe_msgget(const char *file, const int lineno, key_t key, int msgflg);
+ #define SAFE_MSGGET(key, msgflg) \
+@@ -51,4 +52,17 @@ int safe_shmctl(const char *file, const int lineno, int shmid, int cmd,
+ 	(shmid) = ((cmd) == IPC_RMID ? -1 : (shmid)); \
+ 	tst_ret_;})
+ 
++int safe_semget(const char *file, const int lineno, key_t key, int nsems,
++		int semflg);
++#define SAFE_SEMGET(key, nsems, semflg) \
++	safe_semget(__FILE__, __LINE__, (key), (nsems), (semflg))
++
++int safe_semctl(const char *file, const int lineno, int semid, int semnum,
++		int cmd, ...);
++#define SAFE_SEMCTL(semid, semnum, cmd, ...) ({ \
++	int tst_ret_ = safe_semctl(__FILE__, __LINE__, (semid), (semnum), \
++				(cmd), ##__VA_ARGS__); \
++	(semid) = ((cmd) == IPC_RMID ? -1 : (semid)); \
++	tst_ret_; })
++
+ #endif /* TST_SAFE_SYSV_IPC_H__ */
+diff --git a/lib/tst_safe_sysv_ipc.c b/lib/tst_safe_sysv_ipc.c
+index 155e03b..3bad219 100644
+--- a/lib/tst_safe_sysv_ipc.c
++++ b/lib/tst_safe_sysv_ipc.c
+@@ -7,9 +7,11 @@
+ #include <sys/ipc.h>
+ #include <sys/msg.h>
+ #include <sys/shm.h>
++#include <sys/sem.h>
+ #define TST_NO_DEFAULT_MAIN
+ #include "tst_test.h"
+ #include "tst_safe_sysv_ipc.h"
++#include "lapi/semun.h"
+ 
+ /*
+  * The IPC_STAT, IPC_SET and IPC_RMID can return either 0 or -1.
+@@ -175,3 +177,49 @@ int safe_shmctl(const char *file, const int lineno, int shmid, int cmd,
+ 
+ 	return rval;
+ }
++
++int safe_semget(const char *file, const int lineno, key_t key, int nsems,
++		int semflg)
++{
++	int rval;
++
++	rval = semget(key, nsems, semflg);
++
++	if (rval == -1) {
++		tst_brk_(file, lineno, TBROK | TERRNO,
++			"semget(%i, %i, %x) failed", (int)key, nsems, semflg);
++	} else if (rval < 0) {
++		tst_brk_(file, lineno, TBROK | TERRNO,
++			"Invalid semget(%i, %i, %x) return value %d",
++			(int)key, nsems, semflg, rval);
++	}
++
++	return rval;
++}
++
++int safe_semctl(const char *file, const int lineno, int semid, int semnum,
++		int cmd, ...)
++{
++	int rval;
++	va_list va;
++	union semun un;
++
++	va_start(va, cmd);
++
++	un = va_arg(va, union semun);
++
++	va_end(va);
++
++	rval = semctl(semid, semnum, cmd, un);
++
++	if (rval == -1) {
++		tst_brk_(file, lineno, TBROK | TERRNO,
++		"semctl(%i, %i, %i,...) failed", semid, semnum, cmd);
++	} else if (ret_check(cmd, rval)) {
++		tst_brk_(file, lineno, TBROK | TERRNO,
++			"Invalid semctl(%i, %i, %i,...) return value %d", semid,
++			semnum, cmd, rval);
++	}
++
++	return rval;
++}
 -- 
-2.25.1
+1.8.3.1
+
+
 
 
 -- 
