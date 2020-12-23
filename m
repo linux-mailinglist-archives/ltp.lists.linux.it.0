@@ -2,52 +2,109 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C94C2E1A38
-	for <lists+linux-ltp@lfdr.de>; Wed, 23 Dec 2020 09:57:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A61C2E1BCE
+	for <lists+linux-ltp@lfdr.de>; Wed, 23 Dec 2020 12:24:28 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DA7B93C2DBC
-	for <lists+linux-ltp@lfdr.de>; Wed, 23 Dec 2020 09:57:30 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id D9A783C322B
+	for <lists+linux-ltp@lfdr.de>; Wed, 23 Dec 2020 12:24:27 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id C863D3C296E
- for <ltp@lists.linux.it>; Wed, 23 Dec 2020 09:57:29 +0100 (CET)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-6.smtp.seeweb.it (Postfix) with ESMTP id 677241400DA9
- for <ltp@lists.linux.it>; Wed, 23 Dec 2020 09:57:27 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.78,441,1599494400"; d="scan'208";a="102862152"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 23 Dec 2020 16:57:26 +0800
-Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id F37694CE6023
- for <ltp@lists.linux.it>; Wed, 23 Dec 2020 16:57:23 +0800 (CST)
-Received: from [10.167.220.84] (10.167.220.84) by
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Wed, 23 Dec 2020 16:57:23 +0800
-Message-ID: <5FE30676.8060004@cn.fujitsu.com>
-Date: Wed, 23 Dec 2020 16:57:26 +0800
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
- rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id 4E7A23C23E1
+ for <ltp@lists.linux.it>; Wed, 23 Dec 2020 12:24:25 +0100 (CET)
+Received: from IND01-BO1-obe.outbound.protection.outlook.com
+ (mail-eopbgr1390120.outbound.protection.outlook.com [40.107.139.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 4F1E61A013AA
+ for <ltp@lists.linux.it>; Wed, 23 Dec 2020 12:24:24 +0100 (CET)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=bhjh+a/i5Av8VXnVzNBynqZ33S/i/zzmhmXvHbpArw1WRa15IkJAQfyD8mNR0H07n+SDHJV/6da0uLBm6ARLlQ++dV8EoDkFS0Mu4rW7HkJkYiFw0rE9O2z2KBbtkT5Se4isn9HaOTNT18JtaxncabXyKuLsDL8rw9j+etFq1qMSXZWLibpbkqWRmMRVplVNfNFe0xgVUFDPSsiIfz+BP6+XXJZYpWcE3W9Je7pwgOYBcjBeISqqMkBHWSmuPvRffibqEsu42180fC1rIvjNzHw0tVPTNOGEPb/0Mb2kMw5ETR6Z6cyEIDA2pYZrpslUr7Ps55QJK6skxUO5huWtVQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=m2H7h8EC0LjlJqjIWcWYOM3Xn4Yz95FEjSOfYiJEYvE=;
+ b=kFNuelsft0o+WjboA7jlhbd1nG4PKlMmvlWH++E8acvh2xPcf1F8W84So3Cic6LFy4GTVb4mte2d8PkiVzfcM5Z5slmSdxapV5SUoQ89X2OvFzT+7Fn+KkTc8qFd/NKPZyCy/HCnXrZbltZEBKrgXnQu4Tf6oZv1WA0Lo7LABqHUqtBjyX8vEOMPBzgcEM9RZ9vppsVzaY8KL5k52xH4ls97Y4jrhshPj1NCr5Dt5Qc2e0tQ7DNxXUrSM0UXQYC8iUKL5qrVnurA/j06o7Upjnn9/CCvmuM5UgOMbD/0WYU8lbWmNc3J9CqQLrdx3EkhMXBc67M/zhuloyH5GCGhKQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=exaleapsemi.com; dmarc=pass action=none
+ header.from=exaleapsemi.com; dkim=pass header.d=exaleapsemi.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=exaleapsemi.onmicrosoft.com; s=selector2-exaleapsemi-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=m2H7h8EC0LjlJqjIWcWYOM3Xn4Yz95FEjSOfYiJEYvE=;
+ b=2bW6RNtw15OLoP8OG9VCs9Q4bVw4E6/R62owIjeuT7VrQEjmnGAHVcReisq9nIyuo9LYdIvp91PEmGk49hGjJfPvGPj9MVaHPPsJKyEPPMw6q8ydaumHIIRCBEP+99g3brHTYQC8VLkCkPEEX9PNejIqIaFLUAwxw26V3RAS0x8=
+Received: from BM1PR01MB3825.INDPRD01.PROD.OUTLOOK.COM (2603:1096:b00:6c::15)
+ by BM1PR01MB3955.INDPRD01.PROD.OUTLOOK.COM (2603:1096:b00:6d::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3676.25; Wed, 23 Dec
+ 2020 11:24:21 +0000
+Received: from BM1PR01MB3825.INDPRD01.PROD.OUTLOOK.COM
+ ([fe80::3cef:d382:53f0:1445]) by BM1PR01MB3825.INDPRD01.PROD.OUTLOOK.COM
+ ([fe80::3cef:d382:53f0:1445%7]) with mapi id 15.20.3676.033; Wed, 23 Dec 2020
+ 11:24:21 +0000
+From: "Pankaj  Vinadrao Joshi" <Pankaj.VJ@exaleapsemi.com>
+To: "ltp@lists.linux.it" <ltp@lists.linux.it>
+Thread-Topic: Query: LTP CVE test cherry picking 
+Thread-Index: AQHW2R1eiZzC5HALUEeymFDhLwxYlA==
+Date: Wed, 23 Dec 2020 11:24:21 +0000
+Message-ID: <BM1PR01MB3825BDAFB8CB55CA9C46F1D8EEDE0@BM1PR01MB3825.INDPRD01.PROD.OUTLOOK.COM>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: lists.linux.it; dkim=none (message not signed)
+ header.d=none;lists.linux.it; dmarc=none action=none
+ header.from=exaleapsemi.com;
+x-originating-ip: [14.98.179.254]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 155fe71b-7059-45d1-12fd-08d8a7354baf
+x-ms-traffictypediagnostic: BM1PR01MB3955:
+x-microsoft-antispam-prvs: <BM1PR01MB39551BBFC961CA901F238371EEDE0@BM1PR01MB3955.INDPRD01.PROD.OUTLOOK.COM>
+x-ms-oob-tlc-oobclassifiers: OLM:3513;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: YwE+9j5JbfQlWyHgkOjx7bM1LXdNVG3CoGDMx5b1VJCEqyHQuY6MJofoyz5TGeKfHeYjANd0GwMRMsp1T1SknwsW9gbpEdPverrARyfpVgAfACSy2Yg0B7+33rln59vKpvZ1CqJhi1taipY1ldgMQFmdkdcq9p4RJiajwwx5qR6ETjvsvFVN/AQhwHXbOihc0JjnHSxzGD8wIRlqnoL/X3Ss/tTTI+FhOCi8EJey6YJENLY8PZnVK8Bk8uh4vd7ZLIoNcc/6c2jYYS3VmUudW/kuobeFu9T/gakVha6yfsaOSmw3cQL0V7uBtI6vel1uG1nnmEOIp7OZ+jko8XkZOHHgyE9yY0I/tcI4B7h/yPvejW0FMeiTBhg3W0lWHTwLETfjP66ioL3RBwraMdoCBw==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BM1PR01MB3825.INDPRD01.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(366004)(396003)(346002)(376002)(39830400003)(136003)(9686003)(55016002)(6506007)(55236004)(33656002)(478600001)(5660300002)(8936002)(7696005)(186003)(6916009)(8676002)(4743002)(558084003)(52536014)(26005)(66946007)(2906002)(66556008)(86362001)(19627405001)(71200400001)(316002)(76116006)(64756008)(66476007)(66446008);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata: =?iso-8859-1?Q?vRJrs5N1OLbyZHqVKkCAEQP0vW5e0G89xESmVePGoHyctV7M7BuP4E92He?=
+ =?iso-8859-1?Q?NK9BygiqkgE1Tb0tHEiDeMhJpb/LVyl5b9BRZgNYTwwiFWm/FpCjpf2BYo?=
+ =?iso-8859-1?Q?DbXQqqY9/NkeS6vk8xnaHo/WqJgjpy0VEk93tR5tSt4pnRwtcSEHB+dMUM?=
+ =?iso-8859-1?Q?LX1kTf9Bb6BhTP84I8emaJLWTaG0sX+n275vxufC8l7LnIjjmyN1zOGXD0?=
+ =?iso-8859-1?Q?SzqUIFlzyodP2ldKkkCWAer4frSGn70/BrYr2RMgQPB81hfEStAAHD7bm7?=
+ =?iso-8859-1?Q?o0/lqsuW6CSdlFrJr2ZJFdx7bkeVAb3/gmzziFg5wZyEg1pNfe7+zBitwS?=
+ =?iso-8859-1?Q?rxZzhXb1hJs4eChU0+riW2iYpqLCVPDq9CHSMwWbqHTXHe5oJxVdgCFSaq?=
+ =?iso-8859-1?Q?JpvVbLNDNbMzAp2qKLm3QVqb/Buum+nUqzuqQdQnV6xM+8J9AXNIbIPYDV?=
+ =?iso-8859-1?Q?244wlOCw1nb6YSlFP7Y8uQ0QGmHhokzAfsGQ3U7Yy7OaUmGirS+1M7DC/c?=
+ =?iso-8859-1?Q?flYhS0CAA2mDXmP5WtidsznWzV6OItL/1MqUWz+0EMUjbbJ09w8qozon9P?=
+ =?iso-8859-1?Q?3v29clyWxvBcD8fetOy7SSI1Jkm0F0Lg5Pd0IErBcy5Qx07agDwZWbpHHP?=
+ =?iso-8859-1?Q?7DUOfONM0Iepcg67jPJ5RtVXE5wNF235pBapru4i5X+OMJglAJr1Ts7fqd?=
+ =?iso-8859-1?Q?PNoJmVBQ+vec5StSMgrYUI+luMN4qZ2BDF8+oXMm7kfrRjxoOUowwhxYzG?=
+ =?iso-8859-1?Q?ef15L1risKyiv9BKA0hqW7Cku0USpT4FCy4lMepn7VT/+cBzUBm8pXdw5S?=
+ =?iso-8859-1?Q?IunUhqmwA5SDDpNWgXZE5irj7GkXye1hnslPvT7NseGjy4fP4u6O88uGH4?=
+ =?iso-8859-1?Q?Cu9hwkDUWOqWx6OOgig6tpuxgPEpU4UP+jI9WKaA1y1FlloqudZAvYoIuy?=
+ =?iso-8859-1?Q?We3VsIjV74D/t0xhLszz4kcs21EakMB9wtUC6UBtUuXwGA98DPIzEZvT2+?=
+ =?iso-8859-1?Q?ZWPsm0AgoOAlVO2mI=3D?=
+x-ms-exchange-transport-forked: True
 MIME-Version: 1.0
-To: Feiyu Zhu <zhufy.jy@cn.fujitsu.com>
-References: <1608626908-8117-1-git-send-email-zhufy.jy@cn.fujitsu.com>
- <1608626908-8117-3-git-send-email-zhufy.jy@cn.fujitsu.com>
-In-Reply-To: <1608626908-8117-3-git-send-email-zhufy.jy@cn.fujitsu.com>
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: F37694CE6023.AC95C
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=-2.1 required=7.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.4
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-OriginatorOrg: exaleapsemi.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BM1PR01MB3825.INDPRD01.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: 155fe71b-7059-45d1-12fd-08d8a7354baf
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Dec 2020 11:24:21.6715 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 34df156e-9bc4-4450-9e80-487c0e7f9471
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: vj9nNt4QdHqf7j19fLjbEng+AtjmtfqpnqdrhVw/lpLEscsFN7zMIpPoycQWe2fgHEtO4MOX/tdPD+Kq3XR8QOMHZwz+CWHKzIwvGqRGBhM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BM1PR01MB3955
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 3/3] syscalls/ipc: semctl09: add a test for
- SEM_STAT_ANY
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HTML_MESSAGE,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] Query: LTP CVE test cherry picking
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,173 +116,70 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============1759072960=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Feiyu
+--===============1759072960==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BM1PR01MB3825BDAFB8CB55CA9C46F1D8EEDE0BM1PR01MB3825INDP_"
 
-> +#include<stdio.h>
-> +#include<pwd.h>
-> +#include<sys/sem.h>
-> +#include "tst_test.h"
-> +#include "tst_safe_sysv_ipc.h"
-> +#include "libnewipc.h"
-> +#include "lapi/semun.h"
-> +#include "lapi/sem.h"
-I doubt do we really need two lapi headers, maybe we can remove semun.h 
-and remove union struct definition into lapi/sem.h.
-> +#include "lapi/syscalls.h"
-> +
-> +static int sem_id = -1;
-> +static uid_t nobody_uid, root_uid;
-> +static union semun un;
-> +
-> +static inline int tst_sys_semctl(int semid, int semnum, int cmd)
-> +{
-> +	return tst_syscall(__NR_semctl, semid, semnum, cmd,&un.buf);
-It looks like semctl man-pages has wrong description. We should use 
-sem_ds struct instead of seminfo struct. I have sent a patch[1] to 
-man-pages community.
+--_000_BM1PR01MB3825BDAFB8CB55CA9C46F1D8EEDE0BM1PR01MB3825INDP_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-[1]https://github.com/linux-mailinglist-archives/linux-man.vger.kernel.org.0/commit/f2bda64c45a38ba7c895716908321f34ddd25cdc
-> +}
-> +
-> +static inline int tst_semctl(int semid, int semnum, int cmd)
-> +{
-> +	return semctl(semid, semnum, cmd,&un.buf);
-> +}
-> +
-Since we test glibc and syscall,  I think we should use test_variants 
-like semop case.
-> +static struct tcases {
-> +	uid_t *uid;
-> +	int (*test_semctl) ();
-> +	char *desc;
-> +} tests[] = {
-> +	{&nobody_uid, tst_sys_semctl, "with nobody user by syscall()",},
-> +	{&nobody_uid, tst_semctl, "with nobody user",},
-> +	{&root_uid, tst_sys_semctl, "with root user by syscall()",},
-> +	{&root_uid, tst_semctl, "with root user",}
-> +};
-> +
-> +static void parse_proc_sysvipc(struct seminfo *info)
-> +{
-> +	FILE *f = fopen("/proc/sysvipc/sem", "r");
-> +	int semset_cnt = 0;
-> +	int sem_cnt = 0;
-> +
-> +	/* Eat header */
-> +	for (;;) {
-> +		int c = fgetc(f);
-> +
-> +		if (c == '\n' || c == EOF)
-> +			break;
-> +	}
-> +
-> +	int nsems;
-> +	/*
-> +	 * Sum sem set, nsems for all elements listed, which should equal
-> +	 * the data returned in the seminfo structure.
-> +	 */
-> +	while (fscanf(f, "%*i %*i %*i %i %*i %*i %*i %*i %*i %*i",
-> +		&nsems)>  0){
-> +		semset_cnt++;
-> +		sem_cnt += nsems;
-> +	}
-> +
-> +	if (info->semusz != semset_cnt) {
-> +		tst_res(TFAIL, "semusz = %i, expected %i",
-> +				info->semusz, semset_cnt);
-> +	} else {
-> +		tst_res(TPASS, "semset_cnt = %i", semset_cnt);
-> +	}
-> +
-> +	if (info->semaem != sem_cnt) {
-> +		tst_res(TFAIL, "semaem = %i, expected %i",
-> +				info->semaem, sem_cnt);
-> +	} else {
-> +		tst_res(TPASS, "sen_cnt = %i", sem_cnt);
-> +	}
-> +
-> +	fclose(f);
-> +}
-> +
-> +static void verify_semctl(unsigned int n)
-> +{
-> +	struct tcases *tc =&tests[n];
-> +	int i, semid, cnt = 0;
-> +	struct seminfo info;
-> +	union semun arg;
-> +
-> +	tst_res(TINFO, "Test SEM_STAT_ANY %s", tc->desc);
-> +
-> +	SAFE_SETEUID(*tc->uid);
-> +
-> +	arg.__buf =&info;
-> +
-> +	TEST(semctl(sem_id, 0, SEM_INFO, arg));
-> +
-> +	if (TST_RET == -1) {
-> +		tst_res(TFAIL | TTERRNO, "semctl(sem_id, 0, SEM_INFO, ...)");
-> +		return;
-> +	}
-> +
-> +	semid = (*tc->test_semctl) (TST_RET, 0, SEM_STAT_ANY);
-> +
-> +	if (errno == EFAULT) {
-> +		tst_res(TFAIL, "SEM_STAT_ANY doesn't pass the buffer "
-> +				"specified by the caller to kernel");
-> +		return;
-> +	} else if (semid == -1) {
-> +		tst_res(TFAIL | TTERRNO, "SEM_INFO haven't returned a valid index");
-> +	} else {
-> +		tst_res(TPASS, "SEM_INFO returned valid index %li to semid %i",
-> +			TST_RET, semid);
-> +	}
-> +
-> +	for (i = 0; i<= TST_RET; i++) {
-> +		if (((*tc->test_semctl) (i, 0, SEM_STAT_ANY)) != -1)
-> +			cnt++;
-> +	}
-> +
-> +	if (cnt == info.semusz) {
-> +		tst_res(TPASS, "Counted used = %i", cnt);
-> +	} else {
-> +		tst_res(TFAIL, "Counted used = %i, semuse = %i",
-> +			cnt, info.semusz);
-> +	}
-> +
-> +	parse_proc_sysvipc(&info);
-> +}
-> +
-> +static void setup(void)
-> +{
-> +	struct passwd *ltpuser = SAFE_GETPWNAM("nobody");
-> +	nobody_uid = ltpuser->pw_uid;
-> +	root_uid = 0;
-> +
-> +	sem_id = SAFE_SEMGET(IPC_PRIVATE, 2, IPC_CREAT | 0600);
-> +}
-> +
-> +static void cleanup(void)
-> +{
-> +	if (sem_id>= 0)
-> +		SAFE_SEMCTL(sem_id, 0, IPC_RMID);
-> +}
-> +
-> +static struct tst_test test = {
-> +	.setup = setup,
-> +	.cleanup = cleanup,
-> +	.test = verify_semctl,
-> +	.tcnt = ARRAY_SIZE(tests),
-> +	.needs_root = 1,
-> +};
+Hi,
+I know LTP covers CVE tests but i want to know does LTP covers all CVE test=
+s, how  LTP cherry picks it ??
 
 
+Thanks!
+
+--_000_BM1PR01MB3825BDAFB8CB55CA9C46F1D8EEDE0BM1PR01MB3825INDP_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Hi,</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+I know LTP covers CVE tests but i want to know does LTP covers all CVE test=
+s, how&nbsp; LTP cherry picks it ??</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Thanks!<br>
+</div>
+</body>
+</html>
+
+--_000_BM1PR01MB3825BDAFB8CB55CA9C46F1D8EEDE0BM1PR01MB3825INDP_--
+
+--===============1759072960==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============1759072960==--
