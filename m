@@ -1,121 +1,77 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72E452E7B16
-	for <lists+linux-ltp@lfdr.de>; Wed, 30 Dec 2020 17:36:40 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id ADCDD2E7DD1
+	for <lists+linux-ltp@lfdr.de>; Thu, 31 Dec 2020 04:01:48 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 10B3C3C5596
-	for <lists+linux-ltp@lfdr.de>; Wed, 30 Dec 2020 17:36:40 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 66DD33C559B
+	for <lists+linux-ltp@lfdr.de>; Thu, 31 Dec 2020 04:01:48 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id A2ED93C558E
- for <ltp@lists.linux.it>; Wed, 30 Dec 2020 17:36:37 +0100 (CET)
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.109.102])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
- (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id F2FEE1A00E38
- for <ltp@lists.linux.it>; Wed, 30 Dec 2020 17:36:36 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com;
- s=mimecast20200619; t=1609346196;
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id DEC273C2612
+ for <ltp@lists.linux.it>; Thu, 31 Dec 2020 04:01:46 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ by in-6.smtp.seeweb.it (Postfix) with ESMTP id 4E040140052C
+ for <ltp@lists.linux.it>; Thu, 31 Dec 2020 04:01:44 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1609383703;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=yzEmrSqOhB54jIAvCBsuMWD4mq7/mrjYi6yp7lwrylw=;
- b=AxXHIaEyzkF7q9RQmvPrU7SnYApyakHkIHh3p8KbJ96lybdP3+DkbMA3R9TKJyvSUYCqJ0
- hWtw3sNfdoDo08+xe2jQNvOqcEMmo0WM/DBL8REAnnTedEzL/++En+emiJYBtMlBAD7Kvn
- S3jeGFTCKpQ15K2SGOhnBX6vg7vukxI=
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-db3eur04lp2059.outbound.protection.outlook.com [104.47.12.59]) (Using
- TLS) by relay.mimecast.com with ESMTP id
- de-mta-23-3OoB83i8P9C0yUKDNkrm2Q-1; Wed, 30 Dec 2020 17:36:34 +0100
-X-MC-Unique: 3OoB83i8P9C0yUKDNkrm2Q-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ph2+IlUq7F+wTGxwAhhtYQK31QgCbb6rNByULbqDnTevpuYa60iBdXM7lpQl2OotmVoBtSk+IZLEo5ATiUw3NeCGMVbx6UzI/mMazGqPYlj7gDKliHQpiJZA8OrIeNI35IgVS2qAjyxspPlCPmFKl90Me9/ovS7oYV4nXh24a9iQqoNxMQ0OiCfffCq7tJ5h/tOnuuCUpe/pa6pS95xvo5EXMXUB9OoakFgQ7qUW7Ey2A+MksPApGQkzyOUzx7YLxYYLZK3AukhAE8BzzEcGORfoeKtzrHpuccsZL+7BE6uhUv1ZIfob8vC6tvRCoVT9/0WpcNYP6cdiCVCrPXaWvw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+nEW8WGCRiFTjJ9eZXq4gDcX7zeGWKfvN1E/c6cCZ60=;
- b=JKaZ6bLMCEWOQvQrxcTiwIopO/G5Hw+iMds2PQT0hnOJ4dlC9kfTzrwHVenpp7fkQVDLuMOzjsNZ5/QnOAYPeUkrsc2bDyVPpXMhBMsMKwySHlZUYNh9kW5Mq98AOWN3wGdc0KbrtCzFQz5bFITBu1uw4ZwEbQtvIG71SGuVyZ3cij9V4fO1UfuQwlS9+8I4/jOy2aXqI91K0vNsTWD/8/WgbC4/thCommbuNirc1V1sx04w7pxgnhc4vyFal+wTam3Hq81vEDBLxE2QmsfOHlixJ52zh4UlbWOiWRbTLPjoXbXyD+nRg2MKkUGNSQVBKq1OZ6BiXp5EmUHM7NYdfw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: lists.linux.it; dkim=none (message not signed)
- header.d=none;lists.linux.it; dmarc=none action=none header.from=suse.com;
-Received: from VI1PR04MB4958.eurprd04.prod.outlook.com (2603:10a6:803:60::23)
- by VI1PR0402MB3358.eurprd04.prod.outlook.com (2603:10a6:803:11::32)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3700.29; Wed, 30 Dec
- 2020 16:36:32 +0000
-Received: from VI1PR04MB4958.eurprd04.prod.outlook.com
- ([fe80::91d9:719a:add5:392e]) by VI1PR04MB4958.eurprd04.prod.outlook.com
- ([fe80::91d9:719a:add5:392e%6]) with mapi id 15.20.3700.031; Wed, 30 Dec 2020
- 16:36:32 +0000
-To: ltp@lists.linux.it
-Date: Wed, 30 Dec 2020 19:36:15 +0300
-Message-ID: <20201230163615.318-1-bogdan.lezhepekov@suse.com>
-X-Mailer: git-send-email 2.26.2
-X-Originating-IP: [46.32.67.173]
-X-ClientProxiedBy: AM0PR10CA0106.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:208:e6::23) To VI1PR04MB4958.eurprd04.prod.outlook.com
- (2603:10a6:803:60::23)
+ in-reply-to:in-reply-to:references:references;
+ bh=1DP1bt3ZslfmACYe+VDuZf7JCe26FEYo7mdp/MPrte0=;
+ b=TDGLLvtsxxsR/VUpH4iS4GSIEUcYuxA1PxeTZibUX0csXIA8S3878B90qxvDQPfMJ2ixa1
+ QNlqlvP5r9++bFJ3PRW7FnO8c/etlhq61u0E0ZdaVOq1FAS9dEdn+1Ln0t/mSsTZPSHLRI
+ yp9k4Eo5ml5IZNtwEFPcVCYzXpI43JI=
+Received: from mail-yb1-f200.google.com (mail-yb1-f200.google.com
+ [209.85.219.200]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-179-0bkAaCADNLCOFDrQ44Fmdw-1; Wed, 30 Dec 2020 22:01:39 -0500
+X-MC-Unique: 0bkAaCADNLCOFDrQ44Fmdw-1
+Received: by mail-yb1-f200.google.com with SMTP id b123so31796476ybh.17
+ for <ltp@lists.linux.it>; Wed, 30 Dec 2020 19:01:39 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=1DP1bt3ZslfmACYe+VDuZf7JCe26FEYo7mdp/MPrte0=;
+ b=IW+YRhOT1w8ONpjAqYROb/MbzGezG+3wC0rDIaBlqRiaQE3uCfa0Kk8Qs65ewa0rC6
+ Qec3sMPJNdRU+Gi+0MsTRADi/q6t5Zl1LzmJ8E/ladeJFpEygmfBdjLT8Gy06hnIUNIM
+ rmwYwuwdWiyLhQuAstChpr+960VTHpHn79oOWI0+E5qut8hibo+tT+1l91Ut8pUxO72X
+ 0hQmRtcoX3hY6MrMI2cuw220T6XvKY72Tg8t4KpPtSIXAeowIGRb1EHjZpzG055aqyCL
+ /Scyuoa+9mKjRubBwBG01gd+WxHSKjQNS0EnyobkQKqNpuiRpRYtVsGuB4iSqj8LaYSG
+ Hrqw==
+X-Gm-Message-State: AOAM533Y8gb2tBWARC7RuXCC4Um4XSouVGikFzEPWtOzDMag9g+XiC8q
+ AVCWL8Dw1ONFXAVHqiXQFQcoMPc1tohc402bZ0MQNMaJPGZBGPq4/WOZySi0cHDGZQgaOREOnQ/
+ RMZDH163K2MK/jmouueZ93Q6LseE=
+X-Received: by 2002:a25:cc92:: with SMTP id
+ l140mr84794423ybf.252.1609383698887; 
+ Wed, 30 Dec 2020 19:01:38 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJyVmaTXmFQa154uiUe+IP+8AITjosxzEH4S+etW8IbNwRj/sE4jxBRO6UAEKl/K3ZkmZJHu/YBacM8WlcjhUI0=
+X-Received: by 2002:a25:cc92:: with SMTP id
+ l140mr84794409ybf.252.1609383698649; 
+ Wed, 30 Dec 2020 19:01:38 -0800 (PST)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from localhost.de (46.32.67.173) by
- AM0PR10CA0106.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:208:e6::23) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3721.20 via Frontend Transport; Wed, 30 Dec 2020 16:36:31 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: c68c06c4-1a7d-4079-930e-08d8ace11100
-X-MS-TrafficTypeDiagnostic: VI1PR0402MB3358:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <VI1PR0402MB3358F71ABCDA11E73FF1F1BF93D70@VI1PR0402MB3358.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3968;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: xKTIhOmJrJi9Yye/y4seObUUrPgJLSSskZrajRI0+hQUM0fURlgjuoZjElLPZIRhmbrR4+UqyF1+tayRaRCBe/Z3VQT5Vcec8v82zjmmxwMfCcUQlh/zoEoBzcOUWCShfKqR8N0FV5buwccloVOXaL1ER04EpCh8QyO4cmod1Axq2A4LyN0JlSNIHKx4ZSPlKrrcHF+DbJ1kLF14PbglZx06UXhPEXRtzzyfziE1n2I+cuPe9kMTDoH4FT4ZsMoTfUAF2IF16Bwkttd5FAPwQ7hkzhjduwxw9HkKU5hf5aoLqW5WL/HDk0VWAOeS5tbOk/tByFwJyhViaTIr7AWPxNRr3jrsLNASqjLH1cg7Ja9Tl0RcYjJ/8JhO56dc1Zu9bB4dfaM9PaLIBWFHmrEbYQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:VI1PR04MB4958.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(396003)(39860400002)(136003)(346002)(366004)(376002)(186003)(36756003)(8676002)(1076003)(478600001)(66946007)(8936002)(52116002)(4326008)(2906002)(16526019)(316002)(66476007)(5660300002)(26005)(6666004)(6486002)(86362001)(8886007)(6506007)(107886003)(2616005)(66556008)(956004)(83380400001)(6916009)(44832011)(6512007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?f/i2LWs3CGWM+EIIAFDKDqGpszSYnRmQM5BVzuo3aQIt8394BBeGK+1BTOMl?=
- =?us-ascii?Q?yfUJLBYR5qhxDuvcRO01tclfq+DP5X/csmJXgzwZWWuZ9z2vfElpbDo6CzgB?=
- =?us-ascii?Q?LE4m+7howgvvwi5S02AWLalAaMLek/BozIvr8hG0ZluXV1/jSTe5f7RxuTbp?=
- =?us-ascii?Q?n03Fo/GDqzPGXfeOa8xcfpZC2w66nJ9/e60OhZ+Xk8NWTOutEK1XnMXJb5YT?=
- =?us-ascii?Q?2X16L4G/8g4gWG7CH7fVK069l/KtO0RotmL47iA5I37YX3DaJmpwkfinn29p?=
- =?us-ascii?Q?zp4iQ4cim4qPUWIf1ylpQAgnvMemXRhCJXFiHO7Yww6/IkwcXvKbYk3TvMgW?=
- =?us-ascii?Q?e1JpuU3fBBrQg2ubh6NrfRpmrK+ceySze0CXxcUqACrA3+ycpJQt84vc9j98?=
- =?us-ascii?Q?FnDgC1pNi/zhwS2tMLYBsI7haPfnvF/odGOlhvPxctCtJcQtSyjpZwU72s82?=
- =?us-ascii?Q?V40l84vxYc0iXlUZrAl+IBKyS4vgwokOfsyjC0ZDHUvZ2bswZq243ev2oD1a?=
- =?us-ascii?Q?Z3uPh0k9/EgsMGh+rHUgUX4VISvCgxAVD3zE3ClTwH+IGnd6JcEXDZQskkBQ?=
- =?us-ascii?Q?BSxECJSxG+VkmnJbYOqLENg3QNHTX7GfBQChTXiOHdlFI9WmQQEztRtyGgiy?=
- =?us-ascii?Q?jRtDckmLcQsOnb9RBl2Z28FkcSCVJUoeZo9fkWUXq9jJwR2Ixzc6Ufj1g66s?=
- =?us-ascii?Q?X/Cp/ALifqsVvsZQhK9Ss4/KIIttN5yLXhGkzIT4hqiw+gVwQl0Iki02LuVK?=
- =?us-ascii?Q?6fSDaE7Qbev9LSWiMLzsxRDChua0NJLYOvCueBX4WrswVOuiJvAeimLPveee?=
- =?us-ascii?Q?IJ9ciQDdjpVflX0elIwU8Rt+Gpc2EisiP+Xm2T/IaDynTNsm28LKVj9Bnqcz?=
- =?us-ascii?Q?t5kSyXY+JerSV/mSOAtczXcRcPtiQWPEmXENPzhpSzq6nYKGTi228scDXsI6?=
- =?us-ascii?Q?HRQTKD0KnOJHd9JkbS/x89/GLda13aStirff9ihnBCMKhJ0sVP8mDid7Cp5k?=
- =?us-ascii?Q?k4R+?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB4958.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Dec 2020 16:36:32.5025 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-Network-Message-Id: c68c06c4-1a7d-4079-930e-08d8ace11100
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Bzj26ICD4k5U9M9nTkzdy4zbsQU8ranglSA1aJ66Zyp+u9kKcUI8H6+ineL2+77VOsAUZWuGuxwEL92o8FgW2/tuWFKHiXHs+TrbCUlW+ns=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0402MB3358
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+References: <20201230154856.26252-1-bogdan.lezhepekov@suse.com>
+In-Reply-To: <20201230154856.26252-1-bogdan.lezhepekov@suse.com>
+From: Li Wang <liwang@redhat.com>
+Date: Thu, 31 Dec 2020 11:01:27 +0800
+Message-ID: <CAEemH2d88KVzzidLyEmCPm+LrXiE0zG7YvXG=r=AgEy+2jKU-A@mail.gmail.com>
+To: Bogdan Lezhepekov <bogdan.lezhepekov@suse.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH v1] mem/mtest06: mmap1: Limit distant mmap size
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v1] include/tst_cgroup.h: Replace hardcoded cgroup
+ paths
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,70 +83,124 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Bogdan Lezhepekov via ltp <ltp@lists.linux.it>
-Reply-To: Bogdan Lezhepekov <bogdan.lezhepekov@suse.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Richard Palethorpe <rpalethorpe@suse.com>, LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============0514933193=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Limit the distant mmap size by a total memory value.
+--===============0514933193==
+Content-Type: multipart/alternative; boundary="000000000000aa69e905b7b9d79a"
 
-Signed-off-by: Bogdan Lezhepekov <bogdan.lezhepekov@suse.com>
----
- testcases/kernel/mem/mtest06/mmap1.c | 21 +++++++++++++--------
- 1 file changed, 13 insertions(+), 8 deletions(-)
+--000000000000aa69e905b7b9d79a
+Content-Type: text/plain; charset="UTF-8"
 
-diff --git a/testcases/kernel/mem/mtest06/mmap1.c b/testcases/kernel/mem/mtest06/mmap1.c
-index 9d3e9d097..18c4e67e2 100644
---- a/testcases/kernel/mem/mtest06/mmap1.c
-+++ b/testcases/kernel/mem/mtest06/mmap1.c
-@@ -32,11 +32,7 @@
- #include "tst_test.h"
- #include "tst_safe_pthread.h"
- 
--#ifdef TST_ABI32
--#  define DISTANT_MMAP_SIZE (256*1024*1024)
--#else
--#  define DISTANT_MMAP_SIZE (2L*1024*1024*1024)
--#endif
-+#define GIGABYTE (1L*1024*1024*1024)
- #define TEST_FILENAME "ashfile"
- 
- /* seconds remaining before reaching timeout */
-@@ -189,17 +185,26 @@ int mkfile(int size)
- static void setup(void)
- {
- 	struct sigaction sigptr;
-+	size_t distant_mmap_size;
-+	long mem_total;
- 
- 	page_sz = getpagesize();
-+	mem_total = SAFE_READ_MEMINFO("MemTotal:");
-+	mem_total *= 1024;
- 
-+#ifdef TST_ABI32
-+	distant_mmap_size = 256*1024*1024;
-+#else
-+	distant_mmap_size = (mem_total > 2 * GIGABYTE) ? 2 * GIGABYTE : mem_total;
-+#endif
- 	/*
- 	 * Used as hint for mmap thread, so it doesn't interfere
- 	 * with other potential (temporary) mappings from libc
- 	 */
--	distant_area = SAFE_MMAP(0, DISTANT_MMAP_SIZE, PROT_WRITE | PROT_READ,
-+	distant_area = SAFE_MMAP(0, distant_mmap_size, PROT_WRITE | PROT_READ,
- 			MAP_ANONYMOUS | MAP_PRIVATE, -1, 0);
--	SAFE_MUNMAP(distant_area, (size_t)DISTANT_MMAP_SIZE);
--	distant_area += DISTANT_MMAP_SIZE / 2;
-+	SAFE_MUNMAP(distant_area, distant_mmap_size);
-+	distant_area += distant_mmap_size / 2;
- 
- 	if (tst_parse_float(str_exec_time, &exec_time, 0, FLT_MAX)) {
- 		tst_brk(TBROK, "Invalid number for exec_time '%s'",
+Hi Bogdan,
+
+On Wed, Dec 30, 2020 at 11:49 PM Bogdan Lezhepekov via ltp <
+ltp@lists.linux.it> wrote:
+
+> Macros PATH_TMP_CG_CST and PATH_TMP_CG_MEM defined cgroup
+> temporary directory paths to be in /tmp that can be a mount point.
+>
+> Enable an option to set PATH_TMP_CG_CST and PATH_TMP_CG_MEM
+> through TMPDIR environment variable keeping old paths as default ones.
+>
+> Signed-off-by: Bogdan Lezhepekov <bogdan.lezhepekov@suse.com>
+> ---
+>  include/tst_cgroup.h | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+>
+> diff --git a/include/tst_cgroup.h b/include/tst_cgroup.h
+> index bfd848260..0f7db5487 100644
+> --- a/include/tst_cgroup.h
+> +++ b/include/tst_cgroup.h
+> @@ -7,8 +7,9 @@
+>  #ifndef TST_CGROUP_H
+>  #define TST_CGROUP_H
+>
+> -#define PATH_TMP_CG_MEM        "/tmp/cgroup_mem"
+> -#define PATH_TMP_CG_CST        "/tmp/cgroup_cst"
+> +#define PATH_BASE (getenv("TMPDIR") ? getenv("TMPDIR") : "/tmp")
+> +#define PATH_TMP_CG_CST (strcat(PATH_BASE, "/cgroup_cst"))
+> +#define PATH_TMP_CG_MEM (strcat(PATH_BASE, "/cgroup_mem"))
+>
+
+As described on strcat() manual page, the potential risk is that buffer
+overruns might cause an unpredictable problem.
+
+I won't like to merge this patch because, Richard raised a new method to
+refactor the whole CGroup API. And the patchset is pending on reviewing.
+
+http://lists.linux.it/pipermail/ltp/2020-December/020274.html
+
 -- 
-2.26.2
+Regards,
+Li Wang
+
+--000000000000aa69e905b7b9d79a
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small">Hi Bogdan,</div></div><br><div class=3D"gmail_quote"><div dir=
+=3D"ltr" class=3D"gmail_attr">On Wed, Dec 30, 2020 at 11:49 PM Bogdan Lezhe=
+pekov via ltp &lt;<a href=3D"mailto:ltp@lists.linux.it" target=3D"_blank">l=
+tp@lists.linux.it</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote"=
+ style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);p=
+adding-left:1ex">Macros PATH_TMP_CG_CST and PATH_TMP_CG_MEM defined cgroup<=
+br>
+temporary directory paths to be in /tmp that can be a mount point.<br>
+<br>
+Enable an option to set PATH_TMP_CG_CST and PATH_TMP_CG_MEM<br>
+through TMPDIR environment variable keeping old paths as default ones.<br>
+<br>
+Signed-off-by: Bogdan Lezhepekov &lt;<a href=3D"mailto:bogdan.lezhepekov@su=
+se.com" target=3D"_blank">bogdan.lezhepekov@suse.com</a>&gt;<br>
+---<br>
+=C2=A0include/tst_cgroup.h | 5 +++--<br>
+=C2=A01 file changed, 3 insertions(+), 2 deletions(-)<br>
+<br>
+diff --git a/include/tst_cgroup.h b/include/tst_cgroup.h<br>
+index bfd848260..0f7db5487 100644<br>
+--- a/include/tst_cgroup.h<br>
++++ b/include/tst_cgroup.h<br>
+@@ -7,8 +7,9 @@<br>
+=C2=A0#ifndef TST_CGROUP_H<br>
+=C2=A0#define TST_CGROUP_H<br>
+<br>
+-#define PATH_TMP_CG_MEM=C2=A0 =C2=A0 =C2=A0 =C2=A0 &quot;/tmp/cgroup_mem&q=
+uot;<br>
+-#define PATH_TMP_CG_CST=C2=A0 =C2=A0 =C2=A0 =C2=A0 &quot;/tmp/cgroup_cst&q=
+uot;<br>
++#define PATH_BASE (getenv(&quot;TMPDIR&quot;) ? getenv(&quot;TMPDIR&quot;)=
+ : &quot;/tmp&quot;)<br>
++#define PATH_TMP_CG_CST (strcat(PATH_BASE, &quot;/cgroup_cst&quot;))<br>
++#define PATH_TMP_CG_MEM (strcat(PATH_BASE, &quot;/cgroup_mem&quot;))<br></=
+blockquote><div><br></div><div><div class=3D"gmail_default" style=3D"font-s=
+ize:small">As described=C2=A0on strcat() manual page, the potential risk is=
+ that buffer overruns might cause an unpredictable problem.</div></div><div=
+ class=3D"gmail_default" style=3D"font-size:small"><br></div><div class=3D"=
+gmail_default" style=3D"font-size:small">I won&#39;t like to merge this pat=
+ch because, Richard raised a new method to refactor the whole CGroup API. A=
+nd the patchset is pending on reviewing.</div><div class=3D"gmail_default" =
+style=3D"font-size:small"><br></div><div class=3D"gmail_default" style=3D"f=
+ont-size:small"><a href=3D"http://lists.linux.it/pipermail/ltp/2020-Decembe=
+r/020274.html">http://lists.linux.it/pipermail/ltp/2020-December/020274.htm=
+l</a><br></div></div><div><br></div>-- <br><div dir=3D"ltr"><div dir=3D"ltr=
+"><div>Regards,<br></div><div>Li Wang<br></div></div></div></div>
+
+--000000000000aa69e905b7b9d79a--
+
+
+--===============0514933193==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============0514933193==--
+
