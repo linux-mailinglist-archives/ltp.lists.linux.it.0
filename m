@@ -2,33 +2,32 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id C17E52EBA72
-	for <lists+linux-ltp@lfdr.de>; Wed,  6 Jan 2021 08:28:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC4252EBA75
+	for <lists+linux-ltp@lfdr.de>; Wed,  6 Jan 2021 08:28:36 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 80BCA3C3190
-	for <lists+linux-ltp@lfdr.de>; Wed,  6 Jan 2021 08:28:15 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 8B4843C6E27
+	for <lists+linux-ltp@lfdr.de>; Wed,  6 Jan 2021 08:28:36 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id DF0703C319D
- for <ltp@lists.linux.it>; Wed,  6 Jan 2021 08:27:57 +0100 (CET)
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id ED06D3C549D
+ for <ltp@lists.linux.it>; Wed,  6 Jan 2021 08:27:58 +0100 (CET)
 Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-6.smtp.seeweb.it (Postfix) with ESMTP id E79061400059
- for <ltp@lists.linux.it>; Wed,  6 Jan 2021 08:27:55 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.78,479,1599494400"; d="scan'208";a="103232507"
+ by in-3.smtp.seeweb.it (Postfix) with ESMTP id B31F61A00915
+ for <ltp@lists.linux.it>; Wed,  6 Jan 2021 08:27:57 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.78,479,1599494400"; d="scan'208";a="103232512"
 Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
  by heian.cn.fujitsu.com with ESMTP; 06 Jan 2021 15:27:49 +0800
 Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id DC8E04CE602C
- for <ltp@lists.linux.it>; Wed,  6 Jan 2021 15:27:47 +0800 (CST)
+ by cn.fujitsu.com (Postfix) with ESMTP id B18764CE602D
+ for <ltp@lists.linux.it>; Wed,  6 Jan 2021 15:27:48 +0800 (CST)
 Received: from RHEL74GA.g08.fujitsu.local (10.167.220.48) by
  G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Wed, 6 Jan 2021 15:27:47 +0800
+ (TLS) id 15.0.1497.2; Wed, 6 Jan 2021 15:27:48 +0800
 From: Feiyu Zhu <zhufy.jy@cn.fujitsu.com>
 To: <ltp@lists.linux.it>
-Date: Wed, 6 Jan 2021 02:27:42 -0500
-Message-ID: <1609918063-15810-4-git-send-email-zhufy.jy@cn.fujitsu.com>
+Date: Wed, 6 Jan 2021 02:27:43 -0500
+Message-ID: <1609918063-15810-5-git-send-email-zhufy.jy@cn.fujitsu.com>
 X-Mailer: git-send-email 1.8.3.1
 In-Reply-To: <1609918063-15810-1-git-send-email-zhufy.jy@cn.fujitsu.com>
 References: <1609918063-15810-1-git-send-email-zhufy.jy@cn.fujitsu.com>
@@ -36,15 +35,15 @@ MIME-Version: 1.0
 X-Originating-IP: [10.167.220.48]
 X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
  G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: DC8E04CE602C.AC924
+X-yoursite-MailScanner-ID: B18764CE602D.AA836
 X-yoursite-MailScanner: Found to be clean
 X-yoursite-MailScanner-From: zhufy.jy@cn.fujitsu.com
 X-Spam-Status: No, score=0.2 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SPF_NONE autolearn=disabled version=3.4.4
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH 4/5] syscalls/ipc: semctl05: Convert to new API and
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH 5/5] syscalls/ipc: semctl07: Convert to new API and
  cleanup
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -62,37 +61,35 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Also make use of TST_EXP_FAIL
-
 Signed-off-by: Feiyu Zhu <zhufy.jy@cn.fujitsu.com>
 ---
  testcases/kernel/syscalls/ipc/semctl/Makefile   |   4 +-
- testcases/kernel/syscalls/ipc/semctl/semctl05.c | 169 +++++-------------------
- 2 files changed, 34 insertions(+), 139 deletions(-)
+ testcases/kernel/syscalls/ipc/semctl/semctl07.c | 179 ++++++++----------------
+ 2 files changed, 62 insertions(+), 121 deletions(-)
 
 diff --git a/testcases/kernel/syscalls/ipc/semctl/Makefile b/testcases/kernel/syscalls/ipc/semctl/Makefile
-index 2a379d9..4923010 100644
+index 4923010..7b7a11d 100644
 --- a/testcases/kernel/syscalls/ipc/semctl/Makefile
 +++ b/testcases/kernel/syscalls/ipc/semctl/Makefile
 @@ -7,7 +7,7 @@ LTPLIBS = ltpipc ltpnewipc
  
  include $(top_srcdir)/include/mk/testcases.mk
  
--semctl01 semctl05 semctl06 semctl07: LTPLDLIBS = -lltpipc
--semctl02 semctl03 semctl04 semctl08 semctl09: LTPLDLIBS = -lltpnewipc
-+semctl01 semctl06 semctl07: LTPLDLIBS = -lltpipc
-+semctl02 semctl03 semctl04 semctl05 semctl08 semctl09: LTPLDLIBS = -lltpnewipc
+-semctl01 semctl06 semctl07: LTPLDLIBS = -lltpipc
+-semctl02 semctl03 semctl04 semctl05 semctl08 semctl09: LTPLDLIBS = -lltpnewipc
++semctl01 semctl06: LTPLDLIBS = -lltpipc
++semctl02 semctl03 semctl04 semctl05 semctl07 semctl08 semctl09: LTPLDLIBS = -lltpnewipc
  
  include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/kernel/syscalls/ipc/semctl/semctl05.c b/testcases/kernel/syscalls/ipc/semctl/semctl05.c
-index 84dace4..86297e2 100644
---- a/testcases/kernel/syscalls/ipc/semctl/semctl05.c
-+++ b/testcases/kernel/syscalls/ipc/semctl/semctl05.c
-@@ -1,59 +1,19 @@
+diff --git a/testcases/kernel/syscalls/ipc/semctl/semctl07.c b/testcases/kernel/syscalls/ipc/semctl/semctl07.c
+index 5d7fad3..df92482 100644
+--- a/testcases/kernel/syscalls/ipc/semctl/semctl07.c
++++ b/testcases/kernel/syscalls/ipc/semctl/semctl07.c
+@@ -1,176 +1,117 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
  /*
 - *
-- *   Copyright (c) International Business Machines  Corp., 2001
+- *   Copyright (c) International Business Machines  Corp., 2002
 - *
 - *   This program is free software;  you can redistribute it and/or modify
 - *   it under the terms of the GNU General Public License as published by
@@ -107,197 +104,223 @@ index 84dace4..86297e2 100644
 - *   You should have received a copy of the GNU General Public License
 - *   along with this program;  if not, write to the Free Software
 - *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
-+ * Copyright (c) International Business Machines  Corp., 2001
++ * Copyright (c) International Business Machines  Corp., 2002
   */
+-
+-/* 06/30/2001	Port to Linux	nsharoff@us.ibm.com */
+-/* 10/30/2002	Port to LTP	dbarrera@us.ibm.com */
 -
  /*
 - * NAME
-- *	semctl05.c
+- *	semctl07
 - *
-  * DESCRIPTION
-  *	semctl05 - test for ERANGE error
-  *
+- * CALLS
+- *	semctl(2) semget(2)
+- *
 - * ALGORITHM
-- *	create a semaphore set with read and alter permissions
-- *	loop if that option was specified
-- *	call semctl() with three different invalid cases
-- *	check the errno value
-- *	  issue a PASS message if we get ERANGE
-- *	otherwise, the tests fails
-- *	  issue a FAIL message
-- *	call cleanup
-- *
-- * USAGE:  <for command-line>
-- *  semctl05 [-c n] [-e] [-i n] [-I x] [-P x] [-t]
-- *     where,  -c n : Run n copies concurrently.
-- *             -e   : Turn on errno logging.
-- *	       -i n : Execute test n times.
-- *	       -I x : Execute test for x seconds.
-- *	       -P x : Pause for x seconds between iterations.
-- *	       -t   : Turn on syscall timing.
++ * DESCRIPTION
+  *	Get and manipulate a set of semaphores.
+  *
+- * RESTRICTIONS
 - *
   * HISTORY
-  *	03/2001 - Written by Wayne Boyer
-- *
-- * RESTRICTIONS
-- *	none
+- *      10/03/2008 Renaud Lottiaux (Renaud.Lottiaux@kerlabs.com)
+- *      - Fix concurrency issue. A statically defined key was used. Leading
+- *        to conflict with other instances of the same test.
++ *	06/30/2001   Port to Linux   nsharoff@us.ibm.com
++ *	10/30/2002   Port to LTP     dbarrera@us.ibm.com
++ *	10/03/2008 Renaud Lottiaux (Renaud.Lottiaux@kerlabs.com)
++ *	- Fix concurrency issue. A statically defined key was used. Leading
++ *	  to conflict with other instances of the same test.
   */
  
+-#include <sys/types.h>
+-#include <sys/ipc.h>
+ #include <sys/sem.h>
+-#include <signal.h>
+ #include <errno.h>
+ #include <stdio.h>
+ #include <sys/wait.h>
 -#include "ipcsem.h"
+-#include "test.h"
 -
--char *TCID = "semctl05";
--int TST_TOTAL = 3;
-+#include "tst_safe_sysv_ipc.h"
+-void setup(void);
+-void cleanup(void);
+-
+-char *TCID = "semctl07";
+-int TST_TOTAL = 1;
 +#include "tst_test.h"
-+#include "lapi/sem.h"
++#include "tst_safe_sysv_ipc.h"
 +#include "libnewipc.h"
++#include "lapi/sem.h"
  
- #ifdef _XLC_COMPILER
- #define SEMUN_CAST
-@@ -61,118 +21,53 @@ int TST_TOTAL = 3;
- #define SEMUN_CAST (union semun)
- #endif
+-key_t key;
+-int semid = -1, nsems;
++static int semid = -1;
++static unsigned long nsems;
  
--int sem_id_1 = -1;
-+static int sem_id = -1;
- 
- #define BIGV	65535		/* a number ((2^16)-1) that should be larger */
- 				/* than the maximum for a semaphore value    */
- 
--#ifdef _XLC_COMPILER
--#define SEMUN_CAST
--#else
--#define SEMUN_CAST (union semun)
--#endif
--
- unsigned short big_arr[] = { BIGV, BIGV, BIGV, BIGV, BIGV, BIGV, BIGV, BIGV,
- 	BIGV, BIGV
- };
- 
--struct test_case_t {
-+static struct tcases {
- 	int count;
- 	int cmd;
- 	union semun t_arg;
--} TC[] = {
--	/* ERANGE - the value to set is less than zero - SETVAL */
--	{
--	5, SETVAL, SEMUN_CAST - 1},
--	    /* ERANGE - the values to set are too large, > semaphore max value */
--	{
--	0, SETALL, SEMUN_CAST big_arr},
--	    /* ERANGE - the value to set is too large, > semaphore max value */
--	{
--	5, SETVAL, SEMUN_CAST BIGV}
-+	char *message;
-+} tests[] = {
-+	{5, SETVAL, SEMUN_CAST - 1, "the value to set is less than zero"},
-+	{0, SETALL, SEMUN_CAST big_arr, "the value to set are too large"},
-+	{5, SETVAL, SEMUN_CAST BIGV, "the value to set is too large"}
- };
- 
--int main(int ac, char **av)
-+static void verify_semctl(unsigned int n)
+-int main(int argc, char *argv[])
++static void verify_semctl(void)
  {
--	int lc;
--	int i;
--
--	tst_parse_opts(ac, av, NULL, NULL);
--
--	setup();		/* global setup */
-+	struct tcases *tc = &tests[n];
+ 	int status;
+ 	struct semid_ds buf_ds;
+ 	union semun arg;
  
--	/* The following loop checks looping state if -i option given */
+-	tst_parse_opts(argc, argv, NULL, NULL);
 -
--	for (lc = 0; TEST_LOOPING(lc); lc++) {
--		/* reset tst_count in case we are looping */
--		tst_count = 0;
+-	setup();
 -
--		for (i = 0; i < TST_TOTAL; i++) {
+ 	arg.buf = &buf_ds;
+-	if ((status = semctl(semid, 0, IPC_STAT, arg)) == -1) {
+-		tst_resm(TFAIL, "semctl() failed errno = %d", errno);
+-		semctl(semid, 1, IPC_RMID, arg);
 -
--			TEST(semctl(sem_id_1, TC[i].count,
--				    TC[i].cmd, TC[i].t_arg));
--
--			if (TEST_RETURN != -1) {
--				tst_resm(TFAIL, "call succeeded unexpectedly");
--				continue;
--			}
--
--			switch (TEST_ERRNO) {
--			case ERANGE:
--				tst_resm(TPASS, "expected failure - errno = "
--					 "%d : %s", TEST_ERRNO,
--					 strerror(TEST_ERRNO));
--				break;
--			default:
--				tst_resm(TFAIL, "unexpected error "
--					 "- %d : %s", TEST_ERRNO,
--					 strerror(TEST_ERRNO));
--				break;
--			}
--		}
 -	}
 -
--	cleanup();
+-	/*
+-	 * Check contents of semid_ds structure.
+-	 */
++	status = SAFE_SEMCTL(semid, 0, IPC_STAT, arg);
+ 
+ 	if (arg.buf->sem_nsems != nsems) {
+-		tst_resm(TFAIL, "error: unexpected number of sems %lu",
++		tst_res(TFAIL, "error: unexpected number of sems %lu",
+ 			 arg.buf->sem_nsems);
 -
+ 	}
++
+ 	if (arg.buf->sem_perm.uid != getuid()) {
+-		tst_resm(TFAIL, "error: unexpected uid %d",
++		tst_res(TFAIL, "error: unexpected uid %d",
+ 			 arg.buf->sem_perm.uid);
+-
+ 	}
++
+ 	if (arg.buf->sem_perm.gid != getgid()) {
+-		tst_resm(TFAIL, "error: unexpected gid %d",
++		tst_res(TFAIL, "error: unexpected gid %d",
+ 			 arg.buf->sem_perm.gid);
+-
+ 	}
++
+ 	if (arg.buf->sem_perm.cuid != getuid()) {
+-		tst_resm(TFAIL, "error: unexpected cuid %d",
++		tst_res(TFAIL, "error: unexpected cuid %d",
+ 			 arg.buf->sem_perm.cuid);
+-
+ 	}
++
+ 	if (arg.buf->sem_perm.cgid != getgid()) {
+-		tst_resm(TFAIL, "error: unexpected cgid %d",
++		tst_res(TFAIL, "error: unexpected cgid %d",
+ 			 arg.buf->sem_perm.cgid);
+-
+ 	}
+-	if ((status = semctl(semid, 0, GETVAL, arg)) == -1) {
+-		tst_resm(TFAIL, "semctl(GETVAL) failed errno = %d", errno);
+ 
+-	}
++	if ((status = semctl(semid, 0, GETVAL, arg)) == -1)
++		tst_res(TFAIL, "semctl(GETVAL) failed errno = %d", errno);
++
+ 	arg.val = 1;
+-	if ((status = semctl(semid, 0, SETVAL, arg)) == -1) {
+-		tst_resm(TFAIL, "SEMCTL(SETVAL) failed errno = %d", errno);
++	if ((status = semctl(semid, 0, SETVAL, arg)) == -1)
++		tst_res(TFAIL, "SEMCTL(SETVAL) failed errno = %d", errno);
+ 
+-	}
+-	if ((status = semctl(semid, 0, GETVAL, arg)) == -1) {
+-		tst_resm(TFAIL, "semctl(GETVAL) failed errno = %d", errno);
++	if ((status = semctl(semid, 0, GETVAL, arg)) == -1)
++		tst_res(TFAIL, "semctl(GETVAL) failed errno = %d", errno);
+ 
+-	}
+-	if (status != arg.val) {
+-		tst_resm(TFAIL, "error: unexpected value %d", status);
++	if (status != arg.val)
++		tst_res(TFAIL, "error: unexpected value %d", status);
+ 
+-	}
+-	if ((status = semctl(semid, 0, GETPID, arg)) == -1) {
+-		tst_resm(TFAIL, "semctl(GETPID) failed errno = %d", errno);
++	if ((status = semctl(semid, 0, GETPID, arg)) == -1)
++		tst_res(TFAIL, "semctl(GETPID) failed errno = %d", errno);
+ 
+-	}
+ 	status = getpid();
+-	if (status == 0) {
+-		tst_resm(TFAIL, "error: unexpected pid %d", status);
++	if (status == 0)
++		tst_res(TFAIL, "error: unexpected pid %d", status);
+ 
+-	}
+-	if ((status = semctl(semid, 0, GETNCNT, arg)) == -1) {
+-		tst_resm(TFAIL, "semctl(GETNCNT) failed errno = %d", errno);
++	if ((status = semctl(semid, 0, GETNCNT, arg)) == -1)
++		tst_res(TFAIL, "semctl(GETNCNT) failed errno = %d", errno);
+ 
+-	}
+-	if (status != 0) {
+-		tst_resm(TFAIL, "error: unexpected semncnt %d", status);
++	if (status != 0)
++		tst_res(TFAIL, "error: unexpected semncnt %d", status);
+ 
+-	}
+-	if ((status = semctl(semid, 0, GETZCNT, arg)) == -1) {
+-		tst_resm(TFAIL, "semctl(GETZCNT) failed errno = %d", errno);
+-
+-	}
+-	if (status != 0) {
+-		tst_resm(TFAIL, "error: unexpected semzcnt %d", status);
+-
+-	}
++	if ((status = semctl(semid, 0, GETZCNT, arg)) == -1)
++		tst_res(TFAIL, "semctl(GETZCNT) failed errno = %d", errno);
+ 
+-	tst_resm(TPASS, "semctl07 ran successfully!");
++	if (status != 0)
++		tst_res(TFAIL, "error: unexpected semzcnt %d", status);
+ 
+-	cleanup();
 -	tst_exit();
-+	TST_EXP_FAIL(semctl(sem_id, tc->count, tc->cmd, tc->t_arg), ERANGE,
-+		     "semctl() with %s", tc->message);
++	tst_res(TPASS, "semctl07 ran successfully!");
  }
  
--/*
-- * setup() - performs all the ONE TIME setup for this test.
-- */
 -void setup(void)
 +static void setup(void)
  {
-+	static key_t semkey;
- 
 -	tst_sig(NOFORK, DEF_HANDLER, cleanup);
-+	semkey = GETIPCKEY();
- 
+-
 -	TEST_PAUSE;
 -
--	/*
--	 * Create a temporary directory and cd into it.
--	 * This helps to ensure that a unique msgkey is created.
--	 * See libs/libltpipc/libipc.c for more information.
--	 */
 -	tst_tmpdir();
 -
 -	/* get an IPC resource key */
--	semkey = getipckey();
--
--	/* create a semaphore set with read and alter permissions */
--	if ((sem_id_1 =
--	     semget(semkey, PSEMS, IPC_CREAT | IPC_EXCL | SEM_RA)) == -1) {
--		tst_brkm(TBROK, cleanup, "couldn't create semaphore in setup");
+-	key = getipckey();
++	key_t key = GETIPCKEY();
+ 	nsems = 1;
+ 
+-	if ((semid = semget(key, nsems, SEM_RA | IPC_CREAT)) == -1) {
+-		tst_brkm(TFAIL, NULL, "semget() failed errno = %d", errno);
 -	}
-+	sem_id = SAFE_SEMGET(semkey, PSEMS, IPC_CREAT | IPC_EXCL | SEM_RA);
++	semid = SAFE_SEMGET(key, nsems, SEM_RA | IPC_CREAT);
  }
  
--/*
-- * cleanup() - performs all the ONE TIME cleanup for this test at completion
-- * 	       or premature exit.
-- */
 -void cleanup(void)
 +static void cleanup(void)
  {
--	/* if it exists, remove the semaphore resouce */
--	rm_sema(sem_id_1);
--
+-	rm_sema(semid);
 -	tst_rmdir();
--
-+	if (sem_id != -1)
-+		SAFE_SEMCTL(sem_id, 0, IPC_RMID);
++	if (semid != -1)
++		SAFE_SEMCTL(semid, 0, IPC_RMID);
  }
 +
 +static struct tst_test test = {
 +	.setup = setup,
 +	.cleanup = cleanup,
 +	.needs_root = 1,
-+	.test = verify_semctl,
-+	.tcnt = ARRAY_SIZE(tests),
++	.test_all = verify_semctl,
 +};
 -- 
 1.8.3.1
