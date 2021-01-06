@@ -2,53 +2,48 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6E1C2EB805
-	for <lists+linux-ltp@lfdr.de>; Wed,  6 Jan 2021 03:18:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B55B62EBA70
+	for <lists+linux-ltp@lfdr.de>; Wed,  6 Jan 2021 08:27:57 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 652043C6FD7
-	for <lists+linux-ltp@lfdr.de>; Wed,  6 Jan 2021 03:18:33 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 3A2BB3C3192
+	for <lists+linux-ltp@lfdr.de>; Wed,  6 Jan 2021 08:27:57 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id BDA0E3C54AC
- for <ltp@lists.linux.it>; Wed,  6 Jan 2021 03:18:28 +0100 (CET)
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id 4B3F73C06D8
+ for <ltp@lists.linux.it>; Wed,  6 Jan 2021 08:27:54 +0100 (CET)
 Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-6.smtp.seeweb.it (Postfix) with ESMTP id 54B0E140050F
- for <ltp@lists.linux.it>; Wed,  6 Jan 2021 03:18:26 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.78,478,1599494400"; d="scan'208";a="103221863"
+ by in-3.smtp.seeweb.it (Postfix) with ESMTP id 11F3F1A00917
+ for <ltp@lists.linux.it>; Wed,  6 Jan 2021 08:27:52 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.78,479,1599494400"; d="scan'208";a="103232508"
 Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 06 Jan 2021 10:18:24 +0800
+ by heian.cn.fujitsu.com with ESMTP; 06 Jan 2021 15:27:49 +0800
 Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id 74E994CE601C;
- Wed,  6 Jan 2021 10:18:18 +0800 (CST)
-Received: from [10.167.220.84] (10.167.220.84) by
+ by cn.fujitsu.com (Postfix) with ESMTP id 721E84CE6026
+ for <ltp@lists.linux.it>; Wed,  6 Jan 2021 15:27:45 +0800 (CST)
+Received: from RHEL74GA.g08.fujitsu.local (10.167.220.48) by
  G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Wed, 6 Jan 2021 10:18:15 +0800
-Message-ID: <5FF51DDD.3080709@cn.fujitsu.com>
-Date: Wed, 6 Jan 2021 10:18:05 +0800
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
- rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
+ (TLS) id 15.0.1497.2; Wed, 6 Jan 2021 15:27:45 +0800
+From: Feiyu Zhu <zhufy.jy@cn.fujitsu.com>
+To: <ltp@lists.linux.it>
+Date: Wed, 6 Jan 2021 02:27:39 -0500
+Message-ID: <1609918063-15810-1-git-send-email-zhufy.jy@cn.fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
 MIME-Version: 1.0
-To: Cyril Hrubis <chrubis@suse.cz>, Amir Goldstein <amir73il@gmail.com>
-References: <20201215155650.6496-1-radoslav.kolev@suse.com>
- <5FD96C97.6020602@cn.fujitsu.com>
- <c6340b4dc96458ddd972beb28059324d44f44a99.camel@suse.com>
- <5FD9C58B.9020807@cn.fujitsu.com> <X/SEt8EfjP+w4EYw@yuki.lan>
-In-Reply-To: <X/SEt8EfjP+w4EYw@yuki.lan>
-X-Originating-IP: [10.167.220.84]
+X-Originating-IP: [10.167.220.48]
 X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
  G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: 74E994CE601C.A008D
+X-yoursite-MailScanner-ID: 721E84CE6026.A8F08
 X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=-0.1 required=7.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.4
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-yoursite-MailScanner-From: zhufy.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.2 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.4
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/ioctl_loop05.c: skip test on overlay
- filesystem
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/5] syscalls/ipc: semctl02: Convert to new API and
+ cleanup
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,60 +55,223 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Radoslav Kolev via ltp <ltp@lists.linux.it>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Cyril
-> Hi!
->> diff --git a/lib/tst_device.c b/lib/tst_device.c
->> index c096b418b..de64fd908 100644
->> --- a/lib/tst_device.c
->> +++ b/lib/tst_device.c
->> @@ -534,6 +534,10 @@ void tst_find_backing_dev(const char *path, char *dev)
->>           if (stat(dev,&buf)<  0)
->>                   tst_brkm(TWARN | TERRNO, NULL, "stat(%s) failed", dev);
->>
->> -       if (S_ISBLK(buf.st_mode) != 1)
->> -               tst_brkm(TCONF, NULL, "dev(%s) isn't a block dev", dev);
->> +       if (S_ISBLK(buf.st_mode) != 1) {
->> +               if (tst_is_mounted(dev))
->> +                       tst_find_backing_dev(dev, dev);
->> +               else
->> +                       tst_brkm(TCONF, NULL, "dev(%s) isn't a block
->> dev", dev);
->> +       }
->>    }
->>
->> My test environment is that
->> /dev/sda10              20G  623M   18G   4% /mnt/xfstests/test
->> /mnt/xfstests/test      20G  623M   18G   4% /mnt/xfstests/test/ovl-mnt
->> /dev/sda11              20G   46M   19G   1% /mnt/xfstests/scratch
->> /mnt/xfstests/scratch   20G   46M   19G   1% /mnt/xfstests/scratch/ovl-mnt
->>
->> and my TMPDIR env is /mnt/xfstests/test/ovl-mnt.
->
-> Does this code works for everyone or should we apply patch that disables
-> the test on overlay so that it's fixed for next release?
-I guess it is ok for everyone, but I want to listen some advise from 
-Amir since he is an expert about overlay filesystem.
+Also make use of TST_EXP_FAIL
 
-Hi Amir
-   Currently, Radoslav reported ltp tst_find_backing_dev api (we prase 
-/proc/self/mountinfo and use " - " to delim string and get the bdev 
-value after two fileds.) can not find really block dev when using 
-overlay filesystem. It fails because this api doesn't consider user 
-layer filesystem(like overlay). I think we should call 
-tst_find_backing_dev_api again if this dev variable is not block dev and 
-it is a mountpoint. I use the above environment and it is ok.
-Wha do you think about it?
+Signed-off-by: Feiyu Zhu <zhufy.jy@cn.fujitsu.com>
+---
+ testcases/kernel/syscalls/ipc/semctl/Makefile   |   4 +-
+ testcases/kernel/syscalls/ipc/semctl/semctl02.c | 155 ++++--------------------
+ 2 files changed, 28 insertions(+), 131 deletions(-)
 
-Best Regards
-Yang Xu
-
->
+diff --git a/testcases/kernel/syscalls/ipc/semctl/Makefile b/testcases/kernel/syscalls/ipc/semctl/Makefile
+index c6d8597..f04983d 100644
+--- a/testcases/kernel/syscalls/ipc/semctl/Makefile
++++ b/testcases/kernel/syscalls/ipc/semctl/Makefile
+@@ -7,7 +7,7 @@ LTPLIBS = ltpipc ltpnewipc
+ 
+ include $(top_srcdir)/include/mk/testcases.mk
+ 
+-semctl01 semctl02 semctl03 semctl04 semctl05 semctl06 semctl07: LTPLDLIBS = -lltpipc
+-semctl08 semctl09: LTPLDLIBS = -lltpnewipc
++semctl01 semctl03 semctl04 semctl05 semctl06 semctl07: LTPLDLIBS = -lltpipc
++semctl02 semctl08 semctl09: LTPLDLIBS = -lltpnewipc
+ 
+ include $(top_srcdir)/include/mk/generic_leaf_target.mk
+diff --git a/testcases/kernel/syscalls/ipc/semctl/semctl02.c b/testcases/kernel/syscalls/ipc/semctl/semctl02.c
+index 35051f6..f39b214 100644
+--- a/testcases/kernel/syscalls/ipc/semctl/semctl02.c
++++ b/testcases/kernel/syscalls/ipc/semctl/semctl02.c
+@@ -1,157 +1,54 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+- *
+- *   Copyright (c) International Business Machines  Corp., 2001
+- *
+- *   This program is free software;  you can redistribute it and/or modify
+- *   it under the terms of the GNU General Public License as published by
+- *   the Free Software Foundation; either version 2 of the License, or
+- *   (at your option) any later version.
+- *
+- *   This program is distributed in the hope that it will be useful,
+- *   but WITHOUT ANY WARRANTY;  without even the implied warranty of
+- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
+- *   the GNU General Public License for more details.
+- *
+- *   You should have received a copy of the GNU General Public License
+- *   along with this program;  if not, write to the Free Software
+- *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+- */
+-
+-/*
+- * NAME
+- *	semctl02.c
++ * Copyright (c) International Business Machines  Corp., 2001
+  *
+  * DESCRIPTION
+  *	semctl02 - test for EACCES error
+  *
+- * ALGORITHM
+- *	create a semaphore set without read/alter permissions
+- *	loop if that option was specified
+- *	call semctl() attempting an IPC_STAT command
+- *	check the errno value
+- *	  issue a PASS message if we get EACCES
+- *	otherwise, the tests fails
+- *	  issue a FAIL message
+- *	call cleanup
+- *
+- * USAGE:  <for command-line>
+- *  semctl02 [-c n] [-e] [-i n] [-I x] [-P x] [-t]
+- *     where,  -c n : Run n copies concurrently.
+- *             -e   : Turn on errno logging.
+- *	       -i n : Execute test n times.
+- *	       -I x : Execute test for x seconds.
+- *	       -P x : Pause for x seconds between iterations.
+- *	       -t   : Turn on syscall timing.
+- *
+  * HISTORY
+  *	03/2001 - Written by Wayne Boyer
+- *
+- * RESTRICTIONS
+- *	none
+  */
+ 
+-#include "ipcsem.h"
+ #include <pwd.h>
++#include "tst_safe_sysv_ipc.h"
++#include "tst_test.h"
++#include "lapi/sem.h"
++#include "libnewipc.h"
+ 
+-char *TCID = "semctl02";
+-int TST_TOTAL = 1;
+-
+-char nobody_uid[] = "nobody";
+-struct passwd *ltpuser;
+-
+-int sem_id_1 = -1;
++static int sem_id = -1;
+ 
+-int main(int ac, char **av)
++static void verify_semctl(void)
+ {
+-	int lc;
+-
+ 	struct semid_ds sem_ds;
+ 	union semun un_arg;
+ 
+-	tst_parse_opts(ac, av, NULL, NULL);
+-
+-	setup();		/* global setup */
+-
+-	/* The following loop checks looping state if -i option given */
+-
+-	for (lc = 0; TEST_LOOPING(lc); lc++) {
+-		/* reset tst_count in case we are looping */
+-		tst_count = 0;
++	un_arg.buf = &sem_ds;
+ 
+-		un_arg.buf = &sem_ds;
+-
+-		/*
+-		 * use the TEST macro to make the call
+-		 */
+-
+-		TEST(semctl(sem_id_1, 0, IPC_STAT, un_arg));
+-
+-		if (TEST_RETURN != -1) {
+-			tst_resm(TFAIL, "call succeeded when error expected");
+-			continue;
+-		}
+-
+-		switch (TEST_ERRNO) {
+-		case EACCES:
+-			tst_resm(TPASS, "expected failure - errno = %d : %s",
+-				 TEST_ERRNO, strerror(TEST_ERRNO));
+-			break;
+-		default:
+-			tst_resm(TFAIL, "unexpected error - %d : %s",
+-				 TEST_ERRNO, strerror(TEST_ERRNO));
+-			break;
+-		}
+-	}
+-
+-	cleanup();
+-
+-	tst_exit();
++	TST_EXP_FAIL(semctl(sem_id, 0, IPC_STAT, un_arg), EACCES,
++		     "semctl(IPC_STAT) with nobody user");
+ }
+ 
+-/*
+- * setup() - performs all the ONE TIME setup for this test.
+- */
+-void setup(void)
++static void setup(void)
+ {
+-	tst_require_root();
++	static key_t semkey;
++	struct passwd *ltpuser = SAFE_GETPWNAM("nobody");
+ 
+-	tst_sig(NOFORK, DEF_HANDLER, cleanup);
++	SAFE_SETUID(ltpuser->pw_uid);
+ 
+-	TEST_PAUSE;
++	semkey = GETIPCKEY();
+ 
+-	/* Switch to nobody user for correct error code collection */
+-	ltpuser = getpwnam(nobody_uid);
+-	if (setuid(ltpuser->pw_uid) == -1) {
+-		tst_resm(TINFO, "setuid failed to "
+-			 "to set the effective uid to %d", ltpuser->pw_uid);
+-		perror("setuid");
+-	}
+-
+-	/*
+-	 * Create a temporary directory and cd into it.
+-	 * This helps to ensure that a unique msgkey is created.
+-	 * See libs/libltpipc/libipc.c for more information.
+-	 */
+-	tst_tmpdir();
+-
+-	/* get an IPC resource key */
+-	semkey = getipckey();
+-
+-	/* create a semaphore set without read or alter permissions */
+-	if ((sem_id_1 = semget(semkey, PSEMS, IPC_CREAT | IPC_EXCL)) == -1) {
+-		tst_brkm(TBROK, cleanup, "couldn't create semaphore in setup");
+-	}
++	sem_id = SAFE_SEMGET(semkey, PSEMS, IPC_CREAT | IPC_EXCL);
+ }
+ 
+-/*
+- * cleanup() - performs all the ONE TIME cleanup for this test at completion
+- * 	       or premature exit.
+- */
+ void cleanup(void)
+ {
+-	/* if it exists, remove the semaphore resouce */
+-	rm_sema(sem_id_1);
+-
+-	tst_rmdir();
+-
++	if (sem_id != -1)
++		SAFE_SEMCTL(sem_id, 0, IPC_RMID);
+ }
++
++static struct tst_test test = {
++	.setup = setup,
++	.cleanup = cleanup,
++	.needs_root = 1,
++	.test_all = verify_semctl,
++};
+-- 
+1.8.3.1
 
 
 
