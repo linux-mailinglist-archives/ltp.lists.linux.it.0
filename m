@@ -2,39 +2,40 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78F862EBC47
-	for <lists+linux-ltp@lfdr.de>; Wed,  6 Jan 2021 11:24:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DDE7C2EBC5A
+	for <lists+linux-ltp@lfdr.de>; Wed,  6 Jan 2021 11:28:57 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 390DF3C549D
-	for <lists+linux-ltp@lfdr.de>; Wed,  6 Jan 2021 11:24:28 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 97A143C549D
+	for <lists+linux-ltp@lfdr.de>; Wed,  6 Jan 2021 11:28:57 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id 3D4D93C237C
- for <ltp@lists.linux.it>; Wed,  6 Jan 2021 11:24:26 +0100 (CET)
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id 3DD823C237C
+ for <ltp@lists.linux.it>; Wed,  6 Jan 2021 11:28:55 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 910671400B8E
- for <ltp@lists.linux.it>; Wed,  6 Jan 2021 11:24:26 +0100 (CET)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 7CF2060074B
+ for <ltp@lists.linux.it>; Wed,  6 Jan 2021 11:28:55 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 08BD1ACAF;
- Wed,  6 Jan 2021 10:24:26 +0000 (UTC)
-Date: Wed, 6 Jan 2021 11:25:20 +0100
+ by mx2.suse.de (Postfix) with ESMTP id B9218AD19;
+ Wed,  6 Jan 2021 10:28:54 +0000 (UTC)
+Date: Wed, 6 Jan 2021 11:29:35 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Luo Fenglin <luofenglin1@huawei.com>
-Message-ID: <X/WQEEj8Kx+tvz78@yuki.lan>
+Message-ID: <X/WRDyuFbxDnVLYS@yuki.lan>
 References: <1602841876-91490-1-git-send-email-luofenglin1@huawei.com>
+ <1602841876-91490-2-git-send-email-luofenglin1@huawei.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <1602841876-91490-1-git-send-email-luofenglin1@huawei.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+In-Reply-To: <1602841876-91490-2-git-send-email-luofenglin1@huawei.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v1] sched/sched_stress:Modify sched driver param
- to run long term testcases
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] sched/sched_stress:Fixed param of sched_tc
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,19 +55,27 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> Add sched_driver process slots param to 10, then long term testcases can run.
-> Additionally, add sched_driver run time 0.05 hour, long term testcases
-> run 1/5 of total time.
+> Rt flag of sched_tc must like "-pfixed" or "-pvariable"
+> 
+> Signed-off-by: luofenglin <luofenglin1@huawei.com>
+> ---
+>  .../kernel/sched/sched_stress/sched_driver.c  | 51 ++++++++++---------
+>  1 file changed, 27 insertions(+), 24 deletions(-)
+> 
+> diff --git a/testcases/kernel/sched/sched_stress/sched_driver.c b/testcases/kernel/sched/sched_stress/sched_driver.c
+> index 1bee9d130..475369b46 100644
+> --- a/testcases/kernel/sched/sched_stress/sched_driver.c
+> +++ b/testcases/kernel/sched/sched_stress/sched_driver.c
+> @@ -621,25 +621,28 @@ char *execution_time;		/* runtime hours to pass to each testcase */
+>  		printf("long-term slots available:  %d\n",
+>  		       long_term_slot_total);
+>  
+> +	char timeparam[30];
+> +	sprintf(timeparam, "-t%s", execution_time);
 
-This does not say why should we run the long term testcases for 1/5 of
-total time. As far as I can tell the code looks like the long term tests
-are supposed to run on background while we execute the short term tests
-in a loop while changing their priority.
+Why do we need this? It's not explained in the commit message at all.
 
-Also each logical change should be in a separate patch.
-
-The change to to increase the slots looks good, but should really go in
-as a separate patch that explains the change.
+The other change looks obviously fine.
 
 -- 
 Cyril Hrubis
