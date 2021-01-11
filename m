@@ -1,40 +1,38 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56B622F19A1
-	for <lists+linux-ltp@lfdr.de>; Mon, 11 Jan 2021 16:28:42 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 404C22F1A94
+	for <lists+linux-ltp@lfdr.de>; Mon, 11 Jan 2021 17:11:27 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1142B3C5FD5
-	for <lists+linux-ltp@lfdr.de>; Mon, 11 Jan 2021 16:28:42 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 096D73C5FDF
+	for <lists+linux-ltp@lfdr.de>; Mon, 11 Jan 2021 17:11:27 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 687BC3C06E2
- for <ltp@lists.linux.it>; Mon, 11 Jan 2021 16:28:40 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTP id 75DED3C313B
+ for <ltp@lists.linux.it>; Mon, 11 Jan 2021 17:11:04 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 755761000A36
- for <ltp@lists.linux.it>; Mon, 11 Jan 2021 16:28:38 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 882A61000646
+ for <ltp@lists.linux.it>; Mon, 11 Jan 2021 17:11:04 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 8FDCCAB7A;
- Mon, 11 Jan 2021 15:28:37 +0000 (UTC)
-Date: Mon, 11 Jan 2021 16:28:36 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Li Zhijian <lizhijian@cn.fujitsu.com>
-Message-ID: <X/xupJgktrYI4LyG@pevik>
-References: <20210111030704.5761-1-lizhijian@cn.fujitsu.com>
+ by mx2.suse.de (Postfix) with ESMTP id A9937AE89
+ for <ltp@lists.linux.it>; Mon, 11 Jan 2021 16:11:03 +0000 (UTC)
+From: Martin Doucha <mdoucha@suse.cz>
+To: ltp@lists.linux.it
+Date: Mon, 11 Jan 2021 17:11:01 +0100
+Message-Id: <20210111161103.22433-1-mdoucha@suse.cz>
+X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210111030704.5761-1-lizhijian@cn.fujitsu.com>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/2] build.sh: Remove deprecated CROSS_COMPILE
+Subject: [LTP] [PATCH v5 1/3] Add tst_kconfig_get() helper function
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,51 +44,73 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Li,
+Signed-off-by: Martin Doucha <mdoucha@suse.cz>
+---
 
-> The CROSS_COMPILE was no longer used by ltp since 400ac9bbe20.
+Changes since v3:
+- new patch
 
-> Signed-off-by: Li Zhijian <lizhijian@cn.fujitsu.com>
-> ---
->  build.sh | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+Changes since v4:
+- moved tst_kconfig_get() declaration to tst_private.h
 
-> diff --git a/build.sh b/build.sh
-> index 452cc6f4c..602ca419e 100755
-> --- a/build.sh
-> +++ b/build.sh
-> @@ -64,7 +64,7 @@ build_cross()
->  	fi
+ include/tst_private.h |  8 ++++++++
+ lib/tst_kconfig.c     | 21 +++++++++++++++++++++
+ 2 files changed, 29 insertions(+)
 
->  	echo "===== cross-compile ${host} ${1}-tree build into $PREFIX ====="
-> -	build $1 $2 "--host=$host" CROSS_COMPILE="${host}-"
-I looked what would require CROSS_COMPILE support. It's somehow duplicate to
-autoconf --host parameter.
+diff --git a/include/tst_private.h b/include/tst_private.h
+index e30d34740..fe0955f3b 100644
+--- a/include/tst_private.h
++++ b/include/tst_private.h
+@@ -29,4 +29,12 @@ void tst_print_svar_change(const char *name, const char *val);
+ 
+ int tst_get_prefix(const char *ip_str, int is_ipv6);
+ 
++/*
++ * Checks kernel config for a single configuration option and returns its
++ * state if found. The possible return values are the same as for
++ * tst_kconfig_var.choice, with the same meaning. See tst_kconfig_read()
++ * description in tst_kconfig.h.
++ */
++char tst_kconfig_get(const char *confname);
++
+ #endif
+diff --git a/lib/tst_kconfig.c b/lib/tst_kconfig.c
+index 734039e37..2b1087a8d 100644
+--- a/lib/tst_kconfig.c
++++ b/lib/tst_kconfig.c
+@@ -511,3 +511,24 @@ void tst_kconfig_check(const char *const kconfigs[])
+ 	if (abort_test)
+ 		tst_brk(TCONF, "Aborting due to unsuitable kernel config, see above!");
+ }
++
++char tst_kconfig_get(const char *confname)
++{
++	struct tst_kconfig_var var;
++
++	var.id_len = strlen(confname);
++
++	if (var.id_len >= sizeof(var.id))
++		tst_brk(TBROK, "Kconfig var name \"%s\" too long", confname);
++
++	strcpy(var.id, confname);
++	var.choice = 0;
++	var.val = NULL;
++
++	tst_kconfig_read(&var, 1);
++
++	if (var.choice == 'v')
++		free(var.val);
++
++	return var.choice;
++}
+-- 
+2.29.2
 
-Although it wouldn't be difficult to add a support into configure.ac and
-include/mk/config.mk.in via AC_ARG_VAR, it's use would require:
-
-1) either migrate everything to pkg-config (but libnuma and libaio does not
-support it) and use PKG_CONFIG_LIBDIR
-
-2) fix host cpu detection in m4/ltp-host-cpu.m4 (parse CROSS_COMPILE).
-
-=> IMHO it's not worth of doing it, thus good we removed it.
-
-Kind regards,
-Petr
-
-> +	build $1 $2 "--host=$host"
->  }
-
->  build()
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
