@@ -2,48 +2,49 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75AB82F0B5B
-	for <lists+linux-ltp@lfdr.de>; Mon, 11 Jan 2021 04:07:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1EF622F0B8E
+	for <lists+linux-ltp@lfdr.de>; Mon, 11 Jan 2021 04:45:51 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 326323C6470
-	for <lists+linux-ltp@lfdr.de>; Mon, 11 Jan 2021 04:07:32 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 8770B3C6061
+	for <lists+linux-ltp@lfdr.de>; Mon, 11 Jan 2021 04:45:50 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- by picard.linux.it (Postfix) with ESMTP id 0621D3C6AD4
- for <ltp@lists.linux.it>; Mon, 11 Jan 2021 04:07:23 +0100 (CET)
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id 053003C0CC6
+ for <ltp@lists.linux.it>; Mon, 11 Jan 2021 04:45:44 +0100 (CET)
 Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-3.smtp.seeweb.it (Postfix) with ESMTP id 3A3D11A00615
- for <ltp@lists.linux.it>; Mon, 11 Jan 2021 04:07:21 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.79,337,1602518400"; d="scan'208";a="103350712"
+ by in-4.smtp.seeweb.it (Postfix) with ESMTP id EF9D61000540
+ for <ltp@lists.linux.it>; Mon, 11 Jan 2021 04:45:42 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.79,337,1602518400"; d="scan'208";a="103351654"
 Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 11 Jan 2021 11:07:21 +0800
-Received: from G08CNEXMBPEKD05.g08.fujitsu.local (unknown [10.167.33.204])
- by cn.fujitsu.com (Postfix) with ESMTP id 6DD3E4CE600D;
- Mon, 11 Jan 2021 11:07:17 +0800 (CST)
-Received: from G08CNEXCHPEKD05.g08.fujitsu.local (10.167.33.203) by
- G08CNEXMBPEKD05.g08.fujitsu.local (10.167.33.204) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Mon, 11 Jan 2021 11:07:18 +0800
-Received: from FNSTPC.g08.fujitsu.local (10.167.226.45) by
- G08CNEXCHPEKD05.g08.fujitsu.local (10.167.33.209) with Microsoft SMTP Server
- id 15.0.1497.2 via Frontend Transport; Mon, 11 Jan 2021 11:07:17 +0800
-From: Li Zhijian <lizhijian@cn.fujitsu.com>
-To: <ltp@lists.linux.it>
-Date: Mon, 11 Jan 2021 11:07:04 +0800
-Message-ID: <20210111030704.5761-2-lizhijian@cn.fujitsu.com>
-X-Mailer: git-send-email 2.30.0
-In-Reply-To: <20210111030704.5761-1-lizhijian@cn.fujitsu.com>
-References: <20210111030704.5761-1-lizhijian@cn.fujitsu.com>
+ by heian.cn.fujitsu.com with ESMTP; 11 Jan 2021 11:45:38 +0800
+Received: from G08CNEXMBPEKD06.g08.fujitsu.local (unknown [10.167.33.206])
+ by cn.fujitsu.com (Postfix) with ESMTP id D18534CE5CE7
+ for <ltp@lists.linux.it>; Mon, 11 Jan 2021 11:45:36 +0800 (CST)
+Received: from [10.167.220.69] (10.167.220.69) by
+ G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Mon, 11 Jan 2021 11:45:38 +0800
+Message-ID: <5FFBC9DE.90302@cn.fujitsu.com>
+Date: Mon, 11 Jan 2021 11:45:34 +0800
+From: Xiao Yang <yangx.jy@cn.fujitsu.com>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
+ rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
 MIME-Version: 1.0
-X-yoursite-MailScanner-ID: 6DD3E4CE600D.AA341
+To: Li Zhijian <lizhijian@cn.fujitsu.com>
+References: <20210111030704.5761-1-lizhijian@cn.fujitsu.com>
+In-Reply-To: <20210111030704.5761-1-lizhijian@cn.fujitsu.com>
+X-Originating-IP: [10.167.220.69]
+X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
+ G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206)
+X-yoursite-MailScanner-ID: D18534CE5CE7.AAC69
 X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: lizhijian@cn.fujitsu.com
-X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.4
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-yoursite-MailScanner-From: yangx.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.4
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/2] build.sh: support compiler with path prefix
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/2] build.sh: Remove deprecated CROSS_COMPILE
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,44 +56,39 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
+Cc: ltp@lists.linux.it
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Previously, specify a compiler with path prefix will lead to a error
-like below:
-ltp$ ./build.sh -t cross -c /opt/gcc-4.9.3-64-gnu/bin/mips64el-linux-gcc
-...
-It was created by ltp configure LTP_VERSION, which was
-generated by GNU Autoconf 2.69.  Invocation command line was
+Hi Li,
 
-  $ ./configure --with-open-posix-testsuite --with-realtime-testsuite --prefix=/home/lizj/ltp-install --host=/opt/gcc-4.9.3-64-gnu/bin/mips64el-linux
-...
- #define VERSION "LTP_VERSION"
+Thanks for your work, I pushed the patch set. :-)
 
-configure: exit 1
-
-Signed-off-by: Li Zhijian <lizhijian@cn.fujitsu.com>
----
- build.sh | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/build.sh b/build.sh
-index 602ca419e..1ec6a51d8 100755
---- a/build.sh
-+++ b/build.sh
-@@ -57,7 +57,7 @@ build_native()
- 
- build_cross()
- {
--	local host="${CC%-gcc}"
-+	local host=$(basename "${CC%-gcc}")
- 	if [ "$host" = "gcc" ]; then
- 		echo "Invalid CC variable for cross compilation: $CC (clang not supported)" >&2
- 		exit 1
--- 
-2.30.0
+Best Regards,
+Xiao Yang
+On 2021/1/11 11:07, Li Zhijian wrote:
+> The CROSS_COMPILE was no longer used by ltp since 400ac9bbe20.
+>
+> Signed-off-by: Li Zhijian<lizhijian@cn.fujitsu.com>
+> ---
+>   build.sh | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/build.sh b/build.sh
+> index 452cc6f4c..602ca419e 100755
+> --- a/build.sh
+> +++ b/build.sh
+> @@ -64,7 +64,7 @@ build_cross()
+>   	fi
+>
+>   	echo "===== cross-compile ${host} ${1}-tree build into $PREFIX ====="
+> -	build $1 $2 "--host=$host" CROSS_COMPILE="${host}-"
+> +	build $1 $2 "--host=$host"
+>   }
+>
+>   build()
 
 
 
