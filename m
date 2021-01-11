@@ -1,75 +1,73 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A6072F0E57
-	for <lists+linux-ltp@lfdr.de>; Mon, 11 Jan 2021 09:41:49 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BF0A2F0E58
+	for <lists+linux-ltp@lfdr.de>; Mon, 11 Jan 2021 09:42:01 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9AE173C5FC8
-	for <lists+linux-ltp@lfdr.de>; Mon, 11 Jan 2021 09:41:48 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 891C43C5FCD
+	for <lists+linux-ltp@lfdr.de>; Mon, 11 Jan 2021 09:42:00 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 0B8463C5FF5
- for <ltp@lists.linux.it>; Mon, 11 Jan 2021 09:41:31 +0100 (CET)
-Received: from mail-pl1-x630.google.com (mail-pl1-x630.google.com
- [IPv6:2607:f8b0:4864:20::630])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 7794E3C6465
+ for <ltp@lists.linux.it>; Mon, 11 Jan 2021 09:41:33 +0100 (CET)
+Received: from mail-pf1-x436.google.com (mail-pf1-x436.google.com
+ [IPv6:2607:f8b0:4864:20::436])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id A7E601000934
- for <ltp@lists.linux.it>; Mon, 11 Jan 2021 09:41:30 +0100 (CET)
-Received: by mail-pl1-x630.google.com with SMTP id v3so9116302plz.13
- for <ltp@lists.linux.it>; Mon, 11 Jan 2021 00:41:30 -0800 (PST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 0E54B6008FF
+ for <ltp@lists.linux.it>; Mon, 11 Jan 2021 09:41:33 +0100 (CET)
+Received: by mail-pf1-x436.google.com with SMTP id m6so10519915pfm.6
+ for <ltp@lists.linux.it>; Mon, 11 Jan 2021 00:41:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=B8FjTtXfharJtxQVs95FkB3wNzPTYhGviGgFDbFbQ6A=;
- b=YbmOyb0eMKxbw/TG1L/MTcvW9PbbJX9xcas7bDtQEbe0XoUjNfMBTtVTRekoszyLad
- HBGluEmH8r9tW/fQoMtBBb71jb66UlpMFtYzRooskngDKxPK7CWpsuiSHahKlFQrdT5X
- 7Ab3YoOYpyXvq/s1x+lVyR6h7ekzRWx4AQnOcCpNYK8LByOuhwBjJwjxcPVV/C24uiYz
- T1RQzPrJLSPurNF2rWsiaKOL/SORr6ezuF1oZ476nELQEzBtyX+Bl6gyOuyiDurvs1DF
- bLkXrTIFOtRbM1y1fKaeQYro4pj7+Co0QsmDFwwT6z0Us5ALt1IQT//WpPt9lv+av4Ga
- PMug==
+ bh=I6VlR1dFz++wJJ/KqklHb/FWO01JGThPvwu4mnrJtls=;
+ b=jJwwlHA3Amn67x4t3BxCGwAN8wLY22cQ5S+NNo+O/saIGF52zEnMGzEwdK43CcqRNk
+ T+O4L+rPoV6dC1FOUV2YcByhJg0IS3Zk2s77etpUGGJyQ6VqL8HpOauinzNknXn+Ps9t
+ NbL/ZIgGm53+4fmrI+BQoCIt/KKosOvg3K7Y4pKjtQYDKtyGribiUO0ODagbutVR8I7K
+ LHAkZ6LWqs9Q+UzWvucDoLnL8yl6GqZsKkhcuMEFE8Iw9ohh2clwHJpCMhEsUNyHKMW0
+ x1AJahjuE6r1qUszVJ+VVRcm2CYpwqvoqYJx16S6drgwetR9Cup+VMIUk7MtZcuJ9OOC
+ ffmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=B8FjTtXfharJtxQVs95FkB3wNzPTYhGviGgFDbFbQ6A=;
- b=iffzE3BZoHyTPzLi3mGxuoaO1cVbVTmY9zV0VrQdxGiaO63q6Q73NogkzV3KLMd/Da
- 4AHCutqj6eiyX6PIvW54063+HmSFlartYxjiamYPeCja10rOEOw1ej63a6la2fziL9iQ
- lc1jWpuKNp3SiNL49mmxnhbAGK73FJcNbVxuf+B6JafgzUNftKoXyGGKTK2fleNtKXC/
- zofDfYGbNK33FvejfjXLGcjEPvnPv3hgvTEZN+PBIlDljE+9WyXWIrAFVOGV0pjLgiSg
- DOh53o0S1FOY36koly7j1dzIOka2OWxZLs9JVq+/wI9n6BIEaUEfRbvOuEgK3ganw3kY
- 4VvA==
-X-Gm-Message-State: AOAM530Q5gGoX8v7kJIt40N58jw8aoyOzssSOmQtEa7CIMfYwnf5prYg
- GW4agZ7MEpUVTX+jmVS8bvU=
-X-Google-Smtp-Source: ABdhPJzQawSYABIQqwBvryV7H+twa7uY+t7cXIQohIutzdWxUECVJ82O0J8y+ZigtzxM49ZM/myb0w==
-X-Received: by 2002:a17:90a:1d07:: with SMTP id
- c7mr16951668pjd.154.1610354489295; 
- Mon, 11 Jan 2021 00:41:29 -0800 (PST)
+ bh=I6VlR1dFz++wJJ/KqklHb/FWO01JGThPvwu4mnrJtls=;
+ b=A9XPCqzhFUbp1kDjUd17KPb3JBkuS7yOqjOa7KSzVadY52zCbnvJKx0Wv+wujZUVeg
+ azLY7s2pEPUNar49DplICIJe7SJAB8mug0zttt/B+LOHLLbqrGejz5zXhD3LexfT7lfG
+ o8nms54f/HC0FhOEmIjTaJiVxsfqMDnCNJgVOq/DqEkAXkkbpVe3FqwLg5FhhPw67Xp/
+ Xirh9deEiaIjaJEfGYlvwhMTUDQPalsWq18Oc8V70MbqZCGeg1Swbbw1bUSto9QRyplM
+ WRV8mjMp6jujUxK6zZ41tCRNpoeym2Dwe4Q+ozvM/kItV9BKzGB2uj0+utjL0Opa+4Xf
+ xW0w==
+X-Gm-Message-State: AOAM533HcOG3zL98MwLWR1RNPvuXyZPCFlR7p6qe/w1H+lDdJU5p6Aav
+ ta4sqPeb68bWTlLOXzOhCrM=
+X-Google-Smtp-Source: ABdhPJzOq9iJF+xuGMbkWKqak+6aU9Yku/y1AlE5JePlx/TQt/uRWg7MZuW/SazY8VvJTJvgJLveWA==
+X-Received: by 2002:a63:585a:: with SMTP id i26mr18578323pgm.330.1610354491431; 
+ Mon, 11 Jan 2021 00:41:31 -0800 (PST)
 Received: from bj10039pcu.spreadtrum.com ([117.18.48.82])
- by smtp.gmail.com with ESMTPSA id u12sm19186901pgi.91.2021.01.11.00.41.26
+ by smtp.gmail.com with ESMTPSA id u12sm19186901pgi.91.2021.01.11.00.41.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 11 Jan 2021 00:41:29 -0800 (PST)
+ Mon, 11 Jan 2021 00:41:31 -0800 (PST)
 From: gengcixi@gmail.com
 To: chrubis@suse.cz,
 	ltp@lists.linux.it
-Date: Mon, 11 Jan 2021 16:37:09 +0800
-Message-Id: <20210111083711.1715851-3-gengcixi@gmail.com>
+Date: Mon, 11 Jan 2021 16:37:10 +0800
+Message-Id: <20210111083711.1715851-4-gengcixi@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210111083711.1715851-1-gengcixi@gmail.com>
 References: <20210111083711.1715851-1-gengcixi@gmail.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH V2 2/3] lib: implement rtc_clock_save and
- rtc_clock_restore function
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH V2 3/3] device-drivers/rtc: add verify rtc set time
+ case
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,96 +87,156 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 From: Cixi Geng <cixi.geng1@unisoc.com>
 
-* Reading the RTC in the setup as well as timestamping with monotonic
-  timer
-* Getting a second monotonic timestamp in the cleanup
-* Setting the RTC to the value taken in setup plus the difference in
-  the monotonic timer timestamps
+Test for the Real Time Clock driver.
+ * Veirify that,
+ * 1) set a RTC time
+ * 2) read the RTC time after set RTC time at once
+ * 3) compare the set time and the read is identical
 
-Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
 Signed-off-by: Cixi Geng <cixi.geng1@unisoc.com>
 ---
- include/tst_wallclock.h |  4 ++++
- lib/tst_wallclock.c     | 44 +++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 48 insertions(+)
+ runtest/kernel_misc                           |   1 +
+ .../kernel/device-drivers/rtc/.gitignore      |   1 +
+ testcases/kernel/device-drivers/rtc/rtc02.c   | 111 ++++++++++++++++++
+ 3 files changed, 113 insertions(+)
+ create mode 100644 testcases/kernel/device-drivers/rtc/rtc02.c
 
-diff --git a/include/tst_wallclock.h b/include/tst_wallclock.h
-index 7d6723a7a..56d30f02e 100644
---- a/include/tst_wallclock.h
-+++ b/include/tst_wallclock.h
-@@ -12,4 +12,8 @@ void tst_wallclock_save(void);
- 
- void tst_wallclock_restore(void);
- 
-+void tst_rtc_clock_save(char *rtc_dev);
+diff --git a/runtest/kernel_misc b/runtest/kernel_misc
+index 7937c7bbf..abb75ebaf 100644
+--- a/runtest/kernel_misc
++++ b/runtest/kernel_misc
+@@ -1,6 +1,7 @@
+ kmsg01 kmsg01
+ fw_load fw_load
+ rtc01 rtc01
++rtc02 rtc02
+ block_dev block_dev
+ tpci tpci
+ tbio tbio
+diff --git a/testcases/kernel/device-drivers/rtc/.gitignore b/testcases/kernel/device-drivers/rtc/.gitignore
+index 8412fe679..0c0161eba 100644
+--- a/testcases/kernel/device-drivers/rtc/.gitignore
++++ b/testcases/kernel/device-drivers/rtc/.gitignore
+@@ -1 +1,2 @@
+ /rtc01
++/rtc02
+diff --git a/testcases/kernel/device-drivers/rtc/rtc02.c b/testcases/kernel/device-drivers/rtc/rtc02.c
+new file mode 100644
+index 000000000..a4c758fcd
+--- /dev/null
++++ b/testcases/kernel/device-drivers/rtc/rtc02.c
+@@ -0,0 +1,111 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (C) 2020 Unisoc Communications Inc.
++ */
 +
-+void tst_rtc_clock_restore(char *rtc_dev);
++/*\
++ * [DESCRIPTION]
++ *
++ * test rtc devices set time functioin
++ *
++ * The steps:
++ *
++ * - save rtc time and set a RTC time
++ * - read the RTC time after set RTC time at once
++ * - compare the set time and the read is identical
++ * - in the cleanup function, restore rtc time.
++ *
++\*/
 +
- #endif	/* TST_WALLCLK_H__ */
-diff --git a/lib/tst_wallclock.c b/lib/tst_wallclock.c
-index 282d6ada3..c1a640338 100644
---- a/lib/tst_wallclock.c
-+++ b/lib/tst_wallclock.c
-@@ -11,11 +11,14 @@
- #include "tst_test.h"
- #include "tst_timer.h"
- #include "tst_clocks.h"
++#include <stdio.h>
 +#include "tst_rtctime.h"
- #include "tst_wallclock.h"
- #include "lapi/posix_clocks.h"
- 
- static struct timespec real_begin, mono_begin;
- 
-+static struct rtc_time rtc_begin;
++#include "tst_wallclock.h"
++#include "tst_test.h"
 +
- static int clock_saved;
- 
- void tst_wallclock_save(void)
-@@ -58,3 +61,44 @@ void tst_wallclock_restore(void)
- 	if (tst_clock_settime(CLOCK_REALTIME, &adjust))
- 		tst_brk(TBROK | TERRNO, "tst_clock_settime() realtime failed");
- }
++static char *rtc_dev = "/dev/rtc";
 +
-+void tst_rtc_clock_save(char *rtc_dev)
++static char *rtctime_to_str(struct rtc_time *tm)
 +{
-+	/* save initial monotonic time to restore it when needed */
-+	if (tst_rtc_gettime(rtc_dev, &rtc_begin))
-+		tst_brk(TBROK | TERRNO, "tst_rtc_gettime() realtime failed");
++	static char rtctime_buf[20];
 +
-+	if (tst_clock_gettime(CLOCK_MONOTONIC_RAW, &mono_begin))
-+		tst_brk(TBROK | TERRNO, "tst_clock_gettime() monotonic failed");
-+
-+	clock_saved = 1;
++	sprintf(rtctime_buf, "%04d-%02d-%02d %02d:%02d:%02d",
++		tm->tm_year + 1900,
++		tm->tm_mon + 1,
++		tm->tm_mday,
++		tm->tm_hour,
++		tm->tm_min,
++		tm->tm_sec);
++	return rtctime_buf;
 +}
 +
-+void tst_rtc_clock_restore(char *rtc_dev)
++static int rtc_tm_cmp(struct rtc_time *set_tm, struct rtc_time *read_tm)
 +{
-+	static struct timespec mono_end, elapsed;
-+	static struct timespec rtc_begin_tm, rtc_adjust;
-+	static struct rtc_time rtc_restore;
++	return !((set_tm->tm_sec == read_tm->tm_sec)
++		&& (set_tm->tm_min == read_tm->tm_min)
++		&& (set_tm->tm_hour == read_tm->tm_hour)
++		&& (set_tm->tm_mday == read_tm->tm_mday)
++		&& (set_tm->tm_mon == read_tm->tm_mon)
++		&& (set_tm->tm_year == read_tm->tm_year));
++}
 +
-+	if (!clock_saved)
++static void set_rtc_test(void)
++{
++	struct rtc_time read_tm;
++	int ret;
++
++	struct rtc_time set_tm = {
++		.tm_sec = 30,
++		.tm_min = 23,
++		.tm_hour = 13,
++		.tm_mday = 9,
++		.tm_mon = 9,
++		.tm_year = 120,
++	};
++
++	/* set rtc to 2020.10.9 13:23:30 */
++	tst_res(TINFO, "To set RTC date/time is: %s", rtctime_to_str(&set_tm));
++
++	ret = tst_rtc_settime(rtc_dev, &set_tm);
++	if (ret != 0) {
++		tst_res(TFAIL | TERRNO, "RTC_SET_TIME failed");
 +		return;
++	}
 +
-+	clock_saved = 0;
++	/* Read current RTC Time */
++	ret = tst_rtc_gettime(rtc_dev, &read_tm);
++	if (ret != 0) {
++		tst_res(TFAIL | TERRNO, "RTC_RD_TIME failed");
++		return;
++	}
++	tst_res(TINFO, "read RTC date/time is: %s", rtctime_to_str(&read_tm));
 +
-+	if (tst_clock_gettime(CLOCK_MONOTONIC_RAW, &mono_end))
-+		tst_brk(TBROK | TERRNO, "tst_clock_gettime() monotonic failed");
++	if (rtc_tm_cmp(&set_tm, &read_tm)) {
++		tst_res(TFAIL | TERRNO, "RTC SET TEST Failed");
++		return;
++	}
++	tst_res(TPASS, "The read RTC time is consistent with set time");
 +
-+	elapsed = tst_timespec_diff(mono_end, mono_begin);
-+
-+	rtc_begin_tm.tv_nsec = 0;
-+
-+	rtc_begin_tm.tv_sec = tst_rtc_tm_to_time(&rtc_begin);
-+
-+	rtc_adjust = tst_timespec_add(rtc_begin_tm, elapsed);
-+
-+	tst_rtc_time_to_tm(rtc_adjust.tv_sec, &rtc_restore);
-+
-+	/* restore realtime clock based on monotonic delta */
-+	if (tst_rtc_settime(rtc_dev, &rtc_restore))
-+		tst_brk(TBROK | TERRNO, "tst_rtc_settime() realtime failed");
 +}
++
++static void rtc_setup(void)
++{
++	int exists = access(rtc_dev, F_OK);
++
++	if (exists < 0)
++		tst_brk(TCONF, "RTC device %s not available", rtc_dev);
++
++	tst_rtc_clock_save(rtc_dev);
++}
++
++static void rtc_cleanup(void)
++{
++	tst_rtc_clock_restore(rtc_dev);
++}
++
++static struct tst_test test = {
++	.setup = rtc_setup,
++	.test_all = set_rtc_test,
++	.cleanup = rtc_cleanup,
++	/* tests needs to run with UID=0 */
++	.needs_root = 1,
++};
 -- 
 2.25.1
 
