@@ -2,46 +2,50 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4AA6E2F0AC2
-	for <lists+linux-ltp@lfdr.de>; Mon, 11 Jan 2021 02:24:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D82C2F0AD6
+	for <lists+linux-ltp@lfdr.de>; Mon, 11 Jan 2021 02:40:02 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A8E7F3C6AD2
-	for <lists+linux-ltp@lfdr.de>; Mon, 11 Jan 2021 02:24:10 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id D8D7D3C6023
+	for <lists+linux-ltp@lfdr.de>; Mon, 11 Jan 2021 02:40:01 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id C724B3C2648
- for <ltp@lists.linux.it>; Mon, 11 Jan 2021 02:24:06 +0100 (CET)
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id 260D53C2648
+ for <ltp@lists.linux.it>; Mon, 11 Jan 2021 02:39:59 +0100 (CET)
 Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-2.smtp.seeweb.it (Postfix) with ESMTP id B0C07600810
- for <ltp@lists.linux.it>; Mon, 11 Jan 2021 02:24:05 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.79,337,1602518400"; d="scan'208";a="103345997"
+ by in-4.smtp.seeweb.it (Postfix) with ESMTP id 937CB100045B
+ for <ltp@lists.linux.it>; Mon, 11 Jan 2021 02:39:58 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.79,337,1602518400"; d="scan'208";a="103346435"
 Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 11 Jan 2021 09:23:54 +0800
-Received: from G08CNEXMBPEKD05.g08.fujitsu.local (unknown [10.167.33.204])
- by cn.fujitsu.com (Postfix) with ESMTP id CFDA44CE5CE7;
- Mon, 11 Jan 2021 09:23:47 +0800 (CST)
-Received: from G08CNEXCHPEKD05.g08.fujitsu.local (10.167.33.203) by
- G08CNEXMBPEKD05.g08.fujitsu.local (10.167.33.204) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Mon, 11 Jan 2021 09:23:48 +0800
-Received: from FNSTPC.g08.fujitsu.local (10.167.226.45) by
- G08CNEXCHPEKD05.g08.fujitsu.local (10.167.33.209) with Microsoft SMTP Server
- id 15.0.1497.2 via Frontend Transport; Mon, 11 Jan 2021 09:23:48 +0800
-From: Li Zhijian <lizhijian@cn.fujitsu.com>
-To: <ltp@lists.linux.it>
-Date: Mon, 11 Jan 2021 09:23:38 +0800
-Message-ID: <20210111012338.5482-1-lizhijian@cn.fujitsu.com>
-X-Mailer: git-send-email 2.30.0
+ by heian.cn.fujitsu.com with ESMTP; 11 Jan 2021 09:39:56 +0800
+Received: from G08CNEXMBPEKD06.g08.fujitsu.local (unknown [10.167.33.206])
+ by cn.fujitsu.com (Postfix) with ESMTP id 2678F4CE6031;
+ Mon, 11 Jan 2021 09:39:52 +0800 (CST)
+Received: from [10.167.220.69] (10.167.220.69) by
+ G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Mon, 11 Jan 2021 09:39:43 +0800
+Message-ID: <5FFBAC5B.8060808@cn.fujitsu.com>
+Date: Mon, 11 Jan 2021 09:39:39 +0800
+From: yangx.jy <yangx.jy@cn.fujitsu.com>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
+ rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
 MIME-Version: 1.0
-X-yoursite-MailScanner-ID: CFDA44CE5CE7.AD31E
+To: Petr Vorel <pvorel@suse.cz>
+References: <20210111012338.5482-1-lizhijian@cn.fujitsu.com>
+In-Reply-To: <20210111012338.5482-1-lizhijian@cn.fujitsu.com>
+X-Originating-IP: [10.167.220.69]
+X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
+ G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206)
+X-yoursite-MailScanner-ID: 2678F4CE6031.A815F
 X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: lizhijian@cn.fujitsu.com
-X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.4
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-yoursite-MailScanner-From: yangx.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.4
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH] build.sh: support compiler with path prefix
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] build.sh: support compiler with path prefix
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,44 +57,52 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
+Cc: ltp@lists.linux.it
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Previously, specify a compiler with path prefix will lead to a error
-like below:
-ltp$ ./build.sh -t cross -c /opt/gcc-4.9.3-64-gnu/bin/mips64el-linux-gcc
-...
-It was created by ltp configure LTP_VERSION, which was
-generated by GNU Autoconf 2.69.  Invocation command line was
+On 2021/1/11 9:23, Li Zhijian wrote:
+> Previously, specify a compiler with path prefix will lead to a error
+> like below:
+> ltp$ ./build.sh -t cross -c /opt/gcc-4.9.3-64-gnu/bin/mips64el-linux-gcc
+> ...
+> It was created by ltp configure LTP_VERSION, which was
+> generated by GNU Autoconf 2.69.  Invocation command line was
+>
+>    $ ./configure --with-open-posix-testsuite --with-realtime-testsuite --prefix=/home/lizj/ltp-install --host=/opt/gcc-4.9.3-64-gnu/bin/mips64el-linux CROSS_COMPILE=/opt/gcc-4.9.3-64-gnu/bin/mips64el-linux-
+> ...
+>   #define VERSION "LTP_VERSION"
+>
+> configure: exit 1
+>
+> Signed-off-by: Li Zhijian<lizhijian@cn.fujitsu.com>
+> ---
+>   build.sh | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/build.sh b/build.sh
+> index 452cc6f4c..a662c9cb4 100755
+> --- a/build.sh
+> +++ b/build.sh
+> @@ -64,7 +64,7 @@ build_cross()
+>   	fi
+>
+>   	echo "===== cross-compile ${host} ${1}-tree build into $PREFIX ====="
+> -	build $1 $2 "--host=$host" CROSS_COMPILE="${host}-"
+> +	build $1 $2 "--host=$(basename $host)" CROSS_COMPILE="${host}-"
+Hi Petr,
 
-  $ ./configure --with-open-posix-testsuite --with-realtime-testsuite --prefix=/home/lizj/ltp-install --host=/opt/gcc-4.9.3-64-gnu/bin/mips64el-linux CROSS_COMPILE=/opt/gcc-4.9.3-64-gnu/bin/mips64el-linux-
-...
- #define VERSION "LTP_VERSION"
+CROSS_COMPILE seems unneeeded, right?
+Other than that it looks good to me.
+Reviewed-by: Xiao Yang <yangx.jy@cn.fujitsu.com>
 
-configure: exit 1
-
-Signed-off-by: Li Zhijian <lizhijian@cn.fujitsu.com>
----
- build.sh | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/build.sh b/build.sh
-index 452cc6f4c..a662c9cb4 100755
---- a/build.sh
-+++ b/build.sh
-@@ -64,7 +64,7 @@ build_cross()
- 	fi
- 
- 	echo "===== cross-compile ${host} ${1}-tree build into $PREFIX ====="
--	build $1 $2 "--host=$host" CROSS_COMPILE="${host}-"
-+	build $1 $2 "--host=$(basename $host)" CROSS_COMPILE="${host}-"
- }
- 
- build()
--- 
-2.30.0
+Best Regards,
+Xiao Yang
+>   }
+>
+>   build()
 
 
 
