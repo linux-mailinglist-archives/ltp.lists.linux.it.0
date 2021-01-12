@@ -2,74 +2,53 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89A9A2F2CEF
-	for <lists+linux-ltp@lfdr.de>; Tue, 12 Jan 2021 11:34:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E7692F2D18
+	for <lists+linux-ltp@lfdr.de>; Tue, 12 Jan 2021 11:44:02 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E74653C2A27
-	for <lists+linux-ltp@lfdr.de>; Tue, 12 Jan 2021 11:34:41 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 04FB93C644A
+	for <lists+linux-ltp@lfdr.de>; Tue, 12 Jan 2021 11:44:01 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 86D5E3C02FA
- for <ltp@lists.linux.it>; Tue, 12 Jan 2021 11:34:36 +0100 (CET)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [63.128.21.124])
- by in-4.smtp.seeweb.it (Postfix) with ESMTP id 20D3F1000352
- for <ltp@lists.linux.it>; Tue, 12 Jan 2021 11:34:34 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1610447673;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=gYGrTwNYm7nSQTsUEQX6YC7mcWlaZbHlEogfwzgCVNc=;
- b=cwHidBZjCnQWnBFRDseQ57J9ATXREquU9VJK1Ch+jHlO6g4GfRs2ZlKeXK4+x+ZuGgUsKx
- VD5fVXJCa1ILLehP6mmzIu5L4rgP/GDgoHDeUGjFrY+CkGUqBWLucLiH9U1+qG+/HsB+yh
- qIiNjVp+0534OMKqAiYZGnHZlziKuJk=
-Received: from mail-yb1-f197.google.com (mail-yb1-f197.google.com
- [209.85.219.197]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-450-7xSEjDB0PdyFXhJ7Nz60iQ-1; Tue, 12 Jan 2021 05:34:30 -0500
-X-MC-Unique: 7xSEjDB0PdyFXhJ7Nz60iQ-1
-Received: by mail-yb1-f197.google.com with SMTP id b123so2008193ybh.17
- for <ltp@lists.linux.it>; Tue, 12 Jan 2021 02:34:30 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=gYGrTwNYm7nSQTsUEQX6YC7mcWlaZbHlEogfwzgCVNc=;
- b=nzTnb/h2PzN3wfHocjnKm/p9YH5uLjpyR10bqgSRLuejuClbq3IkRmsPp4a1Iu4f+g
- y5hN5a7TyJT+58Cot/fAqP4Qr5mRqYMDYs7F1GYpm9jJUf8kfY4RZJuDXZa7bYHvmlO5
- qPOo124cSpc/HfHPBIaEH09G1wAlo7w0L9GMClgqKtLPDgJo8fBGbJCJZMmUR2bbbLDA
- WV/S9giRqYUvvQmyzr+TgwTXCbl5O31ElCrRZY77S0avQSNJ7SnoMLGcDTIusbqV3zPR
- IGR2/YN64MEMCXJoTicS3mRmOjkZPchcsx2wz4DM3eWb0SuGW6tjoGqR3iIyoh+E34Vo
- Fj0g==
-X-Gm-Message-State: AOAM530Y1eqwGg7YklNBAtU294pNB11ndgIxYWGn3mjWu713QSeXy0Uy
- NzVWfDGhUsyHKfsoYo2uVcety/PGWMctgCRp6gh+kS0gwSNTPDkFZhlIfSp51GWjZ1TRgg7v8Rn
- 4AyEjJgLAhXHSfUvxjWdOHqZPXo0=
-X-Received: by 2002:a25:cc92:: with SMTP id l140mr5955893ybf.252.1610447669556; 
- Tue, 12 Jan 2021 02:34:29 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJw33ngO8r5Pz5L0I13V6n5IXYKcUF2B2OPctyDWcwqLQdiXlEb+OPvI1R5cl6hUOl76ed/t2R94qRPnj54U49g=
-X-Received: by 2002:a25:cc92:: with SMTP id l140mr5955872ybf.252.1610447669297; 
- Tue, 12 Jan 2021 02:34:29 -0800 (PST)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id 595FD3C06E2
+ for <ltp@lists.linux.it>; Tue, 12 Jan 2021 11:43:57 +0100 (CET)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id 71886200AF3
+ for <ltp@lists.linux.it>; Tue, 12 Jan 2021 11:43:54 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.79,341,1602518400"; 
+ d="txt'?scan'208";a="103401472"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 12 Jan 2021 18:43:52 +0800
+Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
+ by cn.fujitsu.com (Postfix) with ESMTP id 72DEE4CE4B3E;
+ Tue, 12 Jan 2021 18:43:47 +0800 (CST)
+Received: from [10.167.220.84] (10.167.220.84) by
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Tue, 12 Jan 2021 18:43:41 +0800
+Message-ID: <5FFD7D76.6070301@cn.fujitsu.com>
+Date: Tue, 12 Jan 2021 18:44:06 +0800
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
+ rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
 MIME-Version: 1.0
-References: <20210111123626.28932-1-pvorel@suse.cz>
-In-Reply-To: <20210111123626.28932-1-pvorel@suse.cz>
-From: Li Wang <liwang@redhat.com>
-Date: Tue, 12 Jan 2021 18:34:17 +0800
-Message-ID: <CAEemH2eTEEZVZc71=HF+251t_d7Rnu7XdFY2t54u=ORwY3M-7A@mail.gmail.com>
-To: Petr Vorel <pvorel@suse.cz>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+To: Cyril Hrubis <chrubis@suse.cz>
+References: <1606701966-1596-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ <X/hdjNT81M9CxbaD@yuki.lan> <5FFC14A6.3030408@cn.fujitsu.com>
+In-Reply-To: <5FFC14A6.3030408@cn.fujitsu.com>
+Content-Type: multipart/mixed; boundary="------------090309030101070409090801"
+X-Originating-IP: [10.167.220.84]
+X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
+X-yoursite-MailScanner-ID: 72DEE4CE4B3E.A1EF3
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.4
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/1] autoconf: Use pkg-config for keyutils
- detection
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] cpuset_inherit: Use the original mem value
+ instead of N_NODES
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,150 +60,309 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============1681541593=="
+Cc: ltp@lists.linux.it
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1681541593==
-Content-Type: multipart/alternative; boundary="0000000000004219c305b8b19141"
+--------------090309030101070409090801
+Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
+Content-Transfer-Encoding: 7bit
 
---0000000000004219c305b8b19141
-Content-Type: text/plain; charset="UTF-8"
+Hi Cyril
 
-On Mon, Jan 11, 2021 at 8:36 PM Petr Vorel <pvorel@suse.cz> wrote:
+When I look these cpuset cases(cpuset_base_ops_test, 
+cpuset_hierarchy_test, cpuset_inherit_test...), these cases seems all 
+not consider the situation(cpus/memory are not numbered continously). If 
+we want to modify them to be situable for not numbered continously, it 
+will be complexd(especially cpuset_base_ops_test). AFAIK, I rarely see 
+not numbered continously for memory node. IMO, we just check whether 
+memory/cpu numbered continously, if not, we just report TCONF and remind 
+user to change their system to meet environment, so their system can be 
+fully tested.
 
-> Using pkg-config is less error prone during cross compilation.
+For cpu, maybe we can use the following script to detect
+
+cpu_string="`cat /sys/devices/system/cpu/online`"
+offline_string="`cat /sys/devices/system/cpu/online`"
+NR_CPUS=`tst_ncpus`
+ALL_CPUS=`tst_ncpus_conf`
+if [ $NR_CPUS -eq $ALL_CPUS ]; then
+        tst_resm TINFO "All($ALL_CPUS) logical cpus on your environment"
+else
+       tst_brkm TCONF "Not all logical cpus on, 
+online($cpu_string),offline($offline_string)"
+fi
+
+I wonder if it's worth changing the stable cpuset/memory cases for these 
+rared situation(memory/cpu are not numbered continously).
+
+What do you think about it?
+
+ps:I have modify cpuset_inherit case, but when I modify 
+cpuset_base_ops_test, I find it needs lots of changes because we need to 
+distinguish cpu or memory  whether numbered continously.
+
+the change for cpuset_inherit as attach
+
+Best Regards
+Yang Xu
+> Hi Cyril
+>> Hi!
+>>> Since ltp commit cf33086a1ca, we add cgroup.clone_children switch for
+>>> cpuset.cpus and mems, we used the original memory value to set in
+>>> cpuset_inherit case.
+>>>
+>>> After ltp commit 6872ad15a, we improve the node number calculation
+>>> for N_NODES,
+>>> so it can calculate for N_NODES obtained from the file contains only
+>>> "0,8".
+>>>
+>>> But it doesn't think about this patch will affect mem_string value,
+>>> so this
+>>> cpuset_inherit case will fail on 4 numa nodes pc, as below:
+>>>
+>>> cpuset_inherit 1 TPASS: cpus: Inherited information is right!
+>>> cpuset_inherit 3 TPASS: cpus: Inherited information is right!
+>>> cpuset_inherit 5 TPASS: cpus: Inherited information is right!
+>>> cpuset_inherit 7 TPASS: cpus: Inherited information is right!
+>>> cpuset_inherit 9 TPASS: cpus: Inherited information is right!
+>>> cpuset_inherit 11 TPASS: cpus: Inherited information is right!
+>>> cpuset_inherit 13 TPASS: mems: Inherited information is right!
+>>> cpuset_inherit 15 TPASS: mems: Inherited information is right!
+>>> cpuset_inherit 17 TPASS: mems: Inherited information is right!
+>>> cpuset_inherit 19 TPASS: mems: Inherited information is right!
+>>> cpuset_inherit 21 TPASS: mems: Inherited information is right!
+>>> cpuset_inherit 23 TFAIL: mems: Test result - 0-3 Expected string - "4"
+>>>
+>>> Fix this by using original mem value.
+>>>
+>>> Signed-off-by: Yang Xu<xuyang2018.jy@cn.fujitsu.com>
+>>> ---
+>>> testcases/kernel/controllers/cpuset/cpuset_funcs.sh | 7 +++----
+>>> .../cpuset/cpuset_inherit_test/cpuset_inherit_testset.sh | 6 ++----
+>>> 2 files changed, 5 insertions(+), 8 deletions(-)
+>>>
+>>> diff --git a/testcases/kernel/controllers/cpuset/cpuset_funcs.sh
+>>> b/testcases/kernel/controllers/cpuset/cpuset_funcs.sh
+>>> index f4365af2c..b469140ca 100755
+>>> --- a/testcases/kernel/controllers/cpuset/cpuset_funcs.sh
+>>> +++ b/testcases/kernel/controllers/cpuset/cpuset_funcs.sh
+>>> @@ -28,10 +28,11 @@
+>>>
+>>> NR_CPUS=`tst_ncpus`
+>>> if [ -f "/sys/devices/system/node/has_high_memory" ]; then
+>>> - N_NODES="`cat /sys/devices/system/node/has_high_memory | tr ',' ' '`"
+>>> + mem_string="`cat /sys/devices/system/node/has_high_memory`"
+>>> else
+>>> - N_NODES="`cat /sys/devices/system/node/has_normal_memory | tr ',' '
+>>> '`"
+>>> + mem_string="`cat /sys/devices/system/node/has_normal_memory`"
+>>> fi
+>>> +N_NODES="`echo $mem_string | tr ',' ' '`"
+>>> count=0
+>>> for item in $N_NODES; do
+>>> delta=1
+>>> @@ -42,8 +43,6 @@ for item in $N_NODES; do
+>>> done
+>>> N_NODES=$count
+>>>
+>>> -mem_string="$N_NODES"
+>>> -
+>>> CPUSET="/dev/cpuset"
+>>> CPUSET_TMP="/tmp/cpuset_tmp"
+>>> CLONE_CHILDREN="/dev/cpuset/cgroup.clone_children"
+>>>
+>>> diff --git
+>>> a/testcases/kernel/controllers/cpuset/cpuset_inherit_test/cpuset_inherit_testset.sh
+>>> b/testcases/kernel/controllers/cpuset/cpuset_inherit_test/cpuset_inherit_testset.sh
+>>>
+>>> index 73eed2cb9..27ff19532 100755
+>>> ---
+>>> a/testcases/kernel/controllers/cpuset/cpuset_inherit_test/cpuset_inherit_testset.sh
+>>>
+>>> +++
+>>> b/testcases/kernel/controllers/cpuset/cpuset_inherit_test/cpuset_inherit_testset.sh
+>>>
+>>> @@ -31,10 +31,8 @@ export TST_COUNT=1
+>>> check 1 1
+>>>
+>>> nr_cpus=$NR_CPUS
+>>> -nr_mems=$N_NODES
+>>>
+>>> cpus_all="$(seq -s, 0 $((nr_cpus-1)))"
+>>> -mems_all="$(seq -s, 0 $((nr_mems-1)))"
+>>>
+>>> exit_status=0
+>>>
+>>> @@ -134,10 +132,10 @@ test_mems()
+>>> done<<- EOF
+>>> 0 NULL EMPTY
+>>> 0 0 EMPTY
+>>> - 0 $mems_all EMPTY
+>>> + 0 $mem_string EMPTY
+>>> 1 NULL EMPTY
+>>> 1 0 0
+>>> - 1 $mems_all $mem_string
+>>> + 1 $mems_string $mem_string
+> here has a typo, mems_string->mem_string
+>>> EOF
+>>> # while read mems result
+>>> }
+>>
+>> I guess that it looks okay to me. I guess that we can commit this before
+>> the release, so acked.
+>>
+>> But don't we have the same problem for cpus_all? If we, for instance,
+>> have a machine where cpus are not numbered continously we will fail as
+>> well, right?
+> Yes, it has the same problem for cpus_all.
+>>
+>> I guess that a proper fix would be to rewrite the tests to parse the
+>> strings into a bitflag arrays and compare these arrays instead of the
+>> string comparsion and hacks that keeps up pilling up.
+> Will do it in v2.
+>>
 >
-> Signed-off-by: Petr Vorel <pvorel@suse.cz>
-> ---
-> Hi,
->
-> if you agree with this, I'll replace (probably after release) ACL_LIBS,
-> CAP_LIBS, CRYPTO_LIBS, SELINUX_LIBS (to follow libmnl and libtirpc).
->
-+1
 
 
->
-> libaio and libnuma does not support pkg-config.
->
-> Tested: https://travis-ci.org/github/pevik/ltp/builds/753925166
->
-> [...]
 
 
-> diff --git a/m4/ltp-keyutils.m4 b/m4/ltp-keyutils.m4
-> deleted file mode 100644
-> index 451c549f3..000000000
-> --- a/m4/ltp-keyutils.m4
-> +++ /dev/null
-> @@ -1,10 +0,0 @@
-> -dnl SPDX-License-Identifier: GPL-2.0-or-later
-> -dnl Copyright (c) 2016 Fujitsu Ltd.
-> -dnl Copyright (c) 2017 Petr Vorel <pvorel@suse.cz>
-> -dnl Author: Xiao Yang <yangx.jy@cn.fujitsu.com>
-> -
-> -AC_DEFUN([LTP_CHECK_KEYUTILS_SUPPORT], [
-> -       AC_CHECK_LIB([keyutils], [add_key],
-> -       [AC_DEFINE(HAVE_LIBKEYUTILS, 1, [Define to 1 if you have
-> libkeyutils installed.])
-> -             AC_SUBST(KEYUTILS_LIBS, "-lkeyutils")])
-> -])
-> diff --git a/m4/ltp-libkeyutils.m4 b/m4/ltp-libkeyutils.m4
-> new file mode 100644
-> index 000000000..f5d128969
-> --- /dev/null
-> +++ b/m4/ltp-libkeyutils.m4
-> @@ -0,0 +1,8 @@
-> +dnl SPDX-License-Identifier: GPL-2.0-or-later
-> +dnl Copyright (c) 2020 Petr Vorel <pvorel@suse.cz>
-> +
-> +AC_DEFUN([LTP_CHECK_LIBKEYUTILS], [
-> +    PKG_CHECK_MODULES([LIBKEYUTILS], [libkeyutils], [
->
+--------------090309030101070409090801
+Content-Type: text/plain; name="diff.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename="diff.txt"
 
-I guess the list-of-modules should be [keyutils-libs] but not [libkeyutils]?
+diff --git a/testcases/kernel/controllers/cpuset/cpuset_funcs.sh b/testcases/kernel/controllers/cpuset/cpuset_funcs.sh
+index f4365af2c..e6a05c5e0 100755
+--- a/testcases/kernel/controllers/cpuset/cpuset_funcs.sh
++++ b/testcases/kernel/controllers/cpuset/cpuset_funcs.sh
+@@ -26,12 +26,26 @@
+ 
+ . test.sh
+ 
++cpu_string="`cat /sys/devices/system/cpu/online`"
++offline_string="`cat /sys/devices/system/cpu/online`"
+ NR_CPUS=`tst_ncpus`
++ALL_CPUS=`tst_ncpus_conf`
++if [ $NR_CPUS -eq $ALL_CPUS ]; then
++	ALL_ON_FLAG=1
++	tst_resm TINFO "All($ALL_CPUS) logical cpus on your environment"
++else
++	ALL_ON_FLAG=0
++	tst_resm TINFO "Not all logical cpus on, online($cpu_string),offline($offline_string)"
++fi
++
+ if [ -f "/sys/devices/system/node/has_high_memory" ]; then
+-	N_NODES="`cat /sys/devices/system/node/has_high_memory | tr ',' ' '`"
++	mem_string="`cat /sys/devices/system/node/has_high_memory`"
+ else
+-	N_NODES="`cat /sys/devices/system/node/has_normal_memory | tr ',' ' '`"
++	mem_string="`cat /sys/devices/system/node/has_normal_memory`"
+ fi
++tst_resm TINFO "memory node situation(%mem_string)"
++
++N_NODES="`echo $mem_string | tr ',' ' '`"
+ count=0
+ for item in $N_NODES; do
+ 	delta=1
+@@ -42,13 +56,37 @@ for item in $N_NODES; do
+ done
+ N_NODES=$count
+ 
+-mem_string="$N_NODES"
+-
+ CPUSET="/dev/cpuset"
+ CPUSET_TMP="/tmp/cpuset_tmp"
+ CLONE_CHILDREN="/dev/cpuset/cgroup.clone_children"
+ CHILDREN_VALUE="0"
+ HOTPLUG_CPU="1"
++F_ONLINE_CPU=
++S_ONLINE_CPU=
++
++#select the first one or two online cpu
++select_online_cpus()
++{
++	ncpus_check ${1:-2}
++	local cpus_array="$(seq -s' ' 0 $((ALL_CPUS-1)))"
++	local cpuid=
++	local iter=0
++	for cpuid in $cpus_array
++	do
++		local file="/sys/devices/system/cpu/cpu$cpuid/online"
++		local online="$(cat $file)"
++		if [ $online -eq 1 ]; then
++			iter=`expr $iter + 1`
++			if [ $iter -eq 1 ]; then
++				F_ONELINE_CPU=$cpu_id
++			elif [ $iter -eq 2 ]; then
++				S_ONLINE_CPU=$cpu_id
++			else
++				break
++			fi
++		fi
++        done
++}
+ 
+ cpuset_log()
+ {
+diff --git a/testcases/kernel/controllers/cpuset/cpuset_inherit_test/cpuset_inherit_testset.sh b/testcases/kernel/controllers/cpuset/cpuset_inherit_test/cpuset_inherit_testset.sh
+index 73eed2cb9..7c77b7c31 100755
+--- a/testcases/kernel/controllers/cpuset/cpuset_inherit_test/cpuset_inherit_testset.sh
++++ b/testcases/kernel/controllers/cpuset/cpuset_inherit_test/cpuset_inherit_testset.sh
+@@ -30,12 +30,6 @@ export TST_COUNT=1
+ 
+ check 1 1
+ 
+-nr_cpus=$NR_CPUS
+-nr_mems=$N_NODES
+-
+-cpus_all="$(seq -s, 0 $((nr_cpus-1)))"
+-mems_all="$(seq -s, 0 $((nr_mems-1)))"
+-
+ exit_status=0
+ 
+ cfile_name=
+@@ -106,21 +100,17 @@ inherit_test()
+ test_cpus()
+ {
+ 	cfile_name="cpus"
+-	num=$((nr_cpus-1))
+-	cpu_string="0-$num"
+-	if [ $nr_cpus -eq 1 ]; then
+-		cpu_string="0"
+-	fi
++	select_online_cpus 1
+ 	while read inherit cpus result
+ 	do
+ 		inherit_test "$CPUSET/1/cpuset.cpus" "$inherit" "$cpus" "$result"
+ 	done <<- EOF
+ 		0	NULL					EMPTY
+ 		0	0					EMPTY
+-		0	$cpus_all				EMPTY
++		0	$cpus_string				EMPTY
+ 		1	NULL					EMPTY
+-		1	0					0
+-		1	$cpus_all				$cpu_string
++		1       $F_ONLINE_CPU				$F_ONLINE_CPU
++		1	$cpus_string				$cpus_string
+ 	EOF
+ 	# while read cpus result
+ }
+@@ -134,10 +124,10 @@ test_mems()
+ 	done <<- EOF
+ 		0	NULL					EMPTY
+ 		0	0					EMPTY
+-		0	$mems_all				EMPTY
++		0	$mem_string				EMPTY
+ 		1	NULL					EMPTY
+ 		1	0					0
+-		1	$mems_all				$mem_string
++		1	$mem_string				$mem_string
+ 	EOF
+ 	# while read mems result
+ }
 
--- 
-Regards,
-Li Wang
-
---0000000000004219c305b8b19141
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Mon, Jan 11, 2021 at 8:36 PM Petr Vorel &lt;<a h=
-ref=3D"mailto:pvorel@suse.cz" target=3D"_blank">pvorel@suse.cz</a>&gt; wrot=
-e:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0=
-.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Using pkg-con=
-fig is less error prone during cross compilation.<br>
-<br>
-Signed-off-by: Petr Vorel &lt;<a href=3D"mailto:pvorel@suse.cz" target=3D"_=
-blank">pvorel@suse.cz</a>&gt;<br>
----<br>
-Hi,<br>
-<br>
-if you agree with this, I&#39;ll replace (probably after release) ACL_LIBS,=
-<br>
-CAP_LIBS, CRYPTO_LIBS, SELINUX_LIBS (to follow libmnl and libtirpc).<br></b=
-lockquote><div><span class=3D"gmail_default" style=3D"font-size:small">+1</=
-span></div><div><span class=3D"gmail_default" style=3D"font-size:small"></s=
-pan>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0=
-px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-<br>
-libaio and libnuma does not support pkg-config.<br>
-<br>
-Tested: <a href=3D"https://travis-ci.org/github/pevik/ltp/builds/753925166"=
- rel=3D"noreferrer" target=3D"_blank">https://travis-ci.org/github/pevik/lt=
-p/builds/753925166</a><br>
-<br>
-<span class=3D"gmail_default" style=3D"font-size:small">[...]</span>=C2=A0<=
-/blockquote><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0=
-.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-<br>
-diff --git a/m4/ltp-keyutils.m4 b/m4/ltp-keyutils.m4<br>
-deleted file mode 100644<br>
-index 451c549f3..000000000<br>
---- a/m4/ltp-keyutils.m4<br>
-+++ /dev/null<br>
-@@ -1,10 +0,0 @@<br>
--dnl SPDX-License-Identifier: GPL-2.0-or-later<br>
--dnl Copyright (c) 2016 Fujitsu Ltd.<br>
--dnl Copyright (c) 2017 Petr Vorel &lt;<a href=3D"mailto:pvorel@suse.cz" ta=
-rget=3D"_blank">pvorel@suse.cz</a>&gt;<br>
--dnl Author: Xiao Yang &lt;<a href=3D"mailto:yangx.jy@cn.fujitsu.com" targe=
-t=3D"_blank">yangx.jy@cn.fujitsu.com</a>&gt;<br>
--<br>
--AC_DEFUN([LTP_CHECK_KEYUTILS_SUPPORT], [<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0AC_CHECK_LIB([keyutils], [add_key],<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0[AC_DEFINE(HAVE_LIBKEYUTILS, 1, [Define to 1 if=
- you have libkeyutils installed.])<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AC_SUBST(KEYUTILS_LIBS, &q=
-uot;-lkeyutils&quot;)])<br>
--])<br>
-diff --git a/m4/ltp-libkeyutils.m4 b/m4/ltp-libkeyutils.m4<br>
-new file mode 100644<br>
-index 000000000..f5d128969<br>
---- /dev/null<br>
-+++ b/m4/ltp-libkeyutils.m4<br>
-@@ -0,0 +1,8 @@<br>
-+dnl SPDX-License-Identifier: GPL-2.0-or-later<br>
-+dnl Copyright (c) 2020 Petr Vorel &lt;<a href=3D"mailto:pvorel@suse.cz" ta=
-rget=3D"_blank">pvorel@suse.cz</a>&gt;<br>
-+<br>
-+AC_DEFUN([LTP_CHECK_LIBKEYUTILS], [<br>
-+=C2=A0 =C2=A0 PKG_CHECK_MODULES([LIBKEYUTILS], [libkeyutils], [<br></block=
-quote><div><br></div>I guess the list-of-modules should be [keyutils-libs] =
-but not [libkeyutils]?<div>=C2=A0</div></div>-- <br><div dir=3D"ltr"><div d=
-ir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div></div></div></div>
-
---0000000000004219c305b8b19141--
-
-
---===============1681541593==
+--------------090309030101070409090801
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -234,5 +372,4 @@ Content-Disposition: inline
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
 
---===============1681541593==--
-
+--------------090309030101070409090801--
