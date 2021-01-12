@@ -1,41 +1,40 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13A682F2BFD
-	for <lists+linux-ltp@lfdr.de>; Tue, 12 Jan 2021 10:58:05 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id C71892F2CDA
+	for <lists+linux-ltp@lfdr.de>; Tue, 12 Jan 2021 11:30:05 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9143D3C5FBB
-	for <lists+linux-ltp@lfdr.de>; Tue, 12 Jan 2021 10:58:04 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 4C04D3C5FBF
+	for <lists+linux-ltp@lfdr.de>; Tue, 12 Jan 2021 11:30:05 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id EFF603C26C0
- for <ltp@lists.linux.it>; Tue, 12 Jan 2021 10:58:00 +0100 (CET)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id 534183C2698
+ for <ltp@lists.linux.it>; Tue, 12 Jan 2021 11:30:01 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id AF5E81A00E66
- for <ltp@lists.linux.it>; Tue, 12 Jan 2021 10:58:00 +0100 (CET)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id CCBBE200B0C
+ for <ltp@lists.linux.it>; Tue, 12 Jan 2021 11:30:00 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 3FE74AF19
- for <ltp@lists.linux.it>; Tue, 12 Jan 2021 09:58:00 +0000 (UTC)
-From: Martin Doucha <mdoucha@suse.cz>
-To: ltp@lists.linux.it
-Date: Tue, 12 Jan 2021 10:57:59 +0100
-Message-Id: <20210112095759.11910-3-mdoucha@suse.cz>
-X-Mailer: git-send-email 2.29.2
-In-Reply-To: <20210112095759.11910-1-mdoucha@suse.cz>
-References: <20210112095759.11910-1-mdoucha@suse.cz>
+ by mx2.suse.de (Postfix) with ESMTP id DED69ADE0
+ for <ltp@lists.linux.it>; Tue, 12 Jan 2021 10:29:59 +0000 (UTC)
+Date: Tue, 12 Jan 2021 11:29:58 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <X/16JnZ4MmA6PINI@pevik>
+References: <X9tMlNxJbwCWIRnO@yuki.lan> <X/Wq28noppvB5MGw@yuki.lan>
+ <X/b1tUeAVrTpVQBJ@yuki.lan> <X/xi2iBZZFixnCQo@yuki.lan>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <X/xi2iBZZFixnCQo@yuki.lan>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH v6 3/3] syscalls/iopl02,
- ioperm02: Skip when kernel is locked down
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] Holidays and LTP release
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,59 +46,48 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-The iopl() and ioperm() syscalls are blocked when the kernel is locked down.
-The order of sanity checks is not guaranteed so it's better to skip these
-tests even if they accidentally work.
+Hi Cyril,
 
-Signed-off-by: Martin Doucha <mdoucha@suse.cz>
----
+> Hi!
+> As I anounced last week please consider git frozen for anything but
+> important fixes now.
 
-Changes since v3:
-- new patch
+I was thinking about speedup if-mtu-change.sh [1], but unless Alexey ack that it
+might be better to wait after the release.
 
- testcases/kernel/syscalls/ioperm/ioperm02.c | 4 ++++
- testcases/kernel/syscalls/iopl/iopl02.c     | 5 +++++
- 2 files changed, 9 insertions(+)
+I planned to merge two rewrites to new API (v2 get_mempolicy [2] and v3
+multicast packed flood [3]), which are ready, but as there is a git freeze it
+can wait after the release.
 
-diff --git a/testcases/kernel/syscalls/ioperm/ioperm02.c b/testcases/kernel/syscalls/ioperm/ioperm02.c
-index 1808191bf..80dcb992e 100644
---- a/testcases/kernel/syscalls/ioperm/ioperm02.c
-+++ b/testcases/kernel/syscalls/ioperm/ioperm02.c
-@@ -45,6 +45,10 @@ static struct tcase_t {
- 
- static void setup(void)
- {
-+	/* ioperm() is restricted under kernel lockdown. */
-+	if (tst_lockdown_enabled())
-+		tst_brk(TCONF, "Kernel is locked down, skip this test");
-+
- 	/*
- 	 * The value of IO_BITMAP_BITS (include/asm-i386/processor.h) changed
- 	 * from kernel 2.6.8 to permit 16-bits (65536) ioperm
-diff --git a/testcases/kernel/syscalls/iopl/iopl02.c b/testcases/kernel/syscalls/iopl/iopl02.c
-index 6a817cf2d..a6135ddf3 100644
---- a/testcases/kernel/syscalls/iopl/iopl02.c
-+++ b/testcases/kernel/syscalls/iopl/iopl02.c
-@@ -52,6 +52,11 @@ static void verify_iopl(unsigned int i)
- static void setup(void)
- {
- 	struct passwd *pw;
-+
-+	/* iopl() is restricted under kernel lockdown. */
-+	if (tst_lockdown_enabled())
-+		tst_brk(TCONF, "Kernel is locked down, skip this test");
-+
- 	pw = SAFE_GETPWNAM("nobody");
- 	SAFE_SETEUID(pw->pw_uid);
- }
--- 
-2.29.2
+I'd also like to add some docs to ima_tpm.sh setup when running with
+ima_policy=tcb on real HW, if I figure out what's needed.
 
+I might have look into sigwaitinfo01 problems on MUSL.
+There is a patch which needs to be rebased [4] (tests and libsigwait were
+rewritten to new API). But simply remove all testcases because they does not
+work on MUSL is probably no-go. I guess the problem is with using (void *)1 in
+in various sigwaitinfo tests in test_bad_address{,2,3}()
+(libs/libltpsigwait/sigwait.c).
+Maybe use tst_get_bad_addr(NULL) here?
+
+> Also if you haven't done so yet, please test latest git head now and
+> report any problems you find.
+Going to.
+
+Kind regards,
+Petr
+
+[1] https://patchwork.ozlabs.org/project/ltp/patch/20210107120247.31465-1-pvorel@suse.cz/
+[2] https://patchwork.ozlabs.org/project/ltp/patch/20210106181735.1588-1-pvorel@suse.cz/
+[3] https://patchwork.ozlabs.org/project/ltp/list/?series=216562&state=*
+[4] https://patchwork.ozlabs.org/project/ltp/patch/20200529014448.3815022-1-raj.khem@gmail.com/
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
