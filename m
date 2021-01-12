@@ -2,38 +2,43 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id AEB6B2F3A85
-	for <lists+linux-ltp@lfdr.de>; Tue, 12 Jan 2021 20:31:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C125D2F3C61
+	for <lists+linux-ltp@lfdr.de>; Tue, 12 Jan 2021 23:35:15 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6866C3C26DD
-	for <lists+linux-ltp@lfdr.de>; Tue, 12 Jan 2021 20:31:19 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 6C3F73C5461
+	for <lists+linux-ltp@lfdr.de>; Tue, 12 Jan 2021 23:35:15 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id 8FB5B3C26C0
- for <ltp@lists.linux.it>; Tue, 12 Jan 2021 20:30:50 +0100 (CET)
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id 008173C26DF
+ for <ltp@lists.linux.it>; Tue, 12 Jan 2021 23:35:13 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 232461400204
- for <ltp@lists.linux.it>; Tue, 12 Jan 2021 20:30:50 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 4F3C51000641
+ for <ltp@lists.linux.it>; Tue, 12 Jan 2021 23:35:12 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id BB84DAF92;
- Tue, 12 Jan 2021 19:30:49 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 63311AC8F;
+ Tue, 12 Jan 2021 22:35:12 +0000 (UTC)
+Date: Tue, 12 Jan 2021 23:35:10 +0100
 From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Tue, 12 Jan 2021 20:30:39 +0100
-Message-Id: <20210112193039.12506-4-pvorel@suse.cz>
-X-Mailer: git-send-email 2.29.2
-In-Reply-To: <20210112193039.12506-1-pvorel@suse.cz>
-References: <20210112193039.12506-1-pvorel@suse.cz>
+To: Li Wang <liwang@redhat.com>
+Message-ID: <X/4kHp818UKMRmXm@pevik>
+References: <20210111123626.28932-1-pvorel@suse.cz>
+ <CAEemH2eTEEZVZc71=HF+251t_d7Rnu7XdFY2t54u=ORwY3M-7A@mail.gmail.com>
+ <X/2E2GD/wimgo5Hi@pevik>
+ <CAEemH2cmHrUGx3WXWfh6huNh-sv_GY56A+EvGVj-BiXT3WQ32A@mail.gmail.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <CAEemH2cmHrUGx3WXWfh6huNh-sv_GY56A+EvGVj-BiXT3WQ32A@mail.gmail.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH 3/3] syscalls: Remove unused include <fcntl.h>
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/1] autoconf: Use pkg-config for keyutils
+ detection
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,130 +50,80 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Tests should always use lapi/fcntl.h instead of <fcntl.h> to fix
-possible missing definitions.
+Hi Li,
 
-But in this case removing include, because fanotify tests include
-<fcntl.h> in lapi/fcntl.h (via fanotify.h) and
-{name_to,open_by}_handle_at tests include lapi/fcntl.h in
-lapi/name_to_handle_at.h.
+> Hi Petr,
 
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
- testcases/kernel/syscalls/fanotify/fanotify09.c                  | 1 -
- testcases/kernel/syscalls/fanotify/fanotify13.c                  | 1 -
- testcases/kernel/syscalls/fanotify/fanotify15.c                  | 1 -
- testcases/kernel/syscalls/fanotify/fanotify16.c                  | 1 -
- .../kernel/syscalls/name_to_handle_at/name_to_handle_at01.c      | 1 -
- .../kernel/syscalls/name_to_handle_at/name_to_handle_at02.c      | 1 -
- .../kernel/syscalls/open_by_handle_at/open_by_handle_at01.c      | 1 -
- .../kernel/syscalls/open_by_handle_at/open_by_handle_at02.c      | 1 -
- 8 files changed, 8 deletions(-)
+> Petr Vorel <pvorel@suse.cz> wrote:
 
-diff --git a/testcases/kernel/syscalls/fanotify/fanotify09.c b/testcases/kernel/syscalls/fanotify/fanotify09.c
-index 30e212f44..918e40274 100644
---- a/testcases/kernel/syscalls/fanotify/fanotify09.c
-+++ b/testcases/kernel/syscalls/fanotify/fanotify09.c
-@@ -30,7 +30,6 @@
- #include <stdio.h>
- #include <sys/stat.h>
- #include <sys/types.h>
--#include <fcntl.h>
- #include <errno.h>
- #include <string.h>
- #include <sys/mount.h>
-diff --git a/testcases/kernel/syscalls/fanotify/fanotify13.c b/testcases/kernel/syscalls/fanotify/fanotify13.c
-index c9cf10555..6d812cdd1 100644
---- a/testcases/kernel/syscalls/fanotify/fanotify13.c
-+++ b/testcases/kernel/syscalls/fanotify/fanotify13.c
-@@ -21,7 +21,6 @@
- #include <sys/statfs.h>
- #include <sys/types.h>
- #include <sys/stat.h>
--#include <fcntl.h>
- #include <errno.h>
- #include <unistd.h>
- #include "tst_test.h"
-diff --git a/testcases/kernel/syscalls/fanotify/fanotify15.c b/testcases/kernel/syscalls/fanotify/fanotify15.c
-index ba8259c7c..fe143823e 100644
---- a/testcases/kernel/syscalls/fanotify/fanotify15.c
-+++ b/testcases/kernel/syscalls/fanotify/fanotify15.c
-@@ -19,7 +19,6 @@
- 
- #include <string.h>
- #include <errno.h>
--#include <fcntl.h>
- #include <sys/statfs.h>
- #include <sys/types.h>
- #include "tst_test.h"
-diff --git a/testcases/kernel/syscalls/fanotify/fanotify16.c b/testcases/kernel/syscalls/fanotify/fanotify16.c
-index 5ffaec92f..c4b8a5abc 100644
---- a/testcases/kernel/syscalls/fanotify/fanotify16.c
-+++ b/testcases/kernel/syscalls/fanotify/fanotify16.c
-@@ -18,7 +18,6 @@
- #include <stdio.h>
- #include <sys/stat.h>
- #include <sys/types.h>
--#include <fcntl.h>
- #include <errno.h>
- #include <string.h>
- #include <sys/mount.h>
-diff --git a/testcases/kernel/syscalls/name_to_handle_at/name_to_handle_at01.c b/testcases/kernel/syscalls/name_to_handle_at/name_to_handle_at01.c
-index 84ac32eab..1ac9d8214 100644
---- a/testcases/kernel/syscalls/name_to_handle_at/name_to_handle_at01.c
-+++ b/testcases/kernel/syscalls/name_to_handle_at/name_to_handle_at01.c
-@@ -15,7 +15,6 @@
- \*/
- 
- #define _GNU_SOURCE
--#include <fcntl.h>
- #include <sys/stat.h>
- #include "lapi/name_to_handle_at.h"
- 
-diff --git a/testcases/kernel/syscalls/name_to_handle_at/name_to_handle_at02.c b/testcases/kernel/syscalls/name_to_handle_at/name_to_handle_at02.c
-index 7c0d57485..020b25531 100644
---- a/testcases/kernel/syscalls/name_to_handle_at/name_to_handle_at02.c
-+++ b/testcases/kernel/syscalls/name_to_handle_at/name_to_handle_at02.c
-@@ -10,7 +10,6 @@
- \*/
- 
- #define _GNU_SOURCE
--#include <fcntl.h>
- #include "lapi/name_to_handle_at.h"
- 
- #define TEST_FILE "test_file"
-diff --git a/testcases/kernel/syscalls/open_by_handle_at/open_by_handle_at01.c b/testcases/kernel/syscalls/open_by_handle_at/open_by_handle_at01.c
-index c1b08f1b8..0d09e1ed8 100644
---- a/testcases/kernel/syscalls/open_by_handle_at/open_by_handle_at01.c
-+++ b/testcases/kernel/syscalls/open_by_handle_at/open_by_handle_at01.c
-@@ -15,7 +15,6 @@
- \*/
- 
- #define _GNU_SOURCE
--#include <fcntl.h>
- #include <sys/stat.h>
- #include "lapi/name_to_handle_at.h"
- 
-diff --git a/testcases/kernel/syscalls/open_by_handle_at/open_by_handle_at02.c b/testcases/kernel/syscalls/open_by_handle_at/open_by_handle_at02.c
-index 3c8f06d85..0f60752c4 100644
---- a/testcases/kernel/syscalls/open_by_handle_at/open_by_handle_at02.c
-+++ b/testcases/kernel/syscalls/open_by_handle_at/open_by_handle_at02.c
-@@ -10,7 +10,6 @@
- \*/
- #define _GNU_SOURCE
- #include <linux/capability.h>
--#include <fcntl.h>
- #include "tst_capability.h"
- #include "lapi/name_to_handle_at.h"
- 
--- 
-2.29.2
+> > > +
+> > > > +AC_DEFUN([LTP_CHECK_LIBKEYUTILS], [
+> > > > +    PKG_CHECK_MODULES([LIBKEYUTILS], [libkeyutils], [
 
+
+> > > I guess the list-of-modules should be [keyutils-libs] but not
+> > [libkeyutils]?
+> > No problem to change that, but can you explain why?
+
+
+> From what I understanding, this macro runs the pkg-config tool to check
+> for the presence of packages against keyutils-libs and sets two variables:
+> LIBKEYUTILS_CFLAGS, LIBKEYUTILS_LIBS accordingly.
+
+> So the list-of-modules should be the precise name(or version) of the
+> library, am I right?
+> See: https://autotools.io/pkgconfig/pkg_check_modules.html
+
+Thanks for an explanation, but I'm still missing something.
+In openSUSE:
+
+$ pkg-config --libs --cflags libkeyutils
+-lkeyutils
+
+$ pkg-config --libs --cflags keyutils-libs
+Package keyutils-libs was not found in the pkg-config search path.
+Perhaps you should add the directory containing `keyutils-libs.pc'
+to the PKG_CONFIG_PATH environment variable
+Package 'keyutils-libs', required by 'virtual:world', not found
+
+That's correct, because keyutils-devel package has file:
+/usr/lib64/pkgconfig/libkeyutils.pc
+
+The same is for Debian, which has
+/usr/lib/x86_64-linux-gnu/pkgconfig/libkeyutils.pc
+
+Looking at Fedora:
+keyutils-libs-devel [1] has /usr/lib64/pkgconfig/libkeyutils.pc.
+
+Download and unpack the package and run:
+$ PKG_CONFIG_LIBDIR="$PWD/usr/lib64/pkgconfig/" pkg-config --libs --cflags libkeyutils
+-lkeyutils
+
+> > Tested: https://travis-ci.org/github/pevik/ltp/builds/753925166
+
+
+> The reason for test all get passed is the "include/lapi/keyctl.h" has the
+> second choice to include <linux/keyctl.h> I guess.
+
+> #if defined(HAVE_KEYUTILS_H) && defined(HAVE_LIBKEYUTILS)
+> # include <keyutils.h>
+In my case (openSUSE) I have HAVE_LIBKEYUTILS defined.
+> #else
+> # ifdef HAVE_LINUX_KEYCTL_H
+> #  include <linux/keyctl.h>
+> # endif /* HAVE_LINUX_KEYCTL_H */
+
+Kind regards,
+Petr
+
+[1] https://download-ib01.fedoraproject.org/pub/fedora/linux/updates/33/Everything/x86_64/Packages/k/keyutils-libs-devel-1.6.1-1.fc33.x86_64.rpm
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
