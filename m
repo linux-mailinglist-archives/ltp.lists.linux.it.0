@@ -2,41 +2,76 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 916E92F2DEE
-	for <lists+linux-ltp@lfdr.de>; Tue, 12 Jan 2021 12:31:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 614452F2F65
+	for <lists+linux-ltp@lfdr.de>; Tue, 12 Jan 2021 13:54:14 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 01E353C5FBB
-	for <lists+linux-ltp@lfdr.de>; Tue, 12 Jan 2021 12:31:40 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 48D653C644C
+	for <lists+linux-ltp@lfdr.de>; Tue, 12 Jan 2021 13:54:13 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id EC6493C2365
- for <ltp@lists.linux.it>; Tue, 12 Jan 2021 12:31:36 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 8068F1400E0E
- for <ltp@lists.linux.it>; Tue, 12 Jan 2021 12:31:36 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 9893DAFA8;
- Tue, 12 Jan 2021 11:31:35 +0000 (UTC)
-Date: Tue, 12 Jan 2021 12:31:34 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Joerg Vehlow <lkml@jv-coder.de>
-Message-ID: <X/2IlsUpmW6+kK/N@pevik>
-References: <20201125053459.3314021-1-lkml@jv-coder.de>
- <20201221221838.GC4453@pevik>
- <d575ea47-142c-2ff3-1a55-58fc8f55801b@jv-coder.de>
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id C93703C2365
+ for <ltp@lists.linux.it>; Tue, 12 Jan 2021 13:54:07 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ by in-3.smtp.seeweb.it (Postfix) with ESMTP id F138F1A00E32
+ for <ltp@lists.linux.it>; Tue, 12 Jan 2021 13:54:06 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1610456045;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=iZJ8Xw8q99/RdodyaAHJXOMaWoGdqVcEQ5ZoSs7zoQk=;
+ b=BiC/izdTXrynzC5HH0ArL3BbYOnYFpD7CwtHtivgN9IGa5gsxJlCCsruSttW3hno2CI0aE
+ gV2SOwAS+vEV/TtoNu0a2OzePO2v3Y/i4TkGL7RRpSBDuUD9JjMbGqRPfYjPXguoe1zij3
+ oWTQFJzLAhtCxLMnj0s3COFgBEAjoh0=
+Received: from mail-yb1-f199.google.com (mail-yb1-f199.google.com
+ [209.85.219.199]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-505-COjSjNemPnCAEMAFnaT3zw-1; Tue, 12 Jan 2021 07:54:02 -0500
+X-MC-Unique: COjSjNemPnCAEMAFnaT3zw-1
+Received: by mail-yb1-f199.google.com with SMTP id b123so2339518ybh.17
+ for <ltp@lists.linux.it>; Tue, 12 Jan 2021 04:54:02 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=iZJ8Xw8q99/RdodyaAHJXOMaWoGdqVcEQ5ZoSs7zoQk=;
+ b=R/MliBBccBzDtgaEcLJ9BEX8Dg3jDF5K1oCfQ9R8LRLR9xQ791aECK0AW/Ct+f6Oo8
+ OZQEM/ZD6VvIZ3JGNTlc1W0z0R1BtZuBxU0r/JE77Fz6xzaQucfGrd0tGJP9UxFPf/pL
+ 8hrp8qnHk820d21AIajwUaHXBno58O10kkvDidvfRWDDHXCgXiTdBIJEQSVg3VoxaT4d
+ ImY1kmqK6YAOSAkee08p0ntVhoNC5SILC/Xc5WhTntHluNJAtkXMLDxPOSCPI2lKHqfO
+ X1z+rf7QizsBnKkikBDhZDA0h9AV0QI4+0hajLEzqX756qoWTgtVimg0opJw3jyWHGoP
+ gcvw==
+X-Gm-Message-State: AOAM533hXI0u4gBfYt0tq1CuGAEUQsTEQCImPViWoNjlcjzYF1CYeTNM
+ P/xwZCRoeF7qco+kQAM3l1gsI+h16U8VUlzQz6Ho2WqdF53lbyy9ScpwgbaDTZONhAL0oRephp7
+ OOLN1ylLqriW2AFKdu/V3LE/itn4=
+X-Received: by 2002:a25:6902:: with SMTP id e2mr6403707ybc.97.1610456042232;
+ Tue, 12 Jan 2021 04:54:02 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJwCdqcPaSM/QsygsGacuQ9WYm8JBgjsMmvvEKZN/0cvgZnoiY617rQkwyKwS595yGpEG/gIv0gMBhoaw9q7moU=
+X-Received: by 2002:a25:6902:: with SMTP id e2mr6403676ybc.97.1610456041945;
+ Tue, 12 Jan 2021 04:54:01 -0800 (PST)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <d575ea47-142c-2ff3-1a55-58fc8f55801b@jv-coder.de>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+References: <20210111123626.28932-1-pvorel@suse.cz>
+ <CAEemH2eTEEZVZc71=HF+251t_d7Rnu7XdFY2t54u=ORwY3M-7A@mail.gmail.com>
+ <X/2E2GD/wimgo5Hi@pevik>
+In-Reply-To: <X/2E2GD/wimgo5Hi@pevik>
+From: Li Wang <liwang@redhat.com>
+Date: Tue, 12 Jan 2021 20:53:50 +0800
+Message-ID: <CAEemH2cmHrUGx3WXWfh6huNh-sv_GY56A+EvGVj-BiXT3WQ32A@mail.gmail.com>
+To: Petr Vorel <pvorel@suse.cz>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3 1/3] network/stress/multicast/packet-flood:
- Update to new API
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/1] autoconf: Use pkg-config for keyutils
+ detection
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,99 +83,113 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>, ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============0337721282=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Joerg,
+--===============0337721282==
+Content-Type: multipart/alternative; boundary="0000000000004e99d305b8b384df"
 
-> > Minor comments, please update them if v4 needed.
-> > Otherwise it can be fixed during merge.
-> > Thanks for your work.
-> I don't think I'll submit a v4, if you want to fix this during merge, it is
-> ok to me.
-Don't worry with v4, I'll fix all these tiny style issues.
+--0000000000004e99d305b8b384df
+Content-Type: text/plain; charset="UTF-8"
 
-I'll also implement restoring sysctl value in route-redirect.sh.
+Hi Petr,
 
-> > Reviewed-by: Petr Vorel <pvorel@suse.cz>
+Petr Vorel <pvorel@suse.cz> wrote:
 
-> > Kind regards,
-> > Petr
+> > +
+> > > +AC_DEFUN([LTP_CHECK_LIBKEYUTILS], [
+> > > +    PKG_CHECK_MODULES([LIBKEYUTILS], [libkeyutils], [
+>
+>
+> > I guess the list-of-modules should be [keyutils-libs] but not
+> [libkeyutils]?
+> No problem to change that, but can you explain why?
+>
 
-> > > +++ b/testcases/network/stress/multicast/packet-flood/mcast-pktfld02.sh
-> > > @@ -0,0 +1,55 @@
-> > > +#!/bin/sh
-> > > +# SPDX-License-Identifier: GPL-2.0-or-later
-> > > +# Copyright (c) 2006 International Business Machines  Corp.
-> > > +# Copyright (c) 2020 Joerg Vehlow <joerg.vehlow@aox-tech.de>
-> > > +# Author: Mitsuru Chinen <mitch@jp.ibm.com>
-> > > +#
-> > > +# Verify that the kernel is not crashed when joining multiple multicast
-> > > +# groups on separate sockets, then receiving a large number of UDP
-> > > +# packets at each socket
-> > > +
-> > > +TST_NEEDS_ROOT=1
-> > > +. mcast-lib.sh
-> > > +
-> > > +do_setup()
-> > > +{
-> > > +	mcast_setup $n_NORMAL
+From what I understanding, this macro runs the pkg-config tool to check
+for the presence of packages against keyutils-libs and sets two variables:
+LIBKEYUTILS_CFLAGS, LIBKEYUTILS_LIBS accordingly.
 
-> > This should be (error during global replace):
+So the list-of-modules should be the precise name(or version) of the
+library, am I right?
+See: https://autotools.io/pkgconfig/pkg_check_modules.html
 
-> > 	mcast_setup $MCASTNUM_NORMAL
-> Yes sorry...
-np
 
-> > > +	MCAST_LCMD=ns-mcast_receiver
-> > > +	MCAST_RCMD=ns-udpsender
-> > > +}
-> > > +
-> > > +do_test()
-> > > +{
-> > > +	tst_res TINFO "Verify that the kernel is not crashed when joining $MCASTNUM_NORMAL IPv${TST_IPVER} multicast groups on separate sockets, then receiving a large number of UDP packets at each socket in $NS_DURATION seconds"
-> > I'd prefer these drop boilerplate "Verify that the kernel is not crashed when"
-> > + the same in the description at the top of the file.
-> Do you want this completely removed? I added this, because you asked me to
-> in v2?
-I added into my version:
-	tst_res TINFO "joining $MCASTNUM_NORMAL IPv${TST_IPVER} multicast groups on separate sockets, then receiving a large number of UDP packets at each socket in $NS_DURATION seconds"
 
-i.e. remove boilerplate "Verify that the kernel is not crashed when".
+> Tested: https://travis-ci.org/github/pevik/ltp/builds/753925166
 
-> > > +
-> > > +	local n=0
-> > > +	while [ $n -lt $MCASTNUM_NORMAL ]; do
-> > > +		# Define the multicast address
-> > > +		if [ "$TST_IPV6" ]; then
-> > > +    		local n_hex=$(printf "%x" $n)
-> > > +    		local addr=${MCAST_IPV6_ADDR_PREFIX}:${n_hex}
-> > nit: wrong indent
-> Strange ;)
-It easily happens when you modify existing test (I had the same in my last
-patchset). Anyway, no problem.
 
-> > > +		else
-> > > +			local x=$((n / 254))
-> > > +			local y=$((n % 254 + 1))
-> > > +			local addr=${MCAST_IPV4_ADDR_PREFIX}.${x}.${y}
-> > > +		fi
-> > > +
-> > > +		local port=$(tst_get_unused_port ipv${TST_IPVER} dgram)
-> > > +		[ $? -ne 0 ] && tst_brk TBROK "No free udp port available."
-> > nit: no dot please.
+The reason for test all get passed is the "include/lapi/keyctl.h" has the
+second choice to include <linux/keyctl.h> I guess.
 
-> > > +		tst_res TINFO Port: $port
-> > This should be quoted.
-> Could also be removed. I guess this was for testing...
-+1
+#if defined(HAVE_KEYUTILS_H) && defined(HAVE_LIBKEYUTILS)
+# include <keyutils.h>
+#else
+# ifdef HAVE_LINUX_KEYCTL_H
+#  include <linux/keyctl.h>
+# endif /* HAVE_LINUX_KEYCTL_H */
 
-Kind regards,
-Petr
+-- 
+Regards,
+Li Wang
+
+--0000000000004e99d305b8b384df
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small">Hi Petr,</div></div><br><div class=3D"gmail_quote"><div dir=
+=3D"ltr" class=3D"gmail_attr">Petr Vorel &lt;<a href=3D"mailto:pvorel@suse.=
+cz" target=3D"_blank">pvorel@suse.cz</a>&gt; wrote:</div><div dir=3D"ltr" c=
+lass=3D"gmail_attr"><br></div><blockquote class=3D"gmail_quote" style=3D"ma=
+rgin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:=
+1ex">
+&gt; &gt; +<br>
+&gt; &gt; +AC_DEFUN([LTP_CHECK_LIBKEYUTILS], [<br>
+&gt; &gt; +=C2=A0 =C2=A0 PKG_CHECK_MODULES([LIBKEYUTILS], [libkeyutils], [<=
+br>
+<br>
+<br>
+&gt; I guess the list-of-modules should be [keyutils-libs] but not [libkeyu=
+tils]?<br>
+No problem to change that, but can you explain why?<br></blockquote><br>Fro=
+m what I understanding, this macro runs the pkg-config tool to check<br>for=
+ the presence of packages against keyutils-libs and sets two variables:<br>=
+LIBKEYUTILS_CFLAGS, LIBKEYUTILS_LIBS accordingly.<div class=3D"gmail_defaul=
+t" style=3D"font-size:small"><br></div><div class=3D"gmail_default" style=
+=3D"font-size:small">So the list-of-modules should be the precise name(or v=
+ersion) of the library, am I right?</div><div class=3D"gmail_default" style=
+=3D"font-size:small">See: <a href=3D"https://autotools.io/pkgconfig/pkg_che=
+ck_modules.html" target=3D"_blank">https://autotools.io/pkgconfig/pkg_check=
+_modules.html</a><br></div><div class=3D"gmail_default" style=3D"font-size:=
+small"><br></div><div class=3D"gmail_default" style=3D"font-size:small"><di=
+v>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px=
+ 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+Tested: <a href=3D"https://travis-ci.org/github/pevik/ltp/builds/753925166"=
+ rel=3D"noreferrer" target=3D"_blank">https://travis-ci.org/github/pevik/lt=
+p/builds/753925166</a></blockquote><div><br></div><div>The reason for test =
+all get passed is the &quot;include/lapi/keyctl.h&quot; has the</div><div>s=
+econd choice to include &lt;linux/keyctl.h&gt; I guess.</div><div><br></div=
+><div>#if defined(HAVE_KEYUTILS_H) &amp;&amp; defined(HAVE_LIBKEYUTILS)<br>=
+# include &lt;keyutils.h&gt;<br>#else<br># ifdef HAVE_LINUX_KEYCTL_H<br># =
+=C2=A0include &lt;linux/keyctl.h&gt;<br># endif /* HAVE_LINUX_KEYCTL_H */<b=
+r></div></div></div><div><br></div>-- <br><div dir=3D"ltr"><div dir=3D"ltr"=
+><div>Regards,<br></div><div>Li Wang<br></div></div></div></div>
+
+--0000000000004e99d305b8b384df--
+
+
+--===============0337721282==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============0337721282==--
+
