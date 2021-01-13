@@ -1,52 +1,54 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01DCE2F4767
-	for <lists+linux-ltp@lfdr.de>; Wed, 13 Jan 2021 10:21:13 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 725F52F4771
+	for <lists+linux-ltp@lfdr.de>; Wed, 13 Jan 2021 10:24:07 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A52393C2660
-	for <lists+linux-ltp@lfdr.de>; Wed, 13 Jan 2021 10:21:12 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id D43903C5DCD
+	for <lists+linux-ltp@lfdr.de>; Wed, 13 Jan 2021 10:24:06 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 56F043C0548
- for <ltp@lists.linux.it>; Wed, 13 Jan 2021 10:21:07 +0100 (CET)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id F094F3C06D9
+ for <ltp@lists.linux.it>; Wed, 13 Jan 2021 10:24:02 +0100 (CET)
 Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-7.smtp.seeweb.it (Postfix) with ESMTP id ABA51200B72
- for <ltp@lists.linux.it>; Wed, 13 Jan 2021 10:21:06 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.79,343,1602518400"; d="scan'208";a="103439370"
+ by in-6.smtp.seeweb.it (Postfix) with ESMTP id C8BE214004EC
+ for <ltp@lists.linux.it>; Wed, 13 Jan 2021 10:24:01 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.79,343,1602518400"; d="scan'208";a="103439517"
 Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 13 Jan 2021 17:21:04 +0800
-Received: from G08CNEXMBPEKD06.g08.fujitsu.local (unknown [10.167.33.206])
- by cn.fujitsu.com (Postfix) with ESMTP id E95164CE6031;
- Wed, 13 Jan 2021 17:20:59 +0800 (CST)
-Received: from [10.167.220.69] (10.167.220.69) by
- G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Wed, 13 Jan 2021 17:20:58 +0800
-Message-ID: <5FFEBB79.4010807@cn.fujitsu.com>
-Date: Wed, 13 Jan 2021 17:20:57 +0800
-From: Xiao Yang <yangx.jy@cn.fujitsu.com>
+ by heian.cn.fujitsu.com with ESMTP; 13 Jan 2021 17:23:59 +0800
+Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
+ by cn.fujitsu.com (Postfix) with ESMTP id 330904CE6037;
+ Wed, 13 Jan 2021 17:23:58 +0800 (CST)
+Received: from [10.167.220.84] (10.167.220.84) by
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Wed, 13 Jan 2021 17:23:57 +0800
+Message-ID: <5FFEBC48.20605@cn.fujitsu.com>
+Date: Wed, 13 Jan 2021 17:24:24 +0800
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
 User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
  rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
 MIME-Version: 1.0
-To: Petr Vorel <pvorel@suse.cz>
-References: <20210113075110.31628-1-pvorel@suse.cz>
- <20210113075110.31628-4-pvorel@suse.cz> <5FFEBA89.5040001@cn.fujitsu.com>
-In-Reply-To: <5FFEBA89.5040001@cn.fujitsu.com>
-X-Originating-IP: [10.167.220.69]
+To: Cyril Hrubis <chrubis@suse.cz>
+References: <1606701966-1596-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ <X/hdjNT81M9CxbaD@yuki.lan> <5FFC14A6.3030408@cn.fujitsu.com>
+ <5FFD7D76.6070301@cn.fujitsu.com> <X/29dySZb8kL5Nms@rei.lan>
+In-Reply-To: <X/29dySZb8kL5Nms@rei.lan>
+X-Originating-IP: [10.167.220.84]
 X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
- G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206)
-X-yoursite-MailScanner-ID: E95164CE6031.A9B83
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
+X-yoursite-MailScanner-ID: 330904CE6037.AAB8C
 X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: yangx.jy@cn.fujitsu.com
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
 X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
  SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.4
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 3/3] syscalls: Remove unused include <fcntl.h>
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] cpuset_inherit: Use the original mem value
+ instead of N_NODES
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,101 +61,125 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: ltp@lists.linux.it
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-5LqOIDIwMjEvMS8xMyAxNzoxNiwgWGlhbyBZYW5nIOWGmemBkzoKPiBPbiAyMDIxLzEvMTMgMTU6
-NTEsIFBldHIgVm9yZWwgd3JvdGU6Cj4+IFRlc3RzIHNob3VsZCBhbHdheXMgdXNlIGxhcGkvZmNu
-dGwuaCBpbnN0ZWFkIG9mPGZjbnRsLmg+ICB0byBmaXgKPj4gcG9zc2libGUgbWlzc2luZyBkZWZp
-bml0aW9ucy4KPj4KPj4gQnV0IGluIHRoaXMgY2FzZSByZW1vdmluZyBpbmNsdWRlLCBiZWNhdXNl
-IGZhbm90aWZ5IHRlc3RzIGluY2x1ZGUKPj4gPGZjbnRsLmg+ICBpbiBsYXBpL2ZjbnRsLmggKHZp
-YSBmYW5vdGlmeS5oKSBhbmQKPj4ge25hbWVfdG8sb3Blbl9ieX1faGFuZGxlX2F0IHRlc3RzIGlu
-Y2x1ZGUgbGFwaS9mY250bC5oIGluCj4+IGxhcGkvbmFtZV90b19oYW5kbGVfYXQuaC4KPiBIaSBQ
-ZXRyLAo+Cj4gVGhpcyBwYXRjaHNldCBsb29rcyBnb29kIHRvIG1lLgo+IFJldmlld2VkLWJ5OiBY
-aWFvIFlhbmc8eWFuZ3guanlAY24uZnVqaXRzdS5jb20+Cj4KPiBPbmx5IG9uZSBtb25pciBxdWVz
-dGlvbjoKPiBXaHkgZG8gd2UgcmVtb3ZlPGZjbnRsLmg+ICBoZWFkZXIgZm9yIGFsbCBmYW5vdGlm
-eSB0ZXN0cz8KClNvcnJ5LCBjb3JyZWN0IG9uZSB3b3JkKGRvID0+ZG9uJ3QpCgo+IE9mIGNvdXJz
-ZSwganVzdCBmb3VyIGZhbm90aWZ5IHRlc3RzIHRha2UgdXNlIG9mIHN0cnVjdCBmaWxlX2hhbmRs
-ZS4KPgo+IEJlc3QgUmVnYXJkcywKPiBYaWFvIFlhbmcKPj4gU2lnbmVkLW9mZi1ieTogUGV0ciBW
-b3JlbDxwdm9yZWxAc3VzZS5jej4KPj4gLS0tCj4+ICAgdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxs
-cy9mYW5vdGlmeS9mYW5vdGlmeTA5LmMgICAgICAgICAgICAgICAgICB8IDEgLQo+PiAgIHRlc3Rj
-YXNlcy9rZXJuZWwvc3lzY2FsbHMvZmFub3RpZnkvZmFub3RpZnkxMy5jICAgICAgICAgICAgICAg
-ICAgfCAxIC0KPj4gICB0ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL2Zhbm90aWZ5L2Zhbm90aWZ5
-MTUuYyAgICAgICAgICAgICAgICAgIHwgMSAtCj4+ICAgdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxs
-cy9mYW5vdGlmeS9mYW5vdGlmeTE2LmMgICAgICAgICAgICAgICAgICB8IDEgLQo+PiAgIC4uLi9r
-ZXJuZWwvc3lzY2FsbHMvbmFtZV90b19oYW5kbGVfYXQvbmFtZV90b19oYW5kbGVfYXQwMS5jICAg
-ICAgfCAxIC0KPj4gICAuLi4va2VybmVsL3N5c2NhbGxzL25hbWVfdG9faGFuZGxlX2F0L25hbWVf
-dG9faGFuZGxlX2F0MDIuYyAgICAgIHwgMSAtCj4+ICAgLi4uL2tlcm5lbC9zeXNjYWxscy9vcGVu
-X2J5X2hhbmRsZV9hdC9vcGVuX2J5X2hhbmRsZV9hdDAxLmMgICAgICB8IDEgLQo+PiAgIC4uLi9r
-ZXJuZWwvc3lzY2FsbHMvb3Blbl9ieV9oYW5kbGVfYXQvb3Blbl9ieV9oYW5kbGVfYXQwMi5jICAg
-ICAgfCAxIC0KPj4gICA4IGZpbGVzIGNoYW5nZWQsIDggZGVsZXRpb25zKC0pCj4+Cj4+IGRpZmYg
-LS1naXQgYS90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL2Zhbm90aWZ5L2Zhbm90aWZ5MDkuYyBi
-L3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvZmFub3RpZnkvZmFub3RpZnkwOS5jCj4+IGluZGV4
-IDMwZTIxMmY0NC4uOTE4ZTQwMjc0IDEwMDY0NAo+PiAtLS0gYS90ZXN0Y2FzZXMva2VybmVsL3N5
-c2NhbGxzL2Zhbm90aWZ5L2Zhbm90aWZ5MDkuYwo+PiArKysgYi90ZXN0Y2FzZXMva2VybmVsL3N5
-c2NhbGxzL2Zhbm90aWZ5L2Zhbm90aWZ5MDkuYwo+PiBAQCAtMzAsNyArMzAsNiBAQAo+PiAgICNp
-bmNsdWRlPHN0ZGlvLmg+Cj4+ICAgI2luY2x1ZGU8c3lzL3N0YXQuaD4KPj4gICAjaW5jbHVkZTxz
-eXMvdHlwZXMuaD4KPj4gLSNpbmNsdWRlPGZjbnRsLmg+Cj4+ICAgI2luY2x1ZGU8ZXJybm8uaD4K
-Pj4gICAjaW5jbHVkZTxzdHJpbmcuaD4KPj4gICAjaW5jbHVkZTxzeXMvbW91bnQuaD4KPj4gZGlm
-ZiAtLWdpdCBhL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvZmFub3RpZnkvZmFub3RpZnkxMy5j
-IGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9mYW5vdGlmeS9mYW5vdGlmeTEzLmMKPj4gaW5k
-ZXggYzljZjEwNTU1Li42ZDgxMmNkZDEgMTAwNjQ0Cj4+IC0tLSBhL3Rlc3RjYXNlcy9rZXJuZWwv
-c3lzY2FsbHMvZmFub3RpZnkvZmFub3RpZnkxMy5jCj4+ICsrKyBiL3Rlc3RjYXNlcy9rZXJuZWwv
-c3lzY2FsbHMvZmFub3RpZnkvZmFub3RpZnkxMy5jCj4+IEBAIC0yMSw3ICsyMSw2IEBACj4+ICAg
-I2luY2x1ZGU8c3lzL3N0YXRmcy5oPgo+PiAgICNpbmNsdWRlPHN5cy90eXBlcy5oPgo+PiAgICNp
-bmNsdWRlPHN5cy9zdGF0Lmg+Cj4+IC0jaW5jbHVkZTxmY250bC5oPgo+PiAgICNpbmNsdWRlPGVy
-cm5vLmg+Cj4+ICAgI2luY2x1ZGU8dW5pc3RkLmg+Cj4+ICAgI2luY2x1ZGUgInRzdF90ZXN0Lmgi
-Cj4+IGRpZmYgLS1naXQgYS90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL2Zhbm90aWZ5L2Zhbm90
-aWZ5MTUuYyBiL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvZmFub3RpZnkvZmFub3RpZnkxNS5j
-Cj4+IGluZGV4IGJhODI1OWM3Yy4uZmUxNDM4MjNlIDEwMDY0NAo+PiAtLS0gYS90ZXN0Y2FzZXMv
-a2VybmVsL3N5c2NhbGxzL2Zhbm90aWZ5L2Zhbm90aWZ5MTUuYwo+PiArKysgYi90ZXN0Y2FzZXMv
-a2VybmVsL3N5c2NhbGxzL2Zhbm90aWZ5L2Zhbm90aWZ5MTUuYwo+PiBAQCAtMTksNyArMTksNiBA
-QAo+Pgo+PiAgICNpbmNsdWRlPHN0cmluZy5oPgo+PiAgICNpbmNsdWRlPGVycm5vLmg+Cj4+IC0j
-aW5jbHVkZTxmY250bC5oPgo+PiAgICNpbmNsdWRlPHN5cy9zdGF0ZnMuaD4KPj4gICAjaW5jbHVk
-ZTxzeXMvdHlwZXMuaD4KPj4gICAjaW5jbHVkZSAidHN0X3Rlc3QuaCIKPj4gZGlmZiAtLWdpdCBh
-L3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvZmFub3RpZnkvZmFub3RpZnkxNi5jIGIvdGVzdGNh
-c2VzL2tlcm5lbC9zeXNjYWxscy9mYW5vdGlmeS9mYW5vdGlmeTE2LmMKPj4gaW5kZXggNWZmYWVj
-OTJmLi5jNGI4YTVhYmMgMTAwNjQ0Cj4+IC0tLSBhL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMv
-ZmFub3RpZnkvZmFub3RpZnkxNi5jCj4+ICsrKyBiL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMv
-ZmFub3RpZnkvZmFub3RpZnkxNi5jCj4+IEBAIC0xOCw3ICsxOCw2IEBACj4+ICAgI2luY2x1ZGU8
-c3RkaW8uaD4KPj4gICAjaW5jbHVkZTxzeXMvc3RhdC5oPgo+PiAgICNpbmNsdWRlPHN5cy90eXBl
-cy5oPgo+PiAtI2luY2x1ZGU8ZmNudGwuaD4KPj4gICAjaW5jbHVkZTxlcnJuby5oPgo+PiAgICNp
-bmNsdWRlPHN0cmluZy5oPgo+PiAgICNpbmNsdWRlPHN5cy9tb3VudC5oPgo+PiBkaWZmIC0tZ2l0
-IGEvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9uYW1lX3RvX2hhbmRsZV9hdC9uYW1lX3RvX2hh
-bmRsZV9hdDAxLmMgYi90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL25hbWVfdG9faGFuZGxlX2F0
-L25hbWVfdG9faGFuZGxlX2F0MDEuYwo+PiBpbmRleCA4NGFjMzJlYWIuLjFhYzlkODIxNCAxMDA2
-NDQKPj4gLS0tIGEvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9uYW1lX3RvX2hhbmRsZV9hdC9u
-YW1lX3RvX2hhbmRsZV9hdDAxLmMKPj4gKysrIGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9u
-YW1lX3RvX2hhbmRsZV9hdC9uYW1lX3RvX2hhbmRsZV9hdDAxLmMKPj4gQEAgLTE1LDcgKzE1LDYg
-QEAKPj4gICBcKi8KPj4KPj4gICAjZGVmaW5lIF9HTlVfU09VUkNFCj4+IC0jaW5jbHVkZTxmY250
-bC5oPgo+PiAgICNpbmNsdWRlPHN5cy9zdGF0Lmg+Cj4+ICAgI2luY2x1ZGUgImxhcGkvbmFtZV90
-b19oYW5kbGVfYXQuaCIKPj4KPj4gZGlmZiAtLWdpdCBhL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2Fs
-bHMvbmFtZV90b19oYW5kbGVfYXQvbmFtZV90b19oYW5kbGVfYXQwMi5jIGIvdGVzdGNhc2VzL2tl
-cm5lbC9zeXNjYWxscy9uYW1lX3RvX2hhbmRsZV9hdC9uYW1lX3RvX2hhbmRsZV9hdDAyLmMKPj4g
-aW5kZXggN2MwZDU3NDg1Li4wMjBiMjU1MzEgMTAwNjQ0Cj4+IC0tLSBhL3Rlc3RjYXNlcy9rZXJu
-ZWwvc3lzY2FsbHMvbmFtZV90b19oYW5kbGVfYXQvbmFtZV90b19oYW5kbGVfYXQwMi5jCj4+ICsr
-KyBiL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvbmFtZV90b19oYW5kbGVfYXQvbmFtZV90b19o
-YW5kbGVfYXQwMi5jCj4+IEBAIC0xMCw3ICsxMCw2IEBACj4+ICAgXCovCj4+Cj4+ICAgI2RlZmlu
-ZSBfR05VX1NPVVJDRQo+PiAtI2luY2x1ZGU8ZmNudGwuaD4KPj4gICAjaW5jbHVkZSAibGFwaS9u
-YW1lX3RvX2hhbmRsZV9hdC5oIgo+Pgo+PiAgICNkZWZpbmUgVEVTVF9GSUxFICJ0ZXN0X2ZpbGUi
-Cj4+IGRpZmYgLS1naXQgYS90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL29wZW5fYnlfaGFuZGxl
-X2F0L29wZW5fYnlfaGFuZGxlX2F0MDEuYyBiL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvb3Bl
-bl9ieV9oYW5kbGVfYXQvb3Blbl9ieV9oYW5kbGVfYXQwMS5jCj4+IGluZGV4IGMxYjA4ZjFiOC4u
-MGQwOWUxZWQ4IDEwMDY0NAo+PiAtLS0gYS90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL29wZW5f
-YnlfaGFuZGxlX2F0L29wZW5fYnlfaGFuZGxlX2F0MDEuYwo+PiArKysgYi90ZXN0Y2FzZXMva2Vy
-bmVsL3N5c2NhbGxzL29wZW5fYnlfaGFuZGxlX2F0L29wZW5fYnlfaGFuZGxlX2F0MDEuYwo+PiBA
-QCAtMTUsNyArMTUsNiBAQAo+PiAgIFwqLwo+Pgo+PiAgICNkZWZpbmUgX0dOVV9TT1VSQ0UKPj4g
-LSNpbmNsdWRlPGZjbnRsLmg+Cj4+ICAgI2luY2x1ZGU8c3lzL3N0YXQuaD4KPj4gICAjaW5jbHVk
-ZSAibGFwaS9uYW1lX3RvX2hhbmRsZV9hdC5oIgo+Pgo+PiBkaWZmIC0tZ2l0IGEvdGVzdGNhc2Vz
-L2tlcm5lbC9zeXNjYWxscy9vcGVuX2J5X2hhbmRsZV9hdC9vcGVuX2J5X2hhbmRsZV9hdDAyLmMg
-Yi90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL29wZW5fYnlfaGFuZGxlX2F0L29wZW5fYnlfaGFu
-ZGxlX2F0MDIuYwo+PiBpbmRleCAzYzhmMDZkODUuLjBmNjA3NTJjNCAxMDA2NDQKPj4gLS0tIGEv
-dGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9vcGVuX2J5X2hhbmRsZV9hdC9vcGVuX2J5X2hhbmRs
-ZV9hdDAyLmMKPj4gKysrIGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9vcGVuX2J5X2hhbmRs
-ZV9hdC9vcGVuX2J5X2hhbmRsZV9hdDAyLmMKPj4gQEAgLTEwLDcgKzEwLDYgQEAKPj4gICBcKi8K
-Pj4gICAjZGVmaW5lIF9HTlVfU09VUkNFCj4+ICAgI2luY2x1ZGU8bGludXgvY2FwYWJpbGl0eS5o
-Pgo+PiAtI2luY2x1ZGU8ZmNudGwuaD4KPj4gICAjaW5jbHVkZSAidHN0X2NhcGFiaWxpdHkuaCIK
-Pj4gICAjaW5jbHVkZSAibGFwaS9uYW1lX3RvX2hhbmRsZV9hdC5oIgo+Pgo+Cj4KPgoKCgoKLS0g
-Ck1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
+Hi Cyril
+> Hi!
+>> When I look these cpuset cases(cpuset_base_ops_test,
+>> cpuset_hierarchy_test, cpuset_inherit_test...), these cases seems all
+>> not consider the situation(cpus/memory are not numbered continously). If
+>> we want to modify them to be situable for not numbered continously, it
+>> will be complexd(especially cpuset_base_ops_test).
+>
+> Thats why I said that these tests would need to be rewritten ideally
+> from a scratch. I guess that it would be easier to work with bitfields
+> in C as well.
+>
+I see.
+>> AFAIK, I rarely see not numbered continously for memory node. IMO, we
+>> just check whether memory/cpu numbered continously, if not, we just
+>> report TCONF and remind user to change their system to meet
+>> environment, so their system can be fully tested.
+>
+> That would be better than unexpected failure at least.
+>
+Since we are just before a release, I think using this way is ok. I will 
+send a patch for this soon.
+>> For cpu, maybe we can use the following script to detect
+>>
+>> cpu_string="`cat /sys/devices/system/cpu/online`"
+>> offline_string="`cat /sys/devices/system/cpu/online`"
+>> NR_CPUS=`tst_ncpus`
+>> ALL_CPUS=`tst_ncpus_conf`
+>> if [ $NR_CPUS -eq $ALL_CPUS ]; then
+>>          tst_resm TINFO "All($ALL_CPUS) logical cpus on your environment"
+>> else
+>>         tst_brkm TCONF "Not all logical cpus on, online($cpu_string),offline($offline_string)"
+>> fi
+>>
+>> I wonder if it's worth changing the stable cpuset/memory cases for these
+>> rared situation(memory/cpu are not numbered continously).
+>
+> It would allow us to offline CPUs in the middle of the test and checking
+> that offlined CPUs can no longer be added into the mask, which is
+> something we cannot test at the moment.
+ From this point, it is meaningful.
+>
+>> What do you think about it?
+>
+> To be honest I'm not sure if ncpus == ncpus_conf means that the cpu
+> numbering is continous.
+I see ltp/lib/tst_cpu.c uses 
+_SC_NPROCESSORS_ONLN/_SC_NPROCESSORS_CONF[1] sysconf. if ncpus == 
+ncpus_conf, it means all cpu enable so the cpu numbering must be continous.
+
+[1]https://www.gnu.org/software/libc/manual/html_node/Processor-Resources.html
+>
+> I guess that the safest bet would be actually parsing the
+> /sys/devices/system/cpu/online instead. I.e. check that the file is in a
+> format 0-$(UINT), since that is what the testcases do expect, right?
+Yes.
+my old way (using _SC_NPROCESSORS_ONLN/_SC_NPROCESSORS_CONF[1] macro) is 
+to detect all logcial cpu enabled, your way can cover more situation.
+>
+>> +#select the first one or two online cpu
+>> +select_online_cpus()
+>> +{
+>> +	ncpus_check ${1:-2}
+>> +	local cpus_array="$(seq -s' ' 0 $((ALL_CPUS-1)))"
+>> +	local cpuid=
+>> +	local iter=0
+>> +	for cpuid in $cpus_array
+>> +	do
+>> +		local file="/sys/devices/system/cpu/cpu$cpuid/online"
+>> +		local online="$(cat $file)"
+>> +		if [ $online -eq 1 ]; then
+>> +			iter=`expr $iter + 1`
+>> +			if [ $iter -eq 1 ]; then
+>> +				F_ONELINE_CPU=$cpu_id
+>> +			elif [ $iter -eq 2 ]; then
+>> +				S_ONLINE_CPU=$cpu_id
+>> +			else
+>> +				break
+>> +			fi
+>> +		fi
+>> +        done
+>> +}
+>
+> Bitfields are akward in shell. So if I was writing these tests I would
+> write a function to parse the sysfs file into a cpuset bitfield and
+> second function to write the bitfield into a sysfs file. And after that
+> we would do all the operations on cpuset bitfields instead.
+>
+> That way we can, for instance, get any subset of online CPUs easily,
+> since that is just one loop over the cpuset bitfield.
+Agree.
+>
+> e.g. to get a subset with half of the online CPUs we would do:
+>
+> 	int flag = 0, i;
+>
+> 	for (i = 0; i<  setsize; i++) {
+> 		if (CPU_ISSET_S(i, setsize, inset)) {
+> 			if (flag)
+> 				GPU_SET_S(i, setsize, outset);
+>
+> 			flag = !flag;
+> 		}
+> 	}
+>
+> We can probably reuse the code kernel uses to parse and print these, the
+> code to print a bitmap seems to be in bitmap_list_string() in
+> lib/vsprintf.c, the parsing seems to be implemented in
+> bitmap_parselist_user() in the lib/bitmap.c.
+I will see these code when I am free.
+>
+
+
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
