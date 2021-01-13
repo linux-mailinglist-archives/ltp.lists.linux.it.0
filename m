@@ -2,38 +2,40 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C7FA2F4589
-	for <lists+linux-ltp@lfdr.de>; Wed, 13 Jan 2021 08:51:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62E942F4587
+	for <lists+linux-ltp@lfdr.de>; Wed, 13 Jan 2021 08:51:27 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E0B293C6AA6
-	for <lists+linux-ltp@lfdr.de>; Wed, 13 Jan 2021 08:51:47 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id A97903C5DCF
+	for <lists+linux-ltp@lfdr.de>; Wed, 13 Jan 2021 08:51:26 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id EFB713C6AA3
- for <ltp@lists.linux.it>; Wed, 13 Jan 2021 08:51:29 +0100 (CET)
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id 562553C266D
+ for <ltp@lists.linux.it>; Wed, 13 Jan 2021 08:51:22 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id EC886100035D
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 05F36601417
  for <ltp@lists.linux.it>; Wed, 13 Jan 2021 08:51:21 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 53371AED7;
+ by mx2.suse.de (Postfix) with ESMTP id 85833AE40;
  Wed, 13 Jan 2021 07:51:21 +0000 (UTC)
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Wed, 13 Jan 2021 08:51:08 +0100
-Message-Id: <20210113075110.31628-2-pvorel@suse.cz>
+Date: Wed, 13 Jan 2021 08:51:09 +0100
+Message-Id: <20210113075110.31628-3-pvorel@suse.cz>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20210113075110.31628-1-pvorel@suse.cz>
 References: <20210113075110.31628-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 1/3] lapi: Move struct file_handle into lapi/fcntl.h
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 2/3] fanotify: Fix build on undefined struct
+ file_handle
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,98 +47,25 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-that way it can be used in fanotify tests
-(some of use the struct, but not name_to_handle_at() syscall)
-and the struct is defined in <fcntl.h> anyway.
-
-Although detection with HAVE_NAME_TO_HANDLE_AT works (at least on glibc,
-musl and uclibc-ng) add proper autotools check for the struct presence.
-
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
- configure.ac                     |  6 ++++++
- include/lapi/fcntl.h             | 10 ++++++++++
- include/lapi/name_to_handle_at.h |  9 +--------
- 3 files changed, 17 insertions(+), 8 deletions(-)
-
-diff --git a/configure.ac b/configure.ac
-index 06be1c094..e44e25cc6 100644
---- a/configure.ac
-+++ b/configure.ac
-@@ -148,6 +148,12 @@ AC_CHECK_TYPES([struct acct_v3],,,[#include <sys/acct.h>])
- AC_CHECK_TYPES([struct af_alg_iv, struct sockaddr_alg],,,[# include <linux/if_alg.h>])
- AC_CHECK_TYPES([struct fanotify_event_info_fid, struct fanotify_event_info_header],,,[#include <sys/fanotify.h>])
- AC_CHECK_TYPES([struct file_dedupe_range],,,[#include <linux/fs.h>])
-+
-+AC_CHECK_TYPES([struct file_handle],,,[
-+#define _GNU_SOURCE
-+#include <fcntl.h>
-+])
-+
- AC_CHECK_TYPES([struct fs_quota_statv],,,[#include <xfs/xqm.h>])
- AC_CHECK_TYPES([struct if_nextdqblk],,,[#include <linux/quota.h>])
- AC_CHECK_TYPES([struct iovec],,,[#include <sys/uio.h>])
-diff --git a/include/lapi/fcntl.h b/include/lapi/fcntl.h
-index d6665915f..e08970c4f 100644
---- a/include/lapi/fcntl.h
-+++ b/include/lapi/fcntl.h
-@@ -6,6 +6,7 @@
- #ifndef __LAPI_FCNTL_H__
- #define __LAPI_FCNTL_H__
- 
-+#include "config.h"
- #include <fcntl.h>
- #include <sys/socket.h>
- 
-@@ -140,4 +141,13 @@
- # define MAX_HANDLE_SZ	128
- #endif
- 
-+#ifndef HAVE_STRUCT_FILE_HANDLE
-+struct file_handle {
-+	unsigned int handle_bytes;
-+	int handle_type;
-+	/* File identifier.  */
-+	unsigned char f_handle[0];
-+};
-+#endif /* HAVE_STRUCT_FILE_HANDLE */
-+
- #endif /* __LAPI_FCNTL_H__ */
-diff --git a/include/lapi/name_to_handle_at.h b/include/lapi/name_to_handle_at.h
-index 3484133d1..275db4ae0 100644
---- a/include/lapi/name_to_handle_at.h
-+++ b/include/lapi/name_to_handle_at.h
-@@ -15,13 +15,6 @@
- #include "tst_test.h"
- 
- #ifndef HAVE_NAME_TO_HANDLE_AT
--struct file_handle {
--	unsigned int handle_bytes;
--	int handle_type;
--	/* File identifier.  */
--	unsigned char f_handle[0];
--};
--
- static inline int name_to_handle_at(int dfd, const char *pathname,
-                                     struct file_handle *handle,
-                                     int *mount_id, int flags)
-@@ -35,7 +28,7 @@ static inline int open_by_handle_at(int mount_fd, struct file_handle *handle,
- {
- 	return tst_syscall(__NR_open_by_handle_at, mount_fd, handle, flags);
- }
--#endif
-+#endif /* HAVE_NAME_TO_HANDLE_AT */
- 
- /* Returns a valid pointer on success, NULL on errors */
- static inline struct file_handle *
--- 
-2.29.2
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+VGhpcyBmaXhlcyBlcnJvcjoKZmFub3RpZnkwOS5jOjIwMTozMjogZXJyb3I6IGRlcmVmZXJlbmNp
+bmcgcG9pbnRlciB0byBpbmNvbXBsZXRlIHR5cGUg4oCYc3RydWN0IGZpbGVfaGFuZGxl4oCZCiAg
+MjAxIHwgIGZpbGVuYW1lID0gKGNoYXIgKilmaWxlX2hhbmRsZS0+Zl9oYW5kbGUgKyBmaWxlX2hh
+bmRsZS0+aGFuZGxlX2J5dGVzOwoKU2lnbmVkLW9mZi1ieTogUGV0ciBWb3JlbCA8cHZvcmVsQHN1
+c2UuY3o+Ci0tLQogdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9mYW5vdGlmeS9mYW5vdGlmeS5o
+IHwgMiArLQogMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pCgpk
+aWZmIC0tZ2l0IGEvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9mYW5vdGlmeS9mYW5vdGlmeS5o
+IGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9mYW5vdGlmeS9mYW5vdGlmeS5oCmluZGV4IDg5
+MDdkYjA1Mi4uMDM5Mzc5OTYxIDEwMDY0NAotLS0gYS90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxz
+L2Zhbm90aWZ5L2Zhbm90aWZ5LmgKKysrIGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9mYW5v
+dGlmeS9mYW5vdGlmeS5oCkBAIC0xMiw4ICsxMiw4IEBACiAjaW5jbHVkZSA8c3lzL3R5cGVzLmg+
+CiAjaW5jbHVkZSA8c3lzL3N0YXQuaD4KICNpbmNsdWRlIDxlcnJuby5oPgotI2luY2x1ZGUgPGZj
+bnRsLmg+CiAjaW5jbHVkZSA8c3lzL2Zhbm90aWZ5Lmg+CisjaW5jbHVkZSAibGFwaS9mY250bC5o
+IgogCiBpbnQgc2FmZV9mYW5vdGlmeV9pbml0KGNvbnN0IGNoYXIgKmZpbGUsIGNvbnN0IGludCBs
+aW5lbm8sCiAJdW5zaWduZWQgaW50IGZsYWdzLCB1bnNpZ25lZCBpbnQgZXZlbnRfZl9mbGFncykK
+LS0gCjIuMjkuMgoKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5p
+dC9saXN0aW5mby9sdHAK
