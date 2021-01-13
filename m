@@ -1,41 +1,42 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B0032F4CB9
-	for <lists+linux-ltp@lfdr.de>; Wed, 13 Jan 2021 15:08:04 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id D94232F4FD6
+	for <lists+linux-ltp@lfdr.de>; Wed, 13 Jan 2021 17:22:37 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 400BB3C5DC2
-	for <lists+linux-ltp@lfdr.de>; Wed, 13 Jan 2021 15:08:04 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 33B7E3C5DC3
+	for <lists+linux-ltp@lfdr.de>; Wed, 13 Jan 2021 17:22:37 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 2321E3C319B
- for <ltp@lists.linux.it>; Wed, 13 Jan 2021 15:08:02 +0100 (CET)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id EFF653C2698
+ for <ltp@lists.linux.it>; Wed, 13 Jan 2021 17:22:35 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 3D1E010007B9
- for <ltp@lists.linux.it>; Wed, 13 Jan 2021 15:08:00 +0100 (CET)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 00F5F1400258
+ for <ltp@lists.linux.it>; Wed, 13 Jan 2021 17:22:34 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 4923DAC24;
- Wed, 13 Jan 2021 14:08:00 +0000 (UTC)
-Date: Wed, 13 Jan 2021 15:07:58 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Alexey Kodanev <alexey.kodanev@oracle.com>
-Message-ID: <X/7+vk6WsJ2LDJlC@pevik>
-References: <20210107120247.31465-1-pvorel@suse.cz>
- <d7eba485-08db-1cc7-abe6-38d23c244bfb@oracle.com>
+ by mx2.suse.de (Postfix) with ESMTP id 2C442AD57;
+ Wed, 13 Jan 2021 16:22:34 +0000 (UTC)
+Date: Wed, 13 Jan 2021 17:23:32 +0100
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Message-ID: <X/8ehCeZbWs6TIA4@yuki.lan>
+References: <X/29dySZb8kL5Nms@rei.lan>
+ <1610539423-4315-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <d7eba485-08db-1cc7-abe6-38d23c244bfb@oracle.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+In-Reply-To: <1610539423-4315-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/1] if-mtu-change.sh: Lower CHANGE_INTERVAL to 1
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] cpuset: skip test when cpu or nodes are not
+ numbered continously from 0
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,77 +48,112 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Alexey,
+Hi!
+> diff --git a/testcases/kernel/controllers/cpuset/cpuset_funcs.sh b/testcases/kernel/controllers/cpuset/cpuset_funcs.sh
+> index f4365af2c..5b1bde114 100755
+> --- a/testcases/kernel/controllers/cpuset/cpuset_funcs.sh
+> +++ b/testcases/kernel/controllers/cpuset/cpuset_funcs.sh
+> @@ -26,23 +26,34 @@
+>  
+>  . test.sh
+>  
+> +cpu_string="`cat /sys/devices/system/cpu/online`"
+>  NR_CPUS=`tst_ncpus`
+> +
+>  if [ -f "/sys/devices/system/node/has_high_memory" ]; then
+> -	N_NODES="`cat /sys/devices/system/node/has_high_memory | tr ',' ' '`"
+> +	mem_string="`cat /sys/devices/system/node/has_high_memory`"
+>  else
+> -	N_NODES="`cat /sys/devices/system/node/has_normal_memory | tr ',' ' '`"
+> +	mem_string="`cat /sys/devices/system/node/has_normal_memory`"
+>  fi
+> +N_NODES="`echo $mem_string | tr ',' ' '`"
+>  count=0
+> +final_node=0
+>  for item in $N_NODES; do
+>  	delta=1
+>  	if [ "${item#*-*}" != "$item" ]; then
+>  		delta=$((${item#*-*} - ${item%*-*} + 1))
+>  	fi
+> +	final_node=${item#*-*}
+>  	count=$((count + $delta))
+>  done
+> +final_node=`expr $final_node + 1`
 
-> On 07.01.2021 15:02, Petr Vorel wrote:
-> > to make testing faster.
+Why don't we use $(()) as in the rest of the code?
 
-> > Tested only on netns based testing.
+>  N_NODES=$count
+>  
+> -mem_string="$N_NODES"
+> +final_cpu=0
+> +N_CPUS="`echo $cpu_string | tr ',' ' '`"
+> +for item in $N_CPUS; do
+> +	final_cpu=${item#*-*}
+> +done
+> +final_cpu=`expr $final_cpu + 1`
 
+Here as well.
 
-> Hi Petr,
+>  CPUSET="/dev/cpuset"
+>  CPUSET_TMP="/tmp/cpuset_tmp"
+> @@ -78,6 +89,12 @@ ncpus_check()
+>  	if [ $NR_CPUS -lt $1 ]; then
+>  		tst_brkm TCONF "The total of CPUs is less than $1"
+>  	fi
+> +	# check online cpu whether match 0-num
+> +	if [ $final_cpu -eq $NR_CPUS ]; then
+> +		tst_resm TINFO "cpus enable continuously from 0($cpu_string)"
+                                     ^
+				     This does not make much sense.
 
-> > Signed-off-by: Petr Vorel <pvorel@suse.cz>
-> > ---
-> > Hi Alexey,
-
-> > any reason why CHANGE_INTERVAL was set 5s?
-
-> It's more or less safe time for default setup. Not sure why we don't
-> have tst_sleep in if_updown.sh though. I think this is for preventing
-> link-flap errors on the switch...
-Thanks for info.
-
-BTW do you consider sleep $NS_DURATION as needed in
-testcases/network/stress/multicast/{packet-flood,query-flood}?
-It's before killing utils (ns-mcast_receiver, ns-udpsender),
-thus it could be removed during rewrite [1]
-
-> For netns it's can be set far less of cause by overriding CHANGE_INTERVAL.
-
-> > It'd be nice to speedup the tests, which were slow even before
-> > 2d422edbf ("if-mtu-change.sh: Add max packet size detection for IPv4")
-> > which added 25% slowdown.
-
-> > Could you please test this on two host based setup?
-
-> > Kind regards,
-> > Petr
-
-> >  testcases/network/stress/interface/if-mtu-change.sh | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-
-> > diff --git a/testcases/network/stress/interface/if-mtu-change.sh b/testcases/network/stress/interface/if-mtu-change.sh
-> > index d2816606b..3efe00461 100755
-> > --- a/testcases/network/stress/interface/if-mtu-change.sh
-> > +++ b/testcases/network/stress/interface/if-mtu-change.sh
-> > @@ -11,7 +11,7 @@ TST_CLEANUP="do_cleanup"
-> >  . if-lib.sh
-
-> >  # The interval of the mtu change [second]
-> > -CHANGE_INTERVAL=${CHANGE_INTERVAL:-5}
-> > +CHANGE_INTERVAL=${CHANGE_INTERVAL:-1}
-
-> >  TST_TIMEOUT=$(((CHANGE_INTERVAL + 30) * MTU_CHANGE_TIMES))
+This should probably be:
+	"CPUs numbered continuously starting at 0 ($cpu_string)"
 
 
-> It's better to remove TST_TIMEOUT so that CHANGE_INTERVAL can be set,
-> for example, to "100ms" for netns setup.
-How about keeping it, but consider CHANGE_INTERVAL as 1 if not a number
-(i.e. containing "ms", check with tst_is_int would be IMHO enough).
-I'll send a patch.
+> +	else
+> +		tst_brkm TCONF "cpus don't enable continuously from 0($cpu_string)"
 
-Kind regards,
-Petr
+Here it should be:
+	"CPUs are not numbered continuously starting at 0 ($cpu_string)"
 
-[1] https://patchwork.ozlabs.org/project/ltp/list/?series=216562
+> +	fi
+>  }
+>  
+>  nnodes_check()
+> @@ -85,6 +102,12 @@ nnodes_check()
+>  	if [ $N_NODES -lt $1 ]; then
+>  		tst_brkm TCONF "The total of nodes is less than $1"
+>  	fi
+> +	# check online whether match 0-num
+> +	if [ $final_node -eq $count ]; then
+                               ^
+			I guess that N_NODES would be better here.
+
+> +		tst_resm TINFO "nodes enable continuously from 0($mem_string)"
+> +	else
+> +		tst_brkm TCONF "nodes don't enable continuously from 0($mem_string)"
+
+These two messages should be adjusted as well.
+
+> +	fi
+>  }
+>  
+>  user_check()
+> -- 
+> 2.23.0
+> 
+> 
+> 
+
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
