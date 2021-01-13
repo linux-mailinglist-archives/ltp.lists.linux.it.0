@@ -1,41 +1,39 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62E942F4587
-	for <lists+linux-ltp@lfdr.de>; Wed, 13 Jan 2021 08:51:27 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id A18962F4588
+	for <lists+linux-ltp@lfdr.de>; Wed, 13 Jan 2021 08:51:34 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A97903C5DCF
-	for <lists+linux-ltp@lfdr.de>; Wed, 13 Jan 2021 08:51:26 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 17A263C5DCE
+	for <lists+linux-ltp@lfdr.de>; Wed, 13 Jan 2021 08:51:34 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 562553C266D
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id 6618E3C2698
  for <ltp@lists.linux.it>; Wed, 13 Jan 2021 08:51:22 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 05F36601417
- for <ltp@lists.linux.it>; Wed, 13 Jan 2021 08:51:21 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 1C18A10006C6
+ for <ltp@lists.linux.it>; Wed, 13 Jan 2021 08:51:22 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 85833AE40;
+ by mx2.suse.de (Postfix) with ESMTP id B7A10AF4E;
  Wed, 13 Jan 2021 07:51:21 +0000 (UTC)
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Wed, 13 Jan 2021 08:51:09 +0100
-Message-Id: <20210113075110.31628-3-pvorel@suse.cz>
+Date: Wed, 13 Jan 2021 08:51:10 +0100
+Message-Id: <20210113075110.31628-4-pvorel@suse.cz>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20210113075110.31628-1-pvorel@suse.cz>
 References: <20210113075110.31628-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 2/3] fanotify: Fix build on undefined struct
- file_handle
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 3/3] syscalls: Remove unused include <fcntl.h>
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,25 +45,130 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-VGhpcyBmaXhlcyBlcnJvcjoKZmFub3RpZnkwOS5jOjIwMTozMjogZXJyb3I6IGRlcmVmZXJlbmNp
-bmcgcG9pbnRlciB0byBpbmNvbXBsZXRlIHR5cGUg4oCYc3RydWN0IGZpbGVfaGFuZGxl4oCZCiAg
-MjAxIHwgIGZpbGVuYW1lID0gKGNoYXIgKilmaWxlX2hhbmRsZS0+Zl9oYW5kbGUgKyBmaWxlX2hh
-bmRsZS0+aGFuZGxlX2J5dGVzOwoKU2lnbmVkLW9mZi1ieTogUGV0ciBWb3JlbCA8cHZvcmVsQHN1
-c2UuY3o+Ci0tLQogdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9mYW5vdGlmeS9mYW5vdGlmeS5o
-IHwgMiArLQogMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pCgpk
-aWZmIC0tZ2l0IGEvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9mYW5vdGlmeS9mYW5vdGlmeS5o
-IGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9mYW5vdGlmeS9mYW5vdGlmeS5oCmluZGV4IDg5
-MDdkYjA1Mi4uMDM5Mzc5OTYxIDEwMDY0NAotLS0gYS90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxz
-L2Zhbm90aWZ5L2Zhbm90aWZ5LmgKKysrIGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9mYW5v
-dGlmeS9mYW5vdGlmeS5oCkBAIC0xMiw4ICsxMiw4IEBACiAjaW5jbHVkZSA8c3lzL3R5cGVzLmg+
-CiAjaW5jbHVkZSA8c3lzL3N0YXQuaD4KICNpbmNsdWRlIDxlcnJuby5oPgotI2luY2x1ZGUgPGZj
-bnRsLmg+CiAjaW5jbHVkZSA8c3lzL2Zhbm90aWZ5Lmg+CisjaW5jbHVkZSAibGFwaS9mY250bC5o
-IgogCiBpbnQgc2FmZV9mYW5vdGlmeV9pbml0KGNvbnN0IGNoYXIgKmZpbGUsIGNvbnN0IGludCBs
-aW5lbm8sCiAJdW5zaWduZWQgaW50IGZsYWdzLCB1bnNpZ25lZCBpbnQgZXZlbnRfZl9mbGFncykK
-LS0gCjIuMjkuMgoKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5p
-dC9saXN0aW5mby9sdHAK
+Tests should always use lapi/fcntl.h instead of <fcntl.h> to fix
+possible missing definitions.
+
+But in this case removing include, because fanotify tests include
+<fcntl.h> in lapi/fcntl.h (via fanotify.h) and
+{name_to,open_by}_handle_at tests include lapi/fcntl.h in
+lapi/name_to_handle_at.h.
+
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+---
+ testcases/kernel/syscalls/fanotify/fanotify09.c                  | 1 -
+ testcases/kernel/syscalls/fanotify/fanotify13.c                  | 1 -
+ testcases/kernel/syscalls/fanotify/fanotify15.c                  | 1 -
+ testcases/kernel/syscalls/fanotify/fanotify16.c                  | 1 -
+ .../kernel/syscalls/name_to_handle_at/name_to_handle_at01.c      | 1 -
+ .../kernel/syscalls/name_to_handle_at/name_to_handle_at02.c      | 1 -
+ .../kernel/syscalls/open_by_handle_at/open_by_handle_at01.c      | 1 -
+ .../kernel/syscalls/open_by_handle_at/open_by_handle_at02.c      | 1 -
+ 8 files changed, 8 deletions(-)
+
+diff --git a/testcases/kernel/syscalls/fanotify/fanotify09.c b/testcases/kernel/syscalls/fanotify/fanotify09.c
+index 30e212f44..918e40274 100644
+--- a/testcases/kernel/syscalls/fanotify/fanotify09.c
++++ b/testcases/kernel/syscalls/fanotify/fanotify09.c
+@@ -30,7 +30,6 @@
+ #include <stdio.h>
+ #include <sys/stat.h>
+ #include <sys/types.h>
+-#include <fcntl.h>
+ #include <errno.h>
+ #include <string.h>
+ #include <sys/mount.h>
+diff --git a/testcases/kernel/syscalls/fanotify/fanotify13.c b/testcases/kernel/syscalls/fanotify/fanotify13.c
+index c9cf10555..6d812cdd1 100644
+--- a/testcases/kernel/syscalls/fanotify/fanotify13.c
++++ b/testcases/kernel/syscalls/fanotify/fanotify13.c
+@@ -21,7 +21,6 @@
+ #include <sys/statfs.h>
+ #include <sys/types.h>
+ #include <sys/stat.h>
+-#include <fcntl.h>
+ #include <errno.h>
+ #include <unistd.h>
+ #include "tst_test.h"
+diff --git a/testcases/kernel/syscalls/fanotify/fanotify15.c b/testcases/kernel/syscalls/fanotify/fanotify15.c
+index ba8259c7c..fe143823e 100644
+--- a/testcases/kernel/syscalls/fanotify/fanotify15.c
++++ b/testcases/kernel/syscalls/fanotify/fanotify15.c
+@@ -19,7 +19,6 @@
+ 
+ #include <string.h>
+ #include <errno.h>
+-#include <fcntl.h>
+ #include <sys/statfs.h>
+ #include <sys/types.h>
+ #include "tst_test.h"
+diff --git a/testcases/kernel/syscalls/fanotify/fanotify16.c b/testcases/kernel/syscalls/fanotify/fanotify16.c
+index 5ffaec92f..c4b8a5abc 100644
+--- a/testcases/kernel/syscalls/fanotify/fanotify16.c
++++ b/testcases/kernel/syscalls/fanotify/fanotify16.c
+@@ -18,7 +18,6 @@
+ #include <stdio.h>
+ #include <sys/stat.h>
+ #include <sys/types.h>
+-#include <fcntl.h>
+ #include <errno.h>
+ #include <string.h>
+ #include <sys/mount.h>
+diff --git a/testcases/kernel/syscalls/name_to_handle_at/name_to_handle_at01.c b/testcases/kernel/syscalls/name_to_handle_at/name_to_handle_at01.c
+index 84ac32eab..1ac9d8214 100644
+--- a/testcases/kernel/syscalls/name_to_handle_at/name_to_handle_at01.c
++++ b/testcases/kernel/syscalls/name_to_handle_at/name_to_handle_at01.c
+@@ -15,7 +15,6 @@
+ \*/
+ 
+ #define _GNU_SOURCE
+-#include <fcntl.h>
+ #include <sys/stat.h>
+ #include "lapi/name_to_handle_at.h"
+ 
+diff --git a/testcases/kernel/syscalls/name_to_handle_at/name_to_handle_at02.c b/testcases/kernel/syscalls/name_to_handle_at/name_to_handle_at02.c
+index 7c0d57485..020b25531 100644
+--- a/testcases/kernel/syscalls/name_to_handle_at/name_to_handle_at02.c
++++ b/testcases/kernel/syscalls/name_to_handle_at/name_to_handle_at02.c
+@@ -10,7 +10,6 @@
+ \*/
+ 
+ #define _GNU_SOURCE
+-#include <fcntl.h>
+ #include "lapi/name_to_handle_at.h"
+ 
+ #define TEST_FILE "test_file"
+diff --git a/testcases/kernel/syscalls/open_by_handle_at/open_by_handle_at01.c b/testcases/kernel/syscalls/open_by_handle_at/open_by_handle_at01.c
+index c1b08f1b8..0d09e1ed8 100644
+--- a/testcases/kernel/syscalls/open_by_handle_at/open_by_handle_at01.c
++++ b/testcases/kernel/syscalls/open_by_handle_at/open_by_handle_at01.c
+@@ -15,7 +15,6 @@
+ \*/
+ 
+ #define _GNU_SOURCE
+-#include <fcntl.h>
+ #include <sys/stat.h>
+ #include "lapi/name_to_handle_at.h"
+ 
+diff --git a/testcases/kernel/syscalls/open_by_handle_at/open_by_handle_at02.c b/testcases/kernel/syscalls/open_by_handle_at/open_by_handle_at02.c
+index 3c8f06d85..0f60752c4 100644
+--- a/testcases/kernel/syscalls/open_by_handle_at/open_by_handle_at02.c
++++ b/testcases/kernel/syscalls/open_by_handle_at/open_by_handle_at02.c
+@@ -10,7 +10,6 @@
+ \*/
+ #define _GNU_SOURCE
+ #include <linux/capability.h>
+-#include <fcntl.h>
+ #include "tst_capability.h"
+ #include "lapi/name_to_handle_at.h"
+ 
+-- 
+2.29.2
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
