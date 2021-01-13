@@ -2,50 +2,50 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0AA412F4755
-	for <lists+linux-ltp@lfdr.de>; Wed, 13 Jan 2021 10:17:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01DCE2F4767
+	for <lists+linux-ltp@lfdr.de>; Wed, 13 Jan 2021 10:21:13 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4D1DB3C5DC2
-	for <lists+linux-ltp@lfdr.de>; Wed, 13 Jan 2021 10:17:10 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id A52393C2660
+	for <lists+linux-ltp@lfdr.de>; Wed, 13 Jan 2021 10:21:12 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 4C91B3C0548
- for <ltp@lists.linux.it>; Wed, 13 Jan 2021 10:17:06 +0100 (CET)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 56F043C0548
+ for <ltp@lists.linux.it>; Wed, 13 Jan 2021 10:21:07 +0100 (CET)
 Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-3.smtp.seeweb.it (Postfix) with ESMTP id 18A9C1A00248
- for <ltp@lists.linux.it>; Wed, 13 Jan 2021 10:17:04 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.79,343,1602518400"; d="scan'208";a="103439201"
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id ABA51200B72
+ for <ltp@lists.linux.it>; Wed, 13 Jan 2021 10:21:06 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.79,343,1602518400"; d="scan'208";a="103439370"
 Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 13 Jan 2021 17:17:02 +0800
+ by heian.cn.fujitsu.com with ESMTP; 13 Jan 2021 17:21:04 +0800
 Received: from G08CNEXMBPEKD06.g08.fujitsu.local (unknown [10.167.33.206])
- by cn.fujitsu.com (Postfix) with ESMTP id 34CAF4CE602D;
- Wed, 13 Jan 2021 17:16:59 +0800 (CST)
+ by cn.fujitsu.com (Postfix) with ESMTP id E95164CE6031;
+ Wed, 13 Jan 2021 17:20:59 +0800 (CST)
 Received: from [10.167.220.69] (10.167.220.69) by
  G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Wed, 13 Jan 2021 17:16:58 +0800
-Message-ID: <5FFEBA89.5040001@cn.fujitsu.com>
-Date: Wed, 13 Jan 2021 17:16:57 +0800
+ (TLS) id 15.0.1497.2; Wed, 13 Jan 2021 17:20:58 +0800
+Message-ID: <5FFEBB79.4010807@cn.fujitsu.com>
+Date: Wed, 13 Jan 2021 17:20:57 +0800
 From: Xiao Yang <yangx.jy@cn.fujitsu.com>
 User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
  rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
 MIME-Version: 1.0
 To: Petr Vorel <pvorel@suse.cz>
 References: <20210113075110.31628-1-pvorel@suse.cz>
- <20210113075110.31628-4-pvorel@suse.cz>
-In-Reply-To: <20210113075110.31628-4-pvorel@suse.cz>
+ <20210113075110.31628-4-pvorel@suse.cz> <5FFEBA89.5040001@cn.fujitsu.com>
+In-Reply-To: <5FFEBA89.5040001@cn.fujitsu.com>
 X-Originating-IP: [10.167.220.69]
 X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
  G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206)
-X-yoursite-MailScanner-ID: 34CAF4CE602D.AA0AD
+X-yoursite-MailScanner-ID: E95164CE6031.A9B83
 X-yoursite-MailScanner: Found to be clean
 X-yoursite-MailScanner-From: yangx.jy@cn.fujitsu.com
 X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
  SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.4
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH v2 3/3] syscalls: Remove unused include <fcntl.h>
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -59,141 +59,101 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 2021/1/13 15:51, Petr Vorel wrote:
-> Tests should always use lapi/fcntl.h instead of <fcntl.h> to fix
-> possible missing definitions.
->
-> But in this case removing include, because fanotify tests include
-> <fcntl.h> in lapi/fcntl.h (via fanotify.h) and
-> {name_to,open_by}_handle_at tests include lapi/fcntl.h in
-> lapi/name_to_handle_at.h.
-Hi Petr,
-
-This patchset looks good to me.
-Reviewed-by: Xiao Yang <yangx.jy@cn.fujitsu.com>
-
-Only one monir question:
-Why do we remove <fcntl.h> header for all fanotify tests?
-Of course, just four fanotify tests take use of struct file_handle.
-
-Best Regards,
-Xiao Yang
-> Signed-off-by: Petr Vorel <pvorel@suse.cz>
-> ---
->  testcases/kernel/syscalls/fanotify/fanotify09.c                  | 1 -
->  testcases/kernel/syscalls/fanotify/fanotify13.c                  | 1 -
->  testcases/kernel/syscalls/fanotify/fanotify15.c                  | 1 -
->  testcases/kernel/syscalls/fanotify/fanotify16.c                  | 1 -
->  .../kernel/syscalls/name_to_handle_at/name_to_handle_at01.c      | 1 -
->  .../kernel/syscalls/name_to_handle_at/name_to_handle_at02.c      | 1 -
->  .../kernel/syscalls/open_by_handle_at/open_by_handle_at01.c      | 1 -
->  .../kernel/syscalls/open_by_handle_at/open_by_handle_at02.c      | 1 -
->  8 files changed, 8 deletions(-)
->
-> diff --git a/testcases/kernel/syscalls/fanotify/fanotify09.c b/testcases/kernel/syscalls/fanotify/fanotify09.c
-> index 30e212f44..918e40274 100644
-> --- a/testcases/kernel/syscalls/fanotify/fanotify09.c
-> +++ b/testcases/kernel/syscalls/fanotify/fanotify09.c
-> @@ -30,7 +30,6 @@
->  #include <stdio.h>
->  #include <sys/stat.h>
->  #include <sys/types.h>
-> -#include <fcntl.h>
->  #include <errno.h>
->  #include <string.h>
->  #include <sys/mount.h>
-> diff --git a/testcases/kernel/syscalls/fanotify/fanotify13.c b/testcases/kernel/syscalls/fanotify/fanotify13.c
-> index c9cf10555..6d812cdd1 100644
-> --- a/testcases/kernel/syscalls/fanotify/fanotify13.c
-> +++ b/testcases/kernel/syscalls/fanotify/fanotify13.c
-> @@ -21,7 +21,6 @@
->  #include <sys/statfs.h>
->  #include <sys/types.h>
->  #include <sys/stat.h>
-> -#include <fcntl.h>
->  #include <errno.h>
->  #include <unistd.h>
->  #include "tst_test.h"
-> diff --git a/testcases/kernel/syscalls/fanotify/fanotify15.c b/testcases/kernel/syscalls/fanotify/fanotify15.c
-> index ba8259c7c..fe143823e 100644
-> --- a/testcases/kernel/syscalls/fanotify/fanotify15.c
-> +++ b/testcases/kernel/syscalls/fanotify/fanotify15.c
-> @@ -19,7 +19,6 @@
->  
->  #include <string.h>
->  #include <errno.h>
-> -#include <fcntl.h>
->  #include <sys/statfs.h>
->  #include <sys/types.h>
->  #include "tst_test.h"
-> diff --git a/testcases/kernel/syscalls/fanotify/fanotify16.c b/testcases/kernel/syscalls/fanotify/fanotify16.c
-> index 5ffaec92f..c4b8a5abc 100644
-> --- a/testcases/kernel/syscalls/fanotify/fanotify16.c
-> +++ b/testcases/kernel/syscalls/fanotify/fanotify16.c
-> @@ -18,7 +18,6 @@
->  #include <stdio.h>
->  #include <sys/stat.h>
->  #include <sys/types.h>
-> -#include <fcntl.h>
->  #include <errno.h>
->  #include <string.h>
->  #include <sys/mount.h>
-> diff --git a/testcases/kernel/syscalls/name_to_handle_at/name_to_handle_at01.c b/testcases/kernel/syscalls/name_to_handle_at/name_to_handle_at01.c
-> index 84ac32eab..1ac9d8214 100644
-> --- a/testcases/kernel/syscalls/name_to_handle_at/name_to_handle_at01.c
-> +++ b/testcases/kernel/syscalls/name_to_handle_at/name_to_handle_at01.c
-> @@ -15,7 +15,6 @@
->  \*/
->  
->  #define _GNU_SOURCE
-> -#include <fcntl.h>
->  #include <sys/stat.h>
->  #include "lapi/name_to_handle_at.h"
->  
-> diff --git a/testcases/kernel/syscalls/name_to_handle_at/name_to_handle_at02.c b/testcases/kernel/syscalls/name_to_handle_at/name_to_handle_at02.c
-> index 7c0d57485..020b25531 100644
-> --- a/testcases/kernel/syscalls/name_to_handle_at/name_to_handle_at02.c
-> +++ b/testcases/kernel/syscalls/name_to_handle_at/name_to_handle_at02.c
-> @@ -10,7 +10,6 @@
->  \*/
->  
->  #define _GNU_SOURCE
-> -#include <fcntl.h>
->  #include "lapi/name_to_handle_at.h"
->  
->  #define TEST_FILE "test_file"
-> diff --git a/testcases/kernel/syscalls/open_by_handle_at/open_by_handle_at01.c b/testcases/kernel/syscalls/open_by_handle_at/open_by_handle_at01.c
-> index c1b08f1b8..0d09e1ed8 100644
-> --- a/testcases/kernel/syscalls/open_by_handle_at/open_by_handle_at01.c
-> +++ b/testcases/kernel/syscalls/open_by_handle_at/open_by_handle_at01.c
-> @@ -15,7 +15,6 @@
->  \*/
->  
->  #define _GNU_SOURCE
-> -#include <fcntl.h>
->  #include <sys/stat.h>
->  #include "lapi/name_to_handle_at.h"
->  
-> diff --git a/testcases/kernel/syscalls/open_by_handle_at/open_by_handle_at02.c b/testcases/kernel/syscalls/open_by_handle_at/open_by_handle_at02.c
-> index 3c8f06d85..0f60752c4 100644
-> --- a/testcases/kernel/syscalls/open_by_handle_at/open_by_handle_at02.c
-> +++ b/testcases/kernel/syscalls/open_by_handle_at/open_by_handle_at02.c
-> @@ -10,7 +10,6 @@
->  \*/
->  #define _GNU_SOURCE
->  #include <linux/capability.h>
-> -#include <fcntl.h>
->  #include "tst_capability.h"
->  #include "lapi/name_to_handle_at.h"
->  
-
-
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+5LqOIDIwMjEvMS8xMyAxNzoxNiwgWGlhbyBZYW5nIOWGmemBkzoKPiBPbiAyMDIxLzEvMTMgMTU6
+NTEsIFBldHIgVm9yZWwgd3JvdGU6Cj4+IFRlc3RzIHNob3VsZCBhbHdheXMgdXNlIGxhcGkvZmNu
+dGwuaCBpbnN0ZWFkIG9mPGZjbnRsLmg+ICB0byBmaXgKPj4gcG9zc2libGUgbWlzc2luZyBkZWZp
+bml0aW9ucy4KPj4KPj4gQnV0IGluIHRoaXMgY2FzZSByZW1vdmluZyBpbmNsdWRlLCBiZWNhdXNl
+IGZhbm90aWZ5IHRlc3RzIGluY2x1ZGUKPj4gPGZjbnRsLmg+ICBpbiBsYXBpL2ZjbnRsLmggKHZp
+YSBmYW5vdGlmeS5oKSBhbmQKPj4ge25hbWVfdG8sb3Blbl9ieX1faGFuZGxlX2F0IHRlc3RzIGlu
+Y2x1ZGUgbGFwaS9mY250bC5oIGluCj4+IGxhcGkvbmFtZV90b19oYW5kbGVfYXQuaC4KPiBIaSBQ
+ZXRyLAo+Cj4gVGhpcyBwYXRjaHNldCBsb29rcyBnb29kIHRvIG1lLgo+IFJldmlld2VkLWJ5OiBY
+aWFvIFlhbmc8eWFuZ3guanlAY24uZnVqaXRzdS5jb20+Cj4KPiBPbmx5IG9uZSBtb25pciBxdWVz
+dGlvbjoKPiBXaHkgZG8gd2UgcmVtb3ZlPGZjbnRsLmg+ICBoZWFkZXIgZm9yIGFsbCBmYW5vdGlm
+eSB0ZXN0cz8KClNvcnJ5LCBjb3JyZWN0IG9uZSB3b3JkKGRvID0+ZG9uJ3QpCgo+IE9mIGNvdXJz
+ZSwganVzdCBmb3VyIGZhbm90aWZ5IHRlc3RzIHRha2UgdXNlIG9mIHN0cnVjdCBmaWxlX2hhbmRs
+ZS4KPgo+IEJlc3QgUmVnYXJkcywKPiBYaWFvIFlhbmcKPj4gU2lnbmVkLW9mZi1ieTogUGV0ciBW
+b3JlbDxwdm9yZWxAc3VzZS5jej4KPj4gLS0tCj4+ICAgdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxs
+cy9mYW5vdGlmeS9mYW5vdGlmeTA5LmMgICAgICAgICAgICAgICAgICB8IDEgLQo+PiAgIHRlc3Rj
+YXNlcy9rZXJuZWwvc3lzY2FsbHMvZmFub3RpZnkvZmFub3RpZnkxMy5jICAgICAgICAgICAgICAg
+ICAgfCAxIC0KPj4gICB0ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL2Zhbm90aWZ5L2Zhbm90aWZ5
+MTUuYyAgICAgICAgICAgICAgICAgIHwgMSAtCj4+ICAgdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxs
+cy9mYW5vdGlmeS9mYW5vdGlmeTE2LmMgICAgICAgICAgICAgICAgICB8IDEgLQo+PiAgIC4uLi9r
+ZXJuZWwvc3lzY2FsbHMvbmFtZV90b19oYW5kbGVfYXQvbmFtZV90b19oYW5kbGVfYXQwMS5jICAg
+ICAgfCAxIC0KPj4gICAuLi4va2VybmVsL3N5c2NhbGxzL25hbWVfdG9faGFuZGxlX2F0L25hbWVf
+dG9faGFuZGxlX2F0MDIuYyAgICAgIHwgMSAtCj4+ICAgLi4uL2tlcm5lbC9zeXNjYWxscy9vcGVu
+X2J5X2hhbmRsZV9hdC9vcGVuX2J5X2hhbmRsZV9hdDAxLmMgICAgICB8IDEgLQo+PiAgIC4uLi9r
+ZXJuZWwvc3lzY2FsbHMvb3Blbl9ieV9oYW5kbGVfYXQvb3Blbl9ieV9oYW5kbGVfYXQwMi5jICAg
+ICAgfCAxIC0KPj4gICA4IGZpbGVzIGNoYW5nZWQsIDggZGVsZXRpb25zKC0pCj4+Cj4+IGRpZmYg
+LS1naXQgYS90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL2Zhbm90aWZ5L2Zhbm90aWZ5MDkuYyBi
+L3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvZmFub3RpZnkvZmFub3RpZnkwOS5jCj4+IGluZGV4
+IDMwZTIxMmY0NC4uOTE4ZTQwMjc0IDEwMDY0NAo+PiAtLS0gYS90ZXN0Y2FzZXMva2VybmVsL3N5
+c2NhbGxzL2Zhbm90aWZ5L2Zhbm90aWZ5MDkuYwo+PiArKysgYi90ZXN0Y2FzZXMva2VybmVsL3N5
+c2NhbGxzL2Zhbm90aWZ5L2Zhbm90aWZ5MDkuYwo+PiBAQCAtMzAsNyArMzAsNiBAQAo+PiAgICNp
+bmNsdWRlPHN0ZGlvLmg+Cj4+ICAgI2luY2x1ZGU8c3lzL3N0YXQuaD4KPj4gICAjaW5jbHVkZTxz
+eXMvdHlwZXMuaD4KPj4gLSNpbmNsdWRlPGZjbnRsLmg+Cj4+ICAgI2luY2x1ZGU8ZXJybm8uaD4K
+Pj4gICAjaW5jbHVkZTxzdHJpbmcuaD4KPj4gICAjaW5jbHVkZTxzeXMvbW91bnQuaD4KPj4gZGlm
+ZiAtLWdpdCBhL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvZmFub3RpZnkvZmFub3RpZnkxMy5j
+IGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9mYW5vdGlmeS9mYW5vdGlmeTEzLmMKPj4gaW5k
+ZXggYzljZjEwNTU1Li42ZDgxMmNkZDEgMTAwNjQ0Cj4+IC0tLSBhL3Rlc3RjYXNlcy9rZXJuZWwv
+c3lzY2FsbHMvZmFub3RpZnkvZmFub3RpZnkxMy5jCj4+ICsrKyBiL3Rlc3RjYXNlcy9rZXJuZWwv
+c3lzY2FsbHMvZmFub3RpZnkvZmFub3RpZnkxMy5jCj4+IEBAIC0yMSw3ICsyMSw2IEBACj4+ICAg
+I2luY2x1ZGU8c3lzL3N0YXRmcy5oPgo+PiAgICNpbmNsdWRlPHN5cy90eXBlcy5oPgo+PiAgICNp
+bmNsdWRlPHN5cy9zdGF0Lmg+Cj4+IC0jaW5jbHVkZTxmY250bC5oPgo+PiAgICNpbmNsdWRlPGVy
+cm5vLmg+Cj4+ICAgI2luY2x1ZGU8dW5pc3RkLmg+Cj4+ICAgI2luY2x1ZGUgInRzdF90ZXN0Lmgi
+Cj4+IGRpZmYgLS1naXQgYS90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL2Zhbm90aWZ5L2Zhbm90
+aWZ5MTUuYyBiL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvZmFub3RpZnkvZmFub3RpZnkxNS5j
+Cj4+IGluZGV4IGJhODI1OWM3Yy4uZmUxNDM4MjNlIDEwMDY0NAo+PiAtLS0gYS90ZXN0Y2FzZXMv
+a2VybmVsL3N5c2NhbGxzL2Zhbm90aWZ5L2Zhbm90aWZ5MTUuYwo+PiArKysgYi90ZXN0Y2FzZXMv
+a2VybmVsL3N5c2NhbGxzL2Zhbm90aWZ5L2Zhbm90aWZ5MTUuYwo+PiBAQCAtMTksNyArMTksNiBA
+QAo+Pgo+PiAgICNpbmNsdWRlPHN0cmluZy5oPgo+PiAgICNpbmNsdWRlPGVycm5vLmg+Cj4+IC0j
+aW5jbHVkZTxmY250bC5oPgo+PiAgICNpbmNsdWRlPHN5cy9zdGF0ZnMuaD4KPj4gICAjaW5jbHVk
+ZTxzeXMvdHlwZXMuaD4KPj4gICAjaW5jbHVkZSAidHN0X3Rlc3QuaCIKPj4gZGlmZiAtLWdpdCBh
+L3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvZmFub3RpZnkvZmFub3RpZnkxNi5jIGIvdGVzdGNh
+c2VzL2tlcm5lbC9zeXNjYWxscy9mYW5vdGlmeS9mYW5vdGlmeTE2LmMKPj4gaW5kZXggNWZmYWVj
+OTJmLi5jNGI4YTVhYmMgMTAwNjQ0Cj4+IC0tLSBhL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMv
+ZmFub3RpZnkvZmFub3RpZnkxNi5jCj4+ICsrKyBiL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMv
+ZmFub3RpZnkvZmFub3RpZnkxNi5jCj4+IEBAIC0xOCw3ICsxOCw2IEBACj4+ICAgI2luY2x1ZGU8
+c3RkaW8uaD4KPj4gICAjaW5jbHVkZTxzeXMvc3RhdC5oPgo+PiAgICNpbmNsdWRlPHN5cy90eXBl
+cy5oPgo+PiAtI2luY2x1ZGU8ZmNudGwuaD4KPj4gICAjaW5jbHVkZTxlcnJuby5oPgo+PiAgICNp
+bmNsdWRlPHN0cmluZy5oPgo+PiAgICNpbmNsdWRlPHN5cy9tb3VudC5oPgo+PiBkaWZmIC0tZ2l0
+IGEvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9uYW1lX3RvX2hhbmRsZV9hdC9uYW1lX3RvX2hh
+bmRsZV9hdDAxLmMgYi90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL25hbWVfdG9faGFuZGxlX2F0
+L25hbWVfdG9faGFuZGxlX2F0MDEuYwo+PiBpbmRleCA4NGFjMzJlYWIuLjFhYzlkODIxNCAxMDA2
+NDQKPj4gLS0tIGEvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9uYW1lX3RvX2hhbmRsZV9hdC9u
+YW1lX3RvX2hhbmRsZV9hdDAxLmMKPj4gKysrIGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9u
+YW1lX3RvX2hhbmRsZV9hdC9uYW1lX3RvX2hhbmRsZV9hdDAxLmMKPj4gQEAgLTE1LDcgKzE1LDYg
+QEAKPj4gICBcKi8KPj4KPj4gICAjZGVmaW5lIF9HTlVfU09VUkNFCj4+IC0jaW5jbHVkZTxmY250
+bC5oPgo+PiAgICNpbmNsdWRlPHN5cy9zdGF0Lmg+Cj4+ICAgI2luY2x1ZGUgImxhcGkvbmFtZV90
+b19oYW5kbGVfYXQuaCIKPj4KPj4gZGlmZiAtLWdpdCBhL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2Fs
+bHMvbmFtZV90b19oYW5kbGVfYXQvbmFtZV90b19oYW5kbGVfYXQwMi5jIGIvdGVzdGNhc2VzL2tl
+cm5lbC9zeXNjYWxscy9uYW1lX3RvX2hhbmRsZV9hdC9uYW1lX3RvX2hhbmRsZV9hdDAyLmMKPj4g
+aW5kZXggN2MwZDU3NDg1Li4wMjBiMjU1MzEgMTAwNjQ0Cj4+IC0tLSBhL3Rlc3RjYXNlcy9rZXJu
+ZWwvc3lzY2FsbHMvbmFtZV90b19oYW5kbGVfYXQvbmFtZV90b19oYW5kbGVfYXQwMi5jCj4+ICsr
+KyBiL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvbmFtZV90b19oYW5kbGVfYXQvbmFtZV90b19o
+YW5kbGVfYXQwMi5jCj4+IEBAIC0xMCw3ICsxMCw2IEBACj4+ICAgXCovCj4+Cj4+ICAgI2RlZmlu
+ZSBfR05VX1NPVVJDRQo+PiAtI2luY2x1ZGU8ZmNudGwuaD4KPj4gICAjaW5jbHVkZSAibGFwaS9u
+YW1lX3RvX2hhbmRsZV9hdC5oIgo+Pgo+PiAgICNkZWZpbmUgVEVTVF9GSUxFICJ0ZXN0X2ZpbGUi
+Cj4+IGRpZmYgLS1naXQgYS90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL29wZW5fYnlfaGFuZGxl
+X2F0L29wZW5fYnlfaGFuZGxlX2F0MDEuYyBiL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvb3Bl
+bl9ieV9oYW5kbGVfYXQvb3Blbl9ieV9oYW5kbGVfYXQwMS5jCj4+IGluZGV4IGMxYjA4ZjFiOC4u
+MGQwOWUxZWQ4IDEwMDY0NAo+PiAtLS0gYS90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL29wZW5f
+YnlfaGFuZGxlX2F0L29wZW5fYnlfaGFuZGxlX2F0MDEuYwo+PiArKysgYi90ZXN0Y2FzZXMva2Vy
+bmVsL3N5c2NhbGxzL29wZW5fYnlfaGFuZGxlX2F0L29wZW5fYnlfaGFuZGxlX2F0MDEuYwo+PiBA
+QCAtMTUsNyArMTUsNiBAQAo+PiAgIFwqLwo+Pgo+PiAgICNkZWZpbmUgX0dOVV9TT1VSQ0UKPj4g
+LSNpbmNsdWRlPGZjbnRsLmg+Cj4+ICAgI2luY2x1ZGU8c3lzL3N0YXQuaD4KPj4gICAjaW5jbHVk
+ZSAibGFwaS9uYW1lX3RvX2hhbmRsZV9hdC5oIgo+Pgo+PiBkaWZmIC0tZ2l0IGEvdGVzdGNhc2Vz
+L2tlcm5lbC9zeXNjYWxscy9vcGVuX2J5X2hhbmRsZV9hdC9vcGVuX2J5X2hhbmRsZV9hdDAyLmMg
+Yi90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL29wZW5fYnlfaGFuZGxlX2F0L29wZW5fYnlfaGFu
+ZGxlX2F0MDIuYwo+PiBpbmRleCAzYzhmMDZkODUuLjBmNjA3NTJjNCAxMDA2NDQKPj4gLS0tIGEv
+dGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9vcGVuX2J5X2hhbmRsZV9hdC9vcGVuX2J5X2hhbmRs
+ZV9hdDAyLmMKPj4gKysrIGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9vcGVuX2J5X2hhbmRs
+ZV9hdC9vcGVuX2J5X2hhbmRsZV9hdDAyLmMKPj4gQEAgLTEwLDcgKzEwLDYgQEAKPj4gICBcKi8K
+Pj4gICAjZGVmaW5lIF9HTlVfU09VUkNFCj4+ICAgI2luY2x1ZGU8bGludXgvY2FwYWJpbGl0eS5o
+Pgo+PiAtI2luY2x1ZGU8ZmNudGwuaD4KPj4gICAjaW5jbHVkZSAidHN0X2NhcGFiaWxpdHkuaCIK
+Pj4gICAjaW5jbHVkZSAibGFwaS9uYW1lX3RvX2hhbmRsZV9hdC5oIgo+Pgo+Cj4KPgoKCgoKLS0g
+Ck1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
