@@ -1,41 +1,41 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D6802F6249
-	for <lists+linux-ltp@lfdr.de>; Thu, 14 Jan 2021 14:46:33 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2ACD72F62B1
+	for <lists+linux-ltp@lfdr.de>; Thu, 14 Jan 2021 15:08:14 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3A1833C5823
-	for <lists+linux-ltp@lfdr.de>; Thu, 14 Jan 2021 14:46:33 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id E6FEE3C5822
+	for <lists+linux-ltp@lfdr.de>; Thu, 14 Jan 2021 15:08:13 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 3DE0C3C319F
- for <ltp@lists.linux.it>; Thu, 14 Jan 2021 14:46:31 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTP id 88B073C2657
+ for <ltp@lists.linux.it>; Thu, 14 Jan 2021 15:08:12 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id E27D2600758
- for <ltp@lists.linux.it>; Thu, 14 Jan 2021 14:46:30 +0100 (CET)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 212C96006D7
+ for <ltp@lists.linux.it>; Thu, 14 Jan 2021 15:08:11 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 3CE58ACB0
- for <ltp@lists.linux.it>; Thu, 14 Jan 2021 13:46:30 +0000 (UTC)
-To: Cyril Hrubis <chrubis@suse.cz>
+ by mx2.suse.de (Postfix) with ESMTP id 71ED2B915
+ for <ltp@lists.linux.it>; Thu, 14 Jan 2021 14:08:11 +0000 (UTC)
+Date: Thu, 14 Jan 2021 15:09:11 +0100
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Martin Doucha <mdoucha@suse.cz>
+Message-ID: <YABQh3Sd1MItrfQL@yuki.lan>
 References: <20210112095759.11910-1-mdoucha@suse.cz>
- <20210112095759.11910-2-mdoucha@suse.cz> <YABJTK2hRHBjJ6lc@yuki.lan>
-From: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <ef29118b-436a-5d2f-1bde-2a5b3ac78290@suse.cz>
-Date: Thu, 14 Jan 2021 14:46:29 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.3
+ <20210112095759.11910-2-mdoucha@suse.cz>
+ <YABJTK2hRHBjJ6lc@yuki.lan>
+ <ef29118b-436a-5d2f-1bde-2a5b3ac78290@suse.cz>
 MIME-Version: 1.0
-In-Reply-To: <YABJTK2hRHBjJ6lc@yuki.lan>
-Content-Language: en-US
+Content-Disposition: inline
+In-Reply-To: <ef29118b-436a-5d2f-1bde-2a5b3ac78290@suse.cz>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.2 required=7.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH v6 2/3] Add tst_secureboot_enabled() helper
  function
@@ -56,45 +56,16 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 14. 01. 21 14:38, Cyril Hrubis wrote:
-> Hi!
->> +int tst_secureboot_enabled(void)
->> +{
->> +	int fd;
->> +	char data[5];
->> +
->> +	if (access(EFIVAR_SECUREBOOT, F_OK)) {
->> +		tst_res(TINFO, "Efivar FS not available");
->> +		return -1;
->> +	}
->> +
->> +	fd = open(EFIVAR_SECUREBOOT, O_RDONLY);
->> +
->> +	if (fd == -1) {
->> +		tst_res(TINFO | TERRNO,
->> +			"Cannot open SecureBoot Efivar sysfile");
->> +		return -1;
->> +	} else if (fd < 0) {
->> +		tst_brk(TBROK | TERRNO, "Invalid open() return value %d", fd);
->> +		return -1;
->> +	}
-> 
-> If we change the access() above to R_OK we can just do SAFE_OPEN() here, right?
-> 
-> Other than this the code looks good.
+Hi!
+> We could change it, but I'd prefer to know that the Efivar FS exists but
+> cannnot be open()ed due to missing permissions than to mix these two
+> states into the same vague info message.
 
-We could change it, but I'd prefer to know that the Efivar FS exists but
-cannnot be open()ed due to missing permissions than to mix these two
-states into the same vague info message.
+Ok. Pushed, thanks.
 
 -- 
-Martin Doucha   mdoucha@suse.cz
-QA Engineer for Software Maintenance
-SUSE LINUX, s.r.o.
-CORSO IIa
-Krizikova 148/34
-186 00 Prague 8
-Czech Republic
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
