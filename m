@@ -2,45 +2,40 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21F9E2F5B82
-	for <lists+linux-ltp@lfdr.de>; Thu, 14 Jan 2021 08:46:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 978132F5D13
+	for <lists+linux-ltp@lfdr.de>; Thu, 14 Jan 2021 10:17:26 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DD9BB3C3170
-	for <lists+linux-ltp@lfdr.de>; Thu, 14 Jan 2021 08:46:19 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 4E1FF3C3175
+	for <lists+linux-ltp@lfdr.de>; Thu, 14 Jan 2021 10:17:26 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id AAD613C2660
- for <ltp@lists.linux.it>; Thu, 14 Jan 2021 08:46:17 +0100 (CET)
-Received: from ATCSQR.andestech.com (atcsqr.andestech.com [60.248.187.195])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id 879ED3C13E1
+ for <ltp@lists.linux.it>; Thu, 14 Jan 2021 10:17:24 +0100 (CET)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id BB030600977
- for <ltp@lists.linux.it>; Thu, 14 Jan 2021 08:46:15 +0100 (CET)
-Received: from mail.andestech.com (atcpcs16.andestech.com [10.0.1.222])
- by ATCSQR.andestech.com with ESMTP id 10E7hGll018808
- for <ltp@lists.linux.it>; Thu, 14 Jan 2021 15:43:16 +0800 (GMT-8)
- (envelope-from ycliang@andestech.com)
-Received: from andestech.com (10.0.15.65) by ATCPCS16.andestech.com
- (10.0.1.222) with Microsoft SMTP Server id 14.3.487.0; Thu, 14 Jan 2021
- 15:46:02 +0800
-Date: Thu, 14 Jan 2021 15:46:03 +0800
-From: Leo Liang <ycliang@andestech.com>
-To: <ltp@lists.linux.it>
-Message-ID: <20210114074603.GB32318@andestech.com>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id D1D72200BC6
+ for <ltp@lists.linux.it>; Thu, 14 Jan 2021 10:17:23 +0100 (CET)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id F2557AFA0
+ for <ltp@lists.linux.it>; Thu, 14 Jan 2021 09:17:22 +0000 (UTC)
+To: Cyril Hrubis <chrubis@suse.cz>, ltp@lists.linux.it
+References: <X9tMlNxJbwCWIRnO@yuki.lan> <X/Wq28noppvB5MGw@yuki.lan>
+From: Martin Doucha <mdoucha@suse.cz>
+Message-ID: <08823579-efa5-4f3c-c718-caac14c10c15@suse.cz>
+Date: Thu, 14 Jan 2021 10:17:22 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.3
 MIME-Version: 1.0
-Content-Disposition: inline
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-Originating-IP: [10.0.15.65]
-X-DNSRBL: 
-X-MAIL: ATCSQR.andestech.com 10E7hGll018808
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+In-Reply-To: <X/Wq28noppvB5MGw@yuki.lan>
+Content-Language: en-US
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH 1/1] device-drivers/zram: Fix false-judgement on
- zram's presence
+X-Spam-Status: No, score=-0.2 required=7.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] Holidays and LTP release
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,35 +52,26 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Date: Thu, 14 Jan 2021 15:27:34 +0800
-From: Leo Yu-Chi Liang <ycliang@andestech.com>
-Subject: [LTP][PATCH 1/1] device-drivers/zram: Fix false-judgement on zram's presence
+On 06. 01. 21 13:19, Cyril Hrubis wrote:
+> Hi!
+> As you may noticed I'm back and I'm trying to review anything that
+> should be considered for the release.
+> 
+> Please let me know if there is anything I should look into.
 
-zram_lib.sh uses the return value of modinfo to check if zram module exists,
-but the behavior of modinfo implemented by busybox is different.
+Can we add the tst_secureboot_enabled() patchset to the new release? It
+fixes lockdown detection issues on some kernels and it shouldn't affect
+anything except the iopl/ioperm syscall tests.
+https://patchwork.ozlabs.org/project/ltp/list/?series=223859
 
-The busybox-implemented modinfo would also return true (code: 0)
-even if zram module is not present,
-so grep the info that only shows when the module exists.
-
-Signed-off-by: Leo Yu-Chi Liang <ycliang@andestech.com>
----
- testcases/kernel/device-drivers/zram/zram_lib.sh | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/testcases/kernel/device-drivers/zram/zram_lib.sh b/testcases/kernel/device-drivers/zram/zram_lib.sh
-index 3f4d1d55f..04d4a4da6 100755
---- a/testcases/kernel/device-drivers/zram/zram_lib.sh
-+++ b/testcases/kernel/device-drivers/zram/zram_lib.sh
-@@ -211,5 +211,5 @@ zram_mount()
- 	tst_res TPASS "mount of zram device(s) succeeded"
- }
- 
--modinfo zram > /dev/null 2>&1 ||
-+modinfo zram | grep "filename" > /dev/null 2>&1 ||
- 	tst_brk TCONF "zram not configured in kernel"
 -- 
-2.17.0
+Martin Doucha   mdoucha@suse.cz
+QA Engineer for Software Maintenance
+SUSE LINUX, s.r.o.
+CORSO IIa
+Krizikova 148/34
+186 00 Prague 8
+Czech Republic
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
