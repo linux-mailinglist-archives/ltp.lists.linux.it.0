@@ -2,70 +2,50 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id A659D2F7E9F
-	for <lists+linux-ltp@lfdr.de>; Fri, 15 Jan 2021 15:54:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D962B2F7EF2
+	for <lists+linux-ltp@lfdr.de>; Fri, 15 Jan 2021 16:08:25 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 713E73C6A0D
-	for <lists+linux-ltp@lfdr.de>; Fri, 15 Jan 2021 15:54:18 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 95ABE3C6A13
+	for <lists+linux-ltp@lfdr.de>; Fri, 15 Jan 2021 16:08:25 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 520463C5441
- for <ltp@lists.linux.it>; Fri, 15 Jan 2021 15:54:15 +0100 (CET)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [63.128.21.124])
- by in-4.smtp.seeweb.it (Postfix) with ESMTP id 7965A1000BDC
- for <ltp@lists.linux.it>; Fri, 15 Jan 2021 15:54:14 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1610722453;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=HU1p/PJBBbTtx0WHYpCDamNgo26TIiN4J6IHXE3d5eM=;
- b=Midijl9HyZ6n4MEQ+IACxiXywf1lw86PGGKtkKA+2ZB4+0lyPWjJmnX1uTVKOwb9w9+I8K
- EsWC28jnQLvNCDhS2eKpLeYiMkMIjzJexBvEH+/JdUvuS2gHTIbinqjkH06h8iF2/NE9Lr
- gdhz7yXSVbMFL3bW6+uRC7CFbhnzjvM=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-32-SJH7taBGMhm7fxbz9FPygQ-1; Fri, 15 Jan 2021 09:54:08 -0500
-X-MC-Unique: SJH7taBGMhm7fxbz9FPygQ-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
- [10.5.11.23])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id AC6323C5441
+ for <ltp@lists.linux.it>; Fri, 15 Jan 2021 16:08:22 +0100 (CET)
+Received: from m13131.mail.163.com (m13131.mail.163.com [220.181.13.131])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3C8A88144E0;
- Fri, 15 Jan 2021 14:54:07 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com
- (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 0958319C45;
- Fri, 15 Jan 2021 14:54:07 +0000 (UTC)
-Received: from zmail17.collab.prod.int.phx2.redhat.com
- (zmail17.collab.prod.int.phx2.redhat.com [10.5.83.19])
- by colo-mx.corp.redhat.com (Postfix) with ESMTP id C9E604BB40;
- Fri, 15 Jan 2021 14:54:05 +0000 (UTC)
-Date: Fri, 15 Jan 2021 09:54:05 -0500 (EST)
-From: Jan Stancek <jstancek@redhat.com>
-To: Xinpeng Liu <liuxp11@chinatelecom.cn>
-Message-ID: <95241263.33332311.1610722445185.JavaMail.zimbra@redhat.com>
-In-Reply-To: <1610672031-5044-1-git-send-email-liuxp11@chinatelecom.cn>
-References: <1610672031-5044-1-git-send-email-liuxp11@chinatelecom.cn>
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 399A3140005D
+ for <ltp@lists.linux.it>; Fri, 15 Jan 2021 16:08:18 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=Date:From:Subject:MIME-Version:Message-ID; bh=TUj9k
+ 0vfD3JPpqBvRXjIB8yOQkY6SlNUbcc/rIOCPWI=; b=eP6ErCa6YBjb9AK/kkaEa
+ 7dMR56C2aeJ+MtH+oTKFPcTf9NvzdsFbfxkDXTNtPGg0U9zERjLJbGgEfPiPR6ot
+ SFNqklVeyiIxV53NcL/Jxkex/czc8HAogitV0seNGkypqAQ17VIo8unlGsVty+a1
+ 8vWuyTEngitumCkXJKtgwc=
+Received: from gengcixi$163.com ( [123.119.156.104] ) by
+ ajax-webmail-wmsvr131 (Coremail) ; Fri, 15 Jan 2021 23:08:11 +0800 (CST)
+X-Originating-IP: [123.119.156.104]
+Date: Fri, 15 Jan 2021 23:08:11 +0800 (CST)
+From: gengcixi <gengcixi@163.com>
+To: "Cyril Hrubis" <chrubis@suse.cz>, "LTP List" <ltp@lists.linux.it>
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version XT5.0.13 build 20201118(ab4b390f)
+ Copyright (c) 2002-2021 www.mailtech.cn 163com
 MIME-Version: 1.0
-X-Originating-IP: [10.36.110.76, 10.4.195.11]
-Thread-Topic: fs/proc01.c:add known issues
-Thread-Index: dEylScizX6M7fbBUTCpgdcRwiHb7fg==
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=jstancek@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+Message-ID: <24f76ed8.3b8a.1770696f290.Coremail.gengcixi@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID: g8GowABXWILbrwFgsfxhAA--.13664W
+X-CM-SenderInfo: 5jhqwuxl0lqiywtou0bp/xtbByhEboF0CPrgYlwACs0
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] fs/proc01.c:add known issues
+X-Spam-Status: No, score=0.2 required=7.0 tests=DKIM_INVALID,DKIM_SIGNED,
+ FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] Holidays and LTP release
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,32 +57,19 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="gbk"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-
------ Original Message -----
-> Test in ubuntu20.10,there are several failure tests.
-> 
-> proc01      1  TFAIL  :  proc01.c:396: read failed:
-> /proc/self/task/61595/attr/smack/current: errno=EINVAL(22): Invalid argument
-> proc01      2  TFAIL  :  proc01.c:396: read failed:
-> /proc/self/task/61595/attr/apparmor/prev: errno=EINVAL(22): Invalid argument
-> proc01      3  TFAIL  :  proc01.c:396: read failed:
-> /proc/self/task/61595/attr/apparmor/exec: errno=EINVAL(22): Invalid argument
-> proc01      4  TFAIL  :  proc01.c:396: read failed:
-> /proc/self/attr/smack/current: errno=EINVAL(22): Invalid argument
-> proc01      5  TFAIL  :  proc01.c:396: read failed:
-> /proc/self/attr/apparmor/prev: errno=EINVAL(22): Invalid argument
-> proc01      6  TFAIL  :  proc01.c:396: read failed:
-> /proc/self/attr/apparmor/exec: errno=EINVAL(22): Invalid argument
-
-I'm OK with ignoring it, but commit log could explain more why we get EINVAL
-on read here.
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+CgpIaSBDeXJpbDoKCiBSZWNlbnRseSBJIHdhcyBmb3JiaWRlbiB0byB1c2UgZ21haWwuIHNvIEkg
+aGF2YSB0byB1c2UgdGhpcyBlbWFpbCB0byBzZW5kIHlvdSBtZXNzYWdlLgoKQW5kIEkgd2FudCB0
+byBrbm93IGRvZXMgdGhlIHJ0YzAyIHBhdGNoc2V0IGNhbiBtZXJnZWQgaW50byB0aGUgcmVsZWFz
+ZaO/CgogSWYgbm8gYmlnIGVycm9yc6OsIHBsZWFzZSBoZWxwIHJldmlldyBhbmQgbWVyZ2Vko6x0
+aGFua3OjoQoKIFsxXSBodHRwczovL3BhdGNod29yay5vemxhYnMub3JnL3Byb2plY3QvbHRwL3Bh
+dGNoLzIwMjEwMTExMDgzNzExLjE3MTU4NTEtMi1nZW5nY2l4aUBnbWFpbC5jb20vCiBbMl0gaHR0
+cHM6Ly9wYXRjaHdvcmsub3psYWJzLm9yZy9wcm9qZWN0L2x0cC9wYXRjaC8yMDIxMDExMTA4Mzcx
+MS4xNzE1ODUxLTMtZ2VuZ2NpeGlAZ21haWwuY29tLwogWzNdIGh0dHBzOi8vcGF0Y2h3b3JrLm96
+bGFicy5vcmcvcHJvamVjdC9sdHAvcGF0Y2gvMjAyMTAxMTEwODM3MTEuMTcxNTg1MS00LWdlbmdj
+aXhpQGdtYWlsLmNvbS8KCgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGlu
+dXguaXQvbGlzdGluZm8vbHRwCg==
