@@ -1,41 +1,49 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 249B12F7598
-	for <lists+linux-ltp@lfdr.de>; Fri, 15 Jan 2021 10:38:39 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7306F2F76AB
+	for <lists+linux-ltp@lfdr.de>; Fri, 15 Jan 2021 11:28:12 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C04FB3C6A03
-	for <lists+linux-ltp@lfdr.de>; Fri, 15 Jan 2021 10:38:38 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 376123C6A08
+	for <lists+linux-ltp@lfdr.de>; Fri, 15 Jan 2021 11:28:12 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id D42D03C2647
- for <ltp@lists.linux.it>; Fri, 15 Jan 2021 10:38:37 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 6B2FF1000EDC
- for <ltp@lists.linux.it>; Fri, 15 Jan 2021 10:38:37 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id A91CCAA6F;
- Fri, 15 Jan 2021 09:38:36 +0000 (UTC)
-Date: Fri, 15 Jan 2021 10:38:34 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Leo Liang <ycliang@andestech.com>
-Message-ID: <YAFimsGMMIkf+xU3@pevik>
-References: <20210114074603.GB32318@andestech.com> <YABgDXi2WHSWmwHF@pevik>
- <20210115085406.GA23267@andestech.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210115085406.GA23267@andestech.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id F189B3C288F
+ for <ltp@lists.linux.it>; Fri, 15 Jan 2021 01:54:00 +0100 (CET)
+Received: from chinatelecom.cn (prt-mail.chinatelecom.cn [42.123.76.228])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id 2C14F200766
+ for <ltp@lists.linux.it>; Fri, 15 Jan 2021 01:53:58 +0100 (CET)
+HMM_SOURCE_IP: 172.18.0.48:31679.1580428382
+HMM_ATTACHE_NUM: 0000
+HMM_SOURCE_TYPE: SMTP
+Received: from clientip-36.111.88.18?logid-1532089986b64eb0bcf86c9924ff4cb8
+ (unknown [172.18.0.48])
+ by chinatelecom.cn (HERMES) with SMTP id CC9032800F1;
+ Fri, 15 Jan 2021 08:53:53 +0800 (CST)
+X-189-SAVE-TO-SEND: +liuxp11@chinatelecom.cn
+Received: from  ([172.18.0.48])
+ by App0024 with ESMTP id 1532089986b64eb0bcf86c9924ff4cb8 for
+ ltp@lists.linux.it; Fri Jan 15 08:53:54 2021
+X-Transaction-ID: 1532089986b64eb0bcf86c9924ff4cb8
+X-filter-score: filter<0>
+X-Real-From: liuxp11@chinatelecom.cn
+X-Receive-IP: 172.18.0.48
+X-MEDUSA-Status: 0
+From: Xinpeng Liu <liuxp11@chinatelecom.cn>
+To: ltp@lists.linux.it
+Date: Fri, 15 Jan 2021 08:53:51 +0800
+Message-Id: <1610672031-5044-1-git-send-email-liuxp11@chinatelecom.cn>
+X-Mailer: git-send-email 1.8.3.1
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/1] device-drivers/zram: Fix false-judgement on
- zram's presence
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+X-Mailman-Approved-At: Fri, 15 Jan 2021 11:28:10 +0100
+Subject: [LTP] [PATCH] fs/proc01.c:add known issues
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,66 +55,61 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
+Cc: Xinpeng Liu <liuxp11@chinatelecom.cn>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Leo,
+Test in ubuntu20.10,there are several failure tests.
 
-...
-> > IMHO we have only 2 options:
-> > * write something on our own which would look into /lib/modules and
-> > /system/lib/modules (Android). That's what BusyBox implementation does
-> > (also kmod implementation looks into /lib/modules). BusyBox has this path in
-> > defined in build time configuration (CONFIG_DEFAULT_MODULES_DIR), but I'd be
-> > surprised if any system had both directories.
-> > pros: no external dependency
-> > cons: more code
+proc01      1  TFAIL  :  proc01.c:396: read failed:
+/proc/self/task/61595/attr/smack/current: errno=EINVAL(22): Invalid argument
+proc01      2  TFAIL  :  proc01.c:396: read failed:
+/proc/self/task/61595/attr/apparmor/prev: errno=EINVAL(22): Invalid argument
+proc01      3  TFAIL  :  proc01.c:396: read failed:
+/proc/self/task/61595/attr/apparmor/exec: errno=EINVAL(22): Invalid argument
+proc01      4  TFAIL  :  proc01.c:396: read failed:
+/proc/self/attr/smack/current: errno=EINVAL(22): Invalid argument
+proc01      5  TFAIL  :  proc01.c:396: read failed:
+/proc/self/attr/apparmor/prev: errno=EINVAL(22): Invalid argument
+proc01      6  TFAIL  :  proc01.c:396: read failed:
+/proc/self/attr/apparmor/exec: errno=EINVAL(22): Invalid argument
 
-> > * use modinfo, but grep for output: for 'filename:' (turn Leo's suggestion into
-> > C code in the API):
-> > cons: module not checked, when modprobe missing (we check for 255 exit code).
+Signed-off-by: Xinpeng Liu <liuxp11@chinatelecom.cn>
+---
+ testcases/kernel/fs/proc/proc01.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
+diff --git a/testcases/kernel/fs/proc/proc01.c b/testcases/kernel/fs/proc/proc01.c
+index 9684369..96441d1 100644
+--- a/testcases/kernel/fs/proc/proc01.c
++++ b/testcases/kernel/fs/proc/proc01.c
+@@ -63,7 +63,7 @@ static char *opt_maxmbytesstr;
+ static char *procpath = "/proc";
+ static const char selfpath[] = "/proc/self";
+ size_t buffsize = 1024;
+-static long long maxbytes;
++static unsigned long long maxbytes;
+ 
+ unsigned long long total_read;
+ unsigned int total_obj;
+@@ -97,7 +97,11 @@ static const struct mapping known_issues[] = {
+ 	{"read", "/proc/self/mem", EIO},
+ 	{"read", "/proc/self/task/[0-9]*/mem", EIO},
+ 	{"read", "/proc/self/attr/*", EINVAL},
++	{"read", "/proc/self/attr/smack/*", EINVAL},
++	{"read", "/proc/self/attr/apparmor/*", EINVAL},
+ 	{"read", "/proc/self/task/[0-9]*/attr/*", EINVAL},
++	{"read", "/proc/self/task/[0-9]*/attr/smack/*", EINVAL},
++	{"read", "/proc/self/task/[0-9]*/attr/apparmor/*", EINVAL},
+ 	{"read", "/proc/self/ns/*", EINVAL},
+ 	{"read", "/proc/self/task/[0-9]*/ns/*", EINVAL},
+ 	{"read", "/proc/ppc64/rtas/error_log", EINVAL},
+-- 
+1.8.3.1
 
-> Thanks for breaking things down in such detail!
-
-> I personally prefer the first option that looking into those directories ourselves.
-> So let's drop this patch and stay as is for now!
-
-FYI: I'm going to implement 1) (own search, written in C API).
-Hope to have it on Monday (before the release). If not, we should revert
-305a78e4c ("tst_net.sh: Require veth for netns") which breaks *all* network
-tests for BusyBox.
-
-> > BTW not sure whether bother about android support anyway. On Android phone I
-> > have available (Android 8), there is empty /system/lib/modules directory and no
-> > /proc/modules:, thus nor BusyBox neither even toybox modprobe/modinfo
-> > implementations work.
-
-> BTW, I found that there's a ver_linux script that detects the version of util-linux.
-Yes, but ver_linux it's just legacy info script (we don't have anything better
-than this).
-
-> But as I searched through commit log of LTP, there are a lot of workarounds
-> regarding the compatibility issue with Busybox (around 10 commits or so).
-Yes, these fixes are specific to particular tests. But detecting module in LTP
-API affect many tests.
-
-> Is there a certain version of util-linux is expected to conduct a full run of LTP ?
-No. We just fix problems when reported (usually reported send a patch).
-
-FYI: We haven't even set minimal supported kernel and (g)libc version.
-https://github.com/linux-test-project/ltp/issues/657
-
-> Thanks again,
-> Leo
-
-
-Kind regards,
-Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
