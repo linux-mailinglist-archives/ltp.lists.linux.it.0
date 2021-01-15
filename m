@@ -1,69 +1,58 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DAA12F7448
-	for <lists+linux-ltp@lfdr.de>; Fri, 15 Jan 2021 09:28:12 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7AEED2F7451
+	for <lists+linux-ltp@lfdr.de>; Fri, 15 Jan 2021 09:30:06 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B08593C3191
-	for <lists+linux-ltp@lfdr.de>; Fri, 15 Jan 2021 09:28:11 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 47B013C317E
+	for <lists+linux-ltp@lfdr.de>; Fri, 15 Jan 2021 09:30:06 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 264B83C3114
- for <ltp@lists.linux.it>; Fri, 15 Jan 2021 09:28:10 +0100 (CET)
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [IPv6:2a00:1450:4864:20::532])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id 462993C288F
+ for <ltp@lists.linux.it>; Fri, 15 Jan 2021 09:30:03 +0100 (CET)
+Received: from spam.asrmicro.com (asrmicro.com [210.13.118.86])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id AA29C1000EA7
- for <ltp@lists.linux.it>; Fri, 15 Jan 2021 09:28:09 +0100 (CET)
-Received: by mail-ed1-x532.google.com with SMTP id by27so8584165edb.10
- for <ltp@lists.linux.it>; Fri, 15 Jan 2021 00:28:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=u5MtkMArciyvU9HV8Cmf5ItKC1shpwSgVZg0VGd43R8=;
- b=XtECfzwx8gOGDSb0FLvHHVMEJDKnzdpBFQ7/Cetv2cutOxfhBIwiATDc61RV5OF88o
- SJUyrqgdExOxz/WyhN9QKsF3Y0qo+8JuCeUTeowgxRzlAS5EyInEOw2K6JdWY5v1+5hF
- qaUV+MrEO7quQ5QUf7dzO2vh1swgku33HltZQ3/oTHRukTPCUK1vLVPHXfrIOxFsbAI0
- ppsGV5RqvUBDeSVr/K3KLvgocnVc7V7WTwYs7e+GuaUVDeQex8zcHT48CdnU7UbMn6/i
- iS0ebyW7kzGHtw6/9ydWMxMVGSfAUB0zwN0VEFdHOXKSjENH6to0mWiBo8qxQAyPPKdy
- /eMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=u5MtkMArciyvU9HV8Cmf5ItKC1shpwSgVZg0VGd43R8=;
- b=F7xgasRwaBxDCGO+BP1m3t4hNvPkGB85VRlX5YSTUKY2tvTsm+0sOtXAyrt7g2++od
- C6/EM2UWBBP1O5zA4J+JTLHTSzjeM/gfSFUuarrH1ZTA2kJLRNcnegilxThTllgEpHdN
- RCPYwT8SQl15g3h+iZAW3pg+w31uCMU01ufV5yFDlBmm5216EPM0S7lMcxN0JprYR2Ul
- OSnMuN+dCUa136eHLL/zpatbvE7tuY2785dZ8Ix8Oj/axZvJfs1u5+AOaBkG2+DwpLRM
- GSXQo/saKi/+MkElZgxgO68KrMlNHBQgVL+78HCSK9yOTpvIGqke5qIiheUAbzzUMg8Q
- AyuA==
-X-Gm-Message-State: AOAM532Wf92n2NMY7GJj5Yr30v5gGcLl4wZuCz71nmLOGr2ZP6rba5zg
- c2hGKYJ5DrdFRN7JFLQpa8UBcZmPnI7l4MCBZhTPNA==
-X-Google-Smtp-Source: ABdhPJyxKdV42Z0YISyuwrTH6oSZPy8xPTQGKTImO9DKZmqJOAOLNBI8KB+Qn3+F5RUfCQgeDhr/QDn9P3D5onjhZEQ=
-X-Received: by 2002:a05:6402:60a:: with SMTP id
- n10mr930476edv.230.1610699289050; 
- Fri, 15 Jan 2021 00:28:09 -0800 (PST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id D78ED100022F
+ for <ltp@lists.linux.it>; Fri, 15 Jan 2021 09:30:01 +0100 (CET)
+Received: from exch02.asrmicro.com (exch02.asrmicro.com [10.1.24.122])
+ by spam.asrmicro.com with ESMTPS id 10F8TbWm013557
+ (version=TLSv1 cipher=AES256-SHA bits=256 verify=FAIL);
+ Fri, 15 Jan 2021 16:29:37 +0800 (GMT-8)
+ (envelope-from meitaogao@asrmicro.com)
+Received: from exch01.asrmicro.com (10.1.24.121) by exch02.asrmicro.com
+ (10.1.24.122) with Microsoft SMTP Server (TLS) id 15.0.847.32; Fri, 15 Jan
+ 2021 16:29:40 +0800
+Received: from exch01.asrmicro.com ([::1]) by exch01.asrmicro.com ([::1]) with
+ mapi id 15.00.0847.030; Fri, 15 Jan 2021 16:29:40 +0800
+From: =?utf-8?B?R2FvIE1laXRhb++8iOmrmOeOq+a2m++8iQ==?= <meitaogao@asrmicro.com>
+To: Joerg Vehlow <lkml@jv-coder.de>, "ltp@lists.linux.it" <ltp@lists.linux.it>,
+ Cyril Hrubis <chrubis@suse.cz>
+Thread-Topic: [LTP] LTP testcase(sysctl02) failed
+Thread-Index: AdbZuXpPNEiX/kccTjW4wmzi4oV72wRCR72AABViAyA=
+Date: Fri, 15 Jan 2021 08:29:40 +0000
+Message-ID: <57bd563d22b642ec8618fc4f45e2811e@exch01.asrmicro.com>
+References: <0efaa481ffd24bc48fd41385159be66c@exch01.asrmicro.com>
+ <f3136f18-edd5-08b7-a720-72baeeed7fbc@jv-coder.de>
+In-Reply-To: <f3136f18-edd5-08b7-a720-72baeeed7fbc@jv-coder.de>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.1.170.170]
 MIME-Version: 1.0
-References: <X9tMlNxJbwCWIRnO@yuki.lan> <X/Wq28noppvB5MGw@yuki.lan>
- <20210113095724.214c904a@kmaincent-XPS-13-7390>
- <CA+G9fYv1UFr+7ePC7tLjCY4JPsoQdBdf-6Jpr40zmsoYRWVrdQ@mail.gmail.com>
- <YABW1ZcnfFbjUoBq@yuki.lan>
-In-Reply-To: <YABW1ZcnfFbjUoBq@yuki.lan>
-From: Naresh Kamboju <naresh.kamboju@linaro.org>
-Date: Fri, 15 Jan 2021 13:57:57 +0530
-Message-ID: <CA+G9fYs2bv98uFgrH+WEYzDagFPy0PWruk=Em9GdMXmnQQUTCw@mail.gmail.com>
-To: Cyril Hrubis <chrubis@suse.cz>
+X-DNSRBL: 
+X-MAIL: spam.asrmicro.com 10F8TbWm013557
 X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] Holidays and LTP release
+Subject: [LTP] =?utf-8?b?562U5aSNOiAgTFRQIHRlc3RjYXNlKHN5c2N0bDAyKSBmYWls?=
+ =?utf-8?q?ed?=
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,152 +64,48 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Thu, 14 Jan 2021 at 20:05, Cyril Hrubis <chrubis@suse.cz> wrote:
->
-> Hi!
-> > I have a similar problem for semctl09 failed on arm, arm64, i386 and x86_64.
-> >
-> > semctl09.c:67: TINFO: Test SYS_semc[ 1067.769270] audit: type=1701
-> > audit(1610604534.411:38): auid=4294967295 uid=0 gid=0 ses=4294967295
-> > pid=6275 comm=\"semctl09\" exe=\"/opt/ltp/testcases/bin/semctl09\"
-> > sig=11 res=1
-> > tl syscall
-> > semctl09.c:132: TINFO: Test SEM_STAT_ANY with nobody user
-> > semctl09.c:155: TPASS: SEM_INFO returned valid index 10 to semid 10
-> > semctl09.c:164: TPASS: Counted used = 1
-> > semctl09.c:112: TPASS: semset_cnt = 1
-> > semctl09.c:119: TPASS: sen_cnt = 2
-> > tst_test.c:1313: TBROK: Test killed by SIGSEGV!
->
-> There seems to be a part of the log missing here, if it's segfaulting in
-> the libc semctl() there used to be glibc bug for SEM_STAT_ANY which may
-> cause SIGSEGV:
->
-> https://sourceware.org/bugzilla/show_bug.cgi?id=26637
->
-> > And on i386,
-> >
-> > tst_test.c:1263: TINFO: Timeout per run is 0h 15m 00s
-> > semctl09.c:67: TINFO: Test SYS_semctl syscall
-> > semctl09.c:132: TINFO: Test SEM_STAT_ANY with nobody user
-> > semctl09.c:155: TPASS: SEM_INFO returned valid index 11 to semid 11
-> > semctl09.c:164: TPASS: Counted used = 1
-> > semctl09.c:112: TPASS: semset_cnt = 1
-> > semctl09.c:119: TPASS: sen_cnt = 2
-> > semctl09.c:132: TINFO: Test SEM_STAT_ANY with root user
-> > semctl09.c:155: TPASS: SEM_INFO returned valid index 11 to semid 11
-> > semctl09.c:164: TPASS: Counted used = 1
-> > semctl09.c:112: TPASS: semset_cnt = 1
-> > semctl09.c:119: TPASS: sen_cnt = 2
-> > tst_test.c:1263: TINFO: Timeout per run is 0h 15m 00s
-> > semctl09.c:70: TINFO: Test libc semctl()
-> > semctl09.c:132: TINFO: Test SEM_STAT_ANY with nobody user
-> > semctl09.c:149: TFAIL: SEM_STAT_ANY doesn't pass the buffer specified
-> > by the caller to kernel
-> > semctl09.c:132: TINFO: Test SEM_STAT_ANY with root user
-> > semctl09.c:149: TFAIL: SEM_STAT_ANY doesn't pass the buffer specified
-> > by the caller to kernel
->
-> This just says that the glibc bug is present so it's likely that the
-> same bug is causing segfaults on the rest of the architectures.
->
-> > only fails on the arm beagleboard-x15 device.
-> >
-> > accept02.c:55: TBROK: setsockopt(3, 0, 42, 0xb6f4cf7c, 132) failed: ENODEV (19)
->
-> Looks like muticast groups is not compiled in kernel here.
-
-True.
-We have not enabled multicast groups.
-# CONFIG_IP_MULTICAST is not set
-
-
->
-> We should handle this and report TCONF instead, however this is not a
-> regression, the test has been like this for three years.
-
-Reporting TCONF would be right here.
-
->
-> > clock_gettime04.c:143: TFAIL: CLOCK_REALTIME: Time travelled backwards
-> > (5): -1610153174499293029 ns
-> > clock_gettime04.c:151: TFAIL: CLOCK_REALTIME_COARSE: Difference
-> > between successive readings greater than 5 ms (4): 9
-> > clock_gettime04.c:158: TPASS: CLOCK_MONOTONIC: Difference between
-> > successive readings is reasonable
-> > clock_gettime04.c:151: TFAIL: CLOCK_MONOTONIC_COARSE: Difference
-> > between successive readings greater than 5 ms (2): 9
-> > clock_gettime04.c:158: TPASS: CLOCK_MONOTONIC_RAW: Difference between
-> > successive readings is reasonable
-> > clock_gettime04.c:158: TPASS: CLOCK_BOOTTIME: Difference between
-> > successive readings is reasonable
->
-> This shouldn't really happen, what this says is that time jumped 51
-> years back. That is really absurd.
-
-This is always reproduced on arm beagleboard-x15, i386 32-bit qemu_i386
-and qemu_arm.
-
-clock_gettime04.c:143: TFAIL: CLOCK_REALTIME: Time travelled backwards
-(5): -1610599851098100352 ns
-
-https://lkft.validation.linaro.org/scheduler/job/2142122#L3885
-https://lkft.validation.linaro.org/scheduler/job/2144548#L2534
-
-
->
-> > getrlimit03.c:168: TPASS: __NR_prlimit64(0) and __NR_ugetrlimit(0)
-> > gave consistent results
-> > tst_test.c:1313: TBROK: Test killed by SIGILL!
->
-> Can we have a backtrace here? It's impossible to say what happened here
-> without further debugging.
-
-I do not have backtrace log for this now.
-Let me share strace output log in this link,
-# strace -f ./getrlimit03
-https://lkft.validation.linaro.org/scheduler/job/2145166#L2569
-
->
-> > on x86_64:
-> > The ioctl_sg01 test killed and reported failed.
-> >
-> > tst_test.c:1263: TINFO: Timeout per run is 0h 15m 00s
-> > ioctl_sg01.c:81: TINFO: Found SCSI device /dev/sg1
-> > [  332.383394] ioctl_sg01 invoked oom-killer:
->
-> That's likely due to tst_pollutte_memory().
->
-> What are the overcommit settings on that machine?
-
-overcommit_memory is 0.
-After changing overcommit to 2 the test got PASS.
-
-> This is probably worth fixing before the release if we manage to figure
-> out the cause.
-
-cat /proc/sys/vm/overcommit_memory
-0
-cat /proc/sys/vm/overcommit_ratio
-50
-./runltp -s ioctl_sg01 --> FAILED
-
-echo 2 > /proc/sys/vm/overcommit_memory
-cat /proc/sys/vm/overcommit_memory
-2
-./runltp -s ioctl_sg01 --> PASS
-
-Full test run  link,
-https://lkft.validation.linaro.org/scheduler/job/2142340#L8823
-
-- Naresh
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+SGkgSm9lcnk6DQoNCglUaGFua3MgZm9yIHlvdXIgaW5mb3JtYXRpb24gYW5kIGNsZWFyaW5nIHRo
+aXMgb3V0LCBBaCwgSSBhbSBub3QgYWxvbmUgd2l0aCB0aGlzLg0KCUFmdGVyIEkgY2hlY2tlZCB0
+aGlzIHBhdGNoICg3ZjI5MjNjKSwgZm91bmQgdGhhdCBpdCBzZWVtIGJlIG5lY2Vzc2FyeSAsIHNv
+IHBhdGNoIGl0IGludG8gbXkgY29kZWJhc2UuDQoNCg0KQmVzdCB3aXNoZXMuDQotLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQ0KQmVzdCBSZWdhcmRzDQpNZWl0YW8gR2FvDQowMjEt
+NjEwOS0yOTk5IGV4dC4gODMwMA0KLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+DQoNCg0KDQotLS0tLemCruS7tuWOn+S7ti0tLS0tDQrlj5Hku7bkuro6IEpvZXJnIFZlaGxvdyBb
+bWFpbHRvOmxrbWxAanYtY29kZXIuZGVdIA0K5Y+R6YCB5pe26Ze0OiAyMDIx5bm0MeaciDE15pel
+IDE0OjE0DQrmlLbku7bkuro6IEdhbyBNZWl0YW/vvIjpq5jnjqvmtpvvvIk7IGx0cEBsaXN0cy5s
+aW51eC5pdDsgQ3lyaWwgSHJ1YmlzDQrkuLvpopg6IFJlOiBbTFRQXSBMVFAgdGVzdGNhc2Uoc3lz
+Y3RsMDIpIGZhaWxlZA0KDQpIaSBHYW8sDQoNCk9uIDEyLzI0LzIwMjAgNjo1NiBBTSwgR2FvIE1l
+aXRhb++8iOmrmOeOq+a2m++8iSB3cm90ZToNCj4NCj4gYWZ0ZXIgaW52ZXN0aWdhdGVkIGl0LCB0
+aGlzIHRlc3RjYXNlIGlzIGZvciBidWZmZmVyIG92ZXJmbG93LCBJIA0KPiBjaGVja2VkIHNvdXJj
+ZSBjb2RlIChrZXJuZWwgNC4xOSksDQo+DQo+IGFsbCBvZiByZXF1aXJlZCBwYXRjaGVkIGhhZCBi
+ZWVuIGFwcGxpZWQsIEkgZGlnIGludG8gaXQgYW5kIGZvdW5kIG5ldyANCj4gcGF0Y2ggYXBwbGll
+ZCBhcyBmbG93ICwgdGhhdCBtaWdodCBtYWtlIHRlc3RjYXNlIGZhaWxlZA0KPg0KPiBzbyBpcyB0
+aGlzIHRlc3RjYXNlIG91dCBvZiBkYXRlIG9yIHNvbWV0aGluZyB3cm9uZyB3aWggbXkga2VybmVs
+ID8NCj4NCj4gd2hvIGNhbiBoZWxwIG1lIGZpZ3VyZSB0aGlzIG91dD8gVGhhbmtzIGluIGFkdmFu
+Y2UuDQo+DQpJIGFsc28gc2F3IHRoaXMgb24gNC4xOS4gRnJvbSB0aGUgbWFpbGluZyBsaXN0IG9m
+IHRoZSBrZXJuZWwsIGl0IGxvb2tzIGxpa2UgdGhlcmUgd2FzIHNvbWUgY29uZnVzaW9uIHdoZW4g
+dGhleSBwb3J0ZWQgdGhlIHBhdGNoZXMgYmFjayB0byA0LjE5Lg0KSSBkbyBub3QgZmluZCB0aGUg
+bWFpbHMgb24gdGhlIG1haWxpbmcgbGlzdCBhbnltb3JlLiBCdXQgdGhlIGNvbW1pdCA3ZjI5MjNj
+IGZyb20gbWFzdGVyIGlzIG1pc3NpbmcgSUlSQy4NCkNocmlzdGlhbiBCcmF1bmVyIG1hZGUgdHdv
+IGNoYW5nZXM6DQoxLiBQcmV2ZW50IG92ZXIgYW5kIHVuZGVyZmxvdyBieSBqdXN0IGtlZXBpbmcg
+dGhlIG9sZCB2YWx1ZSAoN2YyOTIzYyB0b2dldGhlciB3aXRoIDMyYTVhZDljKS4gVGhpcyBpbnRy
+b2R1Y2VkIGEga2FzYW4gYnVnIGZpeGVkIGluIDkwMDJiMjEgMi4gUmV0dXJuIEVJTlZBTCwgaWYg
+YW4gb3ZlcmZsb3cgb3IgdW5kZXJmbG93IG9mIHRoZSBuZXcgdmFsdWUgaXMgZGV0ZWN0ZWQgKGUy
+NjBhZDAxZikNCg0KIEZyb20gd2hhdCBJIHJlbWVtYmVyIENocmlzdGlhbiB3YW50ZWQgdGhlIGZp
+cnN0IGNoYW5nZSBjb21wbGV0ZWx5IGJhY2twb3J0ZWQgdG8gNC4xOSAoN2YyOTIzYywgMzJhNWFk
+OWMgYW5kIDkwMDJiMjEpIGFuZCBoZSB3YW50ZWQgdG8gb21pdCB0aGUgY2hhbmdlIGRvbmUgaW4g
+ZTI2MGFkMDFmLCBiZWNhdXNlIHRoYXQgY2hhbmdlZCB0aGUgYmVoYXZpb3Igb2YgdGhlIGludGVy
+ZmFjZSB0b3dhcmRzIHRoZSB1c2VyLg0KQnV0IHdoZW4gdGhlIGNoYW5nZWQgd2VyZSBiYWNrcG9y
+dGVkIHRvIDQuMTksIHRoZSBjb21taXQgMzJhNWFkOWMsDQo5MDAyYjIxIGFuZCBlMjYwYWQwMWYg
+d2VyZSBiYWNrcG9ydGVkLiBTaW5jZSA3ZjI5MjNjIGlzIHRoZSBjb21taXQsIHRoYXQgcmVhbGx5
+IGVuYWJsZXMgb3Zlci0gYW5kIHVuZGVyZmxvdyBkZXRlY3Rpb24sIHRoaXMgaXMgbm90IGJhY2tw
+b3J0ZWQgYW5kIGFsbCB0aGUgb3RoZXIgY29tbWl0IChpbmNsdWRpbmcgZTI2MGFkMDFmKSBoYXZl
+IG5vIGVmZmVjdC4NCg0KQXQgdGhlIHRpbWUgSSBmb3VuZCB0aGlzLCBJIGhhZCBubyB0aW1lIHRv
+IGZpbmQgb3V0IGhvdyBhbmQgd2hlcmUgdG8gcmVwb3J0IHRoaXMuDQpAQ3lyaWwgSSBndWVzcyB5
+b3UgbWF5IGtub3cgaG93IGFuZCB3aG8gdG8gcmVwb3J0IHRoaXMgdG8/DQoNCkrDtnJnDQoKLS0g
+Ck1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
