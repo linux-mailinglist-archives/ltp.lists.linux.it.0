@@ -2,48 +2,48 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7306F2F76AB
-	for <lists+linux-ltp@lfdr.de>; Fri, 15 Jan 2021 11:28:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E28362F76F3
+	for <lists+linux-ltp@lfdr.de>; Fri, 15 Jan 2021 11:49:08 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 376123C6A08
-	for <lists+linux-ltp@lfdr.de>; Fri, 15 Jan 2021 11:28:12 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 9F4203C6A06
+	for <lists+linux-ltp@lfdr.de>; Fri, 15 Jan 2021 11:49:08 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id F189B3C288F
- for <ltp@lists.linux.it>; Fri, 15 Jan 2021 01:54:00 +0100 (CET)
-Received: from chinatelecom.cn (prt-mail.chinatelecom.cn [42.123.76.228])
- by in-7.smtp.seeweb.it (Postfix) with ESMTP id 2C14F200766
- for <ltp@lists.linux.it>; Fri, 15 Jan 2021 01:53:58 +0100 (CET)
-HMM_SOURCE_IP: 172.18.0.48:31679.1580428382
-HMM_ATTACHE_NUM: 0000
-HMM_SOURCE_TYPE: SMTP
-Received: from clientip-36.111.88.18?logid-1532089986b64eb0bcf86c9924ff4cb8
- (unknown [172.18.0.48])
- by chinatelecom.cn (HERMES) with SMTP id CC9032800F1;
- Fri, 15 Jan 2021 08:53:53 +0800 (CST)
-X-189-SAVE-TO-SEND: +liuxp11@chinatelecom.cn
-Received: from  ([172.18.0.48])
- by App0024 with ESMTP id 1532089986b64eb0bcf86c9924ff4cb8 for
- ltp@lists.linux.it; Fri Jan 15 08:53:54 2021
-X-Transaction-ID: 1532089986b64eb0bcf86c9924ff4cb8
-X-filter-score: filter<0>
-X-Real-From: liuxp11@chinatelecom.cn
-X-Receive-IP: 172.18.0.48
-X-MEDUSA-Status: 0
-From: Xinpeng Liu <liuxp11@chinatelecom.cn>
-To: ltp@lists.linux.it
-Date: Fri, 15 Jan 2021 08:53:51 +0800
-Message-Id: <1610672031-5044-1-git-send-email-liuxp11@chinatelecom.cn>
-X-Mailer: git-send-email 1.8.3.1
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
-X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id 390163C2644
+ for <ltp@lists.linux.it>; Fri, 15 Jan 2021 11:49:07 +0100 (CET)
+Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 9B62C140118C
+ for <ltp@lists.linux.it>; Fri, 15 Jan 2021 11:49:06 +0100 (CET)
+Received: from [192.168.178.40] (unknown [188.192.1.224])
+ by mail.jv-coder.de (Postfix) with ESMTPSA id 1A3B2A1498;
+ Fri, 15 Jan 2021 10:49:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
+ t=1610707744; bh=SRtKGGD9Hun499SteSFi8hhV7V1XqDRhR+HcHyPIxHw=;
+ h=Subject:To:From:Message-ID:Date:MIME-Version;
+ b=Vq9CUns1D6uaC/8pXhxpGdHkhvUpIlreMOyTFIP2SDASAhi91VWedIQGUnHRMo52d
+ InFl1Mi18TSLY1GhchE9g+9oCiTmV3O8TGoOeXOzef3rxneJ9/3H3qKHGUS5EKuqoq
+ ZrMUBOGe1KaNCRQcISV0+uKAoOZRofYE/4doquiQ=
+To: Xinpeng Liu <liuxp11@chinatelecom.cn>, ltp@lists.linux.it
+References: <1610672031-5044-1-git-send-email-liuxp11@chinatelecom.cn>
+From: Joerg Vehlow <lkml@jv-coder.de>
+Message-ID: <b575ead7-dcc2-f4ab-49d2-eac727469187@jv-coder.de>
+Date: Fri, 15 Jan 2021 11:49:42 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.1
+MIME-Version: 1.0
+In-Reply-To: <1610672031-5044-1-git-send-email-liuxp11@chinatelecom.cn>
+Content-Language: en-US
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-X-Mailman-Approved-At: Fri, 15 Jan 2021 11:28:10 +0100
-Subject: [LTP] [PATCH] fs/proc01.c:add known issues
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Status: Clean
+Subject: Re: [LTP] [PATCH] fs/proc01.c:add known issues
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,61 +55,31 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Xinpeng Liu <liuxp11@chinatelecom.cn>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Test in ubuntu20.10,there are several failure tests.
-
-proc01      1  TFAIL  :  proc01.c:396: read failed:
-/proc/self/task/61595/attr/smack/current: errno=EINVAL(22): Invalid argument
-proc01      2  TFAIL  :  proc01.c:396: read failed:
-/proc/self/task/61595/attr/apparmor/prev: errno=EINVAL(22): Invalid argument
-proc01      3  TFAIL  :  proc01.c:396: read failed:
-/proc/self/task/61595/attr/apparmor/exec: errno=EINVAL(22): Invalid argument
-proc01      4  TFAIL  :  proc01.c:396: read failed:
-/proc/self/attr/smack/current: errno=EINVAL(22): Invalid argument
-proc01      5  TFAIL  :  proc01.c:396: read failed:
-/proc/self/attr/apparmor/prev: errno=EINVAL(22): Invalid argument
-proc01      6  TFAIL  :  proc01.c:396: read failed:
-/proc/self/attr/apparmor/exec: errno=EINVAL(22): Invalid argument
-
-Signed-off-by: Xinpeng Liu <liuxp11@chinatelecom.cn>
----
- testcases/kernel/fs/proc/proc01.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/testcases/kernel/fs/proc/proc01.c b/testcases/kernel/fs/proc/proc01.c
-index 9684369..96441d1 100644
---- a/testcases/kernel/fs/proc/proc01.c
-+++ b/testcases/kernel/fs/proc/proc01.c
-@@ -63,7 +63,7 @@ static char *opt_maxmbytesstr;
- static char *procpath = "/proc";
- static const char selfpath[] = "/proc/self";
- size_t buffsize = 1024;
--static long long maxbytes;
-+static unsigned long long maxbytes;
- 
- unsigned long long total_read;
- unsigned int total_obj;
-@@ -97,7 +97,11 @@ static const struct mapping known_issues[] = {
- 	{"read", "/proc/self/mem", EIO},
- 	{"read", "/proc/self/task/[0-9]*/mem", EIO},
- 	{"read", "/proc/self/attr/*", EINVAL},
-+	{"read", "/proc/self/attr/smack/*", EINVAL},
-+	{"read", "/proc/self/attr/apparmor/*", EINVAL},
- 	{"read", "/proc/self/task/[0-9]*/attr/*", EINVAL},
-+	{"read", "/proc/self/task/[0-9]*/attr/smack/*", EINVAL},
-+	{"read", "/proc/self/task/[0-9]*/attr/apparmor/*", EINVAL},
- 	{"read", "/proc/self/ns/*", EINVAL},
- 	{"read", "/proc/self/task/[0-9]*/ns/*", EINVAL},
- 	{"read", "/proc/ppc64/rtas/error_log", EINVAL},
--- 
-1.8.3.1
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+SGksCgpPbiAxLzE1LzIwMjEgMTo1MyBBTSwgWGlucGVuZyBMaXUgd3JvdGU6Cj4gVGVzdCBpbiB1
+YnVudHUyMC4xMCx0aGVyZSBhcmUgc2V2ZXJhbCBmYWlsdXJlIHRlc3RzLgo+Cj4gcHJvYzAxICAg
+ICAgMSAgVEZBSUwgIDogIHByb2MwMS5jOjM5NjogcmVhZCBmYWlsZWQ6Cj4gL3Byb2Mvc2VsZi90
+YXNrLzYxNTk1L2F0dHIvc21hY2svY3VycmVudDogZXJybm89RUlOVkFMKDIyKTogSW52YWxpZCBh
+cmd1bWVudAo+IHByb2MwMSAgICAgIDIgIFRGQUlMICA6ICBwcm9jMDEuYzozOTY6IHJlYWQgZmFp
+bGVkOgo+IC9wcm9jL3NlbGYvdGFzay82MTU5NS9hdHRyL2FwcGFybW9yL3ByZXY6IGVycm5vPUVJ
+TlZBTCgyMik6IEludmFsaWQgYXJndW1lbnQKPiBwcm9jMDEgICAgICAzICBURkFJTCAgOiAgcHJv
+YzAxLmM6Mzk2OiByZWFkIGZhaWxlZDoKPiAvcHJvYy9zZWxmL3Rhc2svNjE1OTUvYXR0ci9hcHBh
+cm1vci9leGVjOiBlcnJubz1FSU5WQUwoMjIpOiBJbnZhbGlkIGFyZ3VtZW50Cj4gcHJvYzAxICAg
+ICAgNCAgVEZBSUwgIDogIHByb2MwMS5jOjM5NjogcmVhZCBmYWlsZWQ6Cj4gL3Byb2Mvc2VsZi9h
+dHRyL3NtYWNrL2N1cnJlbnQ6IGVycm5vPUVJTlZBTCgyMik6IEludmFsaWQgYXJndW1lbnQKPiBw
+cm9jMDEgICAgICA1ICBURkFJTCAgOiAgcHJvYzAxLmM6Mzk2OiByZWFkIGZhaWxlZDoKPiAvcHJv
+Yy9zZWxmL2F0dHIvYXBwYXJtb3IvcHJldjogZXJybm89RUlOVkFMKDIyKTogSW52YWxpZCBhcmd1
+bWVudAo+IHByb2MwMSAgICAgIDYgIFRGQUlMICA6ICBwcm9jMDEuYzozOTY6IHJlYWQgZmFpbGVk
+Ogo+IC9wcm9jL3NlbGYvYXR0ci9hcHBhcm1vci9leGVjOiBlcnJubz1FSU5WQUwoMjIpOiBJbnZh
+bGlkIGFyZ3VtZW50Cj4KPiBTaWduZWQtb2ZmLWJ5OiBYaW5wZW5nIExpdSA8bGl1eHAxMUBjaGlu
+YXRlbGVjb20uY24+CgpSZXZpZXdlZC1ieTogSm9lcmcgVmVobG93IDxqb2VyZy52ZWhsb3dAYW94
+LXRlY2guZGU+CgpUZXN0ZWQgb24gdWJ1bnR1IDIwLjA0LgpJIGd1ZXNzIGl0IGlzIG9rIHRvIGNv
+bXBsZXRlbHkgZXhjbHVkZSBzbWFjayBhbmQgYXBwYXJtb3IgZm9sZGVycyBmcm9tIAp0aGUgdGVz
+dC4gTWF5YmUgdGhlcmUgYXJlIHNvbWUgZmlsZXMgaW4gdGhlcmUsIHRoYXQgY2FuIGJlIHJlYWQg
+d2l0aG91dCAKZXJyb3IsIGJ1dCBJIHRoaW5rIHRoYXQgc2hvdWxkIGJlIHVwIHRvIHRlc3RjYXNl
+cyBmb3IgdGhlc2UgZmVhdHVyZXMuCgpKw7ZyZwoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRw
+czovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
