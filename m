@@ -2,39 +2,44 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0A502FB356
-	for <lists+linux-ltp@lfdr.de>; Tue, 19 Jan 2021 08:42:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD5732FB4EE
+	for <lists+linux-ltp@lfdr.de>; Tue, 19 Jan 2021 10:33:33 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 636F53C308B
-	for <lists+linux-ltp@lfdr.de>; Tue, 19 Jan 2021 08:42:05 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 4BDA73C3096
+	for <lists+linux-ltp@lfdr.de>; Tue, 19 Jan 2021 10:33:33 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id 6C2513C0548
- for <ltp@lists.linux.it>; Tue, 19 Jan 2021 08:42:02 +0100 (CET)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 7F2563C0BCB
+ for <ltp@lists.linux.it>; Tue, 19 Jan 2021 10:33:10 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 6CC7B1400C5A
- for <ltp@lists.linux.it>; Tue, 19 Jan 2021 08:42:02 +0100 (CET)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 3A4D6200AC8
+ for <ltp@lists.linux.it>; Tue, 19 Jan 2021 10:33:09 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1611048789; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Gs8OrqNIg23F6h+Tgi8l2QM19tsafIuNjPaR1oJmc9E=;
+ b=tLfuGN4pJWULG0N6Tdu1wof5tkI0AtEjl0C4W2b3SlKQj++mni8Gf5/+CZs5rRoWkZ9FfP
+ UNFKv/wTG8GZ15TJLKu4ho+dl/Yc12zMdP3bTjmpmQPA9RtkJXLs3lu7jz/AFrwDWQpQ8w
+ UG7yEEG3kNgY0QgqhErqFrJ5EpaHfV4=
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 8E8EDABD6;
- Tue, 19 Jan 2021 07:42:01 +0000 (UTC)
-Date: Tue, 19 Jan 2021 08:41:59 +0100
-From: Petr Vorel <pvorel@suse.cz>
+ by mx2.suse.de (Postfix) with ESMTP id 2D8C8AB9F;
+ Tue, 19 Jan 2021 09:33:09 +0000 (UTC)
 To: ltp@lists.linux.it
-Message-ID: <YAaNR0PzZt5A1Fjm@pevik>
-References: <20210118161308.30771-1-pvorel@suse.cz>
+Date: Tue, 19 Jan 2021 09:31:37 +0000
+Message-Id: <20210119093143.17222-1-rpalethorpe@suse.com>
+X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210118161308.30771-1-pvorel@suse.cz>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 1/2] lib: Fix kernel module detection on BusyBox
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 0/6] Convert CAN tests to new LTP API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,29 +51,55 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: Steve Muckle <smuckle@google.com>, Sandeep Patil <sspatil@google.com>
+From: Richard Palethorpe via ltp <ltp@lists.linux.it>
+Reply-To: Richard Palethorpe <rpalethorpe@suse.com>
+Cc: Oliver Hartkopp <socketcan@hartkopp.net>,
+ Richard Palethorpe <rpalethorpe@suse.com>, linux-can@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
+Hello,
 
-> diff --git a/lib/tst_kernel.c b/lib/tst_kernel.c
-...
-> -int tst_check_driver(const char *name)
-> +#ifndef __ANDROID__
-> +# define MODULES_DIR "/lib/modules"
-> +#else
-> +# define MODULES_DIR "/system/lib/modules"
-> +#endif
+This is an attempt to convert the CAN tests to the (modern) Linux Test
+Project API and removes the wrapper script. To be clear, this is a
+patch-set for the LTP *not* the kernel tree or can-utils.
 
-OK, MODULES_DIR is not needed now as I kept Android skipped (unless somebody
-contributes code or share algorithm for Android).
+I have tried to keep the core test behaviour the same, but (for
+example) moving to the SAFE_ functions will naturally introduce some
+changes in error checking. Deliberate behavioral changes have been
+noted in the commit messages.
 
-Kind regards,
-Petr
+FYI, we appear to have 4 CAN tests in LTP including two tests for
+SLCAN (pty03, pty04).
+
+V2: Update e-mail addresses and resend
+
+Richard Palethorpe (6):
+  API: Add FILE_SCANF to new lib
+  can: Add can_common.h for vcan device setup
+  can_filter: Convert to new library
+  can_recv_own_msgs: Convert to new library
+  can: Remove obsolete test wrapper script
+  can: Update contact details
+
+ include/tst_safe_file_ops.h                   |   3 +
+ testcases/network/can/Makefile                |   2 -
+ .../can/filter-tests/00_Descriptions.txt      |   6 +-
+ testcases/network/can/filter-tests/INSTALL    |   3 +-
+ testcases/network/can/filter-tests/Makefile   |   4 -
+ .../network/can/filter-tests/can_common.h     |  70 ++++
+ .../network/can/filter-tests/can_filter.c     | 317 +++++++-----------
+ .../can/filter-tests/can_rcv_own_msgs.c       | 273 +++++----------
+ .../network/can/filter-tests/can_run_tests.sh | 106 ------
+ 9 files changed, 291 insertions(+), 493 deletions(-)
+ create mode 100644 testcases/network/can/filter-tests/can_common.h
+ delete mode 100755 testcases/network/can/filter-tests/can_run_tests.sh
+
+-- 
+2.29.2
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
