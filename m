@@ -2,39 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C4332FBE83
-	for <lists+linux-ltp@lfdr.de>; Tue, 19 Jan 2021 19:06:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8667A2FC071
+	for <lists+linux-ltp@lfdr.de>; Tue, 19 Jan 2021 20:56:59 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 42C9B3C30C8
-	for <lists+linux-ltp@lfdr.de>; Tue, 19 Jan 2021 19:06:01 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 366C23C30CC
+	for <lists+linux-ltp@lfdr.de>; Tue, 19 Jan 2021 20:56:59 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- by picard.linux.it (Postfix) with ESMTP id 44C8F3C06E2
- for <ltp@lists.linux.it>; Tue, 19 Jan 2021 19:06:00 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id D3DFD3C2314
+ for <ltp@lists.linux.it>; Tue, 19 Jan 2021 20:56:56 +0100 (CET)
+Received: from mail-pj1-x102f.google.com (mail-pj1-x102f.google.com
+ [IPv6:2607:f8b0:4864:20::102f])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id B2B601A00A33
- for <ltp@lists.linux.it>; Tue, 19 Jan 2021 19:05:59 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 08848AE36;
- Tue, 19 Jan 2021 18:05:59 +0000 (UTC)
-Date: Tue, 19 Jan 2021 19:05:57 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Richard Palethorpe <rpalethorpe@suse.com>
-Message-ID: <YAcfhf2qg5q4VZrg@pevik>
-References: <20210119093143.17222-1-rpalethorpe@suse.com>
- <20210119093143.17222-3-rpalethorpe@suse.com>
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 4054560009C
+ for <ltp@lists.linux.it>; Tue, 19 Jan 2021 20:56:56 +0100 (CET)
+Received: by mail-pj1-x102f.google.com with SMTP id kx7so611278pjb.2
+ for <ltp@lists.linux.it>; Tue, 19 Jan 2021 11:56:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=android.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=qQEd7NAefyrRDJR+KPQWZBUeP0jEDOEW00R39pJ88iE=;
+ b=kRzJ8ZTRUNmj2zbfnwrwsvYGKdDoSwjhZPTuaHh/bnbuemR5kybGksJ/rXg6uQFjhw
+ QyMIUE32PQrE4n/+87iDZffTnUTp/J1Zinehq72DXUKdLuD6WmAgj6ygSYTXqlo4pZrL
+ DD1Ua+uvqL13gbTySm5icwdO8Dwfdx+qbsxOprvWHZrBC1fEONgi2fVyC/fLbwhq6ZqE
+ Ezub3/HZNdGVW8dvNbvwWouIm0s//+yuCasQ3JcpZ1h/n+ul3fIlSHxtsMwHtcKa40H8
+ Njy/YGy6yo2G1nRhnnbBG81wHf615pC86OZEVJosDzFsjbT1ELAGq+AINNlMMh9X1GMZ
+ j0kA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=qQEd7NAefyrRDJR+KPQWZBUeP0jEDOEW00R39pJ88iE=;
+ b=WMwm08kyOhcOm2/Yiv1jz8GFMH8mfPcOpF59JvKOwuS1HuhA4eFsgv1AVbv+D624jg
+ sgikWDkX2b+TYDQ2tmZRX1tzOCz/A8SpvoFEv+WyFjrSCcW4BFGF2cMOb0diuVZPMNfi
+ jZ/UtLvFvUdNHoVpDsgKNERCyKqNsIirCdneLgvabHAq8JZl40KCvHGZafUhSlbRV926
+ EL5CP2uQPPIiHCHat+nDQ+jBi0zXzV9cMqcq2ThV4+Dj2z6WMuCyLHkvlqef3ZINjRLU
+ k0m4fmcGw/gRoOAGEXczNgz6w9m1mQL4apJ3Or7xUTFe6Kbkfn2aGxnpvIG2HNdh05kE
+ yP6A==
+X-Gm-Message-State: AOAM5314oVNKar+Nm4BD/+nex8VsuHPXJPn/LIHaaC3ccXoudj569qkW
+ 20X/lrSDxWjuUDiz+HcNKYaa9Q==
+X-Google-Smtp-Source: ABdhPJzTY3dEyges48+keepoRL13Mu0zSKz75smHLKvT61RoKlYQUIF/8ZmQDVQAeocmK3Ds3vHL7g==
+X-Received: by 2002:a17:902:6947:b029:db:c7fd:9db3 with SMTP id
+ k7-20020a1709026947b02900dbc7fd9db3mr6302787plt.56.1611086214461; 
+ Tue, 19 Jan 2021 11:56:54 -0800 (PST)
+Received: from google.com (c-73-170-36-70.hsd1.ca.comcast.net. [73.170.36.70])
+ by smtp.gmail.com with ESMTPSA id
+ k14sm3149138pfh.172.2021.01.19.11.56.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 19 Jan 2021 11:56:53 -0800 (PST)
+Date: Tue, 19 Jan 2021 11:56:52 -0800
+To: Petr Vorel <pvorel@suse.cz>
+Message-ID: <YAc5hMnHm0GIQJ96@google.com>
+References: <20210119160316.4776-1-pvorel@suse.cz>
+ <20210119160316.4776-2-pvorel@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210119093143.17222-3-rpalethorpe@suse.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+In-Reply-To: <20210119160316.4776-2-pvorel@suse.cz>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 2/6] can: Add can_common.h for vcan device setup
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3 1/2] lib: Fix kernel module detection on BusyBox
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,77 +80,193 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: Oliver Hartkopp <socketcan@hartkopp.net>, ltp@lists.linux.it,
- linux-can@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+From: Sandeep Patil via ltp <ltp@lists.linux.it>
+Reply-To: Sandeep Patil <sspatil@android.com>
+Cc: Steve Muckle <smuckle@google.com>, kernel-team@android.com,
+ ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGkgUmljaGllLAoKLi4uCj4gKyNpbmNsdWRlIDxsaW51eC9pZi5oPgouLi4KPiArc3RhdGljIHZv
-aWQgY2FuX3NldHVwX3ZjYW4odm9pZCkKPiArewouLi4KPiArY2hlY2tfZWNobzoKPiArCS8qIFBy
-ZWNvbmRpdGlvbiBmb3IgdGhlIGZyYW1lIGZsb3cgdGVzdD8gKi8KPiArCVNBRkVfQVNQUklOVEYo
-JnBhdGgsICIvc3lzL2NsYXNzL25ldC8lcy9mbGFncyIsIGNhbl9kZXZfbmFtZSk7Cj4gKwlpZiAo
-RklMRV9TQ0FORihwYXRoLCAiJXgiLCAmZmxhZ3MpIHx8ICEoZmxhZ3MgJiBJRkZfRUNITykpCkZZ
-SSBJRkZfRUNITyBpcyBub3QgZGVmaW5lZCBvbiBzb21lIG9sZGVyIHRvb2xjaGFpbnMgKGFhcmNo
-NjQpLgpJdCdkIGJlIGdvb2QgdG8gYWRkIGxhcGkvaWYuaCwgd2hlcmUgaXQnZCBiZSBkZWZpbmVk
-LgpCdXQgaXQgY2FuIGJlIGFkZGVkIGxhdGVyLgoKSW4gZmlsZSBpbmNsdWRlZCBmcm9tIGNhbl9j
-b21tb24uaDoyMSwKICAgICAgICAgICAgICAgICBmcm9tIGNhbl9maWx0ZXIuYzoxMjoKY2FuX2Nv
-bW1vbi5oOiBJbiBmdW5jdGlvbiDigJhjYW5fc2V0dXBfdmNhbuKAmToKY2FuX2NvbW1vbi5oOjU4
-OjUwOiBlcnJvcjog4oCYSUZGX0VDSE/igJkgdW5kZWNsYXJlZCAoZmlyc3QgdXNlIGluIHRoaXMg
-ZnVuY3Rpb24pOyBkaWQgeW91IG1lYW4g4oCYSUZGX0RFQlVH4oCZPwogIGlmIChGSUxFX1NDQU5G
-KHBhdGgsICIleCIsICZmbGFncykgfHwgIShmbGFncyAmIElGRl9FQ0hPKSkKICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBefn5+fn5+fgpjYW5fY29tbW9u
-Lmg6NTg6NTA6IG5vdGU6IGVhY2ggdW5kZWNsYXJlZCBpZGVudGlmaWVyIGlzIHJlcG9ydGVkIG9u
-bHkgb25jZSBmb3IgZWFjaCBmdW5jdGlvbiBpdCBhcHBlYXJzIGluCkluIGZpbGUgaW5jbHVkZWQg
-ZnJvbSBjYW5fY29tbW9uLmg6MjEsCiAgICAgICAgICAgICAgICAgZnJvbSBjYW5fcmN2X293bl9t
-c2dzLmM6MTI6CmNhbl9jb21tb24uaDogSW4gZnVuY3Rpb24g4oCYY2FuX3NldHVwX3ZjYW7igJk6
-CmNhbl9jb21tb24uaDo1ODo1MDogZXJyb3I6IOKAmElGRl9FQ0hP4oCZIHVuZGVjbGFyZWQgKGZp
-cnN0IHVzZSBpbiB0aGlzIGZ1bmN0aW9uKTsgZGlkIHlvdSBtZWFuIOKAmElGRl9ERUJVR+KAmT8K
-ICBpZiAoRklMRV9TQ0FORihwYXRoLCAiJXgiLCAmZmxhZ3MpIHx8ICEoZmxhZ3MgJiBJRkZfRUNI
-TykpCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXn5+
-fn5+fn4KCkFsc28gdGhlcmUgYXJlIG90aGVyIHByb2JsZW1zIG9uIHRvb2xjaGFpbnMgd2l0aCBv
-bGRlciBsaW51eCBoZWFkZXJzCi0gYnVnIGluIHVzaW5nIDxuZXQvaWYuaD4gd2l0aCA8bGludXgv
-aWYuaD4uIENhbid0IHdlIGp1c3QgdXNlIDxsaW51eC9pZi5oPj8KaHR0cHM6Ly90cmF2aXMtY2ku
-b3JnL2dpdGh1Yi9wZXZpay9sdHAvam9icy83NTUxNjMwNzYKCkluIGZpbGUgaW5jbHVkZWQgZnJv
-bSAvdXNyL3NyYy9sdHAvdGVzdGNhc2VzL25ldHdvcmsvY2FuL2ZpbHRlci10ZXN0cy9jYW5fY29t
-bW9uLmg6MTU6MCwKICAgICAgICAgICAgICAgICBmcm9tIC91c3Ivc3JjL2x0cC90ZXN0Y2FzZXMv
-bmV0d29yay9jYW4vZmlsdGVyLXRlc3RzL2Nhbl9maWx0ZXIuYzoxMjoKL3Vzci9pbmNsdWRlL2xp
-bnV4L2lmLmg6NzE6MjogZXJyb3I6IHJlZGVjbGFyYXRpb24gb2YgZW51bWVyYXRvciAnSUZGX1VQ
-JwogIElGRl9VUCAgICA9IDE8PDAsICAvKiBzeXNmcyAqLwogIF4KL3Vzci9pbmNsdWRlL25ldC9p
-Zi5oOjQ0OjU6IG5vdGU6IHByZXZpb3VzIGRlZmluaXRpb24gb2YgJ0lGRl9VUCcgd2FzIGhlcmUK
-ICAgICBJRkZfVVAgPSAweDEsICAvKiBJbnRlcmZhY2UgaXMgdXAuICAqLwogICAgIF4KL3Vzci9p
-bmNsdWRlL2xpbnV4L2lmLmg6NzI6MjogZXJyb3I6IHJlZGVjbGFyYXRpb24gb2YgZW51bWVyYXRv
-ciAnSUZGX0JST0FEQ0FTVCcKICBJRkZfQlJPQURDQVNUICAgPSAxPDwxLCAgLyogX192b2xhdGls
-ZV9fICovCiAgXgovdXNyL2luY2x1ZGUvbmV0L2lmLmg6NDY6NTogbm90ZTogcHJldmlvdXMgZGVm
-aW5pdGlvbiBvZiAnSUZGX0JST0FEQ0FTVCcgd2FzIGhlcmUKICAgICBJRkZfQlJPQURDQVNUID0g
-MHgyLCAvKiBCcm9hZGNhc3QgYWRkcmVzcyB2YWxpZC4gICovCiAgICAgXgovdXNyL2luY2x1ZGUv
-bGludXgvaWYuaDo3MzoyOiBlcnJvcjogcmVkZWNsYXJhdGlvbiBvZiBlbnVtZXJhdG9yICdJRkZf
-REVCVUcnCiAgSUZGX0RFQlVHICAgPSAxPDwyLCAgLyogc3lzZnMgKi8KICBeCi91c3IvaW5jbHVk
-ZS9uZXQvaWYuaDo0ODo1OiBub3RlOiBwcmV2aW91cyBkZWZpbml0aW9uIG9mICdJRkZfREVCVUcn
-IHdhcyBoZXJlCiAgICAgSUZGX0RFQlVHID0gMHg0LCAgLyogVHVybiBvbiBkZWJ1Z2dpbmcuICAq
-LwogICAgIF4KL3Vzci9pbmNsdWRlL2xpbnV4L2lmLmg6NzQ6MjogZXJyb3I6IHJlZGVjbGFyYXRp
-b24gb2YgZW51bWVyYXRvciAnSUZGX0xPT1BCQUNLJwogIElGRl9MT09QQkFDSyAgID0gMTw8Mywg
-IC8qIF9fdm9sYXRpbGVfXyAqLwogIF4KL3Vzci9pbmNsdWRlL25ldC9pZi5oOjUwOjU6IG5vdGU6
-IHByZXZpb3VzIGRlZmluaXRpb24gb2YgJ0lGRl9MT09QQkFDSycgd2FzIGhlcmUKICAgICBJRkZf
-TE9PUEJBQ0sgPSAweDgsICAvKiBJcyBhIGxvb3BiYWNrIG5ldC4gICovCiAgICAgXgovdXNyL2lu
-Y2x1ZGUvbGludXgvaWYuaDo3NToyOiBlcnJvcjogcmVkZWNsYXJhdGlvbiBvZiBlbnVtZXJhdG9y
-ICdJRkZfUE9JTlRPUE9JTlQnCiAgSUZGX1BPSU5UT1BPSU5UICAgPSAxPDw0LCAgLyogX192b2xh
-dGlsZV9fICovCiAgXgovdXNyL2luY2x1ZGUvbmV0L2lmLmg6NTI6NTogbm90ZTogcHJldmlvdXMg
-ZGVmaW5pdGlvbiBvZiAnSUZGX1BPSU5UT1BPSU5UJyB3YXMgaGVyZQogICAgIElGRl9QT0lOVE9Q
-T0lOVCA9IDB4MTAsIC8qIEludGVyZmFjZSBpcyBwb2ludC10by1wb2ludCBsaW5rLiAgKi8KICAg
-ICBeCi91c3IvaW5jbHVkZS9saW51eC9pZi5oOjc2OjI6IGVycm9yOiByZWRlY2xhcmF0aW9uIG9m
-IGVudW1lcmF0b3IgJ0lGRl9OT1RSQUlMRVJTJwogIElGRl9OT1RSQUlMRVJTICAgPSAxPDw1LCAg
-Lyogc3lzZnMgKi8KICBeCi91c3IvaW5jbHVkZS9uZXQvaWYuaDo1NDo1OiBub3RlOiBwcmV2aW91
-cyBkZWZpbml0aW9uIG9mICdJRkZfTk9UUkFJTEVSUycgd2FzIGhlcmUKICAgICBJRkZfTk9UUkFJ
-TEVSUyA9IDB4MjAsIC8qIEF2b2lkIHVzZSBvZiB0cmFpbGVycy4gICovCiAgICAgXgovdXNyL2lu
-Y2x1ZGUvbGludXgvaWYuaDo3NzoyOiBlcnJvcjogcmVkZWNsYXJhdGlvbiBvZiBlbnVtZXJhdG9y
-ICdJRkZfUlVOTklORycKICBJRkZfUlVOTklORyAgID0gMTw8NiwgIC8qIF9fdm9sYXRpbGVfXyAq
-LwoKQWxzbyBpdCBmYWlscyB0byBydW4gZG9jcGFyc2U6CmludmFsaWQgY2hhcmFjdGVyIGVuY291
-bnRlcmVkIHdoaWxlIHBhcnNpbmcgSlNPTiBzdHJpbmcsIGF0IGNoYXJhY3RlciBvZmZzZXQgMTMz
-MjQ5IChiZWZvcmUgIlx0Q0FOIGRldmljZSBuYW1lIlxuLi4uIikgYXQgL3Vzci9zcmMvbHRwL2Rv
-Y3BhcnNlL3Rlc3RpbmZvLnBsIGxpbmUgMzk4LgptYWtlWzFdOiAqKiogWy91c3Ivc3JjL2x0cC9k
-b2NwYXJzZS9NYWtlZmlsZTo2MDogdHh0XSBFcnJvciAyNTUKSSdsbCBoYXZlIGxvb2sgaW50byB0
-aGlzIG9uZS4KCktpbmQgcmVnYXJkcywKUGV0cgoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRw
-czovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
+On Tue, Jan 19, 2021 at 05:03:15PM +0100, Petr Vorel wrote:
+> BusyBox modprobe implementation does not support -n switch.
+> 
+> It does support -D, which could be used, *but* unless is busybox binary
+> configured with CONFIG_MODPROBE_SMALL=y (IMHO the default).
+> 
+> We could use modinfo and grep output for 'filename:', but we agreed on
+> ML that having our own implementation will be the best as it also
+> does not require modinfo as external dependency.
+> 
+> Implementation searches for for module presence in /lib/modules/$(uname
+> -r)/modules.{dep,builtin}. On Android expect files in /system/lib/modules
+> directory.
+> 
+> Also treat '-' and '_' in module name as the same (follow kmod implementation).
+> 
+> On Android still assume all drivers are available because modules.* files might
+> not be available. We could search modules in /system/lib/modules, but to
+> to determine built-in drivers we need modules.builtin (it's required
+> also by Busybox mod{info,probe} implementation).
+> 
+> This fixes many tests on BusyBox, e.g. *all* network tests (tests using
+> tst_net.sh) after 305a78e4c ("tst_net.sh: Require veth for netns").
+> 
+> Signed-off-by: Petr Vorel <pvorel@suse.cz>
+> ---
+>  lib/tst_kernel.c | 99 ++++++++++++++++++++++++++++++++++++++++++------
+>  1 file changed, 87 insertions(+), 12 deletions(-)
+> 
+> diff --git a/lib/tst_kernel.c b/lib/tst_kernel.c
+> index 57fa4b2be..279c8936c 100644
+> --- a/lib/tst_kernel.c
+> +++ b/lib/tst_kernel.c
+> @@ -1,5 +1,6 @@
+>  /*
+>   * Copyright (c) 2017 Cyril Hrubis <chrubis@suse.cz>
+> + * Copyright (c) 2020-2021 Petr Vorel <pvorel@suse.cz>
+>   *
+>   * This program is free software: you can redistribute it and/or modify
+>   * it under the terms of the GNU General Public License as published by
+> @@ -17,8 +18,11 @@
+>  
+>  #include <sys/personality.h>
+>  #include <sys/utsname.h>
+> +#include <limits.h>
+> +
+>  #include "test.h"
+>  #include "tst_kernel.h"
+> +#include "old_safe_stdio.h"
+>  
+>  static int get_kernel_bits_from_uname(struct utsname *buf)
+>  {
+> @@ -81,20 +85,91 @@ int tst_kernel_bits(void)
+>  	return kernel_bits;
+>  }
+>  
+> -int tst_check_driver(const char *name)
+> +int tst_search_driver(const char *driver, const char *file)
+>  {
+> -#ifndef __ANDROID__
+> -	const char * const argv[] = { "modprobe", "-n", name, NULL };
+> -	int res = tst_cmd_(NULL, argv, "/dev/null", "/dev/null",
+> -			       TST_CMD_PASS_RETVAL);
+> -
+> -	/* 255 - it looks like modprobe not available */
+> -	return (res == 255) ? 0 : res;
+> -#else
+> -	/* Android modprobe may not have '-n', or properly installed
+> -	 * module.*.bin files to determine built-in drivers. Assume
+> -	 * all drivers are available.
+> +	struct stat st;
+> +	char *path = NULL, *search = NULL;
+> +	char buf[PATH_MAX], module[PATH_MAX];
+> +	FILE *f;
+> +
+> +	struct utsname uts;
+> +
+> +	if (uname(&uts)) {
+> +		tst_brkm(TBROK | TERRNO, NULL, "uname() failed");
+> +		return -1;
+> +	}
+> +	SAFE_ASPRINTF(NULL, &path, "/lib/modules/%s/%s", uts.release, file);
+
+This is just the ramdisk location, the on-disk location is
+/vendor/lib/modules/. I also think that the ramdisk one goes away after we
+switch over 2nd stage init. Is there a test I can run that uses these
+functions now to make sure this works?
+
+Also, unfortunately (and sadly) we may have to do something Android specific
+downstream as the /vendor/lib/modules and /lib/modules only started to appear
+as of android 11 :(.
+
+Once you share how I can test, I'm happy to test and add my Tested-by for
+Android.
+
++cc: kernel-team@android.com
+> +
+> +	if (stat(path, &st) || !(S_ISREG(st.st_mode) || S_ISLNK(st.st_mode))) {
+> +		tst_resm(TWARN, "expected file %s does not exist or not a file", path);
+> +		return -1;
+> +	}
+> +
+> +	if (access(path, R_OK)) {
+> +		tst_resm(TWARN, "file %s cannot be read", path);
+> +		return -1;
+> +	}
+> +
+> +	SAFE_ASPRINTF(NULL, &search, "/%s.ko", driver);
+> +
+> +	f = SAFE_FOPEN(NULL, path, "r");
+> +
+> +	while (fgets(buf, sizeof(buf), f)) {
+> +		if (sscanf(buf, "%s", module) != 1)
+> +			continue;
+> +
+> +		if (strstr(module, search) != NULL) {
+> +			SAFE_FCLOSE(NULL, f);
+> +			return 0;
+> +		}
+> +	}
+> +
+> +	SAFE_FCLOSE(NULL, f);
+> +
+> +	return -1;
+> +}
+> +
+> +int tst_check_driver_(const char *driver)
+> +{
+> +	if (!tst_search_driver(driver, "modules.dep") ||
+> +		!tst_search_driver(driver, "modules.builtin"))
+> +		return 0;
+> +
+> +	return 1;
+> +}
+> +
+> +int tst_check_driver(const char *driver)
+> +{
+> +#ifdef __ANDROID__
+> +	/*
+> +	 * Android may not have properly installed modules.* files. We could
+> +	 * search modules in /system/lib/modules, but to to determine built-in
+
+the appropriate location would be /lib/modules OR /vendor/lib/modules.
+> +	 * drivers we need modules.builtin. Therefore assume all drivers are
+> +	 * available.
+>  	 */
+>  	return 0;
+>  #endif
+> +
+> +	if (!tst_check_driver_(driver))
+> +		return 0;
+> +
+> +	if (strrchr(driver, '-') || strrchr(driver, '_')) {
+> +		char *driver2 = strdup(driver);
+> +		char *ix = driver2;
+> +		char find = '-', replace = '_';
+> +
+> +		if (strrchr(driver, '_')) {
+> +			find = '_';
+> +			replace = '-';
+> +		}
+> +
+> +		while ((ix = strchr(ix, find)) != NULL) {
+> +			*ix++ = replace;
+> +		}
+> +
+> +		if (!tst_check_driver_(driver2))
+> +			return 0;
+> +	}
+> +
+> +	return 1;
+>  }
+> -- 
+> 2.30.0
+> 
+> 
+> -- 
+> Mailing list info: https://lists.linux.it/listinfo/ltp
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
