@@ -1,39 +1,39 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D0802FBBDE
-	for <lists+linux-ltp@lfdr.de>; Tue, 19 Jan 2021 17:03:39 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7624D2FBBDF
+	for <lists+linux-ltp@lfdr.de>; Tue, 19 Jan 2021 17:03:47 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C7F693C67C1
-	for <lists+linux-ltp@lfdr.de>; Tue, 19 Jan 2021 17:03:38 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 3C2CB3C67E5
+	for <lists+linux-ltp@lfdr.de>; Tue, 19 Jan 2021 17:03:47 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id BCDD83C308C
- for <ltp@lists.linux.it>; Tue, 19 Jan 2021 17:03:25 +0100 (CET)
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 41F9C3C3093
+ for <ltp@lists.linux.it>; Tue, 19 Jan 2021 17:03:26 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 415F51000A75
- for <ltp@lists.linux.it>; Tue, 19 Jan 2021 17:03:24 +0100 (CET)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id EC9636002D4
+ for <ltp@lists.linux.it>; Tue, 19 Jan 2021 17:03:25 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 3EC92AC4F;
- Tue, 19 Jan 2021 16:03:24 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 83ED8B28A;
+ Tue, 19 Jan 2021 16:03:25 +0000 (UTC)
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Tue, 19 Jan 2021 17:03:15 +0100
-Message-Id: <20210119160316.4776-2-pvorel@suse.cz>
+Date: Tue, 19 Jan 2021 17:03:16 +0100
+Message-Id: <20210119160316.4776-3-pvorel@suse.cz>
 X-Mailer: git-send-email 2.30.0
 In-Reply-To: <20210119160316.4776-1-pvorel@suse.cz>
 References: <20210119160316.4776-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH v3 1/2] lib: Fix kernel module detection on BusyBox
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH v3 2/2] zram: Fix module detection on BusyBox
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,161 +51,43 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-BusyBox modprobe implementation does not support -n switch.
+BusyBox modinfo implementation does not exit with 0 when module not
+found. Our own API implementation used for module detection in
+tst_check_driver() was fixed in previous commit thus use it.
 
-It does support -D, which could be used, *but* unless is busybox binary
-configured with CONFIG_MODPROBE_SMALL=y (IMHO the default).
-
-We could use modinfo and grep output for 'filename:', but we agreed on
-ML that having our own implementation will be the best as it also
-does not require modinfo as external dependency.
-
-Implementation searches for for module presence in /lib/modules/$(uname
--r)/modules.{dep,builtin}. On Android expect files in /system/lib/modules
-directory.
-
-Also treat '-' and '_' in module name as the same (follow kmod implementation).
-
-On Android still assume all drivers are available because modules.* files might
-not be available. We could search modules in /system/lib/modules, but to
-to determine built-in drivers we need modules.builtin (it's required
-also by Busybox mod{info,probe} implementation).
-
-This fixes many tests on BusyBox, e.g. *all* network tests (tests using
-tst_net.sh) after 305a78e4c ("tst_net.sh: Require veth for netns").
-
+Reported-by: Leo Yu-Chi Liang <ycliang@andestech.com>
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- lib/tst_kernel.c | 99 ++++++++++++++++++++++++++++++++++++++++++------
- 1 file changed, 87 insertions(+), 12 deletions(-)
+ testcases/kernel/device-drivers/zram/zram_lib.sh | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/lib/tst_kernel.c b/lib/tst_kernel.c
-index 57fa4b2be..279c8936c 100644
---- a/lib/tst_kernel.c
-+++ b/lib/tst_kernel.c
-@@ -1,5 +1,6 @@
- /*
-  * Copyright (c) 2017 Cyril Hrubis <chrubis@suse.cz>
-+ * Copyright (c) 2020-2021 Petr Vorel <pvorel@suse.cz>
-  *
-  * This program is free software: you can redistribute it and/or modify
-  * it under the terms of the GNU General Public License as published by
-@@ -17,8 +18,11 @@
+diff --git a/testcases/kernel/device-drivers/zram/zram_lib.sh b/testcases/kernel/device-drivers/zram/zram_lib.sh
+index 3f4d1d55f..bdbf2453a 100755
+--- a/testcases/kernel/device-drivers/zram/zram_lib.sh
++++ b/testcases/kernel/device-drivers/zram/zram_lib.sh
+@@ -1,6 +1,6 @@
+ #!/bin/sh
+ # Copyright (c) 2015 Oracle and/or its affiliates. All Rights Reserved.
+-# Copyright (c) 2019 Petr Vorel <pvorel@suse.cz>
++# Copyright (c) 2019-2021 Petr Vorel <pvorel@suse.cz>
+ # Author: Alexey Kodanev <alexey.kodanev@oracle.com>
  
- #include <sys/personality.h>
- #include <sys/utsname.h>
-+#include <limits.h>
-+
- #include "test.h"
- #include "tst_kernel.h"
-+#include "old_safe_stdio.h"
+ dev_makeswap=-1
+@@ -9,6 +9,7 @@ dev_mounted=-1
+ TST_NEEDS_TMPDIR=1
+ TST_SETUP="zram_load"
+ TST_CLEANUP="zram_cleanup"
++TST_NEEDS_DRIVERS="zram"
+ . tst_test.sh
  
- static int get_kernel_bits_from_uname(struct utsname *buf)
- {
-@@ -81,20 +85,91 @@ int tst_kernel_bits(void)
- 	return kernel_bits;
+ zram_cleanup()
+@@ -210,6 +211,3 @@ zram_mount()
+ 
+ 	tst_res TPASS "mount of zram device(s) succeeded"
  }
- 
--int tst_check_driver(const char *name)
-+int tst_search_driver(const char *driver, const char *file)
- {
--#ifndef __ANDROID__
--	const char * const argv[] = { "modprobe", "-n", name, NULL };
--	int res = tst_cmd_(NULL, argv, "/dev/null", "/dev/null",
--			       TST_CMD_PASS_RETVAL);
 -
--	/* 255 - it looks like modprobe not available */
--	return (res == 255) ? 0 : res;
--#else
--	/* Android modprobe may not have '-n', or properly installed
--	 * module.*.bin files to determine built-in drivers. Assume
--	 * all drivers are available.
-+	struct stat st;
-+	char *path = NULL, *search = NULL;
-+	char buf[PATH_MAX], module[PATH_MAX];
-+	FILE *f;
-+
-+	struct utsname uts;
-+
-+	if (uname(&uts)) {
-+		tst_brkm(TBROK | TERRNO, NULL, "uname() failed");
-+		return -1;
-+	}
-+	SAFE_ASPRINTF(NULL, &path, "/lib/modules/%s/%s", uts.release, file);
-+
-+	if (stat(path, &st) || !(S_ISREG(st.st_mode) || S_ISLNK(st.st_mode))) {
-+		tst_resm(TWARN, "expected file %s does not exist or not a file", path);
-+		return -1;
-+	}
-+
-+	if (access(path, R_OK)) {
-+		tst_resm(TWARN, "file %s cannot be read", path);
-+		return -1;
-+	}
-+
-+	SAFE_ASPRINTF(NULL, &search, "/%s.ko", driver);
-+
-+	f = SAFE_FOPEN(NULL, path, "r");
-+
-+	while (fgets(buf, sizeof(buf), f)) {
-+		if (sscanf(buf, "%s", module) != 1)
-+			continue;
-+
-+		if (strstr(module, search) != NULL) {
-+			SAFE_FCLOSE(NULL, f);
-+			return 0;
-+		}
-+	}
-+
-+	SAFE_FCLOSE(NULL, f);
-+
-+	return -1;
-+}
-+
-+int tst_check_driver_(const char *driver)
-+{
-+	if (!tst_search_driver(driver, "modules.dep") ||
-+		!tst_search_driver(driver, "modules.builtin"))
-+		return 0;
-+
-+	return 1;
-+}
-+
-+int tst_check_driver(const char *driver)
-+{
-+#ifdef __ANDROID__
-+	/*
-+	 * Android may not have properly installed modules.* files. We could
-+	 * search modules in /system/lib/modules, but to to determine built-in
-+	 * drivers we need modules.builtin. Therefore assume all drivers are
-+	 * available.
- 	 */
- 	return 0;
- #endif
-+
-+	if (!tst_check_driver_(driver))
-+		return 0;
-+
-+	if (strrchr(driver, '-') || strrchr(driver, '_')) {
-+		char *driver2 = strdup(driver);
-+		char *ix = driver2;
-+		char find = '-', replace = '_';
-+
-+		if (strrchr(driver, '_')) {
-+			find = '_';
-+			replace = '-';
-+		}
-+
-+		while ((ix = strchr(ix, find)) != NULL) {
-+			*ix++ = replace;
-+		}
-+
-+		if (!tst_check_driver_(driver2))
-+			return 0;
-+	}
-+
-+	return 1;
- }
+-modinfo zram > /dev/null 2>&1 ||
+-	tst_brk TCONF "zram not configured in kernel"
 -- 
 2.30.0
 
