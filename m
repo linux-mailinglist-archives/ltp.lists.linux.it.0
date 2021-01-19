@@ -1,126 +1,40 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26BC22FBC9F
-	for <lists+linux-ltp@lfdr.de>; Tue, 19 Jan 2021 17:39:10 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C4332FBE83
+	for <lists+linux-ltp@lfdr.de>; Tue, 19 Jan 2021 19:06:01 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DD6E43C30C8
-	for <lists+linux-ltp@lfdr.de>; Tue, 19 Jan 2021 17:39:09 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 42C9B3C30C8
+	for <lists+linux-ltp@lfdr.de>; Tue, 19 Jan 2021 19:06:01 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 7BECA3C0BCB
- for <ltp@lists.linux.it>; Tue, 19 Jan 2021 17:39:08 +0100 (CET)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 91F606000EF
- for <ltp@lists.linux.it>; Tue, 19 Jan 2021 17:39:07 +0100 (CET)
-Received: from gallifrey.ext.pengutronix.de
- ([2001:67c:670:201:5054:ff:fe8d:eefb] helo=bjornoya.blackshift.org)
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <mkl@pengutronix.de>)
- id 1l1u26-0005FZ-E2; Tue, 19 Jan 2021 17:39:06 +0100
-Received: from [IPv6:2a03:f580:87bc:d400:8975:b8c4:b326:621a] (unknown
- [IPv6:2a03:f580:87bc:d400:8975:b8c4:b326:621a])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits) server-digest
- SHA256 client-signature RSA-PSS (4096 bits) client-digest SHA256)
- (Client CN "mkl@blackshift.org",
- Issuer "StartCom Class 1 Client CA" (not verified))
- (Authenticated sender: mkl@blackshift.org)
- by smtp.blackshift.org (Postfix) with ESMTPSA id EA1515C8001;
- Tue, 19 Jan 2021 16:39:04 +0000 (UTC)
-To: rpalethorpe@suse.de
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id 44C8F3C06E2
+ for <ltp@lists.linux.it>; Tue, 19 Jan 2021 19:06:00 +0100 (CET)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id B2B601A00A33
+ for <ltp@lists.linux.it>; Tue, 19 Jan 2021 19:05:59 +0100 (CET)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 08848AE36;
+ Tue, 19 Jan 2021 18:05:59 +0000 (UTC)
+Date: Tue, 19 Jan 2021 19:05:57 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: Richard Palethorpe <rpalethorpe@suse.com>
+Message-ID: <YAcfhf2qg5q4VZrg@pevik>
 References: <20210119093143.17222-1-rpalethorpe@suse.com>
- <20210119093143.17222-5-rpalethorpe@suse.com>
- <322f1056-0a73-65e6-531a-3275029df256@pengutronix.de>
- <YAb1Wncn2/x6LBYj@yuki.lan>
- <3277a88e-0301-7f3d-b024-c728e1041092@pengutronix.de>
- <87bldkq41l.fsf@suse.de>
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-Autocrypt: addr=mkl@pengutronix.de; prefer-encrypt=mutual; keydata=
- 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
-Message-ID: <85d808dd-c8c3-1216-ee6e-94d63ddf0f2b@pengutronix.de>
-Date: Tue, 19 Jan 2021 17:39:01 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+ <20210119093143.17222-3-rpalethorpe@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <87bldkq41l.fsf@suse.de>
-X-SA-Exim-Connect-IP: 2001:67c:670:201:5054:ff:fe8d:eefb
-X-SA-Exim-Mail-From: mkl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: ltp@lists.linux.it
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20210119093143.17222-3-rpalethorpe@suse.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 4/6] can_recv_own_msgs: Convert to new library
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 2/6] can: Add can_common.h for vcan device setup
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,166 +46,77 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: Oliver Hartkopp <socketcan@hartkopp.net>, ltp@lists.linux.it,
  linux-can@vger.kernel.org
-Content-Type: multipart/mixed; boundary="===============2143399848=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============2143399848==
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature";
- boundary="aFCDigC6GRxfsdQ20QzgZRLQj3UFN9VyR"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---aFCDigC6GRxfsdQ20QzgZRLQj3UFN9VyR
-Content-Type: multipart/mixed; boundary="H5HQFSVpZaggOTmSDFDWDTJonQcLAqcJC";
- protected-headers="v1"
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: rpalethorpe@suse.de
-Cc: Cyril Hrubis <chrubis@suse.cz>, ltp@lists.linux.it,
- Oliver Hartkopp <socketcan@hartkopp.net>, linux-can@vger.kernel.org
-Message-ID: <85d808dd-c8c3-1216-ee6e-94d63ddf0f2b@pengutronix.de>
-Subject: Re: [LTP] [PATCH v2 4/6] can_recv_own_msgs: Convert to new library
-References: <20210119093143.17222-1-rpalethorpe@suse.com>
- <20210119093143.17222-5-rpalethorpe@suse.com>
- <322f1056-0a73-65e6-531a-3275029df256@pengutronix.de>
- <YAb1Wncn2/x6LBYj@yuki.lan>
- <3277a88e-0301-7f3d-b024-c728e1041092@pengutronix.de>
- <87bldkq41l.fsf@suse.de>
-In-Reply-To: <87bldkq41l.fsf@suse.de>
-
---H5HQFSVpZaggOTmSDFDWDTJonQcLAqcJC
-Content-Type: text/plain; charset=utf-8
-Content-Language: de-DE
-Content-Transfer-Encoding: quoted-printable
-
-On 1/19/21 5:34 PM, Richard Palethorpe wrote:
-> Hello All,
->=20
-> Marc Kleine-Budde <mkl@pengutronix.de> writes:
->=20
->> On 1/19/21 4:06 PM, Cyril Hrubis wrote:
->>> Hi!
->>>>>  /*
->>>>> - * tst-rcv-own-msgs.c
->>>>> - *
->>>>> - * Copyright (c) 2010 Volkswagen Group Electronic Research
->>>>> - * All rights reserved.
->>>>> - *
->>>>> - * Redistribution and use in source and binary forms, with or with=
-out
->>>>> - * modification, are permitted provided that the following conditi=
-ons
->>>>> - * are met:
->>>>> - * 1. Redistributions of source code must retain the above copyrig=
-ht
->>>>> - *    notice, this list of conditions and the following disclaimer=
-=2E
->>>>> - * 2. Redistributions in binary form must reproduce the above copy=
-right
->>>>> - *    notice, this list of conditions and the following disclaimer=
- in the
->>>>> - *    documentation and/or other materials provided with the distr=
-ibution.
->>>>> - * 3. Neither the name of Volkswagen nor the names of its contribu=
-tors
->>>>> - *    may be used to endorse or promote products derived from this=
- software
->>>>> - *    without specific prior written permission.
->>>>
->>>> IANAL, I think you're missing this license. Is looks like some sort
->>>> of BSD to me.
->=20
-> Ufff, thanks, I should pay more attention when it is a test imported
-> from elsewhere.
->=20
->>>>
->>>>> - *
->>>>> - * Alternatively, provided that this notice is retained in full, t=
-his
->>>>> - * software may be distributed under the terms of the GNU General
->>>>> - * Public License ("GPL") version 2, in which case the provisions =
-of the
->>>>> - * GPL apply INSTEAD OF those given above.
->>>>
->>>> It doesn't say "or later".
->>>
->>> Looks like we cannot just remove this license. So what about moving t=
-his
->>> text into a separate COPYING file and changing the SPDX to GPL-v2.0?
->>
->> This file is dual licensed, better keep it dual licensed.
->>
->> regards,
->> Marc
->=20
-> HHmm, this appears to be the BSD-3-Clause license with the following
-> text inserted in the middle:
->=20
->  * Alternatively, provided that this notice is retained in full, this
->  * software may be distributed under the terms of the GNU General
->  * Public License ("GPL") version 2, in which case the provisions of th=
-e
->  * GPL apply INSTEAD OF those given above.
->  *
->  * The provided data structures and external interfaces from this code
->  * are not restricted to be used by modules with a GPL compatible licen=
-se.
->=20
-> I don't see any corresponding SPDX identifier or exception for this. It=
-
-> is probably easiest and safest just to keep it as-is.
-
-I think the Linux kernel uses:
-
-/* SPDX-License-Identifier: ((GPL-2.0-only WITH Linux-syscall-note) OR
-BSD-3-Clause) */
-
-e.g.:
-
-https://elixir.bootlin.com/linux/v5.10/source/include/uapi/linux/can/gw.h=
-
-
-Marc
-
---=20
-Pengutronix e.K.                 | Marc Kleine-Budde           |
-Embedded Linux                   | https://www.pengutronix.de  |
-Vertretung West/Dortmund         | Phone: +49-231-2826-924     |
-Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-5555 |
-
-
---H5HQFSVpZaggOTmSDFDWDTJonQcLAqcJC--
-
---aFCDigC6GRxfsdQ20QzgZRLQj3UFN9VyR
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCgAdFiEEK3kIWJt9yTYMP3ehqclaivrt76kFAmAHCyUACgkQqclaivrt
-76m9swgAsyUB3OfLOyqzG9WMmppBWFojQryke+cO9YE8HBR60bJwSyi2Vpr+zxup
-qOoH7jWnC8VrsI1qvBaue9M4z58AeE9npb16Jz00u8Z4LkMWhowy/snay2scv+4K
-QAgdOW02toakAQ2PtjDUoTf4YCljgUF3A4no6J6kvDsjmiMDX8lmaRijm89sweC8
-P0rmoG2Joj7D9WdwxJDIHQXxEK+aSDD1WCK81GW7Zhz5IhTp508ywO4loG/rNhj0
-c6svD+h35BVvd+R4lIXYMiiTziA6l4KPpG0lcoEUsv6Q374xikl0T/kz9j6efub/
-jNmoWJBK5krYwOoAqxYWlc1G0dJ5Tg==
-=kcZZ
------END PGP SIGNATURE-----
-
---aFCDigC6GRxfsdQ20QzgZRLQj3UFN9VyR--
-
---===============2143399848==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============2143399848==--
+SGkgUmljaGllLAoKLi4uCj4gKyNpbmNsdWRlIDxsaW51eC9pZi5oPgouLi4KPiArc3RhdGljIHZv
+aWQgY2FuX3NldHVwX3ZjYW4odm9pZCkKPiArewouLi4KPiArY2hlY2tfZWNobzoKPiArCS8qIFBy
+ZWNvbmRpdGlvbiBmb3IgdGhlIGZyYW1lIGZsb3cgdGVzdD8gKi8KPiArCVNBRkVfQVNQUklOVEYo
+JnBhdGgsICIvc3lzL2NsYXNzL25ldC8lcy9mbGFncyIsIGNhbl9kZXZfbmFtZSk7Cj4gKwlpZiAo
+RklMRV9TQ0FORihwYXRoLCAiJXgiLCAmZmxhZ3MpIHx8ICEoZmxhZ3MgJiBJRkZfRUNITykpCkZZ
+SSBJRkZfRUNITyBpcyBub3QgZGVmaW5lZCBvbiBzb21lIG9sZGVyIHRvb2xjaGFpbnMgKGFhcmNo
+NjQpLgpJdCdkIGJlIGdvb2QgdG8gYWRkIGxhcGkvaWYuaCwgd2hlcmUgaXQnZCBiZSBkZWZpbmVk
+LgpCdXQgaXQgY2FuIGJlIGFkZGVkIGxhdGVyLgoKSW4gZmlsZSBpbmNsdWRlZCBmcm9tIGNhbl9j
+b21tb24uaDoyMSwKICAgICAgICAgICAgICAgICBmcm9tIGNhbl9maWx0ZXIuYzoxMjoKY2FuX2Nv
+bW1vbi5oOiBJbiBmdW5jdGlvbiDigJhjYW5fc2V0dXBfdmNhbuKAmToKY2FuX2NvbW1vbi5oOjU4
+OjUwOiBlcnJvcjog4oCYSUZGX0VDSE/igJkgdW5kZWNsYXJlZCAoZmlyc3QgdXNlIGluIHRoaXMg
+ZnVuY3Rpb24pOyBkaWQgeW91IG1lYW4g4oCYSUZGX0RFQlVH4oCZPwogIGlmIChGSUxFX1NDQU5G
+KHBhdGgsICIleCIsICZmbGFncykgfHwgIShmbGFncyAmIElGRl9FQ0hPKSkKICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBefn5+fn5+fgpjYW5fY29tbW9u
+Lmg6NTg6NTA6IG5vdGU6IGVhY2ggdW5kZWNsYXJlZCBpZGVudGlmaWVyIGlzIHJlcG9ydGVkIG9u
+bHkgb25jZSBmb3IgZWFjaCBmdW5jdGlvbiBpdCBhcHBlYXJzIGluCkluIGZpbGUgaW5jbHVkZWQg
+ZnJvbSBjYW5fY29tbW9uLmg6MjEsCiAgICAgICAgICAgICAgICAgZnJvbSBjYW5fcmN2X293bl9t
+c2dzLmM6MTI6CmNhbl9jb21tb24uaDogSW4gZnVuY3Rpb24g4oCYY2FuX3NldHVwX3ZjYW7igJk6
+CmNhbl9jb21tb24uaDo1ODo1MDogZXJyb3I6IOKAmElGRl9FQ0hP4oCZIHVuZGVjbGFyZWQgKGZp
+cnN0IHVzZSBpbiB0aGlzIGZ1bmN0aW9uKTsgZGlkIHlvdSBtZWFuIOKAmElGRl9ERUJVR+KAmT8K
+ICBpZiAoRklMRV9TQ0FORihwYXRoLCAiJXgiLCAmZmxhZ3MpIHx8ICEoZmxhZ3MgJiBJRkZfRUNI
+TykpCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXn5+
+fn5+fn4KCkFsc28gdGhlcmUgYXJlIG90aGVyIHByb2JsZW1zIG9uIHRvb2xjaGFpbnMgd2l0aCBv
+bGRlciBsaW51eCBoZWFkZXJzCi0gYnVnIGluIHVzaW5nIDxuZXQvaWYuaD4gd2l0aCA8bGludXgv
+aWYuaD4uIENhbid0IHdlIGp1c3QgdXNlIDxsaW51eC9pZi5oPj8KaHR0cHM6Ly90cmF2aXMtY2ku
+b3JnL2dpdGh1Yi9wZXZpay9sdHAvam9icy83NTUxNjMwNzYKCkluIGZpbGUgaW5jbHVkZWQgZnJv
+bSAvdXNyL3NyYy9sdHAvdGVzdGNhc2VzL25ldHdvcmsvY2FuL2ZpbHRlci10ZXN0cy9jYW5fY29t
+bW9uLmg6MTU6MCwKICAgICAgICAgICAgICAgICBmcm9tIC91c3Ivc3JjL2x0cC90ZXN0Y2FzZXMv
+bmV0d29yay9jYW4vZmlsdGVyLXRlc3RzL2Nhbl9maWx0ZXIuYzoxMjoKL3Vzci9pbmNsdWRlL2xp
+bnV4L2lmLmg6NzE6MjogZXJyb3I6IHJlZGVjbGFyYXRpb24gb2YgZW51bWVyYXRvciAnSUZGX1VQ
+JwogIElGRl9VUCAgICA9IDE8PDAsICAvKiBzeXNmcyAqLwogIF4KL3Vzci9pbmNsdWRlL25ldC9p
+Zi5oOjQ0OjU6IG5vdGU6IHByZXZpb3VzIGRlZmluaXRpb24gb2YgJ0lGRl9VUCcgd2FzIGhlcmUK
+ICAgICBJRkZfVVAgPSAweDEsICAvKiBJbnRlcmZhY2UgaXMgdXAuICAqLwogICAgIF4KL3Vzci9p
+bmNsdWRlL2xpbnV4L2lmLmg6NzI6MjogZXJyb3I6IHJlZGVjbGFyYXRpb24gb2YgZW51bWVyYXRv
+ciAnSUZGX0JST0FEQ0FTVCcKICBJRkZfQlJPQURDQVNUICAgPSAxPDwxLCAgLyogX192b2xhdGls
+ZV9fICovCiAgXgovdXNyL2luY2x1ZGUvbmV0L2lmLmg6NDY6NTogbm90ZTogcHJldmlvdXMgZGVm
+aW5pdGlvbiBvZiAnSUZGX0JST0FEQ0FTVCcgd2FzIGhlcmUKICAgICBJRkZfQlJPQURDQVNUID0g
+MHgyLCAvKiBCcm9hZGNhc3QgYWRkcmVzcyB2YWxpZC4gICovCiAgICAgXgovdXNyL2luY2x1ZGUv
+bGludXgvaWYuaDo3MzoyOiBlcnJvcjogcmVkZWNsYXJhdGlvbiBvZiBlbnVtZXJhdG9yICdJRkZf
+REVCVUcnCiAgSUZGX0RFQlVHICAgPSAxPDwyLCAgLyogc3lzZnMgKi8KICBeCi91c3IvaW5jbHVk
+ZS9uZXQvaWYuaDo0ODo1OiBub3RlOiBwcmV2aW91cyBkZWZpbml0aW9uIG9mICdJRkZfREVCVUcn
+IHdhcyBoZXJlCiAgICAgSUZGX0RFQlVHID0gMHg0LCAgLyogVHVybiBvbiBkZWJ1Z2dpbmcuICAq
+LwogICAgIF4KL3Vzci9pbmNsdWRlL2xpbnV4L2lmLmg6NzQ6MjogZXJyb3I6IHJlZGVjbGFyYXRp
+b24gb2YgZW51bWVyYXRvciAnSUZGX0xPT1BCQUNLJwogIElGRl9MT09QQkFDSyAgID0gMTw8Mywg
+IC8qIF9fdm9sYXRpbGVfXyAqLwogIF4KL3Vzci9pbmNsdWRlL25ldC9pZi5oOjUwOjU6IG5vdGU6
+IHByZXZpb3VzIGRlZmluaXRpb24gb2YgJ0lGRl9MT09QQkFDSycgd2FzIGhlcmUKICAgICBJRkZf
+TE9PUEJBQ0sgPSAweDgsICAvKiBJcyBhIGxvb3BiYWNrIG5ldC4gICovCiAgICAgXgovdXNyL2lu
+Y2x1ZGUvbGludXgvaWYuaDo3NToyOiBlcnJvcjogcmVkZWNsYXJhdGlvbiBvZiBlbnVtZXJhdG9y
+ICdJRkZfUE9JTlRPUE9JTlQnCiAgSUZGX1BPSU5UT1BPSU5UICAgPSAxPDw0LCAgLyogX192b2xh
+dGlsZV9fICovCiAgXgovdXNyL2luY2x1ZGUvbmV0L2lmLmg6NTI6NTogbm90ZTogcHJldmlvdXMg
+ZGVmaW5pdGlvbiBvZiAnSUZGX1BPSU5UT1BPSU5UJyB3YXMgaGVyZQogICAgIElGRl9QT0lOVE9Q
+T0lOVCA9IDB4MTAsIC8qIEludGVyZmFjZSBpcyBwb2ludC10by1wb2ludCBsaW5rLiAgKi8KICAg
+ICBeCi91c3IvaW5jbHVkZS9saW51eC9pZi5oOjc2OjI6IGVycm9yOiByZWRlY2xhcmF0aW9uIG9m
+IGVudW1lcmF0b3IgJ0lGRl9OT1RSQUlMRVJTJwogIElGRl9OT1RSQUlMRVJTICAgPSAxPDw1LCAg
+Lyogc3lzZnMgKi8KICBeCi91c3IvaW5jbHVkZS9uZXQvaWYuaDo1NDo1OiBub3RlOiBwcmV2aW91
+cyBkZWZpbml0aW9uIG9mICdJRkZfTk9UUkFJTEVSUycgd2FzIGhlcmUKICAgICBJRkZfTk9UUkFJ
+TEVSUyA9IDB4MjAsIC8qIEF2b2lkIHVzZSBvZiB0cmFpbGVycy4gICovCiAgICAgXgovdXNyL2lu
+Y2x1ZGUvbGludXgvaWYuaDo3NzoyOiBlcnJvcjogcmVkZWNsYXJhdGlvbiBvZiBlbnVtZXJhdG9y
+ICdJRkZfUlVOTklORycKICBJRkZfUlVOTklORyAgID0gMTw8NiwgIC8qIF9fdm9sYXRpbGVfXyAq
+LwoKQWxzbyBpdCBmYWlscyB0byBydW4gZG9jcGFyc2U6CmludmFsaWQgY2hhcmFjdGVyIGVuY291
+bnRlcmVkIHdoaWxlIHBhcnNpbmcgSlNPTiBzdHJpbmcsIGF0IGNoYXJhY3RlciBvZmZzZXQgMTMz
+MjQ5IChiZWZvcmUgIlx0Q0FOIGRldmljZSBuYW1lIlxuLi4uIikgYXQgL3Vzci9zcmMvbHRwL2Rv
+Y3BhcnNlL3Rlc3RpbmZvLnBsIGxpbmUgMzk4LgptYWtlWzFdOiAqKiogWy91c3Ivc3JjL2x0cC9k
+b2NwYXJzZS9NYWtlZmlsZTo2MDogdHh0XSBFcnJvciAyNTUKSSdsbCBoYXZlIGxvb2sgaW50byB0
+aGlzIG9uZS4KCktpbmQgcmVnYXJkcywKUGV0cgoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRw
+czovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
