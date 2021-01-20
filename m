@@ -2,52 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15FBC2FC705
-	for <lists+linux-ltp@lfdr.de>; Wed, 20 Jan 2021 02:45:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 869EF2FC87E
+	for <lists+linux-ltp@lfdr.de>; Wed, 20 Jan 2021 04:10:26 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id BA5863C53EC
-	for <lists+linux-ltp@lfdr.de>; Wed, 20 Jan 2021 02:45:16 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 3A1693C53EC
+	for <lists+linux-ltp@lfdr.de>; Wed, 20 Jan 2021 04:10:26 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id 296793C24E4
- for <ltp@lists.linux.it>; Wed, 20 Jan 2021 02:45:14 +0100 (CET)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id 63C79600786
- for <ltp@lists.linux.it>; Wed, 20 Jan 2021 02:45:12 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.79,359,1602518400"; d="scan'208";a="103641035"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 20 Jan 2021 09:45:10 +0800
-Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id B64094CE603F;
- Wed, 20 Jan 2021 09:45:09 +0800 (CST)
-Received: from [10.167.220.84] (10.167.220.84) by
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Wed, 20 Jan 2021 09:45:03 +0800
-Message-ID: <60078B41.4020906@cn.fujitsu.com>
-Date: Wed, 20 Jan 2021 09:45:37 +0800
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
- rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id E38993C2863
+ for <ltp@lists.linux.it>; Wed, 20 Jan 2021 04:10:23 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTP id B53B16000FC
+ for <ltp@lists.linux.it>; Wed, 20 Jan 2021 04:10:22 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1611112221;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=zf2rjI2iY2Kds2/NW9zqVk7O8UFkh1N0FThYOyBgumo=;
+ b=Gzwo3/9g/O4PSMubiu4hCqLFpobjB3r5rFLDEa/Z4r7oENK3L/W8WYVYHrLt036azwMt3Y
+ zzWbyH68vAYAaarDWbf4zCAWe94/6OZZtDkaI0lEtezWJsNiFg7oqiLALg+zlTLhVf2J8C
+ R1lKghiFWnCxn2ZRrTKKmZXLGknig50=
+Received: from mail-yb1-f199.google.com (mail-yb1-f199.google.com
+ [209.85.219.199]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-274-OnN15iByMPyNTrqU5eMevA-1; Tue, 19 Jan 2021 22:10:16 -0500
+X-MC-Unique: OnN15iByMPyNTrqU5eMevA-1
+Received: by mail-yb1-f199.google.com with SMTP id b62so18789737ybg.1
+ for <ltp@lists.linux.it>; Tue, 19 Jan 2021 19:10:16 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=zf2rjI2iY2Kds2/NW9zqVk7O8UFkh1N0FThYOyBgumo=;
+ b=Tgc+GTJI0fZjyqcSSlTuivhQuGaD/yeC4rfMJzsam6R+7mDil0Xx/0yyxXPdMyZkee
+ nLLdrIlwz9QBB50k1yhsVCKs846ZDSyWS9Sjtcf8lMUr7vFtHLWXzcdF7wB8Fv6f6kcc
+ g9ZSdIv9w2XHse3s1Dd1dL/Wx5HNMtTwtNKX9tT4LI/WpKC4aOO+N9elsSArHmnecKTm
+ 6OzGNSoj0RI55LhjIT2Wg2EPLzxX2NGmbQoKdH9URNF1eNfkDOTWdb/2CR5IpAaPVPw6
+ RICSuMxE1e9vKnRxJ69ZpC/aWbSkH+P1btbdxuWrE3vsPymeJ5Tvt8vyQE51/zVsaZ+a
+ YG+A==
+X-Gm-Message-State: AOAM530tnCQBY5rupqRJcqNB/GPp4o/G3tZchO2/wkYixJZoCby88C2A
+ vqpFR7A83SQXM6qPt8kMviOLJG8G3PtcqjVFtjtqujZIkX6fqisQ2bO2Vsk5qDydxPvV/Vhpm1E
+ Cbwr/OIuiUrnMuI0cGm6ewnU+iC4=
+X-Received: by 2002:a25:da06:: with SMTP id n6mr10765622ybf.97.1611112215923; 
+ Tue, 19 Jan 2021 19:10:15 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJzwd9lP504n4+uC0Ur/Yhrj5G9Cn+g1svxNhv0igzMEacCo3CZlUtJKjONTOku7gQk72vNMcsbplBhYOwCn5jw=
+X-Received: by 2002:a25:da06:: with SMTP id n6mr10765608ybf.97.1611112215763; 
+ Tue, 19 Jan 2021 19:10:15 -0800 (PST)
 MIME-Version: 1.0
-To: Petr Vorel <pvorel@suse.cz>
-References: <X/8ehCeZbWs6TIA4@yuki.lan>
- <1610590728-15813-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
- <600543C9.9080708@cn.fujitsu.com> <YAbAvorwMJUaeIGP@pevik>
-In-Reply-To: <YAbAvorwMJUaeIGP@pevik>
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: B64094CE603F.AAD30
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.4
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+References: <2e51e5453562001b5b6992ccc897d9177e6673ca.1571053661.git.jstancek@redhat.com>
+In-Reply-To: <2e51e5453562001b5b6992ccc897d9177e6673ca.1571053661.git.jstancek@redhat.com>
+From: Li Wang <liwang@redhat.com>
+Date: Wed, 20 Jan 2021 11:10:04 +0800
+Message-ID: <CAEemH2dj2KGi6dmYoJaxsvvG1wvecbM8GrpBshHh8CTkm7pe+A@mail.gmail.com>
+To: Jan Stancek <jstancek@redhat.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3 1/2] cpuset: skip test when cpu or nodes are
- not numbered continuously from 0
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] mlock_8-1,
+ munlock_10-1: don't use LONG_MAX as invalid pointer
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,82 +80,54 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============0076091988=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Petr
-> Hi Xu,
->
->>> These cpuset cases(cpuset_base_ops_test, cpuset_hierarchy_test, cpuset_inherit_test...)
->>> seem all not consider the situation(cpus/memory are not numbered continuously). It is
->>> continuously from 0 as default. Skip test if there are not numbered continuously to
->>> avoid unexpected error.
->
->>> This patch also fix cpu_inherit error by using original mem value.
->
->>> cpuset_inherit case fails on 4 numa nodes pc, as below:
->>> cpuset_inherit 1 TPASS: cpus: Inherited information is right!
->>> cpuset_inherit 3 TPASS: cpus: Inherited information is right!
->>> cpuset_inherit 5 TPASS: cpus: Inherited information is right!
->>> cpuset_inherit 7 TPASS: cpus: Inherited information is right!
->>> cpuset_inherit 9 TPASS: cpus: Inherited information is right!
->>> cpuset_inherit 11 TPASS: cpus: Inherited information is right!
->>> cpuset_inherit 13 TPASS: mems: Inherited information is right!
->>> cpuset_inherit 15 TPASS: mems: Inherited information is right!
->>> cpuset_inherit 17 TPASS: mems: Inherited information is right!
->>> cpuset_inherit 19 TPASS: mems: Inherited information is right!
->>> cpuset_inherit 21 TPASS: mems: Inherited information is right!
->>> cpuset_inherit 23 TFAIL: mems: Test result - 0-3 Expected string - "4"
->
-> Good catch :).
->
-> BTW how this happen? hot-unplug on lpar?
-> Maybe add brief note about it into commit message.
-I have added it and merged this patchset, thanks for you and cyril's review.
->
-> Reviewed-by: Petr Vorel<pvorel@suse.cz>
->
-> ...
->>> +++ b/testcases/kernel/controllers/cpuset/cpuset_funcs.sh
->>> @@ -26,23 +26,34 @@
->
->>>    . test.sh
->
->>> +cpu_string="`cat /sys/devices/system/cpu/online`"
->>>    NR_CPUS=`tst_ncpus`
->>> +
->>>    if [ -f "/sys/devices/system/node/has_high_memory" ]; then
->>> -	N_NODES="`cat /sys/devices/system/node/has_high_memory | tr ',' ' '`"
->>> +	mem_string="`cat /sys/devices/system/node/has_high_memory`"
->>>    else
->>> -	N_NODES="`cat /sys/devices/system/node/has_normal_memory | tr ',' ' '`"
->>> +	mem_string="`cat /sys/devices/system/node/has_normal_memory`"
->>>    fi
->>> +N_NODES="`echo $mem_string | tr ',' ' '`"
->
-> nit: I'd personally do:
->
-> f="/sys/devices/system/node/has_high_memory"
-> [ -f "$f" ] || f="/sys/devices/system/node/has_normal_memory"
-> N_NODES="$(cat $f | tr ',' ' ')"
->
-> but that's a tiny detail.
->
-> It'd be great to rewrite these tests into C.
-Yes, I will create a issue to avoid we forget this.
->
-> Kind regards,
-> Petr
->
->
-> .
->
+--===============0076091988==
+Content-Type: multipart/alternative; boundary="00000000000050756905b94c4bbf"
+
+--00000000000050756905b94c4bbf
+Content-Type: text/plain; charset="UTF-8"
+
+Hi Jan,
+
+I propose to reorg this patch with review comments (maybe apply it after
+the new release).
+
+Any thought?
+
+-- 
+Regards,
+Li Wang
+
+--00000000000050756905b94c4bbf
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small">Hi Jan,=C2=A0</div><div class=3D"gmail_default" style=3D"font=
+-size:small"><br></div><div class=3D"gmail_default" style=3D"font-size:smal=
+l">I propose to reorg this patch with=C2=A0review comments (maybe apply it =
+after the new release).</div><div class=3D"gmail_default" style=3D"font-siz=
+e:small"><br></div><div class=3D"gmail_default" style=3D"font-size:small">A=
+ny thought?</div></div><div><br></div>-- <br><div dir=3D"ltr" class=3D"gmai=
+l_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div>=
+</div></div></div>
+
+--00000000000050756905b94c4bbf--
 
 
+--===============0076091988==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============0076091988==--
+
