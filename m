@@ -2,39 +2,44 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF09B2FCDB2
-	for <lists+linux-ltp@lfdr.de>; Wed, 20 Jan 2021 11:00:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE0EC2FCDC8
+	for <lists+linux-ltp@lfdr.de>; Wed, 20 Jan 2021 11:18:56 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 83BA53C5DBD
-	for <lists+linux-ltp@lfdr.de>; Wed, 20 Jan 2021 11:00:18 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 8DF573C5E60
+	for <lists+linux-ltp@lfdr.de>; Wed, 20 Jan 2021 11:18:56 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id C11DE3C3071
- for <ltp@lists.linux.it>; Wed, 20 Jan 2021 11:00:16 +0100 (CET)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id C04233C0354
+ for <ltp@lists.linux.it>; Wed, 20 Jan 2021 11:18:54 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 059A61000AEB
- for <ltp@lists.linux.it>; Wed, 20 Jan 2021 11:00:15 +0100 (CET)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 170681400DD3
+ for <ltp@lists.linux.it>; Wed, 20 Jan 2021 11:18:53 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 556F3AC9B;
- Wed, 20 Jan 2021 10:00:15 +0000 (UTC)
-References: <20210120070053.11490-1-ycliang@andestech.com>
+ by mx2.suse.de (Postfix) with ESMTP id 698E1AAAE;
+ Wed, 20 Jan 2021 10:18:53 +0000 (UTC)
+References: <20201216100121.16683-1-rpalethorpe@suse.com>
+ <20201216100121.16683-3-rpalethorpe@suse.com>
+ <CAEemH2ddomP4XO=61vNx5=3vQYNj4WOurUX2zcuC-46RxhMk0g@mail.gmail.com>
+ <87eej1dpgm.fsf@suse.de>
+ <CAEemH2diKwkvjZ=20+MGpNJsWzM3OskDbcyuY7MH3tEsGV4U=Q@mail.gmail.com>
+ <87eeihp1gx.fsf@suse.de>
+ <CAEemH2ddvRZ5YjvGkAbR8rmPfgEHv8O5Q+zFch_2pk0+0avrHw@mail.gmail.com>
 User-agent: mu4e 1.4.14; emacs 27.1
 From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Leo Yu-Chi Liang <ycliang@andestech.com>
-In-reply-to: <20210120070053.11490-1-ycliang@andestech.com>
-Date: Wed, 20 Jan 2021 10:00:14 +0000
-Message-ID: <87sg6w9bdd.fsf@suse.de>
+To: Li Wang <liwang@redhat.com>
+In-reply-to: <CAEemH2ddvRZ5YjvGkAbR8rmPfgEHv8O5Q+zFch_2pk0+0avrHw@mail.gmail.com>
+Date: Wed, 20 Jan 2021 10:18:52 +0000
+Message-ID: <87pn1zap2r.fsf@suse.de>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/1] fzsync: Add sched_yield for single core
- machine
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [RFC PATCH 2/5] CGroup API rewrite
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,83 +52,105 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Reply-To: rpalethorpe@suse.de
-Cc: ltp@lists.linux.it
+Cc: LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello Leo,
+Hello Li,
 
-Leo Yu-Chi Liang <ycliang@andestech.com> writes:
+Li Wang <liwang@redhat.com> writes:
 
-> Fuzzy sync library uses spin waiting mechanism
-> to implement thread barrier behavior, which would
-> cause this test to be time-consuming on single core machine.
+> Hi Richard,
 >
-> Fix this by adding sched_yield in the spin waiting loop,
-> so that the thread yields cpu as soon as it enters the waiting loop.
+> Richard Palethorpe <rpalethorpe@suse.de> wrote:
+>
+>> ...
+>> >> > As I was mentioned in 0/5 that maybe we should create test_cgroup_dir
+>> >> > for different progress so that the test could use the same controller
+>> >> with
+>> >> > various configurations in parallel.
+>> >> >
+>> >> > e.g. child_1 set SIZE to memory.limit_in_bytes
+>> >> >        child_2 set SIZE/2 to memory.limit_in_bytes
+>> >> >
+>> >> > Any possibility to move this to tst_cgroup_move_current?
+>> >>
+>> >> Yes I suppose we can try this. Is there a test which already requires
+>> it?
+>> >>
+>> >
+>> > So far we don't have such a test, I remember that in the previous Lib is
+>> > also to keep expandability.
+>>
+>> I think we have at least two problems:
+>>
+>> 1) This allows many CGroups to be created for each test and we must
+>>    clean them up, adding some complication.
+>>
+>> 2) It's not clear if a future test will require the CGroup hierarchy to
+>>    be the same as the process hierarchy or different. Depending what
+>>    behaviour for tst_cgroup_move_current we choose it will make some
+>>    configurations impossible.
+>>
+>> So if we add this then it will add complexity, but I am not sure it will
+>> help in the future. If we make it flexible enough to support any
+>> hierarchy this will add a lot of complication.
+>>
+>
+> Okay. I do NOT insist to implement a future feature at this early
+> moment, but do u think we'd better mention this in documents?
+> To let people(avoid abusing it) know that the current CGroup lib
+> hasn't supported children using the same controller in parallel?
 
-Thanks for sending this in. Comments below.
+Yes, this is a good point.
 
 >
-> Signed-off-by: Leo Yu-Chi Liang <ycliang@andestech.com>
-> ---
->  include/tst_fuzzy_sync.h | 6 ++++++
->  1 file changed, 6 insertions(+)
+> And another new query is, do we really need to export many
+> cleanup-levels to users? I guess we can handle it in the library
+> with intelligently choose levels no matter in parallel or sequential.
+
+No, I should remove it. I was using it for debugging, but there is
+probably a simpler way.
+
 >
-> diff --git a/include/tst_fuzzy_sync.h b/include/tst_fuzzy_sync.h
-> index 4141f5c64..64d172681 100644
-> --- a/include/tst_fuzzy_sync.h
-> +++ b/include/tst_fuzzy_sync.h
-> @@ -59,9 +59,11 @@
->   * @sa tst_fzsync_pair
->   */
->  
-> +#include <sys/sysinfo.h>
->  #include <sys/time.h>
->  #include <time.h>
->  #include <math.h>
-> +#include <sched.h>
->  #include <stdlib.h>
->  #include <pthread.h>
->  #include "tst_atomic.h"
-> @@ -564,6 +566,8 @@ static inline void tst_fzsync_pair_wait(int *our_cntr,
->  		       && tst_atomic_load(our_cntr) < INT_MAX) {
->  			if (spins)
->  				(*spins)++;
-> +			if(get_nprocs() == 1)
+> i.e. As now only one directory(test-pid/) created for one test in a
+> hierarchy, how about going with TST_CGROUP_CLEANUP_ROOT
+> level by default, unless it detects more or equal to two directories
+> (that probably means parallel) goes TST_CGROUP_CLEANUP_TEST?
 
-We should use tst_ncpus() and then cache the value so we are not making
-a function call within the loop. It is probably best to avoid calling
-this function inside tst_fzsync_pair_wait, it may even result in a
-system call.
+That is likely to result in race conditions. However it won't cleanup
+any CGroups which already exist (except the test CGroup). So the user
+can pre-create the LTP CGroup before running tests in parallel.
 
-We should probably cache the value in tst_fzsync_pair, maybe as a
-boolean e.g. "yield_in_wait". This can be set/checked in the
-tst_fzsync_pair_init function. Also this will allow the user to handle
-CPUs being offlined if the test itself can cause that.
+>
+>
+>>
+>> Also if we did need this feature in the future, then we can add some new
+>> functions which take a sub-group (or hierarchy) parameter. e.g.
+>>
+>> void tst_cgroup_move(enum tst_cgroup_ctrl type, pid_t pid,
+>>                      struct tst_cgroup_tree *path);
+>>
+>
+> Sounds good to me.
+>
+>
+>>
+>> Alternate versions of other functions would also need to be added. Also
+>> some changes to the internal data structures may be needed. However it
+>> would keep the current API functions simple.
+>>
+>> So until we have a test which requires this, I think the best option is
+>> to do nothing :-)
+>>
+>> --
+>> Thank you,
+>> Richard.
+>>
+>>
 
-> +				sched_yield();
->  		}
->  
->  		tst_atomic_store(0, other_cntr);
-> @@ -581,6 +585,8 @@ static inline void tst_fzsync_pair_wait(int *our_cntr,
->  		while (tst_atomic_load(our_cntr) < tst_atomic_load(other_cntr)) {
->  			if (spins)
->  				(*spins)++;
-> +			if(get_nprocs() == 1)
-> +				sched_yield();
->  		}
->  	}
->  }
-
-Everyone please note that we will have to test this extensively to
-ensure it does break existing reproducers.
-
-Alternatively to this approach we could create seperate implementations
-of pair_wait and use a function pointer. I am thinking it may be best to
-do it both ways and perform some measurements.
 
 -- 
 Thank you,
