@@ -2,50 +2,39 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03D942FCD90
-	for <lists+linux-ltp@lfdr.de>; Wed, 20 Jan 2021 10:51:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF09B2FCDB2
+	for <lists+linux-ltp@lfdr.de>; Wed, 20 Jan 2021 11:00:18 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id BFDF93C5DBB
-	for <lists+linux-ltp@lfdr.de>; Wed, 20 Jan 2021 10:51:48 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 83BA53C5DBD
+	for <lists+linux-ltp@lfdr.de>; Wed, 20 Jan 2021 11:00:18 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id 622D93C24E4
- for <ltp@lists.linux.it>; Wed, 20 Jan 2021 10:51:47 +0100 (CET)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id 705AC6008C2
- for <ltp@lists.linux.it>; Wed, 20 Jan 2021 10:51:45 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.79,360,1602518400"; d="scan'208";a="103658326"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 20 Jan 2021 17:51:43 +0800
-Received: from G08CNEXMBPEKD06.g08.fujitsu.local (unknown [10.167.33.206])
- by cn.fujitsu.com (Postfix) with ESMTP id 672DE4CE602B;
- Wed, 20 Jan 2021 17:51:41 +0800 (CST)
-Received: from [10.167.220.69] (10.167.220.69) by
- G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Wed, 20 Jan 2021 17:51:41 +0800
-Message-ID: <6007FD2B.9080300@cn.fujitsu.com>
-Date: Wed, 20 Jan 2021 17:51:39 +0800
-From: Xiao Yang <yangx.jy@cn.fujitsu.com>
-User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
- rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id C11DE3C3071
+ for <ltp@lists.linux.it>; Wed, 20 Jan 2021 11:00:16 +0100 (CET)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 059A61000AEB
+ for <ltp@lists.linux.it>; Wed, 20 Jan 2021 11:00:15 +0100 (CET)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 556F3AC9B;
+ Wed, 20 Jan 2021 10:00:15 +0000 (UTC)
+References: <20210120070053.11490-1-ycliang@andestech.com>
+User-agent: mu4e 1.4.14; emacs 27.1
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Leo Yu-Chi Liang <ycliang@andestech.com>
+In-reply-to: <20210120070053.11490-1-ycliang@andestech.com>
+Date: Wed, 20 Jan 2021 10:00:14 +0000
+Message-ID: <87sg6w9bdd.fsf@suse.de>
 MIME-Version: 1.0
-To: Xiao Yang <yangx.jy@cn.fujitsu.com>
-References: <20210112020227.11775-1-yangx.jy@cn.fujitsu.com>
-In-Reply-To: <20210112020227.11775-1-yangx.jy@cn.fujitsu.com>
-X-Originating-IP: [10.167.220.69]
-X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
- G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206)
-X-yoursite-MailScanner-ID: 672DE4CE602B.A7766
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: yangx.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.3 required=7.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.4
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3 1/3] include/tst_test_macros.h: Add
- TST_EXP_{PASS, FD}_SILENT macros
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/1] fzsync: Add sched_yield for single core
+ machine
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,82 +46,88 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: rpalethorpe@suse.de
 Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="gb2312"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGkgQ3lyaWwsCgpJZiB5b3UgaGF2ZSBubyBvYmplY3Rpb24sIEkgd2lsbCBwdXNoIHRoZSBwYXRj
-aHNldCBhZnRlciB0aGUgbmV3CnJlbGVhc2UuIDotKQoKQmVzdCBSZWdhcmRzo6wKWGlhbyBZYW5n
-Ck9uIDIwMjEvMS8xMiAxMDowMiwgWGlhbyBZYW5nIHdyb3RlOgo+IDEpIFRTVF9FWFBfe1BBU1Ms
-RkR9X1NJTEVOVCBkb24ndCByZXBvcnQgVFBBU1Mgd2hlbiBTQ0FMTCBzdWNjZWVkcy4KPiAyKSBU
-U1RfRVhQX3tQQVNTLEZEfSBjYWxscyBUU1RfRVhQX3tQQVNTLEZEfV9TSUxFTlQgYW5kIHJlcG9y
-dHMKPiAgICBUUEFTUyB3aGVuIFNDQUxMIHN1Y2NlZWRzLgo+Cj4gU2lnbmVkLW9mZi1ieTogWGlh
-byBZYW5nIDx5YW5neC5qeUBjbi5mdWppdHN1LmNvbT4KPiAtLS0KPiAgaW5jbHVkZS90c3RfdGVz
-dF9tYWNyb3MuaCB8IDI1ICsrKysrKysrKysrKysrKysrKy0tLS0tLS0KPiAgMSBmaWxlIGNoYW5n
-ZWQsIDE4IGluc2VydGlvbnMoKyksIDcgZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0tZ2l0IGEvaW5j
-bHVkZS90c3RfdGVzdF9tYWNyb3MuaCBiL2luY2x1ZGUvdHN0X3Rlc3RfbWFjcm9zLmgKPiBpbmRl
-eCAzMDE2ZDk1YzIuLjkyY2I1YzY2YiAxMDA2NDQKPiAtLS0gYS9pbmNsdWRlL3RzdF90ZXN0X21h
-Y3Jvcy5oCj4gKysrIGIvaW5jbHVkZS90c3RfdGVzdF9tYWNyb3MuaAo+IEBAIC00Niw3ICs0Niw3
-IEBAIGV4dGVybiB2b2lkICpUU1RfUkVUX1BUUjsKPiAgCXRzdF9yZXNfKF9fRklMRV9fLCBfX0xJ
-TkVfXywgUkVTLCBcCj4gIAkJVFNUX0ZNVF8oVFNUXzJfKGR1bW15LCAjI19fVkFfQVJHU19fLCBT
-Q0FMTCkgRk1ULCBfX1ZBX0FSR1NfXyksIFBBUikKPiAgCj4gLSNkZWZpbmUgVFNUX0VYUF9GRChT
-Q0FMTCwgLi4uKSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICBcCj4gKyNkZWZpbmUgVFNUX0VYUF9GRF9TSUxFTlQoU0NBTEwsIC4uLikgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcCj4gIAlkbyB7ICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwKPiAgCQlU
-RVNUKFNDQUxMKTsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICBcCj4gIAkJICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgXAo+IEBAIC02NCwxNCArNjQsMjAgQEAgZXh0ZXJuIHZvaWQgKlRT
-VF9SRVRfUFRSOwo+ICAJCQlicmVhazsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgXAo+ICAJCX0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwKPiAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwK
-PiAtCQlUU1RfTVNHUF8oVFBBU1MsICIgcmV0dXJuZWQgZmQgJWxkIiwgVFNUX1JFVCwgICAgICAg
-ICAgICAgICAgICBcCj4gLQkJICAgICAgICAgI1NDQUxMLCAjI19fVkFfQVJHU19fKTsgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgXAo+IC0gICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXAo+ICAJ
-CVRTVF9QQVNTID0gMTsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIFwKPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwKPiAgCX0gd2hpbGUgKDApCj4gIAo+
-IC0jZGVmaW5lIFRTVF9FWFBfUEFTUyhTQ0FMTCwgLi4uKSAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgXAo+ICsjZGVmaW5lIFRTVF9FWFBfRkQoU0NBTEwsIC4u
-LikgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXAo+ICsJ
-ZG8geyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICBcCj4gKwkJVFNUX0VYUF9GRF9TSUxFTlQoU0NBTEwsIF9fVkFfQVJHU19f
-KTsgICAgICAgICAgICAgICAgICAgICAgICAgXAo+ICsJCSAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwKPiArCQlpZiAoVFNUX1BB
-U1MpICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcCj4g
-KwkJCVRTVF9NU0dQXyhUUEFTUywgIiByZXR1cm5lZCBmZCAlbGQiLCBUU1RfUkVULCAgICAgICAg
-ICBcCj4gKwkJCQkjU0NBTEwsICMjX19WQV9BUkdTX18pOyAgICAgICAgICAgICAgICAgICAgICAg
-IFwKPiArCX0gd2hpbGUgKDApCj4gKwo+ICsjZGVmaW5lIFRTVF9FWFBfUEFTU19TSUxFTlQoU0NB
-TEwsIC4uLikgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXAo+ICAJZG8g
-eyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICBcCj4gIAkJVEVTVChTQ0FMTCk7ICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgXAo+ICAJCSAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwKPiBAQCAtODksMTIgKzk1LDE3
-IEBAIGV4dGVybiB2b2lkICpUU1RfUkVUX1BUUjsKPiAgCQkJYnJlYWs7ICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwKPiAgCQl9ICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcCj4gICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICBcCj4gLQkJVFNUX01TR18oVFBBU1MsICIgcGFzc2VkIiwgI1NDQUxM
-LCAjI19fVkFfQVJHU19fKTsgICAgICAgICAgICAgXAo+IC0gICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-XAo+ICAJCVRTVF9QQVNTID0gMTsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIFwKPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwKPiAgCX0gd2hpbGUgKDAp
-Cj4gIAo+ICsjZGVmaW5lIFRTVF9FWFBfUEFTUyhTQ0FMTCwgLi4uKSAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXAo+ICsJZG8geyAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcCj4gKwkJ
-VFNUX0VYUF9QQVNTX1NJTEVOVChTQ0FMTCwgX19WQV9BUkdTX18pOyAgICAgICAgICAgICAgICAg
-ICAgICAgXAo+ICsJCSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgIFwKPiArCQlpZiAoVFNUX1BBU1MpICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcCj4gKwkJCVRTVF9NU0dfKFRQQVNTLCAi
-IHBhc3NlZCIsICNTQ0FMTCwgIyNfX1ZBX0FSR1NfXyk7ICAgICBcCj4gKwl9IHdoaWxlICgwKSAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-IFwKPiAgCj4gICNkZWZpbmUgVFNUX0VYUF9GQUlMKFNDQUxMLCBFUlJOTywgLi4uKSAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcCj4gIAlkbyB7ICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwKCgoK
-Ci0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9s
-dHAK
+Hello Leo,
+
+Leo Yu-Chi Liang <ycliang@andestech.com> writes:
+
+> Fuzzy sync library uses spin waiting mechanism
+> to implement thread barrier behavior, which would
+> cause this test to be time-consuming on single core machine.
+>
+> Fix this by adding sched_yield in the spin waiting loop,
+> so that the thread yields cpu as soon as it enters the waiting loop.
+
+Thanks for sending this in. Comments below.
+
+>
+> Signed-off-by: Leo Yu-Chi Liang <ycliang@andestech.com>
+> ---
+>  include/tst_fuzzy_sync.h | 6 ++++++
+>  1 file changed, 6 insertions(+)
+>
+> diff --git a/include/tst_fuzzy_sync.h b/include/tst_fuzzy_sync.h
+> index 4141f5c64..64d172681 100644
+> --- a/include/tst_fuzzy_sync.h
+> +++ b/include/tst_fuzzy_sync.h
+> @@ -59,9 +59,11 @@
+>   * @sa tst_fzsync_pair
+>   */
+>  
+> +#include <sys/sysinfo.h>
+>  #include <sys/time.h>
+>  #include <time.h>
+>  #include <math.h>
+> +#include <sched.h>
+>  #include <stdlib.h>
+>  #include <pthread.h>
+>  #include "tst_atomic.h"
+> @@ -564,6 +566,8 @@ static inline void tst_fzsync_pair_wait(int *our_cntr,
+>  		       && tst_atomic_load(our_cntr) < INT_MAX) {
+>  			if (spins)
+>  				(*spins)++;
+> +			if(get_nprocs() == 1)
+
+We should use tst_ncpus() and then cache the value so we are not making
+a function call within the loop. It is probably best to avoid calling
+this function inside tst_fzsync_pair_wait, it may even result in a
+system call.
+
+We should probably cache the value in tst_fzsync_pair, maybe as a
+boolean e.g. "yield_in_wait". This can be set/checked in the
+tst_fzsync_pair_init function. Also this will allow the user to handle
+CPUs being offlined if the test itself can cause that.
+
+> +				sched_yield();
+>  		}
+>  
+>  		tst_atomic_store(0, other_cntr);
+> @@ -581,6 +585,8 @@ static inline void tst_fzsync_pair_wait(int *our_cntr,
+>  		while (tst_atomic_load(our_cntr) < tst_atomic_load(other_cntr)) {
+>  			if (spins)
+>  				(*spins)++;
+> +			if(get_nprocs() == 1)
+> +				sched_yield();
+>  		}
+>  	}
+>  }
+
+Everyone please note that we will have to test this extensively to
+ensure it does break existing reproducers.
+
+Alternatively to this approach we could create seperate implementations
+of pair_wait and use a function pointer. I am thinking it may be best to
+do it both ways and perform some measurements.
+
+-- 
+Thank you,
+Richard.
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
