@@ -1,74 +1,50 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 869EF2FC87E
-	for <lists+linux-ltp@lfdr.de>; Wed, 20 Jan 2021 04:10:26 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id C93FC2FC977
+	for <lists+linux-ltp@lfdr.de>; Wed, 20 Jan 2021 04:54:44 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3A1693C53EC
-	for <lists+linux-ltp@lfdr.de>; Wed, 20 Jan 2021 04:10:26 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 778B23C53EC
+	for <lists+linux-ltp@lfdr.de>; Wed, 20 Jan 2021 04:54:44 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id E38993C2863
- for <ltp@lists.linux.it>; Wed, 20 Jan 2021 04:10:23 +0100 (CET)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [63.128.21.124])
- by in-2.smtp.seeweb.it (Postfix) with ESMTP id B53B16000FC
- for <ltp@lists.linux.it>; Wed, 20 Jan 2021 04:10:22 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1611112221;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=zf2rjI2iY2Kds2/NW9zqVk7O8UFkh1N0FThYOyBgumo=;
- b=Gzwo3/9g/O4PSMubiu4hCqLFpobjB3r5rFLDEa/Z4r7oENK3L/W8WYVYHrLt036azwMt3Y
- zzWbyH68vAYAaarDWbf4zCAWe94/6OZZtDkaI0lEtezWJsNiFg7oqiLALg+zlTLhVf2J8C
- R1lKghiFWnCxn2ZRrTKKmZXLGknig50=
-Received: from mail-yb1-f199.google.com (mail-yb1-f199.google.com
- [209.85.219.199]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-274-OnN15iByMPyNTrqU5eMevA-1; Tue, 19 Jan 2021 22:10:16 -0500
-X-MC-Unique: OnN15iByMPyNTrqU5eMevA-1
-Received: by mail-yb1-f199.google.com with SMTP id b62so18789737ybg.1
- for <ltp@lists.linux.it>; Tue, 19 Jan 2021 19:10:16 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=zf2rjI2iY2Kds2/NW9zqVk7O8UFkh1N0FThYOyBgumo=;
- b=Tgc+GTJI0fZjyqcSSlTuivhQuGaD/yeC4rfMJzsam6R+7mDil0Xx/0yyxXPdMyZkee
- nLLdrIlwz9QBB50k1yhsVCKs846ZDSyWS9Sjtcf8lMUr7vFtHLWXzcdF7wB8Fv6f6kcc
- g9ZSdIv9w2XHse3s1Dd1dL/Wx5HNMtTwtNKX9tT4LI/WpKC4aOO+N9elsSArHmnecKTm
- 6OzGNSoj0RI55LhjIT2Wg2EPLzxX2NGmbQoKdH9URNF1eNfkDOTWdb/2CR5IpAaPVPw6
- RICSuMxE1e9vKnRxJ69ZpC/aWbSkH+P1btbdxuWrE3vsPymeJ5Tvt8vyQE51/zVsaZ+a
- YG+A==
-X-Gm-Message-State: AOAM530tnCQBY5rupqRJcqNB/GPp4o/G3tZchO2/wkYixJZoCby88C2A
- vqpFR7A83SQXM6qPt8kMviOLJG8G3PtcqjVFtjtqujZIkX6fqisQ2bO2Vsk5qDydxPvV/Vhpm1E
- Cbwr/OIuiUrnMuI0cGm6ewnU+iC4=
-X-Received: by 2002:a25:da06:: with SMTP id n6mr10765622ybf.97.1611112215923; 
- Tue, 19 Jan 2021 19:10:15 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJzwd9lP504n4+uC0Ur/Yhrj5G9Cn+g1svxNhv0igzMEacCo3CZlUtJKjONTOku7gQk72vNMcsbplBhYOwCn5jw=
-X-Received: by 2002:a25:da06:: with SMTP id n6mr10765608ybf.97.1611112215763; 
- Tue, 19 Jan 2021 19:10:15 -0800 (PST)
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id BEB303C2314
+ for <ltp@lists.linux.it>; Wed, 20 Jan 2021 04:54:42 +0100 (CET)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-3.smtp.seeweb.it (Postfix) with ESMTP id ED3521A00701
+ for <ltp@lists.linux.it>; Wed, 20 Jan 2021 04:54:33 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.79,359,1602518400"; d="scan'208";a="103645703"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 20 Jan 2021 11:54:31 +0800
+Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
+ by cn.fujitsu.com (Postfix) with ESMTP id B8E2D4CE4B3E;
+ Wed, 20 Jan 2021 11:54:25 +0800 (CST)
+Received: from [10.167.220.84] (10.167.220.84) by
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Wed, 20 Jan 2021 11:54:25 +0800
+Message-ID: <6007A999.7090903@cn.fujitsu.com>
+Date: Wed, 20 Jan 2021 11:55:05 +0800
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
+ rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
 MIME-Version: 1.0
-References: <2e51e5453562001b5b6992ccc897d9177e6673ca.1571053661.git.jstancek@redhat.com>
-In-Reply-To: <2e51e5453562001b5b6992ccc897d9177e6673ca.1571053661.git.jstancek@redhat.com>
-From: Li Wang <liwang@redhat.com>
-Date: Wed, 20 Jan 2021 11:10:04 +0800
-Message-ID: <CAEemH2dj2KGi6dmYoJaxsvvG1wvecbM8GrpBshHh8CTkm7pe+A@mail.gmail.com>
-To: Jan Stancek <jstancek@redhat.com>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+To: Petr Vorel <pvorel@suse.cz>
+References: <20210119132427.6342-1-pvorel@suse.cz>
+In-Reply-To: <20210119132427.6342-1-pvorel@suse.cz>
+X-Originating-IP: [10.167.220.84]
+X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
+X-yoursite-MailScanner-ID: B8E2D4CE4B3E.A0631
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.4
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] mlock_8-1,
- munlock_10-1: don't use LONG_MAX as invalid pointer
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/1] mallopt01: Rewrite to new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,54 +56,270 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============0076091988=="
+Cc: ltp@lists.linux.it
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0076091988==
-Content-Type: multipart/alternative; boundary="00000000000050756905b94c4bbf"
+Hi Petr
+> From: Petr Vorel<petr.vorel@gmail.com>
+>
+> Detect non-POSIX mallopt() support with autotools.
+>
+> NOTE: mallopt() is supported in glibc and uClibc.
+>
+> Signed-off-by: Petr Vorel<petr.vorel@gmail.com>
+> Signed-off-by: Petr Vorel<pvorel@suse.cz>
+> ---
+>   configure.ac                                  |   1 +
+>   testcases/kernel/syscalls/mallopt/mallopt01.c | 158 ++++++------------
+>   2 files changed, 51 insertions(+), 108 deletions(-)
+>
+> diff --git a/configure.ac b/configure.ac
+> index e44e25cc6..17ef76c1a 100644
+> --- a/configure.ac
+> +++ b/configure.ac
+> @@ -94,6 +94,7 @@ AC_CHECK_FUNCS_ONCE([ \
+>       io_uring_register \
+>       io_uring_enter \
+>       kcmp \
+> +    mallopt \
+If glibc/ulibc supports mallopt, it also should support mallinfo. So 
+only check mallopt, I think it is ok.
+I guess musl libc doesn't support it, is it right?
+>       mkdirat \
+>       mknodat \
+>       modify_ldt \
+> diff --git a/testcases/kernel/syscalls/mallopt/mallopt01.c b/testcases/kernel/syscalls/mallopt/mallopt01.c
+> index 14e26dd81..f6999bd52 100644
+> --- a/testcases/kernel/syscalls/mallopt/mallopt01.c
+> +++ b/testcases/kernel/syscalls/mallopt/mallopt01.c
+> @@ -1,155 +1,97 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+>   /*
+> - *
+> - *   Copyright (c) International Business Machines  Corp., 2002
+> - *
+> - *   This program is free software;  you can redistribute it and/or modify
+> - *   it under the terms of the GNU General Public License as published by
+> - *   the Free Software Foundation; either version 2 of the License, or
+> - *   (at your option) any later version.
+> - *
+> - *   This program is distributed in the hope that it will be useful,
+> - *   but WITHOUT ANY WARRANTY;  without even the implied warranty of
+> - *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
+> - *   the GNU General Public License for more details.
+> - *
+> - *   You should have received a copy of the GNU General Public License
+> - *   along with this program;  if not, write to the Free Software
+> - *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+> + * Copyright (c) Linux Test Project, 2003-2021
+> + * Copyright (c) International Business Machines  Corp., 2002
+> + * 01/02/2003	Port to LTP	<avenkat@us.ibm.com>
+> + * 06/30/2001	Port to Linux<nsharoff@us.ibm.com>
+>    */
+>
+> -/* 01/02/2003	Port to LTP	avenkat@us.ibm.com*/
+> -/* 06/30/2001	Port to Linux	nsharoff@us.ibm.com */
+> -
+> -/*
+> - * NAME
+> - *	mallopt
+> - *
+> - * CALLS
+> - *	malloc(3x), mallopt(3x), mallinfo(3x).
+> - *
+> - * ALGORITHM
+> - *	Set options, malloc memory, and check resource ussage.
+> +/*\
+> + * [DESCRIPTION]
+>    *
+> - * RESTRICTIONS
+> - */
+> + * Basic mallinfo() and mallopt() testing (M_MXFAST, M_NLBLKS).
+> +\*/
+I see glibc code, it said "Only one of these (M_MXFAST) is used
+   in this malloc. The others (M_NLBLKS, M_GRAIN, M_KEEP) don't apply,
+   so setting them has no effect. But this malloc also supports four
+   other options in mallopt. "
 
---00000000000050756905b94c4bbf
-Content-Type: text/plain; charset="UTF-8"
+Also, I don't see M_NLBLKS handle in __libc_mallopt.
 
-Hi Jan,
+I think that is why man-pages said "The SVID defined
+options M_MXFAST, M_NLBLKS, M_GRAIN, and M_KEEP, but only the first of 
+these is implemented in glibc."
 
-I propose to reorg this patch with review comments (maybe apply it after
-the new release).
+I guess we can remove useless M_NLBLKS test.
+>
+> -#ifdef CONFIG_COLDFIRE
+> -#define __MALLOC_STANDARD__
+> -#endif
+> -#include<errno.h>
+> -/*
+> - * NOTE: struct mallinfo is only exported via malloc.h (not stdlib.h), even
+> - * though it's an obsolete header for malloc(3).
+> - *
+> - * Inconsistencies rock.
+> - */
+>   #include<malloc.h>
+> -#include<stdio.h>
+> -
+> -#include "test.h"
+> -#include "safe_macros.h"
+> -
+> -#define FAILED 0
+> -#define PASSED 1
+> -#define MAX_FAST_SIZE	(80 * sizeof(size_t) / 4)
+>
+> -int local_flag = PASSED;
+> +#include "tst_test.h"
+> +#include "tst_safe_macros.h"
+>
+> -char *TCID = "mallopt01";
+> -int block_number;
+> -FILE *temp;
+> -int TST_TOTAL = 6;
+> -extern int tst_COUNT;		/* Test Case counter for tst_routines */
+> +#ifdef HAVE_MALLOPT
+>
+> -void printinfo();
+> +#define MAX_FAST_SIZE	(80 * sizeof(size_t) / 4)
+>
+> -#if defined(__GLIBC__)
+>   struct mallinfo info;
+>
+> -int main(int argc, char *argv[])
+> +void print_mallinfo(void)
+>   {
+> -	char *buf;
+> -
+> -	tst_parse_opts(argc, argv, NULL, NULL);
+> -
+> -	tst_tmpdir();
+> +	tst_res(TINFO, "mallinfo structure:");
+> +	tst_res(TINFO, "mallinfo.arena = %d", info.arena);
+> +	tst_res(TINFO, "mallinfo.ordblks = %d", info.ordblks);
+> +	tst_res(TINFO, "mallinfo.smblks = %d", info.smblks);
+> +	tst_res(TINFO, "mallinfo.hblkhd = %d", info.hblkhd);
+> +	tst_res(TINFO, "mallinfo.hblks = %d", info.hblks);
+> +	tst_res(TINFO, "mallinfo.usmblks = %d", info.usmblks);
+> +	tst_res(TINFO, "mallinfo.fsmblks = %d", info.fsmblks);
+> +	tst_res(TINFO, "mallinfo.uordblks = %d", info.uordblks);
+> +	tst_res(TINFO, "mallinfo.fordblks = %d", info.fordblks);
+> +	tst_res(TINFO, "mallinfo.keepcost = %d", info.keepcost);
+> +}
+>
+> -	buf = SAFE_MALLOC(NULL, 20480);
+> +void test_mallopt(void)
+> +{
+> +	char *buf;
+>
+> -	/*
+> -	 * Check space usage.
+> -	 */
+> +	buf = SAFE_MALLOC(20480);
+>
+>   	info = mallinfo();
+The lastest mallinfo man-pages said " However, the older function, 
+mallinfo(), is deprecated since the type used for the fields is too 
+small". The mallinfo2 structure used size_t data type instead of int 
+data type in mallinfo struct. Maybe we can add a new test for it.
+>   	if (info.uordblks<  20480) {
+> -		printinfo();
+> -		tst_resm(TFAIL, "mallinfo failed: uordblks<  20K");
+> +		print_mallinfo();
+> +		tst_res(TFAIL, "mallinfo() failed: uordblks<  20K");
+>   	}
+>   	if (info.smblks != 0) {
+> -		printinfo();
+> -		tst_resm(TFAIL, "mallinfo failed: smblks != 0");
+> +		print_mallinfo();
+> +		tst_res(TFAIL, "mallinfo() failed: smblks != 0");
+>   	}
+>   	if (info.uordblks>= 20480&&  info.smblks == 0)
+> -		tst_resm(TPASS, "mallinfo() succeeded");
+> -	free(buf);
+> +		tst_res(TPASS, "mallinfo() succeeded");
+>
+> -	/*
+> -	 * Test mallopt's M_MXFAST and M_NLBLKS cmds.
+> -	 */
+> +	free(buf);
+>
+>   	if (mallopt(M_MXFAST, MAX_FAST_SIZE) == 0)
+> -		tst_resm(TFAIL, "mallopt(M_MXFAST, %d) failed", (int)MAX_FAST_SIZE);
+> +		tst_res(TFAIL, "mallopt(M_MXFAST, %d) failed", (int)MAX_FAST_SIZE);
+>   	else
+> -		tst_resm(TPASS, "mallopt(M_MXFAST, %d) succeeded", (int)MAX_FAST_SIZE);
+> +		tst_res(TPASS, "mallopt(M_MXFAST, %d) succeeded", (int)MAX_FAST_SIZE);
+>
+>   	if (mallopt(M_NLBLKS, 50) == 0)
+> -		tst_resm(TFAIL, "mallopt(M_NLBLKS, 50) failed");
+> +		tst_res(TFAIL, "mallopt(M_NLBLKS, 50) failed");
+>   	else
+> -		tst_resm(TPASS, "mallopt(M_NLBLKS, 50) succeeded");
+> +		tst_res(TPASS, "mallopt(M_NLBLKS, 50) succeeded");
+>
+>   	if ((buf = malloc(1024)) == NULL) {
+> -		tst_resm(TFAIL, "malloc(1024) failed");
+> +		tst_res(TFAIL, "malloc(1024) failed");
+>   	} else {
+> -		tst_resm(TPASS, "malloc(1024) succeeded");
+> +		tst_res(TPASS, "malloc(1024) succeeded");
+>   		free(buf);
+>   	}
+>
+>   	if (mallopt(M_MXFAST, 0) == 0)
+> -		tst_resm(TFAIL, "mallopt(M_MXFAST, 0) failed");
+> +		tst_res(TFAIL, "mallopt(M_MXFAST, 0) failed");
+>   	else
+> -		tst_resm(TPASS, "mallopt(M_MXFAST, 0) succeeded");
+> +		tst_res(TPASS, "mallopt(M_MXFAST, 0) succeeded");
+>
+>   	if ((buf = malloc(1024)) == NULL) {
+> -		tst_resm(TFAIL, "malloc(1024) failed");
+> +		tst_res(TFAIL, "malloc(1024) failed");
+>   	} else {
+> -		tst_resm(TPASS, "malloc(1024) succeeded");
+> +		tst_res(TPASS, "malloc(1024) succeeded");
+>   		free(buf);
+>   	}
+> -
+> -	unlink("core");
+> -	tst_rmdir();
+> -	tst_exit();
+>   }
+>
+> -void printinfo(void)
+> -{
+> -
+> -	fprintf(stderr, "mallinfo structure:\n");
+> -	fprintf(stderr, "mallinfo.arena = %d\n", info.arena);
+> -	fprintf(stderr, "mallinfo.ordblks = %d\n", info.ordblks);
+> -	fprintf(stderr, "mallinfo.smblks = %d\n", info.smblks);
+> -	fprintf(stderr, "mallinfo.hblkhd = %d\n", info.hblkhd);
+> -	fprintf(stderr, "mallinfo.hblks = %d\n", info.hblks);
+> -	fprintf(stderr, "mallinfo.usmblks = %d\n", info.usmblks);
+> -	fprintf(stderr, "mallinfo.fsmblks = %d\n", info.fsmblks);
+> -	fprintf(stderr, "mallinfo.uordblks = %d\n", info.uordblks);
+> -	fprintf(stderr, "mallinfo.fordblks = %d\n", info.fordblks);
+> -	fprintf(stderr, "mallinfo.keepcost = %d\n", info.keepcost);
+> -}
+> +static struct tst_test test = {
+> +	.test_all = test_mallopt,
+> +};
+>
+>   #else
+> -int main(void)
+> -{
+> -	tst_brkm(TCONF, NULL, "mallopt defined only for glibc");
+> -}
+> +TST_TEST_TCONF("system doesn't implement non-POSIX mallopt()");
+>   #endif
 
-Any thought?
 
--- 
-Regards,
-Li Wang
-
---00000000000050756905b94c4bbf
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small">Hi Jan,=C2=A0</div><div class=3D"gmail_default" style=3D"font=
--size:small"><br></div><div class=3D"gmail_default" style=3D"font-size:smal=
-l">I propose to reorg this patch with=C2=A0review comments (maybe apply it =
-after the new release).</div><div class=3D"gmail_default" style=3D"font-siz=
-e:small"><br></div><div class=3D"gmail_default" style=3D"font-size:small">A=
-ny thought?</div></div><div><br></div>-- <br><div dir=3D"ltr" class=3D"gmai=
-l_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div>=
-</div></div></div>
-
---00000000000050756905b94c4bbf--
-
-
---===============0076091988==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============0076091988==--
-
