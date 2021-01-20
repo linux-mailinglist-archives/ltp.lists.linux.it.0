@@ -1,42 +1,40 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DECA2FCE8B
-	for <lists+linux-ltp@lfdr.de>; Wed, 20 Jan 2021 12:00:27 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 974DB2FCED1
+	for <lists+linux-ltp@lfdr.de>; Wed, 20 Jan 2021 12:11:33 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 29EEC3C5F89
-	for <lists+linux-ltp@lfdr.de>; Wed, 20 Jan 2021 12:00:27 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 21B083C63EB
+	for <lists+linux-ltp@lfdr.de>; Wed, 20 Jan 2021 12:11:33 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id D608E3C53CF
- for <ltp@lists.linux.it>; Wed, 20 Jan 2021 12:00:23 +0100 (CET)
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id 128183C2658
+ for <ltp@lists.linux.it>; Wed, 20 Jan 2021 12:11:30 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 6367360096D
- for <ltp@lists.linux.it>; Wed, 20 Jan 2021 12:00:23 +0100 (CET)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id B7139600CE0
+ for <ltp@lists.linux.it>; Wed, 20 Jan 2021 12:11:29 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id A8B57AAAE;
- Wed, 20 Jan 2021 11:00:22 +0000 (UTC)
-Date: Wed, 20 Jan 2021 12:00:21 +0100
+ by mx2.suse.de (Postfix) with ESMTP id 02FBFAAAE;
+ Wed, 20 Jan 2021 11:11:29 +0000 (UTC)
+Date: Wed, 20 Jan 2021 12:11:27 +0100
 From: Petr Vorel <pvorel@suse.cz>
-To: Zhu Feiyu <zhufy.jy@cn.fujitsu.com>
-Message-ID: <YAgNRVjYFkCxWopH@pevik>
-References: <20201221110120.26165-1-radoslav.kolev@suse.com>
- <20201222171033.GB126602@pevik> <X/RJhbNBfja6/Snr@pevik>
- <6007D97A.9010804@cn.fujitsu.com>
+To: Alexander Egorenkov <egorenar@linux.ibm.com>
+Message-ID: <YAgP38nzhxIe3mQ0@pevik>
+References: <20210115122543.288948-1-egorenar@linux.ibm.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <6007D97A.9010804@cn.fujitsu.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+In-Reply-To: <20210115122543.288948-1-egorenar@linux.ibm.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] cpio_tests.sh: Fix failure with BusyBox cpio
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/1] swapping01: fix parameter truncation in abs
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,47 +48,19 @@ List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Zhu,
-
-> Hi Petr
-> > Hi Radoslav,
-
-> > ...
-> > > > +
-> > > > +if cpio 2>&1 | grep -q '\-o\sCreate (requires -H newc)'; then
-> > Thanks for your fix, merged with these changes:
-
-> > * grep for BusyBox because some older versions does not contain the
-> > hint, but actually require it.
-
-> > * move things to setup function due my following commit, which cannot be
-> > outside API functions (setup/test function):
-> > And check for -o (which is on BusyBox optional).
-> On my test environment, just executing cpio with no arguments will only
-> output:
-> cpio: You must specify one of -oipt options.
-> Try `cpio --help' or `cpio --usage' for more information.
-
-> So the result of cpio01_sh is changed from PASS to CONF after commit
-> 5910bdb65c.
-> Is there any difference in the output from executing this command on your
-> environment?
-
-Fixed in c698801a8 ("cpio: Fix -o compatibility detection").
-
-Thanks a lot for a bug report!
-
-Kind regards,
-Petr
-
-
-> Best Regards
-> Feiyu Zhu
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+SGkgQWxleGFuZGVyLAoKPiBQYXJhbWV0ZXJzIHBhc3NlZCB0byBhYnMoaW50KSBhcmUgb2YgdHlw
+ZSBsb25nLiBVc2UgbGFicyhsb25nKSBpbnN0ZWFkCj4gdG8gYXZvaWQgdmFsdWUgdHJ1bmNhdGlv
+bi4KCj4gRml4ZXMgdGhlIGZvbGxvd2luZyB3YXJuaW5nOgoKPiBzd2FwcGluZzAxLmM6IEluIGZ1
+bmN0aW9uIOKAmGNoZWNrX3N3YXBwaW5n4oCZOgo+IHN3YXBwaW5nMDEuYzoxMzM6Nzogd2Fybmlu
+ZzogYWJzb2x1dGUgdmFsdWUgZnVuY3Rpb24g4oCYYWJz4oCZIGdpdmVuIGFuIGFyZ3VtZW50IG9m
+IHR5cGUg4oCYbG9uZyBpbnTigJkgYnV0IGhhcyBwYXJhbWV0ZXIgb2YgdHlwZSDigJhpbnTigJkg
+d2hpY2ggbWF5IGNhdXNlIHRydW5jYXRpb24gb2YgdmFsdWUgWy1XYWJzb2x1dGUtdmFsdWVdCj4g
+ICAxMzMgfCAgIGlmIChhYnMoc3dhcF9mcmVlX25vdyAtIFNBRkVfUkVBRF9NRU1JTkZPKCJTd2Fw
+RnJlZToiKSkgPCA1MTIpCj4gICAgICAgfCAgICAgICBefn4KCk1lcmdlZCB0aGlzIG9idmlvdXMg
+Zml4LiBUaGFua3MhCgpLaW5kIHJlZ2FyZHMsClBldHIKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzog
+aHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
