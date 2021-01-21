@@ -1,39 +1,40 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86BA12FED4A
-	for <lists+linux-ltp@lfdr.de>; Thu, 21 Jan 2021 15:48:02 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 151782FED5B
+	for <lists+linux-ltp@lfdr.de>; Thu, 21 Jan 2021 15:49:40 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 33F723C63C0
-	for <lists+linux-ltp@lfdr.de>; Thu, 21 Jan 2021 15:48:02 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id D7D193C7601
+	for <lists+linux-ltp@lfdr.de>; Thu, 21 Jan 2021 15:49:39 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id CCF963C06D9
- for <ltp@lists.linux.it>; Thu, 21 Jan 2021 15:47:59 +0100 (CET)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 55E2E3C53B9
+ for <ltp@lists.linux.it>; Thu, 21 Jan 2021 15:49:38 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 06C5B1A00FAC
- for <ltp@lists.linux.it>; Thu, 21 Jan 2021 15:47:58 +0100 (CET)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id E132A200D26
+ for <ltp@lists.linux.it>; Thu, 21 Jan 2021 15:49:37 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 57740ABD6
- for <ltp@lists.linux.it>; Thu, 21 Jan 2021 14:47:58 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 44386ABD6
+ for <ltp@lists.linux.it>; Thu, 21 Jan 2021 14:49:37 +0000 (UTC)
+Date: Thu, 21 Jan 2021 15:50:41 +0100
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Richard Palethorpe <rpalethorpe@suse.de>
+Message-ID: <YAmUwVWvm84w8ITB@yuki.lan>
 References: <20210121130033.20764-1-pvorel@suse.cz>
-User-agent: mu4e 1.4.14; emacs 27.1
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Petr Vorel <pvorel@suse.cz>
-In-reply-to: <20210121130033.20764-1-pvorel@suse.cz>
-Date: Thu, 21 Jan 2021 14:47:57 +0000
-Message-ID: <87mtx29wiq.fsf@suse.de>
+ <87mtx29wiq.fsf@suse.de>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <87mtx29wiq.fsf@suse.de>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH 1/2] docparse: Replace \t with space
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -46,70 +47,27 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
 Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello,
+Hi!
+> JQ says "control characters from U+0000 through U+001F must be
+> escaped". So I expect it is only a matter of time until some other
+> control character is used.
+> 
+> Perhaps we should escape all control characters into the \uXXXX
+> hexidecimal form?
 
-Petr Vorel <pvorel@suse.cz> writes:
+Or fail the compilation if we get one of these into the parser?
 
-> to avoid constant failures because tabs are forbidden in JSON.
->
-> Signed-off-by: Petr Vorel <pvorel@suse.cz>
-> ---
-> Hi,
->
-> Currently required for "Convert CAN tests to new LTP API" patchset
-> https://patchwork.ozlabs.org/project/ltp/patch/20210120143723.26483-5-rpalethorpe@suse.com/
-> https://patchwork.ozlabs.org/project/ltp/patch/20210120143723.26483-6-rpalethorpe@suse.com/
->
-> Kind regards,
-> Petr
->
->  docparse/data_storage.h | 4 ++++
->  1 file changed, 4 insertions(+)
->
-> diff --git a/docparse/data_storage.h b/docparse/data_storage.h
-> index ef420c08f..99c2514b7 100644
-> --- a/docparse/data_storage.h
-> +++ b/docparse/data_storage.h
-> @@ -54,6 +54,7 @@ static inline struct data_node *data_node_string(const char *string)
->  {
->  	size_t size = sizeof(struct data_node_string) + strlen(string) + 1;
->  	struct data_node *node = malloc(size);
-> +	char *ix = node->string.val;
->  
->  	if (!node)
->  		return NULL;
-> @@ -61,6 +62,9 @@ static inline struct data_node *data_node_string(const char *string)
->  	node->type = DATA_STRING;
->  	strcpy(node->string.val, string);
->  
-> +	while ((ix = strchr(ix, '\t')))
-> +		*ix++ = ' ';
-
-
-JQ says "control characters from U+0000 through U+001F must be
-escaped". So I expect it is only a matter of time until some other
-control character is used.
-
-Perhaps we should escape all control characters into the \uXXXX
-hexidecimal form?
-
-http://www.json.org/json-en.html
-
-> +
->  	return node;
->  }
-
+There is no point in having them in the metadata anyways.
 
 -- 
-Thank you,
-Richard.
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
