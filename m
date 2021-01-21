@@ -2,40 +2,39 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 721452FF09A
-	for <lists+linux-ltp@lfdr.de>; Thu, 21 Jan 2021 17:40:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6FE12FF120
+	for <lists+linux-ltp@lfdr.de>; Thu, 21 Jan 2021 17:56:11 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2D2383C7C90
-	for <lists+linux-ltp@lfdr.de>; Thu, 21 Jan 2021 17:40:10 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id A85033C7C8F
+	for <lists+linux-ltp@lfdr.de>; Thu, 21 Jan 2021 17:56:11 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id A87D53C02FA
- for <ltp@lists.linux.it>; Thu, 21 Jan 2021 17:40:07 +0100 (CET)
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id 63C763C304A
+ for <ltp@lists.linux.it>; Thu, 21 Jan 2021 17:56:10 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 2DF2310006B6
- for <ltp@lists.linux.it>; Thu, 21 Jan 2021 17:40:06 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id DC7211000DE8
+ for <ltp@lists.linux.it>; Thu, 21 Jan 2021 17:56:09 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 6500FAC63;
- Thu, 21 Jan 2021 16:40:06 +0000 (UTC)
-Date: Thu, 21 Jan 2021 17:40:04 +0100
+ by mx2.suse.de (Postfix) with ESMTP id 19BB8AAAE;
+ Thu, 21 Jan 2021 16:56:09 +0000 (UTC)
+Date: Thu, 21 Jan 2021 17:56:07 +0100
 From: Petr Vorel <pvorel@suse.cz>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <YAmuZAu60JoqZYd7@pevik>
-References: <20210121133233.29007-1-pvorel@suse.cz>
- <20210121133233.29007-2-pvorel@suse.cz> <YAmq/L8u+vh9JL2w@yuki.lan>
+To: Enji Cooper <yaneurabeya@gmail.com>
+Message-ID: <YAmyJ8Mhpn+w/+tT@pevik>
+References: <20210121105959.1002-1-pvorel@suse.cz>
+ <4303D927-20AA-4161-A91B-460FE14E1703@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <YAmq/L8u+vh9JL2w@yuki.lan>
+In-Reply-To: <4303D927-20AA-4161-A91B-460FE14E1703@gmail.com>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v4 1/3] lib: Fix kernel module detection on BusyBox
+Subject: Re: [LTP] [PATCH 1/1] travis: Test NUMA also on Fedora/CentOS
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,8 +47,7 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: kernel-team@android.com, Steve Muckle <smuckle@google.com>,
- Sandeep Patil <sspatil@google.com>, ltp@lists.linux.it
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
@@ -57,38 +55,8 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi,
 
-> Hi!
-> > +int tst_check_driver(const char *driver)
-> > +{
-> > +#ifdef __ANDROID__
-> > +	/*
-> > +	 * Android may not have properly installed modules.* files. We could
-> > +	 * search modules in /system/lib/modules, but to to determine built-in
-> > +	 * drivers we need modules.builtin. Therefore assume all drivers are
-> > +	 * available.
-> >  	 */
-> >  	return 0;
-> >  #endif
-> > +
-> > +	if (!tst_check_driver_(driver))
-> > +		return 0;
-> > +
-> > +	int ret = 1;
-
-> One last nit, shouldn't this be -1?
-
-> Since the tst_check_driver_() returns either 0 or -1.
-
-> Or should we change tst_check_driver_() to return 0 or 1 instead?
-
-Oops, yes the value should be the same.
-I prefer -1 as that's error in syscalls, but no strong opinion about it.
-
-> Other than that this version looks good,
-
-> Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
-
-Thanks a lot for your patient review!
+> Reviewed by: Enji Cooper <yaneurabeya@gmail.com>
+Thanks, merged!
 
 Kind regards,
 Petr
