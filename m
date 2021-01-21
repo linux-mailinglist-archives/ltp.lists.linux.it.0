@@ -2,39 +2,36 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6249F2FE7CA
-	for <lists+linux-ltp@lfdr.de>; Thu, 21 Jan 2021 11:40:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF2C72FE83B
+	for <lists+linux-ltp@lfdr.de>; Thu, 21 Jan 2021 12:00:10 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C05E63C63C8
-	for <lists+linux-ltp@lfdr.de>; Thu, 21 Jan 2021 11:40:51 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 9F5873C7C8D
+	for <lists+linux-ltp@lfdr.de>; Thu, 21 Jan 2021 12:00:09 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id 22F3B3C06E2
- for <ltp@lists.linux.it>; Thu, 21 Jan 2021 11:40:46 +0100 (CET)
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id AD7293C63A6
+ for <ltp@lists.linux.it>; Thu, 21 Jan 2021 12:00:06 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 98C356006C5
- for <ltp@lists.linux.it>; Thu, 21 Jan 2021 11:40:46 +0100 (CET)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id C293C600B87
+ for <ltp@lists.linux.it>; Thu, 21 Jan 2021 12:00:05 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id EEEB0ACF5;
- Thu, 21 Jan 2021 10:40:45 +0000 (UTC)
-Date: Thu, 21 Jan 2021 11:41:48 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <YAlabAZEuX6DbSur@yuki.lan>
-References: <20210121103727.28534-1-pvorel@suse.cz>
+ by mx2.suse.de (Postfix) with ESMTP id A05E4AD78
+ for <ltp@lists.linux.it>; Thu, 21 Jan 2021 11:00:04 +0000 (UTC)
+From: Petr Vorel <pvorel@suse.cz>
+To: ltp@lists.linux.it
+Date: Thu, 21 Jan 2021 11:59:59 +0100
+Message-Id: <20210121105959.1002-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.30.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210121103727.28534-1-pvorel@suse.cz>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 1/1] configure.ac: More descriptive NUMA error
- message
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/1] travis: Test NUMA also on Fedora/CentOS
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,28 +43,39 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Donghai Qiao <dqiao@redhat.com>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> Some people were confused and searched for libnuma.so.2,
-> which does not exist.
-> 
-> Required is libnuma.so.1, but with LIBNUMA_API_VERSION >= 2.
-> The API version is tighten to libnuma version in git, but that has
-> nothing to do with library soname version, which is still 1.0.0.
-> 
-> Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
-> Signed-off-by: Petr Vorel <pvorel@suse.cz>
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+---
+Hi,
 
-I consider this safe for the release, please push.
+tested (affected distros only)
+https://travis-ci.org/github/pevik/ltp/builds/755505691
 
+Kind regards,
+Petr
+
+ travis/fedora.sh | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/travis/fedora.sh b/travis/fedora.sh
+index 665915a47..ef2d32f47 100755
+--- a/travis/fedora.sh
++++ b/travis/fedora.sh
+@@ -13,6 +13,7 @@ $yum \
+ 	gcc \
+ 	git \
+ 	findutils \
++	numactl-devel \
+ 	libtirpc \
+ 	libtirpc-devel \
+ 	perl-JSON \
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+2.30.0
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
