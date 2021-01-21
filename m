@@ -2,40 +2,49 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 934B82FD994
-	for <lists+linux-ltp@lfdr.de>; Wed, 20 Jan 2021 20:27:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FC7C2FDF3D
+	for <lists+linux-ltp@lfdr.de>; Thu, 21 Jan 2021 03:19:53 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 443F73C882D
-	for <lists+linux-ltp@lfdr.de>; Wed, 20 Jan 2021 20:27:54 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id E59F53C881D
+	for <lists+linux-ltp@lfdr.de>; Thu, 21 Jan 2021 03:19:52 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id E1E553C06E2
- for <ltp@lists.linux.it>; Wed, 20 Jan 2021 20:27:51 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id 6E1743C2658
+ for <ltp@lists.linux.it>; Thu, 21 Jan 2021 03:19:50 +0100 (CET)
+Received: from ATCSQR.andestech.com (exmail.andestech.com [60.248.187.195])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 6E045200B97
- for <ltp@lists.linux.it>; Wed, 20 Jan 2021 20:27:51 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 73E69ACF4;
- Wed, 20 Jan 2021 19:27:50 +0000 (UTC)
-Date: Wed, 20 Jan 2021 20:27:48 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <YAiENOUzMVpDThsk@pevik>
-References: <20210119160316.4776-1-pvorel@suse.cz>
- <20210119160316.4776-2-pvorel@suse.cz> <YAg6wTVc6AB28smR@yuki.lan>
- <YAhKe84FcrNEYFcC@pevik> <YAhMCz4j9Q2ltGcJ@yuki.lan>
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id DF5DC600F28
+ for <ltp@lists.linux.it>; Thu, 21 Jan 2021 03:19:47 +0100 (CET)
+Received: from mail.andestech.com (atcpcs16.andestech.com [10.0.1.222])
+ by ATCSQR.andestech.com with ESMTP id 10L2G9qa012905;
+ Thu, 21 Jan 2021 10:16:09 +0800 (GMT-8)
+ (envelope-from ycliang@andestech.com)
+Received: from andestech.com (10.0.15.65) by ATCPCS16.andestech.com
+ (10.0.1.222) with Microsoft SMTP Server id 14.3.487.0; Thu, 21 Jan 2021
+ 10:19:26 +0800
+Date: Thu, 21 Jan 2021 10:19:23 +0800
+From: Leo Liang <ycliang@andestech.com>
+To: Richard Palethorpe <rpalethorpe@suse.de>
+Message-ID: <20210121021923.GA2366@andestech.com>
+References: <20210120070053.11490-1-ycliang@andestech.com>
+ <87sg6w9bdd.fsf@suse.de>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <YAhMCz4j9Q2ltGcJ@yuki.lan>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+In-Reply-To: <87sg6w9bdd.fsf@suse.de>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Originating-IP: [10.0.15.65]
+X-DNSRBL: 
+X-MAIL: ATCSQR.andestech.com 10L2G9qa012905
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3 1/2] lib: Fix kernel module detection on BusyBox
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/1] fzsync: Add sched_yield for single core
+ machine
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,75 +56,98 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: Steve Muckle <smuckle@google.com>, Sandeep Patil <sspatil@google.com>,
- ltp@lists.linux.it
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
+On Wed, Jan 20, 2021 at 06:00:14PM +0800, Richard Palethorpe wrote:
+> Hello Leo,
+> 
+> Leo Yu-Chi Liang <ycliang@andestech.com> writes:
+> 
+> > Fuzzy sync library uses spin waiting mechanism
+> > to implement thread barrier behavior, which would
+> > cause this test to be time-consuming on single core machine.
+> >
+> > Fix this by adding sched_yield in the spin waiting loop,
+> > so that the thread yields cpu as soon as it enters the waiting loop.
+> 
+> Thanks for sending this in. Comments below.
+> 
+> >
+> > Signed-off-by: Leo Yu-Chi Liang <ycliang@andestech.com>
+> > ---
+> >  include/tst_fuzzy_sync.h | 6 ++++++
+> >  1 file changed, 6 insertions(+)
+> >
+> > diff --git a/include/tst_fuzzy_sync.h b/include/tst_fuzzy_sync.h
+> > index 4141f5c64..64d172681 100644
+> > --- a/include/tst_fuzzy_sync.h
+> > +++ b/include/tst_fuzzy_sync.h
+> > @@ -59,9 +59,11 @@
+> >   * @sa tst_fzsync_pair
+> >   */
+> >  
+> > +#include <sys/sysinfo.h>
+> >  #include <sys/time.h>
+> >  #include <time.h>
+> >  #include <math.h>
+> > +#include <sched.h>
+> >  #include <stdlib.h>
+> >  #include <pthread.h>
+> >  #include "tst_atomic.h"
+> > @@ -564,6 +566,8 @@ static inline void tst_fzsync_pair_wait(int *our_cntr,
+> >  		       && tst_atomic_load(our_cntr) < INT_MAX) {
+> >  			if (spins)
+> >  				(*spins)++;
+> > +			if(get_nprocs() == 1)
+> 
+> We should use tst_ncpus() and then cache the value so we are not making
+> a function call within the loop. It is probably best to avoid calling
+> this function inside tst_fzsync_pair_wait, it may even result in a
+> system call.
+> 
+> We should probably cache the value in tst_fzsync_pair, maybe as a
+> boolean e.g. "yield_in_wait". This can be set/checked in the
+> tst_fzsync_pair_init function. Also this will allow the user to handle
+> CPUs being offlined if the test itself can cause that.
+> 
 
-> > modules.dep has format:
-> > module:[dependency [another-dependency ...]]
+Got it! Thanks for reviewing the patch and all the heads-ups!
+I will refine it and send a v2.
 
-> > e.g.:
-> > kernel/arch/x86/kernel/cpu/mce/mce-inject.ko.xz:
-> > kernel/arch/x86/crypto/twofish-x86_64.ko.xz: kernel/crypto/twofish_common.ko.xz
-> > kernel/arch/x86/crypto/aesni-intel.ko.xz: kernel/crypto/crypto_simd.ko.xz kernel/crypto/cryptd.ko.xz kernel/arch/x86/crypto/glue_helper.ko.xz
+> > +				sched_yield();
+> >  		}
+> >  
+> >  		tst_atomic_store(0, other_cntr);
+> > @@ -581,6 +585,8 @@ static inline void tst_fzsync_pair_wait(int *our_cntr,
+> >  		while (tst_atomic_load(our_cntr) < tst_atomic_load(other_cntr)) {
+> >  			if (spins)
+> >  				(*spins)++;
+> > +			if(get_nprocs() == 1)
+> > +				sched_yield();
+> >  		}
+> >  	}
+> >  }
+> 
+> Everyone please note that we will have to test this extensively to
+> ensure it does break existing reproducers.
+>
 
-> > First reading "%s" reads only first module with ':' separator.
-> > Searching without it could find first module which is as dependency (e.g.
-> > "/twofish_common.ko.xz" instead of "/twofish-x86_64.ko.xz"). Although that
-> > shouldn't be a problem, because it's very unlikely that module dependency is
-> > missing. Do you want me to drop sscanf() or put some comment?
+Got it as well, will try to reproduce the cve with this patch applied.
 
-> Well it would be probably cleaner to do something as:
+Thanks again,
+Leo
 
-> 	/* Cut dependencies after : */
-> 	if ((sep = strchr(buf, ':')))
-> 		*sep = 0;
-
-> No need to copy the string just because we neet to cut part of it.
-+1, thanks!
-
-> > Also man modules.dep(5) warns about using text format as "their format is
-> > subject to change in the future". Hopefully we can depend on it. Or should we
-> > use binary format?
-
-> That depends on how complicated is to parse the binary format...
-I'll have a look.
-
-I was also thinking whether whole thing really works on toolchains which use
-BusyBox. BusyBox's depmod implementation does not generate modules.builtin
-(it generates only modules.{alias,dep,symbols}, i.e. only few text files, no
-binary). But the only distro I know which installs BusyBox depmod/modinfo/modprobe
-instead of kmod is Alpine Linux and even this distro clearly generates all
-modules.* files for its kernel package with kmod.
-
-It looks to me that kernel supports generating modules.builtin.modinfo
-since v5.2-rc1 (898490c010b5 "moduleparam: Save information about built-in
-modules in separate file") and kmod used this change in v27 (in 60084cf
-"libkmod: Add parser for modules.builtin.modinfo" released a year ago).
-Thus built-in modules are impossible to detect on old kernels no matter we use
-kmod or our own implementation.
-
-But built-in modules are mostly problem for embedded: we require modules like
-btrfs, loop, tun, uinput, ...  which are loadable modules on typical linux
-distros.
-
-Thus generally using modules.{dep,builtin} seems to me as a good approach for
-linux distros including embedded ones and we could also use binary variants.
-
-Other possible improvements:
-* last resort effort search in /lib/modules/$(uname -r) or a directory defined
-in environment variable (with or without version) - fallback for old android or
-some embedded (again - not working for built-in modules)
-* environment variable to skip the detection.
-
-Kind regards,
-Petr
+> Alternatively to this approach we could create seperate implementations
+> of pair_wait and use a function pointer. I am thinking it may be best to
+> do it both ways and perform some measurements.
+>
+> -- 
+> Thank you,
+> Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
