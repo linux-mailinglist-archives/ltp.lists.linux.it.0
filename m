@@ -1,41 +1,40 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 197BE2FED2F
-	for <lists+linux-ltp@lfdr.de>; Thu, 21 Jan 2021 15:44:12 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 86BA12FED4A
+	for <lists+linux-ltp@lfdr.de>; Thu, 21 Jan 2021 15:48:02 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id CC3663C63C0
-	for <lists+linux-ltp@lfdr.de>; Thu, 21 Jan 2021 15:44:11 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 33F723C63C0
+	for <lists+linux-ltp@lfdr.de>; Thu, 21 Jan 2021 15:48:02 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 9891E3C06D9
- for <ltp@lists.linux.it>; Thu, 21 Jan 2021 15:44:09 +0100 (CET)
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id CCF963C06D9
+ for <ltp@lists.linux.it>; Thu, 21 Jan 2021 15:47:59 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id E3387200DBE
- for <ltp@lists.linux.it>; Thu, 21 Jan 2021 15:44:08 +0100 (CET)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 06C5B1A00FAC
+ for <ltp@lists.linux.it>; Thu, 21 Jan 2021 15:47:58 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 04665B01F;
- Thu, 21 Jan 2021 14:44:08 +0000 (UTC)
-Date: Thu, 21 Jan 2021 15:44:06 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Joerg Vehlow <lkml@jv-coder.de>
-Message-ID: <YAmTNq1GFaMPU3f/@pevik>
-References: <20201215092534.757347-1-lkml@jv-coder.de> <YAa8D8iQwaQr2tAm@pevik>
- <964d7c42-dcdc-321b-9b4e-f0ae540eb5c1@jv-coder.de>
+ by mx2.suse.de (Postfix) with ESMTP id 57740ABD6
+ for <ltp@lists.linux.it>; Thu, 21 Jan 2021 14:47:58 +0000 (UTC)
+References: <20210121130033.20764-1-pvorel@suse.cz>
+User-agent: mu4e 1.4.14; emacs 27.1
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Petr Vorel <pvorel@suse.cz>
+In-reply-to: <20210121130033.20764-1-pvorel@suse.cz>
+Date: Thu, 21 Jan 2021 14:47:57 +0000
+Message-ID: <87mtx29wiq.fsf@suse.de>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <964d7c42-dcdc-321b-9b4e-f0ae540eb5c1@jv-coder.de>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] fs/lftest: Convert to new library
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/2] docparse: Replace \t with space
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,40 +46,70 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>, ltp@lists.linux.it
-Content-Type: text/plain; charset="iso-8859-2"
-Content-Transfer-Encoding: quoted-printable
+Reply-To: rpalethorpe@suse.de
+Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi J=F6rg,
+Hello,
 
-> Hi Petr,
+Petr Vorel <pvorel@suse.cz> writes:
 
-> On 1/19/2021 12:01 PM, Petr Vorel wrote:
-> > Not sure if anybody uses runtest/fs_readonly, but we still haven't
-> > removed it.
-> > Thus it must be also updated:
+> to avoid constant failures because tabs are forbidden in JSON.
+>
+> Signed-off-by: Petr Vorel <pvorel@suse.cz>
+> ---
+> Hi,
+>
+> Currently required for "Convert CAN tests to new LTP API" patchset
+> https://patchwork.ozlabs.org/project/ltp/patch/20210120143723.26483-5-rpalethorpe@suse.com/
+> https://patchwork.ozlabs.org/project/ltp/patch/20210120143723.26483-6-rpalethorpe@suse.com/
+>
+> Kind regards,
+> Petr
+>
+>  docparse/data_storage.h | 4 ++++
+>  1 file changed, 4 insertions(+)
+>
+> diff --git a/docparse/data_storage.h b/docparse/data_storage.h
+> index ef420c08f..99c2514b7 100644
+> --- a/docparse/data_storage.h
+> +++ b/docparse/data_storage.h
+> @@ -54,6 +54,7 @@ static inline struct data_node *data_node_string(const char *string)
+>  {
+>  	size_t size = sizeof(struct data_node_string) + strlen(string) + 1;
+>  	struct data_node *node = malloc(size);
+> +	char *ix = node->string.val;
+>  
+>  	if (!node)
+>  		return NULL;
+> @@ -61,6 +62,9 @@ static inline struct data_node *data_node_string(const char *string)
+>  	node->type = DATA_STRING;
+>  	strcpy(node->string.val, string);
+>  
+> +	while ((ix = strchr(ix, '\t')))
+> +		*ix++ = ' ';
 
-> > -test_robind54 test_robind.sh -c "lftest 80"
-> > +test_robind54 test_robind.sh -c "lftest"
-> Oh did not see that...
-No big deal, these duplicities in runtest files are always confusing.
-Looking forward a day when we replace runtest files with something better.
 
-> The default parameter to lftest is now 100, so this should probably be
-> +test_robind54 test_robind.sh -c "lftest -n 80
-Correct.
-> Don't know if it is important
+JQ says "control characters from U+0000 through U+001F must be
+escaped". So I expect it is only a matter of time until some other
+control character is used.
 
-No, it's probably not important, but merged with this change anyway.
+Perhaps we should escape all control characters into the \uXXXX
+hexidecimal form?
 
-> J=F6rg
+http://www.json.org/json-en.html
 
-Kind regards,
-Petr
+> +
+>  	return node;
+>  }
 
--- =
 
+-- 
+Thank you,
+Richard.
+
+-- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
