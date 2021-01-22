@@ -2,41 +2,41 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9AEB2FFD79
-	for <lists+linux-ltp@lfdr.de>; Fri, 22 Jan 2021 08:36:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A58852FFD85
+	for <lists+linux-ltp@lfdr.de>; Fri, 22 Jan 2021 08:41:05 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 631DC3C5399
-	for <lists+linux-ltp@lfdr.de>; Fri, 22 Jan 2021 08:36:47 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 7303C3C5399
+	for <lists+linux-ltp@lfdr.de>; Fri, 22 Jan 2021 08:41:05 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 2EDC23C3026
- for <ltp@lists.linux.it>; Fri, 22 Jan 2021 08:36:43 +0100 (CET)
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id EBE8D3C3026
+ for <ltp@lists.linux.it>; Fri, 22 Jan 2021 08:41:03 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id B8D9D1A01019
- for <ltp@lists.linux.it>; Fri, 22 Jan 2021 08:36:42 +0100 (CET)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 2A5B860007C
+ for <ltp@lists.linux.it>; Fri, 22 Jan 2021 08:41:02 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id B76A9ACBA;
- Fri, 22 Jan 2021 07:36:41 +0000 (UTC)
-Date: Fri, 22 Jan 2021 08:36:40 +0100
+ by mx2.suse.de (Postfix) with ESMTP id 74162ABD6;
+ Fri, 22 Jan 2021 07:41:02 +0000 (UTC)
+Date: Fri, 22 Jan 2021 08:41:00 +0100
 From: Petr Vorel <pvorel@suse.cz>
-To: Alexander Egorenkov <egorenar@linux.ibm.com>
-Message-ID: <YAqAiB3fQwVAKHFF@pevik>
+To: Li Wang <liwang@redhat.com>
+Message-ID: <YAqBjON8nNLBQoEs@pevik>
 References: <20210115143246.369676-1-egorenar@linux.ibm.com>
  <CAEemH2fDzPp3D6KZ_G0UDbS=eh2tWDAcy7CTt_4Yw7FUT4zGxg@mail.gmail.com>
  <87zh14rrxm.fsf@oc8242746057.ibm.com> <YAgmPjaf8iRn20x2@pevik>
- <8735ytzbj4.fsf@oc8242746057.ibm.com>
+ <CAEemH2cseOGtSem9vhChygLNeYz6E0bVEu+u-UH8agLBoHJo4Q@mail.gmail.com>
+ <CAEemH2e=ySuT+JEoDkF0e0TYeooeZbT0mu4D+47NLjwvsPecnA@mail.gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <8735ytzbj4.fsf@oc8242746057.ibm.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+In-Reply-To: <CAEemH2e=ySuT+JEoDkF0e0TYeooeZbT0mu4D+47NLjwvsPecnA@mail.gmail.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH 1/1] swapping01: make test more robust
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -56,49 +56,32 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Alex,
+Hi Li, Alex,
 
-> Hi Petr,
-> Date: Fri, 22 Jan 2021 08:16:41 +0100
-> Message-ID: <874kj9zbja.fsf@oc8242746057.ibm.com>
-> X-Trend-IP-HD: ip=[9.171.79.240]sender=(egorenar@linux.ibm.com)recipient=<ltp@lists.linux.it;liwang@redhat.com;pvorel@suse.cz>
+> Hi Alex, Petr,
 
-> Petr Vorel <pvorel@suse.cz> writes:
+> I'm going to apply Alex's patch after a round of testing[1].
+> Because giving more time waiting for swap memory to
+> settle is no harm to test, at least help to get rid of failures
+> observed on LPAR so far.
++1, thanks!
 
-> > Hi Alexander, Li,
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
 
-> > First I found quite hard to have correct setup to avoid TCONF "Not enough swap
-> > space to test". It often requires to add additional swap file via mkswap && swapon
-> > and use some RAM with:
+> But I still think the swapping01 not very precise to some degree.
+> We probably need to rewrite it someday but currently, I have no better idea.
++1
 
-> > dd if=/dev/zero of=/dev/shm/fill bs=1k count=14024k
-
-> > It'd be great if test could do required setup itself.
-> > And it'd also help at least to print swap_free_init and mem_over_max in that TCONF:
-
-> >         if (swap_free_init < mem_over_max)
-> > -               tst_brk(TCONF, "Not enough swap space to test.");
-> > +               tst_brk(TCONF, "Not enough swap space to test (%ld < %ld)", swap_free_init, mem_over_max);
-
-
-> yeah, that was a problem for me too when i was new to this test :/
-:)
-
-
-> > I tried to debug swapping01 on s390x (without this patch) with using additional
-> > swap and eat RAM with dd. and got bus error (core dumped). Is that due too
-> > aggressive memory eating? I'm not able to crash it on intel arch.
-
-
-> that's something new for me. If possible please run it in gdb with debug symbols
-> to find out where exactly this signal is raised.
-I'll do.
+> [1] Running a stress-ng to eat some available memory in the
+OK, maybe better way for eating memory. Thanks :).
 
 Kind regards,
 Petr
 
-> Regards
-> Alex
+> background, then swapping01 easily hit the heavy-swap issue.
+> This could be proved that it influenced by deamon allocate/free
+> memory during testing.
+...
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
