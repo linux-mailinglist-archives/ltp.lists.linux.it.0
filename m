@@ -1,38 +1,39 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66B9130245F
-	for <lists+linux-ltp@lfdr.de>; Mon, 25 Jan 2021 12:41:24 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id E15373024C2
+	for <lists+linux-ltp@lfdr.de>; Mon, 25 Jan 2021 13:17:15 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 105313C52B2
-	for <lists+linux-ltp@lfdr.de>; Mon, 25 Jan 2021 12:41:24 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 7D3FF3C5F26
+	for <lists+linux-ltp@lfdr.de>; Mon, 25 Jan 2021 13:17:15 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id EC2263C288C
- for <ltp@lists.linux.it>; Mon, 25 Jan 2021 12:41:22 +0100 (CET)
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id AFE453C263E
+ for <ltp@lists.linux.it>; Mon, 25 Jan 2021 13:17:11 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 8241114002AB
- for <ltp@lists.linux.it>; Mon, 25 Jan 2021 12:41:22 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 4F289100043A
+ for <ltp@lists.linux.it>; Mon, 25 Jan 2021 13:17:10 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id CD22DAE61
- for <ltp@lists.linux.it>; Mon, 25 Jan 2021 11:41:21 +0000 (UTC)
-From: Martin Doucha <mdoucha@suse.cz>
+ by mx2.suse.de (Postfix) with ESMTP id 8E22CAF7F;
+ Mon, 25 Jan 2021 12:17:10 +0000 (UTC)
+Date: Mon, 25 Jan 2021 13:17:09 +0100
+From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Mon, 25 Jan 2021 12:41:21 +0100
-Message-Id: <20210125114121.1368-1-mdoucha@suse.cz>
-X-Mailer: git-send-email 2.29.2
+Message-ID: <YA62xZIbuMMzBdvn@pevik>
+References: <20210119132427.6342-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20210119132427.6342-1-pvorel@suse.cz>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH] semctl09: Fix EPERM warning in cleanup()
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/1] mallopt01: Rewrite to new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,36 +45,21 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-If semctl09 failed in one of the SAFE_*() functions during unprivileged user
-test case, SAFE_SEMCTL() in cleanup() would fail with EPERM because the sem_id
-is owned by root. Make sure that cleanup() always runs with root EUID.
+Hi Xu,
 
-Signed-off-by: Martin Doucha <mdoucha@suse.cz>
----
- testcases/kernel/syscalls/ipc/semctl/semctl09.c | 2 ++
- 1 file changed, 2 insertions(+)
+thanks for your review, merged.
 
-diff --git a/testcases/kernel/syscalls/ipc/semctl/semctl09.c b/testcases/kernel/syscalls/ipc/semctl/semctl09.c
-index d36ba62e5..f0c757cdd 100644
---- a/testcases/kernel/syscalls/ipc/semctl/semctl09.c
-+++ b/testcases/kernel/syscalls/ipc/semctl/semctl09.c
-@@ -187,6 +187,8 @@ static void setup(void)
- 
- static void cleanup(void)
- {
-+	SAFE_SETEUID(root_uid);
-+
- 	if (sem_id >= 0)
- 		SAFE_SEMCTL(sem_id, 0, IPC_RMID);
- }
--- 
-2.29.2
+Ticket for mallinfo2():
+https://github.com/linux-test-project/ltp/issues/778
 
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
