@@ -2,47 +2,47 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id E06E3304F2A
-	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jan 2021 03:51:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47D39304FC2
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jan 2021 04:28:08 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 96CA83C0139
-	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jan 2021 03:51:24 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id D58AA3C01E2
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jan 2021 04:28:07 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 5AE263C002E
- for <ltp@lists.linux.it>; Wed, 27 Jan 2021 03:51:22 +0100 (CET)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-2.smtp.seeweb.it (Postfix) with ESMTP id 6C6CB60091D
- for <ltp@lists.linux.it>; Wed, 27 Jan 2021 03:51:20 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.79,378,1602518400"; d="scan'208";a="103877849"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 27 Jan 2021 10:51:19 +0800
-Received: from G08CNEXMBPEKD06.g08.fujitsu.local (unknown [10.167.33.206])
- by cn.fujitsu.com (Postfix) with ESMTP id AABC54CE6031
- for <ltp@lists.linux.it>; Wed, 27 Jan 2021 10:51:13 +0800 (CST)
-Received: from G08CNEXCHPEKD04.g08.fujitsu.local (10.167.33.200) by
- G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Wed, 27 Jan 2021 10:51:13 +0800
-Received: from irides.mr.mr.mr (10.167.225.141) by
- G08CNEXCHPEKD04.g08.fujitsu.local (10.167.33.209) with Microsoft SMTP Server
- id 15.0.1497.2 via Frontend Transport; Wed, 27 Jan 2021 10:51:13 +0800
-From: Shiyang Ruan <ruansy.fnst@cn.fujitsu.com>
-To: <ltp@lists.linux.it>
-Date: Wed, 27 Jan 2021 10:51:12 +0800
-Message-ID: <20210127025112.1226584-1-ruansy.fnst@cn.fujitsu.com>
-X-Mailer: git-send-email 2.30.0
-MIME-Version: 1.0
-X-yoursite-MailScanner-ID: AABC54CE6031.AC061
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: ruansy.fnst@cn.fujitsu.com
-X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.4
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id 7DB063C009D
+ for <ltp@lists.linux.it>; Wed, 27 Jan 2021 04:28:01 +0100 (CET)
+Received: from chinatelecom.cn (prt-mail.chinatelecom.cn [42.123.76.228])
+ by in-4.smtp.seeweb.it (Postfix) with ESMTP id 399B1100037D
+ for <ltp@lists.linux.it>; Wed, 27 Jan 2021 04:27:58 +0100 (CET)
+HMM_SOURCE_IP: 172.18.0.218:16136.1631851923
+HMM_ATTACHE_NUM: 0000
+HMM_SOURCE_TYPE: SMTP
+Received: from clientip-36.111.88.18?logid-ee86868a97754c36bef16b8bd7411a0c
+ (unknown [172.18.0.218])
+ by chinatelecom.cn (HERMES) with SMTP id BDAA32800DD;
+ Wed, 27 Jan 2021 11:27:53 +0800 (CST)
+X-189-SAVE-TO-SEND: +liuxp11@chinatelecom.cn
+Received: from  ([172.18.0.218])
+ by App0025 with ESMTP id ee86868a97754c36bef16b8bd7411a0c for
+ ltp@lists.linux.it; Wed Jan 27 11:27:56 2021
+X-Transaction-ID: ee86868a97754c36bef16b8bd7411a0c
+X-filter-score: filter<0>
+X-Real-From: liuxp11@chinatelecom.cn
+X-Receive-IP: 172.18.0.218
+X-MEDUSA-Status: 0
+From: Xinpeng Liu <liuxp11@chinatelecom.cn>
+To: ltp@lists.linux.it
+Date: Mon, 25 Jan 2021 18:24:47 +0800
+Message-Id: <1611570288-23040-1-git-send-email-liuxp11@chinatelecom.cn>
+X-Mailer: git-send-email 1.8.3.1
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH] syscalls/times01: Convert to new API
+X-Spam-Status: No, score=0.5 required=7.0 tests=DATE_IN_PAST_24_48,
+ SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/2] syscalls/ioctl: ioctl_sg01.c: ioctl_sg01 invoked
+ oom-killer
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,207 +54,89 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: Xinpeng Liu <liuxp11@chinatelecom.cn>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Shiyang Ruan <ruansy.fnst@cn.fujitsu.com>
+Kernel version is 5.4.81+,the available RAM is less than free,as follow:
+[root@liuxp mywork]# head /proc/meminfo
+MemTotal:       198101744 kB
+MemFree:        189303148 kB
+MemAvailable:   188566732 kB
+
+So use available RAM to avoid OOM killer.
+
+Signed-off-by: Xinpeng Liu <liuxp11@chinatelecom.cn>
 ---
- testcases/kernel/syscalls/times/times01.c | 168 +++-------------------
- 1 file changed, 20 insertions(+), 148 deletions(-)
+ lib/tst_memutils.c | 29 ++++++++++++++++++++++++++---
+ 1 file changed, 26 insertions(+), 3 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/times/times01.c b/testcases/kernel/syscalls/times/times01.c
-index 293a52957..87a0f6144 100644
---- a/testcases/kernel/syscalls/times/times01.c
-+++ b/testcases/kernel/syscalls/times/times01.c
-@@ -1,162 +1,34 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
- /*
-  * Copyright (c) 2000 Silicon Graphics, Inc.  All Rights Reserved.
-  *
-- * This program is free software; you can redistribute it and/or modify it
-- * under the terms of version 2 of the GNU General Public License as
-- * published by the Free Software Foundation.
-- *
-- * This program is distributed in the hope that it would be useful, but
-- * WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-- *
-- * Further, this software is distributed without any warranty that it is
-- * free of the rightful claim of any third person regarding infringement
-- * or the like.  Any license provided herein, whether implied or
-- * otherwise, applies only to this software file.  Patent licenses, if
-- * any, provided herein do not apply to combinations of this program with
-- * other software, or any other product whatsoever.
-- *
-- * You should have received a copy of the GNU General Public License along
-- * with this program; if not, write the Free Software Foundation, Inc.,
-- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-- *
-- * Contact information: Silicon Graphics, Inc., 1600 Amphitheatre Pkwy,
-- * Mountain View, CA  94043, or:
-- *
-- * http://www.sgi.com
-- *
-- * For further information regarding this notice, see:
-- *
-- * http://oss.sgi.com/projects/GenInfo/NoticeExplan/
-- *
-- */
--/* $Id: times01.c,v 1.6 2009/10/26 14:55:48 subrata_modak Exp $ */
--/**********************************************************
-- *
-- *    OS Test - Silicon Graphics, Inc.
-- *
-- *    TEST IDENTIFIER	: times01
-- *
-- *    EXECUTED BY	: anyone
-- *
-- *    TEST TITLE	: Basic test for times(2)
-- *
-- *    PARENT DOCUMENT	: usctpl01
-- *
-- *    TEST CASE TOTAL	: 1
-- *
-- *    WALL CLOCK TIME	: 1
-- *
-- *    CPU TYPES		: ALL
-- *
-- *    AUTHOR		: William Roske
-- *
-- *    CO-PILOT		: Dave Fenner
-- *
-- *    DATE STARTED	: 03/30/92
-- *
-- *    INITIAL RELEASE	: UNICOS 7.0
-- *
-- *    TEST CASES
-- *
-- * 	1.) times(2) returns...(See Description)
-- *
-- *    INPUT SPECIFICATIONS
-- * 	The standard options for system call tests are accepted.
-- *	(See the parse_opts(3) man page).
-- *
-- *    OUTPUT SPECIFICATIONS
-- *$
-- *    DURATION
-- * 	Terminates - with frequency and infinite modes.
-- *
-- *    SIGNALS
-- * 	Uses SIGUSR1 to pause before test if option set.
-- * 	(See the parse_opts(3) man page).
-- *
-- *    RESOURCES
-- * 	None
-- *
-- *    ENVIRONMENTAL NEEDS
-- *      No run-time environmental needs.
-- *
-- *    SPECIAL PROCEDURAL REQUIREMENTS
-- * 	None
-- *
-- *    INTERCASE DEPENDENCIES
-- * 	None
-- *
-- *    DETAILED DESCRIPTION
-+ * DESCRIPTION
-  *	This is a Phase I test for the times(2) system call.  It is intended
-- *	to provide a limited exposure of the system call, for now.  It
-- *	should/will be extended when full functional tests are written for
-- *	times(2).
-- *
-- * 	Setup:
-- * 	  Setup signal handling.
-- *	  Pause for SIGUSR1 if option specified.
-- *
-- * 	Test:
-- *	 Loop if the proper options are given.
-- * 	  Execute system call
-- *	  Check return code, if system call failed (return=-1)
-- *		Log the errno and Issue a FAIL message.
-- *	  Otherwise, Issue a PASS message.
-+ *	to provide a limited exposure of the system call.
-  *
-- * 	Cleanup:
-- * 	  Print errno log and/or timing stats if options given
-- *
-- *
-- *#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#**/
-+ * ALGORITHM:
-+ *	Execute system call
-+ *	Check return code, if system call failed (return=-1)
-+ *	    Log the errno and Issue a FAIL message.
-+ *	Otherwise, Issue a PASS message.
-+ */
+diff --git a/lib/tst_memutils.c b/lib/tst_memutils.c
+index dd09db4..21df9a8 100644
+--- a/lib/tst_memutils.c
++++ b/lib/tst_memutils.c
+@@ -10,14 +10,33 @@
  
--#include <sys/types.h>
- #include <sys/times.h>
- #include <errno.h>
--#include <string.h>
--#include <signal.h>
--#include "test.h"
--
--void setup();
--void cleanup();
--
--char *TCID = "times01";
--int TST_TOTAL = 1;
--
--struct tms mytimes;
-+#include "tst_test.h"
+ #define TST_NO_DEFAULT_MAIN
+ #include "tst_test.h"
++#include "tst_safe_stdio.h"
  
--int main(int ac, char **av)
-+static void verify_times(void)
+ #define BLOCKSIZE (16 * 1024 * 1024)
+ 
++static unsigned long get_available_ram(void)
++{
++	char buf[60]; /* actual lines we expect are ~30 chars or less */
++	unsigned long available_kb = 0;
++	FILE *fp;
++
++	fp = SAFE_FOPEN("/proc/meminfo","r");
++	while (fgets(buf, sizeof(buf), fp)) {
++		if (sscanf(buf, "MemAvailable: %lu %*s\n", &available_kb) == 1){
++			break;
++		}
++	}
++	SAFE_FCLOSE(fp);
++
++	return 1024 * available_kb;
++}
++
+ void tst_pollute_memory(size_t maxsize, int fillchar)
  {
--	int lc;
-+	struct tms mytimes;
+ 	size_t i, map_count = 0, safety = 0, blocksize = BLOCKSIZE;
+ 	void **map_blocks;
+ 	struct sysinfo info;
++	unsigned long available_ram = get_available_ram();
  
--	tst_parse_opts(ac, av, NULL, NULL);
-+	TEST(times(&mytimes));
+ 	SAFE_SYSINFO(&info);
+ 	safety = MAX(4096 * SAFE_SYSCONF(_SC_PAGESIZE), 128 * 1024 * 1024);
+@@ -26,15 +45,19 @@ void tst_pollute_memory(size_t maxsize, int fillchar)
+ 	if (info.freeswap > safety)
+ 		safety = 0;
  
--	setup();
--
--	for (lc = 0; TEST_LOOPING(lc); lc++) {
--
--		tst_count = 0;
--
--		TEST(times(&mytimes));
--
--		if (TEST_RETURN == -1)
--			tst_resm(TFAIL | TTERRNO, "times failed");
--		else
--			tst_resm(TPASS, "times(&mytimes) returned %ld",
--				 TEST_RETURN);
--
--	}
--
--	cleanup();
--	tst_exit();
-+	if (TST_RET == -1)
-+		tst_res(TFAIL | TTERRNO, "times failed");
-+	else
-+		tst_res(TPASS, "times(&mytimes) returned %ld", TST_RET);
- }
++	/*"MemAvailable" field maybe not exist, or freeram less than available_ram*/
++	if(available_ram == 0 || info.freeram < available_ram)
++		available_ram = info.freeram;
++
+ 	/* Not enough free memory to avoid invoking OOM killer */
+-	if (info.freeram <= safety)
++	if (available_ram <= safety)
+ 		return;
  
--void setup(void)
--{
--	tst_sig(NOFORK, DEF_HANDLER, cleanup);
--
--	TEST_PAUSE;
--}
--
--void cleanup(void)
--{
--}
-+static struct tst_test test = {
-+	.test_all = verify_times,
-+};
+ 	if (!maxsize)
+ 		maxsize = SIZE_MAX;
+ 
+-	if (info.freeram - safety < maxsize / info.mem_unit)
+-		maxsize = (info.freeram - safety) * info.mem_unit;
++	if (available_ram - safety < maxsize / info.mem_unit)
++		maxsize = (available_ram - safety) * info.mem_unit;
+ 
+ 	blocksize = MIN(maxsize, blocksize);
+ 	map_count = maxsize / blocksize;
 -- 
-2.30.0
-
-
+1.8.3.1
 
 
 -- 
