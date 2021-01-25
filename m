@@ -2,51 +2,60 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB60B3020DF
-	for <lists+linux-ltp@lfdr.de>; Mon, 25 Jan 2021 04:45:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DAC9A302236
+	for <lists+linux-ltp@lfdr.de>; Mon, 25 Jan 2021 07:47:57 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3642F3C5F66
-	for <lists+linux-ltp@lfdr.de>; Mon, 25 Jan 2021 04:45:03 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 4B1BF3C527B
+	for <lists+linux-ltp@lfdr.de>; Mon, 25 Jan 2021 07:47:57 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 9FFB63C5356
- for <ltp@lists.linux.it>; Mon, 25 Jan 2021 04:44:59 +0100 (CET)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-4.smtp.seeweb.it (Postfix) with ESMTP id 8C876100093F
- for <ltp@lists.linux.it>; Mon, 25 Jan 2021 04:44:58 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.79,372,1602518400"; d="scan'208";a="103787251"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 25 Jan 2021 11:44:53 +0800
-Received: from G08CNEXMBPEKD06.g08.fujitsu.local (unknown [10.167.33.206])
- by cn.fujitsu.com (Postfix) with ESMTP id 98C0C4CE6031;
- Mon, 25 Jan 2021 11:44:50 +0800 (CST)
-Received: from [10.167.220.69] (10.167.220.69) by
- G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Mon, 25 Jan 2021 11:44:47 +0800
-Message-ID: <600E3EAD.3020406@cn.fujitsu.com>
-Date: Mon, 25 Jan 2021 11:44:45 +0800
-From: Xiao Yang <yangx.jy@cn.fujitsu.com>
-User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
- rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 4A5F03C285B
+ for <ltp@lists.linux.it>; Mon, 25 Jan 2021 07:47:56 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTP id C07DD600A01
+ for <ltp@lists.linux.it>; Mon, 25 Jan 2021 07:47:55 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1611557274;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=VEUbMJcVb6BzlCNgsIEahLzFWXxvy6IHHETb93YGmuM=;
+ b=GyW3eTKxcGDceaosNQKgD7hN0PY4SEe27t0ijqqtvNnICaqV5aQtGFwxfnzALAFXMEG8qa
+ yYGLfc0eDFOwrhmYVMXKVLsVeEtVwYqCe5V4tW0TW6UzD6RAloW/5UM9JoliIz6HtDvwi8
+ 6kf43zLCRCSMPe5u9RnyM7VrfiRXi3w=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-101-MB1GT8oYPq-T9SFOQZTxgQ-1; Mon, 25 Jan 2021 01:47:52 -0500
+X-MC-Unique: MB1GT8oYPq-T9SFOQZTxgQ-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+ [10.5.11.12])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 56A5E180A093;
+ Mon, 25 Jan 2021 06:47:51 +0000 (UTC)
+Received: from liwang-workstation.nay.redhat.com (unknown [10.66.81.246])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 189EA60C5F;
+ Mon, 25 Jan 2021 06:47:49 +0000 (UTC)
+From: Li Wang <liwang@redhat.com>
+To: ltp@lists.linux.it,
+	egorenar@linux.ibm.com
+Date: Mon, 25 Jan 2021 06:47:46 +0000
+Message-Id: <20210125064747.26759-1-liwang@redhat.com>
 MIME-Version: 1.0
-To: Cyril Hrubis <chrubis@suse.cz>
-References: <20210112020227.11775-1-yangx.jy@cn.fujitsu.com>
- <20210112020227.11775-3-yangx.jy@cn.fujitsu.com> <YAgHUvIge6svN0gu@yuki.lan>
- <6008E512.50704@cn.fujitsu.com> <YArXjchkIvhgjsg3@yuki.lan>
-In-Reply-To: <YArXjchkIvhgjsg3@yuki.lan>
-X-Originating-IP: [10.167.220.69]
-X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
- G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206)
-X-yoursite-MailScanner-ID: 98C0C4CE6031.A90B2
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: yangx.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.4
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwang@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3 3/3] syscalls: Take use of TST_EXP_PASS_SILENT
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH RFC 1/2] lib: add SAFE_READ_PROC_STATUS macro
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,31 +67,42 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 2021/1/22 21:47, Cyril Hrubis wrote:
-> Hi!
->> BTW, I just want to avoid many TPASS for a subtest.
-> Why? The capget01 clearly does two different tests per iteration.
->
-> There is absolutely no correlation between the number of TPASS test
-> produces and the number of iteration test does.
-Hi Cyril,
+To parse /proc/PID/status files, for example:
+    SAFE_READ_PROC_STATUS(pid, "VmSwap:");
 
-I pushed the patchset without capget01 for now.  But I think
-there is a whole test per iteration, like three steps:
-1) Drop CAP_NET_RAW.
-2) Get effective by specifying kernel revision.
-3) Check that the effective doesn't include CAP_NET_RAW.
-Is it necessary for per steps to report TPASS? :-)
+Signed-off-by: Li Wang <liwang@redhat.com>
+Cc: Petr Vorel <pvorel@suse.cz>
+Cc: Alexander Egorenkov <egorenar@linux.ibm.com>
+---
+ include/tst_safe_file_ops.h | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-Best Regards,
-Xiao Yang
-
+diff --git a/include/tst_safe_file_ops.h b/include/tst_safe_file_ops.h
+index 894c16123..7a4076c4c 100644
+--- a/include/tst_safe_file_ops.h
++++ b/include/tst_safe_file_ops.h
+@@ -25,6 +25,14 @@
+                         &tst_rval); \
+         tst_rval;})
+ 
++#define SAFE_READ_PROC_STATUS(pid, item) \
++       ({long tst_rval_; \
++        char tst_path_[128]; \
++        sprintf(tst_path_, "/proc/%d/status", pid); \
++        SAFE_FILE_LINES_SCANF(tst_path_, item " %ld", \
++                        &tst_rval_); \
++        tst_rval_;})
++
+ #define FILE_PRINTF(path, fmt, ...) \
+ 	file_printf(__FILE__, __LINE__, \
+ 		    (path), (fmt), ## __VA_ARGS__)
+-- 
+2.21.3
 
 
 -- 
