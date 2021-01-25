@@ -2,39 +2,49 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 250E330255D
-	for <lists+linux-ltp@lfdr.de>; Mon, 25 Jan 2021 14:16:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CEA5D30256E
+	for <lists+linux-ltp@lfdr.de>; Mon, 25 Jan 2021 14:23:45 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 961BD3C5F44
-	for <lists+linux-ltp@lfdr.de>; Mon, 25 Jan 2021 14:16:48 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 9F22B3C53CE
+	for <lists+linux-ltp@lfdr.de>; Mon, 25 Jan 2021 14:23:45 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 0ED323C527D
- for <ltp@lists.linux.it>; Mon, 25 Jan 2021 14:16:44 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTP id 25F5D3C52AA
+ for <ltp@lists.linux.it>; Mon, 25 Jan 2021 14:23:43 +0100 (CET)
+Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id C2664600420
- for <ltp@lists.linux.it>; Mon, 25 Jan 2021 14:16:43 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 29480AC45
- for <ltp@lists.linux.it>; Mon, 25 Jan 2021 13:16:43 +0000 (UTC)
-Date: Mon, 25 Jan 2021 14:17:48 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <YA7E/Co4QS4fcv92@yuki.lan>
-References: <20210125095814.31741-1-pvorel@suse.cz>
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 28D48600196
+ for <ltp@lists.linux.it>; Mon, 25 Jan 2021 14:23:42 +0100 (CET)
+Received: from [192.168.178.40] (unknown [188.192.1.224])
+ by mail.jv-coder.de (Postfix) with ESMTPSA id F24FF9F7F6
+ for <ltp@lists.linux.it>; Mon, 25 Jan 2021 13:23:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
+ t=1611581022; bh=wZ5lsYnrXl/fQ4c7zVs57DoKCvzD+w6MFGHVaq+VoS8=;
+ h=Subject:From:To:Message-ID:Date:MIME-Version;
+ b=s0QGTSIMKBEulhd1mWtLtMBPYOixl267PF+hcDotyBzhuLe8TEqIOysG78g7n4/zU
+ lNm62LQ/MloAycCk7GcKyO/bGHhd5NIW7GNvkQSlkSqvXj+4AydeU0Cgyl8M8fwQ/H
+ 7xcKdb7MNOGExwZHgNiN5jKRLG/e8pNoqY2QhqZE=
+From: Joerg Vehlow <lkml@jv-coder.de>
+To: ltp@lists.linux.it
+References: <20210125131746.74630-1-lkml@jv-coder.de>
+Message-ID: <e573f919-8205-40e2-5187-49bff0983872@jv-coder.de>
+Date: Mon, 25 Jan 2021 14:24:26 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210125095814.31741-1-pvorel@suse.cz>
+In-Reply-To: <20210125131746.74630-1-lkml@jv-coder.de>
+Content-Language: en-US
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
 X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/1] lib: Add test for tst_check_driver()
+Subject: Re: [LTP] [PATCH] memcg/functional: Convert to newlib
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,101 +56,17 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-Good test.
-
-With a minor fix:
-
-Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
-
-> Signed-off-by: Petr Vorel <pvorel@suse.cz>
-> ---
->  lib/newlib_tests/shell/tst_check_driver.sh | 64 ++++++++++++++++++++++
->  1 file changed, 64 insertions(+)
->  create mode 100755 lib/newlib_tests/shell/tst_check_driver.sh
-> 
-> diff --git a/lib/newlib_tests/shell/tst_check_driver.sh b/lib/newlib_tests/shell/tst_check_driver.sh
-> new file mode 100755
-> index 000000000..1d438700b
-> --- /dev/null
-> +++ b/lib/newlib_tests/shell/tst_check_driver.sh
-> @@ -0,0 +1,64 @@
-> +#!/bin/sh
-> +# SPDX-License-Identifier: GPL-2.0-or-later
-> +# Copyright (c) 2021 Petr Vorel <pvorel@suse.cz>
-> +
-> +TST_TESTFUNC=test
-> +TST_SETUP=setup
-> +TST_CNT=3
-> +TST_NEEDS_CMDS="tst_check_drivers find grep head sed"
-> +. tst_test.sh
-> +
-> +MODULES_DIR="${MODULES_DIR:-/lib/modules/$(uname -r)}"
-> +
-> +setup()
-> +{
-> +	tst_res TINFO "using modules directory '$MODULES_DIR'"
-> +
-> +	[ -d "$MODULES_DIR" ] || \
-> +		tst_brk TCONF "modules directory '$MODULES_DIR' missing"
-> +}
-> +
-> +get_name()
-> +{
-> +	local path="$1"
-> +	local drv
-> +
-> +	echo $path | sed 's/.*\/\([^/]\+\)\.ko.*/\1/'
-> +}
-> +
-> +test1()
-> +{
-> +	local drv
-> +
-> +	for drv in $(find $MODULES_DIR | grep -E '_[^/]+\.ko' | head -3); do
-> +		drv="$(get_name $drv)"
-> +		EXPECT_PASS tst_check_drivers $drv
-> +
-> +		drv="$(echo $drv | sed 's/_/-/g')"
-> +		EXPECT_PASS tst_check_drivers $drv
-> +	done
-> +}
-> +
-> +test2()
-> +{
-> +	tst_res TINFO "check non-existing module detection"
-> +	EXPECT_FAIL tst_check_drivers not-existing-kernel-module
-> +}
-> +
-> +test3()
-> +{
-> +	local f="$MODULES_DIR/modules.builtin"
-> +	local drv
-> +
-> +	tst_res TINFO "check built-in module detection"
-> +
-> +	[ -f "$f" ] || \
-> +		tst_brk TCONF "missing '$f'"
-> +
-> +	for drv in $(head -3 $f); do
-> +		drv="$(get_name $drv)"
-> +		EXPECT_PASS tst_check_drivers "$(get_name $drv)"
-                                                  ^
-						  Just $drv?
-> +	done
-> +}
-> +
-> +tst_run
-
--- 
-Cyril Hrubis
-chrubis@suse.cz
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+LS0tIGEvdGVzdGNhc2VzL2tlcm5lbC9jb250cm9sbGVycy9tZW1jZy9mdW5jdGlvbmFsL21lbWNn
+X2ZhaWxjbnQuc2gKPiArKysgYi90ZXN0Y2FzZXMva2VybmVsL2NvbnRyb2xsZXJzL21lbWNnL2Z1
+bmN0aW9uYWwvbWVtY2dfZmFpbGNudC5zaAo+IEBAIC0xLDU4ICsxLDM5IEBACj4gICAjIS9iaW4v
+c2gKPiArIyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMC1vci1sYXRlcgo+ICsjIENv
+cHlyaWdodCAoYykgMjAwOSBGVUpJVFNVIExJTUlURUQKPiArIyBDb3B5cmlnaHQgKGMpIDIwMTgt
+MjAxOSBBUk0gTHRkLiBBbGwgUmlnaHRzIFJlc2VydmVkLgpUaGlzIGlzIGJhZCBjb3B5LWFuZC1w
+YXN0ZSBmb3IgYWxsIGZpbGVzLCB3aGVyZSBJIG1lbnRpb25lZCBhcm0sIHNvcnJ5Li4uCgpKw7Zy
+ZwoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZv
+L2x0cAo=
