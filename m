@@ -1,61 +1,39 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DF7130239F
-	for <lists+linux-ltp@lfdr.de>; Mon, 25 Jan 2021 11:25:30 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 09FC43023CF
+	for <lists+linux-ltp@lfdr.de>; Mon, 25 Jan 2021 11:47:35 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4D85D3C52B3
-	for <lists+linux-ltp@lfdr.de>; Mon, 25 Jan 2021 11:25:30 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 5F9D73C5F33
+	for <lists+linux-ltp@lfdr.de>; Mon, 25 Jan 2021 11:47:34 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 047243C3035
- for <ltp@lists.linux.it>; Mon, 25 Jan 2021 11:25:28 +0100 (CET)
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de
- [85.215.255.51])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id 796D23C3035
+ for <ltp@lists.linux.it>; Mon, 25 Jan 2021 11:47:30 +0100 (CET)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 504F5600069
- for <ltp@lists.linux.it>; Mon, 25 Jan 2021 11:25:28 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1611570327;
- s=strato-dkim-0002; d=hartkopp.net;
- h=In-Reply-To:Date:Message-ID:From:References:Cc:To:Subject:From:
- Subject:Sender;
- bh=X+F5eBx6hhPWWwcF9ubIsqkxUL4WeBCjYPW2wcv2gyg=;
- b=I6bsbPD1dqxtchkfJQDX8DLVvdI++q5c+wQCWNKFLrqbq85p30QicJ3uBK1nPxRMT9
- t/FCdyPiMY5RoGxqo4Ulr2gK9CUm+5MdbJG0w36Kvthjj2DUxcF11mLZs/ONiafHikS1
- /XgW0bnRwNpw7TRSqJj/t+WnibMpqHCSzm4f4IlrSoh8iqXMb08iXyANP0zyJAOFVaZW
- fjUhClvs/BL0QEz5LZPyPxEHZsb9BHADJECwtg2SeykXL6YJtplVrZFEUGrlhtg54Imu
- OCQpnUwAtV9FzOBbSKaF1GdYSr937mkSYvnmaaMVQNxFl1hYajduAV1fCKcL7jLZItzn
- fAtg==
-X-RZG-AUTH: ":P2MHfkW8eP4Mre39l357AZT/I7AY/7nT2yrDxb8mjG14FZxedJy6qgO1o3TMaFqTEVR/J8xty10="
-X-RZG-CLASS-ID: mo00
-Received: from [192.168.10.137] by smtp.strato.de (RZmta 47.12.1 DYNA|AUTH)
- with ESMTPSA id k075acx0PAPPxPs
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Mon, 25 Jan 2021 11:25:25 +0100 (CET)
-To: Richard Palethorpe <rpalethorpe@suse.com>, ltp@lists.linux.it
-References: <20210120143723.26483-1-rpalethorpe@suse.com>
- <20210120143723.26483-8-rpalethorpe@suse.com>
-From: Oliver Hartkopp <socketcan@hartkopp.net>
-Message-ID: <e39c4ae6-94df-9162-7357-d125ced72d17@hartkopp.net>
-Date: Mon, 25 Jan 2021 11:25:25 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.1
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 0F66E1000A20
+ for <ltp@lists.linux.it>; Mon, 25 Jan 2021 11:47:29 +0100 (CET)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 5C23BAC9B;
+ Mon, 25 Jan 2021 10:47:29 +0000 (UTC)
+Date: Mon, 25 Jan 2021 11:48:34 +0100
+From: Cyril Hrubis <chrubis@suse.cz>
+To: gengcixi@gmail.com
+Message-ID: <YA6iAkYyomg1WkTS@yuki.lan>
+References: <20210111083711.1715851-1-gengcixi@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20210120143723.26483-8-rpalethorpe@suse.com>
-Content-Language: en-US
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20210111083711.1715851-1-gengcixi@gmail.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_PASS,SPF_NONE
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3 7/7] can: Update contact details
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH V2 0/3] add rtctime libs and rtc02 case
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,59 +45,33 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Marc Kleine-Budde <mkl@pengutronix.de>, linux-can@vger.kernel.org
+Cc: orsonzhai@gmail.com, Cixi Geng <cixi.geng1@unisoc.com>, ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+Hi!
+I've fixed a few problems in the patchset and pushed, thanks.
 
+Mostly minor changes such as constifying the rtc_dev string pointer and
+a few typo fixes, but also added missing function prototypes to the rtc_time.h
 
-On 20.01.21 15:37, Richard Palethorpe wrote:
-> socketcan-users appears to be no more.
-> 
-> Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
+> 1. keep tst_rtc_gettime and tst_rtc_settime no change to "static 
+>    inline"(V1) for some compile warning and referring to 
+>    tst_clock_gettime in tst_clocks.h
 
-Thanks for the cleanup and the rework, Richard!
+This was due to missing include to sys/ioctl.h which declares the _IO()
+macro used to define RTC_RD_TIME and RTC_SET_TIME
 
-Acked-by: Oliver Hartkopp <socketcan@hartkopp.net>
-(for the entire series)
+> 2. in .h, use identifiers format "/* XXX /*" rather than "// XXX" 
+>    for kernel checkpatch "WARNING" as follow:
 
-Best regards,
-Oliver
+I guess that we may as well switch to the kernel format then.
 
-> ---
->   testcases/network/can/filter-tests/00_Descriptions.txt | 5 +++--
->   testcases/network/can/filter-tests/Makefile            | 2 --
->   2 files changed, 3 insertions(+), 4 deletions(-)
-> 
-> diff --git a/testcases/network/can/filter-tests/00_Descriptions.txt b/testcases/network/can/filter-tests/00_Descriptions.txt
-> index 55d213456..9623d29a0 100644
-> --- a/testcases/network/can/filter-tests/00_Descriptions.txt
-> +++ b/testcases/network/can/filter-tests/00_Descriptions.txt
-> @@ -6,5 +6,6 @@ information on the CAN network protocol family PF_CAN is contained in
->   
->   For any issue(s) with CAN tests please write to:
->   <ltp@lists.linux.it>
-> -<socketcan-users@lists.berlios.de>,
-> -Oliver Hartkopp <oliver.hartkopp@volkswagen.de>,
-> +Oliver Hartkopp <socketcan@hartkopp.net>
-> +Linux-CAN ML <linux-can@vger.kernel.org>
-> +
-> diff --git a/testcases/network/can/filter-tests/Makefile b/testcases/network/can/filter-tests/Makefile
-> index 29aaa3240..bd57c7fff 100644
-> --- a/testcases/network/can/filter-tests/Makefile
-> +++ b/testcases/network/can/filter-tests/Makefile
-> @@ -14,8 +14,6 @@
->   #    You should have received a copy of the GNU General Public License along
->   #    with this program; if not, write to the Free Software Foundation, Inc.,
->   #    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-> -#
-> -#  Send feedback to <socketcan-users@lists.berlios.de>
->   
->   top_srcdir		?= ../../../..
->   
-> 
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
