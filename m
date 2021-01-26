@@ -1,37 +1,48 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 127BB30298B
-	for <lists+linux-ltp@lfdr.de>; Mon, 25 Jan 2021 19:06:43 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8EE9C303162
+	for <lists+linux-ltp@lfdr.de>; Tue, 26 Jan 2021 02:42:01 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id AF1413C5F29
-	for <lists+linux-ltp@lfdr.de>; Mon, 25 Jan 2021 19:06:42 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 0F8C63C7AF5
+	for <lists+linux-ltp@lfdr.de>; Tue, 26 Jan 2021 02:42:01 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id 795BA3C288C
- for <ltp@lists.linux.it>; Mon, 25 Jan 2021 19:06:40 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id EA32F60008D
- for <ltp@lists.linux.it>; Mon, 25 Jan 2021 19:06:39 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id C1E6DB7D9
- for <ltp@lists.linux.it>; Mon, 25 Jan 2021 18:06:38 +0000 (UTC)
-From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Mon, 25 Jan 2021 19:06:30 +0100
-Message-Id: <20210125180630.15163-1-pvorel@suse.cz>
-X-Mailer: git-send-email 2.30.0
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id 150053C0752
+ for <ltp@lists.linux.it>; Tue, 26 Jan 2021 02:41:56 +0100 (CET)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-3.smtp.seeweb.it (Postfix) with ESMTP id 3C2B91A001D3
+ for <ltp@lists.linux.it>; Tue, 26 Jan 2021 02:41:54 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.79,375,1602518400"; d="scan'208";a="103825797"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 26 Jan 2021 09:41:52 +0800
+Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
+ by cn.fujitsu.com (Postfix) with ESMTP id 707CF4CE67AC
+ for <ltp@lists.linux.it>; Tue, 26 Jan 2021 09:41:49 +0800 (CST)
+Received: from localhost.localdomain (10.167.220.84) by
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Tue, 26 Jan 2021 09:41:47 +0800
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+To: <ltp@lists.linux.it>
+Date: Tue, 26 Jan 2021 09:41:38 +0800
+Message-ID: <1611625298-2425-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Originating-IP: [10.167.220.84]
+X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
+X-yoursite-MailScanner-ID: 707CF4CE67AC.AD17B
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.4
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 1/1] lib: Add test for tst_check_driver()
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH] syscalls/msync: Assgin value for page_sz
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,110 +59,68 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Test for 8f7013ba6.
+Since the previous patch, it removes useless getpagesize()
+check because this function never fail. But it also remove
+the page_size assignment and it lead case fail as below:
 
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
+msync02     1  TBROK  :  msync02.c:133: mmap failed: errno=EINVAL(22): Invalid argument
+msync02     2  TBROK  :  msync02.c:133: Remaining cases broken
+msync02     3  TBROK  :  msync02.c:147: munmap failed: errno=EINVAL(22): Invalid argument
+
+Fix this and also fix compiler warning by using size_t data type instead of int.
+
+Fixes: 60f4b01194ca ("syscalls/msync01: Remove useless getpagesize() check")
+Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
 ---
-Hi Cyril,
+ testcases/kernel/syscalls/msync/msync01.c | 4 +++-
+ testcases/kernel/syscalls/msync/msync02.c | 4 +++-
+ 2 files changed, 6 insertions(+), 2 deletions(-)
 
-thanks for previous review. I modified the test more thus sending v2.
-
-Changes v1-v2:
-* Check two version of module (using '_' and '-' also on built-in
-  modules) => more coverage.
-* Fix test when $MODULES_DIR exists, but does not contain modules
-(in v1 it TBROK: Test didn't report any results), now at least check non-existing module:
-
-Kind regards,
-Petr
-
-tst_check_driver 1 TINFO: timeout per run is 0h 5m 0s
-tst_check_driver 1 TINFO: using modules directory '/tmp/xx'
-tst_check_driver 1 TINFO: check loadable module detection
-tst_check_driver 1 TCONF: no modules found
-tst_check_driver 2 TINFO: check non-existing module detection
-tst_check_driver 2 TPASS: tst_check_drivers not-existing-kernel-module failed as expected
-tst_check_driver 3 TINFO: check built-in module detection
-tst_check_driver 3 TCONF: missing '/tmp/xx/modules.builtin'
-
-Kind regards,
-Petr
-
- lib/newlib_tests/shell/tst_check_driver.sh | 63 ++++++++++++++++++++++
- 1 file changed, 63 insertions(+)
- create mode 100755 lib/newlib_tests/shell/tst_check_driver.sh
-
-diff --git a/lib/newlib_tests/shell/tst_check_driver.sh b/lib/newlib_tests/shell/tst_check_driver.sh
-new file mode 100755
-index 000000000..b1418ef8e
---- /dev/null
-+++ b/lib/newlib_tests/shell/tst_check_driver.sh
-@@ -0,0 +1,63 @@
-+#!/bin/sh
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+# Copyright (c) 2021 Petr Vorel <pvorel@suse.cz>
+diff --git a/testcases/kernel/syscalls/msync/msync01.c b/testcases/kernel/syscalls/msync/msync01.c
+index 121fd86e8..cb740565d 100644
+--- a/testcases/kernel/syscalls/msync/msync01.c
++++ b/testcases/kernel/syscalls/msync/msync01.c
+@@ -153,12 +153,14 @@ int main(int ac, char **av)
+  */
+ void setup(void)
+ {
+-	int c_total = 0, nwrite = 0;	/* no. of bytes to be written */
++	size_t c_total = 0, nwrite = 0;	/* no. of bytes to be written */
+ 
+ 	tst_sig(NOFORK, DEF_HANDLER, cleanup);
+ 
+ 	TEST_PAUSE;
+ 
++	page_sz = (size_t)getpagesize();
 +
-+TST_TESTFUNC=test
-+TST_SETUP=setup
-+TST_CNT=3
-+TST_NEEDS_CMDS="tst_check_drivers find grep head sed"
-+. tst_test.sh
+ 	tst_tmpdir();
+ 
+ 	if ((fildes = open(TEMPFILE, O_RDWR | O_CREAT, 0666)) < 0)
+diff --git a/testcases/kernel/syscalls/msync/msync02.c b/testcases/kernel/syscalls/msync/msync02.c
+index c7b7e9e9c..11ed29e3b 100644
+--- a/testcases/kernel/syscalls/msync/msync02.c
++++ b/testcases/kernel/syscalls/msync/msync02.c
+@@ -106,13 +106,15 @@ int main(int ac, char **av)
+ 
+ void setup(void)
+ {
+-	int c_total = 0, nwrite = 0;	/* no. of bytes to be written */
++	size_t c_total = 0, nwrite = 0;	/* no. of bytes to be written */
+ 	char tst_buf[BUF_SIZE];
+ 
+ 	tst_sig(NOFORK, DEF_HANDLER, cleanup);
+ 
+ 	TEST_PAUSE;
+ 
++	page_sz = (size_t)getpagesize();
 +
-+MODULES_DIR="${MODULES_DIR:-/lib/modules/$(uname -r)}"
-+
-+setup()
-+{
-+	tst_res TINFO "using modules directory '$MODULES_DIR'"
-+
-+	[ -d "$MODULES_DIR" ] || \
-+		tst_brk TCONF "modules directory '$MODULES_DIR' missing"
-+}
-+
-+test_drivers()
-+{
-+	local paths="$@"
-+	local drv
-+
-+	if [ -z "$paths" ]; then
-+		tst_res TCONF "no modules found"
-+		return
-+	fi
-+
-+	for drv in $paths; do
-+		drv="$(echo $drv | sed 's/.*\/\([^/]\+\)\.ko.*/\1/')"
-+		EXPECT_PASS tst_check_drivers $drv
-+		drv="$(echo $drv | sed 's/_/-/g')"
-+		EXPECT_PASS tst_check_drivers $drv
-+	done
-+}
-+
-+test1()
-+{
-+	tst_res TINFO "check loadable module detection"
-+	test_drivers $(find $MODULES_DIR | grep -E '_[^/]+\.ko' | head -3)
-+}
-+
-+test2()
-+{
-+	tst_res TINFO "check non-existing module detection"
-+	EXPECT_FAIL tst_check_drivers not-existing-kernel-module
-+}
-+
-+test3()
-+{
-+	local f="$MODULES_DIR/modules.builtin"
-+
-+	tst_res TINFO "check built-in module detection"
-+
-+	[ -f "$f" ] || \
-+		tst_brk TCONF "missing '$f'"
-+
-+	test_drivers $(grep -E '_[^/]+\.ko' $f | head -3)
-+}
-+
-+tst_run
+ 	tst_tmpdir();
+ 
+ 	if ((fildes = open(TEMPFILE, O_RDWR | O_CREAT, 0666)) < 0)
 -- 
-2.30.0
+2.23.0
+
+
 
 
 -- 
