@@ -2,33 +2,32 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E748303999
-	for <lists+linux-ltp@lfdr.de>; Tue, 26 Jan 2021 10:55:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6789830399B
+	for <lists+linux-ltp@lfdr.de>; Tue, 26 Jan 2021 10:55:59 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2F1713C4FD3
-	for <lists+linux-ltp@lfdr.de>; Tue, 26 Jan 2021 10:55:40 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 3657E3C304F
+	for <lists+linux-ltp@lfdr.de>; Tue, 26 Jan 2021 10:55:59 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id CA7AD3C0752
- for <ltp@lists.linux.it>; Tue, 26 Jan 2021 10:55:38 +0100 (CET)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id 36F1A3C5ED0
+ for <ltp@lists.linux.it>; Tue, 26 Jan 2021 10:55:45 +0100 (CET)
 Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-6.smtp.seeweb.it (Postfix) with ESMTP id 8B9E61400760
- for <ltp@lists.linux.it>; Tue, 26 Jan 2021 10:55:37 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.79,375,1602518400"; d="scan'208";a="103847569"
+ by in-6.smtp.seeweb.it (Postfix) with ESMTP id 6C6C51400DC6
+ for <ltp@lists.linux.it>; Tue, 26 Jan 2021 10:55:43 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.79,375,1602518400"; d="scan'208";a="103847576"
 Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 26 Jan 2021 17:55:36 +0800
+ by heian.cn.fujitsu.com with ESMTP; 26 Jan 2021 17:55:42 +0800
 Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id AD67A4CE6783
- for <ltp@lists.linux.it>; Tue, 26 Jan 2021 17:55:33 +0800 (CST)
+ by cn.fujitsu.com (Postfix) with ESMTP id 197FA4CE6781
+ for <ltp@lists.linux.it>; Tue, 26 Jan 2021 17:55:37 +0800 (CST)
 Received: from localhost.localdomain (10.167.220.84) by
  G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Tue, 26 Jan 2021 17:55:30 +0800
+ (TLS) id 15.0.1497.2; Tue, 26 Jan 2021 17:55:36 +0800
 From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
 To: <ltp@lists.linux.it>
-Date: Tue, 26 Jan 2021 17:55:24 +0800
-Message-ID: <1611654925-8994-2-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+Date: Tue, 26 Jan 2021 17:55:25 +0800
+Message-ID: <1611654925-8994-3-git-send-email-xuyang2018.jy@cn.fujitsu.com>
 X-Mailer: git-send-email 1.8.3.1
 In-Reply-To: <1611654925-8994-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
 References: <1611654925-8994-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
@@ -36,7 +35,7 @@ MIME-Version: 1.0
 X-Originating-IP: [10.167.220.84]
 X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
  G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: AD67A4CE6783.AD7F4
+X-yoursite-MailScanner-ID: 197FA4CE6781.AEA27
 X-yoursite-MailScanner: Found to be clean
 X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
 X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
@@ -44,8 +43,8 @@ X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
 X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH v1 2/3] syscalls/mallinfo02: Add a basic test to check
- use mmap or sbrk
+Subject: [LTP] [PATCH v1 3/3] syscalls/mallinfo03: Add an overflow test when
+ setting 2G size
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,47 +61,44 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-According mallinfo man-page, hblkhd member represents
-"The number of bytes in blocks currently allocated using mmap(2).".
-For allocations greater than or equal to 128K and that can't be satisfied from
-the free list, the memory-allocation functions employ mmap(2) instead of increasing
-the program break using sbrk(2).
-
-In this case, we test 20k size to use sbrk and 128k size to use mmap.
+Since these members of mallinfo struct use int data type, it will overflow
+when allocating 2G size. mallinfo() is deprecated and we should use mallinfo2()
+in the future.
 
 Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
 ---
  runtest/syscalls                              |  1 +
  testcases/kernel/syscalls/mallinfo/.gitignore |  1 +
- .../kernel/syscalls/mallinfo/mallinfo02.c     | 76 +++++++++++++++++++
- 3 files changed, 78 insertions(+)
- create mode 100644 testcases/kernel/syscalls/mallinfo/mallinfo02.c
+ .../kernel/syscalls/mallinfo/mallinfo03.c     | 62 +++++++++++++++++++
+ 3 files changed, 64 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/mallinfo/mallinfo03.c
 
 diff --git a/runtest/syscalls b/runtest/syscalls
-index d0a9a5145..74ad999e8 100644
+index 74ad999e8..8fe123f8c 100644
 --- a/runtest/syscalls
 +++ b/runtest/syscalls
-@@ -683,6 +683,7 @@ lstat02 lstat02
- lstat02_64 lstat02_64
+@@ -684,6 +684,7 @@ lstat02_64 lstat02_64
  
  mallinfo01 mallinfo01
-+mallinfo02 mallinfo02
+ mallinfo02 mallinfo02
++mallinfo03 mallinfo03
  
  mallopt01 mallopt01
  
 diff --git a/testcases/kernel/syscalls/mallinfo/.gitignore b/testcases/kernel/syscalls/mallinfo/.gitignore
-index a7e32a637..678ac277e 100644
+index 678ac277e..30c315cf2 100644
 --- a/testcases/kernel/syscalls/mallinfo/.gitignore
 +++ b/testcases/kernel/syscalls/mallinfo/.gitignore
-@@ -1 +1,2 @@
+@@ -1,2 +1,3 @@
  /mallinfo01
-+/mallinfo02
-diff --git a/testcases/kernel/syscalls/mallinfo/mallinfo02.c b/testcases/kernel/syscalls/mallinfo/mallinfo02.c
+ /mallinfo02
++/mallinfo03
+diff --git a/testcases/kernel/syscalls/mallinfo/mallinfo03.c b/testcases/kernel/syscalls/mallinfo/mallinfo03.c
 new file mode 100644
-index 000000000..f0c9cb99c
+index 000000000..e8dc35e42
 --- /dev/null
-+++ b/testcases/kernel/syscalls/mallinfo/mallinfo02.c
-@@ -0,0 +1,76 @@
++++ b/testcases/kernel/syscalls/mallinfo/mallinfo03.c
+@@ -0,0 +1,62 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
 +/*
 + * Copyright (c) 2021 FUJITSU LIMITED. All rights reserved.
@@ -112,9 +108,10 @@ index 000000000..f0c9cb99c
 +/*\
 + * [DESCRIPTION]
 + *
-+ * Basic mallinfo() test for malloc() using sbrk or mmap.
-+ * It size > 128k, it will use mmap and deallocated space is not placed on
-+ * the free list for reuse by later allocations.
++ * Basic mallinfo() test. Test the member of struct mallinfo
++ * whether overflow when setting 2G size. mallinfo() is deprecated
++ * since the type used for the fields is too small. We should use
++ * mallinfo2() and it was added since glibc 2.33.
 +\*/
 +
 +#include <malloc.h>
@@ -123,7 +120,6 @@ index 000000000..f0c9cb99c
 +#include "tst_safe_macros.h"
 +
 +#ifdef HAVE_MALLINFO
-+static int reuse_size;
 +static void print_mallinfo(const char *msg, struct mallinfo *m)
 +{
 +	tst_res(TINFO, "%s...", msg);
@@ -140,40 +136,26 @@ index 000000000..f0c9cb99c
 +	P(keepcost);
 +}
 +
-+void test_mallopt(void)
++void test_mallinfo(void)
 +{
 +	struct mallinfo info;
-+	int size;
 +	char *buf;
++	size_t size = 2UL * 1024UL * 1024UL * 1024UL;
 +
-+	buf = SAFE_MALLOC(20480);
-+
-+	info = mallinfo();
-+	if (info.uordblks > 20480 && info.hblkhd == 0) {
-+		tst_res(TPASS, "malloc() uses sbrk when size < 128k");
-+	} else {
-+		tst_res(TFAIL, "malloc() use mmap when size < 128k");
-+		print_mallinfo("Test malloc(20480)", &info);
-+	}
-+	free(buf);
-+
-+	info = mallinfo();
-+	size = MAX(info.fordblks, 131072) + reuse_size;
 +	buf = SAFE_MALLOC(size);
 +	info = mallinfo();
-+	if (info.hblkhd > size) {
-+		tst_res(TPASS, "malloc() uses mmap when size >= 128k");
++	if (info.hblkhd < 0) {
++		print_mallinfo("Test malloc 2G", &info);
++		tst_res(TFAIL, "The member of struct mallinfo overflow, we should use mallinfo2");
 +	} else {
-+		tst_res(TFAIL, "malloc uses sbrk when size >= 128k");
-+		print_mallinfo("Test malloc(1024*128)", &info);
++		/*We will never get here*/
++		tst_res(TPASS, "The member of struct mallinfo doesn't overflow");
 +	}
-+
-+	reuse_size = info.hblkhd;
 +	free(buf);
 +}
 +
 +static struct tst_test test = {
-+	.test_all = test_mallopt,
++	.test_all = test_mallinfo,
 +};
 +
 +#else
