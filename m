@@ -2,54 +2,74 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17248305B65
-	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jan 2021 13:30:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBC60305C6F
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jan 2021 14:06:14 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C6BF13C79E7
-	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jan 2021 13:30:44 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 5D1A43C7A21
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jan 2021 14:06:14 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id A69303C4FAE
- for <ltp@lists.linux.it>; Wed, 27 Jan 2021 13:30:42 +0100 (CET)
-Received: from chinatelecom.cn (prt-mail.chinatelecom.cn [42.123.76.220])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id D76EB60095A
- for <ltp@lists.linux.it>; Wed, 27 Jan 2021 13:30:41 +0100 (CET)
-HMM_SOURCE_IP: 172.18.0.48:34860.585725817
-HMM_ATTACHE_NUM: 0000
-HMM_SOURCE_TYPE: SMTP
-Received: from clientip-10.133.11.243?logid-ab3f6df9b6cb4f0688a3460d1520f2be
- (unknown [172.18.0.48])
- by chinatelecom.cn (HERMES) with SMTP id D0561280090;
- Wed, 27 Jan 2021 20:30:39 +0800 (CST)
-X-189-SAVE-TO-SEND: liuxp11@chinatelecom.cn
-Received: from  ([172.18.0.48])
- by App0024 with ESMTP id ab3f6df9b6cb4f0688a3460d1520f2be for chrubis@suse.cz; 
- Wed Jan 27 20:30:40 2021
-X-Transaction-ID: ab3f6df9b6cb4f0688a3460d1520f2be
-X-filter-score: filter<0>
-X-Real-From: liuxp11@chinatelecom.cn
-X-Receive-IP: 172.18.0.48
-X-MEDUSA-Status: 0
-Date: Wed, 27 Jan 2021 20:30:38 +0800
-From: "liuxp11@chinatelecom.cn" <liuxp11@chinatelecom.cn>
-To: "Cyril Hrubis" <chrubis@suse.cz>
-References: <20210127115606.28985-1-mdoucha@suse.cz>, 
- <YBFWrJoS1tVmWGFx@yuki.lan>, 
- <2021012720143348660139@chinatelecom.cn>, 
- <YBFcc/lc+KkC49Gq@yuki.lan>
-X-Priority: 3
-X-GUID: 4FEFE4E3-41F7-4F67-AE01-94B768F0DD78
-X-Has-Attach: no
-X-Mailer: Foxmail 7.2.18.111[cn]
-Mime-Version: 1.0
-Message-ID: <2021012720303822264041@chinatelecom.cn>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id BD0253C4FA4
+ for <ltp@lists.linux.it>; Wed, 27 Jan 2021 14:06:09 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id BEB43200B96
+ for <ltp@lists.linux.it>; Wed, 27 Jan 2021 14:06:08 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1611752767;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=BLb/kiKW+mioDi+o+N0gMnScrh4LRPnO3c8eA6KEo64=;
+ b=Ht4fmfzY1jfbyZVb6yjHRi9gL70vTbTEmhSC9idTZ8mBfqS+rvoIpr1ZYUOYVHVQs6dxxn
+ WyS8Q0eAvlAe7p2AxC3etJ+KNhJV3k15Bq2hrS6zjM/s9Shq8Wlnirpqe1DO3J7rAm3/v8
+ aCmdgbtAzzgyKqEWqu1u/M/c9p7WucY=
+Received: from mail-yb1-f198.google.com (mail-yb1-f198.google.com
+ [209.85.219.198]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-429-TeLgdvGrOguwNNU1VzP3vg-1; Wed, 27 Jan 2021 08:06:04 -0500
+X-MC-Unique: TeLgdvGrOguwNNU1VzP3vg-1
+Received: by mail-yb1-f198.google.com with SMTP id c12so2290970ybf.1
+ for <ltp@lists.linux.it>; Wed, 27 Jan 2021 05:06:04 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=BLb/kiKW+mioDi+o+N0gMnScrh4LRPnO3c8eA6KEo64=;
+ b=M2got9zqEnXoc4z2EBn8wCIUqshghMGD5YDxvQwfADFylPl9Ac8l0M4c2rS/jkR7nq
+ WyUNVDaZu4znBqk01fvjVymlwZ18ZhO4it3KifGzzkRpQYFRPxrJNJIWT73sZ6iyJev9
+ XPsBXxbkIDMoqdI6BPswfAtVLYOY7UPRYoEOlHOOIxQVibZXZkj1ZCyphD565Zm6xDxt
+ tKHiI6oEli8MpiCGxk7HwSGIYXQXCFI2f1E/23lZs1c6eA5YtXZShbYkRCT8sObroQJl
+ U4LfwLOdBPpiioVEB175FVRorDS/drRFzqjpPdQObCkiXEeKlRWhBdkD9qbILd2lNoYt
+ 1ZuA==
+X-Gm-Message-State: AOAM532mMn8bgudFYnU4Ix+t4Aygp8xZZk6KgjI5CPd6HfEpjxsJ73AH
+ QqW79MzBJmjvu5noUz9gkdgzYgKNNF+B8qVokx8eYNvhMo6bX/WJoEzKAvRv03EGk9P7/nvvwey
+ ED1oBz7MhYEiSWg2rQuhy96s9zt0=
+X-Received: by 2002:a25:1646:: with SMTP id 67mr4773573ybw.97.1611752764419;
+ Wed, 27 Jan 2021 05:06:04 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJwfd7x61VyWvuf81X734W8VFJLcOoqfiESd45H4UpauCTjIAZC6P1arP+pVAzYX3urvmPcgFeYUsOWdrWluL6k=
+X-Received: by 2002:a25:1646:: with SMTP id 67mr4773552ybw.97.1611752764206;
+ Wed, 27 Jan 2021 05:06:04 -0800 (PST)
+MIME-Version: 1.0
+References: <20210127115606.28985-1-mdoucha@suse.cz>
+ <YBFWrJoS1tVmWGFx@yuki.lan>
+ <2021012720143348660139@chinatelecom.cn> <YBFcc/lc+KkC49Gq@yuki.lan>
+In-Reply-To: <YBFcc/lc+KkC49Gq@yuki.lan>
+From: Li Wang <liwang@redhat.com>
+Date: Wed, 27 Jan 2021 21:05:52 +0800
+Message-ID: <CAEemH2fe3qA230XhkU3Jwt52gcX0mRXj8XULjwjYzeq4v1rRog@mail.gmail.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=HTML_MESSAGE,SPF_HELO_PASS,
- SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH] Fix tst_pollute_memory() safety margin for huge
  systems
 X-BeenThere: ltp@lists.linux.it
@@ -63,75 +83,80 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============1056365829=="
+Cc: ltp <ltp@lists.linux.it>,
+ "liuxp11@chinatelecom.cn" <liuxp11@chinatelecom.cn>
+Content-Type: multipart/mixed; boundary="===============0175451705=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This is a multi-part message in MIME format.
+--===============0175451705==
+Content-Type: multipart/alternative; boundary="000000000000fa05a305b9e16ec3"
 
---===============1056365829==
-Content-Type: multipart/alternative;
-	boundary="----=_001_NextPart852112462581_=----"
+--000000000000fa05a305b9e16ec3
+Content-Type: text/plain; charset="UTF-8"
 
-This is a multi-part message in MIME format.
+On Wed, Jan 27, 2021 at 8:27 PM Cyril Hrubis <chrubis@suse.cz> wrote:
 
-------=_001_NextPart852112462581_=----
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: base64
+> Hi!
+> > According my test,malloc amount greater than available memory,then
+> invoke the oom-killer.
+>
+> However that does not mean that allocating MemAvailable or slightly less
+> than MemAvailable is safe. In fact it's not, at least that I've been
+> told be kernel developers. I will try to figure out something safe
+> enough with their help.
+>
 
-T0ssSSBhbHNvIHdhbm5hIGtub3cgaG93IHRvIGZpeCBpdC4NClRoYW5rcyENCiANCkZyb206IEN5
-cmlsIEhydWJpcw0KRGF0ZTogMjAyMS0wMS0yNyAyMDoyOA0KVG86IGxpdXhwMTFAY2hpbmF0ZWxl
-Y29tLmNuDQpDQzogbWRvdWNoYTsgbHRwDQpTdWJqZWN0OiBSZTogUmU6IFtMVFBdIFtQQVRDSF0g
-Rml4IHRzdF9wb2xsdXRlX21lbW9yeSgpIHNhZmV0eSBtYXJnaW4gZm9yIGh1Z2Ugc3lzdGVtcw0K
-SGkhDQo+IEFjY29yZGluZyBteSB0ZXN0LG1hbGxvYyBhbW91bnQgZ3JlYXRlciB0aGFuIGF2YWls
-YWJsZSBtZW1vcnksdGhlbiBpbnZva2UgdGhlIG9vbS1raWxsZXIuDQogDQpIb3dldmVyIHRoYXQg
-ZG9lcyBub3QgbWVhbiB0aGF0IGFsbG9jYXRpbmcgTWVtQXZhaWxhYmxlIG9yIHNsaWdodGx5IGxl
-c3MNCnRoYW4gTWVtQXZhaWxhYmxlIGlzIHNhZmUuIEluIGZhY3QgaXQncyBub3QsIGF0IGxlYXN0
-IHRoYXQgSSd2ZSBiZWVuDQp0b2xkIGJlIGtlcm5lbCBkZXZlbG9wZXJzLiBJIHdpbGwgdHJ5IHRv
-IGZpZ3VyZSBvdXQgc29tZXRoaW5nIHNhZmUNCmVub3VnaCB3aXRoIHRoZWlyIGhlbHAuDQogDQot
-LSANCkN5cmlsIEhydWJpcw0KY2hydWJpc0BzdXNlLmN6DQo=
+If we only hope to avoid trigger OOM during allocating until the
+MAP_FAILED, I think the knob 'proc/sys/vm/overcommit_memory'
+maybe helpful.
 
-------=_001_NextPart852112462581_=----
-Content-Type: text/html;
-	charset="utf-8"
+e.g.
+
+  set overcommit_memory = 2, overcommit_ratio = 85 or 90;
+  ... memory allocating as much as you can ...
+  restore the value of overcommit_*
+
+-- 
+Regards,
+Li Wang
+
+--000000000000fa05a305b9e16ec3
+Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<html><head><meta http-equiv=3D"content-type" content=3D"text/html; charse=
-t=3Dutf-8"><style>body { line-height: 1.5; }blockquote { margin-top: 0px; =
-margin-bottom: 0px; margin-left: 0.5em; }p { margin-top: 0px; margin-botto=
-m: 0px; }body { font-size: 14px; font-family: 'Microsoft YaHei UI'; color:=
- rgb(0, 0, 0); line-height: 1.5; }</style></head><body>=0A<div><span></spa=
-n></div><div><span><div style=3D"margin: 10px;"><p class=3D"MsoNormal" sty=
-le=3D"font-family: =E7=AD=89=E7=BA=BF; font-size: 10.5pt; line-height: nor=
-mal; margin: 0cm; text-align: justify;">OK,I also wanna know how to fix it=
-.</p><p class=3D"MsoNormal" style=3D"font-family: =E7=AD=89=E7=BA=BF; font=
--size: 10.5pt; line-height: normal; margin: 0cm; text-align: justify;">Tha=
-nks!</p></div></span></div>=0A<blockquote style=3D"margin-Top: 0px; margin=
--Bottom: 0px; margin-Left: 0.5em; margin-Right: inherit"><div>&nbsp;</div>=
-<div style=3D"border:none;border-top:solid #B5C4DF 1.0pt;padding:3.0pt 0cm=
- 0cm 0cm"><div style=3D"PADDING-RIGHT: 8px; PADDING-LEFT: 8px; FONT-SIZE: =
-12px;FONT-FAMILY:tahoma;COLOR:#000000; BACKGROUND: #efefef; PADDING-BOTTOM=
-: 8px; PADDING-TOP: 8px"><div><b>From:</b>&nbsp;<a href=3D"mailto:chrubis@=
-suse.cz">Cyril Hrubis</a></div><div><b>Date:</b>&nbsp;2021-01-27&nbsp;20:2=
-8</div><div><b>To:</b>&nbsp;<a href=3D"mailto:liuxp11@chinatelecom.cn">liu=
-xp11@chinatelecom.cn</a></div><div><b>CC:</b>&nbsp;<a href=3D"mailto:mdouc=
-ha@suse.cz">mdoucha</a>; <a href=3D"mailto:ltp@lists.linux.it">ltp</a></di=
-v><div><b>Subject:</b>&nbsp;Re: Re: [LTP] [PATCH] Fix tst_pollute_memory()=
- safety margin for huge systems</div></div></div><div><div>Hi!</div>=0A<di=
-v>&gt; According my test,malloc amount greater than available memory,then =
-invoke the oom-killer.</div>=0A<div>&nbsp;</div>=0A<div>However that does =
-not mean that allocating MemAvailable or slightly less</div>=0A<div>than M=
-emAvailable is safe. In fact it's not, at least that I've been</div>=0A<di=
-v>told be kernel developers. I will try to figure out something safe</div>=
-=0A<div>enough with their help.</div>=0A<div>&nbsp;</div>=0A<div>-- </div>=
-=0A<div>Cyril Hrubis</div>=0A<div>chrubis@suse.cz</div>=0A</div></blockquo=
-te>=0A</body></html>
-------=_001_NextPart852112462581_=------
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"></div></div><div class=3D"gmail_quote"><div dir=3D"ltr" class=
+=3D"gmail_attr">On Wed, Jan 27, 2021 at 8:27 PM Cyril Hrubis &lt;<a href=3D=
+"mailto:chrubis@suse.cz">chrubis@suse.cz</a>&gt; wrote:<br></div><blockquot=
+e class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px s=
+olid rgb(204,204,204);padding-left:1ex">Hi!<br>
+&gt; According my test,malloc amount greater than available memory,then inv=
+oke the oom-killer.<br>
+<br>
+However that does not mean that allocating MemAvailable or slightly less<br=
+>
+than MemAvailable is safe. In fact it&#39;s not, at least that I&#39;ve bee=
+n<br>
+told be kernel developers. I will try to figure out something safe<br>
+enough with their help.<br></blockquote><div><br></div><div class=3D"gmail_=
+default" style=3D"font-size:small">If we only hope to avoid trigger OOM dur=
+ing allocating until the</div><div dir=3D"ltr"><div class=3D"gmail_default"=
+>MAP_FAILED, I think the knob &#39;proc/sys/vm/overcommit_memory&#39;</div>=
+<div class=3D"gmail_default">maybe=C2=A0helpful.</div><div class=3D"gmail_d=
+efault"><br></div><div class=3D"gmail_default">e.g.</div><div class=3D"gmai=
+l_default"><br></div><div class=3D"gmail_default">=C2=A0 set overcommit_mem=
+ory =3D 2, overcommit_ratio<span class=3D"gmail_default"> =3D 85 or 90;</sp=
+an></div></div><div><span class=3D"gmail_default">=C2=A0 ... memory allocat=
+ing as much as you can ...</span></div><div class=3D"gmail_default" style=
+=3D"font-size:small">=C2=A0 restore the value of overcommit_*</div></div><d=
+iv><br></div>-- <br><div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"=
+ltr"><div>Regards,<br></div><div>Li Wang<br></div></div></div></div>
+
+--000000000000fa05a305b9e16ec3--
 
 
---===============1056365829==
+--===============0175451705==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -141,5 +166,5 @@ Content-Disposition: inline
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
 
---===============1056365829==--
+--===============0175451705==--
 
