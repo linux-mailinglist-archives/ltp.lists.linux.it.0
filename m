@@ -2,51 +2,35 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAAAC304F77
-	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jan 2021 04:12:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14FC0304F7D
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jan 2021 04:19:15 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 62F2E3C04C5
-	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jan 2021 04:12:41 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 3AE803C04D0
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jan 2021 04:19:14 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id 6A7E03C00FA
- for <ltp@lists.linux.it>; Wed, 27 Jan 2021 04:12:34 +0100 (CET)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id 1B16F6006E4
- for <ltp@lists.linux.it>; Wed, 27 Jan 2021 04:12:32 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.79,378,1602518400"; d="scan'208";a="103878846"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 27 Jan 2021 11:12:31 +0800
-Received: from G08CNEXMBPEKD05.g08.fujitsu.local (unknown [10.167.33.204])
- by cn.fujitsu.com (Postfix) with ESMTP id C83604CE6026
- for <ltp@lists.linux.it>; Wed, 27 Jan 2021 11:12:25 +0800 (CST)
-Received: from irides.mr (10.167.225.141) by G08CNEXMBPEKD05.g08.fujitsu.local
- (10.167.33.204) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
- Wed, 27 Jan 2021 11:12:24 +0800
-To: Xiao Yang <yangx.jy@cn.fujitsu.com>
-References: <20210127025112.1226584-1-ruansy.fnst@cn.fujitsu.com>
- <6010D950.30002@cn.fujitsu.com>
-From: Ruan Shiyang <ruansy.fnst@cn.fujitsu.com>
-Message-ID: <e9a9481d-60a6-68f3-859b-8ab25722a0b3@cn.fujitsu.com>
-Date: Wed, 27 Jan 2021 11:12:24 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.1
-MIME-Version: 1.0
-In-Reply-To: <6010D950.30002@cn.fujitsu.com>
-Content-Language: en-US
-X-Originating-IP: [10.167.225.141]
-X-ClientProxiedBy: G08CNEXCHPEKD04.g08.fujitsu.local (10.167.33.200) To
- G08CNEXMBPEKD05.g08.fujitsu.local (10.167.33.204)
-X-yoursite-MailScanner-ID: C83604CE6026.A8515
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: ruansy.fnst@cn.fujitsu.com
-X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.4
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id 780BD3C020C
+ for <ltp@lists.linux.it>; Wed, 27 Jan 2021 04:19:08 +0100 (CET)
+Received: from atcsqa06.andestech.com (59-120-53-16.HINET-IP.hinet.net
+ [59.120.53.16])
+ by in-6.smtp.seeweb.it (Postfix) with ESMTP id B3A971400752
+ for <ltp@lists.linux.it>; Wed, 27 Jan 2021 04:19:05 +0100 (CET)
+Received: by atcsqa06.andestech.com (Postfix, from userid 5427)
+ id B1598C2A18; Wed, 27 Jan 2021 11:19:03 +0800 (CST)
+From: Leo Yu-Chi Liang <ycliang@andestech.com>
+To: ltp@lists.linux.it,
+	rpalethorpe@suse.de
+Date: Wed, 27 Jan 2021 11:18:53 +0800
+Message-Id: <20210127031853.3485-1-ycliang@andestech.com>
+X-Mailer: git-send-email 2.17.0
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/times01: Convert to new API
+X-Spam-Status: No, score=0.4 required=7.0 tests=PDS_RDNS_DYNAMIC_FP,
+ RDNS_DYNAMIC,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 1/1] fzsync: Add sched_yield for single core machine
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,130 +42,138 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-CgpPbiAyMDIxLzEvMjcg5LiK5Y2IMTE6MDksIFhpYW8gWWFuZyB3cm90ZToKPiBPbiAyMDIxLzEv
-MjcgMTA6NTEsIFNoaXlhbmcgUnVhbiB3cm90ZToKPj4gU2lnbmVkLW9mZi1ieTogU2hpeWFuZyBS
-dWFuPHJ1YW5zeS5mbnN0QGNuLmZ1aml0c3UuY29tPgo+PiAtLS0KPj4gwqAgdGVzdGNhc2VzL2tl
-cm5lbC9zeXNjYWxscy90aW1lcy90aW1lczAxLmMgfCAxNjggKysrLS0tLS0tLS0tLS0tLS0tLS0t
-LQo+PiDCoCAxIGZpbGUgY2hhbmdlZCwgMjAgaW5zZXJ0aW9ucygrKSwgMTQ4IGRlbGV0aW9ucygt
-KQo+Pgo+PiBkaWZmIC0tZ2l0IGEvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy90aW1lcy90aW1l
-czAxLmMgCj4+IGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy90aW1lcy90aW1lczAxLmMKPj4g
-aW5kZXggMjkzYTUyOTU3Li44N2EwZjYxNDQgMTAwNjQ0Cj4+IC0tLSBhL3Rlc3RjYXNlcy9rZXJu
-ZWwvc3lzY2FsbHMvdGltZXMvdGltZXMwMS5jCj4+ICsrKyBiL3Rlc3RjYXNlcy9rZXJuZWwvc3lz
-Y2FsbHMvdGltZXMvdGltZXMwMS5jCj4+IEBAIC0xLDE2MiArMSwzNCBAQAo+PiArLy8gU1BEWC1M
-aWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjAtb3ItbGF0ZXIKPj4gwqAgLyoKPj4gwqDCoCAqIENv
-cHlyaWdodCAoYykgMjAwMCBTaWxpY29uIEdyYXBoaWNzLCBJbmMuwqAgQWxsIFJpZ2h0cyBSZXNl
-cnZlZC4KPj4gwqDCoCAqCj4+IC0gKiBUaGlzIHByb2dyYW0gaXMgZnJlZSBzb2Z0d2FyZTsgeW91
-IGNhbiByZWRpc3RyaWJ1dGUgaXQgYW5kL29yIAo+PiBtb2RpZnkgaXQKPj4gLSAqIHVuZGVyIHRo
-ZSB0ZXJtcyBvZiB2ZXJzaW9uIDIgb2YgdGhlIEdOVSBHZW5lcmFsIFB1YmxpYyBMaWNlbnNlIGFz
-Cj4+IC0gKiBwdWJsaXNoZWQgYnkgdGhlIEZyZWUgU29mdHdhcmUgRm91bmRhdGlvbi4KPj4gLSAq
-Cj4+IC0gKiBUaGlzIHByb2dyYW0gaXMgZGlzdHJpYnV0ZWQgaW4gdGhlIGhvcGUgdGhhdCBpdCB3
-b3VsZCBiZSB1c2VmdWwsIGJ1dAo+PiAtICogV0lUSE9VVCBBTlkgV0FSUkFOVFk7IHdpdGhvdXQg
-ZXZlbiB0aGUgaW1wbGllZCB3YXJyYW50eSBvZgo+PiAtICogTUVSQ0hBTlRBQklMSVRZIG9yIEZJ
-VE5FU1MgRk9SIEEgUEFSVElDVUxBUiBQVVJQT1NFLgo+PiAtICoKPj4gLSAqIEZ1cnRoZXIsIHRo
-aXMgc29mdHdhcmUgaXMgZGlzdHJpYnV0ZWQgd2l0aG91dCBhbnkgd2FycmFudHkgdGhhdCBpdCBp
-cwo+PiAtICogZnJlZSBvZiB0aGUgcmlnaHRmdWwgY2xhaW0gb2YgYW55IHRoaXJkIHBlcnNvbiBy
-ZWdhcmRpbmcgaW5mcmluZ2VtZW50Cj4+IC0gKiBvciB0aGUgbGlrZS7CoCBBbnkgbGljZW5zZSBw
-cm92aWRlZCBoZXJlaW4sIHdoZXRoZXIgaW1wbGllZCBvcgo+PiAtICogb3RoZXJ3aXNlLCBhcHBs
-aWVzIG9ubHkgdG8gdGhpcyBzb2Z0d2FyZSBmaWxlLsKgIFBhdGVudCBsaWNlbnNlcywgaWYKPj4g
-LSAqIGFueSwgcHJvdmlkZWQgaGVyZWluIGRvIG5vdCBhcHBseSB0byBjb21iaW5hdGlvbnMgb2Yg
-dGhpcyBwcm9ncmFtIAo+PiB3aXRoCj4+IC0gKiBvdGhlciBzb2Z0d2FyZSwgb3IgYW55IG90aGVy
-IHByb2R1Y3Qgd2hhdHNvZXZlci4KPj4gLSAqCj4+IC0gKiBZb3Ugc2hvdWxkIGhhdmUgcmVjZWl2
-ZWQgYSBjb3B5IG9mIHRoZSBHTlUgR2VuZXJhbCBQdWJsaWMgTGljZW5zZSAKPj4gYWxvbmcKPj4g
-LSAqIHdpdGggdGhpcyBwcm9ncmFtOyBpZiBub3QsIHdyaXRlIHRoZSBGcmVlIFNvZnR3YXJlIEZv
-dW5kYXRpb24sIEluYy4sCj4+IC0gKiA1MSBGcmFua2xpbiBTdHJlZXQsIEZpZnRoIEZsb29yLCBC
-b3N0b24sIE1BIDAyMTEwLTEzMDEgVVNBLgo+PiAtICoKPj4gLSAqIENvbnRhY3QgaW5mb3JtYXRp
-b246IFNpbGljb24gR3JhcGhpY3MsIEluYy4sIDE2MDAgQW1waGl0aGVhdHJlIFBrd3ksCj4+IC0g
-KiBNb3VudGFpbiBWaWV3LCBDQcKgIDk0MDQzLCBvcjoKPj4gLSAqCj4+IC0gKiBodHRwOi8vd3d3
-LnNnaS5jb20KPj4gLSAqCj4+IC0gKiBGb3IgZnVydGhlciBpbmZvcm1hdGlvbiByZWdhcmRpbmcg
-dGhpcyBub3RpY2UsIHNlZToKPj4gLSAqCj4+IC0gKiBodHRwOi8vb3NzLnNnaS5jb20vcHJvamVj
-dHMvR2VuSW5mby9Ob3RpY2VFeHBsYW4vCj4+IC0gKgo+PiAtICovCj4+IC0vKiAkSWQ6IHRpbWVz
-MDEuYyx2IDEuNiAyMDA5LzEwLzI2IDE0OjU1OjQ4IHN1YnJhdGFfbW9kYWsgRXhwICQgKi8KPj4g
-LS8qKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
-KioqCj4+IC0gKgo+PiAtICrCoMKgwqAgT1MgVGVzdCAtIFNpbGljb24gR3JhcGhpY3MsIEluYy4K
-Pj4gLSAqCj4+IC0gKsKgwqDCoCBURVNUIElERU5USUZJRVLCoMKgwqAgOiB0aW1lczAxCj4+IC0g
-Kgo+PiAtICrCoMKgwqAgRVhFQ1VURUQgQlnCoMKgwqAgOiBhbnlvbmUKPj4gLSAqCj4+IC0gKsKg
-wqDCoCBURVNUIFRJVExFwqDCoMKgIDogQmFzaWMgdGVzdCBmb3IgdGltZXMoMikKPj4gLSAqCj4+
-IC0gKsKgwqDCoCBQQVJFTlQgRE9DVU1FTlTCoMKgwqAgOiB1c2N0cGwwMQo+PiAtICoKPj4gLSAq
-wqDCoMKgIFRFU1QgQ0FTRSBUT1RBTMKgwqDCoCA6IDEKPj4gLSAqCj4+IC0gKsKgwqDCoCBXQUxM
-IENMT0NLIFRJTUXCoMKgwqAgOiAxCj4+IC0gKgo+PiAtICrCoMKgwqAgQ1BVIFRZUEVTwqDCoMKg
-wqDCoMKgwqAgOiBBTEwKPj4gLSAqCj4+IC0gKsKgwqDCoCBBVVRIT1LCoMKgwqDCoMKgwqDCoCA6
-IFdpbGxpYW0gUm9za2UKPj4gLSAqCj4+IC0gKsKgwqDCoCBDTy1QSUxPVMKgwqDCoMKgwqDCoMKg
-IDogRGF2ZSBGZW5uZXIKPj4gLSAqCj4+IC0gKsKgwqDCoCBEQVRFIFNUQVJURUTCoMKgwqAgOiAw
-My8zMC85Mgo+PiAtICoKPj4gLSAqwqDCoMKgIElOSVRJQUwgUkVMRUFTRcKgwqDCoCA6IFVOSUNP
-UyA3LjAKPj4gLSAqCj4+IC0gKsKgwqDCoCBURVNUIENBU0VTCj4+IC0gKgo+PiAtICrCoMKgwqDC
-oCAxLikgdGltZXMoMikgcmV0dXJucy4uLihTZWUgRGVzY3JpcHRpb24pCj4+IC0gKgo+PiAtICrC
-oMKgwqAgSU5QVVQgU1BFQ0lGSUNBVElPTlMKPj4gLSAqwqDCoMKgwqAgVGhlIHN0YW5kYXJkIG9w
-dGlvbnMgZm9yIHN5c3RlbSBjYWxsIHRlc3RzIGFyZSBhY2NlcHRlZC4KPj4gLSAqwqDCoMKgIChT
-ZWUgdGhlIHBhcnNlX29wdHMoMykgbWFuIHBhZ2UpLgo+PiAtICoKPj4gLSAqwqDCoMKgIE9VVFBV
-VCBTUEVDSUZJQ0FUSU9OUwo+PiAtICokCj4+IC0gKsKgwqDCoCBEVVJBVElPTgo+PiAtICrCoMKg
-wqDCoCBUZXJtaW5hdGVzIC0gd2l0aCBmcmVxdWVuY3kgYW5kIGluZmluaXRlIG1vZGVzLgo+PiAt
-ICoKPj4gLSAqwqDCoMKgIFNJR05BTFMKPj4gLSAqwqDCoMKgwqAgVXNlcyBTSUdVU1IxIHRvIHBh
-dXNlIGJlZm9yZSB0ZXN0IGlmIG9wdGlvbiBzZXQuCj4+IC0gKsKgwqDCoMKgIChTZWUgdGhlIHBh
-cnNlX29wdHMoMykgbWFuIHBhZ2UpLgo+PiAtICoKPj4gLSAqwqDCoMKgIFJFU09VUkNFUwo+PiAt
-ICrCoMKgwqDCoCBOb25lCj4+IC0gKgo+PiAtICrCoMKgwqAgRU5WSVJPTk1FTlRBTCBORUVEUwo+
-PiAtICrCoMKgwqDCoMKgIE5vIHJ1bi10aW1lIGVudmlyb25tZW50YWwgbmVlZHMuCj4+IC0gKgo+
-PiAtICrCoMKgwqAgU1BFQ0lBTCBQUk9DRURVUkFMIFJFUVVJUkVNRU5UUwo+PiAtICrCoMKgwqDC
-oCBOb25lCj4+IC0gKgo+PiAtICrCoMKgwqAgSU5URVJDQVNFIERFUEVOREVOQ0lFUwo+PiAtICrC
-oMKgwqDCoCBOb25lCj4+IC0gKgo+PiAtICrCoMKgwqAgREVUQUlMRUQgREVTQ1JJUFRJT04KPj4g
-KyAqIERFU0NSSVBUSU9OCj4+IMKgwqAgKsKgwqDCoCBUaGlzIGlzIGEgUGhhc2UgSSB0ZXN0IGZv
-ciB0aGUgdGltZXMoMikgc3lzdGVtIGNhbGwuwqAgSXQgaXMgCj4+IGludGVuZGVkCj4+IC0gKsKg
-wqDCoCB0byBwcm92aWRlIGEgbGltaXRlZCBleHBvc3VyZSBvZiB0aGUgc3lzdGVtIGNhbGwsIGZv
-ciBub3cuwqAgSXQKPj4gLSAqwqDCoMKgIHNob3VsZC93aWxsIGJlIGV4dGVuZGVkIHdoZW4gZnVs
-bCBmdW5jdGlvbmFsIHRlc3RzIGFyZSB3cml0dGVuIGZvcgo+PiAtICrCoMKgwqAgdGltZXMoMiku
-Cj4+IC0gKgo+PiAtICrCoMKgwqDCoCBTZXR1cDoKPj4gLSAqwqDCoMKgwqDCoMKgIFNldHVwIHNp
-Z25hbCBoYW5kbGluZy4KPj4gLSAqwqDCoMKgwqDCoCBQYXVzZSBmb3IgU0lHVVNSMSBpZiBvcHRp
-b24gc3BlY2lmaWVkLgo+PiAtICoKPj4gLSAqwqDCoMKgwqAgVGVzdDoKPj4gLSAqwqDCoMKgwqAg
-TG9vcCBpZiB0aGUgcHJvcGVyIG9wdGlvbnMgYXJlIGdpdmVuLgo+PiAtICrCoMKgwqDCoMKgwqAg
-RXhlY3V0ZSBzeXN0ZW0gY2FsbAo+PiAtICrCoMKgwqDCoMKgIENoZWNrIHJldHVybiBjb2RlLCBp
-ZiBzeXN0ZW0gY2FsbCBmYWlsZWQgKHJldHVybj0tMSkKPj4gLSAqwqDCoMKgwqDCoMKgwqAgTG9n
-IHRoZSBlcnJubyBhbmQgSXNzdWUgYSBGQUlMIG1lc3NhZ2UuCj4+IC0gKsKgwqDCoMKgwqAgT3Ro
-ZXJ3aXNlLCBJc3N1ZSBhIFBBU1MgbWVzc2FnZS4KPj4gKyAqwqDCoMKgIHRvIHByb3ZpZGUgYSBs
-aW1pdGVkIGV4cG9zdXJlIG9mIHRoZSBzeXN0ZW0gY2FsbC4KPj4gwqDCoCAqCj4+IC0gKsKgwqDC
-oMKgIENsZWFudXA6Cj4+IC0gKsKgwqDCoMKgwqDCoCBQcmludCBlcnJubyBsb2cgYW5kL29yIHRp
-bWluZyBzdGF0cyBpZiBvcHRpb25zIGdpdmVuCj4gCj4gSGkgUnVhbiwKPiAKPiBQbGVhc2UgdXNl
-IHRoZSBmb2xsb3dpbmcgZm9ybWF0IG9mIGRlc2NyaXB0aW9uIGNvbW1lbnQgc28gdGhhdCBpdCBj
-YW4gYmUgCj4gcGlja2VkIHVwIGJ5IGRvY3BhcnNlcjoKPiAtLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLQo+IC8qXAo+ICDCoCAqIFtERVNDUklQVElPTl0KPiAuLi4KPiBcKi8K
-PiAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQo+IAo+PiAtICoKPj4gLSAq
-Cj4+IC0gKiMqIyojKiMqIyojKiMqIyojKiMqIyojKiMqIyojKiMqIyojKiMqIyojKiMqIyojKiMq
-IyojKiMqIyoqLwo+PiArICogQUxHT1JJVEhNOgo+PiArICrCoMKgwqAgRXhlY3V0ZSBzeXN0ZW0g
-Y2FsbAo+PiArICrCoMKgwqAgQ2hlY2sgcmV0dXJuIGNvZGUsIGlmIHN5c3RlbSBjYWxsIGZhaWxl
-ZCAocmV0dXJuPS0xKQo+PiArICrCoMKgwqDCoMKgwqDCoCBMb2cgdGhlIGVycm5vIGFuZCBJc3N1
-ZSBhIEZBSUwgbWVzc2FnZS4KPj4gKyAqwqDCoMKgIE90aGVyd2lzZSwgSXNzdWUgYSBQQVNTIG1l
-c3NhZ2UuCj4+ICsgKi8KPiAKPiBUaGlzIHRlc3QgaXMgdmVyeSBlYXN5IHNvIHJlbW92ZSB0aGUg
-YWxnb3JpdGhtIGNvbW1lbnQgZGlyZWN0bHkuCj4gCj4+Cj4+IC0jaW5jbHVkZTxzeXMvdHlwZXMu
-aD4KPj4gwqAgI2luY2x1ZGU8c3lzL3RpbWVzLmg+Cj4+IMKgICNpbmNsdWRlPGVycm5vLmg+Cj4+
-IC0jaW5jbHVkZTxzdHJpbmcuaD4KPj4gLSNpbmNsdWRlPHNpZ25hbC5oPgo+PiAtI2luY2x1ZGUg
-InRlc3QuaCIKPj4gLQo+PiAtdm9pZCBzZXR1cCgpOwo+PiAtdm9pZCBjbGVhbnVwKCk7Cj4+IC0K
-Pj4gLWNoYXIgKlRDSUQgPSAidGltZXMwMSI7Cj4+IC1pbnQgVFNUX1RPVEFMID0gMTsKPj4gLQo+
-PiAtc3RydWN0IHRtcyBteXRpbWVzOwo+PiArI2luY2x1ZGUgInRzdF90ZXN0LmgiCj4+Cj4+IC1p
-bnQgbWFpbihpbnQgYWMsIGNoYXIgKiphdikKPj4gK3N0YXRpYyB2b2lkIHZlcmlmeV90aW1lcyh2
-b2lkKQo+PiDCoCB7Cj4+IC3CoMKgwqAgaW50IGxjOwo+PiArwqDCoMKgIHN0cnVjdCB0bXMgbXl0
-aW1lczsKPj4KPj4gLcKgwqDCoCB0c3RfcGFyc2Vfb3B0cyhhYywgYXYsIE5VTEwsIE5VTEwpOwo+
-PiArwqDCoMKgIFRFU1QodGltZXMoJm15dGltZXMpKTsKPj4KPj4gLcKgwqDCoCBzZXR1cCgpOwo+
-PiAtCj4+IC3CoMKgwqAgZm9yIChsYyA9IDA7IFRFU1RfTE9PUElORyhsYyk7IGxjKyspIHsKPj4g
-LQo+PiAtwqDCoMKgwqDCoMKgwqAgdHN0X2NvdW50ID0gMDsKPj4gLQo+PiAtwqDCoMKgwqDCoMKg
-wqAgVEVTVCh0aW1lcygmbXl0aW1lcykpOwo+PiAtCj4+IC3CoMKgwqDCoMKgwqDCoCBpZiAoVEVT
-VF9SRVRVUk4gPT0gLTEpCj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHRzdF9yZXNtKFRGQUlM
-IHwgVFRFUlJOTywgInRpbWVzIGZhaWxlZCIpOwo+PiAtwqDCoMKgwqDCoMKgwqAgZWxzZQo+PiAt
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB0c3RfcmVzbShUUEFTUywgInRpbWVzKCZteXRpbWVzKSBy
-ZXR1cm5lZCAlbGQiLAo+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgVEVTVF9S
-RVRVUk4pOwo+PiAtCj4+IC3CoMKgwqAgfQo+PiAtCj4+IC3CoMKgwqAgY2xlYW51cCgpOwo+PiAt
-wqDCoMKgIHRzdF9leGl0KCk7Cj4+ICvCoMKgwqAgaWYgKFRTVF9SRVQgPT0gLTEpCj4+ICvCoMKg
-wqDCoMKgwqDCoCB0c3RfcmVzKFRGQUlMIHwgVFRFUlJOTywgInRpbWVzIGZhaWxlZCIpOwo+PiAr
-wqDCoMKgIGVsc2UKPj4gK8KgwqDCoMKgwqDCoMKgIHRzdF9yZXMoVFBBU1MsICJ0aW1lcygmbXl0
-aW1lcykgcmV0dXJuZWQgJWxkIiwgVFNUX1JFVCk7Cj4gSXQgaXMgc2ltcGxlciB0byB1c2UgVFNU
-X0VYUF9QQVNTKCkgaGVyZSAocmVwbGFjZSBURVNUKCkpLgoKR290IGl0LiAgVGhhbmtzIGEgbG90
-LgoKCi0tClRoYW5rcywKUnVhbiBTaGl5YW5nLgo+IAo+IEJlc3QgUmVnYXJkcywKPiBYaWFvIFlh
-bmcKPj4gwqAgfQo+Pgo+PiAtdm9pZCBzZXR1cCh2b2lkKQo+PiAtewo+PiAtwqDCoMKgIHRzdF9z
-aWcoTk9GT1JLLCBERUZfSEFORExFUiwgY2xlYW51cCk7Cj4+IC0KPj4gLcKgwqDCoCBURVNUX1BB
-VVNFOwo+PiAtfQo+PiAtCj4+IC12b2lkIGNsZWFudXAodm9pZCkKPj4gLXsKPj4gLX0KPj4gK3N0
-YXRpYyBzdHJ1Y3QgdHN0X3Rlc3QgdGVzdCA9IHsKPj4gK8KgwqDCoCAudGVzdF9hbGwgPSB2ZXJp
-ZnlfdGltZXMsCj4+ICt9Owo+IAoKCgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlz
-dHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
+Fuzzy sync library uses spin waiting mechanism to implement thread
+barrier behavior, which would cause this test to be time-consuming
+on single core machine.
+
+Fix this by adding sched_yield in the spin waiting loop, so that the
+thread yields cpu as soon as it enters the waiting loop.
+
+Signed-off-by: Leo Yu-Chi Liang <ycliang@andestech.com>
+---
+ include/tst_fuzzy_sync.h | 34 ++++++++++++++++++++++++++--------
+ 1 file changed, 26 insertions(+), 8 deletions(-)
+
+diff --git a/include/tst_fuzzy_sync.h b/include/tst_fuzzy_sync.h
+index 4141f5c64..37f3d06f2 100644
+--- a/include/tst_fuzzy_sync.h
++++ b/include/tst_fuzzy_sync.h
+@@ -59,12 +59,15 @@
+  * @sa tst_fzsync_pair
+  */
+ 
+-#include <sys/time.h>
+-#include <time.h>
+ #include <math.h>
+-#include <stdlib.h>
+ #include <pthread.h>
++#include <sched.h>
++#include <stdbool.h>
++#include <stdlib.h>
++#include <sys/time.h>
++#include <time.h>
+ #include "tst_atomic.h"
++#include "tst_cpu.h"
+ #include "tst_timer.h"
+ #include "tst_safe_pthread.h"
+ 
+@@ -180,6 +183,15 @@ struct tst_fzsync_pair {
+ 	int exec_loop;
+ 	/** Internal; The second thread or 0 */
+ 	pthread_t thread_b;
++	/** 
++	 * Internal; The flag indicates single core machines or not
++	 * 
++	 * If running on single core machines, it would take considerable
++	 * amount of time to run fuzzy sync library.
++	 * Thus call sched_yield to give up cpu to decrease the test time.
++	 */
++	bool yield_in_wait;
++
+ };
+ 
+ #define CHK(param, low, hi, def) do {					      \
+@@ -206,6 +218,7 @@ static void tst_fzsync_pair_init(struct tst_fzsync_pair *pair)
+ 	CHK(max_dev_ratio, 0, 1, 0.1);
+ 	CHK(exec_time_p, 0, 1, 0.5);
+ 	CHK(exec_loops, 20, INT_MAX, 3000000);
++	CHK(yield_in_wait, 0, 1, (tst_ncpus() <= 1));
+ }
+ #undef CHK
+ 
+@@ -550,7 +563,8 @@ static void tst_fzsync_pair_update(struct tst_fzsync_pair *pair)
+  */
+ static inline void tst_fzsync_pair_wait(int *our_cntr,
+ 					int *other_cntr,
+-					int *spins)
++					int *spins,
++					bool yield_in_wait)
+ {
+ 	if (tst_atomic_inc(other_cntr) == INT_MAX) {
+ 		/*
+@@ -564,6 +578,8 @@ static inline void tst_fzsync_pair_wait(int *our_cntr,
+ 		       && tst_atomic_load(our_cntr) < INT_MAX) {
+ 			if (spins)
+ 				(*spins)++;
++			if(yield_in_wait)
++				sched_yield();
+ 		}
+ 
+ 		tst_atomic_store(0, other_cntr);
+@@ -581,6 +597,8 @@ static inline void tst_fzsync_pair_wait(int *our_cntr,
+ 		while (tst_atomic_load(our_cntr) < tst_atomic_load(other_cntr)) {
+ 			if (spins)
+ 				(*spins)++;
++			if(yield_in_wait)
++				sched_yield();
+ 		}
+ 	}
+ }
+@@ -593,7 +611,7 @@ static inline void tst_fzsync_pair_wait(int *our_cntr,
+  */
+ static inline void tst_fzsync_wait_a(struct tst_fzsync_pair *pair)
+ {
+-	tst_fzsync_pair_wait(&pair->a_cntr, &pair->b_cntr, NULL);
++	tst_fzsync_pair_wait(&pair->a_cntr, &pair->b_cntr, NULL, pair->yield_in_wait);
+ }
+ 
+ /**
+@@ -604,7 +622,7 @@ static inline void tst_fzsync_wait_a(struct tst_fzsync_pair *pair)
+  */
+ static inline void tst_fzsync_wait_b(struct tst_fzsync_pair *pair)
+ {
+-	tst_fzsync_pair_wait(&pair->b_cntr, &pair->a_cntr, NULL);
++	tst_fzsync_pair_wait(&pair->b_cntr, &pair->a_cntr, NULL, pair->yield_in_wait);
+ }
+ 
+ /**
+@@ -709,7 +727,7 @@ static inline void tst_fzsync_start_race_a(struct tst_fzsync_pair *pair)
+ static inline void tst_fzsync_end_race_a(struct tst_fzsync_pair *pair)
+ {
+ 	tst_fzsync_time(&pair->a_end);
+-	tst_fzsync_pair_wait(&pair->a_cntr, &pair->b_cntr, &pair->spins);
++	tst_fzsync_pair_wait(&pair->a_cntr, &pair->b_cntr, &pair->spins, pair->yield_in_wait);
+ }
+ 
+ /**
+@@ -740,7 +758,7 @@ static inline void tst_fzsync_start_race_b(struct tst_fzsync_pair *pair)
+ static inline void tst_fzsync_end_race_b(struct tst_fzsync_pair *pair)
+ {
+ 	tst_fzsync_time(&pair->b_end);
+-	tst_fzsync_pair_wait(&pair->b_cntr, &pair->a_cntr, &pair->spins);
++	tst_fzsync_pair_wait(&pair->b_cntr, &pair->a_cntr, &pair->spins, pair->yield_in_wait);
+ }
+ 
+ /**
+-- 
+2.17.0
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
