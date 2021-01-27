@@ -2,40 +2,51 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04D4030575D
-	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jan 2021 10:52:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E152305766
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jan 2021 10:53:05 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6736D3C5E9D
-	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jan 2021 10:52:17 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id D888F3C79E7
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jan 2021 10:53:04 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 3087F3C5D1D
- for <ltp@lists.linux.it>; Wed, 27 Jan 2021 10:52:13 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id D88DD10001B7
- for <ltp@lists.linux.it>; Wed, 27 Jan 2021 10:52:12 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 45211AD57;
- Wed, 27 Jan 2021 09:52:12 +0000 (UTC)
-References: <20210127031853.3485-1-ycliang@andestech.com>
-User-agent: mu4e 1.4.14; emacs 27.1
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Leo Yu-Chi Liang <ycliang@andestech.com>
-In-reply-to: <20210127031853.3485-1-ycliang@andestech.com>
-Date: Wed, 27 Jan 2021 09:52:11 +0000
-Message-ID: <87ft2m906s.fsf@suse.de>
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 827CF3C001B
+ for <ltp@lists.linux.it>; Wed, 27 Jan 2021 10:53:00 +0100 (CET)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTP id CBD44600869
+ for <ltp@lists.linux.it>; Wed, 27 Jan 2021 10:52:58 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.79,378,1602518400"; d="scan'208";a="103895128"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 27 Jan 2021 17:52:56 +0800
+Received: from G08CNEXMBPEKD05.g08.fujitsu.local (unknown [10.167.33.204])
+ by cn.fujitsu.com (Postfix) with ESMTP id 460BB4CE6026
+ for <ltp@lists.linux.it>; Wed, 27 Jan 2021 17:52:51 +0800 (CST)
+Received: from irides.mr (10.167.225.141) by G08CNEXMBPEKD05.g08.fujitsu.local
+ (10.167.33.204) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
+ Wed, 27 Jan 2021 17:52:50 +0800
+To: Xiao Yang <yangx.jy@cn.fujitsu.com>
+References: <20210127080147.1265100-1-ruansy.fnst@cn.fujitsu.com>
+ <601130E0.7030607@cn.fujitsu.com>
+From: Ruan Shiyang <ruansy.fnst@cn.fujitsu.com>
+Message-ID: <239ec6b6-f1df-66ae-5e3f-bf2e1d02a84b@cn.fujitsu.com>
+Date: Wed, 27 Jan 2021 17:52:50 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.1
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+In-Reply-To: <601130E0.7030607@cn.fujitsu.com>
+Content-Language: en-US
+X-Originating-IP: [10.167.225.141]
+X-ClientProxiedBy: G08CNEXCHPEKD04.g08.fujitsu.local (10.167.33.200) To
+ G08CNEXMBPEKD05.g08.fujitsu.local (10.167.33.204)
+X-yoursite-MailScanner-ID: 460BB4CE6026.A931B
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: ruansy.fnst@cn.fujitsu.com
+X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.4
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 1/1] fzsync: Add sched_yield for single core
- machine
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/2] syscalls/time01: Convert to new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,98 +58,133 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
 Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello Leo,
-
-Leo Yu-Chi Liang <ycliang@andestech.com> writes:
-
-> Fuzzy sync library uses spin waiting mechanism to implement thread
-> barrier behavior, which would cause this test to be time-consuming
-> on single core machine.
->
-> Fix this by adding sched_yield in the spin waiting loop, so that the
-> thread yields cpu as soon as it enters the waiting loop.
-
-Thanks for this, a full review will take some time, but I have some
-minor comments already.
-
->
-> Signed-off-by: Leo Yu-Chi Liang <ycliang@andestech.com>
-> ---
->  include/tst_fuzzy_sync.h | 34 ++++++++++++++++++++++++++--------
->  1 file changed, 26 insertions(+), 8 deletions(-)
->
-> diff --git a/include/tst_fuzzy_sync.h b/include/tst_fuzzy_sync.h
-> index 4141f5c64..37f3d06f2 100644
-> --- a/include/tst_fuzzy_sync.h
-> +++ b/include/tst_fuzzy_sync.h
-> @@ -59,12 +59,15 @@
->   * @sa tst_fzsync_pair
->   */
->  
-> -#include <sys/time.h>
-> -#include <time.h>
->  #include <math.h>
-> -#include <stdlib.h>
-
-Please don't sort existing includes. It will apear in git-blame that you
-added these. :-)
-
->  #include <pthread.h>
-> +#include <sched.h>
-> +#include <stdbool.h>
-> +#include <stdlib.h>
-> +#include <sys/time.h>
-> +#include <time.h>
->  #include "tst_atomic.h"
-> +#include "tst_cpu.h"
->  #include "tst_timer.h"
->  #include "tst_safe_pthread.h"
->  
-> @@ -180,6 +183,15 @@ struct tst_fzsync_pair {
->  	int exec_loop;
->  	/** Internal; The second thread or 0 */
->  	pthread_t thread_b;
-> +	/** 
-> +	 * Internal; The flag indicates single core machines or not
-
-Actually I think the user can set this. It does not have to be internal.
-
-> +	 * 
-> +	 * If running on single core machines, it would take considerable
-> +	 * amount of time to run fuzzy sync library.
-> +	 * Thus call sched_yield to give up cpu to decrease the test time.
-> +	 */
-> +	bool yield_in_wait;
-> +
->  };
->  
->  #define CHK(param, low, hi, def) do {					      \
-> @@ -206,6 +218,7 @@ static void tst_fzsync_pair_init(struct tst_fzsync_pair *pair)
->  	CHK(max_dev_ratio, 0, 1, 0.1);
->  	CHK(exec_time_p, 0, 1, 0.5);
->  	CHK(exec_loops, 20, INT_MAX, 3000000);
-> +	CHK(yield_in_wait, 0, 1, (tst_ncpus() <= 1));
-
-The CHK macro will override the user if they set yield_in_wait to
-zero. This only effects single core machines; so that it is impossible
-for the user to disable yield (at least before calling init which is the
-"correct way").
-
-It still allows the user to enable yield on multicore which is good.
-
-To avoid confusion I think it should be noted that users can force
-enable yield on multicore, but they can not disable it on single core.
-
--- 
-Thank you,
-Richard.
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+CgpPbiAyMDIxLzEvMjcg5LiL5Y2INToyMiwgWGlhbyBZYW5nIHdyb3RlOgo+IEhpIFJ1YW4sCj4g
+Cj4gSSBwZXJmZXIgdG8gbWVyZ2UgdGhlbSBpbnRvIG9uZSB0ZXN0IGJlY2F1c2UgdGhleSBoYXZl
+IHNpbWlsYXIgYW5kIGZldyAKPiBzdGVwcy4KCk9LLiAgSSdsbCBtZXJnZSB0aGVtIGluIG5leHQg
+cGF0Y2guCgoKLS0KVGhhbmtzLApSdWFuIFNoaXlhbmcuCj4gCj4gQmVzdCBSZWdhcmRzLAo+IFhp
+YW8gWWFuZwo+IE9uIDIwMjEvMS8yNyAxNjowMSwgU2hpeWFuZyBSdWFuIHdyb3RlOgo+PiBTaWdu
+ZWQtb2ZmLWJ5OiBTaGl5YW5nIFJ1YW48cnVhbnN5LmZuc3RAY24uZnVqaXRzdS5jb20+Cj4+IC0t
+LQo+PiDCoCB0ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL3RpbWUvdGltZTAxLmMgfCAxODAgKysr
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tCj4+IMKgIDEgZmlsZSBjaGFuZ2VkLCAxOCBpbnNlcnRpb25z
+KCspLCAxNjIgZGVsZXRpb25zKC0pCj4+Cj4+IGRpZmYgLS1naXQgYS90ZXN0Y2FzZXMva2VybmVs
+L3N5c2NhbGxzL3RpbWUvdGltZTAxLmMgCj4+IGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy90
+aW1lL3RpbWUwMS5jCj4+IGluZGV4IDYxNmEyMWZhOC4uZWUwOGM2OWYxIDEwMDY0NAo+PiAtLS0g
+YS90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL3RpbWUvdGltZTAxLmMKPj4gKysrIGIvdGVzdGNh
+c2VzL2tlcm5lbC9zeXNjYWxscy90aW1lL3RpbWUwMS5jCj4+IEBAIC0xLDE3MyArMSwyOSBAQAo+
+PiArLy8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjAtb3ItbGF0ZXIKPj4gwqAgLyoK
+Pj4gwqDCoCAqIENvcHlyaWdodCAoYykgMjAwMCBTaWxpY29uIEdyYXBoaWNzLCBJbmMuwqAgQWxs
+IFJpZ2h0cyBSZXNlcnZlZC4KPj4gLSAqCj4+IC0gKiBUaGlzIHByb2dyYW0gaXMgZnJlZSBzb2Z0
+d2FyZTsgeW91IGNhbiByZWRpc3RyaWJ1dGUgaXQgYW5kL29yIAo+PiBtb2RpZnkgaXQKPj4gLSAq
+IHVuZGVyIHRoZSB0ZXJtcyBvZiB2ZXJzaW9uIDIgb2YgdGhlIEdOVSBHZW5lcmFsIFB1YmxpYyBM
+aWNlbnNlIGFzCj4+IC0gKiBwdWJsaXNoZWQgYnkgdGhlIEZyZWUgU29mdHdhcmUgRm91bmRhdGlv
+bi4KPj4gLSAqCj4+IC0gKiBUaGlzIHByb2dyYW0gaXMgZGlzdHJpYnV0ZWQgaW4gdGhlIGhvcGUg
+dGhhdCBpdCB3b3VsZCBiZSB1c2VmdWwsIGJ1dAo+PiAtICogV0lUSE9VVCBBTlkgV0FSUkFOVFk7
+IHdpdGhvdXQgZXZlbiB0aGUgaW1wbGllZCB3YXJyYW50eSBvZgo+PiAtICogTUVSQ0hBTlRBQklM
+SVRZIG9yIEZJVE5FU1MgRk9SIEEgUEFSVElDVUxBUiBQVVJQT1NFLgo+PiAtICoKPj4gLSAqIEZ1
+cnRoZXIsIHRoaXMgc29mdHdhcmUgaXMgZGlzdHJpYnV0ZWQgd2l0aG91dCBhbnkgd2FycmFudHkg
+dGhhdCBpdCBpcwo+PiAtICogZnJlZSBvZiB0aGUgcmlnaHRmdWwgY2xhaW0gb2YgYW55IHRoaXJk
+IHBlcnNvbiByZWdhcmRpbmcgaW5mcmluZ2VtZW50Cj4+IC0gKiBvciB0aGUgbGlrZS7CoCBBbnkg
+bGljZW5zZSBwcm92aWRlZCBoZXJlaW4sIHdoZXRoZXIgaW1wbGllZCBvcgo+PiAtICogb3RoZXJ3
+aXNlLCBhcHBsaWVzIG9ubHkgdG8gdGhpcyBzb2Z0d2FyZSBmaWxlLsKgIFBhdGVudCBsaWNlbnNl
+cywgaWYKPj4gLSAqIGFueSwgcHJvdmlkZWQgaGVyZWluIGRvIG5vdCBhcHBseSB0byBjb21iaW5h
+dGlvbnMgb2YgdGhpcyBwcm9ncmFtIAo+PiB3aXRoCj4+IC0gKiBvdGhlciBzb2Z0d2FyZSwgb3Ig
+YW55IG90aGVyIHByb2R1Y3Qgd2hhdHNvZXZlci4KPj4gLSAqCj4+IC0gKiBZb3Ugc2hvdWxkIGhh
+dmUgcmVjZWl2ZWQgYSBjb3B5IG9mIHRoZSBHTlUgR2VuZXJhbCBQdWJsaWMgTGljZW5zZSAKPj4g
+YWxvbmcKPj4gLSAqIHdpdGggdGhpcyBwcm9ncmFtOyBpZiBub3QsIHdyaXRlIHRoZSBGcmVlIFNv
+ZnR3YXJlIEZvdW5kYXRpb24sIEluYy4sCj4+IC0gKiA1MSBGcmFua2xpbiBTdHJlZXQsIEZpZnRo
+IEZsb29yLCBCb3N0b24sIE1BIDAyMTEwLTEzMDEgVVNBLgo+PiAtICoKPj4gLSAqIENvbnRhY3Qg
+aW5mb3JtYXRpb246IFNpbGljb24gR3JhcGhpY3MsIEluYy4sIDE2MDAgQW1waGl0aGVhdHJlIFBr
+d3ksCj4+IC0gKiBNb3VudGFpbiBWaWV3LCBDQcKgIDk0MDQzLCBvcjoKPj4gLSAqCj4+IC0gKiBo
+dHRwOi8vd3d3LnNnaS5jb20KPj4gLSAqCj4+IC0gKiBGb3IgZnVydGhlciBpbmZvcm1hdGlvbiBy
+ZWdhcmRpbmcgdGhpcyBub3RpY2UsIHNlZToKPj4gLSAqCj4+IC0gKiBodHRwOi8vb3NzLnNnaS5j
+b20vcHJvamVjdHMvR2VuSW5mby9Ob3RpY2VFeHBsYW4vCj4+IC0gKgo+PiDCoMKgICovCj4+IC0v
+KiAkSWQ6IHRpbWUwMS5jLHYgMS42IDIwMDkvMTEvMDIgMTM6NTc6MTkgc3VicmF0YV9tb2RhayBF
+eHAgJCAqLwo+PiAtLyoqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
+KioqKioqKioqKioqKioKPj4gLSAqCj4+IC0gKsKgwqDCoCBPUyBUZXN0IC0gU2lsaWNvbiBHcmFw
+aGljcywgSW5jLgo+PiAtICoKPj4gLSAqwqDCoMKgIFRFU1QgSURFTlRJRklFUsKgwqDCoCA6IHRp
+bWUwMQo+PiAtICoKPj4gLSAqwqDCoMKgIEVYRUNVVEVEIEJZwqDCoMKgIDogYW55b25lCj4+IC0g
+Kgo+PiAtICrCoMKgwqAgVEVTVCBUSVRMRcKgwqDCoCA6IEJhc2ljIHRlc3QgZm9yIHRpbWUoMikK
+Pj4gLSAqCj4+IC0gKsKgwqDCoCBQQVJFTlQgRE9DVU1FTlTCoMKgwqAgOiB1c2N0cGwwMQo+PiAt
+ICoKPj4gLSAqwqDCoMKgIFRFU1QgQ0FTRSBUT1RBTMKgwqDCoCA6IDEKPj4gLSAqCj4+IC0gKsKg
+wqDCoCBXQUxMIENMT0NLIFRJTUXCoMKgwqAgOiAxCj4+IC0gKgo+PiAtICrCoMKgwqAgQ1BVIFRZ
+UEVTwqDCoMKgwqDCoMKgwqAgOiBBTEwKPj4gLSAqCj4+IC0gKsKgwqDCoCBBVVRIT1LCoMKgwqDC
+oMKgwqDCoCA6IFdpbGxpYW0gUm9za2UKPj4gLSAqCj4+IC0gKsKgwqDCoCBDTy1QSUxPVMKgwqDC
+oMKgwqDCoMKgIDogRGF2ZSBGZW5uZXIKPj4gLSAqCj4+IC0gKsKgwqDCoCBEQVRFIFNUQVJURUTC
+oMKgwqAgOiAwMy8zMC85Mgo+PiAtICoKPj4gLSAqwqDCoMKgIElOSVRJQUwgUkVMRUFTRcKgwqDC
+oCA6IFVOSUNPUyA3LjAKPj4gLSAqCj4+IC0gKsKgwqDCoCBURVNUIENBU0VTCj4+IC0gKgo+PiAt
+ICrCoMKgwqAgMS4pIHRpbWUoMikgcmV0dXJucy4uLihTZWUgRGVzY3JpcHRpb24pCj4+IC0gKgo+
+PiAtICrCoMKgwqAgSU5QVVQgU1BFQ0lGSUNBVElPTlMKPj4gLSAqwqDCoMKgIFRoZSBzdGFuZGFy
+ZCBvcHRpb25zIGZvciBzeXN0ZW0gY2FsbCB0ZXN0cyBhcmUgYWNjZXB0ZWQuCj4+IC0gKsKgwqDC
+oCAoU2VlIHRoZSBwYXJzZV9vcHRzKDMpIG1hbiBwYWdlKS4KPj4gLSAqCj4+IC0gKsKgwqDCoCBP
+VVRQVVQgU1BFQ0lGSUNBVElPTlMKPj4gLSAqCj4+IC0gKsKgwqDCoCBEVVJBVElPTgo+PiAtICrC
+oMKgwqAgVGVybWluYXRlcyAtIHdpdGggZnJlcXVlbmN5IGFuZCBpbmZpbml0ZSBtb2Rlcy4KPj4g
+LSAqCj4+IC0gKsKgwqDCoCBTSUdOQUxTCj4+IC0gKsKgwqDCoCBVc2VzIFNJR1VTUjEgdG8gcGF1
+c2UgYmVmb3JlIHRlc3QgaWYgb3B0aW9uIHNldC4KPj4gLSAqwqDCoMKgIChTZWUgdGhlIHBhcnNl
+X29wdHMoMykgbWFuIHBhZ2UpLgo+PiAtICoKPj4gLSAqwqDCoMKgIFJFU09VUkNFUwo+PiAtICrC
+oMKgwqAgTm9uZQo+PiAtICoKPj4gLSAqwqDCoMKgIEVOVklST05NRU5UQUwgTkVFRFMKPj4gLSAq
+wqDCoMKgwqDCoCBObyBydW4tdGltZSBlbnZpcm9ubWVudGFsIG5lZWRzLgo+PiAtICoKPj4gLSAq
+wqDCoMKgIFNQRUNJQUwgUFJPQ0VEVVJBTCBSRVFVSVJFTUVOVFMKPj4gLSAqwqDCoMKgIE5vbmUK
+Pj4gLSAqCj4+IC0gKsKgwqDCoCBJTlRFUkNBU0UgREVQRU5ERU5DSUVTCj4+IC0gKsKgwqDCoCBO
+b25lCj4+IC0gKgo+PiAtICrCoMKgwqAgREVUQUlMRUQgREVTQ1JJUFRJT04KPj4gLSAqwqDCoMKg
+IFRoaXMgaXMgYSBQaGFzZSBJIHRlc3QgZm9yIHRoZSB0aW1lKDIpIHN5c3RlbSBjYWxsLsKgIEl0
+IGlzIAo+PiBpbnRlbmRlZAo+PiAtICrCoMKgwqAgdG8gcHJvdmlkZSBhIGxpbWl0ZWQgZXhwb3N1
+cmUgb2YgdGhlIHN5c3RlbSBjYWxsLCBmb3Igbm93LsKgIEl0Cj4+IC0gKsKgwqDCoCBzaG91bGQv
+d2lsbCBiZSBleHRlbmRlZCB3aGVuIGZ1bGwgZnVuY3Rpb25hbCB0ZXN0cyBhcmUgd3JpdHRlbiBm
+b3IKPj4gLSAqwqDCoMKgIHRpbWUoMikuCj4+IC0gKgo+PiAtICrCoMKgwqAgU2V0dXA6Cj4+IC0g
+KsKgwqDCoMKgwqAgU2V0dXAgc2lnbmFsIGhhbmRsaW5nLgo+PiAtICrCoMKgwqDCoMKgIFBhdXNl
+IGZvciBTSUdVU1IxIGlmIG9wdGlvbiBzcGVjaWZpZWQuCj4+IC0gKgo+PiAtICrCoMKgwqAgVGVz
+dDoKPj4gLSAqwqDCoMKgwqAgTG9vcCBpZiB0aGUgcHJvcGVyIG9wdGlvbnMgYXJlIGdpdmVuLgo+
+PiAtICrCoMKgwqDCoMKgIEV4ZWN1dGUgc3lzdGVtIGNhbGwKPj4gLSAqwqDCoMKgwqDCoCBDaGVj
+ayByZXR1cm4gY29kZSwgaWYgc3lzdGVtIGNhbGwgZmFpbGVkIChyZXR1cm49LTEpCj4+IC0gKsKg
+wqDCoMKgwqDCoMKgIExvZyB0aGUgZXJybm8gYW5kIElzc3VlIGEgRkFJTCBtZXNzYWdlLgo+PiAt
+ICrCoMKgwqDCoMKgIE90aGVyd2lzZSwgSXNzdWUgYSBQQVNTIG1lc3NhZ2UuCj4+IC0gKgo+PiAt
+ICrCoMKgwqAgQ2xlYW51cDoKPj4gLSAqwqDCoMKgwqDCoCBQcmludCBlcnJubyBsb2cgYW5kL29y
+IHRpbWluZyBzdGF0cyBpZiBvcHRpb25zIGdpdmVuCj4+IC0gKgo+PiAtICoKPj4gLSAqIyojKiMq
+IyojKiMqIyojKiMqIyojKiMqIyojKiMqIyojKiMqIyojKiMqIyojKiMqIyojKiMqIyojKiovCj4+
+Cj4+IC0jaW5jbHVkZTxlcnJuby5oPgo+PiAtI2luY2x1ZGU8c3RyaW5nLmg+Cj4+IC0jaW5jbHVk
+ZTxzaWduYWwuaD4KPj4gLSNpbmNsdWRlPHRpbWUuaD4KPj4gLSNpbmNsdWRlICJ0ZXN0LmgiCj4+
+IC0KPj4gLXZvaWQgc2V0dXAoKTsKPj4gLXZvaWQgY2xlYW51cCgpOwo+PiAtCj4+IC1jaGFyICpU
+Q0lEID0gInRpbWUwMSI7Cj4+IC1pbnQgVFNUX1RPVEFMID0gMTsKPj4gLQo+PiAtaW50IG1haW4o
+aW50IGFjLCBjaGFyICoqYXYpCj4+IC17Cj4+IC3CoMKgwqAgaW50IGxjOwo+PiAtCj4+IC3CoMKg
+wqAgdHN0X3BhcnNlX29wdHMoYWMsIGF2LCBOVUxMLCBOVUxMKTsKPj4gLQo+PiAtwqDCoMKgIHNl
+dHVwKCk7Cj4+IC0KPj4gLcKgwqDCoCBmb3IgKGxjID0gMDsgVEVTVF9MT09QSU5HKGxjKTsgbGMr
+Kykgewo+PiArLypcCj4+ICsgKiBbREVTQ1JJUFRJT05dCj4+ICsgKiBUaGlzIGlzIGEgUGhhc2Ug
+SSB0ZXN0IGZvciB0aGUgdGltZSgyKSBzeXN0ZW0gY2FsbC4gSXQgaXMgaW50ZW5kZWQgdG8KPj4g
+KyAqIHByb3ZpZGUgYSBsaW1pdGVkIGV4cG9zdXJlIG9mIHRoZSBzeXN0ZW0gY2FsbC4KPj4gK1wq
+Lwo+Pgo+PiAtwqDCoMKgwqDCoMKgwqAgdHN0X2NvdW50ID0gMDsKPj4gLQo+PiAtwqDCoMKgwqDC
+oMKgwqAgLyoKPj4gLcKgwqDCoMKgwqDCoMKgwqAgKiBDYWxsIHRpbWUoMikKPj4gLcKgwqDCoMKg
+wqDCoMKgwqAgKi8KPj4gLcKgwqDCoMKgwqDCoMKgIFRFU1QodGltZSgwKSk7Cj4+IC0KPj4gLcKg
+wqDCoMKgwqDCoMKgIC8qIGNoZWNrIHJldHVybiBjb2RlICovCj4+IC3CoMKgwqDCoMKgwqDCoCBp
+ZiAoVEVTVF9SRVRVUk4gPT0gLTEpIHsKPj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgdHN0X3Jl
+c20oVEZBSUwsICJ0aW1lKDApIEZhaWxlZCwgZXJybm89JWQgOiAlcyIsCj4+IC3CoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBURVNUX0VSUk5PLCBzdHJlcnJvcihURVNUX0VSUk5PKSk7
+Cj4+IC3CoMKgwqDCoMKgwqDCoCB9IGVsc2Ugewo+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB0
+c3RfcmVzbShUUEFTUywgInRpbWUoMCkgcmV0dXJuZWQgJWxkIiwKPj4gLcKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgIFRFU1RfUkVUVVJOKTsKPj4gLcKgwqDCoMKgwqDCoMKgIH0KPj4g
+LcKgwqDCoCB9Cj4+ICsjaW5jbHVkZTx0aW1lLmg+Cj4+ICsjaW5jbHVkZTxlcnJuby5oPgo+Pgo+
+PiAtwqDCoMKgIGNsZWFudXAoKTsKPj4gLcKgwqDCoCB0c3RfZXhpdCgpOwo+PiAtfQo+PiArI2lu
+Y2x1ZGUgInRzdF90ZXN0LmgiCj4+Cj4+IC0vKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
+KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqCj4+IC0gKiBzZXR1cCgpIC0gcGVyZm9y
+bXMgYWxsIE9ORSBUSU1FIHNldHVwIGZvciB0aGlzIHRlc3QuCj4+IC0gKioqKioqKioqKioqKioq
+KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqLwo+PiAtdm9p
+ZCBzZXR1cCh2b2lkKQo+PiArc3RhdGljIHZvaWQgdmVyaWZ5X3RpbWUodm9pZCkKPj4gwqAgewo+
+PiAtwqDCoMKgIHZvaWQgdHJhcHBlcigpOwo+PiAtCj4+IC3CoMKgwqAgdHN0X3NpZyhOT0ZPUkss
+IERFRl9IQU5ETEVSLCBjbGVhbnVwKTsKPj4gK8KgwqDCoCBURVNUKHRpbWUoMCkpOwo+Pgo+PiAt
+wqDCoMKgIFRFU1RfUEFVU0U7Cj4+ICvCoMKgwqAgaWYgKFRTVF9SRVQgPT0gLTEpCj4+ICvCoMKg
+wqDCoMKgwqDCoCB0c3RfcmVzKFRGQUlMIHwgVFRFUlJOTywgInRpbWUoMCkiKTsKPj4gK8KgwqDC
+oCBlbHNlCj4+ICvCoMKgwqDCoMKgwqDCoCB0c3RfcmVzKFRQQVNTLCAidGltZSgwKSByZXR1cm5l
+ZCAlbGQiLCBUU1RfUkVUKTsKPj4gwqAgfQo+Pgo+PiAtLyoqKioqKioqKioqKioqKioqKioqKioq
+KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKgo+PiAtICogY2xlYW51cCgp
+IC0gcGVyZm9ybXMgYWxsIE9ORSBUSU1FIGNsZWFudXAgZm9yIHRoaXMgdGVzdCBhdAo+PiAtICrC
+oMKgwqDCoMKgwqDCoCBjb21wbGV0aW9uIG9yIHByZW1hdHVyZSBleGl0Lgo+PiAtICoqKioqKioq
+KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKi8K
+Pj4gLXZvaWQgY2xlYW51cCh2b2lkKQo+PiAtewo+PiAtfQo+PiArc3RhdGljIHN0cnVjdCB0c3Rf
+dGVzdCB0ZXN0ID0gewo+PiArwqDCoMKgIC50ZXN0X2FsbCA9IHZlcmlmeV90aW1lLAo+PiArfTsK
+PiAKCgoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3Rp
+bmZvL2x0cAo=
