@@ -1,49 +1,51 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68B74304F62
-	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jan 2021 04:09:19 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id AAAAC304F77
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jan 2021 04:12:41 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D748A3C01F4
-	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jan 2021 04:09:18 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 62F2E3C04C5
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jan 2021 04:12:41 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- by picard.linux.it (Postfix) with ESMTP id 718E43C00BB
- for <ltp@lists.linux.it>; Wed, 27 Jan 2021 04:09:14 +0100 (CET)
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id 6A7E03C00FA
+ for <ltp@lists.linux.it>; Wed, 27 Jan 2021 04:12:34 +0100 (CET)
 Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-3.smtp.seeweb.it (Postfix) with ESMTP id 233F91A0079A
- for <ltp@lists.linux.it>; Wed, 27 Jan 2021 04:09:12 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.79,378,1602518400"; d="scan'208";a="103878688"
+ by in-5.smtp.seeweb.it (Postfix) with ESMTP id 1B16F6006E4
+ for <ltp@lists.linux.it>; Wed, 27 Jan 2021 04:12:32 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.79,378,1602518400"; d="scan'208";a="103878846"
 Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 27 Jan 2021 11:09:08 +0800
-Received: from G08CNEXMBPEKD06.g08.fujitsu.local (unknown [10.167.33.206])
- by cn.fujitsu.com (Postfix) with ESMTP id 4645D4CE6026
- for <ltp@lists.linux.it>; Wed, 27 Jan 2021 11:09:06 +0800 (CST)
-Received: from [10.167.220.69] (10.167.220.69) by
- G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Wed, 27 Jan 2021 11:09:06 +0800
-Message-ID: <6010D950.30002@cn.fujitsu.com>
-Date: Wed, 27 Jan 2021 11:09:04 +0800
-From: Xiao Yang <yangx.jy@cn.fujitsu.com>
-User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
- rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
-MIME-Version: 1.0
-To: Shiyang Ruan <ruansy.fnst@cn.fujitsu.com>
+ by heian.cn.fujitsu.com with ESMTP; 27 Jan 2021 11:12:31 +0800
+Received: from G08CNEXMBPEKD05.g08.fujitsu.local (unknown [10.167.33.204])
+ by cn.fujitsu.com (Postfix) with ESMTP id C83604CE6026
+ for <ltp@lists.linux.it>; Wed, 27 Jan 2021 11:12:25 +0800 (CST)
+Received: from irides.mr (10.167.225.141) by G08CNEXMBPEKD05.g08.fujitsu.local
+ (10.167.33.204) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
+ Wed, 27 Jan 2021 11:12:24 +0800
+To: Xiao Yang <yangx.jy@cn.fujitsu.com>
 References: <20210127025112.1226584-1-ruansy.fnst@cn.fujitsu.com>
-In-Reply-To: <20210127025112.1226584-1-ruansy.fnst@cn.fujitsu.com>
-X-Originating-IP: [10.167.220.69]
-X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
- G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206)
-X-yoursite-MailScanner-ID: 4645D4CE6026.A845A
+ <6010D950.30002@cn.fujitsu.com>
+From: Ruan Shiyang <ruansy.fnst@cn.fujitsu.com>
+Message-ID: <e9a9481d-60a6-68f3-859b-8ab25722a0b3@cn.fujitsu.com>
+Date: Wed, 27 Jan 2021 11:12:24 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.1
+MIME-Version: 1.0
+In-Reply-To: <6010D950.30002@cn.fujitsu.com>
+Content-Language: en-US
+X-Originating-IP: [10.167.225.141]
+X-ClientProxiedBy: G08CNEXCHPEKD04.g08.fujitsu.local (10.167.33.200) To
+ G08CNEXMBPEKD05.g08.fujitsu.local (10.167.33.204)
+X-yoursite-MailScanner-ID: C83604CE6026.A8515
 X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: yangx.jy@cn.fujitsu.com
+X-yoursite-MailScanner-From: ruansy.fnst@cn.fujitsu.com
 X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
  SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.4
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH] syscalls/times01: Convert to new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -57,226 +59,129 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: ltp@lists.linux.it
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 2021/1/27 10:51, Shiyang Ruan wrote:
-> Signed-off-by: Shiyang Ruan<ruansy.fnst@cn.fujitsu.com>
-> ---
->   testcases/kernel/syscalls/times/times01.c | 168 +++-------------------
->   1 file changed, 20 insertions(+), 148 deletions(-)
->
-> diff --git a/testcases/kernel/syscalls/times/times01.c b/testcases/kernel/syscalls/times/times01.c
-> index 293a52957..87a0f6144 100644
-> --- a/testcases/kernel/syscalls/times/times01.c
-> +++ b/testcases/kernel/syscalls/times/times01.c
-> @@ -1,162 +1,34 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
->   /*
->    * Copyright (c) 2000 Silicon Graphics, Inc.  All Rights Reserved.
->    *
-> - * This program is free software; you can redistribute it and/or modify it
-> - * under the terms of version 2 of the GNU General Public License as
-> - * published by the Free Software Foundation.
-> - *
-> - * This program is distributed in the hope that it would be useful, but
-> - * WITHOUT ANY WARRANTY; without even the implied warranty of
-> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-> - *
-> - * Further, this software is distributed without any warranty that it is
-> - * free of the rightful claim of any third person regarding infringement
-> - * or the like.  Any license provided herein, whether implied or
-> - * otherwise, applies only to this software file.  Patent licenses, if
-> - * any, provided herein do not apply to combinations of this program with
-> - * other software, or any other product whatsoever.
-> - *
-> - * You should have received a copy of the GNU General Public License along
-> - * with this program; if not, write the Free Software Foundation, Inc.,
-> - * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-> - *
-> - * Contact information: Silicon Graphics, Inc., 1600 Amphitheatre Pkwy,
-> - * Mountain View, CA  94043, or:
-> - *
-> - * http://www.sgi.com
-> - *
-> - * For further information regarding this notice, see:
-> - *
-> - * http://oss.sgi.com/projects/GenInfo/NoticeExplan/
-> - *
-> - */
-> -/* $Id: times01.c,v 1.6 2009/10/26 14:55:48 subrata_modak Exp $ */
-> -/**********************************************************
-> - *
-> - *    OS Test - Silicon Graphics, Inc.
-> - *
-> - *    TEST IDENTIFIER	: times01
-> - *
-> - *    EXECUTED BY	: anyone
-> - *
-> - *    TEST TITLE	: Basic test for times(2)
-> - *
-> - *    PARENT DOCUMENT	: usctpl01
-> - *
-> - *    TEST CASE TOTAL	: 1
-> - *
-> - *    WALL CLOCK TIME	: 1
-> - *
-> - *    CPU TYPES		: ALL
-> - *
-> - *    AUTHOR		: William Roske
-> - *
-> - *    CO-PILOT		: Dave Fenner
-> - *
-> - *    DATE STARTED	: 03/30/92
-> - *
-> - *    INITIAL RELEASE	: UNICOS 7.0
-> - *
-> - *    TEST CASES
-> - *
-> - * 	1.) times(2) returns...(See Description)
-> - *
-> - *    INPUT SPECIFICATIONS
-> - * 	The standard options for system call tests are accepted.
-> - *	(See the parse_opts(3) man page).
-> - *
-> - *    OUTPUT SPECIFICATIONS
-> - *$
-> - *    DURATION
-> - * 	Terminates - with frequency and infinite modes.
-> - *
-> - *    SIGNALS
-> - * 	Uses SIGUSR1 to pause before test if option set.
-> - * 	(See the parse_opts(3) man page).
-> - *
-> - *    RESOURCES
-> - * 	None
-> - *
-> - *    ENVIRONMENTAL NEEDS
-> - *      No run-time environmental needs.
-> - *
-> - *    SPECIAL PROCEDURAL REQUIREMENTS
-> - * 	None
-> - *
-> - *    INTERCASE DEPENDENCIES
-> - * 	None
-> - *
-> - *    DETAILED DESCRIPTION
-> + * DESCRIPTION
->    *	This is a Phase I test for the times(2) system call.  It is intended
-> - *	to provide a limited exposure of the system call, for now.  It
-> - *	should/will be extended when full functional tests are written for
-> - *	times(2).
-> - *
-> - * 	Setup:
-> - * 	  Setup signal handling.
-> - *	  Pause for SIGUSR1 if option specified.
-> - *
-> - * 	Test:
-> - *	 Loop if the proper options are given.
-> - * 	  Execute system call
-> - *	  Check return code, if system call failed (return=-1)
-> - *		Log the errno and Issue a FAIL message.
-> - *	  Otherwise, Issue a PASS message.
-> + *	to provide a limited exposure of the system call.
->    *
-> - * 	Cleanup:
-> - * 	  Print errno log and/or timing stats if options given
-
-Hi Ruan,
-
-Please use the following format of description comment so that it can be 
-picked up by docparser:
---------------------------------------
-/*\
-   * [DESCRIPTION]
-...
-\*/
---------------------------------------
-
-> - *
-> - *
-> - *#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#**/
-> + * ALGORITHM:
-> + *	Execute system call
-> + *	Check return code, if system call failed (return=-1)
-> + *	    Log the errno and Issue a FAIL message.
-> + *	Otherwise, Issue a PASS message.
-> + */
-
-This test is very easy so remove the algorithm comment directly.
-
->
-> -#include<sys/types.h>
->   #include<sys/times.h>
->   #include<errno.h>
-> -#include<string.h>
-> -#include<signal.h>
-> -#include "test.h"
-> -
-> -void setup();
-> -void cleanup();
-> -
-> -char *TCID = "times01";
-> -int TST_TOTAL = 1;
-> -
-> -struct tms mytimes;
-> +#include "tst_test.h"
->
-> -int main(int ac, char **av)
-> +static void verify_times(void)
->   {
-> -	int lc;
-> +	struct tms mytimes;
->
-> -	tst_parse_opts(ac, av, NULL, NULL);
-> +	TEST(times(&mytimes));
->
-> -	setup();
-> -
-> -	for (lc = 0; TEST_LOOPING(lc); lc++) {
-> -
-> -		tst_count = 0;
-> -
-> -		TEST(times(&mytimes));
-> -
-> -		if (TEST_RETURN == -1)
-> -			tst_resm(TFAIL | TTERRNO, "times failed");
-> -		else
-> -			tst_resm(TPASS, "times(&mytimes) returned %ld",
-> -				 TEST_RETURN);
-> -
-> -	}
-> -
-> -	cleanup();
-> -	tst_exit();
-> +	if (TST_RET == -1)
-> +		tst_res(TFAIL | TTERRNO, "times failed");
-> +	else
-> +		tst_res(TPASS, "times(&mytimes) returned %ld", TST_RET);
-It is simpler to use TST_EXP_PASS() here (replace TEST()).
-
-Best Regards,
-Xiao Yang
->   }
->
-> -void setup(void)
-> -{
-> -	tst_sig(NOFORK, DEF_HANDLER, cleanup);
-> -
-> -	TEST_PAUSE;
-> -}
-> -
-> -void cleanup(void)
-> -{
-> -}
-> +static struct tst_test test = {
-> +	.test_all = verify_times,
-> +};
-
-
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+CgpPbiAyMDIxLzEvMjcg5LiK5Y2IMTE6MDksIFhpYW8gWWFuZyB3cm90ZToKPiBPbiAyMDIxLzEv
+MjcgMTA6NTEsIFNoaXlhbmcgUnVhbiB3cm90ZToKPj4gU2lnbmVkLW9mZi1ieTogU2hpeWFuZyBS
+dWFuPHJ1YW5zeS5mbnN0QGNuLmZ1aml0c3UuY29tPgo+PiAtLS0KPj4gwqAgdGVzdGNhc2VzL2tl
+cm5lbC9zeXNjYWxscy90aW1lcy90aW1lczAxLmMgfCAxNjggKysrLS0tLS0tLS0tLS0tLS0tLS0t
+LQo+PiDCoCAxIGZpbGUgY2hhbmdlZCwgMjAgaW5zZXJ0aW9ucygrKSwgMTQ4IGRlbGV0aW9ucygt
+KQo+Pgo+PiBkaWZmIC0tZ2l0IGEvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy90aW1lcy90aW1l
+czAxLmMgCj4+IGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy90aW1lcy90aW1lczAxLmMKPj4g
+aW5kZXggMjkzYTUyOTU3Li44N2EwZjYxNDQgMTAwNjQ0Cj4+IC0tLSBhL3Rlc3RjYXNlcy9rZXJu
+ZWwvc3lzY2FsbHMvdGltZXMvdGltZXMwMS5jCj4+ICsrKyBiL3Rlc3RjYXNlcy9rZXJuZWwvc3lz
+Y2FsbHMvdGltZXMvdGltZXMwMS5jCj4+IEBAIC0xLDE2MiArMSwzNCBAQAo+PiArLy8gU1BEWC1M
+aWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjAtb3ItbGF0ZXIKPj4gwqAgLyoKPj4gwqDCoCAqIENv
+cHlyaWdodCAoYykgMjAwMCBTaWxpY29uIEdyYXBoaWNzLCBJbmMuwqAgQWxsIFJpZ2h0cyBSZXNl
+cnZlZC4KPj4gwqDCoCAqCj4+IC0gKiBUaGlzIHByb2dyYW0gaXMgZnJlZSBzb2Z0d2FyZTsgeW91
+IGNhbiByZWRpc3RyaWJ1dGUgaXQgYW5kL29yIAo+PiBtb2RpZnkgaXQKPj4gLSAqIHVuZGVyIHRo
+ZSB0ZXJtcyBvZiB2ZXJzaW9uIDIgb2YgdGhlIEdOVSBHZW5lcmFsIFB1YmxpYyBMaWNlbnNlIGFz
+Cj4+IC0gKiBwdWJsaXNoZWQgYnkgdGhlIEZyZWUgU29mdHdhcmUgRm91bmRhdGlvbi4KPj4gLSAq
+Cj4+IC0gKiBUaGlzIHByb2dyYW0gaXMgZGlzdHJpYnV0ZWQgaW4gdGhlIGhvcGUgdGhhdCBpdCB3
+b3VsZCBiZSB1c2VmdWwsIGJ1dAo+PiAtICogV0lUSE9VVCBBTlkgV0FSUkFOVFk7IHdpdGhvdXQg
+ZXZlbiB0aGUgaW1wbGllZCB3YXJyYW50eSBvZgo+PiAtICogTUVSQ0hBTlRBQklMSVRZIG9yIEZJ
+VE5FU1MgRk9SIEEgUEFSVElDVUxBUiBQVVJQT1NFLgo+PiAtICoKPj4gLSAqIEZ1cnRoZXIsIHRo
+aXMgc29mdHdhcmUgaXMgZGlzdHJpYnV0ZWQgd2l0aG91dCBhbnkgd2FycmFudHkgdGhhdCBpdCBp
+cwo+PiAtICogZnJlZSBvZiB0aGUgcmlnaHRmdWwgY2xhaW0gb2YgYW55IHRoaXJkIHBlcnNvbiBy
+ZWdhcmRpbmcgaW5mcmluZ2VtZW50Cj4+IC0gKiBvciB0aGUgbGlrZS7CoCBBbnkgbGljZW5zZSBw
+cm92aWRlZCBoZXJlaW4sIHdoZXRoZXIgaW1wbGllZCBvcgo+PiAtICogb3RoZXJ3aXNlLCBhcHBs
+aWVzIG9ubHkgdG8gdGhpcyBzb2Z0d2FyZSBmaWxlLsKgIFBhdGVudCBsaWNlbnNlcywgaWYKPj4g
+LSAqIGFueSwgcHJvdmlkZWQgaGVyZWluIGRvIG5vdCBhcHBseSB0byBjb21iaW5hdGlvbnMgb2Yg
+dGhpcyBwcm9ncmFtIAo+PiB3aXRoCj4+IC0gKiBvdGhlciBzb2Z0d2FyZSwgb3IgYW55IG90aGVy
+IHByb2R1Y3Qgd2hhdHNvZXZlci4KPj4gLSAqCj4+IC0gKiBZb3Ugc2hvdWxkIGhhdmUgcmVjZWl2
+ZWQgYSBjb3B5IG9mIHRoZSBHTlUgR2VuZXJhbCBQdWJsaWMgTGljZW5zZSAKPj4gYWxvbmcKPj4g
+LSAqIHdpdGggdGhpcyBwcm9ncmFtOyBpZiBub3QsIHdyaXRlIHRoZSBGcmVlIFNvZnR3YXJlIEZv
+dW5kYXRpb24sIEluYy4sCj4+IC0gKiA1MSBGcmFua2xpbiBTdHJlZXQsIEZpZnRoIEZsb29yLCBC
+b3N0b24sIE1BIDAyMTEwLTEzMDEgVVNBLgo+PiAtICoKPj4gLSAqIENvbnRhY3QgaW5mb3JtYXRp
+b246IFNpbGljb24gR3JhcGhpY3MsIEluYy4sIDE2MDAgQW1waGl0aGVhdHJlIFBrd3ksCj4+IC0g
+KiBNb3VudGFpbiBWaWV3LCBDQcKgIDk0MDQzLCBvcjoKPj4gLSAqCj4+IC0gKiBodHRwOi8vd3d3
+LnNnaS5jb20KPj4gLSAqCj4+IC0gKiBGb3IgZnVydGhlciBpbmZvcm1hdGlvbiByZWdhcmRpbmcg
+dGhpcyBub3RpY2UsIHNlZToKPj4gLSAqCj4+IC0gKiBodHRwOi8vb3NzLnNnaS5jb20vcHJvamVj
+dHMvR2VuSW5mby9Ob3RpY2VFeHBsYW4vCj4+IC0gKgo+PiAtICovCj4+IC0vKiAkSWQ6IHRpbWVz
+MDEuYyx2IDEuNiAyMDA5LzEwLzI2IDE0OjU1OjQ4IHN1YnJhdGFfbW9kYWsgRXhwICQgKi8KPj4g
+LS8qKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
+KioqCj4+IC0gKgo+PiAtICrCoMKgwqAgT1MgVGVzdCAtIFNpbGljb24gR3JhcGhpY3MsIEluYy4K
+Pj4gLSAqCj4+IC0gKsKgwqDCoCBURVNUIElERU5USUZJRVLCoMKgwqAgOiB0aW1lczAxCj4+IC0g
+Kgo+PiAtICrCoMKgwqAgRVhFQ1VURUQgQlnCoMKgwqAgOiBhbnlvbmUKPj4gLSAqCj4+IC0gKsKg
+wqDCoCBURVNUIFRJVExFwqDCoMKgIDogQmFzaWMgdGVzdCBmb3IgdGltZXMoMikKPj4gLSAqCj4+
+IC0gKsKgwqDCoCBQQVJFTlQgRE9DVU1FTlTCoMKgwqAgOiB1c2N0cGwwMQo+PiAtICoKPj4gLSAq
+wqDCoMKgIFRFU1QgQ0FTRSBUT1RBTMKgwqDCoCA6IDEKPj4gLSAqCj4+IC0gKsKgwqDCoCBXQUxM
+IENMT0NLIFRJTUXCoMKgwqAgOiAxCj4+IC0gKgo+PiAtICrCoMKgwqAgQ1BVIFRZUEVTwqDCoMKg
+wqDCoMKgwqAgOiBBTEwKPj4gLSAqCj4+IC0gKsKgwqDCoCBBVVRIT1LCoMKgwqDCoMKgwqDCoCA6
+IFdpbGxpYW0gUm9za2UKPj4gLSAqCj4+IC0gKsKgwqDCoCBDTy1QSUxPVMKgwqDCoMKgwqDCoMKg
+IDogRGF2ZSBGZW5uZXIKPj4gLSAqCj4+IC0gKsKgwqDCoCBEQVRFIFNUQVJURUTCoMKgwqAgOiAw
+My8zMC85Mgo+PiAtICoKPj4gLSAqwqDCoMKgIElOSVRJQUwgUkVMRUFTRcKgwqDCoCA6IFVOSUNP
+UyA3LjAKPj4gLSAqCj4+IC0gKsKgwqDCoCBURVNUIENBU0VTCj4+IC0gKgo+PiAtICrCoMKgwqDC
+oCAxLikgdGltZXMoMikgcmV0dXJucy4uLihTZWUgRGVzY3JpcHRpb24pCj4+IC0gKgo+PiAtICrC
+oMKgwqAgSU5QVVQgU1BFQ0lGSUNBVElPTlMKPj4gLSAqwqDCoMKgwqAgVGhlIHN0YW5kYXJkIG9w
+dGlvbnMgZm9yIHN5c3RlbSBjYWxsIHRlc3RzIGFyZSBhY2NlcHRlZC4KPj4gLSAqwqDCoMKgIChT
+ZWUgdGhlIHBhcnNlX29wdHMoMykgbWFuIHBhZ2UpLgo+PiAtICoKPj4gLSAqwqDCoMKgIE9VVFBV
+VCBTUEVDSUZJQ0FUSU9OUwo+PiAtICokCj4+IC0gKsKgwqDCoCBEVVJBVElPTgo+PiAtICrCoMKg
+wqDCoCBUZXJtaW5hdGVzIC0gd2l0aCBmcmVxdWVuY3kgYW5kIGluZmluaXRlIG1vZGVzLgo+PiAt
+ICoKPj4gLSAqwqDCoMKgIFNJR05BTFMKPj4gLSAqwqDCoMKgwqAgVXNlcyBTSUdVU1IxIHRvIHBh
+dXNlIGJlZm9yZSB0ZXN0IGlmIG9wdGlvbiBzZXQuCj4+IC0gKsKgwqDCoMKgIChTZWUgdGhlIHBh
+cnNlX29wdHMoMykgbWFuIHBhZ2UpLgo+PiAtICoKPj4gLSAqwqDCoMKgIFJFU09VUkNFUwo+PiAt
+ICrCoMKgwqDCoCBOb25lCj4+IC0gKgo+PiAtICrCoMKgwqAgRU5WSVJPTk1FTlRBTCBORUVEUwo+
+PiAtICrCoMKgwqDCoMKgIE5vIHJ1bi10aW1lIGVudmlyb25tZW50YWwgbmVlZHMuCj4+IC0gKgo+
+PiAtICrCoMKgwqAgU1BFQ0lBTCBQUk9DRURVUkFMIFJFUVVJUkVNRU5UUwo+PiAtICrCoMKgwqDC
+oCBOb25lCj4+IC0gKgo+PiAtICrCoMKgwqAgSU5URVJDQVNFIERFUEVOREVOQ0lFUwo+PiAtICrC
+oMKgwqDCoCBOb25lCj4+IC0gKgo+PiAtICrCoMKgwqAgREVUQUlMRUQgREVTQ1JJUFRJT04KPj4g
+KyAqIERFU0NSSVBUSU9OCj4+IMKgwqAgKsKgwqDCoCBUaGlzIGlzIGEgUGhhc2UgSSB0ZXN0IGZv
+ciB0aGUgdGltZXMoMikgc3lzdGVtIGNhbGwuwqAgSXQgaXMgCj4+IGludGVuZGVkCj4+IC0gKsKg
+wqDCoCB0byBwcm92aWRlIGEgbGltaXRlZCBleHBvc3VyZSBvZiB0aGUgc3lzdGVtIGNhbGwsIGZv
+ciBub3cuwqAgSXQKPj4gLSAqwqDCoMKgIHNob3VsZC93aWxsIGJlIGV4dGVuZGVkIHdoZW4gZnVs
+bCBmdW5jdGlvbmFsIHRlc3RzIGFyZSB3cml0dGVuIGZvcgo+PiAtICrCoMKgwqAgdGltZXMoMiku
+Cj4+IC0gKgo+PiAtICrCoMKgwqDCoCBTZXR1cDoKPj4gLSAqwqDCoMKgwqDCoMKgIFNldHVwIHNp
+Z25hbCBoYW5kbGluZy4KPj4gLSAqwqDCoMKgwqDCoCBQYXVzZSBmb3IgU0lHVVNSMSBpZiBvcHRp
+b24gc3BlY2lmaWVkLgo+PiAtICoKPj4gLSAqwqDCoMKgwqAgVGVzdDoKPj4gLSAqwqDCoMKgwqAg
+TG9vcCBpZiB0aGUgcHJvcGVyIG9wdGlvbnMgYXJlIGdpdmVuLgo+PiAtICrCoMKgwqDCoMKgwqAg
+RXhlY3V0ZSBzeXN0ZW0gY2FsbAo+PiAtICrCoMKgwqDCoMKgIENoZWNrIHJldHVybiBjb2RlLCBp
+ZiBzeXN0ZW0gY2FsbCBmYWlsZWQgKHJldHVybj0tMSkKPj4gLSAqwqDCoMKgwqDCoMKgwqAgTG9n
+IHRoZSBlcnJubyBhbmQgSXNzdWUgYSBGQUlMIG1lc3NhZ2UuCj4+IC0gKsKgwqDCoMKgwqAgT3Ro
+ZXJ3aXNlLCBJc3N1ZSBhIFBBU1MgbWVzc2FnZS4KPj4gKyAqwqDCoMKgIHRvIHByb3ZpZGUgYSBs
+aW1pdGVkIGV4cG9zdXJlIG9mIHRoZSBzeXN0ZW0gY2FsbC4KPj4gwqDCoCAqCj4+IC0gKsKgwqDC
+oMKgIENsZWFudXA6Cj4+IC0gKsKgwqDCoMKgwqDCoCBQcmludCBlcnJubyBsb2cgYW5kL29yIHRp
+bWluZyBzdGF0cyBpZiBvcHRpb25zIGdpdmVuCj4gCj4gSGkgUnVhbiwKPiAKPiBQbGVhc2UgdXNl
+IHRoZSBmb2xsb3dpbmcgZm9ybWF0IG9mIGRlc2NyaXB0aW9uIGNvbW1lbnQgc28gdGhhdCBpdCBj
+YW4gYmUgCj4gcGlja2VkIHVwIGJ5IGRvY3BhcnNlcjoKPiAtLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLQo+IC8qXAo+ICDCoCAqIFtERVNDUklQVElPTl0KPiAuLi4KPiBcKi8K
+PiAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQo+IAo+PiAtICoKPj4gLSAq
+Cj4+IC0gKiMqIyojKiMqIyojKiMqIyojKiMqIyojKiMqIyojKiMqIyojKiMqIyojKiMqIyojKiMq
+IyojKiMqIyoqLwo+PiArICogQUxHT1JJVEhNOgo+PiArICrCoMKgwqAgRXhlY3V0ZSBzeXN0ZW0g
+Y2FsbAo+PiArICrCoMKgwqAgQ2hlY2sgcmV0dXJuIGNvZGUsIGlmIHN5c3RlbSBjYWxsIGZhaWxl
+ZCAocmV0dXJuPS0xKQo+PiArICrCoMKgwqDCoMKgwqDCoCBMb2cgdGhlIGVycm5vIGFuZCBJc3N1
+ZSBhIEZBSUwgbWVzc2FnZS4KPj4gKyAqwqDCoMKgIE90aGVyd2lzZSwgSXNzdWUgYSBQQVNTIG1l
+c3NhZ2UuCj4+ICsgKi8KPiAKPiBUaGlzIHRlc3QgaXMgdmVyeSBlYXN5IHNvIHJlbW92ZSB0aGUg
+YWxnb3JpdGhtIGNvbW1lbnQgZGlyZWN0bHkuCj4gCj4+Cj4+IC0jaW5jbHVkZTxzeXMvdHlwZXMu
+aD4KPj4gwqAgI2luY2x1ZGU8c3lzL3RpbWVzLmg+Cj4+IMKgICNpbmNsdWRlPGVycm5vLmg+Cj4+
+IC0jaW5jbHVkZTxzdHJpbmcuaD4KPj4gLSNpbmNsdWRlPHNpZ25hbC5oPgo+PiAtI2luY2x1ZGUg
+InRlc3QuaCIKPj4gLQo+PiAtdm9pZCBzZXR1cCgpOwo+PiAtdm9pZCBjbGVhbnVwKCk7Cj4+IC0K
+Pj4gLWNoYXIgKlRDSUQgPSAidGltZXMwMSI7Cj4+IC1pbnQgVFNUX1RPVEFMID0gMTsKPj4gLQo+
+PiAtc3RydWN0IHRtcyBteXRpbWVzOwo+PiArI2luY2x1ZGUgInRzdF90ZXN0LmgiCj4+Cj4+IC1p
+bnQgbWFpbihpbnQgYWMsIGNoYXIgKiphdikKPj4gK3N0YXRpYyB2b2lkIHZlcmlmeV90aW1lcyh2
+b2lkKQo+PiDCoCB7Cj4+IC3CoMKgwqAgaW50IGxjOwo+PiArwqDCoMKgIHN0cnVjdCB0bXMgbXl0
+aW1lczsKPj4KPj4gLcKgwqDCoCB0c3RfcGFyc2Vfb3B0cyhhYywgYXYsIE5VTEwsIE5VTEwpOwo+
+PiArwqDCoMKgIFRFU1QodGltZXMoJm15dGltZXMpKTsKPj4KPj4gLcKgwqDCoCBzZXR1cCgpOwo+
+PiAtCj4+IC3CoMKgwqAgZm9yIChsYyA9IDA7IFRFU1RfTE9PUElORyhsYyk7IGxjKyspIHsKPj4g
+LQo+PiAtwqDCoMKgwqDCoMKgwqAgdHN0X2NvdW50ID0gMDsKPj4gLQo+PiAtwqDCoMKgwqDCoMKg
+wqAgVEVTVCh0aW1lcygmbXl0aW1lcykpOwo+PiAtCj4+IC3CoMKgwqDCoMKgwqDCoCBpZiAoVEVT
+VF9SRVRVUk4gPT0gLTEpCj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHRzdF9yZXNtKFRGQUlM
+IHwgVFRFUlJOTywgInRpbWVzIGZhaWxlZCIpOwo+PiAtwqDCoMKgwqDCoMKgwqAgZWxzZQo+PiAt
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB0c3RfcmVzbShUUEFTUywgInRpbWVzKCZteXRpbWVzKSBy
+ZXR1cm5lZCAlbGQiLAo+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgVEVTVF9S
+RVRVUk4pOwo+PiAtCj4+IC3CoMKgwqAgfQo+PiAtCj4+IC3CoMKgwqAgY2xlYW51cCgpOwo+PiAt
+wqDCoMKgIHRzdF9leGl0KCk7Cj4+ICvCoMKgwqAgaWYgKFRTVF9SRVQgPT0gLTEpCj4+ICvCoMKg
+wqDCoMKgwqDCoCB0c3RfcmVzKFRGQUlMIHwgVFRFUlJOTywgInRpbWVzIGZhaWxlZCIpOwo+PiAr
+wqDCoMKgIGVsc2UKPj4gK8KgwqDCoMKgwqDCoMKgIHRzdF9yZXMoVFBBU1MsICJ0aW1lcygmbXl0
+aW1lcykgcmV0dXJuZWQgJWxkIiwgVFNUX1JFVCk7Cj4gSXQgaXMgc2ltcGxlciB0byB1c2UgVFNU
+X0VYUF9QQVNTKCkgaGVyZSAocmVwbGFjZSBURVNUKCkpLgoKR290IGl0LiAgVGhhbmtzIGEgbG90
+LgoKCi0tClRoYW5rcywKUnVhbiBTaGl5YW5nLgo+IAo+IEJlc3QgUmVnYXJkcywKPiBYaWFvIFlh
+bmcKPj4gwqAgfQo+Pgo+PiAtdm9pZCBzZXR1cCh2b2lkKQo+PiAtewo+PiAtwqDCoMKgIHRzdF9z
+aWcoTk9GT1JLLCBERUZfSEFORExFUiwgY2xlYW51cCk7Cj4+IC0KPj4gLcKgwqDCoCBURVNUX1BB
+VVNFOwo+PiAtfQo+PiAtCj4+IC12b2lkIGNsZWFudXAodm9pZCkKPj4gLXsKPj4gLX0KPj4gK3N0
+YXRpYyBzdHJ1Y3QgdHN0X3Rlc3QgdGVzdCA9IHsKPj4gK8KgwqDCoCAudGVzdF9hbGwgPSB2ZXJp
+ZnlfdGltZXMsCj4+ICt9Owo+IAoKCgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlz
+dHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
