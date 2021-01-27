@@ -2,42 +2,37 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5ABAF3056CA
-	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jan 2021 10:23:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86897305715
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jan 2021 10:38:40 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 23F5E3C79E3
-	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jan 2021 10:23:45 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id F326F3C79DE
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jan 2021 10:38:39 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 9F0143C01C3
- for <ltp@lists.linux.it>; Wed, 27 Jan 2021 10:23:40 +0100 (CET)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id E41E23C01C3
+ for <ltp@lists.linux.it>; Wed, 27 Jan 2021 10:38:35 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 361191A00EA6
- for <ltp@lists.linux.it>; Wed, 27 Jan 2021 10:23:39 +0100 (CET)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 75E7A1400E19
+ for <ltp@lists.linux.it>; Wed, 27 Jan 2021 10:38:35 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 79AB2AD57;
- Wed, 27 Jan 2021 09:23:39 +0000 (UTC)
-Date: Wed, 27 Jan 2021 10:24:45 +0100
+ by mx2.suse.de (Postfix) with ESMTP id E32E3AF23;
+ Wed, 27 Jan 2021 09:38:34 +0000 (UTC)
+Date: Wed, 27 Jan 2021 10:39:41 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <YBExXT8HzFAGsTNI@yuki.lan>
+To: Xinpeng Liu <liuxp11@chinatelecom.cn>
+Message-ID: <YBE03REJywKIlM0X@yuki.lan>
 References: <1611570288-23040-1-git-send-email-liuxp11@chinatelecom.cn>
- <CAEemH2csSFf7Ujz8H+KV7hTdmDVsxn5_oW2JZbwY=NsJUSat_w@mail.gmail.com>
- <2021012714540739834212@chinatelecom.cn>
- <CAEemH2dhpbm19HEaHkhv1WE+70VkDjM9C5L1-KJZqPX2G2BgrQ@mail.gmail.com>
- <CAEemH2cwEzLr0dXvskn-hprn0-iOCr=rrLPgDUE1YdbnHu=5AQ@mail.gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CAEemH2cwEzLr0dXvskn-hprn0-iOCr=rrLPgDUE1YdbnHu=5AQ@mail.gmail.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+In-Reply-To: <1611570288-23040-1-git-send-email-liuxp11@chinatelecom.cn>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH 1/2] syscalls/ioctl: ioctl_sg01.c: ioctl_sg01
  invoked oom-killer
 X-BeenThere: ltp@lists.linux.it
@@ -51,29 +46,23 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp <ltp@lists.linux.it>,
- "liuxp11@chinatelecom.cn" <liuxp11@chinatelecom.cn>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> > I sent to you the case swapping01 solving this(via FILE_LINES_SCANF)
-> > already, feel free to take an reference:
-> >
-> > https://github.com/linux-test-project/ltp/blob/master/testcases/kernel/mem/swapping/swapping01.c#L85
-> >
-> 
-> Or, maybe we can extract this process into a function and put it in
-> tst_memutils.h, to convinently reuse by other testcases too?
-> 
-> void tst_get_MemAvailable(void);
+> MemTotal:       198101744 kB
+> MemFree:        189303148 kB
+> MemAvailable:   188566732 kB
 
-Please do not use CamelCase.
+This sounds really strange, usually MemFree is smaller than MemAvailable
+since MemFree does not include page cache.
 
-It should be tst_get_mem_available(void) and it should also return
-unsigned long.
+Is this freshly booted system?
+
+Can you send the whole meminfo here please?
 
 -- 
 Cyril Hrubis
