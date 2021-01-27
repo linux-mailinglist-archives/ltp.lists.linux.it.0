@@ -1,36 +1,52 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14FC0304F7D
-	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jan 2021 04:19:15 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id E20FB304FBF
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jan 2021 04:26:25 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3AE803C04D0
-	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jan 2021 04:19:14 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 49C613C04D1
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jan 2021 04:26:25 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id 780BD3C020C
- for <ltp@lists.linux.it>; Wed, 27 Jan 2021 04:19:08 +0100 (CET)
-Received: from atcsqa06.andestech.com (59-120-53-16.HINET-IP.hinet.net
- [59.120.53.16])
- by in-6.smtp.seeweb.it (Postfix) with ESMTP id B3A971400752
- for <ltp@lists.linux.it>; Wed, 27 Jan 2021 04:19:05 +0100 (CET)
-Received: by atcsqa06.andestech.com (Postfix, from userid 5427)
- id B1598C2A18; Wed, 27 Jan 2021 11:19:03 +0800 (CST)
-From: Leo Yu-Chi Liang <ycliang@andestech.com>
-To: ltp@lists.linux.it,
-	rpalethorpe@suse.de
-Date: Wed, 27 Jan 2021 11:18:53 +0800
-Message-Id: <20210127031853.3485-1-ycliang@andestech.com>
-X-Mailer: git-send-email 2.17.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id 8746C3C01C3
+ for <ltp@lists.linux.it>; Wed, 27 Jan 2021 04:26:21 +0100 (CET)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-3.smtp.seeweb.it (Postfix) with ESMTP id 319CE1A00E16
+ for <ltp@lists.linux.it>; Wed, 27 Jan 2021 04:26:19 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.79,378,1602518400"; d="scan'208";a="103879429"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 27 Jan 2021 11:26:17 +0800
+Received: from G08CNEXMBPEKD06.g08.fujitsu.local (unknown [10.167.33.206])
+ by cn.fujitsu.com (Postfix) with ESMTP id AD8424CE6031
+ for <ltp@lists.linux.it>; Wed, 27 Jan 2021 11:26:16 +0800 (CST)
+Received: from [10.167.220.69] (10.167.220.69) by
+ G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Wed, 27 Jan 2021 11:26:16 +0800
+Message-ID: <6010DD55.8010600@cn.fujitsu.com>
+Date: Wed, 27 Jan 2021 11:26:13 +0800
+From: Xiao Yang <yangx.jy@cn.fujitsu.com>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
+ rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
+MIME-Version: 1.0
+To: Ruan Shiyang <ruansy.fnst@cn.fujitsu.com>
+References: <20210127025112.1226584-1-ruansy.fnst@cn.fujitsu.com>
+ <6010D950.30002@cn.fujitsu.com>
+ <e9a9481d-60a6-68f3-859b-8ab25722a0b3@cn.fujitsu.com>
+In-Reply-To: <e9a9481d-60a6-68f3-859b-8ab25722a0b3@cn.fujitsu.com>
+X-Originating-IP: [10.167.220.69]
+X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
+ G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206)
+X-yoursite-MailScanner-ID: AD8424CE6031.AA25A
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: yangx.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.4
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.4 required=7.0 tests=PDS_RDNS_DYNAMIC_FP,
- RDNS_DYNAMIC,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 1/1] fzsync: Add sched_yield for single core machine
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] syscalls/times01: Convert to new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -42,138 +58,132 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: ltp@lists.linux.it
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Fuzzy sync library uses spin waiting mechanism to implement thread
-barrier behavior, which would cause this test to be time-consuming
-on single core machine.
-
-Fix this by adding sched_yield in the spin waiting loop, so that the
-thread yields cpu as soon as it enters the waiting loop.
-
-Signed-off-by: Leo Yu-Chi Liang <ycliang@andestech.com>
----
- include/tst_fuzzy_sync.h | 34 ++++++++++++++++++++++++++--------
- 1 file changed, 26 insertions(+), 8 deletions(-)
-
-diff --git a/include/tst_fuzzy_sync.h b/include/tst_fuzzy_sync.h
-index 4141f5c64..37f3d06f2 100644
---- a/include/tst_fuzzy_sync.h
-+++ b/include/tst_fuzzy_sync.h
-@@ -59,12 +59,15 @@
-  * @sa tst_fzsync_pair
-  */
- 
--#include <sys/time.h>
--#include <time.h>
- #include <math.h>
--#include <stdlib.h>
- #include <pthread.h>
-+#include <sched.h>
-+#include <stdbool.h>
-+#include <stdlib.h>
-+#include <sys/time.h>
-+#include <time.h>
- #include "tst_atomic.h"
-+#include "tst_cpu.h"
- #include "tst_timer.h"
- #include "tst_safe_pthread.h"
- 
-@@ -180,6 +183,15 @@ struct tst_fzsync_pair {
- 	int exec_loop;
- 	/** Internal; The second thread or 0 */
- 	pthread_t thread_b;
-+	/** 
-+	 * Internal; The flag indicates single core machines or not
-+	 * 
-+	 * If running on single core machines, it would take considerable
-+	 * amount of time to run fuzzy sync library.
-+	 * Thus call sched_yield to give up cpu to decrease the test time.
-+	 */
-+	bool yield_in_wait;
-+
- };
- 
- #define CHK(param, low, hi, def) do {					      \
-@@ -206,6 +218,7 @@ static void tst_fzsync_pair_init(struct tst_fzsync_pair *pair)
- 	CHK(max_dev_ratio, 0, 1, 0.1);
- 	CHK(exec_time_p, 0, 1, 0.5);
- 	CHK(exec_loops, 20, INT_MAX, 3000000);
-+	CHK(yield_in_wait, 0, 1, (tst_ncpus() <= 1));
- }
- #undef CHK
- 
-@@ -550,7 +563,8 @@ static void tst_fzsync_pair_update(struct tst_fzsync_pair *pair)
-  */
- static inline void tst_fzsync_pair_wait(int *our_cntr,
- 					int *other_cntr,
--					int *spins)
-+					int *spins,
-+					bool yield_in_wait)
- {
- 	if (tst_atomic_inc(other_cntr) == INT_MAX) {
- 		/*
-@@ -564,6 +578,8 @@ static inline void tst_fzsync_pair_wait(int *our_cntr,
- 		       && tst_atomic_load(our_cntr) < INT_MAX) {
- 			if (spins)
- 				(*spins)++;
-+			if(yield_in_wait)
-+				sched_yield();
- 		}
- 
- 		tst_atomic_store(0, other_cntr);
-@@ -581,6 +597,8 @@ static inline void tst_fzsync_pair_wait(int *our_cntr,
- 		while (tst_atomic_load(our_cntr) < tst_atomic_load(other_cntr)) {
- 			if (spins)
- 				(*spins)++;
-+			if(yield_in_wait)
-+				sched_yield();
- 		}
- 	}
- }
-@@ -593,7 +611,7 @@ static inline void tst_fzsync_pair_wait(int *our_cntr,
-  */
- static inline void tst_fzsync_wait_a(struct tst_fzsync_pair *pair)
- {
--	tst_fzsync_pair_wait(&pair->a_cntr, &pair->b_cntr, NULL);
-+	tst_fzsync_pair_wait(&pair->a_cntr, &pair->b_cntr, NULL, pair->yield_in_wait);
- }
- 
- /**
-@@ -604,7 +622,7 @@ static inline void tst_fzsync_wait_a(struct tst_fzsync_pair *pair)
-  */
- static inline void tst_fzsync_wait_b(struct tst_fzsync_pair *pair)
- {
--	tst_fzsync_pair_wait(&pair->b_cntr, &pair->a_cntr, NULL);
-+	tst_fzsync_pair_wait(&pair->b_cntr, &pair->a_cntr, NULL, pair->yield_in_wait);
- }
- 
- /**
-@@ -709,7 +727,7 @@ static inline void tst_fzsync_start_race_a(struct tst_fzsync_pair *pair)
- static inline void tst_fzsync_end_race_a(struct tst_fzsync_pair *pair)
- {
- 	tst_fzsync_time(&pair->a_end);
--	tst_fzsync_pair_wait(&pair->a_cntr, &pair->b_cntr, &pair->spins);
-+	tst_fzsync_pair_wait(&pair->a_cntr, &pair->b_cntr, &pair->spins, pair->yield_in_wait);
- }
- 
- /**
-@@ -740,7 +758,7 @@ static inline void tst_fzsync_start_race_b(struct tst_fzsync_pair *pair)
- static inline void tst_fzsync_end_race_b(struct tst_fzsync_pair *pair)
- {
- 	tst_fzsync_time(&pair->b_end);
--	tst_fzsync_pair_wait(&pair->b_cntr, &pair->a_cntr, &pair->spins);
-+	tst_fzsync_pair_wait(&pair->b_cntr, &pair->a_cntr, &pair->spins, pair->yield_in_wait);
- }
- 
- /**
--- 
-2.17.0
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+T24gMjAyMS8xLzI3IDExOjEyLCBSdWFuIFNoaXlhbmcgd3JvdGU6Cj4KPgo+IE9uIDIwMjEvMS8y
+NyDkuIrljYgxMTowOSwgWGlhbyBZYW5nIHdyb3RlOgo+PiBPbiAyMDIxLzEvMjcgMTA6NTEsIFNo
+aXlhbmcgUnVhbiB3cm90ZToKPj4+IFNpZ25lZC1vZmYtYnk6IFNoaXlhbmcgUnVhbjxydWFuc3ku
+Zm5zdEBjbi5mdWppdHN1LmNvbT4KPj4+IC0tLQo+Pj4gICB0ZXN0Y2FzZXMva2VybmVsL3N5c2Nh
+bGxzL3RpbWVzL3RpbWVzMDEuYyB8IDE2OCAKPj4+ICsrKy0tLS0tLS0tLS0tLS0tLS0tLS0KPj4+
+ICAgMSBmaWxlIGNoYW5nZWQsIDIwIGluc2VydGlvbnMoKyksIDE0OCBkZWxldGlvbnMoLSkKPj4+
+Cj4+PiBkaWZmIC0tZ2l0IGEvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy90aW1lcy90aW1lczAx
+LmMgCj4+PiBiL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvdGltZXMvdGltZXMwMS5jCj4+PiBp
+bmRleCAyOTNhNTI5NTcuLjg3YTBmNjE0NCAxMDA2NDQKPj4+IC0tLSBhL3Rlc3RjYXNlcy9rZXJu
+ZWwvc3lzY2FsbHMvdGltZXMvdGltZXMwMS5jCj4+PiArKysgYi90ZXN0Y2FzZXMva2VybmVsL3N5
+c2NhbGxzL3RpbWVzL3RpbWVzMDEuYwo+Pj4gQEAgLTEsMTYyICsxLDM0IEBACj4+PiArLy8gU1BE
+WC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjAtb3ItbGF0ZXIKPj4+ICAgLyoKPj4+ICAgICog
+Q29weXJpZ2h0IChjKSAyMDAwIFNpbGljb24gR3JhcGhpY3MsIEluYy4gIEFsbCBSaWdodHMgUmVz
+ZXJ2ZWQuCj4+PiAgICAqCj4+PiAtICogVGhpcyBwcm9ncmFtIGlzIGZyZWUgc29mdHdhcmU7IHlv
+dSBjYW4gcmVkaXN0cmlidXRlIGl0IGFuZC9vciAKPj4+IG1vZGlmeSBpdAo+Pj4gLSAqIHVuZGVy
+IHRoZSB0ZXJtcyBvZiB2ZXJzaW9uIDIgb2YgdGhlIEdOVSBHZW5lcmFsIFB1YmxpYyBMaWNlbnNl
+IGFzCj4+PiAtICogcHVibGlzaGVkIGJ5IHRoZSBGcmVlIFNvZnR3YXJlIEZvdW5kYXRpb24uCj4+
+PiAtICoKPj4+IC0gKiBUaGlzIHByb2dyYW0gaXMgZGlzdHJpYnV0ZWQgaW4gdGhlIGhvcGUgdGhh
+dCBpdCB3b3VsZCBiZSB1c2VmdWwsIAo+Pj4gYnV0Cj4+PiAtICogV0lUSE9VVCBBTlkgV0FSUkFO
+VFk7IHdpdGhvdXQgZXZlbiB0aGUgaW1wbGllZCB3YXJyYW50eSBvZgo+Pj4gLSAqIE1FUkNIQU5U
+QUJJTElUWSBvciBGSVRORVNTIEZPUiBBIFBBUlRJQ1VMQVIgUFVSUE9TRS4KPj4+IC0gKgo+Pj4g
+LSAqIEZ1cnRoZXIsIHRoaXMgc29mdHdhcmUgaXMgZGlzdHJpYnV0ZWQgd2l0aG91dCBhbnkgd2Fy
+cmFudHkgdGhhdCAKPj4+IGl0IGlzCj4+PiAtICogZnJlZSBvZiB0aGUgcmlnaHRmdWwgY2xhaW0g
+b2YgYW55IHRoaXJkIHBlcnNvbiByZWdhcmRpbmcgCj4+PiBpbmZyaW5nZW1lbnQKPj4+IC0gKiBv
+ciB0aGUgbGlrZS4gIEFueSBsaWNlbnNlIHByb3ZpZGVkIGhlcmVpbiwgd2hldGhlciBpbXBsaWVk
+IG9yCj4+PiAtICogb3RoZXJ3aXNlLCBhcHBsaWVzIG9ubHkgdG8gdGhpcyBzb2Z0d2FyZSBmaWxl
+LiAgUGF0ZW50IGxpY2Vuc2VzLCBpZgo+Pj4gLSAqIGFueSwgcHJvdmlkZWQgaGVyZWluIGRvIG5v
+dCBhcHBseSB0byBjb21iaW5hdGlvbnMgb2YgdGhpcyAKPj4+IHByb2dyYW0gd2l0aAo+Pj4gLSAq
+IG90aGVyIHNvZnR3YXJlLCBvciBhbnkgb3RoZXIgcHJvZHVjdCB3aGF0c29ldmVyLgo+Pj4gLSAq
+Cj4+PiAtICogWW91IHNob3VsZCBoYXZlIHJlY2VpdmVkIGEgY29weSBvZiB0aGUgR05VIEdlbmVy
+YWwgUHVibGljIAo+Pj4gTGljZW5zZSBhbG9uZwo+Pj4gLSAqIHdpdGggdGhpcyBwcm9ncmFtOyBp
+ZiBub3QsIHdyaXRlIHRoZSBGcmVlIFNvZnR3YXJlIEZvdW5kYXRpb24sIAo+Pj4gSW5jLiwKPj4+
+IC0gKiA1MSBGcmFua2xpbiBTdHJlZXQsIEZpZnRoIEZsb29yLCBCb3N0b24sIE1BIDAyMTEwLTEz
+MDEgVVNBLgo+Pj4gLSAqCj4+PiAtICogQ29udGFjdCBpbmZvcm1hdGlvbjogU2lsaWNvbiBHcmFw
+aGljcywgSW5jLiwgMTYwMCBBbXBoaXRoZWF0cmUgCj4+PiBQa3d5LAo+Pj4gLSAqIE1vdW50YWlu
+IFZpZXcsIENBICA5NDA0Mywgb3I6Cj4+PiAtICoKPj4+IC0gKiBodHRwOi8vd3d3LnNnaS5jb20K
+Pj4+IC0gKgo+Pj4gLSAqIEZvciBmdXJ0aGVyIGluZm9ybWF0aW9uIHJlZ2FyZGluZyB0aGlzIG5v
+dGljZSwgc2VlOgo+Pj4gLSAqCj4+PiAtICogaHR0cDovL29zcy5zZ2kuY29tL3Byb2plY3RzL0dl
+bkluZm8vTm90aWNlRXhwbGFuLwo+Pj4gLSAqCj4+PiAtICovCj4+PiAtLyogJElkOiB0aW1lczAx
+LmMsdiAxLjYgMjAwOS8xMC8yNiAxNDo1NTo0OCBzdWJyYXRhX21vZGFrIEV4cCAkICovCj4+PiAt
+LyoqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
+KioKPj4+IC0gKgo+Pj4gLSAqICAgIE9TIFRlc3QgLSBTaWxpY29uIEdyYXBoaWNzLCBJbmMuCj4+
+PiAtICoKPj4+IC0gKiAgICBURVNUIElERU5USUZJRVIgICAgOiB0aW1lczAxCj4+PiAtICoKPj4+
+IC0gKiAgICBFWEVDVVRFRCBCWSAgICA6IGFueW9uZQo+Pj4gLSAqCj4+PiAtICogICAgVEVTVCBU
+SVRMRSAgICA6IEJhc2ljIHRlc3QgZm9yIHRpbWVzKDIpCj4+PiAtICoKPj4+IC0gKiAgICBQQVJF
+TlQgRE9DVU1FTlQgICAgOiB1c2N0cGwwMQo+Pj4gLSAqCj4+PiAtICogICAgVEVTVCBDQVNFIFRP
+VEFMICAgIDogMQo+Pj4gLSAqCj4+PiAtICogICAgV0FMTCBDTE9DSyBUSU1FICAgIDogMQo+Pj4g
+LSAqCj4+PiAtICogICAgQ1BVIFRZUEVTICAgICAgICA6IEFMTAo+Pj4gLSAqCj4+PiAtICogICAg
+QVVUSE9SICAgICAgICA6IFdpbGxpYW0gUm9za2UKPj4+IC0gKgo+Pj4gLSAqICAgIENPLVBJTE9U
+ICAgICAgICA6IERhdmUgRmVubmVyCj4+PiAtICoKPj4+IC0gKiAgICBEQVRFIFNUQVJURUQgICAg
+OiAwMy8zMC85Mgo+Pj4gLSAqCj4+PiAtICogICAgSU5JVElBTCBSRUxFQVNFICAgIDogVU5JQ09T
+IDcuMAo+Pj4gLSAqCj4+PiAtICogICAgVEVTVCBDQVNFUwo+Pj4gLSAqCj4+PiAtICogICAgIDEu
+KSB0aW1lcygyKSByZXR1cm5zLi4uKFNlZSBEZXNjcmlwdGlvbikKPj4+IC0gKgo+Pj4gLSAqICAg
+IElOUFVUIFNQRUNJRklDQVRJT05TCj4+PiAtICogICAgIFRoZSBzdGFuZGFyZCBvcHRpb25zIGZv
+ciBzeXN0ZW0gY2FsbCB0ZXN0cyBhcmUgYWNjZXB0ZWQuCj4+PiAtICogICAgKFNlZSB0aGUgcGFy
+c2Vfb3B0cygzKSBtYW4gcGFnZSkuCj4+PiAtICoKPj4+IC0gKiAgICBPVVRQVVQgU1BFQ0lGSUNB
+VElPTlMKPj4+IC0gKiQKPj4+IC0gKiAgICBEVVJBVElPTgo+Pj4gLSAqICAgICBUZXJtaW5hdGVz
+IC0gd2l0aCBmcmVxdWVuY3kgYW5kIGluZmluaXRlIG1vZGVzLgo+Pj4gLSAqCj4+PiAtICogICAg
+U0lHTkFMUwo+Pj4gLSAqICAgICBVc2VzIFNJR1VTUjEgdG8gcGF1c2UgYmVmb3JlIHRlc3QgaWYg
+b3B0aW9uIHNldC4KPj4+IC0gKiAgICAgKFNlZSB0aGUgcGFyc2Vfb3B0cygzKSBtYW4gcGFnZSku
+Cj4+PiAtICoKPj4+IC0gKiAgICBSRVNPVVJDRVMKPj4+IC0gKiAgICAgTm9uZQo+Pj4gLSAqCj4+
+PiAtICogICAgRU5WSVJPTk1FTlRBTCBORUVEUwo+Pj4gLSAqICAgICAgTm8gcnVuLXRpbWUgZW52
+aXJvbm1lbnRhbCBuZWVkcy4KPj4+IC0gKgo+Pj4gLSAqICAgIFNQRUNJQUwgUFJPQ0VEVVJBTCBS
+RVFVSVJFTUVOVFMKPj4+IC0gKiAgICAgTm9uZQo+Pj4gLSAqCj4+PiAtICogICAgSU5URVJDQVNF
+IERFUEVOREVOQ0lFUwo+Pj4gLSAqICAgICBOb25lCj4+PiAtICoKPj4+IC0gKiAgICBERVRBSUxF
+RCBERVNDUklQVElPTgo+Pj4gKyAqIERFU0NSSVBUSU9OCj4+PiAgICAqICAgIFRoaXMgaXMgYSBQ
+aGFzZSBJIHRlc3QgZm9yIHRoZSB0aW1lcygyKSBzeXN0ZW0gY2FsbC4gIEl0IGlzIAo+Pj4gaW50
+ZW5kZWQKPj4+IC0gKiAgICB0byBwcm92aWRlIGEgbGltaXRlZCBleHBvc3VyZSBvZiB0aGUgc3lz
+dGVtIGNhbGwsIGZvciBub3cuICBJdAo+Pj4gLSAqICAgIHNob3VsZC93aWxsIGJlIGV4dGVuZGVk
+IHdoZW4gZnVsbCBmdW5jdGlvbmFsIHRlc3RzIGFyZSAKPj4+IHdyaXR0ZW4gZm9yCj4+PiAtICog
+ICAgdGltZXMoMikuCj4+PiAtICoKPj4+IC0gKiAgICAgU2V0dXA6Cj4+PiAtICogICAgICAgU2V0
+dXAgc2lnbmFsIGhhbmRsaW5nLgo+Pj4gLSAqICAgICAgUGF1c2UgZm9yIFNJR1VTUjEgaWYgb3B0
+aW9uIHNwZWNpZmllZC4KPj4+IC0gKgo+Pj4gLSAqICAgICBUZXN0Ogo+Pj4gLSAqICAgICBMb29w
+IGlmIHRoZSBwcm9wZXIgb3B0aW9ucyBhcmUgZ2l2ZW4uCj4+PiAtICogICAgICAgRXhlY3V0ZSBz
+eXN0ZW0gY2FsbAo+Pj4gLSAqICAgICAgQ2hlY2sgcmV0dXJuIGNvZGUsIGlmIHN5c3RlbSBjYWxs
+IGZhaWxlZCAocmV0dXJuPS0xKQo+Pj4gLSAqICAgICAgICBMb2cgdGhlIGVycm5vIGFuZCBJc3N1
+ZSBhIEZBSUwgbWVzc2FnZS4KPj4+IC0gKiAgICAgIE90aGVyd2lzZSwgSXNzdWUgYSBQQVNTIG1l
+c3NhZ2UuCj4+PiArICogICAgdG8gcHJvdmlkZSBhIGxpbWl0ZWQgZXhwb3N1cmUgb2YgdGhlIHN5
+c3RlbSBjYWxsLgo+Pj4gICAgKgo+Pj4gLSAqICAgICBDbGVhbnVwOgo+Pj4gLSAqICAgICAgIFBy
+aW50IGVycm5vIGxvZyBhbmQvb3IgdGltaW5nIHN0YXRzIGlmIG9wdGlvbnMgZ2l2ZW4KPj4KPj4g
+SGkgUnVhbiwKPj4KPj4gUGxlYXNlIHVzZSB0aGUgZm9sbG93aW5nIGZvcm1hdCBvZiBkZXNjcmlw
+dGlvbiBjb21tZW50IHNvIHRoYXQgaXQgY2FuIAo+PiBiZSBwaWNrZWQgdXAgYnkgZG9jcGFyc2Vy
+Ogo+PiAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQo+PiAvKlwKPj4gICAg
+KiBbREVTQ1JJUFRJT05dCj4+IC4uLgo+PiBcKi8KPj4gLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0KPj4KPj4+IC0gKgo+Pj4gLSAqCj4+PiAtICojKiMqIyojKiMqIyojKiMq
+IyojKiMqIyojKiMqIyojKiMqIyojKiMqIyojKiMqIyojKiMqIyojKiMqKi8KPj4+ICsgKiBBTEdP
+UklUSE06Cj4+PiArICogICAgRXhlY3V0ZSBzeXN0ZW0gY2FsbAo+Pj4gKyAqICAgIENoZWNrIHJl
+dHVybiBjb2RlLCBpZiBzeXN0ZW0gY2FsbCBmYWlsZWQgKHJldHVybj0tMSkKPj4+ICsgKiAgICAg
+ICAgTG9nIHRoZSBlcnJubyBhbmQgSXNzdWUgYSBGQUlMIG1lc3NhZ2UuCj4+PiArICogICAgT3Ro
+ZXJ3aXNlLCBJc3N1ZSBhIFBBU1MgbWVzc2FnZS4KPj4+ICsgKi8KPj4KPj4gVGhpcyB0ZXN0IGlz
+IHZlcnkgZWFzeSBzbyByZW1vdmUgdGhlIGFsZ29yaXRobSBjb21tZW50IGRpcmVjdGx5Lgo+Pgo+
+Pj4KPj4+IC0jaW5jbHVkZTxzeXMvdHlwZXMuaD4KPj4+ICAgI2luY2x1ZGU8c3lzL3RpbWVzLmg+
+Cj4+PiAgICNpbmNsdWRlPGVycm5vLmg+Cj4+PiAtI2luY2x1ZGU8c3RyaW5nLmg+Cj4+PiAtI2lu
+Y2x1ZGU8c2lnbmFsLmg+Cj4+PiAtI2luY2x1ZGUgInRlc3QuaCIKPj4+IC0KPj4+IC12b2lkIHNl
+dHVwKCk7Cj4+PiAtdm9pZCBjbGVhbnVwKCk7Cj4+PiAtCj4+PiAtY2hhciAqVENJRCA9ICJ0aW1l
+czAxIjsKPj4+IC1pbnQgVFNUX1RPVEFMID0gMTsKPj4+IC0KPj4+IC1zdHJ1Y3QgdG1zIG15dGlt
+ZXM7Cj4+PiArI2luY2x1ZGUgInRzdF90ZXN0LmgiCj4+Pgo+Pj4gLWludCBtYWluKGludCBhYywg
+Y2hhciAqKmF2KQo+Pj4gK3N0YXRpYyB2b2lkIHZlcmlmeV90aW1lcyh2b2lkKQo+Pj4gICB7Cj4+
+PiAtICAgIGludCBsYzsKPj4+ICsgICAgc3RydWN0IHRtcyBteXRpbWVzOwo+Pj4KPj4+IC0gICAg
+dHN0X3BhcnNlX29wdHMoYWMsIGF2LCBOVUxMLCBOVUxMKTsKPj4+ICsgICAgVEVTVCh0aW1lcygm
+bXl0aW1lcykpOwo+Pj4KPj4+IC0gICAgc2V0dXAoKTsKPj4+IC0KPj4+IC0gICAgZm9yIChsYyA9
+IDA7IFRFU1RfTE9PUElORyhsYyk7IGxjKyspIHsKPj4+IC0KPj4+IC0gICAgICAgIHRzdF9jb3Vu
+dCA9IDA7Cj4+PiAtCj4+PiAtICAgICAgICBURVNUKHRpbWVzKCZteXRpbWVzKSk7Cj4+PiAtCj4+
+PiAtICAgICAgICBpZiAoVEVTVF9SRVRVUk4gPT0gLTEpCj4+PiAtICAgICAgICAgICAgdHN0X3Jl
+c20oVEZBSUwgfCBUVEVSUk5PLCAidGltZXMgZmFpbGVkIik7Cj4+PiAtICAgICAgICBlbHNlCj4+
+PiAtICAgICAgICAgICAgdHN0X3Jlc20oVFBBU1MsICJ0aW1lcygmbXl0aW1lcykgcmV0dXJuZWQg
+JWxkIiwKPj4+IC0gICAgICAgICAgICAgICAgIFRFU1RfUkVUVVJOKTsKPj4+IC0KPj4+IC0gICAg
+fQo+Pj4gLQo+Pj4gLSAgICBjbGVhbnVwKCk7Cj4+PiAtICAgIHRzdF9leGl0KCk7Cj4+PiArICAg
+IGlmIChUU1RfUkVUID09IC0xKQo+Pj4gKyAgICAgICAgdHN0X3JlcyhURkFJTCB8IFRURVJSTk8s
+ICJ0aW1lcyBmYWlsZWQiKTsKPj4+ICsgICAgZWxzZQo+Pj4gKyAgICAgICAgdHN0X3JlcyhUUEFT
+UywgInRpbWVzKCZteXRpbWVzKSByZXR1cm5lZCAlbGQiLCBUU1RfUkVUKTsKPj4gSXQgaXMgc2lt
+cGxlciB0byB1c2UgVFNUX0VYUF9QQVNTKCkgaGVyZSAocmVwbGFjZSBURVNUKCkpLgo+Cj4gR290
+IGl0LiAgVGhhbmtzIGEgbG90LgpIaSBSdWFuLAoKU29ycnksIHRpbWVzKCkgcmV0dXJucyB0aGUg
+bnVtYmVyIG9mIGNsb2NrIHRpY2tzIGluc3RlYWQgb2YgemVybyBvbiBzdWNjZXNzLgpJdCBpcyB3
+cm9uZyB0byB1c2UgVFNUX0VYUF9QQVNTKCkgYW5kIGp1c3Qga2VlcCBpdC4KCkJlc3QgUmVnYXJk
+cywKWGlhbyBZYW5nCj4KPgo+IC0tIAo+IFRoYW5rcywKPiBSdWFuIFNoaXlhbmcuCj4+Cj4+IEJl
+c3QgUmVnYXJkcywKPj4gWGlhbyBZYW5nCj4+PiAgIH0KPj4+Cj4+PiAtdm9pZCBzZXR1cCh2b2lk
+KQo+Pj4gLXsKPj4+IC0gICAgdHN0X3NpZyhOT0ZPUkssIERFRl9IQU5ETEVSLCBjbGVhbnVwKTsK
+Pj4+IC0KPj4+IC0gICAgVEVTVF9QQVVTRTsKPj4+IC19Cj4+PiAtCj4+PiAtdm9pZCBjbGVhbnVw
+KHZvaWQpCj4+PiAtewo+Pj4gLX0KPj4+ICtzdGF0aWMgc3RydWN0IHRzdF90ZXN0IHRlc3QgPSB7
+Cj4+PiArICAgIC50ZXN0X2FsbCA9IHZlcmlmeV90aW1lcywKPj4+ICt9Owo+Pgo+IC4KPgoKCgoK
+LS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0
+cAo=
