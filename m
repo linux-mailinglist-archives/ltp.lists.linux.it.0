@@ -2,49 +2,49 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB64D304FC3
-	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jan 2021 04:28:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68B74304F62
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jan 2021 04:09:19 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 51B503C0383
-	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jan 2021 04:28:14 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id D748A3C01F4
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jan 2021 04:09:18 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id DBC8B3C009D
- for <ltp@lists.linux.it>; Wed, 27 Jan 2021 04:28:01 +0100 (CET)
-Received: from chinatelecom.cn (prt-mail.chinatelecom.cn [42.123.76.228])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id 2E9BD60087F
- for <ltp@lists.linux.it>; Wed, 27 Jan 2021 04:27:59 +0100 (CET)
-HMM_SOURCE_IP: 172.18.0.218:16136.1631851923
-HMM_ATTACHE_NUM: 0000
-HMM_SOURCE_TYPE: SMTP
-Received: from clientip-36.111.88.18?logid-ee86868a97754c36bef16b8bd7411a0c
- (unknown [172.18.0.218])
- by chinatelecom.cn (HERMES) with SMTP id 48E712800DA;
- Wed, 27 Jan 2021 11:27:57 +0800 (CST)
-X-189-SAVE-TO-SEND: +liuxp11@chinatelecom.cn
-Received: from  ([172.18.0.218])
- by App0025 with ESMTP id d497384ad40e41aaae8e0f59e775589e for
- ltp@lists.linux.it; Wed Jan 27 11:27:58 2021
-X-Transaction-ID: d497384ad40e41aaae8e0f59e775589e
-X-filter-score: filter<0>
-X-Real-From: liuxp11@chinatelecom.cn
-X-Receive-IP: 172.18.0.218
-X-MEDUSA-Status: 0
-From: Xinpeng Liu <liuxp11@chinatelecom.cn>
-To: ltp@lists.linux.it
-Date: Mon, 25 Jan 2021 18:24:48 +0800
-Message-Id: <1611570288-23040-2-git-send-email-liuxp11@chinatelecom.cn>
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <1611570288-23040-1-git-send-email-liuxp11@chinatelecom.cn>
-References: <1611570288-23040-1-git-send-email-liuxp11@chinatelecom.cn>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id 718E43C00BB
+ for <ltp@lists.linux.it>; Wed, 27 Jan 2021 04:09:14 +0100 (CET)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-3.smtp.seeweb.it (Postfix) with ESMTP id 233F91A0079A
+ for <ltp@lists.linux.it>; Wed, 27 Jan 2021 04:09:12 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.79,378,1602518400"; d="scan'208";a="103878688"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 27 Jan 2021 11:09:08 +0800
+Received: from G08CNEXMBPEKD06.g08.fujitsu.local (unknown [10.167.33.206])
+ by cn.fujitsu.com (Postfix) with ESMTP id 4645D4CE6026
+ for <ltp@lists.linux.it>; Wed, 27 Jan 2021 11:09:06 +0800 (CST)
+Received: from [10.167.220.69] (10.167.220.69) by
+ G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Wed, 27 Jan 2021 11:09:06 +0800
+Message-ID: <6010D950.30002@cn.fujitsu.com>
+Date: Wed, 27 Jan 2021 11:09:04 +0800
+From: Xiao Yang <yangx.jy@cn.fujitsu.com>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
+ rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
+MIME-Version: 1.0
+To: Shiyang Ruan <ruansy.fnst@cn.fujitsu.com>
+References: <20210127025112.1226584-1-ruansy.fnst@cn.fujitsu.com>
+In-Reply-To: <20210127025112.1226584-1-ruansy.fnst@cn.fujitsu.com>
+X-Originating-IP: [10.167.220.69]
+X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
+ G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206)
+X-yoursite-MailScanner-ID: 4645D4CE6026.A845A
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: yangx.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.4
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.5 required=7.0 tests=DATE_IN_PAST_24_48,
- SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/2] syscalls/ioctl: ioctl_sg01.c:TBROK: Test killed!
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] syscalls/times01: Convert to new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,54 +56,226 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Xinpeng Liu <liuxp11@chinatelecom.cn>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Cc: ltp@lists.linux.it
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-[root@test ioctl]# ./ioctl_sg01
-tst_test.c:1263: TINFO: Timeout per run is 0h 05m 00s
-ioctl_sg01.c:81: TINFO: Found SCSI device /dev/sg2
-Test timeouted, sending SIGKILL!
-Test timeouted, sending SIGKILL!
-Test timeouted, sending SIGKILL!
-Test timeouted, sending SIGKILL!
-tst_test.c:1308: TINFO: If you are running on slow machine, try exporting
-LTP_TIMEOUT_MUL > 1
-tst_test.c:1309: TBROK: Test killed! (timeout?)
+On 2021/1/27 10:51, Shiyang Ruan wrote:
+> Signed-off-by: Shiyang Ruan<ruansy.fnst@cn.fujitsu.com>
+> ---
+>   testcases/kernel/syscalls/times/times01.c | 168 +++-------------------
+>   1 file changed, 20 insertions(+), 148 deletions(-)
+>
+> diff --git a/testcases/kernel/syscalls/times/times01.c b/testcases/kernel/syscalls/times/times01.c
+> index 293a52957..87a0f6144 100644
+> --- a/testcases/kernel/syscalls/times/times01.c
+> +++ b/testcases/kernel/syscalls/times/times01.c
+> @@ -1,162 +1,34 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+>   /*
+>    * Copyright (c) 2000 Silicon Graphics, Inc.  All Rights Reserved.
+>    *
+> - * This program is free software; you can redistribute it and/or modify it
+> - * under the terms of version 2 of the GNU General Public License as
+> - * published by the Free Software Foundation.
+> - *
+> - * This program is distributed in the hope that it would be useful, but
+> - * WITHOUT ANY WARRANTY; without even the implied warranty of
+> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+> - *
+> - * Further, this software is distributed without any warranty that it is
+> - * free of the rightful claim of any third person regarding infringement
+> - * or the like.  Any license provided herein, whether implied or
+> - * otherwise, applies only to this software file.  Patent licenses, if
+> - * any, provided herein do not apply to combinations of this program with
+> - * other software, or any other product whatsoever.
+> - *
+> - * You should have received a copy of the GNU General Public License along
+> - * with this program; if not, write the Free Software Foundation, Inc.,
+> - * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+> - *
+> - * Contact information: Silicon Graphics, Inc., 1600 Amphitheatre Pkwy,
+> - * Mountain View, CA  94043, or:
+> - *
+> - * http://www.sgi.com
+> - *
+> - * For further information regarding this notice, see:
+> - *
+> - * http://oss.sgi.com/projects/GenInfo/NoticeExplan/
+> - *
+> - */
+> -/* $Id: times01.c,v 1.6 2009/10/26 14:55:48 subrata_modak Exp $ */
+> -/**********************************************************
+> - *
+> - *    OS Test - Silicon Graphics, Inc.
+> - *
+> - *    TEST IDENTIFIER	: times01
+> - *
+> - *    EXECUTED BY	: anyone
+> - *
+> - *    TEST TITLE	: Basic test for times(2)
+> - *
+> - *    PARENT DOCUMENT	: usctpl01
+> - *
+> - *    TEST CASE TOTAL	: 1
+> - *
+> - *    WALL CLOCK TIME	: 1
+> - *
+> - *    CPU TYPES		: ALL
+> - *
+> - *    AUTHOR		: William Roske
+> - *
+> - *    CO-PILOT		: Dave Fenner
+> - *
+> - *    DATE STARTED	: 03/30/92
+> - *
+> - *    INITIAL RELEASE	: UNICOS 7.0
+> - *
+> - *    TEST CASES
+> - *
+> - * 	1.) times(2) returns...(See Description)
+> - *
+> - *    INPUT SPECIFICATIONS
+> - * 	The standard options for system call tests are accepted.
+> - *	(See the parse_opts(3) man page).
+> - *
+> - *    OUTPUT SPECIFICATIONS
+> - *$
+> - *    DURATION
+> - * 	Terminates - with frequency and infinite modes.
+> - *
+> - *    SIGNALS
+> - * 	Uses SIGUSR1 to pause before test if option set.
+> - * 	(See the parse_opts(3) man page).
+> - *
+> - *    RESOURCES
+> - * 	None
+> - *
+> - *    ENVIRONMENTAL NEEDS
+> - *      No run-time environmental needs.
+> - *
+> - *    SPECIAL PROCEDURAL REQUIREMENTS
+> - * 	None
+> - *
+> - *    INTERCASE DEPENDENCIES
+> - * 	None
+> - *
+> - *    DETAILED DESCRIPTION
+> + * DESCRIPTION
+>    *	This is a Phase I test for the times(2) system call.  It is intended
+> - *	to provide a limited exposure of the system call, for now.  It
+> - *	should/will be extended when full functional tests are written for
+> - *	times(2).
+> - *
+> - * 	Setup:
+> - * 	  Setup signal handling.
+> - *	  Pause for SIGUSR1 if option specified.
+> - *
+> - * 	Test:
+> - *	 Loop if the proper options are given.
+> - * 	  Execute system call
+> - *	  Check return code, if system call failed (return=-1)
+> - *		Log the errno and Issue a FAIL message.
+> - *	  Otherwise, Issue a PASS message.
+> + *	to provide a limited exposure of the system call.
+>    *
+> - * 	Cleanup:
+> - * 	  Print errno log and/or timing stats if options given
 
-[root@test ioctl]# lscpu |grep Model
-Model:                 85
-Model name:            Intel(R) Xeon(R) Gold 5218 CPU @ 2.30GHz
+Hi Ruan,
 
-[root@test ioctl]# free -h
-      total   used    free   shared  buff/cache   available
-Mem:   502G    2.7G    499G    82M      820M        497G
-Swap:  0B      0B      0B
+Please use the following format of description comment so that it can be 
+picked up by docparser:
+--------------------------------------
+/*\
+   * [DESCRIPTION]
+...
+\*/
+--------------------------------------
 
-512G RAM is too common,so add timeout 600 seconds,result is TPASS.
+> - *
+> - *
+> - *#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#**/
+> + * ALGORITHM:
+> + *	Execute system call
+> + *	Check return code, if system call failed (return=-1)
+> + *	    Log the errno and Issue a FAIL message.
+> + *	Otherwise, Issue a PASS message.
+> + */
 
-Signed-off-by: Xinpeng Liu <liuxp11@chinatelecom.cn>
----
- testcases/kernel/syscalls/ioctl/ioctl_sg01.c | 1 +
- 1 file changed, 1 insertion(+)
+This test is very easy so remove the algorithm comment directly.
 
-diff --git a/testcases/kernel/syscalls/ioctl/ioctl_sg01.c b/testcases/kernel/syscalls/ioctl/ioctl_sg01.c
-index 94b30dc..d1f2d3c 100644
---- a/testcases/kernel/syscalls/ioctl/ioctl_sg01.c
-+++ b/testcases/kernel/syscalls/ioctl/ioctl_sg01.c
-@@ -123,6 +123,7 @@ static void run(void)
- }
- 
- static struct tst_test test = {
-+	.timeout = 600,
- 	.test_all = run,
- 	.setup = setup,
- 	.cleanup = cleanup,
--- 
-1.8.3.1
+>
+> -#include<sys/types.h>
+>   #include<sys/times.h>
+>   #include<errno.h>
+> -#include<string.h>
+> -#include<signal.h>
+> -#include "test.h"
+> -
+> -void setup();
+> -void cleanup();
+> -
+> -char *TCID = "times01";
+> -int TST_TOTAL = 1;
+> -
+> -struct tms mytimes;
+> +#include "tst_test.h"
+>
+> -int main(int ac, char **av)
+> +static void verify_times(void)
+>   {
+> -	int lc;
+> +	struct tms mytimes;
+>
+> -	tst_parse_opts(ac, av, NULL, NULL);
+> +	TEST(times(&mytimes));
+>
+> -	setup();
+> -
+> -	for (lc = 0; TEST_LOOPING(lc); lc++) {
+> -
+> -		tst_count = 0;
+> -
+> -		TEST(times(&mytimes));
+> -
+> -		if (TEST_RETURN == -1)
+> -			tst_resm(TFAIL | TTERRNO, "times failed");
+> -		else
+> -			tst_resm(TPASS, "times(&mytimes) returned %ld",
+> -				 TEST_RETURN);
+> -
+> -	}
+> -
+> -	cleanup();
+> -	tst_exit();
+> +	if (TST_RET == -1)
+> +		tst_res(TFAIL | TTERRNO, "times failed");
+> +	else
+> +		tst_res(TPASS, "times(&mytimes) returned %ld", TST_RET);
+It is simpler to use TST_EXP_PASS() here (replace TEST()).
+
+Best Regards,
+Xiao Yang
+>   }
+>
+> -void setup(void)
+> -{
+> -	tst_sig(NOFORK, DEF_HANDLER, cleanup);
+> -
+> -	TEST_PAUSE;
+> -}
+> -
+> -void cleanup(void)
+> -{
+> -}
+> +static struct tst_test test = {
+> +	.test_all = verify_times,
+> +};
+
+
 
 
 -- 
