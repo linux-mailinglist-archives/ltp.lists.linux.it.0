@@ -1,53 +1,78 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F319305529
-	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jan 2021 09:02:06 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 96417305536
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jan 2021 09:05:56 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B10433C79E7
-	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jan 2021 09:02:05 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 5DD6D3C79E4
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jan 2021 09:05:56 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 407503C0194
- for <ltp@lists.linux.it>; Wed, 27 Jan 2021 09:02:00 +0100 (CET)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-7.smtp.seeweb.it (Postfix) with ESMTP id AAEAD200B80
- for <ltp@lists.linux.it>; Wed, 27 Jan 2021 09:01:58 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.79,378,1602518400"; d="scan'208";a="103890312"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 27 Jan 2021 16:01:56 +0800
-Received: from G08CNEXMBPEKD05.g08.fujitsu.local (unknown [10.167.33.204])
- by cn.fujitsu.com (Postfix) with ESMTP id ACC794CE6781
- for <ltp@lists.linux.it>; Wed, 27 Jan 2021 16:01:53 +0800 (CST)
-Received: from G08CNEXJMPEKD02.g08.fujitsu.local (10.167.33.202) by
- G08CNEXMBPEKD05.g08.fujitsu.local (10.167.33.204) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Wed, 27 Jan 2021 16:01:53 +0800
-Received: from G08CNEXCHPEKD04.g08.fujitsu.local (10.167.33.200) by
- G08CNEXJMPEKD02.g08.fujitsu.local (10.167.33.202) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Wed, 27 Jan 2021 16:01:52 +0800
-Received: from irides.mr.mr.mr (10.167.225.141) by
- G08CNEXCHPEKD04.g08.fujitsu.local (10.167.33.209) with Microsoft SMTP Server
- id 15.0.1497.2 via Frontend Transport; Wed, 27 Jan 2021 16:01:52 +0800
-From: Shiyang Ruan <ruansy.fnst@cn.fujitsu.com>
-To: <ltp@lists.linux.it>
-Date: Wed, 27 Jan 2021 16:01:47 +0800
-Message-ID: <20210127080147.1265100-2-ruansy.fnst@cn.fujitsu.com>
-X-Mailer: git-send-email 2.30.0
-In-Reply-To: <20210127080147.1265100-1-ruansy.fnst@cn.fujitsu.com>
-References: <20210127080147.1265100-1-ruansy.fnst@cn.fujitsu.com>
+ by picard.linux.it (Postfix) with ESMTP id C8B533C4FA6
+ for <ltp@lists.linux.it>; Wed, 27 Jan 2021 09:05:51 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id 45AB32002DF
+ for <ltp@lists.linux.it>; Wed, 27 Jan 2021 09:05:50 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1611734749;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=cfp/aUiTx9JvQJtUqOQK3+2x9zTfsCJKJYZLfE5JfAU=;
+ b=gQt/mQbFnuoP5Vw7n4PPBGS+V56OUWqOe3TQ558RBAZPwsOHsujhH8K+4E1LVh6Sghos8y
+ waARYWJsu8/YN/x1uiL9DuLZFYMK670fuaDvUXzCU4CGnHV4GN75ncq24HTRt8Z82ymS5f
+ jTGGLXRC/hg+7/XrwE7FL+S035wpZVg=
+Received: from mail-yb1-f198.google.com (mail-yb1-f198.google.com
+ [209.85.219.198]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-183-oDSBMtCcMrqBO1KoMq4Nqw-1; Wed, 27 Jan 2021 03:05:47 -0500
+X-MC-Unique: oDSBMtCcMrqBO1KoMq4Nqw-1
+Received: by mail-yb1-f198.google.com with SMTP id s64so1548554yba.20
+ for <ltp@lists.linux.it>; Wed, 27 Jan 2021 00:05:47 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=cfp/aUiTx9JvQJtUqOQK3+2x9zTfsCJKJYZLfE5JfAU=;
+ b=E6EeP+TCc9IAcjRRYaOneWJLNZioKwetdpjFkBabh9kncW8QX7y5qy8B25f2CtUYXG
+ gS2dDlTHuqDCduu7ChLU24SQprJNDU7CwZDfqTtOLxyqGGPRCkhw/qP2UM1UeCp6JKip
+ +UxrX7Ays2hgEEnB/3wC1cjelzEGxuw9aCUNt/TwtKzDN+GPKgMkNLe77QSKN3qMuRtd
+ N42qY/cGQApmF403jFeoDDHfkuZu6U+91tbYAWiliU2uOkiXd1jc2toRSln6NKPiB7mj
+ FgTit4DexVNyPY98BpashV7dHf3UCNlFgGgTAwqpNZp+Hk89TSkKq+R0edpICbNDX5Ow
+ AwFg==
+X-Gm-Message-State: AOAM531EkcemNhWNgKq/zaLPJzmKsEDke2selkbr09cCbyyNcrUs/jdr
+ EQ27C/E9cdLkolZXaGhlKarYdM7sPT4b8rWbc48nW8eQlM/VKJEuYTchxb65b5NomLB+blHFLbI
+ ji+uJGzquyh4wklSCUuAopU6Y5BA=
+X-Received: by 2002:a25:8203:: with SMTP id q3mr14651856ybk.86.1611734746831; 
+ Wed, 27 Jan 2021 00:05:46 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJzdUs6V5rd+9N9LSDDfgO4K5Gq/YklmCKTFLkwRv5mMGAiE1stFijW3A4LExnYHegJL4NmaaPH29ItDW14BN3U=
+X-Received: by 2002:a25:8203:: with SMTP id q3mr14651845ybk.86.1611734746653; 
+ Wed, 27 Jan 2021 00:05:46 -0800 (PST)
 MIME-Version: 1.0
-X-yoursite-MailScanner-ID: ACC794CE6781.AAB76
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: ruansy.fnst@cn.fujitsu.com
-X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.4
+References: <1611570288-23040-1-git-send-email-liuxp11@chinatelecom.cn>
+ <CAEemH2csSFf7Ujz8H+KV7hTdmDVsxn5_oW2JZbwY=NsJUSat_w@mail.gmail.com>
+ <2021012714540739834212@chinatelecom.cn>
+ <CAEemH2dhpbm19HEaHkhv1WE+70VkDjM9C5L1-KJZqPX2G2BgrQ@mail.gmail.com>
+In-Reply-To: <CAEemH2dhpbm19HEaHkhv1WE+70VkDjM9C5L1-KJZqPX2G2BgrQ@mail.gmail.com>
+From: Li Wang <liwang@redhat.com>
+Date: Wed, 27 Jan 2021 16:05:34 +0800
+Message-ID: <CAEemH2cwEzLr0dXvskn-hprn0-iOCr=rrLPgDUE1YdbnHu=5AQ@mail.gmail.com>
+To: "liuxp11@chinatelecom.cn" <liuxp11@chinatelecom.cn>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/2] syscalls/time02: Convert to new API
+Subject: Re: [LTP] [PATCH 1/2] syscalls/ioctl: ioctl_sg01.c: ioctl_sg01
+ invoked oom-killer
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,201 +84,73 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: ltp <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============0350884889=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Shiyang Ruan <ruansy.fnst@cn.fujitsu.com>
----
- testcases/kernel/syscalls/time/time02.c | 165 ++++--------------------
- 1 file changed, 28 insertions(+), 137 deletions(-)
+--===============0350884889==
+Content-Type: multipart/alternative; boundary="0000000000000bff3405b9dd3d5f"
 
-diff --git a/testcases/kernel/syscalls/time/time02.c b/testcases/kernel/syscalls/time/time02.c
-index 137a3fda4..b7f3e03fe 100644
---- a/testcases/kernel/syscalls/time/time02.c
-+++ b/testcases/kernel/syscalls/time/time02.c
-@@ -1,147 +1,38 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
- /*
-- *
-- *   Copyright (c) International Business Machines  Corp., 2001
-- *
-- *   This program is free software;  you can redistribute it and/or modify
-- *   it under the terms of the GNU General Public License as published by
-- *   the Free Software Foundation; either version 2 of the License, or
-- *   (at your option) any later version.
-- *
-- *   This program is distributed in the hope that it will be useful,
-- *   but WITHOUT ANY WARRANTY;  without even the implied warranty of
-- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
-- *   the GNU General Public License for more details.
-- *
-- *   You should have received a copy of the GNU General Public License
-- *   along with this program;  if not, write to the Free Software
-- *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
-+ * Copyright (c) International Business Machines Corp., 2001
-  */
- 
--/*
-- * Test Name: time02
-- *
-- * Test Description:
-- *  Verify that time(2) returns the value of time in seconds since
-- *  the Epoch and stores this value in the memory pointed to by the parameter.
-- *
-- * Expected Result:
-- *  time() should return the time (seconds) since the Epoch and this value
-- *  should be equal to the value stored in the specified parameter.
-- *
-- * Algorithm:
-- *  Setup:
-- *   Setup signal handling.
-- *   Create temporary directory.
-- *   Pause for SIGUSR1 if option specified.
-- *
-- *  Test:
-- *   Loop if the proper options are given.
-- *   Execute system call
-- *   Check return code, if system call failed (return=-1)
-- *	Log the errno and Issue a FAIL message.
-- *   Otherwise,
-- *	Verify the Functionality of system call
-- *      if successful,
-- *		Issue Functionality-Pass message.
-- *      Otherwise,
-- *		Issue Functionality-Fail message.
-- *  Cleanup:
-- *   Print errno log and/or timing stats if options given
-- *
-- * Usage:  <for command-line>
-- *  time02 [-c n] [-e] [-f] [-i n] [-I x] [-p x] [-t]
-- *	where,  -c n : Run n copies concurrently.
-- *		-e   : Turn on errno logging.
-- *		-f   : Turn off functionality Testing.
-- *		-i n : Execute test n times.
-- *		-I x : Execute test for x seconds.
-- *		-P x : Pause for x seconds between iterations.
-- *		-t   : Turn on syscall timing.
-- *
-- * History
-- *	07/2001 John George
-- *		-Ported
-- *
-- * Restrictions:
-- *  None.
-- *
-- */
-+/*\
-+ * [DESCRIPTION]
-+ * Verify that time(2) returns the value of time in seconds since the Epoch and
-+ * stores this value in the memory pointed to by the parameter.
-+\*/
- 
--#include <stdio.h>
--#include <errno.h>
--#include <string.h>
--#include <signal.h>
- #include <time.h>
--#include <sys/types.h>
--#include <stdint.h>
--
--#include "test.h"
--
--void setup();			/* setup function for the test */
--void cleanup();			/* cleanup function for the test */
--
--char *TCID = "time02";
--int TST_TOTAL = 1;
--
--int main(int ac, char **av)
--{
--	int lc;
--	time_t tloc;		/* time_t variables for time(2) */
--
--	tst_parse_opts(ac, av, NULL, NULL);
--
--	setup();
--
--	for (lc = 0; TEST_LOOPING(lc); lc++) {
--
--		tst_count = 0;
--
--		/*
--		 * Call time() to get the time in seconds$
--		 * since Epoch.
--		 */
--		TEST(time(&tloc));
--
--		/* Check return code from time(2) */
--		if (TEST_RETURN == -1) {
--			tst_resm(TFAIL, "time(0) Failed, errno=%d : %s",
--				 TEST_ERRNO, strerror(TEST_ERRNO));
--		} else {
--			if (tloc == TEST_RETURN) {
--				tst_resm(TPASS, "time() returned value "
--					 "%ld, stored value %jd are same",
--					 TEST_RETURN, (intmax_t) tloc);
--			} else {
--				tst_resm(TFAIL, "time() returned value "
--					 "%ld, stored value %jd are "
--					 "different", TEST_RETURN,
--					 (intmax_t) tloc);
--			}
--
--		}
--		tst_count++;	/* incr. TEST_LOOP counter */
--	}
-+#include <errno.h>
- 
--	cleanup();
--	tst_exit();
--}
-+#include "tst_test.h"
- 
--/*
-- * setup() - performs all ONE TIME setup for this test.
-- */
--void setup(void)
-+static void verify_time(void)
- {
--
--	tst_sig(NOFORK, DEF_HANDLER, cleanup);
--
--	TEST_PAUSE;
-+	time_t tloc;
-+
-+	TEST(time(&tloc));
-+
-+	if (TST_RET == -1)
-+		tst_res(TFAIL | TTERRNO, "time(&tloc)");
-+	else
-+		if (tloc == TST_RET)
-+			tst_res(TPASS, "time(&tloc) returned value %ld, "
-+				       "stored value %jd are same",
-+				       TST_RET, (intmax_t) tloc);
-+		else
-+			tst_res(TFAIL, "time(&tloc) returned value %ld, "
-+				       "stored value %jd are different",
-+				       TST_RET, (intmax_t) tloc);
- }
- 
--/*
-- * cleanup() - performs all ONE TIME cleanup for this test at
-- *	       completion or premature exit.
-- */
--void cleanup(void)
--{
--
--}
-+static struct tst_test test = {
-+	.test_all = verify_time,
-+};
+--0000000000000bff3405b9dd3d5f
+Content-Type: text/plain; charset="UTF-8"
+
+Li Wang <liwang@redhat.com> wrote:
+
+Hi Xinpeng,
+>
+> I sent to you the case swapping01 solving this(via FILE_LINES_SCANF)
+> already, feel free to take an reference:
+>
+> https://github.com/linux-test-project/ltp/blob/master/testcases/kernel/mem/swapping/swapping01.c#L85
+>
+
+Or, maybe we can extract this process into a function and put it in
+tst_memutils.h, to convinently reuse by other testcases too?
+
+void tst_get_MemAvailable(void);
+
 -- 
-2.30.0
+Regards,
+Li Wang
+
+--0000000000000bff3405b9dd3d5f
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div></div><div class=3D"gmail_quote"><div dir=3D"ltr" c=
+lass=3D"gmail_attr">Li Wang &lt;<a href=3D"mailto:liwang@redhat.com">liwang=
+@redhat.com</a>&gt; wrote:<br></div><div dir=3D"ltr" class=3D"gmail_attr"><=
+br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8e=
+x;border-left:1px solid rgb(204,204,204);padding-left:1ex"><div dir=3D"ltr"=
+><div style=3D"font-size:small">Hi Xinpeng,</div><div style=3D"font-size:sm=
+all"><br></div><div>I sent to you the case swapping01 solving this(via FILE=
+_LINES_SCANF) already, feel free to take an reference:</div><div><a href=3D=
+"https://github.com/linux-test-project/ltp/blob/master/testcases/kernel/mem=
+/swapping/swapping01.c#L85" style=3D"font-size:small" target=3D"_blank">htt=
+ps://github.com/linux-test-project/ltp/blob/master/testcases/kernel/mem/swa=
+pping/swapping01.c#L85</a></div></div></blockquote><div><br></div><div><div=
+ class=3D"gmail_default" style=3D"font-size:small">Or, maybe we can extract=
+ this process into a function and put it in tst_memutils.h, to convinently =
+reuse by other testcases=C2=A0too?</div><div class=3D"gmail_default" style=
+=3D"font-size:small"><br></div><div class=3D"gmail_default" style=3D"font-s=
+ize:small">void tst_get_MemAvailable(void);</div></div></div><div><br></div=
+>-- <br><div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><div>Re=
+gards,<br></div><div>Li Wang<br></div></div></div></div>
+
+--0000000000000bff3405b9dd3d5f--
 
 
+--===============0350884889==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============0350884889==--
+
