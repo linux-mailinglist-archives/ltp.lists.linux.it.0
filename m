@@ -1,54 +1,54 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9967930531D
-	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jan 2021 07:21:15 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 51A07305394
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jan 2021 07:54:19 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1B5203C5E97
-	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jan 2021 07:21:15 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id AC0663C5D1C
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jan 2021 07:54:18 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id 3E52E3C0232
- for <ltp@lists.linux.it>; Wed, 27 Jan 2021 07:21:11 +0100 (CET)
-Received: from chinatelecom.cn (prt-mail.chinatelecom.cn [42.123.76.227])
- by in-6.smtp.seeweb.it (Postfix) with ESMTP id 273D0140042E
- for <ltp@lists.linux.it>; Wed, 27 Jan 2021 07:21:09 +0100 (CET)
-HMM_SOURCE_IP: 172.18.0.92:62902.2145011658
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id 121A13C040C
+ for <ltp@lists.linux.it>; Wed, 27 Jan 2021 07:54:13 +0100 (CET)
+Received: from chinatelecom.cn (prt-mail.chinatelecom.cn [42.123.76.223])
+ by in-3.smtp.seeweb.it (Postfix) with ESMTP id 352611A00E2D
+ for <ltp@lists.linux.it>; Wed, 27 Jan 2021 07:54:10 +0100 (CET)
+HMM_SOURCE_IP: 172.18.0.92:58269.560315079
 HMM_ATTACHE_NUM: 0000
 HMM_SOURCE_TYPE: SMTP
-Received: from clientip-10.133.11.243?logid-a3aa72d6a8d14b6a968f15c92c9f4ad2
+Received: from clientip-10.133.11.243?logid-ea3021319d33483ba7b2b4a518923438
  (unknown [172.18.0.92])
- by chinatelecom.cn (HERMES) with SMTP id CD7862800F0;
- Wed, 27 Jan 2021 14:20:30 +0800 (CST)
-X-189-SAVE-TO-SEND: +liuxp11@chinatelecom.cn
+ by chinatelecom.cn (HERMES) with SMTP id 810292800A6;
+ Wed, 27 Jan 2021 14:54:08 +0800 (CST)
+X-189-SAVE-TO-SEND: liuxp11@chinatelecom.cn
 Received: from  ([172.18.0.92])
- by App0021 with ESMTP id a3aa72d6a8d14b6a968f15c92c9f4ad2 for
- liuxp11@chinatelecom.cn; Wed Jan 27 14:20:45 2021
-X-Transaction-ID: a3aa72d6a8d14b6a968f15c92c9f4ad2
+ by App0021 with ESMTP id ea3021319d33483ba7b2b4a518923438 for
+ liwang@redhat.com; Wed Jan 27 14:54:09 2021
+X-Transaction-ID: ea3021319d33483ba7b2b4a518923438
 X-filter-score: filter<0>
 X-Real-From: liuxp11@chinatelecom.cn
 X-Receive-IP: 172.18.0.92
 X-MEDUSA-Status: 0
-Date: Wed, 27 Jan 2021 14:20:28 +0800
+Date: Wed, 27 Jan 2021 14:54:07 +0800
 From: "liuxp11@chinatelecom.cn" <liuxp11@chinatelecom.cn>
-To: liuxp11 <liuxp11@chinatelecom.cn>, 
-	ltp <ltp@lists.linux.it>
-References: <1611580694-4000-1-git-send-email-liuxp11@chinatelecom.cn>
+To: "Li Wang" <liwang@redhat.com>
+References: <1611570288-23040-1-git-send-email-liuxp11@chinatelecom.cn>, 
+ <CAEemH2csSFf7Ujz8H+KV7hTdmDVsxn5_oW2JZbwY=NsJUSat_w@mail.gmail.com>
 X-Priority: 3
-X-GUID: F463A905-72FA-442E-8037-6A5B3B4662F7
+X-GUID: DA698A18-268B-49CA-9E83-55EEB4CC9AA4
 X-Has-Attach: no
 X-Mailer: Foxmail 7.2.18.111[cn]
 Mime-Version: 1.0
-Message-ID: <202101271420280317517@chinatelecom.cn>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+Message-ID: <2021012714540739834212@chinatelecom.cn>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=HTML_MESSAGE, MIME_BASE64_TEXT,
- SPF_HELO_PASS,SPF_PASS,T_FROMNAME_EQUALS_TO autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 1/2] syscalls/ioctl: ioctl_sg01.c: ioctl_sg01
+X-Spam-Status: No, score=0.0 required=7.0 tests=HTML_MESSAGE,SPF_HELO_PASS,
+ SPF_PASS,T_KAM_HTML_FONT_INVALID autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/2] syscalls/ioctl: ioctl_sg01.c: ioctl_sg01
  invoked oom-killer
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -61,117 +61,189 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1905716787=="
+Cc: ltp <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============1248350321=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 This is a multi-part message in MIME format.
 
---===============1905716787==
+--===============1248350321==
 Content-Type: multipart/alternative;
-	boundary="----=_001_NextPart020361568643_=----"
+	boundary="----=_001_NextPart827227460734_=----"
 
 This is a multi-part message in MIME format.
 
-------=_001_NextPart020361568643_=----
+------=_001_NextPart827227460734_=----
 Content-Type: text/plain;
-	charset="us-ascii"
+	charset="UTF-8"
 Content-Transfer-Encoding: base64
 
-c29ycnksDQp1bnNpZ25lZCBsb25nIGF2YWlsYWJsZV9yYW0gPSBTQUZFX1JFQURfTUVNSU5GTygi
-TWVtQXZhaWxhYmxlOiIpOyANCi0tLT51bnNpZ25lZCBsb25nIGF2YWlsYWJsZV9yYW0gPSAxMDI0
-ICogU0FGRV9SRUFEX01FTUlORk8oIk1lbUF2YWlsYWJsZToiKTsgDQpGcm9tOiBYaW5wZW5nIExp
-dQ0KRGF0ZTogMjAyMS0wMS0yNSAyMToxOA0KVG86IGx0cA0KQ0M6IFhpbnBlbmcgTGl1DQpTdWJq
-ZWN0OiBbUEFUQ0ggdjIgMS8yXSBzeXNjYWxscy9pb2N0bDogaW9jdGxfc2cwMS5jOiBpb2N0bF9z
-ZzAxIGludm9rZWQgb29tLWtpbGxlcg0KS2VybmVsIHZlcnNpb24gaXMgNS40LjgxKyx0aGUgYXZh
-aWxhYmxlIFJBTSBpcyBsZXNzIHRoYW4gZnJlZSxhcyBmb2xsb3c6DQpbcm9vdEBsaXV4cCBteXdv
-cmtdIyBoZWFkIC9wcm9jL21lbWluZm8NCk1lbVRvdGFsOiAgICAgICAxOTgxMDE3NDQga0INCk1l
-bUZyZWU6ICAgICAgICAxODkzMDMxNDgga0INCk1lbUF2YWlsYWJsZTogICAxODg1NjY3MzIga0IN
-CiANClNvIHVzZSBhdmFpbGFibGUgUkFNIHRvIGF2b2lkIE9PTSBraWxsZXIuDQotLS0NCmxpYi90
-c3RfbWVtdXRpbHMuYyB8IDExICsrKysrKysrLS0tDQoxIGZpbGUgY2hhbmdlZCwgOCBpbnNlcnRp
-b25zKCspLCAzIGRlbGV0aW9ucygtKQ0KIA0KZGlmZiAtLWdpdCBhL2xpYi90c3RfbWVtdXRpbHMu
-YyBiL2xpYi90c3RfbWVtdXRpbHMuYw0KaW5kZXggZGQwOWRiNC4uODU5NjAwNSAxMDA2NDQNCi0t
-LSBhL2xpYi90c3RfbWVtdXRpbHMuYw0KKysrIGIvbGliL3RzdF9tZW11dGlscy5jDQpAQCAtMTgs
-NiArMTgsNyBAQCB2b2lkIHRzdF9wb2xsdXRlX21lbW9yeShzaXplX3QgbWF4c2l6ZSwgaW50IGZp
-bGxjaGFyKQ0Kc2l6ZV90IGksIG1hcF9jb3VudCA9IDAsIHNhZmV0eSA9IDAsIGJsb2Nrc2l6ZSA9
-IEJMT0NLU0laRTsNCnZvaWQgKiptYXBfYmxvY2tzOw0Kc3RydWN0IHN5c2luZm8gaW5mbzsNCisg
-dW5zaWduZWQgbG9uZyBhdmFpbGFibGVfcmFtID0gU0FGRV9SRUFEX01FTUlORk8oIk1lbUF2YWls
-YWJsZToiKTsNClNBRkVfU1lTSU5GTygmaW5mbyk7DQpzYWZldHkgPSBNQVgoNDA5NiAqIFNBRkVf
-U1lTQ09ORihfU0NfUEFHRVNJWkUpLCAxMjggKiAxMDI0ICogMTAyNCk7DQpAQCAtMjYsMTUgKzI3
-LDE5IEBAIHZvaWQgdHN0X3BvbGx1dGVfbWVtb3J5KHNpemVfdCBtYXhzaXplLCBpbnQgZmlsbGNo
-YXIpDQppZiAoaW5mby5mcmVlc3dhcCA+IHNhZmV0eSkNCnNhZmV0eSA9IDA7DQorIC8qIk1lbUF2
-YWlsYWJsZSIgZmllbGQgbWF5YmUgbm90IGV4aXN0LCBvciBmcmVlcmFtIGxlc3MgdGhhbiBhdmFp
-bGFibGVfcmFtKi8NCisgaWYoYXZhaWxhYmxlX3JhbSA9PSAwIHx8IGluZm8uZnJlZXJhbSA8IGF2
-YWlsYWJsZV9yYW0pDQorIGF2YWlsYWJsZV9yYW0gPSBpbmZvLmZyZWVyYW07DQorDQovKiBOb3Qg
-ZW5vdWdoIGZyZWUgbWVtb3J5IHRvIGF2b2lkIGludm9raW5nIE9PTSBraWxsZXIgKi8NCi0gaWYg
-KGluZm8uZnJlZXJhbSA8PSBzYWZldHkpDQorIGlmIChhdmFpbGFibGVfcmFtIDw9IHNhZmV0eSkN
-CnJldHVybjsNCmlmICghbWF4c2l6ZSkNCm1heHNpemUgPSBTSVpFX01BWDsNCi0gaWYgKGluZm8u
-ZnJlZXJhbSAtIHNhZmV0eSA8IG1heHNpemUgLyBpbmZvLm1lbV91bml0KQ0KLSBtYXhzaXplID0g
-KGluZm8uZnJlZXJhbSAtIHNhZmV0eSkgKiBpbmZvLm1lbV91bml0Ow0KKyBpZiAoYXZhaWxhYmxl
-X3JhbSAtIHNhZmV0eSA8IG1heHNpemUgLyBpbmZvLm1lbV91bml0KQ0KKyBtYXhzaXplID0gKGF2
-YWlsYWJsZV9yYW0gLSBzYWZldHkpICogaW5mby5tZW1fdW5pdDsNCmJsb2Nrc2l6ZSA9IE1JTiht
-YXhzaXplLCBibG9ja3NpemUpOw0KbWFwX2NvdW50ID0gbWF4c2l6ZSAvIGJsb2Nrc2l6ZTsNCi0t
-IA0KMS44LjMuMQ0KIA0K
+SGkgTGksIA0KSGF2ZSBhIHF1ZXN0aW9uIGFib3V0IHVzaW5nIG1hY3JvIFNBRkVfUkVBRF9NRU1J
+TkZPIGdldCBNZW1BdmFpbGFibGUgdmFsdWUsDQpTb21lIG9sZCBrZXJuZWxzIG1heWJlIG5vdCBw
+cml2b2RlICJNZW1BdmFpbGFibGUiIGZpZWxkLCB3aGljaCB3aWxsIGJyb2tlbi4NCg0KIA0KRnJv
+bTogTGkgV2FuZw0KRGF0ZTogMjAyMS0wMS0yNyAxMjoyNw0KVG86IFhpbnBlbmcgTGl1DQpDQzog
+TFRQIExpc3QNClN1YmplY3Q6IFJlOiBbTFRQXSBbUEFUQ0ggMS8yXSBzeXNjYWxscy9pb2N0bDog
+aW9jdGxfc2cwMS5jOiBpb2N0bF9zZzAxIGludm9rZWQgb29tLWtpbGxlcg0KSGkgWGlucGVuZywN
+Cg0KT24gV2VkLCBKYW4gMjcsIDIwMjEgYXQgMTE6MjggQU0gWGlucGVuZyBMaXUgPGxpdXhwMTFA
+Y2hpbmF0ZWxlY29tLmNuPiB3cm90ZToNCktlcm5lbCB2ZXJzaW9uIGlzIDUuNC44MSssdGhlIGF2
+YWlsYWJsZSBSQU0gaXMgbGVzcyB0aGFuIGZyZWUsYXMgZm9sbG93Og0KW3Jvb3RAbGl1eHAgbXl3
+b3JrXSMgaGVhZCAvcHJvYy9tZW1pbmZvDQpNZW1Ub3RhbDogICAgICAgMTk4MTAxNzQ0IGtCDQpN
+ZW1GcmVlOiAgICAgICAgMTg5MzAzMTQ4IGtCDQpNZW1BdmFpbGFibGU6ICAgMTg4NTY2NzMyIGtC
+DQoNClNvIHVzZSBhdmFpbGFibGUgUkFNIHRvIGF2b2lkIE9PTSBraWxsZXIuDQoNClNpZ25lZC1v
+ZmYtYnk6IFhpbnBlbmcgTGl1IDxsaXV4cDExQGNoaW5hdGVsZWNvbS5jbj4NCi0tLQ0KIGxpYi90
+c3RfbWVtdXRpbHMuYyB8IDI5ICsrKysrKysrKysrKysrKysrKysrKysrKysrLS0tDQogMSBmaWxl
+IGNoYW5nZWQsIDI2IGluc2VydGlvbnMoKyksIDMgZGVsZXRpb25zKC0pDQoNCmRpZmYgLS1naXQg
+YS9saWIvdHN0X21lbXV0aWxzLmMgYi9saWIvdHN0X21lbXV0aWxzLmMNCmluZGV4IGRkMDlkYjQu
+LjIxZGY5YTggMTAwNjQ0DQotLS0gYS9saWIvdHN0X21lbXV0aWxzLmMNCisrKyBiL2xpYi90c3Rf
+bWVtdXRpbHMuYw0KQEAgLTEwLDE0ICsxMCwzMyBAQA0KDQogI2RlZmluZSBUU1RfTk9fREVGQVVM
+VF9NQUlODQogI2luY2x1ZGUgInRzdF90ZXN0LmgiDQorI2luY2x1ZGUgInRzdF9zYWZlX3N0ZGlv
+LmgiDQoNCiAjZGVmaW5lIEJMT0NLU0laRSAoMTYgKiAxMDI0ICogMTAyNCkNCg0KK3N0YXRpYyB1
+bnNpZ25lZCBsb25nIGdldF9hdmFpbGFibGVfcmFtKHZvaWQpDQorew0KKyAgICAgICBjaGFyIGJ1
+Zls2MF07IC8qIGFjdHVhbCBsaW5lcyB3ZSBleHBlY3QgYXJlIH4zMCBjaGFycyBvciBsZXNzICov
+DQorICAgICAgIHVuc2lnbmVkIGxvbmcgYXZhaWxhYmxlX2tiID0gMDsNCisgICAgICAgRklMRSAq
+ZnA7DQorDQorICAgICAgIGZwID0gU0FGRV9GT1BFTigiL3Byb2MvbWVtaW5mbyIsInIiKTsNCisg
+ICAgICAgd2hpbGUgKGZnZXRzKGJ1Ziwgc2l6ZW9mKGJ1ZiksIGZwKSkgew0KKyAgICAgICAgICAg
+ICAgIGlmIChzc2NhbmYoYnVmLCAiTWVtQXZhaWxhYmxlOiAlbHUgJSpzXG4iLCAmYXZhaWxhYmxl
+X2tiKSA9PSAxKXsNCisgICAgICAgICAgICAgICAgICAgICAgIGJyZWFrOw0KKyAgICAgICAgICAg
+ICAgIH0NCisgICAgICAgfQ0KKyAgICAgICBTQUZFX0ZDTE9TRShmcCk7DQorDQorICAgICAgIHJl
+dHVybiAxMDI0ICogYXZhaWxhYmxlX2tiOw0KK30NCisNCiB2b2lkIHRzdF9wb2xsdXRlX21lbW9y
+eShzaXplX3QgbWF4c2l6ZSwgaW50IGZpbGxjaGFyKQ0KIHsNCiAgICAgICAgc2l6ZV90IGksIG1h
+cF9jb3VudCA9IDAsIHNhZmV0eSA9IDAsIGJsb2Nrc2l6ZSA9IEJMT0NLU0laRTsNCiAgICAgICAg
+dm9pZCAqKm1hcF9ibG9ja3M7DQogICAgICAgIHN0cnVjdCBzeXNpbmZvIGluZm87DQorICAgICAg
+IHVuc2lnbmVkIGxvbmcgYXZhaWxhYmxlX3JhbSA9IGdldF9hdmFpbGFibGVfcmFtKCk7DQoNCkxU
+UCBwcm92aWRlcyBTQUZFX1JFQURfTUVNSU5GTygpIG1hY3JvIHRvIGJlIHVzZWQgaW4gL3Byb2Mv
+bWVtaW5mbyByZWFkaW5nLg0KU2VlOiBodHRwczovL2dpdGh1Yi5jb20vbGludXgtdGVzdC1wcm9q
+ZWN0L2x0cC9ibG9iL21hc3Rlci90ZXN0Y2FzZXMva2VybmVsL21lbS9zd2FwcGluZy9zd2FwcGlu
+ZzAxLmMjTDg1DQoNCiANCg0KICAgICAgICBTQUZFX1NZU0lORk8oJmluZm8pOw0KICAgICAgICBz
+YWZldHkgPSBNQVgoNDA5NiAqIFNBRkVfU1lTQ09ORihfU0NfUEFHRVNJWkUpLCAxMjggKiAxMDI0
+ICogMTAyNCk7DQpAQCAtMjYsMTUgKzQ1LDE5IEBAIHZvaWQgdHN0X3BvbGx1dGVfbWVtb3J5KHNp
+emVfdCBtYXhzaXplLCBpbnQgZmlsbGNoYXIpDQogICAgICAgIGlmIChpbmZvLmZyZWVzd2FwID4g
+c2FmZXR5KQ0KICAgICAgICAgICAgICAgIHNhZmV0eSA9IDA7DQoNCisgICAgICAgLyoiTWVtQXZh
+aWxhYmxlIiBmaWVsZCBtYXliZSBub3QgZXhpc3QsIG9yIGZyZWVyYW0gbGVzcyB0aGFuIGF2YWls
+YWJsZV9yYW0qLw0KKyAgICAgICBpZihhdmFpbGFibGVfcmFtID09IDAgfHwgaW5mby5mcmVlcmFt
+IDwgYXZhaWxhYmxlX3JhbSkNCisgICAgICAgICAgICAgICBhdmFpbGFibGVfcmFtID0gaW5mby5m
+cmVlcmFtOw0KKw0KICAgICAgICAvKiBOb3QgZW5vdWdoIGZyZWUgbWVtb3J5IHRvIGF2b2lkIGlu
+dm9raW5nIE9PTSBraWxsZXIgKi8NCi0gICAgICAgaWYgKGluZm8uZnJlZXJhbSA8PSBzYWZldHkp
+DQorICAgICAgIGlmIChhdmFpbGFibGVfcmFtIDw9IHNhZmV0eSkNCiAgICAgICAgICAgICAgICBy
+ZXR1cm47DQoNCiAgICAgICAgaWYgKCFtYXhzaXplKQ0KICAgICAgICAgICAgICAgIG1heHNpemUg
+PSBTSVpFX01BWDsNCg0KLSAgICAgICBpZiAoaW5mby5mcmVlcmFtIC0gc2FmZXR5IDwgbWF4c2l6
+ZSAvIGluZm8ubWVtX3VuaXQpDQotICAgICAgICAgICAgICAgbWF4c2l6ZSA9IChpbmZvLmZyZWVy
+YW0gLSBzYWZldHkpICogaW5mby5tZW1fdW5pdDsNCisgICAgICAgaWYgKGF2YWlsYWJsZV9yYW0g
+LSBzYWZldHkgPCBtYXhzaXplIC8gaW5mby5tZW1fdW5pdCkNCisgICAgICAgICAgICAgICBtYXhz
+aXplID0gKGF2YWlsYWJsZV9yYW0gLSBzYWZldHkpICogaW5mby5tZW1fdW5pdDsNCg0KICAgICAg
+ICBibG9ja3NpemUgPSBNSU4obWF4c2l6ZSwgYmxvY2tzaXplKTsNCiAgICAgICAgbWFwX2NvdW50
+ID0gbWF4c2l6ZSAvIGJsb2Nrc2l6ZTsNCi0tIA0KMS44LjMuMQ0KDQoNCi0tIA0KTWFpbGluZyBs
+aXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwDQoNCg0KDQotLSAN
+ClJlZ2FyZHMsDQpMaSBXYW5nDQo=
 
-------=_001_NextPart020361568643_=----
+------=_001_NextPart827227460734_=----
 Content-Type: text/html;
-	charset="us-ascii"
+	charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 <html><head><meta http-equiv=3D"content-type" content=3D"text/html; charse=
-t=3Dus-ascii"><style>body { line-height: 1.5; }blockquote { margin-top: 0p=
-x; margin-bottom: 0px; margin-left: 0.5em; }body { font-size: 14px; font-f=
-amily: 'Microsoft YaHei UI'; color: rgb(0, 0, 0); line-height: 1.5; }</sty=
-le></head><body><div>sorry,</div>=0Aunsigned long available_ram =3D SAFE_R=
-EAD_MEMINFO("MemAvailable:");&nbsp;<div>---&gt;<blockquote style=3D"margin=
--Top: 0px; margin-Bottom: 0px; margin-Left: 0.5em; margin-Right: inherit">=
-unsigned long available_ram =3D 1024 * SAFE_READ_MEMINFO("MemAvailable:");=
-&nbsp;<div style=3D"border:none;border-top:solid #B5C4DF 1.0pt;padding:3.0=
-pt 0cm 0cm 0cm"><div style=3D"PADDING-RIGHT: 8px; PADDING-LEFT: 8px; FONT-=
-SIZE: 12px;FONT-FAMILY:tahoma;COLOR:#000000; BACKGROUND: #efefef; PADDING-=
-BOTTOM: 8px; PADDING-TOP: 8px"><div><b>From:</b>&nbsp;<a href=3D"mailto:li=
-uxp11@chinatelecom.cn">Xinpeng Liu</a></div><div><b>Date:</b>&nbsp;2021-01=
--25&nbsp;21:18</div><div><b>To:</b>&nbsp;<a href=3D"mailto:ltp@lists.linux=
-.it">ltp</a></div><div><b>CC:</b>&nbsp;<a href=3D"mailto:liuxp11@chinatele=
-com.cn">Xinpeng Liu</a></div><div><b>Subject:</b>&nbsp;[PATCH v2 1/2] sysc=
-alls/ioctl: ioctl_sg01.c: ioctl_sg01 invoked oom-killer</div></div></div><=
-div><div>Kernel version is 5.4.81+,the available RAM is less than free,as =
-follow:</div>=0A<div>[root@liuxp mywork]# head /proc/meminfo</div>=0A<div>=
-MemTotal:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 198101744 kB</div>=0A<div>Me=
-mFree:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 189303148 kB</div>=0A<div=
->MemAvailable:&nbsp;&nbsp; 188566732 kB</div>=0A<div>&nbsp;</div>=0A<div>S=
-o use available RAM to avoid OOM killer.</div>=0A<div>---</div>=0A<div> li=
-b/tst_memutils.c | 11 ++++++++---</div>=0A<div> 1 file changed, 8 insertio=
-ns(+), 3 deletions(-)</div>=0A<div>&nbsp;</div>=0A<div>diff --git a/lib/ts=
-t_memutils.c b/lib/tst_memutils.c</div>=0A<div>index dd09db4..8596005 1006=
-44</div>=0A<div>--- a/lib/tst_memutils.c</div>=0A<div>+++ b/lib/tst_memuti=
-ls.c</div>=0A<div>@@ -18,6 +18,7 @@ void tst_pollute_memory(size_t maxsize=
-, int fillchar)</div>=0A<div> 	size_t i, map_count =3D 0, safety =3D 0, bl=
-ocksize =3D BLOCKSIZE;</div>=0A<div> 	void **map_blocks;</div>=0A<div> 	st=
-ruct sysinfo info;</div>=0A<div>+	unsigned long available_ram =3D SAFE_REA=
-D_MEMINFO("MemAvailable:");</div>=0A<div> </div>=0A<div> 	SAFE_SYSINFO(&am=
-p;info);</div>=0A<div> 	safety =3D MAX(4096 * SAFE_SYSCONF(_SC_PAGESIZE), =
-128 * 1024 * 1024);</div>=0A<div>@@ -26,15 +27,19 @@ void tst_pollute_memo=
-ry(size_t maxsize, int fillchar)</div>=0A<div> 	if (info.freeswap &gt; saf=
-ety)</div>=0A<div> 		safety =3D 0;</div>=0A<div> </div>=0A<div>+	/*"MemAva=
-ilable" field maybe not exist, or freeram less than available_ram*/</div>=
-=0A<div>+	if(available_ram =3D=3D 0 || info.freeram &lt; available_ram)</d=
-iv>=0A<div>+		available_ram =3D info.freeram;</div>=0A<div>+</div>=0A<div>=
- 	/* Not enough free memory to avoid invoking OOM killer */</div>=0A<div>-=
-	if (info.freeram &lt;=3D safety)</div>=0A<div>+	if (available_ram &lt;=3D=
- safety)</div>=0A<div> 		return;</div>=0A<div> </div>=0A<div> 	if (!maxsiz=
-e)</div>=0A<div> 		maxsize =3D SIZE_MAX;</div>=0A<div> </div>=0A<div>-	if =
-(info.freeram - safety &lt; maxsize / info.mem_unit)</div>=0A<div>-		maxsi=
-ze =3D (info.freeram - safety) * info.mem_unit;</div>=0A<div>+	if (availab=
-le_ram - safety &lt; maxsize / info.mem_unit)</div>=0A<div>+		maxsize =3D =
-(available_ram - safety) * info.mem_unit;</div>=0A<div> </div>=0A<div> 	bl=
-ocksize =3D MIN(maxsize, blocksize);</div>=0A<div> 	map_count =3D maxsize =
-/ blocksize;</div>=0A<div>-- </div>=0A<div>1.8.3.1</div>=0A<div>&nbsp;</di=
-v>=0A</div></blockquote>=0A</div></body></html>
-------=_001_NextPart020361568643_=------
+t=3DUTF-8"><style>body { line-height: 1.5; }blockquote { margin-top: 0px; =
+margin-bottom: 0px; margin-left: 0.5em; }div.FoxDiv20210127144917122140 { =
+}body { font-size: 14px; font-family: 'Microsoft YaHei UI'; color: rgb(0, =
+0, 0); line-height: 1.5; }</style></head><body>=0A<div><span></span>Hi Li,=
+&nbsp;</div><div>Have a question about using macro&nbsp;<span style=3D"fon=
+t-size: small; line-height: 19.5px; background-color: transparent;">SAFE_R=
+EAD_MEMINFO get&nbsp;</span><span style=3D"line-height: 1.5; background-co=
+lor: transparent;">MemAvailable value,</span></div><div>Some old kernels m=
+aybe not privode "<span style=3D"line-height: 1.5; background-color: trans=
+parent;">MemAvailable</span><span style=3D"line-height: 1.5; background-co=
+lor: transparent;">" field, which will broken.</span></div><div><span styl=
+e=3D"line-height: 1.5; background-color: transparent;"><br></span></div>=
+=0A<blockquote style=3D"margin-Top: 0px; margin-Bottom: 0px; margin-Left: =
+0.5em; margin-Right: inherit"><div>&nbsp;</div><div style=3D"border:none;b=
+order-top:solid #B5C4DF 1.0pt;padding:3.0pt 0cm 0cm 0cm"><div style=3D"PAD=
+DING-RIGHT: 8px; PADDING-LEFT: 8px; FONT-SIZE: 12px;FONT-FAMILY:tahoma;COL=
+OR:#000000; BACKGROUND: #efefef; PADDING-BOTTOM: 8px; PADDING-TOP: 8px"><d=
+iv><b>From:</b>&nbsp;<a href=3D"mailto:liwang@redhat.com">Li Wang</a></div=
+><div><b>Date:</b>&nbsp;2021-01-27&nbsp;12:27</div><div><b>To:</b>&nbsp;<a=
+ href=3D"mailto:liuxp11@chinatelecom.cn">Xinpeng Liu</a></div><div><b>CC:<=
+/b>&nbsp;<a href=3D"mailto:ltp@lists.linux.it">LTP List</a></div><div><b>S=
+ubject:</b>&nbsp;Re: [LTP] [PATCH 1/2] syscalls/ioctl: ioctl_sg01.c: ioctl=
+_sg01 invoked oom-killer</div></div></div><div><div class=3D"FoxDiv2021012=
+7144917122140"><div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_defau=
+lt" style=3D"font-size:small">Hi Xinpeng,</div></div><br><div class=3D"gma=
+il_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Wed, Jan 27, 2021 at 11=
+:28 AM Xinpeng Liu &lt;<a href=3D"mailto:liuxp11@chinatelecom.cn">liuxp11@=
+chinatelecom.cn</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" =
+style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);p=
+adding-left:1ex">Kernel version is 5.4.81+,the available RAM is less than =
+free,as follow:<br>=0A[root@liuxp mywork]# head /proc/meminfo<br>=0AMemTot=
+al:&nbsp; &nbsp; &nbsp; &nbsp;198101744 kB<br>=0AMemFree:&nbsp; &nbsp; &nb=
+sp; &nbsp; 189303148 kB<br>=0AMemAvailable:&nbsp; &nbsp;188566732 kB<br>=
+=0A<br>=0ASo use available RAM to avoid OOM killer.<br>=0A<br>=0ASigned-of=
+f-by: Xinpeng Liu &lt;<a href=3D"mailto:liuxp11@chinatelecom.cn" target=3D=
+"_blank">liuxp11@chinatelecom.cn</a>&gt;<br>=0A---<br>=0A&nbsp;lib/tst_mem=
+utils.c | 29 ++++++++++++++++++++++++++---<br>=0A&nbsp;1 file changed, 26 =
+insertions(+), 3 deletions(-)<br>=0A<br>=0Adiff --git a/lib/tst_memutils.c=
+ b/lib/tst_memutils.c<br>=0Aindex dd09db4..21df9a8 100644<br>=0A--- a/lib/=
+tst_memutils.c<br>=0A+++ b/lib/tst_memutils.c<br>=0A@@ -10,14 +10,33 @@<br=
+>=0A<br>=0A&nbsp;#define TST_NO_DEFAULT_MAIN<br>=0A&nbsp;#include "tst_tes=
+t.h"<br>=0A+#include "tst_safe_stdio.h"<br>=0A<br>=0A&nbsp;#define BLOCKSI=
+ZE (16 * 1024 * 1024)<br>=0A<br>=0A+static unsigned long get_available_ram=
+(void)<br>=0A+{<br>=0A+&nbsp; &nbsp; &nbsp; &nbsp;char buf[60]; /* actual =
+lines we expect are ~30 chars or less */<br>=0A+&nbsp; &nbsp; &nbsp; &nbsp=
+;unsigned long available_kb =3D 0;<br>=0A+&nbsp; &nbsp; &nbsp; &nbsp;FILE =
+*fp;<br>=0A+<br>=0A+&nbsp; &nbsp; &nbsp; &nbsp;fp =3D SAFE_FOPEN("/proc/me=
+minfo","r");<br>=0A+&nbsp; &nbsp; &nbsp; &nbsp;while (fgets(buf, sizeof(bu=
+f), fp)) {<br>=0A+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;i=
+f (sscanf(buf, "MemAvailable: %lu %*s\n", &amp;available_kb) =3D=3D 1){<br=
+>=0A+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp;break;<br>=0A+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
+p; &nbsp;}<br>=0A+&nbsp; &nbsp; &nbsp; &nbsp;}<br>=0A+&nbsp; &nbsp; &nbsp;=
+ &nbsp;SAFE_FCLOSE(fp);<br>=0A+<br>=0A+&nbsp; &nbsp; &nbsp; &nbsp;return 1=
+024 * available_kb;<br>=0A+}<br>=0A+<br>=0A&nbsp;void tst_pollute_memory(s=
+ize_t maxsize, int fillchar)<br>=0A&nbsp;{<br>=0A&nbsp; &nbsp; &nbsp; &nbs=
+p; size_t i, map_count =3D 0, safety =3D 0, blocksize =3D BLOCKSIZE;<br>=
+=0A&nbsp; &nbsp; &nbsp; &nbsp; void **map_blocks;<br>=0A&nbsp; &nbsp; &nbs=
+p; &nbsp; struct sysinfo info;<br>=0A+&nbsp; &nbsp; &nbsp; &nbsp;unsigned =
+long available_ram =3D get_available_ram();<br></blockquote><div><br></div=
+><div><div class=3D"gmail_default" style=3D"font-size:small">LTP provides =
+SAFE_READ_MEMINFO() macro to be used in /proc/meminfo reading.</div><div c=
+lass=3D"gmail_default" style=3D"font-size:small">See: <a href=3D"https://g=
+ithub.com/linux-test-project/ltp/blob/master/testcases/kernel/mem/swapping=
+/swapping01.c#L85">https://github.com/linux-test-project/ltp/blob/master/t=
+estcases/kernel/mem/swapping/swapping01.c#L85</a></div><br></div><div>&nbs=
+p;</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8e=
+x;border-left:1px solid rgb(204,204,204);padding-left:1ex">=0A<br>=0A&nbsp=
+; &nbsp; &nbsp; &nbsp; SAFE_SYSINFO(&amp;info);<br>=0A&nbsp; &nbsp; &nbsp;=
+ &nbsp; safety =3D MAX(4096 * SAFE_SYSCONF(_SC_PAGESIZE), 128 * 1024 * 102=
+4);<br>=0A@@ -26,15 +45,19 @@ void tst_pollute_memory(size_t maxsize, int =
+fillchar)<br>=0A&nbsp; &nbsp; &nbsp; &nbsp; if (info.freeswap &gt; safety)=
+<br>=0A&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; safety =3D =
+0;<br>=0A<br>=0A+&nbsp; &nbsp; &nbsp; &nbsp;/*"MemAvailable" field maybe n=
+ot exist, or freeram less than available_ram*/<br>=0A+&nbsp; &nbsp; &nbsp;=
+ &nbsp;if(available_ram =3D=3D 0 || info.freeram &lt; available_ram)<br>=
+=0A+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;available_ram =
+=3D info.freeram;<br>=0A+<br>=0A&nbsp; &nbsp; &nbsp; &nbsp; /* Not enough =
+free memory to avoid invoking OOM killer */<br>=0A-&nbsp; &nbsp; &nbsp; &n=
+bsp;if (info.freeram &lt;=3D safety)<br>=0A+&nbsp; &nbsp; &nbsp; &nbsp;if =
+(available_ram &lt;=3D safety)<br>=0A&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
+bsp; &nbsp; &nbsp; return;<br>=0A<br>=0A&nbsp; &nbsp; &nbsp; &nbsp; if (!m=
+axsize)<br>=0A&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; maxs=
+ize =3D SIZE_MAX;<br>=0A<br>=0A-&nbsp; &nbsp; &nbsp; &nbsp;if (info.freera=
+m - safety &lt; maxsize / info.mem_unit)<br>=0A-&nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp;maxsize =3D (info.freeram - safety) * info.me=
+m_unit;<br>=0A+&nbsp; &nbsp; &nbsp; &nbsp;if (available_ram - safety &lt; =
+maxsize / info.mem_unit)<br>=0A+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp;maxsize =3D (available_ram - safety) * info.mem_unit;<br>=0A<=
+br>=0A&nbsp; &nbsp; &nbsp; &nbsp; blocksize =3D MIN(maxsize, blocksize);<b=
+r>=0A&nbsp; &nbsp; &nbsp; &nbsp; map_count =3D maxsize / blocksize;<br>=0A=
+-- <br>=0A1.8.3.1<br>=0A<br>=0A<br>=0A-- <br>=0AMailing list info: <a href=
+=3D"https://lists.linux.it/listinfo/ltp" rel=3D"noreferrer" target=3D"_bla=
+nk">https://lists.linux.it/listinfo/ltp</a><br>=0A<br>=0A</blockquote></di=
+v><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr" class=3D"gmail_=
+signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div><=
+/div></div></div>=0A</div></div></blockquote>=0A</body></html>
+------=_001_NextPart827227460734_=------
 
 
---===============1905716787==
+--===============1248350321==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -181,5 +253,5 @@ Content-Disposition: inline
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
 
---===============1905716787==--
+--===============1248350321==--
 
