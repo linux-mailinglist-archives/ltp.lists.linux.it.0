@@ -1,45 +1,40 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5926308A15
-	for <lists+linux-ltp@lfdr.de>; Fri, 29 Jan 2021 16:51:29 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BE1E308A21
+	for <lists+linux-ltp@lfdr.de>; Fri, 29 Jan 2021 17:09:58 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2F3733C77DE
-	for <lists+linux-ltp@lfdr.de>; Fri, 29 Jan 2021 16:51:29 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 374FD3C77EB
+	for <lists+linux-ltp@lfdr.de>; Fri, 29 Jan 2021 17:09:58 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 067F63C5E4B
- for <ltp@lists.linux.it>; Fri, 29 Jan 2021 16:51:25 +0100 (CET)
-Received: from relay2-d.mail.gandi.net (relay2-d.mail.gandi.net
- [217.70.183.194])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 5176D3C22DD
+ for <ltp@lists.linux.it>; Fri, 29 Jan 2021 17:09:54 +0100 (CET)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 6794D2010AB
- for <ltp@lists.linux.it>; Fri, 29 Jan 2021 16:51:25 +0100 (CET)
-X-Originating-IP: 78.113.208.92
-Received: from kmaincent-XPS-13-7390 (92.208.113.78.rev.sfr.net
- [78.113.208.92]) (Authenticated sender: kory.maincent@bootlin.com)
- by relay2-d.mail.gandi.net (Postfix) with ESMTPSA id D467B40014;
- Fri, 29 Jan 2021 15:51:23 +0000 (UTC)
-Date: Fri, 29 Jan 2021 16:51:21 +0100
-From: =?UTF-8?B?S8O2cnk=?= Maincent <kory.maincent@bootlin.com>
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id CCFC2601C4F
+ for <ltp@lists.linux.it>; Fri, 29 Jan 2021 17:09:53 +0100 (CET)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 2DCFAAFFB;
+ Fri, 29 Jan 2021 16:09:53 +0000 (UTC)
+Date: Fri, 29 Jan 2021 17:11:00 +0100
+From: Cyril Hrubis <chrubis@suse.cz>
 To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <20210129165121.27d43861@kmaincent-XPS-13-7390>
-In-Reply-To: <YBQoOX2FLtig8rYQ@pevik>
-References: <20210128171052.6025-1-kory.maincent@bootlin.com>
- <YBQoOX2FLtig8rYQ@pevik>
-Organization: bootlin
-X-Mailer: Claws Mail 3.16.0 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+Message-ID: <YBQzlEoPLUAT3NFi@yuki.lan>
+References: <20210129121817.12563-1-pvorel@suse.cz>
+ <20210129121817.12563-4-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20210129121817.12563-4-pvorel@suse.cz>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] quota_remount_test01: update to new API
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 3/5] zram01.sh: Check properly mkfs.* dependencies
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,16 +46,69 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: thomas.petazzoni@bootlin.com, ltp@lists.linux.it
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGkgUGV0ciwKCgpPbiBGcmksIDI5IEphbiAyMDIxIDE2OjIyOjMzICswMTAwClBldHIgVm9yZWwg
-PHB2b3JlbEBzdXNlLmN6PiB3cm90ZToKCj4gSGkgS29yeSwKPiAKPiA+IFVwZGF0ZSB0byBuZXcg
-QVBJCj4gPiBBZGQgdGVzdCBvbiBxdW90YV92MiBkcml2ZXIgdG8gYXZvaWQgdGhlIGFib3ZlIGVy
-cm9yOgo+ID4gICBxdW90YW9uOiBRdW90YSBmb3JtYXQgbm90IHN1cHBvcnRlZCBpbiBrZXJuZWwu
-ICAKPiArMQo+IAoKVGhhbmtzIGZvciB0aGUgcmV2aWV3IGFuZCBhbGwgdGhlIGV4cGxhbmF0aW9u
-LgpUaGUgbmV3IHRlc3QgbG9va3MgYmV0dGVyLgoKUmVnYXJkcywKCkvDtnJ5CgotLSAKTWFpbGlu
-ZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
+Hi!
+> +check_fs_support()
+> +{
+> +	local fs unsupported
+> +	local msg="missing kernel support or mkfs for filesystems:"
+> +	dev_num=0
+> +
+> +	for fs in $zram_filesystems; do
+> +		if tst_supported_fs $fs 2> /dev/null; then
+
+Why are we silencing the output here?
+
+> +			dev_num=$((dev_num+1))
+> +		else
+> +			unsupported="$unsupported $fs"
+> +		fi
+> +	done
+
+Maybe we should put the Btrfs space check here as well, so that all
+checks are in a single place.
+
+> +	if [ $dev_num -eq 0 -a "$fallback_filesystem" != "$FS_TYPE" ]; then
+> +		if tst_supported_fs $fallback_filesystem 2> /dev/null; then
+> +			dev_num=1
+> +		fi
+> +	fi
+> +
+> +	if [ $dev_num -eq 0 ]; then
+> +		tst_res TINFO "filesystems on the system"
+> +		tst_supported_fs > /dev/null
+
+And producing different output here.
+
+> +		msg="$msg $zram_filesystems"
+> +		if [ "$fallback_filesystem" != "$FS_TYPE" ]; then
+> +			msg="$msg $fallback_filesystem"
+> +		fi
+> +		tst_brk TCONF "$msg"
+> +	fi
+> +
+> +	[ "$unsupported" ] && tst_res TINFO "$msg$unsupported"
+
+And here.
+
+I guess that we end up with a bit nicer output but the code is much more
+complex.
+
+
+Also I'm confused how this is supposed to work, we do limit the dev_num
+but the zram_filesystems is untouched? That isn't going to work right.
+
+I guess the best shoot would be generating the zram_filesystems here on
+the fly based on output of the tst_supported_fs.
+
+-- 
+Cyril Hrubis
+chrubis@suse.cz
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
