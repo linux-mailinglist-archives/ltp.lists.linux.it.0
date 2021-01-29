@@ -1,39 +1,40 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D83793088FE
-	for <lists+linux-ltp@lfdr.de>; Fri, 29 Jan 2021 13:18:39 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5AD8C308902
+	for <lists+linux-ltp@lfdr.de>; Fri, 29 Jan 2021 13:19:10 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 8AE183C5E62
-	for <lists+linux-ltp@lfdr.de>; Fri, 29 Jan 2021 13:18:39 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id D67AA3C5E4F
+	for <lists+linux-ltp@lfdr.de>; Fri, 29 Jan 2021 13:19:09 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id BABD93C2FAB
- for <ltp@lists.linux.it>; Fri, 29 Jan 2021 13:18:28 +0100 (CET)
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id 4A47D3C2F7A
+ for <ltp@lists.linux.it>; Fri, 29 Jan 2021 13:18:29 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 6D51360075C
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id C8C5F1A006F8
  for <ltp@lists.linux.it>; Fri, 29 Jan 2021 13:18:28 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 124F2AD29;
+ by mx2.suse.de (Postfix) with ESMTP id 42AE7AE3C;
  Fri, 29 Jan 2021 12:18:28 +0000 (UTC)
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Fri, 29 Jan 2021 13:18:16 +0100
-Message-Id: <20210129121817.12563-5-pvorel@suse.cz>
+Date: Fri, 29 Jan 2021 13:18:17 +0100
+Message-Id: <20210129121817.12563-6-pvorel@suse.cz>
 X-Mailer: git-send-email 2.30.0
 In-Reply-To: <20210129121817.12563-1-pvorel@suse.cz>
 References: <20210129121817.12563-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH 4/5] zram: Move zram_compress_alg() to zram02.sh
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH 5/5] zram: Move test specific functions out of
+ zram_lib.sh
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,76 +51,238 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Quit at setup in case there is no fs support (change in previous commit)
-can lead to skipping zram_compress_alg(). Move to zram02.sh where is no
-such limitation.
+Refactoring, as code is confusing enough, when use global variables and
+functions which are single test specific + there is zram_fill_fs already
+in zram01.sh.
 
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- testcases/kernel/device-drivers/zram/zram01.sh | 13 ++++++-------
- testcases/kernel/device-drivers/zram/zram02.sh | 11 ++++++-----
- 2 files changed, 12 insertions(+), 12 deletions(-)
+ .../kernel/device-drivers/zram/zram01.sh      | 34 +++++++
+ .../kernel/device-drivers/zram/zram02.sh      | 58 ++++++++++++
+ .../kernel/device-drivers/zram/zram_lib.sh    | 92 -------------------
+ 3 files changed, 92 insertions(+), 92 deletions(-)
 
 diff --git a/testcases/kernel/device-drivers/zram/zram01.sh b/testcases/kernel/device-drivers/zram/zram01.sh
-index ef4ff4d75..bb1532c1e 100755
+index bb1532c1e..b2c384547 100755
 --- a/testcases/kernel/device-drivers/zram/zram01.sh
 +++ b/testcases/kernel/device-drivers/zram/zram01.sh
-@@ -6,7 +6,7 @@
- # Test creates several zram devices with different filesystems on them.
- # It fills each device with zeros and checks that compression works.
- 
--TST_CNT=7
-+TST_CNT=6
- TST_TESTFUNC="do_test"
- TST_NEEDS_CMDS="awk bc dd"
- . zram_lib.sh
-@@ -120,12 +120,11 @@ do_test()
- {
- 	case $1 in
- 	 1) zram_max_streams;;
--	 2) zram_compress_alg;;
--	 3) zram_set_disksizes;;
--	 4) zram_set_memlimit;;
--	 5) zram_makefs;;
--	 6) zram_mount;;
--	 7) zram_fill_fs;;
-+	 2) zram_set_disksizes;;
-+	 3) zram_set_memlimit;;
-+	 4) zram_makefs;;
-+	 5) zram_mount;;
-+	 6) zram_fill_fs;;
- 	esac
+@@ -78,6 +78,40 @@ setup()
+ 	zram_load
  }
  
++zram_makefs()
++{
++	local i=0
++	local fs
++
++	for fs in $zram_filesystems; do
++		tst_res TINFO "make $fs filesystem on /dev/zram$i"
++		mkfs.$fs /dev/zram$i > err.log 2>&1
++		if [ $? -ne 0 ]; then
++			cat err.log
++			tst_brk TFAIL "failed to make $fs on /dev/zram$i"
++		fi
++
++		i=$(($i + 1))
++		[ $i -eq $dev_num ] && break
++	done
++
++	tst_res TPASS "zram_makefs succeeded"
++}
++
++zram_mount()
++{
++	local i=0
++
++	for i in $(seq 0 $(($dev_num - 1))); do
++		tst_res TINFO "mount /dev/zram$i"
++		mkdir zram$i
++		ROD mount /dev/zram$i zram$i
++		dev_mounted=$i
++	done
++
++	tst_res TPASS "mount of zram device(s) succeeded"
++}
++
+ zram_fill_fs()
+ {
+ 	for i in $(seq 0 $(($dev_num - 1))); do
 diff --git a/testcases/kernel/device-drivers/zram/zram02.sh b/testcases/kernel/device-drivers/zram/zram02.sh
-index b4d706568..d09977ec1 100755
+index d09977ec1..803b8dc29 100755
 --- a/testcases/kernel/device-drivers/zram/zram02.sh
 +++ b/testcases/kernel/device-drivers/zram/zram02.sh
-@@ -5,7 +5,7 @@
- #
- # Test checks that we can create swap zram device.
+@@ -23,6 +23,64 @@ zram_max_streams="2"
+ zram_sizes="107374182400" # 100GB
+ zram_mem_limits="1M"
  
--TST_CNT=5
-+TST_CNT=6
- TST_TESTFUNC="do_test"
- . zram_lib.sh
- 
-@@ -27,10 +27,11 @@ do_test()
++zram_compress_alg()
++{
++	if tst_kvcmp -lt "3.15"; then
++		tst_res TCONF "device attribute comp_algorithm is"\
++			"introduced since kernel v3.15, the running kernel"\
++			"does not support it"
++		return
++	fi
++
++	local i=0
++
++	tst_res TINFO "test that we can set compression algorithm"
++	local algs="$(sed 's/[][]//g' /sys/block/zram0/comp_algorithm)"
++	tst_res TINFO "supported algs: $algs"
++
++	local dev_max=$(($dev_num - 1))
++
++	for i in $(seq 0 $dev_max); do
++		for alg in $algs; do
++			local sys_path="/sys/block/zram${i}/comp_algorithm"
++			echo "$alg" >  $sys_path || \
++				tst_brk TFAIL "can't set '$alg' to $sys_path"
++			tst_res TINFO "$sys_path = '$alg' ($i/$dev_max)"
++		done
++	done
++
++	tst_res TPASS "test succeeded"
++}
++
++zram_makeswap()
++{
++	tst_res TINFO "make swap with zram device(s)"
++	tst_require_cmds mkswap swapon swapoff
++	local i=0
++
++	for i in $(seq 0 $(($dev_num - 1))); do
++		ROD mkswap /dev/zram$i
++		ROD swapon /dev/zram$i
++		tst_res TINFO "done with /dev/zram$i"
++		dev_makeswap=$i
++	done
++
++	tst_res TPASS "making zram swap succeeded"
++}
++
++zram_swapoff()
++{
++	tst_require_cmds swapoff
++	local i
++
++	for i in $(seq 0 $dev_makeswap); do
++		ROD swapoff /dev/zram$i
++	done
++	dev_makeswap=-1
++
++	tst_res TPASS "swapoff completed"
++}
++
+ do_test()
  {
  	case $1 in
- 	 1) zram_max_streams;;
--	 2) zram_set_disksizes;;
--	 3) zram_set_memlimit;;
--	 4) zram_makeswap;;
--	 5) zram_swapoff;;
-+	 2) zram_compress_alg;;
-+	 3) zram_set_disksizes;;
-+	 4) zram_set_memlimit;;
-+	 5) zram_makeswap;;
-+	 6) zram_swapoff;;
- 	esac
+diff --git a/testcases/kernel/device-drivers/zram/zram_lib.sh b/testcases/kernel/device-drivers/zram/zram_lib.sh
+index b2dce1d7d..39615180e 100755
+--- a/testcases/kernel/device-drivers/zram/zram_lib.sh
++++ b/testcases/kernel/device-drivers/zram/zram_lib.sh
+@@ -85,35 +85,6 @@ zram_max_streams()
+ 	tst_res TPASS "test succeeded"
  }
  
+-zram_compress_alg()
+-{
+-	if tst_kvcmp -lt "3.15"; then
+-		tst_res TCONF "device attribute comp_algorithm is"\
+-			"introduced since kernel v3.15, the running kernel"\
+-			"does not support it"
+-		return
+-	fi
+-
+-	local i=0
+-
+-	tst_res TINFO "test that we can set compression algorithm"
+-	local algs="$(sed 's/[][]//g' /sys/block/zram0/comp_algorithm)"
+-	tst_res TINFO "supported algs: $algs"
+-
+-	local dev_max=$(($dev_num - 1))
+-
+-	for i in $(seq 0 $dev_max); do
+-		for alg in $algs; do
+-			local sys_path="/sys/block/zram${i}/comp_algorithm"
+-			echo "$alg" >  $sys_path || \
+-				tst_brk TFAIL "can't set '$alg' to $sys_path"
+-			tst_res TINFO "$sys_path = '$alg' ($i/$dev_max)"
+-		done
+-	done
+-
+-	tst_res TPASS "test succeeded"
+-}
+-
+ zram_set_disksizes()
+ {
+ 	local i=0
+@@ -159,66 +130,3 @@ zram_set_memlimit()
+ 
+ 	tst_res TPASS "test succeeded"
+ }
+-
+-zram_makeswap()
+-{
+-	tst_res TINFO "make swap with zram device(s)"
+-	tst_require_cmds mkswap swapon swapoff
+-	local i=0
+-
+-	for i in $(seq 0 $(($dev_num - 1))); do
+-		ROD mkswap /dev/zram$i
+-		ROD swapon /dev/zram$i
+-		tst_res TINFO "done with /dev/zram$i"
+-		dev_makeswap=$i
+-	done
+-
+-	tst_res TPASS "making zram swap succeeded"
+-}
+-
+-zram_swapoff()
+-{
+-	tst_require_cmds swapoff
+-	local i
+-
+-	for i in $(seq 0 $dev_makeswap); do
+-		ROD swapoff /dev/zram$i
+-	done
+-	dev_makeswap=-1
+-
+-	tst_res TPASS "swapoff completed"
+-}
+-
+-zram_makefs()
+-{
+-	local i=0
+-	local fs
+-
+-	for fs in $zram_filesystems; do
+-		tst_res TINFO "make $fs filesystem on /dev/zram$i"
+-		mkfs.$fs /dev/zram$i > err.log 2>&1
+-		if [ $? -ne 0 ]; then
+-			cat err.log
+-			tst_brk TFAIL "failed to make $fs on /dev/zram$i"
+-		fi
+-
+-		i=$(($i + 1))
+-		[ $i -eq $dev_num ] && break
+-	done
+-
+-	tst_res TPASS "zram_makefs succeeded"
+-}
+-
+-zram_mount()
+-{
+-	local i=0
+-
+-	for i in $(seq 0 $(($dev_num - 1))); do
+-		tst_res TINFO "mount /dev/zram$i"
+-		mkdir zram$i
+-		ROD mount /dev/zram$i zram$i
+-		dev_mounted=$i
+-	done
+-
+-	tst_res TPASS "mount of zram device(s) succeeded"
+-}
 -- 
 2.30.0
 
