@@ -1,75 +1,76 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A9A7309243
-	for <lists+linux-ltp@lfdr.de>; Sat, 30 Jan 2021 06:38:10 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id BF37D30928D
+	for <lists+linux-ltp@lfdr.de>; Sat, 30 Jan 2021 09:26:44 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id CFB803C7712
-	for <lists+linux-ltp@lfdr.de>; Sat, 30 Jan 2021 06:38:09 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 7F54F3C2F69
+	for <lists+linux-ltp@lfdr.de>; Sat, 30 Jan 2021 09:26:44 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- by picard.linux.it (Postfix) with ESMTP id A5C403C00C7
- for <ltp@lists.linux.it>; Sat, 30 Jan 2021 06:38:05 +0100 (CET)
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id 5CFFD3C2964
+ for <ltp@lists.linux.it>; Sat, 30 Jan 2021 09:26:43 +0100 (CET)
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [63.128.21.124])
- by in-3.smtp.seeweb.it (Postfix) with ESMTP id A66881A011CF
- for <ltp@lists.linux.it>; Sat, 30 Jan 2021 06:38:04 +0100 (CET)
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTP id 541BB600786
+ for <ltp@lists.linux.it>; Sat, 30 Jan 2021 09:26:41 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1611985083;
+ s=mimecast20190719; t=1611995200;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=LDYnpw/GUnEqZkFJn6Je03yvXykeqKEj+FH3MU8V5q8=;
- b=R4XnOhBzlGs0iMCiWXvnGR5qYxB5sYIcy6+TKm3HKwfOIliPow13arXLLWLICGQBEckhy3
- S84qDY7COJJGFvWubbr0cUI5ni4M9lf3lhyM7UvEipmx8rAyPuqHSCs9MFgzhMXEyFg6vZ
- bMA7mieM4+kBLT2Csp7BxKunAntWk1s=
-Received: from mail-yb1-f199.google.com (mail-yb1-f199.google.com
- [209.85.219.199]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-38--veQvgAJOAO8ajNyYmNkLA-1; Sat, 30 Jan 2021 00:37:59 -0500
-X-MC-Unique: -veQvgAJOAO8ajNyYmNkLA-1
-Received: by mail-yb1-f199.google.com with SMTP id c13so12644481ybg.8
- for <ltp@lists.linux.it>; Fri, 29 Jan 2021 21:37:59 -0800 (PST)
+ bh=LtUZC3e3r9RQwFu3OgIAy1yQU//qEmC+1N3kiesbIfs=;
+ b=dnMb4vDfwbr8ExFKmp5sHzHQ4MRGtx7WW5TWzUq7JeKpBRPUtehUiHsWfsWinueIQbh4Vo
+ 35+H8sL3Zcc95wMD0yQqCtzD53J9A7LPBq5pg0r0CalctqZLB7VkvyUI3iQ+qilgM4SXhJ
+ 3/c7WxQ2LwMXy38m2aIoJNDMRhhHD3I=
+Received: from mail-yb1-f200.google.com (mail-yb1-f200.google.com
+ [209.85.219.200]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-443-flZdbwa2PtO7v0ubCKKccA-1; Sat, 30 Jan 2021 03:26:38 -0500
+X-MC-Unique: flZdbwa2PtO7v0ubCKKccA-1
+Received: by mail-yb1-f200.google.com with SMTP id h192so239379ybg.23
+ for <ltp@lists.linux.it>; Sat, 30 Jan 2021 00:26:38 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=LDYnpw/GUnEqZkFJn6Je03yvXykeqKEj+FH3MU8V5q8=;
- b=p768CgVtU9ZdtlAX2HP0+g7p9LwVgmf5iPFLvw54M170UmQjcqvZAaPcwJ1+yHPy5S
- JYfcmyBKzbDBWtAT8GXrVTG4Xb4XtM2ep3S9eG+lTdsBiSumfqvyzH8638SmJzfvtPPF
- 5pnTDksqjnFruzXDJIu5Ivy3s6Ee+xsbNntSexx7Ie45CO8Y55gz0KkuGDyGYyLQhVh3
- rvn792y6i3JPhuteFeXXaNrC+wjvq3n/iLwspnEzQj59iOFeSGSvBsErCsnnBBj3JXlm
- +g/BTrz/9uVVc4DGPyyWEalFm6EumgrmoOLA2ZmpzYiZ0Nkvj/RdiWaI4cLUdyvPxDDh
- pg/A==
-X-Gm-Message-State: AOAM533oC2hRnzdK1cWynQK/nH8wPLEQM7BF0ibV16m261OblGHi9eeS
- PFC0+aiPL2VNg9Vi6wzBZMuDuol1btXKokKtNDDFJuqcj6ePj9x7WHW+U6NA+KnXpFXwnXhcBM+
- fnZ+lY52md2/xGk8+Jev+o/rYq3E=
-X-Received: by 2002:a25:a4ea:: with SMTP id g97mr11094087ybi.286.1611985079197; 
- Fri, 29 Jan 2021 21:37:59 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJyNFD9f46ebKLDDY0LQMT2/ZrhtthYnCtCvzrDVLXDxXxumlNLATM2w49/dt21fKRD9pgPzDU6C2qI5e3d5uIQ=
-X-Received: by 2002:a25:a4ea:: with SMTP id g97mr11094078ybi.286.1611985078990; 
- Fri, 29 Jan 2021 21:37:58 -0800 (PST)
+ bh=LtUZC3e3r9RQwFu3OgIAy1yQU//qEmC+1N3kiesbIfs=;
+ b=ifJcqqNgEIeJiyao47F16m1Ey6ex7gTO+k+Sf9xU5vJyzNxJMbuB1mGnFb1XEagGYi
+ wQswHFRgFW4AB8QUUSPhVZNZna9U2Uv6ONEyMhL2TYmUWoWdonDd8wBCHqg4XhEtprDV
+ xJc5sYgYzY2tRoQv5ikDeBvZGvVYRyaQDvZsvmI/P4U+KgpyZiVwgM0h99yV4uwtUaSV
+ 1UCqKEpHu4NkRICZOP/olaJvw6HqeqfMCr+qjxxMoZ2cDTwT+AUP6anFYMvikbbfJevL
+ JEIGHHyItc5vv6C1wAOvG11X63Df9KVuKVIb2SLWQuafWUJV7agfNgpz2SJyA1Va3h8y
+ KYaA==
+X-Gm-Message-State: AOAM533UlXmvxKwFfqCOdtFF6uJf+45BSe/PkEl7mP2CpeA6IQxfR261
+ cFwNMwJSeZ9FgfJGWjjHCz2xSm77viTJtyrt5+i9v4U+3HNfBB6hWWzn0BthzRqGQj84N+MAHrZ
+ RmlYVlJYZd6T2krO4Yj00D4/64sw=
+X-Received: by 2002:a25:1241:: with SMTP id 62mr11972934ybs.366.1611995197454; 
+ Sat, 30 Jan 2021 00:26:37 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJy5SfA38uS5Yk1L68cMvX4qeHtAPYvgkKKzEREI14d0EG6cn30rN9LP3Pcbqnn+S9UU5YqEAU+sic3gLQyhTC0=
+X-Received: by 2002:a25:1241:: with SMTP id 62mr11972914ybs.366.1611995197117; 
+ Sat, 30 Jan 2021 00:26:37 -0800 (PST)
 MIME-Version: 1.0
 References: <20210129194144.31299-1-pvorel@suse.cz>
- <20210129194144.31299-3-pvorel@suse.cz>
-In-Reply-To: <20210129194144.31299-3-pvorel@suse.cz>
+ <20210129194144.31299-7-pvorel@suse.cz>
+ <YBRroFhaxdqCLv2i@pevik> <YBRs9sySYXT6Bwlk@pevik>
+In-Reply-To: <YBRs9sySYXT6Bwlk@pevik>
 From: Li Wang <liwang@redhat.com>
-Date: Sat, 30 Jan 2021 13:37:47 +0800
-Message-ID: <CAEemH2ffReVSE_210nyRZVZHOwoMMy-F4Cye08RwPa5bh7PZ0w@mail.gmail.com>
+Date: Sat, 30 Jan 2021 16:26:25 +0800
+Message-ID: <CAEemH2foqS4=kTPJ50f2OZmnGU7wn4Kth0Onet-a6EX1J45-Bw@mail.gmail.com>
 To: Petr Vorel <pvorel@suse.cz>
 Authentication-Results: relay.mimecast.com;
  auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 2/6] zram01.sh: Generate test setup variables
- in setup
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 6/6] zram: Increase timeout according to used
+ devices
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,94 +83,101 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============0898138787=="
+Content-Type: multipart/mixed; boundary="===============1436248490=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0898138787==
-Content-Type: multipart/alternative; boundary="00000000000004622505ba178623"
+--===============1436248490==
+Content-Type: multipart/alternative; boundary="0000000000001ab60d05ba19e11f"
 
---00000000000004622505ba178623
+--0000000000001ab60d05ba19e11f
 Content-Type: text/plain; charset="UTF-8"
 
-Hi Petr,
+On Sat, Jan 30, 2021 at 4:16 AM Petr Vorel <pvorel@suse.cz> wrote:
 
-Petr Vorel <pvorel@suse.cz> wrote:
+> > Hi,
+>
+> > > +   TST_TIMEOUT=$((dev_num*200))
+> > Actually on heavy loaded machine this is not enough due BTRFS.
+> > I can add something like dev_num*600 or even -1 (then previous commit
+> would not
+> > be needed, but IMHO still useful).
+>
 
+I personally think -1 is better.
+
+
+
+> And bad thing is that it breaks other zram tests, because the timer
+> probably
+> does not allow to run the cleanup:
+>
+> _tst_setup_timer()
+> {
 > ...
+>         sleep $sec && tst_res TBROK "test killed, timeout! If you are
+> running on slow machine, try exporting LTP_TIMEOUT_MUL > 1" && kill -9
+> -$pid &
 >
-> diff --git a/testcases/kernel/device-drivers/zram/zram01.sh
-> b/testcases/kernel/device-drivers/zram/zram01.sh
-> index a795ff89f..c5d4a3e51 100755
-> --- a/testcases/kernel/device-drivers/zram/zram01.sh
-> +++ b/testcases/kernel/device-drivers/zram/zram01.sh
-> @@ -8,23 +8,25 @@
->
->  TST_CNT=7
->  TST_TESTFUNC="do_test"
-> -TST_NEEDS_CMDS="awk bc dd"
-> +TST_NEEDS_CMDS="awk bc dd grep"
->  . zram_lib.sh
-> +TST_SETUP="setup"
->
-> -# List of parameters for zram devices.
-> -# For each number the test creates own zram device.
-> -zram_max_streams="2 3 5 8"
-> -
-> -FS_SIZE="402653184"
-> -FS_TYPE="btrfs"
-> +get_btrfs_size()
->
+> I'm not sure if shell allow us to do it better. Maybe sent different
+> signal than
+> SIGKILL and define 'trap _tst_do_exit' for that signal?
 
-What about renaming at_least_1G_mem() or check_space_for_btrfs()?
 
+Sounds practicable. I guess sending SIGINT could make more sense, since
+sometimes we use CTRL+C stop test in debugging by manual, test should
+do cleanup work for that behavior too.
 
 -- 
 Regards,
 Li Wang
 
---00000000000004622505ba178623
+--0000000000001ab60d05ba19e11f
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 <div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small">Hi Petr,</div><div class=3D"gmail_default" style=3D"font-size=
-:small"><br></div></div><div class=3D"gmail_quote"><div dir=3D"ltr" class=
-=3D"gmail_attr">Petr Vorel &lt;<a href=3D"mailto:pvorel@suse.cz">pvorel@sus=
-e.cz</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"mar=
-gin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1=
-ex"><span class=3D"gmail_default" style=3D"font-size:small">...</span><br>
+t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Sat, Jan 30, 2021 at 4:16 AM Petr Vorel &lt;<a h=
+ref=3D"mailto:pvorel@suse.cz" target=3D"_blank">pvorel@suse.cz</a>&gt; wrot=
+e:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0=
+.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">&gt; Hi,<br>
 <br>
-diff --git a/testcases/kernel/device-drivers/zram/zram01.sh b/testcases/ker=
-nel/device-drivers/zram/zram01.sh<br>
-index a795ff89f..c5d4a3e51 100755<br>
---- a/testcases/kernel/device-drivers/zram/zram01.sh<br>
-+++ b/testcases/kernel/device-drivers/zram/zram01.sh<br>
-@@ -8,23 +8,25 @@<br>
+&gt; &gt; +=C2=A0 =C2=A0TST_TIMEOUT=3D$((dev_num*200))<br>
+&gt; Actually on heavy loaded machine this is not enough due BTRFS.<br>
+&gt; I can add something like dev_num*600 or even -1 (then previous commit =
+would not<br>
+&gt; be needed, but IMHO still useful).<br></blockquote><div><br></div><div=
+><div class=3D"gmail_default" style=3D"font-size:small">I personally think =
+-1 is better.</div><br></div><div>=C2=A0</div><blockquote class=3D"gmail_qu=
+ote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,20=
+4);padding-left:1ex">
+And bad thing is that it breaks other zram tests, because the timer probabl=
+y<br>
+does not allow to run the cleanup:<br>
 <br>
-=C2=A0TST_CNT=3D7<br>
-=C2=A0TST_TESTFUNC=3D&quot;do_test&quot;<br>
--TST_NEEDS_CMDS=3D&quot;awk bc dd&quot;<br>
-+TST_NEEDS_CMDS=3D&quot;awk bc dd grep&quot;<br>
-=C2=A0. zram_lib.sh<br>
-+TST_SETUP=3D&quot;setup&quot;<br>
+_tst_setup_timer()<br>
+{<br>
+...<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 sleep $sec &amp;&amp; tst_res TBROK &quot;test =
+killed, timeout! If you are running on slow machine, try exporting LTP_TIME=
+OUT_MUL &gt; 1&quot; &amp;&amp; kill -9 -$pid &amp;<br>
 <br>
--# List of parameters for zram devices.<br>
--# For each number the test creates own zram device.<br>
--zram_max_streams=3D&quot;2 3 5 8&quot;<br>
--<br>
--FS_SIZE=3D&quot;402653184&quot;<br>
--FS_TYPE=3D&quot;btrfs&quot;<br>
-+get_btrfs_size()<br></blockquote><div><br></div><div><div class=3D"gmail_d=
-efault" style=3D"font-size:small">What about renaming at_least_1G_mem() or=
-=C2=A0check_space_for_btrfs()?</div></div></div><br clear=3D"all"><div><br>=
-</div>-- <br><div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><d=
-iv>Regards,<br></div><div>Li Wang<br></div></div></div></div>
+I&#39;m not sure if shell allow us to do it better. Maybe sent different si=
+gnal than<br>
+SIGKILL and define &#39;trap _tst_do_exit&#39; for that signal?</blockquote=
+><div><br></div><div class=3D"gmail_default" style=3D"">Sounds practicable.=
+=C2=A0I guess sending SIGINT could make more sense, since</div><div class=
+=3D"gmail_default" style=3D"">sometimes we use CTRL+C stop test in debuggin=
+g by manual, test should</div><div class=3D"gmail_default" style=3D"">do cl=
+eanup work for that behavior too.</div></div><div><br></div>-- <br><div dir=
+=3D"ltr"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div></di=
+v></div></div>
 
---00000000000004622505ba178623--
+--0000000000001ab60d05ba19e11f--
 
 
---===============0898138787==
+--===============1436248490==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -179,5 +187,5 @@ Content-Disposition: inline
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
 
---===============0898138787==--
+--===============1436248490==--
 
