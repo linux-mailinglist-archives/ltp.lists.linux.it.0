@@ -1,43 +1,44 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id C452530B87B
-	for <lists+linux-ltp@lfdr.de>; Tue,  2 Feb 2021 08:17:07 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 98DD930B8BA
+	for <lists+linux-ltp@lfdr.de>; Tue,  2 Feb 2021 08:38:21 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4C9623C7452
-	for <lists+linux-ltp@lfdr.de>; Tue,  2 Feb 2021 08:17:07 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 24E263C7451
+	for <lists+linux-ltp@lfdr.de>; Tue,  2 Feb 2021 08:38:21 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 4058F3C2EEA
- for <ltp@lists.linux.it>; Tue,  2 Feb 2021 08:17:03 +0100 (CET)
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id 331053C2EEA
+ for <ltp@lists.linux.it>; Tue,  2 Feb 2021 08:38:17 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id B6526600909
- for <ltp@lists.linux.it>; Tue,  2 Feb 2021 08:17:02 +0100 (CET)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id D955C60085C
+ for <ltp@lists.linux.it>; Tue,  2 Feb 2021 08:38:16 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id CDCACAC41;
- Tue,  2 Feb 2021 07:17:01 +0000 (UTC)
-Date: Tue, 2 Feb 2021 08:17:00 +0100
+ by mx2.suse.de (Postfix) with ESMTP id 266CCAD3E;
+ Tue,  2 Feb 2021 07:38:16 +0000 (UTC)
+Date: Tue, 2 Feb 2021 08:38:14 +0100
 From: Petr Vorel <pvorel@suse.cz>
 To: Li Wang <liwang@redhat.com>
-Message-ID: <YBj8bMKfxqvQ6lYt@pevik>
+Message-ID: <YBkBZskAIFpyUGPO@pevik>
 References: <20210129194144.31299-1-pvorel@suse.cz>
- <20210129194144.31299-3-pvorel@suse.cz>
- <CAEemH2ffReVSE_210nyRZVZHOwoMMy-F4Cye08RwPa5bh7PZ0w@mail.gmail.com>
+ <20210129194144.31299-7-pvorel@suse.cz> <YBRroFhaxdqCLv2i@pevik>
+ <YBRs9sySYXT6Bwlk@pevik>
+ <CAEemH2foqS4=kTPJ50f2OZmnGU7wn4Kth0Onet-a6EX1J45-Bw@mail.gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CAEemH2ffReVSE_210nyRZVZHOwoMMy-F4Cye08RwPa5bh7PZ0w@mail.gmail.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+In-Reply-To: <CAEemH2foqS4=kTPJ50f2OZmnGU7wn4Kth0Onet-a6EX1J45-Bw@mail.gmail.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 2/6] zram01.sh: Generate test setup variables
- in setup
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 6/6] zram: Increase timeout according to used
+ devices
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,47 +59,63 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi Li,
 
-> Hi Petr,
+> On Sat, Jan 30, 2021 at 4:16 AM Petr Vorel <pvorel@suse.cz> wrote:
 
-> Petr Vorel <pvorel@suse.cz> wrote:
+> > > Hi,
 
+> > > > +   TST_TIMEOUT=$((dev_num*200))
+> > > Actually on heavy loaded machine this is not enough due BTRFS.
+> > > I can add something like dev_num*600 or even -1 (then previous commit
+> > would not
+> > > be needed, but IMHO still useful).
+
+
+> I personally think -1 is better.
+OK. In that case we might avoid now unneeded previous commit.
+
+
+
+> > And bad thing is that it breaks other zram tests, because the timer
+> > probably
+> > does not allow to run the cleanup:
+
+> > _tst_setup_timer()
+> > {
 > > ...
+> >         sleep $sec && tst_res TBROK "test killed, timeout! If you are
+> > running on slow machine, try exporting LTP_TIMEOUT_MUL > 1" && kill -9
+> > -$pid &
 
-> > diff --git a/testcases/kernel/device-drivers/zram/zram01.sh
-> > b/testcases/kernel/device-drivers/zram/zram01.sh
-> > index a795ff89f..c5d4a3e51 100755
-> > --- a/testcases/kernel/device-drivers/zram/zram01.sh
-> > +++ b/testcases/kernel/device-drivers/zram/zram01.sh
-> > @@ -8,23 +8,25 @@
-
-> >  TST_CNT=7
-> >  TST_TESTFUNC="do_test"
-> > -TST_NEEDS_CMDS="awk bc dd"
-> > +TST_NEEDS_CMDS="awk bc dd grep"
-> >  . zram_lib.sh
-> > +TST_SETUP="setup"
-
-> > -# List of parameters for zram devices.
-> > -# For each number the test creates own zram device.
-> > -zram_max_streams="2 3 5 8"
-> > -
-> > -FS_SIZE="402653184"
-> > -FS_TYPE="btrfs"
-> > +get_btrfs_size()
+> > I'm not sure if shell allow us to do it better. Maybe sent different
+> > signal than
+> > SIGKILL and define 'trap _tst_do_exit' for that signal?
 
 
-> What about renaming at_least_1G_mem() or check_space_for_btrfs()?
-Good point. I'm slightly for check_space_for_btrfs().
+> Sounds practicable. I guess sending SIGINT could make more sense, since
+> sometimes we use CTRL+C stop test in debugging by manual, test should
+> do cleanup work for that behavior too.
+We have already SIGINT defined for main shell process:
+trap "tst_brk TBROK 'test interrupted'" INT
 
-at_least_1G_mem() is also good, but for that I'd also move tst_res TINFO "not
-enough space for Btrfs" out of the function and put it into generate_vars(). But
-since it's used only for btrfs I slightly prefer check_space_for_btrfs(). But no
-strong opinion about it.
-
-Thanks for your review!
+so CTRL+C is covered. So maybe run first SIGINT and then SIGKILL for safety
+reasons?
 
 Kind regards,
 Petr
+
+diff --git testcases/lib/tst_test.sh testcases/lib/tst_test.sh
+index 4fa1674cd..61a6fbcdd 100644
+--- testcases/lib/tst_test.sh
++++ testcases/lib/tst_test.sh
+@@ -459,7 +459,7 @@ _tst_setup_timer()
+ 
+ 	tst_res TINFO "timeout per run is ${h}h ${m}m ${s}s"
+ 
+-	sleep $sec && tst_res TBROK "test killed, timeout! If you are running on slow machine, try exporting LTP_TIMEOUT_MUL > 1" && kill -9 -$pid &
++	sleep $sec && tst_res TBROK "test killed, timeout! If you are running on slow machine, try exporting LTP_TIMEOUT_MUL > 1" && { kill -2 -$pid; sleep 5; kill -9 -$pid; } &
+ 
+ 	_tst_setup_timer_pid=$!
+ }
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
