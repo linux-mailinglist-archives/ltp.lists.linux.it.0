@@ -1,49 +1,39 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCFF030B96E
-	for <lists+linux-ltp@lfdr.de>; Tue,  2 Feb 2021 09:18:31 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 59C3B30BBE1
+	for <lists+linux-ltp@lfdr.de>; Tue,  2 Feb 2021 11:15:37 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3A4583C7450
-	for <lists+linux-ltp@lfdr.de>; Tue,  2 Feb 2021 09:18:31 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id DFC1E3C746E
+	for <lists+linux-ltp@lfdr.de>; Tue,  2 Feb 2021 11:15:36 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 5F0BB3C0EC2
- for <ltp@lists.linux.it>; Tue,  2 Feb 2021 09:18:27 +0100 (CET)
-Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id B43053C2EE3
+ for <ltp@lists.linux.it>; Tue,  2 Feb 2021 11:15:33 +0100 (CET)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id C0F2A600916
- for <ltp@lists.linux.it>; Tue,  2 Feb 2021 09:18:26 +0100 (CET)
-Received: from [192.168.178.40] (unknown [188.192.1.224])
- by mail.jv-coder.de (Postfix) with ESMTPSA id A84399F761;
- Tue,  2 Feb 2021 08:18:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
- t=1612253904; bh=YPnaH4RoOM/9QfDm3jbfkY8TU6ENbYMMdwtd1ZU22Fo=;
- h=Subject:To:From:Message-ID:Date:MIME-Version;
- b=s6CAJ3ERJMot56VBOm2hhl8jrFAqm+vY3t0Gn3ZciA9etfpo2Xn0uXLLpEnYIRFbM
- jINbnr6zhehiPCphZvpEaDQblAzYQDFgLBv2HiFq9Mlz6B2ScdMoPiaCuNj2lHYvqv
- 6ubSbDL1tqTybFbeMuejk0hM9kB4xit71rC4/re8=
-To: Petr Vorel <pvorel@suse.cz>, ltp@lists.linux.it
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 39FF31400DB9
+ for <ltp@lists.linux.it>; Tue,  2 Feb 2021 11:15:32 +0100 (CET)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 4C1C6AD29;
+ Tue,  2 Feb 2021 10:15:32 +0000 (UTC)
+Date: Tue, 2 Feb 2021 11:15:30 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: Joerg Vehlow <lkml@jv-coder.de>
+Message-ID: <YBkmQl1lFmxbdpcb@pevik>
 References: <20210202074753.31516-1-pvorel@suse.cz>
-From: Joerg Vehlow <lkml@jv-coder.de>
-Message-ID: <47060cdf-58a3-2568-3508-31436b9c6e12@jv-coder.de>
-Date: Tue, 2 Feb 2021 09:19:12 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.0
+ <47060cdf-58a3-2568-3508-31436b9c6e12@jv-coder.de>
 MIME-Version: 1.0
-In-Reply-To: <20210202074753.31516-1-pvorel@suse.cz>
-Content-Language: en-US
-X-Spam-Status: No, score=-0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <47060cdf-58a3-2568-3508-31436b9c6e12@jv-coder.de>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
 Subject: Re: [LTP] [RFC PATCH 1/1] tst_test.sh: Run cleanup also on timeout
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -56,33 +46,67 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="iso-8859-2"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGksCgpPbiAyLzIvMjAyMSA4OjQ3IEFNLCBQZXRyIFZvcmVsIHdyb3RlOgo+IEFsc28gdGltZW91
-dCByZXF1aXJlcyB0byBydW4gYSB0ZXN0IGNsZWFudXAgKGUuZy4genJhbTAxLnNoKS4KPiBUaHVz
-IHNlbmQgZmlyc3QgU0lHSU5ULCBidXQga2VlcCBhbHNvIFNJR0tJTEwgZm9yIHNhZmV0eSByZWFz
-b25zCj4gKGFmdGVyIDUgc2VjIHRvIGdpdmUgY2xlYW51cCBmdW5jdGlvbiBzb21lIHRpbWUuCisx
-Cj4gZGlmZiAtLWdpdCBhL3Rlc3RjYXNlcy9saWIvdHN0X3Rlc3Quc2ggYi90ZXN0Y2FzZXMvbGli
-L3RzdF90ZXN0LnNoCj4gaW5kZXggNjlmMDA3ZDg5Li4zNWFkNmQyZDcgMTAwNjQ0Cj4gLS0tIGEv
-dGVzdGNhc2VzL2xpYi90c3RfdGVzdC5zaAo+ICsrKyBiL3Rlc3RjYXNlcy9saWIvdHN0X3Rlc3Qu
-c2gKPiBAQCAtMjEsNyArMjEsNyBAQCBleHBvcnQgVFNUX0xJQl9MT0FERUQ9MQo+ICAgLiB0c3Rf
-c2VjdXJpdHkuc2gKPiAgIAo+ICAgIyBkZWZhdWx0IHRyYXAgZnVuY3Rpb24KPiAtdHJhcCAidHN0
-X2JyayBUQlJPSyAndGVzdCBpbnRlcnJ1cHRlZCciIElOVAo+ICt0cmFwICJ0c3RfYnJrIFRCUk9L
-ICd0ZXN0IGludGVycnVwdGVkIG9yIHRpbWVvdXQnIiBJTlQKc2hvdWxkIGJlICJ0aW1lZCBvdXQi
-IGZvciBjb25zaXN0ZW5jeQo+ICAgCj4gICBfdHN0X2RvX2V4aXQoKQo+ICAgewo+IEBAIC00NTks
-NyArNDU5LDcgQEAgX3RzdF9zZXR1cF90aW1lcigpCj4gICAKPiAgIAl0c3RfcmVzIFRJTkZPICJ0
-aW1lb3V0IHBlciBydW4gaXMgJHtofWggJHttfW0gJHtzfXMiCj4gICAKPiAtCXNsZWVwICRzZWMg
-JiYgdHN0X3JlcyBUQlJPSyAidGVzdCBraWxsZWQsIHRpbWVvdXQhIElmIHlvdSBhcmUgcnVubmlu
-ZyBvbiBzbG93IG1hY2hpbmUsIHRyeSBleHBvcnRpbmcgTFRQX1RJTUVPVVRfTVVMID4gMSIgJiYg
-a2lsbCAtOSAtJHBpZCAmCj4gKwlzbGVlcCAkc2VjICYmIHRzdF9yZXMgVEJST0sgInRlc3Qga2ls
-bGVkLCB0aW1lb3V0ISBJZiB5b3UgYXJlIHJ1bm5pbmcgb24gc2xvdyBtYWNoaW5lLCB0cnkgZXhw
-b3J0aW5nIExUUF9USU1FT1VUX01VTCA+IDEiICYmIHsga2lsbCAtMiAtJHBpZDsgc2xlZXAgNTsg
-a2lsbCAtOSAtJHBpZDsgfSAmCkNhbiB3ZSBtb3ZlIHRoZSB0aW1lb3V0IGhhbmRsaW5nIHRvIGEg
-c2VwYXJhdGUgZnVuY3Rpb24/IFRoaXMgaXMgZ2V0dGluZyAKYSB0aW55IGJpdCB1bnJlYWRhYmxl
-Li4uCkNhbiB0aGlzIHdvcms/OgpfdHN0X2hhbmRsZV90aW1lb3V0KCkKewogwqDCoMKgIHRzdF9y
-ZXMgVEJST0sgLi4uCiDCoMKgwqAga2lsbCAuLi4uCn0KLi4uCnNsZWVwICRzZWMgJiYgX3RzdF9o
-YW5kbGVfdGltZW91dCAmCgpKw7ZyZwoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xp
-c3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
+Hi J=F6rg,
+
+> Hi,
+
+> On 2/2/2021 8:47 AM, Petr Vorel wrote:
+> > Also timeout requires to run a test cleanup (e.g. zram01.sh).
+> > Thus send first SIGINT, but keep also SIGKILL for safety reasons
+> > (after 5 sec to give cleanup function some time.
+> +1
+> > diff --git a/testcases/lib/tst_test.sh b/testcases/lib/tst_test.sh
+> > index 69f007d89..35ad6d2d7 100644
+> > --- a/testcases/lib/tst_test.sh
+> > +++ b/testcases/lib/tst_test.sh
+> > @@ -21,7 +21,7 @@ export TST_LIB_LOADED=3D1
+> >   . tst_security.sh
+> >   # default trap function
+> > -trap "tst_brk TBROK 'test interrupted'" INT
+> > +trap "tst_brk TBROK 'test interrupted or timeout'" INT
+> should be "timed out" for consistency
+You probably mean consistency with TST_RETRY_FN_EXP_BACKOFF()
+I tried to be consistent with previous message:
+zram01 1 TBROK: test killed, timeout! If you are running on slow machine, t=
+ry exporting LTP_TIMEOUT_MUL > 1
+That one should be changed as well.
+I slightly prefer "timeout", but I'm not a native speaker.
+
+> >   _tst_do_exit()
+> >   {
+> > @@ -459,7 +459,7 @@ _tst_setup_timer()
+> >   	tst_res TINFO "timeout per run is ${h}h ${m}m ${s}s"
+> > -	sleep $sec && tst_res TBROK "test killed, timeout! If you are running=
+ on slow machine, try exporting LTP_TIMEOUT_MUL > 1" && kill -9 -$pid &
+> > +	sleep $sec && tst_res TBROK "test killed, timeout! If you are running=
+ on slow machine, try exporting LTP_TIMEOUT_MUL > 1" && { kill -2 -$pid; sl=
+eep 5; kill -9 -$pid; } &
+> Can we move the timeout handling to a separate function? This is getting a
+> tiny bit unreadable...
+> Can this work?:
+> _tst_handle_timeout()
+> {
+> =A0=A0=A0 tst_res TBROK ...
+> =A0=A0=A0 kill ....
+> }
+> ...
+> sleep $sec && _tst_handle_timeout &
++1.
+
+Thanks!
+
+Kind regards,
+Petr
+
+> J=F6rg
+
+-- =
+
+Mailing list info: https://lists.linux.it/listinfo/ltp
