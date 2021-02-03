@@ -1,85 +1,53 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 087F830BF9E
-	for <lists+linux-ltp@lfdr.de>; Tue,  2 Feb 2021 14:37:34 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CC7330D340
+	for <lists+linux-ltp@lfdr.de>; Wed,  3 Feb 2021 07:03:07 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id CBB203C7454
-	for <lists+linux-ltp@lfdr.de>; Tue,  2 Feb 2021 14:37:33 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 438A83C73AA
+	for <lists+linux-ltp@lfdr.de>; Wed,  3 Feb 2021 07:03:07 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 1523F3C741C
- for <ltp@lists.linux.it>; Tue,  2 Feb 2021 14:37:33 +0100 (CET)
-Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 8D6A81000A57
- for <ltp@lists.linux.it>; Tue,  2 Feb 2021 14:37:32 +0100 (CET)
-Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
- by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 112DTTd9054403
- for <ltp@lists.linux.it>; Tue, 2 Feb 2021 13:37:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding; s=corp-2020-01-29;
- bh=UwuLiGoK6yTDwQ+bNLFo/Zn9IVpLHAMXyDCjq/iRAUI=;
- b=YJ4uYzLX9PkLt8ZPNwxUKjVErQZeAAQjnuoaEj97BxhGhJfDhUk7PFJXfTayDQMnkIhl
- vXSXq3sRpsDohiQWO8MqcUOnCAVj/vexjnanGpoNcnJveT/fF3ucxKvgQnByR2Xa/C4A
- bYSuUPXdh5D+WrTJHEQXmenVRchP/iU4ZTaD0f6BIq3iMr3b8hUHt1ceVnqSqLN80lyv
- w0mLgse4m+1/zJAgb9Qwe79b2hqmOqHF4gbh9sq/xH+dUpnx4ngjSScqArB5DV5BNCm7
- YYuqFQSswOJHggdvi7a/EiuWdrbwzNygKtw7NbmUhjmESGep9e01dUBuybYmr8lB4ACL nA== 
-Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
- by aserp2120.oracle.com with ESMTP id 36cydktrcd-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
- for <ltp@lists.linux.it>; Tue, 02 Feb 2021 13:37:30 +0000
-Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
- by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 112DUCWG028841;
- Tue, 2 Feb 2021 13:35:28 GMT
-Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
- by userp3020.oracle.com with ESMTP id 36dh7rgam2-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 02 Feb 2021 13:35:28 +0000
-Received: from abhmp0003.oracle.com (abhmp0003.oracle.com [141.146.116.9])
- by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 112DZRDc011174;
- Tue, 2 Feb 2021 13:35:27 GMT
-Received: from gyrotron.nl.oracle.com (/10.175.12.115)
- by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Tue, 02 Feb 2021 05:35:27 -0800
-From: Alexey Kodanev <alexey.kodanev@oracle.com>
-To: ltp@lists.linux.it
-Date: Tue,  2 Feb 2021 16:34:54 +0300
-Message-Id: <20210202133454.59224-4-alexey.kodanev@oracle.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210202133454.59224-1-alexey.kodanev@oracle.com>
-References: <20210202133454.59224-1-alexey.kodanev@oracle.com>
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id D47173C2EDF
+ for <ltp@lists.linux.it>; Wed,  3 Feb 2021 07:03:03 +0100 (CET)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTP id 07C226009EA
+ for <ltp@lists.linux.it>; Wed,  3 Feb 2021 07:03:01 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.79,397,1602518400"; d="scan'208";a="104133559"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 03 Feb 2021 14:02:54 +0800
+Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
+ by cn.fujitsu.com (Postfix) with ESMTP id 2F7CF4CE546D;
+ Wed,  3 Feb 2021 14:02:49 +0800 (CST)
+Received: from [10.167.220.84] (10.167.220.84) by
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Wed, 3 Feb 2021 14:02:48 +0800
+Message-ID: <601A3C9A.904@cn.fujitsu.com>
+Date: Wed, 3 Feb 2021 14:03:06 +0800
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
+ rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
 MIME-Version: 1.0
-X-Proofpoint-IMR: 1
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9882
- signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
- mlxscore=0
- suspectscore=0 spamscore=0 mlxlogscore=999 phishscore=0 adultscore=0
- bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2009150000 definitions=main-2102020092
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9882
- signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0
- adultscore=0
- priorityscore=1501 impostorscore=0 malwarescore=0 clxscore=1015
- spamscore=0 lowpriorityscore=0 phishscore=0 mlxlogscore=999 mlxscore=0
- suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2009150000 definitions=main-2102020092
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+To: Cyril Hrubis <chrubis@suse.cz>
+References: <1611654925-8994-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ <YBLdKsBkrLuyvbjA@yuki.lan>
+In-Reply-To: <YBLdKsBkrLuyvbjA@yuki.lan>
+X-Originating-IP: [10.167.220.84]
+X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
+X-yoursite-MailScanner-ID: 2F7CF4CE546D.AFCD6
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.2 required=7.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.4
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH 3/3] lib/tst_net.sh: calc median instead of mean in
- tst_netload()
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v1 1/3] syscalls/mallinfo01: Add a basic test for
+ mallinfo
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,61 +59,127 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
+Cc: ltp@lists.linux.it
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Sometimes the tests can get the following results on a test network:
+Hi Cyril
+Sorry for late reply, I am busy with other thing.
+>> diff --git a/testcases/kernel/syscalls/mallinfo/mallinfo01.c b/testcases/kernel/syscalls/mallinfo/mallinfo01.c
+>> new file mode 100644
+>> index 000000000..1a2a30af1
+>> --- /dev/null
+>> +++ b/testcases/kernel/syscalls/mallinfo/mallinfo01.c
+>> @@ -0,0 +1,84 @@
+>> +// SPDX-License-Identifier: GPL-2.0-or-later
+>> +/*
+>> + * Copyright (c) 2021 FUJITSU LIMITED. All rights reserved.
+>> + * Author: Yang Xu<xuyang2018.jy@cn.fujitsu.com>
+>> + */
+>> +
+>> +/*\
+>> + * [DESCRIPTION]
+>> + *
+>> + * Basic mallinfo() test. Refer to glibc test
+>> + * https://sourceware.org/git/?p=glibc.git;a=blob;f=malloc/tst-mallinfo2.c
+>> +\*/
+>> +
+>> +#include<malloc.h>
+>> +
+>> +#include "tst_test.h"
+>> +#include "tst_safe_macros.h"
+>> +
+>> +#ifdef HAVE_MALLINFO
+>> +static char *buf;
+>> +static struct mallinfo info1;
+>> +
+>> +static void
+>> +print_mallinfo(const char *msg, struct mallinfo *m)
+>> +{
+>> +	tst_res(TINFO, "%s...", msg);
+>> +#define P(f) tst_res(TINFO, "%s: %d", #f, m->f)
+>> +	P(arena);
+>> +	P(ordblks);
+>> +	P(smblks);
+>> +	P(hblks);
+>> +	P(hblkhd);
+>> +	P(usmblks);
+>> +	P(fsmblks);
+>> +	P(uordblks);
+>> +	P(fordblks);
+>> +	P(keepcost);
+>> +}
+>> +
+>> +void test_mallinfo(void)
+>> +{
+>> +	struct mallinfo info2;
+>> +	int i;
+>> +	int total = 0;
+>> +
+>> +	for (i = 1; i<  20; i++) {
+>> +		buf = SAFE_MALLOC(160 * i);
+>
+> The buf here has to be array and we have to free the buffers at the end
+> of this function, otherwise the malloc() will fail sooner or later when
+> the test_mallinfo() function runs in a loop.
+Yes. Will do it in v2.
+>
+>> +		total += 16 * i;
+It looks glibc test uses wrong multiple for total variable, I will 
+correct it (16=>160). Also, I have sent a patch to glibc.
+>> +	}
+>> +
+>> +	info2 = mallinfo();
+>> +	print_mallinfo("Test",&info2);
+>> +	if (info2.uordblks>  info1.uordblks + total)
+>> +		tst_res(TPASS, "mallinfo() passed");
+>> +	else
+>> +		tst_res(TFAIL, "mallinfo() failed");
+>> +
+>> +	info1 = info2;
+>
+> And then we cannot do this either.
+Yes, Will do it in v2.
+>
+>> +}
+>> +
+>> +static void setup(void)
+>> +{
+>> +	if (sizeof(info1.arena) != sizeof(int))
+>> +		tst_res(TFAIL, "The member of mallinfo struct is not int");
+>> +
+>> +	info1 = mallinfo();
+>> +	print_mallinfo("Start",&info1);
+>> +}
+>> +
+>> +static void cleanup(void)
+>> +{
+>> +	if (buf)
+>> +		free(buf);
+>> +}
+>> +
+>> +static struct tst_test test = {
+>> +	.setup = setup,
+>> +	.test_all = test_mallinfo,
+>> +	.cleanup = cleanup,
+>> +};
+>> +
+>> +#else
+>> +TST_TEST_TCONF("system doesn't implement non-POSIX mallinfo()");
+>> +#endif
+>> --
+>> 2.23.0
+>>
+>>
+>>
+>>
+>> --
+>> Mailing list info: https://lists.linux.it/listinfo/ltp
+>
 
-gre01   1 TINFO: run server 'netstress -D ltp_v0...
-gre01   1 TINFO: run client 'netstress -l -D ltp_v0... 5 times
-gre01   1 TPASS: netstress passed, mean time 4633 ms, data: 128 22627 134 142 137
-...
-vxlan03 1 TINFO: run server 'netstress -D ltp_v0...
-vxlan03 1 TINFO: run client 'netstress -l -D ltp_v0... 5 times
-vxlan03 1 TPASS: netstress passed, mean time 4584 ms, data: 142 140 146 145 22350
 
-One unsuccessful run can have a huge impact on the final result,
-when using the mean time with such data.
-
-A more suitable solution for short runs would be to obtain a median
-time that can remove all outliers. This will lead to more consistent
-performance test results. For example, instead of the above runs, we
-would get this:
-
-gre01   1 TPASS: netstress passed, median time 137 ms, data: 128 22627 134 142 137
-vxlan03 1 TPASS: netstress passed, median time 145 ms, data: 142 140 146 145 22350
-
-Signed-off-by: Alexey Kodanev <alexey.kodanev@oracle.com>
----
- testcases/lib/tst_net.sh | 10 +++-------
- 1 file changed, 3 insertions(+), 7 deletions(-)
-
-diff --git a/testcases/lib/tst_net.sh b/testcases/lib/tst_net.sh
-index f1a498306..ca21fe326 100644
---- a/testcases/lib/tst_net.sh
-+++ b/testcases/lib/tst_net.sh
-@@ -761,14 +761,10 @@ tst_netload()
- 		tst_netload_brk TFAIL "expected '$expect_res' but ret: '$ret'"
- 	fi
- 
--	local mean res_sum
--	for r in $results; do
--		res_sum="$((res_sum + r))"
--	done
--	mean=$((res_sum / passed))
--	echo "$mean" > $rfile
-+	local median=$(tst_get_median $results)
-+	echo "$median" > $rfile
- 
--	tst_res_ TPASS "netstress passed, mean time $mean ms, data:$results"
-+	tst_res_ TPASS "netstress passed, median time $median ms, data:$results"
- 
- 	return $ret
- }
--- 
-2.25.1
 
 
 -- 
