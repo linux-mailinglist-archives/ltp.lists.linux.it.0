@@ -1,51 +1,53 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 951CE30D43E
-	for <lists+linux-ltp@lfdr.de>; Wed,  3 Feb 2021 08:48:14 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id C2D5430D693
+	for <lists+linux-ltp@lfdr.de>; Wed,  3 Feb 2021 10:47:38 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 37C9E3C73A3
-	for <lists+linux-ltp@lfdr.de>; Wed,  3 Feb 2021 08:48:14 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 79B933C739E
+	for <lists+linux-ltp@lfdr.de>; Wed,  3 Feb 2021 10:47:38 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- by picard.linux.it (Postfix) with ESMTP id 1E6F13C2EDF
- for <ltp@lists.linux.it>; Wed,  3 Feb 2021 08:48:11 +0100 (CET)
-Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id ABF5E1A00CD3
- for <ltp@lists.linux.it>; Wed,  3 Feb 2021 08:48:10 +0100 (CET)
-Received: from [192.168.178.40] (unknown [188.192.1.224])
- by mail.jv-coder.de (Postfix) with ESMTPSA id C39F09F626
- for <ltp@lists.linux.it>; Wed,  3 Feb 2021 07:48:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
- t=1612338488; bh=H/axJKXmRlIPAVljNR5jQM8w7vlh+oFgbcqAfgogd8o=;
- h=Subject:To:From:Message-ID:Date:MIME-Version;
- b=RbDRfMw+i641I5+3Ey9wCN7gwirlutykpFID/sm+N4DLpMp4jbfZcCVjHypaJSZPO
- c0EiLKeTCGUMG5Rj9XM/lnveeaQQlquB0T1Ig06TeqEGlFFyfsSURzOwQrTOci7zi/
- 4WhJiXCyqVpcTIbArGi+xko9laxsE5YsQmEJhHGY=
-To: ltp@lists.linux.it
-References: <20210203074520.18401-1-lkml@jv-coder.de>
- <20210203074520.18401-2-lkml@jv-coder.de>
-From: Joerg Vehlow <lkml@jv-coder.de>
-Message-ID: <54607759-e48f-0a45-fab8-5d07ec32f004@jv-coder.de>
-Date: Wed, 3 Feb 2021 08:48:57 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.7.0
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id 33B583C5E21
+ for <ltp@lists.linux.it>; Wed,  3 Feb 2021 10:47:33 +0100 (CET)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id 143B8200BA6
+ for <ltp@lists.linux.it>; Wed,  3 Feb 2021 10:47:32 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.79,398,1602518400"; d="scan'208";a="104144559"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 03 Feb 2021 17:47:28 +0800
+Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
+ by cn.fujitsu.com (Postfix) with ESMTP id 20A5E4CE1A08;
+ Wed,  3 Feb 2021 17:47:25 +0800 (CST)
+Received: from [10.167.220.84] (10.167.220.84) by
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Wed, 3 Feb 2021 17:47:24 +0800
+Message-ID: <601A713F.7020301@cn.fujitsu.com>
+Date: Wed, 3 Feb 2021 17:47:43 +0800
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
+ rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
 MIME-Version: 1.0
-In-Reply-To: <20210203074520.18401-2-lkml@jv-coder.de>
-Content-Language: en-US
-X-Spam-Status: No, score=-0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+To: Cyril Hrubis <chrubis@suse.cz>
+References: <1611654925-8994-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ <1611654925-8994-2-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ <YBLaQvt2g3z8Xy1A@yuki.lan>
+In-Reply-To: <YBLaQvt2g3z8Xy1A@yuki.lan>
+X-Originating-IP: [10.167.220.84]
+X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
+X-yoursite-MailScanner-ID: 20A5E4CE1A08.AC01F
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.2 required=7.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.4
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH 2/2] mq_timedreceive_5-3: Fix test for timestamp
- after INT32_MAX
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v1 2/3] syscalls/mallinfo02: Add a basic test to
+ check use mmap or sbrk
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,17 +59,65 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: ltp@lists.linux.it
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SnVzdCBGWUk6CgpPbiAyLzMvMjAyMSA4OjQ1IEFNLCBKb2VyZyBWZWhsb3cgd3JvdGU6Cj4gRnJv
-bTogSm9lcmcgVmVobG93IDxqb2VyZy52ZWhsb3dAYW94LXRlY2guZGU+Cj4KPiBUaGUgdGltZW91
-dCBmb3IgbXFfdGltZWRyZWNlaXZlIGlzIGFic29sdXRlLiBVc2luZyBJTlQzMl9NQVgKPiBicmVh
-a3MgdGhpcyB0ZXN0IGFmdGVyIDIwMzgtMDEtMTkuCkZ1bm55IHRoaW5nIGlzLCB0aGF0IHRoZSBv
-dGhlciBidWcgZml4ZWQgaW4gdGhlIGZpcnN0IHBhdGNoIGhpZCB0aGlzIGJ1Zy4KbXFfdGltZWRy
-ZWNlaXZlIHJldHVybmVkIHdpdGggRVRJTUVET1VUIGltbWVkaWF0ZWx5LCBidXQgd2FpdCBibG9j
-a2VkLAp1bnRpbCBpdCB3YXMgaW50ZXJydXB0ZWQgYnkgdGhlIHNpZ25hbCAtPiBlcm5vIHdhcyBF
-SU5UUiBhbmQgdGhlIHRlc3QgCnBhc3NlZC4KCkrDtnJnCgotLSAKTWFpbGluZyBsaXN0IGluZm86
-IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
+Hi Cyril
+> Hi!
+>> "The number of bytes in blocks currently allocated using mmap(2).".
+>> For allocations greater than or equal to 128K and that can't be satisfied from
+>> the free list, the memory-allocation functions employ mmap(2) instead of increasing
+>> the program break using sbrk(2).
+>>
+>> In this case, we test 20k size to use sbrk and 128k size to use mmap.
+>
+> The size when glibc uses mmap() instead of heap is libc implementation
+> detail. I'm not sure that we want to have that value hardcoded in a LTP test.
+Here has some wrong description, I use "MAX(info.fordblks, 131072) + 
+reuse_size" size to test instead of 128K.
+>
+> Also glibc documentation says:
+>
+> The default value is set to `131072' bytes and the threshold is adjusted
+> dynamically to suit the allocation patterns of the program.
+
+IMO, the threshold is adjusted dynamically because of two things if we 
+don't use mallopt with  M_MMAP_THRESHOLD
+1) fordblks;  /* Total free space (bytes) */
+2) the previous mmap regin space
+
+
+ From mallopt man-page for  M_MMAP_THRESHOLD option, it said
+" For allocations greater  than  or  equal  to  the  limit  specified 
+(in  bytes)  by M_MMAP_THRESHOLD  that  can't be satisfied from the free 
+list, the memory-allocation functions employ mmap(2) instead of 
+increasing the program break using sbrk(2)."
+
+So I use this code "MAX(info.fordblks, 131072)" to get the right value 
+to trigger mmap.
+
+mallopt man-page for  M_MMAP_THRESHOLD option also said "On  the
+  other hand, there are some disadvantages to the use of mmap(2): 
+deallocated space is not placed on the free list for reuse by later 
+allocations; " .
+
+I guess it means mmap area  is not counted int info.fordblks(free list ) 
+and can be used for the next sbrk(increase the heap). That is why I add 
+reuse_size when I get the corrcet mmap size. Or, I miss something?
+
+If we can't ensure it , I will remove this patch. Or, other advise?
+
+
+Best Regards
+Yang Xu
+
+>
+
+
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
