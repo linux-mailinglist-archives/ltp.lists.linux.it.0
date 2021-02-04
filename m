@@ -1,39 +1,51 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 982A930F171
-	for <lists+linux-ltp@lfdr.de>; Thu,  4 Feb 2021 12:03:55 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C4D530F2F3
+	for <lists+linux-ltp@lfdr.de>; Thu,  4 Feb 2021 13:13:01 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 61CE13C7122
-	for <lists+linux-ltp@lfdr.de>; Thu,  4 Feb 2021 12:03:55 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 29F273C7341
+	for <lists+linux-ltp@lfdr.de>; Thu,  4 Feb 2021 13:13:01 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id 288D03C7118
- for <ltp@lists.linux.it>; Thu,  4 Feb 2021 12:03:45 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 94A4C14010EF
- for <ltp@lists.linux.it>; Thu,  4 Feb 2021 12:03:44 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id EE413AFDB
- for <ltp@lists.linux.it>; Thu,  4 Feb 2021 11:03:43 +0000 (UTC)
-From: Martin Doucha <mdoucha@suse.cz>
-To: ltp@lists.linux.it
-Date: Thu,  4 Feb 2021 12:03:42 +0100
-Message-Id: <20210204110342.11821-4-mdoucha@suse.cz>
-X-Mailer: git-send-email 2.30.0
-In-Reply-To: <20210204110342.11821-1-mdoucha@suse.cz>
-References: <20210204110342.11821-1-mdoucha@suse.cz>
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id 5CD7C3C7360
+ for <ltp@lists.linux.it>; Thu,  4 Feb 2021 13:12:41 +0100 (CET)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTP id 5B40A60080A
+ for <ltp@lists.linux.it>; Thu,  4 Feb 2021 13:12:32 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.79,400,1602518400"; d="scan'208";a="104197340"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 04 Feb 2021 20:12:29 +0800
+Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
+ by cn.fujitsu.com (Postfix) with ESMTP id B7E334CE6D8A;
+ Thu,  4 Feb 2021 20:12:27 +0800 (CST)
+Received: from localhost.localdomain (10.167.220.84) by
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Thu, 4 Feb 2021 20:12:27 +0800
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+To: <chrubis@suse.cz>, <liwang@redhat.com>
+Date: Thu, 4 Feb 2021 20:12:38 +0800
+Message-ID: <1612440762-22389-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
+In-Reply-To: <CAEemH2eiTY7YgSYLr6_skK6PaRZb2_GchbmHUJKVuW7btA15rQ@mail.gmail.com>
+References: <CAEemH2eiTY7YgSYLr6_skK6PaRZb2_GchbmHUJKVuW7btA15rQ@mail.gmail.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Originating-IP: [10.167.220.84]
+X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
+X-yoursite-MailScanner-ID: B7E334CE6D8A.AD231
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.4
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 4/4] Add test for CVE 2020-29373
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 1/5] tst_mallinfo.c: Add a common print helper for
+ mallinfo
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,255 +57,96 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Fixes #770
+This function can be used for mallopt and subsequent mallinfo/mallinfo2 test.
 
-Signed-off-by: Martin Doucha <mdoucha@suse.cz>
+Signed-off-by: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
 ---
+ configure.ac           |  1 +
+ include/tst_mallinfo.h | 17 +++++++++++++++++
+ lib/tst_mallinfo.c     | 28 ++++++++++++++++++++++++++++
+ 3 files changed, 46 insertions(+)
+ create mode 100644 include/tst_mallinfo.h
+ create mode 100644 lib/tst_mallinfo.c
 
-Changes since v1:
-- Added another patch reference
-
- runtest/cve                                   |   1 +
- runtest/syscalls                              |   1 +
- .../kernel/syscalls/io_uring/io_uring02.c     | 204 ++++++++++++++++++
- 3 files changed, 206 insertions(+)
- create mode 100644 testcases/kernel/syscalls/io_uring/io_uring02.c
-
-diff --git a/runtest/cve b/runtest/cve
-index 0bb1983bc..f650854f9 100644
---- a/runtest/cve
-+++ b/runtest/cve
-@@ -60,3 +60,4 @@ cve-2019-8912 af_alg07
- cve-2020-11494 pty04
- cve-2020-14386 sendto03
- cve-2020-14416 pty03
-+cve-2020-29373 io_uring02
-diff --git a/runtest/syscalls b/runtest/syscalls
-index 11a1e83c2..dbb33a2cd 100644
---- a/runtest/syscalls
-+++ b/runtest/syscalls
-@@ -1712,3 +1712,4 @@ statx07 statx07
- membarrier01 membarrier01
- 
- io_uring01 io_uring01
-+io_uring02 io_uring02
-diff --git a/testcases/kernel/syscalls/io_uring/io_uring02.c b/testcases/kernel/syscalls/io_uring/io_uring02.c
+diff --git a/configure.ac b/configure.ac
+index 8bdb96300..223900ca1 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -94,6 +94,7 @@ AC_CHECK_FUNCS_ONCE([ \
+     io_uring_register \
+     io_uring_enter \
+     kcmp \
++    mallinfo \
+     mallopt \
+     mkdirat \
+     mknodat \
+diff --git a/include/tst_mallinfo.h b/include/tst_mallinfo.h
 new file mode 100644
-index 000000000..08f4a1714
+index 000000000..bd69d032c
 --- /dev/null
-+++ b/testcases/kernel/syscalls/io_uring/io_uring02.c
-@@ -0,0 +1,204 @@
++++ b/include/tst_mallinfo.h
+@@ -0,0 +1,17 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
 +/*
-+ * Copyright (C) 2021 SUSE LLC
-+ * Author: Nicolai Stange <nstange@suse.de>
-+ * LTP port: Martin Doucha <mdoucha@suse.cz>
-+ *
-+ * CVE-2020-29373
-+ *
-+ * Check that io_uring does not bypass chroot. Fixed in:
-+ *
-+ *  commit 9392a27d88b9707145d713654eb26f0c29789e50
-+ *  Author: Jens Axboe <axboe@kernel.dk>
-+ *  Date:   Thu Feb 6 21:42:51 2020 -0700
-+ *
-+ *  io-wq: add support for inheriting ->fs
-+ *
-+ *  commit ff002b30181d30cdfbca316dadd099c3ca0d739c
-+ *  Author: Jens Axboe <axboe@kernel.dk>
-+ *  Date:   Fri Feb 7 16:05:21 2020 -0700
-+ *
-+ *  io_uring: grab ->fs as part of async preparation
++ * Copyright (c) 2021 FUJITSU LIMITED. All rights reserved.
++ * Author: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
 + */
 +
-+#include <stdio.h>
-+#include <sys/socket.h>
-+#include <sys/un.h>
++#ifndef TST_MALLINFO_H__
++#define TST_MALLINFO_H__
++
++#include <malloc.h>
++#include "config.h"
++
++#ifdef HAVE_MALLINFO
++void tst_print_mallinfo(const char *msg, struct mallinfo *m);
++#endif
++
++#endif
+diff --git a/lib/tst_mallinfo.c b/lib/tst_mallinfo.c
+new file mode 100644
+index 000000000..229e5aa2e
+--- /dev/null
++++ b/lib/tst_mallinfo.c
+@@ -0,0 +1,28 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2021 FUJITSU LIMITED. All rights reserved.
++ * Author: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
++ */
++
++#define TST_NO_DEFAULT_MAIN
 +#include "tst_test.h"
-+#include "tst_safe_io_uring.h"
++#include "tst_mallinfo.h"
 +
-+#define CHROOT_DIR "test_root"
-+#define SOCK_NAME "sock"
-+#define SPAM_MARK 0xfa7
-+#define BEEF_MARK 0xbeef
-+
-+static struct sockaddr_un addr;
-+static int sendsock = -1, recvsock = -1, sockpair[2] = {-1, -1};
-+static struct io_uring_params params;
-+static struct tst_io_uring uring = { .fd = -1 };
-+static char buf[16];
-+static struct iovec iov = {
-+	.iov_base = buf,
-+	.iov_len = sizeof(buf)
-+};
-+
-+static struct msghdr spam_header = {
-+	.msg_name = NULL,
-+	.msg_namelen = 0,
-+	.msg_iov = &iov,
-+	.msg_iovlen = 1
-+};
-+
-+static struct msghdr beef_header = {
-+	.msg_name = &addr,
-+	.msg_namelen = sizeof(addr),
-+	.msg_iov = &iov,
-+	.msg_iovlen = 1
-+};
-+
-+static void setup(void)
++// To DO for mallinfo2
++#ifdef HAVE_MALLINFO
++void tst_print_mallinfo(const char *msg, struct mallinfo *m)
 +{
-+	char *tmpdir = tst_get_tmpdir();
-+	int ret;
-+
-+	addr.sun_family = AF_UNIX;
-+	ret = snprintf(addr.sun_path, sizeof(addr.sun_path), "%s/%s", tmpdir,
-+		SOCK_NAME);
-+	free(tmpdir);
-+
-+	if (ret >= (int)sizeof(addr.sun_path))
-+		tst_brk(TBROK, "Tempdir path is too long");
-+
-+	io_uring_setup_supported_by_kernel();
-+
-+	sendsock = SAFE_SOCKET(AF_UNIX, SOCK_DGRAM, 0);
-+	recvsock = SAFE_SOCKET(AF_UNIX, SOCK_DGRAM, 0);
-+	SAFE_BIND(recvsock, (struct sockaddr *)&addr, sizeof(addr));
-+
-+	SAFE_MKDIR(CHROOT_DIR, 0755);
-+	SAFE_CHROOT(CHROOT_DIR);
++	tst_res(TINFO, "%s...", msg);
++#define P(f) tst_res(TINFO, "%s: %d", #f, m->f)
++	P(arena);
++	P(ordblks);
++	P(smblks);
++	P(hblks);
++	P(hblkhd);
++	P(usmblks);
++	P(fsmblks);
++	P(uordblks);
++	P(fordblks);
++	P(keepcost);
 +}
-+
-+static void run(void)
-+{
-+	uint32_t i, count, tail;
-+	int beef_found = 0;
-+	struct io_uring_sqe *sqe_ptr;
-+	const struct io_uring_cqe *cqe_ptr;
-+
-+	SAFE_SOCKETPAIR(AF_UNIX, SOCK_DGRAM, 0, sockpair);
-+	SAFE_SETSOCKOPT_INT(sockpair[0], SOL_SOCKET, SO_SNDBUF,
-+		32+sizeof(buf));
-+	SAFE_FCNTL(sockpair[0], F_SETFL, O_NONBLOCK);
-+
-+	SAFE_IO_URING_INIT(512, &params, &uring);
-+	sqe_ptr = uring.sqr_entries;
-+
-+	/* Add spam requests to force async processing of the real test */
-+	for (i = 0, tail = *uring.sqr_tail; i < 255; i++, tail++, sqe_ptr++) {
-+		memset(sqe_ptr, 0, sizeof(*sqe_ptr));
-+		sqe_ptr->opcode = IORING_OP_SENDMSG;
-+		sqe_ptr->flags = IOSQE_IO_DRAIN;
-+		sqe_ptr->fd = sockpair[0];
-+		sqe_ptr->addr = (__u64)&spam_header;
-+		sqe_ptr->user_data = SPAM_MARK;
-+		uring.sqr_array[tail & *uring.sqr_mask] = i;
-+	}
-+
-+	/* Add the real test to queue */
-+	memset(sqe_ptr, 0, sizeof(*sqe_ptr));
-+	sqe_ptr->opcode = IORING_OP_SENDMSG;
-+	sqe_ptr->flags = IOSQE_IO_DRAIN;
-+	sqe_ptr->fd = sendsock;
-+	sqe_ptr->addr = (__u64)&beef_header;
-+	sqe_ptr->user_data = BEEF_MARK;
-+	uring.sqr_array[tail & *uring.sqr_mask] = i;
-+	count = ++i;
-+	tail++;
-+
-+	__atomic_store(uring.sqr_tail, &tail, __ATOMIC_RELEASE);
-+	SAFE_IO_URING_ENTER(1, uring.fd, count, count, IORING_ENTER_GETEVENTS,
-+		NULL);
-+
-+	/* Check test results */
-+	__atomic_load(uring.cqr_tail, &tail, __ATOMIC_ACQUIRE);
-+
-+	for (i = *uring.cqr_head; i != tail; i++, count--) {
-+		cqe_ptr = uring.cqr_entries + (i & *uring.cqr_mask);
-+		TST_ERR = -cqe_ptr->res;
-+
-+		if (cqe_ptr->user_data == SPAM_MARK) {
-+			if (cqe_ptr->res >= 0 || cqe_ptr->res == -EAGAIN)
-+				continue;
-+
-+			tst_res(TFAIL | TTERRNO,
-+				"Spam request failed unexpectedly");
-+			continue;
-+		}
-+
-+		if (cqe_ptr->user_data != BEEF_MARK) {
-+			tst_res(TFAIL, "Unexpected entry in completion queue");
-+			count++;
-+			continue;
-+		}
-+
-+		beef_found = 1;
-+
-+		if (cqe_ptr->res >= 0) {
-+			tst_res(TFAIL, "Write outside chroot succeeded.");
-+		} else if (cqe_ptr->res != -ENOENT) {
-+			tst_res(TFAIL | TTERRNO,
-+				"Write outside chroot failed unexpectedly");
-+		} else {
-+			tst_res(TPASS,
-+				"Write outside chroot failed as expected");
-+		}
-+	}
-+
-+	__atomic_store(uring.cqr_head, &i, __ATOMIC_RELEASE);
-+
-+	if (!beef_found)
-+		tst_res(TFAIL, "Write outside chroot result not found");
-+
-+	if (count)
-+		tst_res(TFAIL, "Wrong number of entries in completion queue");
-+
-+	/* iteration cleanup */
-+	SAFE_IO_URING_CLOSE(&uring);
-+	SAFE_CLOSE(sockpair[0]);
-+	SAFE_CLOSE(sockpair[1]);
-+}
-+
-+static void cleanup(void)
-+{
-+	if (uring.fd >= 0)
-+		SAFE_IO_URING_CLOSE(&uring);
-+
-+	if (sockpair[0] >= 0) {
-+		SAFE_CLOSE(sockpair[0]);
-+		SAFE_CLOSE(sockpair[1]);
-+	}
-+
-+	if (recvsock >= 0)
-+		SAFE_CLOSE(recvsock);
-+
-+	if (sendsock >= 0)
-+		SAFE_CLOSE(sendsock);
-+}
-+
-+static struct tst_test test = {
-+	.test_all = run,
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.needs_tmpdir = 1,
-+	.caps = (struct tst_cap []) {
-+		TST_CAP(TST_CAP_REQ, CAP_SYS_CHROOT),
-+		{}
-+	},
-+	.tags = (const struct tst_tag[]) {
-+		{"linux-git", "9392a27d88b9"},
-+		{"linux-git", "ff002b30181d"},
-+		{"CVE", "2020-29373"},
-+		{}
-+	}
-+};
++#endif
 -- 
-2.30.0
+2.23.0
+
+
 
 
 -- 
