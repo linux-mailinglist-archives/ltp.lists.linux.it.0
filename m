@@ -1,44 +1,55 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id B377030EF8C
-	for <lists+linux-ltp@lfdr.de>; Thu,  4 Feb 2021 10:22:24 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id C663830EFFB
+	for <lists+linux-ltp@lfdr.de>; Thu,  4 Feb 2021 10:53:06 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 58A273C7116
-	for <lists+linux-ltp@lfdr.de>; Thu,  4 Feb 2021 10:22:24 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 7D58F3C711B
+	for <lists+linux-ltp@lfdr.de>; Thu,  4 Feb 2021 10:53:06 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 07BCC3C2EDD
- for <ltp@lists.linux.it>; Thu,  4 Feb 2021 10:22:21 +0100 (CET)
-Received: from szxga05-in.huawei.com (szxga05-in.huawei.com [45.249.212.191])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 56D87601419
- for <ltp@lists.linux.it>; Thu,  4 Feb 2021 10:22:20 +0100 (CET)
-Received: from DGGEMS408-HUB.china.huawei.com (unknown [172.30.72.58])
- by szxga05-in.huawei.com (SkyGuard) with ESMTP id 4DWY205BkRzjH6X
- for <ltp@lists.linux.it>; Thu,  4 Feb 2021 17:20:56 +0800 (CST)
-Received: from ubuntu1804.huawei.com (10.67.174.63) by
- DGGEMS408-HUB.china.huawei.com (10.3.19.208) with Microsoft SMTP Server id
- 14.3.498.0; Thu, 4 Feb 2021 17:22:04 +0800
-From: zhao gongyi <zhaogongyi@huawei.com>
-To: <ltp@lists.linux.it>
-Date: Thu, 4 Feb 2021 17:21:14 +0800
-Message-ID: <20210204092114.8726-1-zhaogongyi@huawei.com>
-X-Mailer: git-send-email 2.17.1
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id 8AFFC3C5E0D
+ for <ltp@lists.linux.it>; Thu,  4 Feb 2021 10:53:05 +0100 (CET)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-6.smtp.seeweb.it (Postfix) with ESMTP id 3080014010EC
+ for <ltp@lists.linux.it>; Thu,  4 Feb 2021 10:53:03 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.79,400,1602518400"; d="scan'208";a="104192791"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 04 Feb 2021 17:53:01 +0800
+Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
+ by cn.fujitsu.com (Postfix) with ESMTP id 042984CE6D74;
+ Thu,  4 Feb 2021 17:52:55 +0800 (CST)
+Received: from [10.167.220.84] (10.167.220.84) by
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Thu, 4 Feb 2021 17:52:55 +0800
+Message-ID: <601BC40C.4030900@cn.fujitsu.com>
+Date: Thu, 4 Feb 2021 17:53:16 +0800
+From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
+ rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
 MIME-Version: 1.0
-X-Originating-IP: [10.67.174.63]
-X-CFilter-Loop: Reflected
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+To: Li Wang <liwang@redhat.com>
+References: <1611654925-8994-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ <1611654925-8994-2-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ <YBLaQvt2g3z8Xy1A@yuki.lan> <601A713F.7020301@cn.fujitsu.com>
+ <CAEemH2efATKDx6T-j=GZKm6N4XZ3qTR22ZwzLPi5pBHkFkMEJQ@mail.gmail.com>
+In-Reply-To: <CAEemH2efATKDx6T-j=GZKm6N4XZ3qTR22ZwzLPi5pBHkFkMEJQ@mail.gmail.com>
+X-Originating-IP: [10.167.220.84]
+X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
+X-yoursite-MailScanner-ID: 042984CE6D74.ADF16
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.2 required=7.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.4
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH] bugfix for lib/tst_capability.c
- sched_setaffinity/sched_setaffinity01.c timerfd/timerfd04.c
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v1 2/3] syscalls/mallinfo02: Add a basic test to
+ check use mmap or sbrk
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,81 +61,45 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
+Cc: LTP List <ltp@lists.linux.it>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Use TERRNO because we're not using the TEST() macro.
+Hi Li
+> Hi Xu,
+>
+> Yang Xu <xuyang2018.jy@cn.fujitsu.com
+> <mailto:xuyang2018.jy@cn.fujitsu.com>> wrote:
+>
+>     ...
+>
+>     So I use this code "MAX(info.fordblks, 131072)" to get the right value
+>     to trigger mmap.
+>
+>
+> My 2 cents:
+>
+>  From what I understand, once we request memory larger than the upper
+> limit DEFAULT_MMAP_THRESHOLD_MAX, Glibc will always make use
+> of mmap() because it will be out of any value it can adjust in dynamical.
+> So that we don't be bothered with this issue anymore.
+But in subsequent malloc, the previous mmap area will add into arena and 
+we still will increase the threashold. I use 8M size to test.
+>
+> Or:
+>
+> Invoking mallopt(M_MMAP_THRESHOLD, ...) function in front of the
+> SAFE_MALLOC helps to fix the threshold. In such a case, the dynamic
+> adjustment of the mmap threshold will be disabled.
+Yes, it works well. Thanks for your review.
+>
+> --
+> Regards,
+> Li Wang
 
-Signed-off-by: zhao gongyi <zhaogongyi@huawei.com>
----
- lib/tst_capability.c                                        | 2 +-
- .../kernel/syscalls/sched_setaffinity/sched_setaffinity01.c | 6 +++---
- testcases/kernel/syscalls/timerfd/timerfd04.c               | 4 ++--
- 3 files changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/lib/tst_capability.c b/lib/tst_capability.c
-index 1fa0e49c5..cb0502e2e 100644
---- a/lib/tst_capability.c
-+++ b/lib/tst_capability.c
-@@ -57,7 +57,7 @@ void tst_cap_action(struct tst_cap *cap)
- 	uint32_t mask = CAP_TO_MASK(cap->id);
-
- 	if (tst_capget(&hdr, cur))
--		tst_brk(TBROK | TTERRNO, "tst_capget()");
-+		tst_brk(TBROK | TERRNO, "tst_capget()");
-
- 	memcpy(new, cur, sizeof(new));
-
-diff --git a/testcases/kernel/syscalls/sched_setaffinity/sched_setaffinity01.c b/testcases/kernel/syscalls/sched_setaffinity/sched_setaffinity01.c
-index d9d6530e2..a56ae1f50 100644
---- a/testcases/kernel/syscalls/sched_setaffinity/sched_setaffinity01.c
-+++ b/testcases/kernel/syscalls/sched_setaffinity/sched_setaffinity01.c
-@@ -95,16 +95,16 @@ static void setup(void)
-
- 	mask = CPU_ALLOC(ncpus);
- 	if (!mask)
--		tst_brk(TBROK | TTERRNO, "CPU_ALLOC() failed");
-+		tst_brk(TBROK | TERRNO, "CPU_ALLOC() failed");
-
- 	mask_size = CPU_ALLOC_SIZE(ncpus);
-
- 	if (sched_getaffinity(0, mask_size, mask) < 0)
--		tst_brk(TBROK | TTERRNO, "sched_getaffinity() failed");
-+		tst_brk(TBROK | TERRNO, "sched_getaffinity() failed");
-
- 	emask = CPU_ALLOC(ncpus + 1);
- 	if (!emask)
--		tst_brk(TBROK | TTERRNO, "CPU_ALLOC() failed");
-+		tst_brk(TBROK | TERRNO, "CPU_ALLOC() failed");
-
- 	emask_size = CPU_ALLOC_SIZE(ncpus + 1);
- 	CPU_ZERO_S(emask_size, emask);
-diff --git a/testcases/kernel/syscalls/timerfd/timerfd04.c b/testcases/kernel/syscalls/timerfd/timerfd04.c
-index 798d95e60..4af91d6f8 100644
---- a/testcases/kernel/syscalls/timerfd/timerfd04.c
-+++ b/testcases/kernel/syscalls/timerfd/timerfd04.c
-@@ -64,7 +64,7 @@ static void verify_timerfd(unsigned int n)
- 	                 tc->clk_off, tc->off);
-
- 	if (tv->clock_gettime(tc->clk_id, tst_ts_get(&start))) {
--		tst_res(TFAIL | TTERRNO, "clock_gettime(2) failed for clock %s",
-+		tst_res(TFAIL | TERRNO, "clock_gettime(2) failed for clock %s",
- 			tst_clock_name(tc->clk_id));
- 		return;
- 	}
-@@ -95,7 +95,7 @@ static void verify_timerfd(unsigned int n)
- 	SAFE_WAIT(NULL);
-
- 	if (tv->clock_gettime(CLOCK_MONOTONIC, tst_ts_get(&end))) {
--		tst_res(TFAIL | TTERRNO, "clock_gettime(2) failed for clock %s",
-+		tst_res(TFAIL | TERRNO, "clock_gettime(2) failed for clock %s",
- 			tst_clock_name(CLOCK_MONOTONIC));
- 		return;
- 	}
---
-2.17.1
 
 
 -- 
