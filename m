@@ -2,74 +2,74 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id C02ED30EC96
-	for <lists+linux-ltp@lfdr.de>; Thu,  4 Feb 2021 07:42:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C006730EF0F
+	for <lists+linux-ltp@lfdr.de>; Thu,  4 Feb 2021 09:55:11 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6C2123C711F
-	for <lists+linux-ltp@lfdr.de>; Thu,  4 Feb 2021 07:42:31 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 8893A3C7112
+	for <lists+linux-ltp@lfdr.de>; Thu,  4 Feb 2021 09:55:11 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id AA5643C4F48
- for <ltp@lists.linux.it>; Thu,  4 Feb 2021 07:42:27 +0100 (CET)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id CD5C43C4F41
+ for <ltp@lists.linux.it>; Thu,  4 Feb 2021 09:55:09 +0100 (CET)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [63.128.21.124])
- by in-5.smtp.seeweb.it (Postfix) with ESMTP id 3D9A1600BE6
- for <ltp@lists.linux.it>; Thu,  4 Feb 2021 07:42:26 +0100 (CET)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id 673B6200D2C
+ for <ltp@lists.linux.it>; Thu,  4 Feb 2021 09:55:09 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1612420945;
+ s=mimecast20190719; t=1612428908;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=Ogs+BMtQEPzajzZ5Swrb/UKWA8CNDvJmM+1C9fdc2PA=;
- b=WosMOpq9jikb42rLuhZa1/xLQBpLV50WpMJVuDAGo0HdOPX0724G3w/E7LDnkJuOvteUPg
- rGL6WdFTQCV8Hm+uuJN+4cRWxdF2nosJjMPJm8EIhQnUbPBaSdoyLWxaqT4KUN9y8VIh4O
- WIbAkfttE4uVDdzfo+Wz9yLU3kALEMg=
-Received: from mail-yb1-f198.google.com (mail-yb1-f198.google.com
- [209.85.219.198]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-260-W3NfsEa9PEmTYfZlyV3ESg-1; Thu, 04 Feb 2021 01:42:22 -0500
-X-MC-Unique: W3NfsEa9PEmTYfZlyV3ESg-1
-Received: by mail-yb1-f198.google.com with SMTP id c13so2451001ybg.8
- for <ltp@lists.linux.it>; Wed, 03 Feb 2021 22:42:21 -0800 (PST)
+ bh=GOlRV2Qwobt6Ry24bkdceo9yazdVVOKDy3MSmPBMjyY=;
+ b=eWM8AzBEVWcqNI0oQx1I7GSOy5nAcc3l0xjBsTAKqojuRAHeT9siL8PKzjWov/ILXXok3I
+ 1F3uKJkpaJ0Pis3BmfCZ9rkqPA/7nUmqU1YhJwEd/0aaN3NpEu4u/xF7+XeoVcvPAwX9Ti
+ ZSGsfGxXdRMhWT2xG1fuUq89BbI5xXE=
+Received: from mail-yb1-f199.google.com (mail-yb1-f199.google.com
+ [209.85.219.199]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-110-2pFCKg_3MsGn6bs-3IOLtg-1; Thu, 04 Feb 2021 03:55:05 -0500
+X-MC-Unique: 2pFCKg_3MsGn6bs-3IOLtg-1
+Received: by mail-yb1-f199.google.com with SMTP id k7so2706640ybm.13
+ for <ltp@lists.linux.it>; Thu, 04 Feb 2021 00:55:05 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=Ogs+BMtQEPzajzZ5Swrb/UKWA8CNDvJmM+1C9fdc2PA=;
- b=NXdIomRUNPOkZCPPJtJA597gKESaEM8CjCkjpOf0tP7x0iPUh5fLRKuZKQuUV9eYcx
- FVhESTaQZRHtVSBTZRaglE5GlocUGvlT5+W65qd/Sl2cFMXYGB8lT195PvKaXNmWP90P
- G/8vF97EipXQIgDkPjzHBrjzme0mnAtzzGyKL4cfdSI8BQeMpVZocj4X820MiilE5Dv9
- JcvE92awVbto2aORhX2ejGObtLeFTrHXJxe/ogSTl1CKM2yl347xwGc04kQbrdwuF1+n
- QjYhjjN/KzAf9Bu8tAprg48jIt1zjMkktOtymlzbBBeDdFZq9RgwOH+zFDSCvEGyZi7b
- mVwA==
-X-Gm-Message-State: AOAM533Fb0f9YAez6f4EG1YZ7tob4IPdLtF1lVP51VzXlfX/HMG5EKwT
- Vw0tGU8tykKWho1yF8MmQLPGhP+hgtdS012NFPiOG1pkDiTUZDkvgoFGD7/lpQMJtqgFVAuRCTH
- WCY9DljuA6A5I7WgGb+YUR6eFJmI=
-X-Received: by 2002:a25:aa03:: with SMTP id s3mr10390644ybi.243.1612420941427; 
- Wed, 03 Feb 2021 22:42:21 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJyfyQsdikIJQnvvLbB+Yl0h8uR2QVLnGOL+zmKdCj6Sy7eyqHxzgJ5KvUJR5Z3l36G4xjw5iIyvolXcOA/GDvw=
-X-Received: by 2002:a25:aa03:: with SMTP id s3mr10390633ybi.243.1612420941283; 
- Wed, 03 Feb 2021 22:42:21 -0800 (PST)
+ bh=GOlRV2Qwobt6Ry24bkdceo9yazdVVOKDy3MSmPBMjyY=;
+ b=Sxx/qCC5XSQBJQFUmtoNWj8H+N1re8hcVWl/4uG0c8D3pVHtQP3f+o7rMNO3HqGj7d
+ af3R0HmpedAZs18t1s3GQbVO0x1JVU4EU4tM1QSKr/q57v8b8XJsE/aFcU4LFZfbjoi9
+ zK3PNRlrMKi7U5Cc8OxI5QxjPMzdTeeyqYW2nZEugKQ+yP0fqBVvAsuthQGpNbmHCJkw
+ J5Ja3dLnMq2YIoOi65qjWFjdfEcO1n23GfjiAlzAYGd2NT3gcjJhI30ba6eY0Sqy1rVq
+ CaTSN0Lu89GO5w7yeqMHYJQE38vBr8REvAezmNDvGT+/PFK/JbHbc2kNaDeh6/LLvHbx
+ wH3Q==
+X-Gm-Message-State: AOAM532kdPTve8HPMYp1lDpEZVgJ/Hs/ofjpNWTpnKsf/AkVabRMig0G
+ FRafnv1ZDDOOPogmL8l7DhGGyva/OLh79wrOJfMpcfqCYIKq+UnslkpQKxwBlzYK12kyrcm7QgU
+ nDV6TBQ+/TJMj2uxjZG8xqYqE22M=
+X-Received: by 2002:a25:aa03:: with SMTP id s3mr11034848ybi.243.1612428905079; 
+ Thu, 04 Feb 2021 00:55:05 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJyoODxkm8xjq2MUfv1P7j2al08Eivhd07tbBYdh8J9LtzPmKfl1m+zujg1BI0glabY7mG5Vc2RHhq0pNUUquyo=
+X-Received: by 2002:a25:aa03:: with SMTP id s3mr11034824ybi.243.1612428904859; 
+ Thu, 04 Feb 2021 00:55:04 -0800 (PST)
 MIME-Version: 1.0
 References: <1611654925-8994-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
-In-Reply-To: <1611654925-8994-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+ <1611654925-8994-3-git-send-email-xuyang2018.jy@cn.fujitsu.com>
+In-Reply-To: <1611654925-8994-3-git-send-email-xuyang2018.jy@cn.fujitsu.com>
 From: Li Wang <liwang@redhat.com>
-Date: Thu, 4 Feb 2021 14:42:09 +0800
-Message-ID: <CAEemH2f++GH=b29S_Y3CV8MPtunFnZdz=fTEWoXpKe0sACXXYA@mail.gmail.com>
+Date: Thu, 4 Feb 2021 16:54:53 +0800
+Message-ID: <CAEemH2eiTY7YgSYLr6_skK6PaRZb2_GchbmHUJKVuW7btA15rQ@mail.gmail.com>
 To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
 Authentication-Results: relay.mimecast.com;
  auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v1 1/3] syscalls/mallinfo01: Add a basic test for
- mallinfo
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v1 3/3] syscalls/mallinfo03: Add an overflow test
+ when setting 2G size
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,31 +82,57 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============0731348543=="
+Content-Type: multipart/mixed; boundary="===============0462814658=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0731348543==
-Content-Type: multipart/alternative; boundary="0000000000006f1a9c05ba7d0105"
+--===============0462814658==
+Content-Type: multipart/alternative; boundary="00000000000019a0dd05ba7edcbb"
 
---0000000000006f1a9c05ba7d0105
+--00000000000019a0dd05ba7edcbb
 Content-Type: text/plain; charset="UTF-8"
 
 Hi Xu,
 
 
-> +static void
-> +print_mallinfo(const char *msg, struct mallinfo *m)
+> +void test_mallinfo(void)
+> +{
+> +       struct mallinfo info;
+> +       char *buf;
+> +       size_t size = 2UL * 1024UL * 1024UL * 1024UL;
+> +
+> +       buf = SAFE_MALLOC(size);
+> +       info = mallinfo();
+> +       if (info.hblkhd < 0) {
+> +               print_mallinfo("Test malloc 2G", &info);
+> +               tst_res(TFAIL, "The member of struct mallinfo overflow, we
+> should use mallinfo2");
 >
 
-What about moving this print_mallinfo() into a mallinfo_common.h file
-to avoid the duplicated code in each test?
+TPASS?
+
+
+> +       } else {
+> +               /*We will never get here*/
+> +               tst_res(TPASS, "The member of struct mallinfo doesn't
+> overflow");
+>
+
+TFAIL?
+
+
+
+> +       }
+> +       free(buf);
+> +}
+>
+
 
 -- 
 Regards,
 Li Wang
 
---0000000000006f1a9c05ba7d0105
+--00000000000019a0dd05ba7edcbb
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
@@ -114,19 +140,45 @@ Content-Transfer-Encoding: quoted-printable
 t-size:small">Hi Xu,</div></div><div class=3D"gmail_quote"><div>=C2=A0</div=
 ><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border=
 -left:1px solid rgb(204,204,204);padding-left:1ex">
-+static void<br>
-+print_mallinfo(const char *msg, struct mallinfo *m)<br></blockquote><div><=
-br></div><div class=3D"gmail_default" style=3D"font-size:small">What about =
-moving this print_mallinfo() into a mallinfo_common.h file</div><div class=
-=3D"gmail_default" style=3D"font-size:small">to avoid the duplicated code i=
-n each test?</div></div><div><br></div>-- <br><div dir=3D"ltr" class=3D"gma=
-il_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div=
-></div></div></div>
++void test_mallinfo(void)<br>
++{<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0struct mallinfo info;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0char *buf;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0size_t size =3D 2UL * 1024UL * 1024UL * 1024UL;=
+<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0buf =3D SAFE_MALLOC(size);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0info =3D mallinfo();<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if (info.hblkhd &lt; 0) {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0print_mallinfo(&quo=
+t;Test malloc 2G&quot;, &amp;info);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_res(TFAIL, &quo=
+t;The member of struct mallinfo overflow, we should use mallinfo2&quot;);<b=
+r></blockquote><div>=C2=A0</div><div><span class=3D"gmail_default" style=3D=
+"font-size:small">TPASS?</span></div><div><span class=3D"gmail_default" sty=
+le=3D"font-size:small"></span>=C2=A0</div><blockquote class=3D"gmail_quote"=
+ style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);p=
+adding-left:1ex">
++=C2=A0 =C2=A0 =C2=A0 =C2=A0} else {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/*We will never get=
+ here*/<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_res(TPASS, &quo=
+t;The member of struct mallinfo doesn&#39;t overflow&quot;);<br></blockquot=
+e><div><br></div><div><div class=3D"gmail_default" style=3D"font-size:small=
+">TFAIL?</div><br></div><div>=C2=A0</div><blockquote class=3D"gmail_quote" =
+style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);pa=
+dding-left:1ex">
++=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0free(buf);<br>
++}<br>
+</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
+ class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li =
+Wang<br></div></div></div></div>
 
---0000000000006f1a9c05ba7d0105--
+--00000000000019a0dd05ba7edcbb--
 
 
---===============0731348543==
+--===============0462814658==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -136,5 +188,5 @@ Content-Disposition: inline
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
 
---===============0731348543==--
+--===============0462814658==--
 
