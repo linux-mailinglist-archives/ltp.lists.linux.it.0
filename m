@@ -1,51 +1,73 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 153C730D7E2
-	for <lists+linux-ltp@lfdr.de>; Wed,  3 Feb 2021 11:46:07 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 309E230EC4E
+	for <lists+linux-ltp@lfdr.de>; Thu,  4 Feb 2021 07:08:51 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B01DE3C5E24
-	for <lists+linux-ltp@lfdr.de>; Wed,  3 Feb 2021 11:46:06 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 9C9A03C5DF8
+	for <lists+linux-ltp@lfdr.de>; Thu,  4 Feb 2021 07:08:50 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 5D9F83C2682
- for <ltp@lists.linux.it>; Wed,  3 Feb 2021 11:46:05 +0100 (CET)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-7.smtp.seeweb.it (Postfix) with ESMTP id 43E4620096A
- for <ltp@lists.linux.it>; Wed,  3 Feb 2021 11:46:03 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.79,398,1602518400"; d="scan'208";a="104146912"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 03 Feb 2021 18:46:02 +0800
-Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id 491514CE546D;
- Wed,  3 Feb 2021 18:45:57 +0800 (CST)
-Received: from [10.167.220.84] (10.167.220.84) by
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Wed, 3 Feb 2021 18:45:56 +0800
-Message-ID: <601A7EF7.2070603@cn.fujitsu.com>
-Date: Wed, 3 Feb 2021 18:46:15 +0800
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
- rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id B94663C4F48
+ for <ltp@lists.linux.it>; Thu,  4 Feb 2021 07:08:46 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id 86C36200BD1
+ for <ltp@lists.linux.it>; Thu,  4 Feb 2021 07:08:45 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1612418924;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=5Z5OlYDCEwswS1C4LArqT2ABQ3blNVSQFi11YTj2C2g=;
+ b=YBIvY8C4L7lDhtdO13kO5cYvLE10+vG54oO+JaAQZ92j7xPyrR4VIC3lkoOep1Gm5DnWd0
+ 7GRm+NIIa+nJ8WTzh4iTPJh/ZHnsHo3ew6f7NLr/B+irGGY8l/YQQ5dgk02b98ZbJAnMH3
+ qwT/mgP+wR9HCcA3t4wMwwHxQtWteh0=
+Received: from mail-yb1-f197.google.com (mail-yb1-f197.google.com
+ [209.85.219.197]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-240-ViSR6_TtNVan5uopKfy3tg-1; Thu, 04 Feb 2021 01:08:41 -0500
+X-MC-Unique: ViSR6_TtNVan5uopKfy3tg-1
+Received: by mail-yb1-f197.google.com with SMTP id v17so2400866ybq.9
+ for <ltp@lists.linux.it>; Wed, 03 Feb 2021 22:08:41 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=5Z5OlYDCEwswS1C4LArqT2ABQ3blNVSQFi11YTj2C2g=;
+ b=Xif1ifkZnnGULxDTkApQvBjJhMXkSaD/mogkJT3VX4PnghHrVy7ae+ElvkKh7j3hPP
+ RV63L4oo7/4KRVNAS9Gh2aiGB+Vf5JfE6QNZYWG4XwPtj8xKT7dQ2BSkTsRSB9SagqE5
+ /uDe0ZOprRAS8p5yQvx0SPua0XiRCo/XnJcB/T9H9qhR9B0Z9KKjxwabErK5QCGmIRtL
+ H10zsXD1QhZh+zvr2MIIxvKN83VIDsGJvqPvLp6MR93k56/qwgFekrQvNw6r0O3KH1/2
+ PsoXhItOpfm+Q6fxTHwuGrm5g0AG5gIjIArqdNsUM8xB2UTMgs9xjh7no3C1c+AmQCQl
+ zQzA==
+X-Gm-Message-State: AOAM533J6GMYJX6bTibkjMHx3NTshkdcIcMY1kgLxXItoIsyob/KmZRM
+ NkEtPyYX70SEbxQMg8EvEvnYoDzPLJ7D061gUjR89FKdoW9MtFtMNko4fwx7R9ZJhwsc8IrTC6j
+ Ye/JQYhc6/GF0s3RU0mB+m0b5ygA=
+X-Received: by 2002:a25:b992:: with SMTP id r18mr10145737ybg.86.1612418921206; 
+ Wed, 03 Feb 2021 22:08:41 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJxYDC6iqBgfyO5bwcrhmFp8o9s+AAo+8CaNLE4D5Z4fQ6gavBSjegwUlKfgD3Vqu314uSuwsz71Et4CwDA3yuM=
+X-Received: by 2002:a25:b992:: with SMTP id r18mr10145711ybg.86.1612418920904; 
+ Wed, 03 Feb 2021 22:08:40 -0800 (PST)
 MIME-Version: 1.0
-To: Cyril Hrubis <chrubis@suse.cz>
 References: <1611654925-8994-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
  <1611654925-8994-2-git-send-email-xuyang2018.jy@cn.fujitsu.com>
  <YBLaQvt2g3z8Xy1A@yuki.lan> <601A713F.7020301@cn.fujitsu.com>
 In-Reply-To: <601A713F.7020301@cn.fujitsu.com>
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: 491514CE546D.AC02C
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.2 required=7.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.4
+From: Li Wang <liwang@redhat.com>
+Date: Thu, 4 Feb 2021 14:08:29 +0800
+Message-ID: <CAEemH2efATKDx6T-j=GZKm6N4XZ3qTR22ZwzLPi5pBHkFkMEJQ@mail.gmail.com>
+To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH v1 2/3] syscalls/mallinfo02: Add a basic test to
  check use mmap or sbrk
@@ -60,77 +82,90 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============0262296483=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Cyril
-> Hi Cyril
->> Hi!
->>> "The number of bytes in blocks currently allocated using mmap(2).".
->>> For allocations greater than or equal to 128K and that can't be
->>> satisfied from
->>> the free list, the memory-allocation functions employ mmap(2) instead
->>> of increasing
->>> the program break using sbrk(2).
->>>
->>> In this case, we test 20k size to use sbrk and 128k size to use mmap.
->>
->> The size when glibc uses mmap() instead of heap is libc implementation
->> detail. I'm not sure that we want to have that value hardcoded in a
->> LTP test.
-> Here has some wrong description, I use "MAX(info.fordblks, 131072) +
-> reuse_size" size to test instead of 128K.
->>
->> Also glibc documentation says:
->>
->> The default value is set to `131072' bytes and the threshold is adjusted
->> dynamically to suit the allocation patterns of the program.
->
-> IMO, the threshold is adjusted dynamically because of two things if we
-> don't use mallopt with M_MMAP_THRESHOLD
-> 1) fordblks; /* Total free space (bytes) */
-> 2) the previous mmap regin space
->
->
->  From mallopt man-page for M_MMAP_THRESHOLD option, it said
-> " For allocations greater than or equal to the limit specified (in
-> bytes) by M_MMAP_THRESHOLD that can't be satisfied from the free list,
-> the memory-allocation functions employ mmap(2) instead of increasing the
-> program break using sbrk(2)."
+--===============0262296483==
+Content-Type: multipart/alternative; boundary="00000000000002924305ba7c8931"
+
+--00000000000002924305ba7c8931
+Content-Type: text/plain; charset="UTF-8"
+
+Hi Xu,
+
+Yang Xu <xuyang2018.jy@cn.fujitsu.com> wrote:
+
+...
 >
 > So I use this code "MAX(info.fordblks, 131072)" to get the right value
 > to trigger mmap.
 >
-> mallopt man-page for M_MMAP_THRESHOLD option also said "On the
-> other hand, there are some disadvantages to the use of mmap(2):
-> deallocated space is not placed on the free list for reuse by later
-> allocations; " .
->
-> I guess it means mmap area is not counted int info.fordblks(free list )
-> and can be used for the next sbrk(increase the heap). That is why I add
-> reuse_size when I get the corrcet mmap size. Or, I miss something?
->
-> If we can't ensure it , I will remove this patch. Or, other advise?
-For glibc malloc mmap dynamic threshhold , here[1] has a detailed 
-description.
 
-[1]https://sourceware.org/git/?p=glibc.git;a=blob;f=malloc/malloc.c;h=1f4bbd8edf8b97701b779f183475565c7d0a6762;hb=d5c8f98c5e6de207790d3e9edadf5bda4aa2521f#l1043
->
->
-> Best Regards
-> Yang Xu
->
->>
->
->
->
->
+My 2 cents:
+
+From what I understand, once we request memory larger than the upper
+limit DEFAULT_MMAP_THRESHOLD_MAX, Glibc will always make use
+of mmap() because it will be out of any value it can adjust in dynamical.
+So that we don't be bothered with this issue anymore.
+
+Or:
+
+Invoking mallopt(M_MMAP_THRESHOLD, ...) function in front of the
+SAFE_MALLOC helps to fix the threshold. In such a case, the dynamic
+adjustment of the mmap threshold will be disabled.
+
+-- 
+Regards,
+Li Wang
+
+--00000000000002924305ba7c8931
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small">Hi Xu,</div></div><br><div class=3D"gmail_quote"><div dir=3D"=
+ltr" class=3D"gmail_attr">Yang Xu &lt;<a href=3D"mailto:xuyang2018.jy@cn.fu=
+jitsu.com">xuyang2018.jy@cn.fujitsu.com</a>&gt; wrote:<br></div><div dir=3D=
+"ltr" class=3D"gmail_attr"><br></div><blockquote class=3D"gmail_quote" styl=
+e=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);paddin=
+g-left:1ex"><span class=3D"gmail_default" style=3D"font-size:small">...</sp=
+an><br>
+<br>
+So I use this code &quot;MAX(info.fordblks, 131072)&quot; to get the right =
+value <br>
+to trigger mmap.<br></blockquote><div><br></div><div><div class=3D"gmail_de=
+fault" style=3D"font-size:small">My 2 cents:</div></div><div><br></div><div=
+><div class=3D"gmail_default" style=3D"font-size:small">From what I underst=
+and, once we request memory larger than the upper</div><div class=3D"gmail_=
+default" style=3D"font-size:small">limit DEFAULT_MMAP_THRESHOLD_MAX, Glibc =
+will always make use</div><div class=3D"gmail_default" style=3D"font-size:s=
+mall">of mmap() because it will be out of any value it can adjust in dynami=
+cal.</div><div class=3D"gmail_default" style=3D"font-size:small">So that we=
+ don&#39;t be bothered with this issue anymore.</div><br></div><div><div cl=
+ass=3D"gmail_default" style=3D"font-size:small">Or:</div><div class=3D"gmai=
+l_default" style=3D"font-size:small"><br></div></div><div><div class=3D"gma=
+il_default" style=3D"font-size:small">Invoking mallopt(M_MMAP_THRESHOLD, ..=
+.) function in front of the</div><div class=3D"gmail_default" style=3D"font=
+-size:small">SAFE_MALLOC helps to fix the threshold. In such a case, the dy=
+namic</div><div class=3D"gmail_default" style=3D"font-size:small">adjustmen=
+t of the mmap threshold will be disabled.=C2=A0</div></div></div><div><br><=
+/div>-- <br><div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><di=
+v>Regards,<br></div><div>Li Wang<br></div></div></div></div>
+
+--00000000000002924305ba7c8931--
 
 
+--===============0262296483==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============0262296483==--
+
