@@ -1,42 +1,45 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 407A0311FCE
-	for <lists+linux-ltp@lfdr.de>; Sat,  6 Feb 2021 20:54:33 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id AA926311FD1
+	for <lists+linux-ltp@lfdr.de>; Sat,  6 Feb 2021 20:59:36 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id EC73D3C70A6
-	for <lists+linux-ltp@lfdr.de>; Sat,  6 Feb 2021 20:54:32 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 59FF13C70A8
+	for <lists+linux-ltp@lfdr.de>; Sat,  6 Feb 2021 20:59:36 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id E4B2D3C230F
- for <ltp@lists.linux.it>; Sat,  6 Feb 2021 20:54:29 +0100 (CET)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 442543C70A1
+ for <ltp@lists.linux.it>; Sat,  6 Feb 2021 20:59:35 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 2A6671000422
- for <ltp@lists.linux.it>; Sat,  6 Feb 2021 20:54:28 +0100 (CET)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 9CD6A200997
+ for <ltp@lists.linux.it>; Sat,  6 Feb 2021 20:59:34 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 72BE9AC43;
- Sat,  6 Feb 2021 19:54:28 +0000 (UTC)
-Date: Sat, 6 Feb 2021 20:54:26 +0100
+ by mx2.suse.de (Postfix) with ESMTP id EC52DAEBA;
+ Sat,  6 Feb 2021 19:59:33 +0000 (UTC)
+Date: Sat, 6 Feb 2021 20:59:32 +0100
 From: Petr Vorel <pvorel@suse.cz>
 To: Li Wang <liwang@redhat.com>
-Message-ID: <YB7z8hk85v6jZBXd@pevik>
-References: <20201110120035.20543-1-pvorel@suse.cz>
- <20201110134625.GA6482@pevik>
- <CAEemH2cP8Tub5UjBcRoo2Nkwtku7KjtUYP9U9v75GHEywe=aXw@mail.gmail.com>
+Message-ID: <YB71JBi757ong63Y@pevik>
+References: <20210129194144.31299-1-pvorel@suse.cz>
+ <20210129194144.31299-3-pvorel@suse.cz>
+ <CAEemH2ffReVSE_210nyRZVZHOwoMMy-F4Cye08RwPa5bh7PZ0w@mail.gmail.com>
+ <YBj8bMKfxqvQ6lYt@pevik>
+ <CAEemH2f5tJtgcZG8WaAU1qpKwU7yHDdjzGahhL814goL5sAv-g@mail.gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CAEemH2cP8Tub5UjBcRoo2Nkwtku7KjtUYP9U9v75GHEywe=aXw@mail.gmail.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+In-Reply-To: <CAEemH2f5tJtgcZG8WaAU1qpKwU7yHDdjzGahhL814goL5sAv-g@mail.gmail.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/1] travis: Add libefivar support
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 2/6] zram01.sh: Generate test setup variables
+ in setup
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,43 +60,55 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi Li,
 
-> On Tue, Nov 10, 2020 at 9:46 PM Petr Vorel <pvorel@suse.cz> wrote:
-
-> > Hi,
-
-> > > Travis CI:
-> > > https://travis-ci.org/github/pevik/ltp/builds/742684375
-
-> > Looks like Debian does not ship libefivar-dev for ppc64el
-> > https://travis-ci.org/github/pevik/ltp/jobs/742684377
+...
+> > > > +get_btrfs_size()
 
 
-> From Travis CI, the CentOS8 reports miss efivar-devel package too.
+> > > What about renaming at_least_1G_mem() or check_space_for_btrfs()?
+> > Good point. I'm slightly for check_space_for_btrfs().
 
-> Maybe fix it by the following?
+> > at_least_1G_mem() is also good, but for that I'd also move tst_res TINFO
+> > "not
+> > enough space for Btrfs" out of the function and put it into
+> > generate_vars(). But
+> > since it's used only for btrfs I slightly prefer check_space_for_btrfs().
+> > But no
+> > strong opinion about it.
 
-> --- a/travis/fedora.sh
-> +++ b/travis/fedora.sh
-> @@ -9,11 +9,11 @@ yum -y install \
->         clang \
->         gcc \
->         findutils \
-> -       efivar-devel \
->         libtirpc \
->         libtirpc-devel \
->         pkg-config \
->         redhat-lsb-core
 
-> -# CentOS 8 doesn't have libmnl-devel
-> +# CentOS 8 doesn't have libmnl-devel and efivar-devel
->  yum -y install libmnl-devel || yum -y install libmnl
-> +yum -y --skip-broken install efivar-devel
+> Agree, thanks!
 
-I'm sorry, I completely overlook your comment.
-In the end it's not needed as we use our own implementation.
+> Btw I suddenly think that we could have a nicer name initialize_vars()
+> to replace generate_vars(), because we just use it once to initiate the
+> test variables in the setup phase.
+Good idea, thanks!
+
+BTW I tested zram on all filesystems including fuse/*fat/ntfs:
+zram01 4 TINFO: make ext2 filesystem on /dev/zram0
+zram01 4 TINFO: make ext3 filesystem on /dev/zram1
+zram01 4 TINFO: make ext4 filesystem on /dev/zram2
+zram01 4 TINFO: make xfs filesystem on /dev/zram3
+zram01 4 TINFO: make btrfs filesystem on /dev/zram4
+zram01 4 TINFO: make vfat filesystem on /dev/zram5
+zram01 4 TINFO: make exfat filesystem on /dev/zram6
+zram01 4 TINFO: make ntfs filesystem on /dev/zram7
+
+and it's working well, thus I suggest to test everything available:
+
+-       for fs in $(tst_supported_fs | grep -v -e fat -e ntfs -e fuse); do
++       for fs in $(tst_supported_fs); do
+
+Before sending v3 or just merge with fixes I'm also waiting for Cyril's (or
+somebody else) review / suggestions on the timeout (whether simply use -1 for
+timeout and drop patch "tst_test.sh: Run _tst_setup_timer after $TST_SETUP")
+
+https://patchwork.ozlabs.org/project/ltp/patch/20210129194144.31299-6-pvorel@suse.cz/
+https://patchwork.ozlabs.org/project/ltp/patch/20210129194144.31299-7-pvorel@suse.cz/
 
 Kind regards,
 Petr
+
+> Anyway, it's only my feelings and also depends on your preference too.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
