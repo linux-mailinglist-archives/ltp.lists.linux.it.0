@@ -1,47 +1,48 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC6F7312AFD
-	for <lists+linux-ltp@lfdr.de>; Mon,  8 Feb 2021 08:11:12 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 16F71312B86
+	for <lists+linux-ltp@lfdr.de>; Mon,  8 Feb 2021 09:15:06 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 61D343C6936
-	for <lists+linux-ltp@lfdr.de>; Mon,  8 Feb 2021 08:11:12 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id C87DB3C693F
+	for <lists+linux-ltp@lfdr.de>; Mon,  8 Feb 2021 09:15:04 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id B93683C22DA
- for <ltp@lists.linux.it>; Mon,  8 Feb 2021 08:11:10 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 593C06008C5
- for <ltp@lists.linux.it>; Mon,  8 Feb 2021 08:11:10 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 623BDAC6E;
- Mon,  8 Feb 2021 07:11:09 +0000 (UTC)
-Date: Mon, 8 Feb 2021 08:11:07 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Li Wang <liwang@redhat.com>, LTP List <ltp@lists.linux.it>,
- Cyril Hrubis <chrubis@suse.cz>, Alexey Kodanev <alexey.kodanev@oracle.com>
-Message-ID: <YCDkC2YG22X+OOFs@pevik>
-References: <20210129194144.31299-1-pvorel@suse.cz>
- <20210129194144.31299-3-pvorel@suse.cz>
- <CAEemH2ffReVSE_210nyRZVZHOwoMMy-F4Cye08RwPa5bh7PZ0w@mail.gmail.com>
- <YBj8bMKfxqvQ6lYt@pevik>
- <CAEemH2f5tJtgcZG8WaAU1qpKwU7yHDdjzGahhL814goL5sAv-g@mail.gmail.com>
- <YB71JBi757ong63Y@pevik>
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id 61C0E3C5DD9
+ for <ltp@lists.linux.it>; Mon,  8 Feb 2021 09:15:01 +0100 (CET)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTP id 850746000BF
+ for <ltp@lists.linux.it>; Mon,  8 Feb 2021 09:14:58 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.81,161,1610380800"; d="scan'208";a="104322187"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 08 Feb 2021 16:14:54 +0800
+Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
+ by cn.fujitsu.com (Postfix) with ESMTP id 664554CE6F7A
+ for <ltp@lists.linux.it>; Mon,  8 Feb 2021 16:14:49 +0800 (CST)
+Received: from RHEL74GA.g08.fujitsu.local (10.167.220.48) by
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Mon, 8 Feb 2021 16:14:51 +0800
+From: Feiyu Zhu <zhufy.jy@cn.fujitsu.com>
+To: <ltp@lists.linux.it>
+Date: Mon, 8 Feb 2021 03:14:38 -0500
+Message-ID: <1612772078-29651-1-git-send-email-zhufy.jy@cn.fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <YB71JBi757ong63Y@pevik>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Originating-IP: [10.167.220.48]
+X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
+ G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
+X-yoursite-MailScanner-ID: 664554CE6F7A.A942C
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: zhufy.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.4 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.4
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 2/6] zram01.sh: Generate test setup variables
- in setup
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH] netns_helper: Make iproute version check work
+ correctly
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,34 +54,85 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Li,
+Since the iproute2 patch[1]("replace SNAPSHOT with auto-generated version string"),
+the output format of "ip -V" has changed form "ip utility, iproute2-ss*" to
+"ip utility, iproute2-*", which leads to an exception when checking the version
+of iproute. Use return to avoid unexpected TCONF.
 
-> BTW I tested zram on all filesystems including fuse/*fat/ntfs:
-> zram01 4 TINFO: make ext2 filesystem on /dev/zram0
-> zram01 4 TINFO: make ext3 filesystem on /dev/zram1
-> zram01 4 TINFO: make ext4 filesystem on /dev/zram2
-> zram01 4 TINFO: make xfs filesystem on /dev/zram3
-> zram01 4 TINFO: make btrfs filesystem on /dev/zram4
-> zram01 4 TINFO: make vfat filesystem on /dev/zram5
-> zram01 4 TINFO: make exfat filesystem on /dev/zram6
-> zram01 4 TINFO: make ntfs filesystem on /dev/zram7
+[1]https://git.kernel.org/pub/scm/network/iproute2/iproute2.git/commit/?id=fbef655568
 
-> and it's working well, thus I suggest to test everything available:
+Signed-off-by: Feiyu Zhu <zhufy.jy@cn.fujitsu.com>
+---
+ testcases/kernel/containers/netns/netns_helper.h  | 10 ++++++++--
+ testcases/kernel/containers/netns/netns_helper.sh |  9 +++++++++
+ 2 files changed, 17 insertions(+), 2 deletions(-)
 
-> -       for fs in $(tst_supported_fs | grep -v -e fat -e ntfs -e fuse); do
-> +       for fs in $(tst_supported_fs); do
+diff --git a/testcases/kernel/containers/netns/netns_helper.h b/testcases/kernel/containers/netns/netns_helper.h
+index 8b87645..8337051 100644
+--- a/testcases/kernel/containers/netns/netns_helper.h
++++ b/testcases/kernel/containers/netns/netns_helper.h
+@@ -37,6 +37,7 @@ static void check_iproute(unsigned int spe_ipver)
+ 	FILE *ipf;
+ 	int n;
+ 	unsigned int ipver = 0;
++	char ver;
+ 
+ 	ipf = popen("ip -V", "r");
+ 	if (ipf == NULL)
+@@ -44,7 +45,14 @@ static void check_iproute(unsigned int spe_ipver)
+ 				"Failed while opening pipe for iproute check");
+ 
+ 	n = fscanf(ipf, "ip utility, iproute2-ss%u", &ipver);
++	pclose(ipf);
+ 	if (n < 1) {
++		ipf = popen("ip -V", "r");
++		n = fscanf(ipf, "ip utility, iproute2-%s", &ver);
++		if (n >= 1) {
++			pclose(ipf);
++			return;
++		}
+ 		tst_brkm(TCONF, NULL,
+ 			"Failed while obtaining version for iproute check");
+ 	}
+@@ -52,8 +60,6 @@ static void check_iproute(unsigned int spe_ipver)
+ 		tst_brkm(TCONF, NULL, "The commands in iproute tools do "
+ 			"not support required objects");
+ 	}
+-
+-	pclose(ipf);
+ }
+ 
+ static int dummy(void *arg)
+diff --git a/testcases/kernel/containers/netns/netns_helper.sh b/testcases/kernel/containers/netns/netns_helper.sh
+index a5b77a0..bec43ac 100755
+--- a/testcases/kernel/containers/netns/netns_helper.sh
++++ b/testcases/kernel/containers/netns/netns_helper.sh
+@@ -50,6 +50,15 @@ tst_check_iproute()
+ 	local cur_ipver="$(ip -V)"
+ 	local spe_ipver="$1"
+ 
++	echo $cur_ipver | grep "ip utility, iproute2-ss" > /dev/null
++	ret1=$?
++	echo $cur_ipver | grep "ip utility, iproute2-" > /dev/null
++	ret2=$?
++
++	if [ $ret1 -ne 0 -a $ret2 -eq 0 ]; then
++		return
++	fi
++
+ 	cur_ipver=${cur_ipver##*s}
+ 
+ 	if [ -z "$cur_ipver" -o -z "$spe_ipver" ]; then
+-- 
+1.8.3.1
 
-Although running all 8 filesystems run takes more than 10 min. If it's too long,
-it might be better to keep grep and also limit number of tested filesystems.
 
-Kind regards,
-Petr
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
