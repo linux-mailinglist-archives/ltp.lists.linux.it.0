@@ -1,169 +1,169 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88CEB3132B5
-	for <lists+linux-ltp@lfdr.de>; Mon,  8 Feb 2021 13:49:28 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id D290431373D
+	for <lists+linux-ltp@lfdr.de>; Mon,  8 Feb 2021 16:24:25 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3D8BA3C6997
-	for <lists+linux-ltp@lfdr.de>; Mon,  8 Feb 2021 13:49:28 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 9A5EC3C69A0
+	for <lists+linux-ltp@lfdr.de>; Mon,  8 Feb 2021 16:24:25 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id B53653C0EC2
- for <ltp@lists.linux.it>; Mon,  8 Feb 2021 13:49:26 +0100 (CET)
-Received: from userp2120.oracle.com (userp2120.oracle.com [156.151.31.85])
+ by picard.linux.it (Postfix) with ESMTP id 1FA283C5E4E
+ for <ltp@lists.linux.it>; Mon,  8 Feb 2021 16:24:24 +0100 (CET)
+Received: from aserp2130.oracle.com (aserp2130.oracle.com [141.146.126.79])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id B09CE100065F
- for <ltp@lists.linux.it>; Mon,  8 Feb 2021 13:49:25 +0100 (CET)
-Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
- by userp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 118Chc3S028595;
- Mon, 8 Feb 2021 12:49:20 GMT
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 25A091000951
+ for <ltp@lists.linux.it>; Mon,  8 Feb 2021 16:24:22 +0100 (CET)
+Received: from pps.filterd (aserp2130.oracle.com [127.0.0.1])
+ by aserp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 118F9pvh067638;
+ Mon, 8 Feb 2021 15:24:21 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=subject : to :
+ h=subject : to : cc :
  references : from : message-id : date : in-reply-to : content-type :
  content-transfer-encoding : mime-version; s=corp-2020-01-29;
- bh=1fY4yZRVVYyARwQUtj4ElHdUyevKGVFONGtDjl2pU4I=;
- b=gQA/g3YiXACMaZQF+M2LLyZBEa7phUBNHDO2MAjVgpH97y3w6rneYGA0pKM8gfn0lxn4
- dNlrssroCqOjVjfhbXh6MzeD0FBiqasYg4Zw6jG+/AJOgPbeCck1zapAP29w1jDYWDDB
- aHLypWjjbLRQI5/YQJOIDXH02GMQVjdzl2Fjhp14oRadEvPwSe55OVJ4sW91h72RI7g1
- IPslY6G+JoR5+vIly7/7qmvKFXtjgkgNmYAU1kzrL9bN/8L058XuZC+CFQ4aUslENu1k
- i/vTApKFv3/T0Ea3SXd/DYZtJEJ6Uqe+HdYRwhGaP2sGf3HhG5hG7hx8RIWXR7l9czJg xQ== 
-Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
- by userp2120.oracle.com with ESMTP id 36hkrmuppe-1
+ bh=rfSHJvTqabI1TwSp2a2j2q7JKuoYtDS5+lMzurRXqDM=;
+ b=YwXrsmulzKAmzt0/+3o1r75G+HjfvGrFjjWyC0nLiHi9j42nCss74/MYUx8qFh3+NcHx
+ MY7DGNiKqfWnNplX2WNWXy48OtP/Ff0TJbwHQ2zBrKuSDuIhkZNZPZSBDUSZWXuW0RaO
+ 1lq5N4rIue0gh4RUwp7xfJcec7NNITzfNOJZamGbLqr27kJY38c6Aq7ouwvNQWMuUHSz
+ bApIKGqfPXS/EDZCPa5tBQKT6HlNuX7xnCWePS/18xJ53fzcFVT4etXAFwOcBftR+Ybc
+ vveGeJt/grWcVGHswuFx54Mw6HcRYNksTlL+ULgGaWPctDbZHZj4dH/3d8RFKiHPz2y8 Ag== 
+Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
+ by aserp2130.oracle.com with ESMTP id 36hgmacbyr-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 08 Feb 2021 12:49:20 +0000
-Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
- by aserp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 118CjK2s027248;
- Mon, 8 Feb 2021 12:49:19 GMT
-Received: from nam10-mw2-obe.outbound.protection.outlook.com
- (mail-mw2nam10lp2100.outbound.protection.outlook.com [104.47.55.100])
- by aserp3020.oracle.com with ESMTP id 36j50yr6kd-1
+ Mon, 08 Feb 2021 15:24:20 +0000
+Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
+ by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 118FAaHF088447;
+ Mon, 8 Feb 2021 15:24:20 GMT
+Received: from nam12-dm6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12lp2168.outbound.protection.outlook.com [104.47.59.168])
+ by userp3020.oracle.com with ESMTP id 36j4vq1g34-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 08 Feb 2021 12:49:19 +0000
+ Mon, 08 Feb 2021 15:24:19 +0000
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=eBST4rPaE1EmtYPS1DUZqy/SyvBXrmWzZgUfy3qkwqdpPOpNLBaLgP+Y7zEhInuwx/uDAJdY362kv3YCturOnKuIpCEIYYCUSVNRjvW0deAYNnwEuIeoA7Se8UFDhBKh0DGlN01Fb9luXo7HEFsYJpMs9r8bPr0e585ZztIp+vIz5Tg0tBNIgcJXaSYfm25J7VcusEr4EfUteuZngh6ubXhGAzhEkLhZSdHMOHAaKNg+nDsr1WjxCJXzvsnBIyyiewROClXoXsvqieeer65Go2iKRfHxwEQ+bVL7DwX5iWT9QGqKEV9eoezDiJRk7LC7RDdeSbl8MDsNfHSs82EfEQ==
+ b=JJjMEqB9qNKcPN4osQwjfE4+qcj4WbKY2bpotTxriyvHvMqLTvNXOCMHW11mxXukH3AQejqJePzgQl0i3WIUesyvgx0VGdH8WK2qa0qKbQY2wodYZsNdX46HXJSPDStFCgEBo73H+qkzJNTokux4BxJtC/6YcwHU3cwofC6Nrh9gmWBgISrVLN9MftDdgKW9es5fDhwY/9SpY4W0gCek4S09+WWIKUgjQ3WJy5alrqcHC04HsR/524xYpU3IFCQ+WWaqM+NnhlInLtwCVU3T6OVhEhpqFqhoAvk2e0JldeNPvBfZl3gUAiQf3oUTNCxKkjwOjhrdH3tMBegdw9PjHQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1fY4yZRVVYyARwQUtj4ElHdUyevKGVFONGtDjl2pU4I=;
- b=TVJ1OiDmIsZKNdDS5wm2H0FEAYZZzkc/JmHWYoKimPQIfdwoyluLfY8yXC7hBReoIrY9on3VRnobbJ/C4v8JGb9fcWxZaN8Y6wYOHXbOsKCs7IWoYK71WDmbmIKlGN4v3CmWp7Pv1qZCfbaWA3rqr4qh0oS+HcvmlwMS+ZVmhFniTbirZJZ59hOgWJQJrX+oDjIntfNhQ0txJMf2jqcqFC4D1eWO2OhYrvOnRGQR08pVMIoH9HNAxw7+Wij8DZg18TrCE1/GOAhzwTA0LCKkFL9Th7hjs/3cc6CBbukuYrC0THkGB/uc11uKCvTjZ6cI2yVzbgq3iqrCHL6U4hxYaQ==
+ bh=rfSHJvTqabI1TwSp2a2j2q7JKuoYtDS5+lMzurRXqDM=;
+ b=h9woiTvOC98Mej3Y7iUUFENUAlzchkd7zOFqzQxdVIfdY8aEqMIzLMm+o4uxjJGcfrhIEqBQLrQVFp9huaQZT+xFr9ZDF73rU7t+v0z0kU98ch9A3sNX74LSBd0Vtusl3IKjXejwCZ+jOqJ1lDkybbdUs6GIM8XYZjgwAjP0EWacSS2my4qzfi1hR7uY2Q0sTWtm+aCfTzjp9xRVhpuWDtVcvHvvPKE7MCGdWFB1l1v9Dg6GE95d3QkJZYjgmYfXxD7pIyOU6v9nireuN9vapopuuJCgBJBSwTMDsViBIQS9FXTM019W+U8BeTyrRHSdzHi4r0Yn/ieI4DVVShKV0g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
  dkim=pass header.d=oracle.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1fY4yZRVVYyARwQUtj4ElHdUyevKGVFONGtDjl2pU4I=;
- b=araYMaPfAnOKzxT/+E+pHWiVzR+XNgrtn87/l0OmYlm/xxT+q7GeJWawwMsQio+qACCUd79BaEB6+P2fN+ZMiR70F9gOG3+2ezEytzWlTZtVmo/X/E3W2SiANP8OnWxtwSdJGnhe1ifCCkfdbjlXJlvJl17gBumVNM9YLjfVlwY=
+ bh=rfSHJvTqabI1TwSp2a2j2q7JKuoYtDS5+lMzurRXqDM=;
+ b=H6GwB3rjxYLVfhVdAua687L4FyigYl59xmW/P4wOO/BoAUpuRMviJ8Y/v8h5duzI+A1AVqC6oPwxdl8QLYmvFSKmaStpyngZQLxbnveVI7/FYzqG2+II0Q5G8Ug4cDA+8x1LmM2Se41n1EilSV73pSlpobaPBvyVhZEsEf2CDiU=
 Authentication-Results: lists.linux.it; dkim=none (message not signed)
  header.d=none;lists.linux.it; dmarc=none action=none header.from=oracle.com;
 Received: from BYAPR10MB3080.namprd10.prod.outlook.com (2603:10b6:a03:87::13)
- by BY5PR10MB4196.namprd10.prod.outlook.com (2603:10b6:a03:20d::23)
+ by SJ0PR10MB4528.namprd10.prod.outlook.com (2603:10b6:a03:2d4::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3825.27; Mon, 8 Feb
- 2021 12:49:17 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3825.20; Mon, 8 Feb
+ 2021 15:24:18 +0000
 Received: from BYAPR10MB3080.namprd10.prod.outlook.com
  ([fe80::71bd:d013:6c98:9bd2]) by BYAPR10MB3080.namprd10.prod.outlook.com
  ([fe80::71bd:d013:6c98:9bd2%5]) with mapi id 15.20.3825.030; Mon, 8 Feb 2021
- 12:49:17 +0000
-To: Petr Vorel <pvorel@suse.cz>, ltp@lists.linux.it
-References: <20210205142051.32055-1-pvorel@suse.cz>
- <20210205142051.32055-2-pvorel@suse.cz>
+ 15:24:18 +0000
+To: Petr Vorel <pvorel@suse.cz>
+References: <20210202133454.59224-1-alexey.kodanev@oracle.com>
+ <YB0cRKmBcO4qgLf8@pevik>
 From: Alexey Kodanev <alexey.kodanev@oracle.com>
-Message-ID: <c5322d13-c69d-aa4d-193c-7c047a405d9a@oracle.com>
-Date: Mon, 8 Feb 2021 15:49:10 +0300
+Message-ID: <07a6d0f9-6bbc-63ff-5401-ab2d6af04364@oracle.com>
+Date: Mon, 8 Feb 2021 18:24:11 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.7.0
-In-Reply-To: <20210205142051.32055-2-pvorel@suse.cz>
+In-Reply-To: <YB0cRKmBcO4qgLf8@pevik>
 Content-Language: en-US
 X-Originating-IP: [95.161.221.177]
-X-ClientProxiedBy: AM0PR04CA0101.eurprd04.prod.outlook.com
- (2603:10a6:208:be::42) To BYAPR10MB3080.namprd10.prod.outlook.com
+X-ClientProxiedBy: AM0PR07CA0030.eurprd07.prod.outlook.com
+ (2603:10a6:208:ac::43) To BYAPR10MB3080.namprd10.prod.outlook.com
  (2603:10b6:a03:87::13)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from [192.168.1.35] (95.161.221.177) by
- AM0PR04CA0101.eurprd04.prod.outlook.com (2603:10a6:208:be::42) with Microsoft
+ AM0PR07CA0030.eurprd07.prod.outlook.com (2603:10a6:208:ac::43) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3825.19 via Frontend Transport; Mon, 8 Feb 2021 12:49:16 +0000
+ 15.20.3846.11 via Frontend Transport; Mon, 8 Feb 2021 15:24:16 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: f9ab033c-0e19-4f80-c2ce-08d8cc2ff221
-X-MS-TrafficTypeDiagnostic: BY5PR10MB4196:
-X-Microsoft-Antispam-PRVS: <BY5PR10MB4196A012BBE4BA51D7B69118FD8F9@BY5PR10MB4196.namprd10.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-MS-Office365-Filtering-Correlation-Id: 54d4bd09-1dda-418e-9d1f-08d8cc4599b1
+X-MS-TrafficTypeDiagnostic: SJ0PR10MB4528:
+X-Microsoft-Antispam-PRVS: <SJ0PR10MB4528F517686A63E1524FD53AFD8F9@SJ0PR10MB4528.namprd10.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 1FfXpAr2PItm0HzuG5EcnbtAkJwOycmPq8Am+bHndcVia9nJrIzgEtWUaUinLRx6jdBA8em5PF4gaK6723jnKsIlM/53oekcSb1jYbBIE+wzEFaAHsihKI4IZkgnAUjxZ06lzp4IYvMGCiv5OkNl0KMi3UQOIy18vrU5bnxnm8r/riTLCAapYoVoZffvPUOXCeKthWjfoWyDmIcYYOulXbCSe58uv8HG3mqxsqKAkCrB8+huJLS2hwv4C1nisrv0WNAM2kteJpOgxtyFwP/XOgq/wjcvdNo3+sXZHZ64T8K0mw802Kadv1UYRr8qvu1oTqrZrlphfHKoMbiX+3QH4BxFJi+BvTnmL9iJCLnWjyp+Y3/S4AsKOtWl60ke21slPY7dC6riTURNekYz28gtu+JezKtL99uibg6vd9bGbip5j5c42V97WbCD7D8sfdr72DNZri3V9NZTNQzXLQFy6gGgFXDeaJjenp9UoUaW0eknSm2SZ/aO1Jx72JPxInjALpshartIM+SCxfG5wLPtyTImc+jtKDSH//zLn9rBNFtdeJnhaov3s+xrRjtjF9Z7+K6PWkSQgjdgYjB6QjHPGsnv3tIWOPlSLHXF85JNI58=
+X-Microsoft-Antispam-Message-Info: aeC6rWdQjjcysf4glaQPqXWSROZCb9dQZqjMMDaN1Dabh2G5DVx/iMux+Mksh5CaO1YufYbO/DWP/HuX8g0jddoP8u/uaOLuomk6fnNd4zCjFbQJoo8k81jvSLPsDTJb1S0Xa7ps8PdP9l6R1jbIbm/fo3fOGPkXvKS2ievP1nSfhs/btSmgFzY3YF/mKgrKOYm3T66VfkysGtkjnbKCv8WTU1PXE0qG8m0kbj97caslw/2b8THoMUXpIbSNFQtZlLmDarARzlHIROOGJ1TB51fc5AkGVN7a2V/lanc6UVmCpUGJVOIzLr0Dr3/tYTNaglF6ERCkV+krSaYs/Cw1a9jP8U4qkws2NCqd/493QudX9/Tg2xn1gQKJA8aXsZa4+2WvkpYBZJ5LG/ONrI7Z4Sog+/hy9S1bCIr32fT3YlGQfsv98gsnJxa/C5F4+jgawi7sLd/tLQy+0gwqcP7fAomvVh4L80YEol5HWr7M5uAW+srTLwbMO8FefLTiSi9z+2APvtEEPY+zSZI/TB/ZJwyxpfO7wf75MWeHxLTnLz/pLJvNhGKVrxqS8pwtRM4q9XtVuQ6f5/ni5LUSaM8qEgCD//qzQC9chzidlRmisP4=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BYAPR10MB3080.namprd10.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(39860400002)(376002)(366004)(136003)(396003)(346002)(31686004)(956004)(31696002)(66476007)(2616005)(6486002)(53546011)(26005)(186003)(8936002)(86362001)(16526019)(2906002)(6666004)(8676002)(36756003)(83380400001)(5660300002)(66946007)(66556008)(16576012)(316002)(478600001)(44832011)(45980500001)(43740500002);
+ SFS:(136003)(366004)(346002)(396003)(376002)(39860400002)(478600001)(8676002)(86362001)(66946007)(31686004)(66476007)(66556008)(186003)(53546011)(16526019)(83380400001)(16576012)(4744005)(8936002)(44832011)(5660300002)(31696002)(4326008)(316002)(6916009)(2906002)(6486002)(6666004)(36756003)(26005)(956004)(2616005)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?NUJwYVYyVFdaVDRoWCtsd0w5a2NQZnpWbzFjeThMS05mZzBoZ0d3VDNCSkM4?=
- =?utf-8?B?NkpjcS8yekNoZmVHY2ZxajhDdWtveVVFdE9SSXIwdDVISzU4UFFpMDQ4cmw5?=
- =?utf-8?B?akJqQzBTOGpJOXY2R083NG03SUVLNkhZVytEV1NuNm14UUk2UGI5dThZbWRU?=
- =?utf-8?B?dUZOZHFuQ21PTklFU0tGSFpqRDZ5MGh5RDVWdmNZV3k3elB0MzkrWWVjM1pT?=
- =?utf-8?B?S2pQY3ZnYWRtYUwrMFZ0L0Irb0dOVzBYbWJ4b1YxbnpRdDEwM09pN0NBc21T?=
- =?utf-8?B?MXArZXMrUlB0RjRhZU93dUkyRTVZWGNQbEEvdE1UcXc4WXNTU2s0bnlzcmZ2?=
- =?utf-8?B?aWF4RGlDYkprZGk3UTNmVmFzMXhCL0EyV3lsbGxac0ZicmRpclpVZWNkSFpt?=
- =?utf-8?B?a0paSXRQQ2ZEZ1daQUUrdXFNeS9lVWxtREhqYkxZN3RxakJtOFY1bk03bFVn?=
- =?utf-8?B?M3NkVkJEVzY4YVFTbXozWlJ0c2JzblpHMTAwWEdMTk1ENUFia0lxRjhqS24r?=
- =?utf-8?B?WFhIOTVzalNQdndndXJ1TC9ZRFdqM1F0SG8ya2hQK1poTDY5bWRBcnVxKzFt?=
- =?utf-8?B?Tnl6RmNmVG5Db3BSYkN3VG1CYUdpamFOY3FneUt0UmNGTjU4TWpSSTVKdG9O?=
- =?utf-8?B?VHhXeHZIb0cyS3pqTVVxWGVhOURiYjA2WENqd2FwNFJZSllZalJEN1ExWUNM?=
- =?utf-8?B?OUYrYnVMYTB5NlBNVW9XWlRyZUlCb3hqZldOZ2E1bFpJdEZvZmZMT3pYdkVY?=
- =?utf-8?B?SVZlUGRhMHpwS0pmR2NtQm55VXg4VmdySjBsT0JyYTc5bzFid3o0OU05aDMx?=
- =?utf-8?B?SWdydUJkYTZIZGtzQTZsV0dGRnBpeFFiYW5tV1RrN1dxbmRZOFZueFo4Tkp6?=
- =?utf-8?B?SnRYWVE3Szg2eWEvMXZabVNTMDdTS25PditJa2FrMEVtdkJJZlkreFJub2kw?=
- =?utf-8?B?dFpDSUNhQjZDcGNsTWhWU1d2ZFRGYzhpRjRCK0JEcTVnbEYwN2E5NjBMbFh4?=
- =?utf-8?B?TUpIZ3JVYS9ZczVRbDNneFozVHNOOTNWWGlCcmlYSGpjOXBtbUFZZHNhbkg5?=
- =?utf-8?B?MFNFSDFPMHhlYVV1Sy9DWUhWOGRmTGYyZlkvOUlmS3h3bnA3Ly9HU20ySXBh?=
- =?utf-8?B?blJlUGN6eUNsZFJxTVV5cFBzdmdDck8wVTd1SGxyZWZINmRobkExRFU0YVMz?=
- =?utf-8?B?ZlRHOFZxaUhsd0Rrb1NQd2toalN0QmZQcHduQ1Y0bmZ1V2J5R0tsTFNxMHpl?=
- =?utf-8?B?SCtmZjc5S3VhNXFqdHkvQS9yRHlBMlpab2F3dFl1dFlSNjduSFpTZml6QUtF?=
- =?utf-8?B?ZEdoeE1tc1FvSTVHT0pLVncrNm5MMFhZdTBKNGVlNlFYVldBRDBIaTd4Vmx6?=
- =?utf-8?B?RkZVQ3o0M2REM1h2SkJWUnZoc3dHQW82cU5jc3l2Wk5udW1oTDZja0JSbFVR?=
- =?utf-8?B?Rm9YemM0Y09Bd1IrcUttME1MMTVzeHJCd2pvMmZvQ2N3N2hrQTBZRzR1RlFS?=
- =?utf-8?B?RGIrUGc1aU43RXMxUXp6T21tbUxBdEZVOUw2REkwMWJpS3BVZk1JOFp0bUQ3?=
- =?utf-8?B?eUtQN1dBMmlPcjhLdmpGYjZtYWYvaFJ3S1E4YzVtckhPYjc1ZGJTL2E2dDNy?=
- =?utf-8?B?ZjBzR1JvNUVWdVU1T2hpMWExZm1Lb3lQdVlkTEVXT243bUhVaGVzQ1drcGhH?=
- =?utf-8?B?eXg0Tlg1cFBhdm5WbHJCT2hZaGZwQTQ4MG41VVd4Vjl4MjFuNGZUYmEwWUNR?=
- =?utf-8?Q?dOndkX5Sf1tR7O4fnBgT/Y7X6t1pHByoZRLvBWV?=
+X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?dVVVVmdXT1pkWkduenBlL3FJMEQ3QlZ1QTdyVUI3Z1d5VlZCOGlYbTdBenpJ?=
+ =?utf-8?B?MVV4TmlSVkw4SERJc2RSVk9Fc2NxbTNkY2xDdTUveEwyOEZpdUMybkFoVnZa?=
+ =?utf-8?B?VytKK1V6MkRtNUJtaDh3V1NLMlplUDV4NlNOckVxK1JQNXVNbmFocW0wamJE?=
+ =?utf-8?B?Y3BMeWpHNE03RTFkb1ZVVmpHYUFBOVpPVCtlbVJnTmxZVTd2cFNsM2dtSE52?=
+ =?utf-8?B?bkpuaUhWMGErSVYvd0cyVG9RTU00OVoxdG5qWTlLODdzSnFFNDY2MlpJZTB5?=
+ =?utf-8?B?bDYraWhUMEFESFBGdkZZb0Y0UnJwSW05a2pLYVRBT2grTU5veGpLb3hFSEJR?=
+ =?utf-8?B?bWE2bnY5R2srYk8wU3V4K0V0c215bnF0SXdkdmJ1ZC9MYlcwUGVDOU9MT2tr?=
+ =?utf-8?B?QTBnR29DSlJubzhSMFAxS3BZamQ3bmU2WHFwbGJ4TkFOT2RZaGFwLzBiSWV3?=
+ =?utf-8?B?cGRzbURCRkx4eTZpTEVxR1pDM1ZJb2Y3Tlhza2Rzd21MbWpvSktLM1FOL3NI?=
+ =?utf-8?B?OWhNcVJXZHFXN3Q4QVMvaWUvMU9BNzVrSXV5QktBekU0eGw2U1NIUk5kTUpr?=
+ =?utf-8?B?Q2lpL05tdkxURzZzMzUwQ1MwYzZJelJpQ2ZIN0RvRmVPaytKbDhMbjM1ZG9u?=
+ =?utf-8?B?NE4wZ3o0UkMyUllMQkxZdm9RNDhCcHROWmJ0dWc4OXozM1d3Z3U3ZldpZWwr?=
+ =?utf-8?B?OURmeGwwSzdFbUhCdGRhaEVmNXBSV3lCQm9tTDJwV0RtMjFGaVl0OElMSjl1?=
+ =?utf-8?B?ZStQQm1RNml0amc4SVBVM3VDTHFXMS91bUZUZ21oTFFVakdDOGt1RnZBRG1q?=
+ =?utf-8?B?NHhVU08wV00xbVRBMU83WEowKytScDBkTy9vZ09lOWlsQlVxV3Qrd2NseUda?=
+ =?utf-8?B?T1NCRjN0YTM4SHdMNm15V0JKa2Zid2srYzhrYk1RekNnMmM2NGc5R3hyYS84?=
+ =?utf-8?B?VkE5dE5tUTYvK1JEWnAwNHBROHVJM3pSOGxIS3R5dysyeUhiUStRbkE0Tmph?=
+ =?utf-8?B?M0xRb3ArQUFUSitvRllpOWllbXphcTRMRGhtTXZlRytseXdmRS9yeThzMnpU?=
+ =?utf-8?B?VHFETTB4WmZ3U0lZajlRWEp0VzA5Z3dZMkJaamluVmhYaFRLRitKUVVBRFJS?=
+ =?utf-8?B?ZkNBTGVpZ3ZZbndnbUEybmV1ME54N3NCK2hUUGZrZDJYTVQ3emJEelpkc3V5?=
+ =?utf-8?B?VTBCWktHQmlBVHRjL0hLdWF4YXlrcldHN3dEZ0oxZ2h3T3dTaWdTZGM2ZW45?=
+ =?utf-8?B?aFB2N2ZiVGlYQnFEc01BeTRlVkREZWYrcWdMZDBYdjI5T3FxT3NoT1RKOS8y?=
+ =?utf-8?B?dUhDOE42ZXhPVDNUV09tVUtLNm9ld3YwU3hpSFg2Y1JhYmxickVsZHFoNG9N?=
+ =?utf-8?B?WXRBZUcvcnFmQStubEVVRGNFUFFXQVM5endMN1FuTWFCbG5SSWlXNmFQVmoz?=
+ =?utf-8?B?eDdBcmpYQUM0cXpubWdUa0V6RHNoVklZTkpRcFZhLy9DUlRmbjdpWTlUZVdN?=
+ =?utf-8?B?SVE1UHorNjJLVm9VTmpqWHJuNFRtVTlLOFVpdm1XOGNIc2JHVkxqZWxTVmQ4?=
+ =?utf-8?B?ZC9mdktlb2ZCQ2hVc0E2cjM3djN0T201dXk1c2JRcm8wNVRNVW5Id2hISFhJ?=
+ =?utf-8?B?NGdLY2h1cVhzUFRHMEh5RVF3d0lYbEdTdmRFZVdBd0VNSVFvaWE1Y211M0FF?=
+ =?utf-8?B?V2V6MlNxSUZMRVc1ZWtnNWRmY0l2cEtKNzhsTHd6UjNnajJ1YXc1ait4WnAv?=
+ =?utf-8?Q?EahDogg1Sm/K7UhEySSVEE2GBQ7F6lx6BSXdTcg?=
 X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f9ab033c-0e19-4f80-c2ce-08d8cc2ff221
+X-MS-Exchange-CrossTenant-Network-Message-Id: 54d4bd09-1dda-418e-9d1f-08d8cc4599b1
 X-MS-Exchange-CrossTenant-AuthSource: BYAPR10MB3080.namprd10.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Feb 2021 12:49:17.2262 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Feb 2021 15:24:17.9657 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kiFaRCGDF6gZcjPIYWtqA0Hp6YfjSOfkUJczbMpTLM3S3sIJxWAH+cBbmPGWNLD+ZWoRx+FxoLz8SLQUwYEXQhjzvhjZ5KSOKP//CSeol4o=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR10MB4196
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5mbweHWsOJya5yP2sqRMaawsYGcf4VtgolFmxFFTey0McWiOYwr3je0prlxWNW9AXK1rYuXSCzUnX2qgyxC9VWAvylpxWEDxAlExXda3gWU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR10MB4528
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9888
  signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
- bulkscore=0 adultscore=0
- mlxlogscore=999 phishscore=0 spamscore=0 suspectscore=0 mlxscore=0
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0
+ adultscore=0
+ mlxlogscore=999 mlxscore=0 suspectscore=0 malwarescore=0 phishscore=0
+ spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2009150000 definitions=main-2102080104
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9888
+ signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+ priorityscore=1501 malwarescore=0
+ spamscore=0 lowpriorityscore=0 phishscore=0 adultscore=0 impostorscore=0
+ suspectscore=0 mlxscore=0 clxscore=1015 mlxlogscore=999 bulkscore=0
  classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2102080086
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9888
- signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
- malwarescore=0
- priorityscore=1501 bulkscore=0 spamscore=0 impostorscore=0 mlxscore=0
- suspectscore=0 mlxlogscore=999 adultscore=0 clxscore=1015
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2009150000 definitions=main-2102080086
+ definitions=main-2102080104
 X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=-0.2 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
  SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 2/2] if-mtu-change.sh: Lower CHANGE_INTERVAL for
- netns
+Subject: Re: [LTP] [PATCH 0/3] lib/tst_net.sh: calc median instead of mean
+ in tst_netload()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -175,91 +175,35 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 05.02.2021 17:20, Petr Vorel wrote:
-> to make testing faster.
+On 05.02.2021 13:21, Petr Vorel wrote:
+> Hi Alexey,
 > 
-> NOTE: the default sleep 5s is needed for ssh based testing to prevent
-> link-flap errors on the switch. It can be lower down by user.
+>> This series of patches is intended to improve the reliability
+>> of results in network tests that using tst_netload().
 > 
-> Signed-off-by: Petr Vorel <pvorel@suse.cz>
-> ---
->  .../network/stress/interface/if-mtu-change.sh      | 14 ++++++++++----
->  1 file changed, 10 insertions(+), 4 deletions(-)
+>> After TST_NETLOAD_RUN_COUNT was added, we get several results (5 by
+>> default). The first patch allows all of them to be displayed along
+>> with the final result. It helps to debug test performance failures.
 > 
-> diff --git a/testcases/network/stress/interface/if-mtu-change.sh b/testcases/network/stress/interface/if-mtu-change.sh
-> index d2816606b..49ac5e3fc 100755
-> --- a/testcases/network/stress/interface/if-mtu-change.sh
-> +++ b/testcases/network/stress/interface/if-mtu-change.sh
-> @@ -1,6 +1,6 @@
->  #!/bin/sh
->  # SPDX-License-Identifier: GPL-2.0-or-later
-> -# Copyright (c) 2017-2019 Petr Vorel <pvorel@suse.cz>
-> +# Copyright (c) 2017-2021 Petr Vorel <pvorel@suse.cz>
->  # Copyright (c) 2015-2017 Oracle and/or its affiliates. All Rights Reserved.
->  # Copyright (c) International Business Machines  Corp., 2005
->  # Author: Mitsuru Chinen <mitch@jp.ibm.com>
-> @@ -12,9 +12,13 @@ TST_CLEANUP="do_cleanup"
->  
->  # The interval of the mtu change [second]
->  CHANGE_INTERVAL=${CHANGE_INTERVAL:-5}
-> -
->  TST_TIMEOUT=$(((CHANGE_INTERVAL + 30) * MTU_CHANGE_TIMES))
->  
-> +if tst_net_use_netns; then
-> +	CHANGE_INTERVAL="100ms"
-
-Hi Petr,
-
-What about adding the option to change this value too for netns,
-for example like this:
-
-TST_TIMEOUT=1
-if tst_net_use_netns; then
-    CHANGE_INTERVAL=${CHANGE_INTERVAL:-100ms}
-else
-    CHANGE_INTERVAL=${CHANGE_INTERVAL:-5}
-    tst_is_int $CHANGE_INTERVAL && TST_TIMEOUT=$CHANGE_INTERVAL
-fi
-
-TST_TIMEOUT=$(((TST_TIMEOUT + 30) * MTU_CHANGE_TIMES))
-
-
-> +	TST_TIMEOUT=$((30 * MTU_CHANGE_TIMES))
-> +fi
-> +
->  # The array of the value which MTU is changed into sequentially
->  # 552 - net.ipv4.route.min_pmtu
->  CHANGE_VALUES="784 1142 552 1500 552 1500 552 748 552 1142 1500"
-> @@ -65,6 +69,7 @@ find_ipv4_max_packet_size()
->  
->  do_setup()
->  {
-> +
-
-empty new line?
-
->  	[ "$TST_IPV6" ] && CHANGE_VALUES=$CHANGE6_VALUES
->  	if_setup
->  	saved_mtu="$(cat /sys/class/net/$(tst_iface)/mtu)"
-> @@ -83,9 +88,10 @@ do_cleanup()
->  test_body()
->  {
->  	local cmd="$CMD"
-> +	local msg="'$cmd' changes MTU $MTU_CHANGE_TIMES times every $CHANGE_INTERVAL"
->  
-> -	tst_res TINFO "'$cmd' changes MTU $MTU_CHANGE_TIMES times" \
-> -	               "every $CHANGE_INTERVAL seconds"
-> +	tst_is_int $CHANGE_INTERVAL && msg="$msg seconds"
-> +	tst_res TINFO "$msg"
->  
->  	mtu_array_len=$(echo $CHANGE_VALUES | wc -w)
->  	local cnt=0
+>> Further patches replace the mean calculation of such data set with
+>> the median one. It allows to exclude extreme points from the final
+>> result.
+> 
+> Thanks for improving stability of these tests!
+> I've also noticed often failures in net.features and some of ipsec tests,
+> this should help.
 >
+> FYI as TODO I'd like some of net.features have also as functional tests
+> (ignoring the performance).
+> 
+
+Merged, thanks for review Petr!
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
