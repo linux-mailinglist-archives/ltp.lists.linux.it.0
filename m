@@ -2,38 +2,39 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 996FC31A22F
-	for <lists+linux-ltp@lfdr.de>; Fri, 12 Feb 2021 16:59:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E75B931A23C
+	for <lists+linux-ltp@lfdr.de>; Fri, 12 Feb 2021 17:01:17 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 585423C8D5A
-	for <lists+linux-ltp@lfdr.de>; Fri, 12 Feb 2021 16:59:14 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 8B8E23C945B
+	for <lists+linux-ltp@lfdr.de>; Fri, 12 Feb 2021 17:01:17 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id 93C203C5AD9
- for <ltp@lists.linux.it>; Fri, 12 Feb 2021 16:59:12 +0100 (CET)
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id 2C22A3C5ACE
+ for <ltp@lists.linux.it>; Fri, 12 Feb 2021 17:01:13 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 30C112010BD
- for <ltp@lists.linux.it>; Fri, 12 Feb 2021 16:59:12 +0100 (CET)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id A81BE600F94
+ for <ltp@lists.linux.it>; Fri, 12 Feb 2021 17:01:13 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 9614AAD29;
- Fri, 12 Feb 2021 15:59:11 +0000 (UTC)
-Date: Fri, 12 Feb 2021 17:00:21 +0100
+ by mx2.suse.de (Postfix) with ESMTP id 1AE34B029;
+ Fri, 12 Feb 2021 16:01:13 +0000 (UTC)
+Date: Fri, 12 Feb 2021 17:02:23 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <YCamFRCWW6a4zgLv@yuki.lan>
+Message-ID: <YCamj5IAuyPMOcBo@yuki.lan>
 References: <20210202130441.17861-1-pvorel@suse.cz>
+ <20210202130441.17861-2-pvorel@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210202130441.17861-1-pvorel@suse.cz>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+In-Reply-To: <20210202130441.17861-2-pvorel@suse.cz>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/2] lib: Add function to detect FIPS mode
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 2/2] keyctl05: TCONF on FIPS mode
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,15 +53,50 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> +#ifndef TST_FIPS_H__
-> +#define TST_FIPS_H__
+> +	int is_asymmetric = !strcmp(type, "asymmetric");
 > +
-> +#define PATH_FIPS	"/proc/sys/crypto/fips_enabled"
+>  	TEST(add_key(type, "desc", payload, plen, KEY_SPEC_SESSION_KEYRING));
+>  	if (TST_RET < 0) {
+> +		if (TST_ERR == EINVAL && is_asymmetric && tst_fips_enabled()) {
+                                                          ^
+							  I guess that
+							  we can save
+							  the value in
+							  test setup
+							  instead of
+							  re-reading it
+							  on every
+							  iteration.
 
-I'm not sure that this belongs to the header, at least it's not prefixed
-with TST_.
+Other than that it looks good to me.
 
-Other than that Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
+Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
+
+> +			tst_res(TCONF, "key size not allowed in FIPS mode");
+> +			return;
+> +		}
+>  		if (TST_ERR == ENODEV) {
+>  			tst_res(TCONF, "kernel doesn't support key type '%s'",
+>  				type);
+>  			return;
+>  		}
+> -		if (TST_ERR == EBADMSG && !strcmp(type, "asymmetric")) {
+> +		if (TST_ERR == EBADMSG && is_asymmetric) {
+>  			tst_res(TCONF, "kernel is missing x509 cert parser "
+>  				"(CONFIG_X509_CERTIFICATE_PARSER)");
+>  			return;
+>  		}
+> -		if (TST_ERR == ENOENT && !strcmp(type, "asymmetric")) {
+> +		if (TST_ERR == ENOENT && is_asymmetric) {
+>  			tst_res(TCONF, "kernel is missing crypto algorithms "
+>  				"needed to parse x509 cert (CONFIG_CRYPTO_RSA "
+>  				"and/or CONFIG_CRYPTO_SHA256)");
+> -- 
+> 2.30.0
+> 
+> 
+> -- 
+> Mailing list info: https://lists.linux.it/listinfo/ltp
 
 -- 
 Cyril Hrubis
