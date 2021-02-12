@@ -2,48 +2,40 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B6CD31915E
-	for <lists+linux-ltp@lfdr.de>; Thu, 11 Feb 2021 18:46:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35575319C9F
+	for <lists+linux-ltp@lfdr.de>; Fri, 12 Feb 2021 11:27:27 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id EC83D3C6D0D
-	for <lists+linux-ltp@lfdr.de>; Thu, 11 Feb 2021 18:46:32 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id D84D33C6B8C
+	for <lists+linux-ltp@lfdr.de>; Fri, 12 Feb 2021 11:27:26 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id A69F63C5E23
- for <ltp@lists.linux.it>; Thu, 11 Feb 2021 18:46:03 +0100 (CET)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id A05B03C5ACE
+ for <ltp@lists.linux.it>; Fri, 12 Feb 2021 11:27:22 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 4BEFB600C77
- for <ltp@lists.linux.it>; Thu, 11 Feb 2021 18:46:03 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1613065563; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=xJosqfT/7+4oOfYRNqDZEtXZu9un0l11DYUBPjb+Smo=;
- b=fWp9sB9ciaCzz6dmaEPC79gUQFq9YUp2UawA98mef7xT4oMNOnyDnWLUhR6whL7HkY0lXX
- RXXNDnxvP585wtyJww9LeYWfORGKccvEUTkYk00ceze3E6ODl1/DfXGNSm8e3B1kxIKTu4
- +tU6KqSXsVfyRLrNZcYhYPmZJgnw9TQ=
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 410E320098C
+ for <ltp@lists.linux.it>; Fri, 12 Feb 2021 11:27:21 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id E530FB130;
- Thu, 11 Feb 2021 17:46:02 +0000 (UTC)
-To: ltp@lists.linux.it
-Date: Thu, 11 Feb 2021 17:45:43 +0000
-Message-Id: <20210211174543.25003-6-rpalethorpe@suse.com>
-X-Mailer: git-send-email 2.30.0
-In-Reply-To: <20210211174543.25003-1-rpalethorpe@suse.com>
-References: <20210211174543.25003-1-rpalethorpe@suse.com>
+ by mx2.suse.de (Postfix) with ESMTP id CF793AD62;
+ Fri, 12 Feb 2021 10:27:20 +0000 (UTC)
+Date: Fri, 12 Feb 2021 11:27:19 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: Liam Howlett <liam.howlett@oracle.com>
+Message-ID: <YCZYB2w+Il5F0TlI@pevik>
+References: <20210209143702.2003038-1-Liam.Howlett@Oracle.com>
+ <20210209143702.2003038-2-Liam.Howlett@Oracle.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20210209143702.2003038-2-Liam.Howlett@Oracle.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 5/5] close_range: Add test
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/1] brk02: Add test for removing more than one VMA
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,257 +47,96 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Richard Palethorpe via ltp <ltp@lists.linux.it>
-Reply-To: Richard Palethorpe <rpalethorpe@suse.com>
-Cc: Richard Palethorpe <rpalethorpe@suse.com>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
----
- .../kernel/syscalls/close_range/.gitignore    |   1 +
- .../kernel/syscalls/close_range/Makefile      |  10 +
- .../syscalls/close_range/close_range01.c      | 200 ++++++++++++++++++
- 3 files changed, 211 insertions(+)
- create mode 100644 testcases/kernel/syscalls/close_range/.gitignore
- create mode 100644 testcases/kernel/syscalls/close_range/Makefile
- create mode 100644 testcases/kernel/syscalls/close_range/close_range01.c
+Hi Liam,
 
-diff --git a/testcases/kernel/syscalls/close_range/.gitignore b/testcases/kernel/syscalls/close_range/.gitignore
-new file mode 100644
-index 000000000..291a0379c
---- /dev/null
-+++ b/testcases/kernel/syscalls/close_range/.gitignore
-@@ -0,0 +1 @@
-+close_range01
-\ No newline at end of file
-diff --git a/testcases/kernel/syscalls/close_range/Makefile b/testcases/kernel/syscalls/close_range/Makefile
-new file mode 100644
-index 000000000..dc6413b10
---- /dev/null
-+++ b/testcases/kernel/syscalls/close_range/Makefile
-@@ -0,0 +1,10 @@
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+# Copyright (c) 2019-2021 Linux Test Project
-+
-+top_srcdir		?= ../../../..
-+
-+include $(top_srcdir)/include/mk/testcases.mk
-+
-+CFLAGS			+= -D_GNU_SOURCE
-+
-+include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/kernel/syscalls/close_range/close_range01.c b/testcases/kernel/syscalls/close_range/close_range01.c
-new file mode 100644
-index 000000000..ed3f6b416
---- /dev/null
-+++ b/testcases/kernel/syscalls/close_range/close_range01.c
-@@ -0,0 +1,200 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Taken from the kernel self tests, which in turn were based on
-+ * a Syzkaller reproducer.
-+ *
-+ * Self test author and close_range author:
-+ * Christian Brauner <christian.brauner@ubuntu.com>
-+ *
-+ * LTP Author: Richard Palethorpe <rpalethorpe@suse.com>
-+ * Copyright (c) 2021 SUSE LLC, other copyrights may apply.
-+ *
-+ * - First we test if close_range closes some FDs.
-+ * - Then we test if it UNSHARES some FDs before closing them.
-+ * - Then we test if it sets CLOEXEC (in both cloned process and parent).
-+ * - Finally we test a combination of CLOEXEC and UNSHARE.
-+ *
-+ * The final test is the actual bug reproducer. Note that we call
-+ * clone directly to share the file table.
-+ */
-+
-+#include <stdlib.h>
-+
-+#include "tst_test.h"
-+#include "tst_clone.h"
-+
-+#include "lapi/clone.h"
-+#include "lapi/close_range.h"
-+
-+static int fd[3];
-+
-+static inline void do_close_range(unsigned int fd, unsigned int max_fd,
-+				  unsigned int flags)
-+{
-+	int ret = close_range(fd, max_fd, flags);
-+
-+	if (!ret)
-+		return;
-+
-+	if (errno == EINVAL) {
-+		if (flags & CLOSE_RANGE_UNSHARE)
-+			tst_brk(TCONF | TERRNO, "No CLOSE_RANGE_UNSHARE");
-+		if (flags & CLOSE_RANGE_CLOEXEC)
-+			tst_brk(TCONF | TERRNO, "No CLOSE_RANGE_CLOEXEC");
-+	}
-+
-+	tst_brk(TBROK | TERRNO, "close_range(%d, %d, %d)", fd, max_fd, flags);
-+}
-+
-+static void setup(void)
-+{
-+	struct rlimit nfd;
-+
-+	SAFE_GETRLIMIT(RLIMIT_NOFILE, &nfd);
-+
-+	if (nfd.rlim_max < 1000) {
-+		tst_brk(TCONF, "NOFILE limit max too low: %lu < 1000",
-+			nfd.rlim_max);
-+	}
-+
-+	nfd.rlim_cur = nfd.rlim_max;
-+	SAFE_SETRLIMIT(RLIMIT_NOFILE, &nfd);
-+}
-+
-+static void check_cloexec(int i, int expected)
-+{
-+	int present = SAFE_FCNTL(fd[i], F_GETFD) & FD_CLOEXEC;
-+
-+	if (expected && !present)
-+		tst_res(TFAIL, "fd[%d] flags do not contain FD_CLOEXEC", i);
-+
-+	if (!expected && present)
-+		tst_res(TFAIL, "fd[%d] flags contain FD_CLOEXEC", i);
-+}
-+
-+static void check_closed(int min)
-+{
-+	int i;
-+
-+	for (i = min; i < 3; i++) {
-+		if (fcntl(fd[i], F_GETFD) > -1)
-+			tst_res(TFAIL, "fd[%d] is still open", i);
-+	}
-+}
-+
-+static void child(unsigned int n)
-+{
-+	switch (n) {
-+	case 0:
-+		SAFE_DUP2(fd[1], fd[2]);
-+		do_close_range(3, ~0U, 0);
-+		check_closed(0);
-+		break;
-+	case 1:
-+		SAFE_DUP2(fd[1], fd[2]);
-+		do_close_range(3, ~0U, CLOSE_RANGE_UNSHARE);
-+		check_closed(0);
-+		break;
-+	case 2:
-+		do_close_range(3, ~0U, CLOSE_RANGE_CLOEXEC);
-+		check_cloexec(0, 1);
-+		check_cloexec(1, 1);
-+
-+		SAFE_DUP2(fd[1], fd[2]);
-+		check_cloexec(2, 0);
-+		break;
-+	case 3:
-+		do_close_range(3, ~0U,
-+			       CLOSE_RANGE_CLOEXEC | CLOSE_RANGE_UNSHARE);
-+		check_cloexec(0, 1);
-+		check_cloexec(1, 1);
-+
-+		SAFE_DUP2(fd[1], fd[2]);
-+		check_cloexec(2, 0);
-+		break;
-+	}
-+
-+	exit(0);
-+}
-+
-+static void run(unsigned int n)
-+{
-+	const struct tst_clone_args args = {
-+		.flags = CLONE_FILES,
-+		.exit_signal = SIGCHLD,
-+	};
-+
-+	switch (n) {
-+	case 0:
-+		tst_res(TINFO, "Plain close range");
-+		do_close_range(3, ~0U, 0);
-+		break;
-+	case 1:
-+		tst_res(TINFO, "Set UNSHARE and close range");
-+		do_close_range(3, ~0U, CLOSE_RANGE_UNSHARE);
-+		break;
-+	case 2:
-+		tst_res(TINFO, "Set CLOEXEC on range");
-+		do_close_range(3, ~0U, CLOSE_RANGE_CLOEXEC);
-+		break;
-+	case 3:
-+		tst_res(TINFO, "Set UNSHARE and CLOEXEC on range");
-+		do_close_range(3, ~0U,
-+			       CLOSE_RANGE_CLOEXEC | CLOSE_RANGE_UNSHARE);
-+		break;
-+	}
-+
-+	fd[0] = SAFE_OPEN("mnt/tmpfile", O_RDWR | O_CREAT, 0644);
-+	fd[1] = SAFE_DUP2(fd[0], 1000);
-+	fd[2] = 42;
-+
-+	if (!SAFE_CLONE(&args))
-+		child(n);
-+
-+	tst_reap_children();
-+
-+	switch (n) {
-+	case 0:
-+		check_closed(0);
-+		break;
-+	case 1:
-+		check_cloexec(0, 0);
-+		check_cloexec(1, 0);
-+		check_cloexec(2, 0);
-+		break;
-+	case 2:
-+		check_cloexec(0, 1);
-+		check_cloexec(1, 1);
-+		check_cloexec(2, 0);
-+		break;
-+	case 3:
-+		check_cloexec(0, 0);
-+		check_cloexec(1, 0);
-+		check_closed(2);
-+		break;
-+	}
-+
-+	do_close_range(3, ~0U, 0);
-+	check_closed(0);
-+
-+	if (tst_taint_check())
-+		tst_res(TFAIL, "Kernel tainted");
-+	else
-+		tst_res(TPASS, "No kernel taints");
-+}
-+
-+static struct tst_test test = {
-+	.tcnt = 4,
-+	.needs_tmpdir = 1,
-+	.forks_child = 1,
-+	.mount_device = 1,
-+	.mntpoint = "mnt",
-+	.all_filesystems = 1,
-+	.test = run,
-+	.taint_check = TST_TAINT_W | TST_TAINT_D,
-+	.setup = setup,
-+	.tags = (const struct tst_tag[]) {
-+		{"linux-git", "fec8a6a691033f2538cd46848f17f337f0739923"},
-+		{},
-+	},
-+};
--- 
-2.30.0
+thanks for your patch. Minor notes below.
 
+> When brk expands, it attempts to expand a VMA.  This expansion will
+> succeed depending on the anonymous VMA chain and if the vma flags are
+> compatible.  This test expands brk() then calls mprotect to ensure the
+> next brk call will create a new VMA, then it calls brk a final time to
+> restore the first brk address.  The test is the final brk call which
+> will remove more than an entire VMA from the vm area.
+
+> Signed-off-by: Liam R. Howlett <Liam.Howlett@Oracle.com>
+> ---
+>  testcases/kernel/syscalls/brk/brk02.c | 49 +++++++++++++++++++++++++++
+>  1 file changed, 49 insertions(+)
+>  create mode 100644 testcases/kernel/syscalls/brk/brk02.c
+
+> diff --git a/testcases/kernel/syscalls/brk/brk02.c b/testcases/kernel/syscalls/brk/brk02.c
+> new file mode 100644
+> index 000000000..834fe9f2f
+> --- /dev/null
+> +++ b/testcases/kernel/syscalls/brk/brk02.c
+> @@ -0,0 +1,49 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Copyright (c) 2021 Liam R. Howlett <liam.howlett@oracle.com>
+> + *
+> + *  
+nit: blank line
+> + *  Expand the brk by 2 pages to ensure there is a newly created VMA and not
+> + *  expanding the original due to multiple anon pages.  mprotect that new VMA
+> + *  then brk back to the original address therefore causing a munmap of at
+> + *  least one full VMA.
+> + */
+> +
+> +#include <unistd.h>
+> +#include <stdint.h>
+nit: Not sure if <stdint.h> is needed.
+
+> +#include <sys/mman.h>
+> +
+> +#include "tst_test.h"
+> +
+> +void brk_down_vmas(void)
+> +{
+> +	void *brk_addr = sbrk(0);
+> +	unsigned long page_size = getpagesize();
+> +	void *addr = brk_addr + page_size;
+> +
+> +	if (brk(addr))
+> +		return;
+> +
+> +	addr += page_size;
+> +	if (brk(addr))
+> +		return;
+You need to add tst_ret(TFAIL, "failed due ..."); before each return otherwise
+you get error:
+tst_test.c:1080: TBROK: Test haven't reported results!
+
+> +
+> +	if (mprotect(addr - page_size, page_size,
+> +			PROT_READ|PROT_WRITE|PROT_EXEC))
+> +		return;
+> +
+> +	addr += page_size;
+> +	if (brk(addr))
+> +		return;
+> +
+> +	if (brk(brk_addr))
+> +		return;
+> +
+> +
+> +
+Please remove these blank lines.
+> +	tst_res(TPASS, "munmap two VMAs of brk() passed.");
+> +}
+> +
+> +static struct tst_test test = {
+> +	.test_all = brk_down_vmas,
+> +};
+
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
