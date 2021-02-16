@@ -1,42 +1,40 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4872B31C83C
-	for <lists+linux-ltp@lfdr.de>; Tue, 16 Feb 2021 10:43:44 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2289131C8E4
+	for <lists+linux-ltp@lfdr.de>; Tue, 16 Feb 2021 11:36:58 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C07A23C66D7
-	for <lists+linux-ltp@lfdr.de>; Tue, 16 Feb 2021 10:43:43 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id B279A3C667F
+	for <lists+linux-ltp@lfdr.de>; Tue, 16 Feb 2021 11:36:57 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id B98C53C2BEF
- for <ltp@lists.linux.it>; Tue, 16 Feb 2021 10:43:39 +0100 (CET)
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id 4C6C93C5904
+ for <ltp@lists.linux.it>; Tue, 16 Feb 2021 11:36:54 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 58E5F600953
- for <ltp@lists.linux.it>; Tue, 16 Feb 2021 10:43:39 +0100 (CET)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id B352E1A00E59
+ for <ltp@lists.linux.it>; Tue, 16 Feb 2021 11:36:47 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 787D5AD29;
- Tue, 16 Feb 2021 09:43:38 +0000 (UTC)
-Date: Tue, 16 Feb 2021 10:43:35 +0100
+ by mx2.suse.de (Postfix) with ESMTP id E367DACBF
+ for <ltp@lists.linux.it>; Tue, 16 Feb 2021 10:36:46 +0000 (UTC)
+Date: Tue, 16 Feb 2021 11:36:45 +0100
 From: Petr Vorel <pvorel@suse.cz>
-To: Richard Palethorpe <rpalethorpe@suse.com>
-Message-ID: <YCuTx8angdureqe4@pevik>
-References: <20210216074748.6873-1-rpalethorpe@suse.com>
- <20210216074748.6873-2-rpalethorpe@suse.com>
+To: ltp@lists.linux.it
+Message-ID: <YCugPYQxkf61gxiK@pevik>
+References: <20210215110419.2964-1-pvorel@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210216074748.6873-2-rpalethorpe@suse.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+In-Reply-To: <20210215110419.2964-1-pvorel@suse.cz>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 2/2] close_range02: Add simpler test and Check
- invalid params
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/1] configure: Improve error message on missing
+ pkg-config
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,22 +47,24 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Richie,
+Hi,
 
-> +	if (fd > -1) {
-> +		TST_EXP_PASS_SILENT(close_range(fd, fd, 0),
-> +				    "close_range(%d, %d, 0)", fd, fd);
+> +++ b/configure.ac
+> @@ -30,6 +30,9 @@ AC_DEFUN([AC_PROG_STRIP], [AC_CHECK_TOOL(STRIP, strip, :)])
+>  AC_PROG_STRIP
+>  AC_PROG_YACC
 
-> +		fd = -1;
-Removed this line and patchset merged.
+> +m4_ifndef([PKG_PREREQ],
+> +	[m4_fatal([must install pkg-config or pkgconfig and pkg.m4 macro (usual dependency)])])
+Maybe mention also INSTALL file (feedback from
+https://github.com/linux-test-project/ltp/issues/787):
 
-Thanks!
+	[m4_fatal([must install pkg-config or pkgconfig and pkg.m4 macro (usual dependency), see INSTALL for all dependencies])])
 
 Kind regards,
 Petr
