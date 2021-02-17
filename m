@@ -1,45 +1,39 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 047F531CA9D
-	for <lists+linux-ltp@lfdr.de>; Tue, 16 Feb 2021 13:38:58 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D79431D907
+	for <lists+linux-ltp@lfdr.de>; Wed, 17 Feb 2021 13:05:04 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C31E23C66DA
-	for <lists+linux-ltp@lfdr.de>; Tue, 16 Feb 2021 13:38:57 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 9415F3C590D
+	for <lists+linux-ltp@lfdr.de>; Wed, 17 Feb 2021 13:05:03 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- by picard.linux.it (Postfix) with ESMTP id 5F14E3C2BEF
- for <ltp@lists.linux.it>; Tue, 16 Feb 2021 13:38:56 +0100 (CET)
-Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id 70EBD3C1C4E
+ for <ltp@lists.linux.it>; Wed, 17 Feb 2021 13:05:01 +0100 (CET)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id B53101A0011F
- for <ltp@lists.linux.it>; Tue, 16 Feb 2021 13:38:55 +0100 (CET)
-Received: from ubuntu.localdomain (unknown [188.192.1.224])
- by mail.jv-coder.de (Postfix) with ESMTPSA id 789E6A07FA;
- Tue, 16 Feb 2021 12:38:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
- t=1613479133; bh=oqcpnP+M50HgcJDkGBjHt8JWvA+hJtjln9O5Ay9kyxM=;
- h=From:To:Subject:Date:Message-Id:MIME-Version;
- b=ALNG1ADN5J1RnZve7n8g8Vxn5L2sMlT77T3ovVvHA3B/31KNPWrK8EjR2dx/oYhNm
- MqH/Fui7Ac8SUo9Cc9IQ7FB3Z5Apm+KymNQXizORYn3JiOgl9r3Uqjf31oYGCfoCY1
- yOzGRTHhZ2HOYRwxLqDr7v59+8lJSO4SUXqpvSeg=
-From: Joerg Vehlow <lkml@jv-coder.de>
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 03ECE1A002CB
+ for <ltp@lists.linux.it>; Wed, 17 Feb 2021 13:05:00 +0100 (CET)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 42058B80C
+ for <ltp@lists.linux.it>; Wed, 17 Feb 2021 12:05:00 +0000 (UTC)
+From: Martin Doucha <mdoucha@suse.cz>
 To: ltp@lists.linux.it
-Date: Tue, 16 Feb 2021 13:38:41 +0100
-Message-Id: <20210216123841.3424969-1-lkml@jv-coder.de>
-X-Mailer: git-send-email 2.25.1
+Date: Wed, 17 Feb 2021 13:04:58 +0100
+Message-Id: <20210217120459.17500-1-mdoucha@suse.cz>
+X-Mailer: git-send-email 2.30.0
 MIME-Version: 1.0
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
 X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH] memcg/stat_test: Use more memory for tests
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/2] lapi/io_uring.h: Define constants that may be
+ missing
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,125 +45,64 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-From: Joerg Vehlow <joerg.vehlow@aox-tech.de>
+Early liburing headers did not include IOSQE_ASYNC and IOSQE_IO_HARDLINK.
+Check for their presence separately even if the system header file is present
+and define them if needed.
 
-f0b9d187d increased the memory used by a lot of
-memcg tests to 33*pagesize, because some counters in
-memory.stat are only updated in batches of 32.
-With kernel commit 766a4c19d this batching is also applied
-to some more counters.
-
-Use 33 * pagesize for all test now should make them pass
-before and after this commit.
-
-Fixes: #780
-This should also fix part of #93 and #783
-
-Signed-off-by: Joerg Vehlow <joerg.vehlow@aox-tech.de>
+Signed-off-by: Martin Doucha <mdoucha@suse.cz>
 ---
- .../memcg/functional/memcg_stat_test.sh       | 40 +++++++++----------
- 1 file changed, 20 insertions(+), 20 deletions(-)
+ include/lapi/io_uring.h | 17 +++++++++++------
+ 1 file changed, 11 insertions(+), 6 deletions(-)
 
-diff --git a/testcases/kernel/controllers/memcg/functional/memcg_stat_test.sh b/testcases/kernel/controllers/memcg/functional/memcg_stat_test.sh
-index 3a6239134..cc4550cb6 100755
---- a/testcases/kernel/controllers/memcg/functional/memcg_stat_test.sh
-+++ b/testcases/kernel/controllers/memcg/functional/memcg_stat_test.sh
-@@ -27,15 +27,15 @@ test2()
- test3()
- {
- 	tst_res TINFO "Test unevictable with MAP_LOCKED"
--	test_mem_stat "--mmap-lock1" $PAGESIZE $PAGESIZE \
--		"unevictable" $PAGESIZE false
-+	test_mem_stat "--mmap-lock1" $PAGESIZES $PAGESIZES \
-+		"unevictable" $PAGESIZES false
- }
+diff --git a/include/lapi/io_uring.h b/include/lapi/io_uring.h
+index 9d280f155..897ed7c64 100644
+--- a/include/lapi/io_uring.h
++++ b/include/lapi/io_uring.h
+@@ -71,8 +71,6 @@ enum {
+ 	IOSQE_FIXED_FILE_BIT,
+ 	IOSQE_IO_DRAIN_BIT,
+ 	IOSQE_IO_LINK_BIT,
+-	IOSQE_IO_HARDLINK_BIT,
+-	IOSQE_ASYNC_BIT,
+ };
  
- test4()
- {
- 	tst_res TINFO "Test unevictable with mlock"
--	test_mem_stat "--mmap-lock2" $PAGESIZE $PAGESIZE \
--		"unevictable" $PAGESIZE false
-+	test_mem_stat "--mmap-lock2" $PAGESIZES $PAGESIZES \
-+		"unevictable" $PAGESIZES false
- }
+ /*
+@@ -84,10 +82,6 @@ enum {
+ #define IOSQE_IO_DRAIN		(1U << IOSQE_IO_DRAIN_BIT)
+ /* links next sqe */
+ #define IOSQE_IO_LINK		(1U << IOSQE_IO_LINK_BIT)
+-/* like LINK, but stronger */
+-#define IOSQE_IO_HARDLINK	(1U << IOSQE_IO_HARDLINK_BIT)
+-/* always go async */
+-#define IOSQE_ASYNC		(1U << IOSQE_ASYNC_BIT)
  
- test5()
-@@ -44,11 +44,11 @@ test5()
- 	echo 1 > memory.use_hierarchy
+ /*
+  * io_uring_setup() flags
+@@ -262,6 +256,17 @@ struct io_uring_probe {
  
- 	mkdir subgroup
--	echo $PAGESIZE > memory.limit_in_bytes
--	echo $((PAGESIZE*2)) > subgroup/memory.limit_in_bytes
-+	echo $PAGESIZES > memory.limit_in_bytes
-+	echo $((PAGESIZES * 2)) > subgroup/memory.limit_in_bytes
+ #endif /* IOSQE_FIXED_FILE */
  
- 	cd subgroup
--	check_mem_stat "hierarchical_memory_limit" $PAGESIZE
-+	check_mem_stat "hierarchical_memory_limit" $PAGESIZES
++#ifndef IOSQE_IO_HADRLINK
++/* like LINK, but stronger */
++#define IOSQE_IO_HARDLINK_BIT	3
++#define IOSQE_IO_HARDLINK	(1U << IOSQE_IO_HARDLINK_BIT)
++#endif /* IOSQE_IO_HADRLINK */
++
++#ifndef IOSQE_ASYNC
++/* always go async */
++#define IOSQE_ASYNC_BIT		4
++#define IOSQE_ASYNC		(1U << IOSQE_ASYNC_BIT)
++#endif /* IOSQE_ASYNC */
  
- 	cd ..
- 	rmdir subgroup
-@@ -62,11 +62,11 @@ test6()
- 	echo 0 > memory.use_hierarchy
- 
- 	mkdir subgroup
--	echo $PAGESIZE > memory.limit_in_bytes
--	echo $((PAGESIZE * 2)) > subgroup/memory.limit_in_bytes
-+	echo $PAGESIZES > memory.limit_in_bytes
-+	echo $((PAGESIZES * 2)) > subgroup/memory.limit_in_bytes
- 
- 	cd subgroup
--	check_mem_stat "hierarchical_memory_limit" $((PAGESIZE * 2))
-+	check_mem_stat "hierarchical_memory_limit" $((PAGESIZES * 2))
- 
- 	cd ..
- 	rmdir subgroup
-@@ -80,13 +80,13 @@ test7()
- 	ROD echo 1 \> memory.use_hierarchy
- 
- 	mkdir subgroup
--	echo $PAGESIZE > memory.limit_in_bytes
--	echo $PAGESIZE > memory.memsw.limit_in_bytes
--	echo $((PAGESIZE*2)) > subgroup/memory.limit_in_bytes
--	echo $((PAGESIZE*2)) > subgroup/memory.memsw.limit_in_bytes
-+	echo $PAGESIZES > memory.limit_in_bytes
-+	echo $PAGESIZES > memory.memsw.limit_in_bytes
-+	echo $((PAGESIZES * 2)) > subgroup/memory.limit_in_bytes
-+	echo $((PAGESIZES * 2)) > subgroup/memory.memsw.limit_in_bytes
- 
- 	cd subgroup
--	check_mem_stat "hierarchical_memsw_limit" $PAGESIZE
-+	check_mem_stat "hierarchical_memsw_limit" $PAGESIZES
- 
- 	cd ..
- 	rmdir subgroup
-@@ -101,13 +101,13 @@ test8()
- 	ROD echo 0 \> memory.use_hierarchy
- 
- 	mkdir subgroup
--	echo $PAGESIZE > memory.limit_in_bytes
--	echo $PAGESIZE > memory.memsw.limit_in_bytes
--	echo $((PAGESIZE*2)) > subgroup/memory.limit_in_bytes
--	echo $((PAGESIZE*2)) > subgroup/memory.memsw.limit_in_bytes
-+	echo $PAGESIZES > memory.limit_in_bytes
-+	echo $PAGESIZES > memory.memsw.limit_in_bytes
-+	echo $((PAGESIZES * 2)) > subgroup/memory.limit_in_bytes
-+	echo $((PAGESIZES * 2)) > subgroup/memory.memsw.limit_in_bytes
- 
- 	cd subgroup
--	check_mem_stat "hierarchical_memsw_limit" $((PAGESIZE*2))
-+	check_mem_stat "hierarchical_memsw_limit" $((PAGESIZES * 2))
- 
- 	cd .
- 	rmdir subgroup
+ #ifndef HAVE_IO_URING_REGISTER
+ static inline int io_uring_register(int fd, unsigned int opcode, void *arg,
 -- 
-2.25.1
+2.30.0
 
 
 -- 
