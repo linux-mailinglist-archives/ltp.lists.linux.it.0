@@ -2,114 +2,37 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E3B331F740
-	for <lists+linux-ltp@lfdr.de>; Fri, 19 Feb 2021 11:21:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E10B931F997
+	for <lists+linux-ltp@lfdr.de>; Fri, 19 Feb 2021 13:57:34 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3E4C63C65C9
-	for <lists+linux-ltp@lfdr.de>; Fri, 19 Feb 2021 11:21:47 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 8416C3C65CA
+	for <lists+linux-ltp@lfdr.de>; Fri, 19 Feb 2021 13:57:34 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id 4D50B3C4EF7
- for <ltp@lists.linux.it>; Fri, 19 Feb 2021 11:21:43 +0100 (CET)
-Received: from IND01-BO1-obe.outbound.protection.outlook.com
- (mail-eopbgr1390109.outbound.protection.outlook.com [40.107.139.109])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id 8933A3C4F09
+ for <ltp@lists.linux.it>; Fri, 19 Feb 2021 13:57:30 +0100 (CET)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 65106140123E
- for <ltp@lists.linux.it>; Fri, 19 Feb 2021 11:21:42 +0100 (CET)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZcQTZB1w1BrdiZKEEj602usiXeqfIoYG+u3J1G9voq1t5L7Yb83YGK3pwvDNMWFgaflFohnmYvdB1mf9xY9i4P6Ol57h7sEA33myApzu9aRvQJpGP5vyE/nmZT7J8qwSjykrpVXU9bjNqqLkRLvoD8+/Nyaj2dFdBmdiZbgE6440X8bt7GmDnXmk1xaLHLdIejDBEkddR0K/R6XYZXzOb87jG63tE8fD2/OzqHgRUwjUIg+WPo1ISgYxe8b9fWilT3F3iWSWRMMY4tlVu3UbAl+vA+skzbLzfir3xjM1vKaqMNuCKf677N2xGcv63i7goby1Yu6H2MohkeeG5OYcKg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=U8YMgYXPVNhw6hxwWyG17NW1m+MUbuCj8zhjUOLftO0=;
- b=EgP07l104IPAWyL9THaC/AtAqGR1oxFhPLVAXrYYh+A8HLisrF4zImHeTkpxL1qkmNfgEDIjtjMT/vyWYLS8OhcS8ikp8Es0oczrUZeMTqxLS2w/xuBQMPev8B2aIt8V9wI0U6PslHmKAoG3tlaKJU0o+HVJD56CgQd659mkaQzGnnqd0KXLECqUCcwvgztx6/V1Ff80SWCphh78vFF1aivba1m4hAH6+D7fxZ9OmI+o6nQ+R0mdQEEm6iwAEJXpqJns+bEt6poeEQMtj4KlExybBXRFpVae+0aTzomykO8kBhLy8i7u3FIfZhFnuUvBNuJAHhowUh6lS1uHuxdn/A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=exaleapsemi.com; dmarc=pass action=none
- header.from=exaleapsemi.com; dkim=pass header.d=exaleapsemi.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=exaleapsemi.onmicrosoft.com; s=selector2-exaleapsemi-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=U8YMgYXPVNhw6hxwWyG17NW1m+MUbuCj8zhjUOLftO0=;
- b=VhZ5KHex2ht1tj7DLTLTrSe+tykHCNv/9qH2rEz7qPqQa1hxVjyTl0L69pktQpDR9AJmDOPIfDR69iLr5yyMIibHpK7Jxvx1zcmEYIq3FUHJLr+JwitXX/AZlNDnA1REyUMJDNPBrVrg8GiG4IH1e5KJFGKhC2EiT/JBxy9ZUZw=
-Received: from BMXPR01MB2870.INDPRD01.PROD.OUTLOOK.COM (2603:1096:b00:2f::22)
- by BMXPR01MB2471.INDPRD01.PROD.OUTLOOK.COM (2603:1096:b00:36::23)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3868.29; Fri, 19 Feb
- 2021 10:21:36 +0000
-Received: from BMXPR01MB2870.INDPRD01.PROD.OUTLOOK.COM
- ([fe80::7069:eebb:c39d:f1e1]) by BMXPR01MB2870.INDPRD01.PROD.OUTLOOK.COM
- ([fe80::7069:eebb:c39d:f1e1%5]) with mapi id 15.20.3868.029; Fri, 19 Feb 2021
- 10:21:36 +0000
-From: "Pankaj  Vinodrao Joshi" <Pankaj.VJ@exaleapsemi.com>
-To: "ltp@lists.linux.it" <ltp@lists.linux.it>
-Thread-Topic: LTP madvise06.c
-Thread-Index: AQHXBqfppHt3eX81/0ybHWCxFOHImQ==
-Date: Fri, 19 Feb 2021 10:21:36 +0000
-Message-ID: <BMXPR01MB2870FA73C10D2EDB69D61050EE849@BMXPR01MB2870.INDPRD01.PROD.OUTLOOK.COM>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: lists.linux.it; dkim=none (message not signed)
- header.d=none;lists.linux.it; dmarc=none action=none
- header.from=exaleapsemi.com;
-x-originating-ip: [14.98.179.254]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 9946849a-a04c-408f-560e-08d8d4c0238c
-x-ms-traffictypediagnostic: BMXPR01MB2471:
-x-microsoft-antispam-prvs: <BMXPR01MB2471470B3864CB05FEC2ED90EE849@BMXPR01MB2471.INDPRD01.PROD.OUTLOOK.COM>
-x-ms-oob-tlc-oobclassifiers: OLM:3968;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 7yz1s4Cq4kcrR0h1yJ3aECdwKhHbc8HmLu/CINtngqykMu7EF3ASWkYc6n/Ya86/WLPRGRZUtnPtI/sBEdgs/pk0iwtfnkcDXm8KW7Q78upCEEE8ZYk3NrDWwq+ffNy2TVGrk0CADs4wN0gfu83uj4ohlFpwTeKO7aO1sLzh74JZkWtwRul43DWI8rQiZlSgh0fWsSS2e9/QL/CzsA0XV5H5rzFX9vUWaNr8d0o1Ao4g77B5YGDHGF/G/z4BJ4IZUkfDHg/9TtetOALLA1npDhUX9QH9vvABcJw2PnXv2i3tIiQv8aFWkGfpsfjjZE71ENdDUOI57vLnKlj7H8/Q2vik10EmhOzJRO5bFBdunZa606XEn4PuhBtebj9SIen83xNdNh6iMUlTXFQ1W9UIzWffEgxbKSFX65FqEPdcq38NEaEAmLXOpPNtUSt3CBDkQBDlg9eR8IwhdxS138OkygIvU9idncdAPT59Tsc1PsHItR+GXF9jVncjGeCwJvK7n3WEAFIuhpMxUajDC8WGaw==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BMXPR01MB2870.INDPRD01.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(396003)(376002)(346002)(366004)(39830400003)(136003)(52536014)(91956017)(76116006)(8676002)(33656002)(186003)(558084003)(71200400001)(66946007)(316002)(478600001)(64756008)(66476007)(66446008)(66556008)(55236004)(6506007)(8936002)(26005)(19627405001)(2906002)(55016002)(9686003)(6916009)(83380400001)(86362001)(5660300002)(7696005);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata: =?iso-8859-1?Q?nfzJCPuOt+mVDgZfa8JywADQzZPyMNkgtno1D1FaZeAI+wx7uGX4+4k7sU?=
- =?iso-8859-1?Q?FIKoke+Sh2n6LsAYMcjbL6e6pOxX+Pcw2qFFCLGeHSIgGJCZIzzJvRcysG?=
- =?iso-8859-1?Q?OqpP2fNVfqFHSUcAnG61yriZJ/zV5RUSmNaHBaq827QKFCfireP8CmEW2u?=
- =?iso-8859-1?Q?MuE8buSK//Srq78Pvk6QqdfGY1t2MqKfCHxJhHZN7RqUQSOOQNr+RSe1e9?=
- =?iso-8859-1?Q?nRD0LUoEEYHxJeCSU55vUafyYzHyh7IgZllfdOH3M3u47E9p4Fo0AghsRc?=
- =?iso-8859-1?Q?tlRe0Sv12ZeIkITrEB4yUHUETyX2gZVBYGwHnJijdTsVHu2jHBaixwl9P1?=
- =?iso-8859-1?Q?Huznp8yVQIBOFlqSRQ+yulyGiUUSMnx9FKl8/EFlU9zeVa3C06sSobNbNj?=
- =?iso-8859-1?Q?JgQ7MjHlUGckLvHgvDMkXeOqJtryS+Y+sx+VRyp+9w9QZCuHy73LvEcQYP?=
- =?iso-8859-1?Q?RcJXbLKU6UrrP6qGm2DOisX6ZFBOkrP5HIIEBZYpF7VnyLd4nPOUXplPH/?=
- =?iso-8859-1?Q?JDMHuraF/FQFPk2xle4TX9cwjORdCYyRug3Wx90yDLghDhd0eBh5jaBKtm?=
- =?iso-8859-1?Q?rUxwZERyusoCbgJakErymAYlcuZS7k2u+th0Ar2JPyWOwdIjOFmMiSXbkt?=
- =?iso-8859-1?Q?IKzjCO+s+O2Uxpr9I3F2NSao9jLGvli0YsLfBVbVctS1fpXKz3bdiSLhXm?=
- =?iso-8859-1?Q?ICz1axjw4Zw7aLH2YqsK8edyQk/ZK9ptajsYdBwyJnura1GOJkcsSiqtI6?=
- =?iso-8859-1?Q?2EIafSJHbdSMCLIZZbazCWjxoW7FBVerUBZUFkLV7dvKCTkYCqXYCdrPvW?=
- =?iso-8859-1?Q?24/ritKgf79vKKTWrMmrs25bUdZYOFSKwZcEgg4OwJhEev8dmOytTcUfmO?=
- =?iso-8859-1?Q?TIE1JcVymfR6uaqeouFFSVQ0Y7kfBfFicAvQnk1XUwIgz9q0FHrReMAfHZ?=
- =?iso-8859-1?Q?Su9Ldf8wxrx/61MrXL6CGUe2VUp3O4TauzfIho882GXI3v6IGLIFy5piS7?=
- =?iso-8859-1?Q?4RbzADyBSvfMJDMI5EsiNLNxW8gB1g0UwETrKOY2EgkH0mtfINLZ4Wb7yV?=
- =?iso-8859-1?Q?LvtsVeGnJ+f3lS4haJIJYgvYoz/wDDk8T6nKqokg5rpM6ACuE7Pzq9OF4w?=
- =?iso-8859-1?Q?qsTc5m4MOAzESE1zRrJ933lpKvtKajAWdlcWleqCVIm9+YtHB9PAbh9C6v?=
- =?iso-8859-1?Q?tXfXBMh510M5T3rEOUqxBsc6rB0zc1mIxKOjJRRCXQVIK7nyLbpl8RiMAA?=
- =?iso-8859-1?Q?ZEkiOISKduosRwnmQYRgT5JrJ+Oo36bXz5Ze3WRum5Xwm/EOWYsTRWGl69?=
- =?iso-8859-1?Q?iDrVbQN+qBdfE+BQoVyTFcUkioGOfd2bfL3cHNE2eS04+5g=3D?=
-x-ms-exchange-transport-forked: True
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id CEC49201117
+ for <ltp@lists.linux.it>; Fri, 19 Feb 2021 13:57:29 +0100 (CET)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 1A297AEDD
+ for <ltp@lists.linux.it>; Fri, 19 Feb 2021 12:57:29 +0000 (UTC)
+From: Martin Doucha <mdoucha@suse.cz>
+To: ltp@lists.linux.it
+Date: Fri, 19 Feb 2021 13:57:28 +0100
+Message-Id: <20210219125728.18580-1-mdoucha@suse.cz>
+X-Mailer: git-send-email 2.30.0
 MIME-Version: 1.0
-X-OriginatorOrg: exaleapsemi.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BMXPR01MB2870.INDPRD01.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9946849a-a04c-408f-560e-08d8d4c0238c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Feb 2021 10:21:36.6435 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 34df156e-9bc4-4450-9e80-487c0e7f9471
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 68asqrGqw+z6pPWdUMNNRaSIfForEFLo6Is84SX0+S+HfHSi0XDFhOxr2/IHsEGyWfp9YNW9IcffHpYddI+Yww6QxQbfHV3+UX/8vVCAF3Y=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BMXPR01MB2471
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- HTML_MESSAGE,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] LTP madvise06.c
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH] Add test for possible writev() issues with NULL
+ buffer in iovec
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,77 +44,212 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1543688634=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1543688634==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BMXPR01MB2870FA73C10D2EDB69D61050EE849BMXPR01MB2870INDP_"
+Fixes #790
 
---_000_BMXPR01MB2870FA73C10D2EDB69D61050EE849BMXPR01MB2870INDP_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Martin Doucha <mdoucha@suse.cz>
+---
 
-Hi,
-i am running madvise06.c but i am getting message madvise06.c:63: CONF: Sys=
-tem swap is too small (838860800 bytes needed) can someone suggest if i can=
- increase size of swap and make this testcase work ??
+This test triggers temporary write of invalid data into test file on some
+file systems on kernel 4.4.21 and older.
 
+ runtest/syscalls                            |   1 +
+ testcases/kernel/syscalls/writev/.gitignore |   1 +
+ testcases/kernel/syscalls/writev/Makefile   |   3 +
+ testcases/kernel/syscalls/writev/writev03.c | 142 ++++++++++++++++++++
+ 4 files changed, 147 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/writev/writev03.c
 
-Thanks!
-
-
---_000_BMXPR01MB2870FA73C10D2EDB69D61050EE849BMXPR01MB2870INDP_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Hi,</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-i am running madvise06.c but i am getting message <b>madvise06.c:63: CONF: =
-System swap is too small (838860800 bytes needed)</b> can someone suggest i=
-f i can increase size of swap and make this testcase work ??</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Thanks!<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<b></b><br>
-</div>
-</body>
-</html>
-
---_000_BMXPR01MB2870FA73C10D2EDB69D61050EE849BMXPR01MB2870INDP_--
-
---===============1543688634==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/runtest/syscalls b/runtest/syscalls
+index ae47a6d5e..f01d94540 100644
+--- a/runtest/syscalls
++++ b/runtest/syscalls
+@@ -1675,6 +1675,7 @@ write05 write05
+ 
+ writev01 writev01
+ writev02 writev02
++writev03 writev03
+ writev05 writev05
+ writev06 writev06
+ writev07 writev07
+diff --git a/testcases/kernel/syscalls/writev/.gitignore b/testcases/kernel/syscalls/writev/.gitignore
+index d60da0f43..167779736 100644
+--- a/testcases/kernel/syscalls/writev/.gitignore
++++ b/testcases/kernel/syscalls/writev/.gitignore
+@@ -1,5 +1,6 @@
+ /writev01
+ /writev02
++/writev03
+ /writev05
+ /writev06
+ /writev07
+diff --git a/testcases/kernel/syscalls/writev/Makefile b/testcases/kernel/syscalls/writev/Makefile
+index 4844a6910..6627abaed 100644
+--- a/testcases/kernel/syscalls/writev/Makefile
++++ b/testcases/kernel/syscalls/writev/Makefile
+@@ -9,4 +9,7 @@ endif
+ 
+ include $(top_srcdir)/include/mk/testcases.mk
+ 
++writev03: CFLAGS += -pthread
++writev03: LDLIBS += -lrt
++
+ include $(top_srcdir)/include/mk/generic_leaf_target.mk
+diff --git a/testcases/kernel/syscalls/writev/writev03.c b/testcases/kernel/syscalls/writev/writev03.c
+new file mode 100644
+index 000000000..f48efccf2
+--- /dev/null
++++ b/testcases/kernel/syscalls/writev/writev03.c
+@@ -0,0 +1,142 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (C) 2021 SUSE LLC <mdoucha@suse.cz>
++ *
++ * Check for potential issues in writev() if the first iovec entry is NULL
++ * and the next one is not present in RAM. This can result in a brief window
++ * where writev() first writes uninitialized data into the file (possibly
++ * exposing internal kernel structures) and then overwrites it with the real
++ * iovec contents later. Bugs fixed in:
++ *
++ *  commit d4690f1e1cdabb4d61207b6787b1605a0dc0aeab
++ *  Author: Al Viro <viro@ZenIV.linux.org.uk>
++ *  Date:   Fri Sep 16 00:11:45 2016 +0100
++ *
++ *  fix iov_iter_fault_in_readable()
++ */
++
++#include <sys/uio.h>
++#include "tst_test.h"
++#include "tst_fuzzy_sync.h"
++
++#define CHUNK_SIZE 256
++#define BUF_SIZE (2 * CHUNK_SIZE)
++#define MNTPOINT "mntpoint"
++#define TEMPFILE MNTPOINT "/test_file"
++#define MAPFILE MNTPOINT "/map_file"
++
++static unsigned char buf[BUF_SIZE], *map_ptr;
++static int mapfd = -1, writefd = -1;
++static volatile ssize_t written;
++static struct tst_fzsync_pair fzsync_pair;
++struct iovec iov[5];
++
++static void setup(void)
++{
++	int i;
++
++	for (i = 0; i < BUF_SIZE; i++)
++		buf[i] = i & 0xff;
++
++	mapfd = SAFE_OPEN(MAPFILE, O_CREAT|O_RDWR|O_TRUNC, 0644);
++	SAFE_WRITE(1, mapfd, buf, BUF_SIZE);
++
++	tst_fzsync_pair_init(&fzsync_pair);
++}
++
++static void *thread_run(void *arg)
++{
++	while (tst_fzsync_run_b(&fzsync_pair)) {
++		writefd = SAFE_OPEN(TEMPFILE, O_CREAT|O_WRONLY|O_TRUNC, 0644);
++		written = BUF_SIZE;
++		tst_fzsync_wait_b(&fzsync_pair);
++
++		/*
++		 * Do *NOT* preload the data using MAP_POPULATE or touching
++		 * the mapped range. We're testing whether writev() handles
++		 * fault-in correctly.
++		 */
++		map_ptr = SAFE_MMAP(NULL, BUF_SIZE, PROT_READ, MAP_SHARED,
++			mapfd, 0);
++		iov[1].iov_base = map_ptr;
++		iov[1].iov_len = CHUNK_SIZE;
++		iov[3].iov_base = map_ptr + CHUNK_SIZE;
++		iov[3].iov_len = CHUNK_SIZE;
++
++		tst_fzsync_start_race_b(&fzsync_pair);
++		written = writev(writefd, iov, ARRAY_SIZE(iov));
++		tst_fzsync_end_race_b(&fzsync_pair);
++
++		SAFE_MUNMAP(map_ptr, BUF_SIZE);
++		map_ptr = NULL;
++		SAFE_CLOSE(writefd);
++	}
++
++	return arg;
++}
++
++static void run(void)
++{
++	int fd, failed = 0;
++	ssize_t total_read;
++	unsigned char readbuf[BUF_SIZE];
++
++	tst_fzsync_pair_reset(&fzsync_pair, thread_run);
++
++	while (!failed && tst_fzsync_run_a(&fzsync_pair)) {
++		tst_fzsync_wait_a(&fzsync_pair);
++		fd = SAFE_OPEN(TEMPFILE, O_RDONLY);
++		tst_fzsync_start_race_a(&fzsync_pair);
++
++		for (total_read = 0; total_read < written;) {
++			total_read += SAFE_READ(0, fd, readbuf + total_read,
++				BUF_SIZE - total_read);
++		}
++
++		tst_fzsync_end_race_a(&fzsync_pair);
++		SAFE_CLOSE(fd);
++
++		if (total_read > BUF_SIZE)
++			tst_brk(TBROK, "read() returned too much data");
++
++		if (total_read <= 0)
++			continue;
++
++		if (memcmp(readbuf, buf, (size_t)total_read)) {
++			tst_res(TFAIL, "writev() wrote invalid data");
++			failed = 1;
++			break;
++		}
++	}
++
++	if (!failed)
++		tst_res(TPASS, "writev() handles page fault-in correctly");
++}
++
++static void cleanup(void)
++{
++	if (map_ptr && map_ptr != MAP_FAILED)
++		SAFE_MUNMAP(map_ptr, BUF_SIZE);
++
++	if (mapfd >= 0)
++		SAFE_CLOSE(mapfd);
++
++	if (writefd >= 0)
++		SAFE_CLOSE(writefd);
++
++	tst_fzsync_pair_cleanup(&fzsync_pair);
++}
++
++static struct tst_test test = {
++	.test_all = run,
++	.needs_root = 1,
++	.mount_device = 1,
++	.mntpoint = MNTPOINT,
++	.all_filesystems = 1,
++	.setup = setup,
++	.cleanup = cleanup,
++	.tags = (const struct tst_tag[]) {
++		{"linux-git", "d4690f1e1cda"},
++		{}
++	}
++};
+-- 
+2.30.0
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============1543688634==--
