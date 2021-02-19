@@ -1,78 +1,41 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8339B31F9FF
-	for <lists+linux-ltp@lfdr.de>; Fri, 19 Feb 2021 14:38:53 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 82FBB31FAEE
+	for <lists+linux-ltp@lfdr.de>; Fri, 19 Feb 2021 15:35:15 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 01F2F3C65C2
-	for <lists+linux-ltp@lfdr.de>; Fri, 19 Feb 2021 14:38:53 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id D6A533C65C7
+	for <lists+linux-ltp@lfdr.de>; Fri, 19 Feb 2021 15:35:14 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id BCCFD3C65A9
- for <ltp@lists.linux.it>; Fri, 19 Feb 2021 14:38:48 +0100 (CET)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- by in-7.smtp.seeweb.it (Postfix) with ESMTP id 02B0B2B04F2
- for <ltp@lists.linux.it>; Fri, 19 Feb 2021 14:38:47 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1613741926;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Zc15xRpcHcY6jecfZmeZJwU9YbjbW2xhUkVRQtTuFnk=;
- b=HxDUpXmBwRa5xhwiLioZK7ojWonbuAociACw6uLGpAT+5+vptQAjNC2sFc6TkzKlqvI25j
- fMENikn4F7uK/KygcvuVgy9d/sc7pww7kz+/ICDlWnQIHiqHCWkHWAL/yDqMP8h6hTpnAd
- Ik+Zd60GOZMH0xYgRnu7J9ZUlhc5hQI=
-Received: from mail-yb1-f200.google.com (mail-yb1-f200.google.com
- [209.85.219.200]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-195-fG8x7AVSNVGC0nGP6yAdrg-1; Fri, 19 Feb 2021 08:38:44 -0500
-X-MC-Unique: fG8x7AVSNVGC0nGP6yAdrg-1
-Received: by mail-yb1-f200.google.com with SMTP id d8so6704905ybs.11
- for <ltp@lists.linux.it>; Fri, 19 Feb 2021 05:38:44 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Zc15xRpcHcY6jecfZmeZJwU9YbjbW2xhUkVRQtTuFnk=;
- b=oWRNkP8wX8bwOq2CJT/dbAag7UX07lgd8irc5mAEmf0/f//Ss0r9sCr4fC3QkxhVEl
- kBAJrWN2rfzniJ4Rote5jyqeJotOhbs4Q3MjgVI+o9RQ+hC4Ab2zfmTkrRo0U8GYPAas
- 3z7n1kXzE3EXIrvk+miNioj02ZNYSHRsTz7ezzK7su+s0oUgEBz5zwUDkQ8HYWQyAaa+
- KV2NT95rUyN3CxdI6bfeRdZWNQBfO0eLHfaoml46HifVfW5Zusj/k/8/pHTZiOflouOF
- nDVe1SQR/qHFFRAUDFpxaFPLgcIEpB/RFUTBkWM3Bqh/taZMLa9k/XFVy+oW7sOBYuBW
- MkqQ==
-X-Gm-Message-State: AOAM5333+JB/lN71/6dMw2HsUivC5faOHAxF0fZH7SnviltPNhzdVwTt
- 0O5UYZ9VY59dMTXSOBVhzVpwOHcQlY8y7UM5NEQycPR9WD8yMYO6m/EdV4w0N/VOaPlUIMMYj7R
- 9FLC7Wdc6ibvJ17maYPOcOIK376Q=
-X-Received: by 2002:a25:e7d7:: with SMTP id
- e206mr13828296ybh.110.1613741923645; 
- Fri, 19 Feb 2021 05:38:43 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJyIx2aUp/0BLLE73KSo6vwGORw1LTl4SMCtNDcYE+4n0bzLCmxGBm+hV0QciBIb/5lUnYr6m7upZto1/irr21A=
-X-Received: by 2002:a25:e7d7:: with SMTP id
- e206mr13828280ybh.110.1613741923446; 
- Fri, 19 Feb 2021 05:38:43 -0800 (PST)
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id 883963C4F14
+ for <ltp@lists.linux.it>; Fri, 19 Feb 2021 15:35:11 +0100 (CET)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id DB877600776
+ for <ltp@lists.linux.it>; Fri, 19 Feb 2021 15:35:10 +0100 (CET)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 20EB1ABAE
+ for <ltp@lists.linux.it>; Fri, 19 Feb 2021 14:35:10 +0000 (UTC)
+References: <20210219125728.18580-1-mdoucha@suse.cz>
+User-agent: mu4e 1.4.15; emacs 27.1
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Martin Doucha <mdoucha@suse.cz>
+In-reply-to: <20210219125728.18580-1-mdoucha@suse.cz>
+Date: Fri, 19 Feb 2021 14:35:09 +0000
+Message-ID: <87blcg5dnm.fsf@suse.de>
 MIME-Version: 1.0
-References: <20210219050439.179039-1-zhaogongyi@huawei.com>
- <CAEemH2e75x8Jbc=ST5VQdg9i-nJDX8zDp=HCt3HaVhVxsVOA2Q@mail.gmail.com>
- <F3D3F6AC3820BB4C9FCA340DB5C32CB40386FA88@dggeml531-mbx.china.huawei.com>
-In-Reply-To: <F3D3F6AC3820BB4C9FCA340DB5C32CB40386FA88@dggeml531-mbx.china.huawei.com>
-From: Li Wang <liwang@redhat.com>
-Date: Fri, 19 Feb 2021 21:38:31 +0800
-Message-ID: <CAEemH2ch1-QTUgwz0zpUOWMLcrHkUiMp0UmSW0Mpnn=G0+ZKUw@mail.gmail.com>
-To: zhaogongyi <zhaogongyi@huawei.com>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] openposix/fork/11-1.c: Clean up temporary file
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] Add test for possible writev() issues with NULL
+ buffer in iovec
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,131 +47,251 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============0957513232=="
+Reply-To: rpalethorpe@suse.de
+Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0957513232==
-Content-Type: multipart/alternative; boundary="0000000000001b4c4a05bbb09270"
+Hello,
 
---0000000000001b4c4a05bbb09270
-Content-Type: text/plain; charset="UTF-8"
+Martin Doucha <mdoucha@suse.cz> writes:
 
-On Fri, Feb 19, 2021 at 5:34 PM zhaogongyi <zhaogongyi@huawei.com> wrote:
+> Fixes #790
+>
+> Signed-off-by: Martin Doucha <mdoucha@suse.cz>
+> ---
+>
+> This test triggers temporary write of invalid data into test file on some
+> file systems on kernel 4.4.21 and older.
+>
+>  runtest/syscalls                            |   1 +
+>  testcases/kernel/syscalls/writev/.gitignore |   1 +
+>  testcases/kernel/syscalls/writev/Makefile   |   3 +
+>  testcases/kernel/syscalls/writev/writev03.c | 142 ++++++++++++++++++++
+>  4 files changed, 147 insertions(+)
+>  create mode 100644 testcases/kernel/syscalls/writev/writev03.c
+>
+> diff --git a/runtest/syscalls b/runtest/syscalls
+> index ae47a6d5e..f01d94540 100644
+> --- a/runtest/syscalls
+> +++ b/runtest/syscalls
+> @@ -1675,6 +1675,7 @@ write05 write05
+>  
+>  writev01 writev01
+>  writev02 writev02
+> +writev03 writev03
+>  writev05 writev05
+>  writev06 writev06
+>  writev07 writev07
+> diff --git a/testcases/kernel/syscalls/writev/.gitignore b/testcases/kernel/syscalls/writev/.gitignore
+> index d60da0f43..167779736 100644
+> --- a/testcases/kernel/syscalls/writev/.gitignore
+> +++ b/testcases/kernel/syscalls/writev/.gitignore
+> @@ -1,5 +1,6 @@
+>  /writev01
+>  /writev02
+> +/writev03
+>  /writev05
+>  /writev06
+>  /writev07
+> diff --git a/testcases/kernel/syscalls/writev/Makefile b/testcases/kernel/syscalls/writev/Makefile
+> index 4844a6910..6627abaed 100644
+> --- a/testcases/kernel/syscalls/writev/Makefile
+> +++ b/testcases/kernel/syscalls/writev/Makefile
+> @@ -9,4 +9,7 @@ endif
+>  
+>  include $(top_srcdir)/include/mk/testcases.mk
+>  
+> +writev03: CFLAGS += -pthread
+> +writev03: LDLIBS += -lrt
+> +
+>  include $(top_srcdir)/include/mk/generic_leaf_target.mk
+> diff --git a/testcases/kernel/syscalls/writev/writev03.c b/testcases/kernel/syscalls/writev/writev03.c
+> new file mode 100644
+> index 000000000..f48efccf2
+> --- /dev/null
+> +++ b/testcases/kernel/syscalls/writev/writev03.c
+> @@ -0,0 +1,142 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Copyright (C) 2021 SUSE LLC <mdoucha@suse.cz>
+> + *
+> + * Check for potential issues in writev() if the first iovec entry is NULL
+> + * and the next one is not present in RAM. This can result in a brief window
+> + * where writev() first writes uninitialized data into the file (possibly
+> + * exposing internal kernel structures) and then overwrites it with the real
+> + * iovec contents later. Bugs fixed in:
+> + *
+> + *  commit d4690f1e1cdabb4d61207b6787b1605a0dc0aeab
+> + *  Author: Al Viro <viro@ZenIV.linux.org.uk>
+> + *  Date:   Fri Sep 16 00:11:45 2016 +0100
+> + *
+> + *  fix iov_iter_fault_in_readable()
+> + */
+> +
+> +#include <sys/uio.h>
+> +#include "tst_test.h"
+> +#include "tst_fuzzy_sync.h"
+> +
+> +#define CHUNK_SIZE 256
+> +#define BUF_SIZE (2 * CHUNK_SIZE)
+> +#define MNTPOINT "mntpoint"
+> +#define TEMPFILE MNTPOINT "/test_file"
+> +#define MAPFILE MNTPOINT "/map_file"
+> +
+> +static unsigned char buf[BUF_SIZE], *map_ptr;
+> +static int mapfd = -1, writefd = -1;
+> +static volatile ssize_t written;
 
-> Hi Li,
->
->
->
-> I think we need to delete the tempfile after the testing(in the cleanup
-> phase).
->
->
->
-> In this case, we just hope that call unlink after open/mkstemp since
-> unlink would not destroy the inode,
->
->
->
-> so call unlink before fork would not affect the test?
->
+written should be atomic type (see below)
 
-Right, but better to put behind of close(fd) that makes logic more clear.
+> +static struct tst_fzsync_pair fzsync_pair;
+> +struct iovec iov[5];
+> +
+> +static void setup(void)
+> +{
+> +	int i;
+> +
+> +	for (i = 0; i < BUF_SIZE; i++)
+> +		buf[i] = i & 0xff;
+> +
+> +	mapfd = SAFE_OPEN(MAPFILE, O_CREAT|O_RDWR|O_TRUNC, 0644);
+> +	SAFE_WRITE(1, mapfd, buf, BUF_SIZE);
+> +
+> +	tst_fzsync_pair_init(&fzsync_pair);
+> +}
+> +
+> +static void *thread_run(void *arg)
+> +{
+> +	while (tst_fzsync_run_b(&fzsync_pair)) {
+> +		writefd = SAFE_OPEN(TEMPFILE, O_CREAT|O_WRONLY|O_TRUNC, 0644);
+> +		written = BUF_SIZE;
+> +		tst_fzsync_wait_b(&fzsync_pair);
+> +
+> +		/*
+> +		 * Do *NOT* preload the data using MAP_POPULATE or touching
+> +		 * the mapped range. We're testing whether writev() handles
+> +		 * fault-in correctly.
+> +		 */
+> +		map_ptr = SAFE_MMAP(NULL, BUF_SIZE, PROT_READ, MAP_SHARED,
+> +			mapfd, 0);
 
+Possibly, instead of recreating the mapping each loop you could call
+madvise MADV_DONTNEED on the mapping. In which case it may also be best
+to use MAP_PRIVATE as well. Of courese if it is already fast then this
+does not matter.
 
->
-> BTW, seems the child report a wrong status of the locked file, while
->
-> fcntl(fd, F_SETLK, &fl) return -1 and sets errno to EACCES or EAGAIN,
->
-> shouldn't that mean the file already been locked by the parent?
->
+> +		iov[1].iov_base = map_ptr;
+> +		iov[1].iov_len = CHUNK_SIZE;
+> +		iov[3].iov_base = map_ptr + CHUNK_SIZE;
+> +		iov[3].iov_len = CHUNK_SIZE;
+> +
+> +		tst_fzsync_start_race_b(&fzsync_pair);
+> +		written = writev(writefd, iov, ARRAY_SIZE(iov));
 
-And what do u think about this?
+To be on the safe side we should write to written with the atomic
+functions (see below).
+
+> +		tst_fzsync_end_race_b(&fzsync_pair);
+> +
+> +		SAFE_MUNMAP(map_ptr, BUF_SIZE);
+> +		map_ptr = NULL;
+> +		SAFE_CLOSE(writefd);
+> +	}
+> +
+> +	return arg;
+> +}
+> +
+> +static void run(void)
+> +{
+> +	int fd, failed = 0;
+> +	ssize_t total_read;
+> +	unsigned char readbuf[BUF_SIZE];
+> +
+> +	tst_fzsync_pair_reset(&fzsync_pair, thread_run);
+> +
+> +	while (!failed && tst_fzsync_run_a(&fzsync_pair)) {
+> +		tst_fzsync_wait_a(&fzsync_pair);
+> +		fd = SAFE_OPEN(TEMPFILE, O_RDONLY);
+> +		tst_fzsync_start_race_a(&fzsync_pair);
+> +
+> +		for (total_read = 0; total_read < written;) {
+
+Also read from written with the tst_atomic functions. This is especially
+important for weak memory models because written may not be synchronised
+straight away. Then it could block on read().
+
+There is also a small chance some architecture will update ssize_t
+non-atomically so written is smaller than expected. This would lead to a
+false positive.
+
+I suppose an alternative would be to complete writing the data just using
+an ordinary write() call or however you want.
+
+> +			total_read += SAFE_READ(0, fd, readbuf + total_read,
+> +				BUF_SIZE - total_read);
+> +		}
+> +
+> +		tst_fzsync_end_race_a(&fzsync_pair);
+> +		SAFE_CLOSE(fd);
+> +
+> +		if (total_read > BUF_SIZE)
+> +			tst_brk(TBROK, "read() returned too much data");
+> +
+> +		if (total_read <= 0)
+> +			continue;
+> +
+> +		if (memcmp(readbuf, buf, (size_t)total_read)) {
+> +			tst_res(TFAIL, "writev() wrote invalid data");
+> +			failed = 1;
+> +			break;
+> +		}
+> +	}
+> +
+> +	if (!failed)
+> +		tst_res(TPASS, "writev() handles page fault-in correctly");
+> +}
+> +
+> +static void cleanup(void)
+> +{
+> +	if (map_ptr && map_ptr != MAP_FAILED)
+> +		SAFE_MUNMAP(map_ptr, BUF_SIZE);
+> +
+> +	if (mapfd >= 0)
+> +		SAFE_CLOSE(mapfd);
+> +
+> +	if (writefd >= 0)
+> +		SAFE_CLOSE(writefd);
+> +
+> +	tst_fzsync_pair_cleanup(&fzsync_pair);
+> +}
+> +
+> +static struct tst_test test = {
+> +	.test_all = run,
+> +	.needs_root = 1,
+> +	.mount_device = 1,
+> +	.mntpoint = MNTPOINT,
+> +	.all_filesystems = 1,
+> +	.setup = setup,
+> +	.cleanup = cleanup,
+> +	.tags = (const struct tst_tag[]) {
+> +		{"linux-git", "d4690f1e1cda"},
+
+I guess CVE is on the way?
+
+> +		{}
+> +	}
+> +};
+> -- 
+> 2.30.0
+
+Apart from the volatile variable looks good!
 
 -- 
-Regards,
-Li Wang
-
---0000000000001b4c4a05bbb09270
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Fri, Feb 19, 2021 at 5:34 PM zhaogongyi &lt;<a h=
-ref=3D"mailto:zhaogongyi@huawei.com">zhaogongyi@huawei.com</a>&gt; wrote:<b=
-r></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex=
-;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-
-
-
-
-
-<div lang=3D"ZH-CN">
-<div class=3D"gmail-m_1767732437789065902WordSection1">
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
-family:Calibri,sans-serif;color:rgb(31,73,125)">Hi Li,<u></u><u></u></span>=
-</p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
-family:Calibri,sans-serif;color:rgb(31,73,125)"><u></u>=C2=A0<u></u></span>=
-</p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
-family:Calibri,sans-serif;color:rgb(31,73,125)">I think we need to delete t=
-he tempfile after the testing(in the cleanup phase).<u></u><u></u></span></=
-p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
-family:Calibri,sans-serif;color:rgb(31,73,125)"><u></u>=C2=A0<u></u></span>=
-</p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
-family:Calibri,sans-serif;color:rgb(31,73,125)">In this case, we just hope =
-that call unlink after open/mkstemp since unlink would not destroy the inod=
-e,<u></u><u></u></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
-family:Calibri,sans-serif;color:rgb(31,73,125)"><u></u>=C2=A0<u></u></span>=
-</p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.5pt;font-=
-family:Calibri,sans-serif;color:rgb(31,73,125)">so call unlink before fork =
-would not affect the test?</span></p></div></div></blockquote><div><br></di=
-v><div><div class=3D"gmail_default" style=3D"font-size:small">Right, but be=
-tter to put behind of close(fd) that makes logic more clear.</div></div><di=
-v><div class=3D"gmail_default" style=3D"font-size:small"><br></div></div><b=
-lockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-le=
-ft:1px solid rgb(204,204,204);padding-left:1ex"><div lang=3D"ZH-CN"><div cl=
-ass=3D"gmail-m_1767732437789065902WordSection1"><div><div><div>
-</div>
-<div>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><u></u>=C2=A0<u></u></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">BTW, seems the child report a w=
-rong status of the locked file, while<u></u><u></u></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">fcntl(fd, F_SETLK, &amp;fl) ret=
-urn -1 and sets errno to EACCES or EAGAIN,<u></u><u></u></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">shouldn&#39;t that mean the fil=
-e already been locked by the parent?</span></p></div></div></div></div></di=
-v></blockquote><div><br></div><div><div class=3D"gmail_default" style=3D"fo=
-nt-size:small">And what do u think about this?</div></div></div><div><br></=
-div>-- <br><div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><div=
->Regards,<br></div><div>Li Wang<br></div></div></div></div>
-
---0000000000001b4c4a05bbb09270--
-
-
---===============0957513232==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============0957513232==--
-
