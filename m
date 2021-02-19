@@ -1,41 +1,42 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACCA231EC6B
-	for <lists+linux-ltp@lfdr.de>; Thu, 18 Feb 2021 17:48:02 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F34131F491
+	for <lists+linux-ltp@lfdr.de>; Fri, 19 Feb 2021 06:05:35 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5A9FE3C66F9
-	for <lists+linux-ltp@lfdr.de>; Thu, 18 Feb 2021 17:48:02 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id DCB6D3C8797
+	for <lists+linux-ltp@lfdr.de>; Fri, 19 Feb 2021 06:05:34 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id 6D9B03C6603
- for <ltp@lists.linux.it>; Thu, 18 Feb 2021 17:48:00 +0100 (CET)
-Received: from relay2-d.mail.gandi.net (relay2-d.mail.gandi.net
- [217.70.183.194])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTP id 4A0C93C5501
+ for <ltp@lists.linux.it>; Fri, 19 Feb 2021 06:05:31 +0100 (CET)
+Received: from szxga05-in.huawei.com (szxga05-in.huawei.com [45.249.212.191])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 87F0F20109C
- for <ltp@lists.linux.it>; Thu, 18 Feb 2021 17:47:59 +0100 (CET)
-X-Originating-IP: 78.113.208.92
-Received: from kmaincent-XPS-13-7390 (92.208.113.78.rev.sfr.net
- [78.113.208.92]) (Authenticated sender: kory.maincent@bootlin.com)
- by relay2-d.mail.gandi.net (Postfix) with ESMTPSA id 72DC840006;
- Thu, 18 Feb 2021 16:47:58 +0000 (UTC)
-Date: Thu, 18 Feb 2021 17:47:56 +0100
-From: =?UTF-8?B?S8O2cnk=?= Maincent <kory.maincent@bootlin.com>
-To: ltp@lists.linux.it
-Message-ID: <20210218174756.702dc94d@kmaincent-XPS-13-7390>
-Organization: bootlin
-X-Mailer: Claws Mail 3.16.0 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 6F8EC201085
+ for <ltp@lists.linux.it>; Fri, 19 Feb 2021 06:05:30 +0100 (CET)
+Received: from DGGEMS412-HUB.china.huawei.com (unknown [172.30.72.59])
+ by szxga05-in.huawei.com (SkyGuard) with ESMTP id 4Dhfc108f5zMbxn
+ for <ltp@lists.linux.it>; Fri, 19 Feb 2021 13:03:29 +0800 (CST)
+Received: from ubuntu1804.huawei.com (10.67.174.63) by
+ DGGEMS412-HUB.china.huawei.com (10.3.19.212) with Microsoft SMTP Server id
+ 14.3.498.0; Fri, 19 Feb 2021 13:05:17 +0800
+From: zhao gongyi <zhaogongyi@huawei.com>
+To: <ltp@lists.linux.it>
+Date: Fri, 19 Feb 2021 13:04:39 +0800
+Message-ID: <20210219050439.179039-1-zhaogongyi@huawei.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
+X-Originating-IP: [10.67.174.63]
+X-CFilter-Loop: Reflected
 X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] Error on few tests, asking for help on debug
+Subject: [LTP] [PATCH] openposix/fork/11-1.c: Clean up temporary file
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,89 +48,34 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGVsbG8sCgpJIGhhdmUgaXNzdWVzIHdpdGggdGVzdHM6IG1zZ3N0cmVzczAzLCBtc2dzdHJlc3Mw
-NCwgc2VtY3RsMDkgYW5kIGlwdGFibGVzLgpJIGpvaW4gdGhlIGVycm9yIG1lc3NhZ2UgYWJvdmUu
-CkNvdWxkIHlvdSBwb2ludCBtZSBvdXQgd2hhdCBjb3VsZCBiZSB0aGUgcHJvYmxlbXM/CgpUaGFu
-a3MsIFJlZ2FyZHMsCgpLw7ZyeQoKCm1zZ3N0cmVzczAzClsgIDk4My41NTk4MTldIGNncm91cDog
-Zm9yayByZWplY3RlZCBieSBwaWRzIGNvbnRyb2xsZXIKaW4gL3VzZXIuc2xpY2UvdXNlci0wLnNs
-aWNlL3Nlc3Npb24tYzIuc2NvcGUKRm9yayBmYWlsZWQgKG1heSBiZSBPSyBpZiB1bmRlciBzdHJl
-c3MpCkZvcmsgZmFpbGVkIChtYXkgYmUgT0sgaWYgdW5kZXIgc3RyZXNzKQpGb3JrIGZhaWxlZCAo
-bWF5IGJlIE9LIGlmIHVuZGVyIHN0cmVzcykKRm9yayBmYWlsZWQgKG1heSBiZSBPSyBpZiB1bmRl
-ciBzdHJlc3MpCkZvcmsgZmFpbGVkIChtYXkgYmUgT0sgaWYgdW5kZXIgc3RyZXNzKQpGb3JrIGZh
-aWxlZCAobWF5IGJlIE9LIGlmIHVuZGVyIHN0cmVzcykKbXNnc3RyZXNzMDMgICAgMSAgVEZBSUwg
-IDogIG1zZ3N0cmVzczAzLmM6MTU1OiAgRm9yayBmYWlsZWQgKG1heSBiZSBPSyBpZiB1bmRlcgpz
-dHJlc3MpCgptc2dzdHJlc3MwNAptc2dzdHJlc3MwNCAgICAwICBUSU5GTyAgOiAgRm91bmQgMzIw
-MDAgYXZhaWxhYmxlIG1lc3NhZ2UgcXVldWVzCm1zZ3N0cmVzczA0ICAgIDAgIFRJTkZPICA6ICBV
-c2luZyB1cHRvIDIwOTcwOTEgcGlkcwpGb3JrIGZhaWx1cmUgaW4gdGhlIGZpcnN0IGNoaWxkIG9m
-IGNoaWxkIGdyb3VwIDYzMzEKRm9yayBmYWlsdXJlIGluIHRoZSBzZWNvbmQgY2hpbGQgb2YgY2hp
-bGQgZ3JvdXAgNjMyNQpGb3JrIGZhaWx1cmUgaW4gdGhlIGZpcnN0IGNoaWxkIG9mIGNoaWxkIGdy
-b3VwIDYzMjAKRm9yayBmYWlsdXJlIGluIHRoZSBmaXJzdCBjaGlsZCBvZiBjaGlsZCBncm91cCA2
-MzIzCkZvcmsgZmFpbHVyZSBpbiB0aGUgc2Vjb25kIGNoaWxkIG9mIGNoaWxkIGdyb3VwIDYzMDgK
-Rm9yayBmYWlsdXJlIGluIHRoZSBmaXJzdCBjaGlsZCBvZiBjaGlsZCBncm91cCA2MzMyCkZvcmsg
-ZmFpbHVyZSBpbiB0aGUgc2Vjb25kIGNoaWxkIG9mIGNoaWxkIGdyb3VwIDYyOTcKRm9yayBmYWls
-dXJlIGluIHRoZSBzZWNvbmQgY2hpbGQgb2YgY2hpbGQgZ3JvdXAgNjMzMwpGb3JrIGZhaWx1cmUg
-aW4gdGhlIGZpcnN0IGNoaWxkIG9mIGNoaWxkIGdyb3VwIDYzMjYKbXNnc3RyZXNzMDQgICAgMSAg
-VEZBSUwgIDogIG1zZ3N0cmVzczA0LmM6MjA0OiBGb3JrIGZhaWxlZCAobWF5IGJlIE9LIGlmIHVu
-ZGVyCnN0cmVzcykKCnNlbWN0bDA5ICAKdHN0X3Rlc3QuYzoxMjYxOiBUSU5GTzogVGltZW91dCBw
-ZXIgcnVuIGlzIDBoIDA1bSAwMHMgICAgICAgICAgICAgICAgICAgICAgICAgICAKc2VtY3RsMDku
-Yzo3MTogVElORk86IFRlc3QgU1lTX3NlbWN0bCBzeXNjYWxsICAgICAgICAKc2VtY3RsMDkuYzox
-MzY6IFRJTkZPOiBUZXN0IFNFTV9TVEFUX0FOWSB3aXRoIG5vYm9keSB1c2VyICAgICAgICAgICAg
-ICAgICAKc2VtY3RsMDkuYzoxNTg6IFRQQVNTOiBTRU1fSU5GTyByZXR1cm5lZCB2YWxpZCBpbmRl
-eCAxMCB0byBzZW1pZCAxMApzZW1jdGwwOS5jOjE2ODogVFBBU1M6IENvdW50ZWQgdXNlZCA9IDEg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgCnNlbWN0bDA5LmM6MTE2OiBUUEFTUzogc2Vtc2V0
-X2NudCA9IDEgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKc2VtY3RsMDkuYzoxMjM6IFRQ
-QVNTOiBzZW5fY250ID0gMiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIApzZW1jdGww
-OS5jOjEzNjogVElORk86IFRlc3QgU0VNX1NUQVRfQU5ZIHdpdGggcm9vdCB1c2VyICAgICAgICAg
-ICAgICAgICAgICAgICAgCnNlbWN0bDA5LmM6MTU4OiBUUEFTUzogU0VNX0lORk8gcmV0dXJuZWQg
-dmFsaWQgaW5kZXggMTAgdG8gc2VtaWQgMTAgICAgICAgICAgICAKc2VtY3RsMDkuYzoxNjg6IFRQ
-QVNTOiBDb3VudGVkIHVzZWQgPSAxICAgICAgICAgICAgICAgICAgICAgICAgICAgIApzZW1jdGww
-OS5jOjExNjogVFBBU1M6IHNlbXNldF9jbnQgPSAxICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgCnNlbWN0bDA5LmM6MTIzOiBUUEFTUzogc2VuX2NudCA9IDIgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAKdHN0X3Rlc3QuYzoxMjYxOiBUSU5GTzogVGltZW91dCBwZXIgcnVuIGlz
-IDBoIDA1bSAwMHMgICAgICAgICAgICAgIApzZW1jdGwwOS5jOjc0OiBUSU5GTzogVGVzdCBsaWJj
-IHNlbWN0bCgpICAgICAgICAgICAgIApzZW1jdGwwOS5jOjEzNjogVElORk86IFRlc3QgU0VNX1NU
-QVRfQU5ZIHdpdGggbm9ib2R5IHVzZXIgICAgICAgICAgICAgICAgICAgICAgIApzZW1jdGwwOS5j
-OjE1MjogVEZBSUw6IFNFTV9TVEFUX0FOWSBkb2Vzbid0IHBhc3MgdGhlIGJ1ZmZlciBzcGVjaWZp
-ZWQgYnkgdGhlIGNhbApzZW1jdGwwOS5jOjEzNjogVElORk86IFRlc3QgU0VNX1NUQVRfQU5ZIHdp
-dGggcm9vdCB1c2VyICAgICAgICAgICAgICAgICAgICAgICAgIApzZW1jdGwwOS5jOjE1MjogVEZB
-SUw6IFNFTV9TVEFUX0FOWSBkb2Vzbid0IHBhc3MgdGhlIGJ1ZmZlciBzcGVjaWZpZWQgYnkgdGhl
-IGNhbAoKaXB0YWJsZXMKaXB0YWJsZXMwMSAxIFRJTkZPOiBpbml0aWFsaXplICdsaG9zdCcgJ2x0
-cF9uc192ZXRoMicgaW50ZXJmYWNlICAgICAgICAgICAgICAKaXB0YWJsZXMwMSAxIFRJTkZPOiBh
-ZGQgbG9jYWwgYWRkciAxMC4wLjAuMi8yNCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAK
-aXB0YWJsZXMwMSAxIFRJTkZPOiBhZGQgbG9jYWwgYWRkciBmZDAwOjE6MToxOjoyLzY0ICAgICAg
-ICAgICAgICAgICAgICAgICAgICAKaXB0YWJsZXMwMSAxIFRJTkZPOiBpbml0aWFsaXplICdyaG9z
-dCcgJ2x0cF9uc192ZXRoMScgaW50ZXJmYWNlICAgICAgICAgICAgICAKaXB0YWJsZXMwMSAxIFRJ
-TkZPOiBhZGQgcmVtb3RlIGFkZHIgMTAuMC4wLjEvMjQgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAKaXB0YWJsZXMwMSAxIFRJTkZPOiBhZGQgcmVtb3RlIGFkZHIgZmQwMDoxOjE6MTo6MS82
-NCAgICAgICAgICAgICAgICAgICAgICAgICAKaXB0YWJsZXMwMSAxIFRJTkZPOiBOZXR3b3JrIGNv
-bmZpZyAobG9jYWwgLS0gcmVtb3RlKTogICAgICAgICAgICAgIAppcHRhYmxlczAxIDEgVElORk86
-IGx0cF9uc192ZXRoMiAtLSBsdHBfbnNfdmV0aDEgICAgICAgICAgICAgICAgICAgCmlwdGFibGVz
-MDEgMSBUSU5GTzogMTAuMC4wLjIvMjQgLS0gMTAuMC4wLjEvMjQgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgCmlwdGFibGVzMDEgMSBUSU5GTzogZmQwMDoxOjE6MTo6Mi82NCAtLSBm
-ZDAwOjE6MToxOjoxLzY0ICAgICAgICAgICAgICAgICAgICAgICAgCmlwdGFibGVzMDEgMSBUSU5G
-TzogdGltZW91dCBwZXIgcnVuIGlzIDBoIDVtIDBzICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgCmlwdGFibGVzMDEgMSBUSU5GTzogSU5JVDogRmx1c2hpbmcgYWxsIHJ1bGVzICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCmlwdGFibGVzMDEgMSBUSU5GTzogaXB0YWJs
-ZXMgLUwgLXQgZmlsdGVyIHdpbGwgbGlzdCBhbGwgcnVsZXMgaW4gdGFibGUgZmlsdGVyCmlwdGFi
-bGVzMDEgMSBUSU5GTzogaXB0YWJsZXMgLUwgLXQgZmlsdGVyIGxpc3RzIHJ1bGVzICAgICAgICAg
-ICAgICAgICAgICAgICAgCmlwdGFibGVzMDEgMSBUSU5GTzogaXB0YWJsZXMgLUwgLXQgbmF0IHdp
-bGwgbGlzdCBhbGwgcnVsZXMgaW4gdGFibGUgbmF0ICAgICAgCmlwdGFibGVzMDEgMSBUSU5GTzog
-aXB0YWJsZXMgLUwgLXQgbmF0IGxpc3RzIHJ1bGVzICAgICAgICAgICAgICAgICAgICAgICAgICAg
-CmlwdGFibGVzMDEgMSBUSU5GTzogaXB0YWJsZXMgLUwgLXQgbWFuZ2xlIHdpbGwgbGlzdCBhbGwg
-cnVsZXMgaW4gdGFibGUgbWFuZ2xlCmlwdGFibGVzMDEgMSBUSU5GTzogaXB0YWJsZXMgLUwgLXQg
-bWFuZ2xlIGxpc3RzIHJ1bGVzICAgICAgICAgICAgICAgICAgICAgICAgCmlwdGFibGVzMDEgMSBU
-UEFTUzogaXB0YWJsZXMgLUwgbGlzdHMgcnVsZXMgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgCmlwdGFibGVzMDEgMiBUSU5GTzogVXNlIGlwdGFibGVzIHRvIERST1AgcGFja2V0
-cyBmcm9tIHBhcnRpY3VsYXIgSVAgICAgICAgICAgICAgCmlwdGFibGVzMDEgMiBUSU5GTzogUnVs
-ZSB0byBibG9jayBpY21wIGZyb20gMTI3LjAuMC4xICAgICAgICAgICAgICAgICAgICAgICAgICAg
-CmlwdGFibGVzMDEgMiBUSU5GTzogUGluZ2luZyAxMjcuMC4wLjEgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgCmlwdGFibGVzMDEgMSBUQlJPSzogdGVzdCBraWxsZWQs
-IHRpbWVvdXQhIElmIHlvdSBhcmUgcnVubmluZyBvbiBzbG93IG1hY2hpbmUsCnRyeSBleHBvcnRp
-bmcgTFRQX1RJTUVPVVRfTVVMID4gMQoKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9s
-aXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
+We need to clean up temporary file /tmp/fork-11-1-XXXXXX which created by mkstemp.
+
+Signed-off-by: zhao gongyi <zhaogongyi@huawei.com>
+---
+ .../open_posix_testsuite/conformance/interfaces/fork/11-1.c     | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/fork/11-1.c b/testcases/open_posix_testsuite/conformance/interfaces/fork/11-1.c
+index a43bc274c..e9b18958c 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/fork/11-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/fork/11-1.c
+@@ -79,6 +79,8 @@ int main(void)
+ 		return result;
+ 	}
+
++	unlink(path_template);
++
+ 	if (fcntl(fd, F_SETLK, &fl) == -1) {
+ 		printf("Could not set initial lock: %s (%d)\n",
+ 		       strerror(errno), errno);
+--
+2.17.1
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
