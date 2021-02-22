@@ -2,38 +2,52 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FFFE321DF2
-	for <lists+linux-ltp@lfdr.de>; Mon, 22 Feb 2021 18:20:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8565E321F6A
+	for <lists+linux-ltp@lfdr.de>; Mon, 22 Feb 2021 19:54:23 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 41E1F3C611F
-	for <lists+linux-ltp@lfdr.de>; Mon, 22 Feb 2021 18:20:47 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 4B7E83C611D
+	for <lists+linux-ltp@lfdr.de>; Mon, 22 Feb 2021 19:54:23 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id 2712D3C6021
- for <ltp@lists.linux.it>; Mon, 22 Feb 2021 18:20:46 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 3051E140075C
- for <ltp@lists.linux.it>; Mon, 22 Feb 2021 18:20:44 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 8650EAC69
- for <ltp@lists.linux.it>; Mon, 22 Feb 2021 17:20:44 +0000 (UTC)
-From: Martin Doucha <mdoucha@suse.cz>
-To: ltp@lists.linux.it
-Date: Mon, 22 Feb 2021 18:20:43 +0100
-Message-Id: <20210222172043.24294-1-mdoucha@suse.cz>
-X-Mailer: git-send-email 2.30.0
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id 3524E3C1B89
+ for <ltp@lists.linux.it>; Mon, 22 Feb 2021 19:54:22 +0100 (CET)
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+ by in-3.smtp.seeweb.it (Postfix) with ESMTP id BBE801A000B1
+ for <ltp@lists.linux.it>; Mon, 22 Feb 2021 19:54:20 +0100 (CET)
+Received: from [192.168.86.31] (c-71-197-163-6.hsd1.wa.comcast.net
+ [71.197.163.6])
+ by linux.microsoft.com (Postfix) with ESMTPSA id 254BE20B6C40;
+ Mon, 22 Feb 2021 10:54:18 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 254BE20B6C40
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+ s=default; t=1614020058;
+ bh=F2Q+wGBpdBRbQLa+Yjt0vgkaEnf0Irr3K423f6dNoP0=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=Ps/yOWdYkgDYhpSRJjnZ8Fmb+hq+dLEa+J6KYhar4dBjNeN/igRNDKGDRynmgeOAu
+ vjwj5z18OmitPl//Ogi5+3x/qZw0MDRhz4Uej+hsdwBNP1cUcWVEkoWQDC4qfT1Nmd
+ 8S8XoExUKRI6xQiD5XAvblSnc6ZxHgGlwMhJRDdM=
+To: Petr Vorel <pvorel@suse.cz>
+References: <20200928035605.22701-1-tusharsu@linux.microsoft.com>
+ <20200928035605.22701-2-tusharsu@linux.microsoft.com>
+ <20201221230531.GD4453@pevik>
+From: Tushar Sugandhi <tusharsu@linux.microsoft.com>
+Message-ID: <28c14c80-660a-0f36-64ca-ae5230992032@linux.microsoft.com>
+Date: Mon, 22 Feb 2021 10:54:17 -0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+In-Reply-To: <20201221230531.GD4453@pevik>
+Content-Language: en-US
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH v2] Add test for possible writev() issues with NULL
- buffer in iovec
+X-Spam-Status: No, score=-14.9 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,NICE_REPLY_A,SPF_HELO_PASS,
+ SPF_PASS,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 1/2] IMA: generalize key measurement tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,222 +59,307 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
+Cc: snitzer@redhat.com, nramas@linux.microsoft.com, dm-devel@redhat.com,
+ ltp@lists.linux.it, linux-integrity@vger.kernel.org, gmazyland@gmail.com,
+ agk@redhat.com
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Fixes #790
+Hi Petr,
 
-Signed-off-by: Martin Doucha <mdoucha@suse.cz>
----
+On 2020-12-21 3:05 p.m., Petr Vorel wrote:
+> Hi Tushar,
+> 
+> I'm very sorry about the delay. I'll finish this review in January,
+> here just some quick thoughts (minor style nits, I'll fix it before merge).
+> 
+> Generally LGTM, thanks for your work.
+> 
+> Reviewed-by: Petr Vorel <pvorel@suse.cz>
+> 
 
-This test triggers temporary write of invalid data into test file on some
-file systems on kernel 4.4.21 and older.
+Thanks for your review.
+My sincere apologies for missing this email and not responding in time.
 
-Changes since v1:
-- Simplify main thread
-- Use atomic load/store when passing read limit between threads (I hope I'm
-  doing it correctly)
-- Check for too big writes just in case
-- Require at least 2 CPUs, the bugs are not reproducible on single-CPU systems
+The device mapper measurement work is being revisited - to cover aspects
+like more DM targets (not just dm-crypt), better memory management,
+more relevant attributes from the DM targets, other corner cases etc.
 
- runtest/syscalls                            |   1 +
- testcases/kernel/syscalls/writev/.gitignore |   1 +
- testcases/kernel/syscalls/writev/Makefile   |   3 +
- testcases/kernel/syscalls/writev/writev03.c | 145 ++++++++++++++++++++
- 4 files changed, 150 insertions(+)
- create mode 100644 testcases/kernel/syscalls/writev/writev03.c
+Therefore, even though this patch, "1/2: generalize key measurement
+tests", would be useful for other tests; I will have to revisit the
+second patch, "2/2: dm-crypt measurements", to address the DM side 
+changes I mentioned above.
 
-diff --git a/runtest/syscalls b/runtest/syscalls
-index ae47a6d5e..f01d94540 100644
---- a/runtest/syscalls
-+++ b/runtest/syscalls
-@@ -1675,6 +1675,7 @@ write05 write05
- 
- writev01 writev01
- writev02 writev02
-+writev03 writev03
- writev05 writev05
- writev06 writev06
- writev07 writev07
-diff --git a/testcases/kernel/syscalls/writev/.gitignore b/testcases/kernel/syscalls/writev/.gitignore
-index d60da0f43..167779736 100644
---- a/testcases/kernel/syscalls/writev/.gitignore
-+++ b/testcases/kernel/syscalls/writev/.gitignore
-@@ -1,5 +1,6 @@
- /writev01
- /writev02
-+/writev03
- /writev05
- /writev06
- /writev07
-diff --git a/testcases/kernel/syscalls/writev/Makefile b/testcases/kernel/syscalls/writev/Makefile
-index 4844a6910..6627abaed 100644
---- a/testcases/kernel/syscalls/writev/Makefile
-+++ b/testcases/kernel/syscalls/writev/Makefile
-@@ -9,4 +9,7 @@ endif
- 
- include $(top_srcdir)/include/mk/testcases.mk
- 
-+writev03: CFLAGS += -pthread
-+writev03: LDLIBS += -lrt
-+
- include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/kernel/syscalls/writev/writev03.c b/testcases/kernel/syscalls/writev/writev03.c
-new file mode 100644
-index 000000000..58d6931d2
---- /dev/null
-+++ b/testcases/kernel/syscalls/writev/writev03.c
-@@ -0,0 +1,145 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (C) 2021 SUSE LLC <mdoucha@suse.cz>
-+ *
-+ * Check for potential issues in writev() if the first iovec entry is NULL
-+ * and the next one is not present in RAM. This can result in a brief window
-+ * where writev() first writes uninitialized data into the file (possibly
-+ * exposing internal kernel structures) and then overwrites it with the real
-+ * iovec contents later. Bugs fixed in:
-+ *
-+ *  commit d4690f1e1cdabb4d61207b6787b1605a0dc0aeab
-+ *  Author: Al Viro <viro@ZenIV.linux.org.uk>
-+ *  Date:   Fri Sep 16 00:11:45 2016 +0100
-+ *
-+ *  fix iov_iter_fault_in_readable()
-+ */
-+
-+#include <sys/uio.h>
-+#include "tst_test.h"
-+#include "tst_atomic.h"
-+#include "tst_fuzzy_sync.h"
-+
-+#define CHUNK_SIZE 256
-+#define BUF_SIZE (2 * CHUNK_SIZE)
-+#define MNTPOINT "mntpoint"
-+#define TEMPFILE MNTPOINT "/test_file"
-+#define MAPFILE MNTPOINT "/map_file"
-+
-+static unsigned char buf[BUF_SIZE], *map_ptr;
-+static int mapfd = -1, writefd = -1, readfd = -1;
-+static int written;
-+static struct tst_fzsync_pair fzsync_pair;
-+struct iovec iov[5];
-+
-+static void setup(void)
-+{
-+	int i;
-+
-+	for (i = 0; i < BUF_SIZE; i++)
-+		buf[i] = i & 0xff;
-+
-+	mapfd = SAFE_OPEN(MAPFILE, O_CREAT|O_RDWR|O_TRUNC, 0644);
-+	SAFE_WRITE(1, mapfd, buf, BUF_SIZE);
-+
-+	tst_fzsync_pair_init(&fzsync_pair);
-+}
-+
-+static void *thread_run(void *arg)
-+{
-+	while (tst_fzsync_run_b(&fzsync_pair)) {
-+		writefd = SAFE_OPEN(TEMPFILE, O_CREAT|O_WRONLY|O_TRUNC, 0644);
-+		written = BUF_SIZE;
-+		tst_fzsync_wait_b(&fzsync_pair);
-+
-+		/*
-+		 * Do *NOT* preload the data using MAP_POPULATE or touching
-+		 * the mapped range. We're testing whether writev() handles
-+		 * fault-in correctly.
-+		 */
-+		map_ptr = SAFE_MMAP(NULL, BUF_SIZE, PROT_READ, MAP_SHARED,
-+			mapfd, 0);
-+		iov[1].iov_base = map_ptr;
-+		iov[1].iov_len = CHUNK_SIZE;
-+		iov[3].iov_base = map_ptr + CHUNK_SIZE;
-+		iov[3].iov_len = CHUNK_SIZE;
-+
-+		tst_fzsync_start_race_b(&fzsync_pair);
-+		tst_atomic_store(writev(writefd, iov, ARRAY_SIZE(iov)),
-+			&written);
-+		tst_fzsync_end_race_b(&fzsync_pair);
-+
-+		SAFE_MUNMAP(map_ptr, BUF_SIZE);
-+		map_ptr = NULL;
-+		SAFE_CLOSE(writefd);
-+	}
-+
-+	return arg;
-+}
-+
-+static void run(void)
-+{
-+	int total_read;
-+	unsigned char readbuf[BUF_SIZE + 1];
-+
-+	tst_fzsync_pair_reset(&fzsync_pair, thread_run);
-+
-+	while (tst_fzsync_run_a(&fzsync_pair)) {
-+		tst_fzsync_wait_a(&fzsync_pair);
-+		readfd = SAFE_OPEN(TEMPFILE, O_RDONLY);
-+		tst_fzsync_start_race_a(&fzsync_pair);
-+
-+		for (total_read = 0; total_read < tst_atomic_load(&written);) {
-+			total_read += SAFE_READ(0, readfd, readbuf+total_read,
-+				BUF_SIZE + 1 - total_read);
-+		}
-+
-+		tst_fzsync_end_race_a(&fzsync_pair);
-+		SAFE_CLOSE(readfd);
-+
-+		if (total_read > BUF_SIZE)
-+			tst_brk(TBROK, "writev() wrote too much data");
-+
-+		if (total_read <= 0)
-+			continue;
-+
-+		if (memcmp(readbuf, buf, total_read)) {
-+			tst_res(TFAIL, "writev() wrote invalid data");
-+			return;
-+		}
-+	}
-+
-+	tst_res(TPASS, "writev() handles page fault-in correctly");
-+}
-+
-+static void cleanup(void)
-+{
-+	if (map_ptr && map_ptr != MAP_FAILED)
-+		SAFE_MUNMAP(map_ptr, BUF_SIZE);
-+
-+	if (mapfd >= 0)
-+		SAFE_CLOSE(mapfd);
-+
-+	if (readfd >= 0)
-+		SAFE_CLOSE(readfd);
-+
-+	if (writefd >= 0)
-+		SAFE_CLOSE(writefd);
-+
-+	tst_fzsync_pair_cleanup(&fzsync_pair);
-+}
-+
-+static struct tst_test test = {
-+	.test_all = run,
-+	.needs_root = 1,
-+	.mount_device = 1,
-+	.mntpoint = MNTPOINT,
-+	.all_filesystems = 1,
-+	.min_cpus = 2,
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.tags = (const struct tst_tag[]) {
-+		{"linux-git", "d4690f1e1cda"},
-+		{}
-+	}
-+};
--- 
-2.30.0
+I will revisit this series, esp. testing the DM target measurements
+part, once the kernel work I mentioned above is close to completion.
 
+I will also address your feedback on patch #1 and #2 from v2 iteration
+at that time.
+
+Thanks again for your review and feedback.
+
+Thanks,
+Tushar
+
+>> New functionality is being added in IMA to measure data provided by
+>> kernel components. Tests have to be added in LTP to validate this new
+>> feature. The functionality in ima_keys.sh can be reused to test this new
+>> feature if it is made generic.
+> 
+>> Refactor check_keys_policy() and test1() implemented in ima_keys.sh to
+>> make it generic, and move the functionality to ima_setup.sh as new
+>> functions - check_policy_pattern() and check_ima_ascii_log_for_policy().
+> 
+>> Signed-off-by: Tushar Sugandhi <tusharsu@linux.microsoft.com>
+>> ---
+>>   .../security/integrity/ima/tests/ima_keys.sh  | 62 +++------------
+>>   .../security/integrity/ima/tests/ima_setup.sh | 79 +++++++++++++++++++
+>>   2 files changed, 92 insertions(+), 49 deletions(-)
+> 
+>> diff --git a/testcases/kernel/security/integrity/ima/tests/ima_keys.sh b/testcases/kernel/security/integrity/ima/tests/ima_keys.sh
+>> index c9eef4b68..c2120358a 100755
+>> --- a/testcases/kernel/security/integrity/ima/tests/ima_keys.sh
+>> +++ b/testcases/kernel/security/integrity/ima/tests/ima_keys.sh
+>> @@ -6,7 +6,7 @@
+> 
+>>   # Verify that keys are measured correctly based on policy.
+> 
+>> -TST_NEEDS_CMDS="cmp cut grep sed xxd"
+>> +TST_NEEDS_CMDS="cmp cut grep xxd"
+> It still requires sed, it's just hidden in check_ima_ascii_log_for_policy
+> 
+> Maybe just put at the top of check_ima_ascii_log_for_policy():
+> tst_require_cmds cut grep sed xxd
+> 
+> And here still keep
+> TST_NEEDS_CMDS="cmp cut grep tail xxd"
+> 
+> This leads to duplicity in check, but it will not lead to hidden "command not
+> found".
+> 
+>>   TST_CNT=2
+>>   TST_NEEDS_DEVICE=1
+>>   TST_SETUP=setup
+>> @@ -28,64 +28,28 @@ cleanup()
+>>   	tst_is_num $KEYRING_ID && keyctl clear $KEYRING_ID
+>>   }
+> 
+>> -check_keys_policy()
+>> -{
+>> -	local pattern="$1"
+>> -
+>> -	if ! grep -E "$pattern" $TST_TMPDIR/policy.txt; then
+>> -		tst_res TCONF "IMA policy must specify $pattern, $FUNC_KEYCHECK, $TEMPLATE_BUF"
+>> -		return 1
+>> -	fi
+>> -	return 0
+>> -}
+>> -
+>>   # Based on https://lkml.org/lkml/2019/12/13/564.
+>>   # (450d0fd51564 - "IMA: Call workqueue functions to measure queued keys")
+> OK, it has been merged in v5.6-rc1. Any more relevant commits, changes since
+> then?
+> 
+>>   test1()
+>>   {
+>>   	local keycheck_lines i keyrings templates
+>>   	local pattern='keyrings=[^[:space:]]+'
+>> -	local test_file="file.txt" tmp_file="file2.txt"
+>> +	local policy="keyrings"
+>> +	local tmp_file="$TST_TMPDIR/keycheck_tmp_file.txt"
+>> +	local res
+> Will be unused, see below.
+> 
+>>   	tst_res TINFO "verify key measurement for keyrings and templates specified in IMA policy"
+> 
+>> -	check_keys_policy "$pattern" > $tmp_file || return
+>> -	keycheck_lines=$(cat $tmp_file)
+>> -	keyrings=$(for i in $keycheck_lines; do echo "$i" | grep "keyrings" | \
+>> -		sed "s/\./\\\./g" | cut -d'=' -f2; done | sed ':a;N;$!ba;s/\n/|/g')
+>> -	if [ -z "$keyrings" ]; then
+>> -		tst_res TCONF "IMA policy has a keyring key-value specifier, but no specified keyrings"
+>> -		return
+>> -	fi
+>> -
+>> -	templates=$(for i in $keycheck_lines; do echo "$i" | grep "template" | \
+>> -		cut -d'=' -f2; done | sed ':a;N;$!ba;s/\n/|/g')
+>> -
+>> -	tst_res TINFO "keyrings: '$keyrings'"
+>> -	tst_res TINFO "templates: '$templates'"
+>> -
+>> -	grep -E "($templates).*($keyrings)" $ASCII_MEASUREMENTS | while read line
+>> -	do
+>> -		local digest expected_digest algorithm
+>> -
+>> -		digest=$(echo "$line" | cut -d' ' -f4 | cut -d':' -f2)
+>> -		algorithm=$(echo "$line" | cut -d' ' -f4 | cut -d':' -f1)
+>> -		keyring=$(echo "$line" | cut -d' ' -f5)
+>> +	check_policy_pattern "$pattern" $FUNC_KEYCHECK $TEMPLATE_BUF > $tmp_file || return
+> 
+>> -		echo "$line" | cut -d' ' -f6 | xxd -r -p > $test_file
+>> +	res="$(check_ima_ascii_log_for_policy $policy $tmp_file)"
+> 
+>> -		if ! expected_digest="$(compute_digest $algorithm $test_file)"; then
+>> -			tst_res TCONF "cannot compute digest for $algorithm"
+>> -			return
+>> -		fi
+>> -
+>> -		if [ "$digest" != "$expected_digest" ]; then
+>> -			tst_res TFAIL "incorrect digest was found for $keyring keyring"
+>> -			return
+>> -		fi
+>> -	done
+>> +	if [ "$res" = "0" ]; then
+>> +		tst_res TPASS "specified keyrings were measured correctly"
+>> +	else
+>> +		tst_res TFAIL "failed to measure specified keyrings"
+>> +	fi
+> 
+> Instead of:
+>         res="$(check_ima_ascii_log_for_policy $policy $tmp_file)"
+>         if [ "$res" = "0" ]; then
+> 
+> I'd prefer to have it as:
+>         check_ima_ascii_log_for_policy $policy $tmp_file
+>         if [ $? -eq 0 ]; then
+> 
+> 
+>> -	tst_res TPASS "specified keyrings were measured correctly"
+>>   }
+> 
+>>   # Create a new keyring, import a certificate into it, and verify
+>> @@ -97,11 +61,11 @@ test2()
+>>   	local cert_file="$TST_DATAROOT/x509_ima.der"
+>>   	local keyring_name="key_import_test"
+>>   	local pattern="keyrings=[^[:space:]]*$keyring_name"
+>> -	local temp_file="file.txt"
+>> +	local temp_file="$TST_TMPDIR/key_import_test_file.txt"
+> 
+>>   	tst_res TINFO "verify measurement of certificate imported into a keyring"
+> 
+>> -	check_keys_policy "$pattern" >/dev/null || return
+>> +	check_policy_pattern "$pattern" $FUNC_KEYCHECK $TEMPLATE_BUF >/dev/null || return
+> 
+>>   	KEYRING_ID=$(keyctl newring $keyring_name @s) || \
+>>   		tst_brk TBROK "unable to create a new keyring"
+>> diff --git a/testcases/kernel/security/integrity/ima/tests/ima_setup.sh b/testcases/kernel/security/integrity/ima/tests/ima_setup.sh
+>> index 1f17aa707..2841d7df5 100644
+>> --- a/testcases/kernel/security/integrity/ima/tests/ima_setup.sh
+>> +++ b/testcases/kernel/security/integrity/ima/tests/ima_setup.sh
+>> @@ -54,6 +54,85 @@ compute_digest()
+>>   	return 1
+>>   }
+> 
+>> +check_policy_pattern()
+>> +{
+>> +	local pattern="$1"
+>> +	local func="$2"
+>> +	local template="$3"
+>> +
+>> +	if ! grep -E "$pattern" $TST_TMPDIR/policy.txt; then
+>> +		tst_res TCONF "IMA policy must specify $pattern, $func, $template"
+>> +		return 1
+>> +	fi
+>> +	return 0
+>> +}
+> Probably ok for now (yes, it removes the duplicity with function used in two
+> tests, it's very policy specific).
+> 
+>> +
+>> +check_ima_ascii_log_for_policy()
+>> +{
+>> +	local test_file="$TST_TMPDIR/ascii_log_test_file.txt"
+>> +	local grep_file="$TST_TMPDIR/ascii_log_grep_file.txt"
+> nit: Since the real description is in variable, I'd just use:
+> 
+> local test_file="$TST_TMPDIR/test.txt"
+> local grep_file="$TST_TMPDIR/grep.txt"
+> 
+>> +	local func_lines sources templates i src
+>> +	local input_digest_res=1
+>> +	local policy_option="$1"
+>> +	local input_digest="$3"
+> 
+> tst_require_cmds cut grep sed xxd
+>> +
+>> +	func_lines=$(cat $2)
+>> +
+>> +	sources=$(for i in $func_lines; do echo "$i" | grep "$policy_option" | \
+>> +		sed "s/\./\\\./g" | cut -d'=' -f2; done | sed ':a;N;$!ba;s/\n/|/g')
+>> +	if [ -z "$sources" ]; then
+>> +		tst_res TCONF "IMA policy $policy_option is a key-value specifier, but no values specified"
+>> +		echo "1"
+>> +		return
+>> +	fi
+>> +
+>> +	templates=$(for i in $func_lines; do echo "$i" | grep "template" | \
+>> +		cut -d'=' -f2; done | sed ':a;N;$!ba;s/\n/|/g')
+>> +
+>> +	tst_res TINFO "policy sources: '$sources'"
+>> +	tst_res TINFO "templates: '$templates'"
+>> +
+>> +	grep -E "($templates).*($sources)" $ASCII_MEASUREMENTS > $grep_file
+>> +
+>> +	while read line
+>> +	do
+>> +		local digest expected_digest algorithm
+>> +
+>> +		digest=$(echo "$line" | cut -d' ' -f4 | cut -d':' -f2)
+>> +		algorithm=$(echo "$line" | cut -d' ' -f4 | cut -d':' -f1)
+>> +		src_line=$(echo "$line" | cut -d' ' -f5)
+>> +
+>> +		echo "$line" | cut -d' ' -f6 | xxd -r -p > $test_file
+>> +
+>> +		if ! expected_digest="$(compute_digest $algorithm $test_file)"; then
+>> +			tst_res TCONF "cannot compute digest for $algorithm"
+>> +			echo "1"
+>> +			return
+>> +		fi
+>> +
+>> +		if [ "$digest" != "$expected_digest" ]; then
+>> +			tst_res TINFO "incorrect digest was found for $src_line $policy_option"
+>> +			echo "1"	
+>> +			return
+>> +		fi
+>> +
+>> +		if [ "$input_digest" ]; then
+>> +			if [ "$digest" = "$input_digest" ]; then
+>> +				input_digest_res=0
+>> +			fi
+>> +		fi
+> I'd prefer it as single if:
+>          if [ -n "$input_digest" -a "$digest" = "$input_digest" ]; then
+>              input_digest_res=0
+>          fi
+> 
+>> +
+>> +	done < $grep_file
+>> +
+>> +	if [ "$input_digest" ]; then
+>> +		echo "$input_digest_res"
+>> +		return
+> this return is redundant.
+>> +	else
+>> +		echo "0"
+>> +		return
+> Also this one.
+> 
+>> +	fi
+> 
+> And actually, instead of whole if/else block wouldn't be just this enough?
+> echo "$input_digest_res"
+> 
+> Isn't it the zero value set in the loop at:
+> 
+>          if [ -n "$input_digest" -a "$digest" = "$input_digest" ]; then
+>              input_digest_res=0
+>          fi
+> 
+> Kind regards,
+> Petr
+> 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
