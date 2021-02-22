@@ -2,46 +2,47 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC965320F71
-	for <lists+linux-ltp@lfdr.de>; Mon, 22 Feb 2021 03:32:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2ED5320F74
+	for <lists+linux-ltp@lfdr.de>; Mon, 22 Feb 2021 03:35:51 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 515C53C659A
-	for <lists+linux-ltp@lfdr.de>; Mon, 22 Feb 2021 03:32:27 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 7C84E3C61A4
+	for <lists+linux-ltp@lfdr.de>; Mon, 22 Feb 2021 03:35:51 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 7A4663C0032
- for <ltp@lists.linux.it>; Mon, 22 Feb 2021 03:32:24 +0100 (CET)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-4.smtp.seeweb.it (Postfix) with ESMTP id 5602A100055B
- for <ltp@lists.linux.it>; Mon, 22 Feb 2021 03:32:22 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.81,195,1610380800"; d="scan'208";a="104706438"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 22 Feb 2021 10:32:20 +0800
-Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id 5E4294CE7312
- for <ltp@lists.linux.it>; Mon, 22 Feb 2021 10:32:19 +0800 (CST)
-Received: from RHEL74GA.g08.fujitsu.local (10.167.220.48) by
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Mon, 22 Feb 2021 10:32:21 +0800
-From: Feiyu Zhu <zhufy.jy@cn.fujitsu.com>
-To: <ltp@lists.linux.it>
-Date: Sun, 21 Feb 2021 21:32:14 -0500
-Message-ID: <1613961134-31207-1-git-send-email-zhufy.jy@cn.fujitsu.com>
-X-Mailer: git-send-email 1.8.3.1
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id 7B8FE3C3236
+ for <ltp@lists.linux.it>; Mon, 22 Feb 2021 03:35:47 +0100 (CET)
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTP id AC41D60072B
+ for <ltp@lists.linux.it>; Mon, 22 Feb 2021 03:35:46 +0100 (CET)
+Received: from localhost.localdomain (c-73-42-176-67.hsd1.wa.comcast.net
+ [73.42.176.67])
+ by linux.microsoft.com (Postfix) with ESMTPSA id A37DD20B6C40;
+ Sun, 21 Feb 2021 18:35:44 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com A37DD20B6C40
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+ s=default; t=1613961344;
+ bh=LkWB75n09GiV7ZOI8kEIlFzc10vE1kUc2HXSUsQPCEc=;
+ h=From:To:Cc:Subject:Date:From;
+ b=LPs2CBrJ5SzLFG9t71KqMUUZo7rW7Lq9x+zAAVVHgo8vgUwg16x73i4FX4HitreXT
+ 8GEsg5XMvV8P/hVnN6mcwjbu3z4P1UyxCVzhp73Lsi+mzIDgMMKppqAns2wJ2pMC+J
+ 2TXD/EUhiK0Rjrnpfofp83T576Da8CpPmARBue3s=
+From: Lakshmi Ramasubramanian <nramas@linux.microsoft.com>
+To: pvorel@suse.cz,
+	zohar@linux.ibm.com
+Date: Sun, 21 Feb 2021 18:34:21 -0800
+Message-Id: <20210222023421.12576-1-nramas@linux.microsoft.com>
+X-Mailer: git-send-email 2.30.0
 MIME-Version: 1.0
-X-Originating-IP: [10.167.220.48]
-X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: 5E4294CE7312.A89D7
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: zhufy.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.0 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.4
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH] memcg_stat_test.sh: Add missing dot in cd command
+X-Spam-Status: No, score=-14.9 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_PASS,SPF_PASS,
+ USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH] IMA: Check for ima-buf template is not required for
+ keys tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,33 +54,53 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: tusharsu@linux.microsoft.com, linux-integrity@vger.kernel.org,
+ ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Feiyu Zhu <zhufy.jy@cn.fujitsu.com>
+ima-buf is the default IMA template used for all buffer measurements.
+Therefore, IMA policy rule for measuring keys need not specify
+an IMA template.
+
+Update keys tests to not check for ima template in the policy rule.
+
+Signed-off-by: Lakshmi Ramasubramanian <nramas@linux.microsoft.com>
 ---
- testcases/kernel/controllers/memcg/functional/memcg_stat_test.sh | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+This patch is based
+in https://github.com/pevik/ltp/commits/ima/selinux.v2.draft
+in branch ima/selinux.v2.draft.
 
-diff --git a/testcases/kernel/controllers/memcg/functional/memcg_stat_test.sh b/testcases/kernel/controllers/memcg/functional/memcg_stat_test.sh
-index 3a62391..f531f87 100755
---- a/testcases/kernel/controllers/memcg/functional/memcg_stat_test.sh
-+++ b/testcases/kernel/controllers/memcg/functional/memcg_stat_test.sh
-@@ -109,7 +109,7 @@ test8()
- 	cd subgroup
- 	check_mem_stat "hierarchical_memsw_limit" $((PAGESIZE*2))
+ testcases/kernel/security/integrity/ima/tests/ima_keys.sh | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/testcases/kernel/security/integrity/ima/tests/ima_keys.sh b/testcases/kernel/security/integrity/ima/tests/ima_keys.sh
+index c9eef4b68..a3a7afbf7 100755
+--- a/testcases/kernel/security/integrity/ima/tests/ima_keys.sh
++++ b/testcases/kernel/security/integrity/ima/tests/ima_keys.sh
+@@ -15,8 +15,7 @@ TST_CLEANUP=cleanup
+ . ima_setup.sh
  
--	cd .
-+	cd ..
- 	rmdir subgroup
- }
+ FUNC_KEYCHECK='func=KEY_CHECK'
+-TEMPLATE_BUF='template=ima-buf'
+-REQUIRED_POLICY="^measure.*($FUNC_KEYCHECK.*$TEMPLATE_BUF|$TEMPLATE_BUF.*$FUNC_KEYCHECK)"
++REQUIRED_POLICY="^measure.*($FUNC_KEYCHECK)"
  
+ setup()
+ {
+@@ -33,7 +32,7 @@ check_keys_policy()
+ 	local pattern="$1"
+ 
+ 	if ! grep -E "$pattern" $TST_TMPDIR/policy.txt; then
+-		tst_res TCONF "IMA policy must specify $pattern, $FUNC_KEYCHECK, $TEMPLATE_BUF"
++		tst_res TCONF "IMA policy must specify $pattern, $FUNC_KEYCHECK"
+ 		return 1
+ 	fi
+ 	return 0
 -- 
-1.8.3.1
-
-
+2.30.0
 
 
 -- 
