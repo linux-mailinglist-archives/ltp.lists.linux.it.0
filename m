@@ -1,55 +1,41 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id F24C23210EC
-	for <lists+linux-ltp@lfdr.de>; Mon, 22 Feb 2021 07:41:00 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id C3B53321200
+	for <lists+linux-ltp@lfdr.de>; Mon, 22 Feb 2021 09:28:18 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id AC1843C58F3
-	for <lists+linux-ltp@lfdr.de>; Mon, 22 Feb 2021 07:41:00 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 746913C6111
+	for <lists+linux-ltp@lfdr.de>; Mon, 22 Feb 2021 09:28:18 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 59A983C4E9B
- for <ltp@lists.linux.it>; Mon, 22 Feb 2021 07:40:58 +0100 (CET)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-3.smtp.seeweb.it (Postfix) with ESMTP id E64B21A008B9
- for <ltp@lists.linux.it>; Mon, 22 Feb 2021 07:40:57 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.81,196,1610380800"; d="scan'208";a="104715990"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 22 Feb 2021 14:40:52 +0800
-Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id A214E4CE730B;
- Mon, 22 Feb 2021 14:40:46 +0800 (CST)
-Received: from [10.167.220.84] (10.167.220.84) by
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Mon, 22 Feb 2021 14:40:37 +0800
-Message-ID: <603351E7.4060008@cn.fujitsu.com>
-Date: Mon, 22 Feb 2021 14:40:39 +0800
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
- rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id B95133C2688
+ for <ltp@lists.linux.it>; Mon, 22 Feb 2021 09:28:14 +0100 (CET)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id EC5262009C2
+ for <ltp@lists.linux.it>; Mon, 22 Feb 2021 09:28:13 +0100 (CET)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id C1734AE05;
+ Mon, 22 Feb 2021 08:28:12 +0000 (UTC)
+Date: Mon, 22 Feb 2021 09:28:11 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: Richard Palethorpe <rpalethorpe@suse.de>
+Message-ID: <YDNrG9A8Dlm2k8uh@pevik>
+References: <20210219144704.20433-1-pvorel@suse.cz>
+ <20210219144704.20433-3-pvorel@suse.cz> <878s7k59tk.fsf@suse.de>
 MIME-Version: 1.0
-To: Li Wang <liwang@redhat.com>
-References: <YCFZB1/VMSsfxyPA@yuki.lan>
- <1613627572-5213-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
- <1613627572-5213-3-git-send-email-xuyang2018.jy@cn.fujitsu.com>
- <CAEemH2crZjLK1MtzkEYyxCU0-Pbqp8G5MR4CU7UEG4VQr-ksVQ@mail.gmail.com>
-In-Reply-To: <CAEemH2crZjLK1MtzkEYyxCU0-Pbqp8G5MR4CU7UEG4VQr-ksVQ@mail.gmail.com>
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD05.g08.fujitsu.local (10.167.33.203) To
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: A214E4CE730B.AE61C
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.0 required=7.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.4
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <878s7k59tk.fsf@suse.de>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3 3/4] syscalls/mallinfo02: Add a basic test to
- check use mmap or sbrk
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 2/2] netns_netlink: Rewrite into new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,35 +47,53 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Li
-> Hi Xu,
->
-> For patch 1/4 ~ 3/4, looks good to me.
-> Reviewed-by: Li Wang <liwang@redhat.com <mailto:liwang@redhat.com>>
->
-> For 4/4, I slightly think it does not make much sense to test, because
-> it just verifies the info.hblkhd integer overflow at unsuggested usage.
-> Anyway, that's only my thoughts, maybe a one-sided view:).
-I guess we can just add a valid test for mallinfo2 to test it still can 
-get the correct info when setting 2G size instead of this case.
+Hi Richie,
 
-ps: I need to find a new enough system to have supported mallinfo2.
+> Hello,
 
-Best Regards
-Yang Xu
->
-> --
-> Regards,
-> Li Wang
+> Petr Vorel <pvorel@suse.cz> writes:
 
+> > From: Richard Palethorpe <rpalethorpe@suse.com>
 
+> I don't remember this :-)
 
+I'm sorry, that should be me :). I normally does not have problems with git,
+but this time I messed things up with rebasing.
+
+> > This also require to rewrite netns_helper.h.
+> > New test still uses legacy libclone.h.
+
+> > ...
+
+> >  	pclose(ipf);
+> > @@ -67,14 +53,14 @@ static void check_netns(void)
+> >  	int pid, status;
+> >  	/* Checking if the kernel supports unshare with netns capabilities. */
+> >  	if (CLONE_NEWNS == -1)
+> > -		tst_brkm(TCONF | TERRNO, NULL, "CLONE_NEWNS (%d) not supported",
+> > +		tst_brk(TCONF | TERRNO, "CLONE_NEWNS (%d) not supported",
+> >  			 CLONE_NEWNS);
+
+> >  	pid = do_clone_unshare_test(T_UNSHARE, CLONE_NEWNET | CLONE_NEWNS,
+> >  	                            dummy, NULL);
+
+> I guess you are considering replacing this with something that uses
+> SAFE_CLONE?
+
+> This should be quite easy as this function is not cloning with CLONE_VM
+> or anything special. It is just fork() with CLONE_NEWNET | CLONE_NEWNS,
+> so we probably don't need most of the wierdness in libclone.
++1, I'd also like to get rid of libclone.
+
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
