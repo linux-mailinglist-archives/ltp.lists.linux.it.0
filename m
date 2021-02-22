@@ -1,47 +1,73 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C4EC320F78
-	for <lists+linux-ltp@lfdr.de>; Mon, 22 Feb 2021 03:38:17 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 44E5E320F95
+	for <lists+linux-ltp@lfdr.de>; Mon, 22 Feb 2021 03:53:03 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id BE2383C7216
-	for <lists+linux-ltp@lfdr.de>; Mon, 22 Feb 2021 03:38:16 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id CC2103C6598
+	for <lists+linux-ltp@lfdr.de>; Mon, 22 Feb 2021 03:53:02 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 0FFA63C61B7
- for <ltp@lists.linux.it>; Mon, 22 Feb 2021 03:38:12 +0100 (CET)
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
- by in-3.smtp.seeweb.it (Postfix) with ESMTP id 7E7221A00895
- for <ltp@lists.linux.it>; Mon, 22 Feb 2021 03:38:11 +0100 (CET)
-Received: from localhost.localdomain (c-73-42-176-67.hsd1.wa.comcast.net
- [73.42.176.67])
- by linux.microsoft.com (Postfix) with ESMTPSA id 8961920B6C40;
- Sun, 21 Feb 2021 18:38:09 -0800 (PST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 8961920B6C40
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
- s=default; t=1613961489;
- bh=5KvW/s1L3KxjQMGjE8r5fo5XZtEuSl5ktw7ngrqUDIY=;
- h=From:To:Cc:Subject:Date:From;
- b=pqtExRAA5Vnm+Gk8wedQQxfVBj9GLrb2dKIOuQ/sTStiMdHOMSFQKntTA7Vj+Sr5q
- kD4DLP6+kQlcsv2L+z8mhPwoc0z/76FgNfLDaJLfzS6a+w1klFeQmxH5rgOq3m4jnO
- QNsomi5Rb28Zzkt8zX9zstZ0TOXxxHXj+FVkaqs4=
-From: Lakshmi Ramasubramanian <nramas@linux.microsoft.com>
-To: pvorel@suse.cz, zohar@linux.ibm.com, paul@paul-moore.com,
- stephen.smalley.work@gmail.com
-Date: Sun, 21 Feb 2021 18:38:05 -0800
-Message-Id: <20210222023805.12846-1-nramas@linux.microsoft.com>
-X-Mailer: git-send-email 2.30.0
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id 94B713C3236
+ for <ltp@lists.linux.it>; Mon, 22 Feb 2021 03:52:58 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTP id 8D8DA60056A
+ for <ltp@lists.linux.it>; Mon, 22 Feb 2021 03:52:56 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1613962375;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=DZdQ9PB1aMIv7vx2IYNA0+T/w+P4yMSicDO5KrTyBY4=;
+ b=GzxzfqSlUu26uGCHnkmGfxYesNofH4Sb+w5Zgu7hSGLZVJfTft4Ss6dMeWcmUelX6QbYBb
+ KSnFnlP7dYyacsI0K1es5ZXf8x8O1tOd4VOOFpucCRVYTGpf+q04V88dlhqIl0fpkQj6nI
+ OuZ5Vm0uJK8KcPhjw7aE5eur/r5+QOI=
+Received: from mail-yb1-f199.google.com (mail-yb1-f199.google.com
+ [209.85.219.199]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-482-IdVIxI0GNo6L10KD9846Ig-1; Sun, 21 Feb 2021 21:52:52 -0500
+X-MC-Unique: IdVIxI0GNo6L10KD9846Ig-1
+Received: by mail-yb1-f199.google.com with SMTP id j4so14960944ybt.23
+ for <ltp@lists.linux.it>; Sun, 21 Feb 2021 18:52:52 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=DZdQ9PB1aMIv7vx2IYNA0+T/w+P4yMSicDO5KrTyBY4=;
+ b=SkKVMNYaHLqsExTPxZGTnKQlhNqUgtnafDjWaylF5NtNX9R3TMiDa+QUZAMPjJVO1Y
+ 1/ytLJLx9fvqAWhSAPxOQ+CTfTI1vOD4CJrzaTpHGJD33SMnrlvwYQXiCCXsf46gdqby
+ Zj97baje7DmiObIzj3j3w5CNIK88mNB+sLFN1f8DgNYcxyX3tm8hg/spTizFvPLurbAr
+ 1pBOKhLyomv+0ok0YF1fN4qabqQjZJvJ3jld/I3JpA5mIBBrIl2CNm0maKIwDm/oiIAE
+ hY241oxDRBp9r5U7dG7AyBNWf2onqj/qgId69gj7yDbpBACLMMraxsDVquToJjI6amSH
+ m7Lw==
+X-Gm-Message-State: AOAM532xA+Rphl6oUiUsz2O0MJH9MCBjV37V8mkrY+D6Vr+VBSz7L4B+
+ LXDbEwSCm18ag46TCLV334x/oTCzS9ofPV3oF2uVQoIlx068ybIA3RsY+YXrpv6HXXIFQXQ3QXp
+ bhTiuG6E3WhyKLN/eDyBWq9JB9e4=
+X-Received: by 2002:a25:bd12:: with SMTP id f18mr6069955ybk.403.1613962371699; 
+ Sun, 21 Feb 2021 18:52:51 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJwqkRadBr3RrdVaVWjrNGMQhV2lFlUaA03RRi3/uQvnyxZFFY567hRthKefoUNIEM5JPGeAphtg+TY8x0R1XiQ=
+X-Received: by 2002:a25:bd12:: with SMTP id f18mr6069939ybk.403.1613962371482; 
+ Sun, 21 Feb 2021 18:52:51 -0800 (PST)
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+References: <1613961134-31207-1-git-send-email-zhufy.jy@cn.fujitsu.com>
+In-Reply-To: <1613961134-31207-1-git-send-email-zhufy.jy@cn.fujitsu.com>
+From: Li Wang <liwang@redhat.com>
+Date: Mon, 22 Feb 2021 10:52:39 +0800
+Message-ID: <CAEemH2eLqdnMnffAmhWx9-KZ9ybif9fmMTAGsE582s+H1FEkmA@mail.gmail.com>
+To: Feiyu Zhu <zhufy.jy@cn.fujitsu.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-14.9 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_PASS,SPF_PASS,
- USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH] IMA: Add test for selinux measurement
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] memcg_stat_test.sh: Add missing dot in cd command
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,305 +79,40 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: tusharsu@linux.microsoft.com, selinux@vger.kernel.org,
- linux-integrity@vger.kernel.org, ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============1062160176=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-New functionality has been added in IMA to measure data that is
-critical to the integrity of the system.  SELinux uses this feature
-to measure the hash of the SELinux policy loaded in kernel memory,
-and the current state of various SELinux configuration.  This new
-functionality needs test automation in LTP.
+--===============1062160176==
+Content-Type: multipart/alternative; boundary="000000000000d557c305bbe3e55f"
 
-Add test cases which verify that the IMA subsystem correctly
-measures the data provided by SELinux.
+--000000000000d557c305bbe3e55f
+Content-Type: text/plain; charset="UTF-8"
 
-Signed-off-by: Lakshmi Ramasubramanian <nramas@linux.microsoft.com>
----
-This patch is based on commit c7c4cd5e7f3b
-("tst_security.sh: Add SELinux helpers")
-in https://github.com/pevik/ltp/commits/ima/selinux.v2.draft
-in branch ima/selinux.v2.draft.
+Patch applied, thanks.
 
- runtest/ima                                   |   1 +
- .../kernel/security/integrity/ima/README.md   |  19 ++
- .../security/integrity/ima/datafiles/Makefile |   2 +-
- .../ima/datafiles/ima_selinux/Makefile        |  11 ++
- .../ima/datafiles/ima_selinux/selinux.policy  |   1 +
- .../integrity/ima/tests/ima_selinux.sh        | 180 ++++++++++++++++++
- 6 files changed, 213 insertions(+), 1 deletion(-)
- create mode 100644 testcases/kernel/security/integrity/ima/datafiles/ima_selinux/Makefile
- create mode 100644 testcases/kernel/security/integrity/ima/datafiles/ima_selinux/selinux.policy
- create mode 100755 testcases/kernel/security/integrity/ima/tests/ima_selinux.sh
-
-diff --git a/runtest/ima b/runtest/ima
-index 5f4b4a7a1..29caa034a 100644
---- a/runtest/ima
-+++ b/runtest/ima
-@@ -5,4 +5,5 @@ ima_tpm ima_tpm.sh
- ima_violations ima_violations.sh
- ima_keys ima_keys.sh
- ima_kexec ima_kexec.sh
-+ima_selinux ima_selinux.sh
- evm_overlay evm_overlay.sh
-diff --git a/testcases/kernel/security/integrity/ima/README.md b/testcases/kernel/security/integrity/ima/README.md
-index 68d046678..8f2249767 100644
---- a/testcases/kernel/security/integrity/ima/README.md
-+++ b/testcases/kernel/security/integrity/ima/README.md
-@@ -37,6 +37,25 @@ see example in `kexec.policy`.
- The test attempts to kexec the existing running kernel image.
- To kexec a different kernel image export `IMA_KEXEC_IMAGE=<pathname>`.
- 
-+### IMA SELinux test
-+
-+To enable IMA to measure SELinux state and policy, `ima_selinux.sh`
-+requires a readable IMA policy, as well as a loaded measure policy with
-+`measure func=CRITICAL_DATA label=selinux`,
-+see example in `selinux.policy`.
-+
-+As well as what's required for the IMA tests, SELinux tests require reading
-+the IMA policy allowed in the kernel configuration:
-+```
-+CONFIG_IMA_READ_POLICY=y
-+```
-+
-+The following kernel configuration is also required. It enables compiling
-+the Linux Security Module (LSM) namely SELinux.
-+```
-+CONFIG_SECURITY_SELINUX=y
-+```
-+
- ## EVM tests
- 
- `evm_overlay.sh` requires a builtin IMA appraise tcb policy (e.g. `ima_policy=appraise_tcb`
-diff --git a/testcases/kernel/security/integrity/ima/datafiles/Makefile b/testcases/kernel/security/integrity/ima/datafiles/Makefile
-index 47a470416..280175b17 100644
---- a/testcases/kernel/security/integrity/ima/datafiles/Makefile
-+++ b/testcases/kernel/security/integrity/ima/datafiles/Makefile
-@@ -26,6 +26,6 @@ top_srcdir	?= ../../../../../..
- 
- include	$(top_srcdir)/include/mk/env_pre.mk
- 
--SUBDIRS	:= ima_kexec ima_keys ima_policy
-+SUBDIRS	:= ima_kexec ima_keys ima_policy ima_selinux
- 
- include $(top_srcdir)/include/mk/generic_trunk_target.mk
-diff --git a/testcases/kernel/security/integrity/ima/datafiles/ima_selinux/Makefile b/testcases/kernel/security/integrity/ima/datafiles/ima_selinux/Makefile
-new file mode 100644
-index 000000000..35088fdbc
---- /dev/null
-+++ b/testcases/kernel/security/integrity/ima/datafiles/ima_selinux/Makefile
-@@ -0,0 +1,11 @@
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+# Copyright (c) Linux Test Project, 2021
-+
-+top_srcdir	?= ../../../../../../..
-+
-+include	$(top_srcdir)/include/mk/env_pre.mk
-+
-+INSTALL_DIR		:= testcases/data/ima_selinux
-+INSTALL_TARGETS	:= *.policy
-+
-+include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/kernel/security/integrity/ima/datafiles/ima_selinux/selinux.policy b/testcases/kernel/security/integrity/ima/datafiles/ima_selinux/selinux.policy
-new file mode 100644
-index 000000000..7cbe9352d
---- /dev/null
-+++ b/testcases/kernel/security/integrity/ima/datafiles/ima_selinux/selinux.policy
-@@ -0,0 +1 @@
-+measure func=CRITICAL_DATA label=selinux
-diff --git a/testcases/kernel/security/integrity/ima/tests/ima_selinux.sh b/testcases/kernel/security/integrity/ima/tests/ima_selinux.sh
-new file mode 100755
-index 000000000..e5060a5e3
---- /dev/null
-+++ b/testcases/kernel/security/integrity/ima/tests/ima_selinux.sh
-@@ -0,0 +1,180 @@
-+#!/bin/sh
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+# Copyright (c) 2021 Microsoft Corporation
-+# Author: Lakshmi Ramasubramanian <nramas@linux.microsoft.com>
-+#
-+# Verify measurement of SELinux policy hash and state.
-+
-+TST_NEEDS_CMDS="awk cut grep tail"
-+TST_CNT=2
-+TST_NEEDS_DEVICE=1
-+TST_SETUP="setup"
-+
-+. ima_setup.sh
-+
-+FUNC_CRITICAL_DATA='func=CRITICAL_DATA'
-+REQUIRED_POLICY="^measure.*($FUNC_CRITICAL_DATA)"
-+
-+setup()
-+{
-+	SELINUX_DIR=$(tst_get_selinux_dir)
-+	if [ -z "$SELINUX_DIR" ]; then
-+		tst_brk TCONF "SELinux is not enabled"
-+		return
-+	fi
-+	require_ima_policy_content "$REQUIRED_POLICY" '-E' > $TST_TMPDIR/policy.txt
-+}
-+
-+# Format of the measured SELinux state data.
-+#
-+# initialized=1;enforcing=0;checkreqprot=1;
-+# network_peer_controls=1;open_perms=1;extended_socket_class=1;
-+# always_check_network=0;cgroup_seclabel=1;nnp_nosuid_transition=1;
-+# genfs_seclabel_symlinks=0;
-+validate_policy_capabilities()
-+{
-+	local measured_cap measured_value expected_value
-+	local result=1
-+	local inx=7
-+
-+	# Policy capabilities flags start from "network_peer_controls"
-+	# in the measured SELinux state at offset 7 for 'awk'
-+	while [ $inx -lt 20 ]; do
-+		measured_cap=$(echo $1 | awk -F'[=;]' -v inx="$inx" '{print $inx}')
-+		inx=$(( $inx + 1 ))
-+
-+		measured_value=$(echo $1 | awk -F'[=;]' -v inx="$inx" '{print $inx}')
-+		expected_value=$(cat "$SELINUX_DIR/policy_capabilities/$measured_cap")
-+		if [ "$measured_value" != "$expected_value" ];then
-+			tst_res TWARN "$measured_cap: expected: $expected_value, got: $digest"
-+			result=0
-+		fi
-+
-+		inx=$(( $inx + 1 ))
-+	done
-+
-+	return $result
-+}
-+
-+# Trigger measurement of SELinux constructs and verify that
-+# the measured SELinux policy hash matches the hash of the policy
-+# loaded in kernel memory for SELinux.
-+test1()
-+{
-+	local policy_digest expected_policy_digest algorithm
-+	local data_source_name="selinux"
-+	local pattern="data_sources=[^[:space:]]*$data_source_name"
-+	local tmp_file="$TST_TMPDIR/selinux_policy_tmp_file.txt"
-+
-+	tst_res TINFO "verifying SELinux policy hash measurement"
-+
-+	# Trigger a measurement by changing SELinux state
-+	tst_update_selinux_state
-+
-+	# Verify SELinux policy hash is measured and then validate that
-+	# the measured policy hash matches the hash of the policy currently
-+	# in kernel memory for SELinux
-+	line=$(grep -E "selinux-policy-hash" $ASCII_MEASUREMENTS | tail -1)
-+	if [ -z "$line" ]; then
-+		tst_res TFAIL "SELinux policy hash not measured"
-+		return
-+	fi
-+
-+	algorithm=$(echo "$line" | cut -d' ' -f4 | cut -d':' -f1)
-+	policy_digest=$(echo "$line" | cut -d' ' -f6)
-+
-+	expected_policy_digest="$(compute_digest $algorithm $SELINUX_DIR/policy)" || \
-+		tst_brk TCONF "cannot compute digest for $algorithm"
-+
-+	if [ "$policy_digest" != "$expected_policy_digest" ]; then
-+		tst_res TFAIL "Digest mismatch: expected: $expected_policy_digest, got: $policy_digest"
-+		return
-+	fi
-+
-+	tst_res TPASS "SELinux policy hash measured correctly"
-+}
-+
-+# Trigger measurement of SELinux constructs and verify that
-+# the measured SELinux state matches the current SELinux
-+# configuration.
-+test2()
-+{
-+	tst_check_cmds xxd || return
-+
-+	local measured_data state_file="$TST_TMPDIR/selinux_state.txt"
-+	local data_source_name="selinux"
-+	local pattern="data_sources=[^[:space:]]*$data_source_name"
-+	local tmp_file="$TST_TMPDIR/selinux_state_tmp_file.txt"
-+	local digest expected_digest algorithm
-+	local initialized_value
-+	local enforced_value expected_enforced_value
-+	local checkreqprot_value expected_checkreqprot_value
-+	local result
-+
-+	tst_res TINFO "verifying SELinux state measurement"
-+
-+	# Trigger a measurement by changing SELinux state
-+	tst_update_selinux_state
-+
-+	# Verify SELinux state is measured and then validate the measured
-+	# state matches that currently set for SELinux
-+	line=$(grep -E "selinux-state" $ASCII_MEASUREMENTS | tail -1)
-+	if [ -z "$line" ]; then
-+		tst_res TFAIL "SELinux state not measured"
-+		return
-+	fi
-+
-+	digest=$(echo "$line" | cut -d' ' -f4 | cut -d':' -f2)
-+	algorithm=$(echo "$line" | cut -d' ' -f4 | cut -d':' -f1)
-+
-+	echo "$line" | cut -d' ' -f6 | xxd -r -p > $state_file
-+
-+	expected_digest="$(compute_digest $algorithm $state_file)" || \
-+	tst_brk TCONF "cannot compute digest for $algorithm"
-+
-+	if [ "$digest" != "$expected_digest" ]; then
-+		tst_res TFAIL "digest mismatch: expected: $expected_digest, got: $digest"
-+		return
-+	fi
-+
-+	# SELinux state is measured as the following string
-+	#   initialized=1;enforcing=0;checkreqprot=1;
-+	# Value of 0 indicates the state is ON, and 1 indicates OFF
-+	#
-+	# enforce and checkreqprot measurement can be verified by
-+	# comparing the value of the file "enforce" and "checkreqprot"
-+	# respectively in the SELinux directory.
-+	# "initialized" is an internal state and should be set to 1
-+	# if enforce and checkreqprot are measured correctly.
-+	measured_data=$(cat $state_file)
-+	enforced_value=$(echo $measured_data | awk -F'[=;]' '{print $4}')
-+	expected_enforced_value=$(cat $SELINUX_DIR/enforce)
-+	if [ "$expected_enforced_value" != "$enforced_value" ];then
-+		tst_res TFAIL "enforce: expected: $expected_enforced_value, got: $enforced_value"
-+		return
-+	fi
-+
-+	checkreqprot_value=$(echo $measured_data | awk -F'[=;]' '{print $6}')
-+	expected_checkreqprot_value=$(cat $SELINUX_DIR/checkreqprot)
-+	if [ "$expected_checkreqprot_value" != "$checkreqprot_value" ];then
-+		tst_res TFAIL "checkreqprot: expected: $expected_checkreqprot_value, got: $checkreqprot_value"
-+		return
-+	fi
-+
-+	initialized_value=$(echo $measured_data | awk -F'[=;]' '{print $2}')
-+	if [ "$initialized_value" != "1" ];then
-+		tst_res TFAIL "initialized: expected 1, got: $initialized_value"
-+		return
-+	fi
-+
-+	validate_policy_capabilities $measured_data
-+	result=$?
-+	if [ $result = 0 ]; then
-+		tst_res TFAIL "policy capabilities did not match"
-+		return
-+	fi
-+
-+	tst_res TPASS "SELinux state measured correctly"
-+}
-+
-+tst_run
 -- 
-2.30.0
+Regards,
+Li Wang
+
+--000000000000d557c305bbe3e55f
+Content-Type: text/html; charset="UTF-8"
+
+<div dir="ltr"><div dir="ltr"><div class="gmail_default" style="font-size:small">Patch applied, thanks.</div></div><div><br></div>-- <br><div dir="ltr" class="gmail_signature"><div dir="ltr"><div>Regards,<br></div><div>Li Wang<br></div></div></div></div>
+
+--000000000000d557c305bbe3e55f--
+
+
+--===============1062160176==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============1062160176==--
+
