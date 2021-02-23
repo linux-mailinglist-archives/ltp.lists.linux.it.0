@@ -1,40 +1,55 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D1B932301E
-	for <lists+linux-ltp@lfdr.de>; Tue, 23 Feb 2021 19:00:24 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 686A632306B
+	for <lists+linux-ltp@lfdr.de>; Tue, 23 Feb 2021 19:16:39 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id AB8E33C60CA
-	for <lists+linux-ltp@lfdr.de>; Tue, 23 Feb 2021 19:00:23 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 0B6743C60EA
+	for <lists+linux-ltp@lfdr.de>; Tue, 23 Feb 2021 19:16:39 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id F30CF3C4C13
- for <ltp@lists.linux.it>; Tue, 23 Feb 2021 19:00:19 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 011C4200C35
- for <ltp@lists.linux.it>; Tue, 23 Feb 2021 19:00:18 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 3B9EBAC1D;
- Tue, 23 Feb 2021 18:00:18 +0000 (UTC)
-Date: Tue, 23 Feb 2021 19:00:16 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Lakshmi Ramasubramanian <nramas@linux.microsoft.com>
-Message-ID: <YDVCsNAfn+Ot6QIB@pevik>
-References: <20210222023805.12846-1-nramas@linux.microsoft.com>
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id 72D063C4C13
+ for <ltp@lists.linux.it>; Tue, 23 Feb 2021 19:16:35 +0100 (CET)
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+ by in-3.smtp.seeweb.it (Postfix) with ESMTP id 9B6D51A000A0
+ for <ltp@lists.linux.it>; Tue, 23 Feb 2021 19:16:34 +0100 (CET)
+Received: from [192.168.0.104] (c-73-42-176-67.hsd1.wa.comcast.net
+ [73.42.176.67])
+ by linux.microsoft.com (Postfix) with ESMTPSA id 9988320B6C40;
+ Tue, 23 Feb 2021 10:16:32 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 9988320B6C40
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+ s=default; t=1614104192;
+ bh=3zmvt53PNA66gksALwsT99qOTtVwufHUhpdoDWUZNG4=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=bu31T5ZMUhRpjFIwqQueFAWX/nV0kJASFpYd3s3t2SnMrfxea44ZsdhGx7eBfqzF4
+ Q1fwBstKH8tIYlvzFm8EBS7i16d4nNKo9SY8m2gIsRLn/mcYhIVi8SW9hDj+hLAKHs
+ gJ1cVNuCXWJWW9ykwiR7D/f//qQF44jevQn4JKvI=
+To: Petr Vorel <pvorel@suse.cz>
+References: <20210222023421.12576-1-nramas@linux.microsoft.com>
+ <YDTJtl9C9HbRILQb@pevik>
+ <2b7f2f88-7df8-bd31-59cb-fd74bfe555fd@linux.microsoft.com>
+ <YDU77/zetTzs569z@pevik>
+From: Lakshmi Ramasubramanian <nramas@linux.microsoft.com>
+Message-ID: <c03396df-95de-2054-432e-b289659e6ad2@linux.microsoft.com>
+Date: Tue, 23 Feb 2021 10:16:31 -0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210222023805.12846-1-nramas@linux.microsoft.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+In-Reply-To: <YDU77/zetTzs569z@pevik>
+Content-Language: en-US
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] IMA: Add test for selinux measurement
+X-Spam-Status: No, score=-14.9 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,NICE_REPLY_A,SPF_HELO_PASS,
+ SPF_PASS,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] IMA: Check for ima-buf template is not required
+ for keys tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,139 +61,78 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: paul@paul-moore.com, selinux@vger.kernel.org,
- stephen.smalley.work@gmail.com, tusharsu@linux.microsoft.com,
- linux-integrity@vger.kernel.org, ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
+Cc: tusharsu@linux.microsoft.com, linux-integrity@vger.kernel.org,
+ ltp@lists.linux.it
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Lakshmi,
+On 2/23/21 9:31 AM, Petr Vorel wrote:
 
-> +++ b/testcases/kernel/security/integrity/ima/tests/ima_selinux.sh
-...
-> +validate_policy_capabilities()
-> +{
-> +	local measured_cap measured_value expected_value
-> +	local result=1
-> +	local inx=7
-> +
-> +	# Policy capabilities flags start from "network_peer_controls"
-> +	# in the measured SELinux state at offset 7 for 'awk'
-> +	while [ $inx -lt 20 ]; do
-> +		measured_cap=$(echo $1 | awk -F'[=;]' -v inx="$inx" '{print $inx}')
-> +		inx=$(( $inx + 1 ))
-> +
-> +		measured_value=$(echo $1 | awk -F'[=;]' -v inx="$inx" '{print $inx}')
-> +		expected_value=$(cat "$SELINUX_DIR/policy_capabilities/$measured_cap")
-> +		if [ "$measured_value" != "$expected_value" ];then
-> +			tst_res TWARN "$measured_cap: expected: $expected_value, got: $digest"
-We rarely use TWARN in the tests, only when the error is not related to the test result.
-Otherwise we use TFAIL.
+>>>> ima-buf is the default IMA template used for all buffer measurements.
+>>>> Therefore, IMA policy rule for measuring keys need not specify
+>>>> an IMA template.
+>>> Good catch. But was it alway?
+> 
+>>> IMHO ima-buf as default was added in dea87d0889dd ("ima: select ima-buf template for buffer measurement") in v5.11-rc1.
+>> For key measurements ima-buf template was required in the policy rule, but
+>> with the above commit (dea87d0889dd) it was changed to ima-buf. So we no
+>> longer need to specify the template in the policy.
+> 
+>>> But test1() tests 450d0fd51564 ("IMA: Call workqueue functions to measure queued keys") from v5.6-rc1.
+>>> Is it safe to ignore it?
+>> Even when the key is queued for measurement, ima-buf template will be used
+>> when the key is dequeued. Not sure if that answers your question.
+> IMHO template=ima-buf is required from v5.6-rc1 to v5.10, right?
+That is correct Petr.
 
-The rest LGTM.
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
+> But maybe it's just enough to check that no other template is used as we discuss
+> below.
+I agree.
 
-I did few formatting and style changes:
-https://github.com/pevik/ltp/commits/ima/selinux.v2.fixes
-(branch ima/selinux.v2.fixes), see diff below.
+> 
+>>> BTW template=ima-buf requirement was added in commit b0418c93f ("IMA/ima_keys.sh: Require template=ima-buf, fix grep pattern")
+> 
+>>> Also, shouldn't we check that there is none of the other templates (e.g. template=ima-ng, ...)?
+>> This is a good point - yes: we should check if no other template other than
+>> ima-buf is specified in the policy rule for measuring keys.
+> It'd be great if you include it in v2.
+Will do.
 
-As we discuss, I'm going tom merge test when patchset is merged in maintainers tree,
-please ping me. And ideally we should mention kernel commit hash as a comment in
-the test.
+> 
+> ...
+>>>>    FUNC_KEYCHECK='func=KEY_CHECK'
+>>>> -TEMPLATE_BUF='template=ima-buf'
+>>>> -REQUIRED_POLICY="^measure.*($FUNC_KEYCHECK.*$TEMPLATE_BUF|$TEMPLATE_BUF.*$FUNC_KEYCHECK)"
+>>>> +REQUIRED_POLICY="^measure.*($FUNC_KEYCHECK)"
+>>> nit: remove brackets:
+>>> REQUIRED_POLICY="^measure.*$FUNC_KEYCHECK"
+>> Sure - will remove that.
+> Thanks!
+> 
+>>> There is
+>>> testcases/kernel/security/integrity/ima/datafiles/ima_keys/keycheck.policy file,
+>>> which should be a helper to load proper policy and needs to be updated as well:
+>>> -measure func=KEY_CHECK keyrings=.ima|.evm|.builtin_trusted_keys|.blacklist|key_import_test template=ima-buf
+>>> +measure func=KEY_CHECK keyrings=.ima|.evm|.builtin_trusted_keys|.blacklist|key_import_test
+> 
+>>> I was also thinking to move keyrings to REQUIRED_POLICY, e.g.:
+> 
+>>> KEYRINGS="keyrings=\.[a-z]+"
+>>> REQUIRED_POLICY="^measure.*($FUNC_KEYCHECK.*$KEYRINGS|$KEYRINGS.*$FUNC_KEYCHECK)"
+>> "keyrings=" is optional in the policy. If keyrings is specified it should be
+>> checked.
+> OK, just optional.
+> 
 
-Thanks a lot!
+I'll see how to validate an optional field and update the test.
 
-Kind regards,
-Petr
+thanks,
+  -lakshmi
 
-diff --git testcases/kernel/security/integrity/ima/tests/ima_selinux.sh testcases/kernel/security/integrity/ima/tests/ima_selinux.sh
-index e5060a5e3..ed758631b 100755
---- testcases/kernel/security/integrity/ima/tests/ima_selinux.sh
-+++ testcases/kernel/security/integrity/ima/tests/ima_selinux.sh
-@@ -13,16 +13,14 @@ TST_SETUP="setup"
- . ima_setup.sh
- 
- FUNC_CRITICAL_DATA='func=CRITICAL_DATA'
--REQUIRED_POLICY="^measure.*($FUNC_CRITICAL_DATA)"
-+REQUIRED_POLICY="^measure.*$FUNC_CRITICAL_DATA"
- 
- setup()
- {
--	SELINUX_DIR=$(tst_get_selinux_dir)
--	if [ -z "$SELINUX_DIR" ]; then
--		tst_brk TCONF "SELinux is not enabled"
--		return
--	fi
-+	tst_require_selinux_enabled
- 	require_ima_policy_content "$REQUIRED_POLICY" '-E' > $TST_TMPDIR/policy.txt
-+
-+	SELINUX_DIR=$(tst_get_selinux_dir)
- }
- 
- # Format of the measured SELinux state data.
-@@ -41,16 +39,16 @@ validate_policy_capabilities()
- 	# in the measured SELinux state at offset 7 for 'awk'
- 	while [ $inx -lt 20 ]; do
- 		measured_cap=$(echo $1 | awk -F'[=;]' -v inx="$inx" '{print $inx}')
--		inx=$(( $inx + 1 ))
-+		inx=$(($inx + 1))
- 
- 		measured_value=$(echo $1 | awk -F'[=;]' -v inx="$inx" '{print $inx}')
- 		expected_value=$(cat "$SELINUX_DIR/policy_capabilities/$measured_cap")
--		if [ "$measured_value" != "$expected_value" ];then
-+		if [ "$measured_value" != "$expected_value" ]; then
- 			tst_res TWARN "$measured_cap: expected: $expected_value, got: $digest"
- 			result=0
- 		fi
- 
--		inx=$(( $inx + 1 ))
-+		inx=$(($inx + 1))
- 	done
- 
- 	return $result
-@@ -109,7 +107,6 @@ test2()
- 	local initialized_value
- 	local enforced_value expected_enforced_value
- 	local checkreqprot_value expected_checkreqprot_value
--	local result
- 
- 	tst_res TINFO "verifying SELinux state measurement"
- 
-@@ -149,27 +146,25 @@ test2()
- 	measured_data=$(cat $state_file)
- 	enforced_value=$(echo $measured_data | awk -F'[=;]' '{print $4}')
- 	expected_enforced_value=$(cat $SELINUX_DIR/enforce)
--	if [ "$expected_enforced_value" != "$enforced_value" ];then
-+	if [ "$expected_enforced_value" != "$enforced_value" ]; then
- 		tst_res TFAIL "enforce: expected: $expected_enforced_value, got: $enforced_value"
- 		return
- 	fi
- 
- 	checkreqprot_value=$(echo $measured_data | awk -F'[=;]' '{print $6}')
- 	expected_checkreqprot_value=$(cat $SELINUX_DIR/checkreqprot)
--	if [ "$expected_checkreqprot_value" != "$checkreqprot_value" ];then
-+	if [ "$expected_checkreqprot_value" != "$checkreqprot_value" ]; then
- 		tst_res TFAIL "checkreqprot: expected: $expected_checkreqprot_value, got: $checkreqprot_value"
- 		return
- 	fi
- 
- 	initialized_value=$(echo $measured_data | awk -F'[=;]' '{print $2}')
--	if [ "$initialized_value" != "1" ];then
-+	if [ "$initialized_value" != "1" ]; then
- 		tst_res TFAIL "initialized: expected 1, got: $initialized_value"
- 		return
- 	fi
- 
--	validate_policy_capabilities $measured_data
--	result=$?
--	if [ $result = 0 ]; then
-+	if validate_policy_capabilities $measured_data; then
- 		tst_res TFAIL "policy capabilities did not match"
- 		return
- 	fi
+
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
