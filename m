@@ -1,50 +1,40 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 461D732278F
-	for <lists+linux-ltp@lfdr.de>; Tue, 23 Feb 2021 10:13:40 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 40D033227B3
+	for <lists+linux-ltp@lfdr.de>; Tue, 23 Feb 2021 10:24:12 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0DF6E3C5AB8
-	for <lists+linux-ltp@lfdr.de>; Tue, 23 Feb 2021 10:13:40 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id EF2DA3C5AC0
+	for <lists+linux-ltp@lfdr.de>; Tue, 23 Feb 2021 10:24:11 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id 90E2A3C2BEF
- for <ltp@lists.linux.it>; Tue, 23 Feb 2021 10:13:34 +0100 (CET)
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id B98013C4E45
+ for <ltp@lists.linux.it>; Tue, 23 Feb 2021 10:24:09 +0100 (CET)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id E1AF81401118
- for <ltp@lists.linux.it>; Tue, 23 Feb 2021 10:13:31 +0100 (CET)
-Received: from DGGEML404-HUB.china.huawei.com (unknown [172.30.72.54])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4DlCwr74s6zYBqb;
- Tue, 23 Feb 2021 17:11:56 +0800 (CST)
-Received: from DGGEML424-HUB.china.huawei.com (10.1.199.41) by
- DGGEML404-HUB.china.huawei.com (10.3.17.39) with Microsoft SMTP Server (TLS)
- id 14.3.498.0; Tue, 23 Feb 2021 17:13:22 +0800
-Received: from DGGEML511-MBS.china.huawei.com ([169.254.4.151]) by
- dggeml424-hub.china.huawei.com ([10.1.199.41]) with mapi id 14.03.0509.000;
- Tue, 23 Feb 2021 17:13:12 +0800
-From: zhaogongyi <zhaogongyi@huawei.com>
-To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-Thread-Topic: [LTP] [PATCH] cpu_hotplug: Add executable file's path
-Thread-Index: AdcJxBsW5avzDsncSjWCFQokfxyz6Q==
-Date: Tue, 23 Feb 2021 09:13:12 +0000
-Message-ID: <F3D3F6AC3820BB4C9FCA340DB5C32CB403879BE2@dggeml511-mbs.china.huawei.com>
-Accept-Language: en-US
-Content-Language: zh-CN
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.67.110.209]
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 4A51C600BFD
+ for <ltp@lists.linux.it>; Tue, 23 Feb 2021 10:24:08 +0100 (CET)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 34846AF23;
+ Tue, 23 Feb 2021 09:24:08 +0000 (UTC)
+Date: Tue, 23 Feb 2021 10:24:06 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: Lakshmi Ramasubramanian <nramas@linux.microsoft.com>
+Message-ID: <YDTJtl9C9HbRILQb@pevik>
+References: <20210222023421.12576-1-nramas@linux.microsoft.com>
 MIME-Version: 1.0
-X-CFilter-Loop: Reflected
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20210222023421.12576-1-nramas@linux.microsoft.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] cpu_hotplug: Add executable file's path
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] IMA: Check for ima-buf template is not required
+ for keys tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,140 +46,77 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: tusharsu@linux.microsoft.com, linux-integrity@vger.kernel.org,
+ ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGkgWHUsDQoNClRoYW5rcyBmb3IgeW91ciByZXZpZXchDQoNCkluIG1hbnkgZW1iZWRkZWQgc3lz
-dGVtLCBiZWZvcmUgcnVubmluZyB0ZXN0Y2FzZXMgd2UgbmVlZCB0eXBlIGluIHRoZSBmb2xsb3dp
-bmcgbGluZXM6DQoNCiAgICAjZXhwb3J0IExUUFJPT1Q9L29wdC9sdHANCiAgICAjZXhwb3J0IFBB
-VEg9IiRQQVRIOiRMVFBST09UL3Rlc3RjYXNlcy9iaW4iDQogICAgIyBjcHVob3RwbHVnMDIuc2gg
-LWMgMSAtbCAxDQoNCkl0IGlzIG5vdCBjb252ZW5pZW50IGZvciBydW5uaW5nIHRlc3QgYWZ0ZXIg
-ZXZlcnkgbG9naW4uDQoNCkNhbiB3ZSBjaGFuZ2UgIiBjcHVob3RwbHVnX2RvX2Rpc2tfd3JpdGVf
-bG9vcD4gICAvZGV2L251bGwgMj4mMSYiIHRvICIge0JJTn0vY3B1aG90cGx1Z19kb19kaXNrX3dy
-aXRlX2xvb3A+ICAgL2Rldi9udWxsIDI+JjEmIiBhbmQgc2V0IEJJTiBhdCBpbml0IHBoYXNlKGZv
-ciBleGFtcGxlIGluIHRlc3Quc2gpDQoNCmlmIFsgLWUgJExUUFJPT1QvdGVzdGNhc2VzL2JpbiBd
-O3RoZW4NCglCSU49JExUUFJPT1QvdGVzdGNhc2VzL2Jpbg0KZWxzZQ0KCUJJTj0uLw0KZmkNCg0K
-U28sIHdlIGNhbiBydW4gdGVzdCBsaWtlOg0KDQogICAgI2NkIElOU1RBTExfRElSDQoJIy4vY3B1
-aG90cGx1ZzAyLnNoIC1jIDEgLWwgMQ0KDQpJdCBpcyBtb3JlIGVmZmljaWVudCBmb3IgdGVzdGlu
-ZyBpbiBlbWJlZGRlZCBzeXN0ZW0gYW5kIGlzIG1vcmUgZnJpZW5kbHkgZm9yIG9uZSB3aG8gZG9u
-J3Qga25vdyB0aGUgZmlsZSBjcHVob3RwbHVnMDIuc2ggZGVwZW5kaW5nIG9uIGNwdWhvdHBsdWdf
-ZG9fZGlza193cml0ZV9sb29wLg0KDQoNCkFuZCB3aGF0IGRvIHUgdGhpbmsgYWJvdXQgdGhpcz8N
-Cg0KDQo+IA0KPiBIaSBnb25neWkNCj4gPiBIaSBYdSwNCj4gPg0KPiA+IEluIG1hbnkgY2FzZXMs
-IHdlIHNldCBhIGRlZmF1bHQgcGF0aCBmb3IgZXhlY3V0YWJsZSBmaWxlIHdvdWxkIGJlIG1vcmUN
-Cj4gZnJpZW5kbHkgZm9yIHVzZXI/DQo+IEkgdGhpbmsgaXQgaXMgZnJpZW5kbHkgdG8gdXNlci4g
-TFRQIGhhcyBmcmllbmRseSBkb2N1bWVudGF0aW9uIHRvIG1lbnRpb24gdGhpc++8jA0KPiANCj4g
-SW4gdXNlci1ndWlkZS50eHQNCj4gaHR0cHM6Ly9naXRodWIuY29tL2xpbnV4LXRlc3QtcHJvamVj
-dC9sdHAvYmxvYi9tYXN0ZXIvZG9jL3VzZXItZ3VpZGUudHh0DQo+IA0KPiB8ICdMVFBST09UJyAg
-ICAgICAgICAgICB8IFByZWZpeCBmb3IgaW5zdGFsbGVkIExUUCwgdGhlIGRlZmF1bHQgaXMNCj4g
-Jy9vcHQvbHRwJw0KPiANCj4gfCAnUEFUSCcgICAgICAgICAgICAgICAgfCBJdCdzIHJlcXVpcmVk
-IHRvIGFkZGp1c3QgcGF0aDoNCj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgYFBBVEg9IiRQ
-QVRIOiRMVFBST09UL3Rlc3RjYXNlcy9iaW4iYA0KPiANCj4gSW4gUkVBRE1FLm1kDQo+IEVhY2gg
-dGVzdCBjYXNlIGhhcyBpdHMgb3duIGV4ZWN1dGFibGUgb3Igc2NyaXB0LCB0aGVzZSBjYW4gYmUg
-ZXhlY3V0ZWQNCj4gZGlyZWN0bHkgJCB0ZXN0Y2FzZXMvYmluL2Fib3J0MDEgU29tZSBoYXZlIGFy
-Z3VtZW50cw0KPiAkIHRlc3RjYXNlcy9iaW4vZm9yazEzIC1pIDM3IFRoZSB2YXN0IG1ham9yaXR5
-IG9mIHRlc3QgY2FzZXMgYWNjZXB0IHRoZSAtaA0KPiAoaGVscCkgc3dpdGNoICQgdGVzdGNhc2Vz
-L2Jpbi9pb2N0bDAxIC1oIE1hbnkgcmVxdWlyZSBjZXJ0YWluIGVudmlyb25tZW50DQo+IHZhcmlh
-YmxlcyB0byBiZSBzZXQgJCBMVFBST09UPS9vcHQvbHRwDQo+IFBBVEg9IiRQQVRIOiRMVFBST09U
-L3Rlc3RjYXNlcy9iaW4iIHRlc3RjYXNlcy9iaW4vd2MwMS5zaCBNb3N0DQo+IGNvbW1vbmx5LCB0
-aGUgcGF0aCB2YXJpYWJsZSBuZWVkcyB0byBiZSBzZXQgYW5kIGFsc28gTFRQUk9PVCwgYnV0IHRo
-ZXJlDQo+IGFyZSBhIG51bWJlciBvZiBvdGhlciB2YXJpYWJsZXMsIHJ1bmx0cCB1c3VhbGx5IHNl
-dHMgdGhlc2UgZm9yIHlvdS4NCj4gTm90ZSB0aGF0IGFsbCBzaGVsbCBzY3JpcHRzIG5lZWQgdGhl
-IFBBVEggdG8gYmUgc2V0LiBIb3dldmVyIHRoaXMgaXMgbm90DQo+IGxpbWl0ZWQgdG8gc2hlbGwg
-c2NyaXB0cywgbWFueSBDIGJhc2VkIHRlc3RzIG5lZWQgZW52aXJvbm1lbnQgdmFyaWFibGVzIGFz
-DQo+IHdlbGwuDQo+IA0KPiBBbHNvIGZvciBzb21lIHNwZWNpYWwgY2FzZSwgbGlrZSBwcmN0bDA2
-LmMsIHdlIGNhbiB1c2UgcmVzb3VyY2VfZmlsZXMgdG8NCj4gY29weSBzb21lIG90aGVyIGV4ZWN1
-dGUgZmlsZSB0byBzb21lIHBsYWNlLg0KPiANCj4gPg0KPiA+IEFuZCBpbiB0aGVzZSBjYXNlcywg
-aXQgaXMgYmV0dGVyIHRvIGp1ZGdlIHJldHVybiB2YWx1ZSBiZWhpbmQgcnVubmluZw0KPiBjcHVo
-b3RwbHVnX2RvX3NwaW5fbG9vcCBzaW5jZSB0aGUgZXJyb3IgaW5mbyBoYXMgYmVlbiByZWRpcmVj
-dGVkIHRvDQo+IC9kZXYvbnVsbD8NCj4gdGhlIGNwdWhvdHBsdWdfZG9fc3Bpbl9sb29wIGZ1bmN0
-aW9uIG9ubHkgZG9lcyBhIHNwaW4gbG9vcCwgSU1PLCBpdCB3aWxsDQo+IG5vdCBmYWlsIGFuZCBo
-ZXJlIGp1c3QgbWFrZSB0aGUgb3V0cHV0IHNpbGVudC4NCj4gDQo+IA0KPiBCZXN0IFJlZ2FyZHMN
-Cj4gWWFuZyBYdQ0KPiA+DQo+ID4NCj4gPj4NCj4gPj4gSGkgR29uZ3lpDQo+ID4+PiBXaGVuIGVu
-diBQQVRIIGlzIG5vdCBpbmNsdWRlIGN1cnJlbnQgcGF0aCwgcnVuDQo+ID4+PiBjcHVob3RwbHVn
-X2RvX2Rpc2tfd3JpdGVfbG9vcC8NCj4gPj4+IGNwdWhvdHBsdWdfZG9fc3Bpbl9sb29wL2NwdWhv
-dHBsdWdfZG9fa2NvbXBpbGVfbG9vcC8NCj4gPj4+IGNwdWhvdHBsdWdfcmVwb3J0X3Byb2NfaW50
-ZXJydXB0cyB3aWxsIGZhaWwuDQo+ID4+Pg0KPiA+PiBUaGlzIHBhdGNoIGlzIHVzZWxlc3MuDQo+
-ID4+DQo+ID4+IEZvciBzaGVsbC1zY3JpcHQgY2FzZSwgdXN1YWxseSwgcnVubHRwIHdpbGwgc2V0
-IGVudmlyb25tZW50IHZhcmlhYmxlcy4NCj4gPj4gb3IsIHlvdSBuZWVkIHRvIHNldCBlbnZpcm9u
-bWVudCB2YXJpYWJsZXMgeW91cnNlbGYgaWYgbm90IHdhbnQgdG8gdXNlDQo+ID4+IHJ1bmx0cCht
-b3JlIGluZm8gc2VlWzFdKS4NCj4gPj4gRm9yIGNwdWhvdHBsdWcwMiBjYXNlLCB3ZSBjYW4gcnVu
-IGFzIGJlbG93Og0KPiA+PiAjZXhwb3J0IExUUFJPT1Q9L29wdC9sdHANCj4gPj4gI2V4cG9ydCBQ
-QVRIPSIkUEFUSDokTFRQUk9PVC90ZXN0Y2FzZXMvYmluIg0KPiA+PiAjY3B1aG90cGx1ZzAyLnNo
-IC1jIDEgLWwgMQ0KPiA+Pg0KPiA+PiBbMV1odHRwczovL2dpdGh1Yi5jb20vbGludXgtdGVzdC1w
-cm9qZWN0L2x0cC9ibG9iL21hc3Rlci9SRUFETUUubWQNCj4gPj4NCj4gPj4gQmVzdCBSZWdhcmRz
-DQo+ID4+IFlhbmcgWHUNCj4gPj4+IEZvciB0aG9zZToNCj4gPj4+DQo+IAl0ZXN0Y2FzZXMva2Vy
-bmVsL2hvdHBsdWcvY3B1X2hvdHBsdWcvZnVuY3Rpb25hbC9jcHVob3RwbHVnMDEuc2gNCj4gPj4+
-DQo+IAl0ZXN0Y2FzZXMva2VybmVsL2hvdHBsdWcvY3B1X2hvdHBsdWcvZnVuY3Rpb25hbC9jcHVo
-b3RwbHVnMDIuc2gNCj4gPj4+DQo+IAl0ZXN0Y2FzZXMva2VybmVsL2hvdHBsdWcvY3B1X2hvdHBs
-dWcvZnVuY3Rpb25hbC9jcHVob3RwbHVnMDMuc2gNCj4gPj4+DQo+IAl0ZXN0Y2FzZXMva2VybmVs
-L2hvdHBsdWcvY3B1X2hvdHBsdWcvZnVuY3Rpb25hbC9jcHVob3RwbHVnMDcuc2gNCj4gPj4+DQo+
-ID4+PiBTaWduZWQtb2ZmLWJ5OiBaaGFvIEdvbmd5aTx6aGFvZ29uZ3lpQGh1YXdlaS5jb20+DQo+
-ID4+PiAtLS0NCj4gPj4+ICAgIC4uLi9rZXJuZWwvaG90cGx1Zy9jcHVfaG90cGx1Zy9mdW5jdGlv
-bmFsL2NwdWhvdHBsdWcwMS5zaA0KPiB8IDQNCj4gPj4gKystLQ0KPiA+Pj4gICAgLi4uL2tlcm5l
-bC9ob3RwbHVnL2NwdV9ob3RwbHVnL2Z1bmN0aW9uYWwvY3B1aG90cGx1ZzAyLnNoDQo+IHwgMg0K
-PiA+PiArLQ0KPiA+Pj4gICAgLi4uL2tlcm5lbC9ob3RwbHVnL2NwdV9ob3RwbHVnL2Z1bmN0aW9u
-YWwvY3B1aG90cGx1ZzAzLnNoDQo+IHwgMg0KPiA+PiArLQ0KPiA+Pj4gICAgLi4uL2tlcm5lbC9o
-b3RwbHVnL2NwdV9ob3RwbHVnL2Z1bmN0aW9uYWwvY3B1aG90cGx1ZzA3LnNoDQo+IHwgMg0KPiA+
-PiArLQ0KPiA+Pj4gICAgNCBmaWxlcyBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKyksIDUgZGVsZXRp
-b25zKC0pDQo+ID4+Pg0KPiA+Pj4gZGlmZiAtLWdpdA0KPiA+Pj4gYS90ZXN0Y2FzZXMva2VybmVs
-L2hvdHBsdWcvY3B1X2hvdHBsdWcvZnVuY3Rpb25hbC9jcHVob3RwbHVnMDEuc2gNCj4gPj4+IGIv
-dGVzdGNhc2VzL2tlcm5lbC9ob3RwbHVnL2NwdV9ob3RwbHVnL2Z1bmN0aW9uYWwvY3B1aG90cGx1
-ZzAxLnNoDQo+ID4+PiBpbmRleCAxYmE5MzdjYzcuLmIxYzhhOWI5NyAxMDA3NTUNCj4gPj4+IC0t
-LQ0KPiBhL3Rlc3RjYXNlcy9rZXJuZWwvaG90cGx1Zy9jcHVfaG90cGx1Zy9mdW5jdGlvbmFsL2Nw
-dWhvdHBsdWcwMS5zaA0KPiA+Pj4gKysrDQo+ID4+IGIvdGVzdGNhc2VzL2tlcm5lbC9ob3RwbHVn
-L2NwdV9ob3RwbHVnL2Z1bmN0aW9uYWwvY3B1aG90cGx1ZzAxLnNoDQo+ID4+PiBAQCAtMTM3LDcg
-KzEzNyw3IEBAIGNwdV9zdGF0ZXM9JChnZXRfYWxsX2NwdV9zdGF0ZXMpDQo+ID4+PiAgICBDUFVf
-Q09VTlQ9MA0KPiA+Pj4NCj4gPj4+ICAgICMgU3RhcnQgdXAgYSBwcm9jZXNzIHRoYXQgd3JpdGVz
-IHRvIGRpc2s7IGtlZXAgdHJhY2sgb2YgaXRzIFBJRA0KPiA+Pj4gLWNwdWhvdHBsdWdfZG9fZGlz
-a193cml0ZV9sb29wPiAgIC9kZXYvbnVsbCAyPiYxJg0KPiA+Pj4gKy4vY3B1aG90cGx1Z19kb19k
-aXNrX3dyaXRlX2xvb3A+ICAgL2Rldi9udWxsIDI+JjEmDQo+ID4+PiAgICBXUkxfSUQ9JCENCj4g
-Pj4+DQo+ID4+PiAgICB1bnRpbCBbICRMT09QX0NPVU5UIC1ndCAkSE9UUExVRzAxX0xPT1BTIF0g
-QEAgLTE4MSw3DQo+ICsxODEsNw0KPiA+PiBAQCBkbw0KPiA+Pj4gICAgCSMgUHJpbnQgb3V0IGEg
-cmVwb3J0IHNob3dpbmcgdGhlIGNoYW5nZXMgaW4gSVJRcw0KPiA+Pj4gICAgCWVjaG8NCj4gPj4+
-ICAgIAllY2hvDQo+ID4+PiAtCWNwdWhvdHBsdWdfcmVwb3J0X3Byb2NfaW50ZXJydXB0cyAiJElS
-UV9TVEFSVCIgIiRJUlFfRU5EIg0KPiA+Pj4gKwkuL2NwdWhvdHBsdWdfcmVwb3J0X3Byb2NfaW50
-ZXJydXB0cyAiJElSUV9TVEFSVCIgIiRJUlFfRU5EIg0KPiA+Pj4gICAgCWVjaG8NCj4gPj4+DQo+
-ID4+PiAgICAJc2xlZXAgJFRNX0RMWQ0KPiA+Pj4gZGlmZiAtLWdpdA0KPiA+Pj4gYS90ZXN0Y2Fz
-ZXMva2VybmVsL2hvdHBsdWcvY3B1X2hvdHBsdWcvZnVuY3Rpb25hbC9jcHVob3RwbHVnMDIuc2gN
-Cj4gPj4+IGIvdGVzdGNhc2VzL2tlcm5lbC9ob3RwbHVnL2NwdV9ob3RwbHVnL2Z1bmN0aW9uYWwv
-Y3B1aG90cGx1ZzAyLnNoDQo+ID4+PiBpbmRleCA3OTJmOGNkNzMuLmY4YTEzOTVjMSAxMDA3NTUN
-Cj4gPj4+IC0tLQ0KPiBhL3Rlc3RjYXNlcy9rZXJuZWwvaG90cGx1Zy9jcHVfaG90cGx1Zy9mdW5j
-dGlvbmFsL2NwdWhvdHBsdWcwMi5zaA0KPiA+Pj4gKysrDQo+ID4+IGIvdGVzdGNhc2VzL2tlcm5l
-bC9ob3RwbHVnL2NwdV9ob3RwbHVnL2Z1bmN0aW9uYWwvY3B1aG90cGx1ZzAyLnNoDQo+ID4+PiBA
-QCAtNzcsNyArNzcsNyBAQCBmaQ0KPiA+Pj4gICAgVFNUX0NMRUFOVVA9ZG9fY2xlYW4NCj4gPj4+
-DQo+ID4+PiAgICAjIFN0YXJ0IHVwIGEgcHJvY2VzcyB0aGF0IGp1c3QgdXNlcyBDUFUgY3ljbGVz
-DQo+ID4+PiAtY3B1aG90cGx1Z19kb19zcGluX2xvb3A+ICAgL2Rldi9udWxsJg0KPiA+Pj4gKy4v
-Y3B1aG90cGx1Z19kb19zcGluX2xvb3A+ICAgL2Rldi9udWxsJg0KPiA+Pj4gICAgU1BJTl9MT09Q
-X1BJRD0kIQ0KPiA+Pj4NCj4gPj4+ICAgIHNsZWVwIDUNCj4gPj4+IGRpZmYgLS1naXQNCj4gPj4+
-IGEvdGVzdGNhc2VzL2tlcm5lbC9ob3RwbHVnL2NwdV9ob3RwbHVnL2Z1bmN0aW9uYWwvY3B1aG90
-cGx1ZzAzLnNoDQo+ID4+PiBiL3Rlc3RjYXNlcy9rZXJuZWwvaG90cGx1Zy9jcHVfaG90cGx1Zy9m
-dW5jdGlvbmFsL2NwdWhvdHBsdWcwMy5zaA0KPiA+Pj4gaW5kZXggOWVhNDlmMGUxLi43NWEwNWEz
-YzkgMTAwNzU1DQo+ID4+PiAtLS0NCj4gYS90ZXN0Y2FzZXMva2VybmVsL2hvdHBsdWcvY3B1X2hv
-dHBsdWcvZnVuY3Rpb25hbC9jcHVob3RwbHVnMDMuc2gNCj4gPj4+ICsrKw0KPiA+PiBiL3Rlc3Rj
-YXNlcy9rZXJuZWwvaG90cGx1Zy9jcHVfaG90cGx1Zy9mdW5jdGlvbmFsL2NwdWhvdHBsdWcwMy5z
-aA0KPiA+Pj4gQEAgLTEwMiw3ICsxMDIsNyBAQCB1bnRpbCBbICRMT09QX0NPVU5UIC1ndA0KPiA+
-PiAkSE9UUExVRzAzX0xPT1BTIF07IGRvDQo+ID4+PiAgICAJIyBzbyB3ZSBjYW4ga2lsbCB0aGVt
-IGxhdGVyLg0KPiA+Pj4gICAgCW51bWJlcl9vZl9wcm9jcz0kKChjcHVzX251bSoyKSkNCj4gPj4+
-ICAgIAl1bnRpbCBbICRudW1iZXJfb2ZfcHJvY3MgLWVxIDAgXTsgZG8NCj4gPj4+IC0JCWNwdWhv
-dHBsdWdfZG9fc3Bpbl9sb29wPiAgIC9kZXYvbnVsbCAyPiYxJg0KPiA+Pj4gKwkJLi9jcHVob3Rw
-bHVnX2RvX3NwaW5fbG9vcD4gICAvZGV2L251bGwgMj4mMSYNCj4gPj4+ICAgIAkJZWNobyAkIT4+
-ICAgL3Zhci9ydW4vaG90cGx1ZzRfJCQucGlkDQo+ID4+PiAgICAJCW51bWJlcl9vZl9wcm9jcz0k
-KChudW1iZXJfb2ZfcHJvY3MtMSkpDQo+ID4+PiAgICAJZG9uZQ0KPiA+Pj4gZGlmZiAtLWdpdA0K
-PiA+Pj4gYS90ZXN0Y2FzZXMva2VybmVsL2hvdHBsdWcvY3B1X2hvdHBsdWcvZnVuY3Rpb25hbC9j
-cHVob3RwbHVnMDcuc2gNCj4gPj4+IGIvdGVzdGNhc2VzL2tlcm5lbC9ob3RwbHVnL2NwdV9ob3Rw
-bHVnL2Z1bmN0aW9uYWwvY3B1aG90cGx1ZzA3LnNoDQo+ID4+PiBpbmRleCAyNzgzMDQ2MTguLmU4
-YWI3OGU4YyAxMDA3NTUNCj4gPj4+IC0tLQ0KPiBhL3Rlc3RjYXNlcy9rZXJuZWwvaG90cGx1Zy9j
-cHVfaG90cGx1Zy9mdW5jdGlvbmFsL2NwdWhvdHBsdWcwNy5zaA0KPiA+Pj4gKysrDQo+ID4+IGIv
-dGVzdGNhc2VzL2tlcm5lbC9ob3RwbHVnL2NwdV9ob3RwbHVnL2Z1bmN0aW9uYWwvY3B1aG90cGx1
-ZzA3LnNoDQo+ID4+PiBAQCAtODEsNyArODEsNyBAQCBmaQ0KPiA+Pj4NCj4gPj4+ICAgIFRTVF9D
-TEVBTlVQPWRvX2NsZWFuDQo+ID4+Pg0KPiA+Pj4gLWNwdWhvdHBsdWdfZG9fa2NvbXBpbGVfbG9v
-cCAkS0VSTkVMX0RJUj4gICAvZGV2L251bGwgMj4mMSYNCj4gPj4+ICsuL2NwdWhvdHBsdWdfZG9f
-a2NvbXBpbGVfbG9vcCAkS0VSTkVMX0RJUj4gICAvZGV2L251bGwgMj4mMSYNCj4gPj4+ICAgIEtD
-T01QSUxFX0xPT1BfUElEPSQhDQo+ID4+Pg0KPiA+Pj4gICAgdHN0X3Jlc20gVElORk8gImluaXRp
-YWwgQ1BVIGFmZmluaXR5IGZvciBrZXJuZWwgY29tcGlsZSBpczogXA0KPiA+Pj4gLS0NCj4gPj4+
-IDIuMTcuMQ0KPiA+Pj4NCj4gPj4+DQo+ID4+DQo+ID4+DQo+ID4NCj4gPg0KPiA+DQo+ID4gLg0K
-PiA+DQo+IA0KPiANCg0KCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51
-eC5pdC9saXN0aW5mby9sdHAK
+Hi Lakmasi,
+
+> ima-buf is the default IMA template used for all buffer measurements.
+> Therefore, IMA policy rule for measuring keys need not specify
+> an IMA template.
+Good catch. But was it alway?
+IMHO ima-buf as default was added in dea87d0889dd ("ima: select ima-buf template for buffer measurement") in v5.11-rc1.
+But test1() tests 450d0fd51564 ("IMA: Call workqueue functions to measure queued keys") from v5.6-rc1.
+Is it safe to ignore it?
+BTW template=ima-buf requirement was added in commit b0418c93f ("IMA/ima_keys.sh: Require template=ima-buf, fix grep pattern")
+
+Also, shouldn't we check that there is none of the other templates (e.g. template=ima-ng, ...)?
+
+> Update keys tests to not check for ima template in the policy rule.
+
+> Signed-off-by: Lakshmi Ramasubramanian <nramas@linux.microsoft.com>
+> ---
+> This patch is based
+> in https://github.com/pevik/ltp/commits/ima/selinux.v2.draft
+> in branch ima/selinux.v2.draft.
+
+>  testcases/kernel/security/integrity/ima/tests/ima_keys.sh | 5 ++---
+>  1 file changed, 2 insertions(+), 3 deletions(-)
+
+> diff --git a/testcases/kernel/security/integrity/ima/tests/ima_keys.sh b/testcases/kernel/security/integrity/ima/tests/ima_keys.sh
+> index c9eef4b68..a3a7afbf7 100755
+> --- a/testcases/kernel/security/integrity/ima/tests/ima_keys.sh
+> +++ b/testcases/kernel/security/integrity/ima/tests/ima_keys.sh
+> @@ -15,8 +15,7 @@ TST_CLEANUP=cleanup
+>  . ima_setup.sh
+
+>  FUNC_KEYCHECK='func=KEY_CHECK'
+> -TEMPLATE_BUF='template=ima-buf'
+> -REQUIRED_POLICY="^measure.*($FUNC_KEYCHECK.*$TEMPLATE_BUF|$TEMPLATE_BUF.*$FUNC_KEYCHECK)"
+> +REQUIRED_POLICY="^measure.*($FUNC_KEYCHECK)"
+nit: remove brackets:
+REQUIRED_POLICY="^measure.*$FUNC_KEYCHECK"
+
+There is
+testcases/kernel/security/integrity/ima/datafiles/ima_keys/keycheck.policy file,
+which should be a helper to load proper policy and needs to be updated as well:
+-measure func=KEY_CHECK keyrings=.ima|.evm|.builtin_trusted_keys|.blacklist|key_import_test template=ima-buf
++measure func=KEY_CHECK keyrings=.ima|.evm|.builtin_trusted_keys|.blacklist|key_import_test
+
+I was also thinking to move keyrings to REQUIRED_POLICY, e.g.:
+
+KEYRINGS="keyrings=\.[a-z]+"
+REQUIRED_POLICY="^measure.*($FUNC_KEYCHECK.*$KEYRINGS|$KEYRINGS.*$FUNC_KEYCHECK)"
+
+Kind regards,
+Petr
+
+>  setup()
+>  {
+> @@ -33,7 +32,7 @@ check_keys_policy()
+>  	local pattern="$1"
+
+>  	if ! grep -E "$pattern" $TST_TMPDIR/policy.txt; then
+> -		tst_res TCONF "IMA policy must specify $pattern, $FUNC_KEYCHECK, $TEMPLATE_BUF"
+> +		tst_res TCONF "IMA policy must specify $pattern, $FUNC_KEYCHECK"
+>  		return 1
+>  	fi
+>  	return 0
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
