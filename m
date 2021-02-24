@@ -2,52 +2,52 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A3533235EC
-	for <lists+linux-ltp@lfdr.de>; Wed, 24 Feb 2021 04:12:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E629632368C
+	for <lists+linux-ltp@lfdr.de>; Wed, 24 Feb 2021 06:01:27 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5CD483C5EB5
-	for <lists+linux-ltp@lfdr.de>; Wed, 24 Feb 2021 04:12:56 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 8C3A33C5EAF
+	for <lists+linux-ltp@lfdr.de>; Wed, 24 Feb 2021 06:01:27 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id AF7583C5EB5
- for <ltp@lists.linux.it>; Wed, 24 Feb 2021 04:12:53 +0100 (CET)
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id 55E793C3328
+ for <ltp@lists.linux.it>; Wed, 24 Feb 2021 06:01:25 +0100 (CET)
 Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-2.smtp.seeweb.it (Postfix) with ESMTP id C477460132B
- for <ltp@lists.linux.it>; Wed, 24 Feb 2021 04:12:52 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.81,201,1610380800"; d="scan'208";a="104797277"
+ by in-5.smtp.seeweb.it (Postfix) with ESMTP id E963E60074A
+ for <ltp@lists.linux.it>; Wed, 24 Feb 2021 06:01:24 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.81,201,1610380800"; d="scan'208";a="104801479"
 Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 24 Feb 2021 11:12:51 +0800
-Received: from G08CNEXMBPEKD05.g08.fujitsu.local (unknown [10.167.33.204])
- by cn.fujitsu.com (Postfix) with ESMTP id A8DCD4CE914C
- for <ltp@lists.linux.it>; Wed, 24 Feb 2021 11:12:49 +0800 (CST)
-Received: from G08CNEXJMPEKD02.g08.fujitsu.local (10.167.33.202) by
- G08CNEXMBPEKD05.g08.fujitsu.local (10.167.33.204) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Wed, 24 Feb 2021 11:12:36 +0800
-Received: from G08CNEXCHPEKD04.g08.fujitsu.local (10.167.33.200) by
- G08CNEXJMPEKD02.g08.fujitsu.local (10.167.33.202) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Wed, 24 Feb 2021 11:12:33 +0800
-Received: from irides.mr.mr.mr (10.167.225.141) by
- G08CNEXCHPEKD04.g08.fujitsu.local (10.167.33.209) with Microsoft SMTP Server
- id 15.0.1497.2 via Frontend Transport; Wed, 24 Feb 2021 11:12:33 +0800
-From: Shiyang Ruan <ruansy.fnst@cn.fujitsu.com>
-To: <ltp@lists.linux.it>
-Date: Wed, 24 Feb 2021 11:12:27 +0800
-Message-ID: <20210224031227.151844-2-ruansy.fnst@cn.fujitsu.com>
-X-Mailer: git-send-email 2.30.1
-In-Reply-To: <20210224031227.151844-1-ruansy.fnst@cn.fujitsu.com>
-References: <20210224031227.151844-1-ruansy.fnst@cn.fujitsu.com>
+ by heian.cn.fujitsu.com with ESMTP; 24 Feb 2021 13:01:22 +0800
+Received: from G08CNEXMBPEKD06.g08.fujitsu.local (unknown [10.167.33.206])
+ by cn.fujitsu.com (Postfix) with ESMTP id 1399F4CE76D2;
+ Wed, 24 Feb 2021 13:01:18 +0800 (CST)
+Received: from [10.167.220.69] (10.167.220.69) by
+ G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Wed, 24 Feb 2021 13:01:19 +0800
+Message-ID: <6035DD9C.4080308@cn.fujitsu.com>
+Date: Wed, 24 Feb 2021 13:01:16 +0800
+From: Xiao Yang <yangx.jy@cn.fujitsu.com>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
+ rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
 MIME-Version: 1.0
-X-yoursite-MailScanner-ID: A8DCD4CE914C.A2372
+To: Petr Vorel <pvorel@suse.cz>
+References: <20210223140323.126555-1-zhaogongyi@huawei.com>
+ <YDWugcEDg/z4tRrX@pevik>
+In-Reply-To: <YDWugcEDg/z4tRrX@pevik>
+X-Originating-IP: [10.167.220.69]
+X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
+ G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206)
+X-yoursite-MailScanner-ID: 1399F4CE76D2.AF4B0
 X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: ruansy.fnst@fujitsu.com
-X-Spam-Status: No, score=0.0 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NEUTRAL autolearn=disabled version=3.4.4
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-yoursite-MailScanner-From: yangx.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.0 required=7.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.4
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/2] syscalls/getpid02: Convert to new API
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] unshare01.sh: Setup parent mount flag before
+ unshare testing
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,193 +59,176 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
+Cc: ltp@lists.linux.it
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Shiyang Ruan <ruansy.fnst@cn.fujitsu.com>
----
- testcases/kernel/syscalls/getpid/getpid02.c | 152 +++++---------------
- 1 file changed, 34 insertions(+), 118 deletions(-)
+Hi Zhongyi, Petr
 
-diff --git a/testcases/kernel/syscalls/getpid/getpid02.c b/testcases/kernel/syscalls/getpid/getpid02.c
-index 6c44ea96a..6b5dd0a63 100644
---- a/testcases/kernel/syscalls/getpid/getpid02.c
-+++ b/testcases/kernel/syscalls/getpid/getpid02.c
-@@ -1,136 +1,52 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
- /*
-- *
-- *   Copyright (c) International Business Machines  Corp., 2001
-- *
-- *   This program is free software;  you can redistribute it and/or modify
-- *   it under the terms of the GNU General Public License as published by
-- *   the Free Software Foundation; either version 2 of the License, or
-- *   (at your option) any later version.
-- *
-- *   This program is distributed in the hope that it will be useful,
-- *   but WITHOUT ANY WARRANTY;  without even the implied warranty of
-- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
-- *   the GNU General Public License for more details.
-- *
-- *   You should have received a copy of the GNU General Public License
-- *   along with this program;  if not, write to the Free Software
-- *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
-+ * Copyright (c) 2000 Silicon Graphics, Inc.  All Rights Reserved.
-  */
- 
--/*
-- * Test Name: getpid02
-- *
-- * Test Description:
-- *  Verify that getpid() system call gets the process ID of the of the
-- *  calling process.
-- *
-- * Expected Result:
-- *  getpid() should return pid of the process on success.
-- *
-- * Algorithm:
-- *  Setup:
-- *   Setup signal handling.
-- *   Pause for SIGUSR1 if option specified.
-+/*\
-+ * [DESCRIPTION]
-  *
-- *  Test:
-- *   Loop if the proper options are given.
-- *   Execute system call
-- *   Check return code, if system call failed (return=-1)
-- *   	Log the errno and Issue a FAIL message.
-- *   Otherwise,
-- *   	Verify the Functionality of system call
-- *      if successful,
-- *      	Issue Functionality-Pass message.
-- *      Otherwise,
-- *		Issue Functionality-Fail message.
-- *  Cleanup:
-- *   Print errno log and/or timing stats if options given
-- *
-- * Usage:  <for command-line>
-- *  getpid02 [-c n] [-f] [-i n] [-I x] [-P x] [-t]
-- *     where,  -c n : Run n copies concurrently.
-- *             -f   : Turn off functionality Testing.
-- *	       -i n : Execute test n times.
-- *	       -I x : Execute test for x seconds.
-- *	       -P x : Pause for x seconds between iterations.
-- *	       -t   : Turn on syscall timing.
-- *
-- * HISTORY
-- *	07/2001 Ported by Wayne Boyer
-- *
-- * RESTRICTIONS:
-- *  None.
-- */
-+ * Verify that getpid() system call gets the process ID of the of the calling
-+ * process.
-+\*/
- 
--#include <unistd.h>
--#include <sys/types.h>
-+#include <stdlib.h>
- #include <errno.h>
--#include <unistd.h>
--#include <string.h>
--#include <signal.h>
-+#include <sys/types.h>
- #include <sys/wait.h>
- 
--#include "test.h"
--#include "safe_macros.h"
--
--void setup();			/* Main setup function of test */
--void cleanup();			/* cleanup function for the test */
--
--char *TCID = "getpid02";
--int TST_TOTAL = 1;
-+#include "tst_test.h"
- 
--int main(int ac, char **av)
-+static void verify_getpid(void)
- {
--	int lc;
- 	pid_t proc_id;		/* process id of the test process */
- 	pid_t pid;		/* process id of the child process */
- 	pid_t pproc_id;		/* parent process id */
- 	int status;		/* exit status of child process */
- 
--	tst_parse_opts(ac, av, NULL, NULL);
--
--	setup();
--
--	for (lc = 0; TEST_LOOPING(lc); lc++) {
--
--		tst_count = 0;
--
--		TEST(getpid());
--
--		proc_id = TEST_RETURN;
--
--		if ((pid = FORK_OR_VFORK()) == -1)
--			tst_resm(TFAIL | TERRNO, "fork failed");
--		else if (pid == 0) {
--			pproc_id = getppid();
--
--			if (pproc_id != proc_id)
--				exit(1);
--			exit(0);
--		} else {
--			SAFE_WAIT(cleanup, &status);
--			if (!WIFEXITED(status) ||
--			    WEXITSTATUS(status) != 0)
--				tst_resm(TFAIL, "getpid() returned "
--					 "invalid pid %d", proc_id);
--			else
--				tst_resm(TPASS,
--					 "getpid functionality is correct");
--		}
-+	TEST(getpid());
+I don't like the approach which enforces mountpoint to be shared in 
+parent mount namespace.
+I think we can tune expected value by checking propagation flag in 
+parent mount namespace because of two reasons:
+1) Make test cover more cases.
+2) Don't depend on the fixed tmpfs.
+
+Zhongyi,  could you test the following patch on your enviorment?
+-------------------------------------------------------------------------------------------------
+diff --git a/testcases/commands/unshare/unshare01.sh 
+b/testcases/commands/unshare/unshare01.sh
+index bf163a7f4..78ea83fc0 100755
+--- a/testcases/commands/unshare/unshare01.sh
++++ b/testcases/commands/unshare/unshare01.sh
+@@ -40,6 +40,17 @@ max_mntns_path="/proc/sys/user/max_mnt_namespaces"
+  default_max_userns=-1
+  default_max_mntns=-1
+
++parse_propagation_flag()
++{
++       mount --bind dir_A dir_B
++       if grep -w 'dir_B' /proc/self/mountinfo | grep -qw 'shared'; then
++               echo "mounted"
++       else
++               echo "unmounted"
++       fi
++       umount dir_B
++}
 +
-+	proc_id = TST_RET;
-+
-+	if ((pid = SAFE_FORK()) == -1)
-+		tst_res(TFAIL | TERRNO, "fork failed");
-+	else if (pid == 0) {
-+		pproc_id = getppid();
-+
-+		if (pproc_id != proc_id)
-+			exit(1);
-+		exit(0);
-+	} else {
-+		SAFE_WAIT(&status);
-+		if (!WIFEXITED(status) || WEXITSTATUS(status) != 0)
-+			tst_res(TFAIL, "getpid() returned invalid pid %d",
-+				proc_id);
-+		else
-+			tst_res(TPASS, "getpid() functionality is correct");
- 	}
--
--	cleanup();
--	tst_exit();
- }
- 
--void setup(void)
--{
--
--	tst_sig(FORK, DEF_HANDLER, cleanup);
--
--	TEST_PAUSE;
--}
--
--void cleanup(void)
--{
--}
-+static struct tst_test test = {
-+	.forks_child = 1,
-+	.test_all = verify_getpid,
-+};
--- 
-2.30.1
+  setup()
+  {
+         # On some distributions(e.g RHEL7.4), the default value of
+@@ -149,7 +160,8 @@ do_test()
+         4) unshare_test "--user --map-root-user" "id -g" "0";;
+         5) unshare_test "--mount" "mount --bind dir_A dir_B" "unmounted";;
+         6) unshare_test "--mount --propagation shared" \
+-                       "mount --bind dir_A dir_B" "mounted";;
++                       "mount --bind dir_A dir_B" \
++                       "$(parse_propagation_flag)";;
+         7) unshare_test "--user --map-root-user --mount" \
+                         "mount --bind dir_A dir_B" "unmounted";;
+         8) unshare_test "--user --map-root-user --mount --propagation 
+shared" \
+--
+------------------------------------------------------------------------------------------
+
+Best Regards,
+Xiao Yang
+On 2021/2/24 9:40, Petr Vorel wrote:
+> Hi,
+>
+>> We need setup parent mount flag to shared before unshare testing, or it will
+>> fail for system which has no systemd service since the propagation flag is
+>> changed by systemd. From man 7 mount_namespaces.
+> Do I understand correctly that all distros without systemd are affected,
+> because systemd "automatically remounts all mount points as MS_SHARED
+> on system startup" and test expect it?
+>
+>> Signed-off-by: Zhao Gongyi<zhaogongyi@huawei.com>
+>> ---
+>>   testcases/commands/unshare/unshare01.sh | 9 ++++++++-
+>>   1 file changed, 8 insertions(+), 1 deletion(-)
+>> diff --git a/testcases/commands/unshare/unshare01.sh b/testcases/commands/unshare/unshare01.sh
+>> index bf163a7f4..e1fb15035 100755
+>> --- a/testcases/commands/unshare/unshare01.sh
+>> +++ b/testcases/commands/unshare/unshare01.sh
+>> @@ -31,7 +31,6 @@ TST_SETUP=setup
+>>   TST_CLEANUP=cleanup
+>>   TST_TESTFUNC=do_test
+>>   TST_NEEDS_ROOT=1
+>> -TST_NEEDS_TMPDIR=1
+> You still need TST_NEEDS_TMPDIR=1, because you create files and directories.
+>
+> Also your patch breaks bind test on very old systems (kernel 2.6, util-linux
+> 2.17.2, glibc 2.12):
+> unshare01 5 TFAIL: unshare --mount mount --bind dir_A dir_B got bind info
+>
+> Any idea why (how to avoid this regression)?
+>
+>>   TST_NEEDS_CMDS="unshare id mount umount"
+>>   . tst_test.sh
+>> @@ -39,6 +38,7 @@ max_userns_path="/proc/sys/user/max_user_namespaces"
+>>   max_mntns_path="/proc/sys/user/max_mnt_namespaces"
+>>   default_max_userns=-1
+>>   default_max_mntns=-1
+>> +CURR=$(pwd)
+> Instead of $CURR, cd - can be used.
+>
+>>   setup()
+>>   {
+>> @@ -55,6 +55,10 @@ setup()
+>>   		echo 1024>  "${max_mntns_path}"
+>>   	fi
+>> +	mkdir $CURR/dir_C
+> just mkdir dir_C
+>> +	mount -t tmpfs none dir_C
+>> +	mount --make-shared dir_C
+> FYI We have tst_mount, but it'd not help much here.
+>
+>> +	cd dir_C
+>>   	mkdir -p dir_A dir_B
+>>   	touch dir_A/A dir_B/B
+>>   }
+>> @@ -66,6 +70,9 @@ cleanup()
+>>   		echo ${default_max_userns}>  "${max_userns_path}"
+>>   	[ ${default_max_mntns} -ne -1 ]&&  \
+>>   		echo ${default_max_mntns}>  "${max_mntns_path}"
+>> +	cd $CURR
+>> +	umount dir_C
+> tst_umount dir_C
+>
+>> +	rm -rf dir_C
+> rm is not needed (cleanup is done automatically).
+>>   }
+>>   check_id()
+> Full diff of changes I propose below.
+>
+> Kind regards,
+> Petr
+>
+> diff --git testcases/commands/unshare/unshare01.sh testcases/commands/unshare/unshare01.sh
+> index e1fb15035..0b5c56811 100755
+> --- testcases/commands/unshare/unshare01.sh
+> +++ testcases/commands/unshare/unshare01.sh
+> @@ -31,6 +31,7 @@ TST_SETUP=setup
+>   TST_CLEANUP=cleanup
+>   TST_TESTFUNC=do_test
+>   TST_NEEDS_ROOT=1
+> +TST_NEEDS_TMPDIR=1
+>   TST_NEEDS_CMDS="unshare id mount umount"
+>   . tst_test.sh
+>
+> @@ -38,7 +39,6 @@ max_userns_path="/proc/sys/user/max_user_namespaces"
+>   max_mntns_path="/proc/sys/user/max_mnt_namespaces"
+>   default_max_userns=-1
+>   default_max_mntns=-1
+> -CURR=$(pwd)
+>
+>   setup()
+>   {
+> @@ -55,7 +55,7 @@ setup()
+>   		echo 1024>  "${max_mntns_path}"
+>   	fi
+>
+> -	mkdir $CURR/dir_C
+> +	mkdir dir_C
+>   	mount -t tmpfs none dir_C
+>   	mount --make-shared dir_C
+>   	cd dir_C
+> @@ -70,9 +70,8 @@ cleanup()
+>   		echo ${default_max_userns}>  "${max_userns_path}"
+>   	[ ${default_max_mntns} -ne -1 ]&&  \
+>   		echo ${default_max_mntns}>  "${max_mntns_path}"
+> -	cd $CURR
+> -	umount dir_C
+> -	rm -rf dir_C
+> +	cd ->/dev/null
+> +	tst_umount dir_C
+>   }
+>
+>   check_id()
+>
 
 
 
