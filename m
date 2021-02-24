@@ -2,39 +2,39 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id B79B3324272
-	for <lists+linux-ltp@lfdr.de>; Wed, 24 Feb 2021 17:49:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6F92324274
+	for <lists+linux-ltp@lfdr.de>; Wed, 24 Feb 2021 17:49:50 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 299613C5A8C
-	for <lists+linux-ltp@lfdr.de>; Wed, 24 Feb 2021 17:49:33 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 8DE473C5A66
+	for <lists+linux-ltp@lfdr.de>; Wed, 24 Feb 2021 17:49:50 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id A11A33C4E27
- for <ltp@lists.linux.it>; Wed, 24 Feb 2021 17:49:23 +0100 (CET)
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id 0538B3C5A66
+ for <ltp@lists.linux.it>; Wed, 24 Feb 2021 17:49:24 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 9D9D51A0117F
- for <ltp@lists.linux.it>; Wed, 24 Feb 2021 17:49:22 +0100 (CET)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 7C3E2601A75
+ for <ltp@lists.linux.it>; Wed, 24 Feb 2021 17:49:23 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 387ADAF33;
+ by mx2.suse.de (Postfix) with ESMTP id CDC51AFAF;
  Wed, 24 Feb 2021 16:49:22 +0000 (UTC)
 From: Cyril Hrubis <chrubis@suse.cz>
 To: ltp@lists.linux.it
-Date: Wed, 24 Feb 2021 17:50:42 +0100
-Message-Id: <20210224165045.17738-3-chrubis@suse.cz>
+Date: Wed, 24 Feb 2021 17:50:43 +0100
+Message-Id: <20210224165045.17738-4-chrubis@suse.cz>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20210224165045.17738-1-chrubis@suse.cz>
 References: <20210224165045.17738-1-chrubis@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 2/5] lib: Add minimalistic json parser
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 3/5] lib: Add hardware discovery code
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,882 +53,442 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+See lib/tst_hardware.h for details.
+
 Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
 ---
- include/tst_json.h | 177 ++++++++++++
- lib/tst_json.c     | 679 +++++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 856 insertions(+)
- create mode 100644 include/tst_json.h
- create mode 100644 lib/tst_json.c
+ include/tst_hwconf.h |  13 +++
+ include/tst_test.h   |   3 +
+ lib/tst_hardware.c   | 218 +++++++++++++++++++++++++++++++++++++++++++
+ lib/tst_hardware.h   |  83 ++++++++++++++++
+ lib/tst_test.c       |  30 ++++++
+ 5 files changed, 347 insertions(+)
+ create mode 100644 include/tst_hwconf.h
+ create mode 100644 lib/tst_hardware.c
+ create mode 100644 lib/tst_hardware.h
 
-diff --git a/include/tst_json.h b/include/tst_json.h
+diff --git a/include/tst_hwconf.h b/include/tst_hwconf.h
 new file mode 100644
-index 000000000..4b3669824
+index 000000000..5b0b95441
 --- /dev/null
-+++ b/include/tst_json.h
-@@ -0,0 +1,177 @@
-+// SPDX-License-Identifier: LGPL-2.1-or-later
++++ b/include/tst_hwconf.h
+@@ -0,0 +1,13 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
 +/*
-+ * Copyright (C) 2021 Cyril Hrubis <metan@ucw.cz>
++ * Copyright (c) 2020-2021 Cyril Hrubis <chrubis@suse.cz>
 + */
 +
-+#ifndef TST_JSON_H
-+#define TST_JSON_H
++#ifndef TST_HWCONF_H__
++#define TST_HWCONF_H__
 +
-+#include <stdio.h>
-+
-+#define TST_JSON_ERR_MAX 128
-+#define TST_JSON_ID_MAX 64
-+
-+enum tst_json_type {
-+	TST_JSON_VOID = 0,
-+	TST_JSON_INT,
-+	TST_JSON_STR,
-+	TST_JSON_OBJ,
-+	TST_JSON_ARR,
-+};
-+
-+struct tst_json_buf {
-+	/** Pointer to a null terminated JSON string */
-+	const char *json;
-+	/** A length of the JSON string */
-+	size_t len;
-+	/** A current offset into the JSON string */
-+	size_t off;
-+	/** An offset to the start of the last array or object */
-+	size_t sub_off;
-+
-+	char err[TST_JSON_ERR_MAX];
-+	char buf[];
-+};
-+
-+struct tst_json_val {
-+	enum tst_json_type type;
-+
-+	/** An user supplied buffer and size to store a string values to. */
-+	char *buf;
-+	size_t buf_size;
-+
-+	/** An union to store the parsed value into. */
-+	union {
-+		long val_int;
-+		const char *val_str;
-+	};
-+
-+	/** An ID for object values */
-+	char id[TST_JSON_ID_MAX];
-+};
-+
-+/*
-+ * @brief Resets the parser.
-+ *
-+ * Resets the parse offset and clears errors.
-+ *
-+ * @buf An tst_json buffer
-+ */
-+static inline void tst_json_reset(struct tst_json_buf *buf)
-+{
-+	buf->off = 0;
-+	buf->err[0] = 0;
-+}
-+
-+/*
-+ * @brief Fills the buffer error.
-+ *
-+ * Once buffer error is set all parsing functions return immediatelly with type
-+ * set to TST_JSON_VOID.
-+ *
-+ * @buf An tst_json buffer
-+ * @fmt A printf like format string
-+ * @... A printf like parameters
-+ */
-+void tst_json_err(struct tst_json_buf *buf, const char *fmt, ...)
-+               __attribute__((format (printf, 2, 3)));
-+
-+/*
-+ * @brief Prints error into a file.
-+ *
-+ * The error takes into consideration the current offset in the buffer and
-+ * prints a few preceding lines along with the exact position of the error.
-+ *
-+ * @f A file to print the error to.
-+ * @buf An tst_json buffer.
-+ */
-+void tst_json_err_print(FILE *f, struct tst_json_buf *buf);
-+
-+/*
-+ * @brief Returns true if error was encountered.
-+ *
-+ * @bfu An tst_json buffer.
-+ * @return True if error was encountered false otherwise.
-+ */
-+static inline int tst_json_is_err(struct tst_json_buf *buf)
-+{
-+	return !!buf->err[0];
-+}
-+
-+/*
-+ * @brief Checks is result has valid type.
-+ *
-+ * @res An tst_json value.
-+ * @return Zero if result is not valid, non-zero otherwise.
-+ */
-+static inline int tst_json_valid(struct tst_json_val *res)
-+{
-+	return !!res->type;
-+}
-+
-+/*
-+ * @brief Returns the type of next element in buffer.
-+ *
-+ * @buf An tst_json buffer.
-+ * @return A type of next element in the buffer.
-+ */
-+enum tst_json_type tst_json_next_type(struct tst_json_buf *buf);
-+
-+/*
-+ * @brief Returns if first element in JSON is object or array.
-+ *
-+ * @buf An tst_json buffer.
-+ * @return On success returns TST_JSON_OBJ or TST_JSON_ARR. On failure TST_JSON_VOID.
-+ */
-+enum tst_json_type tst_json_start(struct tst_json_buf *buf);
-+
-+/*
-+ * @brief Starts parsing of an JSON object.
-+ *
-+ * @buf An tst_json buffer.
-+ * @res An tst_json result.
-+ */
-+int tst_json_obj_first(struct tst_json_buf *buf, struct tst_json_val *res);
-+int tst_json_obj_next(struct tst_json_buf *buf, struct tst_json_val *res);
-+
-+#define TST_JSON_OBJ_FOREACH(buf, res) \
-+	for (tst_json_obj_first(buf, res); tst_json_valid(res); tst_json_obj_next(buf, res))
-+
-+/*
-+ * @brief Skips parsing of an JSON object.
-+ *
-+ * @buf An tst_json buffer.
-+ * @return Zero on success, non-zero otherwise.
-+ */
-+int tst_json_obj_skip(struct tst_json_buf *buf);
-+
-+int tst_json_arr_first(struct tst_json_buf *buf, struct tst_json_val *res);
-+int tst_json_arr_next(struct tst_json_buf *buf, struct tst_json_val *res);
-+
-+#define TST_JSON_ARR_FOREACH(buf, res) \
-+	for (tst_json_arr_first(buf, res); tst_json_valid(res); tst_json_arr_next(buf, res))
-+
-+/*
-+ * @brief Skips parsing of an JSON array.
-+ *
-+ * @buf An tst_json buffer.
-+ * @return Zero on success, non-zero otherwise.
-+ */
-+int tst_json_arr_skip(struct tst_json_buf *buf);
-+
-+/*
-+ * @brief Loads a file into an tst_json buffer.
-+ *
-+ * @path A path to a file.
-+ * @return An tst_json buffer or NULL in a case of a failure.
-+ */
-+struct tst_json_buf *tst_json_load(const char *path);
-+
-+/*
-+ * @brief Frees an tst_json buffer.
-+ *
-+ * @buf An tst_json buffer allcated by tst_json_load() function.
-+ */
-+void tst_json_free(struct tst_json_buf *buf);
-+
-+#endif /* TST_JSON_H */
-diff --git a/lib/tst_json.c b/lib/tst_json.c
-new file mode 100644
-index 000000000..3a4cb9d0b
---- /dev/null
-+++ b/lib/tst_json.c
-@@ -0,0 +1,679 @@
-+// SPDX-License-Identifier: LGPL-2.1-or-later
-+/*
-+ * Copyright (C) 2021 Cyril Hrubis <metan@ucw.cz>
-+ */
-+
-+#include <sys/types.h>
-+#include <sys/stat.h>
-+#include <fcntl.h>
-+#include <unistd.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <stdarg.h>
-+#include <stdint.h>
 +#include "tst_json.h"
 +
-+static inline int buf_empty(struct tst_json_buf *buf)
++struct tst_json_buf *tst_hwconf_get(void);
++
++#endif	/* TST_HWCONF_H__ */
+diff --git a/include/tst_test.h b/include/tst_test.h
+index 1fbebe752..bd6de601e 100644
+--- a/include/tst_test.h
++++ b/include/tst_test.h
+@@ -230,6 +230,9 @@ struct tst_test {
+ 	/* NULL terminated array of needed kernel drivers */
+ 	const char * const *needs_drivers;
+ 
++	/* Unique hardware identifier */
++	const char *needs_hardware;
++
+ 	/*
+ 	 * NULL terminated array of (/proc, /sys) files to save
+ 	 * before setup and restore after cleanup
+diff --git a/lib/tst_hardware.c b/lib/tst_hardware.c
+new file mode 100644
+index 000000000..c67c9b5c6
+--- /dev/null
++++ b/lib/tst_hardware.c
+@@ -0,0 +1,218 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2020-2021 Cyril Hrubis <chrubis@suse.cz>
++ */
++
++#define _GNU_SOURCE
++#include <stdio.h>
++#include <stdlib.h>
++
++#include "tst_hardware.h"
++#include "tst_hwconf.h"
++
++#define TST_NO_DEFAULT_MAIN
++#include "tst_test.h"
++
++static struct tst_hwconf *cur_conf;
++static char *reconfigure_path;
++static struct tst_hwconf *conf_root;
++static unsigned int conf_cnt;
++
++static int new_hwconf(char *buf, size_t start_off, size_t end_off)
 +{
-+	return buf->off >= buf->len;
-+}
++	struct tst_hwconf *conf = malloc(sizeof(struct tst_hwconf));
 +
-+static int eatws(struct tst_json_buf *buf)
-+{
-+	while (!buf_empty(buf)) {
-+		switch (buf->json[buf->off]) {
-+		case ' ':
-+		case '\t':
-+		case '\n':
-+		case '\f':
-+		break;
-+		default:
-+			goto ret;
-+		}
-+
-+		buf->off += 1;
-+	}
-+ret:
-+	return buf_empty(buf);
-+}
-+
-+static char getb(struct tst_json_buf *buf)
-+{
-+	if (buf_empty(buf))
-+		return 0;
-+
-+	return buf->json[buf->off++];
-+}
-+
-+static char peekb(struct tst_json_buf *buf)
-+{
-+	if (buf_empty(buf))
-+		return 0;
-+
-+	return buf->json[buf->off];
-+}
-+
-+static int eatb(struct tst_json_buf *buf, char ch)
-+{
-+	if (peekb(buf) != ch)
-+		return 0;
-+
-+	getb(buf);
-+	return 1;
-+}
-+
-+static int hex2val(unsigned char b)
-+{
-+	switch (b) {
-+	case '0' ... '9':
-+		return b - '0';
-+	case 'a' ... 'f':
-+		return b - 'a' + 10;
-+	case 'A' ... 'F':
-+		return b - 'A' + 10;
-+	default:
-+		return -1;
-+	}
-+}
-+
-+static int32_t parse_ucode_cp(struct tst_json_buf *buf)
-+{
-+	int ret = 0, v, i;
-+
-+	for (i = 0; i < 4; i++) {
-+		if ((v = hex2val(getb(buf))) < 0)
-+			goto err;
-+		ret *= 16;
-+		ret += v;
-+	}
-+
-+	return ret;
-+err:
-+	tst_json_err(buf, "Expected four hexadecimal digits");
-+	return -1;
-+}
-+
-+static unsigned int utf8_bytes(uint32_t ucode_cp)
-+{
-+	if (ucode_cp < 0x0080)
-+		return 1;
-+
-+	if (ucode_cp < 0x0800)
-+		return 2;
-+
-+	if (ucode_cp < 0x10000)
-+		return 3;
-+
-+	return 4;
-+}
-+
-+static int to_utf8(uint32_t ucode_cp, char *buf)
-+{
-+	if (ucode_cp < 0x0080) {
-+		buf[0] = ucode_cp & 0x00f7;
-+		return 1;
-+	}
-+
-+	if (ucode_cp < 0x0800) {
-+		buf[0] = 0xc0 | (0x1f & (ucode_cp>>6));
-+		buf[1] = 0x80 | (0x3f & ucode_cp);
-+		return 2;
-+	}
-+
-+	if (ucode_cp < 0x10000) {
-+		buf[0] = 0xe0 | (0x0f & (ucode_cp>>12));
-+		buf[1] = 0x80 | (0x3f & (ucode_cp>>6));
-+		buf[2] = 0x80 | (0x3f & ucode_cp);
-+		return 3;
-+	}
-+
-+	buf[0] = 0xf0 | (0x07 & (ucode_cp>>18));
-+	buf[1] = 0x80 | (0x3f & (ucode_cp>>12));
-+	buf[2] = 0x80 | (0x3f & (ucode_cp>>6));
-+	buf[3] = 0x80 | (0x3f & ucode_cp);
-+	return 4;
-+}
-+
-+static unsigned int parse_ucode_esc(struct tst_json_buf *buf, char *str,
-+                                    size_t off, size_t len)
-+{
-+	int32_t ucode = parse_ucode_cp(buf);
-+
-+	if (ucode < 0)
-+		return 0;
-+
-+	if (!str)
-+		return ucode;
-+
-+	if (utf8_bytes(ucode) + 1 >= len - off) {
-+		tst_json_err(buf, "String buffer too short!");
++	if (!conf) {
++		tst_res(TWARN, "malloc() failed!");
 +		return 0;
 +	}
 +
-+	return to_utf8(ucode, str+off);
-+}
++	memset(conf, 0, sizeof(*conf));
 +
-+static int copy_str(struct tst_json_buf *buf, char *str, size_t len)
-+{
-+	size_t pos = 0;
-+	int esc = 0;
-+	unsigned int l;
++	conf->json.json = buf + start_off;
++	conf->json.len = end_off - start_off;
 +
-+	eatb(buf, '"');
++	struct tst_json_val val = {
++		.buf = conf->uid,
++		.buf_size = sizeof(conf->uid)
++	};
 +
-+	for (;;) {
-+		if (buf_empty(buf)) {
-+			tst_json_err(buf, "Unterminated string");
-+			return 1;
-+		}
-+
-+		if (!esc && eatb(buf, '"')) {
-+			if (str)
-+				str[pos] = 0;
-+			return 0;
-+		}
-+
-+		char b = getb(buf);
-+
-+		if (!esc && b == '\\') {
-+			esc = 1;
-+			continue;
-+		}
-+
-+		if (esc) {
-+			switch (b) {
-+			case '"':
-+			case '\\':
-+			case '/':
-+			break;
-+			case 'b':
-+				b = '\b';
-+			break;
-+			case 'f':
-+				b = '\f';
-+			break;
-+			case 'n':
-+				b = '\n';
-+			break;
-+			case 'r':
-+				b = '\r';
-+			break;
-+			case 't':
-+				b = '\t';
-+			break;
-+			case 'u':
-+				if (!(l = parse_ucode_esc(buf, str, pos, len)))
-+					return 1;
-+				pos += l;
-+				b = 0;
-+			break;
-+			default:
-+				tst_json_err(buf, "Invalid escape \\%c", b);
-+				return 1;
-+			}
-+			esc = 0;
-+		}
-+
-+		if (str && b) {
-+			if (pos + 1 >= len) {
-+				tst_json_err(buf, "String buffer too short!");
-+				return 1;
-+			}
-+
-+			str[pos++] = b;
-+		}
-+	}
-+
-+	return 1;
-+}
-+
-+static int copy_id_str(struct tst_json_buf *buf, char *str, size_t len)
-+{
-+	size_t pos = 0;
-+
-+	if (eatws(buf))
-+		goto err0;
-+
-+	if (!eatb(buf, '"'))
-+		goto err0;
-+
-+	for (;;) {
-+		if (buf_empty(buf)) {
-+			tst_json_err(buf, "Unterminated ID string");
-+			return 1;
-+		}
-+
-+		if (eatb(buf, '"')) {
-+			str[pos] = 0;
-+			break;
-+		}
-+
-+		if (pos >= len-1) {
-+			tst_json_err(buf, "ID string too long");
-+			return 1;
-+		}
-+
-+		str[pos++] = getb(buf);
-+	}
-+
-+	if (eatws(buf))
-+		goto err1;
-+
-+	if (!eatb(buf, ':'))
-+		goto err1;
-+
-+	return 0;
-+err0:
-+	tst_json_err(buf, "Expected ID string");
-+	return 1;
-+err1:
-+	tst_json_err(buf, "Expected ':' after ID string");
-+	return 1;
-+}
-+
-+static int is_digit(char b)
-+{
-+	switch (b) {
-+	case '0' ... '9':
-+		return 1;
-+	default:
-+		return 0;
-+	}
-+}
-+
-+static int get_number(struct tst_json_buf *buf, struct tst_json_val *res)
-+{
-+	long val = 0;
-+	int neg = 0;
-+
-+	if (peekb(buf) == '-') {
-+		neg = 1;
-+		getb(buf);
-+		if (!is_digit(peekb(buf))) {
-+			tst_json_err(buf, "Expected digits after '-'");
-+			return 1;
-+		}
-+	}
-+
-+	while (is_digit(peekb(buf))) {
-+		val *= 10;
-+		val += getb(buf) - '0';
-+		//TODO: overflow?
-+	}
-+
-+	if (neg)
-+		val = -val;
-+
-+	res->val_int = val;
-+
-+	return 0;
-+}
-+
-+int tst_json_obj_skip(struct tst_json_buf *buf)
-+{
-+	struct tst_json_val res = {};
-+
-+	TST_JSON_OBJ_FOREACH(buf, &res) {
-+		switch (res.type) {
-+		case TST_JSON_OBJ:
-+			if (tst_json_obj_skip(buf))
-+				return 1;
++	TST_JSON_OBJ_FOREACH(&conf->json, &val) {
++		switch (val.type) {
++		case TST_JSON_STR:
++			if (!strcmp(val.id, "uid"))
++				goto done;
 +		break;
 +		case TST_JSON_ARR:
-+			if (tst_json_arr_skip(buf))
-+				return 1;
++			tst_json_arr_skip(&conf->json);
 +		break;
-+		default:
-+		break;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+int tst_json_arr_skip(struct tst_json_buf *buf)
-+{
-+	struct tst_json_val res = {};
-+
-+	TST_JSON_ARR_FOREACH(buf, &res) {
-+		switch (res.type) {
 +		case TST_JSON_OBJ:
-+			if (tst_json_obj_skip(buf))
-+				return 1;
-+		break;
-+		case TST_JSON_ARR:
-+			if (tst_json_arr_skip(buf))
-+				return 1;
++			tst_json_obj_skip(&conf->json);
 +		break;
 +		default:
 +		break;
 +		}
 +	}
 +
-+	return 0;
-+}
-+
-+enum tst_json_type tst_json_next_type(struct tst_json_buf *buf)
-+{
-+	if (eatws(buf)) {
-+		tst_json_err(buf, "Unexpected end");
-+		return TST_JSON_VOID;
-+	}
-+
-+	char b = peekb(buf);
-+
-+	switch (b) {
-+	case '{':
-+		return TST_JSON_OBJ;
-+	case '[':
-+		return TST_JSON_ARR;
-+	case '"':
-+		return TST_JSON_STR;
-+	case '-':
-+	case '0' ... '9':
-+		return TST_JSON_INT;
-+	default:
-+		tst_json_err(buf, "Expected object, array, number or string");
-+		return TST_JSON_VOID;
-+	}
-+}
-+
-+enum tst_json_type tst_json_start(struct tst_json_buf *buf)
-+{
-+	enum tst_json_type type = tst_json_next_type(buf);
-+
-+	switch (type) {
-+	case TST_JSON_ARR:
-+	case TST_JSON_OBJ:
-+	case TST_JSON_VOID:
-+	break;
-+	case TST_JSON_INT:
-+	case TST_JSON_STR:
-+		tst_json_err(buf, "JSON can start only with array or object");
-+		type = TST_JSON_VOID;
-+	break;
-+	}
-+
-+	return type;
-+}
-+
-+static int get_value(struct tst_json_buf *buf, struct tst_json_val *res)
-+{
-+	res->type = tst_json_next_type(buf);
-+
-+	switch (res->type) {
-+	case TST_JSON_STR:
-+		if (copy_str(buf, res->buf, res->buf_size)) {
-+			res->type = TST_JSON_VOID;
-+			return 0;
-+		}
-+		res->val_str = res->buf;
-+		return 1;
-+	case TST_JSON_INT:
-+		return !get_number(buf, res);
-+	case TST_JSON_VOID:
-+		//tst_json_err(buf, "Unexpected character");
-+		return 0;
-+	case TST_JSON_ARR:
-+	case TST_JSON_OBJ:
-+		buf->sub_off = buf->off;
-+		return 1;
-+	}
++	free(conf);
 +
 +	return 1;
-+}
++done:
++	tst_json_reset(&conf->json);
 +
-+static int pre_next(struct tst_json_buf *buf, struct tst_json_val *res)
-+{
-+	if (!eatb(buf, ',')) {
-+		tst_json_err(buf, "Expected ','");
-+		res->type = TST_JSON_VOID;
-+		return 1;
-+	}
++	if (!cur_conf)
++		conf_root = conf;
++	else
++		cur_conf->next = conf;
 +
-+	if (eatws(buf)) {
-+		tst_json_err(buf, "Unexpected end");
-+		res->type = TST_JSON_VOID;
-+		return 1;
-+	}
++	cur_conf = conf;
++	conf_cnt++;
++
++	tst_res(TINFO, "Added hardware configuration UID='%s'", conf->uid);
 +
 +	return 0;
 +}
 +
-+static int check_end(struct tst_json_buf *buf, struct tst_json_val *res, char b)
++static void parse_devices(struct tst_json_buf *json)
 +{
-+	if (eatws(buf)) {
-+		tst_json_err(buf, "Unexpected end");
-+		return 1;
++	struct tst_json_val val = {};
++	size_t start_off;
++
++	TST_JSON_ARR_FOREACH(json, &val) {
++		switch (val.type) {
++		case TST_JSON_OBJ:
++			start_off = json->sub_off;
++			tst_json_obj_skip(json);
++			if (new_hwconf(json->buf, start_off, json->off))
++				tst_json_err(json, "Missing 'uid' in hwconf entry!");
++		break;
++		case TST_JSON_ARR:
++		case TST_JSON_INT:
++		case TST_JSON_STR:
++			tst_json_err(json, "Invalid record in hwconf list!");
++		break;
++		case TST_JSON_VOID:
++		break;
++		}
 +	}
++}
 +
-+	if (eatb(buf, b)) {
-+		res->type = TST_JSON_VOID;
-+		return 1;
++static void save_reconfigure(const char *reconfigure, const char *ltproot)
++{
++	if (reconfigure[0] == '/') {
++		reconfigure_path = strdup(reconfigure);
++		if (!reconfigure_path)
++			tst_brk(TBROK, "strdup() failed");
++	} else {
++		if (asprintf(&reconfigure_path, "%s/%s", ltproot, reconfigure) < 0)
++			tst_brk(TBROK, "asprintf() failed");
 +	}
-+
-+	return 0;
 +}
 +
-+static int obj_next(struct tst_json_buf *buf, struct tst_json_val *res)
++unsigned int tst_hwlist_cnt(void)
 +{
-+	if (copy_id_str(buf, res->id, sizeof(res->id)))
-+		return 0;
-+
-+	return get_value(buf, res);
++	return conf_cnt;
 +}
 +
-+static int check_err(struct tst_json_buf *buf, struct tst_json_val *res)
++static void reconfigure(void)
 +{
-+	if (tst_json_is_err(buf)) {
-+		res->type = TST_JSON_VOID;
-+		return 1;
-+	}
++	if (!reconfigure_path)
++		return;
 +
-+	return 0;
++	if (!cur_conf)
++		return;
++
++	const char *const argv[] = {reconfigure_path, cur_conf->uid, NULL};
++
++	tst_res(TINFO, "Running reconfigure '%s %s'", reconfigure_path, cur_conf->uid);
++
++	tst_cmd(argv, NULL, NULL, TST_CMD_TCONF_ON_MISSING);
 +}
 +
-+int tst_json_obj_next(struct tst_json_buf *buf, struct tst_json_val *res)
++void tst_hwlist_reset(void)
 +{
-+	if (check_err(buf, res))
-+		return 0;
++	cur_conf = conf_root;
 +
-+	if (check_end(buf, res, '}'))
-+		return 0;
-+
-+	if (pre_next(buf, res))
-+		return 0;
-+
-+	return obj_next(buf, res);
++	reconfigure();
 +}
 +
-+static int any_first(struct tst_json_buf *buf, char b)
++void tst_hwlist_next(void)
 +{
-+	if (eatws(buf)) {
-+		tst_json_err(buf, "Unexpected end");
-+		return 1;
-+	}
++	cur_conf = cur_conf->next;
 +
-+	if (!eatb(buf, b)) {
-+		tst_json_err(buf, "Expected '%c'", b);
-+		return 1;
-+	}
-+
-+	return 0;
++	reconfigure();
 +}
 +
-+int tst_json_obj_first(struct tst_json_buf *buf, struct tst_json_val *res)
++struct tst_json_buf *tst_hwconf_get(void)
 +{
-+	if (check_err(buf, res))
-+		return 0;
-+
-+	if (any_first(buf, '{'))
-+		return 1;
-+
-+	if (check_end(buf, res, '}'))
-+		return 0;
-+
-+	return obj_next(buf, res);
-+}
-+
-+static int arr_next(struct tst_json_buf *buf, struct tst_json_val *res)
-+{
-+	return get_value(buf, res);
-+}
-+
-+int tst_json_arr_first(struct tst_json_buf *buf, struct tst_json_val *res)
-+{
-+	if (check_err(buf, res))
-+		return 0;
-+
-+	if (any_first(buf, '['))
-+		return 1;
-+
-+	if (check_end(buf, res, ']'))
-+		return 0;
-+
-+	return arr_next(buf, res);
-+}
-+
-+int tst_json_arr_next(struct tst_json_buf *buf, struct tst_json_val *res)
-+{
-+	if (check_err(buf, res))
-+		return 0;
-+
-+	if (check_end(buf, res, ']'))
-+		return 0;
-+
-+	if (pre_next(buf, res))
-+		return 0;
-+
-+	return arr_next(buf, res);
-+}
-+
-+void tst_json_err(struct tst_json_buf *buf, const char *fmt, ...)
-+{
-+	va_list va;
-+
-+	va_start(va, fmt);
-+	vsnprintf(buf->err, TST_JSON_ERR_MAX, fmt, va);
-+	va_end(va);
-+}
-+
-+static void print_line(FILE *f, const char *line)
-+{
-+	while (*line && *line != '\n')
-+		fputc(*(line++), f);
-+}
-+
-+static void print_spaces(FILE *f, size_t count)
-+{
-+	while (count--)
-+		fputc(' ', f);
-+}
-+
-+static void print_spaceline(FILE *f, const char *line, size_t count)
-+{
-+	size_t i;
-+
-+	for (i = 0; i < count; i++)
-+		fputc(line[i] == '\t' ? '\t' : ' ', f);
-+}
-+
-+#define ERR_LINES 10
-+
-+#define MIN(A, B) ((A < B) ? (A) : (B))
-+
-+void tst_json_err_print(FILE *f, struct tst_json_buf *buf)
-+{
-+	ssize_t i;
-+	const char *lines[ERR_LINES] = {};
-+	size_t cur_line = 0;
-+	size_t cur_off = 0;
-+	size_t last_off = buf->off;
-+
-+	for (;;) {
-+		lines[(cur_line++) % ERR_LINES] = buf->json + cur_off;
-+
-+		while (cur_off < buf->len && buf->json[cur_off] != '\n')
-+			cur_off++;
-+
-+		if (cur_off >= buf->off)
-+			break;
-+
-+		cur_off++;
-+		last_off = buf->off - cur_off;
-+	}
-+
-+	fprintf(f, "Parse error at line %zu\n\n", cur_line);
-+
-+	size_t idx = 0;
-+
-+	for (i = MIN(ERR_LINES, cur_line); i > 0; i--) {
-+		idx = (cur_line - i) % ERR_LINES;
-+		fprintf(f, "%03zu: ", cur_line - i + 1);
-+		print_line(f, lines[idx]);
-+		fputc('\n', f);
-+	}
-+
-+	print_spaces(f, 5);
-+	print_spaceline(f, lines[idx], last_off);
-+	fprintf(f, "^\n");
-+	fprintf(f, "%s\n", buf->err);
-+}
-+
-+struct tst_json_buf *tst_json_load(const char *path)
-+{
-+	int fd = open(path, O_RDONLY);
-+	struct tst_json_buf *ret;
-+	ssize_t res;
-+	off_t len, off = 0;
-+
-+	if (fd < 0)
++	if (!cur_conf)
 +		return NULL;
 +
-+	len = lseek(fd, 0, SEEK_END);
-+	if (len == (off_t)-1) {
-+		fprintf(stderr, "lseek() failed\n");
-+		goto err0;
-+	}
++	return &cur_conf->json;
++}
 +
-+	if (lseek(fd, 0, SEEK_SET) == (off_t)-1) {
-+		fprintf(stderr, "lseek() failed\n");
-+		goto err0;
-+	}
++unsigned int tst_hwlist_discover(const char *hardware_uid)
++{
++	const char *ltproot = getenv("LTPROOT");
++	const char *hardware_discovery = getenv("HARDWARE_DISCOVERY");
++	char buf[2048];
 +
-+	ret = malloc(sizeof(struct tst_json_buf) + len + 1);
-+	if (!ret) {
-+		fprintf(stderr, "malloc() failed\n");
-+		goto err0;
-+	}
-+
-+	memset(ret, 0, sizeof(*ret));
-+
-+	ret->buf[len] = 0;
-+	ret->len = len;
-+	ret->json = ret->buf;
-+
-+	while (off < len) {
-+		res = read(fd, ret->buf + off, len - off);
-+		if (res < 0) {
-+			fprintf(stderr, "read() failed\n");
-+			goto err1;
++	if (!hardware_discovery) {
++		if (!ltproot) {
++			tst_res(TCONF, "No LTPROOT nor HARDWARE_DISCOVERY set!");
++			return 0;
 +		}
 +
-+		off += res;
++		snprintf(buf, sizeof(buf), "%s/hardware-discovery.sh", ltproot);
++
++		hardware_discovery = buf;
 +	}
 +
-+	close(fd);
++	const char *const argv[] = {hardware_discovery, hardware_uid, NULL};
 +
-+	return ret;
-+err1:
-+	free(ret);
-+err0:
-+	close(fd);
-+	return NULL;
++	tst_res(TINFO, "Executing '%s %s'", hardware_discovery, hardware_uid);
++
++	//TODO: read the data from a pipe instead
++	unlink("/tmp/hwlist.json");
++	tst_cmd(argv, "/tmp/hwlist.json", NULL, TST_CMD_TCONF_ON_MISSING);
++
++	struct tst_json_buf *json = tst_json_load("/tmp/hwlist.json");
++
++	if (!json)
++		tst_brk(TBROK, "Failed to load JSON hardware description");
++
++	if (tst_json_start(json) != TST_JSON_OBJ)
++		tst_brk(TBROK, "JSON hardware description must start with object!");
++
++	struct tst_json_val val = {.buf = buf, .buf_size = sizeof(buf)};
++
++	TST_JSON_OBJ_FOREACH(json, &val) {
++		switch (val.type) {
++		case TST_JSON_STR:
++			if (!strcmp(val.id, "reconfigure"))
++				save_reconfigure(val.val_str, ltproot);
++			else
++				tst_json_err(json, "Invalid object attr id='%s'", val.id);
++		break;
++		case TST_JSON_INT:
++		case TST_JSON_OBJ:
++			tst_json_err(json, "Invalid object attr id='%s'", val.id);
++		break;
++		case TST_JSON_ARR:
++			if (!strcmp(val.id, "hwconfs"))
++				parse_devices(json);
++			else
++				tst_json_err(json, "Invalid array attr id='%s'", val.id);
++		break;
++		case TST_JSON_VOID:
++		break;
++		}
++	}
++
++	if (tst_json_is_err(json)) {
++		tst_json_err_print(stderr, json);
++		tst_brk(TBROK, "Failed to parse JSON hardware description");
++	}
++
++	return conf_cnt;
 +}
+diff --git a/lib/tst_hardware.h b/lib/tst_hardware.h
+new file mode 100644
+index 000000000..9abf5d648
+--- /dev/null
++++ b/lib/tst_hardware.h
+@@ -0,0 +1,83 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2020-2021 Cyril Hrubis <chrubis@suse.cz>
++ */
 +
-+void tst_json_free(struct tst_json_buf *buf)
++/*
++ * Hardware discovery code.
++ *
++ * Each hardware type is uniquely identified by an hardware unique id. Test
++ * that needs a particular hardware sets the .needs_hardware field in the
++ * tst_test structure which is then passed to the discovery code.
++ *
++ * The discovery launches a script/binary that returns a JSON in a format:
++ *
++ * {
++ *  "reconfigure": "/path/to/reconfigure/script",
++ *  "hwconfs": [
++ *   {
++ *     "uid": "device_unique_id01",
++ *     ...
++ *   },
++ *   {
++ *    "uid": "device_unique_id02",
++ *    ...
++ *   }
++ *  ]
++ * }
++ *
++ * The optional reconfigure script could be used to set up the hardware, e.g.
++ * connect different serial ports together with relays, the only parameter
++ * it takes is the device uid. E.g. to set up the testing environment for the
++ * first device in the list above LTP will execute command:
++ * '/path/to/reconfigure/script "device_unique_id01"' etc.
++ *
++ * The second parameter in the JSON is "hwconfs" array that describes all
++ * available hardware configurations. These objects, apart from "uid" are not
++ * interpreted by the test libary but rather passed down to the test one object
++ * per test iteration.
++ */
++
++#ifndef TST_HARDWARE_H__
++#define TST_HARDWARE_H__
++
++#include "tst_json.h"
++
++struct tst_hwconf {
++	struct tst_hwconf *next;
++	/* unique id for the hardware configuration */
++	char uid[128];
++	/* buffer with the JSON description */
++	struct tst_json_buf json;
++};
++
++/*
++ * Discovers a hardware based on hardware_uid.
++ *
++ * Exits the test with TBROK on error and with TCONF if no hardware was discovered.
++ */
++unsigned int tst_hwlist_discover(const char *hardware_uid);
++
++/*
++ * Returns number of parsed entries.
++ */
++unsigned int tst_hwlist_cnt(void);
++
++/*
++ * Resets current tst_hwconf to point to the first hardware entry.
++ */
++void tst_hwlist_reset(void);
++
++/*
++ * Allows to loop over all entries in the hareware list.
++ *
++ * If needed calls the reconfigure script.
++ */
++void tst_hwlist_next(void);
++
++/*
++ * Free the hwlist.
++ */
++void tst_hwlist_free(void);
++
++#endif /* TST_HARDWARE_H__ */
+diff --git a/lib/tst_test.c b/lib/tst_test.c
+index 6bbee030b..3883ce227 100644
+--- a/lib/tst_test.c
++++ b/lib/tst_test.c
+@@ -27,6 +27,7 @@
+ #include "tst_wallclock.h"
+ #include "tst_sys_conf.h"
+ #include "tst_kconfig.h"
++#include "tst_hardware.h"
+ 
+ #include "old_resource.h"
+ #include "old_device.h"
+@@ -499,6 +500,14 @@ static void print_test_tags(void)
+ 	printf("\n");
+ }
+ 
++static void print_test_hardware(void)
 +{
-+	free(buf);
++	if (!tst_test->needs_hardware)
++		return;
++
++	printf("\nNeeded hardware\n--------------\n%s\n\n", tst_test->needs_hardware);
 +}
++
+ static void check_option_collision(void)
+ {
+ 	unsigned int i, j;
+@@ -578,6 +587,7 @@ static void parse_opts(int argc, char *argv[])
+ 		case 'h':
+ 			print_help();
+ 			print_test_tags();
++			print_test_hardware();
+ 			exit(0);
+ 		case 'i':
+ 			iterations = atoi(optarg);
+@@ -942,6 +952,18 @@ static void do_setup(int argc, char *argv[])
+ 				tst_brk(TCONF, "%s driver not available", name);
+ 	}
+ 
++	if (tst_test->needs_hardware) {
++		unsigned int cnt = tst_hwlist_discover(tst_test->needs_hardware);
++
++		if (!cnt) {
++			tst_brk(TCONF, "No hardware '%s' discovered",
++				tst_test->needs_hardware);
++		}
++
++		tst_res(TINFO, "Found %u hardware configurations for '%s'",
++			cnt, tst_test->needs_hardware);
++	}
++
+ 	if (tst_test->format_device)
+ 		tst_test->needs_device = 1;
+ 
+@@ -1395,6 +1417,11 @@ void tst_run_tcases(int argc, char *argv[], struct tst_test *self)
+ 	if (tst_test->test_variants)
+ 		test_variants = tst_test->test_variants;
+ 
++	if (tst_test->needs_hardware) {
++		test_variants = tst_hwlist_cnt();
++		tst_hwlist_reset();
++	}
++
+ 	for (tst_variant = 0; tst_variant < test_variants; tst_variant++) {
+ 		if (tst_test->all_filesystems)
+ 			ret |= run_tcases_per_fs();
+@@ -1403,6 +1430,9 @@ void tst_run_tcases(int argc, char *argv[], struct tst_test *self)
+ 
+ 		if (ret & ~(TCONF))
+ 			goto exit;
++
++		if (tst_test->needs_hardware)
++			tst_hwlist_next();
+ 	}
+ 
+ exit:
 -- 
 2.26.2
 
