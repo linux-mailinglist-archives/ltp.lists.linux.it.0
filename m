@@ -1,69 +1,52 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 299C2325010
-	for <lists+linux-ltp@lfdr.de>; Thu, 25 Feb 2021 14:00:20 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id A00B4324EA7
+	for <lists+linux-ltp@lfdr.de>; Thu, 25 Feb 2021 11:57:56 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E56063C5A5C
-	for <lists+linux-ltp@lfdr.de>; Thu, 25 Feb 2021 14:00:19 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id E83ED3C5A35
+	for <lists+linux-ltp@lfdr.de>; Thu, 25 Feb 2021 11:57:55 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id A72E53C0EA5
- for <ltp@lists.linux.it>; Thu, 25 Feb 2021 11:50:47 +0100 (CET)
-Received: from mail-pl1-x631.google.com (mail-pl1-x631.google.com
- [IPv6:2607:f8b0:4864:20::631])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 5FB01600BEB
- for <ltp@lists.linux.it>; Thu, 25 Feb 2021 11:50:47 +0100 (CET)
-Received: by mail-pl1-x631.google.com with SMTP id f8so2977931plg.5
- for <ltp@lists.linux.it>; Thu, 25 Feb 2021 02:50:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=70XV8CEHSkMa1rt+fMT8WvCaK1EwHSR64yoUJlYJTYw=;
- b=DhDSRGXWZcaim+CMRCLHQjxz0sk+W4amY4TBRlv19iDknaJE5ZLBnyuUzSTYoLfS6A
- myDf6qOFtQAZl17fgay+kHM4Iv/J7VdcGXlzJZf5tKKnOqU6jiBqbswRL6zRcjQuXUyS
- 645qHl1h3PG+4cA2+5QSHJibsD6HvRunXMkxzALV2AEf1W8ziB3LG2y5ZexXKGakv+Fu
- vALFV9kKqQzKHqRf70FHidRxkKY0ZN2gYLtbcqAp7cuEZATZjllMv2LNolkHVIWP6BiK
- BjtHivUyc03Nbp6xVere1j3XBTGO9h3SMEgqqwb1+TY0JgN9+gJaYai4Ne5DR2LHJzaK
- hAag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=70XV8CEHSkMa1rt+fMT8WvCaK1EwHSR64yoUJlYJTYw=;
- b=tzQlapGoNu7NI5+0hu94clhHTpVzL66jc6CvpFTSoF4SXG3R9jwj4L3+tOaukJ2J7z
- qnuyqPpecucPhDYFm1/ZpMFILOK8rMOq6XsWTxWqoz4u9pSVizOqaSEicJNxpFRwa5NB
- hTHJC3OVNS/MOOtbPOzb6MBS1z2CtnynGPwt47bcN8DW5VwETvH2MUCnKqMuLAWwDJwt
- f4k3UpiOIcISoIKcaxmitbeM5ducZbTG/1fgI33ONtj5/6lXa6S3MlE+5gep8/dXnF/N
- ErFOLTnQVDNETEJg8eA1ZhZdfIoeJp3Hd73rWHUbnMKp5gm3qYS0zzbnALgj554Weq5V
- mi+w==
-X-Gm-Message-State: AOAM530jSEMDWI1oHCzvtpNiZnjXzTwqnjNq6y045DOGVJLv+GfzsUjW
- 0GTFL6f+M1CcYMbjKZ8fKqq9Kkf5M0uVbA==
-X-Google-Smtp-Source: ABdhPJyzt0wdfDxCk45BzHXW0dbnKAHeCaeM6YVCQxfWAUpsiVmQvf0lQAOdLV9pCkMVSng14DUWVA==
-X-Received: by 2002:a17:90b:1194:: with SMTP id
- gk20mr2703963pjb.155.1614250245632; 
- Thu, 25 Feb 2021 02:50:45 -0800 (PST)
-Received: from localhost.localdomain ([2409:4071:e0b:a4e5:c4eb:2ad5:463:383e])
- by smtp.gmail.com with ESMTPSA id
- o127sm5746649pfg.202.2021.02.25.02.50.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Feb 2021 02:50:45 -0800 (PST)
-From: Pankaj-Joshi <pankaj.joshi347@gmail.com>
-To: ltp@lists.linux.it
-Date: Thu, 25 Feb 2021 16:20:24 +0530
-Message-Id: <20210225105024.25561-1-pankaj.joshi347@gmail.com>
-X-Mailer: git-send-email 2.17.1
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id CEFDA3C0EA5
+ for <ltp@lists.linux.it>; Thu, 25 Feb 2021 11:57:52 +0100 (CET)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-4.smtp.seeweb.it (Postfix) with ESMTP id 93DB9100077B
+ for <ltp@lists.linux.it>; Thu, 25 Feb 2021 11:57:51 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.81,205,1610380800"; d="scan'208";a="104864306"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 25 Feb 2021 18:57:47 +0800
+Received: from G08CNEXMBPEKD06.g08.fujitsu.local (unknown [10.167.33.206])
+ by cn.fujitsu.com (Postfix) with ESMTP id 878E24CE76EF;
+ Thu, 25 Feb 2021 18:57:41 +0800 (CST)
+Received: from [10.167.220.69] (10.167.220.69) by
+ G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Thu, 25 Feb 2021 18:57:42 +0800
+Message-ID: <603782A3.7030902@cn.fujitsu.com>
+Date: Thu, 25 Feb 2021 18:57:39 +0800
+From: Xiao Yang <yangx.jy@cn.fujitsu.com>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
+ rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
+MIME-Version: 1.0
+To: zhaogongyi <zhaogongyi@huawei.com>
+References: <F3D3F6AC3820BB4C9FCA340DB5C32CB40387A34B@dggeml511-mbs.china.huawei.com>
+In-Reply-To: <F3D3F6AC3820BB4C9FCA340DB5C32CB40387A34B@dggeml511-mbs.china.huawei.com>
+X-Originating-IP: [10.167.220.69]
+X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
+ G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206)
+X-yoursite-MailScanner-ID: 878E24CE76EF.AAAAA
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: yangx.jy@cn.fujitsu.com
+X-Spam-Status: No, score=-0.4 required=7.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.4
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.3 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-X-Mailman-Approved-At: Thu, 25 Feb 2021 14:00:09 +0100
-Subject: [LTP] [PATCH] Updated README.kernel_config
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] unshare01.sh: Setup parent mount flag before
+ unshare testing
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,78 +58,223 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-From: pankajjoshi347 <pankaj.joshi347@gmail.com>
+On 2021/2/25 18:02, zhaogongyi wrote:
+> Hi Yang,
+>
+>> I don't like the approach which enforces mountpoint to be shared in
+>> parent mount namespace.
+>> I think we can tune expected value by checking propagation flag in parent
+>> mount namespace because of two reasons:
+>> 1) Make test cover more cases.
+>> 2) Don't depend on the fixed tmpfs.
+>
+> If we have no fixed parent mount namespace, the test looks like will pass at any cases since we judge result by "grep -w 'dir_B' /proc/self/mountinfo | grep -qw 'shared'".
+Hi Zhongyi,
 
----
- README.kernel_config | 27 +++++++++++++++++++++++++++
- 1 file changed, 27 insertions(+)
+This issue is caused by the state(e.g. share or private) of parent mount 
+namespace and both of results are expected.
 
-diff --git a/README.kernel_config b/README.kernel_config
-index 547dd4f33..eed19e557 100644
---- a/README.kernel_config
-+++ b/README.kernel_config
-@@ -18,8 +18,11 @@ CONFIG_IPC_NS=y
- CONFIG_USER_NS=y
- CONFIG_PID_NS=y
- CONFIG_NET_NS=y
-+CONFIG_TIME_NS=y
- CONFIG_VETH=y
- CONFIG_MACVLAN=y
-+CONFIG_TUN=y
-+CONFIG_TAP=y
- 
- The IPC namespaces do not automatically enable IPC, so you may
- also want to have:
-@@ -128,6 +131,8 @@ CONFIG_CRASH_DUMP=y
- CONFIG_PM=y
- CONFIG_HIBERNATION=y
- CONFIG_KEXEC_JUMP=y
-+CONFIG_SECCOMP=y
-+CONFIG_NUMA=y
- ---------------------------------
- Enabling HOTPLUG for your Kernels
- ---------------------------------
-@@ -281,10 +286,32 @@ end
- 1) Add or modify testcases when relevant kernel functionality changes.
- ---------------------------------
- 
-+---------------------------------
-+Enabling Kernel Configuration to test Memory management features
-+---------------------------------
-+CONFIG_KSM=y
-+CONFIG_THP_SWAP=y
-+CONFIG_MEMORY_FAILURE=y
-+---------------------------------
-+Enabling Kernel Configuration to test other filesystems
-+---------------------------------
-+CONFIG_PROC_FS=y
-+CONFIG_PROC_KCORE=y
-+CONFIG_SWAP=y
-+CONFIG_FANOTIFY=y
-+CONFIG_QFMT_V2=y
-+CONFIG_XFS_QUOTA=y
-+CONFIG_HUGETLBFS=y
-+CONFIG_HUGETLB_PAGE=y
-+---------------------------------
-+Enabling Kernel Configuration to test CPU/Task time and stats accounting
-+---------------------------------
-+CONFIG_BSD_PROCESS_ACCT=y
- ---------------------------------
- Enabling Kernel Configuration to test ext4 new features
- ---------------------------------
- CONFIG_EXT4_FS=y
-+CONFIG_EXT4_ENCRYPTION=y
- CONFIG_EXT4DEV_COMPAT=y
- CONFIG_EXT4_FS_XATTR=y
- CONFIG_EXT4_FS_POSIX_ACL=y
--- 
-2.17.1
+> It seems a bit tangential to our test objective as " # 6) If we run with "--mount --propagation shared", mount and unmount events propagate to its parent mount namespace. "
+We also need to update the description of #6 because it is true only 
+when the parent mount namespace is shared.
+For example:
+# 6) If we run with "--mount --propagation shared" and parent mount 
+namespace is shared, mount and unmount events can do propagation. "
+# 7) If we run with "--mount --propagation shared" and parent mount 
+namespace is not shared, mount and unmount events cannot do propagation. "
+
+Best Regards,
+Xiao Yang
+>
+> Thanks!
+>
+> ==========================================================
+>
+>> Hi Zhongyi, Petr
+>>
+>> I don't like the approach which enforces mountpoint to be shared in
+>> parent mount namespace.
+>> I think we can tune expected value by checking propagation flag in parent
+>> mount namespace because of two reasons:
+>> 1) Make test cover more cases.
+>> 2) Don't depend on the fixed tmpfs.
+>>
+>> Zhongyi,  could you test the following patch on your enviorment?
+>> -------------------------------------------------------------------------------------------------
+>> diff --git a/testcases/commands/unshare/unshare01.sh
+>> b/testcases/commands/unshare/unshare01.sh
+>> index bf163a7f4..78ea83fc0 100755
+>> --- a/testcases/commands/unshare/unshare01.sh
+>> +++ b/testcases/commands/unshare/unshare01.sh
+>> @@ -40,6 +40,17 @@
+>> max_mntns_path="/proc/sys/user/max_mnt_namespaces"
+>>    default_max_userns=-1
+>>    default_max_mntns=-1
+>>
+>> +parse_propagation_flag()
+>> +{
+>> +       mount --bind dir_A dir_B
+>> +       if grep -w 'dir_B' /proc/self/mountinfo | grep -qw 'shared'; then
+>> +               echo "mounted"
+>> +       else
+>> +               echo "unmounted"
+>> +       fi
+>> +       umount dir_B
+>> +}
+>> +
+>>    setup()
+>>    {
+>>           # On some distributions(e.g RHEL7.4), the default value of @@
+>> -149,7 +160,8 @@ do_test()
+>>           4) unshare_test "--user --map-root-user" "id -g" "0";;
+>>           5) unshare_test "--mount" "mount --bind dir_A dir_B"
+>> "unmounted";;
+>>           6) unshare_test "--mount --propagation shared" \
+>> -                       "mount --bind dir_A dir_B" "mounted";;
+>> +                       "mount --bind dir_A dir_B" \
+>> +                       "$(parse_propagation_flag)";;
+>>           7) unshare_test "--user --map-root-user --mount" \
+>>                           "mount --bind dir_A dir_B" "unmounted";;
+>>           8) unshare_test "--user --map-root-user --mount --propagation
+>> shared" \
+>> --
+>> ------------------------------------------------------------------------------------------
+>>
+>> Best Regards,
+>> Xiao Yang
+>> On 2021/2/24 9:40, Petr Vorel wrote:
+>>> Hi,
+>>>
+>>>> We need setup parent mount flag to shared before unshare testing, or
+>>>> it will fail for system which has no systemd service since the
+>>>> propagation flag is changed by systemd. From man 7
+>> mount_namespaces.
+>>> Do I understand correctly that all distros without systemd are
+>>> affected, because systemd "automatically remounts all mount points as
+>>> MS_SHARED on system startup" and test expect it?
+>>>
+>>>> Signed-off-by: Zhao Gongyi<zhaogongyi@huawei.com>
+>>>> ---
+>>>>    testcases/commands/unshare/unshare01.sh | 9 ++++++++-
+>>>>    1 file changed, 8 insertions(+), 1 deletion(-) diff --git
+>>>> a/testcases/commands/unshare/unshare01.sh
+>>>> b/testcases/commands/unshare/unshare01.sh
+>>>> index bf163a7f4..e1fb15035 100755
+>>>> --- a/testcases/commands/unshare/unshare01.sh
+>>>> +++ b/testcases/commands/unshare/unshare01.sh
+>>>> @@ -31,7 +31,6 @@ TST_SETUP=setup
+>>>>    TST_CLEANUP=cleanup
+>>>>    TST_TESTFUNC=do_test
+>>>>    TST_NEEDS_ROOT=1
+>>>> -TST_NEEDS_TMPDIR=1
+>>> You still need TST_NEEDS_TMPDIR=1, because you create files and
+>> directories.
+>>> Also your patch breaks bind test on very old systems (kernel 2.6,
+>>> util-linux 2.17.2, glibc 2.12):
+>>> unshare01 5 TFAIL: unshare --mount mount --bind dir_A dir_B got bind
+>>> info
+>>>
+>>> Any idea why (how to avoid this regression)?
+>>>
+>>>>    TST_NEEDS_CMDS="unshare id mount umount"
+>>>>    . tst_test.sh
+>>>> @@ -39,6 +38,7 @@
+>> max_userns_path="/proc/sys/user/max_user_namespaces"
+>>>>    max_mntns_path="/proc/sys/user/max_mnt_namespaces"
+>>>>    default_max_userns=-1
+>>>>    default_max_mntns=-1
+>>>> +CURR=$(pwd)
+>>> Instead of $CURR, cd - can be used.
+>>>
+>>>>    setup()
+>>>>    {
+>>>> @@ -55,6 +55,10 @@ setup()
+>>>>    		echo 1024>   "${max_mntns_path}"
+>>>>    	fi
+>>>> +	mkdir $CURR/dir_C
+>>> just mkdir dir_C
+>>>> +	mount -t tmpfs none dir_C
+>>>> +	mount --make-shared dir_C
+>>> FYI We have tst_mount, but it'd not help much here.
+>>>
+>>>> +	cd dir_C
+>>>>    	mkdir -p dir_A dir_B
+>>>>    	touch dir_A/A dir_B/B
+>>>>    }
+>>>> @@ -66,6 +70,9 @@ cleanup()
+>>>>    		echo ${default_max_userns}>   "${max_userns_path}"
+>>>>    	[ ${default_max_mntns} -ne -1 ]&&   \
+>>>>    		echo ${default_max_mntns}>   "${max_mntns_path}"
+>>>> +	cd $CURR
+>>>> +	umount dir_C
+>>> tst_umount dir_C
+>>>
+>>>> +	rm -rf dir_C
+>>> rm is not needed (cleanup is done automatically).
+>>>>    }
+>>>>    check_id()
+>>> Full diff of changes I propose below.
+>>>
+>>> Kind regards,
+>>> Petr
+>>>
+>>> diff --git testcases/commands/unshare/unshare01.sh
+>>> testcases/commands/unshare/unshare01.sh
+>>> index e1fb15035..0b5c56811 100755
+>>> --- testcases/commands/unshare/unshare01.sh
+>>> +++ testcases/commands/unshare/unshare01.sh
+>>> @@ -31,6 +31,7 @@ TST_SETUP=setup
+>>>    TST_CLEANUP=cleanup
+>>>    TST_TESTFUNC=do_test
+>>>    TST_NEEDS_ROOT=1
+>>> +TST_NEEDS_TMPDIR=1
+>>>    TST_NEEDS_CMDS="unshare id mount umount"
+>>>    . tst_test.sh
+>>>
+>>> @@ -38,7 +39,6 @@
+>> max_userns_path="/proc/sys/user/max_user_namespaces"
+>>>    max_mntns_path="/proc/sys/user/max_mnt_namespaces"
+>>>    default_max_userns=-1
+>>>    default_max_mntns=-1
+>>> -CURR=$(pwd)
+>>>
+>>>    setup()
+>>>    {
+>>> @@ -55,7 +55,7 @@ setup()
+>>>    		echo 1024>   "${max_mntns_path}"
+>>>    	fi
+>>>
+>>> -	mkdir $CURR/dir_C
+>>> +	mkdir dir_C
+>>>    	mount -t tmpfs none dir_C
+>>>    	mount --make-shared dir_C
+>>>    	cd dir_C
+>>> @@ -70,9 +70,8 @@ cleanup()
+>>>    		echo ${default_max_userns}>   "${max_userns_path}"
+>>>    	[ ${default_max_mntns} -ne -1 ]&&   \
+>>>    		echo ${default_max_mntns}>   "${max_mntns_path}"
+>>> -	cd $CURR
+>>> -	umount dir_C
+>>> -	rm -rf dir_C
+>>> +	cd ->/dev/null
+>>> +	tst_umount dir_C
+>>>    }
+>>>
+>>>    check_id()
+>>>
+>>
+>
+>
+> .
+>
+
+
 
 
 -- 
