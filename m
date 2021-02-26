@@ -2,41 +2,41 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id B13F0325600
-	for <lists+linux-ltp@lfdr.de>; Thu, 25 Feb 2021 20:02:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43F0C325C46
+	for <lists+linux-ltp@lfdr.de>; Fri, 26 Feb 2021 05:01:44 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 54CCB3C596E
-	for <lists+linux-ltp@lfdr.de>; Thu, 25 Feb 2021 20:02:12 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 0B6D33C5A3F
+	for <lists+linux-ltp@lfdr.de>; Fri, 26 Feb 2021 05:01:44 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 4E2883C0F06
- for <ltp@lists.linux.it>; Thu, 25 Feb 2021 20:02:11 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id E58523C0F5F
+ for <ltp@lists.linux.it>; Fri, 26 Feb 2021 05:01:41 +0100 (CET)
+Received: from szxga07-in.huawei.com (szxga07-in.huawei.com [45.249.212.35])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 8EDDF1A006F9
- for <ltp@lists.linux.it>; Thu, 25 Feb 2021 20:02:10 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id BB9A3AC6F;
- Thu, 25 Feb 2021 19:02:09 +0000 (UTC)
-Date: Thu, 25 Feb 2021 20:02:08 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Liam Howlett <liam.howlett@oracle.com>
-Message-ID: <YDf0MHBoZRildsna@pevik>
-References: <20210224213114.2976705-1-Liam.Howlett@Oracle.com>
- <20210224213114.2976705-2-Liam.Howlett@Oracle.com>
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id CA32F600066
+ for <ltp@lists.linux.it>; Fri, 26 Feb 2021 05:01:39 +0100 (CET)
+Received: from DGGEMS414-HUB.china.huawei.com (unknown [172.30.72.60])
+ by szxga07-in.huawei.com (SkyGuard) with ESMTP id 4DmwsV2LBlz7q4R
+ for <ltp@lists.linux.it>; Fri, 26 Feb 2021 11:59:58 +0800 (CST)
+Received: from ubuntu1804.huawei.com (10.67.174.63) by
+ DGGEMS414-HUB.china.huawei.com (10.3.19.214) with Microsoft SMTP Server id
+ 14.3.498.0; Fri, 26 Feb 2021 12:01:28 +0800
+From: Zhao Gongyi <zhaogongyi@huawei.com>
+To: <ltp@lists.linux.it>
+Date: Fri, 26 Feb 2021 12:00:57 +0800
+Message-ID: <20210226040057.184076-1-zhaogongyi@huawei.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210224213114.2976705-2-Liam.Howlett@Oracle.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Originating-IP: [10.67.174.63]
+X-CFilter-Loop: Reflected
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 1/1] brk02: Add test for removing more than one
- VMA
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH] syscalls/ioctl: Remove requirement of loop driver
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,186 +48,122 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Liam,
+There is no loop driver when config CONFIG_BLK_DEV_LOOP is set to y, and
+we have check the loop device in tst_find_free_loopdev. So we can remove
+the requirement of loop driver.
 
-> When brk expands, it attempts to expand a VMA.  This expansion will
-> succeed depending on the anonymous VMA chain and if the vma flags are
-> compatible.  This test expands brk() then calls mprotect to ensure the
-> next brk call will create a new VMA, then it calls brk a final time to
-> restore the first brk address.  The test is the final brk call which
-> will remove more than an entire VMA from the vm area.
+Signed-off-by: Zhao Gongyi <zhaogongyi@huawei.com>
+---
+ testcases/kernel/syscalls/ioctl/ioctl_loop01.c | 4 ----
+ testcases/kernel/syscalls/ioctl/ioctl_loop02.c | 4 ----
+ testcases/kernel/syscalls/ioctl/ioctl_loop03.c | 4 ----
+ testcases/kernel/syscalls/ioctl/ioctl_loop04.c | 4 ----
+ testcases/kernel/syscalls/ioctl/ioctl_loop05.c | 4 ----
+ testcases/kernel/syscalls/ioctl/ioctl_loop06.c | 4 ----
+ testcases/kernel/syscalls/ioctl/ioctl_loop07.c | 4 ----
+ 7 files changed, 28 deletions(-)
 
-> Signed-off-by: Liam R. Howlett <Liam.Howlett@Oracle.com>
-> ---
->  testcases/kernel/syscalls/brk/brk02.c | 54 +++++++++++++++++++++++++++
->  1 file changed, 54 insertions(+)
->  create mode 100644 testcases/kernel/syscalls/brk/brk02.c
+diff --git a/testcases/kernel/syscalls/ioctl/ioctl_loop01.c b/testcases/kernel/syscalls/ioctl/ioctl_loop01.c
+index cf71184b4..27713847d 100644
+--- a/testcases/kernel/syscalls/ioctl/ioctl_loop01.c
++++ b/testcases/kernel/syscalls/ioctl/ioctl_loop01.c
+@@ -142,10 +142,6 @@ static struct tst_test test = {
+ 	.cleanup = cleanup,
+ 	.test_all = verify_ioctl_loop,
+ 	.needs_root = 1,
+-	.needs_drivers = (const char *const []) {
+-		"loop",
+-		NULL
+-	},
+ 	.tags = (const struct tst_tag[]) {
+ 		{"linux-git", "10c70d95c0f2"},
+ 		{"linux-git", "6ac92fb5cdff"},
+diff --git a/testcases/kernel/syscalls/ioctl/ioctl_loop02.c b/testcases/kernel/syscalls/ioctl/ioctl_loop02.c
+index ac6184216..538b64e00 100644
+--- a/testcases/kernel/syscalls/ioctl/ioctl_loop02.c
++++ b/testcases/kernel/syscalls/ioctl/ioctl_loop02.c
+@@ -157,8 +157,4 @@ static struct tst_test test = {
+ 	.test = verify_ioctl_loop,
+ 	.needs_root = 1,
+ 	.needs_tmpdir = 1,
+-	.needs_drivers = (const char *const []) {
+-		"loop",
+-		NULL
+-	}
+ };
+diff --git a/testcases/kernel/syscalls/ioctl/ioctl_loop03.c b/testcases/kernel/syscalls/ioctl/ioctl_loop03.c
+index 9cf5a41fa..ee3748178 100644
+--- a/testcases/kernel/syscalls/ioctl/ioctl_loop03.c
++++ b/testcases/kernel/syscalls/ioctl/ioctl_loop03.c
+@@ -68,8 +68,4 @@ static struct tst_test test = {
+ 	.test_all = verify_ioctl_loop,
+ 	.needs_root = 1,
+ 	.needs_tmpdir = 1,
+-	.needs_drivers = (const char *const []) {
+-		"loop",
+-		NULL
+-	}
+ };
+diff --git a/testcases/kernel/syscalls/ioctl/ioctl_loop04.c b/testcases/kernel/syscalls/ioctl/ioctl_loop04.c
+index b4ab44a74..615247aec 100644
+--- a/testcases/kernel/syscalls/ioctl/ioctl_loop04.c
++++ b/testcases/kernel/syscalls/ioctl/ioctl_loop04.c
+@@ -91,8 +91,4 @@ static struct tst_test test = {
+ 	.test_all = verify_ioctl_loop,
+ 	.needs_root = 1,
+ 	.needs_tmpdir = 1,
+-	.needs_drivers = (const char *const []) {
+-		"loop",
+-		NULL
+-	}
+ };
+diff --git a/testcases/kernel/syscalls/ioctl/ioctl_loop05.c b/testcases/kernel/syscalls/ioctl/ioctl_loop05.c
+index f8fa413a9..ec88d6039 100644
+--- a/testcases/kernel/syscalls/ioctl/ioctl_loop05.c
++++ b/testcases/kernel/syscalls/ioctl/ioctl_loop05.c
+@@ -151,8 +151,4 @@ static struct tst_test test = {
+ 	.test_all = verify_ioctl_loop,
+ 	.needs_root = 1,
+ 	.needs_tmpdir = 1,
+-	.needs_drivers = (const char *const []) {
+-		"loop",
+-		NULL
+-	}
+ };
+diff --git a/testcases/kernel/syscalls/ioctl/ioctl_loop06.c b/testcases/kernel/syscalls/ioctl/ioctl_loop06.c
+index bd0d289ca..969b98c41 100644
+--- a/testcases/kernel/syscalls/ioctl/ioctl_loop06.c
++++ b/testcases/kernel/syscalls/ioctl/ioctl_loop06.c
+@@ -136,8 +136,4 @@ static struct tst_test test = {
+ 	.tcnt = ARRAY_SIZE(tcases),
+ 	.needs_root = 1,
+ 	.needs_tmpdir = 1,
+-	.needs_drivers = (const char *const []) {
+-		"loop",
+-		NULL
+-	}
+ };
+diff --git a/testcases/kernel/syscalls/ioctl/ioctl_loop07.c b/testcases/kernel/syscalls/ioctl/ioctl_loop07.c
+index efe48962e..5e1b38866 100644
+--- a/testcases/kernel/syscalls/ioctl/ioctl_loop07.c
++++ b/testcases/kernel/syscalls/ioctl/ioctl_loop07.c
+@@ -158,8 +158,4 @@ static struct tst_test test = {
+ 		{"linux-git", "79e5dc59e297"},
+ 		{}
+ 	},
+-	.needs_drivers = (const char *const []) {
+-		"loop",
+-		NULL
+-	}
+ };
+--
+2.17.1
 
-> diff --git a/testcases/kernel/syscalls/brk/brk02.c b/testcases/kernel/syscalls/brk/brk02.c
-> new file mode 100644
-> index 000000000..ef84fb440
-> --- /dev/null
-> +++ b/testcases/kernel/syscalls/brk/brk02.c
-> @@ -0,0 +1,54 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * Copyright (c) 2021 Liam R. Howlett <liam.howlett@oracle.com>
-> + *
-> + *  Expand the brk by at least 2 pages to ensure there is a newly created VMA
-> + *  and not expanding the original due to multiple anon pages.  mprotect that
-> + *  new VMA then brk back to the original address therefore causing a munmap of
-> + *  at least one full VMA.
-I'll put this as a docparse formatting (will show in our documentation):
-
-/*\
- * [DESCRIPTION]
- * Expand brk() by at least 2 pages to ensure there is a newly created VMA
- * and not expanding the original due to multiple anon pages.  mprotect() that
- * new VMA then brk() back to the original address therefore causing a munmap of
- * at least one full VMA.
-\*/
-
-> + */
-> +
-> +#include <unistd.h>
-> +#include <sys/mman.h>
-> +#include "tst_test.h"
-> +
-> +void brk_down_vmas(void)
-> +{
-> +	void *brk_addr = sbrk(0);
-
-Shouldn't there be a check?
-
-	if (brk_addr == (void *) -1)
-		tst_brk(TBROK, "sbrk() failed");
-
-> +	unsigned long page_size = getpagesize();
-> +	void *addr = brk_addr + page_size;
-> +
-> +	if (brk(addr)) {
-> +		tst_res(TFAIL, "Cannot expand brk by page size.");
-nit: remove dot at the end.
-> +		return;
-> +	}
-> +
-> +	addr += page_size;
-> +	if (brk(addr)) {
-> +		tst_res(TFAIL, "Cannot expand brk by 2x page size.");
-> +		return;
-> +	}
-> +
-> +	if (mprotect(addr - page_size, page_size,
-> +		     PROT_READ|PROT_WRITE|PROT_EXEC)) {
-> +		tst_res(TFAIL, "Cannot mprotect new VMA.");
-> +		return;
-> +	}
-> +
-> +	addr += page_size;
-> +	if (brk(addr)) {
-> +		tst_res(TFAIL, "Cannot expand brk after mprotect.");
-> +		return;
-> +	}
-> +
-> +	if (brk(brk_addr)) {
-> +		tst_res(TFAIL, "Cannot restore brk to start address.");
-> +		return;
-> +	}
-> +
-> +	tst_res(TPASS, "munmap at least two VMAs of brk() passed.");
-> +}
-> +
-> +static struct tst_test test = {
-> +	.test_all = brk_down_vmas,
-> +};
-
-No need to repost if you agree with these changes below.
-
-Kind regards,
-Petr
-
-diff --git testcases/kernel/syscalls/brk/brk02.c testcases/kernel/syscalls/brk/brk02.c
-index ef84fb440..2e604eb5d 100644
---- testcases/kernel/syscalls/brk/brk02.c
-+++ testcases/kernel/syscalls/brk/brk02.c
-@@ -1,13 +1,16 @@
- // SPDX-License-Identifier: GPL-2.0-or-later
- /*
-  * Copyright (c) 2021 Liam R. Howlett <liam.howlett@oracle.com>
-- *
-- *  Expand the brk by at least 2 pages to ensure there is a newly created VMA
-- *  and not expanding the original due to multiple anon pages.  mprotect that
-- *  new VMA then brk back to the original address therefore causing a munmap of
-- *  at least one full VMA.
-  */
- 
-+/*\
-+ * [DESCRIPTION]
-+ * Expand brk() by at least 2 pages to ensure there is a newly created VMA
-+ * and not expanding the original due to multiple anon pages.  mprotect() that
-+ * new VMA then brk() back to the original address therefore causing a munmap of
-+ * at least one full VMA.
-+\*/
-+
- #include <unistd.h>
- #include <sys/mman.h>
- #include "tst_test.h"
-@@ -15,38 +18,42 @@
- void brk_down_vmas(void)
- {
- 	void *brk_addr = sbrk(0);
-+
-+	if (brk_addr == (void *) -1)
-+		tst_brk(TBROK, "sbrk() failed");
-+
- 	unsigned long page_size = getpagesize();
- 	void *addr = brk_addr + page_size;
- 
- 	if (brk(addr)) {
--		tst_res(TFAIL, "Cannot expand brk by page size.");
-+		tst_res(TFAIL, "Cannot expand brk() by page size");
- 		return;
- 	}
- 
- 	addr += page_size;
- 	if (brk(addr)) {
--		tst_res(TFAIL, "Cannot expand brk by 2x page size.");
-+		tst_res(TFAIL, "Cannot expand brk() by 2x page size");
- 		return;
- 	}
- 
- 	if (mprotect(addr - page_size, page_size,
- 		     PROT_READ|PROT_WRITE|PROT_EXEC)) {
--		tst_res(TFAIL, "Cannot mprotect new VMA.");
-+		tst_res(TFAIL, "Cannot mprotect new VMA");
- 		return;
- 	}
- 
- 	addr += page_size;
- 	if (brk(addr)) {
--		tst_res(TFAIL, "Cannot expand brk after mprotect.");
-+		tst_res(TFAIL, "Cannot expand brk() after mprotect");
- 		return;
- 	}
- 
- 	if (brk(brk_addr)) {
--		tst_res(TFAIL, "Cannot restore brk to start address.");
-+		tst_res(TFAIL, "Cannot restore brk() to start address");
- 		return;
- 	}
- 
--	tst_res(TPASS, "munmap at least two VMAs of brk() passed.");
-+	tst_res(TPASS, "munmap at least two VMAs of brk() passed");
- }
- 
- static struct tst_test test = {
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
