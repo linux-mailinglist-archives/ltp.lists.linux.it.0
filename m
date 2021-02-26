@@ -1,40 +1,42 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF687325E87
-	for <lists+linux-ltp@lfdr.de>; Fri, 26 Feb 2021 09:00:16 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 436B5325EFB
+	for <lists+linux-ltp@lfdr.de>; Fri, 26 Feb 2021 09:28:52 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9A50A3C5858
-	for <lists+linux-ltp@lfdr.de>; Fri, 26 Feb 2021 09:00:16 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 0CD733C585C
+	for <lists+linux-ltp@lfdr.de>; Fri, 26 Feb 2021 09:28:52 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 7A54A3C0E16
- for <ltp@lists.linux.it>; Fri, 26 Feb 2021 09:00:13 +0100 (CET)
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id 526B33C584E
+ for <ltp@lists.linux.it>; Fri, 26 Feb 2021 09:28:50 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 65B4D601065
- for <ltp@lists.linux.it>; Fri, 26 Feb 2021 09:00:13 +0100 (CET)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id DCDF0601CE8
+ for <ltp@lists.linux.it>; Fri, 26 Feb 2021 09:28:49 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 1FE5BADDC
- for <ltp@lists.linux.it>; Fri, 26 Feb 2021 08:00:12 +0000 (UTC)
-References: <20210225140925.16187-1-mdoucha@suse.cz>
-User-agent: mu4e 1.4.15; emacs 27.1
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Martin Doucha <mdoucha@suse.cz>
-In-reply-to: <20210225140925.16187-1-mdoucha@suse.cz>
-Date: Fri, 26 Feb 2021 08:00:11 +0000
-Message-ID: <87zgzr6yyc.fsf@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 3DE3BAAAE;
+ Fri, 26 Feb 2021 08:28:49 +0000 (UTC)
+Date: Fri, 26 Feb 2021 09:30:15 +0100
+From: Cyril Hrubis <chrubis@suse.cz>
+To: zhaogongyi <zhaogongyi@huawei.com>
+Message-ID: <YDixlxtJN/sgu/2l@yuki.lan>
+References: <F3D3F6AC3820BB4C9FCA340DB5C32CB40387A866@dggeml511-mbs.china.huawei.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <F3D3F6AC3820BB4C9FCA340DB5C32CB40387A866@dggeml511-mbs.china.huawei.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] Reduce writev03 fuzzy_sync timeout
+X-Spam-Status: No, score=2.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ PDS_TONAME_EQ_TOLOCAL_SHORT, SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Level: **
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] syscalls/ioctl: Remove requirement of loop driver
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,47 +48,24 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
-Cc: ltp@lists.linux.it
+Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello,
+Hi!
+> > 1) I think .needs_driver can parse either CONFIG_BLK_DEV_LOOP=y or
+> > CONFIG_BLK_DEV_LOOP=m correctly.
+> >      Do you have any issue that .needs_driver cannot parse
+> 
+> I known the reason why test fail and report TCONF, there is no file modules.builtin on my system.
 
-Martin Doucha <mdoucha@suse.cz> writes:
-
-> Writev03 is fairly slow and tests multiple filesystems, each getting another
-> round of timeout. Reduce fuzzy sync time limit to 25% of standard timeout
-> to make the test finish slightly faster.
->
-> Signed-off-by: Martin Doucha <mdoucha@suse.cz>
-> ---
->  testcases/kernel/syscalls/writev/writev03.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/testcases/kernel/syscalls/writev/writev03.c b/testcases/kernel/syscalls/writev/writev03.c
-> index 4dc55c191..6514404e6 100644
-> --- a/testcases/kernel/syscalls/writev/writev03.c
-> +++ b/testcases/kernel/syscalls/writev/writev03.c
-> @@ -49,6 +49,7 @@ static void setup(void)
->  	mapfd = SAFE_OPEN(MAPFILE, O_CREAT|O_RDWR|O_TRUNC, 0644);
->  	SAFE_WRITE(1, mapfd, buf, BUF_SIZE);
->  
-> +	fzsync_pair.exec_time_p = 0.25;
->  	tst_fzsync_pair_init(&fzsync_pair);
->  }
->  
-> -- 
-> 2.30.0
-
-LGTM.
-
+Then I would say that your system is broken.
 
 -- 
-Thank you,
-Richard.
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
