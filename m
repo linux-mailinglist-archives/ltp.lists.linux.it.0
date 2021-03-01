@@ -1,67 +1,41 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 965A8327C23
-	for <lists+linux-ltp@lfdr.de>; Mon,  1 Mar 2021 11:31:08 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7875F327DB0
+	for <lists+linux-ltp@lfdr.de>; Mon,  1 Mar 2021 12:56:33 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4C1F33C5749
-	for <lists+linux-ltp@lfdr.de>; Mon,  1 Mar 2021 11:31:08 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 24F7C3C5765
+	for <lists+linux-ltp@lfdr.de>; Mon,  1 Mar 2021 12:56:33 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id 8A2E23C1C4F
- for <ltp@lists.linux.it>; Mon,  1 Mar 2021 11:31:06 +0100 (CET)
-Received: from mail-yb1-xb2e.google.com (mail-yb1-xb2e.google.com
- [IPv6:2607:f8b0:4864:20::b2e])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id 6DDAC3C537F
+ for <ltp@lists.linux.it>; Mon,  1 Mar 2021 12:56:29 +0100 (CET)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 0708C1000361
- for <ltp@lists.linux.it>; Mon,  1 Mar 2021 11:31:06 +0100 (CET)
-Received: by mail-yb1-xb2e.google.com with SMTP id u3so16428819ybk.6
- for <ltp@lists.linux.it>; Mon, 01 Mar 2021 02:31:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=/RjMfYzuHpJA+REHpfjATep6VUGqRVZKeEEtK7+eeEs=;
- b=N49PXEkvuGbfNogPtJJAel960cw6Ky1YrtUse75YVwGxPQ5TP0Hb4Sz/g7oS9PQFhl
- mftOcpGD4zoOdwcbMRtMNWWg0U4XK/hBytRuJT/Vn+RfrbTW81l0oGUdMsB+9FEun2yN
- WOzeJAihRcob7CNhmFlgMRVySgCFwEenqz6mrILCgrkdWijYDR3J4Em0UybEbKfeHwDb
- H+NybT0AZ8ds5Pk4VLKfPMcKxCxS8hcVmqPHMVI59spwmn96CHORVO5bUksIWlVRcMZp
- IFBGmcHN1GZ9J1g7auK9PC36arKWIWqsL9/6rR7jLrBK63AkQRrvl8Yf2iega9Leu8Kc
- YNdA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=/RjMfYzuHpJA+REHpfjATep6VUGqRVZKeEEtK7+eeEs=;
- b=X7Uj3EvkpflffwgcmLwxl289c3XAx077VuTBDJ+LVeMkF5QA3O8pm33Mx/BC0KOgpA
- lJlnqqK63Qsmod1z3yhGmmmM6qOaa8Bw51n8r4lOVuXhbLObKiYToLpcfPg9MF2NRwT4
- DdebnyAmL0Avu3+RgLemvhspu7pf90gHjXjtxje3DWi8gAziXC97OUWpdPqQ9IDNZAF4
- 8EfuZOM5SomOmTt83pihh8S07tT0btsGmqCE3323+iFGRQdDQYztD+40OSluAdFuURBA
- 1EQ8R6cb7NOrdcTxWGEQKMCwvKQ5e5a0iNcpi8TWJsLRPAUnh7BXaN2ikjR6i/yAqhOt
- VNdA==
-X-Gm-Message-State: AOAM533+dSM6WhL9gEGS9X1pE/e+NDjb89IOv3wiOrIPpyuc2aM5tC82
- D5hbWS0+ZT7olin2/D9H8WfXJS7aKwF/pPEBky0=
-X-Google-Smtp-Source: ABdhPJwJIputxAyV/0TQmSIGlX+LubCHSLOQvcmljqD/E53hlMicdxFe6UfJqT8x8A0uN4JOzgPZGZWmcsU7jPak/VY=
-X-Received: by 2002:a25:8008:: with SMTP id m8mr21635372ybk.495.1614594664879; 
- Mon, 01 Mar 2021 02:31:04 -0800 (PST)
-MIME-Version: 1.0
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 6989E1400F39
+ for <ltp@lists.linux.it>; Mon,  1 Mar 2021 12:56:28 +0100 (CET)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 9E916AD21;
+ Mon,  1 Mar 2021 11:56:27 +0000 (UTC)
+Date: Mon, 1 Mar 2021 12:57:58 +0100
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Tim.Bird@sony.com
+Message-ID: <YDzWxnjM3NmXnhTY@yuki.lan>
 References: <20210224165045.17738-1-chrubis@suse.cz>
-In-Reply-To: <20210224165045.17738-1-chrubis@suse.cz>
-From: Cixi Geng <gengcixi@gmail.com>
-Date: Mon, 1 Mar 2021 18:30:19 +0800
-Message-ID: <CAF12kFtuFvVnykBbcGsgsc_LYuh541SfA9P_RV88KzwFjuTsxg@mail.gmail.com>
-To: Cyril Hrubis <chrubis@suse.cz>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+ <BYAPR13MB2503F63EE761C8A8FC98E3DDFD9D9@BYAPR13MB2503.namprd13.prod.outlook.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <BYAPR13MB2503F63EE761C8A8FC98E3DDFD9D9@BYAPR13MB2503.namprd13.prod.outlook.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 0/5] Another attempt at hardware discovery
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [Automated-testing] [PATCH v2 0/5] Another attempt at
+ hardware discovery
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,107 +47,283 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Carlos Hernandez <ceh@ti.com>, Michal Simek <michals@xilinx.com>,
- automated-testing@yoctoproject.org, Orson Zhai <orsonzhai@gmail.com>,
- LTP List <ltp@lists.linux.it>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: ceh@ti.com, michals@xilinx.com, automated-testing@yoctoproject.org,
+ orsonzhai@gmail.com, ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Q3lyaWwgSHJ1YmlzIDxjaHJ1YmlzQHN1c2UuY3o+IOS6jjIwMjHlubQy5pyIMjXml6Xlkajlm5sg
-5LiK5Y2IMTI6NDnlhpnpgZPvvJoKPgo+IFRoaXMgaXMgYSBzZWNvbmQgYXR0ZW1wdCBvbiBoYXJk
-d2FyZSBkaXNjb3ZlcnkgTFRQIHN1cHBvcnQuIFRoZSBtYWluCj4gZGlmZmVyZW5jZSBiZXR3ZWVu
-IHRoZSBwcmV2aW91cyBhdHRlbXB0cyBpcyB0aGF0IHRoaXMgdmVyc2lvbiB1c2VzIEpTT04sCj4g
-d2hpY2ggYWxsb3dzIHVzIHByb3BhZ2F0ZSBzdHJ1Y3R1cmVkIGRhdGEgdG8gdGhlIHRlc3QuCj4K
-PiBUaGlzIGlzIHN0aWxsIGFuIGVhcmx5IHByb3RvdG90eXBlIGJ1dCBJJ20gc2VkaW5nIGl0IG91
-dCB0byBnZXQgbW9yZQo+IGZlZWRiYWNrIGJlZm9yZSBJIGNvbnRpbnVlIHRvIHdvcmsgb24gaXQu
-Cj4KPiBTbyBob3cgaXMgdGhpcyBzdXBwb3NlZCB0byB3b3JrOgo+Cj4gKiBUZXN0IHRoYXQgbmVl
-ZHMgcGFydGljdWxhciBoYXJkd2FyZSBzZXRzIHRoZSBuZWVkc19oYXJkd2FyZSBmaWxlZCBpbgo+
-ICAgdGhlIHRlc3QgdGVzdCBzdHJ1Y3R1cmUuIFRoaXMgaXMgYSBmcmVlIGZvcm0gc3RyaW5nLCBp
-biB0aGUgdWFydAo+ICAgZXhhbXBsZSBpdCdzIGNhbGxlZCAnVUFSVC1sb29wYmFjaycuIElmIHdl
-IGV2ZXIgYWRkIGEgdGVzdCBmb3IgaTJjCj4gICBlZXByb20gaXQgd291bGQgYmUgcHJvYmFibHkg
-Y2FsbGVkICdJMkMtZWVwcm9tJywgZXRjLgpJIHRoaW5rIHRoaXMgaGFzIG1hbnkgYWR2YW50YWdl
-cyBvdmVyIHRoZSBmaXJzdCBlZGl0aW9uLCBJbiBvdXQgSW50ZXJuYWwgVGVzdO+8jAp3ZSB1c2Ug
-YSBzaW1pbGFyIHdheSB0byBkZWZpbmUgdGhlIHRlc3QgcHJlcmVxdWlyZXMgYXMgSlNPTiBzdHJ1
-Y3Rvci5bMV0KaGVyZSBpcyBNeSBvcGluaW9uLCBJbiB0aGUgTFRQIHRlc3RjYXNlIGZyYW1ld29y
-aywgd2UgY2FuIHNldCBhbGwgdGhlCnByZXJlcXVpcmVzCmluIGEgSlNPTmZpbGUsIHRoZXNlIHBy
-ZXJxdWlyZXMgaW5jbHVkZSBDT05GSUdTLCAgQUJJcywKZGV2aWNlcy1wYXRoKHN5c++8jHByb2Ms
-ZGV2IGV0Yy4pLAp0aGUgU0VUVVAgc3RhZ2UgIHRvIGNoZWNrIGlmIHRoZSBtYWNoaW5lIHNhdGlz
-ZnkgdGhlIGRlZmluZWQtSnNvbi4KYXQgdGhlIHNhbWUgdGltZe+8jCB3ZSBhbHNvIG5lZWQgYSBz
-Y3JpcHRzIHRvIGdlbmVyYXRlIGEgSlNPTi1maWxlIGZyb20KdGhlIGN1cnJlbnQgbWFjaGluZSB0
-byBjb2xsZWN0IGFsbCB0aGUgcHJlcmVxdWlyZXMgbGlzdC4KSW4gdGhpcyB3YXksIHRoZSBiZW5l
-Zml0IG5vdCBqdXN0IGRldmljZS1kcml2ZXIsIGJ1dCBhbHNlIGNvbW1vbiB0ZXN0Y2FzZQo+Cj4g
-KiBUaGUgdGVzdCBsaWJyYXJ5IHRha2VzIHRoaXMgYW5kIHBhc3NlcyBpdCB0byB0aGUgaGFyZHdh
-cmUgZGlzY292ZXJ5Cj4gICBzY3JpcHQvYmluYXJ5LiBUaGUgZXhhbXBsZSBzY2lwdCB0aGF0IGlz
-IGluY2x1ZGVkIGluIHRoaXMgcGF0Y2hzZXQKPiAgIGp1c3QgaGFyZGNvZGVzIGNvbmZpZ3VyYXRp
-b24gZm9yIGEgdXNiLXRvLXNlcmlhbCBjYWJsZS4gSW4gcmVhbCB3b3JsZAo+ICAgbGFiIHRoaXMg
-d291bGQgYmUgZWl0aGVyIHByZXBhcmVkIGZvciBlYWNoIGJvYXJkIHNwZWNpZmljYWxseSBhbmQK
-PiAgIGluamVjdGVkIHRvIHRoZSBmaWxlc3lzdGVtIGJlZm9yZSB0aGUgdGVzdCBoYXBwZW5zLCBv
-ciBtYXkgYmUgYSBzaW1wbGUKPiAgIHNjcmlwdCB0aGF0IGNhbGxzIGN1cmwgd2l0aCBhIHJlcXVl
-c3QgdG8gYSBsYWIgc2V2ZXIsIGV0Yy4KPgo+ICogVGhlIG91dHB1dCBmcm9tIHRoZSBzY3JpcHQg
-aXMgYSBKU09OIG9iamVjdC4gSWYgdGhlcmUgaXMgYSBuZWVkIHRvCj4gICByZWNvbmZpZ3VyZSBs
-YWIgaGFyZHdhcmUgYmVmb3JlIHRoZSB0ZXN0LCB0aGUgSlNPTiBjb250YWlucyBhIHBhdGggdG8K
-PiAgIGEgc2NyaXB0L2JpbmFyeSB0aGF0IGhhcyB0byBiZSBjYWxsZWQgdG8gZG8gc28uIEFnYWlu
-IHRoaXMgbWF5IGJlIGEKPiAgIHNjcmlwdCB0aGF0IGNhbGxzIGN1cmwgd2l0aCBhIHJlcXVlc3Qg
-dG8gYSBsYWIgc2V2ZXIgd2hpY2ggd291bGQsIGZvcgo+ICAgZXhhbXBsZSwgaW50ZXJjb25uZWN0
-IGRpZmZlcmVudCBzZXJpYWwgcG9ydHMgd2l0aCByZWxheXMuCj4KPiAgIFRoZSBwYXJhbWV0ZXIg
-dG8gdGhhdCBzY3JpcHQgaXMgYW4gdW5pcXVlIElEIGZvciB0aGUgaGFyZHdhcmUKPiAgIGNvbmZp
-Z3VyYXRpb24gdGhhdCBpcyBsaXN0ZWQgaW4gZWFjaCBoYXJkd2FyZSBjb25maWd1cmF0aW9uIGlu
-IHRoZQo+ICAgaHdjb25mcyBhcnJheSBvZiBvYmplY3RzIHRoYXQgZm9sbG93cy4KPgo+ICAgSSdt
-IG5vdCBzdXJlIGlmIHRoaXMgYWN0dWFsbHkgYmVsb25ncyB0aGVyZSwgbWF5YmUgaXQgd291bGQg
-YmUKPiAgIGNsZWFuZXIgdG8gaGF2ZSBvbmUgcmVjb25maWd1cmUgc2NyaXB0IGZvciB0aGUgd2hv
-bGUgTFRQIGFuZCB3ZSB3b3VsZAo+ICAgcGFzcyB0aGUgbmVlZHNfaGFyZHdhcmUgY29udGVudCBh
-cyB3ZWxsIGFzIHRoZSB1bmlxdWUgSUQsIGUuZy4KPgo+ICAgJ2hhcmR3YXJlLXJlY29uZmlndXJl
-LnNoIFVBUlQtbG9vcGJhY2sgdHR5VVNCMC10dHlTMCcKPgo+ICAgYnV0IHRoYXQgaXMgYSBtaW5v
-ciBkZXRhaWwgdGhhdCBjb3VsZCBiZSBlYXNpbHkgc29ydGVkIG91dCBsYXRlci4KPgo+Cj4gICBU
-aGUgbW9zdCBpbXBvcnRhbnQgcGFydCBvZiB0aGUgSlNPTiBpcyB0aGUgaHdjb25mcyBhcnJheSwg
-d2hpY2gKPiAgIGNvbnNpc3RzIG9mIGhhcmR3YXJlIGRlc2NyaXB0aW9uIG9iamVjdHMsIHdoaWNo
-LCBhcGFydCBmb3JtIHRoZSB1aWQsCj4gICBhcmUgbm90IGludGVycHJldGVkIGJ5IHRoZSBsaWJy
-YXJ5LCBidXQgcmF0aGVyIHBhc3NlZCB0byB0aGUgdGVzdC4gVGhlCj4gICB0ZXN0IGxpYnJhcnkg
-bG9vcHMgb3ZlciB0aGUgYXJyYXkgYW5kIGZvcmtzIGEgdGVzdHJ1biBmb3IgZWFjaCBlbnRyeQo+
-ICAgaW4gdGhlIGFycmF5Lgo+Cj4gICBFYWNoIGl0ZXJhdGlvbiBvZiB0aGUgdGVzdCB0aGVuIGdl
-dHMgaXQncyBwYXJhbWV0ZXJzIGFzIGEgSlNPTiBvYmplY3QuCj4gICBJbiB0aGUgY2FzZSBvZiB0
-aGUgVUFSVCBvbmUgb2YgdGhlIG9iamVjdHMgaW4gdGhlIGFycmF5IGxvb2tzIGxpa2U6Cj4KPiAg
-IHsKPiAgICAgInVpZCI6ICJ0dHlVU0IwLXR0eVVTQjAtMDEiLAo+ICAgICAicngiOiAidHR5VVNC
-MCIsCj4gICAgICJ0eCI6ICJ0dHlVU0IwIiwKPiAgICAgImh3ZmxvdyI6IDAsCj4gICAgICJiYXVk
-X3JhdGVzIjogWwo+ICAgICAgOTYwMCwKPiAgICAgIDE5MjAwCj4gICAgIF0KPiAgIH0KPgo+ICAg
-V2hpY2ggaXMgbW9zdGx5IHNlbGYtZXhwbGFuYXRvcnksIHRoZSB0ZXN0IHRoZW4gcGFyc2VzIHRo
-ZSBzdHJ1Y3R1cmUKPiAgIGFuZCBleGVjdXRlcyBvbmUgdGVzdCBwZXIgZWFjaCBiYXVkIHJhdGUu
-Cj4KPiAgIFdoYXQgaXMgc3RpbGwgbWlzc2luZyBpcyB0aGUgYWJpbGl0eSB0byBwYXNzIHRoZSBK
-U09OIGhhcmR3YXJlCj4gICBkZXNjcmlwdGlvbiBkaXJlY3RseSB0byB0aGUgdGVzdCwgc28gdGhh
-dCB3ZSBjYW4gZXhlY3V0ZSB0aGUgdGVzdAo+ICAgbWFudWFsbHksIGJ1dCB0aGF0IHdvdWxkIGJl
-IGZhaXJseSBlYXN5IHRvIGFkZC4KPgo+IEN5cmlsIEhydWJpcyAoNSk6Cj4gICBsaWI6IHRzdF9j
-bWQ6IE1ha2UgdHN0X2NtZCgpIHVzYWJsZSBmb3IgZ2xvYmFsIHBhdGhzCj4gICBsaWI6IEFkZCBt
-aW5pbWFsaXN0aWMganNvbiBwYXJzZXIKPiAgIGxpYjogQWRkIGhhcmR3YXJlIGRpc2NvdmVyeSBj
-b2RlCj4gICBTYW1wbGUgaGFyZHdhcmUgZGlzY292ZXJ5IGFuZCByZWNvbmZpZ3VyZSBzY3JpcHRz
-Cj4gICB0ZXN0Y2FzZXM6IHVhcnQwMTogQWRkLgo+Cj4gIGhhcmR3YXJlLWRpc2NvdmVyeS5zaCAg
-ICAgICAgICAgICAgICAgICAgICAgICB8ICAzNiArCj4gIGhhcmR3YXJlLXJlY29uZmlndXJlLnNo
-ICAgICAgICAgICAgICAgICAgICAgICB8ICAgMyArCj4gIGluY2x1ZGUvdHN0X2h3Y29uZi5oICAg
-ICAgICAgICAgICAgICAgICAgICAgICB8ICAxMyArCj4gIGluY2x1ZGUvdHN0X2pzb24uaCAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICB8IDE3NyArKysrKwo+ICBpbmNsdWRlL3RzdF90ZXN0Lmgg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAgIDMgKwo+ICBsaWIvdHN0X2NtZC5jICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAgIDIgKy0KPiAgbGliL3RzdF9oYXJkd2FyZS5j
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgMjE4ICsrKysrKwo+ICBsaWIvdHN0X2hhcmR3
-YXJlLmggICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAgODMgKysrCj4gIGxpYi90c3RfanNv
-bi5jICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8IDY3OSArKysrKysrKysrKysrKysr
-KysKPiAgbGliL3RzdF90ZXN0LmMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgIDMw
-ICsKPiAgcnVudGVzdC9kZXZpY2VfZHJpdmVycyAgICAgICAgICAgICAgICAgICAgICAgIHwgICAy
-ICsKPiAgdGVzdGNhc2VzL2tlcm5lbC9kZXZpY2UtZHJpdmVycy9NYWtlZmlsZSAgICAgIHwgICAx
-ICsKPiAgLi4uL2tlcm5lbC9kZXZpY2UtZHJpdmVycy91YXJ0Ly5naXRpZ25vcmUgICAgIHwgICAx
-ICsKPiAgdGVzdGNhc2VzL2tlcm5lbC9kZXZpY2UtZHJpdmVycy91YXJ0L01ha2VmaWxlIHwgICAz
-ICsKPiAgdGVzdGNhc2VzL2tlcm5lbC9kZXZpY2UtZHJpdmVycy91YXJ0L3VhcnQwMS5jIHwgNjIw
-ICsrKysrKysrKysrKysrKysKPiAgMTUgZmlsZXMgY2hhbmdlZCwgMTg3MCBpbnNlcnRpb25zKCsp
-LCAxIGRlbGV0aW9uKC0pCj4gIGNyZWF0ZSBtb2RlIDEwMDc1NSBoYXJkd2FyZS1kaXNjb3Zlcnku
-c2gKPiAgY3JlYXRlIG1vZGUgMTAwNzU1IGhhcmR3YXJlLXJlY29uZmlndXJlLnNoCj4gIGNyZWF0
-ZSBtb2RlIDEwMDY0NCBpbmNsdWRlL3RzdF9od2NvbmYuaAo+ICBjcmVhdGUgbW9kZSAxMDA2NDQg
-aW5jbHVkZS90c3RfanNvbi5oCj4gIGNyZWF0ZSBtb2RlIDEwMDY0NCBsaWIvdHN0X2hhcmR3YXJl
-LmMKPiAgY3JlYXRlIG1vZGUgMTAwNjQ0IGxpYi90c3RfaGFyZHdhcmUuaAo+ICBjcmVhdGUgbW9k
-ZSAxMDA2NDQgbGliL3RzdF9qc29uLmMKPiAgY3JlYXRlIG1vZGUgMTAwNjQ0IHJ1bnRlc3QvZGV2
-aWNlX2RyaXZlcnMKPiAgY3JlYXRlIG1vZGUgMTAwNjQ0IHRlc3RjYXNlcy9rZXJuZWwvZGV2aWNl
-LWRyaXZlcnMvdWFydC8uZ2l0aWdub3JlCj4gIGNyZWF0ZSBtb2RlIDEwMDY0NCB0ZXN0Y2FzZXMv
-a2VybmVsL2RldmljZS1kcml2ZXJzL3VhcnQvTWFrZWZpbGUKPiAgY3JlYXRlIG1vZGUgMTAwNjQ0
-IHRlc3RjYXNlcy9rZXJuZWwvZGV2aWNlLWRyaXZlcnMvdWFydC91YXJ0MDEuYwo+Cj4gLS0KPiAy
-LjI2LjIKPgoKWzFdIGh0dHBzOi8vZ2l0aHViLmNvbS9nZW5nY2l4aS9rZXJuZWxfZmVhdHVyZV9j
-aGVjawoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3Rp
-bmZvL2x0cAo=
+Hi!
+> > * Test that needs particular hardware sets the needs_hardware filed in
+> >   the test test structure. This is a free form string, in the uart
+> >   example it's called 'UART-loopback'. If we ever add a test for i2c
+> >   eeprom it would be probably called 'I2C-eeprom', etc.
+> 
+> Sounds good.  It will be good to standardize on these strings
+> in the long run.  For now, just picking strings and trying to reconcile
+> them later seems OK.
+
+That's what I'm expecting there as well.
+
+> > 
+> > * The test library takes this and passes it to the hardware discovery
+> >   script/binary.
+> 
+> This is probably in the patch set, but how is this invoked?
+> Does the script have a well-known name or location?
+
+There is a fallback to a well-known location that can be overrided with
+an environment varible. This is not well designed at this point, I just
+wrote a minimal amount of code for the prototype to run.
+
+> > The example script that is included in this patchset
+> >   just hardcodes configuration for a usb-to-serial cable. In real world
+> >   lab this would be either prepared for each board specifically and
+> >   injected to the filesystem before the test happens, or may be a simple
+> >   script that calls curl with a request to a lab sever, etc.
+> 
+> Either of these seem like workable approaches.  In the case of
+> injecting it into the filesystem, do you have any
+> ideas where you would inject these?  For example,
+> would they go somewhere under /etc, or in /usr/test/conf?
+
+No idea, so far my patchset just puts it into $LTPROOT, but I guess that
+/usr/test/ would be much better place. Do we have a proposal for the
+/usr/test/ hierarchy somewhere?
+
+> Is this something that only the hardware discovery program
+> needs to know?  Or do tests use this data directly?
+
+Currently it's used by the LTP test library, so it's executed by the
+test binary before it forks a child that actually runs the test.
+
+In the future it could be executed by the test driver (e.g. replacement
+for ltp-pan I'm working on), which could then pass the pieces of the
+JSON that describe the hardware to the test for each test invocation.
+This is still under development, but I do not think that these details
+matter at all, what we need at this point is to describe generic enough
+information flow.
+
+> This seems like a rendezvous point between
+> the hardware discovery program and the lab management
+> system, so IMHO it should be well-defined.
+
+Couldn't agree more.
+
+> > 
+> > * The output from the script is a JSON object. If there is a need to
+> >   reconfigure lab hardware before the test, the JSON contains a path to
+> >   a script/binary that has to be called to do so.
+> 
+> That's interesting.
+> 
+> > Again this may be a
+> >   script that calls curl with a request to a lab sever which would, for
+> >   example, interconnect different serial ports with relays.
+> > 
+> >   The parameter to that script is an unique ID for the hardware
+> >   configuration that is listed in each hardware configuration in the
+> >   hwconfs array of objects that follows.
+> > 
+> >   I'm not sure if this actually belongs there, maybe it would be
+> >   cleaner to have one reconfigure script for the whole LTP and we would
+> >   pass the needs_hardware content as well as the unique ID, e.g.
+> > 
+> >   'hardware-reconfigure.sh UART-loopback ttyUSB0-ttyS0'
+> > 
+> >   but that is a minor detail that could be easily sorted out later.
+> > 
+> > 
+> >   The most important part of the JSON is the hwconfs array, which
+> >   consists of hardware description objects, which, apart form the uid,
+> >   are not interpreted by the library, but rather passed to the test. The
+> >   test library loops over the array and forks a testrun for each entry
+> >   in the array.
+> > 
+> >   Each iteration of the test then gets it's parameters as a JSON object.
+> >   In the case of the UART one of the objects in the array looks like:
+> > 
+> >   {
+> >     "uid": "ttyUSB0-ttyUSB0-01",
+> >     "rx": "ttyUSB0",
+> >     "tx": "ttyUSB0",
+> >     "hwflow": 0,
+> >     "baud_rates": [
+> >      9600,
+> >      19200
+> >     ]
+> >   }
+> > 
+> >   Which is mostly self-explanatory, the test then parses the structure
+> >   and executes one test per each baud rate.
+> > 
+> >   What is still missing is the ability to pass the JSON hardware
+> >   description directly to the test, so that we can execute the test
+> >   manually, but that would be fairly easy to add.
+> 
+> OK - let me describe what I had in mind for a test where the serial
+> port was not in loopback mode, to see how it relates to the proposed
+> architecture.  The gpio version of this is implemented in the board
+> farm REST API, but the serial port testing version of this is still
+> under consideration:
+> 
+> Here's how the test would work, for a serial port transmission test where
+> the transmitting side of the serial line was on the DUT and the other side was
+> managed by the lab hardware:
+>  - 1) the test discovers the hardware for DUT endpoint of the serial line
+>     using the hardware discovery program
+>  - 2) the test discovers the hardware for the lab endpoint (receiving end)
+>     of the serial line using the hardware discovery program
+>  - 3) the test discovers the available baud rates from the hardware discovery
+>     program
+>  - 4) the test configures the lab endpoint for reception
+>  - 5) the test configures the DUT endpoint for transmission
+>  - 6) the test loops over the baud rate values, doing the following (7-13):
+>     - 7) use a curl interface or local program to set the receive baud rate of the lab endpoint
+>     - 8) use a curl interface or local program to request serial capture of the lab endpoint
+>     - 9) configure the baud rate of the DUT endpoint
+>     - 10) send data through the DUT endpoint
+>     - 11) use a curl interface or local program to cause the lab endpoint to stop capturing data
+>     - 12) use a curl interface or local program to request the capture data from the lab endpoint
+>     - 13) compare data that was received with the data that was intended to be transmitted
+> 
+> These roles could also be reversed (ie, have the lab endpoint be the sender
+> and the DUT endpoint be the receiver).
+> 
+> The process of configuring the baud rate seems like it corresponds
+> with the hardware_reconfigure.sh script.  But maybe you were only
+> thinking of have this actually set up physical connections, and not
+> manage connection/bus settings.
+> 
+> In any event, maybe the hardware_reconfigure.sh script could know
+> about 'start data capture', 'stop data capture', and 'get captured data'
+> operations, or maybe this should be a separate script.
+>
+> This is structured in a generic way, because I think different tests
+> (such as audio testing, video testing, power measurement testing,
+> CAN bus testing, i2C testing, gpio testing, etc. can all be fit into this
+> model of testing by:
+>   discovering bus endpoints, configuring bus parameters,
+>   transmitting or generating data, capturing data
+>   comparing data
+
+I guess that we need two more generic scripts in the format then, one
+called before the test starts and one called after the test has
+finished.
+
+So something as:
+
+{
+  "pre_test": "/path/to/pre_script.sh",
+  "post_test": "/path/to/post_script.sh",
+  "hwconfs": [
+    ...
+  ]
+}
+
+And these scripts would need to actually be called before each test and
+get JSON as a parameter as well.
+
+e.g. for a serial port described as:
+
+{
+  "uid": "ttyUSB0-ttyUSB0-01",
+  "rx": "ttyUSB0",
+  "tx": "ttyUSB0",
+  "hwflow": 0,
+  "baud_rates": [
+   9600,
+   19200
+  ]
+}
+
+We would get following:
+
+------------------------------
+
+* pre_script.sh gets passed following JSON:
+
+{
+  "uid": "ttyUSB0-ttyUSB0-01",
+  "rx": "ttyUSB0",
+  "tx": "ttyUSB0",
+  "hwflow": 0,
+  "baud_rate": 9600
+}
+
+* test is executed
+
+* post_script.sh gets passed following JSON
+
+{
+  "uid": "ttyUSB0-ttyUSB0-01",
+}
+
+------------------------------
+
+* pre_script.sh gets passed following JSON
+
+{
+  "uid": "ttyUSB0-ttyUSB0-01",
+  "rx": "ttyUSB0",
+  "tx": "ttyUSB0",
+  "hwflow": 0,
+  "baud_rate": 19200
+}
+
+* test is executed
+
+* post_script.sh gets passed following JSON
+
+{
+  "uid": "ttyUSB0-ttyUSB0-01",
+}
+
+------------------------------
+
+This changes things a bit, this means that the pre_script has to be
+executed before each test execution and it's actually passed a JSON data
+rather than simple value. So the test would need to serialize the data
+and send the request instead.
+
+The question is how should we propagate data to the test from a
+post_script.sh. I guess that the output should be JSON as well and in a
+case of binary data it should include a path to a file, since binary
+does not work well for JSON.
+
+So in the case of UART capture test the output from post_script.sh would
+be something as:
+
+{
+	"capture": "/path/to/capture/file.bin"
+}
+
+Also in a case that we want the lab to send some binary data to the UART
+during the test the pre_script.sh would get something as:
+
+{
+  "uid": "ttyUSB0-ttyUSB0-01",
+  "hwflow": 0,
+  "baud_rate": 19200,
+  "transmit": "/path/to/transmit/file.bin"
+}
+
+However this means that the test needs to listen even before we call
+this script, which again complicates things a bit.
+
+> So far, I don't see anything in LTP proposal that precludes this model of testing.
+> There may be more to add - either extending hardware_reconfigure.sh
+> or adding a new command that a test would use interactively to
+> cause data to be exchanged and allow it to be compared.
+
+Indeed, this is hard to desing especially since I do have very limited
+set of usecases at the moment. But at least your UART case helped a lot,
+thanks!
+
+-- 
+Cyril Hrubis
+chrubis@suse.cz
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
