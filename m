@@ -1,42 +1,41 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1AEF3281B8
-	for <lists+linux-ltp@lfdr.de>; Mon,  1 Mar 2021 16:05:10 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 977A63281E3
+	for <lists+linux-ltp@lfdr.de>; Mon,  1 Mar 2021 16:12:33 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3CD243C6E90
-	for <lists+linux-ltp@lfdr.de>; Mon,  1 Mar 2021 16:05:10 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 0BF583C6FA7
+	for <lists+linux-ltp@lfdr.de>; Mon,  1 Mar 2021 16:12:33 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 90E983C573C
- for <ltp@lists.linux.it>; Mon,  1 Mar 2021 16:05:02 +0100 (CET)
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id D82B93C574A
+ for <ltp@lists.linux.it>; Mon,  1 Mar 2021 16:12:29 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 752D5200ADB
- for <ltp@lists.linux.it>; Mon,  1 Mar 2021 16:05:02 +0100 (CET)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 45D0B1A009A0
+ for <ltp@lists.linux.it>; Mon,  1 Mar 2021 16:12:28 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id A600AAD2B;
- Mon,  1 Mar 2021 15:05:01 +0000 (UTC)
-Date: Mon, 1 Mar 2021 16:06:33 +0100
+ by mx2.suse.de (Postfix) with ESMTP id 8654EAEAE;
+ Mon,  1 Mar 2021 15:12:28 +0000 (UTC)
+Date: Mon, 1 Mar 2021 16:14:00 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <YD0C+dEY5v7RHfZQ@yuki.lan>
+Message-ID: <YD0EuJtWxhis24ZX@yuki.lan>
 References: <20210129194144.31299-1-pvorel@suse.cz>
- <20210129194144.31299-6-pvorel@suse.cz>
+ <20210129194144.31299-7-pvorel@suse.cz> <YBRroFhaxdqCLv2i@pevik>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210129194144.31299-6-pvorel@suse.cz>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+In-Reply-To: <YBRroFhaxdqCLv2i@pevik>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [RFC PATCH v2 5/6] tst_test.sh: Run _tst_setup_timer
- after $TST_SETUP
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 6/6] zram: Increase timeout according to used
+ devices
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,9 +54,19 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-We do have a function to set the timeout in the C library
-(tst_set_timeout), maybe we should just add one to the shell just to
-match the API.
+> > +	TST_TIMEOUT=$((dev_num*200))
+> Actually on heavy loaded machine this is not enough due BTRFS.
+> I can add something like dev_num*600 or even -1 (then previous commit would not
+> be needed, but IMHO still useful).
+
+I would still prefer if we had a timeout there, -1 is for something that
+cannot be predicted.
+
+Also we do not expect machine to be heavily loaded, in that case half of
+LTP tests would time out.
+
+So I would just measure how long the test takes, then multiply it by 5
+or something like that and put that in as a timeout.
 
 -- 
 Cyril Hrubis
