@@ -1,50 +1,76 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20D1B32763E
-	for <lists+linux-ltp@lfdr.de>; Mon,  1 Mar 2021 03:57:26 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id B78FE3277A9
+	for <lists+linux-ltp@lfdr.de>; Mon,  1 Mar 2021 07:36:28 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E4D133C577D
-	for <lists+linux-ltp@lfdr.de>; Mon,  1 Mar 2021 03:57:25 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 2BCC83C574C
+	for <lists+linux-ltp@lfdr.de>; Mon,  1 Mar 2021 07:36:28 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id 209233C1C4F
- for <ltp@lists.linux.it>; Mon,  1 Mar 2021 03:57:25 +0100 (CET)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-7.smtp.seeweb.it (Postfix) with ESMTP id 0A0CA20035B
- for <ltp@lists.linux.it>; Mon,  1 Mar 2021 03:57:23 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.81,214,1610380800"; d="scan'208";a="104964576"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 01 Mar 2021 10:57:21 +0800
-Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id C5B7E4CE72EE;
- Mon,  1 Mar 2021 10:57:18 +0800 (CST)
-Received: from [10.167.220.84] (10.167.220.84) by
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Mon, 1 Mar 2021 10:57:15 +0800
-Message-ID: <603C581A.9040202@cn.fujitsu.com>
-Date: Mon, 1 Mar 2021 10:57:30 +0800
-From: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
- rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 9F4473C5708
+ for <ltp@lists.linux.it>; Mon,  1 Mar 2021 07:36:24 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id 13A0A20097D
+ for <ltp@lists.linux.it>; Mon,  1 Mar 2021 07:36:23 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1614580582;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=ogDlpW7gd8aEfeJ4SH59TxxITLWlnW6yOhUG7uCP1jQ=;
+ b=LNZrQbN0izNXugtxRwbkeE5dvtsIg6++JNXx/DNHmUY3c6mpOjZyzf3dkaFWadVnuGbXLy
+ KFzo2WJMXiDB/on/sgnvjnRr5NlefIAnjBZSqoqeSkFkCeAyyIZ3nNiSc/gxtCZL1fAmNm
+ ogIOEQ6zA2pgVJURRlno614B4n1qEu8=
+Received: from mail-yb1-f197.google.com (mail-yb1-f197.google.com
+ [209.85.219.197]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-129-eXu6IGpANv-8pLlke3eciQ-1; Mon, 01 Mar 2021 01:36:19 -0500
+X-MC-Unique: eXu6IGpANv-8pLlke3eciQ-1
+Received: by mail-yb1-f197.google.com with SMTP id l10so18257345ybt.6
+ for <ltp@lists.linux.it>; Sun, 28 Feb 2021 22:36:19 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=ogDlpW7gd8aEfeJ4SH59TxxITLWlnW6yOhUG7uCP1jQ=;
+ b=ItHDhoS11MwHMU5XST2j1QfONKksNA7uizPsLjYX9HrsPGNA60UI906YCPH/XvRSK7
+ bSrA0pvRLznoaPcqkuUINzsg0tiaPf6yZd4dLKhUrtZbDb2zRCBFzBrvnr2M0jY+MlT6
+ 0/e0x8VEXarnjip7y4jUbbRJX8rieEZUlfBnyki7M2DExNK1OrYiPz3Ps+pFsQOHjDnv
+ luLAabOCNMc9tOHkbToc5/SKkIbTGt6axqbx8BuNJQUMI2CsG663Bv8fSCDcUw+8KlfQ
+ E2BIuT5/0FtJcpf3c+bhSNZiKhYDJ5QSFphypX8PWy0ydoX7ZrD23G/q+CzSa6VGr+yD
+ 4QFw==
+X-Gm-Message-State: AOAM532MMo6v0rUIH5sn1CCUjGGhTDs8mFXaoKpSFTp2maqXW+euHoaD
+ lsAkj7dMi3YA9t3O+L66xubi8RqDvCz+xmTi/Ty3MZeru2JrBiedev1Oe/6t/s4Hlo9t6Xg4eMc
+ 2a+tVkpukdeA2LdYUEDWUkdLTGdE=
+X-Received: by 2002:a25:5ac2:: with SMTP id
+ o185mr22685862ybb.252.1614580579500; 
+ Sun, 28 Feb 2021 22:36:19 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJxHIr1/9KEyFzEvhRbyDL457k8oaaw6UKtgoLoQ2p+UPT4lIikBNfRhj4O/GIP4zAYpbpwpnzjhrabEfe5if3k=
+X-Received: by 2002:a25:5ac2:: with SMTP id
+ o185mr22685850ybb.252.1614580579296; 
+ Sun, 28 Feb 2021 22:36:19 -0800 (PST)
 MIME-Version: 1.0
-To: Zhao Gongyi <zhaogongyi@huawei.com>
-References: <20210301022550.96228-1-zhaogongyi@huawei.com>
-In-Reply-To: <20210301022550.96228-1-zhaogongyi@huawei.com>
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD05.g08.fujitsu.local (10.167.33.203) To
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201)
-X-yoursite-MailScanner-ID: C5B7E4CE72EE.AEF7F
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: xuyang2018.jy@cn.fujitsu.com
-X-Spam-Status: No, score=0.0 required=7.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.4
+References: <20210226153711.13645-1-chrubis@suse.cz>
+In-Reply-To: <20210226153711.13645-1-chrubis@suse.cz>
+From: Li Wang <liwang@redhat.com>
+Date: Mon, 1 Mar 2021 14:36:07 +0800
+Message-ID: <CAEemH2ebeC=fi0U_OahsOBz=c4RKF7J29gbJBsb7c3nrcroFLw@mail.gmail.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] De-duplication: Remove requirement of needs_tmpdir
+Subject: Re: [LTP] [PATCH] syscalls/getpid02: Also check the fork() retval
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,21 +82,62 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============0070597822=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Gongyi
-> The flag is not needed to be set when use these flags: '.all_filesystems',
-> '.format_device', '.mntpoint', '.mount_device' '.needs_checkpoints',
-> '.needs_device', '.resource_file'. These flags imply creating temporary
-> directory.
-Merged, thanks!
+--===============0070597822==
+Content-Type: multipart/alternative; boundary="000000000000e404c605bc73d5f4"
+
+--000000000000e404c605bc73d5f4
+Content-Type: text/plain; charset="UTF-8"
+
+Cyril Hrubis <chrubis@suse.cz> wrote:
+
+The return value from fork() in parent must be equal to getpid() in child.
+>
+> Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
+>
+
+Reviewed-by: Li Wang <liwang@redhat.com>
+
+-- 
+Regards,
+Li Wang
+
+--000000000000e404c605bc73d5f4
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div></div><div class=3D"gmail_quote"><div dir=3D"ltr" c=
+lass=3D"gmail_attr">Cyril Hrubis &lt;<a href=3D"mailto:chrubis@suse.cz">chr=
+ubis@suse.cz</a>&gt; wrote:<br></div><div dir=3D"ltr" class=3D"gmail_attr">=
+<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8=
+ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">The return valu=
+e from fork() in parent must be equal to getpid() in child.<br>
+<br>
+Signed-off-by: Cyril Hrubis &lt;<a href=3D"mailto:chrubis@suse.cz" target=
+=3D"_blank">chrubis@suse.cz</a>&gt;<br></blockquote><div>=C2=A0</div><div><=
+span class=3D"gmail_default" style=3D"font-size:small">Reviewed-by: Li Wang=
+ &lt;<a href=3D"mailto:liwang@redhat.com">liwang@redhat.com</a>&gt;</span><=
+/div></div><div><br></div>-- <br><div dir=3D"ltr" class=3D"gmail_signature"=
+><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div></div></div>=
+</div>
+
+--000000000000e404c605bc73d5f4--
 
 
+--===============0070597822==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============0070597822==--
+
