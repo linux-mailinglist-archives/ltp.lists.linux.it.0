@@ -1,39 +1,40 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B86232A259
-	for <lists+linux-ltp@lfdr.de>; Tue,  2 Mar 2021 15:19:59 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B42A32A276
+	for <lists+linux-ltp@lfdr.de>; Tue,  2 Mar 2021 15:28:14 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 741D93C56EA
-	for <lists+linux-ltp@lfdr.de>; Tue,  2 Mar 2021 15:19:58 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 2AB023C56E7
+	for <lists+linux-ltp@lfdr.de>; Tue,  2 Mar 2021 15:28:14 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id E70D33C4EDE
- for <ltp@lists.linux.it>; Tue,  2 Mar 2021 15:19:56 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTP id 1469F3C3336
+ for <ltp@lists.linux.it>; Tue,  2 Mar 2021 15:28:13 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 91330602716
- for <ltp@lists.linux.it>; Tue,  2 Mar 2021 15:19:56 +0100 (CET)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id BA2F8602770
+ for <ltp@lists.linux.it>; Tue,  2 Mar 2021 15:28:12 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id F314EB12C;
- Tue,  2 Mar 2021 14:19:55 +0000 (UTC)
-Date: Tue, 2 Mar 2021 15:21:28 +0100
+ by mx2.suse.de (Postfix) with ESMTP id 18601ADDD;
+ Tue,  2 Mar 2021 14:28:12 +0000 (UTC)
+Date: Tue, 2 Mar 2021 15:29:45 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Richard Purdie <richard.purdie@linuxfoundation.org>
-Message-ID: <YD5J6DaCpIS+sye9@yuki.lan>
-References: <1fa1c796f925bae086f1a6d6ab94c21432419628.camel@linuxfoundation.org>
+Message-ID: <YD5L2UKXqz3EhySi@yuki.lan>
+References: <6c83b5fc8c891046131dbe049e37357e055f706e.camel@linuxfoundation.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <1fa1c796f925bae086f1a6d6ab94c21432419628.camel@linuxfoundation.org>
+In-Reply-To: <6c83b5fc8c891046131dbe049e37357e055f706e.camel@linuxfoundation.org>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] mk/lib.mk: Sort wildcard expansion for determinism
+Subject: Re: [LTP] [PATCH] open_posix_testsuite/generate-makefiles.sh: Fix
+ determinism issue
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
