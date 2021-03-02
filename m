@@ -2,69 +2,70 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC50D32A11C
-	for <lists+linux-ltp@lfdr.de>; Tue,  2 Mar 2021 14:44:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5134232A169
+	for <lists+linux-ltp@lfdr.de>; Tue,  2 Mar 2021 14:50:07 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 8E4F93C56E3
-	for <lists+linux-ltp@lfdr.de>; Tue,  2 Mar 2021 14:44:32 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 212813C56DD
+	for <lists+linux-ltp@lfdr.de>; Tue,  2 Mar 2021 14:50:07 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
- by picard.linux.it (Postfix) with ESMTP id 2D7493C4EDE
- for <ltp@lists.linux.it>; Tue,  2 Mar 2021 14:44:23 +0100 (CET)
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [IPv6:2a00:1450:4864:20::431])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id 917053C4D28
+ for <ltp@lists.linux.it>; Tue,  2 Mar 2021 14:50:05 +0100 (CET)
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [IPv6:2a00:1450:4864:20::32e])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id C0AB12348B7
- for <ltp@lists.linux.it>; Tue,  2 Mar 2021 14:44:22 +0100 (CET)
-Received: by mail-wr1-x431.google.com with SMTP id h98so19903151wrh.11
- for <ltp@lists.linux.it>; Tue, 02 Mar 2021 05:44:22 -0800 (PST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 1C952602427
+ for <ltp@lists.linux.it>; Tue,  2 Mar 2021 14:50:05 +0100 (CET)
+Received: by mail-wm1-x32e.google.com with SMTP id e23so2271658wmh.3
+ for <ltp@lists.linux.it>; Tue, 02 Mar 2021 05:50:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linuxfoundation.org; s=google;
  h=message-id:subject:from:to:date:user-agent:mime-version
  :content-transfer-encoding;
- bh=SOyvtmlYC2JiWK8OccYE8jhkSUFTKfbs5jbxPeo2v4I=;
- b=Hj6bklq9IKR9LuJLVueBGDL0db68jy07AP+3dzmSqgTawGwMUdq6BOFzTE2iCbh6Lp
- uxQWQ6Hs2hBlQ8xfcSumF58oieQ9N6P9D8Fcf/HuF6fA8euogNfONycAWrYyaKbg/cQi
- vV2VuTkb96roEM1uL+jUsXH23/YDp2g2TnjOY=
+ bh=sSH/9h9YpGTePwcIx5ocTbfkxetd0Svywoevqr9l8Q0=;
+ b=H3XLB4eQEl+M5VzuG1slgzm6s3mz5VwP75ImvBR10ynoBwEdhGsNTyq1119YP/lYSO
+ Z0b/Vg2D0GQ+Nk+wvseFQg3Sxjky3ySuoLiDBmdWWmUkxAVgI6EsKZ1NX8sfe5vLMzqp
+ jZqQSoGymChaJ6VmpXXG/kp2CJhNMnlhvEorc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:message-id:subject:from:to:date:user-agent
  :mime-version:content-transfer-encoding;
- bh=SOyvtmlYC2JiWK8OccYE8jhkSUFTKfbs5jbxPeo2v4I=;
- b=hLF7+3itVcnhp4VOf2jqmCmdaUaWOfGZkgC99Z8PmsG2Xp5ClTKSmwzMuBwZqvrt44
- L/qLVm0UIqGNSHur46nQXEGorY/7WiGA9VhTl3xB0wmx1que4nvyy8SVWm7EJDWAPjlu
- JWYZcEBvKhfcz/KsdfkG6bO1vQMriGyJ+naib8sAamqok2AycKMJeBaKDAekhl3lz66t
- jvSPvnBkgRSZOHYGXMjITLvJX/ad4doY4nxf6ldEO5bRsMpsEyVmSSW0fZP7JYnMrajC
- sgQbLJ+wk/i/Dal8pDc4Fc+ZnPmbF/LPhfBbx8xpXmHBUGerXrY8Nw4vKPr1ejH0L1Gs
- VVXg==
-X-Gm-Message-State: AOAM531+MlXqgOV3e5c8tLQrmARzAR/yhX4Oeq6UJUEcxJQQeRbS5Xbg
- k2T6dipC5k8X4DHnYLvQi5d3uJd2k/CxDw==
-X-Google-Smtp-Source: ABdhPJwXQvz2j4SD0X45KKuQEdzwXrfOA30Yh4BePztsXGbwQD6ZimR6AmPAckJCboFElb2Jse3Kug==
-X-Received: by 2002:a5d:4485:: with SMTP id j5mr12991358wrq.339.1614692662271; 
- Tue, 02 Mar 2021 05:44:22 -0800 (PST)
+ bh=sSH/9h9YpGTePwcIx5ocTbfkxetd0Svywoevqr9l8Q0=;
+ b=X+mOtB9PxFY40zEhhkKGqwzI2M8SOmUGcN9ArQ5fOQ439XD1+8Uumaa5nkL2Zg8pFZ
+ E3DCrOkEp/wHlO5y4nVKZFuxAfzIavcGkpLDSE8aTKWxSXmSFArRmA6C4y3blrg80JNv
+ kPRHTHQGLReYeeYAyIEUGS2SuOwqMCeOiOO7VjeaafD2h5qcDKmpMlWaG7ITNJ9RLpsT
+ kTagH5J2U0vynABAiPCMHscL+xnR3T0HXeGX9VP1cHNQKNTVRVnUZqUIiZcVwY+JTsZR
+ ncGOFJ3L6tA5PuNDJxFqc2EKK59Tx6rSK26h/GJCOoM+neOutsmldYqWGJ871SN9XnTj
+ st7g==
+X-Gm-Message-State: AOAM531T0bmLdH/+lOCGKh6Jxg403e/QWc6fYBD8a4pip0F2BdUOmfjT
+ YhoelnUs4LwsJjjmI+NMv+3EpFU5Hc33JQ==
+X-Google-Smtp-Source: ABdhPJwryRGgm2ZsxeFj5ofio9Z3Q13sgygoP6JpFeL7PFp7zjH6lbQcvhZD+DfgQJehwQeDO02thQ==
+X-Received: by 2002:a05:600c:3511:: with SMTP id
+ h17mr4198536wmq.2.1614693004509; 
+ Tue, 02 Mar 2021 05:50:04 -0800 (PST)
 Received: from ?IPv6:2001:8b0:aba:5f3c:fd4c:95a0:62b1:7d53?
  ([2001:8b0:aba:5f3c:fd4c:95a0:62b1:7d53])
- by smtp.gmail.com with ESMTPSA id e1sm1547307wrw.85.2021.03.02.05.44.22
+ by smtp.gmail.com with ESMTPSA id s20sm2613794wmj.36.2021.03.02.05.50.04
  for <ltp@lists.linux.it>
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 02 Mar 2021 05:44:22 -0800 (PST)
-Message-ID: <6c83b5fc8c891046131dbe049e37357e055f706e.camel@linuxfoundation.org>
+ Tue, 02 Mar 2021 05:50:04 -0800 (PST)
+Message-ID: <ae126f8484a916daa5e9b3970461dd3ac4083273.camel@linuxfoundation.org>
 From: Richard Purdie <richard.purdie@linuxfoundation.org>
 To: LTP List <ltp@lists.linux.it>
-Date: Tue, 02 Mar 2021 13:44:21 +0000
+Date: Tue, 02 Mar 2021 13:50:03 +0000
 User-Agent: Evolution 3.38.1-1 
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH] open_posix_testsuite/generate-makefiles.sh: Fix
- determinism issue
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] Determinism issue for swapon/swapoff tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,26 +77,35 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Q3VycmVudGx5IHRoZSBsaXN0IG9mIHRlc3RzIGlzIGdlbmVyYXRlZCBieSB0aGUgb3JkZXIgb2Yg
-dGhlIGZpbGVzIGZvdW5kCndpdGhpbiB0aGUgZGlyZWN0b3JpZXMuIFRoaXMgcmVzdWx0cyBpbiBk
-aWZmZXJlbmNlcyBpbiB0aGUgcnVuLnNoIGFuZMKgCk1ha2VmaWxlcy4gV2l0aGluIFlvY3RvIFBy
-b2plY3QgdGhpcyByZXN1bHRzIGluIGRpZmZlcmluZyB0YXJnZXQKdGVzdCBwYWNrYWdlcy4gVGhl
-IGZpeCBpcyBzaW1wbGUsIGp1c3Qgc29ydCB0aGUgb3V0cHV0IGZyb20gbG9jYXRlLXRlc3QuCgpT
-aWduZWQtb2ZmLWJ5OiBSaWNoYXJkIFB1cmRpZSA8cmljaGFyZC5wdXJkaWVAbGludXhmb3VuZGF0
-aW9uLm9yZz4KCkluZGV4OiBnaXQvdGVzdGNhc2VzL29wZW5fcG9zaXhfdGVzdHN1aXRlL3Njcmlw
-dHMvZ2VuZXJhdGUtbWFrZWZpbGVzLnNoCj09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0KLS0tIGdpdC5vcmlnL3Rlc3RjYXNl
-cy9vcGVuX3Bvc2l4X3Rlc3RzdWl0ZS9zY3JpcHRzL2dlbmVyYXRlLW1ha2VmaWxlcy5zaAorKysg
-Z2l0L3Rlc3RjYXNlcy9vcGVuX3Bvc2l4X3Rlc3RzdWl0ZS9zY3JpcHRzL2dlbmVyYXRlLW1ha2Vm
-aWxlcy5zaApAQCAtMjQsNyArMjQsNyBAQCBnZW5lcmF0ZV9sb2NhdGVfdGVzdF9tYWtlZmlsZSgp
-IHsKIAogCWVjaG8gIkdlbmVyYXRpbmcgJG1ha2V0eXBlIE1ha2VmaWxlcyIKIAotCWxvY2F0ZS10
-ZXN0IC0tJG1ha2V0eXBlIHwgc2VkIC1lICdzLF4uLywsZycgPiBtYWtlLWdlbi4kbWFrZXR5cGUK
-Kwlsb2NhdGUtdGVzdCAtLSRtYWtldHlwZSB8IHNlZCAtZSAncyxeLi8sLGcnIHwgc29ydCA+IG1h
-a2UtZ2VuLiRtYWtldHlwZQogCiAJZ2VuZXJhdGVfbWFrZWZpbGVzIG1ha2UtZ2VuLiRtYWtldHlw
-ZSAkKgogCgoKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9s
-aXN0aW5mby9sdHAK
+Hi,
+
+I've been ensuring the ltp binaries/packages used by Yocto Project
+are reproducible. I've sent two patches which address most of the issues,
+the remaining one was with the swapon/swapoff tests.
+
+The challenge there is they share libswapon.o. There is a race over
+building it depending on whether swapon or swapoff is built first.
+The issue is that in one case "../swapon/libswapon.c" is referenced
+in libswapon.o and in the other, "libswapon.c" is referenced. This
+means the build isn't deterministic/reproducible.
+
+I've worked around this in Yocto Project by executing:
+
+"make -C XXX/testcases/kernel/syscalls/swapon/"
+
+before running the main compile. That ensures we're deterministic
+but I wanted to mention the issue in case you had a better solution
+to fix the Makefiles?
+
+Cheers,
+
+Richard
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
