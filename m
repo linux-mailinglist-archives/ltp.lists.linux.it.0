@@ -2,47 +2,47 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7F4332A406
-	for <lists+linux-ltp@lfdr.de>; Tue,  2 Mar 2021 16:28:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47C5532A40B
+	for <lists+linux-ltp@lfdr.de>; Tue,  2 Mar 2021 16:28:36 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 938303C6E6C
-	for <lists+linux-ltp@lfdr.de>; Tue,  2 Mar 2021 16:28:22 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id B36AF3C7C18
+	for <lists+linux-ltp@lfdr.de>; Tue,  2 Mar 2021 16:28:35 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id 050273C56DD
- for <ltp@lists.linux.it>; Tue,  2 Mar 2021 16:27:56 +0100 (CET)
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 5634F3C56F3
+ for <ltp@lists.linux.it>; Tue,  2 Mar 2021 16:27:57 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 7398B60E5EA
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id BF7B868FF4D
  for <ltp@lists.linux.it>; Tue,  2 Mar 2021 16:27:56 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
  t=1614698876; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
+ mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=y9TN6lYQn9oEldxU83Z9pYr0V9FLNsKcr8sMOrZ2eys=;
- b=ftrV9a7PrlxP3/SB4B1ZflnJI1IunNHkNCjMgArH94BtbEnaPd5bAQ5XDZWtkZOZ7FrruZ
- zwYs7ZMU3FQ20+9sgkUPOfMPSg7UBUNNtIRqHUWUnhATi3rvDmMKKi1xPfNUBZJzGGSPL+
- CDrWdDdM2AJ8+6Vn8PQpzOI8YJHbpT0=
+ bh=rDeP+QWPLtNdm7NbZ6Q3v4a2EOJKEF2GbX0AS0iiZcI=;
+ b=RtH+NxC/h7ODdmPfPSlspbFkXPYYSAMSyGmgYKlG2bxSxCdCgGvu7tsK04K8+ztuypXAn8
+ pZyPRER08cUGpeTfr8hjYh6LyvCOfMpRhqe1WE0M/YROpPIy2w/Z0FUQGQmDadYqVhhlvH
+ bCdzcK+p7fhSmiq5DaNcyT4EZU73a9k=
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 13B84AE42;
+ by mx2.suse.de (Postfix) with ESMTP id 606ACADDD;
  Tue,  2 Mar 2021 15:27:56 +0000 (UTC)
 To: ltp@lists.linux.it
-Date: Tue,  2 Mar 2021 15:25:07 +0000
-Message-Id: <20210302152510.15116-5-rpalethorpe@suse.com>
+Date: Tue,  2 Mar 2021 15:25:08 +0000
+Message-Id: <20210302152510.15116-6-rpalethorpe@suse.com>
 X-Mailer: git-send-email 2.30.0
 In-Reply-To: <20210302152510.15116-1-rpalethorpe@suse.com>
 References: <20210302152510.15116-1-rpalethorpe@suse.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [RFC PATCH v2 4/7] Add new CGroups API library tests
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [RFC PATCH v2 5/7] docs: Update CGroups API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,264 +57,150 @@ List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
 From: Richard Palethorpe via ltp <ltp@lists.linux.it>
 Reply-To: Richard Palethorpe <rpalethorpe@suse.com>
 Cc: Richard Palethorpe <rpalethorpe@suse.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
----
- lib/newlib_tests/.gitignore     |  2 +
- lib/newlib_tests/test21.c       | 43 +++++++---------
- lib/newlib_tests/tst_cgroup01.c | 51 +++++++++++++++++++
- lib/newlib_tests/tst_cgroup02.c | 87 +++++++++++++++++++++++++++++++++
- 4 files changed, 158 insertions(+), 25 deletions(-)
- create mode 100644 lib/newlib_tests/tst_cgroup01.c
- create mode 100644 lib/newlib_tests/tst_cgroup02.c
-
-diff --git a/lib/newlib_tests/.gitignore b/lib/newlib_tests/.gitignore
-index 6c2612259..98611e65d 100644
---- a/lib/newlib_tests/.gitignore
-+++ b/lib/newlib_tests/.gitignore
-@@ -16,6 +16,8 @@ test15
- test16
- tst_capability01
- tst_capability02
-+tst_cgroup01
-+tst_cgroup02
- tst_device
- tst_safe_fileops
- tst_res_hexd
-diff --git a/lib/newlib_tests/test21.c b/lib/newlib_tests/test21.c
-index f29a2f702..e939463d7 100644
---- a/lib/newlib_tests/test21.c
-+++ b/lib/newlib_tests/test21.c
-@@ -8,54 +8,47 @@
-  * Tests tst_cgroup.h APIs
-  */
- 
-+#include <stdlib.h>
-+
- #include "tst_test.h"
- #include "tst_cgroup.h"
- 
--#define PATH_CGROUP1 "/mnt/liwang1"
--#define PATH_CGROUP2 "/mnt/liwang2"
- #define MEMSIZE 1024 * 1024
- 
-+static const struct tst_cgroup *cg;
-+
- static void do_test(void)
- {
- 	pid_t pid = SAFE_FORK();
- 
- 	switch (pid) {
- 	case 0:
--		tst_cgroup_move_current(PATH_CGROUP1);
--		tst_cgroup_mem_set_maxbytes(PATH_CGROUP1, MEMSIZE);
--		tst_cgroup_mem_set_maxswap(PATH_CGROUP1, MEMSIZE);
--
--		tst_cgroup_move_current(PATH_CGROUP2);
--
--	break;
-+		SAFE_CGROUP_PRINTF(&cg->cgroup.procs, "%d", getpid());
-+		SAFE_CGROUP_PRINTF(&cg->memory.max, "%d", MEMSIZE);
-+		if (TST_CGROUP_HAS(&cg->memory.swap))
-+			SAFE_CGROUP_PRINTF(&cg->memory.swap.max, "%d", MEMSIZE);
-+		exit(0);
-+		break;
- 	default:
--		tst_cgroup_move_current(PATH_TMP_CG_CST);
--
--		tst_cgroup_move_current(PATH_TMP_CG_MEM);
--		tst_cgroup_mem_set_maxbytes(PATH_TMP_CG_MEM, MEMSIZE);
--		tst_cgroup_mem_set_maxswap(PATH_TMP_CG_MEM, MEMSIZE);
-+		SAFE_CGROUP_PRINTF(&cg->cgroup.procs, "%d", getpid());
- 	break;
- 	}
- 
--	tst_res(TPASS, "Cgroup mount test");
-+	tst_reap_children();
-+	tst_res(TPASS, "Cgroup test");
- }
- 
- static void setup(void)
- {
--	tst_cgroup_mount(TST_CGROUP_MEMCG, PATH_TMP_CG_MEM);
--	tst_cgroup_mount(TST_CGROUP_MEMCG, PATH_CGROUP1);
--
--	tst_cgroup_mount(TST_CGROUP_CPUSET, PATH_TMP_CG_CST);
--	tst_cgroup_mount(TST_CGROUP_CPUSET, PATH_CGROUP2);
-+	/* Omitting the below causes a warning */
-+	/* tst_cgroup_require(TST_CGROUP_CPUSET, NULL); */
-+	tst_cgroup_require(TST_CGROUP_MEMORY, NULL);
-+	cg = tst_cgroup_get_default();
- }
- 
- static void cleanup(void)
- {
--	tst_cgroup_umount(PATH_TMP_CG_MEM);
--	tst_cgroup_umount(PATH_CGROUP1);
--
--	tst_cgroup_umount(PATH_TMP_CG_CST);
--	tst_cgroup_umount(PATH_CGROUP2);
-+	tst_cgroup_cleanup();
- }
- 
- static struct tst_test test = {
-diff --git a/lib/newlib_tests/tst_cgroup01.c b/lib/newlib_tests/tst_cgroup01.c
-new file mode 100644
-index 000000000..36cf065cb
---- /dev/null
-+++ b/lib/newlib_tests/tst_cgroup01.c
-@@ -0,0 +1,51 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/* Copyright (c) 2021 SUSE LLC */
-+
-+#include <stdio.h>
-+
-+#include "tst_test.h"
-+#include "tst_cgroup_core.h"
-+
-+static char *only_mount_v1;
-+static char *no_cleanup;
-+static struct tst_option opts[] = {
-+	{"v", &only_mount_v1, "-v\tOnly try to mount CGroups V1"},
-+	{"n", &no_cleanup, "-n\tLeave CGroups created by test"},
-+	{NULL, NULL, NULL},
-+};
-+struct tst_cgroup_opts cgopts;
-+
-+static void do_test(void)
-+{
-+	tst_res(TPASS, "pass");
-+}
-+
-+static void setup(void)
-+{
-+	cgopts.only_mount_v1 = !!only_mount_v1,
-+
-+	tst_cgroup_scan();
-+	tst_cgroup_print_config();
-+
-+	tst_cgroup_require(TST_CGROUP_MEMORY, &cgopts);
-+	tst_cgroup_print_config();
-+	tst_cgroup_require(TST_CGROUP_CPUSET, &cgopts);
-+	tst_cgroup_print_config();
-+}
-+
-+static void cleanup(void)
-+{
-+	if (no_cleanup) {
-+		tst_res(TINFO, "no cleanup");
-+	} else {
-+		tst_res(TINFO, "cleanup");
-+		tst_cgroup_cleanup();
-+	}
-+}
-+
-+static struct tst_test test = {
-+	.test_all = do_test,
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.options = opts,
-+};
-diff --git a/lib/newlib_tests/tst_cgroup02.c b/lib/newlib_tests/tst_cgroup02.c
-new file mode 100644
-index 000000000..9799b2dfd
---- /dev/null
-+++ b/lib/newlib_tests/tst_cgroup02.c
-@@ -0,0 +1,87 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/* Copyright (c) 2021 SUSE LLC */
-+
-+#include <stdlib.h>
-+#include <stdio.h>
-+
-+#include "tst_test.h"
-+#include "tst_cgroup.h"
-+
-+static char *only_mount_v1;
-+static char *no_cleanup;
-+static struct tst_option opts[] = {
-+	{"v", &only_mount_v1, "-v\tOnly try to mount CGroups V1"},
-+	{"n", &no_cleanup, "-n\tLeave CGroups created by test"},
-+	{NULL, NULL, NULL},
-+};
-+static struct tst_cgroup_opts cgopts;
-+static const struct tst_cgroup *cg;
-+static const struct tst_cgroup *cg_drain;
-+static struct tst_cgroup *cg_child;
-+
-+static void do_test(void)
-+{
-+	char buf[BUFSIZ];
-+	size_t mem;
-+
-+	if (cg->memory.ver != TST_CGROUP_V1)
-+		SAFE_CGROUP_PRINT(&cg->cgroup.subtree_control, "+memory");
-+	if (cg->cpuset.ver != TST_CGROUP_V1)
-+		SAFE_CGROUP_PRINT(&cg->cgroup.subtree_control, "+cpuset");
-+
-+	cg_child = tst_cgroup_mk(cg, "child");
-+	if (!SAFE_FORK()) {
-+		SAFE_CGROUP_PRINTF(&cg_child->cgroup.procs, "%d", getpid());
-+
-+		SAFE_CGROUP_SCANF(&cg_child->memory.current, "%zu", &mem);
-+		tst_res(TPASS, "child/memory.current = %zu", mem);
-+		SAFE_CGROUP_PRINTF(&cg_child->memory.max, "%zu", (1UL << 24) - 1);
-+		SAFE_CGROUP_PRINTF(&cg_child->memory.swap.max, "%zu", 1UL << 31);
-+
-+		SAFE_CGROUP_READ(&cg_child->cpuset.mems, buf, sizeof(buf));
-+		tst_res(TPASS, "child/cpuset.mems = %s", buf);
-+		SAFE_CGROUP_PRINT(&cg_child->cpuset.mems, buf);
-+
-+		exit(0);
-+	}
-+
-+	SAFE_CGROUP_PRINTF(&cg_child->cgroup.procs, "%d", getpid());
-+	SAFE_CGROUP_SCANF(&cg->memory.current, "%zu", &mem);
-+	tst_res(TPASS, "memory.current = %zu", mem);
-+
-+	tst_reap_children();
-+	SAFE_CGROUP_PRINTF(&cg_drain->cgroup.procs, "%d", getpid());
-+	cg_child = tst_cgroup_rm(cg_child);
-+}
-+
-+static void setup(void)
-+{
-+	cgopts.only_mount_v1 = !!only_mount_v1,
-+
-+	tst_cgroup_scan();
-+	tst_cgroup_print_config();
-+
-+	tst_cgroup_require(TST_CGROUP_MEMORY, &cgopts);
-+	tst_cgroup_require(TST_CGROUP_CPUSET, &cgopts);
-+
-+	cg = tst_cgroup_get_default();
-+	cg_drain = tst_cgroup_get_drain();
-+}
-+
-+static void cleanup(void)
-+{
-+	if (cg_child) {
-+		SAFE_CGROUP_PRINTF(&cg_drain->cgroup.procs, "%d", getpid());
-+		cg_child = tst_cgroup_rm(cg_child);
-+	}
-+	if (!no_cleanup)
-+		tst_cgroup_cleanup();
-+}
-+
-+static struct tst_test test = {
-+	.test_all = do_test,
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.options = opts,
-+	.forks_child = 1,
-+};
--- 
-2.30.0
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+U2lnbmVkLW9mZi1ieTogUmljaGFyZCBQYWxldGhvcnBlIDxycGFsZXRob3JwZUBzdXNlLmNvbT4K
+LS0tCiBkb2MvdGVzdC13cml0aW5nLWd1aWRlbGluZXMudHh0IHwgMTY1ICsrKysrKysrKysrKysr
+KysrKysrKysrKysrKysrKy0tCiAxIGZpbGUgY2hhbmdlZCwgMTU2IGluc2VydGlvbnMoKyksIDkg
+ZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZG9jL3Rlc3Qtd3JpdGluZy1ndWlkZWxpbmVzLnR4
+dCBiL2RvYy90ZXN0LXdyaXRpbmctZ3VpZGVsaW5lcy50eHQKaW5kZXggZGQxOTExY2ViLi43OTc4
+YzM5MDQgMTAwNjQ0Ci0tLSBhL2RvYy90ZXN0LXdyaXRpbmctZ3VpZGVsaW5lcy50eHQKKysrIGIv
+ZG9jL3Rlc3Qtd3JpdGluZy1ndWlkZWxpbmVzLnR4dApAQCAtMjE2NSw0OCArMjE2NSwxOTUgQEAg
+dGhlIGZpZWxkIHZhbHVlIG9mIGZpbGUuCiAKIDIuMi4zNiBVc2luZyBDb250cm9sIEdyb3VwCiBe
+Xl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXgotU29tZSBvZiBMVFAgdGVzdHMgbmVlZCBDb250cm9s
+IEdyb3VwIGluIHRoZWlyIGNvbmZpZ3VyYXRpb24sIHRzdF9jZ3JvdXAuaCBwcm92aWRlcwotQVBJ
+cyB0byBtYWtlIGNncm91cCB1bmlmaWVkIG1vdW50aW5nIGF0IHNldHVwIHBoYXNlIHRvIGJlIHBv
+c3NpYmxlLiBUaGUgbWV0aG9kwqBpcworCitTb21lIG9mIExUUCB0ZXN0cyBuZWVkIENvbnRyb2wg
+R3JvdXBzIGluIHRoZWlyIGNvbmZpZ3VyYXRpb25zLCB0c3RfY2dyb3VwLmggcHJvdmlkZXMKK0FQ
+SXMgdG8gZGlzY292ZXIgYW5kIHVzZSBDR3JvdXBzLiBUaGUgbWV0aG9kwqBpcwogZXh0cmFjdGVk
+IGZyb20gbWVtLmggd2l0aCB0aGUgcHVycG9zZSBvZsKgZXh0ZW5kaWJsZSBmb3IgZnVydGhlciBk
+ZXZlbG9waW5nLCBhbmQKIHRyeWluZyB0byBjb21wYXRpYmxlIHRoZSBjdXJyZW50IHR3byB2ZXJz
+aW9ucyBvZiBjZ3JvdXAuCiAKLUNvbnNpZGVyaW5nIHRoZXJlIGFyZSBtYW55IGRpZmZlcmVuY2Vz
+IGJldHdlZW4gY2dyb3VwIHYxIGFuZCB2MiwgaGVyZSB3ZSBjYXBzdWxhdGUKK0NvbnNpZGVyaW5n
+IHRoZXJlIGFyZSBtYW55IGRpZmZlcmVuY2VzIGJldHdlZW4gY2dyb3VwIHYxIGFuZCB2MiwgaGVy
+ZSB3ZSBlbmNhcHN1bGF0ZQogdGhlIGRldGFpbCBvZiBjZ3JvdXAgbW91bnRpbmcgaW4gaGlnaC1s
+ZXZlbCBmdW5jdGlvbnMsIHdoaWNoIHdpbGwgYmUgZWFzaWVyIHRvIHVzZQotY2dyb3VwIHdpdGhv
+dXQgY2FyaW5nIGFib3V0IHRvbyBtdWNoIHRlY2huaWNhbCB0aGluZy7CoCDCoAorY2dyb3VwIHdp
+dGhvdXQgY2FyaW5nIGFib3V0IHRvbyBtdWNoIHRlY2huaWNhbCB0aGluZy4KIAogQWxzbywgd2Ug
+ZG8gY2dyb3VwIG1vdW50L3Vtb3VudCB3b3JrIGZvciB0aGUgZGlmZmVyZW50IGhpZXJhcmNoeSBh
+dXRvbWF0aWNhbGx5LgorSWYgdGhhdCBpcyByZXF1aXJlZC4KIAogW3NvdXJjZSxjXQogLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLQogI2luY2x1ZGUgInRzdF90ZXN0LmgiCisjaW5jbHVkZSAidHN0X2Nn
+cm91cC5oIgorCitzdGF0aWMgY29uc3Qgc3RydWN0IHRzdF9jZ3JvdXAgKmNnOwogCiBzdGF0aWMg
+dm9pZCBydW4odm9pZCkKIHsKIAkuLi4KKwkvLyBkbyB0ZXN0IHVuZGVyIGNncm91cAorCS4uLgor
+fQorCitzdGF0aWMgdm9pZCBzZXR1cCh2b2lkKQoreworCXRzdF9jZ3JvdXBfcmVxdWlyZShUU1Rf
+Q0dST1VQX01FTU9SWSwgTlVMTCk7CisJY2cgPSB0c3RfY2dyb3VwX2dldF9kZWZhdWx0KCk7CisJ
+U0FGRV9DR1JPVVBfUFJJTlRGKCZjZy0+Y2dyb3VwLnByb2NzLCAiJWQiLCBnZXRwaWQoKSk7CisJ
+U0FGRV9DR1JPVVBfUFJJTlRGKCZjZy0+bWVtb3J5Lm1heCwgIiVsdSIsIE1FTVNJWkUpOworCWlm
+IChUU1RfQ0dST1VQX0hBUygmY2ctPm1lbW9yeS5zd2FwKSkKKwkJU0FGRV9DR1JPVVBfUFJJTlRG
+KCZjZy0+bWVtb3J5LnN3YXAubWF4LCAiJXp1IiwgbWVtc3cpOworfQogCi0JdHN0X2Nncm91cF9t
+b3ZlX2N1cnJlbnQoUEFUSF9UTVBfQ0dfTUVNKTsKLQl0c3RfY2dyb3VwX21lbV9zZXRfbWF4Ynl0
+ZXMoUEFUSF9UTVBfQ0dfTUVNLCBNRU1TSVpFKTsKK3N0YXRpYyB2b2lkIGNsZWFudXAodm9pZCkK
+K3sKKwl0c3RfY2dyb3VwX2NsZWFudXAoKTsKK30KIAotCS8vIGRvIHRlc3QgdW5kZXIgY2dyb3Vw
+CitzdHJ1Y3QgdHN0X3Rlc3QgdGVzdCA9IHsKKwkuc2V0dXAgPSBzZXR1cCwKKwkudGVzdF9hbGwg
+PSBydW4sCisJLmNsZWFudXAgPSBjbGVhbnVwLAogCS4uLgorfTsKKy0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0KKworQWJvdmUsIHdlIGZpcnN0IGVuc3VyZSB0aGUgbWVtb3J5IGNvbnRyb2xsZXIgaXMg
+YXZhaWxhYmxlIG9uIHRoZQordGVzdCdzIENHcm91cCB3aXRoICd0c3RfY2dyb3VwX3JlcXVpcmUn
+LiBXZSB0aGVuIGdldCBhIHN0cnVjdHVyZSwKKydjZycsIHdoaWNoIHJlcHJlc2VudHMgdGhlIHRl
+c3QncyBDR3JvdXAuIE5vdGUgdGhhdAorJ3RzdF9jZ3JvdXBfZ2V0X2RlZmF1bHQnIHNob3VsZCBu
+b3QgYmUgY2FsbGVkIG1hbnkgdGltZXMsIGFzIGl0IGlzCithbGxvY2F0ZWQgaW4gYSBndWFyZGVk
+IGJ1ZmZlciAoU2VlIHNlY3Rpb24gMi4yLjMxKS4gVGhlcmVmb3IgaXQgaXMKK2Jlc3QgdG8gY2Fs
+bCBpdCBvbmNlIGluICdzZXR1cCcgYW5kIG5vdCAncnVuJyBiZWNhdXNlICdydW4nIG1heSBiZQor
+cmVwZWF0ZWQgd2l0aCB0aGUgJy1pJyBvcHRpb24uCisKK1dlIHRoZW4gd3JpdGUgdGhlIGN1cnJl
+bnQgcHJvY2Vzc2VzIFBJRCBpbnRvICdjZ3JvdXAucHJvY3MnLCB3aGljaAorbW92ZXMgdGhlIGN1
+cnJlbnQgcHJvY2VzcyBpbnRvIHRoZSB0ZXN0J3MgQ0dyb3VwLiBBZnRlciB3aGljaCB3ZSBzZXQK
+K3RoZSBtYXhpbXVtIG1lbW9yeSBzaXplIGJ5IHdyaXRpbmcgdG8gJ21lbW9yeS5tYXgnLiBJZiB0
+aGUgbWVtb3J5Citjb250cm9sbGVyIGlzIG1vdW50ZWQgb24gQ0dyb3VwcyBWMSB0aGVuIHRoZSBs
+aWJyYXJ5IHdpbGwgYWN0dWFsbHkKK3dyaXRlIHRvICdtZW1vcnkubGltaXRfaW5fYnl0ZXMnLiBB
+cyBhIGdlbmVyYWwgcnVsZSwgaWYgYSBmaWxlIGV4aXN0cworb24gYm90aCBDR3JvdXAgdmVyc2lv
+bnMsIHRoZW4gd2UgdXNlIHRoZSBWMiBuYW1pbmcuCisKK1NvbWUgY29udHJvbGxlciBmZWF0dXJl
+cywgc3VjaCBhcyAnbWVtb3J5LnN3YXAnLCBjYW4gYmUKK2Rpc2FibGVkLiBUaGVyZWZvciB3ZSBu
+ZWVkIHRvIGNoZWNrIGlmIHRoZXkgZXhpc3QgYmVmb3JlIGFjY2Vzc2luZwordGhlbS4gVGhpcyBj
+YW4gYmUgZG9uZSB3aXRoICdUU1RfQ0dST1VQX0hBUycgd2hpY2ggY2FuIGJlIGNhbGxlZCBvbgor
+YW55IGNvbnRyb2wgZmlsZSBvciBmZWF0dXJlLgorCitNb3N0IHRlc3RzIG9ubHkgcmVxdWlyZSBz
+ZXR0aW5nIGEgZmV3IGxpbWl0cyBzaW1pbGFyIHRvIHRoZSBhYm92ZS4gSW4KK3N1Y2ggY2FzZXMg
+dGhlIGRpZmZlcmVuY2VzIGJldHdlZW4gVjEgYW5kIFYyIGFyZSBoaWRkZW4uIFNldHVwIGFuZAor
+Y2xlYW51cCBpcyBhbHNvIG1vc3RseSBoaWRkZW4uIEhvd2V2ZXIgdGhpbmdzIGNhbiBnZXQgbXVj
+aCB3b3JzZS4KKworW3NvdXJjZSxjXQorLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQorc3RhdGljIGNv
+bnN0IHN0cnVjdCB0c3RfY2dyb3VwICpjZzsKK3N0YXRpYyBjb25zdCBzdHJ1Y3QgdHN0X2Nncm91
+cCAqY2dfZHJhaW47CitzdGF0aWMgc3RydWN0IHRzdF9jZ3JvdXAgKmNnX2NoaWxkOworCitzdGF0
+aWMgdm9pZCBydW4odm9pZCkKK3sKKwljaGFyIGJ1ZltCVUZTSVpdOworCXNpemVfdCBtZW0gPSAw
+OworCisJY2dfY2hpbGQgPSB0c3RfY2dyb3VwX21rKGNnLCAiY2hpbGQiKTsKKwlTQUZFX0NHUk9V
+UF9QUklOVEYoJmNnX2NoaWxkLT5jZ3JvdXAucHJvY3MsICIlZCIsIGdldHBpZCgpKTsKKworCWlm
+IChjZy0+bWVtb3J5LnZlciAhPSBUU1RfQ0dST1VQX1YxKQorCQlTQUZFX0NHUk9VUF9QUklOVCgm
+Y2ctPmNncm91cC5zdWJ0cmVlX2NvbnRyb2wsICIrbWVtb3J5Iik7CisJaWYgKGNnLT5jcHVzZXQu
+dmVyICE9IFRTVF9DR1JPVVBfVjEpCisJCVNBRkVfQ0dST1VQX1BSSU5UKCZjZy0+Y2dyb3VwLnN1
+YnRyZWVfY29udHJvbCwgIitjcHVzZXQiKTsKKworCWlmICghU0FGRV9GT1JLKCkpIHsKKwkJU0FG
+RV9DR1JPVVBfUFJJTlRGKCZjZ19jaGlsZC0+Y2dyb3VwLnByb2NzLCAiJWQiLCBnZXRwaWQoKSk7
+CisKKwkJaWYgKFRTVF9DR1JPVVBfSEFTKCZjZ19jaGlsZC0+bWVtb3J5LnN3YXApKQorCQkJU0FG
+RV9DR1JPVVBfU0NBTkYoJmNnX2NoaWxkLT5tZW1vcnkuc3dhcC5jdXJyZW50LCAiJXp1IiwgJm1l
+bSk7CisJCVNBRkVfQ0dST1VQX1JFQUQoJmNnX2NoaWxkLT5jcHVzZXQubWVtcywgYnVmLCBzaXpl
+b2YoYnVmKSk7CisKKwkJLy8gRG8gc29tZXRoaW5nIHdpdGggY3B1c2V0Lm1lbXMgYW5kIG1lbW9y
+eS5jdXJyZW50IHZhbHVlcworCQkuLi4KKworCQlleGl0KDApOworCX0KKworCXRzdF9yZWFwX2No
+aWxkcmVuKCk7CisJU0FGRV9DR1JPVVBfUFJJTlRGKCZjZ19kcmFpbi0+Y2dyb3VwLnByb2NzLCAi
+JWQiLCBnZXRwaWQoKSk7CisJY2dfY2hpbGQgPSB0c3RfY2dyb3VwX3JtKGNnX2NoaWxkKTsKIH0K
+IAogc3RhdGljIHZvaWQgc2V0dXAodm9pZCkKIHsKLQl0c3RfY2dyb3VwX21vdW50KFRTVF9DR1JP
+VVBfTUVNQ0csIFBBVEhfVE1QX0NHX01FTSk7CisJdHN0X2Nncm91cF9yZXF1aXJlKFRTVF9DR1JP
+VVBfTUVNT1JZLCBOVUxMKTsKKwl0c3RfY2dyb3VwX3JlcXVpcmUoVFNUX0NHUk9VUF9DUFVTRVQs
+IE5VTEwpOworCisJY2cgPSB0c3RfY2dyb3VwX2dldF9kZWZhdWx0KCk7CisJY2dfZHJhaW4gPSB0
+c3RfY2dyb3VwX2dldF9kcmFpbigpOwogfQogCiBzdGF0aWMgdm9pZCBjbGVhbnVwKHZvaWQpCiB7
+Ci0JdHN0X2Nncm91cF91bW91bnQoUEFUSF9UTVBfQ0dfTUVNKTsKKwlpZiAoY2dfY2hpbGQpIHsK
+KwkJU0FGRV9DR1JPVVBfUFJJTlRGKCZjZ19kcmFpbi0+Y2dyb3VwLnByb2NzLCAiJWQiLCBnZXRw
+aWQoKSk7CisJCWNnX2NoaWxkID0gdHN0X2Nncm91cF9ybShjZ19jaGlsZCk7CisJfQorCisJdHN0
+X2Nncm91cF9jbGVhbnVwKCk7CiB9CiAKIHN0cnVjdCB0c3RfdGVzdCB0ZXN0ID0geworCS5zZXR1
+cCA9IHNldHVwLAogCS50ZXN0X2FsbCA9IHJ1biwKKwkuY2xlYW51cCA9IGNsZWFudXAsCiAJLi4u
+CiB9OwogLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQogCitTdGFydGluZyB3aXRoIHNldHVwOyB3ZSBj
+YW4gc2VlIGhlcmUgdGhhdCB3ZSBhbHNvIGZldGNoIHRoZSAnZHJhaW4nCitDR3JvdXAuIFRoaXMg
+aXMgYSBzaGFyZWQgZ3JvdXAgKGJldHdlZW4gcGFyYWxsZWwgdGVzdHMpIHdoaWNoIG1heQorY29u
+dGFpbiBwcm9jZXNzZSBmcm9tIG90aGVyIHRlc3RzLiBJdCBzaG91bGQgaGF2ZSBkZWZhdWx0IHNl
+dHRpbmdzIGFuZAordGhlc2Ugc2hvdWxkIG5vdCBiZSBjaGFuZ2VkIGJ5IHRoZSB0ZXN0LiBJdCBj
+YW4gYmUgdXNlZCB0byByZW1vdmUKK3Byb2Nlc3NlcyBmcm9tIG90aGVyIENHcm91cHMgaW5jYXNl
+IHRoZSBoaWVyYXJjaHkgcm9vdCBpcyBub3QKK2FjY2Vzc2libGUuCisKK0luICdydW4nLCB3ZSBm
+aXJzdCBjcmVhdGUgYSBjaGlsZCBDR3JvdXAgd2l0aCAndHN0X2Nncm91cF9taycuIEFzIHdlCitj
+cmVhdGUgdGhpcyBDR3JvdXAgaW4gJ3J1bicgd2Ugc2hvdWxkIGFsc28gcmVtb3ZlIGl0IGF0IHRo
+ZSBlbmQgb2YKK3J1bi4gV2UgYWxzbyBuZWVkIHRvIGNoZWNrIGlmIGl0IGV4aXN0cyBhbmQgcmVt
+b3ZlIGl0IGluIGNsZWFudXAgYXMKK3dlbGwuIEJlY2F1c2UgdGhlcmUgYXJlICdTQUZFXycgZnVu
+Y3Rpb25zIHdoaWNoIG1heSBqdW1wIHRvIGNsZWFudXAuCisKK1dlIHRoZW4gbW92ZSB0aGUgbWFp
+biB0ZXN0IHByb2Nlc3MgaW50byB0aGUgY2hpbGQgQ0dyb3VwLiBUaGlzIGlzCitpbXBvcnRhbnQg
+YXMgaXQgbWVhbnMgdGhhdCBiZWZvcmUgd2UgZGVzdHJveSB0aGUgY2hpbGQgQ0dyb3VwIHdlIGhh
+dmUKK3RvIG1vdmUgdGhlIG1haW4gdGVzdCBwcm9jZXNzIGVsc2V3aGVyZS4gRm9yIHRoYXQgd2Ug
+dXNlIHRoZSAnZHJhaW4nCitncm91cC4KKworTmV4dCB3ZSBlbmFibGUgdGhlIG1lbW9yeSBhbmQg
+Y3B1c2V0IGNvbnRyb2xsZXIgY29uZmlndXJhdGlvbiBvbiB0aGUKK3Rlc3QgQ0dyb3VwJ3MgZGVz
+Y2VuZGFudHMgKGkuZS4gJ2NnX2NoaWxkJykuIFRoaXMgYWxsb3dzIGVhY2ggY2hpbGQgdG8KK2hh
+dmUgaXRzIG93biBzZXR0aW5ncy4gVGhlIGZpbGUgJ2Nncm91cC5zdWJ0cmVlX2NvbnRyb2wnIGRv
+ZXMgbm90CitleGlzdCBvbiBWMS4gQmVjYXVzZSBpdCBpcyBwb3NzaWJsZSB0byBoYXZlIGJvdGgg
+VjEgYW5kIFYyIGFjdGl2ZSBhdAordGhlIHNhbWUgdGltZS4gV2UgY2FuIG5vdCBzaW1wbHkgY2hl
+Y2sgaWYgJ3N1YnRyZWVfY29udHJvbCcgZXhpc3RzCitiZWZvcmUgd3JpdGluZyB0byBpdC4gV2Ug
+aGF2ZSB0byBjaGVjayBpZiBhIHBhcnRpY3VsYXIgY29udHJvbGxlciBpcworb24gVjIgYmVmb3Jl
+IHRyeWluZyB0byBhZGQgaXQgdG8gJ3N1YnRyZWVfY29udHJvbCcuIFRyeWluZyB0byBhZGQgYSBW
+MQorY29udHJvbGxlciB3aWxsIHJlc3VsdCBpbiAnRU5PRU5UJy4KKworV2UgdGhlbiBmb3JrIGEg
+Y2hpbGQgcHJvY2VzcyBhbmQgYWRkIHRoaXMgdG8gdGhlIGNoaWxkIENHcm91cC4gV2l0aGluCit0
+aGUgY2hpbGQgcHJvY2VzcyB3ZSB0cnkgdG8gcmVhZCAnbWVtb3J5LnN3YXAuY3VycmVudCcuIEl0
+IGlzIHBvc3NpYmxlCit0aGF0IHRoZSBtZW1vcnkgY29udHJvbGxlciB3YXMgY29tcGlsZWQgd2l0
+aG91dCBzd2FwIHN1cHBvcnQsIHNvIGl0IGlzCituZWNlc3NhcnkgdG8gY2hlY2sgaWYgJ21lbW9y
+eS5zd2FwJyBpcyBlbmFibGVkLiBUaGF0IGlzIHVubGVzcyB0aGUKK3Rlc3Qgd2lsbCBuZXZlciBy
+ZWFjaCB0aGUgcG9pbnQgd2hlcmUgJ21lbW9yeS5zd2FwLionIGFyZSB1c2VkIHdpdGhvdXQKK3N3
+YXAgc3VwcG9ydC4KKworVGhlIHBhcmVudCBwcm9jZXNzIHdhaXRzIGZvciB0aGUgY2hpbGQgcHJv
+Y2VzcyB0byBiZSByZWFwZWQgYmVmb3JlCitkZXN0cm95aW5nIHRoZSBjaGlsZCBDR3JvdXAuIFNv
+IHRoZXJlIGlzIG5vIG5lZWQgdG8gdHJhbnNmZXIgdGhlIGNoaWxkCit0byBkcmFpbi4gSG93ZXZl
+ciB0aGUgcGFyZW50IHByb2Nlc3MgbXVzdCBiZSBtb3ZlZCBvdGhlcndpc2Ugd2Ugd2lsbAorZ2V0
+ICdFQlVTWScgd2hlbiB0cnlpbmcgdG8gcmVtb3ZlIHRoZSBjaGlsZCBDR3JvdXAuCisKK0Fub3Ro
+ZXIgZXhhbXBsZSBvZiBhbiBlZGdlIGNhc2UgaXMgdGhlIGZvbGxvd2luZy4KKworW3NvdXJjZSxj
+XQorLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQorCWlmIChjZy0+bWVtb3J5LnZlciA9PSBUU1RfQ0dS
+T1VQX1YxKQorCQlTQUZFX0NHUk9VUF9QUklOVEYoJmNnLT5tZW1vcnkuc3dhcC5tYXgsICIlbHUi
+LCB+MFVMKTsKKwllbHNlCisJCVNBRkVfQ0dST1VQX1BSSU5UKCZjZy0+bWVtb3J5LnN3YXAubWF4
+LCAibWF4Iik7CistLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCisKK0NHcm91cHMgVjIgaW50cm9kdWNl
+ZCBhIGZlYXR1cmUgd2hlcmUgJ21lbW9yeVsuc3dhcF0ubWF4JyBjb3VsZCBiZSBzZXQKK3RvICJt
+YXgiLiBUaGlzIGRvZXMgbm90IGFwcGVhciB0byB3b3JrIG9uIFYxIGhvd2V2ZXIuCisKIDIuMi4z
+NyBSZXF1aXJlIG1pbmltdW0gbnVtYmVycyBvZiBDUFUgZm9yIGEgdGVzdGNhc2UKIF5eXl5eXl5e
+Xl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl4KIAotLSAKMi4zMC4w
+CgoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZv
+L2x0cAo=
