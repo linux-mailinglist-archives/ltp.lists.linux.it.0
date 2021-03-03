@@ -1,40 +1,46 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B11332B8EE
-	for <lists+linux-ltp@lfdr.de>; Wed,  3 Mar 2021 16:25:09 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 104FE32BA60
+	for <lists+linux-ltp@lfdr.de>; Wed,  3 Mar 2021 21:33:04 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DDC543C5742
-	for <lists+linux-ltp@lfdr.de>; Wed,  3 Mar 2021 16:25:08 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id BB6AA3C585A
+	for <lists+linux-ltp@lfdr.de>; Wed,  3 Mar 2021 21:33:03 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id B37593C56A7
- for <ltp@lists.linux.it>; Wed,  3 Mar 2021 16:25:04 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id F15CD600682
- for <ltp@lists.linux.it>; Wed,  3 Mar 2021 16:25:03 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 485EBAC24;
- Wed,  3 Mar 2021 15:25:03 +0000 (UTC)
-Date: Wed, 3 Mar 2021 16:26:37 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Shiyang Ruan <ruansy.fnst@fujitsu.com>
-Message-ID: <YD+qrfp1cuX96Ftd@yuki.lan>
-References: <20210303022221.1044234-1-ruansy.fnst@fujitsu.com>
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 147AD3C569D
+ for <ltp@lists.linux.it>; Wed,  3 Mar 2021 21:33:01 +0100 (CET)
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTP id 29190600D94
+ for <ltp@lists.linux.it>; Wed,  3 Mar 2021 21:33:00 +0100 (CET)
+Received: from localhost.localdomain (c-73-42-176-67.hsd1.wa.comcast.net
+ [73.42.176.67])
+ by linux.microsoft.com (Postfix) with ESMTPSA id D33BA20B83EA;
+ Wed,  3 Mar 2021 12:32:58 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com D33BA20B83EA
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+ s=default; t=1614803578;
+ bh=h4q9fAxS+MFSgu5p/zIGjIyIrAME+eYN6saW0Oul8qo=;
+ h=From:To:Cc:Subject:Date:From;
+ b=P4SvIF4PZ6d0XUb5kY8v4QP4MTya8vbrC1YWy1o2EuL7iD+f11GbxBUf56XvVll/I
+ nCmJRVFm/UnWE2Lne9LbxHWDiR3rS398HHH8WGGFesMA2fNVnUFeq46/8rIBaX9jH8
+ 20+0M43yX7PL4P5UQUakY/dHIMARpRVVY56eNTPk=
+From: Lakshmi Ramasubramanian <nramas@linux.microsoft.com>
+To: pvorel@suse.cz,
+	zohar@linux.ibm.com
+Date: Wed,  3 Mar 2021 12:32:54 -0800
+Message-Id: <20210303203254.12856-1-nramas@linux.microsoft.com>
+X-Mailer: git-send-email 2.30.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210303022221.1044234-1-ruansy.fnst@fujitsu.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/chdir04: Convert to the new API
+X-Spam-Status: No, score=-14.9 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_PASS,SPF_PASS,
+ USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH] IMA: Allow only ima-buf template for key measurement
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,103 +52,102 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Cc: tusharsu@linux.microsoft.com, linux-integrity@vger.kernel.org,
+ ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> +static struct test_case_t {
-> +	char *dir_name;
-> +	int expected_error;
-> +} testcase_list[] = {
-> +	{bad_dir, ENAMETOOLONG},
-> +	{noexist_dir, ENOENT},
-> +	{(void *)-1, EFAULT}
-> +};
+ima-buf is the default IMA template used for all buffer measurements.
+Therefore, IMA policy rule for measuring keys need not specify
+an IMA template.  But if a template is specified for key measurement
+rule then it must be only ima-buf.
 
-This is way to verbose, we can just name these:
+Update keys tests to not require a template to be specified for
+key measurement rule, but if a template is specified verify it is
+only ima-buf.
 
-struct test_case_t -> struct tcase
-testcase_list -> tcases
-dir_name -> dir
-expected_error -> exp_errno
+Signed-off-by: Lakshmi Ramasubramanian <nramas@linux.microsoft.com>
+---
+ .../security/integrity/ima/tests/ima_keys.sh     | 10 +++++++---
+ .../security/integrity/ima/tests/ima_setup.sh    | 16 ++++++++++++++++
+ 2 files changed, 23 insertions(+), 3 deletions(-)
 
-without loosing any information.
-
-> -void setup(void)
-> +static void setup(void)
->  {
-> -
-> -	tst_sig(NOFORK, DEF_HANDLER, cleanup);
-> -
-> -	TEST_PAUSE;
-> -
-> -	tst_tmpdir();
-> -
->  #ifdef UCLINUX
->  	bad_addr = mmap(0, 1, PROT_NONE,
->  			MAP_PRIVATE_EXCEPT_UCLINUX | MAP_ANONYMOUS, 0, 0);
->  	if (bad_addr == MAP_FAILED)
-> -		tst_brkm(TBROK | TERRNO, cleanup, "mmap() failed");
-> -	TC[2].dname = bad_addr;
-> +		tst_brk(TBROK | TERRNO, "mmap() failed");
-> +	testcase_list[2].dir_name = bad_addr;
-> +#endif
-> +}
-> +
-> +static void cleanup(void)
-> +{
-> +#ifdef UCLINUX
-> +	munmap(bad_addr, 1);
->  #endif
->  }
-
-We do not support uClinux anymore, please remove that part as well.
-
-> -void cleanup(void)
-> +static void verify_chdir(unsigned int i)
->  {
-> -	tst_rmdir();
-> +	TEST(chdir(testcase_list[i].dir_name));
-> +
-> +	if (TST_RET != -1) {
-> +		tst_res(TFAIL, "call succeeded unexpectedly");
-> +		return;
-> +	}
->  
-> +	if (TST_ERR == testcase_list[i].expected_error)
-> +		tst_res(TPASS | TTERRNO, "failed as expected");
-> +	else {
-> +		tst_res(TFAIL | TTERRNO,
-> +			"didn't fail as expected (expected %d)",
-> +			testcase_list[i].expected_error);
-> +	}
-
-We do have TST_EXP_FAIL() macro that should replace all of this.
-
->  }
-> +
-> +static struct tst_test test = {
-> +	.needs_tmpdir = 1,
-> +	.test = verify_chdir,
-> +	.tcnt = ARRAY_SIZE(testcase_list),
-> +	.setup = setup,
-> +	.cleanup = cleanup,
-> +};
-> -- 
-> 2.30.1
-> 
-> 
-> 
-> 
-> -- 
-> Mailing list info: https://lists.linux.it/listinfo/ltp
-
+diff --git a/testcases/kernel/security/integrity/ima/tests/ima_keys.sh b/testcases/kernel/security/integrity/ima/tests/ima_keys.sh
+index c9eef4b68..8b214b413 100755
+--- a/testcases/kernel/security/integrity/ima/tests/ima_keys.sh
++++ b/testcases/kernel/security/integrity/ima/tests/ima_keys.sh
+@@ -15,8 +15,7 @@ TST_CLEANUP=cleanup
+ . ima_setup.sh
+ 
+ FUNC_KEYCHECK='func=KEY_CHECK'
+-TEMPLATE_BUF='template=ima-buf'
+-REQUIRED_POLICY="^measure.*($FUNC_KEYCHECK.*$TEMPLATE_BUF|$TEMPLATE_BUF.*$FUNC_KEYCHECK)"
++REQUIRED_POLICY="^measure.*$FUNC_KEYCHECK"
+ 
+ setup()
+ {
+@@ -33,9 +32,10 @@ check_keys_policy()
+ 	local pattern="$1"
+ 
+ 	if ! grep -E "$pattern" $TST_TMPDIR/policy.txt; then
+-		tst_res TCONF "IMA policy must specify $pattern, $FUNC_KEYCHECK, $TEMPLATE_BUF"
++		tst_res TCONF "IMA policy must specify $pattern, $FUNC_KEYCHECK"
+ 		return 1
+ 	fi
++
+ 	return 0
+ }
+ 
+@@ -49,6 +49,8 @@ test1()
+ 
+ 	tst_res TINFO "verify key measurement for keyrings and templates specified in IMA policy"
+ 
++	check_policy_template "template=ima-buf" $FUNC_KEYCHECK || return
++
+ 	check_keys_policy "$pattern" > $tmp_file || return
+ 	keycheck_lines=$(cat $tmp_file)
+ 	keyrings=$(for i in $keycheck_lines; do echo "$i" | grep "keyrings" | \
+@@ -101,6 +103,8 @@ test2()
+ 
+ 	tst_res TINFO "verify measurement of certificate imported into a keyring"
+ 
++	check_policy_template "template=ima-buf" $FUNC_KEYCHECK || return
++
+ 	check_keys_policy "$pattern" >/dev/null || return
+ 
+ 	KEYRING_ID=$(keyctl newring $keyring_name @s) || \
+diff --git a/testcases/kernel/security/integrity/ima/tests/ima_setup.sh b/testcases/kernel/security/integrity/ima/tests/ima_setup.sh
+index 59a7ffeac..01ebec2b6 100644
+--- a/testcases/kernel/security/integrity/ima/tests/ima_setup.sh
++++ b/testcases/kernel/security/integrity/ima/tests/ima_setup.sh
+@@ -107,6 +107,22 @@ check_ima_policy_cmdline()
+ 	return 1
+ }
+ 
++check_policy_template()
++{
++	local template="$1"
++	local func="$2"
++	grep -E "template=" $TST_TMPDIR/policy.txt | while read line
++	do
++		ima_template=$(echo $line | grep $template)
++		if [ -z "$ima_template" ]; then
++			tst_res TCONF "Only $template can be specified for $func"
++			return 1
++		fi
++	done
++
++	return 0
++}
++
+ require_ima_policy_cmdline()
+ {
+ 	local policy="$1"
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+2.30.0
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
