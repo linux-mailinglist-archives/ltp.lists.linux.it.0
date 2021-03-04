@@ -2,39 +2,41 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id F196E32CA5A
-	for <lists+linux-ltp@lfdr.de>; Thu,  4 Mar 2021 03:13:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44FA832CA5B
+	for <lists+linux-ltp@lfdr.de>; Thu,  4 Mar 2021 03:13:36 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9C38A3C6570
-	for <lists+linux-ltp@lfdr.de>; Thu,  4 Mar 2021 03:13:27 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 1632D3C5A78
+	for <lists+linux-ltp@lfdr.de>; Thu,  4 Mar 2021 03:13:36 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id BFAA03C56A4
- for <ltp@lists.linux.it>; Thu,  4 Mar 2021 03:13:25 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTP id 2A5123C7AD0
+ for <ltp@lists.linux.it>; Thu,  4 Mar 2021 03:13:31 +0100 (CET)
 Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-3.smtp.seeweb.it (Postfix) with ESMTP id 31C7D1A00EB2
- for <ltp@lists.linux.it>; Thu,  4 Mar 2021 03:13:23 +0100 (CET)
-X-IronPort-AV: E=Sophos;i="5.81,221,1610380800"; d="scan'208";a="105129207"
+ by in-3.smtp.seeweb.it (Postfix) with ESMTP id 0CE881A00EBB
+ for <ltp@lists.linux.it>; Thu,  4 Mar 2021 03:13:29 +0100 (CET)
+X-IronPort-AV: E=Sophos;i="5.81,221,1610380800"; d="scan'208";a="105129248"
 Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 04 Mar 2021 10:13:16 +0800
-Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
- by cn.fujitsu.com (Postfix) with ESMTP id 5E0CA4CE9E72
- for <ltp@lists.linux.it>; Thu,  4 Mar 2021 10:13:16 +0800 (CST)
+ by heian.cn.fujitsu.com with ESMTP; 04 Mar 2021 10:13:29 +0800
+Received: from G08CNEXMBPEKD06.g08.fujitsu.local (unknown [10.167.33.206])
+ by cn.fujitsu.com (Postfix) with ESMTP id 628D84CE92ED
+ for <ltp@lists.linux.it>; Thu,  4 Mar 2021 10:13:27 +0800 (CST)
 Received: from G08CNEXCHPEKD04.g08.fujitsu.local (10.167.33.200) by
- G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Thu, 4 Mar 2021 10:13:06 +0800
+ G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Thu, 4 Mar 2021 10:13:16 +0800
 Received: from irides.mr.mr.mr (10.167.225.141) by
  G08CNEXCHPEKD04.g08.fujitsu.local (10.167.33.209) with Microsoft SMTP Server
- id 15.0.1497.2 via Frontend Transport; Thu, 4 Mar 2021 10:13:06 +0800
+ id 15.0.1497.2 via Frontend Transport; Thu, 4 Mar 2021 10:13:17 +0800
 From: Shiyang Ruan <ruansy.fnst@fujitsu.com>
 To: <ltp@lists.linux.it>
-Date: Thu, 4 Mar 2021 10:13:03 +0800
-Message-ID: <20210304021304.1126635-1-ruansy.fnst@fujitsu.com>
+Date: Thu, 4 Mar 2021 10:13:04 +0800
+Message-ID: <20210304021304.1126635-2-ruansy.fnst@fujitsu.com>
 X-Mailer: git-send-email 2.30.1
+In-Reply-To: <20210304021304.1126635-1-ruansy.fnst@fujitsu.com>
+References: <20210304021304.1126635-1-ruansy.fnst@fujitsu.com>
 MIME-Version: 1.0
-X-yoursite-MailScanner-ID: 5E0CA4CE9E72.A21DF
+X-yoursite-MailScanner-ID: 628D84CE92ED.AD899
 X-yoursite-MailScanner: Found to be clean
 X-yoursite-MailScanner-From: ruansy.fnst@fujitsu.com
 X-Spam-Status: No, score=0.3 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
@@ -42,7 +44,7 @@ X-Spam-Status: No, score=0.3 required=7.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
 X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH 1/2] syscalls/getppid01: Convert to the new API
+Subject: [LTP] [PATCH 2/2] syscalls/getppid02: Convert to the new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,192 +61,150 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+The logic is same as syscalls/getpid02, which is to check whether
+parent's pid equals child's ppid.
+
 Signed-off-by: Shiyang Ruan <ruansy.fnst@fujitsu.com>
 ---
- testcases/kernel/syscalls/getppid/getppid01.c | 167 ++----------------
- 1 file changed, 18 insertions(+), 149 deletions(-)
+ testcases/kernel/syscalls/getppid/getppid02.c | 122 ++++--------------
+ 1 file changed, 27 insertions(+), 95 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/getppid/getppid01.c b/testcases/kernel/syscalls/getppid/getppid01.c
-index 8a4875525..d0f294929 100644
---- a/testcases/kernel/syscalls/getppid/getppid01.c
-+++ b/testcases/kernel/syscalls/getppid/getppid01.c
-@@ -1,160 +1,29 @@
+diff --git a/testcases/kernel/syscalls/getppid/getppid02.c b/testcases/kernel/syscalls/getppid/getppid02.c
+index ae3c8eb26..d0bf984dd 100644
+--- a/testcases/kernel/syscalls/getppid/getppid02.c
++++ b/testcases/kernel/syscalls/getppid/getppid02.c
+@@ -1,106 +1,38 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
  /*
-  * Copyright (c) 2000 Silicon Graphics, Inc.  All Rights Reserved.
 - *
-- * This program is free software; you can redistribute it and/or modify it
-- * under the terms of version 2 of the GNU General Public License as
-- * published by the Free Software Foundation.
+- *   Copyright (c) International Business Machines  Corp., 2001
 - *
-- * This program is distributed in the hope that it would be useful, but
-- * WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+- *   This program is free software;  you can redistribute it and/or modify
+- *   it under the terms of the GNU General Public License as published by
+- *   the Free Software Foundation; either version 2 of the License, or
+- *   (at your option) any later version.
 - *
-- * Further, this software is distributed without any warranty that it is
-- * free of the rightful claim of any third person regarding infringement
-- * or the like.  Any license provided herein, whether implied or
-- * otherwise, applies only to this software file.  Patent licenses, if
-- * any, provided herein do not apply to combinations of this program with
-- * other software, or any other product whatsoever.
+- *   This program is distributed in the hope that it will be useful,
+- *   but WITHOUT ANY WARRANTY;  without even the implied warranty of
+- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
+- *   the GNU General Public License for more details.
 - *
-- * You should have received a copy of the GNU General Public License along
-- * with this program; if not, write the Free Software Foundation, Inc.,
-- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-- *
-- * Contact information: Silicon Graphics, Inc., 1600 Amphitheatre Pkwy,
-- * Mountain View, CA  94043, or:
-- *
-- * http://www.sgi.com
-- *
-- * For further information regarding this notice, see:
-- *
-- * http://oss.sgi.com/projects/GenInfo/NoticeExplan/
-- *
+- *   You should have received a copy of the GNU General Public License
+- *   along with this program;  if not, write to the Free Software
+- *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
++ * Copyright (c) International Business Machines  Corp., 2001
   */
--/* $Id: getppid01.c,v 1.6 2009/10/26 14:55:47 subrata_modak Exp $ */
--/**********************************************************
-- *
-- *    OS Test - Silicon Graphics, Inc.
-- *
-- *    TEST IDENTIFIER	: getppid01
-- *
-- *    EXECUTED BY	: anyone
-- *
-- *    TEST TITLE	: Basic test for getppid(2)
-- *
-- *    PARENT DOCUMENT	: usctpl01
-- *
-- *    TEST CASE TOTAL	: 1
-- *
-- *    WALL CLOCK TIME	: 1
-- *
-- *    CPU TYPES		: ALL
-- *
-- *    AUTHOR		: William Roske
-- *
-- *    CO-PILOT		: Dave Fenner
-- *
-- *    DATE STARTED	: 03/30/92
-- *
-- *    INITIAL RELEASE	: UNICOS 7.0
-- *
-- *    TEST CASES
-- *
-- * 	1.) getppid(2) returns...(See Description)
-- *
-- *    INPUT SPECIFICATIONS
-- * 	The standard options for system call tests are accepted.
-- *	(See the parse_opts(3) man page).
-- *
-- *    OUTPUT SPECIFICATIONS
-- *$
-- *    DURATION
-- * 	Terminates - with frequency and infinite modes.
-- *
-- *    SIGNALS
-- * 	Uses SIGUSR1 to pause before test if option set.
-- * 	(See the parse_opts(3) man page).
-- *
-- *    RESOURCES
-- * 	None
-- *
-- *    ENVIRONMENTAL NEEDS
-- *      No run-time environmental needs.
-- *
-- *    SPECIAL PROCEDURAL REQUIREMENTS
-- * 	None
-- *
-- *    INTERCASE DEPENDENCIES
-- * 	None
-- *
-- *    DETAILED DESCRIPTION
-- *	This is a Phase I test for the getppid(2) system call.  It is intended
-- *	to provide a limited exposure of the system call, for now.  It
-- *	should/will be extended when full functional tests are written for
-- *	getppid(2).
-- *
-- * 	Setup:
-- * 	  Setup signal handling.
-- *	  Pause for SIGUSR1 if option specified.
-- *
-- * 	Test:
-- *	 Loop if the proper options are given.
-- * 	  Execute system call
-- *	  Check return code, if system call failed (return=-1)
-- *		Log the errno and Issue a FAIL message.
-- *	  Otherwise, Issue a PASS message.
-- *
-- * 	Cleanup:
-- * 	  Print errno log and/or timing stats if options given
-- *
-- *
-- *#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#**/
  
+-/*
+- * NAME
+- * 	getppid02.c
+- *
+- * DESCRIPTION
+- * 	Testcase to check the basic functionality of the getppid() syscall.
+- *
+- * USAGE:  <for command-line>
+- *  getppid02 [-c n] [-f] [-i n] [-I x] [-P x] [-t]
+- *     where,  -c n : Run n copies concurrently.
+- *             -f   : Turn off functionality Testing.
+- *             -i n : Execute test n times.
+- *             -I x : Execute test for x seconds.
+- *             -P x : Pause for x seconds between iterations.
+- *             -t   : Turn on syscall timing.
++/*\
++ * [DESCRIPTION]
+  *
+- * HISTORY
+- *	07/2001 Ported by Wayne Boyer
+- *
+- * RESTRICTIONS
+- * 	None
+- */
 -#include <sys/types.h>
--#include <fcntl.h>
+-#include <sys/wait.h>
+-#include <err.h>
 -#include <errno.h>
--#include <string.h>
--#include <signal.h>
 -#include "test.h"
--
--void setup();
--void cleanup();
--
--char *TCID = "getppid01";
+-#include "safe_macros.h"
++ * Check that getppid() in child returns the same pid as getpid() in parent.
++\*/
+ 
+-char *TCID = "getppid02";
 -int TST_TOTAL = 1;
--
++#include <errno.h>
+ 
+-void setup(void);
+-void cleanup(void);
++#include "tst_test.h"
+ 
 -int main(int ac, char **av)
--{
++static void verify_getppid(void)
+ {
+-
 -	int lc;
+-	int status;
+-	pid_t pid, ppid;
 -
 -	tst_parse_opts(ac, av, NULL, NULL);
 -
 -	setup();
 -
 -	for (lc = 0; TEST_LOOPING(lc); lc++) {
-+/*\
-+ * [DESCRIPTION]
-+ * 
-+ * Test whether parent process id that getpid() returns is out of range.
-+\*/
- 
 -		tst_count = 0;
 -
--		TEST(getppid());
+-		ppid = getpid();
+-		pid = FORK_OR_VFORK();
+-		if (pid == -1)
+-			tst_brkm(TBROK, cleanup, "fork failed");
 -
--		if (TEST_RETURN == -1)
--			tst_resm(TFAIL | TTERRNO, "getppid failed");
--		else
--			tst_resm(TPASS, "getppid returned %ld", TEST_RETURN);
+-		if (pid == 0) {
+-			TEST(getppid());
 -
--	}
--
+-			if (TEST_RETURN != ppid)
+-				errx(1, "getppid failed (%ld != %d)",
+-				     TEST_RETURN, ppid);
+-			else
+-				printf("return value and parent's pid "
+-				       "value match\n");
+-			exit(0);
+-		} else {
+-			SAFE_WAIT(cleanup, &status);
+-			if (!WIFEXITED(status) || WEXITSTATUS(status) != 0)
+-				tst_resm(TFAIL,
+-					 "getppid functionality incorrect");
+-		}
++	pid_t proc_id;
++	pid_t pid;
++	pid_t pproc_id;
++
++	proc_id = getpid();
++	pid = SAFE_FORK();
++	if (pid == 0) {
++		pproc_id = getppid();
++
++		if (pproc_id != proc_id)
++			tst_res(TFAIL, "child's ppid(%d) not equal to parent's pid(%d)",
++				pproc_id, proc_id);
++		else
++			tst_res(TPASS, "getppid() functionality is correct");
+ 	}
 -	cleanup();
+-
 -	tst_exit();
--}
-+#include <errno.h>
-+#include "tst_test.h"
- 
--void setup(void)
-+static void verify_getppid(void)
- {
-+	pid_t ppid = getppid(), pid_max;
- 
--	tst_sig(NOFORK, DEF_HANDLER, cleanup);
-+	SAFE_FILE_SCANF("/proc/sys/kernel/pid_max", "%d\n", &pid_max);
- 
--	TEST_PAUSE;
-+	if (ppid > pid_max)
-+		tst_res(TFAIL, "getppid() returned %d, out of range!", ppid);
-+	else
-+		tst_res(TPASS, "getppid() returned %d", ppid);
  }
  
+-void setup(void)
+-{
+-
+-	tst_sig(FORK, DEF_HANDLER, cleanup);
+-
+-	TEST_PAUSE;
+-}
+-
 -void cleanup(void)
 -{
 -}
 +static struct tst_test test = {
++	.forks_child = 1,
 +	.test_all = verify_getppid,
 +};
 -- 
