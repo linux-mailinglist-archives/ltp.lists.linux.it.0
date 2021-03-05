@@ -1,37 +1,37 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12F0532EF62
-	for <lists+linux-ltp@lfdr.de>; Fri,  5 Mar 2021 16:52:24 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 10BE832EF63
+	for <lists+linux-ltp@lfdr.de>; Fri,  5 Mar 2021 16:52:34 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id CCCD43C6DF2
-	for <lists+linux-ltp@lfdr.de>; Fri,  5 Mar 2021 16:52:23 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id B166E3C6DF2
+	for <lists+linux-ltp@lfdr.de>; Fri,  5 Mar 2021 16:52:33 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id 10A263C6DDA
- for <ltp@lists.linux.it>; Fri,  5 Mar 2021 16:51:46 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTP id 3A6C23C5651
+ for <ltp@lists.linux.it>; Fri,  5 Mar 2021 16:51:47 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 96BBB60045C
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id F28AC601C44
  for <ltp@lists.linux.it>; Fri,  5 Mar 2021 16:51:46 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
  t=1614959506; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=FKDRuuOvIBMNWAkyf5tscRymn2/bcp50kCtSYp3tdZU=;
- b=V4HWnNrff9qCylkJsa04vdxE7DQHuFGzfSmzuMFPYYT3wz7F/dEACfkHeTqQKar1FiHoS0
- Mhk4MeJrE7hZGWjsP7yrhuqQy3VxNnLRhWYOcZ90hvSXx8KO9RIwuxtwbNZ1lDzwzZXXDa
- qZBbEi3S5Ai5cmlJyuJ6wYGRBE29558=
+ bh=1l3BIoNk5Vn+vIoItIjSsd1vQHo28jJSpg1urQoTAiQ=;
+ b=proGICwwPoIQvNOzaRpDRy2KkAgC0s+r8wsr4MxalUziVczWZHhdb7j8BLqGJJ1BQeX8Z8
+ ps3S68U+jloRs8rCTSY8j/o/y/XgqLqulbcjBn+1Cp+mUTgz6/BRWh7YTJ5liAP3LyMoy6
+ UDN9vVVxBzC8qC0wA844abtOWvMYPEs=
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 3A6D7ADCD;
+ by mx2.suse.de (Postfix) with ESMTP id 85A88AEC2;
  Fri,  5 Mar 2021 15:51:46 +0000 (UTC)
 To: ltp@lists.linux.it
-Date: Fri,  5 Mar 2021 15:51:22 +0000
-Message-Id: <20210305155123.18199-6-rpalethorpe@suse.com>
+Date: Fri,  5 Mar 2021 15:51:23 +0000
+Message-Id: <20210305155123.18199-7-rpalethorpe@suse.com>
 X-Mailer: git-send-email 2.30.1
 In-Reply-To: <20210305155123.18199-1-rpalethorpe@suse.com>
 References: <20210305155123.18199-1-rpalethorpe@suse.com>
@@ -42,8 +42,7 @@ X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH 5/6] fzsync: Move yield check out of loop and add
- yield to delay
+Subject: [LTP] [PATCH 6/6] fzsync: Check processor affinity
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,139 +62,64 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-During my testing I found no difference between having the branch
-inside the loop and outside. However looking at the generated
-assembly, it definitely does perform the branch inside the loop. This
-could have an effect on some platform with worse branch prediction. So
-I have moved the branch outside of the loop.
+It is useful for testing Fuzzy Sync itself to set the CPU affinity to
+a single core. The current processes affinity does not effect
+tst_ncpus(), but we can get the affinity separately.
 
-Also I have added sched_yield to the delay loop. If we only have one
-CPU then it is not delaying anything unless the other process can
-progress.
+Note that checking this still does not guarantee we will use yield
+when restricted to only one core. We would have to periodically probe
+which CPUs threads are running on until we detect more than one CPU.
 
 Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
 ---
- include/tst_fuzzy_sync.h | 72 ++++++++++++++++++++++++++++++----------
- 1 file changed, 54 insertions(+), 18 deletions(-)
+ include/tst_fuzzy_sync.h | 20 ++++++++++++++++++--
+ 1 file changed, 18 insertions(+), 2 deletions(-)
 
 diff --git a/include/tst_fuzzy_sync.h b/include/tst_fuzzy_sync.h
-index 5474f81e3..36a604e13 100644
+index 36a604e13..ea356ab44 100644
 --- a/include/tst_fuzzy_sync.h
 +++ b/include/tst_fuzzy_sync.h
-@@ -183,9 +183,9 @@ struct tst_fzsync_pair {
- 	int exec_loop;
- 	/** Internal; The second thread or 0 */
- 	pthread_t thread_b;
--	/** 
--	 * Internal; The flag indicates single core machines or not
--	 * 
-+	/**
-+	 * The flag indicates single core machines or not
-+	 *
- 	 * If running on single core machines, it would take considerable
- 	 * amount of time to run fuzzy sync library.
- 	 * Thus call sched_yield to give up cpu to decrease the test time.
-@@ -575,31 +575,53 @@ static inline void tst_fzsync_pair_wait(int *our_cntr,
- 		 * line above before doing that. If we are in rear position
- 		 * then our counter may already have been set to zero.
- 		 */
--		while (tst_atomic_load(our_cntr) > 0
--		       && tst_atomic_load(our_cntr) < INT_MAX) {
--			if (spins)
--				(*spins)++;
--			if(yield_in_wait)
-+		if (yield_in_wait) {
-+			while (tst_atomic_load(our_cntr) > 0
-+			       && tst_atomic_load(our_cntr) < INT_MAX) {
-+				if (spins)
-+					(*spins)++;
+@@ -59,9 +59,11 @@
+  * @sa tst_fzsync_pair
+  */
+ 
++#define _GNU_SOURCE
 +
- 				sched_yield();
-+			}
-+		} else {
-+			while (tst_atomic_load(our_cntr) > 0
-+			       && tst_atomic_load(our_cntr) < INT_MAX) {
-+				if (spins)
-+					(*spins)++;
-+			}
- 		}
- 
+ #include <math.h>
+ #include <pthread.h>
+-#include <sched.h>
++#include "lapi/cpuset.h"
+ #include <stdbool.h>
+ #include <stdlib.h>
+ #include <sys/time.h>
+@@ -213,12 +215,26 @@ struct tst_fzsync_pair {
+  */
+ static void tst_fzsync_pair_init(struct tst_fzsync_pair *pair)
+ {
++	long ncpus = tst_ncpus();
++#ifdef CPU_COUNT
++	size_t cpusz = CPU_ALLOC_SIZE(ncpus);
++	cpu_set_t *cpus = CPU_ALLOC(ncpus);
 +
- 		tst_atomic_store(0, other_cntr);
- 		/*
- 		 * Once both counters have been set to zero the invariant
- 		 * is restored and we can continue.
- 		 */
--		while (tst_atomic_load(our_cntr) > 1)
--			;
-+		if (yield_in_wait) {
-+			while (tst_atomic_load(our_cntr) > 1)
-+				sched_yield();
-+		} else {
-+			while (tst_atomic_load(our_cntr) > 1)
-+				;
-+		}
- 	} else {
- 		/*
- 		 * If our counter is less than the other thread's we are ahead
- 		 * of it and need to wait.
- 		 */
--		while (tst_atomic_load(our_cntr) < tst_atomic_load(other_cntr)) {
--			if (spins)
--				(*spins)++;
--			if(yield_in_wait)
-+		if (yield_in_wait) {
-+			while (tst_atomic_load(our_cntr) <
-+			       tst_atomic_load(other_cntr)) {
-+				if (spins)
-+					(*spins)++;
- 				sched_yield();
-+			}
-+		} else {
-+			while (tst_atomic_load(our_cntr) <
-+			       tst_atomic_load(other_cntr)) {
-+				if (spins)
-+					(*spins)++;
-+			}
- 		}
- 	}
- }
-@@ -713,8 +735,15 @@ static inline void tst_fzsync_start_race_a(struct tst_fzsync_pair *pair)
- 	tst_fzsync_wait_a(pair);
- 
- 	delay = pair->delay;
--	while (delay < 0)
--		delay++;
-+	if (pair->yield_in_wait) {
-+		while (delay < 0) {
-+			sched_yield();
-+			delay++;
-+		}
++	if (sched_getaffinity(0, cpusz, cpus)) {
++		tst_res(TWARN | TERRNO, "sched_getaffinity(0, %zu, %zx)",
++			cpusz, (size_t)cpus);
 +	} else {
-+		while (delay < 0)
-+			delay++;
++		ncpus = CPU_COUNT(cpus);
 +	}
- 
- 	tst_fzsync_time(&pair->a_start);
++	free(cpus);
++#endif
++
+ 	CHK(avg_alpha, 0, 1, 0.25);
+ 	CHK(min_samples, 20, INT_MAX, 1024);
+ 	CHK(max_dev_ratio, 0, 1, 0.1);
+ 	CHK(exec_time_p, 0, 1, 0.5);
+ 	CHK(exec_loops, 20, INT_MAX, 3000000);
+-	CHK(yield_in_wait, 0, 1, (tst_ncpus() <= 1));
++	CHK(yield_in_wait, 0, 1, (ncpus <= 1));
  }
-@@ -744,8 +773,15 @@ static inline void tst_fzsync_start_race_b(struct tst_fzsync_pair *pair)
- 	tst_fzsync_wait_b(pair);
+ #undef CHK
  
- 	delay = pair->delay;
--	while (delay > 0)
--		delay--;
-+	if (pair->yield_in_wait) {
-+		while (delay > 0) {
-+			sched_yield();
-+			delay--;
-+		}
-+	} else {
-+		while (delay > 0)
-+			delay--;
-+	}
- 
- 	tst_fzsync_time(&pair->b_start);
- }
 -- 
 2.30.1
 
