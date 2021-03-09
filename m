@@ -1,41 +1,43 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83BA43315FD
-	for <lists+linux-ltp@lfdr.de>; Mon,  8 Mar 2021 19:27:45 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3DF36331DC1
+	for <lists+linux-ltp@lfdr.de>; Tue,  9 Mar 2021 05:00:59 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1B1513C6BE8
-	for <lists+linux-ltp@lfdr.de>; Mon,  8 Mar 2021 19:27:45 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 6A2B93C6BEF
+	for <lists+linux-ltp@lfdr.de>; Tue,  9 Mar 2021 05:00:58 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id AD14F3C063A
- for <ltp@lists.linux.it>; Mon,  8 Mar 2021 19:27:41 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id 801703C176A
+ for <ltp@lists.linux.it>; Tue,  9 Mar 2021 05:00:53 +0100 (CET)
+Received: from szxga06-in.huawei.com (szxga06-in.huawei.com [45.249.212.32])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id BA36A1400964
- for <ltp@lists.linux.it>; Mon,  8 Mar 2021 19:27:40 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id E901CAC24;
- Mon,  8 Mar 2021 18:27:39 +0000 (UTC)
-Date: Mon, 8 Mar 2021 19:29:16 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <YEZs/MTW0Pcyz6Ml@yuki.lan>
-References: <20210308154421.2002-1-pvorel@suse.cz> <YEZTd+CT/Gag1ejK@yuki.lan>
- <YEZoCOqGeb4dVnpV@pevik>
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id DB56C600911
+ for <ltp@lists.linux.it>; Tue,  9 Mar 2021 05:00:51 +0100 (CET)
+Received: from DGGEMS410-HUB.china.huawei.com (unknown [172.30.72.58])
+ by szxga06-in.huawei.com (SkyGuard) with ESMTP id 4DvhKg3mHkzjTGC
+ for <ltp@lists.linux.it>; Tue,  9 Mar 2021 11:59:19 +0800 (CST)
+Received: from ubuntu1804.huawei.com (10.67.174.63) by
+ DGGEMS410-HUB.china.huawei.com (10.3.19.210) with Microsoft SMTP Server id
+ 14.3.498.0; Tue, 9 Mar 2021 12:00:36 +0800
+From: Zhao Gongyi <zhaogongyi@huawei.com>
+To: <ltp@lists.linux.it>
+Date: Tue, 9 Mar 2021 12:00:15 +0800
+Message-ID: <20210309040015.21891-1-zhaogongyi@huawei.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <YEZoCOqGeb4dVnpV@pevik>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Originating-IP: [10.67.174.63]
+X-CFilter-Loop: Reflected
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] splice02: Generate input in C
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH] setns01.c: Change TINFO to TCONF since TINFO will not
+ update test results
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,42 +49,35 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Martin Loviska <mloviska@suse.com>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> > I do wonder if this should be replaced with something that includes a
-> > shell pipe instead. It has been selected here to make sure we pass the
-> > command line correctly to a shell interpreter.
-> 
-> > Maybe something as:
-> 
-> > shell_test01 echo "SUCCESS" | cat
-> 
-> I guess you mean to add another test to cover shell pipe.
-> Makes sense to me, but I'd wrap it to a test file, e.g. something like:
-> 
-> cat shell01.sh
-> #!/bin/sh
-> TST_TESTFUNC=do_test
-> TST_NEEDS_CMDS="cat"
-> . tst_test.sh
-> 
-> do_test()
-> {
-> 	EXPECT_PASS [ "$(echo 'SUCCESS' | cat)" = "SUCCESS" ]
-> }
-> 
-> tst_run
+When ns_total < 2 in testcase[3], we need to use TCONF since TINFO will not
+update test results, and test will be broken.
 
-That would not work, the pipe is supposed to be in the runtest file.
+Signed-off-by: Zhao Gongyi <zhaogongyi@huawei.com>
+---
+ testcases/kernel/syscalls/setns/setns01.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
--- 
-Cyril Hrubis
-chrubis@suse.cz
+diff --git a/testcases/kernel/syscalls/setns/setns01.c b/testcases/kernel/syscalls/setns/setns01.c
+index b07044060..4578871f6 100644
+--- a/testcases/kernel/syscalls/setns/setns01.c
++++ b/testcases/kernel/syscalls/setns/setns01.c
+@@ -117,7 +117,7 @@ static void test_setns(unsigned int testno)
+ 			t->setup(t, i);
+
+ 		if (t->skip) {
+-			tst_res(TINFO, "skip %s", t->msg);
++			tst_res(TCONF, "skip %s", t->msg);
+ 			continue;
+ 		}
+
+--
+2.17.1
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
