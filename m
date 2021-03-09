@@ -2,36 +2,40 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0DAE332CE7
-	for <lists+linux-ltp@lfdr.de>; Tue,  9 Mar 2021 18:11:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DCAB332CE8
+	for <lists+linux-ltp@lfdr.de>; Tue,  9 Mar 2021 18:11:18 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DCB3D3C6A95
-	for <lists+linux-ltp@lfdr.de>; Tue,  9 Mar 2021 18:11:10 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 1BE523C60B5
+	for <lists+linux-ltp@lfdr.de>; Tue,  9 Mar 2021 18:11:17 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- by picard.linux.it (Postfix) with ESMTP id AFCB23C4BF0
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id B91C13C554B
  for <ltp@lists.linux.it>; Tue,  9 Mar 2021 18:11:06 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 3E66B1A0111F
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 489C9140110E
  for <ltp@lists.linux.it>; Tue,  9 Mar 2021 18:11:06 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 83763AEBD
+ by mx2.suse.de (Postfix) with ESMTP id 928B0AEC4
  for <ltp@lists.linux.it>; Tue,  9 Mar 2021 17:11:05 +0000 (UTC)
 From: Martin Doucha <mdoucha@suse.cz>
 To: ltp@lists.linux.it
-Date: Tue,  9 Mar 2021 18:11:03 +0100
-Message-Id: <20210309171104.30821-1-mdoucha@suse.cz>
+Date: Tue,  9 Mar 2021 18:11:04 +0100
+Message-Id: <20210309171104.30821-2-mdoucha@suse.cz>
 X-Mailer: git-send-email 2.30.0
+In-Reply-To: <20210309171104.30821-1-mdoucha@suse.cz>
+References: <20210309171104.30821-1-mdoucha@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH 1/2] Add FS quota availability check functions
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH 2/2] syscalls/quotactl: Skip tests if FS quota is not
+ supported
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,84 +54,88 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Signed-off-by: Martin Doucha <mdoucha@suse.cz>
 ---
- include/tst_fs.h             | 16 ++++++++++++++++
- lib/tst_supported_fs_types.c | 32 ++++++++++++++++++++++++++++++++
- 2 files changed, 48 insertions(+)
+ .../kernel/syscalls/quotactl/quotactl01.c     |  2 ++
+ .../kernel/syscalls/quotactl/quotactl04.c     | 26 +++++++++++++++++--
+ .../kernel/syscalls/quotactl/quotactl06.c     |  2 ++
+ 3 files changed, 28 insertions(+), 2 deletions(-)
 
-diff --git a/include/tst_fs.h b/include/tst_fs.h
-index 4f7dd68d2..acf31d0e1 100644
---- a/include/tst_fs.h
-+++ b/include/tst_fs.h
-@@ -180,6 +180,22 @@ int tst_fs_is_supported(const char *fs_type, int flags);
-  */
- const char **tst_get_supported_fs_types(int flags);
+diff --git a/testcases/kernel/syscalls/quotactl/quotactl01.c b/testcases/kernel/syscalls/quotactl/quotactl01.c
+index 7b3649fa5..e5fa02acb 100644
+--- a/testcases/kernel/syscalls/quotactl/quotactl01.c
++++ b/testcases/kernel/syscalls/quotactl/quotactl01.c
+@@ -172,6 +172,8 @@ static void setup(void)
+ 	if (access(GRPPATH, F_OK) == -1)
+ 		tst_brk(TFAIL | TERRNO, "group quotafile didn't exist");
  
-+/*
-+ * Check whether device supports FS quotas. Negative return value means that
-+ * quotas appear to be broken.
-+ */
-+int tst_check_quota_support(const char *device, int format,
-+	const char *quotafile);
++	tst_require_quota_support(tst_device->dev, fmt_id, USRPATH);
 +
-+/*
-+ * Check for quota support and terminate the test with appropriate exit status
-+ * if quotas are not supported or broken.
-+ */
-+#define tst_require_quota_support(dev, fmt, qfile) \
-+	tst_require_quota_support_(__FILE__, __LINE__, (dev), (fmt), (qfile))
-+void tst_require_quota_support_(const char *file, const int lineno,
-+	const char *device, int format, const char *quotafile);
-+
- /*
-  * Creates and writes to files on given path until write fails with ENOSPC
-  */
-diff --git a/lib/tst_supported_fs_types.c b/lib/tst_supported_fs_types.c
-index 00ede549d..d9d310fd7 100644
---- a/lib/tst_supported_fs_types.c
-+++ b/lib/tst_supported_fs_types.c
-@@ -8,6 +8,7 @@
- #include <stdlib.h>
- #include <sys/mount.h>
- #include <sys/wait.h>
-+#include <sys/quota.h>
+ 	TEST(quotactl(QCMD(Q_GETNEXTQUOTA, USRQUOTA), tst_device->dev,
+ 		test_id, (void *) &res_ndq));
+ 	if (TST_ERR == EINVAL || TST_ERR == ENOSYS)
+diff --git a/testcases/kernel/syscalls/quotactl/quotactl04.c b/testcases/kernel/syscalls/quotactl/quotactl04.c
+index c8fa916b2..fd3afc888 100644
+--- a/testcases/kernel/syscalls/quotactl/quotactl04.c
++++ b/testcases/kernel/syscalls/quotactl/quotactl04.c
+@@ -28,6 +28,7 @@
+ #include <unistd.h>
+ #include <stdio.h>
+ #include <sys/stat.h>
++#include <sys/mount.h>
+ #include "config.h"
+ #include "lapi/quotactl.h"
+ #include "tst_safe_stdio.h"
+@@ -103,6 +104,28 @@ static struct tcase {
  
- #define TST_NO_DEFAULT_MAIN
- #include "tst_test.h"
-@@ -109,3 +110,34 @@ const char **tst_get_supported_fs_types(int flags)
+ };
  
- 	return fs_types;
- }
-+
-+int tst_check_quota_support(const char *device, int format,
-+	const char *quotafile)
++static void do_mount(const char *source, const char *target,
++	const char *filesystemtype, unsigned long mountflags,
++	const void *data)
 +{
-+	TEST(quotactl(QCMD(Q_QUOTAON, USRQUOTA), device, format, quotafile));
++	TEST(mount(source, target, filesystemtype, mountflags, data));
 +
-+	/* Not supported */
 +	if (TST_RET == -1 && TST_ERR == ESRCH)
-+		return 0;
++		tst_brk(TCONF, "Kernel or device does not support FS quotas");
 +
-+	/* Broken */
-+	if (TST_RET)
-+		return -1;
-+
-+	quotactl(QCMD(Q_QUOTAOFF, USRQUOTA), device, 0, 0);
-+	return 1;
-+}
-+
-+void tst_require_quota_support_(const char *file, const int lineno,
-+	const char *device, int format, const char *quotafile)
-+{
-+	int status = tst_check_quota_support(device, format, quotafile);
-+
-+	if (!status) {
-+		tst_brk_(file, lineno, TCONF,
-+			"Kernel or device does not support FS quotas");
++	if (TST_RET == -1) {
++		tst_brk(TBROK | TTERRNO, "mount(%s, %s, %s, %lu, %p) failed",
++			source, target, filesystemtype, mountflags, data);
 +	}
 +
-+	if (status < 0)
-+		tst_brk_(file, lineno, TBROK|TTERRNO, "FS quotas are broken");
++	if (TST_RET) {
++		tst_brk(TBROK | TTERRNO, "mount(%s, %s, %s, %lu, %p) failed",
++			source, target, filesystemtype, mountflags, data);
++	}
++
++	mount_flag = 1;
 +}
++
+ static void setup(void)
+ {
+ 	FILE *f;
+@@ -118,8 +141,7 @@ static void setup(void)
+ 		tst_brk(TCONF, "Test needs mkfs.ext4 >= 1.43 for quota,project option, test skipped");
+ 	pclose(f);
+ 	SAFE_MKFS(tst_device->dev, tst_device->fs_type, fs_opts, NULL);
+-	SAFE_MOUNT(tst_device->dev, MNTPOINT, tst_device->fs_type, 0, "quota");
+-	mount_flag = 1;
++	do_mount(tst_device->dev, MNTPOINT, tst_device->fs_type, 0, "quota");
+ }
+ 
+ static void cleanup(void)
+diff --git a/testcases/kernel/syscalls/quotactl/quotactl06.c b/testcases/kernel/syscalls/quotactl/quotactl06.c
+index 2818a4dc4..6288f5fa2 100644
+--- a/testcases/kernel/syscalls/quotactl/quotactl06.c
++++ b/testcases/kernel/syscalls/quotactl/quotactl06.c
+@@ -153,6 +153,8 @@ static void setup(void)
+ 	if (access(USRPATH, F_OK) == -1)
+ 		tst_brk(TFAIL | TERRNO, "user quotafile didn't exist");
+ 
++	tst_require_quota_support(tst_device->dev, fmt_id, USRPATH);
++
+ 	SAFE_MKDIR(TESTDIR1, 0666);
+ 	test_id = geteuid();
+ 	test_invalid = test_id + 1;
 -- 
 2.30.0
 
