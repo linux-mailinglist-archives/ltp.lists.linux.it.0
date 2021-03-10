@@ -1,53 +1,53 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0CCE338679
-	for <lists+linux-ltp@lfdr.de>; Fri, 12 Mar 2021 08:19:06 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id DEF663388A8
+	for <lists+linux-ltp@lfdr.de>; Fri, 12 Mar 2021 10:29:04 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A9C2E3C3022
-	for <lists+linux-ltp@lfdr.de>; Fri, 12 Mar 2021 08:19:06 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 44EB23C6835
+	for <lists+linux-ltp@lfdr.de>; Fri, 12 Mar 2021 10:29:04 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id D7D5C3C2F9F
- for <ltp@lists.linux.it>; Fri, 12 Mar 2021 08:19:05 +0100 (CET)
-Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id 4CDC03C1A9E
+ for <ltp@lists.linux.it>; Wed, 10 Mar 2021 21:49:28 +0100 (CET)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 7F225601BCD
- for <ltp@lists.linux.it>; Fri, 12 Mar 2021 08:19:03 +0100 (CET)
-Received: from DGGEML404-HUB.china.huawei.com (unknown [172.30.72.53])
- by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4DxcZk0GdzzRP2t;
- Fri, 12 Mar 2021 15:17:18 +0800 (CST)
-Received: from DGGEML424-HUB.china.huawei.com (10.1.199.41) by
- DGGEML404-HUB.china.huawei.com (10.3.17.39) with Microsoft SMTP Server (TLS)
- id 14.3.498.0; Fri, 12 Mar 2021 15:18:57 +0800
-Received: from DGGEML511-MBS.china.huawei.com ([169.254.4.181]) by
- dggeml424-hub.china.huawei.com ([10.1.199.41]) with mapi id 14.03.0513.000;
- Fri, 12 Mar 2021 15:18:51 +0800
-From: zhaogongyi <zhaogongyi@huawei.com>
-To: Petr Vorel <pvorel@suse.cz>, Li Wang <liwang@redhat.com>
-Thread-Topic: [LTP] [PATCH] lib/tst_device.c: Add exception handling of
- function tst_find_free_loopdev
-Thread-Index: AdcXDKKG3rO+KmgFT4uW0XxtZwHjpg==
-Date: Fri, 12 Mar 2021 07:18:51 +0000
-Message-ID: <F3D3F6AC3820BB4C9FCA340DB5C32CB4038910A5@dggeml511-mbs.china.huawei.com>
-Accept-Language: en-US
-Content-Language: zh-CN
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.67.110.209]
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id AAD4F140120A
+ for <ltp@lists.linux.it>; Wed, 10 Mar 2021 21:49:27 +0100 (CET)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 208F664FC6;
+ Wed, 10 Mar 2021 20:49:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1615409362;
+ bh=8Lubpt2RtIi1IKD8AnfhhcFsPyM8ZlZWqojFGL66AEo=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=PQhX5z72m4tWNc1wPcJL4+eNCCqDixQzxar0vIqh+ktQmQmEMsYW2KARrqaR/sQz4
+ xpu0uPizxIRDEbDLwNJkkihaImSz+OqHzM6htvp4AHC9W4ll/3jEg2WbWoZ4tyAOl7
+ XkRO6Dg4iZygdESiVlzkh5G4V3li+h3I0Uc84TN4rj3JWGIf9McWsQP4FCfYvLSofw
+ 5I86XkYXRXb76K/gPmswQCXUYxkai7RHD5vZ+HhgNvAVVe3QWJcbOZ2uzdhuntCUMp
+ kAy8FBMwT8QmYbaoMNw70iSw8ElSfrOJ14GwFobOzWND+101iubMUZkqpDuoL4TXua
+ 2uqd9ngJtrxig==
+Date: Wed, 10 Mar 2021 12:49:20 -0800
+From: Jaegeuk Kim <jaegeuk@kernel.org>
+To: Huang Jianan <huangjianan@oppo.com>
+Message-ID: <YEkw0J9VEg66AgIt@google.com>
+References: <20210308072510.GA902@xsang-OptiPlex-9020> <87h7llhnfe.fsf@suse.de>
+ <c75229cc-e325-1c8b-0afa-fd236db8319c@oppo.com>
+ <20210309040144.GH3479805@casper.infradead.org>
+ <c84bf5c9-501e-6c25-1728-a7c6281093fd@oppo.com>
 MIME-Version: 1.0
-X-CFilter-Loop: Reflected
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <c84bf5c9-501e-6c25-1728-a7c6281093fd@oppo.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] lib/tst_device.c: Add exception handling of
- function tst_find_free_loopdev
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+X-Mailman-Approved-At: Fri, 12 Mar 2021 10:28:59 +0100
+Subject: Re: [LTP] [f2fs] 02eb84b96b: ltp.swapon03.fail
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,27 +59,68 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Type: text/plain; charset="gb2312"
-Content-Transfer-Encoding: base64
+Cc: lkp@intel.com, lkp@lists.01.org, Chao Yu <yuchao0@huawei.com>,
+ LKML <linux-kernel@vger.kernel.org>, Matthew Wilcox <willy@infradead.org>,
+ Linux Memory Management List <linux-mm@kvack.org>,
+ kernel test robot <oliver.sang@intel.com>, Weichao Guo <guoweichao@oppo.com>,
+ ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGkgUGV0ciwgTGksDQoNCkF0IGZpcnN0LCBpdCBzZWVtcyBvayB0aGF0IHVzaW5nIFNUX1JFVFJZ
-X0ZVTkMgbWFjcm8gdG8gdHJ5IG1vcmUgdGltZXMgZm9yIHJhY2UgY29uZGl0aW9uLg0KDQpJbiBh
-ZGRpdGlvbiwgd2hlbiAibG9vcGRldm5vID0gaW9jdGwoZmQsIExPT1BfQ1RMX0dFVF9GUkVFKSIg
-Z2V0IGZyZWUgbG9vcCBkZXZpY2UgaSwgYW5kIA0KdGhlIGxvb3AgZGV2aWNlIGZpbGUgL2Rldi9s
-b29wJWkgaGFzIGJlZW4gcmVtb3ZlZKOsc2V0X2Rldl9wYXRoIHdpbGwgcmV0dXJuIDEgYW5kIHNl
-dCAiIC9kZXYvYmxvY2svbG9vcCVpICIgDQppbiBwYXRoLiBJdCBtaWdodCBoYXBwZW5lZCBpbiBt
-YW55IEVtYmVkZGVkIFN5c3RlbXMgYmVjYXVzZSB0aGUgdGVzdCBwcm9jZXNzJ3MgaWQgaXMgcm9v
-dCBhbHdheXMuIFNvIHdlIGNvdWxkIA0KYWxzbyBBZGQgZXhjZXB0aW9uIGhhbmRsaW5nPw0KDQpU
-aGFua3MhDQoNCkJlc3QgUmVnYXJkcywNCkdvbmd5aQ0KDQo+IA0KPiBIaSwNCj4gDQo+ID4gPiBC
-ZWNhdXNlIG9mIHJhY2UgY29uZGl0aW9uIG9yIGFibm9ybWFsIGVudiwgc2V0X2Rldl9wYXRoIG1h
-eSBiZQ0KPiA+ID4gcmV0dXJuIDEuIEFuZCB3aGVuIHNldF9kZXZfcGF0aCByZXR1cm4gMSBpbiB0
-c3RfZmluZF9mcmVlX2xvb3BkZXYsDQo+ID4gPiB3ZSBzaG91bGQgcmV0dXJuIEltbWVkaWF0ZWx5
-Lg0KPiANCj4gDQo+ID4gSWYgdGhlcmUgZXhpc3RzIGEgcmFjZSBjb25kaXRpb24sIEkgZmlyc3Rs
-eSB0aGluayBvZiB0aGUNCj4gPiBUU1RfUkVUUllfRlVOQyBtYWNybyB0byB0cnkgbW9yZSB0aW1l
-cyBmb3IgdGhlIHNldF9kZXZfcGF0aC4gVGhhdA0KPiA+IG1pZ2h0IGhlbHAgdG8gZ2V0IHRoZSBm
-dW5jdGlvbiBzdWNjZXNzIGluIHRoZSBmb2xsb3ctdXAgdHJpZXMuDQo+IA0KPiArMQ0KPiANCj4g
-S2luZCByZWdhcmRzLA0KPiBQZXRyDQoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xp
-c3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
+On 03/10, Huang Jianan wrote:
+> Hi Richard,
+> 
+> On 2021/3/9 12:01, Matthew Wilcox wrote:
+> > On Tue, Mar 09, 2021 at 10:23:35AM +0800, Weichao Guo wrote:
+> > > Hi Richard,
+> > > 
+> > > On 2021/3/8 19:53, Richard Palethorpe wrote:
+> > > > Hello,
+> > > > 
+> > > > > kern  :err   : [  187.461914] F2FS-fs (sda1): Swapfile does not align to section
+> > > > > commit 02eb84b96bc1b382dd138bf60724edbefe77b025
+> > > > > Author: huangjianan@oppo.com <huangjianan@oppo.com>
+> > > > > Date:   Mon Mar 1 12:58:44 2021 +0800
+> > > > >       f2fs: check if swapfile is section-alligned
+> > > > >       If the swapfile isn't created by pin and fallocate, it can't be
+> > > > >       guaranteed section-aligned, so it may be selected by f2fs gc. When
+> > > > >       gc_pin_file_threshold is reached, the address of swapfile may change,
+> > > > >       but won't be synchronized to swap_extent, so swap will write to wrong
+> > > > >       address, which will cause data corruption.
+> > > > >       Signed-off-by: Huang Jianan <huangjianan@oppo.com>
+> > > > >       Signed-off-by: Guo Weichao <guoweichao@oppo.com>
+> > > > >       Reviewed-by: Chao Yu <yuchao0@huawei.com>
+> > > > >       Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+> > > > The test uses fallocate to preallocate the swap file and writes zeros to
+> > > > it. I'm not sure what pin refers to?
+> > > 'pin' refers to pinned file feature in F2FS, the LBA(Logical Block Address)
+> > > of a file is fixed after pinned. Without this operation before fallocate,
+> > > the LBA may not align with section(F2FS GC unit), some LBA of the file may
+> > > be changed by F2FS GC in some extreme cases.
+> > > 
+> > > For this test case, how about pin the swap file before fallocate for F2FS as
+> > > following:
+> > > 
+> > > ioctl(fd, F2FS_IOC_SET_PIN_FILE, true);
+> > No special ioctl should be needed.  f2fs_swap_activate() should pin the
+> > file, just like it converts inline inodes and disables compression.
+> 
+> Now f2fs_swap_activate() will pin the file. The problem is that when
+> f2fs_swap_activate()
+> 
+> is executed, the file has been created and may not be section-aligned.
+> 
+> So I think it would be better to consider aligning the swapfile during
+> f2fs_swap_activate()?
+
+Does it make sense to reallocate blocks like
+in f2fs_swap_activate(),
+	set_inode_flag(inode, FI_PIN_FILE);
+	truncate_pagecache(inode, 0);
+	f2fs_truncate_blocks(inode, 0, true);
+	expand_inode_data();
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
