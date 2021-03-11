@@ -2,41 +2,55 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4AD0334505
-	for <lists+linux-ltp@lfdr.de>; Wed, 10 Mar 2021 18:21:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82EF1336971
+	for <lists+linux-ltp@lfdr.de>; Thu, 11 Mar 2021 02:11:50 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 94FC23C4D72
-	for <lists+linux-ltp@lfdr.de>; Wed, 10 Mar 2021 18:21:40 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 4A25B3C6A21
+	for <lists+linux-ltp@lfdr.de>; Thu, 11 Mar 2021 02:11:50 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id 657DB3C4B8C
- for <ltp@lists.linux.it>; Wed, 10 Mar 2021 18:21:37 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 6348860062A
- for <ltp@lists.linux.it>; Wed, 10 Mar 2021 18:21:37 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id A66AEAC1F;
- Wed, 10 Mar 2021 17:21:36 +0000 (UTC)
-Date: Wed, 10 Mar 2021 18:21:35 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Xiao Yang <ice_yangxiao@163.com>
-Message-ID: <YEkAH6xJlSK99bp+@pevik>
-References: <20210303023235.431238-1-yangx.jy@cn.fujitsu.com>
- <YEigO2gryF1Kp6Gq@pevik>
- <b11680c3-7878-b06b-e87a-8991bd3cb305@163.com>
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 7EEBF3C4B8C
+ for <ltp@lists.linux.it>; Thu, 11 Mar 2021 02:11:49 +0100 (CET)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id B755E20090F
+ for <ltp@lists.linux.it>; Thu, 11 Mar 2021 02:11:47 +0100 (CET)
+IronPort-HdrOrdr: =?us-ascii?q?A9a23=3AUvASb6jf7pftSTUf2EsGZDhCCnBQXjoji2hD?=
+ =?us-ascii?q?6mlwRA09T+WzkceykPMHkSLlkTp5YgBFpfmsGomlBUnd+5l8/JULMd6ZMTXOlW?=
+ =?us-ascii?q?O0IOhZg7fK7DHtFib3/OwY9YoIScJDIfLqC1wSt6fHyS2ZN/pl/9Wd6qCvgo7l?=
+ =?us-ascii?q?vhJQZCVncbtp4Qs8KivzKDwUeCB8CZA0FIWR66N8zlLORV0scs+5CnMZNtKzxe?=
+ =?us-ascii?q?HjqZSOW347Li9iwAyPoBft07TiDiWfty10bxp/hZsk7kjJ+jaU2pme?=
+X-IronPort-AV: E=Sophos;i="5.81,238,1610380800"; d="scan'208";a="105483509"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 11 Mar 2021 09:11:43 +0800
+Received: from G08CNEXMBPEKD06.g08.fujitsu.local (unknown [10.167.33.206])
+ by cn.fujitsu.com (Postfix) with ESMTP id 24C184CEA876
+ for <ltp@lists.linux.it>; Thu, 11 Mar 2021 09:11:41 +0800 (CST)
+Received: from [10.167.220.69] (10.167.220.69) by
+ G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Thu, 11 Mar 2021 09:11:40 +0800
+Message-ID: <60496E4A.5090504@cn.fujitsu.com>
+Date: Thu, 11 Mar 2021 09:11:38 +0800
+From: Xiao Yang <yangx.jy@cn.fujitsu.com>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
+ rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <b11680c3-7878-b06b-e87a-8991bd3cb305@163.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+To: Shiyang Ruan <ruansy.fnst@fujitsu.com>
+References: <20210304014444.1123439-1-ruansy.fnst@fujitsu.com>
+In-Reply-To: <20210304014444.1123439-1-ruansy.fnst@fujitsu.com>
+X-Originating-IP: [10.167.220.69]
+X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
+ G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206)
+X-yoursite-MailScanner-ID: 24C184CEA876.A6F45
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: yangx.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.0 required=7.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.4
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls: Use anonymous .resource_files for
- docparse
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] syscalls/chdir04: Convert to the new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,39 +62,222 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: Martin Doucha <martin.doucha@suse.com>, ltp@lists.linux.it
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: ltp@lists.linux.it
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGkgWWFuZywKCj4gT24gMy8xMC8yMSA2OjMyIFBNLCBQZXRyIFZvcmVsIHdyb3RlOgo+ID4gSGks
-Cgo+ID4gPiBTaWduZWQtb2ZmLWJ5OiBYaWFvIFlhbmcgPHlhbmd4Lmp5QGNuLmZ1aml0c3UuY29t
-Pgo+ID4gUmV2aWV3ZWQtYnk6IFBldHIgVm9yZWwgPHB2b3JlbEBzdXNlLmN6PgoKPiA+ID4gLXN0
-YXRpYyBjb25zdCBjaGFyICpjb25zdCByZXNvdXJjZV9maWxlc1tdID0gewo+ID4gPiAtCVRFU1Rf
-QVBQLAo+ID4gPiAtCU5VTEwsCj4gPiA+IC19Owo+ID4gPiAtCj4gPiA+ICAgc3RhdGljIHN0cnVj
-dCB0c3RfdGVzdCB0ZXN0ID0gewo+ID4gPiAgIAkudGVzdF9hbGwgPSB2ZXJpZnlfY3JlYXQsCj4g
-PiA+ICAgCS5uZWVkc19jaGVja3BvaW50cyA9IDEsCj4gPiA+ICAgCS5mb3Jrc19jaGlsZCA9IDEs
-Cj4gPiA+IC0JLnJlc291cmNlX2ZpbGVzID0gcmVzb3VyY2VfZmlsZXMsCj4gPiA+ICsJLnJlc291
-cmNlX2ZpbGVzID0gKGNvbnN0IGNoYXIgKmNvbnN0IFtdKSB7Cj4gPiA+ICsJCVRFU1RfQVBQLAo+
-ID4gRG9uJ3Qgd2Ugd2FudCB0byBkcm9wIFRFU1RfQVBQIGRlZmluaXRpb24gYW5kIHVzZSBmaWxl
-IGRpcmVjdGx5Pwo+ID4gSGF2aW5nIFRFU1RfQVBQIGRvZXMgbm90IHNheSBtdWNoLgoKPiBIaSBQ
-ZXRyLAoKCj4gSSBjYW4gdXNlIGZpbGUgbmFtZSBkaXJlY3RseSBpbiB2MiBwYXRjaC4KT0suIEkn
-ZCBsaWtlIHRvIGtub3cgdGhlIG90aGVycyBvcGluaW9uIChwcmVjZWRlbnQpLgoKPiBEbyB5b3Ug
-YWdyZWUgdG8gdXNlIGFub255bW91cyAucmVzb3VyY2VfZmlsZXMgZm9yIG5vd++8nyBvciBpcyBp
-dCBiZXR0ZXIgdG8KPiBrZWVwIGl0PwpJIGd1ZXNzIHllcywgd2UndmUgYWxyZWFkeSBzdGFydGVk
-IHRvIHVzZSBpdC4KCj4gPiBOb3Qgc3VyZSBob3cgZmFyIHdlIHNob3VsZCBnbyB3aXRoIG1vdmlu
-ZyBldmVyeXRoaW5nIGludG8gaW5saW5lIGFub255bW91cwo+ID4gZGVmaW5pdGlvbnMgKGl0J2Qg
-YmUgbmljZSBpZiBkb2NwYXJzZSB3YXMgYWJsZSB0byBqdXN0IGV4cGFuZCBtYWNyb3MsIGJ1dCB0
-aGF0Cj4gPiB3b3VsZCBiZSB3YXkgdG9vIHNsb3cpLgoKPiBJIGFncmVlIHRoYXQgZXhwYW5kaW5n
-IG1hY3JvcyBvciBzdHJ1Y3RzIGlzIHRoZSBuaWNlciB3YXkgYnV0Cgo+IHdlIG5lZWQgdG8gZG8g
-c29tZSBpbnZlc3RpZ2F0aW9uIGFib3V0IGl0LgpnY2MgLUUgZm9vLmMgd291bGQgZG8gZXhwYW5z
-aW9uIGZvciB1cy4gQnV0IG5vdCBzdXJlIGlmIGl0J3Mgd29ydGggb2YgcnVudGltZS4KQmVjYXVz
-ZSBwcm9ibGVtIG9mIG1pc3NpbmcgZGVmaW5pdGlvbnMgd2lsbCBiZSBvbiBvdGhlciBwbGFjZXMg
-YW5kIHdlIGRvbid0IHdhbnQKdG8gZ2V0IHJpZCBvZiBkZWZpbml0aW9ucy4gZS5nLiBJIHBsYW5u
-ZWQgdG8gYWRkIHNvbWUgdGFnIGRlZmluaXRpb25zIChmb3IKImxpbnV4LWdpdCIsIC4uLikgYXMg
-TWFydGluIERvdWNoYSBzdWdnZXN0ZWQsIGJ1dCB0aGlzIHdvdWxkIG5vdCB3b3JrIHVudGlsCndl
-IGV4cGFuZCBtYWNyb3MuCgpLaW5kIHJlZ2FyZHMsClBldHIKCj4gQmVzdCBSZWdhcmRzLAoKPiBY
-aWFvIFlhbmcKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9s
-aXN0aW5mby9sdHAK
+On 2021/3/4 9:44, Shiyang Ruan wrote:
+> Signed-off-by: Shiyang Ruan<ruansy.fnst@fujitsu.com>
+> ---
+>   testcases/kernel/syscalls/chdir/chdir04.c | 168 +++-------------------
+>   1 file changed, 22 insertions(+), 146 deletions(-)
+>
+> diff --git a/testcases/kernel/syscalls/chdir/chdir04.c b/testcases/kernel/syscalls/chdir/chdir04.c
+> index f0420e4c9..d7e6210c3 100644
+> --- a/testcases/kernel/syscalls/chdir/chdir04.c
+> +++ b/testcases/kernel/syscalls/chdir/chdir04.c
+> @@ -1,162 +1,38 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+>   /*
+> - *
+> - *   Copyright (c) International Business Machines  Corp., 2001
+> - *
+> - *   This program is free software;  you can redistribute it and/or modify
+> - *   it under the terms of the GNU General Public License as published by
+> - *   the Free Software Foundation; either version 2 of the License, or
+> - *   (at your option) any later version.
+> - *
+> - *   This program is distributed in the hope that it will be useful,
+> - *   but WITHOUT ANY WARRANTY;  without even the implied warranty of
+> - *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
+> - *   the GNU General Public License for more details.
+> - *
+> - *   You should have received a copy of the GNU General Public License
+> - *   along with this program;  if not, write to the Free Software
+> - *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+> + * Copyright (c) International Business Machines  Corp., 2001
+>    */
+>
+> -/*
+> - * NAME
+> - * 	chdir04.c
+> - *
+> - * DESCRIPTION
+> - *	Testcase to test whether chdir(2) sets errno correctly.
+> - *
+> - * ALGORITHM
+> - *	1.	Test for ENAMETOOLONG:
+> - *		Create a bad directory name with length more than
+> - *
+> - *		VFS_MAXNAMELEN (Linux kernel variable), and attempt to
+> - *		chdir(2) to it.
+> - *
+> - *	2.	Test for ENOENT:
+> - *		Attempt to chdir(2) on a non-existent directory
+> - *
+> - *	3.	Test for EFAULT:
+> - *		Pass an address which lies outside the address space of the
+> - *		process, and expect an EFAULT.
+> - *
+> - * USAGE:<for command-line>
+> - * chdir04 [-c n] [-e] [-i n] [-I x] [-P x] [-t]
+> - *     where,  -c n : Run n copies concurrently.
+> - *             -e   : Turn on errno logging.
+> - *             -i n : Execute test n times.
+> - *             -I x : Execute test for x seconds.
+> - *             -P x : Pause for x seconds between iterations.
+> - *             -t   : Turn on syscall timing.
+> +/*\
+> + * [DESCRIPTION]
+>    *
+> - * HISTORY
+> - *	07/2001 Ported by Wayne Boyer
+> - *
+> - * RESTRICTIONS
+> - *	NONE
+> - */
+> + * Testcase to test whether chdir(2) sets errno correctly.
+> +\*/
+Hi Ruan,
+
+Please remove the first '\' as Petr mentioned:
+http://lists.linux.it/pipermail/ltp/2021-March/021356.html
+
+>
+> -#include<stdio.h>
+>   #include<errno.h>
+> -#include<sys/stat.h>
+> -#include<sys/mman.h>
+> -#include "test.h"
+> -
+> -char *TCID = "chdir04";
+> +#include "tst_test.h"
+>
+>   char bad_dir[] =
+>       "abcdefghijklmnopqrstmnopqrstuvwxyzabcdefghijklmnopqrstmnopqrstuvwxyzabcdefghijklmnopqrstmnopqrstuvwxyzabcdefghijklmnopqrstmnopqrstuvwxyzabcdefghijklmnopqrstmnopqrstuvwxyzabcdefghijklmnopqrstmnopqrstuvwxyzabcdefghijklmnopqrstmnopqrstuvwxyzabcdefghijklmnopqrstmnopqrstuvwxyz";
+> -
+>   char noexist_dir[] = "/tmp/noexistdir";
+> -
+> -struct test_case_t {
+> -	char *dname;
+> -	int error;
+> -} TC[] = {
+> -	/*
+> -	 * to test whether chdir() is setting ENAMETOOLONG if the
+> -	 * directory is more than VFS_MAXNAMELEN
+> -	 */
+> -	{
+> -	bad_dir, ENAMETOOLONG},
+> -	    /*
+> -	     * to test whether chdir() is setting ENOENT if the
+> -	     * directory is not existing.
+> -	     */
+> -	{
+> -	noexist_dir, ENOENT},
+> -	    /*
+> -	     * to test whether chdir() is setting EFAULT if the
+> -	     * directory is an invalid address.
+> -	     */
+> -	{
+> -	(void *)-1, EFAULT}
+> -};
+> -
+> -int TST_TOTAL = ARRAY_SIZE(TC);
+> -
+> -int flag;
+> -#define	FAILED	1
+> -
+> -void setup(void);
+> -void cleanup(void);
+> -
+>   char *bad_addr = 0;
+>
+> -int main(int ac, char **av)
+> -{
+> -	int lc;
+> -	int i;
+> -
+> -	tst_parse_opts(ac, av, NULL, NULL);
+> -
+> -	setup();
+> -
+> -	for (lc = 0; TEST_LOOPING(lc); lc++) {
+> -		tst_count = 0;
+> -
+> -		for (i = 0; i<  TST_TOTAL; i++) {
+> -
+> -			TEST(chdir(TC[i].dname));
+> -
+> -			if (TEST_RETURN != -1) {
+> -				tst_resm(TFAIL, "call succeeded unexpectedly");
+> -				continue;
+> -			}
+> -
+> -			if (TEST_ERRNO == TC[i].error)
+> -				tst_resm(TPASS | TTERRNO, "failed as expected");
+> -			else {
+> -				tst_resm(TFAIL | TTERRNO,
+> -					 "didn't fail as expected (expected %d)",
+> -					 TC[i].error);
+> -			}
+> -		}
+> -	}
+> -	cleanup();
+> -
+> -	tst_exit();
+> -
+> -}
+> +static struct tcase {
+> +	char *dir;
+> +	int exp_errno;
+> +} tcases [] = {
+> +	{bad_dir, ENAMETOOLONG},
+> +	{noexist_dir, ENOENT},
+> +	{(void *)-1, EFAULT}
+> +};
+For portability, It is better to test bad address by tst_get_bad_addr() 
+instead of (void *)-1.
+See the following explanation:
+https://github.com/linux-test-project/ltp/commit/80bed467bc6ab48a6cd88a8ab74ca15d08830cb0
+
+Best Regards,
+Xiao Yang
+>
+> -void setup(void)
+> +static void verify_chdir(unsigned int i)
+>   {
+> -
+> -	tst_sig(NOFORK, DEF_HANDLER, cleanup);
+> -
+> -	TEST_PAUSE;
+> -
+> -	tst_tmpdir();
+> -
+> -#ifdef UCLINUX
+> -	bad_addr = mmap(0, 1, PROT_NONE,
+> -			MAP_PRIVATE_EXCEPT_UCLINUX | MAP_ANONYMOUS, 0, 0);
+> -	if (bad_addr == MAP_FAILED)
+> -		tst_brkm(TBROK | TERRNO, cleanup, "mmap() failed");
+> -	TC[2].dname = bad_addr;
+> -#endif
+> +	TST_EXP_FAIL(chdir(tcases[i].dir), tcases[i].exp_errno);
+>   }
+>
+> -void cleanup(void)
+> -{
+> -	tst_rmdir();
+> -
+> -}
+> +static struct tst_test test = {
+> +	.needs_tmpdir = 1,
+> +	.test = verify_chdir,
+> +	.tcnt = ARRAY_SIZE(tcases),
+> +};
+
+
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
