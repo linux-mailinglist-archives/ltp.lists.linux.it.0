@@ -1,135 +1,60 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 329AC33699B
-	for <lists+linux-ltp@lfdr.de>; Thu, 11 Mar 2021 02:23:41 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 63EC83369A9
+	for <lists+linux-ltp@lfdr.de>; Thu, 11 Mar 2021 02:31:16 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D666E3C6A21
-	for <lists+linux-ltp@lfdr.de>; Thu, 11 Mar 2021 02:23:40 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 333C23C6A26
+	for <lists+linux-ltp@lfdr.de>; Thu, 11 Mar 2021 02:31:16 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id 350E33C4B8C
- for <ltp@lists.linux.it>; Thu, 11 Mar 2021 02:23:39 +0100 (CET)
-Received: from esa14.fujitsucc.c3s2.iphmx.com (esa14.fujitsucc.c3s2.iphmx.com
- [68.232.156.101])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id EAFD6140096C
- for <ltp@lists.linux.it>; Thu, 11 Mar 2021 02:23:37 +0100 (CET)
-IronPort-SDR: iB+6waTSZNbUgiq6HY6jlintieC86LzUkmxB/h16BUtw5V0vwBAbWi/NRfYRYZV3zmHaY3Tk8A
- 3+8sBYeWG+zY4kmEJDFa6U4nuRbpVS1Hsv+5Z1q5VkPr/IAUZK28mnw6zntBI/j484AWVHiSQf
- /RdqEKlRulq5ZmIZS6OmTleJzTLcnXi3Udq9bBrse0q6ifx7ODB5yzeVtX2zD664UXw1QXfgS3
- K8sypP0+r0yXMAvONZ3yAQQMM7c6zBrIV8TZ2RK2PHtUu03UnMtrWjew+Dg11I0BzTc9Un50Lb
- RiM=
-X-IronPort-AV: E=McAfee;i="6000,8403,9919"; a="27549834"
-X-IronPort-AV: E=Sophos;i="5.81,238,1610377200"; d="scan'208";a="27549834"
-Received: from mail-ty1jpn01lp2050.outbound.protection.outlook.com (HELO
- JPN01-TY1-obe.outbound.protection.outlook.com) ([104.47.93.50])
- by ob1.fujitsucc.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Mar 2021 10:23:36 +0900
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Cyvg6R6s7SfJgNiUgtq85YtFsSe9AHFT43pjzicatipAcdm7VMaKKePOrJED/2HKgomNcmQQLBWXMt8SONp2RGvQBRsYCLaZhTdRzvQSbAlrgp+gvfYODcBXOvT8CR32tcu4BC6qoxWFWB5ZkDb5/TazjwANFvltmfagKaPUhKCfAb/iM029T/WysBBU3ybq8I0uXfbGGLT7vnmVCN3/BD2ci9OrncV+yPTizTJ598LYkITX3rncykCcANPJXjpAxGkPEh0MssIMtUJqRCpYmY+d9N1Myl6UF5XlP1u/EwFZSiWSSp30NjLeeyX/abvRofDvutD70o5RDZJcxNpj5g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vb0rv3Bbe/yQzzs4rLjL1qqu05DZvC/zBzg7zhTC6K4=;
- b=MoiezL+M6GwU/qwMvs6F9SN3YBVK0U6enR7Aec/nYNPHuelf1tAyNPL4V3M58zVh/xrGqzLylBMb8ekale5ERqKMcQlDZa7nEAsm/POFsHAfcRnk9yTmPcTNbqGvjPxCo4g058+LeVrXf1TTreLhu2j9MgQbtjtjokI8tLNJpHHgISlgrW60At4b7FnepYxSYVMW8qGw3rSp4gVclEceHx+dVUvCgc+myPBJM9UMWCr+aQsWkCw96X/uA0bA86qz8LYhG1Qs/NSloOGr7HMZMJG+joAFS5LfQP2zhD5U4rAR8dSSUBdwyBYVsmxX0jZvkaxH3AQAwcHZn393hF2kng==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=fujitsu.com; dmarc=pass action=none header.from=fujitsu.com;
- dkim=pass header.d=fujitsu.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fujitsu.onmicrosoft.com; s=selector2-fujitsu-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vb0rv3Bbe/yQzzs4rLjL1qqu05DZvC/zBzg7zhTC6K4=;
- b=NYrg3IaA26wBl+45+9x4HOjFOJ+mYQcBtdm574D3S32TN8Rq6QgpIAkYAmUevETRhX1N12CHEiuf2YxVc35T84hpFRm3vFaxWpdmA74ymOFut8+2Jzx0qmMerfNDDqb8zIpFx/7m5W91N0znaO8KNtZdy1tU3EnDHbuLCbSYOQ0=
-Received: from OSBPR01MB2920.jpnprd01.prod.outlook.com (2603:1096:604:18::16)
- by OSBPR01MB1621.jpnprd01.prod.outlook.com (2603:1096:603:4::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3912.17; Thu, 11 Mar
- 2021 01:23:32 +0000
-Received: from OSBPR01MB2920.jpnprd01.prod.outlook.com
- ([fe80::c482:fa93:9877:5063]) by OSBPR01MB2920.jpnprd01.prod.outlook.com
- ([fe80::c482:fa93:9877:5063%3]) with mapi id 15.20.3912.027; Thu, 11 Mar 2021
- 01:23:32 +0000
-From: "ruansy.fnst@fujitsu.com" <ruansy.fnst@fujitsu.com>
-To: "yangx.jy@cn.fujitsu.com" <yangx.jy@cn.fujitsu.com>
-Thread-Topic: [LTP] [PATCH v2] syscalls/chdir04: Convert to the new API
-Thread-Index: AQHXEJgJIbej/xsCnEuQHTwT9JUZs6p+BcgAgAACM8A=
-Date: Thu, 11 Mar 2021 01:23:32 +0000
-Message-ID: <OSBPR01MB2920AE77E5171B02DAF513B6F4909@OSBPR01MB2920.jpnprd01.prod.outlook.com>
-References: <20210304014444.1123439-1-ruansy.fnst@fujitsu.com>
- <60496E4A.5090504@cn.fujitsu.com>
-In-Reply-To: <60496E4A.5090504@cn.fujitsu.com>
-Accept-Language: en-US, zh-CN
-Content-Language: zh-CN
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: cn.fujitsu.com; dkim=none (message not signed)
- header.d=none; cn.fujitsu.com; dmarc=none action=none header.from=fujitsu.com; 
-x-originating-ip: [180.96.28.100]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 4606a724-6ec4-42ee-8f95-08d8e42c48ff
-x-ms-traffictypediagnostic: OSBPR01MB1621:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <OSBPR01MB1621D4934FDF0B3642BE13D7F4909@OSBPR01MB1621.jpnprd01.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:346;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: hm9DKHSCS0T4ze+z9zpRqaDCuzX3IU6S+4BHCWEmH5uSi39O2UMNml2kFHFjyVfrhh2GT1eUc6sH8mIP9idUHBKU+f12+JVb5Kp3ZCCbWu0l5E8vrPuhWrvAjhBsybn07Fp+W9j52M+6NKzDjejRLiofWUFdBKpgg55POAx98zzl6jcXUP/2rxoMMJ62tQCmdYjW1xVAPz0Re3uY2si5W7GKE56wSkbFqn/xYhXtMFqdzdfE1zKSvKXmy3vvhC/WTmca7oEqqGDJOlJuiSHIsssbwEfPvvSHl3yBZgWizgwYIJT+GaXybkYmHfKVX14cwogyQqjSLRiNP9qXg3iAYAwuodhZegUt0MfXja0aybPNtHLjHTZrofIwKh89Ti3U2F9oJALPXZjMLEMB7S0MmO8dZ3KkyVHquMxp5mcvsL1mX7DkTJpgQiS8dGixOs5CZU1TkFEOEpUaV4xPqe2Tdmvv2TioBSOf7dDILo3O1ZFMIDCzSRy+dzZoLn742lALe2ragWLSRdOZp0IQ9sGMz2g5Ra179AYN4G4TZayPX+DYzxKxp0ys7hVSrgYNxmc3ZtzW8oTDr0PmRcwkhU122DZf/9B7eEJRNSjrqN6ifRVUPeVyxmdNJBK3pI9VLJaAy8xqyGt2e+SJIgyY2M9i5Q==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:OSBPR01MB2920.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(396003)(366004)(136003)(39860400002)(376002)(33656002)(86362001)(71200400001)(52536014)(2906002)(316002)(478600001)(966005)(53546011)(66476007)(64756008)(66946007)(66556008)(4326008)(8676002)(186003)(66446008)(85182001)(76116006)(83380400001)(6862004)(8936002)(6506007)(9686003)(5660300002)(26005)(7696005)(55016002)(2004002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?gb2312?B?VWJIeCtvNGZWdFdkZWc5akhWYXR0MnVoK1BQKzQwYlk4d2R4QnRZemZGdDQ4?=
- =?gb2312?B?c1V2K2NFWkNmOFVlRXh3eS8ybUJiTGN4M1BuZ3EyUlZ3VjhlbFlTOVQxTkli?=
- =?gb2312?B?N1F3MURPajhFTFZwMG5tZVRTajF0Z1hDWjY5YzZGUW54bjBxYVZKVXpsQlJy?=
- =?gb2312?B?V1B3VXZ6TDBFdGxWZ3FWMmxYRkpLU09OdUhiNFZiMHJCalJIV1BDR1BWTFo5?=
- =?gb2312?B?QWhDNFFhS0t5b09BYkRIVi91c0orcWVIKzk4Q0Nob1RFWmlCdWVOQnNrRzAv?=
- =?gb2312?B?STUvdDBJNU43TCtjZVRUUWRmNUQ0NG8yT2xkdGd0aGY3ZFVRZVQ3THFWMHVU?=
- =?gb2312?B?L0l1UXFHdU1tZjhSK3FzM0VDZmZGMkovaXhEMFUxTkpGaWRyWDdWcjZ6MFY1?=
- =?gb2312?B?QTU5bXUyS3A0cFF4RDMwaTd3Wk5wVC9pK0dWRVpjMU42NVhZUWRqdFVIcW5v?=
- =?gb2312?B?d0psdXg1czI5QTJxUk1oMXRSeW1nTllwTmZ0VTh5QytPa0M1alFYSUpVSGti?=
- =?gb2312?B?VURaMVpVWTB0THVSRlh3VUJzSVF5ZWZHWVBubmJHOU5JdXNVZHBZR1Z2Mkl5?=
- =?gb2312?B?RTk2SmNsVml1RFpYSzB6aWVRUEFRait1eU45NDRoOUNhN3pUYzlhM0ZlUzA0?=
- =?gb2312?B?dW5oLzVNVXRCOHA5Rlo4RVJ0a1ZqbUYrU00vVkszSG1LdEF1OGwvQ0U5K1hZ?=
- =?gb2312?B?RzNtQVAyeHZoWnpDdWtJT2EwaVRXSFVrckY5dFpIbjIvanlIUXZrOENBMFgw?=
- =?gb2312?B?QkdXSTdzWDdFT2xTYVlWcHdXU0d1cVNLTkZiMzJOZkJ5UFMxUEIzVEtFVUlJ?=
- =?gb2312?B?V0dmeHhLMDBNaXQzdVF2cVhtbGsxVGo1c2tOUDlQVzlmN3JqRjRPV2xpZVd6?=
- =?gb2312?B?RFVBcmxxdVRjeXhuN2VlZFZpdTBCUVQ2YnQ4VDU3THlsRnpMWnAwc1FKdU1B?=
- =?gb2312?B?SEY4aXovVk40aUZNdGt1cmk1S3JjdmFyWUtOWFhuTGMzSGk1MVp0YTc5THF0?=
- =?gb2312?B?ZkVRTVNvSUdtdzlGcjdvdThNdmJJMFFDUTg0cXNOZ3Qya1MwRTV1NC83WFdR?=
- =?gb2312?B?K1ZUNFNGTmkvTFB0S0tCVk1KMFplcGF2bUdGbUd0anlHdTBZRDJYdzRWaVpn?=
- =?gb2312?B?bHNibG1RN3ZXc3U1MGp4RmtWZTZvNVB5NTgvZzhWeld1c2FtaS9NaE9FOWVN?=
- =?gb2312?B?RTVkbUpSOVcvUFJxYmlPTm42eTNiM3l0ay96MURUUXNheVJKTEhkczNvYitN?=
- =?gb2312?B?Ym9rVlg2dWg3b3ZOQWtjRjk2eXRpeGhZMVhTem5HeUVtb0FhYVlsZWhYWHBG?=
- =?gb2312?B?emUxczU1b0dDQ0U2d282RHdKM211dzBIVjlOaGVWLzI3R0ptS2lMVFpRK1NR?=
- =?gb2312?B?M3V2VFdVR0lQL3Z5SHdYeFdTRzhxY2VWdTZxOUlUMnpUQXdXQVZEVmFGOXg2?=
- =?gb2312?B?MXZHanFaeDRmeEFLLzVlV2JaVkhPMDFQTjFCN0tscGtUNGNuUFZKdjZsMW80?=
- =?gb2312?B?Q0ZaRWJmUDBPQWtyOER3alI3REZKRU1BR05nUW1LU1hsN0M3aEhsdHJCQjlU?=
- =?gb2312?B?eE5xa1AzWkNOeUE5UTVCVk8zd3FkS3lXYStXeXRFaU9LcitSUTMydjJCZ0Vi?=
- =?gb2312?B?QUQ4L1FkNFJIdXg3NmNJU091QmVSdmpFa0R3dHdtSXZIQ3puWlBjOGtWS1ZZ?=
- =?gb2312?B?NGRHbHZNL3JsYUQwMUtYTnRWbDVVOFIwVVJnd3ZZU0puTXpZbFF6Y2IwYU5Z?=
- =?gb2312?Q?I0iUxi0ax8/x+qo9MQ=3D?=
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id 4C2253C562E
+ for <ltp@lists.linux.it>; Thu, 11 Mar 2021 02:31:15 +0100 (CET)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id 5E30E2009AF
+ for <ltp@lists.linux.it>; Thu, 11 Mar 2021 02:31:11 +0100 (CET)
+IronPort-HdrOrdr: =?us-ascii?q?A9a23=3AvtnreK07tz+L740GytPqtQqjBYJyeYIsi2QD?=
+ =?us-ascii?q?101hICF9WObwrbHMoN0w0xjohDENHEw6kdebN6WaBV/a/5h54Y4eVI3SOjXOkm?=
+ =?us-ascii?q?2uMY1k8M/e0yTtcheOkdJ1+K98f8FFZOHYIkN9ia/BjzWQM9Fl+9Wf9bDtuOG2?=
+ =?us-ascii?q?9QYIcShPS4VNqzh0ERyaFEoefmh7LL40DoCV6MYChxfIQxkqR/+2DHUEQOTPzu?=
+ =?us-ascii?q?ej/PmNXTc8CxEq8wWIhz+zgYSKdiSw5AsUUD9E3N4ZgAr4ujH+j5/Cj9iG0BPG?=
+ =?us-ascii?q?k0fc45NK8eGO9vJzQOaIisQTNwz2jBepaIlLS9S5zUgIidDqzk0rntnKqwohOM?=
+ =?us-ascii?q?o2y0q5RBDNnTLdnzP42DJr0WLr1EOD6EGT3fDRdXYrDdZbn4JFfl/840okhtt1?=
+ =?us-ascii?q?16VGxAuixuBqJCKFjCLg/MLJSh0vskK1pEApmekVg2cafpAZbNZq3PEi1XIQAJ?=
+ =?us-ascii?q?EdBzj79YxiNOFvCfvX7PFQfUjfT12xhBgV/OCR?=
+X-IronPort-AV: E=Sophos;i="5.81,238,1610380800"; d="scan'208";a="105484172"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+ by heian.cn.fujitsu.com with ESMTP; 11 Mar 2021 09:31:06 +0800
+Received: from G08CNEXMBPEKD06.g08.fujitsu.local (unknown [10.167.33.206])
+ by cn.fujitsu.com (Postfix) with ESMTP id 4D9364CE7C01;
+ Thu, 11 Mar 2021 09:31:02 +0800 (CST)
+Received: from [10.167.220.69] (10.167.220.69) by
+ G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Thu, 11 Mar 2021 09:30:56 +0800
+Message-ID: <604972CB.9020104@cn.fujitsu.com>
+Date: Thu, 11 Mar 2021 09:30:51 +0800
+From: Xiao Yang <yangx.jy@cn.fujitsu.com>
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; zh-CN;
+ rv:1.9.2.18) Gecko/20110616 Thunderbird/3.1.11
 MIME-Version: 1.0
-X-OriginatorOrg: fujitsu.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: OSBPR01MB2920.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4606a724-6ec4-42ee-8f95-08d8e42c48ff
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Mar 2021 01:23:32.6677 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a19f121d-81e1-4858-a9d8-736e267fd4c7
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: OHMMIEQqLkiORYU1KBfCvUo45YajQbQvpMKp/AHo6K3iEeu5WgyXlR0bio3BmXFH6An7wIaIDJBGLEOWMgsyEA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSBPR01MB1621
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+To: Petr Vorel <pvorel@suse.cz>
+References: <20210308160122.24522-1-pvorel@suse.cz>
+In-Reply-To: <20210308160122.24522-1-pvorel@suse.cz>
+X-Originating-IP: [10.167.220.69]
+X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
+ G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206)
+X-yoursite-MailScanner-ID: 4D9364CE7C01.AAF7D
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: yangx.jy@cn.fujitsu.com
+X-Spam-Status: No, score=0.0 required=7.0 tests=KHOP_HELO_FCRDNS, NICE_REPLY_A,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.4
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] syscalls/chdir04: Convert to the new API
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/2] docparse: Use C standard comment end
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,128 +66,832 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
-Content-Type: text/plain; charset="gb2312"
-Content-Transfer-Encoding: base64
+Cc: ltp@lists.linux.it
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogWWFuZywgWGlhby/R7iDP
-/iA8eWFuZ3guanlAY24uZnVqaXRzdS5jb20+DQo+IFNlbnQ6IFRodXJzZGF5LCBNYXJjaCAxMSwg
-MjAyMSA5OjEyIEFNDQo+IFRvOiBSdWFuLCBTaGl5YW5nL8juIMrA0fQgPHJ1YW5zeS5mbnN0QGZ1
-aml0c3UuY29tPg0KPiBDYzogbHRwQGxpc3RzLmxpbnV4Lml0DQo+IFN1YmplY3Q6IFJlOiBbTFRQ
-XSBbUEFUQ0ggdjJdIHN5c2NhbGxzL2NoZGlyMDQ6IENvbnZlcnQgdG8gdGhlIG5ldyBBUEkNCj4g
-DQo+IE9uIDIwMjEvMy80IDk6NDQsIFNoaXlhbmcgUnVhbiB3cm90ZToNCj4gPiBTaWduZWQtb2Zm
-LWJ5OiBTaGl5YW5nIFJ1YW48cnVhbnN5LmZuc3RAZnVqaXRzdS5jb20+DQo+ID4gLS0tDQo+ID4g
-ICB0ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL2NoZGlyL2NoZGlyMDQuYyB8IDE2OCArKystLS0t
-LS0tLS0tLS0tLS0tLS0tDQo+ID4gICAxIGZpbGUgY2hhbmdlZCwgMjIgaW5zZXJ0aW9ucygrKSwg
-MTQ2IGRlbGV0aW9ucygtKQ0KPiA+DQo+ID4gZGlmZiAtLWdpdCBhL3Rlc3RjYXNlcy9rZXJuZWwv
-c3lzY2FsbHMvY2hkaXIvY2hkaXIwNC5jDQo+ID4gYi90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxz
-L2NoZGlyL2NoZGlyMDQuYw0KPiA+IGluZGV4IGYwNDIwZTRjOS4uZDdlNjIxMGMzIDEwMDY0NA0K
-PiA+IC0tLSBhL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvY2hkaXIvY2hkaXIwNC5jDQo+ID4g
-KysrIGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9jaGRpci9jaGRpcjA0LmMNCj4gPiBAQCAt
-MSwxNjIgKzEsMzggQEANCj4gPiArLy8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjAt
-b3ItbGF0ZXINCj4gPiAgIC8qDQo+ID4gLSAqDQo+ID4gLSAqICAgQ29weXJpZ2h0IChjKSBJbnRl
-cm5hdGlvbmFsIEJ1c2luZXNzIE1hY2hpbmVzICBDb3JwLiwgMjAwMQ0KPiA+IC0gKg0KPiA+IC0g
-KiAgIFRoaXMgcHJvZ3JhbSBpcyBmcmVlIHNvZnR3YXJlOyAgeW91IGNhbiByZWRpc3RyaWJ1dGUg
-aXQgYW5kL29yIG1vZGlmeQ0KPiA+IC0gKiAgIGl0IHVuZGVyIHRoZSB0ZXJtcyBvZiB0aGUgR05V
-IEdlbmVyYWwgUHVibGljIExpY2Vuc2UgYXMgcHVibGlzaGVkIGJ5DQo+ID4gLSAqICAgdGhlIEZy
-ZWUgU29mdHdhcmUgRm91bmRhdGlvbjsgZWl0aGVyIHZlcnNpb24gMiBvZiB0aGUgTGljZW5zZSwg
-b3INCj4gPiAtICogICAoYXQgeW91ciBvcHRpb24pIGFueSBsYXRlciB2ZXJzaW9uLg0KPiA+IC0g
-Kg0KPiA+IC0gKiAgIFRoaXMgcHJvZ3JhbSBpcyBkaXN0cmlidXRlZCBpbiB0aGUgaG9wZSB0aGF0
-IGl0IHdpbGwgYmUgdXNlZnVsLA0KPiA+IC0gKiAgIGJ1dCBXSVRIT1VUIEFOWSBXQVJSQU5UWTsg
-IHdpdGhvdXQgZXZlbiB0aGUgaW1wbGllZCB3YXJyYW50eSBvZg0KPiA+IC0gKiAgIE1FUkNIQU5U
-QUJJTElUWSBvciBGSVRORVNTIEZPUiBBIFBBUlRJQ1VMQVIgUFVSUE9TRS4gIFNlZQ0KPiA+IC0g
-KiAgIHRoZSBHTlUgR2VuZXJhbCBQdWJsaWMgTGljZW5zZSBmb3IgbW9yZSBkZXRhaWxzLg0KPiA+
-IC0gKg0KPiA+IC0gKiAgIFlvdSBzaG91bGQgaGF2ZSByZWNlaXZlZCBhIGNvcHkgb2YgdGhlIEdO
-VSBHZW5lcmFsIFB1YmxpYyBMaWNlbnNlDQo+ID4gLSAqICAgYWxvbmcgd2l0aCB0aGlzIHByb2dy
-YW07ICBpZiBub3QsIHdyaXRlIHRvIHRoZSBGcmVlIFNvZnR3YXJlDQo+ID4gLSAqICAgRm91bmRh
-dGlvbiwgSW5jLiwgNTEgRnJhbmtsaW4gU3RyZWV0LCBGaWZ0aCBGbG9vciwgQm9zdG9uLCBNQSAw
-MjExMC0xMzAxDQo+IFVTQQ0KPiA+ICsgKiBDb3B5cmlnaHQgKGMpIEludGVybmF0aW9uYWwgQnVz
-aW5lc3MgTWFjaGluZXMgIENvcnAuLCAyMDAxDQo+ID4gICAgKi8NCj4gPg0KPiA+IC0vKg0KPiA+
-IC0gKiBOQU1FDQo+ID4gLSAqIAljaGRpcjA0LmMNCj4gPiAtICoNCj4gPiAtICogREVTQ1JJUFRJ
-T04NCj4gPiAtICoJVGVzdGNhc2UgdG8gdGVzdCB3aGV0aGVyIGNoZGlyKDIpIHNldHMgZXJybm8g
-Y29ycmVjdGx5Lg0KPiA+IC0gKg0KPiA+IC0gKiBBTEdPUklUSE0NCj4gPiAtICoJMS4JVGVzdCBm
-b3IgRU5BTUVUT09MT05HOg0KPiA+IC0gKgkJQ3JlYXRlIGEgYmFkIGRpcmVjdG9yeSBuYW1lIHdp
-dGggbGVuZ3RoIG1vcmUgdGhhbg0KPiA+IC0gKg0KPiA+IC0gKgkJVkZTX01BWE5BTUVMRU4gKExp
-bnV4IGtlcm5lbCB2YXJpYWJsZSksIGFuZCBhdHRlbXB0IHRvDQo+ID4gLSAqCQljaGRpcigyKSB0
-byBpdC4NCj4gPiAtICoNCj4gPiAtICoJMi4JVGVzdCBmb3IgRU5PRU5UOg0KPiA+IC0gKgkJQXR0
-ZW1wdCB0byBjaGRpcigyKSBvbiBhIG5vbi1leGlzdGVudCBkaXJlY3RvcnkNCj4gPiAtICoNCj4g
-PiAtICoJMy4JVGVzdCBmb3IgRUZBVUxUOg0KPiA+IC0gKgkJUGFzcyBhbiBhZGRyZXNzIHdoaWNo
-IGxpZXMgb3V0c2lkZSB0aGUgYWRkcmVzcyBzcGFjZSBvZiB0aGUNCj4gPiAtICoJCXByb2Nlc3Ms
-IGFuZCBleHBlY3QgYW4gRUZBVUxULg0KPiA+IC0gKg0KPiA+IC0gKiBVU0FHRTo8Zm9yIGNvbW1h
-bmQtbGluZT4NCj4gPiAtICogY2hkaXIwNCBbLWMgbl0gWy1lXSBbLWkgbl0gWy1JIHhdIFstUCB4
-XSBbLXRdDQo+ID4gLSAqICAgICB3aGVyZSwgIC1jIG4gOiBSdW4gbiBjb3BpZXMgY29uY3VycmVu
-dGx5Lg0KPiA+IC0gKiAgICAgICAgICAgICAtZSAgIDogVHVybiBvbiBlcnJubyBsb2dnaW5nLg0K
-PiA+IC0gKiAgICAgICAgICAgICAtaSBuIDogRXhlY3V0ZSB0ZXN0IG4gdGltZXMuDQo+ID4gLSAq
-ICAgICAgICAgICAgIC1JIHggOiBFeGVjdXRlIHRlc3QgZm9yIHggc2Vjb25kcy4NCj4gPiAtICog
-ICAgICAgICAgICAgLVAgeCA6IFBhdXNlIGZvciB4IHNlY29uZHMgYmV0d2VlbiBpdGVyYXRpb25z
-Lg0KPiA+IC0gKiAgICAgICAgICAgICAtdCAgIDogVHVybiBvbiBzeXNjYWxsIHRpbWluZy4NCj4g
-PiArLypcDQo+ID4gKyAqIFtERVNDUklQVElPTl0NCj4gPiAgICAqDQo+ID4gLSAqIEhJU1RPUlkN
-Cj4gPiAtICoJMDcvMjAwMSBQb3J0ZWQgYnkgV2F5bmUgQm95ZXINCj4gPiAtICoNCj4gPiAtICog
-UkVTVFJJQ1RJT05TDQo+ID4gLSAqCU5PTkUNCj4gPiAtICovDQo+ID4gKyAqIFRlc3RjYXNlIHRv
-IHRlc3Qgd2hldGhlciBjaGRpcigyKSBzZXRzIGVycm5vIGNvcnJlY3RseS4NCj4gPiArXCovDQo+
-IEhpIFJ1YW4sDQo+IA0KPiBQbGVhc2UgcmVtb3ZlIHRoZSBmaXJzdCAnXCcgYXMgUGV0ciBtZW50
-aW9uZWQ6DQo+IGh0dHA6Ly9saXN0cy5saW51eC5pdC9waXBlcm1haWwvbHRwLzIwMjEtTWFyY2gv
-MDIxMzU2Lmh0bWwNCg0KT0suDQo+IA0KPiA+DQo+ID4gLSNpbmNsdWRlPHN0ZGlvLmg+DQo+ID4g
-ICAjaW5jbHVkZTxlcnJuby5oPg0KPiA+IC0jaW5jbHVkZTxzeXMvc3RhdC5oPg0KPiA+IC0jaW5j
-bHVkZTxzeXMvbW1hbi5oPg0KPiA+IC0jaW5jbHVkZSAidGVzdC5oIg0KPiA+IC0NCj4gPiAtY2hh
-ciAqVENJRCA9ICJjaGRpcjA0IjsNCj4gPiArI2luY2x1ZGUgInRzdF90ZXN0LmgiDQo+ID4NCj4g
-PiAgIGNoYXIgYmFkX2RpcltdID0NCj4gPg0KPiA+DQo+ICJhYmNkZWZnaGlqa2xtbm9wcXJzdG1u
-b3BxcnN0dXZ3eHl6YWJjZGVmZ2hpamtsbW5vcHFyc3Rtbm9wcXJzdHV2d3h5emENCj4gPg0KPiBi
-Y2RlZmdoaWprbG1ub3BxcnN0bW5vcHFyc3R1dnd4eXphYmNkZWZnaGlqa2xtbm9wcXJzdG1ub3Bx
-cnN0dXZ3eHl6YWJjDQo+ID4NCj4gZGVmZ2hpamtsbW5vcHFyc3Rtbm9wcXJzdHV2d3h5emFiY2Rl
-ZmdoaWprbG1ub3BxcnN0bW5vcHFyc3R1dnd4eXphYmNkZQ0KPiA+IGZnaGlqa2xtbm9wcXJzdG1u
-b3BxcnN0dXZ3eHl6YWJjZGVmZ2hpamtsbW5vcHFyc3Rtbm9wcXJzdHV2d3h5eiI7DQo+ID4gLQ0K
-PiA+ICAgY2hhciBub2V4aXN0X2RpcltdID0gIi90bXAvbm9leGlzdGRpciI7DQo+ID4gLQ0KPiA+
-IC1zdHJ1Y3QgdGVzdF9jYXNlX3Qgew0KPiA+IC0JY2hhciAqZG5hbWU7DQo+ID4gLQlpbnQgZXJy
-b3I7DQo+ID4gLX0gVENbXSA9IHsNCj4gPiAtCS8qDQo+ID4gLQkgKiB0byB0ZXN0IHdoZXRoZXIg
-Y2hkaXIoKSBpcyBzZXR0aW5nIEVOQU1FVE9PTE9ORyBpZiB0aGUNCj4gPiAtCSAqIGRpcmVjdG9y
-eSBpcyBtb3JlIHRoYW4gVkZTX01BWE5BTUVMRU4NCj4gPiAtCSAqLw0KPiA+IC0Jew0KPiA+IC0J
-YmFkX2RpciwgRU5BTUVUT09MT05HfSwNCj4gPiAtCSAgICAvKg0KPiA+IC0JICAgICAqIHRvIHRl
-c3Qgd2hldGhlciBjaGRpcigpIGlzIHNldHRpbmcgRU5PRU5UIGlmIHRoZQ0KPiA+IC0JICAgICAq
-IGRpcmVjdG9yeSBpcyBub3QgZXhpc3RpbmcuDQo+ID4gLQkgICAgICovDQo+ID4gLQl7DQo+ID4g
-LQlub2V4aXN0X2RpciwgRU5PRU5UfSwNCj4gPiAtCSAgICAvKg0KPiA+IC0JICAgICAqIHRvIHRl
-c3Qgd2hldGhlciBjaGRpcigpIGlzIHNldHRpbmcgRUZBVUxUIGlmIHRoZQ0KPiA+IC0JICAgICAq
-IGRpcmVjdG9yeSBpcyBhbiBpbnZhbGlkIGFkZHJlc3MuDQo+ID4gLQkgICAgICovDQo+ID4gLQl7
-DQo+ID4gLQkodm9pZCAqKS0xLCBFRkFVTFR9DQo+ID4gLX07DQo+ID4gLQ0KPiA+IC1pbnQgVFNU
-X1RPVEFMID0gQVJSQVlfU0laRShUQyk7DQo+ID4gLQ0KPiA+IC1pbnQgZmxhZzsNCj4gPiAtI2Rl
-ZmluZQlGQUlMRUQJMQ0KPiA+IC0NCj4gPiAtdm9pZCBzZXR1cCh2b2lkKTsNCj4gPiAtdm9pZCBj
-bGVhbnVwKHZvaWQpOw0KPiA+IC0NCj4gPiAgIGNoYXIgKmJhZF9hZGRyID0gMDsNCj4gPg0KPiA+
-IC1pbnQgbWFpbihpbnQgYWMsIGNoYXIgKiphdikNCj4gPiAtew0KPiA+IC0JaW50IGxjOw0KPiA+
-IC0JaW50IGk7DQo+ID4gLQ0KPiA+IC0JdHN0X3BhcnNlX29wdHMoYWMsIGF2LCBOVUxMLCBOVUxM
-KTsNCj4gPiAtDQo+ID4gLQlzZXR1cCgpOw0KPiA+IC0NCj4gPiAtCWZvciAobGMgPSAwOyBURVNU
-X0xPT1BJTkcobGMpOyBsYysrKSB7DQo+ID4gLQkJdHN0X2NvdW50ID0gMDsNCj4gPiAtDQo+ID4g
-LQkJZm9yIChpID0gMDsgaTwgIFRTVF9UT1RBTDsgaSsrKSB7DQo+ID4gLQ0KPiA+IC0JCQlURVNU
-KGNoZGlyKFRDW2ldLmRuYW1lKSk7DQo+ID4gLQ0KPiA+IC0JCQlpZiAoVEVTVF9SRVRVUk4gIT0g
-LTEpIHsNCj4gPiAtCQkJCXRzdF9yZXNtKFRGQUlMLCAiY2FsbCBzdWNjZWVkZWQgdW5leHBlY3Rl
-ZGx5Iik7DQo+ID4gLQkJCQljb250aW51ZTsNCj4gPiAtCQkJfQ0KPiA+IC0NCj4gPiAtCQkJaWYg
-KFRFU1RfRVJSTk8gPT0gVENbaV0uZXJyb3IpDQo+ID4gLQkJCQl0c3RfcmVzbShUUEFTUyB8IFRU
-RVJSTk8sICJmYWlsZWQgYXMgZXhwZWN0ZWQiKTsNCj4gPiAtCQkJZWxzZSB7DQo+ID4gLQkJCQl0
-c3RfcmVzbShURkFJTCB8IFRURVJSTk8sDQo+ID4gLQkJCQkJICJkaWRuJ3QgZmFpbCBhcyBleHBl
-Y3RlZCAoZXhwZWN0ZWQgJWQpIiwNCj4gPiAtCQkJCQkgVENbaV0uZXJyb3IpOw0KPiA+IC0JCQl9
-DQo+ID4gLQkJfQ0KPiA+IC0JfQ0KPiA+IC0JY2xlYW51cCgpOw0KPiA+IC0NCj4gPiAtCXRzdF9l
-eGl0KCk7DQo+ID4gLQ0KPiA+IC19DQo+ID4gK3N0YXRpYyBzdHJ1Y3QgdGNhc2Ugew0KPiA+ICsJ
-Y2hhciAqZGlyOw0KPiA+ICsJaW50IGV4cF9lcnJubzsNCj4gPiArfSB0Y2FzZXMgW10gPSB7DQo+
-ID4gKwl7YmFkX2RpciwgRU5BTUVUT09MT05HfSwNCj4gPiArCXtub2V4aXN0X2RpciwgRU5PRU5U
-fSwNCj4gPiArCXsodm9pZCAqKS0xLCBFRkFVTFR9DQo+ID4gK307DQo+IEZvciBwb3J0YWJpbGl0
-eSwgSXQgaXMgYmV0dGVyIHRvIHRlc3QgYmFkIGFkZHJlc3MgYnkgdHN0X2dldF9iYWRfYWRkcigp
-IGluc3RlYWQgb2YNCj4gKHZvaWQgKiktMS4NCj4gU2VlIHRoZSBmb2xsb3dpbmcgZXhwbGFuYXRp
-b246DQo+IGh0dHBzOi8vZ2l0aHViLmNvbS9saW51eC10ZXN0LXByb2plY3QvbHRwL2NvbW1pdC84
-MGJlZDQ2N2JjNmFiNDhhNmNkODhhOGENCj4gYjc0Y2ExNWQwODgzMGNiMA0KDQpUaGFua3MgZm9y
-IHBvaW50aW5nIG91dC4NCg0KLS0NClJ1YW4gU2hpeWFuZy4NCj4gDQo+IEJlc3QgUmVnYXJkcywN
-Cj4gWGlhbyBZYW5nDQo+ID4NCj4gPiAtdm9pZCBzZXR1cCh2b2lkKQ0KPiA+ICtzdGF0aWMgdm9p
-ZCB2ZXJpZnlfY2hkaXIodW5zaWduZWQgaW50IGkpDQo+ID4gICB7DQo+ID4gLQ0KPiA+IC0JdHN0
-X3NpZyhOT0ZPUkssIERFRl9IQU5ETEVSLCBjbGVhbnVwKTsNCj4gPiAtDQo+ID4gLQlURVNUX1BB
-VVNFOw0KPiA+IC0NCj4gPiAtCXRzdF90bXBkaXIoKTsNCj4gPiAtDQo+ID4gLSNpZmRlZiBVQ0xJ
-TlVYDQo+ID4gLQliYWRfYWRkciA9IG1tYXAoMCwgMSwgUFJPVF9OT05FLA0KPiA+IC0JCQlNQVBf
-UFJJVkFURV9FWENFUFRfVUNMSU5VWCB8IE1BUF9BTk9OWU1PVVMsIDAsIDApOw0KPiA+IC0JaWYg
-KGJhZF9hZGRyID09IE1BUF9GQUlMRUQpDQo+ID4gLQkJdHN0X2Jya20oVEJST0sgfCBURVJSTk8s
-IGNsZWFudXAsICJtbWFwKCkgZmFpbGVkIik7DQo+ID4gLQlUQ1syXS5kbmFtZSA9IGJhZF9hZGRy
-Ow0KPiA+IC0jZW5kaWYNCj4gPiArCVRTVF9FWFBfRkFJTChjaGRpcih0Y2FzZXNbaV0uZGlyKSwg
-dGNhc2VzW2ldLmV4cF9lcnJubyk7DQo+ID4gICB9DQo+ID4NCj4gPiAtdm9pZCBjbGVhbnVwKHZv
-aWQpDQo+ID4gLXsNCj4gPiAtCXRzdF9ybWRpcigpOw0KPiA+IC0NCj4gPiAtfQ0KPiA+ICtzdGF0
-aWMgc3RydWN0IHRzdF90ZXN0IHRlc3QgPSB7DQo+ID4gKwkubmVlZHNfdG1wZGlyID0gMSwNCj4g
-PiArCS50ZXN0ID0gdmVyaWZ5X2NoZGlyLA0KPiA+ICsJLnRjbnQgPSBBUlJBWV9TSVpFKHRjYXNl
-cyksDQo+ID4gK307DQoNCgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGlu
-dXguaXQvbGlzdGluZm8vbHRwCg==
+On 2021/3/9 0:01, Petr Vorel wrote:
+> Current \*/ docparse end emit error:
+> WARNING: Block comments use a trailing */ on a separate line
+>
+> Commend is not required for docparse generation thus remove it to keep
+> checkpatch.pl quiet.
+Hi Petr,
+
+LGTM. :-)
+
+One minor hint: it needs to rebase.
+
+Best Regards,
+Xiao Yang
+> Suggested-by: Martin Doucha<mdoucha@suse.cz>
+> Signed-off-by: Petr Vorel<pvorel@suse.cz>
+> ---
+>   docparse/README.md                                              | 2 +-
+>   testcases/kernel/containers/pidns/pidns13.c                     | 2 +-
+>   testcases/kernel/device-drivers/rtc/rtc02.c                     | 2 +-
+>   testcases/kernel/syscalls/abort/abort01.c                       | 2 +-
+>   testcases/kernel/syscalls/accept/accept01.c                     | 2 +-
+>   testcases/kernel/syscalls/accept/accept02.c                     | 2 +-
+>   testcases/kernel/syscalls/acct/acct01.c                         | 2 +-
+>   testcases/kernel/syscalls/acct/acct02.c                         | 2 +-
+>   testcases/kernel/syscalls/brk/brk02.c                           | 2 +-
+>   testcases/kernel/syscalls/close_range/close_range01.c           | 2 +-
+>   testcases/kernel/syscalls/close_range/close_range02.c           | 2 +-
+>   testcases/kernel/syscalls/dup/dup02.c                           | 2 +-
+>   testcases/kernel/syscalls/dup/dup03.c                           | 2 +-
+>   testcases/kernel/syscalls/finit_module/finit_module01.c         | 2 +-
+>   testcases/kernel/syscalls/finit_module/finit_module02.c         | 2 +-
+>   testcases/kernel/syscalls/get_mempolicy/get_mempolicy01.c       | 2 +-
+>   testcases/kernel/syscalls/get_mempolicy/get_mempolicy02.c       | 2 +-
+>   testcases/kernel/syscalls/getdents/getdents01.c                 | 2 +-
+>   testcases/kernel/syscalls/getdents/getdents02.c                 | 2 +-
+>   testcases/kernel/syscalls/getpid/getpid01.c                     | 2 +-
+>   testcases/kernel/syscalls/getpid/getpid02.c                     | 2 +-
+>   testcases/kernel/syscalls/init_module/init_module01.c           | 2 +-
+>   testcases/kernel/syscalls/init_module/init_module02.c           | 2 +-
+>   testcases/kernel/syscalls/ipc/msgctl/msgctl06.c                 | 2 +-
+>   testcases/kernel/syscalls/ipc/semctl/semctl02.c                 | 2 +-
+>   testcases/kernel/syscalls/ipc/semctl/semctl03.c                 | 2 +-
+>   testcases/kernel/syscalls/ipc/semctl/semctl04.c                 | 2 +-
+>   testcases/kernel/syscalls/ipc/semctl/semctl05.c                 | 2 +-
+>   testcases/kernel/syscalls/ipc/semctl/semctl07.c                 | 2 +-
+>   testcases/kernel/syscalls/ipc/semctl/semctl09.c                 | 2 +-
+>   testcases/kernel/syscalls/ipc/shmctl/shmctl01.c                 | 2 +-
+>   testcases/kernel/syscalls/ipc/shmctl/shmctl02.c                 | 2 +-
+>   testcases/kernel/syscalls/ipc/shmctl/shmctl03.c                 | 2 +-
+>   testcases/kernel/syscalls/ipc/shmctl/shmctl04.c                 | 2 +-
+>   testcases/kernel/syscalls/ipc/shmctl/shmctl05.c                 | 2 +-
+>   testcases/kernel/syscalls/ipc/shmctl/shmctl06.c                 | 2 +-
+>   testcases/kernel/syscalls/ipc/shmctl/shmctl07.c                 | 2 +-
+>   testcases/kernel/syscalls/ipc/shmctl/shmctl08.c                 | 2 +-
+>   testcases/kernel/syscalls/mallinfo/mallinfo01.c                 | 2 +-
+>   testcases/kernel/syscalls/mallinfo/mallinfo02.c                 | 2 +-
+>   testcases/kernel/syscalls/mallopt/mallopt01.c                   | 2 +-
+>   testcases/kernel/syscalls/move_pages/move_pages12.c             | 2 +-
+>   .../kernel/syscalls/name_to_handle_at/name_to_handle_at01.c     | 2 +-
+>   .../kernel/syscalls/name_to_handle_at/name_to_handle_at02.c     | 2 +-
+>   .../kernel/syscalls/open_by_handle_at/open_by_handle_at01.c     | 2 +-
+>   .../kernel/syscalls/open_by_handle_at/open_by_handle_at02.c     | 2 +-
+>   testcases/kernel/syscalls/ptrace/ptrace11.c                     | 2 +-
+>   testcases/kernel/syscalls/recvmmsg/recvmmsg01.c                 | 2 +-
+>   testcases/kernel/syscalls/sched_getparam/sched_getparam01.c     | 2 +-
+>   testcases/kernel/syscalls/select/select04.c                     | 2 +-
+>   testcases/kernel/syscalls/sendmmsg/sendmmsg01.c                 | 2 +-
+>   testcases/kernel/syscalls/sendmmsg/sendmmsg02.c                 | 2 +-
+>   testcases/kernel/syscalls/time/time01.c                         | 2 +-
+>   testcases/kernel/syscalls/times/times01.c                       | 2 +-
+>   testcases/kernel/syscalls/truncate/truncate02.c                 | 2 +-
+>   testcases/kernel/syscalls/truncate/truncate03.c                 | 2 +-
+>   testcases/kernel/syscalls/writev/writev03.c                     | 2 +-
+>   57 files changed, 57 insertions(+), 57 deletions(-)
+>
+> diff --git a/docparse/README.md b/docparse/README.md
+> index 2c2541760..37bf4614b 100644
+> --- a/docparse/README.md
+> +++ b/docparse/README.md
+> @@ -173,7 +173,7 @@ The test documentation is stored in a special comment such as:
+>    *
+>    * This is a test description.
+>    * Consisting of several lines.
+> -\*/
+> + */
+>   ```
+>
+>   Which will yield following json output:
+> diff --git a/testcases/kernel/containers/pidns/pidns13.c b/testcases/kernel/containers/pidns/pidns13.c
+> index 7c8a0bfa1..12aee917b 100644
+> --- a/testcases/kernel/containers/pidns/pidns13.c
+> +++ b/testcases/kernel/containers/pidns/pidns13.c
+> @@ -20,7 +20,7 @@
+>    * * in cinit1, set pipe read end to send SIGUSR1 for asynchronous I/O
+>    * * let cinit2 trigger async I/O on pipe write end
+>    * * in signal info, check si_code to be POLL_IN and si_fd to be pipe read fd
+> -\*/
+> + */
+>
+>   #define _GNU_SOURCE 1
+>   #include<sys/wait.h>
+> diff --git a/testcases/kernel/device-drivers/rtc/rtc02.c b/testcases/kernel/device-drivers/rtc/rtc02.c
+> index a992aa3d1..9d2141656 100644
+> --- a/testcases/kernel/device-drivers/rtc/rtc02.c
+> +++ b/testcases/kernel/device-drivers/rtc/rtc02.c
+> @@ -15,7 +15,7 @@
+>    * - Read the RTC time back
+>    * - Check if the set time and the read time are identical
+>    * - Restore RTC time
+> -\*/
+> + */
+>
+>   #include<stdio.h>
+>   #include "tst_rtctime.h"
+> diff --git a/testcases/kernel/syscalls/abort/abort01.c b/testcases/kernel/syscalls/abort/abort01.c
+> index ba89cc524..242389783 100644
+> --- a/testcases/kernel/syscalls/abort/abort01.c
+> +++ b/testcases/kernel/syscalls/abort/abort01.c
+> @@ -16,7 +16,7 @@
+>    *  - Fork child.
+>    *  - Child calls abort.
+>    *  - Parent checks return status.
+> -\*/
+> + */
+>
+>   #include<sys/types.h>
+>   #include<sys/wait.h>
+> diff --git a/testcases/kernel/syscalls/accept/accept01.c b/testcases/kernel/syscalls/accept/accept01.c
+> index 8722f2c7f..d4a6bc396 100644
+> --- a/testcases/kernel/syscalls/accept/accept01.c
+> +++ b/testcases/kernel/syscalls/accept/accept01.c
+> @@ -8,7 +8,7 @@
+>   /*\
+>    * [DESCRIPTION]
+>    * Verify that accept() returns the proper errno for various failure cases.
+> -\*/
+> + */
+>
+>   #include<stdio.h>
+>   #include<unistd.h>
+> diff --git a/testcases/kernel/syscalls/accept/accept02.c b/testcases/kernel/syscalls/accept/accept02.c
+> index 7fb6a494a..7f84d3b45 100644
+> --- a/testcases/kernel/syscalls/accept/accept02.c
+> +++ b/testcases/kernel/syscalls/accept/accept02.c
+> @@ -19,7 +19,7 @@
+>    *
+>    * For more information about this CVE see:
+>    * https://www.suse.com/security/cve/CVE-2017-8890/
+> -\*/
+> + */
+>
+>   #include<errno.h>
+>   #include<sys/socket.h>
+> diff --git a/testcases/kernel/syscalls/acct/acct01.c b/testcases/kernel/syscalls/acct/acct01.c
+> index 60e81bfad..1f88e5307 100644
+> --- a/testcases/kernel/syscalls/acct/acct01.c
+> +++ b/testcases/kernel/syscalls/acct/acct01.c
+> @@ -10,7 +10,7 @@
+>   /*\
+>    * [DOCUMENTATION]
+>    *  Verify that acct() returns proper errno on failure.
+> -\*/
+> + */
+>
+>   #include<sys/types.h>
+>   #include<sys/stat.h>
+> diff --git a/testcases/kernel/syscalls/acct/acct02.c b/testcases/kernel/syscalls/acct/acct02.c
+> index aee96e365..b8eb1aad4 100644
+> --- a/testcases/kernel/syscalls/acct/acct02.c
+> +++ b/testcases/kernel/syscalls/acct/acct02.c
+> @@ -21,7 +21,7 @@
+>    *
+>    * This is also accidental regression test for:
+>    * 4d9570158b626 kernel/acct.c: fix the acct->needcheck check in check_free_space()
+> -\*/
+> + */
+>
+>   #include<sys/stat.h>
+>   #include<errno.h>
+> diff --git a/testcases/kernel/syscalls/brk/brk02.c b/testcases/kernel/syscalls/brk/brk02.c
+> index 2e604eb5d..5493e4607 100644
+> --- a/testcases/kernel/syscalls/brk/brk02.c
+> +++ b/testcases/kernel/syscalls/brk/brk02.c
+> @@ -9,7 +9,7 @@
+>    * and not expanding the original due to multiple anon pages.  mprotect() that
+>    * new VMA then brk() back to the original address therefore causing a munmap of
+>    * at least one full VMA.
+> -\*/
+> + */
+>
+>   #include<unistd.h>
+>   #include<sys/mman.h>
+> diff --git a/testcases/kernel/syscalls/close_range/close_range01.c b/testcases/kernel/syscalls/close_range/close_range01.c
+> index 6ecd4576e..912f56c56 100644
+> --- a/testcases/kernel/syscalls/close_range/close_range01.c
+> +++ b/testcases/kernel/syscalls/close_range/close_range01.c
+> @@ -21,7 +21,7 @@
+>    *
+>    * The final test is the actual bug reproducer. Note that we call
+>    * clone directly to share the file table.
+> -\*/
+> + */
+>
+>   #include<stdlib.h>
+>
+> diff --git a/testcases/kernel/syscalls/close_range/close_range02.c b/testcases/kernel/syscalls/close_range/close_range02.c
+> index d496316d3..90f8e5e0b 100644
+> --- a/testcases/kernel/syscalls/close_range/close_range02.c
+> +++ b/testcases/kernel/syscalls/close_range/close_range02.c
+> @@ -10,7 +10,7 @@
+>    * - Then check it accepts a large lower fd.
+>    * - Finally check CLOEXEC works
+>    *
+> -\*/
+> + */
+>
+>   #include<stdlib.h>
+>
+> diff --git a/testcases/kernel/syscalls/dup/dup02.c b/testcases/kernel/syscalls/dup/dup02.c
+> index d55335cc7..105e95afa 100644
+> --- a/testcases/kernel/syscalls/dup/dup02.c
+> +++ b/testcases/kernel/syscalls/dup/dup02.c
+> @@ -13,7 +13,7 @@
+>    * [ALGORITHM]
+>    * Call dup(2) with invalid argument and make sure it returns -1 with errno set
+>    * to EBADF.
+> -\*/
+> + */
+>
+>   #include "tst_test.h"
+>
+> diff --git a/testcases/kernel/syscalls/dup/dup03.c b/testcases/kernel/syscalls/dup/dup03.c
+> index 5736f3c3f..592246d06 100644
+> --- a/testcases/kernel/syscalls/dup/dup03.c
+> +++ b/testcases/kernel/syscalls/dup/dup03.c
+> @@ -11,7 +11,7 @@
+>    * [ALGORITHM]
+>    * Open the maximum allowed number of file descriptors and then try to call
+>    * dup() once more and verify it fails with EMFILE.
+> -\*/
+> + */
+>
+>   #include<stdlib.h>
+>   #include "tst_test.h"
+> diff --git a/testcases/kernel/syscalls/finit_module/finit_module01.c b/testcases/kernel/syscalls/finit_module/finit_module01.c
+> index d215fc0ff..489923ec4 100644
+> --- a/testcases/kernel/syscalls/finit_module/finit_module01.c
+> +++ b/testcases/kernel/syscalls/finit_module/finit_module01.c
+> @@ -11,7 +11,7 @@
+>    * [ALGORITHM]
+>    *
+>    * Inserts a simple module after opening and mmaping the module file.
+> -\*/
+> + */
+>
+>   #include<errno.h>
+>   #include "lapi/init_module.h"
+> diff --git a/testcases/kernel/syscalls/finit_module/finit_module02.c b/testcases/kernel/syscalls/finit_module/finit_module02.c
+> index 96aec4591..2849fb2ec 100644
+> --- a/testcases/kernel/syscalls/finit_module/finit_module02.c
+> +++ b/testcases/kernel/syscalls/finit_module/finit_module02.c
+> @@ -11,7 +11,7 @@
+>    * [ALGORITHM]
+>    *
+>    * Tests various failure scenarios for finit_module().
+> -\*/
+> + */
+>
+>   #include<linux/capability.h>
+>   #include<errno.h>
+> diff --git a/testcases/kernel/syscalls/get_mempolicy/get_mempolicy01.c b/testcases/kernel/syscalls/get_mempolicy/get_mempolicy01.c
+> index 4e8955b36..3a9bd5b8b 100644
+> --- a/testcases/kernel/syscalls/get_mempolicy/get_mempolicy01.c
+> +++ b/testcases/kernel/syscalls/get_mempolicy/get_mempolicy01.c
+> @@ -15,7 +15,7 @@
+>    * [DESCRIPTION]
+>    *
+>    * Verify that get_mempolicy() returns a proper return value and errno for various cases.
+> -\*/
+> + */
+>
+>   #include "config.h"
+>   #include "tst_test.h"
+> diff --git a/testcases/kernel/syscalls/get_mempolicy/get_mempolicy02.c b/testcases/kernel/syscalls/get_mempolicy/get_mempolicy02.c
+> index 000098168..b37030be7 100644
+> --- a/testcases/kernel/syscalls/get_mempolicy/get_mempolicy02.c
+> +++ b/testcases/kernel/syscalls/get_mempolicy/get_mempolicy02.c
+> @@ -15,7 +15,7 @@
+>    * [DESCRIPTION]
+>    *
+>    * Verify that get_mempolicy() returns a proper return errno for failure cases.
+> -\*/
+> + */
+>
+>   #include "config.h"
+>   #include "tst_test.h"
+> diff --git a/testcases/kernel/syscalls/getdents/getdents01.c b/testcases/kernel/syscalls/getdents/getdents01.c
+> index b8de3b7ec..cfc3fa306 100644
+> --- a/testcases/kernel/syscalls/getdents/getdents01.c
+> +++ b/testcases/kernel/syscalls/getdents/getdents01.c
+> @@ -13,7 +13,7 @@
+>    * Basic getdents() test that checks if directory listing is correct and
+>    * complete.
+>    *
+> -\*/
+> + */
+>
+>   #define _GNU_SOURCE
+>
+> diff --git a/testcases/kernel/syscalls/getdents/getdents02.c b/testcases/kernel/syscalls/getdents/getdents02.c
+> index 3666dcc53..e43203304 100644
+> --- a/testcases/kernel/syscalls/getdents/getdents02.c
+> +++ b/testcases/kernel/syscalls/getdents/getdents02.c
+> @@ -15,7 +15,7 @@
+>    *   - getdents() fails with EINVAL if result buffer is too small
+>    *   - getdents() fails with ENOTDIR if file descriptor does not refer to a directory
+>    *   - getdents() fails with ENOENT if directory was unlinked()
+> -\*/
+> + */
+>
+>   #define _GNU_SOURCE
+>   #include<errno.h>
+> diff --git a/testcases/kernel/syscalls/getpid/getpid01.c b/testcases/kernel/syscalls/getpid/getpid01.c
+> index 326ee5840..8ce97b76f 100644
+> --- a/testcases/kernel/syscalls/getpid/getpid01.c
+> +++ b/testcases/kernel/syscalls/getpid/getpid01.c
+> @@ -7,7 +7,7 @@
+>    * [DESCRIPTION]
+>    *
+>    * Verify that getpid() system call returns process ID in range 2 ... PID_MAX
+> -\*/
+> + */
+>
+>   #include<stdlib.h>
+>   #include "tst_test.h"
+> diff --git a/testcases/kernel/syscalls/getpid/getpid02.c b/testcases/kernel/syscalls/getpid/getpid02.c
+> index 815ce985f..dbe7bc2ad 100644
+> --- a/testcases/kernel/syscalls/getpid/getpid02.c
+> +++ b/testcases/kernel/syscalls/getpid/getpid02.c
+> @@ -9,7 +9,7 @@
+>    * Check that:
+>    * - fork() in parent returns the same pid as getpid() in child
+>    * - getppid() in child returns the same pid as getpid() in parent
+> -\*/
+> + */
+>
+>   #include<errno.h>
+>
+> diff --git a/testcases/kernel/syscalls/init_module/init_module01.c b/testcases/kernel/syscalls/init_module/init_module01.c
+> index bbb2baabb..d3096a00d 100644
+> --- a/testcases/kernel/syscalls/init_module/init_module01.c
+> +++ b/testcases/kernel/syscalls/init_module/init_module01.c
+> @@ -11,7 +11,7 @@
+>    * [ALGORITHM]
+>    *
+>    * Inserts a simple module after opening and mmaping the module file.
+> -\*/
+> + */
+>
+>   #include<errno.h>
+>   #include "lapi/init_module.h"
+> diff --git a/testcases/kernel/syscalls/init_module/init_module02.c b/testcases/kernel/syscalls/init_module/init_module02.c
+> index 88917bd7c..be998e600 100644
+> --- a/testcases/kernel/syscalls/init_module/init_module02.c
+> +++ b/testcases/kernel/syscalls/init_module/init_module02.c
+> @@ -11,7 +11,7 @@
+>    * [ALGORITHM]
+>    *
+>    * Tests various failure scenarios for init_module().
+> -\*/
+> + */
+>
+>   #include<linux/capability.h>
+>   #include<errno.h>
+> diff --git a/testcases/kernel/syscalls/ipc/msgctl/msgctl06.c b/testcases/kernel/syscalls/ipc/msgctl/msgctl06.c
+> index 99e44851c..90f2ccf74 100644
+> --- a/testcases/kernel/syscalls/ipc/msgctl/msgctl06.c
+> +++ b/testcases/kernel/syscalls/ipc/msgctl/msgctl06.c
+> @@ -21,7 +21,7 @@
+>    *
+>    * Also note that for MSG_INFO the members of the msginfo structure have
+>    * completely different meaning than their names seems to suggest.
+> -\*/
+> + */
+>
+>   #include<stdio.h>
+>   #include<pwd.h>
+> diff --git a/testcases/kernel/syscalls/ipc/semctl/semctl02.c b/testcases/kernel/syscalls/ipc/semctl/semctl02.c
+> index 4980cac8d..3dc09539a 100644
+> --- a/testcases/kernel/syscalls/ipc/semctl/semctl02.c
+> +++ b/testcases/kernel/syscalls/ipc/semctl/semctl02.c
+> @@ -8,7 +8,7 @@
+>    * [DESCRIPTION]
+>    *
+>    * Test for semctl() EACCES error.
+> -\*/
+> + */
+>
+>   #include<pwd.h>
+>   #include "tst_safe_sysv_ipc.h"
+> diff --git a/testcases/kernel/syscalls/ipc/semctl/semctl03.c b/testcases/kernel/syscalls/ipc/semctl/semctl03.c
+> index 589f25f28..051b86a85 100644
+> --- a/testcases/kernel/syscalls/ipc/semctl/semctl03.c
+> +++ b/testcases/kernel/syscalls/ipc/semctl/semctl03.c
+> @@ -9,7 +9,7 @@
+>    * [DESCRIPTION]
+>    *
+>    * Test for semctl() EINVAL and EFAULT errors
+> -\*/
+> + */
+>
+>   #include "tst_safe_sysv_ipc.h"
+>   #include "tst_test.h"
+> diff --git a/testcases/kernel/syscalls/ipc/semctl/semctl04.c b/testcases/kernel/syscalls/ipc/semctl/semctl04.c
+> index 8bbb721fe..0a88e93a6 100644
+> --- a/testcases/kernel/syscalls/ipc/semctl/semctl04.c
+> +++ b/testcases/kernel/syscalls/ipc/semctl/semctl04.c
+> @@ -12,7 +12,7 @@
+>    *
+>    * Runs IPC_SET and IPC_RMID from unprivileged child process.
+>    *
+> -\*/
+> + */
+>
+>   #include<pwd.h>
+>   #include<sys/wait.h>
+> diff --git a/testcases/kernel/syscalls/ipc/semctl/semctl05.c b/testcases/kernel/syscalls/ipc/semctl/semctl05.c
+> index ee7f9c6c3..386b14bd8 100644
+> --- a/testcases/kernel/syscalls/ipc/semctl/semctl05.c
+> +++ b/testcases/kernel/syscalls/ipc/semctl/semctl05.c
+> @@ -10,7 +10,7 @@
+>    * [DESCRIPTION]
+>    *
+>    * Test for semctl() ERANGE error
+> -\*/
+> + */
+>
+>   #include "tst_safe_sysv_ipc.h"
+>   #include "tst_test.h"
+> diff --git a/testcases/kernel/syscalls/ipc/semctl/semctl07.c b/testcases/kernel/syscalls/ipc/semctl/semctl07.c
+> index 7b0a295d1..39f10ed22 100644
+> --- a/testcases/kernel/syscalls/ipc/semctl/semctl07.c
+> +++ b/testcases/kernel/syscalls/ipc/semctl/semctl07.c
+> @@ -18,7 +18,7 @@
+>    * - semctl() with SETVAL and GETVAL
+>    * - semctl() with GETPID
+>    * - semctl() with GETNCNT and GETZCNT
+> -\*/
+> + */
+>
+>   #include "tst_test.h"
+>   #include "tst_safe_sysv_ipc.h"
+> diff --git a/testcases/kernel/syscalls/ipc/semctl/semctl09.c b/testcases/kernel/syscalls/ipc/semctl/semctl09.c
+> index f0c757cdd..9450fdc8e 100644
+> --- a/testcases/kernel/syscalls/ipc/semctl/semctl09.c
+> +++ b/testcases/kernel/syscalls/ipc/semctl/semctl09.c
+> @@ -31,7 +31,7 @@
+>    * * commit  574500a108be1d2a6a0dc97a075c9e0a98371aba
+>    * * Author: Dmitry V. Levin<ldv@altlinux.org>
+>    * * Date:   Tue, 29 Sep 2020 17:10:20 +0000 (14:10 -0300)
+> -\*/
+> + */
+>
+>   #include<stdio.h>
+>   #include<pwd.h>
+> diff --git a/testcases/kernel/syscalls/ipc/shmctl/shmctl01.c b/testcases/kernel/syscalls/ipc/shmctl/shmctl01.c
+> index c22a8bcc6..54a0ae990 100644
+> --- a/testcases/kernel/syscalls/ipc/shmctl/shmctl01.c
+> +++ b/testcases/kernel/syscalls/ipc/shmctl/shmctl01.c
+> @@ -15,7 +15,7 @@
+>    * - attaching the SHM before fork and letting the children detach it
+>    *
+>    * We check that the number shm_nattach is correct after each step we do.
+> -\*/
+> + */
+>
+>   #define _GNU_SOURCE
+>   #include<stdlib.h>
+> diff --git a/testcases/kernel/syscalls/ipc/shmctl/shmctl02.c b/testcases/kernel/syscalls/ipc/shmctl/shmctl02.c
+> index fde17ffbb..df7aba835 100644
+> --- a/testcases/kernel/syscalls/ipc/shmctl/shmctl02.c
+> +++ b/testcases/kernel/syscalls/ipc/shmctl/shmctl02.c
+> @@ -25,7 +25,7 @@
+>    * * EPERM  - attempt to change root-owned shm
+>    * * EPERM  - attempt to lock root-owned shm
+>    * * EPERM  - attempt to unlock root-owned shm
+> -\*/
+> + */
+>
+>   #include<pwd.h>
+>
+> diff --git a/testcases/kernel/syscalls/ipc/shmctl/shmctl03.c b/testcases/kernel/syscalls/ipc/shmctl/shmctl03.c
+> index f5d3e4f17..86d981d19 100644
+> --- a/testcases/kernel/syscalls/ipc/shmctl/shmctl03.c
+> +++ b/testcases/kernel/syscalls/ipc/shmctl/shmctl03.c
+> @@ -8,7 +8,7 @@
+>    *
+>    * Call shmctl() with IPC_INFO flag and check that the data are consistent with
+>    * /proc/sys/kernel/shm*.
+> -\*/
+> + */
+>
+>   #define _GNU_SOURCE
+>   #include "tst_test.h"
+> diff --git a/testcases/kernel/syscalls/ipc/shmctl/shmctl04.c b/testcases/kernel/syscalls/ipc/shmctl/shmctl04.c
+> index 3068b7ace..5453132b7 100644
+> --- a/testcases/kernel/syscalls/ipc/shmctl/shmctl04.c
+> +++ b/testcases/kernel/syscalls/ipc/shmctl/shmctl04.c
+> @@ -18,7 +18,7 @@
+>    *
+>    * Note what we create a SHM segment in the test setup to make sure that there
+>    * is at least one during the testrun.
+> -\*/
+> + */
+>
+>   #define _GNU_SOURCE
+>   #include<stdio.h>
+> diff --git a/testcases/kernel/syscalls/ipc/shmctl/shmctl05.c b/testcases/kernel/syscalls/ipc/shmctl/shmctl05.c
+> index 263e06e4c..ec25f4eae 100644
+> --- a/testcases/kernel/syscalls/ipc/shmctl/shmctl05.c
+> +++ b/testcases/kernel/syscalls/ipc/shmctl/shmctl05.c
+> @@ -15,7 +15,7 @@
+>    * touch_atime(), although it's a race condition so it's not guaranteed to
+>    * work. This test is based on the reproducer provided in the fix's commit
+>    * message.
+> -\*/
+> + */
+>
+>   #include "lapi/syscalls.h"
+>   #include "tst_test.h"
+> diff --git a/testcases/kernel/syscalls/ipc/shmctl/shmctl06.c b/testcases/kernel/syscalls/ipc/shmctl/shmctl06.c
+> index c804b3208..b8dbc3bd1 100644
+> --- a/testcases/kernel/syscalls/ipc/shmctl/shmctl06.c
+> +++ b/testcases/kernel/syscalls/ipc/shmctl/shmctl06.c
+> @@ -7,7 +7,7 @@
+>    * [DESCRIPTION]
+>    *
+>    * Cross verify the _high fields being set to 0 by the kernel.
+> -\*/
+> + */
+>
+>   #include<sys/shm.h>
+>   #include "lapi/shmbuf.h"
+> diff --git a/testcases/kernel/syscalls/ipc/shmctl/shmctl07.c b/testcases/kernel/syscalls/ipc/shmctl/shmctl07.c
+> index 8f74435f9..37c23441f 100644
+> --- a/testcases/kernel/syscalls/ipc/shmctl/shmctl07.c
+> +++ b/testcases/kernel/syscalls/ipc/shmctl/shmctl07.c
+> @@ -7,7 +7,7 @@
+>    * [DESCRIPTION]
+>    *
+>    * Test for a SHM_LOCK and SHM_UNLOCK.
+> -\*/
+> + */
+>
+>   #define _GNU_SOURCE
+>   #include<stdio.h>
+> diff --git a/testcases/kernel/syscalls/ipc/shmctl/shmctl08.c b/testcases/kernel/syscalls/ipc/shmctl/shmctl08.c
+> index f763a07eb..071cf7b72 100644
+> --- a/testcases/kernel/syscalls/ipc/shmctl/shmctl08.c
+> +++ b/testcases/kernel/syscalls/ipc/shmctl/shmctl08.c
+> @@ -10,7 +10,7 @@
+>    *
+>    * The test clears the group and others bits from the shm_perm.mode and checks
+>    * the result as well as if the ctime was updated correctly.
+> -\*/
+> + */
+>
+>   #define _GNU_SOURCE
+>   #include<stdio.h>
+> diff --git a/testcases/kernel/syscalls/mallinfo/mallinfo01.c b/testcases/kernel/syscalls/mallinfo/mallinfo01.c
+> index ba5366896..d6c47299b 100644
+> --- a/testcases/kernel/syscalls/mallinfo/mallinfo01.c
+> +++ b/testcases/kernel/syscalls/mallinfo/mallinfo01.c
+> @@ -9,7 +9,7 @@
+>    *
+>    * Basic mallinfo() test. Refer to glibc test mallinfo2 test
+>    * https://sourceware.org/git/?p=glibc.git;a=blob;f=malloc/tst-mallinfo2.c
+> -\*/
+> + */
+>   #include "mallinfo_common.h"
+>   #include "tst_safe_macros.h"
+>
+> diff --git a/testcases/kernel/syscalls/mallinfo/mallinfo02.c b/testcases/kernel/syscalls/mallinfo/mallinfo02.c
+> index 945d3227c..05539abe3 100644
+> --- a/testcases/kernel/syscalls/mallinfo/mallinfo02.c
+> +++ b/testcases/kernel/syscalls/mallinfo/mallinfo02.c
+> @@ -9,7 +9,7 @@
+>    *
+>    * Basic mallinfo() test for malloc() using sbrk or mmap.
+>    * It size>  MMAP_THRESHOLD, it will use mmap. Otherwise, use sbrk.
+> -\*/
+> + */
+>
+>   #include "mallinfo_common.h"
+>   #include "tst_safe_macros.h"
+> diff --git a/testcases/kernel/syscalls/mallopt/mallopt01.c b/testcases/kernel/syscalls/mallopt/mallopt01.c
+> index e270b0bda..a47f65d2c 100644
+> --- a/testcases/kernel/syscalls/mallopt/mallopt01.c
+> +++ b/testcases/kernel/syscalls/mallopt/mallopt01.c
+> @@ -10,7 +10,7 @@
+>    * [DESCRIPTION]
+>    *
+>    * Basic mallinfo() and mallopt() testing.
+> -\*/
+> + */
+>
+>
+>   #include "../mallinfo/mallinfo_common.h"
+> diff --git a/testcases/kernel/syscalls/move_pages/move_pages12.c b/testcases/kernel/syscalls/move_pages/move_pages12.c
+> index d209426c7..16d14779d 100644
+> --- a/testcases/kernel/syscalls/move_pages/move_pages12.c
+> +++ b/testcases/kernel/syscalls/move_pages/move_pages12.c
+> @@ -61,7 +61,7 @@
+>    *    Date:   Mon Dec 14 19:11:51 2020 -0800
+>    *
+>    *    mm,hwpoison: return -EBUSY when migration fails
+> -\*/
+> + */
+>
+>   #include<errno.h>
+>   #include<unistd.h>
+> diff --git a/testcases/kernel/syscalls/name_to_handle_at/name_to_handle_at01.c b/testcases/kernel/syscalls/name_to_handle_at/name_to_handle_at01.c
+> index 1ac9d8214..7c91d1598 100644
+> --- a/testcases/kernel/syscalls/name_to_handle_at/name_to_handle_at01.c
+> +++ b/testcases/kernel/syscalls/name_to_handle_at/name_to_handle_at01.c
+> @@ -12,7 +12,7 @@
+>    *  - Check that EOVERFLOW is returned as expected by name_to_handle_at().
+>    *  - Check that we were able to access a file's stat with name_to_handle_at()
+>    *    and open_by_handle_at().
+> -\*/
+> + */
+>
+>   #define _GNU_SOURCE
+>   #include<sys/stat.h>
+> diff --git a/testcases/kernel/syscalls/name_to_handle_at/name_to_handle_at02.c b/testcases/kernel/syscalls/name_to_handle_at/name_to_handle_at02.c
+> index 020b25531..12ee31c2c 100644
+> --- a/testcases/kernel/syscalls/name_to_handle_at/name_to_handle_at02.c
+> +++ b/testcases/kernel/syscalls/name_to_handle_at/name_to_handle_at02.c
+> @@ -7,7 +7,7 @@
+>    * [DESCRIPTION]
+>    *
+>    * Failure tests for name_to_handle_at().
+> -\*/
+> + */
+>
+>   #define _GNU_SOURCE
+>   #include "lapi/name_to_handle_at.h"
+> diff --git a/testcases/kernel/syscalls/open_by_handle_at/open_by_handle_at01.c b/testcases/kernel/syscalls/open_by_handle_at/open_by_handle_at01.c
+> index 0d09e1ed8..ae962fb62 100644
+> --- a/testcases/kernel/syscalls/open_by_handle_at/open_by_handle_at01.c
+> +++ b/testcases/kernel/syscalls/open_by_handle_at/open_by_handle_at01.c
+> @@ -12,7 +12,7 @@
+>    *
+>    * Check that we were able to access a file's stat which is opened with
+>    * open_by_handle_at().
+> -\*/
+> + */
+>
+>   #define _GNU_SOURCE
+>   #include<sys/stat.h>
+> diff --git a/testcases/kernel/syscalls/open_by_handle_at/open_by_handle_at02.c b/testcases/kernel/syscalls/open_by_handle_at/open_by_handle_at02.c
+> index 0f60752c4..e66194df5 100644
+> --- a/testcases/kernel/syscalls/open_by_handle_at/open_by_handle_at02.c
+> +++ b/testcases/kernel/syscalls/open_by_handle_at/open_by_handle_at02.c
+> @@ -7,7 +7,7 @@
+>    * [DESCRIPTION]
+>    *
+>    * Failure tests for open_by_handle_at().
+> -\*/
+> + */
+>   #define _GNU_SOURCE
+>   #include<linux/capability.h>
+>   #include "tst_capability.h"
+> diff --git a/testcases/kernel/syscalls/ptrace/ptrace11.c b/testcases/kernel/syscalls/ptrace/ptrace11.c
+> index 734a99d3c..08a2246df 100644
+> --- a/testcases/kernel/syscalls/ptrace/ptrace11.c
+> +++ b/testcases/kernel/syscalls/ptrace/ptrace11.c
+> @@ -10,7 +10,7 @@
+>    * Before kernel 2.6.26 we could not trace init(1) process and ptrace() would
+>    * fail with EPERM. This case just checks whether we can trace init(1) process
+>    * successfully.
+> -\*/
+> + */
+>
+>   #include<errno.h>
+>   #include<signal.h>
+> diff --git a/testcases/kernel/syscalls/recvmmsg/recvmmsg01.c b/testcases/kernel/syscalls/recvmmsg/recvmmsg01.c
+> index 4e7e6aa28..10eaa3dcd 100644
+> --- a/testcases/kernel/syscalls/recvmmsg/recvmmsg01.c
+> +++ b/testcases/kernel/syscalls/recvmmsg/recvmmsg01.c
+> @@ -8,7 +8,7 @@
+>    * - EINVAL Bad seconds value for the timeout argument
+>    * - EINVAL Bad nanoseconds value for the timeout argument
+>    * - EFAULT Bad timeout address
+> -\*/
+> + */
+>
+>   #define _GNU_SOURCE
+>   #include "../sendmmsg/sendmmsg.h"
+> diff --git a/testcases/kernel/syscalls/sched_getparam/sched_getparam01.c b/testcases/kernel/syscalls/sched_getparam/sched_getparam01.c
+> index eec3ccaae..f638a6b83 100644
+> --- a/testcases/kernel/syscalls/sched_getparam/sched_getparam01.c
+> +++ b/testcases/kernel/syscalls/sched_getparam/sched_getparam01.c
+> @@ -15,7 +15,7 @@
+>    * for the calling process.
+>    * - If pid is not zero, sched_getparam(2) gets the scheduling
+>    * parameters for the specified [pid] process.
+> -\*/
+> + */
+>
+>   #include<errno.h>
+>   #include<stdlib.h>
+> diff --git a/testcases/kernel/syscalls/select/select04.c b/testcases/kernel/syscalls/select/select04.c
+> index dd042562d..cdf6762de 100644
+> --- a/testcases/kernel/syscalls/select/select04.c
+> +++ b/testcases/kernel/syscalls/select/select04.c
+> @@ -12,7 +12,7 @@
+>    * [ALGORITHM]
+>    *  - Check that writefds flag is cleared on full pipe
+>    *  - Check that readfds flag is cleared on empty pipe
+> -\*/
+> + */
+>
+>   #include<unistd.h>
+>   #include<errno.h>
+> diff --git a/testcases/kernel/syscalls/sendmmsg/sendmmsg01.c b/testcases/kernel/syscalls/sendmmsg/sendmmsg01.c
+> index e3884f1fd..de58abd92 100644
+> --- a/testcases/kernel/syscalls/sendmmsg/sendmmsg01.c
+> +++ b/testcases/kernel/syscalls/sendmmsg/sendmmsg01.c
+> @@ -4,7 +4,7 @@
+>    *
+>    * This test is based on source contained in the man pages for sendmmsg and
+>    * recvmmsg in release 4.15 of the Linux man-pages project.
+> -\*/
+> + */
+>
+>   #define _GNU_SOURCE
+>   #include "sendmmsg.h"
+> diff --git a/testcases/kernel/syscalls/sendmmsg/sendmmsg02.c b/testcases/kernel/syscalls/sendmmsg/sendmmsg02.c
+> index d0b2c1668..b14faccb6 100644
+> --- a/testcases/kernel/syscalls/sendmmsg/sendmmsg02.c
+> +++ b/testcases/kernel/syscalls/sendmmsg/sendmmsg02.c
+> @@ -5,7 +5,7 @@
+>    *
+>    * - EBADF Bad socket file descriptor
+>    * - EFAULT Bad message vector address
+> -\*/
+> + */
+>
+>   #define _GNU_SOURCE
+>   #include "sendmmsg.h"
+> diff --git a/testcases/kernel/syscalls/time/time01.c b/testcases/kernel/syscalls/time/time01.c
+> index 2529d7c07..cdcd37e8f 100644
+> --- a/testcases/kernel/syscalls/time/time01.c
+> +++ b/testcases/kernel/syscalls/time/time01.c
+> @@ -9,7 +9,7 @@
+>    * limited exposure of the system call.
+>    * - Verify that time(2) returns the value of time in seconds since the Epoch
+>    * and stores this value in the memory pointed to by the parameter.
+> -\*/
+> + */
+>
+>   #include<time.h>
+>   #include<errno.h>
+> diff --git a/testcases/kernel/syscalls/times/times01.c b/testcases/kernel/syscalls/times/times01.c
+> index 53c5603d7..407410fa1 100644
+> --- a/testcases/kernel/syscalls/times/times01.c
+> +++ b/testcases/kernel/syscalls/times/times01.c
+> @@ -7,7 +7,7 @@
+>    *
+>    * This is a Phase I test for the times(2) system call.  It is intended to
+>    * provide a limited exposure of the system call.
+> -\*/
+> + */
+>
+>   #include<sys/times.h>
+>   #include<errno.h>
+> diff --git a/testcases/kernel/syscalls/truncate/truncate02.c b/testcases/kernel/syscalls/truncate/truncate02.c
+> index b8a76c0c6..9e59bfc14 100644
+> --- a/testcases/kernel/syscalls/truncate/truncate02.c
+> +++ b/testcases/kernel/syscalls/truncate/truncate02.c
+> @@ -13,7 +13,7 @@
+>    * - If the file is larger than the specified length, the extra data is lost.
+>    * - If the file is shorter than the specified length, the extra data is filled by '0'.
+>    * - truncate(2) doesn't change offset.
+> -\*/
+> + */
+>
+>   #include<errno.h>
+>   #include<unistd.h>
+> diff --git a/testcases/kernel/syscalls/truncate/truncate03.c b/testcases/kernel/syscalls/truncate/truncate03.c
+> index 0d8f1d579..6794eb695 100644
+> --- a/testcases/kernel/syscalls/truncate/truncate03.c
+> +++ b/testcases/kernel/syscalls/truncate/truncate03.c
+> @@ -27,7 +27,7 @@
+>    *   is larger than the maximum file size.
+>    * - truncate(2) returns -1 and sets errno to ELOOP if too many symbolic
+>    *   links were encountered in translating the pathname.
+> -\*/
+> + */
+>
+>   #define _GNU_SOURCE
+>
+> diff --git a/testcases/kernel/syscalls/writev/writev03.c b/testcases/kernel/syscalls/writev/writev03.c
+> index 6514404e6..b13cf396e 100644
+> --- a/testcases/kernel/syscalls/writev/writev03.c
+> +++ b/testcases/kernel/syscalls/writev/writev03.c
+> @@ -11,7 +11,7 @@
+>    * where writev() first writes uninitialized data into the file (possibly
+>    * exposing internal kernel structures) and then overwrites it with the real
+>    * iovec contents later.
+> -\*/
+> + */
+>
+>   /*
+>    * Bugs fixed in:
+
+
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
