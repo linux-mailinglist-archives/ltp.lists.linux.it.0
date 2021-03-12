@@ -1,43 +1,42 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F40833941E
-	for <lists+linux-ltp@lfdr.de>; Fri, 12 Mar 2021 18:00:54 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D4AD339479
+	for <lists+linux-ltp@lfdr.de>; Fri, 12 Mar 2021 18:15:26 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 45FB73C685D
-	for <lists+linux-ltp@lfdr.de>; Fri, 12 Mar 2021 18:00:54 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 2B9413C685D
+	for <lists+linux-ltp@lfdr.de>; Fri, 12 Mar 2021 18:15:26 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 139BE3C2FE9
- for <ltp@lists.linux.it>; Fri, 12 Mar 2021 18:00:51 +0100 (CET)
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id 2AA5E3C305F
+ for <ltp@lists.linux.it>; Fri, 12 Mar 2021 18:15:25 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id EDEE01A017A9
- for <ltp@lists.linux.it>; Fri, 12 Mar 2021 18:00:50 +0100 (CET)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id C731A601E26
+ for <ltp@lists.linux.it>; Fri, 12 Mar 2021 18:15:24 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 03612AF62
- for <ltp@lists.linux.it>; Fri, 12 Mar 2021 17:00:50 +0000 (UTC)
-To: Cyril Hrubis <chrubis@suse.cz>
-References: <20210311105509.2701-2-chrubis@suse.cz>
- <20210312110620.13395-1-mdoucha@suse.cz> <YEt1MpgYOWYThZnN@yuki.lan>
+ by mx2.suse.de (Postfix) with ESMTP id ED915AF4D
+ for <ltp@lists.linux.it>; Fri, 12 Mar 2021 17:15:23 +0000 (UTC)
+To: Petr Vorel <pvorel@suse.cz>
+References: <20210309171104.30821-1-mdoucha@suse.cz> <YEtCWbqdGq5Yc99s@pevik>
 From: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <76d2c434-14c9-0c88-a982-5a0a72f9230b@suse.cz>
-Date: Fri, 12 Mar 2021 18:00:49 +0100
+Message-ID: <f775b926-6bd1-2f93-707a-fbbc7ebe6dc4@suse.cz>
+Date: Fri, 12 Mar 2021 18:15:23 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.8.0
 MIME-Version: 1.0
-In-Reply-To: <YEt1MpgYOWYThZnN@yuki.lan>
+In-Reply-To: <YEtCWbqdGq5Yc99s@pevik>
 Content-Language: en-US
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=-0.0 required=7.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
  SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3] lib: Add proper filesystem skiplist
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/2] Add FS quota availability check functions
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,249 +49,27 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 12. 03. 21 15:05, Cyril Hrubis wrote:
-> Hi!
->> The approach with flags we added for FUSE does not scale at all, we need
->> a proper skiplist so that we can skip individual filesystems.
->>
->> The motivation here is the addition of tmpfs to the supported
->> filesystems check. One of the problems there is that sync() is no-op on
->> tmpfs and hence the syncfs test fails. After this patchset we can simply
->> skip syncfs test on tmpfs by setting the right skiplist.
->>
->> As a bonus point the list of unsupported filesystem gets nicely
->> propagated to the metadata as well.
->>
->> Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
->> Co-authored-by: Martin Doucha <mdoucha@suse.cz>
-> 
-> This would be just Signed-off-by:
-> 
->> ---
->>
->> Moving the skiplist logic from has_kernel_support() to tst_fs_is_supported()
->> misses the point of my objection. This is the code I had in mind when I was
->> commenting on the patchset.
->>
->>  include/tst_fs.h                              | 26 +++++++---
->>  include/tst_test.h                            |  9 +++-
->>  lib/tst_supported_fs_types.c                  | 51 ++++++++++++++-----
->>  lib/tst_test.c                                |  2 +-
->>  .../kernel/syscalls/fsconfig/fsconfig01.c     |  2 +-
->>  testcases/kernel/syscalls/fsmount/fsmount01.c |  2 +-
->>  testcases/kernel/syscalls/fsmount/fsmount02.c |  2 +-
->>  testcases/kernel/syscalls/fsopen/fsopen01.c   |  2 +-
->>  testcases/kernel/syscalls/fspick/fspick01.c   |  2 +-
->>  testcases/kernel/syscalls/fspick/fspick02.c   |  2 +-
->>  .../kernel/syscalls/move_mount/move_mount01.c |  2 +-
->>  .../kernel/syscalls/move_mount/move_mount02.c |  2 +-
->>  .../kernel/syscalls/open_tree/open_tree01.c   |  2 +-
->>  .../kernel/syscalls/open_tree/open_tree02.c   |  2 +-
->>  .../sync_file_range/sync_file_range02.c       |  2 +-
->>  testcases/lib/tst_supported_fs.c              |  4 +-
->>  16 files changed, 79 insertions(+), 35 deletions(-)
->>
->> diff --git a/include/tst_fs.h b/include/tst_fs.h
->> index 4f7dd68d2..ae58a9647 100644
->> --- a/include/tst_fs.h
->> +++ b/include/tst_fs.h
->> @@ -44,6 +44,9 @@ enum {
->>  #define OVL_WORK	OVL_BASE_MNTPOINT"/work"
->>  #define OVL_MNT		OVL_BASE_MNTPOINT"/ovl"
->>  
->> +#define TST_FS_NATIVE 1
->> +#define TST_FS_FUSE   2
->> +
->>  /*
->>   * @path: path is the pathname of any file within the mounted file system
->>   * @mult: mult should be TST_KB, TST_MB or TST_GB
->> @@ -167,18 +170,29 @@ int tst_fill_file(const char *path, char pattern, size_t bs, size_t bcount);
->>   */
->>  int tst_prealloc_file(const char *path, size_t bs, size_t bcount);
->>  
->> -#define TST_FS_SKIP_FUSE 0x01
->> -
->>  /*
->> - * Return 1 if a specified fiilsystem is supported
->> - * Return 0 if a specified fiilsystem isn't supported
->> + * Return TST_FS_NATIVE if a specified filesystem is supported by kernel
->> + * Return TST_FS_FUSE if a specified filesystem is supported through FUSE
->> + * Return 0 if a specified filesystem isn't supported
->> + *
->> + * @fs_type A filesystem type to check the support for.
->>   */
->> -int tst_fs_is_supported(const char *fs_type, int flags);
->> +int tst_fs_is_supported(const char *fs_type);
->>  
->>  /*
->>   * Returns NULL-terminated array of kernel-supported filesystems.
->> + *
->> + * @skiplist A NULL terminated array of filesystems to skip.
->> + */
->> +const char **tst_get_supported_fs_types(const char *const *skiplist);
->> +
->> +/*
->> + * Returns 1 if filesystem is in skiplist 0 otherwise.
->> + *
->> + * @fs_type A filesystem type to lookup.
->> + * @skiplist A NULL terminated array of fileystemsytems to skip.
->>   */
->> -const char **tst_get_supported_fs_types(int flags);
->> +int tst_fs_in_skiplist(const char *fs_type, const char *const *skiplist);
->>  
->>  /*
->>   * Creates and writes to files on given path until write fails with ENOSPC
->> diff --git a/include/tst_test.h b/include/tst_test.h
->> index 1fbebe752..4eee6f897 100644
->> --- a/include/tst_test.h
->> +++ b/include/tst_test.h
->> @@ -159,6 +159,13 @@ struct tst_test {
->>  	 */
->>  	int all_filesystems:1;
->>  
->> +	/*
->> +	 * The skip_filesystem is a NULL terminated list of filesystems the
->> +	 * test does not support. It can also be used to disable whole class of
->> +	 * filesystems with a special keyworks such as "fuse".
->> +	 */
->> +	const char *const *skip_filesystems;
->> +
->>  	/* Minimum number of online CPU required by the test */
->>  	unsigned long min_cpus;
->>  
->> @@ -197,8 +204,6 @@ struct tst_test {
->>  
->>  	/* Device filesystem type override NULL == default */
->>  	const char *dev_fs_type;
->> -	/* Flags to be passed to tst_get_supported_fs_types() */
->> -	int dev_fs_flags;
->>  
->>  	/* Options passed to SAFE_MKFS() when format_device is set */
->>  	const char *const *dev_fs_opts;
->> diff --git a/lib/tst_supported_fs_types.c b/lib/tst_supported_fs_types.c
->> index 00ede549d..7a420f481 100644
->> --- a/lib/tst_supported_fs_types.c
->> +++ b/lib/tst_supported_fs_types.c
->> @@ -45,7 +45,22 @@ static int has_mkfs(const char *fs_type)
->>  	return 1;
->>  }
->>  
->> -static int has_kernel_support(const char *fs_type, int flags)
->> +int tst_fs_in_skiplist(const char *fs_type, const char *const *skiplist)
->> +{
->> +	unsigned int i;
->> +
->> +	if (!skiplist)
->> +		return 0;
->> +
->> +	for (i = 0; skiplist[i]; i++) {
->> +		if (!strcmp(fs_type, skiplist[i]))
->> +			return 1;
->> +	}
->> +
->> +	return 0;
->> +}
->> +
->> +static int has_kernel_support(const char *fs_type)
->>  {
->>  	static int fuse_supported = -1;
->>  	const char *tmpdir = getenv("TMPDIR");
->> @@ -58,7 +73,7 @@ static int has_kernel_support(const char *fs_type, int flags)
->>  	mount("/dev/zero", tmpdir, fs_type, 0, NULL);
->>  	if (errno != ENODEV) {
->>  		tst_res(TINFO, "Kernel supports %s", fs_type);
->> -		return 1;
->> +		return TST_FS_NATIVE;
->>  	}
->>  
->>  	/* Is FUSE supported by kernel? */
->> @@ -84,26 +99,36 @@ static int has_kernel_support(const char *fs_type, int flags)
->>  		return 0;
->>  	}
->>  
->> -	if (flags & TST_FS_SKIP_FUSE) {
->> -		tst_res(TINFO, "Skipping FUSE as requested by the test");
->> -		return 0;
->> -	}
->> -
->>  	tst_res(TINFO, "FUSE does support %s", fs_type);
->> -	return 1;
->> +	return TST_FS_FUSE;
->>  }
->>  
->> -int tst_fs_is_supported(const char *fs_type, int flags)
->> +int tst_fs_is_supported(const char *fs_type)
->>  {
->> -	return has_kernel_support(fs_type, flags) && has_mkfs(fs_type);
->> +	if (has_mkfs(fs_type))
->> +		return has_kernel_support(fs_type);
->> +
->> +	return 0;
->>  }
->>  
->> -const char **tst_get_supported_fs_types(int flags)
->> +const char **tst_get_supported_fs_types(const char *const *skiplist)
->>  {
->> -	unsigned int i, j = 0;
->> +	unsigned int ret, skip_fuse, i, j = 0;
->> +
->> +	skip_fuse = tst_fs_in_skiplist("fuse", skiplist);
->>  
->>  	for (i = 0; fs_type_whitelist[i]; i++) {
->> -		if (tst_fs_is_supported(fs_type_whitelist[i], flags))
->> +		if (tst_fs_in_skiplist(fs_type_whitelist[i], skiplist))
-> 
-> I guess that we should print here that the filesystem is skipped
-> otherwise there will be no information why it was skipped in the test
-> output.
-
-Yes, that makes sense.
-
->> +			continue;
->> +
->> +		ret = tst_fs_is_supported(fs_type_whitelist[i]);
->> +
->> +		if (ret == TST_FS_FUSE && skip_fuse) {
->> +			tst_res(TINFO, "Skipping FUSE as requested by test");
->> +			continue;
-> 
-> And here we produce two messages for FUSE based filesystems, one that
-> it's supported and second that it's skipped in a case that it's
-> supported.
-> 
-> It would probably be more consistent if we called the
-> tst_fs_is_supported() unconditionally and filtered out skipped
-> filesystems only if we get positive return value from
-> tst_fs_is_supported().
-
-Does it really matter? The main issue here is that the helper function
-prints too much information in the successful case. It'd be better to
-remove debug output from has_kernel_support() and instead print only one
-line per file system in the tst_* functions:
-- supported
-- FUSE
-- missing mkfs.%s
-- missing mount support
-- FUSE (skipped)
-- skipped
-
-But that would require redesigning the return value of
-has_kernel_support() a bit more and moving the (silent) mkfs check there
-as well. Either way, I'd leave that to a separate patchset.
-
--- 
-Martin Doucha   mdoucha@suse.cz
-QA Engineer for Software Maintenance
-SUSE LINUX, s.r.o.
-CORSO IIa
-Krizikova 148/34
-186 00 Prague 8
-Czech Republic
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+T24gMTIuIDAzLiAyMSAxMToyOCwgUGV0ciBWb3JlbCB3cm90ZToKPiBIaSBNYXJ0aW4sCj4gCj4+
+ICtpbnQgdHN0X2NoZWNrX3F1b3RhX3N1cHBvcnQoY29uc3QgY2hhciAqZGV2aWNlLCBpbnQgZm9y
+bWF0LAo+PiArCWNvbnN0IGNoYXIgKnF1b3RhZmlsZSkKPj4gK3sKPj4gKwlURVNUKHF1b3RhY3Rs
+KFFDTUQoUV9RVU9UQU9OLCBVU1JRVU9UQSksIGRldmljZSwgZm9ybWF0LCBxdW90YWZpbGUpKTsK
+PiBBY3R1YWxseSwgdGhlcmUgaXMgYSB3YXJuaW5nOgo+IHRzdF9zdXBwb3J0ZWRfZnNfdHlwZXMu
+YzogSW4gZnVuY3Rpb24g4oCYdHN0X2NoZWNrX3F1b3RhX3N1cHBvcnTigJk6Cj4gdHN0X3N1cHBv
+cnRlZF9mc190eXBlcy5jOjExNzo1OTogd2FybmluZzogcGFzc2luZyBhcmd1bWVudCA0IG9mIOKA
+mHF1b3RhY3Rs4oCZIGRpc2NhcmRzIOKAmGNvbnN04oCZIHF1YWxpZmllciBmcm9tIHBvaW50ZXIg
+dGFyZ2V0IHR5cGUgWy1XZGlzY2FyZGVkLXF1YWxpZmllcnNdCj4gICAxMTcgfCAgVEVTVChxdW90
+YWN0bChRQ01EKFFfUVVPVEFPTiwgVVNSUVVPVEEpLCBkZXZpY2UsIGZvcm1hdCwgcXVvdGFmaWxl
+KSk7Cj4gCj4gV291bGQgeW91IHByZWZlciB0byBjYXN0IHRvIGNoYXIgKiwgb3IganVzdCBjaGFu
+Z2UgZnVuY3Rpb24gcGFyYW1ldGVyIHRvIGNoYXIgKj8KClRoYW5rcyBmb3IgY2F0Y2hpbmcgdGhp
+cy4gUGFzc2luZyBzdHJpbmcgbGl0ZXJhbHMgdG8gdGhlIGZ1bmN0aW9uCmRpcmVjdGx5IGlzIHRl
+Y2huaWNhbGx5IHdyb25nIHNvIEknbGwgZHJvcCB0aGUgY29uc3QgYW5kIGZpeCB0aGUgdGVzdHMK
+dG8gYWxsb2NhdGUgYSBidWZmZXIgZm9yIHF1b3RhZmlsZSBwYXRocy4gSSdsbCByZXN1Ym1pdCBv
+biBNb25kYXkuCgotLSAKTWFydGluIERvdWNoYSAgIG1kb3VjaGFAc3VzZS5jegpRQSBFbmdpbmVl
+ciBmb3IgU29mdHdhcmUgTWFpbnRlbmFuY2UKU1VTRSBMSU5VWCwgcy5yLm8uCkNPUlNPIElJYQpL
+cml6aWtvdmEgMTQ4LzM0CjE4NiAwMCBQcmFndWUgOApDemVjaCBSZXB1YmxpYwoKLS0gCk1haWxp
+bmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
