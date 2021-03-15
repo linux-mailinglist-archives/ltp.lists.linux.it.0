@@ -2,73 +2,44 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67ABA33AAB8
-	for <lists+linux-ltp@lfdr.de>; Mon, 15 Mar 2021 06:24:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA08433AEC9
+	for <lists+linux-ltp@lfdr.de>; Mon, 15 Mar 2021 10:29:03 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 161283C4E39
-	for <lists+linux-ltp@lfdr.de>; Mon, 15 Mar 2021 06:24:11 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 99D4C3C2DF4
+	for <lists+linux-ltp@lfdr.de>; Mon, 15 Mar 2021 10:29:03 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
- by picard.linux.it (Postfix) with ESMTP id BAEB73C25EB
- for <ltp@lists.linux.it>; Mon, 15 Mar 2021 06:24:07 +0100 (CET)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [63.128.21.124])
- by in-4.smtp.seeweb.it (Postfix) with ESMTP id 45EC410009F9
- for <ltp@lists.linux.it>; Mon, 15 Mar 2021 06:24:05 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1615785844;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=pxUr+AxPokQAQ3eQ435UoEjiP85NxzakrFiIGcFYiUY=;
- b=jG4ZAJ8TRDVYDcKI2E24vDONCX+J5hw9JI5Xx2vPkDZvKAPO3JS8DhzuwZGuNE2rJDjdrz
- 8sIip7r6SCSIfTLDjG0LcNa1hkKmdLbLa4MIQvQ5voxXYwEG1CbV3PoK9wt2h7cSLrfpOv
- f1A8uFqo5y5odORYRtcnR8YaJ5yYqjc=
-Received: from mail-yb1-f199.google.com (mail-yb1-f199.google.com
- [209.85.219.199]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-522-PeVyTqW6OBS_oTR-H8_vjw-1; Mon, 15 Mar 2021 01:24:01 -0400
-X-MC-Unique: PeVyTqW6OBS_oTR-H8_vjw-1
-Received: by mail-yb1-f199.google.com with SMTP id y7so36840199ybh.20
- for <ltp@lists.linux.it>; Sun, 14 Mar 2021 22:24:00 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=pxUr+AxPokQAQ3eQ435UoEjiP85NxzakrFiIGcFYiUY=;
- b=A77qWu2hc6j6YB49nOmDNR1StXAnVqi4aPkfvCfStzAO3qsI/2koSKutEe4ErsaVNr
- OdERZSvexS6cerP8nFjlpBXz3NZxfkDFbG2+8bcBh3g/BSpFafB7dR7AqOoMgvrv74ur
- QqQIks2+ulbhnPbYPHFNsGOAy4n8QloaQKZTF0cCiYFRdl39EJwNQt3+NT2Nfyl67rhs
- h/K+kFxPIbSQB/7FPEwvKtaSgSdKw43WA3QkMhjvL8VY/8pRGWG9fFXcAcekcQHr90Pk
- We318ve5I1jExgTIYKfEZur3FSN7CqFB4GwosMIB1QOREO1SNarRc2HArKgb+poW2a7P
- mMgQ==
-X-Gm-Message-State: AOAM532R698RKIPE5EMH9I+Wo7fdUE81wmlRJH7ZPMkZ8hoFIxYPcvsA
- aW7CWYqapFGTe12ZqLkIOcR6aH9tZ6ygEBG2b8mGF4NeLOZNtNYebmnyQedtIt51ECTUr+9mxfI
- yf1khzYqcPjxn83p/E1weXK/k5nM=
-X-Received: by 2002:a25:1485:: with SMTP id 127mr36733888ybu.243.1615785840441; 
- Sun, 14 Mar 2021 22:24:00 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJxvcfEzDZhd54Q+QHLvCfJ6f7yUNeL6GqrtL8m9Ir4VkoQKY2SIU3ssIYIa/LdM6O8YrLwaUMGfJKOT+YGwotU=
-X-Received: by 2002:a25:1485:: with SMTP id 127mr36733875ybu.243.1615785840295; 
- Sun, 14 Mar 2021 22:24:00 -0700 (PDT)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id 8F1AA3C088E
+ for <ltp@lists.linux.it>; Mon, 15 Mar 2021 10:29:01 +0100 (CET)
+Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id C91BB1400E62
+ for <ltp@lists.linux.it>; Mon, 15 Mar 2021 10:28:59 +0100 (CET)
+Received: from ubuntu.localdomain (unknown [188.192.4.45])
+ by mail.jv-coder.de (Postfix) with ESMTPSA id 0F17F9F66B;
+ Mon, 15 Mar 2021 09:28:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
+ t=1615800537; bh=zp32VLSDe4NDyI1eXWiyo2LAkOmD1TYyehNTCR0S0Ss=;
+ h=From:To:Subject:Date:Message-Id:MIME-Version;
+ b=JjKxvrCJEyEGL1P2qkOxgb9Xj+4UkMDzzvWjth7Xoz4RJN+3XWaYAx3MdtmQoHB2C
+ Qh6oNuCe/wJ548wyUZaVncsykAO+AuLJbaqCuTI2aJrRRq8yzCJ5wXcV69LZKF705I
+ oTuWtILjbAftLlNRcrK9JS1/vyXz4dNsvHtzyoIA=
+From: Joerg Vehlow <lkml@jv-coder.de>
+To: ltp@lists.linux.it
+Date: Mon, 15 Mar 2021 10:28:43 +0100
+Message-Id: <20210315092844.991073-1-lkml@jv-coder.de>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20210312173201.27708-1-pvorel@suse.cz>
-In-Reply-To: <20210312173201.27708-1-pvorel@suse.cz>
-From: Li Wang <liwang@redhat.com>
-Date: Mon, 15 Mar 2021 13:23:48 +0800
-Message-ID: <CAEemH2fLdFSFt99Lgn=4o4=MMNvd_0UNMaObSF=E13Jv+358LQ@mail.gmail.com>
-To: Petr Vorel <pvorel@suse.cz>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
-X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 0/3] shell test timeout handling
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Status: Clean
+Subject: [LTP] [PATCH 1/2] pec: Convert to the new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,101 +51,589 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>, LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============0690894532=="
+Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0690894532==
-Content-Type: multipart/alternative; boundary="0000000000000b5bb705bd8c750a"
+From: Joerg Vehlow <joerg.vehlow@aox-tech.de>
 
---0000000000000b5bb705bd8c750a
-Content-Type: text/plain; charset="UTF-8"
+---
+ runtest/connectors                            |   2 +-
+ testcases/kernel/connectors/Makefile          |   2 -
+ testcases/kernel/connectors/connector_test.sh |   9 --
+ testcases/kernel/connectors/pec/Makefile      |   2 +-
+ testcases/kernel/connectors/pec/README        |  48 --------
+ testcases/kernel/connectors/pec/cn_pec.sh     |  67 +++++++++++
+ .../kernel/connectors/pec/event_generator.c   |  72 ++++++------
+ .../kernel/connectors/pec/pec_listener.c      |  54 ++++-----
+ testcases/kernel/connectors/pec/run_pec_test  | 107 ------------------
+ 9 files changed, 124 insertions(+), 239 deletions(-)
+ delete mode 100644 testcases/kernel/connectors/connector_test.sh
+ delete mode 100644 testcases/kernel/connectors/pec/README
+ create mode 100755 testcases/kernel/connectors/pec/cn_pec.sh
+ delete mode 100755 testcases/kernel/connectors/pec/run_pec_test
 
-On Sat, Mar 13, 2021 at 1:32 AM Petr Vorel <pvorel@suse.cz> wrote:
-
-> Hi,
->
-> changes before previous attempt [1]
-> * _tst_kill_test() (Cyril)
-> * added test timeout03.sh
-> * update trap message (Joerg)
->
-> NOTE: we have no way to print summary from _tst_do_exit if cleanup get
-> stuck, but IMHO there is no simple way how to solve it (we'd have to use
-> mapped memory to increment counter also in shell API as Cyril suggested)
->
-> [1]
-> https://patchwork.ozlabs.org/project/ltp/patch/20210301220222.22705-7-pvorel@suse.cz/
->
-> Petr Vorel (3):
->   tst_test.sh: Run cleanup also after test timeout
->   test: Adding timeout03.sh for testing _tst_kill_test()
->   zram: Increase timeout according to used devices
->
-
-Nice work!
-
-For series:
-Reviewed-by: Li Wang <liwang@redhat.com>
-
-
+diff --git a/runtest/connectors b/runtest/connectors
+index 6153a98e6..2c7aed474 100644
+--- a/runtest/connectors
++++ b/runtest/connectors
+@@ -1,2 +1,2 @@
+ #DESCRIPTION:Netlink Connector tests
+-Connectors connector_test.sh
++cn_pec_sh cn_pec.sh
+diff --git a/testcases/kernel/connectors/Makefile b/testcases/kernel/connectors/Makefile
+index 04d8a4b91..5f668f419 100644
+--- a/testcases/kernel/connectors/Makefile
++++ b/testcases/kernel/connectors/Makefile
+@@ -24,6 +24,4 @@ top_srcdir		?= ../../..
+ 
+ include $(top_srcdir)/include/mk/env_pre.mk
+ 
+-INSTALL_TARGETS		:= connector_test.sh
+-
+ include $(top_srcdir)/include/mk/generic_trunk_target.mk
+diff --git a/testcases/kernel/connectors/connector_test.sh b/testcases/kernel/connectors/connector_test.sh
+deleted file mode 100644
+index f92e10b85..000000000
+--- a/testcases/kernel/connectors/connector_test.sh
++++ /dev/null
+@@ -1,9 +0,0 @@
+-#!/bin/sh
+-
+-if [ ! -f /proc/net/connector ];then
+-	echo "Connectors 0 CONF : system doesn't support execution of the test"
+-	exit 32
+-fi
+-
+-$LTPROOT/testcases/bin/run_pec_test
+-
+diff --git a/testcases/kernel/connectors/pec/Makefile b/testcases/kernel/connectors/pec/Makefile
+index fa0aa6828..d9a7f104e 100644
+--- a/testcases/kernel/connectors/pec/Makefile
++++ b/testcases/kernel/connectors/pec/Makefile
+@@ -24,6 +24,6 @@ top_srcdir		?= ../../../..
+ 
+ include $(top_srcdir)/include/mk/testcases.mk
+ 
+-INSTALL_TARGETS		:= run_pec_test
++INSTALL_TARGETS		:= cn_pec.sh
+ 
+ include $(top_srcdir)/include/mk/generic_leaf_target.mk
+diff --git a/testcases/kernel/connectors/pec/README b/testcases/kernel/connectors/pec/README
+deleted file mode 100644
+index bf1636475..000000000
+--- a/testcases/kernel/connectors/pec/README
++++ /dev/null
+@@ -1,48 +0,0 @@
+-
+-TEST SUITE:
+-
+-The directory pec contains the tests related to the process event connector.
+-
+-Process event connector is a netlink connector that reports process events
+-to userspace. It sends events such as fork, exec, id change and exit.
+-
+-There are total 5 testcases.
+-
+-Note: the test can be run by root only.
+-
+-TESTS AIM:
+-
+-The aim of the tests is to test the functionality of process event connector.
+-
+-FILES DESCRIPTION:
+-
+-check_connector_enabled.c
+-------------------
+-This program is used to check if the kernel supports netlink connector.
+-
+-event_generator.c
+-------------------
+-This program is used to generate a specified process event (fork, exec, uid,
+-gid or exit).
+-
+-run_pec_test
+-------------------
+-This script runs all the 5 testcases.
+-
+-pec_listener.c
+-------------------
+-This program is used to listen to process events received through the kernel
+-connector and print them.
+-
+-Makefile
+-------------------
+-The usual makefile for this directory
+-
+-$LTPROOT/output/pec/*.log
+-------------------
+-The outputs of event_generator and pec_listeners.
+-
+-README:
+-------------------
+-The one you have gone through.
+-
+diff --git a/testcases/kernel/connectors/pec/cn_pec.sh b/testcases/kernel/connectors/pec/cn_pec.sh
+new file mode 100755
+index 000000000..98abd50fc
+--- /dev/null
++++ b/testcases/kernel/connectors/pec/cn_pec.sh
+@@ -0,0 +1,67 @@
++#!/bin/bash
++
++# SPDX-License-Identifier: GPL-2.0-or-later
++# Copyright (c) 2008 FUJITSU LIMITED
++# Copyright (c) 2021 Joerg Vehlow <joerg.vehlow@aox-tech.de>
++#
++# Author: Li Zefan <lizf@cn.fujitsu.com> 
++#
++# Process event connector is a netlink connector that reports process events
++# to userspace. It sends events such as fork, exec, id change and exit.
++
++TST_SETUP=setup
++TST_TESTFUNC=test
++TST_NEEDS_ROOT=1
++TST_NEEDS_TMPDIR=1
++TST_TEST_DATA="fork exec exit uid gid"
++
++NUM_EVENTS=1
++
++. tst_test.sh
++
++setup()
++{	
++	if ! grep -q cn_proc /proc/net/connector; then
++		tst_brk TCONF "Process Event Connector is not supported or kernel is below 2.6.26"
++		exit 0;
++	fi
++
++	tst_res TINFO "Test process events connector"
++}
++
++test()
++{
++	local event=$2
++	pec_listener >lis_$event.log 2>lis_$event.err &
++	pid=$!
++	# Wait for pec_listener to start listening
++	tst_sleep 100ms
++
++	# Run with absolute path, so the generator can exec itself
++	generator="$(command -v event_generator)"
++	"$generator" -n $NUM_EVENTS -e $event >gen_$event.log 2>gen_$event.err
++	gen_rc=$?
++
++	# Sleep until pec_listener has seen and handled all of the generated events
++	tst_sleep 100ms
++	kill -s SIGINT $pid 2> /dev/null
++	wait $pid
++	lis_rc=$?
++
++	if [ $gen_rc -ne 0 -o ! -s gen_$event.log ]; then
++		tst_brk TBROK "failed to generate process events"
++	fi
++
++	if [ $lis_rc -ne 0 ]; then
++		tst_brk TBROK "failed to execute the listener: $(cat lis_$event.err)"
++	fi
++
++	expected_events="$(cat gen_$event.log)"
++	if grep -q "$expected_events" lis_$event.log; then
++		tst_res TPASS "$event detected by listener"
++	else
++		tst_res TFAIL "$event not detected by listener"
++	fi
++}
++
++tst_run
+diff --git a/testcases/kernel/connectors/pec/event_generator.c b/testcases/kernel/connectors/pec/event_generator.c
+index cfa6b0dcc..77c6c0515 100644
+--- a/testcases/kernel/connectors/pec/event_generator.c
++++ b/testcases/kernel/connectors/pec/event_generator.c
+@@ -1,24 +1,13 @@
+-/******************************************************************************/
+-/*                                                                            */
+-/* Copyright (c) 2008 FUJITSU LIMITED                                         */
+-/*                                                                            */
+-/* This program is free software;  you can redistribute it and/or modify      */
+-/* it under the terms of the GNU General Public License as published by       */
+-/* the Free Software Foundation; either version 2 of the License, or          */
+-/* (at your option) any later version.                                        */
+-/*                                                                            */
+-/* This program is distributed in the hope that it will be useful,            */
+-/* but WITHOUT ANY WARRANTY;  without even the implied warranty of            */
+-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See                  */
+-/* the GNU General Public License for more details.                           */
+-/*                                                                            */
+-/* You should have received a copy of the GNU General Public License          */
+-/* along with this program;  if not, write to the Free Software               */
+-/* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA    */
+-/*                                                                            */
+-/* Author: Li Zefan <lizf@cn.fujitsu.com>                                     */
+-/*                                                                            */
+-/******************************************************************************/
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2008 FUJITSU LIMITED
++ * Copyright (c) 2021 Joerg Vehlow <joerg.vehlow@aox-tech.de>
++ * 
++ * Author: Li Zefan <lizf@cn.fujitsu.com>
++ * 
++ * This program is used to generate a specified process event (fork, exec, uid,
++ * gid or exit).
++ */
+ 
+ #include <unistd.h>
+ #include <string.h>
+@@ -28,7 +17,13 @@
+ #include <sys/types.h>
+ #include <sys/wait.h>
+ 
+-#include "test.h"
++#define TST_NO_DEFAULT_MAIN
++#include "tst_test.h"
++
++extern struct tst_test *tst_test;
++static struct tst_test test = {
++	.forks_child = 1
++};
+ 
+ #define DEFAULT_EVENT_NUM       1
+ 
+@@ -41,11 +36,12 @@ const char *ltp_user = "nobody";
+ char **exec_argv;
+ 
+ void (*gen_event) (void);
++static void usage(int status) LTP_ATTRIBUTE_NORETURN;
+ 
+ /*
+  * Show the usage
+  *
+- * @status: the exit status
++ * @param status the exit status
+  */
+ static void usage(int status)
+ {
+@@ -61,8 +57,8 @@ static void usage(int status)
+  * Generate exec event.
+  *
+  * We can't just exec nr_event times, because the current process image
+- * will be replaced with the new process image, so we use enviroment
+- * viriable as event counters, as it will be inherited after exec.
++ * will be replaced with the new process image, so we use environment
++ * variable as event counters, as it will be inherited after exec.
+  */
+ static void gen_exec(void)
+ {
+@@ -89,7 +85,8 @@ static void gen_exec(void)
+ 	printf("exec pid: %d\n", getpid());
+ 	fflush(stdout);
+ 
+-	execv(exec_argv[0], exec_argv);
++	/* Note: This expects the full path to self in exec_argv[0]! */
++	SAFE_EXECV(exec_argv[0], exec_argv);
+ }
+ 
+ /*
+@@ -100,13 +97,10 @@ static inline void gen_fork(void)
+ 	pid_t pid;
+ 	int status;
+ 
+-	pid = fork();
++	pid = SAFE_FORK();
+ 	if (pid == 0) {
+ 		printf("fork parent: %d, child: %d\n", getppid(), getpid());
+ 		exit(0);
+-	} else if (pid < 0) {
+-		fprintf(stderr, "fork() failed\n");
+-		exit(1);
+ 	} else {		/* Parent should wait for the child */
+ 		wait(&status);
+ 	}
+@@ -118,14 +112,14 @@ static inline void gen_fork(void)
+ static inline void gen_exit(void)
+ {
+ 	pid_t pid;
++	int status;
+ 
+-	pid = fork();
++	pid = SAFE_FORK();
+ 	if (pid == 0) {
+ 		printf("exit pid: %d exit_code: %d\n", getpid(), 0);
+ 		exit(0);
+-	} else if (pid < 0) {
+-		fprintf(stderr, "fork() failed\n");
+-		exit(1);
++	} else {
++		wait(&status);
+ 	}
+ }
+ 
+@@ -134,7 +128,7 @@ static inline void gen_exit(void)
+  */
+ static inline void gen_uid(void)
+ {
+-	setuid(ltp_uid);
++	SAFE_SETUID(ltp_uid);
+ 	printf("uid pid: %d euid: %d\n", getpid(), ltp_uid);
+ }
+ 
+@@ -143,15 +137,15 @@ static inline void gen_uid(void)
+  */
+ static inline void gen_gid(void)
+ {
+-	setgid(ltp_gid);
++	SAFE_SETGID(ltp_gid);
+ 	printf("gid pid: %d egid: %d\n", getpid(), ltp_gid);
+ }
+ 
+ /*
+  * Read option from user input.
+  *
+- * @argc: number of arguments
+- * @argv: argument list
++ * @param argc number of arguments
++ * @param argv argument list
+  */
+ static void process_options(int argc, char **argv)
+ {
+@@ -205,6 +199,8 @@ int main(int argc, char **argv)
+ 	unsigned long i;
+ 	struct passwd *ent;
+ 
++	tst_test = &test;
++
+ 	process_options(argc, argv);
+ 
+ 	ent = getpwnam(ltp_user);
+diff --git a/testcases/kernel/connectors/pec/pec_listener.c b/testcases/kernel/connectors/pec/pec_listener.c
+index cd653c7b1..64429875c 100644
+--- a/testcases/kernel/connectors/pec/pec_listener.c
++++ b/testcases/kernel/connectors/pec/pec_listener.c
+@@ -1,24 +1,12 @@
+-/******************************************************************************/
+-/*                                                                            */
+-/* Copyright (c) 2008 FUJITSU LIMITED                                         */
+-/*                                                                            */
+-/* This program is free software;  you can redistribute it and/or modify      */
+-/* it under the terms of the GNU General Public License as published by       */
+-/* the Free Software Foundation; either version 2 of the License, or          */
+-/* (at your option) any later version.                                        */
+-/*                                                                            */
+-/* This program is distributed in the hope that it will be useful,            */
+-/* but WITHOUT ANY WARRANTY;  without even the implied warranty of            */
+-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See                  */
+-/* the GNU General Public License for more details.                           */
+-/*                                                                            */
+-/* You should have received a copy of the GNU General Public License          */
+-/* along with this program;  if not, write to the Free Software               */
+-/* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA    */
+-/*                                                                            */
+-/* Author: Li Zefan <lizf@cn.fujitsu.com>                                     */
+-/*                                                                            */
+-/******************************************************************************/
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2008 FUJITSU LIMITED
++ * 
++ * Author: Li Zefan <lizf@cn.fujitsu.com>
++ * 
++ * This program is used to listen to process events received through the kernel
++ * connector and print them.
++ */
+ 
+ #include <sys/socket.h>
+ #include <sys/poll.h>
+@@ -70,7 +58,7 @@ struct nlmsghdr *nlhdr;
+ /*
+  * Handler for signal int. Set exit flag.
+  *
+- * @signo: the signal number, not used
++ * @param signo the signal number, not used
+  */
+ static void sigint_handler(int __attribute__ ((unused)) signo)
+ {
+@@ -80,9 +68,9 @@ static void sigint_handler(int __attribute__ ((unused)) signo)
+ /*
+  * Send netlink package.
+  *
+- * @sd: socket descripor
+- * @to: the destination sockaddr
+- * @cnmsg: the pec control message
++ * @param sd    socket descriptor
++ * @param to    the destination sockaddr
++ * @param cnmsg the pec control message
+  */
+ static int netlink_send(int sd, struct sockaddr_nl *to, struct cn_msg *cnmsg)
+ {
+@@ -117,8 +105,8 @@ static int netlink_send(int sd, struct sockaddr_nl *to, struct cn_msg *cnmsg)
+ /*
+  * Receive package from netlink.
+  *
+- * @sd: socket descripor
+- * @from: source sockaddr
++ * @param sd   socket descriptor
++ * @param from source sockaddr
+  */
+ static int netlink_recv(int sd, struct sockaddr_nl *from)
+ {
+@@ -146,9 +134,9 @@ static int netlink_recv(int sd, struct sockaddr_nl *from)
+ /*
+  * Send control message to PEC.
+  *
+- * @sd: socket descriptor
+- * @to: the destination sockaddr
+- * @op: control flag
++ * @param sd socket descriptor
++ * @param to the destination sockaddr
++ * @param op control flag
+  */
+ static int control_pec(int sd, struct sockaddr_nl *to, enum proc_cn_mcast_op op)
+ {
+@@ -177,7 +165,7 @@ static int control_pec(int sd, struct sockaddr_nl *to, enum proc_cn_mcast_op op)
+ /*
+  * Process PEC event.
+  *
+- * @nlhdr: the netlinke pacakge
++ * @param nlhdr the netlink package
+  */
+ static void process_event(struct nlmsghdr *nlhdr)
+ {
+@@ -316,14 +304,14 @@ int main(void)
+ 		fprintf(stderr, "failed to close PEC listening\n");
+ 		exit(1);
+ 	}
+-
++ 
+ 	close(sd);
+ 	free(nlhdr);
+ 
+ 	while (fsync(STDOUT_FILENO) == -1) {
+ 		if (errno != EIO)
+ 			break;
+-		/* retry once every 10 secodns */
++		/* retry once every 10 seconds */
+ 		sleep(10);
+ 	}
+ 
+diff --git a/testcases/kernel/connectors/pec/run_pec_test b/testcases/kernel/connectors/pec/run_pec_test
+deleted file mode 100755
+index 272948575..000000000
+--- a/testcases/kernel/connectors/pec/run_pec_test
++++ /dev/null
+@@ -1,107 +0,0 @@
+-#!/bin/bash
+-
+-################################################################################
+-##                                                                            ##
+-## Copyright (c) 2008 FUJITSU LIMITED                                         ##
+-##                                                                            ##
+-## This program is free software;  you can redistribute it and#or modify      ##
+-## it under the terms of the GNU General Public License as published by       ##
+-## the Free Software Foundation; either version 2 of the License, or          ##
+-## (at your option) any later version.                                        ##
+-##                                                                            ##
+-## This program is distributed in the hope that it will be useful, but        ##
+-## WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY ##
+-## or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License   ##
+-## for more details.                                                          ##
+-##                                                                            ##
+-## You should have received a copy of the GNU General Public License          ##
+-## along with this program;  if not, write to the Free Software               ##
+-## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA    ##
+-##                                                                            ##
+-## Author: Li Zefan <lizf@cn.fujitsu.com>                                     ##
+-##                                                                            ##
+-################################################################################
+-
+-NUM_EVENTS=1
+-EVENT_TEST_CASES=( "fork" "exec" "exit" "uid" "gid" )
+-
+-cd $LTPROOT/testcases/bin
+-
+-export TCID="pec01"
+-export TST_TOTAL=5
+-export TST_COUNT=1
+-
+-exit_status=0
+-
+-if [ $(id -u) != 0 ]; then
+-	tst_brkm TCONF ignored "Test must be run as root"
+-	exit 0;
+-fi
+-
+-grep cn_proc /proc/net/connector > /dev/null
+-if [ $? -ne 0 ]; then
+-	tst_brkm TCONF ignored "Process Event Connector is not supported or kernel is below 2.6.26"
+-	exit 0;
+-fi
+-
+-# Run a test case
+-#
+-# $1: the test number
+-# $2: type of event
+-run_case()
+-{
+-	export TST_COUNT=$1
+-
+-	log="$LTPROOT/output/log"
+-	mkdir -p $log 2> /dev/null
+-
+-	pec_listener > "$log/listener_$1.log" 2>&1 &
+-	pid=$!
+-	# Wait for pec_listener to start listening
+-	sleep $((1*NUM_EVENTS))
+-
+-	event_generator -e $2 > "$log/generator_$1.log"
+-	ret1=$?
+-
+-	# Sleep until pec_listener has seen and handled all of
+-	# the generated events
+-	sleep $((1*NUM_EVENTS))
+-	kill -s SIGINT $pid 2> /dev/null
+-	wait $pid
+-	ret2=$?
+-
+-	if [ $ret1 -ne 0 -o ! -s "$log/generator_$1.log" ]; then
+-		tst_resm TFAIL "failed to generate process events"
+-		exit_status=1
+-		return 1
+-	fi
+-
+-	if [ $ret2 -eq 2 ]; then
+-		tst_brkm TCONF NULL "connector may not be supported"
+-		exit 0
+-	fi
+-
+-	if [ $ret2 -ne 0 ]; then
+-		tst_resm TFAIL "failed to listen process events"
+-		exit_status=1
+-		return 1
+-	fi
+-
+-	event="`cat $log/generator_$1.log`"
+-	cat "$log/listener_$1.log" | grep "$event" > /dev/null
+-	if [ $? -eq 0 ]; then
+-		tst_resm TPASS "get event - $event"
+-	else
+-		tst_resm TFAIL "expected event - $event"
+-		exit_status=1
+-	fi
+-}
+-
+-i=1;
+-for CASE in "${EVENT_TEST_CASES[@]}" ; do
+-	run_case $i $CASE
+-	((i++))
+-done
+-
+-exit $exit_status
+-
 -- 
-Regards,
-Li Wang
-
---0000000000000b5bb705bd8c750a
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Sat, Mar 13, 2021 at 1:32 AM Petr Vorel &lt;<a h=
-ref=3D"mailto:pvorel@suse.cz">pvorel@suse.cz</a>&gt; wrote:<br></div><block=
-quote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1=
-px solid rgb(204,204,204);padding-left:1ex">Hi,<br>
-<br>
-changes before previous attempt [1]<br>
-* _tst_kill_test() (Cyril)<br>
-* added test timeout03.sh<br>
-* update trap message (Joerg)<br>
-<br>
-NOTE: we have no way to print summary from _tst_do_exit if cleanup get<br>
-stuck, but IMHO there is no simple way how to solve it (we&#39;d have to us=
-e<br>
-mapped memory to increment counter also in shell API as Cyril suggested)<br=
->
-<br>
-[1] <a href=3D"https://patchwork.ozlabs.org/project/ltp/patch/2021030122022=
-2.22705-7-pvorel@suse.cz/" rel=3D"noreferrer" target=3D"_blank">https://pat=
-chwork.ozlabs.org/project/ltp/patch/20210301220222.22705-7-pvorel@suse.cz/<=
-/a><br>
-<br>
-Petr Vorel (3):<br>
-=C2=A0 tst_test.sh: Run cleanup also after test timeout<br>
-=C2=A0 test: Adding timeout03.sh for testing _tst_kill_test()<br>
-=C2=A0 zram: Increase timeout according to used devices<br></blockquote><di=
-v><br></div><div><div class=3D"gmail_default" style=3D"font-size:small">Nic=
-e work!</div><div class=3D"gmail_default" style=3D"font-size:small"><br></d=
-iv><div class=3D"gmail_quote"><div class=3D"gmail_default">For series:</div=
-><div class=3D"gmail_default">Reviewed-by: Li Wang &lt;<a href=3D"mailto:li=
-wang@redhat.com" target=3D"_blank">liwang@redhat.com</a>&gt;</div></div><fo=
-nt color=3D"#888888"><div><br></div></font></div></div><div><br></div>-- <b=
-r><div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,=
-<br></div><div>Li Wang<br></div></div></div></div>
-
---0000000000000b5bb705bd8c750a--
-
-
---===============0690894532==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+2.25.1
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============0690894532==--
-
