@@ -2,40 +2,39 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2705533EE67
-	for <lists+linux-ltp@lfdr.de>; Wed, 17 Mar 2021 11:38:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7548E33EED5
+	for <lists+linux-ltp@lfdr.de>; Wed, 17 Mar 2021 11:52:15 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B496A3C2D90
-	for <lists+linux-ltp@lfdr.de>; Wed, 17 Mar 2021 11:38:24 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 365DD3C6096
+	for <lists+linux-ltp@lfdr.de>; Wed, 17 Mar 2021 11:52:15 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id CCE603C2D08
- for <ltp@lists.linux.it>; Wed, 17 Mar 2021 11:38:23 +0100 (CET)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id 409EF3C6058
+ for <ltp@lists.linux.it>; Wed, 17 Mar 2021 11:51:48 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 8339B600D0F
- for <ltp@lists.linux.it>; Wed, 17 Mar 2021 11:38:23 +0100 (CET)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id E9879140112F
+ for <ltp@lists.linux.it>; Wed, 17 Mar 2021 11:51:47 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id C7CD8AB8C;
- Wed, 17 Mar 2021 10:38:22 +0000 (UTC)
-Date: Wed, 17 Mar 2021 11:38:21 +0100
+ by mx2.suse.de (Postfix) with ESMTP id 52591AC1F;
+ Wed, 17 Mar 2021 10:51:47 +0000 (UTC)
+Date: Wed, 17 Mar 2021 11:51:45 +0100
 From: Petr Vorel <pvorel@suse.cz>
-To: Yang Xu <xuyang2018.jy@cn.fujitsu.com>, ltp@lists.linux.it
-Message-ID: <YFHcHeZcqtPWvLZV@pevik>
-References: <1615888254-31940-1-git-send-email-xuyang2018.jy@cn.fujitsu.com>
- <60508553.4010108@cn.fujitsu.com> <YFGpNyTJad7h0+Lf@pevik>
+To: Cyril Hrubis <chrubis@suse.cz>, Jan Stancek <jstancek@redhat.com>,
+ Li Wang <liwang@redhat.com>
+Message-ID: <YFHfQeFg0Uzwl3kH@pevik>
+References: <20210317083347.9791-1-pvorel@suse.cz> <YFHPbD132yWLMqK8@yuki.lan>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <YFGpNyTJad7h0+Lf@pevik>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+In-Reply-To: <YFHPbD132yWLMqK8@yuki.lan>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] pidns13: Use getpid syscall directly instead of
- glibc wrapper
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [RFC PATCH 1/1] doc: Add Maintainer Patch Review Checklist
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,17 +47,45 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Xu,
+Hi all,
 
-> good catch, thanks!
+Cyril, Li, Jan, thanks for your tips, I'll use them for v2.
+Few notes to some of Cyril's tips.
 
-Merged with slightly changed and reformatted commit message.
-Thanks!
+> > +### C tests
+> > +* use new https://github.com/linux-test-project/ltp/wiki/Test-Writing-Guidelines#22-writing-a-test-in-c[C API]
+> > +* record in `.gitignore`
+> > +* check coding style with `checkpatch.pl`
+
+> Checkpatch is distributed with linux kernel source code, please also use
+> reasonably recent one.
+I'd prefer not duplicate the info, that's why I linked it docs, which already
+mention this. Thus I'd prefer add "reasonably recent one" to
+doc/test-writing-guidelines.txt.
+
+> > +(more in https://github.com/linux-test-project/ltp/wiki/Test-Writing-Guidelines#131-c-coding-style[C coding style])
+> > +* docparse documentation
+
+> + proper documentation comment
+>   -- this should be explained somewhere and linked here
+Agree, but I'll probably skip this one.
+
+> + If a test is a regression test it should include tags
+>   -- this should be explained somewhere as well and linked here
++1
+
+> > +### Shell tests
+> > +* use new https://github.com/linux-test-project/ltp/wiki/Test-Writing-Guidelines#23-writing-a-testcase-in-shell[shell API]
+> > +* check coding style with `checkbashism.pl`
+
+> I guess that we should add the link to debian devscripts here
+Again, I wanted to remove duplicity, but just repeating link here does no harm.
 
 Kind regards,
 Petr
