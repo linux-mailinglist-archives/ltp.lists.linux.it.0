@@ -1,39 +1,41 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C9C633EED4
-	for <lists+linux-ltp@lfdr.de>; Wed, 17 Mar 2021 11:52:07 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id A259A33EEE9
+	for <lists+linux-ltp@lfdr.de>; Wed, 17 Mar 2021 11:56:09 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 036313C60A1
-	for <lists+linux-ltp@lfdr.de>; Wed, 17 Mar 2021 11:52:07 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 6A0663C2D5F
+	for <lists+linux-ltp@lfdr.de>; Wed, 17 Mar 2021 11:56:09 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 82E123C2D51
- for <ltp@lists.linux.it>; Wed, 17 Mar 2021 11:51:27 +0100 (CET)
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ by picard.linux.it (Postfix) with ESMTP id A34613C2D08
+ for <ltp@lists.linux.it>; Wed, 17 Mar 2021 11:56:08 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 345321000A2C
- for <ltp@lists.linux.it>; Wed, 17 Mar 2021 11:51:27 +0100 (CET)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 4F0B41A01227
+ for <ltp@lists.linux.it>; Wed, 17 Mar 2021 11:56:07 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id CF268AC1F
- for <ltp@lists.linux.it>; Wed, 17 Mar 2021 10:51:26 +0000 (UTC)
-From: Cyril Hrubis <chrubis@suse.cz>
-To: ltp@lists.linux.it
-Date: Wed, 17 Mar 2021 11:53:18 +0100
-Message-Id: <20210317105318.32017-5-chrubis@suse.cz>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20210317105318.32017-1-chrubis@suse.cz>
-References: <20210317105318.32017-1-chrubis@suse.cz>
+ by mx2.suse.de (Postfix) with ESMTP id 94C9DAC1F;
+ Wed, 17 Mar 2021 10:56:07 +0000 (UTC)
+Date: Wed, 17 Mar 2021 11:56:06 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: Zhao Gongyi <zhaogongyi@huawei.com>, ltp@lists.linux.it
+Message-ID: <YFHgRpFpN9V0Mpxf@pevik>
+References: <20210317040323.26899-1-zhaogongyi@huawei.com>
+ <YFHLCI7WPPQ/zW+X@pevik>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <YFHLCI7WPPQ/zW+X@pevik>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH v3 4/4] doc: Update docs on filesystem detection
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] cleanup: Unify the annotation style and remove
+ Redundant code
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,96 +47,29 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
----
- doc/test-writing-guidelines.txt | 47 +++++++++++++++++++++++----------
- 1 file changed, 33 insertions(+), 14 deletions(-)
+Hi Gongyi,
 
-diff --git a/doc/test-writing-guidelines.txt b/doc/test-writing-guidelines.txt
-index 50696e14a..79642810c 100644
---- a/doc/test-writing-guidelines.txt
-+++ b/doc/test-writing-guidelines.txt
-@@ -978,39 +978,58 @@ LTP_ALIGN(x, a)
- 
- Aligns the x to be next multiple of a. The a must be power of 2.
- 
--2.2.13 Filesystem type detection
--^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-+2.2.13 Filesystem type detection and skiplist
-+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
- 
- Some tests are known to fail on certain filesystems (you cannot swap on TMPFS,
- there are unimplemented 'fcntl()' etc.).
- 
--If your test needs to be skipped on certain filesystems, use the interface
--below:
-+If your test needs to be skipped on certain filesystems use the
-+'.skip_filesystems' field in the tst_test structure as follows:
- 
- [source,c]
- -------------------------------------------------------------------------------
- #include "tst_test.h"
- 
--	/*
--	 * Unsupported only on NFS.
--	 */
--	if (tst_fs_type(".") == TST_NFS_MAGIC)
--		tst_brk(TCONF, "Test not supported on NFS filesystem");
-+static struct tst_test test = {
-+	...
-+        .skip_filesystems = (const char *const []) {
-+                "tmpfs",
-+                "ramfs",
-+                "nfs",
-+                NULL
-+        },
-+};
-+-------------------------------------------------------------------------------
- 
-+When the '.all_filesystem' flag is set the '.skip_filesystems' list is passed
-+to the function that detects supported filesystems any listed filesystem is
-+not included in the resulting list of supported filesystems.
- 
--	/*
--	 * Unsupported on NFS, TMPFS and RAMFS
--	 */
--	long type;
-+If test needs to adjust expectations based on filesystem type it's also
-+possible to detect filesystem type at the runtime. This is preferably used
-+when only subset of the test is not applicable for a given filesystem.
-+
-+[source,c]
-+-------------------------------------------------------------------------------
-+#include "tst_test.h"
-+
-+static void run(void)
-+{
-+	...
- 
- 	switch ((type = tst_fs_type("."))) {
- 	case TST_NFS_MAGIC:
- 	case TST_TMPFS_MAGIC:
- 	case TST_RAMFS_MAGIC:
--		tst_brk(TCONF, "Test not supported on %s filesystem",
-+		tst_brk(TCONF, "Subtest not supported on %s",
- 		        tst_fs_type_name(type));
-+		return;
- 	break;
- 	}
-+
-+	...
-+}
- -------------------------------------------------------------------------------
- 
- 2.2.14 Thread-safety in the LTP library
--- 
-2.26.2
+> > Change 'Description' to 'DESCRIPTION' and change 'Algorithm' to
+> > 'ALGORITHM' and remove Redundant tst_reap_children since tst_reap_children
+> > has been called in the test skeleton.
 
+> Actually the preferred form is Description (only first letter capitalized),
+> see f5a269142 ("docparse: Unify Description and Algorithm titles").
+> (Better would be to also update it in tests, which I haven't done).
+
+> Thus I'd be for merging only removing tst_reap_children() (good catch).
+
+Merged just part removing tst_reap_children().
+Thanks!
+
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
