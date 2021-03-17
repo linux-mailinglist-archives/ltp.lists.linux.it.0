@@ -2,42 +2,39 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2EB733EFAE
-	for <lists+linux-ltp@lfdr.de>; Wed, 17 Mar 2021 12:34:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FDC733EFC0
+	for <lists+linux-ltp@lfdr.de>; Wed, 17 Mar 2021 12:47:29 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 40AE43C2D22
-	for <lists+linux-ltp@lfdr.de>; Wed, 17 Mar 2021 12:34:41 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id BFABF3C61EA
+	for <lists+linux-ltp@lfdr.de>; Wed, 17 Mar 2021 12:47:28 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id B2C183C1B76
- for <ltp@lists.linux.it>; Wed, 17 Mar 2021 12:34:37 +0100 (CET)
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ by picard.linux.it (Postfix) with ESMTP id 53A053C2CF2
+ for <ltp@lists.linux.it>; Wed, 17 Mar 2021 12:47:24 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 659721400978
- for <ltp@lists.linux.it>; Wed, 17 Mar 2021 12:34:37 +0100 (CET)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id CB431600C7F
+ for <ltp@lists.linux.it>; Wed, 17 Mar 2021 12:47:23 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id B6A32AB8C;
- Wed, 17 Mar 2021 11:34:36 +0000 (UTC)
-Date: Wed, 17 Mar 2021 12:34:34 +0100
+ by mx2.suse.de (Postfix) with ESMTP id 23A91AB8C;
+ Wed, 17 Mar 2021 11:47:23 +0000 (UTC)
+Date: Wed, 17 Mar 2021 12:47:21 +0100
 From: Petr Vorel <pvorel@suse.cz>
-To: "yangx.jy@fujitsu.com" <yangx.jy@fujitsu.com>
-Message-ID: <YFHpSspnD52A8N0P@pevik>
-References: <20210317100154.20389-1-zhaogongyi@huawei.com>
- <YFHghQWbAmjmKDx3@pevik>
- <OS0PR01MB6371A1E607BDFBC2421E6788836A9@OS0PR01MB6371.jpnprd01.prod.outlook.com>
+To: Joerg Vehlow <lkml@jv-coder.de>
+Message-ID: <YFHsSWLeaqwdAWzZ@pevik>
+References: <20210315092844.991073-1-lkml@jv-coder.de> <YFHNDN1CEcBo6oMG@pevik>
+ <87117f6f-58e7-8b68-38c3-be5b080e86b6@jv-coder.de>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <OS0PR01MB6371A1E607BDFBC2421E6788836A9@OS0PR01MB6371.jpnprd01.prod.outlook.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+In-Reply-To: <87117f6f-58e7-8b68-38c3-be5b080e86b6@jv-coder.de>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] 
- =?utf-8?b?5Zue5aSNOiAgW1BBVENIIHYyXSBjbGVhbnVwOiBVbmlmeSB0?=
- =?utf-8?q?he_annotation_style_and_remove_Redundant_code?=
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/2] pec: Convert to the new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,35 +47,51 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>, ltp@lists.linux.it
+Content-Type: text/plain; charset="iso-8859-2"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi all,
-
-> > Hi Gongyi,
-
-> > > Change 'DESCRIPTION' to 'Description' and change 'ALGORITHM' to 
-> > > 'Algorithm', and remove Redundant tst_reap_children since 
-> > > tst_reap_children has been called in the test skeleton.
-
-> > Reviewed-by: Petr Vorel <pvorel@suse.cz>
+Hi J=F6rg,
 
 > Hi Petr,
 
-> If we want to unify the format of 'Description' and 'Algorithm' in test, it seems redundant to do the conversion in testinfo.pl, right?
+> On 3/17/2021 10:34 AM, Petr Vorel wrote:
+> > BTW: would it make sense to rename runtest/connectors to runtest/netlink
+> > and move code from testcases/kernel/connectors/ to testcases/kernel/net=
+link/?
+> Maybe kernel/netlink/connector/. Connector is an abstraction on top of
++1
 
-> Can we use either of them(not both of them) because it is unnecessary to do the same thing twice.
+> netlink with a slightly
+> different interface than pure netlink (eg. cn_msg instead of nlmsghdr).
+> There are only very few other modules, that use this interface at the mom=
+ent
+> (MS HyperV, MD,=A0 uvesafb=A0 and dallas' 1-wire).
+I'd still put it into netlink and try to put there more general netlink
+subsystem tests. My objection is that runtest/connectors has only single te=
+st
+and connectors is very generic name.
 
-I'd keep both: this is for cleanup of old approach, conversion in testinfo.pl in
-case there is inconsistency in the future.
-
-But not a strong opinion about it, it's not that important.
+> The question is: Is the interface the correct think to categorize by? If =
+the
+> interface (i.e. netlink) is used for categorization, then some of the cry=
+pto
+> tests should also be in this netlink category.
+Thus maybe add some of relevant tests also into runtest/netlink? We shave s=
+ome
+kind of duplicity (see runtest/cve, it contains some tests which are also in
+runtest/syscalls). That would also justify creating runtest/netlink (because
+having just single test for legacy connector interface in runtest/netlink d=
+oes
+not sound good to me).
 
 Kind regards,
 Petr
 
--- 
+> J=F6rg
+
+-- =
+
 Mailing list info: https://lists.linux.it/listinfo/ltp
