@@ -2,36 +2,38 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B63034015D
-	for <lists+linux-ltp@lfdr.de>; Thu, 18 Mar 2021 09:55:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1278A34030C
+	for <lists+linux-ltp@lfdr.de>; Thu, 18 Mar 2021 11:22:01 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6CA973C6052
-	for <lists+linux-ltp@lfdr.de>; Thu, 18 Mar 2021 09:55:28 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id B2D1E3C6065
+	for <lists+linux-ltp@lfdr.de>; Thu, 18 Mar 2021 11:22:00 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- by picard.linux.it (Postfix) with ESMTP id 165C23C2CE3
- for <ltp@lists.linux.it>; Thu, 18 Mar 2021 09:55:24 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTP id A27C33C2CFA
+ for <ltp@lists.linux.it>; Thu, 18 Mar 2021 11:21:56 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 92CA2100112B
- for <ltp@lists.linux.it>; Thu, 18 Mar 2021 09:55:24 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 4455F10007B9
+ for <ltp@lists.linux.it>; Thu, 18 Mar 2021 11:21:55 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id D02A7AC17
- for <ltp@lists.linux.it>; Thu, 18 Mar 2021 08:55:23 +0000 (UTC)
-Date: Thu, 18 Mar 2021 09:57:17 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: ltp@lists.linux.it
-Message-ID: <YFMV7f+l8lHdzyc7@yuki.lan>
+ by mx2.suse.de (Postfix) with ESMTP id 81903AC75
+ for <ltp@lists.linux.it>; Thu, 18 Mar 2021 10:21:55 +0000 (UTC)
+Date: Thu, 18 Mar 2021 11:21:54 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <YFMpwnXKmp06juk5@pevik>
+References: <20210317105318.32017-1-chrubis@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
+In-Reply-To: <20210317105318.32017-1-chrubis@suse.cz>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] DMCA from wipro
+Subject: Re: [LTP] [PATCH v3 0/4] Add proper filesystem skiplist
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,22 +45,22 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-Just FYI we got DMCA from wipro for some code that, as far as I can
-tell, was submitted to LTP under GPLv2 around year 2002 by their
-employees.
+Hi Cyril,
 
-I'm trying to resolve the situation but it may happen that our ltp git
-tree will be temporarily removed from github for a few days.
+I like using enum and other changes, thanks!
 
--- 
-Cyril Hrubis
-chrubis@suse.cz
+to whole patchset:
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
+
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
