@@ -2,37 +2,39 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D203340CB5
-	for <lists+linux-ltp@lfdr.de>; Thu, 18 Mar 2021 19:16:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4816340CB7
+	for <lists+linux-ltp@lfdr.de>; Thu, 18 Mar 2021 19:17:08 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 34B083C6083
-	for <lists+linux-ltp@lfdr.de>; Thu, 18 Mar 2021 19:16:57 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 0CA043C607B
+	for <lists+linux-ltp@lfdr.de>; Thu, 18 Mar 2021 19:17:08 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 15AFF3C6069
+ by picard.linux.it (Postfix) with ESMTP id 23DB03C6071
  for <ltp@lists.linux.it>; Thu, 18 Mar 2021 19:16:55 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id A458E2003B0
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id AA8A720074B
  for <ltp@lists.linux.it>; Thu, 18 Mar 2021 19:16:54 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id EA0ADAC24;
- Thu, 18 Mar 2021 18:16:53 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 4F061AD20;
+ Thu, 18 Mar 2021 18:16:54 +0000 (UTC)
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Thu, 18 Mar 2021 19:16:39 +0100
-Message-Id: <20210318181641.2062-1-pvorel@suse.cz>
+Date: Thu, 18 Mar 2021 19:16:40 +0100
+Message-Id: <20210318181641.2062-2-pvorel@suse.cz>
 X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20210318181641.2062-1-pvorel@suse.cz>
+References: <20210318181641.2062-1-pvorel@suse.cz>
 MIME-Version: 1.0
 X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 0/2] doc: Add Maintainer Patch Review Checklist
+Subject: [LTP] [PATCH v2 1/2] doc: Document test tags
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,26 +51,102 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-changes v1->v2:
-* doc: Document test tags (new commit)
-* mention patchwork, LTP wiki, Travis CI, test tags, put links to scripts
++ add URL for checkpatch.pl script and slightly reword related text.
 
-output
-https://github.com/pevik/ltp/wiki/TEST#2238-test-tags
-https://github.com/pevik/ltp/wiki/Maintainer-Patch-Review-Checklist
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+---
+ doc/test-writing-guidelines.txt | 62 +++++++++++++++++++++++++++++----
+ 1 file changed, 56 insertions(+), 6 deletions(-)
 
-Kind regards,
-Petr
-
-Petr Vorel (2):
-  doc: Document test tags
-  doc: Add Maintainer Patch Review Checklist
-
- doc/maintainer-patch-review-checklist.txt | 53 +++++++++++++++++++
- doc/test-writing-guidelines.txt           | 62 ++++++++++++++++++++---
- 2 files changed, 109 insertions(+), 6 deletions(-)
- create mode 100644 doc/maintainer-patch-review-checklist.txt
-
+diff --git a/doc/test-writing-guidelines.txt b/doc/test-writing-guidelines.txt
+index 50696e14a..16715b841 100644
+--- a/doc/test-writing-guidelines.txt
++++ b/doc/test-writing-guidelines.txt
+@@ -47,10 +47,12 @@ LTP adopted Linux kernel coding style. If you aren't familiar with its rules
+ locate 'linux/Documentation/CodingStyle' in the kernel sources and read it,
+ it's a well written introduction.
+ 
+-There is also a checkpatch (see 'linux/scripts/checkpatch.pl') script that can
+-be used to check your patches before the submission.
++There is also
++https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/plain/scripts/checkpatch.pl[checkpatch.pl]
++script from kernel git tree which can be used to check your patches before the
++submission.  Please use reasonably recent one.
+ 
+-NOTE: If checkpatch does not report any problems, the code still may be wrong
++NOTE: If checkpatch.pl does not report any problems, the code still may be wrong
+       as the tool only looks for common mistakes.
+ 
+ 1.3.2 Shell coding style
+@@ -2213,6 +2215,53 @@ struct tst_test test = {
+ Some tests require more than specific number of CPU. It can be defined with
+ `.min_cpus = N`.
+ 
++2.2.38 Test tags
++^^^^^^^^^^^^^^^^
++
++Test tags are name-value pairs that can hold any test metadata.
++
++We have additional support for CVE entries, or git commit in mainline kernel,
++stable kernel or glibc git repository.  If a test is a regression test it
++should include these tags.  They are printed when test fails and added in
++docparse documentation.
++
++CVE, mainline and stable kernel git commits in a regression test for a kernel bug:
++[source,c]
++-------------------------------------------------------------------------------
++struct tst_test test = {
++	.tags = (const struct tst_tag[]) {
++		{"linux-git", "9392a27d88b9"},
++		{"linux-git", "ff002b30181d"},
++		{"linux-stable-git", "c4a23c852e80"},
++		{"CVE", "2020-29373"},
++		{}
++	}
++};
++-------------------------------------------------------------------------------
++
++Glibc git commit in a regression test for a glibc bug:
++[source,c]
++-------------------------------------------------------------------------------
++struct tst_test test = {
++	...
++	.tags = (const struct tst_tag[]) {
++		{"glibc-git", "574500a108be"},
++		{}
++	}
++};
++-------------------------------------------------------------------------------
++
++[source,c]
++-------------------------------------------------------------------------------
++struct tst_test test = {
++	...
++	.tags = (const struct tst_tag[]) {
++		{"glibc-git", "574500a108be"},
++		{}
++	}
++};
++-------------------------------------------------------------------------------
++
+ 2.3 Writing a testcase in shell
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+@@ -3005,10 +3054,11 @@ skips 'atexit(3)' callbacks.
+ 4. Test Contribution Checklist
+ ------------------------------
+ 
+-1. Test compiles and runs fine (check with -i 10 too)
+-2. Checkpatch does not report any errors
++1. Test compiles and runs fine (check with `-i 10` too)
++2. https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/plain/scripts/checkpatch.pl[checkpatch.pl]
++   does not report any errors
+ 3. The runtest entires are in place
+-4. Test files are added into corresponding .gitignore files
++4. Test files are added into corresponding '.gitignore' files
+ 5. Patches apply over the latest git
+ 
+ 
 -- 
 2.30.2
 
