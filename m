@@ -1,44 +1,44 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7258333FA07
-	for <lists+linux-ltp@lfdr.de>; Wed, 17 Mar 2021 21:37:34 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id DFD2933FF42
+	for <lists+linux-ltp@lfdr.de>; Thu, 18 Mar 2021 07:09:04 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E0B663C6321
-	for <lists+linux-ltp@lfdr.de>; Wed, 17 Mar 2021 21:37:33 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 6EA823C2CD2
+	for <lists+linux-ltp@lfdr.de>; Thu, 18 Mar 2021 07:09:04 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
- by picard.linux.it (Postfix) with ESMTP id 8C0C03C2CFA
- for <ltp@lists.linux.it>; Wed, 17 Mar 2021 21:37:30 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id B332B3C2CA3
+ for <ltp@lists.linux.it>; Thu, 18 Mar 2021 07:09:01 +0100 (CET)
+Received: from szxga04-in.huawei.com (szxga04-in.huawei.com [45.249.212.190])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id D8EA768FF30
- for <ltp@lists.linux.it>; Wed, 17 Mar 2021 21:37:29 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id D7544AE89;
- Wed, 17 Mar 2021 20:37:28 +0000 (UTC)
-Date: Wed, 17 Mar 2021 21:37:27 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Lakshmi Ramasubramanian <nramas@linux.microsoft.com>
-Message-ID: <YFJoh++5vxSuwJiz@pevik>
-References: <20210314233646.2925-1-nramas@linux.microsoft.com>
- <YFC7j4+wA8xorNgu@pevik>
- <deeb4320-a064-fd0f-bc1e-8e52be079ff9@linux.microsoft.com>
- <YFDpFL3CSwMfZ6wo@pevik>
- <5cbe66e7-aebf-e75a-cd9a-d0a69e8a1edd@linux.microsoft.com>
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 423391400157
+ for <ltp@lists.linux.it>; Thu, 18 Mar 2021 07:08:59 +0100 (CET)
+Received: from DGGEMS411-HUB.china.huawei.com (unknown [172.30.72.60])
+ by szxga04-in.huawei.com (SkyGuard) with ESMTP id 4F1Gkt0NMBz17MnB
+ for <ltp@lists.linux.it>; Thu, 18 Mar 2021 14:07:02 +0800 (CST)
+Received: from ubuntu1804.huawei.com (10.67.174.209) by
+ DGGEMS411-HUB.china.huawei.com (10.3.19.211) with Microsoft SMTP Server id
+ 14.3.498.0; Thu, 18 Mar 2021 14:08:49 +0800
+From: Xie Ziyao <xieziyao@huawei.com>
+To: <ltp@lists.linux.it>
+Date: Thu, 18 Mar 2021 14:08:34 +0800
+Message-ID: <20210318060834.151128-1-xieziyao@huawei.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <5cbe66e7-aebf-e75a-cd9a-d0a69e8a1edd@linux.microsoft.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Originating-IP: [10.67.174.209]
+X-CFilter-Loop: Reflected
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] IMA: Allow only ima-buf template for key
- measurement
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH] kernel/syscalls: Use SAFE_OPEN() instead of calling
+ system API functions
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,45 +50,91 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: tusharsu@linux.microsoft.com, linux-integrity@vger.kernel.org,
- ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Lakshmi,
+For those:
+  testcases/kernel/syscalls/fsconfig/fsconfig02.c
+  testcases/kernel/syscalls/inotify/inotify01.c
+  testcases/kernel/syscalls/memfd_create/memfd_create03.c
 
-> > > > Just a double check does it always work without template=ima-buf for all kernel versions?
-> > > > Or only for kernels with dea87d0889dd ("ima: select ima-buf template for buffer measurement")
-> > > > i.e. v5.11-rc1 or backport?
-> > > The above change is required. Prior to this change, template has to be
-> > > specified in the policy, otherwise the default template would be used.
-> > The default template is ima-ng, right?
-> Yes: ima-ng is the default template.
+Signed-off-by: Xie Ziyao <xieziyao@huawei.com>
+---
+ testcases/kernel/syscalls/fsconfig/fsconfig02.c        |  4 +---
+ testcases/kernel/syscalls/inotify/inotify01.c          | 10 ++--------
+ .../kernel/syscalls/memfd_create/memfd_create03.c      |  4 ++--
+ 3 files changed, 5 insertions(+), 13 deletions(-)
 
-> > > From what you write I understand that "measure func=KEY_CHECK
-> > keyrings=.ima|.evm" will work only on newer kernel, thus we should always use
-> > template=ima-buf as the policy example so that it's working also on that few
-> > kernels between <v5.6,v5.10> (which have IMA key functionality, but not
-> > dea87d0889dd), right?
-> Yes: In the kernels between v5.6 and v5.10, ima-buf template needs to be
-> specified in the policy for KEY_CHECK.
+diff --git a/testcases/kernel/syscalls/fsconfig/fsconfig02.c b/testcases/kernel/syscalls/fsconfig/fsconfig02.c
+index 9ff41a7d7..6ff4380ef 100644
+--- a/testcases/kernel/syscalls/fsconfig/fsconfig02.c
++++ b/testcases/kernel/syscalls/fsconfig/fsconfig02.c
+@@ -55,9 +55,7 @@ static void setup(void)
+ 	if (fd == -1)
+ 		tst_brk(TBROK | TTERRNO, "fsopen() failed");
 
-OK, thus your original version - i.e. don't require template=ima-buf,
-but keep it in policy example is the best approach.
+-	temp_fd = open("testfile", O_RDWR | O_CREAT, 01444);
+-	if (temp_fd == -1)
+-		tst_brk(TBROK, "Can't obtain temp_fd, open() failed");
++	fd = SAFE_OPEN("testfile", O_RDWR | O_CREAT, 01444);
+ }
 
-> > But we should mention that in the README.md.
+ static void cleanup(void)
+diff --git a/testcases/kernel/syscalls/inotify/inotify01.c b/testcases/kernel/syscalls/inotify/inotify01.c
+index 8f1547d46..2d82e5970 100644
+--- a/testcases/kernel/syscalls/inotify/inotify01.c
++++ b/testcases/kernel/syscalls/inotify/inotify01.c
+@@ -52,10 +52,7 @@ void verify_inotify(void)
+ 	event_set[test_cnt] = IN_ATTRIB;
+ 	test_cnt++;
 
-> Agreed - will update the README.md
-Thanks!
+-	if ((fd = open(fname, O_RDONLY)) == -1) {
+-		tst_brk(TBROK | TERRNO,
+-			"open(%s, O_RDWR|O_CREAT,0700) failed", fname);
+-	}
++	fd = SAFE_OPEN(fname, O_RDONLY);
+ 	event_set[test_cnt] = IN_OPEN;
+ 	test_cnt++;
 
-Kind regards,
-Petr
+@@ -70,10 +67,7 @@ void verify_inotify(void)
+ 	event_set[test_cnt] = IN_CLOSE_NOWRITE;
+ 	test_cnt++;
 
-> thanks,
->  -lakshmi
+-	if ((fd = open(fname, O_RDWR | O_CREAT, 0700)) == -1) {
+-		tst_brk(TBROK,
+-			"open(%s, O_RDWR|O_CREAT,0700) failed", fname);
+-	}
++	fd = SAFE_OPEN(fname, O_RDWR | O_CREAT, 0700);
+ 	event_set[test_cnt] = IN_OPEN;
+ 	test_cnt++;
+
+diff --git a/testcases/kernel/syscalls/memfd_create/memfd_create03.c b/testcases/kernel/syscalls/memfd_create/memfd_create03.c
+index ea846626a..036182f0a 100644
+--- a/testcases/kernel/syscalls/memfd_create/memfd_create03.c
++++ b/testcases/kernel/syscalls/memfd_create/memfd_create03.c
+@@ -207,7 +207,7 @@ static void setup(void)
+ 	SAFE_FILE_LINES_SCANF(TOTAL_HP_PATH, "%ld", &og_total_pages);
+ 	sprintf(buf, "%ld", og_total_pages + 1);
+
+-	fd = open(TOTAL_HP_PATH, O_RDWR | O_TRUNC);
++	fd = SAFE_OPEN(TOTAL_HP_PATH, O_RDWR | O_TRUNC);
+
+ 	if (write(fd, buf, strlen(buf)) == -1)
+ 		tst_brk(TCONF | TERRNO,
+@@ -233,7 +233,7 @@ static void cleanup(void)
+
+ 	sprintf(buf, "%ld", og_total_pages);
+
+-	fd = open(TOTAL_HP_PATH, O_RDWR | O_TRUNC);
++	fd = SAFE_OPEN(TOTAL_HP_PATH, O_RDWR | O_TRUNC);
+
+ 	if (write(fd, buf, strlen(buf)) == -1)
+ 		tst_brk(TCONF | TERRNO, "Clean-up failed: write() failed");
+--
+2.17.1
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
