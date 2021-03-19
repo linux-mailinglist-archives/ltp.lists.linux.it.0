@@ -2,41 +2,41 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40BE8341B28
-	for <lists+linux-ltp@lfdr.de>; Fri, 19 Mar 2021 12:09:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38C88341B59
+	for <lists+linux-ltp@lfdr.de>; Fri, 19 Mar 2021 12:22:49 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 963623C5FBF
-	for <lists+linux-ltp@lfdr.de>; Fri, 19 Mar 2021 12:09:32 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 03F8D3C5FBE
+	for <lists+linux-ltp@lfdr.de>; Fri, 19 Mar 2021 12:22:49 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id B6AF73C5FA6
- for <ltp@lists.linux.it>; Fri, 19 Mar 2021 12:09:30 +0100 (CET)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id 612FD3C5FA6
+ for <ltp@lists.linux.it>; Fri, 19 Mar 2021 12:22:47 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 4DAF31A00145
- for <ltp@lists.linux.it>; Fri, 19 Mar 2021 12:09:30 +0100 (CET)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 0729B1401134
+ for <ltp@lists.linux.it>; Fri, 19 Mar 2021 12:22:46 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 85CF2AC17;
- Fri, 19 Mar 2021 11:09:29 +0000 (UTC)
-Date: Fri, 19 Mar 2021 12:09:27 +0100
+ by mx2.suse.de (Postfix) with ESMTP id 511BAAE05;
+ Fri, 19 Mar 2021 11:22:46 +0000 (UTC)
+Date: Fri, 19 Mar 2021 12:22:44 +0100
 From: Petr Vorel <pvorel@suse.cz>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <YFSGZ9YKo/JUHMtm@pevik>
-References: <20210318181641.2062-1-pvorel@suse.cz>
- <20210318181641.2062-3-pvorel@suse.cz>
- <60546E24.9010601@fujitsu.com> <YFRvZ89AykS5ldJj@yuki.lan>
+To: Martin Doucha <mdoucha@suse.cz>
+Message-ID: <YFSJhNjl17uZUtPt@pevik>
+References: <20210318162409.9871-1-mdoucha@suse.cz> <YFOcOJP4innlbIk4@pevik>
+ <78ca788f-f24e-61f5-b0c6-a0742b6af176@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <YFRvZ89AykS5ldJj@yuki.lan>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+In-Reply-To: <78ca788f-f24e-61f5-b0c6-a0742b6af176@suse.cz>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 2/2] doc: Add Maintainer Patch Review Checklist
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] syscalls/semctl09: Skip libc test if SEM_STAT_ANY
+ not defined
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,35 +49,39 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: "yangx.jy@fujitsu.com" <yangx.jy@fujitsu.com>,
- "ltp@lists.linux.it" <ltp@lists.linux.it>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
+Hi Martin,
 
-> Hi!
-> > Should we add license or copyright check in this checklist? It maybe
-> > removed when converting old case into new api.
+> >> +#if !HAVE_DECL_SEM_STAT_ANY
+> > nit: I'd prefer
+> > #ifndef HAVE_DECL_SEM_STAT_ANY
 
-Great point, thanks.
+> That will not work. AC_CHECK_DECLS() will always define
+> HAVE_DECL_SEM_STAT_ANY, either with the value of 0 (macro not defined)
+> or 1 (defined).
+Correct, I'm sorry, thanks for catching my error.
 
-> Good point, we should state the default license for new tests and also
-> state that the licence for tests should not change unless they are
-> completely rewritten.
+> >> +	if (tst_variant == 1)
+> >> +		tst_brk(TCONF, "libc does not support semctl(SEM_STAT_ANY)");
+> >> +#endif
+> > Although I understand why you want to quit only tests with root
+> > (only these fail), it's a bit confusing to test with user nobody
+> > and then quit the same testing with root.
 
+> tst_variant has nothing to do with UID.
+> tst_variant == 0 => run the test using tst_syscall(__NR_semctl)
+> tst_variant == 1 => run the test again using libc semctl()
+Again, correct, sorry for wrong report.
 
-Maybe:
-
-* license: the default license for new tests is GPL v2 or later, use
-  GPL-2.0-or-later; the licence for test (e.g. GPL-2.0) should not change unless
-  it's completely rewritten
-* old copyrights should be kept unless test is completely rewritten
-
-BTW this is important, specially for DMCA from Wipro. Cyril, can you point some
-test from Wipro which could be considered as "completely rewritten"?
+> But if you want to make the test output a little more clear, I could
+> move the test_info() call at the end of setup() a few lines up before
+> the new #if.
++1
 
 Kind regards,
 Petr
