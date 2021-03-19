@@ -1,43 +1,44 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF7AA3417E9
-	for <lists+linux-ltp@lfdr.de>; Fri, 19 Mar 2021 10:04:32 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id BD48F341814
+	for <lists+linux-ltp@lfdr.de>; Fri, 19 Mar 2021 10:19:19 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 868F63C6013
-	for <lists+linux-ltp@lfdr.de>; Fri, 19 Mar 2021 10:04:32 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 5BE5E3C5FC6
+	for <lists+linux-ltp@lfdr.de>; Fri, 19 Mar 2021 10:19:19 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 801003C5FAB
- for <ltp@lists.linux.it>; Fri, 19 Mar 2021 10:04:28 +0100 (CET)
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ by picard.linux.it (Postfix) with ESMTP id 3121A3C5FAC
+ for <ltp@lists.linux.it>; Fri, 19 Mar 2021 10:19:15 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 31BF460080C
- for <ltp@lists.linux.it>; Fri, 19 Mar 2021 10:04:27 +0100 (CET)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id CC4D620004C
+ for <ltp@lists.linux.it>; Fri, 19 Mar 2021 10:19:14 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1616145554; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=3t+9oJM7jo+NRAzRzQp7gI4SH5sGDzVwXDHNbYsJaaU=;
+ b=nDu82toAaUmTImVmJfDiAQRFLUDjQ467IlNHaq+2v0/IqdKRhu1VGtb6jEd9g8JTm8F0rM
+ JZnY6Oer0lM9PF0Hmb0WLZyzaJMTW6NmUWAYCPpr+MsjpxQwO9SkpdiDJCyLMGpDeeG+e5
+ GNlPMX/KAhcTn9rlOY7LMo57EHtbZPQ=
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 82C6EAE05;
- Fri, 19 Mar 2021 09:04:27 +0000 (UTC)
-Date: Fri, 19 Mar 2021 10:04:26 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <YFRpGgpEKp+1c9uZ@pevik>
-References: <20210318181641.2062-1-pvorel@suse.cz>
- <20210318181641.2062-3-pvorel@suse.cz>
- <CAEemH2fUGFY6YH=m4SfGpJ_nbYWJmUK1_-mLK8n74zM_WNFLng@mail.gmail.com>
- <CAEemH2dRU-3Q-qjE+t_O6Zh8MKDg4C+1vPAnUR+Js9_fHvFykA@mail.gmail.com>
+ by mx2.suse.de (Postfix) with ESMTP id 22D50AC1F;
+ Fri, 19 Mar 2021 09:19:14 +0000 (UTC)
+To: ltp@lists.linux.it
+Date: Fri, 19 Mar 2021 09:18:30 +0000
+Message-Id: <20210319091837.27319-1-rpalethorpe@suse.com>
+X-Mailer: git-send-email 2.30.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAEemH2dRU-3Q-qjE+t_O6Zh8MKDg4C+1vPAnUR+Js9_fHvFykA@mail.gmail.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 2/2] doc: Add Maintainer Patch Review Checklist
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH v3 0/7] Fuzzy Sync single core support and tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,50 +50,66 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: Yang Xu <xuyang2018.jy@cn.fujitsu.com>, LTP List <ltp@lists.linux.it>
+From: Richard Palethorpe via ltp <ltp@lists.linux.it>
+Reply-To: Richard Palethorpe <rpalethorpe@suse.com>
+Cc: Richard Palethorpe <rpalethorpe@suse.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-> Li Wang <liwang@redhat.com> wrote:
+Hello,
 
+V3:
+* Add -pthread to test CFLAGS
+* Substitute CPU_COUNT for CPU_COUNT_S and check for alloc failure
 
-> > +Commit messages should have
-> >> +
-> >> +* Author's `Signed-off-by` tag
-> >> +* Committer's `Reviewed-by` or `Signed-off-by` tag
+V2:
+* Add tst_ncpus_available() to API
+* Don't use CHK macro for yield_in_wait to prevent compiler warnings
+* Simplify and split the test in two
 
+I'm reasonably confident of the first tests correctness. The second is
+maybe not complete and more formal analyses is needed IMO. I suspect
+also that we can remove add_delay_bias and implement randomised
+probing instead. The more I think about it the more clear it becomes,
+but it may require some bigger changes to how we calculate and
+introduce the delays.
 
-> > Or adding `Acked-by:` also acceptable?
+Occasionally some tests may not reach the lower threshold and fail. It
+may be caused by changes in the environment between the measuring and
+delay implementation phases. This is also something which could be
+investigated.
 
-> > I'm not sure what's the difference between Acked-by and Reviewed-by,
-> > but personally feel the Acked-by has more confidence in the reviewing.
+Anyway this is all still very time consuming and making it perform
+well on single core is most important right now.
 
-> > In my mind,
+Leo Yu-Chi Liang (1):
+  fzsync: Add sched_yield for single core machine
 
-> > `Acked-by` means:
-> > code review OK, compiled OK, executed OK, has confidence it OK for all
-> > arches
+Richard Palethorpe (6):
+  fzsync: Add self tests
+  fzsync: Reset delay bias
+  fzsync: Correctly print positive lower delay range bound
+  fzsync: Move yield check out of loop and add yield to delay
+  API: Add tst_ncpus_available
+  fzsync: Check processor affinity
 
-> > `Reviewed-by` means:
-> > code review OK, compiled and executed OK just locally or optional, still room
-> > for improvement/discussion
+ include/tst_cpu.h                   |   1 +
+ include/tst_fuzzy_sync.h            | 106 ++++++++++---
+ lib/newlib_tests/.gitignore         |   2 +
+ lib/newlib_tests/Makefile           |   2 +
+ lib/newlib_tests/test16.c           |   2 +
+ lib/newlib_tests/tst_fuzzy_sync01.c | 232 ++++++++++++++++++++++++++++
+ lib/newlib_tests/tst_fuzzy_sync02.c | 179 +++++++++++++++++++++
+ lib/tst_cpu.c                       |  26 ++++
+ 8 files changed, 526 insertions(+), 24 deletions(-)
+ create mode 100644 lib/newlib_tests/tst_fuzzy_sync01.c
+ create mode 100644 lib/newlib_tests/tst_fuzzy_sync02.c
 
+-- 
+2.30.1
 
-> Plz ignore my rough understanding, I find a precise description at kernel
-> process/submitting-patches.rst.
-
-> https://github.com/torvalds/linux/blob/master/Documentation/process/submitting-patches.rst#when-to-use-acked-by-cc-and-co-developed-by
-
-But you were right, I omit "tags". Maybe this?
-
-- Check also mailing lists for other reviewers / testers
-+ Check also mailing lists for other reviewers / testers tags, notes and failure reports
-
-Kind regards,
-Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
