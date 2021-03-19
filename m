@@ -2,39 +2,56 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41446340FB7
-	for <lists+linux-ltp@lfdr.de>; Thu, 18 Mar 2021 22:16:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 653BC341340
+	for <lists+linux-ltp@lfdr.de>; Fri, 19 Mar 2021 03:56:21 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E3B313C6083
-	for <lists+linux-ltp@lfdr.de>; Thu, 18 Mar 2021 22:16:56 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 2F3A83C7A82
+	for <lists+linux-ltp@lfdr.de>; Fri, 19 Mar 2021 03:56:21 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id 8DC1D3C2CE6
- for <ltp@lists.linux.it>; Thu, 18 Mar 2021 22:16:55 +0100 (CET)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+ by picard.linux.it (Postfix) with ESMTP id 8F3723C6087
+ for <ltp@lists.linux.it>; Fri, 19 Mar 2021 03:56:18 +0100 (CET)
+Received: from m12-11.163.com (m12-11.163.com [220.181.12.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 2AB13600826
- for <ltp@lists.linux.it>; Thu, 18 Mar 2021 22:16:54 +0100 (CET)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 438C5AD4A;
- Thu, 18 Mar 2021 21:16:54 +0000 (UTC)
-Date: Thu, 18 Mar 2021 22:16:53 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Richard Palethorpe <rpalethorpe@suse.com>
-Message-ID: <YFPDRciWeJrwDuVf@pevik>
-References: <20210318130935.28528-1-rpalethorpe@suse.com>
- <20210318130935.28528-2-rpalethorpe@suse.com>
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id C624E1401198
+ for <ltp@lists.linux.it>; Fri, 19 Mar 2021 03:56:14 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=Subject:From:Message-ID:Date:MIME-Version; bh=OP4jN
+ uDaRpfcWbTIlsHEdajmOp4V6g2Wn4X6JA1o9JU=; b=QjqPDH/LbciV9U4Pxfn6Q
+ PI7k5ihsNA+R/2Rs4voBU4Fw+8vz1EMHYyTB3zsi5CHMKbp2b5M1K9B/w0Z/O54G
+ pgKLcnlYttDZNdxKrlnn245OeIJXT/B6SJjGRVhWZxdQcrDNdULXLLZ2cB8TJoCp
+ J7gDdoPFxeAxS+Dhvq+kCA=
+Received: from localhost.localdomain (unknown [223.104.145.210])
+ by smtp7 (Coremail) with SMTP id C8CowAAXEfHIElRgdlDzSw--.24651S2;
+ Fri, 19 Mar 2021 10:56:09 +0800 (CST)
+To: Petr Vorel <pvorel@suse.cz>, Martin Doucha <mdoucha@suse.cz>
+References: <20210318162409.9871-1-mdoucha@suse.cz> <YFOcOJP4innlbIk4@pevik>
+From: Yang Xu <xuyang_jy_0410@163.com>
+Message-ID: <920d81b2-567a-4e28-58f7-b27151b1cad7@163.com>
+Date: Fri, 19 Mar 2021 10:56:03 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.4.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210318130935.28528-2-rpalethorpe@suse.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+In-Reply-To: <YFOcOJP4innlbIk4@pevik>
+Content-Language: en-US
+X-CM-TRANSID: C8CowAAXEfHIElRgdlDzSw--.24651S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWrtw17Cw4xKw47KrWDGFWrAFb_yoWxKFgEgF
+ 15CFn7Cw4DXw1Fgr1fuFs5GrWfJayYvFnrJr1UAF17G34Sga1UurWDXw1Sq3yS9FWrtws2
+ gr1q9F93Z3srWjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUn8HUDUUUUU==
+X-Originating-IP: [223.104.145.210]
+X-CM-SenderInfo: p0x1t05jbm5saquriqqrwthudrp/1tbiygpahFQHLbPkxQAAsy
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 1/7] fzsync: Add self tests
+X-Spam-Status: No, score=0.3 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] syscalls/semctl09: Skip libc test if SEM_STAT_ANY
+ not defined
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,33 +63,23 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Richie,
-
-FYI this commit fails due
-/usr/bin/ld: /tmp/ccBD0Mxi.o: in function `tst_fzsync_pair_cleanup':
-/home/pevik/install/src/ltp.git/lib/newlib_tests/../../include/tst_fuzzy_sync.h:226: undefined reference to `pthread_cancel'
-/usr/bin/ld: /home/pevik/install/src/ltp.git/lib/newlib_tests/../../include/tst_fuzzy_sync.h:226: undefined reference to `pthread_cancel'
-/usr/bin/ld: ../../lib/libltp.a(safe_pthread.o): in function `safe_pthread_create':
-/home/pevik/install/src/ltp.git/lib/safe_pthread.c:18: undefined reference to `pthread_create'
-/usr/bin/ld: ../../lib/libltp.a(safe_pthread.o): in function `safe_pthread_join':
-/home/pevik/install/src/ltp.git/lib/safe_pthread.c:34: undefined reference to `pthread_join'
-collect2: error: ld returned 1 exit status
-make[1]: *** [../../include/mk/rules.mk:37: tst_fuzzy_sync01] Error 1
-make: *** [../include/mk/generic_trunk_target.inc:105: all] Error 2
-
-lib/newlib_tests/Makefile needs to add:
-tst_fuzzy_sync01: CFLAGS+=-pthread
-tst_fuzzy_sync02: CFLAGS+=-pthread
-
-Kind regards,
-Petr
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+SGkgUGV0cgo+IEhpIE1hcnRpbiwKPgo+PiBUaGUgbGliYyB0ZXN0IHZhcmlhbnQgc2hvdWxkIHJ1
+biBvbmx5IGlmIHN5c3RlbSBoZWFkZXJzIGRlZmluZSBTRU1fU1RBVF9BTlkuCj4+IFNraXAgaXQg
+aWYgd2UncmUgZmFsbGluZyBiYWNrIHRvIHRoZSBMQVBJIGRlZmluaXRpb24uCj4gUmV2aWV3ZWQt
+Ynk6IFBldHIgVm9yZWwgPHB2b3JlbEBzdXNlLmN6Pgo+Cj4gVGhhbmtzIQo+Cj4gLi4uCj4+ICsj
+aWYgIUhBVkVfREVDTF9TRU1fU1RBVF9BTlkKPiBuaXQ6IEknZCBwcmVmZXIKPiAjaWZuZGVmIEhB
+VkVfREVDTF9TRU1fU1RBVF9BTlkKKzEKPj4gKwlpZiAodHN0X3ZhcmlhbnQgPT0gMSkKPj4gKwkJ
+dHN0X2JyayhUQ09ORiwgImxpYmMgZG9lcyBub3Qgc3VwcG9ydCBzZW1jdGwoU0VNX1NUQVRfQU5Z
+KSIpOwo+PiArI2VuZGlmCj4gQWx0aG91Z2ggSSB1bmRlcnN0YW5kIHdoeSB5b3Ugd2FudCB0byBx
+dWl0IG9ubHkgdGVzdHMgd2l0aCByb290Cj4gKG9ubHkgdGhlc2UgZmFpbCksIGl0J3MgYSBiaXQg
+Y29uZnVzaW5nIHRvIHRlc3Qgd2l0aCB1c2VyIG5vYm9keQo+IGFuZCB0aGVuIHF1aXQgdGhlIHNh
+bWUgdGVzdGluZyB3aXRoIHJvb3QuCgpJIGRvbid0IGdldCB0aGlzLsKgIE1hcnRpbiBvbmx5IHdh
+bnRzIHRvIHNraXAgbGliYyB0ZXN0IHdoZW4gdW5kZWZpbmVkIAphbmQgaXQgZG9lc24ndCBtYXR0
+ZXIgd2hpY2ggdXNlciB3ZSB1c2UuCgoKPiBLaW5kIHJlZ2FyZHMsCj4gUGV0cgo+CgoKLS0gCk1h
+aWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
