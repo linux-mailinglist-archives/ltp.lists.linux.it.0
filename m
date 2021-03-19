@@ -1,50 +1,49 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id A54B034181A
-	for <lists+linux-ltp@lfdr.de>; Fri, 19 Mar 2021 10:19:57 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5AFA634181C
+	for <lists+linux-ltp@lfdr.de>; Fri, 19 Mar 2021 10:20:16 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 621D63C5FAE
-	for <lists+linux-ltp@lfdr.de>; Fri, 19 Mar 2021 10:19:57 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id E8C7A3C602C
+	for <lists+linux-ltp@lfdr.de>; Fri, 19 Mar 2021 10:20:15 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 883BB3C5FBB
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ by picard.linux.it (Postfix) with ESMTP id D58303C5FC1
  for <ltp@lists.linux.it>; Fri, 19 Mar 2021 10:19:16 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 3A4B168FF37
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 7F29E100128B
  for <ltp@lists.linux.it>; Fri, 19 Mar 2021 10:19:16 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1616145555; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1616145556; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=OP2WuXTa/sRQkrGnq+qQW2LaIVgExIWgKvX+hlnDxKY=;
- b=ch/oyrV03gX5v0ptE1u/61HR13up9XgalFwFle+8K+MYqNfnI3OkI4cgF6dBGXsxnfaPs8
- mKe/42ftVuBuBMww7tYIuvBW8RJxxKz/pDBFxoafhrUdZ+1xjspkm9iG0qIk+jK5JA4wut
- zexsLBUncZfZ71umJNCyJCcqmOvdZh8=
+ bh=oeEbACmUFy82n8VT4Nkr4lvxlGP6iJv2pkOfrPiyA2g=;
+ b=czB3Kp/Y3zPNGLDKlDi7RyUGr3uI6bSAcwzXkVZS5R4rWD35QKZqPvo00TUXEG2skg7Xvi
+ ujChpGwPyuKuWA+FlL/LpSNn8NTovco4ZCrLaT05tW0W29cOewDEnFSjMtMDHGWrbceevq
+ XSPljku6Ci3tnNacpVmUuhFs3TpYToA=
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id D954BAC1D;
- Fri, 19 Mar 2021 09:19:15 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 22D0CAE05;
+ Fri, 19 Mar 2021 09:19:16 +0000 (UTC)
 To: ltp@lists.linux.it
-Date: Fri, 19 Mar 2021 09:18:35 +0000
-Message-Id: <20210319091837.27319-6-rpalethorpe@suse.com>
+Date: Fri, 19 Mar 2021 09:18:36 +0000
+Message-Id: <20210319091837.27319-7-rpalethorpe@suse.com>
 X-Mailer: git-send-email 2.30.1
 In-Reply-To: <20210319091837.27319-1-rpalethorpe@suse.com>
 References: <20210319091837.27319-1-rpalethorpe@suse.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v3 5/7] fzsync: Move yield check out of loop and add
- yield to delay
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH v3 6/7] API: Add tst_ncpus_available
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,140 +63,67 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-During my testing I found no difference between having the branch
-inside the loop and outside. However looking at the generated
-assembly, it definitely does perform the branch inside the loop. This
-could have an effect on some platform with worse branch prediction. So
-I have moved the branch outside of the loop.
+Same as tst_ncpus, but takes CPU affinity into account.
 
-Also I have added sched_yield to the delay loop. If we only have one
-CPU then it is not delaying anything unless the other process can
-progress.
-
-Reviewed-by: Leo Yu-Chi Liang <ycliang@andestech.com>
 Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
 ---
- include/tst_fuzzy_sync.h | 72 ++++++++++++++++++++++++++++++----------
- 1 file changed, 54 insertions(+), 18 deletions(-)
+ include/tst_cpu.h |  1 +
+ lib/tst_cpu.c     | 26 ++++++++++++++++++++++++++
+ 2 files changed, 27 insertions(+)
 
-diff --git a/include/tst_fuzzy_sync.h b/include/tst_fuzzy_sync.h
-index 5474f81e3..36a604e13 100644
---- a/include/tst_fuzzy_sync.h
-+++ b/include/tst_fuzzy_sync.h
-@@ -183,9 +183,9 @@ struct tst_fzsync_pair {
- 	int exec_loop;
- 	/** Internal; The second thread or 0 */
- 	pthread_t thread_b;
--	/** 
--	 * Internal; The flag indicates single core machines or not
--	 * 
-+	/**
-+	 * The flag indicates single core machines or not
-+	 *
- 	 * If running on single core machines, it would take considerable
- 	 * amount of time to run fuzzy sync library.
- 	 * Thus call sched_yield to give up cpu to decrease the test time.
-@@ -575,31 +575,53 @@ static inline void tst_fzsync_pair_wait(int *our_cntr,
- 		 * line above before doing that. If we are in rear position
- 		 * then our counter may already have been set to zero.
- 		 */
--		while (tst_atomic_load(our_cntr) > 0
--		       && tst_atomic_load(our_cntr) < INT_MAX) {
--			if (spins)
--				(*spins)++;
--			if(yield_in_wait)
-+		if (yield_in_wait) {
-+			while (tst_atomic_load(our_cntr) > 0
-+			       && tst_atomic_load(our_cntr) < INT_MAX) {
-+				if (spins)
-+					(*spins)++;
-+
- 				sched_yield();
-+			}
-+		} else {
-+			while (tst_atomic_load(our_cntr) > 0
-+			       && tst_atomic_load(our_cntr) < INT_MAX) {
-+				if (spins)
-+					(*spins)++;
-+			}
- 		}
+diff --git a/include/tst_cpu.h b/include/tst_cpu.h
+index 117e27087..b3a449bea 100644
+--- a/include/tst_cpu.h
++++ b/include/tst_cpu.h
+@@ -8,6 +8,7 @@
+ long tst_ncpus(void);
+ long tst_ncpus_conf(void);
+ long tst_ncpus_max(void);
++long tst_ncpus_available(void);
  
+ #define VIRT_ANY	0	/* catch-all argument for tst_is_virt() */
+ #define VIRT_XEN	1	/* xen dom0/domU */
+diff --git a/lib/tst_cpu.c b/lib/tst_cpu.c
+index 033155e47..b4c7c2f81 100644
+--- a/lib/tst_cpu.c
++++ b/lib/tst_cpu.c
+@@ -17,6 +17,8 @@
+  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+  */
+ 
++#include "lapi/cpuset.h"
 +
- 		tst_atomic_store(0, other_cntr);
- 		/*
- 		 * Once both counters have been set to zero the invariant
- 		 * is restored and we can continue.
- 		 */
--		while (tst_atomic_load(our_cntr) > 1)
--			;
-+		if (yield_in_wait) {
-+			while (tst_atomic_load(our_cntr) > 1)
-+				sched_yield();
-+		} else {
-+			while (tst_atomic_load(our_cntr) > 1)
-+				;
-+		}
- 	} else {
- 		/*
- 		 * If our counter is less than the other thread's we are ahead
- 		 * of it and need to wait.
- 		 */
--		while (tst_atomic_load(our_cntr) < tst_atomic_load(other_cntr)) {
--			if (spins)
--				(*spins)++;
--			if(yield_in_wait)
-+		if (yield_in_wait) {
-+			while (tst_atomic_load(our_cntr) <
-+			       tst_atomic_load(other_cntr)) {
-+				if (spins)
-+					(*spins)++;
- 				sched_yield();
-+			}
-+		} else {
-+			while (tst_atomic_load(our_cntr) <
-+			       tst_atomic_load(other_cntr)) {
-+				if (spins)
-+					(*spins)++;
-+			}
- 		}
+ #include <stdlib.h>
+ #include <unistd.h>
+ #include "test.h"
+@@ -71,3 +73,27 @@ long tst_ncpus_max(void)
  	}
+ 	return ncpus_max;
  }
-@@ -713,8 +735,15 @@ static inline void tst_fzsync_start_race_a(struct tst_fzsync_pair *pair)
- 	tst_fzsync_wait_a(pair);
- 
- 	delay = pair->delay;
--	while (delay < 0)
--		delay++;
-+	if (pair->yield_in_wait) {
-+		while (delay < 0) {
-+			sched_yield();
-+			delay++;
-+		}
++
++long tst_ncpus_available(void)
++{
++#ifdef CPU_COUNT_S
++	long ncpus = tst_ncpus_max();
++	size_t cpusz = CPU_ALLOC_SIZE(ncpus);
++	cpu_set_t *cpus = CPU_ALLOC(ncpus);
++
++	if (!cpus)
++		tst_brkm(TBROK | TERRNO, NULL, "CPU_ALLOC(%zu)", cpusz);
++
++	if (sched_getaffinity(0, cpusz, cpus)) {
++		tst_resm(TWARN | TERRNO, "sched_getaffinity(0, %zu, %zx)",
++			cpusz, (size_t)cpus);
 +	} else {
-+		while (delay < 0)
-+			delay++;
++		ncpus = CPU_COUNT_S(cpusz, cpus);
 +	}
- 
- 	tst_fzsync_time(&pair->a_start);
- }
-@@ -744,8 +773,15 @@ static inline void tst_fzsync_start_race_b(struct tst_fzsync_pair *pair)
- 	tst_fzsync_wait_b(pair);
- 
- 	delay = pair->delay;
--	while (delay > 0)
--		delay--;
-+	if (pair->yield_in_wait) {
-+		while (delay > 0) {
-+			sched_yield();
-+			delay--;
-+		}
-+	} else {
-+		while (delay > 0)
-+			delay--;
-+	}
- 
- 	tst_fzsync_time(&pair->b_start);
- }
++	CPU_FREE(cpus);
++
++	return ncpus;
++#else
++	return tst_ncpus();
++#endif
++}
 -- 
 2.30.1
 
