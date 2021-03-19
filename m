@@ -1,40 +1,42 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3E5E3416F5
-	for <lists+linux-ltp@lfdr.de>; Fri, 19 Mar 2021 08:57:36 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CE1D341782
+	for <lists+linux-ltp@lfdr.de>; Fri, 19 Mar 2021 09:29:11 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6E0043C5FAF
-	for <lists+linux-ltp@lfdr.de>; Fri, 19 Mar 2021 08:57:36 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 9C1CB3C6023
+	for <lists+linux-ltp@lfdr.de>; Fri, 19 Mar 2021 09:29:10 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id 6C7C13C5FA7
- for <ltp@lists.linux.it>; Fri, 19 Mar 2021 08:57:35 +0100 (CET)
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ by picard.linux.it (Postfix) with ESMTP id 6F8133C2C33
+ for <ltp@lists.linux.it>; Fri, 19 Mar 2021 09:29:04 +0100 (CET)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id E6EBC1401229
- for <ltp@lists.linux.it>; Fri, 19 Mar 2021 08:57:34 +0100 (CET)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id DA956140012C
+ for <ltp@lists.linux.it>; Fri, 19 Mar 2021 09:29:03 +0100 (CET)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 170ABAC2E
- for <ltp@lists.linux.it>; Fri, 19 Mar 2021 07:57:34 +0000 (UTC)
-References: <20210318130935.28528-1-rpalethorpe@suse.com>
- <20210318130935.28528-2-rpalethorpe@suse.com> <YFPDRciWeJrwDuVf@pevik>
-User-agent: mu4e 1.4.15; emacs 27.1
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Petr Vorel <pvorel@suse.cz>
-In-reply-to: <YFPDRciWeJrwDuVf@pevik>
-Date: Fri, 19 Mar 2021 07:57:33 +0000
-Message-ID: <87k0q3d18y.fsf@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 176DBAC1F;
+ Fri, 19 Mar 2021 08:29:03 +0000 (UTC)
+Date: Fri, 19 Mar 2021 09:29:01 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: Yang Xu <xuyang_jy_0410@163.com>
+Message-ID: <YFRgzbKPtVBK/l5d@pevik>
+References: <20210318162409.9871-1-mdoucha@suse.cz> <YFOcOJP4innlbIk4@pevik>
+ <920d81b2-567a-4e28-58f7-b27151b1cad7@163.com>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <920d81b2-567a-4e28-58f7-b27151b1cad7@163.com>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 1/7] fzsync: Add self tests
+Subject: Re: [LTP] [PATCH] syscalls/semctl09: Skip libc test if SEM_STAT_ANY
+ not defined
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,44 +48,54 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
+Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-2"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello,
+Hi Xu,
 
-Petr Vorel <pvorel@suse.cz> writes:
+> > > +	if (tst_variant =3D=3D 1)
+> > > +		tst_brk(TCONF, "libc does not support semctl(SEM_STAT_ANY)");
+> > > +#endif
+> > Although I understand why you want to quit only tests with root
+> > (only these fail), it's a bit confusing to test with user nobody
+> > and then quit the same testing with root.
 
-> Hi Richie,
->
-> FYI this commit fails due
-> /usr/bin/ld: /tmp/ccBD0Mxi.o: in function `tst_fzsync_pair_cleanup':
-> /home/pevik/install/src/ltp.git/lib/newlib_tests/../../include/tst_fuzzy_sync.h:226: undefined reference to `pthread_cancel'
-> /usr/bin/ld: /home/pevik/install/src/ltp.git/lib/newlib_tests/../../include/tst_fuzzy_sync.h:226: undefined reference to `pthread_cancel'
-> /usr/bin/ld: ../../lib/libltp.a(safe_pthread.o): in function `safe_pthread_create':
-> /home/pevik/install/src/ltp.git/lib/safe_pthread.c:18: undefined reference to `pthread_create'
-> /usr/bin/ld: ../../lib/libltp.a(safe_pthread.o): in function `safe_pthread_join':
-> /home/pevik/install/src/ltp.git/lib/safe_pthread.c:34: undefined reference to `pthread_join'
-> collect2: error: ld returned 1 exit status
-> make[1]: *** [../../include/mk/rules.mk:37: tst_fuzzy_sync01] Error 1
-> make: *** [../include/mk/generic_trunk_target.inc:105: all] Error 2
->
-> lib/newlib_tests/Makefile needs to add:
-> tst_fuzzy_sync01: CFLAGS+=-pthread
-> tst_fuzzy_sync02: CFLAGS+=-pthread
->
-> Kind regards,
-> Petr
+> I don't get this.=A0 Martin only wants to skip libc test when undefined a=
+nd it
+> doesn't matter which user we use.
 
-Ah, I really should compile with GCC as well as Clang!
+if (tst_variant =3D=3D 1)
+	tst_brk(TCONF, "libc does not support semctl(SEM_STAT_ANY)");
 
+means:
 
--- 
-Thank you,
-Richard.
+# /semctl09
+tst_test.c:1289: TINFO: Timeout per run is 0h 05m 00s
+semctl09.c:76: TINFO: Test SYS_semctl syscall
+semctl09.c:141: TINFO: Test SEM_STAT_ANY with nobody user
+semctl09.c:163: TPASS: SEM_INFO returned valid index 19 to semid 19
+semctl09.c:173: TPASS: Counted used =3D 1
+semctl09.c:121: TPASS: semset_cnt =3D 1
+semctl09.c:128: TPASS: sen_cnt =3D 2
+semctl09.c:141: TINFO: Test SEM_STAT_ANY with root user
+semctl09.c:163: TPASS: SEM_INFO returned valid index 19 to semid 19
+semctl09.c:173: TPASS: Counted used =3D 1
+semctl09.c:121: TPASS: semset_cnt =3D 1
+semctl09.c:128: TPASS: sen_cnt =3D 2
+tst_test.c:1289: TINFO: Timeout per run is 0h 05m 00s
+semctl09.c:191: TCONF: libc does not support semctl(SEM_STAT_ANY)
 
--- 
+i.e. run first test with user nobody and skip the second.
+It's a bit confusing to test anything with SEM_STAT_ANY and then state
+TCONF: libc does not support semctl(SEM_STAT_ANY) :)
+
+Kind regards,
+Petr
+
+-- =
+
 Mailing list info: https://lists.linux.it/listinfo/ltp
