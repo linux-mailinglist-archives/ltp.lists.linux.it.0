@@ -2,42 +2,50 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 325AF343764
-	for <lists+linux-ltp@lfdr.de>; Mon, 22 Mar 2021 04:27:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E4B8343776
+	for <lists+linux-ltp@lfdr.de>; Mon, 22 Mar 2021 04:32:55 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DCA4B3C57BF
-	for <lists+linux-ltp@lfdr.de>; Mon, 22 Mar 2021 04:27:00 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 09CEA3C57BF
+	for <lists+linux-ltp@lfdr.de>; Mon, 22 Mar 2021 04:32:55 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
- by picard.linux.it (Postfix) with ESMTP id 0D6F93C5534
- for <ltp@lists.linux.it>; Mon, 22 Mar 2021 04:26:58 +0100 (CET)
-Received: from szxga06-in.huawei.com (szxga06-in.huawei.com [45.249.212.32])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id 8C3243C2D78
+ for <ltp@lists.linux.it>; Mon, 22 Mar 2021 04:32:53 +0100 (CET)
+Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 1BAEA6002DE
- for <ltp@lists.linux.it>; Mon, 22 Mar 2021 04:26:56 +0100 (CET)
-Received: from DGGEMS414-HUB.china.huawei.com (unknown [172.30.72.58])
- by szxga06-in.huawei.com (SkyGuard) with ESMTP id 4F3fyM2Bnlzkd74
- for <ltp@lists.linux.it>; Mon, 22 Mar 2021 11:25:15 +0800 (CST)
-Received: from ubuntu1804.huawei.com (10.67.174.63) by
- DGGEMS414-HUB.china.huawei.com (10.3.19.214) with Microsoft SMTP Server id
- 14.3.498.0; Mon, 22 Mar 2021 11:26:45 +0800
-From: Zhao Gongyi <zhaogongyi@huawei.com>
-To: <ltp@lists.linux.it>
-Date: Mon, 22 Mar 2021 11:26:30 +0800
-Message-ID: <20210322032630.21094-1-zhaogongyi@huawei.com>
-X-Mailer: git-send-email 2.17.1
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id C7C7860078C
+ for <ltp@lists.linux.it>; Mon, 22 Mar 2021 04:32:51 +0100 (CET)
+Received: from DGGEML403-HUB.china.huawei.com (unknown [172.30.72.57])
+ by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4F3g4n4VNJz5ghK;
+ Mon, 22 Mar 2021 11:30:49 +0800 (CST)
+Received: from DGGEML424-HUB.china.huawei.com (10.1.199.41) by
+ DGGEML403-HUB.china.huawei.com (10.3.17.33) with Microsoft SMTP Server (TLS)
+ id 14.3.498.0; Mon, 22 Mar 2021 11:32:46 +0800
+Received: from DGGEML531-MBX.china.huawei.com ([169.254.6.126]) by
+ dggeml424-hub.china.huawei.com ([10.1.199.41]) with mapi id 14.03.0513.000;
+ Mon, 22 Mar 2021 11:32:39 +0800
+From: zhaogongyi <zhaogongyi@huawei.com>
+To: Li Wang <liwang@redhat.com>
+Thread-Topic: [LTP] [PATCH] cleanup: Replace libc functions with safe_macros
+Thread-Index: AdceyzUGtIxcbEoLRL2ljx9gNWzfFg==
+Date: Mon, 22 Mar 2021 03:32:38 +0000
+Message-ID: <F3D3F6AC3820BB4C9FCA340DB5C32CB403899593@dggeml531-mbx.china.huawei.com>
+Accept-Language: en-US
+Content-Language: zh-CN
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.67.110.209]
 MIME-Version: 1.0
-X-Originating-IP: [10.67.174.63]
 X-CFilter-Loop: Reflected
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v2] cleanup: Replace libc function with safe_macros
+X-Spam-Status: No, score=0.0 required=7.0 tests=HTML_MESSAGE,SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] cleanup: Replace libc functions with safe_macros
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,128 +57,225 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============0698806544=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-For those:
-	testcases/kernel/syscalls/fanotify/fanotify01.c
-	testcases/kernel/syscalls/fanotify/fanotify03.c
-	testcases/kernel/syscalls/fanotify/fanotify07.c
+--===============0698806544==
+Content-Language: zh-CN
+Content-Type: multipart/alternative;
+	boundary="_000_F3D3F6AC3820BB4C9FCA340DB5C32CB403899593dggeml531mbxchi_"
 
-Signed-off-by: Zhao Gongyi <zhaogongyi@huawei.com>
----
-v1->v2: correct compile error.
- testcases/kernel/syscalls/fanotify/fanotify01.c |  2 +-
- testcases/kernel/syscalls/fanotify/fanotify03.c | 16 +++++++---------
- testcases/kernel/syscalls/fanotify/fanotify07.c | 15 ++++++---------
- 3 files changed, 14 insertions(+), 19 deletions(-)
+--_000_F3D3F6AC3820BB4C9FCA340DB5C32CB403899593dggeml531mbxchi_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-diff --git a/testcases/kernel/syscalls/fanotify/fanotify01.c b/testcases/kernel/syscalls/fanotify/fanotify01.c
-index 990bda140..2fe4a9457 100644
---- a/testcases/kernel/syscalls/fanotify/fanotify01.c
-+++ b/testcases/kernel/syscalls/fanotify/fanotify01.c
-@@ -167,7 +167,7 @@ static void test_fanotify(unsigned int n)
- 			EVENT_BUF_LEN - len);
- 	len += ret;
+SGkgTGksDQoNCkkgYW0gc29ycnkgZm9yIHRoZSBjb21waWxlIGVycm9yLCB0aGFua3MgZm9yIHlv
+dXIgcmV2aWV3IQ0KDQpJIGhhdmUgcmVzdWJtaXQgdGhlIHBhdGNoIGFjY29yZGluZyB5b3UgcmV2
+aWV3LCBhbmQgaSB3aWxsIG1ha2Ugc3VyZSBjb21waWxlIFBBU1MgYXQgbGVhc3QgIGxvY2FsbHkg
+aW4gdGhlIGZ1dHVyZS4NCg0KQmVzdCBSZWdhcmRzLA0KR29uZ3lpDQoNCg0K5Y+R5Lu25Lq6OiBM
+aSBXYW5nIFttYWlsdG86bGl3YW5nQHJlZGhhdC5jb21dDQrlj5HpgIHml7bpl7Q6IDIwMjHlubQz
+5pyIMTnml6UgMTM6NDENCuaUtuS7tuS6ujogemhhb2dvbmd5aSA8emhhb2dvbmd5aUBodWF3ZWku
+Y29tPg0K5oqE6YCBOiBMVFAgTGlzdCA8bHRwQGxpc3RzLmxpbnV4Lml0Pg0K5Li76aKYOiBSZTog
+W0xUUF0gW1BBVENIXSBjbGVhbnVwOiBSZXBsYWNlIGxpYmMgZnVuY3Rpb25zIHdpdGggc2FmZV9t
+YWNyb3MNCg0KSGkgR29uZ3lpLA0KDQpaaGFvIEdvbmd5aSA8emhhb2dvbmd5aUBodWF3ZWkuY29t
+PG1haWx0bzp6aGFvZ29uZ3lpQGh1YXdlaS5jb20+PiB3cm90ZToNCg0KLS0tIGEvdGVzdGNhc2Vz
+L2tlcm5lbC9zeXNjYWxscy9mYW5vdGlmeS9mYW5vdGlmeTAzLmMNCisrKyBiL3Rlc3RjYXNlcy9r
+ZXJuZWwvc3lzY2FsbHMvZmFub3RpZnkvZmFub3RpZnkwMy5jDQpAQCAtMTI4LDE3ICsxMjgsMTMg
+QEAgc3RhdGljIHZvaWQgZ2VuZXJhdGVfZXZlbnRzKHZvaWQpDQogICAgICAgIC8qDQogICAgICAg
+ICAqIEdlbmVyYXRlIHNlcXVlbmNlIG9mIGV2ZW50cw0KICAgICAgICAgKi8NCi0gICAgICAgaWYg
+KChmZCA9IG9wZW4oZm5hbWUsIE9fUkRXUiB8IE9fQ1JFQVQsIDA3MDApKSA9PSAtMSkNCi0gICAg
+ICAgICAgICAgICBleGl0KDEpOw0KLSAgICAgICBpZiAod3JpdGUoZmQsIGZuYW1lLCAxKSA9PSAt
+MSkNCi0gICAgICAgICAgICAgICBleGl0KDIpOw0KKyAgICAgICBmZCA9IFNBRkVfT1BFTihmbmFt
+ZSwgT19SRFdSIHwgT19DUkVBVCwgMDcwMCk7DQoNCi0gICAgICAgbHNlZWsoZmQsIDAsIFNFRUtf
+U0VUKTsNCi0gICAgICAgaWYgKHJlYWQoZmQsIGJ1ZiwgQlVGX1NJWkUpICE9IC0xKQ0KLSAgICAg
+ICAgICAgICAgIGV4aXQoMyk7DQorICAgICAgIFNBRkVfV1JJVEUoZmQsIGZuYW1lLCAxKTsNCg0K
+U0FGRV9SRUFEL1NBRkVfV1JJVEUgcmVxdWlyZXMgNCBhcmd1bWVudHMsIGJ1dCBvbmx5IDMgZ2l2
+ZW4sDQppdCBldmVuIGJ1aWxkcyBmYWlscyBhZnRlciBhcHBseWluZyB0aGlzIHBhdGNoLiBTbyBp
+dCdkIGJlIGJldHRlciB0byBjb21waWxlDQpQQVNTIGF0IGxlYXN0IGxvY2FsbHkgYmVmb3JlIHNl
+bmRpbmcgaXQgdG8gTUwuDQoNCg0KLS0tIGEvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9mYW5v
+dGlmeS9mYW5vdGlmeTA3LmMNCisrKyBiL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvZmFub3Rp
+ZnkvZmFub3RpZnkwNy5jDQpAQCAtNTMsMTQgKzUzLDEyIEBAIHN0YXRpYyB2b2lkIGdlbmVyYXRl
+X2V2ZW50cyh2b2lkKQ0KICAgICAgICAvKg0KICAgICAgICAgKiBnZW5lcmF0ZSBzZXF1ZW5jZSBv
+ZiBldmVudHMNCiAgICAgICAgICovDQotICAgICAgIGlmICgoZmQgPSBvcGVuKGZuYW1lLCBPX1JE
+V1IgfCBPX0NSRUFULCAwNzAwKSkgPT0gLTEpDQotICAgICAgICAgICAgICAgZXhpdCgxKTsNCisg
+ICAgICAgZmQgPSBTQUZFX09QRU4oRk5BTUUsIE9fUkRXUiB8IE9fQ1JFQVQsIDA3MDApOw0KDQpG
+TkFNRSAtLT4gZm5hbWUNCg0KDQotLQ0KUmVnYXJkcywNCkxpIFdhbmcNCg==
 
--	lseek(fd, 0, SEEK_SET);
-+	SAFE_LSEEK(fd, 0, SEEK_SET);
- 	/* Generate modify event to clear ignore mask */
- 	SAFE_WRITE(1, fd, fname, 1);
- 	event_set[tst_count] = FAN_MODIFY;
-diff --git a/testcases/kernel/syscalls/fanotify/fanotify03.c b/testcases/kernel/syscalls/fanotify/fanotify03.c
-index a5a384ee7..a8cf4348a 100644
---- a/testcases/kernel/syscalls/fanotify/fanotify03.c
-+++ b/testcases/kernel/syscalls/fanotify/fanotify03.c
-@@ -128,17 +128,15 @@ static void generate_events(void)
- 	/*
- 	 * Generate sequence of events
- 	 */
--	if ((fd = open(fname, O_RDWR | O_CREAT, 0700)) == -1)
--		exit(1);
--	if (write(fd, fname, 1) == -1)
--		exit(2);
-+	fd = SAFE_OPEN(fname, O_RDWR | O_CREAT, 0700);
-+
-+	SAFE_WRITE(0, fd, fname, 1);
-+	SAFE_LSEEK(fd, 0, SEEK_SET);
+--_000_F3D3F6AC3820BB4C9FCA340DB5C32CB403899593dggeml531mbxchi_
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: base64
 
--	lseek(fd, 0, SEEK_SET);
- 	if (read(fd, buf, BUF_SIZE) != -1)
- 		exit(3);
+PGh0bWwgeG1sbnM6dj0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTp2bWwiIHhtbG5zOm89InVy
+bjpzY2hlbWFzLW1pY3Jvc29mdC1jb206b2ZmaWNlOm9mZmljZSIgeG1sbnM6dz0idXJuOnNjaGVt
+YXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6d29yZCIgeG1sbnM6bT0iaHR0cDovL3NjaGVtYXMubWlj
+cm9zb2Z0LmNvbS9vZmZpY2UvMjAwNC8xMi9vbW1sIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv
+VFIvUkVDLWh0bWw0MCI+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIg
+Y29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRv
+ciIgY29udGVudD0iTWljcm9zb2Z0IFdvcmQgMTUgKGZpbHRlcmVkIG1lZGl1bSkiPg0KPHN0eWxl
+PjwhLS0NCi8qIEZvbnQgRGVmaW5pdGlvbnMgKi8NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6
+5a6L5L2TOw0KCXBhbm9zZS0xOjIgMSA2IDAgMyAxIDEgMSAxIDE7fQ0KQGZvbnQtZmFjZQ0KCXtm
+b250LWZhbWlseToiQ2FtYnJpYSBNYXRoIjsNCglwYW5vc2UtMToyIDQgNSAzIDUgNCA2IDMgMiA0
+O30NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6Q2FsaWJyaTsNCglwYW5vc2UtMToyIDE1IDUg
+MiAyIDIgNCAzIDIgNDt9DQpAZm9udC1mYWNlDQoJe2ZvbnQtZmFtaWx5OuW+rui9r+mbhem7kTsN
+CglwYW5vc2UtMToyIDExIDUgMyAyIDIgNCAyIDIgNDt9DQpAZm9udC1mYWNlDQoJe2ZvbnQtZmFt
+aWx5OiJcQOWui+S9kyI7DQoJcGFub3NlLTE6MiAxIDYgMCAzIDEgMSAxIDEgMTt9DQpAZm9udC1m
+YWNlDQoJe2ZvbnQtZmFtaWx5OiJcQOW+rui9r+mbhem7kSI7DQoJcGFub3NlLTE6MiAxMSA1IDMg
+MiAyIDQgMiAyIDQ7fQ0KLyogU3R5bGUgRGVmaW5pdGlvbnMgKi8NCnAuTXNvTm9ybWFsLCBsaS5N
+c29Ob3JtYWwsIGRpdi5Nc29Ob3JtYWwNCgl7bWFyZ2luOjBjbTsNCgltYXJnaW4tYm90dG9tOi4w
+MDAxcHQ7DQoJZm9udC1zaXplOjEyLjBwdDsNCglmb250LWZhbWlseTrlrovkvZM7fQ0KYTpsaW5r
+LCBzcGFuLk1zb0h5cGVybGluaw0KCXttc28tc3R5bGUtcHJpb3JpdHk6OTk7DQoJY29sb3I6Ymx1
+ZTsNCgl0ZXh0LWRlY29yYXRpb246dW5kZXJsaW5lO30NCmE6dmlzaXRlZCwgc3Bhbi5Nc29IeXBl
+cmxpbmtGb2xsb3dlZA0KCXttc28tc3R5bGUtcHJpb3JpdHk6OTk7DQoJY29sb3I6cHVycGxlOw0K
+CXRleHQtZGVjb3JhdGlvbjp1bmRlcmxpbmU7fQ0KcC5Nc29QbGFpblRleHQsIGxpLk1zb1BsYWlu
+VGV4dCwgZGl2Lk1zb1BsYWluVGV4dA0KCXttc28tc3R5bGUtcHJpb3JpdHk6OTk7DQoJbXNvLXN0
+eWxlLWxpbms6Iue6r+aWh+acrCBDaGFyIjsNCgltYXJnaW46MGNtOw0KCW1hcmdpbi1ib3R0b206
+LjAwMDFwdDsNCglmb250LXNpemU6MTAuNXB0Ow0KCWZvbnQtZmFtaWx5OiJDYWxpYnJpIixzYW5z
+LXNlcmlmO30NCnNwYW4uRW1haWxTdHlsZTE3DQoJe21zby1zdHlsZS10eXBlOnBlcnNvbmFsLXJl
+cGx5Ow0KCWZvbnQtZmFtaWx5OiJDYWxpYnJpIixzYW5zLXNlcmlmOw0KCWNvbG9yOiMxRjQ5N0Q7
+fQ0Kc3Bhbi5DaGFyDQoJe21zby1zdHlsZS1uYW1lOiLnuq/mlofmnKwgQ2hhciI7DQoJbXNvLXN0
+eWxlLXByaW9yaXR5Ojk5Ow0KCW1zby1zdHlsZS1saW5rOue6r+aWh+acrDsNCglmb250LWZhbWls
+eToiQ2FsaWJyaSIsc2Fucy1zZXJpZjt9DQouTXNvQ2hwRGVmYXVsdA0KCXttc28tc3R5bGUtdHlw
+ZTpleHBvcnQtb25seTt9DQpAcGFnZSBXb3JkU2VjdGlvbjENCgl7c2l6ZTo2MTIuMHB0IDc5Mi4w
+cHQ7DQoJbWFyZ2luOjcyLjBwdCA5MC4wcHQgNzIuMHB0IDkwLjBwdDt9DQpkaXYuV29yZFNlY3Rp
+b24xDQoJe3BhZ2U6V29yZFNlY3Rpb24xO30NCi0tPjwvc3R5bGU+PCEtLVtpZiBndGUgbXNvIDld
+Pjx4bWw+DQo8bzpzaGFwZWRlZmF1bHRzIHY6ZXh0PSJlZGl0IiBzcGlkbWF4PSIxMDI2IiAvPg0K
+PC94bWw+PCFbZW5kaWZdLS0+PCEtLVtpZiBndGUgbXNvIDldPjx4bWw+DQo8bzpzaGFwZWxheW91
+dCB2OmV4dD0iZWRpdCI+DQo8bzppZG1hcCB2OmV4dD0iZWRpdCIgZGF0YT0iMSIgLz4NCjwvbzpz
+aGFwZWxheW91dD48L3htbD48IVtlbmRpZl0tLT4NCjwvaGVhZD4NCjxib2R5IGxhbmc9IlpILUNO
+IiBsaW5rPSJibHVlIiB2bGluaz0icHVycGxlIj4NCjxkaXYgY2xhc3M9IldvcmRTZWN0aW9uMSI+
+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBsYW5nPSJFTi1VUyIgc3R5bGU9ImZvbnQtc2l6
+ZToxMC41cHQ7Zm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OyxzYW5zLXNlcmlmO2NvbG9y
+OiMxRjQ5N0QiPkhpIExpLDxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3Jt
+YWwiPjxzcGFuIGxhbmc9IkVOLVVTIiBzdHlsZT0iZm9udC1zaXplOjEwLjVwdDtmb250LWZhbWls
+eTomcXVvdDtDYWxpYnJpJnF1b3Q7LHNhbnMtc2VyaWY7Y29sb3I6IzFGNDk3RCI+PG86cD4mbmJz
+cDs8L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4t
+VVMiIHN0eWxlPSJmb250LXNpemU6MTAuNXB0O2ZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVv
+dDssc2Fucy1zZXJpZjtjb2xvcjojMUY0OTdEIj5JIGFtIHNvcnJ5IGZvciB0aGUgY29tcGlsZSBl
+cnJvciwgdGhhbmtzIGZvciB5b3VyIHJldmlldyE8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBj
+bGFzcz0iTXNvTm9ybWFsIj48c3BhbiBsYW5nPSJFTi1VUyIgc3R5bGU9ImZvbnQtc2l6ZToxMC41
+cHQ7Zm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OyxzYW5zLXNlcmlmO2NvbG9yOiMxRjQ5
+N0QiPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxz
+cGFuIGxhbmc9IkVOLVVTIiBzdHlsZT0iZm9udC1zaXplOjEwLjVwdDtmb250LWZhbWlseTomcXVv
+dDtDYWxpYnJpJnF1b3Q7LHNhbnMtc2VyaWY7Y29sb3I6IzFGNDk3RCI+SSBoYXZlIHJlc3VibWl0
+IHRoZSBwYXRjaCBhY2NvcmRpbmcgeW91IHJldmlldywgYW5kIGkgd2lsbCBtYWtlIHN1cmUgY29t
+cGlsZSBQQVNTIGF0IGxlYXN0ICZuYnNwO2xvY2FsbHkgaW4gdGhlIGZ1dHVyZS48bzpwPjwvbzpw
+Pjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBsYW5nPSJFTi1VUyIgc3R5
+bGU9ImZvbnQtc2l6ZToxMC41cHQ7Zm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OyxzYW5z
+LXNlcmlmO2NvbG9yOiMxRjQ5N0QiPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNs
+YXNzPSJNc29Ob3JtYWwiPjxzcGFuIGxhbmc9IkVOLVVTIiBzdHlsZT0iZm9udC1zaXplOjEwLjVw
+dDtmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LHNhbnMtc2VyaWY7Y29sb3I6IzFGNDk3
+RCI+QmVzdCBSZWdhcmRzLDxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3Jt
+YWwiPjxzcGFuIGxhbmc9IkVOLVVTIiBzdHlsZT0iZm9udC1zaXplOjEwLjVwdDtmb250LWZhbWls
+eTomcXVvdDtDYWxpYnJpJnF1b3Q7LHNhbnMtc2VyaWY7Y29sb3I6IzFGNDk3RCI+R29uZ3lpPG86
+cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4t
+VVMiIHN0eWxlPSJmb250LXNpemU6MTAuNXB0O2ZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVv
+dDssc2Fucy1zZXJpZjtjb2xvcjojMUY0OTdEIj48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+
+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBsYW5nPSJFTi1VUyIgc3R5bGU9ImZvbnQtc2l6
+ZToxMC41cHQ7Zm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OyxzYW5zLXNlcmlmO2NvbG9y
+OiMxRjQ5N0QiPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4NCjxkaXYgc3R5bGU9ImJvcmRl
+cjpub25lO2JvcmRlci1sZWZ0OnNvbGlkIGJsdWUgMS41cHQ7cGFkZGluZzowY20gMGNtIDBjbSA0
+LjBwdCI+DQo8ZGl2Pg0KPGRpdiBzdHlsZT0iYm9yZGVyOm5vbmU7Ym9yZGVyLXRvcDpzb2xpZCAj
+RTFFMUUxIDEuMHB0O3BhZGRpbmc6My4wcHQgMGNtIDBjbSAwY20iPg0KPHAgY2xhc3M9Ik1zb05v
+cm1hbCI+PGI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7
+5b6u6L2v6ZuF6buRJnF1b3Q7LHNhbnMtc2VyaWYiPuWPkeS7tuS6ujxzcGFuIGxhbmc9IkVOLVVT
+Ij46PC9zcGFuPjwvc3Bhbj48L2I+PHNwYW4gbGFuZz0iRU4tVVMiIHN0eWxlPSJmb250LXNpemU6
+MTEuMHB0O2ZvbnQtZmFtaWx5OiZxdW90O+W+rui9r+mbhem7kSZxdW90OyxzYW5zLXNlcmlmIj4g
+TGkgV2FuZyBbbWFpbHRvOmxpd2FuZ0ByZWRoYXQuY29tXQ0KPGJyPg0KPC9zcGFuPjxiPjxzcGFu
+IHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OiZxdW90O+W+rui9r+mbhem7kSZx
+dW90OyxzYW5zLXNlcmlmIj7lj5HpgIHml7bpl7Q8c3BhbiBsYW5nPSJFTi1VUyI+Ojwvc3Bhbj48
+L3NwYW4+PC9iPjxzcGFuIGxhbmc9IkVOLVVTIiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250
+LWZhbWlseTomcXVvdDvlvq7ova/pm4Xpu5EmcXVvdDssc2Fucy1zZXJpZiI+IDIwMjE8L3NwYW4+
+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q75b6u6L2v6ZuF
+6buRJnF1b3Q7LHNhbnMtc2VyaWYiPuW5tDxzcGFuIGxhbmc9IkVOLVVTIj4zPC9zcGFuPuaciDxz
+cGFuIGxhbmc9IkVOLVVTIj4xOTwvc3Bhbj7ml6U8c3BhbiBsYW5nPSJFTi1VUyI+DQogMTM6NDE8
+YnI+DQo8L3NwYW4+PGI+5pS25Lu25Lq6PHNwYW4gbGFuZz0iRU4tVVMiPjo8L3NwYW4+PC9iPjxz
+cGFuIGxhbmc9IkVOLVVTIj4gemhhb2dvbmd5aSAmbHQ7emhhb2dvbmd5aUBodWF3ZWkuY29tJmd0
+Ozxicj4NCjwvc3Bhbj48Yj7mioTpgIE8c3BhbiBsYW5nPSJFTi1VUyI+Ojwvc3Bhbj48L2I+PHNw
+YW4gbGFuZz0iRU4tVVMiPiBMVFAgTGlzdCAmbHQ7bHRwQGxpc3RzLmxpbnV4Lml0Jmd0Ozxicj4N
+Cjwvc3Bhbj48Yj7kuLvpopg8c3BhbiBsYW5nPSJFTi1VUyI+Ojwvc3Bhbj48L2I+PHNwYW4gbGFu
+Zz0iRU4tVVMiPiBSZTogW0xUUF0gW1BBVENIXSBjbGVhbnVwOiBSZXBsYWNlIGxpYmMgZnVuY3Rp
+b25zIHdpdGggc2FmZV9tYWNyb3M8bzpwPjwvbzpwPjwvc3Bhbj48L3NwYW4+PC9wPg0KPC9kaXY+
+DQo8L2Rpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIGxhbmc9IkVOLVVTIj48bzpwPiZu
+YnNwOzwvbzpwPjwvc3Bhbj48L3A+DQo8ZGl2Pg0KPGRpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNv
+Tm9ybWFsIj48c3BhbiBsYW5nPSJFTi1VUyI+SGkgR29uZ3lpLDxvOnA+PC9vOnA+PC9zcGFuPjwv
+cD4NCjwvZGl2Pg0KPC9kaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBsYW5nPSJFTi1V
+UyI+PG86cD4mbmJzcDs8L286cD48L3NwYW4+PC9wPg0KPGRpdj4NCjxkaXY+DQo8cCBjbGFzcz0i
+TXNvTm9ybWFsIj48c3BhbiBsYW5nPSJFTi1VUyI+WmhhbyBHb25neWkgJmx0OzxhIGhyZWY9Im1h
+aWx0bzp6aGFvZ29uZ3lpQGh1YXdlaS5jb20iPnpoYW9nb25neWlAaHVhd2VpLmNvbTwvYT4mZ3Q7
+IHdyb3RlOjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJN
+c29Ob3JtYWwiPjxzcGFuIGxhbmc9IkVOLVVTIj4mbmJzcDs8bzpwPjwvbzpwPjwvc3Bhbj48L3A+
+DQo8L2Rpdj4NCjxibG9ja3F1b3RlIHN0eWxlPSJib3JkZXI6bm9uZTtib3JkZXItbGVmdDpzb2xp
+ZCAjQ0NDQ0NDIDEuMHB0O3BhZGRpbmc6MGNtIDBjbSAwY20gNi4wcHQ7bWFyZ2luLWxlZnQ6NC44
+cHQ7bWFyZ2luLXJpZ2h0OjBjbSI+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBsYW5nPSJF
+Ti1VUyI+LS0tIGEvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9mYW5vdGlmeS9mYW5vdGlmeTAz
+LmM8YnI+DQomIzQzOyYjNDM7JiM0MzsgYi90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL2Zhbm90
+aWZ5L2Zhbm90aWZ5MDMuYzxicj4NCkBAIC0xMjgsMTcgJiM0MzsxMjgsMTMgQEAgc3RhdGljIHZv
+aWQgZ2VuZXJhdGVfZXZlbnRzKHZvaWQpPGJyPg0KJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7
+IC8qPGJyPg0KJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyogR2VuZXJhdGUgc2Vx
+dWVuY2Ugb2YgZXZlbnRzPGJyPg0KJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyov
+PGJyPg0KLSZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwO2lmICgoZmQgPSBvcGVuKGZuYW1lLCBP
+X1JEV1IgfCBPX0NSRUFULCAwNzAwKSkgPT0gLTEpPGJyPg0KLSZuYnNwOyAmbmJzcDsgJm5ic3A7
+ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDtleGl0KDEpOzxicj4NCi0mbmJzcDsg
+Jm5ic3A7ICZuYnNwOyAmbmJzcDtpZiAod3JpdGUoZmQsIGZuYW1lLCAxKSA9PSAtMSk8YnI+DQot
+Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwO2V4
+aXQoMik7PGJyPg0KJiM0MzsmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDtmZCA9IFNBRkVfT1BF
+TihmbmFtZSwgT19SRFdSIHwgT19DUkVBVCwgMDcwMCk7PGJyPg0KPGJyPg0KLSZuYnNwOyAmbmJz
+cDsgJm5ic3A7ICZuYnNwO2xzZWVrKGZkLCAwLCBTRUVLX1NFVCk7PGJyPg0KLSZuYnNwOyAmbmJz
+cDsgJm5ic3A7ICZuYnNwO2lmIChyZWFkKGZkLCBidWYsIEJVRl9TSVpFKSAhPSAtMSk8YnI+DQot
+Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwO2V4
+aXQoMyk7PGJyPg0KJiM0MzsmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDtTQUZFX1dSSVRFKGZk
+LCBmbmFtZSwgMSk7PG86cD48L286cD48L3NwYW4+PC9wPg0KPC9ibG9ja3F1b3RlPg0KPGRpdj4N
+CjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIGxhbmc9IkVOLVVTIj48bzpwPiZuYnNwOzwvbzpw
+Pjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+
+PHNwYW4gbGFuZz0iRU4tVVMiPlNBRkVfUkVBRC9TQUZFX1dSSVRFIHJlcXVpcmVzIDQgYXJndW1l
+bnRzLCBidXQgb25seSAzIGdpdmVuLDxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2Pg0KPGRp
+dj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIGxhbmc9IkVOLVVTIj5pdCBldmVuIGJ1aWxk
+cyBmYWlscyBhZnRlciBhcHBseWluZyB0aGlzIHBhdGNoLiBTbyBpdCdkIGJlIGJldHRlciB0byBj
+b21waWxlPG86cD48L286cD48L3NwYW4+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1z
+b05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMiPlBBU1MgYXQgbGVhc3QgbG9jYWxseSBiZWZvcmUg
+c2VuZGluZyBpdCB0byBNTC48bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjwvZGl2Pg0K
+PGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIGxhbmc9IkVOLVVTIj48bzpwPiZuYnNw
+OzwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48
+c3BhbiBsYW5nPSJFTi1VUyI+Jm5ic3A7PG86cD48L286cD48L3NwYW4+PC9wPg0KPC9kaXY+DQo8
+YmxvY2txdW90ZSBzdHlsZT0iYm9yZGVyOm5vbmU7Ym9yZGVyLWxlZnQ6c29saWQgI0NDQ0NDQyAx
+LjBwdDtwYWRkaW5nOjBjbSAwY20gMGNtIDYuMHB0O21hcmdpbi1sZWZ0OjQuOHB0O21hcmdpbi1y
+aWdodDowY20iPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMiPi0tLSBh
+L3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvZmFub3RpZnkvZmFub3RpZnkwNy5jPGJyPg0KJiM0
+MzsmIzQzOyYjNDM7IGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9mYW5vdGlmeS9mYW5vdGlm
+eTA3LmM8YnI+DQpAQCAtNTMsMTQgJiM0Mzs1MywxMiBAQCBzdGF0aWMgdm9pZCBnZW5lcmF0ZV9l
+dmVudHModm9pZCk8YnI+DQombmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgLyo8YnI+DQombmJz
+cDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7KiBnZW5lcmF0ZSBzZXF1ZW5jZSBvZiBldmVu
+dHM8YnI+DQombmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7Ki88YnI+DQotJm5ic3A7
+ICZuYnNwOyAmbmJzcDsgJm5ic3A7aWYgKChmZCA9IG9wZW4oZm5hbWUsIE9fUkRXUiB8IE9fQ1JF
+QVQsIDA3MDApKSA9PSAtMSk8YnI+DQotJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNw
+OyAmbmJzcDsgJm5ic3A7ICZuYnNwO2V4aXQoMSk7PGJyPg0KJiM0MzsmbmJzcDsgJm5ic3A7ICZu
+YnNwOyAmbmJzcDtmZCA9IFNBRkVfT1BFTihGTkFNRSwgT19SRFdSIHwgT19DUkVBVCwgMDcwMCk7
+PG86cD48L286cD48L3NwYW4+PC9wPg0KPC9ibG9ja3F1b3RlPg0KPGRpdj4NCjxwIGNsYXNzPSJN
+c29Ob3JtYWwiPjxzcGFuIGxhbmc9IkVOLVVTIj48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+
+DQo8L2Rpdj4NCjxkaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0i
+RU4tVVMiPkZOQU1FIC0tJmd0OyBmbmFtZTxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2Pg0K
+PC9kaXY+DQo8L2Rpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIGxhbmc9IkVOLVVTIj48
+YnIgY2xlYXI9ImFsbCI+DQo8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8ZGl2Pg0KPHAgY2xhc3M9
+Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMiPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwv
+cD4NCjwvZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMiPi0tIDxv
+OnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxkaXY+DQo8ZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29O
+b3JtYWwiPjxzcGFuIGxhbmc9IkVOLVVTIj5SZWdhcmRzLDxvOnA+PC9vOnA+PC9zcGFuPjwvcD4N
+CjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIGxhbmc9IkVOLVVTIj5M
+aSBXYW5nPG86cD48L286cD48L3NwYW4+PC9wPg0KPC9kaXY+DQo8L2Rpdj4NCjwvZGl2Pg0KPC9k
+aXY+DQo8L2Rpdj4NCjwvZGl2Pg0KPC9ib2R5Pg0KPC9odG1sPg0K
 
--	if (close(fd) == -1)
--		exit(4);
-+	SAFE_CLOSE(fd);
+--_000_F3D3F6AC3820BB4C9FCA340DB5C32CB403899593dggeml531mbxchi_--
 
- 	if (execve(FILE_EXEC_PATH, argv, environ) != -1)
- 		exit(5);
-@@ -151,7 +149,7 @@ static void child_handler(int tmp)
- 	 * Close notification fd so that we cannot block while reading
- 	 * from it
- 	 */
--	close(fd_notify);
-+	SAFE_CLOSE(fd_notify);
- 	fd_notify = -1;
- }
-
-@@ -172,7 +170,7 @@ static void run_child(void)
-
- 	if (child_pid == 0) {
- 		/* Child will generate events now */
--		close(fd_notify);
-+		SAFE_CLOSE(fd_notify);
- 		generate_events();
- 		exit(0);
- 	}
-diff --git a/testcases/kernel/syscalls/fanotify/fanotify07.c b/testcases/kernel/syscalls/fanotify/fanotify07.c
-index 830af32b6..631a9a20c 100644
---- a/testcases/kernel/syscalls/fanotify/fanotify07.c
-+++ b/testcases/kernel/syscalls/fanotify/fanotify07.c
-@@ -53,14 +53,12 @@ static void generate_events(void)
- 	/*
- 	 * generate sequence of events
- 	 */
--	if ((fd = open(fname, O_RDWR | O_CREAT, 0700)) == -1)
--		exit(1);
-+	fd = SAFE_OPEN(fname, O_RDWR | O_CREAT, 0700);
-
- 	/* Run until killed... */
- 	while (1) {
--		lseek(fd, 0, SEEK_SET);
--		if (read(fd, buf, BUF_SIZE) == -1)
--			exit(3);
-+		SAFE_LSEEK(fd, 0, SEEK_SET);
-+		SAFE_READ(0, fd, buf, BUF_SIZE);
- 	}
- }
-
-@@ -72,7 +70,7 @@ static void run_children(void)
- 		child_pid[i] = SAFE_FORK();
- 		if (!child_pid[i]) {
- 			/* Child will generate events now */
--			close(fd_notify);
-+			SAFE_CLOSE(fd_notify);
- 			generate_events();
- 			exit(0);
- 		}
-@@ -159,9 +157,8 @@ static void test_fanotify(void)
- 	 * unanswered fanotify events block notification subsystem.
- 	 */
- 	newfd = setup_instance();
--	if (close(newfd)) {
--		tst_brk(TBROK | TERRNO, "close(%d) failed", newfd);
--	}
-+
-+	SAFE_CLOSE(newfd);
-
- 	tst_res(TPASS, "second instance destroyed successfully");
-
---
-2.17.1
+--===============0698806544==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============0698806544==--
