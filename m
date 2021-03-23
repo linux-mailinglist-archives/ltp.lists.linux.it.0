@@ -1,115 +1,161 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id B555B34616E
-	for <lists+linux-ltp@lfdr.de>; Tue, 23 Mar 2021 15:27:13 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id D14C7346512
+	for <lists+linux-ltp@lfdr.de>; Tue, 23 Mar 2021 17:27:32 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 849713C71E4
-	for <lists+linux-ltp@lfdr.de>; Tue, 23 Mar 2021 15:27:13 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 973493C7932
+	for <lists+linux-ltp@lfdr.de>; Tue, 23 Mar 2021 17:27:32 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- by picard.linux.it (Postfix) with ESMTP id C50303C25E7
- for <ltp@lists.linux.it>; Tue, 23 Mar 2021 15:27:11 +0100 (CET)
-Received: from IND01-MA1-obe.outbound.protection.outlook.com
- (mail-eopbgr1380112.outbound.protection.outlook.com [40.107.138.112])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id 8BAF23C60C5
+ for <ltp@lists.linux.it>; Tue, 23 Mar 2021 17:27:30 +0100 (CET)
+Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 5C6DD1400E71
- for <ltp@lists.linux.it>; Tue, 23 Mar 2021 15:27:10 +0100 (CET)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 44853600297
+ for <ltp@lists.linux.it>; Tue, 23 Mar 2021 17:27:29 +0100 (CET)
+Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
+ by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 12NGPMMm007263;
+ Tue, 23 Mar 2021 16:27:24 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=from : to : cc :
+ subject : date : message-id : references : in-reply-to : content-type :
+ content-id : content-transfer-encoding : mime-version; s=corp-2020-01-29;
+ bh=iHqUI9WWVPGPLIAV7Xdj7MjSYcF1C0RCuhWgV524hoA=;
+ b=irYxeeeoK23mRORVgLL0c8nETdq3e7Rry+KKx5L6g8qpRiJf/wKPVJd6wZpTKPpre6TB
+ HXaCWFPVbueAkLalsNnsN0sjFAgZyEAVUadBNPSpssohzwIGfYwbkX6zZ/I23c+TL+c+
+ NGebfZZ7AdiacwN1Q7RLGupaX7LaUYsy+Hy2e5j4pcsQMB127/ZSlB4Tk3tu8tUiaceq
+ dAa+ARqX4QN60Evzi/0guauN4s1dOb6Rh08aRXUeOc3Vegh+DtaFO6FcKGMGJJtlA++z
+ nhznAtmsyNMRttm1x3heM84YdTih2sQhMUMGkCBc1tfxdBx39k0tjFsfDA0M/qj0p+h0 TA== 
+Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
+ by aserp2120.oracle.com with ESMTP id 37d90mfqaq-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 23 Mar 2021 16:27:24 +0000
+Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
+ by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 12NGKBZj101513;
+ Tue, 23 Mar 2021 16:27:23 GMT
+Received: from nam10-bn7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10lp2107.outbound.protection.outlook.com [104.47.70.107])
+ by userp3020.oracle.com with ESMTP id 37dtts5n8b-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 23 Mar 2021 16:27:23 +0000
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Bq4wm3R7DgXZWd9yMoH3gpmPs/r2nJA2BhyHhUh7CAEekPq9kgVz31JvU4NBM+x+/md7HDX3aMHMZqPbMOVqfQBeWJNHmpH1fLlli3kjxAbfIjkneiHYkGhCKgjwZKW4XSIDSDl21QXcASwgf4m+4gn9jgMsn9G9tFdLbXuiNsgG9b6hbuj8h5hAfqErDXoYnSCOT8mlwyDu6E8ZLM+AzjyNwWyet0c65I6OTa+lqyPZUqgdYsXpPRlz1wZFGxhbuRTbEgI8aswpMPWPItpjZgHZ4jclQX+dJ2rvDw1Ro2OTy4d1sT/odR9A1Pe0t4GmF/RdYTq57UOFFGOS2htzXQ==
+ b=d1TIOG+wBP9ynsKZfDVvxq2JvV2oBYX3RysbBJM7Iqx4HoA40RR8vAECDB4u9nVrSzCsvg2lZQeGTlxRtKGmqJ+xP38TpU7C/sSR+HzjUSvLSPJCamdJJB6E1Flte1kWAWV0ddLx/Y8bVc3zxvMYTn5y61nZf8Na3VK5vKUjmKYVBCL0W7cd1QxzxRsbHPFkkeqlK/WvyxBV8ok/xDbFqvmF48gNzhonpRusdJmZwvOvb9LJZz5BA4hPI2Q6pUZms/fLDw3HyfB06n8tk+gRxbSn2eZhAlCQ8/Zf3DVYFdm58JBzW85C38oSZm1rYrL+kK+Yb5lOYniga4mXMYgo5Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JwBCPpEAK8CtB2QnyM28tYhIEeOVHuRcKlcTkJPsOak=;
- b=CxsrTFqRB/7cQ3RgKt0y12faVcvNf205Yzlof0tc6o9GP9D2LjDTRlXaP1Gv/lk4/X1WKbl7wfBTrn0J/IHRa2Hq2smsjUYNBiHupcXUsTifHp9bz/Yg7G/n9c6nYK5FLGcq3p7iRMd2NEyKWuTZPu0Z9JeX8/s/PHb7wKx4olbVavfIeMt3MJ5UxARYmz4m3yTI4AJyj6v7eH4fi8LoP/NaaVcqo2Vsgn0axIHJKVTcgV0nm2g4p1LJ0xwJPwk/IyLbS0AT6AbzJ34TkKpOpEy69vc2XKslYQ7yPYeU1RLwXBPwaVjYzI8QvaXK+c+9E0cTgw3eVvL4kddmSMHyCQ==
+ bh=iHqUI9WWVPGPLIAV7Xdj7MjSYcF1C0RCuhWgV524hoA=;
+ b=crhnXKyL0bwej2bhPX/IA46UGYjrk57MDwrEuYAVt3Tx1PGr7nm2+PvDcoSrBPU96FD/+hfwoBWPTEJT208/tcE7+oeeCJcS5192ahsuuNWHdWu5CIh9BGYwsMr+BvZCy14zc/mYHi86ZbLdHIErOxQFJoFjsg4c9g3tawLQ0tRFYULq83lEPiS4lAkljBfa52jg+IVTQu/96JyfTAaPqgZWuBKPAuf/VN28Pbw8tNiX+ObnY8EeQx6mXFHfjnj5KyxoTzMddQeayO8HvcM/tJzXv41Bg9fc68SQauI8b9HzRbhsEN9TSZQMgT7SSFGP6UYHSX0KN+yKUcplMxa20A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=exaleapsemi.com; dmarc=pass action=none
- header.from=exaleapsemi.com; dkim=pass header.d=exaleapsemi.com; arc=none
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=exaleapsemi.onmicrosoft.com; s=selector2-exaleapsemi-onmicrosoft-com;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JwBCPpEAK8CtB2QnyM28tYhIEeOVHuRcKlcTkJPsOak=;
- b=QSuBl9p6kXGIoVnhGbXsJXGZ2dpdHOD35EVSmjlLHO4OqQV23JT5lK8eM0XcaFyA3WCCoDywDBvdZwQ7xJhBQzCp4wE2Igi6PvqmNp37iumIQ5WN507W6xizBocWeYOZG/Uja0KcNX86dWa9zBcLjCGSpXUtBOkuniDUeCOzkvI=
-Received: from BMXPR01MB2870.INDPRD01.PROD.OUTLOOK.COM (2603:1096:b00:2f::22)
- by BM1PR01MB3364.INDPRD01.PROD.OUTLOOK.COM (2603:1096:b00:6b::14)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=iHqUI9WWVPGPLIAV7Xdj7MjSYcF1C0RCuhWgV524hoA=;
+ b=F/Un/4fkOM2awCEQrpPLWtnoz5423Szkyjfy0VDBL7Lcuk8F6syT3DSasv/LTmcPhuxFee3qqN7ZmxO2i62WDVqAPcxQYX5ejZt4rTqazVtuxGbaUvUQdOXxEGj71OTRcdLyLtSmiLgFpd7K7uaHUUCvToraCWJGDzTeqo/xAn4=
+Received: from MWHPR10MB1582.namprd10.prod.outlook.com (2603:10b6:300:22::8)
+ by MWHPR10MB1310.namprd10.prod.outlook.com (2603:10b6:300:21::18) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3955.18; Tue, 23 Mar
- 2021 14:27:04 +0000
-Received: from BMXPR01MB2870.INDPRD01.PROD.OUTLOOK.COM
- ([fe80::10fe:7e69:3f57:8f77]) by BMXPR01MB2870.INDPRD01.PROD.OUTLOOK.COM
- ([fe80::10fe:7e69:3f57:8f77%6]) with mapi id 15.20.3955.027; Tue, 23 Mar 2021
- 14:27:04 +0000
-From: "Pankaj  Vinodrao Joshi" <Pankaj.VJ@exaleapsemi.com>
-To: "ltp@lists.linux.it" <ltp@lists.linux.it>
-Thread-Topic: kdump failure on x86
-Thread-Index: AQHXH++0pS2jX1RCe0OAcFN+RYlWWA==
-Date: Tue, 23 Mar 2021 14:27:03 +0000
-Message-ID: <BMXPR01MB2870D7110A3D2AD3DF1B495AEE649@BMXPR01MB2870.INDPRD01.PROD.OUTLOOK.COM>
+ 2021 16:27:21 +0000
+Received: from MWHPR10MB1582.namprd10.prod.outlook.com
+ ([fe80::1ce7:260b:b004:c82c]) by MWHPR10MB1582.namprd10.prod.outlook.com
+ ([fe80::1ce7:260b:b004:c82c%11]) with mapi id 15.20.3955.027; Tue, 23 Mar
+ 2021 16:27:21 +0000
+From: Liam Howlett <liam.howlett@oracle.com>
+To: Li Wang <liwang@redhat.com>
+Thread-Topic: [LTP] [PATCH v2 1/1] brk02: Add test for removing more than one
+ VMA
+Thread-Index: AQHXCvRm2LPXqQYmf0Wq1gEM3bkluaqIJcyAgAnHDgA=
+Date: Tue, 23 Mar 2021 16:27:20 +0000
+Message-ID: <20210323162714.t5dm5vbo35vl4t2l@revolver>
+References: <20210224213114.2976705-1-Liam.Howlett@Oracle.com>
+ <20210224213114.2976705-2-Liam.Howlett@Oracle.com>
+ <CAEemH2cKR98HvHZ6OYJpLpaX9-5hfhTak650=DtU-q2Yoo6kbA@mail.gmail.com>
+In-Reply-To: <CAEemH2cKR98HvHZ6OYJpLpaX9-5hfhTak650=DtU-q2Yoo6kbA@mail.gmail.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-authentication-results: lists.linux.it; dkim=none (message not signed)
- header.d=none;lists.linux.it; dmarc=none action=none
- header.from=exaleapsemi.com;
-x-originating-ip: [157.45.170.186]
+authentication-results: redhat.com; dkim=none (message not signed)
+ header.d=none;redhat.com; dmarc=none action=none header.from=oracle.com;
+x-originating-ip: [23.233.25.87]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 63993780-c2e7-4bf4-fc70-08d8ee07bae1
-x-ms-traffictypediagnostic: BM1PR01MB3364:
-x-microsoft-antispam-prvs: <BM1PR01MB33648AB9A3D3020E2577D6A9EE649@BM1PR01MB3364.INDPRD01.PROD.OUTLOOK.COM>
+x-ms-office365-filtering-correlation-id: a436806c-0afa-47fb-450b-08d8ee188898
+x-ms-traffictypediagnostic: MWHPR10MB1310:
+x-microsoft-antispam-prvs: <MWHPR10MB1310989159C419BEF5DBC529FD649@MWHPR10MB1310.namprd10.prod.outlook.com>
 x-ms-oob-tlc-oobclassifiers: OLM:9508;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: Ex5Y50EuyNXpIGriJnVJu7L06g6qoQXRbz+HzzPwnWuC/l5hV45o2iC6gDjO2QX79mGeiHX7Lrf+wu1oNJ1MVR9hApTZ9JA4mzPzlQzJhkBnSiTyABiFPzn/PuCCHMK2cduks9cjI+MiIPAoJolf2fm3ZEopoMqKJD8QmZHdE1f7TFBO5VufvxY9GCYkkR1RfmZJwrHGX0IAlpFojizUTEwV22oRYQB3h9dX85Q6cfFCHv501u/sIhKZzeJVwqShK10t3W6u5M3t4JLQTEWcLfd2oKa772oTep8Zfqjb1a//dWmi8q6yVB1IYRmEIVxqlKFHWSqdIJNnDq98/aou3xmctILa06aOzZyUDYEBQNzvUbuoAipS2pBNQhzVv+W+VbtRm0sRk0RcEAYprQsiueosXyQHjOgKimGbz3mvPeIq4KWaHKysjx2tdJNAjspGLR8aAbcif/Vtr+fHP114TY8UOJTcY+w0/xlGgF2h/2xtxnAJgFl5vIlK1FQHbmHmdaAsLhxDjq8jfqoA7x66rndTWgPn/D4VIEtxhAexhJF2K8Lk8JA8ujhOoQazYbhBVOtFYxgRI9GVINhY/1hlcx0wWEozVZeY8ghJVr/StJsU7X5SWqMHvGmUsfW5aE1jrLH2QlYvgxr1jaSqp7M2Io65kTDlEYSNJTfkGRMNWRo=
+x-microsoft-antispam-message-info: xS/g2bYebSfBIKt3hC3uogN9QWSa/Ybd1/lmtrIHP3yLh/cmHD5K/YP8fkZcdvhQBKNG0LqYk6YzvMdaLOLCniCYenvCy0EEnZ1hBpJ8fqJsipEILrPYKaiJqiZzZPNLhkCP9KFIVjjMK+QSrkrpyfB/LHttCYk82gylIv927jcot4vNt3QlPHYBa5RsmoRL2Dwhl6dVpFJWZKI4qmtymWNKLifsoO4BYcthrQZ9we9GliOs4RF0y4v0EqHYzuKtpgdVqeT67xq+BuQcH4QS7pGMgYs5YcxjzJc0nnDm3ISXiveso7squiFAsOchehXlAIbbhFRqWkieDbtzpT42wEU0kq3b39KjIVvUu5989AYfekeGFik3SmVTZckw+p5rF2Xwg4gKNybnSNgVIyYTLzdbNaf9m73yrq9CkiovafES6KwrnrA5AWXS26UBLweJ0pmksY3EnxMM2mQFCQZMP0m5kcOWB82Tj7nfzMoJ54neGgWum1d53eALpv6n7YwiDHPF87t5tANEqY7SwkUtDjCE0NMH1ma4R3YKn5c6wPDhmU3rnrYUexWMX2I9I/xmK9ej9kZ2ge7tKU/7C7V36NR712eN/cNWQX/yLlkU0knCRcdXJ46iouKmFzpQwKoLd7QskbsPbXlpcfG7Gtr4RQ==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BMXPR01MB2870.INDPRD01.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(366004)(39830400003)(396003)(136003)(376002)(346002)(6916009)(26005)(5660300002)(66476007)(64756008)(83380400001)(316002)(66556008)(52536014)(38100700001)(8936002)(66446008)(19627405001)(86362001)(66946007)(478600001)(76116006)(2906002)(8676002)(33656002)(6506007)(55016002)(71200400001)(186003)(9686003)(7696005);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata: =?Windows-1252?Q?jjsP+aZd9W78UpwJZdHrG10q+qZ8EuZpO4dQ512OhsdvnHyuaVMiXpMW?=
- =?Windows-1252?Q?Z6H6QXQ8UKK9rNE4pk0CRsN+6VvTGrPnhfANPhrzVPDdaesTKa7B84R5?=
- =?Windows-1252?Q?/MMhFCy6RCCy6XPp8bLpb5rCz3W5v8ImBH0zwGPuUPXfJmrASRSaL6AW?=
- =?Windows-1252?Q?DqMHXJl1y+JNCrxJ+QR/a3Cpjv4vAxiSBVR6hzTOISjSg1oAvRbNNCTk?=
- =?Windows-1252?Q?qMV2xqK9QkeK6hdyK+Pv9WxWItCp+gk0Vl4Ism8TCHSpldAN8hmpKKiv?=
- =?Windows-1252?Q?D18Zt14ye7glWXKLISFNt6/YXxlSAGqyYQxzzhFxzkBd9jE5vv8CpHy6?=
- =?Windows-1252?Q?LdB7LYLvEJxv04YqYvj+aUBsdnB/+OS0zlGituIXEVtz/nvseUT4Mq63?=
- =?Windows-1252?Q?CIeQCYHsiy9YtEZmsRf2ANPvKcq04SDDOvp83MINkpRPHi+qkRnzOzuV?=
- =?Windows-1252?Q?axpnH3WD7yn482ZnOKxWyH0rWq70isCGLXYYsNcmHx/N+2od7WX2fRJK?=
- =?Windows-1252?Q?f6omIeOUPfAcBPtSZFvF2E3Su7AakJGZcyIMP/8hwlQfpWy4YR8P0IG0?=
- =?Windows-1252?Q?qlbtJqUbZ6eIyZVJqpLFfxewxWlsGnWum2kldMAlkrWAIRzoI+TwCGu2?=
- =?Windows-1252?Q?v6DQgSuXOdbKugEZnrSgMpHD+7g86YuUARf2hawlO6BsY+mk2nOsyowm?=
- =?Windows-1252?Q?SKav+IH4CWLSy8XOa6+jdh75YsRbBCA1iWjjduPIHw1+irj1llExg9c/?=
- =?Windows-1252?Q?7IEKi3pAPqqIoTN6zP4+DN/gWQlyE48fmoiUsuAe+XslyczBTcewAy3N?=
- =?Windows-1252?Q?B7ToR3/7d7xD/wClLoIA4eL82GlCTCFQvMuBHGaUepZVwsGp1Teim7AX?=
- =?Windows-1252?Q?psM8IbKwkQ3zweYRZo0My30CwNYGUxCndu0iVHDTJA1gcmv5dhO218gD?=
- =?Windows-1252?Q?Be2rwNzDd8CCQbFceCNA+0KbAodruTmI16S5eSgwd6Nr22so1k10jhvk?=
- =?Windows-1252?Q?21Z2pVFgi9O8s6Ip/u37vPc22aON8Qmn5QCXPaGcnyeMK6b+2TS+/Qr4?=
- =?Windows-1252?Q?q7T7uWSyHPk9YIttezpYsrkQbsxn86D2KaJiZHYq5yvNKkaxlMq1h4v2?=
- =?Windows-1252?Q?vGIlWW+XRpYSymSnGhrXv84K9YSRbKDD7iLJmHZeVxXYVGxI/3DRbiqT?=
- =?Windows-1252?Q?eMy2VNGP3Xinjw5dAtGnujCrUvpwqtwkupUubGQS/WC/FsT19WKEVXmp?=
- =?Windows-1252?Q?9MOtO7+2DH/aTCVGCRvYXnKm3JPSOocSKuQy4SU4RjbF08FuhH70iwUQ?=
- =?Windows-1252?Q?MeF84yv/WqFaZHnIFvQgPENjJAUVKoM/V+b6D3To+kQtj/hZ71Ik/9W4?=
- =?Windows-1252?Q?cpgg2yto0vHM+D4JbynMbNajCoGjaKgRKTE=3D?=
+ IPV:NLI; SFV:NSPM; H:MWHPR10MB1582.namprd10.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(7916004)(396003)(366004)(39860400002)(136003)(346002)(376002)(6506007)(76116006)(1076003)(91956017)(6486002)(6916009)(26005)(6512007)(9686003)(86362001)(38100700001)(186003)(33716001)(5660300002)(316002)(66476007)(8936002)(71200400001)(83380400001)(66946007)(8676002)(66556008)(478600001)(4326008)(64756008)(2906002)(66446008)(44832011);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?4Y6lxYu0orGygu0KtEZ7zFbPcqgSNBBaHI98ciT0ubGPKqGjMQ7m9wfo6Adq?=
+ =?us-ascii?Q?M3k93O/puGR43Enqw6I2/Jj6UOSttOWIV1EFUWBdVlhnqMEFj6onICUs2Uam?=
+ =?us-ascii?Q?Yg+4cJg0xwm+i3D0GrLBNFbHx7sPrEwKt85mtGvTmVWGFAoYM4jow9QWK8xU?=
+ =?us-ascii?Q?vZgOA7zPHa7gKLjUZruzc3f/LExYVJdnaDc9H9kkWVOBRVUdBGw3CP+fViLb?=
+ =?us-ascii?Q?acvZ1EXI2QBUAyGGziz+F8tiabtBmlSqlINAKxPFPuy2MpWED6EpHA8B2xxm?=
+ =?us-ascii?Q?fitMLaG2TeWjRRCHBppal1eNnUjuNdgl5nbN3s0knuVUJ5b3x8PP4Fmb5TVG?=
+ =?us-ascii?Q?GBsWHB07dNtHjyGvYubydyo64NroEM8Bb052qferN9x62MbR3sMGJ28NZsJJ?=
+ =?us-ascii?Q?3RKHpLp+GWxKfmP/Y7lsJRoQaT8/JeKz0XASE17/IbMBvMcWAUDOwaKzLktj?=
+ =?us-ascii?Q?39KLY4oOUR7odPjS+xuHt2/Nnau7LNhS/sVnVGlt4FMdiDqCFkqG1dhnw/6R?=
+ =?us-ascii?Q?4QN6HKYxi7tbtCT8JkcQCFoz36QyFrPkbkWmUXKOaFPUairOlyFCLW5o4mkN?=
+ =?us-ascii?Q?h1FDMCMRZLvgDxsHs4odBtHGPVDhhGa+oiZXWt89c9RSbXEKUKAHpx3aPmCS?=
+ =?us-ascii?Q?X8RDl1fU4zXqEGZET+uHYZcVcX0DmkSCJzteScnchIWvZRBtSnSmRLOORqBu?=
+ =?us-ascii?Q?9vvRJBu0YNLNw+8bjiompIwCCBR7Orbiqgji6KoFAOstPWVD0iEjj/C6pqzw?=
+ =?us-ascii?Q?mSX+2ip7HUQGQMcn/HS+5Hrrv+In0yBgGS92RrPjASp+pVz0V6zG3BegieJ0?=
+ =?us-ascii?Q?rxJIuY0t6JAPFi16lhvthqF8q6MQLxCe/Fz9gAjdwnCts+aOJnx1tdQL0BUl?=
+ =?us-ascii?Q?pT5PEYvGz9FinDHTGv+NBp/q22KYl5KHwjSn8qv9CFQabtzIV91GC//V3I8g?=
+ =?us-ascii?Q?wYq/QY5hw5PWGRg3INksgki9yIi3PBta85cCjD26uHbtBB2xHQ+NWgXw+Jve?=
+ =?us-ascii?Q?PSEcJC0y1QZ28qVqglwghCbcOZnZBUP2hGZxClQLUokjWr0PKsLrtyAhHPAW?=
+ =?us-ascii?Q?7R7TI+c6wZnyMTgLC4bCB7ZJVCgBvbv3K3A5+WfO1+eTZJdGzmRqx7rGWGfB?=
+ =?us-ascii?Q?1zIFyfO8XYH4V0uZ302TPU4acBQOw5+YpOtMOwUIUjJcKJdzVzp6tjdW1nOH?=
+ =?us-ascii?Q?JqCyMDtXGs+7oqJS7Z5dZKRr3UgaDtwbplZ40olq0zsrHSOv3bZL0Fqj2YVV?=
+ =?us-ascii?Q?ybyfa8tnIyNYJMe4MeDLHnmBRFiInMdpfF3YcaLElyPslqn4CyD69P1jieZp?=
+ =?us-ascii?Q?uUUIFGzMhbs9zYHSMRzHgJBS?=
 x-ms-exchange-transport-forked: True
+Content-ID: <6AB67A4F3EBFCD46BBE0D1B24A405E8C@namprd10.prod.outlook.com>
 MIME-Version: 1.0
-X-OriginatorOrg: exaleapsemi.com
+X-OriginatorOrg: oracle.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BMXPR01MB2870.INDPRD01.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: 63993780-c2e7-4bf4-fc70-08d8ee07bae1
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Mar 2021 14:27:03.9629 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR10MB1582.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a436806c-0afa-47fb-450b-08d8ee188898
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Mar 2021 16:27:20.9472 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 34df156e-9bc4-4450-9e80-487c0e7f9471
+X-MS-Exchange-CrossTenant-id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: yU7S4BouOwJt/bJGyj9+LiVOGN+qWL7RGsxr7wLiGbfCYkUOvstZE2AU2Jq2DsKXwwnoTqDJruRV9JBLpZ/ylh3Xo39zlBc4fNsDGkiy2tc=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BM1PR01MB3364
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-MS-Exchange-CrossTenant-userprincipalname: 42dzUockWzWTHx/ktqBbbOa8ETkXXjwBLK+xnwCKaf185XWwnvHznVD0GZJScRaotoiiV/eEKShRr5FCtCSVHA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR10MB1310
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9932
+ signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
+ malwarescore=0 spamscore=0
+ mlxscore=0 phishscore=0 suspectscore=0 mlxlogscore=999 bulkscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2103230119
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9932
+ signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
+ malwarescore=0 mlxscore=0
+ priorityscore=1501 bulkscore=0 impostorscore=0 lowpriorityscore=0
+ phishscore=0 mlxlogscore=999 suspectscore=0 clxscore=1011 spamscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2103230119
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- HTML_MESSAGE,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] kdump failure on x86
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 1/1] brk02: Add test for removing more than one
+ VMA
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,225 +167,56 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0011518144=="
+Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0011518144==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BMXPR01MB2870D7110A3D2AD3DF1B495AEE649BMXPR01MB2870INDP_"
+Hello Li,
 
---_000_BMXPR01MB2870D7110A3D2AD3DF1B495AEE649BMXPR01MB2870INDP_
-Content-Type: text/plain; charset="Windows-1252"
-Content-Transfer-Encoding: quoted-printable
+Thank you for looking at this testcase.
 
-Hi,
-i am trying to run kdump on x86 with 5.5.6 kernel but i am getting followin=
-g errors, can someone please tell whats going wrong here. I have lkdtm conf=
-ig in the kernel and installed kexec-tools as well what could be the cause =
-of issue ???
-
-
-ltp/testcases/kdump/lib/lkdtm/lkdtm.c: In function =91jp_do_irq=92:
-/home/pankaj-hmem/ltp-r2.4/ltp/testcases/kdump/lib/lkdtm/lkdtm.c:139:2: err=
-or: implicit declaration of function =91jprobe_return=92; did you mean =91p=
-robe_irq_on=92? [-Werror=3Dimplicit-function-declaration]
-  jprobe_return();
-  ^~~~~~~~~~~~~
-  probe_irq_on
-/home/pankaj-hmem/ltp-r2.4/ltp/testcases/kdump/lib/lkdtm/lkdtm.c: In functi=
-on =91lkdtm_lookup_name=92:
-/home/pankaj-hmem/ltp-r2.4/ltp/testcases/kdump/lib/lkdtm/lkdtm.c:295:10: er=
-ror: invalid use of undefined type =91struct jprobe=92
-   *(lkdtm.kp.addr) =3D addr;
-          ^
-/home/pankaj-hmem/ltp-r2.4/ltp/testcases/kdump/lib/lkdtm/lkdtm.c:296:8: err=
-or: invalid use of undefined type =91struct jprobe=92
-   lkdtm.entry =3D JPROBE_ENTRY(entry);
-        ^
-/home/pankaj-hmem/ltp-r2.4/ltp/testcases/kdump/lib/lkdtm/lkdtm.c:296:17: er=
-ror: implicit declaration of function =91JPROBE_ENTRY=92; did you mean =91K=
-PROBE_REENTER=92? [-Werror=3Dimplicit-function-declaration]
-   lkdtm.entry =3D JPROBE_ENTRY(entry);
-                 ^~~~~~~~~~~~
-                 KPROBE_REENTER
-/home/pankaj-hmem/ltp-r2.4/ltp/testcases/kdump/lib/lkdtm/lkdtm.c: In functi=
-on =91lkdtm_module_init=92:
-/home/pankaj-hmem/ltp-r2.4/ltp/testcases/kdump/lib/lkdtm/lkdtm.c:468:13: er=
-ror: implicit declaration of function =91register_jprobe=92; did you mean =
-=91register_kprobe=92? [-Werror=3Dimplicit-function-declaration]
-  if ((ret =3D register_jprobe(&lkdtm)) < 0) {
-             ^~~~~~~~~~~~~~~
-             register_kprobe
-/home/pankaj-hmem/ltp-r2.4/ltp/testcases/kdump/lib/lkdtm/lkdtm.c: In functi=
-on =91lkdtm_module_exit=92:
-/home/pankaj-hmem/ltp-r2.4/ltp/testcases/kdump/lib/lkdtm/lkdtm.c:480:2: err=
-or: implicit declaration of function =91unregister_jprobe=92; did you mean =
-=91unregister_kprobe=92? [-Werror=3Dimplicit-function-declaration]
-  unregister_jprobe(&lkdtm);
-  ^~~~~~~~~~~~~~~~~
-  unregister_kprobe
-/home/pankaj-hmem/ltp-r2.4/ltp/testcases/kdump/lib/lkdtm/lkdtm.c: At top le=
-vel:
-/home/pankaj-hmem/ltp-r2.4/ltp/testcases/kdump/lib/lkdtm/lkdtm.c:110:22: er=
-ror: storage size of =91lkdtm=92 isn=92t known
- static struct jprobe lkdtm;
-                      ^~~~~
-cc1: some warnings being treated as errors
-scripts/Makefile.build:265: recipe for target '/home/pankaj-hmem/ltp-r2.4/l=
-tp/testcases/kdump/lib/lkdtm/lkdtm.o' failed
-make[3]: *** [/home/pankaj-hmem/ltp-r2.4/ltp/testcases/kdump/lib/lkdtm/lkdt=
-m.o] Error 1
-Makefile:1693: recipe for target '/home/pankaj-hmem/ltp-r2.4/ltp/testcases/=
-kdump/lib/lkdtm' failed
-make[2]: *** [/home/pankaj-hmem/ltp-r2.4/ltp/testcases/kdump/lib/lkdtm] Err=
-or 2
-make[2]: Leaving directory '/usr/ksrc/linux-5.5.6'
-Makefile:11: recipe for target 'default' failed
-make[1]: *** [default] Error 2
-make[1]: Leaving directory '/home/pankaj-hmem/ltp-r2.4/ltp/testcases/kdump/=
-lib/lkdtm'
-Makefile:2: recipe for target 'default' failed
-make: *** [default] Error 2
+* Li Wang <liwang@redhat.com> [210317 07:08]:
+> Hi Liam, Petr,
+> 
+> Liam Howlett <liam.howlett@oracle.com> wrote:
+> 
+> 
+> > ...
+> > +       if (mprotect(addr - page_size, page_size,
+> > +                    PROT_READ|PROT_WRITE|PROT_EXEC)) {
+> > +               tst_res(TFAIL, "Cannot mprotect new VMA.");
+> > +               return;
+> > +       }
+> >
+> 
+> We got permission denied here while performing the brk02 on
+> x86_64/s390x(kernel-4.18~). After looking at the manual page of
+> mprotect(), seems the access issue caused by PROT_EXEC.
+> 
+> "
+> POSIX says that the behavior of mprotect() is unspecified if it is applied
+> to a region of memory that was not obtained via mmap(2).
+> ...
+> Whether  PROT_EXEC has any effect different from PROT_READ
+> depends on processor architecture, kernel version, and process state.
+> If READ_IMPLIES_EXEC is set in the process's personality flags
+> (see personality(2)), specifying PROT_READ will implicitly add PROT_EXEC.
+> "
 
 
+Unforntunately, dropping the PROT_EXEC causes the VMA behaviour to
+change and does not test what this testcase is intended to test.
 
-Thanks
+Removing the PROT_EXEC and the PROT_WRITE does test what is supposed to
+be tested.  Can you verify that this works on the s390x?
 
---_000_BMXPR01MB2870D7110A3D2AD3DF1B495AEE649BMXPR01MB2870INDP_
-Content-Type: text/html; charset="Windows-1252"
-Content-Transfer-Encoding: quoted-printable
+Are you using real hardware to test this or can I use some sort of
+emulation to test on my side?
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
-252">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-Hi,</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-i am trying to run kdump on x86 with 5.5.6 kernel but i am getting followin=
-g errors, can someone please tell whats going wrong here. I have lkdtm conf=
-ig in the kernel and installed kexec-tools as well what could be the cause =
-of issue ???<br>
-</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<br>
-</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<br>
-</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-ltp/testcases/kdump/lib/lkdtm/lkdtm.c: In function =91jp_do_irq=92: </div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<div>/home/pankaj-hmem/ltp-r2.4/ltp/testcases/kdump/lib/lkdtm/lkdtm.c:139:2=
-: error: implicit declaration of function =91jprobe_return=92; did you mean=
- =91probe_irq_on=92? [-Werror=3Dimplicit-function-declaration]</div>
-<div>&nbsp; jprobe_return();</div>
-<div>&nbsp; ^~~~~~~~~~~~~</div>
-<div>&nbsp; probe_irq_on</div>
-<div>/home/pankaj-hmem/ltp-r2.4/ltp/testcases/kdump/lib/lkdtm/lkdtm.c: In f=
-unction =91lkdtm_lookup_name=92:</div>
-<div>/<b>home/pankaj-hmem/ltp-r2.4/ltp/testcases/kdump/lib/lkdtm/lkdtm.c:29=
-5:10: error: invalid use of undefined type =91struct jprobe=92</b></div>
-<div><b>&nbsp; &nbsp;*(lkdtm.kp.addr) =3D addr;</b></div>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ^</div>
-<div>/home/pankaj-hmem/ltp-r2.4/ltp/testcases/kdump/lib/lkdtm/lkdtm.c:296:8=
-: <b>error: invalid use of undefined type =91struct jprobe=92</b></div>
-<div><b>&nbsp; &nbsp;lkdtm.entry =3D JPROBE_ENTRY(entry);</b></div>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; ^</div>
-<div>/home/pankaj-hmem/ltp-r2.4/ltp/testcases/kdump/lib/lkdtm/lkdtm.c:296:1=
-7: <b>
-error: implicit declaration of function =91JPROBE_ENTRY=92; did you mean =
-=91KPROBE_REENTER=92? [-Werror=3Dimplicit-function-declaration]</b></div>
-<div><b>&nbsp; &nbsp;lkdtm.entry =3D JPROBE_ENTRY(entry);</b></div>
-<div><b>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;^~~~~=
-~~~~~~~</b></div>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;KPROBE_R=
-EENTER</div>
-<div>/home/pankaj-hmem/ltp-r2.4/ltp/testcases/kdump/lib/lkdtm/lkdtm.c: In f=
-unction =91lkdtm_module_init=92:</div>
-<div>/home/pankaj-hmem/ltp-r2.4/ltp/testcases/kdump/lib/lkdtm/lkdtm.c:468:1=
-3:<b> error: implicit declaration of function =91register_jprobe=92; did yo=
-u mean =91register_kprobe=92? [-Werror=3Dimplicit-function-declaration]</b>=
-</div>
-<div><b>&nbsp; if ((ret =3D register_jprobe(&amp;lkdtm)) &lt; 0) {</b></div=
->
-<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;^~~~~~~~~~~~~~~</div>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;register_kprobe</div>
-<div>/home/pankaj-hmem/ltp-r2.4/ltp/testcases/kdump/lib/lkdtm/lkdtm.c: In f=
-unction =91lkdtm_module_exit=92:</div>
-<div>/home/pankaj-hmem/ltp-r2.4/ltp/testcases/kdump/lib/lkdtm/lkdtm.c:480:2=
-: <b>error: implicit declaration of function =91unregister_jprobe=92; did y=
-ou mean =91unregister_kprobe=92? [-Werror=3Dimplicit-function-declaration]<=
-/b></div>
-<div><b>&nbsp; unregister_jprobe(&amp;lkdtm);</b></div>
-<div><b>&nbsp; ^~~~~~~~~~~~~~~~~</b></div>
-<div>&nbsp; unregister_kprobe</div>
-<div>/home/pankaj-hmem/ltp-r2.4/ltp/testcases/kdump/lib/lkdtm/lkdtm.c: At t=
-op level:</div>
-<div>/home/pankaj-hmem/ltp-r2.4/ltp/testcases/kdump/lib/lkdtm/lkdtm.c:110:2=
-2: <b>
-error: storage size of =91lkdtm=92 isn=92t known</b></div>
-<div><b>&nbsp;static struct jprobe lkdtm;</b></div>
-<div><b>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
-p; &nbsp; ^~~~~</b></div>
-<div>cc1: some warnings being treated as errors</div>
-<div>scripts/Makefile.build:265: recipe for target '/home/pankaj-hmem/ltp-r=
-2.4/ltp/testcases/kdump/lib/lkdtm/lkdtm.o' failed</div>
-<div>make[3]: *** [/home/pankaj-hmem/ltp-r2.4/ltp/testcases/kdump/lib/lkdtm=
-/lkdtm.o] Error 1</div>
-<div>Makefile:1693: recipe for target '/home/pankaj-hmem/ltp-r2.4/ltp/testc=
-ases/kdump/lib/lkdtm' failed</div>
-<div>make[2]: *** [/home/pankaj-hmem/ltp-r2.4/ltp/testcases/kdump/lib/lkdtm=
-] Error 2</div>
-<div>make[2]: Leaving directory '/usr/ksrc/linux-5.5.6'</div>
-<div>Makefile:11: recipe for target 'default' failed</div>
-<div>make[1]: *** [default] Error 2</div>
-<div>make[1]: Leaving directory '/home/pankaj-hmem/ltp-r2.4/ltp/testcases/k=
-dump/lib/lkdtm'</div>
-<div>Makefile:2: recipe for target 'default' failed</div>
-<div>make: *** [default] Error 2</div>
-</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<br>
-</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<br>
-</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<br>
-</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-Thanks<br>
-</div>
-</body>
-</html>
-
---_000_BMXPR01MB2870D7110A3D2AD3DF1B495AEE649BMXPR01MB2870INDP_--
-
---===============0011518144==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Thank you,
+Liam
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============0011518144==--
