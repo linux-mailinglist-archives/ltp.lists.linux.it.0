@@ -1,51 +1,44 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72DD3347399
-	for <lists+linux-ltp@lfdr.de>; Wed, 24 Mar 2021 09:26:44 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 785D934746C
+	for <lists+linux-ltp@lfdr.de>; Wed, 24 Mar 2021 10:21:23 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3926C3C93B6
-	for <lists+linux-ltp@lfdr.de>; Wed, 24 Mar 2021 09:26:44 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 0BE573C9422
+	for <lists+linux-ltp@lfdr.de>; Wed, 24 Mar 2021 10:21:23 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 9569D3C93AA
- for <ltp@lists.linux.it>; Wed, 24 Mar 2021 09:26:42 +0100 (CET)
-Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ by picard.linux.it (Postfix) with ESMTP id B2EB73C93F8
+ for <ltp@lists.linux.it>; Wed, 24 Mar 2021 10:21:20 +0100 (CET)
+Received: from szxga05-in.huawei.com (szxga05-in.huawei.com [45.249.212.191])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id E5C72200923
- for <ltp@lists.linux.it>; Wed, 24 Mar 2021 09:26:41 +0100 (CET)
-Received: from [192.168.178.40] (unknown [178.26.168.79])
- by mail.jv-coder.de (Postfix) with ESMTPSA id 18716A1DE8;
- Wed, 24 Mar 2021 08:26:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
- t=1616574400; bh=4JnKaqIIL5unTqnRJ5vl/6BZnfbAqFBkt6v499Osdqs=;
- h=Subject:To:From:Message-ID:Date:MIME-Version;
- b=nj30W3eakTwE5tSdesGYjktUmDTOF68Q6y2ai6o1Ldlt84fuoepKqJx7sEXyx63tG
- IeU4JjHPFyPaeDRC+IOHy8pDinLEMaVVznQcz3YLRdDg1wstYn5oMD6pTTHFkVl1P4
- A2IkifsCbkCvf9iraFxHc26PZb3yEjB6MPQ4KJ6c=
-To: Pankaj Vinodrao Joshi <Pankaj.VJ@exaleapsemi.com>,
- "ltp@lists.linux.it" <ltp@lists.linux.it>
-References: <BMXPR01MB2870D7110A3D2AD3DF1B495AEE649@BMXPR01MB2870.INDPRD01.PROD.OUTLOOK.COM>
-From: Joerg Vehlow <lkml@jv-coder.de>
-Message-ID: <cbc294d7-830c-9491-13b1-836be7da043f@jv-coder.de>
-Date: Wed, 24 Mar 2021 09:27:54 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 4B738600816
+ for <ltp@lists.linux.it>; Wed, 24 Mar 2021 10:21:17 +0100 (CET)
+Received: from DGGEMS409-HUB.china.huawei.com (unknown [172.30.72.58])
+ by szxga05-in.huawei.com (SkyGuard) with ESMTP id 4F52jG4kHBzPlkJ
+ for <ltp@lists.linux.it>; Wed, 24 Mar 2021 17:18:42 +0800 (CST)
+Received: from ubuntu1804.huawei.com (10.67.174.209) by
+ DGGEMS409-HUB.china.huawei.com (10.3.19.209) with Microsoft SMTP Server id
+ 14.3.498.0; Wed, 24 Mar 2021 17:21:06 +0800
+From: Xie Ziyao <xieziyao@huawei.com>
+To: <ltp@lists.linux.it>
+Date: Wed, 24 Mar 2021 17:20:59 +0800
+Message-ID: <20210324092059.8503-1-xieziyao@huawei.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-In-Reply-To: <BMXPR01MB2870D7110A3D2AD3DF1B495AEE649@BMXPR01MB2870.INDPRD01.PROD.OUTLOOK.COM>
-Content-Language: en-US
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Originating-IP: [10.67.174.209]
+X-CFilter-Loop: Reflected
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] kdump failure on x86
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH] syscalls/bind: Use safe_macros to check the return
+ value of the close() & bind().
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,35 +50,54 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="windows-1252"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
+For those:
+  testcases/kernel/syscalls/bind/bind03.c
+  testcases/kernel/syscalls/bind/bind06.c
 
-On 3/23/2021 3:27 PM, Pankaj Vinodrao Joshi wrote:
-> Hi,
-> i am trying to run kdump on x86 with 5.5.6 kernel but i am getting =
+Signed-off-by: Xie Ziyao <xieziyao@huawei.com>
+---
+ testcases/kernel/syscalls/bind/bind03.c | 4 ++--
+ testcases/kernel/syscalls/bind/bind06.c | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
-> following errors, can someone please tell whats going wrong here. I =
+diff --git a/testcases/kernel/syscalls/bind/bind03.c b/testcases/kernel/syscalls/bind/bind03.c
+index c39e8f197..ebde19591 100644
+--- a/testcases/kernel/syscalls/bind/bind03.c
++++ b/testcases/kernel/syscalls/bind/bind03.c
+@@ -66,8 +66,8 @@ void run(void)
 
-> have lkdtm config in the kernel and installed kexec-tools as well what =
+ static void cleanup(void)
+ {
+-	close(sock1);
+-	close(sock2);
++	SAFE_CLOSE(sock1);
++	SAFE_CLOSE(sock2);
+ }
 
-> could be the cause of issue ???
-It looks like the testcase is hopelessly outdated... The jprobe =
+ static struct tst_test test = {
+diff --git a/testcases/kernel/syscalls/bind/bind06.c b/testcases/kernel/syscalls/bind/bind06.c
+index e971a8940..017e0fc89 100644
+--- a/testcases/kernel/syscalls/bind/bind06.c
++++ b/testcases/kernel/syscalls/bind/bind06.c
+@@ -60,8 +60,8 @@ static void cleanup(void)
 
-interface was removed in linux 4.15 back in 2017 [1]
-The tests needs a major rewrite, to work on kernels newer than 4.15.
+ static void do_bind(void)
+ {
+-	bind(fd, (struct sockaddr *)&addr1, sizeof(addr1));
+-	bind(fd, (struct sockaddr *)&addr2, sizeof(addr2));
++	SAFE_BIND(fd, (struct sockaddr *)&addr1, sizeof(addr1));
++	SAFE_BIND(fd, (struct sockaddr *)&addr2, sizeof(addr2));
+ }
 
-J=F6rg
+ static void *thread_run(void *arg)
+--
+2.17.1
 
 
-[1] =
-
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?=
-id=3D590c845930457d25d27dc1fdd964a1ce18ef2d7d
-
--- =
-
+-- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
