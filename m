@@ -1,120 +1,59 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E838347486
-	for <lists+linux-ltp@lfdr.de>; Wed, 24 Mar 2021 10:27:01 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 29D2A347492
+	for <lists+linux-ltp@lfdr.de>; Wed, 24 Mar 2021 10:27:13 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3DF203C9438
-	for <lists+linux-ltp@lfdr.de>; Wed, 24 Mar 2021 10:27:01 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id AAE5F3C9495
+	for <lists+linux-ltp@lfdr.de>; Wed, 24 Mar 2021 10:27:12 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
- by picard.linux.it (Postfix) with ESMTP id C8E613C9408
- for <ltp@lists.linux.it>; Wed, 24 Mar 2021 10:26:59 +0100 (CET)
-Received: from IND01-BO1-obe.outbound.protection.outlook.com
- (mail-eopbgr1390092.outbound.protection.outlook.com [40.107.139.92])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 49E2B14010DC
- for <ltp@lists.linux.it>; Wed, 24 Mar 2021 10:26:58 +0100 (CET)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QrF5hWAUbgNeQSO0gScJTjgZExU0L/qvzW4ys3gI4gI+Ai/XERE9h3T56MrAGwvbccaC0HipPYBaaR42gECvq2+v86vCtXLxXlGU3J5e7OFLs3nYOwW/h81x0RCBiKNUyFaMksmgsH5DWZF9DMjXQNvvlO/0W5vO9ywlrQNSaEfYTjkCxwy0NHOB42pacJwVQhdbskvkhlIlGiNATzTVBlV3bpAoP8cEmnPvlZBzFLIVDI102XaibthAqxdSphtqvrGmKhx0eG4N1TdEH39csFBdIvEWeEc503X3lcjQFOrBkWber6gPBynXY9jC9fa0t0AxR5crJAzje4ujVie8uA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iMRLZX5cIs2g7Xs+m454mh+PfDUHvVwEGiOcotrpYoc=;
- b=WBNhcWDeY6+bxTZALXF3n5iZ8zGQH4yTeyzNdKhocx/HNEaYSfT8ubIISj74CNmeT0kyXxTU7CFUI6IpHj1ZX2bZGxm4zUyh/Pn/PUWHwO+MyXjwq9H1jvScs6KgnrfvuBN/0/oF0q5mpKe2B32nDRAipbmKCLORnYj8l1tCuoVeK1ITF7Veey+lirYXpqVZPR15cf4FlRCrCt35mLCAUG6E/An4cVuwVv/+T0EhVUs3wcDOKeZKnxtNoS4R8+EfKIwMNKhYmL4B8fnGgG48EaNhqfkT+fPd13vEj5QeeE7h0jAZtcvkvwv39kcHx9hS89Uhn+WXmVDVMJcIrUc1Jg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=exaleapsemi.com; dmarc=pass action=none
- header.from=exaleapsemi.com; dkim=pass header.d=exaleapsemi.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=exaleapsemi.onmicrosoft.com; s=selector2-exaleapsemi-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iMRLZX5cIs2g7Xs+m454mh+PfDUHvVwEGiOcotrpYoc=;
- b=Yaf3PSag9+agSRnSFyna5e9DiU0O4JPEdJA37Ck+vU7z67Mz+qPPMEQD6xdmAdI60ib0zxuG2mHVCi07espcd8smJhG5YbrKYzCl37zauOeCkiKZPaCkj9IDzvwEbremEpTqqHa5RN+I5Hjed4DOLfQ6mcx84tYH4bZmsPwOxyY=
-Received: from BMXPR01MB2870.INDPRD01.PROD.OUTLOOK.COM (2603:1096:b00:2f::22)
- by BM1PR01MB4961.INDPRD01.PROD.OUTLOOK.COM (2603:1096:b01:9::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3955.18; Wed, 24 Mar
- 2021 09:26:53 +0000
-Received: from BMXPR01MB2870.INDPRD01.PROD.OUTLOOK.COM
- ([fe80::10fe:7e69:3f57:8f77]) by BMXPR01MB2870.INDPRD01.PROD.OUTLOOK.COM
- ([fe80::10fe:7e69:3f57:8f77%6]) with mapi id 15.20.3955.027; Wed, 24 Mar 2021
- 09:26:53 +0000
-From: "Pankaj  Vinodrao Joshi" <Pankaj.VJ@exaleapsemi.com>
-To: Joerg Vehlow <lkml@jv-coder.de>, "ltp@lists.linux.it" <ltp@lists.linux.it>
-Thread-Topic: [LTP] kdump failure on x86
-Thread-Index: AQHXH++0pS2jX1RCe0OAcFN+RYlWWKqSz0wAgAAQdt0=
-Date: Wed, 24 Mar 2021 09:26:53 +0000
-Message-ID: <BMXPR01MB28704FBCBB43FA5BE924AF12EE639@BMXPR01MB2870.INDPRD01.PROD.OUTLOOK.COM>
-References: <BMXPR01MB2870D7110A3D2AD3DF1B495AEE649@BMXPR01MB2870.INDPRD01.PROD.OUTLOOK.COM>,
- <cbc294d7-830c-9491-13b1-836be7da043f@jv-coder.de>
-In-Reply-To: <cbc294d7-830c-9491-13b1-836be7da043f@jv-coder.de>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: jv-coder.de; dkim=none (message not signed)
- header.d=none;jv-coder.de; dmarc=none action=none
- header.from=exaleapsemi.com;
-x-originating-ip: [2409:4071:e9c:19bc:8d25:c718:4639:61f5]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: a4d137ef-5a63-4289-7ef8-08d8eea6f626
-x-ms-traffictypediagnostic: BM1PR01MB4961:
-x-microsoft-antispam-prvs: <BM1PR01MB49616B90F3DF04849C8074B6EE639@BM1PR01MB4961.INDPRD01.PROD.OUTLOOK.COM>
-x-ms-oob-tlc-oobclassifiers: OLM:9508;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 7L82C/Htg3YxORZHuBuNnXHvF+nB9PoJM7pqFQ/S5RTYjOeF580fpgBvIPwHerGEfAkLKpq7NkQRmgaQnyjkCntDIeunGXMLKOAWRcqBbk4AQfu+/guOORJSIWwcWWWvmhKAsToY3PTXU+rRl7vfPW8k39oo5wdvrgnEcNnmsu0rxMJ1D1Vv+W3HnyXydNAnSpiYCN05R5dZ+xB+Vc9svM38+73/oBTa1jono6iq2/zGspSjHtcg2FNFYNcmL/jJhm6yjBhKBGtTZBA/tPyjlgmEuY86rUm09qWqJoMyRujVsy8mTlvO1Wnxjb9cToD6JGf7LjIsZ4z6M43SPwU3TnL71ZjhIk8NmnkZk2wQpnO6CcMVYuQa1twkCIRfv95PPpIag6JBRzmQfLeZeD27Y48IMlTd+xX/5J4kLVSIKNY0R5Mh/Ox8vVTrxJRJoYPzsjvWSMz2dU3Lefg574wX69MUdCTxpqbjawCTATeeg0qsC6XzSCyzivcJ4+hH4jHQbj4CqJYX3x/KCxBwhV6qUZxmjtBM+rrcdm7FK02r0h3G6RVH/SS7IvaRGPbP5yliy/AiijHt35ghjrsg/tKXyive0pUCxxlTok43wxeqcdIeClm1kVw0bc7GpleQJ6mmGsadPkt7WA227oDKFQ8Ze25VBiaGd1Fci4kgjEoBxxFRpNvunjBcBUKnuSaQ0SZVKBvrpkyvTgWCNqKeQ64GfBjZJcPpdSv3HVhSWJWjtts=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BMXPR01MB2870.INDPRD01.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(136003)(346002)(39830400003)(376002)(396003)(366004)(478600001)(966005)(8936002)(6506007)(53546011)(2906002)(64756008)(55016002)(38100700001)(19627405001)(110136005)(9686003)(7696005)(71200400001)(186003)(166002)(86362001)(76116006)(66476007)(66946007)(66574015)(83380400001)(4744005)(52536014)(316002)(8676002)(5660300002)(66446008)(66556008)(33656002);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata: =?iso-8859-1?Q?B7pfia3R7BNaHrNabBkbo0DdjsBqkeO5jRTKTEgwKxbnHB4lpozFJVNjHC?=
- =?iso-8859-1?Q?e3gHmXupj+b/mQgJebBpcZ/J9kG5mIKyFlkQX76IC89t553qZjB3fITST5?=
- =?iso-8859-1?Q?6MicqO8S+8h+8uiqbTrXVg0+GS9qAW5M7tp8okYNL9lVokJNBMOu7yf8P4?=
- =?iso-8859-1?Q?OBulqC4k7ZwYWpsx7n5+qrbZm4G09MwP2oUMt5kFs7uizhqhB3xkGkn1+z?=
- =?iso-8859-1?Q?xMW/dF6l+ldSjbGcHuDjhJ2a1+EYfCJJzkeY5P8ox+alkrdC8b9HMEh+Co?=
- =?iso-8859-1?Q?/JRRaVCkChXRi0XcIimBrpr9sFUFtRboS9jXK8VoIIPGMR4rgS7t6WOsDm?=
- =?iso-8859-1?Q?M7mKOPU4vAg2nA6YntXk5ucFUBMt4y996ErSPPWcSZoo3jll96y7sl+83P?=
- =?iso-8859-1?Q?PF09MT6B4x803KDnmiPZhAb5E3+nUCXuzs++FXOfRmTTDrQy4EhxbMaiXR?=
- =?iso-8859-1?Q?mASdDKlO3TXcDPeJfWBI3GHVcrYFbmRpLsE6nfHq+zh1h8Q2z1HlA8L1j8?=
- =?iso-8859-1?Q?t20gP4xpkzDtjmSB5Bfbe6D2Zs8AV4Hm/+si4xL/89tsB/jLx88QhKGaJa?=
- =?iso-8859-1?Q?7d+LaCJYJQgh+Db8I+MpGTGEY9RMDdCOXaHPpgOxft55cAMex7Atr64zrA?=
- =?iso-8859-1?Q?mSuU1mNvCKXvn01mCS8eqhWBdvy79MuPHHd0uWZCiUlDTHEhmjCZMyKC/A?=
- =?iso-8859-1?Q?SSEXB4kUFPAvX1TsME9g4bqlIgVHJkEc2utG2zzC+Ud75Qr0MGFJU+tdzo?=
- =?iso-8859-1?Q?3SU3Tqiy9DqoFSH47lVy9H3tqYqxM5D9JfwfTzlWSn3cnWIenpKX6e+0FR?=
- =?iso-8859-1?Q?gLno8GOmlOKdEdx3GPC1hpT7MufgAM5wIZ5ha5YbwmmXFCrTvy06NdmR4v?=
- =?iso-8859-1?Q?zg4wqX5WjRT0yQg+jLIwwhaB6EHqWFUzKVp4jLrdGKpek92UBBlYOufcr0?=
- =?iso-8859-1?Q?IWTsrF4Hm7I32JkNUj1taD1LDtFMb2jDqcOzcIMcA+auPRJcr9ptZzAnpi?=
- =?iso-8859-1?Q?tOgC4XyC4qMeYNBWRbAkPeiA6R3dwNY8PTjPvJ38k9DdgTy2glTb/FZBmy?=
- =?iso-8859-1?Q?XfeH4qbYuvAzCDEiEf1IfaD1kHc7JMbhE/n+6ntZ5UNyxYt2JtNSiJ6mXy?=
- =?iso-8859-1?Q?99nS9ubYIakrP7xVE+tWzTtkGHFGBcAKVuubg/sSgXyN5npRy7PNZJT9Rl?=
- =?iso-8859-1?Q?3uK2aJSKAeOiGT9Wdeu3x8T1Y1mfNjHqZXL63dCPS4awIscZ0D4wGlhxqG?=
- =?iso-8859-1?Q?Xs3dMq/ezzKePn4jwL8hyN4DXBtq/s0gzhQWKJEBnm3ZqhUalvorkceq3n?=
- =?iso-8859-1?Q?rq5WcimuTNowbZb3gis149PzYCd0B04gxcA2t0h4GsGJdgPVEJoXS1prWN?=
- =?iso-8859-1?Q?AyxC/cvcenzBDwoOD5ZAEXTIQ06eS4/rQJJqxkudR8N46hVs9cLdWX32jv?=
- =?iso-8859-1?Q?7lCCZt6b3Mk6JmWh?=
-x-ms-exchange-transport-forked: True
-MIME-Version: 1.0
-X-OriginatorOrg: exaleapsemi.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BMXPR01MB2870.INDPRD01.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: a4d137ef-5a63-4289-7ef8-08d8eea6f626
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Mar 2021 09:26:53.3405 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 34df156e-9bc4-4450-9e80-487c0e7f9471
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: z0xDxIQNQj+SJJDs1+9ngytX6rT8+OZKWDL9gXtC7vYR2hM9Ti1nYR+Qy7iSpcSbXgsTEGrGJuJRc+zOu6oHWh3PJ4YOSeuZGrQWqQhquj4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BM1PR01MB4961
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ by picard.linux.it (Postfix) with ESMTP id 176923C94A2
+ for <ltp@lists.linux.it>; Wed, 24 Mar 2021 10:27:07 +0100 (CET)
+Received: from chinatelecom.cn (prt-mail.chinatelecom.cn [42.123.76.220])
+ by in-3.smtp.seeweb.it (Postfix) with ESMTP id 2E7FC1A01068
+ for <ltp@lists.linux.it>; Wed, 24 Mar 2021 10:27:04 +0100 (CET)
+HMM_SOURCE_IP: 172.18.0.92:46013.1485671434
+HMM_ATTACHE_NUM: 0000
+HMM_SOURCE_TYPE: SMTP
+Received: from clientip-10.133.11.243?logid-677f4347c4384dad941489a62dbc09aa
+ (unknown [172.18.0.92])
+ by chinatelecom.cn (HERMES) with SMTP id D1598280097;
+ Wed, 24 Mar 2021 17:27:03 +0800 (CST)
+X-189-SAVE-TO-SEND: liuxp11@chinatelecom.cn
+Received: from  ([172.18.0.92])
+ by App0021 with ESMTP id 677f4347c4384dad941489a62dbc09aa for
+ liwang@redhat.com; Wed Mar 24 17:27:05 2021
+X-Transaction-ID: 677f4347c4384dad941489a62dbc09aa
+X-filter-score: filter<0>
+X-Real-From: liuxp11@chinatelecom.cn
+X-Receive-IP: 172.18.0.92
+X-MEDUSA-Status: 0
+Date: Wed, 24 Mar 2021 17:26:59 +0800
+From: "liuxp11@chinatelecom.cn" <liuxp11@chinatelecom.cn>
+To: "Li Wang" <liwang@redhat.com>
+References: <1611570288-23040-1-git-send-email-liuxp11@chinatelecom.cn>, 
+ <YBE03REJywKIlM0X@yuki.lan>, 
+ <2021012718043566596022@chinatelecom.cn>, 
+ <CAEemH2dA0T1F3wsdwtG2hsfDUUJsY8gFeTLTHyGz+pu034gH4g@mail.gmail.com>, 
+ <202103051352110688245@chinatelecom.cn>, 
+ <CAEemH2cW9djj3sN8j9Xj_A5iNB9DLhYYkK=nu8ypaOtiYMnLyw@mail.gmail.com>
+X-Priority: 3
+X-GUID: CFFDE2A8-F09D-465C-BB79-5C4C500135B0
+X-Has-Attach: no
+X-Mailer: Foxmail 7.2.18.111[cn]
+Mime-Version: 1.0
+Message-ID: <202103241726592002447@chinatelecom.cn>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- HTML_MESSAGE,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] kdump failure on x86
+X-Spam-Status: No, score=0.0 required=7.0 tests=HTML_MESSAGE,SPF_HELO_PASS,
+ SPF_PASS,T_KAM_HTML_FONT_INVALID autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/2] syscalls/ioctl: ioctl_sg01.c: ioctl_sg01
+ invoked oom-killer
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,111 +65,164 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0896141617=="
+Cc: ltp <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============0743489834=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0896141617==
-Content-Language: en-US
+This is a multi-part message in MIME format.
+
+--===============0743489834==
 Content-Type: multipart/alternative;
-	boundary="_000_BMXPR01MB28704FBCBB43FA5BE924AF12EE639BMXPR01MB2870INDP_"
+	boundary="----=_001_NextPart380552283478_=----"
 
---_000_BMXPR01MB28704FBCBB43FA5BE924AF12EE639BMXPR01MB2870INDP_
-Content-Type: text/plain; charset="iso-8859-1"
+This is a multi-part message in MIME format.
+
+------=_001_NextPart380552283478_=----
+Content-Type: text/plain;
+	charset="UTF-8"
+Content-Transfer-Encoding: base64
+
+SGkgTGkgV2FuZywNCkkgdGhpbmsgeW91ciBwYXRjaCBpcyBnb29kLg0KMS5Db21taXRMaW1pdCBp
+cyB0aGUgbWVtb3J5IHRoYXQgY2FuIGJlIGFsbG9jYXRlZCBieSBhcHBsaWNhdGlvbi4NCjIuaW9j
+dGxfc2cwMSBpbiBzZXJ2ZXJhbCBtYWNoaW5lcyB3aXRoIHlvdXIgcGF0Y2gsdGhlIHJlc3VsdCBp
+cyBwYXNzZWQuDQoNClRoYW5rcyENCiAgICANCkZyb206IExpIFdhbmcNCkRhdGU6IDIwMjEtMDMt
+MDUgMTc6MDINClRvOiBsaXV4cDExQGNoaW5hdGVsZWNvbS5jbg0KQ0M6IEN5cmlsIEhydWJpczsg
+bHRwOyBtZG91Y2hhDQpTdWJqZWN0OiBSZTogUmU6IFtMVFBdIFtQQVRDSCAxLzJdIHN5c2NhbGxz
+L2lvY3RsOiBpb2N0bF9zZzAxLmM6IGlvY3RsX3NnMDEgaW52b2tlZCBvb20ta2lsbGVyDQpIaSBY
+aW5wZW5nLA0KDQpPbiBGcmksIE1hciA1LCAyMDIxIGF0IDE6NTIgUE0gbGl1eHAxMUBjaGluYXRl
+bGVjb20uY24gPGxpdXhwMTFAY2hpbmF0ZWxlY29tLmNuPiB3cm90ZToNCi0tLSBhL2xpYi90c3Rf
+bWVtdXRpbHMuYw0KKysrIGIvbGliL3RzdF9tZW11dGlscy5jDQpAQCAtMzYsNiArMzYsMTMgQEAg
+dm9pZCB0c3RfcG9sbHV0ZV9tZW1vcnkoc2l6ZV90IG1heHNpemUsIGludCBmaWxsY2hhcikNCiAg
+ICAgICAgaWYgKGluZm8uZnJlZXJhbSAtIHNhZmV0eSA8IG1heHNpemUgLyBpbmZvLm1lbV91bml0
+KQ0KICAgICAgICAgICAgICAgIG1heHNpemUgPSAoaW5mby5mcmVlcmFtIC0gc2FmZXR5KSAqIGlu
+Zm8ubWVtX3VuaXQ7DQoNCiA9PT5UaGFua3MsYnV0IHRoZSBtYXhzaXplIG9yaWdpbmFsIGNvZGUg
+bmVlZCB0byBiZSBkZWxldGVkLFJpZ2h0Pw0KDQpObywgdGhlIG1heHNpemUgY29kZSBpcyBhbHNv
+IHVzZWZ1bCwgaXQgbmVlZHMgdG8gZGVmaW5lIHRoZSB2YWx1ZSBpbg0KbW9zdCBjb21tb24gc2l0
+dWF0aW9ucyhpLmUuIENvbW1pdExpbWl0ID4gTWVtQXZhaWxhYmxlKS4NCg0KQnV0IEknbSBzdGls
+bCBoZXNpdGF0aW5nIHRvIHVzZSBDb21pdExpbWl0IGFzIHRoZSB0aHJlc2hvbGQgZm9yICdtYXhz
+aXplJy4NCkJlY2F1c2UgYWNjb3JkaW5nIHRvIHRoZSBMaW51eCBkb2N1bWVudCwgaXQgc2F5cyB0
+aGF0IG9ubHkgdGFrZSBlZmZvcnQNCndoZW4gb3ZlcmNvbW1pdF9tZW1vcnkgaXMgc2V0dGluZyB0
+byAyLiBCdXQgb3VyIHRlc3Qgc3lzdGVtIGFsbCBzZXQgMA0KYnkgZGVmYXVsdC4NCg0KICAgIlRo
+aXMgbGltaXQgaXMgb25seSBhZGhlcmVkIHRvIGlmIHN0cmljdCBvdmVyY29tbWl0IGFjY291bnRp
+bmcgaXMgZW5hYmxlZA0KICAgIChtb2RlIDIgaW4gJ3ZtLm92ZXJjb21taXRfbWVtb3J5JykuIg0K
+ICAgIHNlZTogaHR0cHM6Ly9naXRodWIuY29tL3RvcnZhbGRzL2xpbnV4L2Jsb2IvbWFzdGVyL0Rv
+Y3VtZW50YXRpb24vZmlsZXN5c3RlbXMvcHJvYy5yc3QNCg0KU2VlbXMgdG8gdXNlIENvbW1pdExp
+bWl0IGxvb2tzIGEgYml0IHN0cmljdCBhbmQgc3RyYW5nZSB0byB0ZXN0Lg0KDQpBbmQgSSBldmVu
+IHRoaW5rIHRoZSB3YXkgdG8gdXNlIE1lbUF2YWlsYWJsZSBpcyBhY2NlcHRhYmxlIGlmDQpNZW1G
+cmVlID4gTWVtQXZhaWxhYmxlLCBqdXN0IGxpa2Ugd2hhdCB5b3UgZGlkIGluIHlvdXIgbGFzdCBw
+YXRjaC4NCg0KSSdtIHN0aWxsIG5vdCB2ZXJ5IHN1cmUgc28gZmFyfg0KKEJ1dCBvbmUgdGhpbmcg
+SSBjYW4gY29uZmlybSB0aGF0IE1lbUF2YWlsYWJsZSA8IE1lbUZyZWUgaXMgY29ycmVjdCBiZWhh
+dmlvciBzb21ldGltZXMpDQoNCiANCg0KKyAgICAgICAvKg0KKyAgICAgICAgKiBUbyByZXNwZWN0
+IENvbW1pdExpbWl0IHRvIHByZXZlbnQgdGVzdCBpbnZva2luZyBPT00ga2lsbGVyLA0KKyAgICAg
+ICAgKiB0aGlzIG1heSBhcHBlYXIgb24gc3lzdGVtIHdpdGggYSBzbWFsbGVyIHN3YXAtZGlzayAo
+b3IgZGlzYWJsZWQpLg0KKyAgICAgICAgKi8NCisgICAgICAgaWYgKFNBRkVfUkVBRF9NRU1JTkZP
+KCJDb21taXRMaW1pdDoiKSA8IFNBRkVfUkVBRF9NRU1JTkZPKCJNZW1BdmFpbGFibGU6IikpDQor
+ICAgICAgICAgICAgICAgbWF4c2l6ZSA9IFNBRkVfUkVBRF9NRU1JTkZPKCJDb21taXRMaW1pdDoi
+KSAqIDEwMjQgLSAoc2FmZXR5ICogaW5mby5tZW1fdW5pdCk7DQorDQogICAgICAgIGJsb2Nrc2l6
+ZSA9IE1JTihtYXhzaXplLCBibG9ja3NpemUpOw0KICAgICAgICBtYXBfY291bnQgPSBtYXhzaXpl
+IC8gYmxvY2tzaXplOw0KICAgICAgICBtYXBfYmxvY2tzID0gU0FGRV9NQUxMT0MobWFwX2NvdW50
+ICogc2l6ZW9mKHZvaWQgKikpOw0KIA0KDQotLSANClJlZ2FyZHMsDQpMaSBXYW5nDQo=
+
+------=_001_NextPart380552283478_=----
+Content-Type: text/html;
+	charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Got it, thanks!
+<html><head><meta http-equiv=3D"content-type" content=3D"text/html; charse=
+t=3DUTF-8"><style>body { line-height: 1.5; }blockquote { margin-top: 0px; =
+margin-bottom: 0px; margin-left: 0.5em; }div.FoxDiv20210324172018095240 { =
+}body { font-size: 14px; font-family: 'Microsoft YaHei UI'; color: rgb(0, =
+0, 0); line-height: 1.5; }</style></head><body>=0A<div><span></span></div>=
+<blockquote style=3D"margin-Top: 0px; margin-Bottom: 0px; margin-Left: 0.5=
+em; margin-Right: inherit"><div>Hi Li Wang,</div><div>I think your patch i=
+s good.</div><div><span style=3D"font-size: small; line-height: 19.5px; ba=
+ckground-color: transparent;">1.CommitLimit is the memory that can be allo=
+cated by application.</span></div><div><span style=3D"font-size: small; li=
+ne-height: 19.5px; background-color: transparent;">2.ioctl_sg01 in servera=
+l machines with your patch,the result is passed.</span></div><div><span st=
+yle=3D"font-size: small; line-height: 19.5px; background-color: transparen=
+t;"><br></span></div><div><span style=3D"font-size: small; line-height: 19=
+.5px; background-color: transparent;">Thanks!</span></div><div><span style=
+=3D"color: rgb(0, 0, 0); background-color: rgba(0, 0, 0, 0);">&nbsp; &nbsp=
+;&nbsp;</span></div><div style=3D"border:none;border-top:solid #B5C4DF 1.0=
+pt;padding:3.0pt 0cm 0cm 0cm"><div style=3D"PADDING-RIGHT: 8px; PADDING-LE=
+FT: 8px; FONT-SIZE: 12px;FONT-FAMILY:tahoma;COLOR:#000000; BACKGROUND: #ef=
+efef; PADDING-BOTTOM: 8px; PADDING-TOP: 8px"><div><b>From:</b>&nbsp;<a hre=
+f=3D"mailto:liwang@redhat.com">Li Wang</a></div><div><b>Date:</b>&nbsp;202=
+1-03-05&nbsp;17:02</div><div><b>To:</b>&nbsp;<a href=3D"mailto:liuxp11@chi=
+natelecom.cn">liuxp11@chinatelecom.cn</a></div><div><b>CC:</b>&nbsp;<a hre=
+f=3D"mailto:chrubis@suse.cz">Cyril Hrubis</a>; <a href=3D"mailto:ltp@lists=
+.linux.it">ltp</a>; <a href=3D"mailto:mdoucha@suse.cz">mdoucha</a></div><d=
+iv><b>Subject:</b>&nbsp;Re: Re: [LTP] [PATCH 1/2] syscalls/ioctl: ioctl_sg=
+01.c: ioctl_sg01 invoked oom-killer</div></div></div><div><div class=3D"Fo=
+xDiv20210324172018095240"><div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"=
+gmail_default" style=3D"font-size:small">Hi Xinpeng,</div></div><br><div c=
+lass=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Fri, Mar 5, =
+2021 at 1:52 PM <a href=3D"mailto:liuxp11@chinatelecom.cn" target=3D"_blan=
+k">liuxp11@chinatelecom.cn</a> &lt;<a href=3D"mailto:liuxp11@chinatelecom.=
+cn" target=3D"_blank">liuxp11@chinatelecom.cn</a>&gt; wrote:<br></div><blo=
+ckquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-lef=
+t:1px solid rgb(204,204,204);padding-left:1ex"><div>=0A<div><span></span><=
+div class=3D"gmail_quote"><span class=3D"gmail_default">--- a/lib/tst_memu=
+tils.c<br>+++ b/lib/tst_memutils.c<br>@@ -36,6 +36,13 @@ void tst_pollute_=
+memory(size_t maxsize, int fillchar)<br><strike>&nbsp; &nbsp; &nbsp; &nbsp=
+; if (info.freeram - safety &lt; maxsize / info.mem_unit)<br>&nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; maxsize =3D (info.freeram - saf=
+ety) * info.mem_unit;</strike><br><br></span></div><div class=3D"gmail_quo=
+te"><span class=3D"gmail_default">&nbsp;=3D=3D&gt;Thanks,but the maxsize o=
+riginal code need to be deleted,Right?<br></span></div></div></div></block=
+quote><div><br></div><div><div class=3D"gmail_default" style=3D"font-size:=
+small">No, the maxsize code is also useful, it needs to define the value i=
+n</div><div class=3D"gmail_default" style=3D"font-size:small">most common =
+situations(i.e. CommitLimit &gt;&nbsp;MemAvailable).</div><br></div><div><=
+div class=3D"gmail_default" style=3D"font-size:small">But I'm still hesita=
+ting to use ComitLimit&nbsp;as the&nbsp;threshold for 'maxsize'.</div><div=
+ class=3D"gmail_default" style=3D"font-size:small">Because according to th=
+e Linux document, it says that only take effort</div><div class=3D"gmail_d=
+efault" style=3D"font-size:small">when overcommit_memory is setting to 2. =
+But our test system all set 0</div><div class=3D"gmail_default" style=3D"f=
+ont-size:small">by default.</div><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div><span class=3D"gmail_default" style=3D"font-size:s=
+mall">&nbsp; &nbsp;</span>"This limit is only adhered to if strict overcom=
+mit accounting is enabled</div><div><span class=3D"gmail_default" style=3D=
+"font-size:small">&nbsp; &nbsp; </span>(mode 2 in 'vm.overcommit_memory').=
+"<br></div><div><div class=3D"gmail_default" style=3D"font-size:small">&nb=
+sp; &nbsp; see:<a href=3D"https://github.com/torvalds/linux/blob/master/Do=
+cumentation/filesystems/proc.rst" target=3D"_blank"> https://github.com/to=
+rvalds/linux/blob/master/Documentation/filesystems/proc.rst</a></div></div=
+><div><br></div><div><div class=3D"gmail_default" style=3D"font-size:small=
+">Seems to use CommitLimit looks a bit strict and strange to test.</div><b=
+r></div><div><div class=3D"gmail_default" style=3D"font-size:small">And I =
+even think the way to use MemAvailable is acceptable if</div><div class=3D=
+"gmail_default" style=3D"font-size:small">MemFree &gt; MemAvailable, just =
+like what you did in your last patch.</div><div class=3D"gmail_default" st=
+yle=3D"font-size:small"></div><div class=3D"gmail_default" style=3D"font-s=
+ize:small"><br></div><div class=3D"gmail_default" style=3D"font-size:small=
+">I'm still not very sure so far~</div><div class=3D"gmail_default" style=
+=3D"font-size:small">(But one thing I can confirm that MemAvailable &lt; M=
+emFree is correct behavior sometimes)</div><br></div><div>&nbsp;</div><blo=
+ckquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-lef=
+t:1px solid rgb(204,204,204);padding-left:1ex"><div><div><div class=3D"gma=
+il_quote"><span class=3D"gmail_default"><br></span></div><div class=3D"gma=
+il_quote"><span class=3D"gmail_default">+ &nbsp; &nbsp; &nbsp; /*<br>+ &nb=
+sp; &nbsp; &nbsp; &nbsp;* To respect CommitLimit to prevent test invoking =
+OOM killer,<br>+ &nbsp; &nbsp; &nbsp; &nbsp;* this may appear on system wi=
+th a smaller swap-disk (or disabled).<br>+ &nbsp; &nbsp; &nbsp; &nbsp;*/<b=
+r>+ &nbsp; &nbsp; &nbsp; if (SAFE_READ_MEMINFO("CommitLimit:") &lt; SAFE_R=
+EAD_MEMINFO("MemAvailable:"))<br>+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
+p; &nbsp; maxsize =3D SAFE_READ_MEMINFO("CommitLimit:") * 1024 - (safety *=
+ info.mem_unit);<br>+<br>&nbsp; &nbsp; &nbsp; &nbsp; blocksize =3D MIN(max=
+size, blocksize);<br>&nbsp; &nbsp; &nbsp; &nbsp; map_count =3D maxsize / b=
+locksize;<br>&nbsp; &nbsp; &nbsp; &nbsp; map_blocks =3D SAFE_MALLOC(map_co=
+unt * sizeof(void *));</span></div></div></div></blockquote><div>&nbsp;</d=
+iv></div><div><br></div>-- <br><div dir=3D"ltr"><div dir=3D"ltr"><div>Rega=
+rds,<br></div><div>Li Wang<br></div></div></div></div>=0A</div></div></blo=
+ckquote>=0A</body></html>
+------=_001_NextPart380552283478_=------
 
-________________________________
-From: Joerg Vehlow <lkml@jv-coder.de>
-Sent: Wednesday, March 24, 2021 1:57 PM
-To: Pankaj Vinodrao Joshi <Pankaj.VJ@exaleapsemi.com>; ltp@lists.linux.it <=
-ltp@lists.linux.it>
-Subject: Re: [LTP] kdump failure on x86
 
-Hi,
-
-On 3/23/2021 3:27 PM, Pankaj Vinodrao Joshi wrote:
-> Hi,
-> i am trying to run kdump on x86 with 5.5.6 kernel but i am getting
-> following errors, can someone please tell whats going wrong here. I
-> have lkdtm config in the kernel and installed kexec-tools as well what
-> could be the cause of issue ???
-It looks like the testcase is hopelessly outdated... The jprobe
-interface was removed in linux 4.15 back in 2017 [1]
-The tests needs a major rewrite, to work on kernels newer than 4.15.
-
-J=F6rg
-
-
-[1]
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?=
-id=3D590c845930457d25d27dc1fdd964a1ce18ef2d7d
-[EXT]
-
---_000_BMXPR01MB28704FBCBB43FA5BE924AF12EE639BMXPR01MB2870INDP_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<span class=3D"smartReply">Got it, thanks!</span></div>
-<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Joerg Vehlow &lt;lkml=
-@jv-coder.de&gt;<br>
-<b>Sent:</b> Wednesday, March 24, 2021 1:57 PM<br>
-<b>To:</b> Pankaj Vinodrao Joshi &lt;Pankaj.VJ@exaleapsemi.com&gt;; ltp@lis=
-ts.linux.it &lt;ltp@lists.linux.it&gt;<br>
-<b>Subject:</b> Re: [LTP] kdump failure on x86</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Hi,<br>
-<br>
-On 3/23/2021 3:27 PM, Pankaj Vinodrao Joshi wrote:<br>
-&gt; Hi,<br>
-&gt; i am trying to run kdump on x86 with 5.5.6 kernel but i am getting<br>
-&gt; following errors, can someone please tell whats going wrong here. I<br=
->
-&gt; have lkdtm config in the kernel and installed kexec-tools as well what=
-<br>
-&gt; could be the cause of issue ???<br>
-It looks like the testcase is hopelessly outdated... The jprobe<br>
-interface was removed in linux 4.15 back in 2017 [1]<br>
-The tests needs a major rewrite, to work on kernels newer than 4.15.<br>
-<br>
-J=F6rg<br>
-<br>
-<br>
-[1]<br>
-<a href=3D"https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.g=
-it/commit/?id=3D590c845930457d25d27dc1fdd964a1ce18ef2d7d">https://git.kerne=
-l.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=3D590c84593045=
-7d25d27dc1fdd964a1ce18ef2d7d</a><br>
-[EXT]<br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_BMXPR01MB28704FBCBB43FA5BE924AF12EE639BMXPR01MB2870INDP_--
-
---===============0896141617==
+--===============0743489834==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -240,4 +232,5 @@ Content-Disposition: inline
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
 
---===============0896141617==--
+--===============0743489834==--
+
