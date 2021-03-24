@@ -2,58 +2,95 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29D2A347492
-	for <lists+linux-ltp@lfdr.de>; Wed, 24 Mar 2021 10:27:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2003347509
+	for <lists+linux-ltp@lfdr.de>; Wed, 24 Mar 2021 10:50:26 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id AAE5F3C9495
-	for <lists+linux-ltp@lfdr.de>; Wed, 24 Mar 2021 10:27:12 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 7EA0B3C9A9E
+	for <lists+linux-ltp@lfdr.de>; Wed, 24 Mar 2021 10:50:26 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- by picard.linux.it (Postfix) with ESMTP id 176923C94A2
- for <ltp@lists.linux.it>; Wed, 24 Mar 2021 10:27:07 +0100 (CET)
-Received: from chinatelecom.cn (prt-mail.chinatelecom.cn [42.123.76.220])
- by in-3.smtp.seeweb.it (Postfix) with ESMTP id 2E7FC1A01068
- for <ltp@lists.linux.it>; Wed, 24 Mar 2021 10:27:04 +0100 (CET)
-HMM_SOURCE_IP: 172.18.0.92:46013.1485671434
-HMM_ATTACHE_NUM: 0000
-HMM_SOURCE_TYPE: SMTP
-Received: from clientip-10.133.11.243?logid-677f4347c4384dad941489a62dbc09aa
- (unknown [172.18.0.92])
- by chinatelecom.cn (HERMES) with SMTP id D1598280097;
- Wed, 24 Mar 2021 17:27:03 +0800 (CST)
-X-189-SAVE-TO-SEND: liuxp11@chinatelecom.cn
-Received: from  ([172.18.0.92])
- by App0021 with ESMTP id 677f4347c4384dad941489a62dbc09aa for
- liwang@redhat.com; Wed Mar 24 17:27:05 2021
-X-Transaction-ID: 677f4347c4384dad941489a62dbc09aa
-X-filter-score: filter<0>
-X-Real-From: liuxp11@chinatelecom.cn
-X-Receive-IP: 172.18.0.92
-X-MEDUSA-Status: 0
-Date: Wed, 24 Mar 2021 17:26:59 +0800
-From: "liuxp11@chinatelecom.cn" <liuxp11@chinatelecom.cn>
-To: "Li Wang" <liwang@redhat.com>
-References: <1611570288-23040-1-git-send-email-liuxp11@chinatelecom.cn>, 
- <YBE03REJywKIlM0X@yuki.lan>, 
- <2021012718043566596022@chinatelecom.cn>, 
- <CAEemH2dA0T1F3wsdwtG2hsfDUUJsY8gFeTLTHyGz+pu034gH4g@mail.gmail.com>, 
- <202103051352110688245@chinatelecom.cn>, 
- <CAEemH2cW9djj3sN8j9Xj_A5iNB9DLhYYkK=nu8ypaOtiYMnLyw@mail.gmail.com>
-X-Priority: 3
-X-GUID: CFFDE2A8-F09D-465C-BB79-5C4C500135B0
-X-Has-Attach: no
-X-Mailer: Foxmail 7.2.18.111[cn]
-Mime-Version: 1.0
-Message-ID: <202103241726592002447@chinatelecom.cn>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ by picard.linux.it (Postfix) with ESMTP id 093B23C9998
+ for <ltp@lists.linux.it>; Wed, 24 Mar 2021 10:50:24 +0100 (CET)
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 271DE1000D15
+ for <ltp@lists.linux.it>; Wed, 24 Mar 2021 10:50:23 +0100 (CET)
+Received: from pps.filterd (m0127361.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 12O9YYGk087922; Wed, 24 Mar 2021 05:50:18 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
+ h=date : from : to : cc :
+ subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=pp1; bh=PQUFBI17hkQKnhOZi9dMY84rHMyxdyJlb/kRrb0N7Gs=;
+ b=P1+efJBntXRx1jyrBR6iTwJwF0H6yDl/GRcI5GPirL+lYy2kvr9f34M+ZkWoObks0dTP
+ GuO5lVQFxvqjh5VsF2M3N7A9D6ToXTPatd3v5rkcWpDOGq4KgGjQI5EsukLDOi/toGIE
+ 3Gm34nmsnem2UMDjE441+fI3xZYrV4MEzwugclJOfFGg01rU3fQ2AH06Jiu+4XOojF55
+ kTPnQ2YnzCrF3pCNz81VeG+XXKwwPjuVb77pJ9NSB9LEpH6NbkV19gtffmIaUs3tf6hI
+ 5dLMP7NyNOcbruJ3f0eekuuARsP+7IeWEU0BCY0gXBj5jA4MraUqQrPuGfOAqoxrKc2y IQ== 
+Received: from pps.reinject (localhost [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 37fw2u15sy-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 24 Mar 2021 05:50:18 -0400
+Received: from m0127361.ppops.net (m0127361.ppops.net [127.0.0.1])
+ by pps.reinject (8.16.0.43/8.16.0.43) with SMTP id 12O9Yak6088070;
+ Wed, 24 Mar 2021 05:50:18 -0400
+Received: from ppma04ams.nl.ibm.com (63.31.33a9.ip4.static.sl-reverse.com
+ [169.51.49.99])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 37fw2u15s5-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 24 Mar 2021 05:50:17 -0400
+Received: from pps.filterd (ppma04ams.nl.ibm.com [127.0.0.1])
+ by ppma04ams.nl.ibm.com (8.16.0.43/8.16.0.43) with SMTP id 12O9nF5j011226;
+ Wed, 24 Mar 2021 09:50:16 GMT
+Received: from b06cxnps3075.portsmouth.uk.ibm.com
+ (d06relay10.portsmouth.uk.ibm.com [9.149.109.195])
+ by ppma04ams.nl.ibm.com with ESMTP id 37d99rc6k1-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 24 Mar 2021 09:50:15 +0000
+Received: from d06av26.portsmouth.uk.ibm.com (d06av26.portsmouth.uk.ibm.com
+ [9.149.105.62])
+ by b06cxnps3075.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 12O9oDWZ30409208
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 24 Mar 2021 09:50:13 GMT
+Received: from d06av26.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id F41FBAE04D;
+ Wed, 24 Mar 2021 09:50:12 +0000 (GMT)
+Received: from d06av26.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 838DEAE058;
+ Wed, 24 Mar 2021 09:50:12 +0000 (GMT)
+Received: from osiris (unknown [9.171.50.73])
+ by d06av26.portsmouth.uk.ibm.com (Postfix) with ESMTPS;
+ Wed, 24 Mar 2021 09:50:12 +0000 (GMT)
+Date: Wed, 24 Mar 2021 10:50:11 +0100
+From: Heiko Carstens <hca@linux.ibm.com>
+To: Heiko Carstens <hca@linux.ibm.com>
+Message-ID: <YFsLU2k/h3WPDrJz@osiris>
+References: <YFmUrVOyX4q+8Dy9@osiris>
+ <20210323215819.4161164-1-hca@linux.ibm.com>
+ <20210323215819.4161164-2-hca@linux.ibm.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20210323215819.4161164-2-hca@linux.ibm.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.761
+ definitions=2021-03-24_05:2021-03-24,
+ 2021-03-24 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 bulkscore=0
+ suspectscore=0 adultscore=0 malwarescore=0 mlxlogscore=999 clxscore=1015
+ mlxscore=0 priorityscore=1501 phishscore=0 lowpriorityscore=0
+ impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2009150000 definitions=main-2103240073
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=HTML_MESSAGE,SPF_HELO_PASS,
- SPF_PASS,T_KAM_HTML_FONT_INVALID autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/2] syscalls/ioctl: ioctl_sg01.c: ioctl_sg01
- invoked oom-killer
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/3] s390/vdso: fix tod clock steering
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,172 +102,68 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============0743489834=="
+Cc: linux-s390@vger.kernel.org, Vasily Gorbik <gor@linux.ibm.com>,
+ Viresh Kumar <viresh.kumar@linaro.org>, linux-kernel@vger.kernel.org,
+ Christian Borntraeger <borntraeger@de.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Thomas Gleixner <tglx@linutronix.de>, ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This is a multi-part message in MIME format.
+On Tue, Mar 23, 2021 at 10:58:17PM +0100, Heiko Carstens wrote:
+> The s390 specific vdso function __arch_get_hw_counter() is supposed to
+> consider tod clock steering.
+> 
+> If a tod clock steering event happens and the tod clock is set to a
+> new value __arch_get_hw_counter() will not return the real tod clock
+> value but slowly drift it from the old delta until the returned value
+> finally matches the real tod clock value again.
+> 
+> When converting the assembler code to C it was forgotten to tell user
+> space in which direction the clock has to be adjusted.
+> 
+> Worst case is now that instead of drifting the clock slowly it will
+> jump into the opposite direction by a factor of two.
+> 
+> Fix this by simply providing the missing value to user space.
+> 
+> Fixes: 4bff8cb54502 ("s390: convert to GENERIC_VDSO")
+> Cc: <stable@vger.kernel.org> # 5.10
+> Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
+> ---
+>  arch/s390/kernel/time.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/arch/s390/kernel/time.c b/arch/s390/kernel/time.c
+> index 165da961f901..e37285a5101b 100644
+> --- a/arch/s390/kernel/time.c
+> +++ b/arch/s390/kernel/time.c
+> @@ -382,6 +382,7 @@ static void clock_sync_global(unsigned long delta)
+>  		      tod_steering_delta);
+>  	tod_steering_end = now + (abs(tod_steering_delta) << 15);
+>  	vdso_data->arch_data.tod_steering_end = tod_steering_end;
+> +	vdso_data->arch_data.tod_steering_delta = tod_steering_delta;
 
---===============0743489834==
-Content-Type: multipart/alternative;
-	boundary="----=_001_NextPart380552283478_=----"
+..and yet another bug: __arch_get_hw_counter() tests if
+tod_steering_delta is negative.
+It makes sense to give tod_steering_delta the correct type:
 
-This is a multi-part message in MIME format.
-
-------=_001_NextPart380552283478_=----
-Content-Type: text/plain;
-	charset="UTF-8"
-Content-Transfer-Encoding: base64
-
-SGkgTGkgV2FuZywNCkkgdGhpbmsgeW91ciBwYXRjaCBpcyBnb29kLg0KMS5Db21taXRMaW1pdCBp
-cyB0aGUgbWVtb3J5IHRoYXQgY2FuIGJlIGFsbG9jYXRlZCBieSBhcHBsaWNhdGlvbi4NCjIuaW9j
-dGxfc2cwMSBpbiBzZXJ2ZXJhbCBtYWNoaW5lcyB3aXRoIHlvdXIgcGF0Y2gsdGhlIHJlc3VsdCBp
-cyBwYXNzZWQuDQoNClRoYW5rcyENCiAgICANCkZyb206IExpIFdhbmcNCkRhdGU6IDIwMjEtMDMt
-MDUgMTc6MDINClRvOiBsaXV4cDExQGNoaW5hdGVsZWNvbS5jbg0KQ0M6IEN5cmlsIEhydWJpczsg
-bHRwOyBtZG91Y2hhDQpTdWJqZWN0OiBSZTogUmU6IFtMVFBdIFtQQVRDSCAxLzJdIHN5c2NhbGxz
-L2lvY3RsOiBpb2N0bF9zZzAxLmM6IGlvY3RsX3NnMDEgaW52b2tlZCBvb20ta2lsbGVyDQpIaSBY
-aW5wZW5nLA0KDQpPbiBGcmksIE1hciA1LCAyMDIxIGF0IDE6NTIgUE0gbGl1eHAxMUBjaGluYXRl
-bGVjb20uY24gPGxpdXhwMTFAY2hpbmF0ZWxlY29tLmNuPiB3cm90ZToNCi0tLSBhL2xpYi90c3Rf
-bWVtdXRpbHMuYw0KKysrIGIvbGliL3RzdF9tZW11dGlscy5jDQpAQCAtMzYsNiArMzYsMTMgQEAg
-dm9pZCB0c3RfcG9sbHV0ZV9tZW1vcnkoc2l6ZV90IG1heHNpemUsIGludCBmaWxsY2hhcikNCiAg
-ICAgICAgaWYgKGluZm8uZnJlZXJhbSAtIHNhZmV0eSA8IG1heHNpemUgLyBpbmZvLm1lbV91bml0
-KQ0KICAgICAgICAgICAgICAgIG1heHNpemUgPSAoaW5mby5mcmVlcmFtIC0gc2FmZXR5KSAqIGlu
-Zm8ubWVtX3VuaXQ7DQoNCiA9PT5UaGFua3MsYnV0IHRoZSBtYXhzaXplIG9yaWdpbmFsIGNvZGUg
-bmVlZCB0byBiZSBkZWxldGVkLFJpZ2h0Pw0KDQpObywgdGhlIG1heHNpemUgY29kZSBpcyBhbHNv
-IHVzZWZ1bCwgaXQgbmVlZHMgdG8gZGVmaW5lIHRoZSB2YWx1ZSBpbg0KbW9zdCBjb21tb24gc2l0
-dWF0aW9ucyhpLmUuIENvbW1pdExpbWl0ID4gTWVtQXZhaWxhYmxlKS4NCg0KQnV0IEknbSBzdGls
-bCBoZXNpdGF0aW5nIHRvIHVzZSBDb21pdExpbWl0IGFzIHRoZSB0aHJlc2hvbGQgZm9yICdtYXhz
-aXplJy4NCkJlY2F1c2UgYWNjb3JkaW5nIHRvIHRoZSBMaW51eCBkb2N1bWVudCwgaXQgc2F5cyB0
-aGF0IG9ubHkgdGFrZSBlZmZvcnQNCndoZW4gb3ZlcmNvbW1pdF9tZW1vcnkgaXMgc2V0dGluZyB0
-byAyLiBCdXQgb3VyIHRlc3Qgc3lzdGVtIGFsbCBzZXQgMA0KYnkgZGVmYXVsdC4NCg0KICAgIlRo
-aXMgbGltaXQgaXMgb25seSBhZGhlcmVkIHRvIGlmIHN0cmljdCBvdmVyY29tbWl0IGFjY291bnRp
-bmcgaXMgZW5hYmxlZA0KICAgIChtb2RlIDIgaW4gJ3ZtLm92ZXJjb21taXRfbWVtb3J5JykuIg0K
-ICAgIHNlZTogaHR0cHM6Ly9naXRodWIuY29tL3RvcnZhbGRzL2xpbnV4L2Jsb2IvbWFzdGVyL0Rv
-Y3VtZW50YXRpb24vZmlsZXN5c3RlbXMvcHJvYy5yc3QNCg0KU2VlbXMgdG8gdXNlIENvbW1pdExp
-bWl0IGxvb2tzIGEgYml0IHN0cmljdCBhbmQgc3RyYW5nZSB0byB0ZXN0Lg0KDQpBbmQgSSBldmVu
-IHRoaW5rIHRoZSB3YXkgdG8gdXNlIE1lbUF2YWlsYWJsZSBpcyBhY2NlcHRhYmxlIGlmDQpNZW1G
-cmVlID4gTWVtQXZhaWxhYmxlLCBqdXN0IGxpa2Ugd2hhdCB5b3UgZGlkIGluIHlvdXIgbGFzdCBw
-YXRjaC4NCg0KSSdtIHN0aWxsIG5vdCB2ZXJ5IHN1cmUgc28gZmFyfg0KKEJ1dCBvbmUgdGhpbmcg
-SSBjYW4gY29uZmlybSB0aGF0IE1lbUF2YWlsYWJsZSA8IE1lbUZyZWUgaXMgY29ycmVjdCBiZWhh
-dmlvciBzb21ldGltZXMpDQoNCiANCg0KKyAgICAgICAvKg0KKyAgICAgICAgKiBUbyByZXNwZWN0
-IENvbW1pdExpbWl0IHRvIHByZXZlbnQgdGVzdCBpbnZva2luZyBPT00ga2lsbGVyLA0KKyAgICAg
-ICAgKiB0aGlzIG1heSBhcHBlYXIgb24gc3lzdGVtIHdpdGggYSBzbWFsbGVyIHN3YXAtZGlzayAo
-b3IgZGlzYWJsZWQpLg0KKyAgICAgICAgKi8NCisgICAgICAgaWYgKFNBRkVfUkVBRF9NRU1JTkZP
-KCJDb21taXRMaW1pdDoiKSA8IFNBRkVfUkVBRF9NRU1JTkZPKCJNZW1BdmFpbGFibGU6IikpDQor
-ICAgICAgICAgICAgICAgbWF4c2l6ZSA9IFNBRkVfUkVBRF9NRU1JTkZPKCJDb21taXRMaW1pdDoi
-KSAqIDEwMjQgLSAoc2FmZXR5ICogaW5mby5tZW1fdW5pdCk7DQorDQogICAgICAgIGJsb2Nrc2l6
-ZSA9IE1JTihtYXhzaXplLCBibG9ja3NpemUpOw0KICAgICAgICBtYXBfY291bnQgPSBtYXhzaXpl
-IC8gYmxvY2tzaXplOw0KICAgICAgICBtYXBfYmxvY2tzID0gU0FGRV9NQUxMT0MobWFwX2NvdW50
-ICogc2l6ZW9mKHZvaWQgKikpOw0KIA0KDQotLSANClJlZ2FyZHMsDQpMaSBXYW5nDQo=
-
-------=_001_NextPart380552283478_=----
-Content-Type: text/html;
-	charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<html><head><meta http-equiv=3D"content-type" content=3D"text/html; charse=
-t=3DUTF-8"><style>body { line-height: 1.5; }blockquote { margin-top: 0px; =
-margin-bottom: 0px; margin-left: 0.5em; }div.FoxDiv20210324172018095240 { =
-}body { font-size: 14px; font-family: 'Microsoft YaHei UI'; color: rgb(0, =
-0, 0); line-height: 1.5; }</style></head><body>=0A<div><span></span></div>=
-<blockquote style=3D"margin-Top: 0px; margin-Bottom: 0px; margin-Left: 0.5=
-em; margin-Right: inherit"><div>Hi Li Wang,</div><div>I think your patch i=
-s good.</div><div><span style=3D"font-size: small; line-height: 19.5px; ba=
-ckground-color: transparent;">1.CommitLimit is the memory that can be allo=
-cated by application.</span></div><div><span style=3D"font-size: small; li=
-ne-height: 19.5px; background-color: transparent;">2.ioctl_sg01 in servera=
-l machines with your patch,the result is passed.</span></div><div><span st=
-yle=3D"font-size: small; line-height: 19.5px; background-color: transparen=
-t;"><br></span></div><div><span style=3D"font-size: small; line-height: 19=
-.5px; background-color: transparent;">Thanks!</span></div><div><span style=
-=3D"color: rgb(0, 0, 0); background-color: rgba(0, 0, 0, 0);">&nbsp; &nbsp=
-;&nbsp;</span></div><div style=3D"border:none;border-top:solid #B5C4DF 1.0=
-pt;padding:3.0pt 0cm 0cm 0cm"><div style=3D"PADDING-RIGHT: 8px; PADDING-LE=
-FT: 8px; FONT-SIZE: 12px;FONT-FAMILY:tahoma;COLOR:#000000; BACKGROUND: #ef=
-efef; PADDING-BOTTOM: 8px; PADDING-TOP: 8px"><div><b>From:</b>&nbsp;<a hre=
-f=3D"mailto:liwang@redhat.com">Li Wang</a></div><div><b>Date:</b>&nbsp;202=
-1-03-05&nbsp;17:02</div><div><b>To:</b>&nbsp;<a href=3D"mailto:liuxp11@chi=
-natelecom.cn">liuxp11@chinatelecom.cn</a></div><div><b>CC:</b>&nbsp;<a hre=
-f=3D"mailto:chrubis@suse.cz">Cyril Hrubis</a>; <a href=3D"mailto:ltp@lists=
-.linux.it">ltp</a>; <a href=3D"mailto:mdoucha@suse.cz">mdoucha</a></div><d=
-iv><b>Subject:</b>&nbsp;Re: Re: [LTP] [PATCH 1/2] syscalls/ioctl: ioctl_sg=
-01.c: ioctl_sg01 invoked oom-killer</div></div></div><div><div class=3D"Fo=
-xDiv20210324172018095240"><div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"=
-gmail_default" style=3D"font-size:small">Hi Xinpeng,</div></div><br><div c=
-lass=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Fri, Mar 5, =
-2021 at 1:52 PM <a href=3D"mailto:liuxp11@chinatelecom.cn" target=3D"_blan=
-k">liuxp11@chinatelecom.cn</a> &lt;<a href=3D"mailto:liuxp11@chinatelecom.=
-cn" target=3D"_blank">liuxp11@chinatelecom.cn</a>&gt; wrote:<br></div><blo=
-ckquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-lef=
-t:1px solid rgb(204,204,204);padding-left:1ex"><div>=0A<div><span></span><=
-div class=3D"gmail_quote"><span class=3D"gmail_default">--- a/lib/tst_memu=
-tils.c<br>+++ b/lib/tst_memutils.c<br>@@ -36,6 +36,13 @@ void tst_pollute_=
-memory(size_t maxsize, int fillchar)<br><strike>&nbsp; &nbsp; &nbsp; &nbsp=
-; if (info.freeram - safety &lt; maxsize / info.mem_unit)<br>&nbsp; &nbsp;=
- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; maxsize =3D (info.freeram - saf=
-ety) * info.mem_unit;</strike><br><br></span></div><div class=3D"gmail_quo=
-te"><span class=3D"gmail_default">&nbsp;=3D=3D&gt;Thanks,but the maxsize o=
-riginal code need to be deleted,Right?<br></span></div></div></div></block=
-quote><div><br></div><div><div class=3D"gmail_default" style=3D"font-size:=
-small">No, the maxsize code is also useful, it needs to define the value i=
-n</div><div class=3D"gmail_default" style=3D"font-size:small">most common =
-situations(i.e. CommitLimit &gt;&nbsp;MemAvailable).</div><br></div><div><=
-div class=3D"gmail_default" style=3D"font-size:small">But I'm still hesita=
-ting to use ComitLimit&nbsp;as the&nbsp;threshold for 'maxsize'.</div><div=
- class=3D"gmail_default" style=3D"font-size:small">Because according to th=
-e Linux document, it says that only take effort</div><div class=3D"gmail_d=
-efault" style=3D"font-size:small">when overcommit_memory is setting to 2. =
-But our test system all set 0</div><div class=3D"gmail_default" style=3D"f=
-ont-size:small">by default.</div><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div><span class=3D"gmail_default" style=3D"font-size:s=
-mall">&nbsp; &nbsp;</span>"This limit is only adhered to if strict overcom=
-mit accounting is enabled</div><div><span class=3D"gmail_default" style=3D=
-"font-size:small">&nbsp; &nbsp; </span>(mode 2 in 'vm.overcommit_memory').=
-"<br></div><div><div class=3D"gmail_default" style=3D"font-size:small">&nb=
-sp; &nbsp; see:<a href=3D"https://github.com/torvalds/linux/blob/master/Do=
-cumentation/filesystems/proc.rst" target=3D"_blank"> https://github.com/to=
-rvalds/linux/blob/master/Documentation/filesystems/proc.rst</a></div></div=
-><div><br></div><div><div class=3D"gmail_default" style=3D"font-size:small=
-">Seems to use CommitLimit looks a bit strict and strange to test.</div><b=
-r></div><div><div class=3D"gmail_default" style=3D"font-size:small">And I =
-even think the way to use MemAvailable is acceptable if</div><div class=3D=
-"gmail_default" style=3D"font-size:small">MemFree &gt; MemAvailable, just =
-like what you did in your last patch.</div><div class=3D"gmail_default" st=
-yle=3D"font-size:small"></div><div class=3D"gmail_default" style=3D"font-s=
-ize:small"><br></div><div class=3D"gmail_default" style=3D"font-size:small=
-">I'm still not very sure so far~</div><div class=3D"gmail_default" style=
-=3D"font-size:small">(But one thing I can confirm that MemAvailable &lt; M=
-emFree is correct behavior sometimes)</div><br></div><div>&nbsp;</div><blo=
-ckquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-lef=
-t:1px solid rgb(204,204,204);padding-left:1ex"><div><div><div class=3D"gma=
-il_quote"><span class=3D"gmail_default"><br></span></div><div class=3D"gma=
-il_quote"><span class=3D"gmail_default">+ &nbsp; &nbsp; &nbsp; /*<br>+ &nb=
-sp; &nbsp; &nbsp; &nbsp;* To respect CommitLimit to prevent test invoking =
-OOM killer,<br>+ &nbsp; &nbsp; &nbsp; &nbsp;* this may appear on system wi=
-th a smaller swap-disk (or disabled).<br>+ &nbsp; &nbsp; &nbsp; &nbsp;*/<b=
-r>+ &nbsp; &nbsp; &nbsp; if (SAFE_READ_MEMINFO("CommitLimit:") &lt; SAFE_R=
-EAD_MEMINFO("MemAvailable:"))<br>+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
-p; &nbsp; maxsize =3D SAFE_READ_MEMINFO("CommitLimit:") * 1024 - (safety *=
- info.mem_unit);<br>+<br>&nbsp; &nbsp; &nbsp; &nbsp; blocksize =3D MIN(max=
-size, blocksize);<br>&nbsp; &nbsp; &nbsp; &nbsp; map_count =3D maxsize / b=
-locksize;<br>&nbsp; &nbsp; &nbsp; &nbsp; map_blocks =3D SAFE_MALLOC(map_co=
-unt * sizeof(void *));</span></div></div></div></blockquote><div>&nbsp;</d=
-iv></div><div><br></div>-- <br><div dir=3D"ltr"><div dir=3D"ltr"><div>Rega=
-rds,<br></div><div>Li Wang<br></div></div></div></div>=0A</div></div></blo=
-ckquote>=0A</body></html>
-------=_001_NextPart380552283478_=------
-
-
---===============0743489834==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+diff --git a/arch/s390/include/asm/vdso/data.h b/arch/s390/include/asm/vdso/data.h
+index 7b3cdb4a5f48..73ee89142666 100644
+--- a/arch/s390/include/asm/vdso/data.h
++++ b/arch/s390/include/asm/vdso/data.h
+@@ -6,7 +6,7 @@
+ #include <vdso/datapage.h>
+ 
+ struct arch_vdso_data {
+-	__u64 tod_steering_delta;
++	__s64 tod_steering_delta;
+ 	__u64 tod_steering_end;
+ };
+ 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============0743489834==--
-
