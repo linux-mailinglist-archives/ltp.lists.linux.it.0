@@ -1,76 +1,76 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9885A34995F
-	for <lists+linux-ltp@lfdr.de>; Thu, 25 Mar 2021 19:20:04 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 72445349960
+	for <lists+linux-ltp@lfdr.de>; Thu, 25 Mar 2021 19:20:14 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6096E3C78D4
-	for <lists+linux-ltp@lfdr.de>; Thu, 25 Mar 2021 19:20:04 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 191243C2805
+	for <lists+linux-ltp@lfdr.de>; Thu, 25 Mar 2021 19:20:14 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id 0CFC83C2F4B
- for <ltp@lists.linux.it>; Thu, 25 Mar 2021 19:19:55 +0100 (CET)
-Received: from mail-pg1-x532.google.com (mail-pg1-x532.google.com
- [IPv6:2607:f8b0:4864:20::532])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ by picard.linux.it (Postfix) with ESMTP id 92BDD3C8E42
+ for <ltp@lists.linux.it>; Thu, 25 Mar 2021 19:19:58 +0100 (CET)
+Received: from mail-pf1-x42f.google.com (mail-pf1-x42f.google.com
+ [IPv6:2607:f8b0:4864:20::42f])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 8415C60086A
- for <ltp@lists.linux.it>; Thu, 25 Mar 2021 19:19:55 +0100 (CET)
-Received: by mail-pg1-x532.google.com with SMTP id l76so2639846pga.6
- for <ltp@lists.linux.it>; Thu, 25 Mar 2021 11:19:55 -0700 (PDT)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 289EA601BE2
+ for <ltp@lists.linux.it>; Thu, 25 Mar 2021 19:19:58 +0100 (CET)
+Received: by mail-pf1-x42f.google.com with SMTP id l123so2898348pfl.8
+ for <ltp@lists.linux.it>; Thu, 25 Mar 2021 11:19:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=doMmuOk1oZ25414DyliC5k3oA0GCClB4jG8Ut6pvAyw=;
- b=BluCpnaJT5WA49HlsT6eDpBDqc410Bb6KiA6Cd2U5WuxbPQN5MIlaCmLQLl9gbvmDh
- ArOHeJzdM6wUEVdGKnwFlXdyD3T3cLEa9bRRYTw4W1SMxQIRDP9MEWgiX+NTp0xdVT+N
- pnSRjc4BzorGOylzpOy4zuTONi/SPgfikdw30wTkJPAxhm94JXdxuhuwjqqbqTL1lJBz
- HPIlpomAqMcgtNY7oENgaB/jGU2yzDa8r7hTDoQB24csXL7j5IVUCjeuUkJjVWdZnTye
- F199Z7bLx/VcAXN9jJd8TaQZxB5/wFWQVEY0a72u0jaaY50srHqde80CbQahGkTUvub3
- KvvQ==
+ bh=bUTVOUer2X3CmhQhoPtyZuzQqQ70GCwCPtwneXx3BDk=;
+ b=TcRw/UbvCr4h8ap1tFNuwjndi2x3KEGLl6ZG6kIumEU1hqolqGIoMW8j2AJwx7TjJ1
+ BXJiGNUx5ifDz+6PE64qxSQKb3hRRWfGkBSuysesEYqO4PBlEMh5oWHHaqn3Fy1Y4FlU
+ inXAT8Tvo3FlrqsLiEeliusurYU+4qeDy0r3rk9SXh87YdFURv5e5H1qRhy+Z1nYhgzT
+ 44koPsccbjc4tXgE4Tm5v9dYXroKi6NT2tqvICBIvS0ALTbB6SyhDeByNw27lD0aS4Vh
+ 7ukjmTtD5vxQZaMe8EFMLx6f6PqE0eKSZ5wEl8sk7+435MwkPTObAaZqOuL9xvUtBDTt
+ 0hHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=doMmuOk1oZ25414DyliC5k3oA0GCClB4jG8Ut6pvAyw=;
- b=o7OLpyqseknkRoihK4ezLeQjshu8V3kvELdD3u1jjH0yY6pISVSyGTyHSW/Q04Nifn
- 4Q4KbfSEROxGpnvQqAy+T5FCzdDPCz2R9RJfiUqngmPoSD+k3hHLNTkjCHWdtykSUBbU
- ME3cSYJOWuwsXJE+YeYRUflU7PyE9EFY87DXuN2Dcf8sxPNlGjxyOmLglNfwhhL7Rzdm
- Kl266zubii6/ns0QMR6F749ua5VBCNj5yqTQ6xraQn0BNvzwFiQAb0eWqk2SUEDVjLsA
- DC5ZB8Kb4Bz9AO0hW+XjoqUtIcfm+Y9kjnUXGwvHOqSBkqfeSboNCeFSXkwp2aMyhU+r
- vnlg==
-X-Gm-Message-State: AOAM530bKqtkGZE2bbyYczdkJny/hr//ribBtwQVRRhwO1M7RyIPk4+h
- xf77Sp+8l3YTun0k/kCeC1/7A5fnWgE=
-X-Google-Smtp-Source: ABdhPJzcF+QoYQNNleVEQoqAnA830XtNrESbWa0Kon6lGvELZCDtfU9c36h6pfTqkDqWjoPDznnExA==
-X-Received: by 2002:aa7:8d84:0:b029:1f8:3449:1bc6 with SMTP id
- i4-20020aa78d840000b02901f834491bc6mr9025218pfr.76.1616696393689; 
- Thu, 25 Mar 2021 11:19:53 -0700 (PDT)
+ bh=bUTVOUer2X3CmhQhoPtyZuzQqQ70GCwCPtwneXx3BDk=;
+ b=VnKANmXRHezY36h024WZ6CQbrIjvnk+98hzOgG847+U9Y6wr/BQn5IcGhIXll6thnU
+ 87ByiI+90CFzt/1m1H/5PwQRasOXqCyOY4yfA7Mr5EOFZaJU254Va/aKaFqvITclA9lB
+ A3JUix4VfEzDcDFwC3Rs/R0ZchEDw20qcTy2JvGmMTD5Qq07cVeBz0rkesVWJhWHiddp
+ ENe6GXWHyG00lJcrZ70drxzvYBzR9JfrUg1QBaeqYiQChUjEHyB1BTpReUHPdY5moBw9
+ 2zbimABLbbasGKFab03zRH8oiJjc1rC3fnhiBLWt5xndxZpfDQLL/6BFnUS7vbDBRA3T
+ LRsw==
+X-Gm-Message-State: AOAM53221ebkhY2VLknLiTnXT3ntGtALwkA2Y5MFIeuhx2Weaxe5OIKf
+ Ob0zgBALXDt6ER9URTqlkViZqUNDkHA=
+X-Google-Smtp-Source: ABdhPJwYiu/qU0fGfOW1m/EwMqyEXED6zRGFnhbXbbcdnLveMQdGpDbcSsbOBn1kIAyfRpohJCg5Ww==
+X-Received: by 2002:a05:6a00:1595:b029:217:49e9:2429 with SMTP id
+ u21-20020a056a001595b029021749e92429mr8884401pfk.80.1616696396438; 
+ Thu, 25 Mar 2021 11:19:56 -0700 (PDT)
 Received: from localhost.localdomain (softbank126008192101.bbtec.net.
  [126.8.192.101])
- by smtp.gmail.com with ESMTPSA id i20sm5977597pgg.65.2021.03.25.11.19.52
+ by smtp.gmail.com with ESMTPSA id i20sm5977597pgg.65.2021.03.25.11.19.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Mar 2021 11:19:53 -0700 (PDT)
+ Thu, 25 Mar 2021 11:19:56 -0700 (PDT)
 From: QI Fuli <fukuri.sai@gmail.com>
 X-Google-Original-From: QI Fuli <qi.fuli@fujitsu.com>
 To: ltp@lists.linux.it
-Date: Fri, 26 Mar 2021 03:19:03 +0900
-Message-Id: <20210325181906.40688-2-qi.fuli@fujitsu.com>
+Date: Fri, 26 Mar 2021 03:19:04 +0900
+Message-Id: <20210325181906.40688-3-qi.fuli@fujitsu.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210325181906.40688-1-qi.fuli@fujitsu.com>
 References: <20210325181906.40688-1-qi.fuli@fujitsu.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH 1/4] libs/libltpswap: Rename and Convert
- libs/libltpswapon to the new API
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH 2/4] syscalls/swapon/swapon01: Convert swapon01 to the
+ new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,131 +92,140 @@ From: QI Fuli <qi.fuli@fujitsu.com>
 
 Signed-off-by: QI Fuli <qi.fuli@fujitsu.com>
 ---
- include/libswap.h         | 24 +++++++++++++++
- libs/libltpswap/Makefile  | 12 ++++++++
- libs/libltpswap/libswap.c | 63 +++++++++++++++++++++++++++++++++++++++
- 3 files changed, 99 insertions(+)
- create mode 100644 include/libswap.h
- create mode 100644 libs/libltpswap/Makefile
- create mode 100644 libs/libltpswap/libswap.c
+ testcases/kernel/syscalls/swapon/Makefile   |  4 +-
+ testcases/kernel/syscalls/swapon/swapon01.c | 83 +++++----------------
+ 2 files changed, 22 insertions(+), 65 deletions(-)
 
-diff --git a/include/libswap.h b/include/libswap.h
-new file mode 100644
-index 000000000..d4b5301a5
---- /dev/null
-+++ b/include/libswap.h
-@@ -0,0 +1,24 @@
+diff --git a/testcases/kernel/syscalls/swapon/Makefile b/testcases/kernel/syscalls/swapon/Makefile
+index 57ec45d48..53c795090 100644
+--- a/testcases/kernel/syscalls/swapon/Makefile
++++ b/testcases/kernel/syscalls/swapon/Makefile
+@@ -8,10 +8,10 @@ endif
+
+ top_srcdir		?= ../../../..
+
+-LTPLIBS = ltpswapon
++LTPLIBS = ltpswap
+
+ include $(top_srcdir)/include/mk/testcases.mk
+
+-LTPLDLIBS  = -lltpswapon
++LTPLDLIBS  = -lltpswap
+
+ include $(top_srcdir)/include/mk/generic_leaf_target.mk
+diff --git a/testcases/kernel/syscalls/swapon/swapon01.c b/testcases/kernel/syscalls/swapon/swapon01.c
+index aff842e4c..332e139b3 100644
+--- a/testcases/kernel/syscalls/swapon/swapon01.c
++++ b/testcases/kernel/syscalls/swapon/swapon01.c
+@@ -1,88 +1,45 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+  * Copyright (c) Wipro Technologies Ltd, 2002.  All Rights Reserved.
+- *
+- * This program is free software; you can redistribute it and/or modify it
+- * under the terms of version 2 of the GNU General Public License as
+- * published by the Free Software Foundation.
+- *
+- * This program is distributed in the hope that it would be useful, but
+- * WITHOUT ANY WARRANTY; without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+- *
+- * You should have received a copy of the GNU General Public License along
+- * with this program; if not, write the Free Software Foundation, Inc.,
+- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+- *
+  */
+
+- /*
+-  * Checks that swapon() succeds with swapfile.
+-  */
 +/*
-+ * Copyright (c) 2013 Oracle and/or its affiliates. All Rights Reserved.
-+ * Author: Stanislav Kholmanskikh <stanislav.kholmanskikh@oracle.com>
++ * Checks that swapon() succeds with swapfile.
 + */
-+
-+/*
-+ * Contains common content for all swapon/swapoff tests
-+ */
-+
-+#ifndef __LIBSWAP_H__
-+#define __LIBSWAP_H__
-+
-+/*
-+ * Make a swap file
-+ */
-+int make_swapfile(const char *swapfile, int safe);
-+
-+/*
-+ * Check swapon/swapoff support status of filesystems or files
-+ * we are testing on.
-+ */
-+void is_swap_supported(const char *filename);
-+#endif /* __LIBSWAP_H__ */
-diff --git a/libs/libltpswap/Makefile b/libs/libltpswap/Makefile
-new file mode 100644
-index 000000000..d8e692d17
---- /dev/null
-+++ b/libs/libltpswap/Makefile
-@@ -0,0 +1,12 @@
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+#
-+# Copyright (C) Richard Purdie <richard.purdie@linuxfoundation.org>
-+
-+top_srcdir		?= ../..
-+
-+include $(top_srcdir)/include/mk/env_pre.mk
-+
-+INTERNAL_LIB		:= libltpswap.a
-+
-+include $(top_srcdir)/include/mk/lib.mk
-+include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/libs/libltpswap/libswap.c b/libs/libltpswap/libswap.c
-new file mode 100644
-index 000000000..658960c67
---- /dev/null
-+++ b/libs/libltpswap/libswap.c
-@@ -0,0 +1,63 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2013 Oracle and/or its affiliates. All Rights Reserved.
-+ * Author: Stanislav Kholmanskikh <stanislav.kholmanskikh@oracle.com>
-+ */
-+
-+#include <errno.h>
-+#include "lapi/syscalls.h"
-+#define TST_NO_DEFAULT_MAIN
+
+ #include <unistd.h>
+ #include <errno.h>
+ #include <stdlib.h>
+-#include "test.h"
+-#include "lapi/syscalls.h"
+-#include "libswapon.h"
+
+-static void setup(void);
+-static void cleanup(void);
+-
+-char *TCID = "swapon01";
+-int TST_TOTAL = 1;
 +#include "tst_test.h"
++#include "lapi/syscalls.h"
 +#include "libswap.h"
-+
-+/*
-+ * Make a swap file
-+ */
-+int make_swapfile(const char *swapfile, int safe)
-+{
-+	if (!tst_fs_has_free(".", sysconf(_SC_PAGESIZE) * 10, TST_BYTES))
-+		tst_brk(TBROK, "Insufficient disk space to create swap file");
-+
-+	/* create file */
-+	if (tst_fill_file(swapfile, 0, sysconf(_SC_PAGESIZE), 10) != 0)
-+		tst_brk(TBROK, "Failed to create swapfile");
-+
-+	/* make the file swapfile */
-+	const char *argv[2 + 1];
-+	argv[0] = "mkswap";
-+	argv[1] = swapfile;
-+	argv[2] = NULL;
-+
-+	return tst_cmd(argv, "/dev/null", "/dev/null", safe);
-+}
-+
-+/*
-+ * Check swapon/swapoff support status of filesystems or files
-+ * we are testing on.
-+ */
-+void is_swap_supported(const char *filename)
-+{
-+	int fibmap = tst_fibmap(filename);
-+	long fs_type = tst_fs_type(filename);
-+	const char *fstype = tst_fs_type_name(fs_type);
-+
-+	int ret = make_swapfile(filename, 1);
-+	if (ret != 0) {
-+		if (fibmap == 1)
-+			tst_brk(TCONF, "mkswap on %s not supported", fstype);
-+		else
-+			tst_brk(TFAIL, "mkswap on %s failed", fstype);
-+	}
-+
-+	TEST(tst_syscall(__NR_swapon, filename, 0));
+
+ static void verify_swapon(void)
+ {
+-	TEST(ltp_syscall(__NR_swapon, "./swapfile01", 0));
++	TEST(tst_syscall(__NR_swapon, "./swapfile01", 0));
+
+-	if (TEST_RETURN == -1) {
+-		tst_resm(TFAIL | TTERRNO, "Failed to turn on swapfile");
 +	if (TST_RET == -1) {
-+		if (fibmap == 1 && errno == EINVAL)
-+			tst_brk(TCONF, "Swapfile on %s not implemented", fstype);
-+		else
-+			tst_brk(TFAIL | TERRNO, "swapon on %s failed", fstype);
-+	}
-+
-+	TEST(tst_syscall(__NR_swapoff, filename, 0));
-+	if (TST_RET == -1)
-+		tst_brk(TFAIL | TTERRNO, "swapoff on %s failed", fstype);
-+}
++		tst_res(TFAIL | TTERRNO, "Failed to turn on swapfile");
+ 	} else {
+-		tst_resm(TPASS, "Succeeded to turn on swapfile");
++		tst_res(TPASS, "Succeeded to turn on swapfile");
+ 		/*we need to turn this swap file off for -i option */
+-		if (ltp_syscall(__NR_swapoff, "./swapfile01") != 0) {
+-			tst_brkm(TBROK, cleanup, "Failed to turn off swapfile,"
++		if (tst_syscall(__NR_swapoff, "./swapfile01") != 0) {
++			tst_brk(TBROK, "Failed to turn off swapfile,"
+ 			         " system reboot after execution of LTP "
+ 				 "test suite is recommended.");
+ 		}
+ 	}
+ }
+
+-int main(int ac, char **av)
+-{
+-
+-	int lc;
+-
+-	tst_parse_opts(ac, av, NULL, NULL);
+-
+-	setup();
+-
+-	for (lc = 0; TEST_LOOPING(lc); lc++) {
+-		tst_count = 0;
+-		verify_swapon();
+-	}
+-
+-	cleanup();
+-	tst_exit();
+-}
+-
+ static void setup(void)
+ {
+-	tst_sig(FORK, DEF_HANDLER, cleanup);
+-
+-	tst_require_root();
+-
+-	TEST_PAUSE;
+-
+-	tst_tmpdir();
+-
+-	is_swap_supported(cleanup, "./tstswap");
+-
+-	make_swapfile(cleanup, "swapfile01", 0);
++	is_swap_supported("./tstswap");
++	make_swapfile("swapfile01", 0);
+ }
+
+-static void cleanup(void)
+-{
+-	tst_rmdir();
+-}
++static struct tst_test test = {
++	.needs_tmpdir = 1,
++	.test_all = verify_swapon,
++	.setup = setup
++};
 --
 2.30.2
 
