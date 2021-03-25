@@ -1,43 +1,51 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53BC4348700
-	for <lists+linux-ltp@lfdr.de>; Thu, 25 Mar 2021 03:38:46 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 90C07348703
+	for <lists+linux-ltp@lfdr.de>; Thu, 25 Mar 2021 03:41:46 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id EDCB13C2E24
-	for <lists+linux-ltp@lfdr.de>; Thu, 25 Mar 2021 03:38:45 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 45E5D3C2E0F
+	for <lists+linux-ltp@lfdr.de>; Thu, 25 Mar 2021 03:41:46 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
- by picard.linux.it (Postfix) with ESMTP id 8E3B73C2B92
- for <ltp@lists.linux.it>; Thu, 25 Mar 2021 03:38:41 +0100 (CET)
-Received: from szxga06-in.huawei.com (szxga06-in.huawei.com [45.249.212.32])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id 2CC1A3C2B92
+ for <ltp@lists.linux.it>; Thu, 25 Mar 2021 03:41:40 +0100 (CET)
+Received: from szxga03-in.huawei.com (szxga03-in.huawei.com [45.249.212.189])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 827F4200DCB
- for <ltp@lists.linux.it>; Thu, 25 Mar 2021 03:38:38 +0100 (CET)
-Received: from DGGEMS414-HUB.china.huawei.com (unknown [172.30.72.58])
- by szxga06-in.huawei.com (SkyGuard) with ESMTP id 4F5TlD4RCZzkf0Y
- for <ltp@lists.linux.it>; Thu, 25 Mar 2021 10:36:56 +0800 (CST)
-Received: from ubuntu1804.huawei.com (10.67.174.63) by
- DGGEMS414-HUB.china.huawei.com (10.3.19.214) with Microsoft SMTP Server id
- 14.3.498.0; Thu, 25 Mar 2021 10:38:25 +0800
-From: Zhao Gongyi <zhaogongyi@huawei.com>
-To: <ltp@lists.linux.it>
-Date: Thu, 25 Mar 2021 10:38:13 +0800
-Message-ID: <20210325023813.13906-1-zhaogongyi@huawei.com>
-X-Mailer: git-send-email 2.17.1
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id EC6E9601620
+ for <ltp@lists.linux.it>; Thu, 25 Mar 2021 03:41:39 +0100 (CET)
+Received: from DGGEML401-HUB.china.huawei.com (unknown [172.30.72.54])
+ by szxga03-in.huawei.com (SkyGuard) with ESMTP id 4F5Tnh4D7Cz5ggG
+ for <ltp@lists.linux.it>; Thu, 25 Mar 2021 10:39:04 +0800 (CST)
+Received: from DGGEML424-HUB.china.huawei.com (10.1.199.41) by
+ DGGEML401-HUB.china.huawei.com (10.3.17.32) with Microsoft SMTP Server (TLS)
+ id 14.3.498.0; Thu, 25 Mar 2021 10:41:36 +0800
+Received: from DGGEML531-MBX.china.huawei.com ([169.254.6.126]) by
+ dggeml424-hub.china.huawei.com ([10.1.199.41]) with mapi id 14.03.0513.000;
+ Thu, 25 Mar 2021 10:41:31 +0800
+From: zhaogongyi <zhaogongyi@huawei.com>
+To: Petr Vorel <pvorel@suse.cz>
+Thread-Topic: [LTP] [PATCH] syscalls/setns: Replace libc function with
+ safe_macros
+Thread-Index: AdchG1B/oPq7/qkjRcmcesfWKj/A9A==
+Date: Thu, 25 Mar 2021 02:41:32 +0000
+Message-ID: <F3D3F6AC3820BB4C9FCA340DB5C32CB40389C8AA@dggeml531-mbx.china.huawei.com>
+Accept-Language: en-US
+Content-Language: zh-CN
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.67.110.209]
 MIME-Version: 1.0
-X-Originating-IP: [10.67.174.63]
 X-CFilter-Loop: Reflected
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH v2] syscalls/setns: Replace libc function with
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] syscalls/setns: Replace libc function with
  safe_macros
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -50,67 +58,39 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-For those:
-	testcases/kernel/syscalls/setns/setns.h
-	testcases/kernel/syscalls/setns/setns02.c
+Hi Petr,
 
-Signed-off-by: Zhao Gongyi <zhaogongyi@huawei.com>
----
-v1->v2: add missed fd.
+I'm sorry! Its my fault, thanks for your review!
 
- testcases/kernel/syscalls/setns/setns.h   | 6 ++----
- testcases/kernel/syscalls/setns/setns02.c | 6 +++---
- 2 files changed, 5 insertions(+), 7 deletions(-)
+I have resubmit the patch.
 
-diff --git a/testcases/kernel/syscalls/setns/setns.h b/testcases/kernel/syscalls/setns/setns.h
-index c2097f2e5..46beef17f 100644
---- a/testcases/kernel/syscalls/setns/setns.h
-+++ b/testcases/kernel/syscalls/setns/setns.h
-@@ -19,9 +19,7 @@ static int get_ns_fd(int pid, const char *ns)
+Best Regards,
+Gongyi
 
- 	sprintf(tmp, "/proc/%d/ns/%s", pid, ns);
- 	if (stat(tmp, &st) == 0) {
--		fd = open(tmp, O_RDONLY);
--		if (fd == -1)
--			tst_brk(TBROK|TERRNO, "failed to open %s", tmp);
-+		fd = SAFE_OPEN(tmp, O_RDONLY);
- 	} else {
- 		if (errno != ENOENT)
- 			tst_brk(TBROK|TERRNO, "failed to stat %s", tmp);
-@@ -58,5 +56,5 @@ static void close_ns_fds(void)
-
- 	for (i = 0; i < ns_total; i++)
- 		if (ns_fds[i] != -1)
--			close(ns_fds[i]);
-+			SAFE_CLOSE(ns_fds[i]);
- }
-diff --git a/testcases/kernel/syscalls/setns/setns02.c b/testcases/kernel/syscalls/setns/setns02.c
-index 0e20c52e4..db442541b 100644
---- a/testcases/kernel/syscalls/setns/setns02.c
-+++ b/testcases/kernel/syscalls/setns/setns02.c
-@@ -168,11 +168,11 @@ static void setup(void)
- static void cleanup(void)
- {
- 	if (ns_ipc_fd != -1)
--		close(ns_ipc_fd);
-+		SAFE_CLOSE(ns_ipc_fd);
- 	if (ns_uts_fd != -1)
--		close(ns_uts_fd);
-+		SAFE_CLOSE(ns_uts_fd);
-
--	shmctl(shmid, IPC_RMID, NULL);
-+	SAFE_SHMCTL(shmid, IPC_RMID, NULL);
- }
-
- static struct tst_test test = {
---
-2.17.1
-
+> 
+> Hi Gongyi,
+> 
+> thanks for your patchset. While it looks correct, some of changes break
+> both tests:
+> 
+> ./setns01 -i 5
+> tst_test.c:1289: TINFO: Timeout per run is 0h 05m 00s
+> setns01.c:153: TCONF: no ns types/proc entries
+> 
+> ./setns02 -i 5
+> tst_test.c:1289: TINFO: Timeout per run is 0h 05m 00s
+> setns02.c:160: TCONF: your kernel has CONFIG_IPC_NS, CONFIG_UTS_NS
+> or CONFIG_PROC disabled
+> setns02.c:175: TWARN: shmctl(0, 0, (nil)) failed: EINVAL (22)
+> 
+> Kind regards,
+> Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
