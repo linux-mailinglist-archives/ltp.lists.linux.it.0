@@ -2,161 +2,76 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id A476A3492EB
-	for <lists+linux-ltp@lfdr.de>; Thu, 25 Mar 2021 14:16:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 721533493C7
+	for <lists+linux-ltp@lfdr.de>; Thu, 25 Mar 2021 15:11:32 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 737E83C5F4D
-	for <lists+linux-ltp@lfdr.de>; Thu, 25 Mar 2021 14:16:03 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 1C3513C5F5A
+	for <lists+linux-ltp@lfdr.de>; Thu, 25 Mar 2021 15:11:32 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- by picard.linux.it (Postfix) with ESMTP id A160A3C27FB
- for <ltp@lists.linux.it>; Thu, 25 Mar 2021 14:16:02 +0100 (CET)
-Received: from aserp2130.oracle.com (aserp2130.oracle.com [141.146.126.79])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id E363E600CC7
- for <ltp@lists.linux.it>; Thu, 25 Mar 2021 14:16:01 +0100 (CET)
-Received: from pps.filterd (aserp2130.oracle.com [127.0.0.1])
- by aserp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 12PDEisn107818;
- Thu, 25 Mar 2021 13:15:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=from : to : cc :
- subject : date : message-id : references : in-reply-to : content-type :
- content-id : content-transfer-encoding : mime-version; s=corp-2020-01-29;
- bh=SMRiikZx3+M0brvpMKZAVGlVFqzKXNJqE4rWNLgTbBc=;
- b=J9kO9jbHQ2J5eyUrdRmO2rTcA7PHqcrpSZQUDGVl959RI6VPG1w3AOKol27HM3qpKoV1
- fiY8itZy3TqtGWu2putqjfFLipeAoAtoTDVqCQSmC6eqA4TlyZLr/WRoWn6wpPvmKCLB
- tyeOrtGDELIxXg3SYBR0PefG+efyM/PlQHZqQxI4hDR+lgmfX0S1DHricCm5OSgBCpmq
- /aOw5LW/CE+9oLAifFpOtM3wlhJ2OvkEz5NEU1yJPaCf4e0cUNYxl2SiPJtGrb2Iz9e7
- KnY/yL/MtYPRDNvoD8sPBVw6NKAftiQEet048YptL0THeXMEpI8TwW500+I5Ba4SlNXX xw== 
-Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
- by aserp2130.oracle.com with ESMTP id 37gs1r8dbb-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 25 Mar 2021 13:15:56 +0000
-Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
- by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 12PDFJae023781;
- Thu, 25 Mar 2021 13:15:55 GMT
-Received: from nam10-bn7-obe.outbound.protection.outlook.com
- (mail-bn7nam10lp2107.outbound.protection.outlook.com [104.47.70.107])
- by aserp3030.oracle.com with ESMTP id 37dtms469p-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 25 Mar 2021 13:15:55 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jKscvuulx15Qlcy7+ljThDLZP624/3k0TjgEwj1J0M7cIwSrEh5iwu8VoUuWN/KLAZcP+sNcvLOeuzzuNr3q1weHABB0DmTccLQtbwwSPUKyW1YA9+6K5H4qaSOG4KCfxM+xUKKJnq1w+IJ28qN66HiWTzNs2uYG01pkawYpkSSgi83ePT1FO7V3xQCRXEZq/Gx2u1IsqeXBbYO1rmZE1X+rFxzWcxnP/ehqT5GdeRi2iUdvsGUviPIB5fR5b3nmU0HvXEtaa0HJeuIt6SbWSNLOk2mkzpJvDjRP3dF2KE4cM3CIRDLcSFsXnQ2Jb2hZuL5/NpQONHhV2Gtvw2w9/w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SMRiikZx3+M0brvpMKZAVGlVFqzKXNJqE4rWNLgTbBc=;
- b=Lq1M8bC2Gt/9ad1NfzEg6tVeT5C5WDm3jApOjPLBU/edbJ6VYBjOUS8CJZcDDzecOgbiu7ko0H8aYLoy6a+GQdtq/xUBsdZcfnVw2NQFJJ5MjEvL70mqlXuuQOIWToa+6Q6cMAOoi3GN8ux2+JLVT/5p40Jj3OUuFlzCCmQHECVPjsVfrobFCjVrHBnAQ1a5t+Axf+h1uQy4XbSs2uZVjzAtZh6CJtGJrukb5M0LaMZ/me6SM4pQCgtwPIW1S2QZC/RJ4nGj3EgTwMB8lFGC7TPSNHoNHLyJM9jUcyqumMoNujksgLi8HSWU5xs0HeiozpdIRH0Fjmfh/kzVkA4HYA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SMRiikZx3+M0brvpMKZAVGlVFqzKXNJqE4rWNLgTbBc=;
- b=FkuPcfSqXvXigK6CYaqfWbl+hEepRwG9l6A/xyhv9557Ll82ghGcFyuUk9ZDsUelrWqBcXH1NYO0dyv/eGUp5ZK+4eZW6tjYVsxaVgV+/G45/D9smqTR8EwKVevyOquPWylmbY/51+L16n96riJQxfWItjoA/jbErXK7g9AG8go=
-Received: from MWHPR10MB1582.namprd10.prod.outlook.com (2603:10b6:300:22::8)
- by MWHPR10MB1791.namprd10.prod.outlook.com (2603:10b6:301:9::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3977.29; Thu, 25 Mar
- 2021 13:15:53 +0000
-Received: from MWHPR10MB1582.namprd10.prod.outlook.com
- ([fe80::1ce7:260b:b004:c82c]) by MWHPR10MB1582.namprd10.prod.outlook.com
- ([fe80::1ce7:260b:b004:c82c%11]) with mapi id 15.20.3977.025; Thu, 25 Mar
- 2021 13:15:52 +0000
-From: Liam Howlett <liam.howlett@oracle.com>
-To: Li Wang <liwang@redhat.com>
-Thread-Topic: [LTP] [PATCH v2 1/1] brk02: Add test for removing more than one
- VMA
-Thread-Index: AQHXCvRm2LPXqQYmf0Wq1gEM3bkluaqIJcyAgAnHDgCAAqFKgIAATeCA
-Date: Thu, 25 Mar 2021 13:15:51 +0000
-Message-ID: <20210325131545.jwrzhdy474utqjpa@revolver>
-References: <20210224213114.2976705-1-Liam.Howlett@Oracle.com>
- <20210224213114.2976705-2-Liam.Howlett@Oracle.com>
- <CAEemH2cKR98HvHZ6OYJpLpaX9-5hfhTak650=DtU-q2Yoo6kbA@mail.gmail.com>
- <20210323162714.t5dm5vbo35vl4t2l@revolver>
- <CAEemH2fnyB_dGzQWUb7SBi9S01vYGXaZBczj2ZwaYF-Rqv9UsA@mail.gmail.com>
-In-Reply-To: <CAEemH2fnyB_dGzQWUb7SBi9S01vYGXaZBczj2ZwaYF-Rqv9UsA@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: redhat.com; dkim=none (message not signed)
- header.d=none;redhat.com; dmarc=none action=none header.from=oracle.com;
-x-originating-ip: [23.233.25.87]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 9ecc3121-09f7-49e6-f59e-08d8ef901d9b
-x-ms-traffictypediagnostic: MWHPR10MB1791:
-x-microsoft-antispam-prvs: <MWHPR10MB1791E1ED35CACBBCDCD64A73FD629@MWHPR10MB1791.namprd10.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8273;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: RwG5kwXJ4wpKgUuyThPVEQwT110VLUC/ZyuUi3mBkEO/i1K9rXUNcQU8Qya9ryTYbpWcDb7r+YM3zkNtLRZFFtppklOMO53Ilhx+y+zkjB+eW4kcg04TTFbpIuFEW6dhdvz49xHHh9EjNwL89niRjuohcTJzF+uFQQx1pF/g+O2VDQmM0+MDDla5HRvCvdetO/n2dQ/FR4Y4mxrgUguy5pImd4Y9KG+nj8WSzfqVeXy823PKg2L3gvwJVFquBpdqJ8uTJNqlMXhCl3qsZvWHvDVTKLUYI+ycycQNdexw6Pa8yMHcUoh14kik1VGseWKUsz+pWKIArgGNJrjf7z9WeCIpIyvvLppzKLDE67Lo80P3WjSP22hH7M5xkQwvvJU9SrCL1JD/t314Lg2Eqg14gV4QsSTABUC6myy5co5qI8tbYVksoHfYdbvt8thrwjJv8Jw6zCglvtmLcpebZnjX7vuXSry2irhZ50NMfPaSBy4KDp3QlXQRyRdmQ2lgAvAmIADP5Psm0DQui6eRaXnepXTVGlBUF9VvZxCTKmWJd/fIZ/4NptyNg4xnJ8aWRMGlxnKNvuWVI1LjiCr33t02MF4DvNygLP0sBb6lo0cNleUowgnM2rcpl8ajmEUKyUBonSA735yIapaaSQiIiTt4GMIcitRRoFD5J4i8QE9H1LU=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MWHPR10MB1582.namprd10.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(7916004)(346002)(136003)(396003)(376002)(366004)(39860400002)(76116006)(91956017)(66476007)(86362001)(66446008)(66946007)(64756008)(66556008)(9686003)(6512007)(6486002)(8676002)(8936002)(6916009)(71200400001)(38100700001)(26005)(186003)(53546011)(6506007)(44832011)(5660300002)(1076003)(4326008)(2906002)(478600001)(316002)(33716001)(83380400001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?YSf5A2Gyi7c3VH3Q9OgpiSUxOwZ+SoJaGAPkpfW+49QkOzCMJjKt9oGjH55L?=
- =?us-ascii?Q?/JeFwZaC+ErIBg32OfPUpGxrSosM599c1n7Ucb8pBun7XsY8/rEQUaJaQPwc?=
- =?us-ascii?Q?G19hMvULIfIglFcRyjouxPlkC1P8zwPIvxZa2MfwWAQ5Xbe5LyAVC6je1ban?=
- =?us-ascii?Q?Zeh7FwdYrIe8OBPWPel9wh9hWBj1ZcR2j3nbjtiDikhfRxG2T3+ohgJ0YWii?=
- =?us-ascii?Q?6QoWxOpZu2gM/8r7Mf+Fytl8jZtzeFip78ff6kzhplAxGMGqZphbUAxJ6wd7?=
- =?us-ascii?Q?wecKMLzmpcbsKbGbIrOOqdGrSNnz3kYCWgF6kaqJvUWU6M22+iisB0dMT+jY?=
- =?us-ascii?Q?mp+Jl47bLlrs1mgOzIYRewRTwoDxQWUACzOhhf0HGx6nlMIgeifoBMAjY1R8?=
- =?us-ascii?Q?SloIviP9NRjU42hreDXw89o0q5l/YmRCLoWLekG4thzEcoJ9qnRFXJ4HUJ6v?=
- =?us-ascii?Q?C35o5EKvW70/UDk79McK1QLJ1mRarhmajSyjgRGQTwa23l0clxX5xqsaC9Kk?=
- =?us-ascii?Q?68o7cx/fT0cXMjJRvAddgD1ED8ZOVRpNW7fO0G4WqP8LPomXNA2macvnM0Ui?=
- =?us-ascii?Q?WIPvKnX3eGpcL9VakOq6Yf+zlO6vvFdVVHNs6hm6dkiYaj1of7gz3jm1r9HB?=
- =?us-ascii?Q?F7kcgkNa35KrtlcZS61HhCPZ3PX1xnu/IgsyRwc1B+K8kLxmBZae8PjU4VTO?=
- =?us-ascii?Q?aaIZNU0JUNa0fNb/G2A5IZoZSBH1Phu2qokyfbii5jpDBpzEwZyEYfkCzhZo?=
- =?us-ascii?Q?f/13+Eknp2ToUlifuPPA1RfujOnPMw/Z/zfiNk/4LD+VcD88HvC3VRukpH9u?=
- =?us-ascii?Q?qjtCaSOBOcwgbMOMXeqJSL9MBd5ebWgV8jbnq3ODtOW9gal/K9HS1ijExlnr?=
- =?us-ascii?Q?GZG9lo2q1qaYyNMp7vmoZoVlt+ESrQ7/IjegbSE1FFGcD1GVGUDQEcGoTXtc?=
- =?us-ascii?Q?RjqlVkS+QZJDueM7/NV2UmgWYnLs4xv0JxhWhgZOjsmGRhWyXOGQ8d3kx5tL?=
- =?us-ascii?Q?ZOZRc12oSVHEqyAnRdNtDXBBbrNn/ernY9dp1/6hOsGcSF9iQk87afI6Nevy?=
- =?us-ascii?Q?CPkZhDZaRctCoHGEgulp9SWeOUzYMX2F84haaF4srjFxQjWDpYikAAF+w8xb?=
- =?us-ascii?Q?5Xe8ef94oVMMJK5eA2sKZ5ed0iLN3vKqlpVGOGp4u4QGSlixX4Wz2rKUT5Sl?=
- =?us-ascii?Q?AFuWiI9rYCH3ARjLfsPH+7+6neusCEu2daIHRpJnQWcLOoPzT3AQoKZFFtPM?=
- =?us-ascii?Q?fESayCvUEUmo/dHkvzcUQoV1QLqIkmBDYnDGhYjm2q2PD8IE8Ss2BREvbtDW?=
- =?us-ascii?Q?coEVbYpM6BLmjMHRVjBJoQBe?=
-x-ms-exchange-transport-forked: True
-Content-ID: <CEA70E9F9D32F2498F586F6B5C7F4C9F@namprd10.prod.outlook.com>
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
+ by picard.linux.it (Postfix) with ESMTP id A0E9D3C27E7
+ for <ltp@lists.linux.it>; Thu, 25 Mar 2021 15:11:30 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id 15EA8200E05
+ for <ltp@lists.linux.it>; Thu, 25 Mar 2021 15:11:29 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1616681488;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=EXQtaG4ok35GVyWfzkGU36gJuXK7sl8D5c5akF91IHE=;
+ b=aUZP2e6Y4Or0i7wlP8zKSpYb3jcR2J/OKcTkPcwgX7933q5C+sctydvxjqGL3uTrcXAIiX
+ Vv6lszN7By34FH2GPQyuYytqkR7L5i1avcYC6N/kQc8Jqq7n5YkSB0Zyzw8H49eN98s75T
+ Y6FAYXaeii2Yj4mEi1G+sGHyL3/pYp0=
+Received: from mail-yb1-f200.google.com (mail-yb1-f200.google.com
+ [209.85.219.200]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-144-dRcCck_1NL6Gw0DIYpYuAQ-1; Thu, 25 Mar 2021 10:11:22 -0400
+X-MC-Unique: dRcCck_1NL6Gw0DIYpYuAQ-1
+Received: by mail-yb1-f200.google.com with SMTP id o129so6202640ybg.23
+ for <ltp@lists.linux.it>; Thu, 25 Mar 2021 07:11:22 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=EXQtaG4ok35GVyWfzkGU36gJuXK7sl8D5c5akF91IHE=;
+ b=phfCfZdn53cUr2RtzaITSEwFzDXNDcjdslbxAbox7X8NTQteLgHJ1dA2PmheeFVx+q
+ XRAtq5v+lVpcV2AgsWGRo5VpIQ5DWfGdYM83njsEm+B79kb4nmjKN2DSF6vaD+LboRhw
+ 4RVdQlUxefIpxHg+pz4wGFjqkXMixqCRtFVTaV0oDyLXcPlkpIL1rTt6o2bQueycQNwo
+ t3WP2IuK8/KdAxTOxv8AGELJGGr5YHaxRjqfOLciNAJfN0jBS1VeyV/oclx5sVMetvdJ
+ jnEZ9GXf0BJGIWcFggS2Le0iZyiVqJ5ws4YuFI844l0pz/M/zT/18kP7tCIDpOXyhJTX
+ F9NQ==
+X-Gm-Message-State: AOAM532ZNL7QevWLExMFF2J2evgzOUnAI87BGRj0WUItqoeQUHt/YzyW
+ GwoBgCcMyKelNtdYL66rSF3LQhx8/02HQqqtL4a0Ngy+xktzav7JCcONNWrwsflDlRwT3G9T41C
+ PjdMWC2yZqqxUws6C1EHSh+lzHR0=
+X-Received: by 2002:a25:bdc6:: with SMTP id g6mr12776758ybk.366.1616681482083; 
+ Thu, 25 Mar 2021 07:11:22 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwgODaVd5anqNSO/L+l98P1t6ejmsxxdkogVvf6uRNFuLgXkDn/5YvBA4ft0GS1k2WOSZZvquM1MwXa9ytBYpU=
+X-Received: by 2002:a25:bdc6:: with SMTP id g6mr12776735ybk.366.1616681481899; 
+ Thu, 25 Mar 2021 07:11:21 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR10MB1582.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9ecc3121-09f7-49e6-f59e-08d8ef901d9b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Mar 2021 13:15:52.2475 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: kv6U+/uwgChIa25Vp4I+UcqDlF+dpGuHUk93qn4aMYcjk0p2auPUs+azUdfPI/iPqdEWcYhQ8zpOuQoEEO0zOw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR10MB1791
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9933
- signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
- mlxscore=0 phishscore=0
- bulkscore=0 suspectscore=0 malwarescore=0 mlxlogscore=999 spamscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2103250098
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9933
- signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
- spamscore=0 clxscore=1015
- lowpriorityscore=0 suspectscore=0 phishscore=0 impostorscore=0
- mlxlogscore=999 priorityscore=1501 adultscore=0 bulkscore=0 malwarescore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2103250098
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+References: <YFmUrVOyX4q+8Dy9@osiris>
+ <20210323215819.4161164-1-hca@linux.ibm.com>
+ <CAEemH2cSk=doHL51uD5Qu6uCRRTCgYd0EN0iij=X+538J53XsQ@mail.gmail.com>
+ <YFyDARFZZUCG5LGc@osiris>
+In-Reply-To: <YFyDARFZZUCG5LGc@osiris>
+From: Li Wang <liwang@redhat.com>
+Date: Thu, 25 Mar 2021 22:11:09 +0800
+Message-ID: <CAEemH2cQxfjxm8jOCmESsX8aAvhHw=BqyEq24sgNiVc0iCPNDQ@mail.gmail.com>
+To: Heiko Carstens <hca@linux.ibm.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 1/1] brk02: Add test for removing more than one
- VMA
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 0/3] s390 vdso fixes
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -168,146 +83,103 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: linux-s390@vger.kernel.org, Vasily Gorbik <gor@linux.ibm.com>,
+ Viresh Kumar <viresh.kumar@linaro.org>,
+ linux-kernel <linux-kernel@vger.kernel.org>,
+ Christian Borntraeger <borntraeger@de.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Thomas Gleixner <tglx@linutronix.de>, LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============0346137587=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-* Li Wang <liwang@redhat.com> [210325 04:37]:
-> Hi Liam,
-> 
-> On Wed, Mar 24, 2021 at 12:27 AM Liam Howlett <liam.howlett@oracle.com>
-> wrote:
-> 
-> > Hello Li,
-> >
-> > Thank you for looking at this testcase.
-> >
-> > * Li Wang <liwang@redhat.com> [210317 07:08]:
-> > > Hi Liam, Petr,
+--===============0346137587==
+Content-Type: multipart/alternative; boundary="00000000000071a6ba05be5cfdc7"
+
+--00000000000071a6ba05be5cfdc7
+Content-Type: text/plain; charset="UTF-8"
+
+Heiko Carstens <hca@linux.ibm.com> wrote:
+
+
+> ...
+> > > Heiko Carstens (3):
+> > >   s390/vdso: fix tod clock steering
+> > >   s390/vdso: fix arch_data access for __arch_get_hw_counter()
+> > >   lib/vdso: remove struct arch_vdso_data from vdso data struct
 > > >
-> > > Liam Howlett <liam.howlett@oracle.com> wrote:
-> > >
-> > >
-> > > > ...
-> > > > +       if (mprotect(addr - page_size, page_size,
-> > > > +                    PROT_READ|PROT_WRITE|PROT_EXEC)) {
-> > > > +               tst_res(TFAIL, "Cannot mprotect new VMA.");
-> > > > +               return;
-> > > > +       }
-> > > >
-> > >
-> > > We got permission denied here while performing the brk02 on
-> > > x86_64/s390x(kernel-4.18~). After looking at the manual page of
-> > > mprotect(), seems the access issue caused by PROT_EXEC.
-> > >
-> > > "
-> > > POSIX says that the behavior of mprotect() is unspecified if it is
-> > applied
-> > > to a region of memory that was not obtained via mmap(2).
-> > > ...
-> > > Whether  PROT_EXEC has any effect different from PROT_READ
-> > > depends on processor architecture, kernel version, and process state.
-> > > If READ_IMPLIES_EXEC is set in the process's personality flags
-> > > (see personality(2)), specifying PROT_READ will implicitly add PROT_EXEC.
-> > > "
 > >
+> > Thanks for the quick fix! I confirmed these patches work for me.
+> > (tested with latest mainline kernel v5.12-rc4)
 > >
-> > Unforntunately, dropping the PROT_EXEC causes the VMA behaviour to
-> > change and does not test what this testcase is intended to test.
-> >
-> 
-> Yes, I agree with this. But am not sure if Linux take some action on
-> security
-> side to prevent setting PROT_EXEC permission arbitrary.
-> 
-> 
-> >
-> > Removing the PROT_EXEC and the PROT_WRITE does test what is supposed to
-> > be tested.  Can you verify that this works on the s390x?
-> >
-> 
-> Actually just removing the PROT_EXEC then the brk02 can be passed on all my
-> platforms.
+> > Tested-by: Li Wang <liwang@redhat.com>
+>
+> Thanks a lot for confirming! However I decided to go with the simple
+> variant:
+>
+> https://lore.kernel.org/linux-s390/YFnxr1ZlMIOIqjfq@osiris/T/#m26f94fd8ac048421a4a8870e7259a09f97840a3e
+>
+> May I add your Tested-by there as well?
+>
 
-Just removing the PROT_EXEC invalidates the test.  However, if both
-PROT_EXEC and PROT_WRITE are removed, then the test still does what is
-intended.
+Sure, I just reverted the 2/3 and 3/3, then apply the simple variant
+scratch-patch. It also works well.
 
-> 
-> 
-> >
-> > Are you using real hardware to test this or can I use some sort of
-> > emulation to test on my side?
-> >
-> 
-> It looks like easily to reproduce.
-> 
-> I get failed with both virtual system and bare metal, e.g. the first one
-> is on my Fedora33-workstation. But the worth to say, brk02 passed
-> with raspberry pi3 and pi4.
-> 
-> x86_64
-> -------------
-> # virt-what
-> # echo $?
-> 0
-> # uname -r
-> 5.10.22-200.fc33.x86_64
-> # ./brk02
-> tst_test.c:1289: TINFO: Timeout per run is 0h 05m 00s
-> brk02.c:41: TFAIL: Cannot mprotect new VMA
+-- 
+Regards,
+Li Wang
 
+--00000000000071a6ba05be5cfdc7
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-This was my test platform.  I also sent it to the Travis CI which passed
-for x86_64.  I will re-examine the accepted code to ensure the cosmetic
-changes didn't invalidate my testing.
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small">Heiko Carstens &lt;<a href=3D"mailto:hca@linux.ibm.com" targe=
+t=3D"_blank">hca@linux.ibm.com</a>&gt; wrote:<br></div></div><div class=3D"=
+gmail_quote"><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"ma=
+rgin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:=
+1ex">
+<span class=3D"gmail_default" style=3D"font-size:small">...</span><br>
+&gt; &gt; Heiko Carstens (3):<br>
+&gt; &gt;=C2=A0 =C2=A0s390/vdso: fix tod clock steering<br>
+&gt; &gt;=C2=A0 =C2=A0s390/vdso: fix arch_data access for __arch_get_hw_cou=
+nter()<br>
+&gt; &gt;=C2=A0 =C2=A0lib/vdso: remove struct arch_vdso_data from vdso data=
+ struct<br>
+&gt; &gt;<br>
+&gt; <br>
+&gt; Thanks for the quick fix! I confirmed these patches work for me.<br>
+&gt; (tested with latest mainline kernel v5.12-rc4)<br>
+&gt; <br>
+&gt; Tested-by: Li Wang &lt;<a href=3D"mailto:liwang@redhat.com" target=3D"=
+_blank">liwang@redhat.com</a>&gt;<br>
+<br>
+Thanks a lot for confirming! However I decided to go with the simple varian=
+t:<br>
+<a href=3D"https://lore.kernel.org/linux-s390/YFnxr1ZlMIOIqjfq@osiris/T/#m2=
+6f94fd8ac048421a4a8870e7259a09f97840a3e" rel=3D"noreferrer" target=3D"_blan=
+k">https://lore.kernel.org/linux-s390/YFnxr1ZlMIOIqjfq@osiris/T/#m26f94fd8a=
+c048421a4a8870e7259a09f97840a3e</a><br>
+<br>
+May I add your Tested-by there as well?<br></blockquote><div><br></div><div=
+ class=3D"gmail_default" style=3D"font-size:small">Sure, I just reverted th=
+e 2/3 and 3/3, then apply the simple variant scratch-patch. It also works w=
+ell.</div></div><div><br></div>-- <br><div dir=3D"ltr"><div dir=3D"ltr"><di=
+v>Regards,<br></div><div>Li Wang<br></div></div></div></div>
 
-
-> 
-> x86_64
-> -------------
-> # virt-what
-> kvm
-> # ./brk02
-> tst_test.c:1291: TINFO: Timeout per run is 0h 05m 00s
-> brk02.c:41: TFAIL: Cannot mprotect new VMA
-> 
-> s390x
-> -------------
-> # uname -r
-> 5.12.0-rc4.vdso+
-> # virt-what
-> ibm_systemz
-> ibm_systemz-zvm
-> # ./brk02
-> tst_test.c:1289: TINFO: Timeout per run is 0h 05m 00s
-> brk02.c:41: TFAIL: Cannot mprotect new VMA
-> 
-> 
-> armv7l -- raspberry-pi3
-> -----------------------------
-> # uname  -r
-> 5.4.96-v7.1.el7
-> # ./brk02
-> tst_test.c:1291: TINFO: Timeout per run is 0h 05m 00s
-> brk02.c:56: TPASS: munmap at least two VMAs of brk() passed
-> armv7l -- raspberry-pi4
-> -----------------------------
-> # uname  -rm
-> 5.10.17-v7l+ armv7l
-> # ./brk02
-> tst_test.c:1291: TINFO: Timeout per run is 0h 05m 00s
-> brk02.c:56: TPASS: munmap at least two VMAs of brk() passed
-> 
-
-Would you be willing to re-run the tests without both PROT_EXEC and
-PROT_WRITE?
+--00000000000071a6ba05be5cfdc7--
 
 
-Thank you,
-Liam
+--===============0346137587==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============0346137587==--
+
