@@ -1,61 +1,42 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1620234B386
-	for <lists+linux-ltp@lfdr.de>; Sat, 27 Mar 2021 02:32:05 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id C743A34B613
+	for <lists+linux-ltp@lfdr.de>; Sat, 27 Mar 2021 11:24:16 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id AF88A3C8E25
-	for <lists+linux-ltp@lfdr.de>; Sat, 27 Mar 2021 02:32:04 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 037C13C8DF0
+	for <lists+linux-ltp@lfdr.de>; Sat, 27 Mar 2021 11:24:16 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- by picard.linux.it (Postfix) with ESMTP id DBF213C27AE
- for <ltp@lists.linux.it>; Sat, 27 Mar 2021 02:32:01 +0100 (CET)
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ by picard.linux.it (Postfix) with ESMTP id D1A323C2791
+ for <ltp@lists.linux.it>; Sat, 27 Mar 2021 11:24:11 +0100 (CET)
+Received: from szxga04-in.huawei.com (szxga04-in.huawei.com [45.249.212.190])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 6B0F66005C9
- for <ltp@lists.linux.it>; Sat, 27 Mar 2021 02:31:52 +0100 (CET)
-Received: from DGGEML404-HUB.china.huawei.com (unknown [172.30.72.57])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4F6h7N3N12zWQSq;
- Sat, 27 Mar 2021 09:28:32 +0800 (CST)
-Received: from dggpemm100003.china.huawei.com (7.185.36.68) by
- DGGEML404-HUB.china.huawei.com (10.3.17.39) with Microsoft SMTP Server (TLS)
- id 14.3.498.0; Sat, 27 Mar 2021 09:31:46 +0800
-Received: from dggpemm500022.china.huawei.com (7.185.36.162) by
- dggpemm100003.china.huawei.com (7.185.36.68) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2106.2; Sat, 27 Mar 2021 09:31:46 +0800
-Received: from dggpemm500022.china.huawei.com ([7.185.36.162]) by
- dggpemm500022.china.huawei.com ([7.185.36.162]) with mapi id 15.01.2106.013;
- Sat, 27 Mar 2021 09:31:46 +0800
-From: xieziyao <xieziyao@huawei.com>
-To: Li Wang <liwang@redhat.com>
-Thread-Topic: [LTP] [PATCH] syscalls/clock_adjtime: fix some mistakes for
- commit 135affca95dca84bc9ce6b1e2238e6db6e6b0f56
-Thread-Index: AQHXIiR5xl3nMAzk3EK2XDAsjjBlmKqXBaKQ
-Date: Sat, 27 Mar 2021 01:31:46 +0000
-Message-ID: <13c58a4bb8ac48d3a00906aed3b0446e@huawei.com>
-References: <20210326080530.11211-1-xieziyao@huawei.com>
- <CAEemH2ck0c+UAzw7-midEc0q=GS9EsBYSOo48Lwd_MF5tuJpeg@mail.gmail.com>
-In-Reply-To: <CAEemH2ck0c+UAzw7-midEc0q=GS9EsBYSOo48Lwd_MF5tuJpeg@mail.gmail.com>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.67.109.194]
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id DE912600660
+ for <ltp@lists.linux.it>; Sat, 27 Mar 2021 11:24:09 +0100 (CET)
+Received: from DGGEMS409-HUB.china.huawei.com (unknown [172.30.72.58])
+ by szxga04-in.huawei.com (SkyGuard) with ESMTP id 4F6vyv5cbrz1BGGm
+ for <ltp@lists.linux.it>; Sat, 27 Mar 2021 18:21:59 +0800 (CST)
+Received: from ubuntu1804.huawei.com (10.67.174.63) by
+ DGGEMS409-HUB.china.huawei.com (10.3.19.209) with Microsoft SMTP Server id
+ 14.3.498.0; Sat, 27 Mar 2021 18:23:52 +0800
+From: Zhao Gongyi <zhaogongyi@huawei.com>
+To: <ltp@lists.linux.it>
+Date: Sat, 27 Mar 2021 18:23:44 +0800
+Message-ID: <20210327102344.1620-1-zhaogongyi@huawei.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
+X-Originating-IP: [10.67.174.63]
 X-CFilter-Loop: Reflected
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=HTML_MESSAGE,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] =?utf-8?b?562U5aSNOiAgW1BBVENIXSBzeXNjYWxscy9jbG9ja19hZGp0?=
- =?utf-8?q?ime=3A_fix_some_mistakes_for_commit_135affca95dca84bc9ce6b1e223?=
- =?utf-8?q?8e6db6e6b0f56?=
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH] syscalls/shmctl: Using TERRNO to macth errno
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,160 +48,35 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============0060799084=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0060799084==
-Content-Language: zh-CN
-Content-Type: multipart/alternative;
-	boundary="_000_13c58a4bb8ac48d3a00906aed3b0446ehuaweicom_"
+When "shmid == -1", we need print the errno with TERRNO. It must have no error in
+TEST, otherwise it has return early.
 
---_000_13c58a4bb8ac48d3a00906aed3b0446ehuaweicom_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Signed-off-by: Zhao Gongyi <zhaogongyi@huawei.com>
+---
+ testcases/kernel/syscalls/ipc/shmctl/shmctl04.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-SSdsbCBwYXkgYXR0ZW50aW9uIHRvIHRoaXMgbmV4dCB0aW1lLCB0aGFua3MgYSBsb3QuIDopDQoN
-Cg0KLS0NClJlZ2FyZHMsDQpYaWUgWml5YW8NCg0K5Y+R5Lu25Lq6OiBMaSBXYW5nIFttYWlsdG86
-bGl3YW5nQHJlZGhhdC5jb21dDQrlj5HpgIHml7bpl7Q6IDIwMjHlubQz5pyIMjbml6UgMTc6NDMN
-CuaUtuS7tuS6ujogeGlleml5YW8gPHhpZXppeWFvQGh1YXdlaS5jb20+DQrmioTpgIE6IExUUCBM
-aXN0IDxsdHBAbGlzdHMubGludXguaXQ+DQrkuLvpopg6IFJlOiBbTFRQXSBbUEFUQ0hdIHN5c2Nh
-bGxzL2Nsb2NrX2FkanRpbWU6IGZpeCBzb21lIG1pc3Rha2VzIGZvciBjb21taXQgMTM1YWZmY2E5
-NWRjYTg0YmM5Y2U2YjFlMjIzOGU2ZGI2ZTZiMGY1Ng0KDQpIaSBaaXlhbywNCg0KT24gRnJpLCBN
-YXIgMjYsIDIwMjEgYXQgNDowNiBQTSBYaWUgWml5YW8gPHhpZXppeWFvQGh1YXdlaS5jb208bWFp
-bHRvOnhpZXppeWFvQGh1YXdlaS5jb20+PiB3cm90ZToNCi0gY2hhbmdlIFRURVJSTk8gdG8gVEVS
-Uk5PIGFmdGVyIHRoZSBzYWZlX21hY3JvcyBpbnRlcmZhY2UgaXMgbm90IHVzZWQ7DQotIGRlbGV0
-ZSB0aGUgdW5uZWNlc3NhcnkgdHN0X3JlcyhURkFJTCB8IFRURVJSTk8sIC4uLiksIHdoaWNoIGhh
-cyBiZWVuDQogIGRldGVybWluZWQgaW4gdGhlIHByZXZpb3VzIGxvZ2ljLg0KDQpTaWduZWQtb2Zm
-LWJ5OiBYaWUgWml5YW8gPHhpZXppeWFvQGh1YXdlaS5jb208bWFpbHRvOnhpZXppeWFvQGh1YXdl
-aS5jb20+Pg0KDQpBcyBhIGNvbnZlbnRpb24sIHdlIGFkZCAiRml4ZXM6IHh4eHh4eHh4eHgiIGhl
-cmUgdG8gdHJhY2sgdGhlIGNvbW1pdCBpZC4NCg0KQW55d2F5LCBJIGhlbHAgdG8gbW9kaWZpZWQg
-c29tZSBmb3JtYXQgaXNzdWVzIGFuZCBwdXNoZWQgaXQsIHRoYW5rcyENCg0KDQotLQ0KUmVnYXJk
-cywNCkxpIFdhbmcNCg==
+diff --git a/testcases/kernel/syscalls/ipc/shmctl/shmctl04.c b/testcases/kernel/syscalls/ipc/shmctl/shmctl04.c
+index c70a76fb2..9e8ec4199 100644
+--- a/testcases/kernel/syscalls/ipc/shmctl/shmctl04.c
++++ b/testcases/kernel/syscalls/ipc/shmctl/shmctl04.c
+@@ -130,7 +130,7 @@ static void verify_shminfo(unsigned int n)
+ 	shmid = shmctl(TST_RET, SHM_STAT_ANY, &ds);
 
---_000_13c58a4bb8ac48d3a00906aed3b0446ehuaweicom_
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: base64
-
-PGh0bWwgeG1sbnM6dj0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTp2bWwiIHhtbG5zOm89InVy
-bjpzY2hlbWFzLW1pY3Jvc29mdC1jb206b2ZmaWNlOm9mZmljZSIgeG1sbnM6dz0idXJuOnNjaGVt
-YXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6d29yZCIgeG1sbnM6bT0iaHR0cDovL3NjaGVtYXMubWlj
-cm9zb2Z0LmNvbS9vZmZpY2UvMjAwNC8xMi9vbW1sIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv
-VFIvUkVDLWh0bWw0MCI+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIg
-Y29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRv
-ciIgY29udGVudD0iTWljcm9zb2Z0IFdvcmQgMTUgKGZpbHRlcmVkIG1lZGl1bSkiPg0KPHN0eWxl
-PjwhLS0NCi8qIEZvbnQgRGVmaW5pdGlvbnMgKi8NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6
-5a6L5L2TOw0KCXBhbm9zZS0xOjIgMSA2IDAgMyAxIDEgMSAxIDE7fQ0KQGZvbnQtZmFjZQ0KCXtm
-b250LWZhbWlseToiQ2FtYnJpYSBNYXRoIjsNCglwYW5vc2UtMToyIDQgNSAzIDUgNCA2IDMgMiA0
-O30NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6Q2FsaWJyaTsNCglwYW5vc2UtMToyIDE1IDUg
-MiAyIDIgNCAzIDIgNDt9DQpAZm9udC1mYWNlDQoJe2ZvbnQtZmFtaWx5OiJcQOWui+S9kyI7DQoJ
-cGFub3NlLTE6MiAxIDYgMCAzIDEgMSAxIDEgMTt9DQpAZm9udC1mYWNlDQoJe2ZvbnQtZmFtaWx5
-OuW+rui9r+mbhem7kTsNCglwYW5vc2UtMToyIDExIDUgMyAyIDIgNCAyIDIgNDt9DQpAZm9udC1m
-YWNlDQoJe2ZvbnQtZmFtaWx5OiJcQOW+rui9r+mbhem7kSI7DQoJcGFub3NlLTE6MiAxMSA1IDMg
-MiAyIDQgMiAyIDQ7fQ0KLyogU3R5bGUgRGVmaW5pdGlvbnMgKi8NCnAuTXNvTm9ybWFsLCBsaS5N
-c29Ob3JtYWwsIGRpdi5Nc29Ob3JtYWwNCgl7bWFyZ2luOjBjbTsNCgltYXJnaW4tYm90dG9tOi4w
-MDAxcHQ7DQoJZm9udC1zaXplOjEyLjBwdDsNCglmb250LWZhbWlseTrlrovkvZM7fQ0KYTpsaW5r
-LCBzcGFuLk1zb0h5cGVybGluaw0KCXttc28tc3R5bGUtcHJpb3JpdHk6OTk7DQoJY29sb3I6Ymx1
-ZTsNCgl0ZXh0LWRlY29yYXRpb246dW5kZXJsaW5lO30NCmE6dmlzaXRlZCwgc3Bhbi5Nc29IeXBl
-cmxpbmtGb2xsb3dlZA0KCXttc28tc3R5bGUtcHJpb3JpdHk6OTk7DQoJY29sb3I6cHVycGxlOw0K
-CXRleHQtZGVjb3JhdGlvbjp1bmRlcmxpbmU7fQ0Kc3Bhbi5FbWFpbFN0eWxlMTcNCgl7bXNvLXN0
-eWxlLXR5cGU6cGVyc29uYWwtcmVwbHk7DQoJZm9udC1mYW1pbHk6IkNhbGlicmkiLHNhbnMtc2Vy
-aWY7DQoJY29sb3I6IzFGNDk3RDt9DQouTXNvQ2hwRGVmYXVsdA0KCXttc28tc3R5bGUtdHlwZTpl
-eHBvcnQtb25seTsNCglmb250LXNpemU6MTAuMHB0O30NCkBwYWdlIFdvcmRTZWN0aW9uMQ0KCXtz
-aXplOjYxMi4wcHQgNzkyLjBwdDsNCgltYXJnaW46NzIuMHB0IDkwLjBwdCA3Mi4wcHQgOTAuMHB0
-O30NCmRpdi5Xb3JkU2VjdGlvbjENCgl7cGFnZTpXb3JkU2VjdGlvbjE7fQ0KLS0+PC9zdHlsZT48
-IS0tW2lmIGd0ZSBtc28gOV0+PHhtbD4NCjxvOnNoYXBlZGVmYXVsdHMgdjpleHQ9ImVkaXQiIHNw
-aWRtYXg9IjEwMjYiIC8+DQo8L3htbD48IVtlbmRpZl0tLT48IS0tW2lmIGd0ZSBtc28gOV0+PHht
-bD4NCjxvOnNoYXBlbGF5b3V0IHY6ZXh0PSJlZGl0Ij4NCjxvOmlkbWFwIHY6ZXh0PSJlZGl0IiBk
-YXRhPSIxIiAvPg0KPC9vOnNoYXBlbGF5b3V0PjwveG1sPjwhW2VuZGlmXS0tPg0KPC9oZWFkPg0K
-PGJvZHkgbGFuZz0iWkgtQ04iIGxpbms9ImJsdWUiIHZsaW5rPSJwdXJwbGUiPg0KPGRpdiBjbGFz
-cz0iV29yZFNlY3Rpb24xIj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIGxhbmc9IkVOLVVT
-IiBzdHlsZT0iZm9udC1zaXplOjEwLjVwdDtmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7
-LHNhbnMtc2VyaWY7Y29sb3I6IzFGNDk3RCI+SSdsbCBwYXkgYXR0ZW50aW9uIHRvIHRoaXMgbmV4
-dCB0aW1lLCB0aGFua3MgYSBsb3QuIDopPG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9
-Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMiIHN0eWxlPSJmb250LXNpemU6MTAuNXB0O2Zv
-bnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssc2Fucy1zZXJpZjtjb2xvcjojMUY0OTdEIj48
-bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBs
-YW5nPSJFTi1VUyIgc3R5bGU9ImZvbnQtc2l6ZToxMC41cHQ7Zm9udC1mYW1pbHk6JnF1b3Q7Q2Fs
-aWJyaSZxdW90OyxzYW5zLXNlcmlmO2NvbG9yOiMxRjQ5N0QiPjxvOnA+Jm5ic3A7PC9vOnA+PC9z
-cGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIGxhbmc9IkVOLVVTIiBzdHlsZT0i
-Zm9udC1zaXplOjEwLjVwdDtmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LHNhbnMtc2Vy
-aWY7Y29sb3I6IzFGNDk3RCI+LS08bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNv
-Tm9ybWFsIj48c3BhbiBsYW5nPSJFTi1VUyIgc3R5bGU9ImZvbnQtc2l6ZToxMC41cHQ7Zm9udC1m
-YW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OyxzYW5zLXNlcmlmO2NvbG9yOiMxRjQ5N0QiPlJlZ2Fy
-ZHMsPG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFu
-Zz0iRU4tVVMiIHN0eWxlPSJmb250LXNpemU6MTAuNXB0O2ZvbnQtZmFtaWx5OiZxdW90O0NhbGli
-cmkmcXVvdDssc2Fucy1zZXJpZjtjb2xvcjojMUY0OTdEIj5YaWUgWml5YW88bzpwPjwvbzpwPjwv
-c3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBsYW5nPSJFTi1VUyIgc3R5bGU9
-ImZvbnQtc2l6ZToxMC41cHQ7Zm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OyxzYW5zLXNl
-cmlmO2NvbG9yOiMxRjQ5N0QiPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNz
-PSJNc29Ob3JtYWwiPjxiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5
-OiZxdW90O+W+rui9r+mbhem7kSZxdW90OyxzYW5zLXNlcmlmIj7lj5Hku7bkuro8c3BhbiBsYW5n
-PSJFTi1VUyI+Ojwvc3Bhbj48L3NwYW4+PC9iPjxzcGFuIGxhbmc9IkVOLVVTIiBzdHlsZT0iZm9u
-dC1zaXplOjExLjBwdDtmb250LWZhbWlseTomcXVvdDvlvq7ova/pm4Xpu5EmcXVvdDssc2Fucy1z
-ZXJpZiI+IExpIFdhbmcgW21haWx0bzpsaXdhbmdAcmVkaGF0LmNvbV0NCjxicj4NCjwvc3Bhbj48
-Yj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseTomcXVvdDvlvq7ova/p
-m4Xpu5EmcXVvdDssc2Fucy1zZXJpZiI+5Y+R6YCB5pe26Ze0PHNwYW4gbGFuZz0iRU4tVVMiPjo8
-L3NwYW4+PC9zcGFuPjwvYj48c3BhbiBsYW5nPSJFTi1VUyIgc3R5bGU9ImZvbnQtc2l6ZToxMS4w
-cHQ7Zm9udC1mYW1pbHk6JnF1b3Q75b6u6L2v6ZuF6buRJnF1b3Q7LHNhbnMtc2VyaWYiPiAyMDIx
-PC9zcGFuPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OiZxdW90O+W+
-rui9r+mbhem7kSZxdW90OyxzYW5zLXNlcmlmIj7lubQ8c3BhbiBsYW5nPSJFTi1VUyI+Mzwvc3Bh
-bj7mnIg8c3BhbiBsYW5nPSJFTi1VUyI+MjY8L3NwYW4+5pelPHNwYW4gbGFuZz0iRU4tVVMiPg0K
-IDE3OjQzPGJyPg0KPC9zcGFuPjxiPuaUtuS7tuS6ujxzcGFuIGxhbmc9IkVOLVVTIj46PC9zcGFu
-PjwvYj48c3BhbiBsYW5nPSJFTi1VUyI+IHhpZXppeWFvICZsdDt4aWV6aXlhb0BodWF3ZWkuY29t
-Jmd0Ozxicj4NCjwvc3Bhbj48Yj7mioTpgIE8c3BhbiBsYW5nPSJFTi1VUyI+Ojwvc3Bhbj48L2I+
-PHNwYW4gbGFuZz0iRU4tVVMiPiBMVFAgTGlzdCAmbHQ7bHRwQGxpc3RzLmxpbnV4Lml0Jmd0Ozxi
-cj4NCjwvc3Bhbj48Yj7kuLvpopg8c3BhbiBsYW5nPSJFTi1VUyI+Ojwvc3Bhbj48L2I+PHNwYW4g
-bGFuZz0iRU4tVVMiPiBSZTogW0xUUF0gW1BBVENIXSBzeXNjYWxscy9jbG9ja19hZGp0aW1lOiBm
-aXggc29tZSBtaXN0YWtlcyBmb3IgY29tbWl0IDEzNWFmZmNhOTVkY2E4NGJjOWNlNmIxZTIyMzhl
-NmRiNmU2YjBmNTY8bzpwPjwvbzpwPjwvc3Bhbj48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05v
-cm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMiPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4NCjxk
-aXY+DQo8ZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIGxhbmc9IkVOLVVT
-Ij5IaSBaaXlhbyw8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjwvZGl2Pg0KPHAgY2xh
-c3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMiPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFu
-PjwvcD4NCjxkaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4t
-VVMiPk9uIEZyaSwgTWFyIDI2LCAyMDIxIGF0IDQ6MDYgUE0gWGllIFppeWFvICZsdDs8YSBocmVm
-PSJtYWlsdG86eGlleml5YW9AaHVhd2VpLmNvbSI+eGlleml5YW9AaHVhd2VpLmNvbTwvYT4mZ3Q7
-IHdyb3RlOjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2Pg0KPGJsb2NrcXVvdGUgc3R5bGU9
-ImJvcmRlcjpub25lO2JvcmRlci1sZWZ0OnNvbGlkICNDQ0NDQ0MgMS4wcHQ7cGFkZGluZzowY20g
-MGNtIDBjbSA2LjBwdDttYXJnaW4tbGVmdDo0LjhwdDttYXJnaW4tdG9wOjUuMHB0O21hcmdpbi1y
-aWdodDowY207bWFyZ2luLWJvdHRvbTo1LjBwdCI+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3Bh
-biBsYW5nPSJFTi1VUyI+LSBjaGFuZ2UgVFRFUlJOTyB0byBURVJSTk8gYWZ0ZXIgdGhlIHNhZmVf
-bWFjcm9zIGludGVyZmFjZSBpcyBub3QgdXNlZDs8YnI+DQotIGRlbGV0ZSB0aGUgdW5uZWNlc3Nh
-cnkgdHN0X3JlcyhURkFJTCB8IFRURVJSTk8sIC4uLiksIHdoaWNoIGhhcyBiZWVuPGJyPg0KJm5i
-c3A7IGRldGVybWluZWQgaW4gdGhlIHByZXZpb3VzIGxvZ2ljLjxicj4NCjxicj4NClNpZ25lZC1v
-ZmYtYnk6IFhpZSBaaXlhbyAmbHQ7PGEgaHJlZj0ibWFpbHRvOnhpZXppeWFvQGh1YXdlaS5jb20i
-IHRhcmdldD0iX2JsYW5rIj54aWV6aXlhb0BodWF3ZWkuY29tPC9hPiZndDs8bzpwPjwvbzpwPjwv
-c3Bhbj48L3A+DQo8L2Jsb2NrcXVvdGU+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNw
-YW4gbGFuZz0iRU4tVVMiPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2Pg0KPGRp
-dj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBsYW5nPSJFTi1VUyI+QXMgYSBj
-b252ZW50aW9uLCB3ZSBhZGQgJnF1b3Q7Rml4ZXM6IHh4eHh4eHh4eHgmcXVvdDsgaGVyZSB0byB0
-cmFjayB0aGUgY29tbWl0IGlkLjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2Pg0KPGRpdj4N
-CjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIGxhbmc9IkVOLVVTIj48bzpwPiZuYnNwOzwvbzpw
-Pjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBs
-YW5nPSJFTi1VUyI+QW55d2F5LCBJIGhlbHAgdG8gbW9kaWZpZWQgc29tZSBmb3JtYXQgaXNzdWVz
-IGFuZCBwdXNoZWQgaXQsIHRoYW5rcyE8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjwv
-ZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIGxhbmc9IkVOLVVTIj48bzpw
-PiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNz
-PSJNc29Ob3JtYWwiPjxzcGFuIGxhbmc9IkVOLVVTIj48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48
-L3A+DQo8L2Rpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIGxhbmc9IkVOLVVTIj4tLSA8
-bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8ZGl2Pg0KPGRpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNv
-Tm9ybWFsIj48c3BhbiBsYW5nPSJFTi1VUyI+UmVnYXJkcyw8bzpwPjwvbzpwPjwvc3Bhbj48L3A+
-DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBsYW5nPSJFTi1VUyI+
-TGkgV2FuZzxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2Pg0KPC9kaXY+DQo8L2Rpdj4NCjwv
-ZGl2Pg0KPC9kaXY+DQo8L2JvZHk+DQo8L2h0bWw+DQo=
-
---_000_13c58a4bb8ac48d3a00906aed3b0446ehuaweicom_--
-
---===============0060799084==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+ 	if (shmid == -1) {
+-		tst_res(TFAIL | TTERRNO, "SHM_INFO haven't returned a valid index");
++		tst_res(TFAIL | TERRNO, "SHM_INFO haven't returned a valid index");
+ 	} else {
+ 		tst_res(TPASS,
+ 			"SHM_INFO returned valid index %li maps to shmid %i",
+--
+2.17.1
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============0060799084==--
