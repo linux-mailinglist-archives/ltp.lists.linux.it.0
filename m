@@ -2,139 +2,137 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2DC334C211
-	for <lists+linux-ltp@lfdr.de>; Mon, 29 Mar 2021 04:57:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E6BA34C214
+	for <lists+linux-ltp@lfdr.de>; Mon, 29 Mar 2021 05:00:36 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 641D73C2E56
-	for <lists+linux-ltp@lfdr.de>; Mon, 29 Mar 2021 04:57:18 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 578423C2C1C
+	for <lists+linux-ltp@lfdr.de>; Mon, 29 Mar 2021 05:00:36 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 1740C3C2781
- for <ltp@lists.linux.it>; Mon, 29 Mar 2021 04:57:16 +0200 (CEST)
-Received: from esa1.fujitsucc.c3s2.iphmx.com (esa1.fujitsucc.c3s2.iphmx.com
- [68.232.152.245])
+ by picard.linux.it (Postfix) with ESMTPS id DBBA13C00C1
+ for <ltp@lists.linux.it>; Mon, 29 Mar 2021 05:00:34 +0200 (CEST)
+Received: from esa3.fujitsucc.c3s2.iphmx.com (esa3.fujitsucc.c3s2.iphmx.com
+ [68.232.151.212])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id BDBB2600747
- for <ltp@lists.linux.it>; Mon, 29 Mar 2021 04:57:14 +0200 (CEST)
-IronPort-SDR: Sx56Jmn2cDcIZRkz3ubuu4PbBqfr9wNUXOj+AjNLuBxCS/36aMI7BXwRy2QUT36iaBj2YvYX2m
- LrQoNFCGLn028OWhMKSAv5TawRpahIqLT8Ds4/XV7Y3S+Z/E67pdtP2cKR2Mb06cg1u+Q5LcZu
- 7VFMGYMExR6n2TLilH/v40+2TKh5G2/xvlPvH9P/XqcOHOopwx6NGcSAC45GUkB8GNUzbQO6jh
- NdpJM+V9rWf1Og8h7mbsXwSToOaI+qb6hv1bJojrZZEPgAsXEF2tMOF9wN8bF828RwXgCApmVV
- ghU=
-X-IronPort-AV: E=McAfee;i="6000,8403,9937"; a="36860438"
-X-IronPort-AV: E=Sophos;i="5.81,285,1610377200"; d="scan'208";a="36860438"
-Received: from mail-os2jpn01lp2054.outbound.protection.outlook.com (HELO
- JPN01-OS2-obe.outbound.protection.outlook.com) ([104.47.92.54])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id A4D2460073E
+ for <ltp@lists.linux.it>; Mon, 29 Mar 2021 05:00:33 +0200 (CEST)
+IronPort-SDR: z3DJFEjZp5wN+YdrrOfFknuZsoTb5q9YX/9vODHnwFtmj+h8tD0NTZtXlep8wiyT2rx57aJ6H2
+ JAQTojvZHhmgENRPA8R6bmrsvUzM8Lbg+Bop/bgoGbIGlLVP2QNu+rlmFObSAcku28JbUH/Y+r
+ ZEAnwxdIJ2z/ltKbGKPFqFuELrs42v+/vKJ+2UHqXO4JNbexKYDFETUEmFvpzYhm76lJhkoLqe
+ x/y6OBqMcoAhBc4TZhpyblckG2N5QCVgP7ujL8TQWCyCW3gicDbA3u/EvN/xFD3Om37Z+1KrLh
+ d5s=
+X-IronPort-AV: E=McAfee;i="6000,8403,9937"; a="36748708"
+X-IronPort-AV: E=Sophos;i="5.81,285,1610377200"; d="scan'208";a="36748708"
+Received: from mail-pu1apc01lp2058.outbound.protection.outlook.com (HELO
+ APC01-PU1-obe.outbound.protection.outlook.com) ([104.47.126.58])
  by ob1.fujitsucc.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Mar 2021 11:57:12 +0900
+ 29 Mar 2021 12:00:31 +0900
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=H0fHsg7bfpIyHxxME2UIVQHJtqpDSzhAZ6q19cdZsDnSnSM9h5V4nUMny9J3qGU9bGF21+tEsm9rlg8t0MM9+M0Vq0uzQ64Pb4g66K5zr05VLw/FGSstA6uDc/IuoFbaGUjSur81jEKEvpHPulUVuEhXm/31XoAgxCMjKHU8rr+/w357LIYigpvpeZWCE8WFehKHsSI3VzJ2oN7zDZpfbgsYrkVrwqiJ+ZqCUrgp5ugkmEnSI1GHBfpJqKJc5JL3W+SuAfJFyeCzMvzaOL0XtarRvZ2G24Hw4yrrHMlu4rL6LcPAvk0MjsHUT8KQ+tKoOO2rq6LFuKXqD0RwVPav5g==
+ b=FVkiBzjAzDp6+FcJqz+eWpfKzVIQ0n794qKchjivWYzrEtsLsKaXjYomhjRf/ixu9X/5URiuS2mGW0I7ltSvyGSheUCURdSfsJTXPYfUKQxvJ+2I6vrUaeQzyR1brAcs7M/OgapF4J7aq8qlUkgC7S6gwsUdqEmlGk37P40/nf7KCyGrvxfdfZWNL1gBHrOI0J9u19QIJNzvBtZOMKOwfeldoCsuTICa0gqQnfRH2VhIwn2/72boQbFxSBRJOoGj6Dv6oUZZjEU6Eqmspr7enGh6mY6SanqRxWKvMtJIIB9ULq53+UrM8ks1ildFbz3IHuGEBRk4kGzghxHqiNk4jw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HU3VWgmdSXonDZDuJdNOyNriIl9X1sDJwIWE6GtkToo=;
- b=Q3eAC8Cs8bhI4KupnlfOlKodTXXWlp9v26AK/LHy9KDZkgoxxNQiZ1ohgsJRL3+AmVkZRTJFHmWc2XdKP40vEEDlIKpgTrdMfJtdeo1UPxkIUBR0k9yt9FRS4rN9J+8zJnaic1IQbuUPk2FGxWFgPfHATaaKlV4/NtV+wmRVOvqH7N7sXdaefQV2U2X+56XaNwZtyckgwM4Dkro4CFzxduVc7FP0OhUwcGXmylppQQ02NY4QK+WOJz9A/okOfoe2CRCHHyZMhhpXJMnvoIfFqy1Q6XguFZHUAbWFDz+n4vVki5RlaHNZgw0zfpkFSb3jvqrvYxOCf4GVxsX18fAW9w==
+ bh=9PAljahkd9Xq01su35qWrWUtyuzh5pNsweJW9x22yYI=;
+ b=lEWT99qBFWMYyNMvmnNsENJqUMZ7/bW5MYKT4xbtLVjy02vbHSuReX2IudMA7bFMsaSy7PYNqFotd5wDqAgEUJQ2ss1HQAHCW1lW2SReSUu7zANiFIranvBdlOSa0p2eOmcoDlEc0UdBQGcgXffcSVOZtZgOZyiD/ov13VBKBHJSHsEcv11bcdf2BWgwziZrPiMa7CP2oVMTdiOtMDi7HWcEnm0fePWZTE1IDri6wj40IJ1zuwYTVlGwx8aLDrL76nYfb/aN2dFoSZ9pAn06NI6GINpBHhuZIMOeBly8aRULHO54ZdGEV3E6fH/TVpa764dFh5e/AF3AEktOhpUeug==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=fujitsu.com; dmarc=pass action=none header.from=fujitsu.com;
  dkim=pass header.d=fujitsu.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=fujitsu.onmicrosoft.com; s=selector2-fujitsu-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HU3VWgmdSXonDZDuJdNOyNriIl9X1sDJwIWE6GtkToo=;
- b=noftA4sEQeXk4TUGajry9FKALnADbx5SZdOQ8AZgJPToCFKed4npjFcP+NxxUGCJyxofEvUAee+UivgglvgskrlKwU3xsdeh86f1o6pIBMD75z5SPk992FRm9QmUUuB6aQyTB1sjcGjahGUFixl8cG0hr1Suzbm0aI7l9yN6008=
-Received: from OS0PR01MB6371.jpnprd01.prod.outlook.com (2603:1096:604:104::9)
- by OSAPR01MB4035.jpnprd01.prod.outlook.com (2603:1096:604:31::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3977.32; Mon, 29 Mar
- 2021 02:57:09 +0000
-Received: from OS0PR01MB6371.jpnprd01.prod.outlook.com
- ([fe80::d890:a1e4:ea0a:15c0]) by OS0PR01MB6371.jpnprd01.prod.outlook.com
- ([fe80::d890:a1e4:ea0a:15c0%5]) with mapi id 15.20.3977.033; Mon, 29 Mar 2021
- 02:57:09 +0000
-From: "yangx.jy@fujitsu.com" <yangx.jy@fujitsu.com>
-To: "ruansy.fnst@fujitsu.com" <ruansy.fnst@fujitsu.com>
-Thread-Topic: [LTP] [PATCH 2/2] syscalls/chmod0{3, 4}: Cleanup and Convert to
- the new API.
-Thread-Index: AQHXFw0nofi8Ipuiq02LQXNWhpbTtKqaYE6A
-Date: Mon, 29 Mar 2021 02:57:09 +0000
-Message-ID: <60614203.1070904@fujitsu.com>
-References: <20210312065757.380144-1-ruansy.fnst@fujitsu.com>
- <20210312065757.380144-2-ruansy.fnst@fujitsu.com>
-In-Reply-To: <20210312065757.380144-2-ruansy.fnst@fujitsu.com>
-Accept-Language: zh-CN, en-US
+ bh=9PAljahkd9Xq01su35qWrWUtyuzh5pNsweJW9x22yYI=;
+ b=N3+FPLJisF+/egmgJVriHkrOUqxjffQFSlB0hMcr13uSU7KcqQP2qCYny6i+xMqrKe5XbD9Q0BPZXWjeH2W02/548mKgVlQaTHAmDsD5PVMEBfY39RfJQ3ZOSqLp+abm7Hrwyhm07iA0+v+YSC/aN5oDNRt8+QOcWOt5qSnKov8=
+Received: from TYCPR01MB6544.jpnprd01.prod.outlook.com (2603:1096:400:98::6)
+ by TY2PR01MB4201.jpnprd01.prod.outlook.com (2603:1096:404:d3::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3977.29; Mon, 29 Mar
+ 2021 03:00:29 +0000
+Received: from TYCPR01MB6544.jpnprd01.prod.outlook.com
+ ([fe80::9095:8cd8:6e30:3052]) by TYCPR01MB6544.jpnprd01.prod.outlook.com
+ ([fe80::9095:8cd8:6e30:3052%5]) with mapi id 15.20.3977.033; Mon, 29 Mar 2021
+ 03:00:29 +0000
+From: "xuyang2018.jy@fujitsu.com" <xuyang2018.jy@fujitsu.com>
+To: zhaogongyi <zhaogongyi@huawei.com>
+Thread-Topic: [LTP] [PATCH] syscalls/shmctl: Using TERRNO to macth errno
+Thread-Index: AdckRA9OMHYr18qpRVmjJddmstPDJgAA6GYA
+Date: Mon, 29 Mar 2021 03:00:29 +0000
+Message-ID: <606142D4.8080005@fujitsu.com>
+References: <F3D3F6AC3820BB4C9FCA340DB5C32CB40389DCF2@dggeml531-mbx.china.huawei.com>
+In-Reply-To: <F3D3F6AC3820BB4C9FCA340DB5C32CB40389DCF2@dggeml531-mbx.china.huawei.com>
+Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-authentication-results: fujitsu.com; dkim=none (message not signed)
- header.d=none;fujitsu.com; dmarc=none action=none header.from=fujitsu.com;
+authentication-results: huawei.com; dkim=none (message not signed)
+ header.d=none;huawei.com; dmarc=none action=none header.from=fujitsu.com;
 x-originating-ip: [180.96.28.100]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: e02e5d5f-1a2c-437f-0485-08d8f25e5829
-x-ms-traffictypediagnostic: OSAPR01MB4035:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <OSAPR01MB403501B656BDB6DF3FB31037837E9@OSAPR01MB4035.jpnprd01.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:12;
+x-ms-office365-filtering-correlation-id: 3ee6ad9a-2341-424e-c1a0-08d8f25ecf7b
+x-ms-traffictypediagnostic: TY2PR01MB4201:
+x-microsoft-antispam-prvs: <TY2PR01MB4201ABD6F954F18C1279B508FD7E9@TY2PR01MB4201.jpnprd01.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:10000;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: j8l5Qdil3hLNhG7zHc9LDeIMvsNTFga5ZhBJikkioRoAbMIQKEk7Sh4z3d9/hAfjI1QsRx3Pl6lTuftQh4597eTjhKtk6mWE/E3ykO8xXzQoNXoBf1EGOlfu9E7IAk1eBC0HuMq9ix5UEI7I7whVoW6JxOtyB89GJJLevD1r5zqskBtZzXfTz5bKh9hVCwPSDjRD0LUKCNJPukVi+yK3Wnk2gabQbyj6x0r6mwUK55mIUNyFc/Zo+Upurc4hKX9HCnV4LvS1ap/GX5Y+uCgYuisxVJUqpUzAYG0XvUbT3YGlozXb34zzUfQV+dzozs+e9q0xDiUJSL5MMdptY4RMxUYpUdPid6OF+gPOChFSaAII188xOnb6Z+LAcwBwMqAFH4mo5CpoRLVeTXhK96FE9UN2sO9xLEXxEUOVqnppRu5TCJ6qZE/tBwFfvV/BgJu4yuymg8+V2Q7s2mdPTN2wFJqH4rpm2aaIwZlY1pUgNRLz9xKtLhcnNq63tNYjo7g/aR8EotWCAvptu20z/NwRCY9ivZzzH/dbJ/Zm6c10SCU8tmMq0Cvnty9VhrTu7uHacCZFZMEiqYbVk5m/ANVl/fbwVlDi2lMgAVO2thhvKEdK7k0Z9t5vUMDTeXN1BcBr7eJ+C1dZoLvZlUwR7dlNhXC7iciKDKaRwTWzKvnVCgdsmR2W5zSC6ReWdDM6bw/py4Yq5byV4NrLdjWrH5D9Ag==
+x-microsoft-antispam-message-info: k6AQT7yn19R1EVXHtDSkuM/QjmcCY5wBF6xo5G3hfid5XV9ypNyVHoAa3szs2cHwRfU+AjeL+UiF0HkIQhW8gFbT5s2RxUWNxcQDWQTJUHNGOMltt6ZOjiTrldaE71BILfx+XkTIx69sNS/9dynlau6IVT+4OudjFhmnJdTWDTVSbxQb4p+PkIQgxaFq+Ip7qvtOtJZnMeYKKirAdG8DQ9BQlNLELDPu7BrM51eqTYaqThqUYVJ4IvZZWAGkguZxH+SzfbSJhNjjQOtFqqQ6qeii/OX40+XugGttu+hipf36ytXv2wxzNO/RMo+xp/zXvq4/dFmDG3UfkSRoWQIUwqVRUTPQBsJ7Yaf0Ccai/13SpSGY/j4jvFqTOJlAR8O76gpt+Mo0mg3KZkkQ38w1er9oR5GqBJqOyhfMalBLh6L/CiNyv7QEAG95xVRJz04DxHZKtcJDr2evCQsh8zSiC7jqR45/BIo6Ud8PGqKEuAaSyUWdKqZKSRD6D/HE7E8rT76VlN7f7K31az9gqxYkeNAeKXQHsQoMa8vI2AXITH5B4K3goYW1WRE2b8jS5ZIIki60rlD9weQPUGgVD+uDScbjWUqlPp6xq0aegblsoGdLFiySqu3bQF9WsMOE7WBpv+D8IoRwRWbPHwBbOmWlFMZonVCkpxkYU9vdG6kUll4=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:OS0PR01MB6371.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(396003)(136003)(376002)(39860400002)(366004)(36756003)(6512007)(64756008)(66446008)(87266011)(66476007)(66946007)(66556008)(6486002)(53546011)(6862004)(85182001)(91956017)(8936002)(86362001)(2616005)(76116006)(5660300002)(38100700001)(6506007)(316002)(186003)(30864003)(2906002)(8676002)(71200400001)(6636002)(478600001)(4326008)(26005)(83380400001)(37006003)(2004002)(62816006);
+ IPV:NLI; SFV:NSPM; H:TYCPR01MB6544.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(396003)(136003)(39860400002)(346002)(376002)(6916009)(83380400001)(85182001)(186003)(87266011)(66556008)(66476007)(2616005)(6486002)(6506007)(26005)(86362001)(8936002)(4326008)(8676002)(33656002)(316002)(5660300002)(71200400001)(2906002)(38100700001)(54906003)(36756003)(6512007)(478600001)(64756008)(91956017)(66446008)(66946007)(76116006);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?gb2312?B?NFpOenhEd2NiYzRXSWoza2ZjRi9EcmZwak5kdU5BUm5PVEZuVW1RR0lCOUZE?=
- =?gb2312?B?amVOcmV4bGg2a0M4UGtPeWwwS2lQYldlcjVpenNSR3U3cWd4Qmd3T0VlcHlG?=
- =?gb2312?B?SGp6ckhYNTFRUFhFbzIzUWIvc2NnREtPMzZ6S0krT0tidWpSM3YzV3JkOWlw?=
- =?gb2312?B?d0J2WVhlWU9JRFZ1UGxUTjM4VE03QVJVRjRDdjBMUEdYbFU2NVZKQ09iU2hy?=
- =?gb2312?B?blN3a3RKUjVSRVJzWU4xU21WY3lzUTl3SEdJZWpoQmIwUW9nd3NOSy9QUHVW?=
- =?gb2312?B?UC9yNEtsK2I2RkZRL2tjZmZJUzRPSEQxTXRyTnFxcnAzNHIrcU1xaXUwUUhv?=
- =?gb2312?B?RjdxaVZ3dVhMcUlPQnh0WWZzMjlPckJhaWlFck5hZ3lwNnlJMm96YWQ5THB2?=
- =?gb2312?B?UlBVeXJhd2FyaE9Idi9EMWhMSVRJSWNYb0g2dGg2M2htQytuVkVvVFVJWWZ4?=
- =?gb2312?B?bG91U0Z6akQweGR1QnZrVUZqNjVudllrdEdqREdKM0R1SDZlMDZCd0MzOWxV?=
- =?gb2312?B?SmxtNmxOQzcyUHV4UVVyQ0NzaFRnUERQUnl2Sm1Bci9ING9GZ3JvNGZHRmVZ?=
- =?gb2312?B?WEhvdExlWDAvNTJjM1U2a05wQ2VSM2pMQkUvcGpOTk9rVUorcUczL0dmOFE4?=
- =?gb2312?B?TWo3RnY0enJ6ZWt6UTRRM2NGVDFieTd5cHg4bmdBbEN3cEhCR3R6SGJjSW13?=
- =?gb2312?B?NzcwTU9nZ09OYXlQWUNtbW1SSU1yTVlOYUJiRTNGSWZ1djVMNUkrUTdRcW1H?=
- =?gb2312?B?Zm1NM3lPUm0yazI5UGYvWE5sOHVnaXpiK0F3MkdoVXc2MnlLNXJNclhNbXVq?=
- =?gb2312?B?NWFsdEdSSnJmcGxaZzdMU29YZ3l2YU90MUdOM2w0N0cyTVBLOWxmS1hmS1pu?=
- =?gb2312?B?SlAzbDg3Nmg3OWprb0ZiOVhEb3JpMENFMUwzV2RNUndhOEd0OUpxRjJ1ZU9s?=
- =?gb2312?B?VFl0Y0pzKy9VWDZwU1VuOWdMSlB2alVaZmo0L3NTck1mSnQ1L0syM2RTS0NV?=
- =?gb2312?B?QXVvZ0VlaWV4emdIQWZIemh0Q3dGYXllMU5xenRsemd1TjNoajduWmNWU0Fp?=
- =?gb2312?B?YTBQS3dEdmV4NFAzUWRQL3RzeldOVXpvTSt5d3c4QlNOLzhsRldHelF4OHhZ?=
- =?gb2312?B?QmU4NUNyaWJUUmdvdExqUHJ2UVRjUmRTZmZXNlFaa1B1RkJGd1Z6UzZBNnNM?=
- =?gb2312?B?YmJmRDVlb2NqejdMaEwxMFZlb3Zqdi81Njd5YlIveEowbVV6Z1dLNHVaOHBJ?=
- =?gb2312?B?YktvMHZvaXNnZmUrMnpicmlVSENZYmJwK085YytGb2R0T0FyNkFTMjJZR1BO?=
- =?gb2312?B?aTVIQmZ0VG9EQWR5YldPYVYxRVBQTDVMcjRRQ0hhRmlubGVFdUIwS3dkOFhO?=
- =?gb2312?B?Vk9zSlp3NUJwa0dLQ2tZUlFZT0RjanFVektwd1diNHoxME9TVWllb1pCWGIx?=
- =?gb2312?B?UTJyVU5hOVJJR1o4ZWRKQUUwTmhSeEJDVEkwMnZyS2ZySWJwcmZBUURKdXlz?=
- =?gb2312?B?OElCcWhUcVU1ZkRBZmdtZ0ZhUVZlYnMxRTFERXlyOGhTY3Q1QTduakwyWk5q?=
- =?gb2312?B?VzdMaDNQeHlhTzFISXBOVHlKSk13TUtVaHh2YmJNemNGczVJNm9vZ2tvc1gw?=
- =?gb2312?B?bHFoN2Q0ZDBKS2tvcDJacjRyRHA2L1hLcnFuc1ZyMUJCZUlOUnIraTd3akxD?=
- =?gb2312?B?YVZZc1JvQXNMNWJQN2xienJrVklKSTl3Y243MUpVMXVzcUZtcWJKeHlVbU9V?=
- =?gb2312?Q?FvSdjfgrDUx/DLHmgEyR5uO92VlPgF2fRh+jmFA?=
-Content-ID: <D854093A072C184397C64918B07A5A41@jpnprd01.prod.outlook.com>
+x-ms-exchange-antispam-messagedata: =?utf-8?B?SkVseFFpTmdTZW9ldDFtT2tlaElBcXloNENoY3RjU3g3RG1LeGtvMzUvNG9m?=
+ =?utf-8?B?ZjA4V2UzUVlHM3lqcFpYTlVFVy8ra0c3U2hQMnJEcmNuVHlXMG5IUE52cGpD?=
+ =?utf-8?B?ZWg3VGRWNUdnUHk5ZGoxVTBYa2ZlNlFaQ0Fab0wyNnVUbDhOSXdrR2hKaFVz?=
+ =?utf-8?B?c1gvME1Da1A3cWt1OWRaZ3pGTFVjalVZT2d4V2RMYnYzQnpMVmxBUmRiVUFU?=
+ =?utf-8?B?ZHNHL2RYZ1dKRzdnNG9GZnhKL214N1FsYjZRNUVTSys3TURrbTF5K24yaHEw?=
+ =?utf-8?B?aitzcmd1WVZCcFpaek1EUC9vVjREMFBQOCt5YUtKRjR5K0dhOThvbTl2bnlr?=
+ =?utf-8?B?ODdOSFBnbFNweStkODFHd3NvS1ZNMVd6Z1VQc2RpQjlJNUw2OEFjckFoODRQ?=
+ =?utf-8?B?cVlaT2RCb3RzMGd1VDNRUGFvVlZmZUFPRjVSa3BJSUplQ2N1N2JoUm1jR1Fn?=
+ =?utf-8?B?elArZW8yd2pocUlUNUpCQ01SZDV0aW45Ny9XN0s3bWt4M05vWG52Vjg3dTNu?=
+ =?utf-8?B?SzNTRTZXbU1YakNibjIwa1EyV1E3K1BOVnZUT0F4SU1QZTdLTytoN3lYWCtt?=
+ =?utf-8?B?Y2NwQVZSQWRia0hOMHlOc3V0aU4yeWhtbTdUbG5aTGFodmNJUFRRRWkyNjNu?=
+ =?utf-8?B?VjZ2UzZISmhTa2Y5VFQ2NmZ0bUlRQWNFVFdQUXJ5bHNrbUw5U2d2OWFGeGxW?=
+ =?utf-8?B?S0dNNGhOZUtmRHpwR2ZQbkZveXVnOFM3OEpRSnA5V1hMQTBxeHNZNmdzeFBE?=
+ =?utf-8?B?TnRmaThNb3NKTWJUVTJySGRvekhaL010dzFqMW81SWlQKytnSllYRXdJSXhk?=
+ =?utf-8?B?ZDlwR0FxZVU4VmxVUWpYbjZEMmxISHlzUEg1ais3NTZ3OHRobEVVWmxuWGxj?=
+ =?utf-8?B?QjlMYVQ1THZEcm9lNGFWUHdNakJ4R1piQittZ2crd0NHTHp2aWRrTVVOMm42?=
+ =?utf-8?B?c2pzaXZ4eVN0aTU2eXIrOUlqYStTVzdCbzcwczZ6dEJhMis0bUR5N29KcitN?=
+ =?utf-8?B?eXZ3MU9tck0wOEhhaUVEVy9sdjhYQlBuakJsLzVNWG1xcWV5Tll0bUx1MUM4?=
+ =?utf-8?B?YXNKalV6dmtZR1lnWDZ0NUlnUXR1dlgxVVFvSWkyQnFadGZSNGpIampJdldY?=
+ =?utf-8?B?dVZrekVFKzRXTWdGcXFOTHkzR2xicGp4bWcvY3haR3VqY2V0QStueVNLS2tm?=
+ =?utf-8?B?VHNON0JNbmRsVXN5ckdYSGxhRUZUcXAwRHRYZnJvSk93NnVOb2pDSW9nbW9U?=
+ =?utf-8?B?Q1F5TTJobUZ5QS9iQ1RndkluaGIxSkVjQjVOYXJhd3grMUViRi9KdFVFTjZx?=
+ =?utf-8?B?cTBrNU44eTZJbjNWTUV2V2ZqU2o5THFLYVpueFB0WDRTd1preVZMMGVXdi9J?=
+ =?utf-8?B?US8rRDdNbVFJU0l0WFNTWWtjMDA0UWpqWDgxVVJOb3M4c1hZZTZRM2drVXZW?=
+ =?utf-8?B?SmZpRHhYYkVXSXNUeVNXQWx3RCsxaHd6czUyR3Q0SVNSWnY5R3AwTUpiM3lj?=
+ =?utf-8?B?T0lHajZFVFRheVl3Q0hXaHRnampkMmtGMk5rWHUyNHBOblQxQVc3Q0RkRC9S?=
+ =?utf-8?B?RlBGZFl6Zmk1TXVzdjBhZ2F3eDQrZDFqajF0SE5QdXpNeXU5NUo1MTlkWVEx?=
+ =?utf-8?B?dzNlMUthTzhtblE2K2c4R2RzeTVCeFpEWHdyVTdJZHROZmh0Rnk5NVpuU1ZR?=
+ =?utf-8?B?ZlViY3ZqYU9mb0R0eGU5TFNVOTFjczA5VzNjbUpKbGFBZnVpWU5EeUZyUGYx?=
+ =?utf-8?Q?AVP8jaaBNkQOSkfofWY6hO8JjalrEFDQD5KQ3lX?=
+x-ms-exchange-transport-forked: True
+Content-ID: <F45E0CC838B904499666C3AA6FE54306@jpnprd01.prod.outlook.com>
 MIME-Version: 1.0
 X-OriginatorOrg: fujitsu.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: OS0PR01MB6371.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e02e5d5f-1a2c-437f-0485-08d8f25e5829
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Mar 2021 02:57:09.1372 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB6544.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3ee6ad9a-2341-424e-c1a0-08d8f25ecf7b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Mar 2021 03:00:29.4169 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: a19f121d-81e1-4858-a9d8-736e267fd4c7
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: gGYbl+N39/SLSOeqKPcjNgSAhEgWD9LF6r1UoM6IJNT/rbQ2gWcM9tY1LXl6CcTeFt/Afp2y2PtjFO4ocyRQiw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSAPR01MB4035
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-MS-Exchange-CrossTenant-userprincipalname: wHO95pVq595x6MXdzFRF0nlBG05IUVDlWNO+FdZa3zS4DMxpnzehl2LBWy7wLVLMQGV9oSvPDrjHY6D3vu/HC9EnQ8vG54zL0DhZlN9ZEXA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY2PR01MB4201
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 2/2] syscalls/chmod0{3,
- 4}: Cleanup and Convert to the new API.
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] syscalls/shmctl: Using TERRNO to macth errno
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,479 +144,84 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
+Cc: LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Ruan,
+Hi Gongyi
 
-After looking into the chmod03 and chmod04, I wonder if we can also 
-merge chmod03 and chmod04 into chmod01?
-Because of two reasons:
-1) All of them just set mode by chmod() and check mode by stat().
-2) Without needs_root =1, we can run them with any users(root or no-root).
+> Hi Xu, Li,
+>
+> On the other hand, we have created a shm in setup, why we query with SHM_INFO and return 0?
+Because SHM_INFO ignores shm_id parameter like IPC_INFO in kernel. We 
+created a shm in setup just to make sure that there is at least one 
+during the testrun.
 
-Best Regards,
-Xiao Yang
-On 2021/3/12 14:57, Shiyang Ruan wrote:
-> chmod03 and chmod04 test on file and directory with same logic, so
-> combine them together.
 >
-> Signed-off-by: Shiyang Ruan<ruansy.fnst@fujitsu.com>
-> ---
->   runtest/syscalls                           |   1 -
->   testcases/kernel/syscalls/chmod/.gitignore |   1 -
->   testcases/kernel/syscalls/chmod/chmod03.c  | 196 ++++-----------------
->   testcases/kernel/syscalls/chmod/chmod04.c  | 191 --------------------
->   4 files changed, 36 insertions(+), 353 deletions(-)
->   delete mode 100644 testcases/kernel/syscalls/chmod/chmod04.c
+> Best Regards,
+> Gongyi
 >
-> diff --git a/runtest/syscalls b/runtest/syscalls
-> index 6108d5fdb..2bf870709 100644
-> --- a/runtest/syscalls
-> +++ b/runtest/syscalls
-> @@ -62,7 +62,6 @@ chdir04 chdir04
->   chmod01 chmod01
->   chmod01A symlink01 -T chmod01
->   chmod03 chmod03
-> -chmod04 chmod04
->   chmod05 chmod05
->   chmod06 chmod06
->   chmod07 chmod07
-> diff --git a/testcases/kernel/syscalls/chmod/.gitignore b/testcases/kernel/syscalls/chmod/.gitignore
-> index 072fa5b80..27ddfce16 100644
-> --- a/testcases/kernel/syscalls/chmod/.gitignore
-> +++ b/testcases/kernel/syscalls/chmod/.gitignore
-> @@ -1,6 +1,5 @@
->   /chmod01
->   /chmod03
-> -/chmod04
->   /chmod05
->   /chmod06
->   /chmod07
-> diff --git a/testcases/kernel/syscalls/chmod/chmod03.c b/testcases/kernel/syscalls/chmod/chmod03.c
-> index f53e437e4..e451ca65a 100644
-> --- a/testcases/kernel/syscalls/chmod/chmod03.c
-> +++ b/testcases/kernel/syscalls/chmod/chmod03.c
-> @@ -1,183 +1,59 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
->   /*
-> - *   Copyright (c) International Business Machines  Corp., 2001
-> - *
-> - *   This program is free software;  you can redistribute it and/or modify
-> - *   it under the terms of the GNU General Public License as published by
-> - *   the Free Software Foundation; either version 2 of the License, or
-> - *   (at your option) any later version.
-> - *
-> - *   This program is distributed in the hope that it will be useful,
-> - *   but WITHOUT ANY WARRANTY;  without even the implied warranty of
-> - *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
-> - *   the GNU General Public License for more details.
-> - *
-> - *   You should have received a copy of the GNU General Public License
-> - *   along with this program;  if not, write to the Free Software
-> - *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
-> + * Copyright (c) International Business Machines  Corp., 2001
->    */
->
-> -/*
-> - * Test Name: chmod03
-> +/*\
-> + * [DESCRIPTION]
->    *
-> - * Test Description:
-> - *  Verify that, chmod(2) will succeed to change the mode of a file
-> - *  and set the sticky bit on it if invoked by non-root (uid != 0)
-> - *  process with the following constraints,
-> - *	- the process is the owner of the file.
-> + * Verify that, chmod(2) will succeed to change the mode of a file/directory
-> + * and set the sticky bit on it if invoked by non-root (uid != 0) process with
-> + * the following constraints:
-> + *	- the process is the owner of the directory.
->    *	- the effective group ID or one of the supplementary group ID's of the
-> - *	  process is equal to the group ID of the file.
-> - *
-> - * Expected Result:
-> - *  chmod() should return value 0 on success and succeeds to change
-> - *  the mode of specified file with sticky bit set on it.
-> - *
-> - * Algorithm:
-> - *  Setup:
-> - *   Setup signal handling.
-> - *   Create temporary directory.
-> - *   Pause for SIGUSR1 if option specified.
-> - *
-> - *  Test:
-> - *   Loop if the proper options are given.
-> - *   Execute system call
-> - *   Check return code, if system call failed (return=-1)
-> - *   	Log the errno and Issue a FAIL message.
-> - *   Otherwise,
-> - *   	Verify the Functionality of system call
-> - *      if successful,
-> - *      	Issue Functionality-Pass message.
-> - *      Otherwise,
-> - *		Issue Functionality-Fail message.
-> - *  Cleanup:
-> - *   Print errno log and/or timing stats if options given
-> - *   Delete the temporary directory created.
-> - *
-> - * Usage:<for command-line>
-> - *  chmod03 [-c n] [-e] [-f] [-i n] [-I x] [-p x] [-t]
-> - *     where,  -c n : Run n copies concurrently.
-> - *             -e   : Turn on errno logging.
-> - *             -f   : Turn off functionality Testing.
-> - *	       -i n : Execute test n times.
-> - *	       -I x : Execute test for x seconds.
-> - *	       -P x : Pause for x seconds between iterations.
-> - *	       -t   : Turn on syscall timing.
-> - *
-> - * HISTORY
-> - *	07/2001 Ported by Wayne Boyer
-> - *
-> - * RESTRICTIONS:
-> - *  This test should be run by 'non-super-user' only.
-> - *
-> + *	  process is equal to the group ID of the directory.
->    */
->
-> -#include<stdio.h>
-> -#include<sys/types.h>
-> -#include<sys/stat.h>
-> -#include<fcntl.h>
->   #include<errno.h>
-> -#include<string.h>
-> -#include<signal.h>
-> -#include<pwd.h>
-> -
-> -#include "test.h"
-> -#include "safe_macros.h"
-> -
-> -#define FILE_MODE       S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH
-> -#define PERMS		01777	/*
-> -				 * Mode permissions of test file with sticky
-> -				 * bit set.
-> -				 */
-> -#define TESTFILE	"testfile"
-> +#include<sys/stat.h>
-> +#include "tst_test.h"
->
-> -char *TCID = "chmod03";
-> -int TST_TOTAL = 1;
-> -char nobody_uid[] = "nobody";
-> -struct passwd *ltpuser;
-> +#define FILE_MODE	(S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)
-> +#define DIR_MODE	(S_IRWXU | S_IRWXG | S_IRWXO)
-> +/* Mode permissions of test directory with sticky bit set. */
-> +#define PERMS		01777
->
-> -void setup();			/* Main setup function for the test */
-> -void cleanup();			/* Main cleanup function for the test */
-> +static char *tpaths[] = { "testfile", "testdir" };
->
-> -int main(int ac, char **av)
-> +static void verify_chmod(unsigned int i)
->   {
->   	struct stat stat_buf;
-> -	int lc;
-> -	mode_t file_mode;
-> -
-> -	tst_parse_opts(ac, av, NULL, NULL);
-> -
-> -	setup();
-> +	char *tpath = tpaths[i];
->
-> -	for (lc = 0; TEST_LOOPING(lc); lc++) {
-> +	TST_EXP_PASS_SILENT(chmod(tpath, PERMS), "chmod(%s, %#o)", tpath, PERMS);
->
-> -		tst_count = 0;
-> +	if (stat(tpath,&stat_buf)<  0)
-> +		tst_brk(TFAIL | TERRNO, "stat(%s) failed", tpath);
->
-> -		TEST(chmod(TESTFILE, PERMS));
-> -
-> -		if (TEST_RETURN == -1) {
-> -			tst_resm(TFAIL | TTERRNO, "chmod(%s, %#o) failed",
-> -				 TESTFILE, PERMS);
-> -			continue;
-> -		}
-> -		if (stat(TESTFILE,&stat_buf)<  0) {
-> -			tst_brkm(TFAIL | TERRNO, cleanup,
-> -				 "stat(%s) failed", TESTFILE);
-> -		}
-> -		file_mode = stat_buf.st_mode;
-> -
-> -		/* Verify STICKY BIT set on testfile */
-> -		if ((file_mode&  PERMS) != PERMS) {
-> -			tst_resm(TFAIL, "%s: Incorrect modes 0%3o, "
-> -				 "Expected 0777", TESTFILE, file_mode);
-> -		} else {
-> -			tst_resm(TPASS, "Functionality of "
-> -				 "chmod(%s, %#o) successful",
-> -				 TESTFILE, PERMS);
-> -		}
-> +	/* Verify STICKY BIT SET on file/directory */
-> +	if ((stat_buf.st_mode&  PERMS) == PERMS) {
-> +		tst_res(TPASS, "Functionality of chmod(%s, %#o) successful",
-> +			tpath, PERMS);
-> +	} else {
-> +		tst_res(TFAIL, "%s: Incorrect modes 0%03o, Expected 0%03o",
-> +			tpath, stat_buf.st_mode, PERMS);
->   	}
-> -
-> -	cleanup();
-> -	tst_exit();
->   }
->
->   void setup(void)
->   {
-> -	int fd;
-> -
-> -	tst_sig(NOFORK, DEF_HANDLER, cleanup);
-> -
-> -	tst_require_root();
-> -	ltpuser = getpwnam(nobody_uid);
-> -	if (ltpuser == NULL)
-> -		tst_brkm(TBROK | TERRNO, NULL, "getpwnam failed");
-> -	SAFE_SETUID(NULL, ltpuser->pw_uid);
-> -
-> -	TEST_PAUSE;
-> -
-> -	tst_tmpdir();
-> -
-> -	/*
-> -	 * Create a test file under temporary directory with specified
-> -	 * mode permissios and set the ownership of the test file to the
-> -	 * uid/gid of guest user.
-> -	 */
-> -	if ((fd = open(TESTFILE, O_RDWR | O_CREAT, FILE_MODE)) == -1) {
-> -		tst_brkm(TBROK | TERRNO, cleanup,
-> -			 "open(%s, O_RDWR|O_CREAT, %#o) failed",
-> -			 TESTFILE, FILE_MODE);
-> -	}
-> -
-> -	SAFE_CLOSE(cleanup, fd);
-> +	SAFE_TOUCH(tpaths[0], FILE_MODE, NULL);
-> +	SAFE_MKDIR(tpaths[1], DIR_MODE);
->   }
->
-> -/*
-> - * void
-> - * cleanup() - performs all ONE TIME cleanup for this test at
-> - *		completion or premature exit.
-> - *  Delete the testfile and temporary directory created in setup().
-> - */
-> -void cleanup(void)
-> -{
-> -
-> -	tst_rmdir();
-> -
-> -}
-> +static struct tst_test test = {
-> +	.needs_tmpdir = 1,
-> +	.tcnt = ARRAY_SIZE(tpaths),
-> +	.test = verify_chmod,
-> +	.setup = setup,
-> +};
-> diff --git a/testcases/kernel/syscalls/chmod/chmod04.c b/testcases/kernel/syscalls/chmod/chmod04.c
-> deleted file mode 100644
-> index cbc13cf61..000000000
-> --- a/testcases/kernel/syscalls/chmod/chmod04.c
-> +++ /dev/null
-> @@ -1,191 +0,0 @@
-> -/*
-> - *
-> - *   Copyright (c) International Business Machines  Corp., 2001
-> - *
-> - *   This program is free software;  you can redistribute it and/or modify
-> - *   it under the terms of the GNU General Public License as published by
-> - *   the Free Software Foundation; either version 2 of the License, or
-> - *   (at your option) any later version.
-> - *
-> - *   This program is distributed in the hope that it will be useful,
-> - *   but WITHOUT ANY WARRANTY;  without even the implied warranty of
-> - *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
-> - *   the GNU General Public License for more details.
-> - *
-> - *   You should have received a copy of the GNU General Public License
-> - *   along with this program;  if not, write to the Free Software
-> - *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
-> - */
-> -
-> -/*
-> - * Test Name: chmod04
-> - *
-> - * Test Description:
-> - *  Verify that, chmod(2) will succeed to change the mode of a directory
-> - *  and set the sticky bit on it if invoked by non-root (uid != 0) process
-> - *  with the following constraints,
-> - *	- the process is the owner of the directory.
-> - *	- the effective group ID or one of the supplementary group ID's of the
-> - *	  process is equal to the group ID of the directory.
-> - *
-> - * Expected Result:
-> - *  chmod() should return value 0 on success and succeeds to set sticky bit
-> - *  on the specified directory.
-> - *
-> - * Algorithm:
-> - *  Setup:
-> - *   Setup signal handling.
-> - *   Create temporary directory.
-> - *   Pause for SIGUSR1 if option specified.
-> - *
-> - *  Test:
-> - *   Loop if the proper options are given.
-> - *   Execute system call
-> - *   Check return code, if system call failed (return=-1)
-> - *   	Log the errno and Issue a FAIL message.
-> - *   Otherwise,
-> - *   	Verify the Functionality of system call
-> - *      if successful,
-> - *      	Issue Functionality-Pass message.
-> - *      Otherwise,
-> - *		Issue Functionality-Fail message.
-> - *  Cleanup:
-> - *   Print errno log and/or timing stats if options given
-> - *   Delete the temporary directory created.
-> - *
-> - * Usage:<for command-line>
-> - *  chmod04 [-c n] [-f] [-i n] [-I x] [-P x] [-t]
-> - *     where,  -c n : Run n copies concurrently.
-> - *             -f   : Turn off functionality Testing.
-> - *	       -i n : Execute test n times.
-> - *	       -I x : Execute test for x seconds.
-> - *	       -P x : Pause for x seconds between iterations.
-> - *	       -t   : Turn on syscall timing.
-> - *
-> - * HISTORY
-> - *	07/2001 Ported by Wayne Boyer
-> - *
-> - * RESTRICTIONS:
-> - *  This test should be run by 'non-super-user' only.
-> - *
-> - */
-> -
-> -#include<stdio.h>
-> -#include<sys/types.h>
-> -#include<sys/stat.h>
-> -#include<fcntl.h>
-> -#include<errno.h>
-> -#include<string.h>
-> -#include<signal.h>
-> -#include<pwd.h>
-> -
-> -#include "test.h"
-> -#include "safe_macros.h"
-> -
-> -#define DIR_MODE 	S_IRWXU | S_IRWXG | S_IRWXO
-> -#define PERMS		01777	/*
-> -				 * Mode permissions of test directory with
-> -				 * sticky bit set.
-> -				 */
-> -#define TESTDIR		"testdir_4"
-> -
-> -char *TCID = "chmod04";
-> -int TST_TOTAL = 1;
-> -char nobody_uid[] = "nobody";
-> -struct passwd *ltpuser;
-> -
-> -void setup();
-> -void cleanup();
-> -
-> -int main(int ac, char **av)
-> -{
-> -	struct stat stat_buf;	/* stat struct. */
-> -	int lc;
-> -	mode_t dir_mode;	/* mode permissions set on testdirectory */
-> -
-> -	tst_parse_opts(ac, av, NULL, NULL);
-> -
-> -	setup();
-> -
-> -	for (lc = 0; TEST_LOOPING(lc); lc++) {
-> -
-> -		tst_count = 0;
-> -
-> -		/*
-> -		 * Call chmod(2) with mode argument to
-> -		 * set sticky bit on TESTDIR
-> -		 */
-> -		TEST(chmod(TESTDIR, PERMS));
-> -
-> -		if (TEST_RETURN == -1) {
-> -			tst_resm(TFAIL | TTERRNO, "chmod(%s, %#o) failed",
-> -				 TESTDIR, PERMS);
-> -			continue;
-> -		}
-> -
-> -		/*
-> -		 * Get the file information using
-> -		 * stat(2).
-> -		 */
-> -		if (stat(TESTDIR,&stat_buf)<  0) {
-> -			tst_brkm(TFAIL, cleanup,
-> -				 "stat(2) of %s failed, errno:%d",
-> -				 TESTDIR, TEST_ERRNO);
-> -		}
-> -		dir_mode = stat_buf.st_mode;
-> -
-> -		/* Verify STICKY BIT SET on directory */
-> -		if ((dir_mode&  PERMS) == PERMS) {
-> -			tst_resm(TPASS, "Functionality of "
-> -				 "chmod(%s, %#o) successful",
-> -				 TESTDIR, PERMS);
-> -		} else {
-> -			tst_resm(TFAIL, "%s: Incorrect modes 0%03o, "
-> -				 "Expected 0%03o",
-> -				 TESTDIR, dir_mode, PERMS);
-> -		}
-> -	}
-> -
-> -	cleanup();
-> -	tst_exit();
-> -}
-> -
-> -/*
-> - * void
-> - * setup() - performs all ONE TIME setup for this test.
-> - *  Create a temporary directory and cd to it.
-> - *  Create another test directory under temporary directory.
-> - */
-> -void setup(void)
-> -{
-> -
-> -	tst_sig(NOFORK, DEF_HANDLER, cleanup);
-> -
-> -	tst_require_root();
-> -	ltpuser = getpwnam(nobody_uid);
-> -	if (setuid(ltpuser->pw_uid) == -1)
-> -		tst_resm(TINFO | TERRNO, "setuid(%u) failed", ltpuser->pw_uid);
-> -
-> -	TEST_PAUSE;
-> -
-> -	tst_tmpdir();
-> -
-> -	/*
-> -	 * Create a test directory under temporary directory with specified
-> -	 * mode permissios.
-> -	 */
-> -	SAFE_MKDIR(cleanup, TESTDIR, DIR_MODE);
-> -}
-> -
-> -/*
-> - * void
-> - * cleanup() - performs all ONE TIME cleanup for this test at
-> - *		completion or premature exit.
-> - *  Remove the test directory and temporary directory created in setup().
-> - */
-> -void cleanup(void)
-> -{
-> -
-> -	tst_rmdir();
-> -
-> -}
+>> Hi Gongyi
+>>
+>> The SHM_STAT_ANY cmd was introduced since kernel 4.17. I guess we
+>> should add check for it.
+>>> Hi Li,
+>>>
+>>> Yes, I find the problem in my testing of qemu with kernel version 4.4
+>>> and the config is vexpress_defconfig.
+>>>
+>>> Specifically as follow:
+>>>
+>>> tst_test.c:1294: TINFO: Timeout per run is 0h 05m 00s
+>>>
+>>> shmctl04.c:119: TINFO: Test SHM_STAT_ANY with nobody user
+>>>
+>>> TST_RET: 0 SHM_STAT_ANY: 15
+>>>
+>>> shmctl04.c:134: TFAIL: SHM_INFO haven't returned a valid index: EINVAL
+>>> (22)
+>>>
+>>> shmctl04.c:150: TFAIL: Counted used = 0, used_ids = 1
+>>>
+>>> shmctl04.c:85: TPASS: used_ids = 1
+>>>
+>>> shmctl04.c:92: TPASS: shm_rss = 0
+>>>
+>>> shmctl04.c:99: TPASS: shm_swp = 0
+>>>
+>>> shmctl04.c:106: TPASS: shm_tot = 1
+>>>
+>>> shmctl04.c:119: TINFO: Test SHM_STAT_ANY with root user
+>>>
+>>> TST_RET: 0 SHM_STAT_ANY: 15
+>>>
+>>> shmctl04.c:134: TFAIL: SHM_INFO haven't returned a valid index: EINVAL
+>>> (22)
+>>>
+>>> shmctl04.c:150: TFAIL: Counted used = 0, used_ids = 1
+>>>
+>>> shmctl04.c:85: TPASS: used_ids = 1
+>>>
+>>> shmctl04.c:92: TPASS: shm_rss = 0
+>>>
+>>> shmctl04.c:99: TPASS: shm_swp = 0
+>>>
+>>> shmctl04.c:106: TPASS: shm_tot = 1
+>>>
+>>> Summary:
+>>>
+>>> passed   8
+>>>
+>>> failed   4
+>>>
+>>> broken   0
+>>>
+>>> skipped  0
+>>>
+>>> warnings 0
+>>>
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
