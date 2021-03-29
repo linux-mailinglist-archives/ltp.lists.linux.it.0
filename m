@@ -1,137 +1,121 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 888FF34CCFE
-	for <lists+linux-ltp@lfdr.de>; Mon, 29 Mar 2021 11:26:55 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 870CD34D040
+	for <lists+linux-ltp@lfdr.de>; Mon, 29 Mar 2021 14:40:23 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id BD7053C8C14
-	for <lists+linux-ltp@lfdr.de>; Mon, 29 Mar 2021 11:26:54 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 28B733C7817
+	for <lists+linux-ltp@lfdr.de>; Mon, 29 Mar 2021 14:40:23 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 931363C25E0
- for <ltp@lists.linux.it>; Mon, 29 Mar 2021 11:26:50 +0200 (CEST)
-Received: from esa1.fujitsucc.c3s2.iphmx.com (esa1.fujitsucc.c3s2.iphmx.com
- [68.232.152.245])
+ by picard.linux.it (Postfix) with ESMTPS id 921CB3C264C
+ for <ltp@lists.linux.it>; Mon, 29 Mar 2021 14:40:20 +0200 (CEST)
+Received: from IND01-MA1-obe.outbound.protection.outlook.com
+ (mail-eopbgr1380137.outbound.protection.outlook.com [40.107.138.137])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 11ACF1400779
- for <ltp@lists.linux.it>; Mon, 29 Mar 2021 11:26:48 +0200 (CEST)
-IronPort-SDR: pZ7obxUEGZOUrB1irzqD8MVkkiaDbPWZBpPBN9ozCs2WtFKnYEoR6lyiqVqy+aeFmIXpL26ejB
- MyPdJtMQ35/WszaaZNmCEoXyeZo7pcoUxUY89YfaEAV1kwui4hr2qMXyvZO3E3jJQMc4AVZ76f
- f22K705YU100s89J/X2Ym81DMKusTKVPd/rp90tDCl9xjR0v7Hy2nH0ME3eUcpLynfRSDp3s2i
- lKmKBI2XXgN9HoXLNezSmqpSIekRQKPB7KabF3ZcjyGAs/qbWosK3DBrntSOQ2S3b5cBjoD1fW
- b5Q=
-X-IronPort-AV: E=McAfee;i="6000,8403,9937"; a="36886449"
-X-IronPort-AV: E=Sophos;i="5.81,287,1610377200"; d="scan'208,217";a="36886449"
-Received: from mail-ty1jpn01lp2056.outbound.protection.outlook.com (HELO
- JPN01-TY1-obe.outbound.protection.outlook.com) ([104.47.93.56])
- by ob1.fujitsucc.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Mar 2021 18:26:48 +0900
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id CA75A20092C
+ for <ltp@lists.linux.it>; Mon, 29 Mar 2021 14:40:18 +0200 (CEST)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lbmPyt0Xs0v2Pdxp03YW5Hv23+kyID0mgIo2exH+ZWMHkGRYIru1feeUjU4PvTkX2/AIPJRmTc86JC3QiDshLYzsIgMMqdROleGbXD1yhqiRAlx8S6j3ScANx1dosFGSLWp9LL4kdSCiftWAyRnTJBIZ2nZI/kF9AJ3MdjXmWLG+TkTaVATK9RKBllnjsL+YXkdYwndcbZkueMkWcqLC1OTp+H7/HgLB0JaSZethABlFwsmseHTD7+xnSXOxqtU4srHCJXPltGVyfDvI0XtTFOzbwRopSTRWP6B0zaK9AIQsHHtnkeHPkXkqYp5z22Us3ioEw5KXkttnFBdHUhwbUQ==
+ b=lPdz7iH/QEhHj/gHfgR0nI9ie79s8b8vLJMdplDJe4Pmd/uD2MpmvwF7GVMVmGthVhKTzGrGtp3fZDI9keEqbmaeE9T2hNwsMQqHE/DQvx8/ZDNIvjV0c+ggf+tVEfdlwC/jxBU2Pu7A6EhkYAouUexL2lE9Um1NLP27kCSUMrlvudhVib/wZteVsMKFBvOmryX+ggTL2gdpDKFQHGUWbgoRMOsUNuiqMz8/uDISH03xyMj/1YLt0X3M6RhPrE4nIaH+lVonD7f8WVAav7/1i4a6m9q2V6ucWv6hjPaxnbco5bqrwykVyjOtpWjSRihEhNQZdsB8iPFw802g5JyHYw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=naK8yFHs6/sDaszfDgN2exxOHfRos07V/DFwuZuUD8U=;
- b=CWsgNu3JubFIjw/OPl6DXSiYF/R9ooPaMd1qFHCknGmFTfKVVIFe4tjpCKCb+yaLttU+GvtCOMBb/uMFphLiap7VsQY4zeaMMh7h45VfCRf2L1H/9voqZbv83/+jTfpMIc+OoL7aoZgSxEukJeRD+hxQ9iF2yBnJHHs5fGUQmoG514+STNbHK2fVmdsrHZVoAI5+CuRsjlEMJoWrVlvHvirqRq/LUWuhcUR43d+0VGSpx9skKk/5S8RpXAgri4kTIvZpShh8J4JJs5FHxp6bgA+VNrgJ2xJ+BggsS9wupnxEvRr3ocpYEGYfylAQaN+RSSRPk76ciBrkSB77C9EaTw==
+ bh=4HETrUCuAXl2CWBcuGNPP7wgwjevhwEWMh9o/XFDUiM=;
+ b=E5PDR5Ui9mg4wYx437I2r3WRRdMAZZ4fmN9r/AHtNHdQIre2kS6M2DAPdOGKnJJkVKSgI5kujm+XRAOAl1A3D5AxalKpoTFgVunDv1ZNVmb6xlsjlqWM7H7HIiNIWFlYSUNR3iW0JnKQxA4bqh21Ley93wlYvSsHvfcaA0CWU3PFZuNxylx6KX2VMpuu9guyOvBM3SZnGzUleftRzYAyPIf3uYzc4aaiEe6ohiqcFhWT1FXM/NkqBPZ5mnGY8iIOnjAgBvFm2RTfqvxreQv6z9YTWcMxe/hbyYPaA00ogdjrwptdRNla68ebRQ8bfVOyi58MYMJcZSsv2DC0cmPwHg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=fujitsu.com; dmarc=pass action=none header.from=fujitsu.com;
- dkim=pass header.d=fujitsu.com; arc=none
+ smtp.mailfrom=exaleapsemi.com; dmarc=pass action=none
+ header.from=exaleapsemi.com; dkim=pass header.d=exaleapsemi.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fujitsu.onmicrosoft.com; s=selector2-fujitsu-onmicrosoft-com;
+ d=exaleapsemi.onmicrosoft.com; s=selector2-exaleapsemi-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=naK8yFHs6/sDaszfDgN2exxOHfRos07V/DFwuZuUD8U=;
- b=Jp6fFsx81Fi98hFn75Kk+XEa/5QqAdnlNRqYY6gFSKwYQbYRYAZvabUlsQYzZBfZ71DNMtSzOuUktGrG64nMLLBQpK+Mkx6pXjyTUtAHB/uJJgia4Pbe4b5uh3tXFQMLsLn24BKI9gmcRdorLXT3UnWX8hIQDVYyGCTEWLzJx74=
-Received: from TYCPR01MB6544.jpnprd01.prod.outlook.com (2603:1096:400:98::6)
- by TYAPR01MB5850.jpnprd01.prod.outlook.com (2603:1096:404:8056::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3977.26; Mon, 29 Mar
- 2021 09:26:44 +0000
-Received: from TYCPR01MB6544.jpnprd01.prod.outlook.com
- ([fe80::9095:8cd8:6e30:3052]) by TYCPR01MB6544.jpnprd01.prod.outlook.com
- ([fe80::9095:8cd8:6e30:3052%5]) with mapi id 15.20.3977.033; Mon, 29 Mar 2021
- 09:26:44 +0000
-From: "xuyang2018.jy@fujitsu.com" <xuyang2018.jy@fujitsu.com>
-To: Pankaj Vinodrao Joshi <Pankaj.VJ@exaleapsemi.com>
+ bh=4HETrUCuAXl2CWBcuGNPP7wgwjevhwEWMh9o/XFDUiM=;
+ b=P4bolxusRZe/MuUkfFyJA2/r1R2SYfs+PKB/Xk/crD6CdWuxRn3KzVRuiHRXIwOlD/cuj2LDKVVw9cwGNpoBv9vGOKKllLN+w2+zSx0Lx0VZmUWH4P4nmAO0PPPFF2cB9MTAtpax2Sl4U3J9t3ZMM7yzDe58zVXpKzQEkJjqy5E=
+Received: from BMXPR01MB2870.INDPRD01.PROD.OUTLOOK.COM (2603:1096:b00:2f::22)
+ by BM1PR01MB2772.INDPRD01.PROD.OUTLOOK.COM (2603:1096:b00:4b::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3977.29; Mon, 29 Mar
+ 2021 12:40:12 +0000
+Received: from BMXPR01MB2870.INDPRD01.PROD.OUTLOOK.COM
+ ([fe80::10fe:7e69:3f57:8f77]) by BMXPR01MB2870.INDPRD01.PROD.OUTLOOK.COM
+ ([fe80::10fe:7e69:3f57:8f77%6]) with mapi id 15.20.3977.033; Mon, 29 Mar 2021
+ 12:40:12 +0000
+From: "Pankaj  Vinodrao Joshi" <Pankaj.VJ@exaleapsemi.com>
+To: "xuyang2018.jy@fujitsu.com" <xuyang2018.jy@fujitsu.com>
 Thread-Topic: [LTP] msgstress03, msgstress04 failure on linux 5.10.19 and
  5.10.22
-Thread-Index: AQHXJGwWxl0WDSPtLkqhLksJFACpdqqasnSA
-Date: Mon, 29 Mar 2021 09:26:44 +0000
-Message-ID: <60619D5B.6090507@fujitsu.com>
-References: <BMXPR01MB287023E7E5B34F6D27B63564EE7E9@BMXPR01MB2870.INDPRD01.PROD.OUTLOOK.COM>
-In-Reply-To: <BMXPR01MB287023E7E5B34F6D27B63564EE7E9@BMXPR01MB2870.INDPRD01.PROD.OUTLOOK.COM>
+Thread-Index: AQHXJH2nK8g/tzA1l06PwHVUonlGkqqa59Ia
+Date: Mon, 29 Mar 2021 12:40:11 +0000
+Message-ID: <BMXPR01MB2870D0447A89D1BEE08EDCA7EE7E9@BMXPR01MB2870.INDPRD01.PROD.OUTLOOK.COM>
+References: <BMXPR01MB287023E7E5B34F6D27B63564EE7E9@BMXPR01MB2870.INDPRD01.PROD.OUTLOOK.COM>,
+ <60619D5B.6090507@fujitsu.com>
+In-Reply-To: <60619D5B.6090507@fujitsu.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-authentication-results: exaleapsemi.com; dkim=none (message not signed)
- header.d=none;exaleapsemi.com; dmarc=none action=none
- header.from=fujitsu.com;
-x-originating-ip: [180.96.28.100]
+authentication-results: fujitsu.com; dkim=none (message not signed)
+ header.d=none;fujitsu.com; dmarc=none action=none
+ header.from=exaleapsemi.com;
+x-originating-ip: [122.166.120.168]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 1c533215-0527-44a1-84ea-08d8f294c4fd
-x-ms-traffictypediagnostic: TYAPR01MB5850:
-x-microsoft-antispam-prvs: <TYAPR01MB585057B27A60AB8A744F708BFD7E9@TYAPR01MB5850.jpnprd01.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8273;
+x-ms-office365-filtering-correlation-id: 36a8af02-9ba6-4d1d-61d1-08d8f2afcb7f
+x-ms-traffictypediagnostic: BM1PR01MB2772:
+x-microsoft-antispam-prvs: <BM1PR01MB27721AB2F5B89361C9A31639EE7E9@BM1PR01MB2772.INDPRD01.PROD.OUTLOOK.COM>
+x-ms-oob-tlc-oobclassifiers: OLM:8882;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: SPgAu6ZVkQrBqoNwxgShKo7xtCHrEhfUsnSI6XVlgDbeusYluiSwn7aVLYir1TYKDHMWjJ21u3qux3aIdcbsgudJYJfhPpbjbPcQOj6Bj7t+wYlCUa+ZDVqDXJsFUbNwLvv3SG8HlEPCe7xO9tV/eGMBCBwV1SmmJ30Or6HQYrOXqyI/OUQc42wjQ+H6KqD6crDk2KXXLJ0AM4zUBgg/pQ2MDDn6Mc4Zq6QKqGeobYpyxU6AwG3kK/bJ3PgjTeiVm83KUI6mANVt59Td4pnTRZoPZXo1zOOqLI9RZlEmtruw57fqdp698foshQ7vv/gUci3ViCKSM511t2aYf8llvaarCA1I37qecXjhHSgwc11BViTnfdBxgjgv0sCPZv91dYoHdoXeuB9QtAfn+JKCPdLwjyAAUwflBrZFuyUxPFaTSMlttUz1Sui4B+akq6N23o+zWfvCkvbv8ySdK6McNHAsh2QJhTaGDo3btKPc0C/LLDwiv2exCFZH5gfc5WRTswlJyeQbBS+wm0qbZQL0vUfExRgIF+Dj2oPu+OfPB0PB4MAdcEnJesJzA0yNO098Mrbj/6ylzAyu83ABMtmfzWedomA1HPsBULjM0g2Sf7hKAIq2i0rEl4bZBy77up2Eh4UuulXlZnKlIaK4vRSzjXYhoooIfIHNrbBhZ/iDABe//Fv66QYfHEFL0P5Kr4kTfsls0FaAKf3Ol1F3cEj/eTwGz5A2PhcyOXpBYTZfeE+wDpfb3EVTcVr46u2XokkB
+x-microsoft-antispam-message-info: VofrY3m4BNSxe4LPBixscp5RTFFLHWSuofESodSRlEtGRNKT/PskIsgNazSBYHQDiaR+j/P8kOyu127SUcZUH2NPEd0oKlnGNOsctMJ8+yPFrly6mcUvydA3A/FzomboJLvzWZxbc61E1Dj6ieRbwdKEpqmtoWa1O78CqXO7dzwnjSRgrBJs/S2KPemUR9PPfJM8Ltx8D5lA1ro24oAT0x3K3tiTqf0Cj5Dr+4hDoHa4Zm5RPHKmRoq08y4J2JFLCK8sSujQUOkuyzf3ongrUZjiSqgSXDKLAOHFgZ+BcWUuOzte5kgyowarPe7wRLPo32h3ajmf+q1D6IoSDORromLLBZoYHOzCxzpmxrzVOV56i7zcmM/srVTWqXkVFhkLD/AQw6KvoAnuZ1H2zHFRMP7YpfapmGr/P4nHk8imELlNlDueWbX0n7ImzGcOGaA0Q08hEJbE9I+bU7evB/kjeZoysCImJYdYNP1XKtQU/Buo5L3pFGHh6ke9IZJxZyhqqaVI9eVxW35U5fcrMlQ24xIq/zx7uXOFF/cZBnIKNeONYrKVSxejxLDrl26J0evI5gZc82bxavRtvPTVtGhFuJjH7NzJ6F6VaICJpWVG9TQbmHVo/uK/sHAUqTYta1y63c6rGz3zun6Rg2f6QQ0jfIiB2xsCViahzks3e+yqlqOdQKh4DWHTVsNbH7Ui9tCBhTbKrcC+HxWoQmnpx3uF0bht4FQ5QrDCuJyD6pl4hREngWVKDiga0PC6TWvpj/ft
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TYCPR01MB6544.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(39860400002)(396003)(346002)(136003)(376002)(6512007)(38100700001)(26005)(2616005)(316002)(36756003)(71200400001)(186003)(21615005)(85182001)(2906002)(6506007)(8936002)(8676002)(478600001)(91956017)(87266011)(66556008)(19627405001)(66446008)(83380400001)(33656002)(4326008)(166002)(66946007)(66476007)(76116006)(6916009)(6486002)(5660300002)(64756008)(86362001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?gb2312?B?TWhzNDYydUllZTZSUmRwRklMWklST2JSOS9MdnFpSlhTbUdRdkpLOTErTEZX?=
- =?gb2312?B?dk16SzFoRlVyWHBYTzA3SzliY09lcnFKcnk1b0lEaGxHQ0UyaktYTDlVRWEr?=
- =?gb2312?B?R3lZZSs4VFdjVmozZ0V1M25NZTZ3RnVEUTNqS1JLcmhZSm1yc2F6NU5oYlBB?=
- =?gb2312?B?clpnMU9qV1d2eEN1eFdqWm0reTFwcUpCN084Wm5MS29hcWViblV0QXNrUk9l?=
- =?gb2312?B?TFFoU2hVR2ZWZFdVZGFwMk4wdXBNUm1kcTNTTnV1c1pLWjd1SERsQkU3ZTVH?=
- =?gb2312?B?bkM5WHlOV0tMRW52Tm5sTXYvVER3TUFQbjZmNzhlRmlzMjljUE9XK3Y1S3N2?=
- =?gb2312?B?elVKZzdBQ2NCOVYzRTFwMk5FYWJIVFZzR0liNmI1V1p3MGlpVG1HL3ZjMC8w?=
- =?gb2312?B?V1hEUXdpZnhvY3ZTeWRXaTZyaU01anI0MzQrVm9ScDliWUQxZVhYTG9DOVhu?=
- =?gb2312?B?SmpXYm01RjhqcmdYbC9xMmMwc2FXRWM3Z1R2S2cwZHk2cnJJL2NkTDBsZk9t?=
- =?gb2312?B?c2h3Q0pZTmNxdHY1OWJDcTRGWldIM2p2UUkyenIvMlVKZURvclpHUExXeTdI?=
- =?gb2312?B?aXU2YTlsbDU3S2JTSTZ2VnlTdHFxTFB5anZTb01mU1R4YWF6b2NueWdraEcz?=
- =?gb2312?B?ZGI5VFV5bktDZThDZVhsUVdOWXR4R09XTDVObWFwRTU1d2QvWEF3aGZGUHQz?=
- =?gb2312?B?ZFB3VUxHUkd4OWIwQkxJS1E0ZStvWFcyM1EvLzRFNFFXNEVBWXp6enZ6TmJC?=
- =?gb2312?B?K3ZaY3RETThTSzJEc1p3bVN4V3F2MklBSVYvMXZsT3Aybk9JUHQ0K1BQRlZI?=
- =?gb2312?B?R1NmWFVMRjBMV3prMHNVdmRiazZBS2VLQ2Q0d0M5c09ia2duOWc2N2FhaHY1?=
- =?gb2312?B?OUF6c1RqNkUvUS8xL05EUklNMFo4dzh3YXBMM0NId3ZVK3U1TUk2MUdkbXcx?=
- =?gb2312?B?ODVxUFJvbTJ3N2RzMW43aGRZVmVvL1hKUGdDNFIyZTIzdFB5MWIxemtGeUMy?=
- =?gb2312?B?WTJkTWt1ODVINlFuMnBLR0tSRnhTRTN0bDgzdHRnSGxZQ0g1M3c5Z3E2V0F2?=
- =?gb2312?B?bGN3c2xNYVlBVjFiYmhkOStndVptUW1iekR2WU4xdlRMQUdBVlNPaGhibTdK?=
- =?gb2312?B?dEtzRU92SzQySVlkKzRFeTBtanBEQnFQMTZUbDNHYVNLYTVrVHdHSlk5NnRs?=
- =?gb2312?B?K1ZDTHQrRDBaWTFCODltVE1pRGJiMjIzeHl4Ym1JYlRRUHozb2k3T1V2Zy9I?=
- =?gb2312?B?c1d3UHdUWXR2S011cEhrMi9xOURpTUlVM082d2pKc2UzNGo3WmZWSnZtSHhE?=
- =?gb2312?B?MWt2ZWw2UVZxbm03ZHgxTWZqWHJ3dUppeEFrQTNXQ1JuMExwbnZIT3Q1Qnkz?=
- =?gb2312?B?Q20wT25xOVdmZXB6Zld4dkFudmw2ekVOc0RocGk0RTVnTXBUZWRmci9RWWtl?=
- =?gb2312?B?YjhPZXpFcFBqcTVUTzFSWG4wanJsMFlKaWFieWlleFI1T2FJRnFnWFZERmEz?=
- =?gb2312?B?ckNZM2ZTbnEyY2d4a3Iwa1RjMDVNUmVjWHJhTkVzN1B3bnowUks4MUtybnVB?=
- =?gb2312?B?QzdhVWkyV1hWU1dUdm5oOXducVFXYkljWGFhNlJJemR1SDM1Rjd2VUE4bDBl?=
- =?gb2312?B?MldubFU5SW04K2FKdEZDbVJYSGg3cGNnbTVSbis5bGZ1VCs3aWRmaEF5OXdk?=
- =?gb2312?B?Q0FBUzEwejRwdGprSTBid3o1ODBZaE9Fa3g5dUN1VC9yZC9lWkhLNm5QK3N0?=
- =?gb2312?Q?Udd6UMfFElcBiHh7LdBIDH49xgOHp97TnmS8eRh?=
+ IPV:NLI; SFV:NSPM; H:BMXPR01MB2870.INDPRD01.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(366004)(396003)(39830400003)(376002)(346002)(136003)(26005)(5660300002)(83380400001)(8676002)(52536014)(19627405001)(86362001)(33656002)(478600001)(71200400001)(8936002)(64756008)(9686003)(55016002)(66446008)(21615005)(2906002)(166002)(4326008)(316002)(76116006)(66556008)(91956017)(6506007)(7696005)(66476007)(38100700001)(186003)(6916009)(66946007)(53546011);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?BmFHxaR7hKdXERrF+BLfdcIS6VryS0hIImsjNTqRc3fI5DaUNn5UMtboKZzI?=
+ =?us-ascii?Q?pj58H7kYzt5yAlIjeJHRBZhj4ZcKBo7cR079DR1JocqP1Za/Q8nYstKgIKii?=
+ =?us-ascii?Q?0FtHALUvRfCrsQDMI1TWeuFuUTCc45Tcx8ybLfYUelsFisRZKGO4QjtabK/E?=
+ =?us-ascii?Q?WIf/cgsMcSPD7JMQq/AYymPHnu+WD8ZwwyvPNxmHqWlDXPjHLeYjTegSb6MS?=
+ =?us-ascii?Q?Koi/vw2hXWtCS3FDxHCIr8T8ZAG2LxuSpkfUj3rQHqA/yoz+Hr6Dwm7Q6+QB?=
+ =?us-ascii?Q?gfAIvenH5YXWCY2whGhzt/+Ue29VwMomeWqN1FUj/iqtpCO7H3LP+LQXRw+g?=
+ =?us-ascii?Q?TTD0UtFSOmid0hfPcaauCgQa4reYWMO1OtpBE450slZN4nDHzs3aFuE541LK?=
+ =?us-ascii?Q?HVOKS3vROLNbZLx/AvkRMktneV98SASnbGHtBci6dkl5bGkaiYT/4P3if3Fo?=
+ =?us-ascii?Q?7dXzU8X5IrDq8Cw/p1UwgsHbEItGAAeenwU5soHPUBZI6tY+s+h93h+S9t8U?=
+ =?us-ascii?Q?hLhVX42PdxvfzuXNmZ5hfb1e1OSSvxsQMz7+mObmzkGTzSVEjBRqNDVzvwfh?=
+ =?us-ascii?Q?ByTxuphV8YUHO+ZSa7YoO+t/dFuH2zI0Bg8JChYcaJpA9DrhQoVS8mZW5bZ2?=
+ =?us-ascii?Q?P0lQSKpN9j2mlC9UDJ5rE1hy7ihclgUpXx2pvxuLu8dZ4VA80rYMxRrwpirE?=
+ =?us-ascii?Q?GiRz5oQ5IGtSDT+JPElYTqV8oS9K6XQFPUz6IMXhqUTkp/utT3AEdD+p1EKr?=
+ =?us-ascii?Q?FN28oo6ZMMnLOXV7Twd+MVA4Yo6unSofuLbVwPQuW5MU3r5klibYc6kUk6WM?=
+ =?us-ascii?Q?N7R7aM744NzEPc2eres3EFOnjdcl69huaXmgfdCDHpXm3ueQ3EPkFLTP4rJr?=
+ =?us-ascii?Q?/Ghtp2i2hPOR5nMrDeGofTgPz0/8PIhdYSfcUHdjUKje89v31h/eUhRMHQS3?=
+ =?us-ascii?Q?RHlGwtFFsPb6ATDURivMnoRf5XRT27wc2kdp7coyD9dTvFmdeF5uaRxWn3Fg?=
+ =?us-ascii?Q?XPff55/Mw4T0Gt3kPxL/aviVyXFCs98Lmx1155Y+bOzlFnv4zhNK9yHSOFcq?=
+ =?us-ascii?Q?8WLgD0hus88jzK0YGtNTorNFDyjk9BuWJnLUzKmovY8SEjTDWgxRh871jNzI?=
+ =?us-ascii?Q?jHD2+2y9PKTQwYX3LWOvD+u/PIWxf/uJNf6u9cIXDX8GgKrY5LtfCIY22Bbu?=
+ =?us-ascii?Q?BE0+yitm+KYJ8dY6cZI5RffW30+mRiUsJbMMzAiVg8R6mNQ/1VkJCkIjp6yj?=
+ =?us-ascii?Q?Rheml1ZzT0qx+hD5Gp+VSnDfZqMe3bYmVrGlhvP6d+yWG6VAQWQTEusBKiHZ?=
+ =?us-ascii?Q?HBfX+t7RonGTsAQWKDyqDzpT?=
 x-ms-exchange-transport-forked: True
 MIME-Version: 1.0
-X-OriginatorOrg: fujitsu.com
+X-OriginatorOrg: exaleapsemi.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB6544.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1c533215-0527-44a1-84ea-08d8f294c4fd
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Mar 2021 09:26:44.6418 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: BMXPR01MB2870.INDPRD01.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: 36a8af02-9ba6-4d1d-61d1-08d8f2afcb7f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Mar 2021 12:40:11.9007 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a19f121d-81e1-4858-a9d8-736e267fd4c7
+X-MS-Exchange-CrossTenant-id: 34df156e-9bc4-4450-9e80-487c0e7f9471
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: O9z0LOEDZTVQ8yTlX2eajIoKWuiMLPV0L/dUHrUEbpalbhDiWtRWaNkEvCS8wNzr95wCgDy7lLGZ9mXYRA2jxRX+I8VdRbgANPkO+twJ2bc=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYAPR01MB5850
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-MS-Exchange-CrossTenant-userprincipalname: OpVbeTPpQ4u26sy7MMcqfjBmNz0UBunqNn049Tz0kzzuBgCbg/zVBJ3p15mqjUUHUQ7xyP9IY+/RkE2C9fvKZ6H5Tr/VvcficJ9gw9BJPLg=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BM1PR01MB2772
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  HTML_MESSAGE,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
 Subject: Re: [LTP] msgstress03,
  msgstress04 failure on linux 5.10.19 and 5.10.22
 X-BeenThere: ltp@lists.linux.it
@@ -146,140 +130,202 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============0365142749=="
+Content-Type: multipart/mixed; boundary="===============1961001238=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0365142749==
+--===============1961001238==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_60619D5B6090507fujitsucom_"
+	boundary="_000_BMXPR01MB2870D0447A89D1BEE08EDCA7EE7E9BMXPR01MB2870INDP_"
 
---_000_60619D5B6090507fujitsucom_
-Content-Type: text/plain; charset="gb2312"
-Content-Transfer-Encoding: base64
-
-SGkNCkhpLA0KSSBhbSBydW5uaW5nIG1zZ3N0cmVzczAzLG1zZ3N0cmVzczA0IHdpdGggNS4xMC4x
-OSBhbmQgNS4xMC4yMiBjdXN0b20ga2VybmVsIGJ1aWx0IHVzaW5nIFlvY3RvIGJ1dCBib3RoIHRl
-c3QgYXJlIGdldHRpbmcgZmFpbGVkIHJlcGVhdGVkbHkuIGkgYW0gbm90IGFibGUgdG8gdW5kZXJz
-dGFuZCB3aGF0IG1ha2luZyBib3RoIHRlc3QgdG8gZmFpbCBzaW5jZSB0aGVzZSB0ZXN0cyBhcmUg
-c3RyZXNzIHRlc3RzIGZvciBtZXNzYWdlIHF1ZXVlIHdhbnQgdG8gZmlndXJlIGlmIGFueXRoaW5n
-IGdvaW5nIHdyb25nIHdpdGggbWVzc2FnZSBxdWV1ZS4NCg0KUGFzdGluZyBmZXcgZXJyb3IgbWVz
-c2FnZSBhbmQgYXR0YWNoaW5nIGRldGFpbGVkIGxvZ3Mgb2YgZmFpbHVyZXMNCg0KbXNnc3RyZXNz
-MDM6LQ0KbXNnc25kKCkgZXJyb3IgaW4gY2hpbGQgOTQ1OCwgd3JpdGUgIyA9IDEwMDAwLCBrZXkg
-PSA2NWUyZDljNDogSW50ZXJydXB0ZWQgc3lzdGVtIGNhbGwNCm1zZ3N0cmVzczAzICAgIDEgIFRC
-Uk9LICA6ICB0c3Rfc2lnLmM6MjMyOiB1bmV4cGVjdGVkIHNpZ25hbCBTSUdJTlQoMikgcmVjZWl2
-ZWQgKHBpZCA9IDQzOTAyKS4NCm1zZ3N0cmVzczAzICAgIDIgIFRCUk9LICA6ICB0c3Rfc2lnLmM6
-MjMyOiBSZW1haW5pbmcgY2FzZXMgYnJva2VuDQptc2dzdHJlc3MwMyAgICAxICBUQlJPSyAgOiAg
-dHN0X3NpZy5jOjIzMjogdW5leHBlY3RlZCBzaWduYWwgU0lHSU5UKDIpIHJlY2VpdmVkIChwaWQg
-PSA0MzkyNSkuDQptc2dzdHJlc3MwMyAgICAyICBUQlJPSyAgOiAgdHN0X3NpZy5jOjIzMjogUmVt
-YWluaW5nIGNhc2VzIGJyb2tlbg0KbXNnc3RyZXNzMDMgICAgMCAgVFdBUk4gIDogIHRzdF90bXBk
-aXIuYzozMzY6IHRzdF9ybWRpcjogcm1vYmooL3RtcC9sdHAtOVJhejl0eWtwcS9tc2dRYUFEOGkp
-IGZhaWxlZDogQ2Fubm90IG9wZW4gZGlyZWN0b3J5IC90bXAvbHRwLTlSYXo5dHlrcHEvbXNnUWFB
-RDhpOyBlcnJubz0yOiBFTk9FTlQNCm1zZ3N0cmVzczAzICAgIDEgIFRCUk9LICA6ICB0c3Rfc2ln
-LmM6MjMyOiB1bmV4cGVjdGVkIHNpZ25hbCBTSUdJTlQoMikgcmVjZWl2ZWQgKHBpZCA9IDQzOTI3
-KS4NCm1zZ3N0cmVzczAzICAgIDIgIFRCUk9LICA6ICB0c3Rfc2lnLmM6MjMyOiBSZW1haW5pbmcg
-Y2FzZXMgYnJva2VuDQptc2dzdHJlc3MwMyAgICAwICBUV0FSTiAgOiAgdHN0X3RtcGRpci5jOjMz
-NjogdHN0X3JtZGlyOiBybW9iaigvdG1wL2x0cC05UmF6OXR5a3BxL21zZ1FhQUQ4aSkgZmFpbGVk
-OiBDYW5ub3Qgb3BlbiBkaXJlY3RvcnkgL3RtcC9sdHAtOVJhejl0eWtwcS9tc2dRYUFEOGk7IGVy
-cm5vPTI6IEVOT0VOVA0KbXNnc25kKCkgZXJyb3IgaW4gY2hpbGQgOTQ2OCwgd3JpdGUgIyA9IDEw
-MDAwLCBrZXkgPSA1MzY0YTRhYzogSW50ZXJydXB0ZWQgc3lzdGVtIGNhbGwNCm1zZ3N0cmVzczAz
-ICAgIDEgIFRCUk9LICA6ICB0c3Rfc2lnLmM6MjMyOiB1bmV4cGVjdGVkIHNpZ25hbCBTSUdJTlQo
-MikgcmVjZWl2ZWQgKHBpZCA9IDQzOTE4KS4NCm1zZ3N0cmVzczAzICAgIDIgIFRCUk9LICA6ICB0
-c3Rfc2lnLmM6MjMyOiBSZW1haW5pbmcgY2FzZXMgYnJva2VuDQptc2dzdHJlc3MwMyAgICAwICBU
-V0FSTiAgOiAgdHN0X3RtcGRpci5jOjMzNjogdHN0X3JtZGlyOiBybW9iaigvdG1wL2x0cC05UmF6
-OXR5a3BxL21zZ1FhQUQ4aSkgZmFpbGVkOiB1bmxpbmsoL3RtcC9sdHAtOVJhejl0eWtwcS9tc2dR
-YUFEOGkpIGZhaWxlZDsgZXJybm89MjogRU5PRU5UDQptc2dzbmQoKSBlcnJvciBpbiBjaGlsZCA5
-NDUwLCB3cml0ZSAjID0gMTAwMDAsIGtleSA9IDYwMTVlZjQ4OiBJbnRlcnJ1cHRlZCBzeXN0ZW0g
-Y2FsbA0KbXNnc3RyZXNzMDMgICAgMSAgVEJST0sgIDogIHRzdF9zaWcuYzoyMzI6IHVuZXhwZWN0
-ZWQgc2lnbmFsIFNJR0lOVCgyKSByZWNlaXZlZCAocGlkID0gNDM4ODMpLg0KbXNnc3RyZXNzMDMg
-ICAgMiAgVEJST0sgIDogIHRzdF9zaWcuYzoyMzI6IFJlbWFpbmluZyBjYXNlcyBicm9rZW4NCm1z
-Z3N0cmVzczAzICAgIDAgIFRXQVJOICA6ICB0c3RfdG1wZGlyLmM6MzM2OiB0c3Rfcm1kaXI6IHJt
-b2JqKC90bXAvbHRwLTlSYXo5dHlrcHEvbXNnUWFBRDhpKSBmYWlsZWQ6IHVubGluaygvdG1wL2x0
-cC05UmF6OXR5a3BxL21zZ1FhQUQ4aSkgZmFpbGVkOyBlcnJubz0yOiBFTk9FTlQNCm1zZ3N0cmVz
-czAzICAgIDEgIFRCUk9LICA6ICB0c3Rfc2lnLmM6MjMyOiB1bmV4cGVjdGVkIHNpZ25hbCBTSUdJ
-TlQoMikgcmVjZWl2ZWQgKHBpZCA9IDQzOTI0KS4NCm1zZ3N0cmVzczAzICAgIDIgIFRCUk9LICA6
-ICB0c3Rfc2lnLmM6MjMyOiBSZW1haW5pbmcgY2FzZXMgYnJva2VuDQptc2dzdHJlc3MwMyAgICAw
-ICBUV0FSTiAgOiAgdHN0X3RtcGRpci5jOjMzNjogdHN0X3JtZGlyOiBybW9iaigvdG1wL2x0cC05
-UmF6OXR5a3BxL21zZ1FhQUQ4aSkgZmFpbGVkOiB1bmxpbmsoL3RtcC9sdHAtOVJhejl0eWtwcS9t
-c2dRYUFEOGkpIGZhaWxlZDsgZXJybm89MjogRU5PRU5UDQptc2dzbmQoKSBlcnJvciBpbiBjaGls
-ZCA5NDU0LCB3cml0ZSAjID0gMTAwMDAsIGtleSA9IDM3ZWZiMTNhOiBJbnRlcnJ1cHRlZCBzeXN0
-ZW0gY2FsbA0KDQptc2dzdHJlc3MwNDotDQptc2dzdHJlc3MwNCAgICAwICBUSU5GTyAgOiAgRm91
-bmQgMzE5OTQgYXZhaWxhYmxlIG1lc3NhZ2UgcXVldWVzDQptc2dzdHJlc3MwNCAgICAwICBUSU5G
-TyAgOiAgVXNpbmcgdXB0byAyMDk3MTA0IHBpZHMNCkZvcmsgZmFpbHVyZSBpbiB0aGUgc2Vjb25k
-IGNoaWxkIG9mIGNoaWxkIGdyb3VwIDkyMTgNCkZvciBtc2dzdHJlc3MwNCwgSXQgaXMgYSBrbm93
-biBpc3N1ZVsxXS4gdGhlIGZvcmsgZmFpbCByZWFzb24gc2VlWzJdLg0KSSBoYXZlIHNlbnQgYSBw
-YXRjaHNldFszXSB0byBjbGVhbnVwIHRoZXNlIG1zZ3N0cmVzcyBjYXNlIHJlY2VudGx5IGFuZCB0
-aGVuIEkgd2lsbCBhZGQgYSBwcm9jZXNzIG51bSBsaW1pdCBhY2NvcmRpbmcgdG8gYXZhaWFibGUg
-bWVtb3J5Lg0KDQpbMV1odHRwczovL2dpdGh1Yi5jb20vbGludXgtdGVzdC1wcm9qZWN0L2x0cC9p
-c3N1ZXMvNTA5DQpbMl1odHRwOi8vbGlzdHMubGludXguaXQvcGlwZXJtYWlsL2x0cC8yMDIwLUp1
-bmUvMDE3NjE5Lmh0bWwNClszXWh0dHBzOi8vcGF0Y2h3b3JrLm96bGFicy5vcmcvcHJvamVjdC9s
-dHAvcGF0Y2gvMTYxNTU1MDU0MS0yMTcxNC0xLWdpdC1zZW5kLWVtYWlsLXh1eWFuZzIwMTguanlA
-Y24uZnVqaXRzdS5jb20vDQpGb3JrIGZhaWx1cmUgaW4gdGhlIGZpcnN0IGNoaWxkIG9mIGNoaWxk
-IGdyb3VwIDkxOTgNCkZvcmsgZmFpbHVyZSBpbiB0aGUgZmlyc3QgY2hpbGQgb2YgY2hpbGQgZ3Jv
-dXAgOTIxNg0KRm9yayBmYWlsdXJlIGluIHRoZSBmaXJzdCBjaGlsZCBvZiBjaGlsZCBncm91cCA5
-MjA4DQpGb3JrIGZhaWx1cmUgaW4gdGhlIGZpcnN0IGNoaWxkIG9mIGNoaWxkIGdyb3VwIDkyNTAN
-CkZvcmsgZmFpbHVyZSBpbiB0aGUgc2Vjb25kIGNoaWxkIG9mIGNoaWxkIGdyb3VwIDkyNDkNCkZv
-cmsgZmFpbHVyZSBpbiB0aGUgZmlyc3QgY2hpbGQgb2YgY2hpbGQgZ3JvdXAgOTIzMA0KRm9yayBm
-YWlsdXJlIGluIHRoZSBmaXJzdCBjaGlsZCBvZiBjaGlsZCBncm91cCA5MjMzDQpGb3JrIGZhaWx1
-cmUgaW4gdGhlIGZpcnN0IGNoaWxkIG9mIGNoaWxkIGdyb3VwIDkyNDcNCkZvcmsgZmFpbHVyZSBp
-biB0aGUgZmlyc3QgY2hpbGQgb2YgY2hpbGQgZ3JvdXAgOTI1NA0KRm9yayBmYWlsdXJlIGluIHRo
-ZSBzZWNvbmQgY2hpbGQgb2YgY2hpbGQgZ3JvdXAgOTIyOA0KRm9yayBmYWlsdXJlIGluIHRoZSBz
-ZWNvbmQgY2hpbGQgb2YgY2hpbGQgZ3JvdXAgOTI1Mw0KRm9yayBmYWlsdXJlIGluIHRoZSBmaXJz
-dCBjaGlsZCBvZiBjaGlsZCBncm91cCA5MjQyDQpGb3JrIGZhaWx1cmUgaW4gdGhlIHNlY29uZCBj
-aGlsZCBvZiBjaGlsZCBncm91cCA5MjQ2DQpGb3JrIGZhaWx1cmUgaW4gdGhlIGZpcnN0IGNoaWxk
-IG9mIGNoaWxkIGdyb3VwIDkyNDMNCkZvcmsgZmFpbHVyZSBpbiB0aGUgc2Vjb25kIGNoaWxkIG9m
-IGNoaWxkIGdyb3VwIDkyNDANCkZvcmsgZmFpbHVyZSBpbiB0aGUgc2Vjb25kIGNoaWxkIG9mIGNo
-aWxkIGdyb3VwIDkyMzgNCkZvcmsgZmFpbHVyZSBpbiB0aGUgZmlyc3QgY2hpbGQgb2YgY2hpbGQg
-Z3JvdXAgOTI1Mg0KbXNnc3RyZXNzMDQgICAgMSAgVEZBSUwgIDogIG1zZ3N0cmVzczA0LmM6MjA0
-OiBGb3JrIGZhaWxlZCAobWF5IGJlIE9LIGlmIHVuZGVyIHN0cmVzcykNCkZvcmsgZmFpbHVyZSBp
-biB0aGUgc2Vjb25kIGNoaWxkIG9mIGNoaWxkIGdyb3VwIDkyMzQNCg0KS2luZGx5IGhlbHAgdG8g
-Z2V0IHRoZSBmYWlsdXJlIHJlc29sdmVkLg0KDQpUaGFua3MNCg0KDQoNCg0KDQoNCg0KDQoNCg==
-
---_000_60619D5B6090507fujitsucom_
-Content-Type: text/html; charset="gb2312"
-Content-ID: <9CC864EE8EDC2549A249F136496D8450@jpnprd01.prod.outlook.com>
+--_000_BMXPR01MB2870D0447A89D1BEE08EDCA7EE7E9BMXPR01MB2870INDP_
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+ok..thanks..
+
+What do you think about msgstress03, what could have went wrong ??
+________________________________
+From: xuyang2018.jy@fujitsu.com <xuyang2018.jy@fujitsu.com>
+Sent: Monday, March 29, 2021 2:56 PM
+To: Pankaj Vinodrao Joshi <Pankaj.VJ@exaleapsemi.com>
+Cc: ltp@lists.linux.it <ltp@lists.linux.it>
+Subject: Re: [LTP] msgstress03, msgstress04 failure on linux 5.10.19 and 5.=
+10.22
+
+Hi
+Hi,
+I am running msgstress03,msgstress04 with 5.10.19 and 5.10.22 custom kernel=
+ built using Yocto but both test are getting failed repeatedly. i am not ab=
+le to understand what making both test to fail since these tests are stress=
+ tests for message queue want to figure if anything going wrong with messag=
+e queue.
+
+Pasting few error message and attaching detailed logs of failures
+
+msgstress03:-
+msgsnd() error in child 9458, write # =3D 10000, key =3D 65e2d9c4: Interrup=
+ted system call
+msgstress03    1  TBROK  :  tst_sig.c:232: unexpected signal SIGINT(2) rece=
+ived (pid =3D 43902).
+msgstress03    2  TBROK  :  tst_sig.c:232: Remaining cases broken
+msgstress03    1  TBROK  :  tst_sig.c:232: unexpected signal SIGINT(2) rece=
+ived (pid =3D 43925).
+msgstress03    2  TBROK  :  tst_sig.c:232: Remaining cases broken
+msgstress03    0  TWARN  :  tst_tmpdir.c:336: tst_rmdir: rmobj(/tmp/ltp-9Ra=
+z9tykpq/msgQaAD8i) failed: Cannot open directory /tmp/ltp-9Raz9tykpq/msgQaA=
+D8i; errno=3D2: ENOENT
+msgstress03    1  TBROK  :  tst_sig.c:232: unexpected signal SIGINT(2) rece=
+ived (pid =3D 43927).
+msgstress03    2  TBROK  :  tst_sig.c:232: Remaining cases broken
+msgstress03    0  TWARN  :  tst_tmpdir.c:336: tst_rmdir: rmobj(/tmp/ltp-9Ra=
+z9tykpq/msgQaAD8i) failed: Cannot open directory /tmp/ltp-9Raz9tykpq/msgQaA=
+D8i; errno=3D2: ENOENT
+msgsnd() error in child 9468, write # =3D 10000, key =3D 5364a4ac: Interrup=
+ted system call
+msgstress03    1  TBROK  :  tst_sig.c:232: unexpected signal SIGINT(2) rece=
+ived (pid =3D 43918).
+msgstress03    2  TBROK  :  tst_sig.c:232: Remaining cases broken
+msgstress03    0  TWARN  :  tst_tmpdir.c:336: tst_rmdir: rmobj(/tmp/ltp-9Ra=
+z9tykpq/msgQaAD8i) failed: unlink(/tmp/ltp-9Raz9tykpq/msgQaAD8i) failed; er=
+rno=3D2: ENOENT
+msgsnd() error in child 9450, write # =3D 10000, key =3D 6015ef48: Interrup=
+ted system call
+msgstress03    1  TBROK  :  tst_sig.c:232: unexpected signal SIGINT(2) rece=
+ived (pid =3D 43883).
+msgstress03    2  TBROK  :  tst_sig.c:232: Remaining cases broken
+msgstress03    0  TWARN  :  tst_tmpdir.c:336: tst_rmdir: rmobj(/tmp/ltp-9Ra=
+z9tykpq/msgQaAD8i) failed: unlink(/tmp/ltp-9Raz9tykpq/msgQaAD8i) failed; er=
+rno=3D2: ENOENT
+msgstress03    1  TBROK  :  tst_sig.c:232: unexpected signal SIGINT(2) rece=
+ived (pid =3D 43924).
+msgstress03    2  TBROK  :  tst_sig.c:232: Remaining cases broken
+msgstress03    0  TWARN  :  tst_tmpdir.c:336: tst_rmdir: rmobj(/tmp/ltp-9Ra=
+z9tykpq/msgQaAD8i) failed: unlink(/tmp/ltp-9Raz9tykpq/msgQaAD8i) failed; er=
+rno=3D2: ENOENT
+msgsnd() error in child 9454, write # =3D 10000, key =3D 37efb13a: Interrup=
+ted system call
+
+msgstress04:-
+msgstress04    0  TINFO  :  Found 31994 available message queues
+msgstress04    0  TINFO  :  Using upto 2097104 pids
+Fork failure in the second child of child group 9218
+For msgstress04, It is a known issue[1]. the fork fail reason see[2].
+I have sent a patchset[3] to cleanup these msgstress case recently and then=
+ I will add a process num limit according to avaiable memory.
+
+[1]https://github.com/linux-test-project/ltp/issues/509
+[2]http://lists.linux.it/pipermail/ltp/2020-June/017619.html
+[3]https://patchwork.ozlabs.org/project/ltp/patch/1615550541-21714-1-git-se=
+nd-email-xuyang2018.jy@cn.fujitsu.com/
+Fork failure in the first child of child group 9198
+Fork failure in the first child of child group 9216
+Fork failure in the first child of child group 9208
+Fork failure in the first child of child group 9250
+Fork failure in the second child of child group 9249
+Fork failure in the first child of child group 9230
+Fork failure in the first child of child group 9233
+Fork failure in the first child of child group 9247
+Fork failure in the first child of child group 9254
+Fork failure in the second child of child group 9228
+Fork failure in the second child of child group 9253
+Fork failure in the first child of child group 9242
+Fork failure in the second child of child group 9246
+Fork failure in the first child of child group 9243
+Fork failure in the second child of child group 9240
+Fork failure in the second child of child group 9238
+Fork failure in the first child of child group 9252
+msgstress04    1  TFAIL  :  msgstress04.c:204: Fork failed (may be OK if un=
+der stress)
+Fork failure in the second child of child group 9234
+
+Kindly help to get the failure resolved.
+
+Thanks
+
+
+
+
+
+
+
+
+
+
+[EXT]
+
+--_000_BMXPR01MB2870D0447A89D1BEE08EDCA7EE7E9BMXPR01MB2870INDP_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
 <html>
 <head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dgb2312">
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
 </head>
-<body text=3D"#000000" bgcolor=3D"#ffffff">
-Hi<br>
-<blockquote cite=3D"mid:BMXPR01MB287023E7E5B34F6D27B63564EE7E9@BMXPR01MB287=
-0.INDPRD01.PROD.OUTLOOK.COM" type=3D"cite">
-<style type=3D"text/css" style=3D"display: none;"> P {margin-top:0;margin-b=
-ottom:0;} </style>
-<div style=3D"font-family: Calibri,Arial,Helvetica,sans-serif;
-        font-size: 12pt; color: rgb(0, 0, 0);">
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+ok..thanks..</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+What do you think about msgstress03, what could have went wrong ?? <br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> xuyang2018.jy@fujitsu=
+.com &lt;xuyang2018.jy@fujitsu.com&gt;<br>
+<b>Sent:</b> Monday, March 29, 2021 2:56 PM<br>
+<b>To:</b> Pankaj Vinodrao Joshi &lt;Pankaj.VJ@exaleapsemi.com&gt;<br>
+<b>Cc:</b> ltp@lists.linux.it &lt;ltp@lists.linux.it&gt;<br>
+<b>Subject:</b> Re: [LTP] msgstress03, msgstress04 failure on linux 5.10.19=
+ and 5.10.22</font>
+<div>&nbsp;</div>
+</div>
+<div style=3D"background-color:#ffffff">Hi<br>
+<blockquote type=3D"cite"><style type=3D"text/css" style=3D"display:none">
+<!--
+p
+	{margin-top:0;
+	margin-bottom:0}
+-->
+</style>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
 Hi,</div>
-<div style=3D"font-family: Calibri,Arial,Helvetica,sans-serif;
-        font-size: 12pt; color: rgb(0, 0, 0);">
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
 I am running msgstress03,msgstress04 with 5.10.19 and 5.10.22 custom kernel=
  built using Yocto but both test are getting failed repeatedly. i am not ab=
 le to understand what making both test to fail since these tests are stress=
  tests for message queue want to
  figure if anything going wrong with message queue.</div>
-<div style=3D"font-family: Calibri,Arial,Helvetica,sans-serif;
-        font-size: 12pt; color: rgb(0, 0, 0);">
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
 <br>
 </div>
-<div style=3D"font-family: Calibri,Arial,Helvetica,sans-serif;
-        font-size: 12pt; color: rgb(0, 0, 0);">
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
 Pasting few error message and attaching detailed logs of failures<br>
 </div>
-<div style=3D"font-family: Calibri,Arial,Helvetica,sans-serif;
-        font-size: 12pt; color: rgb(0, 0, 0);">
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
 <br>
 </div>
-<div style=3D"font-family: Calibri,Arial,Helvetica,sans-serif;
-        font-size: 12pt; color: rgb(0, 0, 0);">
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
 <b>msgstress03:-</b><br>
 </div>
-<div style=3D"font-family: Calibri,Arial,Helvetica,sans-serif;
-        font-size: 12pt; color: rgb(0, 0, 0);">
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
 msgsnd() error in child 9458, write # =3D 10000, key =3D 65e2d9c4: Interrup=
 ted system call
 <div>msgstress03 &nbsp; &nbsp;1 &nbsp;TBROK &nbsp;: &nbsp;tst_sig.c:232: un=
@@ -327,15 +373,15 @@ maining cases broken</div>
 az9tykpq/msgQaAD8i) failed; errno=3D2: ENOENT</div>
 msgsnd() error in child 9454, write # =3D 10000, key =3D 37efb13a: Interrup=
 ted system call</div>
-<div style=3D"font-family: Calibri,Arial,Helvetica,sans-serif;
-        font-size: 12pt; color: rgb(0, 0, 0);">
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
 <br>
 </div>
-<div style=3D"font-family: Calibri,Arial,Helvetica,sans-serif;
-        font-size: 12pt; color: rgb(0, 0, 0);">
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
 <b>msgstress04:-</b></div>
-<div style=3D"font-family: Calibri,Arial,Helvetica,sans-serif;
-        font-size: 12pt; color: rgb(0, 0, 0);">
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
 msgstress04 &nbsp; &nbsp;0 &nbsp;TINFO &nbsp;: &nbsp;Found 31994 available =
 message queues
 <div>msgstress04 &nbsp; &nbsp;0 &nbsp;TINFO &nbsp;: &nbsp;Using upto 209710=
@@ -347,20 +393,19 @@ For msgstress04, It is a known issue[1]. the fork fail reason see[2].<br>
 I have sent a patchset[3] to cleanup these msgstress case recently and then=
  I will add a process num limit according to avaiable memory.<br>
 <br>
-[1]<a class=3D"moz-txt-link-freetext" href=3D"https://github.com/linux-test=
--project/ltp/issues/509">https://github.com/linux-test-project/ltp/issues/5=
-09</a><br>
-[2]<a class=3D"moz-txt-link-freetext" href=3D"http://lists.linux.it/piperma=
-il/ltp/2020-June/017619.html">http://lists.linux.it/pipermail/ltp/2020-June=
-/017619.html</a><br>
-[3]<a class=3D"moz-txt-link-freetext" href=3D"https://patchwork.ozlabs.org/=
-project/ltp/patch/1615550541-21714-1-git-send-email-xuyang2018.jy@cn.fujits=
-u.com/">https://patchwork.ozlabs.org/project/ltp/patch/1615550541-21714-1-g=
-it-send-email-xuyang2018.jy@cn.fujitsu.com/</a><br>
-<blockquote cite=3D"mid:BMXPR01MB287023E7E5B34F6D27B63564EE7E9@BMXPR01MB287=
-0.INDPRD01.PROD.OUTLOOK.COM" type=3D"cite">
-<div style=3D"font-family: Calibri,Arial,Helvetica,sans-serif;
-        font-size: 12pt; color: rgb(0, 0, 0);">
+[1]<a class=3D"x_moz-txt-link-freetext" href=3D"https://github.com/linux-te=
+st-project/ltp/issues/509">https://github.com/linux-test-project/ltp/issues=
+/509</a><br>
+[2]<a class=3D"x_moz-txt-link-freetext" href=3D"http://lists.linux.it/piper=
+mail/ltp/2020-June/017619.html">http://lists.linux.it/pipermail/ltp/2020-Ju=
+ne/017619.html</a><br>
+[3]<a class=3D"x_moz-txt-link-freetext" href=3D"https://patchwork.ozlabs.or=
+g/project/ltp/patch/1615550541-21714-1-git-send-email-xuyang2018.jy@cn.fuji=
+tsu.com/">https://patchwork.ozlabs.org/project/ltp/patch/1615550541-21714-1=
+-git-send-email-xuyang2018.jy@cn.fujitsu.com/</a><br>
+<blockquote type=3D"cite">
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
 <div>Fork failure in the first child of child group 9198</div>
 <div>Fork failure in the first child of child group 9216</div>
 <div>Fork failure in the first child of child group 9208</div>
@@ -381,34 +426,35 @@ it-send-email-xuyang2018.jy@cn.fujitsu.com/</a><br>
 <div>msgstress04 &nbsp; &nbsp;1 &nbsp;TFAIL &nbsp;: &nbsp;msgstress04.c:204=
 : Fork failed (may be OK if under stress)</div>
 Fork failure in the second child of child group 9234</div>
-<div style=3D"font-family: Calibri,Arial,Helvetica,sans-serif;
-        font-size: 12pt; color: rgb(0, 0, 0);">
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
 <br>
 </div>
-<div style=3D"font-family: Calibri,Arial,Helvetica,sans-serif;
-        font-size: 12pt; color: rgb(0, 0, 0);">
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
 Kindly help to get the failure resolved.</div>
-<div style=3D"font-family: Calibri,Arial,Helvetica,sans-serif;
-        font-size: 12pt; color: rgb(0, 0, 0);">
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
 <br>
 </div>
-<div style=3D"font-family: Calibri,Arial,Helvetica,sans-serif;
-        font-size: 12pt; color: rgb(0, 0, 0);">
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
 Thanks<br>
 </div>
-<pre wrap=3D"">
-<fieldset class=3D"mimeAttachmentHeader"></fieldset>
+<pre>
+<fieldset class=3D"x_mimeAttachmentHeader"></fieldset>
 
 </pre>
 </blockquote>
 <pre>
 </pre>
+[EXT] </div>
 </body>
 </html>
 
---_000_60619D5B6090507fujitsucom_--
+--_000_BMXPR01MB2870D0447A89D1BEE08EDCA7EE7E9BMXPR01MB2870INDP_--
 
---===============0365142749==
+--===============1961001238==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -418,4 +464,4 @@ Content-Disposition: inline
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
 
---===============0365142749==--
+--===============1961001238==--
