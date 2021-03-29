@@ -2,42 +2,45 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C58234D69B
-	for <lists+linux-ltp@lfdr.de>; Mon, 29 Mar 2021 20:08:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F75E34D6D3
+	for <lists+linux-ltp@lfdr.de>; Mon, 29 Mar 2021 20:18:06 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 129483C8C1D
-	for <lists+linux-ltp@lfdr.de>; Mon, 29 Mar 2021 20:08:05 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id F24193C8C1D
+	for <lists+linux-ltp@lfdr.de>; Mon, 29 Mar 2021 20:18:05 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 141273C0DFE
- for <ltp@lists.linux.it>; Mon, 29 Mar 2021 20:08:03 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id D57453C1A2B
+ for <ltp@lists.linux.it>; Mon, 29 Mar 2021 20:18:04 +0200 (CEST)
+Received: from EX13-EDG-OU-001.vmware.com (ex13-edg-ou-001.vmware.com
+ [208.91.0.189])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 91FB31400DC8
- for <ltp@lists.linux.it>; Mon, 29 Mar 2021 20:08:03 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id CA82CAFDC;
- Mon, 29 Mar 2021 18:08:02 +0000 (UTC)
-Date: Mon, 29 Mar 2021 20:08:01 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Joerg Vehlow <lkml@jv-coder.de>
-Message-ID: <YGIXgYVBSs5V3Stk@pevik>
-References: <20210315092844.991073-1-lkml@jv-coder.de>
- <20210315092844.991073-2-lkml@jv-coder.de>
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 06340600635
+ for <ltp@lists.linux.it>; Mon, 29 Mar 2021 20:18:03 +0200 (CEST)
+Received: from sc9-mailhost1.vmware.com (10.113.161.71) by
+ EX13-EDG-OU-001.vmware.com (10.113.208.155) with Microsoft SMTP Server id
+ 15.0.1156.6; Mon, 29 Mar 2021 11:17:57 -0700
+Received: from ubuntu.vmware.com (unknown [10.200.240.60])
+ by sc9-mailhost1.vmware.com (Postfix) with ESMTP id BBE7B20146
+ for <ltp@lists.linux.it>; Mon, 29 Mar 2021 11:17:59 -0700 (PDT)
+From: Sharan Turlapati <sturlapati@vmware.com>
+To: <ltp@lists.linux.it>
+Date: Mon, 29 Mar 2021 11:17:59 -0700
+Message-ID: <20210329181759.4466-1-sturlapati@vmware.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210315092844.991073-2-lkml@jv-coder.de>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+Received-SPF: None (EX13-EDG-OU-001.vmware.com: sturlapati@vmware.com does not
+ designate permitted sender hosts)
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 2/2] pec: Fix multiple event test
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH] realtime/scripts: Fix indentation error in parser.py
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,22 +52,55 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Joerg,
+An indentation error in parser.py causes certain blocks
+of code to run even before dependent variables are
+initialized when the code in this file is imported
+by parse-testpi1.py or parse-testpi2.py.
 
-Test is defined as #!/bin/bash which is not acceptable [1], I'm going to change
-it as #!/bin/sh. Also note a need to check with checkbashism.
+Post running tests like testpi-2 or testpi-4, the
+results of these tests are parsed and added to the
+logs/ directory. This bug prevents the results of such
+tests from being parsed and thus masks the results of
+these tests.
 
-Kind regards,
-Petr
+Signed-off-by: Sharan Turlapati <sturlapati@vmware.com>
+---
+ testcases/realtime/scripts/parser.py | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-[1] https://github.com/linux-test-project/ltp/wiki/Test-Writing-Guidelines#132-shell-coding-style
+diff --git a/testcases/realtime/scripts/parser.py b/testcases/realtime/scripts/parser.py
+index 85226deb6..2acbe7d67 100644
+--- a/testcases/realtime/scripts/parser.py
++++ b/testcases/realtime/scripts/parser.py
+@@ -33,15 +33,15 @@ class Log:
+ 	def __init__(self,filename):
+ 		if filename:
+ 			log_file=filename
+-	try:
+-		self.__log_file = open(log_file, "r")
+-	except IOError as errmsg:
+-		sys.exit(errmsg)
++		try:
++			self.__log_file = open(log_file, "r")
++		except IOError as errmsg:
++			sys.exit(errmsg)
+ 
+ 	def read(self):
+ 		for line in self.__log_file.read().split("\n"):
+ 			yield line
+-	self.__log_file.close()
++		self.__log_file.close()
+ 
+ 	def eval(self):
+ 		pass
+-- 
+2.28.0
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
