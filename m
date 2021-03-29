@@ -2,45 +2,43 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F75E34D6D3
-	for <lists+linux-ltp@lfdr.de>; Mon, 29 Mar 2021 20:18:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C6D734D784
+	for <lists+linux-ltp@lfdr.de>; Mon, 29 Mar 2021 20:43:49 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id F24193C8C1D
-	for <lists+linux-ltp@lfdr.de>; Mon, 29 Mar 2021 20:18:05 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 6F7A53C8D20
+	for <lists+linux-ltp@lfdr.de>; Mon, 29 Mar 2021 20:43:48 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id D57453C1A2B
- for <ltp@lists.linux.it>; Mon, 29 Mar 2021 20:18:04 +0200 (CEST)
-Received: from EX13-EDG-OU-001.vmware.com (ex13-edg-ou-001.vmware.com
- [208.91.0.189])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 83FDA3C1A31
+ for <ltp@lists.linux.it>; Mon, 29 Mar 2021 20:43:43 +0200 (CEST)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 06340600635
- for <ltp@lists.linux.it>; Mon, 29 Mar 2021 20:18:03 +0200 (CEST)
-Received: from sc9-mailhost1.vmware.com (10.113.161.71) by
- EX13-EDG-OU-001.vmware.com (10.113.208.155) with Microsoft SMTP Server id
- 15.0.1156.6; Mon, 29 Mar 2021 11:17:57 -0700
-Received: from ubuntu.vmware.com (unknown [10.200.240.60])
- by sc9-mailhost1.vmware.com (Postfix) with ESMTP id BBE7B20146
- for <ltp@lists.linux.it>; Mon, 29 Mar 2021 11:17:59 -0700 (PDT)
-From: Sharan Turlapati <sturlapati@vmware.com>
-To: <ltp@lists.linux.it>
-Date: Mon, 29 Mar 2021 11:17:59 -0700
-Message-ID: <20210329181759.4466-1-sturlapati@vmware.com>
-X-Mailer: git-send-email 2.25.1
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id AD53A200344
+ for <ltp@lists.linux.it>; Mon, 29 Mar 2021 20:43:42 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id E04BCAFF5;
+ Mon, 29 Mar 2021 18:43:41 +0000 (UTC)
+Date: Mon, 29 Mar 2021 20:43:40 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Joerg Vehlow <lkml@jv-coder.de>
+Message-ID: <YGIf3JSsFHn/gwKJ@pevik>
+References: <20210315092844.991073-1-lkml@jv-coder.de>
+ <20210315092844.991073-2-lkml@jv-coder.de>
 MIME-Version: 1.0
-Received-SPF: None (EX13-EDG-OU-001.vmware.com: sturlapati@vmware.com does not
- designate permitted sender hosts)
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20210315092844.991073-2-lkml@jv-coder.de>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH] realtime/scripts: Fix indentation error in parser.py
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 2/2] pec: Fix multiple event test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,55 +50,284 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-An indentation error in parser.py causes certain blocks
-of code to run even before dependent variables are
-initialized when the code in this file is imported
-by parse-testpi1.py or parse-testpi2.py.
+Hi Joerg,
 
-Post running tests like testpi-2 or testpi-4, the
-results of these tests are parsed and added to the
-logs/ directory. This bug prevents the results of such
-tests from being parsed and thus masks the results of
-these tests.
+> +free_fd()
+> +{
+> +	# Find a free file handle
+> +	local found
+> +	for fd in $(seq 200); do
+> +    	rco="$(true 2>/dev/null >&${fd}; echo $?)"
+> +    	rci="$(true 2>/dev/null <&${fd}; echo $?)"
+> +    	[[ "${rco}${rci}" = "11" ]] && found=${fd} && break
+[[ .. ]] is a bashism, single brackets are enough.
+> +	done
+> +	echo $found
+> +}
 
-Signed-off-by: Sharan Turlapati <sturlapati@vmware.com>
----
- testcases/realtime/scripts/parser.py | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+NIT: adding a comment to before function and space separating section with local
+helps readability.
 
-diff --git a/testcases/realtime/scripts/parser.py b/testcases/realtime/scripts/parser.py
-index 85226deb6..2acbe7d67 100644
---- a/testcases/realtime/scripts/parser.py
-+++ b/testcases/realtime/scripts/parser.py
-@@ -33,15 +33,15 @@ class Log:
- 	def __init__(self,filename):
- 		if filename:
- 			log_file=filename
--	try:
--		self.__log_file = open(log_file, "r")
--	except IOError as errmsg:
--		sys.exit(errmsg)
-+		try:
-+			self.__log_file = open(log_file, "r")
-+		except IOError as errmsg:
-+			sys.exit(errmsg)
+# Find a free file handle
+free_fd()
+{
+	local found
+
+	for fd in $(seq 200); do
+	...
+
+> +
+>  setup()
+>  {	
+>  	if ! grep -q cn_proc /proc/net/connector; then
+> @@ -32,35 +64,75 @@ setup()
+>  test()
+>  {
+>  	local event=$2
+> +
+> +	tst_res TINFO "Testing $2 event (nevents=$num_events)"
+> +
+>  	pec_listener >lis_$event.log 2>lis_$event.err &
+> -	pid=$!
+> +	lis_pid=$!
+This change is unnecessary, if you prefer $lis_pid, it should have been in
+previous patch where you added $pid (no need to repost, I can fix it before
+merge).
+
+>  	# Wait for pec_listener to start listening
+>  	tst_sleep 100ms
+
+>  	# Run with absolute path, so the generator can exec itself
+>  	generator="$(command -v event_generator)"
+> -	"$generator" -n $NUM_EVENTS -e $event >gen_$event.log 2>gen_$event.err
+> +	"$generator" -n $num_events -e $event >gen_$event.log 2>gen_$event.err
+>  	gen_rc=$?
+
+> -	# Sleep until pec_listener has seen and handled all of the generated events
+> -	tst_sleep 100ms
+> -	kill -s SIGINT $pid 2> /dev/null
+> -	wait $pid
+> +	kill -s SIGINT $lis_pid 2> /dev/null
+> +	wait $lis_pid
+>  	lis_rc=$?
+
+>  	if [ $gen_rc -ne 0 -o ! -s gen_$event.log ]; then
+> -		tst_brk TBROK "failed to generate process events"
+> +		tst_brk TBROK "failed to generate process events: $(cat gen_$event.err)"
+>  	fi
+
+>  	if [ $lis_rc -ne 0 ]; then
+>  		tst_brk TBROK "failed to execute the listener: $(cat lis_$event.err)"
+>  	fi
+
+> -	expected_events="$(cat gen_$event.log)"
+> -	if grep -q "$expected_events" lis_$event.log; then
+> -		tst_res TPASS "$event detected by listener"
+> +	# The listener writes the same messages as the generator, but it can
+> +	# also see more events (e.g. for testing exit, a fork is generated).
+> +	# So: The events generated by the generator have to be in the same order
+> +	# as the events printed by the listener, but my interleaved with other
+> +	# messages. To correctly compare them, we have to open both logs
+> +	# and iterate over both of them at the same time, skipping messages
+> +	# in the listener log, that are not of interest.
+> +	# Because some messages may be multiple times in the listener log,
+> +	# we have to open it only once!
+> +	# This however does not check, if the listener sees more messages,
+> +	# than expected.
+> +
+> +	fd_act=$(free_fd)
+> +	[ -z "$fd_act" ] && tst_brk TBROK "No free filehandle found"
+> +	eval "exec ${fd_act}<lis_$event.log"
+> +
+> +	failed=0
+> +	act_nevents=0
+Again two missing local.
+
+> +	while read -r exp; do
+> +		local found=0
+> +		act_nevents=$((act_nevents + 1))
+> +		while read -r <&${fd_act} act; do
+<& is a bashism. Isn't it using just stdin enough?
+		while read -r < $fd_act act; do
+> +			if [ "$exp" = "$act" ]; then
+> +				found=1
+> +				break
+> +			fi
+> +		done
+> +		if [ $found -ne 1 ]; then
+> +			failed=1
+> +			tst_res TFAIL "Event was not detected by the event listener: $exp"
+> +			break
+> +		fi
+> +	done <gen_$event.log
+> +
+> +	eval "exec ${fd_act}<&-"
+> +
+> +	if [ $failed -eq 0 ]; then
+> +		if [ $act_nevents -ne $num_events ]; then
+> +			tst_res TBROK "Expected $num_events, but $act_nevents generated"
+> +		else
+> +			tst_res TPASS "All events detected"
+> +		fi
+>  	else
+> -		tst_res TFAIL "$event not detected by listener"
+> +		cat lis_$event.log
+Why removing tst_res TFAIL?
+If "cat lis_$event.log" needed, why not having it in previous commit?
+>  	fi
+
+Also whole section would be probably more readable written as:
+
+	if [ $failed -eq 0 ]; then
+		tst_res TFAIL "$event not detected by listener"
+		cat lis_$event.log
+		return
+	fi
+
+	if [ $act_nevents -ne $num_events ]; then
+		tst_brk TBROK "Expected $num_events, but $act_nevents generated"
+	fi
+
+	tst_res TPASS "All events detected"
+
+>  }
+
+
+All changes suggested for shell:
+(FYI in: https://github.com/pevik/ltp/commits/joerg/connectors.v1.fixes)
+
+Kind regards,
+Petr
+
+diff --git testcases/kernel/connectors/pec/cn_pec.sh testcases/kernel/connectors/pec/cn_pec.sh
+index 8bbfe3a19..e0821a8ef 100755
+--- testcases/kernel/connectors/pec/cn_pec.sh
++++ testcases/kernel/connectors/pec/cn_pec.sh
+@@ -1,4 +1,4 @@
+-#!/bin/bash
++#!/bin/sh
  
- 	def read(self):
- 		for line in self.__log_file.read().split("\n"):
- 			yield line
--	self.__log_file.close()
-+		self.__log_file.close()
+ # SPDX-License-Identifier: GPL-2.0-or-later
+ # Copyright (c) 2008 FUJITSU LIMITED
+@@ -39,14 +39,18 @@ parse_args()
+ 	esac
+ }
  
- 	def eval(self):
- 		pass
--- 
-2.28.0
-
++# Find a free file handle
+ free_fd()
+ {
+-	# Find a free file handle
+-	local found
++	local fd found rci rco
++
+ 	for fd in $(seq 200); do
+-	rco="$(true 2>/dev/null >&${fd}; echo $?)"
+-	rci="$(true 2>/dev/null <&${fd}; echo $?)"
+-	[[ "${rco}${rci}" = "11" ]] && found=${fd} && break
++		rco="$(true 2>/dev/null >&$fd; echo $?)"
++		rci="$(true 2>/dev/null <&$fd; echo $?)"
++		if [ "${rco}${rci}" = "11" ]; then
++			found="$fd"
++			break
++		fi
+ 	done
+ 	echo $found
+ }
+@@ -55,7 +59,6 @@ setup()
+ {
+ 	if ! grep -q cn_proc /proc/net/connector; then
+ 		tst_brk TCONF "Process Event Connector is not supported or kernel is below 2.6.26"
+-		exit 0;
+ 	fi
+ 
+ 	tst_res TINFO "Test process events connector"
+@@ -64,24 +67,24 @@ setup()
+ test()
+ {
+ 	local event=$2
++	local expected_events lis_rc pid
+ 
+ 	tst_res TINFO "Testing $2 event (nevents=$num_events)"
+ 
+-	pec_listener >lis_$event.log 2>lis_$event.err &
+-	lis_pid=$!
++	ROD pec_listener \>lis_$event.log 2\>lis_$event.err &
++	pid=$!
+ 	# Wait for pec_listener to start listening
+ 	tst_sleep 100ms
+ 
+-	# Run with absolute path, so the generator can exec itself
+-	generator="$(command -v event_generator)"
+-	"$generator" -n $num_events -e $event >gen_$event.log 2>gen_$event.err
++	# generator must be in PATH
++	ROD event_generator -n $num_events -e $event \>gen_$event.log 2\>gen_$event.err
+ 	gen_rc=$?
+ 
+ 	kill -s SIGINT $lis_pid 2> /dev/null
+ 	wait $lis_pid
+ 	lis_rc=$?
+ 
+-	if [ $gen_rc -ne 0 -o ! -s gen_$event.log ]; then
++	if [ ! -s gen_$event.log ]; then
+ 		tst_brk TBROK "failed to generate process events: $(cat gen_$event.err)"
+ 	fi
+ 
+@@ -103,14 +106,14 @@ test()
+ 
+ 	fd_act=$(free_fd)
+ 	[ -z "$fd_act" ] && tst_brk TBROK "No free filehandle found"
+-	eval "exec ${fd_act}<lis_$event.log"
++	eval "exec ${fd_act} < lis_$event.log"
+ 
+-	failed=0
+-	act_nevents=0
++	local failed=0
++	local act_nevents=0
+ 	while read -r exp; do
+ 		local found=0
+ 		act_nevents=$((act_nevents + 1))
+-		while read -r <&${fd_act} act; do
++		while read -r < $fd_act act; do
+ 			if [ "$exp" = "$act" ]; then
+ 				found=1
+ 				break
+@@ -121,19 +124,21 @@ test()
+ 			tst_res TFAIL "Event was not detected by the event listener: $exp"
+ 			break
+ 		fi
+-	done <gen_$event.log
++	done < gen_$event.log
+ 
+-	eval "exec ${fd_act}<&-"
++	eval "exec $fd_act <&-"
+ 
+ 	if [ $failed -eq 0 ]; then
+-		if [ $act_nevents -ne $num_events ]; then
+-			tst_res TBROK "Expected $num_events, but $act_nevents generated"
+-		else
+-			tst_res TPASS "All events detected"
+-		fi
+-	else
++		tst_res TFAIL "$event not detected by listener"
+ 		cat lis_$event.log
++		return
+ 	fi
++
++	if [ $act_nevents -ne $num_events ]; then
++		tst_brk TBROK "Expected $num_events, but $act_nevents generated"
++	fi
++
++	tst_res TPASS "All events detected"
+ }
+ 
+ tst_run
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
