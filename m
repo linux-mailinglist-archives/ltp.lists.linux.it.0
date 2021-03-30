@@ -1,54 +1,42 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 813FF34E471
-	for <lists+linux-ltp@lfdr.de>; Tue, 30 Mar 2021 11:31:58 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id AE17B34E4F4
+	for <lists+linux-ltp@lfdr.de>; Tue, 30 Mar 2021 12:00:19 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DE9183C257B
-	for <lists+linux-ltp@lfdr.de>; Tue, 30 Mar 2021 11:31:57 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 4E87A3C7810
+	for <lists+linux-ltp@lfdr.de>; Tue, 30 Mar 2021 12:00:19 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 8F5443C2454
- for <ltp@lists.linux.it>; Tue, 30 Mar 2021 11:31:54 +0200 (CEST)
-Received: from szxga08-in.huawei.com (szxga08-in.huawei.com [45.249.212.255])
+ by picard.linux.it (Postfix) with ESMTPS id 93B8C3C003F
+ for <ltp@lists.linux.it>; Tue, 30 Mar 2021 12:00:14 +0200 (CEST)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 50AC2600A71
- for <ltp@lists.linux.it>; Tue, 30 Mar 2021 11:31:53 +0200 (CEST)
-Received: from dggeml405-hub.china.huawei.com (unknown [172.30.72.53])
- by szxga08-in.huawei.com (SkyGuard) with ESMTP id 4F8kdp4Jnbz149dB;
- Tue, 30 Mar 2021 17:28:30 +0800 (CST)
-Received: from DGGEML423-HUB.china.huawei.com (10.1.199.40) by
- dggeml405-hub.china.huawei.com (10.3.17.49) with Microsoft SMTP Server (TLS)
- id 14.3.498.0; Tue, 30 Mar 2021 17:31:49 +0800
-Received: from DGGEML531-MBX.china.huawei.com ([169.254.6.126]) by
- dggeml423-hub.china.huawei.com ([10.1.199.40]) with mapi id 14.03.0513.000;
- Tue, 30 Mar 2021 17:31:43 +0800
-From: zhaogongyi <zhaogongyi@huawei.com>
-To: "yangx.jy@fujitsu.com" <yangx.jy@fujitsu.com>
-Thread-Topic: [LTP] [PATCH] min_kver: Add kernel version requestions
-Thread-Index: AdclR1MNJW7vNiebSGiOW6FNC5gfTg==
-Date: Tue, 30 Mar 2021 09:31:42 +0000
-Message-ID: <F3D3F6AC3820BB4C9FCA340DB5C32CB40389E79C@dggeml531-mbx.china.huawei.com>
-Accept-Language: en-US
-Content-Language: zh-CN
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.67.110.209]
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 00A6C600B7C
+ for <ltp@lists.linux.it>; Tue, 30 Mar 2021 12:00:13 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 3E0FEB1AD;
+ Tue, 30 Mar 2021 10:00:13 +0000 (UTC)
+References: <20210329145738.986-1-pvorel@suse.cz>
+User-agent: mu4e 1.4.15; emacs 27.1
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Petr Vorel <pvorel@suse.cz>
+In-reply-to: <20210329145738.986-1-pvorel@suse.cz>
+Date: Tue, 30 Mar 2021 11:00:12 +0100
+Message-ID: <87czvhneqb.fsf@suse.de>
 MIME-Version: 1.0
-X-CFilter-Loop: Reflected
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] min_kver: Add kernel version requestions
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/1] tst_mkfs: Add -I option to mkfs.vfat
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,106 +48,73 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
-Content-Type: text/plain; charset="gb2312"
-Content-Transfer-Encoding: base64
+Reply-To: rpalethorpe@suse.de
+Cc: Xiao Yang <yangx.jy@cn.fujitsu.com>, ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGksDQoNCj4gPiBJIGhhdmUgc2VlbiB0aGUgZnVuY3Rpb24gZGVmaW5pdGlvbiBpbiBsYXBpL3By
-ZWFkdjIuaCBvciBsYXBpL3B3cml0ZXYyLmgsDQo+IGJ1dCBpdCBzZWVtcyBub3QgZW5vdWdoLg0K
-PiBIaSBaaG9uZ3lpLA0KPiANCj4gSXQgaXMgZW5vdWdoIHRvIGluZGljYXRlIHRoYXQgcHJlYWR2
-MigpIGFuZCBwd3JpdGV2MigpIGFyZSBzdXBwb3J0ZWQgb24NCj4geW91ciBlbnZpcm9tZW50Lg0K
-Pg0KLS0tLS0gSSBtZWFuIHRoYXQgaW4gdGhpcyB0ZXN0Y2FzZSwgaXQgc2hvdWxkIGNhbGwgcHJl
-YWR2Mi9wd3JpdGV2MiBpbiBsaWJjIHNpbmNlIGl0cyBrZXJuZWwgdmVyc2lvbiA8IDQuNi4gU28g
-SSB0aGluayB0aGlzIHRlc3RjYXNlIG5lZWQgdG8gYmUgc2tpcHBlZCBvbiB0aGlzIHN5c3RlbaOs
-b3IgaXQgd291bGQgZmFpbCBmb3IgRUlOVkFMSUQgZXZlbiB0aG91Z2gNCglJIGRvbqGvdCBrbm93
-biB0aGUgcm9vdCBjYXVzZSBvZiBpdC4gTWF5YmUgaXQgaXMgdGhlIGRpc21hdGNoIG9mIGxpYmMg
-d2l0aCBrZXJuZWwuDQoNClRoYW5rcyENCg0KQmVzdCBSZWdhcmRzLA0KR29uZ3lpDQoNCg0KDQo+
-IE9uIDIwMjEvMy8zMCAxNjoxOCwgemhhb2dvbmd5aSB3cm90ZToNCj4gPiBIaSBZYW5nLA0KPiA+
-DQo+ID4gSSBoYXZlIHNlZW4gdGhlIGZ1bmN0aW9uIGRlZmluaXRpb24gaW4gbGFwaS9wcmVhZHYy
-Lmggb3IgbGFwaS9wd3JpdGV2Mi5oLA0KPiBidXQgaXQgc2VlbXMgbm90IGVub3VnaC4NCj4gSGkg
-Wmhvbmd5aSwNCj4gDQo+IEl0IGlzIGVub3VnaCB0byBpbmRpY2F0ZSB0aGF0IHByZWFkdjIoKSBh
-bmQgcHdyaXRldjIoKSBhcmUgc3VwcG9ydGVkIG9uDQo+IHlvdXIgZW52aXJvbWVudC4NCj4gDQo+
-ID4gSSBydW4gdGhlIHRlc3RjYXNlcyBwcmVhZHYyMDEgYW5kIHB3cml0ZXYyMDEgb24gbXkgcWVt
-dSwga2VybmVsDQo+IHZlcnNpb24gNC40LCBhcmNoIGlzIGFybWViLCBhbmQgcmVwb3J0IGFzIGZv
-bGxvd3M6DQo+ID4NCj4gPiAjIC4vcHJlYWR2MjAxDQo+ID4gdHN0X3Rlc3QuYzoxMjk0OiBUSU5G
-TzogVGltZW91dCBwZXIgcnVuIGlzIDBoIDA1bSAwMHMNCj4gPiBwcmVhZHYyMDEuYzo5MTogVFBB
-U1M6IHByZWFkdjIoKSByZWFkIDY0IGJ5dGVzIHdpdGggY29udGVudCAnYScNCj4gPiBleHBlY3Rl
-ZGx5DQo+ID4gcHJlYWR2MjAxLmM6OTE6IFRQQVNTOiBwcmVhZHYyKCkgcmVhZCA2NCBieXRlcyB3
-aXRoIGNvbnRlbnQgJ2EnDQo+ID4gZXhwZWN0ZWRseQ0KPiA+IHByZWFkdjIwMS5jOjkxOiBUUEFT
-UzogcHJlYWR2MigpIHJlYWQgMzIgYnl0ZXMgd2l0aCBjb250ZW50ICdiJw0KPiA+IGV4cGVjdGVk
-bHkNCj4gPiBwcmVhZHYyMDEuYzo2NDogVEZBSUw6IHByZWFkdjIoKSBmYWlsZWQ6IEVJTlZBTCAo
-MjIpDQo+ID4gcHJlYWR2MjAxLmM6NjQ6IFRGQUlMOiBwcmVhZHYyKCkgZmFpbGVkOiBFSU5WQUwg
-KDIyKQ0KPiA+IHByZWFkdjIwMS5jOjY0OiBURkFJTDogcHJlYWR2MigpIGZhaWxlZDogRUlOVkFM
-ICgyMikNCj4gPg0KPiA+IFN1bW1hcnk6DQo+ID4gcGFzc2VkICAgMw0KPiA+IGZhaWxlZCAgIDMN
-Cj4gPiBicm9rZW4gICAwDQo+ID4gc2tpcHBlZCAgMA0KPiA+IHdhcm5pbmdzIDANCj4gPg0KPiA+
-DQo+ID4gIyAuL3B3cml0ZXYyMDENCj4gPiB0c3RfdGVzdC5jOjEyOTQ6IFRJTkZPOiBUaW1lb3V0
-IHBlciBydW4gaXMgMGggMDVtIDAwcw0KPiA+IHB3cml0ZXYyMDEuYzo5NjogVFBBU1M6IHB3cml0
-ZXYyKCkgd3JvdGUgNjQgYnl0ZXMgc3VjY2Vzc2Z1bGx5IHdpdGgNCj4gPiBjb250ZW50ICdhJyBl
-eHBlY3RlZGx5DQo+ID4gcHdyaXRldjIwMS5jOjk2OiBUUEFTUzogcHdyaXRldjIoKSB3cm90ZSA2
-NCBieXRlcyBzdWNjZXNzZnVsbHkgd2l0aA0KPiA+IGNvbnRlbnQgJ2EnIGV4cGVjdGVkbHkNCj4g
-PiBwd3JpdGV2MjAxLmM6OTY6IFRQQVNTOiBwd3JpdGV2MigpIHdyb3RlIDY0IGJ5dGVzIHN1Y2Nl
-c3NmdWxseSB3aXRoDQo+ID4gY29udGVudCAnYScgZXhwZWN0ZWRseQ0KPiA+IHB3cml0ZXYyMDEu
-Yzo2MjogVEZBSUw6IHB3cml0ZXYyKCkgZmFpbGVkOiBFSU5WQUwgKDIyKQ0KPiA+IHB3cml0ZXYy
-MDEuYzo2MjogVEZBSUw6IHB3cml0ZXYyKCkgZmFpbGVkOiBFSU5WQUwgKDIyKQ0KPiA+IHB3cml0
-ZXYyMDEuYzo2MjogVEZBSUw6IHB3cml0ZXYyKCkgZmFpbGVkOiBFSU5WQUwgKDIyKQ0KPiA+DQo+
-ID4gU3VtbWFyeToNCj4gPiBwYXNzZWQgICAzDQo+ID4gZmFpbGVkICAgMw0KPiA+IGJyb2tlbiAg
-IDANCj4gPiBza2lwcGVkICAwDQo+ID4gd2FybmluZ3MgMA0KPiA+DQo+IA0KPiBJdCBzZWVtcyB0
-aGF0IHByZWFkdjIoKSBhbmQgcHdyaXRldjIoKSBjYW5ub3QgYWNjZXB0IHRoZSBvZmZzZXQgYXJn
-dW1lbnQNCj4gd2hpY2ggaXMgc2V0IHRvIC0xLg0KPiBZb3Ugc2hvdWxkIGZpbmQgd2h5IHByZWFk
-djIoKSBhbmQgcHdyaXRldjIoKSBjYW5ub3QgYWNjZXB0IHRoZSBvZmZzZXQgPT0NCj4gLTEuDQo+
-IDEpIElmIExUUCBpbnRyb2R1Y2VzIHRoZSBpc3N1ZSwgeW91IHNob3VsZCBzZW5kIGEgcGF0Y2gg
-dG8gZml4IGl0KG5vdCBhZGQNCj4ga2VybmVsIHZlcnNpb24gY2hlY2spLg0KPiAyKSBJZiBrZXJu
-ZWwgaW50cm9kdWNlcyB0aGUgaXNzdWUsIHlvdSBzaG91bGQga2VlcCB0aGUgdGVzdCBiZWNhc3Vl
-IGl0DQo+IGV4cG9zZXMgdGhlIGtlcm5lbCBidWcgYXMgZXhwZWN0ZWQuDQo+ICAgICAgIE9mIGNv
-dXJzZSwgeW91IGNhbiBhbHNvIHRyeSB0byBmaW5kIHdoaWNoIGtlcm5lbCBjb21taXQgZml4ZXMg
-dGhlDQo+IGlzc3VlIGlmIHlvdSB3YW50Lg0KPiANCj4gPiBTZWUgbWFuIDIsIHdlIGtub3duIHBy
-ZWFkdjIoKSBhbmQgcHdyaXRldjIoKSBmaXJzdCBhcHBlYXJlZCBpbiBMaW51eA0KPiA0LjYsIHNv
-IEkgdGhpbmsgd2UgbmVlZCB0byBjaGVjayBrZXJuZWwgdmVyc2lvbiBpbiB0ZXN0Y2FzZXMuDQo+
-IA0KPiAxKSBJdCBpcyB3cm9uZyB0byB3b3JrIGFyb3VuZCB0aGUgaXNzdWUgYWJvdXQgcHJlYWR2
-MigpL3B3cml0ZXYyKCkgYnkNCj4ga2VybmVsIHZlcnNpb24gY2hlY2suDQo+IDIpIEFzIFh1IG1l
-dGlvbmVkIG9uIHlvdXIgcGF0Y2goc3lzY2FsbHMvc2htY3RsMDQ6IEFkZCBrZXJuZWwgdmVyc2lv
-bg0KPiByZXF1ZXN0aW9ucyksIGtlcm5lbCB2ZXJzaW9uIGNoZWNrIGlzIG5vdCB0aGUgYmVzdCB3
-YXkgdG8gaW5kaWNhdGUgaWYNCj4gcHJlYWR2MigpL3B3cml0ZXYyKCkgaXMgc3VwcG9ydGVkLg0K
-PiANCj4gQmVzdCBSZWdhcmRzLA0KPiBYaWFvIFlhbmcNCj4gPiBUaGFua3MhDQo+ID4NCj4gPiBC
-ZXN0IFJlZ2FyZHMsDQo+ID4gR29uZ3lpDQo+ID4NCj4gPg0KPiA+PiBIaSBaaG9uZ3lpLA0KPiA+
-Pg0KPiA+PiBEbyB5b3UgZ2V0IGFueSBpc3N1ZSBoZXJlPw0KPiA+Pg0KPiA+PiBJdCBpcyB1bm5j
-ZXNzYXJ5IHRvIGFkZCB2ZXJzaW9uIGNoZWNrIGJlY2F1c2UgTFRQIGhhcyBjaGVjayB0aGUNCj4g
-Pj4gc3VwcG9ydCBvZg0KPiA+PiBwcmVhZHYyL3B3cml0ZXYyOg0KPiA+PiAxKSBDYWxsIHByZWFk
-djIvcHdyaXRldjIgZGlyZWN0bHkgaWYgZ2xpYmMgcHJvdmlkZXMgaXQuDQo+ID4+IDIpIENhbGwg
-c3lzY2FsbChfX05SX3ByZWFkdjIvX19OUl9wd3JpdGV2MikgaWYgZ2xpYmMgZG9lc24ndCBwcm92
-aWRlcw0KPiA+PiBwcmVhZHYyL3B3cml0ZXYuDQo+ID4+IDMpIFJlcG9ydCBUQ09ORiBpZiBrZXJu
-ZWwgZG9lc24ndCBzdXBwb3J0DQo+IF9fTlJfcHJlYWR2Mi9fX05SX3B3cml0ZXYyLg0KPiA+Pg0K
-PiA+PiBQbGVhc2UgcmVmZXJlbmNlICJpbmNsdWRlL2xhcGkvcHJlYWR2Mi5oIg0KPiA+Pg0KPiA+
-PiBCZXN0IFJlZ2FyZHMsDQo+ID4+IFhpYW8gWWFuZw0KPiA+PiBPbiAyMDIxLzMvMzAgMTU6NDQs
-IFpoYW8gR29uZ3lpIHdyb3RlOg0KPiA+Pj4gV2UgbmVlZCBhZGQga2VybmVsIHZlcnNpb24gcmVx
-dWVzdGlvbnMgc2luYyBwcmVhZHYyKCkgYW5kDQo+IHB3cml0ZXYyKCkNCj4gPj4+IGZpcnN0IGFw
-cGVhcmVkIGluIExpbnV4IDQuNi4NCj4gPj4+DQo+ID4+PiBGb3IgdGhvc2U6DQo+ID4+PiAJdGVz
-dGNhc2VzL2tlcm5lbC9zeXNjYWxscy9wcmVhZHYyL3ByZWFkdjIwMS5jDQo+ID4+PiAJdGVzdGNh
-c2VzL2tlcm5lbC9zeXNjYWxscy9wd3JpdGV2Mi9wd3JpdGV2MjAxLmMNCj4gPj4+DQo+ID4+PiBT
-aWduZWQtb2ZmLWJ5OiBaaGFvIEdvbmd5aTx6aGFvZ29uZ3lpQGh1YXdlaS5jb20+DQo+ID4+PiAt
-LS0NCj4gPj4+ICAgIHRlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvcHJlYWR2Mi9wcmVhZHYyMDEu
-YyAgIHwgMSArDQo+ID4+PiAgICB0ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL3B3cml0ZXYyL3B3
-cml0ZXYyMDEuYyB8IDEgKw0KPiA+Pj4gICAgMiBmaWxlcyBjaGFuZ2VkLCAyIGluc2VydGlvbnMo
-KykNCj4gPj4+DQo+ID4+PiBkaWZmIC0tZ2l0IGEvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9w
-cmVhZHYyL3ByZWFkdjIwMS5jDQo+ID4+PiBiL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvcHJl
-YWR2Mi9wcmVhZHYyMDEuYw0KPiA+Pj4gaW5kZXggOTFlMmI5ODg5Li5lODIyMGY5NGMgMTAwNjQ0
-DQo+ID4+PiAtLS0gYS90ZXN0Y2FzZXMva2VybmVsL3N5c2NhbGxzL3ByZWFkdjIvcHJlYWR2MjAx
-LmMNCj4gPj4+ICsrKyBiL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvcHJlYWR2Mi9wcmVhZHYy
-MDEuYw0KPiA+Pj4gQEAgLTExMSw2ICsxMTEsNyBAQCBzdGF0aWMgdm9pZCBjbGVhbnVwKHZvaWQp
-DQo+ID4+PiAgICB9DQo+ID4+Pg0KPiA+Pj4gICAgc3RhdGljIHN0cnVjdCB0c3RfdGVzdCB0ZXN0
-ID0gew0KPiA+Pj4gKwkubWluX2t2ZXIgPSAiNC42IiwNCj4gPj4+ICAgIAkudGNudCA9IEFSUkFZ
-X1NJWkUodGNhc2VzKSwNCj4gPj4+ICAgIAkuc2V0dXAgPSBzZXR1cCwNCj4gPj4+ICAgIAkuY2xl
-YW51cCA9IGNsZWFudXAsDQo+ID4+PiBkaWZmIC0tZ2l0IGEvdGVzdGNhc2VzL2tlcm5lbC9zeXNj
-YWxscy9wd3JpdGV2Mi9wd3JpdGV2MjAxLmMNCj4gPj4+IGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNj
-YWxscy9wd3JpdGV2Mi9wd3JpdGV2MjAxLmMNCj4gPj4+IGluZGV4IGViYTQ1YjdkMy4uYTgyNzNl
-NTlkIDEwMDY0NA0KPiA+Pj4gLS0tIGEvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9wd3JpdGV2
-Mi9wd3JpdGV2MjAxLmMNCj4gPj4+ICsrKyBiL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvcHdy
-aXRldjIvcHdyaXRldjIwMS5jDQo+ID4+PiBAQCAtMTExLDYgKzExMSw3IEBAIHN0YXRpYyB2b2lk
-IGNsZWFudXAodm9pZCkNCj4gPj4+ICAgIH0NCj4gPj4+DQo+ID4+PiAgICBzdGF0aWMgc3RydWN0
-IHRzdF90ZXN0IHRlc3QgPSB7DQo+ID4+PiArCS5taW5fa3ZlciA9ICI0LjYiLA0KPiA+Pj4gICAg
-CS50Y250ID0gQVJSQVlfU0laRSh0Y2FzZXMpLA0KPiA+Pj4gICAgCS5zZXR1cCA9IHNldHVwLA0K
-PiA+Pj4gICAgCS5jbGVhbnVwID0gY2xlYW51cCwNCj4gPj4+IC0tDQo+ID4+PiAyLjE3LjENCj4g
-Pj4+DQo+ID4+Pg0KPiA+IC4NCj4gPg0KCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9s
-aXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
+Hello,
+
+Petr Vorel <pvorel@suse.cz> writes:
+
+> to workaround occasional error on tests with .all_filesystems flag:
+>
+> tst_test.c:888: TINFO: Formatting /dev/loop0 with vfat opts='' extra opts=''
+> mkfs.vfat: Partitions or virtual mappings on device '/dev/loop0',
+>  not making filesystem (use -I to override)
+> tst_test.c:888: TBROK: mkfs.vfat failed with exit code 1
+>
+> Tested also on BusyBox v1.33.0, which accept but ignores -I since
+> beginning (1.14.0).
+>
+> Signed-off-by: Petr Vorel <pvorel@suse.cz>
+> ---
+> Richard also suggested to wipe the device, but not sure how to do it
+> quickly and don't bring any more dependency.
+
+I guess that you only need to wipe the headers by writing zeros to the
+device. That is unless this is actually refering to a mapping in
+/dev/mapper?
+
+>
+> Kind regards,
+> Petr
+>
+>  lib/tst_mkfs.c | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
+>
+> diff --git a/lib/tst_mkfs.c b/lib/tst_mkfs.c
+> index 736324f04..2d335a3ad 100644
+> --- a/lib/tst_mkfs.c
+> +++ b/lib/tst_mkfs.c
+> @@ -52,6 +52,16 @@ void tst_mkfs_(const char *file, const int lineno, void (cleanup_fn)(void),
+>  
+>  	snprintf(mkfs, sizeof(mkfs), "mkfs.%s", fs_type);
+>  
+> +	/*
+> +	 * Workaround a problem:
+> +	 * mkfs.vfat: Partitions or virtual mappings on device '/dev/loop0', not
+> +	 * making filesystem (use -I to override)
+> +	 */
+> +	if (!strcmp(fs_type, "vfat")) {
+> +		argv[pos] = "-I";
+> +		strcat(fs_opts_str, argv[pos++]);
+
+Doesn't it need a space after -I? Might be better to put this after
+fs_opts and then you can check i > 0.
+
+> +	}
+> +
+>  	if (fs_opts) {
+>  		for (i = 0; fs_opts[i]; i++) {
+>  			argv[pos++] = fs_opts[i];
+
+
+-- 
+Thank you,
+Richard.
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
