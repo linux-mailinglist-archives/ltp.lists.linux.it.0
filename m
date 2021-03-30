@@ -2,48 +2,41 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51EB634E8C2
-	for <lists+linux-ltp@lfdr.de>; Tue, 30 Mar 2021 15:17:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5AFCB34EE84
+	for <lists+linux-ltp@lfdr.de>; Tue, 30 Mar 2021 18:53:42 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1B62F3C278A
-	for <lists+linux-ltp@lfdr.de>; Tue, 30 Mar 2021 15:17:52 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id ED3223C8BD9
+	for <lists+linux-ltp@lfdr.de>; Tue, 30 Mar 2021 18:53:41 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 3FF153C0CB5
- for <ltp@lists.linux.it>; Tue, 30 Mar 2021 15:17:48 +0200 (CEST)
-Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
+ by picard.linux.it (Postfix) with ESMTPS id 5D76D3C1A2B
+ for <ltp@lists.linux.it>; Tue, 30 Mar 2021 18:53:40 +0200 (CEST)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id A68C81400437
- for <ltp@lists.linux.it>; Tue, 30 Mar 2021 15:17:47 +0200 (CEST)
-Received: from DGGEML403-HUB.china.huawei.com (unknown [172.30.72.57])
- by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4F8qh12MNDzRKdc
- for <ltp@lists.linux.it>; Tue, 30 Mar 2021 21:15:45 +0800 (CST)
-Received: from DGGEML531-MBX.china.huawei.com ([169.254.6.126]) by
- DGGEML403-HUB.china.huawei.com ([fe80::74d9:c659:fbec:21fa%31]) with mapi id
- 14.03.0513.000; Tue, 30 Mar 2021 21:17:34 +0800
-From: zhaogongyi <zhaogongyi@huawei.com>
-To: Petr Vorel <pvorel@suse.cz>, xieziyao <xieziyao@huawei.com>
-Thread-Topic: [LTP] [PATCH] syscalls/chdir01: Add umask before mkdir
-Thread-Index: AdclZwKsZLEMwzJFSbylvo4oT7uokw==
-Date: Tue, 30 Mar 2021 13:17:33 +0000
-Message-ID: <F3D3F6AC3820BB4C9FCA340DB5C32CB40389E8F1@dggeml531-mbx.china.huawei.com>
-Accept-Language: en-US
-Content-Language: zh-CN
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.67.110.209]
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id E094C200C6D
+ for <ltp@lists.linux.it>; Tue, 30 Mar 2021 18:53:39 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 11CECAE81;
+ Tue, 30 Mar 2021 16:53:39 +0000 (UTC)
+Date: Tue, 30 Mar 2021 18:53:37 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: zhaogongyi <zhaogongyi@huawei.com>
+Message-ID: <YGNXkZMqqJpviwkL@pevik>
+References: <F3D3F6AC3820BB4C9FCA340DB5C32CB40389E8F1@dggeml531-mbx.china.huawei.com>
 MIME-Version: 1.0
-X-CFilter-Loop: Reflected
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <F3D3F6AC3820BB4C9FCA340DB5C32CB40389E8F1@dggeml531-mbx.china.huawei.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+X-Spam-Status: No, score=2.0 required=7.0 tests=PDS_TONAME_EQ_TOLOCAL_SHORT,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Level: *
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH] syscalls/chdir01: Add umask before mkdir
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -56,38 +49,28 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Petr,
+Hi Gongyi,
 
-Umask is always 022 in many system env. In this testcase, if umask is not 022, for example, umask is 0077, test would fail because the file mode is affected by umask.
+> Umask is always 022 in many system env. In this testcase, if umask is not 022,
+> for example, umask is 0077, test would fail because the file mode is affected
+> by umask.
+Thanks a lot for a giving example. I tested only 0066.
 
-Thanks!
+I'm sorry I accepted the Ziyao version as it had better description, reverted
+back changes and will work on any mode in SAFE_MKDIR(). I put your Reported-by:
+tag.
 
-Best Regards,
-Gongyi
+I'll also send one more fix for exfat.
 
-> 
-> > When uid is nobody, umask is not 022, the test process might
-> Not sure if I understand "When uid is nobody, umask is not 022", umask
-> setup depends usually on the system. I wonder which system has different
-> setup for nobody.
-> 
-> BTW later was posted another solution, see my comments there.
-> 
-> Kind regards,
-> Petr
-> 
-> [2]
-> https://patchwork.ozlabs.org/project/ltp/patch/20210322091512.103266
-> -1-xieziyao@huawei.com/
-> 
-> > has not permmission to access the file which created by SAFE_MKDIR
-> > with mode 0755.
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
