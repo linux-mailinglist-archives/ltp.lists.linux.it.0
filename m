@@ -2,42 +2,58 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0BF1834E78F
-	for <lists+linux-ltp@lfdr.de>; Tue, 30 Mar 2021 14:36:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B99D834E838
+	for <lists+linux-ltp@lfdr.de>; Tue, 30 Mar 2021 15:01:52 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C6F8C3C2593
-	for <lists+linux-ltp@lfdr.de>; Tue, 30 Mar 2021 14:36:54 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 4AE753C8BD0
+	for <lists+linux-ltp@lfdr.de>; Tue, 30 Mar 2021 15:01:52 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 086543C251C
- for <ltp@lists.linux.it>; Tue, 30 Mar 2021 14:36:52 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ by picard.linux.it (Postfix) with ESMTPS id 4EF093C0CB5
+ for <ltp@lists.linux.it>; Tue, 30 Mar 2021 15:01:47 +0200 (CEST)
+Received: from lucky1.263xmail.com (lucky1.263xmail.com [211.157.147.131])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 60AA260029F
- for <ltp@lists.linux.it>; Tue, 30 Mar 2021 14:36:52 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id A5BCAB2F5;
- Tue, 30 Mar 2021 12:36:51 +0000 (UTC)
-References: <20210329145738.986-1-pvorel@suse.cz> <87czvhneqb.fsf@suse.de>
- <YGMYpaeR7Mp7rATD@pevik>
-User-agent: mu4e 1.4.15; emacs 27.1
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Petr Vorel <pvorel@suse.cz>
-In-reply-to: <YGMYpaeR7Mp7rATD@pevik>
-Date: Tue, 30 Mar 2021 13:36:50 +0100
-Message-ID: <87a6qkom1p.fsf@suse.de>
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 9142D6008F2
+ for <ltp@lists.linux.it>; Tue, 30 Mar 2021 15:01:43 +0200 (CEST)
+Received: from localhost (unknown [192.168.167.223])
+ by lucky1.263xmail.com (Postfix) with ESMTP id 35EF8B9D67
+ for <ltp@lists.linux.it>; Tue, 30 Mar 2021 21:01:40 +0800 (CST)
+X-MAIL-GRAY: 0
+X-MAIL-DELIVERY: 1
+X-ADDR-CHECKED4: 1
+X-ANTISPAM-LEVEL: 2
+X-ABS-CHECKED: 0
+Received: from localhost.localdomain (unknown [58.240.82.166])
+ by smtp.263.net (postfix) whith ESMTP id
+ P2194T140112570611456S1617109283504413_; 
+ Tue, 30 Mar 2021 21:01:40 +0800 (CST)
+X-IP-DOMAINF: 1
+X-UNIQUE-TAG: <a8a4fd9362bf988bf330e0a87a126db8>
+X-RL-SENDER: sujiaxun@uniontech.com
+X-SENDER: sujiaxun@uniontech.com
+X-LOGIN-NAME: sujiaxun@uniontech.com
+X-FST-TO: ltp@lists.linux.it
+X-SENDER-IP: 58.240.82.166
+X-ATTACHMENT-NUM: 0
+X-System-Flag: 0
+From: sujiaxun <sujiaxun@uniontech.com>
+To: ltp@lists.linux.it
+Date: Tue, 30 Mar 2021 21:01:15 +0800
+Message-Id: <20210330130115.26575-1-sujiaxun@uniontech.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/1] tst_mkfs: Add -I option to mkfs.vfat
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH] bugfix for cpio/cpio_tests.sh
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,81 +65,37 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
-Cc: Xiao Yang <yangx.jy@cn.fujitsu.com>, ltp@lists.linux.it
+Cc: sujiaxun <sujiaxun@uniontech.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello,
+In cpio version 2.12 and 2.13,'cpio --help' create is lowercase
 
-Petr Vorel <pvorel@suse.cz> writes:
+Signed-off-by: sujiaxun <sujiaxun@uniontech.com>
+---
+ testcases/commands/cpio/cpio_tests.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> Hi,
->
-> ...
->> > +	/*
->> > +	 * Workaround a problem:
->> > +	 * mkfs.vfat: Partitions or virtual mappings on device '/dev/loop0', not
->> > +	 * making filesystem (use -I to override)
->> > +	 */
->> > +	if (!strcmp(fs_type, "vfat")) {
->> > +		argv[pos] = "-I";
->> > +		strcat(fs_opts_str, argv[pos++]);
->
->> Doesn't it need a space after -I?
-> No, it's char *const argv[] passed to execvp() in tst_cmd_fds_(), which does the
-> separation. Adding spaces on the contrary causes failure (equivalent of
-> mkfs.vfat " -I " ...).
->
->> Might be better to put this after fs_opts and then you can check i > 0.
-> Have I overlooked introduced regression? It works, only it needs to add " "
-> space for formatting output, but functionality works, adding tested
-> file.
+diff --git a/testcases/commands/cpio/cpio_tests.sh b/testcases/commands/cpio/cpio_tests.sh
+index a98b7eca7..5f3a13e85 100755
+--- a/testcases/commands/cpio/cpio_tests.sh
++++ b/testcases/commands/cpio/cpio_tests.sh
+@@ -13,7 +13,7 @@ TST_SETUP="setup"
 
-Ah, well given Martin's comment as well, this LGTM.
+ setup()
+ {
+-	if ! cpio --help 2>&1 | grep -q -- '-o.*Create'; then
++	if ! cpio --help 2>&1 | grep -qi -- '-o.*Create'; then
+ 		tst_brk TCONF "-o flag not supported"
+ 	fi
 
->
-> Kind regards,
-> Petr
->
-> Testing file:
->
-> #include "tst_test.h"
-> #define MOUNT_POINT "mount_ext"
->
-> static void do_test(void)
-> {
-> 	tst_res(TPASS, "here");
-> }
->
-> static struct tst_test test = {
-> 	.test_all = do_test,
-> 	.mount_device = 1,
-> 	.mntpoint = MOUNT_POINT,
-> 	.needs_root = 1,
-> 	.dev_fs_type = "vfat",
-> 	.dev_fs_opts = (const char *const []){"-v", NULL},
-> };
->
-> Needed fix:
->
-> --- lib/tst_mkfs.c
-> +++ lib/tst_mkfs.c
-> @@ -60,6 +60,7 @@ void tst_mkfs_(const char *file, const int lineno, void (cleanup_fn)(void),
->  	if (!strcmp(fs_type, "vfat")) {
->  		argv[pos] = "-I";
->  		strcat(fs_opts_str, argv[pos++]);
-> +		strcat(fs_opts_str, " ");
->  	}
->  
->  	if (fs_opts) {
+--
+2.20.1
 
 
--- 
-Thank you,
-Richard.
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
