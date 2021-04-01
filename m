@@ -2,42 +2,42 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id CEE84350ED9
-	for <lists+linux-ltp@lfdr.de>; Thu,  1 Apr 2021 08:12:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C56F6350F16
+	for <lists+linux-ltp@lfdr.de>; Thu,  1 Apr 2021 08:35:32 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 407AA3C77C7
-	for <lists+linux-ltp@lfdr.de>; Thu,  1 Apr 2021 08:12:36 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 36D8A3C77C5
+	for <lists+linux-ltp@lfdr.de>; Thu,  1 Apr 2021 08:35:32 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id ADB4D3C2238
- for <ltp@lists.linux.it>; Thu,  1 Apr 2021 08:12:31 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 2C73E3C03B0
+ for <ltp@lists.linux.it>; Thu,  1 Apr 2021 08:35:29 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 2B8151000B54
- for <ltp@lists.linux.it>; Thu,  1 Apr 2021 08:12:30 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 720841000EC3
+ for <ltp@lists.linux.it>; Thu,  1 Apr 2021 08:35:28 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id A09C6B121;
- Thu,  1 Apr 2021 06:12:29 +0000 (UTC)
-Date: Thu, 1 Apr 2021 08:12:27 +0200
+ by mx2.suse.de (Postfix) with ESMTP id BE370AE91;
+ Thu,  1 Apr 2021 06:35:27 +0000 (UTC)
+Date: Thu, 1 Apr 2021 08:35:26 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: zhanglianjie <zhanglianjie@uniontech.com>
-Message-ID: <YGVkS23e+/eytuEn@pevik>
-References: <20210330021830.17402-1-zhanglianjie@uniontech.com>
+To: Sharan Turlapati <sturlapati@vmware.com>
+Message-ID: <YGVprik5olSjhY+n@pevik>
+References: <20210329181759.4466-1-sturlapati@vmware.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210330021830.17402-1-zhanglianjie@uniontech.com>
+In-Reply-To: <20210329181759.4466-1-sturlapati@vmware.com>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] bugfix for ssetmask01.c
+Subject: Re: [LTP] [PATCH] realtime/scripts: Fix indentation error in
+ parser.py
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,34 +50,32 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: He Zhe <zhe.he@windriver.com>, ltp@lists.linux.it
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
+Hi Sharan,
 
-> mips architecture syscall(69) __NR_ssetmask not supported on your arch.
+> An indentation error in parser.py causes certain blocks
+> of code to run even before dependent variables are
+> initialized when the code in this file is imported
+> by parse-testpi1.py or parse-testpi2.py.
 
-nit: "mips_o32: Fix __NR_s{g,s}etmask" for bug title would be more descriptive
-than "bugfix for ssetmask01.c". And then in text mention ssetmask01.c.
+> Post running tests like testpi-2 or testpi-4, the
+> results of these tests are parsed and added to the
+> logs/ directory. This bug prevents the results of such
+> tests from being parsed and thus masks the results of
+> these tests.
 
-> +++ b/include/lapi/syscalls/mips_o32.in
-> @@ -66,8 +66,8 @@ getppid 64
->  getpgrp 65
->  setsid 66
->  sigaction 67
-> -sgetmask 68
-> -ssetmask 69
-> +sgetmask 4068
-> +ssetmask 4069
+Thanks for your fix, merged!
 
-But more important: I guess you're right because we don't add any offset to the
-numbers. But IMHO all numbers are wrong, all mips files should contain offset
-(01e4dc222 was wrong). mips_o32.in should be offset 4000, mips_n32.in 6000 and
-mips_n64.in 5000 (comparing scall32-o32.S, scall64-64.S, scall64-n32.S in
-arch/mips/kernel in kernel and mips{,n32,64}/bits/syscall.h.in in musl).
+It looks to me that 5a8408bc3 changed also whitespace in other files (it was
+done by 2to3 script), but these are IMHO correct.
+
+BTW looking into realtime sources, the code is terrible. Not sure how relevant
+it is now.
 
 Kind regards,
 Petr
