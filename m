@@ -1,40 +1,46 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA2A23514E4
-	for <lists+linux-ltp@lfdr.de>; Thu,  1 Apr 2021 14:47:32 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 399D035156B
+	for <lists+linux-ltp@lfdr.de>; Thu,  1 Apr 2021 15:56:57 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id AB41F3C77C0
-	for <lists+linux-ltp@lfdr.de>; Thu,  1 Apr 2021 14:47:32 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id EF2A93C77C1
+	for <lists+linux-ltp@lfdr.de>; Thu,  1 Apr 2021 15:56:56 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 046473C22AC
- for <ltp@lists.linux.it>; Thu,  1 Apr 2021 14:47:31 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ by picard.linux.it (Postfix) with ESMTPS id 239DC3C22A1
+ for <ltp@lists.linux.it>; Thu,  1 Apr 2021 15:56:54 +0200 (CEST)
+Received: from szxga04-in.huawei.com (szxga04-in.huawei.com [45.249.212.190])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 7690520097A
- for <ltp@lists.linux.it>; Thu,  1 Apr 2021 14:47:31 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id B2300B132
- for <ltp@lists.linux.it>; Thu,  1 Apr 2021 12:47:30 +0000 (UTC)
-From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Thu,  1 Apr 2021 14:47:24 +0200
-Message-Id: <20210401124724.25394-1-pvorel@suse.cz>
-X-Mailer: git-send-email 2.30.2
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 6CACA1000DFB
+ for <ltp@lists.linux.it>; Thu,  1 Apr 2021 15:56:52 +0200 (CEST)
+Received: from DGGEMS408-HUB.china.huawei.com (unknown [172.30.72.59])
+ by szxga04-in.huawei.com (SkyGuard) with ESMTP id 4FB4RP4YY7znWqT
+ for <ltp@lists.linux.it>; Thu,  1 Apr 2021 21:54:09 +0800 (CST)
+Received: from ubuntu1804.huawei.com (10.67.174.63) by
+ DGGEMS408-HUB.china.huawei.com (10.3.19.208) with Microsoft SMTP Server id
+ 14.3.498.0; Thu, 1 Apr 2021 21:56:43 +0800
+From: Zhao Gongyi <zhaogongyi@huawei.com>
+To: <ltp@lists.linux.it>
+Date: Thu, 1 Apr 2021 21:56:38 +0800
+Message-ID: <20210401135638.4111-1-zhaogongyi@huawei.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Originating-IP: [10.67.174.63]
+X-CFilter-Loop: Reflected
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH 1/1] df01.sh: Fix DF_FS_TYPE assignment on bind mount
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH] security/prot_hsymlinks: Set umask before mkdir
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,38 +57,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-In case of bind mount of testing directory, grep will assign filesystem
-twice, with new line:
+When uid is nobody, umask is 0077, the test process might has
+not permmission to access the file which created by SAFE_MKDIR
+with mode 0755.
 
-$ echo "DF_FS_TYPE: '$DF_FS_TYPE'"
-DF_FS_TYPE: 'ext2
-ext2'
-
-Limiting only first line to avoid failure with confusing message:
-
-df01 5 TFAIL: 'df' failed.
-df: ext2: No such file or directory
-
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
+Signed-off-by: Zhao Gongyi <zhaogongyi@huawei.com>
 ---
- testcases/commands/df/df01.sh | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ testcases/kernel/security/prot_hsymlinks/prot_hsymlinks.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/testcases/commands/df/df01.sh b/testcases/commands/df/df01.sh
-index 0e73a16af..f59676bfa 100755
---- a/testcases/commands/df/df01.sh
-+++ b/testcases/commands/df/df01.sh
-@@ -39,7 +39,7 @@ setup()
- {
- 	tst_mkfs
- 	tst_mount
--	DF_FS_TYPE=$(mount | grep "$TST_DEVICE" | awk '{print $5}')
-+	DF_FS_TYPE=$(mount | grep "$TST_DEVICE" | awk 'NR==1{print $5}')
- }
- 
- df_test()
--- 
-2.30.2
+diff --git a/testcases/kernel/security/prot_hsymlinks/prot_hsymlinks.c b/testcases/kernel/security/prot_hsymlinks/prot_hsymlinks.c
+index ecb393297..d883ab508 100644
+--- a/testcases/kernel/security/prot_hsymlinks/prot_hsymlinks.c
++++ b/testcases/kernel/security/prot_hsymlinks/prot_hsymlinks.c
+@@ -227,6 +227,8 @@ static void setup(int argc, char *argv[])
+
+ 	tst_tmpdir();
+
++	umask(0);
++
+ 	init_base_dirs();
+
+ 	init_files_dirs();
+--
+2.17.1
 
 
 -- 
