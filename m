@@ -2,45 +2,42 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33244354F97
-	for <lists+linux-ltp@lfdr.de>; Tue,  6 Apr 2021 11:10:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 678CF3550F8
+	for <lists+linux-ltp@lfdr.de>; Tue,  6 Apr 2021 12:36:03 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E0E1B3C1E0C
-	for <lists+linux-ltp@lfdr.de>; Tue,  6 Apr 2021 11:10:21 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 958513C1E1C
+	for <lists+linux-ltp@lfdr.de>; Tue,  6 Apr 2021 12:36:02 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 595393C01F4
- for <ltp@lists.linux.it>; Tue,  6 Apr 2021 11:10:20 +0200 (CEST)
-Received: from szxga05-in.huawei.com (szxga05-in.huawei.com [45.249.212.191])
+ by picard.linux.it (Postfix) with ESMTPS id C8BA83C0E13
+ for <ltp@lists.linux.it>; Tue,  6 Apr 2021 12:35:57 +0200 (CEST)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 68E281A008A7
- for <ltp@lists.linux.it>; Tue,  6 Apr 2021 11:10:18 +0200 (CEST)
-Received: from DGGEMS410-HUB.china.huawei.com (unknown [172.30.72.59])
- by szxga05-in.huawei.com (SkyGuard) with ESMTP id 4FF1rJ5x4jzPnXR
- for <ltp@lists.linux.it>; Tue,  6 Apr 2021 17:07:28 +0800 (CST)
-Received: from linux-lmwb.huawei.com (10.175.103.112) by
- DGGEMS410-HUB.china.huawei.com (10.3.19.210) with Microsoft SMTP Server id
- 14.3.498.0; Tue, 6 Apr 2021 17:10:04 +0800
-From: Zou Wei <zou_wei@huawei.com>
-To: <ltp@lists.linux.it>
-Date: Tue, 6 Apr 2021 17:27:29 +0800
-Message-ID: <1617701249-62196-1-git-send-email-zou_wei@huawei.com>
-X-Mailer: git-send-email 2.6.2
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id D8B3068FF2F
+ for <ltp@lists.linux.it>; Tue,  6 Apr 2021 12:35:56 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 01186B147;
+ Tue,  6 Apr 2021 10:35:56 +0000 (UTC)
+Date: Tue, 6 Apr 2021 12:35:54 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: zhanglianjie <zhanglianjie@uniontech.com>
+Message-ID: <YGw5inZ09uZY2uRs@pevik>
+References: <20210402031934.14615-1-zhanglianjie@uniontech.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.175.103.112]
-X-CFilter-Loop: Reflected
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20210402031934.14615-1-zhanglianjie@uniontech.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH] cpuset_hotplug_test/cpuset_hotplug: Fix bug for
- obtaining task_cpus value in root_cpu_hotplug_test
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] fs/iso9660: bugfix for iso9660/isofs.sh
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,57 +49,69 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---------------------------
+Hi,
 
-1. The method of obtaining $task_cpus from root_cpu_hotplug_test is
-incorrect, because the value of Cpus_allowed_list is related 
-to /sys/devices/system/cpu/possible and 
-/sys/devices/system/cpu/isolated.
+...
+> Currently in Debian, only the package genisoimage in sid and bullseye contains mkisofs,
+> and there is no deb package of mkisofs in architectures such as mips. In addition, 
+> this patch increases compatibility and is better than the previous one. 
 
-2. If isolcpus is configured in cmdline, the value of
-Cpus_allowed_list is equal to /sys/devices/system/cpu/possible minus
-/sys/devices/system/cpu/isolated. In this case, $task_cpus is inconsistent
-with $expect_task_cpus, test will be failed.
+Well, bullseye is stable. But ok, some people might care about oldstable (we
+test it built LTP in Travis) and even oldoldstable.
 
-3. Need to change the method of obtaining $task_cpu
-from /sys/devices/system/cpu/present.
+> It is necessary to modify it.
+> Reference: https://packages.debian.org/search?suite=sid&searchon=contents&keywords=mkisofs 
 
-4. The description of cpu_present_mask:
-   Bitmap of CPUs currently present in the system. 
-   Not all of them may be online. When physical hotplug is processed
-   by the relevant subsystem (e.g ACPI) can change and new bit either be
-   added or removed from the map depending on the event is
-   hot-add/hot-remove. There are currently no locking rules as of now.
-   Typical usage is to init topology during boot,
-   at which time hotplug is disabled.
+> According to your suggestion, the revised patch:
+> ---
+>  testcases/kernel/fs/iso9660/isofs.sh | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
 
-Signed-off-by: Zou Wei <zou_wei@huawei.com>
----
- .../controllers/cpuset/cpuset_hotplug_test/cpuset_hotplug_test.sh      | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+> diff --git a/testcases/kernel/fs/iso9660/isofs.sh b/testcases/kernel/fs/iso9660/isofs.sh
+> index 9de3f7cdc..1da3a398f 100755
+> --- a/testcases/kernel/fs/iso9660/isofs.sh
+> +++ b/testcases/kernel/fs/iso9660/isofs.sh
+> @@ -12,6 +12,11 @@
+>  TST_NEEDS_CMDS="mkisofs"
+>  TST_NEEDS_TMPDIR=1
+>  TST_TESTFUNC=do_test
+> +if ! which mkisofs >/dev/null 2>&1; then
+> +       TST_NEEDS_CMDS="genisoimage"
+> +fi
+> +MKISOFS_CMD=$TST_NEEDS_CMDS
 
-diff --git a/testcases/kernel/controllers/cpuset/cpuset_hotplug_test/cpuset_hotplug_test.sh b/testcases/kernel/controllers/cpuset/cpuset_hotplug_test/cpuset_hotplug_test.sh
-index 155e536..2c6993a 100755
---- a/testcases/kernel/controllers/cpuset/cpuset_hotplug_test/cpuset_hotplug_test.sh
-+++ b/testcases/kernel/controllers/cpuset/cpuset_hotplug_test/cpuset_hotplug_test.sh
-@@ -93,8 +93,7 @@ root_cpu_hotplug_test()
- 
- 	root_cpus="`cat $CPUSET/cpuset.cpus`"
- 
--	task_cpus="`cat /proc/$tst_pid/status | grep Cpus_allowed_list`"
--	task_cpus="`echo $task_cpus | sed -e 's/Cpus_allowed_list: //'`"
-+	task_cpus="`cat /sys/devices/system/cpu/present`"
- 
- 	check_result "$root_cpus" "$expect_cpus"
- 	ret=$?
--- 
-2.6.2
+Actually, this depends on which (take look on tst_cmd_available(), it also uses
+command and trying to use which only if missing). And also it's misleading to
+suggest to use only genisoimage.
 
+Although for our documentation ("docparse"), it'd be better to use
+TST_NEEDS_CMDS, until (if ever) shell API supports logical OR (e.g.
+TST_NEEDS_CMDS="mkisofs|genisoimage") it'd be better to avoid TST_NEEDS_CMDS and
+decide in the setup. Thus if you don't mind I'll merge this fix with you as an author:
+
+setup()
+{
+	if ! tst_cmd_available mkisofs && ! tst_cmd_available genisoimage; then
+		tst_brk TCONF "please install mkisofs or genisoimage"
+	fi
+}
+
+> @@ -56,7 +61,7 @@ do_test() {
+>  		"-allow-lowercase -allow-multidot -iso-level 3 -f -l -D -J -allow-leading-dots -R"
+>  	do
+>  		rm -f isofs.iso
+> -		EXPECT_PASS mkisofs -o isofs.iso -quiet $mkisofs_opt $make_file_sys_dir 2\> /dev/null \
+> +		EXPECT_PASS $MKISOFS_CMD -o isofs.iso -quiet $mkisofs_opt $make_file_sys_dir 2\> /dev/null \
+
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
