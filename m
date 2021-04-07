@@ -1,12 +1,12 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id B264C35616A
-	for <lists+linux-ltp@lfdr.de>; Wed,  7 Apr 2021 04:31:52 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 35CDE3561A0
+	for <lists+linux-ltp@lfdr.de>; Wed,  7 Apr 2021 05:03:12 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E54223C813D
-	for <lists+linux-ltp@lfdr.de>; Wed,  7 Apr 2021 04:31:51 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 004073C7630
+	for <lists+linux-ltp@lfdr.de>; Wed,  7 Apr 2021 05:03:12 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
@@ -14,46 +14,33 @@ Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 9C1AA3C20AD
- for <ltp@lists.linux.it>; Wed,  7 Apr 2021 04:31:46 +0200 (CEST)
-Received: from vipregular1.263.net (vipregular1.263.net [211.150.80.25])
+ by picard.linux.it (Postfix) with ESMTPS id 826F83C1E0A
+ for <ltp@lists.linux.it>; Wed,  7 Apr 2021 05:03:05 +0200 (CEST)
+Received: from szxga07-in.huawei.com (szxga07-in.huawei.com [45.249.212.35])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 3E42F100197D
- for <ltp@lists.linux.it>; Wed,  7 Apr 2021 04:31:41 +0200 (CEST)
-Received: from localhost (unknown [192.168.167.139])
- by vipregular1.263.net (Postfix) with ESMTP id AEE5D31A;
- Wed,  7 Apr 2021 10:31:35 +0800 (CST)
-X-MAIL-GRAY: 0
-X-MAIL-DELIVERY: 1
-X-ADDR-CHECKED4: 1
-X-ANTISPAM-LEVEL: 2
-X-ABS-CHECKED: 0
-Received: from localhost.localdomain (unknown [58.240.82.166])
- by smtp.263.net (postfix) whith ESMTP id
- P6248T139731565750016S1617762691395721_; 
- Wed, 07 Apr 2021 10:31:35 +0800 (CST)
-X-IP-DOMAINF: 1
-X-UNIQUE-TAG: <9f85b1337be8b674c4efcdfaf10f5fde>
-X-RL-SENDER: zhanglianjie@uniontech.com
-X-SENDER: zhanglianjie@uniontech.com
-X-LOGIN-NAME: zhanglianjie@uniontech.com
-X-FST-TO: pvorel@suse.cz
-X-SENDER-IP: 58.240.82.166
-X-ATTACHMENT-NUM: 0
-X-System-Flag: 0
-From: zhanglianjie <zhanglianjie@uniontech.com>
-To: pvorel@suse.cz
-Date: Wed,  7 Apr 2021 10:31:29 +0800
-Message-Id: <20210407023129.13248-1-zhanglianjie@uniontech.com>
-X-Mailer: git-send-email 2.20.1
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 938891003751
+ for <ltp@lists.linux.it>; Wed,  7 Apr 2021 05:03:03 +0200 (CEST)
+Received: from DGGEMS402-HUB.china.huawei.com (unknown [172.30.72.58])
+ by szxga07-in.huawei.com (SkyGuard) with ESMTP id 4FFTfm3SNBz9x6w
+ for <ltp@lists.linux.it>; Wed,  7 Apr 2021 11:00:48 +0800 (CST)
+Received: from linux-lmwb.huawei.com (10.175.103.112) by
+ DGGEMS402-HUB.china.huawei.com (10.3.19.202) with Microsoft SMTP Server id
+ 14.3.498.0; Wed, 7 Apr 2021 11:02:49 +0800
+From: Wang Xin <wangxin410@huawei.com>
+To: <ltp@lists.linux.it>
+Date: Wed, 7 Apr 2021 11:20:07 +0800
+Message-ID: <1617765607-78263-1-git-send-email-wangxin410@huawei.com>
+X-Mailer: git-send-email 2.6.2
 MIME-Version: 1.0
+X-Originating-IP: [10.175.103.112]
+X-CFilter-Loop: Reflected
 X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] bugfix for iso9660/isofs.sh
+Subject: [LTP] [PATCH] openposix/conformance/interfaces: Correct typos
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,84 +52,187 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Cc: Wang Xin <wangxin410@huawei.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
-...
-<Well, bullseye is stable. But ok, some people might care about oldstable (we
-<test it built LTP in Travis) and even oldoldstable.
-<
-<Actually, this depends on which (take look on tst_cmd_available(), it also uses
-<command and trying to use which only if missing). And also it's misleading to
-<suggest to use only genisoimage.
-<
-<Although for our documentation ("docparse"), it'd be better to use
-<TST_NEEDS_CMDS, until (if ever) shell API supports logical OR (e.g.
-<TST_NEEDS_CMDS="mkisofs|genisoimage") it'd be better to avoid TST_NEEDS_CMDS and
-<decide in the setup. Thus if you don't mind I'll merge this fix with you as an author:
-<
-<setup()
-<{
-<if ! tst_cmd_available mkisofs && ! tst_cmd_available genisoimage; then
-<tst_brk TCONF "please install mkisofs or genisoimage"
-<fi
-<}
+Types in the name of the temporary files: For example, in aio_cancel/8-1.c file,
+pts_aio_cancel_1_1 -> pts_aio_cancel_8_1.
+Others like this have been modified.
 
-Thank you very much for your guidance, but I want to submit it myself. 
-Because this is the first time I submit a patch in the community.
-
+Signed-off-by: Wang Xin <wangxin410@huawei.com>
 ---
- testcases/kernel/fs/iso9660/isofs.sh | 16 ++++++++++++++--
- 1 file changed, 14 insertions(+), 2 deletions(-)
+ testcases/open_posix_testsuite/conformance/interfaces/aio_cancel/8-1.c  | 2 +-
+ testcases/open_posix_testsuite/conformance/interfaces/aio_read/9-1.c    | 2 +-
+ testcases/open_posix_testsuite/conformance/interfaces/aio_return/4-1.c  | 2 +-
+ testcases/open_posix_testsuite/conformance/interfaces/aio_suspend/3-1.c | 2 +-
+ testcases/open_posix_testsuite/conformance/interfaces/aio_write/7-1.c   | 2 +-
+ testcases/open_posix_testsuite/conformance/interfaces/lio_listio/5-1.c  | 2 +-
+ testcases/open_posix_testsuite/conformance/interfaces/lio_listio/7-1.c  | 2 +-
+ testcases/open_posix_testsuite/conformance/interfaces/mmap/11-6.c       | 2 +-
+ testcases/open_posix_testsuite/conformance/interfaces/mmap/32-1.c       | 2 +-
+ testcases/open_posix_testsuite/conformance/interfaces/mmap/6-3.c        | 2 +-
+ testcases/open_posix_testsuite/conformance/interfaces/munmap/1-2.c      | 2 +-
+ testcases/open_posix_testsuite/conformance/interfaces/munmap/3-1.c      | 2 +-
+ testcases/open_posix_testsuite/conformance/interfaces/munmap/9-1.c      | 2 +-
+ 13 files changed, 13 insertions(+), 13 deletions(-)
 
-diff --git a/testcases/kernel/fs/iso9660/isofs.sh b/testcases/kernel/fs/iso9660/isofs.sh
-index 9de3f7cdc..c0e2d1ff8 100755
---- a/testcases/kernel/fs/iso9660/isofs.sh
-+++ b/testcases/kernel/fs/iso9660/isofs.sh
-@@ -9,14 +9,26 @@
- # It makes ISO9660 file system with different options and also
- # mounts ISO9660 file system with different mount options.
-
--TST_NEEDS_CMDS="mkisofs"
- TST_NEEDS_TMPDIR=1
- TST_TESTFUNC=do_test
-+TST_SETUP=setup
-+
- . tst_test.sh
-
- MAX_DEPTH=3
- MAX_DIRS=4
-
-+setup()
-+{
-+	if tst_cmd_available mkisofs; then
-+		MKISOFS_CMD="mkisofs"
-+	elif tst_cmd_available genisoimage; then
-+		MKISOFS_CMD="genisoimage"
-+	else
-+		tst_brk TCONF "please install mkisofs or genisoimage"
-+	fi
-+}
-+
- gen_fs_tree()
- {
- 	local cur_path="$1"
-@@ -56,7 +68,7 @@ do_test() {
- 		"-allow-lowercase -allow-multidot -iso-level 3 -f -l -D -J -allow-leading-dots -R"
- 	do
- 		rm -f isofs.iso
--		EXPECT_PASS mkisofs -o isofs.iso -quiet $mkisofs_opt $make_file_sys_dir 2\> /dev/null \
-+		EXPECT_PASS $MKISOFS_CMD -o isofs.iso -quiet $mkisofs_opt $make_file_sys_dir 2\> /dev/null \
- 			|| continue
-
- 		for mount_opt in \
---
-2.20.1
-
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/aio_cancel/8-1.c b/testcases/open_posix_testsuite/conformance/interfaces/aio_cancel/8-1.c
+index 139e9b5..f11e067 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/aio_cancel/8-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/aio_cancel/8-1.c
+@@ -50,7 +50,7 @@ int main(void)
+ 	if (sysconf(_SC_ASYNCHRONOUS_IO) < 200112L)
+ 		return PTS_UNSUPPORTED;
+-	PTS_GET_TMP_FILENAME(tmpfname, "pts_aio_cancel_1_1");
++	PTS_GET_TMP_FILENAME(tmpfname, "pts_aio_cancel_8_1");
+ 	unlink(tmpfname);
+ 	fd = open(tmpfname, O_CREAT | O_RDWR | O_EXCL, S_IRUSR | S_IWUSR);
+ 	if (fd == -1) {
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/aio_read/9-1.c b/testcases/open_posix_testsuite/conformance/interfaces/aio_read/9-1.c
+index 5b980be..e1ae59e 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/aio_read/9-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/aio_read/9-1.c
+@@ -55,7 +55,7 @@ int main(void)
+ 	    || sysconf(_SC_AIO_MAX) == -1)
+ 		return PTS_UNSUPPORTED;
+-	PTS_GET_TMP_FILENAME(tmpfname, "pts_aio_write_4_1");
++	PTS_GET_TMP_FILENAME(tmpfname, "pts_aio_read_9_1");
+ 	unlink(tmpfname);
+ 	fd = open(tmpfname, O_CREAT | O_RDWR | O_EXCL, S_IRUSR | S_IWUSR);
+ 	if (fd == -1) {
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/aio_return/4-1.c b/testcases/open_posix_testsuite/conformance/interfaces/aio_return/4-1.c
+index f380531..a243b3e 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/aio_return/4-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/aio_return/4-1.c
+@@ -50,7 +50,7 @@ int main(void)
+ 	if (sysconf(_SC_ASYNCHRONOUS_IO) < 200112L)
+ 		return PTS_UNSUPPORTED;
+-	PTS_GET_TMP_FILENAME(tmpfname, "pts_aio_return_2_1");
++	PTS_GET_TMP_FILENAME(tmpfname, "pts_aio_return_4_1");
+ 	unlink(tmpfname);
+ 	fd = open(tmpfname, O_CREAT | O_RDWR | O_EXCL, S_IRUSR | S_IWUSR);
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/aio_suspend/3-1.c b/testcases/open_posix_testsuite/conformance/interfaces/aio_suspend/3-1.c
+index ed8173e..615b97d 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/aio_suspend/3-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/aio_suspend/3-1.c
+@@ -53,7 +53,7 @@ int main(void)
+ 	if (sysconf(_SC_ASYNCHRONOUS_IO) < 200112L)
+ 		return PTS_UNSUPPORTED;
+-	PTS_GET_TMP_FILENAME(tmpfname, "pts_aio_suspend_2_1");
++	PTS_GET_TMP_FILENAME(tmpfname, "pts_aio_suspend_3_1");
+ 	unlink(tmpfname);
+ 	fd = open(tmpfname, O_CREAT | O_RDWR | O_EXCL, S_IRUSR | S_IWUSR);
+ 	if (fd == -1) {
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/aio_write/7-1.c b/testcases/open_posix_testsuite/conformance/interfaces/aio_write/7-1.c
+index 5311a4a..277573a 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/aio_write/7-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/aio_write/7-1.c
+@@ -55,7 +55,7 @@ int main(void)
+ 	    || sysconf(_SC_AIO_MAX) == -1)
+ 		return PTS_UNSUPPORTED;
+-	PTS_GET_TMP_FILENAME(tmpfname, "pts_aio_write_4_1");
++	PTS_GET_TMP_FILENAME(tmpfname, "pts_aio_write_7_1");
+ 	unlink(tmpfname);
+ 	fd = open(tmpfname, O_CREAT | O_RDWR | O_EXCL, S_IRUSR | S_IWUSR);
+ 	if (fd == -1) {
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/lio_listio/5-1.c b/testcases/open_posix_testsuite/conformance/interfaces/lio_listio/5-1.c
+index e445773..7eb6448 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/lio_listio/5-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/lio_listio/5-1.c
+@@ -55,7 +55,7 @@ int main(void)
+ 	if (sysconf(_SC_ASYNCHRONOUS_IO) < 200112L)
+ 		exit(PTS_UNSUPPORTED);
+-	PTS_GET_TMP_FILENAME(tmpfname, "pts_lio_listio_4_1");
++	PTS_GET_TMP_FILENAME(tmpfname, "pts_lio_listio_5_1");
+ 	unlink(tmpfname);
+ 	fd = open(tmpfname, O_CREAT | O_RDWR | O_EXCL, S_IRUSR | S_IWUSR);
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/lio_listio/7-1.c b/testcases/open_posix_testsuite/conformance/interfaces/lio_listio/7-1.c
+index 444555e..4e8afb6 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/lio_listio/7-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/lio_listio/7-1.c
+@@ -73,7 +73,7 @@ int main(void)
+ 	if (sysconf(_SC_ASYNCHRONOUS_IO) < 200112L)
+ 		exit(PTS_UNSUPPORTED);
+-	PTS_GET_TMP_FILENAME(tmpfname, "pts_lio_listio_4_1");
++	PTS_GET_TMP_FILENAME(tmpfname, "pts_lio_listio_7_1");
+ 	unlink(tmpfname);
+ 	fd = open(tmpfname, O_CREAT | O_RDWR | O_EXCL, S_IRUSR | S_IWUSR);
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/mmap/11-6.c b/testcases/open_posix_testsuite/conformance/interfaces/mmap/11-6.c
+index 2aea927..d1f8991 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/mmap/11-6.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/mmap/11-6.c
+@@ -59,7 +59,7 @@ int main(void)
+ 	/* mmap will create a partial page */
+ 	len = page_size / 2;
+-	PTS_GET_TMP_FILENAME(tmpfname, "pts_mmap_11_5");
++	PTS_GET_TMP_FILENAME(tmpfname, "pts_mmap_11_6");
+ 	child = fork();
+ 	switch (child) {
+ 	case 0:
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/mmap/32-1.c b/testcases/open_posix_testsuite/conformance/interfaces/mmap/32-1.c
+index bb3ab74..d58fc8c 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/mmap/32-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/mmap/32-1.c
+@@ -31,7 +31,7 @@ int main(void)
+ 	void *pa;
+ 	int fd;
+-	PTS_GET_TMP_FILENAME(tmpfname, "pts_mmap_31_1");
++	PTS_GET_TMP_FILENAME(tmpfname, "pts_mmap_32_1");
+ 	unlink(tmpfname);
+ 	fd = open(tmpfname, O_CREAT | O_RDWR | O_EXCL, S_IRUSR | S_IWUSR);
+ 	if (fd == -1) {
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/mmap/6-3.c b/testcases/open_posix_testsuite/conformance/interfaces/mmap/6-3.c
+index b38833b..9aef16c 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/mmap/6-3.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/mmap/6-3.c
+@@ -53,7 +53,7 @@ int main(void)
+ 	int status;
+ 	int sig_num;
+-	PTS_GET_TMP_FILENAME(tmpfname, "pts_mmap_6_2");
++	PTS_GET_TMP_FILENAME(tmpfname, "pts_mmap_6_3");
+ 	unlink(tmpfname);
+ 	fd = open(tmpfname, O_CREAT | O_RDWR | O_EXCL, S_IRUSR | S_IWUSR);
+ 	if (fd == -1) {
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/munmap/1-2.c b/testcases/open_posix_testsuite/conformance/interfaces/munmap/1-2.c
+index 9d0f918..31f2109 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/munmap/1-2.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/munmap/1-2.c
+@@ -73,7 +73,7 @@ int main(void)
+ 	len = page_size + 1;
+ 	/* Create tmp file */
+-	PTS_GET_TMP_FILENAME(tmpfname, "pts_munmap_1_1");
++	PTS_GET_TMP_FILENAME(tmpfname, "pts_munmap_1_2");
+ 	unlink(tmpfname);
+ 	fd = open(tmpfname, O_CREAT | O_RDWR | O_EXCL, S_IRUSR | S_IWUSR);
+ 	if (fd == -1) {
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/munmap/3-1.c b/testcases/open_posix_testsuite/conformance/interfaces/munmap/3-1.c
+index 53e89de..1879719 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/munmap/3-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/munmap/3-1.c
+@@ -54,7 +54,7 @@ int main(void)
+ 	len = page_size + 1;
+ 	/* Create tmp file */
+-	PTS_GET_TMP_FILENAME(tmpfname, "pts_munmap_1_1");
++	PTS_GET_TMP_FILENAME(tmpfname, "pts_munmap_3_1");
+ 	unlink(tmpfname);
+ 	fd = open(tmpfname, O_CREAT | O_RDWR | O_EXCL, S_IRUSR | S_IWUSR);
+ 	if (fd == -1) {
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/munmap/9-1.c b/testcases/open_posix_testsuite/conformance/interfaces/munmap/9-1.c
+index 0280a0e..371e3b0 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/munmap/9-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/munmap/9-1.c
+@@ -49,7 +49,7 @@ int main(void)
+ 	len = page_size + 1;
+ 	/* Create tmp file */
+-	PTS_GET_TMP_FILENAME(tmpfname, "pts_munmap_1_1");
++	PTS_GET_TMP_FILENAME(tmpfname, "pts_munmap_9_1");
+ 	unlink(tmpfname);
+ 	fd = open(tmpfname, O_CREAT | O_RDWR | O_EXCL, S_IRUSR | S_IWUSR);
+ 	if (fd == -1) {
+2.6.2
 
 
 -- 
