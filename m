@@ -1,43 +1,43 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AE2E35708E
-	for <lists+linux-ltp@lfdr.de>; Wed,  7 Apr 2021 17:40:43 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E3CF357096
+	for <lists+linux-ltp@lfdr.de>; Wed,  7 Apr 2021 17:41:20 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DBD813C7401
-	for <lists+linux-ltp@lfdr.de>; Wed,  7 Apr 2021 17:40:42 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 8F1D23C74AC
+	for <lists+linux-ltp@lfdr.de>; Wed,  7 Apr 2021 17:41:19 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id B061B3C1DDF
- for <ltp@lists.linux.it>; Wed,  7 Apr 2021 17:40:38 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 780BA3C1DDF
+ for <ltp@lists.linux.it>; Wed,  7 Apr 2021 17:41:15 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 2436C200C24
- for <ltp@lists.linux.it>; Wed,  7 Apr 2021 17:40:37 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 1BA986002D4
+ for <ltp@lists.linux.it>; Wed,  7 Apr 2021 17:41:14 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 689CDB1AC;
- Wed,  7 Apr 2021 15:40:37 +0000 (UTC)
-Date: Wed, 7 Apr 2021 17:36:49 +0200
+ by mx2.suse.de (Postfix) with ESMTP id 7C173B167;
+ Wed,  7 Apr 2021 15:41:14 +0000 (UTC)
+Date: Wed, 7 Apr 2021 17:37:26 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Richard Palethorpe <rpalethorpe@suse.com>
-Message-ID: <YG3RkQWnvIaRQ6sO@yuki>
+Message-ID: <YG3RttAShPVv4wec@yuki>
 References: <20210318130935.28528-1-rpalethorpe@suse.com>
- <20210318130935.28528-7-rpalethorpe@suse.com>
+ <20210318130935.28528-3-rpalethorpe@suse.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210318130935.28528-7-rpalethorpe@suse.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+In-Reply-To: <20210318130935.28528-3-rpalethorpe@suse.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 6/7] API: Add tst_ncpus_available
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 2/7] fzsync: Reset delay bias
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,84 +56,7 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
-> ---
->  include/tst_cpu.h |  1 +
->  lib/tst_cpu.c     | 23 +++++++++++++++++++++++
->  2 files changed, 24 insertions(+)
-> 
-> diff --git a/include/tst_cpu.h b/include/tst_cpu.h
-> index 117e27087..b3a449bea 100644
-> --- a/include/tst_cpu.h
-> +++ b/include/tst_cpu.h
-> @@ -8,6 +8,7 @@
->  long tst_ncpus(void);
->  long tst_ncpus_conf(void);
->  long tst_ncpus_max(void);
-> +long tst_ncpus_available(void);
->  
->  #define VIRT_ANY	0	/* catch-all argument for tst_is_virt() */
->  #define VIRT_XEN	1	/* xen dom0/domU */
-> diff --git a/lib/tst_cpu.c b/lib/tst_cpu.c
-> index 033155e47..581215199 100644
-> --- a/lib/tst_cpu.c
-> +++ b/lib/tst_cpu.c
-> @@ -17,6 +17,8 @@
->   *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
->   */
->  
-> +#include "lapi/cpuset.h"
-> +
->  #include <stdlib.h>
->  #include <unistd.h>
->  #include "test.h"
-> @@ -71,3 +73,24 @@ long tst_ncpus_max(void)
->  	}
->  	return ncpus_max;
->  }
-> +
-> +long tst_ncpus_available(void)
-> +{
-> +#ifdef CPU_COUNT
-> +	long ncpus = tst_ncpus_max();
-> +	size_t cpusz = CPU_ALLOC_SIZE(ncpus);
-> +	cpu_set_t *cpus = CPU_ALLOC(ncpus);
-
-
-The CPU_ALLOC() is allowed to fail an return NULL, I guess that the
-worst that would happen here is EFAULT from sched_getaffinity() but it
-would be nicer to do something as:
-
-	if (!cpus) {
-		tst_resm(TWARN | TERRNO, "CPU_ALLOC() failed");
-		return ncpus;
-	}
-
-> +	if (sched_getaffinity(0, cpusz, cpus)) {
-> +		tst_resm(TWARN | TERRNO, "sched_getaffinity(0, %zu, %zx)",
-> +			cpusz, (size_t)cpus);
-> +	} else {
-> +		ncpus = CPU_COUNT(cpus);
-> +	}
-> +	free(cpus);
-
-This should be CPU_FREE() if we are pedantic.
-
-I guess that nothing stops glibc from using alloca() if we have less
-than a few bytes to allocate and switch to malloc() only if the ncpus is
-bigger than certain threshold internally in the CPU_ALLOC() macro.
-
-> +	return ncpus;
-> +#else
-> +	return tst_ncpus();
-> +#endif
-> +}
-> -- 
-> 2.30.1
-> 
-> 
-> -- 
-> Mailing list info: https://lists.linux.it/listinfo/ltp
+Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
 
 -- 
 Cyril Hrubis
