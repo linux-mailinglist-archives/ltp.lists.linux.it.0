@@ -2,43 +2,42 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7406735839C
-	for <lists+linux-ltp@lfdr.de>; Thu,  8 Apr 2021 14:49:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C877B3583BB
+	for <lists+linux-ltp@lfdr.de>; Thu,  8 Apr 2021 14:52:05 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 903D33C7383
-	for <lists+linux-ltp@lfdr.de>; Thu,  8 Apr 2021 14:49:47 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 47BFF3C1DCF
+	for <lists+linux-ltp@lfdr.de>; Thu,  8 Apr 2021 14:52:05 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 629053C01F4
- for <ltp@lists.linux.it>; Thu,  8 Apr 2021 14:49:43 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 1A3733C01F4
+ for <ltp@lists.linux.it>; Thu,  8 Apr 2021 14:52:00 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id BD92F60055B
- for <ltp@lists.linux.it>; Thu,  8 Apr 2021 14:49:42 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id A0D7B60073E
+ for <ltp@lists.linux.it>; Thu,  8 Apr 2021 14:52:00 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id BC87EAD22;
- Thu,  8 Apr 2021 12:49:41 +0000 (UTC)
-Date: Thu, 8 Apr 2021 14:45:11 +0200
+ by mx2.suse.de (Postfix) with ESMTP id 1ABF8AFD7;
+ Thu,  8 Apr 2021 12:52:00 +0000 (UTC)
+Date: Thu, 8 Apr 2021 14:47:30 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Richard Palethorpe <rpalethorpe@suse.com>
-Message-ID: <YG7618K/Iy4KgDRw@yuki>
+Message-ID: <YG77Yo0U/6vMicve@yuki>
 References: <20210319091837.27319-1-rpalethorpe@suse.com>
- <20210319091837.27319-6-rpalethorpe@suse.com>
+ <20210319091837.27319-8-rpalethorpe@suse.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210319091837.27319-6-rpalethorpe@suse.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+In-Reply-To: <20210319091837.27319-8-rpalethorpe@suse.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3 5/7] fzsync: Move yield check out of loop and
- add yield to delay
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3 7/7] fzsync: Check processor affinity
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,13 +56,10 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-The two patches that add the yield_in_wait() looks good.
+Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
 
-The first one has some style issues, but that is fixed with the second
-one. Also I guess that we can merge these two and add both
-signed-off-by, but I do not care that much about this.
-
-Anyways Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
+The patchset that fixes fuzzy sync on single CPU seems to be good to go,
+I will have a look at the self tests now.
 
 -- 
 Cyril Hrubis
