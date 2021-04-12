@@ -1,45 +1,46 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8582935BC2B
-	for <lists+linux-ltp@lfdr.de>; Mon, 12 Apr 2021 10:28:56 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D6DC35BCAE
+	for <lists+linux-ltp@lfdr.de>; Mon, 12 Apr 2021 10:44:32 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3F6B53C2509
-	for <lists+linux-ltp@lfdr.de>; Mon, 12 Apr 2021 10:28:56 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id BB1433C72D0
+	for <lists+linux-ltp@lfdr.de>; Mon, 12 Apr 2021 10:44:31 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 3E0173C1C5B
- for <ltp@lists.linux.it>; Mon, 12 Apr 2021 10:28:53 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 1B5443C1CBE
+ for <ltp@lists.linux.it>; Mon, 12 Apr 2021 10:44:27 +0200 (CEST)
 Received: from szxga06-in.huawei.com (szxga06-in.huawei.com [45.249.212.32])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 73EAB200FCE
- for <ltp@lists.linux.it>; Mon, 12 Apr 2021 10:28:51 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 0B74A1A0091F
+ for <ltp@lists.linux.it>; Mon, 12 Apr 2021 10:44:25 +0200 (CEST)
 Received: from DGGEMS402-HUB.china.huawei.com (unknown [172.30.72.59])
- by szxga06-in.huawei.com (SkyGuard) with ESMTP id 4FJhfn5RJszkj5w
- for <ltp@lists.linux.it>; Mon, 12 Apr 2021 16:26:57 +0800 (CST)
+ by szxga06-in.huawei.com (SkyGuard) with ESMTP id 4FJj0k6Hnkzkj9Y
+ for <ltp@lists.linux.it>; Mon, 12 Apr 2021 16:42:30 +0800 (CST)
 Received: from ubuntu1804.huawei.com (10.67.174.63) by
  DGGEMS402-HUB.china.huawei.com (10.3.19.202) with Microsoft SMTP Server id
- 14.3.498.0; Mon, 12 Apr 2021 16:28:40 +0800
+ 14.3.498.0; Mon, 12 Apr 2021 16:44:14 +0800
 From: Zhao Gongyi <zhaogongyi@huawei.com>
 To: <ltp@lists.linux.it>
-Date: Mon, 12 Apr 2021 16:28:36 +0800
-Message-ID: <20210412082836.27415-1-zhaogongyi@huawei.com>
+Date: Mon, 12 Apr 2021 16:44:12 +0800
+Message-ID: <20210412084412.28762-1-zhaogongyi@huawei.com>
 X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
 X-Originating-IP: [10.67.174.63]
 X-CFilter-Loop: Reflected
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH] controllers/memcg: Add testcase for
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH v2] controllers/memcg: Add testcase for
  kmem_limit_in_bytes of memory cgroup
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -62,16 +63,45 @@ by kmem.limit_in_bytes.
 
 Signed-off-by: Zhao Gongyi <zhaogongyi@huawei.com>
 ---
- .../functional/memcg_kmem_limit_in_bytes.c    | 89 +++++++++++++++++++
- 1 file changed, 89 insertions(+)
+v1->v2:
+	1) add testcase to runtest/controllers
+	2) add testcase to testcases/kernel/controllers/memcg/.gitignore
+---
+ runtest/controllers                           |  1 +
+ testcases/kernel/controllers/memcg/.gitignore |  1 +
+ .../functional/memcg_kmem_limit_in_bytes.c    | 87 +++++++++++++++++++
+ 3 files changed, 89 insertions(+)
  create mode 100644 testcases/kernel/controllers/memcg/functional/memcg_kmem_limit_in_bytes.c
 
+diff --git a/runtest/controllers b/runtest/controllers
+index e3d0243f1..f13a112c7 100644
+--- a/runtest/controllers
++++ b/runtest/controllers
+@@ -15,6 +15,7 @@ memcg_use_hierarchy	memcg_use_hierarchy_test.sh
+ memcg_usage_in_bytes	memcg_usage_in_bytes_test.sh
+ memcg_stress		memcg_stress_test.sh
+ memcg_control		memcg_control_test.sh
++memcg_kmem_limit_in_bytes memcg_kmem_limit_in_bytes
+
+ cgroup_fj_function_debug cgroup_fj_function.sh debug
+ cgroup_fj_function_cpuset cgroup_fj_function.sh cpuset
+diff --git a/testcases/kernel/controllers/memcg/.gitignore b/testcases/kernel/controllers/memcg/.gitignore
+index c0b6d0714..dce8412de 100644
+--- a/testcases/kernel/controllers/memcg/.gitignore
++++ b/testcases/kernel/controllers/memcg/.gitignore
+@@ -1,5 +1,6 @@
+ /control/mem_process
+ /functional/memcg_process
++/functional/memcg_kmem_limit_in_bytes
+ /regression/memcg_test_1
+ /regression/memcg_test_2
+ /regression/memcg_test_3
 diff --git a/testcases/kernel/controllers/memcg/functional/memcg_kmem_limit_in_bytes.c b/testcases/kernel/controllers/memcg/functional/memcg_kmem_limit_in_bytes.c
 new file mode 100644
-index 000000000..d01403fdd
+index 000000000..61f3f6fd5
 --- /dev/null
 +++ b/testcases/kernel/controllers/memcg/functional/memcg_kmem_limit_in_bytes.c
-@@ -0,0 +1,89 @@
+@@ -0,0 +1,87 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
 +/*
 + * Copyright (c) 2021 HUAWEI LIMITED
@@ -115,8 +145,6 @@ index 000000000..d01403fdd
 +{
 +	pid_t pid;
 +	int st;
-+	int fd;
-+	char buf[128] = {0};
 +
 +	pid = SAFE_FORK();
 +	if (!pid) {
