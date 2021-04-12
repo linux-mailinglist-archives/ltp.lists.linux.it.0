@@ -2,51 +2,41 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CCE135C948
-	for <lists+linux-ltp@lfdr.de>; Mon, 12 Apr 2021 16:56:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C25EC35C996
+	for <lists+linux-ltp@lfdr.de>; Mon, 12 Apr 2021 17:17:59 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2ECFF3C752D
-	for <lists+linux-ltp@lfdr.de>; Mon, 12 Apr 2021 16:56:42 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 846FD3C90AD
+	for <lists+linux-ltp@lfdr.de>; Mon, 12 Apr 2021 17:17:59 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id B21E73C78F2
- for <ltp@lists.linux.it>; Mon, 12 Apr 2021 16:55:34 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 11A563C1C55
+ for <ltp@lists.linux.it>; Mon, 12 Apr 2021 17:17:55 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id BCD391400FA5
- for <ltp@lists.linux.it>; Mon, 12 Apr 2021 16:55:33 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1618239333; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=/9D1X0EVXm2T2OpvvMD/mhJG5T5aEcQ8ABzHlcha+nc=;
- b=oj6O0hYBQWyre5rmqm+U5xdFwRuCSJ3vc8ax9s7MP3+D58MeEP+lgEqI4BiLiDw0RSu7Te
- ZW4zcyJaS2RPX10DhIans0gxo6Q7nxMRIrcz2NHqBSkfTmam1+4e3vOFlJY3Z6ghFCdqzt
- edB7vQ0ypq4UiV3VOp1zYSPcFE+GiuM=
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 67E6E1400FAD
+ for <ltp@lists.linux.it>; Mon, 12 Apr 2021 17:17:55 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 5CEDDB1C3;
- Mon, 12 Apr 2021 14:55:33 +0000 (UTC)
-To: ltp@lists.linux.it
-Date: Mon, 12 Apr 2021 15:55:06 +0100
-Message-Id: <20210412145506.26894-8-rpalethorpe@suse.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210412145506.26894-1-rpalethorpe@suse.com>
-References: <20210412145506.26894-1-rpalethorpe@suse.com>
+ by mx2.suse.de (Postfix) with ESMTP id A27ECB1CA;
+ Mon, 12 Apr 2021 15:17:54 +0000 (UTC)
+Date: Mon, 12 Apr 2021 17:10:11 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Zhao Gongyi <zhaogongyi@huawei.com>
+Message-ID: <YHRi0457Zo5s7sUx@yuki>
+References: <20210323135604.24504-1-zhaogongyi@huawei.com>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20210323135604.24504-1-zhaogongyi@huawei.com>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH v3 7/7] madvise06: Convert to new CGroups API
+Subject: Re: [LTP] [PATCH] lib/tst_test.c: Bugfix for heartbeat
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,178 +48,60 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Richard Palethorpe via ltp <ltp@lists.linux.it>
-Reply-To: Richard Palethorpe <rpalethorpe@suse.com>
-Cc: Richard Palethorpe <rpalethorpe@suse.com>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
----
- testcases/kernel/syscalls/madvise/madvise06.c | 82 +++++++++----------
- 1 file changed, 37 insertions(+), 45 deletions(-)
+Hi!
+> When main process has been killed, its son process will be reaped by
+> init, and son process will send SIGUSR1 to the init process.
+> 
+> In busybox, send SIGUSR1 to the init process will trigger shutdown.
+> 
+> Signed-off-by: Zhao Gongyi <zhaogongyi@huawei.com>
+> ---
+>  lib/tst_test.c | 10 +++++++++-
+>  1 file changed, 9 insertions(+), 1 deletion(-)
+> 
+> diff --git a/lib/tst_test.c b/lib/tst_test.c
+> index 45753d1ca..91dfc6bf9 100644
+> --- a/lib/tst_test.c
+> +++ b/lib/tst_test.c
+> @@ -1156,7 +1156,15 @@ static void heartbeat(void)
+>  	if (tst_clock_gettime(CLOCK_MONOTONIC, &tst_start_time))
+>  		tst_res(TWARN | TERRNO, "tst_clock_gettime() failed");
+> 
+> -	kill(getppid(), SIGUSR1);
+> +	if (getppid() == 1) {
+> +		tst_res(TFAIL, "Main test process might have exit!");
+                         ^
+			 This should be TBROK I guess.
+> +		/*
+> +		 * We need kill the task group immediately since the
+> +		 * main process has exit.
+> +		 */
+> +		kill(0, SIGKILL);
 
-diff --git a/testcases/kernel/syscalls/madvise/madvise06.c b/testcases/kernel/syscalls/madvise/madvise06.c
-index 56e0700d6..47642faf4 100644
---- a/testcases/kernel/syscalls/madvise/madvise06.c
-+++ b/testcases/kernel/syscalls/madvise/madvise06.c
-@@ -3,8 +3,8 @@
-  * Copyright (c) 2016 Red Hat, Inc.
-  */
- 
--/*
-- * DESCRIPTION
-+/*\
-+ * [DESCRIPTION]
-  *
-  *   Page fault occurs in spite that madvise(WILLNEED) system call is called
-  *   to prefetch the page. This issue is reproduced by running a program
-@@ -36,13 +36,14 @@
-  *   else unexpected, but irrelevant procedure, registers a fault to
-  *   our process.
-  *
-- */
-+\*/
- 
- #include <errno.h>
- #include <stdio.h>
- #include <sys/mount.h>
- #include <sys/sysinfo.h>
- #include "tst_test.h"
-+#include "tst_cgroup.h"
- 
- #define CHUNK_SZ (400*1024*1024L)
- #define MEM_LIMIT (CHUNK_SZ / 2)
-@@ -50,8 +51,7 @@
- #define PASS_THRESHOLD (CHUNK_SZ / 4)
- #define PASS_THRESHOLD_KB (PASS_THRESHOLD / 1024)
- 
--#define MNT_NAME "memory"
--#define GROUP_NAME "madvise06"
-+static const struct tst_cgroup *cg;
- 
- static const char drop_caches_fname[] = "/proc/sys/vm/drop_caches";
- static int pg_sz, stat_refresh_sup;
-@@ -64,17 +64,19 @@ static void check_path(const char *path)
- 		tst_brk(TCONF, "file needed: %s", path);
- }
- 
--#define READ_CGMEM(item)						\
--	({long tst_rval = 0;						\
--	  const char *cgpath = MNT_NAME"/"GROUP_NAME"/memory."item;	\
--	  if (!access(cgpath, R_OK))					\
--		  SAFE_FILE_LINES_SCANF(cgpath, "%ld", &tst_rval);	\
--	  tst_rval;})
-+static void print_cgmem(const char *name)
-+{
-+	long ret;
-+
-+	if (!SAFE_CGROUP_HAS(cg, name))
-+		return;
-+
-+	SAFE_CGROUP_SCANF(cg, name, "%ld", &ret);
-+	tst_res(TINFO, "\t%s: %ld Kb", name, ret / 1024);
-+}
- 
- static void meminfo_diag(const char *point)
- {
--	long rval;
--
- 	if (stat_refresh_sup)
- 		SAFE_FILE_PRINTF("/proc/sys/vm/stat_refresh", "1");
- 
-@@ -85,16 +87,10 @@ static void meminfo_diag(const char *point)
- 		SAFE_READ_MEMINFO("SwapCached:") - init_swap_cached);
- 	tst_res(TINFO, "\tCached: %ld Kb",
- 		SAFE_READ_MEMINFO("Cached:") - init_cached);
--	tst_res(TINFO, "\tcgmem.usage_in_bytes: %ld Kb",
--		READ_CGMEM("usage_in_bytes") / 1024);
--
--	rval = READ_CGMEM("memsw.usage_in_bytes") / 1024;
--	if (rval)
--		tst_res(TINFO, "\tcgmem.memsw.usage_in_bytes: %ld Kb", rval);
- 
--	rval = READ_CGMEM("kmem.usage_in_bytes") / 1024;
--	if (rval)
--		tst_res(TINFO, "\tcgmem.kmem.usage_in_bytes: %ld Kb", rval);
-+	print_cgmem("memory.current");
-+	print_cgmem("memory.swap.current");
-+	print_cgmem("memory.kmem.usage_in_bytes");
- }
- 
- static void setup(void)
-@@ -117,28 +113,24 @@ static void setup(void)
- 			2 * CHUNK_SZ);
- 	}
- 
--	SAFE_MKDIR(MNT_NAME, 0700);
--	if (mount("memory", MNT_NAME, "cgroup", 0, "memory") == -1) {
--		if (errno == ENODEV || errno == ENOENT)
--			tst_brk(TCONF, "memory cgroup needed");
--	}
--	SAFE_MKDIR(MNT_NAME"/"GROUP_NAME, 0700);
--
- 	check_path("/proc/self/oom_score_adj");
--	check_path(MNT_NAME"/"GROUP_NAME"/memory.limit_in_bytes");
--	check_path(MNT_NAME"/"GROUP_NAME"/memory.swappiness");
--	check_path(MNT_NAME"/"GROUP_NAME"/tasks");
--
- 	SAFE_FILE_PRINTF("/proc/self/oom_score_adj", "%d", -1000);
--	SAFE_FILE_PRINTF(MNT_NAME"/"GROUP_NAME"/memory.limit_in_bytes", "%ld\n",
--			 MEM_LIMIT);
- 
--	if (!access(MNT_NAME"/"GROUP_NAME"/memory.memsw.limit_in_bytes", W_OK)) {
--		SAFE_FILE_PRINTF(MNT_NAME"/"GROUP_NAME"/memory.memsw.limit_in_bytes",
--				 "%ld\n", MEMSW_LIMIT);
-+	tst_cgroup_require(TST_CGROUP_MEMORY, NULL);
-+	cg = tst_cgroup_get_test();
-+
-+	SAFE_CGROUP_PRINTF(cg, "memory.max", "%ld", MEM_LIMIT);
-+	if (SAFE_CGROUP_HAS(cg, "memory.swap.max"))
-+		SAFE_CGROUP_PRINTF(cg, "memory.swap.max", "%ld", MEMSW_LIMIT);
-+
-+	if (SAFE_CGROUP_HAS(cg, "memory.swappiness")) {
-+		SAFE_CGROUP_PRINT(cg, "memory.swappiness", "60");
-+	} else {
-+		check_path("/proc/sys/vm/swappiness");
-+		SAFE_FILE_PRINTF("/proc/sys/vm/swappiness", "%d", 60);
- 	}
--	SAFE_FILE_PRINTF(MNT_NAME"/"GROUP_NAME"/memory.swappiness", "60");
--	SAFE_FILE_PRINTF(MNT_NAME"/"GROUP_NAME"/tasks", "%d\n", getpid());
-+
-+	SAFE_CGROUP_PRINTF(cg, "cgroup.procs", "%d", getpid());
- 
- 	meminfo_diag("Initial meminfo, later values are relative to this (except memcg)");
- 	init_swap = SAFE_READ_MEMINFO("SwapTotal:") - SAFE_READ_MEMINFO("SwapFree:");
-@@ -154,11 +146,7 @@ static void setup(void)
- 
- static void cleanup(void)
- {
--	if (!access(MNT_NAME"/tasks", F_OK)) {
--		SAFE_FILE_PRINTF(MNT_NAME"/tasks", "%d\n", getpid());
--		SAFE_RMDIR(MNT_NAME"/"GROUP_NAME);
--		SAFE_UMOUNT(MNT_NAME);
--	}
-+	tst_cgroup_cleanup();
- }
- 
- static void dirty_pages(char *ptr, long size)
-@@ -248,6 +236,10 @@ static struct tst_test test = {
- 	.min_kver = "3.10.0",
- 	.needs_tmpdir = 1,
- 	.needs_root = 1,
-+	.save_restore = (const char * const[]) {
-+		"?/proc/sys/vm/swappiness",
-+		NULL
-+	},
- 	.tags = (const struct tst_tag[]) {
- 		{"linux-git", "55231e5c898c"},
- 		{"linux-git", "8de15e920dc8"},
+Shouldn't we call exit here? There is no point in continuing once we
+reached this point.
+
+> +	} else
+> +		kill(getppid(), SIGUSR1);
+>  }
+> 
+>  static void testrun(void)
+> --
+> 2.17.1
+> 
+> 
+> -- 
+> Mailing list info: https://lists.linux.it/listinfo/ltp
+
 -- 
-2.30.2
-
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
