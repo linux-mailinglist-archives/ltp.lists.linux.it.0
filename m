@@ -1,43 +1,50 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5502A35D687
-	for <lists+linux-ltp@lfdr.de>; Tue, 13 Apr 2021 06:39:09 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 783E635D830
+	for <lists+linux-ltp@lfdr.de>; Tue, 13 Apr 2021 08:43:15 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 14FC53C1C6C
-	for <lists+linux-ltp@lfdr.de>; Tue, 13 Apr 2021 06:39:09 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id D7DE13C71F6
+	for <lists+linux-ltp@lfdr.de>; Tue, 13 Apr 2021 08:43:14 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 591AA3C1AF7
- for <ltp@lists.linux.it>; Tue, 13 Apr 2021 06:38:57 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ by picard.linux.it (Postfix) with ESMTPS id 0D1EA3C721F
+ for <ltp@lists.linux.it>; Tue, 13 Apr 2021 08:43:08 +0200 (CEST)
+Received: from szxga08-in.huawei.com (szxga08-in.huawei.com [45.249.212.255])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 366111401108
- for <ltp@lists.linux.it>; Tue, 13 Apr 2021 06:38:57 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 94916B0C6;
- Tue, 13 Apr 2021 04:38:56 +0000 (UTC)
-From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Tue, 13 Apr 2021 06:38:44 +0200
-Message-Id: <20210413043844.5612-2-pvorel@suse.cz>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210413043844.5612-1-pvorel@suse.cz>
-References: <20210413043844.5612-1-pvorel@suse.cz>
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id BE3471A00703
+ for <ltp@lists.linux.it>; Tue, 13 Apr 2021 08:43:06 +0200 (CEST)
+Received: from DGGEML402-HUB.china.huawei.com (unknown [172.30.72.55])
+ by szxga08-in.huawei.com (SkyGuard) with ESMTP id 4FKGDF0nHlz14GGx
+ for <ltp@lists.linux.it>; Tue, 13 Apr 2021 14:39:25 +0800 (CST)
+Received: from DGGEML531-MBX.china.huawei.com ([169.254.6.205]) by
+ DGGEML402-HUB.china.huawei.com ([fe80::fca6:7568:4ee3:c776%31]) with mapi id
+ 14.03.0513.000; Tue, 13 Apr 2021 14:42:52 +0800
+From: zhaogongyi <zhaogongyi@huawei.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+Thread-Topic: [LTP] [PATCH] lib/tst_test.c: Bugfix for heartbeat
+Thread-Index: AdcwLd3iZhqYiLMrSWikAlKGiMO2gQ==
+Date: Tue, 13 Apr 2021 06:42:52 +0000
+Message-ID: <F3D3F6AC3820BB4C9FCA340DB5C32CB4038B3761@dggeml531-mbx.china.huawei.com>
+Accept-Language: en-US
+Content-Language: zh-CN
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.67.110.209]
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-CFilter-Loop: Reflected
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH v3 2/2] commands: Add shell pipe test
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] lib/tst_test.c: Bugfix for heartbeat
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,71 +56,89 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Martin Loviska <mloviska@suse.com>
+Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This adds basic shell pipe testing, which was removed from splice02
-in 85cebe238 ("splice02: Generate input in C").
+Hi Cyril,
 
-Suggested-by: Cyril Hrubis <chrubis@suse.cz>
-Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
-The same as v2.
+Thanks for your review!
 
- runtest/commands                         |  1 +
- runtest/smoketest                        |  1 +
- testcases/commands/shell/shell_pipe01.sh | 17 +++++++++++++++++
- 3 files changed, 19 insertions(+)
- create mode 100755 testcases/commands/shell/shell_pipe01.sh
+> > -	kill(getppid(), SIGUSR1);
+> > +	if (getppid() == 1) {
+> > +		tst_res(TFAIL, "Main test process might have exit!");
+>                          ^
+> 			 This should be TBROK I guess.
+> > +		/*
+> > +		 * We need kill the task group immediately since the
+> > +		 * main process has exit.
+> > +		 */
+> > +		kill(0, SIGKILL);
+> 
+> Shouldn't we call exit here? There is no point in continuing once we
+> reached this point.
+>
 
-diff --git a/runtest/commands b/runtest/commands
-index 058266b54..8cfad0449 100644
---- a/runtest/commands
-+++ b/runtest/commands
-@@ -41,3 +41,4 @@ gdb01_sh gdb01.sh
- unshare01_sh unshare01.sh
- sysctl01_sh sysctl01.sh
- sysctl02_sh sysctl02.sh
-+shell_test01 echo "SUCCESS" | shell_pipe01.sh
-diff --git a/runtest/smoketest b/runtest/smoketest
-index ec0c088cb..85f377192 100644
---- a/runtest/smoketest
-+++ b/runtest/smoketest
-@@ -13,3 +13,4 @@ utime01A symlink01 -T utime01
- rename01A symlink01 -T rename01
- splice02 splice02 -n 20
- route4-change-dst route-change-dst.sh
-+shell_test01 echo "SUCCESS" | shell_pipe01.sh
-diff --git a/testcases/commands/shell/shell_pipe01.sh b/testcases/commands/shell/shell_pipe01.sh
-new file mode 100755
-index 000000000..3c8ef49fb
---- /dev/null
-+++ b/testcases/commands/shell/shell_pipe01.sh
-@@ -0,0 +1,17 @@
-+#!/bin/sh
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+# Copyright (c) 2021 Petr Vorel <pvorel@suse.cz>
-+
-+TST_TESTFUNC=do_test
-+
-+. tst_test.sh
-+
-+do_test()
-+{
-+	tst_res TINFO "expecting SUCCESS string passed from stdin"
-+
-+	read line
-+	EXPECT_PASS [ "$line" = "SUCCESS" ]
-+}
-+
-+tst_run
--- 
-2.31.1
+Yes, There is no point in continuing once we reached this point. Considering the test might have created sub processes with system, posix_spawn and so on,
 
+do we need to kill the task group?
+
+
+Best Regards,
+Gongyi
+
+
+> 
+> Hi!
+> > When main process has been killed, its son process will be reaped by
+> > init, and son process will send SIGUSR1 to the init process.
+> >
+> > In busybox, send SIGUSR1 to the init process will trigger shutdown.
+> >
+> > Signed-off-by: Zhao Gongyi <zhaogongyi@huawei.com>
+> > ---
+> >  lib/tst_test.c | 10 +++++++++-
+> >  1 file changed, 9 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/lib/tst_test.c b/lib/tst_test.c index
+> > 45753d1ca..91dfc6bf9 100644
+> > --- a/lib/tst_test.c
+> > +++ b/lib/tst_test.c
+> > @@ -1156,7 +1156,15 @@ static void heartbeat(void)
+> >  	if (tst_clock_gettime(CLOCK_MONOTONIC, &tst_start_time))
+> >  		tst_res(TWARN | TERRNO, "tst_clock_gettime() failed");
+> >
+> > -	kill(getppid(), SIGUSR1);
+> > +	if (getppid() == 1) {
+> > +		tst_res(TFAIL, "Main test process might have exit!");
+>                          ^
+> 			 This should be TBROK I guess.
+> > +		/*
+> > +		 * We need kill the task group immediately since the
+> > +		 * main process has exit.
+> > +		 */
+> > +		kill(0, SIGKILL);
+> 
+> Shouldn't we call exit here? There is no point in continuing once we
+> reached this point.
+> 
+> > +	} else
+> > +		kill(getppid(), SIGUSR1);
+> >  }
+> >
+> >  static void testrun(void)
+> > --
+> > 2.17.1
+> >
+> >
+> > --
+> > Mailing list info: https://lists.linux.it/listinfo/ltp
+> 
+> --
+> Cyril Hrubis
+> chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
