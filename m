@@ -2,49 +2,44 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 783E635D830
-	for <lists+linux-ltp@lfdr.de>; Tue, 13 Apr 2021 08:43:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A45035D82E
+	for <lists+linux-ltp@lfdr.de>; Tue, 13 Apr 2021 08:43:06 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D7DE13C71F6
-	for <lists+linux-ltp@lfdr.de>; Tue, 13 Apr 2021 08:43:14 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 69BA33C7201
+	for <lists+linux-ltp@lfdr.de>; Tue, 13 Apr 2021 08:43:05 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 0D1EA3C721F
- for <ltp@lists.linux.it>; Tue, 13 Apr 2021 08:43:08 +0200 (CEST)
-Received: from szxga08-in.huawei.com (szxga08-in.huawei.com [45.249.212.255])
+ by picard.linux.it (Postfix) with ESMTPS id CABDF3C1C14
+ for <ltp@lists.linux.it>; Tue, 13 Apr 2021 08:43:01 +0200 (CEST)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id BE3471A00703
- for <ltp@lists.linux.it>; Tue, 13 Apr 2021 08:43:06 +0200 (CEST)
-Received: from DGGEML402-HUB.china.huawei.com (unknown [172.30.72.55])
- by szxga08-in.huawei.com (SkyGuard) with ESMTP id 4FKGDF0nHlz14GGx
- for <ltp@lists.linux.it>; Tue, 13 Apr 2021 14:39:25 +0800 (CST)
-Received: from DGGEML531-MBX.china.huawei.com ([169.254.6.205]) by
- DGGEML402-HUB.china.huawei.com ([fe80::fca6:7568:4ee3:c776%31]) with mapi id
- 14.03.0513.000; Tue, 13 Apr 2021 14:42:52 +0800
-From: zhaogongyi <zhaogongyi@huawei.com>
-To: Cyril Hrubis <chrubis@suse.cz>
-Thread-Topic: [LTP] [PATCH] lib/tst_test.c: Bugfix for heartbeat
-Thread-Index: AdcwLd3iZhqYiLMrSWikAlKGiMO2gQ==
-Date: Tue, 13 Apr 2021 06:42:52 +0000
-Message-ID: <F3D3F6AC3820BB4C9FCA340DB5C32CB4038B3761@dggeml531-mbx.china.huawei.com>
-Accept-Language: en-US
-Content-Language: zh-CN
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.67.110.209]
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 2CE6A100117B
+ for <ltp@lists.linux.it>; Tue, 13 Apr 2021 08:43:00 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 748C5AF0F;
+ Tue, 13 Apr 2021 06:43:00 +0000 (UTC)
+References: <20210319091837.27319-1-rpalethorpe@suse.com>
+ <20210319091837.27319-2-rpalethorpe@suse.com>
+ <CAEemH2f1OtzmP+Vh+afVHuZvHNZSq0kwG0HrK79z7THEu1smmQ@mail.gmail.com>
+User-agent: mu4e 1.4.15; emacs 27.2
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Li Wang <liwang@redhat.com>
+In-reply-to: <CAEemH2f1OtzmP+Vh+afVHuZvHNZSq0kwG0HrK79z7THEu1smmQ@mail.gmail.com>
+Date: Tue, 13 Apr 2021 07:42:59 +0100
+Message-ID: <87o8ei3css.fsf@suse.de>
 MIME-Version: 1.0
-X-CFilter-Loop: Reflected
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] lib/tst_test.c: Bugfix for heartbeat
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3 1/7] fzsync: Add self tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,89 +51,52 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
+Reply-To: rpalethorpe@suse.de
+Cc: LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Cyril,
+Hello,
 
-Thanks for your review!
+Li Wang <liwang@redhat.com> writes:
 
-> > -	kill(getppid(), SIGUSR1);
-> > +	if (getppid() == 1) {
-> > +		tst_res(TFAIL, "Main test process might have exit!");
->                          ^
-> 			 This should be TBROK I guess.
-> > +		/*
-> > +		 * We need kill the task group immediately since the
-> > +		 * main process has exit.
-> > +		 */
-> > +		kill(0, SIGKILL);
-> 
-> Shouldn't we call exit here? There is no point in continuing once we
-> reached this point.
+>> +/* The time signatures of threads A and B */
+>> +struct race {
+>> +       const struct window a;
+>> +       const struct window b;
+>> +};
+>> +
+>> +static int c;
+>>
 >
+> Maybe define a volatile 'c' here will be better?
 
-Yes, There is no point in continuing once we reached this point. Considering the test might have created sub processes with system, posix_spawn and so on,
+We always access it with the atomic functions so it is not necessary.
 
-do we need to kill the task group?
+>
+>
+>
+>> +
+>> +       tst_res(critical > 50 ? TPASS : TFAIL,
+>> +               "cs:%-2d ct:%-2d rt:%-2d | =:%-4d -:%-4d +:%-4d",
+>> +               a.critical_s, a.critical_t, a.return_t,
+>>
+>
+> A tiny issue on output is, 'a.critical_s' abbreviate to 'cs' which
+> has duplicated name with above variable, a bit confused for me
+> a while:).
+>
+> Anyway, the patches look quite good to me.
+> Reviewed-by: Li Wang <liwang@redhat.com>
+
+Thanks for the review! I will modify the printed variable name.
 
 
-Best Regards,
-Gongyi
-
-
-> 
-> Hi!
-> > When main process has been killed, its son process will be reaped by
-> > init, and son process will send SIGUSR1 to the init process.
-> >
-> > In busybox, send SIGUSR1 to the init process will trigger shutdown.
-> >
-> > Signed-off-by: Zhao Gongyi <zhaogongyi@huawei.com>
-> > ---
-> >  lib/tst_test.c | 10 +++++++++-
-> >  1 file changed, 9 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/lib/tst_test.c b/lib/tst_test.c index
-> > 45753d1ca..91dfc6bf9 100644
-> > --- a/lib/tst_test.c
-> > +++ b/lib/tst_test.c
-> > @@ -1156,7 +1156,15 @@ static void heartbeat(void)
-> >  	if (tst_clock_gettime(CLOCK_MONOTONIC, &tst_start_time))
-> >  		tst_res(TWARN | TERRNO, "tst_clock_gettime() failed");
-> >
-> > -	kill(getppid(), SIGUSR1);
-> > +	if (getppid() == 1) {
-> > +		tst_res(TFAIL, "Main test process might have exit!");
->                          ^
-> 			 This should be TBROK I guess.
-> > +		/*
-> > +		 * We need kill the task group immediately since the
-> > +		 * main process has exit.
-> > +		 */
-> > +		kill(0, SIGKILL);
-> 
-> Shouldn't we call exit here? There is no point in continuing once we
-> reached this point.
-> 
-> > +	} else
-> > +		kill(getppid(), SIGUSR1);
-> >  }
-> >
-> >  static void testrun(void)
-> > --
-> > 2.17.1
-> >
-> >
-> > --
-> > Mailing list info: https://lists.linux.it/listinfo/ltp
-> 
-> --
-> Cyril Hrubis
-> chrubis@suse.cz
+-- 
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
