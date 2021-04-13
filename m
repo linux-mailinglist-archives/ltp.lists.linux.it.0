@@ -2,11 +2,11 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36CDF35D87B
-	for <lists+linux-ltp@lfdr.de>; Tue, 13 Apr 2021 09:08:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6D7B35D87E
+	for <lists+linux-ltp@lfdr.de>; Tue, 13 Apr 2021 09:08:50 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5613A3C1C6B
-	for <lists+linux-ltp@lfdr.de>; Tue, 13 Apr 2021 09:08:31 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 6852B3C1B0A
+	for <lists+linux-ltp@lfdr.de>; Tue, 13 Apr 2021 09:08:50 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
@@ -14,28 +14,28 @@ Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 2D8C63C1B0B
+ by picard.linux.it (Postfix) with ESMTPS id C992E3C1C7C
  for <ltp@lists.linux.it>; Tue, 13 Apr 2021 09:08:07 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id B3802200DD1
- for <ltp@lists.linux.it>; Tue, 13 Apr 2021 09:08:06 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 42D90200DD1
+ for <ltp@lists.linux.it>; Tue, 13 Apr 2021 09:08:07 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1618297686; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1618297687; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=ixRKKOWp54OeGaRVvYYGCZQhge0mC8iR3bblNBGP9Vs=;
- b=pupd4JjIhKZ2wd5i6XG48M0rwKiGVbPBZ6BCuPPZIYd6vlHxpZGW4uymw3z5UqXX3HCbvM
- QJzKk3GzbaRwOji1kQDwjUG11RO5rzNCMmwI1DqlRQTDbPs0m0AhiYFYmIgqVhhbgaoAOX
- VY0qhp9F8cTrr3NpOlVVq+742PqRGq0=
+ bh=rmPdD+raau1J36BQctSRJiKxGozaByyeJddSlnPoC7g=;
+ b=fbOTyq6FVgTvKoJOsunna5bQNE7WOYaEOBX+T7PxW9kks9V860lHjtVlg6h6wpgO3pPBlU
+ uykLDTx76AORHHyWaK/vXFykuhz/T3nmWsNZ8HLK1lGNypKekxpR5lPKwyHJsrgekRebhH
+ NB0KrzpRLgsJIDvxy1jfw4ETcsJR90U=
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 51D87AE05;
+ by mx2.suse.de (Postfix) with ESMTP id DB5C1AFD2;
  Tue, 13 Apr 2021 07:08:06 +0000 (UTC)
 To: ltp@lists.linux.it
-Date: Tue, 13 Apr 2021 08:07:49 +0100
-Message-Id: <20210413070753.1691-4-rpalethorpe@suse.com>
+Date: Tue, 13 Apr 2021 08:07:50 +0100
+Message-Id: <20210413070753.1691-5-rpalethorpe@suse.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210413070753.1691-1-rpalethorpe@suse.com>
 References: <20210413070753.1691-1-rpalethorpe@suse.com>
@@ -46,8 +46,7 @@ X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH v4 3/7] fzsync: Correctly print positive lower delay
- range bound
+Subject: [LTP] [PATCH v4 4/7] fzsync: Add sched_yield for single core machine
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,40 +60,136 @@ List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 From: Richard Palethorpe via ltp <ltp@lists.linux.it>
 Reply-To: Richard Palethorpe <rpalethorpe@suse.com>
-Cc: Richard Palethorpe <rpalethorpe@suse.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-If the magnitude of delay_bias is large enough then it can turn the
-lower bound positive.
+From: Leo Yu-Chi Liang <ycliang@andestech.com>
 
-Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
-Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
-Acked-by: Petr Vorel <pvorel@suse.cz>
-Reviewed-by: Li Wang <liwang@redhat.com>
+Fuzzy sync library uses spin waiting mechanism to implement thread
+barrier behavior, which would cause this test to be time-consuming
+on single core machine.
+
+Fix this by adding sched_yield in the spin waiting loop, so that the
+thread yields cpu as soon as it enters the waiting loop.
+
+Signed-off-by: Leo Yu-Chi Liang <ycliang@andestech.com>
 ---
- include/tst_fuzzy_sync.h | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ include/tst_fuzzy_sync.h | 34 ++++++++++++++++++++++++++--------
+ 1 file changed, 26 insertions(+), 8 deletions(-)
 
 diff --git a/include/tst_fuzzy_sync.h b/include/tst_fuzzy_sync.h
-index b8841d96d..4063e95cb 100644
+index 4063e95cb..5474f81e3 100644
 --- a/include/tst_fuzzy_sync.h
 +++ b/include/tst_fuzzy_sync.h
-@@ -518,9 +518,9 @@ static void tst_fzsync_pair_update(struct tst_fzsync_pair *pair)
- 			tst_res(TINFO,
- 				"Reached deviation ratios < %.2f, introducing randomness",
- 				pair->max_dev_ratio);
--			tst_res(TINFO, "Delay range is [-%d, %d]",
--				(int)(pair->diff_sb.avg / per_spin_time) + pair->delay_bias,
--				(int)(pair->diff_sa.avg / per_spin_time) - pair->delay_bias);
-+			tst_res(TINFO, "Delay range is [%d, %d]",
-+				-(int)(pair->diff_sb.avg / per_spin_time) + pair->delay_bias,
-+				(int)(pair->diff_sa.avg / per_spin_time) + pair->delay_bias);
- 			tst_fzsync_pair_info(pair);
- 			pair->sampling = -1;
+@@ -59,12 +59,15 @@
+  * @sa tst_fzsync_pair
+  */
+ 
+-#include <sys/time.h>
+-#include <time.h>
+ #include <math.h>
+-#include <stdlib.h>
+ #include <pthread.h>
++#include <sched.h>
++#include <stdbool.h>
++#include <stdlib.h>
++#include <sys/time.h>
++#include <time.h>
+ #include "tst_atomic.h"
++#include "tst_cpu.h"
+ #include "tst_timer.h"
+ #include "tst_safe_pthread.h"
+ 
+@@ -180,6 +183,15 @@ struct tst_fzsync_pair {
+ 	int exec_loop;
+ 	/** Internal; The second thread or 0 */
+ 	pthread_t thread_b;
++	/** 
++	 * Internal; The flag indicates single core machines or not
++	 * 
++	 * If running on single core machines, it would take considerable
++	 * amount of time to run fuzzy sync library.
++	 * Thus call sched_yield to give up cpu to decrease the test time.
++	 */
++	bool yield_in_wait;
++
+ };
+ 
+ #define CHK(param, low, hi, def) do {					      \
+@@ -206,6 +218,7 @@ static void tst_fzsync_pair_init(struct tst_fzsync_pair *pair)
+ 	CHK(max_dev_ratio, 0, 1, 0.1);
+ 	CHK(exec_time_p, 0, 1, 0.5);
+ 	CHK(exec_loops, 20, INT_MAX, 3000000);
++	CHK(yield_in_wait, 0, 1, (tst_ncpus() <= 1));
+ }
+ #undef CHK
+ 
+@@ -551,7 +564,8 @@ static void tst_fzsync_pair_update(struct tst_fzsync_pair *pair)
+  */
+ static inline void tst_fzsync_pair_wait(int *our_cntr,
+ 					int *other_cntr,
+-					int *spins)
++					int *spins,
++					bool yield_in_wait)
+ {
+ 	if (tst_atomic_inc(other_cntr) == INT_MAX) {
+ 		/*
+@@ -565,6 +579,8 @@ static inline void tst_fzsync_pair_wait(int *our_cntr,
+ 		       && tst_atomic_load(our_cntr) < INT_MAX) {
+ 			if (spins)
+ 				(*spins)++;
++			if(yield_in_wait)
++				sched_yield();
  		}
+ 
+ 		tst_atomic_store(0, other_cntr);
+@@ -582,6 +598,8 @@ static inline void tst_fzsync_pair_wait(int *our_cntr,
+ 		while (tst_atomic_load(our_cntr) < tst_atomic_load(other_cntr)) {
+ 			if (spins)
+ 				(*spins)++;
++			if(yield_in_wait)
++				sched_yield();
+ 		}
+ 	}
+ }
+@@ -594,7 +612,7 @@ static inline void tst_fzsync_pair_wait(int *our_cntr,
+  */
+ static inline void tst_fzsync_wait_a(struct tst_fzsync_pair *pair)
+ {
+-	tst_fzsync_pair_wait(&pair->a_cntr, &pair->b_cntr, NULL);
++	tst_fzsync_pair_wait(&pair->a_cntr, &pair->b_cntr, NULL, pair->yield_in_wait);
+ }
+ 
+ /**
+@@ -605,7 +623,7 @@ static inline void tst_fzsync_wait_a(struct tst_fzsync_pair *pair)
+  */
+ static inline void tst_fzsync_wait_b(struct tst_fzsync_pair *pair)
+ {
+-	tst_fzsync_pair_wait(&pair->b_cntr, &pair->a_cntr, NULL);
++	tst_fzsync_pair_wait(&pair->b_cntr, &pair->a_cntr, NULL, pair->yield_in_wait);
+ }
+ 
+ /**
+@@ -710,7 +728,7 @@ static inline void tst_fzsync_start_race_a(struct tst_fzsync_pair *pair)
+ static inline void tst_fzsync_end_race_a(struct tst_fzsync_pair *pair)
+ {
+ 	tst_fzsync_time(&pair->a_end);
+-	tst_fzsync_pair_wait(&pair->a_cntr, &pair->b_cntr, &pair->spins);
++	tst_fzsync_pair_wait(&pair->a_cntr, &pair->b_cntr, &pair->spins, pair->yield_in_wait);
+ }
+ 
+ /**
+@@ -741,7 +759,7 @@ static inline void tst_fzsync_start_race_b(struct tst_fzsync_pair *pair)
+ static inline void tst_fzsync_end_race_b(struct tst_fzsync_pair *pair)
+ {
+ 	tst_fzsync_time(&pair->b_end);
+-	tst_fzsync_pair_wait(&pair->b_cntr, &pair->a_cntr, &pair->spins);
++	tst_fzsync_pair_wait(&pair->b_cntr, &pair->a_cntr, &pair->spins, pair->yield_in_wait);
+ }
+ 
+ /**
 -- 
 2.30.2
 
