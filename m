@@ -2,62 +2,44 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5809935F010
-	for <lists+linux-ltp@lfdr.de>; Wed, 14 Apr 2021 10:48:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ACEDC35F06D
+	for <lists+linux-ltp@lfdr.de>; Wed, 14 Apr 2021 11:07:22 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id EF77E3C70DB
-	for <lists+linux-ltp@lfdr.de>; Wed, 14 Apr 2021 10:48:35 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 2CFCC3C7102
+	for <lists+linux-ltp@lfdr.de>; Wed, 14 Apr 2021 11:07:22 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 639AE3C1B4D
- for <ltp@lists.linux.it>; Wed, 14 Apr 2021 10:48:31 +0200 (CEST)
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+ by picard.linux.it (Postfix) with ESMTPS id 8343F3C1B0E
+ for <ltp@lists.linux.it>; Wed, 14 Apr 2021 11:07:17 +0200 (CEST)
+Received: from szxga04-in.huawei.com (szxga04-in.huawei.com [45.249.212.190])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id A74921A00E02
- for <ltp@lists.linux.it>; Wed, 14 Apr 2021 10:48:29 +0200 (CEST)
-Received: from dggeml405-hub.china.huawei.com (unknown [172.30.72.55])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4FKx0B1q3SzYXkS;
- Wed, 14 Apr 2021 16:46:18 +0800 (CST)
-Received: from dggeml707-chm.china.huawei.com (10.3.17.137) by
- dggeml405-hub.china.huawei.com (10.3.17.49) with Microsoft SMTP Server (TLS)
- id 14.3.498.0; Wed, 14 Apr 2021 16:48:23 +0800
-Received: from dggpeml500013.china.huawei.com (7.185.36.41) by
- dggeml707-chm.china.huawei.com (10.3.17.137) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.2106.2; Wed, 14 Apr 2021 16:48:23 +0800
-Received: from dggpeml500013.china.huawei.com ([7.185.36.41]) by
- dggpeml500013.china.huawei.com ([7.185.36.41]) with mapi id 15.01.2106.013;
- Wed, 14 Apr 2021 16:48:23 +0800
-From: "wangxin (CQ)" <wangxin410@huawei.com>
-To: Li Wang <liwang@redhat.com>
-Thread-Topic: [LTP] [PATCH] openposix/conformance/interfaces: Correct typos
-Thread-Index: AQHXMPuoDbQHBpApWkKQZ8TJfGiiVqqzpyqw//+AoQCAAIroUA==
-Date: Wed, 14 Apr 2021 08:48:23 +0000
-Message-ID: <1e332d4428ea42aeb59e1173b654ce30@huawei.com>
-References: <1617765607-78263-1-git-send-email-wangxin410@huawei.com>
- <CAEemH2ctSMR5OF=0TQX1eNmTE7PcdEdMbjoYXc3RxiBsyfzcuw@mail.gmail.com>
- <91a235700b494bdf9a9a7dd1901aa947@huawei.com>
- <CAEemH2dU2r8gFS5r3os7UwXFUEmmPqR9CnAizXbP_FHP+Evd+A@mail.gmail.com>
-In-Reply-To: <CAEemH2dU2r8gFS5r3os7UwXFUEmmPqR9CnAizXbP_FHP+Evd+A@mail.gmail.com>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.174.176.33]
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 7A9B4100041D
+ for <ltp@lists.linux.it>; Wed, 14 Apr 2021 11:07:15 +0200 (CEST)
+Received: from DGGEMS402-HUB.china.huawei.com (unknown [172.30.72.59])
+ by szxga04-in.huawei.com (SkyGuard) with ESMTP id 4FKxNy5m3ZzpXj8
+ for <ltp@lists.linux.it>; Wed, 14 Apr 2021 17:04:18 +0800 (CST)
+Received: from linux-lmwb.huawei.com (10.175.103.112) by
+ DGGEMS402-HUB.china.huawei.com (10.3.19.202) with Microsoft SMTP Server id
+ 14.3.498.0; Wed, 14 Apr 2021 17:07:01 +0800
+From: Wang Xin <wangxin410@huawei.com>
+To: <ltp@lists.linux.it>
+Date: Wed, 14 Apr 2021 17:24:19 +0800
+Message-ID: <1618392259-35501-1-git-send-email-wangxin410@huawei.com>
+X-Mailer: git-send-email 2.6.2
 MIME-Version: 1.0
+X-Originating-IP: [10.175.103.112]
 X-CFilter-Loop: Reflected
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=HTML_MESSAGE,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] =?utf-8?b?562U5aSNOiAgW1BBVENIXSBvcGVucG9zaXgvY29uZm9ybWFu?=
- =?utf-8?q?ce/interfaces=3A_Correct_typos?=
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH v2] openposix/conformance/interfaces: Correct typos
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,172 +51,190 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============0919572057=="
+Cc: Wang Xin <wangxin410@huawei.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0919572057==
-Content-Language: zh-CN
-Content-Type: multipart/alternative;
-	boundary="_000_1e332d4428ea42aeb59e1173b654ce30huaweicom_"
+Types in the name of the temporary files: For example, in aio_cancel/8-1.c file,
+pts_aio_cancel_1_1 -> pts_aio_cancel_8_1.
+Others like this have been modified.
 
---_000_1e332d4428ea42aeb59e1173b654ce30huaweicom_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Signed-off-by: Wang Xin <wangxin410@huawei.com>
+---
+ v2->v1: rebase this patch on the latest main branch
 
-SGkgIFdhbmcsDQoNCiAgICBJIHRoaW5rIEkgc2VlIHdoYXQgeW91IG1lYW4uIEknbGwgc3VibWl0
-IGEgbmV3IHBhdGNoIHRvIHRoZSBjb21tdW5pdHkgbGF0ZXIuDQogICAgVGhhbmsgeW91IGZvciB0
-aGUgYWR2aWNlLg0KDQotLQ0KUmVnYXJkcywNCldhbmcgWGluDQoNCuWPkeS7tuS6ujogTGkgV2Fu
-ZyBbbWFpbHRvOmxpd2FuZ0ByZWRoYXQuY29tXQ0K5Y+R6YCB5pe26Ze0OiAyMDIx5bm0NOaciDE0
-5pelIDE2OjI3DQrmlLbku7bkuro6IHdhbmd4aW4gKENRKSA8d2FuZ3hpbjQxMEBodWF3ZWkuY29t
-Pg0K5oqE6YCBOiBMVFAgTGlzdCA8bHRwQGxpc3RzLmxpbnV4Lml0Pg0K5Li76aKYOiBSZTogW0xU
-UF0gW1BBVENIXSBvcGVucG9zaXgvY29uZm9ybWFuY2UvaW50ZXJmYWNlczogQ29ycmVjdCB0eXBv
-cw0KDQpIaSBYaW4sDQoNCk9uIFdlZCwgQXByIDE0LCAyMDIxIGF0IDQ6MTYgUE0gd2FuZ3hpbiAo
-Q1EpIDx3YW5neGluNDEwQGh1YXdlaS5jb208bWFpbHRvOndhbmd4aW40MTBAaHVhd2VpLmNvbT4+
-IHdyb3RlOg0KSGkgV2FuZywNCg0KVGhhbmtzIHNvIG11Y2ggZm9yIHlvdXIgcmV2aWV3IQ0KDQpJ
-IGp1c3QgcmUtY2hlY2tlZCB0aGUgbGF0ZXN0IGNvZGUgYW5kIGZvdW5kIHRoYXQgdGhlIGNvZGUg
-bmVlZGVkIHRvIGJlIG1vZGlmaWVkIHdhcyBub3QgdGhlIHNhbWUgYXMgdGhlIGxhc3QgdGltZS4N
-ClRoZXJlZm9yZSwgZG8geW91IHdhbnQgdG8gaW5jb3Jwb3JhdGUgdGhlIHBhdGNoIHN1Ym1pdHRl
-ZCBsYXN0IHRpbWU/DQpJZiB0aGVyZSBpcyBhIGNvbmZsaWN0LCBJIGNhbiBtb2RpZnkgdGhlIHBh
-dGNoIHN1Ym1pdHRlZCBsYXN0IHRpbWUuDQoNCkZlZWwgZnJlZSB0byBtYWtlIGEgbmV3IHBhdGNo
-IGFzIHlvdSB3YW50LCBJIGRvbid0IGluc2lzdCBvbiB0aGUgcHJldmlvdXMgdmVyc2lvbi4NCkp1
-c3QgZ3VhcmFudGVlIHRvIHJlYmFzZSBvbiB0aGUgbGF0ZXN0IExUUCBpcyBmaW5lLg0KDQotLQ0K
-UmVnYXJkcywNCkxpIFdhbmcNCg==
+ testcases/open_posix_testsuite/conformance/interfaces/aio_cancel/8-1.c  | 2 +-
+ testcases/open_posix_testsuite/conformance/interfaces/aio_read/9-1.c    | 2 +-
+ testcases/open_posix_testsuite/conformance/interfaces/aio_return/4-1.c  | 2 +-
+ testcases/open_posix_testsuite/conformance/interfaces/aio_suspend/3-1.c | 2 +-
+ testcases/open_posix_testsuite/conformance/interfaces/aio_write/7-1.c   | 2 +-
+ testcases/open_posix_testsuite/conformance/interfaces/lio_listio/5-1.c  | 2 +-
+ testcases/open_posix_testsuite/conformance/interfaces/lio_listio/7-1.c  | 2 +-
+ testcases/open_posix_testsuite/conformance/interfaces/mmap/11-6.c       | 2 +-
+ testcases/open_posix_testsuite/conformance/interfaces/mmap/32-1.c       | 2 +-
+ testcases/open_posix_testsuite/conformance/interfaces/mmap/6-3.c        | 2 +-
+ testcases/open_posix_testsuite/conformance/interfaces/munmap/1-2.c      | 2 +-
+ testcases/open_posix_testsuite/conformance/interfaces/munmap/3-1.c      | 2 +-
+ testcases/open_posix_testsuite/conformance/interfaces/munmap/9-1.c      | 2 +-
+ 13 files changed, 13 insertions(+), 13 deletions(-)
 
---_000_1e332d4428ea42aeb59e1173b654ce30huaweicom_
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: base64
-
-PGh0bWwgeG1sbnM6dj0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTp2bWwiIHhtbG5zOm89InVy
-bjpzY2hlbWFzLW1pY3Jvc29mdC1jb206b2ZmaWNlOm9mZmljZSIgeG1sbnM6dz0idXJuOnNjaGVt
-YXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6d29yZCIgeG1sbnM6bT0iaHR0cDovL3NjaGVtYXMubWlj
-cm9zb2Z0LmNvbS9vZmZpY2UvMjAwNC8xMi9vbW1sIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv
-VFIvUkVDLWh0bWw0MCI+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIg
-Y29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRv
-ciIgY29udGVudD0iTWljcm9zb2Z0IFdvcmQgMTUgKGZpbHRlcmVkIG1lZGl1bSkiPg0KPHN0eWxl
-PjwhLS0NCi8qIEZvbnQgRGVmaW5pdGlvbnMgKi8NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6
-5a6L5L2TOw0KCXBhbm9zZS0xOjIgMSA2IDAgMyAxIDEgMSAxIDE7fQ0KQGZvbnQtZmFjZQ0KCXtm
-b250LWZhbWlseToiQ2FtYnJpYSBNYXRoIjsNCglwYW5vc2UtMToyIDQgNSAzIDUgNCA2IDMgMiA0
-O30NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6Q2FsaWJyaTsNCglwYW5vc2UtMToyIDE1IDUg
-MiAyIDIgNCAzIDIgNDt9DQpAZm9udC1mYWNlDQoJe2ZvbnQtZmFtaWx5OuW+rui9r+mbhem7kTsN
-CglwYW5vc2UtMToyIDExIDUgMyAyIDIgNCAyIDIgNDt9DQpAZm9udC1mYWNlDQoJe2ZvbnQtZmFt
-aWx5OiJcQOW+rui9r+mbhem7kSI7DQoJcGFub3NlLTE6MiAxMSA1IDMgMiAyIDQgMiAyIDQ7fQ0K
-QGZvbnQtZmFjZQ0KCXtmb250LWZhbWlseToiXEDlrovkvZMiOw0KCXBhbm9zZS0xOjIgMSA2IDAg
-MyAxIDEgMSAxIDE7fQ0KLyogU3R5bGUgRGVmaW5pdGlvbnMgKi8NCnAuTXNvTm9ybWFsLCBsaS5N
-c29Ob3JtYWwsIGRpdi5Nc29Ob3JtYWwNCgl7bWFyZ2luOjBjbTsNCgltYXJnaW4tYm90dG9tOi4w
-MDAxcHQ7DQoJZm9udC1zaXplOjEyLjBwdDsNCglmb250LWZhbWlseTrlrovkvZM7fQ0KYTpsaW5r
-LCBzcGFuLk1zb0h5cGVybGluaw0KCXttc28tc3R5bGUtcHJpb3JpdHk6OTk7DQoJY29sb3I6Ymx1
-ZTsNCgl0ZXh0LWRlY29yYXRpb246dW5kZXJsaW5lO30NCmE6dmlzaXRlZCwgc3Bhbi5Nc29IeXBl
-cmxpbmtGb2xsb3dlZA0KCXttc28tc3R5bGUtcHJpb3JpdHk6OTk7DQoJY29sb3I6cHVycGxlOw0K
-CXRleHQtZGVjb3JhdGlvbjp1bmRlcmxpbmU7fQ0Kc3Bhbi5FbWFpbFN0eWxlMTcNCgl7bXNvLXN0
-eWxlLXR5cGU6cGVyc29uYWwtcmVwbHk7DQoJZm9udC1mYW1pbHk6IkNhbGlicmkiLHNhbnMtc2Vy
-aWY7DQoJY29sb3I6IzFGNDk3RDt9DQouTXNvQ2hwRGVmYXVsdA0KCXttc28tc3R5bGUtdHlwZTpl
-eHBvcnQtb25seTsNCglmb250LWZhbWlseToiQ2FsaWJyaSIsc2Fucy1zZXJpZjt9DQpAcGFnZSBX
-b3JkU2VjdGlvbjENCgl7c2l6ZTo2MTIuMHB0IDc5Mi4wcHQ7DQoJbWFyZ2luOjcyLjBwdCA5MC4w
-cHQgNzIuMHB0IDkwLjBwdDt9DQpkaXYuV29yZFNlY3Rpb24xDQoJe3BhZ2U6V29yZFNlY3Rpb24x
-O30NCi0tPjwvc3R5bGU+PCEtLVtpZiBndGUgbXNvIDldPjx4bWw+DQo8bzpzaGFwZWRlZmF1bHRz
-IHY6ZXh0PSJlZGl0IiBzcGlkbWF4PSIxMDI2IiAvPg0KPC94bWw+PCFbZW5kaWZdLS0+PCEtLVtp
-ZiBndGUgbXNvIDldPjx4bWw+DQo8bzpzaGFwZWxheW91dCB2OmV4dD0iZWRpdCI+DQo8bzppZG1h
-cCB2OmV4dD0iZWRpdCIgZGF0YT0iMSIgLz4NCjwvbzpzaGFwZWxheW91dD48L3htbD48IVtlbmRp
-Zl0tLT4NCjwvaGVhZD4NCjxib2R5IGxhbmc9IlpILUNOIiBsaW5rPSJibHVlIiB2bGluaz0icHVy
-cGxlIj4NCjxkaXYgY2xhc3M9IldvcmRTZWN0aW9uMSI+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48
-c3BhbiBsYW5nPSJFTi1VUyI+SGkmbmJzcDsgV2FuZyw8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8
-cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBsYW5nPSJFTi1VUyI+PG86cD4mbmJzcDs8L286cD48
-L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMiPiZuYnNw
-OyZuYnNwOyZuYnNwOyBJIHRoaW5rIEkgc2VlIHdoYXQgeW91IG1lYW4uIEknbGwgc3VibWl0IGEg
-bmV3IHBhdGNoIHRvIHRoZSBjb21tdW5pdHkgbGF0ZXIuPG86cD48L286cD48L3NwYW4+PC9wPg0K
-PHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMiPiZuYnNwOyZuYnNwOyZuYnNw
-OyBUaGFuayB5b3UgZm9yIHRoZSBhZHZpY2UuPG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xh
-c3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMiIHN0eWxlPSJmb250LXNpemU6MTAuNXB0
-O2ZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssc2Fucy1zZXJpZjtjb2xvcjojMUY0OTdE
-Ij48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3Bh
-biBsYW5nPSJFTi1VUyI+LS0gPG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05v
-cm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMiPlJlZ2FyZHMsPG86cD48L286cD48L3NwYW4+PC9wPg0K
-PHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMiPldhbmcgWGluPG86cD48L286
-cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMiIHN0
-eWxlPSJmb250LXNpemU6MTAuNXB0O2ZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssc2Fu
-cy1zZXJpZjtjb2xvcjojMUY0OTdEIj48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+DQo8cCBj
-bGFzcz0iTXNvTm9ybWFsIj48Yj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZh
-bWlseTomcXVvdDvlvq7ova/pm4Xpu5EmcXVvdDssc2Fucy1zZXJpZiI+5Y+R5Lu25Lq6PHNwYW4g
-bGFuZz0iRU4tVVMiPjo8L3NwYW4+PC9zcGFuPjwvYj48c3BhbiBsYW5nPSJFTi1VUyIgc3R5bGU9
-ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q75b6u6L2v6ZuF6buRJnF1b3Q7LHNh
-bnMtc2VyaWYiPiBMaSBXYW5nIFttYWlsdG86bGl3YW5nQHJlZGhhdC5jb21dDQo8YnI+DQo8L3Nw
-YW4+PGI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q75b6u
-6L2v6ZuF6buRJnF1b3Q7LHNhbnMtc2VyaWYiPuWPkemAgeaXtumXtDxzcGFuIGxhbmc9IkVOLVVT
-Ij46PC9zcGFuPjwvc3Bhbj48L2I+PHNwYW4gbGFuZz0iRU4tVVMiIHN0eWxlPSJmb250LXNpemU6
-MTEuMHB0O2ZvbnQtZmFtaWx5OiZxdW90O+W+rui9r+mbhem7kSZxdW90OyxzYW5zLXNlcmlmIj4g
-MjAyMTwvc3Bhbj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseTomcXVv
-dDvlvq7ova/pm4Xpu5EmcXVvdDssc2Fucy1zZXJpZiI+5bm0PHNwYW4gbGFuZz0iRU4tVVMiPjQ8
-L3NwYW4+5pyIPHNwYW4gbGFuZz0iRU4tVVMiPjE0PC9zcGFuPuaXpTxzcGFuIGxhbmc9IkVOLVVT
-Ij4NCiAxNjoyNzxicj4NCjwvc3Bhbj48Yj7mlLbku7bkuro8c3BhbiBsYW5nPSJFTi1VUyI+Ojwv
-c3Bhbj48L2I+PHNwYW4gbGFuZz0iRU4tVVMiPiB3YW5neGluIChDUSkgJmx0O3dhbmd4aW40MTBA
-aHVhd2VpLmNvbSZndDs8YnI+DQo8L3NwYW4+PGI+5oqE6YCBPHNwYW4gbGFuZz0iRU4tVVMiPjo8
-L3NwYW4+PC9iPjxzcGFuIGxhbmc9IkVOLVVTIj4gTFRQIExpc3QgJmx0O2x0cEBsaXN0cy5saW51
-eC5pdCZndDs8YnI+DQo8L3NwYW4+PGI+5Li76aKYPHNwYW4gbGFuZz0iRU4tVVMiPjo8L3NwYW4+
-PC9iPjxzcGFuIGxhbmc9IkVOLVVTIj4gUmU6IFtMVFBdIFtQQVRDSF0gb3BlbnBvc2l4L2NvbmZv
-cm1hbmNlL2ludGVyZmFjZXM6IENvcnJlY3QgdHlwb3M8bzpwPjwvbzpwPjwvc3Bhbj48L3NwYW4+
-PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMiPjxvOnA+Jm5ic3A7
-PC9vOnA+PC9zcGFuPjwvcD4NCjxkaXY+DQo8ZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3Jt
-YWwiPjxzcGFuIGxhbmc9IkVOLVVTIj5IaSBYaW4sPG86cD48L286cD48L3NwYW4+PC9wPg0KPC9k
-aXY+DQo8L2Rpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIGxhbmc9IkVOLVVTIj48bzpw
-PiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+DQo8ZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3Jt
-YWwiPjxzcGFuIGxhbmc9IkVOLVVTIj5PbiBXZWQsIEFwciAxNCwgMjAyMSBhdCA0OjE2IFBNIHdh
-bmd4aW4gKENRKSAmbHQ7PGEgaHJlZj0ibWFpbHRvOndhbmd4aW40MTBAaHVhd2VpLmNvbSI+d2Fu
-Z3hpbjQxMEBodWF3ZWkuY29tPC9hPiZndDsgd3JvdGU6PG86cD48L286cD48L3NwYW4+PC9wPg0K
-PC9kaXY+DQo8YmxvY2txdW90ZSBzdHlsZT0iYm9yZGVyOm5vbmU7Ym9yZGVyLWxlZnQ6c29saWQg
-I0NDQ0NDQyAxLjBwdDtwYWRkaW5nOjBjbSAwY20gMGNtIDYuMHB0O21hcmdpbi1sZWZ0OjQuOHB0
-O21hcmdpbi1yaWdodDowY20iPg0KPGRpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBz
-dHlsZT0ibXNvLW1hcmdpbi10b3AtYWx0OmF1dG87bXNvLW1hcmdpbi1ib3R0b20tYWx0OmF1dG8i
-PjxzcGFuIGxhbmc9IkVOLVVTIj5IaSBXYW5nLDxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNs
-YXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJtc28tbWFyZ2luLXRvcC1hbHQ6YXV0bzttc28tbWFyZ2lu
-LWJvdHRvbS1hbHQ6YXV0byI+PHNwYW4gbGFuZz0iRU4tVVMiIHN0eWxlPSJmb250LXNpemU6MTAu
-NXB0O2ZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssc2Fucy1zZXJpZjtjb2xvcjojMUY0
-OTdEIj4mbmJzcDs8L3NwYW4+PHNwYW4gbGFuZz0iRU4tVVMiPjxvOnA+PC9vOnA+PC9zcGFuPjwv
-cD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJtc28tbWFyZ2luLXRvcC1hbHQ6YXV0bztt
-c28tbWFyZ2luLWJvdHRvbS1hbHQ6YXV0byI+PHNwYW4gbGFuZz0iRU4tVVMiPlRoYW5rcyBzbyBt
-dWNoIGZvciB5b3VyIHJldmlldyE8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNv
-Tm9ybWFsIiBzdHlsZT0ibXNvLW1hcmdpbi10b3AtYWx0OmF1dG87bXNvLW1hcmdpbi1ib3R0b20t
-YWx0OmF1dG8iPjxzcGFuIGxhbmc9IkVOLVVTIiBzdHlsZT0iZm9udC1zaXplOjEwLjVwdDtmb250
-LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LHNhbnMtc2VyaWY7Y29sb3I6IzFGNDk3RCI+Jm5i
-c3A7PC9zcGFuPjxzcGFuIGxhbmc9IkVOLVVTIj48bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBj
-bGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0ibXNvLW1hcmdpbi10b3AtYWx0OmF1dG87bXNvLW1hcmdp
-bi1ib3R0b20tYWx0OmF1dG8iPjxzcGFuIGxhbmc9IkVOLVVTIj5JIGp1c3QgcmUtY2hlY2tlZCB0
-aGUgbGF0ZXN0IGNvZGUgYW5kIGZvdW5kIHRoYXQgdGhlIGNvZGUgbmVlZGVkIHRvIGJlIG1vZGlm
-aWVkIHdhcyBub3QgdGhlIHNhbWUgYXMgdGhlIGxhc3QgdGltZS48bzpwPjwvbzpwPjwvc3Bhbj48
-L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0ibXNvLW1hcmdpbi10b3AtYWx0OmF1dG87
-bXNvLW1hcmdpbi1ib3R0b20tYWx0OmF1dG8iPjxzcGFuIGxhbmc9IkVOLVVTIj5UaGVyZWZvcmUs
-IGRvIHlvdSB3YW50IHRvIGluY29ycG9yYXRlIHRoZSBwYXRjaCBzdWJtaXR0ZWQgbGFzdCB0aW1l
-Pw0KPG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1z
-by1tYXJnaW4tdG9wLWFsdDphdXRvO21zby1tYXJnaW4tYm90dG9tLWFsdDphdXRvIj48c3BhbiBs
-YW5nPSJFTi1VUyI+SWYgdGhlcmUgaXMgYSBjb25mbGljdCwgSSBjYW4gbW9kaWZ5IHRoZSBwYXRj
-aCBzdWJtaXR0ZWQgbGFzdCB0aW1lLjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2Pg0KPC9k
-aXY+DQo8L2Jsb2NrcXVvdGU+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFu
-Zz0iRU4tVVMiPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxk
-aXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBsYW5nPSJFTi1VUyI+RmVlbCBmcmVlIHRv
-IG1ha2UgYSBuZXcgcGF0Y2ggYXMgeW91IHdhbnQsIEkgZG9uJ3QgaW5zaXN0IG9uIHRoZSBwcmV2
-aW91cyZuYnNwO3ZlcnNpb24uPG86cD48L286cD48L3NwYW4+PC9wPg0KPC9kaXY+DQo8L2Rpdj4N
-CjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBsYW5nPSJFTi1VUyI+SnVzdCBndWFy
-YW50ZWUmbmJzcDt0byByZWJhc2Ugb24gdGhlIGxhdGVzdCBMVFAgaXMgZmluZS48bzpwPjwvbzpw
-Pjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwi
-PjxzcGFuIGxhbmc9IkVOLVVTIj48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4N
-CjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIGxhbmc9IkVOLVVTIj4tLSA8bzpwPjwvbzpwPjwv
-c3Bhbj48L3A+DQo8ZGl2Pg0KPGRpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3Bh
-biBsYW5nPSJFTi1VUyI+UmVnYXJkcyw8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjxk
-aXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBsYW5nPSJFTi1VUyI+TGkgV2FuZzxvOnA+
-PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2Pg0KPC9kaXY+DQo8L2Rpdj4NCjwvZGl2Pg0KPC9kaXY+
-DQo8L2JvZHk+DQo8L2h0bWw+DQo=
-
---_000_1e332d4428ea42aeb59e1173b654ce30huaweicom_--
-
---===============0919572057==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/aio_cancel/8-1.c b/testcases/open_posix_testsuite/conformance/interfaces/aio_cancel/8-1.c
+index 139e9b5..f11e067 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/aio_cancel/8-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/aio_cancel/8-1.c
+@@ -50,7 +50,7 @@ int main(void)
+ 	if (sysconf(_SC_ASYNCHRONOUS_IO) < 200112L)
+ 		return PTS_UNSUPPORTED;
+-	PTS_GET_TMP_FILENAME(tmpfname, "pts_aio_cancel_1_1");
++	PTS_GET_TMP_FILENAME(tmpfname, "pts_aio_cancel_8_1");
+ 	unlink(tmpfname);
+ 	fd = open(tmpfname, O_CREAT | O_RDWR | O_EXCL, S_IRUSR | S_IWUSR);
+ 	if (fd == -1) {
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/aio_read/9-1.c b/testcases/open_posix_testsuite/conformance/interfaces/aio_read/9-1.c
+index 5b980be..e1ae59e 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/aio_read/9-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/aio_read/9-1.c
+@@ -55,7 +55,7 @@ int main(void)
+ 	    || sysconf(_SC_AIO_MAX) == -1)
+ 		return PTS_UNSUPPORTED;
+-	PTS_GET_TMP_FILENAME(tmpfname, "pts_aio_write_4_1");
++	PTS_GET_TMP_FILENAME(tmpfname, "pts_aio_read_9_1");
+ 	unlink(tmpfname);
+ 	fd = open(tmpfname, O_CREAT | O_RDWR | O_EXCL, S_IRUSR | S_IWUSR);
+ 	if (fd == -1) {
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/aio_return/4-1.c b/testcases/open_posix_testsuite/conformance/interfaces/aio_return/4-1.c
+index f380531..a243b3e 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/aio_return/4-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/aio_return/4-1.c
+@@ -50,7 +50,7 @@ int main(void)
+ 	if (sysconf(_SC_ASYNCHRONOUS_IO) < 200112L)
+ 		return PTS_UNSUPPORTED;
+-	PTS_GET_TMP_FILENAME(tmpfname, "pts_aio_return_2_1");
++	PTS_GET_TMP_FILENAME(tmpfname, "pts_aio_return_4_1");
+ 	unlink(tmpfname);
+ 	fd = open(tmpfname, O_CREAT | O_RDWR | O_EXCL, S_IRUSR | S_IWUSR);
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/aio_suspend/3-1.c b/testcases/open_posix_testsuite/conformance/interfaces/aio_suspend/3-1.c
+index ed8173e..615b97d 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/aio_suspend/3-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/aio_suspend/3-1.c
+@@ -53,7 +53,7 @@ int main(void)
+ 	if (sysconf(_SC_ASYNCHRONOUS_IO) < 200112L)
+ 		return PTS_UNSUPPORTED;
+-	PTS_GET_TMP_FILENAME(tmpfname, "pts_aio_suspend_2_1");
++	PTS_GET_TMP_FILENAME(tmpfname, "pts_aio_suspend_3_1");
+ 	unlink(tmpfname);
+ 	fd = open(tmpfname, O_CREAT | O_RDWR | O_EXCL, S_IRUSR | S_IWUSR);
+ 	if (fd == -1) {
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/aio_write/7-1.c b/testcases/open_posix_testsuite/conformance/interfaces/aio_write/7-1.c
+index 5311a4a..277573a 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/aio_write/7-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/aio_write/7-1.c
+@@ -55,7 +55,7 @@ int main(void)
+ 	    || sysconf(_SC_AIO_MAX) == -1)
+ 		return PTS_UNSUPPORTED;
+-	PTS_GET_TMP_FILENAME(tmpfname, "pts_aio_write_4_1");
++	PTS_GET_TMP_FILENAME(tmpfname, "pts_aio_write_7_1");
+ 	unlink(tmpfname);
+ 	fd = open(tmpfname, O_CREAT | O_RDWR | O_EXCL, S_IRUSR | S_IWUSR);
+ 	if (fd == -1) {
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/lio_listio/5-1.c b/testcases/open_posix_testsuite/conformance/interfaces/lio_listio/5-1.c
+index e445773..7eb6448 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/lio_listio/5-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/lio_listio/5-1.c
+@@ -55,7 +55,7 @@ int main(void)
+ 	if (sysconf(_SC_ASYNCHRONOUS_IO) < 200112L)
+ 		exit(PTS_UNSUPPORTED);
+-	PTS_GET_TMP_FILENAME(tmpfname, "pts_lio_listio_4_1");
++	PTS_GET_TMP_FILENAME(tmpfname, "pts_lio_listio_5_1");
+ 	unlink(tmpfname);
+ 	fd = open(tmpfname, O_CREAT | O_RDWR | O_EXCL, S_IRUSR | S_IWUSR);
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/lio_listio/7-1.c b/testcases/open_posix_testsuite/conformance/interfaces/lio_listio/7-1.c
+index 444555e..4e8afb6 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/lio_listio/7-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/lio_listio/7-1.c
+@@ -73,7 +73,7 @@ int main(void)
+ 	if (sysconf(_SC_ASYNCHRONOUS_IO) < 200112L)
+ 		exit(PTS_UNSUPPORTED);
+-	PTS_GET_TMP_FILENAME(tmpfname, "pts_lio_listio_4_1");
++	PTS_GET_TMP_FILENAME(tmpfname, "pts_lio_listio_7_1");
+ 	unlink(tmpfname);
+ 	fd = open(tmpfname, O_CREAT | O_RDWR | O_EXCL, S_IRUSR | S_IWUSR);
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/mmap/11-6.c b/testcases/open_posix_testsuite/conformance/interfaces/mmap/11-6.c
+index 2aea927..d1f8991 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/mmap/11-6.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/mmap/11-6.c
+@@ -59,7 +59,7 @@ int main(void)
+ 	/* mmap will create a partial page */
+ 	len = page_size / 2;
+-	PTS_GET_TMP_FILENAME(tmpfname, "pts_mmap_11_5");
++	PTS_GET_TMP_FILENAME(tmpfname, "pts_mmap_11_6");
+ 	child = fork();
+ 	switch (child) {
+ 	case 0:
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/mmap/32-1.c b/testcases/open_posix_testsuite/conformance/interfaces/mmap/32-1.c
+index bb3ab74..d58fc8c 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/mmap/32-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/mmap/32-1.c
+@@ -31,7 +31,7 @@ int main(void)
+ 	void *pa;
+ 	int fd;
+-	PTS_GET_TMP_FILENAME(tmpfname, "pts_mmap_31_1");
++	PTS_GET_TMP_FILENAME(tmpfname, "pts_mmap_32_1");
+ 	unlink(tmpfname);
+ 	fd = open(tmpfname, O_CREAT | O_RDWR | O_EXCL, S_IRUSR | S_IWUSR);
+ 	if (fd == -1) {
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/mmap/6-3.c b/testcases/open_posix_testsuite/conformance/interfaces/mmap/6-3.c
+index b38833b..9aef16c 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/mmap/6-3.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/mmap/6-3.c
+@@ -53,7 +53,7 @@ int main(void)
+ 	int status;
+ 	int sig_num;
+-	PTS_GET_TMP_FILENAME(tmpfname, "pts_mmap_6_2");
++	PTS_GET_TMP_FILENAME(tmpfname, "pts_mmap_6_3");
+ 	unlink(tmpfname);
+ 	fd = open(tmpfname, O_CREAT | O_RDWR | O_EXCL, S_IRUSR | S_IWUSR);
+ 	if (fd == -1) {
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/munmap/1-2.c b/testcases/open_posix_testsuite/conformance/interfaces/munmap/1-2.c
+index 9d0f918..31f2109 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/munmap/1-2.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/munmap/1-2.c
+@@ -73,7 +73,7 @@ int main(void)
+ 	len = page_size + 1;
+ 	/* Create tmp file */
+-	PTS_GET_TMP_FILENAME(tmpfname, "pts_munmap_1_1");
++	PTS_GET_TMP_FILENAME(tmpfname, "pts_munmap_1_2");
+ 	unlink(tmpfname);
+ 	fd = open(tmpfname, O_CREAT | O_RDWR | O_EXCL, S_IRUSR | S_IWUSR);
+ 	if (fd == -1) {
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/munmap/3-1.c b/testcases/open_posix_testsuite/conformance/interfaces/munmap/3-1.c
+index 53e89de..1879719 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/munmap/3-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/munmap/3-1.c
+@@ -54,7 +54,7 @@ int main(void)
+ 	len = page_size + 1;
+ 	/* Create tmp file */
+-	PTS_GET_TMP_FILENAME(tmpfname, "pts_munmap_1_1");
++	PTS_GET_TMP_FILENAME(tmpfname, "pts_munmap_3_1");
+ 	unlink(tmpfname);
+ 	fd = open(tmpfname, O_CREAT | O_RDWR | O_EXCL, S_IRUSR | S_IWUSR);
+ 	if (fd == -1) {
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/munmap/9-1.c b/testcases/open_posix_testsuite/conformance/interfaces/munmap/9-1.c
+index 0280a0e..371e3b0 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/munmap/9-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/munmap/9-1.c
+@@ -49,7 +49,7 @@ int main(void)
+ 	len = page_size + 1;
+ 	/* Create tmp file */
+-	PTS_GET_TMP_FILENAME(tmpfname, "pts_munmap_1_1");
++	PTS_GET_TMP_FILENAME(tmpfname, "pts_munmap_9_1");
+ 	unlink(tmpfname);
+ 	fd = open(tmpfname, O_CREAT | O_RDWR | O_EXCL, S_IRUSR | S_IWUSR);
+ 	if (fd == -1) {
+2.6.2
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============0919572057==--
