@@ -1,82 +1,77 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1595035F106
-	for <lists+linux-ltp@lfdr.de>; Wed, 14 Apr 2021 11:47:48 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F95E35F118
+	for <lists+linux-ltp@lfdr.de>; Wed, 14 Apr 2021 11:55:16 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A90063C70D5
-	for <lists+linux-ltp@lfdr.de>; Wed, 14 Apr 2021 11:47:47 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 5DF803C70F5
+	for <lists+linux-ltp@lfdr.de>; Wed, 14 Apr 2021 11:55:10 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id F1D3B3C1B0E
- for <ltp@lists.linux.it>; Wed, 14 Apr 2021 11:47:42 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 83AE13C1B4C
+ for <ltp@lists.linux.it>; Wed, 14 Apr 2021 11:55:06 +0200 (CEST)
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ (us-smtp-delivery-124.mimecast.com [63.128.21.124])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 72DC0200AE3
- for <ltp@lists.linux.it>; Wed, 14 Apr 2021 11:47:41 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id AEF401A00A3C
+ for <ltp@lists.linux.it>; Wed, 14 Apr 2021 11:55:05 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1618393660;
+ s=mimecast20190719; t=1618394104;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=6lfLCxrefvLRa7w2htsdF5HfhFjMfAEycbsNAGuS1Sg=;
- b=BDhtZK3oplgR3Cou4njnoCEPJruFjxEPmEfjD+BFSTjQcgLjrtGWFkICAEwHaU7AuXo9v5
- ql+yCxhuHUYtZoe8NGO9WPWAXkU/r4y0SnR4/WyCZM/KmQ63lJPeTQNBFv/qBw40NELs+v
- r5XujePMRx1+8GCf5Ds3rjQSseXXsWg=
-Received: from mail-yb1-f198.google.com (mail-yb1-f198.google.com
- [209.85.219.198]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-597-E00nP5cGOEOlFT5qhASB4Q-1; Wed, 14 Apr 2021 05:47:36 -0400
-X-MC-Unique: E00nP5cGOEOlFT5qhASB4Q-1
-Received: by mail-yb1-f198.google.com with SMTP id h69so14830670ybg.10
- for <ltp@lists.linux.it>; Wed, 14 Apr 2021 02:47:36 -0700 (PDT)
+ bh=6QDzK7Sjgdh3nS0Um5bm/85MViFyU1QyHfKHKDUTnMQ=;
+ b=OMD8yygWMLV0c108DBuCgRnSd73ktlRBQeHL6HF7YTbCIHJs20Gm5WEVB/YMaLlLhmpgu/
+ jxKd5/eINffCDUtv/pU1Dr2KgedRwhjRdpumtH3IFVy15zqjzZrTLCOC0RumLy4C3uOlQj
+ EVSJxc1L+MQjxvuQFyabDzHeimKCP+k=
+Received: from mail-yb1-f199.google.com (mail-yb1-f199.google.com
+ [209.85.219.199]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-562-mztmzG3EP22TOMDVHv49yg-1; Wed, 14 Apr 2021 05:55:00 -0400
+X-MC-Unique: mztmzG3EP22TOMDVHv49yg-1
+Received: by mail-yb1-f199.google.com with SMTP id t9so8883460ybd.11
+ for <ltp@lists.linux.it>; Wed, 14 Apr 2021 02:55:00 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=6lfLCxrefvLRa7w2htsdF5HfhFjMfAEycbsNAGuS1Sg=;
- b=H7FBfYh/SEUdb2hsCb5a2Hdtq0X50iiAz/l9u9G15CS0mkrUEucPSeqyqe5EJv08Up
- rATSVLGrnOtO3pG6ILWCNRGaScsFSgpF7bMluvmV1lvGYvnKx0lxfLo1jBHqPT43YZKr
- I4V5YBdBE9WdEQuNZV0v68Ss4n1Ry661fdPjtrfN6ZHGojb7DHltAD28/fFG/1xeQlop
- gBxlVmPjhrivf6AUdEXRNqJxmvOFr7TO4F2oM5iYuP0QVpmgSA3ExhuayB2s9+5Uszs+
- 5eqE1F9XT45ftH23ajPCD6MzDer50ax7u26piO0NDTrlXVLvnkwmafpfuBmdUtkV2dHd
- 8mzA==
-X-Gm-Message-State: AOAM531nxWYX41R4HTVJwj1o0JKy9PMX35ftjuVucecRoQhqeixa7zTH
- c0FzE8ZmGggv3g5KEddebrEva7EQX69186EuF5P37n0a60N8AwBPSuCUgTqUcXeq6RnsAopMSuV
- JuVQ/MUtRan5lG5yatWGq/YGNbcg=
-X-Received: by 2002:a5b:787:: with SMTP id b7mr51918543ybq.243.1618393655869; 
- Wed, 14 Apr 2021 02:47:35 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJyvA4NzE0mWXni3pcTILITGkbMHTFQ4crO1+6PYQQAwZ7Tl9yHjBkvDEdIZhp/B241VrT9XARP5jYhibYPRIvc=
-X-Received: by 2002:a5b:787:: with SMTP id b7mr51918517ybq.243.1618393655597; 
- Wed, 14 Apr 2021 02:47:35 -0700 (PDT)
+ bh=6QDzK7Sjgdh3nS0Um5bm/85MViFyU1QyHfKHKDUTnMQ=;
+ b=UdFRDlZGpW6ztSRMjBgHAAD7MjTqsvjHWlwbIoZDrsvEFGtK7gotRETTnBspK2sxhh
+ W4Wtk6ScVw3z+Sdf5kU6HESC8HWlNF0iPPteIG/nBaSJralABzeYVszrwAIRNCOI2AOg
+ 7JGLCPWfXlNQGSEDaQj3SZ6vhSGFbZ0ziGGGbeMxI0KWsHTZDbOCZ2qAnMWLLXKiKrt7
+ qOp40lsF0iHAACJM8cYHIPsJJHYaIkxAi69YTv/UygGV0hUiKLtbYg2WnwC8mVwaQzD4
+ CdFuA9RtnEkjhDYtPorKZ6gOGfFUMRymOrZbc2LB2fgc6Mcv/YKNAObEEeIGE6IsLZd2
+ mtBg==
+X-Gm-Message-State: AOAM533x30A/qfDDyPa9PWPss/xp9SQkSIFLliawTEHA1A0t+tbpzRdV
+ WCRi+caA3ADwztxmCkQ821daZbsr/D7GoHP63zJ6DiG6q4ZwcuJKytGKZlzeF1dVyD+l/WXCDOe
+ Mi6ug9SBFbGy5cIExLcTKMFoVK34=
+X-Received: by 2002:a25:4b43:: with SMTP id y64mr33923524yba.366.1618394099571; 
+ Wed, 14 Apr 2021 02:54:59 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJyLUc8mlliG2oAxmywitizNF0IGH0HyvA38OoRKTJmHOeO7f5gytN7pwjPNFqlVvm7t2rYZKy91T//ACj+b3KA=
+X-Received: by 2002:a25:4b43:: with SMTP id y64mr33923514yba.366.1618394099455; 
+ Wed, 14 Apr 2021 02:54:59 -0700 (PDT)
 MIME-Version: 1.0
-References: <1617765607-78263-1-git-send-email-wangxin410@huawei.com>
- <CAEemH2ctSMR5OF=0TQX1eNmTE7PcdEdMbjoYXc3RxiBsyfzcuw@mail.gmail.com>
- <91a235700b494bdf9a9a7dd1901aa947@huawei.com>
- <CAEemH2dU2r8gFS5r3os7UwXFUEmmPqR9CnAizXbP_FHP+Evd+A@mail.gmail.com>
- <1e332d4428ea42aeb59e1173b654ce30@huawei.com>
-In-Reply-To: <1e332d4428ea42aeb59e1173b654ce30@huawei.com>
+References: <20210414093710.6365-1-zhaogongyi@huawei.com>
+In-Reply-To: <20210414093710.6365-1-zhaogongyi@huawei.com>
 From: Li Wang <liwang@redhat.com>
-Date: Wed, 14 Apr 2021 17:47:24 +0800
-Message-ID: <CAEemH2ePd0td_fiK9MF66Mu9_XOzi7pa2pZLQj2t1qGwu0LxcQ@mail.gmail.com>
-To: "wangxin (CQ)" <wangxin410@huawei.com>
+Date: Wed, 14 Apr 2021 17:54:48 +0800
+Message-ID: <CAEemH2fE_ctXXNaTONanyX8EgooiPH2E2bdC+vWCK0rYX2_u8A@mail.gmail.com>
+To: Zhao Gongyi <zhaogongyi@huawei.com>, Wang Xin <wangxin410@huawei.com>
 Authentication-Results: relay.mimecast.com;
  auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH] openposix/conformance/interfaces: Correct typos
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -90,85 +85,39 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============1671113206=="
+Content-Type: multipart/mixed; boundary="===============0266292078=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1671113206==
-Content-Type: multipart/alternative; boundary="000000000000f2f4da05bfeba2c1"
+--===============0266292078==
+Content-Type: multipart/alternative; boundary="00000000000067b09105bfebbd13"
 
---000000000000f2f4da05bfeba2c1
+--00000000000067b09105bfebbd13
 Content-Type: text/plain; charset="UTF-8"
 
-Hi Xin,
+Hi Gongyi,
 
-I'm sorry I don't know how did you do make a new patch, I still can NOT
-merge it to my local branch.
-
-Btw, the one(about cpuset) I also solved the conflict by manual and
-then applied, I guess you proably need to check your git, or did you
-really make a patch via `git format-patch`?
-
-After checking with scripts/checkpatch.pl, it repor errors like:
-
-$ ./scripts/checkpatch.pl
-~/v2-openposix-conformance-interfaces-Correct-typos.patch
-WARNING: Possible unwrapped commit description (prefer a maximum 75 chars
-per line)
-#73:
-Types in the name of the temporary files: For example, in aio_cancel/8-1.c
-file,
-
-ERROR: patch seems to be corrupt (line wrapped?)
-#109: FILE:
-testcases/open_posix_testsuite/conformance/interfaces/aio_read/9-1.c:55:
-index 5b980be..e1ae59e 100644
-
-total: 1 errors, 1 warnings, 113 lines checked
-
+This patch works well, pushed.
 
 -- 
 Regards,
 Li Wang
 
---000000000000f2f4da05bfeba2c1
+--00000000000067b09105bfebbd13
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div class=3D"gmail_quote"><div><span class=3D"gmail_defau=
-lt" style=3D"font-size:small">Hi Xin,</span></div><div><span class=3D"gmail=
-_default" style=3D"font-size:small"><br></span></div><div><span class=3D"gm=
-ail_default" style=3D"font-size:small">I&#39;m sorry I don&#39;t know how d=
-id you do make=C2=A0a new patch, I still can NOT</span></div><div><span cla=
-ss=3D"gmail_default" style=3D"font-size:small">merge it to my local branch.=
-=C2=A0</span></div><div><span class=3D"gmail_default" style=3D"font-size:sm=
-all"><br></span></div><div><span class=3D"gmail_default" style=3D"font-size=
-:small">Btw, the one(about cpuset) I also solved the conflict=C2=A0by manua=
-l and</span></div><div><span class=3D"gmail_default" style=3D"font-size:sma=
-ll">then applied,=C2=A0</span>I guess you proably=C2=A0need to check your g=
-it<span class=3D"gmail_default" style=3D"font-size:small">,</span> or did y=
-ou</div><div><span class=3D"gmail_default" style=3D"font-size:small">really=
- </span>make a patch via `git format-patch`?</div><div><span class=3D"gmail=
-_default" style=3D"font-size:small"><br></span></div><div><span class=3D"gm=
-ail_default" style=3D"font-size:small">After checking with scripts/<a href=
-=3D"http://checkpatch.pl">checkpatch.pl</a>, it repor errors like:</span></=
-div><div><span class=3D"gmail_default" style=3D"font-size:small"><br></span=
-></div>$ ./scripts/<a href=3D"http://checkpatch.pl">checkpatch.pl</a> ~/v2-=
-openposix-conformance-interfaces-Correct-typos.patch <br>WARNING: Possible =
-unwrapped commit description (prefer a maximum 75 chars per line)<br>#73: <=
-br>Types in the name of the temporary files: For example, in aio_cancel/8-1=
-.c file,<br><br>ERROR: patch seems to be corrupt (line wrapped?)<br>#109: F=
-ILE: testcases/open_posix_testsuite/conformance/interfaces/aio_read/9-1.c:5=
-5:<br>index 5b980be..e1ae59e 100644<br><br>total: 1 errors, 1 warnings, 113=
- lines checked<br><div><span class=3D"gmail_default" style=3D"font-size:sma=
-ll"></span><br></div></div><div><br></div>-- <br><div dir=3D"ltr" class=3D"=
-gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></=
-div></div></div></div>
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small">Hi Gongyi,</div><div class=3D"gmail_default" style=3D"font-si=
+ze:small"><br></div><div class=3D"gmail_default" style=3D"font-size:small">=
+This patch works well, pushed.</div></div><div><br></div>-- <br><div dir=3D=
+"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><di=
+v>Li Wang<br></div></div></div></div>
 
---000000000000f2f4da05bfeba2c1--
+--00000000000067b09105bfebbd13--
 
 
---===============1671113206==
+--===============0266292078==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -178,5 +127,5 @@ Content-Disposition: inline
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
 
---===============1671113206==--
+--===============0266292078==--
 
