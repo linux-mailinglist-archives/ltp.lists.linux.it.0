@@ -2,78 +2,43 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8AC7135EE58
-	for <lists+linux-ltp@lfdr.de>; Wed, 14 Apr 2021 09:29:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C190435EED1
+	for <lists+linux-ltp@lfdr.de>; Wed, 14 Apr 2021 10:04:25 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7639D3C7104
-	for <lists+linux-ltp@lfdr.de>; Wed, 14 Apr 2021 09:29:39 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 327FE3C70FE
+	for <lists+linux-ltp@lfdr.de>; Wed, 14 Apr 2021 10:04:25 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E42C23C1B4D
- for <ltp@lists.linux.it>; Wed, 14 Apr 2021 09:29:35 +0200 (CEST)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 96B103C00A9
+ for <ltp@lists.linux.it>; Wed, 14 Apr 2021 10:04:21 +0200 (CEST)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id CACEA14010D6
- for <ltp@lists.linux.it>; Wed, 14 Apr 2021 09:29:34 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1618385373;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=yJx2ambwg/rIBNLEeda+AR66p++9M1e7mnWKz5wtNOU=;
- b=I6OW9EVT1WPgd+081BO4QGu1xMUKx6yU6h99nQsQL4BuNWhEdW6vMLMCLDwU68w0kSpm8t
- FIklWILAUqpCsvMOG74XX16yKoaPBwvXhZsOHpBkAFc3ambpRcvqdvr643B5OB4YHa0y5K
- HHiA77o/U+yPJ07/2RKkN0TqtiNczyc=
-Received: from mail-yb1-f199.google.com (mail-yb1-f199.google.com
- [209.85.219.199]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-531-5TzZZGEjP3iOshd_LCIyAg-1; Wed, 14 Apr 2021 03:29:31 -0400
-X-MC-Unique: 5TzZZGEjP3iOshd_LCIyAg-1
-Received: by mail-yb1-f199.google.com with SMTP id i6so19039027ybk.2
- for <ltp@lists.linux.it>; Wed, 14 Apr 2021 00:29:31 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=yJx2ambwg/rIBNLEeda+AR66p++9M1e7mnWKz5wtNOU=;
- b=FjdvxaiCipXzjpqHuew9yw5pyZ00TmWhp3hnV1lACOaHqUsjqHwWAf0pQPvnDY7dSG
- V8kUQVjUZu44Jq5K+ujaJAT8CSjX2Negn/IDJ+DuTD9Yr4MlBMIMGyKxYFGOpGX75Ur0
- tEdIXi2t0DgGIRSujHuf65/W74WGrKRKc0TuuOipKgc8UsJIRMKUv6/wk0sd9EEcBgas
- PO5SSfG2voStsGUDA6wO+Q/gqyvkGFy7e0M34phKdcmgK9CA3JnwXcPy8VU6IRVjx++b
- QXjCc8R7E4WeN0rDRgMwzmoqWVlQcGMsZLqSbwDCV8atSrkr08icQ68GBNiiojE11N9A
- gd8g==
-X-Gm-Message-State: AOAM5301UTxibfKYXHQ3aPlLY6wNNyzjYheb/urZTJ434sEPrsctnTU9
- K6+BDUwCdxp1I91enclZA3EZLeb7+T/F76zpbnBYV23tyiFfaQQWV3mpIbjNjF64rGAcaPeFZGD
- 4g5ez/BoctOLX1y8R66fjJD6XR+0=
-X-Received: by 2002:a5b:787:: with SMTP id b7mr51231804ybq.243.1618385370421; 
- Wed, 14 Apr 2021 00:29:30 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJz7Dv/hWy3fOiv2tkRmpz158IcnoUofrmxCbupIDZKN8RDCeKibiSbRQW/uFpoNE3VR4UmrTCAelqZZOZfommk=
-X-Received: by 2002:a5b:787:: with SMTP id b7mr51231791ybq.243.1618385370292; 
- Wed, 14 Apr 2021 00:29:30 -0700 (PDT)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 07593200B9E
+ for <ltp@lists.linux.it>; Wed, 14 Apr 2021 10:04:20 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 3BA59AD09;
+ Wed, 14 Apr 2021 08:04:20 +0000 (UTC)
+References: <F3D3F6AC3820BB4C9FCA340DB5C32CB4038B507A@dggeml531-mbx.china.huawei.com>
+User-agent: mu4e 1.4.15; emacs 27.2
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: zhaogongyi <zhaogongyi@huawei.com>
+In-reply-to: <F3D3F6AC3820BB4C9FCA340DB5C32CB4038B507A@dggeml531-mbx.china.huawei.com>
+Date: Wed, 14 Apr 2021 09:04:19 +0100
+Message-ID: <87im4p2sxo.fsf@suse.de>
 MIME-Version: 1.0
-References: <1617781808-82555-1-git-send-email-wangxin410@huawei.com>
-In-Reply-To: <1617781808-82555-1-git-send-email-wangxin410@huawei.com>
-From: Li Wang <liwang@redhat.com>
-Date: Wed, 14 Apr 2021 15:29:19 +0800
-Message-ID: <CAEemH2cYAagZj9O9j8wKDwECHmARLoCtWwVkpBnZOVg283rCoA@mail.gmail.com>
-To: Wang Xin <wangxin410@huawei.com>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] controllers/cpuset: Fix bug for type of variable
- c in checkopt
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] controllers/memcg: Add testcase for
+ kmem_limit_in_bytes of memory cgroup
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,46 +50,80 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============0280846534=="
+Reply-To: rpalethorpe@suse.de
+Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0280846534==
-Content-Type: multipart/alternative; boundary="0000000000001b3bef05bfe9b5f7"
+Hello,
 
---0000000000001b3bef05bfe9b5f7
-Content-Type: text/plain; charset="UTF-8"
+zhaogongyi <zhaogongyi@huawei.com> writes:
 
-Patch applied, thanks for fix this issue.
+> Hi Richard,
+>
+> Thanks so much for your review!
+>
+>> >> > +	pid = SAFE_FORK();
+>> >> > +	if (!pid) {
+>> >> > +		SAFE_SETPGID(0, 0);
+>> >> > +
+>> >> > +		SAFE_FILE_PRINTF(KMEM_LIMIT_IN_BYTES, "%d", 0);
+>> >> > +
+>> >> > +		SAFE_FILE_PRINTF(CGROUP_PROCS, "%d", getpgid(getpid()));
+>> >>
+>> >> After setting this we should avoid doing any work in this process
+>> >> except calling fork. AFAIK there is no guarantee that some other
+>> >> syscall or tasklet etc. Won't try to allocate memory and also fail.
+>> >>
+>> >
+>> > It seems that we would not be afraid since there is no asynchronous
+>> > operation in the test process.
+>> 
+>> IIRC one of the problems with tasklets is they can run in any process. Also,
+>> in theory stdout can point to anything. So write() might allocate memory.
+>> 
+>> Why not do something like:
+>> 
+>> SAFE_FILE_PRINTF(CGROUP_PROCS, "%d", getpgid(getpid())); errno = 0;
+>> fork(); exit(errno);
+>> 
+>> Then check that errno == ENOMEM, in the parent process?
+>>
+>>
+>>> > +		TEST(fork());
+>>> > +		if (TST_RET == -1) {
+>>> > +			if (TST_ERR == ENOMEM)
+>>> > +				tst_res(TPASS, "fork fail as expected");
+>>> > +			else
+>>> > +				tst_brk(TFAIL | TTERRNO,
+>>> > +					"fork fail as unexpected");
+>
+> As far as my personal understanding, after setpgid, the controlled process is the sub process whose process id is pid, excluded from the parent process, and the functions tst_res or tst_brk
+> Is executed in its parent process.
+
+setpgid(0, 0) sets the process group id (pgid) to be the same as the
+(pid), which creates a new process group. This probably has the effect
+that the calling process will not recieve signals from the
+terminal. Also it should receive SIGTTOU when calling tst_res and
+tst_brk, if stdout/stderr point to a terminal with the right
+configuration.
+
+AFAICT process groups are for shells and affect where signals are
+sent. Nothing else.
+
+>
+> In this case, is it no affection to this test?
+>
+>
+> Best Regards,
+> Gongyi
+
 
 -- 
-Regards,
-Li Wang
-
---0000000000001b3bef05bfe9b5f7
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><div class=3D"gmail_quote"><div dir=3D"ltr" c=
-lass=3D"gmail_attr"><div class=3D"gmail_default" style=3D"font-size:small">=
-Patch applied, thanks for fix this issue.</div></div></div><div><br></div>-=
-- <br><div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><div>Rega=
-rds,<br></div><div>Li Wang<br></div></div></div></div>
-
---0000000000001b3bef05bfe9b5f7--
-
-
---===============0280846534==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============0280846534==--
-
