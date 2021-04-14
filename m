@@ -2,172 +2,42 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id D36A735F619
-	for <lists+linux-ltp@lfdr.de>; Wed, 14 Apr 2021 16:24:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17F6235F81B
+	for <lists+linux-ltp@lfdr.de>; Wed, 14 Apr 2021 17:48:31 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 959B33C70E5
-	for <lists+linux-ltp@lfdr.de>; Wed, 14 Apr 2021 16:24:20 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id D5BB53C70F5
+	for <lists+linux-ltp@lfdr.de>; Wed, 14 Apr 2021 17:48:30 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 059BE3C1B70
- for <ltp@lists.linux.it>; Wed, 14 Apr 2021 16:24:18 +0200 (CEST)
-Received: from userp2130.oracle.com (userp2130.oracle.com [156.151.31.86])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id C8C363C04B0
+ for <ltp@lists.linux.it>; Wed, 14 Apr 2021 17:48:29 +0200 (CEST)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id B6AD31400E40
- for <ltp@lists.linux.it>; Wed, 14 Apr 2021 16:24:17 +0200 (CEST)
-Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
- by userp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 13EEJpkS157401;
- Wed, 14 Apr 2021 14:24:04 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=from : subject : to :
- references : message-id : date : in-reply-to : content-type :
- content-transfer-encoding : mime-version; s=corp-2020-01-29;
- bh=z3j/6FsPyAgfIKwhL7Kq6fL0c1iznQpDGP73o/R2pvo=;
- b=OR1RX3JD5kt/wo78xCP1WLMSC6pXQdavyegBMxDw/NHo2ojfHt6X1xk8F/I/M5DZy1m9
- Ilc/YrLaMi2x5fhshIMmZXAmny7icpURPwIIp1V4HGnvq8Y2mm81JG1b8KfuqQO/UwMI
- A63TXLH8n1Ei88KLUjB/vpQqV5eA2g2mv5rfyqtvPkpJktUQi2ofHqXmNR2FGTLRRxFa
- F3gjRnzCj7Aq4UCYFwpGULVOJIkU6+gKmKJUFH8gJ8+uv2BtN5gnbzb7MjY/L/EOhn3k
- Q4n7p7ML8yg7KCLCTBMa5vem6vO5iGNBeQAtuXc31+TWnVtUIqKIxJGpcK0zdFFPFqCn UA== 
-Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
- by userp2130.oracle.com with ESMTP id 37u3erjmdn-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 14 Apr 2021 14:24:04 +0000
-Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
- by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 13EEKPi9050345;
- Wed, 14 Apr 2021 14:24:04 GMT
-Received: from nam11-co1-obe.outbound.protection.outlook.com
- (mail-co1nam11lp2172.outbound.protection.outlook.com [104.47.56.172])
- by userp3030.oracle.com with ESMTP id 37unxyfjjk-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 14 Apr 2021 14:24:04 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=X29/zC5EISuwCThBmJ/6po+dGRTc5R9f6DDzb6DbfLVwM1xYSrAO4Tb/Fzw8+DlQXedw/zJZ3w5VHokulldCW3zwm8RJ2JwonHXNVEXgPXhuVEJcyzvHJDvBLMlJctecc3UAxGD6Y/Nk7gcJF2DBxzJyRFPlHEyAMXXHz4NgrdQ7odSotKojv1btv4tEEm65iOxrRQ3RkUGux47L4lwWptKHM0SmdTTwcAiAQQull7D8o+NlmC4fFKr0ImMDg3PJPGG9ZyttrOlPAjIW4Im4tkMG5ecVRKBejrjSGuys9XHc0m45Zbf2bHl71WmjJwx4XXVeh7MIAf6l9EmT4yOB2A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=z3j/6FsPyAgfIKwhL7Kq6fL0c1iznQpDGP73o/R2pvo=;
- b=nKtb4Y4p2gtmMHminTqM+JF30nMyvaJQTrW0qu4nvxcaVm/lH0PDpYe3glDUuichNIXurXQTHBDXb1n2bm99Lhe8z5PsQAaBZ+B0Xp1636ju6S3G1jWVa44gUvZBlRToF5S0SAxqKYc+YOgZKdp/n6igIo3jF+Mu+Z9lwsynDlVytA0vBcYuPH6xGH/xjVjGMJsx/aN5gcJJekvqUzhID+R/7PnK9kDOEXXM53qaw1hbA27xEaGSilr2dMhNlbEG+9y7NCn8KIrcU5VvdtLy9tpBvuZLFSZn8F/IWxb7cQnd66bANUcA3LU4731aUqz3OiG5pgxOobRSTStwI4FOMA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=z3j/6FsPyAgfIKwhL7Kq6fL0c1iznQpDGP73o/R2pvo=;
- b=grGxv9K2uWYCaA4YwUQ9YW/cGq+VElzAjwk7KlQ4Q8hmgOWvfqSTo5BGUORcEso+2D5BSgvCMDOiKg3ZweqJR1niW3ygRgBCHQdPhQ1d0G1J4RNrrJLCR2Tz2gFeQASTSXgDyw6WNZKR4J6DAkZyAWaqcKuftUUQnbxBJviIuDQ=
-Authentication-Results: lists.linux.it; dkim=none (message not signed)
- header.d=none;lists.linux.it; dmarc=none action=none header.from=oracle.com;
-Received: from BYAPR10MB3592.namprd10.prod.outlook.com (2603:10b6:a03:11f::31)
- by SJ0PR10MB4541.namprd10.prod.outlook.com (2603:10b6:a03:2db::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4020.18; Wed, 14 Apr
- 2021 14:24:02 +0000
-Received: from BYAPR10MB3592.namprd10.prod.outlook.com
- ([fe80::2d5f:f33e:169c:db9]) by BYAPR10MB3592.namprd10.prod.outlook.com
- ([fe80::2d5f:f33e:169c:db9%7]) with mapi id 15.20.4042.018; Wed, 14 Apr 2021
- 14:24:02 +0000
-From: Alexey Kodanev <alexey.kodanev@oracle.com>
-To: Xie Ziyao <xieziyao@huawei.com>, ltp@lists.linux.it
-References: <20210326031254.202606-1-xieziyao@huawei.com>
- <20210326031254.202606-2-xieziyao@huawei.com>
-Message-ID: <27b5734d-64e8-b316-c165-0e6563dc669f@oracle.com>
-Date: Wed, 14 Apr 2021 17:23:55 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.9.1
-In-Reply-To: <20210326031254.202606-2-xieziyao@huawei.com>
-Content-Language: en-US
-X-Originating-IP: [95.161.221.177]
-X-ClientProxiedBy: FR3P281CA0036.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:1c::18) To BYAPR10MB3592.namprd10.prod.outlook.com
- (2603:10b6:a03:11f::31)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 5647C200E01
+ for <ltp@lists.linux.it>; Wed, 14 Apr 2021 17:48:28 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 87169B00D;
+ Wed, 14 Apr 2021 15:48:27 +0000 (UTC)
+Date: Wed, 14 Apr 2021 17:39:08 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Richard Palethorpe <rpalethorpe@suse.com>
+Message-ID: <YHcMnBaznFaBPj2U@yuki>
+References: <20210412145506.26894-1-rpalethorpe@suse.com>
+ <20210412145506.26894-4-rpalethorpe@suse.com>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [192.168.1.40] (95.161.221.177) by
- FR3P281CA0036.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:1c::18) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4042.6 via Frontend Transport; Wed, 14 Apr 2021 14:24:01 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 930e0963-39a8-414c-6eec-08d8ff50f369
-X-MS-TrafficTypeDiagnostic: SJ0PR10MB4541:
-X-Microsoft-Antispam-PRVS: <SJ0PR10MB4541F7852AF08BECADEC364BFD4E9@SJ0PR10MB4541.namprd10.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:112;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: C6ValCKDxQMKGwAKbWAX6f3pUL1lZXAvJxF1aA+7fUVOe/xrwUmCW4KMNDxnwxfaCshAJItrCcSpdrKqSX2xtli4fJjW7RZe6DHTuIYrteLOhf8FGfHgMYkHzomWTyiSoXhrGyEcEhtu9/G5qhCnhc2SOMv1CO7Agx0Qwh5PuWfBrJ369kSGtqunTNL6MVa57BvcYx75e/KiFy6VUC8Z7+tI9i7AdcUY5+/Hgi7ATyCikq3foobGJR2bxFrk8rz8I90kKQt9b27L0enRfVNXga7wYJYFu1Z+kkSesRY2Df9Lkm50DIEoP1VJlDNqs6xotUJ23eb8MUiR4+5xg67Hupp9j4YBpwYKIRs/v+HA3/2VnR0Ze5rduUVWvSYlZqlmEoDPTWSZeHJdQVRGS2O35J7yJQLiJ7kvRdr57TxcYrBEpyOl0+8i2WMr4tUSjFOcgQww4kulgmzVxq53Thdu8xuVEk1qDE9Oj7rZ/6Ue3CV601QA3uicpdzvIBvPsIPNRkPvEDKtMg6bpULEES4/bpc/fOO0eTWIj1BIdtcDrw0223Qx0y+pNKS8Tx6d5Dyg5uf9BZ+jf9Sl7bcNEQpp4uznICj1FGjBs1X2/QVZ1TXOeMgVtVWBMbdu86rOh/jmwCWhnjtqcHCkkM4+NcSXjEXATC/eaEbyGRinmT3y4UdAPW/4I+pk6jJ4fZwnLJEA8T15L/WEFtpCvAS8O2GlUQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR10MB3592.namprd10.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(396003)(136003)(366004)(346002)(39860400002)(376002)(16576012)(86362001)(44832011)(186003)(2906002)(8936002)(16526019)(5660300002)(6666004)(66476007)(316002)(6486002)(53546011)(38100700002)(31696002)(36756003)(478600001)(2616005)(8676002)(83380400001)(956004)(31686004)(26005)(66946007)(66556008)(2004002)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?UzRPaUtJNjI0NnZYaERjbmJRM2lRYitPZjVWRzhDNElvcmI0N2poMHZzWjFK?=
- =?utf-8?B?YlZHTTlxbkZyZTg4QmtRbTdlaE9US0pvemozWC91WWp3U0dvc0YzV2VTT2Zi?=
- =?utf-8?B?RWVuQ3FZOXF4OGpUdkVaaFplZ3VubUZFNUMwRVJ5bjlGaklJMVNjaVdvMk5l?=
- =?utf-8?B?dGxLL3lEZG9KYzJTOGdYVmkwalVjcGpZNWgydnZrNVE1aHhGM3gvY2NMSkFM?=
- =?utf-8?B?d3IvMFo0RGxJVVpYZEVRampyQzJod3VqMytra1EzcGRkYktOMzFNcW0zTVBu?=
- =?utf-8?B?ZXkvWCtBOHR4OUw0VGdqNGx3OFNoR0UzbmtUOG0xRTREeFBVK0NEaWsrVG5z?=
- =?utf-8?B?aFp5NFZ6MnV2dDVOY1dSR3NBeW10R01uRHBBK1IrK3hvUi9tK1M5d0RwbW1N?=
- =?utf-8?B?WHhIN2Foalh2NkNjUEFoejVscEEwSDRGMG53clg1Rmk1bFZDRTE3ZERzYTVR?=
- =?utf-8?B?UXYyTkJ5M3kraWlhMjF0UU9tSklvMEFUeGorMThKRzR6VUtTbXJSUVRZZ3NL?=
- =?utf-8?B?cm9hR3B2U2wwajVTQ1hjYkh5VnBIejFyTmxiamV1ZGRpQlNSdTAxaXZTeDlh?=
- =?utf-8?B?U2UvQUdGRSthOUFhS2FEWmhYZzJhLzY0dXNWZFNwS1lFUTRmcFl1MXRwSWhH?=
- =?utf-8?B?TnRFU0wveXRYNVQ5OGs5cldrNURSZzRRTTZuQlVqWUpPZHVqYTVnbWprN3pH?=
- =?utf-8?B?Y3htQk1JZEhsbXozS0plUHhIbW9sQ2dYRlE0ZGxLMVJYSHNneVh3QlFQaTZH?=
- =?utf-8?B?VENyd0xIdDR6Q0RoQUFGVit4ZS9aQVhwckpQcjJ6VTU3cUt2WWxSUUZTUUdn?=
- =?utf-8?B?OFZjOW5IVTByVlBORTF6azZJSWRpaG5hTmdNeUk4MXg5SFNya1ZWVERIb2NE?=
- =?utf-8?B?K3RKQ1pKMUcrWFhBQW83UDBEakhVQ05Bbm91bzU4aUEzUk5zTUY2ay82MlVL?=
- =?utf-8?B?QUI2emR4RGI0aFNZVXc5OEkzMGRUK2dHMjRPWXY2Q3czVmtNTTJpbG9QTFFl?=
- =?utf-8?B?b0gvVDFGajhTelVWS09UYng4Si9jMDhlUjVVR1FwWUtnWEJVdmdBdDhmNVVD?=
- =?utf-8?B?VGJwcVlldGpXTWVqT2xxUXZRdUFRL2UrU0RYSHBPcVJWNkpuUk0vNnA5ck5X?=
- =?utf-8?B?aXRObEQwcm1VdzA1cmtYTXlzWG9Cd1kvY1oybldJUWI1TUdBdUdxV0pOa3Zk?=
- =?utf-8?B?Um9qQVRrUmNFSGpZazdBOHArcTduWXB6MlVsMjNGR3Y5WXdBUk8yTnI0TkFr?=
- =?utf-8?B?QVpjZGlaNWp0MjVLcWZJM2licHAvYzlxTm9WU1ZpeVgvT1NZRnlWc2Nad3JO?=
- =?utf-8?B?MWo3TlNkaHduQ0pEWXFzbmppZEg0c2IrUUY2RG9HdGJKaW1KVHhyZG5mS3ZY?=
- =?utf-8?B?bWQrNzVkNjBxTmt0ZDFiWStoNkJZSS9pZDdNQlNkTjlTaVZiNEJzaWdrbjZq?=
- =?utf-8?B?M090cmsyM21EUzRsK2hleW1vTDRQTms2RGl5M3JoQWFhT1JrSVM3WDQxS1dr?=
- =?utf-8?B?Mm1VVlVMTFhGcUdEL3U3VTFWQjNQUUdnQjhXQnVFdW8xbU9NUmNvQlNGZkdI?=
- =?utf-8?B?dFVHdDNxWGpmejJXTG5CSlZkRUtsQk5jdTVEYllJMDh3RmQxbUdXY2tsUDBh?=
- =?utf-8?B?ZTlWZytmd3lRaENyVHV1Z1FmaFQxRjYwU1gxcnU3RjVpVWlOMUxOc0xBa2Uz?=
- =?utf-8?B?L3o1djJla0g5K21XUld2YWl2aVZ0c0J1akhHb1Rjb0FVdnlJaThhcVh4VXAr?=
- =?utf-8?Q?qDHMhmjsz+XYgOfBKGIJXBWPD9hweQOnclwCiLv?=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 930e0963-39a8-414c-6eec-08d8ff50f369
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR10MB3592.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2021 14:24:02.0803 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vKa/gJvf6XTILYxunZ2oRvuHIRBSKO5wNNkOfmOOeLCvEtig0LWHGW7QGO15Ws+Dge4waDhuv5Aq0EoiFgpHDVehsXt2O+lnUKUM4q5pahY=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR10MB4541
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9954
- signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
- bulkscore=0 malwarescore=0
- spamscore=0 adultscore=0 phishscore=0 mlxlogscore=999 suspectscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2104060000
- definitions=main-2104140100
-X-Proofpoint-ORIG-GUID: WLZaiMoGWXJmigWz9J50wm8pcTo-jAC_
-X-Proofpoint-GUID: WLZaiMoGWXJmigWz9J50wm8pcTo-jAC_
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9954
- signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- priorityscore=1501 clxscore=1015
- adultscore=0 mlxlogscore=999 bulkscore=0 malwarescore=0 spamscore=0
- impostorscore=0 suspectscore=0 mlxscore=0 phishscore=0 lowpriorityscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2104060000
- definitions=main-2104140100
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20210412145506.26894-4-rpalethorpe@suse.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,MSGID_FROM_MTA_HEADER,NICE_REPLY_A,
- SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 2/2] syscalls/chown: rewrite chown/chown03.c with
- the new api
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3 3/7] Add new CGroups APIs
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -179,312 +49,536 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 26.03.2021 06:12, Xie Ziyao wrote:
-> For this:
->   testcases/kernel/syscalls/chown/chown03.c
-> 
-> Signed-off-by: Xie Ziyao <xieziyao@huawei.com>
+Hi!
+> Complete rewrite of the CGroups API which provides two layers of
+> indirection between the test author and the SUT's CGroup
+> configuration.
+
+I've spend quite some time reading the code and I think that the
+generall idea and implementation is good.
+
+There is quite a bit of minor details that I think may be done better,
+see comments.
+
+> Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
 > ---
->  testcases/kernel/syscalls/chown/chown03.c | 232 +++++++---------------
->  1 file changed, 73 insertions(+), 159 deletions(-)
+>  include/tst_cgroup.h |  194 ++++++-
+>  include/tst_test.h   |    1 -
+>  lib/Makefile         |    2 +
+>  lib/tst_cgroup.c     | 1205 +++++++++++++++++++++++++++++++-----------
+>  4 files changed, 1056 insertions(+), 346 deletions(-)
 > 
-> diff --git a/testcases/kernel/syscalls/chown/chown03.c b/testcases/kernel/syscalls/chown/chown03.c
-> index 2c7bcfe7d..dfab3691b 100644
-> --- a/testcases/kernel/syscalls/chown/chown03.c
-> +++ b/testcases/kernel/syscalls/chown/chown03.c
-> @@ -1,72 +1,31 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
+> diff --git a/include/tst_cgroup.h b/include/tst_cgroup.h
+> index bfd848260..d6842d641 100644
+> --- a/include/tst_cgroup.h
+> +++ b/include/tst_cgroup.h
+> @@ -2,46 +2,194 @@
 >  /*
-> + * Copyright (c) International Business Machines  Corp., 2001
->   *
-> - *   Copyright (c) International Business Machines  Corp., 2001
-> - *
-> - *   This program is free software;  you can redistribute it and/or modify
-> - *   it under the terms of the GNU General Public License as published by
-> - *   the Free Software Foundation; either version 2 of the License, or
-> - *   (at your option) any later version.
-> - *
-> - *   This program is distributed in the hope that it will be useful,
-> - *   but WITHOUT ANY WARRANTY;  without even the implied warranty of
-> - *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
-> - *   the GNU General Public License for more details.
-> - *
-> - *   You should have received a copy of the GNU General Public License
-> - *   along with this program;  if not, write to the Free Software
-> - *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
-> + * 07/2001 Ported by Wayne Boyer
+>   * Copyright (c) 2020 Red Hat, Inc.
+>   * Copyright (c) 2020 Li Wang <liwang@redhat.com>
+> + * Copyright (c) 2020-2021 SUSE LLC <rpalethorpe@suse.com>
 >   */
-> 
-> -/*
-> - * Test Name: chown03
-> - *
-> - * Test Description:
-> - *  Verify that, chown(2) succeeds to change the group of a file specified
-> - *  by path when called by non-root user with the following constraints,
-> - *	- euid of the process is equal to the owner of the file.
-> - *	- the intended gid is either egid, or one of the supplementary gids
-> - *	  of the process.
-> - *  Also, verify that chown() clears the setuid/setgid bits set on the file.
-> - *
-> - * Expected Result:
-> - *  chown(2) should return 0 and the ownership set on the file should match
-> - *  the numeric values contained in owner and group respectively.
-> - *
-> - * Algorithm:
-> - *  Setup:
-> - *   Setup signal handling.
-> - *   Create temporary directory.
-> - *   Pause for SIGUSR1 if option specified.
-> - *
-> - *  Test:
-> - *   Loop if the proper options are given.
-> - *   Execute system call
-> - *   Check return code, if system call failed (return=-1)
-> - *	Log the errno and Issue a FAIL message.
-> - *   Otherwise,
-> - *	Verify the Functionality of system call
-> - *      if successful,
-> - *		Issue Functionality-Pass message.
-> - *      Otherwise,
-> - *		Issue Functionality-Fail message.
-> - *  Cleanup:
-> - *   Print errno log and/or timing stats if options given
-> - *   Delete the temporary directory created.
-> - *
-> - * Usage:  <for command-line>
-> - *  chown03 [-c n] [-f] [-i n] [-I x] [-P x] [-t]
-> - *     where,  -c n : Run n copies concurrently.
-> - *             -f   : Turn off functionality Testing.
-> - *	       -i n : Execute test n times.
-> - *	       -I x : Execute test for x seconds.
-> - *	       -P x : Pause for x seconds between iterations.
-> - *	       -t   : Turn on syscall timing.
 > +/*\
-> + * [Description]
->   *
-> - * HISTORY
-> - *	07/2001 Ported by Wayne Boyer
-> + * Verify that, chown(2) succeeds to change the group of a file specified
-> + * by path when called by non-root user with the following constraints,
-> + * - euid of the process is equal to the owner of the file.
-> + * - the intended gid is either egid, or one of the supplementary gids
-> + *   of the process.
-> + * Also, verify that chown() clears the setuid/setgid bits set on the file.
->   *
-> - * RESTRICTIONS:
-> + * [Algorithm]
->   *
-> + * - Execute system call
-> + * - Check return code, if system call failed (return=-1)
-> + * -   Log the errno and Issue a FAIL message
-> + * - Otherwise
-> + * -   Verify the Functionality of system call
-> + * -   if successful
-> + * -     Issue Functionality-Pass message
-> + * -   Otherwise
-> + * -     Issue Functionality-Fail message
->   */
-> 
->  #include <stdio.h>
-> @@ -80,123 +39,78 @@
->  #include <grp.h>
->  #include <pwd.h>
-> 
-> -#include "test.h"
-> -#include "safe_macros.h"
-> -#include "compat_16.h"
-> +#include "tst_test.h"
-> +#include "compat_tst_16.h"
-> 
->  #define FILE_MODE	(S_IFREG|S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH)
->  #define NEW_PERMS	(S_IFREG|S_IRWXU|S_IRWXG|S_ISUID|S_ISGID)
->  #define TESTFILE	"testfile"
-> 
-> -TCID_DEFINE(chown03);
-> -int TST_TOTAL = 1;		/* Total number of test conditions */
-> -char nobody_uid[] = "nobody";
-> -struct passwd *ltpuser;
+> + * [DESCRIPTION]
+> + *
+> + * The LTP CGroups API tries to present a consistent interface to the
+> + * many possible CGroup configurations a system could have.
+> + *
+> + * You may ask; "Why don't you just mount a simple CGroup hierarchy,
+> + * instead of scanning the current setup?". The short answer is that
+> + * it is not possible unless no CGroups are currently active and
+> + * almost all of our users will have CGroups active. Even if
+> + * unmounting the current CGroup hierarchy is a reasonable thing to do
+> + * to the sytem manager, it is highly unlikely the CGroup hierarchy
+> + * will be destroyed. So users would be forced to remove their CGroup
+> + * configuration and reboot the system.
+> + *
+> + * The core library tries to ensure an LTP CGroup exists on each
+> + * hierarchy root. Inside the LTP group it ensures a 'drain' group
+> + * exists and creats a test group for the current test. In the worst
+> + * case we end up with a set of hierarchies like the follwoing. Where
+> + * existing system-manager-created CGroups have been omitted.
+> + *
+> + * 	(V2 Root)	(V1 Root 1)	...	(V1 Root N)
+> + * 	    |		     |			     |
+> + *	  (ltp)		   (ltp)	...	   (ltp)
+> + *	 /     \	  /	\		  /	\
+> + *  (drain) (test-n) (drain)  (test-n)  ...  (drain)  (test-n)
+> + *
+> + * V2 CGroup controllers use a single unified hierarchy on a single
+> + * root. Two or more V1 controllers may share a root or have their own
+> + * root. However there may exist only one instance of a controller.
+> + * So you can not have the same V1 controller on multiple roots.
+> + *
+> + * It is possible to have both a V2 hierarchy and V1 hierarchies
+> + * active at the same time. Which is what is shown above. Any
+> + * controllers attached to V1 hierarchies will not be available in the
+> + * V2 hierarchy. The reverse is also true.
+> + *
+> + * Note that a single hierarchy may be mounted multiple
+> + * times. Allowing it to be accessed at different locations. However
+> + * subsequent mount operations will fail if the mount options are
+> + * different from the first.
+> + *
+> + * The user may pre-create the CGroup hierarchies and the ltp CGroup,
+> + * otherwise the library will try to create them. If the ltp group
+> + * already exists and has appropriate permissions, then admin
+> + * privileges will not be required to run the tests.
+> + *
+> + * Because the test may not have access to the CGroup root(s), the
+> + * drain CGroup is created. This can be used to store processes which
+> + * would otherwise block the destruction of the individual test CGroup
+> + * or one of its descendants.
+> + *
+> + * The test author may create child CGroups within the test CGroup
+> + * using the CGroup Item API. The library will create the new CGroup
+> + * in all the relevant hierarchies.
+> + *
+> + * There are many differences between the V1 and V2 CGroup APIs. If a
+> + * controller is on both V1 and V2, it may have different parameters
+> + * and control files. Some of these control files have a different
+> + * name, but similar functionality. In this case the Item API uses
+> + * the V2 names and aliases them to the V1 name when appropriate.
+> + *
+> + * Some control files only exist on one of the versions or they can be
+> + * missing due to other reasons. The Item API allows the user to check
+> + * if the file exists before trying to use it.
+> + *
+> + * Often a control file has almost the same functionality between V1
+> + * and V2. Which means it can be used in the same way most of the
+> + * time, but not all. For now this is handled by exposing the API
+> + * version a controller is using to allow the test author to handle
+> + * edge cases. (e.g. V2 memory.swap.max accepts "max", but V1
+> + * memory.memsw.limit_in_bytes does not).
+> +\*/
+>  
+>  #ifndef TST_CGROUP_H
+>  #define TST_CGROUP_H
+>  
+> -#define PATH_TMP_CG_MEM	"/tmp/cgroup_mem"
+> -#define PATH_TMP_CG_CST	"/tmp/cgroup_cst"
 > -
-> -void setup();			/* setup function for the test */
-> -void cleanup();			/* cleanup function for the test */
-> -
-> -int main(int ac, char **av)
-> +static void run(void)
->  {
->  	struct stat stat_buf;	/* stat(2) struct contents */
-> -	int lc;
->  	uid_t user_id;		/* Owner id of the test file. */
->  	gid_t group_id;		/* Group id of the test file. */
+> +/* CGroups Kernel API version */
+>  enum tst_cgroup_ver {
+>  	TST_CGROUP_V1 = 1,
+>  	TST_CGROUP_V2 = 2,
+>  };
+>  
+> -enum tst_cgroup_ctrl {
+> -	TST_CGROUP_MEMCG = 1,
+> +/* Controller sub-systems */
+> +enum tst_cgroup_css {
+> +	TST_CGROUP_MEMORY = 1,
+>  	TST_CGROUP_CPUSET = 2,
+> -	/* add cgroup controller */
+>  };
 
-I don't think these comments are helpful.
+I spend a bit of time figuring out what css means, can't we just use
+controler in the code instead? It's a bit longer but more obvious.
 
-> 
-> -	tst_parse_opts(ac, av, NULL, NULL);
-> -
-> -	setup();
-> -
-> -	for (lc = 0; TEST_LOOPING(lc); lc++) {
-> -
-> -		tst_count = 0;
-> -
-> -		UID16_CHECK((user_id = geteuid()), "chown", cleanup)
-> -		GID16_CHECK((group_id = getegid()), "chown", cleanup)
-> -
-> -		TEST(CHOWN(cleanup, TESTFILE, -1, group_id));
-> -
-> -		if (TEST_RETURN == -1) {
-> -			tst_resm(TFAIL | TTERRNO, "chown(%s, ..) failed",
-> -				 TESTFILE);
-> -			continue;
-> -		}
-> -
-> -		if (stat(TESTFILE, &stat_buf) == -1)
-> -			tst_brkm(TFAIL | TERRNO, cleanup,
-> -				 "stat failed");
-> -
-> -		if (stat_buf.st_uid != user_id ||
-> -		    stat_buf.st_gid != group_id)
-> -			tst_resm(TFAIL, "%s: Incorrect ownership"
-> -				 "set to %d %d, Expected %d %d",
-> -				 TESTFILE, stat_buf.st_uid,
-> -				 stat_buf.st_gid, user_id, group_id);
-> -
-> -		if (stat_buf.st_mode !=
-> -		    (NEW_PERMS & ~(S_ISUID | S_ISGID)))
-> -			tst_resm(TFAIL, "%s: incorrect mode permissions"
-> -				 " %#o, Expected %#o", TESTFILE,
-> -				 stat_buf.st_mode,
-> -				 NEW_PERMS & ~(S_ISUID | S_ISGID));
-> -		else
-> -			tst_resm(TPASS, "chown(%s, ..) was successful",
-> -				 TESTFILE);
-> -	}
-> -
-> -	cleanup();
-> -	tst_exit();
-> +	UID16_CHECK((user_id = geteuid()), "chown");
-> +	GID16_CHECK((group_id = getegid()), "chown");
+Or is this consitent with kernel naming?
+
+> +#define TST_CGROUP_MAX TST_CGROUP_CPUSET
 > +
-> +	TEST(CHOWN(TESTFILE, -1, group_id));
-> +	if (TST_RET == -1)
-> +		tst_res(TFAIL | TTERRNO, "chown(%s, ..) failed",
-> +			TESTFILE);
-
-It could be replaced with TST_EXP_PASS() macro (+ TPASS message below).
-
+> +/* At most we can have one cgroup V1 tree for each controller and one
+> + * (empty) v2 tree.
+> + */
+> +#define TST_CGROUP_MAX_TREES (TST_CGROUP_MAX + 1)
 > +
-> +	SAFE_STAT(TESTFILE, &stat_buf);
 > +
-> +	if (stat_buf.st_uid != user_id || stat_buf.st_gid != group_id)
-> +		tst_res(TFAIL, "%s: Incorrect ownership"
-> +			       "set to %d %d, Expected %d %d",
-> +			TESTFILE, stat_buf.st_uid,
-> +			stat_buf.st_gid, user_id, group_id);
-> +
-> +	if (stat_buf.st_mode != (NEW_PERMS & ~(S_ISUID | S_ISGID)))
-> +		tst_res(TFAIL, "%s: incorrect mode permissions"
-> +			       " %#o, Expected %#o", TESTFILE,
-> +			stat_buf.st_mode,
-> +			NEW_PERMS & ~(S_ISUID | S_ISGID));
-> +	else
-> +		tst_res(TPASS, "chown(%s, ..) was successful",
-> +			TESTFILE);
->  }
-> 
-> -/*
-> - * void
-> - * setup() - performs all ONE TIME setup for this test.
-> - *  Create a temporary directory and change directory to it.
-> - *  Create a test file under temporary directory and close it
-> - *  Change the group ownership on testfile.
-> - */
-> -void setup(void)
-> +static void setup(void)
->  {
-> -	int fd;			/* file handler for testfile */
-> -
-> -	TEST_PAUSE;
-> -
-> -	tst_require_root();
-> +	int fd;		/* file handler for testfile */
-                            ^
-Also, this comment is not really needed here.
-
-> +	struct passwd *ltpuser;
-> 
-> -	tst_sig(FORK, DEF_HANDLER, cleanup);
-> -
-> -	tst_tmpdir();
-> -
-> -	ltpuser = getpwnam(nobody_uid);
-> +	ltpuser = SAFE_GETPWNAM("nobody");
->  	if (ltpuser == NULL)
-> -		tst_brkm(TBROK | TERRNO, NULL, "getpwnam(\"nobody\") failed");
-> -	SAFE_SETEGID(NULL, ltpuser->pw_gid);
-> -	SAFE_SETEUID(NULL, ltpuser->pw_uid);
-> +		tst_brk(TBROK | TTERRNO,
-> +			"getpwnam(\"nobody\") failed");
-
-SAFE_GETPWNAM() would have already call tst_brk() if getpwnam()
-had returned null.
-
-> +	SAFE_SETEGID(ltpuser->pw_gid);
-> +	SAFE_SETEUID(ltpuser->pw_uid);
-> 
->  	/* Create a test file under temporary directory */
-> -	if ((fd = open(TESTFILE, O_RDWR | O_CREAT, FILE_MODE)) == -1)
-> -		tst_brkm(TBROK | TERRNO, cleanup,
-> -			 "open(%s, O_RDWR|O_CREAT, %o) failed", TESTFILE,
-> -			 FILE_MODE);
-> -
-> -	SAFE_SETEUID(cleanup, 0);
-> -
-> -	SAFE_FCHOWN(cleanup, fd, -1, 0);
-> +	fd = SAFE_OPEN(TESTFILE, O_RDWR | O_CREAT, FILE_MODE);
-> 
-> -	SAFE_FCHMOD(cleanup, fd, NEW_PERMS);
-> -
-> -	SAFE_SETEUID(cleanup, ltpuser->pw_uid);
-> -
-> -	SAFE_CLOSE(cleanup, fd);
-> +	SAFE_SETEUID(0);
-> +	SAFE_FCHOWN(fd, -1, 0);
-> +	SAFE_FCHMOD(fd, NEW_PERMS);
-> +	SAFE_SETEUID(ltpuser->pw_uid);
-> +	SAFE_CLOSE(fd);
->  }
-> 
-> -void cleanup(void)
-> +static void cleanup(void)
->  {
-> -	if (setegid(0) == -1)
-> -		tst_resm(TWARN | TERRNO, "setegid(0) failed");
-> -	if (seteuid(0) == -1)
-> -		tst_resm(TWARN | TERRNO, "seteuid(0) failed");
-> +	SAFE_SETEGID(0);
-> +	SAFE_SETEUID(0);
-> +}
-> 
-> -	tst_rmdir();
-> +static struct tst_test test = {
-> +	.needs_root = 1,
-> +	.needs_tmpdir = 1,
-> +	.setup = setup,
-> +	.cleanup = cleanup,
-> +	.test_all = run,
+> +/* Used to specify CGroup hierarchy configuration options, allowing a
+> + * test to request a particular CGroup structure.
+> + */
+> +struct tst_cgroup_opts {
+> +	/* Only try to mount V1 CGroup controllers. This will not
+> +	 * prevent V2 from being used if it is already mounted, it
+> +	 * only indicates that we should mount V1 controllers if
+> +	 * nothing is present. By default we try to mount V2 first. */
+> +	int only_mount_v1:1;
 > +};
-> 
-> -}
-> --
-> 2.17.1
-> 
-> 
 
+Do we need to pass the flags in a structure?
+
+This is not an API that has to be future proof, when we find out we need
+more than a few bitflags we can always change it.
+
+> +struct tst_cgroup_tree;
+> +
+> +
+> +/* A Control Group in LTP's aggregated hierarchy */
+> +struct tst_cgroup {
+> +	const char *name;
+> +	/* Maps controller ID to the tree which contains it. The V2
+> +	 * tree is at zero even if it contains no controllers.
+> +	 */
+> +	struct tst_cgroup_tree *trees_by_css[TST_CGROUP_MAX_TREES];
+> +	/* NULL terminated list of trees */
+> +	struct tst_cgroup_tree *trees[TST_CGROUP_MAX_TREES + 1];
+> +};
+
+So this is an array of directories in different trees, can we please
+name the strucuture better. What about tst_cgroup_nodes or
+tst_cgroup_dirs?
+
+> +/* Search the system for mounted cgroups and available
+> + * controllers. Called automatically by tst_cgroup_require.
+> + */
+> +void tst_cgroup_scan(void);
+> +/* Print the config detected by tst_cgroup_scan */
+> +void tst_cgroup_print_config(void);
+> +
+> +/* Ensure the specified controller is available in the test's default
+> + * CGroup, mounting/enabling it if necessary */
+> +void tst_cgroup_require(enum tst_cgroup_css type,
+> +			const struct tst_cgroup_opts *options);
+
+This is the only function in the API that uses the enum cgroup_css. I
+think that it may as well be better if we just passed a string to this
+function as well and made the enum strictly internal.
+
+I guess that we do not want to split the knob names so that we would
+have to pass the controller as enum and knob name to make the API
+consistently use the enum so this would be a better option.
+
+> +/* Tear down any CGroups created by calls to tst_cgroup_require */
+> +void tst_cgroup_cleanup(void);
+> +
+> +/* Get the default CGroup for the test. It allocates memory (in a
+> + * guarded buffer) so should always be called from setup
+> + */
+> +const struct tst_cgroup *tst_cgroup_get_test(void);
+> +/* Get the shared drain group. Also should be called from setup */
+> +const struct tst_cgroup *tst_cgroup_get_drain(void);
+
+I think that these functions could be named better, it's mildly
+confusing, "get test what?".
+
+Maybe tst_cgroup_get_test_group() ?
+
+Or tst_cgroup_get(enum tst_cgroup_group group) ?
+
+> +/* Create a descendant CGroup */
+> +struct tst_cgroup *tst_cgroup_mk(const struct tst_cgroup *parent,
+> +				 const char *name);
+
+The name parameter should probably be called node_name or dir_name, it
+could be easily confused with the name parameter rest of the function
+use to describe a "controller.knob" pair.
+
+> +/* Remove a descendant CGroup */
+> +struct tst_cgroup *tst_cgroup_rm(struct tst_cgroup *cg);
+> +
+> +#define SAFE_CGROUP_VER(cg, name) \
+> +	safe_cgroup_ver(__FILE__, __LINE__, (cg), (name))
+
+> +enum tst_cgroup_ver safe_cgroup_ver(const char *file, const int lineno,
+> +				    const struct tst_cgroup *cg,
+> +				    const char *name);
+
+The 'name' parameter should really be controller_name or just
+controller.
+
+Also I was a bit confused why version request may even fail.
+
+I guess that it's fine if we tst_brk() on invalid controller name even
+without calling this function SAFE_*.
+
+We haven't defined that anywhere but SAFE_FUNCTIONS() are things that
+may fail at runtime because of failures propagated from the operating
+system itself.
+
+> +#define SAFE_CGROUP_HAS(cg, name) \
+> +	safe_cgroup_has(__FILE__, __LINE__, (cg), (name))
+> +
+> +int safe_cgroup_has(const char *file, const int lineno,
+> +		    const struct tst_cgroup *cg, const char *name);
+> +
+> +#define SAFE_CGROUP_READ(cg, name, out, len)				\
+> +	safe_cgroup_read(__FILE__, __LINE__, (cg), (name), (out), (len))
+> +
+> +ssize_t safe_cgroup_read(const char *file, const int lineno,
+> +			 const struct tst_cgroup *cg, const char *name,
+> +			 char *out, size_t len);
+>  
+> -enum tst_cgroup_ver tst_cgroup_version(void);
+> +#define SAFE_CGROUP_PRINTF(cg, name, fmt, ...)				\
+> +	safe_cgroup_printf(__FILE__, __LINE__, (cg), (name), (fmt), __VA_ARGS__)
+>  
+> -/* To mount/umount specified cgroup controller on 'cgroup_dir' path */
+> -void tst_cgroup_mount(enum tst_cgroup_ctrl ctrl, const char *cgroup_dir);
+> -void tst_cgroup_umount(const char *cgroup_dir);
+> +#define SAFE_CGROUP_PRINT(cg, name, str)				\
+> +	safe_cgroup_printf(__FILE__, __LINE__, (cg), (name), "%s", (str))
+>  
+> -/* To move current process PID to the mounted cgroup tasks */
+> -void tst_cgroup_move_current(const char *cgroup_dir);
+> +void safe_cgroup_printf(const char *file, const int lineno,
+> +			const struct tst_cgroup *cg, const char *name,
+> +			const char *fmt, ...)
+> +			__attribute__ ((format (printf, 5, 6)));
+>  
+> -/* To set cgroup controller knob with new value */
+> -void tst_cgroup_set_knob(const char *cgroup_dir, const char *knob, long value);
+> +#define SAFE_CGROUP_SCANF(cg, name, fmt, ...)				\
+> +	safe_cgroup_scanf(__FILE__, __LINE__, (cg), (name), (fmt), __VA_ARGS__)
+>  
+> -/* Set of functions to set knobs under the memory controller */
+> -void tst_cgroup_mem_set_maxbytes(const char *cgroup_dir, long memsz);
+> -int  tst_cgroup_mem_swapacct_enabled(const char *cgroup_dir);
+> -void tst_cgroup_mem_set_maxswap(const char *cgroup_dir, long memsz);
+> +void safe_cgroup_scanf(const char *file, const int lineno,
+> +		       const struct tst_cgroup *cg, const char *name,
+> +		       const char *fmt, ...)
+> +		       __attribute__ ((format (scanf, 5, 6)));
+
+And for all the read/printf/scanf functions the name parameter should be
+named knob or something that describes that we are operating on
+individual files in a directory somewhere in the tree.
+
+> -/* Set of functions to read/write cpuset controller files content */
+> -void tst_cgroup_cpuset_read_files(const char *cgroup_dir, const char *filename,
+> -	char *retbuf, size_t retbuf_sz);
+> -void tst_cgroup_cpuset_write_files(const char *cgroup_dir, const char *filename,
+> -	const char *buf);
+>  
+>  #endif /* TST_CGROUP_H */
+> diff --git a/include/tst_test.h b/include/tst_test.h
+> index 1fbebe752..62ab2981f 100644
+> --- a/include/tst_test.h
+> +++ b/include/tst_test.h
+> @@ -39,7 +39,6 @@
+>  #include "tst_capability.h"
+>  #include "tst_hugepage.h"
+>  #include "tst_assert.h"
+> -#include "tst_cgroup.h"
+>  #include "tst_lockdown.h"
+>  #include "tst_fips.h"
+>  #include "tst_taint.h"
+> diff --git a/lib/Makefile b/lib/Makefile
+> index f019432e8..6f641ee9a 100644
+> --- a/lib/Makefile
+> +++ b/lib/Makefile
+> @@ -38,6 +38,8 @@ pc_file			:= $(DESTDIR)/$(datarootdir)/pkgconfig/ltp.pc
+>  
+>  INSTALL_TARGETS		:= $(pc_file)
+>  
+> +tst_cgroup.o: CFLAGS += -Wno-missing-field-initializers
+
+I'm not sure we want to work around warnings like this.
+
+>  $(pc_file):
+>  	test -d "$(@D)" || mkdir -p "$(@D)"
+>  	install -m $(INSTALL_MODE) "$(builddir)/$(@F)" "$@"
+> diff --git a/lib/tst_cgroup.c b/lib/tst_cgroup.c
+> index 96c9524d2..40c9a9bec 100644
+> --- a/lib/tst_cgroup.c
+> +++ b/lib/tst_cgroup.c
+> @@ -2,453 +2,1014 @@
+>  /*
+>   * Copyright (c) 2020 Red Hat, Inc.
+>   * Copyright (c) 2020 Li Wang <liwang@redhat.com>
+> + * Copyright (c) 2020-2021 SUSE LLC <rpalethorpe@suse.com>
+>   */
+>  
+>  #define TST_NO_DEFAULT_MAIN
+>  
+>  #include <stdio.h>
+> +#include <stddef.h>
+>  #include <stdlib.h>
+> +#include <mntent.h>
+>  #include <sys/mount.h>
+> -#include <fcntl.h>
+> -#include <unistd.h>
+>  
+>  #include "tst_test.h"
+> -#include "tst_safe_macros.h"
+> -#include "tst_safe_stdio.h"
+> +#include "lapi/fcntl.h"
+> +#include "lapi/mount.h"
+> +#include "lapi/mkdirat.h"
+>  #include "tst_cgroup.h"
+> -#include "tst_device.h"
+>  
+> -static enum tst_cgroup_ver tst_cg_ver;
+> -static int clone_children;
+> +/* CGroup Core Implementation
+> + *
+> + * CGroup Item Implementation is towards the bottom.
+> + */
+>  
+> -static int tst_cgroup_check(const char *cgroup)
+> -{
+> -	char line[PATH_MAX];
+> -	FILE *file;
+> -	int cg_check = 0;
+> +struct cgroup_root;
+>  
+> -	file = SAFE_FOPEN("/proc/filesystems", "r");
+> -	while (fgets(line, sizeof(line), file)) {
+> -		if (strstr(line, cgroup) != NULL) {
+> -			cg_check = 1;
+> -			break;
+> +/* A node in a single CGroup hierarchy. It exists mainly for
+> + * convenience so that we do not have to traverse the CGroup structure
+> + * for frequent operations.
+> + *
+> + * This is actually a single-linked list not a tree. We only need to
+> + * traverse from leaf towards root.
+> + */
+> +struct tst_cgroup_tree {
+
+Why isn't this called node or dir? Either of these would be more
+fitting.
+
+Also the tst_cgroup structure could use a better name, the tst_cgroup is
+actually an array of pointers to directories.
+
+> +	const char *name;
+
+This should be dir_name, can we please avoid having all string pointers
+called just 'name' I find it horribly confusing...
+
+> +	const struct tst_cgroup_tree *parent;
+> +
+> +	/* Shortcut to root */
+> +	const struct cgroup_root *root;
+> +
+> +	/* Subsystems (controllers) bit field. Only controllers which
+> +	 * were required and configured for this node are added to
+> +	 * this field. So it may be different from root->css_field.
+> +	 */
+> +	uint32_t css_field;
+> +
+> +	/* In general we avoid having sprintfs everywhere and use
+> +	 * openat, linkat, etc.
+> +	 */
+> +	int dir;
+
+Can we name this dir_fd so it's obvious what it is?
+
+> +	int we_created_it:1;
+> +};
+> +
+> +/* The root of a CGroup hierarchy/tree */
+> +struct cgroup_root {
+> +	enum tst_cgroup_ver ver;
+> +	/* A mount path */
+> +	char path[PATH_MAX/2];
+
+Why PATH_MAX/2 ?
+
+Also why don't we call it mount_path[] instead of having a lousy comment
+that people have to look up when reading code?
+
+> +	/* Subsystems (controllers) bit field. Includes all
+> +	 * controllers found while scanningthis root.
+> +	 */
+> +	uint32_t css_field;
+> +
+> +	/* CGroup hierarchy: mnt -> ltp -> {drain, test -> ??? } We
+> +	 * keep a flat reference to ltp, drain and test for
+> +	 * convenience.
+> +	 */
+> +
+> +	/* Mount directory */
+> +	struct tst_cgroup_tree mnt;
+> +	/* LTP CGroup directory, contains drain and test dirs */
+> +	struct tst_cgroup_tree ltp;
+> +	/* Drain CGroup, see cgroup_cleanup */
+> +	struct tst_cgroup_tree drain;
+> +	/* CGroup for current test. Which may have children. */
+> +	struct tst_cgroup_tree test;
+
+Here as well, it's sligtly easier to understand if we suffix the names
+with what it actually is. If we rename struct tst_cgroup_tree to
+tst_cgroup_node this should be ltp_node, drain_node, etc.
+
+> +	int we_mounted_it:1;
+> +	/* cpuset is in compatability mode */
+> +	int no_prefix:1;
+> +};
+> +
+> +/* Always use first item for unified hierarchy */
+> +struct cgroup_root roots[TST_CGROUP_MAX_TREES + 1];
+> +
+> +/* Describes some things that are part of a CGroup
+> + *
+> + * Usually trunk nodes are controllers and leaves are files exported
+> + * by the controllers. Sometimes trunk nodes are components of a
+> + * controller (e.g. memory.swap).
+> + *
+> + * The primary purpose of this is to map V2 names to V1
+> + * names. Secondarily we can map name prefixes to controller IDs and
+> + * figure out which hierarchy the item should be present on and
+> + * whether the current configuration requires yet further work arounds
+> + * (e.g. if cpuset is mounted in compatablity mode).
+> + */
+> +struct cgroup_item {
+> +	/* Canonical name. Is the V2 name unless an item is V1 only */
+> +	const char *name;
+> +	/* V1 name or NULL if item is V2 only */
+> +	const char *name_v1;
+> +	/* Array of child items or NULL */
+> +	struct cgroup_item *inner;
+> +
+> +	/* The controller this item belongs to or zero for
+> +	 * 'cgroup.<item>'. Leaf items are statically initialised as
+> +	 * zero then set at runtime.
+> +	 */
+> +	enum tst_cgroup_css css_indx;
+> +
+> +	struct cgroup_root *root;
+> +
+> +	int we_require_it:1;
+> +};
+> +
+> +/* Lookup tree for item names. */
+> +typedef struct cgroup_item items_t[];
+> +static items_t items = {
+> +	[0] = { "cgroup", .inner = (items_t){
+> +			{ "cgroup.procs", "tasks" },
+> +			{ "cgroup.subtree_control" },
+> +			{ "cgroup.clone_children", "clone_children" },
+> +			{ NULL }
+>  		}
+> -	}
+> -	SAFE_FCLOSE(file);
+> +	},
+> +	[TST_CGROUP_MEMORY] = { "memory", .inner = (items_t){
+> +			{ "memory.current", "memory.usage_in_bytes" },
+> +			{ "memory.max", "memory.limit_in_bytes" },
+> +			{ "memory.swappiness", "memory.swappiness" },
+> +			{ "memory.swap.current", "memory.memsw.usage_in_bytes" },
+> +			{ "memory.swap.max", "memory.memsw.limit_in_bytes" },
+> +			{ "memory.kmem.usage_in_bytes", "memory.kmem.usage_in_bytes" },
+> +			{ "memory.kmem.limit_in_bytes", "memory.kmem.usage_in_bytes" },
+> +			{ NULL }
+> +		},
+> +	  .css_indx = TST_CGROUP_MEMORY
+> +	},
+> +	[TST_CGROUP_CPUSET] = { "cpuset", .inner = (items_t){
+> +			{ "cpuset.cpus", "cpuset.cpus" },
+> +			{ "cpuset.mems", "cpuset.mems" },
+> +			{ "cpuset.memory_migrate", "cpuset.memory_migrate" },
+> +			{ NULL }
+> +		},
+> +	  .css_indx = TST_CGROUP_CPUSET
+> +	},
+> +	{ NULL }
+> +};
+
+Item is a very generic word, this is a list of known knobs and map
+between v1 and v2. So maybe cgroup_knob_map or just cgroup_knobs ?
+
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
