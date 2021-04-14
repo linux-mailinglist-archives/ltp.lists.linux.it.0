@@ -2,43 +2,60 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id C190435EED1
-	for <lists+linux-ltp@lfdr.de>; Wed, 14 Apr 2021 10:04:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D057735EF26
+	for <lists+linux-ltp@lfdr.de>; Wed, 14 Apr 2021 10:16:10 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 327FE3C70FE
-	for <lists+linux-ltp@lfdr.de>; Wed, 14 Apr 2021 10:04:25 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 6B1383C70F5
+	for <lists+linux-ltp@lfdr.de>; Wed, 14 Apr 2021 10:16:10 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 96B103C00A9
- for <ltp@lists.linux.it>; Wed, 14 Apr 2021 10:04:21 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ by picard.linux.it (Postfix) with ESMTPS id 84D193C0196
+ for <ltp@lists.linux.it>; Wed, 14 Apr 2021 10:16:04 +0200 (CEST)
+Received: from szxga03-in.huawei.com (szxga03-in.huawei.com [45.249.212.189])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 07593200B9E
- for <ltp@lists.linux.it>; Wed, 14 Apr 2021 10:04:20 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 3BA59AD09;
- Wed, 14 Apr 2021 08:04:20 +0000 (UTC)
-References: <F3D3F6AC3820BB4C9FCA340DB5C32CB4038B507A@dggeml531-mbx.china.huawei.com>
-User-agent: mu4e 1.4.15; emacs 27.2
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: zhaogongyi <zhaogongyi@huawei.com>
-In-reply-to: <F3D3F6AC3820BB4C9FCA340DB5C32CB4038B507A@dggeml531-mbx.china.huawei.com>
-Date: Wed, 14 Apr 2021 09:04:19 +0100
-Message-ID: <87im4p2sxo.fsf@suse.de>
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id D5EBE14010D1
+ for <ltp@lists.linux.it>; Wed, 14 Apr 2021 10:16:02 +0200 (CEST)
+Received: from dggeml406-hub.china.huawei.com (unknown [172.30.72.55])
+ by szxga03-in.huawei.com (SkyGuard) with ESMTP id 4FKwFt1Tsbz5q9t;
+ Wed, 14 Apr 2021 16:13:06 +0800 (CST)
+Received: from dggeml705-chm.china.huawei.com (10.3.17.143) by
+ dggeml406-hub.china.huawei.com (10.3.17.50) with Microsoft SMTP Server (TLS)
+ id 14.3.498.0; Wed, 14 Apr 2021 16:15:58 +0800
+Received: from dggpeml500013.china.huawei.com (7.185.36.41) by
+ dggeml705-chm.china.huawei.com (10.3.17.143) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
+ 15.1.2106.2; Wed, 14 Apr 2021 16:15:58 +0800
+Received: from dggpeml500013.china.huawei.com ([7.185.36.41]) by
+ dggpeml500013.china.huawei.com ([7.185.36.41]) with mapi id 15.01.2106.013;
+ Wed, 14 Apr 2021 16:15:58 +0800
+From: "wangxin (CQ)" <wangxin410@huawei.com>
+To: Li Wang <liwang@redhat.com>
+Thread-Topic: [LTP] [PATCH] openposix/conformance/interfaces: Correct typos
+Thread-Index: AQHXMPuoDbQHBpApWkKQZ8TJfGiiVqqzpyqw
+Date: Wed, 14 Apr 2021 08:15:58 +0000
+Message-ID: <91a235700b494bdf9a9a7dd1901aa947@huawei.com>
+References: <1617765607-78263-1-git-send-email-wangxin410@huawei.com>
+ <CAEemH2ctSMR5OF=0TQX1eNmTE7PcdEdMbjoYXc3RxiBsyfzcuw@mail.gmail.com>
+In-Reply-To: <CAEemH2ctSMR5OF=0TQX1eNmTE7PcdEdMbjoYXc3RxiBsyfzcuw@mail.gmail.com>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.174.176.33]
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-CFilter-Loop: Reflected
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] controllers/memcg: Add testcase for
- kmem_limit_in_bytes of memory cgroup
+X-Spam-Status: No, score=0.0 required=7.0 tests=HTML_MESSAGE,SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: [LTP] =?utf-8?b?562U5aSNOiAgW1BBVENIXSBvcGVucG9zaXgvY29uZm9ybWFu?=
+ =?utf-8?q?ce/interfaces=3A_Correct_typos?=
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,80 +67,171 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
-Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============0296708523=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello,
+--===============0296708523==
+Content-Language: zh-CN
+Content-Type: multipart/alternative;
+	boundary="_000_91a235700b494bdf9a9a7dd1901aa947huaweicom_"
 
-zhaogongyi <zhaogongyi@huawei.com> writes:
+--_000_91a235700b494bdf9a9a7dd1901aa947huaweicom_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-> Hi Richard,
->
-> Thanks so much for your review!
->
->> >> > +	pid = SAFE_FORK();
->> >> > +	if (!pid) {
->> >> > +		SAFE_SETPGID(0, 0);
->> >> > +
->> >> > +		SAFE_FILE_PRINTF(KMEM_LIMIT_IN_BYTES, "%d", 0);
->> >> > +
->> >> > +		SAFE_FILE_PRINTF(CGROUP_PROCS, "%d", getpgid(getpid()));
->> >>
->> >> After setting this we should avoid doing any work in this process
->> >> except calling fork. AFAIK there is no guarantee that some other
->> >> syscall or tasklet etc. Won't try to allocate memory and also fail.
->> >>
->> >
->> > It seems that we would not be afraid since there is no asynchronous
->> > operation in the test process.
->> 
->> IIRC one of the problems with tasklets is they can run in any process. Also,
->> in theory stdout can point to anything. So write() might allocate memory.
->> 
->> Why not do something like:
->> 
->> SAFE_FILE_PRINTF(CGROUP_PROCS, "%d", getpgid(getpid())); errno = 0;
->> fork(); exit(errno);
->> 
->> Then check that errno == ENOMEM, in the parent process?
->>
->>
->>> > +		TEST(fork());
->>> > +		if (TST_RET == -1) {
->>> > +			if (TST_ERR == ENOMEM)
->>> > +				tst_res(TPASS, "fork fail as expected");
->>> > +			else
->>> > +				tst_brk(TFAIL | TTERRNO,
->>> > +					"fork fail as unexpected");
->
-> As far as my personal understanding, after setpgid, the controlled process is the sub process whose process id is pid, excluded from the parent process, and the functions tst_res or tst_brk
-> Is executed in its parent process.
+SGkgV2FuZywNCg0KVGhhbmtzIHNvIG11Y2ggZm9yIHlvdXIgcmV2aWV3IQ0KDQpJIGp1c3QgcmUt
+Y2hlY2tlZCB0aGUgbGF0ZXN0IGNvZGUgYW5kIGZvdW5kIHRoYXQgdGhlIGNvZGUgbmVlZGVkIHRv
+IGJlIG1vZGlmaWVkIHdhcyBub3QgdGhlIHNhbWUgYXMgdGhlIGxhc3QgdGltZS4NClRoZXJlZm9y
+ZSwgZG8geW91IHdhbnQgdG8gaW5jb3Jwb3JhdGUgdGhlIHBhdGNoIHN1Ym1pdHRlZCBsYXN0IHRp
+bWU/DQpJZiB0aGVyZSBpcyBhIGNvbmZsaWN0LCBJIGNhbiBtb2RpZnkgdGhlIHBhdGNoIHN1Ym1p
+dHRlZCBsYXN0IHRpbWUuDQoNCi0tDQpSZWdhcmRzLA0KV2FuZyBYaW4NCg0K5Y+R5Lu25Lq6OiBM
+aSBXYW5nIFttYWlsdG86bGl3YW5nQHJlZGhhdC5jb21dDQrlj5HpgIHml7bpl7Q6IDIwMjHlubQ0
+5pyIMTTml6UgMTQ6NTgNCuaUtuS7tuS6ujogd2FuZ3hpbiAoQ1EpIDx3YW5neGluNDEwQGh1YXdl
+aS5jb20+DQrmioTpgIE6IExUUCBMaXN0IDxsdHBAbGlzdHMubGludXguaXQ+DQrkuLvpopg6IFJl
+OiBbTFRQXSBbUEFUQ0hdIG9wZW5wb3NpeC9jb25mb3JtYW5jZS9pbnRlcmZhY2VzOiBDb3JyZWN0
+IHR5cG9zDQoNCkhpIFhpbiwNCg0KU29ycnkgZm9yIHRoZSBsYXRlIHJlcGx5Lg0KDQpPbiBXZWQs
+IEFwciA3LCAyMDIxIGF0IDExOjAzIEFNIFdhbmcgWGluIDx3YW5neGluNDEwQGh1YXdlaS5jb208
+bWFpbHRvOndhbmd4aW40MTBAaHVhd2VpLmNvbT4+IHdyb3RlOg0KVHlwZXMgaW4gdGhlIG5hbWUg
+b2YgdGhlIHRlbXBvcmFyeSBmaWxlczogRm9yIGV4YW1wbGUsIGluIGFpb19jYW5jZWwvOC0xLmMg
+ZmlsZSwNCnB0c19haW9fY2FuY2VsXzFfMSAtPiBwdHNfYWlvX2NhbmNlbF84XzEuDQpPdGhlcnMg
+bGlrZSB0aGlzIGhhdmUgYmVlbiBtb2RpZmllZC4NCg0KR29vZCBjYXRjaCENCg0KU2luY2UgdGhl
+cmUgYXJlIG1hbnkgY2hhbmdlcyBiZWZvcmUgdGhpcyBwYXRjaCwgY291bGQgeW91DQpyZWJhc2Ug
+dGhpcyBwYXRjaCBvbiB0aGUgbGF0ZXN0IG1haW4gYnJhbmNoIGFuZCByZXNlbmQ/DQooaW4gb3Jk
+ZXIgdG8gZ2V0IHJpZCBvZiB0aGUgcGF0Y2ggY29uZmxpY3QgOikNCg0KLS0NClJlZ2FyZHMsDQpM
+aSBXYW5nDQo=
 
-setpgid(0, 0) sets the process group id (pgid) to be the same as the
-(pid), which creates a new process group. This probably has the effect
-that the calling process will not recieve signals from the
-terminal. Also it should receive SIGTTOU when calling tst_res and
-tst_brk, if stdout/stderr point to a terminal with the right
-configuration.
+--_000_91a235700b494bdf9a9a7dd1901aa947huaweicom_
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-AFAICT process groups are for shells and affect where signals are
-sent. Nothing else.
+PGh0bWwgeG1sbnM6dj0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTp2bWwiIHhtbG5zOm89InVy
+bjpzY2hlbWFzLW1pY3Jvc29mdC1jb206b2ZmaWNlOm9mZmljZSIgeG1sbnM6dz0idXJuOnNjaGVt
+YXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6d29yZCIgeG1sbnM6bT0iaHR0cDovL3NjaGVtYXMubWlj
+cm9zb2Z0LmNvbS9vZmZpY2UvMjAwNC8xMi9vbW1sIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv
+VFIvUkVDLWh0bWw0MCI+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIg
+Y29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRv
+ciIgY29udGVudD0iTWljcm9zb2Z0IFdvcmQgMTUgKGZpbHRlcmVkIG1lZGl1bSkiPg0KPHN0eWxl
+PjwhLS0NCi8qIEZvbnQgRGVmaW5pdGlvbnMgKi8NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6
+5a6L5L2TOw0KCXBhbm9zZS0xOjIgMSA2IDAgMyAxIDEgMSAxIDE7fQ0KQGZvbnQtZmFjZQ0KCXtm
+b250LWZhbWlseToiQ2FtYnJpYSBNYXRoIjsNCglwYW5vc2UtMToyIDQgNSAzIDUgNCA2IDMgMiA0
+O30NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6Q2FsaWJyaTsNCglwYW5vc2UtMToyIDE1IDUg
+MiAyIDIgNCAzIDIgNDt9DQpAZm9udC1mYWNlDQoJe2ZvbnQtZmFtaWx5OuW+rui9r+mbhem7kTsN
+CglwYW5vc2UtMToyIDExIDUgMyAyIDIgNCAyIDIgNDt9DQpAZm9udC1mYWNlDQoJe2ZvbnQtZmFt
+aWx5OiJcQOW+rui9r+mbhem7kSI7DQoJcGFub3NlLTE6MiAxMSA1IDMgMiAyIDQgMiAyIDQ7fQ0K
+QGZvbnQtZmFjZQ0KCXtmb250LWZhbWlseToiXEDlrovkvZMiOw0KCXBhbm9zZS0xOjIgMSA2IDAg
+MyAxIDEgMSAxIDE7fQ0KLyogU3R5bGUgRGVmaW5pdGlvbnMgKi8NCnAuTXNvTm9ybWFsLCBsaS5N
+c29Ob3JtYWwsIGRpdi5Nc29Ob3JtYWwNCgl7bWFyZ2luOjBjbTsNCgltYXJnaW4tYm90dG9tOi4w
+MDAxcHQ7DQoJZm9udC1zaXplOjEyLjBwdDsNCglmb250LWZhbWlseTrlrovkvZM7fQ0KYTpsaW5r
+LCBzcGFuLk1zb0h5cGVybGluaw0KCXttc28tc3R5bGUtcHJpb3JpdHk6OTk7DQoJY29sb3I6Ymx1
+ZTsNCgl0ZXh0LWRlY29yYXRpb246dW5kZXJsaW5lO30NCmE6dmlzaXRlZCwgc3Bhbi5Nc29IeXBl
+cmxpbmtGb2xsb3dlZA0KCXttc28tc3R5bGUtcHJpb3JpdHk6OTk7DQoJY29sb3I6cHVycGxlOw0K
+CXRleHQtZGVjb3JhdGlvbjp1bmRlcmxpbmU7fQ0Kc3Bhbi5FbWFpbFN0eWxlMTcNCgl7bXNvLXN0
+eWxlLXR5cGU6cGVyc29uYWwtcmVwbHk7DQoJZm9udC1mYW1pbHk6IkNhbGlicmkiLHNhbnMtc2Vy
+aWY7DQoJY29sb3I6IzFGNDk3RDt9DQouTXNvQ2hwRGVmYXVsdA0KCXttc28tc3R5bGUtdHlwZTpl
+eHBvcnQtb25seTsNCglmb250LXNpemU6MTAuMHB0Ow0KCWZvbnQtZmFtaWx5OiJDYWxpYnJpIixz
+YW5zLXNlcmlmO30NCkBwYWdlIFdvcmRTZWN0aW9uMQ0KCXtzaXplOjYxMi4wcHQgNzkyLjBwdDsN
+CgltYXJnaW46NzIuMHB0IDkwLjBwdCA3Mi4wcHQgOTAuMHB0O30NCmRpdi5Xb3JkU2VjdGlvbjEN
+Cgl7cGFnZTpXb3JkU2VjdGlvbjE7fQ0KLS0+PC9zdHlsZT48IS0tW2lmIGd0ZSBtc28gOV0+PHht
+bD4NCjxvOnNoYXBlZGVmYXVsdHMgdjpleHQ9ImVkaXQiIHNwaWRtYXg9IjEwMjYiIC8+DQo8L3ht
+bD48IVtlbmRpZl0tLT48IS0tW2lmIGd0ZSBtc28gOV0+PHhtbD4NCjxvOnNoYXBlbGF5b3V0IHY6
+ZXh0PSJlZGl0Ij4NCjxvOmlkbWFwIHY6ZXh0PSJlZGl0IiBkYXRhPSIxIiAvPg0KPC9vOnNoYXBl
+bGF5b3V0PjwveG1sPjwhW2VuZGlmXS0tPg0KPC9oZWFkPg0KPGJvZHkgbGFuZz0iWkgtQ04iIGxp
+bms9ImJsdWUiIHZsaW5rPSJwdXJwbGUiPg0KPGRpdiBjbGFzcz0iV29yZFNlY3Rpb24xIj4NCjxw
+IGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIGxhbmc9IkVOLVVTIj5IaSBXYW5nLDxvOnA+PC9vOnA+
+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIGxhbmc9IkVOLVVTIiBzdHls
+ZT0iZm9udC1zaXplOjEwLjVwdDtmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LHNhbnMt
+c2VyaWY7Y29sb3I6IzFGNDk3RCI+PG86cD4mbmJzcDs8L286cD48L3NwYW4+PC9wPg0KPHAgY2xh
+c3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMiPlRoYW5rcyBzbyBtdWNoIGZvciB5b3Vy
+IHJldmlldyE8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3Bh
+biBsYW5nPSJFTi1VUyIgc3R5bGU9ImZvbnQtc2l6ZToxMC41cHQ7Zm9udC1mYW1pbHk6JnF1b3Q7
+Q2FsaWJyaSZxdW90OyxzYW5zLXNlcmlmO2NvbG9yOiMxRjQ5N0QiPjxvOnA+Jm5ic3A7PC9vOnA+
+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIGxhbmc9IkVOLVVTIj5JIGp1
+c3QgcmUtY2hlY2tlZCB0aGUgbGF0ZXN0IGNvZGUgYW5kIGZvdW5kIHRoYXQgdGhlIGNvZGUgbmVl
+ZGVkIHRvIGJlIG1vZGlmaWVkIHdhcyBub3QgdGhlIHNhbWUgYXMgdGhlIGxhc3QgdGltZS48bzpw
+PjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBsYW5nPSJFTi1V
+UyI+VGhlcmVmb3JlLCBkbyB5b3Ugd2FudCB0byBpbmNvcnBvcmF0ZSB0aGUgcGF0Y2ggc3VibWl0
+dGVkIGxhc3QgdGltZT8NCjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3Jt
+YWwiPjxzcGFuIGxhbmc9IkVOLVVTIj5JZiB0aGVyZSBpcyBhIGNvbmZsaWN0LCBJIGNhbiBtb2Rp
+ZnkgdGhlIHBhdGNoIHN1Ym1pdHRlZCBsYXN0IHRpbWUuPG86cD48L286cD48L3NwYW4+PC9wPg0K
+PHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMiIHN0eWxlPSJmb250LXNpemU6
+MTAuNXB0O2ZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssc2Fucy1zZXJpZjtjb2xvcjoj
+MUY0OTdEIj48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFs
+Ij48c3BhbiBsYW5nPSJFTi1VUyI+LS0gPG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9
+Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMiPlJlZ2FyZHMsPG86cD48L286cD48L3NwYW4+
+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMiPldhbmcgWGluPG86
+cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4t
+VVMiIHN0eWxlPSJmb250LXNpemU6MTAuNXB0O2ZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVv
+dDssc2Fucy1zZXJpZjtjb2xvcjojMUY0OTdEIj48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+
+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48Yj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtm
+b250LWZhbWlseTomcXVvdDvlvq7ova/pm4Xpu5EmcXVvdDssc2Fucy1zZXJpZiI+5Y+R5Lu25Lq6
+PHNwYW4gbGFuZz0iRU4tVVMiPjo8L3NwYW4+PC9zcGFuPjwvYj48c3BhbiBsYW5nPSJFTi1VUyIg
+c3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q75b6u6L2v6ZuF6buRJnF1
+b3Q7LHNhbnMtc2VyaWYiPiBMaSBXYW5nIFttYWlsdG86bGl3YW5nQHJlZGhhdC5jb21dDQo8YnI+
+DQo8L3NwYW4+PGI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1
+b3Q75b6u6L2v6ZuF6buRJnF1b3Q7LHNhbnMtc2VyaWYiPuWPkemAgeaXtumXtDxzcGFuIGxhbmc9
+IkVOLVVTIj46PC9zcGFuPjwvc3Bhbj48L2I+PHNwYW4gbGFuZz0iRU4tVVMiIHN0eWxlPSJmb250
+LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OiZxdW90O+W+rui9r+mbhem7kSZxdW90OyxzYW5zLXNl
+cmlmIj4gMjAyMTwvc3Bhbj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWls
+eTomcXVvdDvlvq7ova/pm4Xpu5EmcXVvdDssc2Fucy1zZXJpZiI+5bm0PHNwYW4gbGFuZz0iRU4t
+VVMiPjQ8L3NwYW4+5pyIPHNwYW4gbGFuZz0iRU4tVVMiPjE0PC9zcGFuPuaXpTxzcGFuIGxhbmc9
+IkVOLVVTIj4NCiAxNDo1ODxicj4NCjwvc3Bhbj48Yj7mlLbku7bkuro8c3BhbiBsYW5nPSJFTi1V
+UyI+Ojwvc3Bhbj48L2I+PHNwYW4gbGFuZz0iRU4tVVMiPiB3YW5neGluIChDUSkgJmx0O3dhbmd4
+aW40MTBAaHVhd2VpLmNvbSZndDs8YnI+DQo8L3NwYW4+PGI+5oqE6YCBPHNwYW4gbGFuZz0iRU4t
+VVMiPjo8L3NwYW4+PC9iPjxzcGFuIGxhbmc9IkVOLVVTIj4gTFRQIExpc3QgJmx0O2x0cEBsaXN0
+cy5saW51eC5pdCZndDs8YnI+DQo8L3NwYW4+PGI+5Li76aKYPHNwYW4gbGFuZz0iRU4tVVMiPjo8
+L3NwYW4+PC9iPjxzcGFuIGxhbmc9IkVOLVVTIj4gUmU6IFtMVFBdIFtQQVRDSF0gb3BlbnBvc2l4
+L2NvbmZvcm1hbmNlL2ludGVyZmFjZXM6IENvcnJlY3QgdHlwb3M8bzpwPjwvbzpwPjwvc3Bhbj48
+L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMiPjxvOnA+
+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4NCjxkaXY+DQo8ZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJN
+c29Ob3JtYWwiPjxzcGFuIGxhbmc9IkVOLVVTIj5IaSBYaW4sPG86cD48L286cD48L3NwYW4+PC9w
+Pg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMi
+PjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJN
+c29Ob3JtYWwiPjxzcGFuIGxhbmc9IkVOLVVTIj5Tb3JyeSZuYnNwO2ZvciB0aGUgbGF0ZSByZXBs
+eS48bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjwvZGl2Pg0KPHAgY2xhc3M9Ik1zb05v
+cm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMiPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4NCjxk
+aXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMiPk9uIFdl
+ZCwgQXByIDcsIDIwMjEgYXQgMTE6MDMgQU0gV2FuZyBYaW4gJmx0OzxhIGhyZWY9Im1haWx0bzp3
+YW5neGluNDEwQGh1YXdlaS5jb20iPndhbmd4aW40MTBAaHVhd2VpLmNvbTwvYT4mZ3Q7IHdyb3Rl
+OjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2Pg0KPGJsb2NrcXVvdGUgc3R5bGU9ImJvcmRl
+cjpub25lO2JvcmRlci1sZWZ0OnNvbGlkICNDQ0NDQ0MgMS4wcHQ7cGFkZGluZzowY20gMGNtIDBj
+bSA2LjBwdDttYXJnaW4tbGVmdDo0LjhwdDttYXJnaW4tdG9wOjUuMHB0O21hcmdpbi1yaWdodDow
+Y207bWFyZ2luLWJvdHRvbTo1LjBwdCI+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBsYW5n
+PSJFTi1VUyI+VHlwZXMgaW4gdGhlIG5hbWUgb2YgdGhlIHRlbXBvcmFyeSBmaWxlczogRm9yIGV4
+YW1wbGUsIGluIGFpb19jYW5jZWwvOC0xLmMgZmlsZSw8YnI+DQpwdHNfYWlvX2NhbmNlbF8xXzEg
+LSZndDsgcHRzX2Fpb19jYW5jZWxfOF8xLjxicj4NCk90aGVycyBsaWtlIHRoaXMgaGF2ZSBiZWVu
+IG1vZGlmaWVkLjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjwvYmxvY2txdW90ZT4NCjxkaXY+DQo8
+cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBsYW5nPSJFTi1VUyI+PG86cD4mbmJzcDs8L286cD48
+L3NwYW4+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxz
+cGFuIGxhbmc9IkVOLVVTIj5Hb29kIGNhdGNoITxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2
+Pg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMi
+PjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJN
+c29Ob3JtYWwiPjxzcGFuIGxhbmc9IkVOLVVTIj5TaW5jZSB0aGVyZSBhcmUgbWFueSBjaGFuZ2Vz
+IGJlZm9yZSB0aGlzIHBhdGNoLCBjb3VsZCB5b3U8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rp
+dj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBsYW5nPSJFTi1VUyI+cmViYXNl
+IHRoaXMgcGF0Y2ggb24gdGhlIGxhdGVzdCBtYWluIGJyYW5jaCBhbmQgcmVzZW5kPzxvOnA+PC9v
+OnA+PC9zcGFuPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFu
+IGxhbmc9IkVOLVVTIj4oaW4gb3JkZXIgdG8gZ2V0IHJpZCBvZiB0aGUgcGF0Y2ggY29uZmxpY3Qm
+bmJzcDs6KTxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2Pg0KPC9kaXY+DQo8ZGl2Pg0KPHAg
+Y2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMiPjxvOnA+Jm5ic3A7PC9vOnA+PC9z
+cGFuPjwvcD4NCjwvZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMi
+Pi0tIDxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxkaXY+DQo8ZGl2Pg0KPGRpdj4NCjxwIGNsYXNz
+PSJNc29Ob3JtYWwiPjxzcGFuIGxhbmc9IkVOLVVTIj5SZWdhcmRzLDxvOnA+PC9vOnA+PC9zcGFu
+PjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIGxhbmc9IkVO
+LVVTIj5MaSBXYW5nPG86cD48L286cD48L3NwYW4+PC9wPg0KPC9kaXY+DQo8L2Rpdj4NCjwvZGl2
+Pg0KPC9kaXY+DQo8L2Rpdj4NCjwvYm9keT4NCjwvaHRtbD4NCg==
 
->
-> In this case, is it no affection to this test?
->
->
-> Best Regards,
-> Gongyi
+--_000_91a235700b494bdf9a9a7dd1901aa947huaweicom_--
 
+--===============0296708523==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
--- 
-Thank you,
-Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============0296708523==--
