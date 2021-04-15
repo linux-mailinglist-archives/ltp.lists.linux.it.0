@@ -1,50 +1,54 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DD6236053D
-	for <lists+linux-ltp@lfdr.de>; Thu, 15 Apr 2021 11:06:01 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C19336053C
+	for <lists+linux-ltp@lfdr.de>; Thu, 15 Apr 2021 11:05:28 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 856773C7026
-	for <lists+linux-ltp@lfdr.de>; Thu, 15 Apr 2021 11:06:00 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 1D3523C7048
+	for <lists+linux-ltp@lfdr.de>; Thu, 15 Apr 2021 11:05:27 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 178053C1B10
- for <ltp@lists.linux.it>; Thu, 15 Apr 2021 11:05:56 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 3BBDE3C1B10
+ for <ltp@lists.linux.it>; Thu, 15 Apr 2021 11:05:23 +0200 (CEST)
 Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 41C171A006FE
- for <ltp@lists.linux.it>; Thu, 15 Apr 2021 11:05:56 +0200 (CEST)
-Received: from ubuntu.localdomain (unknown [178.26.168.79])
- by mail.jv-coder.de (Postfix) with ESMTPSA id 5559B9F650;
- Thu, 15 Apr 2021 09:05:54 +0000 (UTC)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 5935B60010D
+ for <ltp@lists.linux.it>; Thu, 15 Apr 2021 11:05:22 +0200 (CEST)
+Received: from [192.168.178.40] (unknown [178.26.168.79])
+ by mail.jv-coder.de (Postfix) with ESMTPSA id 454E49F650;
+ Thu, 15 Apr 2021 09:05:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
- t=1618477554; bh=urGpT/vbD5jxK4IS4f411e4cyc3yaki3m5FX8Ds0CzI=;
- h=From:To:Subject:Date:Message-Id:MIME-Version;
- b=BsRPuwyEpALCqmP/1UbWvknEDL9rkpEHkALKPC9CM6w3yKphQ/IPMKHVd9AamuchA
- JgAvkq3J9i7H0toehFhb8vgmWbjeEHJrt/3LfT24EJhazLREcRMoXwW3LAOwCETFmX
- QHThn+X1w8IEE8Y5EKulx4x+QwrM5TW/9jgTMmqw=
+ t=1618477520; bh=3shz/HJRUIpiCPoWj2+qhTzPFUL4p8m3nNsHWztyU90=;
+ h=Subject:To:From:Message-ID:Date:MIME-Version;
+ b=mKAZMgoimtwAokE/aMyUiygEdw9GY40JwnlSX+uVgxHOpWV9FHcN3fDr1fVj+8hwe
+ dNnBsNk8R+Gd3A8kTue4wgdNdNw2hZD3QZ32oQvipjZGX75o5Phfn6cPO8UaiQ1om7
+ 2HEshq17skmQzfPNBCR9PE+feP5+G4RL+l9MGq4E=
+To: Petr Vorel <pvorel@suse.cz>
+References: <20210315092844.991073-1-lkml@jv-coder.de>
+ <20210315092844.991073-2-lkml@jv-coder.de> <YGIf3JSsFHn/gwKJ@pevik>
 From: Joerg Vehlow <lkml@jv-coder.de>
-To: ltp@lists.linux.it,
-	pvorel@suse.cz
-Date: Thu, 15 Apr 2021 11:05:42 +0200
-Message-Id: <20210415090542.960158-1-lkml@jv-coder.de>
-X-Mailer: git-send-email 2.25.1
+Message-ID: <8f7b161a-486a-edc2-11de-32d5d6fac825@jv-coder.de>
+Date: Thu, 15 Apr 2021 11:06:49 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.9.1
 MIME-Version: 1.0
+In-Reply-To: <YGIf3JSsFHn/gwKJ@pevik>
+Content-Language: en-US
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v2] pec: Fix multiple event test
+Subject: Re: [LTP] [PATCH 2/2] pec: Fix multiple event test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,276 +60,51 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>, ltp@lists.linux.it
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-From: Joerg Vehlow <joerg.vehlow@aox-tech.de>
-
-The test case for NUM_EVENTS != 1 was not correct at all.
-Now the test looks for each event recorded by the generator
-in the correct order in the listener's log.
-
-Additionally the test is parameterized, to the the number of generated events
-and the default is now set to 10.
-
-Signed-off-by: Joerg Vehlow <joerg.vehlow@aox-tech.de>
----
- testcases/kernel/connectors/pec/cn_pec.sh     | 100 +++++++++++++++---
- .../kernel/connectors/pec/event_generator.c   |  54 +++++-----
- 2 files changed, 116 insertions(+), 38 deletions(-)
-
-diff --git a/testcases/kernel/connectors/pec/cn_pec.sh b/testcases/kernel/connectors/pec/cn_pec.sh
-index 4ab84b4fa..0acb7271d 100755
---- a/testcases/kernel/connectors/pec/cn_pec.sh
-+++ b/testcases/kernel/connectors/pec/cn_pec.sh
-@@ -9,16 +9,52 @@
- # Process event connector is a netlink connector that reports process events
- # to userspace. It sends events such as fork, exec, id change and exit.
- 
-+TST_OPTS="n:"
- TST_SETUP=setup
- TST_TESTFUNC=test
-+TST_PARSE_ARGS=parse_args
-+TST_USAGE=usage
- TST_NEEDS_ROOT=1
- TST_NEEDS_TMPDIR=1
- TST_TEST_DATA="fork exec exit uid gid"
- 
--NUM_EVENTS=1
--
- . tst_test.sh
- 
-+num_events=10
-+
-+usage()
-+{
-+	cat << EOF
-+usage: $0 [-n <nevents>]
-+
-+OPTIONS
-+-n      The number of evetns to generate per test (default 10)
-+EOF
-+}
-+
-+parse_args()
-+{
-+	case $1 in
-+	n) num_events=$2;;
-+	esac
-+}
-+
-+# Find a free file handle
-+free_fd()
-+{
-+	local fd
-+
-+	for fd in $(seq 200); do
-+		# Sapwn a new sh, because redirecting to a non existing file handle
-+		# will trigger a syntax error.
-+		/bin/sh -c ": 2>/dev/null >&$fd || : 2>/dev/null <&$fd" 2>/dev/null
-+		if [ $? -eq 2 ]; then
-+			echo $fd
-+			return
-+		fi
-+	done
-+}
-+
- setup()
- {
- 	if ! grep -q cn_proc /proc/net/connector; then
-@@ -31,7 +67,9 @@ setup()
- test()
- {
- 	local event=$2
--	local expected_events lis_rc pid
-+	local expected_events lis_rc pid fd_act failed act_nevents exp act
-+
-+	tst_res TINFO "Testing $2 event (nevents=$num_events)"
- 
- 	pec_listener >lis_$event.log 2>lis_$event.err &
- 	pid=$!
-@@ -39,28 +77,66 @@ test()
- 	tst_sleep 100ms
- 
- 	# generator must be in PATH
--	ROD event_generator -n $NUM_EVENTS -e $event \>gen_$event.log 2\>gen_$event.err
-+	ROD event_generator -n $num_events -e $event \>gen_$event.log 2\>gen_$event.err
- 
--	# sleep until pec_listener has seen and handled all of the generated events
--	tst_sleep 100ms
- 	kill -s INT $pid 2> /dev/null
- 	wait $pid
- 	lis_rc=$?
- 
- 	if [ ! -s gen_$event.log ]; then
--		tst_brk TBROK "failed to generate process events"
-+		tst_brk TBROK "failed to generate process events: $(cat gen_$event.err)"
- 	fi
- 
- 	if [ $lis_rc -ne 0 ]; then
- 		tst_brk TBROK "failed to execute the listener: $(cat lis_$event.err)"
- 	fi
- 
--	expected_events="$(cat gen_$event.log)"
--	if grep -q "$expected_events" lis_$event.log; then
--		tst_res TPASS "$event detected by listener"
-+	# The listener writes the same messages as the generator, but it can
-+	# also see more events (e.g. for testing exit, a fork is generated).
-+	# So: The events generated by the generator have to be in the same order
-+	# as the events printed by the listener, but my interleaved with other
-+	# messages. To correctly compare them, we have to open both logs
-+	# and iterate over both of them at the same time, skipping messages
-+	# in the listener log, that are not of interest.
-+	# Because some messages may be multiple times in the listener log,
-+	# we have to open it only once!
-+	# This however does not check, if the listener sees more messages,
-+	# than expected.
-+
-+	fd_act=$(free_fd)
-+	[ -z "$fd_act" ] && tst_brk TBROK "No free filehandle found"
-+	eval "exec ${fd_act}<lis_$event.log"
-+
-+	failed=0
-+	act_nevents=0
-+	while read -r exp; do
-+		local found=0
-+		act_nevents=$((act_nevents + 1))
-+		while read -r act; do
-+			if [ "$exp" = "$act" ]; then
-+				found=1
-+				break
-+			fi
-+		done <&${fd_act}
-+		if [ $found -ne 1 ]; then
-+			failed=1
-+			tst_res TFAIL "Event was not detected by the event listener: $exp"
-+			break
-+		fi
-+	done <gen_$event.log
-+
-+	eval "exec ${fd_act}<&-"
-+
-+	if [ $failed -eq 0 ]; then
-+		if [ $act_nevents -ne $num_events ]; then
-+			tst_res TBROK "Expected $num_events, but $act_nevents generated"
-+		else
-+			tst_res TPASS "All events detected"
-+		fi
- 	else
--		tst_res TFAIL "$event not detected by listener"
--	fi
-+		# TFAIL message is already printed in the loop above
-+		cat lis_$event.log
-+ 	fi
- }
- 
- tst_run
-diff --git a/testcases/kernel/connectors/pec/event_generator.c b/testcases/kernel/connectors/pec/event_generator.c
-index 0a90b91c4..62e341268 100644
---- a/testcases/kernel/connectors/pec/event_generator.c
-+++ b/testcases/kernel/connectors/pec/event_generator.c
-@@ -93,16 +93,8 @@ static void gen_exec(void)
-  */
- static inline void gen_fork(void)
- {
--	pid_t pid;
--	int status;
--
--	pid = SAFE_FORK();
--	if (pid == 0) {
--		printf("fork parent: %d, child: %d\n", getppid(), getpid());
--		exit(0);
--	} else {		/* Parent should wait for the child */
--		wait(&status);
--	}
-+	/* The actual fork is already done in main */
-+	printf("fork parent: %d, child: %d\n", getppid(), getpid());
- }
- 
- /**
-@@ -110,16 +102,10 @@ static inline void gen_fork(void)
-  */
- static inline void gen_exit(void)
- {
--	pid_t pid;
--	int status;
--
--	pid = SAFE_FORK();
--	if (pid == 0) {
--		printf("exit pid: %d exit_code: %d\n", getpid(), 0);
--		exit(0);
--	} else {
--		wait(&status);
--	}
-+	/* exit_signal will always be SIGCHLD, if the process terminates cleanly */
-+	printf("exit pid: %d exit_code: %d exit_signal: %d\n",
-+	       getpid(), 0, SIGCHLD);
-+	/* exit is called by main already */
- }
- 
- /*
-@@ -128,7 +114,7 @@ static inline void gen_exit(void)
- static inline void gen_uid(void)
- {
- 	SAFE_SETUID(ltp_uid);
--	printf("uid pid: %d euid: %d\n", getpid(), ltp_uid);
-+	printf("uid pid: %d euid: %d ruid: %d\n", getpid(), ltp_uid, ltp_uid);
- }
- 
- /*
-@@ -137,7 +123,7 @@ static inline void gen_uid(void)
- static inline void gen_gid(void)
- {
- 	SAFE_SETGID(ltp_gid);
--	printf("gid pid: %d egid: %d\n", getpid(), ltp_gid);
-+	printf("gid pid: %d egid: %d rgid: %u\n", getpid(), ltp_gid, ltp_gid);
- }
- 
- /*
-@@ -210,8 +196,6 @@ int main(int argc, char **argv)
- 	ltp_uid = ent->pw_uid;
- 	ltp_gid = ent->pw_gid;
- 
--	signal(SIGCHLD, SIG_IGN);
--
- 	/* special processing for gen_exec, see comments above gen_exec() */
- 	if (gen_event == gen_exec) {
- 		exec_argv = argv;
-@@ -223,8 +207,26 @@ int main(int argc, char **argv)
- 	}
- 
- 	/* other events */
--	for (i = 0; i < nr_event; i++)
--		gen_event();
-+	for (i = 0; i < nr_event; i++) {
-+		pid_t pid;
-+		int status;
-+
-+		pid = SAFE_FORK();
-+		if (pid == 0) {
-+			gen_event();
-+			exit(0);
-+		} else {
-+			if (pid != SAFE_WAITPID(pid, &status, 0)) {
-+				fprintf(stderr,
-+				        "Child process did not terminate as expected\n");
-+				return 1;
-+			}
-+			if (WEXITSTATUS(status) != 0) {
-+				fprintf(stderr, "Child process did not terminate with 0\n");
-+				return 1;
-+			}
-+		}
-+	}
- 
- 	return 0;
- }
--- 
-2.25.1
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+SGkgUGV0ciwKCkkgd2lsbCBzZW5kIGEgdjIsIGJ1dCB3YW50IHRvIGNvbW1lbnQgb24gc29tZSBv
+ZiB5b3VyIHJlbWFya3MgZmlyc3Q6CgpPbiAzLzI5LzIwMjEgODo0MyBQTSwgUGV0ciBWb3JlbCB3
+cm90ZToKPj4gKwl3aGlsZSByZWFkIC1yIGV4cDsgZG8KPj4gKwkJbG9jYWwgZm91bmQ9MAo+PiAr
+CQlhY3RfbmV2ZW50cz0kKChhY3RfbmV2ZW50cyArIDEpKQo+PiArCQl3aGlsZSByZWFkIC1yIDwm
+JHtmZF9hY3R9IGFjdDsgZG8KPiA8JiBpcyBhIGJhc2hpc20uIElzbid0IGl0IHVzaW5nIGp1c3Qg
+c3RkaW4gZW5vdWdoPwpBY3R1YWxseSBubywgYW5kIEkgZG9uJ3QgZXZlbiB0aGluayB0aGlzIGlz
+IGEgYmFzaGlzbS4gSSBndWVzcyBpdCBpcyBhIApidWcgaW4gdGhlIGNoZWNrYmFzaGlzbXMgc2Ny
+aXB0Lgpbbl08Jm0gbWVhbnMgY29weSBmaWxlIGRlc2NyaXB0b3IgbSB0byBuIHdoZW4gZXhlY3V0
+aW5nIHRoZSBjb21tYW5kLiBTZWUgClsxXS4KTXkgdGhlb3J5IG9mIGEgYnVnIGlzIGV2ZW4gbW9y
+ZSBzdXBwb3J0ZWQgYnkgdGhlIGZhY3QsIHRoYXQgCmNoZWNrYmFzaGlzbXMgc3VnZ2VzdHMgdG8g
+cmVwbGFjZQoiPCYkdmFyIiB3aXRoICI+d29yZCAyPiYxIi4gc28gIjwmJHZhciIgb2J2aW91c2x5
+IHRyaWdnZXJlZCB0aGUgCiImPndvcmQiLXJ1bGUuCgpUaGlzIGlzIHJlcXVpcmVkIGhlcmUsIGJl
+Y2F1c2UgJGZkX2FjdCBpcyBhIGZpbGUgaGFuZGxlIHRvIHRoZSBhY3R1YWwgCnJlY2VpdmVkIGV2
+ZW50cywgdGhhdCBpcyBzdXBwb3NlZAp0byBiZSBpdGVyYXRlZCBvbmx5IG9uY2UsIHdoaWxlIHRo
+ZSBleHBlY3RlZCBldmVudHMgYXJlIGl0ZXJhdGVkIG92ZXIgaW4gCnRoZSBvdXRlciBsb29wLgpU
+aGlzIGNvbnN0cnVjdCBhbGxvd3MgImFjdHVhbCIgdG8gY29udGFpbiBtb3JlIGV2ZW50cywgdGhh
+biBleHBlY3RlZC4gCkJ1dCBhbGwgZXhwZWN0ZWQgZXZlbnRzIG11c3QgYmUKaW4gdGhlIGNvcnJl
+Y3Qgb3JkZXIgaW4gYWN0dWFsLgoKSW4gdjIgSSByZW9yZGVyZWQgdGhlIGNvZGUgYSBiaXQgKHdo
+aWxlIHJlYWQuLi4uOyBkbyAuLi4uOyBkb25lIDwmJGZkKS4gClRoaXMgc3RpbGwgdHJpZ2dlcnMg
+Y2hlY2tiYXNoaW1zLCBidXQKaXQgdGhpcyB3b3JrcyBhdCBsZWFzdCBpbiBiYXNoLCBhc2gsIGRh
+c2gsIGFuZCBidXN5Ym94IHNoLgoKPiAJCXdoaWxlIHJlYWQgLXIgPCAkZmRfYWN0IGFjdDsgZG8K
+Pj4gKwkJCWlmIFsgIiRleHAiID0gIiRhY3QiIF07IHRoZW4KPj4gKwkJCQlmb3VuZD0xCj4+ICsJ
+CQkJYnJlYWsKPj4gKwkJCWZpCj4+ICsJCWRvbmUKPj4gKwkJaWYgWyAkZm91bmQgLW5lIDEgXTsg
+dGhlbgo+PiArCQkJZmFpbGVkPTEKPj4gKwkJCXRzdF9yZXMgVEZBSUwgIkV2ZW50IHdhcyBub3Qg
+ZGV0ZWN0ZWQgYnkgdGhlIGV2ZW50IGxpc3RlbmVyOiAkZXhwIgo+PiArCQkJYnJlYWsKPj4gKwkJ
+ZmkKPj4gKwlkb25lIDxnZW5fJGV2ZW50LmxvZwo+PiArCj4+ICsJZXZhbCAiZXhlYyAke2ZkX2Fj
+dH08Ji0iCj4+ICsKPj4gKwlpZiBbICRmYWlsZWQgLWVxIDAgXTsgdGhlbgo+PiArCQlpZiBbICRh
+Y3RfbmV2ZW50cyAtbmUgJG51bV9ldmVudHMgXTsgdGhlbgo+PiArCQkJdHN0X3JlcyBUQlJPSyAi
+RXhwZWN0ZWQgJG51bV9ldmVudHMsIGJ1dCAkYWN0X25ldmVudHMgZ2VuZXJhdGVkIgo+PiArCQll
+bHNlCj4+ICsJCQl0c3RfcmVzIFRQQVNTICJBbGwgZXZlbnRzIGRldGVjdGVkIgo+PiArCQlmaQo+
+PiAgIAllbHNlCj4+IC0JCXRzdF9yZXMgVEZBSUwgIiRldmVudCBub3QgZGV0ZWN0ZWQgYnkgbGlz
+dGVuZXIiCj4+ICsJCWNhdCBsaXNfJGV2ZW50LmxvZwo+IFdoeSByZW1vdmluZyB0c3RfcmVzIFRG
+QUlMPwo+IElmICJjYXQgbGlzXyRldmVudC5sb2ciIG5lZWRlZCwgd2h5IG5vdCBoYXZpbmcgaXQg
+aW4gcHJldmlvdXMgY29tbWl0PwpJIG1vdmVkIHRoaXMgdXAgaW50byB0aGUgbG9vcCwgdG8gYmUg
+YWJsZSB0byBvdXRwdXQgdGhlIGV4cGVjdGVkIGV2ZW50LCAKdGhhdCB3YXMgbm90IGRldGVjdGVk
+LgpUaGUgb3V0cHV0IG9mIHRoZSBhY3R1YWwgZXZlbnRzIGlzIGZvciBkZWJ1Z2dpbmcuIEl0IGlz
+IG5vdCBzdHJpY3RseSAKcmVxdWlyZWQsCmJ1dCBjb3VsZCBzaW1wbGlmeSBpZGVudGlmeWluZyB3
+aHkgYW4gZXZlbnQgaXMgbWlzc2luZy4gRmVlbCBmcmVlIHRvIApyZW1vdmUgdGhpcyBpbiB2MiA7
+KQoKSSBob3BlIEkgZml4ZWQgZXZlcnl0aGluZyBlbHNlLgoKSsO2cmcKClsxXSAKaHR0cHM6Ly9w
+dWJzLm9wZW5ncm91cC5vcmcvb25saW5lcHVicy8wMDk2MDQ0OTkvdXRpbGl0aWVzL3hjdV9jaGFw
+MDIuaHRtbCN0YWdfMDJfMDdfMDUKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0
+cy5saW51eC5pdC9saXN0aW5mby9sdHAK
