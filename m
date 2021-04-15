@@ -1,66 +1,84 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DB4935FFDE
-	for <lists+linux-ltp@lfdr.de>; Thu, 15 Apr 2021 04:11:36 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 29AC335FFE9
+	for <lists+linux-ltp@lfdr.de>; Thu, 15 Apr 2021 04:19:46 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0AF333C7130
-	for <lists+linux-ltp@lfdr.de>; Thu, 15 Apr 2021 04:11:36 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 4B2923C7185
+	for <lists+linux-ltp@lfdr.de>; Thu, 15 Apr 2021 04:19:45 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A1B1E3C23BC
- for <ltp@lists.linux.it>; Thu, 15 Apr 2021 04:11:31 +0200 (CEST)
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id ABBFA3C23BC
+ for <ltp@lists.linux.it>; Thu, 15 Apr 2021 04:19:41 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 864B91000F1D
- for <ltp@lists.linux.it>; Thu, 15 Apr 2021 04:11:30 +0200 (CEST)
-Received: from DGGEML404-HUB.china.huawei.com (unknown [172.30.72.55])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4FLN5q2sSjzWCTT;
- Thu, 15 Apr 2021 10:07:43 +0800 (CST)
-Received: from dggeml758-chm.china.huawei.com (10.1.199.159) by
- DGGEML404-HUB.china.huawei.com (10.3.17.39) with Microsoft SMTP Server (TLS)
- id 14.3.498.0; Thu, 15 Apr 2021 10:11:22 +0800
-Received: from dggpeml500013.china.huawei.com (7.185.36.41) by
- dggeml758-chm.china.huawei.com (10.1.199.159) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.2106.2; Thu, 15 Apr 2021 10:11:22 +0800
-Received: from dggpeml500013.china.huawei.com ([7.185.36.41]) by
- dggpeml500013.china.huawei.com ([7.185.36.41]) with mapi id 15.01.2106.013;
- Thu, 15 Apr 2021 10:11:22 +0800
-From: "wangxin (CQ)" <wangxin410@huawei.com>
-To: Li Wang <liwang@redhat.com>
-Thread-Topic: [LTP] [PATCH] openposix/conformance/interfaces: Correct typos
-Thread-Index: AQHXMPuoDbQHBpApWkKQZ8TJfGiiVqqzpyqw//+AoQCAAIroUP//i5EAgAGXCxA=
-Date: Thu, 15 Apr 2021 02:11:22 +0000
-Message-ID: <41393f626c104a208ebe81b439c3b2f5@huawei.com>
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 9EBD760087B
+ for <ltp@lists.linux.it>; Thu, 15 Apr 2021 04:19:40 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1618453179;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=OLAKBWKF260gUWUi68hefPUZHuemSYMS7lNseNu7C9Q=;
+ b=cLF4JDZ8TL3Cf1YzBfiN1s/yO/uI6h6Xn003Wjoq2DHLQN5KEV0pkGEZyKlpYPV+8zVCzv
+ ixHq5OR/KUuCz0krBY/iZmR79f8h4IbcbYSbjHI5ck3+0cMRS5PN7hl1WoFfK8ulTTqad6
+ eJeJG9rVTRZBYHWlIj22OLunUKBdNG8=
+Received: from mail-yb1-f199.google.com (mail-yb1-f199.google.com
+ [209.85.219.199]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-37-2w90taLzPnetkOdau8CSKw-1; Wed, 14 Apr 2021 22:19:33 -0400
+X-MC-Unique: 2w90taLzPnetkOdau8CSKw-1
+Received: by mail-yb1-f199.google.com with SMTP id h69so1234921ybg.10
+ for <ltp@lists.linux.it>; Wed, 14 Apr 2021 19:19:33 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=OLAKBWKF260gUWUi68hefPUZHuemSYMS7lNseNu7C9Q=;
+ b=JcdsD0/M+PV3VEoCfHWOsIo69Re3/pSgc+fEVRW6cJ6DGNP6EYR5eqajft7HJs0CUL
+ BFvZqT9mJlZmJv6cPI3UxwGpoMZyrhG4xNK3dwIZ0uDKCPou1RdUcznTqGAOmkNKNbEW
+ CiEuWxYuI4+085mpL7wXSAf5hcLhYqXomldizWza1McycXErhvLeAUtybL3M+/xsv8CN
+ 6lL4jaKahzSuru/cSw+mA4aLRwWl0o0wig8HJ2hrypkAAqxs7U6G0WcwSwtXn+sUoNS0
+ hu7QmAeABLW63Ye4IlfUxDAAjmVVVsagqOZ5c81CE/cH6srt+heIQ4WyUhmcjuDY9eRu
+ Wn4A==
+X-Gm-Message-State: AOAM530pmM6MAlKkIcnmKSRKW7CHv0mHdFQUHUdxxsrd6/aakXp+uWR6
+ wL6BRlBB82f2+IU/JpmrCfQEbIfVn5LdoAoRdiuN2TXmm1Cc6OYV5XL/Tkb6eC5FcCETSvZfptw
+ cH4w7d6nX85CXfK8xYNi25EW8/hk=
+X-Received: by 2002:a25:af05:: with SMTP id a5mr1413651ybh.86.1618453172653;
+ Wed, 14 Apr 2021 19:19:32 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJyqdYMBepNYeqHMP5YoTtXFugXK79M6tb9O1ItsdUCRuubPLxs3UgAGJ/0uZpaAM5lGCpU8Fj6TfdNmT2jLLRA=
+X-Received: by 2002:a25:af05:: with SMTP id a5mr1413629ybh.86.1618453172360;
+ Wed, 14 Apr 2021 19:19:32 -0700 (PDT)
+MIME-Version: 1.0
 References: <1617765607-78263-1-git-send-email-wangxin410@huawei.com>
  <CAEemH2ctSMR5OF=0TQX1eNmTE7PcdEdMbjoYXc3RxiBsyfzcuw@mail.gmail.com>
  <91a235700b494bdf9a9a7dd1901aa947@huawei.com>
  <CAEemH2dU2r8gFS5r3os7UwXFUEmmPqR9CnAizXbP_FHP+Evd+A@mail.gmail.com>
  <1e332d4428ea42aeb59e1173b654ce30@huawei.com>
  <CAEemH2ePd0td_fiK9MF66Mu9_XOzi7pa2pZLQj2t1qGwu0LxcQ@mail.gmail.com>
-In-Reply-To: <CAEemH2ePd0td_fiK9MF66Mu9_XOzi7pa2pZLQj2t1qGwu0LxcQ@mail.gmail.com>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.174.176.33]
-MIME-Version: 1.0
-X-CFilter-Loop: Reflected
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+ <41393f626c104a208ebe81b439c3b2f5@huawei.com>
+In-Reply-To: <41393f626c104a208ebe81b439c3b2f5@huawei.com>
+From: Li Wang <liwang@redhat.com>
+Date: Thu, 15 Apr 2021 10:19:21 +0800
+Message-ID: <CAEemH2dd3neNYoP23YSdD5Zo5cwjNYb5Dv1Tix2HDNwuFDOOzA@mail.gmail.com>
+To: "wangxin (CQ)" <wangxin410@huawei.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=HTML_MESSAGE,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] =?utf-8?b?562U5aSNOiAgW1BBVENIXSBvcGVucG9zaXgvY29uZm9ybWFu?=
- =?utf-8?q?ce/interfaces=3A_Correct_typos?=
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] openposix/conformance/interfaces: Correct typos
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,177 +91,79 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============1780604918=="
+Content-Type: multipart/mixed; boundary="===============0446917756=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1780604918==
-Content-Language: zh-CN
-Content-Type: multipart/alternative;
-	boundary="_000_41393f626c104a208ebe81b439c3b2f5huaweicom_"
+--===============0446917756==
+Content-Type: multipart/alternative; boundary="0000000000006cb73b05bff97e9c"
 
---_000_41393f626c104a208ebe81b439c3b2f5huaweicom_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+--0000000000006cb73b05bff97e9c
+Content-Type: text/plain; charset="UTF-8"
 
-SGkgIFdhbmcsDQoNCkknbSBzb3JyeS4gV2hlbiBJIHN1Ym1pdHRlZCB0aGUgcGF0Y2ggeWVzdGVy
-ZGF5LCBJIHB1dCBhIGxvdy1sZXZlbCBlcnJvci4NCkkgZG9uJ3QgdGhpbmsgaXQgd2lsbCBoYXBw
-ZW4gYWdhaW4uDQpUaGFuayB5b3UgZm9yIHBvaW50aW5nIG91dCBteSBtaXN0YWtlLg0KVGhhbmsg
-eW91IGFnYWluLiBCZXN0IHdpc2hlcyBmb3IgeW91Lg0KDQotLQ0KUmVnYXJkcywNCldhbmcgWGlu
-DQoNCuWPkeS7tuS6ujogTGkgV2FuZyBbbWFpbHRvOmxpd2FuZ0ByZWRoYXQuY29tXQ0K5Y+R6YCB
-5pe26Ze0OiAyMDIx5bm0NOaciDE05pelIDE3OjQ3DQrmlLbku7bkuro6IHdhbmd4aW4gKENRKSA8
-d2FuZ3hpbjQxMEBodWF3ZWkuY29tPg0K5oqE6YCBOiBMVFAgTGlzdCA8bHRwQGxpc3RzLmxpbnV4
-Lml0Pg0K5Li76aKYOiBSZTogW0xUUF0gW1BBVENIXSBvcGVucG9zaXgvY29uZm9ybWFuY2UvaW50
-ZXJmYWNlczogQ29ycmVjdCB0eXBvcw0KDQpIaSBYaW4sDQoNCkknbSBzb3JyeSBJIGRvbid0IGtu
-b3cgaG93IGRpZCB5b3UgZG8gbWFrZSBhIG5ldyBwYXRjaCwgSSBzdGlsbCBjYW4gTk9UDQptZXJn
-ZSBpdCB0byBteSBsb2NhbCBicmFuY2guDQoNCkJ0dywgdGhlIG9uZShhYm91dCBjcHVzZXQpIEkg
-YWxzbyBzb2x2ZWQgdGhlIGNvbmZsaWN0IGJ5IG1hbnVhbCBhbmQNCnRoZW4gYXBwbGllZCwgSSBn
-dWVzcyB5b3UgcHJvYWJseSBuZWVkIHRvIGNoZWNrIHlvdXIgZ2l0LCBvciBkaWQgeW91DQpyZWFs
-bHkgbWFrZSBhIHBhdGNoIHZpYSBgZ2l0IGZvcm1hdC1wYXRjaGA/DQoNCkFmdGVyIGNoZWNraW5n
-IHdpdGggc2NyaXB0cy9jaGVja3BhdGNoLnBsPGh0dHA6Ly9jaGVja3BhdGNoLnBsPiwgaXQgcmVw
-b3IgZXJyb3JzIGxpa2U6DQoNCiQgLi9zY3JpcHRzL2NoZWNrcGF0Y2gucGw8aHR0cDovL2NoZWNr
-cGF0Y2gucGw+IH4vdjItb3BlbnBvc2l4LWNvbmZvcm1hbmNlLWludGVyZmFjZXMtQ29ycmVjdC10
-eXBvcy5wYXRjaA0KV0FSTklORzogUG9zc2libGUgdW53cmFwcGVkIGNvbW1pdCBkZXNjcmlwdGlv
-biAocHJlZmVyIGEgbWF4aW11bSA3NSBjaGFycyBwZXIgbGluZSkNCiM3MzoNClR5cGVzIGluIHRo
-ZSBuYW1lIG9mIHRoZSB0ZW1wb3JhcnkgZmlsZXM6IEZvciBleGFtcGxlLCBpbiBhaW9fY2FuY2Vs
-LzgtMS5jIGZpbGUsDQoNCkVSUk9SOiBwYXRjaCBzZWVtcyB0byBiZSBjb3JydXB0IChsaW5lIHdy
-YXBwZWQ/KQ0KIzEwOTogRklMRTogdGVzdGNhc2VzL29wZW5fcG9zaXhfdGVzdHN1aXRlL2NvbmZv
-cm1hbmNlL2ludGVyZmFjZXMvYWlvX3JlYWQvOS0xLmM6NTU6DQppbmRleCA1Yjk4MGJlLi5lMWFl
-NTllIDEwMDY0NA0KDQp0b3RhbDogMSBlcnJvcnMsIDEgd2FybmluZ3MsIDExMyBsaW5lcyBjaGVj
-a2VkDQoNCg0KLS0NClJlZ2FyZHMsDQpMaSBXYW5nDQo=
+Hi Xin,
 
---_000_41393f626c104a208ebe81b439c3b2f5huaweicom_
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: base64
 
-PGh0bWwgeG1sbnM6dj0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTp2bWwiIHhtbG5zOm89InVy
-bjpzY2hlbWFzLW1pY3Jvc29mdC1jb206b2ZmaWNlOm9mZmljZSIgeG1sbnM6dz0idXJuOnNjaGVt
-YXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6d29yZCIgeG1sbnM6bT0iaHR0cDovL3NjaGVtYXMubWlj
-cm9zb2Z0LmNvbS9vZmZpY2UvMjAwNC8xMi9vbW1sIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv
-VFIvUkVDLWh0bWw0MCI+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIg
-Y29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRv
-ciIgY29udGVudD0iTWljcm9zb2Z0IFdvcmQgMTUgKGZpbHRlcmVkIG1lZGl1bSkiPg0KPHN0eWxl
-PjwhLS0NCi8qIEZvbnQgRGVmaW5pdGlvbnMgKi8NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6
-5a6L5L2TOw0KCXBhbm9zZS0xOjIgMSA2IDAgMyAxIDEgMSAxIDE7fQ0KQGZvbnQtZmFjZQ0KCXtm
-b250LWZhbWlseToiQ2FtYnJpYSBNYXRoIjsNCglwYW5vc2UtMToyIDQgNSAzIDUgNCA2IDMgMiA0
-O30NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6Q2FsaWJyaTsNCglwYW5vc2UtMToyIDE1IDUg
-MiAyIDIgNCAzIDIgNDt9DQpAZm9udC1mYWNlDQoJe2ZvbnQtZmFtaWx5OuW+rui9r+mbhem7kTsN
-CglwYW5vc2UtMToyIDExIDUgMyAyIDIgNCAyIDIgNDt9DQpAZm9udC1mYWNlDQoJe2ZvbnQtZmFt
-aWx5OiJcQOW+rui9r+mbhem7kSI7DQoJcGFub3NlLTE6MiAxMSA1IDMgMiAyIDQgMiAyIDQ7fQ0K
-QGZvbnQtZmFjZQ0KCXtmb250LWZhbWlseToiXEDlrovkvZMiOw0KCXBhbm9zZS0xOjIgMSA2IDAg
-MyAxIDEgMSAxIDE7fQ0KLyogU3R5bGUgRGVmaW5pdGlvbnMgKi8NCnAuTXNvTm9ybWFsLCBsaS5N
-c29Ob3JtYWwsIGRpdi5Nc29Ob3JtYWwNCgl7bWFyZ2luOjBjbTsNCgltYXJnaW4tYm90dG9tOi4w
-MDAxcHQ7DQoJZm9udC1zaXplOjEyLjBwdDsNCglmb250LWZhbWlseTrlrovkvZM7fQ0KYTpsaW5r
-LCBzcGFuLk1zb0h5cGVybGluaw0KCXttc28tc3R5bGUtcHJpb3JpdHk6OTk7DQoJY29sb3I6Ymx1
-ZTsNCgl0ZXh0LWRlY29yYXRpb246dW5kZXJsaW5lO30NCmE6dmlzaXRlZCwgc3Bhbi5Nc29IeXBl
-cmxpbmtGb2xsb3dlZA0KCXttc28tc3R5bGUtcHJpb3JpdHk6OTk7DQoJY29sb3I6cHVycGxlOw0K
-CXRleHQtZGVjb3JhdGlvbjp1bmRlcmxpbmU7fQ0Kc3Bhbi5nbWFpbGRlZmF1bHQNCgl7bXNvLXN0
-eWxlLW5hbWU6Z21haWxfZGVmYXVsdDt9DQpzcGFuLkVtYWlsU3R5bGUxOA0KCXttc28tc3R5bGUt
-dHlwZTpwZXJzb25hbC1yZXBseTsNCglmb250LWZhbWlseToiQ2FsaWJyaSIsc2Fucy1zZXJpZjsN
-Cgljb2xvcjojMUY0OTdEO30NCi5Nc29DaHBEZWZhdWx0DQoJe21zby1zdHlsZS10eXBlOmV4cG9y
-dC1vbmx5Ow0KCWZvbnQtZmFtaWx5OiJDYWxpYnJpIixzYW5zLXNlcmlmO30NCkBwYWdlIFdvcmRT
-ZWN0aW9uMQ0KCXtzaXplOjYxMi4wcHQgNzkyLjBwdDsNCgltYXJnaW46NzIuMHB0IDkwLjBwdCA3
-Mi4wcHQgOTAuMHB0O30NCmRpdi5Xb3JkU2VjdGlvbjENCgl7cGFnZTpXb3JkU2VjdGlvbjE7fQ0K
-LS0+PC9zdHlsZT48IS0tW2lmIGd0ZSBtc28gOV0+PHhtbD4NCjxvOnNoYXBlZGVmYXVsdHMgdjpl
-eHQ9ImVkaXQiIHNwaWRtYXg9IjEwMjYiIC8+DQo8L3htbD48IVtlbmRpZl0tLT48IS0tW2lmIGd0
-ZSBtc28gOV0+PHhtbD4NCjxvOnNoYXBlbGF5b3V0IHY6ZXh0PSJlZGl0Ij4NCjxvOmlkbWFwIHY6
-ZXh0PSJlZGl0IiBkYXRhPSIxIiAvPg0KPC9vOnNoYXBlbGF5b3V0PjwveG1sPjwhW2VuZGlmXS0t
-Pg0KPC9oZWFkPg0KPGJvZHkgbGFuZz0iWkgtQ04iIGxpbms9ImJsdWUiIHZsaW5rPSJwdXJwbGUi
-Pg0KPGRpdiBjbGFzcz0iV29yZFNlY3Rpb24xIj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFu
-IGxhbmc9IkVOLVVTIj5IaSZuYnNwOyBXYW5nLDxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNs
-YXNzPSJNc29Ob3JtYWwiPjxzcGFuIGxhbmc9IkVOLVVTIj48bzpwPiZuYnNwOzwvbzpwPjwvc3Bh
-bj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBsYW5nPSJFTi1VUyI+SSdtIHNvcnJ5
-LiBXaGVuIEkgc3VibWl0dGVkIHRoZSBwYXRjaCB5ZXN0ZXJkYXksIEkgcHV0IGEgbG93LWxldmVs
-IGVycm9yLjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFu
-IGxhbmc9IkVOLVVTIj5JIGRvbid0IHRoaW5rIGl0IHdpbGwgaGFwcGVuIGFnYWluLiA8bzpwPg0K
-PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIGxhbmc9IkVOLVVT
-Ij5UaGFuayB5b3UgZm9yIHBvaW50aW5nIG91dCBteSBtaXN0YWtlLiA8bzpwPg0KPC9vOnA+PC9z
-cGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIGxhbmc9IkVOLVVTIj5UaGFuayB5
-b3UgYWdhaW4uIEJlc3Qgd2lzaGVzIGZvciB5b3UuPG86cD48L286cD48L3NwYW4+PC9wPg0KPHAg
-Y2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMiIHN0eWxlPSJmb250LXNpemU6MTAu
-NXB0O2ZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssc2Fucy1zZXJpZjtjb2xvcjojMUY0
-OTdEIj48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48
-c3BhbiBsYW5nPSJFTi1VUyI+LS0gPG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1z
-b05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMiPlJlZ2FyZHMsPG86cD48L286cD48L3NwYW4+PC9w
-Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMiPldhbmcgWGluPG86cD48
-L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMi
-IHN0eWxlPSJmb250LXNpemU6MTAuNXB0O2ZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDss
-c2Fucy1zZXJpZjtjb2xvcjojMUY0OTdEIj48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+DQo8
-cCBjbGFzcz0iTXNvTm9ybWFsIj48Yj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250
-LWZhbWlseTomcXVvdDvlvq7ova/pm4Xpu5EmcXVvdDssc2Fucy1zZXJpZiI+5Y+R5Lu25Lq6PHNw
-YW4gbGFuZz0iRU4tVVMiPjo8L3NwYW4+PC9zcGFuPjwvYj48c3BhbiBsYW5nPSJFTi1VUyIgc3R5
-bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q75b6u6L2v6ZuF6buRJnF1b3Q7
-LHNhbnMtc2VyaWYiPiBMaSBXYW5nIFttYWlsdG86bGl3YW5nQHJlZGhhdC5jb21dDQo8YnI+DQo8
-L3NwYW4+PGI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7
-5b6u6L2v6ZuF6buRJnF1b3Q7LHNhbnMtc2VyaWYiPuWPkemAgeaXtumXtDxzcGFuIGxhbmc9IkVO
-LVVTIj46PC9zcGFuPjwvc3Bhbj48L2I+PHNwYW4gbGFuZz0iRU4tVVMiIHN0eWxlPSJmb250LXNp
-emU6MTEuMHB0O2ZvbnQtZmFtaWx5OiZxdW90O+W+rui9r+mbhem7kSZxdW90OyxzYW5zLXNlcmlm
-Ij4gMjAyMTwvc3Bhbj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseTom
-cXVvdDvlvq7ova/pm4Xpu5EmcXVvdDssc2Fucy1zZXJpZiI+5bm0PHNwYW4gbGFuZz0iRU4tVVMi
-PjQ8L3NwYW4+5pyIPHNwYW4gbGFuZz0iRU4tVVMiPjE0PC9zcGFuPuaXpTxzcGFuIGxhbmc9IkVO
-LVVTIj4NCiAxNzo0Nzxicj4NCjwvc3Bhbj48Yj7mlLbku7bkuro8c3BhbiBsYW5nPSJFTi1VUyI+
-Ojwvc3Bhbj48L2I+PHNwYW4gbGFuZz0iRU4tVVMiPiB3YW5neGluIChDUSkgJmx0O3dhbmd4aW40
-MTBAaHVhd2VpLmNvbSZndDs8YnI+DQo8L3NwYW4+PGI+5oqE6YCBPHNwYW4gbGFuZz0iRU4tVVMi
-Pjo8L3NwYW4+PC9iPjxzcGFuIGxhbmc9IkVOLVVTIj4gTFRQIExpc3QgJmx0O2x0cEBsaXN0cy5s
-aW51eC5pdCZndDs8YnI+DQo8L3NwYW4+PGI+5Li76aKYPHNwYW4gbGFuZz0iRU4tVVMiPjo8L3Nw
-YW4+PC9iPjxzcGFuIGxhbmc9IkVOLVVTIj4gUmU6IFtMVFBdIFtQQVRDSF0gb3BlbnBvc2l4L2Nv
-bmZvcm1hbmNlL2ludGVyZmFjZXM6IENvcnJlY3QgdHlwb3M8bzpwPjwvbzpwPjwvc3Bhbj48L3Nw
-YW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMiPjxvOnA+Jm5i
-c3A7PC9vOnA+PC9zcGFuPjwvcD4NCjxkaXY+DQo8ZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29O
-b3JtYWwiPjxzcGFuIGNsYXNzPSJnbWFpbGRlZmF1bHQiPjxzcGFuIGxhbmc9IkVOLVVTIj5IaSBY
-aW4sPC9zcGFuPjwvc3Bhbj48c3BhbiBsYW5nPSJFTi1VUyI+PG86cD48L286cD48L3NwYW4+PC9w
-Pg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMi
-PjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJN
-c29Ob3JtYWwiPjxzcGFuIGNsYXNzPSJnbWFpbGRlZmF1bHQiPjxzcGFuIGxhbmc9IkVOLVVTIj5J
-J20gc29ycnkgSSBkb24ndCBrbm93IGhvdyBkaWQgeW91IGRvIG1ha2UmbmJzcDthIG5ldyBwYXRj
-aCwgSSBzdGlsbCBjYW4gTk9UPC9zcGFuPjwvc3Bhbj48c3BhbiBsYW5nPSJFTi1VUyI+PG86cD48
-L286cD48L3NwYW4+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNw
-YW4gY2xhc3M9ImdtYWlsZGVmYXVsdCI+PHNwYW4gbGFuZz0iRU4tVVMiPm1lcmdlIGl0IHRvIG15
-IGxvY2FsIGJyYW5jaC4mbmJzcDs8L3NwYW4+PC9zcGFuPjxzcGFuIGxhbmc9IkVOLVVTIj48bzpw
-PjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48
-c3BhbiBsYW5nPSJFTi1VUyI+PG86cD4mbmJzcDs8L286cD48L3NwYW4+PC9wPg0KPC9kaXY+DQo8
-ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gY2xhc3M9ImdtYWlsZGVmYXVsdCI+PHNw
-YW4gbGFuZz0iRU4tVVMiPkJ0dywgdGhlIG9uZShhYm91dCBjcHVzZXQpIEkgYWxzbyBzb2x2ZWQg
-dGhlIGNvbmZsaWN0Jm5ic3A7YnkgbWFudWFsIGFuZDwvc3Bhbj48L3NwYW4+PHNwYW4gbGFuZz0i
-RU4tVVMiPjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJN
-c29Ob3JtYWwiPjxzcGFuIGNsYXNzPSJnbWFpbGRlZmF1bHQiPjxzcGFuIGxhbmc9IkVOLVVTIj50
-aGVuIGFwcGxpZWQsJm5ic3A7PC9zcGFuPjwvc3Bhbj48c3BhbiBsYW5nPSJFTi1VUyI+SSBndWVz
-cyB5b3UgcHJvYWJseSZuYnNwO25lZWQgdG8gY2hlY2sgeW91ciBnaXQ8c3BhbiBjbGFzcz0iZ21h
-aWxkZWZhdWx0Ij4sPC9zcGFuPiBvciBkaWQgeW91PG86cD48L286cD48L3NwYW4+PC9wPg0KPC9k
-aXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gY2xhc3M9ImdtYWlsZGVmYXVs
-dCI+PHNwYW4gbGFuZz0iRU4tVVMiPnJlYWxseSA8L3NwYW4+DQo8L3NwYW4+PHNwYW4gbGFuZz0i
-RU4tVVMiPm1ha2UgYSBwYXRjaCB2aWEgYGdpdCBmb3JtYXQtcGF0Y2hgPzxvOnA+PC9vOnA+PC9z
-cGFuPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIGxhbmc9
-IkVOLVVTIj48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBj
-bGFzcz0iTXNvTm9ybWFsIj48c3BhbiBjbGFzcz0iZ21haWxkZWZhdWx0Ij48c3BhbiBsYW5nPSJF
-Ti1VUyI+QWZ0ZXIgY2hlY2tpbmcgd2l0aCBzY3JpcHRzLzxhIGhyZWY9Imh0dHA6Ly9jaGVja3Bh
-dGNoLnBsIj5jaGVja3BhdGNoLnBsPC9hPiwgaXQgcmVwb3IgZXJyb3JzIGxpa2U6PC9zcGFuPjwv
-c3Bhbj48c3BhbiBsYW5nPSJFTi1VUyI+PG86cD48L286cD48L3NwYW4+PC9wPg0KPC9kaXY+DQo8
-ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMiPjxvOnA+Jm5ic3A7
-PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFu
-Zz0iRU4tVVMiPiQgLi9zY3JpcHRzLzxhIGhyZWY9Imh0dHA6Ly9jaGVja3BhdGNoLnBsIj5jaGVj
-a3BhdGNoLnBsPC9hPiB+L3YyLW9wZW5wb3NpeC1jb25mb3JtYW5jZS1pbnRlcmZhY2VzLUNvcnJl
-Y3QtdHlwb3MucGF0Y2gNCjxicj4NCldBUk5JTkc6IFBvc3NpYmxlIHVud3JhcHBlZCBjb21taXQg
-ZGVzY3JpcHRpb24gKHByZWZlciBhIG1heGltdW0gNzUgY2hhcnMgcGVyIGxpbmUpPGJyPg0KIzcz
-OiA8YnI+DQpUeXBlcyBpbiB0aGUgbmFtZSBvZiB0aGUgdGVtcG9yYXJ5IGZpbGVzOiBGb3IgZXhh
-bXBsZSwgaW4gYWlvX2NhbmNlbC84LTEuYyBmaWxlLDxicj4NCjxicj4NCkVSUk9SOiBwYXRjaCBz
-ZWVtcyB0byBiZSBjb3JydXB0IChsaW5lIHdyYXBwZWQ/KTxicj4NCiMxMDk6IEZJTEU6IHRlc3Rj
-YXNlcy9vcGVuX3Bvc2l4X3Rlc3RzdWl0ZS9jb25mb3JtYW5jZS9pbnRlcmZhY2VzL2Fpb19yZWFk
-LzktMS5jOjU1Ojxicj4NCmluZGV4IDViOTgwYmUuLmUxYWU1OWUgMTAwNjQ0PGJyPg0KPGJyPg0K
-dG90YWw6IDEgZXJyb3JzLCAxIHdhcm5pbmdzLCAxMTMgbGluZXMgY2hlY2tlZDxvOnA+PC9vOnA+
-PC9zcGFuPjwvcD4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBsYW5nPSJFTi1V
-UyI+PG86cD4mbmJzcDs8L286cD48L3NwYW4+PC9wPg0KPC9kaXY+DQo8L2Rpdj4NCjxkaXY+DQo8
-cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBsYW5nPSJFTi1VUyI+PG86cD4mbmJzcDs8L286cD48
-L3NwYW4+PC9wPg0KPC9kaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBsYW5nPSJFTi1V
-UyI+LS0gPG86cD48L286cD48L3NwYW4+PC9wPg0KPGRpdj4NCjxkaXY+DQo8ZGl2Pg0KPHAgY2xh
-c3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tVVMiPlJlZ2FyZHMsPG86cD48L286cD48L3Nw
-YW4+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gbGFuZz0i
-RU4tVVMiPkxpIFdhbmc8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjwvZGl2Pg0KPC9k
-aXY+DQo8L2Rpdj4NCjwvZGl2Pg0KPC9ib2R5Pg0KPC9odG1sPg0K
+Hi  Wang,
+>
+>
+>
+> I'm sorry. When I submitted the patch yesterday, I put a low-level error.
+>
+> I don't think it will happen again.
+>
+> Thank you for pointing out my mistake.
+>
+> Thank you again. Best wishes for you.
+>
 
---_000_41393f626c104a208ebe81b439c3b2f5huaweicom_--
+Never mind. I'm glad to merge if you can format a new one.
+(To be on the safe side, plz do checkpatch.pl before sending next time:)
 
---===============1780604918==
+-- 
+Regards,
+Li Wang
+
+--0000000000006cb73b05bff97e9c
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small">Hi Xin,</div></div><div class=3D"gmail_quote"><div dir=3D"ltr=
+" class=3D"gmail_attr"><br></div><div dir=3D"ltr" class=3D"gmail_attr"><br>=
+</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;b=
+order-left:1px solid rgb(204,204,204);padding-left:1ex">
+
+
+
+
+
+<div lang=3D"ZH-CN">
+<div class=3D"gmail-m_7374525400935456772WordSection1">
+<p class=3D"MsoNormal"><span lang=3D"EN-US">Hi=C2=A0 Wang,<u></u><u></u></s=
+pan></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><u></u>=C2=A0<u></u></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">I&#39;m sorry. When I submitted=
+ the patch yesterday, I put a low-level error.<u></u><u></u></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">I don&#39;t think it will happe=
+n again. <u></u>
+<u></u></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">Thank you for pointing out my m=
+istake. <u></u>
+<u></u></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">Thank you again. Best wishes fo=
+r you.</span></p></div></div></blockquote><div><br></div><div><div class=3D=
+"gmail_default" style=3D"font-size:small">Never mind. I&#39;m glad to merge=
+ if you can format a new one.</div><div class=3D"gmail_default" style=3D"fo=
+nt-size:small">(To be on the safe side, plz do <a href=3D"http://checkpatch=
+.pl">checkpatch.pl</a> before sending next time:)</div></div></div><div><br=
+></div>-- <br><div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><=
+div>Regards,<br></div><div>Li Wang<br></div></div></div></div>
+
+--0000000000006cb73b05bff97e9c--
+
+
+--===============0446917756==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -253,4 +173,5 @@ Content-Disposition: inline
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
 
---===============1780604918==--
+--===============0446917756==--
+
