@@ -2,58 +2,78 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC90C361B02
-	for <lists+linux-ltp@lfdr.de>; Fri, 16 Apr 2021 10:03:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 446AC361B2B
+	for <lists+linux-ltp@lfdr.de>; Fri, 16 Apr 2021 10:11:53 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B43333C1C9A
-	for <lists+linux-ltp@lfdr.de>; Fri, 16 Apr 2021 10:03:31 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 15C0E3C1C9A
+	for <lists+linux-ltp@lfdr.de>; Fri, 16 Apr 2021 10:11:53 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E6A5D3C1AB6
- for <ltp@lists.linux.it>; Fri, 16 Apr 2021 10:03:29 +0200 (CEST)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
- by in-7.smtp.seeweb.it (Postfix) with ESMTP id 9EAE6201095
- for <ltp@lists.linux.it>; Fri, 16 Apr 2021 10:03:27 +0200 (CEST)
-IronPort-HdrOrdr: =?us-ascii?q?A9a23=3Au1GQKaGzu2eNQTJkpLqEM8eALOonbusQ8zAX?=
- =?us-ascii?q?/mp2TgFYddHdqtC2kJ0gtSPcpT4NVBgb9OyoF7KHRRrnn6Jdxak0EfOcUBL9uG?=
- =?us-ascii?q?2uRbsC0aLHzyf7EyPzss5xvJ0OT4FEBNf9DUd3gK/BiWHSL/8azMSa66ftvO/C?=
- =?us-ascii?q?zh5WPGJXQpt95AR0ABvzKCFLbTRBbKBWKKah?=
-X-IronPort-AV: E=Sophos;i="5.82,226,1613404800"; d="scan'208";a="107193765"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
- by heian.cn.fujitsu.com with ESMTP; 16 Apr 2021 16:03:24 +0800
-Received: from G08CNEXMBPEKD05.g08.fujitsu.local (unknown [10.167.33.204])
- by cn.fujitsu.com (Postfix) with ESMTP id A1A334D0B8AA
- for <ltp@lists.linux.it>; Fri, 16 Apr 2021 16:03:22 +0800 (CST)
-Received: from G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) by
- G08CNEXMBPEKD05.g08.fujitsu.local (10.167.33.204) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Fri, 16 Apr 2021 16:03:23 +0800
-Received: from localhost.localdomain (10.167.220.115) by
- G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.209) with Microsoft SMTP Server
- id 15.0.1497.2 via Frontend Transport; Fri, 16 Apr 2021 16:03:22 +0800
-From: Zenghui Gao <gaozh.jy@fujitsu.com>
-To: <ltp@lists.linux.it>
-Date: Thu, 15 Apr 2021 10:05:52 -0400
-Message-ID: <20210415140552.15762-2-gaozh.jy@fujitsu.com>
-X-Mailer: git-send-email 2.18.1
-In-Reply-To: <20210415140552.15762-1-gaozh.jy@fujitsu.com>
-References: <20210415140552.15762-1-gaozh.jy@fujitsu.com>
+ by picard.linux.it (Postfix) with ESMTPS id F1F0C3C1AD6
+ for <ltp@lists.linux.it>; Fri, 16 Apr 2021 10:11:50 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 52CB614016F9
+ for <ltp@lists.linux.it>; Fri, 16 Apr 2021 10:11:49 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1618560708;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=ZnM8deB8BvYKkE9ZpA6dEzVUVzktt4lrZrAW5EvvD8U=;
+ b=LWrGPpHptWXAuhNEHNzejtOepACRG5N32yZOXVD5RplEejcPR7R8xlSJCYV1QrAimocccM
+ OLIcE4ptu+oZEB0jsYJEfYHPeLmsxYyrSncFDZut8dCpwVCuGOR6eyZq+h2VvEnnSYwVKE
+ gGoWOVI7zQn8PxA5i0YZkQKev+JTurA=
+Received: from mail-yb1-f197.google.com (mail-yb1-f197.google.com
+ [209.85.219.197]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-264-T1-yZkweN86WH3-j9F8s6g-1; Fri, 16 Apr 2021 04:11:46 -0400
+X-MC-Unique: T1-yZkweN86WH3-j9F8s6g-1
+Received: by mail-yb1-f197.google.com with SMTP id e9so5286722ybq.22
+ for <ltp@lists.linux.it>; Fri, 16 Apr 2021 01:11:46 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=ZnM8deB8BvYKkE9ZpA6dEzVUVzktt4lrZrAW5EvvD8U=;
+ b=mUgcgTg+IRPS+VSPhcSVEem4oVWtCVNFmiHMVh67TwgGB0lHH4822tabP4ewSGCB9M
+ 0duw0NCX5slUNajFVLofFPdOJL4fyd1QPhZwWswW1l9ii/4BBZ//lOFsBL1c2PyPfk0u
+ ZSM699xsh8tcrTXdTpcdrlGyLJbmV6whDNuAqN6FC39EJyAzv2IZ1m5g0NwD6zl9KBu7
+ cBTbQYtk6cNBrboAI3Og1vZuVSKzeAkvoQ/nrF5GNuaIHdr8osfTQ2EnnOnPra7vpjoy
+ 6EHxd11hRSeYUDbmbuZwg3yMlKpQBKVK9EG9sRH9bJvdczq2gbCXwE7LVegKWIxpJjAW
+ 7Zjw==
+X-Gm-Message-State: AOAM532dxBdr9Q+dnnSokmouP2Lt6QboAjFlr2vMkfH/uYarOQ+DZyCD
+ qU+jScy1w3WwcF4oVPRHViP27zqn2Jj4euSfy4T3B3CF0ZH7qUXsmCL5P9kynZlTlt676hMuwlr
+ AqrKEbl5XWe7pjNChR7hS39NGqYs=
+X-Received: by 2002:a25:b44d:: with SMTP id c13mr6123934ybg.86.1618560705713; 
+ Fri, 16 Apr 2021 01:11:45 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJzlPCkOOjkeq5WmL0+rMzOeeEqp0F1vve0byuIlt0Fg6rAqNoz5o9Ko/NsXVdkKJEoOtgT3Dw3XeTIZKlL8Euw=
+X-Received: by 2002:a25:b44d:: with SMTP id c13mr6123915ybg.86.1618560705469; 
+ Fri, 16 Apr 2021 01:11:45 -0700 (PDT)
 MIME-Version: 1.0
-X-yoursite-MailScanner-ID: A1A334D0B8AA.A2F34
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: gaozh.jy@fujitsu.com
-X-Spam-Status: No, score=1.2 required=7.0 tests=DATE_IN_PAST_12_24,
- KHOP_HELO_FCRDNS,SPF_HELO_NONE,SPF_NEUTRAL autolearn=disabled
- version=3.4.4
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+References: <20210412145506.26894-1-rpalethorpe@suse.com>
+ <20210412145506.26894-6-rpalethorpe@suse.com>
+In-Reply-To: <20210412145506.26894-6-rpalethorpe@suse.com>
+From: Li Wang <liwang@redhat.com>
+Date: Fri, 16 Apr 2021 16:11:33 +0800
+Message-ID: <CAEemH2dkbD_-gRQeKKAh+H6vo8gb+s0dWCa1-mJ_1-eg0eLeAA@mail.gmail.com>
+To: Richard Palethorpe <rpalethorpe@suse.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Level: *
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/2] syscalls/wait02.c: Convert to new API
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3 5/7] docs: Update CGroups API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,158 +85,123 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Zenghui Gao <gaozh.jy@fujitsu.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============0631403301=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Take use of macros and clean up.
+--===============0631403301==
+Content-Type: multipart/alternative; boundary="000000000000e5b2b905c01287ef"
 
-Signed-off-by: Zenghui Gao <gaozh.jy@fujitsu.com>
-Reviewed-by: Xiao Yang <yangx.jy@fujitsu.com>
----
- testcases/kernel/syscalls/wait/wait02.c | 106 ++++++------------------
- 1 file changed, 25 insertions(+), 81 deletions(-)
+--000000000000e5b2b905c01287ef
+Content-Type: text/plain; charset="UTF-8"
 
-diff --git a/testcases/kernel/syscalls/wait/wait02.c b/testcases/kernel/syscalls/wait/wait02.c
-index 5695c071c..111849f2a 100644
---- a/testcases/kernel/syscalls/wait/wait02.c
-+++ b/testcases/kernel/syscalls/wait/wait02.c
-@@ -1,103 +1,47 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
- /*
-  * Copyright (c) 2000 Silicon Graphics, Inc.  All Rights Reserved.
-  *    AUTHOR		: William Roske
-  *    CO-PILOT		: Dave Fenner
-+ *\
-+ * [Description]
-  *
-- * This program is free software; you can redistribute it and/or modify it
-- * under the terms of version 2 of the GNU General Public License as
-- * published by the Free Software Foundation.
-- *
-- * This program is distributed in the hope that it would be useful, but
-- * WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-- *
-- * Further, this software is distributed without any warranty that it is
-- * free of the rightful claim of any third person regarding infringement
-- * or the like.  Any license provided herein, whether implied or
-- * otherwise, applies only to this software file.  Patent licenses, if
-- * any, provided herein do not apply to combinations of this program with
-- * other software, or any other product whatsoever.
-- *
-- * You should have received a copy of the GNU General Public License along
-- * with this program; if not, write the Free Software Foundation, Inc.,
-- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-- *
-- * Contact information: Silicon Graphics, Inc., 1600 Amphitheatre Pkwy,
-- * Mountain View, CA  94043, or:
-- *
-- * http://www.sgi.com
-- *
-- * For further information regarding this notice, see:
-- *
-- * http://oss.sgi.com/projects/GenInfo/NoticeExplan/
-- *
-+ * For a terminated child, test whether wait(2) can get its pid
-+ * and exit status correctly.
-  */
- 
- #include <errno.h>
--#include <string.h>
--#include <signal.h>
--#include <stdlib.h>
- #include <sys/types.h>
- #include <sys/wait.h>
--#include "test.h"
--
--static void setup(void);
--static void cleanup(void);
--
--char *TCID = "wait02";
--int TST_TOTAL = 1;
--
--static void wait_verify(void);
--
--int main(int ac, char **av)
--{
--	int lc;
--
--	tst_parse_opts(ac, av, NULL, NULL);
--
--	setup();
--
--	for (lc = 0; TEST_LOOPING(lc); lc++) {
--		tst_count = 0;
--		wait_verify();
--	}
--
--	cleanup();
--	tst_exit();
--}
--
--static void setup(void)
--{
--	tst_sig(FORK, DEF_HANDLER, cleanup);
--
--	TEST_PAUSE;
--}
-+#include <stdlib.h>
-+#include "tst_test.h"
- 
--static void wait_verify(void)
-+static void verify_wait(void)
- {
--	int fork_pid, status, exit_child = 1;
-+	int status, exit_child = 1;
-+	pid_t fpid;
- 
--	fork_pid = FORK_OR_VFORK();
--	if (fork_pid == -1) {
--		tst_brkm(TBROK | TERRNO, cleanup, "fork() Failure");
--	} else if (fork_pid == 0) {
--		sleep(1);
-+	fpid = SAFE_FORK();
-+	if (fpid == 0)
- 		exit(exit_child);
--	}
- 
- 	TEST(wait(&status));
-+	if (TST_RET == -1) {
-+		tst_res(TFAIL | TTERRNO, "wait() failed");
-+		return;
-+	}
- 
--	if (TEST_RETURN == -1) {
--		tst_resm(TFAIL | TTERRNO, "wait(1) Failed");
-+	if (fpid != TST_RET) {
-+		tst_res(TFAIL, "wait() returned wrong pid %ld, expected %d",
-+			TST_RET, fpid);
- 	} else if (WIFEXITED(status) && WEXITSTATUS(status) == exit_child) {
--		tst_resm(TPASS, "wait(&status) returned %ld", TEST_RETURN);
-+		tst_res(TPASS, "wait() succeeded");
- 	} else {
--		tst_resm(TFAIL,
--			 "wait(1) Failed, exit_child - 0x%x, status - 0x%x",
--			 exit_child, status);
-+		tst_res(TFAIL, "wait() got wrong exit status 0x%x", status);
- 	}
- }
- 
--static void cleanup(void)
--{
--}
-+static struct tst_test test = {
-+	.test_all = verify_wait,
-+	.forks_child = 1,
-+};
+> +static void run(void)
+> +{
+> +       char buf[BUFSIZ];
+> +       size_t mem = 0;
+> +
+> +       cg_child = tst_cgroup_mk(cg, "child");
+> +       SAFE_CGROUP_PRINTF(cg_child, "cgroup.procs", "%d", getpid());
+> +
+> +       if (SAFE_CGROUP_VER(cg, "memory") != TST_CGROUP_V1)
+> +               SAFE_CGROUP_PRINT(cg, "cgroup.subtree_control", "+memory");
+> +       if (SAFE_CGROUP_VER(cg, "cpuset") != TST_CGROUP_V1)
+> +               SAFE_CGROUP_PRINT(cg, "cgroup.subtree_control", "+cpuset");
+>
+
+Kind reminder:
+
+If you decide to add controllers automatically (as I suggested in patch3/7)
+in
+tst_cgroup_mk(), then these lines should be removed.
+
+
+> +Another example of an edge case is the following.
+> +
+> +[source,c]
+>
+> +-------------------------------------------------------------------------------
+> +       if (tst_cgroup_ver(cg, "memory") == TST_CGROUP_V1)
+> +               SAFE_CGROUP_PRINTF(cg, "memory.swap.max", "%lu", ~0UL);
+> +       else
+> +               SAFE_CGROUP_PRINT(cg, "memory.swap.max", "max");
+>
+
+typo PRINT --> PRINTF ^.
+
+Btw, these documented works are quite awesome!
+
 -- 
-2.18.1
+Regards,
+Li Wang
+
+--000000000000e5b2b905c01287ef
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div class=3D"gmail_quote"><div>=C2=A0<br></div><blockquot=
+e class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px s=
+olid rgb(204,204,204);padding-left:1ex">
++static void run(void)<br>
++{<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0char buf[BUFSIZ];<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0size_t mem =3D 0;<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0cg_child =3D tst_cgroup_mk(cg, &quot;child&quot=
+;);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0SAFE_CGROUP_PRINTF(cg_child, &quot;cgroup.procs=
+&quot;, &quot;%d&quot;, getpid());<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if (SAFE_CGROUP_VER(cg, &quot;memory&quot;) !=
+=3D TST_CGROUP_V1)<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0SAFE_CGROUP_PRINT(c=
+g, &quot;cgroup.subtree_control&quot;, &quot;+memory&quot;);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if (SAFE_CGROUP_VER(cg, &quot;cpuset&quot;) !=
+=3D TST_CGROUP_V1)<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0SAFE_CGROUP_PRINT(c=
+g, &quot;cgroup.subtree_control&quot;, &quot;+cpuset&quot;);<br></blockquot=
+e><div><br></div><div><div class=3D"gmail_default" style=3D"font-size:small=
+">Kind reminder:</div><div class=3D"gmail_default" style=3D"font-size:small=
+"><br></div><div class=3D"gmail_default" style=3D"font-size:small">If you d=
+ecide to add controllers automatically (as I suggested in patch3/7) in</div=
+><div class=3D"gmail_default" style=3D"font-size:small">tst_cgroup_mk(), th=
+en these lines should be removed.</div></div><div class=3D"gmail_default" s=
+tyle=3D"font-size:small">=C2=A0</div><blockquote class=3D"gmail_quote" styl=
+e=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);paddin=
+g-left:1ex">
++Another example of an edge case is the following.<br>
++<br>
++[source,c]<br>
++--------------------------------------------------------------------------=
+-----<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if (tst_cgroup_ver(cg, &quot;memory&quot;) =3D=
+=3D TST_CGROUP_V1)<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0SAFE_CGROUP_PRINTF(=
+cg, &quot;memory.swap.max&quot;, &quot;%lu&quot;, ~0UL);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0else<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0SAFE_CGROUP_PRINT(c=
+g, &quot;memory.swap.max&quot;, &quot;max&quot;);<br></blockquote><div><br>=
+</div><div><div class=3D"gmail_default" style=3D"font-size:small">typo PRIN=
+T --&gt; PRINTF ^.</div></div><div class=3D"gmail_default" style=3D"font-si=
+ze:small"><br></div></div><div class=3D"gmail_default" style=3D"font-size:s=
+mall">Btw, these=C2=A0<span style=3D"color:rgb(51,51,51);font-size:14px">do=
+cumented</span>=C2=A0works=C2=A0are quite awesome!</div><div><br></div>-- <=
+br><div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards=
+,<br></div><div>Li Wang<br></div></div></div></div>
+
+--000000000000e5b2b905c01287ef--
 
 
+--===============0631403301==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============0631403301==--
+
