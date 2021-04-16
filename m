@@ -1,41 +1,42 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17F133622B2
-	for <lists+linux-ltp@lfdr.de>; Fri, 16 Apr 2021 16:45:30 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id D9BB63622A9
+	for <lists+linux-ltp@lfdr.de>; Fri, 16 Apr 2021 16:41:11 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 444C03C6F9B
-	for <lists+linux-ltp@lfdr.de>; Fri, 16 Apr 2021 16:45:29 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 7AA033C6F73
+	for <lists+linux-ltp@lfdr.de>; Fri, 16 Apr 2021 16:41:11 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id D44EC3C1AD3
- for <ltp@lists.linux.it>; Fri, 16 Apr 2021 16:45:25 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id C49513C1AD3
+ for <ltp@lists.linux.it>; Fri, 16 Apr 2021 16:41:07 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 69D8220110D
- for <ltp@lists.linux.it>; Fri, 16 Apr 2021 16:45:25 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 573871001390
+ for <ltp@lists.linux.it>; Fri, 16 Apr 2021 16:41:07 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id BFD78AE93;
- Fri, 16 Apr 2021 14:45:24 +0000 (UTC)
-Date: Fri, 16 Apr 2021 16:34:32 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
+ by mx2.suse.de (Postfix) with ESMTP id 75504ABE2;
+ Fri, 16 Apr 2021 14:41:06 +0000 (UTC)
+Date: Fri, 16 Apr 2021 16:41:04 +0200
+From: Petr Vorel <pvorel@suse.cz>
 To: Zhao Gongyi <zhaogongyi@huawei.com>
-Message-ID: <YHmgeDAxZRdfSWOd@yuki>
+Message-ID: <YHmiAHIb4VeJrwpL@pevik>
 References: <20210410073823.21753-1-zhaogongyi@huawei.com>
 MIME-Version: 1.0
 Content-Disposition: inline
 In-Reply-To: <20210410073823.21753-1-zhaogongyi@huawei.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH] lib/tst_test.sh: Add statistics info TST_BROK
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -48,18 +49,25 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-Pushed, thanks.
+> Before test exit, we need print statistics info of TST_BROK.
 
--- 
-Cyril Hrubis
-chrubis@suse.cz
+Good idea, thanks!
+
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
+
+> ---
+> v1->v2:Correct typos
+Please don't forget to add -v2 to git format-patch :).
+
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
