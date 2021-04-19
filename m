@@ -2,45 +2,59 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED970363E65
-	for <lists+linux-ltp@lfdr.de>; Mon, 19 Apr 2021 11:18:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC19B363F6D
+	for <lists+linux-ltp@lfdr.de>; Mon, 19 Apr 2021 12:17:22 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id BE2C93C6D75
-	for <lists+linux-ltp@lfdr.de>; Mon, 19 Apr 2021 11:18:45 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 3971D3C6DC4
+	for <lists+linux-ltp@lfdr.de>; Mon, 19 Apr 2021 12:17:22 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id AA50F3C1D68
- for <ltp@lists.linux.it>; Mon, 19 Apr 2021 11:18:43 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 63F8F3C1B51
+ for <ltp@lists.linux.it>; Mon, 19 Apr 2021 12:17:17 +0200 (CEST)
+Received: from mail-m973.mail.163.com (mail-m973.mail.163.com [123.126.97.3])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 2F922600A2E
- for <ltp@lists.linux.it>; Mon, 19 Apr 2021 11:18:42 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 953DAAF27;
- Mon, 19 Apr 2021 09:18:42 +0000 (UTC)
-Date: Mon, 19 Apr 2021 11:05:38 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: zhanglianjie <zhanglianjie@uniontech.com>
-Message-ID: <YH1H4qZwqSNom4RO@yuki>
-References: <20210330104613.1059-1-zhanglianjie@uniontech.com>
- <YHRcJOUer87SUn6v@yuki>
- <cded02a5-6668-8524-d588-b965ed1a7086@uniontech.com>
- <YHgd/NDLJzz68uDl@yuki>
- <e3eabee4-6616-84dc-cc8d-bc4f23228637@uniontech.com>
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id A637B1000367
+ for <ltp@lists.linux.it>; Mon, 19 Apr 2021 12:17:16 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=Subject:From:Message-ID:Date:MIME-Version; bh=w6rjq
+ +Ti0dZXZMJjqKA313AT+hk2lGEabZtW+L+V93M=; b=RngRaCTe6LQQJ6DN7lRhV
+ mrr6ZundMwOZSP/Q/2BrwBZVwfLHRy73/UGhsB7CdaUqbwbm518s3ANB9713YSbO
+ rYGx9OXIUNwI3NHOloAbtKI30M5sHDSvrGISNQl4SzYe+TrrzGqcgr8TkxjHosmg
+ DPV0Jj6Nzu6zZeVN/ImALw=
+Received: from [172.20.10.4] (unknown [122.96.44.167])
+ by smtp3 (Coremail) with SMTP id G9xpCgA3xxajWH1gTtvPDg--.21S2;
+ Mon, 19 Apr 2021 18:17:08 +0800 (CST)
+To: Cyril Hrubis <chrubis@suse.cz>
+References: <20210419044112.31443-1-ice_yangxiao@163.com>
+ <YH1EJ8BmbYTBOvdk@yuki>
+From: Xiao Yang <ice_yangxiao@163.com>
+Message-ID: <70c0c22a-97ba-a647-9ae8-998e2469927e@163.com>
+Date: Mon, 19 Apr 2021 18:17:06 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <e3eabee4-6616-84dc-cc8d-bc4f23228637@uniontech.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+In-Reply-To: <YH1EJ8BmbYTBOvdk@yuki>
+Content-Language: en-US
+X-CM-TRANSID: G9xpCgA3xxajWH1gTtvPDg--.21S2
+X-Coremail-Antispam: 1Uf129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
+ VFW2AGmfu7bjvjm3AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjxUIEdyUUUUU
+X-Originating-IP: [122.96.44.167]
+X-CM-SenderInfo: 5lfhs5xdqj5xldr6il2tof0z/xtbB0gR5XlUMbPXKIAAAsb
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] Modify the test logic of mincore.
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 1/2] include/tst_test_macros.h: Add TST_EXP_PID
+ and TST_EXP_PID_SILENT macros
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,35 +67,28 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> >> Using the CVE patch on mips, the test will fail because the child
-> >> process mlocks all pages, but the parent process cannot obtain these
-> >> pages through mincore and is locked.
-> > 
-> > Sounds like a kernel bug.
-> > 
-> CVE list has provided repair patches, The patch I submitted this time is 
-> to modify the logic of the test results, do you plan to incorporate it?
+Hi Cyril,
 
-Let me try to explain it once again.
+Thanks, pushed with your suggestion(use TST_EXP_POSITIVE).
 
-As far as I can tell the CVE kernel patch you pointed out has NO effect
-on the testcase and there is NO need to modify the test at all. The test
-works fine both before and after the kernel patch.
+Best Regards,
 
-If the test fails for you YOUR kernel is broken.
+Xiao Yang
 
-That is unless you prove that the test is actually wrong, which you
-haven't and I do not think that you actually can.
+On 4/19/21 4:49 PM, Cyril Hrubis wrote:
+> Maybe we should rename the TST_EXP_FD_SILENT() to TST_EXP_POSITIVE() and
+> then define both TST_EXP_PID_SILENT() and TST_EXP_FD_SILENT() based on
+> TST_EXP_POSITIVE(), but that's very minor.
+>
+> Looks good to me:
+>
+> Reviewed-by: Cyril Hrubis<chrubis@suse.cz>
 
--- 
-Cyril Hrubis
-chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
