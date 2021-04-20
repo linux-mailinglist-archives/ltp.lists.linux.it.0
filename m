@@ -2,79 +2,39 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40214365451
-	for <lists+linux-ltp@lfdr.de>; Tue, 20 Apr 2021 10:40:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BD1D36546B
+	for <lists+linux-ltp@lfdr.de>; Tue, 20 Apr 2021 10:44:32 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 07DDE3C6C93
-	for <lists+linux-ltp@lfdr.de>; Tue, 20 Apr 2021 10:40:01 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 8B8AA3C6CBE
+	for <lists+linux-ltp@lfdr.de>; Tue, 20 Apr 2021 10:44:31 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 730DA3C1DFC
- for <ltp@lists.linux.it>; Tue, 20 Apr 2021 10:39:59 +0200 (CEST)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 8B69F3C1DFC
+ for <ltp@lists.linux.it>; Tue, 20 Apr 2021 10:44:18 +0200 (CEST)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 9F91D1A0080C
- for <ltp@lists.linux.it>; Tue, 20 Apr 2021 10:39:58 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1618907997;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=74Px/cIcv5ZACisZG0ZvymJ0Nsh6aJKXuPsQqDP/jlA=;
- b=gayjisW3WiSkNU3ikN7dL6yFlTPVJxrXDMyBc6k3EsgjCidYYzBIqZhXp32+aMcwWhqJjS
- 8hQIA+GI3WgCCdffldi9x6I/N2ntEmvxo0+MZXt/lne6/ht1sHG/YH3/hk580CXqDaT9pl
- KZbLdfKeoDR0XRRZJlj3Y5hxtHXhSK4=
-Received: from mail-yb1-f199.google.com (mail-yb1-f199.google.com
- [209.85.219.199]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-601-QCcfuS7-M0arILnNNwvr4g-1; Tue, 20 Apr 2021 04:39:55 -0400
-X-MC-Unique: QCcfuS7-M0arILnNNwvr4g-1
-Received: by mail-yb1-f199.google.com with SMTP id
- j137-20020a25238f0000b02904e05d066c36so10834036ybj.18
- for <ltp@lists.linux.it>; Tue, 20 Apr 2021 01:39:55 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=74Px/cIcv5ZACisZG0ZvymJ0Nsh6aJKXuPsQqDP/jlA=;
- b=HVtOkTmP2Tg6V8mpMGNVFuGgYpIaosnG7qzwc1RQasFh5AuwoTpyP8AWwFyzXi10ji
- 5k7hhzpYcvuFC65NjzeCUTqYb5+dtn1sVCbJp+tmfi51oPMyAH6pxwP5IRokOoZXbIdM
- SY6XogScit+JdTUI3iRgJZFD7e7K+is5BAlUr9CbCrlWGLSmazcJQiX54zF/GYS1b8An
- GblnO/pN7djeNioNCBlID4MbUgafszLldEn70xY2rP2Gv15gU1LLkQ0y/D/Brw+QiuMW
- mkMuXaSgSU6HRXGiqgPvLEet/5tLL9/zhAuqC8i7oIUDTmWqha5xtKhV8EFKNCuzWD1k
- qG1Q==
-X-Gm-Message-State: AOAM5314ylBHLkThpEzJc0VYaP4ps5Ew1KLbxPUo2FFFFSHBbMB/owyy
- JeZk4t0vivBp7vKgo/+w0DspYjhg5lHeOjXl6+xMD/BRPFMnye7kMUC0pSnv8CWD2IV7MysjiPA
- q025ELMMcKmCxbZ+qVCRXCMAdWlU=
-X-Received: by 2002:a5b:787:: with SMTP id b7mr23486075ybq.243.1618907994686; 
- Tue, 20 Apr 2021 01:39:54 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJxK91bFbT6gDequR01P60QDSG9WClYX+FkOXrXZ0Jy0YxR9v9xRUuFuNGAz+NG5yZ/ErKS7ScKzx6pseIDGI3I=
-X-Received: by 2002:a5b:787:: with SMTP id b7mr23486051ybq.243.1618907994464; 
- Tue, 20 Apr 2021 01:39:54 -0700 (PDT)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id B2166600698
+ for <ltp@lists.linux.it>; Tue, 20 Apr 2021 10:44:17 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id DA9DAADEF;
+ Tue, 20 Apr 2021 08:44:16 +0000 (UTC)
+From: Petr Vorel <pvorel@suse.cz>
+To: ltp@lists.linux.it
+Date: Tue, 20 Apr 2021 10:44:09 +0200
+Message-Id: <20210420084410.16179-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-References: <20210420075351.16059-1-liwang@redhat.com> <YH6PT2HKt6t1xZxR@pevik>
-In-Reply-To: <YH6PT2HKt6t1xZxR@pevik>
-From: Li Wang <liwang@redhat.com>
-Date: Tue, 20 Apr 2021 16:39:42 +0800
-Message-ID: <CAEemH2eaPx86DWfoMPcvrzLrNz8+Aw3cOhBvPxiZ2J6LxEQQEg@mail.gmail.com>
-To: Petr Vorel <pvorel@suse.cz>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] mkfs: print more info for debugging
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH v5 1/2] splice02: Generate input in C
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,29 +46,241 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Yang Xu <xuyang2018.jy@cn.fujitsu.com>, LTP List <ltp@lists.linux.it>
+Cc: Martin Loviska <mloviska@suse.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-> > --- a/testcases/commands/mkfs/mkfs01.sh
-> > +++ b/testcases/commands/mkfs/mkfs01.sh
-> > @@ -128,7 +128,8 @@ mkfs_test()
-> >       if [ -n "$device" ]; then
-> >               mkfs_verify_type "$fs_type" "$device"
-> >               if [ $? -ne 0 ]; then
-> > -                     tst_res TFAIL "'${mkfs_cmd}' failed, not expected."
-> > +                     tst_res TFAIL "'${mkfs_cmd}' failed, not expected type."
-> Maybe "unexpected type"?
->
-> I'd also change ${mkfs_cmd} to $mkfs_cmd (more readable).
+instead relying on shell piping data into it.
 
-Sounds good, I modified it with your suggestions and pushed it.
+Check resulted file size and content.
+Also add metadata docs.
 
+Problem found on SLES JeOS (https://progress.opensuse.org/issues/77260).
+
+Reported-by: Martin Loviska <mloviska@suse.com>
+Suggested-by: Cyril Hrubis <chrubis@suse.cz>
+Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
+[ chrubis: while loop simplification ]
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+---
+Changes v4->v5:
+* fix: use offset in SAFE_MMAP() to fix file checking (reported by Cyril)
+Offset is required to be page size aligned.
+* fix: error message wording (reported by Cyril)
+* Change content to write: remove randomizing the letter and instead
+write alphabet sequence 512*'a', 512*'b' ... This way error during check
+due wrong offset is detected.
+
+ runtest/smoketest                           |   2 +-
+ runtest/syscalls                            |   2 +-
+ testcases/kernel/syscalls/splice/splice02.c | 143 ++++++++++++++++++--
+ 3 files changed, 134 insertions(+), 13 deletions(-)
+
+diff --git a/runtest/smoketest b/runtest/smoketest
+index 0c24fc1fa..2224d8f74 100644
+--- a/runtest/smoketest
++++ b/runtest/smoketest
+@@ -11,5 +11,5 @@ symlink01 symlink01
+ stat04 symlink01 -T stat04
+ utime01A symlink01 -T utime01
+ rename01A symlink01 -T rename01
+-splice02 seq 1 20 | splice02
++splice02 splice02 -s 20
+ route4-change-dst route-change-dst.sh
+diff --git a/runtest/syscalls b/runtest/syscalls
+index 2d1e7b648..b89c545f0 100644
+--- a/runtest/syscalls
++++ b/runtest/syscalls
+@@ -1451,7 +1451,7 @@ socketpair02 socketpair02
+ sockioctl01 sockioctl01
+ 
+ splice01 splice01
+-splice02 seq 1 20000 | splice02
++splice02 splice02
+ splice03 splice03
+ splice04 splice04
+ splice05 splice05
+diff --git a/testcases/kernel/syscalls/splice/splice02.c b/testcases/kernel/syscalls/splice/splice02.c
+index b579667b9..cd7dfa836 100644
+--- a/testcases/kernel/syscalls/splice/splice02.c
++++ b/testcases/kernel/syscalls/splice/splice02.c
+@@ -1,40 +1,161 @@
+ // SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+  * Copyright (c) Jens Axboe <axboe@kernel.dk>, 2009
++ * Copyright (c) 2021 Petr Vorel <pvorel@suse.cz>
++ */
++
++/*\
++ * [DESCRIPTION]
++ * Original reproducer for kernel fix
++ * bf40d3435caf NFS: add support for splice writes
++ * from v2.6.31-rc1.
++ *
+  * http://lkml.org/lkml/2009/4/2/55
++ *
++ * [ALGORITHM]
++ * - create pipe
++ * - fork(), child replace stdin with pipe
++ * - parent write to pipe
++ * - child slice from pipe
++ * - check resulted file size and content
+  */
+ 
+ #define _GNU_SOURCE
+ 
++#include <fcntl.h>
+ #include <stdio.h>
+ #include <stdlib.h>
++#include <sys/stat.h>
+ #include <unistd.h>
+-#include <fcntl.h>
+ 
+ #include "tst_test.h"
++#include "lapi/mmap.h"
+ #include "lapi/splice.h"
+ 
+-#define SPLICE_SIZE (64*1024)
++#define BUFSIZE 512
++#define SPLICE_SIZE 1024
++
++#define TEST_FILENAME "splice02-temp"
+ 
+-static void splice_test(void)
++static char *sarg;
++static int file_size;
++static int pipe_fd[2];
++
++static void setup(void)
++{
++	if (tst_parse_int(sarg, &file_size, 1, INT_MAX))
++		tst_brk(TBROK, "invalid number of writes '%s', use <1,%d>", sarg, INT_MAX);
++}
++
++static inline int get_letter(int n)
++{
++	return n % ('z' - 'a' + 1) + 'a';
++}
++
++static void do_child(void)
+ {
+ 	int fd;
++	size_t size, psize, to_check, i, fail = 0;
++	struct stat st;
++	char *map;
++
++	SAFE_CLOSE(pipe_fd[1]);
++	SAFE_DUP2(pipe_fd[0], STDIN_FILENO);
+ 
+-	fd = SAFE_OPEN("splice02-temp", O_WRONLY | O_CREAT | O_TRUNC, 0644);
++	fd = SAFE_OPEN(TEST_FILENAME, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+ 
+-	TEST(splice(STDIN_FILENO, NULL, fd, NULL, SPLICE_SIZE, 0));
+-	if (TST_RET < 0) {
+-		tst_res(TFAIL, "splice failed - errno = %d : %s",
+-			TST_ERR, strerror(TST_ERR));
+-	} else {
+-		tst_res(TPASS, "splice() system call Passed");
++	do {
++		TEST(splice(STDIN_FILENO, NULL, fd, NULL, SPLICE_SIZE, 0));
++		if (TST_RET < 0) {
++			tst_res(TFAIL | TTERRNO, "splice failed");
++			goto cleanup;
++		}
++	} while (TST_RET > 0);
++
++	stat(TEST_FILENAME, &st);
++	if (st.st_size != file_size) {
++		tst_res(TFAIL, "file size is different from expected: %ld (%d)",
++				st.st_size, file_size);
++		return;
+ 	}
+ 
+ 	SAFE_CLOSE(fd);
++	fd = SAFE_OPEN(TEST_FILENAME, O_RDONLY);
++	to_check = st.st_size;
++
++	psize = sysconf(_SC_PAGESIZE);
++
++	tst_res(TINFO, "checking file content");
++	do {
++		i = 0;
++		size = to_check > psize ? psize : to_check;
++
++		map = SAFE_MMAP(NULL, size, PROT_READ, MAP_PRIVATE, fd,
++				st.st_size - to_check);
++
++		while (i < size) {
++			if (map[i] != get_letter(to_check - (i / BUFSIZE * BUFSIZE)))
++				fail++;
++			i++;
++		}
++		SAFE_MUNMAP(map, size);
++		to_check -= size;
++	} while (to_check > 0);
++
++	if (fail) {
++		tst_res(TFAIL, "%ld unexpected bytes found", fail);
++		return;
++	}
++
++	tst_res(TPASS, "splice() system call passed");
++
++cleanup:
++	SAFE_CLOSE(fd);
++	exit(0);
++}
++
++static void run(void)
++{
++	size_t size, written, max_pipe_size, to_write;
++	char buf[BUFSIZE];
++
++	SAFE_PIPE(pipe_fd);
++
++	if (!file_size) {
++		max_pipe_size = SAFE_FCNTL(pipe_fd[1], F_GETPIPE_SZ);
++		file_size = max_pipe_size << 4;
++	}
++
++	to_write = file_size;
++
++	if (!SAFE_FORK())
++		do_child();
++
++	tst_res(TINFO, "writting %d bytes", file_size);
++
++	while (to_write > 0) {
++		memset(buf, get_letter(to_write), BUFSIZE);
++
++		size = to_write > BUFSIZE ? BUFSIZE : to_write;
++		written = SAFE_WRITE(1, pipe_fd[1], &buf, size);
++		to_write -= written;
++	}
++
++	SAFE_CLOSE(pipe_fd[0]);
++	SAFE_CLOSE(pipe_fd[1]);
++
++	tst_reap_children();
+ }
+ 
+ static struct tst_test test = {
+-	.test_all = splice_test,
++	.test_all = run,
++	.setup = setup,
++	.needs_checkpoints = 1,
+ 	.needs_tmpdir = 1,
++	.forks_child = 1,
+ 	.min_kver = "2.6.17",
++	.options = (struct tst_option[]) {
++		{"s:", &sarg, "-s x     Size of output file in bytes (default: 16x max pipe size, i.e. 1M on intel)"},
++		{}
++	},
+ };
 -- 
-Regards,
-Li Wang
+2.31.1
 
 
 -- 
