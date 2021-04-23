@@ -2,47 +2,47 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CEF5368FF4
-	for <lists+linux-ltp@lfdr.de>; Fri, 23 Apr 2021 12:00:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07CF3368FF1
+	for <lists+linux-ltp@lfdr.de>; Fri, 23 Apr 2021 12:00:06 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 94AD33C6A0D
-	for <lists+linux-ltp@lfdr.de>; Fri, 23 Apr 2021 12:00:18 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id ABFEA3C69FB
+	for <lists+linux-ltp@lfdr.de>; Fri, 23 Apr 2021 12:00:05 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 18B123C63BC
+ by picard.linux.it (Postfix) with ESMTPS id B5D763C69EA
  for <ltp@lists.linux.it>; Fri, 23 Apr 2021 11:59:52 +0200 (CEST)
 Received: from szxga06-in.huawei.com (szxga06-in.huawei.com [45.249.212.32])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id CB9F6140138F
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id EE59610011CE
  for <ltp@lists.linux.it>; Fri, 23 Apr 2021 11:59:50 +0200 (CEST)
 Received: from DGGEMS402-HUB.china.huawei.com (unknown [172.30.72.59])
- by szxga06-in.huawei.com (SkyGuard) with ESMTP id 4FRV8Y5L2kzlZJ5
+ by szxga06-in.huawei.com (SkyGuard) with ESMTP id 4FRV8Y4zQ6zlZJ0
  for <ltp@lists.linux.it>; Fri, 23 Apr 2021 17:57:49 +0800 (CST)
 Received: from ubuntu1804.huawei.com (10.67.174.209) by
  DGGEMS402-HUB.china.huawei.com (10.3.19.202) with Microsoft SMTP Server id
  14.3.498.0; Fri, 23 Apr 2021 17:59:41 +0800
 From: Xie Ziyao <xieziyao@huawei.com>
 To: <ltp@lists.linux.it>
-Date: Fri, 23 Apr 2021 17:59:43 +0800
-Message-ID: <20210423095944.118255-2-xieziyao@huawei.com>
+Date: Fri, 23 Apr 2021 17:59:44 +0800
+Message-ID: <20210423095944.118255-3-xieziyao@huawei.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20210423095944.118255-1-xieziyao@huawei.com>
 References: <20210423095944.118255-1-xieziyao@huawei.com>
 MIME-Version: 1.0
 X-Originating-IP: [10.67.174.209]
 X-CFilter-Loop: Reflected
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH 1/2] syscalls/sendfile: Convert sendfile04 to the new
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH 2/2] syscalls/sendfile: Convert sendfile05 to the new
  API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -61,20 +61,20 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-1. Convert sendfile04 to the new API;
+1. Convert sendfile05 to the new API;
 2. Remove the socket code of server/client and use SAFE_SOCKETPAIR()
 instead, which can simplify the code logic.
 
 Signed-off-by: Xie Ziyao <xieziyao@huawei.com>
 ---
- .../kernel/syscalls/sendfile/sendfile04.c     | 308 ++++--------------
- 1 file changed, 61 insertions(+), 247 deletions(-)
+ .../kernel/syscalls/sendfile/sendfile05.c     | 254 +++---------------
+ 1 file changed, 41 insertions(+), 213 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/sendfile/sendfile04.c b/testcases/kernel/syscalls/sendfile/sendfile04.c
-index 0f315abb0..42600a8ac 100644
---- a/testcases/kernel/syscalls/sendfile/sendfile04.c
-+++ b/testcases/kernel/syscalls/sendfile/sendfile04.c
-@@ -1,51 +1,23 @@
+diff --git a/testcases/kernel/syscalls/sendfile/sendfile05.c b/testcases/kernel/syscalls/sendfile/sendfile05.c
+index 0f268ceb3..cfa6144b1 100644
+--- a/testcases/kernel/syscalls/sendfile/sendfile05.c
++++ b/testcases/kernel/syscalls/sendfile/sendfile05.c
+@@ -1,46 +1,21 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
  /*
 - *
@@ -96,34 +96,29 @@ index 0f315abb0..42600a8ac 100644
 - *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
 + * Copyright (c) International Business Machines  Corp., 2001
 + * Copyright (c) Red Hat Inc., 2007
-+ * 11/2007 Copied from sendfile02.c by Masatake YAMATO
++ * 11/2007 Copyed from sendfile02.c by Masatake YAMATO
   */
 
 -/*
 - * NAME
-- *	sendfile04.c
+- *	sendfile05.c
 - *
 - * DESCRIPTION
-- *	Testcase to test that sendfile(2) system call returns EFAULT
-- *	when passing wrong buffer.
-- *
-- * ALGORITHM
-- *     Given wrong address or protected buffer as OFFSET argument to sendfile.
-- *     A wrong address is created by munmap a buffer allocated by mmap.
-- *     A protected buffer is created by mmap with specifying protection.
+- *	Testcase to test that sendfile(2) system call returns EINVAL
+- *	when passing negative offset.
 +/*\
 + * [Description]
   *
 - * USAGE:  <for command-line>
-- *  sendfile04 [-c n] [-f] [-i n] [-I x] [-P x] [-t]
+- *  sendfile05 [-c n] [-f] [-i n] [-I x] [-P x] [-t]
 - *     where,
 - *             -f   : Turn off functionality Testing.
 - *             -i n : Execute test n times.
 - *             -I x : Execute test for x seconds.
 - *             -P x : Pause for x seconds between iterations.
 - *             -t   : Turn on syscall timing.
-+ * Testcase to test that sendfile(2) system call returns EFAULT when passing
-+ * wrong buffer.
++ * Testcase to test that sendfile(2) system call returns EINVAL when passing
++ * negative offset.
   *
 - * HISTORY
 - *	11/2007 Copyed from sendfile02.c by Masatake YAMATO
@@ -131,15 +126,13 @@ index 0f315abb0..42600a8ac 100644
   *
 - * RESTRICTIONS
 - *	NONE
-+ * Given wrong address or protected buffer as OFFSET argument to sendfile:
-+ * - a wrong address is created by munmap a buffer allocated by mmap
-+ * - a protected buffer is created by mmap with specifying protection
++ * Call sendfile with offset = -1.
   */
 +
  #include <stdio.h>
  #include <errno.h>
  #include <fcntl.h>
-@@ -56,232 +28,74 @@
+@@ -51,198 +26,51 @@
  #include <sys/mman.h>
  #include <netinet/in.h>
  #include <arpa/inet.h>
@@ -151,15 +144,12 @@ index 0f315abb0..42600a8ac 100644
  #ifndef OFF_T
  #define OFF_T off_t
 -#endif /* Not def: OFF_T */
-+#endif
-
--TCID_DEFINE(sendfile04);
-+#define IN_FILE "sendfile04_infile"
-
+-
+-TCID_DEFINE(sendfile05);
+-
 -char in_file[100];
 -char out_file[100];
-+int in_fd;
- int out_fd;
+-int out_fd;
 -pid_t child_pid;
 -static int sockfd, s;
 -static struct sockaddr_in sin1;	/* shared between do_child and create_server */
@@ -169,40 +159,17 @@ index 0f315abb0..42600a8ac 100644
 -void setup(void);
 -int create_server(void);
 -
--#define PASS_MAPPED_BUFFER 0
--#define PASS_UNMAPPED_BUFFER 1
-+int out[2];
-+static char buf[] = "abcdefghijklmnopqrstuvwxyz";
-
- struct test_case_t {
- 	int protection;
- 	int pass_unmapped_buffer;
--} testcases[] = {
--	{
--	PROT_NONE, PASS_MAPPED_BUFFER}, {
--	PROT_READ, PASS_MAPPED_BUFFER}, {
--	PROT_EXEC, PASS_MAPPED_BUFFER}, {
--	PROT_EXEC | PROT_READ, PASS_MAPPED_BUFFER}, {
--PROT_READ | PROT_WRITE, PASS_UNMAPPED_BUFFER},};
--
--int TST_TOTAL = sizeof(testcases) / sizeof(testcases[0]);
+-int TST_TOTAL = 1;
 -
 -#ifdef UCLINUX
 -static char *argv0;
--#endif
--
--void do_sendfile(int prot, int pass_unmapped_buffer)
+ #endif
+
+-void do_sendfile(void)
 -{
--	OFF_T *protected_buffer;
+-	OFF_T offset;
 -	int in_fd;
 -	struct stat sb;
--
--	protected_buffer = mmap(NULL,
--				sizeof(*protected_buffer),
--				prot, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
--	if (protected_buffer == MAP_FAILED) {
--		tst_brkm(TBROK, cleanup, "mmap failed: %d", errno);
--	}
 -
 -	out_fd = create_server();
 -
@@ -211,20 +178,16 @@ index 0f315abb0..42600a8ac 100644
 -	}
 -	SAFE_STAT(cleanup, in_file, &sb);
 -
--	if (pass_unmapped_buffer) {
--		SAFE_MUNMAP(cleanup, protected_buffer,
--			    sizeof(*protected_buffer));
--	}
--
--	TEST(sendfile(out_fd, in_fd, protected_buffer, sb.st_size));
+-	offset = -1;
+-	TEST(sendfile(out_fd, in_fd, &offset, sb.st_size));
 -
 -	if (TEST_RETURN != -1) {
 -		tst_resm(TFAIL, "call succeeded unexpectedly");
 -	} else {
--		if (TEST_ERRNO != EFAULT) {
+-		if (TEST_ERRNO != EINVAL) {
 -			tst_resm(TFAIL, "sendfile returned unexpected "
 -				 "errno, expected: %d, got: %d",
--				 EFAULT, TEST_ERRNO);
+-				 EINVAL, TEST_ERRNO);
 -		} else {
 -			tst_resm(TPASS, "sendfile() returned %d : %s",
 -				 TEST_ERRNO, strerror(TEST_ERRNO));
@@ -235,11 +198,6 @@ index 0f315abb0..42600a8ac 100644
 -	shutdown(s, SHUT_RDWR);
 -	kill(child_pid, SIGKILL);
 -	close(in_fd);
--
--	if (!pass_unmapped_buffer) {
--		/* Not unmapped yet. So do it now. */
--		munmap(protected_buffer, sizeof(*protected_buffer));
--	}
 -}
 -
 -/*
@@ -250,7 +208,8 @@ index 0f315abb0..42600a8ac 100644
 -	int lc;
 -	socklen_t length;
 -	char rbuf[4096];
--
++#define IN_FILE "sendfile05_infile"
+
 -	for (lc = 0; TEST_LOOPING(lc); lc++) {
 -		length = sizeof(sin1);
 -		recvfrom(sockfd, rbuf, 4096, 0, (struct sockaddr *)&sin1,
@@ -258,20 +217,15 @@ index 0f315abb0..42600a8ac 100644
 -	}
 -	exit(0);
 -}
--
++int in_fd;
++int out_fd;
++int out[2];
++static char buf[] = "abcdefghijklmnopqrstuvwxyz";
+
 -/*
 - * setup() - performs all ONE TIME setup for this test.
 - */
 -void setup(void)
-+	const char *desc;
-+} tc[] = {
-+	{PROT_NONE, 0, "pass_mapped_buffer"},
-+	{PROT_READ, 0, "pass_mapped_buffer"},
-+	{PROT_EXEC, 0, "pass_mapped_buffer"},
-+	{PROT_EXEC | PROT_READ, 0, "pass_mapped_buffer"},
-+	{PROT_READ | PROT_WRITE, 1, "pass_unmapped_buffer"}
-+};
-+
 +static void setup(void)
  {
 -	int fd;
@@ -318,7 +272,7 @@ index 0f315abb0..42600a8ac 100644
  }
 
 -int create_server(void)
-+static void run(unsigned int i)
++static void run(void)
  {
 -	static int count = 0;
 -	socklen_t slen = sizeof(sin1);
@@ -351,22 +305,13 @@ index 0f315abb0..42600a8ac 100644
 -		if (self_exec(argv0, "") < 0) {
 -			tst_brkm(TBROK, cleanup, "self_exec failed");
 -			return -1;
-+	OFF_T *protected_buffer;
-+	protected_buffer = SAFE_MMAP(NULL, sizeof(*protected_buffer),
-+			             tc[i].protection,
-+				     MAP_SHARED | MAP_ANONYMOUS, -1, 0);
-+	if (tc[i].pass_unmapped_buffer)
-+		SAFE_MUNMAP(protected_buffer, sizeof(*protected_buffer));
-
+-
 -		}
 -#else
 -		do_child();
 -#endif
 -	}
-+	struct stat sb;
-+	SAFE_STAT(IN_FILE, &sb);
-+	in_fd = SAFE_OPEN(IN_FILE, O_RDONLY);
-
+-
 -	s = socket(PF_INET, SOCK_DGRAM, 0);
 -	inet_aton("127.0.0.1", &sin1.sin_addr);
 -	if (s < 0) {
@@ -376,18 +321,18 @@ index 0f315abb0..42600a8ac 100644
 -	}
 -	SAFE_CONNECT(cleanup, s, (struct sockaddr *)&sin1, sizeof(sin1));
 -	return s;
-+	TST_EXP_FAIL(sendfile(out_fd, in_fd, protected_buffer, sb.st_size),
-+		     EFAULT, "sendfile(..) with %s, protection=%d",
-+		     tc[i].desc, tc[i].protection);
++	OFF_T offset = -1;
++	in_fd = SAFE_OPEN(IN_FILE, O_RDONLY);
++	struct stat sb;
++	SAFE_STAT(IN_FILE, &sb);
 
-+	if (!tc[i].pass_unmapped_buffer)
-+		SAFE_MUNMAP(protected_buffer, sizeof(*protected_buffer));
++	TST_EXP_FAIL(sendfile(out_fd, in_fd, &offset, sb.st_size), EINVAL,
++		     "sendfile(out, in, &offset, ..) with offset=%ld", offset);
 +	SAFE_CLOSE(in_fd);
  }
 
 -int main(int ac, char **av)
 -{
--	int i;
 -	int lc;
 -
 -	tst_parse_opts(ac, av, NULL, NULL);
@@ -404,21 +349,17 @@ index 0f315abb0..42600a8ac 100644
 -	for (lc = 0; TEST_LOOPING(lc); lc++) {
 -		tst_count = 0;
 -
--		for (i = 0; i < TST_TOTAL; ++i) {
--			do_sendfile(testcases[i].protection,
--				    testcases[i].pass_unmapped_buffer);
--		}
+-		do_sendfile();
 -	}
 -	cleanup();
 -
 -	tst_exit();
 -}
 +static struct tst_test test = {
-+	.tcnt = ARRAY_SIZE(tc),
 +	.needs_tmpdir = 1,
 +	.cleanup = cleanup,
 +	.setup = setup,
-+	.test = run,
++	.test_all = run,
 +};
 --
 2.17.1
