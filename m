@@ -2,41 +2,42 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8140369513
-	for <lists+linux-ltp@lfdr.de>; Fri, 23 Apr 2021 16:49:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D67736959E
+	for <lists+linux-ltp@lfdr.de>; Fri, 23 Apr 2021 17:06:59 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9F4023C6A05
-	for <lists+linux-ltp@lfdr.de>; Fri, 23 Apr 2021 16:49:43 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id BC41C3C6A3F
+	for <lists+linux-ltp@lfdr.de>; Fri, 23 Apr 2021 17:06:58 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 6E0EF3C19C4
- for <ltp@lists.linux.it>; Fri, 23 Apr 2021 16:49:40 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id B055E3C2652
+ for <ltp@lists.linux.it>; Fri, 23 Apr 2021 17:06:51 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 7B3161A014F9
- for <ltp@lists.linux.it>; Fri, 23 Apr 2021 16:49:40 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 34B4D1001386
+ for <ltp@lists.linux.it>; Fri, 23 Apr 2021 17:06:50 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id D99A0B143;
- Fri, 23 Apr 2021 14:49:39 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 7471FAFD0;
+ Fri, 23 Apr 2021 15:06:50 +0000 (UTC)
+Date: Fri, 23 Apr 2021 17:06:48 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Fri, 23 Apr 2021 16:49:32 +0200
-Message-Id: <20210423144932.21022-2-pvorel@suse.cz>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210423144932.21022-1-pvorel@suse.cz>
-References: <20210423144932.21022-1-pvorel@suse.cz>
+To: Jan Stancek <jstancek@redhat.com>
+Message-ID: <YILiiDe5gv4d2Gg5@pevik>
+References: <f224defc029816a74c518c54af2fbf2b90a90da6.1619176445.git.jstancek@redhat.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <f224defc029816a74c518c54af2fbf2b90a90da6.1619176445.git.jstancek@redhat.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH v6 2/2] commands: Add shell pipe test
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] mkfs: relax size check
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,89 +49,22 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Martin Loviska <mloviska@suse.com>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This adds basic shell pipe testing, which was removed from splice02
-in 85cebe238 ("splice02: Generate input in C").
+Hi Jan,
 
-Suggested-by: Cyril Hrubis <chrubis@suse.cz>
-Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
-Same as v4 and v5
+Yes, I also noticed mkfs01_ext3_sh and mkfs01_ext4_sh on mainline, this could
+help. Thanks!
 
- runtest/commands                         |  1 +
- runtest/smoketest                        |  1 +
- testcases/commands/shell/Makefile        | 10 ++++++++++
- testcases/commands/shell/shell_pipe01.sh | 17 +++++++++++++++++
- 4 files changed, 29 insertions(+)
- create mode 100644 testcases/commands/shell/Makefile
- create mode 100755 testcases/commands/shell/shell_pipe01.sh
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
 
-diff --git a/runtest/commands b/runtest/commands
-index 058266b54..8cfad0449 100644
---- a/runtest/commands
-+++ b/runtest/commands
-@@ -41,3 +41,4 @@ gdb01_sh gdb01.sh
- unshare01_sh unshare01.sh
- sysctl01_sh sysctl01.sh
- sysctl02_sh sysctl02.sh
-+shell_test01 echo "SUCCESS" | shell_pipe01.sh
-diff --git a/runtest/smoketest b/runtest/smoketest
-index 2224d8f74..7f395936e 100644
---- a/runtest/smoketest
-+++ b/runtest/smoketest
-@@ -13,3 +13,4 @@ utime01A symlink01 -T utime01
- rename01A symlink01 -T rename01
- splice02 splice02 -s 20
- route4-change-dst route-change-dst.sh
-+shell_test01 echo "SUCCESS" | shell_pipe01.sh
-diff --git a/testcases/commands/shell/Makefile b/testcases/commands/shell/Makefile
-new file mode 100644
-index 000000000..c696ec35a
---- /dev/null
-+++ b/testcases/commands/shell/Makefile
-@@ -0,0 +1,10 @@
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+# Copyright (c) Linux Test Project, 2021
-+
-+top_srcdir		?= ../../..
-+
-+include $(top_srcdir)/include/mk/env_pre.mk
-+
-+INSTALL_TARGETS		:= *.sh
-+
-+include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/commands/shell/shell_pipe01.sh b/testcases/commands/shell/shell_pipe01.sh
-new file mode 100755
-index 000000000..3c8ef49fb
---- /dev/null
-+++ b/testcases/commands/shell/shell_pipe01.sh
-@@ -0,0 +1,17 @@
-+#!/bin/sh
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+# Copyright (c) 2021 Petr Vorel <pvorel@suse.cz>
-+
-+TST_TESTFUNC=do_test
-+
-+. tst_test.sh
-+
-+do_test()
-+{
-+	tst_res TINFO "expecting SUCCESS string passed from stdin"
-+
-+	read line
-+	EXPECT_PASS [ "$line" = "SUCCESS" ]
-+}
-+
-+tst_run
--- 
-2.31.1
-
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
