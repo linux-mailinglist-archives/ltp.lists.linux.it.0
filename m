@@ -2,43 +2,42 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED827369629
-	for <lists+linux-ltp@lfdr.de>; Fri, 23 Apr 2021 17:28:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF3CD369836
+	for <lists+linux-ltp@lfdr.de>; Fri, 23 Apr 2021 19:22:28 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 93B003C6A3C
-	for <lists+linux-ltp@lfdr.de>; Fri, 23 Apr 2021 17:28:55 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A60933C6A51
+	for <lists+linux-ltp@lfdr.de>; Fri, 23 Apr 2021 19:22:27 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id EF1913C69D6
- for <ltp@lists.linux.it>; Fri, 23 Apr 2021 17:28:51 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 0A85B3C69F4
+ for <ltp@lists.linux.it>; Fri, 23 Apr 2021 19:22:23 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 341D1601DAF
- for <ltp@lists.linux.it>; Fri, 23 Apr 2021 17:28:50 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 8E776140032C
+ for <ltp@lists.linux.it>; Fri, 23 Apr 2021 19:22:23 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 7AF29B140;
- Fri, 23 Apr 2021 15:28:50 +0000 (UTC)
-Date: Fri, 23 Apr 2021 17:28:48 +0200
+ by mx2.suse.de (Postfix) with ESMTP id D23A7ADAA;
+ Fri, 23 Apr 2021 17:22:22 +0000 (UTC)
+Date: Fri, 23 Apr 2021 19:22:21 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: Jan Stancek <jstancek@redhat.com>, ltp@lists.linux.it
-Message-ID: <YILnsJsRiHorSBVc@pevik>
-References: <f224defc029816a74c518c54af2fbf2b90a90da6.1619176445.git.jstancek@redhat.com>
- <YILiiDe5gv4d2Gg5@pevik>
+To: Joerg Vehlow <lkml@jv-coder.de>
+Message-ID: <YIMCTTMslfWY+ApA@pevik>
+References: <20210415090542.960158-1-lkml@jv-coder.de>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <YILiiDe5gv4d2Gg5@pevik>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+In-Reply-To: <20210415090542.960158-1-lkml@jv-coder.de>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] mkfs: relax size check
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] pec: Fix multiple event test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,17 +50,15 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Jan,
+Hi Joerg,
 
-> Yes, I also noticed mkfs01_ext3_sh and mkfs01_ext4_sh on mainline, this could
-> help. Thanks!
-Yes, it fixes the problem otherwise reproducible on openSUSE, which uses
-e2fsprogs 1.46.2 with commit 59037c53.
+thanks a lot, merged!
 
 Kind regards,
 Petr
