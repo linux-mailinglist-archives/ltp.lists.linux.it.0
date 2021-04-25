@@ -1,46 +1,55 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74F7936A3E6
-	for <lists+linux-ltp@lfdr.de>; Sun, 25 Apr 2021 03:23:26 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 220EE36A437
+	for <lists+linux-ltp@lfdr.de>; Sun, 25 Apr 2021 04:38:43 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id F37C93C6996
-	for <lists+linux-ltp@lfdr.de>; Sun, 25 Apr 2021 03:23:25 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id BA0493C6996
+	for <lists+linux-ltp@lfdr.de>; Sun, 25 Apr 2021 04:38:42 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 1EF9A3C262C
- for <ltp@lists.linux.it>; Sun, 25 Apr 2021 03:23:22 +0200 (CEST)
-Received: from szxga07-in.huawei.com (szxga07-in.huawei.com [45.249.212.35])
+ by picard.linux.it (Postfix) with ESMTPS id 345213C2949
+ for <ltp@lists.linux.it>; Sun, 25 Apr 2021 04:38:38 +0200 (CEST)
+Received: from szxga03-in.huawei.com (szxga03-in.huawei.com [45.249.212.189])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 8A9B76009C0
- for <ltp@lists.linux.it>; Sun, 25 Apr 2021 03:23:20 +0200 (CEST)
-Received: from DGGEMS402-HUB.china.huawei.com (unknown [172.30.72.58])
- by szxga07-in.huawei.com (SkyGuard) with ESMTP id 4FSVb62J3Bz7vyX
- for <ltp@lists.linux.it>; Sun, 25 Apr 2021 09:20:50 +0800 (CST)
-Received: from ubuntu1804.huawei.com (10.67.174.63) by
- DGGEMS402-HUB.china.huawei.com (10.3.19.202) with Microsoft SMTP Server id
- 14.3.498.0; Sun, 25 Apr 2021 09:23:06 +0800
-From: Zhao Gongyi <zhaogongyi@huawei.com>
-To: <ltp@lists.linux.it>
-Date: Sun, 25 Apr 2021 09:22:40 +0800
-Message-ID: <20210425012240.6328-1-zhaogongyi@huawei.com>
-X-Mailer: git-send-email 2.17.1
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id D31AE1A00659
+ for <ltp@lists.linux.it>; Sun, 25 Apr 2021 04:38:36 +0200 (CEST)
+Received: from dggeml756-chm.china.huawei.com (unknown [172.30.72.56])
+ by szxga03-in.huawei.com (SkyGuard) with ESMTP id 4FSXFD4y8Cz5tWx
+ for <ltp@lists.linux.it>; Sun, 25 Apr 2021 10:35:28 +0800 (CST)
+Received: from dggeml753-chm.china.huawei.com (10.1.199.152) by
+ dggeml756-chm.china.huawei.com (10.1.199.158) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
+ 15.1.2176.2; Sun, 25 Apr 2021 10:38:32 +0800
+Received: from dggeml753-chm.china.huawei.com ([10.1.199.152]) by
+ dggeml753-chm.china.huawei.com ([10.1.199.152]) with mapi id 15.01.2176.012;
+ Sun, 25 Apr 2021 10:38:32 +0800
+From: zhaogongyi <zhaogongyi@huawei.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+Thread-Topic: [LTP] [PATCH] syscalls/getdtablesize: Update to the new api
+Thread-Index: Adc5eAvcgOpDIzK8Ty2KFDSMKkxFdA==
+Date: Sun, 25 Apr 2021 02:38:32 +0000
+Message-ID: <3994ca6745484df182d5f4e9abd2b7a1@huawei.com>
+Accept-Language: en-US
+Content-Language: zh-CN
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.67.110.209]
 MIME-Version: 1.0
-X-Originating-IP: [10.67.174.63]
 X-CFilter-Loop: Reflected
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v2] syscalls/getdents01: Add close() and open() at the
- end of run()
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] syscalls/getdtablesize: Update to the new api
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,109 +61,239 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-When the test run with the option of '-i', we need call close
-and open at the end of run(), otherwist the test will fail,as follows:
+Hi Cyril,
 
-$ getdents01 -i 2
+Thanks for your review!
 
-tst_buffers.c:55: TINFO: Test is using guarded buffers
-tst_test.c:1291: TINFO: Timeout per run is 0h 05m 00s
-getdents.h:148: TINFO: Testing the SYS_getdents syscall
-getdents01.c:109: TINFO: Found '.'
-getdents01.c:109: TINFO: Found '..'
-getdents01.c:109: TINFO: Found 'symlink'
-getdents01.c:109: TINFO: Found 'file'
-getdents01.c:109: TINFO: Found 'dir'
-getdents01.c:149: TPASS: All entries found
-getdents01.c:97: TFAIL: getdents failed - returned end of directory
-tst_test.c:1291: TINFO: Timeout per run is 0h 05m 00s
-getdents.h:151: TINFO: Testing the SYS_getdents64 syscall
-getdents01.c:109: TINFO: Found '.'
-getdents01.c:109: TINFO: Found '..'
-getdents01.c:109: TINFO: Found 'dir'
-getdents01.c:109: TINFO: Found 'symlink'
-getdents01.c:109: TINFO: Found 'file'
-getdents01.c:149: TPASS: All entries found
-getdents01.c:97: TFAIL: getdents failed - returned end of directory
-tst_test.c:1291: TINFO: Timeout per run is 0h 05m 00s
-getdents.h:157: TCONF: libc getdents() is not implemented
-tst_test.c:1291: TINFO: Timeout per run is 0h 05m 00s
-getdents.h:162: TINFO: Testing libc getdents64()
-getdents01.c:109: TINFO: Found '.'
-getdents01.c:109: TINFO: Found '..'
-getdents01.c:109: TINFO: Found 'dir'
-getdents01.c:109: TINFO: Found 'symlink'
-getdents01.c:109: TINFO: Found 'file'
-getdents01.c:149: TPASS: All entries found
-getdents01.c:97: TFAIL: getdents failed - returned end of directory
+I have some different opinions:
 
-Summary:
-passed   3
-failed   3
-broken   0
-skipped  1
-warnings 0
+1) 
+>> +	if (getrlimit(RLIMIT_NOFILE, &rlp))
+>> +		max_val_opfiles = FILE_OPEN_MAX;
+>> +	else
+>> +		max_val_opfiles = (rlim_t)rlp.rlim_cur;
 
-Signed-off-by: Zhao Gongyi <zhaogongyi@huawei.com>
----
-v1->v2: opened the fd at the start of the run() and closed it at the
-end instead of opening it in setup() and reopening it for each iteration
+>Why do we fallback to sysconf() here? Does hte getrlmit() fail in some cases? The original test just called getrlimit() and I do not remmeber it failing.
 
- testcases/kernel/syscalls/getdents/getdents01.c | 13 ++++---------
- 1 file changed, 4 insertions(+), 9 deletions(-)
+In man 3 getdtablesize, we can see that the glibc version of getdtablesize() calls getrlimit(2) and returns the current RLIMIT_NOFILE limit, or OPEN_MAX when that fails,
+So max_val_opfiles may be equal to SAFE_SYSCONF(_SC_OPEN_MAX) or  (rlim_t)rlp.rlim_cur.
 
-diff --git a/testcases/kernel/syscalls/getdents/getdents01.c b/testcases/kernel/syscalls/getdents/getdents01.c
-index ef8f4e864..f36f8869a 100644
---- a/testcases/kernel/syscalls/getdents/getdents01.c
-+++ b/testcases/kernel/syscalls/getdents/getdents01.c
-@@ -61,6 +61,8 @@ static void run(void)
- {
- 	int rval;
+In this case, just replace the getrlimit with SAFE_GETRLIMIT will be ok?
 
-+	fd = SAFE_OPEN(".", O_RDONLY|O_DIRECTORY);
-+
- 	rval = tst_getdents(fd, dirp, BUFSIZE);
+2)
+> > +	while (1) {
+> > +		temp_fd = open(TESTFILE, O_CREAT | O_RDONLY, 0755);
+> > +		if (temp_fd == -1)
+> > +			break;
+> > +		fd[count++] = temp_fd;
+> > +	}
+> 
+> Here we blindly assume that the file descriptors will fit into the table,
+> which may not be true if the system is broken.
+> 
+> Also why do we need the array in the first place? The file descriptors
+> _are_ allocated continuously so the last fd we get from the open() call is
+> the maximal number of fds - 1, since the standard streams start at 0.
+> Technically we can even close the these descriptors if we store the first fd
+> we got from the open() call since the rest of fds will be in the range,
+> [first_fd, last_fd].
 
- 	if (rval < 0) {
-@@ -92,6 +94,8 @@ static void run(void)
- 	} while (rval > 0);
+For closing all the opened fds before test exit, I used a array to save the opend fds. And the array size is OPEN_MAX.
+In my opinion, the size seems be enough in this case.
 
- 	check_flags();
-+
-+	SAFE_CLOSE(fd);
- }
 
- static void reset_flags(void)
-@@ -162,21 +166,12 @@ static void setup(void)
- 			}
- 		}
- 	}
--
--	fd = SAFE_OPEN(".", O_RDONLY|O_DIRECTORY);
--}
--
--static void cleanup(void)
--{
--	if (fd != 0)
--		SAFE_CLOSE(fd);
- }
+Thanks so much!
 
- static struct tst_test test = {
- 	.needs_tmpdir = 1,
- 	.test_all = run,
- 	.setup = setup,
--	.cleanup = cleanup,
- 	.bufs = (struct tst_buffers []) {
- 		{&dirp, .size = BUFSIZE},
- 		{},
---
-2.17.1
+Best Regards,
+Gongyi
 
+
+> 
+> Hi!
+> > --- a/testcases/kernel/syscalls/getdtablesize/getdtablesize01.c
+> > +++ b/testcases/kernel/syscalls/getdtablesize/getdtablesize01.c
+> > @@ -1,119 +1,104 @@
+> > +// SPDX-License-Identifier: GPL-2.0-or-later
+> >  /*
+> >   * Copyright (c) International Business Machines  Corp., 2005
+> >   * Copyright (c) Wipro Technologies Ltd, 2005.  All Rights Reserved.
+> >   *
+> > - * This program is free software; you can redistribute it and/or
+> > modify it
+> > - * under the terms of version 2 of the GNU General Public License as
+> > - * published by the Free Software Foundation.
+> 
+> This is GPL-2.0 so the SPDX has to be without the -or-later part here.
+> 
+> > +#define TESTFILE "getdtablesize01_testfile"
+> 
+> This can be just "testfile" the test teporary directory is already unique
+> enough and has getdtablesize in it's name.
+> 
+> > +#define FILE_OPEN_MAX SAFE_SYSCONF(_SC_OPEN_MAX)
+> >
+> > -char *TCID = "getdtablesize01";
+> > -int TST_TOTAL = 1;
+> > +static int *fd, count;
+> >
+> > -int main(void)
+> > +static void run(void)
+> >  {
+> > -	int table_size, fd = 0, count = 0;
+> > +	int temp_fd;
+> >  	int max_val_opfiles;
+> >  	struct rlimit rlp;
+> >
+> > -	setup();
+> > -	table_size = getdtablesize();
+> > -	getrlimit(RLIMIT_NOFILE, &rlp);
+> > -	max_val_opfiles = (rlim_t) rlp.rlim_cur;
+> > -
+> > -	tst_resm(TINFO,
+> > -		 "Maximum number of files a process can have opened is %d",
+> > -		 table_size);
+> > -	tst_resm(TINFO,
+> > -		 "Checking with the value returned by
+> getrlimit...RLIMIT_NOFILE");
+> > -
+> > -	if (table_size == max_val_opfiles)
+> > -		tst_resm(TPASS, "got correct dtablesize, value is %d",
+> > -			 max_val_opfiles);
+> > -	else {
+> > -		tst_resm(TFAIL, "got incorrect table size, value is %d",
+> > -			 max_val_opfiles);
+> > -		cleanup();
+> > -	}
+> > +	TEST(getdtablesize());
+> > +	tst_res(TINFO,
+> > +		"Maximum number of files a process can have opened is %d",
+> > +		TST_RET);
+> >
+> > -	tst_resm(TINFO,
+> > -		 "Checking Max num of files that can be opened by a
+> process.Should be: RLIMIT_NOFILE - 1");
+> > -	for (;;) {
+> > -		fd = open("/etc/hosts", O_RDONLY);
+> > +	tst_res(TINFO, "Checking with the value returned by getrlimit");
+> >
+> > -		if (fd == -1)
+> > -			break;
+> > -		count = fd;
+> > +	if (getrlimit(RLIMIT_NOFILE, &rlp))
+> > +		max_val_opfiles = FILE_OPEN_MAX;
+> > +	else
+> > +		max_val_opfiles = (rlim_t)rlp.rlim_cur;
+> 
+> Why do we fallback to sysconf() here? Does hte getrlmit() fail in some
+> cases? The original test just called getrlimit() and I do not remmeber it
+> failing.
+> 
+> > -#ifdef DEBUG
+> > -		printf("Opened file num %d\n", fd);
+> > -#endif
+> > -	}
+> > +	if (TST_RET == max_val_opfiles)
+> > +		tst_res(TPASS, "got correct dtablesize, value is %d "
+> > +			"max_val_opfiles value is %d",
+> > +			TST_RET, max_val_opfiles);
+> > +	else
+> > +		tst_res(TFAIL, "got incorrect dtablesize, value is %d"
+> > +			 "max_val_opfiles value is %d",
+> > +			 TST_RET, max_val_opfiles);
+> 
+> The LKML coding style says that we shouldn't break strings even if they are
+> over 80 characters.
+> 
+> > -//Now the max files opened should be RLIMIT_NOFILE - 1 , why ? read
+> > getdtablesize man page
+> > +	tst_res(TINFO,
+> > +		"Checking Max num of files that can be opened by a process."
+> > +		"Should be: RLIMIT_NOFILE - 1");
+> >
+> > -	if (count > 0)
+> > -		close(count);
+> > -	if (count == (max_val_opfiles - 1))
+> > -		tst_resm(TPASS, "%d = %d", count, (max_val_opfiles - 1));
+> > -	else if (fd < 0 && errno == ENFILE)
+> > -		tst_brkm(TCONF, cleanup, "Reached maximum number of open
+> files for the system");
+> > -	else
+> > -		tst_resm(TFAIL, "%d != %d", count, (max_val_opfiles - 1));
+> > +	while (1) {
+> > +		temp_fd = open(TESTFILE, O_CREAT | O_RDONLY, 0755);
+> > +		if (temp_fd == -1)
+> > +			break;
+> > +		fd[count++] = temp_fd;
+> > +	}
+> 
+> Here we blindly assume that the file descriptors will fit into the table,
+> which may not be true if the system is broken.
+> 
+> Also why do we need the array in the first place? The file descriptors
+> _are_ allocated continuously so the last fd we get from the open() call is
+> the maximal number of fds - 1, since the standard streams start at 0.
+> Technically we can even close the these descriptors if we store the first fd
+> we got from the open() call since the rest of fds will be in the range,
+> [first_fd, last_fd].
+> 
+> > -	cleanup();
+> > -	tst_exit();
+> > +	if (fd[count - 1] == (max_val_opfiles - 1))
+> > +		tst_res(TPASS,
+> > +			"max open file fd is correct, %d = %d",
+> > +			fd[count - 1], (max_val_opfiles - 1));
+> > +	else if (temp_fd < 0 && errno == ENFILE)
+> > +		tst_brk(TCONF,
+> > +			"Reached maximum number of open files for the system");
+> > +	else
+> > +		tst_res(TFAIL | TERRNO, "%d != %d", fd[count - 1],
+> (max_val_opfiles
+> > +- 1));
+> >  }
+> >
+> > -void setup(void)
+> > +static void setup(void)
+> >  {
+> > -	tst_sig(NOFORK, DEF_HANDLER, cleanup);
+> > -
+> > -	TEST_PAUSE;
+> > +	fd = SAFE_MALLOC(FILE_OPEN_MAX * sizeof(int));
+> >  }
+> >
+> > -void cleanup(void)
+> > +static void cleanup(void)
+> >  {
+> > +	int i;
+> > +	for (i = 0; i < count; i++)
+> > +		SAFE_CLOSE(fd[i]);
+> > +
+> > +	free(fd);
+> > +	fd = NULL;
+> >  }
+> > +
+> > +static struct tst_test test = {
+> > +	.needs_tmpdir = 1,
+> > +	.test_all = run,
+> > +	.setup = setup,
+> > +	.cleanup = cleanup,
+> > +};
+> > +
+> > --
+> > 2.17.1
+> >
+> >
+> > --
+> > Mailing list info: https://lists.linux.it/listinfo/ltp
+> 
+> --
+> Cyril Hrubis
+> chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
