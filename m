@@ -1,49 +1,88 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id F409C36AFDC
-	for <lists+linux-ltp@lfdr.de>; Mon, 26 Apr 2021 10:42:29 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4285A36AFE6
+	for <lists+linux-ltp@lfdr.de>; Mon, 26 Apr 2021 10:44:40 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 769B63C66DD
-	for <lists+linux-ltp@lfdr.de>; Mon, 26 Apr 2021 10:42:29 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id F39843C66D1
+	for <lists+linux-ltp@lfdr.de>; Mon, 26 Apr 2021 10:44:39 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 732743C1DA6
- for <ltp@lists.linux.it>; Mon, 26 Apr 2021 10:42:15 +0200 (CEST)
-Received: from szxga04-in.huawei.com (szxga04-in.huawei.com [45.249.212.190])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id CF6813C1DA6
+ for <ltp@lists.linux.it>; Mon, 26 Apr 2021 10:44:37 +0200 (CEST)
+Received: from mail-pl1-x629.google.com (mail-pl1-x629.google.com
+ [IPv6:2607:f8b0:4864:20::629])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 00A3A600A53
- for <ltp@lists.linux.it>; Mon, 26 Apr 2021 10:42:13 +0200 (CEST)
-Received: from DGGEMS409-HUB.china.huawei.com (unknown [172.30.72.59])
- by szxga04-in.huawei.com (SkyGuard) with ESMTP id 4FTJGK0Bshzpc0P
- for <ltp@lists.linux.it>; Mon, 26 Apr 2021 16:39:05 +0800 (CST)
-Received: from ubuntu1804.huawei.com (10.67.174.209) by
- DGGEMS409-HUB.china.huawei.com (10.3.19.209) with Microsoft SMTP Server id
- 14.3.498.0; Mon, 26 Apr 2021 16:42:03 +0800
-From: Xie Ziyao <xieziyao@huawei.com>
-To: <ltp@lists.linux.it>
-Date: Mon, 26 Apr 2021 16:42:15 +0800
-Message-ID: <20210426084215.259071-3-xieziyao@huawei.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210426084215.259071-1-xieziyao@huawei.com>
-References: <20210426084215.259071-1-xieziyao@huawei.com>
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 712C21400DB5
+ for <ltp@lists.linux.it>; Mon, 26 Apr 2021 10:44:36 +0200 (CEST)
+Received: by mail-pl1-x629.google.com with SMTP id s20so12714655plr.13
+ for <ltp@lists.linux.it>; Mon, 26 Apr 2021 01:44:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to
+ :user-agent; bh=BwRkqJnC9Iks7H4HZHSdf7KYW3LIisOhjaSyI9oS3o8=;
+ b=o4ynqSnBv8Rt7jxFg0BCkdq/ucR4qznfQpx0zPlZiXHzM1I1oDxw72FhRSTXpIt5gO
+ 8/2qk24D4bAbE7rPzjwxbsdPnmtpYGJliEyI86V5BzcC+3Y4gP/sBMB02xiom8EEkJAm
+ 4zcPLXKeQl6LrnToaAYZtShJpl7H1MMoViuajNtNCqQ55vLi44uO/+PeRVmVWBPMVTx1
+ gSL+tNNGX/Hi8VwZBh/IYnC9mVZ2gBggxOkslv0PW+xNSikqVzMXk6T3wJteLCqfu+yg
+ o/jnG0e3WjwDGeK+EWTpKSMxwNnWoh8TWNwv7wKkgnc95nKoYiZ9ODQEG6QYsjnJS/GS
+ s28Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to:user-agent;
+ bh=BwRkqJnC9Iks7H4HZHSdf7KYW3LIisOhjaSyI9oS3o8=;
+ b=pGMsfE0PHY9feUEukVabkkp20VzzOU1vH/Z0uKeUJeSYX5MEFyXAUYdyyzKFoCb6n6
+ XaYEg86FlUA/lGyBRS3z2JJ4prGiIzIKVbnqx0onmZyJyHW9T5x/0zOKkspye/nU4PzO
+ 9d4wXljRB0TuRDG8gzNyWihRlZcpOfxAFho05G0rkbSmInCKLGpkQ1+tV66Fo0RwM1gY
+ B+u+qvZINbPq8alKWmj491v2HJswuOxQsvT5FiSCRlURiMxsPlpSmvQZ7yUMlTmvr/Aw
+ 1LiMoZ6/Toj1E054hJg3Q8+MHXwl9xR4Mn2JE3yJOXo28nWV4acHPp3KvZx5Xm7Ml+wA
+ hDRw==
+X-Gm-Message-State: AOAM530X5RKtinV+W+Ee4k8Vhf6dbERza+iqiS235dzFsDhJf2mYoLZD
+ d9FeO1WKuIPCdKZw0v9WwGXB5w==
+X-Google-Smtp-Source: ABdhPJxDCjAkP+LJ7DPgMe3wCbfDh3lCsn5oVBDlLGRrX5TdNnup6lXe5wUmgHaZe4574FRqZxgNQw==
+X-Received: by 2002:a17:90a:2e03:: with SMTP id
+ q3mr16338440pjd.206.1619426674948; 
+ Mon, 26 Apr 2021 01:44:34 -0700 (PDT)
+Received: from localhost ([136.185.154.93])
+ by smtp.gmail.com with ESMTPSA id g185sm10414798pfb.120.2021.04.26.01.44.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 26 Apr 2021 01:44:34 -0700 (PDT)
+Date: Mon, 26 Apr 2021 14:14:32 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: sujiaxun <sujiaxun@uniontech.com>
+Message-ID: <20210426084432.byxkxbuig2ofj4ed@vireshk-i7>
+References: <20210422072609.9938-1-sujiaxun@uniontech.com>
+ <YIZSzNd9uK8kItYb@pevik>
+ <20210426055556.dmcogdykez2ddxn3@vireshk-i7>
+ <YIZa4Ph81LmkEkLZ@pevik>
+ <20210426062357.i72js3urkoofvzcj@vireshk-i7>
+ <f06db611-5024-78d6-07e9-36115889b7a7@uniontech.com>
+ <20210426070320.iow3avu2pq22qled@vireshk-i7>
+ <827cdde8-18df-75b0-743c-7876704c2039@uniontech.com>
+ <20210426081219.tvaoqd67vj26bfr3@vireshk-i7>
+ <8aaa1c0e-e481-3c3e-c281-53aaf1bd499e@uniontech.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.67.174.209]
-X-CFilter-Loop: Reflected
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <8aaa1c0e-e481-3c3e-c281-53aaf1bd499e@uniontech.com>
+User-Agent: NeoMutt/20180716-391-311a52
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/2] syscalls/sendfile: Convert sendfile07 to the new
- API
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] Fix the 64-bit macro definition of mips
+ architecture
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,276 +94,39 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Cleanup and convert sendfile07 to the new API.
-
-Signed-off-by: Xie Ziyao <xieziyao@huawei.com>
----
- .../kernel/syscalls/sendfile/sendfile07.c     | 221 +++++-------------
- 1 file changed, 56 insertions(+), 165 deletions(-)
-
-diff --git a/testcases/kernel/syscalls/sendfile/sendfile07.c b/testcases/kernel/syscalls/sendfile/sendfile07.c
-index c93363bad..847b26614 100644
---- a/testcases/kernel/syscalls/sendfile/sendfile07.c
-+++ b/testcases/kernel/syscalls/sendfile/sendfile07.c
-@@ -1,194 +1,85 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
- /*
-- *
-- *   Copyright (c) International Business Machines  Corp., 2001
-- *   Copyright (c) Red Hat Inc., 2007
-- *
-- *   This program is free software;  you can redistribute it and/or modify
-- *   it under the terms of the GNU General Public License as published by
-- *   the Free Software Foundation; either version 2 of the License, or
-- *   (at your option) any later version.
-- *
-- *   This program is distributed in the hope that it will be useful,
-- *   but WITHOUT ANY WARRANTY;  without even the implied warranty of
-- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
-- *   the GNU General Public License for more details.
-- *
-- *   You should have received a copy of the GNU General Public License
-- *   along with this program;  if not, write to the Free Software
-- *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
-+ * Copyright (c) International Business Machines  Corp., 2001
-+ * Copyright (c) Red Hat Inc., 2007
-+ * 12/2007 Copyed from sendfile03.c by Masatake YAMATO
-  */
-
--/*
-- * NAME
-- *	sendfile07.c
-- *
-- * DESCRIPTION
-- *	Testcase to test that sendfile(2) system call returns EAGAIN
-- *	when passing blocked out_fd. Here out_fd is opend with O_NONBLOCK.
-+/*\
-+ * [Description]
-  *
-- * ALGORITHM
-- *      1. Make sockets with socketpair(&p). Use p[1] as out_fd.
-- *      2. Set O_NONBLOCK flag of out_fd on.
-- *      3. Write much datum to out_fd till write() returns EAGAIN.
-- *      4. Call sendfile with out_fd, and expect EAGAIN.
-+ * Testcase to test that sendfile(2) system call returns EAGAIN
-+ * when passing blocked out_fd. Here out_fd is opend with O_NONBLOCK.
-  *
-- * USAGE:  <for command-line>
-- *  sendfile07 [-c n] [-e] [-i n] [-I x] [-P x] [-t]
-- *     where,  -c n : Run n copies concurrently.
-- *             -e   : Turn on errno logging.
-- *             -i n : Execute test n times.
-- *             -I x : Execute test for x seconds.
-- *             -P x : Pause for x seconds between iterations.
-- *             -t   : Turn on syscall timing.
-+ * [Algorithm]
-  *
-- * HISTORY
-- *	12/2007 Copyed from sendfile03.c by Masatake YAMATO
-- *
-- * RESTRICTIONS
-- *	NONE
-+ * 1. Set O_NONBLOCK flag of out_fd on;
-+ * 2. Write much datum to out_fd till write() returns EAGAIN;
-+ * 3. Call sendfile with out_fd, and expect EAGAIN.
-  */
-
- #include <stdio.h>
- #include <errno.h>
- #include <fcntl.h>
-+#include <sys/stat.h>
- #include <sys/sendfile.h>
-+#include <sys/types.h>
- #include <sys/socket.h>
--#include "test.h"
--
--#ifndef OFF_T
--#define OFF_T off_t
--#endif /* Not def: OFF_T */
--
--TCID_DEFINE(sendfile07);
--int TST_TOTAL = 1;
-+#include <sys/mman.h>
-+#include <netinet/in.h>
-+#include <arpa/inet.h>
-
--int in_fd, out_fd = 0, ignored_fd = 0;
--char in_file[100];
-+#include "tst_test.h"
-
--/* To make out_fd overflow, write much chars
-- to out_fd. MAX_FILL_DATA_LENGTH defines the `much'. */
- #define MAX_FILL_DATA_LENGTH 0xFFFFFFF
-
--void cleanup(void);
--void setup(void);
-+int p[2];
-+static int in_fd;
-+static int out_fd;
-+static char buf[] = "abcdefghijklmnopqrstuvwxyz";
-
--int main(int ac, char **av)
-+static void setup(void)
- {
--	int lc;
--
--	tst_parse_opts(ac, av, NULL, NULL);
--
--	setup();
-+	in_fd = SAFE_CREAT("in_file", 00700);
-+	SAFE_WRITE(1, in_fd, buf, strlen(buf));
-+	SAFE_CLOSE(in_fd);
-+	in_fd = SAFE_OPEN("in_file", O_RDONLY);
-
--	/*
--	 * The following loop checks looping state if -c option given
--	 */
--	for (lc = 0; TEST_LOOPING(lc); lc++) {
--		tst_count = 0;
--
--		TEST(sendfile(out_fd, in_fd, NULL, 1));
--
--		if (TEST_RETURN != -1) {
--			tst_resm(TFAIL, "call succeeded unexpectedly");
--			continue;
--		}
--
--		if (TEST_ERRNO != EAGAIN) {
--			tst_resm(TFAIL, "sendfile returned unexpected "
--				 "errno, expected: %d, got: %d",
--				 EAGAIN, TEST_ERRNO);
--		} else {
--			tst_resm(TPASS, "sendfile() returned %d : %s",
--				 TEST_ERRNO, strerror(TEST_ERRNO));
--		}
--	}
--
--	cleanup();
--	tst_exit();
--
--}
--
--/*
-- * setup() - performs all ONE TIME setup for this test.
-- */
--void setup(void)
--{
--	char buf[100];
--	int p[2];
--	int i, r;
--
--	tst_sig(NOFORK, DEF_HANDLER, cleanup);
--
--	TEST_PAUSE;
--
--	/* make a temporary directory and cd to it */
--	tst_tmpdir();
--
--	sprintf(in_file, "in.%d", getpid());
--	if ((in_fd = creat(in_file, 00700)) < 0) {
--		tst_brkm(TBROK, cleanup, "creat failed in setup, errno: %d",
--			 errno);
--	}
--	sprintf(buf, "abcdefghijklmnopqrstuvwxyz");
--	if (write(in_fd, buf, strlen(buf)) < 0) {
--		tst_brkm(TBROK, cleanup, "write failed, errno: %d", errno);
--	}
--	close(in_fd);
--	if ((in_fd = open(in_file, O_RDONLY)) < 0) {
--		tst_brkm(TBROK, cleanup, "open failed, errno: %d", errno);
--	}
--
--	/* Make fulfilled out_fd. */
--	if (socketpair(PF_UNIX, SOCK_DGRAM, 0, p) < 0) {
--		tst_brkm(TBROK, cleanup, "socketpair failed, errno: %d", errno);
--	}
--
--	/* Don't close.
--	   You cannot write nothing on out_fd if ignored_fd is closed. */
--	ignored_fd = p[0];
-+	SAFE_SOCKETPAIR(PF_UNIX, SOCK_DGRAM, 0, p);
- 	out_fd = p[1];
--	if (fcntl(out_fd, F_SETFL, O_WRONLY | O_NONBLOCK) < 0) {
--		tst_brkm(TBROK, cleanup, "fcntl failed, errno: %d", errno);
--	}
--
--	i = MAX_FILL_DATA_LENGTH;
--	while (i > 0) {
--		r = write(out_fd, buf, 1);
--		if (r < 0) {
--			if (errno == EAGAIN) {
-+	SAFE_FCNTL(out_fd, F_SETFL, O_WRONLY | O_NONBLOCK);
-+	for (int i = 0; i < MAX_FILL_DATA_LENGTH; ++i) {
-+		TEST(write(out_fd, buf, 1));
-+		if (TST_RET < 0) {
-+			if (TST_ERR == EAGAIN)
- 				break;
--			} else {
--				tst_brkm(TBROK, cleanup,
--					 "write failed to fill out_fd, errno: %d",
--					 errno);
--			}
-+			else
-+				tst_brk(TBROK | TTERRNO, "write(out_fd, buf, 1)");
- 		}
--		i--;
--	}
--	if (i == 0) {
--		tst_brkm(TBROK, cleanup,
--			 "fail to fill out_fd, write %d bytes but EAGAIN it not returned.",
--			 MAX_FILL_DATA_LENGTH);
-+	if (i == MAX_FILL_DATA_LENGTH - 1)
-+		tst_brk(TBROK, "fail to fill out_fd, write %d bytes but EAGAIN "
-+			       "it not returned.", MAX_FILL_DATA_LENGTH);
- 	}
- }
-
--/*
-- * cleanup() - performs all ONE TIME cleanup for this test at
-- *	       completion or premature exit.
-- */
--void cleanup(void)
-+static void cleanup(void)
- {
--	/*
--	 * print timing stats if that option was specified.
--	 * print errno log if that option was specified.
--	 */
--	if (out_fd)
--		close(out_fd);
--	if (ignored_fd)
--		close(ignored_fd);
--	close(in_fd);
--
--	/* delete the test directory created in setup() */
--	tst_rmdir();
-+	if (p[0])
-+		SAFE_CLOSE(p[0]);
-+	if (p[1])
-+		SAFE_CLOSE(p[1]);
-+	SAFE_CLOSE(in_fd);
-+}
-
-+static void run(void)
-+{
-+	TST_EXP_FAIL(sendfile(out_fd, in_fd, NULL, 1), EAGAIN,
-+		     "sendfile(out_fd, in_fd, NULL, 1) with blocked out_fd");
- }
-+
-+static struct tst_test test = {
-+	.needs_tmpdir = 1,
-+	.cleanup = cleanup,
-+	.setup = setup,
-+	.test_all = run,
-+};
---
-2.17.1
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+T24gMjYtMDQtMjEsIDE2OjI4LCBzdWppYXh1biB3cm90ZToKPiAKPiAKPiDlnKggMjAyMS80LzI2
+IOS4i+WNiDQ6MTIsIFZpcmVzaCBLdW1hciDlhpnpgZM6Cj4gPiBPbiAyNi0wNC0yMSwgMTU6NTMs
+IHN1amlheHVuIHdyb3RlOgo+ID4gPiAKPiA+ID4gCj4gPiA+IE9uIDIwMjEvNC8yNiDkuIvljYgz
+OjAzLCBWaXJlc2ggS3VtYXIgd3JvdGU6Cj4gPiA+ID4gT24gMjYtMDQtMjEsIDE1OjAwLCBzdWpp
+YXh1biB3cm90ZToKPiA+ID4gPiA+IHVvc0B1b3MtUEM6fiQgZWNobyB8Z2NjIC1kTSAtRSAtIHwg
+Z3JlcCAtaSBhcmNoCj4gPiA+ID4gPiAjZGVmaW5lIF9NSVBTX0FSQ0ggIm1pcHM2NHIyIgo+ID4g
+PiA+ID4gI2RlZmluZSBfTUlQU19BUkNIX01JUFM2NFIyIDEKPiA+ID4gPiA+IHVvc0B1b3MtUEM6
+fiQgZWNobyB8Z2NjIC1kTSAtRSAtIHwgZ3JlcCAtaSBtaXBzNjQKPiA+ID4gPiA+ICNkZWZpbmUg
+X01JUFNfSVNBIF9NSVBTX0lTQV9NSVBTNjQKPiA+ID4gPiA+ICNkZWZpbmUgX01JUFNfVFVORSAi
+bWlwczY0cjIiCj4gPiA+ID4gPiAjZGVmaW5lIF9NSVBTX1RVTkVfTUlQUzY0UjIgMQo+ID4gPiA+
+ID4gI2RlZmluZSBfTUlQU19BUkNIICJtaXBzNjRyMiIKPiA+ID4gPiA+ICNkZWZpbmUgX01JUFNf
+QVJDSF9NSVBTNjRSMiAxCj4gPiA+ID4gPiAjZGVmaW5lIF9fbWlwczY0IDEKPiA+ID4gPiA+IHVv
+c0B1b3MtUEM6fiQgdW5hbWUgIC1tCj4gPiA+ID4gPiBtaXBzNjQKPiA+ID4gPiA+IAo+ID4gPiA+
+ID4gVGhlIG1pcHMgYXJjaGl0ZWN0dXJlIGdjYyBoYXMgbm8gYnVpbHQtaW4gX19hcmNoNjRfXywg
+b25seSBfX21pcHM2NAo+ID4gPiA+ID4gZGVmaW5pdGlvbnMuIE9mIGNvdXJzZSwgIl9fQklUU19Q
+RVJfTE9ORyA9PSA2NCIgY2FuIGFsc28gYmUgdXNlZCwgYnV0IEkKPiA+ID4gPiA+IHRoaW5rIGl0
+IGlzIGJldHRlciB0byB1c2UgX19taXBzNjQgaW4gdGhlIG1pcHMgYXJjaGl0ZWN0dXJlLgo+ID4g
+PiA+IAo+ID4gPiA+IEhtbSwgSSB3aWxsIHJhdGhlciB0cnkgdG8gZG8gd2hhdCB0aGUga2VybmVs
+IHNvdXJjZSBjb2RlIGRvZXMsIGkuZS4KPiA+ID4gPiB1c2UgX19CSVRTX1BFUl9MT05HIGhlcmUg
+aW5zdGVhZC4KPiA+ID4gPiAKPiA+ID4gSSByZXN1Ym1pdHRlZCBhIHBhdGNoIGFuZCBjaGFuZ2Vk
+ICJfX2FyY2g2NF9fIiB0byAiI2lmIF9fQklUU19QRVJfTE9ORyA9PQo+ID4gPiA2NCIsIHRoZSBs
+aW5rIGlzOiBodHRwczovL3BhdGNod29yay5vemxhYnMub3JnL3Byb2plY3QvbHRwL3BhdGNoLzIw
+MjEwNDI2MDc0ODEyLjI3Nzk4LTEtc3VqaWF4dW5AdW5pb250ZWNoLmNvbQo+ID4gCj4gPiBZb3Ug
+c2hvdWxkIGhhdmUgY2MnZCBtZSBkaXJlY3RseSA6KAo+ID4gCj4gPiBJIGRvbid0IGhhdmUgdGhh
+dCBwYXRjaCBpbiBteSBpbmJveC4uCj4gPiAKPiA+IFRob3VnaCB0aGUgcGF0Y2ggbG9va3MgZmlu
+ZS4KPiA+IAo+IFNvcnJ5LCB3aGF0IHNob3VsZCBJIGRvIG5vdz8KCkp1c3QgcmVwbHkgdG8gdGhl
+IGVtYWlsICh3aXRob3V0IGRlbGV0aW5nIGFueSBzdHVmZiksIGFuZCBhZGQgbWUgaW4gY2MKYW5k
+IG1lbnRpb24gaW4gdGhlIHRvcCBvZiB0aGUgZW1haWwgbGlrZS4KCitWaXJlc2guCgotLSAKdmly
+ZXNoCgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGlu
+Zm8vbHRwCg==
