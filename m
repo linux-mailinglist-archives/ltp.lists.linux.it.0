@@ -1,44 +1,40 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43B3E36B221
-	for <lists+linux-ltp@lfdr.de>; Mon, 26 Apr 2021 13:12:34 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D49D36B245
+	for <lists+linux-ltp@lfdr.de>; Mon, 26 Apr 2021 13:19:22 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 670833C6732
-	for <lists+linux-ltp@lfdr.de>; Mon, 26 Apr 2021 13:12:33 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 1150F3C66ED
+	for <lists+linux-ltp@lfdr.de>; Mon, 26 Apr 2021 13:19:22 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 898603C1A7E
- for <ltp@lists.linux.it>; Mon, 26 Apr 2021 13:12:27 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 32E7C3C5E5D
+ for <ltp@lists.linux.it>; Mon, 26 Apr 2021 13:19:20 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id BF299100054D
- for <ltp@lists.linux.it>; Mon, 26 Apr 2021 13:12:26 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id AD0996002D4
+ for <ltp@lists.linux.it>; Mon, 26 Apr 2021 13:19:19 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 0F9F3ADFB;
- Mon, 26 Apr 2021 11:12:26 +0000 (UTC)
-Date: Mon, 26 Apr 2021 13:12:24 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Xie Ziyao <xieziyao@huawei.com>
-Message-ID: <YIagGNrM6az0oMk6@pevik>
-References: <20210422065732.61222-1-xieziyao@huawei.com>
- <20210422065732.61222-3-xieziyao@huawei.com>
+ by mx2.suse.de (Postfix) with ESMTP id F2AE4AD69
+ for <ltp@lists.linux.it>; Mon, 26 Apr 2021 11:19:18 +0000 (UTC)
+From: Martin Doucha <mdoucha@suse.cz>
+To: ltp@lists.linux.it
+Date: Mon, 26 Apr 2021 13:19:14 +0200
+Message-Id: <20210426111918.4304-1-mdoucha@suse.cz>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210422065732.61222-3-xieziyao@huawei.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 2/2] syscalls/tkill: Convert tkill02 to the new API
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH 0/4] RTNetlink and network device management library
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,135 +46,84 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
+This patchset is still a work in progress and I've sent it mainly to open
+discussion about network management API design. SAFE_REALLOC() and SAFE_RECV()
+patches are trivial and can be merge right away, though.
 
-LGTM with very minor changes.
+The network management API has two separate parts:
+- rtnetlink library (patch 3)
+- device management library (patch 4)
 
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
+The rtnetlink API is stateful. First you need to create a netlink context
+(netlink socket with dynamic message buffer), then you can add arbitrary list
+of messages and attributes and send them all at once. If you don't need to
+process any complex response, you can use the shorthand send function which
+automatically receives and validates ACKs for each sent message. You can reuse
+the same context for multiple send calls.
 
-> +static pid_t expired_pid;
->  static pid_t inval_tid = -1;
-> -static pid_t unused_tid;
+Device management API is stateless, only one function call per operation.
 
-IMHO unused_tid is better describe what the variable holds.
+Example how to use rtnetlink API (add new IPv4 address to eth0):
+================================================================
 
-> -
-> -void cleanup(void)
-> -{
-> -	tst_rmdir();
-> -}
-> -
-> -void setup(void)
-> -{
-> -	TEST_PAUSE;
-> -	tst_tmpdir();
-> -
-> -	unused_tid = tst_get_unused_pid(cleanup);
-> -}
-
->  struct test_case_t {
->  	int *tid;
->  	int exp_errno;
-> -} test_cases[] = {
-> -	{&inval_tid, EINVAL},
-> -	{&unused_tid, ESRCH}
-> +	const char *desc;
-> +} tc[] = {
-> +	{&inval_tid, EINVAL, "inval_tid"},
-> +	{&expired_pid, ESRCH, "expired_pid"}
-Well, there is no point to print variable name.  Better would be "invalid TID"
-and "unused TID". But IMHO just writing what we expect is enough.
-
-It could be:
-#define ERRNO_DESC(x) .exp_errno = x, .desc = "exp" #x
-...
-
-	{&inval_tid, ERRNO_DESC(EINVAL},
-	{&expired_pid, ERRNO_DESC(ESRCH}
-
-But we have tst_strerrno(), thus just:
-
-struct test_case_t {
-	int *tid;
-	int exp_errno;
-} tc[] = {
-	{&inval_tid, EINVAL},
-	{&unused_tid, ESRCH}
+struct nlmsghdr header = {
+	.nlmsg_type = RTM_NEWADDR,
+	.nlmsg_flags = NLM_F_REQUEST | NLM_F_CREATE | NLM_F_EXCL | NLM_F_ACK
 };
-
-...
-	TST_EXP_FAIL(tst_syscall(__NR_tkill, *(tc[i].tid), SIGUSR1),
-		     tc[i].exp_errno, "tst_syscall(__NR_tkill) expecting %s",
-			 tst_strerrno(tc[i].exp_errno));
-
-I'll merge code below.
-
-Kind regards,
-Petr
-
-// SPDX-License-Identifier: GPL-2.0-or-later
-/*
- * Copyright (c) Crackerjack Project., 2007
- * Ported from Crackerjack to LTP by Manas Kumar Nayak maknayak@in.ibm.com>
- */
-
-/*\
- * [Description]
- *
- * Basic tests for the tkill() errors.
- *
- * [Algorithm]
- *
- * - EINVAL on an invalid thread ID
- * - ESRCH when no process with the specified thread ID exists
- */
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <errno.h>
-#include <unistd.h>
-#include <signal.h>
-#include <sys/syscall.h>
-
-#include "lapi/syscalls.h"
-#include "tst_test.h"
-
-static pid_t unused_tid;
-static pid_t inval_tid = -1;
-
-struct test_case_t {
-	int *tid;
-	int exp_errno;
-} tc[] = {
-	{&inval_tid, EINVAL},
-	{&unused_tid, ESRCH}
+struct ifaddrmsg info = {
+	.ifa_family = AF_INET,
+	.ifa_prefix = 24,
+	.ifa_index = eth0_index
 };
+in_addr_t addr = inet_addr("192.168.0.1");
+ctx = RTNL_CREATE_CONTEXT();
+RTNL_ADD_MESSAGE(ctx, &header, &info, sizeof(info));
+RTNL_ADD_ATTR(ctx, IFA_LOCAL, &addr, sizeof(addr));
+if (!RTNL_SEND_VERIFY(ctx))
+	// error handling
+RTNL_FREE_CONTEXT(ctx);
 
-static void setup(void)
-{
-	unused_tid = tst_get_unused_pid();
-}
 
-static void run(unsigned int i)
-{
-	TST_EXP_FAIL(tst_syscall(__NR_tkill, *(tc[i].tid), SIGUSR1),
-		     tc[i].exp_errno, "tst_syscall(__NR_tkill) expecting %s",
-			 tst_strerrno(tc[i].exp_errno));
-}
+Example how to create and configure veth pair using device management API:
+==========================================================================
 
-static struct tst_test test = {
-	.tcnt = ARRAY_SIZE(tc),
-	.needs_tmpdir = 1,
-	.setup = setup,
-	.test = run,
-};
+CREATE_VETH_PAIR("veth0", "veth1");
+NETDEVICE_ADD_ADDRESS_INET("veth0", inet_addr("192.168.0.1"));
+NETDEVICE_ADD_ADDRESS_INET("veth1", inet_addr("192.168.0.2"));
+NETDEVICE_ACTIVATE("veth0", 1);
+NETDEVICE_ACTIVATE("veth1", 1);
+NETDEVICE_ADD_ROUTE_INET("veth0", 0, 0, inet_addr("192.168.1.0"), 24, 0);
+
+
+Martin Doucha (4):
+  Add SAFE_REALLOC() helper function to LTP library
+  Add SAFE_RECV() helper function to LTP library
+  RFC: Add rtnetlink helper library
+  RFC: Add helper functions for managing network interfaces
+
+ include/safe_net_fn.h     |   3 +
+ include/tst_netdevice.h   | 120 +++++++++
+ include/tst_rtnetlink.h   | 105 ++++++++
+ include/tst_safe_macros.h |   5 +
+ include/tst_safe_net.h    |   3 +
+ lib/safe_net.c            |  25 ++
+ lib/tst_netdevice.c       | 506 ++++++++++++++++++++++++++++++++++++++
+ lib/tst_rtnetlink.c       | 399 ++++++++++++++++++++++++++++++
+ lib/tst_safe_macros.c     |  15 ++
+ 9 files changed, 1181 insertions(+)
+ create mode 100644 include/tst_netdevice.h
+ create mode 100644 include/tst_rtnetlink.h
+ create mode 100644 lib/tst_netdevice.c
+ create mode 100644 lib/tst_rtnetlink.c
+
+-- 
+2.31.1
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
