@@ -2,78 +2,65 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 542F736AC1A
-	for <lists+linux-ltp@lfdr.de>; Mon, 26 Apr 2021 08:24:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 007C036AC94
+	for <lists+linux-ltp@lfdr.de>; Mon, 26 Apr 2021 09:00:59 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5D3543C27D9
-	for <lists+linux-ltp@lfdr.de>; Mon, 26 Apr 2021 08:24:08 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 7DE693C674A
+	for <lists+linux-ltp@lfdr.de>; Mon, 26 Apr 2021 09:00:58 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 86E8F3C27D9
- for <ltp@lists.linux.it>; Mon, 26 Apr 2021 08:24:02 +0200 (CEST)
-Received: from mail-pf1-x429.google.com (mail-pf1-x429.google.com
- [IPv6:2607:f8b0:4864:20::429])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 76A221400B80
- for <ltp@lists.linux.it>; Mon, 26 Apr 2021 08:24:01 +0200 (CEST)
-Received: by mail-pf1-x429.google.com with SMTP id c19so2353849pfv.2
- for <ltp@lists.linux.it>; Sun, 25 Apr 2021 23:24:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=Wd8MxVnannBeZRSQIjC5Pa9raneP/q3cUsQwmJ4rWEI=;
- b=AK5ouHPsQgO7/8X2RgLu/cH/aAsiaZkfCCqkDIJK6SvpKQMoYMVZeCKmUp2bsG2iqv
- FcaLqlcW3F4xDB+2AN+vHyt9CwG9gZfaBsICpo9L4ok/PMfPHzWH1Bcpup94YJjs9LVD
- /YyHtrQDxSOh484zb+WdAI0fXfYu/L+0FKjV9lIv2l2DKhCUmqs10sb0SdgbpWng1ux9
- zmRCDCRqEtDt9Ody7pBhm/OHLoxpERR8+gAsae5m9ki6nqaduES0mdxIXaDZ86yiHFWe
- bjKgZSnepIRzqpxeD7zPfENbVOk3ozpkEGFuaD5vKb6KhHCvDGwbkTFVUGTPBdGInwYU
- sitA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=Wd8MxVnannBeZRSQIjC5Pa9raneP/q3cUsQwmJ4rWEI=;
- b=SbdnI8/Mvc8OFOjIG7Tqupqh7ZwXsLRhbe8NDHR/s5LgqlKxdoEs0Ou/tCLFG+fgT/
- u2QGM/JXndxl1QTi53S89z1hLLjc6J24IaVtHRIbB1RC5mkAhYhiy6Y9dHEu6Mz01aCw
- YaTFhtLlaQlcgNcRR5d9Ck4U029EYDVVZdyVg8I8Oo9vDtochAl2Pn25arbdZHBbg3ez
- BMZYHisEjo8QWsrs5O48i0q+zTK7kHvnnCwnEmVO+7IWjmywJqWyI/2zeI5ZhrnjaCO5
- sE0yKThWwk9TJnV9gqFNMeD9LT14BwG5al0LSkLxBZ091x7m/4OXp7TEus76vAjbTOXv
- AtWQ==
-X-Gm-Message-State: AOAM531xjVtnzR7zqZaNDT+XWP7cRp6bi0izekYUIlzRHSHMaRSsrsw7
- CBbu50xZffa9IKMSq4u0LExNsQ==
-X-Google-Smtp-Source: ABdhPJzh3jeHyqdlGnvNVJkA86i4NUeyzo5ZQYeTnJYnELwietCf2/DiZH/9ynJBBnDQ3PEofUgrNQ==
-X-Received: by 2002:a62:ee09:0:b029:211:1113:2e7c with SMTP id
- e9-20020a62ee090000b029021111132e7cmr16025098pfi.49.1619418239883; 
- Sun, 25 Apr 2021 23:23:59 -0700 (PDT)
-Received: from localhost ([136.185.154.93])
- by smtp.gmail.com with ESMTPSA id a27sm10291251pfl.64.2021.04.25.23.23.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 25 Apr 2021 23:23:59 -0700 (PDT)
-Date: Mon, 26 Apr 2021 11:53:57 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
+ by picard.linux.it (Postfix) with ESMTPS id CCECA3C1DA6
+ for <ltp@lists.linux.it>; Mon, 26 Apr 2021 09:00:52 +0200 (CEST)
+Received: from regular1.263xmail.com (regular1.263xmail.com [211.150.70.201])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 476141A00818
+ for <ltp@lists.linux.it>; Mon, 26 Apr 2021 09:00:47 +0200 (CEST)
+Received: from localhost (unknown [192.168.167.235])
+ by regular1.263xmail.com (Postfix) with ESMTP id 8E43BE47
+ for <ltp@lists.linux.it>; Mon, 26 Apr 2021 15:00:42 +0800 (CST)
+X-MAIL-GRAY: 0
+X-MAIL-DELIVERY: 1
+X-ADDR-CHECKED4: 1
+X-ANTISPAM-LEVEL: 2
+X-SKE-CHECKED: 1
+X-ABS-CHECKED: 1
+Received: from [10.4.23.88] (unknown [58.240.82.166])
+ by smtp.263.net (postfix) whith ESMTP id
+ P2750T140649017890560S1619420426596725_; 
+ Mon, 26 Apr 2021 15:00:42 +0800 (CST)
+X-IP-DOMAINF: 1
+X-UNIQUE-TAG: <14dd9d2a50c88e416390736ef3158608>
+X-RL-SENDER: sujiaxun@uniontech.com
+X-SENDER: sujiaxun@uniontech.com
+X-LOGIN-NAME: sujiaxun@uniontech.com
+X-FST-TO: viresh.kumar@linaro.org
+X-RCPT-COUNT: 3
+X-SENDER-IP: 58.240.82.166
+X-ATTACHMENT-NUM: 0
+X-System-Flag: 0
 To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <20210426062357.i72js3urkoofvzcj@vireshk-i7>
 References: <20210422072609.9938-1-sujiaxun@uniontech.com>
- <YIZSzNd9uK8kItYb@pevik>
- <20210426055556.dmcogdykez2ddxn3@vireshk-i7>
- <YIZa4Ph81LmkEkLZ@pevik>
+ <YIZSzNd9uK8kItYb@pevik> <20210426055556.dmcogdykez2ddxn3@vireshk-i7>
+ <YIZa4Ph81LmkEkLZ@pevik> <20210426062357.i72js3urkoofvzcj@vireshk-i7>
+From: sujiaxun <sujiaxun@uniontech.com>
+Message-ID: <f06db611-5024-78d6-07e9-36115889b7a7@uniontech.com>
+Date: Mon, 26 Apr 2021 15:00:26 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <YIZa4Ph81LmkEkLZ@pevik>
-User-Agent: NeoMutt/20180716-391-311a52
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+In-Reply-To: <20210426062357.i72js3urkoofvzcj@vireshk-i7>
+Content-Language: en-US
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+X-Spam-Status: No, score=-0.0 required=7.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH] Fix the 64-bit macro definition of mips
  architecture
 X-BeenThere: ltp@lists.linux.it
@@ -87,39 +74,37 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it, sujiaxun <sujiaxun@uniontech.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Viresh Kumar <viresh.kumar@linaro.org>, ltp@lists.linux.it
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 26-04-21, 08:17, Petr Vorel wrote:
-> Hi Viresh,
-> 
-> ...
-> > > > -#if defined(__arch64__)
-> > > > +#if defined(__mips64)
-> > > So __arch64__ is not defined for mips 64 bit? (as it's defined for sparc 64bit?)
-> > > __mips64 is obviously correct and better readable, but is it really required?
-> 
-> > I am not sure what you meant by "is it really required?" The #ifdef hackery here
-> > ? It is as can be seen in include/uapi/asm-generic/shmbuf.h in Linux source.
-> I mean if #if defined(__mips__) && defined(__arch64__) detect 64bit mips
-> the patch would not be needed (although IMHO __mips64 is more descriptive than
-> __arch64__, for which you need to search for which architecture it was defined).
-
-Ahh, right.
-
-Actually the kernel has this instead:
-
-#if __BITS_PER_LONG == 64
-
-> But I'm not sure myself if __arch64__ is defined for mips 64bit.
-
-Neither do I.
-
--- 
-viresh
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+CgpPbiAyMDIxLzQvMjYg5LiL5Y2IMjoyMywgVmlyZXNoIEt1bWFyIHdyb3RlOgo+IE9uIDI2LTA0
+LTIxLCAwODoxNywgUGV0ciBWb3JlbCB3cm90ZToKPj4gSGkgVmlyZXNoLAo+Pgo+PiAuLi4KPj4+
+Pj4gLSNpZiBkZWZpbmVkKF9fYXJjaDY0X18pCj4+Pj4+ICsjaWYgZGVmaW5lZChfX21pcHM2NCkK
+Pj4+PiBTbyBfX2FyY2g2NF9fIGlzIG5vdCBkZWZpbmVkIGZvciBtaXBzIDY0IGJpdD8gKGFzIGl0
+J3MgZGVmaW5lZCBmb3Igc3BhcmMgNjRiaXQ/KQo+Pj4+IF9fbWlwczY0IGlzIG9idmlvdXNseSBj
+b3JyZWN0IGFuZCBiZXR0ZXIgcmVhZGFibGUsIGJ1dCBpcyBpdCByZWFsbHkgcmVxdWlyZWQ/Cj4+
+Cj4+PiBJIGFtIG5vdCBzdXJlIHdoYXQgeW91IG1lYW50IGJ5ICJpcyBpdCByZWFsbHkgcmVxdWly
+ZWQ/IiBUaGUgI2lmZGVmIGhhY2tlcnkgaGVyZQo+Pj4gPyBJdCBpcyBhcyBjYW4gYmUgc2VlbiBp
+biBpbmNsdWRlL3VhcGkvYXNtLWdlbmVyaWMvc2htYnVmLmggaW4gTGludXggc291cmNlLgo+PiBJ
+IG1lYW4gaWYgI2lmIGRlZmluZWQoX19taXBzX18pICYmIGRlZmluZWQoX19hcmNoNjRfXykgZGV0
+ZWN0IDY0Yml0IG1pcHMKPj4gdGhlIHBhdGNoIHdvdWxkIG5vdCBiZSBuZWVkZWQgKGFsdGhvdWdo
+IElNSE8gX19taXBzNjQgaXMgbW9yZSBkZXNjcmlwdGl2ZSB0aGFuCj4+IF9fYXJjaDY0X18sIGZv
+ciB3aGljaCB5b3UgbmVlZCB0byBzZWFyY2ggZm9yIHdoaWNoIGFyY2hpdGVjdHVyZSBpdCB3YXMg
+ZGVmaW5lZCkuCj4gCj4gQWhoLCByaWdodC4KPiAKPiBBY3R1YWxseSB0aGUga2VybmVsIGhhcyB0
+aGlzIGluc3RlYWQ6Cj4gCj4gI2lmIF9fQklUU19QRVJfTE9ORyA9PSA2NAo+IAo+PiBCdXQgSSdt
+IG5vdCBzdXJlIG15c2VsZiBpZiBfX2FyY2g2NF9fIGlzIGRlZmluZWQgZm9yIG1pcHMgNjRiaXQu
+Cj4gCj4gTmVpdGhlciBkbyBJLgo+IAp1b3NAdW9zLVBDOn4kIGVjaG8gfGdjYyAtZE0gLUUgLSB8
+IGdyZXAgLWkgYXJjaAojZGVmaW5lIF9NSVBTX0FSQ0ggIm1pcHM2NHIyIgojZGVmaW5lIF9NSVBT
+X0FSQ0hfTUlQUzY0UjIgMQp1b3NAdW9zLVBDOn4kIGVjaG8gfGdjYyAtZE0gLUUgLSB8IGdyZXAg
+LWkgbWlwczY0CiNkZWZpbmUgX01JUFNfSVNBIF9NSVBTX0lTQV9NSVBTNjQKI2RlZmluZSBfTUlQ
+U19UVU5FICJtaXBzNjRyMiIKI2RlZmluZSBfTUlQU19UVU5FX01JUFM2NFIyIDEKI2RlZmluZSBf
+TUlQU19BUkNIICJtaXBzNjRyMiIKI2RlZmluZSBfTUlQU19BUkNIX01JUFM2NFIyIDEKI2RlZmlu
+ZSBfX21pcHM2NCAxCnVvc0B1b3MtUEM6fiQgdW5hbWUgIC1tCm1pcHM2NAoKVGhlIG1pcHMgYXJj
+aGl0ZWN0dXJlIGdjYyBoYXMgbm8gYnVpbHQtaW4gX19hcmNoNjRfXywgb25seSBfX21pcHM2NCAK
+ZGVmaW5pdGlvbnMuIE9mIGNvdXJzZSwgIl9fQklUU19QRVJfTE9ORyA9PSA2NCIgY2FuIGFsc28g
+YmUgdXNlZCwgYnV0IEkgCnRoaW5rIGl0IGlzIGJldHRlciB0byB1c2UgX19taXBzNjQgaW4gdGhl
+IG1pcHMgYXJjaGl0ZWN0dXJlLgoKCgoKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9s
+aXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
