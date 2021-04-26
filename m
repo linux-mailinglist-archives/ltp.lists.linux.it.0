@@ -1,44 +1,62 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE9D236B249
-	for <lists+linux-ltp@lfdr.de>; Mon, 26 Apr 2021 13:19:52 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id AA10636B250
+	for <lists+linux-ltp@lfdr.de>; Mon, 26 Apr 2021 13:24:21 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6F7203C6754
-	for <lists+linux-ltp@lfdr.de>; Mon, 26 Apr 2021 13:19:52 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 7A0253C66ED
+	for <lists+linux-ltp@lfdr.de>; Mon, 26 Apr 2021 13:24:21 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 1E7153C5E5D
- for <ltp@lists.linux.it>; Mon, 26 Apr 2021 13:19:20 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ by picard.linux.it (Postfix) with ESMTPS id C79CD3C5E5D
+ for <ltp@lists.linux.it>; Mon, 26 Apr 2021 13:24:18 +0200 (CEST)
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id BCE2E6002E4
- for <ltp@lists.linux.it>; Mon, 26 Apr 2021 13:19:19 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 419DDAEAA
- for <ltp@lists.linux.it>; Mon, 26 Apr 2021 11:19:19 +0000 (UTC)
-From: Martin Doucha <mdoucha@suse.cz>
-To: ltp@lists.linux.it
-Date: Mon, 26 Apr 2021 13:19:18 +0200
-Message-Id: <20210426111918.4304-5-mdoucha@suse.cz>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210426111918.4304-1-mdoucha@suse.cz>
-References: <20210426111918.4304-1-mdoucha@suse.cz>
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id C81711400B8A
+ for <ltp@lists.linux.it>; Mon, 26 Apr 2021 13:24:16 +0200 (CEST)
+Received: from dggeml755-chm.china.huawei.com (unknown [172.30.72.57])
+ by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4FTMt96kFGzYZlx
+ for <ltp@lists.linux.it>; Mon, 26 Apr 2021 19:21:53 +0800 (CST)
+Received: from dggpemm500002.china.huawei.com (7.185.36.229) by
+ dggeml755-chm.china.huawei.com (10.1.199.136) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
+ 15.1.2176.2; Mon, 26 Apr 2021 19:24:09 +0800
+Received: from dggpemm500022.china.huawei.com (7.185.36.162) by
+ dggpemm500002.china.huawei.com (7.185.36.229) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2176.2; Mon, 26 Apr 2021 19:24:09 +0800
+Received: from dggpemm500022.china.huawei.com ([7.185.36.162]) by
+ dggpemm500022.china.huawei.com ([7.185.36.162]) with mapi id 15.01.2176.012;
+ Mon, 26 Apr 2021 19:24:09 +0800
+From: xieziyao <xieziyao@huawei.com>
+To: Petr Vorel <pvorel@suse.cz>
+Thread-Topic: [LTP] [PATCH 1/2] syscalls/tkill: Convert tkill01 to the new API
+Thread-Index: AQHXOodtHJQpDaXDiE2dlym0ml+YgarGo6xg
+Date: Mon, 26 Apr 2021 11:24:08 +0000
+Message-ID: <ae16017b01474cbb9d4d0e74e473a7c4@huawei.com>
+References: <20210422065732.61222-1-xieziyao@huawei.com>
+ <20210422065732.61222-2-xieziyao@huawei.com> <YIaWnt5ksxVyBvxk@pevik>
+In-Reply-To: <YIaWnt5ksxVyBvxk@pevik>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.67.109.194]
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-CFilter-Loop: Reflected
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH 4/4] RFC: Add helper functions for managing network
- interfaces
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/2] syscalls/tkill: Convert tkill01 to the new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,668 +68,145 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-The library currently supports:
-- creating a virtual ethernet device pair
-- removing network interfaces
-- enabling or disabling a network interface
-- managing interface addresses
-- managing routing table entries
-- moving network interfaces between network namespaces
+Hi,
 
-Signed-off-by: Martin Doucha <mdoucha@suse.cz>
----
- include/tst_netdevice.h | 120 ++++++++++
- lib/tst_netdevice.c     | 506 ++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 626 insertions(+)
- create mode 100644 include/tst_netdevice.h
- create mode 100644 lib/tst_netdevice.c
+Thanks for your review, Petr.
 
-diff --git a/include/tst_netdevice.h b/include/tst_netdevice.h
-new file mode 100644
-index 000000000..69f559fdd
---- /dev/null
-+++ b/include/tst_netdevice.h
-@@ -0,0 +1,120 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later
-+ * Copyright (c) 2021 Linux Test Project
-+ */
-+
-+#ifndef TST_NETDEVICE_H
-+#define TST_NETDEVICE_H
-+
-+/* Find device index for given network interface name. */
-+int tst_netdevice_index(const char *file, const int lineno, const char *ifname);
-+#define NETDEVICE_INDEX(ifname) \
-+	tst_netdevice_index(__FILE__, __LINE__, (ifname))
-+
-+/* Activate or deactivate network interface */
-+int tst_netdevice_activate(const char *file, const int lineno,
-+	const char *ifname, int up);
-+#define NETDEVICE_ACTIVATE(ifname, up) \
-+	tst_netdevice_activate(__FILE__, __LINE__, (ifname), (up))
-+
-+/* Create a connected pair of virtual network devices */
-+int tst_create_veth_pair(const char *file, const int lineno,
-+	const char *ifname1, const char *ifname2);
-+#define CREATE_VETH_PAIR(ifname1, ifname2) \
-+	tst_create_veth_pair(__FILE__, __LINE__, (ifname1), (ifname2))
-+
-+int tst_remove_netdevice(const char *file, const int lineno,
-+	const char *ifname);
-+#define REMOVE_NETDEVICE(ifname) \
-+	tst_remove_netdevice(__FILE__, __LINE__, (ifname))
-+
-+int tst_netdevice_add_address(const char *file, const int lineno,
-+	const char *ifname, unsigned int family, const void *address,
-+	unsigned int prefix, size_t addrlen, unsigned int flags);
-+#define NETDEVICE_ADD_ADDRESS(ifname, family, address, prefix, addrlen, flags) \
-+	tst_netdevice_add_address(__FILE__, __LINE__, (ifname), (family), \
-+		(address), (prefix), (addrlen), (flags))
-+
-+int tst_netdevice_add_address_inet(const char *file, const int lineno,
-+	const char *ifname, in_addr_t address, unsigned int prefix,
-+	unsigned int flags);
-+#define NETDEVICE_ADD_ADDRESS_INET(ifname, address, prefix, flags) \
-+	tst_netdevice_add_address_inet(__FILE__, __LINE__, (ifname), \
-+		(address), (prefix), (flags))
-+
-+int tst_netdevice_remove_address(const char *file, const int lineno,
-+	const char *ifname, unsigned int family, const void *address,
-+	size_t addrlen);
-+#define NETDEVICE_REMOVE_ADDRESS(ifname, family, address, addrlen) \
-+	tst_netdevice_remove_address(__FILE__, __LINE__, (ifname), (family), \
-+		(address), (addrlen))
-+
-+int tst_netdevice_remove_address_inet(const char *file, const int lineno,
-+	const char *ifname, in_addr_t address);
-+#define NETDEVICE_REMOVE_ADDRESS_INET(ifname, address) \
-+	tst_netdevice_remove_address_inet(__FILE__, __LINE__, (ifname), \
-+		(address))
-+
-+int tst_netdevice_change_ns_fd(const char *file, const int lineno,
-+	const char *ifname, int nsfd);
-+#define NETDEVICE_CHANGE_NS_FD(ifname, nsfd) \
-+	tst_netdevice_change_ns_fd(__FILE__, __LINE__, (ifname), (nsfd))
-+
-+int tst_netdevice_change_ns_pid(const char *file, const int lineno,
-+	const char *ifname, pid_t nspid);
-+#define NETDEVICE_CHANGE_NS_PID(ifname, nspid) \
-+	tst_netdevice_change_ns_pid(__FILE__, __LINE__, (ifname), (nspid))
-+
-+/*
-+ * Add new static entry to main routing table. If you specify gateway address,
-+ * the interface name is optional.
-+ */
-+int tst_netdevice_add_route(const char *file, const int lineno,
-+	const char *ifname, unsigned int family, const void *srcaddr,
-+	unsigned int srcprefix, size_t srclen, const void *dstaddr,
-+	unsigned int dstprefix, size_t dstlen, const void *gateway,
-+	size_t gatewaylen);
-+#define NETDEVICE_ADD_ROUTE(ifname, family, srcaddr, srcprefix, srclen, \
-+	dstaddr, dstprefix, dstlen, gateway, gatewaylen) \
-+	tst_netdevice_add_route(__FILE__, __LINE__, (ifname), (family), \
-+		(srcaddr), (srcprefix), (srclen), (dstaddr), (dstprefix), \
-+		(dstlen), (gateway), (gatewaylen))
-+
-+/*
-+ * Simplified function for adding IPv4 static route. If you set srcprefix
-+ * or dstprefix to 0, the corresponding address will be ignored. Interface
-+ * name is optional if gateway address is non-zero.
-+ */
-+int tst_netdevice_add_route_inet(const char *file, const int lineno,
-+	const char *ifname, in_addr_t srcaddr, unsigned int srcprefix,
-+	in_addr_t dstaddr, unsigned int dstprefix, in_addr_t gateway);
-+#define NETDEVICE_ADD_ROUTE_INET(ifname, srcaddr, srcprefix, dstaddr, \
-+	dstprefix, gateway) \
-+	tst_netdevice_add_route_inet(__FILE__, __LINE__, (ifname), (srcaddr), \
-+		(srcprefix), (dstaddr), (dstprefix), (gateway))
-+
-+/*
-+ * Remove static entry from main routing table.
-+ */
-+int tst_netdevice_remove_route(const char *file, const int lineno,
-+	const char *ifname, unsigned int family, const void *srcaddr,
-+	unsigned int srcprefix, size_t srclen, const void *dstaddr,
-+	unsigned int dstprefix, size_t dstlen, const void *gateway,
-+	size_t gatewaylen);
-+#define NETDEVICE_REMOVE_ROUTE(ifname, family, srcaddr, srcprefix, srclen, \
-+	dstaddr, dstprefix, dstlen, gateway, gatewaylen) \
-+	tst_netdevice_remove_route(__FILE__, __LINE__, (ifname), (family), \
-+		(srcaddr), (srcprefix), (srclen), (dstaddr), (dstprefix), \
-+		(dstlen), (gateway), (gatewaylen))
-+
-+/*
-+ * Simplified function for removing IPv4 static route.
-+ */
-+int tst_netdevice_remove_route_inet(const char *file, const int lineno,
-+	const char *ifname, in_addr_t srcaddr, unsigned int srcprefix,
-+	in_addr_t dstaddr, unsigned int dstprefix, in_addr_t gateway);
-+#define NETDEVICE_REMOVE_ROUTE_INET(ifname, srcaddr, srcprefix, dstaddr, \
-+	dstprefix, gateway) \
-+	tst_netdevice_remove_route_inet(__FILE__, __LINE__, (ifname), \
-+		(srcaddr), (srcprefix), (dstaddr), (dstprefix), (gateway))
-+
-+#endif /* TST_NETDEVICE_H */
-diff --git a/lib/tst_netdevice.c b/lib/tst_netdevice.c
-new file mode 100644
-index 000000000..541541b11
---- /dev/null
-+++ b/lib/tst_netdevice.c
-@@ -0,0 +1,506 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2021 Linux Test Project
-+ */
-+
-+#include <asm/types.h>
-+#include <linux/netlink.h>
-+#include <linux/rtnetlink.h>
-+#include <linux/veth.h>
-+#include <sys/socket.h>
-+#include <net/if.h>
-+#define TST_NO_DEFAULT_MAIN
-+#include "tst_test.h"
-+#include "tst_rtnetlink.h"
-+#include "tst_netdevice.h"
-+
-+static struct tst_rtnl_context *create_request(const char *file,
-+	const int lineno, unsigned int type, unsigned int flags,
-+	const void *payload, size_t psize)
-+{
-+	struct nlmsghdr header = {0};
-+	struct tst_rtnl_context *ctx;
-+
-+	ctx = tst_rtnl_create_context(file, lineno);
-+
-+	if (!ctx)
-+		return NULL;
-+
-+	header.nlmsg_type = type;
-+	header.nlmsg_flags = NLM_F_REQUEST | NLM_F_ACK | flags;
-+
-+	if (!tst_rtnl_add_message(file, lineno, ctx, &header, payload, psize)) {
-+		tst_rtnl_free_context(file, lineno, ctx);
-+		return NULL;
-+	}
-+
-+	return ctx;
-+}
-+
-+int tst_netdevice_index(const char *file, const int lineno, const char *ifname)
-+{
-+	struct ifreq ifr;
-+	int sock;
-+
-+	if (strlen(ifname) >= IFNAMSIZ) {
-+		tst_brk_(file, lineno, TBROK,
-+			"Network device name \"%s\" too long", ifname);
-+		return -1;
-+	}
-+
-+	sock = safe_socket(file, lineno, NULL, AF_INET, SOCK_DGRAM, 0);
-+
-+	if (sock < 0)
-+		return -1;
-+
-+	strcpy(ifr.ifr_name, ifname);
-+	TEST(ioctl(sock, SIOCGIFINDEX, &ifr));
-+	safe_close(file, lineno, NULL, sock);
-+
-+	if (TST_RET < 0) {
-+		tst_brk_(file, lineno, TBROK | TTERRNO,
-+			"ioctl(SIOCGIFINDEX) failed");
-+	} else if (TST_RET) {
-+		tst_brk_(file, lineno, TBROK | TTERRNO,
-+			"Invalid ioctl(SIOCGIFINDEX) return value %ld",
-+			TST_RET);
-+	}
-+
-+	return TST_RET ? -1 : ifr.ifr_ifindex;
-+}
-+
-+int tst_netdevice_activate(const char *file, const int lineno,
-+	const char *ifname, int up)
-+{
-+	struct ifreq ifr;
-+	int sock;
-+
-+	if (strlen(ifname) >= IFNAMSIZ) {
-+		tst_brk_(file, lineno, TBROK,
-+			"Network device name \"%s\" too long", ifname);
-+		return -1;
-+	}
-+
-+	sock = safe_socket(file, lineno, NULL, AF_INET, SOCK_DGRAM, 0);
-+
-+	if (sock < 0)
-+		return -1;
-+
-+	strcpy(ifr.ifr_name, ifname);
-+	TEST(ioctl(sock, SIOCGIFFLAGS, &ifr));
-+
-+	if (TST_RET < 0) {
-+		safe_close(file, lineno, NULL, sock);
-+		tst_brk_(file, lineno, TBROK | TTERRNO,
-+			"ioctl(SIOCGIFFLAGS) failed");
-+		return TST_RET;
-+	}
-+
-+	if (TST_RET) {
-+		safe_close(file, lineno, NULL, sock);
-+		tst_brk_(file, lineno, TBROK | TTERRNO,
-+			"Invalid ioctl(SIOCGIFFLAGS) return value %ld",
-+			TST_RET);
-+		return TST_RET;
-+	}
-+
-+	if (up)
-+		ifr.ifr_flags |= IFF_UP;
-+	else
-+		ifr.ifr_flags &= ~IFF_UP;
-+
-+	TEST(ioctl(sock, SIOCSIFFLAGS, &ifr));
-+	safe_close(file, lineno, NULL, sock);
-+
-+	if (TST_RET < 0) {
-+		tst_brk_(file, lineno, TBROK | TTERRNO,
-+			"ioctl(SIOCSIFFLAGS) failed");
-+	} else if (TST_RET) {
-+		tst_brk_(file, lineno, TBROK | TTERRNO,
-+			"Invalid ioctl(SIOCSIFFLAGS) return value %ld",
-+			TST_RET);
-+	}
-+
-+	return TST_RET;
-+}
-+
-+int tst_create_veth_pair(const char *file, const int lineno,
-+	const char *ifname1, const char *ifname2)
-+{
-+	int ret;
-+	struct ifinfomsg info = {0};
-+	struct tst_rtnl_context *ctx;
-+	struct tst_rtnl_attr_list peerinfo[] = {
-+		{IFLA_IFNAME, ifname2, strlen(ifname2) + 1, NULL},
-+		{0, NULL, -1, NULL}
-+	};
-+	struct tst_rtnl_attr_list peerdata[] = {
-+		{VETH_INFO_PEER, &info, sizeof(info), peerinfo},
-+		{0, NULL, -1, NULL}
-+	};
-+	struct tst_rtnl_attr_list attrs[] = {
-+		{IFLA_IFNAME, ifname1, strlen(ifname1) + 1, NULL},
-+		{IFLA_LINKINFO, NULL, 0, (const struct tst_rtnl_attr_list[]){
-+			{IFLA_INFO_KIND, "veth", 4, NULL},
-+			{IFLA_INFO_DATA, NULL, 0, peerdata},
-+			{0, NULL, -1, NULL}
-+		}},
-+		{0, NULL, -1, NULL}
-+	};
-+
-+	if (strlen(ifname1) >= IFNAMSIZ) {
-+		tst_brk_(file, lineno, TBROK,
-+			"Network device name \"%s\" too long", ifname1);
-+		return 0;
-+	}
-+
-+	if (strlen(ifname2) >= IFNAMSIZ) {
-+		tst_brk_(file, lineno, TBROK,
-+			"Network device name \"%s\" too long", ifname2);
-+		return 0;
-+	}
-+
-+	info.ifi_family = AF_UNSPEC;
-+	ctx = create_request(file, lineno, RTM_NEWLINK,
-+		NLM_F_CREATE | NLM_F_EXCL, &info, sizeof(info));
-+
-+	if (!ctx)
-+		return 0;
-+
-+	if (tst_rtnl_add_attr_list(file, lineno, ctx, attrs) != 2) {
-+		tst_rtnl_free_context(file, lineno, ctx);
-+		return 0;
-+	}
-+
-+	ret = tst_rtnl_send_validate(file, lineno, ctx);
-+	tst_rtnl_free_context(file, lineno, ctx);
-+
-+	if (!ret) {
-+		tst_brk_(file, lineno, TBROK | TTERRNO,
-+			"Failed to create veth interfaces %s+%s", ifname1,
-+			ifname2);
-+	}
-+
-+	return ret;
-+}
-+
-+int tst_remove_netdevice(const char *file, const int lineno, const char *ifname)
-+{
-+	struct ifinfomsg info = {0};
-+	struct tst_rtnl_context *ctx;
-+	int ret;
-+
-+	if (strlen(ifname) >= IFNAMSIZ) {
-+		tst_brk_(file, lineno, TBROK,
-+			"Network device name \"%s\" too long", ifname);
-+		return 0;
-+	}
-+
-+	info.ifi_family = AF_UNSPEC;
-+	ctx = create_request(file, lineno, RTM_DELLINK, 0, &info, sizeof(info));
-+
-+	if (!ctx)
-+		return 0;
-+
-+	if (!tst_rtnl_add_attr_string(file, lineno, ctx, IFLA_IFNAME, ifname)) {
-+		tst_rtnl_free_context(file, lineno, ctx);
-+		return 0;
-+	}
-+
-+	ret = tst_rtnl_send_validate(file, lineno, ctx);
-+	tst_rtnl_free_context(file, lineno, ctx);
-+
-+	if (!ret) {
-+		tst_brk_(file, lineno, TBROK | TTERRNO,
-+			"Failed to remove netdevice %s", ifname);
-+	}
-+
-+	return ret;
-+}
-+
-+static int modify_address(const char *file, const int lineno,
-+	unsigned int action, unsigned int nl_flags, const char *ifname,
-+	unsigned int family, const void *address, unsigned int prefix,
-+	size_t addrlen, uint32_t addr_flags)
-+{
-+	struct ifaddrmsg info = {0};
-+	struct tst_rtnl_context *ctx;
-+	int index, ret;
-+
-+	index = tst_netdevice_index(file, lineno, ifname);
-+
-+	if (index < 0) {
-+		tst_brk_(file, lineno, TBROK, "Interface %s not found", ifname);
-+		return 0;
-+	}
-+
-+	info.ifa_family = family;
-+	info.ifa_prefixlen = prefix;
-+	info.ifa_index = index;
-+	ctx = create_request(file, lineno, action, nl_flags, &info,
-+		sizeof(info));
-+
-+	if (!ctx)
-+		return 0;
-+
-+
-+	if (!tst_rtnl_add_attr(file, lineno, ctx, IFA_FLAGS, &addr_flags,
-+		sizeof(uint32_t))) {
-+		tst_rtnl_free_context(file, lineno, ctx);
-+		return 0;
-+	}
-+
-+	if (!tst_rtnl_add_attr(file, lineno, ctx, IFA_LOCAL, address,
-+		addrlen)) {
-+		tst_rtnl_free_context(file, lineno, ctx);
-+		return 0;
-+	}
-+
-+	ret = tst_rtnl_send_validate(file, lineno, ctx);
-+	tst_rtnl_free_context(file, lineno, ctx);
-+
-+	if (!ret) {
-+		tst_brk_(file, lineno, TBROK | TTERRNO,
-+			"Failed to modify %s network address", ifname);
-+	}
-+
-+	return ret;
-+}
-+
-+int tst_netdevice_add_address(const char *file, const int lineno,
-+	const char *ifname, unsigned int family, const void *address,
-+	unsigned int prefix, size_t addrlen, unsigned int flags)
-+{
-+	return modify_address(file, lineno, RTM_NEWADDR,
-+		NLM_F_CREATE | NLM_F_EXCL, ifname, family, address, prefix,
-+		addrlen, flags);
-+}
-+
-+int tst_netdevice_add_address_inet(const char *file, const int lineno,
-+	const char *ifname, in_addr_t address, unsigned int prefix,
-+	unsigned int flags)
-+{
-+	return tst_netdevice_add_address(file, lineno, ifname, AF_INET,
-+		&address, prefix, sizeof(address), flags);
-+}
-+
-+int tst_netdevice_remove_address(const char *file, const int lineno,
-+	const char *ifname, unsigned int family, const void *address,
-+	size_t addrlen)
-+{
-+	return modify_address(file, lineno, RTM_DELADDR, 0, ifname, family,
-+		address, 0, addrlen, 0);
-+}
-+
-+int tst_netdevice_remove_address_inet(const char *file, const int lineno,
-+	const char *ifname, in_addr_t address)
-+{
-+	return tst_netdevice_remove_address(file, lineno, ifname, AF_INET,
-+		&address, sizeof(address));
-+}
-+
-+static int change_ns(const char *file, const int lineno, const char *ifname,
-+	unsigned short attr, uint32_t value)
-+{
-+	struct ifinfomsg info = {0};
-+	struct tst_rtnl_context *ctx;
-+	int ret;
-+
-+	if (strlen(ifname) >= IFNAMSIZ) {
-+		tst_brk_(file, lineno, TBROK,
-+			"Network device name \"%s\" too long", ifname);
-+		return 0;
-+	}
-+
-+	info.ifi_family = AF_UNSPEC;
-+	ctx = create_request(file, lineno, RTM_NEWLINK, 0, &info, sizeof(info));
-+
-+	if (!tst_rtnl_add_attr_string(file, lineno, ctx, IFLA_IFNAME, ifname)) {
-+		tst_rtnl_free_context(file, lineno, ctx);
-+		return 0;
-+	}
-+
-+	if (!tst_rtnl_add_attr(file, lineno, ctx, attr, &value,
-+		sizeof(uint32_t))) {
-+		tst_rtnl_free_context(file, lineno, ctx);
-+		return 0;
-+	}
-+
-+	ret = tst_rtnl_send_validate(file, lineno, ctx);
-+	tst_rtnl_free_context(file, lineno, ctx);
-+
-+	if (!ret) {
-+		tst_brk_(file, lineno, TBROK | TTERRNO,
-+			"Failed to move %s to another namespace", ifname);
-+	}
-+
-+	return ret;
-+}
-+
-+int tst_netdevice_change_ns_fd(const char *file, const int lineno,
-+	const char *ifname, int nsfd)
-+{
-+	return change_ns(file, lineno, ifname, IFLA_NET_NS_FD, nsfd);
-+}
-+
-+int tst_netdevice_change_ns_pid(const char *file, const int lineno,
-+	const char *ifname, pid_t nspid)
-+{
-+	return change_ns(file, lineno, ifname, IFLA_NET_NS_PID, nspid);
-+}
-+
-+static int modify_route(const char *file, const int lineno, unsigned int action,
-+	unsigned int flags, const char *ifname, unsigned int family,
-+	const void *srcaddr, unsigned int srcprefix, size_t srclen,
-+	const void *dstaddr, unsigned int dstprefix, size_t dstlen,
-+	const void *gateway, size_t gatewaylen)
-+{
-+	struct rtmsg info = {0};
-+	struct tst_rtnl_context *ctx;
-+	int ret;
-+	int32_t index;
-+
-+	if (!ifname && !gateway) {
-+		tst_brk_(file, lineno, TBROK,
-+			"Interface name or gateway address required");
-+		return 0;
-+	}
-+
-+	if (ifname && strlen(ifname) >= IFNAMSIZ) {
-+		tst_brk_(file, lineno, TBROK,
-+			"Network device name \"%s\" too long", ifname);
-+		return 0;
-+	}
-+
-+	if (ifname) {
-+		index = tst_netdevice_index(file, lineno, ifname);
-+
-+		if (index < 0)
-+			return 0;
-+	}
-+
-+	info.rtm_family = family;
-+	info.rtm_dst_len = dstprefix;
-+	info.rtm_src_len = srcprefix;
-+	info.rtm_table = RT_TABLE_MAIN;
-+	info.rtm_protocol = RTPROT_STATIC;
-+	info.rtm_type = RTN_UNICAST;
-+
-+	if (action == RTM_DELROUTE) {
-+		tst_res_(file, lineno, TINFO, "DELROUTE");
-+		info.rtm_scope = RT_SCOPE_NOWHERE;
-+	} else {
-+		tst_res_(file, lineno, TINFO, "ADDROUTE");
-+		info.rtm_scope = RT_SCOPE_UNIVERSE;
-+	}
-+
-+	ctx = create_request(file, lineno, action, flags, &info, sizeof(info));
-+
-+	if (srcaddr && !tst_rtnl_add_attr(file, lineno, ctx, RTA_SRC, srcaddr,
-+		srclen)) {
-+		tst_rtnl_free_context(file, lineno, ctx);
-+		return 0;
-+	}
-+
-+	if (dstaddr && !tst_rtnl_add_attr(file, lineno, ctx, RTA_DST, dstaddr,
-+		dstlen)) {
-+		tst_rtnl_free_context(file, lineno, ctx);
-+		return 0;
-+	}
-+
-+	if (gateway && !tst_rtnl_add_attr(file, lineno, ctx, RTA_GATEWAY,
-+		gateway, gatewaylen)) {
-+		tst_rtnl_free_context(file, lineno, ctx);
-+		return 0;
-+	}
-+
-+	if (ifname && !tst_rtnl_add_attr(file, lineno, ctx, RTA_OIF, &index,
-+		sizeof(index))) {
-+		tst_rtnl_free_context(file, lineno, ctx);
-+		return 0;
-+	}
-+
-+	ret = tst_rtnl_send_validate(file, lineno, ctx);
-+	tst_rtnl_free_context(file, lineno, ctx);
-+
-+	if (!ret) {
-+		tst_brk_(file, lineno, TBROK | TTERRNO,
-+			"Failed to modify network route");
-+	}
-+
-+	return ret;
-+}
-+
-+int tst_netdevice_add_route(const char *file, const int lineno,
-+	const char *ifname, unsigned int family, const void *srcaddr,
-+	unsigned int srcprefix, size_t srclen, const void *dstaddr,
-+	unsigned int dstprefix, size_t dstlen, const void *gateway,
-+	size_t gatewaylen)
-+{
-+	return modify_route(file, lineno, RTM_NEWROUTE,
-+		NLM_F_CREATE | NLM_F_EXCL, ifname, family, srcaddr, srcprefix,
-+		srclen, dstaddr, dstprefix, dstlen, gateway, gatewaylen);
-+}
-+
-+int tst_netdevice_add_route_inet(const char *file, const int lineno,
-+	const char *ifname, in_addr_t srcaddr, unsigned int srcprefix,
-+	in_addr_t dstaddr, unsigned int dstprefix, in_addr_t gateway)
-+{
-+	void *src = NULL, *dst = NULL, *gw = NULL;
-+	size_t srclen = 0, dstlen = 0, gwlen = 0;
-+
-+	if (srcprefix) {
-+		src = &srcaddr;
-+		srclen = sizeof(srcaddr);
-+	}
-+
-+	if (dstprefix) {
-+		dst = &dstaddr;
-+		dstlen = sizeof(dstaddr);
-+	}
-+
-+	if (gateway) {
-+		gw = &gateway;
-+		gwlen = sizeof(gateway);
-+	}
-+
-+	return tst_netdevice_add_route(file, lineno, ifname, AF_INET, src,
-+		srcprefix, srclen, dst, dstprefix, dstlen, gw, gwlen);
-+}
-+
-+int tst_netdevice_remove_route(const char *file, const int lineno,
-+	const char *ifname, unsigned int family, const void *srcaddr,
-+	unsigned int srcprefix, size_t srclen, const void *dstaddr,
-+	unsigned int dstprefix, size_t dstlen, const void *gateway,
-+	size_t gatewaylen)
-+{
-+	return modify_route(file, lineno, RTM_DELROUTE, 0, ifname, family,
-+		srcaddr, srcprefix, srclen, dstaddr, dstprefix, dstlen,
-+		gateway, gatewaylen);
-+}
-+
-+int tst_netdevice_remove_route_inet(const char *file, const int lineno,
-+	const char *ifname, in_addr_t srcaddr, unsigned int srcprefix,
-+	in_addr_t dstaddr, unsigned int dstprefix, in_addr_t gateway)
-+{
-+	void *src = NULL, *dst = NULL, *gw = NULL;
-+	size_t srclen = 0, dstlen = 0, gwlen = 0;
-+
-+	if (srcprefix) {
-+		src = &srcaddr;
-+		srclen = sizeof(srcaddr);
-+	}
-+
-+	if (dstprefix) {
-+		dst = &dstaddr;
-+		dstlen = sizeof(dstaddr);
-+	}
-+
-+	if (gateway) {
-+		gw = &gateway;
-+		gwlen = sizeof(gateway);
-+	}
-+
-+	return tst_netdevice_remove_route(file, lineno, ifname, AF_INET, src,
-+		srcprefix, srclen, dst, dstprefix, dstlen, gw, gwlen);
-+}
--- 
-2.31.1
+> +	TEST(tst_syscall(__NR_tkill, tid, SIGUSR1));
+> +	if (TST_RET == 0) {
+> +		while (!sig_flag);
 
+This while loop is written to check whether the sighandler function captures the SIGUSR1 signal and set sig_flag to 1.
+
+> +		tst_res(TPASS, "tst_syscall(__NR_tkill, %d, SIGUSR1)", tid);
+> +	} else {
+> +		tst_res(TFAIL | TTERRNO,
+> +			"tst_syscall(__NR_tkill, %d, SIGUSR1)", tid);
+>  	}
+> -	cleanup();
+> -	tst_exit();
+>  }
+
+Other comments are fine to me.
+
+Best Regards,
+Ziyao
+
+-----Original Message-----
+From: Petr Vorel [mailto:pvorel@suse.cz] 
+Sent: Monday, April 26, 2021 6:32 PM
+To: xieziyao <xieziyao@huawei.com>
+Cc: ltp@lists.linux.it
+Subject: Re: [LTP] [PATCH 1/2] syscalls/tkill: Convert tkill01 to the new API
+
+Hi,
+
+> 1. Convert tkill01 to the new API;
+> 2. Capture signals to verify success, while the previous code didn't 
+> make it work.
+
+Generally LGTM, with comments below.
+
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
+
+>  #include <stdio.h>
+>  #include <stdlib.h>
+> @@ -48,59 +24,37 @@
+>  #include <linux/unistd.h>
+>  #include <sys/types.h>
+I removed these as not needed. The only one which is still relevant is <signal.h> (I kept it although it's not needed to be included, as it's included in tst_safe_macros.h which are included in tst_test.h).
+
+> -#include "test.h"
+>  #include "lapi/syscalls.h"
+> +#include "tst_test.h"
+
+> +int sig_flag = 0;
+
+It should be
+static int sig_flag;
+
+...
+> +static void run(void)
+...
+> +	SAFE_SIGNAL(SIGUSR1, sighandler);
+> +	TEST(tid = tst_syscall(__NR_gettid));
+> +	if (TST_RET == -1)
+> +		tst_res(TFAIL | TTERRNO, "tst_syscall(__NR_gettid) failed");
+gettid() manpage says "ERRORS: This call is alway successful". I suppose this is true also for raw syscall. And it's certainly true for tst_syscall(__NR_gettid).
+
+BTW if it really needed to be checked, tst_brk() or tst_res() with return would need to be used.
+> +
+> +	TEST(tst_syscall(__NR_tkill, tid, SIGUSR1));
+> +	if (TST_RET == 0) {
+> +		while (!sig_flag);
+Not sure why you required this.
+> +		tst_res(TPASS, "tst_syscall(__NR_tkill, %d, SIGUSR1)", tid);
+> +	} else {
+> +		tst_res(TFAIL | TTERRNO,
+> +			"tst_syscall(__NR_tkill, %d, SIGUSR1)", tid);
+>  	}
+> -	cleanup();
+> -	tst_exit();
+>  }
+> +
+> +static struct tst_test test = {
+> +	.needs_tmpdir = 1,
+> +	.test_all = run,
+> +};
+In the end going to merge code below.
+
+Kind regards,
+Petr
+
+// SPDX-License-Identifier: GPL-2.0-or-later
+/*
+ * Copyright (c) Linux Test Project, 2009-2021
+ * Copyright (c) Crackerjack Project., 2007
+ * Ported from Crackerjack to LTP by Manas Kumar Nayak maknayak@in.ibm.com>  */
+
+/*\
+ * [Description]
+ *
+ * Basic tests for the tkill syscall.
+ *
+ * [Algorithm]
+ *
+ * Calls tkill and capture signals to verify success.
+ */
+
+#include <signal.h>
+
+#include "lapi/syscalls.h"
+#include "tst_test.h"
+
+static int sig_flag;
+
+static void sighandler(int sig)
+{
+	if (sig == SIGUSR1)
+		sig_flag = 1;
+}
+
+static void run(void)
+{
+	int tid;
+
+	SAFE_SIGNAL(SIGUSR1, sighandler);
+
+	tid = tst_syscall(__NR_gettid);
+
+	TST_EXP_PASS(tst_syscall(__NR_tkill, tid, SIGUSR1)); }
+
+static struct tst_test test = {
+	.needs_tmpdir = 1,
+	.test_all = run,
+};
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
