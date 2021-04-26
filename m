@@ -1,12 +1,12 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28F9D36B24A
-	for <lists+linux-ltp@lfdr.de>; Mon, 26 Apr 2021 13:20:01 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id BE9D236B249
+	for <lists+linux-ltp@lfdr.de>; Mon, 26 Apr 2021 13:19:52 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D49403C66E6
-	for <lists+linux-ltp@lfdr.de>; Mon, 26 Apr 2021 13:20:00 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 6F7203C6754
+	for <lists+linux-ltp@lfdr.de>; Mon, 26 Apr 2021 13:19:52 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
@@ -14,20 +14,20 @@ Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 47A6E3C5E5D
+ by picard.linux.it (Postfix) with ESMTPS id 1E7153C5E5D
  for <ltp@lists.linux.it>; Mon, 26 Apr 2021 13:19:20 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id C48B66002EB
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id BCE2E6002E4
  for <ltp@lists.linux.it>; Mon, 26 Apr 2021 13:19:19 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 2F609AE56
+ by mx2.suse.de (Postfix) with ESMTP id 419DDAEAA
  for <ltp@lists.linux.it>; Mon, 26 Apr 2021 11:19:19 +0000 (UTC)
 From: Martin Doucha <mdoucha@suse.cz>
 To: ltp@lists.linux.it
-Date: Mon, 26 Apr 2021 13:19:17 +0200
-Message-Id: <20210426111918.4304-4-mdoucha@suse.cz>
+Date: Mon, 26 Apr 2021 13:19:18 +0200
+Message-Id: <20210426111918.4304-5-mdoucha@suse.cz>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210426111918.4304-1-mdoucha@suse.cz>
 References: <20210426111918.4304-1-mdoucha@suse.cz>
@@ -37,7 +37,8 @@ X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH 3/4] RFC: Add rtnetlink helper library
+Subject: [LTP] [PATCH 4/4] RFC: Add helper functions for managing network
+ interfaces
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,532 +55,659 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This library provides simple interface for creating arbitrary rtnetlink
-messages with complex attributes, sending requests and receiving results.
+The library currently supports:
+- creating a virtual ethernet device pair
+- removing network interfaces
+- enabling or disabling a network interface
+- managing interface addresses
+- managing routing table entries
+- moving network interfaces between network namespaces
 
 Signed-off-by: Martin Doucha <mdoucha@suse.cz>
 ---
- include/tst_rtnetlink.h | 105 +++++++++++
- lib/tst_rtnetlink.c     | 399 ++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 504 insertions(+)
- create mode 100644 include/tst_rtnetlink.h
- create mode 100644 lib/tst_rtnetlink.c
+ include/tst_netdevice.h | 120 ++++++++++
+ lib/tst_netdevice.c     | 506 ++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 626 insertions(+)
+ create mode 100644 include/tst_netdevice.h
+ create mode 100644 lib/tst_netdevice.c
 
-diff --git a/include/tst_rtnetlink.h b/include/tst_rtnetlink.h
+diff --git a/include/tst_netdevice.h b/include/tst_netdevice.h
 new file mode 100644
-index 000000000..3b307fbec
+index 000000000..69f559fdd
 --- /dev/null
-+++ b/include/tst_rtnetlink.h
-@@ -0,0 +1,105 @@
++++ b/include/tst_netdevice.h
+@@ -0,0 +1,120 @@
 +/* SPDX-License-Identifier: GPL-2.0-or-later
 + * Copyright (c) 2021 Linux Test Project
 + */
 +
-+#ifndef TST_RTNETLINK_H
-+#define TST_RTNETLINK_H
++#ifndef TST_NETDEVICE_H
++#define TST_NETDEVICE_H
 +
-+struct tst_rtnl_context;
++/* Find device index for given network interface name. */
++int tst_netdevice_index(const char *file, const int lineno, const char *ifname);
++#define NETDEVICE_INDEX(ifname) \
++	tst_netdevice_index(__FILE__, __LINE__, (ifname))
 +
-+struct tst_rtnl_attr_list {
-+	unsigned short type;
-+	const void *data;
-+	ssize_t len;
-+	const struct tst_rtnl_attr_list *sublist;
-+};
++/* Activate or deactivate network interface */
++int tst_netdevice_activate(const char *file, const int lineno,
++	const char *ifname, int up);
++#define NETDEVICE_ACTIVATE(ifname, up) \
++	tst_netdevice_activate(__FILE__, __LINE__, (ifname), (up))
 +
-+struct tst_rtnl_message {
-+	struct nlmsghdr *header;
-+	struct nlmsgerr *err;
-+	void *payload;
-+	size_t payload_size;
-+};
++/* Create a connected pair of virtual network devices */
++int tst_create_veth_pair(const char *file, const int lineno,
++	const char *ifname1, const char *ifname2);
++#define CREATE_VETH_PAIR(ifname1, ifname2) \
++	tst_create_veth_pair(__FILE__, __LINE__, (ifname1), (ifname2))
 +
-+/* Open a netlink socket */
-+struct tst_rtnl_context *tst_rtnl_create_context(const char *file,
-+	const int lineno);
-+#define RTNL_CREATE_CONTEXT() tst_rtnl_create_context(__FILE__, __LINE__)
++int tst_remove_netdevice(const char *file, const int lineno,
++	const char *ifname);
++#define REMOVE_NETDEVICE(ifname) \
++	tst_remove_netdevice(__FILE__, __LINE__, (ifname))
 +
-+/* Free a tst_rtnl_message array returned by tst_rtnl_recv() */
-+void tst_rtnl_free_message(struct tst_rtnl_message *msg);
-+#define RTNL_FREE_MESSAGE tst_rtnl_free_message
++int tst_netdevice_add_address(const char *file, const int lineno,
++	const char *ifname, unsigned int family, const void *address,
++	unsigned int prefix, size_t addrlen, unsigned int flags);
++#define NETDEVICE_ADD_ADDRESS(ifname, family, address, prefix, addrlen, flags) \
++	tst_netdevice_add_address(__FILE__, __LINE__, (ifname), (family), \
++		(address), (prefix), (addrlen), (flags))
 +
-+/* Close netlink socket */
-+void tst_rtnl_free_context(const char *file, const int lineno,
-+	struct tst_rtnl_context *ctx);
-+#define RTNL_FREE_CONTEXT(ctx) tst_rtnl_free_context(__FILE__, __LINE__, (ctx))
++int tst_netdevice_add_address_inet(const char *file, const int lineno,
++	const char *ifname, in_addr_t address, unsigned int prefix,
++	unsigned int flags);
++#define NETDEVICE_ADD_ADDRESS_INET(ifname, address, prefix, flags) \
++	tst_netdevice_add_address_inet(__FILE__, __LINE__, (ifname), \
++		(address), (prefix), (flags))
 +
-+/* Send all messages in given buffer */
-+int tst_rtnl_send(const char *file, const int lineno,
-+	struct tst_rtnl_context *ctx);
-+#define RTNL_SEND(ctx) tst_rtnl_send(__FILE__, __LINE__, (ctx))
++int tst_netdevice_remove_address(const char *file, const int lineno,
++	const char *ifname, unsigned int family, const void *address,
++	size_t addrlen);
++#define NETDEVICE_REMOVE_ADDRESS(ifname, family, address, addrlen) \
++	tst_netdevice_remove_address(__FILE__, __LINE__, (ifname), (family), \
++		(address), (addrlen))
 +
-+/* Send all messages in given buffer and validate kernel response */
-+int tst_rtnl_send_validate(const char *file, const int lineno,
-+	struct tst_rtnl_context *ctx);
-+#define RTNL_SEND_VALIDATE(ctx) \
-+	tst_rtnl_send_validate(__FILE__, __LINE__, (ctx))
++int tst_netdevice_remove_address_inet(const char *file, const int lineno,
++	const char *ifname, in_addr_t address);
++#define NETDEVICE_REMOVE_ADDRESS_INET(ifname, address) \
++	tst_netdevice_remove_address_inet(__FILE__, __LINE__, (ifname), \
++		(address))
 +
-+/* Wait until data is available for reading from the netlink socket */
-+int tst_rtnl_wait(struct tst_rtnl_context *ctx);
-+#define RTNL_WAIT tst_rtnl_wait
++int tst_netdevice_change_ns_fd(const char *file, const int lineno,
++	const char *ifname, int nsfd);
++#define NETDEVICE_CHANGE_NS_FD(ifname, nsfd) \
++	tst_netdevice_change_ns_fd(__FILE__, __LINE__, (ifname), (nsfd))
 +
-+/*
-+ * Read from netlink socket and return an array of partially parsed messages.
-+ * header == NULL indicates end of array.
-+ */
-+struct tst_rtnl_message *tst_rtnl_recv(const char *file, const int lineno,
-+	struct tst_rtnl_context *ctx);
-+#define RTNL_RECV(ctx) tst_rtnl_recv(__FILE__, __LINE__, (ctx))
-+
-+/* Add new message to buffer */
-+int tst_rtnl_add_message(const char *file, const int lineno,
-+	struct tst_rtnl_context *ctx, const struct nlmsghdr *header,
-+	const void *payload, size_t payload_size);
-+#define RTNL_ADD_MESSAGE(ctx, header, payload, psize) \
-+	tst_rtnl_add_message(__FILE__, __LINE__, (ctx), (header), (payload), \
-+		(psize))
-+
-+/* Add arbitrary attribute to last message */
-+int tst_rtnl_add_attr(const char *file, const int lineno,
-+	struct tst_rtnl_context *ctx, unsigned short type, const void *data,
-+	unsigned short len);
-+#define RTNL_ADD_ATTR(ctx, type, data, len) \
-+	tst_rtnl_add_attr(__FILE__, __LINE__, (ctx), (type), (data), (len))
-+
-+/* Add string attribute to last message */
-+int tst_rtnl_add_attr_string(const char *file, const int lineno,
-+	struct tst_rtnl_context *ctx, unsigned short type, const char *data);
-+#define RTNL_ADD_ATTR_STRING(ctx, type, data) \
-+	tst_rtnl_add_attr_string(__FILE__, __LINE__, (ctx), (type), (data))
++int tst_netdevice_change_ns_pid(const char *file, const int lineno,
++	const char *ifname, pid_t nspid);
++#define NETDEVICE_CHANGE_NS_PID(ifname, nspid) \
++	tst_netdevice_change_ns_pid(__FILE__, __LINE__, (ifname), (nspid))
 +
 +/*
-+ * Add list of arbitrary attributes to last message. The list is terminated
-+ * by attribute with negative length. Nested sublists are supported.
++ * Add new static entry to main routing table. If you specify gateway address,
++ * the interface name is optional.
 + */
-+int tst_rtnl_add_attr_list(const char *file, const int lineno,
-+	struct tst_rtnl_context *ctx, const struct tst_rtnl_attr_list *list);
-+#define RTNL_ADD_ATTR_LIST(ctx, list) \
-+	tst_rtnl_add_attr_list(__FILE__, __LINE__, (ctx), (list))
++int tst_netdevice_add_route(const char *file, const int lineno,
++	const char *ifname, unsigned int family, const void *srcaddr,
++	unsigned int srcprefix, size_t srclen, const void *dstaddr,
++	unsigned int dstprefix, size_t dstlen, const void *gateway,
++	size_t gatewaylen);
++#define NETDEVICE_ADD_ROUTE(ifname, family, srcaddr, srcprefix, srclen, \
++	dstaddr, dstprefix, dstlen, gateway, gatewaylen) \
++	tst_netdevice_add_route(__FILE__, __LINE__, (ifname), (family), \
++		(srcaddr), (srcprefix), (srclen), (dstaddr), (dstprefix), \
++		(dstlen), (gateway), (gatewaylen))
 +
-+/* Check that all sent messages with NLM_F_ACK flag have been acked without
-+ * error. Usage:
-+ *
-+ * tst_rtnl_send(ctx);
-+ * tst_rtnl_wait(ctx);
-+ * response = tst_rtnl_recv(ctx);
-+ * if (!tst_rtnl_check_acks(ctx, response)) { ... }
-+ * tst_rtnl_free_message(response);
++/*
++ * Simplified function for adding IPv4 static route. If you set srcprefix
++ * or dstprefix to 0, the corresponding address will be ignored. Interface
++ * name is optional if gateway address is non-zero.
 + */
-+int tst_rtnl_check_acks(const char *file, const int lineno,
-+	struct tst_rtnl_context *ctx, struct tst_rtnl_message *response);
-+#define RTNL_CHECK_ACKS(ctx, response) \
-+	tst_rtnl_context(__FILE__, __LINE__, (ctx), (response))
++int tst_netdevice_add_route_inet(const char *file, const int lineno,
++	const char *ifname, in_addr_t srcaddr, unsigned int srcprefix,
++	in_addr_t dstaddr, unsigned int dstprefix, in_addr_t gateway);
++#define NETDEVICE_ADD_ROUTE_INET(ifname, srcaddr, srcprefix, dstaddr, \
++	dstprefix, gateway) \
++	tst_netdevice_add_route_inet(__FILE__, __LINE__, (ifname), (srcaddr), \
++		(srcprefix), (dstaddr), (dstprefix), (gateway))
 +
-+#endif /* TST_RTNETLINK_H */
-diff --git a/lib/tst_rtnetlink.c b/lib/tst_rtnetlink.c
++/*
++ * Remove static entry from main routing table.
++ */
++int tst_netdevice_remove_route(const char *file, const int lineno,
++	const char *ifname, unsigned int family, const void *srcaddr,
++	unsigned int srcprefix, size_t srclen, const void *dstaddr,
++	unsigned int dstprefix, size_t dstlen, const void *gateway,
++	size_t gatewaylen);
++#define NETDEVICE_REMOVE_ROUTE(ifname, family, srcaddr, srcprefix, srclen, \
++	dstaddr, dstprefix, dstlen, gateway, gatewaylen) \
++	tst_netdevice_remove_route(__FILE__, __LINE__, (ifname), (family), \
++		(srcaddr), (srcprefix), (srclen), (dstaddr), (dstprefix), \
++		(dstlen), (gateway), (gatewaylen))
++
++/*
++ * Simplified function for removing IPv4 static route.
++ */
++int tst_netdevice_remove_route_inet(const char *file, const int lineno,
++	const char *ifname, in_addr_t srcaddr, unsigned int srcprefix,
++	in_addr_t dstaddr, unsigned int dstprefix, in_addr_t gateway);
++#define NETDEVICE_REMOVE_ROUTE_INET(ifname, srcaddr, srcprefix, dstaddr, \
++	dstprefix, gateway) \
++	tst_netdevice_remove_route_inet(__FILE__, __LINE__, (ifname), \
++		(srcaddr), (srcprefix), (dstaddr), (dstprefix), (gateway))
++
++#endif /* TST_NETDEVICE_H */
+diff --git a/lib/tst_netdevice.c b/lib/tst_netdevice.c
 new file mode 100644
-index 000000000..bb6116d57
+index 000000000..541541b11
 --- /dev/null
-+++ b/lib/tst_rtnetlink.c
-@@ -0,0 +1,399 @@
++++ b/lib/tst_netdevice.c
+@@ -0,0 +1,506 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
 +/*
 + * Copyright (c) 2021 Linux Test Project
 + */
 +
-+#include <stdlib.h>
-+#include <limits.h>
 +#include <asm/types.h>
 +#include <linux/netlink.h>
 +#include <linux/rtnetlink.h>
-+#include <sys/types.h>
++#include <linux/veth.h>
 +#include <sys/socket.h>
-+#include <sys/select.h>
++#include <net/if.h>
 +#define TST_NO_DEFAULT_MAIN
 +#include "tst_test.h"
 +#include "tst_rtnetlink.h"
++#include "tst_netdevice.h"
 +
-+struct tst_rtnl_context {
-+	int socket;
-+	pid_t pid;
-+	uint32_t seq;
-+	size_t bufsize, datalen;
-+	char *buffer;
-+	struct nlmsghdr *curmsg;
-+};
-+
-+static int tst_rtnl_grow_buffer(const char *file, const int lineno,
-+	struct tst_rtnl_context *ctx, size_t size)
++static struct tst_rtnl_context *create_request(const char *file,
++	const int lineno, unsigned int type, unsigned int flags,
++	const void *payload, size_t psize)
 +{
-+	size_t needed, offset, curlen = NLMSG_ALIGN(ctx->datalen);
-+	char *buf;
-+
-+	if (ctx->bufsize - curlen >= size)
-+		return 1;
-+
-+	needed = size - (ctx->bufsize - curlen);
-+	size = ctx->bufsize + (ctx->bufsize > needed ? ctx->bufsize : needed);
-+	size = NLMSG_ALIGN(size);
-+	buf = safe_realloc(file, lineno, ctx->buffer, size);
-+
-+	if (!buf)
-+		return 0;
-+
-+	memset(buf + ctx->bufsize, 0, size - ctx->bufsize);
-+	offset = ((char *)ctx->curmsg) - ctx->buffer;
-+	ctx->buffer = buf;
-+	ctx->curmsg = (struct nlmsghdr *)(buf + offset);
-+	ctx->bufsize = size;
-+	return 1;
-+}
-+
-+struct tst_rtnl_context *tst_rtnl_create_context(const char *file,
-+	const int lineno)
-+{
++	struct nlmsghdr header = {0};
 +	struct tst_rtnl_context *ctx;
-+	struct sockaddr_nl addr = {0};
 +
-+	ctx = safe_malloc(file, lineno, NULL, sizeof(struct tst_rtnl_context));
++	ctx = tst_rtnl_create_context(file, lineno);
 +
 +	if (!ctx)
 +		return NULL;
 +
-+	ctx->pid = 0;
-+	ctx->seq = 0;
-+	ctx->bufsize = 1024;
-+	ctx->datalen = 0;
-+	ctx->curmsg = NULL;
-+	ctx->socket = safe_socket(file, lineno, NULL, AF_NETLINK,
-+		SOCK_DGRAM | SOCK_CLOEXEC, NETLINK_ROUTE);
-+	addr.nl_family = AF_NETLINK;
++	header.nlmsg_type = type;
++	header.nlmsg_flags = NLM_F_REQUEST | NLM_F_ACK | flags;
 +
-+	if (ctx->socket < 0) {
-+		free(ctx);
++	if (!tst_rtnl_add_message(file, lineno, ctx, &header, payload, psize)) {
++		tst_rtnl_free_context(file, lineno, ctx);
 +		return NULL;
 +	}
 +
-+	if (safe_bind(file, lineno, NULL, ctx->socket, (struct sockaddr *)&addr,
-+		sizeof(addr))) {
-+		free(ctx);
-+		return NULL;
-+	}
-+
-+	ctx->buffer = safe_malloc(file, lineno, NULL, ctx->bufsize);
-+
-+	if (!ctx->buffer) {
-+		safe_close(file, lineno, NULL, ctx->socket);
-+		free(ctx);
-+		return NULL;
-+	}
-+
-+	memset(ctx->buffer, 0, ctx->bufsize);
 +	return ctx;
 +}
 +
-+void tst_rtnl_free_message(struct tst_rtnl_message *msg)
++int tst_netdevice_index(const char *file, const int lineno, const char *ifname)
 +{
-+	if (!msg)
-+		return;
++	struct ifreq ifr;
++	int sock;
 +
-+	// all ptr->header and ptr->info pointers point to the same buffer
-+	// msg->header is the start of the buffer
-+	free(msg->header);
-+	free(msg);
++	if (strlen(ifname) >= IFNAMSIZ) {
++		tst_brk_(file, lineno, TBROK,
++			"Network device name \"%s\" too long", ifname);
++		return -1;
++	}
++
++	sock = safe_socket(file, lineno, NULL, AF_INET, SOCK_DGRAM, 0);
++
++	if (sock < 0)
++		return -1;
++
++	strcpy(ifr.ifr_name, ifname);
++	TEST(ioctl(sock, SIOCGIFINDEX, &ifr));
++	safe_close(file, lineno, NULL, sock);
++
++	if (TST_RET < 0) {
++		tst_brk_(file, lineno, TBROK | TTERRNO,
++			"ioctl(SIOCGIFINDEX) failed");
++	} else if (TST_RET) {
++		tst_brk_(file, lineno, TBROK | TTERRNO,
++			"Invalid ioctl(SIOCGIFINDEX) return value %ld",
++			TST_RET);
++	}
++
++	return TST_RET ? -1 : ifr.ifr_ifindex;
 +}
 +
-+void tst_rtnl_free_context(const char *file, const int lineno,
-+	struct tst_rtnl_context *ctx)
++int tst_netdevice_activate(const char *file, const int lineno,
++	const char *ifname, int up)
 +{
-+	safe_close(file, lineno, NULL, ctx->socket);
-+	free(ctx->buffer);
-+	free(ctx);
++	struct ifreq ifr;
++	int sock;
++
++	if (strlen(ifname) >= IFNAMSIZ) {
++		tst_brk_(file, lineno, TBROK,
++			"Network device name \"%s\" too long", ifname);
++		return -1;
++	}
++
++	sock = safe_socket(file, lineno, NULL, AF_INET, SOCK_DGRAM, 0);
++
++	if (sock < 0)
++		return -1;
++
++	strcpy(ifr.ifr_name, ifname);
++	TEST(ioctl(sock, SIOCGIFFLAGS, &ifr));
++
++	if (TST_RET < 0) {
++		safe_close(file, lineno, NULL, sock);
++		tst_brk_(file, lineno, TBROK | TTERRNO,
++			"ioctl(SIOCGIFFLAGS) failed");
++		return TST_RET;
++	}
++
++	if (TST_RET) {
++		safe_close(file, lineno, NULL, sock);
++		tst_brk_(file, lineno, TBROK | TTERRNO,
++			"Invalid ioctl(SIOCGIFFLAGS) return value %ld",
++			TST_RET);
++		return TST_RET;
++	}
++
++	if (up)
++		ifr.ifr_flags |= IFF_UP;
++	else
++		ifr.ifr_flags &= ~IFF_UP;
++
++	TEST(ioctl(sock, SIOCSIFFLAGS, &ifr));
++	safe_close(file, lineno, NULL, sock);
++
++	if (TST_RET < 0) {
++		tst_brk_(file, lineno, TBROK | TTERRNO,
++			"ioctl(SIOCSIFFLAGS) failed");
++	} else if (TST_RET) {
++		tst_brk_(file, lineno, TBROK | TTERRNO,
++			"Invalid ioctl(SIOCSIFFLAGS) return value %ld",
++			TST_RET);
++	}
++
++	return TST_RET;
 +}
 +
-+int tst_rtnl_send(const char *file, const int lineno,
-+	struct tst_rtnl_context *ctx)
++int tst_create_veth_pair(const char *file, const int lineno,
++	const char *ifname1, const char *ifname2)
 +{
-+	struct sockaddr_nl addr = {0};
-+	struct iovec iov;
-+	struct msghdr msg = {0};
 +	int ret;
++	struct ifinfomsg info = {0};
++	struct tst_rtnl_context *ctx;
++	struct tst_rtnl_attr_list peerinfo[] = {
++		{IFLA_IFNAME, ifname2, strlen(ifname2) + 1, NULL},
++		{0, NULL, -1, NULL}
++	};
++	struct tst_rtnl_attr_list peerdata[] = {
++		{VETH_INFO_PEER, &info, sizeof(info), peerinfo},
++		{0, NULL, -1, NULL}
++	};
++	struct tst_rtnl_attr_list attrs[] = {
++		{IFLA_IFNAME, ifname1, strlen(ifname1) + 1, NULL},
++		{IFLA_LINKINFO, NULL, 0, (const struct tst_rtnl_attr_list[]){
++			{IFLA_INFO_KIND, "veth", 4, NULL},
++			{IFLA_INFO_DATA, NULL, 0, peerdata},
++			{0, NULL, -1, NULL}
++		}},
++		{0, NULL, -1, NULL}
++	};
 +
-+	if (!ctx->curmsg) {
-+		tst_brk_(file, lineno, TBROK, "%s(): No message to send",
-+			__func__);
++	if (strlen(ifname1) >= IFNAMSIZ) {
++		tst_brk_(file, lineno, TBROK,
++			"Network device name \"%s\" too long", ifname1);
 +		return 0;
 +	}
 +
-+	if (ctx->curmsg->nlmsg_flags & NLM_F_MULTI) {
-+		size_t size = NLMSG_ALIGN(ctx->curmsg->nlmsg_len);
-+
-+		if (!tst_rtnl_grow_buffer(file, lineno, ctx, NLMSG_SPACE(0)))
-+			return 0;
-+
-+		ctx->curmsg = NLMSG_NEXT(ctx->curmsg, size);
-+		memset(ctx->curmsg, 0, sizeof(struct nlmsghdr));
-+		ctx->curmsg->nlmsg_len = NLMSG_LENGTH(0);
-+		ctx->curmsg->nlmsg_type = NLMSG_DONE;
-+		ctx->curmsg->nlmsg_flags = 0;
-+		ctx->curmsg->nlmsg_seq = ctx->seq++;
-+		ctx->curmsg->nlmsg_pid = ctx->pid;
-+		ctx->datalen = NLMSG_ALIGN(ctx->datalen) + NLMSG_LENGTH(0);
++	if (strlen(ifname2) >= IFNAMSIZ) {
++		tst_brk_(file, lineno, TBROK,
++			"Network device name \"%s\" too long", ifname2);
++		return 0;
 +	}
 +
-+	addr.nl_family = AF_NETLINK;
-+	iov.iov_base = ctx->buffer;
-+	iov.iov_len = ctx->datalen;
-+	msg.msg_name = &addr;
-+	msg.msg_namelen = sizeof(addr);
-+	msg.msg_iov = &iov;
-+	msg.msg_iovlen = 1;
++	info.ifi_family = AF_UNSPEC;
++	ctx = create_request(file, lineno, RTM_NEWLINK,
++		NLM_F_CREATE | NLM_F_EXCL, &info, sizeof(info));
 +
-+	ret = safe_sendmsg(file, lineno, ctx->datalen, ctx->socket, &msg, 0);
++	if (!ctx)
++		return 0;
 +
-+	if (ret > 0)
-+		ctx->curmsg = NULL;
-+
-+	return ret;
-+}
-+
-+int tst_rtnl_wait(struct tst_rtnl_context *ctx)
-+{
-+	fd_set fdlist;
-+	struct timeval timeout = {0};
-+
-+	FD_ZERO(&fdlist);
-+	FD_SET(ctx->socket, &fdlist);
-+	timeout.tv_sec = 1;
-+
-+	return select(ctx->socket + 1, &fdlist, NULL, NULL, &timeout);
-+}
-+
-+struct tst_rtnl_message *tst_rtnl_recv(const char *file, const int lineno,
-+	struct tst_rtnl_context *ctx)
-+{
-+	char *buffer, tmp;
-+	struct tst_rtnl_message *ret;
-+	struct nlmsghdr *ptr;
-+	ssize_t size;
-+	int i, size_left, msgcount;
-+
-+	errno = 0;
-+	size = recv(ctx->socket, &tmp, 1, MSG_DONTWAIT | MSG_PEEK | MSG_TRUNC);
-+
-+	if (size <= 0) {
-+		if (errno != EAGAIN)
-+			tst_brk_(file, lineno, TBROK | TERRNO, "recv() failed");
-+		return NULL;
++	if (tst_rtnl_add_attr_list(file, lineno, ctx, attrs) != 2) {
++		tst_rtnl_free_context(file, lineno, ctx);
++		return 0;
 +	}
 +
-+	buffer = safe_malloc(file, lineno, NULL, size);
-+
-+	if (!buffer)
-+		return NULL;
-+
-+	size = safe_recv(file, lineno, size, ctx->socket, buffer, size, 0);
-+
-+	if (size <= 0) {
-+		free(buffer);
-+		return NULL;
-+	}
-+
-+	ptr = (struct nlmsghdr *)buffer;
-+	size_left = size;
-+	msgcount = 0;
-+
-+	for (; size_left > 0 && NLMSG_OK(ptr, size_left); msgcount++)
-+		ptr = NLMSG_NEXT(ptr, size_left);
-+
-+	ret = safe_malloc(file, lineno, NULL,
-+		(msgcount + 1) * sizeof(struct tst_rtnl_message));
++	ret = tst_rtnl_send_validate(file, lineno, ctx);
++	tst_rtnl_free_context(file, lineno, ctx);
 +
 +	if (!ret) {
-+		free(buffer);
-+		return NULL;
-+	}
-+
-+	memset(ret, 0, (msgcount + 1) * sizeof(struct tst_rtnl_message));
-+	ptr = (struct nlmsghdr *)buffer;
-+	size_left = size;
-+
-+	for (i = 0; i < msgcount; i++, ptr = NLMSG_NEXT(ptr, size_left)) {
-+		ret[i].header = ptr;
-+		ret[i].payload = NLMSG_DATA(ptr);
-+		ret[i].payload_size = NLMSG_PAYLOAD(ptr, 0);
-+
-+		if (ptr->nlmsg_type == NLMSG_ERROR)
-+			ret[i].err = NLMSG_DATA(ptr);
++		tst_brk_(file, lineno, TBROK | TTERRNO,
++			"Failed to create veth interfaces %s+%s", ifname1,
++			ifname2);
 +	}
 +
 +	return ret;
 +}
 +
-+int tst_rtnl_add_message(const char *file, const int lineno,
-+	struct tst_rtnl_context *ctx, const struct nlmsghdr *header,
-+	const void *payload, size_t payload_size)
++int tst_remove_netdevice(const char *file, const int lineno, const char *ifname)
 +{
-+	size_t size;
-+	unsigned int extra_flags = 0;
-+
-+	if (!tst_rtnl_grow_buffer(file, lineno, ctx, NLMSG_SPACE(payload_size)))
-+		return 0;
-+
-+	if (!ctx->curmsg) {
-+		/*
-+		 * datalen may hold the size of last sent message for ACK
-+		 * checking, reset it back to 0 here
-+		 */
-+		ctx->datalen = 0;
-+		ctx->curmsg = (struct nlmsghdr *)ctx->buffer;
-+	} else {
-+		size = NLMSG_ALIGN(ctx->curmsg->nlmsg_len);
-+
-+		extra_flags = NLM_F_MULTI;
-+		ctx->curmsg->nlmsg_flags |= extra_flags;
-+		ctx->curmsg = NLMSG_NEXT(ctx->curmsg, size);
-+		ctx->datalen = NLMSG_ALIGN(ctx->datalen);
-+	}
-+
-+	*ctx->curmsg = *header;
-+	ctx->curmsg->nlmsg_len = NLMSG_LENGTH(payload_size);
-+	ctx->curmsg->nlmsg_flags |= extra_flags;
-+	ctx->curmsg->nlmsg_seq = ctx->seq++;
-+	ctx->curmsg->nlmsg_pid = ctx->pid;
-+	memcpy(NLMSG_DATA(ctx->curmsg), payload, payload_size);
-+	ctx->datalen += ctx->curmsg->nlmsg_len;
-+	return 1;
-+}
-+
-+int tst_rtnl_add_attr(const char *file, const int lineno,
-+	struct tst_rtnl_context *ctx, unsigned short type,
-+	const void *data, unsigned short len)
-+{
-+	size_t size;
-+	struct rtattr *attr;
-+
-+	if (!ctx->curmsg) {
-+		tst_brk_(file, lineno, TBROK,
-+			"%s(): No message to add attributes to", __func__);
-+		return 0;
-+	}
-+
-+	if (!tst_rtnl_grow_buffer(file, lineno, ctx, RTA_SPACE(len)))
-+		return 0;
-+
-+	size = NLMSG_ALIGN(ctx->curmsg->nlmsg_len);
-+	attr = (struct rtattr *)(((char *)ctx->curmsg) + size);
-+	attr->rta_type = type;
-+	attr->rta_len = RTA_LENGTH(len);
-+	memcpy(RTA_DATA(attr), data, len);
-+	ctx->curmsg->nlmsg_len = size + attr->rta_len;
-+	ctx->datalen = NLMSG_ALIGN(ctx->datalen) + attr->rta_len;
-+	return 1;
-+}
-+
-+int tst_rtnl_add_attr_string(const char *file, const int lineno,
-+	struct tst_rtnl_context *ctx, unsigned short type,
-+	const char *data)
-+{
-+	return tst_rtnl_add_attr(file, lineno, ctx, type, data,
-+		strlen(data) + 1);
-+}
-+
-+int tst_rtnl_add_attr_list(const char *file, const int lineno,
-+	struct tst_rtnl_context *ctx,
-+	const struct tst_rtnl_attr_list *list)
-+{
-+	int i, ret;
-+	size_t offset;
-+
-+	for (i = 0; list[i].len >= 0; i++) {
-+		if (list[i].len > USHRT_MAX) {
-+			tst_brk_(file, lineno, TBROK,
-+				"%s(): Attribute value too long", __func__);
-+			return -1;
-+		}
-+
-+		offset = NLMSG_ALIGN(ctx->datalen);
-+		ret = tst_rtnl_add_attr(file, lineno, ctx, list[i].type,
-+			list[i].data, list[i].len);
-+
-+		if (!ret)
-+			return -1;
-+
-+		if (list[i].sublist) {
-+			struct rtattr *attr;
-+
-+			ret = tst_rtnl_add_attr_list(file, lineno, ctx,
-+				list[i].sublist);
-+
-+			if (ret < 0)
-+				return ret;
-+
-+			attr = (struct rtattr *)(ctx->buffer + offset);
-+
-+			if (ctx->datalen - offset > USHRT_MAX) {
-+				tst_brk_(file, lineno, TBROK,
-+					"%s(): Sublist too long", __func__);
-+				return -1;
-+			}
-+
-+			attr->rta_len = ctx->datalen - offset;
-+		}
-+	}
-+
-+	return i;
-+}
-+
-+int tst_rtnl_check_acks(const char *file, const int lineno,
-+	struct tst_rtnl_context *ctx, struct tst_rtnl_message *res)
-+{
-+	struct nlmsghdr *msg = (struct nlmsghdr *)ctx->buffer;
-+	int size_left = ctx->datalen;
-+
-+	for (; size_left > 0 && NLMSG_OK(msg, size_left);
-+		msg = NLMSG_NEXT(msg, size_left)) {
-+
-+		if (!(msg->nlmsg_flags & NLM_F_ACK))
-+			continue;
-+
-+		while (res->header && res->header->nlmsg_seq != msg->nlmsg_seq)
-+			res++;
-+
-+		if (!res->err || res->header->nlmsg_seq != msg->nlmsg_seq) {
-+			tst_brk_(file, lineno, TBROK,
-+				"No ACK found for Netlink message %u",
-+				msg->nlmsg_seq);
-+			return 0;
-+		}
-+
-+		if (res->err->error) {
-+			TST_ERR = -res->err->error;
-+			return 0;
-+		}
-+	}
-+
-+	return 1;
-+}
-+
-+int tst_rtnl_send_validate(const char *file, const int lineno,
-+	struct tst_rtnl_context *ctx)
-+{
-+	struct tst_rtnl_message *response;
++	struct ifinfomsg info = {0};
++	struct tst_rtnl_context *ctx;
 +	int ret;
 +
-+	TST_ERR = 0;
++	if (strlen(ifname) >= IFNAMSIZ) {
++		tst_brk_(file, lineno, TBROK,
++			"Network device name \"%s\" too long", ifname);
++		return 0;
++	}
 +
-+	if (tst_rtnl_send(file, lineno, ctx) <= 0)
++	info.ifi_family = AF_UNSPEC;
++	ctx = create_request(file, lineno, RTM_DELLINK, 0, &info, sizeof(info));
++
++	if (!ctx)
 +		return 0;
 +
-+	tst_rtnl_wait(ctx);
-+	response = tst_rtnl_recv(file, lineno, ctx);
-+
-+	if (!response)
++	if (!tst_rtnl_add_attr_string(file, lineno, ctx, IFLA_IFNAME, ifname)) {
++		tst_rtnl_free_context(file, lineno, ctx);
 +		return 0;
++	}
 +
-+	ret = tst_rtnl_check_acks(file, lineno, ctx, response);
-+	tst_rtnl_free_message(response);
++	ret = tst_rtnl_send_validate(file, lineno, ctx);
++	tst_rtnl_free_context(file, lineno, ctx);
++
++	if (!ret) {
++		tst_brk_(file, lineno, TBROK | TTERRNO,
++			"Failed to remove netdevice %s", ifname);
++	}
++
 +	return ret;
++}
++
++static int modify_address(const char *file, const int lineno,
++	unsigned int action, unsigned int nl_flags, const char *ifname,
++	unsigned int family, const void *address, unsigned int prefix,
++	size_t addrlen, uint32_t addr_flags)
++{
++	struct ifaddrmsg info = {0};
++	struct tst_rtnl_context *ctx;
++	int index, ret;
++
++	index = tst_netdevice_index(file, lineno, ifname);
++
++	if (index < 0) {
++		tst_brk_(file, lineno, TBROK, "Interface %s not found", ifname);
++		return 0;
++	}
++
++	info.ifa_family = family;
++	info.ifa_prefixlen = prefix;
++	info.ifa_index = index;
++	ctx = create_request(file, lineno, action, nl_flags, &info,
++		sizeof(info));
++
++	if (!ctx)
++		return 0;
++
++
++	if (!tst_rtnl_add_attr(file, lineno, ctx, IFA_FLAGS, &addr_flags,
++		sizeof(uint32_t))) {
++		tst_rtnl_free_context(file, lineno, ctx);
++		return 0;
++	}
++
++	if (!tst_rtnl_add_attr(file, lineno, ctx, IFA_LOCAL, address,
++		addrlen)) {
++		tst_rtnl_free_context(file, lineno, ctx);
++		return 0;
++	}
++
++	ret = tst_rtnl_send_validate(file, lineno, ctx);
++	tst_rtnl_free_context(file, lineno, ctx);
++
++	if (!ret) {
++		tst_brk_(file, lineno, TBROK | TTERRNO,
++			"Failed to modify %s network address", ifname);
++	}
++
++	return ret;
++}
++
++int tst_netdevice_add_address(const char *file, const int lineno,
++	const char *ifname, unsigned int family, const void *address,
++	unsigned int prefix, size_t addrlen, unsigned int flags)
++{
++	return modify_address(file, lineno, RTM_NEWADDR,
++		NLM_F_CREATE | NLM_F_EXCL, ifname, family, address, prefix,
++		addrlen, flags);
++}
++
++int tst_netdevice_add_address_inet(const char *file, const int lineno,
++	const char *ifname, in_addr_t address, unsigned int prefix,
++	unsigned int flags)
++{
++	return tst_netdevice_add_address(file, lineno, ifname, AF_INET,
++		&address, prefix, sizeof(address), flags);
++}
++
++int tst_netdevice_remove_address(const char *file, const int lineno,
++	const char *ifname, unsigned int family, const void *address,
++	size_t addrlen)
++{
++	return modify_address(file, lineno, RTM_DELADDR, 0, ifname, family,
++		address, 0, addrlen, 0);
++}
++
++int tst_netdevice_remove_address_inet(const char *file, const int lineno,
++	const char *ifname, in_addr_t address)
++{
++	return tst_netdevice_remove_address(file, lineno, ifname, AF_INET,
++		&address, sizeof(address));
++}
++
++static int change_ns(const char *file, const int lineno, const char *ifname,
++	unsigned short attr, uint32_t value)
++{
++	struct ifinfomsg info = {0};
++	struct tst_rtnl_context *ctx;
++	int ret;
++
++	if (strlen(ifname) >= IFNAMSIZ) {
++		tst_brk_(file, lineno, TBROK,
++			"Network device name \"%s\" too long", ifname);
++		return 0;
++	}
++
++	info.ifi_family = AF_UNSPEC;
++	ctx = create_request(file, lineno, RTM_NEWLINK, 0, &info, sizeof(info));
++
++	if (!tst_rtnl_add_attr_string(file, lineno, ctx, IFLA_IFNAME, ifname)) {
++		tst_rtnl_free_context(file, lineno, ctx);
++		return 0;
++	}
++
++	if (!tst_rtnl_add_attr(file, lineno, ctx, attr, &value,
++		sizeof(uint32_t))) {
++		tst_rtnl_free_context(file, lineno, ctx);
++		return 0;
++	}
++
++	ret = tst_rtnl_send_validate(file, lineno, ctx);
++	tst_rtnl_free_context(file, lineno, ctx);
++
++	if (!ret) {
++		tst_brk_(file, lineno, TBROK | TTERRNO,
++			"Failed to move %s to another namespace", ifname);
++	}
++
++	return ret;
++}
++
++int tst_netdevice_change_ns_fd(const char *file, const int lineno,
++	const char *ifname, int nsfd)
++{
++	return change_ns(file, lineno, ifname, IFLA_NET_NS_FD, nsfd);
++}
++
++int tst_netdevice_change_ns_pid(const char *file, const int lineno,
++	const char *ifname, pid_t nspid)
++{
++	return change_ns(file, lineno, ifname, IFLA_NET_NS_PID, nspid);
++}
++
++static int modify_route(const char *file, const int lineno, unsigned int action,
++	unsigned int flags, const char *ifname, unsigned int family,
++	const void *srcaddr, unsigned int srcprefix, size_t srclen,
++	const void *dstaddr, unsigned int dstprefix, size_t dstlen,
++	const void *gateway, size_t gatewaylen)
++{
++	struct rtmsg info = {0};
++	struct tst_rtnl_context *ctx;
++	int ret;
++	int32_t index;
++
++	if (!ifname && !gateway) {
++		tst_brk_(file, lineno, TBROK,
++			"Interface name or gateway address required");
++		return 0;
++	}
++
++	if (ifname && strlen(ifname) >= IFNAMSIZ) {
++		tst_brk_(file, lineno, TBROK,
++			"Network device name \"%s\" too long", ifname);
++		return 0;
++	}
++
++	if (ifname) {
++		index = tst_netdevice_index(file, lineno, ifname);
++
++		if (index < 0)
++			return 0;
++	}
++
++	info.rtm_family = family;
++	info.rtm_dst_len = dstprefix;
++	info.rtm_src_len = srcprefix;
++	info.rtm_table = RT_TABLE_MAIN;
++	info.rtm_protocol = RTPROT_STATIC;
++	info.rtm_type = RTN_UNICAST;
++
++	if (action == RTM_DELROUTE) {
++		tst_res_(file, lineno, TINFO, "DELROUTE");
++		info.rtm_scope = RT_SCOPE_NOWHERE;
++	} else {
++		tst_res_(file, lineno, TINFO, "ADDROUTE");
++		info.rtm_scope = RT_SCOPE_UNIVERSE;
++	}
++
++	ctx = create_request(file, lineno, action, flags, &info, sizeof(info));
++
++	if (srcaddr && !tst_rtnl_add_attr(file, lineno, ctx, RTA_SRC, srcaddr,
++		srclen)) {
++		tst_rtnl_free_context(file, lineno, ctx);
++		return 0;
++	}
++
++	if (dstaddr && !tst_rtnl_add_attr(file, lineno, ctx, RTA_DST, dstaddr,
++		dstlen)) {
++		tst_rtnl_free_context(file, lineno, ctx);
++		return 0;
++	}
++
++	if (gateway && !tst_rtnl_add_attr(file, lineno, ctx, RTA_GATEWAY,
++		gateway, gatewaylen)) {
++		tst_rtnl_free_context(file, lineno, ctx);
++		return 0;
++	}
++
++	if (ifname && !tst_rtnl_add_attr(file, lineno, ctx, RTA_OIF, &index,
++		sizeof(index))) {
++		tst_rtnl_free_context(file, lineno, ctx);
++		return 0;
++	}
++
++	ret = tst_rtnl_send_validate(file, lineno, ctx);
++	tst_rtnl_free_context(file, lineno, ctx);
++
++	if (!ret) {
++		tst_brk_(file, lineno, TBROK | TTERRNO,
++			"Failed to modify network route");
++	}
++
++	return ret;
++}
++
++int tst_netdevice_add_route(const char *file, const int lineno,
++	const char *ifname, unsigned int family, const void *srcaddr,
++	unsigned int srcprefix, size_t srclen, const void *dstaddr,
++	unsigned int dstprefix, size_t dstlen, const void *gateway,
++	size_t gatewaylen)
++{
++	return modify_route(file, lineno, RTM_NEWROUTE,
++		NLM_F_CREATE | NLM_F_EXCL, ifname, family, srcaddr, srcprefix,
++		srclen, dstaddr, dstprefix, dstlen, gateway, gatewaylen);
++}
++
++int tst_netdevice_add_route_inet(const char *file, const int lineno,
++	const char *ifname, in_addr_t srcaddr, unsigned int srcprefix,
++	in_addr_t dstaddr, unsigned int dstprefix, in_addr_t gateway)
++{
++	void *src = NULL, *dst = NULL, *gw = NULL;
++	size_t srclen = 0, dstlen = 0, gwlen = 0;
++
++	if (srcprefix) {
++		src = &srcaddr;
++		srclen = sizeof(srcaddr);
++	}
++
++	if (dstprefix) {
++		dst = &dstaddr;
++		dstlen = sizeof(dstaddr);
++	}
++
++	if (gateway) {
++		gw = &gateway;
++		gwlen = sizeof(gateway);
++	}
++
++	return tst_netdevice_add_route(file, lineno, ifname, AF_INET, src,
++		srcprefix, srclen, dst, dstprefix, dstlen, gw, gwlen);
++}
++
++int tst_netdevice_remove_route(const char *file, const int lineno,
++	const char *ifname, unsigned int family, const void *srcaddr,
++	unsigned int srcprefix, size_t srclen, const void *dstaddr,
++	unsigned int dstprefix, size_t dstlen, const void *gateway,
++	size_t gatewaylen)
++{
++	return modify_route(file, lineno, RTM_DELROUTE, 0, ifname, family,
++		srcaddr, srcprefix, srclen, dstaddr, dstprefix, dstlen,
++		gateway, gatewaylen);
++}
++
++int tst_netdevice_remove_route_inet(const char *file, const int lineno,
++	const char *ifname, in_addr_t srcaddr, unsigned int srcprefix,
++	in_addr_t dstaddr, unsigned int dstprefix, in_addr_t gateway)
++{
++	void *src = NULL, *dst = NULL, *gw = NULL;
++	size_t srclen = 0, dstlen = 0, gwlen = 0;
++
++	if (srcprefix) {
++		src = &srcaddr;
++		srclen = sizeof(srcaddr);
++	}
++
++	if (dstprefix) {
++		dst = &dstaddr;
++		dstlen = sizeof(dstaddr);
++	}
++
++	if (gateway) {
++		gw = &gateway;
++		gwlen = sizeof(gateway);
++	}
++
++	return tst_netdevice_remove_route(file, lineno, ifname, AF_INET, src,
++		srcprefix, srclen, dst, dstprefix, dstlen, gw, gwlen);
 +}
 -- 
 2.31.1
