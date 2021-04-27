@@ -1,58 +1,62 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 851BB36BCF0
-	for <lists+linux-ltp@lfdr.de>; Tue, 27 Apr 2021 03:35:24 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D45636BD04
+	for <lists+linux-ltp@lfdr.de>; Tue, 27 Apr 2021 03:49:17 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 05AF13C6778
-	for <lists+linux-ltp@lfdr.de>; Tue, 27 Apr 2021 03:35:24 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 2EA7C3C674D
+	for <lists+linux-ltp@lfdr.de>; Tue, 27 Apr 2021 03:49:17 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 7F7393C19BB
- for <ltp@lists.linux.it>; Tue, 27 Apr 2021 03:35:16 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 3E0C93C6745
+ for <ltp@lists.linux.it>; Tue, 27 Apr 2021 03:49:15 +0200 (CEST)
 Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 144782009AB
- for <ltp@lists.linux.it>; Tue, 27 Apr 2021 03:35:14 +0200 (CEST)
-Received: from dggeml763-chm.china.huawei.com (unknown [172.30.72.55])
- by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4FTklv1GF5z5vhY
- for <ltp@lists.linux.it>; Tue, 27 Apr 2021 09:32:43 +0800 (CST)
-Received: from dggemi762-chm.china.huawei.com (10.1.198.148) by
- dggeml763-chm.china.huawei.com (10.1.199.173) with Microsoft SMTP Server
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id B97791A00A43
+ for <ltp@lists.linux.it>; Tue, 27 Apr 2021 03:49:13 +0200 (CEST)
+Received: from dggeml712-chm.china.huawei.com (unknown [172.30.72.53])
+ by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4FTl4170Dqz5vqd
+ for <ltp@lists.linux.it>; Tue, 27 Apr 2021 09:46:41 +0800 (CST)
+Received: from dggpemm100004.china.huawei.com (7.185.36.189) by
+ dggeml712-chm.china.huawei.com (10.3.17.123) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.2176.2; Tue, 27 Apr 2021 09:35:10 +0800
-Received: from [10.174.178.100] (10.174.178.100) by
- dggemi762-chm.china.huawei.com (10.1.198.148) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.2176.2; Tue, 27 Apr 2021 09:35:10 +0800
-To: <ltp@lists.linux.it>
-References: <1617701249-62196-1-git-send-email-zou_wei@huawei.com>
-From: Samuel Zou <zou_wei@huawei.com>
-Message-ID: <437bb60b-4f97-4884-8713-c7b619dab211@huawei.com>
-Date: Tue, 27 Apr 2021 09:35:09 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+ 15.1.2176.2; Tue, 27 Apr 2021 09:49:09 +0800
+Received: from dggpemm500022.china.huawei.com (7.185.36.162) by
+ dggpemm100004.china.huawei.com (7.185.36.189) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2176.2; Tue, 27 Apr 2021 09:49:09 +0800
+Received: from dggpemm500022.china.huawei.com ([7.185.36.162]) by
+ dggpemm500022.china.huawei.com ([7.185.36.162]) with mapi id 15.01.2176.012;
+ Tue, 27 Apr 2021 09:49:09 +0800
+From: xieziyao <xieziyao@huawei.com>
+To: Petr Vorel <pvorel@suse.cz>
+Thread-Topic: [LTP] [PATCH 1/2] syscalls/tkill: Convert tkill01 to the new API
+Thread-Index: AQHXOodtHJQpDaXDiE2dlym0ml+YgarGo6xg//+YAwCAAU/2wA==
+Date: Tue, 27 Apr 2021 01:49:08 +0000
+Message-ID: <a4618c19e3934127ad6ea9fd6afd233c@huawei.com>
+References: <20210422065732.61222-1-xieziyao@huawei.com>
+ <20210422065732.61222-2-xieziyao@huawei.com> <YIaWnt5ksxVyBvxk@pevik>
+ <ae16017b01474cbb9d4d0e74e473a7c4@huawei.com> <YIa4PuDonH1Jwnlc@pevik>
+In-Reply-To: <YIa4PuDonH1Jwnlc@pevik>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.67.109.194]
 MIME-Version: 1.0
-In-Reply-To: <1617701249-62196-1-git-send-email-zou_wei@huawei.com>
-Content-Language: en-US
-X-Originating-IP: [10.174.178.100]
-X-ClientProxiedBy: dggems705-chm.china.huawei.com (10.3.19.182) To
- dggemi762-chm.china.huawei.com (10.1.198.148)
 X-CFilter-Loop: Reflected
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] cpuset_hotplug_test/cpuset_hotplug: Fix bug for
- obtaining task_cpus value in root_cpu_hotplug_test
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/2] syscalls/tkill: Convert tkill01 to the new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,70 +68,55 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
+Hi, Petr, Cyril,
 
-A friendly reminder for the two patchs in:
+I think adding usleep(1000) in while loop is a good idea, thanks.
 
-https://patchwork.ozlabs.org/project/ltp/patch/1617707717-63693-1-git-send-email-zou_wei@huawei.com/
+Best Regards,
+Ziyao
 
-https://patchwork.ozlabs.org/project/ltp/patch/1617701249-62196-1-git-send-email-zou_wei@huawei.com/
+-----Original Message-----
+From: Petr Vorel [mailto:pvorel@suse.cz] 
+Sent: Monday, April 26, 2021 8:55 PM
+To: xieziyao <xieziyao@huawei.com>
+Cc: ltp@lists.linux.it; Cyril Hrubis <chrubis@suse.cz>
+Subject: Re: [LTP] [PATCH 1/2] syscalls/tkill: Convert tkill01 to the new API
 
-Can someone please review the patchs, comment, and if appropriate commit
-them?
+> Hi,
 
-Regards,
-Zou Wei
+> Thanks for your review, Petr.
 
-On 2021/4/6 17:27, Zou Wei wrote:
-> --------------------------
-> 
-> 1. The method of obtaining $task_cpus from root_cpu_hotplug_test is
-> incorrect, because the value of Cpus_allowed_list is related
-> to /sys/devices/system/cpu/possible and
-> /sys/devices/system/cpu/isolated.
-> 
-> 2. If isolcpus is configured in cmdline, the value of
-> Cpus_allowed_list is equal to /sys/devices/system/cpu/possible minus
-> /sys/devices/system/cpu/isolated. In this case, $task_cpus is inconsistent
-> with $expect_task_cpus, test will be failed.
-> 
-> 3. Need to change the method of obtaining $task_cpu
-> from /sys/devices/system/cpu/present.
-> 
-> 4. The description of cpu_present_mask:
->     Bitmap of CPUs currently present in the system.
->     Not all of them may be online. When physical hotplug is processed
->     by the relevant subsystem (e.g ACPI) can change and new bit either be
->     added or removed from the map depending on the event is
->     hot-add/hot-remove. There are currently no locking rules as of now.
->     Typical usage is to init topology during boot,
->     at which time hotplug is disabled.
-> 
-> Signed-off-by: Zou Wei <zou_wei@huawei.com>
-> ---
->   .../controllers/cpuset/cpuset_hotplug_test/cpuset_hotplug_test.sh      | 3 +--
->   1 file changed, 1 insertion(+), 2 deletions(-)
-> 
-> diff --git a/testcases/kernel/controllers/cpuset/cpuset_hotplug_test/cpuset_hotplug_test.sh b/testcases/kernel/controllers/cpuset/cpuset_hotplug_test/cpuset_hotplug_test.sh
-> index 155e536..2c6993a 100755
-> --- a/testcases/kernel/controllers/cpuset/cpuset_hotplug_test/cpuset_hotplug_test.sh
-> +++ b/testcases/kernel/controllers/cpuset/cpuset_hotplug_test/cpuset_hotplug_test.sh
-> @@ -93,8 +93,7 @@ root_cpu_hotplug_test()
->   
->   	root_cpus="`cat $CPUSET/cpuset.cpus`"
->   
-> -	task_cpus="`cat /proc/$tst_pid/status | grep Cpus_allowed_list`"
-> -	task_cpus="`echo $task_cpus | sed -e 's/Cpus_allowed_list: //'`"
-> +	task_cpus="`cat /sys/devices/system/cpu/present`"
->   
->   	check_result "$root_cpus" "$expect_cpus"
->   	ret=$?
-> 
+> > +	TEST(tst_syscall(__NR_tkill, tid, SIGUSR1));
+> > +	if (TST_RET == 0) {
+> > +		while (!sig_flag);
+
+> This while loop is written to check whether the sighandler function captures the SIGUSR1 signal and set sig_flag to 1.
+
+Oh, correct. But not sure if it's good to use plain while.
+Maybe using usleep(1000) in while loop?
+
+TST_EXP_PASS(tst_syscall(__NR_tkill, tid, SIGUSR1));
+
+while (!sig_flag)
+	usleep(1000);
+
+Kind regards,
+Petr
+
+> > +		tst_res(TPASS, "tst_syscall(__NR_tkill, %d, SIGUSR1)", tid);
+> > +	} else {
+> > +		tst_res(TFAIL | TTERRNO,
+> > +			"tst_syscall(__NR_tkill, %d, SIGUSR1)", tid);
+> >  	}
+> > -	cleanup();
+> > -	tst_exit();
+> >  }
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
