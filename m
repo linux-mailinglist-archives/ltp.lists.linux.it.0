@@ -1,64 +1,46 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C64C36BD24
-	for <lists+linux-ltp@lfdr.de>; Tue, 27 Apr 2021 04:07:57 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id D3F2736BD60
+	for <lists+linux-ltp@lfdr.de>; Tue, 27 Apr 2021 04:34:31 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id EF5BC3C6774
-	for <lists+linux-ltp@lfdr.de>; Tue, 27 Apr 2021 04:07:56 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 9A7C13C6743
+	for <lists+linux-ltp@lfdr.de>; Tue, 27 Apr 2021 04:34:31 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 04C423C1935
- for <ltp@lists.linux.it>; Tue, 27 Apr 2021 04:07:51 +0200 (CEST)
-Received: from szxga03-in.huawei.com (szxga03-in.huawei.com [45.249.212.189])
+ by picard.linux.it (Postfix) with ESMTPS id 262C73C2339
+ for <ltp@lists.linux.it>; Tue, 27 Apr 2021 04:34:27 +0200 (CEST)
+Received: from szxga06-in.huawei.com (szxga06-in.huawei.com [45.249.212.32])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id DD73D140099D
- for <ltp@lists.linux.it>; Tue, 27 Apr 2021 04:07:49 +0200 (CEST)
-Received: from dggeml765-chm.china.huawei.com (unknown [172.30.72.54])
- by szxga03-in.huawei.com (SkyGuard) with ESMTP id 4FTlSj5TdKz5vFW
- for <ltp@lists.linux.it>; Tue, 27 Apr 2021 10:04:37 +0800 (CST)
-Received: from dggpemm500004.china.huawei.com (7.185.36.219) by
- dggeml765-chm.china.huawei.com (10.1.199.175) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.2176.2; Tue, 27 Apr 2021 10:07:43 +0800
-Received: from dggpemm500022.china.huawei.com (7.185.36.162) by
- dggpemm500004.china.huawei.com (7.185.36.219) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2176.2; Tue, 27 Apr 2021 10:07:43 +0800
-Received: from dggpemm500022.china.huawei.com ([7.185.36.162]) by
- dggpemm500022.china.huawei.com ([7.185.36.162]) with mapi id 15.01.2176.012;
- Tue, 27 Apr 2021 10:07:43 +0800
-From: xieziyao <xieziyao@huawei.com>
-To: Cyril Hrubis <chrubis@suse.cz>
-Thread-Topic: [LTP][PATCH 2/2] syscalls/sendfile: Convert sendfile07 to the
- new API
-Thread-Index: AQHXOngO1r9US9XrHEysxpZBQMK8uKrGReiAgAFX5VA=
-Date: Tue, 27 Apr 2021 02:07:43 +0000
-Message-ID: <469bfcb3d03f4380859b8bb3b0dfcc64@huawei.com>
-References: <20210426084215.259071-1-xieziyao@huawei.com>
- <20210426084215.259071-3-xieziyao@huawei.com> <YIbAtwDn4YGukFGE@yuki>
-In-Reply-To: <YIbAtwDn4YGukFGE@yuki>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.67.109.194]
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id BA8DC600209
+ for <ltp@lists.linux.it>; Tue, 27 Apr 2021 04:34:25 +0200 (CEST)
+Received: from DGGEMS402-HUB.china.huawei.com (unknown [172.30.72.59])
+ by szxga06-in.huawei.com (SkyGuard) with ESMTP id 4FTm4h5MKZzlb3D
+ for <ltp@lists.linux.it>; Tue, 27 Apr 2021 10:32:20 +0800 (CST)
+Received: from linux-lmwb.huawei.com (10.175.103.112) by
+ DGGEMS402-HUB.china.huawei.com (10.3.19.202) with Microsoft SMTP Server id
+ 14.3.498.0; Tue, 27 Apr 2021 10:34:13 +0800
+From: Wang Xin <wangxin410@huawei.com>
+To: <ltp@lists.linux.it>
+Date: Tue, 27 Apr 2021 10:51:23 +0800
+Message-ID: <1619491883-69694-1-git-send-email-wangxin410@huawei.com>
+X-Mailer: git-send-email 2.6.2
 MIME-Version: 1.0
+X-Originating-IP: [10.175.103.112]
 X-CFilter-Loop: Reflected
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 2/2] syscalls/sendfile: Convert sendfile07 to the
- new API
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH] openposix/conformance/interfaces: Correct typos
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,37 +52,190 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
+Cc: Wang Xin <wangxin410@huawei.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi, Cyril,
+Types in the name of the temporary files: For example, in aio_cancel/8-1.c file,
+pts_aio_cancel_1_1 -> pts_aio_cancel_8_1.
+Others like this have been modified.
 
-Nice modification, thank you. I'll look at this type of interface function and pay attention next time.
+Signed-off-by: Wang Xin <wangxin410@huawei.com>
+---
+ v4 -> v3: rebase and resent this patch on the latest main branch.
 
-Best Regards,
-Ziyao
+ testcases/open_posix_testsuite/conformance/interfaces/aio_cancel/8-1.c  | 2 +-
+ testcases/open_posix_testsuite/conformance/interfaces/aio_read/9-1.c    | 2 +-
+ testcases/open_posix_testsuite/conformance/interfaces/aio_return/4-1.c  | 2 +-
+ testcases/open_posix_testsuite/conformance/interfaces/aio_suspend/3-1.c | 2 +-
+ testcases/open_posix_testsuite/conformance/interfaces/aio_write/7-1.c   | 2 +-
+ testcases/open_posix_testsuite/conformance/interfaces/lio_listio/5-1.c  | 2 +-
+ testcases/open_posix_testsuite/conformance/interfaces/lio_listio/7-1.c  | 2 +-
+ testcases/open_posix_testsuite/conformance/interfaces/mmap/11-6.c       | 2 +-
+ testcases/open_posix_testsuite/conformance/interfaces/mmap/32-1.c       | 2 +-
+ testcases/open_posix_testsuite/conformance/interfaces/mmap/6-3.c        | 2 +-
+ testcases/open_posix_testsuite/conformance/interfaces/munmap/1-2.c      | 2 +-
+ testcases/open_posix_testsuite/conformance/interfaces/munmap/3-1.c      | 2 +-
+ testcases/open_posix_testsuite/conformance/interfaces/munmap/9-1.c      | 2 +-
+ 13 files changed, 13 insertions(+), 13 deletions(-)
 
------Original Message-----
-From: Cyril Hrubis [mailto:chrubis@suse.cz] 
-Sent: Monday, April 26, 2021 9:32 PM
-To: xieziyao <xieziyao@huawei.com>
-Cc: ltp@lists.linux.it
-Subject: Re: [LTP][PATCH 2/2] syscalls/sendfile: Convert sendfile07 to the new API
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/aio_cancel/8-1.c b/testcases/open_posix_testsuite/conformance/interfaces/aio_cancel/8-1.c
+index 139e9b5..f11e067 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/aio_cancel/8-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/aio_cancel/8-1.c
+@@ -50,7 +50,7 @@ int main(void)
+ 	if (sysconf(_SC_ASYNCHRONOUS_IO) < 200112L)
+ 		return PTS_UNSUPPORTED;
+-	PTS_GET_TMP_FILENAME(tmpfname, "pts_aio_cancel_1_1");
++	PTS_GET_TMP_FILENAME(tmpfname, "pts_aio_cancel_8_1");
+ 	unlink(tmpfname);
+ 	fd = open(tmpfname, O_CREAT | O_RDWR | O_EXCL, S_IRUSR | S_IWUSR);
+ 	if (fd == -1) {
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/aio_read/9-1.c b/testcases/open_posix_testsuite/conformance/interfaces/aio_read/9-1.c
+index 5b980be..e1ae59e 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/aio_read/9-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/aio_read/9-1.c
+@@ -55,7 +55,7 @@ int main(void)
+ 	    || sysconf(_SC_AIO_MAX) == -1)
+ 		return PTS_UNSUPPORTED;
+-	PTS_GET_TMP_FILENAME(tmpfname, "pts_aio_write_4_1");
++	PTS_GET_TMP_FILENAME(tmpfname, "pts_aio_read_9_1");
+ 	unlink(tmpfname);
+ 	fd = open(tmpfname, O_CREAT | O_RDWR | O_EXCL, S_IRUSR | S_IWUSR);
+ 	if (fd == -1) {
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/aio_return/4-1.c b/testcases/open_posix_testsuite/conformance/interfaces/aio_return/4-1.c
+index f380531..a243b3e 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/aio_return/4-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/aio_return/4-1.c
+@@ -50,7 +50,7 @@ int main(void)
+ 	if (sysconf(_SC_ASYNCHRONOUS_IO) < 200112L)
+ 		return PTS_UNSUPPORTED;
+-	PTS_GET_TMP_FILENAME(tmpfname, "pts_aio_return_2_1");
++	PTS_GET_TMP_FILENAME(tmpfname, "pts_aio_return_4_1");
+ 	unlink(tmpfname);
+ 	fd = open(tmpfname, O_CREAT | O_RDWR | O_EXCL, S_IRUSR | S_IWUSR);
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/aio_suspend/3-1.c b/testcases/open_posix_testsuite/conformance/interfaces/aio_suspend/3-1.c
+index ed8173e..615b97d 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/aio_suspend/3-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/aio_suspend/3-1.c
+@@ -53,7 +53,7 @@ int main(void)
+ 	if (sysconf(_SC_ASYNCHRONOUS_IO) < 200112L)
+ 		return PTS_UNSUPPORTED;
+-	PTS_GET_TMP_FILENAME(tmpfname, "pts_aio_suspend_2_1");
++	PTS_GET_TMP_FILENAME(tmpfname, "pts_aio_suspend_3_1");
+ 	unlink(tmpfname);
+ 	fd = open(tmpfname, O_CREAT | O_RDWR | O_EXCL, S_IRUSR | S_IWUSR);
+ 	if (fd == -1) {
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/aio_write/7-1.c b/testcases/open_posix_testsuite/conformance/interfaces/aio_write/7-1.c
+index 5311a4a..277573a 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/aio_write/7-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/aio_write/7-1.c
+@@ -55,7 +55,7 @@ int main(void)
+ 	    || sysconf(_SC_AIO_MAX) == -1)
+ 		return PTS_UNSUPPORTED;
+-	PTS_GET_TMP_FILENAME(tmpfname, "pts_aio_write_4_1");
++	PTS_GET_TMP_FILENAME(tmpfname, "pts_aio_write_7_1");
+ 	unlink(tmpfname);
+ 	fd = open(tmpfname, O_CREAT | O_RDWR | O_EXCL, S_IRUSR | S_IWUSR);
+ 	if (fd == -1) {
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/lio_listio/5-1.c b/testcases/open_posix_testsuite/conformance/interfaces/lio_listio/5-1.c
+index e445773..7eb6448 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/lio_listio/5-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/lio_listio/5-1.c
+@@ -55,7 +55,7 @@ int main(void)
+ 	if (sysconf(_SC_ASYNCHRONOUS_IO) < 200112L)
+ 		exit(PTS_UNSUPPORTED);
+-	PTS_GET_TMP_FILENAME(tmpfname, "pts_lio_listio_4_1");
++	PTS_GET_TMP_FILENAME(tmpfname, "pts_lio_listio_5_1");
+ 	unlink(tmpfname);
+ 	fd = open(tmpfname, O_CREAT | O_RDWR | O_EXCL, S_IRUSR | S_IWUSR);
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/lio_listio/7-1.c b/testcases/open_posix_testsuite/conformance/interfaces/lio_listio/7-1.c
+index 444555e..4e8afb6 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/lio_listio/7-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/lio_listio/7-1.c
+@@ -73,7 +73,7 @@ int main(void)
+ 	if (sysconf(_SC_ASYNCHRONOUS_IO) < 200112L)
+ 		exit(PTS_UNSUPPORTED);
+-	PTS_GET_TMP_FILENAME(tmpfname, "pts_lio_listio_4_1");
++	PTS_GET_TMP_FILENAME(tmpfname, "pts_lio_listio_7_1");
+ 	unlink(tmpfname);
+ 	fd = open(tmpfname, O_CREAT | O_RDWR | O_EXCL, S_IRUSR | S_IWUSR);
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/mmap/11-6.c b/testcases/open_posix_testsuite/conformance/interfaces/mmap/11-6.c
+index 2aea927..d1f8991 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/mmap/11-6.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/mmap/11-6.c
+@@ -59,7 +59,7 @@ int main(void)
+ 	/* mmap will create a partial page */
+ 	len = page_size / 2;
+-	PTS_GET_TMP_FILENAME(tmpfname, "pts_mmap_11_5");
++	PTS_GET_TMP_FILENAME(tmpfname, "pts_mmap_11_6");
+ 	child = fork();
+ 	switch (child) {
+ 	case 0:
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/mmap/32-1.c b/testcases/open_posix_testsuite/conformance/interfaces/mmap/32-1.c
+index bb3ab74..d58fc8c 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/mmap/32-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/mmap/32-1.c
+@@ -31,7 +31,7 @@ int main(void)
+ 	void *pa;
+ 	int fd;
+-	PTS_GET_TMP_FILENAME(tmpfname, "pts_mmap_31_1");
++	PTS_GET_TMP_FILENAME(tmpfname, "pts_mmap_32_1");
+ 	unlink(tmpfname);
+ 	fd = open(tmpfname, O_CREAT | O_RDWR | O_EXCL, S_IRUSR | S_IWUSR);
+ 	if (fd == -1) {
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/mmap/6-3.c b/testcases/open_posix_testsuite/conformance/interfaces/mmap/6-3.c
+index b38833b..9aef16c 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/mmap/6-3.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/mmap/6-3.c
+@@ -53,7 +53,7 @@ int main(void)
+ 	int status;
+ 	int sig_num;
+-	PTS_GET_TMP_FILENAME(tmpfname, "pts_mmap_6_2");
++	PTS_GET_TMP_FILENAME(tmpfname, "pts_mmap_6_3");
+ 	unlink(tmpfname);
+ 	fd = open(tmpfname, O_CREAT | O_RDWR | O_EXCL, S_IRUSR | S_IWUSR);
+ 	if (fd == -1) {
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/munmap/1-2.c b/testcases/open_posix_testsuite/conformance/interfaces/munmap/1-2.c
+index 9d0f918..31f2109 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/munmap/1-2.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/munmap/1-2.c
+@@ -73,7 +73,7 @@ int main(void)
+ 	len = page_size + 1;
+ 	/* Create tmp file */
+-	PTS_GET_TMP_FILENAME(tmpfname, "pts_munmap_1_1");
++	PTS_GET_TMP_FILENAME(tmpfname, "pts_munmap_1_2");
+ 	unlink(tmpfname);
+ 	fd = open(tmpfname, O_CREAT | O_RDWR | O_EXCL, S_IRUSR | S_IWUSR);
+ 	if (fd == -1) {
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/munmap/3-1.c b/testcases/open_posix_testsuite/conformance/interfaces/munmap/3-1.c
+index 53e89de..1879719 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/munmap/3-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/munmap/3-1.c
+@@ -54,7 +54,7 @@ int main(void)
+ 	len = page_size + 1;
+ 	/* Create tmp file */
+-	PTS_GET_TMP_FILENAME(tmpfname, "pts_munmap_1_1");
++	PTS_GET_TMP_FILENAME(tmpfname, "pts_munmap_3_1");
+ 	unlink(tmpfname);
+ 	fd = open(tmpfname, O_CREAT | O_RDWR | O_EXCL, S_IRUSR | S_IWUSR);
+ 	if (fd == -1) {
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/munmap/9-1.c b/testcases/open_posix_testsuite/conformance/interfaces/munmap/9-1.c
+index 0280a0e..371e3b0 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/munmap/9-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/munmap/9-1.c
+@@ -49,7 +49,7 @@ int main(void)
+ 	len = page_size + 1;
+ 	/* Create tmp file */
+-	PTS_GET_TMP_FILENAME(tmpfname, "pts_munmap_1_1");
++	PTS_GET_TMP_FILENAME(tmpfname, "pts_munmap_9_1");
+ 	unlink(tmpfname);
+ 	fd = open(tmpfname, O_CREAT | O_RDWR | O_EXCL, S_IRUSR | S_IWUSR);
+ 	if (fd == -1) {
+2.6.2
 
-Hi!
-I've simplified the code a bit and pushed, thanks.
-
-* The socketpair() can be opened with SOCKET_NONBLOCK
-* Made use of tst_fill_file()
-* Moved tst_brk() out of the for() loop
-* Fixed some typos and simplified the doc comment
-
--- 
-Cyril Hrubis
-chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
