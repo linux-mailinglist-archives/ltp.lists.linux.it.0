@@ -2,43 +2,42 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5036036C6B7
-	for <lists+linux-ltp@lfdr.de>; Tue, 27 Apr 2021 15:08:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0307B36C6DB
+	for <lists+linux-ltp@lfdr.de>; Tue, 27 Apr 2021 15:16:10 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1EA133C659E
-	for <lists+linux-ltp@lfdr.de>; Tue, 27 Apr 2021 15:08:30 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 184A13C65A4
+	for <lists+linux-ltp@lfdr.de>; Tue, 27 Apr 2021 15:16:09 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 230F73C6570
- for <ltp@lists.linux.it>; Tue, 27 Apr 2021 15:08:26 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 17F343C27E1
+ for <ltp@lists.linux.it>; Tue, 27 Apr 2021 15:16:02 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id C41BE14010EC
- for <ltp@lists.linux.it>; Tue, 27 Apr 2021 15:08:25 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 3ADFA14010EB
+ for <ltp@lists.linux.it>; Tue, 27 Apr 2021 15:16:02 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 1AEBEB1A0;
- Tue, 27 Apr 2021 13:08:25 +0000 (UTC)
-Date: Tue, 27 Apr 2021 14:48:55 +0200
+ by mx2.suse.de (Postfix) with ESMTP id 956A2B1A0;
+ Tue, 27 Apr 2021 13:16:01 +0000 (UTC)
+Date: Tue, 27 Apr 2021 14:56:30 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Xie Ziyao <xieziyao@huawei.com>
-Message-ID: <YIgIN7y1aGKYysk0@yuki>
-References: <20210427112850.240192-1-xieziyao@huawei.com>
+Message-ID: <YIgJ/kVrioii3Xpe@yuki>
+References: <20210427113739.245250-1-xieziyao@huawei.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210427112850.240192-1-xieziyao@huawei.com>
+In-Reply-To: <20210427113739.245250-1-xieziyao@huawei.com>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/io_cancel: Convert io_cancel01 to the
- new API
+Subject: Re: [LTP] [PATCH] syscalls/io_getevents: Convert io_getevents01 to
+ the new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,10 +58,7 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 Hi!
 Pushed with minor changes, thanks.
 
-> + * Basic tests for the io_cancel syscall.
-
-Here as well, this sentence does not add any useful information so I've
-removed it.
+I've adjusted the documentation comment here as well.
 
 -- 
 Cyril Hrubis
