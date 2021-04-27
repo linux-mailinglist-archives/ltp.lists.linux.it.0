@@ -1,43 +1,43 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95F7536C217
-	for <lists+linux-ltp@lfdr.de>; Tue, 27 Apr 2021 11:50:45 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 16B4336C25F
+	for <lists+linux-ltp@lfdr.de>; Tue, 27 Apr 2021 12:13:42 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 515533C657A
-	for <lists+linux-ltp@lfdr.de>; Tue, 27 Apr 2021 11:50:45 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id DAB613C657A
+	for <lists+linux-ltp@lfdr.de>; Tue, 27 Apr 2021 12:13:41 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id BFF1E3C19BB
- for <ltp@lists.linux.it>; Tue, 27 Apr 2021 11:50:41 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 4352B3C2197
+ for <ltp@lists.linux.it>; Tue, 27 Apr 2021 12:13:39 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 900446009F0
- for <ltp@lists.linux.it>; Tue, 27 Apr 2021 11:50:40 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 4A00B1000F1D
+ for <ltp@lists.linux.it>; Tue, 27 Apr 2021 12:13:38 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id D6461AFC6
- for <ltp@lists.linux.it>; Tue, 27 Apr 2021 09:50:39 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 95812B133;
+ Tue, 27 Apr 2021 10:13:37 +0000 (UTC)
+Date: Tue, 27 Apr 2021 11:54:13 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Richard Palethorpe <rpalethorpe@suse.com>
+Message-ID: <YIffRY1VKkuAYVdd@yuki>
 References: <20210426120107.6632-1-rpalethorpe@suse.com>
- <20210426120107.6632-2-rpalethorpe@suse.com> <YIfZqZ29H2AN1vqh@pevik>
-User-agent: mu4e 1.4.15; emacs 27.2
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Petr Vorel <pvorel@suse.cz>
-In-reply-to: <YIfZqZ29H2AN1vqh@pevik>
-Date: Tue, 27 Apr 2021 10:50:39 +0100
-Message-ID: <87k0oot5sg.fsf@suse.de>
+ <20210426120107.6632-2-rpalethorpe@suse.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20210426120107.6632-2-rpalethorpe@suse.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH 2/2] bpf: Check truncation on 32bit div/mod by zero
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -50,104 +50,352 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
 Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello Petr,
+Hi!
+> Add a test which checks for a number of issues surrounding division by
+> zero.
+> 
+> Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
+> ---
+> 
+> Possibly instead we should generate a series of BPF programs which try
+> to do something bad for each possible verifier-runtime mismatch. I'm
+> not sure this would actually reduce false positives however, due to
+> the increase in complexity of the test.
+> 
+>  runtest/cve                                |   1 +
+>  runtest/syscalls                           |   1 +
+>  testcases/kernel/syscalls/bpf/.gitignore   |   1 +
+>  testcases/kernel/syscalls/bpf/bpf_prog05.c | 235 +++++++++++++++++++++
+>  4 files changed, 238 insertions(+)
+>  create mode 100644 testcases/kernel/syscalls/bpf/bpf_prog05.c
+> 
+> diff --git a/runtest/cve b/runtest/cve
+> index f650854f9..3beb88bb0 100644
+> --- a/runtest/cve
+> +++ b/runtest/cve
+> @@ -61,3 +61,4 @@ cve-2020-11494 pty04
+>  cve-2020-14386 sendto03
+>  cve-2020-14416 pty03
+>  cve-2020-29373 io_uring02
+> +cve-2021-3444 bpf_prog05
+> diff --git a/runtest/syscalls b/runtest/syscalls
+> index 546a988c2..60c0a7a99 100644
+> --- a/runtest/syscalls
+> +++ b/runtest/syscalls
+> @@ -42,6 +42,7 @@ bpf_prog01 bpf_prog01
+>  bpf_prog02 bpf_prog02
+>  bpf_prog03 bpf_prog03
+>  bpf_prog04 bpf_prog04
+> +bpf_prog05 bpf_prog05
+>  
+>  brk01 brk01
+>  brk02 brk02
+> diff --git a/testcases/kernel/syscalls/bpf/.gitignore b/testcases/kernel/syscalls/bpf/.gitignore
+> index 74742c0cd..42365cef5 100644
+> --- a/testcases/kernel/syscalls/bpf/.gitignore
+> +++ b/testcases/kernel/syscalls/bpf/.gitignore
+> @@ -3,3 +3,4 @@ bpf_prog01
+>  bpf_prog02
+>  bpf_prog03
+>  bpf_prog04
+> +bpf_prog05
+> diff --git a/testcases/kernel/syscalls/bpf/bpf_prog05.c b/testcases/kernel/syscalls/bpf/bpf_prog05.c
+> new file mode 100644
+> index 000000000..48270f4ca
+> --- /dev/null
+> +++ b/testcases/kernel/syscalls/bpf/bpf_prog05.c
+> @@ -0,0 +1,235 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (c) 2021 SUSE LLC <rpalethorpe@suse.com>
+> + */
+> +
+> +/*\
+> + * [Description]
+> + *
+> + * Compare the effects of 32-bit div/mod by zero with the "expected"
+> + * behaviour.
+> + *
+> + * The commit "bpf: fix subprog verifier bypass by div/mod by 0
+> + * exception", changed div/mod by zero from exiting the current
+> + * program to setting the destination register to zero (div) or
+> + * leaving it untouched (mod).
+> + *
+> + * This solved one verfier bug which allowed dodgy pointer values, but
+> + * it turned out that the source register was being 32-bit truncated
+> + * when it should not be. Also the destination register for mod was
+> + * not being truncated when it should be.
+> + *
+> + * So then we have the following two fixes:
+> + * "bpf: Fix 32 bit src register truncation on div/mod"
+> + * "bpf: Fix truncation handling for mod32 dst reg wrt zero"
+> + *
+> + * Testing for all of these issues is a problem. Not least because
+> + * division by zero is undefined, so in theory any result is
+> + * acceptable so long as the verifier and runtime behaviour
+> + * match.
+> + *
+> + * However to keep things simple we just check if the source and
+> + * destination register runtime values match the current upstream
+> + * behaviour at the time of writing.
 
-Petr Vorel <pvorel@suse.cz> writes:
+Can we please mention here that it has been decided that X mod 0 yields
+X and X div 0 yields 0 in the BPF VM as it is in the last paragraph of
+the f6b1b3bf0d5f?
 
-> Hi Richard,
->
->> Add a test which checks for a number of issues surrounding division by
->> zero.
->
->> +++ b/testcases/kernel/syscalls/bpf/bpf_prog05.c
-> ...
->> +/*\
->> + * [Description]
->> + *
->> + * Compare the effects of 32-bit div/mod by zero with the "expected"
-> FYI this causes docparser error:
->
-> /usr/src/ltp/docparse/testinfo.pl metadata.json
-> , or ] expected while parsing array, at character offset 70801 (before "expected"",\n     "b...") at /usr/src/ltp/docparse/testinfo.pl line 423
->
-> Because we don't escap double quotes (among other issues previously reported,
-> e.g. tabs), it produces invalid json:
+I went over the kernel patches and I think that this test is a
+reasonable choice between complexity and coverage we could possibly
+have. Anything that would increase our coverage would end up order of
+magnitude more complex than this and is not worth the effort given the
+manpower we have...
 
-bah, maybe we should just base64 encode doc strings in the JSON?
+> + * If the test fails you may have one or more of the above patches
+> + * missing. In this case it is possible that you are not vulnerable
+> + * depending on what other backports and fixes have been applied. If
+> + * upstream changes the behaviour of division by zero, then the test
+> + * will need updating.
+> +\*/
 
->
->    "doc": [
->      "[Description]",
->      "",
->      "Compare the effects of 32-bit div/mod by zero with the "expected"",
->      "behaviour.",
->      "",
->
-> But I tested it on various OS and the code compiles and runs ok.
->
-> I also looked at the code (very interesting), but with my minimal bpf knowledge
-> I'm not the one who should review it.
->
->> + * behaviour.
->> + *
->> + * The commit "bpf: fix subprog verifier bypass by div/mod by 0
->> + * exception", changed div/mod by zero from exiting the current
->> + * program to setting the destination register to zero (div) or
->> + * leaving it untouched (mod).
->> + *
->> + * This solved one verfier bug which allowed dodgy pointer values, but
->                       ^
->                       verifier
+We recently decided not to include the \ and the end of the doc commit.
 
-+1
+> +#include <stdio.h>
+> +#include <string.h>
+> +#include <inttypes.h>
+> +
+> +#include "config.h"
+> +#include "tst_test.h"
+> +#include "tst_taint.h"
+> +#include "tst_capability.h"
+> +#include "lapi/socket.h"
+> +#include "lapi/bpf.h"
+> +#include "bpf_common.h"
+> +
+> +#define BUFSIZE 8192
+> +
+> +static const char MSG[] = "Ahoj!";
+> +static char *msg;
+> +
+> +static uint32_t *key;
+> +static uint64_t *val;
+> +static char *log;
+> +static union bpf_attr *attr;
+> +
+> +static int load_prog(int fd)
+> +{
+> +	struct bpf_insn insn[] = {
+> +		BPF_MOV64_IMM(BPF_REG_6, 1), 			/* r6 = 1 */
+> +		BPF_ALU64_IMM(BPF_LSH, BPF_REG_6, 32),		/* r6 <<= 32 */
+> +		BPF_MOV64_IMM(BPF_REG_7, -1LL),			/* r7 = -1 */
+> +		BPF_ALU32_REG(BPF_DIV, BPF_REG_7, BPF_REG_6),	/* w7 /= w6 */
 
->
->> + * it turned out that the source register was being 32-bit truncated
->> + * when it should not be. Also the destination register for mod was
->> + * not being truncated when it should be.
->> + *
->> + * So then we have the following two fixes:
->> + * "bpf: Fix 32 bit src register truncation on div/mod"
->> + * "bpf: Fix truncation handling for mod32 dst reg wrt zero"
-> - * "bpf: Fix 32 bit src register truncation on div/mod"
-> - * "bpf: Fix truncation handling for mod32 dst reg wrt zero"
-> (making it list)
+I guess that r6 is name for a 64 bit register and w6 for 32bit part of
+the register?
 
-+1
->
->> + *
->> + * Testing for all of these issues is a problem. Not least because
->> + * division by zero is undefined, so in theory any result is
->> + * acceptable so long as the verifier and runtime behaviour
->> + * match.
->> + *
->> + * However to keep things simple we just check if the source and
->> + * destination register runtime values match the current upstream
->> + * behaviour at the time of writing.
->> + *
->> + * If the test fails you may have one or more of the above patches
->> + * missing. In this case it is possible that you are not vulnerable
->> + * depending on what other backports and fixes have been applied. If
->> + * upstream changes the behaviour of division by zero, then the test
->> + * will need updating.
->> +\*/
-> @metan: remove this before merge.
->
->
-> Kind regards,
-> Petr
+> +		BPF_LD_MAP_FD(BPF_REG_1, fd),
+> +		BPF_MOV64_REG(BPF_REG_2, BPF_REG_10),   /* r2 = fp */
+> +		BPF_ALU64_IMM(BPF_ADD, BPF_REG_2, -4),  /* r2 = r2 - 4 */
+> +		BPF_ST_MEM(BPF_W, BPF_REG_2, 0, 0),    /* *r2 = 0 */
+> +		BPF_EMIT_CALL(BPF_FUNC_map_lookup_elem),
+> +		BPF_JMP_IMM(BPF_JNE, BPF_REG_0, 0, 1),
+> +		BPF_EXIT_INSN(),
+> +		BPF_STX_MEM(BPF_DW, BPF_REG_0, BPF_REG_6, 0),
 
+I guess that we can add an overall comment over the block that describes
+what we do here, somethig as:
+
+/* Store value of r6 to map[0] */
+
+> +		BPF_LD_MAP_FD(BPF_REG_1, fd),
+> +		BPF_MOV64_REG(BPF_REG_2, BPF_REG_10),
+> +		BPF_ALU64_IMM(BPF_ADD, BPF_REG_2, -4),
+> +		BPF_ST_MEM(BPF_W, BPF_REG_2, 0, 1),    /* *r2 = 1 */
+> +		BPF_EMIT_CALL(BPF_FUNC_map_lookup_elem),
+> +		BPF_JMP_IMM(BPF_JNE, BPF_REG_0, 0, 1),
+> +		BPF_EXIT_INSN(),
+> +		BPF_STX_MEM(BPF_DW, BPF_REG_0, BPF_REG_7, 0),
+
+Here as well.
+
+> +		BPF_MOV64_IMM(BPF_REG_6, 1),
+> +		BPF_ALU64_IMM(BPF_LSH, BPF_REG_6, 32),
+> +		BPF_MOV64_IMM(BPF_REG_7, -1LL),
+> +		BPF_ALU32_REG(BPF_MOD, BPF_REG_7, BPF_REG_6),	/* w7 %= w6 */
+
+Here we are missing the comments for the steps, it's the same as above,
+but I guess that it wouldn't hurt if we added them here as well.
+
+> +		BPF_LD_MAP_FD(BPF_REG_1, fd),
+> +		BPF_MOV64_REG(BPF_REG_2, BPF_REG_10),
+> +		BPF_ALU64_IMM(BPF_ADD, BPF_REG_2, -4),
+> +		BPF_ST_MEM(BPF_W, BPF_REG_2, 0, 2),    /* *r2 = 2 */
+> +		BPF_EMIT_CALL(BPF_FUNC_map_lookup_elem),
+> +		BPF_JMP_IMM(BPF_JNE, BPF_REG_0, 0, 1),
+> +		BPF_EXIT_INSN(),
+> +		BPF_STX_MEM(BPF_DW, BPF_REG_0, BPF_REG_6, 0),
+> +
+> +		BPF_LD_MAP_FD(BPF_REG_1, fd),
+> +		BPF_MOV64_REG(BPF_REG_2, BPF_REG_10),
+> +		BPF_ALU64_IMM(BPF_ADD, BPF_REG_2, -4),
+> +		BPF_ST_MEM(BPF_W, BPF_REG_2, 0, 3),    /* *r2 = 3 */
+> +		BPF_EMIT_CALL(BPF_FUNC_map_lookup_elem),
+> +		BPF_JMP_IMM(BPF_JNE, BPF_REG_0, 0, 1),
+> +		BPF_EXIT_INSN(),
+> +		BPF_STX_MEM(BPF_DW, BPF_REG_0, BPF_REG_7, 0),
+
+And here as well, two overall comments wouldn't hurt.
+
+> +		BPF_MOV64_IMM(BPF_REG_0, 0),
+> +		BPF_EXIT_INSN()
+> +	};
+> +
+> +	bpf_init_prog_attr(attr, insn, sizeof(insn), log, BUFSIZE);
+> +
+> +	return bpf_load_prog(attr, log);
+> +}
+> +
+> +static void setup(void)
+> +{
+> +	rlimit_bump_memlock();
+> +	memcpy(msg, MSG, sizeof(MSG));
+> +}
+> +
+> +static void run(void)
+> +{
+> +	int map_fd, prog_fd;
+> +	int sk[2];
+> +
+> +	memset(attr, 0, sizeof(*attr));
+> +	attr->map_type = BPF_MAP_TYPE_ARRAY;
+> +	attr->key_size = 4;
+> +	attr->value_size = 8;
+> +	attr->max_entries = 4;
+> +
+> +	map_fd = bpf_map_create(attr);
+
+I wonder if we should add a helper for creating arrays, these a few
+lines seems to repeat in our tests over and over.
+
+Maybe we should add bpf_array_create() that would fill in the attr
+structure and return a file descriptor for us. But that could be solved
+later on.
+
+> +	prog_fd = load_prog(map_fd);
+> +
+> +	SAFE_SOCKETPAIR(AF_UNIX, SOCK_DGRAM, 0, sk);
+> +	SAFE_SETSOCKOPT(sk[1], SOL_SOCKET, SO_ATTACH_BPF, &prog_fd,
+> +			sizeof(prog_fd));
+> +
+> +	SAFE_WRITE(1, sk[0], msg, sizeof(MSG));
+> +	SAFE_CLOSE(sk[0]);
+> +	SAFE_CLOSE(sk[1]);
+> +	SAFE_CLOSE(prog_fd);
+> +
+> +	tst_res(TINFO, "Check w7(-1) /= w6(0) [r7 = -1, r6 = 1 << 32]");
+> +	memset(attr, 0, sizeof(*attr));
+> +	attr->map_fd = map_fd;
+> +	attr->key = ptr_to_u64(key);
+> +	attr->value = ptr_to_u64(val);
+> +	*key = 0;
+> +	TST_EXP_PASS_SILENT(bpf(BPF_MAP_LOOKUP_ELEM, attr, sizeof(*attr)));
+> +	if (TST_RET)
+> +		goto out;
+> +
+> +	if (*val != 1UL << 32) {
+> +		tst_res(TFAIL,
+> +			"src(r6) = %"PRIu64", but should be %"PRIu64,
+> +			*val, 1UL << 32);
+> +	} else {
+> +		tst_res(TPASS, "src(r6) = %"PRIu64, *val);
+> +	}
+
+Can we put this code into a function that would get a key index,
+expected value and a name of the register?
+
+It's kind of ugly if we copy&paste the code over and over.
+
+> +	*key = 1;
+> +	TST_EXP_PASS_SILENT(bpf(BPF_MAP_LOOKUP_ELEM, attr, sizeof(*attr)));
+> +	if (TST_RET)
+> +		goto out;
+> +
+> +	if (*val)
+> +		tst_res(TFAIL, "dst(r7) = %"PRIu64", but should be zero", *val);
+> +
+> +	tst_res(TPASS, "dst(r7) = %"PRIu64, *val);
+> +
+> +	tst_res(TINFO, "Check w7(-1) %%= w6(0) [r7 = -1, r6 = 1 << 32]");
+> +	*key = 2;
+> +	TST_EXP_PASS_SILENT(bpf(BPF_MAP_LOOKUP_ELEM, attr, sizeof(*attr)));
+> +	if (TST_RET)
+> +		goto out;
+> +
+> +	if (*val != 1UL << 32) {
+> +		tst_res(TFAIL,
+> +			"src(r6) = %"PRIu64", but should be %"PRIu64,
+> +			*val, 1UL << 32);
+> +	} else {
+> +		tst_res(TPASS, "src(r6) = %"PRIu64, *val);
+> +	}
+> +
+> +	*key = 3;
+> +	TST_EXP_PASS_SILENT(bpf(BPF_MAP_LOOKUP_ELEM, attr, sizeof(*attr)));
+> +	if (TST_RET)
+> +		goto out;
+> +
+> +	if (*val != (uint32_t)-1) {
+> +		tst_res(TFAIL,
+> +			"dst(r7) = %"PRIu64", but should be %"PRIu32,
+> +			*val, (uint32_t)-1);
+> +	} else {
+> +		tst_res(TPASS, "dst(r7) = %"PRIu64, *val);
+> +	}
+> +
+> +out:
+> +	SAFE_CLOSE(map_fd);
+> +}
+> +
+> +static struct tst_test test = {
+> +	.setup = setup,
+> +	.test_all = run,
+> +	.min_kver = "3.18",
+> +	.taint_check = TST_TAINT_W | TST_TAINT_D,
+> +	.caps = (struct tst_cap []) {
+> +		TST_CAP(TST_CAP_DROP, CAP_SYS_ADMIN),
+> +		{}
+> +	},
+> +	.bufs = (struct tst_buffers []) {
+> +		{&key, .size = sizeof(*key)},
+> +		{&val, .size = sizeof(*val)},
+> +		{&log, .size = BUFSIZE},
+> +		{&attr, .size = sizeof(*attr)},
+> +		{&msg, .size = sizeof(MSG)},
+> +		{}
+> +	},
+> +	.tags = (const struct tst_tag[]) {
+> +		{"linux-git", "f6b1b3bf0d5f"},
+> +		{"linux-git", "468f6eafa6c4"},
+> +		{"linux-git", "e88b2c6e5a4d"},
+> +		{"linux-git", "9b00f1b78809"},
+> +		{"CVE", "CVE-2021-3444"},
+> +		{}
+> +	}
+> +};
+> -- 
+> 2.31.1
+> 
+> 
+> -- 
+> Mailing list info: https://lists.linux.it/listinfo/ltp
 
 -- 
-Thank you,
-Richard.
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
