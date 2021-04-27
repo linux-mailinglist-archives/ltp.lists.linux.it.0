@@ -2,43 +2,42 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D89A36C620
-	for <lists+linux-ltp@lfdr.de>; Tue, 27 Apr 2021 14:34:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A641D36C62F
+	for <lists+linux-ltp@lfdr.de>; Tue, 27 Apr 2021 14:39:48 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0C1183C656F
-	for <lists+linux-ltp@lfdr.de>; Tue, 27 Apr 2021 14:34:52 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 6F3683C6570
+	for <lists+linux-ltp@lfdr.de>; Tue, 27 Apr 2021 14:39:48 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 9233A3C199D
- for <ltp@lists.linux.it>; Tue, 27 Apr 2021 14:34:49 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id CD0C03C199D
+ for <ltp@lists.linux.it>; Tue, 27 Apr 2021 14:39:45 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id EAF01600D0D
- for <ltp@lists.linux.it>; Tue, 27 Apr 2021 14:34:48 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 4A22D6002ED
+ for <ltp@lists.linux.it>; Tue, 27 Apr 2021 14:39:45 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 5CAA2B198;
- Tue, 27 Apr 2021 12:34:48 +0000 (UTC)
-Date: Tue, 27 Apr 2021 14:15:19 +0200
+ by mx2.suse.de (Postfix) with ESMTP id 9DD51B198;
+ Tue, 27 Apr 2021 12:39:44 +0000 (UTC)
+Date: Tue, 27 Apr 2021 14:20:14 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Xie Ziyao <xieziyao@huawei.com>
-Message-ID: <YIgAV1EANJWd/ayh@yuki>
+Message-ID: <YIgBftUgy0sUy3BS@yuki>
 References: <20210426125224.150268-1-xieziyao@huawei.com>
- <20210426125224.150268-2-xieziyao@huawei.com>
+ <20210426125224.150268-3-xieziyao@huawei.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210426125224.150268-2-xieziyao@huawei.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+In-Reply-To: <20210426125224.150268-3-xieziyao@huawei.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/3 v2] syscalls/close: Convert close01 to the new
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 2/3 v2] syscalls/close: Convert close02 to the new
  API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -58,171 +57,15 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> 1. Cleanup and convert close01 to the new API;
-> 2. Add SAFE_CLOSE() to the file descriptor.
-> 
-> Signed-off-by: Xie Ziyao <xieziyao@huawei.com>
-> ---
-> v1->v2:
-> 1. Cleanup with TST_EXP_PASS();
-> 2. Add SAFE_CLOSE() to the file descriptor for a pipe.
-> 
->  testcases/kernel/syscalls/close/close01.c | 134 +++++++---------------
->  1 file changed, 40 insertions(+), 94 deletions(-)
-> 
-> diff --git a/testcases/kernel/syscalls/close/close01.c b/testcases/kernel/syscalls/close/close01.c
-> index c734ff7d2..759c43af0 100644
-> --- a/testcases/kernel/syscalls/close/close01.c
-> +++ b/testcases/kernel/syscalls/close/close01.c
-> @@ -1,124 +1,70 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
->  /*
->   * Copyright (c) International Business Machines  Corp., 2001
-> - *  07/2001 Ported by Wayne Boyer
-> + * 07/2001 Ported by Wayne Boyer
-> + */
-> +
+Pushed with a minor change, thanks.
+
 > +/*\
 > + * [Description]
->   *
-> - * This program is free software;  you can redistribute it and/or modify
-> - * it under the terms of the GNU General Public License as published by
-> - * the Free Software Foundation; either version 2 of the License, or
-> - * (at your option) any later version.
+> + *
 > + * Basic test for the close() syscall.
->   *
-> - * This program is distributed in the hope that it will be useful,
-> - * but WITHOUT ANY WARRANTY;  without even the implied warranty of
-> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
-> - * the GNU General Public License for more details.
-> + * [Description]
->   *
-> - * You should have received a copy of the GNU General Public License
-> - * along with this program;  if not, write to the Free Software Foundation,
-> - * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
-> - */
-> -
-> -/*
-> - * DESCRIPTION
-> - *	Test that closing a regular file and a pipe works correctly
-> + * Test that closing a regular file and a pipe works correctly.
->   */
 
-We ended up with two [Description] sections here, I guess that we should
-remove the second occurence of '[Description]' here.
-
->  #include <stdio.h>
->  #include <errno.h>
->  #include <fcntl.h>
->  #include <sys/stat.h>
-> -#include "test.h"
-> -#include "safe_macros.h"
-> +#include "tst_test.h"
-> 
-> -void cleanup(void);
-> -void setup(void);
-> +#define FILENAME "close01_testfile"
-> 
-> -char *TCID = "close01";
-> -int TST_TOTAL = 2;
-> +int fild, newfd, pipefildes[2];
-> 
-> -char fname[40] = "";
-> +static void setup_file(void)
-> +{
-> +	newfd = SAFE_DUP(fild);
-> +}
-> 
-> -int fild, newfd, pipefildes[2];
-> +static void setup_pipe(void)
-> +{
-> +	SAFE_PIPE(pipefildes);
-> +	SAFE_CLOSE(pipefildes[1]);
-> +}
-> 
->  struct test_case_t {
->  	int *fd;
->  	char *type;
-> -} TC[] = {
-> -	/* file descriptor for a regular file */
-> -	{
-> -	&newfd, "file"},
-> -	    /* file descriptor for a pipe */
-> -	{
-> -	&pipefildes[0], "pipe"}
-> +	void (*setupfunc) ();
-> +} tc[] = {
-> +	{&newfd, "file", setup_file},
-> +	{&pipefildes[0], "pipe", setup_pipe}
->  };
-
-Why don't we change the code so that the setup function returns the
-filedescriptor? That would make the code much more straightforward.
-
-> -int main(int ac, char **av)
-> +static void run(unsigned int i)
->  {
-> -
-> -	int i;
-> -	int lc;
-> -
-> -	tst_parse_opts(ac, av, NULL, NULL);
-> -
-> -	setup();
-> -
-> -	for (lc = 0; TEST_LOOPING(lc); lc++) {
-> -
-> -		tst_count = 0;
-> -
-> -		if ((fild = creat(fname, 0777)) == -1)
-> -			tst_brkm(TBROK | TERRNO, cleanup, "can't open file %s",
-> -				 fname);
-> -
-> -		if ((newfd = dup(fild)) == -1)
-> -			tst_brkm(TBROK | TERRNO, cleanup,
-> -				 "can't dup the file des");
-> -
-> -		SAFE_PIPE(cleanup, pipefildes);
-> -
-> -		for (i = 0; i < TST_TOTAL; i++) {
-> -
-> -			TEST(close(*TC[i].fd));
-> -
-> -			if (TEST_RETURN == -1) {
-> -				tst_resm(TFAIL, "call failed unexpectedly");
-> -				continue;
-> -			}
-> -
-> -			if (close(*TC[i].fd) == -1) {
-> -				tst_resm(TPASS, "%s appears closed",
-> -					 TC[i].type);
-> -			} else {
-> -				tst_resm(TFAIL, "%s close succeeded on"
-> -					 "second attempt", TC[i].type);
-> -			}
-> -		}
-> -
-> -	}
-> -
-> -	cleanup();
-> -	tst_exit();
-> +	tc[i].setupfunc();
-> +	TST_EXP_PASS(close(*tc[i].fd), "close a %s", tc[i].type);
->  }
-> 
-> -void setup(void)
-> +static void setup(void)
->  {
-> -	int mypid;
-> -
-> -	tst_sig(FORK, DEF_HANDLER, cleanup);
-> -
->  	umask(0);
-
-I'm pretty sure the umask() here is useless.
-
-
-Otherwise it looks good.
+This sentence does not add any more information, so I've removed it and
+kept the second sentence below as a description instead.
 
 -- 
 Cyril Hrubis
