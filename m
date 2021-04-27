@@ -1,45 +1,44 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 216A136C63A
-	for <lists+linux-ltp@lfdr.de>; Tue, 27 Apr 2021 14:43:08 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id A3BCD36C617
+	for <lists+linux-ltp@lfdr.de>; Tue, 27 Apr 2021 14:33:00 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B4AAE3C65AA
-	for <lists+linux-ltp@lfdr.de>; Tue, 27 Apr 2021 14:43:07 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 389403C6574
+	for <lists+linux-ltp@lfdr.de>; Tue, 27 Apr 2021 14:33:00 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 8ED223C19B9
- for <ltp@lists.linux.it>; Tue, 27 Apr 2021 14:43:03 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id CA88C3C199D
+ for <ltp@lists.linux.it>; Tue, 27 Apr 2021 14:32:57 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 4685D100114F
- for <ltp@lists.linux.it>; Tue, 27 Apr 2021 14:43:03 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 07347100041A
+ for <ltp@lists.linux.it>; Tue, 27 Apr 2021 14:32:56 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id A28F2B18F;
- Tue, 27 Apr 2021 12:43:02 +0000 (UTC)
-Date: Tue, 27 Apr 2021 14:23:33 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Xie Ziyao <xieziyao@huawei.com>
-Message-ID: <YIgCRbFZ81vX4KfA@yuki>
-References: <20210426125224.150268-1-xieziyao@huawei.com>
- <20210426125224.150268-4-xieziyao@huawei.com>
+ by mx2.suse.de (Postfix) with ESMTP id 53F32B198;
+ Tue, 27 Apr 2021 12:32:56 +0000 (UTC)
+Date: Tue, 27 Apr 2021 14:32:54 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: sujiaxun <sujiaxun@uniontech.com>
+Message-ID: <YIgEdkx+XSv81V3e@pevik>
+References: <20210426074812.27798-1-sujiaxun@uniontech.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210426125224.150268-4-xieziyao@huawei.com>
+In-Reply-To: <20210426074812.27798-1-sujiaxun@uniontech.com>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+X-Spam-Status: No, score=2.0 required=7.0 tests=PDS_TONAME_EQ_TOLOCAL_SHORT,
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Level: *
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 3/3 v2] syscalls/close: Convert close08 to the new
- API
+Subject: Re: [LTP] [PATCH] Fix the 64-bit macro definition of mips
+ architecture
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,24 +50,25 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: Viresh Kumar <viresh.kumar@linaro.org>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-Isn't this test just the same as close01.c?
+Hi,
 
-I think that we can just remove close08.c since it does not add any more
-coverage over close01.
+> The mips architecture gcc does not have a built-in __arch64__,
+> you can also use "__BITS_PER_LONG == 64"
 
-Also we can add all kind of other file descriptor to the close01.c test
-as well. We should add at least a few different socket fds there as well.
+Thanks for the fix, merged!
 
--- 
-Cyril Hrubis
-chrubis@suse.cz
+Please next time mark new version of the patchset with -vN switch
+(e.g. in this case: git format-patch origin/master -v2).
+
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
