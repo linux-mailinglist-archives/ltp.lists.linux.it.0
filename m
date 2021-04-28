@@ -1,12 +1,12 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88E3B36D875
-	for <lists+linux-ltp@lfdr.de>; Wed, 28 Apr 2021 15:42:45 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id E931F36D963
+	for <lists+linux-ltp@lfdr.de>; Wed, 28 Apr 2021 16:16:28 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 466963C6272
-	for <lists+linux-ltp@lfdr.de>; Wed, 28 Apr 2021 15:42:45 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C4B9D3C63D1
+	for <lists+linux-ltp@lfdr.de>; Wed, 28 Apr 2021 16:16:27 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
@@ -14,34 +14,30 @@ Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 737863C0B9A
- for <ltp@lists.linux.it>; Wed, 28 Apr 2021 15:42:43 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id BEAE13C0EFF
+ for <ltp@lists.linux.it>; Wed, 28 Apr 2021 16:16:23 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 67F5F1401154
- for <ltp@lists.linux.it>; Wed, 28 Apr 2021 15:42:43 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 1E0A01401212
+ for <ltp@lists.linux.it>; Wed, 28 Apr 2021 16:16:22 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 957A5B1B8
- for <ltp@lists.linux.it>; Wed, 28 Apr 2021 13:42:42 +0000 (UTC)
-To: Cyril Hrubis <chrubis@suse.cz>
-References: <20210426111918.4304-1-mdoucha@suse.cz>
- <20210426111918.4304-5-mdoucha@suse.cz> <YIk4qL+lBIKt+4tX@yuki>
-From: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <81575a8a-5fa2-78ce-e1b1-e43b4ba45527@suse.cz>
-Date: Wed, 28 Apr 2021 15:42:42 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.9.1
+ by mx2.suse.de (Postfix) with ESMTP id 6DE65B197;
+ Wed, 28 Apr 2021 14:16:22 +0000 (UTC)
+Date: Wed, 28 Apr 2021 15:56:02 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Zhao Gongyi <zhaogongyi@huawei.com>
+Message-ID: <YIlpcvO2UdSBxdXI@yuki>
+References: <20210428124939.23546-1-zhaogongyi@huawei.com>
 MIME-Version: 1.0
-In-Reply-To: <YIk4qL+lBIKt+4tX@yuki>
-Content-Language: en-US
+Content-Disposition: inline
+In-Reply-To: <20210428124939.23546-1-zhaogongyi@huawei.com>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 4/4] RFC: Add helper functions for managing
- network interfaces
+Subject: Re: [LTP] [PATCH] syscalls/setfsgid02: Bugfix for running as root
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,21 +55,33 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 28. 04. 21 12:27, Cyril Hrubis wrote:
-> Hi!
-> ...
+Hi!
+> When we run the test as root id, and with the option "-i 2",
+> test will fail.
 
-Thanks, I'll apply the fixes and suggestions before I resubmit. Do you
-have any comments on the header files from API user's perspective?
+Looking at the test there is much more to fix.
+
+- the description does not match what the test is doing
+- the pass/fail condition and TFAIL message does not make any sense
+
+And its the same for the rest of the setfsgid tests.
+
+Looking at the manual pages for this oddball syscall we should check if:
+
+- unpriviledged process cannot change the value i.e. value that is
+  different from return from ret=setfsgid(-1) is passed as
+  setfsgid(ret+1) followed by setfsgid(-1) and all of these returns the
+  same value and the value also matches process effective group ID
+
+- priviledged process can change the value i.e. the same as
+  unpriviledged but we expect the last setfsgid(-1) return
+  the new value. We either have to reset the setfsgid() at the end of
+  the test or run it in a fork()-ed process so that we start with a
+  clean plate for each iteration
 
 -- 
-Martin Doucha   mdoucha@suse.cz
-QA Engineer for Software Maintenance
-SUSE LINUX, s.r.o.
-CORSO IIa
-Krizikova 148/34
-186 00 Prague 8
-Czech Republic
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
