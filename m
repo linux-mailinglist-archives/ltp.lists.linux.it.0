@@ -1,44 +1,45 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD8B236DEA4
-	for <lists+linux-ltp@lfdr.de>; Wed, 28 Apr 2021 19:48:30 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id B8F2E36DEBE
+	for <lists+linux-ltp@lfdr.de>; Wed, 28 Apr 2021 20:04:40 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 544573C6A8F
-	for <lists+linux-ltp@lfdr.de>; Wed, 28 Apr 2021 19:48:30 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 682123C631A
+	for <lists+linux-ltp@lfdr.de>; Wed, 28 Apr 2021 20:04:40 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E2D6E3C19C3
- for <ltp@lists.linux.it>; Wed, 28 Apr 2021 19:48:26 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 8D6A03C0F91
+ for <ltp@lists.linux.it>; Wed, 28 Apr 2021 20:04:38 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 2A3911000F29
- for <ltp@lists.linux.it>; Wed, 28 Apr 2021 19:48:25 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id A9CEE600D35
+ for <ltp@lists.linux.it>; Wed, 28 Apr 2021 20:04:37 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 3D51AB13B;
- Wed, 28 Apr 2021 17:48:25 +0000 (UTC)
-Date: Wed, 28 Apr 2021 19:48:23 +0200
+ by mx2.suse.de (Postfix) with ESMTP id DE6C5B13E;
+ Wed, 28 Apr 2021 18:04:36 +0000 (UTC)
+Date: Wed, 28 Apr 2021 20:04:35 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: Richard Palethorpe <rpalethorpe@suse.com>
-Message-ID: <YImf5zpy71k1sKqM@pevik>
-References: <20210428142719.8065-1-rpalethorpe@suse.com>
- <20210428142719.8065-2-rpalethorpe@suse.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <YImjs5KVqFFjDqw/@pevik>
+References: <20210422065732.61222-1-xieziyao@huawei.com>
+ <20210422065732.61222-2-xieziyao@huawei.com>
+ <YIaWnt5ksxVyBvxk@pevik> <YIlRAanTIk9uKVEP@yuki>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210428142719.8065-2-rpalethorpe@suse.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+In-Reply-To: <YIlRAanTIk9uKVEP@yuki>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v4 1/6] API: Add safe openat, printfat,
- readat and unlinkat
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/2] syscalls/tkill: Convert tkill01 to the new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,45 +58,26 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Richie,
+Hi Cyril, Xie,
 
-> Add 'at' variants for a number of system calls and LTP SAFE API
-> functions. This avoids using sprintf everywhere to build paths.
+> > > +int sig_flag = 0;
 
-> diff --git a/lib/tst_safe_file_at.c b/lib/tst_safe_file_at.c
-> new file mode 100644
-> index 000000000..a92a48fb2
-> --- /dev/null
-> +++ b/lib/tst_safe_file_at.c
-> @@ -0,0 +1,170 @@
-> +#define _GNU_SOURCE
-> +#include "lapi/fcntl.h"
-> +#include "tst_safe_file_at.h"
-This requires <stdio.h> (sprintf).
+> > It should be
+> > static int sig_flag;
 
-Also file should have SPDX license + copyright.
+> It has to be volatile as well, if we are waiting in a bussy loop on it
+> and it's changed ansynchronously from a signal handler, otherwise
+> compiler may misoptimize the code.
 
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
+> Generally the code that waits for a signal should look like:
+
+> static volatile sig_atomic_t sig_flag;
+
+Oh, yes, volatile. Thanks for other hints, code adjusted and whole patchset
+merged.
 
 Kind regards,
 Petr
-
-> +#define TST_NO_DEFAULT_MAIN
-> +#include "tst_test.h"
-> +
-> +char fd_path[PATH_MAX];
-> +
-> +char *tst_decode_fd(int fd)
-> +{
-> +	ssize_t ret;
-> +	char proc_path[32];
-> +
-> +	if (fd < 0)
-> +		return "!";
-> +
-> +	sprintf(proc_path, "/proc/self/fd/%d", fd);
-> +	ret = readlink(proc_path, fd_path, sizeof(fd_path));
-...
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
