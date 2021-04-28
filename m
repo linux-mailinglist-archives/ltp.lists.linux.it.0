@@ -1,79 +1,79 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A38B36D16A
-	for <lists+linux-ltp@lfdr.de>; Wed, 28 Apr 2021 06:47:37 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id E5C8D36D1DC
+	for <lists+linux-ltp@lfdr.de>; Wed, 28 Apr 2021 07:57:48 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A52213C627C
-	for <lists+linux-ltp@lfdr.de>; Wed, 28 Apr 2021 06:47:36 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 80DB43C625D
+	for <lists+linux-ltp@lfdr.de>; Wed, 28 Apr 2021 07:57:48 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 50D7F3C1A7E
- for <ltp@lists.linux.it>; Wed, 28 Apr 2021 06:47:30 +0200 (CEST)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by picard.linux.it (Postfix) with ESMTPS id 9A7593C621D
+ for <ltp@lists.linux.it>; Wed, 28 Apr 2021 07:57:47 +0200 (CEST)
+Received: from mail3.bemta25.messagelabs.com (mail3.bemta25.messagelabs.com
+ [195.245.230.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 1D16E600A58
- for <ltp@lists.linux.it>; Wed, 28 Apr 2021 06:47:29 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1619585248;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=oh9nyraDqseWtgFI9ROMQgiTFAec+mbtMaHsK6Yckog=;
- b=I4CwLI9Y6lygtIskbcltFl5e5rNE9dw2t2x6zcnRZZIlcTJgicNBugwKmfxl6q0I+T7P3K
- cMLAYweagCSh507OlU0X/tUaj4qC5XBaPa2nlH9RUGygr754l9KBnmlEMqwubKG3adk6Vq
- mJy4+q9LyVk/0yWe3ZjF0m19Lpd/SNA=
-Received: from mail-yb1-f197.google.com (mail-yb1-f197.google.com
- [209.85.219.197]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-432-f3D1QTqwNfGS3-0QFslZcQ-1; Wed, 28 Apr 2021 00:47:26 -0400
-X-MC-Unique: f3D1QTqwNfGS3-0QFslZcQ-1
-Received: by mail-yb1-f197.google.com with SMTP id
- i201-20020a25d1d20000b02904ed4c01f82bso18211073ybg.20
- for <ltp@lists.linux.it>; Tue, 27 Apr 2021 21:47:26 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=oh9nyraDqseWtgFI9ROMQgiTFAec+mbtMaHsK6Yckog=;
- b=qapaH3Dk3Y+RmZkgmi7tM6bVE2JD1Uw5MXIVuwnhk56y7aKVleLq1QXu5XrzxImhkv
- S63FoER6uStR698RdbuMCE3V69mOkrgGReM5ReAOPi25tNoUAfwxNPfkC1mX7uj2IfaB
- G5NdUNvr9FIIngWIz8VQA65RzjoEM4Fu4EzqvmvCh9UElUrCitTXXhJWuEEzq6M/yihA
- wLW7DdsT0QOWjVfTcSlaIByGpho31mr+jY0CtshptL/MIu2Rt71W0ZjFaRc3nNMTab43
- Ts3mQuSnfsY0/9crGerDFVld5loiqCwJsUli8ISrh47iMXYmv3+nOSSYM4EeQ7ictWjg
- kwTw==
-X-Gm-Message-State: AOAM531eOdjWutPhc3AfmtSPtz3w60Ncfnu9Ww3zG7lLvXyCaAEuhuQu
- vcm6axw4O95wN1jOMIFndUwA4jLSnZxTuI/BUWukS1NbPnmP9y6oc4j98sjFYQ5SNYPKuPDws0J
- 975+gqlNXl+gSx/OiosOOv/0P18A=
-X-Received: by 2002:a25:b44d:: with SMTP id c13mr37474009ybg.86.1619585245911; 
- Tue, 27 Apr 2021 21:47:25 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJyIPmc8y27h/PI6r9z3pG1ZI+RrHy1hk1XEDblUtlHKYBA0mZAZ7OM6aR5NDQecgwEOTx2e0fWEiAoDDVtPTs8=
-X-Received: by 2002:a25:b44d:: with SMTP id c13mr37473994ybg.86.1619585245693; 
- Tue, 27 Apr 2021 21:47:25 -0700 (PDT)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 9B43E601357
+ for <ltp@lists.linux.it>; Wed, 28 Apr 2021 07:57:46 +0200 (CEST)
+Received: from [100.112.199.60] (using TLSv1.2 with cipher
+ DHE-RSA-AES256-GCM-SHA384 (256 bits))
+ by server-1.bemta.az-b.eu-west-1.aws.symcld.net id D7/50-46412-959F8806;
+ Wed, 28 Apr 2021 05:57:45 +0000
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFprGIsWRWlGSWpSXmKPExsViZ8MRqhvxsyP
+ B4PlSHosV33cwOjB67Pu9jjWAMYo1My8pvyKBNaPl/C32ghdMFbtvN7I1MK5m6mLk4hASmM8k
+ saZ7GTOEs4dR4s2FTWxdjJwcbAJ6Ekv+7WEFsUUEJCQ6Gt6ydzFycDAL+Ei0zlQFCQsLWEo8P
+ TyRBcRmEVCVuDnnI5jNK+Ahsex5PyOILSGgIDHl4XtmiLigxMmZT8BqmIFGHnzxghmiRlHi7N
+ R1LBB2lUTnh+NsExh5ZyFpmYWkZQEj0ypG86SizPSMktzEzBxdQwMDXUNDI11DSzNdMxO9xCr
+ dJL3UUt3y1OISXUO9xPJiveLK3OScFL281JJNjMDgSik44rCD8f7rD3qHGCU5mJREeefNb08Q
+ 4kvKT6nMSCzOiC8qzUktPsQow8GhJMGr+r0jQUiwKDU9tSItMwcY6DBpCQ4eJRHe45+A0rzFB
+ Ym5xZnpEKlTjIpS4rwlIH0CIImM0jy4Nlh0XWKUlRLmZWRgYBDiKUgtys0sQZV/xSjOwagkzL
+ sOZApPZl4J3PRXQIuZgBYvO98GsrgkESEl1cBkHH2GXzZo/4NP0hettk0MfScf9Wpj5paoEqm
+ TDtpxq2ZbrpbdvzM9NW157I55vLtyjnCYScpXh3ZGqE7KWZF4tnN6m+z85pn78j26v/24ITNz
+ bYd3eXX7N4GZD/VNjjDMXSLtUrhTr+3p458Maktnx6erWYsuXGy4kvXcxyaJzQtbbq/6rLbcr
+ 0Wt85/wB3/eZ0/POGm/Ef9WaPP2cneedmb6JMnNbqfkzK4lhP/mkzgl8PjLBm45PxM5rp3bOP
+ h7nXJ1dq1K2vtKMyiT8+bCKelGF632S31RDQs9d/tb+wHpS+6f2FkMH7/ZuWBV6fGDvCXHDVu
+ c97x62V2xKuDiB4Fa4dKf1z08z0k6H7dWYinOSDTUYi4qTgQA/AenMykDAAA=
+X-Env-Sender: huangjh.jy@fujitsu.com
+X-Msg-Ref: server-6.tower-285.messagelabs.com!1619589463!2076843!1
+X-Originating-IP: [62.60.8.85]
+X-SYMC-ESS-Client-Auth: outbound-route-from=fail
+X-StarScan-Received: 
+X-StarScan-Version: 9.60.3; banners=-,-,-
+X-VirusChecked: Checked
+Received: (qmail 3263 invoked from network); 28 Apr 2021 05:57:44 -0000
+Received: from unknown (HELO mailhost4.uk.fujitsu.com) (62.60.8.85)
+ by server-6.tower-285.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
+ encrypted SMTP; 28 Apr 2021 05:57:44 -0000
+Received: from R01UKEXCASM223.r01.fujitsu.local (ex2k13_223.fs.fujitsu.com
+ [10.182.185.121])
+ by mailhost4.uk.fujitsu.com (8.14.5/8.14.5) with ESMTP id 13S5vbBp004399
+ (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256 verify=FAIL)
+ for <ltp@lists.linux.it>; Wed, 28 Apr 2021 06:57:43 +0100
+Received: from localhost.localdomain (10.167.220.33) by
+ R01UKEXCASM223.r01.fujitsu.local (10.182.185.121) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Wed, 28 Apr 2021 06:57:35 +0100
+From: Jinhui Huang <huangjh.jy@cn.fujitsu.com>
+To: <ltp@lists.linux.it>
+Date: Wed, 28 Apr 2021 13:56:51 +0800
+Message-ID: <1619589411-3349-1-git-send-email-huangjh.jy@cn.fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
 MIME-Version: 1.0
-References: <1619580848-99507-1-git-send-email-wangxin410@huawei.com>
-In-Reply-To: <1619580848-99507-1-git-send-email-wangxin410@huawei.com>
-From: Li Wang <liwang@redhat.com>
-Date: Wed, 28 Apr 2021 12:47:14 +0800
-Message-ID: <CAEemH2cnez2nspV5O3P4Qen-3HxqceHZCAAeL4YgJ+M8oeGB2w@mail.gmail.com>
-To: Wang Xin <wangxin410@huawei.com>, Petr Vorel <pvorel@suse.cz>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+X-Originating-IP: [10.167.220.33]
+X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
+ R01UKEXCASM223.r01.fujitsu.local (10.182.185.121)
 X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
+X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
+ autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v5] openposix/conformance/interfaces: Correct typos
+Subject: [LTP] [PATCH] runtest/mm: Remove mem03 from runtest/mm
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,24 +85,31 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
+Cc: xuyang2018.jy@cn.fujitsu.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Wang Xin <wangxin410@huawei.com> wrote:
+Signed-off-by: Jinhui Huang <huangjh.jy@cn.fujitsu.com>
+---
+ runtest/mm | 1 -
+ 1 file changed, 1 deletion(-)
 
->
-> Types in the name of the temporary files: For example, in aio_cancel/8-1.c file,
-> pts_aio_cancel_1_1 -> pts_aio_cancel_8_1.
-> Others like this have been modified.
-
-Applied, thanks for this fix.
-
+diff --git a/runtest/mm b/runtest/mm
+index eeebd87..6537666 100644
+--- a/runtest/mm
++++ b/runtest/mm
+@@ -21,7 +21,6 @@ mtest06_3 mmap3 -x 0.002 -p
+ #mtest-6_4 shmat1 -x 0.00005
+ 
+ mem02 mem02
+-mem03 mem03
+ 
+ page01 page01
+ page02 page02
 -- 
-Regards,
-Li Wang
+1.8.3.1
 
 
 -- 
