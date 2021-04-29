@@ -2,59 +2,88 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 593EE36E70D
-	for <lists+linux-ltp@lfdr.de>; Thu, 29 Apr 2021 10:32:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DED9036E7D5
+	for <lists+linux-ltp@lfdr.de>; Thu, 29 Apr 2021 11:21:42 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 29BEB3C613A
-	for <lists+linux-ltp@lfdr.de>; Thu, 29 Apr 2021 10:32:22 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 57D533C6195
+	for <lists+linux-ltp@lfdr.de>; Thu, 29 Apr 2021 11:21:42 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 1ACD13C0F91
- for <ltp@lists.linux.it>; Thu, 29 Apr 2021 10:32:20 +0200 (CEST)
-Received: from szxga03-in.huawei.com (szxga03-in.huawei.com [45.249.212.189])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id B9FCF3C2B9F
+ for <ltp@lists.linux.it>; Thu, 29 Apr 2021 11:21:37 +0200 (CEST)
+Received: from mail1.bemta26.messagelabs.com (mail1.bemta26.messagelabs.com
+ [85.158.142.112])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 70A101A0145F
- for <ltp@lists.linux.it>; Thu, 29 Apr 2021 10:32:19 +0200 (CEST)
-Received: from dggeml756-chm.china.huawei.com (unknown [172.30.72.55])
- by szxga03-in.huawei.com (SkyGuard) with ESMTP id 4FW7vR0RYcz5gTS
- for <ltp@lists.linux.it>; Thu, 29 Apr 2021 16:29:07 +0800 (CST)
-Received: from dggpeml500013.china.huawei.com (7.185.36.41) by
- dggeml756-chm.china.huawei.com (10.1.199.158) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.2176.2; Thu, 29 Apr 2021 16:32:15 +0800
-Received: from dggpeml500013.china.huawei.com ([7.185.36.41]) by
- dggpeml500013.china.huawei.com ([7.185.36.41]) with mapi id 15.01.2176.012;
- Thu, 29 Apr 2021 16:32:15 +0800
-From: "wangxin (CQ)" <wangxin410@huawei.com>
-To: "ltp@lists.linux.it" <ltp@lists.linux.it>
-Thread-Topic: [PATCH] controllers/cpuset: Restore the value of
- cpuset.sched_load_balance
-Thread-Index: AQHXN04Bm9buOB4WAUmb5vxWrGZ7B6rLMT3A
-Date: Thu, 29 Apr 2021 08:32:15 +0000
-Message-ID: <c6f0d000f05943a1bb1cac3c1bbd8867@huawei.com>
-References: <1619079641-30553-1-git-send-email-wangxin410@huawei.com>
-In-Reply-To: <1619079641-30553-1-git-send-email-wangxin410@huawei.com>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.174.176.33]
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 528F21001280
+ for <ltp@lists.linux.it>; Thu, 29 Apr 2021 11:21:36 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fujitsu.com;
+ s=170520fj; t=1619688095; i=@fujitsu.com;
+ bh=Rj3JfgwaPZlVzkgqs9x9e8B70Z+wdD4R4EnjfBvt0bk=;
+ h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type;
+ b=vK4vBHVN/sCNjPi/8t4EZ/6i6FPdKuyJTv8eBhG9KtHrLT8rmpkg8UXsHbcA9AI0/
+ qANPO6m9MksxEJR+UFjRqJqgw2TOAWuSPPPgDVl3B1dJHS/X7Vq/BATblR0Wcrh2h9
+ LZYW4hldaut+F7/z+OwzOoFHUI5GoNu/doq+0OKHSWO8/Z9LjqqzLEhjaodR4ZbT0i
+ juWRaQxMvZbDo4S0JXSRKVtreKACHOv3ESx2Yf19zh/Ev2pKdl631vYlJuRGrnHUvV
+ 1oN0+ODaSU5bO4g9y3uZgET2XOHTaA1Dvq1OjrGWdKrDXYvahPv61TwR8re6NIPOiL
+ Z7BlJ7j0C0+QA==
+Received: from [100.113.6.193] (using TLSv1.2 with cipher
+ DHE-RSA-AES256-GCM-SHA384 (256 bits))
+ by server-1.bemta.az-b.eu-central-1.aws.symcld.net id 19/DE-38008-F9A7A806;
+ Thu, 29 Apr 2021 09:21:35 +0000
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFlrEIsWRWlGSWpSXmKPExsViZ8MxVXd+VVe
+ CwaKvLBaTDqdarPi+g9GByWPf73WsHu/3XWULYIpizcxLyq9IYM1YdPgHc8EtkYqnHZdZGxgP
+ C3YxcnEICbxmlJhx9horhLObUaJhyTGWLkZODjYBTYlnnQuYQWwRAUmJjy2f2EFsZgFbiecPL
+ 7GB2MICARLL7jwFi7MIqEocbXwOFucV8JBo6pnNBGJLCChITHn4nhkiLihxcuYTFog5EhIHX7
+ xghqhRlLjU8Y0Rwq6U6Fy/gHECI+8sJC2zkLQsYGRaxWiZVJSZnlGSm5iZo2toYKBraGisa6J
+ rZGCql1ilm6SXWqqbnJpXUpQIlNVLLC/WK67MTc5J0ctLLdnECAy6lEKWszsYv7z+oHeIUZKD
+ SUmUd0tnZ4IQX1J+SmVGYnFGfFFpTmrxIUYZDg4lCd4dFV0JQoJFqempFWmZOcAIgElLcPAoi
+ fCeKwFK8xYXJOYWZ6ZDpE4xKkqJ854F6RMASWSU5sG1waLuEqOslDAvIwMDgxBPQWpRbmYJqv
+ wrRnEORiVhXo5KoCk8mXklcNNfAS1mAlq87HwbyOKSRISUVAOT/w1/taUvkxr4dHflqlWurv9
+ 08IKnCvP26olhe2Z7lDPWT7UTKNpYISWTlrzF+u1FdpF4c4bShtTPy07ZLeLydl+18opehIVq
+ z1PjVx8qVmjNsJO7xMAsN3lq9r/7/wWucQak9fo8KClb/o7p3WL1ZRHcSSy2W30DDofsuS/ya
+ v3yAsPJm/oXcf142HP54UGJ5TvinGNndx/MqtlScNHhvtnUwsKvTE/cTl5U/vtj5t6bClOWmF
+ rc0WiLODXj1jyGyOZTTgcjH2hFxAhutOH9venT3y0rTHwDjRaEVO8IYTBuO/D3wp+TH9dbCyw
+ PzHz49A0L77NIxl0Vevun385mV1tw5OIZzycC859tbyhLV2Ipzkg01GIuKk4EAGl8fFc1AwAA
+X-Env-Sender: xuyang2018.jy@fujitsu.com
+X-Msg-Ref: server-17.tower-248.messagelabs.com!1619688094!255516!1
+X-Originating-IP: [62.60.8.149]
+X-SYMC-ESS-Client-Auth: outbound-route-from=pass
+X-StarScan-Received: 
+X-StarScan-Version: 9.60.3; banners=-,-,-
+X-VirusChecked: Checked
+Received: (qmail 24599 invoked from network); 29 Apr 2021 09:21:35 -0000
+Received: from unknown (HELO mailhost2.uk.fujitsu.com) (62.60.8.149)
+ by server-17.tower-248.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
+ encrypted SMTP; 29 Apr 2021 09:21:35 -0000
+Received: from R01UKEXCASM126.r01.fujitsu.local ([10.183.43.178])
+ by mailhost2.uk.fujitsu.com (8.14.5/8.14.5) with ESMTP id 13T9LTXv025303
+ (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256 verify=FAIL);
+ Thu, 29 Apr 2021 10:21:34 +0100
+Received: from localhost.localdomain (10.167.220.84) by
+ R01UKEXCASM126.r01.fujitsu.local (10.183.43.178) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Thu, 29 Apr 2021 10:21:27 +0100
+From: Yang Xu <xuyang2018.jy@fujitsu.com>
+To: <jstancek@redhat.com>
+Date: Thu, 29 Apr 2021 17:21:46 +0800
+Message-ID: <1619688106-2179-1-git-send-email-xuyang2018.jy@fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
 MIME-Version: 1.0
-X-CFilter-Loop: Reflected
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Originating-IP: [10.167.220.84]
+X-ClientProxiedBy: G08CNEXCHPEKD06.g08.fujitsu.local (10.167.33.205) To
+ R01UKEXCASM126.r01.fujitsu.local (10.183.43.178)
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] =?gb2312?b?tPC4tDogW1BBVENIXSBjb250cm9sbGVycy9jcHVzZXQ6?=
- =?gb2312?b?IFJlc3RvcmUgdGhlIHZhbHVlIG9mIGNwdXNldC5zY2hlZF9sb2FkX2JhbGFu?=
- =?gb2312?b?Y2U=?=
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH] openposix/mlock_8-1,
+ munlock_10-1: document the introduced patch
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,47 +95,68 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Yanjin <yanjin.yan@huawei.com>
-Content-Type: text/plain; charset="gb2312"
-Content-Transfer-Encoding: base64
+Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGksDQoNCglQbGVhc2UgaWdub3JlIHRoaXMgcGF0Y2guIFdoZW4gSSB3YXMgbWFraW5nIHRoaXMg
-cGF0Y2gsDQoJSSB1c2VkIGFuIGluY29ycmVjdCBtZXRob2QgdG8gZml4IG15IGZvcm1hdHRpbmcg
-cHJvYmxlbS4gDQoJTm93IEkndmUgcmVtYWRlIGEgbmV3IHBhdGNoLCBwbGVhc2UgY2hlY2sgb3V0
-IHRoZSB2MiB2ZXJzaW9uLg0KDQpLaW5kIHJlZ2FyZHMsDQpXYW5nIFhpbg0KDQoNCi0tLS0t08q8
-/tStvP4tLS0tLQ0Kt6K8/sjLOiB3YW5neGluIChDUSkgDQq3osvNyrG85DogMjAyMcTqNNTCMjLI
-1SAxNjoyMQ0KytW8/sjLOiBsdHBAbGlzdHMubGludXguaXQNCrOty806IHdhbmd4aW4gKENRKSA8
-d2FuZ3hpbjQxMEBodWF3ZWkuY29tPg0K1vfM4jogW1BBVENIXSBjb250cm9sbGVycy9jcHVzZXQ6
-IFJlc3RvcmUgdGhlIHZhbHVlIG9mIGNwdXNldC5zY2hlZF9sb2FkX2JhbGFuY2UNCg0KV2hlbiB3
-ZSBydW4gdGhlIGNwdWhvdHBsdWcwMyB0ZXN0IGNhc2Ugb24gdGhlIGFybTY0IG1hY2hpbmUsIHdl
-IGNvbmNsdWRlIHRoYXQgbm8gZXJyb3Igb2NjdXJzIHdoZW4gdGhlIGNwdWhvdHBsdWcwMyBjYXNl
-IGlzIGV4ZWN1dGVkIGFsb25lLCBidXQgb25jZSB0aGUgY3B1c2V0X3NjaGVkX2RvbWFpbnMgY2Fz
-ZSBpcyBleGVjdXRlZCBmaXJzdCwgQWZ0ZXIgY3B1aG90cGx1ZzAzIGlzIGV4ZWN1dGVkLCB0aGUg
-ZXJyb3IgImNwdWhvdHBsdWcwMyAxIFRGQUlMOiBObyBjcHVob3RwbHVnX2RvX3NwaW5fbG9vcCBw
-cm9jZXNzZXMgZm91bmQgb24iIG9jY3Vycy4NClRoZSBjcHVzZXRfc2NoZWRfZG9tYWlucyB0ZXN0
-IGNhc2UgY2hhbmdlcyB0aGUgdmFsdWUgb2YgY3B1c2V0LnNjaGVkX2xvYWRfYmFsYW5jZSBpbiB0
-aGUgY3B1c2V0IGNncm91cCBzdWJzeXN0ZW0sIGJ1dCBkb2VzIG5vdCByZXN0b3JlIHRoZSB2YWx1
-ZSBhdCB0aGUgZW5kIG9mIHRoZSB0ZXN0Lg0KTW9kaWZ5IHRoZSBjcHVzZXRfZnVuY3Muc2ggZmls
-ZS4gVGhlIHRlc3QgcmVzdWx0IHNob3dzIHRoYXQgdGhlIHByb2JsZW0gaXMgc29sdmVkIHN1Y2Nl
-c3NmdWxseS4NCg0KU2lnbmVkLW9mZi1ieTogV2FuZyBYaW4gPHdhbmd4aW40MTBAaHVhd2VpLmNv
-bT4NCi0tLQ0KIHRlc3RjYXNlcy9rZXJuZWwvY29udHJvbGxlcnMvY3B1c2V0L2NwdXNldF9mdW5j
-cy5zaCB8IDQgKysrKw0KIDEgZmlsZSBjaGFuZ2VkLCA0IGluc2VydGlvbnMoKykNCg0KZGlmZiAt
-LWdpdCBhL3Rlc3RjYXNlcy9rZXJuZWwvY29udHJvbGxlcnMvY3B1c2V0L2NwdXNldF9mdW5jcy5z
-aCBiL3Rlc3RjYXNlcy9rZXJuZWwvY29udHJvbGxlcnMvY3B1c2V0L2NwdXNldF9mdW5jcy5zaA0K
-aW5kZXggMDBhYWQwZS4uODIwZGUzMyAxMDA3NTUNCi0tLSBhL3Rlc3RjYXNlcy9rZXJuZWwvY29u
-dHJvbGxlcnMvY3B1c2V0L2NwdXNldF9mdW5jcy5zaA0KKysrIGIvdGVzdGNhc2VzL2tlcm5lbC9j
-b250cm9sbGVycy9jcHVzZXQvY3B1c2V0X2Z1bmNzLnNoDQpAQCAtNTksNiArNTksOCBAQCBDUFVT
-RVQ9Ii9kZXYvY3B1c2V0Ig0KIENQVVNFVF9UTVA9Ii90bXAvY3B1c2V0X3RtcCINCiBDTE9ORV9D
-SElMRFJFTj0iL2Rldi9jcHVzZXQvY2dyb3VwLmNsb25lX2NoaWxkcmVuIg0KIENISUxEUkVOX1ZB
-TFVFPSIwIg0KK1NDSEVEX0xCPSIvZGV2L2NwdXNldC9jcHVzZXQuc2NoZWRfbG9hZF9iYWxhbmNl
-Ig0KK1NDSEVEX0xCX1ZBTFVFPSIwIg0KIEhPVFBMVUdfQ1BVPSIxIg0KIGNwdXNldF9sb2coKQ0K
-QEAgLTE2OSw2ICsxNzEsNyBAQCBzZXR1cCgpDQogCWZpDQogCUNISUxEUkVOX1ZBTFVFPSJgY2F0
-ICRDTE9ORV9DSElMRFJFTmAiDQorCVNDSEVEX0xCX1ZBTFVFPSJgY2F0ICRTQ0hFRF9MQmAiDQog
-fQ0KICMgV3JpdGUgdGhlIGNsZWFudXAgZnVuY3Rpb24NCkBAIC0xODAsNiArMTgzLDcgQEAgY2xl
-YW51cCgpDQogCX0NCiAJZWNobyAkQ0hJTERSRU5fVkFMVUUgPiAkQ0xPTkVfQ0hJTERSRU4NCisJ
-ZWNobyAkU0NIRURfTEJfVkFMVUUgPiAkU0NIRURfTEINCiAJZmluZCAiJENQVVNFVCIgLXR5cGUg
-ZCB8IHNvcnQgfCBzZWQgLW4gJzIsJHAnIHwgdGFjIHwgd2hpbGUgcmVhZCBzdWJkaXINCglkbw0K
-Mi42LjINCg0KCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9s
-aXN0aW5mby9sdHAK
+The previous patch f52839ba25 ("openposix/mlock_8-1,munlock_10-1: document known aarch64 issue")
+has documented the fix patch, I have verified the introdueced patch is 057d3389108ed
+("mm: untag user pointers passed to memory syscalls"). So add it in comment and make testers known
+ whether it is a regression test or a new bug when hitting the EINVAL error.
+
+Also modify the kernel version scope of the problem.
+
+Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
+---
+ .../conformance/interfaces/mlock/8-1.c                     | 7 +++++--
+ .../conformance/interfaces/munlock/10-1.c                  | 7 +++++--
+ 2 files changed, 10 insertions(+), 4 deletions(-)
+
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/mlock/8-1.c b/testcases/open_posix_testsuite/conformance/interfaces/mlock/8-1.c
+index b2cd21c95..d8722c7f6 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/mlock/8-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/mlock/8-1.c
+@@ -13,10 +13,13 @@
+  *
+  * Assume that the value LONG_MAX is an invalid pointer.
+  *
+- * aarch64 linux versions v5.3 up to v5.6-rc1 may incorrectly report
+- * EINVAL instead of ENOMEM, see:
++ * aarch64 linux versions v5.4-rc1 up to v5.6-rc3 may incorrectly report
++ * EINVAL instead of ENOMEM, the fix patch see:
+  *   597399d0cb91 ("arm64: tags: Preserve tags for addresses translated via TTBR1")
+  *   d0022c0ef29b ("arm64: memory: Add missing brackets to untagged_addr() macro")
++ *
++ * this bug was introduced because of the following commit, see:
++ *   057d3389108e ("mm: untag user pointers passed to memory syscalls")
+  */
+ 
+ #include <sys/mman.h>
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/munlock/10-1.c b/testcases/open_posix_testsuite/conformance/interfaces/munlock/10-1.c
+index 93414df46..e1c13d5fc 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/munlock/10-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/munlock/10-1.c
+@@ -13,10 +13,13 @@
+  *
+  * Assume that the value LONG_MAX is an invalid pointer.
+  *
+- * aarch64 linux versions v5.3 up to v5.6-rc1 may incorrectly report
+- * EINVAL instead of ENOMEM, see:
++ * aarch64 linux versions v5.4-rc1 up to v5.6-rc3 may incorrectly report
++ * EINVAL instead of ENOMEM, the fix patch see:
+  *   597399d0cb91 ("arm64: tags: Preserve tags for addresses translated via TTBR1")
+  *   d0022c0ef29b ("arm64: memory: Add missing brackets to untagged_addr() macro")
++ *
++ * this bug was introduced because of the following commit, see:
++ *   057d3389108e ("mm: untag user pointers passed to memory syscalls")
+  */
+ 
+ #include <sys/mman.h>
+-- 
+2.23.0
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
