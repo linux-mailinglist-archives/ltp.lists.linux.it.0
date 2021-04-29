@@ -1,63 +1,45 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB97036E322
-	for <lists+linux-ltp@lfdr.de>; Thu, 29 Apr 2021 04:02:48 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id AA42736E328
+	for <lists+linux-ltp@lfdr.de>; Thu, 29 Apr 2021 04:10:14 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0DF2D3C6C4A
-	for <lists+linux-ltp@lfdr.de>; Thu, 29 Apr 2021 04:02:48 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 681073C6487
+	for <lists+linux-ltp@lfdr.de>; Thu, 29 Apr 2021 04:10:14 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 5CE223C096D
- for <ltp@lists.linux.it>; Thu, 29 Apr 2021 04:02:42 +0200 (CEST)
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+ by picard.linux.it (Postfix) with ESMTPS id 73C0A3C096D
+ for <ltp@lists.linux.it>; Thu, 29 Apr 2021 04:10:12 +0200 (CEST)
+Received: from szxga06-in.huawei.com (szxga06-in.huawei.com [45.249.212.32])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id D4429600D0F
- for <ltp@lists.linux.it>; Thu, 29 Apr 2021 04:02:41 +0200 (CEST)
-Received: from dggeml751-chm.china.huawei.com (unknown [172.30.72.53])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4FVzDv36QtzWKGH
- for <ltp@lists.linux.it>; Thu, 29 Apr 2021 09:58:39 +0800 (CST)
-Received: from dggpemm100001.china.huawei.com (7.185.36.93) by
- dggeml751-chm.china.huawei.com (10.1.199.150) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.2176.2; Thu, 29 Apr 2021 10:02:37 +0800
-Received: from dggpemm500022.china.huawei.com (7.185.36.162) by
- dggpemm100001.china.huawei.com (7.185.36.93) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2176.2; Thu, 29 Apr 2021 10:02:37 +0800
-Received: from dggpemm500022.china.huawei.com ([7.185.36.162]) by
- dggpemm500022.china.huawei.com ([7.185.36.162]) with mapi id 15.01.2176.012;
- Thu, 29 Apr 2021 10:02:37 +0800
-From: xieziyao <xieziyao@huawei.com>
-To: Petr Vorel <pvorel@suse.cz>, Cyril Hrubis <chrubis@suse.cz>
-Thread-Topic: [LTP] [PATCH 1/2] syscalls/tkill: Convert tkill01 to the new API
-Thread-Index: AQHXOodtHJQpDaXDiE2dlym0ml+YgarJVCSAgABilYCAAQpSEA==
-Date: Thu, 29 Apr 2021 02:02:36 +0000
-Message-ID: <23fa24747c7a410b9f52f0c34dfc0628@huawei.com>
-References: <20210422065732.61222-1-xieziyao@huawei.com>
- <20210422065732.61222-2-xieziyao@huawei.com> <YIaWnt5ksxVyBvxk@pevik>
- <YIlRAanTIk9uKVEP@yuki> <YImjs5KVqFFjDqw/@pevik>
-In-Reply-To: <YImjs5KVqFFjDqw/@pevik>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.67.109.194]
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 41BEA1A0098D
+ for <ltp@lists.linux.it>; Thu, 29 Apr 2021 04:10:10 +0200 (CEST)
+Received: from DGGEMS402-HUB.china.huawei.com (unknown [172.30.72.58])
+ by szxga06-in.huawei.com (SkyGuard) with ESMTP id 4FVzRk4kJQzlbZs
+ for <ltp@lists.linux.it>; Thu, 29 Apr 2021 10:08:02 +0800 (CST)
+Received: from ubuntu1804.huawei.com (10.67.174.63) by
+ DGGEMS402-HUB.china.huawei.com (10.3.19.202) with Microsoft SMTP Server id
+ 14.3.498.0; Thu, 29 Apr 2021 10:09:56 +0800
+From: Zhao Gongyi <zhaogongyi@huawei.com>
+To: <ltp@lists.linux.it>
+Date: Thu, 29 Apr 2021 10:09:22 +0800
+Message-ID: <20210429020922.24085-1-zhaogongyi@huawei.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
+X-Originating-IP: [10.67.174.63]
 X-CFilter-Loop: Reflected
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/2] syscalls/tkill: Convert tkill01 to the new API
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH v3] commands/lsmod01.sh: Replace tst_res with tst_brk
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,45 +51,36 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi, Petr, Cyril,
+We need replace tst_res with tst_brk to terminate the test immediately since
+there is no sence to go on.
 
-Learned a lot. Thanks for your review and modifications to the code.
+Signed-off-by: Zhao Gongyi <zhaogongyi@huawei.com>
+---
+v2->v3: split into two separate commits
+ testcases/commands/lsmod/lsmod01.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Kind regards,
-Ziyao
+diff --git a/testcases/commands/lsmod/lsmod01.sh b/testcases/commands/lsmod/lsmod01.sh
+index 2e044c718..4ed91eca5 100755
+--- a/testcases/commands/lsmod/lsmod01.sh
++++ b/testcases/commands/lsmod/lsmod01.sh
+@@ -23,7 +23,7 @@ setup()
+ 		tst_require_cmds insmod
+ 		insmod "$TST_MODPATH"
+ 		if [ $? -ne 0 ]; then
+-			tst_res TBROK "insmod failed"
++			tst_brk TBROK "insmod failed"
+ 			return
+ 		fi
 
------Original Message-----
-From: Petr Vorel [mailto:pvorel@suse.cz] 
-Sent: Thursday, April 29, 2021 2:05 AM
-To: Cyril Hrubis <chrubis@suse.cz>
-Cc: xieziyao <xieziyao@huawei.com>; ltp@lists.linux.it
-Subject: Re: [LTP] [PATCH 1/2] syscalls/tkill: Convert tkill01 to the new API
+--
+2.17.1
 
-Hi Cyril, Xie,
-
-> > > +int sig_flag = 0;
-
-> > It should be
-> > static int sig_flag;
-
-> It has to be volatile as well, if we are waiting in a bussy loop on it 
-> and it's changed ansynchronously from a signal handler, otherwise 
-> compiler may misoptimize the code.
-
-> Generally the code that waits for a signal should look like:
-
-> static volatile sig_atomic_t sig_flag;
-
-Oh, yes, volatile. Thanks for other hints, code adjusted and whole patchset merged.
-
-Kind regards,
-Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
