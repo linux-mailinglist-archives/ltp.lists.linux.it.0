@@ -1,53 +1,52 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3EF8F36F944
-	for <lists+linux-ltp@lfdr.de>; Fri, 30 Apr 2021 13:27:09 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2560536F948
+	for <lists+linux-ltp@lfdr.de>; Fri, 30 Apr 2021 13:27:31 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E940C3C5E87
-	for <lists+linux-ltp@lfdr.de>; Fri, 30 Apr 2021 13:27:08 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 8A9A03C60B6
+	for <lists+linux-ltp@lfdr.de>; Fri, 30 Apr 2021 13:27:30 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 4AA093C2A5F
+ by picard.linux.it (Postfix) with ESMTPS id A6A393C2A5F
  for <ltp@lists.linux.it>; Fri, 30 Apr 2021 13:27:07 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id A1CBE60207B
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id D71B31A006A8
  for <ltp@lists.linux.it>; Fri, 30 Apr 2021 13:27:06 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
  t=1619782026; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=2VnaxMsVVdSlsJyClGRJIJv2+iHnApwSq2BUVWrVqtA=;
- b=dqXTNEDyPDyvf0Cd4JMKkfGyd7NeDyrYJxx4ws6Wt1NlAbYRJ1d6GVOCMpkCc0qdH8HPoT
- MhAkBNLpx6L+vs2lZqoz1LnaTRjOyamaola6WW7nNRisF+KfDLVPOA7qq4F6nCZyX8oGoP
- 5XnoNLsDm0sN8hMKcwztbm/34Arg+3g=
+ bh=5oLeBW482m9Lf77aRjgRgGvzdoXywdRVxDcCJ9PT6Xk=;
+ b=OnVxFMD1hDcGoFZV5usPN6qmmdC5y9cDcUOmHT904tLXr1+TB4lbItEJlVpg7XYYP9S000
+ gZBBO07GC7HopwoPOKagzC0O5je7MfNBSXo6PHqdjIC1/nMDuId4pLJyfCMO38AYSjAUS/
+ cjFreL77wQb6ExWYsauB0rMiuUsxnTU=
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 26ED1B02A;
+ by mx2.suse.de (Postfix) with ESMTP id 7503AB03F;
  Fri, 30 Apr 2021 11:27:06 +0000 (UTC)
 To: ltp@lists.linux.it
-Date: Fri, 30 Apr 2021 12:26:43 +0100
-Message-Id: <20210430112649.16302-2-rpalethorpe@suse.com>
+Date: Fri, 30 Apr 2021 12:26:44 +0100
+Message-Id: <20210430112649.16302-3-rpalethorpe@suse.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210430112649.16302-1-rpalethorpe@suse.com>
 References: <20210430112649.16302-1-rpalethorpe@suse.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v5 1/7] API: Add safe openat, printfat,
- readat and unlinkat
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH v5 2/7] API: Make tst_count_scanf_conversions public
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,261 +66,83 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Add 'at' variants for a number of system calls and LTP SAFE API
-functions. This avoids using sprintf everywhere to build paths.
-
-Also adds tst_decode_fd which allows us to retrieve the path for an FD
-for debugging purposes without having to store it ourselves. However
-the proc symlink may not be available on some systems.
+Useful in other parts of the library like tst_cgroup.c
 
 Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
 ---
- include/tst_safe_file_at.h |  51 +++++++++++
- lib/tst_safe_file_at.c     | 176 +++++++++++++++++++++++++++++++++++++
- 2 files changed, 227 insertions(+)
- create mode 100644 include/tst_safe_file_at.h
- create mode 100644 lib/tst_safe_file_at.c
+ include/safe_file_ops_fn.h | 10 ++++++++++
+ lib/safe_file_ops.c        | 16 ++++------------
+ 2 files changed, 14 insertions(+), 12 deletions(-)
 
-diff --git a/include/tst_safe_file_at.h b/include/tst_safe_file_at.h
-new file mode 100644
-index 000000000..fbb63b4a8
---- /dev/null
-+++ b/include/tst_safe_file_at.h
-@@ -0,0 +1,51 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
+diff --git a/include/safe_file_ops_fn.h b/include/safe_file_ops_fn.h
+index ed7d978dd..6d680967b 100644
+--- a/include/safe_file_ops_fn.h
++++ b/include/safe_file_ops_fn.h
+@@ -23,6 +23,16 @@
+ 
+ #include "lapi/utime.h"
+ 
 +/*
-+ * Copyright (c) 2021 SUSE LLC <rpalethorpe@suse.com>
++ * Count number of expected assigned conversions. Any conversion starts with '%'.
++ * The '%%' matches % and no assignment is done. The %*x matches as x would do but
++ * the assignment is suppressed.
++ *
++ * NOTE: This is not 100% correct for complex scanf strings, but will do for
++ *       all of our intended usage.
 + */
++int tst_count_scanf_conversions(const char *fmt);
 +
-+#ifndef TST_SAFE_FILE_AT_H
-+#define TST_SAFE_FILE_AT_H
-+
-+#include <sys/types.h>
-+#include <stdarg.h>
-+
-+#define SAFE_OPENAT(dirfd, path, oflags, ...)			\
-+	safe_openat(__FILE__, __LINE__,				\
-+		    (dirfd), (path), (oflags), ## __VA_ARGS__)
-+
-+#define SAFE_FILE_READAT(dirfd, path, buf, nbyte)			\
-+	safe_file_readat(__FILE__, __LINE__,				\
-+			 (dirfd), (path), (buf), (nbyte))
-+
-+
-+#define SAFE_FILE_PRINTFAT(dirfd, path, fmt, ...)			\
-+	safe_file_printfat(__FILE__, __LINE__,				\
-+			   (dirfd), (path), (fmt), __VA_ARGS__)
-+
-+#define SAFE_UNLINKAT(dirfd, path, flags)				\
-+	safe_unlinkat(__FILE__, __LINE__, (dirfd), (path), (flags))
-+
-+char *tst_decode_fd(int fd);
-+
-+int safe_openat(const char *file, const int lineno,
-+		int dirfd, const char *path, int oflags, ...);
-+
-+ssize_t safe_file_readat(const char *file, const int lineno,
-+			 int dirfd, const char *path, char *buf, size_t nbyte);
-+
-+int tst_file_vprintfat(int dirfd, const char *path, const char *fmt, va_list va);
-+int tst_file_printfat(int dirfd, const char *path, const char *fmt, ...)
-+			__attribute__ ((format (printf, 3, 4)));
-+
-+int safe_file_vprintfat(const char *file, const int lineno,
-+			int dirfd, const char *path,
-+			const char *fmt, va_list va);
-+
-+int safe_file_printfat(const char *file, const int lineno,
-+		       int dirfd, const char *path, const char *fmt, ...)
-+			__attribute__ ((format (printf, 5, 6)));
-+
-+int safe_unlinkat(const char *file, const int lineno,
-+		  int dirfd, const char *path, int flags);
-+
-+#endif
-diff --git a/lib/tst_safe_file_at.c b/lib/tst_safe_file_at.c
-new file mode 100644
-index 000000000..43372998e
---- /dev/null
-+++ b/lib/tst_safe_file_at.c
-@@ -0,0 +1,176 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2021 SUSE LLC <rpalethorpe@suse.com>
-+ */
-+
-+#define _GNU_SOURCE
-+#include <stdio.h>
-+#include "lapi/fcntl.h"
-+#include "tst_safe_file_at.h"
-+
-+#define TST_NO_DEFAULT_MAIN
-+#include "tst_test.h"
-+
-+char fd_path[PATH_MAX];
-+
-+char *tst_decode_fd(int fd)
-+{
-+	ssize_t ret;
-+	char proc_path[32];
-+
-+	if (fd < 0)
-+		return "!";
-+
-+	sprintf(proc_path, "/proc/self/fd/%d", fd);
-+	ret = readlink(proc_path, fd_path, sizeof(fd_path));
-+
-+	if (ret < 0)
-+		return "?";
-+
-+	fd_path[ret] = '\0';
-+
-+	return fd_path;
-+}
-+
-+int safe_openat(const char *file, const int lineno,
-+		int dirfd, const char *path, int oflags, ...)
-+{
-+	va_list ap;
-+	int fd;
-+	mode_t mode;
-+
-+	va_start(ap, oflags);
-+	mode = va_arg(ap, int);
-+	va_end(ap);
-+
-+	fd = openat(dirfd, path, oflags, mode);
-+	if (fd > -1)
-+		return fd;
-+
-+	tst_brk_(file, lineno, TBROK | TERRNO,
-+		 "openat(%d<%s>, '%s', %o, %o)",
-+		 dirfd, tst_decode_fd(dirfd), path, oflags, mode);
-+
-+	return fd;
-+}
-+
-+ssize_t safe_file_readat(const char *file, const int lineno,
-+			 int dirfd, const char *path, char *buf, size_t nbyte)
-+{
-+	int fd = safe_openat(file, lineno, dirfd, path, O_RDONLY);
-+	ssize_t rval;
-+
-+	if (fd < 0)
-+		return -1;
-+
-+	rval = safe_read(file, lineno, NULL, 0, fd, buf, nbyte - 1);
-+	if (rval < 0)
-+		return -1;
-+
-+	close(fd);
-+	buf[rval] = '\0';
-+
-+	if (rval >= (ssize_t)nbyte - 1) {
-+		tst_brk_(file, lineno, TBROK,
-+			"Buffer length %zu too small to read %d<%s>/%s",
-+			nbyte, dirfd, tst_decode_fd(dirfd), path);
-+	}
-+
-+	return rval;
-+}
-+
-+int tst_file_vprintfat(int dirfd, const char *path, const char *fmt, va_list va)
-+{
-+	int fd = openat(dirfd, path, O_WRONLY);
-+
-+	if (fd < 0)
-+		return -1;
-+
-+	TEST(vdprintf(fd, fmt, va));
-+	close(fd);
-+
-+	if (TST_RET < 0) {
-+		errno = TST_ERR;
-+		return -2;
-+	}
-+
-+	return TST_RET;
-+}
-+
-+int tst_file_printfat(int dirfd, const char *path, const char *fmt, ...)
-+{
-+	va_list va;
-+	int rval;
-+
-+	va_start(va, fmt);
-+	rval = tst_file_vprintfat(dirfd, path, fmt, va);
-+	va_end(va);
-+
-+	return rval;
-+}
-+
-+int safe_file_vprintfat(const char *file, const int lineno,
-+			int dirfd, const char *path,
-+			const char *fmt, va_list va)
-+{
-+	char buf[16];
-+	va_list vac;
-+	int rval;
-+
-+	va_copy(vac, va);
-+
-+	TEST(tst_file_vprintfat(dirfd, path, fmt, va));
-+
-+	if (TST_RET == -2) {
-+		rval = vsnprintf(buf, sizeof(buf), fmt, vac);
-+		va_end(vac);
-+
-+		if (rval >= (ssize_t)sizeof(buf))
-+			strcpy(buf + sizeof(buf) - 5, "...");
-+
-+		tst_brk_(file, lineno, TBROK | TTERRNO,
-+			 "vdprintf(%d<%s>, '%s', '%s'<%s>)",
-+			 dirfd, tst_decode_fd(dirfd), path, fmt,
-+			 rval > 0 ? buf : "???");
-+		return -1;
-+	}
-+
-+	va_end(vac);
-+
-+	if (TST_RET == -1) {
-+		tst_brk_(file, lineno, TBROK | TTERRNO,
-+			"openat(%d<%s>, '%s', O_WRONLY)",
-+			dirfd, tst_decode_fd(dirfd), path);
-+	}
-+
-+	return TST_RET;
-+}
-+
-+int safe_file_printfat(const char *file, const int lineno,
-+		       int dirfd, const char *path,
-+		       const char *fmt, ...)
-+{
-+	va_list va;
-+	int rval;
-+
-+	va_start(va, fmt);
-+	rval = safe_file_vprintfat(file, lineno, dirfd, path, fmt, va);
-+	va_end(va);
-+
-+	return rval;
-+}
-+
-+int safe_unlinkat(const char *file, const int lineno,
-+		  int dirfd, const char *path, int flags)
-+{
-+	int rval = unlinkat(dirfd, path, flags);
-+
-+	if (rval > -1)
-+		return rval;
-+
-+	tst_brk_(file, lineno, TBROK | TERRNO,
-+		 "unlinkat(%d<%s>, '%s', %s)", dirfd, tst_decode_fd(dirfd), path,
-+		 flags == AT_REMOVEDIR ? "AT_REMOVEDIR" : (flags ? "?" : "0"));
-+
-+	return rval;
-+}
+ /*
+  * All-in-one function to scanf value(s) from a file.
+  */
+diff --git a/lib/safe_file_ops.c b/lib/safe_file_ops.c
+index 0ec2ff8fe..249a512a1 100644
+--- a/lib/safe_file_ops.c
++++ b/lib/safe_file_ops.c
+@@ -34,15 +34,7 @@
+ #include "test.h"
+ #include "safe_file_ops_fn.h"
+ 
+-/*
+- * Count number of expected assigned conversions. Any conversion starts with '%'.
+- * The '%%' matches % and no assignment is done. The %*x matches as x would do but
+- * the assignment is suppressed.
+- *
+- * NOTE: This is not 100% correct for complex scanf strings, but will do for
+- *       all of our intended usage.
+- */
+-static int count_scanf_conversions(const char *fmt)
++int tst_count_scanf_conversions(const char *fmt)
+ {
+ 	unsigned int cnt = 0;
+ 	int flag = 0;
+@@ -89,7 +81,7 @@ int file_scanf(const char *file, const int lineno,
+ 		return 1;
+ 	}
+ 
+-	exp_convs = count_scanf_conversions(fmt);
++	exp_convs = tst_count_scanf_conversions(fmt);
+ 
+ 	va_start(va, fmt);
+ 	ret = vfscanf(f, fmt, va);
+@@ -141,7 +133,7 @@ void safe_file_scanf(const char *file, const int lineno,
+ 		return;
+ 	}
+ 
+-	exp_convs = count_scanf_conversions(fmt);
++	exp_convs = tst_count_scanf_conversions(fmt);
+ 
+ 	va_start(va, fmt);
+ 	ret = vfscanf(f, fmt, va);
+@@ -195,7 +187,7 @@ int file_lines_scanf(const char *file, const int lineno,
+ 		return 1;
+ 	}
+ 
+-	arg_count = count_scanf_conversions(fmt);
++	arg_count = tst_count_scanf_conversions(fmt);
+ 
+ 	while (fgets(line, BUFSIZ, fp) != NULL) {
+ 		va_start(ap, fmt);
 -- 
 2.31.1
 
