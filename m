@@ -2,59 +2,44 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3354236F7A9
-	for <lists+linux-ltp@lfdr.de>; Fri, 30 Apr 2021 11:16:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2125536F785
+	for <lists+linux-ltp@lfdr.de>; Fri, 30 Apr 2021 11:06:13 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id CC2EC3C60C8
-	for <lists+linux-ltp@lfdr.de>; Fri, 30 Apr 2021 11:16:18 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id D49603C5EB5
+	for <lists+linux-ltp@lfdr.de>; Fri, 30 Apr 2021 11:06:12 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id F3D753C19C3
- for <ltp@lists.linux.it>; Fri, 30 Apr 2021 03:48:42 +0200 (CEST)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by picard.linux.it (Postfix) with ESMTPS id C022A3C1866
+ for <ltp@lists.linux.it>; Fri, 30 Apr 2021 11:06:10 +0200 (CEST)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id A1A022003AF
- for <ltp@lists.linux.it>; Fri, 30 Apr 2021 03:48:41 +0200 (CEST)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id EB7AD613D8;
- Fri, 30 Apr 2021 01:48:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1619747319;
- bh=R+Br+ByigmFx8GICfJM2Z3csLqKD2/XlBGg2xyizbhs=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=eVOOZh0eukyoXkjzWytUDenxV7bez2Y4Eee3JLk/SP3d3cZkGnsKPlh9c31qRTXGa
- Xo7p8L7zrFJvJqa4E5yPr/1Q+rW9CxraFPFzKDJL6dqGSdz/3IYI7dg6h2MNH+bKRL
- lTIwIvg+o+EIYDaru1B4gBy8J6darKe8151Sd3MB/0HNJlZueNjzg0ayIJKoOnTlE/
- KNG3P4A+UCmSGtuShws4x1ZAxmn4u8oeq670kUfiTNYryOwc65/0pnRU+o6qKMKWI1
- IHdHLaQGXKWJOon49HwGe9EP2cBBpPv/Z0b7yskfG9G0iBXtwzVwe0ykIaRATaJn9b
- DKlYWvwGZI5dA==
-Date: Fri, 30 Apr 2021 09:48:23 +0800
-From: Gao Xiang <xiang@kernel.org>
-To: Weichao Guo <guoweichao@oppo.com>
-Message-ID: <20210430014823.GA3132@hsiangkao-HP-ZHAN-66-Pro-G1>
-References: <20210308072510.GA902@xsang-OptiPlex-9020> <87h7llhnfe.fsf@suse.de>
- <c75229cc-e325-1c8b-0afa-fd236db8319c@oppo.com>
- <20210309040144.GH3479805@casper.infradead.org>
- <c84bf5c9-501e-6c25-1728-a7c6281093fd@oppo.com>
- <YEkw0J9VEg66AgIt@google.com>
- <e2009f2d-253d-264c-53ca-fa644897a952@huawei.com>
- <cf28837a-9558-b00c-bca3-601a70b752ea@oppo.com>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id EA973200FDF
+ for <ltp@lists.linux.it>; Fri, 30 Apr 2021 11:06:09 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 4020AB1DC;
+ Fri, 30 Apr 2021 09:06:09 +0000 (UTC)
+Date: Fri, 30 Apr 2021 10:44:25 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Richard Palethorpe <rpalethorpe@suse.com>
+Message-ID: <YIvDaQr7WUqn2FjC@yuki>
+References: <20210429150510.21585-1-rpalethorpe@suse.com>
+ <20210429150510.21585-5-rpalethorpe@suse.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <cf28837a-9558-b00c-bca3-601a70b752ea@oppo.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+In-Reply-To: <20210429150510.21585-5-rpalethorpe@suse.com>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-X-Mailman-Approved-At: Fri, 30 Apr 2021 11:16:14 +0200
-Subject: Re: [LTP] [f2fs] 02eb84b96b: ltp.swapon03.fail
+Subject: Re: [LTP] [PATCH v2 4/5] bpf: Add bpf_insn_buf,
+ map and instruction concatenation helpers
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,107 +51,141 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: lkp@intel.com, lkp@lists.01.org, Chao Yu <yuchao0@huawei.com>,
- LKML <linux-kernel@vger.kernel.org>, Matthew Wilcox <willy@infradead.org>,
- Huang Jianan <huangjianan@oppo.com>,
- Linux Memory Management List <linux-mm@kvack.org>,
- kernel test robot <oliver.sang@intel.com>, Jaegeuk Kim <jaegeuk@kernel.org>,
- ltp@lists.linux.it
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Thu, Apr 29, 2021 at 09:08:42PM +0800, Weichao Guo wrote:
+Hi!
+> Add helpers for building up programs. Tests before bpf_prog05 have not
+> been updated to use this for two reasons.
 > 
-> On 2021/3/23 17:04, Chao Yu wrote:
-> > On 2021/3/11 4:49, Jaegeuk Kim wrote:
-> > > On 03/10, Huang Jianan wrote:
-> > > > Hi Richard,
-> > > > 
-> > > > On 2021/3/9 12:01, Matthew Wilcox wrote:
-> > > > > On Tue, Mar 09, 2021 at 10:23:35AM +0800, Weichao Guo wrote:
-> > > > > > Hi Richard,
-> > > > > > 
-> > > > > > On 2021/3/8 19:53, Richard Palethorpe wrote:
-> > > > > > > Hello,
-> > > > > > > 
-> > > > > > > > kern  :err   : [  187.461914] F2FS-fs (sda1):
-> > > > > > > > Swapfile does not align to section
-> > > > > > > > commit 02eb84b96bc1b382dd138bf60724edbefe77b025
-> > > > > > > > Author: huangjianan@oppo.com <huangjianan@oppo.com>
-> > > > > > > > Date:   Mon Mar 1 12:58:44 2021 +0800
-> > > > > > > >        f2fs: check if swapfile is section-alligned
-> > > > > > > >        If the swapfile isn't created by pin and
-> > > > > > > > fallocate, it can't be
-> > > > > > > >        guaranteed section-aligned, so it may be
-> > > > > > > > selected by f2fs gc. When
-> > > > > > > >        gc_pin_file_threshold is reached, the
-> > > > > > > > address of swapfile may change,
-> > > > > > > >        but won't be synchronized to swap_extent,
-> > > > > > > > so swap will write to wrong
-> > > > > > > >        address, which will cause data corruption.
-> > > > > > > >        Signed-off-by: Huang Jianan <huangjianan@oppo.com>
-> > > > > > > >        Signed-off-by: Guo Weichao <guoweichao@oppo.com>
-> > > > > > > >        Reviewed-by: Chao Yu <yuchao0@huawei.com>
-> > > > > > > >        Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
-> > > > > > > The test uses fallocate to preallocate the swap file
-> > > > > > > and writes zeros to
-> > > > > > > it. I'm not sure what pin refers to?
-> > > > > > 'pin' refers to pinned file feature in F2FS, the
-> > > > > > LBA(Logical Block Address)
-> > > > > > of a file is fixed after pinned. Without this operation
-> > > > > > before fallocate,
-> > > > > > the LBA may not align with section(F2FS GC unit), some
-> > > > > > LBA of the file may
-> > > > > > be changed by F2FS GC in some extreme cases.
-> > > > > > 
-> > > > > > For this test case, how about pin the swap file before
-> > > > > > fallocate for F2FS as
-> > > > > > following:
-> > > > > > 
-> > > > > > ioctl(fd, F2FS_IOC_SET_PIN_FILE, true);
-> > > > > No special ioctl should be needed.  f2fs_swap_activate()
-> > > > > should pin the
-> > > > > file, just like it converts inline inodes and disables compression.
-> > > > 
-> > > > Now f2fs_swap_activate() will pin the file. The problem is that when
-> > > > f2fs_swap_activate()
-> > > > 
-> > > > is executed, the file has been created and may not be section-aligned.
-> > > > 
-> > > > So I think it would be better to consider aligning the swapfile during
-> > > > f2fs_swap_activate()?
-> > > 
-> > > Does it make sense to reallocate blocks like
-> > > in f2fs_swap_activate(),
-> > >     set_inode_flag(inode, FI_PIN_FILE);
-> > >     truncate_pagecache(inode, 0);
-> > >     f2fs_truncate_blocks(inode, 0, true);
-> > 
-> > It will corrupt swap header info while relocating whole swapfile...
-> How about back up the header page, and recover it after expand_inode_data()
-> ?
+> 1. Some apply offsets to the map pointer returned or jump to the end
+>    of the program instead of just over an immediate exit
+>    instruction. Either way modifying them would require testing they
+>    still reproduce the bug.
+> 
+> 2. Some have a lot of comments describing the program which is useful
+>    to learn from. These would need to be moved.
+> 
+> Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
+> ---
+>  testcases/kernel/syscalls/bpf/bpf_common.c | 40 ++++++++++++++++++++++
+>  testcases/kernel/syscalls/bpf/bpf_common.h | 12 +++++++
+>  2 files changed, 52 insertions(+)
+> 
+> diff --git a/testcases/kernel/syscalls/bpf/bpf_common.c b/testcases/kernel/syscalls/bpf/bpf_common.c
+> index b5337c22a..d80ed91bb 100644
+> --- a/testcases/kernel/syscalls/bpf/bpf_common.c
+> +++ b/testcases/kernel/syscalls/bpf/bpf_common.c
+> @@ -82,6 +82,46 @@ long bpf_map_array_get(const int map_fd,
+>  	return TST_RET;
+>  }
+>  
+> +void bpf_insn_buf_cat(struct bpf_insn_buf *const self,
+> +		      const struct bpf_insn *const insn_to_cat,
+> +		      const size_t insn_to_cat_len)
+> +{
+> +	memcpy(((char *)self->insn) + self->byte_len,
+> +	       insn_to_cat, insn_to_cat_len);
+> +	self->byte_len += insn_to_cat_len;
+> +}
+> +
+> +/* map[array_indx] = reg_to_save
+> + *
+> + * Inserts the following into insn_out.
+> + *
+> + * r1 = map_fd
+> + * r2 = fp
+> + * r2 = r2 - 4
+> + * r2 = array_indx
+> + * call map_lookup_elem(r1, r2)
+> + * if r0 != 0 goto pc+1
+> + * exit
+> + * *r0 = reg_to_save
+> + *
+> + */
+> + void bpf_insn_buf_array_set(struct bpf_insn_buf *const self, const int map_fd,
+> +			     const uint32_t array_indx, const uint8_t reg_to_save)
+> +{
+> +	const struct bpf_insn map_insn[] = {
+> +		BPF_LD_MAP_FD(BPF_REG_1, map_fd),
+> +		BPF_MOV64_REG(BPF_REG_2, BPF_REG_10),
+> +		BPF_ALU64_IMM(BPF_ADD, BPF_REG_2, -4),
+> +		BPF_ST_MEM(BPF_W, BPF_REG_2, 0, array_indx),
+> +		BPF_EMIT_CALL(BPF_FUNC_map_lookup_elem),
+> +		BPF_JMP_IMM(BPF_JNE, BPF_REG_0, 0, 1),
+> +		BPF_EXIT_INSN(),
+> +		BPF_STX_MEM(BPF_DW, BPF_REG_0, reg_to_save, 0),
+> +	};
 
-That sounds somewhat hacky, since I don't think fs should take care of swap
-detailed format.
+I'm wondering if it would be easier to write a macro that would produce
+this code, something as:
 
-My premature suggesttion, how about
- a) for non-pinned files, f2fs_swap_activate() pins the file and move
-    (reallocate) pre-fallocated data blocks if needed;
- b) for already pinned files and not section-aligned when
-    f2fs_swap_activate(), just reject it.
+	#define BPF_ARRAY_STORE(map_fd, arr_idx, reg_to_save) \
+		BPF_LD_MAP_FD(BPF_REG_1, map_fd), \
+		BPF_MOV64_REG(BPF_REG_2, BPF_REG_10), \
+		BPF_ALU64_IMM(BPF_ADD, BPF_REG_2, -4), \
+		BPF_ST_MEM(BPF_W, BPF_REG_2, 0, arr_indx), \
+		BPF_EMIT_CALL(BPF_FUNC_map_lookup_elem), \
+		BPF_JMP_IMM(BPF_JNE, BPF_REG_0, 0, 1), \
+		BPF_EXIT_INSN(), \
+		BPF_STX_MEM(BPF_DW, BPF_REG_0, reg_to_save, 0)
 
-I think it would pass the test since pinned operation is f2fs-specific only.
-Or am I still missing something?
 
-Thanks,
-Gao Xiang
+Then we can use this piece as any other macros when constructing the
+program, the only difference is that this macro emits 8 instructions
+instead of one.
 
-> > 
-> > >     expand_inode_data();
-> > > .
-> > > 
+What do you think?
+
+> +	bpf_insn_buf_cat(self, map_insn, sizeof(map_insn));
+> +}
+> +
+>  void bpf_init_prog_attr(union bpf_attr *attr, const struct bpf_insn *prog,
+>  	size_t prog_size, char *log_buf, size_t log_size)
+>  {
+> diff --git a/testcases/kernel/syscalls/bpf/bpf_common.h b/testcases/kernel/syscalls/bpf/bpf_common.h
+> index 9e9935c2c..10b1eee86 100644
+> --- a/testcases/kernel/syscalls/bpf/bpf_common.h
+> +++ b/testcases/kernel/syscalls/bpf/bpf_common.h
+> @@ -13,6 +13,11 @@
+>  
+>  #define BPF_MEMLOCK_ADD (2*1024*1024)
+>  
+> +struct bpf_insn_buf {
+> +	size_t byte_len;
+> +	struct bpf_insn insn[BPF_MAXINSNS];
+> +};
+> +
+>  void rlimit_bump_memlock(void);
+>  int bpf_map_create(union bpf_attr *attr);
+>  int bpf_map_array_create(uint32_t max_entries);
+> @@ -20,6 +25,13 @@ long bpf_map_array_get(const int map_fd,
+>  		       const uint32_t *const array_indx,
+>  		       uint64_t *const array_val);
+>  
+> +void bpf_insn_buf_cat(struct bpf_insn_buf *const self,
+> +		      const struct bpf_insn *const insn_to_cat,
+> +		      const size_t insn_to_cat_len);
+> +void bpf_insn_buf_array_set(struct bpf_insn_buf *const self,
+> +			    const int map_fd,
+> +			    const uint32_t array_indx, const uint8_t reg_to_save);
+> +
+>  void bpf_init_prog_attr(union bpf_attr *attr, const struct bpf_insn *prog,
+>  			size_t prog_size, char *log_buf, size_t log_size);
+>  int bpf_load_prog(union bpf_attr *attr, const char *log);
+> -- 
+> 2.31.1
+> 
+> 
+> -- 
+> Mailing list info: https://lists.linux.it/listinfo/ltp
+
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
