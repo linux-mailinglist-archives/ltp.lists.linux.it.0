@@ -1,43 +1,43 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03CAF36FB93
-	for <lists+linux-ltp@lfdr.de>; Fri, 30 Apr 2021 15:34:24 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id CF46036FBAF
+	for <lists+linux-ltp@lfdr.de>; Fri, 30 Apr 2021 15:46:07 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 841AD3C606F
-	for <lists+linux-ltp@lfdr.de>; Fri, 30 Apr 2021 15:34:23 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A0AA53C606F
+	for <lists+linux-ltp@lfdr.de>; Fri, 30 Apr 2021 15:46:07 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 68EF23C194E
- for <ltp@lists.linux.it>; Fri, 30 Apr 2021 15:34:22 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 3BC3D3C194E
+ for <ltp@lists.linux.it>; Fri, 30 Apr 2021 15:46:05 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id BE1501401634
- for <ltp@lists.linux.it>; Fri, 30 Apr 2021 15:34:21 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 3A94920020D
+ for <ltp@lists.linux.it>; Fri, 30 Apr 2021 15:46:04 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id EBC18AE5C;
- Fri, 30 Apr 2021 13:34:20 +0000 (UTC)
-Date: Fri, 30 Apr 2021 15:12:28 +0200
+ by mx2.suse.de (Postfix) with ESMTP id 739FEAF19;
+ Fri, 30 Apr 2021 13:46:04 +0000 (UTC)
+Date: Fri, 30 Apr 2021 15:24:11 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Zhao Gongyi <zhaogongyi@huawei.com>
-Message-ID: <YIwCPEcwpzEim3yS@yuki>
-References: <20210429125237.31461-1-zhaogongyi@huawei.com>
+Message-ID: <YIwE+9c8gqsyQ+mV@yuki>
+References: <20210429125255.31510-1-zhaogongyi@huawei.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210429125237.31461-1-zhaogongyi@huawei.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+In-Reply-To: <20210429125255.31510-1-zhaogongyi@huawei.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 3/4] syscalls/getpgid01: Replace TINFO with TPASS
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 2/4] syscalls/modify_ldt: Replace TINFO with TPASS
  or TFAIL
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -57,16 +57,11 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-I've applied the patch since ti makes the code better but the test is
-still completely broken.
+Pushed with a minor changes, thanks.
 
-The problem is that the whole test is being executed in a child process
-while the parent does wait() on it but it does not propagate the
-failures at all as it just does exit(0) at the end of the parent
-process. And there are other subtle bugs in the code.
-
-All in all the easiest way how to fix this would be simply rewriting the
-test to the new library where no result propagation has to be done.
+I've removed a few useless comments as well, i.e. things that were
+commenting the obvious such as "setup() - performs setup" and the
+"//block1:" etc.
 
 -- 
 Cyril Hrubis
