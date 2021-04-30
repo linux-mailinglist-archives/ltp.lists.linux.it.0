@@ -2,42 +2,46 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34C7C36F802
-	for <lists+linux-ltp@lfdr.de>; Fri, 30 Apr 2021 11:38:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C741D36F81D
+	for <lists+linux-ltp@lfdr.de>; Fri, 30 Apr 2021 11:45:20 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 638B63C5EC9
-	for <lists+linux-ltp@lfdr.de>; Fri, 30 Apr 2021 11:38:09 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 92EE43C607C
+	for <lists+linux-ltp@lfdr.de>; Fri, 30 Apr 2021 11:45:20 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 0C0FC3C19C3
- for <ltp@lists.linux.it>; Fri, 30 Apr 2021 11:38:04 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ by picard.linux.it (Postfix) with ESMTPS id 690933C2A5F
+ for <ltp@lists.linux.it>; Fri, 30 Apr 2021 11:45:07 +0200 (CEST)
+Received: from szxga06-in.huawei.com (szxga06-in.huawei.com [45.249.212.32])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 530A21A01735
- for <ltp@lists.linux.it>; Fri, 30 Apr 2021 11:38:04 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id AB064AE56;
- Fri, 30 Apr 2021 09:38:03 +0000 (UTC)
-Date: Fri, 30 Apr 2021 11:16:18 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Zhao Gongyi <zhaogongyi@huawei.com>
-Message-ID: <YIvK4qFFbWpsEv2y@yuki>
-References: <20210429142232.29596-1-zhaogongyi@huawei.com>
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 9ECB66010DD
+ for <ltp@lists.linux.it>; Fri, 30 Apr 2021 11:45:06 +0200 (CEST)
+Received: from DGGEMS404-HUB.china.huawei.com (unknown [172.30.72.58])
+ by szxga06-in.huawei.com (SkyGuard) with ESMTP id 4FWnVC4JRhzlbf5
+ for <ltp@lists.linux.it>; Fri, 30 Apr 2021 17:42:59 +0800 (CST)
+Received: from ubuntu1804.huawei.com (10.67.174.209) by
+ DGGEMS404-HUB.china.huawei.com (10.3.19.204) with Microsoft SMTP Server id
+ 14.3.498.0; Fri, 30 Apr 2021 17:44:56 +0800
+From: Xie Ziyao <xieziyao@huawei.com>
+To: <ltp@lists.linux.it>
+Date: Fri, 30 Apr 2021 17:45:10 +0800
+Message-ID: <20210430094513.162499-1-xieziyao@huawei.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210429142232.29596-1-zhaogongyi@huawei.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Originating-IP: [10.67.174.209]
+X-CFilter-Loop: Reflected
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] lib/tst_checkpoint.c: Replace SAFE_CLOSE with
- SAFE_UNLINK
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH 0/3 v2] syscalls/chown: Rewrite chown/chown{02, 04,
+ 05} with the new api
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,44 +53,25 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> When we call tst_checkpoint_init and set the cleanup_fn to NULL, the file
-> checkpoint_futex_base_file might be left over.
-> 
-> Signed-off-by: Zhao Gongyi <zhaogongyi@huawei.com>
-> ---
->  lib/tst_checkpoint.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/lib/tst_checkpoint.c b/lib/tst_checkpoint.c
-> index 9e9dcf9e6..3360ab07b 100644
-> --- a/lib/tst_checkpoint.c
-> +++ b/lib/tst_checkpoint.c
-> @@ -78,7 +78,7 @@ void tst_checkpoint_init(const char *file, const int lineno,
-> 
->  	tst_max_futexes = page_size / sizeof(uint32_t);
-> 
-> -	SAFE_CLOSE(cleanup_fn, fd);
-> +	SAFE_UNLINK(cleanup_fn, "checkpoint_futex_base_file");
+Xie Ziyao (3):
+  syscalls/chown: Rewrite chown/chown02.c with the new api
+  syscalls/chown: Rewrite chown/chown04.c with the new api
+  syscalls/chown: Rewrite chown/chown05.c with the new api
 
-We ensure that the file is created in the test temporary directory and
-we do check that the test created a temporary directory with the
-tst_tmpdir_created() before we attempt to open the file, so the file is
-removed at the end of the test along with rest of the files the test has
-created.
+ include/tst_safe_macros.h                 |  12 +
+ testcases/kernel/syscalls/chown/chown02.c | 307 ++++------------------
+ testcases/kernel/syscalls/chown/chown04.c | 229 +++++-----------
+ testcases/kernel/syscalls/chown/chown05.c | 195 +++-----------
+ 4 files changed, 175 insertions(+), 568 deletions(-)
 
-Also we have to close the fd, we keep reference to the file only via the
-mmaped() pages, there is no point in keeping it open.
+--
+2.17.1
 
--- 
-Cyril Hrubis
-chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
