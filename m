@@ -1,44 +1,44 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF46036FBAF
-	for <lists+linux-ltp@lfdr.de>; Fri, 30 Apr 2021 15:46:07 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 557FA36FBCC
+	for <lists+linux-ltp@lfdr.de>; Fri, 30 Apr 2021 15:55:25 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A0AA53C606F
-	for <lists+linux-ltp@lfdr.de>; Fri, 30 Apr 2021 15:46:07 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 116BB3C604B
+	for <lists+linux-ltp@lfdr.de>; Fri, 30 Apr 2021 15:55:25 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 3BC3D3C194E
- for <ltp@lists.linux.it>; Fri, 30 Apr 2021 15:46:05 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id F068A3C194E
+ for <ltp@lists.linux.it>; Fri, 30 Apr 2021 15:55:22 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 3A94920020D
- for <ltp@lists.linux.it>; Fri, 30 Apr 2021 15:46:04 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 2EE316020B2
+ for <ltp@lists.linux.it>; Fri, 30 Apr 2021 15:55:21 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 739FEAF19;
- Fri, 30 Apr 2021 13:46:04 +0000 (UTC)
-Date: Fri, 30 Apr 2021 15:24:11 +0200
+ by mx2.suse.de (Postfix) with ESMTP id 6A612AE95;
+ Fri, 30 Apr 2021 13:55:21 +0000 (UTC)
+Date: Fri, 30 Apr 2021 15:33:25 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Zhao Gongyi <zhaogongyi@huawei.com>
-Message-ID: <YIwE+9c8gqsyQ+mV@yuki>
-References: <20210429125255.31510-1-zhaogongyi@huawei.com>
+Message-ID: <YIwHJarHOfdqbBKa@yuki>
+References: <20210429125322.31559-1-zhaogongyi@huawei.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210429125255.31510-1-zhaogongyi@huawei.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+In-Reply-To: <20210429125322.31559-1-zhaogongyi@huawei.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 2/4] syscalls/modify_ldt: Replace TINFO with TPASS
- or TFAIL
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/4] syscalls/writev: Replace TINFO with TPASS or
+ TFAIL
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,9 +59,9 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 Hi!
 Pushed with a minor changes, thanks.
 
-I've removed a few useless comments as well, i.e. things that were
-commenting the obvious such as "setup() - performs setup" and the
-"//block1:" etc.
+* Removed the start/exit block message from writev02 as well
+
+* Removed the useless //block1: comments
 
 -- 
 Cyril Hrubis
