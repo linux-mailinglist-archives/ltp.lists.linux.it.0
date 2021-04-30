@@ -2,43 +2,42 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83F6136F765
-	for <lists+linux-ltp@lfdr.de>; Fri, 30 Apr 2021 10:53:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 429AB36F775
+	for <lists+linux-ltp@lfdr.de>; Fri, 30 Apr 2021 11:00:35 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0D6C13C5E9D
-	for <lists+linux-ltp@lfdr.de>; Fri, 30 Apr 2021 10:53:05 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 05FE33C5E9D
+	for <lists+linux-ltp@lfdr.de>; Fri, 30 Apr 2021 11:00:35 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 775F53C1B10
- for <ltp@lists.linux.it>; Fri, 30 Apr 2021 10:53:03 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id A84683C1866
+ for <ltp@lists.linux.it>; Fri, 30 Apr 2021 11:00:33 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id B263D601F5E
- for <ltp@lists.linux.it>; Fri, 30 Apr 2021 10:53:02 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 072681A006AE
+ for <ltp@lists.linux.it>; Fri, 30 Apr 2021 11:00:32 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id C7D87AF65;
- Fri, 30 Apr 2021 08:53:01 +0000 (UTC)
-Date: Fri, 30 Apr 2021 10:31:17 +0200
+ by mx2.suse.de (Postfix) with ESMTP id 5B459AF32;
+ Fri, 30 Apr 2021 09:00:32 +0000 (UTC)
+Date: Fri, 30 Apr 2021 10:38:47 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Richard Palethorpe <rpalethorpe@suse.com>
-Message-ID: <YIvAVaPNyunDHxaF@yuki>
+Message-ID: <YIvCFxpnb6hCgtom@yuki>
 References: <20210429150510.21585-1-rpalethorpe@suse.com>
- <20210429150510.21585-3-rpalethorpe@suse.com>
+ <20210429150510.21585-4-rpalethorpe@suse.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210429150510.21585-3-rpalethorpe@suse.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+In-Reply-To: <20210429150510.21585-4-rpalethorpe@suse.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 2/5] bpf: Add map_array helper functions
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 3/5] bpf: Add helper to run socket programs
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,13 +56,7 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> +long bpf_map_array_get(const int map_fd,
-> +		       const uint32_t *const array_indx,
-> +		       uint64_t *const array_val)
-
-Wouldn't the API be nicer if we passed just index value and returned the
-map value? We do TBROK if something goes wrong anyways, so there is no
-point in passing the return value from the bpf() syscall.
+Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
 
 -- 
 Cyril Hrubis
