@@ -1,49 +1,42 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B715371244
-	for <lists+linux-ltp@lfdr.de>; Mon,  3 May 2021 10:10:23 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 970943712C2
+	for <lists+linux-ltp@lfdr.de>; Mon,  3 May 2021 10:57:41 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D8CD73C5981
-	for <lists+linux-ltp@lfdr.de>; Mon,  3 May 2021 10:10:22 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 149C23C58FB
+	for <lists+linux-ltp@lfdr.de>; Mon,  3 May 2021 10:57:41 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id AC3863C220F
- for <ltp@lists.linux.it>; Mon,  3 May 2021 10:07:45 +0200 (CEST)
-Received: from EX13-EDG-OU-002.vmware.com (ex13-edg-ou-002.vmware.com
- [208.91.0.190])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 9D67B3C22CA
+ for <ltp@lists.linux.it>; Mon,  3 May 2021 10:57:39 +0200 (CEST)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id F31AD200B6B
- for <ltp@lists.linux.it>; Mon,  3 May 2021 10:07:44 +0200 (CEST)
-Received: from sc9-mailhost2.vmware.com (10.113.161.72) by
- EX13-EDG-OU-002.vmware.com (10.113.208.156) with Microsoft SMTP Server id
- 15.0.1156.6; Mon, 3 May 2021 01:07:35 -0700
-Received: from ankitj-virtual-machine.eng.vmware.com (unknown [10.197.103.58])
- by sc9-mailhost2.vmware.com (Postfix) with ESMTP id EDE052014C;
- Mon,  3 May 2021 01:07:35 -0700 (PDT)
-From: Ankit Jain <ankitja@vmware.com>
-To: <ltp@lists.linux.it>
-Date: Mon, 3 May 2021 13:37:19 +0530
-Message-ID: <1620029239-31643-1-git-send-email-ankitja@vmware.com>
-X-Mailer: git-send-email 2.7.4
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 907CF600157
+ for <ltp@lists.linux.it>; Mon,  3 May 2021 10:57:38 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id A1BA3AEE6;
+ Mon,  3 May 2021 08:57:37 +0000 (UTC)
+From: Petr Vorel <pvorel@suse.cz>
+To: ltp@lists.linux.it
+Date: Mon,  3 May 2021 10:57:32 +0200
+Message-Id: <20210503085732.9637-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-Received-SPF: None (EX13-EDG-OU-002.vmware.com: ankitja@vmware.com does not
- designate permitted sender hosts)
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-X-Mailman-Approved-At: Mon, 03 May 2021 10:10:18 +0200
-Subject: [LTP] [PATCH] realtime/func/pi-tests: testpi-2 parser indentation
- fix
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/1] docparse: Escape backslash,
+ tab and double quote in JSON
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,39 +48,91 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: sturlapati@vmware.com, ankitja@vmware.com, bordoloih@vmware.com,
- bvikas@vmware.com, srivatsa@csail.mit.edu, srivatsab@vmware.com
+Cc: Richard Palethorpe <rpalethorpe@suse.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-There is an indentation issue in parser for testpi-2
-which causes incorect parsing of the logs.
-
-Signed-off-by: Ankit Jain <ankitja@vmware.com>
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- testcases/realtime/func/pi-tests/parse-testpi2.py | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+Hi,
 
-diff --git a/testcases/realtime/func/pi-tests/parse-testpi2.py b/testcases/realtime/func/pi-tests/parse-testpi2.py
-index 69b2748..a455843 100644
---- a/testcases/realtime/func/pi-tests/parse-testpi2.py
-+++ b/testcases/realtime/func/pi-tests/parse-testpi2.py
-@@ -49,10 +49,8 @@ class TestPi2(Log):
-					flag=True
-				elif count == 0:
-					return False
-+			prev_line=line
+not sure if I should escape more, e.g.:
+\b  Backspace (ascii code 08)
+\f  Form feed (ascii code 0C)
+\n  New line
+\r  Carriage return
 
--
--
--		prev_line=line
-		if count>=2:
-			return True
-		else:
---
-2.7.4
+Tested on Richard's BPF patchset [1], which got affected on " + previous
+problems on CAN tests, which contained \t in testcases/network/can/filter-tests/can_filter.c
+(i.e. with reverted 1cdf8ce8b).
+
+Kind regards,
+Petr
+
+[1] https://patchwork.ozlabs.org/project/ltp/list/?series=240772&state=*
+[2] https://patchwork.ozlabs.org/project/ltp/patch/20210426120107.6632-2-rpalethorpe@suse.com/
+
+ docparse/data_storage.h | 36 ++++++++++++++++++++++++++++++++++--
+ 1 file changed, 34 insertions(+), 2 deletions(-)
+
+diff --git a/docparse/data_storage.h b/docparse/data_storage.h
+index ef420c08f..08cdc009d 100644
+--- a/docparse/data_storage.h
++++ b/docparse/data_storage.h
+@@ -256,14 +256,46 @@ static inline void data_fprintf(FILE *f, unsigned int padd, const char *fmt, ...
+ 	va_end(va);
+ }
+ 
+-static inline void data_to_json_(struct data_node *self, FILE *f, unsigned int padd, int do_padd)
++static inline void json_escape_(char str[], char search, char replace[])
++{
++	char *tmp;
++	char *p = str;
++	size_t i, str_len, tmp_len, replace_len, shift;
++
++	while ((tmp = strchr(p, search))) {
++		str_len = strlen(str);
++		tmp_len = strlen(tmp);
++		replace_len = strlen(replace);
++		shift = str_len - tmp_len;
++
++		memmove(str + shift + replace_len - 1, str + shift, tmp_len);
++
++		for (i = 0; i < replace_len; i++)
++			str[shift++] = replace[i];
++
++		str[str_len + replace_len - 1] = '\0';
++		p = tmp + replace_len;
++	}
++}
++
++static inline const char *json_escape(char *input)
++{
++	json_escape_(input, '\\', "\\\\");
++	json_escape_(input, '"', "\\\"");
++	json_escape_(input, '\t', "\\t");
++
++	return input;
++}
++
++static inline void data_to_json_(struct data_node *self, FILE *f, unsigned int
++				 padd, int do_padd)
+ {
+ 	unsigned int i;
+ 
+ 	switch (self->type) {
+ 	case DATA_STRING:
+ 		padd = do_padd ? padd : 0;
+-		data_fprintf(f, padd, "\"%s\"", self->string.val);
++		data_fprintf(f, padd, "\"%s\"", json_escape((self->string.val)));
+ 	break;
+ 	case DATA_HASH:
+ 		for (i = 0; i < self->hash.elems_used; i++) {
+-- 
+2.31.1
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
