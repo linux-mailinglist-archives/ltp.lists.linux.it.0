@@ -1,41 +1,44 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3032371779
-	for <lists+linux-ltp@lfdr.de>; Mon,  3 May 2021 17:04:27 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A0D0371D21
+	for <lists+linux-ltp@lfdr.de>; Mon,  3 May 2021 18:58:28 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 638363C8031
-	for <lists+linux-ltp@lfdr.de>; Mon,  3 May 2021 17:04:27 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A9D4B3C7C8D
+	for <lists+linux-ltp@lfdr.de>; Mon,  3 May 2021 18:58:27 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A17063C17CE
- for <ltp@lists.linux.it>; Mon,  3 May 2021 17:04:23 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id CD5FD3C32D4
+ for <ltp@lists.linux.it>; Mon,  3 May 2021 18:58:23 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 0F0A81A00CA4
- for <ltp@lists.linux.it>; Mon,  3 May 2021 17:04:22 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 48DDC60094E
+ for <ltp@lists.linux.it>; Mon,  3 May 2021 18:58:22 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 5625CACBF
- for <ltp@lists.linux.it>; Mon,  3 May 2021 15:04:22 +0000 (UTC)
-From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Mon,  3 May 2021 17:04:15 +0200
-Message-Id: <20210503150415.18835-1-pvorel@suse.cz>
-X-Mailer: git-send-email 2.31.1
+ by mx2.suse.de (Postfix) with ESMTP id 36CB8AEA3;
+ Mon,  3 May 2021 16:58:22 +0000 (UTC)
+Date: Mon, 3 May 2021 18:33:59 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Xie Ziyao <xieziyao@huawei.com>
+Message-ID: <YJAl98q0GrOy62Cu@yuki>
+References: <20210430094513.162499-1-xieziyao@huawei.com>
+ <20210430094513.162499-4-xieziyao@huawei.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20210430094513.162499-4-xieziyao@huawei.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH 1/1] docparse: Make tags in table clickable
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 3/3 v2] syscalls/chown: Rewrite chown/chown05.c
+ with the new api
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,69 +50,18 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-linked to the section.
+Hi!
+Pushed with a minor changes, thanks.
 
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
-Hi,
-
-minor but useful improvement.
-
- docparse/testinfo.pl | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
-
-diff --git a/docparse/testinfo.pl b/docparse/testinfo.pl
-index ccce67be4..76ca7a66c 100755
---- a/docparse/testinfo.pl
-+++ b/docparse/testinfo.pl
-@@ -125,7 +125,12 @@ sub paragraph
- 
- sub reference
- {
--	return "xref:$_[0]\[$_[0]\]" . (defined($_[1]) ? $_[1] : "") . "\n";
-+	my ($link, %args) = @_;
-+
-+	$args{text} //= $link;
-+	$args{delimiter} //= "";
-+
-+	return "xref:$link\[$args{text}\]$args{delimiter}\n";
- }
- 
- sub table
-@@ -179,7 +184,7 @@ sub get_test_names
- 			$content .= "\n";
- 		}
- 
--		$content .= reference($name, " ");
-+		$content .= reference($name, delimiter => " ");
- 		$prev_letter = $letter;
- 	}
- 	$content .= "\n";
-@@ -242,6 +247,7 @@ sub content_filters
- 	for my $k (sort keys %$data) {
- 		my $tag = tag2title($k);
- 		my ($letter, $prev_letter);
-+		$content .= label($k);
- 		$content .= h2($tag);
- 		$content .= paragraph("Tests containing $tag flag.");
- 		$content .= get_test_names(\@{$h{$k}});
-@@ -357,7 +363,7 @@ sub content_all_tests
- 				$content .= table . "|Key|Value\n\n"
- 			}
- 
--			$content .= "|" . tag2title($k) . "\n|";
-+			$content .= "|" . reference($k, text => tag2title($k)) . "\n|";
- 
- 			if (ref($v) eq 'ARRAY') {
- 				# two dimensional array
 -- 
-2.31.1
-
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
