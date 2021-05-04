@@ -2,43 +2,46 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D38A372CE0
-	for <lists+linux-ltp@lfdr.de>; Tue,  4 May 2021 17:22:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C68A2372CBA
+	for <lists+linux-ltp@lfdr.de>; Tue,  4 May 2021 17:07:24 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7CDD13C58B3
-	for <lists+linux-ltp@lfdr.de>; Tue,  4 May 2021 17:22:53 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 2F89A3C5868
+	for <lists+linux-ltp@lfdr.de>; Tue,  4 May 2021 17:07:24 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 5120C3C57D7
- for <ltp@lists.linux.it>; Tue,  4 May 2021 17:22:49 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 565833C57D7
+ for <ltp@lists.linux.it>; Tue,  4 May 2021 17:07:18 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id B60F714010EE
- for <ltp@lists.linux.it>; Tue,  4 May 2021 17:22:48 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 531A4200D4C
+ for <ltp@lists.linux.it>; Tue,  4 May 2021 17:07:18 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 151CBB169;
- Tue,  4 May 2021 15:22:48 +0000 (UTC)
-Date: Tue, 4 May 2021 16:57:41 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <YJFg5eIaVhUKO4ax@yuki>
-References: <20210504125729.18781-1-pvorel@suse.cz> <YJFH4vLeaXnc8mzN@yuki>
- <YJFd6x+P7lFhLfXm@pevik>
+ by mx2.suse.de (Postfix) with ESMTP id A75DDAFCC;
+ Tue,  4 May 2021 15:07:17 +0000 (UTC)
+Date: Tue, 4 May 2021 17:07:16 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Joerg Vehlow <lkml@jv-coder.de>
+Message-ID: <YJFjJGTpxUNAMroo@pevik>
+References: <f781c0d8-6707-56ba-fa14-e0dbc1b645a1@jv-coder.de>
+ <YJDvIcgdl8ae58YB@pevik>
+ <5fdefbf3-2b4e-f44b-6cb2-c133ecf36975@jv-coder.de>
+ <YJEKFLmcKvnHvlIV@pevik>
+ <651cb158-c640-e0b5-a2f2-4b77efcfa288@jv-coder.de>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <YJFd6x+P7lFhLfXm@pevik>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+In-Reply-To: <651cb158-c640-e0b5-a2f2-4b77efcfa288@jv-coder.de>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3 1/1] docparse: Escape backslash,
- tab and double quote in JSON
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [RFC] Shell API timeout sleep orphan processes
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,48 +53,48 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it, Richard Palethorpe <rpalethorpe@suse.com>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> > Also does this even escape newlines? If you write "\n" in C it's stored
-> > in memory as [0x0a, 0x00], no actual \ are stored in the string. What
-> > the '\\' case does it to escape literal backslash i.e. "\\" which is
-> > stored as [0x5c, 0x00].
-> Well, due first handling '\\' any text written as \n will be kept as \n
-> (obviously anything starting with \ will be handled the same, e.g. \t, \r, \b, \f).
-> We'd like to interpret \n at least for .options (unless we transform them
-> to array of arrays as you suggested). But I'm not sure if we want to do
-> everywhere, e.g. in doc there might be \n which we want to keep, thus I'd prefer
-> to interpret only tabs ('\t' => "\\t") and the rest escape via escaping '\\'
-> (already in the patch).
->
-> I don't think there is real new line character in our JSON (unlike tab, which
-> was put there into CAN tests and needed to be reverted). If yes, I think we'd
-> prefer to interpret it instead escaping it (as well as form feed and carriage return).
-> Unless any of these is ascii before 0x20 (which will be handled by last change
-> you're suggested.
+Hi Joerg,
 
-Ah, I got confused here as well, we parse the C code and we do not
-replace the \n with the actual ascii value in the docparse code so it
-ends up verbatim in the strings in memory and then it's translated into
-the JSON files.
+> Hi Petr,
 
-This is even more complicated than I originally thought since there are
-several types of strings from a different parts of the C code, i.e. the
-expected values depens on context.
+> > > > > The only way to fix this really portable I can think of is moving the
+> > > > > timeout code (including the logic in _tst_kill_test) into c code. This way
+> > > > > there would only be one binary, that can be killed flawlessly.
+> > > > Maybe set -m would be enough. But sure, rewriting C is usually the best approach
+> > > > for shell problems, we use quite a lot of C helpers for shell already.
+> > > I will send the patch, if this introduces any new issues, we can still
+> > > switch to a c based implementation.
+> > Thank you!
 
-If we parse a C comment '"' is a valid character and does not need to be escaped,
-while in the middle of C string it has to be encoded as "\"".
+> I guess I will not submit the fix with set -m...
+> My colleague working testing on a new target just ran into a problem with
+> out fix using set -m.
+> For busybox sh, it only works, if a tty is allocated, otherwise it refuses
+> to enable job monitor mode and the whole construct fails...
+OK, C will be needed (unless anybody has an idea how to safely implement it in
+shell).
 
-We have to think of all different cases here, I will have a closer look tomorrow.
+> Since using the monitor mode only exploits the side effect, that it creates
+> a process group and we already found a first issue, I think the only
+> solution is switching to a c-based solution for the timeout stuff.
+> Personally I like that it is written in shell script, but I see no other
+> option to do it in pure shell. There is no builtin way, to create a process
+> group and just redirecting the output of sleep to null does not seem to be a
+> very good solution to me, because there would still be a lot of orphans
+> around.
 
--- 
-Cyril Hrubis
-chrubis@suse.cz
+There will be git freeze in very soon, so I guess the fix won't make it to the
+release (unless you have time to work on it next week).
+
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
