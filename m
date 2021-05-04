@@ -1,42 +1,43 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABFD3372A7F
-	for <lists+linux-ltp@lfdr.de>; Tue,  4 May 2021 14:57:40 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 647FD372AA8
+	for <lists+linux-ltp@lfdr.de>; Tue,  4 May 2021 15:09:03 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 70BA43C5834
-	for <lists+linux-ltp@lfdr.de>; Tue,  4 May 2021 14:57:40 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 34DE93C5835
+	for <lists+linux-ltp@lfdr.de>; Tue,  4 May 2021 15:09:03 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 8B84F3C57EB
- for <ltp@lists.linux.it>; Tue,  4 May 2021 14:57:38 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 101423C57E0
+ for <ltp@lists.linux.it>; Tue,  4 May 2021 15:09:01 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id BA6AE1000DBD
- for <ltp@lists.linux.it>; Tue,  4 May 2021 14:57:37 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 5ACF81000DD6
+ for <ltp@lists.linux.it>; Tue,  4 May 2021 15:09:01 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 035EAAF21;
- Tue,  4 May 2021 12:57:37 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 8A9F3AF2F
+ for <ltp@lists.linux.it>; Tue,  4 May 2021 13:09:00 +0000 (UTC)
+Date: Tue, 4 May 2021 15:08:59 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Tue,  4 May 2021 14:57:29 +0200
-Message-Id: <20210504125729.18781-1-pvorel@suse.cz>
-X-Mailer: git-send-email 2.31.1
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <YJFHa4o/aXGvmZE0@pevik>
+References: <20210503150415.18835-1-pvorel@suse.cz>
+ <YJE4J0gMjhTfsNCO@yuki>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <YJE4J0gMjhTfsNCO@yuki>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH v3 1/1] docparse: Escape backslash,
- tab and double quote in JSON
+Subject: Re: [LTP] [PATCH 1/1] docparse: Make tags in table clickable
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,87 +49,44 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Richard Palethorpe <rpalethorpe@suse.com>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-From: Cyril Hrubis <chrubis@suse.cz>
+Hi Cyril,
 
-NOTE: quoting new line require to transform .options from array to
-array of arrays.
+> Hi!
+> > linked to the section.
 
-Tested-by: Petr Vorel <pvorel@suse.cz>
-Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
-Hi,
+> Looks good, acked.
 
-changes v2-v3:
-* remove *not* quoting new line (asked by Cyril
 
-Patch is now exactly the same Cyril suggested on ML.
-Changing .options is my TODO.
+> Btw, when I was looking at the page today I noticed that in the tags
+> table the tag points to the git/CVE page and not the actuall hash or ID.
+> I would expect that linux-git would be normal text and the commit id
+> would link to the kernel.org repo, and same for the CVE...
+
+Well, no problem, but I'd prefer for commits to move the hash to the text, e.g.
+
+from:
+|linux-git-fbe0e839d1e2 | futex: Prevent overflow by strengthen input validation|
+to:
+|linux-git | fbe0e839d1e2 ("futex: Prevent overflow by strengthen input validation")|
+
+I'll send v2 where I'll implement it and as a second commit I'll change "CVE"
+and "linux-git" (and others) pointing to tags metadata.html#tags.
+
+And as TODO I should divide .tags into subsections containing list of actual tag
+values (e.g. list of CVE, linux-git (and others)) and point these links to these
+sections.
+
+Thanks for your time!
 
 Kind regards,
 Petr
-
- docparse/data_storage.h | 31 ++++++++++++++++++++++++++++++-
- 1 file changed, 30 insertions(+), 1 deletion(-)
-
-diff --git a/docparse/data_storage.h b/docparse/data_storage.h
-index ef420c08f..24381334b 100644
---- a/docparse/data_storage.h
-+++ b/docparse/data_storage.h
-@@ -256,6 +256,35 @@ static inline void data_fprintf(FILE *f, unsigned int padd, const char *fmt, ...
- 	va_end(va);
- }
- 
-+
-+static inline void data_fprintf_esc(FILE *f, unsigned int padd, const char *str)
-+{
-+	while (padd-- > 0)
-+		fputc(' ', f);
-+
-+	fputc('"', f);
-+
-+	while (*str) {
-+		switch (*str) {
-+		case '\\':
-+			fputs("\\\\", f);
-+			break;
-+		case '"':
-+			fputs("\\\"", f);
-+			break;
-+		case '\t':
-+			fputs("\\t", f);
-+			break;
-+		default:
-+			putc(*str, f);
-+			break;
-+		}
-+		str++;
-+	}
-+
-+	fputc('"', f);
-+}
-+
- static inline void data_to_json_(struct data_node *self, FILE *f, unsigned int padd, int do_padd)
- {
- 	unsigned int i;
-@@ -263,7 +292,7 @@ static inline void data_to_json_(struct data_node *self, FILE *f, unsigned int p
- 	switch (self->type) {
- 	case DATA_STRING:
- 		padd = do_padd ? padd : 0;
--		data_fprintf(f, padd, "\"%s\"", self->string.val);
-+		data_fprintf_esc(f, padd, self->string.val);
- 	break;
- 	case DATA_HASH:
- 		for (i = 0; i < self->hash.elems_used; i++) {
--- 
-2.31.1
-
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
