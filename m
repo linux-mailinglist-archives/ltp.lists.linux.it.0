@@ -2,44 +2,44 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DA94373BF5
-	for <lists+linux-ltp@lfdr.de>; Wed,  5 May 2021 15:05:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ABEC4373C1E
+	for <lists+linux-ltp@lfdr.de>; Wed,  5 May 2021 15:15:18 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DDB3F3C5784
-	for <lists+linux-ltp@lfdr.de>; Wed,  5 May 2021 15:05:20 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 7BE7F3C5782
+	for <lists+linux-ltp@lfdr.de>; Wed,  5 May 2021 15:15:18 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 78FA03C19C5
- for <ltp@lists.linux.it>; Wed,  5 May 2021 15:05:19 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id A151B3C1C23
+ for <ltp@lists.linux.it>; Wed,  5 May 2021 15:15:17 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id F2748200E02
- for <ltp@lists.linux.it>; Wed,  5 May 2021 15:05:18 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 392A3200DFF
+ for <ltp@lists.linux.it>; Wed,  5 May 2021 15:15:16 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 5648CB035
- for <ltp@lists.linux.it>; Wed,  5 May 2021 13:05:18 +0000 (UTC)
-Date: Wed, 5 May 2021 14:39:28 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <YJKSAPKLsi5OyBYs@yuki>
+ by mx2.suse.de (Postfix) with ESMTP id 79A99AE1C
+ for <ltp@lists.linux.it>; Wed,  5 May 2021 13:15:16 +0000 (UTC)
+To: Petr Vorel <pvorel@suse.cz>
 References: <20210505081845.7024-1-mdoucha@suse.cz>
- <20210505081845.7024-5-mdoucha@suse.cz>
+ <20210505081845.7024-4-mdoucha@suse.cz> <YJKA9LQsiFDeuPUT@pevik>
+From: Martin Doucha <mdoucha@suse.cz>
+Message-ID: <3042e4a5-453a-80aa-be65-f606a7c4ed45@suse.cz>
+Date: Wed, 5 May 2021 15:15:16 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.9.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210505081845.7024-5-mdoucha@suse.cz>
+In-Reply-To: <YJKA9LQsiFDeuPUT@pevik>
+Content-Language: en-US
 X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Status: No, score=-0.0 required=7.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3 5/6] Add helper functions for managing network
- interfaces
+Subject: Re: [LTP] [PATCH v3 4/6] Add rtnetlink helper library
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,12 +57,54 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
+On 05. 05. 21 13:26, Petr Vorel wrote:
+>> diff --git a/include/tst_rtnetlink.h b/include/tst_rtnetlink.h
+>> new file mode 100644
+>> index 000000000..12ec258f2
+>> --- /dev/null
+>> +++ b/include/tst_rtnetlink.h
+>> @@ -0,0 +1,106 @@
+>> +/* SPDX-License-Identifier: GPL-2.0-or-later
+>> + * Copyright (c) 2021 Linux Test Project
+>> + */
+>> +
+>> +#ifndef TST_RTNETLINK_H
+>> +#define TST_RTNETLINK_H
+> 
+> I guess this header will always be internal, right?  (only tst_netdevice.h is
+> going to be used in tests) Otherwise it might need to include headers
+> (<linux/netlink.h>, and also <unistd.h> or <sys/types.h> for ssize_t which are
+> now only in C library sources).
+
+No, I expect that someone will use it for rtnetlink tests sooner or
+later. But I don't think those extra #includes matter all that much. If
+they get #included in the test itself in the right order, it'll work
+just fine.
+
+> ...
+>> +int tst_rtnl_add_message(const char *file, const int lineno,
+>> +	struct tst_rtnl_context *ctx, const struct nlmsghdr *header,
+>> +	const void *payload, size_t payload_size)
+>> +{
+>> +	size_t size;
+>> +	unsigned int extra_flags = 0;
+>> +
+>> +	if (!tst_rtnl_grow_buffer(file, lineno, ctx, NLMSG_SPACE(payload_size)))
+> Shouldn't there be an error message?
+> Or maybe at tst_rtnl_grow_buffer() on if (!buf)
+
+As Cyril already pointed out, the only way this call can fail is when
+safe_realloc() fails and prints a TWARN because we're in cleanup().
+There's no need to print a second error message.
 
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+Martin Doucha   mdoucha@suse.cz
+QA Engineer for Software Maintenance
+SUSE LINUX, s.r.o.
+CORSO IIa
+Krizikova 148/34
+186 00 Prague 8
+Czech Republic
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
