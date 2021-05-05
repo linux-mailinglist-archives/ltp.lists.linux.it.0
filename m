@@ -2,42 +2,41 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08E8D373625
-	for <lists+linux-ltp@lfdr.de>; Wed,  5 May 2021 10:19:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76545373623
+	for <lists+linux-ltp@lfdr.de>; Wed,  5 May 2021 10:18:52 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9A9DD3C5776
-	for <lists+linux-ltp@lfdr.de>; Wed,  5 May 2021 10:19:10 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E481E3C57B2
+	for <lists+linux-ltp@lfdr.de>; Wed,  5 May 2021 10:18:51 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 56E113C574C
- for <ltp@lists.linux.it>; Wed,  5 May 2021 10:18:48 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id F2A873C2170
+ for <ltp@lists.linux.it>; Wed,  5 May 2021 10:18:47 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 8B8CA100013D
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 840CE600072
  for <ltp@lists.linux.it>; Wed,  5 May 2021 10:18:47 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 93723B198
+ by mx2.suse.de (Postfix) with ESMTP id A37A6B1A4
  for <ltp@lists.linux.it>; Wed,  5 May 2021 08:18:46 +0000 (UTC)
 From: Martin Doucha <mdoucha@suse.cz>
 To: ltp@lists.linux.it
-Date: Wed,  5 May 2021 10:18:41 +0200
-Message-Id: <20210505081845.7024-2-mdoucha@suse.cz>
+Date: Wed,  5 May 2021 10:18:42 +0200
+Message-Id: <20210505081845.7024-3-mdoucha@suse.cz>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210505081845.7024-1-mdoucha@suse.cz>
 References: <20210505081845.7024-1-mdoucha@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH v3 2/6] Add SAFE_RECV() helper function to LTP library
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH v3 3/6] Add SAFE_IOCTL() variant for library code
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,81 +53,41 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+SAFE_IOCTL() cannot be implemented as a function due to the variadic argument
+but the macro still needs a variant which accepts arbitrary file:line position
+for error messages as arguments.
+
 Signed-off-by: Martin Doucha <mdoucha@suse.cz>
-Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
 ---
 
-Changes since v1: None
+Changes since v1: New patch
 
- include/safe_net_fn.h  |  3 +++
- include/tst_safe_net.h |  3 +++
- lib/safe_net.c         | 25 +++++++++++++++++++++++++
- 3 files changed, 31 insertions(+)
+ include/tst_safe_macros.h | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/include/safe_net_fn.h b/include/safe_net_fn.h
-index 2fda11fab..ff81b1337 100644
---- a/include/safe_net_fn.h
-+++ b/include/safe_net_fn.h
-@@ -47,6 +47,9 @@ ssize_t safe_sendto(const char *file, const int lineno, char len_strict,
- ssize_t safe_sendmsg(const char *file, const int lineno, size_t msg_len,
- 		  int sockfd, const struct msghdr *msg, int flags);
+diff --git a/include/tst_safe_macros.h b/include/tst_safe_macros.h
+index d6f32ef4c..dcef58bda 100644
+--- a/include/tst_safe_macros.h
++++ b/include/tst_safe_macros.h
+@@ -211,13 +211,16 @@ pid_t safe_getpgid(const char *file, const int lineno, pid_t pid);
+ #define SAFE_READDIR(dirp) \
+ 	safe_readdir(__FILE__, __LINE__, NULL, (dirp))
  
-+ssize_t safe_recv(const char *file, const int lineno, size_t len,
-+	int sockfd, void *buf, size_t size, int flags);
-+
- ssize_t safe_recvmsg(const char *file, const int lineno, size_t msg_len,
- 		  int sockfd, struct msghdr *msg, int flags);
+-#define SAFE_IOCTL(fd, request, ...)                         \
++#define SAFE_IOCTL_(file, lineno, fd, request, ...)          \
+ 	({int tst_ret_ = ioctl(fd, request, ##__VA_ARGS__);  \
+ 	  tst_ret_ < 0 ?                                     \
+-	   tst_brk(TBROK | TERRNO,                           \
++	   tst_brk_((file), (lineno), TBROK | TERRNO,        \
+ 	            "ioctl(%i,%s,...) failed", fd, #request), 0 \
+ 	 : tst_ret_;})
  
-diff --git a/include/tst_safe_net.h b/include/tst_safe_net.h
-index 78a488a18..e85b79a3e 100644
---- a/include/tst_safe_net.h
-+++ b/include/tst_safe_net.h
-@@ -42,6 +42,9 @@
- #define SAFE_SENDMSG(msg_len, fd, msg, flags) \
- 	safe_sendmsg(__FILE__, __LINE__, msg_len, fd, msg, flags)
- 
-+#define SAFE_RECV(msg_len, fd, buf, size, flags)		\
-+	safe_recv(__FILE__, __LINE__, (msg_len), (fd), (buf), (size), (flags))
++#define SAFE_IOCTL(fd, request, ...) \
++	SAFE_IOCTL_(__FILE__, __LINE__, (fd), (request), ##__VA_ARGS__)
 +
- #define SAFE_RECVMSG(msg_len, fd, msg, flags)		\
- 	safe_recvmsg(__FILE__, __LINE__, msg_len, fd, msg, flags)
- 
-diff --git a/lib/safe_net.c b/lib/safe_net.c
-index f9ebea610..211fd9b67 100644
---- a/lib/safe_net.c
-+++ b/lib/safe_net.c
-@@ -273,6 +273,31 @@ ssize_t safe_sendmsg(const char *file, const int lineno, size_t len,
- 	return rval;
- }
- 
-+ssize_t safe_recv(const char *file, const int lineno, size_t len,
-+	int sockfd, void *buf, size_t size, int flags)
-+{
-+	ssize_t rval;
-+
-+	rval = recv(sockfd, buf, size, flags);
-+
-+	if (rval == -1) {
-+		tst_brkm_(file, lineno, TBROK | TERRNO, NULL,
-+			"recv(%d, %p, %zu, %d) failed", sockfd, buf, size,
-+			flags);
-+	} else if (rval < 0) {
-+		tst_brkm_(file, lineno, TBROK | TERRNO, NULL,
-+			"Invalid recv(%d, %p, %zu, %d) return value %zd",
-+			sockfd, buf, size, flags, rval);
-+	} else if (len && (size_t)rval != len) {
-+		tst_brkm_(file, lineno, TBROK, NULL,
-+			"recv(%d, %p, %zu, %d) ret(%zd) != len(%zu)",
-+			sockfd, buf, size, flags, rval, len);
-+	}
-+
-+	return rval;
-+
-+}
-+
- ssize_t safe_recvmsg(const char *file, const int lineno, size_t len,
- 		     int sockfd, struct msghdr *msg, int flags)
- {
+ #define SAFE_FCNTL(fd, cmd, ...)                            \
+ 	({int tst_ret_ = fcntl(fd, cmd, ##__VA_ARGS__);     \
+ 	  tst_ret_ == -1 ?                                  \
 -- 
 2.31.1
 
