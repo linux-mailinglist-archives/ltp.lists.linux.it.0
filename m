@@ -1,42 +1,48 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id C178F373627
-	for <lists+linux-ltp@lfdr.de>; Wed,  5 May 2021 10:19:33 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4197D3736DB
+	for <lists+linux-ltp@lfdr.de>; Wed,  5 May 2021 11:16:42 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 355623C57BA
-	for <lists+linux-ltp@lfdr.de>; Wed,  5 May 2021 10:19:33 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id D3A093C583D
+	for <lists+linux-ltp@lfdr.de>; Wed,  5 May 2021 11:16:40 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A1B073C2170
- for <ltp@lists.linux.it>; Wed,  5 May 2021 10:18:48 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 785CE3C17CE
+ for <ltp@lists.linux.it>; Wed,  5 May 2021 11:16:30 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 01ABC1000A03
- for <ltp@lists.linux.it>; Wed,  5 May 2021 10:18:47 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 04516600CF9
+ for <ltp@lists.linux.it>; Wed,  5 May 2021 11:16:29 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1620206189; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=7s1x+L4BnlIcN0xQRr0QDaEcOr+K68pNULQ18eHlxZ4=;
+ b=bqjAKjlT+e6pBaSlUgFa8oiGbJ8iLGIZVvA5r7DhR1pTghOkMaUaQtNsv/ccfOEhC+rYLt
+ TkQIWe7Eo5xtaPxm6+g1IcYiyfHMzChLiIAb8imll4IHTAP1N7QI6zHa0j0EpSaLb4PB+n
+ evNbx/P4gkWK+nabwDj6Dl0wUfPJRZs=
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id E87B3B1BA
- for <ltp@lists.linux.it>; Wed,  5 May 2021 08:18:46 +0000 (UTC)
-From: Martin Doucha <mdoucha@suse.cz>
+ by mx2.suse.de (Postfix) with ESMTP id 58BA8B05D;
+ Wed,  5 May 2021 09:16:29 +0000 (UTC)
 To: ltp@lists.linux.it
-Date: Wed,  5 May 2021 10:18:45 +0200
-Message-Id: <20210505081845.7024-6-mdoucha@suse.cz>
+Date: Wed,  5 May 2021 10:16:19 +0100
+Message-Id: <20210505091623.29121-1-rpalethorpe@suse.com>
 X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210505081845.7024-1-mdoucha@suse.cz>
-References: <20210505081845.7024-1-mdoucha@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH v3 6/6] Add test for CVE 2020-25705
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH v3 0/4] BPF refactor and add bpf_prog05
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,313 +54,54 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+From: Richard Palethorpe via ltp <ltp@lists.linux.it>
+Reply-To: Richard Palethorpe <rpalethorpe@suse.com>
+Cc: Richard Palethorpe <rpalethorpe@suse.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Fixes #742
+Hello,
 
-Signed-off-by: Martin Doucha <mdoucha@suse.cz>
----
+V3:
 
-Changes since v1: New patch
+* constify and add attributes
 
-Changes since v2: Added missing gitignore and runfile entry for the new test
+* replace insn builder with BPF_MAP_ARRAY_STX macro to insert multiple
+  instructions.
 
- runtest/cve                    |   1 +
- testcases/cve/.gitignore       |   1 +
- testcases/cve/cve-2020-25705.c | 262 +++++++++++++++++++++++++++++++++
- 3 files changed, 264 insertions(+)
- create mode 100644 testcases/cve/cve-2020-25705.c
+V2:
 
-diff --git a/runtest/cve b/runtest/cve
-index f650854f9..eea951576 100644
---- a/runtest/cve
-+++ b/runtest/cve
-@@ -60,4 +60,5 @@ cve-2019-8912 af_alg07
- cve-2020-11494 pty04
- cve-2020-14386 sendto03
- cve-2020-14416 pty03
-+cve-2020-25705 cve-2020-25705
- cve-2020-29373 io_uring02
-diff --git a/testcases/cve/.gitignore b/testcases/cve/.gitignore
-index 01a3e4c8f..7078d1ac3 100644
---- a/testcases/cve/.gitignore
-+++ b/testcases/cve/.gitignore
-@@ -10,3 +10,4 @@ stack_clash
- cve-2017-17052
- cve-2017-16939
- cve-2017-17053
-+cve-2020-25705
-diff --git a/testcases/cve/cve-2020-25705.c b/testcases/cve/cve-2020-25705.c
-new file mode 100644
-index 000000000..7d6bbafa8
---- /dev/null
-+++ b/testcases/cve/cve-2020-25705.c
-@@ -0,0 +1,262 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (C) 2020 SUSE LLC
-+ * Author: Nicolai Stange <nstange@suse.de>
-+ * LTP port: Martin Doucha <mdoucha@suse.cz>
-+ *
-+ * CVE-2020-25705
-+ *
-+ * Test of ICMP rate limiting behavior that may be abused for DNS cache
-+ * poisoning attack. Send a few batches of 100 packets to a closed UDP port
-+ * and count the ICMP errors. If the number of errors is always the same
-+ * for each batch (not randomized), the system is vulnerable. Send packets
-+ * from multiple IP addresses to bypass per-address ICMP throttling.
-+ *
-+ * Fixed in:
-+ *
-+ *  commit b38e7819cae946e2edf869e604af1e65a5d241c5
-+ *  Author: Eric Dumazet <edumazet@google.com>
-+ *  Date:   Thu Oct 15 11:42:00 2020 -0700
-+ *
-+ *  icmp: randomize the global rate limiter
-+ */
-+
-+#include <sys/socket.h>
-+#include <netinet/in.h>
-+#include <arpa/inet.h>
-+#include <linux/if_addr.h>
-+#include <linux/errqueue.h>
-+
-+#include <sched.h>
-+#include <limits.h>
-+#include "tst_test.h"
-+#include "tst_netdevice.h"
-+
-+#define DSTADDR 0xfa444e02 /* 250.68.78.2 */
-+#define SRCADDR_BASE 0xfa444e41 /* 250.68.78.65 */
-+#define SRCADDR_COUNT 50
-+#define BATCH_COUNT 8
-+#define BUFSIZE 1024
-+
-+static int parentns = -1, childns = -1;
-+static int fds[SRCADDR_COUNT];
-+
-+static void setup(void)
-+{
-+	struct sockaddr_in ipaddr = { .sin_family = AF_INET };
-+	uint32_t addr;
-+	int i;
-+	int real_uid = getuid();
-+	int real_gid = getgid();
-+
-+	for (i = 0; i < SRCADDR_COUNT; i++)
-+		fds[i] = -1;
-+
-+	SAFE_UNSHARE(CLONE_NEWUSER);
-+	SAFE_UNSHARE(CLONE_NEWNET);
-+	SAFE_FILE_PRINTF("/proc/self/setgroups", "deny");
-+	SAFE_FILE_PRINTF("/proc/self/uid_map", "0 %d 1\n", real_uid);
-+	SAFE_FILE_PRINTF("/proc/self/gid_map", "0 %d 1\n", real_gid);
-+
-+	/*
-+	 * Create network namespace to hide the destination interface from
-+	 * the test process.
-+	 */
-+	parentns = SAFE_OPEN("/proc/self/ns/net", O_RDONLY);
-+	SAFE_UNSHARE(CLONE_NEWNET);
-+
-+	/* Do NOT close this FD, or both interfaces will be destroyed */
-+	childns = SAFE_OPEN("/proc/self/ns/net", O_RDONLY);
-+
-+	/* Configure child namespace */
-+	CREATE_VETH_PAIR("ltp_veth1", "ltp_veth2");
-+	addr = DSTADDR;
-+	NETDEV_ADD_ADDRESS_INET("ltp_veth2", htonl(addr), 26,
-+		IFA_F_NOPREFIXROUTE);
-+	NETDEV_SET_STATE("ltp_veth2", 1);
-+	NETDEV_ADD_ROUTE_INET("ltp_veth2", 0, 0, htonl(0xfa444e40), 26,
-+		0);
-+
-+	/* Configure parent namespace */
-+	NETDEV_CHANGE_NS_FD("ltp_veth1", parentns);
-+	SAFE_SETNS(parentns, CLONE_NEWNET);
-+	addr = SRCADDR_BASE; /* 250.68.78.65 */
-+
-+	for (i = 0; i < SRCADDR_COUNT; i++, addr++) {
-+		NETDEV_ADD_ADDRESS_INET("ltp_veth1", htonl(addr), 26,
-+			IFA_F_NOPREFIXROUTE);
-+	}
-+
-+	NETDEV_SET_STATE("ltp_veth1", 1);
-+	NETDEV_ADD_ROUTE_INET("ltp_veth1", 0, 0, htonl(0xfa444e00), 26, 0);
-+	SAFE_FILE_PRINTF("/proc/sys/net/ipv4/conf/ltp_veth1/forwarding", "1");
-+
-+	/* Open test sockets */
-+	for (i = 0; i < SRCADDR_COUNT; i++) {
-+		ipaddr.sin_addr.s_addr = htonl(SRCADDR_BASE + i);
-+		fds[i] = SAFE_SOCKET(AF_INET, SOCK_DGRAM, 0);
-+		SAFE_SETSOCKOPT_INT(fds[i], IPPROTO_IP, IP_RECVERR, 1);
-+		SAFE_BIND(fds[i], (struct sockaddr *)&ipaddr, sizeof(ipaddr));
-+	}
-+}
-+
-+static int count_icmp_errors(int fd)
-+{
-+	int error_count = 0;
-+	ssize_t len;
-+	char msgbuf[BUFSIZE], errbuf[BUFSIZE];
-+	struct sockaddr_in addr;
-+	struct cmsghdr *cmsg;
-+	struct sock_extended_err exterr;
-+	struct iovec iov = {
-+		.iov_base = msgbuf,
-+		.iov_len = BUFSIZE
-+	};
-+
-+	while (1) {
-+		struct msghdr msg = {
-+			.msg_name = (struct sockaddr *)&addr,
-+			.msg_namelen = sizeof(addr),
-+			.msg_iov = &iov,
-+			.msg_iovlen = 1,
-+			.msg_flags = 0,
-+			.msg_control = errbuf,
-+			.msg_controllen = BUFSIZE
-+		};
-+
-+		memset(errbuf, 0, BUFSIZE);
-+		errno = 0;
-+		len = recvmsg(fd, &msg, MSG_ERRQUEUE);
-+
-+		if (len == -1) {
-+			if (errno == EWOULDBLOCK || errno == EAGAIN)
-+				break;
-+
-+			tst_brk(TBROK | TERRNO, "recvmsg() failed");
-+		}
-+
-+		if (len < 0) {
-+			tst_brk(TBROK | TERRNO,
-+				"Invalid recvmsg() return value %zd", len);
-+		}
-+
-+		for (cmsg = CMSG_FIRSTHDR(&msg); cmsg;
-+			cmsg = CMSG_NXTHDR(&msg, cmsg)) {
-+			if (cmsg->cmsg_level != SOL_IP)
-+				continue;
-+
-+			if (cmsg->cmsg_type != IP_RECVERR)
-+				continue;
-+
-+			memcpy(&exterr, CMSG_DATA(cmsg), sizeof(exterr));
-+
-+			if (exterr.ee_origin != SO_EE_ORIGIN_ICMP)
-+				tst_brk(TBROK, "Unexpected non-ICMP error");
-+
-+			if (exterr.ee_errno != ECONNREFUSED) {
-+				TST_ERR = exterr.ee_errno;
-+				tst_brk(TBROK | TTERRNO,
-+					"Unexpected ICMP error");
-+			}
-+
-+			error_count++;
-+		}
-+	}
-+
-+	return error_count;
-+}
-+
-+static int packet_batch(const struct sockaddr *addr, socklen_t addrsize)
-+{
-+	int i, j, error_count = 0;
-+	char data = 0;
-+
-+	for (i = 0; i < SRCADDR_COUNT; i++) {
-+		for (j = 0; j < 2; j++) {
-+			error_count += count_icmp_errors(fds[i]);
-+			TEST(sendto(fds[i], &data, sizeof(data), 0, addr,
-+				addrsize));
-+
-+			if (TST_RET == -1) {
-+				if (TST_ERR == ECONNREFUSED) {
-+					j--; /* flush ICMP errors and retry */
-+					continue;
-+				}
-+
-+				tst_brk(TBROK | TTERRNO, "sento() failed");
-+			}
-+
-+			if (TST_RET < 0) {
-+				tst_brk(TBROK | TTERRNO,
-+					"Invalid sento() return value %ld",
-+					TST_RET);
-+			}
-+		}
-+	}
-+
-+	/* Wait and collect pending ICMP errors */
-+	sleep(2);
-+
-+	for (i = 0; i < SRCADDR_COUNT; i++)
-+		error_count += count_icmp_errors(fds[i]);
-+
-+	return error_count;
-+}
-+
-+static void run(void)
-+{
-+	int i, errors_baseline, errors;
-+	struct sockaddr_in addr = {
-+		.sin_family = AF_INET,
-+		.sin_port = TST_GET_UNUSED_PORT(AF_INET, SOCK_DGRAM),
-+		.sin_addr = { htonl(DSTADDR) }
-+	};
-+
-+	errors_baseline = packet_batch((struct sockaddr *)&addr, sizeof(addr));
-+	errors = errors_baseline;
-+	tst_res(TINFO, "Batch 0: Got %d ICMP errors", errors);
-+
-+	for (i = 1; i < BATCH_COUNT && errors == errors_baseline; i++) {
-+		errors = packet_batch((struct sockaddr *)&addr, sizeof(addr));
-+		tst_res(TINFO, "Batch %d: Got %d ICMP errors", i, errors);
-+	}
-+
-+	if (errors == errors_baseline) {
-+		tst_res(TFAIL,
-+			"ICMP rate limit not randomized, system is vulnerable");
-+		return;
-+	}
-+
-+	tst_res(TPASS, "ICMP rate limit is randomized");
-+}
-+
-+static void cleanup(void)
-+{
-+	int i;
-+
-+	for (i = 0; i < SRCADDR_COUNT; i++)
-+		if (fds[i] >= 0)
-+			SAFE_CLOSE(fds[i]);
-+
-+	if (childns >= 0)
-+		SAFE_CLOSE(childns);
-+
-+	if (parentns >= 0)
-+		SAFE_CLOSE(parentns);
-+}
-+
-+static struct tst_test test = {
-+	.test_all = run,
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.needs_kconfigs = (const char *[]) {
-+		"CONFIG_USER_NS=y",
-+		"CONFIG_NET_NS=y",
-+		NULL
-+	},
-+	.tags = (const struct tst_tag[]) {
-+		{"linux-git", "b38e7819cae9"},
-+		{"CVE", "2020-25705"},
-+		{}
-+	}
-+};
+* Added a number of helper functions to bpf_common and used them on
+  all tests.
+
+* Added some instruction concatenation helpers, but only used these on
+  bpf_prog05 as they don't seem to make the other tests better to
+  read.
+
+* Further shorten bpf_prog05 by using a generic expect function
+
+Richard Palethorpe (4):
+  lapi/bpf: Add /= and %=
+  bpf: Add map_array helper functions/macro and constify
+  bpf: Add helper to run socket programs
+  bpf: Check truncation on 32bit div/mod by zero
+
+ include/lapi/bpf.h                         |   2 +
+ runtest/cve                                |   1 +
+ runtest/syscalls                           |   1 +
+ testcases/kernel/syscalls/bpf/.gitignore   |   1 +
+ testcases/kernel/syscalls/bpf/bpf_common.c |  64 ++++++--
+ testcases/kernel/syscalls/bpf/bpf_common.h |  53 +++++-
+ testcases/kernel/syscalls/bpf/bpf_prog01.c |  32 +---
+ testcases/kernel/syscalls/bpf/bpf_prog02.c |  54 ++-----
+ testcases/kernel/syscalls/bpf/bpf_prog03.c |  32 +---
+ testcases/kernel/syscalls/bpf/bpf_prog04.c |  17 +-
+ testcases/kernel/syscalls/bpf/bpf_prog05.c | 177 +++++++++++++++++++++
+ 11 files changed, 308 insertions(+), 126 deletions(-)
+ create mode 100644 testcases/kernel/syscalls/bpf/bpf_prog05.c
+
 -- 
 2.31.1
 
