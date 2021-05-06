@@ -2,44 +2,41 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 030FB375089
-	for <lists+linux-ltp@lfdr.de>; Thu,  6 May 2021 10:06:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF55A375090
+	for <lists+linux-ltp@lfdr.de>; Thu,  6 May 2021 10:10:43 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 969343C56BD
-	for <lists+linux-ltp@lfdr.de>; Thu,  6 May 2021 10:06:13 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 6FF003C56AC
+	for <lists+linux-ltp@lfdr.de>; Thu,  6 May 2021 10:10:43 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 36EBE3C0CBC
- for <ltp@lists.linux.it>; Thu,  6 May 2021 10:06:09 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id CCA683C0CBC
+ for <ltp@lists.linux.it>; Thu,  6 May 2021 10:10:39 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id C9BAF600678
- for <ltp@lists.linux.it>; Thu,  6 May 2021 10:06:08 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id EC8001A01233
+ for <ltp@lists.linux.it>; Thu,  6 May 2021 10:10:38 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 11834B176;
- Thu,  6 May 2021 08:06:08 +0000 (UTC)
-References: <20210504134100.20666-1-rpalethorpe@suse.com>
- <20210504134100.20666-4-rpalethorpe@suse.com>
- <CAEemH2dnRA==KvFE73_u4eeqYvWF_+8CjLK=w6D0cv5L+gNBnw@mail.gmail.com>
-User-agent: mu4e 1.4.15; emacs 27.2
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Li Wang <liwang@redhat.com>
-In-reply-to: <CAEemH2dnRA==KvFE73_u4eeqYvWF_+8CjLK=w6D0cv5L+gNBnw@mail.gmail.com>
-Date: Thu, 06 May 2021 09:06:07 +0100
-Message-ID: <87tungl21c.fsf@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 5C7CCAF3E
+ for <ltp@lists.linux.it>; Thu,  6 May 2021 08:10:38 +0000 (UTC)
+Date: Thu, 6 May 2021 10:10:36 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <YJOkfJIzPqOXEvu+@pevik>
+References: <YJOYgZNL7/qp5YCN@yuki>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <YJOYgZNL7/qp5YCN@yuki>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v6 3/7] Add new CGroups APIs
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] LTP Release
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,58 +48,41 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
-Cc: LTP List <ltp@lists.linux.it>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello Li,
+> Hi!
+> It's about time for another LTP release. So as usuall let's start with
+> the list of patches that should go in before the release.
 
-Li Wang <liwang@redhat.com> writes:
-
-> Hi Richard,
->
-> With my pleasure for patchset:
-> Reviewed-by: Li Wang <liwang@redhat.com>
-
-Thanks for the reviews!
-
->
-> Also, the below typos should be corrected (someone who merges these
-> can help modify).
->
-> --- a/lib/tst_cgroup.c
-> +++ b/lib/tst_cgroup.c
-> @@ -147,7 +147,7 @@ static const files_t cgroup_ctrl_files = {
->         /* procs exists on V1, however it was read-only until kernel v3.0. */
->         { "cgroup.procs", "tasks", 0 },
->         { "cgroup.subtree_control", NULL, 0 },
-> -       { "cgroup.clone_children", "clone_children", 0 },
-> +       { "cgroup.clone_children", "cgroup.clone_children", 0 },
-
+> First of all I will have to fix the docparser JSON string escape patch,
+> I will do so ASAP.
 +1
 
->         { }
->  };
->
-> @@ -158,7 +158,7 @@ static const files_t memory_ctrl_files = {
->         { "memory.swap.current", "memory.memsw.usage_in_bytes", CTRL_MEMORY },
->         { "memory.swap.max", "memory.memsw.limit_in_bytes", CTRL_MEMORY },
->         { "memory.kmem.usage_in_bytes", "memory.kmem.usage_in_bytes",
-> CTRL_MEMORY },
-> -       { "memory.kmem.limit_in_bytes", "memory.kmem.usage_in_bytes",
-> CTRL_MEMORY },
-> +       { "memory.kmem.limit_in_bytes", "memory.kmem.limit_in_bytes",
-> CTRL_MEMORY },
->         { }
->  };
+> Also I would like to get the CGroup API rewrite in, since that fixes
+> real problems and is, as far as I can tell, ready to go.
++1
 
+> The rtnetlink patchset from Martin is nearly ready as well. I would
+> apply it as well if we manage to get to final version soon enough.
++1
 
--- 
-Thank you,
-Richard.
+> That is all for me, if there is anything else please reply ASAP.
+netns_netlink fix + rewrite [1] would be nice to get in.
+BTW I plan to add check for ip version, but as part of general approach
+proposal (not yet finished), thus after release.
+
+And only if you have time: docparse generation improvements [2].
+
+Kind regards,
+Petr
+
+[1] https://patchwork.ozlabs.org/project/ltp/patch/20210401141210.9536-1-pvorel@suse.cz/
+[2] https://patchwork.ozlabs.org/project/ltp/list/?series=242088
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
