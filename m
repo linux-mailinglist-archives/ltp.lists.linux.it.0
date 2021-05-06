@@ -2,41 +2,44 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF55A375090
-	for <lists+linux-ltp@lfdr.de>; Thu,  6 May 2021 10:10:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0EF0937514D
+	for <lists+linux-ltp@lfdr.de>; Thu,  6 May 2021 11:10:45 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6FF003C56AC
-	for <lists+linux-ltp@lfdr.de>; Thu,  6 May 2021 10:10:43 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 0E58A3C56C2
+	for <lists+linux-ltp@lfdr.de>; Thu,  6 May 2021 11:10:44 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id CCA683C0CBC
- for <ltp@lists.linux.it>; Thu,  6 May 2021 10:10:39 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 7B4A93C1C23
+ for <ltp@lists.linux.it>; Thu,  6 May 2021 11:10:39 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id EC8001A01233
- for <ltp@lists.linux.it>; Thu,  6 May 2021 10:10:38 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 28A6360085E
+ for <ltp@lists.linux.it>; Thu,  6 May 2021 11:10:38 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 5C7CCAF3E
- for <ltp@lists.linux.it>; Thu,  6 May 2021 08:10:38 +0000 (UTC)
-Date: Thu, 6 May 2021 10:10:36 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <YJOkfJIzPqOXEvu+@pevik>
-References: <YJOYgZNL7/qp5YCN@yuki>
+ by mx2.suse.de (Postfix) with ESMTP id 79624AFCD;
+ Thu,  6 May 2021 09:10:38 +0000 (UTC)
+Date: Thu, 6 May 2021 10:44:09 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Li Wang <liwang@redhat.com>
+Message-ID: <YJOsWSlTciRSDhlB@yuki>
+References: <20210504134100.20666-1-rpalethorpe@suse.com>
+ <20210504134100.20666-4-rpalethorpe@suse.com>
+ <CAEemH2dnRA==KvFE73_u4eeqYvWF_+8CjLK=w6D0cv5L+gNBnw@mail.gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <YJOYgZNL7/qp5YCN@yuki>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+In-Reply-To: <CAEemH2dnRA==KvFE73_u4eeqYvWF_+8CjLK=w6D0cv5L+gNBnw@mail.gmail.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] LTP Release
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v6 3/7] Add new CGroups APIs
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,41 +51,24 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
+Cc: Richard Palethorpe <rpalethorpe@suse.com>, LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-> Hi!
-> It's about time for another LTP release. So as usuall let's start with
-> the list of patches that should go in before the release.
+Hi!
+> With my pleasure for patchset:
+> Reviewed-by: Li Wang <liwang@redhat.com>
+>
+> Also, the below typos should be corrected (someone who merges these
+> can help modify).
 
-> First of all I will have to fix the docparser JSON string escape patch,
-> I will do so ASAP.
-+1
+Thanks for the review, fixed and pushed.
 
-> Also I would like to get the CGroup API rewrite in, since that fixes
-> real problems and is, as far as I can tell, ready to go.
-+1
-
-> The rtnetlink patchset from Martin is nearly ready as well. I would
-> apply it as well if we manage to get to final version soon enough.
-+1
-
-> That is all for me, if there is anything else please reply ASAP.
-netns_netlink fix + rewrite [1] would be nice to get in.
-BTW I plan to add check for ip version, but as part of general approach
-proposal (not yet finished), thus after release.
-
-And only if you have time: docparse generation improvements [2].
-
-Kind regards,
-Petr
-
-[1] https://patchwork.ozlabs.org/project/ltp/patch/20210401141210.9536-1-pvorel@suse.cz/
-[2] https://patchwork.ozlabs.org/project/ltp/list/?series=242088
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
