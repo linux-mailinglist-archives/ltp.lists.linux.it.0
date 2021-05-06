@@ -2,58 +2,39 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3AD22374FD7
-	for <lists+linux-ltp@lfdr.de>; Thu,  6 May 2021 09:12:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE34A37505C
+	for <lists+linux-ltp@lfdr.de>; Thu,  6 May 2021 09:46:00 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B839B3C569A
-	for <lists+linux-ltp@lfdr.de>; Thu,  6 May 2021 09:12:45 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 4BB4B3C56BF
+	for <lists+linux-ltp@lfdr.de>; Thu,  6 May 2021 09:46:00 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 10C0A3C00BB
- for <ltp@lists.linux.it>; Thu,  6 May 2021 09:12:42 +0200 (CEST)
-Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
+ by picard.linux.it (Postfix) with ESMTPS id BE98C3C3157
+ for <ltp@lists.linux.it>; Thu,  6 May 2021 09:45:56 +0200 (CEST)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 54A7F60138B
- for <ltp@lists.linux.it>; Thu,  6 May 2021 09:12:41 +0200 (CEST)
-Received: from dggeml713-chm.china.huawei.com (unknown [172.30.72.53])
- by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4FbPpw4GJwz5xFy
- for <ltp@lists.linux.it>; Thu,  6 May 2021 15:10:00 +0800 (CST)
-Received: from dggpemm500022.china.huawei.com (7.185.36.162) by
- dggeml713-chm.china.huawei.com (10.3.17.124) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.2176.2; Thu, 6 May 2021 15:12:35 +0800
-Received: from [10.67.109.194] (10.67.109.194) by
- dggpemm500022.china.huawei.com (7.185.36.162) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
- 15.1.2176.2; Thu, 6 May 2021 15:12:29 +0800
-To: Cyril Hrubis <chrubis@suse.cz>
-References: <20210430094513.162499-1-xieziyao@huawei.com>
- <20210430094513.162499-2-xieziyao@huawei.com> <YJAFldREJ1aQBDdh@yuki>
-From: Xie Ziyao <xieziyao@huawei.com>
-Message-ID: <31bca9c3-acd8-7d7d-7c41-152571e8f605@huawei.com>
-Date: Thu, 6 May 2021 15:12:16 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.1
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 487721A00486
+ for <ltp@lists.linux.it>; Thu,  6 May 2021 09:45:56 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 9189AADE5
+ for <ltp@lists.linux.it>; Thu,  6 May 2021 07:45:55 +0000 (UTC)
+Date: Thu, 6 May 2021 09:19:29 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: ltp@lists.linux.it
+Message-ID: <YJOYgZNL7/qp5YCN@yuki>
 MIME-Version: 1.0
-In-Reply-To: <YJAFldREJ1aQBDdh@yuki>
-Content-Language: en-US
-X-Originating-IP: [10.67.109.194]
-X-ClientProxiedBy: dggeme717-chm.china.huawei.com (10.1.199.113) To
- dggpemm500022.china.huawei.com (7.185.36.162)
-X-CFilter-Loop: Reflected
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+Content-Disposition: inline
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/3 v2] syscalls/chown: Rewrite chown/chown02.c
- with the new api
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] LTP Release
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,31 +46,29 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
+Hi!
+It's about time for another LTP release. So as usuall let's start with
+the list of patches that should go in before the release.
 
-Thanks for the modification, Cyril. BTW, the macro definition of 
-FILE_MODE is useless and I suggest deleting it.
+First of all I will have to fix the docparser JSON string escape patch,
+I will do so ASAP.
 
-Please see: 
-https://patchwork.ozlabs.org/project/ltp/patch/20210506071118.140135-1-xieziyao@huawei.com/
+Also I would like to get the CGroup API rewrite in, since that fixes
+real problems and is, as far as I can tell, ready to go.
 
-Kind regards,
-Ziyao
+The rtnetlink patchset from Martin is nearly ready as well. I would
+apply it as well if we manage to get to final version soon enough.
 
-On 2021/5/3 22:15, Cyril Hrubis wrote:
-> Hi!
-> Pushed with minor changes, thanks.
-> 
-> * I've updated the documentation comment a bit
-> * Moved the chmod() to the run() function so that the test
->    changes back the modified permissions with -i parameter
-> 
+That is all for me, if there is anything else please reply ASAP.
+
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
