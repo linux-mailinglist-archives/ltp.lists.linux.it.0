@@ -2,44 +2,43 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5BBBA375770
-	for <lists+linux-ltp@lfdr.de>; Thu,  6 May 2021 17:35:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 139EB375A1D
+	for <lists+linux-ltp@lfdr.de>; Thu,  6 May 2021 20:21:47 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A7A5F3C73DA
-	for <lists+linux-ltp@lfdr.de>; Thu,  6 May 2021 17:35:05 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 7E22D3C56F2
+	for <lists+linux-ltp@lfdr.de>; Thu,  6 May 2021 20:21:46 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id BEAB53C56C9
- for <ltp@lists.linux.it>; Thu,  6 May 2021 17:35:02 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 241013C19D3
+ for <ltp@lists.linux.it>; Thu,  6 May 2021 20:21:40 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 50244200926
- for <ltp@lists.linux.it>; Thu,  6 May 2021 17:35:02 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 38F6960102E
+ for <ltp@lists.linux.it>; Thu,  6 May 2021 20:21:39 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 91038AC36
- for <ltp@lists.linux.it>; Thu,  6 May 2021 15:35:01 +0000 (UTC)
-To: Cyril Hrubis <chrubis@suse.cz>, ltp@lists.linux.it
-References: <YJOYgZNL7/qp5YCN@yuki>
-From: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <5b2dca3e-7b3e-678e-1726-9849c76d766a@suse.cz>
-Date: Thu, 6 May 2021 17:35:01 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.9.1
+ by mx2.suse.de (Postfix) with ESMTP id 65345AF98;
+ Thu,  6 May 2021 18:21:39 +0000 (UTC)
+Date: Thu, 6 May 2021 20:21:37 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <YJQzsUBhaD4wQyrF@pevik>
+References: <20210506132745.16973-1-pvorel@suse.cz>
+ <YJQAukLCEqSX1X/9@yuki>
 MIME-Version: 1.0
-In-Reply-To: <YJOYgZNL7/qp5YCN@yuki>
-Content-Language: en-US
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <YJQAukLCEqSX1X/9@yuki>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] LTP Release
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v4 1/1] docparse: Handle special characters in JSON
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,42 +50,121 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 06. 05. 21 9:19, Cyril Hrubis wrote:
+Hi Cyril,
 > Hi!
-> It's about time for another LTP release. So as usuall let's start with
-> the list of patches that should go in before the release.
-> 
-> First of all I will have to fix the docparser JSON string escape patch,
-> I will do so ASAP.
-> 
-> Also I would like to get the CGroup API rewrite in, since that fixes
-> real problems and is, as far as I can tell, ready to go.
-> 
-> The rtnetlink patchset from Martin is nearly ready as well. I would
-> apply it as well if we manage to get to final version soon enough.
-> 
-> That is all for me, if there is anything else please reply ASAP.
+> > * escape backslash (/) and double quote (")
+>                       ^
+> 		      \
++1
 
-Well, I don't really mind if the rtnetlink patches get delayed until
-after the release. But just a reminder that I'm planning to resubmit
-patch 6 only after the library changes get merged.
+> >   escaping backslash effectively escapes other C escaped strings (\t,
+> >   \n, ...), which we sometimes want (in the comment) but sometimes not
+> >   (in .option we want to have them interpreted)
+> > * replace tab with 8x space
+> > * skip and TWARN invalid chars (< 0x20, i.e. anything before space)
+>              ^
+> 	     warn on? We are not actually using TWARN o here right?
+Yep, I didn't update commit message (first I included tst_test.h with
+TST_NO_DEFAULT_MAIN but there was missing include path => stderr is enough).
 
-On the other hand, I'd like to get the inotify06 fixes into the next
-release.
+> >   defined by RFC 8259 (https://tools.ietf.org/html/rfc8259#page-9)
 
--- 
-Martin Doucha   mdoucha@suse.cz
-QA Engineer for Software Maintenance
-SUSE LINUX, s.r.o.
-CORSO IIa
-Krizikova 148/34
-186 00 Prague 8
-Czech Republic
+> > NOTE: atm fix is required only for ", but tab was problematic in the past.
+
+> > TODO: This is just a "hot fix" solution before release. Proper solution
+> > would be to check if chars needed to be escaped (", \, /) aren't already
+> > escaped.
+
+> > Also for correct decision whether \n, \t should be escaped or interpreted
+> > we should decide in the parser which has the context. C string should be
+> > probably interpreted (thus nothing needed to be done as it escapes in
+> > a compatible way with JSON), but comments probably should display \n, \t
+> > thus add extra \.
+
+> > Fixes: c39b29f0a ("bpf: Check truncation on 32bit div/mod by zero")
+
+> > Suggested-by: Cyril Hrubis <chrubis@suse.cz>
+> > Co-developed-by: Cyril Hrubis <chrubis@suse.cz>
+> > Signed-off-by: Petr Vorel <pvorel@suse.cz>
+> > ---
+> >  docparse/data_storage.h | 36 +++++++++++++++++++++++++++++++++++-
+> >  1 file changed, 35 insertions(+), 1 deletion(-)
+
+> > diff --git a/docparse/data_storage.h b/docparse/data_storage.h
+> > index ef420c08f..9f36dd6f0 100644
+> > --- a/docparse/data_storage.h
+> > +++ b/docparse/data_storage.h
+> > @@ -256,6 +256,40 @@ static inline void data_fprintf(FILE *f, unsigned int padd, const char *fmt, ...
+> >  	va_end(va);
+> >  }
+
+> > +
+> > +static inline void data_fprintf_esc(FILE *f, unsigned int padd, const char *str)
+> > +{
+> > +	while (padd-- > 0)
+> > +		fputc(' ', f);
+> > +
+> > +	fputc('"', f);
+
+> 	int was_backslash = 0;
+
+> > +	while (*str) {
+> > +		switch (*str) {
+> > +		case '\\':
+> > +		break;
+> > +		case '"':
+> > +			fputs("\\\"", f);
+> 			was_backslash = 0;
+> > +			break;
+> > +		case '\t':
+> > +			fputs("        ", f);
+> > +			break;
+> > +		default:
+> > +			/* RFC 8259 specify  chars before 0x20 as invalid */
+> > +			if (*str >= 0x20)
+> > +				putc(*str, f);
+> > +			else
+> > +				fprintf(stderr, "%s:%d %s(): invalid character for JSON: %x\n",
+> > +						__FILE__, __LINE__, __func__, *str);
+> > +			break;
+> > +		}
+
+> 		if (was_backslash)
+> 			fputs("\\\\", f);
+
+> 		was_backslash = (*str == '\\');
+> > +		str++;
+> > +	}
+> > +
+> > +	fputc('"', f);
+> > +}
+
+> This should avoid "unescaping" an escaped double quote. We deffer
+> printing the backslash until we know the character after it and we make
+> sure that we do not excape backslash before ".
+
+> Consider what would happen if someone did put a "\"text\"" into options
+> strings, the original code would escape the backslashes and we would end
+> up with "\\"text"\\" which would break parser again.
+
+> This way we can at least avoid parsing errors until we fix the problem
+> one level down in the parser where we have the context required for a
+> proper fix.
+
++1.
+
+I'll test it and merge under your as it's basically your work :).
+Thanks!
+
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
