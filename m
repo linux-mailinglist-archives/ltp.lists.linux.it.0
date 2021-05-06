@@ -2,42 +2,46 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44687375558
-	for <lists+linux-ltp@lfdr.de>; Thu,  6 May 2021 16:02:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 300A1375596
+	for <lists+linux-ltp@lfdr.de>; Thu,  6 May 2021 16:25:30 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C727E3C71EC
-	for <lists+linux-ltp@lfdr.de>; Thu,  6 May 2021 16:02:21 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 646E53C71EC
+	for <lists+linux-ltp@lfdr.de>; Thu,  6 May 2021 16:25:29 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 6C4CD3C3157
- for <ltp@lists.linux.it>; Thu,  6 May 2021 16:02:18 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 1D4F83C1A24
+ for <ltp@lists.linux.it>; Thu,  6 May 2021 16:25:25 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id E16D21400989
- for <ltp@lists.linux.it>; Thu,  6 May 2021 16:02:17 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 8BD1D1000A44
+ for <ltp@lists.linux.it>; Thu,  6 May 2021 16:25:25 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 412DCB035;
- Thu,  6 May 2021 14:02:17 +0000 (UTC)
-Date: Thu, 6 May 2021 15:35:48 +0200
+ by mx2.suse.de (Postfix) with ESMTP id 0FE6AAF52;
+ Thu,  6 May 2021 14:25:25 +0000 (UTC)
+Date: Thu, 6 May 2021 15:58:56 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
-To: zhaogongyi <zhaogongyi@huawei.com>
-Message-ID: <YJPwtLIVaudLO6vy@yuki>
-References: <d133afe6b6be43b089a68e0a72b15960@huawei.com>
+To: Petr Vorel <pvorel@suse.cz>
+Message-ID: <YJP2IDZIEOltnTiq@yuki>
+References: <20210429115021.24128-1-xieziyao@huawei.com>
+ <20210429115021.24128-4-xieziyao@huawei.com>
+ <YJE5bkB8+PFBMWwD@yuki>
+ <f47c4ec5-2d4a-76c8-5ef4-f8cfb12961e9@huawei.com>
+ <YJPnpfByh/C5kXbr@pevik>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <d133afe6b6be43b089a68e0a72b15960@huawei.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+In-Reply-To: <YJPnpfByh/C5kXbr@pevik>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [COMMITTED] [PATCH] syscalls: modify_ldt02: Fix failure
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 3/3] syscalls/io_submit: Convert libaio wrapper
+ function to kernel syscall
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,24 +53,29 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
+Cc: rpalethorpe@suse.com, "ltp@lists.linux.it" <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> I am sorry, It's my fault. It seems that restore to origin code is
-> more better since it might create a core file.
+> > If we should test _both_ syscall() and the library, I would prefer to split
+> > libaio and native aio into two testcases in this testsuite, since <libaio.h>
+> > conflicts with <linux/aio_abi.h> during actual modification.
+> 
+> > Excuse me, is there any other good way to solve this problem?
+> NOTE: if most of the test the same, with little help of #ifdef and maybe 1-2
+> macros we can have single source for both variants (compiling 2 binaries).
+> See setdomainname and sethostname tests (setdomainname.h).
 
-No this is not solution either, since the original code was broken to
-begin with.
+Not sure that it's that easy here, since we cannot include libaio.h and
+aio_abi.h in a single file without getting conflicts, they define
+structures with the same name with possibly different layout, which
+makes this very tricky.
 
-We do have tst_no_corefile() in the test library, which should be called
-by tests that cause SEGFAULT on purpose in order to avoid dumping a
-core, but it looks like it's available only for new library tests. We
-would have to convert the test to new library first if we wanted to
-that.
+I guess that having separate tests for different interface would
+probably be easiest solution in this case.
 
 -- 
 Cyril Hrubis
