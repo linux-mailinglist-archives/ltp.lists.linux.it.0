@@ -1,48 +1,47 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id F337F375477
-	for <lists+linux-ltp@lfdr.de>; Thu,  6 May 2021 15:10:55 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id EA8C0375474
+	for <lists+linux-ltp@lfdr.de>; Thu,  6 May 2021 15:10:24 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5AADC3C56C1
-	for <lists+linux-ltp@lfdr.de>; Thu,  6 May 2021 15:10:55 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 3DBF63C67D3
+	for <lists+linux-ltp@lfdr.de>; Thu,  6 May 2021 15:10:24 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 430413C56D5
- for <ltp@lists.linux.it>; Thu,  6 May 2021 15:10:21 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 3561C3C1A24
+ for <ltp@lists.linux.it>; Thu,  6 May 2021 15:10:19 +0200 (CEST)
 Received: from szxga04-in.huawei.com (szxga04-in.huawei.com [45.249.212.190])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id AF1702010B9
- for <ltp@lists.linux.it>; Thu,  6 May 2021 15:10:19 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 6139710011C8
+ for <ltp@lists.linux.it>; Thu,  6 May 2021 15:10:18 +0200 (CEST)
 Received: from DGGEMS413-HUB.china.huawei.com (unknown [172.30.72.60])
- by szxga04-in.huawei.com (SkyGuard) with ESMTP id 4FbYkp1vJBzqSgj
+ by szxga04-in.huawei.com (SkyGuard) with ESMTP id 4FbYkp26D0zqSgm
  for <ltp@lists.linux.it>; Thu,  6 May 2021 21:06:58 +0800 (CST)
 Received: from ubuntu1804.huawei.com (10.67.174.209) by
  DGGEMS413-HUB.china.huawei.com (10.3.19.213) with Microsoft SMTP Server id
  14.3.498.0; Thu, 6 May 2021 21:10:05 +0800
 From: Xie Ziyao <xieziyao@huawei.com>
 To: <ltp@lists.linux.it>
-Date: Thu, 6 May 2021 21:09:49 +0800
-Message-ID: <20210506130950.110267-3-xieziyao@huawei.com>
+Date: Thu, 6 May 2021 21:09:50 +0800
+Message-ID: <20210506130950.110267-4-xieziyao@huawei.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20210506130950.110267-1-xieziyao@huawei.com>
 References: <20210506130950.110267-1-xieziyao@huawei.com>
 MIME-Version: 1.0
 X-Originating-IP: [10.67.174.209]
 X-CFilter-Loop: Reflected
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/3] syscalls/fchown: Convert fchown02 to the new API
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH 3/3] syscalls/fchown: Convert fchown03 to the new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,228 +58,223 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-1. Cleanup and convert fchown02 to the new API;
-2. Remove useless testcase {0, NULL, NULL, 0, 0, 0}.
+Cleanup and convert fchown03 to the new API.
 
 Signed-off-by: Xie Ziyao <xieziyao@huawei.com>
 ---
- testcases/kernel/syscalls/fchown/fchown02.c | 175 ++++++--------------
- 1 file changed, 52 insertions(+), 123 deletions(-)
+ testcases/kernel/syscalls/fchown/fchown03.c | 177 ++++++++------------
+ 1 file changed, 67 insertions(+), 110 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/fchown/fchown02.c b/testcases/kernel/syscalls/fchown/fchown02.c
-index 0fef74dee..a99962911 100644
---- a/testcases/kernel/syscalls/fchown/fchown02.c
-+++ b/testcases/kernel/syscalls/fchown/fchown02.c
-@@ -1,158 +1,87 @@
+diff --git a/testcases/kernel/syscalls/fchown/fchown03.c b/testcases/kernel/syscalls/fchown/fchown03.c
+index f7fe994fd..a69ec86ae 100644
+--- a/testcases/kernel/syscalls/fchown/fchown03.c
++++ b/testcases/kernel/syscalls/fchown/fchown03.c
+@@ -1,139 +1,96 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
  /*
   * Copyright (c) International Business Machines  Corp., 2001
 - *  07/2001 Ported by Wayne Boyer
 + * 07/2001 Ported by Wayne Boyer
-  * Copyright (c) 2014 Cyril Hrubis <chrubis@suse.cz>
-- *
++ */
++
++/*\
++ * [Description]
+  *
 - * This program is free software;  you can redistribute it and/or modify
 - * it under the terms of the GNU General Public License as published by
 - * the Free Software Foundation; either version 2 of the License, or
 - * (at your option) any later version.
-- *
++ * Verify that, fchown(2) succeeds to change the group of a file specified
++ * by path when called by non-root user with the following constraints:
+  *
 - * This program is distributed in the hope that it will be useful,
 - * but WITHOUT ANY WARRANTY;  without even the implied warranty of
 - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
 - * the GNU General Public License for more details.
-- *
++ * - euid of the process is equal to the owner of the file;
++ * - the intended gid is either egid, or one of the supplementary gids
++ *   of the process.
+  *
 - * You should have received a copy of the GNU General Public License
-- * along with this program;  if not, write to the Free Software
-- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
-  */
-
+- * along with this program;  if not, write to the Free Software Foundation,
+- * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+- */
+-
 -/*
 - * Test Description:
-- *  Verify that, when fchown(2) invoked by super-user to change the owner and
-- *  group of a file specified by file descriptor to any numeric
-- *  owner(uid)/group(gid) values,
-- *	- clears setuid and setgid bits set on an executable file.
-- *	- preserves setgid bit set on a non-group-executable file.
-+/*\
-+ * [Description]
-+ *
-+ * Verify that fchown(2) invoked by super-user:
-+ *  - clears setuid and setgid bits set on an executable file
-+ *  - preserves setgid bit set on a non-group-executable file
+- *  Verify that, fchown(2) succeeds to change the group of a file specified
+- *  by path when called by non-root user with the following constraints,
+- *	- euid of the process is equal to the owner of the file.
+- *	- the intended gid is either egid, or one of the supplementary gids
+- *	  of the process.
+- *  Also, verify that fchown() clears the setuid/setgid bits set on the file.
++ * Also verify that fchown() clears the setuid/setgid bits set on the file.
   */
 
- #include <stdio.h>
- #include <sys/types.h>
- #include <sys/stat.h>
- #include <fcntl.h>
+-#include <stdio.h>
+-#include <stdlib.h>
+-#include <sys/types.h>
+-#include <sys/stat.h>
+-#include <fcntl.h>
 -#include <errno.h>
 -#include <string.h>
 -#include <signal.h>
--
+ #include <grp.h>
+ #include <pwd.h>
++#include <fcntl.h>
++#include <sys/stat.h>
++#include <sys/types.h>
+
 -#include "test.h"
 -#include "safe_macros.h"
 -#include "compat_16.h"
 -
--#define FILE_MODE	S_IFREG | S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH
--#define NEW_PERMS1	S_IFREG | S_IRWXU | S_IRWXG | S_ISUID | S_ISGID
--#define NEW_PERMS2	S_IFREG | S_IRWXU | S_ISGID
--#define EXP_PERMS	S_IFREG | S_IRWXU | S_IRWXG
-+
+-#define FILE_MODE (mode_t)(S_IFREG | S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)
+-#define NEW_PERMS (mode_t)(S_IFREG | S_IRWXU | S_IRWXG | S_ISUID | S_ISGID)
+-#define FCHOWN_PERMS	(mode_t)(NEW_PERMS & ~(S_ISUID | S_ISGID))
+-#define TESTFILE	"testfile"
 +#include "tst_test.h"
 +#include "compat_tst_16.h"
-+#include "tst_safe_macros.h"
-+
+
+-TCID_DEFINE(fchown03);
+-int TST_TOTAL = 1;
 +#define FILE_MODE	(S_IFREG|S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH)
-+#define NEW_PERMS1	(S_IFREG|S_IRWXU|S_IRWXG|S_ISUID|S_ISGID)
-+#define NEW_PERMS2	(S_IFREG|S_IRWXU|S_ISGID)
-+#define EXP_PERMS	(S_IFREG|S_IRWXU|S_IRWXG)
- #define TESTFILE1	"testfile1"
- #define TESTFILE2	"testfile2"
++#define NEW_PERMS	(S_IFREG|S_IRWXU|S_IRWXG|S_ISUID|S_ISGID)
++#define FILENAME	"fchown03_testfile"
 
--TCID_DEFINE(fchown02);
--int TST_TOTAL = 2;
--static int fd1;
--static int fd2;
-+static int fd1, fd2;
-
--struct test_case {
-+struct test_case_t {
- 	int *fd;
--	char *pathname;
--	char *desc;
--	uid_t user_id;
--	gid_t group_id;
--	int test_flag;
-+	const char *filename;
-+	mode_t set_mode;
-+	mode_t exp_mode;
- } tc[] = {
--	{&fd1, TESTFILE1, "Setuid/Setgid bits cleared", 700, 701, 1},
--	{&fd2, TESTFILE2, "Setgid bit not cleared", 700, 701, 2},
--	{0, NULL, NULL, 0, 0, 0}
-+	{&fd1, TESTFILE1, NEW_PERMS1, EXP_PERMS},
-+	{&fd2, TESTFILE2, NEW_PERMS2, NEW_PERMS2}
- };
+-static int fildes;
+-char nobody_uid[] = "nobody";
++static int fd;
+ static struct passwd *ltpuser;
 
 -static void setup(void);
 -static void cleanup(void);
 -
--static void verify_fchown(struct test_case *t)
-+static void run(unsigned int i)
+-int main(int ac, char **av)
++static void check_owner(struct stat *s, uid_t exp_uid, gid_t exp_gid)
  {
 -	struct stat stat_buf;
+-	int lc;
+-	uid_t user_id;
+-	gid_t group_id;
+-
+-	tst_parse_opts(ac, av, NULL, NULL);
+-
+-	setup();
+-
+-	for (lc = 0; TEST_LOOPING(lc); lc++) {
+-		tst_count = 0;
+-
+-		user_id = geteuid();
+-		GID16_CHECK((group_id = getegid()), "fchown", cleanup)
+-
+-		TEST(FCHOWN(cleanup, fildes, -1, group_id));
+-
+-		if (TEST_RETURN == -1) {
+-			tst_resm(TFAIL, "fchown() on %s Fails, errno=%d",
+-				 TESTFILE, TEST_ERRNO);
+-			continue;
+-		}
++	if (s->st_uid != exp_uid || s->st_gid != exp_gid)
++		tst_res(TFAIL, "%s: wrong owner set to (uid=%d, gid=%d),"
++			       " expected (uid=%d, gid=%d)",
++			FILENAME, s->st_uid, s->st_gid, exp_uid, exp_gid);
++}
+
+-		SAFE_FSTAT(cleanup, fildes, &stat_buf);
++static void check_mode(struct stat *s, mode_t exp_mode)
++{
++	if (s->st_mode != exp_mode)
++		tst_res(TFAIL, "%s: wrong mode permissions %#o, expected %#o",
++			FILENAME, s->st_mode, exp_mode);
++}
+
+-		if ((stat_buf.st_uid != user_id) ||
+-		    (stat_buf.st_gid != group_id)) {
+-			tst_resm(TFAIL, "%s: Incorrect "
+-				 "ownership set, Expected %d %d",
+-				 TESTFILE, user_id, group_id);
+-			continue;
+-		}
++static void run(void)
++{
++	SAFE_SETEUID(0);
++	SAFE_FCHOWN(fd, -1, 0);
++	SAFE_FCHMOD(fd, NEW_PERMS);
++	SAFE_SETEUID(ltpuser->pw_uid);
+
+-		if (stat_buf.st_mode != FCHOWN_PERMS) {
+-			tst_resm(TFAIL, "%s: Incorrect mode permissions"
+-				 " %#o, Expected %#o", TESTFILE,
+-				 stat_buf.st_mode, FCHOWN_PERMS);
+-		} else {
+-			tst_resm(TPASS, "fchown() on %s succeeds: "
+-				 "Setuid/gid bits cleared", TESTFILE);
+-		}
+-	}
 +	uid_t uid;
 +	gid_t gid;
-
--	TEST(FCHOWN(cleanup, *t->fd, t->user_id, t->group_id));
--
--	if (TEST_RETURN == -1) {
--		tst_resm(TFAIL | TTERRNO, "fchown() Fails on %s", t->pathname);
--		return;
--	}
--
--	SAFE_FSTAT(cleanup, *t->fd, &stat_buf);
--
--	if ((stat_buf.st_uid != t->user_id) ||
--	    (stat_buf.st_gid != t->group_id)) {
--		tst_resm(TFAIL,
--		         "%s: Incorrect ownership expected %d %d, have %d %d",
--		         t->pathname, t->user_id, t->group_id,
--		         stat_buf.st_uid, stat_buf.st_gid);
--	}
--
--	switch (t->test_flag) {
--	case 1:
--		if (((stat_buf.st_mode & (S_ISUID | S_ISGID)))) {
--			tst_resm(TFAIL, "%s: Incorrect mode "
--					"permissions %#o, Expected "
--					"%#o", t->pathname, NEW_PERMS1,
--					 EXP_PERMS);
--			return;
--		}
--	break;
--	case 2:
--		if ((!(stat_buf.st_mode & S_ISGID))) {
--			tst_resm(TFAIL,
--				 "%s: Incorrect mode "
--				 "permissions %#o, Expected "
--				 "%#o", t->pathname,
--				 stat_buf.st_mode, NEW_PERMS2);
--			return;
--		}
--	break;
--	}
--
--	tst_resm(TPASS, "fchown() on %s succeeds : %s", t->pathname, t->desc);
--}
 +	UID16_CHECK((uid = geteuid()), "fchown");
 +	GID16_CHECK((gid = getegid()), "fchown");
 
--int main(int ac, char **av)
--{
--	int lc, i;
-+	SAFE_CHMOD(tc[i].filename, tc[i].set_mode);
-
--	tst_parse_opts(ac, av, NULL, NULL);
-+	TST_EXP_PASS(FCHOWN(*tc[i].fd, uid, gid));
-
--	setup();
-+	struct stat stat_buf;
-+	SAFE_STAT(tc[i].filename, &stat_buf);
-
--	for (lc = 0; TEST_LOOPING(lc); lc++) {
--		for (i = 0; tc[i].desc != NULL; i++)
--			verify_fchown(tc + i);
--	}
-+	if (stat_buf.st_uid != uid || stat_buf.st_gid != gid)
-+		tst_res(TFAIL, "%s: owner set to (uid=%d, gid=%d), expected (uid=%d, gid=%d)",
-+			tc[i].filename, stat_buf.st_uid, stat_buf.st_gid, uid, gid);
-
 -	cleanup();
 -	tst_exit();
-+	if (stat_buf.st_mode != tc[i].exp_mode)
-+		tst_res(TFAIL, "%s: wrong mode permissions %#o, expected %#o",
-+			tc[i].filename, stat_buf.st_mode, tc[i].exp_mode);
++	struct stat stat_buf;
++	SAFE_STAT(FILENAME, &stat_buf);
++	check_owner(&stat_buf, uid, 0);
++	check_mode(&stat_buf, NEW_PERMS);
++
++	TST_EXP_PASS(FCHOWN(fd, -1, gid), "fchown(fd, %d, %d)", -1, gid);
++	SAFE_STAT(FILENAME, &stat_buf);
++	check_owner(&stat_buf, uid, gid);
++	check_mode(&stat_buf, NEW_PERMS & ~(S_ISUID | S_ISGID));
  }
 
  static void setup(void)
  {
--	tst_require_root();
+-	tst_sig(FORK, DEF_HANDLER, cleanup);
 -
--	tst_sig(NOFORK, DEF_HANDLER, cleanup);
+-	tst_require_root();
++	ltpuser = SAFE_GETPWNAM("nobody");
++	SAFE_SETEGID(ltpuser->pw_gid);
++	SAFE_SETEUID(ltpuser->pw_uid);
+
+-	ltpuser = SAFE_GETPWNAM(cleanup, nobody_uid);
+-	SAFE_SETEUID(NULL, ltpuser->pw_uid);
 -
 -	TEST_PAUSE;
 -
 -	tst_tmpdir();
 -
--	fd1 = SAFE_OPEN(cleanup, TESTFILE1, O_RDWR | O_CREAT, FILE_MODE);
--	SAFE_CHMOD(cleanup, TESTFILE1, NEW_PERMS1);
--	fd2 = SAFE_OPEN(cleanup, TESTFILE2, O_RDWR | O_CREAT, FILE_MODE);
--	SAFE_CHMOD(cleanup, TESTFILE2, NEW_PERMS2);
-+	for (unsigned int i = 0; i < ARRAY_SIZE(tc); ++i)
-+		*tc[i].fd = SAFE_OPEN(tc[i].filename, O_RDWR | O_CREAT, FILE_MODE);
+-	fildes = SAFE_OPEN(cleanup, TESTFILE, O_RDWR | O_CREAT, FILE_MODE);
+-
+-	SAFE_SETEUID(cleanup, 0);
+-
+-	SAFE_FCHOWN(cleanup, fildes, -1, 0);
+-	SAFE_FCHMOD(cleanup, fildes, NEW_PERMS);
+-
+-	SAFE_SETEGID(cleanup, ltpuser->pw_gid);
+-	SAFE_SETEUID(cleanup, ltpuser->pw_uid);
++	fd = SAFE_OPEN(FILENAME, O_RDWR | O_CREAT, FILE_MODE);
  }
 
  static void cleanup(void)
  {
--	if (fd1 > 0 && close(fd1))
--		tst_resm(TWARN | TERRNO, "Failed to close fd1");
--
--	if (fd2 > 0 && close(fd2))
--		tst_resm(TWARN | TERRNO, "Failed to close fd2");
+-	if (fildes > 0 && close(fildes))
+-		tst_resm(TWARN | TERRNO, "close(%s) Failed", TESTFILE);
 -
 -	tst_rmdir();
-+	for (unsigned int i = 0; i < ARRAY_SIZE(tc); ++i)
-+		SAFE_CLOSE(*tc[i].fd);
++	SAFE_SETEGID(0);
++	SAFE_SETEUID(0);
++	SAFE_CLOSE(fd);
  }
 +
 +static struct tst_test test = {
-+	.tcnt = ARRAY_SIZE(tc),
 +	.needs_root = 1,
 +	.needs_tmpdir = 1,
 +	.setup = setup,
 +	.cleanup = cleanup,
-+	.test = run,
++	.test_all = run,
 +};
 --
 2.17.1
