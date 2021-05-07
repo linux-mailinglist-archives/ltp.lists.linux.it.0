@@ -1,48 +1,48 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FEBC376215
-	for <lists+linux-ltp@lfdr.de>; Fri,  7 May 2021 10:33:15 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 769CF376216
+	for <lists+linux-ltp@lfdr.de>; Fri,  7 May 2021 10:33:22 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E40F33C566E
-	for <lists+linux-ltp@lfdr.de>; Fri,  7 May 2021 10:33:14 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 18FD53C564F
+	for <lists+linux-ltp@lfdr.de>; Fri,  7 May 2021 10:33:22 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 78AD33C55ED
+ by picard.linux.it (Postfix) with ESMTPS id A5BED3C55ED
  for <ltp@lists.linux.it>; Fri,  7 May 2021 10:33:11 +0200 (CEST)
 Received: from szxga06-in.huawei.com (szxga06-in.huawei.com [45.249.212.32])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 8B6D66010DA
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 334EE1A006BC
  for <ltp@lists.linux.it>; Fri,  7 May 2021 10:33:10 +0200 (CEST)
 Received: from DGGEMS408-HUB.china.huawei.com (unknown [172.30.72.59])
- by szxga06-in.huawei.com (SkyGuard) with ESMTP id 4Fc3Yv1PlSzlcS7;
+ by szxga06-in.huawei.com (SkyGuard) with ESMTP id 4Fc3Yv1CyDzlcS5;
  Fri,  7 May 2021 16:30:59 +0800 (CST)
 Received: from ubuntu1804.huawei.com (10.67.174.209) by
  DGGEMS408-HUB.china.huawei.com (10.3.19.208) with Microsoft SMTP Server id
- 14.3.498.0; Fri, 7 May 2021 16:33:00 +0800
+ 14.3.498.0; Fri, 7 May 2021 16:33:01 +0800
 From: Xie Ziyao <xieziyao@huawei.com>
 To: <ltp@lists.linux.it>
-Date: Fri, 7 May 2021 16:33:19 +0800
-Message-ID: <20210507083321.167998-2-xieziyao@huawei.com>
+Date: Fri, 7 May 2021 16:33:20 +0800
+Message-ID: <20210507083321.167998-3-xieziyao@huawei.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20210507083321.167998-1-xieziyao@huawei.com>
 References: <20210507083321.167998-1-xieziyao@huawei.com>
 MIME-Version: 1.0
 X-Originating-IP: [10.67.174.209]
 X-CFilter-Loop: Reflected
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH 1/3] syscalls/io_destroy: Add io_destroy02 test for
- native AIO
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH 2/3] syscalls/io_setup: Add io_setup02 test for native
+ AIO
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,42 +60,47 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Test io_destroy invoked via syscall(2) with an invalid ctx and expects
-it to return EINVAL.
+Test io_setup invoked via syscall(2):
+- io_setup fails and returns -EFAULT if ctxp is NULL;
+- io_setup fails and returns -EINVAL if ctxp is not initialized to 0;
+- io_setup fails and returns -EINVAL if nr_events is -1;
+- io_setup fails and returns -EAGAIN if nr_events exceeds the limit
+  of available events;
+- io_setup succeeds if both nr_events and ctxp are valid.
 
 Signed-off-by: Xie Ziyao <xieziyao@huawei.com>
 ---
  runtest/syscalls                              |  1 +
- .../kernel/syscalls/io_destroy/.gitignore     |  1 +
- .../kernel/syscalls/io_destroy/io_destroy02.c | 32 +++++++++++++++++++
- 3 files changed, 34 insertions(+)
- create mode 100644 testcases/kernel/syscalls/io_destroy/io_destroy02.c
+ testcases/kernel/syscalls/io_setup/.gitignore |  1 +
+ .../kernel/syscalls/io_setup/io_setup02.c     | 52 +++++++++++++++++++
+ 3 files changed, 54 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/io_setup/io_setup02.c
 
 diff --git a/runtest/syscalls b/runtest/syscalls
-index aa7fa24dd..bd6ec6a2e 100644
+index bd6ec6a2e..b8f195891 100644
 --- a/runtest/syscalls
 +++ b/runtest/syscalls
-@@ -607,6 +607,7 @@ ioprio_set03 ioprio_set03
+@@ -614,6 +614,7 @@ io_pgetevents01 io_pgetevents01
+ io_pgetevents02 io_pgetevents02
 
- io_cancel01 io_cancel01
- io_destroy01 io_destroy01
-+io_destroy02 io_destroy02
- io_getevents01 io_getevents01
+ io_setup01 io_setup01
++io_setup02 io_setup02
+ io_submit01 io_submit01
 
- io_pgetevents01 io_pgetevents01
-diff --git a/testcases/kernel/syscalls/io_destroy/.gitignore b/testcases/kernel/syscalls/io_destroy/.gitignore
-index 025aa0f4a..48a16cd2f 100644
---- a/testcases/kernel/syscalls/io_destroy/.gitignore
-+++ b/testcases/kernel/syscalls/io_destroy/.gitignore
+ keyctl01 keyctl01
+diff --git a/testcases/kernel/syscalls/io_setup/.gitignore b/testcases/kernel/syscalls/io_setup/.gitignore
+index 4fd03960c..37a4b8321 100644
+--- a/testcases/kernel/syscalls/io_setup/.gitignore
++++ b/testcases/kernel/syscalls/io_setup/.gitignore
 @@ -1 +1,2 @@
- /io_destroy01
-+/io_destroy02
-diff --git a/testcases/kernel/syscalls/io_destroy/io_destroy02.c b/testcases/kernel/syscalls/io_destroy/io_destroy02.c
+ /io_setup01
++/io_setup02
+diff --git a/testcases/kernel/syscalls/io_setup/io_setup02.c b/testcases/kernel/syscalls/io_setup/io_setup02.c
 new file mode 100644
-index 000000000..357e61f10
+index 000000000..1d657e14a
 --- /dev/null
-+++ b/testcases/kernel/syscalls/io_destroy/io_destroy02.c
-@@ -0,0 +1,32 @@
++++ b/testcases/kernel/syscalls/io_setup/io_setup02.c
+@@ -0,0 +1,52 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
 +/*
 + * Copyright (c) Crackerjack Project., 2007
@@ -108,8 +113,13 @@ index 000000000..357e61f10
 +/*\
 + * [Description]
 + *
-+ * Test io_destroy invoked via syscall(2) with an invalid ctx and expects
-+ * it to return EINVAL.
++ * Test io_setup invoked via syscall(2):
++ * - io_setup fails and returns -EFAULT if ctxp is NULL;
++ * - io_setup fails and returns -EINVAL if ctxp is not initialized to 0;
++ * - io_setup fails and returns -EINVAL if nr_events is -1;
++ * - io_setup fails and returns -EAGAIN if nr_events exceeds the limit
++ *   of available events;
++ * - io_setup succeeds if both nr_events and ctxp are valid.
 + */
 +
 +#include <linux/aio_abi.h>
@@ -118,15 +128,30 @@ index 000000000..357e61f10
 +#include "tst_test.h"
 +#include "lapi/syscalls.h"
 +
-+static void verify_io_destroy(void)
++static void verify_io_setup(void)
 +{
 +	aio_context_t ctx;
-+	memset(&ctx, 0xff, sizeof(ctx));
-+	TST_EXP_FAIL(tst_syscall(__NR_io_destroy, ctx), EINVAL);
++	TST_EXP_FAIL(tst_syscall(__NR_io_setup, 1, NULL), EFAULT);
++
++	memset(&ctx, 1, sizeof(ctx));
++	TST_EXP_FAIL(tst_syscall(__NR_io_setup, 1, &ctx), EINVAL);
++	memset(&ctx, 0, sizeof(ctx));
++	TST_EXP_FAIL(tst_syscall(__NR_io_setup, -1, &ctx), EINVAL);
++
++	unsigned aio_max = 0;
++	if (!access("/proc/sys/fs/aio-max-nr", F_OK)) {
++		SAFE_FILE_SCANF("/proc/sys/fs/aio-max-nr", "%u", &aio_max);
++		TST_EXP_FAIL(tst_syscall(__NR_io_setup, aio_max + 1, &ctx), EAGAIN);
++	} else {
++		tst_res(TCONF, "the aio-max-nr file did not exist");
++	}
++
++	TST_EXP_PASS(tst_syscall(__NR_io_setup, 1, &ctx));
++	TST_EXP_PASS(tst_syscall(__NR_io_destroy, ctx));
 +}
 +
 +static struct tst_test test = {
-+	.test_all = verify_io_destroy,
++	.test_all = verify_io_setup,
 +};
 --
 2.17.1
