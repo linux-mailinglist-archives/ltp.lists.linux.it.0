@@ -1,44 +1,40 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA56E37697F
-	for <lists+linux-ltp@lfdr.de>; Fri,  7 May 2021 19:26:16 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 542DC376A91
+	for <lists+linux-ltp@lfdr.de>; Fri,  7 May 2021 21:15:00 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 8B4123C8D35
-	for <lists+linux-ltp@lfdr.de>; Fri,  7 May 2021 19:26:16 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 0232E3C98A5
+	for <lists+linux-ltp@lfdr.de>; Fri,  7 May 2021 21:15:00 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 73ACB3C564E
- for <ltp@lists.linux.it>; Fri,  7 May 2021 19:26:13 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 326E03C563C
+ for <ltp@lists.linux.it>; Fri,  7 May 2021 21:14:22 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 22C2360102B
- for <ltp@lists.linux.it>; Fri,  7 May 2021 19:26:12 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 3AECC200764
+ for <ltp@lists.linux.it>; Fri,  7 May 2021 21:14:21 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 31C2AB022;
- Fri,  7 May 2021 17:26:12 +0000 (UTC)
-Date: Fri, 7 May 2021 19:26:10 +0200
+ by mx2.suse.de (Postfix) with ESMTP id 6E953AEE5;
+ Fri,  7 May 2021 19:14:21 +0000 (UTC)
 From: Petr Vorel <pvorel@suse.cz>
-To: Zhao Gongyi <zhaogongyi@huawei.com>
-Message-ID: <YJV4MtK/5NvpIXbU@pevik>
-References: <20210506050047.935-1-zhaogongyi@huawei.com>
+To: ltp@lists.linux.it
+Date: Fri,  7 May 2021 21:14:11 +0200
+Message-Id: <20210507191414.14795-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210506050047.935-1-zhaogongyi@huawei.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 4/4 v2] syscalls/fcntl: Replace TINFO with TPASS
- or TFAIL
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH v4 0/3] IMA: Add test for dm-crypt measurement
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,71 +46,51 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
+Cc: Tushar Sugandhi <tusharsu@linux.microsoft.com>,
+ linux-integrity@vger.kernel.org, Mimi Zohar <zohar@linux.vnet.ibm.com>,
+ Lakshmi Ramasubramanian <nramas@linux.microsoft.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Zhao,
+Hi Mimi, Lakshmi, Tushar,
 
-> 1)remove redundant variable
-> 2)remove redundant log
-> 3)replace TINFO with TPASS or TFAIL
+rebased v3 [1], hope everything correct.
+Could you please review and test it?
 
-> For those:
-> 	testcases/kernel/syscalls/fcntl/fcntl16.c
-> 	testcases/kernel/syscalls/fcntl/fcntl18.c
-nit: we have git log to see what files has been changed.
-IMHO it's better to add fcntl18{16,18}: to the first line.
+v3->v4:
+* rewritten "IMA: Generalize key measurement tests"
+* new commit "ima_keys.sh: Check policy only once"
 
-> Signed-off-by: Zhao Gongyi <zhaogongyi@huawei.com>
-> ---
-> v1->v2:
-> 	1)correct the patch's format error
-> 	2)remove the useless//block1: comments
->  testcases/kernel/syscalls/fcntl/fcntl16.c | 73 +++++++----------------
->  testcases/kernel/syscalls/fcntl/fcntl18.c | 43 ++-----------
->  2 files changed, 27 insertions(+), 89 deletions(-)
-
-> diff --git a/testcases/kernel/syscalls/fcntl/fcntl16.c b/testcases/kernel/syscalls/fcntl/fcntl16.c
-> index a77a81298..c5c49284a 100644
-> --- a/testcases/kernel/syscalls/fcntl/fcntl16.c
-> +++ b/testcases/kernel/syscalls/fcntl/fcntl16.c
-> @@ -441,7 +441,7 @@ void setup(void)
->  	sigaction(SIGALRM, &sact, NULL);
->  }
-
-> -int run_test(int file_flag, int file_mode, int start, int end)
-> +static void run_test(int file_flag, int file_mode, int start, int end)
->  {
->  	int child_count;
->  	int child;
-> @@ -468,7 +468,7 @@ int run_test(int file_flag, int file_mode, int start, int end)
->  				 errno);
->  			close(fd);
->  			unlink(tmpname);
-> -			return 1;
-> +			goto err;
-not sure if change to use goto satisfied Cyril's requirement:
-
-we should rather skip the test in the main instead
-as it was done in the original code as:
-
-	if (NO_NFS)
-		run_test(...);
-	else
-		tst_resm(TCONF, "Skipping mandatory locking on NFS");
-
-other than that LGTM
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
-
-Also test ignores -i N parameter, because it does not use TEST_LOOPING().
-But that's another issue which should be fixed by rewriting the test to new API.
 
 Kind regards,
 Petr
+
+[1] https://patchwork.ozlabs.org/project/ltp/list/?series=230766&state=*
+
+Petr Vorel (2):
+  ima_keys.sh: Check policy only once
+  IMA: Generalize key measurement tests
+
+Tushar Sugandhi (1):
+  IMA: Add test for dm-crypt measurement
+
+ .../kernel/security/integrity/ima/README.md   | 20 +++++
+ .../security/integrity/ima/datafiles/Makefile |  2 +-
+ .../ima/datafiles/ima_dm_crypt/Makefile       | 11 +++
+ .../ima_dm_crypt/ima_dm_crypt.policy          |  1 +
+ .../integrity/ima/tests/ima_dm_crypt.sh       | 47 +++++++++++
+ .../security/integrity/ima/tests/ima_keys.sh  | 84 +++----------------
+ .../security/integrity/ima/tests/ima_setup.sh | 76 ++++++++++++++++-
+ 7 files changed, 168 insertions(+), 73 deletions(-)
+ create mode 100644 testcases/kernel/security/integrity/ima/datafiles/ima_dm_crypt/Makefile
+ create mode 100644 testcases/kernel/security/integrity/ima/datafiles/ima_dm_crypt/ima_dm_crypt.policy
+ create mode 100755 testcases/kernel/security/integrity/ima/tests/ima_dm_crypt.sh
+
+-- 
+2.31.1
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
