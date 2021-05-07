@@ -1,43 +1,44 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6420376922
-	for <lists+linux-ltp@lfdr.de>; Fri,  7 May 2021 18:56:58 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2674A37694B
+	for <lists+linux-ltp@lfdr.de>; Fri,  7 May 2021 19:08:43 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 83C363C8D2D
-	for <lists+linux-ltp@lfdr.de>; Fri,  7 May 2021 18:56:58 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C0E1D3C8D35
+	for <lists+linux-ltp@lfdr.de>; Fri,  7 May 2021 19:08:42 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 788023C55FE
- for <ltp@lists.linux.it>; Fri,  7 May 2021 18:56:56 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 3CBA23C2972
+ for <ltp@lists.linux.it>; Fri,  7 May 2021 19:08:41 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id F0F311A017C9
- for <ltp@lists.linux.it>; Fri,  7 May 2021 18:56:55 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id B46471400768
+ for <ltp@lists.linux.it>; Fri,  7 May 2021 19:08:40 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 66E47B1B9;
- Fri,  7 May 2021 16:56:55 +0000 (UTC)
-Date: Fri, 7 May 2021 18:56:53 +0200
+ by mx2.suse.de (Postfix) with ESMTP id 11A47B1C8;
+ Fri,  7 May 2021 17:08:40 +0000 (UTC)
+Date: Fri, 7 May 2021 19:08:38 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: Cyril Hrubis <chrubis@suse.cz>, Richard Palethorpe <rpalethorpe@suse.com>,
- Li Wang <liwang@redhat.com>
-Message-ID: <YJVxVSSoNkraaVz7@pevik>
-References: <YJOYgZNL7/qp5YCN@yuki>
+To: Wang Xin <wangxin410@huawei.com>
+Message-ID: <YJV0FpjD0kuC1DSh@pevik>
+References: <1619684694-116827-1-git-send-email-wangxin410@huawei.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <YJOYgZNL7/qp5YCN@yuki>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+In-Reply-To: <1619684694-116827-1-git-send-email-wangxin410@huawei.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] LTP Release
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] controllers/cpuset: Restore the value of
+ cpuset.sched_load_balance
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,13 +59,18 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi,
 
-Can anybody have look on "[v2] controllers/cpuset: Restore the value of
-cpuset.sched_load_balance" patch [1]?
+> When we run the cpuhotplug03 test case on the arm64 machine,
+> we conclude that no error occurs when the cpuhotplug03 case is executed alone,
+> but once the cpuset_sched_domains case is executed first,
+> After cpuhotplug03 is executed, the error "cpuhotplug03 1 TFAIL: No cpuhotplug_do_spin_loop processes found on" occurs.
+> The cpuset_sched_domains test case changes the value of cpuset.sched_load_balance in the cpuset cgroup subsystem,
+> but does not restore the value at the end of the test.
+> Modify the cpuset_funcs.sh file. The test result shows that the problem is solved successfully.
+
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
 
 Kind regards,
 Petr
-
-[1] https://patchwork.ozlabs.org/project/ltp/patch/1619684694-116827-1-git-send-email-wangxin410@huawei.com/
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
