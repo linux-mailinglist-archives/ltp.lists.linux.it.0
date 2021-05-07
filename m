@@ -1,80 +1,56 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32F6E375F04
-	for <lists+linux-ltp@lfdr.de>; Fri,  7 May 2021 05:11:01 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B9A6375F8D
+	for <lists+linux-ltp@lfdr.de>; Fri,  7 May 2021 06:47:03 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 616593C74E1
-	for <lists+linux-ltp@lfdr.de>; Fri,  7 May 2021 05:11:00 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id D0D8F3C5604
+	for <lists+linux-ltp@lfdr.de>; Fri,  7 May 2021 06:47:02 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 207533C56D4
- for <ltp@lists.linux.it>; Fri,  7 May 2021 05:10:56 +0200 (CEST)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 14A573C19D6
+ for <ltp@lists.linux.it>; Fri,  7 May 2021 06:46:57 +0200 (CEST)
+Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 76C7F1A016E5
- for <ltp@lists.linux.it>; Fri,  7 May 2021 05:10:55 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1620357054;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=yxX9l8Ds6CcfYGGUvQ3Fv/kvZFU+E1u7rA5aUXNdrNg=;
- b=ElS0TePoBkxDNT9/eukPfDDgcIGzU0hiUm5ZGqX3C6gRUsCgb0Ic2wuqBuF6j6K/9RthdU
- BJd2JtCk9y5m+IrWYFIX24jT3hnl5L4FcBlGbUJ9J32q7QSBffuKqcPAhIbFBElTQSl5Zj
- bcq9MDD6auTb8clSS22+VsQi4WPwuaM=
-Received: from mail-yb1-f199.google.com (mail-yb1-f199.google.com
- [209.85.219.199]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-583-r_lLsct_M1q8O0S8s3uGLQ-1; Thu, 06 May 2021 23:10:50 -0400
-X-MC-Unique: r_lLsct_M1q8O0S8s3uGLQ-1
-Received: by mail-yb1-f199.google.com with SMTP id
- r2-20020a25ac420000b02904f5a9b7d37fso8404696ybd.22
- for <ltp@lists.linux.it>; Thu, 06 May 2021 20:10:50 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=yxX9l8Ds6CcfYGGUvQ3Fv/kvZFU+E1u7rA5aUXNdrNg=;
- b=HcpIjpNflVZcFmFrhhnGuX0GlmxN/9W1KNReTcxG4wIvjGuzclPbiDwtFO1YrMFXvh
- t8eSr/Tb89i4H69Hr2nBOzVKGTTpjREhFu6pD29I+h3EXiuD6GvTFpyCRuRYl/2FyMj7
- OhA6F9/xhFl+1u0J2RJthkE90Zs8frmlkoGe2xf9Cn8jmgX8Z8Trmy8uKPzr0kXlcJgG
- 8yoydgsJAeoLuGETOJT1IHgJ0oHSWcTF+48CPekXlAiyP0RiFGR24xNYbE8gxvKdlpmG
- gpt0o98STtr9t0JWjs4fYjJ1HoQ40CFEtFj63iziLIurreX5XVAUHJODGxjdfIj/VdIy
- FQuQ==
-X-Gm-Message-State: AOAM530KXmLwglhBMNlkteFTPQJgjdw8sT/TdaFPQyGbwn9DOJ3zUHA6
- jsKDHBymvaIJu+6teNFXw+SpAv3EW2ppwhBeO6lR5tnVtjwUQW5yic3/ye0w7XE7s9MtCQa4a2y
- w94fwleEQfN3BeggC/7wpcUku0AE=
-X-Received: by 2002:a25:b44d:: with SMTP id c13mr10549853ybg.86.1620357049835; 
- Thu, 06 May 2021 20:10:49 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJzHqPGZPXCNJGQ1x7GJVJRzMODc6Ykhh5Kikgqig9eTwelUMhW+zzhIXUL8ukFrbtU9WmhdYXI89uWHGmmW3Pg=
-X-Received: by 2002:a25:b44d:: with SMTP id c13mr10549841ybg.86.1620357049689; 
- Thu, 06 May 2021 20:10:49 -0700 (PDT)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 1F66F1000649
+ for <ltp@lists.linux.it>; Fri,  7 May 2021 06:46:56 +0200 (CEST)
+Received: from [192.168.178.40] (unknown [178.26.168.79])
+ by mail.jv-coder.de (Postfix) with ESMTPSA id 8A9B99FBF9;
+ Fri,  7 May 2021 04:46:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
+ t=1620362815; bh=ZPjRRZCrQTKDKs78i/bBWfV2pX+J1bEypBZUs33gv8o=;
+ h=Subject:To:From:Message-ID:Date:MIME-Version;
+ b=HLRocQfgoKR4EaTd3gbYDBtntz17AaOgGpYO/mBdLBo42IvKeX6LYwYWa+nCYsy7v
+ ktsZViQwut8WTAdoeCwMRDx1FGvLtRzAcfxnI0cQM0pFLNLfawhbJlmoVTTm/EzfHX
+ 4VDMaNEPgjqtCHJKneQ3j2rZOXZeCjsJE5usfLqg=
+To: Li Wang <liwang@redhat.com>
+References: <f781c0d8-6707-56ba-fa14-e0dbc1b645a1@jv-coder.de>
+ <YJDvIcgdl8ae58YB@pevik> <5fdefbf3-2b4e-f44b-6cb2-c133ecf36975@jv-coder.de>
+ <YJEKFLmcKvnHvlIV@pevik> <651cb158-c640-e0b5-a2f2-4b77efcfa288@jv-coder.de>
+ <CAEemH2dp4PT=AeEzjkhi3e_BnVbgWL6JvA3xQok5mHbAV9ig5A@mail.gmail.com>
+From: Joerg Vehlow <lkml@jv-coder.de>
+Message-ID: <c9a17829-a7bb-288e-a9fd-2af387b12f1e@jv-coder.de>
+Date: Fri, 7 May 2021 06:48:35 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.0
 MIME-Version: 1.0
-References: <YJOYgZNL7/qp5YCN@yuki>
-In-Reply-To: <YJOYgZNL7/qp5YCN@yuki>
-From: Li Wang <liwang@redhat.com>
-Date: Fri, 7 May 2021 11:10:38 +0800
-Message-ID: <CAEemH2dPMc+XoOXokm6K9w07QK2p-y8ZWOiwbQRAQGLmnhMkmg@mail.gmail.com>
-To: Cyril Hrubis <chrubis@suse.cz>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
-X-Virus-Status: Clean
+In-Reply-To: <CAEemH2dp4PT=AeEzjkhi3e_BnVbgWL6JvA3xQok5mHbAV9ig5A@mail.gmail.com>
+Content-Language: en-US
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] LTP Release
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Status: Clean
+Subject: Re: [LTP] [RFC] Shell API timeout sleep orphan processes
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,54 +62,31 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Liam Howlett <liam.howlett@oracle.com>, LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============0504877332=="
+Cc: LTP List <ltp@lists.linux.it>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0504877332==
-Content-Type: multipart/alternative; boundary="0000000000005b3ffc05c1b4c681"
-
---0000000000005b3ffc05c1b4c681
-Content-Type: text/plain; charset="UTF-8"
-
-Hi Cyril,
-
-I vote to fix the brk02 FAIL as Liam suggests way (just removing
-'PROT_WRITE|PROT_EXEC'), but I'm still a bit hesitant if that's wise
-for the test, or we can leave this problem for a long time to investigate.
-
-https://lists.linux.it/pipermail/ltp/2021-May/022474.html
-
-
---
-Regards,
-Li Wang
-
---0000000000005b3ffc05c1b4c681
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi Cyril,<br><br>I vote to fix the brk02 FAIL as Liam sugg=
-ests way (just removing<div>&#39;PROT_WRITE|PROT_EXEC&#39;), but I&#39;m st=
-ill a bit hesitant if that&#39;s wise</div><div>for the test,=C2=A0or we ca=
-n leave this problem for a long time to=C2=A0investigate.</div><div><br><a =
-href=3D"https://lists.linux.it/pipermail/ltp/2021-May/022474.html">https://=
-lists.linux.it/pipermail/ltp/2021-May/022474.html</a><br><br><br>--<br>Rega=
-rds,<br>Li Wang</div></div>
-
---0000000000005b3ffc05c1b4c681--
-
-
---===============0504877332==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============0504877332==--
-
+SGkgTGksCgo+IChTb3JyeSBmb3IgdGhlIGxhdGUgcmVwbHksIEkgd2FzIGp1c3QgYmFjayBmcm9t
+IHRoZSBIb2xpZGF5cykKPgo+IEJlZm9yZSB3ZSBkZWNpZGUgdG8gcmV3cml0ZSBpbiBDLCBjYW4g
+d2UgdGhpbmsgYWJvdXQgdGhpcyBiZWxvdyBtZXRob2Q/Cj4KPiAtLS0gYS90ZXN0Y2FzZXMvbGli
+L3RzdF90ZXN0LnNoCj4gKysrIGIvdGVzdGNhc2VzL2xpYi90c3RfdGVzdC5zaAo+IEBAIC0yNiw3
+ICsyNiw3IEBAIHRyYXAgInRzdF9icmsgVEJST0sgJ3Rlc3QgaW50ZXJydXB0ZWQgb3IgdGltZWQg
+b3V0JyIgSU5UCj4gICBfdHN0X2NsZWFudXBfdGltZXIoKQo+ICAgewo+ICAgICAgICAgIGlmIFsg
+LW4gIiRfdHN0X3NldHVwX3RpbWVyX3BpZCIgXTsgdGhlbgo+IC0gICAgICAgICAgICAgICBraWxs
+ICRfdHN0X3NldHVwX3RpbWVyX3BpZCAyPi9kZXYvbnVsbAo+ICsgICAgICAgICAgICAgICBraWxs
+IC1URVJNICRfdHN0X3NldHVwX3RpbWVyX3BpZCAyPi9kZXYvbnVsbAo+ICAgICAgICAgICAgICAg
+ICAgd2FpdCAkX3RzdF9zZXR1cF90aW1lcl9waWQgMj4vZGV2L251bGwKPiAgICAgICAgICBmaQo+
+ICAgfQo+IEBAIC00ODYsNyArNDg2LDcgQEAgX3RzdF9zZXR1cF90aW1lcigpCj4gICAgICAgICAg
+dHN0X3JlcyBUSU5GTyAidGltZW91dCBwZXIgcnVuIGlzICR7aH1oICR7bX1tICR7c31zIgo+Cj4g
+ICAgICAgICAgX3RzdF9jbGVhbnVwX3RpbWVyCj4gLSAgICAgICBzbGVlcCAkc2VjICYmIF90c3Rf
+a2lsbF90ZXN0ICYKPiArICAgICAgICh0cmFwICdraWxsICQhOyBleGl0JyBURVJNOyBzbGVlcCAk
+c2VjICYgd2FpdCAkISAmJiBfdHN0X2tpbGxfdGVzdCkmCj4KPiAgICAgICAgICBfdHN0X3NldHVw
+X3RpbWVyX3BpZD0kIQo+ICAgfQpUaGFua3MsIGdvb2QgaWRlYS4gVGhpcyBsb29rcyBsaWtlIGl0
+IHdvcmtzLiBNeSB0ZXN0cyBhcmUgcGFzc2luZy4gSSAKd2lsbCB0ZXN0IHRoaXMgYSBiaXQgbW9y
+ZS4KQWx0aG91Z2ggSSBhbHJlYWR5IHN1Ym1pdHRlZCBhIHJld3JpdGUgaW4gYywgSSB3b3VsZCBw
+cmVmZXIgdGhpcyAKc29sdXRpb24sIG1heWJlIHdpdGggYSBiaXQgaW1wcm92ZWQgcmVhZGFiaWxp
+dHkuCkkgd2lsbCBwb3N0IGEgbmV3IHBhdGNoIHdoZW4gSSBmaW5pc2hlZCB0ZXN0aW5nIGxhdGVy
+IHRvZGF5LgoKSsO2cmcKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51
+eC5pdC9saXN0aW5mby9sdHAK
