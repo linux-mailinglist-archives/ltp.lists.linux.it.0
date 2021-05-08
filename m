@@ -1,53 +1,54 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D8DB376FDB
-	for <lists+linux-ltp@lfdr.de>; Sat,  8 May 2021 07:51:21 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9259E376FDC
+	for <lists+linux-ltp@lfdr.de>; Sat,  8 May 2021 07:51:32 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id F38B13C5532
-	for <lists+linux-ltp@lfdr.de>; Sat,  8 May 2021 07:51:20 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id D93973C558B
+	for <lists+linux-ltp@lfdr.de>; Sat,  8 May 2021 07:51:31 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 8DA9C3C1C51
- for <ltp@lists.linux.it>; Sat,  8 May 2021 07:51:18 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id A73163C1C51
+ for <ltp@lists.linux.it>; Sat,  8 May 2021 07:51:20 +0200 (CEST)
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 529AE1001454
- for <ltp@lists.linux.it>; Sat,  8 May 2021 07:51:16 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id E56A81001457
+ for <ltp@lists.linux.it>; Sat,  8 May 2021 07:51:19 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1620453075;
+ s=mimecast20190719; t=1620453078;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:mime-version:mime-version:content-type:content-type:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding;
- bh=MCRngqgosQvNVlRFXPbl25dB1SRnROxjp469xxLe0po=;
- b=bFDxFXckbloNf+OAj8Ov0QAuQK+Q9KYxZsCzlr5eLEwJSpUe0I24a3aNNL5pivZhrEG96B
- iDRJjphKzOmjGRsaFUvdQ4enlLfWk4x8WavIB3S7tf9GQ+jfPEigGJ0vJuagFdVzGU1Wua
- dmGhpy1Cf4WachcV3HMAzzjxuasVLKU=
+ bh=DTXWK3zojFoRI0Y3DKf6f4jdSyzlP/v0Hie+bNh8Q1I=;
+ b=aqu49wwHkGyUQ41TePNs71hXtWERfgVgKG/sfTM4lIZ5dPmOd7R4WtZzrFLKSCKqrsEQdV
+ RP5kBo4FA+FD7eKueSg0b2Datj1VPmu9DvW1iQ+/ZB0+trDJWOTaXr1GHkR2w9yrivyJmf
+ sDF2vp5r5jFKYMkwOjzkQW0Iay824A4=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-21-z_YFcnd9OIeo5_rBbYGcew-1; Sat, 08 May 2021 01:51:13 -0400
-X-MC-Unique: z_YFcnd9OIeo5_rBbYGcew-1
+ us-mta-576-fboUWlYGMNuQXroJ1t9vYQ-1; Sat, 08 May 2021 01:51:15 -0400
+X-MC-Unique: fboUWlYGMNuQXroJ1t9vYQ-1
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
  [10.5.11.12])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7BE9E18397A4
- for <ltp@lists.linux.it>; Sat,  8 May 2021 05:51:12 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 88F02801B14;
+ Sat,  8 May 2021 05:51:14 +0000 (UTC)
 Received: from liwang-workstation.nay.redhat.com
  (dhcp-66-81-187.nay.redhat.com [10.66.81.187])
- by smtp.corp.redhat.com (Postfix) with ESMTP id AAC7A1897F
- for <ltp@lists.linux.it>; Sat,  8 May 2021 05:51:11 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 2F50D1897F;
+ Sat,  8 May 2021 05:51:12 +0000 (UTC)
 From: Li Wang <liwang@redhat.com>
 To: ltp@lists.linux.it
-Date: Sat,  8 May 2021 13:51:05 +0800
-Message-Id: <20210508055109.16914-1-liwang@redhat.com>
+Date: Sat,  8 May 2021 13:51:06 +0800
+Message-Id: <20210508055109.16914-2-liwang@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
@@ -60,7 +61,7 @@ X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH v3 0/4] shell: Fix orphan timeout sleep processes
+Subject: [LTP] [PATCH v3 1/4] shell: Extend timeout tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,35 +73,259 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-I fix up tiny issues of Joerg's patch and resend with combine my
-two follow-up new fixes together to be review.
+From: Joerg Vehlow <joerg.vehlow@aox-tech.de>
 
-V2 --> v3
- use sleep command in timeout tests
- fix code indent issue
- fix a bug in _tst_kill_test for kill looping
- limit the "kill $sleep_pid; eixt" action
+- Add test, that verifies, that the timeout is working as expected.
+- Add test case to check if there are processes left,
+  after a test finished without running into a timeout.
+- Add execution of timeout03.sh and verification of return code.
 
-Joerg Vehlow (2):
-  shell: Extend timeout tests
-  shell: Prevent orphan timeout sleep processes
-
-Li Wang (2):
-  lib: ignore SIGINT in _tst_kill_test
-  lib: reset SIGTERM to original disposition if timeout occured
-
+Signed-off-by: Joerg Vehlow <joerg.vehlow@aox-tech.de>
+Reviewed-by: Li Wang <liwang@redhat.com>
+---
  lib/newlib_tests/shell/test_timeout.sh | 178 ++++++++++++++++++++++---
- lib/newlib_tests/shell/timeout03.sh    |   4 +-
  lib/newlib_tests/shell/timeout04.sh    |  22 +++
- testcases/lib/tst_test.sh              |  32 +++--
- 4 files changed, 204 insertions(+), 32 deletions(-)
+ 2 files changed, 179 insertions(+), 21 deletions(-)
  create mode 100755 lib/newlib_tests/shell/timeout04.sh
 
+diff --git a/lib/newlib_tests/shell/test_timeout.sh b/lib/newlib_tests/shell/test_timeout.sh
+index 26477d6f2..06f3acf88 100755
+--- a/lib/newlib_tests/shell/test_timeout.sh
++++ b/lib/newlib_tests/shell/test_timeout.sh
+@@ -1,42 +1,178 @@
+ #!/bin/sh
+ # SPDX-License-Identifier: GPL-2.0-or-later
+ # Copyright (c) 2019 Petr Vorel <pvorel@suse.cz>
++# Copyright (c) 2021 Joerg Vehlow <joerg.vehlow@aox-tech.de>
+ 
+ PATH="$(dirname $0):$(dirname $0)/../../../testcases/lib/:$PATH"
+ 
++# Test cases are separated by newlines.
++# Every test has the following fields in this order:
++# file
++# timeout_mul
++# use_cat
++# max_runtime
++# expected_exit_code
++# expected passes
++# expected failed
++# expected broken
++# description
++# Whole lines can be commented out using "#"
+ DATA="
+-timeout01.sh||0
+-timeout02.sh||0
+-timeout02.sh|foo|2
+-timeout02.sh|2|0
+-timeout01.sh|2|0
+-timeout02.sh|1.1|0
+-timeout02.sh|-10|2
+-timeout02.sh|-0.1|0
+-timeout02.sh|-1.1|2
+-timeout02.sh|-10.1|2
++timeout01.sh|     |0|  |0
++timeout02.sh|     |0|  |0
++timeout02.sh|  foo|0|  |2
++timeout02.sh|    2|0|  |0
++timeout01.sh|    2|0|  |0
++timeout02.sh|  1.1|0|  |0
++timeout02.sh|  -10|0|  |2
++timeout02.sh| -0.1|0|  |0
++timeout02.sh| -1.1|0|  |2
++timeout02.sh|-10.1|0|  |2
++timeout03.sh|     |0|12|137| | | |Test kill if test does not terminate by SIGINT
++timeout04.sh|     |0|  |  2|0|0|1|Verify that timeout is enforced
++timeout02.sh|    2|1| 2|   |1|0|0|Test termination of timeout process
+ "
+ 
++# Executes a test
++# Parameter:
++#  - test:    The test to execute
++#  - timeout: The timeout multiplicator (optional)
++#  - use_cat: Pipe the output of the command through cat (optional)
++#             If this is used, the exit code is NOT returned!
++#
++# The function returns the following global variables:
++# - test_exit:     The exit code of the test
++# - test_duration: The duration of the test in seconds
++# - test_output:   The full output of the test
++# - test_passed:   The number of passed tests parsed from the summary
++# - test_failed:   The number of failed tests parsed from the summary
++# - test_broken:   The number of broken tests parsed from the summary
++run_test()
++{
++	local test=$1
++	local timeout=$2
++	local use_cat=$3
++	local tmpfile start end;
++
++	tmpfile=$(mktemp -t ltp_timeout_XXXXXXXX)
++	start=$(date +%s)
++	# We have to use set monitor mode (set -m) here.
++	# In most shells in most cases this creates a
++	# new process group for the next command.
++	# A process group is required for the timeout functionality,
++	# because it sends signals to the whole process group.
++	set -m
++	# The use_cat is for testing if any programm using stdout
++	# is still running, after the test finished.
++	# cat will wait for its stdin to be closed.
++	#
++	# In the pure shell implementation of the timeout handling,
++	# the sleep process was never killed, when a test finished
++	# before the timeout.
++	if [ "$use_cat" = "1" ]; then
++		LTP_TIMEOUT_MUL=$timeout $test 2>&1 | cat >$tmpfile
++	else
++		LTP_TIMEOUT_MUL=$timeout $test 1>$tmpfile 2>&1
++	fi
++	test_exit=$?
++	set +m
++	end=$(date +%s)
++
++	test_duration=$((end - start))
++	test_output=$(cat $tmpfile)
++	rm $tmpfile
++
++	eval $(echo "$test_output" | awk '
++		BEGIN {sum=0} 
++		$1 == "Summary:" {
++			sum=1;
++		}
++		sum && ( \
++			   $1 == "passed" \
++			|| $1 == "failed" \
++			|| $1 == "broken") {
++			print "test_" $1 "=" $2
++		}
++	')
++}
++
+ echo "Testing timeout in shell API"
+ echo
+ 
+ failed=0
+-for i in $DATA; do
+-	file=$(echo $i | cut -d'|' -f1)
+-	timeout=$(echo $i | cut -d'|' -f2)
+-	exp_exit=$(echo $i | cut -d'|' -f3)
+-
+-	echo "=== $file (LTP_TIMEOUT_MUL='$timeout') ==="
+-	LTP_TIMEOUT_MUL=$timeout $file
+-	ret=$?
+-	if [ $ret -ne $exp_exit ]; then
+-		echo "FAILED (exit code: $ret, expected $exp_exit)"
+-		failed=$((failed+1))
++test_nr=0
++
++old_ifs="$IFS"
++IFS=$(printf "\n\b")
++
++# Remove comments and empty lines
++CLEANED_DATA=$(echo "$DATA" | sed '/^\s*#/d;/^\s*$/d')
++test_max=$(echo "$CLEANED_DATA" | wc -l)
++for d in $CLEANED_DATA; do
++	IFS="$old_ifs"
++
++	file=$(echo $d | cut -d'|' -f1 | xargs)
++	timeout=$(echo $d | cut -d'|' -f2 | xargs)
++	use_cat=$(echo $d | cut -d'|' -f3 | xargs)
++	max_runtime=$(echo $d | cut -d'|' -f4 | xargs)
++	max_runtime=${max_runtime:--1}
++	exp_exit=$(echo $d | cut -d'|' -f5 | xargs)
++	exp_exit=${exp_exit:--1}
++	exp_passed=$(echo $d | cut -d'|' -f6 | xargs)
++	exp_passed=${exp_passed:--1}
++	exp_failed=$(echo $d | cut -d'|' -f7 | xargs)
++	exp_failed=${exp_failed:--1}
++	exp_broken=$(echo $d | cut -d'|' -f8 | xargs)
++	exp_broken=${exp_broken:--1}
++	description=$(echo $d | cut -d'|' -f9)
++
++	test_nr=$(($test_nr + 1))
++
++	cur_fails=0
++
++	if [ -z "$description" ]; then
++		description="$file (LTP_TIMEOUT_MUL='$timeout')"
++	fi
++
++	echo "=== $test_nr/$test_max $description ==="
++	run_test "$file" "$timeout" "$use_cat"
++
++	if [ $max_runtime -ne -1 ] && [ $test_duration -gt $max_runtime ]; then
++		echo "FAILED (runtime: $test_duration, expected less than $max_runtime)"
++		cur_fails=$((cur_fails + 1))
++	fi
++
++	if [ $exp_passed -ne -1 ] && [ $exp_passed -ne $test_passed ]; then
++		echo "FAILED (passes: $test_passed, expected $exp_passed)"
++		cur_fails=$((cur_fails + 1))
++	fi
++
++	if [ $exp_failed -ne -1 ] && [ $exp_failed -ne $test_failed ]; then
++		echo "FAILED (failed: $test_failed, expected $exp_failed)"
++		cur_fails=$((cur_fails + 1))
++	fi
++
++	if [ $exp_broken -ne -1 ] && [ $exp_broken -ne $test_broken ]; then
++		echo "FAILED (broken: $test_broken, expected $exp_broken)"
++		cur_fails=$((cur_fails + 1))
++	fi
++
++	if [ $exp_exit -ne -1 ] && [ $test_exit -ne $exp_exit ]; then
++		echo "FAILED (exit code: $test_exit, expected $exp_exit)"
++		cur_fails=$((cur_fails + 1))
++	fi
++
++	if [ $cur_fails -gt 0 ]; then
++		failed=$((failed + 1))
++		echo "--------"
++		echo "$test_output"
++		echo "--------"
+ 	else
+ 		echo "PASSED"
+ 	fi
+ 	echo
+ done
++IFS="$old_ifs"
+ 
+ echo "Failed tests: $failed"
+ exit $failed
+diff --git a/lib/newlib_tests/shell/timeout04.sh b/lib/newlib_tests/shell/timeout04.sh
+new file mode 100755
+index 000000000..0a6ba053c
+--- /dev/null
++++ b/lib/newlib_tests/shell/timeout04.sh
+@@ -0,0 +1,22 @@
++#!/bin/sh
++# SPDX-License-Identifier: GPL-2.0-or-later
++# Copyright (c) 2021 Joerg Vehlow <joerg.vehlow@aox-tech.de>
++
++TST_TESTFUNC=do_test
++
++TST_TIMEOUT=1
++. tst_test.sh
++
++do_test()
++{
++	tst_res TINFO "Start"
++    sleep 5
++    tst_res TFAIL "End"
++}
++
++do_cleanup()
++{
++    tst_res TINFO "cleanup"
++}
++
++tst_run
 -- 
 2.30.2
 
