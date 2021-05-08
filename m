@@ -1,67 +1,66 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9259E376FDC
-	for <lists+linux-ltp@lfdr.de>; Sat,  8 May 2021 07:51:32 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 02126376FDF
+	for <lists+linux-ltp@lfdr.de>; Sat,  8 May 2021 07:52:03 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D93973C558B
-	for <lists+linux-ltp@lfdr.de>; Sat,  8 May 2021 07:51:31 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B79D23C557D
+	for <lists+linux-ltp@lfdr.de>; Sat,  8 May 2021 07:52:02 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A73163C1C51
- for <ltp@lists.linux.it>; Sat,  8 May 2021 07:51:20 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id A1A133C67BC
+ for <ltp@lists.linux.it>; Sat,  8 May 2021 07:51:24 +0200 (CEST)
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id E56A81001457
- for <ltp@lists.linux.it>; Sat,  8 May 2021 07:51:19 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 1D42714002BF
+ for <ltp@lists.linux.it>; Sat,  8 May 2021 07:51:23 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1620453078;
+ s=mimecast20190719; t=1620453082;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding;
- bh=DTXWK3zojFoRI0Y3DKf6f4jdSyzlP/v0Hie+bNh8Q1I=;
- b=aqu49wwHkGyUQ41TePNs71hXtWERfgVgKG/sfTM4lIZ5dPmOd7R4WtZzrFLKSCKqrsEQdV
- RP5kBo4FA+FD7eKueSg0b2Datj1VPmu9DvW1iQ+/ZB0+trDJWOTaXr1GHkR2w9yrivyJmf
- sDF2vp5r5jFKYMkwOjzkQW0Iay824A4=
+ bh=hQGHeSO3acEBrIuGSQPreigZb3f1eizf8Po2/AR9UdA=;
+ b=DJBy+fufz8sg/bIOvNj25nO1qByKcjJkprAflUo4TkvrGNUFx/0g+y1aC9XSirEpcSX3Pf
+ G4J7yCOVrArHrH9HF+wWr4ggwAuBWoVuuIi9dbJdc6EBowEnSs+kkut4t4UkMGo0Jlde63
+ frkAX49UGE3R2zZH4O06GmQSzsemb64=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-576-fboUWlYGMNuQXroJ1t9vYQ-1; Sat, 08 May 2021 01:51:15 -0400
-X-MC-Unique: fboUWlYGMNuQXroJ1t9vYQ-1
+ us-mta-189-EPAz4-wOPSiF-0qkvApONA-1; Sat, 08 May 2021 01:51:17 -0400
+X-MC-Unique: EPAz4-wOPSiF-0qkvApONA-1
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
  [10.5.11.12])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 88F02801B14;
- Sat,  8 May 2021 05:51:14 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4D14118397A8;
+ Sat,  8 May 2021 05:51:16 +0000 (UTC)
 Received: from liwang-workstation.nay.redhat.com
  (dhcp-66-81-187.nay.redhat.com [10.66.81.187])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 2F50D1897F;
- Sat,  8 May 2021 05:51:12 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 100A270137;
+ Sat,  8 May 2021 05:51:14 +0000 (UTC)
 From: Li Wang <liwang@redhat.com>
 To: ltp@lists.linux.it
-Date: Sat,  8 May 2021 13:51:06 +0800
-Message-Id: <20210508055109.16914-2-liwang@redhat.com>
+Date: Sat,  8 May 2021 13:51:07 +0800
+Message-Id: <20210508055109.16914-3-liwang@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
  auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwang@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH v3 1/4] shell: Extend timeout tests
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH v3 2/4] shell: Prevent orphan timeout sleep processes
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,251 +80,117 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 From: Joerg Vehlow <joerg.vehlow@aox-tech.de>
 
-- Add test, that verifies, that the timeout is working as expected.
-- Add test case to check if there are processes left,
-  after a test finished without running into a timeout.
-- Add execution of timeout03.sh and verification of return code.
+The implementation of the timeout handling failed to terminate the sleep
+process, because the command "sleep $sec && _tst_kill_test &" spawns two
+processes: A shell, that is used to execute the sleep and after sleep
+terminates it executes _tst_kill_test. The pid stored in $! is the pid of
+the shell process.
+When the test finished, the timeout process is supposed to be killed, but
+only the shell process is killed, not the sleep. If the output of the test
+is piped somewhere else, the pipe stays open, until the sleep finished,
+because it still has stdout open.
+Additionally, if a lot of short tests with high timeouts are executed,
+a lot of sleep processes will linger around.
 
 Signed-off-by: Joerg Vehlow <joerg.vehlow@aox-tech.de>
+Signed-off-by: Li Wang <liwang@redhat.com>
 Reviewed-by: Li Wang <liwang@redhat.com>
 ---
- lib/newlib_tests/shell/test_timeout.sh | 178 ++++++++++++++++++++++---
- lib/newlib_tests/shell/timeout04.sh    |  22 +++
- 2 files changed, 179 insertions(+), 21 deletions(-)
- create mode 100755 lib/newlib_tests/shell/timeout04.sh
+ lib/newlib_tests/shell/timeout03.sh |  4 ++--
+ lib/newlib_tests/shell/timeout04.sh |  2 +-
+ testcases/lib/tst_test.sh           | 30 ++++++++++++++++++++---------
+ 3 files changed, 24 insertions(+), 12 deletions(-)
 
-diff --git a/lib/newlib_tests/shell/test_timeout.sh b/lib/newlib_tests/shell/test_timeout.sh
-index 26477d6f2..06f3acf88 100755
---- a/lib/newlib_tests/shell/test_timeout.sh
-+++ b/lib/newlib_tests/shell/test_timeout.sh
-@@ -1,42 +1,178 @@
- #!/bin/sh
- # SPDX-License-Identifier: GPL-2.0-or-later
- # Copyright (c) 2019 Petr Vorel <pvorel@suse.cz>
-+# Copyright (c) 2021 Joerg Vehlow <joerg.vehlow@aox-tech.de>
+diff --git a/lib/newlib_tests/shell/timeout03.sh b/lib/newlib_tests/shell/timeout03.sh
+index 30aa0a149..cd548d9a2 100755
+--- a/lib/newlib_tests/shell/timeout03.sh
++++ b/lib/newlib_tests/shell/timeout03.sh
+@@ -32,7 +32,7 @@ do_test()
+ {
+ 	tst_res TINFO "testing killing test after TST_TIMEOUT"
  
- PATH="$(dirname $0):$(dirname $0)/../../../testcases/lib/:$PATH"
+-	tst_sleep 2
++	sleep 2
+ 	tst_res TFAIL "test: running after TST_TIMEOUT"
+ }
  
-+# Test cases are separated by newlines.
-+# Every test has the following fields in this order:
-+# file
-+# timeout_mul
-+# use_cat
-+# max_runtime
-+# expected_exit_code
-+# expected passes
-+# expected failed
-+# expected broken
-+# description
-+# Whole lines can be commented out using "#"
- DATA="
--timeout01.sh||0
--timeout02.sh||0
--timeout02.sh|foo|2
--timeout02.sh|2|0
--timeout01.sh|2|0
--timeout02.sh|1.1|0
--timeout02.sh|-10|2
--timeout02.sh|-0.1|0
--timeout02.sh|-1.1|2
--timeout02.sh|-10.1|2
-+timeout01.sh|     |0|  |0
-+timeout02.sh|     |0|  |0
-+timeout02.sh|  foo|0|  |2
-+timeout02.sh|    2|0|  |0
-+timeout01.sh|    2|0|  |0
-+timeout02.sh|  1.1|0|  |0
-+timeout02.sh|  -10|0|  |2
-+timeout02.sh| -0.1|0|  |0
-+timeout02.sh| -1.1|0|  |2
-+timeout02.sh|-10.1|0|  |2
-+timeout03.sh|     |0|12|137| | | |Test kill if test does not terminate by SIGINT
-+timeout04.sh|     |0|  |  2|0|0|1|Verify that timeout is enforced
-+timeout02.sh|    2|1| 2|   |1|0|0|Test termination of timeout process
- "
+@@ -40,7 +40,7 @@ cleanup()
+ {
+ 	tst_res TPASS "test run cleanup after timeout"
  
-+# Executes a test
-+# Parameter:
-+#  - test:    The test to execute
-+#  - timeout: The timeout multiplicator (optional)
-+#  - use_cat: Pipe the output of the command through cat (optional)
-+#             If this is used, the exit code is NOT returned!
-+#
-+# The function returns the following global variables:
-+# - test_exit:     The exit code of the test
-+# - test_duration: The duration of the test in seconds
-+# - test_output:   The full output of the test
-+# - test_passed:   The number of passed tests parsed from the summary
-+# - test_failed:   The number of failed tests parsed from the summary
-+# - test_broken:   The number of broken tests parsed from the summary
-+run_test()
-+{
-+	local test=$1
-+	local timeout=$2
-+	local use_cat=$3
-+	local tmpfile start end;
-+
-+	tmpfile=$(mktemp -t ltp_timeout_XXXXXXXX)
-+	start=$(date +%s)
-+	# We have to use set monitor mode (set -m) here.
-+	# In most shells in most cases this creates a
-+	# new process group for the next command.
-+	# A process group is required for the timeout functionality,
-+	# because it sends signals to the whole process group.
-+	set -m
-+	# The use_cat is for testing if any programm using stdout
-+	# is still running, after the test finished.
-+	# cat will wait for its stdin to be closed.
-+	#
-+	# In the pure shell implementation of the timeout handling,
-+	# the sleep process was never killed, when a test finished
-+	# before the timeout.
-+	if [ "$use_cat" = "1" ]; then
-+		LTP_TIMEOUT_MUL=$timeout $test 2>&1 | cat >$tmpfile
-+	else
-+		LTP_TIMEOUT_MUL=$timeout $test 1>$tmpfile 2>&1
-+	fi
-+	test_exit=$?
-+	set +m
-+	end=$(date +%s)
-+
-+	test_duration=$((end - start))
-+	test_output=$(cat $tmpfile)
-+	rm $tmpfile
-+
-+	eval $(echo "$test_output" | awk '
-+		BEGIN {sum=0} 
-+		$1 == "Summary:" {
-+			sum=1;
-+		}
-+		sum && ( \
-+			   $1 == "passed" \
-+			|| $1 == "failed" \
-+			|| $1 == "broken") {
-+			print "test_" $1 "=" $2
-+		}
-+	')
-+}
-+
- echo "Testing timeout in shell API"
- echo
+-	tst_sleep 15 # must be higher than wait time in _tst_kill_test
++	sleep 15 # must be higher than wait time in _tst_kill_test
+ 	tst_res TFAIL "cleanup: running after TST_TIMEOUT"
+ }
  
- failed=0
--for i in $DATA; do
--	file=$(echo $i | cut -d'|' -f1)
--	timeout=$(echo $i | cut -d'|' -f2)
--	exp_exit=$(echo $i | cut -d'|' -f3)
--
--	echo "=== $file (LTP_TIMEOUT_MUL='$timeout') ==="
--	LTP_TIMEOUT_MUL=$timeout $file
--	ret=$?
--	if [ $ret -ne $exp_exit ]; then
--		echo "FAILED (exit code: $ret, expected $exp_exit)"
--		failed=$((failed+1))
-+test_nr=0
-+
-+old_ifs="$IFS"
-+IFS=$(printf "\n\b")
-+
-+# Remove comments and empty lines
-+CLEANED_DATA=$(echo "$DATA" | sed '/^\s*#/d;/^\s*$/d')
-+test_max=$(echo "$CLEANED_DATA" | wc -l)
-+for d in $CLEANED_DATA; do
-+	IFS="$old_ifs"
-+
-+	file=$(echo $d | cut -d'|' -f1 | xargs)
-+	timeout=$(echo $d | cut -d'|' -f2 | xargs)
-+	use_cat=$(echo $d | cut -d'|' -f3 | xargs)
-+	max_runtime=$(echo $d | cut -d'|' -f4 | xargs)
-+	max_runtime=${max_runtime:--1}
-+	exp_exit=$(echo $d | cut -d'|' -f5 | xargs)
-+	exp_exit=${exp_exit:--1}
-+	exp_passed=$(echo $d | cut -d'|' -f6 | xargs)
-+	exp_passed=${exp_passed:--1}
-+	exp_failed=$(echo $d | cut -d'|' -f7 | xargs)
-+	exp_failed=${exp_failed:--1}
-+	exp_broken=$(echo $d | cut -d'|' -f8 | xargs)
-+	exp_broken=${exp_broken:--1}
-+	description=$(echo $d | cut -d'|' -f9)
-+
-+	test_nr=$(($test_nr + 1))
-+
-+	cur_fails=0
-+
-+	if [ -z "$description" ]; then
-+		description="$file (LTP_TIMEOUT_MUL='$timeout')"
-+	fi
-+
-+	echo "=== $test_nr/$test_max $description ==="
-+	run_test "$file" "$timeout" "$use_cat"
-+
-+	if [ $max_runtime -ne -1 ] && [ $test_duration -gt $max_runtime ]; then
-+		echo "FAILED (runtime: $test_duration, expected less than $max_runtime)"
-+		cur_fails=$((cur_fails + 1))
-+	fi
-+
-+	if [ $exp_passed -ne -1 ] && [ $exp_passed -ne $test_passed ]; then
-+		echo "FAILED (passes: $test_passed, expected $exp_passed)"
-+		cur_fails=$((cur_fails + 1))
-+	fi
-+
-+	if [ $exp_failed -ne -1 ] && [ $exp_failed -ne $test_failed ]; then
-+		echo "FAILED (failed: $test_failed, expected $exp_failed)"
-+		cur_fails=$((cur_fails + 1))
-+	fi
-+
-+	if [ $exp_broken -ne -1 ] && [ $exp_broken -ne $test_broken ]; then
-+		echo "FAILED (broken: $test_broken, expected $exp_broken)"
-+		cur_fails=$((cur_fails + 1))
-+	fi
-+
-+	if [ $exp_exit -ne -1 ] && [ $test_exit -ne $exp_exit ]; then
-+		echo "FAILED (exit code: $test_exit, expected $exp_exit)"
-+		cur_fails=$((cur_fails + 1))
-+	fi
-+
-+	if [ $cur_fails -gt 0 ]; then
-+		failed=$((failed + 1))
-+		echo "--------"
-+		echo "$test_output"
-+		echo "--------"
- 	else
- 		echo "PASSED"
- 	fi
- 	echo
- done
-+IFS="$old_ifs"
- 
- echo "Failed tests: $failed"
- exit $failed
 diff --git a/lib/newlib_tests/shell/timeout04.sh b/lib/newlib_tests/shell/timeout04.sh
-new file mode 100755
-index 000000000..0a6ba053c
---- /dev/null
+index 0a6ba053c..c702905f3 100755
+--- a/lib/newlib_tests/shell/timeout04.sh
 +++ b/lib/newlib_tests/shell/timeout04.sh
-@@ -0,0 +1,22 @@
-+#!/bin/sh
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+# Copyright (c) 2021 Joerg Vehlow <joerg.vehlow@aox-tech.de>
-+
-+TST_TESTFUNC=do_test
-+
-+TST_TIMEOUT=1
-+. tst_test.sh
-+
-+do_test()
+@@ -9,7 +9,7 @@ TST_TIMEOUT=1
+ 
+ do_test()
+ {
+-	tst_res TINFO "Start"
++    tst_res TINFO "Start"
+     sleep 5
+     tst_res TFAIL "End"
+ }
+diff --git a/testcases/lib/tst_test.sh b/testcases/lib/tst_test.sh
+index 951518785..ed2699175 100644
+--- a/testcases/lib/tst_test.sh
++++ b/testcases/lib/tst_test.sh
+@@ -23,14 +23,6 @@ export TST_LIB_LOADED=1
+ # default trap function
+ trap "tst_brk TBROK 'test interrupted or timed out'" INT
+ 
+-_tst_cleanup_timer()
+-{
+-	if [ -n "$_tst_setup_timer_pid" ]; then
+-		kill $_tst_setup_timer_pid 2>/dev/null
+-		wait $_tst_setup_timer_pid 2>/dev/null
+-	fi
+-}
+-
+ _tst_do_exit()
+ {
+ 	local ret=0
+@@ -463,6 +455,25 @@ _tst_kill_test()
+ 	fi
+ }
+ 
++_tst_cleanup_timer()
 +{
-+	tst_res TINFO "Start"
-+    sleep 5
-+    tst_res TFAIL "End"
++	if [ -n "$_tst_setup_timer_pid" ]; then
++		kill -TERM $_tst_setup_timer_pid 2>/dev/null
++		wait $_tst_setup_timer_pid 2>/dev/null
++	fi
 +}
 +
-+do_cleanup()
++_tst_timeout_process()
 +{
-+    tst_res TINFO "cleanup"
++	local sleep_pid
++
++	sleep $sec &
++	sleep_pid=$!
++	trap "kill $sleep_pid; exit" TERM
++	wait $sleep_pid
++	_tst_kill_test
 +}
 +
-+tst_run
+ _tst_setup_timer()
+ {
+ 	TST_TIMEOUT=${TST_TIMEOUT:-300}
+@@ -486,7 +497,8 @@ _tst_setup_timer()
+ 	tst_res TINFO "timeout per run is ${h}h ${m}m ${s}s"
+ 
+ 	_tst_cleanup_timer
+-	sleep $sec && _tst_kill_test &
++
++	_tst_timeout_process &
+ 
+ 	_tst_setup_timer_pid=$!
+ }
 -- 
 2.30.2
 
