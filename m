@@ -2,45 +2,43 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3CA63794EC
-	for <lists+linux-ltp@lfdr.de>; Mon, 10 May 2021 19:03:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10254379535
+	for <lists+linux-ltp@lfdr.de>; Mon, 10 May 2021 19:15:16 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 57FAA3C8C59
-	for <lists+linux-ltp@lfdr.de>; Mon, 10 May 2021 19:03:50 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 9DFE43C8C05
+	for <lists+linux-ltp@lfdr.de>; Mon, 10 May 2021 19:15:15 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 985883C4F74
- for <ltp@lists.linux.it>; Mon, 10 May 2021 19:03:46 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 43C613C21FE
+ for <ltp@lists.linux.it>; Mon, 10 May 2021 19:15:11 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 238B11000A40
- for <ltp@lists.linux.it>; Mon, 10 May 2021 19:03:45 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id BF7B11A00376
+ for <ltp@lists.linux.it>; Mon, 10 May 2021 19:15:10 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 7D782B036
- for <ltp@lists.linux.it>; Mon, 10 May 2021 17:03:45 +0000 (UTC)
-Date: Mon, 10 May 2021 18:37:22 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <YJlhQpwgjLFlt2gJ@yuki>
-References: <YJOYgZNL7/qp5YCN@yuki> <YJPo4L0QnXHU7xks@pevik>
- <YJVPP64LuDK7O564@pevik> <YJj4wftakLE7PECd@yuki>
- <YJlHfa/E+eNchQQE@pevik> <YJlJ+ZV6zxqPO8Ed@yuki>
- <205dc258-12fa-ba43-8a77-15fe0a08a430@suse.cz>
- <YJlkD2QjJfn9b3YG@pevik>
+ by mx2.suse.de (Postfix) with ESMTP id 12E01B19B;
+ Mon, 10 May 2021 17:15:10 +0000 (UTC)
+Date: Mon, 10 May 2021 19:15:08 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <YJlqHBd+OVdqwEke@pevik>
+References: <20210508021448.7390-1-zhaogongyi@huawei.com>
+ <YJlJNdi039jziyCp@yuki>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <YJlkD2QjJfn9b3YG@pevik>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+In-Reply-To: <YJlJNdi039jziyCp@yuki>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] LTP Release
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] syscalls/bind03: Bugfix for running with
+ option "-i"
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,23 +50,42 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> > That question only applies to patch 6. You don't need to wait with
-> > merging patches 1-5. It won't break any tests since the new code will be
-> > unused anyway.
-> Yep, I'd vote for merging 1-5.
+Hi,
 
-Then go ahead and apply these.
+> Hi!
+> I was looking at the test wondering why do you try to unlink socket that
+> wasn't bind properly and it looks like kernel creates the socket even in
+> a case that the bind fails, which is strange and I would call it a bug.
 
--- 
-Cyril Hrubis
-chrubis@suse.cz
+> Looking at the kernel code it indeed does mknod before it takes locks
+> and checks the socket. Even more it turns out that there is in-flight
+> patchset that is fixing this:
+
+> https://lore.kernel.org/netdev/YDQAmH9zSsaqf+Dg@zeniv-ca.linux.org.uk/
+
+> Anyways for now moved the code initializing the sockets into a setup()
+> function and the only call that had to stay in the run() function is the
+> unlink(SNAME_B); with a comment that kernel is buggy.
+
+> And we will have to write a regression test for this bug once upstream
+> kernel is fixed.
+
+> Also note that I use unlink() here since the test will fail otherwise
+> once kernel is fixed and there is no socket to be unlinked.
+
+FYI I created issue #817 for it, feel free to improve the description.
+
+https://github.com/linux-test-project/ltp/issues/814
+
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
