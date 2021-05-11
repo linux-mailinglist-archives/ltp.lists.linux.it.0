@@ -1,42 +1,42 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1313237A624
-	for <lists+linux-ltp@lfdr.de>; Tue, 11 May 2021 13:57:01 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id CC53737A63C
+	for <lists+linux-ltp@lfdr.de>; Tue, 11 May 2021 14:04:18 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C09B53C653B
-	for <lists+linux-ltp@lfdr.de>; Tue, 11 May 2021 13:57:00 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 8825E3C1939
+	for <lists+linux-ltp@lfdr.de>; Tue, 11 May 2021 14:04:18 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id B6C413C1D73
- for <ltp@lists.linux.it>; Tue, 11 May 2021 13:56:59 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 319263C1939
+ for <ltp@lists.linux.it>; Tue, 11 May 2021 14:04:17 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 0BB811A00EB2
- for <ltp@lists.linux.it>; Tue, 11 May 2021 13:56:58 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 9EFB01000DD9
+ for <ltp@lists.linux.it>; Tue, 11 May 2021 14:04:16 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 7A7B5B19E
- for <ltp@lists.linux.it>; Tue, 11 May 2021 11:56:57 +0000 (UTC)
-Date: Tue, 11 May 2021 13:30:35 +0200
+ by mx2.suse.de (Postfix) with ESMTP id EC134ADCE;
+ Tue, 11 May 2021 12:04:14 +0000 (UTC)
+Date: Tue, 11 May 2021 13:37:53 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
-To: ltp@lists.linux.it
-Message-ID: <YJpq26w8NBvBzUSc@yuki>
-References: <YJOYgZNL7/qp5YCN@yuki>
+To: Cao jin <caojin@uniontech.com>
+Message-ID: <YJpskTNEjIYNu2CT@yuki>
+References: <20210511092926.20509-1-caojin@uniontech.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <YJOYgZNL7/qp5YCN@yuki>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+In-Reply-To: <20210511092926.20509-1-caojin@uniontech.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] LTP Release
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] runltp: Miscellaneous cleanups
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,22 +48,16 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-This is a last call, if there is anything that should get in before we
-freeze git, speak up now.
-
-Once git is frozen only bugfixes for failing tests will be able to go
-in.
-
-Ideally I would like to freeze the git either tomorrow or on thursday
-and with that we will have a week for pre-release testing of the latest
-git HEAD. If all goes well the release would be finalized around 20th of
-this month. Is everyone fine with this schedulle?
+The changes looks good to me but at the moment we are fairly late in the
+release process so this will have to wait for about two weeks before it
+could be applied.
 
 -- 
 Cyril Hrubis
