@@ -1,44 +1,45 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A41B379FA9
-	for <lists+linux-ltp@lfdr.de>; Tue, 11 May 2021 08:31:17 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id A655F379FB0
+	for <lists+linux-ltp@lfdr.de>; Tue, 11 May 2021 08:32:46 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 8A66B3C6493
-	for <lists+linux-ltp@lfdr.de>; Tue, 11 May 2021 08:31:16 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 3E56B3C4E75
+	for <lists+linux-ltp@lfdr.de>; Tue, 11 May 2021 08:32:46 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id D1B3C3C4E0F
- for <ltp@lists.linux.it>; Tue, 11 May 2021 08:31:12 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 188BD3C4E0F
+ for <ltp@lists.linux.it>; Tue, 11 May 2021 08:32:42 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 4B2CC600A04
- for <ltp@lists.linux.it>; Tue, 11 May 2021 08:31:12 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id B6784600940
+ for <ltp@lists.linux.it>; Tue, 11 May 2021 08:32:41 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 81598B011;
- Tue, 11 May 2021 06:31:11 +0000 (UTC)
-Date: Tue, 11 May 2021 08:31:10 +0200
+ by mx2.suse.de (Postfix) with ESMTP id 1A87BB011;
+ Tue, 11 May 2021 06:32:41 +0000 (UTC)
+Date: Tue, 11 May 2021 08:32:39 +0200
 From: Petr Vorel <pvorel@suse.cz>
 To: Xie Ziyao <xieziyao@huawei.com>
-Message-ID: <YJokrrfndIMMdvaG@pevik>
+Message-ID: <YJolByrF7vYDiY5/@pevik>
 References: <20210402034612.127912-1-xieziyao@huawei.com>
- <20210402034612.127912-3-xieziyao@huawei.com>
+ <20210402034612.127912-2-xieziyao@huawei.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210402034612.127912-3-xieziyao@huawei.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+In-Reply-To: <20210402034612.127912-2-xieziyao@huawei.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 2/2] kernel/syscalls: Unify the annotation style
- and remove Redundant code
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/2] kernel/syscalls: Modify incorrect use of
+ TERRNO and replace functions with safe_macros
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,17 +58,9 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Ziyao,
-
-> Change License for Makefile and remove some unnecessary annotation
-> in kernel/syscalls.
-
-Thanks, merged!
-I slightly modified C code changes - put docparse into clock_nanosleep03.c and
-clock_gettime03.c and modified the commit message.
-
-Next time it'd be better to separate these changes - put Makefile changes into
-separate commit and ideally use script to replace all of them.
+> - modify some incorrect use of TERRNO/TTERRNO in kernel/syscalls;
+> - replace functions with safe_macros to check the return value in kernel/syscalls.
+These two would be really better to put 2 commits.
 
 Kind regards,
 Petr
