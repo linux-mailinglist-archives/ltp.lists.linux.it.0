@@ -2,92 +2,46 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3483937B8A2
-	for <lists+linux-ltp@lfdr.de>; Wed, 12 May 2021 10:52:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA13E37B8EC
+	for <lists+linux-ltp@lfdr.de>; Wed, 12 May 2021 11:16:03 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id F399F3C8A89
-	for <lists+linux-ltp@lfdr.de>; Wed, 12 May 2021 10:52:37 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 90DB73C6451
+	for <lists+linux-ltp@lfdr.de>; Wed, 12 May 2021 11:16:03 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id B2C293C8A8B
- for <ltp@lists.linux.it>; Wed, 12 May 2021 10:52:15 +0200 (CEST)
-Received: from mail1.bemta26.messagelabs.com (mail1.bemta26.messagelabs.com
- [85.158.142.114])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 930113C4CB1
+ for <ltp@lists.linux.it>; Wed, 12 May 2021 11:16:00 +0200 (CEST)
+Received: from szxga06-in.huawei.com (szxga06-in.huawei.com [45.249.212.32])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 359FA1000F20
- for <ltp@lists.linux.it>; Wed, 12 May 2021 10:52:15 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fujitsu.com;
- s=170520fj; t=1620809535; i=@fujitsu.com;
- bh=/hWKBVlxo7L27zvEDzSqkISxPgjNrHQHx3jub3G1IxE=;
- h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
- MIME-Version:Content-Type;
- b=AMGJNuA/c2ZSVR/28nkJGVnTC9TqRdxOIsql+8xosfacIEY9YcYLO3B8aKZtQIlvR
- PxwbcaN9V1TJzaaQ2R2Ltn4B4t2ZDR56GgWIEewSQHDymqdRaT/mh2KwCtLrCgRugK
- bZ+5rVJZ4Gav3vKC+DDnrr0hQGTcvnUl2Ysx2SbVWpUnwK7z0D7iqHcpqIsqA573kL
- GKXxpJhd3podmxAgHsMvi7rNX1D1sM9wXhaLs/nlLCas6yBZrgOvUC+RMUzSX0PTPg
- lVh7mD77kWna3VLa+DbG69V4g3dnVa3B9EcP4EeqXAK/m3xEnuu+sblTKEZjLPo7ol
- MRNCSghhGiSxw==
-Received: from [100.113.6.193] (using TLSv1.2 with cipher
- DHE-RSA-AES256-GCM-SHA384 (256 bits))
- by server-3.bemta.az-b.eu-central-1.aws.symcld.net id 01/5D-38619-F379B906;
- Wed, 12 May 2021 08:52:15 +0000
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFtrFIsWRWlGSWpSXmKPExsViZ8MxVddu+uw
- Eg893dC1WfN/B6MDose/3OtYAxijWzLyk/IoE1ox3Uy4yFWySrXi6ahlTA+MfiS5GLg4hgRYm
- iVO/G9ghnN2MEh8PPGTuYuTkYBPQlHjWuQDMFhGQkOhoeMsOYjMLqEssn/SLqYuRg0NYIEri2
- ed0kDCLgKrEpxffGEFsXgEPiS+XD4KVSwgoSEx5+B5sDKeAp8SRB/MYQVqFgGq27ueGKBeUOD
- nzCQvEdAmJgy9eMEO0Kkpc6oAYKSFQITFjxja2CYz8s5C0zELSsoCRaRWjRVJRZnpGSW5iZo6
- uoYGBrqGhsa4ZkKWXWKWbpJdaqpucmldSlAiU1EssL9YrrsxNzknRy0st2cQIDMaUQjauHYxP
- X3/QO8QoycGkJMp70nN2ghBfUn5KZUZicUZ8UWlOavEhRhkODiUJ3rKpQDnBotT01Iq0zBxgZ
- MCkJTh4lER4G6YBpXmLCxJzizPTIVKnGHU5Ns9duohZiCUvPy9VSpz3JsgMAZCijNI8uBGwKL
- 3EKCslzMvIwMAgxFOQWpSbWYIq/4pRnINRSZjXGWQVT2ZeCdymV0BHMAEdcWP6LJAjShIRUlI
- NTPNfWaT8ZxOvfvuvaFPjyY/MHpknXJ6ZxizaU9T1/eGm5RqyH3Ne3UlcPjWiO21S4zseV8ZX
- ic9+/ZnjYhsmtsu6fIbMK4NpehkPuwJjN2XO5D4xTf3/q9sKGq4XtDoZJl7S3vhyIuPsqb3qX
- Mfl3Y+UZt+WWS0g8f0aN0/M3vV5TvkTvT0lmSt/7WWalX86pXNarUX590altue39pj5Vc049G
- EBp4BE1+Mfb+KOl5RMOSh/KmS1QGJ4rPeEOwlqsR1XzPx7nJ8syTc+EsrRcFrk1rEvngFTI2z
- 8FmsX/YgxSWSrZV/T+UFPREqN229fuGhQywKbo07LS2/PFrF/fuOVqHtgptP2lNs7ChweKrEU
- ZyQaajEXFScCACtmJ85NAwAA
-X-Env-Sender: xuyang2018.jy@fujitsu.com
-X-Msg-Ref: server-4.tower-245.messagelabs.com!1620809534!89571!1
-X-Originating-IP: [62.60.8.149]
-X-SYMC-ESS-Client-Auth: outbound-route-from=pass
-X-StarScan-Received: 
-X-StarScan-Version: 9.75.3; banners=-,-,-
-X-VirusChecked: Checked
-Received: (qmail 32680 invoked from network); 12 May 2021 08:52:14 -0000
-Received: from unknown (HELO mailhost2.uk.fujitsu.com) (62.60.8.149)
- by server-4.tower-245.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
- encrypted SMTP; 12 May 2021 08:52:14 -0000
-Received: from R01UKEXCASM126.r01.fujitsu.local ([10.183.43.178])
- by mailhost2.uk.fujitsu.com (8.14.5/8.14.5) with ESMTP id 14C8qBlR028217
- (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256 verify=FAIL)
- for <ltp@lists.linux.it>; Wed, 12 May 2021 09:52:14 +0100
-Received: from localhost.localdomain (10.167.220.84) by
- R01UKEXCASM126.r01.fujitsu.local (10.183.43.178) with Microsoft SMTP Server
- (TLS) id 15.0.1497.2; Wed, 12 May 2021 09:52:12 +0100
-From: Yang Xu <xuyang2018.jy@fujitsu.com>
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 6287B1401121
+ for <ltp@lists.linux.it>; Wed, 12 May 2021 11:15:57 +0200 (CEST)
+Received: from DGGEMS414-HUB.china.huawei.com (unknown [172.30.72.60])
+ by szxga06-in.huawei.com (SkyGuard) with ESMTP id 4Fg8Gt1RzdzlZ3P
+ for <ltp@lists.linux.it>; Wed, 12 May 2021 17:13:42 +0800 (CST)
+Received: from ubuntu1804.huawei.com (10.67.174.209) by
+ DGGEMS414-HUB.china.huawei.com (10.3.19.214) with Microsoft SMTP Server id
+ 14.3.498.0; Wed, 12 May 2021 17:15:43 +0800
+From: Xie Ziyao <xieziyao@huawei.com>
 To: <ltp@lists.linux.it>
-Date: Wed, 12 May 2021 16:52:21 +0800
-Message-ID: <1620809541-6891-4-git-send-email-xuyang2018.jy@fujitsu.com>
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <1620809541-6891-1-git-send-email-xuyang2018.jy@fujitsu.com>
-References: <1620809541-6891-1-git-send-email-xuyang2018.jy@fujitsu.com>
+Date: Wed, 12 May 2021 17:16:08 +0800
+Message-ID: <20210512091608.53997-1-xieziyao@huawei.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD09.g08.fujitsu.local (10.167.33.85) To
- R01UKEXCASM126.r01.fujitsu.local (10.183.43.178)
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Originating-IP: [10.67.174.209]
+X-CFilter-Loop: Reflected
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH v1 4/4] syscalls/shmget06: Add test when the id of
- shm_next_id has existed
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH v4] syscalls/chown: Rewrite chown/chown04.c with the
+ new api
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,137 +58,283 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-When the identifier of the System V shared memory segment that shm_next_id has
-existed, shmget() with different key will return the another shm id. But kernel
-doesn't guarantee desired id, I just compare with existed id, if not equal, the
-test succeeded.
+Rewrite chown/chown04.c with the new api.
 
-This case is similar to msgget05.c.
-
-Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
+Signed-off-by: Xie Ziyao <xieziyao@huawei.com>
 ---
- runtest/syscalls                              |  1 +
- runtest/syscalls-ipc                          |  1 +
- .../kernel/syscalls/ipc/shmget/.gitignore     |  1 +
- .../kernel/syscalls/ipc/shmget/shmget06.c     | 77 +++++++++++++++++++
- 4 files changed, 80 insertions(+)
- create mode 100644 testcases/kernel/syscalls/ipc/shmget/shmget06.c
+v3->v4:
+1. Modification for proper docparse formatting.
 
-diff --git a/runtest/syscalls b/runtest/syscalls
-index 63d821e53..3a1731685 100644
---- a/runtest/syscalls
-+++ b/runtest/syscalls
-@@ -1403,6 +1403,7 @@ shmget02 shmget02
- shmget03 shmget03
- shmget04 shmget04
- shmget05 shmget05
-+shmget06 shmget06
- 
- sigaction01 sigaction01
- sigaction02 sigaction02
-diff --git a/runtest/syscalls-ipc b/runtest/syscalls-ipc
-index ff0364704..b758158c3 100644
---- a/runtest/syscalls-ipc
-+++ b/runtest/syscalls-ipc
-@@ -68,3 +68,4 @@ shmget02 shmget02
- shmget03 shmget03
- shmget04 shmget04
- shmget05 shmget05
-+shmget06 shmget06
-diff --git a/testcases/kernel/syscalls/ipc/shmget/.gitignore b/testcases/kernel/syscalls/ipc/shmget/.gitignore
-index 6f08529f8..768d1c69d 100644
---- a/testcases/kernel/syscalls/ipc/shmget/.gitignore
-+++ b/testcases/kernel/syscalls/ipc/shmget/.gitignore
-@@ -2,3 +2,4 @@
- /shmget03
- /shmget04
- /shmget05
-+/shmget06
-diff --git a/testcases/kernel/syscalls/ipc/shmget/shmget06.c b/testcases/kernel/syscalls/ipc/shmget/shmget06.c
-new file mode 100644
-index 000000000..3138d4482
---- /dev/null
-+++ b/testcases/kernel/syscalls/ipc/shmget/shmget06.c
-@@ -0,0 +1,77 @@
+ testcases/kernel/syscalls/chown/chown04.c | 229 +++++++---------------
+ 1 file changed, 73 insertions(+), 156 deletions(-)
+
+diff --git a/testcases/kernel/syscalls/chown/chown04.c b/testcases/kernel/syscalls/chown/chown04.c
+index 1f3ed412b..65451516b 100644
+--- a/testcases/kernel/syscalls/chown/chown04.c
++++ b/testcases/kernel/syscalls/chown/chown04.c
+@@ -1,75 +1,55 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2021 FUJITSU LIMITED. All rights reserved.
-+ * Author: Yang Xu <xuyang2018.jy@fujitsu.com>
-+ */
-+
+ /*
+  * Copyright (c) International Business Machines  Corp., 2001
+- *  07/2001 Ported by Wayne Boyer
++ * 07/2001 Ported by Wayne Boyer
+  * Copyright (c) 2014 Cyril Hrubis <chrubis@suse.cz>
+- *
+- * This program is free software;  you can redistribute it and/or modify
+- * it under the terms of the GNU General Public License as published by
+- * the Free Software Foundation; either version 2 of the License, or
+- * (at your option) any later version.
+- *
+- * This program is distributed in the hope that it will be useful,
+- * but WITHOUT ANY WARRANTY;  without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
+- * the GNU General Public License for more details.
+- *
+- * You should have received a copy of the GNU General Public License
+- * along with this program;  if not, write to the Free Software Foundation,
+- * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+  */
+
+-/*
+- * Test Name: chown04
 +/*\
 + * [Description]
+  *
+- * Test Description:
+- *   Verify that,
+- *   1) chown(2) returns -1 and sets errno to EPERM if the effective user id
+- *		 of process does not match the owner of the file and the process
+- *		 is not super user.
+- *   2) chown(2) returns -1 and sets errno to EACCES if search permission is
+- *		 denied on a component of the path prefix.
+- *   3) chown(2) returns -1 and sets errno to EFAULT if pathname points
+- *		 outside user's accessible address space.
+- *   4) chown(2) returns -1 and sets errno to ENAMETOOLONG if the pathname
+- *		 component is too long.
+- *   5) chown(2) returns -1 and sets errno to ENOTDIR if the directory
+- *		 component in pathname is not a directory.
+- *   6) chown(2) returns -1 and sets errno to ENOENT if the specified file
+- *		 does not exists.
++ * Verify that:
 + *
-+ * It is a basic test about shm_next_id.
-+ *
-+ * When the shared memory segment identifier that shm_next_id stored has
-+ * existed, call shmget with different key just use another unused value in range
-+ * [0,INT_MAX]. kernel doesn't guarantee the desired id.
-+ */
++ * 1. chown(2) returns -1 and sets errno to EPERM if the effective user id
++ *    of process does not match the owner of the file and the process is not
++ *    super user;
++ * 2. chown(2) returns -1 and sets errno to EACCES if search permission is
++ *    denied on a component of the path prefix;
++ * 3. chown(2) returns -1 and sets errno to EFAULT if pathname points outside
++ *    user's accessible address space;
++ * 4. chown(2) returns -1 and sets errno to ENAMETOOLONG if the pathname
++ *    component is too long;
++ * 5. chown(2) returns -1 and sets errno to ENOENT if the specified file does
++ *    not exists;
++ * 6. chown(2) returns -1 and sets errno to ENOTDIR if the directory component
++ *    in pathname is not a directory;
++ * 7. chown(2) returns -1 and sets errno to ELOOP if too many symbolic links
++ *    were encountered in resolving pathname;
++ * 8. chown(2) returns -1 and sets errno to EROFS if the named file resides on
++ *    a read-only filesystem.
+  */
+
+-#include <stdio.h>
+-#include <stdlib.h>
+-#include <unistd.h>
+-#include <fcntl.h>
+-#include <errno.h>
+-#include <string.h>
+-#include <signal.h>
+-#include <grp.h>
+ #include <pwd.h>
+-#include <sys/types.h>
+-#include <sys/stat.h>
+-#include <sys/mman.h>
+-#include <sys/mount.h>
+-
+-#include "test.h"
+-#include "safe_macros.h"
+-#include "compat_16.h"
+-
+-#define MODE_RWX		 (S_IRWXU|S_IRWXG|S_IRWXO)
+-#define FILE_MODE		 (S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH)
+-#define DIR_MODE		 (S_IRUSR|S_IWUSR|S_IXUSR|S_IRGRP| \
+-				 S_IXGRP|S_IROTH|S_IXOTH)
+-#define DIR_TEMP		 "testdir_1"
+-#define TEST_FILE1		 "tfile_1"
+-#define TEST_FILE2		 (DIR_TEMP "/tfile_2")
+-#define TEST_FILE3		 "t_file/tfile_3"
+-#define TEST_FILE4		 "test_eloop1"
+-#define TEST_FILE5		 "mntpoint"
+-
+-static char long_path[PATH_MAX + 2];
+-static const char *device;
+-static int mount_flag;
 +
-+#include <errno.h>
-+#include <string.h>
-+#include <sys/types.h>
-+#include <sys/ipc.h>
-+#include <sys/shm.h>
 +#include "tst_test.h"
-+#include "tst_safe_sysv_ipc.h"
-+#include "libnewipc.h"
++#include "compat_tst_16.h"
++#include "tst_safe_macros.h"
 +
-+#define NEXT_ID_PATH "/proc/sys/kernel/shm_next_id"
++#define MODE 0666
 +
-+static int shm_id[2], pid;
-+static key_t shmkey[2];
++#define MNT_POINT	"mntpoint"
++#define MODE_RWX	(S_IRWXU|S_IRWXG|S_IRWXO)
++#define FILE_MODE	(S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH)
++#define DIR_MODE	(S_IRUSR|S_IWUSR|S_IXUSR|S_IRGRP|S_IXGRP|S_IROTH|S_IXOTH)
 +
-+static void verify_shmget(void)
++#define DIR_TEMP	"testdir_1"
++#define TEST_FILE1	"tfile_1"
++#define TEST_FILE2	"testdir_1/tfile_2"
++#define TEST_FILE3	"t_file/tfile_3"
++#define TEST_FILE4	"test_eloop1"
++#define TEST_FILE5	"mntpoint"
++
++static char long_path[PATH_MAX + 2] = {[0 ... PATH_MAX + 1] = 'a'};
+
+ static struct test_case_t {
+ 	char *pathname;
+@@ -85,111 +65,48 @@ static struct test_case_t {
+ 	{TEST_FILE5, EROFS}
+ };
+
+-TCID_DEFINE(chown04);
+-int TST_TOTAL = ARRAY_SIZE(tc);
+-
+-static char *bad_addr;
++static void run(unsigned int i)
 +{
-+	SAFE_FILE_PRINTF(NEXT_ID_PATH, "%d", shm_id[0]);
-+
-+	shm_id[1] = SAFE_SHMGET(shmkey[1], SHM_SIZE, IPC_CREAT | SHM_RW);
-+	if (shm_id[1] == shm_id[0])
-+		tst_res(TFAIL, "shm id %d has existed, shmget() returns the"
-+			" same shm id unexpectedly", shm_id[0]);
-+	else
-+		tst_res(TPASS, "shm id %d has existed, shmget() returns the"
-+			" new shm id %d", shm_id[0], shm_id[1]);
-+
-+	SAFE_SHMCTL(shm_id[1], IPC_RMID, NULL);
-+}
-+
-+static void setup(void)
-+{
-+	shmkey[0] = GETIPCKEY();
-+	shmkey[1] = GETIPCKEY();
-+	pid = getpid();
-+	SAFE_FILE_PRINTF(NEXT_ID_PATH, "%d", pid);
-+	shm_id[0] = SAFE_SHMGET(shmkey[0], SHM_SIZE, IPC_CREAT | SHM_RW);
-+	tst_res(TINFO, "Test shm_next_id effects on shmget(different key) "
-+		"when this identifier of shared memory segment has existed");
-+}
-+
++	uid_t uid;
++	gid_t gid;
+
+-static void setup(void);
+-static void cleanup(void);
++	UID16_CHECK((uid = geteuid()), "chown");
++	GID16_CHECK((gid = getegid()), "chown");
+
+-int main(int ac, char **av)
+-{
+-	int lc;
+-	int i;
+-	uid_t user_id;
+-	gid_t group_id;
+-
+-	tst_parse_opts(ac, av, NULL, NULL);
+-
+-	setup();
+-
+-	UID16_CHECK((user_id = geteuid()), "chown", cleanup)
+-	GID16_CHECK((group_id = getegid()), "chown", cleanup)
+-
+-	for (lc = 0; TEST_LOOPING(lc); lc++) {
+-		tst_count = 0;
+-
+-		for (i = 0; i < TST_TOTAL; i++) {
+-			TEST(CHOWN(cleanup, tc[i].pathname, user_id, group_id));
+-
+-			if (TEST_RETURN == 0) {
+-				tst_resm(TFAIL, "chown succeeded unexpectedly");
+-				continue;
+-			}
+-
+-			if (TEST_ERRNO == tc[i].exp_errno) {
+-				tst_resm(TPASS | TTERRNO, "chown failed");
+-			} else {
+-				tst_resm(TFAIL | TTERRNO,
+-					 "chown failed; expected: %d - %s",
+-					 tc[i].exp_errno,
+-					 tst_strerrno(tc[i].exp_errno));
+-			}
+-		}
+-	}
+-
+-	cleanup();
+-	tst_exit();
++	TST_EXP_FAIL(CHOWN(tc[i].pathname, uid, gid), tc[i].exp_errno);
+ }
+
+ static void setup(void)
+ {
+ 	struct passwd *ltpuser;
+-	const char *fs_type;
++	ltpuser = SAFE_GETPWNAM("nobody");
+
+-	tst_require_root();
+-	tst_sig(FORK, DEF_HANDLER, cleanup);
+-	ltpuser = SAFE_GETPWNAM(NULL, "nobody");
++	tc[2].pathname = SAFE_MMAP(0, 1, PROT_NONE, MAP_PRIVATE|MAP_ANONYMOUS,
++				   0, 0);
+
+-	tst_tmpdir();
++	SAFE_SYMLINK("test_eloop1", "test_eloop2");
++	SAFE_SYMLINK("test_eloop2", "test_eloop1");
+
+-	fs_type = tst_dev_fs_type();
+-	device = tst_acquire_device(cleanup);
+-	if (!device)
+-		tst_brkm(TCONF, cleanup, "Failed to obtain block device");
++	SAFE_SETEUID(0);
++	SAFE_TOUCH("t_file", MODE_RWX, NULL);
++	SAFE_TOUCH(TEST_FILE1, MODE, NULL);
++	SAFE_MKDIR(DIR_TEMP, S_IRWXU);
++	SAFE_TOUCH(TEST_FILE2, MODE, NULL);
+
+-	tst_mkfs(cleanup, device, fs_type, NULL, NULL);
+-
+-	TEST_PAUSE;
+-
+-	memset(long_path, 'a', PATH_MAX - 1);
+-
+-	bad_addr = mmap(0, 1, PROT_NONE,
+-			MAP_PRIVATE_EXCEPT_UCLINUX | MAP_ANONYMOUS, 0, 0);
+-	if (bad_addr == MAP_FAILED)
+-		tst_brkm(TBROK | TERRNO, cleanup, "mmap failed");
+-
+-	tc[2].pathname = bad_addr;
+-
+-	SAFE_SYMLINK(cleanup, "test_eloop1", "test_eloop2");
+-	SAFE_SYMLINK(cleanup, "test_eloop2", "test_eloop1");
+-
+-	SAFE_SETEUID(cleanup, 0);
+-	SAFE_TOUCH(cleanup, "t_file", MODE_RWX, NULL);
+-	SAFE_TOUCH(cleanup, TEST_FILE1, 0666, NULL);
+-	SAFE_MKDIR(cleanup, DIR_TEMP, S_IRWXU);
+-	SAFE_TOUCH(cleanup, TEST_FILE2, 0666, NULL);
+-
+-	SAFE_MKDIR(cleanup, "mntpoint", DIR_MODE);
+-	SAFE_MOUNT(cleanup, device, "mntpoint", fs_type, MS_RDONLY, NULL);
+-	mount_flag = 1;
+-
+-	SAFE_SETEUID(cleanup, ltpuser->pw_uid);
++	SAFE_SETEUID(ltpuser->pw_uid);
+ }
+
+-void cleanup(void)
 +static void cleanup(void)
-+{
-+	int i;
-+
-+	for (i = 0; i < 2; i++) {
-+		if (shm_id[i] != -1)
-+			SAFE_SHMCTL(shm_id[i], IPC_RMID, NULL);
-+	}
-+}
+ {
+-	if (seteuid(0) == -1)
+-		tst_resm(TWARN | TERRNO, "seteuid(0) failed");
+-
+-	if (mount_flag && tst_umount("mntpoint") < 0) {
+-		tst_brkm(TBROK | TERRNO, NULL,
+-			 "umount device:%s failed", device);
+-	}
+-
+-	if (device)
+-		tst_release_device(device);
+-
+-	tst_rmdir();
++	SAFE_SETEUID(0);
+ }
 +
 +static struct tst_test test = {
-+	.needs_tmpdir = 1,
++	.needs_root = 1,
++	.needs_rofs = 1,
++	.mntpoint = MNT_POINT,
++	.tcnt = ARRAY_SIZE(tc),
++	.test = run,
 +	.setup = setup,
 +	.cleanup = cleanup,
-+	.test_all = verify_shmget,
-+	.needs_kconfigs = (const char *[]) {
-+		"CONFIG_CHECKPOINT_RESTORE=y",
-+		NULL
-+	},
-+	.needs_root = 1,
 +};
--- 
-2.23.0
+--
+2.17.1
 
 
 -- 
