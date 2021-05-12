@@ -1,42 +1,55 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60DBA37BA94
-	for <lists+linux-ltp@lfdr.de>; Wed, 12 May 2021 12:31:00 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 28F8B37BA9F
+	for <lists+linux-ltp@lfdr.de>; Wed, 12 May 2021 12:32:51 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 13A613C6472
-	for <lists+linux-ltp@lfdr.de>; Wed, 12 May 2021 12:31:00 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id F107A3C6472
+	for <lists+linux-ltp@lfdr.de>; Wed, 12 May 2021 12:32:50 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 8FE343C4CA2
- for <ltp@lists.linux.it>; Wed, 12 May 2021 12:30:59 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 02A4D3C4CA2
+ for <ltp@lists.linux.it>; Wed, 12 May 2021 12:32:48 +0200 (CEST)
+Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id AE75A200AE2
- for <ltp@lists.linux.it>; Wed, 12 May 2021 12:30:58 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 24E87B028;
- Wed, 12 May 2021 10:30:58 +0000 (UTC)
-From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Wed, 12 May 2021 12:30:52 +0200
-Message-Id: <20210512103052.9646-1-pvorel@suse.cz>
-X-Mailer: git-send-email 2.31.1
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 596071A0116A
+ for <ltp@lists.linux.it>; Wed, 12 May 2021 12:32:48 +0200 (CEST)
+Received: from [192.168.178.40] (unknown [178.26.168.79])
+ by mail.jv-coder.de (Postfix) with ESMTPSA id 9AE4A9FBCC;
+ Wed, 12 May 2021 10:32:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
+ t=1620815566; bh=WmPF1bPNCyBoim+AfT0TVnsckQ+qAgDWqKm6kxyW9mw=;
+ h=Subject:To:From:Message-ID:Date:MIME-Version;
+ b=VEEM3Bn5nOSlAU5zeRVAT5inTN0p+qeHq7tgwB5WCOZhdAgegUFGaGfpfBAIyLzPU
+ 7rO/fWht/mMrhy1MjD1KdrJxQvLEwkhIiJygbU5KcIDMj0W3VVEMvoh+MaIzsSYWPw
+ Je6iNGMpn5mSDzmqCUHDlpO1rPpA6x1AifLb2lnU=
+To: Li Wang <liwang@redhat.com>
+References: <20210508055109.16914-4-liwang@redhat.com>
+ <dfdd8e9a-90ca-642d-1c21-da169ca3878f@jv-coder.de>
+ <CAEemH2et8_SXWJTsofdt7gc0NRV=91rPe0RtAMt1BX=SbAzhig@mail.gmail.com>
+From: Joerg Vehlow <lkml@jv-coder.de>
+Message-ID: <c83db09b-81b7-abad-1c8c-6375f7c2c63d@jv-coder.de>
+Date: Wed, 12 May 2021 12:34:29 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.1
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
-X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+In-Reply-To: <CAEemH2et8_SXWJTsofdt7gc0NRV=91rPe0RtAMt1BX=SbAzhig@mail.gmail.com>
+Content-Language: en-US
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH 1/1] netns_helper.sh: Fix parsing recent iproute2
- versions
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Status: Clean
+Subject: Re: [LTP] [PATCH v3 3/4] lib: ignore SIGINT in _tst_kill_test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,94 +61,28 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Alexey Kodanev <alexey.kodanev@oracle.com>,
- Feiyu Zhu <zhufy.jy@cn.fujitsu.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: LTP List <ltp@lists.linux.it>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-iproute2 prior v5.8.0 contained snapshot date:
-$ ip -V
-ip utility, iproute2-ss190107
-
-But since version v5.7.0-77-gb687d1067169 (released in v5.8.0) there is
-new scheme. For releases it contains kernel version:
-
-$ip -V
-ip utility, iproute2-5.8.0
-
-and for snapshots build from git it contains version generated with git
-describe:
-
-$ip -V
-ip utility, iproute2-v5.10.0-74-g2953235e
-
-Thus the original parsing in tst_check_iproute() leads to error:
-[: too many arguments
-
-Because function was used only on single place, move expected version
-into the function and consider new format as always valid.
-
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
-Hi,
-
-there are more tests which need ip version check: mc_cmds.sh,
-netns_netlink.c, netns_helper.sh.
-
-netns_netlink.c can be checked for tuntap support with simple running
-'ip tuntap' [1], mc_cmds.sh correctly detect new version with new
-scheme, thus only netns_helper.sh needs to be fixed, although it's just
-a warning.
-
-Proper way would be to have C implementation to check version, which
-would be reusable in both C and shell. I plan to add it after the
-release but because there is git freeze due new release sending just
-this quick fix.
-
-Kind regards,
-Petr
-
-[1] https://patchwork.ozlabs.org/project/ltp/patch/20210512100746.5907-1-pvorel@suse.cz/
-
- testcases/kernel/containers/netns/netns_helper.sh | 15 ++++++++++-----
- 1 file changed, 10 insertions(+), 5 deletions(-)
-
-diff --git a/testcases/kernel/containers/netns/netns_helper.sh b/testcases/kernel/containers/netns/netns_helper.sh
-index a5b77a0aa..4dac0e306 100755
---- a/testcases/kernel/containers/netns/netns_helper.sh
-+++ b/testcases/kernel/containers/netns/netns_helper.sh
-@@ -47,16 +47,21 @@ IFCONF_IN6_ARG=
- 
- tst_check_iproute()
- {
--	local cur_ipver="$(ip -V)"
--	local spe_ipver="$1"
-+	local current_ver="$(ip -V)"
-+	local expected_ver="111010"
- 
--	cur_ipver=${cur_ipver##*s}
-+	current_ver=${current_ver##*s}
- 
--	if [ -z "$cur_ipver" -o -z "$spe_ipver" ]; then
-+	if [ -z "$current_ver" ]; then
- 		tst_brk TBROK "failed to obtain valid iproute version"
- 	fi
- 
--	if [ $cur_ipver -lt $spe_ipver ]; then
-+	# new version scheme since v5.7.0-77-gb687d1067169
-+	if echo "$current_ver" | grep -q 'iproute2-v\?[0-9]\+\.'; then
-+		return
-+	fi
-+
-+	if [ $current_ver -lt $expected_ver ]; then
- 		tst_brk TCONF "too old iproute version"
- 	fi
- }
--- 
-2.31.1
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+SGkgTGksCj4+IEEgcG9zc2libGUgZml4IGNvdWxkIGJlIHVzaW5nIFNJR1RFUk0gaW5zdGVhZCBv
+ZiBTSUdJTlQuIFRoaXMgc2lnbmFsCj4+IGRvZXMgbm90IHNlZW0gdG8gaGF2ZSBzb21lICJpbnRl
+bGxpZ2VudCIgaGFuZGxpbmcgZm9yIGJhY2tncm91bmQgcHJvY2Vzc2VzLgo+IEkgYWdyZWUuIENh
+biB5b3UgbWFrZSBhIHBhdGNoIHRvIHJlcGxhY2UgdGhhdCBJTlQ/Cj4KPiAoYW5kIHRoaXMgaXMg
+b25seSBhIHRpbWVvdXQgaXNzdWUsIHNvIHBhdGNoIG1lcmdpbmcgbWF5IGJlIGRlbGF5ZWQgZHVl
+Cj4gdG8gTFRQIG5ldyByZWxlYXNlKQpJJ2QgbGlrZSB0byBzdXBwbHkgdGhlIHBhdGNoLCBJJ3Zl
+IHBsYWNlZCBpdCBvbiBteSB0b2RvIGxpc3QuIEkgd2lsbCAKcHJvYmFibHkgbm90IGZpbmlzaCBp
+dCBiZWZvcmUgdGhlIHJlbGVhc2UsCmJ1dCBzaW5jZSBpdCB3aWxsIHByb2JhYmx5IG5vdCBiZSBp
+bmNsdWRlZCBhbnl3YXksIGl0IGRvZXNuJ3QgbWF0dGVyLgpJIGRvIG5vdCBrbm93IHdoeSBMVFAg
+dXNlZCBTSUdJTlQgaW4gdGhlIGZpcnN0IHBsYWNlLiBNeSBmaXJzdCB0aG91Z2h0Cj4+IHdvdWxk
+IGhhdmUgYmVlbiB0byB1c2UgU0lHVEVSTS4gIEl0IGlzIHRoZSB3YXkgdG8gInBvbGl0ZWx5IGFz
+awo+PiBwcm9jZXNzZXMgdG8gdGVybWluYXRlIgo+IFllcywgYnV0IHRoYXQgbm90IHN0cmFuZ2Ug
+dG8gbWUsIHRoZSBwb3NzaWJsZSByZWFzb24gaXMganVzdCB0bwo+IHN0b3AoY3RybCBeYykgdGhl
+IExUUCB0ZXN0IG1hbnVhbGx5IGZvciBkZWJ1Z2dpbmcsIHNvIHdlIHdlbnQKPiB0b28gZmFyIGZv
+ciB1c2luZyBTSUdJTlQgYnV0IGZvcmdldCB0aGUgb3JpZ2luYWwgcHVycG9zZSA6KS4KT2sgc291
+bmRzIHJlYXNvbmFibGUuIFRoZSBuaWNlIHRoaW5rIGFib3V0IGNoYW5naW5nIHRpbWVvdXQgdG8g
+U0lHVEVSTSAKd291bGQgYmUsCnRoYXQgYWJvcnQgdXNpbmcgQ1RSTCtDIGlzIGNsZWFybHkgZGlz
+dGluZ3Vpc2hhYmxlIGZyb20gYSB0aW1lb3V0LgoKSsO2cmcKCi0tIApNYWlsaW5nIGxpc3QgaW5m
+bzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
