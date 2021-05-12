@@ -1,47 +1,65 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7529F37AAB0
-	for <lists+linux-ltp@lfdr.de>; Tue, 11 May 2021 17:28:22 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 78BCE37B38E
+	for <lists+linux-ltp@lfdr.de>; Wed, 12 May 2021 03:32:49 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5A5533C8BE4
-	for <lists+linux-ltp@lfdr.de>; Tue, 11 May 2021 17:28:21 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 43FDE3C8BDA
+	for <lists+linux-ltp@lfdr.de>; Wed, 12 May 2021 03:32:49 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id B885D3C26FF
- for <ltp@lists.linux.it>; Tue, 11 May 2021 17:28:17 +0200 (CEST)
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 0A4643C585B
+ for <ltp@lists.linux.it>; Wed, 12 May 2021 03:32:46 +0200 (CEST)
+Received: from regular1.263xmail.com (regular1.263xmail.com [211.150.70.199])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id E63A41A01072
- for <ltp@lists.linux.it>; Tue, 11 May 2021 17:28:16 +0200 (CEST)
-Received: from 1.general.cascardo.us.vpn ([10.172.70.58] helo=mussarela)
- by youngberry.canonical.com with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
- (envelope-from <cascardo@canonical.com>)
- id 1lgUIx-0008Nn-EY; Tue, 11 May 2021 15:28:15 +0000
-Date: Tue, 11 May 2021 12:28:10 -0300
-From: Thadeu Lima de Souza Cascardo <cascardo@canonical.com>
-To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <20210511152810.GF12149@mussarela>
-References: <20210510134739.37512-1-cascardo@canonical.com>
- <YJoh1f4EWtQWlroC@pevik> <20210511103622.GC12149@mussarela>
- <YJqSZ56ua/Ky0BmY@pevik>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id E307F200758
+ for <ltp@lists.linux.it>; Wed, 12 May 2021 03:32:42 +0200 (CEST)
+Received: from localhost (unknown [192.168.167.105])
+ by regular1.263xmail.com (Postfix) with ESMTP id 3A38C12BC
+ for <ltp@lists.linux.it>; Wed, 12 May 2021 09:32:38 +0800 (CST)
+X-MAIL-GRAY: 0
+X-MAIL-DELIVERY: 1
+X-ADDR-CHECKED: 0
+X-ANTISPAM-LEVEL: 2
+X-SKE-CHECKED: 1
+X-ABS-CHECKED: 1
+Received: from [10.4.23.183] (unknown [58.240.82.166])
+ by smtp.263.net (postfix) whith ESMTP id
+ P13444T140177903175424S1620783149477848_; 
+ Wed, 12 May 2021 09:32:37 +0800 (CST)
+X-IP-DOMAINF: 1
+X-UNIQUE-TAG: <a91c4bdcd202cd88f3861fba346b893e>
+X-RL-SENDER: caojin@uniontech.com
+X-SENDER: caojin@uniontech.com
+X-LOGIN-NAME: caojin@uniontech.com
+X-FST-TO: ltp@lists.linux.it
+X-RCPT-COUNT: 2
+X-SENDER-IP: 58.240.82.166
+X-ATTACHMENT-NUM: 0
+X-System-Flag: 0
+To: Cyril Hrubis <chrubis@suse.cz>
+References: <20210511092926.20509-1-caojin@uniontech.com>
+ <YJpskTNEjIYNu2CT@yuki>
+From: Cao jin <caojin@uniontech.com>
+Message-ID: <a75bc28f-121e-332f-197e-64e3bf15e748@uniontech.com>
+Date: Wed, 12 May 2021 09:32:20 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <YJqSZ56ua/Ky0BmY@pevik>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+In-Reply-To: <YJpskTNEjIYNu2CT@yuki>
+Content-Language: en-US
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] mkfs: force block size to 1024 for ext3 and ext4
+X-Spam-Status: No, score=-0.0 required=7.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] runltp: Miscellaneous cleanups
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,60 +72,25 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Tue, May 11, 2021 at 04:19:19PM +0200, Petr Vorel wrote:
-> Hi,
-> 
-> > On Tue, May 11, 2021 at 08:19:01AM +0200, Petr Vorel wrote:
-> > > Hi,
-> 
-> > > > ext3 and ext4 filesystems will reserve at least 1024 blocks for the
-> > > > journal.  With a blocksize of 4096, this will be 25% of the filesystem size
-> > > > without accounting for any other overhead.
-> > > Is that any actual problem?
-> 
-> > It causes the test to fail.
-> >      mkfs01 2 TFAIL: 'mkfs -t ext4  /dev/loop0 16000' failed, unexpected size.
-> 
-> > The filesystem size is very small, 16K 1k blocks, and we test that there are at
-> > least 80% of that available. As I said, the journal takes at least 1024 blocks,
-> > and with 4k blocks, that is too much overhead.
-> 
-> Have you checked if d44387457 ("mkfs: relax size check") fixes the issue?
-> 
-> https://github.com/linux-test-project/ltp/commit/d4438745751dc4b0faa50063f9a0d9542f0ceaac
-> 
-> Kind regards,
-> Petr
+On 5/11/21 7:37 PM, Cyril Hrubis wrote:
+> Hi!
+> The changes looks good to me but at the moment we are fairly late in the
+> release process so this will have to wait for about two weeks before it
+> could be applied.
 > 
 
-It does not. That would have to move to something below 80%.
+I am fine with that. Thanks, Cyril.
 
-Cascardo.
+--
+Cao jin
 
-> > > > /etc/mke2fs.conf will use 1024 block size for small filesystems, which are
-> > > > between 3M and 512M. However, on recent versions of Ubuntu, this
-> > > > configuration has changed and thet default blocksize is 4096 even for small
-> > > > filesystems.
-> 
-> > > > Force the blocksize to 1024 on ext3 and ext4 filesystems, which will lead
-> > > > to the expected results, as journals will take only 1M.
-> 
-> > > IMHO it'd be better to keep the default, because that covers what end users
-> > > actually use.
-> 
-> > One alternative to forcing the block size is accouting for the journal blocks,
-> > but, then, that needs to consider the block size. I think my approach is more
-> > simple. We could restrict it to the smaller 16M filesystem, though.
-> 
-> > What do you think?
-> 
-> > Thanks.
-> > Cascardo.
+
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
