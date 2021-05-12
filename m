@@ -2,42 +2,42 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABFA937C2C5
-	for <lists+linux-ltp@lfdr.de>; Wed, 12 May 2021 17:16:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9744937C4A7
+	for <lists+linux-ltp@lfdr.de>; Wed, 12 May 2021 17:32:03 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E612D3C7963
-	for <lists+linux-ltp@lfdr.de>; Wed, 12 May 2021 17:16:20 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 2FA943C8A99
+	for <lists+linux-ltp@lfdr.de>; Wed, 12 May 2021 17:32:03 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 71BE83C1D63
- for <ltp@lists.linux.it>; Wed, 12 May 2021 17:16:17 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id E805A3C1C23
+ for <ltp@lists.linux.it>; Wed, 12 May 2021 17:31:59 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id F0ED3600E2F
- for <ltp@lists.linux.it>; Wed, 12 May 2021 17:16:16 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 6DFAD200DEA
+ for <ltp@lists.linux.it>; Wed, 12 May 2021 17:31:59 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 36009B11D
- for <ltp@lists.linux.it>; Wed, 12 May 2021 15:16:16 +0000 (UTC)
-Date: Wed, 12 May 2021 17:16:14 +0200
+ by mx2.suse.de (Postfix) with ESMTP id AEF39B0B3;
+ Wed, 12 May 2021 15:31:58 +0000 (UTC)
+Date: Wed, 12 May 2021 17:31:57 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <YJvxPmk1YRzErjEZ@pevik>
-References: <20210512135458.12444-1-chrubis@suse.cz>
+To: Zhao Gongyi <zhaogongyi@huawei.com>
+Message-ID: <YJv07fCsOlCR0LZH@pevik>
+References: <20210308033428.20924-1-zhaogongyi@huawei.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210512135458.12444-1-chrubis@suse.cz>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+In-Reply-To: <20210308033428.20924-1-zhaogongyi@huawei.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [COMMITTED] [PATCH] Revert "docparse: Fix heading levels"
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] proc01: Add /proc/dirty/dirty_list to known_issues
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,23 +56,22 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Cyril,
+Hi Zhao,
 
-> This reverts commit 04a7608fe4f7fe2c267216d8b90acf019bdea824.
+> When we open the file /proc/dirty/dirty_list directly, it will return -1 and
+> set the errno to ENOMEM.
 
-> Fixes build with asciidoc that otherwise failed with:
+...
+> +++ b/testcases/kernel/fs/proc/proc01.c
+> @@ -85,6 +85,7 @@ static const struct mapping known_issues[] = {
+>  	{"open", "/proc/sal/init/data", EBUSY},
+>  	{"open", "/proc/sal/mca/data", EBUSY},
+>  	{"open", "/proc/fs/nfsd/pool_stats", ENODEV},
+> +	{"open", "/proc/dirty/dirty_list", ENOMEM},
+Is /proc/dirty/dirty_list in mainline? We haven't found "dirty_list" string in
+mainline git (there is dirty_list code, but not "dirty_list" string).
 
-> ...
-> asciidoc: ERROR: filters.txt: line 4: only book doctypes can contain level 0 sections
-> ...
-> asciidoc: ERROR: all-tests.txt: line 4: only book doctypes can contain level 0 sections
-
-> Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
-> Acked-by: Petr Vorel <pvorel@suse.cz>
-
-I'm sorry for breaking the build, thanks for fixing it!
-That was actually the reason why I used shifted level, but I didn't remember.
-Thus I'll send a patch today for enhanced docparse testing.
+I'd prefer not to add vendor specific files, or at least to document them.
 
 Kind regards,
 Petr
