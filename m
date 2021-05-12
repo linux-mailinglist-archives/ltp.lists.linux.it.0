@@ -2,43 +2,42 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D8C137BE33
-	for <lists+linux-ltp@lfdr.de>; Wed, 12 May 2021 15:26:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 718F637BE6D
+	for <lists+linux-ltp@lfdr.de>; Wed, 12 May 2021 15:44:10 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id AAD473C8A89
-	for <lists+linux-ltp@lfdr.de>; Wed, 12 May 2021 15:26:18 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 0E9CE3C8A98
+	for <lists+linux-ltp@lfdr.de>; Wed, 12 May 2021 15:44:10 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 430833C6475
- for <ltp@lists.linux.it>; Wed, 12 May 2021 15:26:14 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 49B2D3C19BA
+ for <ltp@lists.linux.it>; Wed, 12 May 2021 15:44:05 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 8664B601627
- for <ltp@lists.linux.it>; Wed, 12 May 2021 15:26:14 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id B80771401145
+ for <ltp@lists.linux.it>; Wed, 12 May 2021 15:44:04 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id CBF19ADE7
- for <ltp@lists.linux.it>; Wed, 12 May 2021 13:26:13 +0000 (UTC)
-Date: Wed, 12 May 2021 15:26:12 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <YJvXdLQFN8oADt6A@pevik>
-References: <20210512100746.5907-1-pvorel@suse.cz>
- <YJumsgxSkiiCnw4R@yuki>
+ by mx2.suse.de (Postfix) with ESMTP id 38BEFB03A;
+ Wed, 12 May 2021 13:44:04 +0000 (UTC)
+Date: Wed, 12 May 2021 15:17:44 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Thadeu Lima de Souza Cascardo <cascardo@canonical.com>
+Message-ID: <YJvVeOpV2Zt6B31X@yuki>
+References: <20210510134739.37512-1-cascardo@canonical.com>
+ <YJoh1f4EWtQWlroC@pevik> <20210511103622.GC12149@mussarela>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <YJumsgxSkiiCnw4R@yuki>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+In-Reply-To: <20210511103622.GC12149@mussarela>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/1] netns_netlink: Check ip tuntap support
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] mkfs: force block size to 1024 for ext3 and ext4
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,32 +49,37 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Cyril,
+Hi!
+> > > /etc/mke2fs.conf will use 1024 block size for small filesystems, which are
+> > > between 3M and 512M. However, on recent versions of Ubuntu, this
+> > > configuration has changed and thet default blocksize is 4096 even for small
+> > > filesystems.
+> > 
+> > > Force the blocksize to 1024 on ext3 and ext4 filesystems, which will lead
+> > > to the expected results, as journals will take only 1M.
+> > 
+> > IMHO it'd be better to keep the default, because that covers what end users
+> > actually use.
+> 
+> One alternative to forcing the block size is accouting for the journal blocks,
+> but, then, that needs to consider the block size. I think my approach is more
+> simple. We could restrict it to the smaller 16M filesystem, though.
+> 
+> What do you think?
 
-> Hi!
-> > 11b1fea9d removed ip version check. Although check shouldn't be needed
-> > because version 100519 (v2.6.34) is old enough, add check.
+I guess that we should merge your fix in order to have the test working
+for the upcomming release. Then we can discuss if this should be fixed
+differently or not.
 
-> > Instead of parsing ip version just try run 'ip tuntap'.
-
-> What is the exact problem here? Missing tuntap support in ip before
-> v2.6.34?
-Yes.
-
-> The v2.6.34 was released in 2010 and v2.6.32 in 2009, so unless someone
-> reports breakage during pre-release testing I wouldn't bother.
-
-Sure, let's keep it as a backup if anybody complains. I suppose nobody bothers.
-
-Kind regards,
-Petr
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
