@@ -2,82 +2,46 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5238D37F27D
-	for <lists+linux-ltp@lfdr.de>; Thu, 13 May 2021 07:09:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F97B37F2F1
+	for <lists+linux-ltp@lfdr.de>; Thu, 13 May 2021 08:23:56 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9E6F73C4BA9
-	for <lists+linux-ltp@lfdr.de>; Thu, 13 May 2021 07:09:04 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 2DE3F3C4AF9
+	for <lists+linux-ltp@lfdr.de>; Thu, 13 May 2021 08:23:56 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 9033A3C209F
- for <ltp@lists.linux.it>; Thu, 13 May 2021 07:08:57 +0200 (CEST)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 2FBD53C2B3A
+ for <ltp@lists.linux.it>; Thu, 13 May 2021 08:23:53 +0200 (CEST)
+Received: from szxga05-in.huawei.com (szxga05-in.huawei.com [45.249.212.191])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 74B161401196
- for <ltp@lists.linux.it>; Thu, 13 May 2021 07:08:56 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1620882535;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=lotr3KD/b6c7XUL3IGbRHTcuJYGqMq9xbaCdtbeGm7E=;
- b=CLaG97wNMr+dihd0tghK1NlzY1O4lbMOgkJP2YNQLSOF5KoT3iy4HQrorS4pfv9hzahtNy
- HB3k+2w6XxR8O0I73+tsgMX0eJxeEDJ2ODP51BwooIMITbAtBzqJLQbFGoJKGULIkfC+Kq
- VMy1RWJeQtv1G/pNE4CZ+U2IHUdB+tA=
-Received: from mail-yb1-f198.google.com (mail-yb1-f198.google.com
- [209.85.219.198]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-330-Wud47RLRO_2xg3f0c_iqbg-1; Thu, 13 May 2021 01:08:53 -0400
-X-MC-Unique: Wud47RLRO_2xg3f0c_iqbg-1
-Received: by mail-yb1-f198.google.com with SMTP id
- l9-20020a5b0b890000b02904f7fb53ca12so31029683ybq.15
- for <ltp@lists.linux.it>; Wed, 12 May 2021 22:08:53 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=lotr3KD/b6c7XUL3IGbRHTcuJYGqMq9xbaCdtbeGm7E=;
- b=UFS1z8g8MzgmO1IJVzRtgsmb9UwjpY7lWKUMByqIlX/wtlqwqxpnVtQpQ6ptHm97o8
- wPm0FBVdu6nWpM9TDFwOIqLNd3suHEaBiz+1MxvVdYRvTRPkAJqhxxYOi0xrkgrDDmJK
- 4uopCGWyl/3pA+IAWkC9lMrkxBX7k1PLlCUm0AaeD+G/ghC2I9vJxzmxp1uj3W1wYlXQ
- RCsaLMXJiSgdrF8K+lpiYmp0QSO42+18n8cYS8wzYbLKoVCHytGrczk5ER86D1AMY1Jj
- Ku4MvcDq84Lc+s6mH2hIEhj4b4HtimcaQUyMIUkFBm5xeH5kJQK8DngLN34QWUS8Mvnx
- YK2Q==
-X-Gm-Message-State: AOAM530PIcQB1MjkB//w/JcQ378GFhMnhaCe8BkmTIRbGmmHMkqjw1Ay
- 4UW/cezSb6L/AmsGy141UODw44obN4IFGMoR+BEDjrsD6kDi5nyscQbC2R4+ensHuZpiZs/EvMU
- YzTB7iSjikWqKC/mS4ZubtCUTgyU=
-X-Received: by 2002:a25:1455:: with SMTP id 82mr52796977ybu.403.1620882532622; 
- Wed, 12 May 2021 22:08:52 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJxDnSq/u32JwYZn6ox3vNP9oZ2EENXHsB+8GvvJoURoPr2YgN1VYKwKkeVvdK0vbe4GSetKV8fhmRvEi57AX4c=
-X-Received: by 2002:a25:1455:: with SMTP id 82mr52796948ybu.403.1620882532267; 
- Wed, 12 May 2021 22:08:52 -0700 (PDT)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id A922F10007C1
+ for <ltp@lists.linux.it>; Thu, 13 May 2021 08:23:51 +0200 (CEST)
+Received: from DGGEMS404-HUB.china.huawei.com (unknown [172.30.72.60])
+ by szxga05-in.huawei.com (SkyGuard) with ESMTP id 4FghNS37M3zQmjm
+ for <ltp@lists.linux.it>; Thu, 13 May 2021 14:20:24 +0800 (CST)
+Received: from ubuntu1804.huawei.com (10.67.174.209) by
+ DGGEMS404-HUB.china.huawei.com (10.3.19.204) with Microsoft SMTP Server id
+ 14.3.498.0; Thu, 13 May 2021 14:23:42 +0800
+From: Xie Ziyao <xieziyao@huawei.com>
+To: <ltp@lists.linux.it>
+Date: Thu, 13 May 2021 14:23:39 +0800
+Message-ID: <20210513062341.83852-1-xieziyao@huawei.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-References: <20210508055109.16914-4-liwang@redhat.com>
- <dfdd8e9a-90ca-642d-1c21-da169ca3878f@jv-coder.de>
- <CAEemH2et8_SXWJTsofdt7gc0NRV=91rPe0RtAMt1BX=SbAzhig@mail.gmail.com>
- <YJvkFTUWS2iuZ00H@pevik>
-In-Reply-To: <YJvkFTUWS2iuZ00H@pevik>
-From: Li Wang <liwang@redhat.com>
-Date: Thu, 13 May 2021 13:08:40 +0800
-Message-ID: <CAEemH2fRLqipQWTxVsakYNGsmQT+2X8_xzgepCiAY1O8YWtKFA@mail.gmail.com>
-To: Petr Vorel <pvorel@suse.cz>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Originating-IP: [10.67.174.209]
+X-CFilter-Loop: Reflected
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3 3/4] lib: ignore SIGINT in _tst_kill_test
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH 0/2 v2] Add SPDX in Makefile and use tabs instead of
+ spaces
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,77 +53,161 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
+Reply-To: 20210512084904.35159-1-xieziyao@huawei.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-> FYI I tried to use both SIGINT and SIGTERM, but there was some problem.
-> But I guess it was my error. Please *add* SIGTERM (keep SIGINT).
+v1->v2:
+1. Fix errors in patch application;
+2. Add unrelated changes in replacing spaces with tabs into a separate patch.
 
-Yes, we'd better keep SIGINT for ctrl^c action and use SIGTERM
-additionally for process terminating.
+Xie Ziyao (2):
+  Makefile: Use SPDX in Makefile
+  open_posix_testsuite/Makefile: Use tabs instead of spaces
 
-Does this below (rough solution in my mind) work for you?
+ doc/Makefile                                  | 22 ++-------------
+ include/Makefile                              | 22 ++-------------
+ lib/Makefile                                  | 22 ++-------------
+ lib/newlib_tests/Makefile                     |  1 +
+ testcases/Makefile                            | 27 +++----------------
+ testcases/commands/Makefile                   | 24 +++--------------
+ testcases/commands/ar/Makefile                | 22 ++-------------
+ testcases/commands/cp/Makefile                | 22 ++-------------
+ testcases/commands/cpio/Makefile              | 22 ++-------------
+ testcases/commands/df/Makefile                | 23 +++-------------
+ testcases/commands/du/Makefile                | 18 +------------
+ testcases/commands/eject/Makefile             | 22 ++-------------
+ testcases/commands/file/Makefile              | 22 ++-------------
+ testcases/commands/gdb/Makefile               | 20 ++------------
+ testcases/commands/gzip/Makefile              | 22 ++-------------
+ testcases/commands/insmod/Makefile            | 17 +++---------
+ testcases/commands/keyctl/Makefile            | 19 +++----------
+ testcases/commands/ld/Makefile                | 22 ++-------------
+ testcases/commands/ldd/Makefile               | 18 ++-----------
+ testcases/commands/ln/Makefile                | 22 ++-------------
+ testcases/commands/lsmod/Makefile             | 17 +++---------
+ testcases/commands/mkdir/Makefile             | 22 ++-------------
+ testcases/commands/mkfs/Makefile              | 19 +++----------
+ testcases/commands/mkswap/Makefile            | 17 +++---------
+ testcases/commands/mv/Makefile                | 22 ++-------------
+ testcases/commands/nm/Makefile                | 22 ++-------------
+ testcases/commands/sysctl/Makefile            | 16 +----------
+ testcases/commands/tar/Makefile               | 22 ++-------------
+ testcases/commands/unshare/Makefile           | 13 +--------
+ testcases/commands/unzip/Makefile             | 22 ++-------------
+ testcases/commands/wc/Makefile                | 17 +++---------
+ testcases/commands/which/Makefile             | 17 +++---------
+ testcases/cve/Makefile                        | 14 +---------
+ testcases/kernel/Makefile                     | 24 +++--------------
+ testcases/kernel/connectors/Makefile          | 22 ++-------------
+ testcases/kernel/connectors/pec/Makefile      | 22 ++-------------
+ testcases/kernel/containers/Makefile          | 17 +-----------
+ testcases/kernel/containers/netns/Makefile    | 18 ++-----------
+ testcases/kernel/containers/pidns/Makefile    | 21 ++-------------
+ testcases/kernel/controllers/Makefile         | 22 ++-------------
+ testcases/kernel/controllers/cpuacct/Makefile | 22 ++-------------
+ testcases/kernel/controllers/memcg/Makefile   | 22 ++-------------
+ .../controllers/memcg/functional/Makefile     | 22 ++-------------
+ .../controllers/memcg/regression/Makefile     | 22 ++-------------
+ testcases/kernel/controllers/pids/Makefile    | 20 ++------------
+ testcases/kernel/crypto/Makefile              | 14 +---------
+ testcases/kernel/device-drivers/Makefile      | 15 +----------
+ .../kernel/device-drivers/block/Makefile      | 15 +----------
+ .../block/block_dev_kernel/Makefile           | 15 +----------
+ testcases/kernel/device-drivers/rcu/Makefile  | 15 +----------
+ testcases/kernel/device-drivers/rtc/Makefile  | 15 +----------
+ testcases/kernel/fs/Makefile                  | 22 ++-------------
+ testcases/kernel/fs/fs_fill/Makefile          | 14 +---------
+ testcases/kernel/fs/iso9660/Makefile          | 19 ++-----------
+ testcases/kernel/fs/lftest/Makefile           | 22 ++-------------
+ testcases/kernel/fs/linktest/Makefile         | 22 ++-------------
+ testcases/kernel/fs/quota_remount/Makefile    | 19 ++-----------
+ testcases/kernel/fs/read_all/Makefile         | 14 +---------
+ testcases/kernel/io/Makefile                  | 22 ++-------------
+ testcases/kernel/lib/Makefile                 | 21 ++-------------
+ testcases/kernel/logging/Makefile             | 19 ++-----------
+ testcases/kernel/logging/kmsg/Makefile        | 19 ++-----------
+ testcases/kernel/mem/Makefile                 | 22 ++-------------
+ testcases/kernel/mem/hugetlb/Makefile         | 19 ++-----------
+ .../kernel/mem/hugetlb/hugemmap/Makefile      | 22 ++-------------
+ .../kernel/mem/hugetlb/hugeshmat/Makefile     | 22 ++-------------
+ .../kernel/mem/hugetlb/hugeshmctl/Makefile    | 22 ++-------------
+ .../kernel/mem/hugetlb/hugeshmdt/Makefile     | 22 ++-------------
+ .../kernel/mem/hugetlb/hugeshmget/Makefile    | 19 ++-----------
+ testcases/kernel/mem/hugetlb/lib/Makefile     | 19 ++-----------
+ testcases/kernel/mem/ksm/Makefile             | 19 ++-----------
+ testcases/kernel/mem/mmapstress/Makefile      | 19 ++-----------
+ testcases/kernel/mem/mtest01/Makefile         | 22 ++-------------
+ testcases/kernel/mem/mtest06/Makefile         | 22 ++-------------
+ testcases/kernel/mem/mtest07/Makefile         | 22 ++-------------
+ testcases/kernel/mem/thp/Makefile             | 20 ++------------
+ testcases/kernel/mem/tunable/Makefile         | 20 ++------------
+ testcases/kernel/mem/vma/Makefile             | 20 ++------------
+ testcases/kernel/numa/Makefile                | 19 ++-----------
+ testcases/kernel/pty/Makefile                 | 22 ++-------------
+ testcases/kernel/sched/Makefile               | 22 ++-------------
+ testcases/kernel/sched/autogroup/Makefile     | 20 +++-----------
+ testcases/kernel/security/Makefile            | 22 ++-------------
+ testcases/kernel/security/dirtyc0w/Makefile   | 15 +----------
+ testcases/kernel/security/integrity/Makefile  | 19 ++-----------
+ .../kernel/security/integrity/ima/Makefile    | 22 ++-------------
+ .../security/integrity/ima/datafiles/Makefile | 26 +++---------------
+ .../security/integrity/ima/src/Makefile       | 22 ++-------------
+ .../security/integrity/ima/tests/Makefile     | 22 ++-------------
+ testcases/kernel/syscalls/pwritev/Makefile    | 21 +++------------
+ .../kernel/syscalls/set_mempolicy/Makefile    |  1 +
+ testcases/kernel/tracing/Makefile             |  1 +
+ .../kernel/tracing/dynamic_debug/Makefile     | 20 ++------------
+ testcases/lib/Makefile                        | 22 ++-------------
+ testcases/misc/Makefile                       | 24 +++--------------
+ testcases/network/Makefile                    |  1 +
+ testcases/network/can/Makefile                | 21 ++-------------
+ testcases/network/can/filter-tests/Makefile   | 18 ++-----------
+ testcases/network/dhcp/Makefile               | 15 +----------
+ testcases/network/iproute/Makefile            | 22 ++-------------
+ testcases/network/lib6/Makefile               | 24 ++---------------
+ testcases/network/netstress/Makefile          | 14 +---------
+ testcases/network/rpc/Makefile                | 22 ++-------------
+ testcases/network/rpc/rpc-tirpc/Makefile      | 19 ++-----------
+ .../network/rpc/rpc-tirpc/tests_pack/Makefile |  1 +
+ testcases/network/sctp/Makefile               | 14 +---------
+ testcases/network/sockets/Makefile            | 22 ++-------------
+ testcases/network/stress/Makefile             | 22 ++-------------
+ testcases/network/stress/dccp/Makefile        | 14 +---------
+ testcases/network/stress/icmp/Makefile        | 22 ++-------------
+ testcases/network/stress/interface/Makefile   | 22 ++-------------
+ testcases/network/stress/ipsec/Makefile       | 19 +------------
+ testcases/network/stress/multicast/Makefile   | 22 ++-------------
+ .../stress/multicast/grp-operation/Makefile   | 22 ++-------------
+ .../stress/multicast/packet-flood/Makefile    | 22 ++-------------
+ .../stress/multicast/query-flood/Makefile     | 22 ++-------------
+ testcases/network/stress/sctp/Makefile        | 14 +---------
+ testcases/network/stress/tcp/Makefile         | 22 ++-------------
+ testcases/network/stress/udp/Makefile         | 22 ++-------------
+ testcases/network/tcp_cc/Makefile             | 14 +---------
+ testcases/network/tcp_cmds/Makefile           | 24 +++--------------
+ testcases/network/tcp_cmds/host/Makefile      | 22 ++-------------
+ testcases/network/tcp_cmds/ipneigh/Makefile   | 22 ++-------------
+ testcases/network/tcp_cmds/netstat/Makefile   | 22 ++-------------
+ testcases/network/tcp_cmds/sendfile/Makefile  | 22 ++-------------
+ testcases/network/tcp_cmds/tracepath/Makefile | 14 +---------
+ testcases/network/tcp_fastopen/Makefile       | 15 +----------
+ testcases/network/traceroute/Makefile         | 22 ++-------------
+ testcases/network/virt/Makefile               | 15 +----------
+ testcases/network/xinetd/Makefile             | 22 ++-------------
+ testcases/open_posix_testsuite/Makefile       | 17 +++++-------
+ .../open_posix_testsuite/conformance/Makefile |  5 +---
+ .../conformance/interfaces/Makefile           |  5 +---
+ testscripts/Makefile                          | 22 ++-------------
+ utils/Makefile                                | 21 ++-------------
+ utils/sctp/Makefile                           | 22 ++-------------
+ utils/sctp/func_tests/Makefile                | 23 ++--------------
+ 137 files changed, 266 insertions(+), 2357 deletions(-)
 
-diff --git a/lib/newlib_tests/shell/timeout03.sh
-b/lib/newlib_tests/shell/timeout03.sh
-index cd548d9a2..f39f5712a 100755
---- a/lib/newlib_tests/shell/timeout03.sh
-+++ b/lib/newlib_tests/shell/timeout03.sh
-@@ -30,6 +30,7 @@ TST_TIMEOUT=1
-
- do_test()
- {
-+       trap "echo 'Sorry, timeout03 is still alive'" TERM
-        tst_res TINFO "testing killing test after TST_TIMEOUT"
-
-        sleep 2
-diff --git a/testcases/lib/tst_test.sh b/testcases/lib/tst_test.sh
-index 28c2052d6..d7c9791e9 100644
---- a/testcases/lib/tst_test.sh
-+++ b/testcases/lib/tst_test.sh
-@@ -21,7 +21,7 @@ export TST_LIB_LOADED=1
- . tst_security.sh
-
- # default trap function
--trap "tst_brk TBROK 'test interrupted or timed out'" INT
-+trap "tst_brk TBROK 'test interrupted'" INT
-
- _tst_do_exit()
- {
-@@ -439,18 +439,18 @@ _tst_kill_test()
- {
-        local i=10
-
--       trap '' INT
--       tst_res TBROK "Test timeouted, sending SIGINT! If you are
-running on slow machine, try exporting LTP_TIMEOUT_MUL > 1"
--       kill -INT -$pid
-+       trap '' TERM
-+       tst_res TBROK "Test timeouted, sending SIGTERM! If you are
-running on slow machine, try exporting LTP_TIMEOUT_MUL > 1"
-+       kill -TERM -$pid
-        tst_sleep 100ms
-
--       while kill -0 $pid 2>&1 > /dev/null && [ $i -gt 0 ]; do
-+       while kill -0 $pid &>/dev/null && [ $i -gt 0 ]; do
-                tst_res TINFO "Test is still running, waiting ${i}s"
-                sleep 1
-                i=$((i-1))
-        done
-
--       if kill -0 $pid 2>&1 > /dev/null; then
-+       if kill -0 $pid &>/dev/null; then
-                tst_res TBROK "Test still running, sending SIGKILL"
-                kill -KILL -$pid
-        fi
-
-
--- 
-Regards,
-Li Wang
+--
+2.17.1
 
 
 -- 
