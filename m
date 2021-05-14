@@ -2,43 +2,48 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E737380C8A
-	for <lists+linux-ltp@lfdr.de>; Fri, 14 May 2021 17:07:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23B24380C8D
+	for <lists+linux-ltp@lfdr.de>; Fri, 14 May 2021 17:10:26 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id BD5B73C89CA
-	for <lists+linux-ltp@lfdr.de>; Fri, 14 May 2021 17:07:00 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 9C3453C89D6
+	for <lists+linux-ltp@lfdr.de>; Fri, 14 May 2021 17:10:25 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 80CF63C63A2
- for <ltp@lists.linux.it>; Fri, 14 May 2021 17:06:57 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 715AC3C1937
+ for <ltp@lists.linux.it>; Fri, 14 May 2021 17:10:21 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 9D86468FF58
- for <ltp@lists.linux.it>; Fri, 14 May 2021 17:06:56 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id CEE7C100142B
+ for <ltp@lists.linux.it>; Fri, 14 May 2021 17:10:20 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id CC22FB1A5;
- Fri, 14 May 2021 15:06:55 +0000 (UTC)
-Date: Fri, 14 May 2021 17:06:53 +0200
+ by mx2.suse.de (Postfix) with ESMTP id 2E34EB1C8;
+ Fri, 14 May 2021 15:10:20 +0000 (UTC)
+Date: Fri, 14 May 2021 17:10:18 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <YJ6SDSAsLoXHgnOc@pevik>
-References: <20210514132639.4181-1-pvorel@suse.cz>
- <YJ6A0gcR9L+P9IXm@yuki>
+To: Li Wang <liwang@redhat.com>
+Message-ID: <YJ6S2lNjP+G8x0ax@pevik>
+References: <20210508055109.16914-4-liwang@redhat.com>
+ <dfdd8e9a-90ca-642d-1c21-da169ca3878f@jv-coder.de>
+ <CAEemH2et8_SXWJTsofdt7gc0NRV=91rPe0RtAMt1BX=SbAzhig@mail.gmail.com>
+ <YJvkFTUWS2iuZ00H@pevik>
+ <CAEemH2fRLqipQWTxVsakYNGsmQT+2X8_xzgepCiAY1O8YWtKFA@mail.gmail.com>
+ <YJ4sh7zBOZxQy1S0@pevik>
+ <CAEemH2dOg0JN6XrptGZ6WN3C1SOYpWKgSTdXtpcjSZzBjsnOMQ@mail.gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <YJ6A0gcR9L+P9IXm@yuki>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+In-Reply-To: <CAEemH2dOg0JN6XrptGZ6WN3C1SOYpWKgSTdXtpcjSZzBjsnOMQ@mail.gmail.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [Automated-testing] [RFC PATCH 1/1] doc: Add supported
- kernel, libc versions
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3 3/4] lib: ignore SIGINT in _tst_kill_test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,108 +56,64 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: Xiao Yang <yangx.jy@cn.fujitsu.com>, automated-testing@yoctoproject.org,
- Yang Xu <xuyang2018.jy@cn.fujitsu.com>, ltp@lists.linux.it
+Cc: LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Cyril,
+Hi Li, Joerg, Cyril,
 
-> Hi!
-> > +Supported kernel, libc, toolchain versions
-> > +==========================================
-> > +
-> > +1. Build testing with Travis CI
-> > +-------------------------------
-> > +
-> > +We test master branch in https://travis-ci.org/github/linux-test-project/ltp/builds[travis CI]
-> > +to ensure LTP builds on various distributions including old, current and bleeding edge.
-> > +We test both gcc and clang toolchains, various arch with cross-compilation.
-> > +
-> > +For list of tested distros see
-> > +https://github.com/linux-test-project/ltp/blob/master/.travis.yml[.travis.yml].
-> > +
-> > +
-> > +NOTE: Travis does only build testing, passing the CI means only that the
-> > +      test compiles fine on variety of different distributions and releases.
-> > +
-> > +1.1 Oldest tested distributions
-> > +~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> > +
-> > +[align="center",options="header"]
-> > +|==============================================================
-> > +| Distro                       | kernel | glibc | gcc   | clang
-> > +| CentOS 7                     | 3.10   | 2.17  | 4.8.5 | -
-> > +| Ubuntu 16.04 LTS xenial      | 4.4    | 2.23  | 5.3.1 | -
-> > +| Debian 9 stretch (oldstable) | 4.9.30 | 2.24  | 6.3.0 | 3.8
-> > +|==============================================================
-> > +
-> > +For older versions please use https://github.com/linux-test-project/ltp/releases[older LTP releases].
+> Petr Vorel <pvorel@suse.cz> wrote:
 
-> I'm not sure that this is a good suggestion.
+> > > Does this below (rough solution in my mind) work for you?
+> > LGTM, but Joerg, Metan, could you please have a look?
 
-> I would write something as:
+> Thanks, I wouldn't send a patch until Joerg/Cyril has a review.
+> (Maybe Joerg will have another better solution:)
+Understand.
 
-> Older distributions are not officially supported, which means that it
-> may or may not work. It all depends on your luck. It should be possible
-> to compile latest LTP even on slightly older distributions than we
-> support with a few manual tweaks, e.g. disabling manually tests for
-> newly added syscalls manually, etc.
+> > > diff --git a/lib/newlib_tests/shell/timeout03.sh
+> > > b/lib/newlib_tests/shell/timeout03.sh
+> > > index cd548d9a2..f39f5712a 100755
+> > > --- a/lib/newlib_tests/shell/timeout03.sh
+> > > +++ b/lib/newlib_tests/shell/timeout03.sh
+> > > @@ -30,6 +30,7 @@ TST_TIMEOUT=1
 
-> If latest LTP cannot be compiled even with some amount of workarounds,
-> you may result to older LTP releases, however these are _not_ supported
-> in any way. Also if you are trying to run LTP on more than 10 years old
-> distribution you may as well reconsider you life choices.
-+1 (although not sure about the latest sentence :))
+> > >  do_test()
+> > >  {
+> > > +       trap "echo 'Sorry, timeout03 is still alive'" TERM
+> > Any reason why not use tst_res TINFO? (working on bash).
 
-> > +1.2 Supported architectures
->         ^
-> 	Tested?
+> +1
+> I just use echo for a quick test, but surely we can replace it with tst_res.
 +1
 
-> We do support more than we test, right?
 
-> > +~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> > +
-> > +[align="center",options="header"]
-> > +|==================================
-> > +| arch          | build
-> > +| x86_64        | native
-> > +| x86 emulation | native
-> > +| aarch64       | cross compilation
-> > +| ppc64le       | cross compilation
-> > +| s390x         | cross compilation
-> > +|==================================
-> > +
-> > +1.3 Supported libc
-> > +~~~~~~~~~~~~~~~~~~
-> > +
-> > +Targeted libc is https://www.gnu.org/software/libc/[GNU C Library (glibc)].
-> > +
-> > +https://uclibc-ng.org/[uClibc-ng] is not being tested should work as well as it
-> > +attempt to maintain a glibc compatible interface
-> > +(older https://www.uclibc.org/[uClibc] might have problems).
-> > +
-> > +https://musl.libc.org/[musl] is not yet supported
->                                           ^
-> 					  fully?
-+1
+> > > -       while kill -0 $pid 2>&1 > /dev/null && [ $i -gt 0 ]; do
+> > > +       while kill -0 $pid &>/dev/null && [ $i -gt 0 ]; do
+> > FYI: &> is a bashism (we need to keep the original).
 
-> > +(see https://github.com/linux-test-project/ltp/blob/master/travis/alpine.sh[travis script]
-> > +for list of files which need to be deleted in order to compile under musl).
-> > +
-> > +For bionic libc please (Android) use https://android.googlesource.com/platform/external/ltp/[AOSP fork].
+> I just want the error does not to redirect to standard output.
+> Because with SIGTERM sending, it seems easier to kill all
+> processes, so 'kill -0 $pid' returns "No such process" errors often.
 
-
-> Thanks a lot for starting this.
-
-Thanks a lot for all the feedback, I'll take it all for v2.
-It'd be nice to get it merged before the release.
+> Mayby I should go with: kill -0 $pid >/dev/null 2>&1
++1. Now I see it, "2>&1 > /dev/null" is wrong, it must be vice versa.
 
 Kind regards,
 Petr
+
+> e.g.
+
+> # ./timeout04.sh
+> timeout04 1 TINFO: timeout per run is 0h 0m 1s
+> timeout04 1 TINFO: Start
+> timeout04 1 TBROK: Test timeouted, sending SIGTERM! If you are running
+> on slow machine, try exporting LTP_TIMEOUT_MUL > 1
+> Terminated
+> ./../../../testcases/lib/tst_test.sh: line 448: kill: (74911) - No such process
+> ./../../../testcases/lib/tst_test.sh: line 454: kill: (74911) - No such process
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
