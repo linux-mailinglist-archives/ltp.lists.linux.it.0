@@ -2,45 +2,43 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96B883804B0
-	for <lists+linux-ltp@lfdr.de>; Fri, 14 May 2021 09:53:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 012CF3804C0
+	for <lists+linux-ltp@lfdr.de>; Fri, 14 May 2021 09:57:03 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 62D213C3309
-	for <lists+linux-ltp@lfdr.de>; Fri, 14 May 2021 09:53:48 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C71583C3315
+	for <lists+linux-ltp@lfdr.de>; Fri, 14 May 2021 09:57:02 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 566A33C1AE8
- for <ltp@lists.linux.it>; Fri, 14 May 2021 09:53:46 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id CF3EB3C1AE8
+ for <ltp@lists.linux.it>; Fri, 14 May 2021 09:57:00 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id A818F200E14
- for <ltp@lists.linux.it>; Fri, 14 May 2021 09:53:45 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 83A47201110
+ for <ltp@lists.linux.it>; Fri, 14 May 2021 09:56:58 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 04366B150;
- Fri, 14 May 2021 07:53:45 +0000 (UTC)
-Date: Fri, 14 May 2021 09:53:43 +0200
+ by mx2.suse.de (Postfix) with ESMTP id 20751B14D;
+ Fri, 14 May 2021 07:56:58 +0000 (UTC)
+Date: Fri, 14 May 2021 09:56:56 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <YJ4sh7zBOZxQy1S0@pevik>
-References: <20210508055109.16914-4-liwang@redhat.com>
- <dfdd8e9a-90ca-642d-1c21-da169ca3878f@jv-coder.de>
- <CAEemH2et8_SXWJTsofdt7gc0NRV=91rPe0RtAMt1BX=SbAzhig@mail.gmail.com>
- <YJvkFTUWS2iuZ00H@pevik>
- <CAEemH2fRLqipQWTxVsakYNGsmQT+2X8_xzgepCiAY1O8YWtKFA@mail.gmail.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <YJ4tSLCwmRfItDgS@pevik>
+References: <20210513182638.5514-1-pvorel@suse.cz>
+ <YJ4lYU5PC4d9Yc+0@yuki>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CAEemH2fRLqipQWTxVsakYNGsmQT+2X8_xzgepCiAY1O8YWtKFA@mail.gmail.com>
+In-Reply-To: <YJ4lYU5PC4d9Yc+0@yuki>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3 3/4] lib: ignore SIGINT in _tst_kill_test
+Subject: Re: [LTP] [PATCH 1/1] lapi: Add missing IFA_FLAGS
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,80 +51,89 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: LTP List <ltp@lists.linux.it>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-> > FYI I tried to use both SIGINT and SIGTERM, but there was some problem.
-> > But I guess it was my error. Please *add* SIGTERM (keep SIGINT).
+> Hi!
+> > and use them in tst_netdevice.c. This fixes on older toolchains
+> > (e.g. sourcery-arm from Buildroot):
 
-> Yes, we'd better keep SIGINT for ctrl^c action and use SIGTERM
-> additionally for process terminating.
+> > tst_netdevice.c: In function 'modify_address':
+> > tst_netdevice.c:218:44: error: 'IFA_FLAGS' undeclared (first use in this function)
+> >   if (!tst_rtnl_add_attr(file, lineno, ctx, IFA_FLAGS, &addr_flags,
 
-> Does this below (rough solution in my mind) work for you?
-LGTM, but Joerg, Metan, could you please have a look?
+> > Fixes: bc2151a65 ("lib: Add helper functions for managing network interfaces")
 
-> diff --git a/lib/newlib_tests/shell/timeout03.sh
-> b/lib/newlib_tests/shell/timeout03.sh
-> index cd548d9a2..f39f5712a 100755
-> --- a/lib/newlib_tests/shell/timeout03.sh
-> +++ b/lib/newlib_tests/shell/timeout03.sh
-> @@ -30,6 +30,7 @@ TST_TIMEOUT=1
+> > Signed-off-by: Petr Vorel <petr.vorel@gmail.com>
+> > ---
+> >  configure.ac           |  1 +
+> >  include/lapi/if_addr.h | 15 +++++++++++++++
+> >  lib/tst_netdevice.c    |  2 ++
+> >  3 files changed, 18 insertions(+)
+> >  create mode 100644 include/lapi/if_addr.h
 
->  do_test()
->  {
-> +       trap "echo 'Sorry, timeout03 is still alive'" TERM
-Any reason why not use tst_res TINFO? (working on bash).
->         tst_res TINFO "testing killing test after TST_TIMEOUT"
+> > diff --git a/configure.ac b/configure.ac
+> > index 136d82d09..08a56f9ef 100644
+> > --- a/configure.ac
+> > +++ b/configure.ac
+> > @@ -51,6 +51,7 @@ AC_CHECK_HEADERS_ONCE([ \
+> >      linux/dccp.h \
+> >      linux/fs.h \
+> >      linux/genetlink.h \
+> > +    linux/if_addr.h \
+> >      linux/if_alg.h \
+> >      linux/if_ether.h \
+> >      linux/if_packet.h \
+> > diff --git a/include/lapi/if_addr.h b/include/lapi/if_addr.h
+> > new file mode 100644
+> > index 000000000..c1acfe4fb
+> > --- /dev/null
+> > +++ b/include/lapi/if_addr.h
+> > @@ -0,0 +1,15 @@
+> > +// SPDX-License-Identifier: GPL-2.0-or-later
+> > +/* Copyright (c) 2021 Petr Vorel <petr.vorel@gmail.com> */
+> > +
+> > +#ifndef LAPI_IF_ADDR_H__
+> > +# define LAPI_IF_ADDR_H__
+> > +
+> > +# ifdef HAVE_LINUX_IF_ADDR_H
+> > +#  include <linux/if_addr.h>
 
->         sleep 2
-> diff --git a/testcases/lib/tst_test.sh b/testcases/lib/tst_test.sh
-> index 28c2052d6..d7c9791e9 100644
-> --- a/testcases/lib/tst_test.sh
-> +++ b/testcases/lib/tst_test.sh
-> @@ -21,7 +21,7 @@ export TST_LIB_LOADED=1
->  . tst_security.sh
+> This file is usually included from the rtnetlink.h, shouldn't we rather
+> add lapi/rtnetlink.h that would include linux/rtnetlink.h and simply
+> adds the IFA_FLAGS definition if it's missing?
 
->  # default trap function
-> -trap "tst_brk TBROK 'test interrupted or timed out'" INT
-> +trap "tst_brk TBROK 'test interrupted'" INT
-
->  _tst_do_exit()
->  {
-> @@ -439,18 +439,18 @@ _tst_kill_test()
->  {
->         local i=10
-
-> -       trap '' INT
-> -       tst_res TBROK "Test timeouted, sending SIGINT! If you are
-> running on slow machine, try exporting LTP_TIMEOUT_MUL > 1"
-> -       kill -INT -$pid
-> +       trap '' TERM
-> +       tst_res TBROK "Test timeouted, sending SIGTERM! If you are
-> running on slow machine, try exporting LTP_TIMEOUT_MUL > 1"
-> +       kill -TERM -$pid
->         tst_sleep 100ms
-
-> -       while kill -0 $pid 2>&1 > /dev/null && [ $i -gt 0 ]; do
-> +       while kill -0 $pid &>/dev/null && [ $i -gt 0 ]; do
-FYI: &> is a bashism (we need to keep the original).
->                 tst_res TINFO "Test is still running, waiting ${i}s"
->                 sleep 1
->                 i=$((i-1))
->         done
-
-> -       if kill -0 $pid 2>&1 > /dev/null; then
-> +       if kill -0 $pid &>/dev/null; then
-And here as well.
-
->                 tst_res TBROK "Test still running, sending SIGKILL"
->                 kill -KILL -$pid
->         fi
+I was thinking about it as well. Yep, that's probably better.
+I'll send v2 as it's git freeze.
 
 Kind regards,
 Petr
+
+> > +# endif
+> > +
+> > +#ifndef IFA_FLAGS
+> > +# define IFA_FLAGS 8
+> > +#endif
+> > +
+> > +#endif	/* LAPI_IF_ADDR_H__ */
+> > diff --git a/lib/tst_netdevice.c b/lib/tst_netdevice.c
+> > index 5ca523759..a95f19d35 100644
+> > --- a/lib/tst_netdevice.c
+> > +++ b/lib/tst_netdevice.c
+> > @@ -9,6 +9,8 @@
+> >  #include <linux/veth.h>
+> >  #include <sys/socket.h>
+> >  #include <net/if.h>
+> > +#include "lapi/if_addr.h"
+> > +
+> >  #define TST_NO_DEFAULT_MAIN
+> >  #include "tst_test.h"
+> >  #include "tst_rtnetlink.h"
+> > -- 
+> > 2.31.1
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
