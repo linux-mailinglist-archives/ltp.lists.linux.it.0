@@ -2,43 +2,43 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6ACE83873A3
-	for <lists+linux-ltp@lfdr.de>; Tue, 18 May 2021 09:57:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5EA1A3873CF
+	for <lists+linux-ltp@lfdr.de>; Tue, 18 May 2021 10:18:25 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0DB013C87D1
-	for <lists+linux-ltp@lfdr.de>; Tue, 18 May 2021 09:57:40 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id EE2BC3C87F7
+	for <lists+linux-ltp@lfdr.de>; Tue, 18 May 2021 10:18:24 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id CB34F3C87C7
- for <ltp@lists.linux.it>; Tue, 18 May 2021 09:57:38 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 31B8F3C87D5
+ for <ltp@lists.linux.it>; Tue, 18 May 2021 10:18:20 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 4FED51A00EC9
- for <ltp@lists.linux.it>; Tue, 18 May 2021 09:57:37 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 95258601145
+ for <ltp@lists.linux.it>; Tue, 18 May 2021 10:18:19 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 61665AEFF;
- Tue, 18 May 2021 07:57:37 +0000 (UTC)
-Date: Tue, 18 May 2021 09:57:35 +0200
+ by mx2.suse.de (Postfix) with ESMTP id A49BDADED;
+ Tue, 18 May 2021 08:18:18 +0000 (UTC)
+Date: Tue, 18 May 2021 10:18:17 +0200
 From: Petr Vorel <pvorel@suse.cz>
 To: Richard Palethorpe <rpalethorpe@suse.com>
-Message-ID: <YKNzbz36pAadTD9M@pevik>
+Message-ID: <YKN4SZcHP9GAGRH4@pevik>
 References: <20210517163029.22974-1-rpalethorpe@suse.com>
- <20210517163029.22974-2-rpalethorpe@suse.com>
+ <20210517163029.22974-7-rpalethorpe@suse.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210517163029.22974-2-rpalethorpe@suse.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+In-Reply-To: <20210517163029.22974-7-rpalethorpe@suse.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [RFC PATCH 1/6] API: Make some internal symbols static
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [RFC PATCH 6/6] API: Check exported symbols
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,24 +59,21 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi Richie,
 
-> These do not appear to be referenced anywhere outside the library.
+> Abort the build process if a new symbol is exported from the library
+> without tst_ or safe_ prepended.
 
-> diff --git a/include/old/test.h b/include/old/test.h
-> index 2ae7dba71..a8994c08e 100644
-> --- a/include/old/test.h
-> +++ b/include/old/test.h
-> @@ -113,7 +113,6 @@ void tst_parse_opts(int argc, char *argv[], const option_t *user_optarg,
->                      void (*user_help)(void));
+The PR does not work few on old toolchains [1], it fails on [2]:
 
->  /* lib/tst_res.c */
-> -const char *strttype(int ttype);
+awk: line 1: regular expression /parse_opts ... exceeds implementation size limit
 
-I would not touch legacy API, but this looks to be safe.
-
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
+It's one of the 2 awk calls in check_export_syms.sh, I suppose the other one.
+Maybe put non_prefix_syms into temporary file and then run awk on it?
 
 Kind regards,
 Petr
+
+[1] https://travis-ci.org/github/pevik/ltp/builds/771465129
+[2] https://travis-ci.org/github/pevik/ltp/jobs/771465135#L3115
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
