@@ -2,55 +2,42 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1BE73870CD
-	for <lists+linux-ltp@lfdr.de>; Tue, 18 May 2021 06:55:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2A4B387191
+	for <lists+linux-ltp@lfdr.de>; Tue, 18 May 2021 08:03:04 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 98DF53C5FF0
-	for <lists+linux-ltp@lfdr.de>; Tue, 18 May 2021 06:55:32 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id EAF1A3C6013
+	for <lists+linux-ltp@lfdr.de>; Tue, 18 May 2021 08:03:03 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 64EA73C5FD4
- for <ltp@lists.linux.it>; Tue, 18 May 2021 06:55:31 +0200 (CEST)
-Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id 26F7B3C1E1D
+ for <ltp@lists.linux.it>; Tue, 18 May 2021 08:02:59 +0200 (CEST)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id A0F496008DC
- for <ltp@lists.linux.it>; Tue, 18 May 2021 06:55:30 +0200 (CEST)
-Received: from [192.168.178.40] (unknown [178.26.168.79])
- by mail.jv-coder.de (Postfix) with ESMTPSA id 97E749F9A5;
- Tue, 18 May 2021 04:55:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
- t=1621313728; bh=Hcp+OIVVmBVW6DJD5w5h0DlqzLPbUAxX0VHckXkMcvQ=;
- h=Subject:To:From:Message-ID:Date:MIME-Version;
- b=XbT0M3g3G5kmUsM8lXWEQZZ1XWQ3vKb7o61zIOYaAoGkJ7L19KCiaZA1BGhFvFy76
- EXxdmjFT+I3V8rBlyped5PDIMtOBri7tu5hZ6aKwn1WB93wlc6W49Di5HruG+PAPZW
- HGAnsKOWSw45NbIPNhKgeb4AdqNJ5H7gw+62PJbA=
-To: Li Wang <liwang@redhat.com>, Petr Vorel <pvorel@suse.cz>
-References: <20210508055109.16914-4-liwang@redhat.com>
- <dfdd8e9a-90ca-642d-1c21-da169ca3878f@jv-coder.de>
- <CAEemH2et8_SXWJTsofdt7gc0NRV=91rPe0RtAMt1BX=SbAzhig@mail.gmail.com>
- <YJvkFTUWS2iuZ00H@pevik>
- <CAEemH2fRLqipQWTxVsakYNGsmQT+2X8_xzgepCiAY1O8YWtKFA@mail.gmail.com>
-From: Joerg Vehlow <lkml@jv-coder.de>
-Message-ID: <a4154e09-8ae3-beb3-13d5-c92126177ed5@jv-coder.de>
-Date: Tue, 18 May 2021 06:57:15 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.1
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 88BF71000D22
+ for <ltp@lists.linux.it>; Tue, 18 May 2021 08:02:58 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 99AB4ADDB;
+ Tue, 18 May 2021 06:02:57 +0000 (UTC)
+Date: Tue, 18 May 2021 08:02:56 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
+Message-ID: <YKNYkNOqsmhv9kSJ@pevik>
+References: <20210517085637.16866-1-aleksei.kodanev@bell-sw.com>
 MIME-Version: 1.0
-In-Reply-To: <CAEemH2fRLqipQWTxVsakYNGsmQT+2X8_xzgepCiAY1O8YWtKFA@mail.gmail.com>
-Content-Language: en-US
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20210517085637.16866-1-aleksei.kodanev@bell-sw.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH v3 3/4] lib: ignore SIGINT in _tst_kill_test
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] network/lib6/getaddrinfo01: rewrite with the new
+ API + use static hostnames
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,50 +49,129 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGkgTGksCgpPbiA1LzEzLzIwMjEgNzowOCBBTSwgTGkgV2FuZyB3cm90ZToKPj4gRllJIEkgdHJp
-ZWQgdG8gdXNlIGJvdGggU0lHSU5UIGFuZCBTSUdURVJNLCBidXQgdGhlcmUgd2FzIHNvbWUgcHJv
-YmxlbS4KPj4gQnV0IEkgZ3Vlc3MgaXQgd2FzIG15IGVycm9yLiBQbGVhc2UgKmFkZCogU0lHVEVS
-TSAoa2VlcCBTSUdJTlQpLgo+IFllcywgd2UnZCBiZXR0ZXIga2VlcCBTSUdJTlQgZm9yIGN0cmxe
-YyBhY3Rpb24gYW5kIHVzZSBTSUdURVJNCj4gYWRkaXRpb25hbGx5IGZvciBwcm9jZXNzIHRlcm1p
-bmF0aW5nLgo+Cj4gRG9lcyB0aGlzIGJlbG93IChyb3VnaCBzb2x1dGlvbiBpbiBteSBtaW5kKSB3
-b3JrIGZvciB5b3U/Cj4KPiBkaWZmIC0tZ2l0IGEvbGliL25ld2xpYl90ZXN0cy9zaGVsbC90aW1l
-b3V0MDMuc2gKPiBiL2xpYi9uZXdsaWJfdGVzdHMvc2hlbGwvdGltZW91dDAzLnNoCj4gaW5kZXgg
-Y2Q1NDhkOWEyLi5mMzlmNTcxMmEgMTAwNzU1Cj4gLS0tIGEvbGliL25ld2xpYl90ZXN0cy9zaGVs
-bC90aW1lb3V0MDMuc2gKPiArKysgYi9saWIvbmV3bGliX3Rlc3RzL3NoZWxsL3RpbWVvdXQwMy5z
-aAo+IEBAIC0zMCw2ICszMCw3IEBAIFRTVF9USU1FT1VUPTEKPgo+ICAgZG9fdGVzdCgpCj4gICB7
-Cj4gKyAgICAgICB0cmFwICJlY2hvICdTb3JyeSwgdGltZW91dDAzIGlzIHN0aWxsIGFsaXZlJyIg
-VEVSTQo+ICAgICAgICAgIHRzdF9yZXMgVElORk8gInRlc3Rpbmcga2lsbGluZyB0ZXN0IGFmdGVy
-IFRTVF9USU1FT1VUIgo+Cj4gICAgICAgICAgc2xlZXAgMgo+IGRpZmYgLS1naXQgYS90ZXN0Y2Fz
-ZXMvbGliL3RzdF90ZXN0LnNoIGIvdGVzdGNhc2VzL2xpYi90c3RfdGVzdC5zaAo+IGluZGV4IDI4
-YzIwNTJkNi4uZDdjOTc5MWU5IDEwMDY0NAo+IC0tLSBhL3Rlc3RjYXNlcy9saWIvdHN0X3Rlc3Qu
-c2gKPiArKysgYi90ZXN0Y2FzZXMvbGliL3RzdF90ZXN0LnNoCj4gQEAgLTIxLDcgKzIxLDcgQEAg
-ZXhwb3J0IFRTVF9MSUJfTE9BREVEPTEKPiAgIC4gdHN0X3NlY3VyaXR5LnNoCj4KPiAgICMgZGVm
-YXVsdCB0cmFwIGZ1bmN0aW9uCj4gLXRyYXAgInRzdF9icmsgVEJST0sgJ3Rlc3QgaW50ZXJydXB0
-ZWQgb3IgdGltZWQgb3V0JyIgSU5UCj4gK3RyYXAgInRzdF9icmsgVEJST0sgJ3Rlc3QgaW50ZXJy
-dXB0ZWQnIiBJTlQKVGhpcyB3b3VsZCByZXF1aXJlIHNvbWV0aGluZyBsaWtlCnRyYXAgInRzdF9i
-cmsgVEJST0sgJ3Rlc3QgdGVybWluYXRlZCciIFRFUk0Kb3IKdHJhcCAiX3RzdF9kb19leGl0IiBU
-RVJNCgpPdGhlcndpc2UgdGhlIHRlc3QgaXMgdGVybWluYXRlZCB2ZXJ5IHJvdWdobHksIHdpdGhv
-dXQgZXhlY3V0aW5nIApjbGVhbnVwLCB3aGljaCBpcyBwcm9iYWJseSBub3QgYSBnb29kIGlkZWEu
-CgpCdXQgdGhhdCBpbnRyb2R1Y2VzIHRoZSBuZXh0IHByb2JsZW06IEEgc2hvcnQgZGVhZGxvY2sg
-YmV0d2VlbiAKX3RzdF9raWxsX3Rlc3QgYW5kIF90c3RfY2xlYW51cF90aW1lciwKYmVjYXVzZSBf
-dHN0X2NsZWFudXBfdGltZXIgd2FpdHMgZm9yIHRoZSB0ZXJtaW5hdGlvbiBvZiB0aGUgdGltZW91
-dCAKcHJvY2VzcyBhbmQgdmljZSB2ZXJzYS4KQW5vdGhlciBwcm9ibGVtIGlzLCB0aGF0IGEgU0lH
-VEVSTSBvcmlnaW5hdGluZyBmcm9tIHNvbWUgb3RoZXIgbG9jYXRpb24gCmNvdWxkIGxvb2sgbGlr
-ZSBhIHRpbWVvdXQuCgpJIGFtIGN1cnJlbnRseSB0aGlua2luZyBhYm91dCB0aGUgZm9sbG93aW5n
-IHNvbHV0aW9uLCB0byBtaXRpZ2F0ZSBtb3N0IApwcm9ibGVtczoKVGhlIHRpbWVvdXQgcHJvY2Vz
-cyBzZW5kcyBTSUdVU1IxIChvciBtYXliZSBTSUdBTFJNPykgb25seSB0byB0aGUgbWFpbiAKdGVz
-dCBwcm9jZXNzIGFuZCBibG9ja3MgVEVSTS4KVGhlIG1haW4gcHJvY2VzcyBjYW4gcHJpbnQsIHRo
-YXQgaXQgcmFuIGludG8gYSB0aW1lb3V0LCBzZW5kIGEgc2lndGVybSAKdG8gaXRzIHByb2Nlc3Nz
-IGdyb3VwICh3aGlsZSBpZ25vcmluZyBURVJNIGl0c2VsZikuClRoZW4gaXQgY2FuIHVuc2V0ICRf
-dHN0X3NldHVwX3RpbWVyX3BpZCBzYWZlbHksIGJlY2F1c2UgaXQga25vd3MgaXQgd2FzIAp0cmln
-Z2VyZWQgYnkgdGhlIHRpbWVvdXQgcHJvY2VzcyBhbmQgZXhlY3V0ZSBfdHN0X2RvX2V4aXQuCgpJ
-ZiB0aGUgdGltZW91dCBwcm9jZXNzIGRvZXMgbm90IHNlZSB0aGUgdGVybWluYXRpb24gb2YgdGhl
-IG1haW4gcHJvY2VzcywgCml0IGNhbiBzdGlsbCBzZW5kIFNJR0tJTEwgdG8gdGhlIHdob2xlIHBy
-b2Nlc3MgZ3JvdXAuCgpKw7ZyZwoKCgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlz
-dHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
+Hi Alexey,
+
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
+
+Moving everything to /etc/hosts based setup is a great idea
+as we get rid of network setup related failures.
+
+Do we lost any getaddrinfo() test coverage for bypassing DNS?
+
+Just a few unimportant nits below (feel free to ignore them).
+Again, I'd be for merging this before release.
+
+> The test is now independent of various machine settings
+> regarding the test host name as it adds predefined names
+> and aliases to /etc/hosts file and restores it to its
+> original state after completing the test.
+
+> This should fix the following failures:
+> * when gethostname() returns an alias name that doesn't
+>   match canonical name;
+> * No AAAA record for the returned name from gethostname().
+
+> Addresses and names added to /etc/hosts are more or less
+> unique, so that there are no conflicts with the existing
+> configuration.
+We might want to put this into docparse documentation, e.g:
+
+/*\
+ * [Description]
+ *
+ * Basic getaddrinfo() tests.
+ *
+ * Test use LTP specific addresses and names added to /etc/hosts to avoid
+ * problems with DNS and hostname setup or conflicts with existing
+ * configuration.
+ */
+
+> Also most of the duplicate code is now gone.
+
+> Signed-off-by: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
+> ---
+>  testcases/network/lib6/getaddrinfo_01.c | 1140 +++++------------------
+>  1 file changed, 235 insertions(+), 905 deletions(-)
+
+> diff --git a/testcases/network/lib6/getaddrinfo_01.c b/testcases/network/lib6/getaddrinfo_01.c
+> index db252a998..23a279ed1 100644
+
+...
+> +static void gaiv(void)
+> +{
+> +	check_addrinfo(1, "basic lookup", hostname, 0, NULL, 0, 0, 0, NULL);
+> +	check_addrinfo_name("canonical name");
+
+...
+> +	check_addrinfo(1, "host+service", hostname, 7, "echo", 0, 0, 0, NULL);
+> +
+> +	check_addrinfo(1, "host+service, AI_PASSIVE", hostname, 9462, "9462",
+> +		       AI_PASSIVE, SOCK_STREAM, 0, test_passive);
+> +
+> +	check_addrinfo(0, "host+service, AI_NUMERICHOST", hostname, 7, "echo",
+> +		       AI_NUMERICHOST, SOCK_STREAM, 0, NULL);
+> +	if (TST_RET != EAI_NONAME)
+> +		tst_brk(TFAIL, "AI_NUMERICHOST: ret %ld exp %d (EAI_NONAME)",
+> +			TST_RET, EAI_NONAME);
+> +	tst_res(TPASS, "AI_NUMERICHOST: exp %ld (EAI_NONAME)", TST_RET);
+> +
+> +	check_addrinfo(1, "0+service, AI_PASSIVE", NULL, 9462, "9462",
+> +		       AI_PASSIVE, SOCK_STREAM, 0, test_passive_no_host);
+> +
+> +	check_addrinfo(0, "0+service", NULL, 9462, "9462",
+> +		       0, SOCK_STREAM, 0, test_loopback);
+> +	if (TST_RET == EAI_BADFLAGS) {
+> +		tst_res(TPASS, "0+service ('', '9462') returns %ld '%s'",
+> +			TST_RET, gai_strerror(TST_RET));
+> +	} else if (TST_RET) {
+> +		tst_brk(TFAIL, "0+service ('', '9462') returns %ld '%s'",
+> +			TST_RET, gai_strerror(TST_RET));
+>  	}
+nit: Maybe having check_addrinfo_badflags() which would do the verification
+would safe few lines of code duplicity.
+
+...
+> -	/* test 16, IPv6 host+service w/ AI_NUMERICHOST */
+> -	memset(&hints, 0, sizeof(hints));
+> -	strcpy(service, "echo");
+> -	servnum = 7;
+> -	hints.ai_family = AF_INET6;
+> -	hints.ai_flags = AI_NUMERICHOST;
+> -	TEST(getaddrinfo(hostname, service, &hints, &aires));
+> -	if (TEST_RETURN != EAI_NONAME) {
+> -		tst_resm(TFAIL, "getaddrinfo IPv6 AI_NUMERICHOST w/ hostname: "
+> -			 "returns %ld expected %d (EAI_NONAME)",
+> -			 TEST_RETURN, EAI_NONAME);
+> -		if (!TEST_RETURN)
+> -			freeaddrinfo(aires);
+> -		return;
+> +	check_addrinfo(0, "SOCK_STREAM/IPPROTO_UDP", NULL, 0, NULL, 0,
+> +		       SOCK_STREAM, IPPROTO_UDP, NULL);
+> +	if (!TST_RET)
+> +		tst_brk(TFAIL, "SOCK_STREAM/IPPROTO_UDP: unexpected pass");
+> +	tst_res(TPASS, "SOCK_STREAM/IPPROTO_UDP: failed as expected");
+> +
+> +	check_addrinfo(0, "socktype 0, 513", NULL, 513, "513", 0, 0, 0, NULL);
+And here also check_addrinfo_badflags() (if implemented)
+and nit: "socktype 0,513" (remove space)
+
+> +	if (TST_RET == EAI_BADFLAGS) {
+> +		tst_res(TPASS, "socktype 0,513 returns %ld '%s'",
+> +			TST_RET, gai_strerror(TST_RET));
+> +	} else if (TST_RET) {
+> +		tst_brk(TFAIL, "socktype 0,513 returns %ld '%s'",
+> +			TST_RET, gai_strerror(TST_RET));
+>  	}
+
+Kind regards,
+Petr
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
