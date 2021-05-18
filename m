@@ -2,79 +2,77 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C9F63874E0
-	for <lists+linux-ltp@lfdr.de>; Tue, 18 May 2021 11:16:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2050E3874F9
+	for <lists+linux-ltp@lfdr.de>; Tue, 18 May 2021 11:22:35 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0286B3C87D1
-	for <lists+linux-ltp@lfdr.de>; Tue, 18 May 2021 11:16:57 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E59E23C87D7
+	for <lists+linux-ltp@lfdr.de>; Tue, 18 May 2021 11:22:34 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 3F98C3C1E1D
- for <ltp@lists.linux.it>; Tue, 18 May 2021 11:16:56 +0200 (CEST)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id A49443C0BCB
+ for <ltp@lists.linux.it>; Tue, 18 May 2021 11:22:33 +0200 (CEST)
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [IPv6:2a00:1450:4864:20::234])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id AEAF960115A
- for <ltp@lists.linux.it>; Tue, 18 May 2021 11:16:55 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1621329414;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Wv5J+JCUYzP2CwYwSVeYtBnBiHvsWLjBk0O6ma8Jr4o=;
- b=MsT6VtaIXDXFp1cVe8/GF55Shx8KKM3WxCyIV+PvS5eU/GBRLx4DHPIGyQw2A3S5yHgUQ+
- iCcmSyZQkS4bP2IdoI1J9lCr/unVR0IknxodaznoyRZZgj0RjrwL+5cpQwoZPIXZQGdaO/
- 3TCFkEoJaDr1Cb0kiqRDZRkxtaW1oq4=
-Received: from mail-yb1-f200.google.com (mail-yb1-f200.google.com
- [209.85.219.200]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-586-Q4zH6-yXMmSUwzommvOg3Q-1; Tue, 18 May 2021 05:16:52 -0400
-X-MC-Unique: Q4zH6-yXMmSUwzommvOg3Q-1
-Received: by mail-yb1-f200.google.com with SMTP id
- a7-20020a5b00070000b02904ed415d9d84so12957258ybp.0
- for <ltp@lists.linux.it>; Tue, 18 May 2021 02:16:52 -0700 (PDT)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 22E231400DD3
+ for <ltp@lists.linux.it>; Tue, 18 May 2021 11:22:33 +0200 (CEST)
+Received: by mail-lj1-x234.google.com with SMTP id o8so10769717ljp.0
+ for <ltp@lists.linux.it>; Tue, 18 May 2021 02:22:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=bell-sw-com.20150623.gappssmtp.com; s=20150623;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=73yoBAEVtDrZq86LiECD1gxwFEQzCZNKsHM/qNAiFBw=;
+ b=j0FtB07/jbfnawO97rWcxXu8quSfRiZOH3htxvpPYbNTiy96xazOyFlSJrlBWC+j+m
+ WcYliZdNFzdd1ytkFmKL7TjCQMfGeogiZJ+e9rlJysnq2uXYU1OorUi2S9A4Y0gEPMxu
+ eu7F0WTUhpqmD6esoCuUBApYKQqlQLmGQAloevBGCog0/SukLhls4qorPpxpyT+Mdp9i
+ wmGMerTxdz6h76ZX3q2mkMiKr8dh8RPXiIIiS10p6J/S+8EdTBjrl3U8UByBEw9MRMfG
+ aZy10RDoCffvsaj0aE754IfVKA2L3t0Q2M7UGsxU4J6mtX96N2Bn62OJwQUCcKbrg5iS
+ IX2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Wv5J+JCUYzP2CwYwSVeYtBnBiHvsWLjBk0O6ma8Jr4o=;
- b=b0L7DyEXENekFDjvlWhGO4oOIo3b/4TQsq6O5yrhbMEHZG6dMHZ0nVaGMf1c7QC8i9
- EpbK4kw/JfO0ZD4YJCPLt/cBj3SF49HH6Jx6oT/2YlBjUihEnLRVsg6+OTTqCaSM9i7X
- +o0zit8tlkTgyCLyjIsAaWEvpI9wrQH23npV1fWJqxm9mhsuSW2fK/q2SjsGKTq/fh5u
- 5ptt2x8OHP45wXa0yQz5/H6PZZRZLbIypuMQN5+IknOX79ZIQfW2sDZy2CeI6m+45ww2
- N6EYjic92j58b51wfKhfd0+c5iEKSuMEQp/ZJ0GaFNkckNHJkJKbVLG0yhiTwSBWQXKx
- 2hTg==
-X-Gm-Message-State: AOAM531LVXFarNBYzRZrrU3VkKYRKtWXsz37Ld/b/o5Pjmf1onegg+qz
- cd/g0Cbfij94Bx96pVxmbYCBl+EbrzHRsYej6YkhjtRXw6tZtlLR7m5jZJWugLA8WuxAqKwSWgu
- DX97ph5m49qgUxxhcFOnCVgBApbk=
-X-Received: by 2002:a25:ae24:: with SMTP id a36mr6228392ybj.97.1621329411668; 
- Tue, 18 May 2021 02:16:51 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJzbx23DkJJwc0ZjZyzXboYtUB+auHlPTagF3rVbnqvNnoEJzdoIMTYf4z7lemg6sZXUkwpLvqzC1vt+OwtQEO8=
-X-Received: by 2002:a25:ae24:: with SMTP id a36mr6228371ybj.97.1621329411537; 
- Tue, 18 May 2021 02:16:51 -0700 (PDT)
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=73yoBAEVtDrZq86LiECD1gxwFEQzCZNKsHM/qNAiFBw=;
+ b=J+juXIIW22ig0u96hB/LJ9mZ1sbW8f/hVvfDFAYf82iYfJ/Bwxan/mr9OcJwQxj0i7
+ YBPQFMx1m8Edm6wwzLFMg/YFKXavy53SJ1IXk/ft2OrUVtj9LYOOjBeOO72ctn8bJoMp
+ SQI7TOGlgyUvS19Cj+k97NVS0OIPjxOnrDr13a6YSA2WHkjfc7zwWcCN87V70UAZlnEe
+ uVyJ+wy1ZIpZ8FN8Py6olpR6nP9yRDNMRLZNqCtUIMu+UU2WWO8OJVExMoT6h2dI6VtJ
+ sY4sMCPgjRF25SW1XiZ3GxQbNanWrGEInq/RYaHXaEmD+xnHK4bVgys5Kr8Lb4K9ClqF
+ Edhg==
+X-Gm-Message-State: AOAM530OQUQAlW7NLb3SXu+kGwvaKzvqW0P4XIWoLhq2H0Xh9J6TOjGb
+ WnwmaEtHb1rSC1XmH2w147lN
+X-Google-Smtp-Source: ABdhPJyi3vOE7ujYYB6GcK4AsL9K8wlcOeMVFFddPyFCA7mwX4SaMTKNJxKqhVV3W3MYQ1/tZ10cSg==
+X-Received: by 2002:a2e:bf14:: with SMTP id c20mr3325122ljr.57.1621329752473; 
+ Tue, 18 May 2021 02:22:32 -0700 (PDT)
+Received: from [192.168.1.52] ([95.161.221.177])
+ by smtp.gmail.com with ESMTPSA id 8sm580355lfy.284.2021.05.18.02.22.31
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 18 May 2021 02:22:32 -0700 (PDT)
+To: ltp@lists.linux.it
+References: <20210518091422.41857-1-aleksei.kodanev@bell-sw.com>
+From: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
+Message-ID: <f584f853-c13c-cc16-8e75-085af0b82418@bell-sw.com>
+Date: Tue, 18 May 2021 12:22:31 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-References: <20210517163029.22974-1-rpalethorpe@suse.com>
- <20210517163029.22974-3-rpalethorpe@suse.com>
-In-Reply-To: <20210517163029.22974-3-rpalethorpe@suse.com>
-From: Li Wang <liwang@redhat.com>
-Date: Tue, 18 May 2021 17:16:39 +0800
-Message-ID: <CAEemH2f4uOzFgfsxZJP1Qsxzz1eQwYECSx2pDXSu5fJYBc32=Q@mail.gmail.com>
-To: Richard Palethorpe <rpalethorpe@suse.com>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+In-Reply-To: <20210518091422.41857-1-aleksei.kodanev@bell-sw.com>
+Content-Language: en-US
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [RFC PATCH 2/6] API: Add tst_ to create_sig_proc
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] network/lib6/getaddrinfo01: rewrite with the
+ new API + use static hostnames
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,22 +84,36 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Tue, May 18, 2021 at 12:31 AM Richard Palethorpe via ltp
-<ltp@lists.linux.it> wrote:
->
-> Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
-Reviewed-by: Li Wang <liwang@redhat.com>
+On 18.05.2021 12:14, Alexey Kodanev wrote:
+> The test is now independent of various machine settings
+> regarding the test host name as it adds predefined names
+> and aliases to /etc/hosts file and restores it to its
+> original state after completing the test.
+> 
+> This should fix the following failures:
+> * when gethostname() returns an alias name that doesn't
+>   match canonical name;
+> * No AAAA record for the returned name from gethostname().
+> 
+> Addresses and names added to /etc/hosts are more or less
+> unique, so that there are no conflicts with the existing
+> configuration.
+> 
+> Also most of the duplicate code is now gone.
+> 
+> Signed-off-by: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
+> Reviewed-by: Petr Vorel <pvorel@suse.cz>
+> ---
 
---
-Regards,
-Li Wang
-
+Adding missing v2 update suggested by Petr:
+* description tag
+* new check_addrinfo_badflags(const char *) to remove even more code
+duplication.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
