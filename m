@@ -1,43 +1,45 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C3AF3875DB
-	for <lists+linux-ltp@lfdr.de>; Tue, 18 May 2021 11:57:30 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DD57387667
+	for <lists+linux-ltp@lfdr.de>; Tue, 18 May 2021 12:25:19 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C0E893CA216
-	for <lists+linux-ltp@lfdr.de>; Tue, 18 May 2021 11:57:29 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 4EDCF3CA3D9
+	for <lists+linux-ltp@lfdr.de>; Tue, 18 May 2021 12:25:18 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 23EDE3CA02A
- for <ltp@lists.linux.it>; Tue, 18 May 2021 11:57:28 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id C94EA3C5E47
+ for <ltp@lists.linux.it>; Tue, 18 May 2021 12:25:14 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 88EB11A005E8
- for <ltp@lists.linux.it>; Tue, 18 May 2021 11:57:27 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 2CA631000DEE
+ for <ltp@lists.linux.it>; Tue, 18 May 2021 12:25:13 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id C0243AE92
- for <ltp@lists.linux.it>; Tue, 18 May 2021 09:57:26 +0000 (UTC)
-References: <20210517163029.22974-1-rpalethorpe@suse.com>
- <20210517163029.22974-7-rpalethorpe@suse.com> <YKN4SZcHP9GAGRH4@pevik>
-User-agent: mu4e 1.4.15; emacs 27.2
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Petr Vorel <pvorel@suse.cz>
-In-reply-to: <YKN4SZcHP9GAGRH4@pevik>
-Date: Tue, 18 May 2021 10:57:26 +0100
-Message-ID: <87im3gl5yx.fsf@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 56A1DAFC4;
+ Tue, 18 May 2021 10:25:13 +0000 (UTC)
+Date: Tue, 18 May 2021 11:59:01 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
+Message-ID: <YKOP5cWttVUANr0i@yuki>
+References: <20210517085637.16866-1-aleksei.kodanev@bell-sw.com>
+ <YKLKn3o7A38/nyjt@pevik>
+ <235d2495-92af-7638-c468-9456dd202296@bell-sw.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <235d2495-92af-7638-c468-9456dd202296@bell-sw.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [RFC PATCH 6/6] API: Check exported symbols
+X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] network/lib6/getaddrinfo01: rewrite with the new
+ API + use static hostnames
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,45 +51,42 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
 Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello Petr,
+Hi!
+> >> The test is now independent of various machine settings
+> >> regarding the test host name as it adds predefined names
+> >> and aliases to /etc/hosts file and restores it to its
+> >> original state after completing the test.
+> > 
+> >> This should fix the following failures:
+> >> * when gethostname() returns an alias name that doesn't
+> >>   match canonical name;
+> >> * No AAAA record for the returned name from gethostname().
+> > 
+> >> Addresses and names added to /etc/hosts are more or less
+> >> unique, so that there are no conflicts with the existing
+> >> configuration.
+> > 
+> >> Also most of the duplicate code is now gone.
+> > 
+> > Thanks a lot. On a first look looks very nice, I'll try to review tomorrow.
+> > I'd be for merging this before release as the old code is broken.
+> 
+> Yeah, I'm for it too.
 
-Petr Vorel <pvorel@suse.cz> writes:
-
-> Hi Richie,
->
->> Abort the build process if a new symbol is exported from the library
->> without tst_ or safe_ prepended.
->
-> The PR does not work few on old toolchains [1], it fails on [2]:
->
-> awk: line 1: regular expression /parse_opts ... exceeds implementation size limit
->
-> It's one of the 2 awk calls in check_export_syms.sh, I suppose the other one.
-> Maybe put non_prefix_syms into temporary file and then run awk on it?
-
-I doubt it will help, it seems the ignore regex is too long. I'm not
-sure we need the script to run on old toolchains though.
-
-Maybe we need a development mode configure flag?
-
->
-> Kind regards,
-> Petr
->
-> [1] https://travis-ci.org/github/pevik/ltp/builds/771465129
-> [2] https://travis-ci.org/github/pevik/ltp/jobs/771465135#L3115
-
+I would be a bit more cautious now as it's fairly late in the release
+process. We already started pre-release testing and got some reports in.
+Merging this would invalidate results for this test and would require
+re-testing.
 
 -- 
-Thank you,
-Richard.
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
