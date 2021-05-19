@@ -2,43 +2,43 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F608388D1E
-	for <lists+linux-ltp@lfdr.de>; Wed, 19 May 2021 13:41:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D21F4388D1F
+	for <lists+linux-ltp@lfdr.de>; Wed, 19 May 2021 13:41:55 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2B7F33C4F20
-	for <lists+linux-ltp@lfdr.de>; Wed, 19 May 2021 13:41:11 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 8C1003C306E
+	for <lists+linux-ltp@lfdr.de>; Wed, 19 May 2021 13:41:55 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 82F4D3C192D
- for <ltp@lists.linux.it>; Wed, 19 May 2021 13:41:06 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 5207B3C192D
+ for <ltp@lists.linux.it>; Wed, 19 May 2021 13:41:52 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 9D0F96012CB
- for <ltp@lists.linux.it>; Wed, 19 May 2021 13:41:05 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id D5585200C04
+ for <ltp@lists.linux.it>; Wed, 19 May 2021 13:41:51 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id EA940AF8A;
- Wed, 19 May 2021 11:41:04 +0000 (UTC)
-Date: Wed, 19 May 2021 13:14:54 +0200
+ by mx2.suse.de (Postfix) with ESMTP id 3A742AFEC;
+ Wed, 19 May 2021 11:41:51 +0000 (UTC)
+Date: Wed, 19 May 2021 13:15:40 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Richard Palethorpe <rpalethorpe@suse.com>
-Message-ID: <YKTzLu20TzEw4095@yuki>
+Message-ID: <YKTzXGRE4QfLUwyO@yuki>
 References: <20210513152125.25766-1-rpalethorpe@suse.com>
- <20210513152125.25766-2-rpalethorpe@suse.com>
+ <20210513152125.25766-3-rpalethorpe@suse.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210513152125.25766-2-rpalethorpe@suse.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+In-Reply-To: <20210513152125.25766-3-rpalethorpe@suse.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/6] API/cgroups: Allow fetching of CGroup name
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 2/6] API/cgroups: Remove obsolete function in API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
