@@ -2,54 +2,44 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F06C388C44
-	for <lists+linux-ltp@lfdr.de>; Wed, 19 May 2021 13:01:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13966388CB9
+	for <lists+linux-ltp@lfdr.de>; Wed, 19 May 2021 13:24:38 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4B2743C552B
-	for <lists+linux-ltp@lfdr.de>; Wed, 19 May 2021 13:01:58 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 5FBD33C55CE
+	for <lists+linux-ltp@lfdr.de>; Wed, 19 May 2021 13:24:37 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id CE8903C1A7E
- for <ltp@lists.linux.it>; Wed, 19 May 2021 13:01:54 +0200 (CEST)
-Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id 051F13C1B0F
+ for <ltp@lists.linux.it>; Wed, 19 May 2021 13:24:32 +0200 (CEST)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id E28CB1A01208
- for <ltp@lists.linux.it>; Wed, 19 May 2021 13:01:53 +0200 (CEST)
-Received: from [192.168.178.40] (unknown [178.26.168.79])
- by mail.jv-coder.de (Postfix) with ESMTPSA id 9640C9F75E;
- Wed, 19 May 2021 11:01:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
- t=1621422112; bh=33FIDVB1EE1GAfmsD3vmq0EjTjOJ/qOIRUhgY8HQzBc=;
- h=Subject:To:From:Message-ID:Date:MIME-Version;
- b=imo0aLL9aDfi5tz6E8mobAwGQ9X1w4tOaKv+ufonztJEhtEqSCN6ql01xqxBZwG6X
- 44Lf8C3tyN0WeIEv8cbYI9GYRRX11BCPg1uIHy25bFzxBxe+Z1pUSWw0eG6d0ig9Ni
- 0W1VJMKrXw8NMJ0h2ODZGdg362zrwLhfkdPkMAWQ=
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 76D766008C3
+ for <ltp@lists.linux.it>; Wed, 19 May 2021 13:24:32 +0200 (CEST)
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 9CC0DAEC6;
+ Wed, 19 May 2021 11:24:31 +0000 (UTC)
+Date: Wed, 19 May 2021 13:24:29 +0200
+From: Petr Vorel <pvorel@suse.cz>
 To: Cyril Hrubis <chrubis@suse.cz>
-References: <20210519063109.224352-1-lkml@jv-coder.de>
- <20210519063109.224352-2-lkml@jv-coder.de> <YKToUgBnK6ZQ5I0Q@yuki>
-From: Joerg Vehlow <lkml@jv-coder.de>
-Message-ID: <2f8e652b-aaa8-5f98-4f9d-5b7c138c17fa@jv-coder.de>
-Date: Wed, 19 May 2021 13:03:40 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.2
+Message-ID: <YKT1bTfLGsiedaya@pevik>
+References: <20210518173039.4657-1-pvorel@suse.cz> <YKP+KakyxIuGc/fo@yuki>
+ <YKQRyk/6SNiqUryH@pevik> <YKTR12JzOJiFOaPv@yuki>
 MIME-Version: 1.0
-In-Reply-To: <YKToUgBnK6ZQ5I0Q@yuki>
-Content-Language: en-US
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <YKTR12JzOJiFOaPv@yuki>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH 2/2] shell: Extend timeout tests,
- to run on multiple shells
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [Automated-testing] [PATCH v2 1/1] doc: Add supported
+ distros (kernel, libc, toolchain)
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,25 +51,38 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>, ltp@lists.linux.it
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: Xiao Yang <yangx.jy@cn.fujitsu.com>, automated-testing@yoctoproject.org,
+ Yang Xu <xuyang2018.jy@cn.fujitsu.com>, ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SEkgQ3lyaWwsCgpPbiA1LzE5LzIwMjEgMTI6MjggUE0sIEN5cmlsIEhydWJpcyB3cm90ZToKPiBI
-aSEKPj4gVGhlcmUgYXJlIHNvbWUgZGlmZmVyZW5jZXMgZXNwZWNpYWxseSBpbiBzaWduYWwgaGFu
-ZGxpbmcKPj4gYmV0d2VlbiB0aGUgc2hlbGxzLCBzbyBleGVjdXRlIHRoZSB0ZXN0cyBvbiBhcyBt
-YW55Cj4+IHNoZWxscyBhcyBwb3NzaWJsZS4KPiBJJ20gbm90IHN1cmUgdGhhdCB3ZSB3YW50IHRv
-IHN1cHBvcnQgYW55dGhpbmcgYnV0IGJhc2gsIGRhc2ggYW5kCj4gYnVzeWJveCBhbmQgZXZlbiB0
-aGVzZSB0aHJlZSBhcmUgZW5vdWdoIHRyb3VibGUuCj4KPiBPbmUgb2YgbXkgZnJpZW5kcyBvbmNl
-IHRvbGQgbWUgdGhhdCBpdCdzIGVhc2llciB0byB3cml0ZSBhIHBvcnRhYmxlCj4gc2hlbGwgdGhh
-biBwb3J0YWJsZSBzaGVsbCBjb2RlIGFuZCBpdCBsb29rcyBsaWtlIGhlIHdhcyByaWdodC4uLgo+
-CkluIGdlbmVyYWwgSSB3b3VsZCBzYXk6IFlFUwpCdXQgaWYgYXQgc29tZSBwb2ludCBpbiB0aGUg
-ZnV0dXJlIHRoZXJlIGFyZSBmZWF0dXJlcyB1c2VkLCB0aGF0IHJlYWxseSAKb25seSB3b3JrIGZv
-ciBvbmUgc2hlbGwsCndlIGNhbiBzdGlsbCByZWR1Y2UgdGhlIHRlc3RlZCBzaGVsbHMgZm9yIHRo
-aXMgc2NyaXB0LgoKQnR3OiBrc2ggaXMgbm90IHJlYWxseSBzdXBwb3J0LCBpdCBjb21wbGFpbnMg
-YWJvdXQgYWxsIGxvY2FsIHZhcmlhYmxlcywKYmVjYXVzZSBpdCBvbmx5IGFsbG93cyB0aGVtIGlu
-ICJmdW5jdGlvbiA8bmFtZT4iLXN0eWxlIGZ1bmN0aW9ucy4KQnV0IHRoZSB0aW1lb3V0IGNvZGUg
-c3RpbGwgd29ya3MgZXZlbiB0aGVyZS4KCkrDtnJnCgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0
-dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
+> Hi!
+> > > > +but users are encouraged to move to a newer distro.
+> > > > +
+> > > > +If latest LTP cannot be compiled even with some amount of workarounds,
+> > > > +you may result to older LTP releases, however these are _not_ supported
+> > > > +in any way. Also if you are trying to run LTP on more than 10 years old
+> > > > +distribution you may as well reconsider you life choices.
+
+> > > So in the end you haven't changed this for the nicer version I've
+> > > proposed?
+> > I decided to keep it. We're saying similar thing in previous paragraph
+> > ("but users are encouraged to move to a newer distro") and it's actually the
+> > truth (life choice to maintain ancient version). But feel free to suggest
+> > further improvements over these 2 paragraphs.
+
+> Nah, looks good enough, Acked with the typos and grammar fixes.
+
+OK, thanks, merged!
+
+And put into wiki:
+https://github.com/linux-test-project/ltp/wiki/Supported-kernel,-libc,-toolchain-versions
+
+Kind regards,
+Petr
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
