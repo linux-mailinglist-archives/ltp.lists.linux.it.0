@@ -1,43 +1,54 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB12938A031
-	for <lists+linux-ltp@lfdr.de>; Thu, 20 May 2021 10:51:00 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id BF62338A0C3
+	for <lists+linux-ltp@lfdr.de>; Thu, 20 May 2021 11:24:27 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5F7283C2FF5
-	for <lists+linux-ltp@lfdr.de>; Thu, 20 May 2021 10:51:00 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 826083C300F
+	for <lists+linux-ltp@lfdr.de>; Thu, 20 May 2021 11:24:27 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 56B883C025F
- for <ltp@lists.linux.it>; Thu, 20 May 2021 10:50:59 +0200 (CEST)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 930EA3C218A
+ for <ltp@lists.linux.it>; Thu, 20 May 2021 11:24:25 +0200 (CEST)
+Received: from szxga05-in.huawei.com (szxga05-in.huawei.com [45.249.212.191])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 67B4F1A0068C
- for <ltp@lists.linux.it>; Thu, 20 May 2021 10:50:58 +0200 (CEST)
-Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 9B394ADE5
- for <ltp@lists.linux.it>; Thu, 20 May 2021 08:50:57 +0000 (UTC)
-References: <20210513152125.25766-1-rpalethorpe@suse.com>
- <20210513152125.25766-7-rpalethorpe@suse.com> <YKT7xfzaUD7nNPzX@yuki>
-User-agent: mu4e 1.4.15; emacs 27.2
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Cyril Hrubis <chrubis@suse.cz>
-In-reply-to: <YKT7xfzaUD7nNPzX@yuki>
-Date: Thu, 20 May 2021 09:50:56 +0100
-Message-ID: <871ra1lrf3.fsf@suse.de>
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id D3DAF60078D
+ for <ltp@lists.linux.it>; Thu, 20 May 2021 11:24:23 +0200 (CEST)
+Received: from dggems702-chm.china.huawei.com (unknown [172.30.72.58])
+ by szxga05-in.huawei.com (SkyGuard) with ESMTP id 4Fm43M6xtgzQnFv
+ for <ltp@lists.linux.it>; Thu, 20 May 2021 17:20:47 +0800 (CST)
+Received: from dggpemm500022.china.huawei.com (7.185.36.162) by
+ dggems702-chm.china.huawei.com (10.3.19.179) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2176.2; Thu, 20 May 2021 17:24:19 +0800
+Received: from ubuntu1804.huawei.com (10.67.174.209) by
+ dggpemm500022.china.huawei.com (7.185.36.162) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2176.2; Thu, 20 May 2021 17:24:18 +0800
+From: Xie Ziyao <xieziyao@huawei.com>
+To: <ltp@lists.linux.it>
+Date: Thu, 20 May 2021 17:24:47 +0800
+Message-ID: <20210520092449.162043-1-xieziyao@huawei.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Originating-IP: [10.67.174.209]
+X-ClientProxiedBy: dggems706-chm.china.huawei.com (10.3.19.183) To
+ dggpemm500022.china.huawei.com (7.185.36.162)
+X-CFilter-Loop: Reflected
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 6/6] sched/cgroup: Add cfs_bandwidth01
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH 0/2 v2] syscalls/sendfile: Convert sendfile{08,
+ 09} to the new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,269 +60,34 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello,
+v1->v2:
+1. Add kernel commit to the tst_test structure as a tags;
+2. Move [Restrictions] to [Description] for sendfile09;
+3. Fix the bug in the previous version for sendfile09 on 32-bit:
+   + #include "lapi/abisize.h"
+   +
+   + #ifndef TST_ABI32
+   ...
+   + #else
+   + TST_TEST_TCONF("This test is only for 64bit");
+   + #endif
 
-Cyril Hrubis <chrubis@suse.cz> writes:
+Xie Ziyao (2):
+  syscalls/sendfile: Convert sendfile08 to the new API
+  syscalls/sendfile: Convert sendfile09 to the new API
 
-> On Thu, May 13, 2021 at 04:21:25PM +0100, Richard Palethorpe via ltp wrote:
->> Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
->> ---
->>  runtest/sched                                 |   1 +
->>  .../kernel/sched/cfs-scheduler/.gitignore     |   1 +
->>  testcases/kernel/sched/cfs-scheduler/Makefile |   4 +-
->>  .../sched/cfs-scheduler/cfs_bandwidth01.c     | 175 ++++++++++++++++++
->>  4 files changed, 179 insertions(+), 2 deletions(-)
->>  create mode 100644 testcases/kernel/sched/cfs-scheduler/cfs_bandwidth01.c
->> 
->> diff --git a/runtest/sched b/runtest/sched
->> index bfc4f2711..592898723 100644
->> --- a/runtest/sched
->> +++ b/runtest/sched
->> @@ -6,6 +6,7 @@ pth_str03 pth_str03
->>  time-schedule01		time-schedule
->>  trace_sched01		trace_sched -c 1
->>  
->> +cfs_bandwidth01 cfs_bandwidth01 -i 5
->>  hackbench01 hackbench 50 process 1000
->>  hackbench02 hackbench 20 thread 1000
->>  
->> diff --git a/testcases/kernel/sched/cfs-scheduler/.gitignore b/testcases/kernel/sched/cfs-scheduler/.gitignore
->> index db2759e4f..c5dacd6ef 100644
->> --- a/testcases/kernel/sched/cfs-scheduler/.gitignore
->> +++ b/testcases/kernel/sched/cfs-scheduler/.gitignore
->> @@ -1 +1,2 @@
->>  /hackbench
->> +cfs_bandwidth01
->> diff --git a/testcases/kernel/sched/cfs-scheduler/Makefile b/testcases/kernel/sched/cfs-scheduler/Makefile
->> index aa3bf8459..2ffe1f7f9 100644
->> --- a/testcases/kernel/sched/cfs-scheduler/Makefile
->> +++ b/testcases/kernel/sched/cfs-scheduler/Makefile
->> @@ -18,8 +18,8 @@
->>  
->>  top_srcdir		?= ../../../..
->>  
->> -include $(top_srcdir)/include/mk/env_pre.mk
->> +include $(top_srcdir)/include/mk/testcases.mk
->>  
->> -LDLIBS			+= -lpthread
->> +hackbench: LDLIBS			+= -lpthread
->>  
->>  include $(top_srcdir)/include/mk/generic_leaf_target.mk
->> diff --git a/testcases/kernel/sched/cfs-scheduler/cfs_bandwidth01.c b/testcases/kernel/sched/cfs-scheduler/cfs_bandwidth01.c
->> new file mode 100644
->> index 000000000..b1f98d50f
->> --- /dev/null
->> +++ b/testcases/kernel/sched/cfs-scheduler/cfs_bandwidth01.c
->> @@ -0,0 +1,175 @@
->> +// SPDX-License-Identifier: GPL-2.0-or-later
->> +/* Copyright (c) 2021 SUSE LLC <rpalethorpe@suse.com> */
->> +/*\
->> + *
->> + * [Description]
->> + *
->> + * Creates a multi-level CGroup hierarchy with the cpu controller
->> + * enabled. The leaf groups are populated with "busy" processes which
->> + * simulate intermittent cpu load. They spin for some time then sleep
->> + * then repeat.
->> + *
->> + * Both the trunk and leaf groups are set cpu bandwidth limits. The
->> + * busy processes will intermittently exceed these limits. Causing
->> + * them to be throttled. When they begin sleeping this will then cause
->> + * them to be unthrottle.
->> + *
->> + * The test is known to reproduce an issue with an update to
->> + * SLE-15-SP1 (kernel 4.12.14-197.64, bsc#1179093).
->> + */
->> +
->> +#include <stdlib.h>
->> +
->> +#include "tst_test.h"
->> +#include "tst_cgroup.h"
->> +#include "tst_timer.h"
->> +
->> +static const struct tst_cgroup_group *cg_test;
->> +static struct tst_cgroup_group *cg_level2, *cg_level3a, *cg_level3b;
->> +static struct tst_cgroup_group *cg_workers[3];
->> +
->> +static void set_cpu_quota(const struct tst_cgroup_group *const cg,
->> +			  const float quota_percent)
->> +{
->> +	const unsigned int period_us = 10000;
->> +	const unsigned int quota_us = (quota_percent / 100) * (float)period_us;
->> +
->> +	if (TST_CGROUP_VER(cg, "cpu") != TST_CGROUP_V1) {
->> +		SAFE_CGROUP_PRINTF(cg, "cpu.max",
->> +				   "%u %u", quota_us, period_us);
->> +	} else {
->> +		SAFE_CGROUP_PRINTF(cg, "cpu.max",
->> +				   "%u", quota_us);
->> +		SAFE_CGROUP_PRINTF(cg, "cpu.cfs_period_us",
->> +				  "%u", period_us);
->> +	}
->> +
->> +	tst_res(TINFO, "Set '%s/cpu.max' = '%d %d'",
->> +		tst_cgroup_group_name(cg), quota_us, period_us);
->> +}
->> +
->> +static struct tst_cgroup_group *
->> +mk_cpu_cgroup(const struct tst_cgroup_group *const cg_parent,
->> +	      const char *const cg_child_name,
->> +	      const float quota_percent)
->> +{
->> +	struct tst_cgroup_group *const cg =
->> +		tst_cgroup_group_mk(cg_parent, cg_child_name);
->> +
->> +	set_cpu_quota(cg, quota_percent);
->> +
->> +	return cg;
->> +}
->> +
->> +static void busy_loop(const unsigned int sleep_ms)
->> +{
->> +	for (;;) {
->> +		tst_timer_start(CLOCK_MONOTONIC_RAW);
->> +		while (!tst_timer_expired_ms(20))
->> +			;
->> +
->> +		const int ret = tst_checkpoint_wait(0, sleep_ms);
->> +
->> +		if (!ret)
->> +			exit(0);
->> +
->> +		if (errno != ETIMEDOUT)
->> +			tst_brk(TBROK | TERRNO, "tst_checkpoint_wait");
->> +	}
->> +}
->> +
->> +static void fork_busy_procs_in_cgroup(const struct tst_cgroup_group *const cg)
->> +{
->> +	const unsigned int sleeps_ms[] = {3000, 1000, 10};
->> +	const pid_t worker_pid = SAFE_FORK();
->> +	size_t i;
->> +
->> +	if (worker_pid)
->> +		return;
->> +
->> +	for (i = 0; i < ARRAY_SIZE(sleeps_ms); i++) {
->> +		const pid_t busy_pid = SAFE_FORK();
->> +
->> +		if (!busy_pid)
->> +			busy_loop(sleeps_ms[i]);
->> +
->> +		SAFE_CGROUP_PRINTF(cg, "cgroup.procs", "%d", busy_pid);
->> +	}
->> +
->> +	tst_reap_children();
->> +
->> +	exit(0);
->> +}
->> +
->> +static void do_test(void)
->> +{
->> +	size_t i;
->> +
->> +	cg_level2 = tst_cgroup_group_mk(cg_test, "level2");
->> +
->> +	cg_level3a = tst_cgroup_group_mk(cg_level2, "level3a");
->> +	cg_workers[0] = mk_cpu_cgroup(cg_level3a, "worker1", 30);
->> +	cg_workers[1] = mk_cpu_cgroup(cg_level3a, "worker2", 20);
->> +
->> +	cg_level3b = tst_cgroup_group_mk(cg_level2, "level3b");
->> +	cg_workers[2] = mk_cpu_cgroup(cg_level3b, "worker3", 30);
->> +
->> +	for (i = 0; i < ARRAY_SIZE(cg_workers); i++)
->> +		fork_busy_procs_in_cgroup(cg_workers[i]);
->> +
->> +	tst_res(TPASS, "Scheduled bandwidth constrained workers");
->> +
->> +	sleep(1);
->> +
->> +	set_cpu_quota(cg_level2, 50);
->> +
->> +	sleep(2);
->> +
->> +	TST_CHECKPOINT_WAKE2(0, 3 * 3);
->> +	tst_reap_children();
->> +
->> +	tst_res(TPASS, "Workers exited");
->> +}
->> +
->> +static void setup(void)
->> +{
->> +	tst_cgroup_require("cpu", NULL);
->> +
->> +	cg_test = tst_cgroup_get_test_group();
->> +}
->> +
->> +static void cleanup(void)
->> +{
->> +	size_t i;
->> +
->> +	for (i = 0; i < ARRAY_SIZE(cg_workers); i++) {
->> +		if (cg_workers[i])
->> +			cg_workers[i] = tst_cgroup_group_rm(cg_workers[i]);
->> +	}
->> +
->> +	if (cg_level3a)
->> +		cg_level3a = tst_cgroup_group_rm(cg_level3a);
->> +	if (cg_level3b)
->> +		cg_level3b = tst_cgroup_group_rm(cg_level3b);
->> +	if (cg_level2)
->> +		cg_level2 = tst_cgroup_group_rm(cg_level2);
->
-> Hmm, I wonder if we can move this part of the cleanup to the test
-> library as well. If we add all cgroups the user has created into a FIFO
-> linked list then this could be implemented as a single loop in the
-> tst_cgroup_clean().
->
-> We would have to loop over the list in the tst_cgroup_group_rm() in
-> order to remove the about to be removed group from the list as well, but
-> I guess that this is still worth the trouble.
+ .../kernel/syscalls/sendfile/sendfile08.c     | 142 ++++-------
+ .../kernel/syscalls/sendfile/sendfile09.c     | 236 ++++++------------
+ 2 files changed, 126 insertions(+), 252 deletions(-)
 
-This sounds good. We probably need to check if the groups have processes
-in them to print a nice error message. My main concern with automatic
-cleanup is confusing errors from deep in the lib.
+--
+2.17.1
 
->
-> Other than that the test looks nice and clean.
->
->> +	tst_cgroup_cleanup();
->> +}
->> +
->> +static struct tst_test test = {
->> +	.test_all = do_test,
->> +	.setup = setup,
->> +	.cleanup = cleanup,
->> +	.forks_child = 1,
->> +	.needs_checkpoints = 1,
->> +	.taint_check = TST_TAINT_W | TST_TAINT_D,
->> +	.tags = (const struct tst_tag[]) {
->> +		{"linux-git", "39f23ce07b93"},
->> +		{"linux-git", "b34cb07dde7c"},
->> +		{"linux-git", "fe61468b2cbc"},
->> +		{"linux-git", "5ab297bab984"},
->> +		{"linux-git", "6d4d22468dae"},
->> +		{ }
->> +	}
->> +};
->> -- 
->> 2.31.1
->> 
->> 
->> -- 
->> Mailing list info: https://lists.linux.it/listinfo/ltp
-
-
--- 
-Thank you,
-Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
