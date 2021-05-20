@@ -1,44 +1,40 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71D9F38AF17
-	for <lists+linux-ltp@lfdr.de>; Thu, 20 May 2021 14:49:42 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id B053838B2F4
+	for <lists+linux-ltp@lfdr.de>; Thu, 20 May 2021 17:21:52 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DC0343C8760
-	for <lists+linux-ltp@lfdr.de>; Thu, 20 May 2021 14:49:41 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 39E553C8736
+	for <lists+linux-ltp@lfdr.de>; Thu, 20 May 2021 17:21:52 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 7A8EE3C53F8
- for <ltp@lists.linux.it>; Thu, 20 May 2021 14:49:37 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 0EA483C1932
+ for <ltp@lists.linux.it>; Thu, 20 May 2021 17:21:47 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id CD14D201082
- for <ltp@lists.linux.it>; Thu, 20 May 2021 14:49:36 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 6EB7F601C6A
+ for <ltp@lists.linux.it>; Thu, 20 May 2021 17:21:47 +0200 (CEST)
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 1BD04AC4B;
- Thu, 20 May 2021 12:49:36 +0000 (UTC)
-Date: Thu, 20 May 2021 14:23:26 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
+ by mx2.suse.de (Postfix) with ESMTP id 87E25AD6C
+ for <ltp@lists.linux.it>; Thu, 20 May 2021 15:21:46 +0000 (UTC)
+From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Message-ID: <YKZUvg00MX+7wlSb@yuki>
-References: <YJOYgZNL7/qp5YCN@yuki> <YJpq26w8NBvBzUSc@yuki>
- <167E994388192BE9.11782@lists.yoctoproject.org>
+Date: Thu, 20 May 2021 17:21:38 +0200
+Message-Id: <20210520152138.23772-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <167E994388192BE9.11782@lists.yoctoproject.org>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [Automated-testing] LTP pre-release git freeze and call
- for testing
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/1] docparse: Fix parsing URL containing '|' in links
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,24 +46,49 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: automated-testing@yoctoproject.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> As previously planned LTP git is now frozen for anything but imporatnt
-> fixes and the (ideally) week of pre-release testing starts now.
-> 
-> If you haven't tested latest LTP git please do so now.
+That fixes formatting for commit in close_range01:
+fec8a6a69103 ("close_range: unshare all fds for CLOSE_RANGE_UNSHARE | CLOSE_RANGE_CLOEXEC")
 
-So far things looks calm enough, so I would like to proceed with the
-release on Monday 24.
+Reported-by: Cyril Hrubis <chrubis@suse.cz>
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+---
+Hi,
 
+hope this is enough to be escaped.
+I tested various:
+== \|= # - ## -- ___
+
+Also one day I wrote docparser test :).
+
+Kind regards,
+Petr
+
+ docparse/testinfo.pl | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/docparse/testinfo.pl b/docparse/testinfo.pl
+index 31148e3a4..6e05982e5 100755
+--- a/docparse/testinfo.pl
++++ b/docparse/testinfo.pl
+@@ -96,8 +96,8 @@ sub html_a
+ {
+ 	my ($url, $text) = @_;
+ 
+-	# escape ]
+-	$text =~ s/([]])/\\$1/g;
++	# escape: ] |
++	$text =~ s/([]|])/\\$1/g;
+ 
+ 	return "$url\[$text\]";
+ }
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+2.31.1
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
