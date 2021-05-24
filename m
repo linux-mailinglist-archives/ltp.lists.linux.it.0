@@ -2,40 +2,39 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2ADC38E984
-	for <lists+linux-ltp@lfdr.de>; Mon, 24 May 2021 16:48:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D122B38E985
+	for <lists+linux-ltp@lfdr.de>; Mon, 24 May 2021 16:48:37 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C9C703C2E71
-	for <lists+linux-ltp@lfdr.de>; Mon, 24 May 2021 16:48:30 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 68FE33C59A5
+	for <lists+linux-ltp@lfdr.de>; Mon, 24 May 2021 16:48:37 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 08FDF3C2B88
- for <ltp@lists.linux.it>; Mon, 24 May 2021 16:48:16 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 344AC3C1886
+ for <ltp@lists.linux.it>; Mon, 24 May 2021 16:48:17 +0200 (CEST)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 78D6A600A3E
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id B542C600A31
  for <ltp@lists.linux.it>; Mon, 24 May 2021 16:48:16 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
  t=1621867696; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=5P1pCMXKX1dsljlUmrqQTcA8P24g3liWZDXeozvQtIU=;
- b=K6vQ5KSOHMkEk52teJVY5t7jkl6uC2F6UV3w+E6U2sWDksKx5FDzCZKDNfKArAUlTJU8je
- 84TsEjp18kL/xinZhKprjMp6A6os+WHFUy+DDzTT14x2YGLz06/DFrmV0n1YYgSn91XaZG
- JDnt7Ey86zuAcmxhtyT5tacWumuPo1w=
+ bh=d1pmBd0k7oLxND8ITP8ca/Y+BwS0jlGkXl0HiBpdvSg=;
+ b=eXQ5qVXeoUi581hAc94L8SU/0+/z3cEtfgm6ozT3+a2UVORUs0LYIX+S7pwCVQhlmnkgah
+ 1ErYtQaE+swW4NsjxpUXgTbs7lmUGyd0xhrAkUfnHR045izu/4Oso59G3eOg2iWwWmKC6i
+ 4BiaRfabG2D0S43KfyZkAvZVL+LOe3E=
 Received: from relay2.suse.de (unknown [195.135.221.27])
- by mx2.suse.de (Postfix) with ESMTP id 09043AC11;
+ by mx2.suse.de (Postfix) with ESMTP id 51B5CADCE;
  Mon, 24 May 2021 14:48:16 +0000 (UTC)
 To: ltp@lists.linux.it
-Date: Mon, 24 May 2021 15:47:42 +0100
-Message-Id: <20210524144745.10887-2-rpalethorpe@suse.com>
+Date: Mon, 24 May 2021 15:47:43 +0100
+Message-Id: <20210524144745.10887-3-rpalethorpe@suse.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210524144745.10887-1-rpalethorpe@suse.com>
 References: <20210524144745.10887-1-rpalethorpe@suse.com>
@@ -46,7 +45,7 @@ X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [RFC PATCH 1/4] Add scripts to remove TEST in library
+Subject: [LTP] [RFC PATCH 2/4] Add script to run Coccinelle checks
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,215 +66,45 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 ---
- .../coccinelle/libltp-test-macro-vars.cocci   |  54 +++++++
- scripts/coccinelle/libltp-test-macro.cocci    | 137 ++++++++++++++++++
- 2 files changed, 191 insertions(+)
- create mode 100644 scripts/coccinelle/libltp-test-macro-vars.cocci
- create mode 100644 scripts/coccinelle/libltp-test-macro.cocci
+ scripts/coccinelle/libltp_checks.sh | 29 +++++++++++++++++++++++++++++
+ 1 file changed, 29 insertions(+)
+ create mode 100755 scripts/coccinelle/libltp_checks.sh
 
-diff --git a/scripts/coccinelle/libltp-test-macro-vars.cocci b/scripts/coccinelle/libltp-test-macro-vars.cocci
-new file mode 100644
-index 000000000..679ce80fe
+diff --git a/scripts/coccinelle/libltp_checks.sh b/scripts/coccinelle/libltp_checks.sh
+new file mode 100755
+index 000000000..6fdaa7ae8
 --- /dev/null
-+++ b/scripts/coccinelle/libltp-test-macro-vars.cocci
-@@ -0,0 +1,54 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+// Copyright (c) 2021 SUSE LLC  <rpalethorpe@suse.com>
++++ b/scripts/coccinelle/libltp_checks.sh
+@@ -0,0 +1,29 @@
++#!/bin/sh -eu
++# SPDX-License-Identifier: GPL-2.0-or-later
++# Copyright (c) 2021 SUSE LLC  <rpalethorpe@suse.com>
 +
-+// The TEST macro should not be used in the library because it sets
-+// TST_RET and TST_ERR which are global variables. The test author
-+// only expects these to be changed if *they* call TEST directly.
++# Run the Coccinelle checks for the library. Running the fixes
++# requires passing -D fix instead of -D report.
 +
-+// Set with -D fix
-+virtual fix
-+// Set with -D report
-+virtual report
++if [[ ! -d lib || ! -d scripts/coccinelle ]]; then
++    echo "$0: Can't find lib or scripts directories. Run me from top src dir"
++    exit 1
++fi
 +
-+// Find all positions where TEST's variables are used
-+@ find_use exists @
-+identifier tst_var =~ "TST_(ERR|RET)";
-+position p;
-+expression E;
-+@@
++echo Python args ${COCCI_PYTHON:=--python python3} >&2
 +
-+(
-+ tst_var@p
-+|
-+ TTERRNO@p | E
-+)
-+
-+@initialize:python depends on report@
-+@@
-+
-+import json
-+
-+errors = []
-+
-+@script:python depends on report@
-+p << find_use.p;
-+@@
-+
-+msg = {
-+    'msg': "TEST macro variable use in library",
-+    'file': p[0].file,
-+    'line': p[0].line,
-+    'col': p[0].column,
++libltp_spatch() {
++    spatch $COCCI_PYTHON --dir lib \
++	   --ignore lib/parse_opts.c \
++	   --ignore lib/newlib_tests \
++	   --ignore lib/tests \
++	   --very-quiet \
++	   --use-gitgrep \
++	   -D report \
++	   --include-headers \
++	   $*
 +}
 +
-+errors.append(msg)
-+
-+@finalize:python depends on report@
-+@@
-+
-+msgs = {
-+     'check_script': 'coccinelle/libltp-test-macro-vars.cocci',
-+     'errors': errors,
-+}
-+
-+print(json.dumps(msgs, indent=2))
-diff --git a/scripts/coccinelle/libltp-test-macro.cocci b/scripts/coccinelle/libltp-test-macro.cocci
-new file mode 100644
-index 000000000..960b5d325
---- /dev/null
-+++ b/scripts/coccinelle/libltp-test-macro.cocci
-@@ -0,0 +1,137 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+// Copyright (c) 2021 SUSE LLC  <rpalethorpe@suse.com>
-+
-+// The TEST macro should not be used in the library because it sets
-+// TST_RET and TST_ERR which are global variables. The test author
-+// only expects these to be changed if *they* call TEST directly.
-+
-+// Set with -D fix
-+virtual fix
-+// Set with -D report
-+virtual report
-+
-+// Find all positions where TEST is _used_.
-+@ find_use exists @
-+position p;
-+@@
-+
-+ TEST@p(...);
-+
-+// Print the position of the TEST usage
-+@initialize:python depends on report@
-+@@
-+
-+import json
-+
-+errors = []
-+
-+@script:python depends on report@
-+p << find_use.p;
-+@@
-+
-+msg = {
-+    'msg': "TEST macro use in library",
-+    'file': p[0].file,
-+    'line': p[0].line,
-+    'col': p[0].column,
-+}
-+
-+errors.append(msg)
-+
-+@finalize:python depends on report@
-+@@
-+
-+msgs = {
-+     'check_script': 'coccinelle/libltp-test-macro.cocci',
-+     'errors': errors,
-+}
-+
-+print(json.dumps(msgs, indent=2))
-+
-+// Below are rules which will create a patch to replace TEST usage
-+// It assumes we can use the ret var without conflicts
-+
-+// Fix all references to the variables TEST modifies when they occur in a
-+// function where TEST was used.
-+@ depends on fix && find_use @
-+@@
-+
-+(
-+- TST_RET
-++ ret
-+|
-+- TST_ERR
-++ errno
-+|
-+- TTERRNO
-++ TERRNO
-+)
-+
-+// Replace TEST in all functions where it occurs only at the start. It
-+// is slightly complicated by adding a newline if a statement appears
-+// on the line after TEST(). It is not clear to me what the rules are
-+// for matching whitespace as it has no semantic meaning, but this
-+// appears to work.
-+@ depends on fix @
-+identifier fn;
-+expression tested_expr;
-+statement st;
-+@@
-+
-+  fn (...)
-+  {
-+- 	TEST(tested_expr);
-++	const long ret = tested_expr;
-+(
-++
-+	st
-+|
-+
-+)
-+	... when != TEST(...)
-+  }
-+
-+// Replace TEST in all functions where it occurs at the start
-+// Functions where it *only* occurs at the start were handled above
-+@ depends on fix @
-+identifier fn;
-+expression tested_expr;
-+statement st;
-+@@
-+
-+  fn (...)
-+  {
-+- 	TEST(tested_expr);
-++	long ret = tested_expr;
-+(
-++
-+	st
-+|
-+
-+)
-+	...
-+  }
-+
-+// Add ret var at the start of a function where TEST occurs and there
-+// is not already a ret declaration
-+@ depends on fix exists @
-+identifier fn;
-+@@
-+
-+  fn (...)
-+  {
-++	long ret;
-+	... when != long ret;
-+
-+	TEST(...)
-+	...
-+  }
-+
-+// Replace any remaining occurances of TEST
-+@ depends on fix @
-+expression tested_expr;
-+@@
-+
-+- 	TEST(tested_expr);
-++	ret = tested_expr;
-+
++libltp_spatch --sp-file scripts/coccinelle/libltp-test-macro.cocci
++libltp_spatch --sp-file scripts/coccinelle/libltp-test-macro-vars.cocci \
++	      --ignore lib/tst_test.c
 -- 
 2.31.1
 
