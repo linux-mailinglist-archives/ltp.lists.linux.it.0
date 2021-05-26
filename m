@@ -2,60 +2,67 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C173391E15
-	for <lists+linux-ltp@lfdr.de>; Wed, 26 May 2021 19:25:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C5A9391E12
+	for <lists+linux-ltp@lfdr.de>; Wed, 26 May 2021 19:25:17 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3B4933CA73E
-	for <lists+linux-ltp@lfdr.de>; Wed, 26 May 2021 19:25:35 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 2EAE63CA758
+	for <lists+linux-ltp@lfdr.de>; Wed, 26 May 2021 19:25:16 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 7D8C13C2ADE
- for <ltp@lists.linux.it>; Wed, 26 May 2021 19:25:12 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 0F5D63C2ADE
+ for <ltp@lists.linux.it>; Wed, 26 May 2021 19:25:11 +0200 (CEST)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 2189F1000F65
- for <ltp@lists.linux.it>; Wed, 26 May 2021 19:25:10 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 6CDCA2001A1
+ for <ltp@lists.linux.it>; Wed, 26 May 2021 19:25:11 +0200 (CEST)
 Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
  (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 90C581FD2A;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id BA2581FD2E;
  Wed, 26 May 2021 17:25:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1622049910; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=TH5m+itfc3wszX6zdthSUNY7BimLXL7cWZygJJRHBR0=;
- b=RN3tFcMuIcqKlN9AOxzBvmYZAfpSKsenkVf8lyC47W9dl0QU0sO8HEns97Qbsc4HkkbU7o
- 0hjKDqaqeZkfqRGX2YQ9ucKRFTfpt1okviTaKdldcYoi5uwWQ5/5NUQr6/LiNmoowFKBG3
- 8cWIRDuzIjctoEOYk2znmISFLZjRPVs=
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=ZKTNMDPJ8ZAu1UUGg6nPw9zt9jqD0YoOEaw+BLyLqOs=;
+ b=kFw0wgDW82EsBoLtanBShIu9Zw51d4VQtd7quQzXSH4lANfpQGOKbpNLRtB/12mlThps5h
+ c9tG40kDMWidCI8IUejZaL/qvtv/3FqY57IX1r2J344hWkBuGJku0pERoJw1TONBlR+vVK
+ e185bUddX+NZTMZrmALIwUsMV9spJjs=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1622049910;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=TH5m+itfc3wszX6zdthSUNY7BimLXL7cWZygJJRHBR0=;
- b=IcV7JQauHTEfXp01mWLATdPGZuUGnn2vtuAuihYj+5VbJOvV/agEiyo4demwFvD2vUo70c
- 2dIKS22GA8SRe8CA==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=ZKTNMDPJ8ZAu1UUGg6nPw9zt9jqD0YoOEaw+BLyLqOs=;
+ b=2cq8c3J7WVY00SVs6rBI86IG8XLQik+yBxsfl4l96oELvQPT8wDibh9i/Vr7osJylqxuCw
+ gEeVkQiPR63GGoBA==
 Received: from director2.suse.de (director2.suse-dmz.suse.de [192.168.254.72])
- by imap.suse.de (Postfix) with ESMTPSA id 6F33611A98;
+ by imap.suse.de (Postfix) with ESMTPSA id 9920C11A98;
  Wed, 26 May 2021 17:25:10 +0000 (UTC)
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Wed, 26 May 2021 19:25:01 +0200
-Message-Id: <20210526172503.18621-1-pvorel@suse.cz>
+Date: Wed, 26 May 2021 19:25:02 +0200
+Message-Id: <20210526172503.18621-2-pvorel@suse.cz>
 X-Mailer: git-send-email 2.31.1
+In-Reply-To: <20210526172503.18621-1-pvorel@suse.cz>
+References: <20210526172503.18621-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [LTP PATCH v2 1/3] nfs_lib.sh: Detect unsupported protocol
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] [LTP PATCH v2 2/3] nfs_lib.sh: Require nfsd kernel module
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,35 +80,25 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Caused by disabled CONFIG_NFSD_V[34] in kernel config.
-
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
 new in v2
 
- testcases/network/nfs/nfs_stress/nfs_lib.sh | 6 ++++++
- 1 file changed, 6 insertions(+)
+ testcases/network/nfs/nfs_stress/nfs_lib.sh | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/testcases/network/nfs/nfs_stress/nfs_lib.sh b/testcases/network/nfs/nfs_stress/nfs_lib.sh
-index 3fad8778a..b80ee0e18 100644
+index b80ee0e18..26b670c35 100644
 --- a/testcases/network/nfs/nfs_stress/nfs_lib.sh
 +++ b/testcases/network/nfs/nfs_stress/nfs_lib.sh
-@@ -94,9 +94,15 @@ nfs_mount()
+@@ -30,6 +30,7 @@ TST_NEEDS_ROOT=1
+ TST_NEEDS_CMDS="$TST_NEEDS_CMDS mount exportfs"
+ TST_SETUP="${TST_SETUP:-nfs_setup}"
+ TST_CLEANUP="${TST_CLEANUP:-nfs_cleanup}"
++TST_NEEDS_DRIVERS="nfsd"
  
- 	if [ $? -ne 0 ]; then
- 		cat mount.log
-+
- 		if [ "$type" = "udp" -o "$type" = "udp6" ] && tst_kvcmp -ge 5.6; then
- 			tst_brk TCONF "UDP support disabled with the kernel config NFS_DISABLE_UDP_SUPPORT?"
- 		fi
-+
-+		if grep -i "Protocol not supported" mount.log; then
-+			tst_brk TCONF "Protocol not supported"
-+		fi
-+
- 		tst_brk TBROK "mount command failed"
- 	fi
- }
+ # When set and test is using netns ($TST_USE_NETNS set) NFS traffic will go
+ # through lo interface instead of ltp_ns_veth* netns interfaces (useful for
 -- 
 2.31.1
 
