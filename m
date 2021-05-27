@@ -2,79 +2,67 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC3773925E6
-	for <lists+linux-ltp@lfdr.de>; Thu, 27 May 2021 06:11:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC068392606
+	for <lists+linux-ltp@lfdr.de>; Thu, 27 May 2021 06:19:55 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1F1423CA776
-	for <lists+linux-ltp@lfdr.de>; Thu, 27 May 2021 06:11:23 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 4FA9F3CA76E
+	for <lists+linux-ltp@lfdr.de>; Thu, 27 May 2021 06:19:55 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by picard.linux.it (Postfix) with ESMTPS id 9043F3C2ADA
+ for <ltp@lists.linux.it>; Thu, 27 May 2021 06:19:51 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 5BC793C4CB1
- for <ltp@lists.linux.it>; Thu, 27 May 2021 06:11:17 +0200 (CEST)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 06D91200DFA
+ for <ltp@lists.linux.it>; Thu, 27 May 2021 06:19:50 +0200 (CEST)
+Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 835D4600F5F
- for <ltp@lists.linux.it>; Thu, 27 May 2021 06:11:16 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1622088675;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 02E3E218D6;
+ Thu, 27 May 2021 04:19:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1622089190;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=wYYvuKHrW7vhmykYsHb/Gyp8QxzhPkOXd2uYjhhm3v0=;
- b=CrzNgkRn0armbxj8LsskRvnh6pME/UZZEwoFhz/XAqnd0JXNQ+kgXDIqzu+wicQesKhR+b
- YXYkftkaZU/SCPCEbjbJm3KbG3csPq//k2r1cBZyH3PwucJs3WN1vYZTC0DDkztNL9xWsR
- ovn7dV4mnLts4+3XaMNc5Mr/8hh1BiA=
-Received: from mail-yb1-f199.google.com (mail-yb1-f199.google.com
- [209.85.219.199]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-553-GDZuCDNqMGKK1vP9-5THKw-1; Thu, 27 May 2021 00:11:13 -0400
-X-MC-Unique: GDZuCDNqMGKK1vP9-5THKw-1
-Received: by mail-yb1-f199.google.com with SMTP id
- u13-20020a25f80d0000b029051d7fee31cfso4260900ybd.22
- for <ltp@lists.linux.it>; Wed, 26 May 2021 21:11:13 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=wYYvuKHrW7vhmykYsHb/Gyp8QxzhPkOXd2uYjhhm3v0=;
- b=RlN+LlTshc8U/s23UbPBBFDtgXcitmnmGdhMtMwz4cEo8EYBr5XEmD+mdINEP12q2J
- 5TSjpUEHk3GyZR1e98cp1+kTzHfE8VReQsvSQMFNrVyR+Zuzdo8mSr5yvefYILX6HdyV
- kixfyMJrIcybYIMy9ejcDs9fSahr29HvBdI43uOWNpulJwVjqEPgpqrpr9jSYR6Aoxgl
- he/9SjZY8lcDaNTrJCWL8EpE6rQZEt1XKtpW4ReNTOCwTDDE4rRyiMlYg/YBfyjf2dJe
- weK5SzvykM5zTFRjwNb6rHdbp7cMgdeFaV43OjQj/QxjzdIZlmSPecPTgeKPBkK8eN6j
- fsRA==
-X-Gm-Message-State: AOAM531mEO7OBu6yH2o7sK7JD/2IfD82h2J0767VrYk2YIUKPrQ11CsG
- fGhxgMGaZywaHRkvGclHo89IS5LHG4JRdck5eD6OwWhW3L2WUANnVuoUn8N9kUWDI/LPxn5fjA3
- Q8seXUzVDrp+fZsBNq9UDGizDdFo=
-X-Received: by 2002:a25:b44d:: with SMTP id c13mr1978034ybg.86.1622088672995; 
- Wed, 26 May 2021 21:11:12 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJw/rbK9/XWeCEWZ8hCljRLYWyP8GfiKscNJpaXfra6llj8vzXRVAjKbGDm2QnP/l372gyxIO7pAK38XJ9ccYI4=
-X-Received: by 2002:a25:b44d:: with SMTP id c13mr1978026ybg.86.1622088672854; 
- Wed, 26 May 2021 21:11:12 -0700 (PDT)
+ bh=plsRLlRjdgeLXbPa7uG+Z4J3WSUjhgsmm/ML+ZHWS6w=;
+ b=R0GDaJblyqpnNec4MbIRF/h8u6KQVgwTKuT1SE/n7kiS7C+icVd8Nf1jA88CIX8vbRRCKs
+ tZFzMSQxSeqn0tKY9/w0ig5euyrcTLr03ZeXOSphnmbU9fPpVHUl288EUPNYNdIv0lCKL3
+ WG56fqQuQIoPSSEBTUC678rZChxi2S8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1622089190;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=plsRLlRjdgeLXbPa7uG+Z4J3WSUjhgsmm/ML+ZHWS6w=;
+ b=V532F/0TLUF8Ox0hmvnkkuvVST1j2fGa1bIo+21oku6eNPbzG0sYzKxhZs35B4U4y7PrWV
+ 3Xfkqu3Eyj1Y9YCQ==
+Received: from director2.suse.de (director2.suse-dmz.suse.de [192.168.254.72])
+ by imap.suse.de (Postfix) with ESMTPSA id B4E0211A98;
+ Thu, 27 May 2021 04:19:49 +0000 (UTC)
+Date: Thu, 27 May 2021 06:19:48 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Li Wang <liwang@redhat.com>
+Message-ID: <YK8d5APc1VZ0Q7T+@pevik>
+References: <20210526154949.4473-1-pvorel@suse.cz>
+ <CAEemH2ecppttvGW1JeJ_E=w1eUJYEY8+Sx8Euztn2MhRYykEKQ@mail.gmail.com>
+ <CAEemH2fGaxQuTvpV1gEp8hVoeHo=42ikSRYs+5RmCuJQfJQa-g@mail.gmail.com>
 MIME-Version: 1.0
-References: <20210519085812.27263-1-liwang@redhat.com>
- <78d1900a-cdc7-77c6-8f01-73ce4236a162@jv-coder.de>
-In-Reply-To: <78d1900a-cdc7-77c6-8f01-73ce4236a162@jv-coder.de>
-From: Li Wang <liwang@redhat.com>
-Date: Thu, 27 May 2021 12:11:01 +0800
-Message-ID: <CAEemH2d8tcBVsrmL1-bWWSchy6EpcKCoTO2ZA85jcnsEhESoxA@mail.gmail.com>
-To: Joerg Vehlow <lkml@jv-coder.de>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <CAEemH2fGaxQuTvpV1gEp8hVoeHo=42ikSRYs+5RmCuJQfJQa-g@mail.gmail.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] tst_test: using SIGTERM to terminate process
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [RFC PATCH 1/1] doc: Split test-writing-guidelines
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,40 +74,41 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: Xiao Yang <yangx.jy@cn.fujitsu.com>,
+ Richard Palethorpe <rpalethorpe@suse.com>, LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Wed, May 19, 2021 at 5:19 PM Joerg Vehlow <lkml@jv-coder.de> wrote:
->
-> Hi,
->
-> On 5/19/2021 10:58 AM, Li Wang wrote:
-> > diff --git a/lib/newlib_tests/shell/timeout03.sh b/lib/newlib_tests/shell/timeout03.sh
-> > index cd548d9a2..dabef32a2 100755
-> > --- a/lib/newlib_tests/shell/timeout03.sh
-> > +++ b/lib/newlib_tests/shell/timeout03.sh
-> > @@ -6,8 +6,9 @@
-> >   # expected output:
-> >   # timeout03 1 TINFO: timeout per run is 0h 0m 1s
-> >   # timeout03 1 TINFO: testing killing test after TST_TIMEOUT
-> > -# timeout03 1 TBROK: Test timeouted, sending SIGINT! If you are running on slow machine, try exporting LTP_TIMEOUT_MUL > 1
-> > -# timeout03 1 TBROK: test interrupted or timed out
-> > +# timeout03 1 TBROK: Test timed out, sending SIGTERM! If you are running on slow machine, try exporting LTP_TIMEOUT_MUL > 1
-> > +# Terminated
-> Nit: This Message seems to be only there for bash... I tried to find why
-> and if it can be suppressed, but found nothing. I guess it comes from
-> the terminated sleep process.
+Hi Li, all,
 
-Yes, but that's not a big deal, it only appears in timed out and we
-can tolerate:).
+> > > https://github.com/pevik/ltp/wiki/Test-Writing-Guidelines
+> > > https://github.com/pevik/ltp/wiki/C-Test-API
 
--- 
-Regards,
-Li Wang
+> Seems we have a similar guideline "c-test-tutorial-simple.txt",
+> maybe better to combine them together?
+I'd prefer to keep them separate. Because otherwise page gets long again.
+But I'd consider to unify names ("LTP C Test API" vs. "C Test Case Tutorial"
+- API vs. Case).
 
+Kind regards,
+Petr
+
+> > > https://github.com/pevik/ltp/wiki/Shell-Test-API
+
+> Forgot to mention, with the increased number of docs, do you think it
+> necessary to create an index for including all documents in a sort?
+There is list of pages on the right. But as it's sorted alphabetically,
+it's not enough. Maybe we should add this list to README.md and to HOME wiki
+page.
+
+Well, I have to say I hate github Wiki features. There is no table of content,
+for page, we cannot change list of pages, ...
+
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
