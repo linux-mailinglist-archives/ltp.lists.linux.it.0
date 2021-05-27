@@ -1,79 +1,80 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28E2F392505
-	for <lists+linux-ltp@lfdr.de>; Thu, 27 May 2021 04:45:44 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1596939257A
+	for <lists+linux-ltp@lfdr.de>; Thu, 27 May 2021 05:31:31 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 890BF3CA776
-	for <lists+linux-ltp@lfdr.de>; Thu, 27 May 2021 04:45:43 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 57DB83CA775
+	for <lists+linux-ltp@lfdr.de>; Thu, 27 May 2021 05:31:30 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 78B653C4ED5
- for <ltp@lists.linux.it>; Thu, 27 May 2021 04:45:39 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 0797B3C2B56
+ for <ltp@lists.linux.it>; Thu, 27 May 2021 05:31:25 +0200 (CEST)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 9059C600041
- for <ltp@lists.linux.it>; Thu, 27 May 2021 04:45:38 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 70461601BC6
+ for <ltp@lists.linux.it>; Thu, 27 May 2021 05:31:24 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1622083537;
+ s=mimecast20190719; t=1622086282;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=5cUIM/hQTFBWUP42/XgOTBwl5r3AhIEk42gHlVmFQlw=;
- b=CJNQlnU4Srcs0UpyhXprfJfsw5S4D7M7bhq1pd9Aqs2wXV437NLw2K7rYH/u6ifCWwqSYL
- beU0a7S11cZ0sJLCjBc9larKCoUuBdZeBLzOrLr/BupgmpAjHKyaaT5oKxTf0cqWpVlONx
- 4/kX1CtEqpDpJ/EhXQ6Bcmv7GtfgAyg=
-Received: from mail-yb1-f197.google.com (mail-yb1-f197.google.com
- [209.85.219.197]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-230-BeJJItSgOz-KJT549YrScA-1; Wed, 26 May 2021 22:45:35 -0400
-X-MC-Unique: BeJJItSgOz-KJT549YrScA-1
-Received: by mail-yb1-f197.google.com with SMTP id
- i8-20020a25b2080000b0290523c9c81ba5so4076354ybj.20
- for <ltp@lists.linux.it>; Wed, 26 May 2021 19:45:34 -0700 (PDT)
+ bh=0WvibMAGRhfVKMnzrzwUPCw8Z5+tPpK53aGnggE+09k=;
+ b=cNIrvKVDgY189oXKoHsxb9o2u95QmBbBpxI/BdC5l7TUtKNo8+lGstDQdrcNXn/XjOYriP
+ Yg3jX7MekXX6tD2mApH1TdKJT714M0+PYXZLpDg3+VH2Ur9xng10uRnjcKEyAPXo9JkO5Y
+ vu+1XzywcVRMQHhu0xRHf3YxJm4f5a8=
+Received: from mail-yb1-f199.google.com (mail-yb1-f199.google.com
+ [209.85.219.199]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-514-n7K-VC0UM8ejr7MVlBCjpA-1; Wed, 26 May 2021 23:31:20 -0400
+X-MC-Unique: n7K-VC0UM8ejr7MVlBCjpA-1
+Received: by mail-yb1-f199.google.com with SMTP id
+ s8-20020a5b04480000b029049fb35700b9so4277198ybp.5
+ for <ltp@lists.linux.it>; Wed, 26 May 2021 20:31:20 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=5cUIM/hQTFBWUP42/XgOTBwl5r3AhIEk42gHlVmFQlw=;
- b=PRjKbdIwYXGcX8Vor4lOHqC5hTcMvyR0U+JdMsPM4ljmgiTVSZ/h20y22tZe7/nN/n
- UnNkM1kn68wvcHA4MVmex8pHGhEdpbCj60gZ85OQjuiiiL3kephpJo7MXnAqxTlsmlEZ
- GlZjFuYkv1lfBedUgaA0hQVARGsTyVwxo60Y30Hxy/e2kSQCFeRje0OH5XukL8yOdEBV
- c47ZjuboYzRUnDIruw8EUKiuLT1vvDLPvKYrYwxk6DbqRGEOvINy4ZRM9W7UoOvlfOwN
- Lz7p0+dRv1HhEDvlW5Xzyl/FpNwUs9R3YVV6CHAXMZzDUzK5EbSfJUR3t1Vyg976yZAw
- RpvQ==
-X-Gm-Message-State: AOAM5310rTloLLp0kQszK155wD6E/QHafkdw7IDfcF4xgA/yQh7S/q2p
- 2t3T9SMKdpD9/s8J/bJ9OlGhRUK7RcEHSlhIpUt8hZIFyVK49OWB/QKcRVm7ZBs8wZgbnDSC/fv
- uda1jbCbrQMzcwualuOaezP8cLlM=
-X-Received: by 2002:a25:1455:: with SMTP id 82mr1560039ybu.403.1622083534580; 
- Wed, 26 May 2021 19:45:34 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJzYim6c77rhxrpHReJhT8vVJ7gkm39Fd+Xv3RuO5eQKW/hbD0Suk5jAYz3GZRS5vV805SlFFwqNi01mtVH8YRk=
-X-Received: by 2002:a25:1455:: with SMTP id 82mr1560022ybu.403.1622083534376; 
- Wed, 26 May 2021 19:45:34 -0700 (PDT)
+ bh=0WvibMAGRhfVKMnzrzwUPCw8Z5+tPpK53aGnggE+09k=;
+ b=JXiXzNiIj3YUMk/cEEml2IRESG663ZPm0UVgQNblC31UrCMCrvD3BEe5ekJOh2vgvh
+ WpqLWiJJQ2nu03qpHgCj4H1wNDp8WVx1LSXBE5NJ6lLEV5rtwjE9yGePcOJSvaSghgMT
+ dbpKnnixd7kYHv7bjkOkPKXmUaqo8SHgn6AWADv5/DO1jU9Re8e+9HDkXCJjZ2lmTqzQ
+ nr5GFArl5R/3kpH5yZeI8mNVwmX9eEk9TS+ZmLIonoQX4esUqYQpxFpZHgAuy1xylYhT
+ eh1bzYv0oRLITgCLUgr3ONn8TY037CUSPPjwbHSMgqYahRIbwg5QDleu6f67iNTn3du5
+ gz8w==
+X-Gm-Message-State: AOAM5326yywxsXh9+C3azOB7WY0Tiys+m9YnQoL1sgJKO7iTJ7lJkiVo
+ D3PegqEIZrDF0BxHp5XF1f9UtZBoKxje8ezJfOJiKJ6s07t/w0y2NBlLdRDd/I37Fe8khxt37rx
+ BEGNfjWpwwEzK/axgbA+SdLWg2b0=
+X-Received: by 2002:a5b:787:: with SMTP id b7mr1737415ybq.243.1622086279831;
+ Wed, 26 May 2021 20:31:19 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJx9IJirFBG9jczHzSQh/UEkmtrsrruY52FUfYCaHUmmV+O+mpKUfK1dP9jNtpL0rxYkrljylNEk6qdbDRS8Ft0=
+X-Received: by 2002:a5b:787:: with SMTP id b7mr1737393ybq.243.1622086279610;
+ Wed, 26 May 2021 20:31:19 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210526135900.19042-1-pvorel@suse.cz>
-In-Reply-To: <20210526135900.19042-1-pvorel@suse.cz>
+References: <20210526154949.4473-1-pvorel@suse.cz>
+In-Reply-To: <20210526154949.4473-1-pvorel@suse.cz>
 From: Li Wang <liwang@redhat.com>
-Date: Thu, 27 May 2021 10:45:22 +0800
-Message-ID: <CAEemH2evB4SZnuz-A0S73yGYCTpYAKevcJKGC8MPiSzhSue-OA@mail.gmail.com>
+Date: Thu, 27 May 2021 11:31:07 +0800
+Message-ID: <CAEemH2ecppttvGW1JeJ_E=w1eUJYEY8+Sx8Euztn2MhRYykEKQ@mail.gmail.com>
 To: Petr Vorel <pvorel@suse.cz>
 Authentication-Results: relay.mimecast.com;
  auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/1] Remove README.kernel_config
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [RFC PATCH 1/1] doc: Split test-writing-guidelines
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,17 +86,40 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
+Cc: Xiao Yang <yangx.jy@cn.fujitsu.com>, LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Wed, May 26, 2021 at 9:59 PM Petr Vorel <pvorel@suse.cz> wrote:
->
-> It's not up-to-day nor important enough to maintain it.
+Hi Petr,
 
-Merged, thanks!
+On Wed, May 26, 2021 at 11:50 PM Petr Vorel <pvorel@suse.cz> wrote:
+>
+> Test Writing Guidelines wiki page is too long, thus split it
+> into 3 parts:
+>
+> 1) generic part (only first chapter, the same URL)
+> 2) C test API (2.2 chapter, 4. Common problems)
+> 3) shell test API
+>
+> Unfortunately this breaks users' bookmarks.
+>
+> Start numbering in headers from 1 on each page (links are broken
+> anyway).
+>
+> NOTE: in order to have '...' formatting as code,
+> main header ====== was needed to add on the page.
+>
+> Signed-off-by: Petr Vorel <pvorel@suse.cz>
+> ---
+> See it:
+> https://github.com/pevik/ltp/wiki/Test-Writing-Guidelines
+> https://github.com/pevik/ltp/wiki/C-Test-API
+> https://github.com/pevik/ltp/wiki/Shell-Test-API
+
++1
+I think this is a good proposal, the split doc looks more friendly to read.
 
 -- 
 Regards,
