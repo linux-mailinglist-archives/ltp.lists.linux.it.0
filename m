@@ -2,67 +2,78 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23EAE391E13
-	for <lists+linux-ltp@lfdr.de>; Wed, 26 May 2021 19:25:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28E2F392505
+	for <lists+linux-ltp@lfdr.de>; Thu, 27 May 2021 04:45:44 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7219B3CA76B
-	for <lists+linux-ltp@lfdr.de>; Wed, 26 May 2021 19:25:23 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 890BF3CA776
+	for <lists+linux-ltp@lfdr.de>; Thu, 27 May 2021 04:45:43 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 267FC3CA4BD
- for <ltp@lists.linux.it>; Wed, 26 May 2021 19:25:12 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id 78B653C4ED5
+ for <ltp@lists.linux.it>; Thu, 27 May 2021 04:45:39 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id A532A60086A
- for <ltp@lists.linux.it>; Wed, 26 May 2021 19:25:11 +0200 (CEST)
-Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
- (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 09DE6218D6;
- Wed, 26 May 2021 17:25:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1622049911; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 9059C600041
+ for <ltp@lists.linux.it>; Thu, 27 May 2021 04:45:38 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1622083537;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=SK1nOwApoB060hVZEHApU/oevSCROkupDp1uSU4WGFk=;
- b=eol3yfsPu1+ki1WlO3dEloXfMopIP7VeNBzybI9iOwNRwjiZpGF8uJIrMEZ6IaChBSP65f
- 45Cz+88N1L9x6J/RacxdvF7iU4pfGnm6lJGSK5sS4jzAslHvGVGTFBRsxXrd5jbzEyML1R
- 146B+67PF2ixneNqtMxqSWB92SEOsAg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1622049911;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=SK1nOwApoB060hVZEHApU/oevSCROkupDp1uSU4WGFk=;
- b=Ge4MWO6Pw33JbeSTrAQ0K8vWWMZDoq67pkE5E+ZPS45V8M/Qw1ThPImUxwb1Fe7juZFAqS
- v6yyCQEStlgYddBg==
-Received: from director2.suse.de (director2.suse-dmz.suse.de [192.168.254.72])
- by imap.suse.de (Postfix) with ESMTPSA id C090811A98;
- Wed, 26 May 2021 17:25:10 +0000 (UTC)
-From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Wed, 26 May 2021 19:25:03 +0200
-Message-Id: <20210526172503.18621-3-pvorel@suse.cz>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210526172503.18621-1-pvorel@suse.cz>
-References: <20210526172503.18621-1-pvorel@suse.cz>
+ bh=5cUIM/hQTFBWUP42/XgOTBwl5r3AhIEk42gHlVmFQlw=;
+ b=CJNQlnU4Srcs0UpyhXprfJfsw5S4D7M7bhq1pd9Aqs2wXV437NLw2K7rYH/u6ifCWwqSYL
+ beU0a7S11cZ0sJLCjBc9larKCoUuBdZeBLzOrLr/BupgmpAjHKyaaT5oKxTf0cqWpVlONx
+ 4/kX1CtEqpDpJ/EhXQ6Bcmv7GtfgAyg=
+Received: from mail-yb1-f197.google.com (mail-yb1-f197.google.com
+ [209.85.219.197]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-230-BeJJItSgOz-KJT549YrScA-1; Wed, 26 May 2021 22:45:35 -0400
+X-MC-Unique: BeJJItSgOz-KJT549YrScA-1
+Received: by mail-yb1-f197.google.com with SMTP id
+ i8-20020a25b2080000b0290523c9c81ba5so4076354ybj.20
+ for <ltp@lists.linux.it>; Wed, 26 May 2021 19:45:34 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=5cUIM/hQTFBWUP42/XgOTBwl5r3AhIEk42gHlVmFQlw=;
+ b=PRjKbdIwYXGcX8Vor4lOHqC5hTcMvyR0U+JdMsPM4ljmgiTVSZ/h20y22tZe7/nN/n
+ UnNkM1kn68wvcHA4MVmex8pHGhEdpbCj60gZ85OQjuiiiL3kephpJo7MXnAqxTlsmlEZ
+ GlZjFuYkv1lfBedUgaA0hQVARGsTyVwxo60Y30Hxy/e2kSQCFeRje0OH5XukL8yOdEBV
+ c47ZjuboYzRUnDIruw8EUKiuLT1vvDLPvKYrYwxk6DbqRGEOvINy4ZRM9W7UoOvlfOwN
+ Lz7p0+dRv1HhEDvlW5Xzyl/FpNwUs9R3YVV6CHAXMZzDUzK5EbSfJUR3t1Vyg976yZAw
+ RpvQ==
+X-Gm-Message-State: AOAM5310rTloLLp0kQszK155wD6E/QHafkdw7IDfcF4xgA/yQh7S/q2p
+ 2t3T9SMKdpD9/s8J/bJ9OlGhRUK7RcEHSlhIpUt8hZIFyVK49OWB/QKcRVm7ZBs8wZgbnDSC/fv
+ uda1jbCbrQMzcwualuOaezP8cLlM=
+X-Received: by 2002:a25:1455:: with SMTP id 82mr1560039ybu.403.1622083534580; 
+ Wed, 26 May 2021 19:45:34 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJzYim6c77rhxrpHReJhT8vVJ7gkm39Fd+Xv3RuO5eQKW/hbD0Suk5jAYz3GZRS5vV805SlFFwqNi01mtVH8YRk=
+X-Received: by 2002:a25:1455:: with SMTP id 82mr1560022ybu.403.1622083534376; 
+ Wed, 26 May 2021 19:45:34 -0700 (PDT)
 MIME-Version: 1.0
+References: <20210526135900.19042-1-pvorel@suse.cz>
+In-Reply-To: <20210526135900.19042-1-pvorel@suse.cz>
+From: Li Wang <liwang@redhat.com>
+Date: Thu, 27 May 2021 10:45:22 +0800
+Message-ID: <CAEemH2evB4SZnuz-A0S73yGYCTpYAKevcJKGC8MPiSzhSue-OA@mail.gmail.com>
+To: Petr Vorel <pvorel@suse.cz>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [LTP PATCH v2 3/3] nfs_lib.sh: Check running rpc.mountd,
- rpc.statd
+Subject: Re: [LTP] [PATCH 1/1] Remove README.kernel_config
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,70 +85,21 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: linux-nfs@vger.kernel.org
+Cc: LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-NOTE: we're not checking rpcbind/portmap which is required for NFSv3,
-as it's rpc.mountd dependency.
+On Wed, May 26, 2021 at 9:59 PM Petr Vorel <pvorel@suse.cz> wrote:
+>
+> It's not up-to-day nor important enough to maintain it.
 
-Deliberately not add pgrep as required dependency.
+Merged, thanks!
 
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
-changes v1->v2:
-* check for rpc.mountd, rpc.statd
-(previsously checked for rpc.mountd, rpcbind/portmap)
-
- testcases/network/nfs/nfs_stress/nfs_lib.sh | 17 +++++++++++------
- 1 file changed, 11 insertions(+), 6 deletions(-)
-
-diff --git a/testcases/network/nfs/nfs_stress/nfs_lib.sh b/testcases/network/nfs/nfs_stress/nfs_lib.sh
-index 26b670c35..9bef1b86a 100644
---- a/testcases/network/nfs/nfs_stress/nfs_lib.sh
-+++ b/testcases/network/nfs/nfs_stress/nfs_lib.sh
-@@ -27,7 +27,7 @@ TST_PARSE_ARGS=nfs_parse_args
- TST_USAGE=nfs_usage
- TST_NEEDS_TMPDIR=1
- TST_NEEDS_ROOT=1
--TST_NEEDS_CMDS="$TST_NEEDS_CMDS mount exportfs"
-+TST_NEEDS_CMDS="$TST_NEEDS_CMDS exportfs mount"
- TST_SETUP="${TST_SETUP:-nfs_setup}"
- TST_CLEANUP="${TST_CLEANUP:-nfs_cleanup}"
- TST_NEEDS_DRIVERS="nfsd"
-@@ -110,11 +110,6 @@ nfs_mount()
- 
- nfs_setup()
- {
--	# Check if current filesystem is NFS
--	if [ "$(stat -f . | grep "Type: nfs")" ]; then
--		tst_brk TCONF "Cannot run nfs-stress test on mounted NFS"
--	fi
--
- 	local i
- 	local type
- 	local n=0
-@@ -123,6 +118,16 @@ nfs_setup()
- 	local remote_dir
- 	local mount_dir
- 
-+	if [ "$(stat -f . | grep "Type: nfs")" ]; then
-+		tst_brk TCONF "Cannot run nfs-stress test on mounted NFS"
-+	fi
-+
-+	if tst_cmd_available pgrep; then
-+		for i in rpc.mountd rpc.statd; do
-+			pgrep $i > /dev/null || tst_brk TCONF "$i not running"
-+		done
-+	fi
-+
- 	for i in $VERSION; do
- 		type=$(get_socket_type $n)
- 		tst_res TINFO "setup NFSv$i, socket type $type"
 -- 
-2.31.1
+Regards,
+Li Wang
 
 
 -- 
