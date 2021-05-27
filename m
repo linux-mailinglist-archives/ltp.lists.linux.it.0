@@ -2,65 +2,81 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68620392EC6
-	for <lists+linux-ltp@lfdr.de>; Thu, 27 May 2021 15:01:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0111E392F59
+	for <lists+linux-ltp@lfdr.de>; Thu, 27 May 2021 15:19:02 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id CDF013C7736
-	for <lists+linux-ltp@lfdr.de>; Thu, 27 May 2021 15:00:58 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B53E73C80D4
+	for <lists+linux-ltp@lfdr.de>; Thu, 27 May 2021 15:19:01 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 84D233C2AA0
- for <ltp@lists.linux.it>; Thu, 27 May 2021 15:00:54 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id 501893C5861
+ for <ltp@lists.linux.it>; Thu, 27 May 2021 15:18:56 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 3C772600669
- for <ltp@lists.linux.it>; Thu, 27 May 2021 15:00:53 +0200 (CEST)
-Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
- (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 9087A1FD2E;
- Thu, 27 May 2021 13:00:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1622120452; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 50A02601B10
+ for <ltp@lists.linux.it>; Thu, 27 May 2021 15:18:54 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1622121533;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=TlxQU9XW7vdOyHeRJSe9f1w+KjiVA8TEMgdnAGwMXU0=;
- b=H3j8kPc1qKHKwBLHu3UTqiOG1i451WhHini0alWCFbvKT146Wrcbp6Gp7/d1ZbD4V7BKjV
- +WCS8o8/LDA1r48EAyRYKBJwYGqTY+P9x2QHraiztsM6Vk2ijiD4gw09QBfdSeTRQGd6fd
- QTOAGBFU6W9eHIwoGJEjvRPWhs0pT7k=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1622120452;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=TlxQU9XW7vdOyHeRJSe9f1w+KjiVA8TEMgdnAGwMXU0=;
- b=ZzSkqWtH4cjHGFDAyV+dsyEQO98YpBW5BPpyBvpC4i/CQ/lfwtRPSty5cLWoZC0vxSW6un
- cW4ny2m/88xIVXBQ==
-Received: from director2.suse.de (director2.suse-dmz.suse.de [192.168.254.72])
- by imap.suse.de (Postfix) with ESMTPSA id 7DB7011A98;
- Thu, 27 May 2021 13:00:52 +0000 (UTC)
-Date: Thu, 27 May 2021 14:34:53 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <YK+R7X7fpmkCL/aT@yuki>
-References: <20210526135900.19042-1-pvorel@suse.cz>
+ bh=m8THI71W4aMkf168/I2WnCfL4gBG1UDqj9yM0fZAee4=;
+ b=i2qpE3pO4fxF2a50TVKBE1DlZdVvdEBt8AG0rWvFLwM5IMljo+7iwRsiUpUMyB1tCJfbm1
+ h9XqhC7onO0kfooApNxlXhw6VtAaRNt2tP8olHeMg1HaUewtzcpypTDvOFdTOYyf/KwG5y
+ 5PAmWe7+9FQARF+3fIhk9/4e8YJQenM=
+Received: from mail-yb1-f198.google.com (mail-yb1-f198.google.com
+ [209.85.219.198]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-241-as5Beo3lOWyALJkQrjU4gQ-1; Thu, 27 May 2021 09:18:50 -0400
+X-MC-Unique: as5Beo3lOWyALJkQrjU4gQ-1
+Received: by mail-yb1-f198.google.com with SMTP id
+ 129-20020a2501870000b0290526b90a2992so476979ybb.10
+ for <ltp@lists.linux.it>; Thu, 27 May 2021 06:18:50 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=m8THI71W4aMkf168/I2WnCfL4gBG1UDqj9yM0fZAee4=;
+ b=RmiXhU/0y4473VWjTecMDePIr61X+OtIddYumy+BHH1EwtSLb2mLjDvZKY4Y/h8ccu
+ V7w96aCNuhiiA0W3SOJxcxT+lkgMyEtWjSQ7g9k9mnERWSluFocz/IgPNH6retcfWOOK
+ A3cOTaKEos5FDjOOQlZWDdA9SU0OwpIjpD866YCl3mmCVWgvTt2N6469iSVlUDMymDmn
+ IRxO8HBuXK1MnuZujbZWg2Mx87VIr0mEEjh2zFJLdWDZ07PPNAzaQVK3p572dD7YONS5
+ 3kEKnRi2Jd1jzhjO2X5JhdJaOYur2xAKFS47bYyiXoPkudop+/1rWYLJ2O2e1ppTtNzF
+ y7lw==
+X-Gm-Message-State: AOAM530BQH+FBW1lbJp9vrKXbXgn8V0/nA4WVUI0oUXraBtS/jiExHie
+ cvH4Lu+8NV2D5etCp7v1JrOdJQ1C7x7zbvbh+Nhv7fuIoGrsZJraDzqpbGGTMEqrXHj84vYUGEg
+ 8OJBk6H0H8CVrgylmtTr2BC/Qzrw=
+X-Received: by 2002:a5b:64e:: with SMTP id o14mr4717406ybq.252.1622121529812; 
+ Thu, 27 May 2021 06:18:49 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJz14ZuzmM8gQtj4NWvMmjPMYqzS5h3w4NdYmqapaf04gYnHeRWkS3S/BvhuiS6ipEMngHD7k0VfCoM88HS3CKs=
+X-Received: by 2002:a5b:64e:: with SMTP id o14mr4717375ybq.252.1622121529571; 
+ Thu, 27 May 2021 06:18:49 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210526135900.19042-1-pvorel@suse.cz>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+References: <20210521102528.21102-1-rpalethorpe@suse.com>
+ <20210521102528.21102-6-rpalethorpe@suse.com>
+In-Reply-To: <20210521102528.21102-6-rpalethorpe@suse.com>
+From: Li Wang <liwang@redhat.com>
+Date: Thu, 27 May 2021 21:18:37 +0800
+Message-ID: <CAEemH2cqGGJuF56LpVO9egB7eLLCLdcXKaVA_2dkFRFmN8=jKw@mail.gmail.com>
+To: Richard Palethorpe <rpalethorpe@suse.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.3 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/1] Remove README.kernel_config
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 5/6] API/cgroups: tst_require fail gracefully
+ with unknown controller
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,347 +88,58 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: automated-testing@yoctoproject.org, ltp@lists.linux.it
+Cc: LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Adding automated testing into CC, just to make sure nobody depends on
-this file.
+Hi Richard,
 
-> It's not up-to-day nor important enough to maintain it.
-> 
-> Acked-by: Yang Xu <xuyang2018.jy@fujitsu.com>
-> Acked-by: Cyril Hrubis <chrubis@suse.cz>
-> Signed-off-by: Petr Vorel <pvorel@suse.cz>
+On Fri, May 21, 2021 at 6:26 PM Richard Palethorpe via ltp
+<ltp@lists.linux.it> wrote:
+>
+> Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
 > ---
-> Hi,
-> 
-> already asked before release
-> https://lists.linux.it/pipermail/ltp/2021-May/022616.html
-> 
-> Kind regards,
-> Petr
-> 
->  README.kernel_config | 301 -------------------------------------------
->  1 file changed, 301 deletions(-)
->  delete mode 100644 README.kernel_config
-> 
-> diff --git a/README.kernel_config b/README.kernel_config
-> deleted file mode 100644
-> index 547dd4f33..000000000
-> --- a/README.kernel_config
-> +++ /dev/null
-> @@ -1,301 +0,0 @@
-> ----------------------------------
-> -Enable CODE COVERAGE for your Kernel:
-> ----------------------------------
-> -1) Apply kernel-gcov patch(s) against the corresponding Kernel. They are available here:
-> -http://ltp.cvs.sourceforge.net/viewvc/ltp/utils/analysis/gcov-kernel/linux-2.*.*-gcov.patch?view=log,
-> -2) Also enable the following options in your .config file before building the kernel
-> -CONFIG_GCOV_PROFILE=y
-> -CONFIG_GCOV_ALL=y
-> -CONFIG_GCOV_PROC=m
-> -CONFIG_GCOV_HAMMER=y
-> -
-> ----------------------------------
-> -Enabling Kernel Configuration to test Containers/Namespaces
-> ----------------------------------
-> -CONFIG_NAMESPACES=y
-> -CONFIG_UTS_NS=y
-> -CONFIG_IPC_NS=y
-> -CONFIG_USER_NS=y
-> -CONFIG_PID_NS=y
-> -CONFIG_NET_NS=y
-> -CONFIG_VETH=y
-> -CONFIG_MACVLAN=y
-> -
-> -The IPC namespaces do not automatically enable IPC, so you may
-> -also want to have:
-> -
-> -CONFIG_SYSVIPC=y
-> -CONFIG_SYSVIPC_SYSCTL=y
-> -CONFIG_POSIX_MQUEUE=y
-> -
-> ----------------------------------
-> -Enabling Kernel Configuration to test Controllers
-> ----------------------------------
-> -CONFIG_CGROUPS=y
-> -CONFIG_CGROUP_DEBUG=y
-> -CONFIG_CGROUP_NS=y
-> -CONFIG_GROUP_SCHED=y
-> -CONFIG_FAIR_GROUP_SCHED=y
-> -CONFIG_RT_GROUP_SCHED=y
-> -CONFIG_CGROUP_SCHED=y
-> -CONFIG_CGROUP_MEM_RES_CTLR=y
-> -CONFIG_LOCKDEP=y
-> ----------------------------------
-> -Enabling Kernel Configuration to test Power Management features
-> ----------------------------------
-> -CONFIG_CPU_FREQ=y
-> -CONFIG_CPU_FREQ_TABLE=y
-> -CONFIG_CPU_FREQ_DEBUG=y
-> -CONFIG_CPU_FREQ_STAT=y
-> -CONFIG_CPU_FREQ_STAT_DETAILS=y
-> -CONFIG_CPU_IDLE=y
-> -CONFIG_CPU_IDLE_GOV_LADDER=y
-> -CONFIG_CPU_IDLE_GOV_MENU=y
-> -CONFIG_SCHED_MC=y
-> -CONFIG_CPU_FREQ_DEFAULT_GOV_PERFORMANCE=y
-> -CONFIG_CPU_FREQ_DEFAULT_GOV_POWERSAVE=y
-> -CONFIG_CPU_FREQ_DEFAULT_GOV_USERSPACE=y
-> -CONFIG_CPU_FREQ_DEFAULT_GOV_ONDEMAND=y
-> -CONFIG_CPU_FREQ_DEFAULT_GOV_CONSERVATIVE=y
-> -CONFIG_CPU_FREQ_GOV_PERFORMANCE=y
-> -CONFIG_CPU_FREQ_GOV_POWERSAVE=y
-> -CONFIG_CPU_FREQ_GOV_USERSPACE=y
-> -CONFIG_CPU_FREQ_GOV_ONDEMAND=y
-> -CONFIG_CPU_FREQ_GOV_CONSERVATIVE=y
-> ----------------------------------
-> -Enabling Kernel Configuration to test filecaps security feature
-> ----------------------------------
-> -CONFIG_SECURITY_FILE_CAPABILITIES=y
-> ----------------------------------
-> -Enabling Kernel Configuration to test SELinux security feature
-> ----------------------------------
-> -Your Kernel should have been built with the following options to
-> -test SELinux:
-> -
-> -CONFIG_SECURITY=y
-> -CONFIG_SECURITY_NETWORK=y
-> -CONFIG_SECURITY_NETWORK_XFRM=y
-> -
-> -CONFIG_SECURITY_DEFAULT_MMAP_MIN_ADDR=0
-> -This has to be set to a positive value if you want to test this check.
-> -Fedora kernels set it to 65536.
-> -
-> -CONFIG_SECURITY_SELINUX=y
-> -CONFIG_SECURITY_SELINUX_BOOTPARAM=y
-> -CONFIG_SECURITY_SELINUX_BOOTPARAM_VALUE=1
-> -CONFIG_SECURITY_SELINUX_DEVELOP=y
-> -CONFIG_SECURITY_SELINUX_AVC_STATS=y
-> -CONFIG_SECURITY_SELINUX_CHECKREQPROT_VALUE=1
-> -CONFIG_SECURITY_SELINUX_ENABLE_SECMARK_DEFAULT=y
-> -
-> -CONFIG_SECURITY_SELINUX_POLICYDB_VERSION_MAX=y
-> -You don't want this one unless you are running Fedora 3 or 4.
-> -On anything newer, it will cause unnecessary policy expansion.
-> -
-> -CONFIG_SECURITY_SMACK=y
-> -CONFIG_SECURITY_SELINUX=y
-> -
-> -By default, if you boot with multiple LSMs compiled into the kernel, the
-> -kernel won't boot succesfully - there can be only one (aside from
-> -explicit internal "stacking" e.g. as is done for combining SELinux or
-> -Smack with capabilities).  Unless you use the security= option to select
-> -one at boot.  SELinux and Smack will honor the security= option.
-> ----------------------------------
-> ----------------------------------
-> -Enabling Kernel Configuration to test SMACK security feature
-> ----------------------------------
-> -CONFIG_NETLABEL=y
-> -CONFIG_SECURITY=y
-> -CONFIG_SECURITY_NETWORK=y
-> -CONFIG_SECURITY_SMACK=y
-> -CONFIG_SECURITY_SELINUX should not be set
-> -
-> -For more information to build/install/run these tests, look through:
-> -ltp/testcases/kernel/security/smack/README
-> ----------------------------------
-> ----------------------------------
-> -Enablement for Enhancement to kexec/kdump for implementing the following features:
-> -- Backup/restore memory used by the original kernel before/after kexec.
-> -- Save/restore CPU state before/after kexec.
-> -Now, only the i386 architecture is supported. More from the following git logs:
-> -http://git.kernel.org/?p=linux/kernel/git/torvalds/linux-2.6.git;a=commit;h=3ab83521378268044a448113c6aa9a9e245f4d2f,
-> -http://git.kernel.org/?p=linux/kernel/git/torvalds/linux-2.6.git;a=commit;h=89081d17f7bb81d89fa1aa9b70f821c5cf4d39e9,
-> ----------------------------------
-> -CONFIG_X86_32=y
-> -CONFIG_RELOCATABLE=y
-> -CONFIG_KEXEC=y
-> -CONFIG_CRASH_DUMP=y
-> -CONFIG_PM=y
-> -CONFIG_HIBERNATION=y
-> -CONFIG_KEXEC_JUMP=y
-> ----------------------------------
-> -Enabling HOTPLUG for your Kernels
-> ----------------------------------
-> -CONFIG_HOTPLUG_CPU=y
-> -CONFIG_ARCH_ENABLE_MEMORY_HOTPLUG=y
-> -CONFIG_ACPI_HOTPLUG_CPU=y
-> -CONFIG_HOTPLUG_PCI_PCIE=y
-> -CONFIG_HOTPLUG_PCI=y
-> -CONFIG_HOTPLUG_PCI_FAKE=y
-> -CONFIG_HOTPLUG_PCI_COMPAQ=y
-> -CONFIG_HOTPLUG_PCI_COMPAQ_NVRAM=y
-> -CONFIG_HOTPLUG_PCI_IBM=y
-> -CONFIG_HOTPLUG_PCI_ACPI=y
-> -CONFIG_HOTPLUG_PCI_ACPI_IBM=y
-> -CONFIG_HOTPLUG_PCI_CPCI=y
-> -CONFIG_HOTPLUG_PCI_CPCI_ZT5550=y
-> -CONFIG_HOTPLUG_PCI_CPCI_GENERIC=y
-> -CONFIG_HOTPLUG_PCI_SHPC=y
-> ----------------------------------
-> -Video For Linux Two API testing Requirements:
-> -You need to have a video device (i.e. webcam, tuner card, etc.) connected to your system and available under /dev/video0. If you don't have any hardware device available, you can still test the "Virtual Video Driver". To compile this you need to compile your kernel with CONFIG_VIDEO_VIVI=m under:
-> -  -> Device Drivers
-> -    -> Multimedia devices
-> -      -> Video For Linux
-> -        -> Video capture adapters
-> -         -> Virtual Video Driver
-> -
-> -The tests also require CUnit Framework to be installed before compiling the tests. Download & Install the same from:
-> -http://sourceforge.net/projects/cunit/
-> ----------------------------------
-> ----------------------------------
-> -Native language support (nls) testsuite requirements
-> -----------------------------------------------------
-> -CONFIG_NLS=m
-> -CONFIG_BLOCK=y
-> ----------------------------------
-> -Enabling Controller area network (CAN) protocol support for your Kernels
-> ----------------------------------
-> -CONFIG_NET=y
-> -CONFIG_CAN=m
-> -CONFIG_CAN_RAW=m
-> -CONFIG_CAN_BCM=m
-> -# CAN Device Drivers
-> -CONFIG_CAN_VCAN=m
-> ----------------------------------
-> -Enabling Fault Injection Support for your kernel (version 2.6.29).
-> -Please check with the original kernel for the fault injection
-> -types it supports. Following supports will be available:
-> -
-> -/sys/kernel/debug/fail_io_timeout/interval
-> -/sys/kernel/debug/fail_io_timeout/probability
-> -/sys/kernel/debug/fail_io_timeout/reject-end
-> -/sys/kernel/debug/fail_io_timeout/reject-start
-> -/sys/kernel/debug/fail_io_timeout/require-end
-> -/sys/kernel/debug/fail_io_timeout/require-start
-> -/sys/kernel/debug/fail_io_timeout/space
-> -/sys/kernel/debug/fail_io_timeout/stacktrace-depth
-> -/sys/kernel/debug/fail_io_timeout/task-filter
-> -/sys/kernel/debug/fail_io_timeout/times
-> -/sys/kernel/debug/fail_io_timeout/verbose
-> -
-> -/sys/kernel/debug/fail_make_request/interval
-> -/sys/kernel/debug/fail_make_request/probability
-> -/sys/kernel/debug/fail_make_request/reject-end
-> -/sys/kernel/debug/fail_make_request/reject-start
-> -/sys/kernel/debug/fail_make_request/require-end
-> -/sys/kernel/debug/fail_make_request/require-start
-> -/sys/kernel/debug/fail_make_request/space
-> -/sys/kernel/debug/fail_make_request/stacktrace-depth
-> -/sys/kernel/debug/fail_make_request/task-filter
-> -/sys/kernel/debug/fail_make_request/times
-> -/sys/kernel/debug/fail_make_request/verbose
-> -
-> -/sys/kernel/debug/fail_page_alloc/ignore-gfp-highmem
-> -/sys/kernel/debug/fail_page_alloc/ignore-gfp-wait
-> -/sys/kernel/debug/fail_page_alloc/interval
-> -/sys/kernel/debug/fail_page_alloc/min-order
-> -/sys/kernel/debug/fail_page_alloc/probability
-> -/sys/kernel/debug/fail_page_alloc/reject-end
-> -/sys/kernel/debug/fail_page_alloc/reject-start
-> -/sys/kernel/debug/fail_page_alloc/require-end
-> -/sys/kernel/debug/fail_page_alloc/require-start
-> -/sys/kernel/debug/fail_page_alloc/space
-> -/sys/kernel/debug/fail_page_alloc/stacktrace-depth
-> -/sys/kernel/debug/fail_page_alloc/task-filter
-> -/sys/kernel/debug/fail_page_alloc/times
-> -/sys/kernel/debug/fail_page_alloc/verbose
-> -
-> -/sys/kernel/debug/failslab/ignore-gfp-wait
-> -/sys/kernel/debug/failslab/interval
-> -/sys/kernel/debug/failslab/probability
-> -/sys/kernel/debug/failslab/reject-end
-> -/sys/kernel/debug/failslab/reject-start
-> -/sys/kernel/debug/failslab/require-end
-> -/sys/kernel/debug/failslab/require-start
-> -/sys/kernel/debug/failslab/space
-> -/sys/kernel/debug/failslab/stacktrace-depth
-> -/sys/kernel/debug/failslab/task-filter
-> -/sys/kernel/debug/failslab/times
-> -/sys/kernel/debug/failslab/verbose
-> -
-> -when the below kernel config options are set:
-> -
-> -CONFIG_FAULT_INJECTION=y
-> -CONFIG_DEBUG_KERNEL=y
-> -CONFIG_FAILSLAB=y (Fault-injection capability for kmalloc)
-> -(CONFIG_SLAB=y || CONFIG_SLUB=y) if CONFIG_FAILSLAB=y
-> -CONFIG_FAIL_PAGE_ALLOC=y (Fault-injection capabilitiy for alloc_pages())
-> -CONFIG_FAIL_MAKE_REQUEST=y (Fault-injection capability for disk IO)
-> -CONFIG_BLOCK=y if CONFIG_FAIL_MAKE_REQUEST=y
-> -CONFIG_FAIL_IO_TIMEOUT=y (Faul-injection capability for faking disk interrupts)
-> -CONFIG_BLOCK=y if CONFIG_FAIL_IO_TIMEOUT=y
-> -CONFIG_FAULT_INJECTION_DEBUG_FS=y (Debugfs entries for fault-injection capabilities)
-> -(CONFIG_SYSFS=y && CONFIG_DEBUG_FS=y) if CONFIG_FAULT_INJECTION_DEBUG_FS=y
-> -CONFIG_FAULT_INJECTION_STACKTRACE_FILTER=y (stacktrace filter for fault-injection capabilities)
-> -(CONFIG_FAULT_INJECTION_DEBUG_FS=y && CONFIG_STACKTRACE_SUPPORT=y && !CONFIG_X86_64) if
-> -	CONFIG_FAULT_INJECTION_STACKTRACE_FILTER=y
-> -
-> -For more information on Fault injection, please refer to:
-> -linux-2.6/Documentation/fault-injection/fault-injection.txt,
-> -
-> -You should also have made the following entries in your /etc/fstab file
-> -once the kernel is booted with the above CONFIG options set:
-> -
-> -debugfs		/sys/kernel/debug/		debugfs
-> -
-> -# How the Kernel Fault Injection works for LTP ?
-> -
-> -1) Build Kernel with all the above possible kernel CONFIG Options,
-> -2) Create the above entry in /etc/fstab file,
-> -3) Reboot in the new kernel,
-> -4) Goto LTPROOT. Build and Install LTP as per ltp/INSTALL file,
-> -5) Choose your own test(or default) to run with fault injection as follows:
-> -	./runltp -f <command_file> -F <LOOPS>,<FAULT_PROBABILITY>
-> -
-> -The algorithm functions like:
-> -loop (for each testcase)
-> -begin
-> -	execute_testcase(inside_stable_kernel)
-> -	begin
-> -		insert_fault_into_kernel()
-> -		loop X Times
-> -		begin
-> -			execute_testcase(inside_fault_kernel)
-> -		end
-> -		restore_kernel_to_normal()
-> -	end
-> -end
-> -
-> -# External TODOs:
-> -1) Add or modify testcases when relevant kernel functionality changes.
-> ----------------------------------
-> -
-> ----------------------------------
-> -Enabling Kernel Configuration to test ext4 new features
-> ----------------------------------
-> -CONFIG_EXT4_FS=y
-> -CONFIG_EXT4DEV_COMPAT=y
-> -CONFIG_EXT4_FS_XATTR=y
-> -CONFIG_EXT4_FS_POSIX_ACL=y
-> -CONFIG_EXT4_FS_SECURITY=y
-> -
-> -Beside that, the following packages are necessary.
-> -  e2fsprogs
-> -  e2fsprogs-devel
-> -  e2fsprogs-libs
-> -And the version of packages must be 1.41.4 or above.
-> -
-> -For more information to build/install/run these tests, look through:
-> -ltp/testcases/kernel/fs/ext4-new-features/README
-> ----------------------------------
-> -- 
-> 2.31.1
-> 
+>  lib/tst_cgroup.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
+>
+> diff --git a/lib/tst_cgroup.c b/lib/tst_cgroup.c
+> index 74746f13e..6d94ea41c 100644
+> --- a/lib/tst_cgroup.c
+> +++ b/lib/tst_cgroup.c
+> @@ -599,6 +599,12 @@ void tst_cgroup_require(const char *const ctrl_name,
+>         struct cgroup_ctrl *const ctrl = cgroup_find_ctrl(ctrl_name);
+>         struct cgroup_root *root;
+>
+> +       if (!ctrl) {
+> +               tst_brk(TBROK, "'%s' controller is unknown to LTP", ctrl_name);
+> +               tst_brk(TBROK, "Calling %s in cleanup?", __func__);
+> +               return;
 
--- 
-Cyril Hrubis
-chrubis@suse.cz
+It'd never go here to perform a return because the first tst_brk
+will break the test directly. And, I don't know why we need the
+second tst_brk to show calling in cleanup, is that possible?
+
+
+> +       }
+> +
+>         if (!options)
+>                 options = &default_opts;
+>
+> --
+> 2.31.1
+>
+>
+> --
+> Mailing list info: https://lists.linux.it/listinfo/ltp
+>
+
+
+--
+Regards,
+Li Wang
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
