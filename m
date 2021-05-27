@@ -2,65 +2,65 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BFB03927AA
-	for <lists+linux-ltp@lfdr.de>; Thu, 27 May 2021 08:32:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6047392818
+	for <lists+linux-ltp@lfdr.de>; Thu, 27 May 2021 08:56:57 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id CD3903C7735
-	for <lists+linux-ltp@lfdr.de>; Thu, 27 May 2021 08:32:40 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 38C8B3C7740
+	for <lists+linux-ltp@lfdr.de>; Thu, 27 May 2021 08:56:57 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 7F35A3C1AD6
- for <ltp@lists.linux.it>; Thu, 27 May 2021 08:32:37 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id 7C7DE3C2A8F
+ for <ltp@lists.linux.it>; Thu, 27 May 2021 08:56:53 +0200 (CEST)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id E66AD1401107
- for <ltp@lists.linux.it>; Thu, 27 May 2021 08:32:36 +0200 (CEST)
-Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
- (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 2DD481FD2A;
- Thu, 27 May 2021 06:32:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1622097156;
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id DB473601AEB
+ for <ltp@lists.linux.it>; Thu, 27 May 2021 08:56:52 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1622098612;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=WOjTlhSIsoWZPsmA6dNxGyHXEAs6unPgpDCeLaXHVDM=;
- b=GXhWF4D2wlDZg8Y9BUNTtpGC/L7WZAkejRRrWVbTJwMYu/FS1LUzlFTIWQFQtx6/LD6Ye9
- b0v2GxO96c6MPejNIg/MkywWGRMGZ84r3llFvpYJS8DgIGzUa69r1u/j8Mva4D+ec5E0Md
- YTqlJpZ0MViRiZrRH8JVx6wNB7ztlSs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1622097156;
+ bh=A7jkuRmWILTifcvHV/oYr2BS7fIrebRQ/PDUhw+4lQA=;
+ b=WFdZ/HnIbfiFL+uPCjgN5ffREnFE1fmYy/2T0kWHfeMUdftjPcBHrUS7MonRFCPkcxOap9
+ DXD9XuNpuq5ceHJGsasE0pSTjfkkrKq5G1fLeXdss4qSCPe1s1nP6NHT/pIaUxCukdAWzL
+ wLazoRdjxOpgVMusk2k2nkGLjQgGV9w=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1622098612;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=WOjTlhSIsoWZPsmA6dNxGyHXEAs6unPgpDCeLaXHVDM=;
- b=izfGfiT8uqEipt8qPT7+aGDNc8heBJTS/miuTVxLxV03Zwhfwk2dXjMpp1wKcMx2xWXmlM
- iURSrIttSaQ0PABw==
-Received: from director2.suse.de (director2.suse-dmz.suse.de [192.168.254.72])
- by imap.suse.de (Postfix) with ESMTPSA id 04E2211A98;
- Thu, 27 May 2021 06:32:35 +0000 (UTC)
-Date: Thu, 27 May 2021 08:32:34 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Message-ID: <YK89Av7F3kML4ERn@pevik>
-References: <20210526172503.18621-1-pvorel@suse.cz>
+ bh=A7jkuRmWILTifcvHV/oYr2BS7fIrebRQ/PDUhw+4lQA=;
+ b=5jEPEGr+l+VoN8BXMZsse61qBaNIHuxQAstb6QZKGnGlXA6Sr7s1ErauBLJSgG69tkc7lb
+ Q4JxMZYx+1kPSODg==
+Received: from relay2.suse.de (unknown [195.135.221.27])
+ by mx2.suse.de (Postfix) with ESMTP id 189D5AFBD;
+ Thu, 27 May 2021 06:56:52 +0000 (UTC)
+References: <20210526154949.4473-1-pvorel@suse.cz>
+ <CAEemH2ecppttvGW1JeJ_E=w1eUJYEY8+Sx8Euztn2MhRYykEKQ@mail.gmail.com>
+ <CAEemH2fGaxQuTvpV1gEp8hVoeHo=42ikSRYs+5RmCuJQfJQa-g@mail.gmail.com>
+ <YK8d5APc1VZ0Q7T+@pevik>
+ <CAEemH2doGFdk395L5t7cGBKT63AzORNjEU4=H6qQFbXjO2xCTA@mail.gmail.com>
+ <YK814g7TF3JDy37G@pevik>
+User-agent: mu4e 1.4.15; emacs 27.2
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Petr Vorel <pvorel@suse.cz>
+In-reply-to: <YK814g7TF3JDy37G@pevik>
+Date: Thu, 27 May 2021 07:56:50 +0100
+Message-ID: <87pmxck6kt.fsf@suse.de>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210526172503.18621-1-pvorel@suse.cz>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [LTP PATCH v2 1/3] nfs_lib.sh: Detect unsupported protocol
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [RFC PATCH 1/1] doc: Split test-writing-guidelines
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,86 +72,78 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: linux-nfs@vger.kernel.org
+Reply-To: rpalethorpe@suse.de
+Cc: Xiao Yang <yangx.jy@cn.fujitsu.com>, LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi all,
+Hello,
 
-> Caused by disabled CONFIG_NFSD_V[34] in kernel config.
+Petr Vorel <pvorel@suse.cz> writes:
 
-Looking for other errno in nfs-utils (in utils/mount/):
-EACCES 13 Permission denied
-EAFNOSUPPORT 97 Address family not supported by protocol
-EAGAIN 11 Resource temporarily unavailable
-EALREADY 114 Operation already in progress
-ECONNREFUSED 111 Connection refused
-EINVAL 22 Invalid argument
-EIO 5 Input/output error
-ENOMEM 12 Cannot allocate memory
-EOPNOTSUPP 95 Operation not supported
-EPROTONOSUPPORT 93 Protocol not supported
-ESPIPE 29 Illegal seek
-ETIMEDOUT 110 Connection timed out
+>> On Thu, May 27, 2021 at 12:19 PM Petr Vorel <pvorel@suse.cz> wrote:
+>
+>> > Hi Li, all,
+>
+>> > > > > https://github.com/pevik/ltp/wiki/Test-Writing-Guidelines
+>> > > > > https://github.com/pevik/ltp/wiki/C-Test-API
+>
+>> > > Seems we have a similar guideline "c-test-tutorial-simple.txt",
+>> > > maybe better to combine them together?
 
-I suppose I should add only:
-EAFNOSUPPORT 97 Address family not supported by protocol
-(I guess for kernel without IPv6 support).
+The tutorial is a step-by-step guide which also includes general info,
+like how to use Git. The test writing guidelines are a reference
+specifically for LTP. So they are very different IMO.
 
-But doing a quick test with v3 enabled and v4 disabled:
-CONFIG_NFS_V2=m
-CONFIG_NFS_V3=m
-# CONFIG_NFS_V3_ACL is not set
-# CONFIG_NFS_V4 is not set
-CONFIG_NFSD_V3=y
-# CONFIG_NFSD_V3_ACL is not set
-CONFIG_NFSD_V4=y
+This reminds me though, that the tutorial probably needs updating.
 
-nfs-utils does not print it for enabled protocol:
+>> > I'd prefer to keep them separate. Because otherwise page gets long again.
+>> > But I'd consider to unify names ("LTP C Test API" vs. "C Test Case Tutorial"
+>> > - API vs. Case).
+>
+>> No problem, I'm OK with unifying names.
+>
+>> And yes, we can rename with the same prefix start on purposely to make
+>> them keep nearby in alphabetical sorting.
 
-nfs01 1 TINFO: setup NFSv3, socket type tcp6
-nfs01 1 TINFO: Mounting NFS: mount -v -t nfs -o proto=tcp6,vers=3 [fd00:1:1:1::2]:/var/tmp/LTP_nfs01.XXXXySFHMF/3/tcp6 /var/tmp/LTP_nfs01.XXXXySFHMF/3/0
-mount: mounting [fd00:1:1:1::2]:/var/tmp/LTP_nfs01.XXXXySFHMF/3/tcp6 on /var/tmp/LTP_nfs01.XXXXySFHMF/3/0 failed: Input/output error
-nfs01 1 TBROK: mount command failed
++1
 
-but it does for disabled protocol:
+>
+> I'm not sure myself about renaming. But adding list of files generated by us in
+> HOME [1] and Developers corner [2] should help.
+>
+> Also I'd add some NOTE: See also links (eg. to C Test API at the top in C Test
+> Case Tutorial and vice versa, in Shell Test API to C Test API and vice
+> versa).
 
-nfs01 1 TINFO: setup NFSv4, socket type tcp6
-nfs01 1 TINFO: Mounting NFS: mount -v -t nfs -o proto=tcp6,vers=4 [fd00:1:1:1::2]:/var/tmp/LTP_nfs01.XXXXWyckxh/4/tcp6 /var/tmp/LTP_nfs01.XXXXWyckxh/4/0
-NFS: NFSv4 is not compiled into kernel
-mount: mounting [fd00:1:1:1::2]:/var/tmp/LTP_nfs01.XXXXWyckxh/4/tcp6 on /var/tmp/LTP_nfs01.XXXXWyckxh/4/0 failed: Protocol not supported
-mount: mounting [fd00:1:1:1::2]:/var/tmp/LTP_nfs01.XXXXWyckxh/4/tcp6 on /var/tmp/LTP_nfs01.XXXXWyckxh/4/0 failed: Protocol not supported
-nfs01 1 TCONF: Protocol not supported
++1
 
-It might be a problem with LTP tst_net.sh library, which might not support
-disabled IPv6 properly. Testing ping02.sh -6:
+>
+>> > > > > https://github.com/pevik/ltp/wiki/Shell-Test-API
+>
+>> > > Forgot to mention, with the increased number of docs, do you think it
+>> > > necessary to create an index for including all documents in a sort?
+>> > There is list of pages on the right. But as it's sorted alphabetically,
+>> > it's not enough. Maybe we should add this list to README.md and to HOME wiki
+>> > page.
+>
+>> To HOME wiki sounds good, we can do a simple triage in there.
+>
+>> Thanks a lot for the documentation work!
+> Thanks for your review!
+>
+> Kind regards,
+> Petr
+>
+> [1] https://github.com/linux-test-project/ltp/wiki
+> [2] https://github.com/linux-test-project/ltp#developers-corner
 
-ping02 1 TINFO: initialize 'lhost' 'ltp_ns_veth2' interface
-ping02 1 TINFO: add local addr 10.0.0.2/24
-ping02 1 TINFO: add local addr fd00:1:1:1::2/64
-RTNETLINK answers: Operation not supported
-ping02 1 TINFO: initialize 'rhost' 'ltp_ns_veth1' interface
-ping02 1 TINFO: add remote addr 10.0.0.1/24
-ping02 1 TINFO: add remote addr fd00:1:1:1::1/64
-RTNETLINK answers: Operation not supported
-# tst_net_iface_prefix.c:133: TINFO: prefix and interface not found for 'fd00:1:1:1::2'.
 
-ping02 1 TINFO: Network config (local -- remote):
-ping02 1 TINFO: ltp_ns_veth2 -- ltp_ns_veth1
-ping02 1 TINFO: 10.0.0.2/24 -- 10.0.0.1/24
-ping02 1 TINFO: fd00:1:1:1::2/64 -- fd00:1:1:1::1/64
-ping02 1 TINFO: timeout per run is 0h 5m 0s
-ping6: socket: Address family not supported by protocol
-ping02 1 TFAIL: ping6 -I ltp_ns_veth2 -c 3 -s 8 -f -p 000102030405060708090a0b0c0d0e0f fd00:1:1:1::1 >/dev/null failed unexpectedly
-
-=> It's not a priority, I'll try to have look into it in when time permits.
-https://github.com/linux-test-project/ltp/issues/821
-
-Kind regards,
-Petr
+-- 
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
