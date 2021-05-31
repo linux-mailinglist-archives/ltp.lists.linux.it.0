@@ -2,83 +2,96 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86B57395532
-	for <lists+linux-ltp@lfdr.de>; Mon, 31 May 2021 08:02:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72112395805
+	for <lists+linux-ltp@lfdr.de>; Mon, 31 May 2021 11:22:45 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4645E3C2982
-	for <lists+linux-ltp@lfdr.de>; Mon, 31 May 2021 08:02:52 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 223523C8051
+	for <lists+linux-ltp@lfdr.de>; Mon, 31 May 2021 11:22:45 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id ED22E3C20B6
- for <ltp@lists.linux.it>; Mon, 31 May 2021 08:02:47 +0200 (CEST)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 6FD9D3C2907
+ for <ltp@lists.linux.it>; Mon, 31 May 2021 11:22:43 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id E67431A0091F
- for <ltp@lists.linux.it>; Mon, 31 May 2021 08:02:46 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1622440965;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id D58DB600101
+ for <ltp@lists.linux.it>; Mon, 31 May 2021 11:22:42 +0200 (CEST)
+Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 152831FD2F;
+ Mon, 31 May 2021 09:22:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1622452962; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=Q6/Kqd+9SZOt2OnVqAtUYbDaweD+VuJUOLyE+Iy2H5o=;
- b=G2pDUznbCAcw6Ra0kqDhGeZSpivwRg0V5OB+wgR6RfRu2bi8TJPPzGz3OzSjBmKo73M4MQ
- 1JggKO1HUXNME/95RNiXhtECQs9AXht0FPB8KZS7t8jlqIHXY1DZwDW2RTU6ktoI7NOVE1
- Zt3Sj8I6QP6eSwdrn3CXmiJ8/XQfslQ=
-Received: from mail-yb1-f200.google.com (mail-yb1-f200.google.com
- [209.85.219.200]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-386-_vC7boX0Oy6VNFYQdk5EGw-1; Mon, 31 May 2021 02:02:43 -0400
-X-MC-Unique: _vC7boX0Oy6VNFYQdk5EGw-1
-Received: by mail-yb1-f200.google.com with SMTP id
- q63-20020a25d9420000b0290532e824f77cso9226842ybg.10
- for <ltp@lists.linux.it>; Sun, 30 May 2021 23:02:43 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Q6/Kqd+9SZOt2OnVqAtUYbDaweD+VuJUOLyE+Iy2H5o=;
- b=YSHHYv30P16xXrPuUeFn/SjQ5Rx+bFKbUYrPNWzDL4yBOVfTJxhpqiVnfr5eA0bN67
- OYJV3SAnv5p7fK3cgTX6jL7j9k0j07Nd+J3h0azai49M7PzQV3MzZvQxcdh7oRvfkYW1
- jTDxEJXerNCYhELCsS4Nm7hqLNKYOvFcBVr0W1+Q9VxRzRKkkrYWPi2Ee+AfwGX19fm/
- BzaiadogY79f4+c1/R2+UfubIRDUVL2lLsHIdbFM/bSgudrXGW8OiIjbKukdF5PefT12
- r2QZS4IbpeZp0u3CQyKMYUtemiSxO5tMGSw5p2fRP+ple2MpzGMBoAhgbGH0vJkRaeXH
- ja/g==
-X-Gm-Message-State: AOAM5336crWX1oGb6fDK8n48L1RBoGYKR1UtXpj8njnLOD4mSVlWqXjN
- MY4TdF+SoLc745d1iYvm1joI4rSuxUW0r0/zo9Fr04+G9rg1FjxDOqBrZ2ShIjtqgANXa4B84Ig
- /oxw8r8Uaz03fEUkNypTvZoRXAaQ=
-X-Received: by 2002:a25:9d86:: with SMTP id v6mr28367893ybp.366.1622440962538; 
- Sun, 30 May 2021 23:02:42 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJxeGlhJ/uq5OhS8athhL6o/KfUee9Hl6Su4Rmvq1IiyuBVwdOgyHyIUhXVD2aH0Zw96/xUSxD0LiMt4ns/PsBY=
-X-Received: by 2002:a25:9d86:: with SMTP id v6mr28367880ybp.366.1622440962371; 
- Sun, 30 May 2021 23:02:42 -0700 (PDT)
+ bh=FUUhW9Xc5FqUMF0qY4TRlxDMvOe+VGaeUQ5RIGIiPU4=;
+ b=WTqhe1x2MDJSKpoOmd3rgWzQeMKwh3OjIJuyZ6eRSpiHi+7JUUa8FVP1FNznPo9rz+cDma
+ mM7qjlZhRDxbIMzgyJeVU7AKrX4u5p9Ibnul/+Sc/nELxKop6o/Yz6+ketGatUTSBEykD2
+ Plq0etr8lojJnLQ1VLfMydQ9Wub2NKk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1622452962;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=FUUhW9Xc5FqUMF0qY4TRlxDMvOe+VGaeUQ5RIGIiPU4=;
+ b=KHEXMtUNxfn5mYantKG7lb8Mw6Pl35nWfoqLgBlF2+r6p4BcW+VCiFRq1MI9FJ6yeamyLv
+ XTBPDIaaWlJ+FICg==
+Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ by imap.suse.de (Postfix) with ESMTP id 82109118DD;
+ Mon, 31 May 2021 09:22:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1622452961; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=FUUhW9Xc5FqUMF0qY4TRlxDMvOe+VGaeUQ5RIGIiPU4=;
+ b=1+DXMxanyW8EVsO+/jaBCPFnvzmpwgPZoJ06AQGioIilqVkIp5OGVDCi/2FbGthFzIn6sv
+ A95NbMD20Fup1U1Xv2PcpHbhSA/jypl7YILH7uWAqTYTAzAAqWKuxELavmW1XEXQP0fYy2
+ wtVYJC+ysgwTe4XeQxGSGATKzEbqOso=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1622452961;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=FUUhW9Xc5FqUMF0qY4TRlxDMvOe+VGaeUQ5RIGIiPU4=;
+ b=R50pDE8/QlbaEkJgPBwXWjsA7llmjo6BN8NZJWCIJviMMD5T3vxFXh7rmf/QerVJ2n1Gf1
+ J0XswpOMCrDd4IAA==
+Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
+ id lhWHHuGqtGCpVQAALh3uQQ
+ (envelope-from <chrubis@suse.cz>); Mon, 31 May 2021 09:22:41 +0000
+Date: Mon, 31 May 2021 10:56:47 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Petr Vorel <pvorel@suse.cz>
+Message-ID: <YLSkz6OUbgwuB7my@yuki>
+References: <20210531032910.6739-1-pvorel@suse.cz>
 MIME-Version: 1.0
-References: <20210521102528.21102-1-rpalethorpe@suse.com>
- <20210521102528.21102-7-rpalethorpe@suse.com>
- <CAEemH2c2yTKbUyW5RQoyqOh2k0JFe3wNJwdcRfBkZD9w8SHG0w@mail.gmail.com>
- <87k0njjj11.fsf@suse.de>
- <CAEemH2fww4Zwqh6E_C+R9erUpXbebKUzS2eHe4JT9LXnsgLUGQ@mail.gmail.com>
-In-Reply-To: <CAEemH2fww4Zwqh6E_C+R9erUpXbebKUzS2eHe4JT9LXnsgLUGQ@mail.gmail.com>
-From: Li Wang <liwang@redhat.com>
-Date: Mon, 31 May 2021 14:02:30 +0800
-Message-ID: <CAEemH2dTr7vDjdEJ3TsoPnQMM6TSk7-0dPX0yC2Emd1z+8vDFg@mail.gmail.com>
-To: Richard Palethorpe <rpalethorpe@suse.de>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20210531032910.6739-1-pvorel@suse.cz>
+Authentication-Results: imap.suse.de;
+	none
+X-Spam-Level: 
+X-Spam-Score: -3.50
+X-Spamd-Result: default: False [-3.50 / 100.00]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ MIME_GOOD(-0.10)[text/plain]; REPLY(-4.00)[];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ RCPT_COUNT_TWO(0.00)[2]; RCVD_NO_TLS_LAST(0.10)[];
+ FROM_EQ_ENVFROM(0.00)[]; MIME_TRACE(0.00)[0:+];
+ MID_RHS_NOT_FQDN(0.50)[]; RCVD_COUNT_TWO(0.00)[2]
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 6/6] sched/cgroup: Add cfs_bandwidth01
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/1] doc: Drop uClinux support
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,62 +103,43 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-> > > [root@dhcp-66-83-181 cfs-scheduler]# ./cfs_bandwidth01
-> > > tst_test.c:1313: TINFO: Timeout per run is 0h 05m 00s
-> > > tst_buffers.c:55: TINFO: Test is using guarded buffers
-> > > cfs_bandwidth01.c:48: TINFO: Set 'worker1/cpu.max' = '3000 10000'
-> > > cfs_bandwidth01.c:48: TINFO: Set 'worker2/cpu.max' = '2000 10000'
-> > > cfs_bandwidth01.c:48: TINFO: Set 'worker3/cpu.max' = '3000 10000'
-> > > cfs_bandwidth01.c:111: TPASS: Scheduled bandwidth constrained workers
-> > > cfs_bandwidth01.c:42: TBROK:
-> > > vdprintf(10</sys/fs/cgroup/cpu,cpuacct/ltp/test-8450/level2>,
-> > > 'cpu.cfs_quota_us', '%u'<5000>): EINVAL (22)
-> >
-> > I wonder if your kernel disallows setting this on a trunk node after it
-> > has been set on leaf nodes (with or without procs in)?
->
-> After looking a while, I think the CGrup V1 disallows the parent quota
-> less than the max value of its children.
->
-> This means we should set in level2 at least '3000/10000', just like what
-> we did for level3.
->
->   cfs_bandwidth01.c:48: TINFO: Set 'worker1/cpu.max' = '3000 10000'
->   cfs_bandwidth01.c:48: TINFO: Set 'worker2/cpu.max' = '2000 10000'
->   cfs_bandwidth01.c:48: TINFO: Set 'worker3/cpu.max' = '3000 10000'
->
-> But in the failure, it shows level2 only set to 5000/100000 (far less than
-> 3000/10000), that's because function set_cpu_quota changes the system
-> default value 'cpu.cfs_period_us' from 100000 to 10000.
+Hi!
+> some shorter form could be added to 3. Test Contribution Checklist [1] as well.
+> 
+> Kind regards,
+> Petr
+> 
+> [1] https://github.com/linux-test-project/ltp/wiki/Test-Writing-Guidelines#3-test-contribution-checklist
+> 
+>  doc/maintainer-patch-review-checklist.txt | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/doc/maintainer-patch-review-checklist.txt b/doc/maintainer-patch-review-checklist.txt
+> index 5420fa933..81ed61ddf 100644
+> --- a/doc/maintainer-patch-review-checklist.txt
+> +++ b/doc/maintainer-patch-review-checklist.txt
+> @@ -44,6 +44,9 @@ New test should
+>  * Docparse documentation
+>  * If a test is a regression test it should include tags
+>    (more in https://github.com/linux-test-project/ltp/wiki/Test-Writing-Guidelines#2238-test-tags[Test tags])
+> +* When rewritting old tests, https://en.wikipedia.org/wiki/%CE%9CClinux[uClinux
+> +  (??Clinux)] support should be removed (project has been discontinued).
+      ^
+      I would just use u instead of \textmu
 
-Or, just reverse the code order to set cfs_period_us first, that also works.
+> +  E.g. `FORK_OR_VFORK()` should be replaced with simple `fork()` or `SAFE_FORK()`.
 
---- a/testcases/kernel/sched/cfs-scheduler/cfs_bandwidth01.c
-+++ b/testcases/kernel/sched/cfs-scheduler/cfs_bandwidth01.c
-@@ -38,10 +38,10 @@ static void set_cpu_quota(const struct
-tst_cgroup_group *const cg,
-                SAFE_CGROUP_PRINTF(cg, "cpu.max",
-                                   "%u %u", quota_us, period_us);
-        } else {
--               SAFE_CGROUP_PRINTF(cg, "cpu.max",
--                                  "%u", quota_us);
-                SAFE_CGROUP_PRINTF(cg, "cpu.cfs_period_us",
-                                  "%u", period_us);
-+               SAFE_CGROUP_PRINTF(cg, "cpu.max",
-+                                  "%u", quota_us);
-        }
-
++ and all #ifdef UCLINUX should be removed as well.
 
 -- 
-Regards,
-Li Wang
-
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
