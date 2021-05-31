@@ -2,53 +2,97 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45DCF3959E5
-	for <lists+linux-ltp@lfdr.de>; Mon, 31 May 2021 13:49:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD1D9395B0E
+	for <lists+linux-ltp@lfdr.de>; Mon, 31 May 2021 15:01:23 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id BE91A3C90B9
-	for <lists+linux-ltp@lfdr.de>; Mon, 31 May 2021 13:49:12 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 62B653C80CB
+	for <lists+linux-ltp@lfdr.de>; Mon, 31 May 2021 15:01:23 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 931F03C28F9
- for <ltp@lists.linux.it>; Mon, 31 May 2021 13:49:07 +0200 (CEST)
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id C78A73C2979
+ for <ltp@lists.linux.it>; Mon, 31 May 2021 15:01:20 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 19DBC140052E
- for <ltp@lists.linux.it>; Mon, 31 May 2021 13:49:04 +0200 (CEST)
-Received: from dggemv704-chm.china.huawei.com (unknown [172.30.72.55])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4Fttm73fT1zYp7S
- for <ltp@lists.linux.it>; Mon, 31 May 2021 19:46:15 +0800 (CST)
-Received: from dggpemm500022.china.huawei.com (7.185.36.162) by
- dggemv704-chm.china.huawei.com (10.3.19.47) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2176.2; Mon, 31 May 2021 19:48:58 +0800
-Received: from ubuntu1804.huawei.com (10.67.174.209) by
- dggpemm500022.china.huawei.com (7.185.36.162) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2176.2; Mon, 31 May 2021 19:48:58 +0800
-From: Xie Ziyao <xieziyao@huawei.com>
-To: <ltp@lists.linux.it>
-Date: Mon, 31 May 2021 19:49:35 +0800
-Message-ID: <20210531114935.26000-1-xieziyao@huawei.com>
-X-Mailer: git-send-email 2.17.1
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 9496A1A00799
+ for <ltp@lists.linux.it>; Mon, 31 May 2021 15:01:19 +0200 (CEST)
+Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id EF23621920;
+ Mon, 31 May 2021 13:01:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1622466079; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=dznHk2Cdcf/uxJLu2gINyPcizMGzy+wmKP57Ngvaciw=;
+ b=xKPD0bf2K5zW6nGVte9VKyHzHTsMx77SjSTXAAumq30DHxjGv5eA9Vs2lJQiybhmC88ipa
+ rOhlGhk9mX9RYB9cfTMOSDQKhXdWqz0r0yXafQHM69HaHUNJPoNyYFVHYmUX9Eb4y3Q9zx
+ eaQLkDYe6mRE/yFZSeQbzGLs3xHg18Y=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1622466079;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=dznHk2Cdcf/uxJLu2gINyPcizMGzy+wmKP57Ngvaciw=;
+ b=QcCWtNko/S53DyihaqQPfRwmEdaafgNa9fU/HRqEyXPJ1sUA39/L4JQ/P8BIjnqYhSoPn2
+ uDsBniozHmq2umBQ==
+Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ by imap.suse.de (Postfix) with ESMTP id A011C118DD;
+ Mon, 31 May 2021 13:01:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1622466078; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=dznHk2Cdcf/uxJLu2gINyPcizMGzy+wmKP57Ngvaciw=;
+ b=ehZpzk7l7LcrBFbLi4mBwGjyYn/HcZbM0LotSYMhH1PBMJbcWM8iiigAoQZcVxSJxghODS
+ PgKYFpQ5nn94kp8G2/xJOhbZ32JlmR1wc/jekwzK4x3nzseIvgzs4Z5SeaMHnTt4sQcKn+
+ gDnVt00l1i7QCZJKqlwQ0q+HvkeaRxU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1622466078;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=dznHk2Cdcf/uxJLu2gINyPcizMGzy+wmKP57Ngvaciw=;
+ b=ikCMsJu9tEzL0VSrbK72VOrZ4XzXOaMynr8j94M4NVF4Vhh275TogUqh8G69Eumu6wpfbk
+ 6Cl0QYFiBB3mFaDw==
+Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
+ id /xUsJR7etGAWTQAALh3uQQ
+ (envelope-from <chrubis@suse.cz>); Mon, 31 May 2021 13:01:18 +0000
+Date: Mon, 31 May 2021 14:35:24 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Joerg Vehlow <lkml@jv-coder.de>
+Message-ID: <YLTYDC4hxQPVxkZq@yuki>
+References: <20210518122610.17171-1-liwang@redhat.com>
+ <20210518122610.17171-2-liwang@redhat.com>
+ <d70f9e5f-0008-02aa-e099-2a8243c4b3fa@jv-coder.de>
 MIME-Version: 1.0
-X-Originating-IP: [10.67.174.209]
-X-ClientProxiedBy: dggems702-chm.china.huawei.com (10.3.19.179) To
- dggpemm500022.china.huawei.com (7.185.36.162)
-X-CFilter-Loop: Reflected
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <d70f9e5f-0008-02aa-e099-2a8243c4b3fa@jv-coder.de>
+Authentication-Results: imap.suse.de;
+	none
+X-Spam-Level: 
+X-Spam-Score: 0.50
+X-Spamd-Result: default: False [0.50 / 100.00]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_HAS_DN(0.00)[];
+ RCPT_COUNT_THREE(0.00)[3]; TO_DN_SOME(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; MIME_GOOD(-0.10)[text/plain];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ RCVD_NO_TLS_LAST(0.10)[]; FROM_EQ_ENVFROM(0.00)[];
+ MIME_TRACE(0.00)[0:+]; MID_RHS_NOT_FQDN(0.50)[];
+ RCVD_COUNT_TWO(0.00)[2]
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH v5] syscalls/chown: Rewrite chown/chown04.c with the
- new api
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 2/2] tst_test: using SIGTERM to terminate process
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,290 +104,31 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Rewrite chown/chown04.c with the new api.
+Hi!
+> But one more strange thing here.
+> I wonder why this even works. $pid is used in _tst_kill_test and defined 
+> in _tst_setup_timer as a local variable.
+> It looks like it is inherited through the call chain and since it is 
+> copied to the background process, it cannot be manipulated by the tests.
+> Still I would vote for changing this at some point, because it is highly 
+> confusing.
 
-Signed-off-by: Xie Ziyao <xieziyao@huawei.com>
----
-v4->v5:
-1. Add a copyright for this modification.
-2. Change chown(2) to chown() in [Description].
+That's actually a correct and well defined behavior, if you call a
+function g from function f the function g has access to the variables
+local to f.
 
- testcases/kernel/syscalls/chown/chown04.c | 229 +++++++---------------
- 1 file changed, 73 insertions(+), 156 deletions(-)
+And yes it's confusing, but the alternative is having another global
+variable which I do not think is much better than this.
 
-diff --git a/testcases/kernel/syscalls/chown/chown04.c b/testcases/kernel/syscalls/chown/chown04.c
-index 1f3ed412b..69a0dee09 100644
---- a/testcases/kernel/syscalls/chown/chown04.c
-+++ b/testcases/kernel/syscalls/chown/chown04.c
-@@ -1,75 +1,55 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
- /*
-  * Copyright (c) International Business Machines  Corp., 2001
-- *  07/2001 Ported by Wayne Boyer
-+ * 07/2001 Ported by Wayne Boyer
-  * Copyright (c) 2014 Cyril Hrubis <chrubis@suse.cz>
-- *
-- * This program is free software;  you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License as published by
-- * the Free Software Foundation; either version 2 of the License, or
-- * (at your option) any later version.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY;  without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
-- * the GNU General Public License for more details.
-- *
-- * You should have received a copy of the GNU General Public License
-- * along with this program;  if not, write to the Free Software Foundation,
-- * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
-+ * Copyright (c) 2021 Xie Ziyao <xieziyao@huawei.com>
-  */
-
--/*
-- * Test Name: chown04
-+/*\
-+ * [Description]
-  *
-- * Test Description:
-- *   Verify that,
-- *   1) chown(2) returns -1 and sets errno to EPERM if the effective user id
-- *		 of process does not match the owner of the file and the process
-- *		 is not super user.
-- *   2) chown(2) returns -1 and sets errno to EACCES if search permission is
-- *		 denied on a component of the path prefix.
-- *   3) chown(2) returns -1 and sets errno to EFAULT if pathname points
-- *		 outside user's accessible address space.
-- *   4) chown(2) returns -1 and sets errno to ENAMETOOLONG if the pathname
-- *		 component is too long.
-- *   5) chown(2) returns -1 and sets errno to ENOTDIR if the directory
-- *		 component in pathname is not a directory.
-- *   6) chown(2) returns -1 and sets errno to ENOENT if the specified file
-- *		 does not exists.
-+ * Verify that:
-+ *
-+ * 1. Chown() returns -1 and sets errno to EPERM if the effective user id
-+ *    of process does not match the owner of the file and the process is not
-+ *    super user.
-+ * 2. Chown() returns -1 and sets errno to EACCES if search permission is
-+ *    denied on a component of the path prefix.
-+ * 3. Chown() returns -1 and sets errno to EFAULT if pathname points outside
-+ *    user's accessible address space.
-+ * 4. Chown() returns -1 and sets errno to ENAMETOOLONG if the pathname
-+ *    component is too long.
-+ * 5. Chown() returns -1 and sets errno to ENOENT if the specified file does
-+ *    not exists.
-+ * 6. Chown() returns -1 and sets errno to ENOTDIR if the directory component
-+ *    in pathname is not a directory.
-+ * 7. Chown() returns -1 and sets errno to ELOOP if too many symbolic links
-+ *    were encountered in resolving pathname.
-+ * 8. Chown() returns -1 and sets errno to EROFS if the named file resides on
-+ *    a read-only filesystem.
-  */
-
--#include <stdio.h>
--#include <stdlib.h>
--#include <unistd.h>
--#include <fcntl.h>
--#include <errno.h>
--#include <string.h>
--#include <signal.h>
--#include <grp.h>
- #include <pwd.h>
--#include <sys/types.h>
--#include <sys/stat.h>
--#include <sys/mman.h>
--#include <sys/mount.h>
--
--#include "test.h"
--#include "safe_macros.h"
--#include "compat_16.h"
--
--#define MODE_RWX		 (S_IRWXU|S_IRWXG|S_IRWXO)
--#define FILE_MODE		 (S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH)
--#define DIR_MODE		 (S_IRUSR|S_IWUSR|S_IXUSR|S_IRGRP| \
--				 S_IXGRP|S_IROTH|S_IXOTH)
--#define DIR_TEMP		 "testdir_1"
--#define TEST_FILE1		 "tfile_1"
--#define TEST_FILE2		 (DIR_TEMP "/tfile_2")
--#define TEST_FILE3		 "t_file/tfile_3"
--#define TEST_FILE4		 "test_eloop1"
--#define TEST_FILE5		 "mntpoint"
--
--static char long_path[PATH_MAX + 2];
--static const char *device;
--static int mount_flag;
-+
-+#include "tst_test.h"
-+#include "compat_tst_16.h"
-+#include "tst_safe_macros.h"
-+
-+#define MODE 0666
-+#define MODE_RWX	(S_IRWXU|S_IRWXG|S_IRWXO)
-+#define FILE_MODE	(S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH)
-+#define DIR_MODE	(S_IRUSR|S_IWUSR|S_IXUSR|S_IRGRP|S_IXGRP|S_IROTH|S_IXOTH)
-+
-+#define MNT_POINT	"mntpoint"
-+#define DIR_TEMP	"testdir_1"
-+#define TEST_FILE1	"tfile_1"
-+#define TEST_FILE2	"testdir_1/tfile_2"
-+#define TEST_FILE3	"t_file/tfile_3"
-+#define TEST_FILE4	"test_eloop1"
-+#define TEST_FILE5	"mntpoint"
-+
-+static char long_path[PATH_MAX + 2] = {[0 ... PATH_MAX + 1] = 'a'};
-
- static struct test_case_t {
- 	char *pathname;
-@@ -85,111 +65,48 @@ static struct test_case_t {
- 	{TEST_FILE5, EROFS}
- };
-
--TCID_DEFINE(chown04);
--int TST_TOTAL = ARRAY_SIZE(tc);
--
--static char *bad_addr;
-+static void run(unsigned int i)
-+{
-+	uid_t uid;
-+	gid_t gid;
-
--static void setup(void);
--static void cleanup(void);
-+	UID16_CHECK((uid = geteuid()), "chown");
-+	GID16_CHECK((gid = getegid()), "chown");
-
--int main(int ac, char **av)
--{
--	int lc;
--	int i;
--	uid_t user_id;
--	gid_t group_id;
--
--	tst_parse_opts(ac, av, NULL, NULL);
--
--	setup();
--
--	UID16_CHECK((user_id = geteuid()), "chown", cleanup)
--	GID16_CHECK((group_id = getegid()), "chown", cleanup)
--
--	for (lc = 0; TEST_LOOPING(lc); lc++) {
--		tst_count = 0;
--
--		for (i = 0; i < TST_TOTAL; i++) {
--			TEST(CHOWN(cleanup, tc[i].pathname, user_id, group_id));
--
--			if (TEST_RETURN == 0) {
--				tst_resm(TFAIL, "chown succeeded unexpectedly");
--				continue;
--			}
--
--			if (TEST_ERRNO == tc[i].exp_errno) {
--				tst_resm(TPASS | TTERRNO, "chown failed");
--			} else {
--				tst_resm(TFAIL | TTERRNO,
--					 "chown failed; expected: %d - %s",
--					 tc[i].exp_errno,
--					 tst_strerrno(tc[i].exp_errno));
--			}
--		}
--	}
--
--	cleanup();
--	tst_exit();
-+	TST_EXP_FAIL(CHOWN(tc[i].pathname, uid, gid), tc[i].exp_errno);
- }
-
- static void setup(void)
- {
- 	struct passwd *ltpuser;
--	const char *fs_type;
--
--	tst_require_root();
--	tst_sig(FORK, DEF_HANDLER, cleanup);
--	ltpuser = SAFE_GETPWNAM(NULL, "nobody");
-
--	tst_tmpdir();
-+	tc[2].pathname = SAFE_MMAP(0, 1, PROT_NONE, MAP_PRIVATE|MAP_ANONYMOUS,
-+				   0, 0);
-
--	fs_type = tst_dev_fs_type();
--	device = tst_acquire_device(cleanup);
--	if (!device)
--		tst_brkm(TCONF, cleanup, "Failed to obtain block device");
-+	SAFE_SYMLINK("test_eloop1", "test_eloop2");
-+	SAFE_SYMLINK("test_eloop2", "test_eloop1");
-
--	tst_mkfs(cleanup, device, fs_type, NULL, NULL);
-+	SAFE_SETEUID(0);
-+	SAFE_TOUCH("t_file", MODE_RWX, NULL);
-+	SAFE_TOUCH(TEST_FILE1, MODE, NULL);
-+	SAFE_MKDIR(DIR_TEMP, S_IRWXU);
-+	SAFE_TOUCH(TEST_FILE2, MODE, NULL);
-
--	TEST_PAUSE;
--
--	memset(long_path, 'a', PATH_MAX - 1);
--
--	bad_addr = mmap(0, 1, PROT_NONE,
--			MAP_PRIVATE_EXCEPT_UCLINUX | MAP_ANONYMOUS, 0, 0);
--	if (bad_addr == MAP_FAILED)
--		tst_brkm(TBROK | TERRNO, cleanup, "mmap failed");
--
--	tc[2].pathname = bad_addr;
--
--	SAFE_SYMLINK(cleanup, "test_eloop1", "test_eloop2");
--	SAFE_SYMLINK(cleanup, "test_eloop2", "test_eloop1");
--
--	SAFE_SETEUID(cleanup, 0);
--	SAFE_TOUCH(cleanup, "t_file", MODE_RWX, NULL);
--	SAFE_TOUCH(cleanup, TEST_FILE1, 0666, NULL);
--	SAFE_MKDIR(cleanup, DIR_TEMP, S_IRWXU);
--	SAFE_TOUCH(cleanup, TEST_FILE2, 0666, NULL);
--
--	SAFE_MKDIR(cleanup, "mntpoint", DIR_MODE);
--	SAFE_MOUNT(cleanup, device, "mntpoint", fs_type, MS_RDONLY, NULL);
--	mount_flag = 1;
--
--	SAFE_SETEUID(cleanup, ltpuser->pw_uid);
-+	ltpuser = SAFE_GETPWNAM("nobody");
-+	SAFE_SETEUID(ltpuser->pw_uid);
- }
-
--void cleanup(void)
-+static void cleanup(void)
- {
--	if (seteuid(0) == -1)
--		tst_resm(TWARN | TERRNO, "seteuid(0) failed");
--
--	if (mount_flag && tst_umount("mntpoint") < 0) {
--		tst_brkm(TBROK | TERRNO, NULL,
--			 "umount device:%s failed", device);
--	}
--
--	if (device)
--		tst_release_device(device);
--
--	tst_rmdir();
-+	SAFE_SETEUID(0);
- }
-+
-+static struct tst_test test = {
-+	.needs_root = 1,
-+	.needs_rofs = 1,
-+	.mntpoint = MNT_POINT,
-+	.tcnt = ARRAY_SIZE(tc),
-+	.test = run,
-+	.setup = setup,
-+	.cleanup = cleanup,
-+};
---
-2.17.1
-
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
