@@ -2,80 +2,78 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F320395B93
-	for <lists+linux-ltp@lfdr.de>; Mon, 31 May 2021 15:20:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08409395BD9
+	for <lists+linux-ltp@lfdr.de>; Mon, 31 May 2021 15:23:49 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1AF823C90A5
-	for <lists+linux-ltp@lfdr.de>; Mon, 31 May 2021 15:20:37 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 9DC653C806E
+	for <lists+linux-ltp@lfdr.de>; Mon, 31 May 2021 15:23:48 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 7BA303C90B7
- for <ltp@lists.linux.it>; Mon, 31 May 2021 15:20:35 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 7C01C3C5F64
+ for <ltp@lists.linux.it>; Mon, 31 May 2021 15:23:46 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 024621A0049E
- for <ltp@lists.linux.it>; Mon, 31 May 2021 15:20:34 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 0EE81200A10
+ for <ltp@lists.linux.it>; Mon, 31 May 2021 15:23:45 +0200 (CEST)
 Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
  (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 0FA8221920;
- Mon, 31 May 2021 13:20:34 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 6294B1FD30;
+ Mon, 31 May 2021 13:23:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1622467234; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1622467425; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=kAmL7YzpPe4yZtWpImMv56LiI+M8y5UvRt/zefaZISQ=;
- b=bO4A86DehfCbi7uvpHvDRKg+gZ1so8CM3vZwrod4T5vVoSK11ENlMaS2eV/ItkvQWabjOw
- mgRmZNYJuMo8ohqYtEgOcNdk9VFiEpYdQ2jrpckq3n6y4XxvS2BpDHZpHCSn/k3kISZuA6
- uh4H6psUiqJKsg5uCWHmNo+fKz8Ixtk=
+ bh=9RBKpKj1HNEXwdGnfvpiWT9KhMyvJrbQ1Z+Z5yh6xmA=;
+ b=hmZU+/p1kfiOFlMudfoZeR4Osn0uOxSfug+aE4ot/EkurX8X3FMr06GAcNND6ZW7BjYTXq
+ Q3e9zJWptnAOzDDxBckRRy6roifYJ6UjdUpysQY+Bd8Kwnxfn6XtqgySN6ETqw6X9a7ATd
+ VzQH77EdwCJ3PltbUpTPXyjNQnGsrDI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1622467234;
+ s=susede2_ed25519; t=1622467425;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=kAmL7YzpPe4yZtWpImMv56LiI+M8y5UvRt/zefaZISQ=;
- b=prs24NCau2coiZx7RZzFYAnfioy9NF0F99tmW6NUObl8x5Be/Mk5Gs8fjZFNIsw1S8Y3Xn
- SRCAejbg1CY7z0Bw==
+ bh=9RBKpKj1HNEXwdGnfvpiWT9KhMyvJrbQ1Z+Z5yh6xmA=;
+ b=g7TP43Mromojf+jePg9zkwGLnk8SnFWGUlsNq0glNlCBrdadl1DWtpYTDADhGVQjhiEO0a
+ 4De2x9BOEqsDv0CQ==
 Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id 8E714118DD;
- Mon, 31 May 2021 13:20:33 +0000 (UTC)
+ by imap.suse.de (Postfix) with ESMTP id 0445A118DD;
+ Mon, 31 May 2021 13:23:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1622467233; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1622467425; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=kAmL7YzpPe4yZtWpImMv56LiI+M8y5UvRt/zefaZISQ=;
- b=MbNf895IRqfOL+MXUPBJjj4jxyGegdSMGzbfwz0UjHxULKF3ceBMoqC5Xl/2pKgHA5NVlI
- sF/IB6ZnG+af57Mv9pQnQhe8TCdTjQ0fMvGyFdTIaOVDcJKC+t8jeAfkQRcsibiRd4Hi/B
- UgB3UA7EDONlqIW5nOm4UYFPgkaC1Rw=
+ bh=9RBKpKj1HNEXwdGnfvpiWT9KhMyvJrbQ1Z+Z5yh6xmA=;
+ b=hmZU+/p1kfiOFlMudfoZeR4Osn0uOxSfug+aE4ot/EkurX8X3FMr06GAcNND6ZW7BjYTXq
+ Q3e9zJWptnAOzDDxBckRRy6roifYJ6UjdUpysQY+Bd8Kwnxfn6XtqgySN6ETqw6X9a7ATd
+ VzQH77EdwCJ3PltbUpTPXyjNQnGsrDI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1622467233;
+ s=susede2_ed25519; t=1622467425;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=kAmL7YzpPe4yZtWpImMv56LiI+M8y5UvRt/zefaZISQ=;
- b=kuMYHrsuKV9xxbZ5cUphj0vVNToxsgaJuH41S7Lr7vB1d3lrEc+vAn4JcXi1QWEivhK1Mt
- gq0F8LqpoRAHWADA==
+ bh=9RBKpKj1HNEXwdGnfvpiWT9KhMyvJrbQ1Z+Z5yh6xmA=;
+ b=g7TP43Mromojf+jePg9zkwGLnk8SnFWGUlsNq0glNlCBrdadl1DWtpYTDADhGVQjhiEO0a
+ 4De2x9BOEqsDv0CQ==
 Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id TraUIaHitGDMVwAALh3uQQ
- (envelope-from <chrubis@suse.cz>); Mon, 31 May 2021 13:20:33 +0000
-Date: Mon, 31 May 2021 14:54:39 +0200
+ id M72VO2DjtGCEWQAALh3uQQ
+ (envelope-from <chrubis@suse.cz>); Mon, 31 May 2021 13:23:44 +0000
+Date: Mon, 31 May 2021 14:57:51 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Joerg Vehlow <lkml@jv-coder.de>
-Message-ID: <YLTcjz4SoLJXPMTg@yuki>
+Message-ID: <YLTdT3v4AscW1PIE@yuki>
 References: <20210518122610.17171-1-liwang@redhat.com>
- <20210518122610.17171-2-liwang@redhat.com>
- <d70f9e5f-0008-02aa-e099-2a8243c4b3fa@jv-coder.de>
- <YLTYDC4hxQPVxkZq@yuki>
- <af8480e6-2020-d21d-bfe7-d9a4d28e0733@jv-coder.de>
+ <20210518122610.17171-2-liwang@redhat.com> <YLTbXU1ZF4ZiXKdt@yuki>
+ <20f87781-e66d-e8c6-1ac5-de208667a7f2@jv-coder.de>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <af8480e6-2020-d21d-bfe7-d9a4d28e0733@jv-coder.de>
+In-Reply-To: <20f87781-e66d-e8c6-1ac5-de208667a7f2@jv-coder.de>
 Authentication-Results: imap.suse.de;
 	none
 X-Spam-Level: 
@@ -88,12 +86,12 @@ X-Spamd-Result: default: False [-0.50 / 100.00]; ARC_NA(0.00)[];
  NEURAL_HAM_SHORT(-1.00)[-1.000]; RCVD_NO_TLS_LAST(0.10)[];
  FROM_EQ_ENVFROM(0.00)[]; MIME_TRACE(0.00)[0:+];
  MID_RHS_NOT_FQDN(0.50)[]; RCVD_COUNT_TWO(0.00)[2]
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH 2/2] tst_test: using SIGTERM to terminate process
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -113,34 +111,35 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> >> But one more strange thing here.
-> >> I wonder why this even works. $pid is used in _tst_kill_test and defined
-> >> in _tst_setup_timer as a local variable.
-> >> It looks like it is inherited through the call chain and since it is
-> >> copied to the background process, it cannot be manipulated by the tests.
-> >> Still I would vote for changing this at some point, because it is highly
-> >> confusing.
-> > That's actually a correct and well defined behavior, if you call a
-> > function g from function f the function g has access to the variables
-> > local to f.
-> >
-> > And yes it's confusing, but the alternative is having another global
-> > variable which I do not think is much better than this.
-> Hm shell code has more strange behavior than I would have ever expected...
+> >>   # default trap function
+> >> -trap "tst_brk TBROK 'test interrupted or timed out'" INT
+> >> +trap "tst_brk TBROK 'test interrupted'" INT
+> >> +trap "unset _tst_setup_timer_pid; tst_brk TBROK 'test terminated'" TERM
+> > I've been looking at this for a while and I think that we should unset
+> > the _tst_setup_timer_pid at the end of the _tst_timeout_process()
+> > instead, right?
+> That won't work or am I missing something? ;) We are in a subshell in 
+> _tst_timeout_process, it cannot manipulate the environment of the parent 
+> or is my mental modal of how shell works wrong again?.
 
-Strongly agree here, to be honest if there was as better scripting
-language that would be widely avaiable I would have switched long time
-ago...
+Nah, you are right this time, I missed that it runs on a background.
 
-> But at least Li and myself did not know that and even while you know 
-> about this "feature", you think it is strange.
-> I would rather like to be explicit and use a global variable (what harm 
-> is it really?) instead of confusing the next one looking at this piece 
-> of code....
+> > Otherwise we will leave the timeout process sleeping if someone sends
+> > SIGTERM to the test process from the outside, or do I miss something?
+> Yes, that is one of the reasons why I initially suggested a different 
+> signal for timeout. That would cleanly separate the logic.
+> But on the other hand when will SIGTERM be sent from the outside? This 
+> is probably only happening on shutdown? In that case it is not really a 
+> problem.
+> If someone wants to terminate gracefully using SIGTERM, he could send it 
+> to the process group. That would kill the timeout process as well.
 
-If you really think global variable would be better, then go ahead and
-send a patch, I do not have a strong feelings about this particular
-detail.
+Okay. Let's go with this version, it's simple enough and anything that
+would behave better would only overcomplicate the code again.
+
+For the patch:
+
+Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
 
 -- 
 Cyril Hrubis
