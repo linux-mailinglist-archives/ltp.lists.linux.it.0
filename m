@@ -1,97 +1,99 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52EC9395B23
-	for <lists+linux-ltp@lfdr.de>; Mon, 31 May 2021 15:15:30 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F320395B93
+	for <lists+linux-ltp@lfdr.de>; Mon, 31 May 2021 15:20:37 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0FFA73C80A5
-	for <lists+linux-ltp@lfdr.de>; Mon, 31 May 2021 15:15:30 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 1AF823C90A5
+	for <lists+linux-ltp@lfdr.de>; Mon, 31 May 2021 15:20:37 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 4F18E3C187D
- for <ltp@lists.linux.it>; Mon, 31 May 2021 15:15:29 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 7BA303C90B7
+ for <ltp@lists.linux.it>; Mon, 31 May 2021 15:20:35 +0200 (CEST)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 41A2D6009F9
- for <ltp@lists.linux.it>; Mon, 31 May 2021 15:15:27 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 024621A0049E
+ for <ltp@lists.linux.it>; Mon, 31 May 2021 15:20:34 +0200 (CEST)
 Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
  (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 677652191F;
- Mon, 31 May 2021 13:15:27 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 0FA8221920;
+ Mon, 31 May 2021 13:20:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1622466927; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1622467234; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=5qkeK34KHSOy3pij0u8RZIeeVWHnBMPFWTEIRo7WoZg=;
- b=dhzEvSNW/nc5rsQu+T84AH3tUfSvX00k/tIRbJUWKgTFZVQlMVLQSMMC09abPoZa0VIkGP
- pZbN2DwqeLSKmTFbusFnJk5itkhsCHJg748SpI7o8Z4O+WvOglyqbb04QTVNIzH0UNG9/L
- BTaX+NKYl9CROLO6Y6ghNNTIRXnNb7Y=
+ bh=kAmL7YzpPe4yZtWpImMv56LiI+M8y5UvRt/zefaZISQ=;
+ b=bO4A86DehfCbi7uvpHvDRKg+gZ1so8CM3vZwrod4T5vVoSK11ENlMaS2eV/ItkvQWabjOw
+ mgRmZNYJuMo8ohqYtEgOcNdk9VFiEpYdQ2jrpckq3n6y4XxvS2BpDHZpHCSn/k3kISZuA6
+ uh4H6psUiqJKsg5uCWHmNo+fKz8Ixtk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1622466927;
+ s=susede2_ed25519; t=1622467234;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=5qkeK34KHSOy3pij0u8RZIeeVWHnBMPFWTEIRo7WoZg=;
- b=e6QJM+IAwv0MAtZwP9BXcKwO2EyFtBQ1TncFlPX3xTV1pj98FXAIoQ3akf6HUSemrBgcux
- KaVp4hmq/O9LXACQ==
+ bh=kAmL7YzpPe4yZtWpImMv56LiI+M8y5UvRt/zefaZISQ=;
+ b=prs24NCau2coiZx7RZzFYAnfioy9NF0F99tmW6NUObl8x5Be/Mk5Gs8fjZFNIsw1S8Y3Xn
+ SRCAejbg1CY7z0Bw==
 Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id D376E118DD;
- Mon, 31 May 2021 13:15:26 +0000 (UTC)
+ by imap.suse.de (Postfix) with ESMTP id 8E714118DD;
+ Mon, 31 May 2021 13:20:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1622466926; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1622467233; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=5qkeK34KHSOy3pij0u8RZIeeVWHnBMPFWTEIRo7WoZg=;
- b=QWCF2NJHz3CyrYONW3R+K6f5J7U0V1HIJ7QlhK2/a4EIVO0+g0IPjlpqFzcif6lSeMJR5o
- yz7SI6vy3Nakl/H5YhViM+6n9NUr0DfzzYt1ZU7bjmVeOGzAgpqYJ9e5Wn3Dbh8KpbpTqY
- Qc7fKjLTaYk3sWbq/QUA1trjGECYWyg=
+ bh=kAmL7YzpPe4yZtWpImMv56LiI+M8y5UvRt/zefaZISQ=;
+ b=MbNf895IRqfOL+MXUPBJjj4jxyGegdSMGzbfwz0UjHxULKF3ceBMoqC5Xl/2pKgHA5NVlI
+ sF/IB6ZnG+af57Mv9pQnQhe8TCdTjQ0fMvGyFdTIaOVDcJKC+t8jeAfkQRcsibiRd4Hi/B
+ UgB3UA7EDONlqIW5nOm4UYFPgkaC1Rw=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1622466926;
+ s=susede2_ed25519; t=1622467233;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=5qkeK34KHSOy3pij0u8RZIeeVWHnBMPFWTEIRo7WoZg=;
- b=NMN7MoZ090OhVtrxWqdvahM9b9RQYFYmLMicG7BrJfwgmebJooJglE+wo8Rc+R4wW8xRJy
- uNdkovfU0f03FPAg==
+ bh=kAmL7YzpPe4yZtWpImMv56LiI+M8y5UvRt/zefaZISQ=;
+ b=kuMYHrsuKV9xxbZ5cUphj0vVNToxsgaJuH41S7Lr7vB1d3lrEc+vAn4JcXi1QWEivhK1Mt
+ gq0F8LqpoRAHWADA==
 Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id haVQMm7htGDrVAAALh3uQQ
- (envelope-from <chrubis@suse.cz>); Mon, 31 May 2021 13:15:26 +0000
-Date: Mon, 31 May 2021 14:49:33 +0200
+ id TraUIaHitGDMVwAALh3uQQ
+ (envelope-from <chrubis@suse.cz>); Mon, 31 May 2021 13:20:33 +0000
+Date: Mon, 31 May 2021 14:54:39 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <YLTbXU1ZF4ZiXKdt@yuki>
+To: Joerg Vehlow <lkml@jv-coder.de>
+Message-ID: <YLTcjz4SoLJXPMTg@yuki>
 References: <20210518122610.17171-1-liwang@redhat.com>
  <20210518122610.17171-2-liwang@redhat.com>
+ <d70f9e5f-0008-02aa-e099-2a8243c4b3fa@jv-coder.de>
+ <YLTYDC4hxQPVxkZq@yuki>
+ <af8480e6-2020-d21d-bfe7-d9a4d28e0733@jv-coder.de>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210518122610.17171-2-liwang@redhat.com>
+In-Reply-To: <af8480e6-2020-d21d-bfe7-d9a4d28e0733@jv-coder.de>
 Authentication-Results: imap.suse.de;
 	none
 X-Spam-Level: 
 X-Spam-Score: -0.50
 X-Spamd-Result: default: False [-0.50 / 100.00]; ARC_NA(0.00)[];
  RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- MIME_GOOD(-0.10)[text/plain];
+ RCPT_COUNT_THREE(0.00)[3]; TO_DN_SOME(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; MIME_GOOD(-0.10)[text/plain];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-1.00)[-1.000]; RCPT_COUNT_TWO(0.00)[2];
- RCVD_NO_TLS_LAST(0.10)[]; FROM_EQ_ENVFROM(0.00)[];
- MIME_TRACE(0.00)[0:+]; MID_RHS_NOT_FQDN(0.50)[];
- RCVD_COUNT_TWO(0.00)[2]
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+ NEURAL_HAM_SHORT(-1.00)[-1.000]; RCVD_NO_TLS_LAST(0.10)[];
+ FROM_EQ_ENVFROM(0.00)[]; MIME_TRACE(0.00)[0:+];
+ MID_RHS_NOT_FQDN(0.50)[]; RCVD_COUNT_TWO(0.00)[2]
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH 2/2] tst_test: using SIGTERM to terminate process
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -111,54 +113,34 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
->  lib/newlib_tests/shell/test_timeout.sh | 2 +-
->  lib/newlib_tests/shell/timeout03.sh    | 1 +
->  testcases/lib/tst_test.sh              | 9 +++++----
->  3 files changed, 7 insertions(+), 5 deletions(-)
-> 
-> diff --git a/lib/newlib_tests/shell/test_timeout.sh b/lib/newlib_tests/shell/test_timeout.sh
-> index b05680cb1..9f31afa32 100755
-> --- a/lib/newlib_tests/shell/test_timeout.sh
-> +++ b/lib/newlib_tests/shell/test_timeout.sh
-> @@ -28,7 +28,7 @@ timeout02.sh|  -10|0|  |2
->  timeout02.sh| -0.1|0|  |0
->  timeout02.sh| -1.1|0|  |2
->  timeout02.sh|-10.1|0|  |2
-> -timeout03.sh|     |0|12|137| | | |Test kill if test does not terminate by SIGINT
-> +timeout03.sh|     |0|12|137| | | |Test kill if test does not terminate by SIGTERM
->  timeout04.sh|     |0|  |  2|0|0|1|Verify that timeout is enforced
->  timeout02.sh|    2|1| 2|   |1|0|0|Test termination of timeout process
->  "
-> diff --git a/lib/newlib_tests/shell/timeout03.sh b/lib/newlib_tests/shell/timeout03.sh
-> index cd548d9a2..124e96a84 100755
-> --- a/lib/newlib_tests/shell/timeout03.sh
-> +++ b/lib/newlib_tests/shell/timeout03.sh
-> @@ -30,6 +30,7 @@ TST_TIMEOUT=1
->  
->  do_test()
->  {
-> +	trap "tst_res TINFO 'Sorry, timeout03 is still alive'" TERM
->  	tst_res TINFO "testing killing test after TST_TIMEOUT"
->  
->  	sleep 2
-> diff --git a/testcases/lib/tst_test.sh b/testcases/lib/tst_test.sh
-> index 3a5651c01..66ffde4eb 100644
-> --- a/testcases/lib/tst_test.sh
-> +++ b/testcases/lib/tst_test.sh
-> @@ -21,7 +21,8 @@ export TST_LIB_LOADED=1
->  . tst_security.sh
->  
->  # default trap function
-> -trap "tst_brk TBROK 'test interrupted or timed out'" INT
-> +trap "tst_brk TBROK 'test interrupted'" INT
-> +trap "unset _tst_setup_timer_pid; tst_brk TBROK 'test terminated'" TERM
+> >> But one more strange thing here.
+> >> I wonder why this even works. $pid is used in _tst_kill_test and defined
+> >> in _tst_setup_timer as a local variable.
+> >> It looks like it is inherited through the call chain and since it is
+> >> copied to the background process, it cannot be manipulated by the tests.
+> >> Still I would vote for changing this at some point, because it is highly
+> >> confusing.
+> > That's actually a correct and well defined behavior, if you call a
+> > function g from function f the function g has access to the variables
+> > local to f.
+> >
+> > And yes it's confusing, but the alternative is having another global
+> > variable which I do not think is much better than this.
+> Hm shell code has more strange behavior than I would have ever expected...
 
-I've been looking at this for a while and I think that we should unset
-the _tst_setup_timer_pid at the end of the _tst_timeout_process()
-instead, right?
+Strongly agree here, to be honest if there was as better scripting
+language that would be widely avaiable I would have switched long time
+ago...
 
-Otherwise we will leave the timeout process sleeping if someone sends
-SIGTERM to the test process from the outside, or do I miss something?
+> But at least Li and myself did not know that and even while you know 
+> about this "feature", you think it is strange.
+> I would rather like to be explicit and use a global variable (what harm 
+> is it really?) instead of confusing the next one looking at this piece 
+> of code....
+
+If you really think global variable would be better, then go ahead and
+send a patch, I do not have a strong feelings about this particular
+detail.
 
 -- 
 Cyril Hrubis
