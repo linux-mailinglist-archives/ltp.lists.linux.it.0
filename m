@@ -2,102 +2,79 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D2D2396FCF
-	for <lists+linux-ltp@lfdr.de>; Tue,  1 Jun 2021 11:03:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D6D7397034
+	for <lists+linux-ltp@lfdr.de>; Tue,  1 Jun 2021 11:19:56 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1BC343C801C
-	for <lists+linux-ltp@lfdr.de>; Tue,  1 Jun 2021 11:03:57 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 6FE703C8019
+	for <lists+linux-ltp@lfdr.de>; Tue,  1 Jun 2021 11:19:55 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 70CB73C5592
- for <ltp@lists.linux.it>; Tue,  1 Jun 2021 11:03:52 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id D450D3C291C
+ for <ltp@lists.linux.it>; Tue,  1 Jun 2021 11:19:51 +0200 (CEST)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 8366A1A01118
- for <ltp@lists.linux.it>; Tue,  1 Jun 2021 11:03:51 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 0D62E1A01118
+ for <ltp@lists.linux.it>; Tue,  1 Jun 2021 11:19:50 +0200 (CEST)
 Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
  (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 00E832191F;
- Tue,  1 Jun 2021 09:03:51 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 50B412191F;
+ Tue,  1 Jun 2021 09:19:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1622538231; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=LrGRpk87/5y0DykelLAL5TiJOcKlPrOnuU1gmgqEsb8=;
- b=mkOZTtpQarsitLilPEoFfizvb2Tgbm10C57ikTo5BDtGZPbIJltb6O4meiznAGe8NLQDdk
- LrJ4j5QKoLsfxbq7Kuwar9T8MV7eNL0vuQYNxUk5ZxQqNnjkgbwH2rlVkljo6X75nf2Ieq
- +uG5f0S1WwIwQ/8gyfPmnv+YijPVTVQ=
+ t=1622539190; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=IotyAk/zzIMH/V3aDIEx1l2B3DezMiyk4YMpEvpWJtI=;
+ b=DIqdlgnTjed8Gjjrkm4+xqVv/vyWvoyJ0NR1LvDXkpOt8FP3WHtShLiM+UGR5lCZOQ9WO8
+ yjY8g+j39AsjCJ7LNj9urH8iTQftAL4LHSSEwfyiRh7vJC97UKgtqkl0AlAaEpWMRt3n+Z
+ n/Nurv6IP9tYe7VjeOBTUMj6mTe02xk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1622538231;
+ s=susede2_ed25519; t=1622539190;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=LrGRpk87/5y0DykelLAL5TiJOcKlPrOnuU1gmgqEsb8=;
- b=NJwcoNqFdfSKlv/s0IKpf4AQ3O2/XOsO1OdAq/vfcymXkPdMfjIKaQpgS94GXF4qRC6bzu
- fzCjrXge1QnEsQCQ==
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=IotyAk/zzIMH/V3aDIEx1l2B3DezMiyk4YMpEvpWJtI=;
+ b=QzbE6bYD95O1RzsESZ+VBMdK+TxqLxb9KEyLDtaX3cUVXQ5QGj/TWkT0xCfOb81GrRBU+r
+ TaLjwIneny6r45Cw==
 Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id B7901118DD;
- Tue,  1 Jun 2021 09:03:50 +0000 (UTC)
+ by imap.suse.de (Postfix) with ESMTP id 95831118DD;
+ Tue,  1 Jun 2021 09:19:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1622538230; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=LrGRpk87/5y0DykelLAL5TiJOcKlPrOnuU1gmgqEsb8=;
- b=z7ZPqHHaT4TzAGsDw3QmNwmI4ET5NN/4b5IEyL/6ms5jR7dtLr6I4gGCuPpSRnh0uyNtnA
- 4CshjbK0YPxTXEdiU0RTFce2M+MzNFWbJFALwNv2js92T4AbPFkpn8ek4n5m4te6T7SHUC
- bXIQIr10mfJ+ZcAi4EgBk29SNK6OW/g=
+ t=1622539189; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=IotyAk/zzIMH/V3aDIEx1l2B3DezMiyk4YMpEvpWJtI=;
+ b=W+U4ZgmV14qW3zT/I736RcQ0GqR1sf3LhsLvmlO0/YKwTenUW5w5reVtp/Qz4m75/fSm/0
+ ZvBF6O5u7SYZFk0G43+yAsQX5aIQSeZEFrgNNgJ3VuR/vYe/4pX0khDB22QlI121OIeyth
+ cPwOuSfQLMMV8WuKivZNQ6XDmGBO4jQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1622538230;
+ s=susede2_ed25519; t=1622539189;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=LrGRpk87/5y0DykelLAL5TiJOcKlPrOnuU1gmgqEsb8=;
- b=1SPWRT2DrzzmfmkACDgbFiQ4irMUvtcq3UA7mfy/v5C/88wp4BThzG5S4AXLmL4oOpaL86
- ogtV0eEXw1vlJ9CQ==
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=IotyAk/zzIMH/V3aDIEx1l2B3DezMiyk4YMpEvpWJtI=;
+ b=iGJ87hV+qM7avKpgDqq4w9Mb56XO8OIsCUgMhsA/PzsKd8M1NSZSssachaMpxnPvgzxnMt
+ Nm1na2x/3ZR13ICg==
 Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id Np0ALPb3tWBGXAAALh3uQQ
- (envelope-from <mdoucha@suse.cz>); Tue, 01 Jun 2021 09:03:50 +0000
-To: Petr Vorel <pvorel@suse.cz>, Alexey Kodanev <aleksei.kodanev@bell-sw.com>
-References: <20210531135314.5067-1-mdoucha@suse.cz>
- <f8300887-b372-950e-5c26-92ba36869246@bell-sw.com> <YLX3Qyah6SLQTKzW@pevik>
-From: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <03481451-41a5-7dc0-c675-fa622c7bcd6b@suse.cz>
-Date: Tue, 1 Jun 2021 11:03:50 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.9.1
+ id feHXIrX7tWBkZQAALh3uQQ
+ (envelope-from <pvorel@suse.cz>); Tue, 01 Jun 2021 09:19:49 +0000
+From: Petr Vorel <pvorel@suse.cz>
+To: ltp@lists.linux.it
+Date: Tue,  1 Jun 2021 11:19:43 +0200
+Message-Id: <20210601091943.6300-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-In-Reply-To: <YLX3Qyah6SLQTKzW@pevik>
-Content-Language: en-US
-Authentication-Results: imap.suse.de;
-	none
-X-Spam-Level: 
-X-Spam-Score: -1.00
-X-Spamd-Result: default: False [-1.00 / 100.00]; ARC_NA(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_HAS_DN(0.00)[];
- RCPT_COUNT_THREE(0.00)[3]; TO_DN_SOME(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; MIME_GOOD(-0.10)[text/plain];
- DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-1.00)[-1.000]; RCVD_NO_TLS_LAST(0.10)[];
- FROM_EQ_ENVFROM(0.00)[]; MIME_TRACE(0.00)[0:+];
- RCVD_COUNT_TWO(0.00)[2]; MID_RHS_MATCH_FROM(0.00)[]
+X-Spam-Score: 4.00
 X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.5 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/2] network/busy_poll: Fix tests in namespaced env
+Subject: [LTP] [PATCH 1/1] CI/debian: Install dblatex
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,30 +86,50 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 01. 06. 21 11:00, Petr Vorel wrote:
->> Here should be net.core.busy_poll, not the path.
-> Hi Alexey, Martin,
-> 
-> Yep, I was just going to report it as well.
-> 
-> Merging both patches with this fix, thanks both for your time!
+To fix missing dependencies:
 
-Sorry about that and thanks for the fix.
+checking for dblatex... no
+configure: WARNING: PDF metadata generation skipped due missing suitable
+generator, specify correct generator with
+--with-metadata-generator=asciidoc|asciidoctor or use
+--disable-metadata|--disable-metadata-html|--disable-metadata-pdf
 
+Fixes: ff9c528f2 ("travis: Install docparse dependencies")
+
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+---
+Hi,
+
+to be applied on the top of "CI: Move from Travis to GitHub Actions" [1]
+(older problem, but fixing on GitHub actions).
+
+Kind regards,
+Petr
+
+[1] https://patchwork.ozlabs.org/project/ltp/list/?series=246505
+
+ ci/debian.sh | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/ci/debian.sh b/ci/debian.sh
+index 743b79001..a609da887 100755
+--- a/ci/debian.sh
++++ b/ci/debian.sh
+@@ -46,5 +46,6 @@ $apt \
+ 	pkg-config
+ 
+ $apt ruby-asciidoctor-pdf || true
++$apt asciidoc-dblatex || true
+ 
+ df -hT
 -- 
-Martin Doucha   mdoucha@suse.cz
-QA Engineer for Software Maintenance
-SUSE LINUX, s.r.o.
-CORSO IIa
-Krizikova 148/34
-186 00 Prague 8
-Czech Republic
+2.31.1
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
