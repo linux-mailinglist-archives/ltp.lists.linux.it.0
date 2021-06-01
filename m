@@ -1,55 +1,102 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3378A396C1A
-	for <lists+linux-ltp@lfdr.de>; Tue,  1 Jun 2021 06:23:12 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 50627396ED4
+	for <lists+linux-ltp@lfdr.de>; Tue,  1 Jun 2021 10:22:56 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E3A2C3C90C9
-	for <lists+linux-ltp@lfdr.de>; Tue,  1 Jun 2021 06:23:11 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id D8FD43C8044
+	for <lists+linux-ltp@lfdr.de>; Tue,  1 Jun 2021 10:22:55 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by picard.linux.it (Postfix) with ESMTPS id 647623C1939
+ for <ltp@lists.linux.it>; Tue,  1 Jun 2021 10:22:51 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 1A4153C90A2
- for <ltp@lists.linux.it>; Tue,  1 Jun 2021 06:23:09 +0200 (CEST)
-Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id BD1551A00E10
+ for <ltp@lists.linux.it>; Tue,  1 Jun 2021 10:22:50 +0200 (CEST)
+Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 3E18D1000CBB
- for <ltp@lists.linux.it>; Tue,  1 Jun 2021 06:23:08 +0200 (CEST)
-Received: from [192.168.178.40] (unknown [178.26.168.79])
- by mail.jv-coder.de (Postfix) with ESMTPSA id 339EA9F917;
- Tue,  1 Jun 2021 04:23:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
- t=1622521387; bh=EzYNh0C0PQ2uvP64ArKQK4FBHhQHhE02+RDDHCe6m60=;
- h=Subject:To:From:Message-ID:Date:MIME-Version;
- b=UtNDMN784jNknIJ2ZnrHhsAUSLwRVrFkB7l7zoTTBQERqsjAbnMSJxCVH5vVBkWtB
- ZPwABdJufctWNbbtBUNAwXFsCaE5tqOMZcd0eCQFC4Rc3gUE0Mm5dv0buUsH7/VteX
- KLVs6YWZztBEQPXQe8irEy7b7YaeXm+5vIaF3IDg=
-To: Cyril Hrubis <chrubis@suse.cz>
-References: <20210518122610.17171-1-liwang@redhat.com>
- <20210518122610.17171-2-liwang@redhat.com>
- <d70f9e5f-0008-02aa-e099-2a8243c4b3fa@jv-coder.de> <YLTYDC4hxQPVxkZq@yuki>
- <af8480e6-2020-d21d-bfe7-d9a4d28e0733@jv-coder.de> <YLTcjz4SoLJXPMTg@yuki>
-From: Joerg Vehlow <lkml@jv-coder.de>
-Message-ID: <ef4d1340-ac81-c991-0d18-9515b01e39d5@jv-coder.de>
-Date: Tue, 1 Jun 2021 06:23:07 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.2
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 967C31FD2E;
+ Tue,  1 Jun 2021 08:22:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1622535769;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=QODA12IDeA6U/aMxCwfI51M2UgfgRfYcxqPh1ybHsJM=;
+ b=ihoFRokMKfp3EoiuwToRvoKOn6pJ4Zt38u47d+fe44jV1L6T2ldjXI7O3urGx4e9DaI80H
+ BBIRvm/dmXVjcytiQytHLwZuZ71A7hezPp5+SP292gfK6DC0UjwEmGdp+GZiINKJVcawj4
+ vH+E55hp4vt78U+3J45o2G/oSDzepD0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1622535769;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=QODA12IDeA6U/aMxCwfI51M2UgfgRfYcxqPh1ybHsJM=;
+ b=QFdZJkGC9xWY8S7/JBavKYUhairQ1pkTOTbdVJzXJH/LQV82QgW0yGr736zQB0AcL12WJT
+ u0BN19yOwpHt63BQ==
+Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ by imap.suse.de (Postfix) with ESMTP id 2C21511A98;
+ Tue,  1 Jun 2021 08:22:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1622535769;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=QODA12IDeA6U/aMxCwfI51M2UgfgRfYcxqPh1ybHsJM=;
+ b=ihoFRokMKfp3EoiuwToRvoKOn6pJ4Zt38u47d+fe44jV1L6T2ldjXI7O3urGx4e9DaI80H
+ BBIRvm/dmXVjcytiQytHLwZuZ71A7hezPp5+SP292gfK6DC0UjwEmGdp+GZiINKJVcawj4
+ vH+E55hp4vt78U+3J45o2G/oSDzepD0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1622535769;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=QODA12IDeA6U/aMxCwfI51M2UgfgRfYcxqPh1ybHsJM=;
+ b=QFdZJkGC9xWY8S7/JBavKYUhairQ1pkTOTbdVJzXJH/LQV82QgW0yGr736zQB0AcL12WJT
+ u0BN19yOwpHt63BQ==
+Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
+ id oZnACVnutWCzQwAALh3uQQ
+ (envelope-from <pvorel@suse.cz>); Tue, 01 Jun 2021 08:22:49 +0000
+Date: Tue, 1 Jun 2021 10:22:47 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Martin Doucha <mdoucha@suse.cz>
+Message-ID: <YLXuV//RKGTO2Ics@pevik>
+References: <20210531135314.5067-1-mdoucha@suse.cz>
+ <20210531135314.5067-2-mdoucha@suse.cz>
 MIME-Version: 1.0
-In-Reply-To: <YLTcjz4SoLJXPMTg@yuki>
-Content-Language: en-US
-X-Spam-Status: No, score=-0.5 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20210531135314.5067-2-mdoucha@suse.cz>
+Authentication-Results: imap.suse.de;
+	none
+X-Spam-Level: 
+X-Spam-Score: -4.50
+X-Spamd-Result: default: False [-4.50 / 100.00]; ARC_NA(0.00)[];
+ HAS_REPLYTO(0.00)[pvorel@suse.cz]; REPLYTO_EQ_FROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; RCPT_COUNT_THREE(0.00)[3];
+ TO_DN_SOME(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ MIME_GOOD(-0.10)[text/plain]; REPLY(-4.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-1.00)[-1.000]; RCVD_NO_TLS_LAST(0.10)[];
+ FROM_EQ_ENVFROM(0.00)[]; MIME_TRACE(0.00)[0:+];
+ MID_RHS_NOT_FQDN(0.50)[]; RCVD_COUNT_TWO(0.00)[2]
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH 2/2] tst_test: using SIGTERM to terminate process
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 2/2] network/busy_poll: Remove unnecessary driver
+ check
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,41 +108,46 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: ltp@lists.linux.it
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGkgQ3lyaWwsCgpPbiA1LzMxLzIwMjEgMjo1NCBQTSwgQ3lyaWwgSHJ1YmlzIHdyb3RlOgo+Pj4+
-IEJ1dCBvbmUgbW9yZSBzdHJhbmdlIHRoaW5nIGhlcmUuCj4+Pj4gSSB3b25kZXIgd2h5IHRoaXMg
-ZXZlbiB3b3Jrcy4gJHBpZCBpcyB1c2VkIGluIF90c3Rfa2lsbF90ZXN0IGFuZCBkZWZpbmVkCj4+
-Pj4gaW4gX3RzdF9zZXR1cF90aW1lciBhcyBhIGxvY2FsIHZhcmlhYmxlLgo+Pj4+IEl0IGxvb2tz
-IGxpa2UgaXQgaXMgaW5oZXJpdGVkIHRocm91Z2ggdGhlIGNhbGwgY2hhaW4gYW5kIHNpbmNlIGl0
-IGlzCj4+Pj4gY29waWVkIHRvIHRoZSBiYWNrZ3JvdW5kIHByb2Nlc3MsIGl0IGNhbm5vdCBiZSBt
-YW5pcHVsYXRlZCBieSB0aGUgdGVzdHMuCj4+Pj4gU3RpbGwgSSB3b3VsZCB2b3RlIGZvciBjaGFu
-Z2luZyB0aGlzIGF0IHNvbWUgcG9pbnQsIGJlY2F1c2UgaXQgaXMgaGlnaGx5Cj4+Pj4gY29uZnVz
-aW5nLgo+Pj4gVGhhdCdzIGFjdHVhbGx5IGEgY29ycmVjdCBhbmQgd2VsbCBkZWZpbmVkIGJlaGF2
-aW9yLCBpZiB5b3UgY2FsbCBhCj4+PiBmdW5jdGlvbiBnIGZyb20gZnVuY3Rpb24gZiB0aGUgZnVu
-Y3Rpb24gZyBoYXMgYWNjZXNzIHRvIHRoZSB2YXJpYWJsZXMKPj4+IGxvY2FsIHRvIGYuCj4+Pgo+
-Pj4gQW5kIHllcyBpdCdzIGNvbmZ1c2luZywgYnV0IHRoZSBhbHRlcm5hdGl2ZSBpcyBoYXZpbmcg
-YW5vdGhlciBnbG9iYWwKPj4+IHZhcmlhYmxlIHdoaWNoIEkgZG8gbm90IHRoaW5rIGlzIG11Y2gg
-YmV0dGVyIHRoYW4gdGhpcy4KPj4gSG0gc2hlbGwgY29kZSBoYXMgbW9yZSBzdHJhbmdlIGJlaGF2
-aW9yIHRoYW4gSSB3b3VsZCBoYXZlIGV2ZXIgZXhwZWN0ZWQuLi4KPiBTdHJvbmdseSBhZ3JlZSBo
-ZXJlLCB0byBiZSBob25lc3QgaWYgdGhlcmUgd2FzIGFzIGJldHRlciBzY3JpcHRpbmcKPiBsYW5n
-dWFnZSB0aGF0IHdvdWxkIGJlIHdpZGVseSBhdmFpYWJsZSBJIHdvdWxkIGhhdmUgc3dpdGNoZWQg
-bG9uZyB0aW1lCj4gYWdvLi4uCj4KPj4gQnV0IGF0IGxlYXN0IExpIGFuZCBteXNlbGYgZGlkIG5v
-dCBrbm93IHRoYXQgYW5kIGV2ZW4gd2hpbGUgeW91IGtub3cKPj4gYWJvdXQgdGhpcyAiZmVhdHVy
-ZSIsIHlvdSB0aGluayBpdCBpcyBzdHJhbmdlLgo+PiBJIHdvdWxkIHJhdGhlciBsaWtlIHRvIGJl
-IGV4cGxpY2l0IGFuZCB1c2UgYSBnbG9iYWwgdmFyaWFibGUgKHdoYXQgaGFybQo+PiBpcyBpdCBy
-ZWFsbHk/KSBpbnN0ZWFkIG9mIGNvbmZ1c2luZyB0aGUgbmV4dCBvbmUgbG9va2luZyBhdCB0aGlz
-IHBpZWNlCj4+IG9mIGNvZGUuLi4uCj4gSWYgeW91IHJlYWxseSB0aGluayBnbG9iYWwgdmFyaWFi
-bGUgd291bGQgYmUgYmV0dGVyLCB0aGVuIGdvIGFoZWFkIGFuZAo+IHNlbmQgYSBwYXRjaCwgSSBk
-byBub3QgaGF2ZSBhIHN0cm9uZyBmZWVsaW5ncyBhYm91dCB0aGlzIHBhcnRpY3VsYXIKPiBkZXRh
-aWwuCkkgdGhpbmsgdGhlcmUgaXMgYW5vdGhlciBzb2x1dGlvbiwgdG8gbWFrZSB0aGlzIGF0IGxl
-YXN0IG1vcmUgZXhwbGljaXQgCndpdGhvdXQgdXNpbmcgYSBuZXcgZ2xvYmFsIHZhcmlhYmxlLgpQ
-YXNzaW5nIHRoZSBwaWQgYXMgYSBwYXJhbWV0ZXIgdG8gX3RzdF90aW1lb3V0X3Byb2Nlc3MgYW5k
-IF90c3Rfa2lsbF90ZXN0LgpBbHRob3VnaCBpdCBpcyBub3QgcmVxdWlyZWQsIGl0IG1ha2VzIGl0
-IGEgbG90IGxlc3MgaW1wbGljaXQgYW5kIGEgbG90IApiZXR0ZXIgc2ltcGxlciB0byByZWFkLgoK
-SsO2cmcKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0
-aW5mby9sdHAK
+Hi Martin,
+
+> Kernel v4.5 extended the busy_poll functionality to all network drivers.
+> Limiting the test only to drivers which implemented busy_poll as internal
+> feature on older kernels does not make sense.
+
+Ah, you mean 85c72ba1ed0c ("Merge branch 'net-generic-busy-polling'")
+Good catch, thx!!
+
+Fixes: ead28f929 ("busy_poll: skip busy_poll flag test on kernels 4.5+")
+
+Kind regards,
+Petr
+
+> Signed-off-by: Martin Doucha <mdoucha@suse.cz>
+> ---
+>  testcases/network/busy_poll/busy_poll_lib.sh | 4 ----
+>  1 file changed, 4 deletions(-)
+
+> diff --git a/testcases/network/busy_poll/busy_poll_lib.sh b/testcases/network/busy_poll/busy_poll_lib.sh
+> index 5270a1bbd..d17504466 100755
+> --- a/testcases/network/busy_poll/busy_poll_lib.sh
+> +++ b/testcases/network/busy_poll/busy_poll_lib.sh
+> @@ -25,9 +25,5 @@ busy_poll_check_config()
+>  		ethtool --show-features $(tst_iface) | \
+>  			grep -q 'busy-poll.*on' || \
+>  			tst_brk TCONF "busy poll not supported by driver"
+> -	else
+> -		drvs="bnx2x|bnxt|cxgb4|enic|benet|ixgbe|ixgbevf|mlx4|mlx5|myri10ge|sfc|virtio"
+> -		ethtool -i $(tst_iface) | grep -qE "driver: ($drvs)" || \
+> -			tst_brk TCONF "busy poll not supported"
+>  	fi
+>  }
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
