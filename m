@@ -2,11 +2,11 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F9ED39A4FE
-	for <lists+linux-ltp@lfdr.de>; Thu,  3 Jun 2021 17:48:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47C5339AA2E
+	for <lists+linux-ltp@lfdr.de>; Thu,  3 Jun 2021 20:38:48 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4A2713C8F36
-	for <lists+linux-ltp@lfdr.de>; Thu,  3 Jun 2021 17:48:51 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B17243C53EA
+	for <lists+linux-ltp@lfdr.de>; Thu,  3 Jun 2021 20:38:47 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
@@ -14,35 +14,58 @@ Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id CCCD03C53D9
- for <ltp@lists.linux.it>; Thu,  3 Jun 2021 17:48:37 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id EE2EF3C283C
+ for <ltp@lists.linux.it>; Thu,  3 Jun 2021 20:38:36 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id B67011A0114D
- for <ltp@lists.linux.it>; Thu,  3 Jun 2021 17:48:36 +0200 (CEST)
-Received: from relay2.suse.de (unknown [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id CC0D71FD4E;
- Thu,  3 Jun 2021 15:48:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1622735315; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=S0f86rCgRpPImVP63H2Z/E6k/EkUjed1+uQ8Te13ZUs=;
- b=erUauZEORbtBebskm2wHYc8xVZSF15uOVdudCB6QCD7+iKflGB6m2JgQiYofk1AjhTfXtC
- Yr6lpkd5B8MdftctNr7rCLdtuli/9voTp5GPynwOKCZoVPniOk2BpTtRHs8ujwpf+RIrxD
- 32EgOVwFfta2BC/b/MenOE1olMsg5nk=
-Received: from g78.suse.de (unknown [10.163.24.38])
- by relay2.suse.de (Postfix) with ESMTP id 9A8CBA3B81;
- Thu,  3 Jun 2021 15:48:35 +0000 (UTC)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id CDA2C1A007AA
+ for <ltp@lists.linux.it>; Thu,  3 Jun 2021 20:38:35 +0200 (CEST)
+Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id E307621A07;
+ Thu,  3 Jun 2021 18:38:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1622745513; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=GxvrPlcFwDnvDezFxmpm/VeLbd6PGVRQ3jJuuIkBAug=;
+ b=k9tFqTD3AollnFwuVXAphRTieQc2tFdP3xR7t4dCp8/2s65WKE7ObbINDZV/C23Fa1ypfu
+ C3WoPObA/p9FNZMYBHRmB2rhf2YWOzPYJNnR823zjAWSkVqVIONc6XfSFuEHrHki3xLnGY
+ 6RFGylZaGAR3lYkYyPoSgRSgwCU33TU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1622745513;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=GxvrPlcFwDnvDezFxmpm/VeLbd6PGVRQ3jJuuIkBAug=;
+ b=I5Cw2XyK7ofogyEUaIk1nuyLfBEl9J72IqFss1UmXNLUaoYiU6iDdvqHPQFaBxi20kq4OA
+ /z9Ad1sHYKugH4BA==
+Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ by imap.suse.de (Postfix) with ESMTP id 7C51D118DD;
+ Thu,  3 Jun 2021 18:38:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1622745513; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=GxvrPlcFwDnvDezFxmpm/VeLbd6PGVRQ3jJuuIkBAug=;
+ b=k9tFqTD3AollnFwuVXAphRTieQc2tFdP3xR7t4dCp8/2s65WKE7ObbINDZV/C23Fa1ypfu
+ C3WoPObA/p9FNZMYBHRmB2rhf2YWOzPYJNnR823zjAWSkVqVIONc6XfSFuEHrHki3xLnGY
+ 6RFGylZaGAR3lYkYyPoSgRSgwCU33TU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1622745513;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=GxvrPlcFwDnvDezFxmpm/VeLbd6PGVRQ3jJuuIkBAug=;
+ b=I5Cw2XyK7ofogyEUaIk1nuyLfBEl9J72IqFss1UmXNLUaoYiU6iDdvqHPQFaBxi20kq4OA
+ /z9Ad1sHYKugH4BA==
+Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
+ id mRYPG6khuWASMQAALh3uQQ
+ (envelope-from <pvorel@suse.cz>); Thu, 03 Jun 2021 18:38:33 +0000
+From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Thu,  3 Jun 2021 16:48:25 +0100
-Message-Id: <20210603154825.30165-3-rpalethorpe@suse.com>
+Date: Thu,  3 Jun 2021 20:38:24 +0200
+Message-Id: <20210603183827.24339-1-pvorel@suse.cz>
 X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210603154825.30165-1-rpalethorpe@suse.com>
-References: <20210603154825.30165-1-rpalethorpe@suse.com>
 MIME-Version: 1.0
 X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
@@ -50,7 +73,7 @@ X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [RFC PATCH 2/2] Start libclang based analyzer and TEST() check
+Subject: [LTP] [RFC PATCH 0/3] build: make check target
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,252 +85,68 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Richard Palethorpe via ltp <ltp@lists.linux.it>
-Reply-To: Richard Palethorpe <rpalethorpe@suse.com>
-Cc: Richard Palethorpe <rpalethorpe@suse.com>
+Cc: Xiao Yang <yangx.jy@cn.fujitsu.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This uses the stable Clang C API to find usages of the TEST()
-macro. It can also determine if a translation unit is a test
-executable by finding the struct tst_test test instantiation.
+Hi,
 
-This Clang API only exposes the AST along with some other utilities
-for evaluating constants, indexing, auto completion and source
-rewriting. This is somewhat less than what Smatch, Coccinelle and the
-unstable Clang C++ APIs expose. However it is a simple, stable and
-well supported C API.
----
- tools/clang-checks/main.c | 218 ++++++++++++++++++++++++++++++++++++++
- 1 file changed, 218 insertions(+)
- create mode 100644 tools/clang-checks/main.c
+actually, there are 3 targets: check, check-c, check-shell.
 
-diff --git a/tools/clang-checks/main.c b/tools/clang-checks/main.c
-new file mode 100644
-index 000000000..22df30b35
---- /dev/null
-+++ b/tools/clang-checks/main.c
-@@ -0,0 +1,218 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2021 SUSE LLC <rpalethorpe@suse.com>
-+ *
-+ * Entry point for the LTP static analyser.
-+ *
-+ * Scans the AST generated by Clang twice. First pass we just collect
-+ * info about the TU (Translation Unit). Second pass performs the
-+ * checks.
-+ *
-+ * This program takes the same arguments the Clang compiler does.
-+ */
-+#include <unistd.h>
-+#include <string.h>
-+#include <stdlib.h>
-+#include <stdio.h>
-+#include <clang-c/Index.h>
-+
-+#define attr_unused __attribute__((unused))
-+
-+enum ltp_tu_kind {
-+	LTP_TEST,
-+	LTP_OTHER,
-+};
-+
-+static struct {
-+	enum ltp_tu_kind tu_kind;
-+} tu_info;
-+
-+static const char *const ansi_red = "\033[1;31m";
-+static const char *const ansi_reset = "\033[0m";
-+static const char *const ansi_bold = "\033[1m";
-+
-+static unsigned error_flag;
-+
-+static int color_enabled(const int fd)
-+{
-+	static int color;
-+
-+	if (color)
-+		return color - 1;
-+
-+	const char *const env = getenv("LTP_COLORIZE_OUTPUT");
-+
-+	if (env) {
-+		if (!strcmp(env, "n") || !strcmp(env, "0"))
-+			color = 1;
-+
-+		if (!strcmp(env, "y") || !strcmp(env, "1"))
-+			color = 2;
-+
-+		return color - 1;
-+	}
-+
-+	if (isatty(fd) == 0)
-+		color = 1;
-+	else
-+		color = 2;
-+
-+	return color - 1;
-+}
-+
-+static void emit_error(CXCursor offending_cursor, const char *const error_msg)
-+{
-+	CXSourceLocation loc = clang_getCursorLocation(offending_cursor);
-+	CXFile loc_file;
-+	unsigned loc_line, loc_column;
-+	CXString file_name;
-+
-+	error_flag = 1;
-+
-+	clang_getFileLocation(loc, &loc_file, &loc_line, &loc_column,
-+			      /*offset=*/NULL);
-+	file_name = clang_getFileName(loc_file);
-+
-+	if (color_enabled(STDERR_FILENO)) {
-+		dprintf(STDERR_FILENO,
-+			"%s:%u:%u: %sCHECK ERROR%s: %s%s%s\n",
-+			clang_getCString(file_name), loc_line, loc_column,
-+			ansi_red, ansi_reset,
-+			ansi_bold, error_msg, ansi_reset);
-+	} else {
-+		dprintf(STDERR_FILENO,
-+			"%s:%u:%u: CHECK ERROR: %s\n",
-+			clang_getCString(file_name), loc_line, loc_column,
-+			error_msg);
-+	}
-+
-+	clang_disposeString(file_name);
-+}
-+
-+static int cursor_cmp_spelling(const char *const spelling, CXCursor cursor)
-+{
-+	CXString cursor_spelling = clang_getCursorSpelling(cursor);
-+	const int ret = strcmp(spelling, clang_getCString(cursor_spelling));
-+
-+	clang_disposeString(cursor_spelling);
-+
-+	return ret;
-+}
-+
-+static int cursor_type_cmp_spelling(const char *const spelling, CXCursor cursor)
-+{
-+	CXType ctype = clang_getCursorType(cursor);
-+	CXString ctype_spelling = clang_getTypeSpelling(ctype);
-+	const int ret = strcmp(spelling, clang_getCString(ctype_spelling));
-+
-+	clang_disposeString(ctype_spelling);
-+
-+	return ret;
-+}
-+
-+/* Check if the TEST() macro is used inside the library */
-+static void check_TEST_macro(CXCursor macro_cursor)
-+{
-+	if (tu_info.tu_kind == LTP_TEST)
-+		return;
-+
-+	if (!cursor_cmp_spelling("TEST", macro_cursor)) {
-+		emit_error(macro_cursor,
-+			   "TEST() macro should not be used in library");
-+	}
-+}
-+
-+/* Second pass where we run the checks */
-+static enum CXChildVisitResult check_visitor(CXCursor cursor,
-+					     attr_unused CXCursor parent,
-+					     attr_unused CXClientData client_data)
-+{
-+	CXSourceLocation loc = clang_getCursorLocation(cursor);
-+
-+	if (clang_Location_isInSystemHeader(loc))
-+		return CXChildVisit_Continue;
-+
-+	switch (clang_getCursorKind(cursor)) {
-+	case CXCursor_MacroExpansion:
-+			check_TEST_macro(cursor);
-+		break;
-+	default:
-+		break;
-+	}
-+
-+	return CXChildVisit_Recurse;
-+}
-+
-+/* If we find `struct tst_test = {...}` then record that this TU is a test */
-+static void info_ltp_tu_kind(CXCursor cursor)
-+{
-+	CXCursor initializer;
-+
-+	if (clang_Cursor_hasVarDeclGlobalStorage(cursor) != 1)
-+		return;
-+
-+	if (cursor_cmp_spelling("test", cursor))
-+		return;
-+
-+	if (cursor_type_cmp_spelling("struct tst_test", cursor))
-+		return;
-+
-+	initializer = clang_Cursor_getVarDeclInitializer(cursor);
-+
-+	if (!clang_Cursor_isNull(initializer))
-+		tu_info.tu_kind = LTP_TEST;
-+}
-+
-+/* First pass to collect info */
-+static enum CXChildVisitResult info_visitor(CXCursor cursor,
-+					    attr_unused CXCursor parent,
-+					    attr_unused CXClientData client_data)
-+{
-+	CXSourceLocation loc = clang_getCursorLocation(cursor);
-+
-+	if (clang_Location_isInSystemHeader(loc))
-+		return CXChildVisit_Continue;
-+
-+	switch (clang_getCursorKind(cursor)) {
-+	case CXCursor_VarDecl:
-+		info_ltp_tu_kind(cursor);
-+		break;
-+	default:
-+		break;
-+	}
-+
-+	return CXChildVisit_Continue;
-+}
-+
-+int main(const int argc, const char *const *const argv)
-+{
-+	CXIndex cindex = clang_createIndex(0, 1);
-+	CXTranslationUnit tu;
-+	CXCursor tuc;
-+
-+	enum CXErrorCode ret = clang_parseTranslationUnit2(
-+		cindex,
-+		/*source_filename=*/NULL,
-+		argv + 1, argc - 1,
-+		/*unsaved_files=*/NULL, /*num_unsaved_files=*/0,
-+		CXTranslationUnit_DetailedPreprocessingRecord,
-+		&tu);
-+
-+	if (ret != CXError_Success) {
-+		printf("Failed to load translation unit: %d\n", ret);
-+		return 1;
-+	}
-+
-+	tuc = clang_getTranslationUnitCursor(tu);
-+
-+	tu_info.tu_kind = LTP_OTHER;
-+	clang_visitChildren(tuc, info_visitor, NULL);
-+
-+	clang_visitChildren(tuc, check_visitor, NULL);
-+
-+	/* Stop leak sanitizer from complaining */
-+	clang_disposeTranslationUnit(tu);
-+	clang_disposeIndex(cindex);
-+
-+	return error_flag;
-+}
+Previous attempt: make: Add make check target + run.sh [1].
+This is built on the top of patchset tst_net.sh: Allow to skip
+initialization [2]. Hope this time library check will made it :).
+
+I plan to wrap tests with a script in the future, which will parse
+expected output, i.e. approach from #312 [3].
+
+It's not ready due several problems, but for curious here is a test run:
+https://github.com/pevik/ltp/runs/2739826773
+
+1) I made something wrong, I have no idea how to fix this error:
+make[1]: Entering directory 'ltp/lib'
+../include/mk/generic_trunk_target.inc:105: warning: overriding recipe for target 'check-c'
+../include/mk/generic_leaf_target.inc:110: warning: ignoring old recipe for target 'check-c'
+../include/mk/generic_trunk_target.inc:105: warning: overriding recipe for target 'check-shell'
+../include/mk/generic_leaf_target.inc:118: warning: ignoring old recipe for target 'check-shell'
+
+2) I obviously have problem with out-of-tree build
+https://github.com/pevik/ltp/runs/2739826612?check_suite_focus=true
+where path of shell tests (which are in src directory only) is obviously
+broken:
+make[2]: *** No rule to make target 'shell/tst_check_driver.sh', needed by 'check-shell'.  Stop.
+20
+make[1]: *** [/__w/ltp/ltp/include/mk/generic_trunk_target.inc:105: check-shell] Error 2
+21
+make[1]: Leaving directory '/__w/ltp/ltp-build/lib'
+
+3)  tst_bool_expr fails on some systems when run via make check:
+https://github.com/pevik/ltp/runs/2739826773?check_suite_focus=true
+But it runs ok when running normally. It might be dash issue
+(it's on Debian).
+
+Kind regards,
+Petr
+
+[1] https://patchwork.ozlabs.org/project/ltp/patch/20190924182841.4528-1-pvorel@suse.cz/
+[2] https://patchwork.ozlabs.org/project/ltp/list/?series=247078
+[3] https://github.com/linux-test-project/ltp/issues/312
+
+Petr Vorel (3):
+  make: Add make check{,-c,-shell} targets
+  build.sh: Add support for make check
+  CI: Run also make check
+
+ .github/workflows/ci.yml            |  3 +++
+ Makefile                            | 21 ++++++++++++++++++++-
+ build.sh                            | 18 +++++++++++++++++-
+ include/mk/generic_leaf_target.inc  | 25 ++++++++++++++++++++++---
+ include/mk/generic_trunk_target.inc |  4 ++--
+ lib/newlib_tests/Makefile           |  8 ++++++++
+ 6 files changed, 72 insertions(+), 7 deletions(-)
+
 -- 
 2.31.1
 
