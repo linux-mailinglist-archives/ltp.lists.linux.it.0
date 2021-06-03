@@ -2,85 +2,78 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D87E739A2C7
-	for <lists+linux-ltp@lfdr.de>; Thu,  3 Jun 2021 16:06:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AFFF39A3FE
+	for <lists+linux-ltp@lfdr.de>; Thu,  3 Jun 2021 17:10:26 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1C7433C8047
-	for <lists+linux-ltp@lfdr.de>; Thu,  3 Jun 2021 16:06:53 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id CA81A3C87FD
+	for <lists+linux-ltp@lfdr.de>; Thu,  3 Jun 2021 17:10:24 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id DD1613C4F93
- for <ltp@lists.linux.it>; Thu,  3 Jun 2021 16:06:48 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 79EE43C2873
+ for <ltp@lists.linux.it>; Thu,  3 Jun 2021 17:10:20 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 2B57B14010F7
- for <ltp@lists.linux.it>; Thu,  3 Jun 2021 16:06:47 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id B060D600C89
+ for <ltp@lists.linux.it>; Thu,  3 Jun 2021 17:10:19 +0200 (CEST)
 Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
  (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id E99CC1FD4E
- for <ltp@lists.linux.it>; Thu,  3 Jun 2021 14:06:46 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id C63FB219FA;
+ Thu,  3 Jun 2021 15:10:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1622729206; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=WZWb98KFBFYfVIzQVtQESQxtHMV0KaVoNSE8pos9fyM=;
- b=dNJu5ZNJ+zPFeHQqf2vdvGoEiYcNZYDE4SOaKaCU33gMJOD7Al4+Ebjp6zrTmVePk6tH2B
- S2/KJvf+EfGpepYNdCXFWjOhAkcjZt5oWETjO69bLD+whIj+3Fvtgg9zeckDFaG2KGun9E
- qzKSSY07x8wIux9EolvtvP4G668k6i0=
+ t=1622733018; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=dONBbZo7u1cDAS80iOGrHn8qDA2snnUMqx4O0x8/iCs=;
+ b=aTSVeUd3CoatAoCAS4jkS9u7WFpZPt6XeW1pE5sGUZ3JShpNx8qewvZHPPr3kvKK2R0kcd
+ 9NuBcfCT6HW91Cl4Z3ucCM7Nyb8VAzm9vEmIT1OGlc2oDncGYGHdgmQSkUlkHttriG99St
+ bSLsKhpa3XtkNm6C2Pi4LOlgSsx22sc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1622729206;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=WZWb98KFBFYfVIzQVtQESQxtHMV0KaVoNSE8pos9fyM=;
- b=n+vmlmnCnzuzdkUwaHlIkWHuQAcZIACthFmkyh8BKTGE+p+vC5ecNPBlTdEnEvCNn3Yu87
- kmnzetWbJS7JM4Ag==
+ s=susede2_ed25519; t=1622733018;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=dONBbZo7u1cDAS80iOGrHn8qDA2snnUMqx4O0x8/iCs=;
+ b=mQ6telwDUMURb3gxPMaAVilvh6gim+MAghQtJ0F6o9voPC6r35cKTYLlY5Q2utaig04wSw
+ 03rUtEkkP2d2VsBg==
 Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id CDDD0118DD
- for <ltp@lists.linux.it>; Thu,  3 Jun 2021 14:06:46 +0000 (UTC)
+ by imap.suse.de (Postfix) with ESMTP id 94256118DD;
+ Thu,  3 Jun 2021 15:10:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1622729206; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=WZWb98KFBFYfVIzQVtQESQxtHMV0KaVoNSE8pos9fyM=;
- b=dNJu5ZNJ+zPFeHQqf2vdvGoEiYcNZYDE4SOaKaCU33gMJOD7Al4+Ebjp6zrTmVePk6tH2B
- S2/KJvf+EfGpepYNdCXFWjOhAkcjZt5oWETjO69bLD+whIj+3Fvtgg9zeckDFaG2KGun9E
- qzKSSY07x8wIux9EolvtvP4G668k6i0=
+ t=1622733018; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=dONBbZo7u1cDAS80iOGrHn8qDA2snnUMqx4O0x8/iCs=;
+ b=aTSVeUd3CoatAoCAS4jkS9u7WFpZPt6XeW1pE5sGUZ3JShpNx8qewvZHPPr3kvKK2R0kcd
+ 9NuBcfCT6HW91Cl4Z3ucCM7Nyb8VAzm9vEmIT1OGlc2oDncGYGHdgmQSkUlkHttriG99St
+ bSLsKhpa3XtkNm6C2Pi4LOlgSsx22sc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1622729206;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=WZWb98KFBFYfVIzQVtQESQxtHMV0KaVoNSE8pos9fyM=;
- b=n+vmlmnCnzuzdkUwaHlIkWHuQAcZIACthFmkyh8BKTGE+p+vC5ecNPBlTdEnEvCNn3Yu87
- kmnzetWbJS7JM4Ag==
+ s=susede2_ed25519; t=1622733018;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=dONBbZo7u1cDAS80iOGrHn8qDA2snnUMqx4O0x8/iCs=;
+ b=mQ6telwDUMURb3gxPMaAVilvh6gim+MAghQtJ0F6o9voPC6r35cKTYLlY5Q2utaig04wSw
+ 03rUtEkkP2d2VsBg==
 Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id 1cA3MfbhuGCZQgAALh3uQQ (envelope-from <chrubis@suse.cz>)
- for <ltp@lists.linux.it>; Thu, 03 Jun 2021 14:06:46 +0000
-Date: Thu, 3 Jun 2021 15:40:56 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
+ id lVprItrwuGAoXQAALh3uQQ
+ (envelope-from <pvorel@suse.cz>); Thu, 03 Jun 2021 15:10:18 +0000
+From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Message-ID: <YLjb6E5+CT3hMC4l@yuki>
-References: <20210601155427.996321-1-zlang@redhat.com> <YLdwYJ3Kw5qf64d2@yuki>
- <20210602182625.GJ2978781@localhost.localdomain>
+Date: Thu,  3 Jun 2021 17:10:11 +0200
+Message-Id: <20210603151012.14760-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210602182625.GJ2978781@localhost.localdomain>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] ltp-aiodio: help aiodio test work normally
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/2] tst_net.sh: Allow to skip initialization
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,27 +90,43 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> > I do not like this solution. I think that we should instead fix the
-> > scripts. I think that the runltp should just export TMPDIR if it was
-> > passed on commandline and it should be the resposibility of the caller
-> > to set up a temporary directory somewhere in /tmp in that case.
-> 
-> Sorry I can't understand your solution, would you like to show me some
-> detailed code which can make the aiodio test pass, to explain what do
-> you really like to do?
+with TST_NET_SKIP_VARIABLE_INIT=1.
+Useful for testing the library itself.
 
-Looking at the testscripts/ltp-aiodio.sh it calls ltp-pan directly so
-runltp is not involved at all. I guess that the simple solution here
-would be exporting correct TMPDIR so that it points to the
-"$TMP/aiodio".
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+---
+ testcases/lib/tst_net.sh  | 2 ++
+ testcases/lib/tst_test.sh | 1 +
+ 2 files changed, 3 insertions(+)
 
-From the testcase viewpoint TMPDIR always was the path where the test
-should create files.
-
+diff --git a/testcases/lib/tst_net.sh b/testcases/lib/tst_net.sh
+index fc5719057..db1db4790 100644
+--- a/testcases/lib/tst_net.sh
++++ b/testcases/lib/tst_net.sh
+@@ -933,6 +933,8 @@ tst_default_max_pkt()
+ 	echo "$((mtu + mtu / 10))"
+ }
+ 
++[ -n "$TST_NET_SKIP_VARIABLE_INIT" ] && return 0
++
+ # Management Link
+ [ -z "$RHOST" ] && TST_USE_NETNS="yes"
+ export RHOST="$RHOST"
+diff --git a/testcases/lib/tst_test.sh b/testcases/lib/tst_test.sh
+index 66ffde4eb..8b4e9cb60 100644
+--- a/testcases/lib/tst_test.sh
++++ b/testcases/lib/tst_test.sh
+@@ -559,6 +559,7 @@ tst_run()
+ 			IPV6|IPV6_FLAG|IPVER|TEST_DATA|TEST_DATA_IFS);;
+ 			RETRY_FUNC|RETRY_FN_EXP_BACKOFF|TIMEOUT);;
+ 			NET_DATAROOT|NET_MAX_PKT|NET_RHOST_RUN_DEBUG|NETLOAD_CLN_NUMBER);;
++			NET_SKIP_VARIABLE_INIT);;
+ 			*) tst_res TWARN "Reserved variable TST_$_tst_i used!";;
+ 			esac
+ 		done
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+2.31.1
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
