@@ -2,87 +2,81 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D0F839B5B4
-	for <lists+linux-ltp@lfdr.de>; Fri,  4 Jun 2021 11:15:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6D7439B5B5
+	for <lists+linux-ltp@lfdr.de>; Fri,  4 Jun 2021 11:16:06 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 901F83C4F2A
-	for <lists+linux-ltp@lfdr.de>; Fri,  4 Jun 2021 11:15:45 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 9477E3C4F3C
+	for <lists+linux-ltp@lfdr.de>; Fri,  4 Jun 2021 11:16:06 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 4B5293C248C
- for <ltp@lists.linux.it>; Fri,  4 Jun 2021 11:15:43 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id ED8193C248C
+ for <ltp@lists.linux.it>; Fri,  4 Jun 2021 11:16:04 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 29FDC1400549
- for <ltp@lists.linux.it>; Fri,  4 Jun 2021 11:15:40 +0200 (CEST)
-Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
- (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 86E8521A14;
- Fri,  4 Jun 2021 09:15:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1622798140;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 757FC1A014C5
+ for <ltp@lists.linux.it>; Fri,  4 Jun 2021 11:16:04 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1622798163;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=BZpiHK8805D4I4eziqhIr20vySLMHSn83fKaZjkkDOs=;
- b=tSr0MpwDVqPLmTb26C4hFjXvRWi1bxLOXcDRMgcpoHNxJMJDoQpscTIAnEzwyP7PMHSagB
- u2sDZUWno5I9rlTzVCfABgLJk2ygKd/RUxGqU4+8ahAIDEx3sVjUmi37J8P//kY7pKv59W
- ynVWsiSHZfzF998F97nFMdYxdc57KKI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1622798140;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=BZpiHK8805D4I4eziqhIr20vySLMHSn83fKaZjkkDOs=;
- b=gs+T+kJeXTtuDDsQOpT07V3tdwEXGTntk3y66irR222DXv9rshKTx945JCSGjspQSeTzSD
- sWD7pi3hbxQcH8Ag==
-Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id 5EA48118DD;
- Fri,  4 Jun 2021 09:15:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1622798140;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=BZpiHK8805D4I4eziqhIr20vySLMHSn83fKaZjkkDOs=;
- b=tSr0MpwDVqPLmTb26C4hFjXvRWi1bxLOXcDRMgcpoHNxJMJDoQpscTIAnEzwyP7PMHSagB
- u2sDZUWno5I9rlTzVCfABgLJk2ygKd/RUxGqU4+8ahAIDEx3sVjUmi37J8P//kY7pKv59W
- ynVWsiSHZfzF998F97nFMdYxdc57KKI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1622798140;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=BZpiHK8805D4I4eziqhIr20vySLMHSn83fKaZjkkDOs=;
- b=gs+T+kJeXTtuDDsQOpT07V3tdwEXGTntk3y66irR222DXv9rshKTx945JCSGjspQSeTzSD
- sWD7pi3hbxQcH8Ag==
-Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id ruS+FTzvuWDWZwAALh3uQQ
- (envelope-from <pvorel@suse.cz>); Fri, 04 Jun 2021 09:15:40 +0000
-Date: Fri, 4 Jun 2021 11:15:38 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Richard Palethorpe <rpalethorpe@suse.de>
-Message-ID: <YLnvOpNr3HlTLWWP@pevik>
-References: <20210603154825.30165-1-rpalethorpe@suse.com>
- <YLnGIJWPf2XsAdTt@pevik> <875yyuj91v.fsf@suse.de>
+ bh=YFPNrYlrgH3BRRciHGieNvsz4youLGTgVL1vxDq5QvE=;
+ b=S/FWX4nl22AW7iWdmDodybfIvlPL8Z2cC+vO7JvDwxQuCeSPB4YSFqlL4RoRzOmPUlTaCN
+ XYJ0osr9KiphELWXFfBtyE2yjVG3sr2hDVDz0twPCvrasazjdiTQjENKu59SY7DS3aDSx4
+ fbfQ9JypyHeWt25Gl1EtZc2L89KkrWk=
+Received: from mail-yb1-f198.google.com (mail-yb1-f198.google.com
+ [209.85.219.198]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-328-_wl-YSQ4M6OIK0ITUPS9JQ-1; Fri, 04 Jun 2021 05:16:01 -0400
+X-MC-Unique: _wl-YSQ4M6OIK0ITUPS9JQ-1
+Received: by mail-yb1-f198.google.com with SMTP id
+ s186-20020a2577c30000b02905353e16ab17so10864573ybc.20
+ for <ltp@lists.linux.it>; Fri, 04 Jun 2021 02:16:01 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=YFPNrYlrgH3BRRciHGieNvsz4youLGTgVL1vxDq5QvE=;
+ b=tHY6Rmid6DYwYANUGNyl5uTpuNNGDIQ0MFLH1mrBSWmh29iv9TYvhnpkwqaAQkekYN
+ 53ZegJ8iYIhDiWHDUVfiuEUUk7HNSNNt+bK9qX9w16ByvuwSDGdnG3Fb35MR+494Mzvd
+ s0wpgkV4M+uNcGrKlBx2xZQCetuNHem9ZoC7aKXJnRiiCnM/DUk5ZsIEEoPvRBBxL3CR
+ pe3fDKJdfqueXrRqtl27zQodXUske1eaUQc0wYXudlmCAhhs1MN9A/ifqrz060TzPSRR
+ 6IM22bDFKLKAxiuvWuB7nNQqoyAgbVW9krrzEr1haQN6eaI3fhZJSsjfv/qOgrqu6hNi
+ yMbg==
+X-Gm-Message-State: AOAM533ZHVgOEqAI2/LPg7n3X1hAVfl21L4BIcyZZbA3hIfkPxwbH0fw
+ BARf9P/HZoJkEqWFcRcJGzd8sGkwNRQzrllbopFzNCMNRaymn7D6RyIyr8jcPRiu3ML5KG+HtXZ
+ a2EDv9j0TVRYt3xgvYdiy3QQraCM=
+X-Received: by 2002:a05:6902:4a2:: with SMTP id
+ r2mr4117460ybs.286.1622798161176; 
+ Fri, 04 Jun 2021 02:16:01 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJyhoFITmCBhn0z54qi2u1gPtoARvzl1cn8lwKmDz5Q5A827YZIbX/dIr+IP81WS1a+Gbtx5Mmo58Xevr+kRf9U=
+X-Received: by 2002:a05:6902:4a2:: with SMTP id
+ r2mr4117434ybs.286.1622798161003; 
+ Fri, 04 Jun 2021 02:16:01 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <875yyuj91v.fsf@suse.de>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+References: <YLh9jvI/p/VxsSmx@pevik>
+In-Reply-To: <YLh9jvI/p/VxsSmx@pevik>
+From: Li Wang <liwang@redhat.com>
+Date: Fri, 4 Jun 2021 17:15:49 +0800
+Message-ID: <CAEemH2e8h4tOtJ6Pfi7yYm8q=ZT238idmwjxWkxKh=pQzBNshw@mail.gmail.com>
+To: Petr Vorel <pvorel@suse.cz>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [RFC PATCH 0/2] Libclang based analyzer
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [RFC] Remove disktest from LTP
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,80 +88,22 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
+Cc: Mike Frysinger <vapier@gentoo.org>, automated-testing@yoctoproject.org,
+ Xiao Yang <yangx.jy@cn.fujitsu.com>, LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Richie,
+> does anybody use testcases/kernel/io/disktest ?
 
-> > FYI yesterday I sent patch to add make check{,-c,shell}, but for running C/shell API tests:
-> > https://patchwork.ozlabs.org/project/ltp/list/?series=247103
+Personally, I have never touched them at all.
+So it's fine for me to drop it.
 
-> So I guess we have a name collision here. Something to consider is that
-> GNU Make defines 'checks' as running self tests. So perhaps you are
-> correct to use that word.
+-- 
+Regards,
+Li Wang
 
-> I could rename the static analyses to 'analyze' or 'lint'. OTOH it might
-> be better if running the self tests is called 'make
-> run-{c,shell}-api-tests', because only a few people need to do
-> that. Whereas it is intended that all contributors run the static
-> analyses checks.
-
-run-{c,shell}-api-tests is IMHO too long, but I was thinking about
-check-{,c,shell}-api. But maybe you're right, let's wait for others opinions.
-
-> Although, if someone runs 'make check' in the lib directory, then it
-> makes sense to run the C API tests as well as do the analyses. Or not?
-
-Yes, I'd be for having make check, which would run all check targets,
-which can be also run separately:
-make check-clang
-make check-c
-make check-shell
-
-(or whatever we name these clang and C/shell API tests targets)
-
-> > Taking 2 latests commits + adding clang-devel / libclang-dev packages makes CI
-> > running.
-
-> > https://github.com/pevik/ltp/commit/b2427f39ddb15c97761208a605637e0da6fe66ca
-
-> Thanks, I guess this shows that libclang is well supported.
-Yes, it looks to be even in old clang 3.5.
-
-
-> > The only missing piece is include/mk/clang-checks.mk (this patchset not even
-> > compile now).
-
-> >> Richard Palethorpe (2):
-> >>   Add 'make checks' and clang-checks to build system
-> > make check ... clang-check (to avoid confusion).
-
-> >>   Start libclang based analyzer and TEST() check
-
-> >>  configure.ac                       |   2 +
-> >>  include/mk/config.mk.in            |   5 +
-> >>  include/mk/env_post.mk             |   8 ++
-> >>  include/mk/generic_leaf_target.inc |   5 +-
-> >>  include/mk/lib.mk                  |   3 +
-> >>  include/mk/rules.mk                |   9 ++
-> >>  include/mk/testcases.mk            |   1 +
-> >>  tools/clang-checks/.gitignore      |   1 +
-> >>  tools/clang-checks/Makefile        |  13 ++
-> >>  tools/clang-checks/main.c          | 218 +++++++++++++++++++++++++++++
-> > I'd name it tools/clang-check/ (and include/mk/clang-check.mk), but that's just
-> > personal opinion.
-
-> Yeah, we do not want a mixture of check and checks. I should probably
-> just make it 'check' as it saves typing one letter.
-
-+1
-
-Kind regards,
-Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
