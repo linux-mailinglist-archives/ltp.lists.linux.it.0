@@ -1,56 +1,87 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0ED7939B7BA
-	for <lists+linux-ltp@lfdr.de>; Fri,  4 Jun 2021 13:14:49 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 493B739B89B
+	for <lists+linux-ltp@lfdr.de>; Fri,  4 Jun 2021 14:00:15 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5CFC93C7FD9
-	for <lists+linux-ltp@lfdr.de>; Fri,  4 Jun 2021 13:14:48 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id EC3273C7FDA
+	for <lists+linux-ltp@lfdr.de>; Fri,  4 Jun 2021 14:00:13 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 30D3A3C288E
- for <ltp@lists.linux.it>; Fri,  4 Jun 2021 13:14:44 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 2050F3C27EC
+ for <ltp@lists.linux.it>; Fri,  4 Jun 2021 14:00:09 +0200 (CEST)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 536C320108C
- for <ltp@lists.linux.it>; Fri,  4 Jun 2021 13:14:43 +0200 (CEST)
-Received: from relay2.suse.de (unknown [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id D4F711FD4C;
- Fri,  4 Jun 2021 11:14:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1622805282; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 0A2381401232
+ for <ltp@lists.linux.it>; Fri,  4 Jun 2021 14:00:08 +0200 (CEST)
+Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 538B41FD47;
+ Fri,  4 Jun 2021 12:00:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1622808008; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=d7ysqKv1ZoAr4IMQEYbOZnjK3mudcGdrFJEOpb17tAQ=;
- b=gUTls0//L9jHALI9Ft121wInEr8xavTM2/jAgHF/ywN8Ts7QDBp4l+SO4eYwySJJXJH5ff
- UoaowAM5SjfSc36tcdAJtS75e8Q2Js5JCD37bTUNfEF4svN8NXz4XhqHO4NiEnIuN+YfWO
- UXKnQiQL6j/V+cqCC6ASeiMfFVVdRiw=
-Received: from g78.suse.de (unknown [10.163.24.38])
- by relay2.suse.de (Postfix) with ESMTP id A691AA3B89;
- Fri,  4 Jun 2021 11:14:42 +0000 (UTC)
-To: ltp@lists.linux.it
-Date: Fri,  4 Jun 2021 12:14:34 +0100
-Message-Id: <20210604111434.21422-3-rpalethorpe@suse.com>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210604111434.21422-1-rpalethorpe@suse.com>
-References: <20210604111434.21422-1-rpalethorpe@suse.com>
+ bh=Lo3Wx4FShsveM15dgKfKuvbZ812m8bImv0CWn6QeqK8=;
+ b=HlCc3QNCEhBALdURKLxWmBnYMsL8rOd2c+1AUt8N54V+TSIuq1YWkp7QbZZWsYzhyB0TaV
+ DMqOHU1LeKxUlA82fF04erkBWLOcSXPQWYOOukvcSEumXGxrYJpGodGwupcV1kFthhqa7Y
+ eebMZKHgjTc2qoqt54o8jwB/RMiVGWA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1622808008;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Lo3Wx4FShsveM15dgKfKuvbZ812m8bImv0CWn6QeqK8=;
+ b=tv1dw0MmbvjoTZImV3DnU6st6uKh+R3nE6atWdzSEr/t5hR6IEcl7al6VyRzuKdv6aMPC2
+ IV367t1keeLnhxAw==
+Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ by imap.suse.de (Postfix) with ESMTP id 34517118DD;
+ Fri,  4 Jun 2021 12:00:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1622808008; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Lo3Wx4FShsveM15dgKfKuvbZ812m8bImv0CWn6QeqK8=;
+ b=HlCc3QNCEhBALdURKLxWmBnYMsL8rOd2c+1AUt8N54V+TSIuq1YWkp7QbZZWsYzhyB0TaV
+ DMqOHU1LeKxUlA82fF04erkBWLOcSXPQWYOOukvcSEumXGxrYJpGodGwupcV1kFthhqa7Y
+ eebMZKHgjTc2qoqt54o8jwB/RMiVGWA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1622808008;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Lo3Wx4FShsveM15dgKfKuvbZ812m8bImv0CWn6QeqK8=;
+ b=tv1dw0MmbvjoTZImV3DnU6st6uKh+R3nE6atWdzSEr/t5hR6IEcl7al6VyRzuKdv6aMPC2
+ IV367t1keeLnhxAw==
+Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
+ id EtBWDMgVumCSMAAALh3uQQ
+ (envelope-from <chrubis@suse.cz>); Fri, 04 Jun 2021 12:00:08 +0000
+Date: Fri, 4 Jun 2021 13:34:19 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Petr Vorel <pvorel@suse.cz>
+Message-ID: <YLoPu+To+U+x2md7@yuki>
+References: <20210603154825.30165-1-rpalethorpe@suse.com>
+ <YLnGIJWPf2XsAdTt@pevik> <875yyuj91v.fsf@suse.de>
+ <YLnvOpNr3HlTLWWP@pevik>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <YLnvOpNr3HlTLWWP@pevik>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [RFC PATCH v2 2/2] Start libclang based analyzer and TEST()
- check
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [RFC PATCH 0/2] Libclang based analyzer
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,278 +93,25 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Richard Palethorpe via ltp <ltp@lists.linux.it>
-Reply-To: Richard Palethorpe <rpalethorpe@suse.com>
-Cc: Richard Palethorpe <rpalethorpe@suse.com>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This uses the stable Clang C API to find usages of the TEST()
-macro. It can also determine if a translation unit is a test
-executable by finding the struct tst_test test instantiation.
+Hi!
+> run-{c,shell}-api-tests is IMHO too long, but I was thinking about
+> check-{,c,shell}-api. But maybe you're right, let's wait for others opinions.
 
-This Clang API only exposes the AST along with some other utilities
-for evaluating constants, indexing, auto completion and source
-rewriting. This is somewhat less than what Smatch, Coccinelle and the
-unstable Clang C++ APIs expose. However it is a simple, stable and
-well supported C API.
+I would vote for tests to be executed by 'make test' and the checks that
+Ritchie implements should be started by 'make check'.
 
-Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
----
- tools/clang-check/main.c | 239 +++++++++++++++++++++++++++++++++++++++
- 1 file changed, 239 insertions(+)
- create mode 100644 tools/clang-check/main.c
+Even the kernel script is called checkpatch.pl so this would be
+consistent with the terms used in Linux kernel.
 
-diff --git a/tools/clang-check/main.c b/tools/clang-check/main.c
-new file mode 100644
-index 000000000..26ce898c3
---- /dev/null
-+++ b/tools/clang-check/main.c
-@@ -0,0 +1,239 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2021 SUSE LLC <rpalethorpe@suse.com>
-+ * Copyright (c) 2017 Petr Vorel <pvorel@suse.cz>
-+ *
-+ * Entry point for the LTP static analyser.
-+ *
-+ * Scans the AST (Abstract Syntax Tree) generated by Clang
-+ * twice. First pass we just collect info about the TU (Translation
-+ * Unit). Second pass performs the checks.
-+ *
-+ * AST Nodes are called CXCursor by libclang. We use the library's
-+ * visitor functions to recurse into the AST.
-+ *
-+ * The kind of AST node decides which checks to run on it.
-+ *
-+ * This program takes the same arguments the Clang compiler
-+ * frontend does. Although some are ignored by libclang.
-+ */
-+#include <unistd.h>
-+#include <string.h>
-+#include <stdlib.h>
-+#include <stdio.h>
-+#include <clang-c/Index.h>
-+
-+#define attr_unused __attribute__((unused))
-+
-+/* The rules for test, library and tool code are different */
-+enum ltp_tu_kind {
-+	LTP_TEST,
-+	LTP_OTHER,
-+};
-+
-+/* Holds information about the TU which we gathered on the first pass */
-+static struct {
-+	enum ltp_tu_kind tu_kind;
-+} tu_info;
-+
-+static const char *const ansi_red = "\033[1;31m";
-+static const char *const ansi_reset = "\033[0m";
-+static const char *const ansi_bold = "\033[1m";
-+
-+static unsigned error_flag;
-+
-+/* Copied from lib/tst_ansi_color.c */
-+static int color_enabled(const int fd)
-+{
-+	static int color;
-+
-+	if (color)
-+		return color - 1;
-+
-+	const char *const env = getenv("LTP_COLORIZE_OUTPUT");
-+
-+	if (env) {
-+		if (!strcmp(env, "n") || !strcmp(env, "0"))
-+			color = 1;
-+
-+		if (!strcmp(env, "y") || !strcmp(env, "1"))
-+			color = 2;
-+
-+		return color - 1;
-+	}
-+
-+	if (isatty(fd) == 0)
-+		color = 1;
-+	else
-+		color = 2;
-+
-+	return color - 1;
-+}
-+
-+static void emit_error(CXCursor offending_cursor, const char *const error_msg)
-+{
-+	CXSourceLocation loc = clang_getCursorLocation(offending_cursor);
-+	CXFile loc_file;
-+	unsigned loc_line, loc_column;
-+	CXString file_name;
-+
-+	error_flag = 1;
-+
-+	clang_getFileLocation(loc, &loc_file, &loc_line, &loc_column,
-+			      /*offset=*/NULL);
-+	file_name = clang_getFileName(loc_file);
-+
-+	if (color_enabled(STDERR_FILENO)) {
-+		dprintf(STDERR_FILENO,
-+			"%s:%u:%u: %sCHECK ERROR%s: %s%s%s\n",
-+			clang_getCString(file_name), loc_line, loc_column,
-+			ansi_red, ansi_reset,
-+			ansi_bold, error_msg, ansi_reset);
-+	} else {
-+		dprintf(STDERR_FILENO,
-+			"%s:%u:%u: CHECK ERROR: %s\n",
-+			clang_getCString(file_name), loc_line, loc_column,
-+			error_msg);
-+	}
-+
-+	clang_disposeString(file_name);
-+}
-+
-+static int cursor_cmp_spelling(const char *const spelling, CXCursor cursor)
-+{
-+	CXString cursor_spelling = clang_getCursorSpelling(cursor);
-+	const int ret = strcmp(spelling, clang_getCString(cursor_spelling));
-+
-+	clang_disposeString(cursor_spelling);
-+
-+	return ret;
-+}
-+
-+static int cursor_type_cmp_spelling(const char *const spelling, CXCursor cursor)
-+{
-+	CXType ctype = clang_getCursorType(cursor);
-+	CXString ctype_spelling = clang_getTypeSpelling(ctype);
-+	const int ret = strcmp(spelling, clang_getCString(ctype_spelling));
-+
-+	clang_disposeString(ctype_spelling);
-+
-+	return ret;
-+}
-+
-+/*
-+ * Check if the TEST() macro is used inside the library.
-+ *
-+ * This check takes an AST node which should already be known to be a
-+ * macro expansion kind.
-+ *
-+ * If the TU appears to be a test executable then the test does not
-+ * apply. So in that case we return.
-+ *
-+ * If the macro expansion AST node is spelled TEST, then we emit an
-+ * error. Otherwise do nothing.
-+ */
-+static void check_TEST_macro(CXCursor macro_cursor)
-+{
-+	if (tu_info.tu_kind == LTP_TEST)
-+		return;
-+
-+	if (!cursor_cmp_spelling("TEST", macro_cursor)) {
-+		emit_error(macro_cursor,
-+			   "TEST() macro should not be used in library");
-+	}
-+}
-+
-+/* Second pass where we run the checks */
-+static enum CXChildVisitResult check_visitor(CXCursor cursor,
-+					     attr_unused CXCursor parent,
-+					     attr_unused CXClientData client_data)
-+{
-+	CXSourceLocation loc = clang_getCursorLocation(cursor);
-+
-+	if (clang_Location_isInSystemHeader(loc))
-+		return CXChildVisit_Continue;
-+
-+	switch (clang_getCursorKind(cursor)) {
-+	case CXCursor_MacroExpansion:
-+			check_TEST_macro(cursor);
-+		break;
-+	default:
-+		break;
-+	}
-+
-+	return CXChildVisit_Recurse;
-+}
-+
-+/* If we find `struct tst_test = {...}` then record that this TU is a test */
-+static void info_ltp_tu_kind(CXCursor cursor)
-+{
-+	CXCursor initializer;
-+
-+	if (clang_Cursor_hasVarDeclGlobalStorage(cursor) != 1)
-+		return;
-+
-+	if (cursor_cmp_spelling("test", cursor))
-+		return;
-+
-+	if (cursor_type_cmp_spelling("struct tst_test", cursor))
-+		return;
-+
-+	initializer = clang_Cursor_getVarDeclInitializer(cursor);
-+
-+	if (!clang_Cursor_isNull(initializer))
-+		tu_info.tu_kind = LTP_TEST;
-+}
-+
-+/* First pass to collect info */
-+static enum CXChildVisitResult info_visitor(CXCursor cursor,
-+					    attr_unused CXCursor parent,
-+					    attr_unused CXClientData client_data)
-+{
-+	CXSourceLocation loc = clang_getCursorLocation(cursor);
-+
-+	if (clang_Location_isInSystemHeader(loc))
-+		return CXChildVisit_Continue;
-+
-+	switch (clang_getCursorKind(cursor)) {
-+	case CXCursor_VarDecl:
-+		info_ltp_tu_kind(cursor);
-+		break;
-+	default:
-+		break;
-+	}
-+
-+	return CXChildVisit_Continue;
-+}
-+
-+int main(const int argc, const char *const *const argv)
-+{
-+	CXIndex cindex = clang_createIndex(0, 1);
-+	CXTranslationUnit tu;
-+	CXCursor tuc;
-+
-+	enum CXErrorCode ret = clang_parseTranslationUnit2(
-+		cindex,
-+		/*source_filename=*/NULL,
-+		argv + 1, argc - 1,
-+		/*unsaved_files=*/NULL, /*num_unsaved_files=*/0,
-+		CXTranslationUnit_DetailedPreprocessingRecord,
-+		&tu);
-+
-+	if (ret != CXError_Success) {
-+		printf("Failed to load translation unit: %d\n", ret);
-+		return 1;
-+	}
-+
-+	tuc = clang_getTranslationUnitCursor(tu);
-+
-+	tu_info.tu_kind = LTP_OTHER;
-+	clang_visitChildren(tuc, info_visitor, NULL);
-+
-+	clang_visitChildren(tuc, check_visitor, NULL);
-+
-+	/* Stop leak sanitizer from complaining */
-+	clang_disposeTranslationUnit(tu);
-+	clang_disposeIndex(cindex);
-+
-+	return error_flag;
-+}
 -- 
-2.31.1
-
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
