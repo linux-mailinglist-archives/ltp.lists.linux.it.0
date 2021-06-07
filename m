@@ -2,89 +2,88 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AD0739D8D8
-	for <lists+linux-ltp@lfdr.de>; Mon,  7 Jun 2021 11:32:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC74939D8FD
+	for <lists+linux-ltp@lfdr.de>; Mon,  7 Jun 2021 11:42:55 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0D9A33C565F
-	for <lists+linux-ltp@lfdr.de>; Mon,  7 Jun 2021 11:32:39 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 9282D3C7C4F
+	for <lists+linux-ltp@lfdr.de>; Mon,  7 Jun 2021 11:42:55 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 0923B3C187D
- for <ltp@lists.linux.it>; Mon,  7 Jun 2021 11:32:34 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 9CD273C187D
+ for <ltp@lists.linux.it>; Mon,  7 Jun 2021 11:42:51 +0200 (CEST)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 445EF200BA7
- for <ltp@lists.linux.it>; Mon,  7 Jun 2021 11:32:33 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 3F714600965
+ for <ltp@lists.linux.it>; Mon,  7 Jun 2021 11:42:51 +0200 (CEST)
 Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
  (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id A35C721A87;
- Mon,  7 Jun 2021 09:32:33 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id B959D21A8A;
+ Mon,  7 Jun 2021 09:42:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1623058353;
+ t=1623058970;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=ACBykZwK3+uXLKHNaBCBHCVu6pqs5mbfobd6OtR+s9I=;
- b=wKXcPKuG4VFTDiBdWsJxItHfkb8eYGH09ZBbIz4efr/IwVS6bdUijuJR8IWuNBa/HsZcwF
- CnEiYS1ISB+NXc+aWgbXmztFkd4BZCHQC3pOplaP2PjzV1JV0dc+vzmjTkF8xQ1dLl4kRn
- 3p80tN17Odo4TvocBfm489o+q6okGG8=
+ bh=rgoSbRu5PR9aMTS7egDPBJt0PWox108C5biiT20mlwk=;
+ b=uhr6lnc13t3u8J51gADnlmnKpYj5sRlotXXp7/EimkjyRjZexvTJTHQCWUufW2oaGTO9A0
+ nL9Ol8kixt4vnXWFkwBhgNsn6v4i1WqNxrm8KJjQBEKvnWZI/FV9VM1/LlLG0GxZdIuB+S
+ tJD30ayWXBqXSBnzsbrrSh1IYuNhUZk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1623058353;
+ s=susede2_ed25519; t=1623058970;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=ACBykZwK3+uXLKHNaBCBHCVu6pqs5mbfobd6OtR+s9I=;
- b=wrcs1B+tqpnTVpW+DN1qW/Ri7yZBTVhRGcLZUqruUPr7R/x/P/Qld54vPQABR9vRBjZ80k
- vT0soRvV8VkM6tBQ==
+ bh=rgoSbRu5PR9aMTS7egDPBJt0PWox108C5biiT20mlwk=;
+ b=0i4JrfzqbjUAgwlz98hgmUrnyvK04wTVpbfO0ydhSDGy2qJz0p1AbwStYkdf3LfDU5Ixn5
+ 2vI1QEiVkF4LNyBQ==
 Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id 7D11D118DD;
- Mon,  7 Jun 2021 09:32:33 +0000 (UTC)
+ by imap.suse.de (Postfix) with ESMTP id 8F752118DD;
+ Mon,  7 Jun 2021 09:42:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1623058353;
+ t=1623058970;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=ACBykZwK3+uXLKHNaBCBHCVu6pqs5mbfobd6OtR+s9I=;
- b=wKXcPKuG4VFTDiBdWsJxItHfkb8eYGH09ZBbIz4efr/IwVS6bdUijuJR8IWuNBa/HsZcwF
- CnEiYS1ISB+NXc+aWgbXmztFkd4BZCHQC3pOplaP2PjzV1JV0dc+vzmjTkF8xQ1dLl4kRn
- 3p80tN17Odo4TvocBfm489o+q6okGG8=
+ bh=rgoSbRu5PR9aMTS7egDPBJt0PWox108C5biiT20mlwk=;
+ b=uhr6lnc13t3u8J51gADnlmnKpYj5sRlotXXp7/EimkjyRjZexvTJTHQCWUufW2oaGTO9A0
+ nL9Ol8kixt4vnXWFkwBhgNsn6v4i1WqNxrm8KJjQBEKvnWZI/FV9VM1/LlLG0GxZdIuB+S
+ tJD30ayWXBqXSBnzsbrrSh1IYuNhUZk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1623058353;
+ s=susede2_ed25519; t=1623058970;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=ACBykZwK3+uXLKHNaBCBHCVu6pqs5mbfobd6OtR+s9I=;
- b=wrcs1B+tqpnTVpW+DN1qW/Ri7yZBTVhRGcLZUqruUPr7R/x/P/Qld54vPQABR9vRBjZ80k
- vT0soRvV8VkM6tBQ==
+ bh=rgoSbRu5PR9aMTS7egDPBJt0PWox108C5biiT20mlwk=;
+ b=0i4JrfzqbjUAgwlz98hgmUrnyvK04wTVpbfO0ydhSDGy2qJz0p1AbwStYkdf3LfDU5Ixn5
+ 2vI1QEiVkF4LNyBQ==
 Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id Y2ZFHbHnvWC/FAAALh3uQQ
- (envelope-from <pvorel@suse.cz>); Mon, 07 Jun 2021 09:32:33 +0000
-Date: Mon, 7 Jun 2021 11:32:32 +0200
+ id 3530IBrqvWDRGgAALh3uQQ
+ (envelope-from <pvorel@suse.cz>); Mon, 07 Jun 2021 09:42:50 +0000
+Date: Mon, 7 Jun 2021 11:42:49 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
-Message-ID: <YL3nsHclCxBYmju4@pevik>
-References: <20210603151012.14760-1-pvorel@suse.cz>
- <20210603151012.14760-2-pvorel@suse.cz>
- <40cd7b4a-2988-963f-ead0-6f8ffea01692@bell-sw.com>
+To: Xiao Yang <yangx.jy@cn.fujitsu.com>
+Message-ID: <YL3qGZasDuppV3LH@pevik>
+References: <20210223140323.126555-1-zhaogongyi@huawei.com>
+ <YDWugcEDg/z4tRrX@pevik> <6035DD9C.4080308@cn.fujitsu.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <40cd7b4a-2988-963f-ead0-6f8ffea01692@bell-sw.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+In-Reply-To: <6035DD9C.4080308@cn.fujitsu.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 2/2] tst_ipaddr_un.sh: Properly disable netns
- initialization
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] unshare01.sh: Setup parent mount flag before
+ unshare testing
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,21 +102,56 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Alexey,
+Hi Yang, Zhongyi,
 
-> > -# workaround to disable netns initialization
-> > -RHOST="foo"
+> Hi Zhongyi, Petr
 
-> Could be TST_INIT_NETNS="no"
-Good point.
+> I don't like the approach which enforces mountpoint to be shared in parent
+> mount namespace.
+> I think we can tune expected value by checking propagation flag in parent
+> mount namespace because of two reasons:
+> 1) Make test cover more cases.
+> 2) Don't depend on the fixed tmpfs.
 
-> > +TST_NET_SKIP_VARIABLE_INIT=1
-> > +
+> Zhongyi,  could you test the following patch on your enviorment?
+> -------------------------------------------------------------------------------------------------
+> diff --git a/testcases/commands/unshare/unshare01.sh
+> b/testcases/commands/unshare/unshare01.sh
+> index bf163a7f4..78ea83fc0 100755
+> --- a/testcases/commands/unshare/unshare01.sh
+> +++ b/testcases/commands/unshare/unshare01.sh
+> @@ -40,6 +40,17 @@ max_mntns_path="/proc/sys/user/max_mnt_namespaces"
+>  default_max_userns=-1
+>  default_max_mntns=-1
 
-> OK, I think it's better than setting TST_INIT_NETNS and other vars
-> (e.g. private _tst_net_parse_variables) here to actually skip init.
+> +parse_propagation_flag()
+> +{
+> +       mount --bind dir_A dir_B
+> +       if grep -w 'dir_B' /proc/self/mountinfo | grep -qw 'shared'; then
+> +               echo "mounted"
+> +       else
+> +               echo "unmounted"
+> +       fi
+> +       umount dir_B
+> +}
+> +
+>  setup()
+>  {
+>         # On some distributions(e.g RHEL7.4), the default value of
+> @@ -149,7 +160,8 @@ do_test()
+>         4) unshare_test "--user --map-root-user" "id -g" "0";;
+>         5) unshare_test "--mount" "mount --bind dir_A dir_B" "unmounted";;
+>         6) unshare_test "--mount --propagation shared" \
+> -                       "mount --bind dir_A dir_B" "mounted";;
+> +                       "mount --bind dir_A dir_B" \
+> +                       "$(parse_propagation_flag)";;
+>         7) unshare_test "--user --map-root-user --mount" \
+>                         "mount --bind dir_A dir_B" "unmounted";;
+>         8) unshare_test "--user --map-root-user --mount --propagation
+> shared" \
 
-+1. Patchset merged with your Reviewed-by: tag. Thanks!
+Sorry for a big delay in this.
+Your changes makes sense to me, ack.
 
 Kind regards,
 Petr
