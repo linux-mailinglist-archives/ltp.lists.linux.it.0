@@ -2,87 +2,50 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8DA939DE58
-	for <lists+linux-ltp@lfdr.de>; Mon,  7 Jun 2021 16:08:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F1D839DE6F
+	for <lists+linux-ltp@lfdr.de>; Mon,  7 Jun 2021 16:14:41 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A81F23C574C
-	for <lists+linux-ltp@lfdr.de>; Mon,  7 Jun 2021 16:08:11 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 105B73C7C25
+	for <lists+linux-ltp@lfdr.de>; Mon,  7 Jun 2021 16:14:41 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 3B7973C0B9A
- for <ltp@lists.linux.it>; Mon,  7 Jun 2021 16:08:10 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 913DC3C0B9A
+ for <ltp@lists.linux.it>; Mon,  7 Jun 2021 16:14:36 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id A9EB6200207
- for <ltp@lists.linux.it>; Mon,  7 Jun 2021 16:08:09 +0200 (CEST)
-Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
- (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id E0F6C21A9C;
- Mon,  7 Jun 2021 14:08:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1623074888; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Cv/ljFXdhNxhFBtHDpL4TdLQ2SftPKf5waR43qJrPJk=;
- b=dZwAAgftOxak7Df9h/kb1/iloUkrxh5C3sNv5JUqQ0WlHdQVYS6dggHJsEQHm9MOqMnVi7
- 4j7gE3O8FklmZiS+p4pQpLevCihbI6cl/yzq2FQTNf+KQh+mCqRG48pCdwTI25GNHWvM6L
- FJgcrNjSQ3XLGD8uoZICj8GuYThgFVU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1623074888;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Cv/ljFXdhNxhFBtHDpL4TdLQ2SftPKf5waR43qJrPJk=;
- b=uDIZvpg2Gew/PFOdShPFZQnieJbhaYwOFg7deKIP4CQkNIAIyo4RjLUgIdwuilrZ8ecclp
- mjYLnyk7hrkMngBw==
-Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id BE49A118DD;
- Mon,  7 Jun 2021 14:08:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1623074888; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Cv/ljFXdhNxhFBtHDpL4TdLQ2SftPKf5waR43qJrPJk=;
- b=dZwAAgftOxak7Df9h/kb1/iloUkrxh5C3sNv5JUqQ0WlHdQVYS6dggHJsEQHm9MOqMnVi7
- 4j7gE3O8FklmZiS+p4pQpLevCihbI6cl/yzq2FQTNf+KQh+mCqRG48pCdwTI25GNHWvM6L
- FJgcrNjSQ3XLGD8uoZICj8GuYThgFVU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1623074888;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Cv/ljFXdhNxhFBtHDpL4TdLQ2SftPKf5waR43qJrPJk=;
- b=uDIZvpg2Gew/PFOdShPFZQnieJbhaYwOFg7deKIP4CQkNIAIyo4RjLUgIdwuilrZ8ecclp
- mjYLnyk7hrkMngBw==
-Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id cbaRLEgovmBDOgAALh3uQQ
- (envelope-from <chrubis@suse.cz>); Mon, 07 Jun 2021 14:08:08 +0000
-Date: Mon, 7 Jun 2021 15:42:17 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Joerg Vehlow <lkml@jv-coder.de>
-Message-ID: <YL4iOWJj1e+foCNr@yuki>
-References: <20210604111434.21422-1-rpalethorpe@suse.com>
- <85bddc61-f6dc-de7c-3a62-daeefcd0a058@jv-coder.de>
- <87bl8i563x.fsf@suse.de>
- <52c808d5-c5d7-3a79-122b-428fe2802957@jv-coder.de>
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 06ABC1000AE4
+ for <ltp@lists.linux.it>; Mon,  7 Jun 2021 16:14:35 +0200 (CEST)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 7AD121FDA1;
+ Mon,  7 Jun 2021 14:14:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1623075275; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=VJYpmZN3aguK2uXEzxsuPbUMgNwqx0bBigjc7/3UvvE=;
+ b=UikPR9JLIN4hfUypaC0XED8CQuz4EsaQQF5JFk+u+P8cCt9UzIY/oFaVGMap/JOHAVLRxh
+ zmci2Kzbo8M9u8dfQIS2sfhbefpJa8gpy9kBrxKaowFyf20RtBH81uIpazdDvtkyVG6LtG
+ k9HT/YduYuHxMlzpV+BiGL1dgrPPLe8=
+Received: from g78.suse.de (unknown [10.163.24.38])
+ by relay2.suse.de (Postfix) with ESMTP id 4FF1FA3B84;
+ Mon,  7 Jun 2021 14:14:35 +0000 (UTC)
+To: ltp@lists.linux.it
+Date: Mon,  7 Jun 2021 15:14:20 +0100
+Message-Id: <20210607141421.15072-1-rpalethorpe@suse.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <52c808d5-c5d7-3a79-122b-428fe2802957@jv-coder.de>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [RFC PATCH v2 0/2] Libclang based analyzer
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 1/2] Add Coccinelle helper scripts for reference
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,33 +57,222 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+From: Richard Palethorpe via ltp <ltp@lists.linux.it>
+Reply-To: Richard Palethorpe <rpalethorpe@suse.com>
+Cc: Richard Palethorpe <rpalethorpe@suse.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> > IIRC Cyril said the Coccinelle package on Gentoo is not maintained
-> > anymore. AFAICT it exists, but it is on an old version. I don't think
-> > many people are interested in or want to maintain Ocaml
-> > stuff. LLVM/Clang OTOH looks to be very active.
-> Right, it actually is removed now from gentoo portage tree ([1]). But is 
-> it used by the kernel developers?
+Check-in a couple of scripts used for removing the TEST macro from the
+library. Also a shell script to show how to run them. These are only
+intended to help someone develop their own refactoring scripts. Not
+for running automatically.
 
-I guess that some people use it, however the choice of programming
-language makes everthing much harder. On some distributions it's hard to
-install and requires manual steps and when you hit a bug it's impossible
-to debug unless you know how to debug ocaml. I've tried to fix a simple
-bug in coccinelle once, but gave up after a few hours since I wasn't
-even able to gasp how the source code is structured. And for the record
-I used to read and write lisp and haskell just fine during my university
-days. So even my skills in functional programming are rusty now I did
-not expect that ocaml would be so alien to me...
+Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
+---
 
+V2:
+* Simplify the Cocci scripts
+* Simplify the patchset and combine it with the separate CGroups patch
+* Testing & sign-off
+
+Feel free to drop the Coccinelle scripts. However I do think they
+should be included for people's information. I simplified them to
+remove the Python code and make them easier to understand.
+
+ .../coccinelle/libltp-test-macro-vars.cocci   |  19 ++++
+ scripts/coccinelle/libltp-test-macro.cocci    | 104 ++++++++++++++++++
+ scripts/coccinelle/run-spatch.sh              |  39 +++++++
+ 3 files changed, 162 insertions(+)
+ create mode 100644 scripts/coccinelle/libltp-test-macro-vars.cocci
+ create mode 100644 scripts/coccinelle/libltp-test-macro.cocci
+ create mode 100755 scripts/coccinelle/run-spatch.sh
+
+diff --git a/scripts/coccinelle/libltp-test-macro-vars.cocci b/scripts/coccinelle/libltp-test-macro-vars.cocci
+new file mode 100644
+index 000000000..c12bf3891
+--- /dev/null
++++ b/scripts/coccinelle/libltp-test-macro-vars.cocci
+@@ -0,0 +1,19 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++// Copyright (c) 2021 SUSE LLC  <rpalethorpe@suse.com>
++
++// The TEST macro should not be used in the library because it sets
++// TST_RET and TST_ERR which are global variables. The test author
++// only expects these to be changed if *they* call TEST directly.
++
++// Find all positions where TEST's variables are used
++@ find_use exists @
++identifier tst_var =~ "TST_(ERR|RET)";
++position p;
++expression E;
++@@
++
++(
++* tst_var@p
++|
++* TTERRNO@p | E
++)
+diff --git a/scripts/coccinelle/libltp-test-macro.cocci b/scripts/coccinelle/libltp-test-macro.cocci
+new file mode 100644
+index 000000000..8855aaeb7
+--- /dev/null
++++ b/scripts/coccinelle/libltp-test-macro.cocci
+@@ -0,0 +1,104 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++// Copyright (c) 2021 SUSE LLC  <rpalethorpe@suse.com>
++
++// The TEST macro should not be used in the library because it sets
++// TST_RET and TST_ERR which are global variables. The test author
++// only expects these to be changed if *they* call TEST directly.
++
++// Set with -D fix
++virtual fix
++
++// Find all positions where TEST is _used_.
++@ find_use exists @
++position p;
++@@
++
++* TEST@p(...);
++
++// Below are rules which will create a patch to replace TEST usage
++// It assumes we can use the ret var without conflicts
++
++// Fix all references to the variables TEST modifies when they occur in a
++// function where TEST was used.
++@ depends on fix && find_use @
++@@
++
++(
++- TST_RET
+++ ret
++|
++- TST_ERR
+++ errno
++|
++- TTERRNO
+++ TERRNO
++)
++
++// Replace TEST in all functions where it occurs only at the start. It
++// is slightly complicated by adding a newline if a statement appears
++// on the line after TEST(). It is not clear to me what the rules are
++// for matching whitespace as it has no semantic meaning, but this
++// appears to work.
++@ depends on fix @
++identifier fn;
++expression tested_expr;
++statement st;
++@@
++
++  fn (...)
++  {
++- 	TEST(tested_expr);
+++	const long ret = tested_expr;
++(
+++
++	st
++|
++
++)
++	... when != TEST(...)
++  }
++
++// Replace TEST in all functions where it occurs at the start
++// Functions where it *only* occurs at the start were handled above
++@ depends on fix @
++identifier fn;
++expression tested_expr;
++statement st;
++@@
++
++  fn (...)
++  {
++- 	TEST(tested_expr);
+++	long ret = tested_expr;
++(
+++
++	st
++|
++
++)
++	...
++  }
++
++// Add ret var at the start of a function where TEST occurs and there
++// is not already a ret declaration
++@ depends on fix exists @
++identifier fn;
++@@
++
++  fn (...)
++  {
+++	long ret;
++	... when != long ret;
++
++	TEST(...)
++	...
++  }
++
++// Replace any remaining occurances of TEST
++@ depends on fix @
++expression tested_expr;
++@@
++
++- 	TEST(tested_expr);
+++	ret = tested_expr;
++
+diff --git a/scripts/coccinelle/run-spatch.sh b/scripts/coccinelle/run-spatch.sh
+new file mode 100755
+index 000000000..7bb781bc1
+--- /dev/null
++++ b/scripts/coccinelle/run-spatch.sh
+@@ -0,0 +1,39 @@
++#!/bin/sh -eu
++# SPDX-License-Identifier: GPL-2.0-or-later
++# Copyright (c) 2021 SUSE LLC  <rpalethorpe@suse.com>
++
++# Helper for running spatch Coccinelle scripts on the LTP source tree
++
++if [[ ! -d lib || ! -d scripts/coccinelle ]]; then
++    echo "$0: Can't find lib or scripts directories. Run me from top src dir"
++    exit 1
++fi
++
++# Run a script on the lib dir
++libltp_spatch_report() {
++    spatch --dir lib \
++	   --ignore lib/parse_opts.c \
++	   --ignore lib/newlib_tests \
++	   --ignore lib/tests \
++	   --use-gitgrep \
++	   -D report \
++	   --include-headers \
++	   $*
++}
++
++libltp_spatch_fix() {
++    spatch --dir lib \
++	   --ignore lib/parse_opts.c \
++	   --ignore lib/newlib_tests \
++	   --ignore lib/tests \
++	   --use-gitgrep \
++	   --in-place \
++	   -D fix \
++	   --include-headers \
++	   $*
++}
++
++echo You should uncomment one of the scripts below!
++#libltp_spatch_report --sp-file scripts/coccinelle/libltp-test-macro.cocci
++#libltp_spatch_report --sp-file scripts/coccinelle/libltp-test-macro-vars.cocci \
++#		     --ignore lib/tst_test.c
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+2.31.1
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
