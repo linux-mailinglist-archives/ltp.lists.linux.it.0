@@ -1,53 +1,85 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FA5539D87A
-	for <lists+linux-ltp@lfdr.de>; Mon,  7 Jun 2021 11:19:02 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DD2639D8F5
+	for <lists+linux-ltp@lfdr.de>; Mon,  7 Jun 2021 11:38:53 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 662F33C7C68
-	for <lists+linux-ltp@lfdr.de>; Mon,  7 Jun 2021 11:19:01 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 670B23C4DBB
+	for <lists+linux-ltp@lfdr.de>; Mon,  7 Jun 2021 11:38:52 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 525D03C0BB1
- for <ltp@lists.linux.it>; Mon,  7 Jun 2021 11:18:57 +0200 (CEST)
-Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
+ by picard.linux.it (Postfix) with ESMTPS id DD7F93C187D
+ for <ltp@lists.linux.it>; Mon,  7 Jun 2021 11:38:48 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id CC3A0200B8E
- for <ltp@lists.linux.it>; Mon,  7 Jun 2021 11:18:56 +0200 (CEST)
-Received: from [192.168.178.40] (unknown [178.26.168.79])
- by mail.jv-coder.de (Postfix) with ESMTPSA id 7D5DB9F75F;
- Mon,  7 Jun 2021 09:18:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
- t=1623057535; bh=t1Un524D5y++/MjGmJW1mdsqqwsxN5ENKQ1De/54qHc=;
- h=Subject:To:From:Message-ID:Date:MIME-Version;
- b=QFJpqLtHoBgq5HrpjhsoL12l42BNKQhrRPYiwh0t82kH0p/500z3uXZilfotQ7b56
- NzYTHGAFk9PMfTgZ6HY0cGR8LftW65q0SyQUI2WSVou1z+w8+DqqAvKAKm3Cbi2Dtx
- eb4nKgYYaOFUmMho0W+ityhVY+Qattrqq2CuqTP8=
-To: Richard Palethorpe <rpalethorpe@suse.com>, ltp@lists.linux.it
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id BB08B140054C
+ for <ltp@lists.linux.it>; Mon,  7 Jun 2021 11:38:47 +0200 (CEST)
+Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 031B721A87;
+ Mon,  7 Jun 2021 09:38:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1623058727; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Cui3w0lcC+Oovc2nUPOLzAKlqeM1G7UeOenF4E9msg0=;
+ b=q81qcpXgACHr2GEZebaBgaZAhkGSF1AzPS6xOr+bhtyYlNP49uNxVvOGkRLuruaUJbCKMj
+ TeJXmDRE7eDgehI64OavkKyoe8u0A1qCQNg5BWRGU3KerbZvzzVVC16dyhXOuz2Y032JH3
+ qt6wCZxzLNb3QbQQ9Rate40cZdOPgwE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1623058727;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Cui3w0lcC+Oovc2nUPOLzAKlqeM1G7UeOenF4E9msg0=;
+ b=J1IwD+JDIN/s4f2SJ9gc9Atrolwopr/fuMa0g2HHBpKsp7qxP1n/5VPptzC9i6JihijtAK
+ hJ8CtzALPip/mVBg==
+Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ by imap.suse.de (Postfix) with ESMTP id D46D5118DD;
+ Mon,  7 Jun 2021 09:38:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1623058726; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Cui3w0lcC+Oovc2nUPOLzAKlqeM1G7UeOenF4E9msg0=;
+ b=nD9Qcu2Yz5VnFEuKorX6XcCVdoD8p4l2HY5mWnwzVVLwVMp0onT3bUn+EXQeB4oHoObL9b
+ d+MtGIPkuJ+mQ1Ofi6lxlOayJnCA0yqwQyizEZbzbQ/oTDCIs5mcOh1Z4ephA8OFu+53yo
+ OaCp9VJxLtGkt4TifK3RQzLueK8LK+I=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1623058726;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Cui3w0lcC+Oovc2nUPOLzAKlqeM1G7UeOenF4E9msg0=;
+ b=+jxJ4aYiyhYpimNeDM0Mpq2c3hBqbrzM/Z7I10Edt7x9maJx6seCVQ9zayUDf3hK1DhJL4
+ hF2zfYbEOrD3R5Ag==
+Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
+ id bNFbMybpvWCAGAAALh3uQQ
+ (envelope-from <chrubis@suse.cz>); Mon, 07 Jun 2021 09:38:46 +0000
+Date: Mon, 7 Jun 2021 11:12:55 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Joerg Vehlow <lkml@jv-coder.de>
+Message-ID: <YL3jFyCj8aPSEpXw@yuki>
 References: <20210604111434.21422-1-rpalethorpe@suse.com>
  <20210604111434.21422-2-rpalethorpe@suse.com>
-From: Joerg Vehlow <lkml@jv-coder.de>
-Message-ID: <e6efb099-1c51-9f68-4996-7ce917107929@jv-coder.de>
-Date: Mon, 7 Jun 2021 11:18:55 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+ <e6efb099-1c51-9f68-4996-7ce917107929@jv-coder.de>
 MIME-Version: 1.0
-In-Reply-To: <20210604111434.21422-2-rpalethorpe@suse.com>
-Content-Language: en-US
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <e6efb099-1c51-9f68-4996-7ce917107929@jv-coder.de>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
 Subject: Re: [LTP] [RFC PATCH v2 1/2] Add 'make check' and clang-check to
  build system
 X-BeenThere: ltp@lists.linux.it
@@ -61,25 +93,30 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: Richard Palethorpe <rpalethorpe@suse.com>, ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGksCgpPbiA2LzQvMjAyMSAxOjE0IFBNLCBSaWNoYXJkIFBhbGV0aG9ycGUgdmlhIGx0cCB3cm90
-ZToKPiBkaWZmIC0tZ2l0IGEvdG9vbHMvY2xhbmctY2hlY2svTWFrZWZpbGUgYi90b29scy9jbGFu
-Zy1jaGVjay9NYWtlZmlsZQo+IG5ldyBmaWxlIG1vZGUgMTAwNjQ0Cj4gaW5kZXggMDAwMDAwMDAw
-Li40NjUwZDYwNTcKPiAtLS0gL2Rldi9udWxsCj4gKysrIGIvdG9vbHMvY2xhbmctY2hlY2svTWFr
-ZWZpbGUKPiBAQCAtMCwwICsxLDE0IEBACj4gKyMgU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQ
-TC0yLjAtb3ItbGF0ZXIKPiArIyBDb3B5cmlnaHQgKGMpIDIwMjEgU1VTRSBMTEMgPHJwYWxldGhv
-cnBlQHN1c2UuY29tPgo+ICsjIENvcHlyaWdodCAoYykgMjAxOSBDeXJpbCBIcnViaXMgPGNocnVi
-aXNAc3VzZS5jej4KPiArIyBDb3B5cmlnaHQgKGMpIDIwMjAgUGV0ciBWb3JlbCA8cHZvcmVsQHN1
-c2UuY3o+Cj4gKwo+ICt0b3Bfc3JjZGlyCQk/PSAuLi8uLgo+ICsKPiAraW5jbHVkZSAkKHRvcF9z
-cmNkaXIpL2luY2x1ZGUvbWsvZW52X3ByZS5tawo+ICtpbmNsdWRlICQodG9wX3NyY2RpcikvaW5j
-bHVkZS9tay9mdW5jdGlvbnMubWsKPiArCj4gK0hPU1RfTUFLRV9UQVJHRVRTCTo9IG1haW4KPiAr
-SE9TVF9MREZMQUdTIAkJKz0gLWxjbGFuZwpJZiBhbnlvbmUgZWxzZSB0cnlpbmcgdGhpcyBoYXMg
-cHJvYmxlbXMgbGlua2luZyB0aGUgdG9vbCwgYXQgbGVhc3QgZm9yIAptZSwgdGhpcyBtdXN0IGJl
-CkhPU1RfTERMSUJTIMKgwqDCoCDCoMKgwqAgKz0gLWxjbGFuZwoKT3RoZXJ3aXNlIHRoZSBsaW5r
-IG9yZGVyIGlzIHdyb25nIChtYWluLmMgYWZ0ZXIgLWxjbGFuZykgYW5kIGFsbCBzeW1ib2xzIApm
-cm9tIGxpYmNsYW5nIGFyZSB1bmRlZmluZWQuCgpKw7ZyZwoKLS0gCk1haWxpbmcgbGlzdCBpbmZv
-OiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
+Hi!
+> > +include $(top_srcdir)/include/mk/env_pre.mk
+> > +include $(top_srcdir)/include/mk/functions.mk
+> > +
+> > +HOST_MAKE_TARGETS	:= main
+> > +HOST_LDFLAGS 		+= -lclang
+> If anyone else trying this has problems linking the tool, at least for 
+> me, this must be
+> HOST_LDLIBS ?????? ?????? += -lclang
+> 
+> Otherwise the link order is wrong (main.c after -lclang) and all symbols 
+> from libclang are undefined.
+
+Thx for report, indeed that has to be fixed.
+
+-- 
+Cyril Hrubis
+chrubis@suse.cz
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
