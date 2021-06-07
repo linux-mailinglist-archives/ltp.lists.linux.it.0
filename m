@@ -1,89 +1,70 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC74939D8FD
-	for <lists+linux-ltp@lfdr.de>; Mon,  7 Jun 2021 11:42:55 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id F007839D977
+	for <lists+linux-ltp@lfdr.de>; Mon,  7 Jun 2021 12:20:05 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9282D3C7C4F
-	for <lists+linux-ltp@lfdr.de>; Mon,  7 Jun 2021 11:42:55 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C20E23C4DC0
+	for <lists+linux-ltp@lfdr.de>; Mon,  7 Jun 2021 12:20:05 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 9CD273C187D
- for <ltp@lists.linux.it>; Mon,  7 Jun 2021 11:42:51 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 6FB363C4D50
+ for <ltp@lists.linux.it>; Mon,  7 Jun 2021 12:20:04 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 3F714600965
- for <ltp@lists.linux.it>; Mon,  7 Jun 2021 11:42:51 +0200 (CEST)
-Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
- (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 98090600A98
+ for <ltp@lists.linux.it>; Mon,  7 Jun 2021 12:20:03 +0200 (CEST)
+Received: from relay2.suse.de (unknown [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id DED5B1FDA5;
+ Mon,  7 Jun 2021 10:20:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1623061202;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=FUnTGcgMrBiTQ06PQCCI2enDKt1unumbZo3I2lceb8A=;
+ b=cqeO7nLTNhktU5QUxTG+f8o1Mm9MJhPad4uHgYrJsRSormTNqxcosHIo2QwfPAbng2dwrD
+ vo+ssse4mJ1uG2ULaJY0SH9+xbjXaph+QJjxuBwuPF4B+zJS+mtpCV+ZrabRXsnFcnvLNp
+ A17CKziOnfRkldFauJNysnucQAd4+j8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1623061202;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=FUnTGcgMrBiTQ06PQCCI2enDKt1unumbZo3I2lceb8A=;
+ b=z0Ot3Vag+GbrVDdYI5S3LAoFIFGkt5PPgNIe+dSdfXDoBckC8rMcnvU3Pi4WWdJLKNmHj+
+ ypR4AtOLemTesLAw==
+Received: from g78 (unknown [10.163.24.38])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id B959D21A8A;
- Mon,  7 Jun 2021 09:42:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1623058970;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=rgoSbRu5PR9aMTS7egDPBJt0PWox108C5biiT20mlwk=;
- b=uhr6lnc13t3u8J51gADnlmnKpYj5sRlotXXp7/EimkjyRjZexvTJTHQCWUufW2oaGTO9A0
- nL9Ol8kixt4vnXWFkwBhgNsn6v4i1WqNxrm8KJjQBEKvnWZI/FV9VM1/LlLG0GxZdIuB+S
- tJD30ayWXBqXSBnzsbrrSh1IYuNhUZk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1623058970;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=rgoSbRu5PR9aMTS7egDPBJt0PWox108C5biiT20mlwk=;
- b=0i4JrfzqbjUAgwlz98hgmUrnyvK04wTVpbfO0ydhSDGy2qJz0p1AbwStYkdf3LfDU5Ixn5
- 2vI1QEiVkF4LNyBQ==
-Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id 8F752118DD;
- Mon,  7 Jun 2021 09:42:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1623058970;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=rgoSbRu5PR9aMTS7egDPBJt0PWox108C5biiT20mlwk=;
- b=uhr6lnc13t3u8J51gADnlmnKpYj5sRlotXXp7/EimkjyRjZexvTJTHQCWUufW2oaGTO9A0
- nL9Ol8kixt4vnXWFkwBhgNsn6v4i1WqNxrm8KJjQBEKvnWZI/FV9VM1/LlLG0GxZdIuB+S
- tJD30ayWXBqXSBnzsbrrSh1IYuNhUZk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1623058970;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=rgoSbRu5PR9aMTS7egDPBJt0PWox108C5biiT20mlwk=;
- b=0i4JrfzqbjUAgwlz98hgmUrnyvK04wTVpbfO0ydhSDGy2qJz0p1AbwStYkdf3LfDU5Ixn5
- 2vI1QEiVkF4LNyBQ==
-Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id 3530IBrqvWDRGgAALh3uQQ
- (envelope-from <pvorel@suse.cz>); Mon, 07 Jun 2021 09:42:50 +0000
-Date: Mon, 7 Jun 2021 11:42:49 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Xiao Yang <yangx.jy@cn.fujitsu.com>
-Message-ID: <YL3qGZasDuppV3LH@pevik>
-References: <20210223140323.126555-1-zhaogongyi@huawei.com>
- <YDWugcEDg/z4tRrX@pevik> <6035DD9C.4080308@cn.fujitsu.com>
+ by relay2.suse.de (Postfix) with ESMTPS id A9540A3B83;
+ Mon,  7 Jun 2021 10:20:02 +0000 (UTC)
+References: <20210604111434.21422-1-rpalethorpe@suse.com>
+ <85bddc61-f6dc-de7c-3a62-daeefcd0a058@jv-coder.de>
+User-agent: mu4e 1.4.15; emacs 27.2
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Joerg Vehlow <lkml@jv-coder.de>
+In-reply-to: <85bddc61-f6dc-de7c-3a62-daeefcd0a058@jv-coder.de>
+Date: Mon, 07 Jun 2021 11:20:02 +0100
+Message-ID: <87bl8i563x.fsf@suse.de>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <6035DD9C.4080308@cn.fujitsu.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] unshare01.sh: Setup parent mount flag before
- unshare testing
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [RFC PATCH v2 0/2] Libclang based analyzer
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,66 +76,47 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
+Reply-To: rpalethorpe@suse.de
 Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Yang, Zhongyi,
-
-> Hi Zhongyi, Petr
-
-> I don't like the approach which enforces mountpoint to be shared in parent
-> mount namespace.
-> I think we can tune expected value by checking propagation flag in parent
-> mount namespace because of two reasons:
-> 1) Make test cover more cases.
-> 2) Don't depend on the fixed tmpfs.
-
-> Zhongyi,  could you test the following patch on your enviorment?
-> -------------------------------------------------------------------------------------------------
-> diff --git a/testcases/commands/unshare/unshare01.sh
-> b/testcases/commands/unshare/unshare01.sh
-> index bf163a7f4..78ea83fc0 100755
-> --- a/testcases/commands/unshare/unshare01.sh
-> +++ b/testcases/commands/unshare/unshare01.sh
-> @@ -40,6 +40,17 @@ max_mntns_path="/proc/sys/user/max_mnt_namespaces"
->  default_max_userns=-1
->  default_max_mntns=-1
-
-> +parse_propagation_flag()
-> +{
-> +       mount --bind dir_A dir_B
-> +       if grep -w 'dir_B' /proc/self/mountinfo | grep -qw 'shared'; then
-> +               echo "mounted"
-> +       else
-> +               echo "unmounted"
-> +       fi
-> +       umount dir_B
-> +}
-> +
->  setup()
->  {
->         # On some distributions(e.g RHEL7.4), the default value of
-> @@ -149,7 +160,8 @@ do_test()
->         4) unshare_test "--user --map-root-user" "id -g" "0";;
->         5) unshare_test "--mount" "mount --bind dir_A dir_B" "unmounted";;
->         6) unshare_test "--mount --propagation shared" \
-> -                       "mount --bind dir_A dir_B" "mounted";;
-> +                       "mount --bind dir_A dir_B" \
-> +                       "$(parse_propagation_flag)";;
->         7) unshare_test "--user --map-root-user --mount" \
->                         "mount --bind dir_A dir_B" "unmounted";;
->         8) unshare_test "--user --map-root-user --mount --propagation
-> shared" \
-
-Sorry for a big delay in this.
-Your changes makes sense to me, ack.
-
-Kind regards,
-Petr
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+SGVsbG8gSm9lcmcsCgpKb2VyZyBWZWhsb3cgPGxrbWxAanYtY29kZXIuZGU+IHdyaXRlczoKCj4g
+SGksCj4KPiBqdXN0IG9uZSBxdWljayByZW1hcmsuIEkgZ3Vlc3MgdGhlIHdob2xlIHJlYXNvbiBm
+b3IgdXNpbmcgY2xhbmcgb3Zlcgo+IGNvY2NpbmVsbGUgd2FzIGF2YWlsYWJpbGl0eSBvZiBjbGFu
+ZyBvbiBkZXZlbG9wZXIgc3lzdGVtcy4KPiBJIGp1c3Qgd2FudGVkIHRvIHF1aWNrbHkgY2hlY2sg
+eW91ciB3b3JrLCBidXQgaGFkIG5vIGNsYW5nCj4gaW5zdGFsbGVkLiBCdWlsZCBmYWlsLCBldmVu
+IHdpdGggY3lyaWwncyBwYXRjaCBmb3IgQ0hFQ0tfVEFSR0VUUywKPiBiZWNhdXNlIGNsYW5nLWMv
+SW5kZXguaCBpcyBub3QgZm91bmQuCgpUaGFua3MgZm9yIHRlc3RpbmcgaXQuCgo+Cj4gT24gdWJ1
+bnR1IDIwLjA0LCB0aGlzIGZpbGUgaXMgcGFydCBvZiBsaWJjbGFuZy1kZXYsIGJ1dCBpbnN0YWxs
+aW5nIGl0Cj4gZGlkIG5vdCBoZWxwIGVpdGhlciwgYmVjYXVzZSBpdCBpcyBpbnN0YWxsZWQgdG8g
+YW4gaW5jbHVkZSBwYXRoIG5vdAo+IGtub3cgdG8gZ2NjICgvdXNyL2xpYi9sbHZtLTEwL2luY2x1
+ZGUvY2xhbmctYykuCgpJcyBwYXJ0IG9mIHRoaXMgcGF0aCB0aGUgc2FtZSB0aGF0ICdjbGFuZyAt
+cHJpbnQtcmVzb3VyY2UtZGlyJyBwcmludHM/CgpFaXRoZXIgd2F5IEkgZ3Vlc3Mgd2UgY2FuIHNl
+YXJjaCBmb3IgdGhpcyBkdXJpbmcgY29uZmlndXJhdGlvbi4gTExWTSBoYXMKYSBDTWFrZSBtb2R1
+bGUgKG9yIHcvZSkgd2hpY2ggcHJvYmFibHkgZmluZHMgYWxsIHRoaXMgYXV0b21hdGljYWxseS4K
+Cj4gSSBhZGRlZCBpdCB0byB0aGUgaW5jbHVkZSBwYXRoIGFuZCBpdCB3YXMgZm91bmQsIGJ1dCB0
+aGUgbmV4dCBwcm9ibGVtCj4gaXMsIHRoYXQgc29tZSB1c2VkIGZ1bmN0aW9ucyAobGlrZSBjbGFu
+Z19DdXJzb3JfZ2V0VmFyRGVjbEluaXRpYWxpemVyKSAKPiBhcmUgb25seSBhdmFpbGFibGUgc3Rh
+cnRpbmcgd2l0aCBsaWJjbGFuZyAxMi4KPgoKSSBndWVzcyB0aGF0IHdlIGNvdWxkIHJlcGxhY2Ug
+dGhhdCBmdW5jdGlvbiBieSByZWN1cnNpbmcgZnVydGhlciBpbnRvCnRoZSBBU1QgdG8gZmluZCB0
+aGUgaW5pdGlhbGl6ZXIgb3Vyc2VsdmVzLgoKUHJvYmFibHkgd2UgY2FuIHJlc3RyaWN0IG91cnNl
+bHZlcyB0byBvbmx5IHVzZSBmdW5jdGlvbnMgZnJvbSBiZWZvcmUKbGliY2xhbmcgMTEuCgo+Cj4g
+U28gaW4gY29uY2x1c2lvbiwgSSBkbyBub3QgdGhpbmsgd2UgY2FuIGFzc3VtZSBsaWJjbGFuZyB0
+byBiZQo+IGF2YWlsYWJsZSBmb3IgYWxsIGRldmVsb3BlcnMgYW5kIGluc3RhbGxpbmcgaXQgaXMg
+cHJvYmFibHkgbW9yZSB3b3JrLAo+IGF0IGxlYXN0IHdoZW4gbmV3ZXIgZnVuY3Rpb25zIGZyb20g
+bGliY2xhbmcgYXJlIHVzZWQsIHRoYW4gaW5zdGFsbGluZwo+IGNvY2NpbmVsbGUuCgpJSVJDIEN5
+cmlsIHNhaWQgdGhlIENvY2NpbmVsbGUgcGFja2FnZSBvbiBHZW50b28gaXMgbm90IG1haW50YWlu
+ZWQKYW55bW9yZS4gQUZBSUNUIGl0IGV4aXN0cywgYnV0IGl0IGlzIG9uIGFuIG9sZCB2ZXJzaW9u
+LiBJIGRvbid0IHRoaW5rCm1hbnkgcGVvcGxlIGFyZSBpbnRlcmVzdGVkIGluIG9yIHdhbnQgdG8g
+bWFpbnRhaW4gT2NhbWwKc3R1ZmYuIExMVk0vQ2xhbmcgT1RPSCBsb29rcyB0byBiZSB2ZXJ5IGFj
+dGl2ZS4KCj4gQW5kIHZlcnkgaW1wb3J0YW50IGZvciBmaW5hbCBzZXR1cDogSXQgbXVzdCBiZSBw
+b3NzaWJsZSB0bwo+IHN1Y2Nlc3NmdWxseSBjb21waWxlIGx0cCwgd2l0aG91dCBsaWJjbGFuZy9j
+b2NjaW5lbGxlIGF2YWlsYWJsZS4gVGhlcmUKPiBpcyBubyByZWFzb24gdG8gZm9yY2UgdGhpcyBs
+aWJyYXJpZXMvdG9vbHMgZm9yIHB1cmUgInVzZXJzIiBvZiBsdHAuCj4KPiBKw7ZyZwoKMTAwJSBh
+Z3JlZS4gVGhlc2UgY2hlY2tzIG9ubHkgbWFrZSBzZW5zZSBkdXJpbmcgZGV2ZWxvcG1lbnQuIEV2
+ZW4gdGhlbiBJCndhbnQgdG8gZW5zdXJlIHRoYXQgZXZlcnlvbmUgY2FuIHJ1biB0aGUgY2hlY2tz
+IHdpdGggdmVyeSBsaXR0bGUKZWZmb3J0LgoKLS0gClRoYW5rIHlvdSwKUmljaGFyZC4KCi0tIApN
+YWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
