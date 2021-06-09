@@ -1,75 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51FD43A1BEF
-	for <lists+linux-ltp@lfdr.de>; Wed,  9 Jun 2021 19:37:07 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id DBBAF3A1BF0
+	for <lists+linux-ltp@lfdr.de>; Wed,  9 Jun 2021 19:37:19 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 486763C8F0B
-	for <lists+linux-ltp@lfdr.de>; Wed,  9 Jun 2021 19:37:06 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 635973C8FCC
+	for <lists+linux-ltp@lfdr.de>; Wed,  9 Jun 2021 19:37:19 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 070F33C9074
- for <ltp@lists.linux.it>; Wed,  9 Jun 2021 19:36:55 +0200 (CEST)
-Received: from mail-il1-x132.google.com (mail-il1-x132.google.com
- [IPv6:2607:f8b0:4864:20::132])
+ by picard.linux.it (Postfix) with ESMTPS id CD4C03C9A50
+ for <ltp@lists.linux.it>; Wed,  9 Jun 2021 19:36:58 +0200 (CEST)
+Received: from mail-io1-xd2b.google.com (mail-io1-xd2b.google.com
+ [IPv6:2607:f8b0:4864:20::d2b])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id A5361600658
- for <ltp@lists.linux.it>; Wed,  9 Jun 2021 19:36:54 +0200 (CEST)
-Received: by mail-il1-x132.google.com with SMTP id v13so27319136ilh.13
- for <ltp@lists.linux.it>; Wed, 09 Jun 2021 10:36:54 -0700 (PDT)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 25DF91A00CBB
+ for <ltp@lists.linux.it>; Wed,  9 Jun 2021 19:36:58 +0200 (CEST)
+Received: by mail-io1-xd2b.google.com with SMTP id k22so23669984ioa.9
+ for <ltp@lists.linux.it>; Wed, 09 Jun 2021 10:36:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=zzGlYxvi0cBbYn/Eytj9zE/ImTXyOZy2bIYM14wUJHM=;
- b=nNv8OXHZ9RfeiT5n7TE8PcuelYOGkyUBZ8y17/WI16DItQqlJ0yck45Y14yAi/AFfL
- GN1wLvsn981os0URh4o6u1EElxM+0/MKUer9BmY1xTIkfMnui9k4sThhkjHSlGBtiZxp
- pUKeLo3K1hF/cdCo0RfYdtMU4AEh2ThiBnwAaSddPBbc7gqXvrGygfg0itPIKOGYDb8X
- PyLS2BhXXrdZtkN3mWBku0dfWRQFpMIF+VzDEOLXhWA6HodrkULoKRuWEYLOOc0cbWZP
- xMu5XFv7X7OtDfEq0Mb9EkPlTy85+D03CIhHtOyo6ptCovHLk0bL7bxxtOMItgxNVGOP
- +m8A==
+ bh=uUdBnS2Pg6TlZsuxAuNzHs2PiKJjTnK02JvQaGM5cRY=;
+ b=D+wl6Rgqip0r+yLwTsCG+NaIC6E8wdbS5Jur/q7YJ0U12xx/uvh2AQZzXlVaxsCo4c
+ sNVkdfHKAXGVuDyBzswLx6h0Ko+o8uEHjkJG78wXknZgLCYs8L6x/I9uB3CS3MidkN/4
+ 7mmU0P8MXo9hmq+NM8opqvKtFQdnDooiMbsLRRdM9Q6Br4XiTsk5Cjk+pgC8d9tq5kew
+ a7nR+cIy5ZSM2uDovxgkONY5ZMG2kTBcHXkRyQam9tMXpRHJg2BC7pe9ARAkovBHiDXL
+ OOE14DkYsaRMfzek74UTS99nhsE8A9YTiSoeDSbzpYMAh6Q0TiyKdYf4YiLJ3qCi6I9S
+ Yt0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=zzGlYxvi0cBbYn/Eytj9zE/ImTXyOZy2bIYM14wUJHM=;
- b=XRmLRIPke2q9BuTW2OyNq8UwXL29/ZEFSM+kbSskcZR8An7jBxg754s5OCDgF4fJnD
- FWp135tiqqYd7bYkn77T2XfJVJIfJDXjsM46hofHdOE8I65Fn08WY3i+KLvKWk9Egq0T
- 5tfpKgu9Oay5b8RpYfNacMki/k7AKhtoYJ5htiO1A0IX/BoUWIdNSWb2HAXePeiODjD2
- 4asQw9wRPrmPRRsnJxaNm2mEDjgBpqKwuZJ0NrZryemDIpbQ2OAUNDPAoPZ9P+2X8Gqj
- 0mTpLskVNhtqhRPYsSo/FZavQ6YrAyh2AI2GdhjnsZLSfcGRulSbiegxtUCYngAsyU4e
- 3rxg==
-X-Gm-Message-State: AOAM533JuguJuVQ9bYyBbZu9pppn6s3XfJ1Xqro3ylzn1wGTCARh+BUN
- mdVbaKR4E7gn0mFJ8z+Z6g0=
-X-Google-Smtp-Source: ABdhPJxcTV8NJtrU7ysBEZ+M1CN7j+Ke1yB4Te8KDFXiEgIT4PxZXnouI9ToUWEeOfwBxAnu1kArYQ==
-X-Received: by 2002:a92:1901:: with SMTP id 1mr608000ilz.237.1623260213368;
- Wed, 09 Jun 2021 10:36:53 -0700 (PDT)
+ bh=uUdBnS2Pg6TlZsuxAuNzHs2PiKJjTnK02JvQaGM5cRY=;
+ b=CgkoBaySI9308Jx0L8YbzcTH4yy8b79UI6WcJhnEHCx/iNTJCn7vOjgj6YOo08afFc
+ uKXYgWCQIvSmvrE+gsehJ0ip7udt+qiHBvUMyRzzujtRT+Shq9MKwMmEM4Qr+ithf4P7
+ s1qTrjiur+G6s+mUrWd2JO4sLIpxlG/PDM/8wKrvWSAeh+Ap1IrTEB7cj8zjUCbUVEMK
+ Au008MHy4gxA2vA7Zn2VF6ES1K8k7PWvBR71cp2YKYYGK3nsKK43ZAefWk4fkQMLJz1u
+ Uh5v/GQdRDdbZdBl0FxxhyQTCJuf1XSLTqojqEDYNOImJ9vcR4nWNi/Yr2s7Hvvg6dKk
+ KN7A==
+X-Gm-Message-State: AOAM531NuvwOBr0nJCtR9YF/dsttysn3cpMpXZbRbvSciyi9bHGm3Ojh
+ icRDDgqhhklvtuhtuCfBPkY=
+X-Google-Smtp-Source: ABdhPJzI0T1aRA0fB+SJ168SUtHuK5pYpfB8a0zP65cCGFVrwyjTaV6B+V+wcWECYdeYBLsKLKebPQ==
+X-Received: by 2002:a5e:8d02:: with SMTP id m2mr454427ioj.9.1623260216699;
+ Wed, 09 Jun 2021 10:36:56 -0700 (PDT)
 Received: from vinay-Latitude-3400.wrs.com ([220.158.157.54])
- by smtp.gmail.com with ESMTPSA id k12sm327817ilu.77.2021.06.09.10.36.50
+ by smtp.gmail.com with ESMTPSA id k12sm327817ilu.77.2021.06.09.10.36.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 09 Jun 2021 10:36:52 -0700 (PDT)
+ Wed, 09 Jun 2021 10:36:56 -0700 (PDT)
 From: Vinay Kumar <vinay.m.engg@gmail.com>
 To: pvorel@suse.cz,
 	ltp@lists.linux.it
-Date: Wed,  9 Jun 2021 23:05:53 +0530
-Message-Id: <20210609173601.29352-2-vinay.m.engg@gmail.com>
+Date: Wed,  9 Jun 2021 23:05:54 +0530
+Message-Id: <20210609173601.29352-3-vinay.m.engg@gmail.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20210609173601.29352-1-vinay.m.engg@gmail.com>
 References: <YL/Wf51Y6V5lRnkM@pevik>
  <20210609173601.29352-1-vinay.m.engg@gmail.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 02/10] getitimer02: Skipped EFAULT tests for libc
- variant.
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 03/10] getrusage02: Convert getrusage02 to new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,112 +88,186 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Tested EFAULT cases only for "__NR_getitimer" syscall.
-
-Tests for bad addresses in LTP cases trigger segment
-fault in libc on a 32bit system.
-
 Signed-off-by: Vinay Kumar <vinay.m.engg@gmail.com>
 ---
- .../kernel/syscalls/getitimer/getitimer02.c   | 81 ++++++++++++++-----
- 1 file changed, 60 insertions(+), 21 deletions(-)
+ .../kernel/syscalls/getrusage/getrusage02.c   | 142 ++++--------------
+ 1 file changed, 27 insertions(+), 115 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/getitimer/getitimer02.c b/testcases/kernel/syscalls/getitimer/getitimer02.c
-index c2ca8880b..1e5d90a27 100644
---- a/testcases/kernel/syscalls/getitimer/getitimer02.c
-+++ b/testcases/kernel/syscalls/getitimer/getitimer02.c
-@@ -14,31 +14,70 @@
- #include <errno.h>
- #include <sys/time.h>
- #include "tst_test.h"
-+#include "lapi/syscalls.h"
+diff --git a/testcases/kernel/syscalls/getrusage/getrusage02.c b/testcases/kernel/syscalls/getrusage/getrusage02.c
+index 8077606a2..c4b3f0f69 100644
+--- a/testcases/kernel/syscalls/getrusage/getrusage02.c
++++ b/testcases/kernel/syscalls/getrusage/getrusage02.c
+@@ -1,86 +1,29 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+  * Copyright (c) Wipro Technologies Ltd, 2002.  All Rights Reserved.
+- *
+- * This program is free software; you can redistribute it and/or modify it
+- * under the terms of version 2 of the GNU General Public License as
+- * published by the Free Software Foundation.
+- *
+- * This program is distributed in the hope that it would be useful, but
+- * WITHOUT ANY WARRANTY; without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+- *
+- * You should have received a copy of the GNU General Public License along
+- * with this program; if not, write the Free Software Foundation, Inc.,
+- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+- *
++ * AUTHOR : Saji Kumar.V.R <saji.kumar@wipro.com>
+  */
+-/**********************************************************
+- *
+- *    TEST IDENTIFIER	: getrusage02
+- *
+- *    EXECUTED BY	: anyone
+- *
+- *    TEST TITLE	: Tests for error conditions
+- *
+- *    TEST CASE TOTAL	: 2
+- *
+- *    AUTHOR		: Saji Kumar.V.R <saji.kumar@wipro.com>
+- *
+- *    SIGNALS
+- * 	Uses SIGUSR1 to pause before test if option set.
+- * 	(See the parse_opts(3) man page).
+- *
+- *    DESCRIPTION
+- *	Verify that
+- *	1) getrusage() fails with errno EINVAL when an invalid value
+- *	   is given for who
+- *	2) getrusage() fails with errno EFAULT when an invalid address
+- *	   is given for usage
+- *
+- * 	Setup:
+- * 	  Setup signal handling.
+- *	  Pause for SIGUSR1 if option specified.
+- *
+- * 	Test:
+- *	 Loop if the proper options are given.
+- * 	  Execute system call
+- *	  if call failed with expected errno,
+- *		Test Passed
+- *	  else
+- *		Test Failed
+- *
+- * 	Cleanup:
+- * 	  Print errno log and/or timing stats if options given
 +
-+static int libc_getitimer(int which, void *curr_value)
-+{
-+	return getitimer(which, curr_value);
-+}
-+
-+static int sys_getitimer(int which, void *curr_value)
-+{
-+	return tst_syscall(__NR_getitimer, which, curr_value);
-+}
-+
-+static struct test_variants
-+{
-+	int (*getitimer)(int which, void *curr_value);
-+	char *desc;
-+} variants[] = {
-+{ .getitimer = libc_getitimer, .desc = "libc getitimer()"},
-+
-+#if (__NR_getitimer != __LTP__NR_INVALID_SYSCALL)
-+{ .getitimer = sys_getitimer,  .desc = "__NR_getitimer syscall"},
-+#endif
-+};
++/*\
++ *[Description]
+  *
+- * USAGE:  <for command-line>
+- *  getrusage02 [-c n] [-e] [-i n] [-I x] [-P x] [-t] [-h] [-f]
+- * 			     [-p]
+- *			where,  -c n : Run n copies concurrently.
+- *				-e   : Turn on errno logging.
+- *				-h   : Show help screen
+- *				-f   : Turn off functional testing
+- *				-i n : Execute test n times.
+- *				-I x : Execute test for x seconds.
+- *				-p   : Pause for SIGUSR1 before starting
+- *				-P x : Pause for x seconds between iterations.
+- *				-t   : Turn on syscall timing.
++ * Verify that
++ * 1) getrusage() fails with errno EINVAL when an invalid value
++ *   is given for who
++ * 2) getrusage() fails with errno EFAULT when an invalid address
++ *   is given for usage
+  *
+- ****************************************************************/
++ */
  
- static void verify_getitimer(void)
+ #include <errno.h>
+ #include <sched.h>
+ #include <sys/resource.h>
+-#include "test.h"
++#include "tst_test.h"
+ 
+ #ifndef RUSAGE_BOTH		/* Removed from user space on RHEL4 */
+ #define RUSAGE_BOTH (-2)	/* still works on SuSE      */
+ #endif /* so this is a work around */
+ 
+-static void setup();
+-static void cleanup();
+-
+-char *TCID = "getrusage02";
+-
+ static struct rusage usage;
+ 
+ struct test_cases_t {
+@@ -90,56 +33,25 @@ struct test_cases_t {
+ } test_cases[] = {
+ 	{
+ 	RUSAGE_BOTH, &usage, EINVAL},
+-#ifndef UCLINUX
+ 	{
+ 	RUSAGE_SELF, (struct rusage *)-1, EFAULT}
+-#endif
+ };
+ 
+-int TST_TOTAL = ARRAY_SIZE(test_cases);
+-
+-int main(int ac, char **av)
++static void verify_getrusage(unsigned int i)
  {
--		/* call with a bad address */
--		TEST(getitimer(ITIMER_REAL, (struct itimerval *)-1));
 -
--		if (TST_RET == 0) {
--			tst_res(TFAIL, "call failed to produce "
--				"expected error - errno = %d - %s",
--				TST_ERR, strerror(TST_ERR));
--		}
+-	int lc, i;
 -
--		switch (TST_ERR) {
--		case EFAULT:
--			tst_res(TPASS, "expected failure - errno = %d - %s",
--				 TST_ERR, strerror(TST_ERR));
--			break;
--		default:
--			tst_res(TFAIL, "call failed to produce "
--					"expected error - errno = %d - %s",
--					TST_ERR, strerror(TST_ERR));
+-	tst_parse_opts(ac, av, NULL, NULL);
+-
+-	setup();
+-
+-	for (lc = 0; TEST_LOOPING(lc); lc++) {
+-
+-		tst_count = 0;
+-
+-		for (i = 0; i < TST_TOTAL; i++) {
+-			TEST(getrusage(test_cases[i].who, test_cases[i].usage));
+-
+-			if (TEST_RETURN == -1 &&
+-			    TEST_ERRNO == test_cases[i].exp_errno)
+-				tst_resm(TPASS | TTERRNO,
+-					 "getrusage failed as expected");
+-			else
+-				tst_resm(TFAIL | TTERRNO,
+-					 "getrusage failed unexpectedly");
 -		}
-+	struct test_variants *tv = &variants[tst_variant];
+-	}
+-
+-	cleanup();
+-
+-	tst_exit();
+-
++		TEST(getrusage(test_cases[i].who, test_cases[i].usage));
 +
-+	if (tv->getitimer == libc_getitimer) {
-+		tst_res(TCONF, "EFAULT skipped for libc variant");
-+		return;
-+	}
-+
-+	/* call with a bad address */
-+	TEST(tv->getitimer(ITIMER_REAL, (struct itimerval *)-1));
-+
-+	if (TST_RET == 0) {
-+		tst_res(TFAIL, "call failed to produce "
-+			"expected error - errno = %d - %s",
-+			TST_ERR, strerror(TST_ERR));
-+	}
-+
-+	switch (TST_ERR) {
-+	case EFAULT:
-+		tst_res(TPASS, "expected failure - errno = %d - %s",
-+			 TST_ERR, strerror(TST_ERR));
-+		break;
-+	default:
-+		tst_res(TFAIL, "call failed to produce "
-+			"expected error - errno = %d - %s",
-+			TST_ERR, strerror(TST_ERR));
-+	}
-+}
-+
-+static void setup(void)
-+{
-+	struct test_variants *tv = &variants[tst_variant];
-+
-+	tst_res(TINFO, "Testing variant: %s", tv->desc);
++		if (TST_RET == -1 &&
++		    TST_ERR == test_cases[i].exp_errno)
++			tst_res(TPASS | TTERRNO,
++				"getrusage failed as expected");
++		else
++			tst_res(TFAIL | TTERRNO,
++				"getrusage failed unexpectedly");
  }
  
- static struct tst_test test = {
--			.test_all = verify_getitimer,
--			.needs_root = 1,
-+	.test_all = verify_getitimer,
-+	.setup = setup,
-+	.test_variants = ARRAY_SIZE(variants),
+-void setup(void)
+-{
+-
+-	tst_sig(NOFORK, DEF_HANDLER, cleanup);
+-
+-	TEST_PAUSE;
+-
+-}
+-
+-void cleanup(void)
+-{
+-
+-}
++static struct tst_test test = {
++	.test = verify_getrusage,
++	.tcnt = ARRAY_SIZE(test_cases),
 +	.needs_root = 1,
- };
++};
 -- 
 2.17.1
 
