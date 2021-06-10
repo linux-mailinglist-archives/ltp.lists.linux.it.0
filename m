@@ -2,11 +2,11 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 373103A2DBE
-	for <lists+linux-ltp@lfdr.de>; Thu, 10 Jun 2021 16:08:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DB403A3297
+	for <lists+linux-ltp@lfdr.de>; Thu, 10 Jun 2021 19:58:36 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id CCF783C7635
-	for <lists+linux-ltp@lfdr.de>; Thu, 10 Jun 2021 16:08:53 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id DF6523C4EBE
+	for <lists+linux-ltp@lfdr.de>; Thu, 10 Jun 2021 19:58:35 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
@@ -14,75 +14,25 @@ Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 0AEB33C188E
- for <ltp@lists.linux.it>; Thu, 10 Jun 2021 16:08:49 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 2103F200C3C
- for <ltp@lists.linux.it>; Thu, 10 Jun 2021 16:08:48 +0200 (CEST)
-Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
- (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 6D7821FD37;
- Thu, 10 Jun 2021 14:08:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1623334128;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=3M4llAVsVU0NtwoteIpcNQ8DBiJABM42nIKaX5hBSeM=;
- b=FynadfNtkYRGTWQe2KPPi7SKoE9K6gmiJoIJm0mmRhK+yChFRgkn8oOGJyQE4IS4jmSenR
- CjqWYKv9bmMUDKxLYsK3BI9QGT+cXLJuGH0XPCEZKbiBUDxRs3jKAcFYuwIb5BogHJgnnI
- EKrE9vidvCrMGkFH008UJndoykCFggk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1623334128;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=3M4llAVsVU0NtwoteIpcNQ8DBiJABM42nIKaX5hBSeM=;
- b=Alv/qv43UW43MzMpeV3MA3BITPpa0yyS6IJkMKPLqxSQut6rsar00yzdXTUKT7oVcWULXm
- ypHDjU4pBx981wDw==
-Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id 2E695118DD;
- Thu, 10 Jun 2021 14:08:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1623334128;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=3M4llAVsVU0NtwoteIpcNQ8DBiJABM42nIKaX5hBSeM=;
- b=FynadfNtkYRGTWQe2KPPi7SKoE9K6gmiJoIJm0mmRhK+yChFRgkn8oOGJyQE4IS4jmSenR
- CjqWYKv9bmMUDKxLYsK3BI9QGT+cXLJuGH0XPCEZKbiBUDxRs3jKAcFYuwIb5BogHJgnnI
- EKrE9vidvCrMGkFH008UJndoykCFggk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1623334128;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=3M4llAVsVU0NtwoteIpcNQ8DBiJABM42nIKaX5hBSeM=;
- b=Alv/qv43UW43MzMpeV3MA3BITPpa0yyS6IJkMKPLqxSQut6rsar00yzdXTUKT7oVcWULXm
- ypHDjU4pBx981wDw==
-Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id wJQuCfAcwmCgWwAALh3uQQ
- (envelope-from <pvorel@suse.cz>); Thu, 10 Jun 2021 14:08:48 +0000
-Date: Thu, 10 Jun 2021 16:08:46 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <YMIc7lb+Zs4C1bMr@pevik>
-References: <20210610125229.24140-1-pvorel@suse.cz>
- <YMINpZkS4j3bhN9O@yuki>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <YMINpZkS4j3bhN9O@yuki>
+ by picard.linux.it (Postfix) with ESMTPS id 87A3A3C31E4
+ for <ltp@lists.linux.it>; Thu, 10 Jun 2021 19:58:30 +0200 (CEST)
+Received: from atcsqa06.andestech.com (59-120-53-16.HINET-IP.hinet.net
+ [59.120.53.16])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id 10A202009FE
+ for <ltp@lists.linux.it>; Thu, 10 Jun 2021 19:58:28 +0200 (CEST)
+Received: by atcsqa06.andestech.com (Postfix, from userid 5427)
+ id 9A285C3898; Fri, 11 Jun 2021 01:58:25 +0800 (CST)
+From: Leo Yu-Chi Liang <ycliang@andestech.com>
+To: ltp@lists.linux.it
+Date: Fri, 11 Jun 2021 01:58:12 +0800
+Message-Id: <20210610175812.13730-1-ycliang@andestech.com>
+X-Mailer: git-send-email 2.17.0
 X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
+X-Spam-Status: No, score=0.4 required=7.0 tests=RDNS_DYNAMIC,SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/1] newlib_tests: Fix build dependency on lib
+Subject: [LTP] [PATCH 1/1] fs/racer: Fix LTP hang caused by fs_racer.sh
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,29 +44,65 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Cyril,
+fs_racer.sh test could cause LTP to hang if the file
+gets removed when it's at time same time being renamed.
 
-...
-> > -include $(top_srcdir)/include/mk/env_pre.mk
-> > +include $(top_srcdir)/include/mk/testcases.mk
+The if statement in mv source implemented by busybox is as follows:
 
-> Ah right, this adds dependency on the library and builds it if needed.
+	if (dest_exists) {
+		if (flags & OPT_NOCLOBBER)
+			goto RET_0;
+		if (!(flags & OPT_FORCE)           // OPT_FORCE is set by -f option
+		 && ((access(dest, W_OK) < 0 && isatty(0))
+		    || (flags & OPT_INTERACTIVE))  // this is set by -i option
+		) {
+			if (fprintf(stderr, "mv: overwrite '%s'? ", dest) < 0) {
+				goto RET_1;  /* Ouch! fprintf failed! */
+			}
+			if (!bb_ask_y_confirmation()) {
+				goto RET_0;
+			}
+		}
+	}
 
-> Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
+If somehow the dest_file exists when mv executes the first if "if (dest_exists)",
+and gets removed when mv executes the third if "if (access(...))".
+Then it is possible for mv to reach "bb_ask_y_confirmation" and to try to read from tty.
 
-> Btw the lib/tests/ subdirectory has the same problem, but I'm not sure
-> if we care enough to fix that...
-Good catch, I fixed it here and merged.
+However, the mv process is executing in the background,
+so when it tries to read from tty,
+the processes in the same process group as mv would all receive SIGTTIN
+and be changed into TASK_STOPPED state.
 
-Kind regards,
-Petr
+This would cause this testcase to hang, though happens rarely.
+
+Add -f option to suppress the attempt to read from tty.
+
+Signed-off-by: Leo Yu-Chi Liang <ycliang@andestech.com>
+---
+ testcases/kernel/fs/racer/fs_racer_file_rename.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/testcases/kernel/fs/racer/fs_racer_file_rename.sh b/testcases/kernel/fs/racer/fs_racer_file_rename.sh
+index 7e2e6b1b2..15090361f 100755
+--- a/testcases/kernel/fs/racer/fs_racer_file_rename.sh
++++ b/testcases/kernel/fs/racer/fs_racer_file_rename.sh
+@@ -25,5 +25,5 @@ MAX=$2
+ while true ; do
+     file=$(($RANDOM%$MAX))
+     new_file=$((($file + 1)%$MAX))
+-    mv $DIR/$file $DIR/$new_file 2> /dev/null
++    mv -f $DIR/$file $DIR/$new_file 2> /dev/null
+ done
+-- 
+2.17.0
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
