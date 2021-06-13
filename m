@@ -2,73 +2,90 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1C1B3A59E8
-	for <lists+linux-ltp@lfdr.de>; Sun, 13 Jun 2021 19:49:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08AB63A5A34
+	for <lists+linux-ltp@lfdr.de>; Sun, 13 Jun 2021 21:45:04 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 8E5673C4D3F
-	for <lists+linux-ltp@lfdr.de>; Sun, 13 Jun 2021 19:49:59 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C23863C4D3D
+	for <lists+linux-ltp@lfdr.de>; Sun, 13 Jun 2021 21:45:03 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by picard.linux.it (Postfix) with ESMTPS id EEF633C2E31
+ for <ltp@lists.linux.it>; Sun, 13 Jun 2021 21:45:01 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 0E3FE3C2F28
- for <ltp@lists.linux.it>; Sun, 13 Jun 2021 19:49:57 +0200 (CEST)
-Received: from mail-io1-xd30.google.com (mail-io1-xd30.google.com
- [IPv6:2607:f8b0:4864:20::d30])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 059616002F4
+ for <ltp@lists.linux.it>; Sun, 13 Jun 2021 21:45:00 +0200 (CEST)
+Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 6E83A1A00614
- for <ltp@lists.linux.it>; Sun, 13 Jun 2021 19:49:57 +0200 (CEST)
-Received: by mail-io1-xd30.google.com with SMTP id k5so27378323iow.12
- for <ltp@lists.linux.it>; Sun, 13 Jun 2021 10:49:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=qrOwXwlBWFGyUQMsDEy4eIPmdT/Cp8C5S2RkNZPz3pU=;
- b=KMZcN9gsw0NpP8F06TSHKyO9d7lKqAoyFrG7RLmjAGhv5Gfd6yX9vzrC+09jJs5w/h
- FNsnjdlEecc+kSLimX5vji3HF8FXWCeD7Olg7lxndqX+o8wNfoumhfypiWcdS/e8XTRG
- Bdgw5KI4b6RIUcy3P18TkiUtjVmKOc6CeO1Qi6rI54On1msvymvsVfiNR7mKl61envWz
- /sNZBS6zVjaBcjRwG+OWwQFCT/HbcMsBBqqzXYR6YpABshPHGfeaPaxJVM1yKx2s3wK7
- twHJ3f0oIsWStyobZoHe+PGK0/xay3aB9gnOLCCa0r+W2FUMjI0sT/DShhOi1eXvpIzG
- t5gA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references;
- bh=qrOwXwlBWFGyUQMsDEy4eIPmdT/Cp8C5S2RkNZPz3pU=;
- b=VitgAIcJcor/5k0k6kDWJrR8bJZz/PdA3UmmB9Ezbu0OqJWvJjCjY/brkeF+IBqVeS
- dqA9BDBn7befL89LwNXUBIkcEy/ksu+ubK74Bk17SUyHodvm5HvBrqE8aIpx6GS8FwFS
- IhBFTIMVk93J/4dsviBJ6XT0+MPEfv+TSy8AATqwIwIn+xk2s5S5C0PWyrjp6mMqfXDG
- eipBAfUchAv0rVpil5CPueQP6HRex8KqmcibXK35gasULTEcB4/NqDi2az59f+VUuSsA
- zf5z5hzoK0HnjrfmaL3wHqpdOJtTM1IsXsmFEiSHiKO49XPQ42btR/lFMKLRyUtiulEu
- +9kg==
-X-Gm-Message-State: AOAM531UKD4twD5yfjp0eXijokVczn7RBsMQOFCaXha+w8eNH03qjWgj
- DdvEReqP+nzLiS4R35qteIM=
-X-Google-Smtp-Source: ABdhPJzBpYekraaNxidY4IPCBRgHiJSBIowN/mYRme8aoLeKN1A9aRiTVZb05CQmhfvj1BJJ7N3YSg==
-X-Received: by 2002:a6b:dc0c:: with SMTP id s12mr11408711ioc.11.1623606596328; 
- Sun, 13 Jun 2021 10:49:56 -0700 (PDT)
-Received: from vinay-Latitude-3400.wrs.com ([220.158.157.78])
- by smtp.gmail.com with ESMTPSA id e13sm6404233ilr.68.2021.06.13.10.49.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 13 Jun 2021 10:49:55 -0700 (PDT)
-From: Vinay Kumar <vinay.m.engg@gmail.com>
-To: chrubis@suse.cz,
-	ltp@lists.linux.it
-Date: Sun, 13 Jun 2021 23:19:46 +0530
-Message-Id: <20210613174946.9804-1-vinay.m.engg@gmail.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210609173601.29352-10-vinay.m.engg@gmail.com>
-References: <20210609173601.29352-10-vinay.m.engg@gmail.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 277F021967;
+ Sun, 13 Jun 2021 19:45:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1623613500;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=VfNfogusoI+cgFXsDxHs1BIKq/RJSdSURL08Uh1un3o=;
+ b=N0e7XEg4Q2GHnaj96EJGXLC4hnZGg5McpHxQC4eCXNkOGq0naoMwq/q1M1XXrUmq3aO8is
+ tg66mrPp+hmk4P+NUpafm7JmxgOkQ44ZWlE0JCBQTkHfjw20k2rlXcmIy+ja0TULL7o8wf
+ iTED1rST8zzvxHNsF8IQD8qAl0DpDXs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1623613500;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=VfNfogusoI+cgFXsDxHs1BIKq/RJSdSURL08Uh1un3o=;
+ b=vKs81hTLci3lKYwhTUAvjgIrDXAC4tMm+Y5pehGt9pI9PkmmsTy7QvBgnnwPwpRYpMJ/hB
+ VWgS4KX8dIdOcwCA==
+Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ by imap.suse.de (Postfix) with ESMTP id C5E36118DD;
+ Sun, 13 Jun 2021 19:44:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1623613500;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=VfNfogusoI+cgFXsDxHs1BIKq/RJSdSURL08Uh1un3o=;
+ b=N0e7XEg4Q2GHnaj96EJGXLC4hnZGg5McpHxQC4eCXNkOGq0naoMwq/q1M1XXrUmq3aO8is
+ tg66mrPp+hmk4P+NUpafm7JmxgOkQ44ZWlE0JCBQTkHfjw20k2rlXcmIy+ja0TULL7o8wf
+ iTED1rST8zzvxHNsF8IQD8qAl0DpDXs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1623613500;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=VfNfogusoI+cgFXsDxHs1BIKq/RJSdSURL08Uh1un3o=;
+ b=vKs81hTLci3lKYwhTUAvjgIrDXAC4tMm+Y5pehGt9pI9PkmmsTy7QvBgnnwPwpRYpMJ/hB
+ VWgS4KX8dIdOcwCA==
+Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
+ id bGI+LDtgxmCEGwAALh3uQQ
+ (envelope-from <pvorel@suse.cz>); Sun, 13 Jun 2021 19:44:59 +0000
+Date: Sun, 13 Jun 2021 21:44:56 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Martin Doucha <mdoucha@suse.cz>
+Message-ID: <YMZgONrus6i45R9U@pevik>
+References: <20210609114659.2445-1-chrubis@suse.cz>
+ <20210609114659.2445-4-chrubis@suse.cz> <YMDBFfCZwYDYwWDg@pevik>
+ <YMDC/mjGTXxoq9uH@yuki>
+ <fd006cd4-2f65-138a-8907-94153ee3b45e@suse.cz>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <fd006cd4-2f65-138a-8907-94153ee3b45e@suse.cz>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=2.6 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SORTED_RECIPS,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Level: **
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH v3] ipc/shmctl02: Make use of TST_EXP_FAIL()
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [Automated-testing] [PATCH 3/4] lib: Introduce concept of
+ max_test_runtime
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,52 +97,66 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: umesh.kalappa0@gmail.com, metan@ucw.cz, rwmacleod@gmail.com,
- vinay.kumar@blackfigtech.com
-MIME-Version: 1.0
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it, automated-testing@yoctoproject.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-In order to simplify the code a bit.
+Hi all,
 
-Signed-off-by: Vinay Kumar <vinay.m.engg@gmail.com>
----
- testcases/kernel/syscalls/ipc/shmctl/shmctl02.c | 17 ++---------------
- 1 file changed, 2 insertions(+), 15 deletions(-)
+> On 09. 06. 21 15:32, Cyril Hrubis wrote:
+> > Hi!
+> >>>   - the scaled value is then divided, if needed, so that we end up a
+> >>>     correct maximal runtime for an instance of a test, i.e. we have
+> >>>     max runtime for an instance fork_testrun() that is inside of
+> >>>     .test_variants and .all_filesystems loops
+> >> Now "Max runtime per iteration" can vary, right? I.e. on .all_filesystems
+> >> runtime for each filesystems depends on number of filesystems? E.g. writev03.c
+> >> with setup .timeout = 600 on 2 filesystems is 5 min (300s), but with all 9
+> >> filesystems is about 1 min. We should document that author should expect max
+> >> number of filesystems. What happen with these values in the (long) future, when
+> >> LTP support new filesystem (or drop some)? This was a reason for me to define in
+> >> the test value for "Max runtime per iteration", not whole run.
 
-diff --git a/testcases/kernel/syscalls/ipc/shmctl/shmctl02.c b/testcases/kernel/syscalls/ipc/shmctl/shmctl02.c
-index b9a71722d..9841d3a86 100644
---- a/testcases/kernel/syscalls/ipc/shmctl/shmctl02.c
-+++ b/testcases/kernel/syscalls/ipc/shmctl/shmctl02.c
-@@ -96,21 +96,8 @@ static void verify_shmctl(unsigned int i)
- 		return;
- 	}
- 
--	TEST(tv->shmctl(*(tc[i].shm_id), tc[i].cmd, tc[i].buf));
--
--	if (TST_RET != -1) {
--		tst_res(TFAIL, "shmctl() returned %li", TST_RET);
--		return;
--	}
--
--	if (TST_ERR == tc[i].error) {
--		tst_res(TPASS | TTERRNO, "shmctl(%i, %i, %p)",
--				*tc[i].shm_id, tc[i].cmd, tc[i].buf);
--		return;
--	}
--
--	tst_res(TFAIL | TTERRNO, "shmctl(%i, %i, %p) expected %s",
--		*tc[i].shm_id, tc[i].cmd, tc[i].buf, tst_strerrno(tc[i].error));
-+	TST_EXP_FAIL(tv->shmctl(*(tc[i].shm_id), tc[i].cmd, tc[i].buf),
-+		tc[i].error, "shmctl(%i, %i, %p)", *(tc[i].shm_id), tc[i].cmd, tc[i].buf);
- }
- 
- static void setup(void)
--- 
-2.17.1
+> > That's one of the downsides of this approach.
 
+> > The reason why I choose this approach is that you can set upper cap for
+> > the whole test run and not only for a single filesystem/variant.
+
+> > Also this way the test timeout corresponds to the maximal test runtime.
+
+> > Another option would be to redefine the timeout to be timeout per a
+> > fork_testrun() instance, which would make the approach slightly easier
+> > in some places, however that would mean either changing default test
+> > timeout to much smaller value and annotating all long running tests.
+
+> > Hmm, I guess that annotating all long running tests and changing default
+> > timeout may be a good idea regardless this approach.
+
+> Some fuzzysync tests have long run time by design because running too
+> few loops on broken systems will not trigger the bug. Limiting maximum
+> program execution time may be useful for quick smoke tests but it's not
+> usable for real test runs where we want reliable reproducibility.
+Interesting.
+
+> I'd prefer adding a command line option to tst_test (e.g. -m) that would
+> just print test metadata, including total timeout of all fork_testrun()
+> subtests, and exit. Static metadata is not a sufficient solution for
+FYI I suggested this some time ago with private chat with Cyril, he mentioned
+that there were some problems with it. IMHO it'd be great to implement it.
+
+> this because the same test binary may have different runtimes on
+> different system configurations, for example because the list of
+> available filesystems may change arbitrarily between test runs. It'd be
+> great if test runners other than runltp-ng could get a straighforward
+> timeout number without reimplementing a calculation that may change in
+> future versions of LTP.
++1
+
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
