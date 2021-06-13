@@ -1,66 +1,68 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id B47743A5983
-	for <lists+linux-ltp@lfdr.de>; Sun, 13 Jun 2021 18:19:55 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id E104A3A59AF
+	for <lists+linux-ltp@lfdr.de>; Sun, 13 Jun 2021 18:43:51 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 88D633C4D3F
-	for <lists+linux-ltp@lfdr.de>; Sun, 13 Jun 2021 18:19:54 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 954D13C4D41
+	for <lists+linux-ltp@lfdr.de>; Sun, 13 Jun 2021 18:43:51 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 542503C2F2D
- for <ltp@lists.linux.it>; Sun, 13 Jun 2021 18:19:53 +0200 (CEST)
-Received: from mail-io1-xd32.google.com (mail-io1-xd32.google.com
- [IPv6:2607:f8b0:4864:20::d32])
+ by picard.linux.it (Postfix) with ESMTPS id 593D03C2819
+ for <ltp@lists.linux.it>; Sun, 13 Jun 2021 18:43:48 +0200 (CEST)
+Received: from mail-pl1-x634.google.com (mail-pl1-x634.google.com
+ [IPv6:2607:f8b0:4864:20::634])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 92CBF600661
- for <ltp@lists.linux.it>; Sun, 13 Jun 2021 18:19:52 +0200 (CEST)
-Received: by mail-io1-xd32.google.com with SMTP id p66so35178537iod.8
- for <ltp@lists.linux.it>; Sun, 13 Jun 2021 09:19:52 -0700 (PDT)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 8328160006E
+ for <ltp@lists.linux.it>; Sun, 13 Jun 2021 18:43:48 +0200 (CEST)
+Received: by mail-pl1-x634.google.com with SMTP id 11so5313819plk.12
+ for <ltp@lists.linux.it>; Sun, 13 Jun 2021 09:43:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=o3tAxQqr3b46F0UhQf7HhElHxqWENts0EIYirIM55Ng=;
- b=ptl19IZh/Rsil9HSiCnxCGjto55oyKz2O81pxv9GrTLVyJlVHkQBAOgLUEC/Wge+fC
- 4uriAX3wV3wEQHcHE4px+3byfCX/3zCSo/xnw3AjpO9a8ascdNqPTrBZxONJsrnAGcqz
- VVwqWu2dAffgS8t9v9Pd5TsDNA0p4/sRT3htNJ0HyYK71mY8CvyquUUyLluNJ7ndMg+K
- gblYhqJmPYWTsVh9geWeA1uj60jnZJNnXuaum73WtMv803+anxV5MyyLlLkX4eizPny8
- vFldK2K/pXLzRqrJt/TjfDbofoTb7jVFTEoLi52Mepm8by7MKqhNXuKyYa/xCGyshKPD
- /4iA==
+ bh=Mq3E1fkxDuWyXwRDfVW0WZO6XgeTes3SUfPuCsmWAKo=;
+ b=J9//iLxnTyQFKNKT8VKFnzTHBw15Ibu1D3JMC6JWZz/K1iJXNzQDrD+ehcZIgFDNnF
+ MYpgAIctxh/xg3uiPEmCoifRyvE+IAMQnpCYCMH9hTlTpfWOuvg0hh6r/Z+KrPk4L4TN
+ Lqz5BgdAhLpjYvymcvDVwNdYG9xuseGCS22lRxUbiYTFlSrBQTVmc5l2NdXsTpA1suvv
+ xy3A82u6Fy6zaWNQKO3krot2xVCTQUzbRGKfrt2kPoVU4JHb0GQK/KhFMdjrEsrKRp4s
+ fSSPoDzouz622NA5yijJ5igiRPkW2BtPcTeduuIO9AqvkECRPMZFzFb/5u13fU09GS0n
+ 6A/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=o3tAxQqr3b46F0UhQf7HhElHxqWENts0EIYirIM55Ng=;
- b=fMSRYZ8USTb1g58ALwB5fo38dNENfkrv1yU/TcEQs4N5fI++wydETrwFFNOReceurp
- 61ytv0WLow9JFfeE46x3JAxtM3ZgZ2otqNyitjPh5d6ewj8W/EM6WBuUAwpdOQ/8XjEH
- NhgTqjcKi9/CDNDIhkPVO55Y/UFcUTTf96nuvR22vA7YyIl6Oyv0uqM/Qd41niUECpss
- iZfnogvXE4qxj7Ti1OnF1reK/zSjkuz9vvcfScQWmsGu7fYMD6IjYJD0NFei+JkAObsy
- fFuJRVfmHZ0aeLKz6BD45wU/mUT+e3kC8pfDW6wImUfjOPEdXHC9+Y9ryub2Uu9UfF0n
- BmSA==
-X-Gm-Message-State: AOAM532oUJ8soLEnVZgPycxRj/nBmaCq/oe4GEBhVpGHqTpPQp+Jt0Fs
- Gwd4UfLS4NXQUUG8aZxVKa4=
-X-Google-Smtp-Source: ABdhPJz7teD7wpSsn2sNt0AwenX/VSLBp+7c6slnbDJFxfnLAAqmTfDTNw0PPI0vSuHRVz6/JcVnyg==
-X-Received: by 2002:a6b:760e:: with SMTP id g14mr11056420iom.119.1623601191350; 
- Sun, 13 Jun 2021 09:19:51 -0700 (PDT)
+ bh=Mq3E1fkxDuWyXwRDfVW0WZO6XgeTes3SUfPuCsmWAKo=;
+ b=mPAjtLL+TbXArK78oQ9BFObLwq32SYvD7FMsx2IfZLMIyhv9zjzwn/4sbFHA1vfgzo
+ QIsf6psGphy9TiO4db5HB93QFu7GUlHS8912YfN4160i8PMPloTI6PuzPB34anhpAP0y
+ f2Hd8A8OR7t79LTjiLX5mZU6y525QihTp/99ADdBi1ftgoJpxixbDVmQq8S3tsFhEP2M
+ ZMD7Po9ql4uZoA/r2M/K7jSzpBSXh7HfSaOBqBXGRGLjynDGfLeWGtd/YG60aM1cU2yS
+ eP5pNR6t5QHudLkUmPLmal3PvsxgyxupBR3r99wJqN23OiBpY5pJ4uur50c0BZ278v2l
+ i9YA==
+X-Gm-Message-State: AOAM5326QfoGr6ljyr6Jq2Pb9xyoJeITQj1a1k4B0UtDpcirCe55xf4V
+ 8Rb45kIJXdN6w4LUTvkEYEI=
+X-Google-Smtp-Source: ABdhPJz1hTqoFbmGIW/o4Tc3+j+Q44+ZkuTcIJmlRFigSVSPTFGS3Bw8oTopIsFBN8OUwQTrtFJ9ig==
+X-Received: by 2002:a17:902:ee8c:b029:fe:dc5f:564 with SMTP id
+ a12-20020a170902ee8cb02900fedc5f0564mr13314550pld.71.1623602626654; 
+ Sun, 13 Jun 2021 09:43:46 -0700 (PDT)
 Received: from vinay-Latitude-3400.wrs.com ([220.158.157.78])
- by smtp.gmail.com with ESMTPSA id z14sm6488375ilb.48.2021.06.13.09.19.48
+ by smtp.gmail.com with ESMTPSA id z6sm6089022pgs.24.2021.06.13.09.43.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 13 Jun 2021 09:19:50 -0700 (PDT)
+ Sun, 13 Jun 2021 09:43:45 -0700 (PDT)
 From: Vinay Kumar <vinay.m.engg@gmail.com>
 To: chrubis@suse.cz,
 	ltp@lists.linux.it
-Date: Sun, 13 Jun 2021 21:49:41 +0530
-Message-Id: <20210613161941.4934-1-vinay.m.engg@gmail.com>
+Date: Sun, 13 Jun 2021 22:13:35 +0530
+Message-Id: <20210613164335.6035-1-vinay.m.engg@gmail.com>
 X-Mailer: git-send-email 2.17.1
-In-Reply-To: <YMNNHVaIQZ84+lLS@yuki>
-References: <YMNNHVaIQZ84+lLS@yuki>
+In-Reply-To: <YMNoFyN89L6/VhP3@yuki>
+References: <YMNoFyN89L6/VhP3@yuki>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=2.6 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -68,7 +70,7 @@ X-Spam-Status: No, score=2.6 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  SPF_PASS autolearn=disabled version=3.4.4
 X-Spam-Level: **
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v5] adjtimex02.c: Skipped EFAULT tests for libc variant
+Subject: [LTP] [PATCH v3] getitimer02: Convert getitimer02 to new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,236 +90,131 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Tested EFAULT cases only for "__NR_adjtimex" syscall.
-
-Tests for bad addresses in LTP cases trigger segment
-fault in libc on a 32bit system.
-
 Signed-off-by: Vinay Kumar <vinay.m.engg@gmail.com>
 ---
- .../kernel/syscalls/adjtimex/adjtimex02.c     | 169 +++++++++++-------
- 1 file changed, 101 insertions(+), 68 deletions(-)
+ .../kernel/syscalls/getitimer/getitimer02.c   | 104 +++---------------
+ 1 file changed, 16 insertions(+), 88 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/adjtimex/adjtimex02.c b/testcases/kernel/syscalls/adjtimex/adjtimex02.c
-index 19ee97158..bfe07ec72 100644
---- a/testcases/kernel/syscalls/adjtimex/adjtimex02.c
-+++ b/testcases/kernel/syscalls/adjtimex/adjtimex02.c
-@@ -10,99 +10,131 @@
- #include <unistd.h>
- #include <pwd.h>
- #include "tst_test.h"
-+#include "lapi/syscalls.h"
+diff --git a/testcases/kernel/syscalls/getitimer/getitimer02.c b/testcases/kernel/syscalls/getitimer/getitimer02.c
+index b9c03143a..2eb3f3a94 100644
+--- a/testcases/kernel/syscalls/getitimer/getitimer02.c
++++ b/testcases/kernel/syscalls/getitimer/getitimer02.c
+@@ -1,99 +1,27 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+  * Copyright (c) International Business Machines  Corp., 2001
+- *
+- * This program is free software;  you can redistribute it and/or modify
+- * it under the terms of the GNU General Public License as published by
+- * the Free Software Foundation; either version 2 of the License, or
+- * (at your option) any later version.
+- *
+- * This program is distributed in the hope that it will be useful,
+- * but WITHOUT ANY WARRANTY;  without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
+- * the GNU General Public License for more details.
+- *
+- * You should have received a copy of the GNU General Public License
+- * along with this program;  if not, write to the Free Software
+- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
++ * 03/2001 - Written by Wayne Boyer
+  */
  
--#define SET_MODE ( ADJ_OFFSET | ADJ_FREQUENCY | ADJ_MAXERROR | ADJ_ESTERROR | \
--	ADJ_STATUS | ADJ_TIMECONST | ADJ_TICK )
-+#define SET_MODE (ADJ_OFFSET | ADJ_FREQUENCY | ADJ_MAXERROR | ADJ_ESTERROR | \
-+				ADJ_STATUS | ADJ_TIMECONST | ADJ_TICK)
- 
--static int hz;			/* HZ from sysconf */
+-/*
+-  HISTORY
+-  03/2001 - Written by Wayne Boyer
 -
--static struct timex *tim_save;
--static struct timex *buf;
-+static int hz;		/* HZ from sysconf */
- 
-+static struct timex *tim_save, *buf;
- static struct passwd *ltpuser;
- 
--static void verify_adjtimex(unsigned int nr)
-+static int libc_adjtimex(struct timex *value)
-+{
-+	return adjtimex(value);
-+}
-+
-+static int sys_adjtimex(struct timex *value)
-+{
-+	return tst_syscall(__NR_adjtimex, value);
-+}
-+
-+static struct test_case {
-+	unsigned int modes;
-+	long lowlimit;
-+	long highlimit;
-+	long delta;
-+	int exp_err;
-+} tc[] = {
-+	{ .modes = SET_MODE, .exp_err = EPERM},
-+	{ .modes = SET_MODE, .exp_err = EFAULT},
-+	{ .modes = ADJ_TICK, .lowlimit = 900000, .delta = 1, .exp_err = EINVAL},
-+	{ .modes = ADJ_TICK, .highlimit = 1100000, .delta = 1, .exp_err = EINVAL},
-+	{ .modes = ADJ_OFFSET, .highlimit = 512000L, .delta = 1, .exp_err = EINVAL},
-+	{ .modes = ADJ_OFFSET, .lowlimit = -512000L, .delta = -1,	.exp_err = EINVAL},
-+};
-+
-+static struct test_variants
-+{
-+	int (*adjtimex)(struct timex *value);
-+	char *desc;
-+} variants[] = {
-+	{ .adjtimex = libc_adjtimex, .desc = "libc adjtimex()"},
-+
-+#if (__NR_adjtimex != __LTP__NR_INVALID_SYSCALL)
-+	{ .adjtimex = sys_adjtimex,  .desc = "__NR_adjtimex syscall"},
-+#endif
-+};
-+
-+static void verify_adjtimex(unsigned int i)
- {
- 	struct timex *bufp;
--	int expected_errno = 0;
+-  TEST ITEMS:
+-  Check that a getitimer() call fails as expected
+-  with an incorrect second argument.
+-*/
 -
--	/*
--	 * since Linux 2.6.26, if buf.offset value is outside
--	 * the acceptable range, it is simply normalized instead
--	 * of letting the syscall fail. so just skip this test
--	 * case.
--	 */
--	if (nr > 3 && (tst_kvercmp(2, 6, 25) > 0)) {
--		tst_res(TCONF, "this kernel normalizes buf."
--				"offset value if it is outside"
--				" the acceptable range.");
--		return;
+-
+-#include "test.h"
++/*\
++ *[Description]
++ *
++ * Check that a getitimer() call fails as expected
++ * with an incorrect second argument.
++ */
+ 
+ #include <errno.h>
+ #include <sys/time.h>
++#include "tst_test.h"
+ 
+-char *TCID = "getitimer02";
+-int TST_TOTAL = 1;
+-
+-#if !defined(UCLINUX)
+-
+-static void cleanup(void);
+-static void setup(void);
+-
+-int main(int ac, char **av)
+-{
+-	int lc;
+-
+-	tst_parse_opts(ac, av, NULL, NULL);
+-
+-	setup();
+-
+-	for (lc = 0; TEST_LOOPING(lc); lc++) {
+-		tst_count = 0;
+-
+-		/* call with a bad address */
+-		TEST(getitimer(ITIMER_REAL, (struct itimerval *)-1));
+-
+-		if (TEST_RETURN == 0) {
+-			tst_resm(TFAIL, "call failed to produce "
+-				 "expected error - errno = %d - %s",
+-				 TEST_ERRNO, strerror(TEST_ERRNO));
+-			continue;
+-		}
+-
+-		switch (TEST_ERRNO) {
+-		case EFAULT:
+-			tst_resm(TPASS, "expected failure - errno = %d - %s",
+-				 TEST_ERRNO, strerror(TEST_ERRNO));
+-			break;
+-		default:
+-			tst_resm(TFAIL, "call failed to produce "
+-				 "expected error - errno = %d - %s",
+-				 TEST_ERRNO, strerror(TEST_ERRNO));
+-		}
 -	}
-+	struct test_variants *tv = &variants[tst_variant];
- 
- 	*buf = *tim_save;
- 	buf->modes = SET_MODE;
- 	bufp = buf;
--	switch (nr) {
--	case 0:
--		bufp = (struct timex *)-1;
--		expected_errno = EFAULT;
--		break;
--	case 1:
--		buf->tick = 900000 / hz - 1;
--		expected_errno = EINVAL;
--		break;
--	case 2:
--		buf->tick = 1100000 / hz + 1;
--		expected_errno = EINVAL;
--		break;
--	case 3:
--		/* Switch to nobody user for correct error code collection */
--		ltpuser = SAFE_GETPWNAM("nobody");
-+
-+	if (tc[i].exp_err == EPERM)
- 		SAFE_SETEUID(ltpuser->pw_uid);
--		expected_errno = EPERM;
--		break;
--	case 4:
--		buf->offset = 512000L + 1;
--		expected_errno = EINVAL;
--		break;
--	case 5:
--		buf->offset = (-1) * (512000L) - 1;
--		expected_errno = EINVAL;
--		break;
--	default:
--		tst_brk(TFAIL, "Invalid test case %u ", nr);
-+
-+	if (tc[i].exp_err == EINVAL) {
-+		if (tc[i].modes == ADJ_TICK) {
-+			if (tc[i].lowlimit)
-+				buf->tick = tc[i].lowlimit - tc[i].delta;
-+
-+			if (tc[i].highlimit)
-+				buf->tick = tc[i].highlimit + tc[i].delta;
-+		}
-+		if (tc[i].modes == ADJ_OFFSET) {
-+			if (tc[i].lowlimit) {
-+				tst_res(TCONF, "this kernel normalizes buf. offset value if it is outside the acceptable range.");
-+				return;
-+			}
-+			if (tc[i].highlimit) {
-+				tst_res(TCONF, "this kernel normalizes buf. offset value if it is outside the acceptable range.");
-+				return;
-+			}
-+		}
- 	}
- 
--	TEST(adjtimex(bufp));
--	if ((TST_RET == -1) && (TST_ERR == expected_errno)) {
--		tst_res(TPASS | TTERRNO,
--				"adjtimex() error %u ", expected_errno);
--	} else {
--		tst_res(TFAIL | TTERRNO,
--				"Test Failed, adjtimex() returned %ld",
--				TST_RET);
-+	if (tc[i].exp_err == EFAULT) {
-+		if (tv->adjtimex != libc_adjtimex) {
-+			bufp = (struct timex *) -1;
-+		} else {
-+			tst_res(TCONF, "EFAULT is skipped for libc variant");
-+			return;
-+		}
- 	}
- 
--	/* clean up after ourselves */
--	if (nr == 3)
-+	TST_EXP_FAIL(tv->adjtimex(bufp), tc[i].exp_err, "adjtimex() error");
-+
-+	if (tc[i].exp_err == EPERM)
- 		SAFE_SETEUID(0);
- }
- 
- static void setup(void)
+-
+-	cleanup();
+-
+-	tst_exit();
+-}
+-
+-static void setup(void)
+-{
+-	tst_sig(NOFORK, DEF_HANDLER, cleanup);
+-
+-	TEST_PAUSE;
+-}
+-
+-static void cleanup(void)
+-{
+-}
+-
+-#else
+-
+-int main(void)
++static void verify_getitimer(void)
  {
-+	struct test_variants *tv = &variants[tst_variant];
-+	size_t i;
-+
-+	tst_res(TINFO, "Testing variant: %s", tv->desc);
-+
- 	tim_save->modes = 0;
- 
-+	ltpuser = SAFE_GETPWNAM("nobody");
-+	SAFE_SETEUID(ltpuser->pw_uid);
-+
- 	/* set the HZ from sysconf */
- 	hz = SAFE_SYSCONF(_SC_CLK_TCK);
- 
--	/* Save current parameters */
--	if ((adjtimex(tim_save)) == -1)
-+	for (i = 0; i < ARRAY_SIZE(tc); i++) {
-+		if (tc[i].modes == ADJ_TICK) {
-+			tc[i].highlimit /= hz;
-+			tc[i].lowlimit /= hz;
-+		}
-+	}
-+
-+	if ((adjtimex(tim_save)) == -1) {
- 		tst_brk(TBROK | TERRNO,
- 			"adjtimex(): failed to save current params");
-+	}
+-	tst_resm(TINFO, "test is not available on uClinux");
+-	tst_exit();
++	/* call with a bad address */
++	TST_EXP_FAIL(getitimer(ITIMER_REAL, (struct itimerval *)-1),
++		EFAULT, "expected failure - errno = %d - %s", TST_ERR, strerror(TST_ERR));
  }
  
- static void cleanup(void)
- {
-+
- 	tim_save->modes = SET_MODE;
- 
- 	/* Restore saved parameters */
-@@ -111,14 +143,15 @@ static void cleanup(void)
- }
- 
- static struct tst_test test = {
--	.needs_root = 1,
--	.tcnt = 6,
-+	.test = verify_adjtimex,
- 	.setup = setup,
- 	.cleanup = cleanup,
--	.test = verify_adjtimex,
-+	.tcnt = ARRAY_SIZE(tc),
-+	.test_variants = ARRAY_SIZE(variants),
-+	.needs_root = 1,
- 	.bufs = (struct tst_buffers []) {
--		{&buf, .size = sizeof(*buf)},
--		{&tim_save, .size = sizeof(*tim_save)},
--		{},
--	}
-+		 {&buf, .size = sizeof(*buf)},
-+		 {&tim_save, .size = sizeof(*tim_save)},
-+		 {},
-+		}
- };
+-#endif /* if !defined(UCLINUX) */
++static struct tst_test test = {
++	.test_all = verify_getitimer,
++};
 -- 
 2.17.1
 
