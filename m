@@ -1,75 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87F583A59DF
-	for <lists+linux-ltp@lfdr.de>; Sun, 13 Jun 2021 19:35:41 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id D1C1B3A59E8
+	for <lists+linux-ltp@lfdr.de>; Sun, 13 Jun 2021 19:49:59 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0EE153C4D3F
-	for <lists+linux-ltp@lfdr.de>; Sun, 13 Jun 2021 19:35:41 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 8E5673C4D3F
+	for <lists+linux-ltp@lfdr.de>; Sun, 13 Jun 2021 19:49:59 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 8779B3C2F2C
- for <ltp@lists.linux.it>; Sun, 13 Jun 2021 19:35:39 +0200 (CEST)
-Received: from mail-il1-x130.google.com (mail-il1-x130.google.com
- [IPv6:2607:f8b0:4864:20::130])
+ by picard.linux.it (Postfix) with ESMTPS id 0E3FE3C2F28
+ for <ltp@lists.linux.it>; Sun, 13 Jun 2021 19:49:57 +0200 (CEST)
+Received: from mail-io1-xd30.google.com (mail-io1-xd30.google.com
+ [IPv6:2607:f8b0:4864:20::d30])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 079DB60007C
- for <ltp@lists.linux.it>; Sun, 13 Jun 2021 19:35:39 +0200 (CEST)
-Received: by mail-il1-x130.google.com with SMTP id b9so10228031ilr.2
- for <ltp@lists.linux.it>; Sun, 13 Jun 2021 10:35:38 -0700 (PDT)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 6E83A1A00614
+ for <ltp@lists.linux.it>; Sun, 13 Jun 2021 19:49:57 +0200 (CEST)
+Received: by mail-io1-xd30.google.com with SMTP id k5so27378323iow.12
+ for <ltp@lists.linux.it>; Sun, 13 Jun 2021 10:49:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=VJp6tNdloSMMqbWvkO8R5TfZcs+khzJ6XXJhMkCDebE=;
- b=WRM7JCz77ynV1UK4huN4ElLYaK87A6m4othtv8t37lWg2Yi+L8TjjaVRBA7/d3tQJJ
- FxsV8mG6plLG6+m0tgtDwKiHcwvkLOTiuL3TuiZggqaJNEPWcAqcaNqvTyMpIP9MB6Vt
- 8mLeYhg3goHoHy2AVT6vATUZFloae7SzFOkUGaMfkTmHUD/arJdF9n/gvni27mX7Rd4O
- 3FRf7JA30Y9Y4DEEjK7l5ESxT9yETMpx0ofVmjDr75VosFDk0g75zupMYbQ7oit6DAD4
- gEM1GyJH3l80h4isBsnUy9mlergmjZ9uetqHf6vxDDCWkOzVe11oKEqyKKb0/wjCr3jp
- Oj4Q==
+ bh=qrOwXwlBWFGyUQMsDEy4eIPmdT/Cp8C5S2RkNZPz3pU=;
+ b=KMZcN9gsw0NpP8F06TSHKyO9d7lKqAoyFrG7RLmjAGhv5Gfd6yX9vzrC+09jJs5w/h
+ FNsnjdlEecc+kSLimX5vji3HF8FXWCeD7Olg7lxndqX+o8wNfoumhfypiWcdS/e8XTRG
+ Bdgw5KI4b6RIUcy3P18TkiUtjVmKOc6CeO1Qi6rI54On1msvymvsVfiNR7mKl61envWz
+ /sNZBS6zVjaBcjRwG+OWwQFCT/HbcMsBBqqzXYR6YpABshPHGfeaPaxJVM1yKx2s3wK7
+ twHJ3f0oIsWStyobZoHe+PGK0/xay3aB9gnOLCCa0r+W2FUMjI0sT/DShhOi1eXvpIzG
+ t5gA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=VJp6tNdloSMMqbWvkO8R5TfZcs+khzJ6XXJhMkCDebE=;
- b=WCwQuVlG0IdDP6jhVYQMPJtpgqHIuONDq5+UgQewRKKQUh/ObGYk5dp1lLC/uYNBFP
- Dd4T5+BSHJWkpiC98Mu1AvigypLH3FBc94w9EaVcod7Gvp8ivYgoF7GRv94znaSy7sTx
- qOHBtaMxX89dt8m7XGM4p9FXfce29oTbcG36/WPC9jpLDAZp5pf1hTc7D6I/GCIZmRv/
- xMS0JRq0R8ZNYS4JJxtmIuGBdHIjb8E0N0VLrpotB9VkdbDfvQOsYpoW2Zu9HkHgbiG/
- mypu5oGraMwBidWggA2ZcwSeJ3plrNiCPY+CxuxsUcPibtsXCnl9r8nq1XVhM7VXT4WY
- MzQg==
-X-Gm-Message-State: AOAM531RNxBGW9vXGLch3GsyrYv1nSG0acqxRw+leoQH9flC62564uK1
- ISlCODbipSlzaDWMlHuj4qc=
-X-Google-Smtp-Source: ABdhPJxpB55nOZUScg1TK846faLfqasXDsTWszlza+YxZ94D3BkgRNhHrlpy82NvM3AsVZ1h6Rp2GA==
-X-Received: by 2002:a05:6e02:c6b:: with SMTP id
- f11mr11025609ilj.140.1623605737756; 
- Sun, 13 Jun 2021 10:35:37 -0700 (PDT)
+ bh=qrOwXwlBWFGyUQMsDEy4eIPmdT/Cp8C5S2RkNZPz3pU=;
+ b=VitgAIcJcor/5k0k6kDWJrR8bJZz/PdA3UmmB9Ezbu0OqJWvJjCjY/brkeF+IBqVeS
+ dqA9BDBn7befL89LwNXUBIkcEy/ksu+ubK74Bk17SUyHodvm5HvBrqE8aIpx6GS8FwFS
+ IhBFTIMVk93J/4dsviBJ6XT0+MPEfv+TSy8AATqwIwIn+xk2s5S5C0PWyrjp6mMqfXDG
+ eipBAfUchAv0rVpil5CPueQP6HRex8KqmcibXK35gasULTEcB4/NqDi2az59f+VUuSsA
+ zf5z5hzoK0HnjrfmaL3wHqpdOJtTM1IsXsmFEiSHiKO49XPQ42btR/lFMKLRyUtiulEu
+ +9kg==
+X-Gm-Message-State: AOAM531UKD4twD5yfjp0eXijokVczn7RBsMQOFCaXha+w8eNH03qjWgj
+ DdvEReqP+nzLiS4R35qteIM=
+X-Google-Smtp-Source: ABdhPJzBpYekraaNxidY4IPCBRgHiJSBIowN/mYRme8aoLeKN1A9aRiTVZb05CQmhfvj1BJJ7N3YSg==
+X-Received: by 2002:a6b:dc0c:: with SMTP id s12mr11408711ioc.11.1623606596328; 
+ Sun, 13 Jun 2021 10:49:56 -0700 (PDT)
 Received: from vinay-Latitude-3400.wrs.com ([220.158.157.78])
- by smtp.gmail.com with ESMTPSA id i7sm6568723ilb.67.2021.06.13.10.35.34
+ by smtp.gmail.com with ESMTPSA id e13sm6404233ilr.68.2021.06.13.10.49.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 13 Jun 2021 10:35:37 -0700 (PDT)
+ Sun, 13 Jun 2021 10:49:55 -0700 (PDT)
 From: Vinay Kumar <vinay.m.engg@gmail.com>
 To: chrubis@suse.cz,
 	ltp@lists.linux.it
-Date: Sun, 13 Jun 2021 23:05:27 +0530
-Message-Id: <20210613173527.9037-1-vinay.m.engg@gmail.com>
+Date: Sun, 13 Jun 2021 23:19:46 +0530
+Message-Id: <20210613174946.9804-1-vinay.m.engg@gmail.com>
 X-Mailer: git-send-email 2.17.1
-In-Reply-To: <YMNsdfm7VW2dW9Hw@yuki>
-References: <YMNsdfm7VW2dW9Hw@yuki>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+In-Reply-To: <20210609173601.29352-10-vinay.m.engg@gmail.com>
+References: <20210609173601.29352-10-vinay.m.engg@gmail.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=2.6 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SORTED_RECIPS,SPF_HELO_NONE,
  SPF_PASS autolearn=disabled version=3.4.4
 X-Spam-Level: **
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH v3] setitimer02: Skipped EFAULT tests for libc variant.
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH v3] ipc/shmctl02: Make use of TST_EXP_FAIL()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,41 +88,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Tested EFAULT cases only for "__NR_setitimer" syscall.
-
-Tests for bad addresses in LTP cases trigger segment
-fault in libc on a 32bit system.
+In order to simplify the code a bit.
 
 Signed-off-by: Vinay Kumar <vinay.m.engg@gmail.com>
 ---
- testcases/kernel/syscalls/setitimer/setitimer02.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ testcases/kernel/syscalls/ipc/shmctl/shmctl02.c | 17 ++---------------
+ 1 file changed, 2 insertions(+), 15 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/setitimer/setitimer02.c b/testcases/kernel/syscalls/setitimer/setitimer02.c
-index 59da87e8d..2ff051e41 100644
---- a/testcases/kernel/syscalls/setitimer/setitimer02.c
-+++ b/testcases/kernel/syscalls/setitimer/setitimer02.c
-@@ -16,14 +16,22 @@
- #include <sys/time.h>
- #include <stdlib.h>
- #include "tst_test.h"
-+#include "lapi/syscalls.h"
+diff --git a/testcases/kernel/syscalls/ipc/shmctl/shmctl02.c b/testcases/kernel/syscalls/ipc/shmctl/shmctl02.c
+index b9a71722d..9841d3a86 100644
+--- a/testcases/kernel/syscalls/ipc/shmctl/shmctl02.c
++++ b/testcases/kernel/syscalls/ipc/shmctl/shmctl02.c
+@@ -96,21 +96,8 @@ static void verify_shmctl(unsigned int i)
+ 		return;
+ 	}
  
- struct itimerval *value;
- 
-+static int sys_setitimer(int which, void *new_value, void *old_value)
-+{
-+	return tst_syscall(__NR_setitimer, which, new_value, old_value);
-+}
-+
- static void verify_setitimer(void)
- {
-   /* call with a bad address */
--	TST_EXP_FAIL(setitimer(ITIMER_REAL, value, (struct itimerval *)-1),
-+	TST_EXP_FAIL(sys_setitimer(ITIMER_REAL, value, (struct itimerval *)-1),
- 		EFAULT, "expected failure - errno = %d - %s", TST_ERR, strerror(TST_ERR));
-+
-+	tst_res(TCONF, "EFAULT is skipped for libc variant");
+-	TEST(tv->shmctl(*(tc[i].shm_id), tc[i].cmd, tc[i].buf));
+-
+-	if (TST_RET != -1) {
+-		tst_res(TFAIL, "shmctl() returned %li", TST_RET);
+-		return;
+-	}
+-
+-	if (TST_ERR == tc[i].error) {
+-		tst_res(TPASS | TTERRNO, "shmctl(%i, %i, %p)",
+-				*tc[i].shm_id, tc[i].cmd, tc[i].buf);
+-		return;
+-	}
+-
+-	tst_res(TFAIL | TTERRNO, "shmctl(%i, %i, %p) expected %s",
+-		*tc[i].shm_id, tc[i].cmd, tc[i].buf, tst_strerrno(tc[i].error));
++	TST_EXP_FAIL(tv->shmctl(*(tc[i].shm_id), tc[i].cmd, tc[i].buf),
++		tc[i].error, "shmctl(%i, %i, %p)", *(tc[i].shm_id), tc[i].cmd, tc[i].buf);
  }
  
  static void setup(void)
