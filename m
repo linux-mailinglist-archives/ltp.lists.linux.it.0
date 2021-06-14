@@ -2,43 +2,43 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CD9C3A6627
-	for <lists+linux-ltp@lfdr.de>; Mon, 14 Jun 2021 13:57:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D1183A6624
+	for <lists+linux-ltp@lfdr.de>; Mon, 14 Jun 2021 13:57:01 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 464A93C8B07
-	for <lists+linux-ltp@lfdr.de>; Mon, 14 Jun 2021 13:57:20 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 37E0D3C4D1D
+	for <lists+linux-ltp@lfdr.de>; Mon, 14 Jun 2021 13:57:01 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 10F6F3C2779
- for <ltp@lists.linux.it>; Mon, 14 Jun 2021 13:57:00 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id EAB9B3C2779
+ for <ltp@lists.linux.it>; Mon, 14 Jun 2021 13:56:58 +0200 (CEST)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 364131400C44
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 4576E1400C49
  for <ltp@lists.linux.it>; Mon, 14 Jun 2021 13:56:58 +0200 (CEST)
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id B68041FD33;
- Mon, 14 Jun 2021 11:56:57 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 023781FD34;
+ Mon, 14 Jun 2021 11:56:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1623671817; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1623671818; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=g0V9NRiywyQ5ik28RmUUVWfZqHX3NSB2JgM3LKO6t2o=;
- b=X9agpe+6Jvc/aDxPecTG5oP+UKrkmt2fpLH6VuTNv/8IG+qjnFH1pzd4RgLEwBsar2uYTP
- 6LqAhhPnL0VAFw6njW+WvR9CLUH1Kz3DOgT01vaBtY/xo/G8+t5LVTbNVCqHFuu6Nr6RwT
- QWoW9fJRxazpdTAeJzLw/o3efIiL3u8=
+ bh=3QC+a5r04K/alquwGbkgBPgQzxifGzKRbXcFCYirGsQ=;
+ b=o8aI2Wf1wdVofG0H6p1r2WFus25g8ehuKFV8pkzdD2XB6zxmjH4ptqfYcS9vLPwINGI0/3
+ xn3tRy+skyVJnPuFkeKjGlIxidH6RY7t7J6uJeGV83yVheuSSzaQ1BAsf/6Qm4l6C7ZQH5
+ 7Y41LupTCPC5/4FnnniT9rlcBL65+TA=
 Received: from g78.suse.de (unknown [10.163.24.38])
- by relay2.suse.de (Postfix) with ESMTP id 7F141A3B87;
+ by relay2.suse.de (Postfix) with ESMTP id C7E6BA3B87;
  Mon, 14 Jun 2021 11:56:57 +0000 (UTC)
 To: ltp@lists.linux.it
-Date: Mon, 14 Jun 2021 12:56:37 +0100
-Message-Id: <20210614115638.25467-2-rpalethorpe@suse.com>
+Date: Mon, 14 Jun 2021 12:56:38 +0100
+Message-Id: <20210614115638.25467-3-rpalethorpe@suse.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210614115638.25467-1-rpalethorpe@suse.com>
 References: <20210614115638.25467-1-rpalethorpe@suse.com>
@@ -49,8 +49,8 @@ X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [RFC PATCH v3 1/2] Add 'make check' and clang-check to build
- system
+Subject: [LTP] [RFC PATCH v3 2/2] Start libclang based analyzer and TEST()
+ check
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,319 +70,268 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Allows the user to run 'make check' to check all source files or
-'make check-<target>' to check one source file corresponding to a
-target.
+This uses the stable Clang C API to find usages of the TEST()
+macro.
 
-Adds makefile pieces for tools/clang-check/main which will be a
-libclang based tool. By default this is ran by 'make check'.
+This Clang API only exposes the AST along with some other utilities
+for evaluating constants, indexing, auto completion and source
+rewriting. This is somewhat less than what Smatch, Coccinelle and the
+unstable Clang C++ APIs expose. However it is a simple, stable and
+well supported C API.
 
-In theory allows other tools to be specified with
-'make CHECK=tool CHECK_FLAGS=<args> check...'. e.g. 'make CHECK=sparse
-CHECK_FLAGS= check-tst_cgroup'
+For now we are limiting ourselves to the functions available in the
+LLVM-10 release.
 
 Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
 ---
- Makefile                            |  8 +++++++
- configure.ac                        |  2 ++
- include/mk/clang-check.mk           |  9 ++++++++
- include/mk/config.mk.in             |  5 +++++
- include/mk/env_post.mk              | 11 +++++++++
- include/mk/generic_leaf_target.inc  |  5 ++++-
- include/mk/generic_trunk_target.inc |  7 +++++-
- include/mk/lib.mk                   |  3 +++
- include/mk/rules.mk                 |  9 ++++++++
- include/mk/testcases.mk             |  1 +
- m4/ltp-clang.m4                     | 29 ++++++++++++++++++++++++
- tools/clang-check/.gitignore        |  1 +
- tools/clang-check/Makefile          | 35 +++++++++++++++++++++++++++++
- 13 files changed, 123 insertions(+), 2 deletions(-)
- create mode 100644 include/mk/clang-check.mk
- create mode 100644 m4/ltp-clang.m4
- create mode 100644 tools/clang-check/.gitignore
- create mode 100644 tools/clang-check/Makefile
+ tools/clang-check/main.c | 238 +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 238 insertions(+)
+ create mode 100644 tools/clang-check/main.c
 
-diff --git a/Makefile b/Makefile
-index 56812d77b..3b0ba330d 100644
---- a/Makefile
-+++ b/Makefile
-@@ -79,6 +79,7 @@ BOOTSTRAP_TARGETS	:= $(sort $(COMMON_TARGETS) $(CLEAN_TARGETS) $(INSTALL_TARGETS
- CLEAN_TARGETS		:= $(addsuffix -clean,$(CLEAN_TARGETS))
- INSTALL_TARGETS		:= $(addsuffix -install,$(INSTALL_TARGETS))
- MAKE_TARGETS		:= $(addsuffix -all,$(filter-out lib,$(COMMON_TARGETS)))
-+CHECK_TARGETS		:= $(addsuffix -check,testcases lib)
- 
- # There's no reason why we should run `all' twice. Otherwise we're just wasting
- # 3+ mins of useful CPU cycles on a modern machine, and even more time on an
-@@ -108,6 +109,10 @@ $(MAKE_TARGETS) include-all lib-all libs-all:
- 	$(MAKE) -C "$(subst -all,,$@)" \
- 		-f "$(abs_top_srcdir)/$(subst -all,,$@)/Makefile" all
- 
-+$(CHECK_TARGETS): tools-all
-+	$(MAKE) -C "$(subst -check,,$@)" \
-+		-f "$(abs_top_srcdir)/$(subst -check,,$@)/Makefile" check
-+
- # Let's not conflict with ac-clean, maintainer-clean, etc, so.
- $(filter-out include-clean,$(CLEAN_TARGETS))::
- 	-$(MAKE) -C "$(subst -clean,,$@)" \
-@@ -189,6 +194,9 @@ INSTALL_TARGETS		+= $(addprefix $(DESTDIR)/$(bindir)/,$(BINDIR_INSTALL_SCRIPTS))
- 
- $(INSTALL_TARGETS): $(INSTALL_DIR) $(DESTDIR)/$(bindir)
- 
-+.PHONY: check
-+check: $(CHECK_TARGETS)
-+
- ## Install
- install: $(INSTALL_TARGETS)
- 
-diff --git a/configure.ac b/configure.ac
-index 136d82d09..945fdcb3f 100644
---- a/configure.ac
-+++ b/configure.ac
-@@ -370,4 +370,6 @@ LTP_CHECK_TASKSTATS
- test "x$with_tirpc" = xyes && LTP_CHECK_TIRPC
- LTP_DETECT_HOST_CPU
- 
-+LTP_CHECK_CLANG
-+
- AC_OUTPUT
-diff --git a/include/mk/clang-check.mk b/include/mk/clang-check.mk
+diff --git a/tools/clang-check/main.c b/tools/clang-check/main.c
 new file mode 100644
-index 000000000..2ab7b67a1
+index 000000000..feb6774fd
 --- /dev/null
-+++ b/include/mk/clang-check.mk
-@@ -0,0 +1,9 @@
-+# Rules to make clang-check tool(s) for inclusion in lib and testcases Makefiles
++++ b/tools/clang-check/main.c
+@@ -0,0 +1,238 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2021 SUSE LLC <rpalethorpe@suse.com>
++ * Copyright (c) 2017 Petr Vorel <pvorel@suse.cz>
++ *
++ * Entry point for the LTP static analyser.
++ *
++ * Scans the AST (Abstract Syntax Tree) generated by Clang. We look at
++ * the kind of each node and decide if one or more checks can be run
++ * on it. If at least the kind of node matches we pass it to the
++ * checking function. This function may then perform further
++ * matching. Finally, if it finds the sub tree is the type of thing
++ * which needs to be checked, then it performs the check and emits an
++ * error if it fails.
++ *
++ * AST Nodes are called CXCursor by libclang. We use the library's
++ * visitor functions to recurse into the AST.
++ *
++ * This program takes the same arguments the Clang compiler
++ * frontend does. Although some are ignored by libclang.
++ */
++#include <unistd.h>
++#include <string.h>
++#include <stdlib.h>
++#include <stdio.h>
++#include "../../include/config.h"
 +
-+CLANG_CHECK_DIR:= $(abs_top_builddir)/tools/clang-check
++#define attr_unused __attribute__((unused))
 +
-+$(CLANG_CHECK_DIR)/main: $(CLANG_CHECK_DIR)
-+	$(MAKE) -C "$^" -f "$(CLANG_CHECK_DIR)/Makefile" all
++#if HAVE_CLANG_C_INDEX_H
 +
-+$(CLANG_CHECK_DIR): %:
-+	mkdir -p "$@"
-diff --git a/include/mk/config.mk.in b/include/mk/config.mk.in
-index 218447ef3..e1561a989 100644
---- a/include/mk/config.mk.in
-+++ b/include/mk/config.mk.in
-@@ -44,6 +44,11 @@ HOSTCC := cc
- endif
- endif
- 
-+LLVM_CONFIG ?= @LLVM_CONFIG@
-+CLANG 	    ?= @CLANG@
-+CLANG_LIBS  ?= @CLANG_LIBS@
-+HAVE_CLANG_C_INDEX_H := @HAVE_CLANG_C_INDEX_H@
++#include <clang-c/Index.h>
 +
- AIO_LIBS		:= @AIO_LIBS@
- CAP_LIBS		:= @CAP_LIBS@
- ACL_LIBS		:= @ACL_LIBS@
-diff --git a/include/mk/env_post.mk b/include/mk/env_post.mk
-index 1d22f9c53..74f53e038 100644
---- a/include/mk/env_post.mk
-+++ b/include/mk/env_post.mk
-@@ -89,6 +89,17 @@ $(error You must define $$(prefix) before executing install)
- endif # END $(filter-out install,$(MAKECMDGOALS)),$(MAKECMDGOALS)
- endif
- 
-+CHECK_TARGETS			?= $(addprefix check-,$(notdir $(patsubst %.c,%,$(sort $(wildcard $(abs_srcdir)/*.c)))))
-+CHECK				?= $(abs_top_srcdir)/tools/clang-check/main
-+ifneq ($(strip $(CLANG)),":")
-+CHECK_FLAGS			?= -resource-dir $(shell $(CLANG) -print-resource-dir)
-+endif
++/* The rules for test, library and tool code are different */
++enum ltp_tu_kind {
++	LTP_LIB,
++	LTP_OTHER,
++};
 +
++/* Holds information about the TU which we gathered on the first pass */
++static struct {
++	enum ltp_tu_kind tu_kind;
++} tu_info;
 +
-+ifeq ($(dir $(CHECK)),$(abs_top_srcdir)/tools/clang-check/)
-+CHECK_DEPS			+= $(CHECK)
-+endif
++static const char *const ansi_red = "\033[1;31m";
++static const char *const ansi_reset = "\033[0m";
++static const char *const ansi_bold = "\033[1m";
 +
- include $(top_srcdir)/include/mk/rules.mk
- 
- endif
-diff --git a/include/mk/generic_leaf_target.inc b/include/mk/generic_leaf_target.inc
-index 64953f89a..aa092a5a3 100644
---- a/include/mk/generic_leaf_target.inc
-+++ b/include/mk/generic_leaf_target.inc
-@@ -92,7 +92,7 @@
- # INSTALL_DIR			:= $(libdir)
- #
- 
--.PHONY: all clean install
-+.PHONY: all clean install check
- 
- ifneq ($(strip $(MAKE_TARGETS)),)
- $(MAKE_TARGETS) += $(HOST_MAKE_TARGETS)
-@@ -109,4 +109,7 @@ $(INSTALL_FILES): | $(INSTALL_DEPS)
- 
- install: $(INSTALL_FILES)
- 
-+$(CHECK_TARGETS): | $(CHECK_DEPS)
-+check: $(CHECK_TARGETS)
++static unsigned error_flag;
 +
- # vim: syntax=make
-diff --git a/include/mk/generic_trunk_target.inc b/include/mk/generic_trunk_target.inc
-index fc59f944f..32a108fbf 100644
---- a/include/mk/generic_trunk_target.inc
-+++ b/include/mk/generic_trunk_target.inc
-@@ -48,7 +48,7 @@
- 
- include $(top_srcdir)/include/mk/functions.mk
- 
--RECURSIVE_TARGETS		?= all install
-+RECURSIVE_TARGETS		?= all install check
- 
- $(eval $(get_make_dirs))
- 
-@@ -68,6 +68,9 @@ $(INSTALL_FILES): | $(INSTALL_DEPS)
- 
- trunk-install: $(INSTALL_FILES)
- 
-+$(CHECK_TARGETS): | $(CHECK_DEPS)
-+trunk-check: $(CHECK_TARGETS)
++/* Copied from lib/tst_ansi_color.c */
++static int color_enabled(const int fd)
++{
++	static int color;
 +
- # Avoid creating duplicate .PHONY references to all, clean, and install. IIRC,
- # I've seen some indeterministic behavior when one does this in the past with
- # GNU Make...
-@@ -108,4 +111,6 @@ else
- endif
- endif
- 
-+check: trunk-check
++	if (color)
++		return color - 1;
 +
- # vim: syntax=make
-diff --git a/include/mk/lib.mk b/include/mk/lib.mk
-index f9b6c0aff..a3961bce5 100644
---- a/include/mk/lib.mk
-+++ b/include/mk/lib.mk
-@@ -26,6 +26,7 @@
- # Makefile to include for libraries.
- 
- include $(top_srcdir)/include/mk/env_pre.mk
-+include $(top_srcdir)/include/mk/clang-check.mk
- 
- INSTALL_DIR	:= $(libdir)
- 
-@@ -57,6 +58,8 @@ LIBSRCS		:= $(filter-out $(FILTER_OUT_LIBSRCS),$(LIBSRCS))
- 
- LIBOBJS		:= $(LIBSRCS:.c=.o)
- 
-+CHECK_TARGETS	:= $(addprefix check-,$(notdir $(LIBSRCS:.c=)))
++	const char *const env = getenv("LTP_COLORIZE_OUTPUT");
 +
- $(LIB): $(notdir $(LIBOBJS))
- 	@if [ -z "$(strip $^)" ] ; then \
- 		echo "Cowardly refusing to create empty archive"; \
-diff --git a/include/mk/rules.mk b/include/mk/rules.mk
-index c8f4bbbbe..2a04b2b67 100644
---- a/include/mk/rules.mk
-+++ b/include/mk/rules.mk
-@@ -37,3 +37,12 @@ else
- 	@$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) $^ $(LTPLDLIBS) $(LDLIBS) -o $@
- 	@echo CC $(target_rel_dir)$@
- endif
++	if (env) {
++		if (!strcmp(env, "n") || !strcmp(env, "0"))
++			color = 1;
 +
-+.PHONY: $(CHECK_TARGETS)
-+$(CHECK_TARGETS): check-%: %.c
-+ifdef VERBOSE
-+	$(CHECK) $(CHECK_FLAGS) $(CPPFLAGS) $(CFLAGS) $<
-+else
-+	@$(CHECK) $(CHECK_FLAGS) $(CPPFLAGS) $(CFLAGS) $<
-+	@echo CHECK $(target_rel_dir)$<
-+endif
-diff --git a/include/mk/testcases.mk b/include/mk/testcases.mk
-index 1c81773d0..e59899898 100644
---- a/include/mk/testcases.mk
-+++ b/include/mk/testcases.mk
-@@ -22,6 +22,7 @@
- 
- include $(top_srcdir)/include/mk/env_pre.mk
- include $(top_srcdir)/include/mk/functions.mk
-+include $(top_srcdir)/include/mk/clang-check.mk
- 
- APICMDS_DIR	:= $(abs_top_builddir)/tools/apicmds
- 
-diff --git a/m4/ltp-clang.m4 b/m4/ltp-clang.m4
-new file mode 100644
-index 000000000..08314036b
---- /dev/null
-+++ b/m4/ltp-clang.m4
-@@ -0,0 +1,29 @@
-+dnl SPDX-License-Identifier: GPL-2.0-or-later
-+dnl Copyright (c) 2021 SUSE LLC
++		if (!strcmp(env, "y") || !strcmp(env, "1"))
++			color = 2;
 +
-+dnl Find the libraries and tools necessary to build tools/clang-check
++		return color - 1;
++	}
 +
-+dnl Note that it is possible to use libclang without the clang
-+dnl executable or llvm-config. However it then means we have to start
-+dnl searching the system for various Clang resources.
++	if (isatty(fd) == 0)
++		color = 1;
++	else
++		color = 2;
 +
-+AC_DEFUN([LTP_CHECK_CLANG],
-+	[AC_CHECK_TOOL(LLVM_CONFIG, llvm-config, :)
-+	 AC_CHECK_TOOL(CLANG, clang, :)
-+	 ltp_save_CFLAGS=$CFLAGS
-+    	 ltp_save_LDFLAGS=$LDFLAGS
-+	 if test $LLVM_CONFIG != ":"; then
-+    	    CFLAGS=$($LLVM_CONFIG --cflags)
-+    	    LDFLAGS=$($LLVM_CONFIG --ldflags)
-+	 fi
-+	 AC_CHECK_LIB([clang], [clang_createIndex], [have_libclang=yes])
-+	 AC_CHECK_HEADERS([clang-c/Index.h], [have_clang_h=1])
-+	 if test x$have_libclang != xyes -o x$have_clang_h != x1 -o "x$CLANG" = "x:"; then
-+	    AC_MSG_WARN(Libclang and Clang are needed for test development)
-+	 else
-+	    AC_SUBST(HAVE_CLANG_C_INDEX_H, $have_clang_h)
-+	    AC_SUBST(CLANG_LIBS, -lclang)
-+	 fi
-+	 CFLAGS=$ltp_save_CFLAGS
-+	 LDFLAGS=$ltp_save_LDFLAGS
-+])
-diff --git a/tools/clang-check/.gitignore b/tools/clang-check/.gitignore
-new file mode 100644
-index 000000000..ba2906d06
---- /dev/null
-+++ b/tools/clang-check/.gitignore
-@@ -0,0 +1 @@
-+main
-diff --git a/tools/clang-check/Makefile b/tools/clang-check/Makefile
-new file mode 100644
-index 000000000..f5c4a9a78
---- /dev/null
-+++ b/tools/clang-check/Makefile
-@@ -0,0 +1,35 @@
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+# Copyright (c) 2021 SUSE LLC <rpalethorpe@suse.com>
-+# Copyright (c) 2019 Cyril Hrubis <chrubis@suse.cz>
-+# Copyright (c) 2020 Petr Vorel <pvorel@suse.cz>
++	return color - 1;
++}
 +
-+top_srcdir		?= ../..
++static void emit_error(const char *const error_msg)
++{
++	if (color_enabled(STDERR_FILENO)) {
++		dprintf(STDERR_FILENO,
++			"%sERROR%s: %s%s%s\n",
++			ansi_red, ansi_reset,
++			ansi_bold, error_msg, ansi_reset);
++	} else {
++		dprintf(STDERR_FILENO, "ERROR: %s\n", error_msg);
++	}
++}
 +
-+include $(top_srcdir)/include/mk/env_pre.mk
-+include $(top_srcdir)/include/mk/functions.mk
++static void emit_check_error(CXCursor offending_cursor, const char *const error_msg)
++{
++	CXSourceLocation loc = clang_getCursorLocation(offending_cursor);
++	CXFile loc_file;
++	unsigned loc_line, loc_column;
++	CXString file_name;
 +
-+HOST_MAKE_TARGETS	:= main
-+ifneq ($(strip $(LLVM_CONFIG)),":")
-+HOST_CFLAGS		+= $(shell $(LLVM_CONFIG) --cflags)
-+HOST_LDFLAGS		+= $(shell $(LLVM_CONFIG) --ldflags)
-+endif
-+HOST_LDLIBS 		+= $(CLANG_LIBS)
++	error_flag = 1;
 +
-+.PHONY: check-clang-deps
-+check-clang-deps:
-+ifeq ($(strip $(CLANG)),":")
-+	$(warning clang-check: clang executable is missing which we use to find the Clang resource directory; install clang package)
-+endif
-+ifeq ($(strip $(LLVM_CONFIG)),":")
-+	$(warning clang-check: llvm-config is missing which we use to find the libclang location; install the clang/LLVM devel packages)
-+endif
-+ifeq ($(strip $(CLANG_LIBS)),)
-+	$(warning clang-check: libclang missing)
-+endif
-+ifneq ($(strip $(HAVE_CLANG_C_INDEX_H)),1)
-+	$(warning clang-check: clang development headers are missing; install the clang devel package)
-+endif
++	clang_getFileLocation(loc, &loc_file, &loc_line, &loc_column,
++			      /*offset=*/NULL);
++	file_name = clang_getFileName(loc_file);
 +
-+MAKE_DEPS += check-clang-deps
++	if (color_enabled(STDERR_FILENO)) {
++		dprintf(STDERR_FILENO,
++			"%s:%u:%u: %sCHECK ERROR%s: %s%s%s\n",
++			clang_getCString(file_name), loc_line, loc_column,
++			ansi_red, ansi_reset,
++			ansi_bold, error_msg, ansi_reset);
++	} else {
++		dprintf(STDERR_FILENO,
++			"%s:%u:%u: CHECK ERROR: %s\n",
++			clang_getCString(file_name), loc_line, loc_column,
++			error_msg);
++	}
 +
-+include $(top_srcdir)/include/mk/generic_leaf_target.mk
++	clang_disposeString(file_name);
++}
++
++static int cursor_cmp_spelling(const char *const spelling, CXCursor cursor)
++{
++	CXString cursor_spelling = clang_getCursorSpelling(cursor);
++	const int ret = strcmp(spelling, clang_getCString(cursor_spelling));
++
++	clang_disposeString(cursor_spelling);
++
++	return ret;
++}
++
++static int cursor_type_cmp_spelling(const char *const spelling, CXCursor cursor)
++{
++	CXType ctype = clang_getCursorType(cursor);
++	CXString ctype_spelling = clang_getTypeSpelling(ctype);
++	const int ret = strcmp(spelling, clang_getCString(ctype_spelling));
++
++	clang_disposeString(ctype_spelling);
++
++	return ret;
++}
++
++/*
++ * Check if the TEST() macro is used inside the library.
++ *
++ * This check takes an AST node which should already be known to be a
++ * macro expansion kind.
++ *
++ * If the TU appears to be a test executable then the test does not
++ * apply. So in that case we return.
++ *
++ * If the macro expansion AST node is spelled TEST, then we emit an
++ * error. Otherwise do nothing.
++ */
++static void check_TEST_macro(CXCursor macro_cursor)
++{
++	if (tu_info.tu_kind != LTP_LIB)
++		return;
++
++	if (!cursor_cmp_spelling("TEST", macro_cursor)) {
++		emit_check_error(macro_cursor,
++			   "TEST() macro should not be used in library");
++	}
++}
++
++/* Recursively visit each AST node and run checks based on node kind */
++static enum CXChildVisitResult check_visitor(CXCursor cursor,
++					     attr_unused CXCursor parent,
++					     attr_unused CXClientData client_data)
++{
++	CXSourceLocation loc = clang_getCursorLocation(cursor);
++
++	if (clang_Location_isInSystemHeader(loc))
++		return CXChildVisit_Continue;
++
++	switch (clang_getCursorKind(cursor)) {
++	case CXCursor_MacroExpansion:
++			check_TEST_macro(cursor);
++		break;
++	default:
++		break;
++	}
++
++	return CXChildVisit_Recurse;
++}
++
++static void collect_info_from_args(const int argc, const char *const *const argv)
++{
++	int i;
++
++	for (i = 0; i < argc; i++) {
++		if (!strcmp("-DLTPLIB", argv[i])) {
++			tu_info.tu_kind = LTP_LIB;
++		}
++	}
++}
++
++int main(const int argc, const char *const *const argv)
++{
++	CXIndex cindex = clang_createIndex(0, 1);
++	CXTranslationUnit tu;
++	CXCursor tuc;
++	enum CXErrorCode ret;
++
++	tu_info.tu_kind = LTP_OTHER;
++	collect_info_from_args(argc, argv);
++
++	ret = clang_parseTranslationUnit2(
++		cindex,
++		/*source_filename=*/NULL,
++		argv + 1, argc - 1,
++		/*unsaved_files=*/NULL, /*num_unsaved_files=*/0,
++		CXTranslationUnit_DetailedPreprocessingRecord,
++		&tu);
++
++	if (ret != CXError_Success) {
++		emit_error("Failed to parse translation unit!");
++		return 1;
++	}
++
++	tuc = clang_getTranslationUnitCursor(tu);
++
++	clang_visitChildren(tuc, check_visitor, NULL);
++
++	/* Stop leak sanitizer from complaining */
++	clang_disposeTranslationUnit(tu);
++	clang_disposeIndex(cindex);
++
++	return error_flag;
++}
++
++#else
++
++int main(const attr_unused int argc, const attr_unused char *const *const argv)
++{
++	emit_error("clang-checks was not built correctly; libclang headers are not installed!\n");
++	return 1;
++}
++
++#endif
 -- 
 2.31.1
 
