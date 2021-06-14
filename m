@@ -1,12 +1,12 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 830483A6B08
-	for <lists+linux-ltp@lfdr.de>; Mon, 14 Jun 2021 17:55:30 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BCC83A6B6C
+	for <lists+linux-ltp@lfdr.de>; Mon, 14 Jun 2021 18:14:55 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 53ECA3C7219
-	for <lists+linux-ltp@lfdr.de>; Mon, 14 Jun 2021 17:55:30 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C1AD23C7222
+	for <lists+linux-ltp@lfdr.de>; Mon, 14 Jun 2021 18:14:54 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
@@ -14,58 +14,62 @@ Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 20EE33C2E47
- for <ltp@lists.linux.it>; Mon, 14 Jun 2021 17:55:29 +0200 (CEST)
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [IPv6:2a00:1450:4864:20::129])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id 1F5753C2E34
+ for <ltp@lists.linux.it>; Mon, 14 Jun 2021 18:14:53 +0200 (CEST)
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id A673C600672
- for <ltp@lists.linux.it>; Mon, 14 Jun 2021 17:55:28 +0200 (CEST)
-Received: by mail-lf1-x129.google.com with SMTP id h4so7048450lfu.8
- for <ltp@lists.linux.it>; Mon, 14 Jun 2021 08:55:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=d/KSxSllC4CwdyzkciILgS5mUZnOVTmV3l9eJClOIu4=;
- b=nO9um9iAhnt8MfVhXfzEOYmi/Akisusz28TQ236fb0VRIldYpo097kK/S9+ZuyyjwM
- GFD1Tb6xFm5WOGV+TJ2i556rUsNHBSIgY8olA+qOzeCZCdTcRM89iNwarrzcTG/RkQnK
- 9lR6ydAHJVlG3qSdAovMFb/0MRkkAm9p5uw2UiMHrJ/tQbNKy/3j7WbodKTYMoilXLoa
- lgIGdK9T4R3ea1pS/vJqrd5ZV4aqUzx10cgTOs2/C4i3enNzU3e6jAZkmwZKPw4W2QD6
- Hht8RWS6/gflNL5fo4TLiSso8R7bLFqT5NJTzvaj5KD2kGQpnJddiScjwqLMabW/9x19
- vQYA==
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 76D006008C0
+ for <ltp@lists.linux.it>; Mon, 14 Jun 2021 18:14:53 +0200 (CEST)
+Received: from mail-ed1-f69.google.com ([209.85.208.69])
+ by youngberry.canonical.com with esmtps (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
+ (envelope-from <krzysztof.kozlowski@canonical.com>)
+ id 1lspEi-000354-I9
+ for ltp@lists.linux.it; Mon, 14 Jun 2021 16:14:52 +0000
+Received: by mail-ed1-f69.google.com with SMTP id
+ z5-20020a05640235c5b0290393974bcf7eso11986867edc.2
+ for <ltp@lists.linux.it>; Mon, 14 Jun 2021 09:14:52 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=d/KSxSllC4CwdyzkciILgS5mUZnOVTmV3l9eJClOIu4=;
- b=PJf9hb9ECwc6evUl7aHLn//1f2qW1rCv0UNz1Pie1pOeZDnX3cRO9pu6LWIUyVfM0L
- f4y4nkWIZpaKml9wTvVk3TBy7fEF1hIvDsHrJQ8m18oKf2YDQtXgNFLEmK08SviD1fcV
- VQZ4uN1h7seZ8Myzdv0/G6NxGUO/6oAfBtW7C6GVIQ04NtGFyhkaN/BHdx+gy+J5t/C2
- 6763ySV64Z7NIdYHRvwDsCExpOv9BJyxFzu3A7pJdSBPL23shBBlcNO11NLTzR0mPJFe
- qARbYMyxQ9O00rhmq4ipXM847PKu4LS4SYqvmwUCMzVx/qMXPB+GCdqcdDVMmT8ncAO4
- 2keg==
-X-Gm-Message-State: AOAM531R+VDPoEzvKv9tF6+CH6RJ9d9R3h4p7GfvUxw2UDA7hWOnXrZ6
- hSl69SvkGy58l0HVkDv5TmrDBLZWaLm+DDm3tftyKoq+sMyVjA==
-X-Google-Smtp-Source: ABdhPJwb6Fk5ykgIGxCufMbyHWuZsywMdqtG3YKOFzFx3AEtLoKBNcFfnelWQcAyxiBbX2OvR2NxmscWBGW2M7p72cI=
-X-Received: by 2002:a19:f504:: with SMTP id j4mr12982777lfb.242.1623686127994; 
- Mon, 14 Jun 2021 08:55:27 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=O/DQ+m30wOVbFdVI/NLrGHDLkgC7pIkkfOxU38H515I=;
+ b=AugqCuenkJ8/8T91Q8NmdlHdVUOV3R2XE0TqETCa5eGFEjSvgz7iue1KvKeIXdE6xr
+ M1Jih9Yd63Z5C4ZPw0vEsxiOU9GbzntclKkutiL4/NyaUrkYjgdaGEamziZWZ+gLTDqk
+ 4PcTa+HJgXkN2B3UWyvupJvMYzk00sOLxJwe018lkmVSpOepgz+fQ+aCmQGg2GEu4qSB
+ j9VCyQEtVwjil4cp9DrmOOXNgt9Zl3x1O6L01bCoT2pcOJ9p27pNZiOqydH/YzguvQ6Y
+ cu1xP9tZyuh6J+AfLSPYpNookvXU11tnfQy7ghHhYj3HuwumYI4Gimdj03a+XJR+p6r4
+ 2tOA==
+X-Gm-Message-State: AOAM530zFUgDuYBoVL8m5akisqTAuWU5PjeeC9oRDWTxgMNoAtIVKI3v
+ vMqfVFxLtPjh/pryfNVws2NCKB9y9fyD8swllsldYGp/xltTbZTaIJv6PLp3HL65Q6H1s1jhCtY
+ dIAEWtdJMhkQgYLf81BKuqyldGDpw
+X-Received: by 2002:a05:6402:b6f:: with SMTP id
+ cb15mr18618717edb.25.1623687291895; 
+ Mon, 14 Jun 2021 09:14:51 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJxrX9eFifkI1ui/o3u8C4b1QA7SFYV9b48FOskMNvhKvLDDYR9tweicnIQGzejuefUNdrNQLQ==
+X-Received: by 2002:a05:6402:b6f:: with SMTP id
+ cb15mr18618700edb.25.1623687291757; 
+ Mon, 14 Jun 2021 09:14:51 -0700 (PDT)
+Received: from localhost.localdomain (xdsl-188-155-177-222.adslplus.ch.
+ [188.155.177.222])
+ by smtp.gmail.com with ESMTPSA id o21sm7445546ejh.57.2021.06.14.09.14.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 14 Jun 2021 09:14:51 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+To: ltp@lists.linux.it
+Date: Mon, 14 Jun 2021 18:14:12 +0200
+Message-Id: <20210614161413.82389-1-krzysztof.kozlowski@canonical.com>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-References: <20210609173601.29352-10-vinay.m.engg@gmail.com>
- <20210613174946.9804-1-vinay.m.engg@gmail.com>
-In-Reply-To: <20210613174946.9804-1-vinay.m.engg@gmail.com>
-From: Vinay Kumar <vinay.m.engg@gmail.com>
-Date: Mon, 14 Jun 2021 21:25:16 +0530
-Message-ID: <CANUMPcWrgeGYeUWg=zTYxwuMiXmTLDimX35=hH93wAJ0gO6t3w@mail.gmail.com>
-To: Cyril Hrubis <chrubis@suse.cz>, ltp@lists.linux.it
 X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=2.6 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SORTED_RECIPS,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Level: **
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3] ipc/shmctl02: Make use of TST_EXP_FAIL()
+Subject: [LTP] [PATCH v2 1/2] controllers/cpuacct: skip cpuacct_100_100 on
+ small memory systems
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,67 +81,117 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: metan@ucw.cz, vinay.kumar@blackfigtech.com,
- umesh kalappa0 <umesh.kalappa0@gmail.com>, Randy MacLeod <rwmacleod@gmail.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Cyril,
+Running cpuacct_100_100 on a system with less than ~4 GB of RAM fails:
 
-Could you please review below test cases changes also,
+    cpuacct 1 TINFO: timeout per run is 0h 5m 0s
+    cpuacct 1 TINFO: cpuacct: /sys/fs/cgroup/cpu,cpuacct
+    cpuacct 1 TINFO: Creating 100 subgroups each with 100 processes
+    testcases/bin/cpuacct.sh: 0: Cannot fork
 
-semctl03.c
-https://lists.linux.it/pipermail/ltp/2021-June/023116.html
+In dmesg:
 
-shmctl02.c
-https://lists.linux.it/pipermail/ltp/2021-June/023118.html
-https://lists.linux.it/pipermail/ltp/2021-June/023166.html
+    LTP: starting cpuacct_100_100 (cpuacct.sh 100 100)
+    cgroup: fork rejected by pids controller in /user.slice/user-1000.slice/session-1.scope
 
-Regards,
-Vinay
+The reason is cgroups pid limit set by systemd user.slice.  For example
+on 2 GB RAM machine it is set as:
+    /sys/fs/cgroup/pids/user.slice/user-0.slice/pids.max:5207
 
-On Sun, Jun 13, 2021 at 11:19 PM Vinay Kumar <vinay.m.engg@gmail.com> wrote:
->
-> In order to simplify the code a bit.
->
-> Signed-off-by: Vinay Kumar <vinay.m.engg@gmail.com>
-> ---
->  testcases/kernel/syscalls/ipc/shmctl/shmctl02.c | 17 ++---------------
->  1 file changed, 2 insertions(+), 15 deletions(-)
->
-> diff --git a/testcases/kernel/syscalls/ipc/shmctl/shmctl02.c b/testcases/kernel/syscalls/ipc/shmctl/shmctl02.c
-> index b9a71722d..9841d3a86 100644
-> --- a/testcases/kernel/syscalls/ipc/shmctl/shmctl02.c
-> +++ b/testcases/kernel/syscalls/ipc/shmctl/shmctl02.c
-> @@ -96,21 +96,8 @@ static void verify_shmctl(unsigned int i)
->                 return;
->         }
->
-> -       TEST(tv->shmctl(*(tc[i].shm_id), tc[i].cmd, tc[i].buf));
-> -
-> -       if (TST_RET != -1) {
-> -               tst_res(TFAIL, "shmctl() returned %li", TST_RET);
-> -               return;
-> -       }
-> -
-> -       if (TST_ERR == tc[i].error) {
-> -               tst_res(TPASS | TTERRNO, "shmctl(%i, %i, %p)",
-> -                               *tc[i].shm_id, tc[i].cmd, tc[i].buf);
-> -               return;
-> -       }
-> -
-> -       tst_res(TFAIL | TTERRNO, "shmctl(%i, %i, %p) expected %s",
-> -               *tc[i].shm_id, tc[i].cmd, tc[i].buf, tst_strerrno(tc[i].error));
-> +       TST_EXP_FAIL(tv->shmctl(*(tc[i].shm_id), tc[i].cmd, tc[i].buf),
-> +               tc[i].error, "shmctl(%i, %i, %p)", *(tc[i].shm_id), tc[i].cmd, tc[i].buf);
->  }
->
->  static void setup(void)
-> --
-> 2.17.1
->
+Add a check for both free memory and maximum number of pids (when using
+systemd) to skip the test.  Systems not using systemd might still fail.
+
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+
+---
+
+Changes since v1:
+1. Add checking for pids.
+2. Accurately check the memory constraints.
+---
+ .../kernel/controllers/cpuacct/cpuacct.sh     | 56 +++++++++++++++++++
+ 1 file changed, 56 insertions(+)
+
+diff --git a/testcases/kernel/controllers/cpuacct/cpuacct.sh b/testcases/kernel/controllers/cpuacct/cpuacct.sh
+index 323aa7513bf4..66a48dde679b 100755
+--- a/testcases/kernel/controllers/cpuacct/cpuacct.sh
++++ b/testcases/kernel/controllers/cpuacct/cpuacct.sh
+@@ -38,12 +38,68 @@ OPTIONS
+ EOF
+ }
+ 
++check_free_memory()
++{
++	local memneeded
++	local memfree=`awk '/MemAvailable/ {print $2}' /proc/meminfo`
++
++	if [ $? -ne 0 ]; then
++		local memcached
++
++		memfree=`awk '/MemFree/ {print $2}' /proc/meminfo`
++		test $? || return 0
++
++		memcached=`awk '/MemCached/ {print $2}' /proc/meminfo`
++		test $? || return 0
++
++		memfree=$((memfree + memcached))
++	fi
++
++	# On x86_64, each 100 of processes were using ~16 MB of memory,
++	# so try to estimate the needed free memory based on this.
++	memneeded=$((max * nbprocess * 16384 / 100))
++
++	if [ $memfree -lt $memneeded ]; then
++		tst_brk TCONF "not enough of free memory on this system (approximate need $memneeded kB, free $memfree kB)"
++	fi
++	tst_res TINFO "memory requirements fulfilled (approximate need $memneeded kB, free $memfree kB)"
++
++	return 0
++}
++
++check_limits()
++{
++	local realuid="$SUDO_UID"
++	local tasksneeded=$((max * nbprocess + 100))
++
++	if [ "$realuid" = "" ]; then
++		realuid=`id -u`
++		test $? || return 0
++	fi
++
++	local tasksmax=`systemctl show user-${real_uid}.slice | awk -F '=' '/TasksMax/ {print $2}'`
++	test $? || return 0
++
++	if [ $tasksmax -le $tasksneeded ]; then
++		tst_brk TCONF "limit of tasks is too low (approximate need $tasksneeded, limit $tasksmax)"
++	fi
++	tst_res TINFO "task limit fulfilled (approximate need $tasksneeded, limit $tasksmax)"
++
++	return 0
++}
++
+ setup()
+ {
+ 	if ! grep -q -w cpuacct /proc/cgroups; then
+ 		tst_brk TCONF "cpuacct not supported on this system"
+ 	fi
+ 
++	check_limits
++	# Don't bother with memory limit checks on smaller tests
++	if [ $max -ge 100 ] && [ $nbprocess -ge 100 ]; then
++		check_free_memory
++	fi
++
+ 	mount_point=`grep -w cpuacct /proc/mounts | cut -f 2 | cut -d " " -f2`
+ 	tst_res TINFO "cpuacct: $mount_point"
+ 	if [ "$mount_point" = "" ]; then
+-- 
+2.27.0
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
