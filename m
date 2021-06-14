@@ -2,69 +2,51 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3AEBE3A6320
-	for <lists+linux-ltp@lfdr.de>; Mon, 14 Jun 2021 13:09:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC01C3A6626
+	for <lists+linux-ltp@lfdr.de>; Mon, 14 Jun 2021 13:57:13 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id CB99E3C4D16
-	for <lists+linux-ltp@lfdr.de>; Mon, 14 Jun 2021 13:09:34 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 419D33C7298
+	for <lists+linux-ltp@lfdr.de>; Mon, 14 Jun 2021 13:57:13 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 60B9F3C2779
- for <ltp@lists.linux.it>; Mon, 14 Jun 2021 13:09:33 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id DAE793C2779
+ for <ltp@lists.linux.it>; Mon, 14 Jun 2021 13:56:59 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id C8442600486
- for <ltp@lists.linux.it>; Mon, 14 Jun 2021 13:09:32 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id EB14B1400C41
+ for <ltp@lists.linux.it>; Mon, 14 Jun 2021 13:56:57 +0200 (CEST)
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id E420E1FD33
- for <ltp@lists.linux.it>; Mon, 14 Jun 2021 11:09:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1623668971;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=+f/VUKyxLoudZXeJHF4k3sBAYPT80Vf0HMk3LuGZlYc=;
- b=rSoOKQvsjYF7j0FVzdc63BDiwkGr84++xLB4k5sstEq6YIzq7moTVKqJbZhPxSSHW7skTw
- QdtPqTL5+M/e+dQ0y2pp18ziu7eXZZtFadBjHFUqCd6sr4Kz4dSaWwswoPfDCR4F1iCZpG
- IanvKP+5eTmfv83Ogssoxxh01lXQByk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1623668971;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=+f/VUKyxLoudZXeJHF4k3sBAYPT80Vf0HMk3LuGZlYc=;
- b=lbXLvAEtCG7AR2chKwzyH7MRCP2nMVopfQVZgG7t0JLegzeest4aZI563FX1OH7efgbp9y
- hAq+Phm40WkBLuAg==
-Received: from g78 (unknown [10.163.24.38])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id AA316A3BD8;
- Mon, 14 Jun 2021 11:09:31 +0000 (UTC)
-References: <20210604111434.21422-1-rpalethorpe@suse.com>
- <20210604111434.21422-2-rpalethorpe@suse.com> <YMNqB2j57/b7ESJB@pevik>
- <YMNwj5509FviXCza@pevik>
-User-agent: mu4e 1.4.15; emacs 27.2
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Petr Vorel <pvorel@suse.cz>
-In-reply-to: <YMNwj5509FviXCza@pevik>
-Date: Mon, 14 Jun 2021 12:09:31 +0100
-Message-ID: <87tum04s9g.fsf@suse.de>
+ by smtp-out1.suse.de (Postfix) with ESMTP id 6CC0C218C8;
+ Mon, 14 Jun 2021 11:56:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1623671817; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=ZNIs0eo4fUs2PsWpscC3JxzV1D9RZ9b43q/8W2eQFBY=;
+ b=XoR9TH8JedWQCSmRmc3y8/Eim7434bTYU5YwjPsuFaKQ8LTczT6N+za1htHfuywk18xMyc
+ 0uYbCRvGSDQdRY95zlfRp2TC9nSZIFQeResC2te/plBmMnyLMbvs754417c9Xm6E4NBZ72
+ cK6BOEYD0wwJ4TcZBXdj9vSxeydpyxU=
+Received: from g78.suse.de (unknown [10.163.24.38])
+ by relay2.suse.de (Postfix) with ESMTP id 3F55EA3B87;
+ Mon, 14 Jun 2021 11:56:57 +0000 (UTC)
+To: ltp@lists.linux.it
+Date: Mon, 14 Jun 2021 12:56:36 +0100
+Message-Id: <20210614115638.25467-1-rpalethorpe@suse.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [RFC PATCH v2 1/2] Add 'make check' and clang-check to
- build system
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: [LTP] [RFC PATCH v3 0/2] Libclang based analyzer
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,85 +58,85 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
-Cc: ltp@lists.linux.it
+From: Richard Palethorpe via ltp <ltp@lists.linux.it>
+Reply-To: Richard Palethorpe <rpalethorpe@suse.com>
+Cc: Richard Palethorpe <rpalethorpe@suse.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello Petr,
+Hello,
 
-Petr Vorel <pvorel@suse.cz> writes:
+This implements a TEST() macro check and integrates the check into the
+build system.
 
-> Hi Richie,
->> Hi Richie,
->
->> one more proposal (addition to Metan's fix [1]):
->> how about to add top level make check target:
->
->> diff --git Makefile Makefile
->> index 56812d77b..b65315618 100644
->> --- Makefile
->> +++ Makefile
->> @@ -79,6 +79,7 @@ BOOTSTRAP_TARGETS	:= $(sort $(COMMON_TARGETS) $(CLEAN_TARGETS) $(INSTALL_TARGETS
->>  CLEAN_TARGETS		:= $(addsuffix -clean,$(CLEAN_TARGETS))
->>  INSTALL_TARGETS		:= $(addsuffix -install,$(INSTALL_TARGETS))
->>  MAKE_TARGETS		:= $(addsuffix -all,$(filter-out lib,$(COMMON_TARGETS)))
->> +CHECK_TARGETS		:= $(addsuffix -check,testcases lib)
->
->>  # There's no reason why we should run `all' twice. Otherwise we're just wasting
->>  # 3+ mins of useful CPU cycles on a modern machine, and even more time on an
->> @@ -99,6 +100,11 @@ INSTALL_DIR		:= $(abspath $(INSTALL_DIR))
->>  $(sort $(addprefix $(abs_top_builddir)/,$(BOOTSTRAP_TARGETS)) $(INSTALL_DIR) $(DESTDIR)/$(bindir)):
->>  	mkdir -m 00755 -p "$@"
->
->> +$(CHECK_TARGETS):
->> +	echo "CHECK_TARGETS: $(CHECK_TARGETS)"; \
-> This should be obviously left out (my debug message).
->> +	$(MAKE) -C "$(subst -check,,$@)" \
->> +		-f "$(abs_top_srcdir)/$(subst -check,,$@)/Makefile" all
-> This should be check target
-> 		-f "$(abs_top_srcdir)/$(subst -check,,$@)/Makefile" check
->> +
->>  ## Pattern based subtarget rules.
->>  lib-install: lib-all
->
->> @@ -189,6 +195,9 @@ INSTALL_TARGETS		+= $(addprefix $(DESTDIR)/$(bindir)/,$(BINDIR_INSTALL_SCRIPTS))
->
->>  $(INSTALL_TARGETS): $(INSTALL_DIR) $(DESTDIR)/$(bindir)
->
->> +## Check
->> +check: $(CHECK_TARGETS)
->> +
->>  ## Install
->>  install: $(INSTALL_TARGETS)
->
->> ---
->
-> + there needs to be check added to RECURSIVE_TARGETS
-> +++ include/mk/generic_trunk_target.inc
-> @@ -48,7 +48,7 @@
->  
->  include $(top_srcdir)/include/mk/functions.mk
->  
-> -RECURSIVE_TARGETS		?= all install
-> +RECURSIVE_TARGETS		?= all install check
->  
->  $(eval $(get_make_dirs))
->  
-> ---
->
-> Kind regards,
-> Petr
+Compared to the Coccinelle version this is verbose. I do not fancy
+implementing auto fixes this way. I think it would be best to continue
+using Coccinelle for that. The TEST fixes and semantic patches used to
+create them are in a separate patch series.
 
-Thanks. It appears defining trunk-check (similar to check-all) and
-"check: trunk-check" in addition to adding check to the recursive
-targets seems to work.
+However I think libclang will allow us to get all the low hanging
+fruit without creating major problems for test
+developers. Unfortunately libclang is difficult to use without
+installing clang itself and llvm-config. However these are only
+development dependencies and are not required for building.
+
+I guess it could be run during CI if we either fix all the existing
+TEST() usages in the library or add an ignore list. I already have a
+Coccinelle script to help with the former.
+
+TODO & Known issues:
+* Solve/ignore missing header errors emitted by libclang
+* Solve/ignore missing function errors emitted by libclang.
+* Solve warning emitted by configure on Ubuntu because the preprocessor
+  check can not find clang-c/Index.h (most likely CFLAGS related)
+* Detect other cases where library functions set TST_RET and TST_ERR
+* Create a script to check whether only symbols available in LLVM10 are
+  used.
+
+V3:
+* Look for libclang and clang using autoconf
+* Print warnings and installation instructions if 'make check' is run
+  on a system where (lib)clang is missing. Note that we need libclang,
+  clang and llvm-config. On most distros this probably requires installing
+  clang-devel and llvm-devel which should install all required deps.
+* Remove the functions which were not available in LLVM10
+* Use -DLTPLIB instead of searching for 'struct tst_test test'
+
+V2:
+* Consistently use singular form of 'check'
+* Include missing clang-check.mk
+* Add some more comments in main.c
+
+Richard Palethorpe (2):
+  Add 'make check' and clang-check to build system
+  Start libclang based analyzer and TEST() check
+
+ Makefile                            |   8 +
+ configure.ac                        |   2 +
+ include/mk/clang-check.mk           |   9 ++
+ include/mk/config.mk.in             |   5 +
+ include/mk/env_post.mk              |  11 ++
+ include/mk/generic_leaf_target.inc  |   5 +-
+ include/mk/generic_trunk_target.inc |   7 +-
+ include/mk/lib.mk                   |   3 +
+ include/mk/rules.mk                 |   9 ++
+ include/mk/testcases.mk             |   1 +
+ m4/ltp-clang.m4                     |  29 ++++
+ tools/clang-check/.gitignore        |   1 +
+ tools/clang-check/Makefile          |  35 ++++
+ tools/clang-check/main.c            | 238 ++++++++++++++++++++++++++++
+ 14 files changed, 361 insertions(+), 2 deletions(-)
+ create mode 100644 include/mk/clang-check.mk
+ create mode 100644 m4/ltp-clang.m4
+ create mode 100644 tools/clang-check/.gitignore
+ create mode 100644 tools/clang-check/Makefile
+ create mode 100644 tools/clang-check/main.c
 
 -- 
-Thank you,
-Richard.
+2.31.1
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
