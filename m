@@ -2,52 +2,50 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id E879F3A5F45
-	for <lists+linux-ltp@lfdr.de>; Mon, 14 Jun 2021 11:42:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B5EF3A5F4F
+	for <lists+linux-ltp@lfdr.de>; Mon, 14 Jun 2021 11:43:54 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 36C9E3C8AF6
-	for <lists+linux-ltp@lfdr.de>; Mon, 14 Jun 2021 11:42:31 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 5DAD33C4D14
+	for <lists+linux-ltp@lfdr.de>; Mon, 14 Jun 2021 11:43:54 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 787323C2E34
- for <ltp@lists.linux.it>; Mon, 14 Jun 2021 11:42:26 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id BD93C3C4D00
+ for <ltp@lists.linux.it>; Mon, 14 Jun 2021 11:43:52 +0200 (CEST)
 Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id EE9AD60080B
- for <ltp@lists.linux.it>; Mon, 14 Jun 2021 11:42:24 +0200 (CEST)
-Received: from [192.168.178.40] (unknown [178.26.168.79])
- by mail.jv-coder.de (Postfix) with ESMTPSA id 532639FBC8;
- Mon, 14 Jun 2021 09:42:20 +0000 (UTC)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 6AF17200755
+ for <ltp@lists.linux.it>; Mon, 14 Jun 2021 11:43:51 +0200 (CEST)
+Received: from ubuntu.localdomain (unknown [178.26.168.79])
+ by mail.jv-coder.de (Postfix) with ESMTPSA id 416D79F951;
+ Mon, 14 Jun 2021 09:43:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
- t=1623663740; bh=ZbY21rCT81qhZORgh3OogWtYJ3qj3fw4t35tRXRKK2A=;
- h=Subject:To:From:Message-ID:Date:MIME-Version;
- b=DgXTsnLjundK5NTptoMD69rwJQY6kdtH5SOZCQe8Mpexq6iFaDQ/yYMJ59p8spYRo
- 2LLc8NQ1GbfMTvq6Y+Mo+5pYzmF5NlGA+YffKo9q50FQ+0X3YlrJkmF2zzN+aEKTmX
- LKsHYi+M2reXZHGlNF8qzd+LSdGk/N7h7q90mLt4=
-To: Petr Vorel <pvorel@suse.cz>
-References: <20210610101917.1251564-1-lkml@jv-coder.de>
- <YMcB3Wcu0J9C3Z/Q@pevik>
+ t=1623663827; bh=b2gT0lGI9OzEBwzvehYQjXWXbClfrpU1oe0f+/zjZ70=;
+ h=From:To:Subject:Date:Message-Id:MIME-Version;
+ b=Pd9MK0ex0aPET6SI74VHy3M2N8/cO8+f6anBR39yZuOBDftpAfa+LT/gqNvNRwxDs
+ N6wY6kVk7nMGhErokuoeoIbmPGSjZ7P6Y9jmLlL17qsFB0yOTSDz+Gx16KpHQPIKPd
+ 0Y/1DDpJQOL3om3P4NBfsekVPlCV9lblS36OofHA=
 From: Joerg Vehlow <lkml@jv-coder.de>
-Message-ID: <5db0624b-a6ce-2c02-d1d4-52034c85b2f1@jv-coder.de>
-Date: Mon, 14 Jun 2021 11:42:19 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+To: ltp@lists.linux.it,
+	pvorel@suse.cz,
+	aleksei.kodanev@bell-sw.com
+Date: Mon, 14 Jun 2021 11:43:38 +0200
+Message-Id: <20210614094338.125870-1-lkml@jv-coder.de>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <YMcB3Wcu0J9C3Z/Q@pevik>
-Content-Language: en-US
-X-Spam-Status: No, score=-0.4 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH] ssh-stress: Convert to new api
+Subject: [LTP] [PATCH v2] ssh-stress: Convert to new api
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,91 +57,646 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>, ltp@lists.linux.it
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGksCgpJIHdpbGwgc2VuZCBhIHYyIHdpdGggdGhlIGNoYW5nZXMgY29tbWVudGVkIGhlcmUuCgpP
-biA2LzE0LzIwMjEgOToxNCBBTSwgUGV0ciBWb3JlbCB3cm90ZToKPiBIaSBKb2VyZywKPgo+IFsg
-Q2MgQWxleGV5IF0KPj4gRnJvbTogSm9lcmcgVmVobG93IDxqb2VyZy52ZWhsb3dAYW94LXRlY2gu
-ZGU+Cj4+IEFwYXJ0IGZyb20gcHVyZSBjb252ZXJzaW9uOgo+PiAgIC0gVXNlICJTdHJpY3RNb2Rl
-cyBubyIgaW4gc3NoIGNvbmZpZywgdG8gZ2V0IHJpZCBvZgo+PiAgICAgYWNjZXNzIHBlcm1pc3Np
-b24gcHJvYmxlbXM7IEFsbCBwYXJ0IG9mIHRoZSBwYXRoIG9mIHRoZQo+PiAgICAgYXV0aG9yaXpl
-ZF9rZXlzIGZpbGUgbXVzdCBub3QgYmUgd3JpdGVhYmxlIGJ5IGFueW9uZSBidXQgdGhlIG93bmVy
-Lgo+PiAgICAgVGhpcyBhbGxvd3Mgd3JpdGluZyB0aGUgZmlsZSB0byB0aGUgZGVmYXVsdCB0ZW1w
-IGRpcmVjdG9yeQo+PiAgIC0gTW92ZWQgYWxsIHJob3N0IHNjcmlwdHMgaW50byBzc2gtc3RyZXNz
-LnNoCj4gKzEKPgo+IE5pY2Ugd29yaywgTEdUTSwgZmV3IHNtYWxsIG5vdGVzIChjb3VsZCBiZSBm
-aXhlZCBiZWZvcmUgbWVyZ2UpLgo+IFJldmlld2VkLWJ5OiBQZXRyIFZvcmVsIDxwdm9yZWxAc3Vz
-ZS5jej4KPgo+IE91dCBvZiBjdXJpb3NpdHksIGRpZCB5b3UgdGVzdCB0aGlzIG9uIFR3byBIb3N0
-IENvbmZpZ3VyYXRpb24gWzJdIChpLmUuIHNzaCk/Cj4gT3IganVzdCBuZXRucz8KTm8sIGJ1dCBz
-aG91bGQgaGF2ZS4uLgpJIGZvdW5kIHR3byBtYWpvciBwcm9ibGVtcyB3aXRoIHRoZSB0ZXN0ICh3
-aWxsIHNlbmQgYSB2MikuIEJ1dCBhcGFydCAKZnJvbSB0aGF0LCBlaXRoZXIgSSB3YXMgbm90IGFi
-bGUgdG8gZmluZCB0aGUgZG9jdW1lbnRhdGlvbiBvciBpdCBpcyBub3QgCmNsZWFyIGVub3VnaCB0
-byBtZSwgaG93IHRvIHJ1biB0aGUgdHdvIGhvc3Qgc2V0dXAuCkkgZm91bmQgbmV0d29yay9SRUFE
-TUUubWQsIGJ1dCBpdCBvbmx5IG1lbnRpb25zIHRvIHNldCBSSE9TVCwgYnV0IGZvciBteSAKc2V0
-dXAgKHdpdGggaXBzIGRpZmZlcmVudCBmcm9tIHRoZSBkZWZhdWx0IG9uZXMsIElQVns0LDZ9X3tM
-LFJ9SE9TVCBpcyAKYWxzbyByZXF1aXJlZCkgYW5kIGx0cCBtdXN0IGFscmVhZHkgYmUgaW4gdGhl
-IFBBVEggb24gcmhvc3QsIHdoaWNoIHdhcyAKbm90IHBvc3NpYmxlIGZvciBteSByaG9zdCBzZXR1
-cCwgd2hlcmUgdGhlIGZpbGVzeXN0ZW0gaXMgcmVhZC1vbmx5IGFuZCBJIApoYWQgdG8gaGFjayBz
-ZXR0aW5nIHRoZSBwYXRoIGludG8gdHN0X3Job3N0X3J1bi4gSXQgaXMgbm90IHRvdGFsbHkgCmNs
-ZWFyLCB0aGF0IGx0cCBpbiBwYXRoIGlzIHJlcXVpcmVkIHRvIGJlIHNldCBmb3IgdGhlIHJob3N0
-IHNzaCBhY2NvdW50IAooYWx0aG91Z2ggaXQgaXMgaGludGVkKS4KPgo+PiAgIGNsZWFudXAoKQo+
-PiAgIHsKPj4gKwlsb2NhbCBwaWRzCj4gSGVyZSBuZWVkcyB0byBiZSBwaWQgYXMgd2VsbC4KZG9u
-ZSBmb3IgdjIKPj4gLQljaGVja19pY21wdiR7VFNUX0lQVkVSfV9jb25uZWN0aXZpdHkgJCh0c3Rf
-aWZhY2UpICQodHN0X2lwYWRkciByaG9zdCkgfHwgXAo+PiAtCQl0c3RfYnJrbSBUQlJPSyAiRmFp
-bGVkIHRvIHBpbmcgdG8gJCh0c3RfaXBhZGRyIHJob3N0KSIKPj4gKwljaGVja19pY21wdiR7VFNU
-X0lQVkVSfV9jb25uZWN0aXZpdHkgJCh0c3RfaWZhY2UpICQodHN0X2lwYWRkciByaG9zdCkgXAo+
-PiArCQl8fCB0c3RfYnJrIFRCUk9LICJGYWlsZWQgdG8gcGluZyAkKHRzdF9pcGFkZHIgcmhvc3Qp
-Igo+IEFueXRoaW5nIGZyb20gdGVzdGNhc2VzL25ldHdvcmsvc3RyZXNzL25zLXRvb2xzLyBpcyBk
-ZXByZWNhdGVkLAo+IGluY2x1ZGluZyBjaGVja19pY21wdns0LDZ9X2Nvbm5lY3Rpdml0eS4gQnV0
-IHRoaXMgY2FuIGJlIHNhZmVseSByZW1vdmVkLgo+IEFsdGhvdWdoIEkgZG9uJ3Qgc2VlIGFueSBj
-b25uZWN0aXZpdHkgY2hlY2sgaW4gdHN0X25ldC5zaCwgaXQgc2hvdWxkIGJlIGhhbmRsZWQKPiB0
-aGVyZS4gSU1ITyBpdCdzIG5lZWRlZCBhdCBsZWFzdCBmb3IgZm9yIHR3byBob3N0IGJhc2VkIGNv
-bmZpZ3VyYXRpb24sIGJ1dCBpdCBkb2VzIG5vdCBoYXJtIHRvIHRlc3QgYWxzbyBuZXRucyBiYXNl
-ZCBzZXR1cCwgdGh1cyBzb21ld2hlcmUgYWZ0ZXIgaW5pdF9sdHBfbmV0c3BhY2UuClRoZXJlIGlz
-IHRzdF9waW5nIGluIHRzdF9uZXQuc2guIFdpdGhvdXQgYXJndW1lbnRzLCBpdCBqdXN0IHRlc3Rz
-IApjb25uZWN0aXZpdHkgdG8gcmhvc3QuCk5ldmVydGhlbGVzcywgdGhpcyBpcyBraW5kIG9mIHVz
-ZWxlc3MgaW4gc2V0dXAgaGVyZS4gT3RoZXIgbmV0d29yayB0ZXN0cyAKZG8gbm90IGNoZWNrIGF2
-YWlsYWJpbGl0eSBiZWZvcmUgZXhlY3V0aW9uLCBzbyBJIGp1c3QgZHJvcHBlZCBpdCBmb3IgdjIu
-CisxIG9uIGFkZGluZyBpdCB0byB0c3RfbmV0LnNoIGluaXRpYWxpemF0aW9uCj4KPj4gLXRlc3Qw
-MSgpCj4+ICt0ZXN0X3NzaF9jb25uZWN0aXZpdHkoKQo+PiAgIHsKPj4gLQl0c3RfcmVzbSBUSU5G
-TyAiQ3JlYXRpbmcgJyRDT05ORUNUSU9OX1RPVEFMJyBzc2ggc2Vzc2lvbnMiCj4+IC0KPj4gLQl0
-c3Rfcmhvc3RfcnVuIC1zIC1jICJzc2gtc3RyZXNzMDEtcm10LnNoICRUU1RfSVBWRVIgJCh0c3Rf
-aXBhZGRyKSBcCj4+IC0JCSRyY29uZmlnICRDT05ORUNUSU9OX1RPVEFMIgo+PiAtCj4+IC0JdHN0
-X3Jlc20gVFBBU1MgIlRlc3QgaXMgZmluaXNoZWQgc3VjY2Vzc2Z1bGx5Igo+PiArCXRzdF9yaG9z
-dF9ydW4gLWMgIiRSSE9TVF9TU0ggJ3RydWUgPi9kZXYvbnVsbCAyPiYxJyA+L2Rldi9udWxsIgo+
-PiArCVsgJD8gLW5lIDAgXSAmJiB0c3RfcmVzIFRGQUlMICJTU0ggbm90IHJlYWNoYWJsZSIKPiBJ
-IGd1ZXNzIHlvdSByZW1vdmVkIC1zIChzZWN1cml0eSksIHRvIGdldCBtb3JlIGRlc2NyaXB0aXZl
-IGVycm9yLgo+IEJ1dCB0aGVuIHlvdSBJTUhPIG5lZWQgdG8gdXNlIHRzdF9icmsgdG8gcXVpdCB0
-aGUgdGVzdC4KPiBPciBpZiBpdCB3YXMgZGVsaWJlcmF0ZSB0byBrZWVwIG90aGVyIHRlc3RzIHJ1
-bm5pbmcsIHRoZW4gdGVzdDEKPiB3b3VsZCBwcmludCBUUEFTUyAiVGVzdCBmaW5pc2hlZCBzdWNj
-ZXNzZnVsbHkiIGV2ZW4gaXQgZmFpbHMgZHVlIHRoaXMuClJpZ2h0LCB0aGlzIHNob3VsZCBiZSB0
-c3RfYnJrIGFuZCB5ZXMgSSBkaWQgaXQgd2l0aG91dCAtcywgdG8gYWRkIGEgCmJldHRlciBlcnJv
-ciBtZXNzYWdlLgpUaGVyZSBpcyBubyB3YXkgdGhlIG90aGVyIHN1YnRlc3RzIGNvdWxkIHBhc3Ms
-IGlmIHRoZSBzc2hkIHN0YXJ0ZWQgaW4gCnNldHVwIGlzIG5vdCByZWFjaGFibGUgYW55bW9yZSwg
-c28gbm8gcG9pbnQgaW4gdHJ5aW5nIHRvIGNvbnRpbnVlLgpGaXhlZCBmb3IgdjIKPgo+PiAtCXRz
-dF9yZXNtIFRQQVNTICJUZXN0IGlzIGZpbmlzaGVkIHN1Y2Nlc3NmdWxseSIKPj4gKwl0ZXN0X3Nz
-aF9jb25uZWN0aXZpdHkKPj4gKwo+PiArCVJIT1NUX1BJRFM9Cj4+ICsJbnVtPTAKPj4gKwl3aGls
-ZSBbICRudW0gLWx0ICRDT05ORUNUSU9OX1RPVEFMIF07IGRvCj4+ICsJCXBpZD0kKHRzdF9yaG9z
-dF9ydW4gLWMgIiRSSE9TVF9TU0ggLU4gPC9kZXYvbnVsbCAxPi9kZXYvbnVsbCAyPiYxIFwKPj4g
-KwkJCSYgXGVjaG8gXCQhIikKXGVjaG8gaXMgb2J2aW91c2x5IHdyb25nIGhlcmUuIEkgbWVzc2Vk
-IHRoaXMgdXAgd2hpbGUgZm9ybWF0dGluZyB0aGUgZmlsZS4uLgo+ICsJCQljb250aW51ZTsKPiBu
-aXQ6IHRyYWlsaW5nIDsgdW5uZWVkZWQgKGVycm9yIGZyb20gdGhlIG9yaWdpbmFsIHNzaC1zdHJl
-c3MwMi1ybXQuc2gpCmZpeGVkIGZvciB2Mgo+Cj4+ICsKPj4gKwl0c3RfcmVzIFRJTkZPICJXYWl0
-aW5nIGZvciBhbGwgY29ubmVjdGlvbnMgdG8gdGVybWluYXRlIgo+PiArCXdoaWxlIFsgLW4gIiRS
-SE9TVF9QSURTIiBdOyBkbwo+PiArCQl0c3Rfc2xlZXAgMXMKPiBuaXQ6IEknZCBiZSBjb25zaXN0
-ZW50IHdpdGggcHJldmlvdXMgKDFzIHZzLiAxKS4KZml4ZWQgZm9yIHYyCj4+IC0JdHN0X3Job3N0
-X3J1biAtcyAtYyAic3NoLXN0cmVzczAzLXJtdC5zaCAkVFNUX0lQVkVSICQodHN0X2lwYWRkcikg
-XAo+PiAtCQkkcmNvbmZpZyAkcG9ydCAkTlNfVElNRVMiCj4+ICsJIyBTZXR1cCBhbiBzc2ggdHVu
-bmVsIGZyb20gdGhlIHJlbW90ZSBob3N0IHRvIHRlc3Rob3N0Cj4+ICsJUkhPU1RfUElEUz0kKHRz
-dF9yaG9zdF9ydW4gLWMgXAo+PiArCQkiJFJIT1NUX1NTSCAtTiAtTCAkbHBvcnQ6JHJob3N0OiRw
-b3J0IDwvZGV2L251bGwgMT4vZGV2L251bGwgMj4mMSBcCj4+ICsJCSYgZWNobyBcJCEiKQo+PiAr
-CXRzdF9zbGVlcCAxCj4+IC0JdHN0X3Jlc20gVFBBU1MgIlRlc3QgaXMgZmluaXNoZWQgc3VjY2Vz
-c2Z1bGx5Igo+PiAtfQo+PiArCSMgU3RhcnQgdGhlIFRDUCB0cmFmZmljIGNsaWVudHMKPj4gKwl0
-c3Rfcmhvc3RfcnVuIC1zIC1jICJuZXRzdHJlc3MgLXIgJE5TX1RJTUVTIC1sIC1IICRsb2NhbGhv
-c3QgLWcgJGxwb3J0ID4gL2Rldi9udWxsIgo+PiAtc2V0dXAKPj4gKwlraWxsICRSSE9TVF9QSURT
-ClRoaXMga2lsbHMgdGhlIHNzaCBzZXNzaW9uIHNldHVwIG9uIHRoZSByZW1vdGUgaG9zdCwgc28g
-dGhpcyBtdXN0IGJlIApleGVjdXRlZCBvbiB0aGUgcmVtb3RlIGhvc3QuLi4KCkrDtnJnCgotLSAK
-TWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
+From: Joerg Vehlow <joerg.vehlow@aox-tech.de>
+
+Apart from pure conversion:
+ - Use "StrictModes no" in ssh config, to get rid of
+   access permission problems; All part of the path of the
+   authorized_keys file must not be writeable by anyone but the owner.
+   This allows writing the file to the default temp directory
+ - Moved all rhost scripts into ssh-stress.sh
+
+Signed-off-by: Joerg Vehlow <joerg.vehlow@aox-tech.de>
+---
+ .../network/stress/ssh/00_Descriptions.txt    |  11 -
+ testcases/network/stress/ssh/Makefile         |  24 +-
+ testcases/network/stress/ssh/ssh-stress.sh    | 260 ++++++++++++------
+ .../network/stress/ssh/ssh-stress01-rmt.sh    |  65 -----
+ .../network/stress/ssh/ssh-stress02-rmt.sh    |  76 -----
+ .../network/stress/ssh/ssh-stress03-rmt.sh    |  77 ------
+ 6 files changed, 174 insertions(+), 339 deletions(-)
+ delete mode 100644 testcases/network/stress/ssh/00_Descriptions.txt
+ delete mode 100755 testcases/network/stress/ssh/ssh-stress01-rmt.sh
+ delete mode 100755 testcases/network/stress/ssh/ssh-stress02-rmt.sh
+ delete mode 100755 testcases/network/stress/ssh/ssh-stress03-rmt.sh
+
+diff --git a/testcases/network/stress/ssh/00_Descriptions.txt b/testcases/network/stress/ssh/00_Descriptions.txt
+deleted file mode 100644
+index 543e60d7d..000000000
+--- a/testcases/network/stress/ssh/00_Descriptions.txt
++++ /dev/null
+@@ -1,11 +0,0 @@
+-ssh-stress01
+-	Verify the ssh connectivity over IPv4/IPv6 is not broken
+-	after creating many ssh sessions
+-
+-ssh-stress02
+-	Verify the ssh connectivity over IPv4/IPv6 is not broken
+-	after logged in/out by many clients asynchronously for a long time
+-
+-ssh-stress03
+-	Verify the ssh connectivity over IPv4/IPv6 is not broken
+-	after forwarding TCP traffic for a long time
+diff --git a/testcases/network/stress/ssh/Makefile b/testcases/network/stress/ssh/Makefile
+index 1a6d052eb..7ebeec142 100644
+--- a/testcases/network/stress/ssh/Makefile
++++ b/testcases/network/stress/ssh/Makefile
+@@ -1,24 +1,6 @@
+-#
+-#    testcases/network/stress/ssh Makefile.
+-#
+-#    Copyright (C) 2009, Cisco Systems Inc.
+-#
+-#    This program is free software; you can redistribute it and/or modify
+-#    it under the terms of the GNU General Public License as published by
+-#    the Free Software Foundation; either version 2 of the License, or
+-#    (at your option) any later version.
+-#
+-#    This program is distributed in the hope that it will be useful,
+-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-#    GNU General Public License for more details.
+-#
+-#    You should have received a copy of the GNU General Public License along
+-#    with this program; if not, write to the Free Software Foundation, Inc.,
+-#    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+-#
+-# Ngie Cooper, October 2009
+-#
++# SPDX-License-Identifier: GPL-2.0-or-later
++# Copyright (C) 2009, Cisco Systems Inc.
++# Ngie Cooper, July 2009
+ 
+ top_srcdir		?= ../../../..
+ 
+diff --git a/testcases/network/stress/ssh/ssh-stress.sh b/testcases/network/stress/ssh/ssh-stress.sh
+index 516bce765..49122eb54 100755
+--- a/testcases/network/stress/ssh/ssh-stress.sh
++++ b/testcases/network/stress/ssh/ssh-stress.sh
+@@ -1,147 +1,229 @@
+ #!/bin/sh
+-
++# SPDX-License-Identifier: GPL-2.0-or-later
++# Copyright (c) 2021 Joerg Vehlow <joerg.vehlow@aox-tech.de>
+ # Copyright (c) 2015 Oracle and/or its affiliates. All Rights Reserved.
+-# Copyright (c) International Business Machines  Corp., 2005
+-#
+-# This program is free software; you can redistribute it and/or
+-# modify it under the terms of the GNU General Public License as
+-# published by the Free Software Foundation; either version 2 of
+-# the License, or (at your option) any later version.
+-#
+-# This program is distributed in the hope that it would be useful,
+-# but WITHOUT ANY WARRANTY; without even the implied warranty of
+-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-# GNU General Public License for more details.
+-#
+-# You should have received a copy of the GNU General Public License
+-# along with this program; if not, write the Free Software Foundation,
+-# Inc.,  51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+-#
++# Copyright (c) International Business Machines Corp., 2005
+ # Author: Mitsuru Chinen <mitch@jp.ibm.com>
+-#
+ 
+-TCID=ssh-stress
+-TST_TOTAL=3
+ TST_CLEANUP="cleanup"
++TST_SETUP="setup"
++TST_TESTFUNC="test"
++TST_CNT=3
++TST_NEEDS_ROOT=1
++TST_NEEDS_TMPDIR=1
++TST_NEEDS_CMDS="sshd ssh od xargs"
+ 
+-TST_USE_LEGACY_API=1
+ . tst_net.sh
+ 
+-# Temporary directory to store sshd setting or ssh key
+-# Note: ssh doesn't work when those directory is under /tmp.
+-TMPDIR="/root"
++# SSH config file on the remote host
++RHOST_SSH_CONF=
++# SSG command to connect from the remote host to the test host
++RHOST_SSH=
++# Processes started on the remote host, killed at cleanup
++RHOST_PIDS=
++# Netstress process started on the test host, killed at cleanup
++NETSTRESS_PID=
+ 
+ cleanup()
+ {
++	local pids pid
++
+ 	# Stop the ssh daemon
+-	test -s sshd.pid && kill $(cat sshd.pid)
+-	pkill 'netstress$'
+-	tst_rmdir
+-	[ "$rtmpdir" ] && tst_rhost_run -c "rm -rf $rtmpdir"
+-	TMPDIR=
++	[ -s sshd.pid ] && kill $(cat sshd.pid)
++	[ -n "$NETSTRESS_PID" ] && kill -2 $NETSTRESS_PID >/dev/null 2>&1
++
++	for pid in $RHOST_PIDS; do
++		tst_rhost_run -c "kill -- $pid"  >/dev/null 2>&1
++	done
++
++	# Kill all remaining ssh processes
++	tst_rhost_run -c "ps auwx | \
++		awk '\$0 ~ \"$RHOST_SSH_CONF\" && \$11 == \"ssh\" {print \$2}' | \
++		xargs -r -t kill -- >/dev/null 2>&1"
+ }
+ 
+ setup()
+ {
+-	trap "tst_brkm TBROK 'test interrupted'" INT
+-
+-	tst_require_root
+-	tst_require_cmds pkill sshd ssh od
+-
+-	# Get the sshd command with absolute path
+-	SSHD=$(which sshd)
+-	test "$SSHD" || tst_brkm TBROK "sshd daemon is not found"
++	local port rc
+ 
+-	check_icmpv${TST_IPVER}_connectivity $(tst_iface) $(tst_ipaddr rhost) || \
+-		tst_brkm TBROK "Failed to ping to $(tst_ipaddr rhost)"
+ 
+ 	port=$(tst_rhost_run -c "tst_get_unused_port ipv${TST_IPVER} stream")
+ 
+-	tst_tmpdir
+-
+-	tmpdir=$TST_TMPDIR
+-
+-	cat << EOD > $tmpdir/sshd_config
++	cat << EOD > sshd_config
+ Port $port
+ ListenAddress $(tst_ipaddr)
+ PermitRootLogin yes
+-AuthorizedKeysFile $tmpdir/authorized_keys
++AuthorizedKeysFile $TST_TMPDIR/authorized_keys
+ PasswordAuthentication no
+ AllowTcpForwarding yes
+ TCPKeepAlive yes
+ UseDNS no
+-PidFile $tmpdir/sshd.pid
++StrictModes no
++PidFile $TST_TMPDIR/sshd.pid
+ EOD
+ 
+-	$SSHD -f $tmpdir/sshd_config || \
+-		tst_brkm TBROK "Failed to run sshd daemon"
+-
+-	tst_resm TINFO "Generate configuration file and key at the remote host"
+-	rtmpdir=$(tst_rhost_run -c "mktemp -d -p $TMPDIR")
+-	tst_rhost_run -s -c "ssh-keygen -t rsa -N \"\" -f $rtmpdir/id_rsa > /dev/null"
++	tst_res TINFO "Generate configuration file and key at the remote host"
++	tst_rhost_run -s -c "ssh-keygen -t rsa -N \"\" -f $TST_TMPDIR/id_rsa \
++		>/dev/null"
+ 
+-	rconfig=$rtmpdir/ssh_config
++	RHOST_SSH_CONF=$TST_TMPDIR/ssh_config
+ 
+ 	tst_rhost_run -s -c "printf \"\
+ Port $port\n\
+ StrictHostKeyChecking no\n\
+ PasswordAuthentication no\n\
+-UserKnownHostsFile $rtmpdir/known_hosts\n\
+-IdentityFile $rtmpdir/id_rsa\n\" > $rconfig"
++UserKnownHostsFile $TST_TMPDIR/known_hosts\n\
++IdentityFile $TST_TMPDIR/id_rsa\n\" > $RHOST_SSH_CONF"
+ 
+-	tst_rhost_run -s -c "chmod 700 $rtmpdir; chmod 600 $rtmpdir/*"
++	tst_res TINFO "Generate authorized_keys"
++	tst_rhost_run -c "cat ${TST_TMPDIR}/id_rsa.pub" > authorized_keys
+ 
+-	tst_resm TINFO "Generate authorized_keys"
+-	tst_rhost_run -c "cat ${rtmpdir}/id_rsa.pub" > $tmpdir/authorized_keys
++	tst_res TINFO "restore context of authorized_keys"
++	rc=$(command -v restorecon)
++	[ -n "$rc" ] && $rc authorized_keys
+ 
+-	tst_resm TINFO "restore context of authorized_keys"
+-	local rc=$(which restorecon)
+-	test "$rc" && $rc $tmpdir/authorized_keys
++	$(command -v sshd) -f $TST_TMPDIR/sshd_config || \
++		tst_brk TBROK "Failed to run sshd daemon"
+ 
+-	chmod 700 $tmpdir
+-	chmod 600 $tmpdir/*
++	RHOST_SSH="ssh -$TST_IPVER -F $RHOST_SSH_CONF $(tst_ipaddr)"
+ }
+ 
+-test01()
++test_ssh_connectivity()
+ {
+-	tst_resm TINFO "Creating '$CONNECTION_TOTAL' ssh sessions"
+-
+-	tst_rhost_run -s -c "ssh-stress01-rmt.sh $TST_IPVER $(tst_ipaddr) \
+-		$rconfig $CONNECTION_TOTAL"
+-
+-	tst_resm TPASS "Test is finished successfully"
++	tst_rhost_run -c "$RHOST_SSH 'true >/dev/null 2>&1' >/dev/null"
++	[ $? -ne 0 ] && tst_brk TFAIL "SSH not reachable"
+ }
+ 
+-test02()
++test1()
+ {
+-	tst_resm TINFO "Log in/out by many clients asynchronously"
+-	tst_resm TINFO "'$CONNECTION_TOTAL' clients, time $NS_DURATION sec"
++	local num all_conn pid
+ 
+-	tst_rhost_run -s -c "ssh-stress02-rmt.sh $TST_IPVER $(tst_ipaddr) \
+-		$rconfig $CONNECTION_TOTAL $NS_DURATION"
++	tst_res TINFO "Verify the ssh connectivity over IPv4/IPv6 is not broken after creating many ssh sessions"
+ 
+-	tst_resm TPASS "Test is finished successfully"
++	test_ssh_connectivity
++
++	RHOST_PIDS=
++	num=0
++	while [ $num -lt $CONNECTION_TOTAL ]; do
++		pid=$(tst_rhost_run -c "$RHOST_SSH -N </dev/null 1>/dev/null 2>&1 \
++			& echo \$!")
++		RHOST_PIDS="$RHOST_PIDS $pid"
++		num=$(($num + 1))
++	done
++
++	tst_res TINFO "Killing all ssh sessions"
++	num=0
++	for pid in $RHOST_PIDS; do
++		tst_rhost_run -c "kill $pid" >/dev/null
++		[ $? -ne 0 ] && num=$((num + 1))
++	done
++	
++	[ $num -ne 0 ] && tst_brk TFAIL "Some ssh processes died during execution"
++
++	test_ssh_connectivity
++
++	tst_res TPASS "Test finished successfully"
+ }
+ 
+-test03()
++test2()
+ {
+-	tst_resm TINFO "Forwarding TCP traffic with $NS_TIMES requests"
++	local start_epoc pids total_connections elapse_epoc new_pids
++	local ssh_num wait_sec login_sec
++
++	tst_res TINFO "Verify the ssh connectivity over IPv4/IPv6 is not broken after logged in/out by many clients asynchronously for a long time"
++
++	test_ssh_connectivity
++
++	start_epoc=$(date +%s)
++	RHOST_PIDS=
++	total_connections=0
++	while true ; do
++		# Exit after the specified time has elapsed.
++		elapse_epoc=$(( $(date +%s) - $start_epoc))
++		[ $elapse_epoc -ge $NS_DURATION ] && break
++
++		new_pids=
++		for pid in $RHOST_PIDS; do
++			if tst_rhost_run -c "kill -0 $pid" >/dev/null; then
++				new_pids="$new_pids $pid"
++			fi
++		done
++		RHOST_PIDS="$new_pids"
++
++		# Do not make ssh connection over the specified quantity
++		ssh_num=$(echo "$pids" | wc -w)
++		if [ $ssh_num -ge $CONNECTION_TOTAL ]; then
++			tst_res TINFO "Max connections reached"
++			tst_sleep 1
++			continue
++		fi
++
++		# specified wait time and login time
++		wait_sec=$(( $(od -A n -d -N 1 /dev/urandom) * 3 / 255 ))
++		login_sec=$(( $(od -A n -d -N 1 /dev/urandom) * 10 / 255 ))
++
++		# Login to the server
++		pid=$(tst_rhost_run -c "( \
++			  sleep $wait_sec && $RHOST_SSH -l root \"sleep $login_sec\" \
++			) </dev/null 1>/dev/null 2>&1 & echo \$!"
++		)
++		RHOST_PIDS="$RHOST_PIDS $pid"
++		total_connections=$(( total_connections + 1 ))
++	done
++
++	tst_res TINFO "Waiting for all connections to terminate"
++	while [ -n "$RHOST_PIDS" ]; do
++		tst_sleep 1
++		new_pids=
++		for pid in $RHOST_PIDS; do
++			if tst_rhost_run -c "kill -0 $pid" >/dev/null 2>&1; then
++				new_pids="$new_pids $pid"
++			fi
++		done
++		RHOST_PIDS="$new_pids"
++	done
++
++	test_ssh_connectivity
++
++	tst_res TPASS "Test finished successfully ($total_connections connections)"
++}
+ 
+-	# Run a TCP traffic server
++test3()
++{
++	local port lport localhost rhost ret
++	tst_res TINFO "Verify the ssh connectivity over IPv4/IPv6 is not broken after forwarding TCP traffic for a long time"
++
++	localhost="127.0.0.1"
++	rhost="$(tst_ipaddr)"
++	if [ "$TST_IPVER" = "6" ]; then
++		localhost="::1"
++		rhost="[$(tst_ipaddr)]"
++	fi
++
++	test_ssh_connectivity
++
++	# Get a port for the server and a forwarding port
+ 	port=$(tst_get_unused_port ipv${TST_IPVER} stream)
++	lport=$(tst_rhost_run -c "tst_get_unused_port ipv${TST_IPVER} stream")
+ 
+-	netstress -R 3 -g $port > tcp_server.log 2>&1 &
++	# Start a tcp server
++	netstress -R 3 -g $port >/dev/null 2>&1 &
++	NETSTRESS_PID=$!
+ 
+-	tst_rhost_run -s -c "ssh-stress03-rmt.sh $TST_IPVER $(tst_ipaddr) \
+-		$rconfig $port $NS_TIMES"
++	# Setup an ssh tunnel from the remote host to testhost
++	RHOST_PIDS=$(tst_rhost_run -c \
++		"$RHOST_SSH -N -L $lport:$rhost:$port </dev/null 1>/dev/null 2>&1 \
++		& echo \$!")
++	tst_sleep 1
+ 
+-	tst_resm TPASS "Test is finished successfully"
+-}
++	# Start the TCP traffic clients
++	tst_rhost_run -s -c "netstress -r $NS_TIMES -l -H $localhost -g $lport > /dev/null"
+ 
+-setup
++	tst_rhost_run -c "kill $RHOST_PIDS >/dev/null &>/dev/null"
++	
++	test_ssh_connectivity
+ 
+-test01
+-test02
+-test03
++	tst_res TPASS "Test finished successfully"
++}
+ 
+-tst_exit
++tst_run
+diff --git a/testcases/network/stress/ssh/ssh-stress01-rmt.sh b/testcases/network/stress/ssh/ssh-stress01-rmt.sh
+deleted file mode 100755
+index b2f65793e..000000000
+--- a/testcases/network/stress/ssh/ssh-stress01-rmt.sh
++++ /dev/null
+@@ -1,65 +0,0 @@
+-#!/bin/sh
+-
+-# Copyright (c) 2015 Oracle and/or its affiliates. All Rights Reserved.
+-# Copyright (c) International Business Machines  Corp., 2005
+-#
+-# This program is free software; you can redistribute it and/or
+-# modify it under the terms of the GNU General Public License as
+-# published by the Free Software Foundation; either version 2 of
+-# the License, or (at your option) any later version.
+-#
+-# This program is distributed in the hope that it would be useful,
+-# but WITHOUT ANY WARRANTY; without even the implied warranty of
+-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-# GNU General Public License for more details.
+-#
+-# You should have received a copy of the GNU General Public License
+-# along with this program; if not, write the Free Software Foundation,
+-# Inc.,  51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+-#
+-# Author: Mitsuru Chinen <mitch@jp.ibm.com>
+-#
+-
+-TCID="ssh_stress01_rmt"
+-TST_TOTAL=1
+-
+-. test.sh
+-
+-if [ $# -ne 4 ]; then
+-	tst_brkm TBROK "Usage: $0 ipver rhost config connections"
+-fi
+-
+-ip_ver="$1"
+-server_ipaddr="$2"
+-ssh_config="$3"
+-connections="$4"
+-
+-ssh -$ip_ver -F $ssh_config $server_ipaddr \
+-	"true < /dev/null > /dev/null 2>&1" > /dev/null
+-
+-[ $? -ne 0 ] && tst_brkm TBROK "Can't connect to '$server_ipaddr'"
+-
+-# Make ssh connections
+-num=0
+-while [ $num -lt $connections ]; do
+-	ssh -$ip_ver -f -N -F $ssh_config $server_ipaddr
+-	if [ $? -ne 0 ]; then
+-		tst_resm TINFO "'$num' seems the max num of ssh conn"
+-		break
+-	fi
+-	num=$(($num + 1))
+-done
+-
+-# Disconnect all ssh connection
+-all_conn=$(ps auxw | grep -Fv grep | \
+-	grep "ssh[[:blank:]].*${ssh_config}" | awk '{print $2}')
+-kill $all_conn
+-
+-# Check the connectivity again
+-ssh -$ip_ver -F $ssh_config $server_ipaddr \
+-	"true < /dev/null > /dev/null 2>&1" > /dev/null
+-if [ $? -ne 0 ]; then
+-	tst_brkm TBROK "Failed to connect $server_ipaddr"
+-fi
+-
+-tst_exit
+diff --git a/testcases/network/stress/ssh/ssh-stress02-rmt.sh b/testcases/network/stress/ssh/ssh-stress02-rmt.sh
+deleted file mode 100755
+index 05f4c3847..000000000
+--- a/testcases/network/stress/ssh/ssh-stress02-rmt.sh
++++ /dev/null
+@@ -1,76 +0,0 @@
+-#!/bin/sh
+-
+-# Copyright (c) 2015 Oracle and/or its affiliates. All Rights Reserved.
+-# Copyright (c) International Business Machines  Corp., 2005
+-#
+-# This program is free software; you can redistribute it and/or
+-# modify it under the terms of the GNU General Public License as
+-# published by the Free Software Foundation; either version 2 of
+-# the License, or (at your option) any later version.
+-#
+-# This program is distributed in the hope that it would be useful,
+-# but WITHOUT ANY WARRANTY; without even the implied warranty of
+-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-# GNU General Public License for more details.
+-#
+-# You should have received a copy of the GNU General Public License
+-# along with this program; if not, write the Free Software Foundation,
+-# Inc.,  51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+-#
+-# Author: Mitsuru Chinen <mitch@jp.ibm.com>
+-#
+-
+-TCID="ssh_stress02_rmt"
+-TST_TOTAL=1
+-
+-. test.sh
+-
+-# Check the arguments
+-if [ $# -ne 5 ]; then
+-	tst_brkm TBROK "Usage: $0 ipver rhost config connections duration"
+-fi
+-
+-ip_ver="$1"
+-server_ipaddr="$2"
+-ssh_config="$3"
+-connections="$4"
+-duration="$5"
+-
+-ssh -$ip_ver -F $ssh_config $server_ipaddr \
+-	"true < /dev/null > /dev/null 2>&1" > /dev/null
+-[ $? -ne 0 ] && tst_brkm TBROK "Failed to connect '$server_ipaddr'"
+-
+-start_epoc=$(date +%s)
+-while true ; do
+-	# Exit when the specified seconds have passed.
+-	current_epoc=$(date +%s)
+-	elapse_epoc=$(($current_epoc - $start_epoc))
+-
+-	[ $elapse_epoc -ge $duration ] && break
+-
+-	# Do not make ssh connection over the specified quantity
+-	ssh_num=$(jobs | wc -l)
+-	if [ $ssh_num -ge $connections ]; then
+-		sleep 1
+-		continue;
+-	fi
+-
+-	# specified wait time and login time
+-	wait_sec=$(($(od -A n -d -N 1 /dev/random) * 3 / 255))
+-	login_sec=$(($(od -A n -d -N 1 /dev/random) * 10 / 255))
+-
+-	# Login to the server
+-	(sleep $wait_sec ; ssh -$ip_ver -F $ssh_config -l root $server_ipaddr \
+-		"sleep $login_sec < /dev/null > /dev/null 2>&1") > \
+-		/dev/null 2>&1 &
+-done
+-
+-# wait for the finish of all process
+-wait
+-
+-# Check the connectivity again
+-ssh -$ip_ver -F $ssh_config $server_ipaddr \
+-	"true < /dev/null > /dev/null 2>&1" > /dev/null
+-[ $? -ne 0 ] && tst_brkm TBROK "Failed to connect '$server_ipaddr'"
+-
+-tst_exit
+diff --git a/testcases/network/stress/ssh/ssh-stress03-rmt.sh b/testcases/network/stress/ssh/ssh-stress03-rmt.sh
+deleted file mode 100755
+index da1abebcd..000000000
+--- a/testcases/network/stress/ssh/ssh-stress03-rmt.sh
++++ /dev/null
+@@ -1,77 +0,0 @@
+-#!/bin/sh
+-
+-# Copyright (c) 2015 Oracle and/or its affiliates. All Rights Reserved.
+-# Copyright (c) International Business Machines  Corp., 2005
+-#
+-# This program is free software; you can redistribute it and/or
+-# modify it under the terms of the GNU General Public License as
+-# published by the Free Software Foundation; either version 2 of
+-# the License, or (at your option) any later version.
+-#
+-# This program is distributed in the hope that it would be useful,
+-# but WITHOUT ANY WARRANTY; without even the implied warranty of
+-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-# GNU General Public License for more details.
+-#
+-# You should have received a copy of the GNU General Public License
+-# along with this program; if not, write the Free Software Foundation,
+-# Inc.,  51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+-#
+-# Author: Mitsuru Chinen <mitch@jp.ibm.com>
+-#
+-
+-TCID="ssh_stress03_rmt"
+-TST_TOTAL=1
+-
+-. test.sh
+-
+-# Check the arguments
+-if [ $# -ne 5 ]; then
+-	tst_brkm TBROK "Usage: $0 ipver rhost config port requests"
+-fi
+-
+-ip_ver="$1"
+-server_ipaddr="$2"
+-ssh_config="$3"
+-rport="$4"
+-requests="$5"
+-
+-ssh -$ip_ver -F $ssh_config $server_ipaddr \
+-	"true < /dev/null > /dev/null 2>&1" > /dev/null
+-[ $? -ne 0 ] && tst_brkm TBROK "Failed to connect '$server_ipaddr'"
+-
+-lport=$(tst_get_unused_port ipv${ip_ver} stream)
+-
+-# Set the ssh port-forwarding
+-case $ip_ver in
+-4)
+-	localhost="127.0.0.1"
+-	ssh -4 -f -N -L $lport:$server_ipaddr:$rport \
+-		root@$server_ipaddr -F $ssh_config
+-;;
+-6)
+-	localhost="::1"
+-	ssh -6 -f -N -L $lport:[$server_ipaddr]:$rport \
+-		root@$server_ipaddr -F $ssh_config
+-;;
+-esac
+-
+-# Start the TCP traffic clients
+-netstress -r $requests -l -H $localhost -g $lport > /dev/null
+-ret=$?
+-
+-# Stop the ssh port forwarding
+-all_conn=$(ps auxw | grep -Fv grep | \
+-	grep "ssh[[:blank:]].*${ssh_config}" | awk '{print $2}')
+-for ssh_pid in $all_conn ; do
+-	kill $ssh_pid
+-done
+-
+-[ $ret -ne 0 ] && tst_brkm TBROK "TCP traffic client is dead"
+-
+-# Check the connectivity again
+-ssh -$ip_ver -F $ssh_config $server_ipaddr \
+-	"true < /dev/null > /dev/null 2>&1" > /dev/null
+-[ $? -ne 0 ] && tst_brkm TBROK "Failed to connect '$server_ipaddr'"
+-
+-tst_exit
+-- 
+2.25.1
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
