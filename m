@@ -2,70 +2,52 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 118393A5E09
-	for <lists+linux-ltp@lfdr.de>; Mon, 14 Jun 2021 10:02:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E879F3A5F45
+	for <lists+linux-ltp@lfdr.de>; Mon, 14 Jun 2021 11:42:31 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 508683C8AF5
-	for <lists+linux-ltp@lfdr.de>; Mon, 14 Jun 2021 10:02:28 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 36C9E3C8AF6
+	for <lists+linux-ltp@lfdr.de>; Mon, 14 Jun 2021 11:42:31 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 5F1BC3C2E34
- for <ltp@lists.linux.it>; Mon, 14 Jun 2021 10:02:23 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 787323C2E34
+ for <ltp@lists.linux.it>; Mon, 14 Jun 2021 11:42:26 +0200 (CEST)
+Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 5CE531A008AB
- for <ltp@lists.linux.it>; Mon, 14 Jun 2021 10:02:23 +0200 (CEST)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 9604D21976;
- Mon, 14 Jun 2021 08:02:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1623657742;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=w5tCAFJY0yewHtvlPOjri4yQxY7QUO/KEzfdEDfnMHg=;
- b=DcQEI0wh7ZzDzgUuZU3DR43LJAXCHrto4VSKyJhYp6HEmSyVhOMYqZjTQZD8puVOWzS8EP
- yeAd0YhanWAWo7jzd3VGnpA5BSrAHTJ8rfDl04Je7Yd44+2GdTnse/iyjLrou/n3zRnZdn
- 5LaOdEj9nss611gvEDRAN1WYF4YsPho=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1623657742;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=w5tCAFJY0yewHtvlPOjri4yQxY7QUO/KEzfdEDfnMHg=;
- b=0GL2xvPPWHhKC2qQ420daxDzK8Y5BstEGEbsXG0F35CSXqeN3cIbq+dsFcKB6C1LBpBJC4
- Y7HlIlDkL6Hc9dCw==
-Received: from g78 (unknown [10.163.24.38])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id 4469BA3B87;
- Mon, 14 Jun 2021 08:02:22 +0000 (UTC)
-References: <20210609114659.2445-1-chrubis@suse.cz>
- <20210609114659.2445-4-chrubis@suse.cz> <YMDBFfCZwYDYwWDg@pevik>
- <YMDC/mjGTXxoq9uH@yuki> <fd006cd4-2f65-138a-8907-94153ee3b45e@suse.cz>
- <YMZgONrus6i45R9U@pevik>
-User-agent: mu4e 1.4.15; emacs 27.2
-From: Richard Palethorpe <rpalethorpe@suse.de>
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id EE9AD60080B
+ for <ltp@lists.linux.it>; Mon, 14 Jun 2021 11:42:24 +0200 (CEST)
+Received: from [192.168.178.40] (unknown [178.26.168.79])
+ by mail.jv-coder.de (Postfix) with ESMTPSA id 532639FBC8;
+ Mon, 14 Jun 2021 09:42:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
+ t=1623663740; bh=ZbY21rCT81qhZORgh3OogWtYJ3qj3fw4t35tRXRKK2A=;
+ h=Subject:To:From:Message-ID:Date:MIME-Version;
+ b=DgXTsnLjundK5NTptoMD69rwJQY6kdtH5SOZCQe8Mpexq6iFaDQ/yYMJ59p8spYRo
+ 2LLc8NQ1GbfMTvq6Y+Mo+5pYzmF5NlGA+YffKo9q50FQ+0X3YlrJkmF2zzN+aEKTmX
+ LKsHYi+M2reXZHGlNF8qzd+LSdGk/N7h7q90mLt4=
 To: Petr Vorel <pvorel@suse.cz>
-In-reply-to: <YMZgONrus6i45R9U@pevik>
-Date: Mon, 14 Jun 2021 09:02:21 +0100
-Message-ID: <87wnqw50xe.fsf@suse.de>
+References: <20210610101917.1251564-1-lkml@jv-coder.de>
+ <YMcB3Wcu0J9C3Z/Q@pevik>
+From: Joerg Vehlow <lkml@jv-coder.de>
+Message-ID: <5db0624b-a6ce-2c02-d1d4-52034c85b2f1@jv-coder.de>
+Date: Mon, 14 Jun 2021 11:42:19 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+In-Reply-To: <YMcB3Wcu0J9C3Z/Q@pevik>
+Content-Language: en-US
+X-Spam-Status: No, score=-0.4 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [Automated-testing] [PATCH 3/4] lib: Introduce concept of
- max_test_runtime
+Subject: Re: [LTP] [PATCH] ssh-stress: Convert to new api
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,88 +59,91 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
-Cc: ltp@lists.linux.it, automated-testing@yoctoproject.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>, ltp@lists.linux.it
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello,
-
-Petr Vorel <pvorel@suse.cz> writes:
-
-> Hi all,
->
->> On 09. 06. 21 15:32, Cyril Hrubis wrote:
->> > Hi!
->> >>>   - the scaled value is then divided, if needed, so that we end up a
->> >>>     correct maximal runtime for an instance of a test, i.e. we have
->> >>>     max runtime for an instance fork_testrun() that is inside of
->> >>>     .test_variants and .all_filesystems loops
->> >> Now "Max runtime per iteration" can vary, right? I.e. on .all_filesystems
->> >> runtime for each filesystems depends on number of filesystems? E.g. writev03.c
->> >> with setup .timeout = 600 on 2 filesystems is 5 min (300s), but with all 9
->> >> filesystems is about 1 min. We should document that author should expect max
->> >> number of filesystems. What happen with these values in the (long) future, when
->> >> LTP support new filesystem (or drop some)? This was a reason for me to define in
->> >> the test value for "Max runtime per iteration", not whole run.
->
->> > That's one of the downsides of this approach.
->
->> > The reason why I choose this approach is that you can set upper cap for
->> > the whole test run and not only for a single filesystem/variant.
->
->> > Also this way the test timeout corresponds to the maximal test runtime.
->
->> > Another option would be to redefine the timeout to be timeout per a
->> > fork_testrun() instance, which would make the approach slightly easier
->> > in some places, however that would mean either changing default test
->> > timeout to much smaller value and annotating all long running tests.
->
->> > Hmm, I guess that annotating all long running tests and changing default
->> > timeout may be a good idea regardless this approach.
->
->> Some fuzzysync tests have long run time by design because running too
->> few loops on broken systems will not trigger the bug. Limiting maximum
->> program execution time may be useful for quick smoke tests but it's not
->> usable for real test runs where we want reliable reproducibility.
-> Interesting.
->
->> I'd prefer adding a command line option to tst_test (e.g. -m) that would
->> just print test metadata, including total timeout of all fork_testrun()
->> subtests, and exit. Static metadata is not a sufficient solution for
-> FYI I suggested this some time ago with private chat with Cyril, he mentioned
-> that there were some problems with it. IMHO it'd be great to implement
-> it.
-
-Yes, it has been debated before. It may be an issue when cross
-compiling. Also verifying whether a test should really produce TCONF. I
-don't think it can be the primary way of extracting meta data. OTOH, it
-really makes sense for the test to report some info to the test
-runner. Including expected runtime and what environment it can see.
-
-The test runner can compare this data with its expectations. For
-example, if the test reports there is X NUMA nodes, but the runner
-thinks there should be Y NUMA nodes. This can help to verify people's
-configuration.
-
->
->> this because the same test binary may have different runtimes on
->> different system configurations, for example because the list of
->> available filesystems may change arbitrarily between test runs. It'd be
->> great if test runners other than runltp-ng could get a straighforward
->> timeout number without reimplementing a calculation that may change in
->> future versions of LTP.
-
-Other possibilities are that a test takes much longer to run on single
-core or larger page size. I have also theorised before that fuzzysync
-could measure the first few loops and tune the timeouts based on that. I
-don't think it is necessary, but that can change.
-
--- 
-Thank you,
-Richard.
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+SGksCgpJIHdpbGwgc2VuZCBhIHYyIHdpdGggdGhlIGNoYW5nZXMgY29tbWVudGVkIGhlcmUuCgpP
+biA2LzE0LzIwMjEgOToxNCBBTSwgUGV0ciBWb3JlbCB3cm90ZToKPiBIaSBKb2VyZywKPgo+IFsg
+Q2MgQWxleGV5IF0KPj4gRnJvbTogSm9lcmcgVmVobG93IDxqb2VyZy52ZWhsb3dAYW94LXRlY2gu
+ZGU+Cj4+IEFwYXJ0IGZyb20gcHVyZSBjb252ZXJzaW9uOgo+PiAgIC0gVXNlICJTdHJpY3RNb2Rl
+cyBubyIgaW4gc3NoIGNvbmZpZywgdG8gZ2V0IHJpZCBvZgo+PiAgICAgYWNjZXNzIHBlcm1pc3Np
+b24gcHJvYmxlbXM7IEFsbCBwYXJ0IG9mIHRoZSBwYXRoIG9mIHRoZQo+PiAgICAgYXV0aG9yaXpl
+ZF9rZXlzIGZpbGUgbXVzdCBub3QgYmUgd3JpdGVhYmxlIGJ5IGFueW9uZSBidXQgdGhlIG93bmVy
+Lgo+PiAgICAgVGhpcyBhbGxvd3Mgd3JpdGluZyB0aGUgZmlsZSB0byB0aGUgZGVmYXVsdCB0ZW1w
+IGRpcmVjdG9yeQo+PiAgIC0gTW92ZWQgYWxsIHJob3N0IHNjcmlwdHMgaW50byBzc2gtc3RyZXNz
+LnNoCj4gKzEKPgo+IE5pY2Ugd29yaywgTEdUTSwgZmV3IHNtYWxsIG5vdGVzIChjb3VsZCBiZSBm
+aXhlZCBiZWZvcmUgbWVyZ2UpLgo+IFJldmlld2VkLWJ5OiBQZXRyIFZvcmVsIDxwdm9yZWxAc3Vz
+ZS5jej4KPgo+IE91dCBvZiBjdXJpb3NpdHksIGRpZCB5b3UgdGVzdCB0aGlzIG9uIFR3byBIb3N0
+IENvbmZpZ3VyYXRpb24gWzJdIChpLmUuIHNzaCk/Cj4gT3IganVzdCBuZXRucz8KTm8sIGJ1dCBz
+aG91bGQgaGF2ZS4uLgpJIGZvdW5kIHR3byBtYWpvciBwcm9ibGVtcyB3aXRoIHRoZSB0ZXN0ICh3
+aWxsIHNlbmQgYSB2MikuIEJ1dCBhcGFydCAKZnJvbSB0aGF0LCBlaXRoZXIgSSB3YXMgbm90IGFi
+bGUgdG8gZmluZCB0aGUgZG9jdW1lbnRhdGlvbiBvciBpdCBpcyBub3QgCmNsZWFyIGVub3VnaCB0
+byBtZSwgaG93IHRvIHJ1biB0aGUgdHdvIGhvc3Qgc2V0dXAuCkkgZm91bmQgbmV0d29yay9SRUFE
+TUUubWQsIGJ1dCBpdCBvbmx5IG1lbnRpb25zIHRvIHNldCBSSE9TVCwgYnV0IGZvciBteSAKc2V0
+dXAgKHdpdGggaXBzIGRpZmZlcmVudCBmcm9tIHRoZSBkZWZhdWx0IG9uZXMsIElQVns0LDZ9X3tM
+LFJ9SE9TVCBpcyAKYWxzbyByZXF1aXJlZCkgYW5kIGx0cCBtdXN0IGFscmVhZHkgYmUgaW4gdGhl
+IFBBVEggb24gcmhvc3QsIHdoaWNoIHdhcyAKbm90IHBvc3NpYmxlIGZvciBteSByaG9zdCBzZXR1
+cCwgd2hlcmUgdGhlIGZpbGVzeXN0ZW0gaXMgcmVhZC1vbmx5IGFuZCBJIApoYWQgdG8gaGFjayBz
+ZXR0aW5nIHRoZSBwYXRoIGludG8gdHN0X3Job3N0X3J1bi4gSXQgaXMgbm90IHRvdGFsbHkgCmNs
+ZWFyLCB0aGF0IGx0cCBpbiBwYXRoIGlzIHJlcXVpcmVkIHRvIGJlIHNldCBmb3IgdGhlIHJob3N0
+IHNzaCBhY2NvdW50IAooYWx0aG91Z2ggaXQgaXMgaGludGVkKS4KPgo+PiAgIGNsZWFudXAoKQo+
+PiAgIHsKPj4gKwlsb2NhbCBwaWRzCj4gSGVyZSBuZWVkcyB0byBiZSBwaWQgYXMgd2VsbC4KZG9u
+ZSBmb3IgdjIKPj4gLQljaGVja19pY21wdiR7VFNUX0lQVkVSfV9jb25uZWN0aXZpdHkgJCh0c3Rf
+aWZhY2UpICQodHN0X2lwYWRkciByaG9zdCkgfHwgXAo+PiAtCQl0c3RfYnJrbSBUQlJPSyAiRmFp
+bGVkIHRvIHBpbmcgdG8gJCh0c3RfaXBhZGRyIHJob3N0KSIKPj4gKwljaGVja19pY21wdiR7VFNU
+X0lQVkVSfV9jb25uZWN0aXZpdHkgJCh0c3RfaWZhY2UpICQodHN0X2lwYWRkciByaG9zdCkgXAo+
+PiArCQl8fCB0c3RfYnJrIFRCUk9LICJGYWlsZWQgdG8gcGluZyAkKHRzdF9pcGFkZHIgcmhvc3Qp
+Igo+IEFueXRoaW5nIGZyb20gdGVzdGNhc2VzL25ldHdvcmsvc3RyZXNzL25zLXRvb2xzLyBpcyBk
+ZXByZWNhdGVkLAo+IGluY2x1ZGluZyBjaGVja19pY21wdns0LDZ9X2Nvbm5lY3Rpdml0eS4gQnV0
+IHRoaXMgY2FuIGJlIHNhZmVseSByZW1vdmVkLgo+IEFsdGhvdWdoIEkgZG9uJ3Qgc2VlIGFueSBj
+b25uZWN0aXZpdHkgY2hlY2sgaW4gdHN0X25ldC5zaCwgaXQgc2hvdWxkIGJlIGhhbmRsZWQKPiB0
+aGVyZS4gSU1ITyBpdCdzIG5lZWRlZCBhdCBsZWFzdCBmb3IgZm9yIHR3byBob3N0IGJhc2VkIGNv
+bmZpZ3VyYXRpb24sIGJ1dCBpdCBkb2VzIG5vdCBoYXJtIHRvIHRlc3QgYWxzbyBuZXRucyBiYXNl
+ZCBzZXR1cCwgdGh1cyBzb21ld2hlcmUgYWZ0ZXIgaW5pdF9sdHBfbmV0c3BhY2UuClRoZXJlIGlz
+IHRzdF9waW5nIGluIHRzdF9uZXQuc2guIFdpdGhvdXQgYXJndW1lbnRzLCBpdCBqdXN0IHRlc3Rz
+IApjb25uZWN0aXZpdHkgdG8gcmhvc3QuCk5ldmVydGhlbGVzcywgdGhpcyBpcyBraW5kIG9mIHVz
+ZWxlc3MgaW4gc2V0dXAgaGVyZS4gT3RoZXIgbmV0d29yayB0ZXN0cyAKZG8gbm90IGNoZWNrIGF2
+YWlsYWJpbGl0eSBiZWZvcmUgZXhlY3V0aW9uLCBzbyBJIGp1c3QgZHJvcHBlZCBpdCBmb3IgdjIu
+CisxIG9uIGFkZGluZyBpdCB0byB0c3RfbmV0LnNoIGluaXRpYWxpemF0aW9uCj4KPj4gLXRlc3Qw
+MSgpCj4+ICt0ZXN0X3NzaF9jb25uZWN0aXZpdHkoKQo+PiAgIHsKPj4gLQl0c3RfcmVzbSBUSU5G
+TyAiQ3JlYXRpbmcgJyRDT05ORUNUSU9OX1RPVEFMJyBzc2ggc2Vzc2lvbnMiCj4+IC0KPj4gLQl0
+c3Rfcmhvc3RfcnVuIC1zIC1jICJzc2gtc3RyZXNzMDEtcm10LnNoICRUU1RfSVBWRVIgJCh0c3Rf
+aXBhZGRyKSBcCj4+IC0JCSRyY29uZmlnICRDT05ORUNUSU9OX1RPVEFMIgo+PiAtCj4+IC0JdHN0
+X3Jlc20gVFBBU1MgIlRlc3QgaXMgZmluaXNoZWQgc3VjY2Vzc2Z1bGx5Igo+PiArCXRzdF9yaG9z
+dF9ydW4gLWMgIiRSSE9TVF9TU0ggJ3RydWUgPi9kZXYvbnVsbCAyPiYxJyA+L2Rldi9udWxsIgo+
+PiArCVsgJD8gLW5lIDAgXSAmJiB0c3RfcmVzIFRGQUlMICJTU0ggbm90IHJlYWNoYWJsZSIKPiBJ
+IGd1ZXNzIHlvdSByZW1vdmVkIC1zIChzZWN1cml0eSksIHRvIGdldCBtb3JlIGRlc2NyaXB0aXZl
+IGVycm9yLgo+IEJ1dCB0aGVuIHlvdSBJTUhPIG5lZWQgdG8gdXNlIHRzdF9icmsgdG8gcXVpdCB0
+aGUgdGVzdC4KPiBPciBpZiBpdCB3YXMgZGVsaWJlcmF0ZSB0byBrZWVwIG90aGVyIHRlc3RzIHJ1
+bm5pbmcsIHRoZW4gdGVzdDEKPiB3b3VsZCBwcmludCBUUEFTUyAiVGVzdCBmaW5pc2hlZCBzdWNj
+ZXNzZnVsbHkiIGV2ZW4gaXQgZmFpbHMgZHVlIHRoaXMuClJpZ2h0LCB0aGlzIHNob3VsZCBiZSB0
+c3RfYnJrIGFuZCB5ZXMgSSBkaWQgaXQgd2l0aG91dCAtcywgdG8gYWRkIGEgCmJldHRlciBlcnJv
+ciBtZXNzYWdlLgpUaGVyZSBpcyBubyB3YXkgdGhlIG90aGVyIHN1YnRlc3RzIGNvdWxkIHBhc3Ms
+IGlmIHRoZSBzc2hkIHN0YXJ0ZWQgaW4gCnNldHVwIGlzIG5vdCByZWFjaGFibGUgYW55bW9yZSwg
+c28gbm8gcG9pbnQgaW4gdHJ5aW5nIHRvIGNvbnRpbnVlLgpGaXhlZCBmb3IgdjIKPgo+PiAtCXRz
+dF9yZXNtIFRQQVNTICJUZXN0IGlzIGZpbmlzaGVkIHN1Y2Nlc3NmdWxseSIKPj4gKwl0ZXN0X3Nz
+aF9jb25uZWN0aXZpdHkKPj4gKwo+PiArCVJIT1NUX1BJRFM9Cj4+ICsJbnVtPTAKPj4gKwl3aGls
+ZSBbICRudW0gLWx0ICRDT05ORUNUSU9OX1RPVEFMIF07IGRvCj4+ICsJCXBpZD0kKHRzdF9yaG9z
+dF9ydW4gLWMgIiRSSE9TVF9TU0ggLU4gPC9kZXYvbnVsbCAxPi9kZXYvbnVsbCAyPiYxIFwKPj4g
+KwkJCSYgXGVjaG8gXCQhIikKXGVjaG8gaXMgb2J2aW91c2x5IHdyb25nIGhlcmUuIEkgbWVzc2Vk
+IHRoaXMgdXAgd2hpbGUgZm9ybWF0dGluZyB0aGUgZmlsZS4uLgo+ICsJCQljb250aW51ZTsKPiBu
+aXQ6IHRyYWlsaW5nIDsgdW5uZWVkZWQgKGVycm9yIGZyb20gdGhlIG9yaWdpbmFsIHNzaC1zdHJl
+c3MwMi1ybXQuc2gpCmZpeGVkIGZvciB2Mgo+Cj4+ICsKPj4gKwl0c3RfcmVzIFRJTkZPICJXYWl0
+aW5nIGZvciBhbGwgY29ubmVjdGlvbnMgdG8gdGVybWluYXRlIgo+PiArCXdoaWxlIFsgLW4gIiRS
+SE9TVF9QSURTIiBdOyBkbwo+PiArCQl0c3Rfc2xlZXAgMXMKPiBuaXQ6IEknZCBiZSBjb25zaXN0
+ZW50IHdpdGggcHJldmlvdXMgKDFzIHZzLiAxKS4KZml4ZWQgZm9yIHYyCj4+IC0JdHN0X3Job3N0
+X3J1biAtcyAtYyAic3NoLXN0cmVzczAzLXJtdC5zaCAkVFNUX0lQVkVSICQodHN0X2lwYWRkcikg
+XAo+PiAtCQkkcmNvbmZpZyAkcG9ydCAkTlNfVElNRVMiCj4+ICsJIyBTZXR1cCBhbiBzc2ggdHVu
+bmVsIGZyb20gdGhlIHJlbW90ZSBob3N0IHRvIHRlc3Rob3N0Cj4+ICsJUkhPU1RfUElEUz0kKHRz
+dF9yaG9zdF9ydW4gLWMgXAo+PiArCQkiJFJIT1NUX1NTSCAtTiAtTCAkbHBvcnQ6JHJob3N0OiRw
+b3J0IDwvZGV2L251bGwgMT4vZGV2L251bGwgMj4mMSBcCj4+ICsJCSYgZWNobyBcJCEiKQo+PiAr
+CXRzdF9zbGVlcCAxCj4+IC0JdHN0X3Jlc20gVFBBU1MgIlRlc3QgaXMgZmluaXNoZWQgc3VjY2Vz
+c2Z1bGx5Igo+PiAtfQo+PiArCSMgU3RhcnQgdGhlIFRDUCB0cmFmZmljIGNsaWVudHMKPj4gKwl0
+c3Rfcmhvc3RfcnVuIC1zIC1jICJuZXRzdHJlc3MgLXIgJE5TX1RJTUVTIC1sIC1IICRsb2NhbGhv
+c3QgLWcgJGxwb3J0ID4gL2Rldi9udWxsIgo+PiAtc2V0dXAKPj4gKwlraWxsICRSSE9TVF9QSURT
+ClRoaXMga2lsbHMgdGhlIHNzaCBzZXNzaW9uIHNldHVwIG9uIHRoZSByZW1vdGUgaG9zdCwgc28g
+dGhpcyBtdXN0IGJlIApleGVjdXRlZCBvbiB0aGUgcmVtb3RlIGhvc3QuLi4KCkrDtnJnCgotLSAK
+TWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
