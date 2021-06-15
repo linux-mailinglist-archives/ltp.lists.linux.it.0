@@ -1,90 +1,87 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4259A3A8691
-	for <lists+linux-ltp@lfdr.de>; Tue, 15 Jun 2021 18:33:51 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 27FB23A86B3
+	for <lists+linux-ltp@lfdr.de>; Tue, 15 Jun 2021 18:40:53 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 89FC73C99BE
-	for <lists+linux-ltp@lfdr.de>; Tue, 15 Jun 2021 18:33:50 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id AE2F93C98ED
+	for <lists+linux-ltp@lfdr.de>; Tue, 15 Jun 2021 18:40:52 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 059C13C2794
- for <ltp@lists.linux.it>; Tue, 15 Jun 2021 18:33:16 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id ADC853C2794
+ for <ltp@lists.linux.it>; Tue, 15 Jun 2021 18:40:47 +0200 (CEST)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 8F3251000BDB
- for <ltp@lists.linux.it>; Tue, 15 Jun 2021 18:33:16 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 3E5501A009BD
+ for <ltp@lists.linux.it>; Tue, 15 Jun 2021 18:40:46 +0200 (CEST)
 Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
  (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 3F35C1FD69;
- Tue, 15 Jun 2021 16:33:16 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 90DE21FD49;
+ Tue, 15 Jun 2021 16:40:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1623774796; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ t=1623775246;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=I+BkacY5kYxwRXa2lLZj+EA2KPzQpYCxYq9808mHAoc=;
- b=VChuAAf9LOADKMaabKqDCDE+C6edqM0ARnQUW1k6BbLYPMoKmafCPw/x/h7IkbV6tFk5+y
- qWT1zV93baQhShPLNETudrTn7lliYvR8flj/iCiT/Vhs97gvzSP64XH3JZ+eL9A1adi4TI
- VzCt7sAwZY+1eqlEG1X9qGr//iytMRU=
+ bh=LCbjci3woWUe36qOwy8JkDZ2AVNqQoDMb7CLBNN/s0o=;
+ b=0ppVX5H3StUz8IQiUv3CzqDqVCDeIA6vxhp0HQ/JfdfIZBqzWPaiaBjz2qM181vjL20/Tq
+ zPfe2Q2pB6507OOAbxppsHxtkmhpZ2ega5KobZggsARHlSOUqjXgt7XQnEdQZ+fa8E3GtT
+ QsD2NzzyR2UG29AN5ivHoSAMY3O6G7k=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1623774796;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ s=susede2_ed25519; t=1623775246;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=I+BkacY5kYxwRXa2lLZj+EA2KPzQpYCxYq9808mHAoc=;
- b=/u7KoX30zcuwWUwRTCwId9cCLo9WEa/xUif0hBZCiKIObhAmB8/fkTBn0y5UAPAo0jojG/
- XEhzQ9US0jeDZcBQ==
+ bh=LCbjci3woWUe36qOwy8JkDZ2AVNqQoDMb7CLBNN/s0o=;
+ b=Uwq9qGvLktR2NFsyDfakQVfZ8qKejt3Fjewk58vowBrCwawjVfpznj/gL4K1H7X/RpH8hJ
+ l9VZlUSLohIjcqDw==
 Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id D6629118DD;
- Tue, 15 Jun 2021 16:33:15 +0000 (UTC)
+ by imap.suse.de (Postfix) with ESMTP id 5CE0D118DD;
+ Tue, 15 Jun 2021 16:40:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1623774796; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ t=1623775246;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=I+BkacY5kYxwRXa2lLZj+EA2KPzQpYCxYq9808mHAoc=;
- b=VChuAAf9LOADKMaabKqDCDE+C6edqM0ARnQUW1k6BbLYPMoKmafCPw/x/h7IkbV6tFk5+y
- qWT1zV93baQhShPLNETudrTn7lliYvR8flj/iCiT/Vhs97gvzSP64XH3JZ+eL9A1adi4TI
- VzCt7sAwZY+1eqlEG1X9qGr//iytMRU=
+ bh=LCbjci3woWUe36qOwy8JkDZ2AVNqQoDMb7CLBNN/s0o=;
+ b=0ppVX5H3StUz8IQiUv3CzqDqVCDeIA6vxhp0HQ/JfdfIZBqzWPaiaBjz2qM181vjL20/Tq
+ zPfe2Q2pB6507OOAbxppsHxtkmhpZ2ega5KobZggsARHlSOUqjXgt7XQnEdQZ+fa8E3GtT
+ QsD2NzzyR2UG29AN5ivHoSAMY3O6G7k=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1623774796;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ s=susede2_ed25519; t=1623775246;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=I+BkacY5kYxwRXa2lLZj+EA2KPzQpYCxYq9808mHAoc=;
- b=/u7KoX30zcuwWUwRTCwId9cCLo9WEa/xUif0hBZCiKIObhAmB8/fkTBn0y5UAPAo0jojG/
- XEhzQ9US0jeDZcBQ==
+ bh=LCbjci3woWUe36qOwy8JkDZ2AVNqQoDMb7CLBNN/s0o=;
+ b=Uwq9qGvLktR2NFsyDfakQVfZ8qKejt3Fjewk58vowBrCwawjVfpznj/gL4K1H7X/RpH8hJ
+ l9VZlUSLohIjcqDw==
 Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id aG6XMkvWyGDdfQAALh3uQQ
- (envelope-from <pvorel@suse.cz>); Tue, 15 Jun 2021 16:33:15 +0000
+ id nhCqFA7YyGA5AwAALh3uQQ
+ (envelope-from <pvorel@suse.cz>); Tue, 15 Jun 2021 16:40:46 +0000
+Date: Tue, 15 Jun 2021 18:40:44 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Tue, 15 Jun 2021 18:33:07 +0200
-Message-Id: <20210615163307.10755-4-pvorel@suse.cz>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20210615163307.10755-1-pvorel@suse.cz>
-References: <20210615163307.10755-1-pvorel@suse.cz>
+To: Li Wang <liwang@redhat.com>
+Message-ID: <YMjYDEXWlD7M/Dfp@pevik>
+References: <20210610175812.13730-1-ycliang@andestech.com>
+ <CAEemH2f-=oW3PqJN6EsCvBzvPk2LvrwkLd1oVgHgv+_HHN_oTQ@mail.gmail.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <CAEemH2f-=oW3PqJN6EsCvBzvPk2LvrwkLd1oVgHgv+_HHN_oTQ@mail.gmail.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [RFC PATCH 3/3] doc: Update LTPROOT and PATH environment
- variables
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/1] fs/racer: Fix LTP hang caused by fs_racer.sh
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,62 +93,59 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>,
- Xiao Yang <yangx.jy@cn.fujitsu.com>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-to address changes in two previous commits.
+Hi Leo, Li,
 
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
- README.md          | 2 +-
- doc/user-guide.txt | 7 +++++--
- 2 files changed, 6 insertions(+), 3 deletions(-)
+> On Fri, Jun 11, 2021 at 1:58 AM Leo Yu-Chi Liang <ycliang@andestech.com> wrote:
 
-diff --git a/README.md b/README.md
-index 703395c6b..b0ad47dfa 100644
---- a/README.md
-+++ b/README.md
-@@ -162,7 +162,7 @@ $ testcases/bin/ioctl01 -h
- Many require certain environment variables to be set
- 
- ```
--$ LTPROOT=/opt/ltp PATH="$PATH:$LTPROOT/testcases/bin" testcases/bin/wc01.sh
-+$ LTPROOT=/opt/ltp testcases/bin/wc01.sh
- ```
- 
- Most commonly, the path variable needs to be set and also `LTPROOT`, but there
-diff --git a/doc/user-guide.txt b/doc/user-guide.txt
-index 8df29e688..ab2d773a7 100644
---- a/doc/user-guide.txt
-+++ b/doc/user-guide.txt
-@@ -11,6 +11,7 @@ For running LTP network tests see `testcases/network/README.md`.
- | 'KCONFIG_PATH'        | The path to the kernel config file, (if not set, it tries
-                           the usual paths '/boot/config-RELEASE' or '/proc/config.gz').
- | 'LTPROOT'             | Prefix for installed LTP, the default is '/opt/ltp'.
-+                          Used for setting 'PATH' and other environment variables.
- | 'LTP_COLORIZE_OUTPUT' | Force colorized output behaviour. 'y' or '1': always colorize
-                           'n' or '0': never colorize.
- | 'LTP_DEV'             | Path to the block device to be used
-@@ -19,8 +20,10 @@ For running LTP network tests see `testcases/network/README.md`.
- | 'LTP_TIMEOUT_MUL'     | Multiply timeout, must be number >= 1 (> 1 is useful for
-                           slow machines to avoid unexpected timeout).
-                           Variable is also used in shell tests, but ceiled to int.
--| 'PATH'                | It's required to addjust path:
--                          `PATH="$PATH:$LTPROOT/testcases/bin"`
-+| 'PATH'                | Testcases are installed into 'LTPROOT/testcases/bin',
-+                          'PATH' is set by library API. You need to add it into
-+                          'PATH' only if you use custom runner (not runltp neither
-+                          [runltp-ng](https://github.com/metan-ucw/runltp-ng).
- | 'TMPDIR'              | Base directory for template directory (C: '.needs_tmpdir = 1'
-                           and others, which imply it, shell: 'TST_NEEDS_TMPDIR=1').
- | 'TST_NO_CLEANUP'      | Disable running test cleanup (defined in 'TST_CLEANUP').
--- 
-2.32.0
+> > fs_racer.sh test could cause LTP to hang if the file
+> > gets removed when it's at time same time being renamed.
 
+> > The if statement in mv source implemented by busybox is as follows:
+
+> >         if (dest_exists) {
+> >                 if (flags & OPT_NOCLOBBER)
+> >                         goto RET_0;
+> >                 if (!(flags & OPT_FORCE)           // OPT_FORCE is set by -f option
+> >                  && ((access(dest, W_OK) < 0 && isatty(0))
+> >                     || (flags & OPT_INTERACTIVE))  // this is set by -i option
+> >                 ) {
+> >                         if (fprintf(stderr, "mv: overwrite '%s'? ", dest) < 0) {
+> >                                 goto RET_1;  /* Ouch! fprintf failed! */
+> >                         }
+> >                         if (!bb_ask_y_confirmation()) {
+> >                                 goto RET_0;
+> >                         }
+> >                 }
+> >         }
+
+> > If somehow the dest_file exists when mv executes the first if "if (dest_exists)",
+> > and gets removed when mv executes the third if "if (access(...))".
+> > Then it is possible for mv to reach "bb_ask_y_confirmation" and to try to read from tty.
+
+> > However, the mv process is executing in the background,
+> > so when it tries to read from tty,
+> > the processes in the same process group as mv would all receive SIGTTIN
+> > and be changed into TASK_STOPPED state.
+
+> > This would cause this testcase to hang, though happens rarely.
+
+> > Add -f option to suppress the attempt to read from tty.
+
+> > Signed-off-by: Leo Yu-Chi Liang <ycliang@andestech.com>
+
+> Reviewed-by: Li Wang <liwang@redhat.com>
+
+Fix is trivial enough to merge it => merged.
+
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
