@@ -1,81 +1,79 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id DED473A93B6
-	for <lists+linux-ltp@lfdr.de>; Wed, 16 Jun 2021 09:24:40 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F62E3A93D8
+	for <lists+linux-ltp@lfdr.de>; Wed, 16 Jun 2021 09:27:48 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A51FB3C4CB8
-	for <lists+linux-ltp@lfdr.de>; Wed, 16 Jun 2021 09:24:40 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 0DA393C4CB9
+	for <lists+linux-ltp@lfdr.de>; Wed, 16 Jun 2021 09:27:48 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 46A313C2DD7
- for <ltp@lists.linux.it>; Wed, 16 Jun 2021 09:24:39 +0200 (CEST)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 2942C3C2DD7
+ for <ltp@lists.linux.it>; Wed, 16 Jun 2021 09:27:46 +0200 (CEST)
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id BA3071401113
- for <ltp@lists.linux.it>; Wed, 16 Jun 2021 09:24:38 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1623828277;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=pJYY6ZJC+O0OKtemLCplzTcWzx/8k5vLrZEo4jK6BGE=;
- b=IrlNyHc0YjV4hadRJ/ezkEsbDEN2IyRNV5S5KQ8POEIhAVJwu3TxYxdswLY5Lx2uKfSuFG
- v/s7/6NwqOjQPKCvXPVLvkqQp+th/k6xKTlX19tB4DgPN6UAnzdbKdrjdAonEWtGowU0Ix
- /TijK9NkRYTPTyk4bzp+x11qlQkl6b4=
-Received: from mail-yb1-f199.google.com (mail-yb1-f199.google.com
- [209.85.219.199]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-554-uws2eS4QM8CENaRjlr2RNg-1; Wed, 16 Jun 2021 03:24:36 -0400
-X-MC-Unique: uws2eS4QM8CENaRjlr2RNg-1
-Received: by mail-yb1-f199.google.com with SMTP id
- g9-20020a25ae490000b029052f9e5b7d3fso1686970ybe.4
- for <ltp@lists.linux.it>; Wed, 16 Jun 2021 00:24:36 -0700 (PDT)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 93325600C51
+ for <ltp@lists.linux.it>; Wed, 16 Jun 2021 09:27:45 +0200 (CEST)
+Received: from mail-ed1-f70.google.com ([209.85.208.70])
+ by youngberry.canonical.com with esmtps (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
+ (envelope-from <krzysztof.kozlowski@canonical.com>)
+ id 1ltPxf-0005d5-O2
+ for ltp@lists.linux.it; Wed, 16 Jun 2021 07:27:43 +0000
+Received: by mail-ed1-f70.google.com with SMTP id
+ z16-20020aa7d4100000b029038feb83da57so530950edq.4
+ for <ltp@lists.linux.it>; Wed, 16 Jun 2021 00:27:43 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=pJYY6ZJC+O0OKtemLCplzTcWzx/8k5vLrZEo4jK6BGE=;
- b=K09tQYxtLS9aU08XckgZChbvn/BWTt82j7Knan0HTId0boYmKcTGcnqG+I1n8GKdwo
- 5AJsJLqoIJM6KBD9Xu60SwWZNt4CrFlIJj2Ek5fuLpkZgzerFeVapq/xBsxwaSnE86qU
- RUTdqhqmlhEW4C19ZGRLXFuE8hvY26UGOKxUxdMAZSjqzxbI8jnzP6WeM3xHJ59WdGc3
- JTlrKFhAcDOtsuWSlcNhRmwnuhifG4OSrBwbPnOiXPwGuX+AqY2ybYAHMqM0HBG4odjq
- 4Ig/7cR9sJ65W4m4XiEL+1NdszsgDC/LhzhW2b5NH/agn62dMivUNYxFWPuSpWVYlpB/
- d2ug==
-X-Gm-Message-State: AOAM533PxidwGH6mkOmAnQdWxvBUfP3jt5Y1vHKl6D9G79dhT3quvXZW
- Q1UuUXVTeb9efZXPevcIXXtKQ5+c5mKfLGm0GGW2DS09/ffUNQVhhN+VFtP5kOGhc71BXj0qxc8
- vkFqjHp1bGY9LXd4630oH/96Utsk=
-X-Received: by 2002:a05:6902:4a2:: with SMTP id
- r2mr4489024ybs.286.1623828275638; 
- Wed, 16 Jun 2021 00:24:35 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJzZX5W7InHYYSrPAIr4vsgxGm5cWilLFkfl9dlsX1OS64VkCibNc8hoPDn+CsfwITnb6/yMl+RpxzotOD1RsaA=
-X-Received: by 2002:a05:6902:4a2:: with SMTP id
- r2mr4488996ybs.286.1623828275336; 
- Wed, 16 Jun 2021 00:24:35 -0700 (PDT)
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=Dex7622phYrmu8l+hE4phDsFYtClvuXHjXNSDInMs1g=;
+ b=eNmQbHCMi7ymsCeDYpaR/4nXEYGUdN510yMnXpMVlaj4+Gg6uKVQs1ulxm2QJxH0/4
+ nLphGhC63Kes/7PU+wWgghO5D2xgFPhsxlenbVgqmwVfSzIf1hjzSZSVQT151mXFTgTh
+ csYCHe7RKTrLYpvkJxKmqLRCXAAoqy8jl60j/I0BSr91IHkranKWhukfSizMgjInrc9k
+ du+V/xvEXIHKHq3rn1w889raOxcqchXyJzFJ2d/tb9eW8q+DqkCeExD3yes5rocG43Wn
+ sGFQXUTcY42OiJRRexWQpetlptdPD8y2+hy6YdfEDcZZ1l16YEWN3ceZLELsVV0nqfTF
+ sU2g==
+X-Gm-Message-State: AOAM532orbiAvolPEl75RvLwEQG9ZGn4FXr3rUJ8uxb03Ptk046rRWND
+ VM8y3ZuJ+bB20IAtCzBFkhbIBfxonFzCeyl3O6RH4Lle4sP27pgClhlPIZtvbkq+1kCMX9yQdiE
+ AHnp2kEZsO/ATY9/3gi5zP0580/WP
+X-Received: by 2002:a50:8e18:: with SMTP id 24mr2467401edw.275.1623828463280; 
+ Wed, 16 Jun 2021 00:27:43 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJyg+iZJ4HSPjMP1MYu1KSLJ3gW/i1FbmY+W7Qfz5y4eazGwZqeZEM4DrSK85hsjGD8c3YCYsg==
+X-Received: by 2002:a50:8e18:: with SMTP id 24mr2467394edw.275.1623828463132; 
+ Wed, 16 Jun 2021 00:27:43 -0700 (PDT)
+Received: from [192.168.1.115] (xdsl-188-155-177-222.adslplus.ch.
+ [188.155.177.222])
+ by smtp.gmail.com with ESMTPSA id b14sm1029245edz.21.2021.06.16.00.27.42
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 16 Jun 2021 00:27:42 -0700 (PDT)
+To: Cyril Hrubis <chrubis@suse.cz>
+References: <20210614161413.82389-1-krzysztof.kozlowski@canonical.com>
+ <YMjYBoqTw9RSqYqH@yuki>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+Message-ID: <ae81aa2b-da04-4ec5-aee9-4db1e511fdbf@canonical.com>
+Date: Wed, 16 Jun 2021 09:27:42 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-References: <20210615074045.23974-1-rpalethorpe@suse.com>
-In-Reply-To: <20210615074045.23974-1-rpalethorpe@suse.com>
-From: Li Wang <liwang@redhat.com>
-Date: Wed, 16 Jun 2021 15:24:23 +0800
-Message-ID: <CAEemH2fgVnh4w9Vgezvu7-YmLXLJiKEkLyz5puTjgo=9=neidg@mail.gmail.com>
-To: Richard Palethorpe <rpalethorpe@suse.com>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+In-Reply-To: <YMjYBoqTw9RSqYqH@yuki>
+Content-Language: en-US
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v4 1/3] Add Coccinelle helper scripts for reference
+X-Spam-Status: No, score=-0.2 required=7.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 1/2] controllers/cpuacct: skip cpuacct_100_100
+ on small memory systems
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,39 +85,116 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Richard,
+On 15/06/2021 18:40, Cyril Hrubis wrote:
+> Hi!
+>> +check_free_memory()
+>> +{
+>> +	local memneeded
+>> +	local memfree=`awk '/MemAvailable/ {print $2}' /proc/meminfo`
+>> +
+>> +	if [ $? -ne 0 ]; then
+>> +		local memcached
+>> +
+>> +		memfree=`awk '/MemFree/ {print $2}' /proc/meminfo`
+>> +		test $? || return 0
+>> +
+>> +		memcached=`awk '/MemCached/ {print $2}' /proc/meminfo`
+>> +		test $? || return 0
+> 
+> I do not think that something as basic as awk on /proc/meminfo here will
+> fail...
 
-> +for spatch_file in $*; do
-> +    case $spatch_file in
-> +       libltp-test-macro)
-> +           libltp_spatch --sp-file scripts/coccinelle/libltp-test-macro.cocci;;
-> +       libltp-test-macro-vars)
-> +           libltp_spatch --sp-file scripts/coccinelle/libltp-test-macro-vars.cocci \
-> +                         --ignore lib/tst_test.c;;
-> +       *)
-> +           tests_spatch --sp-file scripts/coccinelle/$spatch_file.cocci;;
+It's still nice pattern to check for return values but if you insist, I
+can drop it.
 
-Why here use the coccinelle/ path and add suffix with the spatch_file?
-Wouldn't this below more simple to us:
+> 
+>> +		memfree=$((memfree + memcached))
+>> +	fi
+>> +
+>> +	# On x86_64, each 100 of processes were using ~16 MB of memory,
+>> +	# so try to estimate the needed free memory based on this.
+>> +	memneeded=$((max * nbprocess * 16384 / 100))
+>> +
+>> +	if [ $memfree -lt $memneeded ]; then
+> 
+> I would still add some memory margin to the memneeded here. At least
+> add a hundred of megabytes before we do the check.
 
-   scripts/coccinelle/$spatch_file.cocci  ==> $spatch_file
+Sure.
 
-> +    esac
-> +done
+> 
+>> +		tst_brk TCONF "not enough of free memory on this system (approximate need $memneeded kB, free $memfree kB)"
+>> +	fi
+>> +	tst_res TINFO "memory requirements fulfilled (approximate need $memneeded kB, free $memfree kB)"
+>> +
+>> +	return 0
+>> +}
+>> +
+>> +check_limits()
+>> +{
+>> +	local realuid="$SUDO_UID"
+>> +	local tasksneeded=$((max * nbprocess + 100))
+>> +
+>> +	if [ "$realuid" = "" ]; then
+>> +		realuid=`id -u`
+>> +		test $? || return 0
+>> +	fi
+>> +
+>> +	local tasksmax=`systemctl show user-${real_uid}.slice | awk -F '=' '/TasksMax/ {print $2}'`
+>> +	test $? || return 0
+>> +
+>> +	if [ $tasksmax -le $tasksneeded ]; then
+>> +		tst_brk TCONF "limit of tasks is too low (approximate need $tasksneeded, limit $tasksmax)"
+>> +	fi
+>> +	tst_res TINFO "task limit fulfilled (approximate need $tasksneeded, limit $tasksmax)"
+> 
+> Huh, is this really needed? The test is supposed to run under root. The
+> user is supposed to login as a root or at least do 'su -' before
+> executing LTP anyways.
+
+Yeah, because even root sessions (user-0.slice) have the PID limit set
+by systemd.
+
+$ ssh root@....
+$ grep . /sys/fs/cgroup/pids/user.slice/*/*
+/sys/fs/cgroup/pids/user.slice/user-0.slice/cgroup.clone_children:0
+/sys/fs/cgroup/pids/user.slice/user-0.slice/notify_on_release:0
+/sys/fs/cgroup/pids/user.slice/user-0.slice/pids.current:5
+/sys/fs/cgroup/pids/user.slice/user-0.slice/pids.events:max 0
+/sys/fs/cgroup/pids/user.slice/user-0.slice/pids.max:5207
 
 
+> 
+>> +	return 0
+>> +}
+>> +
+>>  setup()
+>>  {
+>>  	if ! grep -q -w cpuacct /proc/cgroups; then
+>>  		tst_brk TCONF "cpuacct not supported on this system"
+>>  	fi
+>>  
+>> +	check_limits
+>> +	# Don't bother with memory limit checks on smaller tests
+>> +	if [ $max -ge 100 ] && [ $nbprocess -ge 100 ]; then
+> 
+> We should probably check if the $max * $mbprocess -ge 1000 or something
+> like that just in a case someone addds a test with large enough
+> $nbprocess.
+
+Makes sense, optionally the check can be done always.
+
+Thanks for the review!
 
 
---
-Regards,
-Li Wang
-
+Best regards,
+Krzysztof
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
