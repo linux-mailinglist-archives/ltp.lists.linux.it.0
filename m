@@ -1,88 +1,79 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FF743A9C21
-	for <lists+linux-ltp@lfdr.de>; Wed, 16 Jun 2021 15:39:22 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 105D53A9D21
+	for <lists+linux-ltp@lfdr.de>; Wed, 16 Jun 2021 16:11:41 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7BC193C62CD
-	for <lists+linux-ltp@lfdr.de>; Wed, 16 Jun 2021 15:39:21 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 972673C7187
+	for <lists+linux-ltp@lfdr.de>; Wed, 16 Jun 2021 16:11:40 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E8D003C2174
- for <ltp@lists.linux.it>; Wed, 16 Jun 2021 15:39:19 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ by picard.linux.it (Postfix) with ESMTPS id B98123C3106
+ for <ltp@lists.linux.it>; Wed, 16 Jun 2021 16:11:36 +0200 (CEST)
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [IPv6:2a00:1450:4864:20::131])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 394BB1000F5F
- for <ltp@lists.linux.it>; Wed, 16 Jun 2021 15:39:18 +0200 (CEST)
-Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
- (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 6F67D1FD49;
- Wed, 16 Jun 2021 13:39:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1623850758; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=PfEp8WexBmIufY6f7egkwllMGA7HZYfxN+wNFcNt3Zg=;
- b=DoBbMn//7XpFMiJPTFqCvX+lNBMAmSVkWIC5LIehV2PXL6kd8QCwtEg429qB3Y+RsdrqFe
- MVYDCrMsZ2CPHAaMTE9L8eNlxveKewZJTmeRb8ymzkEfCwK+Px5Z6kbkLhKlhfmEEiLB5N
- 693hTUsDHAcA2lH7vZUYrqGj+bDxFW4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1623850758;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=PfEp8WexBmIufY6f7egkwllMGA7HZYfxN+wNFcNt3Zg=;
- b=FDebN4LS1xCh44FAiIgJSJM6Kb0UN+2QEIPA9Vgc1I9rVPMg/rLeJvzNFiXIJJhCyPJbRI
- zJVSbtF2jtU0S7BA==
-Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id 4FAF3118DD;
- Wed, 16 Jun 2021 13:39:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1623850758; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=PfEp8WexBmIufY6f7egkwllMGA7HZYfxN+wNFcNt3Zg=;
- b=DoBbMn//7XpFMiJPTFqCvX+lNBMAmSVkWIC5LIehV2PXL6kd8QCwtEg429qB3Y+RsdrqFe
- MVYDCrMsZ2CPHAaMTE9L8eNlxveKewZJTmeRb8ymzkEfCwK+Px5Z6kbkLhKlhfmEEiLB5N
- 693hTUsDHAcA2lH7vZUYrqGj+bDxFW4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1623850758;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=PfEp8WexBmIufY6f7egkwllMGA7HZYfxN+wNFcNt3Zg=;
- b=FDebN4LS1xCh44FAiIgJSJM6Kb0UN+2QEIPA9Vgc1I9rVPMg/rLeJvzNFiXIJJhCyPJbRI
- zJVSbtF2jtU0S7BA==
-Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id WxQMEgb/yWBoPwAALh3uQQ
- (envelope-from <chrubis@suse.cz>); Wed, 16 Jun 2021 13:39:18 +0000
-Date: Wed, 16 Jun 2021 15:13:38 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Xie Ziyao <xieziyao@huawei.com>
-Message-ID: <YMn5AvbsDDV8ojWu@yuki>
-References: <20210616093606.214856-1-xieziyao@huawei.com>
- <20210616093606.214856-3-xieziyao@huawei.com>
- <YMnk5QUhwnOHrWLi@yuki>
- <8f8852e0-eed3-f7ae-744e-db48724e9b02@huawei.com>
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 25094600703
+ for <ltp@lists.linux.it>; Wed, 16 Jun 2021 16:11:36 +0200 (CEST)
+Received: by mail-lf1-x131.google.com with SMTP id r198so4543615lff.11
+ for <ltp@lists.linux.it>; Wed, 16 Jun 2021 07:11:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=bell-sw-com.20150623.gappssmtp.com; s=20150623;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=W6ZQPJw2MyaL6HVnwIFj/9K9CpwVSAk22lpgkVNWJ20=;
+ b=APSuDKWWcAgfKBxGA2519LyrcLZGJa3FwD++DILgLe7egHWZbaLPo8BFTlyi0Wfk2h
+ LFUpP/fv4r71srSENSEnvzxr9sYH6PveoulrBtS5Y1+2stmnLBhJiiq+SGyvaa/Dz7kz
+ goiMjuVqlRPY8w5Sfoz0JLaXD2TX32dx8cDKPSfOwPnr8gJTuaurAZ9ILwp3oVUN91Yl
+ zwQUvEyw/Tt1HpD2W8ByKjCn1c4txxgeBde7nlnkTfJF2gTqOD+joAIwPLM+/FsaI1Ub
+ 5vrGR7dQLULkGC/ub0MfWwdUvE0+odGwmCMbhaZ6yIY21DI259MROV9FTIi8Fsoe6TXu
+ 29ug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=W6ZQPJw2MyaL6HVnwIFj/9K9CpwVSAk22lpgkVNWJ20=;
+ b=VRzgiRVR5pOV5lfCDruXYvoX7xZVCaw4PUrNwHoiLZrbPIoZe+RjCiaUNEkeG4s8JS
+ Z9JJXwYq99DXi10s1I4x+iDEzyb5gANS9LXtTHvf6CsOSOLkJxTsFxaYErYqHkdBE+rv
+ f8ZYCqWWPxZUNtwg2yOY45XXyYIlYoOTBZ7yU3RyMZfxfHA5X2LQqbXg4n071fIhAfrv
+ AoiVq/zbXSeUoXVTF5+EDn2QDgMEWpionWtgYAH3lBSc6VNzFf5HOAtH7iYxXLOLOdWU
+ hO9H1e4/GKy9TdAZmMq59f77i+aIbw5C31QdXrQR57Xpd7Od6aDY0tKCSQCAiyxoSz1j
+ BOjQ==
+X-Gm-Message-State: AOAM531rZx0Tpe+++jzCU9x5gF0uqo9Sh4Hp2KhaCy709HeclFBaaZn5
+ wPECqpLtQIVokURTyk6FwVSC
+X-Google-Smtp-Source: ABdhPJzIECgEoUVkCJSYB7Ndr13+BTeqOJWcSBzSptJITGpF/x5BtlRhSE0cnqEKw3thfsJ8fIZz4A==
+X-Received: by 2002:a05:6512:ba3:: with SMTP id
+ b35mr3904386lfv.7.1623852695450; 
+ Wed, 16 Jun 2021 07:11:35 -0700 (PDT)
+Received: from [192.168.1.53] ([91.233.45.237])
+ by smtp.gmail.com with ESMTPSA id t30sm258650lfg.289.2021.06.16.07.11.35
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 16 Jun 2021 07:11:35 -0700 (PDT)
+To: Joerg Vehlow <lkml@jv-coder.de>, ltp@lists.linux.it, pvorel@suse.cz
+References: <20210616081856.3026223-1-lkml@jv-coder.de>
+From: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
+Message-ID: <fb4b9d45-2cbb-5e5c-fefe-3ca429373a54@bell-sw.com>
+Date: Wed, 16 Jun 2021 17:11:34 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <8f8852e0-eed3-f7ae-744e-db48724e9b02@huawei.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+In-Reply-To: <20210616081856.3026223-1-lkml@jv-coder.de>
+Content-Language: en-US
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 2/3] syscalls/getrusage: Cleanup and bugfix for
- getrusage03
+X-Spam-Status: No, score=-0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3] ssh-stress: Convert to new api
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,51 +85,84 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> Same with lib: tst_process_state: Add tst_process_release_wait().
+On 16.06.2021 11:18, Joerg Vehlow wrote:
+> From: Joerg Vehlow <joerg.vehlow@aox-tech.de>
 > 
-> If we call the signal(SIGCHLD,SIG_IGN), the SIGCHLD signal is ignored by 
-> the system. Thus, no zombie is created before the child is terminated. 
-> The logs are as follows:
+> Apart from pure conversion:
+>  - Use "StrictModes no" in ssh config, to get rid of
+>    access permission problems; All part of the path of the
+>    authorized_keys file must not be writeable by anyone but the owner.
+>    This allows writing the file to the default temp directory
+>  - Moved all rhost scripts into ssh-stress.sh
 > 
-> getrusage03.h:27: TINFO: allocate 400MB
-> getrusage03.c:39: TPASS: check that initial.children ~= pre_wait.children
-> getrusage03.c:39: TPASS: check that post_wait.children ~= 400MB
-> getrusage03.h:27: TINFO: allocate 500MB
-> getrusage03.c:123: TBROK: Failed to open FILE '/proc/84598/stat' for 
-> reading: ENOENT (2)
+> Changes in v3:
+> - use pkill instead of ps | awk | xargs
+> - Changed test descriptions slightly
+>   * include actual ip version
+>   * dropped "for a long time", the tests do not run
+>     for a long time with the default config
+> - Use netstress -B and ssh -f for background processes
+>   This implies using pgrep to get the pids of these processes.
 > 
-> So I write TST_PROCESS_RELEASE_WAIT() here to check /proc/$PID.
+> Signed-off-by: Joerg Vehlow <joerg.vehlow@aox-tech.de>
+> ---
+...
+>  
+> -TCID=ssh-stress
+> -TST_TOTAL=3
+>  TST_CLEANUP="cleanup"
+> +TST_SETUP="setup"
+> +TST_TESTFUNC="test"
+> +TST_CNT=3
+> +TST_NEEDS_ROOT=1
+> +TST_NEEDS_TMPDIR=1
+> +TST_NEEDS_CMDS="sshd ssh od pkill pgrep"
+>  
+> -TST_USE_LEGACY_API=1
+>  . tst_net.sh
+>  
+> -# Temporary directory to store sshd setting or ssh key
+> -# Note: ssh doesn't work when those directory is under /tmp.
+> -TMPDIR="/root"
+> +# SSH config file on the remote host
+> +RHOST_SSH_CONF=
+> +# SSH command to connect from the remote host to the test host
+> +RHOST_SSH=
+> +# Processes started on the remote host, killed at cleanup
+> +RHOST_PIDS=
+> +# Netstress process started on the test host, killed at cleanup
+> +NETSTRESS_PID=
+>  
+>  cleanup()
+>  {
+> +	local pids
+> +
+>  	# Stop the ssh daemon
+> -	test -s sshd.pid && kill $(cat sshd.pid)
+> -	pkill 'netstress$'
+> -	tst_rmdir
+> -	[ "$rtmpdir" ] && tst_rhost_run -c "rm -rf $rtmpdir"
+> -	TMPDIR=
+> +	[ -s sshd.pid ] && kill $(cat sshd.pid)
+> +	[ -n "$NETSTRESS_PID" ] && kill -2 $NETSTRESS_PID >/dev/null 2>&1
+> +
+> +	tst_rhost_run -c "kill $RHOST_PIDS"  >/dev/null 2>&1
+> +
+> +	# Kill all remaining ssh processes
+> +	tst_rhost_run -c "pkill -f '^ssh $RHOST_SSH_CONF'"
 
-Ah right, reading the documentation if parent ignores sigchild the child
-is discarded and there is no trace of it on the system once it returns
-from main().
+Perhaps we should check that $RHOST_SSH_CONF is set before running
+pkill.
 
-So I guess that we should add a function that checks that a given pid is
-present on a system but there is simpler interface for this, if you do
-kill(2) with signal == 0 it returns with with errno set to ESRCH if the
-pid is no longer present on a system.
 
-Also I'm not sure if release is right word here, maybe it would better
-describe the action if the function name was tst_process_exit_wait().
-
-> I noticed that some safe_ micro checks tst_test->forks_child or other 
-> tst_test->xx, while tst_test is not defined in some functions with 
-> #define TST_NO_DEFAULT_MAIN.
-
-Ah right, I guess that in a case of fork() and clone() calls it would be
-easier not to use SAFE_MACROS() for processes that have been started by
-exec().
-
--- 
-Cyril Hrubis
-chrubis@suse.cz
+For the rest:
+Reviewed-by: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
