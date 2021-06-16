@@ -1,91 +1,57 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 119BE3A9962
-	for <lists+linux-ltp@lfdr.de>; Wed, 16 Jun 2021 13:38:53 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2ADA83A99A0
+	for <lists+linux-ltp@lfdr.de>; Wed, 16 Jun 2021 13:54:36 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 644163C71C2
-	for <lists+linux-ltp@lfdr.de>; Wed, 16 Jun 2021 13:38:53 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E0AAD3C4CC0
+	for <lists+linux-ltp@lfdr.de>; Wed, 16 Jun 2021 13:54:35 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id D91E63C3086
- for <ltp@lists.linux.it>; Wed, 16 Jun 2021 13:38:49 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id EE35F3C232D
+ for <ltp@lists.linux.it>; Wed, 16 Jun 2021 13:54:33 +0200 (CEST)
+Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 8384C600D61
- for <ltp@lists.linux.it>; Wed, 16 Jun 2021 13:38:49 +0200 (CEST)
-Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
- (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id EA3BF21A24;
- Wed, 16 Jun 2021 11:38:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1623843528;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Y35bviPbkkOjmm93D3gK12lwacNPvt0LeKgyI0dNVUI=;
- b=u32aaMypTxfVGHDqzYCyOnUN0ryCthwaAj0L04eiDNvOqTLwMfjqxiAhA3vH20Q33O05Lr
- GsdOIFDYkTu3FhoJ6/ve7LCvEwL+6CbrlD9e/YDBCDylBVssAdJVyrExMye8z8ube1oAuh
- JV02ICODfOqKPy+Q65Pin4rLHvzoCWA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1623843528;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Y35bviPbkkOjmm93D3gK12lwacNPvt0LeKgyI0dNVUI=;
- b=drj7saS3wpC6YauCAZldkMZP4R2ifWn5hJmdWlro1UAzA/hlUkSyhYW46eOkr53W8+tImE
- dvDOF/frtw2S+4BA==
-Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id BADFB118DD;
- Wed, 16 Jun 2021 11:38:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1623843528;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Y35bviPbkkOjmm93D3gK12lwacNPvt0LeKgyI0dNVUI=;
- b=u32aaMypTxfVGHDqzYCyOnUN0ryCthwaAj0L04eiDNvOqTLwMfjqxiAhA3vH20Q33O05Lr
- GsdOIFDYkTu3FhoJ6/ve7LCvEwL+6CbrlD9e/YDBCDylBVssAdJVyrExMye8z8ube1oAuh
- JV02ICODfOqKPy+Q65Pin4rLHvzoCWA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1623843528;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Y35bviPbkkOjmm93D3gK12lwacNPvt0LeKgyI0dNVUI=;
- b=drj7saS3wpC6YauCAZldkMZP4R2ifWn5hJmdWlro1UAzA/hlUkSyhYW46eOkr53W8+tImE
- dvDOF/frtw2S+4BA==
-Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id 1CdALMjiyWAedQAALh3uQQ
- (envelope-from <pvorel@suse.cz>); Wed, 16 Jun 2021 11:38:48 +0000
-Date: Wed, 16 Jun 2021 13:38:47 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Xie Ziyao <xieziyao@huawei.com>, Li Wang <liwang@redhat.com>,
- LTP List <ltp@lists.linux.it>
-Message-ID: <YMnix3wc3nTTUfXs@pevik>
-References: <20210518064506.203781-1-xieziyao@huawei.com>
- <CAEemH2en6C3dUzspuVwNVmRiUeBQWK38bLPT7+ZwErVFQG+i-w@mail.gmail.com>
- <YKXtvaeckoJ2HJzJ@pevik>
- <730f190e-4baa-f854-2c5e-8c6b9d4267df@huawei.com>
- <YMniMEyDjhCLcx8g@pevik>
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id AC6CC140115E
+ for <ltp@lists.linux.it>; Wed, 16 Jun 2021 13:54:31 +0200 (CEST)
+Received: from dggemv711-chm.china.huawei.com (unknown [172.30.72.57])
+ by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4G4k6Y3LMLz70RH
+ for <ltp@lists.linux.it>; Wed, 16 Jun 2021 19:51:17 +0800 (CST)
+Received: from dggpemm500022.china.huawei.com (7.185.36.162) by
+ dggemv711-chm.china.huawei.com (10.1.198.66) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2176.2; Wed, 16 Jun 2021 19:54:27 +0800
+Received: from [10.67.109.194] (10.67.109.194) by
+ dggpemm500022.china.huawei.com (7.185.36.162) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
+ 15.1.2176.2; Wed, 16 Jun 2021 19:54:26 +0800
+To: Cyril Hrubis <chrubis@suse.cz>
+References: <20210616093606.214856-1-xieziyao@huawei.com>
+ <20210616093606.214856-2-xieziyao@huawei.com> <YMnavJjzrS7B8fgd@yuki>
+From: Xie Ziyao <xieziyao@huawei.com>
+Message-ID: <55d788bc-a454-0c9a-f0bd-733aaf0b95c1@huawei.com>
+Date: Wed, 16 Jun 2021 19:54:26 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <YMniMEyDjhCLcx8g@pevik>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+In-Reply-To: <YMnavJjzrS7B8fgd@yuki>
+X-Originating-IP: [10.67.109.194]
+X-ClientProxiedBy: dggeme705-chm.china.huawei.com (10.1.199.101) To
+ dggpemm500022.china.huawei.com (7.185.36.162)
+X-CFilter-Loop: Reflected
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] typo: Add necessary spaces in the outputs
+X-Spam-Status: No, score=-0.2 required=7.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/3] lib: tst_process_state: Add
+ tst_process_release_wait()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,40 +63,92 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Content-Type: text/plain; charset="us-ascii"
+Cc: ltp@lists.linux.it
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-> Hi Ziyao,
+Hi,
 
-> > Hi!
+> 
+> First of all changes in license and whitespaces should be in a separate
+> patch from the newly added functionality.
+Agree with you, thx.
 
-> > Ping. I checked it based on the latest code. Are there any changes that need
-> > to be added?
-> Well, as I note previously on some places it'd be better to join string, e.g.
-> testcases/kernel/syscalls/setsid/setsid01.c
-> testcases/open_posix_testsuite/conformance/interfaces/sched_setparam/2-1.c
-> testcases/kernel/syscalls/sysinfo/sysinfo02.c
+> 
+>>   #include <stdio.h>
+>> @@ -28,9 +12,8 @@
+>>   #include "test.h"
+>>   #include "tst_process_state.h"
+>>
+>> -int tst_process_state_wait(const char *file, const int lineno,
+>> -                            void (*cleanup_fn)(void), pid_t pid,
+>> -			    const char state, unsigned int msec_timeout)
+>> +int tst_process_state_wait(const char *file, const int lineno, void (*cleanup_fn)(void),
+>> +			   pid_t pid, const char state, unsigned int msec_timeout)
+>>   {
+>>   	char proc_path[128], cur_state;
+>>   	unsigned int msecs = 0;
+>> @@ -39,7 +22,7 @@ int tst_process_state_wait(const char *file, const int lineno,
+>>
+>>   	for (;;) {
+>>   		safe_file_scanf(file, lineno, cleanup_fn, proc_path,
+>> -		                "%*i %*s %c", &cur_state);
+>> +				"%*i %*s %c", &cur_state);
+>>
+>>   		if (state == cur_state)
+>>   			break;
+>> @@ -84,3 +67,26 @@ int tst_process_state_wait2(pid_t pid, const char state)
+>>   		usleep(10000);
+>>   	}
+>>   }
+>> +
+>> +int tst_process_release_wait(pid_t pid, unsigned int msec_timeout)
+>> +{
+>> +	char proc_path[128];
+>> +	unsigned int msecs = 0;
+>> +
+>> +	snprintf(proc_path, sizeof(proc_path), "/proc/%i", pid);
+>> +
+>> +	for (;;) {
+>> +		if (access(proc_path, F_OK))
+>> +			break;
+>> +
+>> +		usleep(1000);
+>> +		msecs += 1;
+>> +
+>> +		if (msec_timeout && msecs >= msec_timeout) {
+>> +			errno = ETIMEDOUT;
+>> +			return 0;
+>> +		}
+>> +	}
+>> +
+>> +	return 1;
+>> +}
+> 
+> What exactly do we need this for?
+> 
+> When does /proc/$PID ceases to exit? My guess would be that the
+> directory ceases to exists once the child has been waited() for by a
+> parent process and we do not need this at all since call to system()
+> does wait for it's children anyways.
+Hi, this function is writtten for sig_ign() in getrusage03, which tests 
+getrusage by ignoring the SIGCHLD signal.
 
-> The reason is that string on single line is easier to grep.
-> That's why checkpatch.pl from kernel relaxed max line from 80 to 100
-> (good at least for string).
-And because this I'd personally go for joining string most of the time, even
-long strings like
-testcases/kernel/syscalls/sched_get_priority_max/sched_get_priority_max01.c
+When a child is terminated, a corresponding SIGCHLD signal is delivered 
+to the parent, if we call the signal(SIGCHLD,SIG_IGN), then the SIGCHLD 
+signal is ignored by the system, and the child process entry is deleted 
+from the process table. Thus, no zombie is created. However, in this 
+case, the parent cannot know about the exit status of the child.
 
-Kind regards,
-Petr
+So I checked /proc/$PID here instead of using waitpid().
 
-> But I'm ok to merge it without.
 
-> Kind regards,
-> Petr
+Thanks for your review.
 
-> > Kind Regards,
-> > Ziyao
+Kind Regards,
+Ziyao
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
