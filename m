@@ -2,86 +2,74 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id B05503A9DB4
-	for <lists+linux-ltp@lfdr.de>; Wed, 16 Jun 2021 16:36:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 342FC3AA049
+	for <lists+linux-ltp@lfdr.de>; Wed, 16 Jun 2021 17:46:09 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3E9453C8904
-	for <lists+linux-ltp@lfdr.de>; Wed, 16 Jun 2021 16:36:52 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id DE4013C71B9
+	for <lists+linux-ltp@lfdr.de>; Wed, 16 Jun 2021 17:46:08 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 54B853C3106
- for <ltp@lists.linux.it>; Wed, 16 Jun 2021 16:36:48 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id 92A853C2E0B
+ for <ltp@lists.linux.it>; Wed, 16 Jun 2021 17:46:06 +0200 (CEST)
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id CAA061401180
- for <ltp@lists.linux.it>; Wed, 16 Jun 2021 16:36:47 +0200 (CEST)
-Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
- (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 006B31FD3F;
- Wed, 16 Jun 2021 14:36:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1623854207;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=tE8xjLYf+ADQ5Yv/EVWM9hlvoe9v2YeFF+PJvYb6Icc=;
- b=IdpK4cGgtdaETWIsSQJnxxNpjQ8NRrrguEHrQcPtwMOT6IlD22VbRJ8NsDYp277MtrH+m0
- ys1B0xK4lAx5/tMqrStl4yd6s6wBCedcfRqC0dMB1qaFrLH3CqyqhhjW5FaHRTsVU529Yj
- EjKNCKNc6PyrZBWYsWYwfrjP8OC1Ui4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1623854207;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=tE8xjLYf+ADQ5Yv/EVWM9hlvoe9v2YeFF+PJvYb6Icc=;
- b=3r/0ee7ai/lP/JEdBwxPqsMHGowcwyTPQXqruq6DWxkCJp1p4nP/F5p2wS/JaRrYAloGCa
- i3sTC/apTyJEhjBg==
-Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id B7EC8118DD;
- Wed, 16 Jun 2021 14:36:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1623854206;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=tE8xjLYf+ADQ5Yv/EVWM9hlvoe9v2YeFF+PJvYb6Icc=;
- b=ye5kCmx6ifov53yNS75dqUBjhw5qofynM/AuDN129JnVZn1T+iNDBlScyER0dt/gb189RP
- sFxy4BUmHJ+7l89ewdA7mKT2H87KKkb3BmDRTqP6QsnTgrL290gYA1uJ/Tkexa9qTEpm1P
- F7UX7VDIwYtF8s0VNAQ0lDi+2TWjFPE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1623854206;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=tE8xjLYf+ADQ5Yv/EVWM9hlvoe9v2YeFF+PJvYb6Icc=;
- b=R/nWu9kzsx886J7Gv9gCHjLIpcq7/hBtIIYpbdQr8Oj/Q3mP4RDsIEep2mRqlojuEN3xQa
- 8Utlfn8mzUYDhgAA==
-Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id Pu+5Kn4MymAMYQAALh3uQQ
- (envelope-from <pvorel@suse.cz>); Wed, 16 Jun 2021 14:36:46 +0000
-Date: Wed, 16 Jun 2021 16:36:45 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
-Message-ID: <YMoMfS+cFx4aau01@pevik>
-References: <20210616081856.3026223-1-lkml@jv-coder.de>
- <fb4b9d45-2cbb-5e5c-fefe-3ca429373a54@bell-sw.com>
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 48687100112F
+ for <ltp@lists.linux.it>; Wed, 16 Jun 2021 17:46:06 +0200 (CEST)
+Received: from mail-ed1-f71.google.com ([209.85.208.71])
+ by youngberry.canonical.com with esmtps (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
+ (envelope-from <krzysztof.kozlowski@canonical.com>)
+ id 1ltXjv-0008Og-Ny
+ for ltp@lists.linux.it; Wed, 16 Jun 2021 15:46:04 +0000
+Received: by mail-ed1-f71.google.com with SMTP id
+ g13-20020a056402090db02903935a4cb74fso1297549edz.1
+ for <ltp@lists.linux.it>; Wed, 16 Jun 2021 08:46:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=CtLt9YtVk/Uk5PrxgrpUA9fXL6Rngf9hAE1abgZE8pU=;
+ b=RwVvKlgUL4WsQeH80ql+TTyUu63UIwqwOklT+nFAarn0lEsWdf7meWTJLBLVflvL+f
+ ILt5PQr67sI0ceUFtyqIeRIIJLHQYGvCIksYThbe21mlfH2pSsTP8nDzIOObkvOZddTD
+ mxxgCmLbfGw/IcFZ9flDDnV6wxvEH5FzS0E+XJ0Owoem0W1xmQlIfs777dUCDo8KclOG
+ 1nAEzBxNsOtNH3bUYR3LbOPUK2hpPjQdxpOr4r43I2tKU86PlRVJvk4uBC8iH4MfpFST
+ L/s0c0wP0OftUnfjG9a+QXel8zWVKvqqcF82SEkPyQTAo2aRsYb6x+0OCPOgaAjUZiQv
+ BL0w==
+X-Gm-Message-State: AOAM530y4WCa7RRLmDoNIU0iKNW6UMqqF43XUr4oy9ul6F2HtQ0HS7VA
+ IGYDt0AaSwKGVHWEvYz/eX+7nhc/UyqGNGiiezm7LFfGgVeiCgeH7o4il5STlBPjFLNrzfNV4wD
+ Qc4lVCnJpCGSnnuK0JHHPL6xbzeLx
+X-Received: by 2002:a05:6402:13d7:: with SMTP id
+ a23mr350340edx.120.1623858363036; 
+ Wed, 16 Jun 2021 08:46:03 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJyo8SYwz7Vx/QPkFuP+N4p7zZlLAJNtgNe087PpkU2R/hNhkpZsek9g1913SwwWGUGIctjC6A==
+X-Received: by 2002:a05:6402:13d7:: with SMTP id
+ a23mr350316edx.120.1623858362866; 
+ Wed, 16 Jun 2021 08:46:02 -0700 (PDT)
+Received: from localhost.localdomain (xdsl-188-155-177-222.adslplus.ch.
+ [188.155.177.222])
+ by smtp.gmail.com with ESMTPSA id r4sm1817858ejd.105.2021.06.16.08.46.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 16 Jun 2021 08:46:02 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+To: ltp@lists.linux.it
+Date: Wed, 16 Jun 2021 17:45:12 +0200
+Message-Id: <20210616154512.47160-1-krzysztof.kozlowski@canonical.com>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <fb4b9d45-2cbb-5e5c-fefe-3ca429373a54@bell-sw.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3] ssh-stress: Convert to new api
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH] controllers/memcg: increase memory limit in subgroup
+ charge
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,49 +81,77 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Joerg, Alexey,
+The memcg_subgroup_charge was failing on kernel v5.8 in around 10% cases
+with:
 
-...
-> >  cleanup()
-> >  {
-> > +	local pids
-> > +
-> >  	# Stop the ssh daemon
-> > -	test -s sshd.pid && kill $(cat sshd.pid)
-> > -	pkill 'netstress$'
-> > -	tst_rmdir
-> > -	[ "$rtmpdir" ] && tst_rhost_run -c "rm -rf $rtmpdir"
-> > -	TMPDIR=
-> > +	[ -s sshd.pid ] && kill $(cat sshd.pid)
-> > +	[ -n "$NETSTRESS_PID" ] && kill -2 $NETSTRESS_PID >/dev/null 2>&1
-> > +
-> > +	tst_rhost_run -c "kill $RHOST_PIDS"  >/dev/null 2>&1
-And check also $RHOST_PIDS, right?
-[ -n "$RHOST_PIDS" ] && tst_rhost_run -c "kill $RHOST_PIDS" >/dev/null 2>&1
+    memcg_subgroup_charge 1 TINFO: Running memcg_process --mmap-anon -s 135168
+    memcg_subgroup_charge 1 TINFO: Warming up pid: 19289
+    memcg_subgroup_charge 1 TINFO: Process is still here after warm up: 19289
+    memcg_subgroup_charge 1 TFAIL: rss is 0, 135168 expected
+    memcg_subgroup_charge 1 TPASS: rss is 0 as expected
 
-> > +
-> > +	# Kill all remaining ssh processes
-> > +	tst_rhost_run -c "pkill -f '^ssh $RHOST_SSH_CONF'"
+In dmesg one could see that OOM killer killed the process even though
+group memory limit was matching the usage:
 
-> Perhaps we should check that $RHOST_SSH_CONF is set before running
-> pkill.
-[ -n "$RHOST_SSH_CONF" ] && tst_rhost_run -c "pkill -f '^ssh $RHOST_SSH_CONF'"
+    memcg_process invoked oom-killer: gfp_mask=0xcc0(GFP_KERNEL), order=0, oom_score_adj=0
+    CPU: 4 PID: 19289 Comm: memcg_process Not tainted 5.8.0-1031-oracle #32~20.04.2-Ubuntu
+    Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.4.1 12/03/2020
+    ...
+    memory: usage 132kB, limit 132kB, failcnt 9
+    memory+swap: usage 132kB, limit 9007199254740988kB, failcnt 0
+    kmem: usage 4kB, limit 9007199254740988kB, failcnt 0
+    ...
+    Tasks state (memory values in pages):
+    [  pid  ]   uid  tgid total_vm      rss pgtables_bytes swapents oom_score_adj name
+    [  19289]     0 19289      669      389    40960        0             0 memcg_process
+    oom-kill:constraint=CONSTRAINT_MEMCG,nodemask=(null),cpuset=/,mems_allowed=0,oom_memcg=/ltp_19257,task_memcg=/ltp_19257,task=memcg_process,pid=19289,uid=0
+    Memory cgroup out of memory: Killed process 19289 (memcg_process) total-vm:2676kB, anon-rss:84kB, file-rss:1468kB, shmem-rss:4kB, UID:0 pgtables:40kB oom_score_adj:0
+    oom_reaper: reaped process 19289 (memcg_process), now anon-rss:0kB, file-rss:0kB, shmem-rss:4kB
 
-No need to repost, I'll fix it before merge.
+It seems using 100% of memory assigned to given group might trigger OOM,
+so add a space of at least one page.
 
-> For the rest:
-> Reviewed-by: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
-Thanks!
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+---
+ .../memcg/functional/memcg_subgroup_charge.sh    | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
 
-Kind regards,
-Petr
+diff --git a/testcases/kernel/controllers/memcg/functional/memcg_subgroup_charge.sh b/testcases/kernel/controllers/memcg/functional/memcg_subgroup_charge.sh
+index 9b23177a4dc5..88ddbabf7fa9 100755
+--- a/testcases/kernel/controllers/memcg/functional/memcg_subgroup_charge.sh
++++ b/testcases/kernel/controllers/memcg/functional/memcg_subgroup_charge.sh
+@@ -19,9 +19,21 @@ TST_CNT=3
+ # $2 - memory.limit_in_bytes in sub group
+ test_subgroup()
+ {
++	local limit_parent=$1
++	local limit_subgroup=$2
++
++	# OOM might start killing if memory usage is 100%, so give it
++	# always one page size more:
++	if [ $limit_parent -ne 0 ]; then
++		limit_parent=$((limit_parent + PAGESIZE))
++	fi
++	if [ $limit_subgroup -ne 0 ]; then
++		limit_subgroup=$((limit_subgroup + PAGESIZE))
++	fi
++
+ 	mkdir subgroup
+-	echo $1 > memory.limit_in_bytes
+-	echo $2 > subgroup/memory.limit_in_bytes
++	echo $limit_parent > memory.limit_in_bytes
++	echo $limit_subgroup > subgroup/memory.limit_in_bytes
+ 
+ 	start_memcg_process --mmap-anon -s $PAGESIZES
+ 
+-- 
+2.27.0
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
