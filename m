@@ -2,56 +2,85 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2ADA83A99A0
-	for <lists+linux-ltp@lfdr.de>; Wed, 16 Jun 2021 13:54:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D61463A9A01
+	for <lists+linux-ltp@lfdr.de>; Wed, 16 Jun 2021 14:13:33 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E0AAD3C4CC0
-	for <lists+linux-ltp@lfdr.de>; Wed, 16 Jun 2021 13:54:35 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A3D0F3C4CC0
+	for <lists+linux-ltp@lfdr.de>; Wed, 16 Jun 2021 14:13:33 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id EE35F3C232D
- for <ltp@lists.linux.it>; Wed, 16 Jun 2021 13:54:33 +0200 (CEST)
-Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 07AFB3C0138
+ for <ltp@lists.linux.it>; Wed, 16 Jun 2021 14:13:31 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id AC6CC140115E
- for <ltp@lists.linux.it>; Wed, 16 Jun 2021 13:54:31 +0200 (CEST)
-Received: from dggemv711-chm.china.huawei.com (unknown [172.30.72.57])
- by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4G4k6Y3LMLz70RH
- for <ltp@lists.linux.it>; Wed, 16 Jun 2021 19:51:17 +0800 (CST)
-Received: from dggpemm500022.china.huawei.com (7.185.36.162) by
- dggemv711-chm.china.huawei.com (10.1.198.66) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2176.2; Wed, 16 Jun 2021 19:54:27 +0800
-Received: from [10.67.109.194] (10.67.109.194) by
- dggpemm500022.china.huawei.com (7.185.36.162) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
- 15.1.2176.2; Wed, 16 Jun 2021 19:54:26 +0800
-To: Cyril Hrubis <chrubis@suse.cz>
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 3230F1401158
+ for <ltp@lists.linux.it>; Wed, 16 Jun 2021 14:13:29 +0200 (CEST)
+Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 763A91FD47;
+ Wed, 16 Jun 2021 12:13:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1623845609; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=YiqQtubootuob7Vb25m/8CFNEVEU1So499us9u18JIQ=;
+ b=Y+MPV36h4GoHR6aTI9kH0cm4csEo3A8sVrHzah/KFftkAmguy/fwWWRRTCmHFkvStLSc76
+ ZJKB2gANJOfRAxwnikwMGLIbhqgIxsjF4I3fwNpcA0oLABiJ49ZkUUmf6sgprsPMWxsY/d
+ /YtR2CTdQwtMXZqS10fApgaR24zNF2o=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1623845609;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=YiqQtubootuob7Vb25m/8CFNEVEU1So499us9u18JIQ=;
+ b=Gq7Zb6Ffxhk/EHMRJc1Afm9P5rPsvz/gpnRytQWsorS859ZOwDpK+v1ybkFXaqgzLPPI6S
+ ytsvWtCrBIy+9WDg==
+Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ by imap.suse.de (Postfix) with ESMTP id 4DCA9118DD;
+ Wed, 16 Jun 2021 12:13:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1623845609; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=YiqQtubootuob7Vb25m/8CFNEVEU1So499us9u18JIQ=;
+ b=Y+MPV36h4GoHR6aTI9kH0cm4csEo3A8sVrHzah/KFftkAmguy/fwWWRRTCmHFkvStLSc76
+ ZJKB2gANJOfRAxwnikwMGLIbhqgIxsjF4I3fwNpcA0oLABiJ49ZkUUmf6sgprsPMWxsY/d
+ /YtR2CTdQwtMXZqS10fApgaR24zNF2o=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1623845609;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=YiqQtubootuob7Vb25m/8CFNEVEU1So499us9u18JIQ=;
+ b=Gq7Zb6Ffxhk/EHMRJc1Afm9P5rPsvz/gpnRytQWsorS859ZOwDpK+v1ybkFXaqgzLPPI6S
+ ytsvWtCrBIy+9WDg==
+Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
+ id 9kG9EenqyWDFCwAALh3uQQ
+ (envelope-from <chrubis@suse.cz>); Wed, 16 Jun 2021 12:13:29 +0000
+Date: Wed, 16 Jun 2021 13:47:49 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Xie Ziyao <xieziyao@huawei.com>
+Message-ID: <YMnk5QUhwnOHrWLi@yuki>
 References: <20210616093606.214856-1-xieziyao@huawei.com>
- <20210616093606.214856-2-xieziyao@huawei.com> <YMnavJjzrS7B8fgd@yuki>
-From: Xie Ziyao <xieziyao@huawei.com>
-Message-ID: <55d788bc-a454-0c9a-f0bd-733aaf0b95c1@huawei.com>
-Date: Wed, 16 Jun 2021 19:54:26 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.2
+ <20210616093606.214856-3-xieziyao@huawei.com>
 MIME-Version: 1.0
-In-Reply-To: <YMnavJjzrS7B8fgd@yuki>
-X-Originating-IP: [10.67.109.194]
-X-ClientProxiedBy: dggeme705-chm.china.huawei.com (10.1.199.101) To
- dggpemm500022.china.huawei.com (7.185.36.162)
-X-CFilter-Loop: Reflected
+Content-Disposition: inline
+In-Reply-To: <20210616093606.214856-3-xieziyao@huawei.com>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.2 required=7.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/3] lib: tst_process_state: Add
- tst_process_release_wait()
+Subject: Re: [LTP] [PATCH 2/3] syscalls/getrusage: Cleanup and bugfix for
+ getrusage03
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,91 +93,844 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
-
+Hi!
+> diff --git a/testcases/kernel/syscalls/getrusage/getrusage03.c b/testcases/kernel/syscalls/getrusage/getrusage03.c
+> index 125acfc64..518e8510e 100644
+> --- a/testcases/kernel/syscalls/getrusage/getrusage03.c
+> +++ b/testcases/kernel/syscalls/getrusage/getrusage03.c
+> @@ -1,353 +1,176 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+>  /*
+> - * getrusage03 - test ru_maxrss behaviors in struct rusage
+> - *
+> - * This test program is backported from upstream commit:
+> - * 1f10206cf8e945220f7220a809d8bfc15c21f9a5, which fills ru_maxrss
+> - * value in struct rusage according to rss hiwater mark. To make sure
+> - * this feature works correctly, a series of tests are executed in
+> - * this program.
+> - *
+>   * Copyright (C) 2011  Red Hat, Inc.
+> - * This program is free software; you can redistribute it and/or
+> - * modify it under the terms of version 2 of the GNU General Public
+> - * License as published by the Free Software Foundation.
+> - *
+> - * This program is distributed in the hope that it would be useful,
+> - * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+> + * Copyright (c) 2021 Xie Ziyao <xieziyao@huawei.com>
+> + */
+> +
+> +/*\
+> + * [Description]
+>   *
+> - * Further, this software is distributed without any warranty that it
+> - * is free of the rightful claim of any third person regarding
+> - * infringement or the like.  Any license provided herein, whether
+> - * implied or otherwise, applies only to this software file.  Patent
+> - * licenses, if any, provided herein do not apply to combinations of
+> - * this program with other software, or any other product whatsoever.
+> + * Test ru_maxrss behaviors in struct rusage.
+>   *
+> - * You should have received a copy of the GNU General Public License
+> - * along with this program; if not, write the Free Software
+> - * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+> - * 02110-1301, USA.
+> + * This test program is backported from upstream commit: 1f10206cf8e9, which
+> + * fills ru_maxrss value in struct rusage according to rss hiwater mark. To
+> + * make sure this feature works correctly, a series of tests are executed in
+> + * this program.
+>   */
+> -#include <sys/types.h>
+> -#include <sys/mman.h>
+> -#include <sys/resource.h>
+> -#include <sys/time.h>
+> -#include <sys/wait.h>
+> -#include <unistd.h>
+> -#include <signal.h>
+> -#include <stdio.h>
+> -#include <stdlib.h>
+> -#include <string.h>
 > 
-> First of all changes in license and whitespaces should be in a separate
-> patch from the newly added functionality.
-Agree with you, thx.
-
+> -#include "test.h"
+> -#include "safe_macros.h"
+> +#include <stdlib.h>
+> +#include <stdio.h>
 > 
->>   #include <stdio.h>
->> @@ -28,9 +12,8 @@
->>   #include "test.h"
->>   #include "tst_process_state.h"
->>
->> -int tst_process_state_wait(const char *file, const int lineno,
->> -                            void (*cleanup_fn)(void), pid_t pid,
->> -			    const char state, unsigned int msec_timeout)
->> +int tst_process_state_wait(const char *file, const int lineno, void (*cleanup_fn)(void),
->> +			   pid_t pid, const char state, unsigned int msec_timeout)
->>   {
->>   	char proc_path[128], cur_state;
->>   	unsigned int msecs = 0;
->> @@ -39,7 +22,7 @@ int tst_process_state_wait(const char *file, const int lineno,
->>
->>   	for (;;) {
->>   		safe_file_scanf(file, lineno, cleanup_fn, proc_path,
->> -		                "%*i %*s %c", &cur_state);
->> +				"%*i %*s %c", &cur_state);
->>
->>   		if (state == cur_state)
->>   			break;
->> @@ -84,3 +67,26 @@ int tst_process_state_wait2(pid_t pid, const char state)
->>   		usleep(10000);
->>   	}
->>   }
->> +
->> +int tst_process_release_wait(pid_t pid, unsigned int msec_timeout)
->> +{
->> +	char proc_path[128];
->> +	unsigned int msecs = 0;
->> +
->> +	snprintf(proc_path, sizeof(proc_path), "/proc/%i", pid);
->> +
->> +	for (;;) {
->> +		if (access(proc_path, F_OK))
->> +			break;
->> +
->> +		usleep(1000);
->> +		msecs += 1;
->> +
->> +		if (msec_timeout && msecs >= msec_timeout) {
->> +			errno = ETIMEDOUT;
->> +			return 0;
->> +		}
->> +	}
->> +
->> +	return 1;
->> +}
+> -char *TCID = "getrusage03";
+> -int TST_TOTAL = 1;
+> +#include "tst_test.h"
+> +#include "getrusage03.h"
 > 
-> What exactly do we need this for?
+> -#define DELTA_MAX	10240
+> +#define TESTBIN "getrusage03_child"
 > 
-> When does /proc/$PID ceases to exit? My guess would be that the
-> directory ceases to exists once the child has been waited() for by a
-> parent process and we do not need this at all since call to system()
-> does wait for it's children anyways.
-Hi, this function is writtten for sig_ign() in getrusage03, which tests 
-getrusage by ignoring the SIGCHLD signal.
+> +static pid_t pid;
+> +static int retval;
+>  static struct rusage ru;
+>  static long maxrss_init;
+> -static int retval, status;
+> -static pid_t pid;
+> 
+> -static void inherit_fork(void);
+> -static void inherit_fork2(void);
+> -static void fork_malloc(void);
+> -static void grandchild_maxrss(void);
+> -static void zombie(void);
+> -static void sig_ign(void);
+> -static void exec_without_fork(void);
+> -static void check_return(int status, char *pass_msg, char *fail_msg);
+> -static int is_in_delta(long value);
+> -static void consume(int mega);
+> -static void setup(void);
+> -static void cleanup(void);
+> +static const char *const resource[] = {
+> +	TESTBIN,
+> +	NULL,
+> +};
+> 
+> -int main(int argc, char *argv[])
+> +static void check_result(int result, char *msg)
+>  {
+> -	int lc;
+> -
+> -	tst_parse_opts(argc, argv, NULL, NULL);
+> -
+> -	setup();
+> -
+> -	for (lc = 0; TEST_LOOPING(lc); lc++) {
+> -		tst_count = 0;
+> -
+> -		tst_resm(TINFO, "allocate 100MB");
+> -		consume(100);
+> -
+> -		inherit_fork();
+> -		inherit_fork2();
+> -		fork_malloc();
+> -		grandchild_maxrss();
+> -		zombie();
+> -		sig_ign();
+> -		exec_without_fork();
+> -	}
+> -	cleanup();
+> -	tst_exit();
+> +	if (result == 1)
+> +		tst_res(TPASS, "%s", msg);
+> +	else if (result == 0)
+> +		tst_res(TFAIL, "%s", msg);
+> +	else
+> +		tst_res(TFAIL, "unexpected result???%d", result);
+>  }
 
-When a child is terminated, a corresponding SIGCHLD signal is delivered 
-to the parent, if we call the signal(SIGCHLD,SIG_IGN), then the SIGCHLD 
-signal is ignored by the system, and the child process entry is deleted 
-from the process table. Thus, no zombie is created. However, in this 
-case, the parent cannot know about the exit status of the child.
+The new test library allows you to report PASS/FAIL from child processes
+so we can get rid of this check result function here.
 
-So I checked /proc/$PID here instead of using waitpid().
+> -/* Testcase #01: fork inherit
+> - * expect: initial.self ~= child.self */
+> -static void inherit_fork(void)
+> +static void inherit_fork1(void)
+>  {
+> -	tst_resm(TINFO, "Testcase #01: fork inherit");
+> -
+> -	SAFE_GETRUSAGE(cleanup, RUSAGE_SELF, &ru);
+> -	tst_resm(TINFO, "initial.self = %ld", ru.ru_maxrss);
+> +	SAFE_GETRUSAGE(RUSAGE_SELF, &ru);
+> +	maxrss_init = ru.ru_maxrss;
+> 
+> -	switch (pid = fork()) {
+> -	case -1:
+> -		tst_brkm(TBROK | TERRNO, cleanup, "fork #1");
+> -	case 0:
+> -		maxrss_init = ru.ru_maxrss;
+> -		SAFE_GETRUSAGE(cleanup, RUSAGE_SELF, &ru);
+> -		tst_resm(TINFO, "child.self = %ld", ru.ru_maxrss);
+> -		exit(is_in_delta(maxrss_init - ru.ru_maxrss));
+> -	default:
+> -		break;
+> +	if ((pid = SAFE_FORK()) == 0) {
+
+We do not use the pid value for anything so this can be just:
+
+	if (!SAFE_FORK()) {
+		...
+
+> +		SAFE_GETRUSAGE(RUSAGE_SELF, &ru);
+> +		exit(!is_in_delta(maxrss_init - ru.ru_maxrss));
+
+Here we should do:
+
+		if (is_in_delta(maxrss_init - ru.ru_maxrss)) {
+			tst_res(TPASS, "ru_maxrrs inheritted correctly");
+		} else {
+			tst_res(TFAIL, "ru_maxrss = %li, expected %li",
+			        ru.ru_maxrss, maxrss_init);
+		}
+
+>  	}
+> 
+> -	SAFE_WAITPID(cleanup, pid, &status, WUNTRACED | WCONTINUED);
+> -	check_return(WEXITSTATUS(status), "initial.self ~= child.self",
+> -		     "initial.self !~= child.self");
+> +	tst_reap_children();
+> +	tst_res(TPASS, "check that initial.self ~= child.self");
+
+And all that has to be done here is tst_reap_children();
+
+>  }
+> 
+> -/* Testcase #02: fork inherit (cont.)
+> - * expect: initial.children ~= 100MB, child.children = 0 */
+>  static void inherit_fork2(void)
+>  {
+> -	tst_resm(TINFO, "Testcase #02: fork inherit(cont.)");
+> -
+> -	SAFE_GETRUSAGE(cleanup, RUSAGE_CHILDREN, &ru);
+> -	tst_resm(TINFO, "initial.children = %ld", ru.ru_maxrss);
+> -	if (is_in_delta(ru.ru_maxrss - 102400))
+> -		tst_resm(TPASS, "initial.children ~= 100MB");
+> -	else
+> -		tst_resm(TFAIL, "initial.children !~= 100MB");
+> -
+> -	switch (pid = fork()) {
+> -	case -1:
+> -		tst_brkm(TBROK | TERRNO, cleanup, "fork #2");
+> -	case 0:
+> -		SAFE_GETRUSAGE(cleanup, RUSAGE_CHILDREN, &ru);
+> -		tst_resm(TINFO, "child.children = %ld", ru.ru_maxrss);
+> -		exit(ru.ru_maxrss == 0);
+> -	default:
+> -		break;
+> -	}
+> -
+> -	SAFE_WAITPID(cleanup, pid, &status, WUNTRACED | WCONTINUED);
+> -	check_return(WEXITSTATUS(status), "child.children == 0",
+> -		     "child.children != 0");
+> -}
+> -
+> -/* Testcase #03: fork + malloc
+> - * expect: initial.self + 50MB ~= child.self */
+> -static void fork_malloc(void)
+> -{
+> -	tst_resm(TINFO, "Testcase #03: fork + malloc");
+> -
+> -	SAFE_GETRUSAGE(cleanup, RUSAGE_SELF, &ru);
+> -	tst_resm(TINFO, "initial.self = %ld", ru.ru_maxrss);
+> +	SAFE_GETRUSAGE(RUSAGE_CHILDREN, &ru);
+> +	check_result(is_in_delta(ru.ru_maxrss - 102400), "check that initial.children ~= 100MB");
+
+Can we just do the check here instead? I.e.
+
+	if (is_in_delta(ru.ru_maxrss - 102400))
+		tst_res(TPASS, "Initial ru.ru_maxrss ~= 100MB");
+	else
+		tst_res(TFAIL, "Initial ru.ru_maxrss = %liB", ru.ru_maxrss);
+
+> -	switch (pid = fork()) {
+> -	case -1:
+> -		tst_brkm(TBROK | TERRNO, cleanup, "fork #3");
+> -	case 0:
+> -		maxrss_init = ru.ru_maxrss;
+> -		tst_resm(TINFO, "child allocate +50MB");
+> -		consume(50);
+> -		SAFE_GETRUSAGE(cleanup, RUSAGE_SELF, &ru);
+> -		tst_resm(TINFO, "child.self = %ld", ru.ru_maxrss);
+> -		exit(is_in_delta(maxrss_init + 51200 - ru.ru_maxrss));
+> -	default:
+> -		break;
+> +	if ((pid = SAFE_FORK()) == 0) {
+
+Here as well just if (!SAFE_FORK()) {
+
+> +		SAFE_GETRUSAGE(RUSAGE_CHILDREN, &ru);
+> +		exit(ru.ru_maxrss);
+
+Here as well, we should report the result here.
+
+>  	}
+> 
+> -	SAFE_WAITPID(cleanup, pid, &status, WUNTRACED | WCONTINUED);
+> -	check_return(WEXITSTATUS(status), "initial.self + 50MB ~= child.self",
+> -		     "initial.self + 50MB !~= child.self");
+> +	tst_reap_children();
+> +	tst_res(TPASS, "check that child.children == 0");
+
+And only reap the child process here.
+
+>  }
+> 
+> -/* Testcase #04: grandchild maxrss
+> - * expect: post_wait.children ~= 300MB */
+>  static void grandchild_maxrss(void)
+>  {
+> -	tst_resm(TINFO, "Testcase #04: grandchild maxrss");
+> -
+> -	SAFE_GETRUSAGE(cleanup, RUSAGE_CHILDREN, &ru);
+> -	tst_resm(TINFO, "initial.children = %ld", ru.ru_maxrss);
+> -
+> -	switch (pid = fork()) {
+> -	case -1:
+> -		tst_brkm(TBROK | TERRNO, cleanup, "fork #4");
+> -	case 0:
+> -		retval = system("getrusage03_child -g 300");
+> +	if ((pid = SAFE_FORK()) == 0) {
+
+	Here as well.
+
+> +		retval = tst_system("getrusage03_child grand_consume 300");
+
+We have already forked so there is no point in using system(). All that
+we have to do here is execve() as:
+
+		const char *argv[] = {"getrusage03_child", "grand_consume", "300", NULL};
+
+		execve(argv[0], argv[], environ);
+
+		tst_brk(TBROK | TERRNO, "execve() failed");
+
+>  		if ((WIFEXITED(retval) && WEXITSTATUS(retval) != 0))
+> -			tst_brkm(TBROK | TERRNO, cleanup, "system");
+> +			tst_brk(TBROK, "system(\"getrusage03_child grand_consume 300\")");
+>  		exit(0);
+> -	default:
+> -		break;
+>  	}
+> 
+> -	SAFE_WAITPID(cleanup, pid, &status, WUNTRACED | WCONTINUED);
+> -	if (WEXITSTATUS(status) != 0)
+> -		tst_brkm(TBROK | TERRNO, cleanup, "child exit status is not 0");
+> -
+> -	SAFE_GETRUSAGE(cleanup, RUSAGE_CHILDREN, &ru);
+> -	tst_resm(TINFO, "post_wait.children = %ld", ru.ru_maxrss);
+> -	if (is_in_delta(ru.ru_maxrss - 307200))
+> -		tst_resm(TPASS, "child.children ~= 300MB");
+> -	else
+> -		tst_resm(TFAIL, "child.children !~= 300MB");
+> +	tst_reap_children();
+> +	SAFE_GETRUSAGE(RUSAGE_CHILDREN, &ru);
+> +	check_result(is_in_delta(ru.ru_maxrss - 307200), "check that child.children ~= 300MB");
+>  }
+> 
+> -/* Testcase #05: zombie
+> - * expect: initial ~= pre_wait, post_wait ~= 400MB */
+>  static void zombie(void)
+>  {
+> -	tst_resm(TINFO, "Testcase #05: zombie");
+> -
+> -	SAFE_GETRUSAGE(cleanup, RUSAGE_CHILDREN, &ru);
+> -	tst_resm(TINFO, "initial.children = %ld", ru.ru_maxrss);
+> +	SAFE_GETRUSAGE(RUSAGE_CHILDREN, &ru);
+>  	maxrss_init = ru.ru_maxrss;
+> 
+> -	switch (pid = fork()) {
+> -	case -1:
+> -		tst_brkm(TBROK, cleanup, "fork #5");
+> -	case 0:
+> -		retval = system("getrusage03_child -n 400");
+> +	if ((pid = SAFE_FORK()) == 0) {
+> +		retval = tst_system("getrusage03_child consume 400");
+>  		if ((WIFEXITED(retval) && WEXITSTATUS(retval) != 0))
+> -			tst_brkm(TBROK | TERRNO, cleanup, "system");
+> +			tst_brk(TBROK, "system(\"getrusage03_child consume 400\")");
+>  		exit(0);
+> -	default:
+> -		break;
+>  	}
+
+Here as well, just use execve().
+
+> -	sleep(1);		/* children become zombie */
+> -	SAFE_GETRUSAGE(cleanup, RUSAGE_CHILDREN, &ru);
+> -	tst_resm(TINFO, "pre_wait.children = %ld", ru.ru_maxrss);
+> -	if (is_in_delta(ru.ru_maxrss - maxrss_init))
+> -		tst_resm(TPASS, "initial.children ~= pre_wait.children");
+> -	else
+> -		tst_resm(TFAIL, "initial.children !~= pre_wait.children");
+> -
+> -	SAFE_WAITPID(cleanup, pid, &status, WUNTRACED | WCONTINUED);
+> -	if (WEXITSTATUS(status) != 0)
+> -		tst_brkm(TBROK | TERRNO, cleanup, "child exit status is not 0");
+> +	TST_PROCESS_STATE_WAIT(pid, 'Z', 0);
+> +	SAFE_GETRUSAGE(RUSAGE_CHILDREN, &ru);
+> +	check_result(is_in_delta(ru.ru_maxrss - maxrss_init),
+> +		     "check that initial.children ~= pre_wait.children");
+
+Here as well, just print TPASS/TFAIL messages rather than using the
+check_result() function.
+
+> -	SAFE_GETRUSAGE(cleanup, RUSAGE_CHILDREN, &ru);
+> -	tst_resm(TINFO, "post_wait.children = %ld", ru.ru_maxrss);
+> -	if (is_in_delta(ru.ru_maxrss - 409600))
+> -		tst_resm(TPASS, "post_wait.children ~= 400MB");
+> -	else
+> -		tst_resm(TFAIL, "post_wait.children !~= 400MB");
+> +	tst_reap_children();
+> +	SAFE_GETRUSAGE(RUSAGE_CHILDREN, &ru);
+> +	check_result(is_in_delta(ru.ru_maxrss - 409600), "check that post_wait.children ~= 400MB");
+
+And here as well.
+
+>  }
+> 
+> -/* Testcase #06: SIG_IGN
+> - * expect: initial ~= after_zombie */
+>  static void sig_ign(void)
+>  {
+> -	tst_resm(TINFO, "Testcase #06: SIG_IGN");
+> -
+> -	SAFE_GETRUSAGE(cleanup, RUSAGE_CHILDREN, &ru);
+> -	tst_resm(TINFO, "initial.children = %ld", ru.ru_maxrss);
+> -	signal(SIGCHLD, SIG_IGN);
+> +	SAFE_GETRUSAGE(RUSAGE_CHILDREN, &ru);
+>  	maxrss_init = ru.ru_maxrss;
+> +	SAFE_SIGNAL(SIGCHLD, SIG_IGN);
+> 
+> -	switch (pid = fork()) {
+> -	case -1:
+> -		tst_brkm(TBROK, cleanup, "fork #6");
+> -	case 0:
+> -		retval = system("getrusage03_child -n 500");
+> +	if ((pid = SAFE_FORK()) == 0) {
+> +		retval = tst_system("getrusage03_child consume 500");
+>  		if ((WIFEXITED(retval) && WEXITSTATUS(retval) != 0))
+> -			tst_brkm(TBROK | TERRNO, cleanup, "system");
+> +			tst_brk(TBROK, "system(\"getrusage03_child consume 500\")");
+>  		exit(0);
+> -	default:
+> -		break;
+>  	}
 
 
-Thanks for your review.
+And here as well.
 
-Kind Regards,
-Ziyao
+> -	sleep(1);		/* children become zombie */
+> -	SAFE_GETRUSAGE(cleanup, RUSAGE_CHILDREN, &ru);
+> -	tst_resm(TINFO, "after_zombie.children = %ld", ru.ru_maxrss);
+> -	if (is_in_delta(ru.ru_maxrss - maxrss_init))
+> -		tst_resm(TPASS, "initial.children ~= after_zombie.children");
+> -	else
+> -		tst_resm(TFAIL, "initial.children !~= after_zombie.children");
+> -	signal(SIGCHLD, SIG_DFL);
+> +	TST_PROCESS_RELEASE_WAIT(pid, 0);
+
+Why can't we use the TST_PROCESS_STATE_WAIT(pid, 'Z', 0) here as well? I
+fail to see how this is different from the previous test.
+
+> +	SAFE_GETRUSAGE(RUSAGE_CHILDREN, &ru);
+> +	check_result(is_in_delta(ru.ru_maxrss - maxrss_init),
+> +		     "check that initial.children ~= after_zombie.children");
+> +	SAFE_SIGNAL(SIGCHLD, SIG_DFL);
+>  }
+> 
+> -/* Testcase #07: exec without fork
+> - * expect: initial ~= fork */
+> -static void exec_without_fork(void)
+> +static void inherit_exec(void)
+>  {
+> -	char str_maxrss_self[BUFSIZ], str_maxrss_child[BUFSIZ];
+> -	long maxrss_self, maxrss_child;
+> +	int status;
+> 
+> -	tst_resm(TINFO, "Testcase #07: exec without fork");
+> +	if ((pid = SAFE_FORK()) == 0) {
+> +		char str_maxrss_self[BUFSIZ], str_maxrss_child[BUFSIZ];
+> 
+> -	SAFE_GETRUSAGE(cleanup, RUSAGE_SELF, &ru);
+> -	maxrss_self = ru.ru_maxrss;
+> -	SAFE_GETRUSAGE(cleanup, RUSAGE_CHILDREN, &ru);
+> -	maxrss_child = ru.ru_maxrss;
+> -	tst_resm(TINFO, "initial.self = %ld, initial.children = %ld",
+> -		 maxrss_self, maxrss_child);
+> +		SAFE_GETRUSAGE(RUSAGE_SELF, &ru);
+> +		sprintf(str_maxrss_self, "%ld", ru.ru_maxrss);
+> +		SAFE_GETRUSAGE(RUSAGE_CHILDREN, &ru);
+> +		sprintf(str_maxrss_child, "%ld", ru.ru_maxrss);
+> 
+> -	sprintf(str_maxrss_self, "%ld", maxrss_self);
+> -	sprintf(str_maxrss_child, "%ld", maxrss_child);
+> -	if (execlp("getrusage03_child", "getrusage03_child", "-v",
+> -		   "-s", str_maxrss_self, "-l", str_maxrss_child, NULL) == -1)
+> -		tst_brkm(TBROK | TERRNO, cleanup, "execlp");
+> -}
+> +		SAFE_EXECLP("getrusage03_child", "getrusage03_child", "compare",
+> +			    str_maxrss_self, str_maxrss_child, NULL);
+> +	}
+> 
+> -static int is_in_delta(long value)
+> -{
+> -	return (value >= -DELTA_MAX && value <= DELTA_MAX);
+> +	SAFE_WAITPID(pid, &status, 0);
+> +	check_result(WIFEXITED(status) && WEXITSTATUS(status) == 0,
+> +		     "check that initial.self ~= exec.self, initial.children ~= exec.children");
+
+In this case the check is done in the child. All the parent has to do is
+to reap the children to make sure that it did exit with 0 and the child
+should report the result instead.
+
+As the child calls tst_reinit() it can report results directly to the
+main test process without need to propagate anything via return values.
+
+>  }
+> 
+> -static void check_return(int status, char *pass_msg, char *fail_msg)
+> +static void run(void)
+>  {
+> -	switch (status) {
+> -	case 1:
+> -		tst_resm(TPASS, "%s", pass_msg);
+> -		break;
+> -	case 0:
+> -		tst_resm(TFAIL, "%s", fail_msg);
+> -		break;
+> -	default:
+> -		tst_resm(TFAIL, "child exit status is %d", status);
+> -		break;
+> -	}
+> -}
+> -
+> -static void consume(int mega)
+> -{
+> -	size_t sz;
+> -	void *ptr;
+> -
+> -	sz = mega * 1024 * 1024;
+> -	ptr = SAFE_MALLOC(cleanup, sz);
+> -	memset(ptr, 0, sz);
+> +	inherit_fork1();
+> +	inherit_fork2();
+> +	grandchild_maxrss();
+> +	zombie();
+> +	sig_ign();
+> +	inherit_exec();
+
+Can we split these into a several tests?
+
+Have a look at snd_seq01.c and testfunc_list array how this is done.
+
+>  }
+> 
+>  static void setup(void)
+>  {
+> -	/* Disable test if the version of the kernel is less than 2.6.32 */
+> -	if ((tst_kvercmp(2, 6, 32)) < 0) {
+> -		tst_resm(TCONF, "This ru_maxrss field is not supported");
+> -		tst_brkm(TCONF, NULL, "before kernel 2.6.32");
+> -	}
+> -
+> -	tst_sig(FORK, DEF_HANDLER, cleanup);
+> -
+> -	TEST_PAUSE;
+> +	consume(100);
+>  }
+> 
+> -static void cleanup(void)
+> -{
+> -}
+> +static struct tst_test test = {
+> +	.forks_child = 1,
+> +	.child_needs_reinit = 1,
+> +	.resource_files = resource,
+> +	.min_kver = "2.6.32",
+> +	.tags = (const struct tst_tag[]) {
+> +		{"linux-git", "1f10206cf8e9"},
+> +	},
+> +	.setup = setup,
+> +	.test_all = run,
+> +};
+> diff --git a/testcases/kernel/syscalls/getrusage/getrusage03.h b/testcases/kernel/syscalls/getrusage/getrusage03.h
+> new file mode 100644
+> index 000000000..5fbf57272
+> --- /dev/null
+> +++ b/testcases/kernel/syscalls/getrusage/getrusage03.h
+> @@ -0,0 +1,35 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Copyright (C) 2011  Red Hat, Inc.
+> + * Copyright (c) 2021 Xie Ziyao <xieziyao@huawei.com>
+> + */
+> +
+> +#ifndef LTP_GETRUSAGE03_H
+> +#define LTP_GETRUSAGE03_H
+> +
+> +#include "tst_test.h"
+> +
+> +#define DELTA_MAX 20480
+> +
+> +static void consume(int consume_nr)
+               ^
+	       This should be called consume_mb() so that it's clear
+	       that the parameter is in megabytes.
+> +{
+> +	void* ptr;
+> +	size_t size;
+> +	unsigned long vmswap_size;
+> +
+> +	size = consume_nr * 1024 * 1024;
+> +	ptr = SAFE_MALLOC(size);
+> +	memset(ptr, 0, size);
+> +
+> +	SAFE_FILE_LINES_SCANF("/proc/self/status", "VmSwap: %lu", &vmswap_size);
+> +	if (vmswap_size > 0)
+> +		tst_brk(TBROK, "VmSwap is not zero");
+> +	tst_res(TINFO, "allocate %dMB", consume_nr);
+> +}
+> +
+> +static int is_in_delta(long value)
+> +{
+> +	return (value >= -DELTA_MAX && value <= DELTA_MAX);
+> +}
+> +
+> +#endif //LTP_GETRUSAGE03_H
+> diff --git a/testcases/kernel/syscalls/getrusage/getrusage03_child.c b/testcases/kernel/syscalls/getrusage/getrusage03_child.c
+> index 972c38e4e..58da481cb 100644
+> --- a/testcases/kernel/syscalls/getrusage/getrusage03_child.c
+> +++ b/testcases/kernel/syscalls/getrusage/getrusage03_child.c
+> @@ -1,168 +1,63 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+>  /*
+> - * getrusage03_child.c - a child program executed by getrusage03
+> - *
+>   * Copyright (C) 2011  Red Hat, Inc.
+> - * This program is free software; you can redistribute it and/or
+> - * modify it under the terms of version 2 of the GNU General Public
+> - * License as published by the Free Software Foundation.
+> - *
+> - * This program is distributed in the hope that it would be useful,
+> - * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+> - *
+> - * Further, this software is distributed without any warranty that it
+> - * is free of the rightful claim of any third person regarding
+> - * infringement or the like.  Any license provided herein, whether
+> - * implied or otherwise, applies only to this software file.  Patent
+> - * licenses, if any, provided herein do not apply to combinations of
+> - * this program with other software, or any other product whatsoever.
+> - *
+> - * You should have received a copy of the GNU General Public License
+> - * along with this program; if not, write the Free Software
+> - * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+> - * 02110-1301, USA.
+> + * Copyright (c) 2021 Xie Ziyao <xieziyao@huawei.com>
+>   */
+> -#include <sys/types.h>
+> -#include <sys/resource.h>
+> -#include <sys/time.h>
+> -#include <sys/wait.h>
+> -#include <errno.h>
+> -#include <unistd.h>
+> -#include <stdio.h>
+> -#include <stdlib.h>
+> -#include <string.h>
+> -#include <limits.h>
+> -
+> -#include "test.h"
+> -#include "safe_macros.h"
+> 
+> -char *TCID = "getrusage03_child";
+> -int TST_TOTAL = 1;
+> -
+> -#define DELTA_MAX	10240
+> +/*\
+> + * [Description]
+> + *
+> + * Child program executed by getrusage03.
+> + */
+> 
+> -static int opt_consume, opt_grand, opt_show, opt_self, opt_child;
+> -static char *consume_str, *grand_consume_str, *self_str, *child_str;
+> +#define TST_NO_DEFAULT_MAIN
+> 
+> -option_t child_options[] = {
+> -	{"n:", &opt_consume, &consume_str},
+> -	{"g:", &opt_grand, &grand_consume_str},
+> -	{"v", &opt_show, NULL},
+> -	{"s:", &opt_self, &self_str},
+> -	{"l:", &opt_child, &child_str},
+> -	{NULL, NULL, NULL}
+> -};
+> +#include <stdlib.h>
+> 
+> -static void usage(void);
+> -static void consume(int mega);
+> -static void setup(void);
+> -static void cleanup(void);
+> +#include "tst_test.h"
+> +#include "getrusage03.h"
+> 
+>  int main(int argc, char *argv[])
+>  {
+> -	int lc;
+> +	if (argc < 3)
+> +		tst_brk(TFAIL, "argc is %d, expected more", argc);
+
+This is TBROK and also the message could be more clear such as:
+
+	"expected at least two parameters"
+
+>  	pid_t pid;
+> -	long maxrss_self, maxrss_children, delta;
+> +	long maxrss_self, maxrss_children;
+>  	long consume_nr, grand_consume_nr, self_nr, child_nr;
+>  	struct rusage ru;
+> 
+> -	tst_parse_opts(argc, argv, child_options, usage);
+> -
+> -	setup();
+> -
+> -	for (lc = 0; TEST_LOOPING(lc); lc++) {
+> -		tst_count = 0;
+> -
+> -		if (opt_consume) {
+> -			consume_nr = SAFE_STRTOL(cleanup,
+> -						 consume_str, 0, LONG_MAX);
+> -			tst_resm(TINFO, "child allocate %ldMB", consume_nr);
+> -			consume(consume_nr);
+> -		}
+> +	tst_reinit();
+> 
+> -		if (opt_grand) {
+> -			grand_consume_nr = SAFE_STRTOL(cleanup,
+> -						       grand_consume_str, 0,
+> -						       LONG_MAX);
+> -			tst_resm(TINFO, "grandchild allocate %ldMB",
+> -				 grand_consume_nr);
+> -			switch (pid = fork()) {
+> -			case -1:
+> -				tst_brkm(TBROK, cleanup, "fork");
+> -			case 0:
+> -				consume(grand_consume_nr);
+> -				exit(0);
+> -			default:
+> -				break;
+> -			}
+> -			while (waitpid(-1, &pid, WUNTRACED | WCONTINUED) > 0)
+> -				if (WEXITSTATUS(pid) != 0)
+> -					tst_brkm(TBROK | TERRNO, cleanup,
+> -						 "child exit status is not 0");
+> +	if (!strcmp(argv[1], "consume")) {
+> +		consume_nr = SAFE_STRTOL(argv[2], 0, LONG_MAX);
+> +		consume(consume_nr);
+> +	}
+> +	else if (!strcmp(argv[1], "grand_consume")) {
+
+The else has to be on the same line as }
+
+> +		grand_consume_nr = SAFE_STRTOL(argv[2], 0, LONG_MAX);
+> +
+> +		pid = fork();
+> +		if (pid == -1)
+> +			tst_brk(TBROK, "fork failed");
+> +		else if (pid == 0) {
+> +			consume(grand_consume_nr);
+> +			exit(0);
+>  		}
+
+Just use SAFE_FORK() here.
+
+> -		if (opt_show) {
+> -			SAFE_GETRUSAGE(cleanup, RUSAGE_SELF, &ru);
+> -			maxrss_self = ru.ru_maxrss;
+> -			SAFE_GETRUSAGE(cleanup, RUSAGE_CHILDREN, &ru);
+> -			maxrss_children = ru.ru_maxrss;
+> -			tst_resm(TINFO, "exec.self = %ld, exec.children = %ld",
+> -				 maxrss_self, maxrss_children);
+> -			if (opt_self) {
+> -				self_nr = SAFE_STRTOL(cleanup,
+> -						      self_str, 0, LONG_MAX);
+> -				delta = maxrss_self - self_nr;
+> -				if (delta >= -DELTA_MAX && delta <= DELTA_MAX)
+> -					tst_resm(TPASS,
+> -						 "initial.self ~= exec.self");
+> -				else
+> -					tst_resm(TFAIL,
+> -						 "initial.self !~= exec.self");
+> -			}
+> -			if (opt_child) {
+> -				child_nr = SAFE_STRTOL(cleanup,
+> -						       child_str, 0, LONG_MAX);
+> -				delta = maxrss_children - child_nr;
+> -				if (delta >= -DELTA_MAX && delta <= DELTA_MAX)
+> -					tst_resm(TPASS,
+> -						 "initial.children ~= exec.children");
+> -				else
+> -					tst_resm(TFAIL,
+> -						 "initial.children !~= exec.children");
+> -			}
+> -		}
+> +		tst_reap_children();
+>  	}
+> +	else if (!strcmp(argv[1], "compare")) {
+> +		self_nr = SAFE_STRTOL(argv[2], 0, LONG_MAX);
+> +		child_nr = SAFE_STRTOL(argv[3], 0, LONG_MAX);
+> 
+> -	cleanup();
+> -	tst_exit();
+> -}
+> -
+> -static void usage(void)
+> -{
+> -	printf("  -n NUM  consume NUM MB size\n");
+> -	printf("  -g NUM  grandchild consume NUM MB size\n");
+> -	printf("  -v      verbose mode, show rusage info\n");
+> -	printf("  -s NUM  compare rusage_self.maxrss with given NUM\n");
+> -	printf("  -l NUM  compare rusage_children.maxrss with given NUM\n");
+> -}
+> -
+> -static void consume(int mega)
+> -{
+> -	size_t sz;
+> -	void *ptr;
+> +		SAFE_GETRUSAGE(RUSAGE_SELF, &ru);
+> +		maxrss_self = ru.ru_maxrss;
+> +		SAFE_GETRUSAGE(RUSAGE_CHILDREN, &ru);
+> +		maxrss_children = ru.ru_maxrss;
+> 
+> -	sz = mega * 1024 * 1024;
+> -	ptr = SAFE_MALLOC(cleanup, sz);
+> -	memset(ptr, 0, sz);
+> -}
+> -
+> -static void setup(void)
+> -{
+> -	tst_sig(FORK, DEF_HANDLER, cleanup);
+> -
+> -	TEST_PAUSE;
+> -}
+> +		if (!is_in_delta(maxrss_self - self_nr) || !is_in_delta(maxrss_children - child_nr))
+> +			tst_brk(TBROK, "check that initial.self ~= exec.self, initial.children ~= exec.children");
+
+This should produce TPASS/TFAIL messages and for each of them
+respectivelly as:
+
+		if (is_in_delta(maxrss_self - self_nr))
+			tst_res(TPASS, ...);
+		else
+			tst_res(TFAIL, ...);
+
+		if (is_in_delta(maxrss_children - child_nr))
+			tst_res(TPASS, ...);
+		else
+			tst_res(TFAIL, ...);
+	}
+
+	return 0;
+
+> +	}
+> 
+> -static void cleanup(void)
+> -{
+> +	return 0;
+>  }
+> --
+> 2.17.1
+> 
+
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
