@@ -2,53 +2,153 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 379E73AB1AF
-	for <lists+linux-ltp@lfdr.de>; Thu, 17 Jun 2021 12:55:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 252493AB1EE
+	for <lists+linux-ltp@lfdr.de>; Thu, 17 Jun 2021 13:07:22 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 89FB13C78D6
-	for <lists+linux-ltp@lfdr.de>; Thu, 17 Jun 2021 12:55:53 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C35953C88E6
+	for <lists+linux-ltp@lfdr.de>; Thu, 17 Jun 2021 13:07:21 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A53A13C4C05
- for <ltp@lists.linux.it>; Thu, 17 Jun 2021 12:55:17 +0200 (CEST)
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id E2EF73C30EA
+ for <ltp@lists.linux.it>; Thu, 17 Jun 2021 13:07:16 +0200 (CEST)
+Received: from esa12.fujitsucc.c3s2.iphmx.com (esa12.fujitsucc.c3s2.iphmx.com
+ [216.71.156.125])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 684361A01459
- for <ltp@lists.linux.it>; Thu, 17 Jun 2021 12:55:15 +0200 (CEST)
-Received: from dggemv711-chm.china.huawei.com (unknown [172.30.72.55])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4G5Jlz16mFzZdhS
- for <ltp@lists.linux.it>; Thu, 17 Jun 2021 18:52:15 +0800 (CST)
-Received: from dggpemm500022.china.huawei.com (7.185.36.162) by
- dggemv711-chm.china.huawei.com (10.1.198.66) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2176.2; Thu, 17 Jun 2021 18:55:11 +0800
-Received: from ubuntu1804.huawei.com (10.67.174.209) by
- dggpemm500022.china.huawei.com (7.185.36.162) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2176.2; Thu, 17 Jun 2021 18:55:11 +0800
-From: Xie Ziyao <xieziyao@huawei.com>
-To: <ltp@lists.linux.it>
-Date: Thu, 17 Jun 2021 18:55:56 +0800
-Message-ID: <20210617105556.130869-4-xieziyao@huawei.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210617105556.130869-1-xieziyao@huawei.com>
-References: <20210617105556.130869-1-xieziyao@huawei.com>
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 91DBA10007FD
+ for <ltp@lists.linux.it>; Thu, 17 Jun 2021 13:07:15 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj1;
+ t=1623928035; x=1655464035;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-id:content-transfer-encoding: mime-version;
+ bh=iiANva0vWY5u493lYTL8v1qzJAsv1uXNV7+klTaL2tg=;
+ b=v4xRQ2WhubzwYcz2NBPHYyH++9OGYrPhl1fBU+cjsnJwDCJag3+czcJa
+ xoDxMxX7rfFWIfnRFMKCpwYKdQ2iUbHPxnEOpU4ADv9O9Zkgkceg3XemI
+ sVr7cqdWXKEwg/sgrVT02tSpUjqC3tKkaXkXP+O7mMZ+MTZU6ptaI63dA
+ cahxO8f7jpPckUv9Ce6sFoMz4Xsb5KilwKNc6j1CGvhoZzBv7gfKlBHt4
+ Udcl0y3/mPTY8p5+ivEjtTj5h2uzRTrq+7m1UnefdLLWMNkyFgAD8qjUZ
+ tuo1/V9dwC9Dc1v+hNI1RG9ms+Ue4EXrxE4gv6ZNE0X46pR2G8OevrCsF Q==;
+IronPort-SDR: jogPIYP0/6+NTSUvStzSvRDyrof0nPNqAt4Gspl0Cav7PLPRLrmnVeZoqF/4y5gRkdh2TIt3cR
+ vk/rKMKWLqjz/773wEnxkX8BtfrlnTfQBTFK5BV+SU4Buo7Z7Hx3GubPl90nMH/YrgEXtiSs2t
+ xmDGhdWc/USOUigyyoVmxAKzgWni2BulSeN1TCfDzecnkgdIX1AtIeY+3AdijCtSei/pUf02JU
+ yLNUDBGdhMOd06zF4qhPUWZ9nEFVHegUNnwU459QesT5vRsOYuoxyP4vSfy8dow07TPnnQ69qc
+ cOY=
+X-IronPort-AV: E=McAfee;i="6200,9189,10017"; a="33333623"
+X-IronPort-AV: E=Sophos;i="5.83,280,1616425200"; d="scan'208";a="33333623"
+Received: from mail-ty1jpn01lp2051.outbound.protection.outlook.com (HELO
+ JPN01-TY1-obe.outbound.protection.outlook.com) ([104.47.93.51])
+ by ob1.fujitsucc.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Jun 2021 20:07:13 +0900
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=NK3VS6BB/OcwY5vzIecLfv+S9ZyGwh6ZLK2wboEDXg63It6H5ac0JLsqip+rGb42Zvzbewv1sAspZMN3xkVWHOxdPbZaKV/rsbJSXHhL0FO2oxPw9Ztv0w1EQBsLAgffbdB3Q+dxNLC8iw0sGS1ViJyvOqOedlsTQr+hlg041yQyTuPeJODtxRoupL5Zcmu8tm0z8ouvNjU0c89k+a+M5sR6e28zHyUDohcMGv4hDBb3RFSwci3Y8Gp3GyrBylxXffcKZbU2kz7SzSx9SZDqiP38CdEii3alWclJm2UDJsLJOUm7drW+ZypIatQn4cqaz4eTMqiCyoZL+WLR59feQw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=iiANva0vWY5u493lYTL8v1qzJAsv1uXNV7+klTaL2tg=;
+ b=LTGLiivEeQq+U5GzqO9y2KRXamHtBGumCQaBQ82MAQZRNAjlqc1ioHTL8dAJAdcjHNl6/17klH7MgjX/kUgkzsu/0C6i/7FTQa/2tEp3xjH/mcMIERpfb0absNlGjCswCAmBU0ys2GlfS9VtTVD9LKyURRPXW2ZLR36hvW8oWoozWxx1KOKCl96q4jsHdVrWyB8H2GGKCHa2H7/bA5wZhsFtKaGWhSNjl6MiAtRtRBUEFzXmKWFWG6d0VUs2K7jjmU0dawYRkJuZ5V+YH3QYp7x6ZbpucHr9B4KgARvj/2khcqtxQsCrIleuWbZdFYvJ0LHnqi23GoFShEiTemopVg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=fujitsu.com; dmarc=pass action=none header.from=fujitsu.com;
+ dkim=pass header.d=fujitsu.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=fujitsu.onmicrosoft.com; s=selector2-fujitsu-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=iiANva0vWY5u493lYTL8v1qzJAsv1uXNV7+klTaL2tg=;
+ b=nLYNhXh6mLVubKXJrwtJ3Nhh1fJpwghvjeqQsVOkXXs7inwqEAM3hZNxWPXUCfnWbGk/z7jckYEKKqmGuYN7O7j8iQPtdH0OhNAetX2thJC81AD96wJOWf9BXmkLhnfOITcPcevYsC77ncmnx6iJQfalRhvlLUx6q4AAnVJRspU=
+Received: from TYCPR01MB6544.jpnprd01.prod.outlook.com (2603:1096:400:98::6)
+ by TYBPR01MB5424.jpnprd01.prod.outlook.com (2603:1096:404:8029::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4242.16; Thu, 17 Jun
+ 2021 11:07:10 +0000
+Received: from TYCPR01MB6544.jpnprd01.prod.outlook.com
+ ([fe80::f84c:9ac2:ee90:c6d4]) by TYCPR01MB6544.jpnprd01.prod.outlook.com
+ ([fe80::f84c:9ac2:ee90:c6d4%9]) with mapi id 15.20.4242.016; Thu, 17 Jun 2021
+ 11:07:10 +0000
+From: "xuyang2018.jy@fujitsu.com" <xuyang2018.jy@fujitsu.com>
+To: Samuel Zou <zou_wei@huawei.com>, "zou_wei@huawei.com" <zou_wei@huawei.com>
+Thread-Topic: [LTP] [PATCH] cpuset_hotplug_test/cpuset_hotplug: Fix bug for
+ obtaining task_cpus value in root_cpu_hotplug_test
+Thread-Index: AQHXKsS1AK42sgBV30i3Y9nkmdkef6rHtZSAgFDG1wA=
+Date: Thu, 17 Jun 2021 11:07:10 +0000
+Message-ID: <60CB2CF8.6090108@fujitsu.com>
+References: <1617701249-62196-1-git-send-email-zou_wei@huawei.com>
+ <437bb60b-4f97-4884-8713-c7b619dab211@huawei.com>
+In-Reply-To: <437bb60b-4f97-4884-8713-c7b619dab211@huawei.com>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: huawei.com; dkim=none (message not signed)
+ header.d=none;huawei.com; dmarc=none action=none header.from=fujitsu.com;
+x-originating-ip: [223.111.68.150]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 2a36f511-13e6-47aa-ddd8-08d931800de4
+x-ms-traffictypediagnostic: TYBPR01MB5424:
+x-microsoft-antispam-prvs: <TYBPR01MB5424FE050CE07DEEC2796E55FD0E9@TYBPR01MB5424.jpnprd01.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:10000;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: aZz4eXvvfRrsX1SeMIvXJNDzg5tvVGiOOHcB+5JRV7r26WUrHxOoREeTH9vkL9QktJTULrvHJ7GRRNMWSrAV+yAMoF3tBYXmHwBOGeC2VStcg1jYlqMtYnvwYljcdi7RUemEkEYcPEMlaRewka8FfTpVGxc+7ranA+BcfUhDxYVHFLuJvjrMlKNJe/fX7EOgMla2qjAt8ziywIih9nHzN4y4CtMg/uyZ62G6ckVJl4YXLLbh/rvEMGC2X2tNAPMypWPKRLs9R07OG3I5MPLuevsSNGymB/jEiGgClXt5wbDCCrxVIuinvt+MdxFVE972qRFyFH7+71HiGqlvI3kQmiBFMVRu+ZrymebENdzN4Kzn2MCspYp6RbKhQomDJBB/qEaToR3bcfoAB/oNLP6q3aVPBGoEAjJEp7z7He9UuRgQ73fy6kW9ceFwizyj0rDnSZtI6g97r3uF1Al/in3ZN0oXeqfuPwLY5v2sYFF/RCbHZO7R5z8Jf8QvHtyc0N/onTzyUFIHF4qVlPqkmaZUuqds+PIDZ+0Bg/C1uX50AKcpWJ2Z1JftRhahifpg4D80SPspGYHQpTHe+PPOHj5ayA8rL/smwxvnwY51i58bJKutri/QNO8/W+8pjMHyFE2RWS2AwdhlgWYK/4mZ258kyracm3NHZd1BPekV9a3OVpwepsbcQ20gqZuXuGuRbZq6CAJXoEEp2XkFs/QZtOSGLq6Tp46XJgMFkctZ6ru6LRCIG93oQG0LEcv99dZd9IiJ
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TYCPR01MB6544.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(136003)(366004)(346002)(39860400002)(376002)(396003)(8676002)(2616005)(5660300002)(86362001)(8936002)(186003)(26005)(83380400001)(6512007)(122000001)(478600001)(33656002)(6486002)(38100700002)(87266011)(36756003)(85182001)(110136005)(316002)(4326008)(2906002)(76116006)(91956017)(71200400001)(64756008)(6506007)(53546011)(66556008)(966005)(66946007)(66476007)(66446008);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?gb2312?B?RktHZ3JFbFpwZjkxR0g5MHVpVkdJODhITVo4M3d4L2lIWHBsN1ZQWFBjWmFE?=
+ =?gb2312?B?YTIycUdOdjRvRnBteDNYVXVST2xCa3BJejhKRUhWWFVKdHFtMW5sUGlWcS95?=
+ =?gb2312?B?ZDN3MkhVUklzV09qamRXVWRPVlM4cXVqdTh4RnhXR1R2M1NiME96cUYyc3BW?=
+ =?gb2312?B?ZVFXTjIvRFZIeFZJSVIrbkYwVlRYUjlPWmU5Z1pJMlNtMmJsMW1JUW51cjNN?=
+ =?gb2312?B?TmRCZkFlTkV6bGswdW5DNlhPZkRCVzA1ZUF6b1NRb3VjUmduRDA0TTQ1YVpR?=
+ =?gb2312?B?S0oySWVUdXVqUGg0b2ViRlZuNDZ6c0N3dXQvSFcyWFR2b3FZUnpJeE45Zk9O?=
+ =?gb2312?B?QksyWEFmNWxQNkRWV0xRRS8wdm5sdWJjNkxNU3lNZDZWNk1sMlZNTG8vbXd5?=
+ =?gb2312?B?L2lZNkNBYUJ4MXdJV3B4TUlVM3M5RmtoeWFkV0k2SUdsNnRFL3RCcHd6TWkx?=
+ =?gb2312?B?UE9yemVZWU83cG8xc3V0Ri8rVWdIK2p0UkF0a0x4YW5NS1dOc3NGMnBaTFZa?=
+ =?gb2312?B?bHpWSGRIZmFoQjRwaWdtZjF3b0RHS2JiVW5VZmZlTmkxUDN4V092bklXcjNo?=
+ =?gb2312?B?alNqY2ZlK3R6bmRiWENXUGFWUmQ2NWNmMHp0aGd4M01aMzZGSCtERmtvaDkr?=
+ =?gb2312?B?N1hMeDFLZ2M1MlRXY3F1NnlYVGliQVJadTZSVXFYVmVvam5TZG14RzVRQ2FT?=
+ =?gb2312?B?SUZhVHFLMzBvbkY2MHY1dTJuQlNCeW1pZXMxOTVzUDIxMDE2cEhMd0dtbzFh?=
+ =?gb2312?B?Y0p5TXRud04raDlTYXV4a3JrMTkvVmNGVHpsODRxQ1hrWVdvcUh2Z0R0eHZK?=
+ =?gb2312?B?NXJ3alYvUFNkdkJadlBmNUpSRW45SUZBdlhrT1RBcWJPYkR6UkhyUmFGUjJz?=
+ =?gb2312?B?b29iL3BOckNrdmtTUEhaR245TXRaTHJjMEVGc2M4VTNqdWZGTm02SEVwbG41?=
+ =?gb2312?B?UUljZmlUdEdKTHJmVWVGQ0FyTVRORDd4QnVpWnJVWDhvZG5oSHFNTGlEcmpQ?=
+ =?gb2312?B?K2VpOXR0WCtNZlhKN2xXbkd6YVg1SmRWMUgzTlQyWDNSZkh1VW1pZjd5aTl4?=
+ =?gb2312?B?UE5zZHo3SFBQbmxkenJQYVdLMUIzSXllVWVuc0I0dmFyQlBJN1A3ODMxSElj?=
+ =?gb2312?B?cndtZGdoZGZsRTlscXZwenVLTUhJWDJreEZTb1N1bmFiUSszak9YMTRDayt4?=
+ =?gb2312?B?T29xM0JITlg4WmJpZURhc01DWTd2MnZBZ0IwU2tVeU1DNEtjRjZLV3VINXYy?=
+ =?gb2312?B?VURoZ0Zaand6U3ZWeUJET2grYnNNYWZGUmxlS2FHRXpVeHpvbzh0VXR5dFMr?=
+ =?gb2312?B?M1p4RzYxWVNRSVBzZ0VrZnpVNDl1ZXN1a1FQSXA5VmFBY3QvaXdPWHkyVUNu?=
+ =?gb2312?B?RHEvQm9FUkNvdm1oUTNzV0VicHAwTGpYamR2SHY5ZllPS3VsZ3hsT29iWDVC?=
+ =?gb2312?B?cHp2d09BUGJHUVdqazJkZVJrTndicFRjZzlHbXc0ZW01dDFlTVVpcG5zQlBr?=
+ =?gb2312?B?SmFacGwxbjNRRFpsK3hZdXg0NUNqandVSEFtYWtuWU1YTHZVY0l2NUFEM0lv?=
+ =?gb2312?B?aElGaXJTaU1KemZSSGpFblNHajBCb0o3eTE2eE4wait6TFY3S3JQdmFaSkdE?=
+ =?gb2312?B?L1dDeTRGai84YURzeldEZmo1M3ZHR21ZUGc3Ujc2T011Tjc4dlNCM3NOenQy?=
+ =?gb2312?B?MjN6djVuM1VWdERVS2U3ejdWVkhsS2U0UUtmSnJmUWd2c3ovZmdYQjFSbStQ?=
+ =?gb2312?Q?kqTa+GOge9TTUyzJx6jirfOnTy566Te46gNlDFz?=
+x-ms-exchange-transport-forked: True
+Content-ID: <D81128B9CD1E844C8F64BEC2C2A9ECAC@jpnprd01.prod.outlook.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.67.174.209]
-X-ClientProxiedBy: dggems705-chm.china.huawei.com (10.3.19.182) To
- dggpemm500022.china.huawei.com (7.185.36.162)
-X-CFilter-Loop: Reflected
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-OriginatorOrg: fujitsu.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB6544.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2a36f511-13e6-47aa-ddd8-08d931800de4
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Jun 2021 11:07:10.7437 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: a19f121d-81e1-4858-a9d8-736e267fd4c7
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 8Vks+OsAnwdb1udWPrNnXQFbF8S5KZoqfM/RzLXeRwvxAFGRi0v5LtOEmgjPScrfPHDZL3weQUgRNAwTxhHpWCfkDeqlaDTUNhCg7YGT9Qo=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYBPR01MB5424
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH 3/3 v2] getrusage: Cleanup and bugfix for getrusage03
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] cpuset_hotplug_test/cpuset_hotplug: Fix bug for
+ obtaining task_cpus value in root_cpu_hotplug_test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,763 +160,112 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-1. Remove fork_malloc(), which is covered by inherit_fork{1, 2}().
-2. Double the value of DELTA_MAX for machines with 64k pages, e.g. ppc64le.
-3. Convert getrusage03 to the new API.
+Hi Samuel, Zou
+> Hi,
+>
+> A friendly reminder for the two patchs in:
+>
+> https://patchwork.ozlabs.org/project/ltp/patch/1617707717-63693-1-git-send-email-zou_wei@huawei.com/
+>
+>
+> https://patchwork.ozlabs.org/project/ltp/patch/1617701249-62196-1-git-send-email-zou_wei@huawei.com/
+>
+>
+> Can someone please review the patchs, comment, and if appropriate commit
+> them?
+>
+> Regards,
+> Zou Wei
+>
+> On 2021/4/6 17:27, Zou Wei wrote:
+>> --------------------------
+>>
+>> 1. The method of obtaining $task_cpus from root_cpu_hotplug_test is
+>> incorrect, because the value of Cpus_allowed_list is related
+>> to /sys/devices/system/cpu/possible and
+>> /sys/devices/system/cpu/isolated.
+>>
+>> 2. If isolcpus is configured in cmdline, the value of
+>> Cpus_allowed_list is equal to /sys/devices/system/cpu/possible minus
+>> /sys/devices/system/cpu/isolated. In this case, $task_cpus is
+>> inconsistent
+>> with $expect_task_cpus, test will be failed.
+>>
+>> 3. Need to change the method of obtaining $task_cpu
+>> from /sys/devices/system/cpu/present.
+Thanks for your patch, I also met the same problem when 
+/sys/devices/system/cpu/possible is not equal 
+to/sys/devices/system/cpu/possible/present  .
+Cpus_allowed_list:      0-511
+but my present cpu is 0-103
 
-Signed-off-by: Xie Ziyao <xieziyao@huawei.com>
----
-v1->v2:
-1. Report PASS/FAIL from child processes.
-2. Print more details in output.
-3. Cleanup and correct some format.
+Then I use possible_cpus==104 in /etc/defaut/grub, cpu_hotplug case then 
+pass.
 
- .../kernel/syscalls/getrusage/getrusage03.c   | 398 +++++-------------
- .../kernel/syscalls/getrusage/getrusage03.h   |  33 ++
- .../syscalls/getrusage/getrusage03_child.c    | 196 +++------
- 3 files changed, 195 insertions(+), 432 deletions(-)
- create mode 100644 testcases/kernel/syscalls/getrusage/getrusage03.h
+According to kernel documentation[1] and kernel fs/proc/array code[2](It 
+just print cpu mask instead of present cpu), So using 
+/sys/devices/system/cpu/present is right instead of getting cpu_allow_list.
 
-diff --git a/testcases/kernel/syscalls/getrusage/getrusage03.c b/testcases/kernel/syscalls/getrusage/getrusage03.c
-index 125acfc64..f72f908dc 100644
---- a/testcases/kernel/syscalls/getrusage/getrusage03.c
-+++ b/testcases/kernel/syscalls/getrusage/getrusage03.c
-@@ -1,353 +1,183 @@
-+// SPDX-License-Identifier: GPL-2.0
- /*
-- * getrusage03 - test ru_maxrss behaviors in struct rusage
-- *
-- * This test program is backported from upstream commit:
-- * 1f10206cf8e945220f7220a809d8bfc15c21f9a5, which fills ru_maxrss
-- * value in struct rusage according to rss hiwater mark. To make sure
-- * this feature works correctly, a series of tests are executed in
-- * this program.
-- *
-  * Copyright (C) 2011  Red Hat, Inc.
-- * This program is free software; you can redistribute it and/or
-- * modify it under the terms of version 2 of the GNU General Public
-- * License as published by the Free Software Foundation.
-- *
-- * This program is distributed in the hope that it would be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-+ * Copyright (C) 2021 Xie Ziyao <xieziyao@huawei.com>
-+ */
-+
-+/*\
-+ * [Description]
-  *
-- * Further, this software is distributed without any warranty that it
-- * is free of the rightful claim of any third person regarding
-- * infringement or the like.  Any license provided herein, whether
-- * implied or otherwise, applies only to this software file.  Patent
-- * licenses, if any, provided herein do not apply to combinations of
-- * this program with other software, or any other product whatsoever.
-+ * Test ru_maxrss behaviors in struct rusage.
-  *
-- * You should have received a copy of the GNU General Public License
-- * along with this program; if not, write the Free Software
-- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
-- * 02110-1301, USA.
-+ * This test program is backported from upstream commit: 1f10206cf8e9, which
-+ * fills ru_maxrss value in struct rusage according to rss hiwater mark. To
-+ * make sure this feature works correctly, a series of tests are executed in
-+ * this program.
-  */
--#include <sys/types.h>
--#include <sys/mman.h>
--#include <sys/resource.h>
--#include <sys/time.h>
--#include <sys/wait.h>
--#include <unistd.h>
--#include <signal.h>
--#include <stdio.h>
--#include <stdlib.h>
--#include <string.h>
+possible: cpus that have been allocated resources and can be
+		brought online if they are present.
 
--#include "test.h"
--#include "safe_macros.h"
-+#include <stdlib.h>
-+#include <stdio.h>
+present: cpus that have been identified as being present in
+		the system.
 
--char *TCID = "getrusage03";
--int TST_TOTAL = 1;
-+#include "tst_test.h"
-+#include "getrusage03.h"
 
--#define DELTA_MAX	10240
-+#define TESTBIN "getrusage03_child"
+Reviewed-by: Yang Xu <xuyang2018.jy@fujitsu.com>
 
- static struct rusage ru;
- static long maxrss_init;
--static int retval, status;
--static pid_t pid;
--
--static void inherit_fork(void);
--static void inherit_fork2(void);
--static void fork_malloc(void);
--static void grandchild_maxrss(void);
--static void zombie(void);
--static void sig_ign(void);
--static void exec_without_fork(void);
--static void check_return(int status, char *pass_msg, char *fail_msg);
--static int is_in_delta(long value);
--static void consume(int mega);
--static void setup(void);
--static void cleanup(void);
--
--int main(int argc, char *argv[])
--{
--	int lc;
--
--	tst_parse_opts(argc, argv, NULL, NULL);
+[1]https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/ABI/testing/sysfs-devices-system-cpu
+[2]https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/fs/proc/array.c#n418
 
--	setup();
-+static const char *const resource[] = {
-+	TESTBIN,
-+	NULL,
-+};
+ps:
+Also find a kernel documentation problem and have sent a patch to remove 
+non-existed cpu-hotplug.txt in admin-guide/cputopology.rst.
 
--	for (lc = 0; TEST_LOOPING(lc); lc++) {
--		tst_count = 0;
--
--		tst_resm(TINFO, "allocate 100MB");
--		consume(100);
-+static void inherit_fork1(void)
-+{
-+	SAFE_GETRUSAGE(RUSAGE_SELF, &ru);
-+	maxrss_init = ru.ru_maxrss;
 
--		inherit_fork();
--		inherit_fork2();
--		fork_malloc();
--		grandchild_maxrss();
--		zombie();
--		sig_ign();
--		exec_without_fork();
--	}
--	cleanup();
--	tst_exit();
--}
-+	if (!SAFE_FORK()) {
-+		SAFE_GETRUSAGE(RUSAGE_SELF, &ru);
-
--/* Testcase #01: fork inherit
-- * expect: initial.self ~= child.self */
--static void inherit_fork(void)
--{
--	tst_resm(TINFO, "Testcase #01: fork inherit");
--
--	SAFE_GETRUSAGE(cleanup, RUSAGE_SELF, &ru);
--	tst_resm(TINFO, "initial.self = %ld", ru.ru_maxrss);
--
--	switch (pid = fork()) {
--	case -1:
--		tst_brkm(TBROK | TERRNO, cleanup, "fork #1");
--	case 0:
--		maxrss_init = ru.ru_maxrss;
--		SAFE_GETRUSAGE(cleanup, RUSAGE_SELF, &ru);
--		tst_resm(TINFO, "child.self = %ld", ru.ru_maxrss);
--		exit(is_in_delta(maxrss_init - ru.ru_maxrss));
--	default:
--		break;
-+		if (is_in_delta(maxrss_init - ru.ru_maxrss))
-+			tst_res(TPASS, "initial.self ~= child.self");
-+		else
-+			tst_res(TFAIL, "child.self = %li, expected %li",
-+				ru.ru_maxrss, maxrss_init);
-+		exit(0);
- 	}
--
--	SAFE_WAITPID(cleanup, pid, &status, WUNTRACED | WCONTINUED);
--	check_return(WEXITSTATUS(status), "initial.self ~= child.self",
--		     "initial.self !~= child.self");
-+	tst_reap_children();
- }
-
--/* Testcase #02: fork inherit (cont.)
-- * expect: initial.children ~= 100MB, child.children = 0 */
- static void inherit_fork2(void)
- {
--	tst_resm(TINFO, "Testcase #02: fork inherit(cont.)");
-+	SAFE_GETRUSAGE(RUSAGE_CHILDREN, &ru);
-
--	SAFE_GETRUSAGE(cleanup, RUSAGE_CHILDREN, &ru);
--	tst_resm(TINFO, "initial.children = %ld", ru.ru_maxrss);
- 	if (is_in_delta(ru.ru_maxrss - 102400))
--		tst_resm(TPASS, "initial.children ~= 100MB");
-+		tst_res(TPASS, "initial.children ~= 100MB");
- 	else
--		tst_resm(TFAIL, "initial.children !~= 100MB");
--
--	switch (pid = fork()) {
--	case -1:
--		tst_brkm(TBROK | TERRNO, cleanup, "fork #2");
--	case 0:
--		SAFE_GETRUSAGE(cleanup, RUSAGE_CHILDREN, &ru);
--		tst_resm(TINFO, "child.children = %ld", ru.ru_maxrss);
--		exit(ru.ru_maxrss == 0);
--	default:
--		break;
--	}
-+		tst_res(TFAIL, "initial.children = %li, expected %i",
-+			ru.ru_maxrss, 102400);
-
--	SAFE_WAITPID(cleanup, pid, &status, WUNTRACED | WCONTINUED);
--	check_return(WEXITSTATUS(status), "child.children == 0",
--		     "child.children != 0");
--}
-+	if (!SAFE_FORK()) {
-+		SAFE_GETRUSAGE(RUSAGE_CHILDREN, &ru);
-
--/* Testcase #03: fork + malloc
-- * expect: initial.self + 50MB ~= child.self */
--static void fork_malloc(void)
--{
--	tst_resm(TINFO, "Testcase #03: fork + malloc");
--
--	SAFE_GETRUSAGE(cleanup, RUSAGE_SELF, &ru);
--	tst_resm(TINFO, "initial.self = %ld", ru.ru_maxrss);
--
--	switch (pid = fork()) {
--	case -1:
--		tst_brkm(TBROK | TERRNO, cleanup, "fork #3");
--	case 0:
--		maxrss_init = ru.ru_maxrss;
--		tst_resm(TINFO, "child allocate +50MB");
--		consume(50);
--		SAFE_GETRUSAGE(cleanup, RUSAGE_SELF, &ru);
--		tst_resm(TINFO, "child.self = %ld", ru.ru_maxrss);
--		exit(is_in_delta(maxrss_init + 51200 - ru.ru_maxrss));
--	default:
--		break;
-+		if (!ru.ru_maxrss)
-+			tst_res(TPASS, "child.children == 0");
-+		else
-+			tst_res(TFAIL, "child.children = %li, expected %i",
-+				ru.ru_maxrss, 0);
-+		exit(0);
- 	}
--
--	SAFE_WAITPID(cleanup, pid, &status, WUNTRACED | WCONTINUED);
--	check_return(WEXITSTATUS(status), "initial.self + 50MB ~= child.self",
--		     "initial.self + 50MB !~= child.self");
-+	tst_reap_children();
- }
-
--/* Testcase #04: grandchild maxrss
-- * expect: post_wait.children ~= 300MB */
- static void grandchild_maxrss(void)
- {
--	tst_resm(TINFO, "Testcase #04: grandchild maxrss");
--
--	SAFE_GETRUSAGE(cleanup, RUSAGE_CHILDREN, &ru);
--	tst_resm(TINFO, "initial.children = %ld", ru.ru_maxrss);
--
--	switch (pid = fork()) {
--	case -1:
--		tst_brkm(TBROK | TERRNO, cleanup, "fork #4");
--	case 0:
--		retval = system("getrusage03_child -g 300");
--		if ((WIFEXITED(retval) && WEXITSTATUS(retval) != 0))
--			tst_brkm(TBROK | TERRNO, cleanup, "system");
--		exit(0);
--	default:
--		break;
--	}
--
--	SAFE_WAITPID(cleanup, pid, &status, WUNTRACED | WCONTINUED);
--	if (WEXITSTATUS(status) != 0)
--		tst_brkm(TBROK | TERRNO, cleanup, "child exit status is not 0");
-+	if (!SAFE_FORK())
-+		SAFE_EXECLP("getrusage03_child", "getrusage03_child",
-+			    "grand_consume", "300", NULL);
-+	tst_reap_children();
-+	SAFE_GETRUSAGE(RUSAGE_CHILDREN, &ru);
-
--	SAFE_GETRUSAGE(cleanup, RUSAGE_CHILDREN, &ru);
--	tst_resm(TINFO, "post_wait.children = %ld", ru.ru_maxrss);
- 	if (is_in_delta(ru.ru_maxrss - 307200))
--		tst_resm(TPASS, "child.children ~= 300MB");
-+		tst_res(TPASS, "child.children ~= 300MB");
- 	else
--		tst_resm(TFAIL, "child.children !~= 300MB");
-+		tst_res(TFAIL, "child.children = %li, expected %i",
-+			ru.ru_maxrss, 307200);
- }
-
--/* Testcase #05: zombie
-- * expect: initial ~= pre_wait, post_wait ~= 400MB */
- static void zombie(void)
- {
--	tst_resm(TINFO, "Testcase #05: zombie");
--
--	SAFE_GETRUSAGE(cleanup, RUSAGE_CHILDREN, &ru);
--	tst_resm(TINFO, "initial.children = %ld", ru.ru_maxrss);
-+	SAFE_GETRUSAGE(RUSAGE_CHILDREN, &ru);
- 	maxrss_init = ru.ru_maxrss;
-
--	switch (pid = fork()) {
--	case -1:
--		tst_brkm(TBROK, cleanup, "fork #5");
--	case 0:
--		retval = system("getrusage03_child -n 400");
--		if ((WIFEXITED(retval) && WEXITSTATUS(retval) != 0))
--			tst_brkm(TBROK | TERRNO, cleanup, "system");
--		exit(0);
--	default:
--		break;
--	}
-+	pid_t pid = SAFE_FORK();
-
--	sleep(1);		/* children become zombie */
--	SAFE_GETRUSAGE(cleanup, RUSAGE_CHILDREN, &ru);
--	tst_resm(TINFO, "pre_wait.children = %ld", ru.ru_maxrss);
-+	if (!pid)
-+		SAFE_EXECLP("getrusage03_child", "getrusage03_child",
-+			    "consume", "400", NULL);
-+
-+	TST_PROCESS_STATE_WAIT(pid, 'Z', 0);
-+	SAFE_GETRUSAGE(RUSAGE_CHILDREN, &ru);
- 	if (is_in_delta(ru.ru_maxrss - maxrss_init))
--		tst_resm(TPASS, "initial.children ~= pre_wait.children");
-+		tst_res(TPASS, "initial.children ~= pre_wait.children");
- 	else
--		tst_resm(TFAIL, "initial.children !~= pre_wait.children");
--
--	SAFE_WAITPID(cleanup, pid, &status, WUNTRACED | WCONTINUED);
--	if (WEXITSTATUS(status) != 0)
--		tst_brkm(TBROK | TERRNO, cleanup, "child exit status is not 0");
-+		tst_res(TFAIL, "pre_wait.children = %li, expected %li",
-+			ru.ru_maxrss, maxrss_init);
-
--	SAFE_GETRUSAGE(cleanup, RUSAGE_CHILDREN, &ru);
--	tst_resm(TINFO, "post_wait.children = %ld", ru.ru_maxrss);
-+	tst_reap_children();
-+	SAFE_GETRUSAGE(RUSAGE_CHILDREN, &ru);
- 	if (is_in_delta(ru.ru_maxrss - 409600))
--		tst_resm(TPASS, "post_wait.children ~= 400MB");
-+		tst_res(TPASS, "post_wait.children ~= 400MB");
- 	else
--		tst_resm(TFAIL, "post_wait.children !~= 400MB");
-+		tst_res(TFAIL, "post_wait.children = %li, expected %i",
-+			ru.ru_maxrss, 409600);
- }
-
--/* Testcase #06: SIG_IGN
-- * expect: initial ~= after_zombie */
- static void sig_ign(void)
- {
--	tst_resm(TINFO, "Testcase #06: SIG_IGN");
--
--	SAFE_GETRUSAGE(cleanup, RUSAGE_CHILDREN, &ru);
--	tst_resm(TINFO, "initial.children = %ld", ru.ru_maxrss);
--	signal(SIGCHLD, SIG_IGN);
-+	SAFE_SIGNAL(SIGCHLD, SIG_IGN);
-+	SAFE_GETRUSAGE(RUSAGE_CHILDREN, &ru);
- 	maxrss_init = ru.ru_maxrss;
-
--	switch (pid = fork()) {
--	case -1:
--		tst_brkm(TBROK, cleanup, "fork #6");
--	case 0:
--		retval = system("getrusage03_child -n 500");
--		if ((WIFEXITED(retval) && WEXITSTATUS(retval) != 0))
--			tst_brkm(TBROK | TERRNO, cleanup, "system");
--		exit(0);
--	default:
--		break;
--	}
-+	pid_t pid = SAFE_FORK();
-+
-+	if (!pid)
-+		SAFE_EXECLP("getrusage03_child", "getrusage03_child",
-+			    "consume", "500", NULL);
-
--	sleep(1);		/* children become zombie */
--	SAFE_GETRUSAGE(cleanup, RUSAGE_CHILDREN, &ru);
--	tst_resm(TINFO, "after_zombie.children = %ld", ru.ru_maxrss);
-+	TST_PROCESS_EXIT_WAIT(pid, 0);
-+	SAFE_GETRUSAGE(RUSAGE_CHILDREN, &ru);
- 	if (is_in_delta(ru.ru_maxrss - maxrss_init))
--		tst_resm(TPASS, "initial.children ~= after_zombie.children");
-+		tst_res(TPASS, "initial.children ~= after_zombie.children");
- 	else
--		tst_resm(TFAIL, "initial.children !~= after_zombie.children");
--	signal(SIGCHLD, SIG_DFL);
--}
-+		tst_res(TFAIL, "after_zombie.children = %li, expected %li",
-+			ru.ru_maxrss, maxrss_init);
-
--/* Testcase #07: exec without fork
-- * expect: initial ~= fork */
--static void exec_without_fork(void)
--{
--	char str_maxrss_self[BUFSIZ], str_maxrss_child[BUFSIZ];
--	long maxrss_self, maxrss_child;
--
--	tst_resm(TINFO, "Testcase #07: exec without fork");
--
--	SAFE_GETRUSAGE(cleanup, RUSAGE_SELF, &ru);
--	maxrss_self = ru.ru_maxrss;
--	SAFE_GETRUSAGE(cleanup, RUSAGE_CHILDREN, &ru);
--	maxrss_child = ru.ru_maxrss;
--	tst_resm(TINFO, "initial.self = %ld, initial.children = %ld",
--		 maxrss_self, maxrss_child);
--
--	sprintf(str_maxrss_self, "%ld", maxrss_self);
--	sprintf(str_maxrss_child, "%ld", maxrss_child);
--	if (execlp("getrusage03_child", "getrusage03_child", "-v",
--		   "-s", str_maxrss_self, "-l", str_maxrss_child, NULL) == -1)
--		tst_brkm(TBROK | TERRNO, cleanup, "execlp");
-+	SAFE_SIGNAL(SIGCHLD, SIG_DFL);
- }
-
--static int is_in_delta(long value)
-+static void inherit_exec(void)
- {
--	return (value >= -DELTA_MAX && value <= DELTA_MAX);
--}
-+	if (!SAFE_FORK()) {
-+		char str_maxrss_self[BUFSIZ], str_maxrss_child[BUFSIZ];
-
--static void check_return(int status, char *pass_msg, char *fail_msg)
--{
--	switch (status) {
--	case 1:
--		tst_resm(TPASS, "%s", pass_msg);
--		break;
--	case 0:
--		tst_resm(TFAIL, "%s", fail_msg);
--		break;
--	default:
--		tst_resm(TFAIL, "child exit status is %d", status);
--		break;
-+		SAFE_GETRUSAGE(RUSAGE_SELF, &ru);
-+		sprintf(str_maxrss_self, "%ld", ru.ru_maxrss);
-+		SAFE_GETRUSAGE(RUSAGE_CHILDREN, &ru);
-+		sprintf(str_maxrss_child, "%ld", ru.ru_maxrss);
-+
-+		SAFE_EXECLP("getrusage03_child", "getrusage03_child",
-+			    "compare", str_maxrss_self, str_maxrss_child, NULL);
- 	}
-+	tst_reap_children();
- }
-
--static void consume(int mega)
--{
--	size_t sz;
--	void *ptr;
-+void (*testfunc_list[])(void) = {
-+	inherit_fork1, inherit_fork2, grandchild_maxrss,
-+	zombie, sig_ign, inherit_exec
-+};
-
--	sz = mega * 1024 * 1024;
--	ptr = SAFE_MALLOC(cleanup, sz);
--	memset(ptr, 0, sz);
-+static void run(unsigned int i)
-+{
-+	testfunc_list[i]();
- }
-
- static void setup(void)
- {
--	/* Disable test if the version of the kernel is less than 2.6.32 */
--	if ((tst_kvercmp(2, 6, 32)) < 0) {
--		tst_resm(TCONF, "This ru_maxrss field is not supported");
--		tst_brkm(TCONF, NULL, "before kernel 2.6.32");
--	}
--
--	tst_sig(FORK, DEF_HANDLER, cleanup);
--
--	TEST_PAUSE;
-+	consume_mb(100);
- }
-
--static void cleanup(void)
--{
--}
-+static struct tst_test test = {
-+	.forks_child = 1,
-+	.child_needs_reinit = 1,
-+	.resource_files = resource,
-+	.min_kver = "2.6.32",
-+	.tags = (const struct tst_tag[]) {
-+		{"linux-git", "1f10206cf8e9"},
-+	},
-+	.setup = setup,
-+	.test = run,
-+	.tcnt = ARRAY_SIZE(testfunc_list),
-+};
-diff --git a/testcases/kernel/syscalls/getrusage/getrusage03.h b/testcases/kernel/syscalls/getrusage/getrusage03.h
-new file mode 100644
-index 000000000..f1bbe9be5
---- /dev/null
-+++ b/testcases/kernel/syscalls/getrusage/getrusage03.h
-@@ -0,0 +1,33 @@
-+/* SPDX-License-Identifier: GPL-2.0
-+ * Copyright (C) 2011  Red Hat, Inc.
-+ * Copyright (C) 2021 Xie Ziyao <xieziyao@huawei.com>
-+ */
-+
-+#ifndef LTP_GETRUSAGE03_H
-+#define LTP_GETRUSAGE03_H
-+
-+#include "tst_test.h"
-+
-+#define DELTA_MAX 20480
-+
-+static void consume_mb(int consume_nr)
-+{
-+	void *ptr;
-+	size_t size;
-+	unsigned long vmswap_size;
-+
-+	size = consume_nr * 1024 * 1024;
-+	ptr = SAFE_MALLOC(size);
-+	memset(ptr, 0, size);
-+
-+	SAFE_FILE_LINES_SCANF("/proc/self/status", "VmSwap: %lu", &vmswap_size);
-+	if (vmswap_size > 0)
-+		tst_brk(TBROK, "VmSwap is not zero");
-+}
-+
-+static int is_in_delta(long value)
-+{
-+	return (value >= -DELTA_MAX && value <= DELTA_MAX);
-+}
-+
-+#endif //LTP_GETRUSAGE03_H
-diff --git a/testcases/kernel/syscalls/getrusage/getrusage03_child.c b/testcases/kernel/syscalls/getrusage/getrusage03_child.c
-index 972c38e4e..e8252084f 100644
---- a/testcases/kernel/syscalls/getrusage/getrusage03_child.c
-+++ b/testcases/kernel/syscalls/getrusage/getrusage03_child.c
-@@ -1,168 +1,68 @@
-+// SPDX-License-Identifier: GPL-2.0
- /*
-- * getrusage03_child.c - a child program executed by getrusage03
-- *
-  * Copyright (C) 2011  Red Hat, Inc.
-- * This program is free software; you can redistribute it and/or
-- * modify it under the terms of version 2 of the GNU General Public
-- * License as published by the Free Software Foundation.
-- *
-- * This program is distributed in the hope that it would be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-- *
-- * Further, this software is distributed without any warranty that it
-- * is free of the rightful claim of any third person regarding
-- * infringement or the like.  Any license provided herein, whether
-- * implied or otherwise, applies only to this software file.  Patent
-- * licenses, if any, provided herein do not apply to combinations of
-- * this program with other software, or any other product whatsoever.
-- *
-- * You should have received a copy of the GNU General Public License
-- * along with this program; if not, write the Free Software
-- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
-- * 02110-1301, USA.
-+ * Copyright (C) 2021 Xie Ziyao <xieziyao@huawei.com>
-  */
--#include <sys/types.h>
--#include <sys/resource.h>
--#include <sys/time.h>
--#include <sys/wait.h>
--#include <errno.h>
--#include <unistd.h>
--#include <stdio.h>
--#include <stdlib.h>
--#include <string.h>
--#include <limits.h>
--
--#include "test.h"
--#include "safe_macros.h"
-
--char *TCID = "getrusage03_child";
--int TST_TOTAL = 1;
--
--#define DELTA_MAX	10240
-+/*\
-+ * [Description]
-+ *
-+ * Child program executed by getrusage03.
-+ */
-
--static int opt_consume, opt_grand, opt_show, opt_self, opt_child;
--static char *consume_str, *grand_consume_str, *self_str, *child_str;
-+#define TST_NO_DEFAULT_MAIN
-
--option_t child_options[] = {
--	{"n:", &opt_consume, &consume_str},
--	{"g:", &opt_grand, &grand_consume_str},
--	{"v", &opt_show, NULL},
--	{"s:", &opt_self, &self_str},
--	{"l:", &opt_child, &child_str},
--	{NULL, NULL, NULL}
--};
-+#include <stdlib.h>
-
--static void usage(void);
--static void consume(int mega);
--static void setup(void);
--static void cleanup(void);
-+#include "tst_test.h"
-+#include "getrusage03.h"
-
- int main(int argc, char *argv[])
- {
--	int lc;
-+	if (argc < 3)
-+		tst_brk(TFAIL, "argc is %d, expected more than two", argc);
-+
- 	pid_t pid;
--	long maxrss_self, maxrss_children, delta;
--	long consume_nr, grand_consume_nr, self_nr, child_nr;
- 	struct rusage ru;
-+	long maxrss_self, maxrss_children;
-+	long consume_nr, grand_consume_nr, self_nr, child_nr;
-
--	tst_parse_opts(argc, argv, child_options, usage);
--
--	setup();
--
--	for (lc = 0; TEST_LOOPING(lc); lc++) {
--		tst_count = 0;
-+	tst_reinit();
-
--		if (opt_consume) {
--			consume_nr = SAFE_STRTOL(cleanup,
--						 consume_str, 0, LONG_MAX);
--			tst_resm(TINFO, "child allocate %ldMB", consume_nr);
--			consume(consume_nr);
--		}
-+	if (!strcmp(argv[1], "consume")) {
-+		consume_nr = SAFE_STRTOL(argv[2], 0, LONG_MAX);
-+		consume_mb(consume_nr);
-+	} else if (!strcmp(argv[1], "grand_consume")) {
-+		grand_consume_nr = SAFE_STRTOL(argv[2], 0, LONG_MAX);
-
--		if (opt_grand) {
--			grand_consume_nr = SAFE_STRTOL(cleanup,
--						       grand_consume_str, 0,
--						       LONG_MAX);
--			tst_resm(TINFO, "grandchild allocate %ldMB",
--				 grand_consume_nr);
--			switch (pid = fork()) {
--			case -1:
--				tst_brkm(TBROK, cleanup, "fork");
--			case 0:
--				consume(grand_consume_nr);
--				exit(0);
--			default:
--				break;
--			}
--			while (waitpid(-1, &pid, WUNTRACED | WCONTINUED) > 0)
--				if (WEXITSTATUS(pid) != 0)
--					tst_brkm(TBROK | TERRNO, cleanup,
--						 "child exit status is not 0");
-+		pid = fork();
-+		if (pid == -1)
-+			tst_brk(TBROK, "fork failed");
-+		else if (pid == 0) {
-+			consume_mb(grand_consume_nr);
-+			exit(0);
- 		}
-
--		if (opt_show) {
--			SAFE_GETRUSAGE(cleanup, RUSAGE_SELF, &ru);
--			maxrss_self = ru.ru_maxrss;
--			SAFE_GETRUSAGE(cleanup, RUSAGE_CHILDREN, &ru);
--			maxrss_children = ru.ru_maxrss;
--			tst_resm(TINFO, "exec.self = %ld, exec.children = %ld",
--				 maxrss_self, maxrss_children);
--			if (opt_self) {
--				self_nr = SAFE_STRTOL(cleanup,
--						      self_str, 0, LONG_MAX);
--				delta = maxrss_self - self_nr;
--				if (delta >= -DELTA_MAX && delta <= DELTA_MAX)
--					tst_resm(TPASS,
--						 "initial.self ~= exec.self");
--				else
--					tst_resm(TFAIL,
--						 "initial.self !~= exec.self");
--			}
--			if (opt_child) {
--				child_nr = SAFE_STRTOL(cleanup,
--						       child_str, 0, LONG_MAX);
--				delta = maxrss_children - child_nr;
--				if (delta >= -DELTA_MAX && delta <= DELTA_MAX)
--					tst_resm(TPASS,
--						 "initial.children ~= exec.children");
--				else
--					tst_resm(TFAIL,
--						 "initial.children !~= exec.children");
--			}
--		}
-+		tst_reap_children();
-+	} else if (!strcmp(argv[1], "compare")) {
-+		self_nr = SAFE_STRTOL(argv[2], 0, LONG_MAX);
-+		child_nr = SAFE_STRTOL(argv[3], 0, LONG_MAX);
-+
-+		SAFE_GETRUSAGE(RUSAGE_SELF, &ru);
-+		maxrss_self = ru.ru_maxrss;
-+		SAFE_GETRUSAGE(RUSAGE_CHILDREN, &ru);
-+		maxrss_children = ru.ru_maxrss;
-+
-+		if (is_in_delta(maxrss_self - self_nr))
-+			tst_res(TPASS, "initial.self ~= exec.self");
-+		else
-+			tst_res(TFAIL, "initial.self !~= exec.self");
-+
-+		if (is_in_delta(maxrss_children - child_nr))
-+			tst_res(TPASS, "initial.children ~= exec.children");
-+		else
-+			tst_res(TFAIL, "initial.children !~= exec.children");
- 	}
-
--	cleanup();
--	tst_exit();
--}
--
--static void usage(void)
--{
--	printf("  -n NUM  consume NUM MB size\n");
--	printf("  -g NUM  grandchild consume NUM MB size\n");
--	printf("  -v      verbose mode, show rusage info\n");
--	printf("  -s NUM  compare rusage_self.maxrss with given NUM\n");
--	printf("  -l NUM  compare rusage_children.maxrss with given NUM\n");
--}
--
--static void consume(int mega)
--{
--	size_t sz;
--	void *ptr;
--
--	sz = mega * 1024 * 1024;
--	ptr = SAFE_MALLOC(cleanup, sz);
--	memset(ptr, 0, sz);
--}
--
--static void setup(void)
--{
--	tst_sig(FORK, DEF_HANDLER, cleanup);
--
--	TEST_PAUSE;
--}
--
--static void cleanup(void)
--{
-+	return 0;
- }
---
-2.17.1
-
+Best Regards
+Yang Xu
+>>
+>> 4. The description of cpu_present_mask:
+>> Bitmap of CPUs currently present in the system.
+>> Not all of them may be online. When physical hotplug is processed
+>> by the relevant subsystem (e.g ACPI) can change and new bit either be
+>> added or removed from the map depending on the event is
+>> hot-add/hot-remove. There are currently no locking rules as of now.
+>> Typical usage is to init topology during boot,
+>> at which time hotplug is disabled.
+>>
+>> Signed-off-by: Zou Wei <zou_wei@huawei.com>
+>> ---
+>> .../controllers/cpuset/cpuset_hotplug_test/cpuset_hotplug_test.sh | 3 +--
+>> 1 file changed, 1 insertion(+), 2 deletions(-)
+>>
+>> diff --git
+>> a/testcases/kernel/controllers/cpuset/cpuset_hotplug_test/cpuset_hotplug_test.sh
+>> b/testcases/kernel/controllers/cpuset/cpuset_hotplug_test/cpuset_hotplug_test.sh
+>>
+>> index 155e536..2c6993a 100755
+>> ---
+>> a/testcases/kernel/controllers/cpuset/cpuset_hotplug_test/cpuset_hotplug_test.sh
+>>
+>> +++
+>> b/testcases/kernel/controllers/cpuset/cpuset_hotplug_test/cpuset_hotplug_test.sh
+>>
+>> @@ -93,8 +93,7 @@ root_cpu_hotplug_test()
+>> root_cpus="`cat $CPUSET/cpuset.cpus`"
+>> - task_cpus="`cat /proc/$tst_pid/status | grep Cpus_allowed_list`"
+>> - task_cpus="`echo $task_cpus | sed -e 's/Cpus_allowed_list: //'`"
+>> + task_cpus="`cat /sys/devices/system/cpu/present`"
+>> check_result "$root_cpus" "$expect_cpus"
+>> ret=$?
+>>
+>
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
