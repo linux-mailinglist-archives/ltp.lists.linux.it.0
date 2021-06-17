@@ -2,75 +2,74 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id D206D3AAD03
-	for <lists+linux-ltp@lfdr.de>; Thu, 17 Jun 2021 09:07:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89D473AAD05
+	for <lists+linux-ltp@lfdr.de>; Thu, 17 Jun 2021 09:08:09 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 941313C717E
-	for <lists+linux-ltp@lfdr.de>; Thu, 17 Jun 2021 09:07:48 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 58C043C88CA
+	for <lists+linux-ltp@lfdr.de>; Thu, 17 Jun 2021 09:08:09 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id DF2D33C6C84
- for <ltp@lists.linux.it>; Thu, 17 Jun 2021 09:07:36 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 63BB13C6C84
+ for <ltp@lists.linux.it>; Thu, 17 Jun 2021 09:07:37 +0200 (CEST)
 Received: from youngberry.canonical.com (youngberry.canonical.com
  [91.189.89.112])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 2CBC21A01448
- for <ltp@lists.linux.it>; Thu, 17 Jun 2021 09:07:35 +0200 (CEST)
-Received: from mail-ed1-f69.google.com ([209.85.208.69])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id C51B96019A1
+ for <ltp@lists.linux.it>; Thu, 17 Jun 2021 09:07:36 +0200 (CEST)
+Received: from mail-ed1-f71.google.com ([209.85.208.71])
  by youngberry.canonical.com with esmtps (TLS1.2) tls
  TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
  (envelope-from <krzysztof.kozlowski@canonical.com>)
- id 1ltm7j-00040A-9O
- for ltp@lists.linux.it; Thu, 17 Jun 2021 07:07:35 +0000
-Received: by mail-ed1-f69.google.com with SMTP id
- z16-20020aa7d4100000b029038feb83da57so996589edq.4
- for <ltp@lists.linux.it>; Thu, 17 Jun 2021 00:07:35 -0700 (PDT)
+ id 1ltm7k-00040I-7t
+ for ltp@lists.linux.it; Thu, 17 Jun 2021 07:07:36 +0000
+Received: by mail-ed1-f71.google.com with SMTP id
+ t11-20020a056402524bb029038ffacf1cafso992037edd.5
+ for <ltp@lists.linux.it>; Thu, 17 Jun 2021 00:07:36 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=iZtxgQSaNq1bNeJ5KGC3bsLfhWxUGqziDCPwpDnLaAk=;
- b=fkVLabKLQ9noixOuBWB/eUbILYGY98fdJhZuA2vxS+NzNwk8hol1fgu4tr4vZWkj9m
- b1T/spkyK3PzCNiuq21FC2pH1X3Uu75A49i4m5UuizDKyNHSd6NoCoScrZeUNlz+7LA7
- h3u8SX0ZI1va8j1PuEpQ1cjv02Bc1DD81gL7+yJMZojSZn1wJUnZKO/ZqoAiDzvCAq0Y
- MJvEkh69RYPyfpt413MSRgvcWDh50EVQMu+8JiHLVlPUSOPzbsNcDbKz+G0DiLsnQ7l4
- DWVjjm/dbpWKXV6C26dO2uFSIkYVtBmhYJcsQICeKoYAqPBuxeE4FtXUZ296vint5pjk
- Tqvw==
-X-Gm-Message-State: AOAM533zNCM8QesQ8sxxkjXcVVKHqt3Tw6lSJezdPGGblt5K+Gm5ZiBT
- Cv7AWmVuxyu2eo0BUmmL9N4TLH0o96LT8nfs/tF8bRugWI3YxLXQ6AaognwHihk1yNOz/IUqz8J
- v0gmYi7IgdaxsWU42E29Fc1Az0Xhz
-X-Received: by 2002:a05:6402:1e8b:: with SMTP id
- f11mr4645340edf.86.1623913654780; 
- Thu, 17 Jun 2021 00:07:34 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJxjisDEo4tyW7maje83weX/Efmz4fMDUrx+rUUceT8FNNQWLTkrSTowE8/lCQMhCSlrPX4/Vw==
-X-Received: by 2002:a05:6402:1e8b:: with SMTP id
- f11mr4645317edf.86.1623913654635; 
- Thu, 17 Jun 2021 00:07:34 -0700 (PDT)
+ bh=GVvf9Dez840xvJRXWYL8f1IqEy908UkCz7grK0b8Q+0=;
+ b=tTyxfGHZlkAJaqRKakZr9vB9w871gMvLHXxjj41mck61wKFVSpBseVp2gFHPjMEXch
+ K0fsnsy4GJMWm3dFDEqmfSdYfpR7RdyN1ITPMssRryNhokkhMFOOMw4soJzWlk/KO84C
+ xMRAs+e2LWp0HXvUbx5hQPYgSyxsmrW035tRge6LUYEs/ERm2XqFFkmgG1csqJ8XjmOd
+ yVGV4PztTdYmBP0+aAM3ZGSuSup6BLvs13I8a4tuNZIewhgPEyzuG96Lm44DT4LbBx9l
+ p6JQvAuHmkRH8Zzk2y92QZ7BKiG0+lqG+eSb1USSDKfhupgwiwKUywAsHOT7X+oc+qsW
+ D7kQ==
+X-Gm-Message-State: AOAM531f9IiQ1QSDNHfWLlNoQDYGXvll4nvv97wYPCoAjPq/9bpTeV/b
+ FVbQy3FwdPWgxoh6SRIdK+maWEPCQ/p0Z+ycZwl4IK2ClqnZpUu1RcQemQhTpvS+YcuFOnqyy3J
+ uXWojIImYEyWTO6Vcey2XO5kfBnBJ
+X-Received: by 2002:aa7:c50d:: with SMTP id o13mr4490302edq.9.1623913655718;
+ Thu, 17 Jun 2021 00:07:35 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJy4feLXwG5rm2qScIulV2y4jB97bVxEEeW8IjoisJZbjLIE1m1exGy94VtSMLOtm7Z2KVGfUQ==
+X-Received: by 2002:aa7:c50d:: with SMTP id o13mr4490281edq.9.1623913655518;
+ Thu, 17 Jun 2021 00:07:35 -0700 (PDT)
 Received: from localhost.localdomain (xdsl-188-155-177-222.adslplus.ch.
  [188.155.177.222])
  by smtp.gmail.com with ESMTPSA id u17sm3531258edx.16.2021.06.17.00.07.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 17 Jun 2021 00:07:34 -0700 (PDT)
+ Thu, 17 Jun 2021 00:07:35 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 To: ltp@lists.linux.it
-Date: Thu, 17 Jun 2021 09:07:28 +0200
-Message-Id: <20210617070730.7699-2-krzysztof.kozlowski@canonical.com>
+Date: Thu, 17 Jun 2021 09:07:29 +0200
+Message-Id: <20210617070730.7699-3-krzysztof.kozlowski@canonical.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210617070730.7699-1-krzysztof.kozlowski@canonical.com>
 References: <20210617070730.7699-1-krzysztof.kozlowski@canonical.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 1/3] controllers/memcg: accept range of
- max_usage_in_bytes
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 2/3] controllers/memcg: accept range of
+ usage_in_bytes
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,59 +86,167 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Several Linux kernel versions report higher max_usage_in_bytes than
+Several Linux kernel versions report higher usage_in_bytes than
 expected size of 1024 pages. For example v5.4, v5.8, v5.10
 and 5.13.0-rc5:
 
-    memcg_max_usage_in_bytes_test 1 TINFO: Test memory.max_usage_in_bytes
-    memcg_max_usage_in_bytes_test 1 TINFO: Running memcg_process --mmap-anon -s 4194304
-    memcg_max_usage_in_bytes_test 1 TINFO: Warming up pid: 1393215
-    memcg_max_usage_in_bytes_test 1 TINFO: Process is still here after warm up: 1393215
-    memcg_max_usage_in_bytes_test 1 TFAIL: memory.max_usage_in_bytes is 4325376, 4194304 expected
+    memcg_usage_in_bytes_test 1 TINFO: Test memory.usage_in_bytes
+    memcg_usage_in_bytes_test 1 TINFO: Running memcg_process --mmap-anon -s 4194304
+    memcg_usage_in_bytes_test 1 TINFO: Warming up pid: 1160
+    memcg_usage_in_bytes_test 1 TINFO: Process is still here after warm up: 1160
+    memcg_usage_in_bytes_test 1 TFAIL: memory.usage_in_bytes is 4325376, 4194304 expected
 
 It seems that recent Linux kernel reports more memory used than
 expected.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 ---
- .../kernel/controllers/memcg/functional/memcg_lib.sh  | 11 +++++++++--
- .../memcg/functional/memcg_max_usage_in_bytes_test.sh |  6 +++++-
- 2 files changed, 14 insertions(+), 3 deletions(-)
+ .../controllers/memcg/functional/memcg_lib.sh | 11 +++++++---
+ .../memcg/functional/memcg_stat_rss.sh        | 20 +++++++++----------
+ .../memcg/functional/memcg_stat_test.sh       |  8 ++++----
+ .../functional/memcg_usage_in_bytes_test.sh   | 10 ++++++++--
+ 4 files changed, 30 insertions(+), 19 deletions(-)
 
 diff --git a/testcases/kernel/controllers/memcg/functional/memcg_lib.sh b/testcases/kernel/controllers/memcg/functional/memcg_lib.sh
-index d9bb6d94324d..083ef376e120 100755
+index 083ef376e120..d44bb027076c 100755
 --- a/testcases/kernel/controllers/memcg/functional/memcg_lib.sh
 +++ b/testcases/kernel/controllers/memcg/functional/memcg_lib.sh
-@@ -140,7 +140,8 @@ shmmax_cleanup()
+@@ -239,8 +239,9 @@ test_mem_stat()
+ 	local size=$2
+ 	local total_size=$3
+ 	local stat_name=$4
+-	local exp_stat_size=$5
+-	local check_after_free=$6
++	local exp_stat_size_low=$5
++	local exp_stat_size_up=$6
++	local check_after_free=$7
  
- # Check size in memcg
- # $1 - Item name
--# $2 - Expected size
-+# $2 - Expected size lower bound
-+# $3 - Expected size upper bound (optional)
- check_mem_stat()
+ 	start_memcg_process $memtypes -s $size
+ 
+@@ -251,7 +252,11 @@ test_mem_stat()
+ 	echo $MEMCG_PROCESS_PID > tasks
+ 	signal_memcg_process $size
+ 
+-	check_mem_stat $stat_name $exp_stat_size
++	if [ "$exp_stat_size_low" = "$exp_stat_size_up" ]; then
++		check_mem_stat $stat_name $exp_stat_size_low
++	else
++		check_mem_stat $stat_name $exp_stat_size_low $exp_stat_size_up
++	fi
+ 
+ 	signal_memcg_process $size
+ 	if $check_after_free; then
+diff --git a/testcases/kernel/controllers/memcg/functional/memcg_stat_rss.sh b/testcases/kernel/controllers/memcg/functional/memcg_stat_rss.sh
+index 1a6128a6dba8..d9b4ec287b5f 100755
+--- a/testcases/kernel/controllers/memcg/functional/memcg_stat_rss.sh
++++ b/testcases/kernel/controllers/memcg/functional/memcg_stat_rss.sh
+@@ -18,54 +18,54 @@ TST_CNT=10
+ # Test the management and counting of memory
+ test1()
  {
- 	local item_size
-@@ -151,7 +152,13 @@ check_mem_stat()
- 		item_size=$(grep -w $1 memory.stat | cut -d " " -f 2)
- 	fi
+-	test_mem_stat "--mmap-anon" $PAGESIZES $PAGESIZES "rss" $PAGESIZES false
++	test_mem_stat "--mmap-anon" $PAGESIZES $PAGESIZES "rss" $PAGESIZES $PAGESIZES false
+ }
  
--	if [ "$2" = "$item_size" ]; then
-+	if [ "$3" ]; then
-+		if [ $item_size -ge $2 ] && [ $item_size -le $3 ]; then
-+			tst_res TPASS "$1 is ${2}-${3} as expected"
-+		else
-+			tst_res TFAIL "$1 is $item_size, ${2}-${3} expected"
-+		fi
-+	elif [ "$2" = "$item_size" ]; then
- 		tst_res TPASS "$1 is $2 as expected"
- 	else
- 		tst_res TFAIL "$1 is $item_size, $2 expected"
-diff --git a/testcases/kernel/controllers/memcg/functional/memcg_max_usage_in_bytes_test.sh b/testcases/kernel/controllers/memcg/functional/memcg_max_usage_in_bytes_test.sh
-index 14daa4651798..a940606cbd34 100755
---- a/testcases/kernel/controllers/memcg/functional/memcg_max_usage_in_bytes_test.sh
-+++ b/testcases/kernel/controllers/memcg/functional/memcg_max_usage_in_bytes_test.sh
-@@ -12,6 +12,10 @@ TST_CNT=4
+ test2()
+ {
+-	test_mem_stat "--mmap-file" $PAGESIZE $PAGESIZE "rss" 0 false
++	test_mem_stat "--mmap-file" $PAGESIZE $PAGESIZE "rss" 0 0 false
+ }
+ 
+ test3()
+ {
+-	test_mem_stat "--shm -k 3" $PAGESIZE $PAGESIZE "rss" 0 false
++	test_mem_stat "--shm -k 3" $PAGESIZE $PAGESIZE "rss" 0 0 false
+ }
+ 
+ test4()
+ {
+ 	test_mem_stat "--mmap-anon --mmap-file --shm" \
+-		$PAGESIZES $((PAGESIZES * 3)) "rss" $PAGESIZES false
++		$PAGESIZES $((PAGESIZES * 3)) "rss" $PAGESIZES $PAGESIZES false
+ }
+ 
+ test5()
+ {
+-	test_mem_stat "--mmap-lock1" $PAGESIZES $PAGESIZES "rss" $PAGESIZES false
++	test_mem_stat "--mmap-lock1" $PAGESIZES $PAGESIZES "rss" $PAGESIZES $PAGESIZES false
+ }
+ 
+ test6()
+ {
+-	test_mem_stat "--mmap-anon" $PAGESIZES $PAGESIZES "rss" $PAGESIZES true
++	test_mem_stat "--mmap-anon" $PAGESIZES $PAGESIZES "rss" $PAGESIZES $PAGESIZES true
+ }
+ 
+ test7()
+ {
+-	test_mem_stat "--mmap-file" $PAGESIZE $PAGESIZE "rss" 0 true
++	test_mem_stat "--mmap-file" $PAGESIZE $PAGESIZE "rss" 0 0 true
+ }
+ 
+ test8()
+ {
+-	test_mem_stat "--shm -k 8" $PAGESIZE $PAGESIZE "rss" 0 true
++	test_mem_stat "--shm -k 8" $PAGESIZE $PAGESIZE "rss" 0 0 true
+ }
+ 
+ test9()
+ {
+ 	test_mem_stat "--mmap-anon --mmap-file --shm" \
+-		$PAGESIZES $((PAGESIZES * 3)) "rss" $PAGESIZES true
++		$PAGESIZES $((PAGESIZES * 3)) "rss" $PAGESIZES $PAGESIZES true
+ }
+ 
+ test10()
+ {
+-	test_mem_stat "--mmap-lock1" $PAGESIZES $PAGESIZES "rss" $PAGESIZES true
++	test_mem_stat "--mmap-lock1" $PAGESIZES $PAGESIZES "rss" $PAGESIZES $PAGESIZES true
+ }
+ 
+ tst_run
+diff --git a/testcases/kernel/controllers/memcg/functional/memcg_stat_test.sh b/testcases/kernel/controllers/memcg/functional/memcg_stat_test.sh
+index 925c4ecf87bc..e5eb7e5d0001 100755
+--- a/testcases/kernel/controllers/memcg/functional/memcg_stat_test.sh
++++ b/testcases/kernel/controllers/memcg/functional/memcg_stat_test.sh
+@@ -14,28 +14,28 @@ TST_CNT=8
+ test1()
+ {
+ 	tst_res TINFO "Test cache"
+-	test_mem_stat "--shm -k 3" $PAGESIZES $PAGESIZES "cache" $PAGESIZES false
++	test_mem_stat "--shm -k 3" $PAGESIZES $PAGESIZES "cache" $PAGESIZES $PAGESIZES false
+ }
+ 
+ test2()
+ {
+ 	tst_res TINFO "Test mapped_file"
+ 	test_mem_stat "--mmap-file" $PAGESIZES $PAGESIZES \
+-		"mapped_file" $PAGESIZES false
++		"mapped_file" $PAGESIZES $PAGESIZES false
+ }
+ 
+ test3()
+ {
+ 	tst_res TINFO "Test unevictable with MAP_LOCKED"
+ 	test_mem_stat "--mmap-lock1" $PAGESIZES $PAGESIZES \
+-		"unevictable" $PAGESIZES false
++		"unevictable" $PAGESIZES $PAGESIZES false
+ }
+ 
+ test4()
+ {
+ 	tst_res TINFO "Test unevictable with mlock"
+ 	test_mem_stat "--mmap-lock2" $PAGESIZES $PAGESIZES \
+-		"unevictable" $PAGESIZES false
++		"unevictable" $PAGESIZES $PAGESIZES false
+ }
+ 
+ test5()
+diff --git a/testcases/kernel/controllers/memcg/functional/memcg_usage_in_bytes_test.sh b/testcases/kernel/controllers/memcg/functional/memcg_usage_in_bytes_test.sh
+index e77d6bf2ef23..b5761a4e4716 100755
+--- a/testcases/kernel/controllers/memcg/functional/memcg_usage_in_bytes_test.sh
++++ b/testcases/kernel/controllers/memcg/functional/memcg_usage_in_bytes_test.sh
+@@ -12,13 +12,18 @@ TST_CNT=2
  . memcg_lib.sh
  
  MEM_TO_ALLOC=$((PAGESIZE * 1024))
@@ -149,16 +256,26 @@ index 14daa4651798..a940606cbd34 100755
 +MEM_EXPECTED_UPPER=$((MEM_TO_ALLOC + PAGESIZE * 32))
  MEM_LIMIT=$((MEM_TO_ALLOC * 2))
  
- # Run test cases which checks memory.[memsw.]max_usage_in_bytes after make
-@@ -32,7 +36,7 @@ test_max_usage_in_bytes()
- 	signal_memcg_process $MEM_TO_ALLOC
- 	signal_memcg_process $MEM_TO_ALLOC
+ test1()
+ {
+ 	tst_res TINFO "Test memory.usage_in_bytes"
+ 	test_mem_stat "--mmap-anon" $MEM_TO_ALLOC $MEM_TO_ALLOC \
+-		"memory.usage_in_bytes" $MEM_TO_ALLOC false
++		"memory.usage_in_bytes" $MEM_TO_ALLOC \
++		$MEM_EXPECTED_UPPER false
+ }
  
--	check_mem_stat $item $MEM_TO_ALLOC
-+	check_mem_stat $item $MEM_TO_ALLOC $MEM_EXPECTED_UPPER
+ test2()
+@@ -29,7 +34,8 @@ test2()
+ 	echo $MEM_LIMIT > memory.limit_in_bytes
+ 	echo $MEM_LIMIT > memory.memsw.limit_in_bytes
+ 	test_mem_stat "--mmap-anon" $MEM_TO_ALLOC $MEM_TO_ALLOC \
+-		"memory.memsw.usage_in_bytes" $MEM_TO_ALLOC false
++		"memory.memsw.usage_in_bytes" $MEM_TO_ALLOC \
++		$MEM_EXPECTED_UPPER false
+ }
  
- 	if [ $check_after_reset -eq 1 ]; then
- 		echo 0 > $item
+ tst_run
 -- 
 2.27.0
 
