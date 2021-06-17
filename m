@@ -1,77 +1,50 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id B40D43AAD04
-	for <lists+linux-ltp@lfdr.de>; Thu, 17 Jun 2021 09:08:01 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id F32393AAD07
+	for <lists+linux-ltp@lfdr.de>; Thu, 17 Jun 2021 09:08:24 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 212B33C88E6
-	for <lists+linux-ltp@lfdr.de>; Thu, 17 Jun 2021 09:08:01 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B4E2B3C7883
+	for <lists+linux-ltp@lfdr.de>; Thu, 17 Jun 2021 09:08:24 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 60C1D3C2DC7
- for <ltp@lists.linux.it>; Thu, 17 Jun 2021 09:07:37 +0200 (CEST)
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 6903E3C88EE
+ for <ltp@lists.linux.it>; Thu, 17 Jun 2021 09:08:19 +0200 (CEST)
+Received: from unicom145.biz-email.net (unicom145.biz-email.net
+ [210.51.26.145])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 180351A00656
- for <ltp@lists.linux.it>; Thu, 17 Jun 2021 09:07:37 +0200 (CEST)
-Received: from mail-ej1-f72.google.com ([209.85.218.72])
- by youngberry.canonical.com with esmtps (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
- (envelope-from <krzysztof.kozlowski@canonical.com>)
- id 1ltm7k-00040i-J6
- for ltp@lists.linux.it; Thu, 17 Jun 2021 07:07:36 +0000
-Received: by mail-ej1-f72.google.com with SMTP id
- z6-20020a17090665c6b02903700252d1ccso1769334ejn.10
- for <ltp@lists.linux.it>; Thu, 17 Jun 2021 00:07:36 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=ZrSi8UjVA7oKQxjvWm7NBCWsiHBN5nHyk/1g8JYarlU=;
- b=I/xfo4hFYR+TJsGGcdt2e8c3f/Du9ItZb+nxsOZy1B/zmEFlluQ5lxmQco2pogaRRN
- wjwn28d1mU2lzmdGjxg5VPTvOkl7/ot0Iv6Cdw1c/NRcABkRAdTTZRR0WPuJYgfR3ZCW
- UC/F17ztAEq/S79vhtlH2vp77l6nXYSPqt0RNclT9APfNpASlpJLvx0YGvW25zY/dYoa
- s/0jF1vly22sss34NGTIa8+IPXj0GF+nt5iFw0V6A5mgq5wDHY5pYGpcxaVrnh+BBoSy
- 5n7x5hDT34zP8WubMZ0Mrqk3N7RWYQKfrjh3Tk0NTsdfijZ6pgSon76AUHCTOAT8AWYr
- PIJg==
-X-Gm-Message-State: AOAM531lkQDkWs52k+R+p11yPIuxdw8eMNS8zzlxut4/c9r38LnT9UJq
- jpsY5pihZXybfqeg6IvWH0yEG7vlrZ6MWtfL8y6ljMmuO2xS/hZDxZwBj5c6/6VSFTCGFGSB5Gd
- fbI1EzZMUusHxxou8FUxvJmxp245i
-X-Received: by 2002:a17:906:c241:: with SMTP id
- bl1mr3657502ejb.536.1623913656103; 
- Thu, 17 Jun 2021 00:07:36 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJwMNmCi3vTpz2vnI8k1VMHnY+eDfTHKwZj+pz75zuHeWvnzRnWNolsTgrs8BXxQaqJHdV1tRA==
-X-Received: by 2002:a17:906:c241:: with SMTP id
- bl1mr3657489ejb.536.1623913655968; 
- Thu, 17 Jun 2021 00:07:35 -0700 (PDT)
-Received: from localhost.localdomain (xdsl-188-155-177-222.adslplus.ch.
- [188.155.177.222])
- by smtp.gmail.com with ESMTPSA id u17sm3531258edx.16.2021.06.17.00.07.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 17 Jun 2021 00:07:35 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-To: ltp@lists.linux.it
-Date: Thu, 17 Jun 2021 09:07:30 +0200
-Message-Id: <20210617070730.7699-4-krzysztof.kozlowski@canonical.com>
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id C40C81A01236
+ for <ltp@lists.linux.it>; Thu, 17 Jun 2021 09:08:15 +0200 (CEST)
+Received: from ([60.208.111.195])
+ by unicom145.biz-email.net ((LNX1044)) with ASMTP (SSL) id KDZ00109
+ for <ltp@lists.linux.it>; Thu, 17 Jun 2021 15:08:09 +0800
+Received: from localhost.localdomain (10.200.104.74) by
+ jtjnmail201607.home.langchao.com (10.100.2.7) with Microsoft SMTP Server id
+ 15.1.2176.14; Thu, 17 Jun 2021 15:08:09 +0800
+From: dongshijiang <dongshijiang@inspur.com>
+To: <ltp@lists.linux.it>
+Date: Thu, 17 Jun 2021 03:08:06 -0400
+Message-ID: <20210617070806.174220-1-dongshijiang@inspur.com>
 X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20210617070730.7699-1-krzysztof.kozlowski@canonical.com>
-References: <20210617070730.7699-1-krzysztof.kozlowski@canonical.com>
 MIME-Version: 1.0
+X-Originating-IP: [10.200.104.74]
+tUid: 20216171508097cb282a98dca52bdeaa5fc8160486f5c
+X-Abuse-Reports-To: service@corp-email.com
+Abuse-Reports-To: service@corp-email.com
+X-Complaints-To: service@corp-email.com
+X-Report-Abuse-To: service@corp-email.com
 X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 3/3] controllers/memcg: accept non-zero
- max_usage_in_bytes after reset
+Subject: [LTP] [PATCH] fix rpc_suite/rpc:add check returned value
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,47 +56,86 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: dongshijiang <dongshijiang@inspur.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Several Linux kernel versions report a non-zero max_usage_in_bytes after
-resetting the counter.  For example v5.4, v5.8, v5.10, v5.11, v5.12 and
-5.13.0-rc5:
+"Segmentation fault (core dumped)" due to the failure of svcfd_create during the rpc test, so you need to check the return value of the "svcfd_create" function
 
-    memcg_max_usage_in_bytes_test 4 TINFO: Test reset memory.memsw.max_usage_in_bytes
-    memcg_max_usage_in_bytes_test 4 TINFO: Running memcg_process --mmap-anon -s 4194304
-    memcg_max_usage_in_bytes_test 4 TINFO: Warming up pid: 1416
-    memcg_max_usage_in_bytes_test 4 TINFO: Process is still here after warm up: 1416
-    memcg_max_usage_in_bytes_test 4 TFAIL: memory.memsw.max_usage_in_bytes is 4325376, 4194304 expected
-    memcg_max_usage_in_bytes_test 4 TFAIL: memory.memsw.max_usage_in_bytes is 122880, 0 expected
-
-It seems that recent Linux kernel still notices some memory allocation
-by the memcg tool.  Accept therefore a range from 0 to 32 pages.
-
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+Signed-off-by: dongshijiang <dongshijiang@inspur.com>
 ---
- .../memcg/functional/memcg_max_usage_in_bytes_test.sh       | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ .../rpc/rpc_createdestroy_svc_destroy/rpc_svc_destroy.c      | 5 +++++
+ .../rpc_createdestroy_svc_destroy/rpc_svc_destroy_stress.c   | 5 +++++
+ .../rpc/rpc_regunreg_xprt_register/rpc_xprt_register.c       | 5 +++++
+ .../rpc/rpc_regunreg_xprt_unregister/rpc_xprt_unregister.c   | 5 +++++
+ 4 files changed, 20 insertions(+)
 
-diff --git a/testcases/kernel/controllers/memcg/functional/memcg_max_usage_in_bytes_test.sh b/testcases/kernel/controllers/memcg/functional/memcg_max_usage_in_bytes_test.sh
-index a940606cbd34..8f0fc33996f3 100755
---- a/testcases/kernel/controllers/memcg/functional/memcg_max_usage_in_bytes_test.sh
-+++ b/testcases/kernel/controllers/memcg/functional/memcg_max_usage_in_bytes_test.sh
-@@ -40,7 +40,11 @@ test_max_usage_in_bytes()
+diff --git a/testcases/network/rpc/rpc-tirpc/tests_pack/rpc_suite/rpc/rpc_createdestroy_svc_destroy/rpc_svc_destroy.c b/testcases/network/rpc/rpc-tirpc/tests_pack/rpc_suite/rpc/rpc_createdestroy_svc_destroy/rpc_svc_destroy.c
+index 60b96cec3..3557c0068 100644
+--- a/testcases/network/rpc/rpc-tirpc/tests_pack/rpc_suite/rpc/rpc_createdestroy_svc_destroy/rpc_svc_destroy.c
++++ b/testcases/network/rpc/rpc-tirpc/tests_pack/rpc_suite/rpc/rpc_createdestroy_svc_destroy/rpc_svc_destroy.c
+@@ -46,6 +46,11 @@ int main(void)
  
- 	if [ $check_after_reset -eq 1 ]; then
- 		echo 0 > $item
--		check_mem_stat $item 0
-+		# Recent Linux kernels (at least v5.4) started reporting
-+		# a non-zero max_usage_in_bytes after resetting the counter.
-+		# The typical values are 0, 4096, 8096 and up to 122880.
-+		# Cause is not known, so let's just be flexible.
-+		check_mem_stat $item 0 $((PAGESIZE * 32))
- 	fi
+ 	//First of all, create a server
+ 	svcr = svcfd_create(fd, 0, 0);
++
++	//check returned value
++	if ((SVCXPRT *) svcr == NULL) {
++		return test_status;
++	}
  
- 	stop_memcg_process
+ 	//Then call destroy macro
+ 	svc_destroy(svcr);
+diff --git a/testcases/network/rpc/rpc-tirpc/tests_pack/rpc_suite/rpc/rpc_createdestroy_svc_destroy/rpc_svc_destroy_stress.c b/testcases/network/rpc/rpc-tirpc/tests_pack/rpc_suite/rpc/rpc_createdestroy_svc_destroy/rpc_svc_destroy_stress.c
+index ecd145393..5a4331f4d 100644
+--- a/testcases/network/rpc/rpc-tirpc/tests_pack/rpc_suite/rpc/rpc_createdestroy_svc_destroy/rpc_svc_destroy_stress.c
++++ b/testcases/network/rpc/rpc-tirpc/tests_pack/rpc_suite/rpc/rpc_createdestroy_svc_destroy/rpc_svc_destroy_stress.c
+@@ -55,6 +55,11 @@ int main(int argn, char *argc[])
+ 	//First of all, create a server
+ 	for (i = 0; i < nbCall; i++) {
+ 		svcr = svcfd_create(fd, 0, 0);
++
++		//check returned value
++		if ((SVCXPRT *) svcr == NULL)
++			continue;
++		svcr = NULL;
+ 
+ 		//Then call destroy macro
+ 		svc_destroy(svcr);
+diff --git a/testcases/network/rpc/rpc-tirpc/tests_pack/rpc_suite/rpc/rpc_regunreg_xprt_register/rpc_xprt_register.c b/testcases/network/rpc/rpc-tirpc/tests_pack/rpc_suite/rpc/rpc_regunreg_xprt_register/rpc_xprt_register.c
+index da3b93022..de4df15f1 100644
+--- a/testcases/network/rpc/rpc-tirpc/tests_pack/rpc_suite/rpc/rpc_regunreg_xprt_register/rpc_xprt_register.c
++++ b/testcases/network/rpc/rpc-tirpc/tests_pack/rpc_suite/rpc/rpc_regunreg_xprt_register/rpc_xprt_register.c
+@@ -48,6 +48,11 @@ int main(void)
+ 
+ 	//create a server
+ 	svcr = svcfd_create(fd, 1024, 1024);
++
++	//check returned value
++	if ((SVCXPRT *) svcr == NULL) {
++		return test_status;
++	}
+ 
+ 	//call routine
+ 	xprt_register(svcr);
+diff --git a/testcases/network/rpc/rpc-tirpc/tests_pack/rpc_suite/rpc/rpc_regunreg_xprt_unregister/rpc_xprt_unregister.c b/testcases/network/rpc/rpc-tirpc/tests_pack/rpc_suite/rpc/rpc_regunreg_xprt_unregister/rpc_xprt_unregister.c
+index d0b7a20d4..fbaec25ad 100644
+--- a/testcases/network/rpc/rpc-tirpc/tests_pack/rpc_suite/rpc/rpc_regunreg_xprt_unregister/rpc_xprt_unregister.c
++++ b/testcases/network/rpc/rpc-tirpc/tests_pack/rpc_suite/rpc/rpc_regunreg_xprt_unregister/rpc_xprt_unregister.c
+@@ -52,6 +52,11 @@ int main(int argn, char *argc[])
+ 
+ 	//create a server
+ 	svcr = svcfd_create(fd, 1024, 1024);
++
++	//check returned value
++	if ((SVCXPRT *) svcr == NULL) {
++		return test_status;
++	}
+ 
+ 	xprt_register(svcr);
+ 	//call routine
 -- 
 2.27.0
 
