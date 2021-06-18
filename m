@@ -1,12 +1,12 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFAF73ABD48
-	for <lists+linux-ltp@lfdr.de>; Thu, 17 Jun 2021 22:09:11 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DE363AC16A
+	for <lists+linux-ltp@lfdr.de>; Fri, 18 Jun 2021 05:38:12 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3C48E3C88A5
-	for <lists+linux-ltp@lfdr.de>; Thu, 17 Jun 2021 22:09:11 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E0BDB3C88EA
+	for <lists+linux-ltp@lfdr.de>; Fri, 18 Jun 2021 05:38:11 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
@@ -14,76 +14,45 @@ Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E64233C7184
- for <ltp@lists.linux.it>; Thu, 17 Jun 2021 22:09:03 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id B55C03C2CEF
+ for <ltp@lists.linux.it>; Fri, 18 Jun 2021 05:38:06 +0200 (CEST)
+Received: from szxga08-in.huawei.com (szxga08-in.huawei.com [45.249.212.255])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 460031000359
- for <ltp@lists.linux.it>; Thu, 17 Jun 2021 22:09:03 +0200 (CEST)
-Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
- (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 9563E21B48;
- Thu, 17 Jun 2021 20:09:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1623960542;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=MbVur5EmIpizdltqJHP6qsj1SzOozjqHZMV9or49e4M=;
- b=BjgbvZjnmsAg+z0joJL+EVJHc94a8MRruNRh2/ujsGvh11kVKQHBD18Z+gDXQE0yGLj8ki
- LwM1ByM4egGgTigSHeDEJDs/Qu8vMVSZ7VdCRtmSrO0KtgVtZyCtSF7hxd9VrvM4YgPTeZ
- +SwewDH0n4YxYn5dsbOmIq5TOQvMFj4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1623960542;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=MbVur5EmIpizdltqJHP6qsj1SzOozjqHZMV9or49e4M=;
- b=McJIFdlo6hSPpjDmawAJVnalKUO7/qVwXIXTQQVbiexJuI4dFfZ1BlXhSdPrRvmvJM45n5
- lSXmvhYStRPPgiDQ==
-Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id 2D06D118DD;
- Thu, 17 Jun 2021 20:09:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1623960542;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=MbVur5EmIpizdltqJHP6qsj1SzOozjqHZMV9or49e4M=;
- b=BjgbvZjnmsAg+z0joJL+EVJHc94a8MRruNRh2/ujsGvh11kVKQHBD18Z+gDXQE0yGLj8ki
- LwM1ByM4egGgTigSHeDEJDs/Qu8vMVSZ7VdCRtmSrO0KtgVtZyCtSF7hxd9VrvM4YgPTeZ
- +SwewDH0n4YxYn5dsbOmIq5TOQvMFj4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1623960542;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=MbVur5EmIpizdltqJHP6qsj1SzOozjqHZMV9or49e4M=;
- b=McJIFdlo6hSPpjDmawAJVnalKUO7/qVwXIXTQQVbiexJuI4dFfZ1BlXhSdPrRvmvJM45n5
- lSXmvhYStRPPgiDQ==
-Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id pEgqBN6ry2BVBQAALh3uQQ
- (envelope-from <pvorel@suse.cz>); Thu, 17 Jun 2021 20:09:02 +0000
-Date: Thu, 17 Jun 2021 22:08:55 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Xie Ziyao <xieziyao@huawei.com>
-Message-ID: <YMur15JmuseZwJtc@pevik>
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id B96E51000A10
+ for <ltp@lists.linux.it>; Fri, 18 Jun 2021 05:38:04 +0200 (CEST)
+Received: from dggemv703-chm.china.huawei.com (unknown [172.30.72.53])
+ by szxga08-in.huawei.com (SkyGuard) with ESMTP id 4G5kyb03C5z1BN8P;
+ Fri, 18 Jun 2021 11:32:55 +0800 (CST)
+Received: from dggpemm500022.china.huawei.com (7.185.36.162) by
+ dggemv703-chm.china.huawei.com (10.3.19.46) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2176.2; Fri, 18 Jun 2021 11:37:58 +0800
+Received: from [10.67.109.194] (10.67.109.194) by
+ dggpemm500022.china.huawei.com (7.185.36.162) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
+ 15.1.2176.2; Fri, 18 Jun 2021 11:37:58 +0800
+To: Petr Vorel <pvorel@suse.cz>
 References: <20210603033611.15619-1-xieziyao@huawei.com>
- <20210603033611.15619-4-xieziyao@huawei.com>
+ <20210603033611.15619-3-xieziyao@huawei.com> <YMurRVXwyvKXnkjj@pevik>
+From: Xie Ziyao <xieziyao@huawei.com>
+Message-ID: <81961ede-0a43-36d5-ce50-996e81daf867@huawei.com>
+Date: Fri, 18 Jun 2021 11:37:57 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210603033611.15619-4-xieziyao@huawei.com>
+In-Reply-To: <YMurRVXwyvKXnkjj@pevik>
+X-Originating-IP: [10.67.109.194]
+X-ClientProxiedBy: dggeme708-chm.china.huawei.com (10.1.199.104) To
+ dggpemm500022.china.huawei.com (7.185.36.162)
+X-CFilter-Loop: Reflected
 X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
+X-Spam-Status: No, score=-0.3 required=7.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 3/3] syscalls/sendfile: Remove unnecessary header
- files
+Subject: Re: [LTP] [PATCH 2/3] syscalls/sendfile: Convert sendfile06 to the
+ new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,20 +64,50 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Ziyao,
+Hi, Petr,
 
-> Remove unnecessary header files for sendfile{03, 04, 05, 07}
-Obviously correct, merged!
+> 
+>> 1. Convert sendfile06 to the new API with file descriptors instead
+>> of socket descriptors.
+> I wonder if this is ok, suppose yes, but better if other check.
+I noticed that it is described in `man 2 sendfile` as follows:
 
-Kind regards,
-Petr
+In Linux kernels before 2.6.33, out_fd must refer to a socket.  Since 
+Linux 2.6.33 it can be any file.
+
+And if we need to cover the case where out_fd is a socket, I suggest 
+adding it to sendfile02.c, which tests the basic functionality of the 
+sendfile(), just like sendfile07.c:
+
+in_fd = SAFE_OPEN("in_file", O_RDONLY);
+
+SAFE_SOCKETPAIR(PF_UNIX, SOCK_DGRAM | SOCK_NONBLOCK, 0, p);
+out_fd = p[1];
+
+> 
+>> 2. Remove the support for UCLINUX.
+> 
+> LGTM.
+> Reviewed-by: Petr Vorel <pvorel@suse.cz>
+> 
+> ...
+>> +	TEST(sendfile(out_fd, in_fd, NULL, sb.st_size));
+>> +	after_pos = SAFE_LSEEK(in_fd, 0, SEEK_CUR);
+>> +
+>> +	if (TST_RET != sb.st_size)
+> nit: checkpatch.pl complains, it should be if (sb.st_size != TST_RET)
+> (can be fixed during merge)
+Oh yes, sometimes forgot to use checkpatch.pl to check my code files. 
+Thanks for your tips, Petr.
+
+Kind Regards,
+Ziyao
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
