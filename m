@@ -1,61 +1,86 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7CFC3ACBF3
-	for <lists+linux-ltp@lfdr.de>; Fri, 18 Jun 2021 15:17:05 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BEAD3ACE04
+	for <lists+linux-ltp@lfdr.de>; Fri, 18 Jun 2021 16:54:15 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7C7023C31CC
-	for <lists+linux-ltp@lfdr.de>; Fri, 18 Jun 2021 15:17:05 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 0C47E3C2DB7
+	for <lists+linux-ltp@lfdr.de>; Fri, 18 Jun 2021 16:54:15 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A79113C27EF
- for <ltp@lists.linux.it>; Fri, 18 Jun 2021 15:17:01 +0200 (CEST)
-Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 4D06C3C2308
+ for <ltp@lists.linux.it>; Fri, 18 Jun 2021 16:54:13 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 0CF3C1000285
- for <ltp@lists.linux.it>; Fri, 18 Jun 2021 15:16:59 +0200 (CEST)
-Received: from dggemv704-chm.china.huawei.com (unknown [172.30.72.53])
- by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4G5zs13Ph7zZjWx
- for <ltp@lists.linux.it>; Fri, 18 Jun 2021 21:13:57 +0800 (CST)
-Received: from dggpemm100023.china.huawei.com (7.185.36.248) by
- dggemv704-chm.china.huawei.com (10.3.19.47) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2176.2; Fri, 18 Jun 2021 21:16:54 +0800
-Received: from dggpemm500022.china.huawei.com (7.185.36.162) by
- dggpemm100023.china.huawei.com (7.185.36.248) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2176.2; Fri, 18 Jun 2021 21:16:54 +0800
-Received: from dggpemm500022.china.huawei.com ([7.185.36.162]) by
- dggpemm500022.china.huawei.com ([7.185.36.162]) with mapi id 15.01.2176.012;
- Fri, 18 Jun 2021 21:16:54 +0800
-From: xieziyao <xieziyao@huawei.com>
-To: Cyril Hrubis <chrubis@suse.cz>
-Thread-Topic: [LTP][PATCH 3/3 v2] getrusage: Cleanup and bugfix for getrusage03
-Thread-Index: AQHXY2c+9wmDyANsA0GA/Uskb99s56sZK7MAgACV6Ac=
-Date: Fri, 18 Jun 2021 13:16:54 +0000
-Message-ID: <021a65c83ac448e882077e7dabe1667b@huawei.com>
-References: <20210617105556.130869-1-xieziyao@huawei.com>
- <20210617105556.130869-4-xieziyao@huawei.com>,<YMyPhiiKwuwEdj7N@yuki>
-In-Reply-To: <YMyPhiiKwuwEdj7N@yuki>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 5AFF960091E
+ for <ltp@lists.linux.it>; Fri, 18 Jun 2021 16:54:12 +0200 (CEST)
+Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id B5A0921B0D;
+ Fri, 18 Jun 2021 14:54:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1624028051; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=NFr9k+aRCBdeIhPoWDfy5zp+f36ggNlydpA4sOctbbQ=;
+ b=TnhZgkjE0bU7VBMzUlwr9hpYb8H9koN4uXpvhZAwrvsozXYDtzyaJcTUnrWGlt6dmMPN6y
+ TZZ/efbHYs3i5bVlg/MXHwn7meQtaIz/MYlLSCZtbFRCpNJewXAbrRrLf22lxRZOsOlRGZ
+ YPHDXPtkSRBXbAwndTFFkt+LE9Wlsg8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1624028051;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=NFr9k+aRCBdeIhPoWDfy5zp+f36ggNlydpA4sOctbbQ=;
+ b=PNHj03IKIJzyCRt7pkacTMiExsMvlIRY5+n9lhL9IdOqtRPgFeW9xUbSohbZeyGx9oUc6w
+ Lm344/0P1mK3OwCg==
+Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ by imap.suse.de (Postfix) with ESMTP id 90982118DD;
+ Fri, 18 Jun 2021 14:54:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1624028051; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=NFr9k+aRCBdeIhPoWDfy5zp+f36ggNlydpA4sOctbbQ=;
+ b=TnhZgkjE0bU7VBMzUlwr9hpYb8H9koN4uXpvhZAwrvsozXYDtzyaJcTUnrWGlt6dmMPN6y
+ TZZ/efbHYs3i5bVlg/MXHwn7meQtaIz/MYlLSCZtbFRCpNJewXAbrRrLf22lxRZOsOlRGZ
+ YPHDXPtkSRBXbAwndTFFkt+LE9Wlsg8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1624028051;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=NFr9k+aRCBdeIhPoWDfy5zp+f36ggNlydpA4sOctbbQ=;
+ b=PNHj03IKIJzyCRt7pkacTMiExsMvlIRY5+n9lhL9IdOqtRPgFeW9xUbSohbZeyGx9oUc6w
+ Lm344/0P1mK3OwCg==
+Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
+ id AuEvIpOzzGAHXwAALh3uQQ
+ (envelope-from <chrubis@suse.cz>); Fri, 18 Jun 2021 14:54:11 +0000
+Date: Fri, 18 Jun 2021 16:28:34 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Yang Xu <xuyang2018.jy@fujitsu.com>
+Message-ID: <YMytkmBZb5zDBLGi@yuki>
+References: <1620809541-6891-1-git-send-email-xuyang2018.jy@fujitsu.com>
+ <1620809541-6891-2-git-send-email-xuyang2018.jy@fujitsu.com>
 MIME-Version: 1.0
-X-CFilter-Loop: Reflected
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <1620809541-6891-2-git-send-email-xuyang2018.jy@fujitsu.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=HTML_MESSAGE,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 3/3 v2] getrusage: Cleanup and bugfix for
- getrusage03
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v1 2/4] syscalls/shmget*: Convert into new api
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,228 +92,630 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============1659899777=="
+Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1659899777==
-Content-Language: zh-CN
-Content-Type: multipart/alternative;
-	boundary="_000_021a65c83ac448e882077e7dabe1667bhuaweicom_"
+Hi!
+> 1) merge shmget05.c into shmget02.c
+> 2) Use SHMMIN -1 and SHMMAX + 1 to trigger EINVAL error
+> 3) Use SHM_RD, SHM_WR, SHM_RW to trigger EACCES error under unpriviledged user
+> 
+> Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
+> ---
+>  include/lapi/shm.h                            |  14 +
+>  runtest/syscalls                              |   1 -
+>  runtest/syscalls-ipc                          |   1 -
+>  .../kernel/syscalls/ipc/shmget/.gitignore     |   1 -
+>  testcases/kernel/syscalls/ipc/shmget/Makefile |   4 +-
+>  .../kernel/syscalls/ipc/shmget/shmget02.c     | 243 +++++++-----------
+>  .../kernel/syscalls/ipc/shmget/shmget03.c     | 199 ++++----------
+>  .../kernel/syscalls/ipc/shmget/shmget04.c     | 193 +++++---------
+>  .../kernel/syscalls/ipc/shmget/shmget05.c     | 185 -------------
+>  9 files changed, 209 insertions(+), 632 deletions(-)
+>  delete mode 100644 testcases/kernel/syscalls/ipc/shmget/shmget05.c
+> 
+> diff --git a/include/lapi/shm.h b/include/lapi/shm.h
+> index 61c4e37bf..bb280fc44 100644
+> --- a/include/lapi/shm.h
+> +++ b/include/lapi/shm.h
+> @@ -6,8 +6,22 @@
+>  #ifndef LAPI_SHM_H__
+>  #define LAPI_SHM_H__
+>  
+> +#include <limits.h>
+> +
+>  #ifndef SHM_STAT_ANY
+>  # define SHM_STAT_ANY 15
+>  #endif
+>  
+> +#ifndef SHMMIN
+> +# define SHMMIN 1
+> +#endif
+> +
+> +#ifndef SHMMAX
+> +# define SHMMAX (ULONG_MAX - (1UL << 24))
+> +#endif
+> +
+> +#ifndef SHMMNI
+> +# define SHMMNI 4096
+> +#endif
+> +
+>  #endif /* LAPI_SHM_H__ */
+> diff --git a/runtest/syscalls b/runtest/syscalls
+> index 63d821e53..2dff25984 100644
+> --- a/runtest/syscalls
+> +++ b/runtest/syscalls
+> @@ -1402,7 +1402,6 @@ shmdt02 shmdt02
+>  shmget02 shmget02
+>  shmget03 shmget03
+>  shmget04 shmget04
+> -shmget05 shmget05
+>  
+>  sigaction01 sigaction01
+>  sigaction02 sigaction02
+> diff --git a/runtest/syscalls-ipc b/runtest/syscalls-ipc
+> index ff0364704..b3bd37923 100644
+> --- a/runtest/syscalls-ipc
+> +++ b/runtest/syscalls-ipc
+> @@ -67,4 +67,3 @@ shmdt02 shmdt02
+>  shmget02 shmget02
+>  shmget03 shmget03
+>  shmget04 shmget04
+> -shmget05 shmget05
+> diff --git a/testcases/kernel/syscalls/ipc/shmget/.gitignore b/testcases/kernel/syscalls/ipc/shmget/.gitignore
+> index 6f08529f8..c57df68f5 100644
+> --- a/testcases/kernel/syscalls/ipc/shmget/.gitignore
+> +++ b/testcases/kernel/syscalls/ipc/shmget/.gitignore
+> @@ -1,4 +1,3 @@
+>  /shmget02
+>  /shmget03
+>  /shmget04
+> -/shmget05
+> diff --git a/testcases/kernel/syscalls/ipc/shmget/Makefile b/testcases/kernel/syscalls/ipc/shmget/Makefile
+> index 26b9f264d..b1201281d 100644
+> --- a/testcases/kernel/syscalls/ipc/shmget/Makefile
+> +++ b/testcases/kernel/syscalls/ipc/shmget/Makefile
+> @@ -3,10 +3,10 @@
+>  
+>  top_srcdir              ?= ../../../../..
+>  
+> -LTPLIBS = ltpipc
+> +LTPLIBS = ltpnewipc
+>  
+>  include $(top_srcdir)/include/mk/testcases.mk
+>  
+> -LTPLDLIBS  = -lltpipc
+> +LTPLDLIBS = -lltpnewipc
+>  
+>  include $(top_srcdir)/include/mk/generic_leaf_target.mk
+> diff --git a/testcases/kernel/syscalls/ipc/shmget/shmget02.c b/testcases/kernel/syscalls/ipc/shmget/shmget02.c
+> index 4436ca7f8..a57904ce9 100644
+> --- a/testcases/kernel/syscalls/ipc/shmget/shmget02.c
+> +++ b/testcases/kernel/syscalls/ipc/shmget/shmget02.c
+> @@ -1,184 +1,113 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+>  /*
+> + * Copyright (c) International Business Machines  Corp., 2001
+> + *  03/2001 - Written by Wayne Boyer
+>   *
+> - *   Copyright (c) International Business Machines  Corp., 2001
+> - *
+> - *   This program is free software;  you can redistribute it and/or modify
+> - *   it under the terms of the GNU General Public License as published by
+> - *   the Free Software Foundation; either version 2 of the License, or
+> - *   (at your option) any later version.
+> - *
+> - *   This program is distributed in the hope that it will be useful,
+> - *   but WITHOUT ANY WARRANTY;  without even the implied warranty of
+> - *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
+> - *   the GNU General Public License for more details.
+> - *
+> - *   You should have received a copy of the GNU General Public License
+> - *   along with this program;  if not, write to the Free Software
+> - *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+> + * Copyright (c) 2008 Renaud Lottiaux (Renaud.Lottiaux@kerlabs.com)
+>   */
+>  
+> -/*
+> - * NAME
+> - *	shmget02.c
+> - *
+> - * DESCRIPTION
+> - *	shmget02 - check for ENOENT, EEXIST and EINVAL errors
+> +/*\
+> + * [Description]
+>   *
+> - * ALGORITHM
+> - *	create a shared memory segment with read & write permissions
+> - *	loop if that option was specified
+> - *	  call shmget() using five different invalid cases
+> - *	  check the errno value
+> - *	    issue a PASS message if we get ENOENT, EEXIST or EINVAL
+> - *	  otherwise, the tests fails
+> - *	    issue a FAIL message
+> - *	call cleanup
+> + * Test for ENOENT, EEXIST, EINVAL, EACCES errors.
+>   *
+> - * USAGE:  <for command-line>
+> - *  shmget02 [-c n] [-e] [-i n] [-I x] [-P x] [-t]
+> - *     where,  -c n : Run n copies concurrently.
+> - *             -e   : Turn on errno logging.
+> - *	       -i n : Execute test n times.
+> - *	       -I x : Execute test for x seconds.
+> - *	       -P x : Pause for x seconds between iterations.
+> - *	       -t   : Turn on syscall timing.
+> - *
+> - * HISTORY
+> - *	03/2001 - Written by Wayne Boyer
+> - *
+> - *      06/03/2008 Renaud Lottiaux (Renaud.Lottiaux@kerlabs.com)
+> - *      - Fix concurrency issue. The second key used for this test could
+> - *        conflict with the key from another task.
+> - *
+> - * RESTRICTIONS
+> - *	none
+> + * ENOENT - No segment exists for the given key and IPC_CREAT was not specified.
+> + * EEXIST - the segment exists and IPC_CREAT | IPC_EXCL is given.
+> + * EINVAL - A new segment was to be created and size is less than SHMMIN or
+> + * greater than SHMMAX. Or a segment for the given key exists, but size is
+> + * greater than the size of that segment.
+> + * EACCES - The user does not have permission to access the shared memory segment.
+>   */
+> -
+> -#include "ipcshm.h"
+> -
+> -char *TCID = "shmget02";
+> -int TST_TOTAL = 4;
+> -
+> -int shm_id_1 = -1;
+> -int shm_nonexisting_key = -1;
+> -key_t shmkey2;
+> -
+> -struct test_case_t {
+> -	int *skey;
+> -	int size;
+> +#include <errno.h>
+> +#include <sys/types.h>
+> +#include <sys/ipc.h>
+> +#include <stdlib.h>
+> +#include <pwd.h>
+> +#include <sys/shm.h>
+> +#include "tst_safe_sysv_ipc.h"
+> +#include "tst_test.h"
+> +#include "libnewipc.h"
+> +#include "lapi/shm.h"
+> +
+> +static int shm_id = -1;
+> +static key_t shmkey, shmkey1;
+> +static struct passwd *pw;
+> +
+> +static struct tcase {
+> +	int *shmkey;
+> +	size_t size;
+>  	int flags;
+> -	int error;
+> -} TC[] = {
+> -	/* EINVAL - size is 0 */
+> -	{
+> -	&shmkey2, 0, IPC_CREAT | IPC_EXCL | SHM_RW, EINVAL},
+> -	    /* EINVAL - size is negative */
+> -//      {&shmkey2, -1, IPC_CREAT | IPC_EXCL | SHM_RW, EINVAL},
+> -	    /* EINVAL - size is larger than created segment */
+> -	{
+> -	&shmkey, SHM_SIZE * 2, SHM_RW, EINVAL},
+> -	    /* EEXIST - the segment exists and IPC_CREAT | IPC_EXCL is given */
+> -	{
+> -	&shmkey, SHM_SIZE, IPC_CREAT | IPC_EXCL | SHM_RW, EEXIST},
+> -	    /* ENOENT - no segment exists for the key and IPC_CREAT is not given */
+> -	    /* use shm_id_2 (-1) as the key */
+> -	{
+> -	&shm_nonexisting_key, SHM_SIZE, SHM_RW, ENOENT}
+> +	/*1: nobody expected  0: root expected */
+> +	int exp_user;
+> +	int exp_err;
+> +} tcases[] = {
+> +	{&shmkey1, SHM_SIZE, IPC_EXCL, 0, ENOENT},
+> +	{&shmkey, SHM_SIZE, IPC_CREAT | IPC_EXCL, 0, EEXIST},
+> +	{&shmkey1, SHMMIN - 1, IPC_CREAT | IPC_EXCL, 0, EINVAL},
+> +	{&shmkey1, SHMMAX + 1, IPC_CREAT | IPC_EXCL, 0, EINVAL},
 
---_000_021a65c83ac448e882077e7dabe1667bhuaweicom_
-Content-Type: text/plain; charset="big5"
-Content-Transfer-Encoding: base64
+Can we please add the zero size EINVAL test as well?
 
-WWVzLCBwbGVhc2UgZG8uDQoNCkZlZWwgZmluZSB3aXRoIHlvdXIgbW9kaWZpY2F0aW9uIGFuZCB0
-aGFua3MgZm9yIHlvdXIgcmV2aWV3Lg0KDQpLaW5kIFJlZ2FyZHMsDQpaaXlhbw0KDQpfX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXw0KDQpYaWUgWml5YW8NCkVtYWlsOiB4aWV6aXlhb0Bo
-dWF3ZWkuY29tPG1haWx0bzp4aWV6aXlhb0BodWF3ZWkuY29tPg0KDQoNCkZyb206IEN5cmlsIEhy
-dWJpczxjaHJ1YmlzQHN1c2UuY3o8bWFpbHRvOmNocnViaXNAc3VzZS5jej4+DQpUbzogeGlleml5
-YW88eGlleml5YW9AaHVhd2VpLmNvbTxtYWlsdG86eGlleml5YW9AaHVhd2VpLmNvbT4+DQpDYzog
-bHRwPGx0cEBsaXN0cy5saW51eC5pdDxtYWlsdG86bHRwQGxpc3RzLmxpbnV4Lml0Pj47bWRvdWNo
-YTxtZG91Y2hhQHN1c2UuY3o8bWFpbHRvOm1kb3VjaGFAc3VzZS5jej4+DQpTdWJqZWN0OiBSZTog
-W0xUUF1bUEFUQ0ggMy8zIHYyXSBnZXRydXNhZ2U6IENsZWFudXAgYW5kIGJ1Z2ZpeCBmb3IgZ2V0
-cnVzYWdlMDMNClRpbWU6IDIwMjEtMDYtMTggMjA6NDY6MTQNCg0KSGkhDQo+ICBzdGF0aWMgdm9p
-ZCBzaWdfaWduKHZvaWQpDQo+ICB7DQo+IC0gICAgIHRzdF9yZXNtKFRJTkZPLCAiVGVzdGNhc2Ug
-IzA2OiBTSUdfSUdOIik7DQo+IC0NCj4gLSAgICAgU0FGRV9HRVRSVVNBR0UoY2xlYW51cCwgUlVT
-QUdFX0NISUxEUkVOLCAmcnUpOw0KPiAtICAgICB0c3RfcmVzbShUSU5GTywgImluaXRpYWwuY2hp
-bGRyZW4gPSAlbGQiLCBydS5ydV9tYXhyc3MpOw0KPiAtICAgICBzaWduYWwoU0lHQ0hMRCwgU0lH
-X0lHTik7DQo+ICsgICAgIFNBRkVfU0lHTkFMKFNJR0NITEQsIFNJR19JR04pOw0KPiArICAgICBT
-QUZFX0dFVFJVU0FHRShSVVNBR0VfQ0hJTERSRU4sICZydSk7DQo+ICAgICAgICBtYXhyc3NfaW5p
-dCA9IHJ1LnJ1X21heHJzczsNCj4NCj4gLSAgICAgc3dpdGNoIChwaWQgPSBmb3JrKCkpIHsNCj4g
-LSAgICAgY2FzZSAtMToNCj4gLSAgICAgICAgICAgICB0c3RfYnJrbShUQlJPSywgY2xlYW51cCwg
-ImZvcmsgIzYiKTsNCj4gLSAgICAgY2FzZSAwOg0KPiAtICAgICAgICAgICAgIHJldHZhbCA9IHN5
-c3RlbSgiZ2V0cnVzYWdlMDNfY2hpbGQgLW4gNTAwIik7DQo+IC0gICAgICAgICAgICAgaWYgKChX
-SUZFWElURUQocmV0dmFsKSAmJiBXRVhJVFNUQVRVUyhyZXR2YWwpICE9IDApKQ0KPiAtICAgICAg
-ICAgICAgICAgICAgICAgdHN0X2Jya20oVEJST0sgfCBURVJSTk8sIGNsZWFudXAsICJzeXN0ZW0i
-KTsNCj4gLSAgICAgICAgICAgICBleGl0KDApOw0KPiAtICAgICBkZWZhdWx0Og0KPiAtICAgICAg
-ICAgICAgIGJyZWFrOw0KPiAtICAgICB9DQo+ICsgICAgIHBpZF90IHBpZCA9IFNBRkVfRk9SSygp
-Ow0KPiArDQo+ICsgICAgIGlmICghcGlkKQ0KPiArICAgICAgICAgICAgIFNBRkVfRVhFQ0xQKCJn
-ZXRydXNhZ2UwM19jaGlsZCIsICJnZXRydXNhZ2UwM19jaGlsZCIsDQo+ICsgICAgICAgICAgICAg
-ICAgICAgICAgICAgImNvbnN1bWUiLCAiNTAwIiwgTlVMTCk7DQo+DQo+IC0gICAgIHNsZWVwKDEp
-OyAgICAgICAgICAgICAgIC8qIGNoaWxkcmVuIGJlY29tZSB6b21iaWUgKi8NCj4gLSAgICAgU0FG
-RV9HRVRSVVNBR0UoY2xlYW51cCwgUlVTQUdFX0NISUxEUkVOLCAmcnUpOw0KPiAtICAgICB0c3Rf
-cmVzbShUSU5GTywgImFmdGVyX3pvbWJpZS5jaGlsZHJlbiA9ICVsZCIsIHJ1LnJ1X21heHJzcyk7
-DQo+ICsgICAgIFRTVF9QUk9DRVNTX0VYSVRfV0FJVChwaWQsIDApOw0KPiArICAgICBTQUZFX0dF
-VFJVU0FHRShSVVNBR0VfQ0hJTERSRU4sICZydSk7DQo+ICAgICAgICBpZiAoaXNfaW5fZGVsdGEo
-cnUucnVfbWF4cnNzIC0gbWF4cnNzX2luaXQpKQ0KPiAtICAgICAgICAgICAgIHRzdF9yZXNtKFRQ
-QVNTLCAiaW5pdGlhbC5jaGlsZHJlbiB+PSBhZnRlcl96b21iaWUuY2hpbGRyZW4iKTsNCj4gKyAg
-ICAgICAgICAgICB0c3RfcmVzKFRQQVNTLCAiaW5pdGlhbC5jaGlsZHJlbiB+PSBhZnRlcl96b21i
-aWUuY2hpbGRyZW4iKTsNCj4gICAgICAgIGVsc2UNCj4gLSAgICAgICAgICAgICB0c3RfcmVzbShU
-RkFJTCwgImluaXRpYWwuY2hpbGRyZW4gIX49IGFmdGVyX3pvbWJpZS5jaGlsZHJlbiIpOw0KPiAt
-ICAgICBzaWduYWwoU0lHQ0hMRCwgU0lHX0RGTCk7DQo+IC19DQo+ICsgICAgICAgICAgICAgdHN0
-X3JlcyhURkFJTCwgImFmdGVyX3pvbWJpZS5jaGlsZHJlbiA9ICVsaSwgZXhwZWN0ZWQgJWxpIiwN
-Cj4gKyAgICAgICAgICAgICAgICAgICAgIHJ1LnJ1X21heHJzcywgbWF4cnNzX2luaXQpOw0KDQpJ
-IGd1ZXNzIHRoYXQgdGhlc2UgbWVzc2FnZXMgY291bGQgYmUgYmV0dGVyLCB0ZWNoaW5jYWxseSBp
-dCdzIG5vdCBhDQp6b21iaWUgYnV0IHJhdGhlciBpZ25vcmVkIGNoaWxkLCBzbyBJIHdvdWxkIGNo
-YW5nZSB0aGlzIHRvOg0KDQoiaW5pdGlhbC5jaGlsZHJlbiB+PSBpZ25vcmVkX2NoaWxkLmNoaWxk
-cmVuIg0KDQpPdGhlciB0aGFuIHRoaXMgdGhlIHJlc3QgaXMgZ29vZC4NCg0KUmV2aWV3ZWQtYnk6
-IEN5cmlsIEhydWJpcyA8Y2hydWJpc0BzdXNlLmN6Pg0KDQoNCkFsc28gaWYgeW91IGFncmVlIEkg
-Y2FuIGZpeCB0aGUgdHdvIG1pbm9yIGlzc3VlcyBpbiB0aGUgcGF0Y2hzZXQgYmVmb3JlDQptZXJn
-ZSwgbm8gbmVlZCB0byBzZW5kIHYzLg0KDQotLQ0KQ3lyaWwgSHJ1YmlzDQpjaHJ1YmlzQHN1c2Uu
-Y3oNCg==
+> +	{&shmkey, SHM_SIZE * 2, IPC_EXCL, 0, EINVAL},
+> +	{&shmkey, SHM_SIZE, SHM_RD, 1, EACCES},
+>  };
 
---_000_021a65c83ac448e882077e7dabe1667bhuaweicom_
-Content-Type: text/html; charset="big5"
-Content-Transfer-Encoding: quoted-printable
+...
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dbig5">
-<meta name=3D"Generator" content=3D"Microsoft Exchange Server">
-<!-- converted from text --><style><!-- .EmailQuote { margin-left: 1pt; pad=
-ding-left: 4pt; border-left: #800000 2px solid; } --></style>
-</head>
-<body>
-<div>
-<div style=3D"font-family:Calibri,Helvetica!important; font-size:17.0px; co=
-lor:#333333">
-<span style=3D"color:#333333; font-size:17.0px">Yes,&nbsp;please&nbsp;do.</=
-span><br>
-<br>
-<span style=3D"color:#333333; font-size:17.0px">Feel&nbsp;fine&nbsp;with&nb=
-sp;your&nbsp;modification&nbsp;and&nbsp;thanks&nbsp;for&nbsp;your&nbsp;revi=
-ew.</span><br>
-<br>
-<span style=3D"color:#333333; font-size:17.0px">Kind&nbsp;Regards,</span><b=
-r>
-<span style=3D"color:#333333; font-size:17.0px">Ziyao</span><br>
-<br>
-<span style=3D"color:#333333; font-size:17.0px">
-<hr id=3D"x_client_signature_separator" style=3D"border-top:dotted 1px">
-</span><br>
-<span style=3D"color:#333333; font-size:17.0px">Xie&nbsp;Ziyao</span><br>
-<span style=3D"color:#333333; font-size:17.0px">Email:&nbsp;<a href=3D"mail=
-to:xieziyao@huawei.com" target=3D"_BLANK">xieziyao@huawei.com</a></span><br=
->
-<br>
-<br>
-</div>
-<div name=3D"x_AnyOffice-Background-Image" style=3D"border-top:1px solid #B=
-5C4DF; padding:8px">
-<div><b>From: </b>Cyril Hrubis&lt;<a href=3D"mailto:chrubis@suse.cz">chrubi=
-s@suse.cz</a>&gt;</div>
-<div><b>To: </b>xieziyao&lt;<a href=3D"mailto:xieziyao@huawei.com">xieziyao=
-@huawei.com</a>&gt;</div>
-<div><b>Cc: </b>ltp&lt;<a href=3D"mailto:ltp@lists.linux.it">ltp@lists.linu=
-x.it</a>&gt;;mdoucha&lt;<a href=3D"mailto:mdoucha@suse.cz">mdoucha@suse.cz<=
-/a>&gt;</div>
-<div><b>Subject: </b>Re: [LTP][PATCH 3/3 v2] getrusage: Cleanup and bugfix =
-for getrusage03</div>
-<div><b>Time: </b>2021-06-18 20:46:14</div>
-<br>
-</div>
-</div>
-<font size=3D"2"><span style=3D"font-size:10pt;">
-<div class=3D"PlainText">Hi!<br>
-&gt;&nbsp; static void sig_ign(void)<br>
-&gt;&nbsp; {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; tst_resm(TINFO, &quot;Testcase #06: SIG_IGN&=
-quot;);<br>
-&gt; -<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; SAFE_GETRUSAGE(cleanup, RUSAGE_CHILDREN, &am=
-p;ru);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; tst_resm(TINFO, &quot;initial.children =3D %=
-ld&quot;, ru.ru_maxrss);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; signal(SIGCHLD, SIG_IGN);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; SAFE_SIGNAL(SIGCHLD, SIG_IGN);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; SAFE_GETRUSAGE(RUSAGE_CHILDREN, &amp;ru)=
-;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; maxrss_init =3D ru.ru_maxrss=
-;<br>
-&gt; <br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; switch (pid =3D fork()) {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; case -1:<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; tst_brkm(TBROK, cleanup, &quot;fork #6&quot;);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; case 0:<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; retval =3D system(&quot;getrusage03_child -n 500&quot;);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; if ((WIFEXITED(retval) &amp;&amp; WEXITSTATUS(retval) !=3D 0))<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tst_brkm(TBROK | TERRNO=
-, cleanup, &quot;system&quot;);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; exit(0);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; break;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; pid_t pid =3D SAFE_FORK();<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (!pid)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; SAFE_EXECLP(&quot;getrusage03_child&quot;, &quot;getrusage03_child&=
-quot;,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; &quot;consume&quot;, &quot;500&quot;, NULL);<br>
-&gt; <br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; sleep(1);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* children become zombie=
- */<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; SAFE_GETRUSAGE(cleanup, RUSAGE_CHILDREN, &am=
-p;ru);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; tst_resm(TINFO, &quot;after_zombie.children =
-=3D %ld&quot;, ru.ru_maxrss);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; TST_PROCESS_EXIT_WAIT(pid, 0);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; SAFE_GETRUSAGE(RUSAGE_CHILDREN, &amp;ru)=
-;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (is_in_delta(ru.ru_maxrss=
- - maxrss_init))<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; tst_resm(TPASS, &quot;initial.children ~=3D after_zombie.children&quot;=
-);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; tst_res(TPASS, &quot;initial.children ~=3D after_zombie.children&qu=
-ot;);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; tst_resm(TFAIL, &quot;initial.children !~=3D after_zombie.children&quot=
-;);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; signal(SIGCHLD, SIG_DFL);<br>
-&gt; -}<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; tst_res(TFAIL, &quot;after_zombie.children =3D %li, expected %li&qu=
-ot;,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ru.ru_maxrss, maxrs=
-s_init);<br>
-<br>
-I guess that these messages could be better, techincally it's not a<br>
-zombie but rather ignored child, so I would change this to:<br>
-<br>
-&quot;initial.children ~=3D ignored_child.children&quot;<br>
-<br>
-Other than this the rest is good.<br>
-<br>
-Reviewed-by: Cyril Hrubis &lt;chrubis@suse.cz&gt;<br>
-<br>
-<br>
-Also if you agree I can fix the two minor issues in the patchset before<br>
-merge, no need to send v3.<br>
-<br>
--- <br>
-Cyril Hrubis<br>
-chrubis@suse.cz<br>
-</div>
-</span></font>
-</body>
-</html>
+> +static void do_test(unsigned int n)
+>  {
+> +	struct tcase *tc = &tcases[n];
+> +	pid_t pid;
+>  
+> -	tst_sig(NOFORK, DEF_HANDLER, cleanup);
+> -
+> -	TEST_PAUSE;
+> -
+> -	/*
+> -	 * Create a temporary directory and cd into it.
+> -	 * This helps to ensure that a unique msgkey is created.
+> -	 * See libs/libltpipc/libipc.c for more information.
+> -	 */
+> -	tst_tmpdir();
+> -
+> -	/* get an IPC resource key */
+> -	shmkey = getipckey();
+> -
+> -	/* Get an new IPC resource key. */
+> -	shmkey2 = getipckey();
+> -
+> -	if ((shm_id_1 = shmget(shmkey, SHM_SIZE, IPC_CREAT | IPC_EXCL |
+> -			       SHM_RW)) == -1) {
+> -		tst_brkm(TBROK, cleanup, "couldn't create shared memory "
+> -			 "segment in setup()");
+> +	if (tc->exp_user == 0) {
+> +		verify_shmget(tc);
 
---_000_021a65c83ac448e882077e7dabe1667bhuaweicom_--
+Just use the TST_EXP_FAIL() macro here instead, no need to reinvent the
+wheel.
 
---===============1659899777==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+> +		return;
+>  	}
+>  
+> -	/* Make sure shm_nonexisting_key is a nonexisting key */
+> -	while (1) {
+> -		while (-1 != shmget(shm_nonexisting_key, 1, SHM_RD)) {
+> -			shm_nonexisting_key--;
+> -		}
+> -		if (errno == ENOENT)
+> -			break;
+> +	pid = SAFE_FORK();
+> +	if (pid == 0) {
+> +		SAFE_SETUID(pw->pw_uid);
+> +		verify_shmget(tc);
 
+And here as well.
+
+> +		exit(0);
+>  	}
+> +	tst_reap_children();
+>  }
+>  
+> -/*
+> - * cleanup() - performs all the ONE TIME cleanup for this test at completion
+> - * 	       or premature exit.
+> - */
+> -void cleanup(void)
+> +static void setup(void)
+>  {
+> -	/* if it exists, remove the shared memory resource */
+> -	rm_shm(shm_id_1);
+> +	shmkey = GETIPCKEY();
+> +	shmkey1 = GETIPCKEY();
+>  
+> -	tst_rmdir();
+> +	shm_id = SAFE_SHMGET(shmkey, SHM_SIZE, IPC_CREAT | IPC_EXCL);
+> +	pw = SAFE_GETPWNAM("nobody");
+> +	tst_res(TINFO, "%d %d", shmkey, shmkey1);
+
+I'm not sure if this message is useful.
+
+> +}
+>  
+> +static void cleanup(void)
+> +{
+> +	if (shm_id >= 0)
+> +		SAFE_SHMCTL(shm_id, IPC_RMID, NULL);
+>  }
+> +
+> +static struct tst_test test = {
+> +	.needs_tmpdir = 1,
+> +	.needs_root = 1,
+> +	.forks_child = 1,
+> +	.setup = setup,
+> +	.cleanup = cleanup,
+> +	.test = do_test,
+> +	.tcnt = ARRAY_SIZE(tcases),
+> +};
+> diff --git a/testcases/kernel/syscalls/ipc/shmget/shmget03.c b/testcases/kernel/syscalls/ipc/shmget/shmget03.c
+> index 96ebf3608..c74fe241d 100644
+> --- a/testcases/kernel/syscalls/ipc/shmget/shmget03.c
+> +++ b/testcases/kernel/syscalls/ipc/shmget/shmget03.c
+> @@ -1,171 +1,68 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+
+...
+
+> +static int shm_id_arr[SHMMNI] = {-1};
+
+The SHMMNI is just default value, it could be adjusted at runtime by
+setting /proc/sys/kernel/shmmni
+
+So we should ideally fix the test to read that value in the test setup
+and allocate the array based on the value.
+
+> +static void verify_shmget(void)
+>  {
+> -	int lc;
+> -
+> -	tst_parse_opts(ac, av, NULL, NULL);
+> -
+> -	setup();		/* global setup */
+> -
+> -	/* The following loop checks looping state if -i option given */
+> -
+> -	for (lc = 0; TEST_LOOPING(lc); lc++) {
+> -		/* reset tst_count in case we are looping */
+> -		tst_count = 0;
+> -
+> -		/*
+> -		 * use the TEST() macro to make the call
+> -		 */
+> -
+> -		TEST(shmget(IPC_PRIVATE, SHM_SIZE, IPC_CREAT | IPC_EXCL
+> -			    | SHM_RW));
+> -
+> -		if (TEST_RETURN != -1) {
+> -			tst_resm(TFAIL, "call succeeded when error expected");
+> -			continue;
+> -		}
+> -
+> -		switch (TEST_ERRNO) {
+> -		case ENOSPC:
+> -			tst_resm(TPASS, "expected failure - errno = "
+> -				 "%d : %s", TEST_ERRNO, strerror(TEST_ERRNO));
+> -			break;
+> -		default:
+> -			tst_resm(TFAIL, "call failed with an "
+> -				 "unexpected error - %d : %s",
+> -				 TEST_ERRNO, strerror(TEST_ERRNO));
+> -			break;
+> -		}
+> +	TEST(shmget(IPC_PRIVATE, SHM_SIZE, IPC_CREAT | IPC_EXCL | SHM_RW));
+> +	if (TST_RET != -1) {
+> +		tst_res(TFAIL, "shmget() returned %li", TST_RET);
+> +		return;
+>  	}
+> -
+> -	cleanup();
+> -
+> -	tst_exit();
+> +	if (TST_ERR == ENOSPC)
+> +		tst_res(TPASS | TTERRNO, "shmget() failed as expected");
+> +	else
+> +		tst_res(TFAIL | TTERRNO, "shmget() failed unexpectedly, expected ENOSPC, bug got");
+
+This should be TST_EXP_FAIL() as well.
+
+>  }
+>  
+> -/*
+> - * setup() - performs all the ONE TIME setup for this test.
+> - */
+> -void setup(void)
+> +static void setup(void)
+>  {
+> +	int res, num;
+>  
+> -	tst_sig(NOFORK, DEF_HANDLER, cleanup);
+> -
+> -	TEST_PAUSE;
+> -
+> -	/*
+> -	 * Create a temporary directory and cd into it.
+> -	 * This helps to ensure that a unique msgkey is created.
+> -	 * See libs/libltpipc/libipc.c for more information.
+> -	 */
+> -	tst_tmpdir();
+> -
+> -	/* get an IPC resource key */
+> -	shmkey = getipckey();
+> -
+> -	/*
+> -	 * Use a while loop to create the maximum number of memory segments.
+> -	 * If the loop exceeds MAXIDS, then break the test and cleanup.
+> -	 */
+> -	while ((shm_id_1 = shmget(IPC_PRIVATE, SHM_SIZE, IPC_CREAT |
+> -				  IPC_EXCL | SHM_RW)) != -1) {
+> -		shm_id_arr[num_shms++] = shm_id_1;
+> -		if (num_shms == MAXIDS) {
+> -			tst_brkm(TBROK, cleanup, "The maximum number of shared "
+> -				 "memory ID's has been\n\t reached.  Please "
+> -				 "increase the MAXIDS value in the test.");
+> -		}
+> -	}
+> -
+> -	/*
+> -	 * If the errno is other than ENOSPC, then something else is wrong.
+> -	 */
+> -	if (errno != ENOSPC) {
+> -		tst_resm(TINFO, "errno = %d : %s", errno, strerror(errno));
+> -		tst_brkm(TBROK, cleanup, "Didn't get ENOSPC in test setup");
+> +	for (num = 0; num < SHMMNI; num++) {
+> +		res = shmget(IPC_PRIVATE, SHM_SIZE, IPC_CREAT | IPC_EXCL | SHM_RW);
+> +		if (res != -1)
+> +			shm_id_arr[num] = res;
+>  	}
+
+So we attempt to allocate SHMMNI shared memory segemnts and the last
+call will fail.
+
+I guess that we can as well attempt to allocate SHMMNI-1 segemnts and
+expect them to all pass. I do not like ignore any failures that may
+happen here and cary on with the test. It would be better to TBROK here
+instead.
+
+> +	tst_res(TINFO, "The maximum number(%d) of memory ID's has been reached",
+> +		SHMMNI);
+>  }
+>  
+> -/*
+> - * cleanup() - performs all the ONE TIME cleanup for this test at completion
+> - * 	       or premature exit.
+> - */
+> -void cleanup(void)
+> +
+> +static void cleanup(void)
+>  {
+>  	int i;
+>  
+> -	/* remove the shared memory resources that were created */
+> -	for (i = 0; i < num_shms; i++) {
+> -		rm_shm(shm_id_arr[i]);
+> +	for (i = 0; i < SHMMNI; i++) {
+> +		if (shm_id_arr[i] >= 0)
+
+This is actually not correct, since there are possibly zeros in the
+array (just because it's global variable and only first position is
+intialized wiht -1) and we could incorrectly attempt to remove sement
+with id 0.
+
+I guess that the cleanest way how to handle this would be having global
+counter for the number of created semgents:
+
+
+static key_t *keys;
+static unsigned int max_key;
+
+setup()
+{
+	...
+	keys = SAFE_MALLOC(sizeof(key_t) * shmmni);
+	...
+
+	for (;;) {
+		if (max_key >= shmni)
+			break;
+
+
+		keys[max_key] = shmget(...);
+
+		if (keys[max_key] < 0)
+			tst_brk(TBROK, ...);
+
+		max_key++;
+	}
+}
+
+cleanup()
+{
+	key_t key;
+
+	for (key = 0; key < max_key; key++)
+		SAFE_SHMCTL(keys[key], IPC_RMID, NULL);
+}
+
+
+
+> +			SAFE_SHMCTL(shm_id_arr[i], IPC_RMID, NULL);
+>  	}
+> -
+> -	tst_rmdir();
+> -
+>  }
+> +
+> +static struct tst_test test = {
+> +	.setup = setup,
+> +	.cleanup = cleanup,
+> +	.test_all = verify_shmget,
+> +};
+> diff --git a/testcases/kernel/syscalls/ipc/shmget/shmget04.c b/testcases/kernel/syscalls/ipc/shmget/shmget04.c
+> index 60a263c77..fe611b306 100644
+
+...
+
+> +	tst_res(TINFO, "%s", tc->message);
+> +	TEST(shmget(shmkey, SHM_SIZE, tc->flag));
+> +	if (TST_RET != -1) {
+> +		tst_res(TFAIL, "shmget() returned %li", TST_RET);
+> +		return;
+>  	}
+> -
+> -	cleanup();
+> -
+> -	tst_exit();
+> +	if (TST_ERR == EACCES)
+> +		tst_res(TPASS | TTERRNO, "shmget() failed as expected");
+> +	else
+> +		tst_res(TFAIL | TTERRNO, "shmget() failed unexpectedly, expected EACCES, bug got");
+
+TST_EXP_FAIL() here as well.
+
+>  }
+>  
+> -/*
+> - * setup() - performs all the ONE TIME setup for this test.
+> - */
+> -void setup(void)
+> +static void setup(void)
+>  {
+> -	tst_require_root();
+> -
+> -	tst_sig(NOFORK, DEF_HANDLER, cleanup);
+> +	struct passwd *pw;
+>  
+> -	TEST_PAUSE;
+> -
+> -	/* Switch to nobody user for correct error code collection */
+> -	ltpuser = getpwnam(nobody_uid);
+> -	if (setuid(ltpuser->pw_uid) == -1) {
+> -		tst_resm(TINFO, "setuid failed to "
+> -			 "to set the effective uid to %d", ltpuser->pw_uid);
+> -		perror("setuid");
+> -	}
+> +	pw = SAFE_GETPWNAM("nobody");
+> +	SAFE_SETUID(pw->pw_uid);
+> +	shmkey = GETIPCKEY();
+>  
+> -	/*
+> -	 * Create a temporary directory and cd into it.
+> -	 * This helps to ensure that a unique msgkey is created.
+> -	 * See libs/libltpipc/libipc.c for more information.
+> -	 */
+> -	tst_tmpdir();
+> -
+> -	/* get an IPC resource key */
+> -	shmkey = getipckey();
+> -
+> -	/* create a shared memory segment without read or access permissions */
+> -	if ((shm_id_1 = shmget(shmkey, SHM_SIZE, IPC_CREAT | IPC_EXCL)) == -1) {
+> -		tst_brkm(TBROK, cleanup, "Failed to create shared memory "
+> -			 "segment in setup");
+> -	}
+> +	shm_id = SAFE_SHMGET(shmkey, SHM_SIZE, IPC_CREAT | IPC_EXCL);
+>  }
+>  
+> -/*
+> - * cleanup() - performs all the ONE TIME cleanup for this test at completion
+> - * 	       or premature exit.
+> - */
+> -void cleanup(void)
+> +static void cleanup(void)
+>  {
+> -	/* if it exists, remove the shared memory resource */
+> -	rm_shm(shm_id_1);
+> -
+> -	tst_rmdir();
+> -
+> +	if (shm_id >= 0)
+> +		SAFE_SHMCTL(shm_id, IPC_RMID, NULL);
+>  }
+> +
+> +static struct tst_test test = {
+> +	.needs_tmpdir = 1,
+> +	.needs_root = 1,
+> +	.setup = setup,
+> +	.cleanup = cleanup,
+> +	.test = verify_shmget,
+> +	.tcnt = ARRAY_SIZE(tcases),
+> +};
+
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============1659899777==--
