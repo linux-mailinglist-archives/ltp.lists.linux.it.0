@@ -1,30 +1,30 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 610063AC7D7
-	for <lists+linux-ltp@lfdr.de>; Fri, 18 Jun 2021 11:42:26 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F81E3AC7D8
+	for <lists+linux-ltp@lfdr.de>; Fri, 18 Jun 2021 11:42:35 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 05B773C2DD1
-	for <lists+linux-ltp@lfdr.de>; Fri, 18 Jun 2021 11:42:26 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 71C383C2B2E
+	for <lists+linux-ltp@lfdr.de>; Fri, 18 Jun 2021 11:42:34 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id ECC423C2997
+ by picard.linux.it (Postfix) with ESMTPS id 1BA393C2462
  for <ltp@lists.linux.it>; Fri, 18 Jun 2021 11:42:01 +0200 (CEST)
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id C0EC41A01520
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 9423F200753
  for <ltp@lists.linux.it>; Fri, 18 Jun 2021 11:42:00 +0200 (CEST)
-Received: from dggemv704-chm.china.huawei.com (unknown [172.30.72.55])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4G5v4z5qDnzZfn1
- for <ltp@lists.linux.it>; Fri, 18 Jun 2021 17:38:59 +0800 (CST)
+Received: from dggemv703-chm.china.huawei.com (unknown [172.30.72.57])
+ by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4G5v4j3q7xz6v03
+ for <ltp@lists.linux.it>; Fri, 18 Jun 2021 17:38:45 +0800 (CST)
 Received: from dggpemm500022.china.huawei.com (7.185.36.162) by
- dggemv704-chm.china.huawei.com (10.3.19.47) with Microsoft SMTP Server
+ dggemv703-chm.china.huawei.com (10.3.19.46) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
  15.1.2176.2; Fri, 18 Jun 2021 17:41:56 +0800
 Received: from ubuntu1804.huawei.com (10.67.174.209) by
@@ -33,8 +33,8 @@ Received: from ubuntu1804.huawei.com (10.67.174.209) by
  15.1.2176.2; Fri, 18 Jun 2021 17:41:56 +0800
 From: Xie Ziyao <xieziyao@huawei.com>
 To: <ltp@lists.linux.it>
-Date: Fri, 18 Jun 2021 17:42:08 +0800
-Message-ID: <20210618094210.183027-6-xieziyao@huawei.com>
+Date: Fri, 18 Jun 2021 17:42:09 +0800
+Message-ID: <20210618094210.183027-7-xieziyao@huawei.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20210618094210.183027-1-xieziyao@huawei.com>
 References: <20210618094210.183027-1-xieziyao@huawei.com>
@@ -43,12 +43,13 @@ X-Originating-IP: [10.67.174.209]
 X-ClientProxiedBy: dggems701-chm.china.huawei.com (10.3.19.178) To
  dggpemm500022.china.huawei.com (7.185.36.162)
 X-CFilter-Loop: Reflected
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH 5/7] io_getevents02: Add io_getevents02 test for libaio
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH 6/7] io_setup: Add docparse formatting and more
+ detailed description
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,93 +66,71 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Test io_getevents invoked via libaio with invalid ctx and expects it to
-return -EINVAL.
+Add docparse formatting and more detailed description to distinguish
+io_setup01 from io_setup02.
 
 Signed-off-by: Xie Ziyao <xieziyao@huawei.com>
 ---
- runtest/syscalls                              |  1 +
- .../kernel/syscalls/io_getevents/.gitignore   |  1 +
- .../syscalls/io_getevents/io_getevents02.c    | 51 +++++++++++++++++++
- 3 files changed, 53 insertions(+)
- create mode 100644 testcases/kernel/syscalls/io_getevents/io_getevents02.c
+ .../kernel/syscalls/io_setup/io_setup01.c     | 24 ++++++++++---------
+ .../kernel/syscalls/io_setup/io_setup02.c     |  8 +++----
+ 2 files changed, 17 insertions(+), 15 deletions(-)
 
-diff --git a/runtest/syscalls b/runtest/syscalls
-index 28ffa1286..bf5a42b1f 100644
---- a/runtest/syscalls
-+++ b/runtest/syscalls
-@@ -610,6 +610,7 @@ io_cancel02 io_cancel02
- io_destroy01 io_destroy01
- io_destroy02 io_destroy02
- io_getevents01 io_getevents01
-+io_getevents02 io_getevents02
-
- io_pgetevents01 io_pgetevents01
- io_pgetevents02 io_pgetevents02
-diff --git a/testcases/kernel/syscalls/io_getevents/.gitignore b/testcases/kernel/syscalls/io_getevents/.gitignore
-index b3a5f4df1..b57022f73 100644
---- a/testcases/kernel/syscalls/io_getevents/.gitignore
-+++ b/testcases/kernel/syscalls/io_getevents/.gitignore
-@@ -1 +1,2 @@
- /io_getevents01
-+/io_getevents02
-diff --git a/testcases/kernel/syscalls/io_getevents/io_getevents02.c b/testcases/kernel/syscalls/io_getevents/io_getevents02.c
-new file mode 100644
-index 000000000..d91319151
---- /dev/null
-+++ b/testcases/kernel/syscalls/io_getevents/io_getevents02.c
-@@ -0,0 +1,51 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
+diff --git a/testcases/kernel/syscalls/io_setup/io_setup01.c b/testcases/kernel/syscalls/io_setup/io_setup01.c
+index 28aee7831..0377ca193 100644
+--- a/testcases/kernel/syscalls/io_setup/io_setup01.c
++++ b/testcases/kernel/syscalls/io_setup/io_setup01.c
+@@ -1,19 +1,21 @@
+ // SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+- *   Copyright (c) Crackerjack Project., 2007
+- *   Copyright (c) 2011 Cyril Hrubis <chrubis@suse.cz>
+- *   Copyright (c) 2017 Xiao Yang <yangx.jy@cn.fujitsu.com>
 + * Copyright (c) Crackerjack Project., 2007
 + * Ported from Crackerjack to LTP by Masatake YAMATO <yamato@redhat.com>
 + * Copyright (c) 2011 Cyril Hrubis <chrubis@suse.cz>
-+ * Copyright (c) 2021 Xie Ziyao <xieziyao@huawei.com>
-+ */
-+
++ * Copyright (c) 2017 Xiao Yang <yangx.jy@cn.fujitsu.com>
+  */
+
+-/* Porting from Crackerjack to LTP is done
+- * by Masatake YAMATO <yamato@redhat.com>
 +/*\
 + * [Description]
+  *
+- * Description:
+- * 1) io_setup(2) succeeds if both nr_events and ctxp are valid.
+- * 2) io_setup(2) fails and returns -EINVAL if ctxp is not initialized to 0.
+- * 3) io_setup(2) fails and returns -EINVAL if nr_events is invalid.
+- * 4) io_setup(2) fails and returns -EFAULT if ctxp is NULL.
+- * 5) io_setup(2) fails and returns -EAGAIN if nr_events exceeds the limit
++ * Test io_setup invoked via libaio:
 + *
-+ * Test io_getevents invoked via libaio with invalid ctx and expects it to
-+ * return -EINVAL.
-+ */
-+
-+#include "config.h"
-+#include "tst_test.h"
-+
-+#ifdef HAVE_LIBAIO
-+#include <libaio.h>
-+
-+#define EXP_RET (-EINVAL)
-+
-+static void run(void)
-+{
-+	io_context_t ctx;
-+
-+	memset(&ctx, 0, sizeof(ctx));
-+	TEST(io_getevents(ctx, 0, 0, NULL, NULL));
-+
-+	if (TST_RET == 0)
-+		tst_res(TFAIL, "call succeeded unexpectedly");
-+	else if (TST_RET == EXP_RET)
-+		tst_res(TPASS, "io_cancel(ctx, NULL, NULL) returns %ld : %s",
-+			TST_RET, strerror(-TST_RET));
-+	else
-+		tst_res(TFAIL, "io_cancel(ctx, NULL, NULL) returns %ld : %s, expected %d : %s",
-+			TST_RET, strerror(-TST_RET), EXP_RET, strerror(-EXP_RET));
-+}
-+
-+static struct tst_test test = {
-+	.needs_kconfigs = (const char *[]) {
-+		"CONFIG_AIO=y",
-+		NULL
-+	},
-+	.test_all = run,
-+};
-+
-+#else
-+TST_TEST_TCONF("test requires libaio and it's development packages");
-+#endif
++ * 1. io_setup succeeds if both nr_events and ctxp are valid.
++ * 2. io_setup fails and returns -EINVAL if ctxp is not initialized to 0.
++ * 3. io_setup fails and returns -EINVAL if nr_events is invalid.
++ * 4. io_setup fails and returns -EFAULT if ctxp is NULL.
++ * 5. io_setup fails and returns -EAGAIN if nr_events exceeds the limit
+  *    of available events.
+  */
+
+diff --git a/testcases/kernel/syscalls/io_setup/io_setup02.c b/testcases/kernel/syscalls/io_setup/io_setup02.c
+index 292b7440d..4ef0ad1a7 100644
+--- a/testcases/kernel/syscalls/io_setup/io_setup02.c
++++ b/testcases/kernel/syscalls/io_setup/io_setup02.c
+@@ -12,10 +12,10 @@
+  *
+  * Test io_setup invoked via syscall(2):
+  *
+- * 1. io_setup fails and returns -EFAULT if ctxp is NULL.
+- * 2. io_setup fails and returns -EINVAL if ctxp is not initialized to 0.
+- * 3. io_setup fails and returns -EINVAL if nr_events is -1.
+- * 4. io_setup fails and returns -EAGAIN if nr_events exceeds the limit
++ * 1. io_setup fails and returns EFAULT if ctxp is NULL.
++ * 2. io_setup fails and returns EINVAL if ctxp is not initialized to 0.
++ * 3. io_setup fails and returns EINVAL if nr_events is -1.
++ * 4. io_setup fails and returns EAGAIN if nr_events exceeds the limit
+  *    of available events.
+  * 5. io_setup succeeds if both nr_events and ctxp are valid.
+  */
 --
 2.17.1
 
