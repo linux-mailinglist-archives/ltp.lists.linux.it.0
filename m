@@ -1,87 +1,85 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3957D3ACB4D
-	for <lists+linux-ltp@lfdr.de>; Fri, 18 Jun 2021 14:46:06 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 92AB73ACBFD
+	for <lists+linux-ltp@lfdr.de>; Fri, 18 Jun 2021 15:20:09 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A112A3C2FCE
-	for <lists+linux-ltp@lfdr.de>; Fri, 18 Jun 2021 14:46:05 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 07B8C3C2D6A
+	for <lists+linux-ltp@lfdr.de>; Fri, 18 Jun 2021 15:20:09 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id BDCA13C231C
- for <ltp@lists.linux.it>; Fri, 18 Jun 2021 14:46:01 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 3F8F33C27EF
+ for <ltp@lists.linux.it>; Fri, 18 Jun 2021 15:20:05 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 341C81A016C4
- for <ltp@lists.linux.it>; Fri, 18 Jun 2021 14:46:00 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 6FC2D601D55
+ for <ltp@lists.linux.it>; Fri, 18 Jun 2021 15:20:04 +0200 (CEST)
 Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
  (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 4A81821ACA;
- Fri, 18 Jun 2021 12:46:00 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id CBD671FDF0;
+ Fri, 18 Jun 2021 13:20:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1624020360; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1624022403; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=qpvmjp4T6ce4S18mWZOzJQG0D0584eavAt3B1nhDR7c=;
- b=dc4cMxTs1rH92uRcVXnoJCjXsAqn/8mdnIQZldtB1QIRU8OJlydQk7sXXWpg9artB0wH1E
- gWWhGuSTx8lpRh6rnoa4l10a2g0+lGaiywyCZBR8dpzq8uYfN4UuluDUfQwe53D0lk1VvH
- imw3/cPvKwc3+okJhCVWsceeqD2M8YU=
+ bh=/F5R5GpuFPnXnfvZfrijv7DtSyPwTeFWupVjdT03QvQ=;
+ b=2Da2pIAkj/0uzajOhnRcQvQco+vEy7vzP0Z6VZKdooR3utiEy5v98aTlmqg1Rc2C3avzT7
+ p1ACnj3GwhsDHbhFMSES5PxVW7QK0Eeh1upQhLRT/ColWYFD3hEMpib4jtDn4xZvPEVryb
+ UmcABOVIyiokOSw50g2XAV8GBU15KMw=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1624020360;
+ s=susede2_ed25519; t=1624022403;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=qpvmjp4T6ce4S18mWZOzJQG0D0584eavAt3B1nhDR7c=;
- b=5LeoeWv0WvY0Vi28fwSH8+40REXiSAiXv5N9An/FoYVw5epWe0mD6laqz0GcGCO+llCyaG
- dlDAvmtYjwhpLfBg==
+ bh=/F5R5GpuFPnXnfvZfrijv7DtSyPwTeFWupVjdT03QvQ=;
+ b=cUXi3GEsdj2DOaSuOIYq3alHp6elfulKTDiIEXX+sTPaqQxFY13NRAicnmpcFM/rarJsPh
+ n6fLSKMaAucj4jBg==
 Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id 27BCE118DD;
- Fri, 18 Jun 2021 12:46:00 +0000 (UTC)
+ by imap.suse.de (Postfix) with ESMTP id ADE7A118DD;
+ Fri, 18 Jun 2021 13:20:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1624020360; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1624022403; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=qpvmjp4T6ce4S18mWZOzJQG0D0584eavAt3B1nhDR7c=;
- b=dc4cMxTs1rH92uRcVXnoJCjXsAqn/8mdnIQZldtB1QIRU8OJlydQk7sXXWpg9artB0wH1E
- gWWhGuSTx8lpRh6rnoa4l10a2g0+lGaiywyCZBR8dpzq8uYfN4UuluDUfQwe53D0lk1VvH
- imw3/cPvKwc3+okJhCVWsceeqD2M8YU=
+ bh=/F5R5GpuFPnXnfvZfrijv7DtSyPwTeFWupVjdT03QvQ=;
+ b=2Da2pIAkj/0uzajOhnRcQvQco+vEy7vzP0Z6VZKdooR3utiEy5v98aTlmqg1Rc2C3avzT7
+ p1ACnj3GwhsDHbhFMSES5PxVW7QK0Eeh1upQhLRT/ColWYFD3hEMpib4jtDn4xZvPEVryb
+ UmcABOVIyiokOSw50g2XAV8GBU15KMw=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1624020360;
+ s=susede2_ed25519; t=1624022403;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=qpvmjp4T6ce4S18mWZOzJQG0D0584eavAt3B1nhDR7c=;
- b=5LeoeWv0WvY0Vi28fwSH8+40REXiSAiXv5N9An/FoYVw5epWe0mD6laqz0GcGCO+llCyaG
- dlDAvmtYjwhpLfBg==
+ bh=/F5R5GpuFPnXnfvZfrijv7DtSyPwTeFWupVjdT03QvQ=;
+ b=cUXi3GEsdj2DOaSuOIYq3alHp6elfulKTDiIEXX+sTPaqQxFY13NRAicnmpcFM/rarJsPh
+ n6fLSKMaAucj4jBg==
 Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id ciSRB4iVzGB+HwAALh3uQQ
- (envelope-from <chrubis@suse.cz>); Fri, 18 Jun 2021 12:46:00 +0000
-Date: Fri, 18 Jun 2021 14:20:22 +0200
+ id 8t+HKYOdzGBJMAAALh3uQQ
+ (envelope-from <chrubis@suse.cz>); Fri, 18 Jun 2021 13:20:03 +0000
+Date: Fri, 18 Jun 2021 14:54:26 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Xie Ziyao <xieziyao@huawei.com>
-Message-ID: <YMyPhiiKwuwEdj7N@yuki>
-References: <20210617105556.130869-1-xieziyao@huawei.com>
- <20210617105556.130869-4-xieziyao@huawei.com>
+To: Yang Xu <xuyang2018.jy@fujitsu.com>
+Message-ID: <YMyXghN4rEB21thK@yuki>
+References: <1620809541-6891-1-git-send-email-xuyang2018.jy@fujitsu.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210617105556.130869-4-xieziyao@huawei.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+In-Reply-To: <1620809541-6891-1-git-send-email-xuyang2018.jy@fujitsu.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 3/3 v2] getrusage: Cleanup and bugfix for
- getrusage03
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v1 1/4] syscalls/shmget01: Remove it
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,61 +98,7 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
->  static void sig_ign(void)
->  {
-> -	tst_resm(TINFO, "Testcase #06: SIG_IGN");
-> -
-> -	SAFE_GETRUSAGE(cleanup, RUSAGE_CHILDREN, &ru);
-> -	tst_resm(TINFO, "initial.children = %ld", ru.ru_maxrss);
-> -	signal(SIGCHLD, SIG_IGN);
-> +	SAFE_SIGNAL(SIGCHLD, SIG_IGN);
-> +	SAFE_GETRUSAGE(RUSAGE_CHILDREN, &ru);
->  	maxrss_init = ru.ru_maxrss;
-> 
-> -	switch (pid = fork()) {
-> -	case -1:
-> -		tst_brkm(TBROK, cleanup, "fork #6");
-> -	case 0:
-> -		retval = system("getrusage03_child -n 500");
-> -		if ((WIFEXITED(retval) && WEXITSTATUS(retval) != 0))
-> -			tst_brkm(TBROK | TERRNO, cleanup, "system");
-> -		exit(0);
-> -	default:
-> -		break;
-> -	}
-> +	pid_t pid = SAFE_FORK();
-> +
-> +	if (!pid)
-> +		SAFE_EXECLP("getrusage03_child", "getrusage03_child",
-> +			    "consume", "500", NULL);
-> 
-> -	sleep(1);		/* children become zombie */
-> -	SAFE_GETRUSAGE(cleanup, RUSAGE_CHILDREN, &ru);
-> -	tst_resm(TINFO, "after_zombie.children = %ld", ru.ru_maxrss);
-> +	TST_PROCESS_EXIT_WAIT(pid, 0);
-> +	SAFE_GETRUSAGE(RUSAGE_CHILDREN, &ru);
->  	if (is_in_delta(ru.ru_maxrss - maxrss_init))
-> -		tst_resm(TPASS, "initial.children ~= after_zombie.children");
-> +		tst_res(TPASS, "initial.children ~= after_zombie.children");
->  	else
-> -		tst_resm(TFAIL, "initial.children !~= after_zombie.children");
-> -	signal(SIGCHLD, SIG_DFL);
-> -}
-> +		tst_res(TFAIL, "after_zombie.children = %li, expected %li",
-> +			ru.ru_maxrss, maxrss_init);
-
-I guess that these messages could be better, techincally it's not a
-zombie but rather ignored child, so I would change this to:
-
-"initial.children ~= ignored_child.children"
-
-Other than this the rest is good.
-
-Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
-
-
-Also if you agree I can fix the two minor issues in the patchset before
-merge, no need to send v3.
+Applied, thanks.
 
 -- 
 Cyril Hrubis
