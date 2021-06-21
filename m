@@ -1,59 +1,59 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8BB893AE5AE
-	for <lists+linux-ltp@lfdr.de>; Mon, 21 Jun 2021 11:11:34 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id B29713AE5CF
+	for <lists+linux-ltp@lfdr.de>; Mon, 21 Jun 2021 11:19:08 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3D7533C7037
-	for <lists+linux-ltp@lfdr.de>; Mon, 21 Jun 2021 11:11:34 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 173383C96E9
+	for <lists+linux-ltp@lfdr.de>; Mon, 21 Jun 2021 11:19:08 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 831C83C7037
- for <ltp@lists.linux.it>; Mon, 21 Jun 2021 11:11:29 +0200 (CEST)
-Received: from ssh248.corpemail.net (ssh248.corpemail.net [210.51.61.248])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id E72CF3C70A2
+ for <ltp@lists.linux.it>; Mon, 21 Jun 2021 11:19:03 +0200 (CEST)
+Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id BA4E760007E
- for <ltp@lists.linux.it>; Mon, 21 Jun 2021 11:11:24 +0200 (CEST)
-Received: from ([60.208.111.195])
- by ssh248.corpemail.net ((LNX1044)) with ASMTP (SSL) id PHH00116;
- Mon, 21 Jun 2021 17:11:16 +0800
-Received: from jtjnmail201620.home.langchao.com (10.100.2.20) by
- jtjnmail201622.home.langchao.com (10.100.2.22) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2176.14; Mon, 21 Jun 2021 17:11:17 +0800
-Received: from jtjnmail201620.home.langchao.com ([fe80::24f6:b8e5:a824:6a6b])
- by jtjnmail201620.home.langchao.com ([fe80::24f6:b8e5:a824:6a6b%17])
- with mapi id 15.01.2176.014; Mon, 21 Jun 2021 17:11:17 +0800
-From: =?gb2312?B?SmFtZXMgRG9uZyAotq3KwL2tKQ==?= <dongshijiang@inspur.com>
-To: Petr Vorel <pvorel@suse.cz>
-Thread-Topic: [LTP] [PATCH] fix rpc_suite/rpc:add check returned value
-Thread-Index: AddmfTX54eueXHxIsE+jfZ2y41B5ZA==
-Date: Mon, 21 Jun 2021 09:11:17 +0000
-Message-ID: <52e4b3cba7d74f17b64816acaf50be01@inspur.com>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.72.58.101]
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 69C421A001EC
+ for <ltp@lists.linux.it>; Mon, 21 Jun 2021 11:19:00 +0200 (CEST)
+Received: from dggemv711-chm.china.huawei.com (unknown [172.30.72.57])
+ by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4G7kQk2rwqz72lv;
+ Mon, 21 Jun 2021 17:15:42 +0800 (CST)
+Received: from dggemi762-chm.china.huawei.com (10.1.198.148) by
+ dggemv711-chm.china.huawei.com (10.1.198.66) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
+ 15.1.2176.2; Mon, 21 Jun 2021 17:18:54 +0800
+Received: from [10.174.178.208] (10.174.178.208) by
+ dggemi762-chm.china.huawei.com (10.1.198.148) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
+ 15.1.2176.2; Mon, 21 Jun 2021 17:18:54 +0800
+To: "xuyang2018.jy@fujitsu.com" <xuyang2018.jy@fujitsu.com>
+References: <1617701249-62196-1-git-send-email-zou_wei@huawei.com>
+ <437bb60b-4f97-4884-8713-c7b619dab211@huawei.com>
+ <60CB2CF8.6090108@fujitsu.com> <60D05460.5060903@fujitsu.com>
+From: Samuel Zou <zou_wei@huawei.com>
+Message-ID: <91f24077-493e-dcad-e537-6b8559222439@huawei.com>
+Date: Mon, 21 Jun 2021 17:18:53 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-tUid: 2021621171116ecfb0b46d39f9720867f8c216393548c
-X-Abuse-Reports-To: service@corp-email.com
-Abuse-Reports-To: service@corp-email.com
-X-Complaints-To: service@corp-email.com
-X-Report-Abuse-To: service@corp-email.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+In-Reply-To: <60D05460.5060903@fujitsu.com>
+Content-Language: en-US
+X-Originating-IP: [10.174.178.208]
+X-ClientProxiedBy: dggems703-chm.china.huawei.com (10.3.19.180) To
+ dggemi762-chm.china.huawei.com (10.1.198.148)
+X-CFilter-Loop: Reflected
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] fix rpc_suite/rpc:add check returned value
+X-Spam-Status: No, score=-0.0 required=7.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] cpuset_hotplug_test/cpuset_hotplug: Fix bug for
+ obtaining task_cpus value in root_cpu_hotplug_test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,104 +65,219 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: "libtirpc-devel@lists.sourceforge.net"
- <libtirpc-devel@lists.sourceforge.net>,
- "linux-nfs@vger.kernel.org" <linux-nfs@vger.kernel.org>,
- Steve Dickson <SteveD@redhat.com>, "ltp@lists.linux.it" <ltp@lists.linux.it>
-Content-Type: text/plain; charset="gb2312"
-Content-Transfer-Encoding: base64
+Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGkgUGV0cg0KSSB0aGluayB0aGlzIGlzIGp1c3QgYSBzaW1wbGUgdGVzdCBvZiBzb21lIEFQSXMs
-IGJ1dCBzb21lIHRlc3QgY2FzZXMgYXJlIG5vdCBzdGFuZGFyZGl6ZWQgYW5kIGNhdXNlIGVycm9y
-cyBsaWtlICJTZWdtZW50YXRpb24gZmF1bHQiIGR1cmluZyB0ZXN0aW5nLiBJIHRoaW5rIGl0IGlz
-IG5lY2Vzc2FyeSB0byBmaXggdGhlc2UgZXJyb3JzIG9yIGRlbGV0ZSB0aGVzZSB0ZXN0cy4NCg0K
-S2luZCByZWdhcmRzLA0KRG9uZw0KDQotLS0tLdPKvP7Urbz+LS0tLS0NCreivP7IyzogUGV0ciBW
-b3JlbCBbbWFpbHRvOnB2b3JlbEBzdXNlLmN6XSANCreiy83KsbzkOiAyMDIxxOo21MIyMcjVIDE1
-OjU5DQrK1bz+yMs6IEphbWVzIERvbmcgKLatysC9rSkgPGRvbmdzaGlqaWFuZ0BpbnNwdXIuY29t
-Pg0Ks63LzTogbHRwQGxpc3RzLmxpbnV4Lml0OyBBbGV4ZXkgS29kYW5ldiA8YWxla3NlaS5rb2Rh
-bmV2QGJlbGwtc3cuY29tPjsgU3RldmUgRGlja3NvbiA8U3RldmVEQHJlZGhhdC5jb20+OyBsaWJ0
-aXJwYy1kZXZlbEBsaXN0cy5zb3VyY2Vmb3JnZS5uZXQ7IGxpbnV4LW5mc0B2Z2VyLmtlcm5lbC5v
-cmcNCtb3zOI6IFJlOiBbTFRQXSBbUEFUQ0hdIGZpeCBycGNfc3VpdGUvcnBjOmFkZCBjaGVjayBy
-ZXR1cm5lZCB2YWx1ZQ0KDQpIaSBhbGwsDQoNCltDYyBsaWJ0aXJwYyBNTCBhbmQgU3RldmVdDQoN
-Cj4gIlNlZ21lbnRhdGlvbiBmYXVsdCAoY29yZSBkdW1wZWQpIiBkdWUgdG8gdGhlIGZhaWx1cmUg
-b2Ygc3ZjZmRfY3JlYXRlIA0KPiBkdXJpbmcgdGhlIHJwYyB0ZXN0LCBzbyB5b3UgbmVlZCB0byBj
-aGVjayB0aGUgcmV0dXJuIHZhbHVlIG9mIHRoZSANCj4gInN2Y2ZkX2NyZWF0ZSIgZnVuY3Rpb24N
-Cg0KSSdtIG5vdCBzdXJlIHdoYXQgaXMgdGhlIHZhbHVlIG9mIFRJLVJQQyB0ZXN0cy4gSU1ITyBy
-ZWFsbHkgbWVzc3kgY29kZSBkb2VzIG5vdCBpbiB0aGUgZW5kIGNvdmVyIG11Y2ggb2YgbGlidGly
-cGMgZnVuY3Rpb25hbGl0eS4gVGhhdCdzIHdoeSBJJ20gdGhpbmtpbmcgdG8gcHJvcG9zZSBkZWxl
-dGluZyB3aG9sZSB0ZXN0Y2FzZXMvbmV0d29yay9ycGMvcnBjLXRpcnBjLy4gbGlidGlycGMgaXMg
-YmVpbmcgdXNlZCBpbiBuZnMtdXRpbHMsIHRodXMgaXQnZCBkZXNlcnZlIHRvIGhhdmUgc29tZSB0
-ZXN0aW5nLCBidXQgSU1ITyB0aGlzIHNob3VsZCBiZSBsaWJ0aXJwYy4NCg0KSSdtIG5vdCBwbGFu
-bmluZyB0byBkaXZlIGludG8gdGhlIHRlY2hub2xvZ3kgdG8gdW5kZXJzdGFuZCBpdCBlbm91Z2gg
-YmUgYWJsZSB0byB3cml0dGVuIHRoZSB0ZXN0cyBmcm9tIHNjcmF0Y2ggYW5kIEknbSBub3QgYXdh
-cmUgb2YgYW55Ym9keSBlbHNlIHBsYW5uaW5nIGl0Lg0KDQo+IFNpZ25lZC1vZmYtYnk6IGRvbmdz
-aGlqaWFuZyA8ZG9uZ3NoaWppYW5nQGluc3B1ci5jb20+DQo+IC0tLQ0KPiAgLi4uL3JwYy9ycGNf
-Y3JlYXRlZGVzdHJveV9zdmNfZGVzdHJveS9ycGNfc3ZjX2Rlc3Ryb3kuYyAgICAgIHwgNSArKysr
-Kw0KPiAgLi4uL3JwY19jcmVhdGVkZXN0cm95X3N2Y19kZXN0cm95L3JwY19zdmNfZGVzdHJveV9z
-dHJlc3MuYyAgIHwgNSArKysrKw0KPiAgLi4uL3JwYy9ycGNfcmVndW5yZWdfeHBydF9yZWdpc3Rl
-ci9ycGNfeHBydF9yZWdpc3Rlci5jICAgICAgIHwgNSArKysrKw0KPiAgLi4uL3JwYy9ycGNfcmVn
-dW5yZWdfeHBydF91bnJlZ2lzdGVyL3JwY194cHJ0X3VucmVnaXN0ZXIuYyAgIHwgNSArKysrKw0K
-PiAgNCBmaWxlcyBjaGFuZ2VkLCAyMCBpbnNlcnRpb25zKCspDQoNCj4gZGlmZiAtLWdpdCANCj4g
-YS90ZXN0Y2FzZXMvbmV0d29yay9ycGMvcnBjLXRpcnBjL3Rlc3RzX3BhY2svcnBjX3N1aXRlL3Jw
-Yy9ycGNfY3JlYXRlZA0KPiBlc3Ryb3lfc3ZjX2Rlc3Ryb3kvcnBjX3N2Y19kZXN0cm95LmMgDQo+
-IGIvdGVzdGNhc2VzL25ldHdvcmsvcnBjL3JwYy10aXJwYy90ZXN0c19wYWNrL3JwY19zdWl0ZS9y
-cGMvcnBjX2NyZWF0ZWQNCj4gZXN0cm95X3N2Y19kZXN0cm95L3JwY19zdmNfZGVzdHJveS5jDQo+
-IGluZGV4IDYwYjk2Y2VjMy4uMzU1N2MwMDY4IDEwMDY0NA0KPiAtLS0gDQo+IGEvdGVzdGNhc2Vz
-L25ldHdvcmsvcnBjL3JwYy10aXJwYy90ZXN0c19wYWNrL3JwY19zdWl0ZS9ycGMvcnBjX2NyZWF0
-ZWQNCj4gZXN0cm95X3N2Y19kZXN0cm95L3JwY19zdmNfZGVzdHJveS5jDQo+ICsrKyBiL3Rlc3Rj
-YXNlcy9uZXR3b3JrL3JwYy9ycGMtdGlycGMvdGVzdHNfcGFjay9ycGNfc3VpdGUvcnBjL3JwY19j
-cmUNCj4gKysrIGF0ZWRlc3Ryb3lfc3ZjX2Rlc3Ryb3kvcnBjX3N2Y19kZXN0cm95LmMNCj4gQEAg
-LTQ2LDYgKzQ2LDExIEBAIGludCBtYWluKHZvaWQpDQoNCj4gIAkvL0ZpcnN0IG9mIGFsbCwgY3Jl
-YXRlIGEgc2VydmVyDQo+ICAJc3ZjciA9IHN2Y2ZkX2NyZWF0ZShmZCwgMCwgMCk7DQo+ICsNCj4g
-KwkvL2NoZWNrIHJldHVybmVkIHZhbHVlDQo+ICsJaWYgKChTVkNYUFJUICopIHN2Y3IgPT0gTlVM
-TCkgew0KPiArCQlyZXR1cm4gdGVzdF9zdGF0dXM7DQo+ICsJfQ0KDQo+ICAJLy9UaGVuIGNhbGwg
-ZGVzdHJveSBtYWNybw0KPiAgCXN2Y19kZXN0cm95KHN2Y3IpOw0KPiBkaWZmIC0tZ2l0IA0KPiBh
-L3Rlc3RjYXNlcy9uZXR3b3JrL3JwYy9ycGMtdGlycGMvdGVzdHNfcGFjay9ycGNfc3VpdGUvcnBj
-L3JwY19jcmVhdGVkDQo+IGVzdHJveV9zdmNfZGVzdHJveS9ycGNfc3ZjX2Rlc3Ryb3lfc3RyZXNz
-LmMgDQo+IGIvdGVzdGNhc2VzL25ldHdvcmsvcnBjL3JwYy10aXJwYy90ZXN0c19wYWNrL3JwY19z
-dWl0ZS9ycGMvcnBjX2NyZWF0ZWQNCj4gZXN0cm95X3N2Y19kZXN0cm95L3JwY19zdmNfZGVzdHJv
-eV9zdHJlc3MuYw0KPiBpbmRleCBlY2QxNDUzOTMuLjVhNDMzMWY0ZCAxMDA2NDQNCj4gLS0tIA0K
-PiBhL3Rlc3RjYXNlcy9uZXR3b3JrL3JwYy9ycGMtdGlycGMvdGVzdHNfcGFjay9ycGNfc3VpdGUv
-cnBjL3JwY19jcmVhdGVkDQo+IGVzdHJveV9zdmNfZGVzdHJveS9ycGNfc3ZjX2Rlc3Ryb3lfc3Ry
-ZXNzLmMNCj4gKysrIGIvdGVzdGNhc2VzL25ldHdvcmsvcnBjL3JwYy10aXJwYy90ZXN0c19wYWNr
-L3JwY19zdWl0ZS9ycGMvcnBjX2NyZQ0KPiArKysgYXRlZGVzdHJveV9zdmNfZGVzdHJveS9ycGNf
-c3ZjX2Rlc3Ryb3lfc3RyZXNzLmMNCj4gQEAgLTU1LDYgKzU1LDExIEBAIGludCBtYWluKGludCBh
-cmduLCBjaGFyICphcmdjW10pDQo+ICAJLy9GaXJzdCBvZiBhbGwsIGNyZWF0ZSBhIHNlcnZlcg0K
-PiAgCWZvciAoaSA9IDA7IGkgPCBuYkNhbGw7IGkrKykgew0KPiAgCQlzdmNyID0gc3ZjZmRfY3Jl
-YXRlKGZkLCAwLCAwKTsNCj4gKw0KPiArCQkvL2NoZWNrIHJldHVybmVkIHZhbHVlDQo+ICsJCWlm
-ICgoU1ZDWFBSVCAqKSBzdmNyID09IE5VTEwpDQo+ICsJCQljb250aW51ZTsNCj4gKwkJc3ZjciA9
-IE5VTEw7DQptYW4gc3ZjX2Rlc3Ryb3koMykgc3RhdGVzIHRoYXQgaXQgZGVhbGxvY2F0ZXMgcHJp
-dmF0ZSBkYXRhIHN0cnVjdHVyZXMsIGluY2x1ZGluZyB4cHJ0IGl0c2VsZi4NCg0KS2luZCByZWdh
-cmRzLA0KUGV0cg0KDQo+ICAJCS8vVGhlbiBjYWxsIGRlc3Ryb3kgbWFjcm8NCj4gIAkJc3ZjX2Rl
-c3Ryb3koc3Zjcik7DQo+IGRpZmYgLS1naXQgDQo+IGEvdGVzdGNhc2VzL25ldHdvcmsvcnBjL3Jw
-Yy10aXJwYy90ZXN0c19wYWNrL3JwY19zdWl0ZS9ycGMvcnBjX3JlZ3VucmUNCj4gZ194cHJ0X3Jl
-Z2lzdGVyL3JwY194cHJ0X3JlZ2lzdGVyLmMgDQo+IGIvdGVzdGNhc2VzL25ldHdvcmsvcnBjL3Jw
-Yy10aXJwYy90ZXN0c19wYWNrL3JwY19zdWl0ZS9ycGMvcnBjX3JlZ3VucmUNCj4gZ194cHJ0X3Jl
-Z2lzdGVyL3JwY194cHJ0X3JlZ2lzdGVyLmMNCj4gaW5kZXggZGEzYjkzMDIyLi5kZTRkZjE1ZjEg
-MTAwNjQ0DQo+IC0tLSANCj4gYS90ZXN0Y2FzZXMvbmV0d29yay9ycGMvcnBjLXRpcnBjL3Rlc3Rz
-X3BhY2svcnBjX3N1aXRlL3JwYy9ycGNfcmVndW5yZQ0KPiBnX3hwcnRfcmVnaXN0ZXIvcnBjX3hw
-cnRfcmVnaXN0ZXIuYw0KPiArKysgYi90ZXN0Y2FzZXMvbmV0d29yay9ycGMvcnBjLXRpcnBjL3Rl
-c3RzX3BhY2svcnBjX3N1aXRlL3JwYy9ycGNfcmVnDQo+ICsrKyB1bnJlZ194cHJ0X3JlZ2lzdGVy
-L3JwY194cHJ0X3JlZ2lzdGVyLmMNCj4gQEAgLTQ4LDYgKzQ4LDExIEBAIGludCBtYWluKHZvaWQp
-DQoNCj4gIAkvL2NyZWF0ZSBhIHNlcnZlcg0KPiAgCXN2Y3IgPSBzdmNmZF9jcmVhdGUoZmQsIDEw
-MjQsIDEwMjQpOw0KPiArDQo+ICsJLy9jaGVjayByZXR1cm5lZCB2YWx1ZQ0KPiArCWlmICgoU1ZD
-WFBSVCAqKSBzdmNyID09IE5VTEwpIHsNCj4gKwkJcmV0dXJuIHRlc3Rfc3RhdHVzOw0KPiArCX0N
-Cg0KPiAgCS8vY2FsbCByb3V0aW5lDQo+ICAJeHBydF9yZWdpc3RlcihzdmNyKTsNCj4gZGlmZiAt
-LWdpdCANCj4gYS90ZXN0Y2FzZXMvbmV0d29yay9ycGMvcnBjLXRpcnBjL3Rlc3RzX3BhY2svcnBj
-X3N1aXRlL3JwYy9ycGNfcmVndW5yZQ0KPiBnX3hwcnRfdW5yZWdpc3Rlci9ycGNfeHBydF91bnJl
-Z2lzdGVyLmMgDQo+IGIvdGVzdGNhc2VzL25ldHdvcmsvcnBjL3JwYy10aXJwYy90ZXN0c19wYWNr
-L3JwY19zdWl0ZS9ycGMvcnBjX3JlZ3VucmUNCj4gZ194cHJ0X3VucmVnaXN0ZXIvcnBjX3hwcnRf
-dW5yZWdpc3Rlci5jDQo+IGluZGV4IGQwYjdhMjBkNC4uZmJhZWMyNWFkIDEwMDY0NA0KPiAtLS0g
-DQo+IGEvdGVzdGNhc2VzL25ldHdvcmsvcnBjL3JwYy10aXJwYy90ZXN0c19wYWNrL3JwY19zdWl0
-ZS9ycGMvcnBjX3JlZ3VucmUNCj4gZ194cHJ0X3VucmVnaXN0ZXIvcnBjX3hwcnRfdW5yZWdpc3Rl
-ci5jDQo+ICsrKyBiL3Rlc3RjYXNlcy9uZXR3b3JrL3JwYy9ycGMtdGlycGMvdGVzdHNfcGFjay9y
-cGNfc3VpdGUvcnBjL3JwY19yZWcNCj4gKysrIHVucmVnX3hwcnRfdW5yZWdpc3Rlci9ycGNfeHBy
-dF91bnJlZ2lzdGVyLmMNCj4gQEAgLTUyLDYgKzUyLDExIEBAIGludCBtYWluKGludCBhcmduLCBj
-aGFyICphcmdjW10pDQoNCj4gIAkvL2NyZWF0ZSBhIHNlcnZlcg0KPiAgCXN2Y3IgPSBzdmNmZF9j
-cmVhdGUoZmQsIDEwMjQsIDEwMjQpOw0KPiArDQo+ICsJLy9jaGVjayByZXR1cm5lZCB2YWx1ZQ0K
-PiArCWlmICgoU1ZDWFBSVCAqKSBzdmNyID09IE5VTEwpIHsNCj4gKwkJcmV0dXJuIHRlc3Rfc3Rh
-dHVzOw0KPiArCX0NCg0KPiAgCXhwcnRfcmVnaXN0ZXIoc3Zjcik7DQo+ICAJLy9jYWxsIHJvdXRp
-bmUNCgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGlu
-Zm8vbHRwCg==
+Hi Xu,
+
+You'are right, I miss to get task_cpus value in general_cpu_hotplug_test().
+Thanks for your review and agree with your modification.
+
+
+On 2021/6/21 16:56, xuyang2018.jy@fujitsu.com wrote:
+> Hi Zou
+> 
+> It looks like this patch also miss to get task_cpus value
+> intgeneric_cpu_hotplug_test when expect cpu value is EMPTY.
+> 
+> I can reproduce this easily by increasing the possible_cpus value in
+> cmdline. Merge your patch, this case still fails as below:
+> cpuset_hotplug 1 TINFO: CPUs are numbered continuously starting at 0 (0-3)
+> cpuset_hotplug 1 TINFO: Nodes are numbered continuously starting at 0 (0-3)
+> /opt/ltp/testcases/bin/cpuset_funcs.sh: line 179:  5676 Killed
+>           /bin/cat /dev/zero > /dev/null 2>&1
+> cpuset_hotplug 1 TPASS: Cpuset vs CPU hotplug test succeeded.
+> /opt/ltp/testcases/bin/cpuset_funcs.sh: line 179:  5714 Killed
+>           /bin/cat /dev/zero > /dev/null 2>&1
+> cpuset_hotplug 3 TPASS: Cpuset vs CPU hotplug test succeeded.
+> /opt/ltp/testcases/bin/cpuset_funcs.sh: line 179:  5750 Killed
+>           /bin/cat /dev/zero > /dev/null 2>&1
+> cpuset_hotplug 5 TPASS: Cpuset vs CPU hotplug test succeeded.
+> cpuset_hotplug 7 TFAIL: task's cpu present list isn't expected(Result:
+> 0-7, Expect: 0-3).
+> /opt/ltp/testcases/bin/cpuset_funcs.sh: line 179:  5795 Killed
+>           /bin/cat /dev/zero > /dev/null 2>&1
+> /opt/ltp/testcases/bin/cpuset_funcs.sh: line 179:  5846 Killed
+>           /bin/cat /dev/zero > /dev/null 2>&1
+> cpuset_hotplug 9 TPASS: Cpuset vs CPU hotplug test succeeded.
+> /opt/ltp/testcases/bin/cpuset_funcs.sh: line 179:  5894 Killed
+>           /bin/cat /dev/zero > /dev/null 2>&1
+> cpuset_hotplug 11 TPASS: Cpuset vs CPU hotplug test succeeded.
+> 
+> 
+> Also since we have use present value, we shoud adjust output to match
+> it. I modify this patch as below, What do you think about it?
+> 
+> ---
+> a/testcases/kernel/controllers/cpuset/cpuset_hotplug_test/cpuset_hotplug_test.sh
+> +++
+> b/testcases/kernel/controllers/cpuset/cpuset_hotplug_test/cpuset_hotplug_test.sh
+> @@ -93,9 +93,7 @@ root_cpu_hotplug_test()
+> 
+>           root_cpus="`cat $CPUSET/cpuset.cpus`"
+> 
+> -       task_cpus="`cat /proc/$tst_pid/status | grep Cpus_allowed_list`"
+> -       task_cpus="`echo $task_cpus | sed -e 's/Cpus_allowed_list: //'`"
+> -
+> +       task_cpus="`cat /sys/devices/system/cpu/present`"
+>           check_result "$root_cpus" "$expect_cpus"
+>           ret=$?
+>           if [ $ret -eq 0 ]
+> @@ -103,7 +101,7 @@ root_cpu_hotplug_test()
+>                   check_result "$task_cpus" "$expect_task_cpus"
+>                   ret=$?
+>                   if [ $ret -ne 0 ]; then
+> -                       tst_resm TFAIL "task's allowed list isn't
+> expected.(Result: $task_cpus, Expect: $expect_task_cpus)"
+> +                       tst_resm TFAIL "task's present list isn't
+> expected.(Result: $task_cpus, Expect: $expect_task_cpus)"
+>                   fi
+>           else
+>                   tst_resm TFAIL "root group's cpus isn't
+> expected(Result: $root_cpus, Expect: $expect_cpus)."
+> @@ -166,7 +164,6 @@ general_cpu_hotplug_test()
+>           sleep 1
+> 
+>           cpus="`cat $path/cpuset.cpus`"
+> -
+>           task_cpus="`cat /proc/$tst_pid/status | grep Cpus_allowed_list`"
+>           task_cpus="`echo $task_cpus | sed -e 's/Cpus_allowed_list: //'`"
+> 
+> @@ -186,6 +183,7 @@ general_cpu_hotplug_test()
+>                           /bin/kill -s SIGKILL $tst_pid
+>                           return 1
+>                   fi
+> +               task_cpus="`cat /sys/devices/system/cpu/present`"
+>           fi
+> 
+>           check_result "$cpus" "$expect_cpus"
+> @@ -194,7 +192,7 @@ general_cpu_hotplug_test()
+>                   check_result $task_cpus $expect_task_cpus
+>                   ret=$?
+>                   if [ $ret -ne 0 ]; then
+> -                       tst_resm TFAIL "task's cpu allowed list isn't
+> expected(Result: $task_cpus, Expect: $expect_task_cpus)."
+> +                       tst_resm TFAIL "task's cpu present list isn't
+> expected(Result: $task_cpus, Expect: $expect_task_cpus)."
+>                   fi
+>           else
+>                   if [ "$cpus" = "" ]; then
+> 
+> 
+> Best Regards
+> Yang XU
+>> Hi Samuel, Zou
+>>> Hi,
+>>>
+>>> A friendly reminder for the two patchs in:
+>>>
+>>> https://patchwork.ozlabs.org/project/ltp/patch/1617707717-63693-1-git-send-email-zou_wei@huawei.com/
+>>>
+>>>
+>>>
+>>> https://patchwork.ozlabs.org/project/ltp/patch/1617701249-62196-1-git-send-email-zou_wei@huawei.com/
+>>>
+>>>
+>>>
+>>> Can someone please review the patchs, comment, and if appropriate commit
+>>> them?
+>>>
+>>> Regards,
+>>> Zou Wei
+>>>
+>>> On 2021/4/6 17:27, Zou Wei wrote:
+>>>> --------------------------
+>>>>
+>>>> 1. The method of obtaining $task_cpus from root_cpu_hotplug_test is
+>>>> incorrect, because the value of Cpus_allowed_list is related
+>>>> to /sys/devices/system/cpu/possible and
+>>>> /sys/devices/system/cpu/isolated.
+>>>>
+>>>> 2. If isolcpus is configured in cmdline, the value of
+>>>> Cpus_allowed_list is equal to /sys/devices/system/cpu/possible minus
+>>>> /sys/devices/system/cpu/isolated. In this case, $task_cpus is
+>>>> inconsistent
+>>>> with $expect_task_cpus, test will be failed.
+>>>>
+>>>> 3. Need to change the method of obtaining $task_cpu
+>>>> from /sys/devices/system/cpu/present.
+>> Thanks for your patch, I also met the same problem when
+>> /sys/devices/system/cpu/possible is not equal
+>> to/sys/devices/system/cpu/possible/present .
+>> Cpus_allowed_list: 0-511
+>> but my present cpu is 0-103
+>>
+>> Then I use possible_cpus==104 in /etc/defaut/grub, cpu_hotplug case then
+>> pass.
+>>
+>> According to kernel documentation[1] and kernel fs/proc/array code[2](It
+>> just print cpu mask instead of present cpu), So using
+>> /sys/devices/system/cpu/present is right instead of getting cpu_allow_list.
+>>
+>> possible: cpus that have been allocated resources and can be
+>> brought online if they are present.
+>>
+>> present: cpus that have been identified as being present in
+>> the system.
+>>
+>>
+>> Reviewed-by: Yang Xu <xuyang2018.jy@fujitsu.com>
+>>
+>> [1]https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/ABI/testing/sysfs-devices-system-cpu
+>>
+>> [2]https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/fs/proc/array.c#n418
+>>
+>>
+>> ps:
+>> Also find a kernel documentation problem and have sent a patch to remove
+>> non-existed cpu-hotplug.txt in admin-guide/cputopology.rst.
+>>
+>>
+>> Best Regards
+>> Yang Xu
+>>>>
+>>>> 4. The description of cpu_present_mask:
+>>>> Bitmap of CPUs currently present in the system.
+>>>> Not all of them may be online. When physical hotplug is processed
+>>>> by the relevant subsystem (e.g ACPI) can change and new bit either be
+>>>> added or removed from the map depending on the event is
+>>>> hot-add/hot-remove. There are currently no locking rules as of now.
+>>>> Typical usage is to init topology during boot,
+>>>> at which time hotplug is disabled.
+>>>>
+>>>> Signed-off-by: Zou Wei <zou_wei@huawei.com>
+>>>> ---
+>>>> .../controllers/cpuset/cpuset_hotplug_test/cpuset_hotplug_test.sh | 3
+>>>> +--
+>>>> 1 file changed, 1 insertion(+), 2 deletions(-)
+>>>>
+>>>> diff --git
+>>>> a/testcases/kernel/controllers/cpuset/cpuset_hotplug_test/cpuset_hotplug_test.sh
+>>>>
+>>>> b/testcases/kernel/controllers/cpuset/cpuset_hotplug_test/cpuset_hotplug_test.sh
+>>>>
+>>>>
+>>>> index 155e536..2c6993a 100755
+>>>> ---
+>>>> a/testcases/kernel/controllers/cpuset/cpuset_hotplug_test/cpuset_hotplug_test.sh
+>>>>
+>>>>
+>>>> +++
+>>>> b/testcases/kernel/controllers/cpuset/cpuset_hotplug_test/cpuset_hotplug_test.sh
+>>>>
+>>>>
+>>>> @@ -93,8 +93,7 @@ root_cpu_hotplug_test()
+>>>> root_cpus="`cat $CPUSET/cpuset.cpus`"
+>>>> - task_cpus="`cat /proc/$tst_pid/status | grep Cpus_allowed_list`"
+>>>> - task_cpus="`echo $task_cpus | sed -e 's/Cpus_allowed_list: //'`"
+>>>> + task_cpus="`cat /sys/devices/system/cpu/present`"
+>>>> check_result "$root_cpus" "$expect_cpus"
+>>>> ret=$?
+>>>>
+>>>
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
