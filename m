@@ -1,86 +1,87 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 264A93AE5B0
-	for <lists+linux-ltp@lfdr.de>; Mon, 21 Jun 2021 11:12:18 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 006173AE5CC
+	for <lists+linux-ltp@lfdr.de>; Mon, 21 Jun 2021 11:18:02 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 8605F3C87EF
-	for <lists+linux-ltp@lfdr.de>; Mon, 21 Jun 2021 11:12:17 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 567553C98A7
+	for <lists+linux-ltp@lfdr.de>; Mon, 21 Jun 2021 11:18:01 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 179CE3C7037
- for <ltp@lists.linux.it>; Mon, 21 Jun 2021 11:12:14 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 6E52E3C7076
+ for <ltp@lists.linux.it>; Mon, 21 Jun 2021 11:17:57 +0200 (CEST)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 92E2410009F0
- for <ltp@lists.linux.it>; Mon, 21 Jun 2021 11:12:13 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 0BB79600856
+ for <ltp@lists.linux.it>; Mon, 21 Jun 2021 11:17:56 +0200 (CEST)
 Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
  (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 100751FD48;
- Mon, 21 Jun 2021 09:12:13 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 63F5B1FD42;
+ Mon, 21 Jun 2021 09:17:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1624266733; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1624267076; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=IoZTbbQJlBUoDw8wPd/wksdojAPce/3z4xITG2PlC90=;
- b=jfN8vvzwZ01IYOYHVRXBUOZwllydqh4fZuMhmLj6XOy2EP8AofZXLjqD6/7I8DYlEnLscc
- hO9oEDAuWaCm6+R6v3X8CqRvMHUV/JEGqpXo8gAC4luJcuODCtWflyjf5dMfn4i6U6yl/I
- aS670qnIMSVXdlH3Ko5e8RNURsAnSO4=
+ bh=/F5R5GpuFPnXnfvZfrijv7DtSyPwTeFWupVjdT03QvQ=;
+ b=TT7jwjquIaSACRM3Ssaxs5FzDWs4ATJ7u+UCzKO4GgMHurit1IriiMOEDfFU4Sdgc+DyWO
+ 2lfU7cOwtJKEwj4Xwf//ELCMMTRCKnmH7c7qOcA+2E9mDEFzADc/SR0FdDqL1gtFEF02YM
+ jlpqKdtsccVPRejys5v4c3N6KIGqg8Q=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1624266733;
+ s=susede2_ed25519; t=1624267076;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=IoZTbbQJlBUoDw8wPd/wksdojAPce/3z4xITG2PlC90=;
- b=ctCKg+kVZaA7NGgacIWU6GDTyuqMq2V5EPHTiKNe0+lsV4ofXCbXHA2GSbLLwUxXXtgNgE
- L+xkiY6TWKhf2zBg==
+ bh=/F5R5GpuFPnXnfvZfrijv7DtSyPwTeFWupVjdT03QvQ=;
+ b=up2WWwshcmSwnKKotPTdNzS8ZiHLhwOhTb11qwMFVm46dB/wF7y1iShl72ahl5l2/eMBSK
+ ncX7kwlIeg9Y6nBw==
 Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id E7DED118DD;
- Mon, 21 Jun 2021 09:12:12 +0000 (UTC)
+ by imap.suse.de (Postfix) with ESMTP id 465DD118DD;
+ Mon, 21 Jun 2021 09:17:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1624266733; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1624267076; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=IoZTbbQJlBUoDw8wPd/wksdojAPce/3z4xITG2PlC90=;
- b=jfN8vvzwZ01IYOYHVRXBUOZwllydqh4fZuMhmLj6XOy2EP8AofZXLjqD6/7I8DYlEnLscc
- hO9oEDAuWaCm6+R6v3X8CqRvMHUV/JEGqpXo8gAC4luJcuODCtWflyjf5dMfn4i6U6yl/I
- aS670qnIMSVXdlH3Ko5e8RNURsAnSO4=
+ bh=/F5R5GpuFPnXnfvZfrijv7DtSyPwTeFWupVjdT03QvQ=;
+ b=TT7jwjquIaSACRM3Ssaxs5FzDWs4ATJ7u+UCzKO4GgMHurit1IriiMOEDfFU4Sdgc+DyWO
+ 2lfU7cOwtJKEwj4Xwf//ELCMMTRCKnmH7c7qOcA+2E9mDEFzADc/SR0FdDqL1gtFEF02YM
+ jlpqKdtsccVPRejys5v4c3N6KIGqg8Q=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1624266733;
+ s=susede2_ed25519; t=1624267076;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=IoZTbbQJlBUoDw8wPd/wksdojAPce/3z4xITG2PlC90=;
- b=ctCKg+kVZaA7NGgacIWU6GDTyuqMq2V5EPHTiKNe0+lsV4ofXCbXHA2GSbLLwUxXXtgNgE
- L+xkiY6TWKhf2zBg==
+ bh=/F5R5GpuFPnXnfvZfrijv7DtSyPwTeFWupVjdT03QvQ=;
+ b=up2WWwshcmSwnKKotPTdNzS8ZiHLhwOhTb11qwMFVm46dB/wF7y1iShl72ahl5l2/eMBSK
+ ncX7kwlIeg9Y6nBw==
 Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id R82JN+xX0GD5QAAALh3uQQ
- (envelope-from <chrubis@suse.cz>); Mon, 21 Jun 2021 09:12:12 +0000
-Date: Mon, 21 Jun 2021 10:46:37 +0200
+ id /2AaDkRZ0GA7RAAALh3uQQ
+ (envelope-from <chrubis@suse.cz>); Mon, 21 Jun 2021 09:17:56 +0000
+Date: Mon, 21 Jun 2021 10:52:20 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Xie Ziyao <xieziyao@huawei.com>
-Message-ID: <YNBR7a3AncKsElso@yuki>
+Message-ID: <YNBTRCi5g6CsQ2Go@yuki>
 References: <20210618094210.183027-1-xieziyao@huawei.com>
- <20210618094210.183027-3-xieziyao@huawei.com>
+ <20210618094210.183027-4-xieziyao@huawei.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210618094210.183027-3-xieziyao@huawei.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+In-Reply-To: <20210618094210.183027-4-xieziyao@huawei.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 2/7] io_cancel01: Add .needs_kconfigs and more
- detailed description
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 3/7] io_destroy01: Add docparse formatting and
+ more detailed description
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,7 +100,7 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-I've adjusted the documentation comment a bit and pushed, thanks.
+Applied, thanks.
 
 -- 
 Cyril Hrubis
