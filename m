@@ -1,84 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 407AE3B02B0
-	for <lists+linux-ltp@lfdr.de>; Tue, 22 Jun 2021 13:23:52 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id B98073B0290
+	for <lists+linux-ltp@lfdr.de>; Tue, 22 Jun 2021 13:15:01 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 8D96E3C7051
-	for <lists+linux-ltp@lfdr.de>; Tue, 22 Jun 2021 13:23:51 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E576E3C96E3
+	for <lists+linux-ltp@lfdr.de>; Tue, 22 Jun 2021 13:14:58 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 4DA813C2192
- for <ltp@lists.linux.it>; Tue, 22 Jun 2021 13:23:47 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id 6F7063C229B
+ for <ltp@lists.linux.it>; Tue, 22 Jun 2021 13:14:48 +0200 (CEST)
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id BBF336001F5
- for <ltp@lists.linux.it>; Tue, 22 Jun 2021 13:23:46 +0200 (CEST)
-Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
- (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 114811FD45;
- Tue, 22 Jun 2021 11:23:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1624361026; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=/+Mra0z45Fe84tcmgyUfqfSSbGUwxPKHx+byxR3B4pE=;
- b=a6scGWT8EOYfmtUDDzsjw2Sur8fFsICcTIsIm3y0h2sTK0RSSr29dGbR7vCKJiqIcZnQkh
- BwCfkSCUeLrACSE4nLYdHpixmsLcBLelQANu6GLQl521dvV6X+us14pp4PXjYhHPW+W9RS
- 4lfd/K5URNjhPwv8YRpLvkG9hWnFPLQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1624361026;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=/+Mra0z45Fe84tcmgyUfqfSSbGUwxPKHx+byxR3B4pE=;
- b=CxlDknMbrGaLFSRNNBnljHWSuvIRQl7CeRLujMvNrS2wkAYAIc2XDyMOxNhxrQ/MsRukyp
- I9nY5eKbtJGdhpCQ==
-Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id E73A1118DD;
- Tue, 22 Jun 2021 11:23:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1624361026; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=/+Mra0z45Fe84tcmgyUfqfSSbGUwxPKHx+byxR3B4pE=;
- b=a6scGWT8EOYfmtUDDzsjw2Sur8fFsICcTIsIm3y0h2sTK0RSSr29dGbR7vCKJiqIcZnQkh
- BwCfkSCUeLrACSE4nLYdHpixmsLcBLelQANu6GLQl521dvV6X+us14pp4PXjYhHPW+W9RS
- 4lfd/K5URNjhPwv8YRpLvkG9hWnFPLQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1624361026;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=/+Mra0z45Fe84tcmgyUfqfSSbGUwxPKHx+byxR3B4pE=;
- b=CxlDknMbrGaLFSRNNBnljHWSuvIRQl7CeRLujMvNrS2wkAYAIc2XDyMOxNhxrQ/MsRukyp
- I9nY5eKbtJGdhpCQ==
-Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id 0wP2NkHI0WDmbAAALh3uQQ
- (envelope-from <chrubis@suse.cz>); Tue, 22 Jun 2021 11:23:45 +0000
-Date: Tue, 22 Jun 2021 12:58:11 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Yang Xu <xuyang2018.jy@fujitsu.com>
-Message-ID: <YNHCQ8qWSBdHIAra@yuki>
-References: <1624356737-508-1-git-send-email-xuyang2018.jy@fujitsu.com>
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 708E51A008A1
+ for <ltp@lists.linux.it>; Tue, 22 Jun 2021 13:14:47 +0200 (CEST)
+Received: from mail-wr1-f71.google.com ([209.85.221.71])
+ by youngberry.canonical.com with esmtps (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
+ (envelope-from <krzysztof.kozlowski@canonical.com>)
+ id 1lveMf-0006Es-KI
+ for ltp@lists.linux.it; Tue, 22 Jun 2021 11:14:45 +0000
+Received: by mail-wr1-f71.google.com with SMTP id
+ n2-20020adfb7420000b029010e47b59f31so9510651wre.9
+ for <ltp@lists.linux.it>; Tue, 22 Jun 2021 04:14:45 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=G3wVOV94NLm3mFzMUIx4kDHZskacUz+fGe6l5DH9Qj8=;
+ b=I+UJlFsS0ErIQkiR426iFNYK2vXTts6mM1tgwkdGVRWiBsceiVSxCjy1GO4rE5e3WP
+ m1CfgIqEdr37IKMmflU7rzHTxVoF85KYUenxsEwZ5BYQL/ourjnRuM+ijrdeYR7WYNZG
+ 6RByuCGq+JxSfzAkG/lJq05JlafE8TB7TaegLpCy+la/TzqrvE9ApPvYVxwxDY+XfmpU
+ 2D6C4zuuTTGjy+OWxogG6pW6JxNeF5XGwSD52sxp7lcrzaGmXWz/jK7JmIHCuyfZ8Tau
+ 5WFIQJ83oeLBdP76MZoewE4yb/OEgFCHEpxbvKs/LeMmJMrmqYhSGRNtbnolyjF71q6F
+ jWBg==
+X-Gm-Message-State: AOAM531x25ZTa6Q7nLXou8iM42UUIPzH5d2Vn8zZhtmzMsCiHkmaztah
+ Uo0kCbZsOmwX1JItCwJ54NKZz0rb6x24eLfji/+tU1/LB3+Zu9SbOGFTNOmkDoZqTKVFqdYDl1H
+ i5qmppiCgmWTJBC45F60wuwBxbsdz
+X-Received: by 2002:a05:600c:3651:: with SMTP id
+ y17mr3734321wmq.189.1624360484996; 
+ Tue, 22 Jun 2021 04:14:44 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJw61sY/XBZIgJeD1C67ivRkaX9tZFZPRJB3w7/+89wfw/M8ODTCF50FRDWDxOkJ7IBOwSXcWQ==
+X-Received: by 2002:a05:600c:3651:: with SMTP id
+ y17mr3734305wmq.189.1624360484803; 
+ Tue, 22 Jun 2021 04:14:44 -0700 (PDT)
+Received: from localhost.localdomain (xdsl-188-155-177-222.adslplus.ch.
+ [188.155.177.222])
+ by smtp.gmail.com with ESMTPSA id n16sm10852683wrx.85.2021.06.22.04.14.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 22 Jun 2021 04:14:44 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+To: ltp@lists.linux.it
+Date: Tue, 22 Jun 2021 13:14:39 +0200
+Message-Id: <20210622111440.74722-1-krzysztof.kozlowski@canonical.com>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1624356737-508-1-git-send-email-xuyang2018.jy@fujitsu.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [RFC] syscalls/ipc: Make use of TST_EXP_FAIL macro
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/2] syscalls/msgstress03: fix fork failure on small
+ memory systems
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,58 +80,162 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> Since TST_EXP_FAIL macro only recognizes sycalls succeeded when syscalls return 0,
-> Can we use this macro directly for the these syscalls's error test? It may result in
-> invalid retval value and print errno when syscall succeeded. I think it
-> is a nit and it can improve this api usage range. Is it right?
+Running syscalls/msgstress03 on a system with less than ~4 GB of RAM fails:
 
-I guess that it would be slightly cleaner to add more generic macro that
-allows us to pass the condition for succeess and build TST_EXP_FAIL() on
-the top of that. Maybe something as:
+    msgstress03    1  TFAIL  :  msgstress03.c:155: 	Fork failed (may be OK if under stress)
 
-diff --git a/include/tst_test_macros.h b/include/tst_test_macros.h
-index 89dfe5a31..4d41741a4 100644
---- a/include/tst_test_macros.h
-+++ b/include/tst_test_macros.h
-@@ -120,13 +120,13 @@ extern void *TST_RET_PTR;
-                        TST_MSG_(TPASS, " passed", #SCALL, ##__VA_ARGS__);     \
-        } while (0)                                                            \
+In dmesg:
 
--#define TST_EXP_FAIL(SCALL, ERRNO, ...)                                        \
-+#define TST_EXP_FAIL_(PASS_COND, SCALL, ERRNO, ...)                            \
-        do {                                                                   \
-                TEST(SCALL);                                                   \
-                                                                               \
-                TST_PASS = 0;                                                  \
-                                                                               \
--               if (TST_RET == 0) {                                            \
-+               if (PASS_COND) {                                               \
-                        TST_MSG_(TFAIL, " succeeded", #SCALL, ##__VA_ARGS__);  \
-                        break;                                                 \
-                }                                                              \
-@@ -150,4 +150,8 @@ extern void *TST_RET_PTR;
-                }                                                              \
-        } while (0)
+    LTP: starting msgstress03
+    cgroup: fork rejected by pids controller in /user.slice/user-1000.slice/session-1.scope
 
-+#define TST_EXP_FAIL(SCALL, ERRNO, ...) TST_EXP_FAIL_(TST_RET == 0, SCALL, ERRNO)
+The reason is cgroups pid limit set by systemd user.slice.  The limit is
+set for login session, also for root user.  For example on 2 GB RAM
+machine it is set as:
+    /sys/fs/cgroup/pids/user.slice/user-0.slice/pids.max:5207
+
+Read the maximum number of pids and adjust the test limit.  For 2 GB RAM
+machine with systemd this will result in:
+
+    msgstress03    0  TINFO  :  Found limit of processes 5056 (from /sys/fs/cgroup/pids/user.slice/user-1000.slice/pids.max)
+    msgstress03    0  TINFO  :  Requested number of processes higher than user session limit (10000 > 4556), setting to 4556
+
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+---
+ include/ipcmsg.h                              |  2 +
+ libs/libltpipc/libipc.c                       | 58 +++++++++++++++++++
+ .../syscalls/ipc/msgstress/msgstress03.c      | 15 ++++-
+ 3 files changed, 74 insertions(+), 1 deletion(-)
+
+diff --git a/include/ipcmsg.h b/include/ipcmsg.h
+index d89894b726cf..b73b72d6d172 100644
+--- a/include/ipcmsg.h
++++ b/include/ipcmsg.h
+@@ -61,8 +61,10 @@ void rm_queue(int);
+ 
+ key_t getipckey();
+ int getuserid(char *);
++int get_session_uid(void);
+ 
+ int get_max_msgqueues(void);
+ int get_used_msgqueues(void);
++int get_pids_limit(void);
+ 
+ #endif /* ipcmsg.h */
+diff --git a/libs/libltpipc/libipc.c b/libs/libltpipc/libipc.c
+index d94880f54b64..cd3480ed9f21 100644
+--- a/libs/libltpipc/libipc.c
++++ b/libs/libltpipc/libipc.c
+@@ -151,6 +151,31 @@ int getuserid(char *user)
+ 	return (ent->pw_uid);
+ }
+ 
++/*
++ * Get the effective session UID - either one invoking current test via sudo
++ * or the real UID.
++ */
++int get_session_uid(void)
++{
++	const char *sudo_uid;
 +
-+#define TST_EXP_FAIL2(SCALL, ERRNO, ...) TST_EXP_FAIL_(TST_RET >= 0, SCALL, ERRNO)
++	sudo_uid = getenv("SUDO_UID");
++	if (sudo_uid) {
++		int real_uid;
 +
- #endif /* TST_TEST_MACROS_H__ */
-
-The only hard thing is to find a good name for TST_EXP_FAIL2(), I'm out
-of ideas here...
-
++		TEST(sscanf(sudo_uid, "%u", &real_uid));
++		if (TEST_RETURN != 1) {
++#ifdef DEBUG
++			tst_resm(TINFO, "No SUDO_UID from env");
++#endif
++		} else {
++			return real_uid;
++		}
++	}
++
++	return getuid();
++}
++
+ /*
+  * rm_shm() - removes a shared memory segment.
+  */
+@@ -218,3 +243,36 @@ int get_max_msgqueues(void)
+ 	fclose(f);
+ 	return atoi(buff);
+ }
++
++/*
++ * Get the limit of processes for current session configured by systemd user.slice.
++ * This also applies to root user.
++ */
++int get_pids_limit(void)
++{
++	int real_uid, ret;
++	char path[PATH_MAX];
++	long unsigned int max_pids;
++
++	real_uid = get_session_uid();
++	if (TEST_RETURN != 1) {
++		tst_resm(TINFO, "Cannot get UID");
++		return -1;
++	}
++
++	ret = snprintf(path, sizeof(path),
++		       "/sys/fs/cgroup/pids/user.slice/user-%d.slice/pids.max",
++		       real_uid);
++	if (ret < 0 || (size_t)ret >= sizeof(path))
++		return -1;
++
++	if (access(path, R_OK) != 0) {
++		tst_resm(TINFO, "Cannot read session user limits from '%s'", path);
++		return -1;
++	}
++
++	SAFE_FILE_SCANF(cleanup, path, "%lu", &max_pids);
++	tst_resm(TINFO, "Found limit of processes %lu (from %s)", max_pids, path);
++
++	return max_pids;
++}
+diff --git a/testcases/kernel/syscalls/ipc/msgstress/msgstress03.c b/testcases/kernel/syscalls/ipc/msgstress/msgstress03.c
+index 294b401b1b38..9cf96db7956e 100644
+--- a/testcases/kernel/syscalls/ipc/msgstress/msgstress03.c
++++ b/testcases/kernel/syscalls/ipc/msgstress/msgstress03.c
+@@ -78,7 +78,7 @@ static void usage(void)
+ 
+ int main(int argc, char **argv)
+ {
+-	int i, j, ok, pid;
++	int i, j, ok, pid, max_session_pids;
+ 	int count, status;
+ 	struct sigaction act;
+ 
+@@ -109,6 +109,19 @@ int main(int argc, char **argv)
+ 		}
+ 	}
+ 
++	max_session_pids = get_pids_limit();
++	if (max_session_pids > 0) {
++		/* Clamp number of processes to session limit with some buffer for OS */
++		max_session_pids = (max_session_pids > 500 ? max_session_pids - 500 : 0);
++		if (nprocs >= max_session_pids) {
++			tst_resm(TINFO,
++				 "Requested number of processes higher than user session limit (%d > %d), "
++				 "setting to %d", nprocs, max_session_pids,
++				 max_session_pids);
++			nprocs = max_session_pids;
++		}
++	}
++
+ 	srand(getpid());
+ 	tid = -1;
+ 
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+2.27.0
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
