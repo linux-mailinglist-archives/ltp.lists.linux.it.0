@@ -2,54 +2,54 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 463913B02DC
-	for <lists+linux-ltp@lfdr.de>; Tue, 22 Jun 2021 13:36:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93C443B02DB
+	for <lists+linux-ltp@lfdr.de>; Tue, 22 Jun 2021 13:35:55 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 114673C7022
-	for <lists+linux-ltp@lfdr.de>; Tue, 22 Jun 2021 13:36:02 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 2CDB63C8E6A
+	for <lists+linux-ltp@lfdr.de>; Tue, 22 Jun 2021 13:35:55 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 63E413C6FFF
+ by picard.linux.it (Postfix) with ESMTPS id 560C83C229B
  for <ltp@lists.linux.it>; Tue, 22 Jun 2021 13:35:41 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id E7A5910007C1
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id F0651600713
  for <ltp@lists.linux.it>; Tue, 22 Jun 2021 13:35:40 +0200 (CEST)
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 667B81FD45;
+ by smtp-out1.suse.de (Postfix) with ESMTP id AD41A21985;
  Tue, 22 Jun 2021 11:35:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
  t=1624361740; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=kb/nSrccuT/WrceNfDVM0TM5qXJvJtUvuqMdxYV5WQo=;
- b=rByLg1FDBXwGtPN+DN3gZoiEKoLcdWe312lAL7QWVgqvBoZsRiKcu5DLvVIPGat7QZNdfi
- sPtVvOpTVJIh3CKtKBVMITPCsgLiE3UHTs8GwpAqV0hWbrXUFKrnOJ/U8iUmhyWDAZNCj8
- gqqkDcCx+4JV0yYBjA333jGvb9EwSJU=
+ bh=FI7AhrE6avmbgIQhQ9OHINDKUGwWApFvXL5SPuP+fG8=;
+ b=RhoXQV+gqDlPpEJ8UwRv/yI0R8npoSCpVxtMg4XI2sPjfQqTWfneqF7veIQ6KO0KootAFX
+ VQRunkGw5SRwyAy9TtZCA35+EoPoJhfaYaOUlQUNHvqG5qIiSxR3FRrheOcqMntIpd0nD1
+ Vfz6GmYCSfvCG+Rj/vs9c9lYGjRSUbo=
 Received: from g78.suse.de (unknown [10.163.24.38])
- by relay2.suse.de (Postfix) with ESMTP id 37E95A3B84;
+ by relay2.suse.de (Postfix) with ESMTP id 76B8DA3B84;
  Tue, 22 Jun 2021 11:35:40 +0000 (UTC)
 To: ltp@lists.linux.it
-Date: Tue, 22 Jun 2021 12:35:08 +0100
-Message-Id: <20210622113514.22284-3-rpalethorpe@suse.com>
+Date: Tue, 22 Jun 2021 12:35:09 +0100
+Message-Id: <20210622113514.22284-4-rpalethorpe@suse.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210622113514.22284-1-rpalethorpe@suse.com>
 References: <20210622113514.22284-1-rpalethorpe@suse.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/8] ftest: Fix uninitialized var error
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH 3/8] hotplug: Fix uninitialized var
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,57 +69,36 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Mark misc_intvl as const which allows the compiler to eliminate some
-confusing branches. This is a minimal change to fix the error.
+This assumes glctx is the correct thing to use as in every other
+function.
 
 Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
 ---
- testcases/kernel/fs/ftest/ftest01.c | 3 +--
- testcases/kernel/fs/ftest/ftest05.c | 3 +--
- 2 files changed, 2 insertions(+), 4 deletions(-)
+ testcases/kernel/hotplug/memory_hotplug/commands.c | 7 +------
+ 1 file changed, 1 insertion(+), 6 deletions(-)
 
-diff --git a/testcases/kernel/fs/ftest/ftest01.c b/testcases/kernel/fs/ftest/ftest01.c
-index afad18095..31203d689 100644
---- a/testcases/kernel/fs/ftest/ftest01.c
-+++ b/testcases/kernel/fs/ftest/ftest01.c
-@@ -83,7 +83,7 @@ static void term(int sig);
- static int csize;		/* chunk size */
- static int iterations;		/* # total iterations */
- static int max_size;		/* max file size */
--static int misc_intvl;		/* for doing misc things; 0 ==> no */
-+static const int misc_intvl = 10;		/* for doing misc things; 0 ==> no */
- static int nchild;		/* how many children */
- static int fd;			/* file descriptor used by child */
- static int parent_pid;
-@@ -139,7 +139,6 @@ static void setup(void)
- 	nchild = 5;
- 	csize = K_2;		/* should run with 1, 2, and 4 K sizes */
- 	max_size = K_1 * K_1;
--	misc_intvl = 10;
+diff --git a/testcases/kernel/hotplug/memory_hotplug/commands.c b/testcases/kernel/hotplug/memory_hotplug/commands.c
+index 6655d3553..78f46fbca 100644
+--- a/testcases/kernel/hotplug/memory_hotplug/commands.c
++++ b/testcases/kernel/hotplug/memory_hotplug/commands.c
+@@ -438,16 +438,11 @@ static int get_arg_nodeid_list(char *args, unsigned int *list)
+  */
+ static int get_current_nodeid_list(unsigned int *fromids)
+ {
+-	/*
+-	 * FIXME (garrcoop): gcp is uninitialized and shortly hereafter used in
+-	 * an initialization statement..... UHHHHHHH... test writer fail?
+-	 */
+-	glctx_t *gcp;
++	glctx_t *gcp = &glctx;
+ 	nodemask_t my_allowed_nodes;
+ 	int nr_nodes = 0, max_node = gcp->numa_max_node;
+ 	int node;
  
- 	if (sigset(SIGTERM, term) == SIG_ERR) {
- 		tst_brkm(TBROK | TERRNO, NULL, "sigset failed");
-diff --git a/testcases/kernel/fs/ftest/ftest05.c b/testcases/kernel/fs/ftest/ftest05.c
-index 0bd32e4f6..8d8e6d497 100644
---- a/testcases/kernel/fs/ftest/ftest05.c
-+++ b/testcases/kernel/fs/ftest/ftest05.c
-@@ -87,7 +87,7 @@ static void cleanup(void);
- static int csize;		/* chunk size */
- static int iterations;		/* # total iterations */
- static off64_t max_size;	/* max file size */
--static int misc_intvl;		/* for doing misc things; 0 ==> no */
-+static const int misc_intvl = 10;		/* for doing misc things; 0 ==> no */
- static int nchild;		/* how many children */
- static int fd;			/* file descriptor used by child */
- static int parent_pid;
-@@ -147,7 +147,6 @@ static void setup(void)
- 	nchild = 5;
- 	csize = K_2;		/* should run with 1, 2, and 4 K sizes */
- 	max_size = K_1 * K_1;
--	misc_intvl = 10;
- 
- 	if (sigset(SIGTERM, term) == SIG_ERR) {
- 		tst_brkm(TBROK | TERRNO, NULL,
+-	gcp = &glctx;
+ 	my_allowed_nodes = numa_get_membind_compat();
+ 	for (node = 0; node <= max_node; ++node) {
+ 		if (nodemask_isset(&my_allowed_nodes, node))
 -- 
 2.31.1
 
