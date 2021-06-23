@@ -1,73 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC3B03B1BBC
-	for <lists+linux-ltp@lfdr.de>; Wed, 23 Jun 2021 15:56:32 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id E8B053B1BBD
+	for <lists+linux-ltp@lfdr.de>; Wed, 23 Jun 2021 15:56:43 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A3E633C8E40
-	for <lists+linux-ltp@lfdr.de>; Wed, 23 Jun 2021 15:56:32 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 7DF173C92EA
+	for <lists+linux-ltp@lfdr.de>; Wed, 23 Jun 2021 15:56:43 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 3C15D3C6FE4
- for <ltp@lists.linux.it>; Wed, 23 Jun 2021 15:55:36 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 721303C7027
+ for <ltp@lists.linux.it>; Wed, 23 Jun 2021 15:55:37 +0200 (CEST)
 Received: from youngberry.canonical.com (youngberry.canonical.com
  [91.189.89.112])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 6ED8B1A0121D
- for <ltp@lists.linux.it>; Wed, 23 Jun 2021 15:55:35 +0200 (CEST)
-Received: from mail-wr1-f69.google.com ([209.85.221.69])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id D8991200D45
+ for <ltp@lists.linux.it>; Wed, 23 Jun 2021 15:55:36 +0200 (CEST)
+Received: from mail-wm1-f72.google.com ([209.85.128.72])
  by youngberry.canonical.com with esmtps (TLS1.2) tls
  TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
  (envelope-from <krzysztof.kozlowski@canonical.com>)
- id 1lw3Lq-0000KT-Lr
- for ltp@lists.linux.it; Wed, 23 Jun 2021 13:55:34 +0000
-Received: by mail-wr1-f69.google.com with SMTP id
- f9-20020a5d64c90000b029011a3c2a0337so1131076wri.0
- for <ltp@lists.linux.it>; Wed, 23 Jun 2021 06:55:34 -0700 (PDT)
+ id 1lw3Ls-0000Km-C8
+ for ltp@lists.linux.it; Wed, 23 Jun 2021 13:55:36 +0000
+Received: by mail-wm1-f72.google.com with SMTP id
+ w186-20020a1cdfc30000b02901ced88b501dso1644267wmg.2
+ for <ltp@lists.linux.it>; Wed, 23 Jun 2021 06:55:36 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
  bh=yhS5PM18BCM/eWEJHfWofC3EtP90b59teScK3XyveJE=;
- b=RJWSVnwh3v+X1cDJo0tjYyw9givMeIuKt53ABkEjeYiMwPexqG6dn6FoEL8yNc2r4A
- dUpLjcYDFe+RTMS7ULiaKlNPwzzbNRDW0NpxCEZCziBwxp2YWD3QzLhHc08j8h+SvAfu
- sz5KJ8V1oZpkxF2pKNh+RiALsZBZNYEWC3PGfrdD7kdJZen/XoBjVK00mqARYZuf/vyr
- 8sPFt9jcxxE+3/JvjjSTv/vqLt938duFCCy+7WyhaaCb2aIL8Yal0ay+4ZsfCHP81IfB
- tRs9NHeON6kHWcHxQFMzrqMgLMl15Wej5KwWOtwEqd4FkK9oTkCJ3SwJhZro28JjYaZ6
- P+MQ==
-X-Gm-Message-State: AOAM531nr+MzxjsY9RjYC4SqVi3BwXPScNPfs9V+AbiPbquYvx9eS4Rm
- ldFD3nL/i8OImm8jblBoccIr871eqAIq4pcXrgKpQRu4FLI7VPTry+9/Kj0V5OrmqR0vU+6rJUp
- l7pdZ3PWEBSCGYqNVcuf6K3nzqrov
-X-Received: by 2002:a1c:f016:: with SMTP id a22mr11125479wmb.65.1624456534181; 
- Wed, 23 Jun 2021 06:55:34 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJxDJJd6zBJHvYpn4Y8L6acgMHcheH2cI9XihD0ofiCtA9sPj3qmdgfbHT3ZF+X5AiBo6l1VhQ==
-X-Received: by 2002:a1c:f016:: with SMTP id a22mr11125469wmb.65.1624456534061; 
- Wed, 23 Jun 2021 06:55:34 -0700 (PDT)
+ b=H1PheLqZPjBnPcQyrSZerv96TGiY7ViMr9qFzqGwvU6AnNaERS6wjWqStaT6VoTcxi
+ Fl+eWppw+OIwTEMubF/5BB1XGvipm2o7cJkcMhiRE6sHDtACed0DafBWMzMRrVfSSMdE
+ c1L7h1V0jCZgFOBhOI0IcIedQeI1cqSiX95BbVCqO7WyAJ72geEsBxKCG4GJ90rGIw8q
+ uYWxO+KPDPjKrVaLo9RNjXK+ifOihNAHfNiQsaiTko2WCLyuiB4XFWvaayiQfiJi4Fxt
+ YUo7Jz9u5DJJ9lPLKuZEdjfZMkLHnrM9qAAJtjpL2FT3U1D/IRrV0sjwNYsJXIAPI11o
+ yN+w==
+X-Gm-Message-State: AOAM531lON+fLoaoP6Dhu4Z+FVwxHwKGQydopS9MMWp7S/66bNfavzTy
+ ISXZxdAnyazT/3A14VVh0NhcyCEo9aM/FLTp/Ii8RDdptWAt6nXwxWXDw0sNe0RCI0wmOrcfSuT
+ RyEN8ejTDW7AIyW3Iv+KZ93wW4R7n
+X-Received: by 2002:a5d:4a81:: with SMTP id o1mr143574wrq.1.1624456535749;
+ Wed, 23 Jun 2021 06:55:35 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJyZmVl/gTwnn80EA7wsrL9TkwXdiOKNXFGoc+59VDtWjp7K/Wtz14mScffLvUzyKlHl3hbIcg==
+X-Received: by 2002:a5d:4a81:: with SMTP id o1mr143566wrq.1.1624456535629;
+ Wed, 23 Jun 2021 06:55:35 -0700 (PDT)
 Received: from localhost.localdomain (xdsl-188-155-177-222.adslplus.ch.
  [188.155.177.222])
- by smtp.gmail.com with ESMTPSA id v5sm5746567wml.26.2021.06.23.06.55.32
+ by smtp.gmail.com with ESMTPSA id v5sm5746567wml.26.2021.06.23.06.55.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Jun 2021 06:55:33 -0700 (PDT)
+ Wed, 23 Jun 2021 06:55:34 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 To: ltp@lists.linux.it
-Date: Wed, 23 Jun 2021 15:55:23 +0200
-Message-Id: <20210623135524.80663-7-krzysztof.kozlowski@canonical.com>
+Date: Wed, 23 Jun 2021 15:55:24 +0200
+Message-Id: <20210623135524.80663-8-krzysztof.kozlowski@canonical.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210623135524.80663-1-krzysztof.kozlowski@canonical.com>
 References: <20210623135524.80663-1-krzysztof.kozlowski@canonical.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 3/3] syscalls/msgstress: tune limit of processes
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 4/4] syscalls/msgstress: tune limit of processes
  for small machines
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
