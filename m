@@ -2,73 +2,70 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6016F3B1B5C
-	for <lists+linux-ltp@lfdr.de>; Wed, 23 Jun 2021 15:42:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23FB23B1BAB
+	for <lists+linux-ltp@lfdr.de>; Wed, 23 Jun 2021 15:55:33 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 22E5D3C6FDC
-	for <lists+linux-ltp@lfdr.de>; Wed, 23 Jun 2021 15:42:01 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id D84E83C6FDC
+	for <lists+linux-ltp@lfdr.de>; Wed, 23 Jun 2021 15:55:32 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id DE1F93C2B93
- for <ltp@lists.linux.it>; Wed, 23 Jun 2021 15:41:59 +0200 (CEST)
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [IPv6:2a00:1450:4864:20::435])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id CBDF93C2307
+ for <ltp@lists.linux.it>; Wed, 23 Jun 2021 15:55:30 +0200 (CEST)
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 4E56060143D
- for <ltp@lists.linux.it>; Wed, 23 Jun 2021 15:41:59 +0200 (CEST)
-Received: by mail-wr1-x435.google.com with SMTP id j1so2703089wrn.9
- for <ltp@lists.linux.it>; Wed, 23 Jun 2021 06:41:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=android.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=biYlXzWrOxt6OJPagY5lXWUJRi0LM20l2G/8OGzbZpM=;
- b=PXwfsVudtJcwjqziVtquJBmCHspNIa5Ln2KPHeXCMdkAvSA8uirFS6/oFFEs24Qgua
- s0j/Q+08u4MZu5GbJjXwHfPw9fnvxyFMw74JtR4P2ih+CXaoEsE9Gp/B4goq8+zSSVwW
- Zz+SWt/VjQruP2qwxyg+Wxk14oYTEXbFtFkvzlegydzpkUYJ/LV728ZoUKgc5mBdwJjZ
- h8e0zWyHn/QvyTXKswzBpWOcin0SQvNgGahI2zFkGRqhFZvHFumlbkKtGvhUaVeoKAXQ
- wn3NV1vV4aXjAWf0DB20UXs0PKb8//VCYbPMoZbwI+eMUfBKUhXBpHlbIzlKX7r3B90n
- alpA==
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id F2F06200D44
+ for <ltp@lists.linux.it>; Wed, 23 Jun 2021 15:55:29 +0200 (CEST)
+Received: from mail-wm1-f70.google.com ([209.85.128.70])
+ by youngberry.canonical.com with esmtps (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
+ (envelope-from <krzysztof.kozlowski@canonical.com>)
+ id 1lw3Ll-0000J7-3f
+ for ltp@lists.linux.it; Wed, 23 Jun 2021 13:55:29 +0000
+Received: by mail-wm1-f70.google.com with SMTP id
+ i82-20020a1c22550000b02901d64e84b3c9so637633wmi.5
+ for <ltp@lists.linux.it>; Wed, 23 Jun 2021 06:55:29 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=biYlXzWrOxt6OJPagY5lXWUJRi0LM20l2G/8OGzbZpM=;
- b=uDLNh1vm7ISL0/D2I6lcWvVH6V3JXi36p9PsZFXrEc+xS741dnGac4AEnW2c6lFpqk
- lAHibMSQSjKwtb9YWB/PsJ1eWk8PJEi+tPJQ+fuN0tzuzg9dYTxpE1Ts3n+fOMWjRBM2
- O6AvUFXEbsHtld1h8orwWHelDvwNK4qOb0s2WVOAfMBZMlJlNHB705ITHKnDv2c1EG/I
- DHwyFbe3tpK9riG98EGBhbiZxK38C/3f3kAHlxzeRTpjjpyvq8h3PdNxAN6Z81UfFi3z
- EoltRh3xqCQXO4YnHf3FnsWWx5kONYW4aFXmggj2zri1lwXs7YIMqvsyXIPonSf28j/p
- yNKw==
-X-Gm-Message-State: AOAM532VzMEQsj/O2AkR2YRt/HRwxi0RAKhVWPOQxJoHkKbFejPOpOVU
- rk5Zk57EsRPAgA99qeX1NX2JiEk6V6Xahfmu
-X-Google-Smtp-Source: ABdhPJxjR5BYzjJ7egrZFZZkUE+IcHo6lN/Wzcfkd/c5FLW4qZjZpNNFzoKVGiYSyfH/En/6p76Q6Q==
-X-Received: by 2002:a5d:4d50:: with SMTP id a16mr58497wru.133.1624455718657;
- Wed, 23 Jun 2021 06:41:58 -0700 (PDT)
-Received: from balsini.lon.corp.google.com
- ([2a00:79e0:d:210:561f:bdab:3ac5:519b])
- by smtp.gmail.com with ESMTPSA id r1sm5814922wmn.10.2021.06.23.06.41.58
+ bh=MXKdP9TpHh47o1O7hjbbxS6xn+CzSqZW3ZzX7lMlszE=;
+ b=Tlguy5cxuNEWhp3f/rmUomD92dqsBCu5VTF434QOTokc70GTRpgJyWR/A/Z3Jg4FQo
+ xIGQJwXZ23t8szePfzBDr7L45M9E+kTPzy42vGwO4113oDrJKCbkh7WnvST1AdGKa9OI
+ 3jq3Dj7pS1g6jB2AZj7+BehZI6eaOCL3s3udJbDFEbqnfJjai0ISBictnFdKAIDeqCd8
+ szEDnL/ceXadOsLKk+l/Hlbt+LPmwd+XmjvYcho4X/XriA31VHZat/saqFJY7TJR+W2Y
+ nU1r/mpVPcBv7KoodxTKVucvxwyA2TSHRJ+ikM7YaA4bbrhl/NHQhuSBuulDavzmTFam
+ H0KA==
+X-Gm-Message-State: AOAM532eAUVjRAfE+Tj1T8p00PIuZei/U2rH1nA9ea1rK7mcZbk0nqvF
+ 02y6IWNOBf+maNohBjCuf7vs0WkdkNoCgx2aV9Mx80qtewpfLORup+phyD1OAdx/FtkEyAlILC1
+ jwOUpH5KM6EOL8brWqGKB2qqGL8Aq
+X-Received: by 2002:a1c:c388:: with SMTP id t130mr10808028wmf.57.1624456528687; 
+ Wed, 23 Jun 2021 06:55:28 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwoq1H4t1NVZgtv9zEyHUtDgJYR7jrJBFdnmIMRaoLbH+T1ZZlSfphLOZgKVOPZnVoyFpSdFw==
+X-Received: by 2002:a1c:c388:: with SMTP id t130mr10808018wmf.57.1624456528497; 
+ Wed, 23 Jun 2021 06:55:28 -0700 (PDT)
+Received: from localhost.localdomain (xdsl-188-155-177-222.adslplus.ch.
+ [188.155.177.222])
+ by smtp.gmail.com with ESMTPSA id v5sm5746567wml.26.2021.06.23.06.55.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Jun 2021 06:41:58 -0700 (PDT)
+ Wed, 23 Jun 2021 06:55:27 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 To: ltp@lists.linux.it
-Date: Wed, 23 Jun 2021 14:40:41 +0100
-Message-Id: <20210623134041.366838-1-balsini@android.com>
-X-Mailer: git-send-email 2.32.0.288.g62a8d224e6-goog
+Date: Wed, 23 Jun 2021 15:55:17 +0200
+Message-Id: <20210623135524.80663-1-krzysztof.kozlowski@canonical.com>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH] getrlimit/getrlimit03: fix unavailable __NR_getrlimit
- for arm
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 0/4] syscalls/msgstress: fixes for small systems
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,58 +77,36 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Alessio Balsini via ltp <ltp@lists.linux.it>
-Reply-To: Alessio Balsini <balsini@android.com>
-Cc: kernel-team@android.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-__NR_getrlimit has been deprecated from arm EABI, and is only available
-if the OABI_COMPAT config option is defined.
-This causes failures with the current test as it assumes that
-__NR_getrlimit exists if __NR_ugetrlimit is defined, while this
-assumption does not hold anymore.
+Hi,
 
-Catch this exception by testing if __NR_getrlimit is defined and the
-target is arm.
+Changes since v1:
+1. Move the code reading cgroups session limit to lib/tst_pid.c to
+   existing tst_get_free_pids_().
+2. Allow reading session limits from cgroups v2.
+3. Add patch 1/4 - typo fix.
+4. Add patch 4/4 with the buffer/reserve of pids.
 
-Signed-off-by: Alessio Balsini <balsini@android.com>
----
- testcases/kernel/syscalls/getrlimit/getrlimit03.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+Best regards,
+Krzysztof
 
-diff --git a/testcases/kernel/syscalls/getrlimit/getrlimit03.c b/testcases/kernel/syscalls/getrlimit/getrlimit03.c
-index 319bc494a..e46a25f7b 100644
---- a/testcases/kernel/syscalls/getrlimit/getrlimit03.c
-+++ b/testcases/kernel/syscalls/getrlimit/getrlimit03.c
-@@ -45,6 +45,14 @@
- #define __NR_getrlimit_ulong_str	"__NR_getrlimit"
- #endif
- 
-+/**
-+ * __NR_getrlimit has been deprecated from arm EABI and moved to OABI_COMPAT,
-+ * so the syscall may or may not be available.
-+ */
-+#if defined(__arm__) && __NR_getrlimit == __LTP__NR_INVALID_SYSCALL
-+#define DEPRECATED_GETRLIMIT
-+#endif
-+
- #ifndef HAVE_STRUCT_RLIMIT64
- struct rlimit64 {
- 	uint64_t rlim_cur;
-@@ -167,7 +175,7 @@ static void run(unsigned int resource)
- 	tst_res(TPASS, "__NR_prlimit64(%d) and %s(%d) gave consistent results",
- 		resource, __NR_getrlimit_ulong_str, resource);
- 
--#if SIGNED_GETRLIMIT
-+#if SIGNED_GETRLIMIT && !defined(DEPRECATED_GETRLIMIT)
- 	errno = 0;
- 	ret_l = getrlimit_long(resource, &rlim_l);
- 	errno_l = errno;
+Krzysztof Kozlowski (4):
+  include/tst_pid.h: fix language typo (subtraction)
+  syscalls/msgstress04: fix fork failure on small memory systems
+  syscalls/msgstress03: fix fork failure on small memory systems
+  syscalls/msgstress: tune limit of processes for small machines
+
+ include/tst_pid.h                             |  6 +-
+ lib/tst_pid.c                                 | 81 ++++++++++++++++++-
+ .../syscalls/ipc/msgstress/msgstress03.c      | 15 +++-
+ 3 files changed, 98 insertions(+), 4 deletions(-)
+
 -- 
-2.32.0.288.g62a8d224e6-goog
+2.27.0
 
 
 -- 
