@@ -1,64 +1,63 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id A39443B1BB7
-	for <lists+linux-ltp@lfdr.de>; Wed, 23 Jun 2021 15:56:26 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id EC3B03B1BBC
+	for <lists+linux-ltp@lfdr.de>; Wed, 23 Jun 2021 15:56:32 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 061083C6FE6
-	for <lists+linux-ltp@lfdr.de>; Wed, 23 Jun 2021 15:56:26 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A3E633C8E40
+	for <lists+linux-ltp@lfdr.de>; Wed, 23 Jun 2021 15:56:32 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A39113C700F
- for <ltp@lists.linux.it>; Wed, 23 Jun 2021 15:55:34 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 3C15D3C6FE4
+ for <ltp@lists.linux.it>; Wed, 23 Jun 2021 15:55:36 +0200 (CEST)
 Received: from youngberry.canonical.com (youngberry.canonical.com
  [91.189.89.112])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id EE64B1A01222
- for <ltp@lists.linux.it>; Wed, 23 Jun 2021 15:55:33 +0200 (CEST)
-Received: from mail-wm1-f72.google.com ([209.85.128.72])
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 6ED8B1A0121D
+ for <ltp@lists.linux.it>; Wed, 23 Jun 2021 15:55:35 +0200 (CEST)
+Received: from mail-wr1-f69.google.com ([209.85.221.69])
  by youngberry.canonical.com with esmtps (TLS1.2) tls
  TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
  (envelope-from <krzysztof.kozlowski@canonical.com>)
- id 1lw3Lp-0000KI-Ea
- for ltp@lists.linux.it; Wed, 23 Jun 2021 13:55:33 +0000
-Received: by mail-wm1-f72.google.com with SMTP id
- p22-20020a7bcc960000b02901de8f2ae18aso636385wma.8
- for <ltp@lists.linux.it>; Wed, 23 Jun 2021 06:55:33 -0700 (PDT)
+ id 1lw3Lq-0000KT-Lr
+ for ltp@lists.linux.it; Wed, 23 Jun 2021 13:55:34 +0000
+Received: by mail-wr1-f69.google.com with SMTP id
+ f9-20020a5d64c90000b029011a3c2a0337so1131076wri.0
+ for <ltp@lists.linux.it>; Wed, 23 Jun 2021 06:55:34 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=rz7GisD4gD8ZJuoI0XHtZVVDCHrVkJYv0AACuvLkJL0=;
- b=kJ5c4gNMov/xKV7kA7/hKfx0YfxQqQ4vAJZuskMzxUkbBe90VHpbsutUbDNV1RszbF
- /7jAB8ozCzPEfjTele6u6SsLYnOvWmkrTEgLRSgxX8U7HM2SDPok9rds9QPlWrvRop/g
- izSYDsAmE3Ek38X+euca734ir/8iAjQ1+2RdHEQKNz7N6oKl4Rbmpy5WY5wkECNa1pkU
- srCDAuH4QyKxm73quzYTvvvURRyC2h2KQeMyDqKHPiYEQrtJ3RcGPD11sIWQoaU5/zE3
- SM/dghf/P/x8k2DMq9O6/y7o0PrDP12mpmhRj78Zmr5YfLdct6TxW6P2aArFbnD41YBL
- x4kQ==
-X-Gm-Message-State: AOAM53087OOPv6BvsewydhlnRKmGirKnCSIH/KXHjjvwaSQVntZJ3Fvx
- llReTrG/QyImA3QjFhveKf2ETVlrDHf56nyuxRQuGOUTMI06VVGGHht95otkuKqk6EgaoqUZXfZ
- 3Uov29RibEHAerLsc5FQqRoevciV/
-X-Received: by 2002:a1c:7219:: with SMTP id n25mr10827665wmc.3.1624456532794; 
- Wed, 23 Jun 2021 06:55:32 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJy27vrOs/T3U/BXZhjrWp6ZFADPaDtw7NKuQhpw6SFJG47LBMqKY4SRNHPDQFXKRyuYBAUYyA==
-X-Received: by 2002:a1c:7219:: with SMTP id n25mr10827658wmc.3.1624456532687; 
- Wed, 23 Jun 2021 06:55:32 -0700 (PDT)
+ bh=yhS5PM18BCM/eWEJHfWofC3EtP90b59teScK3XyveJE=;
+ b=RJWSVnwh3v+X1cDJo0tjYyw9givMeIuKt53ABkEjeYiMwPexqG6dn6FoEL8yNc2r4A
+ dUpLjcYDFe+RTMS7ULiaKlNPwzzbNRDW0NpxCEZCziBwxp2YWD3QzLhHc08j8h+SvAfu
+ sz5KJ8V1oZpkxF2pKNh+RiALsZBZNYEWC3PGfrdD7kdJZen/XoBjVK00mqARYZuf/vyr
+ 8sPFt9jcxxE+3/JvjjSTv/vqLt938duFCCy+7WyhaaCb2aIL8Yal0ay+4ZsfCHP81IfB
+ tRs9NHeON6kHWcHxQFMzrqMgLMl15Wej5KwWOtwEqd4FkK9oTkCJ3SwJhZro28JjYaZ6
+ P+MQ==
+X-Gm-Message-State: AOAM531nr+MzxjsY9RjYC4SqVi3BwXPScNPfs9V+AbiPbquYvx9eS4Rm
+ ldFD3nL/i8OImm8jblBoccIr871eqAIq4pcXrgKpQRu4FLI7VPTry+9/Kj0V5OrmqR0vU+6rJUp
+ l7pdZ3PWEBSCGYqNVcuf6K3nzqrov
+X-Received: by 2002:a1c:f016:: with SMTP id a22mr11125479wmb.65.1624456534181; 
+ Wed, 23 Jun 2021 06:55:34 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJxDJJd6zBJHvYpn4Y8L6acgMHcheH2cI9XihD0ofiCtA9sPj3qmdgfbHT3ZF+X5AiBo6l1VhQ==
+X-Received: by 2002:a1c:f016:: with SMTP id a22mr11125469wmb.65.1624456534061; 
+ Wed, 23 Jun 2021 06:55:34 -0700 (PDT)
 Received: from localhost.localdomain (xdsl-188-155-177-222.adslplus.ch.
  [188.155.177.222])
  by smtp.gmail.com with ESMTPSA id v5sm5746567wml.26.2021.06.23.06.55.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Jun 2021 06:55:32 -0700 (PDT)
+ Wed, 23 Jun 2021 06:55:33 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 To: ltp@lists.linux.it
-Date: Wed, 23 Jun 2021 15:55:22 +0200
-Message-Id: <20210623135524.80663-6-krzysztof.kozlowski@canonical.com>
+Date: Wed, 23 Jun 2021 15:55:23 +0200
+Message-Id: <20210623135524.80663-7-krzysztof.kozlowski@canonical.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210623135524.80663-1-krzysztof.kozlowski@canonical.com>
 References: <20210623135524.80663-1-krzysztof.kozlowski@canonical.com>
@@ -68,8 +67,8 @@ X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 3/4] syscalls/msgstress03: fix fork failure on
- small memory systems
+Subject: [LTP] [PATCH v2 3/3] syscalls/msgstress: tune limit of processes
+ for small machines
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,64 +85,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Running syscalls/msgstress03 on a system with less than ~4 GB of RAM fails:
-
-    msgstress03    1  TFAIL  :  msgstress03.c:155: 	Fork failed (may be OK if under stress)
-
-In dmesg:
-
-    LTP: starting msgstress03
-    cgroup: fork rejected by pids controller in /user.slice/user-1000.slice/session-1.scope
-
-The reason is cgroups pid limit set by systemd user.slice.  The limit is
-set for login session, also for root user.  For example on 2 GB RAM
-machine it is set as:
-    /sys/fs/cgroup/pids/user.slice/user-0.slice/pids.max:5207
-
-Read the maximum number of pids and adjust the test limit.  For 2 GB RAM
-machine with systemd this will result in:
-
-    msgstress03    0  TINFO  :  Found limit of processes 5056 (from /sys/fs/cgroup/pids/user.slice/user-1000.slice/pids.max)
-    msgstress03    0  TINFO  :  Requested number of processes higher than user session limit (10000 > 4556), setting to 4556
+Forking the exactly amount of processes as the limit (either from
+max_pids or from cgroups) is risky - OS might be doing some work and
+interfere with the test.  Instead leave some reserve (hard-coded to
+500) for the OS so the test won't fail on fork failure.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 ---
- .../kernel/syscalls/ipc/msgstress/msgstress03.c   | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
+ lib/tst_pid.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/testcases/kernel/syscalls/ipc/msgstress/msgstress03.c b/testcases/kernel/syscalls/ipc/msgstress/msgstress03.c
-index 294b401b1b38..18e50e35ee07 100644
---- a/testcases/kernel/syscalls/ipc/msgstress/msgstress03.c
-+++ b/testcases/kernel/syscalls/ipc/msgstress/msgstress03.c
-@@ -78,7 +78,7 @@ static void usage(void)
+diff --git a/lib/tst_pid.c b/lib/tst_pid.c
+index c1ea3fe90e83..1b2e85959430 100644
+--- a/lib/tst_pid.c
++++ b/lib/tst_pid.c
+@@ -32,6 +32,8 @@
+ #define PID_MAX_PATH "/proc/sys/kernel/pid_max"
+ #define CGROUPS_V1_SLICE_FMT "/sys/fs/cgroup/pids/user.slice/user-%d.slice/pids.max"
+ #define CGROUPS_V2_SLICE_FMT "/sys/fs/cgroup/user.slice/user-%d.slice/pids.max"
++/* Leave some available processes for the OS */
++#define PIDS_RESERVE 500
  
- int main(int argc, char **argv)
+ pid_t tst_get_unused_pid_(void (*cleanup_fn) (void))
  {
--	int i, j, ok, pid;
-+	int i, j, ok, pid, free_pids;
- 	int count, status;
- 	struct sigaction act;
+@@ -106,7 +108,7 @@ static int get_session_pids_limit(void (*cleanup_fn) (void))
+ 	if (max_pids < 0)
+ 		return -1;
  
-@@ -109,6 +109,19 @@ int main(int argc, char **argv)
- 		}
- 	}
+-	return max_pids;
++	return max_pids > PIDS_RESERVE ? max_pids - PIDS_RESERVE : 0;
+ }
  
-+	free_pids = tst_get_free_pids(cleanup);
-+	if (free_pids < 0) {
-+		tst_brkm(TBROK, cleanup, "Can't obtain free_pid count");
-+	} else if (!free_pids) {
-+		tst_brkm(TBROK, cleanup, "No free pids");
-+	}
-+	if (nprocs >= free_pids) {
-+		tst_resm(TINFO,
-+			 "Requested number of processes higher than limit (%d > %d), "
-+			 "setting to %d", nprocs, free_pids, free_pids);
-+		nprocs = free_pids;
-+	}
-+
- 	srand(getpid());
- 	tid = -1;
- 
+ int tst_get_free_pids_(void (*cleanup_fn) (void))
 -- 
 2.27.0
 
