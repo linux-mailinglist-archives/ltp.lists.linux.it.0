@@ -1,86 +1,79 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id AADEF3B1C09
-	for <lists+linux-ltp@lfdr.de>; Wed, 23 Jun 2021 16:08:01 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id BF3403B1CFD
+	for <lists+linux-ltp@lfdr.de>; Wed, 23 Jun 2021 16:59:45 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7CFA53C6FE4
-	for <lists+linux-ltp@lfdr.de>; Wed, 23 Jun 2021 16:08:01 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C73E53C8E3B
+	for <lists+linux-ltp@lfdr.de>; Wed, 23 Jun 2021 16:59:44 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 043CC3C6FD1
- for <ltp@lists.linux.it>; Wed, 23 Jun 2021 16:08:00 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id 3780F3C2307
+ for <ltp@lists.linux.it>; Wed, 23 Jun 2021 16:59:40 +0200 (CEST)
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 3AB1B200D44
- for <ltp@lists.linux.it>; Wed, 23 Jun 2021 16:07:58 +0200 (CEST)
-Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
- (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 94EF021961;
- Wed, 23 Jun 2021 14:07:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1624457278; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=rvf6KuxMLN/HJoKfV/eVNAwQ1aBJItxnhEO2r8oMWVE=;
- b=Z3QMpHRKyk2uK8Nx/d4mgEmD1bGNpX+KTqB6C4zfLXQ4hd0cufnLfs4CdZcBJSVgHV145F
- QY1CPfdX7joALrO4GZ9U+THJONM6SVkqGi69naMMUVuXSmxkw5gfWHTduqvLLRARxJ4CmG
- ledyCJ4Tg7CNKQrElQUttBYbcA+wCbw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1624457278;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=rvf6KuxMLN/HJoKfV/eVNAwQ1aBJItxnhEO2r8oMWVE=;
- b=XICI2yjQZjF5vRTANdEghsFYG2vt6xfK1ahAIC/xLukM2M6YIEcYqehVORCe+uWmz0p4jH
- EZD7Ex+vxc1FHqBg==
-Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id 7654F11A97;
- Wed, 23 Jun 2021 14:07:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1624457278; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=rvf6KuxMLN/HJoKfV/eVNAwQ1aBJItxnhEO2r8oMWVE=;
- b=Z3QMpHRKyk2uK8Nx/d4mgEmD1bGNpX+KTqB6C4zfLXQ4hd0cufnLfs4CdZcBJSVgHV145F
- QY1CPfdX7joALrO4GZ9U+THJONM6SVkqGi69naMMUVuXSmxkw5gfWHTduqvLLRARxJ4CmG
- ledyCJ4Tg7CNKQrElQUttBYbcA+wCbw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1624457278;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=rvf6KuxMLN/HJoKfV/eVNAwQ1aBJItxnhEO2r8oMWVE=;
- b=XICI2yjQZjF5vRTANdEghsFYG2vt6xfK1ahAIC/xLukM2M6YIEcYqehVORCe+uWmz0p4jH
- EZD7Ex+vxc1FHqBg==
-Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id Ao9QGz5A02CBUgAALh3uQQ
- (envelope-from <chrubis@suse.cz>); Wed, 23 Jun 2021 14:07:58 +0000
-Date: Wed, 23 Jun 2021 15:42:24 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Alessio Balsini <balsini@android.com>
-Message-ID: <YNM6QGFYt/bpaPDS@yuki>
-References: <20210623134041.366838-1-balsini@android.com>
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id E7A651401205
+ for <ltp@lists.linux.it>; Wed, 23 Jun 2021 16:59:39 +0200 (CEST)
+Received: from mail-wr1-f71.google.com ([209.85.221.71])
+ by youngberry.canonical.com with esmtps (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
+ (envelope-from <krzysztof.kozlowski@canonical.com>)
+ id 1lw4Lq-0000LT-V1
+ for ltp@lists.linux.it; Wed, 23 Jun 2021 14:59:38 +0000
+Received: by mail-wr1-f71.google.com with SMTP id
+ d8-20020adfef880000b029011a9391927aso1148371wro.22
+ for <ltp@lists.linux.it>; Wed, 23 Jun 2021 07:59:38 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=lN+D5qvJw/vNi3S7qFYHyMdQXLRHnKtYd8gQ6VuRVAQ=;
+ b=i6Okxj0roJ36191L1Inqoqa9EcYW+a0xubcDWbPQyEAfkbp0h4y0PZHAimaQKHJDuS
+ qDATwyi6/V2FWiexw31zy7Dfi1Rq5ve8ovNaO2Fy87D6LMwxOoLqXy1Sfyp9KBiMbEfx
+ xf4EHHUSBDITNTXHz/EAYcSNmBMWZWN1LpcNBqjdLwW1YLtfX7lPgTEu7SWSS8eyPdXE
+ UEL8lyY4EKiSK9R54MLVGNjA+tTv04HJ8rQEA3SHrtTtwBYZmj6FElot1z6WZL5wzGiD
+ XZ3HtTgHk7MLTiDMizmhTOtrT6Ur2jOBzaPqpR+Fl3hw3pru4IJfHeZ79gdUZl4fAOxe
+ 6Srw==
+X-Gm-Message-State: AOAM53056vt9rFQrn4GbC8vJtgjvzbI0+TPl/QJwgdlomC0ZVAXRg6Aj
+ fasp/xg9bt8FneObsDv+Lt5qADtoGRdFjAbZ+5GWD4zZIS3QO9qnjHYfp2aGDXkXcRpfoqxumrV
+ jALBAiirWyP9imaZE5zt1NmiCdr8w
+X-Received: by 2002:adf:9084:: with SMTP id i4mr508275wri.23.1624460378429;
+ Wed, 23 Jun 2021 07:59:38 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJx6OutHTEJGjL8VN53EAVo481MvVqgro/fdLXogwiPOpVVsfWLXGV7e2Kwl2GyHrx8c/AqIQw==
+X-Received: by 2002:adf:9084:: with SMTP id i4mr508267wri.23.1624460378276;
+ Wed, 23 Jun 2021 07:59:38 -0700 (PDT)
+Received: from [192.168.1.115] (xdsl-188-155-177-222.adslplus.ch.
+ [188.155.177.222])
+ by smtp.gmail.com with ESMTPSA id b7sm297903wrw.20.2021.06.23.07.59.37
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 23 Jun 2021 07:59:37 -0700 (PDT)
+To: Petr Vorel <pvorel@suse.cz>
+References: <20210622145938.106477-1-krzysztof.kozlowski@canonical.com>
+ <YNL9/k1iRralo/fj@pevik> <a7dd74e2-858f-19e4-d2bf-21cb77a3705e@canonical.com>
+ <c015b22b-5775-7301-a8b8-13cdd7000fb6@canonical.com> <YNM4VFC0pgygzNJz@pevik>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+Message-ID: <5cf60851-9d1a-33db-b0b6-979191eee873@canonical.com>
+Date: Wed, 23 Jun 2021 16:59:37 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210623134041.366838-1-balsini@android.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+In-Reply-To: <YNM4VFC0pgygzNJz@pevik>
+Content-Language: en-US
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] getrlimit/getrlimit03: fix unavailable
- __NR_getrlimit for arm
+X-Spam-Status: No, score=0.0 required=7.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] controllers/cpuset_hotplug: skip unsupported
+ Microsoft Hyper-V
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,66 +85,55 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: kernel-team@android.com, ltp@lists.linux.it
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> __NR_getrlimit has been deprecated from arm EABI, and is only available
-> if the OABI_COMPAT config option is defined.
-> This causes failures with the current test as it assumes that
-> __NR_getrlimit exists if __NR_ugetrlimit is defined, while this
-> assumption does not hold anymore.
+On 23/06/2021 15:34, Petr Vorel wrote:
+> Hi Krzysztof,
 > 
-> Catch this exception by testing if __NR_getrlimit is defined and the
-> target is arm.
-
-I suppose that this a proper fix for:
-
-https://github.com/linux-test-project/ltp/issues/819
-
-> Signed-off-by: Alessio Balsini <balsini@android.com>
-> ---
->  testcases/kernel/syscalls/getrlimit/getrlimit03.c | 10 +++++++++-
->  1 file changed, 9 insertions(+), 1 deletion(-)
+>> On 23/06/2021 11:35, Krzysztof Kozlowski wrote:
+>>> On 23/06/2021 11:25, Petr Vorel wrote:
+>>>> Hi Krzysztof,
 > 
-> diff --git a/testcases/kernel/syscalls/getrlimit/getrlimit03.c b/testcases/kernel/syscalls/getrlimit/getrlimit03.c
-> index 319bc494a..e46a25f7b 100644
-> --- a/testcases/kernel/syscalls/getrlimit/getrlimit03.c
-> +++ b/testcases/kernel/syscalls/getrlimit/getrlimit03.c
-> @@ -45,6 +45,14 @@
->  #define __NR_getrlimit_ulong_str	"__NR_getrlimit"
->  #endif
->  
-> +/**
-> + * __NR_getrlimit has been deprecated from arm EABI and moved to OABI_COMPAT,
-> + * so the syscall may or may not be available.
-> + */
-> +#if defined(__arm__) && __NR_getrlimit == __LTP__NR_INVALID_SYSCALL
-> +#define DEPRECATED_GETRLIMIT
-> +#endif
-> +
->  #ifndef HAVE_STRUCT_RLIMIT64
->  struct rlimit64 {
->  	uint64_t rlim_cur;
-> @@ -167,7 +175,7 @@ static void run(unsigned int resource)
->  	tst_res(TPASS, "__NR_prlimit64(%d) and %s(%d) gave consistent results",
->  		resource, __NR_getrlimit_ulong_str, resource);
->  
-> -#if SIGNED_GETRLIMIT
-> +#if SIGNED_GETRLIMIT && !defined(DEPRECATED_GETRLIMIT)
->  	errno = 0;
->  	ret_l = getrlimit_long(resource, &rlim_l);
->  	errno_l = errno;
+>>>>> Microsoft Hyper-V with Linux guests does not support CPU hotplug, even
+>>>>> if enabled in kernel configuration.  Quoting Ubuntu bug report from
+>>>>> June 2018: "While Hyper-V may present all potential CPUs via ACPI MADT,
+>>>>> CPU add/remove is not supported.". [1]
+> 
+>>>> Reviewed-by: Petr Vorel <pvorel@suse.cz>
+> 
+>>>> LGTM. How many of tests will need tst_virt_hyperv? Although we don't touch
+>>>> legacy API, I'd make an exception and add it to both test.sh and tst_test.sh
+>>>> (ideally with an API extension, i.e. test could use SKIP_VIRT="hyperv", but that
+>>>> can wait till tests are converted).
+> 
+>>> Around CPU hotplug that would be the last one I did not spot so far
+>>> other failures but I also do not track all failures in nice way. Rather
+>>> fixing them ad-hoc...
+> 
+>> I just checked more and there are additional failures on Azure/HyperV
+>> with more nodes: cpuset_load_balance, cpuset_memory_pressure,
+>> cpuset_memory_spread and cpuset_sched_domains. These did not appear on
+>> smaller instances (e.g. 4 CPUs).
+> 
+> Good to know. Does it mean we should check number of processors?
 
-I guess that this generates a few unused function warnings, can we fix
-all the places with #if SIGNED_GETRLIMIT in the source code please?
+No, it should be the same case as here, I just did not hit that test on
+some of cloud instances (the tests are for CPU nodes > 1). I'll just
+find a proper instance to try to reproduce it there.
 
--- 
-Cyril Hrubis
-chrubis@suse.cz
+> But even there were just these two and no additional change to
+> tst_virt_hyperv(), we'd prefer to have them in test.sh and tst_test.sh.
+> Could you please send v2, where you implement that?
+
+I'll take a look.
+
+
+Best regards,
+Krzysztof
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
