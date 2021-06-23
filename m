@@ -2,80 +2,66 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE92B3B1192
-	for <lists+linux-ltp@lfdr.de>; Wed, 23 Jun 2021 04:11:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6C323B13E4
+	for <lists+linux-ltp@lfdr.de>; Wed, 23 Jun 2021 08:25:08 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5256A3C870A
-	for <lists+linux-ltp@lfdr.de>; Wed, 23 Jun 2021 04:11:18 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 609BA3C6FD3
+	for <lists+linux-ltp@lfdr.de>; Wed, 23 Jun 2021 08:25:08 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 1DBAB3C4D3C
- for <ltp@lists.linux.it>; Wed, 23 Jun 2021 04:11:13 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 01BCA3C2244
+ for <ltp@lists.linux.it>; Wed, 23 Jun 2021 08:25:05 +0200 (CEST)
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 3C93E1000A2F
- for <ltp@lists.linux.it>; Wed, 23 Jun 2021 04:11:11 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id C8BF31A0061D
+ for <ltp@lists.linux.it>; Wed, 23 Jun 2021 08:25:03 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1624414270;
+ s=mimecast20190719; t=1624429502;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=F54OXoXwR70UsmUMPD/yKEo6/VdT0h7kCGQqz5X1/pE=;
- b=gQpTRXKZrnLxjPtDvBGK4onSbhE3X8S8vY2KwPeLcRGG/8QUxho+05luSpwZ4QTNeKVePo
- Ux3zqySLxcm26rBkMsWZEP2qFWL12WF4F5+GudXN+wU92FiJvunoAxXQW10CkkOMP9xqmD
- CbONcO4crUcBKI8gFtTnx6LaMPD4PVo=
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-577-RF9u_KHANEiwVOT_3lTaNg-1; Tue, 22 Jun 2021 22:11:06 -0400
-X-MC-Unique: RF9u_KHANEiwVOT_3lTaNg-1
-Received: by mail-qk1-f200.google.com with SMTP id
- e13-20020a37e50d0000b02903ad5730c883so665534qkg.22
- for <ltp@lists.linux.it>; Tue, 22 Jun 2021 19:11:06 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=F54OXoXwR70UsmUMPD/yKEo6/VdT0h7kCGQqz5X1/pE=;
- b=J/K30QEfFPjNXjLmPncwSD64pi8lD9Ef/n8bPZhRG3oqlWMEY/6joZv2QJwe+t/E1s
- gCV2bro1K9mTq0UqhSLMgWj90TsWjJm3K4QX6FcDKoSqY2iRf9O+0P3NHzUrCixAe4UE
- d5SapILa2Uh+7nIzka+bssRgHBCA8Z6PhKNIDvhxUwNhsxNqrr+qQ27z+ukdJYmfn2ea
- ao18/w7qgabHTzUz/S46rBxvB7PWKJfRy2GcQZmR7f7PQW27I59DleSnbOb7huJZh4PF
- wbGkQgj8pdQHoy+jpMER3TYAz1WB0ac3ZdISgA5DFPkuh5HxaPKKjlrhuEI0Oc7NwDV7
- MdJw==
-X-Gm-Message-State: AOAM532tT9DomXiIdLfr2VE54gpFrEjYonMkiyej5wcoAvIXVC/LK5Aj
- A4UhZ8LfaV2iWD8PwaEreXnkRxpNu6LkFjzsvy5CeGNt7y87cwNckew8eVunnCNS9xt06u9qXuJ
- 2W6W+tyAvA2GzIlFuhO5qVU6wy1k=
-X-Received: by 2002:a25:6986:: with SMTP id e128mr2022051ybc.366.1624414266099; 
- Tue, 22 Jun 2021 19:11:06 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJy2YVBT6oOYwRB9bnl8FpMbM7MgLsfb80Tq/aiYRq7ZKa5AVjdNvUCbRuYb2edX10SNMEC2hpQdqz31cpByqbg=
-X-Received: by 2002:a25:6986:: with SMTP id e128mr2022033ybc.366.1624414265809; 
- Tue, 22 Jun 2021 19:11:05 -0700 (PDT)
-MIME-Version: 1.0
-References: <20210622122538.402907-1-liwang@redhat.com>
- <877dim56go.fsf@suse.de>
-In-Reply-To: <877dim56go.fsf@suse.de>
+ content-transfer-encoding:content-transfer-encoding;
+ bh=ifJLvCiq/C6b9U0bSvGpISjHn4yVd26LAqkSGAUAWcs=;
+ b=bt0t46FLgJ26HpNK172CBdg3Rm/LSZR+sLQ028RIMG/4gvr+SAbrFrlIxDbElCXWMLaolr
+ QXxWQO+BL37s6m/dtFsHkziuPJahv/u7fR1vPn2i/LpO0nC0+5/g7A1GV85E8cZerwC+0e
+ Szxzbl+nSHoiNYhayJpbjJgRqm/Sm6U=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-266-uejA1CXTMZGu_Kl_pd5Hxw-1; Wed, 23 Jun 2021 02:25:00 -0400
+X-MC-Unique: uejA1CXTMZGu_Kl_pd5Hxw-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
+ [10.5.11.22])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 733C81084F58;
+ Wed, 23 Jun 2021 06:24:59 +0000 (UTC)
+Received: from liwang-workstation.nay.redhat.com
+ (dhcp-66-81-187.nay.redhat.com [10.66.81.187])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 3C55A10016FE;
+ Wed, 23 Jun 2021 06:24:57 +0000 (UTC)
 From: Li Wang <liwang@redhat.com>
-Date: Wed, 23 Jun 2021 10:10:54 +0800
-Message-ID: <CAEemH2d-XeK48WftdyYCiLhBWTnM=8X7Dd+abCa3894123N8TQ@mail.gmail.com>
-To: Richard Palethorpe <rpalethorpe@suse.de>
+To: ltp@lists.linux.it
+Date: Wed, 23 Jun 2021 14:24:54 +0800
+Message-Id: <20210623062456.430406-1-liwang@redhat.com>
+MIME-Version: 1.0
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwang@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 1/3] mem: child alloc memory should larger than
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH v3 1/3] mem: child alloc memory should larger than
  memory.max + memory.swap.max if lite==1
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -88,388 +74,71 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============1565018277=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1565018277==
-Content-Type: multipart/alternative; boundary="00000000000048370105c5656b5c"
-
---00000000000048370105c5656b5c
-Content-Type: text/plain; charset="UTF-8"
-
-Hi Richard,
-
-Thanks for the review.
-
-On Tue, Jun 22, 2021 at 10:17 PM Richard Palethorpe <rpalethorpe@suse.de>
-wrote:
-
-> Hello Li,
->
-> Li Wang <liwang@redhat.com> writes:
->
-> > oom03 often gets fail while setting 'memory.swap.max = TESTMEM' in
-> CGroup V2,
-> > as in that scenario (lite == 1), child_alloc only start a single process
-> to
-> > dirty 'TESTMEM + MB' anonymous memory for testing:
-> >
-> > testoom(, lite == 1, ,)
-> >   oom(, lite == 1, ,)
-> >     child_alloc(, lite == 1,)
-> >         alloc_mem(TESTMEM + MB, )
-> >
-> >   mem.c:224: TINFO: start normal OOM testing.
-> >   mem.c:146: TINFO: expected victim is 80466.
-> >   mem.c:38: TINFO: thread (7f411c69d740), allocating 1074790400 bytes.
-> >   mem.c:64: TINFO: swapped is 25546752 bytes.     <------- swap occuring
-> -----
-> >   mem.c:164: TFAIL: victim unexpectedly ended with retcode: 0, expected:
-> 12
-> >
-> > TBH, this can not really test the 'memory.swap.max' as expected, since
-> in the
-> > kernel side mem_cgroup_out_of_memory split OOM margin into two-part, one
-> for
-> > memory.max limit, another for memory.swap.max, if any of them get
-> overflow,
-> > then invoke out_of_memory to kill victim-process.
-> >
-> > Theoretically, alloc_mem(TESTMEM + MB, ) should work while 'memory.max'
-> is equal
-> > to TESTMEM, but Cgroup v2 tracks memory and swap in separate, which
-> splits memory
-> > and swap counter. So with swappiness enable (default value is 60 on
-> RHEL), it
-> > likely has part of memory swapping out during the allocating, upon that
-> the two
-> > limit loss effect at the same time. Unless disable swap completely then
-> memory.max
-> > will take effect in precisely.
-> >
-> > To get more opportunities to reach the swap limitation, let's scale down
-> the
-> > value of 'memory.swap.max' to only 1MB for CGroup v2.
-> >
-> > But for CGroup v1, the memory.memsw.limit_in_bytes disallow to less than
-> > memory.limit_in_bytes, so we'd better raise the child_alloc to the
-> > twifold
->   ^twofold
-> > of TESTMEM.
->
-> Ah, this means "memory.swap.x" and "memory.memsw.x" are not really the
-> same thing. This seems to be common pattern, so maybe we could translate
-> V2 values to V1 in the library.
->
-
-+1
-We can consider doing that in a new separate patch. And better to check
-more parameters to guarantee we have the correct understanding in use it:).
-
-
-> If I understand correctly `memory.swap.max = memory.memsw.limit_in_bytes
-> - memory.limit_in_bytes`? Also "max" can be mapped to ~0UL or maybe
-> ~0ULL when -m32 is used.
->
-
-From the definition, yes, the memory.memsw.limit_in_bytes parameter
-represents the sum of memory and swap.
-
-
->
-> This is not important for the current patch.
->
-> >
-> > Signed-off-by: Li Wang <liwang@redhat.com>
-> > ---
-> >
-> > Notes:
-> >     v1 --> v2
-> >        * add comments for explaining why set 'memory.swap.max' to 1MB
-> >        * Scale down the value of 'memory.swap.max' to only 1MB for
-> CGroup v2.
-> >
-> >  testcases/kernel/mem/lib/mem.c   |  2 +-
-> >  testcases/kernel/mem/oom/oom03.c | 17 ++++++++++++++++-
-> >  2 files changed, 17 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/testcases/kernel/mem/lib/mem.c
-> b/testcases/kernel/mem/lib/mem.c
-> > index 9f946b5c9..ac890491c 100644
-> > --- a/testcases/kernel/mem/lib/mem.c
-> > +++ b/testcases/kernel/mem/lib/mem.c
-> > @@ -78,7 +78,7 @@ static void child_alloc(int testcase, int lite, int
-> threads)
-> >       pthread_t *th;
-> >
-> >       if (lite) {
-> > -             int ret = alloc_mem(TESTMEM + MB, testcase);
-> > +             int ret = alloc_mem(TESTMEM * 2 + MB, testcase);
-> >               exit(ret);
-> >       }
-> >
-> > diff --git a/testcases/kernel/mem/oom/oom03.c
-> b/testcases/kernel/mem/oom/oom03.c
-> > index 939413744..89d7711a5 100644
-> > --- a/testcases/kernel/mem/oom/oom03.c
-> > +++ b/testcases/kernel/mem/oom/oom03.c
-> > @@ -46,7 +46,22 @@ static void verify_oom(void)
-> >       testoom(0, 0, ENOMEM, 1);
-> >
-> >       if (SAFE_CGROUP_HAS(cg, "memory.swap.max")) {
-> > -             SAFE_CGROUP_PRINTF(cg, "memory.swap.max", "%lu", TESTMEM);
-> > +             /*
-> > +              * Cgroup v2 tracks memory and swap in separate, which
-> splits
-> > +              * memory and swap counter. So with swappiness enable
-> (default
-> > +              * value is 60 on RHEL), it likely has part of memory
-> swapping
-> > +              * out during the allocating, upon that the two limit loss
-> > +              * effect at the same time.
-> > +              *
-> > +              * To get more opportunities to reach the swap limitation,
-> > +              * let's scale down the value of 'memory.swap.max' to only
-> > +              * 1MB for CGroup v2.
-> > +              */
-> > +             if (TST_CGROUP_VER(cg, "memory") != TST_CGROUP_V1)
-> > +                     SAFE_CGROUP_PRINTF(cg, "memory.swap.max", "%lu",
-> MB);
-> > +             else
-> > +                     SAFE_CGROUP_PRINTF(cg, "memory.swap.max", "%lu",
-> TESTMEM);
-> > +
->
-> To be consistent with V2; should this be TESTMEM + MB?
->
-
-Yes, that should be better.
-
-
-> >               testoom(0, 1, ENOMEM, 1);
-> >       }
-> >
-> > --
-> > 2.31.1
->
->
-> --
-> Thank you,
-> Richard.
->
->
-
--- 
-Regards,
-Li Wang
-
---00000000000048370105c5656b5c
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small">Hi Richard,</div><div class=3D"gmail_default" style=3D"font-s=
-ize:small"><br></div><div class=3D"gmail_default" style=3D"font-size:small"=
->Thanks for the review.</div></div><br><div class=3D"gmail_quote"><div dir=
-=3D"ltr" class=3D"gmail_attr">On Tue, Jun 22, 2021 at 10:17 PM Richard Pale=
-thorpe &lt;<a href=3D"mailto:rpalethorpe@suse.de" target=3D"_blank">rpaleth=
-orpe@suse.de</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" styl=
-e=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);paddin=
-g-left:1ex">Hello Li,<br>
-<br>
-Li Wang &lt;<a href=3D"mailto:liwang@redhat.com" target=3D"_blank">liwang@r=
-edhat.com</a>&gt; writes:<br>
-<br>
-&gt; oom03 often gets fail while setting &#39;memory.swap.max =3D TESTMEM&#=
-39; in CGroup V2,<br>
-&gt; as in that scenario (lite =3D=3D 1), child_alloc only start a single p=
-rocess to<br>
-&gt; dirty &#39;TESTMEM + MB&#39; anonymous memory for testing:<br>
-&gt;<br>
-&gt; testoom(, lite =3D=3D 1, ,)<br>
-&gt;=C2=A0 =C2=A0oom(, lite =3D=3D 1, ,)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0child_alloc(, lite =3D=3D 1,)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0alloc_mem(TESTMEM + MB, )<br>
-&gt;<br>
-&gt;=C2=A0 =C2=A0mem.c:224: TINFO: start normal OOM testing.<br>
-&gt;=C2=A0 =C2=A0mem.c:146: TINFO: expected victim is 80466.<br>
-&gt;=C2=A0 =C2=A0mem.c:38: TINFO: thread (7f411c69d740), allocating 1074790=
-400 bytes.<br>
-&gt;=C2=A0 =C2=A0mem.c:64: TINFO: swapped is 25546752 bytes.=C2=A0 =C2=A0 =
-=C2=A0&lt;------- swap occuring -----<br>
-&gt;=C2=A0 =C2=A0mem.c:164: TFAIL: victim unexpectedly ended with retcode: =
-0, expected: 12<br>
-&gt;<br>
-&gt; TBH, this can not really test the &#39;memory.swap.max&#39; as expecte=
-d, since in the<br>
-&gt; kernel side mem_cgroup_out_of_memory split OOM margin into two-part, o=
-ne for<br>
-&gt; memory.max limit, another for memory.swap.max, if any of them get over=
-flow,<br>
-&gt; then invoke out_of_memory to kill victim-process.<br>
-&gt;<br>
-&gt; Theoretically, alloc_mem(TESTMEM + MB, ) should work while &#39;memory=
-.max&#39; is equal<br>
-&gt; to TESTMEM, but Cgroup v2 tracks memory and swap in separate, which sp=
-lits memory<br>
-&gt; and swap counter. So with swappiness enable (default value is 60 on RH=
-EL), it<br>
-&gt; likely has part of memory swapping out during the allocating, upon tha=
-t the two<br>
-&gt; limit loss effect at the same time. Unless disable swap completely the=
-n memory.max<br>
-&gt; will take effect in precisely.<br>
-&gt;<br>
-&gt; To get more opportunities to reach the swap limitation, let&#39;s scal=
-e down the<br>
-&gt; value of &#39;memory.swap.max&#39; to only 1MB for CGroup v2.<br>
-&gt;<br>
-&gt; But for CGroup v1, the memory.memsw.limit_in_bytes disallow to less th=
-an<br>
-&gt; memory.limit_in_bytes, so we&#39;d better raise the child_alloc to the=
-<br>
-&gt; twifold<br>
-=C2=A0 ^twofold<br>
-&gt; of TESTMEM.<br>
-<br>
-Ah, this means &quot;memory.swap.x&quot; and &quot;memory.memsw.x&quot; are=
- not really the<br>
-same thing. This seems to be common pattern, so maybe we could translate<br=
->
-V2 values to V1 in the library.<br></blockquote><div><br></div><div class=
-=3D"gmail_default" style=3D"font-size:small">+1=C2=A0</div><div class=3D"gm=
-ail_default" style=3D"font-size:small">We can consider doing that in a new =
-separate patch. And better to check</div><div class=3D"gmail_default" style=
-=3D"font-size:small">more parameters to guarantee we have the correct under=
-standing in use it:).</div><div class=3D"gmail_default" style=3D"font-size:=
-small"><br></div><div class=3D"gmail_default" style=3D"font-size:small"></d=
-iv><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bord=
-er-left:1px solid rgb(204,204,204);padding-left:1ex">
-<br>
-If I understand correctly `memory.swap.max =3D memory.memsw.limit_in_bytes<=
-br>
-- memory.limit_in_bytes`? Also &quot;max&quot; can be mapped to ~0UL or may=
-be<br>
-~0ULL when -m32 is used.<br></blockquote><div><br></div><div><div class=3D"=
-gmail_default" style=3D"font-size:small">From the definition, yes, the memo=
-ry.memsw.limit_in_bytes parameter represents the sum of memory and swap.</d=
-iv></div><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin=
-:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"=
->
-<br>
-This is not important for the current patch.<br>
-<br>
-&gt;<br>
-&gt; Signed-off-by: Li Wang &lt;<a href=3D"mailto:liwang@redhat.com" target=
-=3D"_blank">liwang@redhat.com</a>&gt;<br>
-&gt; ---<br>
-&gt;<br>
-&gt; Notes:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0v1 --&gt; v2<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 * add comments for explaining why set &#39;=
-memory.swap.max&#39; to 1MB<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 * Scale down the value of &#39;memory.swap.=
-max&#39; to only 1MB for CGroup v2.<br>
-&gt;<br>
-&gt;=C2=A0 testcases/kernel/mem/lib/mem.c=C2=A0 =C2=A0|=C2=A0 2 +-<br>
-&gt;=C2=A0 testcases/kernel/mem/oom/oom03.c | 17 ++++++++++++++++-<br>
-&gt;=C2=A0 2 files changed, 17 insertions(+), 2 deletions(-)<br>
-&gt;<br>
-&gt; diff --git a/testcases/kernel/mem/lib/mem.c b/testcases/kernel/mem/lib=
-/mem.c<br>
-&gt; index 9f946b5c9..ac890491c 100644<br>
-&gt; --- a/testcases/kernel/mem/lib/mem.c<br>
-&gt; +++ b/testcases/kernel/mem/lib/mem.c<br>
-&gt; @@ -78,7 +78,7 @@ static void child_alloc(int testcase, int lite, int =
-threads)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0pthread_t *th;<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0if (lite) {<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0int ret =3D alloc_mem=
-(TESTMEM + MB, testcase);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0int ret =3D alloc_mem=
-(TESTMEM * 2 + MB, testcase);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0exit(ret);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt;=C2=A0 <br>
-&gt; diff --git a/testcases/kernel/mem/oom/oom03.c b/testcases/kernel/mem/o=
-om/oom03.c<br>
-&gt; index 939413744..89d7711a5 100644<br>
-&gt; --- a/testcases/kernel/mem/oom/oom03.c<br>
-&gt; +++ b/testcases/kernel/mem/oom/oom03.c<br>
-&gt; @@ -46,7 +46,22 @@ static void verify_oom(void)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0testoom(0, 0, ENOMEM, 1);<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0if (SAFE_CGROUP_HAS(cg, &quot;memory.swap.ma=
-x&quot;)) {<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0SAFE_CGROUP_PRINTF(cg=
-, &quot;memory.swap.max&quot;, &quot;%lu&quot;, TESTMEM);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/*<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * Cgroup v2 tracks m=
-emory and swap in separate, which splits<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * memory and swap co=
-unter. So with swappiness enable (default<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * value is 60 on RHE=
-L), it likely has part of memory swapping<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * out during the all=
-ocating, upon that the two limit loss<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * effect at the same=
- time.<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 *<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * To get more opport=
-unities to reach the swap limitation,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * let&#39;s scale do=
-wn the value of &#39;memory.swap.max&#39; to only<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * 1MB for CGroup v2.=
-<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 */<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (TST_CGROUP_VER(cg=
-, &quot;memory&quot;) !=3D TST_CGROUP_V1)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0SAFE_CGROUP_PRINTF(cg, &quot;memory.swap.max&quot;, &quot;%lu&quot;,=
- MB);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0else<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0SAFE_CGROUP_PRINTF(cg, &quot;memory.swap.max&quot;, &quot;%lu&quot;,=
- TESTMEM);<br>
-&gt; +<br>
-<br>
-To be consistent with V2; should this be TESTMEM + MB?<br></blockquote><div=
-><br></div><div><div class=3D"gmail_default" style=3D"font-size:small">Yes,=
- that should be better.</div></div><div><br></div><blockquote class=3D"gmai=
-l_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,20=
-4,204);padding-left:1ex">
-<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0testoom(0, 1, EN=
-OMEM, 1);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt;=C2=A0 <br>
-&gt; -- <br>
-&gt; 2.31.1<br>
-<br>
-<br>
--- <br>
-Thank you,<br>
-Richard.<br>
-<br>
-</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
-><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div></div></div>=
-</div>
-
---00000000000048370105c5656b5c--
-
-
---===============1565018277==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============1565018277==--
-
+b29tMDMgb2Z0ZW4gZ2V0cyBmYWlsIHdoaWxlIHNldHRpbmcgJ21lbW9yeS5zd2FwLm1heCA9IFRF
+U1RNRU0nIGluIENHcm91cCBWMiwKYXMgaW4gdGhhdCBzY2VuYXJpbyAobGl0ZSA9PSAxKSwgY2hp
+bGRfYWxsb2Mgb25seSBzdGFydCBhIHNpbmdsZSBwcm9jZXNzIHRvCmRpcnR5ICdURVNUTUVNICsg
+TUInIGFub255bW91cyBtZW1vcnkgZm9yIHRlc3Rpbmc6Cgp0ZXN0b29tKCwgbGl0ZSA9PSAxLCAs
+KQrCoCBvb20oLCBsaXRlID09IDEsICwpCsKgIMKgIGNoaWxkX2FsbG9jKCwgbGl0ZSA9PSAxLCkK
+wqAgwqAgwqAgwqAgYWxsb2NfbWVtKFRFU1RNRU0gKyBNQiwgKQoKICBtZW0uYzoyMjQ6IFRJTkZP
+OiBzdGFydCBub3JtYWwgT09NIHRlc3RpbmcuCiAgbWVtLmM6MTQ2OiBUSU5GTzogZXhwZWN0ZWQg
+dmljdGltIGlzIDgwNDY2LgogIG1lbS5jOjM4OiBUSU5GTzogdGhyZWFkICg3ZjQxMWM2OWQ3NDAp
+LCBhbGxvY2F0aW5nIDEwNzQ3OTA0MDAgYnl0ZXMuCiAgbWVtLmM6NjQ6IFRJTkZPOiBzd2FwcGVk
+IGlzIDI1NTQ2NzUyIGJ5dGVzLiAgICAgPC0tLS0tLS0gc3dhcCBvY2N1cmluZyAtLS0tLQogIG1l
+bS5jOjE2NDogVEZBSUw6IHZpY3RpbSB1bmV4cGVjdGVkbHkgZW5kZWQgd2l0aCByZXRjb2RlOiAw
+LCBleHBlY3RlZDogMTIKClRCSCwgdGhpcyBjYW4gbm90IHJlYWxseSB0ZXN0IHRoZSAnbWVtb3J5
+LnN3YXAubWF4JyBhcyBleHBlY3RlZCwgc2luY2UgaW4gdGhlCmtlcm5lbCBzaWRlIG1lbV9jZ3Jv
+dXBfb3V0X29mX21lbW9yeSBzcGxpdCBPT00gbWFyZ2luIGludG8gdHdvLXBhcnQsIG9uZSBmb3IK
+bWVtb3J5Lm1heCBsaW1pdCwgYW5vdGhlciBmb3IgbWVtb3J5LnN3YXAubWF4LCBpZiBhbnkgb2Yg
+dGhlbSBnZXQgb3ZlcmZsb3csCnRoZW4gaW52b2tlIG91dF9vZl9tZW1vcnkgdG8ga2lsbCB2aWN0
+aW0tcHJvY2Vzcy4KClRoZW9yZXRpY2FsbHksIGFsbG9jX21lbShURVNUTUVNICsgTUIsICkgc2hv
+dWxkIHdvcmsgd2hpbGUgJ21lbW9yeS5tYXgnIGlzIGVxdWFsCnRvIFRFU1RNRU0sIGJ1dCBDZ3Jv
+dXAgdjIgdHJhY2tzIG1lbW9yeSBhbmQgc3dhcCBpbiBzZXBhcmF0ZSwgd2hpY2ggc3BsaXRzIG1l
+bW9yeQphbmQgc3dhcCBjb3VudGVyLiBTbyB3aXRoIHN3YXBwaW5lc3MgZW5hYmxlIChkZWZhdWx0
+IHZhbHVlIGlzIDYwIG9uIFJIRUwpLCBpdApsaWtlbHkgaGFzIHBhcnQgb2YgbWVtb3J5IHN3YXBw
+aW5nIG91dCBkdXJpbmcgdGhlIGFsbG9jYXRpbmcsIHVwb24gdGhhdCB0aGUgdHdvCmxpbWl0IGxv
+c3MgZWZmZWN0IGF0IHRoZSBzYW1lIHRpbWUuIFVubGVzcyBkaXNhYmxlIHN3YXAgY29tcGxldGVs
+eSB0aGVuIG1lbW9yeS5tYXgKd2lsbCB0YWtlIGVmZmVjdCBpbiBwcmVjaXNlbHkuCgpUbyBnZXQg
+bW9yZSBvcHBvcnR1bml0aWVzIHRvIHJlYWNoIHRoZSBzd2FwIGxpbWl0YXRpb24sIGxldCdzIHNj
+YWxlIGRvd24gdGhlCnZhbHVlIG9mICdtZW1vcnkuc3dhcC5tYXgnIHRvIG9ubHkgMU1CIGZvciBD
+R3JvdXAgdjIuCgpCdXQgZm9yIENHcm91cCB2MSwgdGhlIG1lbW9yeS5tZW1zdy5saW1pdF9pbl9i
+eXRlcyBkaXNhbGxvdyB0byBsZXNzIHRoYW4KbWVtb3J5LmxpbWl0X2luX2J5dGVzLCBzbyB3ZSdk
+IGJldHRlciByYWlzZSB0aGUgY2hpbGRfYWxsb2MgdG8gdGhlIHR3b2ZvbGQKb2YgVEVTVE1FTSwg
+YW5kIHJlc2V0IG1lbW9yeS5tZW1zdy5saW1pdF9pbl9ieXRlcyB0byAnVEVTVE1FTSArIE1CJy4K
+ClNpZ25lZC1vZmYtYnk6IExpIFdhbmcgPGxpd2FuZ0ByZWRoYXQuY29tPgotLS0KCk5vdGVzOgog
+ICAgdjIgLS0+IHYzCiAgICAgICogc2V0IG1lbW9yeS5tZW1zdy5saW1pdF9pbl9ieXRlcyB0byBU
+RVNUTUVNK01CIGFzIHN1Z2dlc3QgYnkgUmljaGFyZAogICAgICAqIHR5cG8gZml4IGFuZCBzb21l
+IGNvbW1lbnRzIGVtYmVsbGlzaG1lbnQKCiB0ZXN0Y2FzZXMva2VybmVsL21lbS9saWIvbWVtLmMg
+ICB8ICAyICstCiB0ZXN0Y2FzZXMva2VybmVsL21lbS9vb20vb29tMDMuYyB8IDE2ICsrKysrKysr
+KysrKysrKy0KIDIgZmlsZXMgY2hhbmdlZCwgMTYgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMo
+LSkKCmRpZmYgLS1naXQgYS90ZXN0Y2FzZXMva2VybmVsL21lbS9saWIvbWVtLmMgYi90ZXN0Y2Fz
+ZXMva2VybmVsL21lbS9saWIvbWVtLmMKaW5kZXggOWY5NDZiNWM5Li5hYzg5MDQ5MWMgMTAwNjQ0
+Ci0tLSBhL3Rlc3RjYXNlcy9rZXJuZWwvbWVtL2xpYi9tZW0uYworKysgYi90ZXN0Y2FzZXMva2Vy
+bmVsL21lbS9saWIvbWVtLmMKQEAgLTc4LDcgKzc4LDcgQEAgc3RhdGljIHZvaWQgY2hpbGRfYWxs
+b2MoaW50IHRlc3RjYXNlLCBpbnQgbGl0ZSwgaW50IHRocmVhZHMpCiAJcHRocmVhZF90ICp0aDsK
+IAogCWlmIChsaXRlKSB7Ci0JCWludCByZXQgPSBhbGxvY19tZW0oVEVTVE1FTSArIE1CLCB0ZXN0
+Y2FzZSk7CisJCWludCByZXQgPSBhbGxvY19tZW0oVEVTVE1FTSAqIDIgKyBNQiwgdGVzdGNhc2Up
+OwogCQlleGl0KHJldCk7CiAJfQogCmRpZmYgLS1naXQgYS90ZXN0Y2FzZXMva2VybmVsL21lbS9v
+b20vb29tMDMuYyBiL3Rlc3RjYXNlcy9rZXJuZWwvbWVtL29vbS9vb20wMy5jCmluZGV4IDkzOTQx
+Mzc0NC4uYjM3NzBjZjhmIDEwMDY0NAotLS0gYS90ZXN0Y2FzZXMva2VybmVsL21lbS9vb20vb29t
+MDMuYworKysgYi90ZXN0Y2FzZXMva2VybmVsL21lbS9vb20vb29tMDMuYwpAQCAtNDYsNyArNDYs
+MjEgQEAgc3RhdGljIHZvaWQgdmVyaWZ5X29vbSh2b2lkKQogCXRlc3Rvb20oMCwgMCwgRU5PTUVN
+LCAxKTsKIAogCWlmIChTQUZFX0NHUk9VUF9IQVMoY2csICJtZW1vcnkuc3dhcC5tYXgiKSkgewot
+CQlTQUZFX0NHUk9VUF9QUklOVEYoY2csICJtZW1vcnkuc3dhcC5tYXgiLCAiJWx1IiwgVEVTVE1F
+TSk7CisJCS8qCisJCSAqIENncm91cCB2MiB0cmFja3MgbWVtb3J5IGFuZCBzd2FwIGluIHNlcGFy
+YXRlLCB3aGljaCBzcGxpdHMKKwkJICogbWVtb3J5IGFuZCBzd2FwIGNvdW50ZXIuIFNvIHdpdGgg
+c3dhcHBpbmVzcyBlbmFibGUgKGRlZmF1bHQKKwkJICogdmFsdWUgaXMgNjAgb24gUkhFTCksIGl0
+IGxpa2VseSBoYXMgcGFydCBvZiBtZW1vcnkgc3dhcHBpbmcKKwkJICogb3V0IGR1cmluZyB0aGUg
+YWxsb2NhdGluZy4KKwkJICoKKwkJICogVG8gZ2V0IG1vcmUgb3Bwb3J0dW5pdGllcyB0byByZWFj
+aCB0aGUgc3dhcCBsaW1pdGF0aW9uLAorCQkgKiBsZXQncyBzY2FsZSBkb3duIHRoZSB2YWx1ZSBv
+ZiAnbWVtb3J5LnN3YXAubWF4JyB0byBvbmx5CisJCSAqIDFNQiBmb3IgQ0dyb3VwIHYyLgorCQkg
+Ki8KKwkJaWYgKFRTVF9DR1JPVVBfVkVSKGNnLCAibWVtb3J5IikgIT0gVFNUX0NHUk9VUF9WMSkK
+KwkJCVNBRkVfQ0dST1VQX1BSSU5URihjZywgIm1lbW9yeS5zd2FwLm1heCIsICIlbHUiLCBNQik7
+CisJCWVsc2UKKwkJCVNBRkVfQ0dST1VQX1BSSU5URihjZywgIm1lbW9yeS5zd2FwLm1heCIsICIl
+bHUiLCBURVNUTUVNICsgTUIpOworCiAJCXRlc3Rvb20oMCwgMSwgRU5PTUVNLCAxKTsKIAl9CiAK
+LS0gCjIuMzEuMQoKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5p
+dC9saXN0aW5mby9sdHAK
