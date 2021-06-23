@@ -1,88 +1,87 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 138263B15F8
-	for <lists+linux-ltp@lfdr.de>; Wed, 23 Jun 2021 10:36:01 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 741A03B1633
+	for <lists+linux-ltp@lfdr.de>; Wed, 23 Jun 2021 10:48:40 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 27F313C6FF2
-	for <lists+linux-ltp@lfdr.de>; Wed, 23 Jun 2021 10:36:00 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E72833C6FE8
+	for <lists+linux-ltp@lfdr.de>; Wed, 23 Jun 2021 10:48:39 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 1D8603C2E72
- for <ltp@lists.linux.it>; Wed, 23 Jun 2021 10:35:56 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 2F95F3C183E
+ for <ltp@lists.linux.it>; Wed, 23 Jun 2021 10:48:36 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id A81FB1001121
- for <ltp@lists.linux.it>; Wed, 23 Jun 2021 10:35:55 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id A5FCB200D41
+ for <ltp@lists.linux.it>; Wed, 23 Jun 2021 10:48:35 +0200 (CEST)
 Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
  (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 0136821971;
- Wed, 23 Jun 2021 08:35:55 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 0EB5C1FD65;
+ Wed, 23 Jun 2021 08:48:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1624437355;
+ t=1624438115;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=BwZAUmSirJlcZ9AyGMWzSevwR/PbnQwOgjn1QwKwJN0=;
- b=BZSXKhZZHClhdUwerkqhpof+u5f2+0BlJi/0rFwmlGSqVOQ0Gg3VQi2063L2eoZkRABIEK
- B0YsqpuqRe+1rZZKuUPXNatE0ocstVe+Zl8/VAZ34l2I1vVlumU74NCdgAAgzcu5n3ynAw
- yKPwnxFEGZQ7Xfu0Yh1ulf9dxobduMA=
+ bh=Omtu09MWbpGWgVefljpIuLPxSiEowiEQpAu3n9EROms=;
+ b=rchGk2GCm/DhgurR1/bJuuFLVEE16ykLrEN3DaKsRG+IwOgME26PegIYqukaLzEesxD4nh
+ ZPQ7Cqd/FDmbF6b41HnhYxiGg75JXEabi3avVmH23by1ySRmBcyxaFxXRM4+48BTAf+fxW
+ KwLcAixNPmPJ+q8AVRgWP0eV0sQxk7o=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1624437355;
+ s=susede2_ed25519; t=1624438115;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=BwZAUmSirJlcZ9AyGMWzSevwR/PbnQwOgjn1QwKwJN0=;
- b=3xNe0/FX+2L/ygDzKtJj5sQWCDwrMw5JhvVgKmdnrcPwSqalhuE8r5pnVCMqQc3uRyESF/
- nOPwv0jU8MUzYWAg==
+ bh=Omtu09MWbpGWgVefljpIuLPxSiEowiEQpAu3n9EROms=;
+ b=7XyyAkbwAyg+PRZeYW5hTiVBr7CODLyx1b36UQcqZV+hu2FHbTO/aIY+wfSmAgjjY/RWMt
+ qOGglDw/EOBomjCA==
 Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id C8E4D11A97;
- Wed, 23 Jun 2021 08:35:54 +0000 (UTC)
+ by imap.suse.de (Postfix) with ESMTP id DE0B711A97;
+ Wed, 23 Jun 2021 08:48:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1624437354;
+ t=1624438115;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=BwZAUmSirJlcZ9AyGMWzSevwR/PbnQwOgjn1QwKwJN0=;
- b=bv3XxvVB7JB/ui06r5bfDLfWK/RXBTmXtNJVE4JDySMCdH5jp7ogwKZCnj09wIadEVoLaf
- CMshswg2ALwCkBm0qJpN61H6he0KgicnGh/2r9aEZDjxdaJjegJsMrEpjZddT49hL0+LZQ
- LUf6fF/TB+Umxq0eiyUH/pXbILGCPzY=
+ bh=Omtu09MWbpGWgVefljpIuLPxSiEowiEQpAu3n9EROms=;
+ b=rchGk2GCm/DhgurR1/bJuuFLVEE16ykLrEN3DaKsRG+IwOgME26PegIYqukaLzEesxD4nh
+ ZPQ7Cqd/FDmbF6b41HnhYxiGg75JXEabi3avVmH23by1ySRmBcyxaFxXRM4+48BTAf+fxW
+ KwLcAixNPmPJ+q8AVRgWP0eV0sQxk7o=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1624437354;
+ s=susede2_ed25519; t=1624438115;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=BwZAUmSirJlcZ9AyGMWzSevwR/PbnQwOgjn1QwKwJN0=;
- b=V6kEejyx6LMdtcLm5+L9Ndqem7LkTQIzuv8mnWCOOj6nHkNJS8guTnAGWtYNSzDa6YpaVh
- tGR5NENkJxx6q/Cg==
+ bh=Omtu09MWbpGWgVefljpIuLPxSiEowiEQpAu3n9EROms=;
+ b=7XyyAkbwAyg+PRZeYW5hTiVBr7CODLyx1b36UQcqZV+hu2FHbTO/aIY+wfSmAgjjY/RWMt
+ qOGglDw/EOBomjCA==
 Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id 9iLGLmry0mDSIQAALh3uQQ
- (envelope-from <pvorel@suse.cz>); Wed, 23 Jun 2021 08:35:54 +0000
-Date: Wed, 23 Jun 2021 10:35:53 +0200
+ id MrnWNGL10mBpKAAALh3uQQ
+ (envelope-from <pvorel@suse.cz>); Wed, 23 Jun 2021 08:48:34 +0000
+Date: Wed, 23 Jun 2021 10:48:33 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <YNLyaTX6HWIUbD6K@pevik>
-References: <20210623062456.430406-1-liwang@redhat.com>
- <20210623062456.430406-2-liwang@redhat.com>
+To: Martin Doucha <mdoucha@suse.cz>
+Message-ID: <YNL1YatxX5D10w1o@pevik>
+References: <20210622161753.32550-1-mdoucha@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210623062456.430406-2-liwang@redhat.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+In-Reply-To: <20210622161753.32550-1-mdoucha@suse.cz>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3 2/3] oom: enable lite == 1 for memory.swap.max
- testing
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] tst_rtnetlink: pass error codes using
+ rtnl_errno variable
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,10 +100,9 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Li,
+Hi Martin,
 
-> oom03: adding print info and restore memory.swap.max after testing
-> oom05: enable lite == 1 for memory.swap.max testing
+LGTM.
 Reviewed-by: Petr Vorel <pvorel@suse.cz>
 
 Kind regards,
