@@ -1,78 +1,88 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECDFB3B157C
-	for <lists+linux-ltp@lfdr.de>; Wed, 23 Jun 2021 10:11:26 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 138263B15F8
+	for <lists+linux-ltp@lfdr.de>; Wed, 23 Jun 2021 10:36:01 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 03ED53C8A4E
-	for <lists+linux-ltp@lfdr.de>; Wed, 23 Jun 2021 10:11:26 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 27F313C6FF2
+	for <lists+linux-ltp@lfdr.de>; Wed, 23 Jun 2021 10:36:00 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 5CB3E3C1819
- for <ltp@lists.linux.it>; Wed, 23 Jun 2021 10:11:22 +0200 (CEST)
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 1D8603C2E72
+ for <ltp@lists.linux.it>; Wed, 23 Jun 2021 10:35:56 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 0324F200C8D
- for <ltp@lists.linux.it>; Wed, 23 Jun 2021 10:11:21 +0200 (CEST)
-Received: from mail-wr1-f69.google.com ([209.85.221.69])
- by youngberry.canonical.com with esmtps (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
- (envelope-from <krzysztof.kozlowski@canonical.com>)
- id 1lvxyj-0000WW-95
- for ltp@lists.linux.it; Wed, 23 Jun 2021 08:11:21 +0000
-Received: by mail-wr1-f69.google.com with SMTP id
- l13-20020adfe9cd0000b0290119a0645c8fso764253wrn.8
- for <ltp@lists.linux.it>; Wed, 23 Jun 2021 01:11:21 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=A1lf+x1AhkiX7Eh/I17dT4vUIjHraWXTwSqel7ruHiU=;
- b=Kujop4E3hk36WftZMq3zxYYVEe8fb6qSR5PS9lgVEoPW17ROYY95vEw+TKKVgd7WOp
- LoCDCv5FOWoCoyLbxFKqb7TqhVT7DuEcE4sdVSr7FnNZFi9JH/hzHWv4SskH5XYFvMgh
- fd31AqJqx12EpO8rIG9L+rSt1sToaMZtewsf+37wgFTAHD4EK7qKcBXOlinVNOxiCzRp
- hiHRl5DMAmcWW75SW/RR2KAE+aNFAHXI0G3NoPOJRj68vQazcxuCL4xa0eb+jKT3JrEz
- DOMYfb6p0b5rUrA2K5cmLIpmjtpYwaAKNDrk/efmPtZkk6v0UHb3CI2kHZjr9X/IRxSm
- J4Wg==
-X-Gm-Message-State: AOAM531ib87SMSJSzbFB4TBCRlzIcbz3VsXqFAZE8Pk71hdqTHt2RLbC
- Q2jzwPjz/1gAeElxm5IUAXCWZXHoqwl1FH/Uc1dGiHAiiKJMsHy6MPGXD+Wmc8GOtZiEXDsMHkw
- e6zMTVbOK2CZOJZniPqhf5dYieSCt
-X-Received: by 2002:a1c:544e:: with SMTP id p14mr9572525wmi.152.1624435880723; 
- Wed, 23 Jun 2021 01:11:20 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJw1n+la37DLRsd0EoJ6jaBpq/tlGv9Lq8QEo6Odp+8iKqfC6UhV3PPCL/alw7dkidZFMJD/DQ==
-X-Received: by 2002:a1c:544e:: with SMTP id p14mr9572509wmi.152.1624435880513; 
- Wed, 23 Jun 2021 01:11:20 -0700 (PDT)
-Received: from [192.168.1.115] (xdsl-188-155-177-222.adslplus.ch.
- [188.155.177.222])
- by smtp.gmail.com with ESMTPSA id n18sm5088233wmq.41.2021.06.23.01.11.20
- for <ltp@lists.linux.it>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 23 Jun 2021 01:11:20 -0700 (PDT)
-To: ltp@lists.linux.it
-References: <20210623080157.26424-1-krzysztof.kozlowski@canonical.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-Message-ID: <2a08d5c4-c002-7284-03d1-ff4441f8c9c5@canonical.com>
-Date: Wed, 23 Jun 2021 10:11:19 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id A81FB1001121
+ for <ltp@lists.linux.it>; Wed, 23 Jun 2021 10:35:55 +0200 (CEST)
+Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 0136821971;
+ Wed, 23 Jun 2021 08:35:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1624437355;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=BwZAUmSirJlcZ9AyGMWzSevwR/PbnQwOgjn1QwKwJN0=;
+ b=BZSXKhZZHClhdUwerkqhpof+u5f2+0BlJi/0rFwmlGSqVOQ0Gg3VQi2063L2eoZkRABIEK
+ B0YsqpuqRe+1rZZKuUPXNatE0ocstVe+Zl8/VAZ34l2I1vVlumU74NCdgAAgzcu5n3ynAw
+ yKPwnxFEGZQ7Xfu0Yh1ulf9dxobduMA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1624437355;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=BwZAUmSirJlcZ9AyGMWzSevwR/PbnQwOgjn1QwKwJN0=;
+ b=3xNe0/FX+2L/ygDzKtJj5sQWCDwrMw5JhvVgKmdnrcPwSqalhuE8r5pnVCMqQc3uRyESF/
+ nOPwv0jU8MUzYWAg==
+Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ by imap.suse.de (Postfix) with ESMTP id C8E4D11A97;
+ Wed, 23 Jun 2021 08:35:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1624437354;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=BwZAUmSirJlcZ9AyGMWzSevwR/PbnQwOgjn1QwKwJN0=;
+ b=bv3XxvVB7JB/ui06r5bfDLfWK/RXBTmXtNJVE4JDySMCdH5jp7ogwKZCnj09wIadEVoLaf
+ CMshswg2ALwCkBm0qJpN61H6he0KgicnGh/2r9aEZDjxdaJjegJsMrEpjZddT49hL0+LZQ
+ LUf6fF/TB+Umxq0eiyUH/pXbILGCPzY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1624437354;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=BwZAUmSirJlcZ9AyGMWzSevwR/PbnQwOgjn1QwKwJN0=;
+ b=V6kEejyx6LMdtcLm5+L9Ndqem7LkTQIzuv8mnWCOOj6nHkNJS8guTnAGWtYNSzDa6YpaVh
+ tGR5NENkJxx6q/Cg==
+Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
+ id 9iLGLmry0mDSIQAALh3uQQ
+ (envelope-from <pvorel@suse.cz>); Wed, 23 Jun 2021 08:35:54 +0000
+Date: Wed, 23 Jun 2021 10:35:53 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Li Wang <liwang@redhat.com>
+Message-ID: <YNLyaTX6HWIUbD6K@pevik>
+References: <20210623062456.430406-1-liwang@redhat.com>
+ <20210623062456.430406-2-liwang@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <20210623080157.26424-1-krzysztof.kozlowski@canonical.com>
-Content-Language: en-US
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20210623062456.430406-2-liwang@redhat.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] device-drivers/cpufreq_boost: skip test on
- virtual machines
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3 2/3] oom: enable lite == 1 for memory.swap.max
+ testing
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,54 +94,21 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 23/06/2021 10:01, Krzysztof Kozlowski wrote:
-> Testing CPU frequency boost on a virtual machines is not reliable.  Even
-> if cpufreq driver reports boost frequencies, the underlying hypervisor
-> might decide otherwise.
-> 
-> For example on AWS x1e.xlarge instance (claimed to be running on Intel
-> Xeon E7 8880) under Xen hypervisor the test always fails:
-> 
->     cpufreq_boost    0  TINFO  :  found 'intel_pstate' driver, sysfs knob '/sys/devices/system/cpu/intel_pstate/no_turbo'
->     cpufreq_boost    0  TINFO  :  maximum speed is 3100000 KHz
->     cpufreq_boost    0  TINFO  :  load CPU0 with boost enabled
->     cpufreq_boost    0  TINFO  :  elapsed time is 1155 ms
->     cpufreq_boost    0  TINFO  :  load CPU0 with boost disabled
->     cpufreq_boost    0  TINFO  :  elapsed time is 1155 ms
->     cpufreq_boost    1  TFAIL  :  cpufreq_boost.c:186: compare time spent with and without boost (-2%)
-> 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-> ---
->  testcases/kernel/device-drivers/cpufreq/cpufreq_boost.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/testcases/kernel/device-drivers/cpufreq/cpufreq_boost.c b/testcases/kernel/device-drivers/cpufreq/cpufreq_boost.c
-> index b9739db37cb7..67917b3fea25 100644
-> --- a/testcases/kernel/device-drivers/cpufreq/cpufreq_boost.c
-> +++ b/testcases/kernel/device-drivers/cpufreq/cpufreq_boost.c
-> @@ -90,6 +90,9 @@ static void setup(void)
->  	unsigned int i;
->  	tst_require_root();
->  
-> +	if (tst_is_virt(VIRT_ANY))
-> +		tst_brkm(TCONF, NULL, "running in a virtual machine, overclock not reliably measureable");
-> +
->  	for (i = 0; i < ARRAY_SIZE(cdrv); ++i) {
->  		fd = open(cdrv[i].file, O_RDWR);
->  		if (fd == -1)
-> 
+Hi Li,
 
-Optionally, under virtual machine the test failure could be converted to
-accepted pass. This would still allow to test CPUfreq boosting
-interface. Any preferences?
+> oom03: adding print info and restore memory.swap.max after testing
+> oom05: enable lite == 1 for memory.swap.max testing
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
 
-Best regards,
-Krzysztof
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
