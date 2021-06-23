@@ -1,79 +1,86 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F1333B196D
-	for <lists+linux-ltp@lfdr.de>; Wed, 23 Jun 2021 13:57:54 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1920B3B198D
+	for <lists+linux-ltp@lfdr.de>; Wed, 23 Jun 2021 14:04:07 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 125AD3C6FDC
-	for <lists+linux-ltp@lfdr.de>; Wed, 23 Jun 2021 13:57:54 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id D80353C6FD9
+	for <lists+linux-ltp@lfdr.de>; Wed, 23 Jun 2021 14:04:06 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 8FBB23C2E72
- for <ltp@lists.linux.it>; Wed, 23 Jun 2021 13:57:52 +0200 (CEST)
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+ by picard.linux.it (Postfix) with ESMTPS id B2E223C2298
+ for <ltp@lists.linux.it>; Wed, 23 Jun 2021 14:04:05 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 006B81401146
- for <ltp@lists.linux.it>; Wed, 23 Jun 2021 13:57:50 +0200 (CEST)
-Received: from mail-wm1-f71.google.com ([209.85.128.71])
- by youngberry.canonical.com with esmtps (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
- (envelope-from <krzysztof.kozlowski@canonical.com>)
- id 1lw1Vu-00014B-4Z
- for ltp@lists.linux.it; Wed, 23 Jun 2021 11:57:50 +0000
-Received: by mail-wm1-f71.google.com with SMTP id
- v2-20020a7bcb420000b0290146b609814dso518742wmj.0
- for <ltp@lists.linux.it>; Wed, 23 Jun 2021 04:57:50 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:from:to:cc:references:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=0J/+87pTnpvVBr1kfZ+SN+LaF9POvnM5vYgndcSPAhM=;
- b=cpbCg7p13ajtUx4tOEttkS7uo7F3J7JlfBwsLal/h9rcmP+yjjUf/Ig5QbUaL60l+w
- 7STMd3SSxSW2D7IYVqlrRkxIudTRl4Aw3ls9NUjcewGXoHX+sly7dmPAtHkQCmNgDN9l
- tGcosY1i9GtK4JvK/wV0Qm5Oo022BpqDUOHm/ecfLuaxbkO/mm4asgzstrBoleA4QErg
- U65pCKMi+KZmbHZbUJR5hWDneYaeZIkwJbf1BmzGHNcCufymgMTtoMyhkyZWBDFsNA05
- pNrt+FkoTa+vzqUiVwrGH9ZX70QCH3pZDjmGWX4SG16tQZn6gR2roXgFdJBi+THh+dDI
- gdXQ==
-X-Gm-Message-State: AOAM531nyXD+xSxUAUJrHezxq0vGkC4JO6t7fwGVQeLJrOgSpAOgHxo1
- 1fQfXgw6eU7ucgPtIZIymHtXHJuNtU3ve4kf0+My3OKDFmZRPy+R6Mf6dv+Cocol+LxKEHLLpjr
- niDIBespcZHwzKTMUxsZ7QW1mROpD
-X-Received: by 2002:a5d:6485:: with SMTP id o5mr11003084wri.91.1624449469537; 
- Wed, 23 Jun 2021 04:57:49 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJzIo3cIdMM77axzbNC2seeqQt7yKqHuR6IIF1fnq0ONZesNwCr/Fklnw6hnotyHCeu1vBHTGw==
-X-Received: by 2002:a5d:6485:: with SMTP id o5mr11003076wri.91.1624449469384; 
- Wed, 23 Jun 2021 04:57:49 -0700 (PDT)
-Received: from [192.168.1.115] (xdsl-188-155-177-222.adslplus.ch.
- [188.155.177.222])
- by smtp.gmail.com with ESMTPSA id o2sm2678212wrp.53.2021.06.23.04.57.48
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 23 Jun 2021 04:57:48 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-To: Petr Vorel <pvorel@suse.cz>
-References: <20210622145938.106477-1-krzysztof.kozlowski@canonical.com>
- <YNL9/k1iRralo/fj@pevik> <a7dd74e2-858f-19e4-d2bf-21cb77a3705e@canonical.com>
-Message-ID: <c015b22b-5775-7301-a8b8-13cdd7000fb6@canonical.com>
-Date: Wed, 23 Jun 2021 13:57:48 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 3F7A9601151
+ for <ltp@lists.linux.it>; Wed, 23 Jun 2021 14:04:05 +0200 (CEST)
+Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id B57031FD67;
+ Wed, 23 Jun 2021 12:04:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1624449844; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=gJ80CGpUxqa/pEn9cJavRcutiegHFmATcA8c9TtuM0k=;
+ b=JkDRBYnlxBWs0qhlwE3/q5GUSFom0+hXS2p2J3CDITXyh9UKcB3LY0SgX6v8EMLdgBrbhL
+ 3AvXeArI9e+7GAYSyVrASHJTRvZPL6QH3TzHmDBSgpwzH0LTsGq6DpI4Pt/HXV4GFv/y22
+ lUsS7NMr5p1vd94+ndWNoG9Ys6qu5Mo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1624449844;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=gJ80CGpUxqa/pEn9cJavRcutiegHFmATcA8c9TtuM0k=;
+ b=7WyrIa/mKhIlINOj3dvqMFpZHJhKGoxQ/PxMvGxZZgQYb24kOOf/Pzr9OlorFWlSUJW0ZQ
+ pEswSCgO73PdD3Aw==
+Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ by imap.suse.de (Postfix) with ESMTP id 97D2211A97;
+ Wed, 23 Jun 2021 12:04:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1624449844; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=gJ80CGpUxqa/pEn9cJavRcutiegHFmATcA8c9TtuM0k=;
+ b=JkDRBYnlxBWs0qhlwE3/q5GUSFom0+hXS2p2J3CDITXyh9UKcB3LY0SgX6v8EMLdgBrbhL
+ 3AvXeArI9e+7GAYSyVrASHJTRvZPL6QH3TzHmDBSgpwzH0LTsGq6DpI4Pt/HXV4GFv/y22
+ lUsS7NMr5p1vd94+ndWNoG9Ys6qu5Mo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1624449844;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=gJ80CGpUxqa/pEn9cJavRcutiegHFmATcA8c9TtuM0k=;
+ b=7WyrIa/mKhIlINOj3dvqMFpZHJhKGoxQ/PxMvGxZZgQYb24kOOf/Pzr9OlorFWlSUJW0ZQ
+ pEswSCgO73PdD3Aw==
+Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
+ id OCG6IzQj02DGDwAALh3uQQ
+ (envelope-from <chrubis@suse.cz>); Wed, 23 Jun 2021 12:04:04 +0000
+Date: Wed, 23 Jun 2021 13:38:30 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+Message-ID: <YNMdNqGiGXOgby6v@yuki>
+References: <20210623080157.26424-1-krzysztof.kozlowski@canonical.com>
+ <2a08d5c4-c002-7284-03d1-ff4441f8c9c5@canonical.com>
 MIME-Version: 1.0
-In-Reply-To: <a7dd74e2-858f-19e4-d2bf-21cb77a3705e@canonical.com>
-Content-Language: en-US
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <2a08d5c4-c002-7284-03d1-ff4441f8c9c5@canonical.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] controllers/cpuset_hotplug: skip unsupported
- Microsoft Hyper-V
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] device-drivers/cpufreq_boost: skip test on
+ virtual machines
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,33 +98,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 23/06/2021 11:35, Krzysztof Kozlowski wrote:
-> On 23/06/2021 11:25, Petr Vorel wrote:
->> Hi Krzysztof,
->>
->>> Microsoft Hyper-V with Linux guests does not support CPU hotplug, even
->>> if enabled in kernel configuration.  Quoting Ubuntu bug report from
->>> June 2018: "While Hyper-V may present all potential CPUs via ACPI MADT,
->>> CPU add/remove is not supported.". [1]
->>
->> Reviewed-by: Petr Vorel <pvorel@suse.cz>
->>
->> LGTM. How many of tests will need tst_virt_hyperv? Although we don't touch
->> legacy API, I'd make an exception and add it to both test.sh and tst_test.sh
->> (ideally with an API extension, i.e. test could use SKIP_VIRT="hyperv", but that
->> can wait till tests are converted).
+Hi!
+> > diff --git a/testcases/kernel/device-drivers/cpufreq/cpufreq_boost.c b/testcases/kernel/device-drivers/cpufreq/cpufreq_boost.c
+> > index b9739db37cb7..67917b3fea25 100644
+> > --- a/testcases/kernel/device-drivers/cpufreq/cpufreq_boost.c
+> > +++ b/testcases/kernel/device-drivers/cpufreq/cpufreq_boost.c
+> > @@ -90,6 +90,9 @@ static void setup(void)
+> >  	unsigned int i;
+> >  	tst_require_root();
+> >  
+> > +	if (tst_is_virt(VIRT_ANY))
+> > +		tst_brkm(TCONF, NULL, "running in a virtual machine, overclock not reliably measureable");
+> > +
+> >  	for (i = 0; i < ARRAY_SIZE(cdrv); ++i) {
+> >  		fd = open(cdrv[i].file, O_RDWR);
+> >  		if (fd == -1)
+> > 
 > 
-> Around CPU hotplug that would be the last one I did not spot so far
-> other failures but I also do not track all failures in nice way. Rather
-> fixing them ad-hoc...
+> Optionally, under virtual machine the test failure could be converted to
+> accepted pass. This would still allow to test CPUfreq boosting
+> interface. Any preferences?
 
-I just checked more and there are additional failures on Azure/HyperV
-with more nodes: cpuset_load_balance, cpuset_memory_pressure,
-cpuset_memory_spread and cpuset_sched_domains. These did not appear on
-smaller instances (e.g. 4 CPUs).
+I wonder what is the likehood of actually dicovering a bug by writing to
+the cpufreq boost file from within a VM, I guess that it's non-zero at
+least.
 
-Best regards,
-Krzysztof
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
