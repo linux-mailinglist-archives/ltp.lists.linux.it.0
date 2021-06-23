@@ -1,25 +1,25 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C0DC3B13E5
-	for <lists+linux-ltp@lfdr.de>; Wed, 23 Jun 2021 08:25:18 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id E1A573B13E6
+	for <lists+linux-ltp@lfdr.de>; Wed, 23 Jun 2021 08:25:29 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5CA633C2244
-	for <lists+linux-ltp@lfdr.de>; Wed, 23 Jun 2021 08:25:17 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id F16813C7021
+	for <lists+linux-ltp@lfdr.de>; Wed, 23 Jun 2021 08:25:28 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A42EA3C2244
+ by picard.linux.it (Postfix) with ESMTPS id C58E03C2244
  for <ltp@lists.linux.it>; Wed, 23 Jun 2021 08:25:07 +0200 (CEST)
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id D37301000F2D
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 432C91000F34
  for <ltp@lists.linux.it>; Wed, 23 Jun 2021 08:25:06 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
  s=mimecast20190719; t=1624429505;
@@ -27,28 +27,28 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=7smC1Y1TuwgqmTb25HWwSdaZJyCBI1zx0cD2IWR+jq0=;
- b=FawjU+/3HK7I6+4OMkuXdHxj5kiLAWoSMOlkdCcrRjCPJhxRQSD4e5WNn/43753gz30gYP
- SVrXKYWrsqjqhkH26Yxkjz7XDQeBQWyj462yPy+7qVuLM0MMFycTMKrMOHKp1d/9XgWQ0g
- 7WHHwizcGCotZkvuJ/uc/WDVqf2Fh04=
+ bh=Vu7h6pSroWjemM5eGsQER/LzmFQpN+2LCaoNFXRdwAI=;
+ b=IcP10fvv8p021QLsWN7KbUbKYTN2HoACQPv6+lio0efBDLA2d5V/mF+tXEPvdKDLijCs9T
+ jzIGtCExjdzAAM8gFEi1YVq9L87gYlGWMXci+QGEwKPAvMGQGC4Lpsl+QXQyeFreYI92+y
+ 2G72B4eTc6/Pc3ErixPEBS1SCpkEtWg=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-277-Idu47tfQNC2a-NMNwXv9MA-1; Wed, 23 Jun 2021 02:25:02 -0400
-X-MC-Unique: Idu47tfQNC2a-NMNwXv9MA-1
+ us-mta-124-mM-ZrAYyOiKDd57wHmoVbA-1; Wed, 23 Jun 2021 02:25:03 -0400
+X-MC-Unique: mM-ZrAYyOiKDd57wHmoVbA-1
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
  [10.5.11.22])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EC482100C660;
- Wed, 23 Jun 2021 06:25:00 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 05279362F8;
+ Wed, 23 Jun 2021 06:25:03 +0000 (UTC)
 Received: from liwang-workstation.nay.redhat.com
  (dhcp-66-81-187.nay.redhat.com [10.66.81.187])
- by smtp.corp.redhat.com (Postfix) with ESMTP id D71EF10016FE;
- Wed, 23 Jun 2021 06:24:59 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id A0E9C10016FE;
+ Wed, 23 Jun 2021 06:25:01 +0000 (UTC)
 From: Li Wang <liwang@redhat.com>
 To: ltp@lists.linux.it
-Date: Wed, 23 Jun 2021 14:24:55 +0800
-Message-Id: <20210623062456.430406-2-liwang@redhat.com>
+Date: Wed, 23 Jun 2021 14:24:56 +0800
+Message-Id: <20210623062456.430406-3-liwang@redhat.com>
 In-Reply-To: <20210623062456.430406-1-liwang@redhat.com>
 References: <20210623062456.430406-1-liwang@redhat.com>
 MIME-Version: 1.0
@@ -63,8 +63,8 @@ X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH v3 2/3] oom: enable lite == 1 for memory.swap.max
- testing
+Subject: [LTP] [PATCH v3 3/3] tst_cgroup: make use of alias in
+ safe_cgroup_has
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,63 +76,33 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: Richard Palethorpe <rpalethorpe@suse.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-oom03: adding print info and restore memory.swap.max after testing
-oom05: enable lite == 1 for memory.swap.max testing
+This is to fix the check issue of 'memory.swap.max' on CGroup v1.
 
+Reviewed-by: Richard Palethorpe <rpalethorpe@suse.com>
 Signed-off-by: Li Wang <liwang@redhat.com>
 ---
- testcases/kernel/mem/oom/oom03.c | 6 ++++++
- testcases/kernel/mem/oom/oom05.c | 8 ++++++--
- 2 files changed, 12 insertions(+), 2 deletions(-)
+ lib/tst_cgroup.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/testcases/kernel/mem/oom/oom03.c b/testcases/kernel/mem/oom/oom03.c
-index b3770cf8f..942b77ba1 100644
---- a/testcases/kernel/mem/oom/oom03.c
-+++ b/testcases/kernel/mem/oom/oom03.c
-@@ -46,6 +46,7 @@ static void verify_oom(void)
- 	testoom(0, 0, ENOMEM, 1);
+diff --git a/lib/tst_cgroup.c b/lib/tst_cgroup.c
+index 18e3b6169..61cc02fa7 100644
+--- a/lib/tst_cgroup.c
++++ b/lib/tst_cgroup.c
+@@ -1010,7 +1010,7 @@ int safe_cgroup_has(const char *const file, const int lineno,
+ 		if (!(alias = cgroup_file_alias(cfile, *dir)))
+ 		    continue;
  
- 	if (SAFE_CGROUP_HAS(cg, "memory.swap.max")) {
-+		tst_res(TINFO, "OOM on MEMCG with special memswap limitation:");
- 		/*
- 		 * Cgroup v2 tracks memory and swap in separate, which splits
- 		 * memory and swap counter. So with swappiness enable (default
-@@ -62,6 +63,11 @@ static void verify_oom(void)
- 			SAFE_CGROUP_PRINTF(cg, "memory.swap.max", "%lu", TESTMEM + MB);
+-		if (!faccessat((*dir)->dir_fd, file_name, F_OK, 0))
++		if (!faccessat((*dir)->dir_fd, alias, F_OK, 0))
+ 			return 1;
  
- 		testoom(0, 1, ENOMEM, 1);
-+
-+		if (TST_CGROUP_VER(cg, "memory") == TST_CGROUP_V1)
-+			SAFE_CGROUP_PRINTF(cg, "memory.swap.max", "%lu", ~0UL);
-+		else
-+			SAFE_CGROUP_PRINT(cg, "memory.swap.max", "max");
- 	}
- 
- 	/* OOM for MEMCG with mempolicy */
-diff --git a/testcases/kernel/mem/oom/oom05.c b/testcases/kernel/mem/oom/oom05.c
-index 9c9bba7f6..079cab123 100644
---- a/testcases/kernel/mem/oom/oom05.c
-+++ b/testcases/kernel/mem/oom/oom05.c
-@@ -63,8 +63,12 @@ static void verify_oom(void)
- 	if (SAFE_CGROUP_HAS(cg, "memory.swap.max")) {
- 		tst_res(TINFO, "OOM on CPUSET & MEMCG with "
- 				"special memswap limitation:");
--		SAFE_CGROUP_PRINTF(cg, "memory.swap.max", "%lu", TESTMEM);
--		testoom(0, 0, ENOMEM, 1);
-+		if (TST_CGROUP_VER(cg, "memory") != TST_CGROUP_V1)
-+			SAFE_CGROUP_PRINTF(cg, "memory.swap.max", "%lu", MB);
-+		else
-+			SAFE_CGROUP_PRINTF(cg, "memory.swap.max", "%lu", TESTMEM + MB);
-+
-+		testoom(0, 1, ENOMEM, 1);
- 
- 		tst_res(TINFO, "OOM on CPUSET & MEMCG with "
- 				"disabled memswap limitation:");
+ 		if (errno == ENOENT)
 -- 
 2.31.1
 
