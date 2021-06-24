@@ -1,86 +1,58 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B02B3B1E47
-	for <lists+linux-ltp@lfdr.de>; Wed, 23 Jun 2021 18:06:52 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BE473B2462
+	for <lists+linux-ltp@lfdr.de>; Thu, 24 Jun 2021 03:02:55 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id CE58F3C8A4B
-	for <lists+linux-ltp@lfdr.de>; Wed, 23 Jun 2021 18:06:51 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 2D5F43C8E3E
+	for <lists+linux-ltp@lfdr.de>; Thu, 24 Jun 2021 03:02:54 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 3B49D3C2021
- for <ltp@lists.linux.it>; Wed, 23 Jun 2021 18:06:48 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id 4E84D3C2307
+ for <ltp@lists.linux.it>; Thu, 24 Jun 2021 03:02:49 +0200 (CEST)
+Received: from unicom146.biz-email.net (unicom146.biz-email.net
+ [210.51.26.146])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 7377B200975
- for <ltp@lists.linux.it>; Wed, 23 Jun 2021 18:06:47 +0200 (CEST)
-Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
- (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id C87AA2195D;
- Wed, 23 Jun 2021 16:06:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1624464406;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=1MdPPUN/EDcPjkplXBAIfTOP3fh5nqKB/znLE3+1lnI=;
- b=D3zBY3KcBViepTJDnJZl4aiiw5iV1tcAZLJ8BePlB5ODa4Zh0d9UQ0HqC47hznVDdx4PQW
- VTMbiQB871sCPQs9Z0lDhB2fWoP84Z9i5aaFW3dxgIPbj9O7HA3/pXz24ttfKjNW+ez0LL
- +UTiaCAR0o5aiLh2VMfT3SqN89w1wJI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1624464406;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=1MdPPUN/EDcPjkplXBAIfTOP3fh5nqKB/znLE3+1lnI=;
- b=SjH31SRB76Z2lIVZ8TnVhUg5xcXzyENGJ+Y4+8gEml3g+mqrebJ3ryUiqIrG8eqb5BImXW
- DSuL600zFY3PW/BA==
-Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id 75ED911A97;
- Wed, 23 Jun 2021 16:06:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1624464406;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=1MdPPUN/EDcPjkplXBAIfTOP3fh5nqKB/znLE3+1lnI=;
- b=D3zBY3KcBViepTJDnJZl4aiiw5iV1tcAZLJ8BePlB5ODa4Zh0d9UQ0HqC47hznVDdx4PQW
- VTMbiQB871sCPQs9Z0lDhB2fWoP84Z9i5aaFW3dxgIPbj9O7HA3/pXz24ttfKjNW+ez0LL
- +UTiaCAR0o5aiLh2VMfT3SqN89w1wJI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1624464406;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=1MdPPUN/EDcPjkplXBAIfTOP3fh5nqKB/znLE3+1lnI=;
- b=SjH31SRB76Z2lIVZ8TnVhUg5xcXzyENGJ+Y4+8gEml3g+mqrebJ3ryUiqIrG8eqb5BImXW
- DSuL600zFY3PW/BA==
-Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id vo2BGRZc02CsFwAALh3uQQ
- (envelope-from <pvorel@suse.cz>); Wed, 23 Jun 2021 16:06:46 +0000
-Date: Wed, 23 Jun 2021 18:06:44 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: James Dong =?utf-8?B?KOiRo+S4luaxnyk=?= <dongshijiang@inspur.com>
-Message-ID: <YNNcFHTRmBtviT+Y@pevik>
-References: <52e4b3cba7d74f17b64816acaf50be01@inspur.com>
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 25E94600706
+ for <ltp@lists.linux.it>; Thu, 24 Jun 2021 03:02:46 +0200 (CEST)
+Received: from ([60.208.111.195])
+ by unicom146.biz-email.net ((LNX1044)) with ASMTP (SSL) id RXA00137;
+ Thu, 24 Jun 2021 09:02:37 +0800
+Received: from jtjnmail201620.home.langchao.com (10.100.2.20) by
+ jtjnmail201623.home.langchao.com (10.100.2.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2176.14; Thu, 24 Jun 2021 09:02:37 +0800
+Received: from jtjnmail201620.home.langchao.com ([fe80::24f6:b8e5:a824:6a6b])
+ by jtjnmail201620.home.langchao.com ([fe80::24f6:b8e5:a824:6a6b%17])
+ with mapi id 15.01.2176.014; Thu, 24 Jun 2021 09:02:37 +0800
+From: =?gb2312?B?SmFtZXMgRG9uZyAotq3KwL2tKQ==?= <dongshijiang@inspur.com>
+To: Petr Vorel <pvorel@suse.cz>
+Thread-Topic: [LTP] [PATCH] fix rpc_suite/rpc:add check returned value
+Thread-Index: AddolBJx4eueXHxIsE+jfZ2y41B5ZA==
+Date: Thu, 24 Jun 2021 01:02:37 +0000
+Message-ID: <92ed4ea616c14205b30f14f0caf26c95@inspur.com>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.72.58.101]
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <52e4b3cba7d74f17b64816acaf50be01@inspur.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+tUid: 2021624090238d4a36d916cb7c972d836c0fbb51f648e
+X-Abuse-Reports-To: service@corp-email.com
+Abuse-Reports-To: service@corp-email.com
+X-Complaints-To: service@corp-email.com
+X-Report-Abuse-To: service@corp-email.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH] fix rpc_suite/rpc:add check returned value
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -93,40 +65,41 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: "libtirpc-devel@lists.sourceforge.net"
  <libtirpc-devel@lists.sourceforge.net>,
  "linux-nfs@vger.kernel.org" <linux-nfs@vger.kernel.org>,
  Steve Dickson <SteveD@redhat.com>, "ltp@lists.linux.it" <ltp@lists.linux.it>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="gb2312"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Dong,
-
-> Hi Petr
-> I think this is just a simple test of some APIs, but some test cases are not standardized and cause errors like "Segmentation fault" during testing. I think it is necessary to fix these errors or delete these tests.
-
-Sure this fix can get in. I saw issues with some tests on openSUSE, but that's a
-separate problem (I was not able to find the problem thus report it.
-
-> Kind regards,
-> Dong
-
-> > +++ b/testcases/network/rpc/rpc-tirpc/tests_pack/rpc_suite/rpc/rpc_createdestroy_svc_destroy/rpc_svc_destroy.c
-> > @@ -46,6 +46,11 @@ int main(void)
-
-> >  	//First of all, create a server
-> >  	svcr = svcfd_create(fd, 0, 0);
-> > +
-> > +	//check returned value
-> > +	if ((SVCXPRT *) svcr == NULL) {
-IMHO casting is not required, right? Just
-	if (svcr == NULL) {
-
-Kind regards,
-Petr
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+SGkgUGV0cg0KDQpNeSB0ZXN0IGVudmlyb25tZW50IGlzIGNlbnRvczguMiwga2VybmVsIHZlcnNp
+b24gaXMgNC4xOCAoQ2VudE9TLTguMi4yMDA0LXg4Nl82NC1kdmQxLmlzbykNCkZvciBleGFtcGxl
+Og0KCXN2Y3IgPSBzdmNmZF9jcmVhdGUoZmQsIDAsIDApOw0KCS8vVGhlbiBjYWxsIGRlc3Ryb3kg
+bWFjcm8NCglzdmNfZGVzdHJveShzdmNyKTsNCg0KSWYgInN2Y2ZkX2NyZWF0ZSIgZmFpbHMsIHRo
+YXQgaXMsIHRoZSByZXR1cm4gdmFsdWUgaXMgTlVMTCBhbmQgdGhlbiBjYWxsICJzdmNfZGVzdHJv
+eSIgd2lsbCByZXBvcnQgYW4gZXJyb3IgIlNlZ21lbnRhdGlvbiBmYXVsdCINCg0KS2luZCByZWdh
+cmRzLA0KRG9uZw0KDQotLS0tLdPKvP7Urbz+LS0tLS0NCreivP7IyzogUGV0ciBWb3JlbCBbbWFp
+bHRvOnB2b3JlbEBzdXNlLmN6XSANCreiy83KsbzkOiAyMDIxxOo21MIyNMjVIDA6MDcNCsrVvP7I
+yzogSmFtZXMgRG9uZyAotq3KwL2tKSA8ZG9uZ3NoaWppYW5nQGluc3B1ci5jb20+DQqzrcvNOiBs
+dHBAbGlzdHMubGludXguaXQ7IEFsZXhleSBLb2RhbmV2IDxhbGVrc2VpLmtvZGFuZXZAYmVsbC1z
+dy5jb20+OyBTdGV2ZSBEaWNrc29uIDxTdGV2ZURAcmVkaGF0LmNvbT47IGxpYnRpcnBjLWRldmVs
+QGxpc3RzLnNvdXJjZWZvcmdlLm5ldDsgbGludXgtbmZzQHZnZXIua2VybmVsLm9yZw0K1vfM4jog
+UmU6IFtMVFBdIFtQQVRDSF0gZml4IHJwY19zdWl0ZS9ycGM6YWRkIGNoZWNrIHJldHVybmVkIHZh
+bHVlDQoNCkhpIERvbmcsDQoNCj4gSGkgUGV0cg0KPiBJIHRoaW5rIHRoaXMgaXMganVzdCBhIHNp
+bXBsZSB0ZXN0IG9mIHNvbWUgQVBJcywgYnV0IHNvbWUgdGVzdCBjYXNlcyBhcmUgbm90IHN0YW5k
+YXJkaXplZCBhbmQgY2F1c2UgZXJyb3JzIGxpa2UgIlNlZ21lbnRhdGlvbiBmYXVsdCIgZHVyaW5n
+IHRlc3RpbmcuIEkgdGhpbmsgaXQgaXMgbmVjZXNzYXJ5IHRvIGZpeCB0aGVzZSBlcnJvcnMgb3Ig
+ZGVsZXRlIHRoZXNlIHRlc3RzLg0KDQpTdXJlIHRoaXMgZml4IGNhbiBnZXQgaW4uIEkgc2F3IGlz
+c3VlcyB3aXRoIHNvbWUgdGVzdHMgb24gb3BlblNVU0UsIGJ1dCB0aGF0J3MgYSBzZXBhcmF0ZSBw
+cm9ibGVtIChJIHdhcyBub3QgYWJsZSB0byBmaW5kIHRoZSBwcm9ibGVtIHRodXMgcmVwb3J0IGl0
+Lg0KDQo+IEtpbmQgcmVnYXJkcywNCj4gRG9uZw0KDQo+ID4gKysrIGIvdGVzdGNhc2VzL25ldHdv
+cmsvcnBjL3JwYy10aXJwYy90ZXN0c19wYWNrL3JwY19zdWl0ZS9ycGMvcnBjX2MNCj4gPiArKysg
+cmVhdGVkZXN0cm95X3N2Y19kZXN0cm95L3JwY19zdmNfZGVzdHJveS5jDQo+ID4gQEAgLTQ2LDYg
+KzQ2LDExIEBAIGludCBtYWluKHZvaWQpDQoNCj4gPiAgCS8vRmlyc3Qgb2YgYWxsLCBjcmVhdGUg
+YSBzZXJ2ZXINCj4gPiAgCXN2Y3IgPSBzdmNmZF9jcmVhdGUoZmQsIDAsIDApOw0KPiA+ICsNCj4g
+PiArCS8vY2hlY2sgcmV0dXJuZWQgdmFsdWUNCj4gPiArCWlmICgoU1ZDWFBSVCAqKSBzdmNyID09
+IE5VTEwpIHsNCklNSE8gY2FzdGluZyBpcyBub3QgcmVxdWlyZWQsIHJpZ2h0PyBKdXN0DQoJaWYg
+KHN2Y3IgPT0gTlVMTCkgew0KDQpLaW5kIHJlZ2FyZHMsDQpQZXRyDQoKLS0gCk1haWxpbmcgbGlz
+dCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
