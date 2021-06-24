@@ -2,89 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB6FD3B2750
-	for <lists+linux-ltp@lfdr.de>; Thu, 24 Jun 2021 08:16:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A72173B2A27
+	for <lists+linux-ltp@lfdr.de>; Thu, 24 Jun 2021 10:15:33 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5A2C33C6F4A
-	for <lists+linux-ltp@lfdr.de>; Thu, 24 Jun 2021 08:16:01 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 15C693C6F40
+	for <lists+linux-ltp@lfdr.de>; Thu, 24 Jun 2021 10:15:33 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 96C053C2298
- for <ltp@lists.linux.it>; Thu, 24 Jun 2021 08:15:57 +0200 (CEST)
-Received: from mail1.bemta26.messagelabs.com (mail1.bemta26.messagelabs.com
- [85.158.142.4])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 5DFE83C2B9A
+ for <ltp@lists.linux.it>; Thu, 24 Jun 2021 10:15:30 +0200 (CEST)
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [IPv6:2a00:1450:4864:20::136])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 920F4600D56
- for <ltp@lists.linux.it>; Thu, 24 Jun 2021 08:15:56 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fujitsu.com;
- s=170520fj; t=1624515355; i=@fujitsu.com;
- bh=Vzn6OFe6tLakds27JXJQDVINRK+olsXVYCGhvkDIb1s=;
- h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type;
- b=n5q9ePFrZLFJ3508UWFsKQNf1DnoTZdR4pg5KX1nD0UHW0+Yjr7fn9FWESYgMgb6a
- rZ1cs+4yUyStJ9bymjcqm0lPCpX8txp/t1jsb8BlUq3++ue9wjzI+BQPbTywTMRNfM
- t3jpIeizcLr+IdDszchoofSLwI0yj3HPBWvNhuj/TTfYYJHae5MtIL8gKYg59yRiup
- WZ23pOzlQf/mAVkeH7/PIYg/mBze/+itDekL+p3f7Xa5L/fei9QUfbi4xou6GEc1k1
- EfBZ7BNJJ0UcXoflYdQ6RBBJimJzrRGf405QMKjkTU0mBRoB+2paYXlOjFGMPtysKj
- Hdh3VInYCbroQ==
-Received: from [100.113.1.143] (using TLSv1.2 with cipher
- DHE-RSA-AES256-GCM-SHA384 (256 bits))
- by server-4.bemta.az-a.eu-central-1.aws.symcld.net id D6/4A-52906-B1324D06;
- Thu, 24 Jun 2021 06:15:55 +0000
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFtrNIsWRWlGSWpSXmKPExsViZ8MxVVda+Uq
- CwaTl/BbTXxxls1jxfQejA5PHvt/rWD3OLDjCHsAUxZqZl5RfkcCa0bvgPHvBIv6KrtvLmRoY
- 7/N0MXJxCAm8ZpRomDadGcLZwyjxbusEli5GTg42AU2JZ50LmEFsEQFRic/Tz4HZzAK2Es8fX
- mIDsYUFEiXmXbzLBGKzCKhKvDr8hR3E5hXwkDh++xojiC0hoCAx5eF7Zoi4oMTJmU9YIOZISB
- x88YIZokZR4lLHN6j6CokZM7axTWDknYWkZRaSlgWMTKsYLZOKMtMzSnITM3N0DQ0MdA0NjXU
- NdY2MzPQSq3QT9VJLdZNT80qKEoGyeonlxXrFlbnJOSl6eaklmxiBYZdSyPhoB+Pp1x/0DjFK
- cjApifLe57+SIMSXlJ9SmZFYnBFfVJqTWnyIUYaDQ0mCV0EBKCdYlJqeWpGWmQOMAZi0BAePk
- givpCxQmre4IDG3ODMdInWK0ZJj59F5i5g5mj4sAZKb5y5dxCzEkpeflyolztuiCNQgANKQUZ
- oHNw4Wp5cYZaWEeRkZGBiEeApSi3IzS1DlXzGKczAqCfNWgEzhycwrgdv6CuggJqCDFH5fBDm
- oJBEhJdXAFD2/+EVlaeqnki8Kcy1Yzj14XN77soY7O52XL/Xq1m2nDbl2qnJc/8icMkmLw+3t
- dDnRfhWL1ogr5z9/P33qXoje4f5Nr0p99zw6k57VuPmyzd1jSQxSC2V2JW0qybuZYH72baT85
- gk8+q9lWL+JfXWSqfHuWpsu9enta3/Oni1l9ZqN8ff2xXicDjpYs/Tb1hBNg8cHLM/yr3c1nX
- pjlc2qj/c2BS1iuXNKpulO5oXZ/HJrpWqL7Ze0L2o+srx52qYLsZxPTOdeeMqYl/qgd2kg3+N
- DU6q1jr+e6lObq3fnwvlb3/TbTyxZue226vwZO1htbs8zbxC8fvAQb9vK1hcTP57ujFuxwrL7
- aod8k4wSS3FGoqEWc1FxIgDvM8kwTgMAAA==
-X-Env-Sender: xuyang2018.jy@fujitsu.com
-X-Msg-Ref: server-6.tower-226.messagelabs.com!1624515354!100243!1
-X-Originating-IP: [62.60.8.149]
-X-SYMC-ESS-Client-Auth: outbound-route-from=pass
-X-StarScan-Received: 
-X-StarScan-Version: 9.75.3; banners=-,-,-
-X-VirusChecked: Checked
-Received: (qmail 5687 invoked from network); 24 Jun 2021 06:15:55 -0000
-Received: from unknown (HELO mailhost2.uk.fujitsu.com) (62.60.8.149)
- by server-6.tower-226.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
- encrypted SMTP; 24 Jun 2021 06:15:55 -0000
-Received: from R01UKEXCASM126.r01.fujitsu.local ([10.183.43.178])
- by mailhost2.uk.fujitsu.com (8.14.5/8.14.5) with ESMTP id 15O6FmTY024151
- (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256 verify=FAIL);
- Thu, 24 Jun 2021 07:15:51 +0100
-Received: from localhost.localdomain (10.167.220.84) by
- R01UKEXCASM126.r01.fujitsu.local (10.183.43.178) with Microsoft SMTP Server
- (TLS) id 15.0.1497.18; Thu, 24 Jun 2021 07:15:45 +0100
-From: Yang Xu <xuyang2018.jy@fujitsu.com>
-To: <chrubis@suse.cz>
-Date: Thu, 24 Jun 2021 14:16:13 +0800
-Message-ID: <1624515373-3899-1-git-send-email-xuyang2018.jy@fujitsu.com>
-X-Mailer: git-send-email 1.8.3.1
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 8536D6002AC
+ for <ltp@lists.linux.it>; Thu, 24 Jun 2021 10:15:30 +0200 (CEST)
+Received: by mail-lf1-x136.google.com with SMTP id t17so8860825lfq.0
+ for <ltp@lists.linux.it>; Thu, 24 Jun 2021 01:15:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=bell-sw-com.20150623.gappssmtp.com; s=20150623;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=pT6jYunljNJ7NKEvMuzWS+00KoMJX1jli8HevOfHcIc=;
+ b=P1YdrrOzJxdnBjHWjlmyQCD6/9lm6oqLowCDPC5ECmIMVczUqg2DgcIuIc+rXRciS2
+ tNKNiqQHv44tYzHcxteidgmQSA0s6x04aaQPreXiPoEACtzLT8vCDZk6WcxGsfrpAUuX
+ WBj07BnUSYjSa7dPXv6nHjGt2seQ1fAsA7LLcnz8ybumtvisj4xqi93cSyVkfIWEu86r
+ se62cTbUfeQDf4LU3WU7ZhAhsEQxnVATRJ8Mhj4cNK2HeXp6PHMloYHeND6SGa0WwMhP
+ I7S/ID8M2cXYwzn28Jdw+U9lxPOeoOMRIaS2DorZM2FumKYURH264/0xTqdib01HR5eI
+ JuNA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=pT6jYunljNJ7NKEvMuzWS+00KoMJX1jli8HevOfHcIc=;
+ b=CwMYd1TcaMfm6hgIiF3z4T6IeRMmyKjwbjQjj+Y0QR+7iYrupy1OXn/eGSsz9CWAC/
+ ZFu/4tfS9wG4qkzzZ5u3m2wDKGCW+QAdepyq0P5SHFGesWaqL0E9mrWrqUiHMi7yZP7d
+ 9ZzTIqpZL1hF9VtAt+OMH5zJve2K7IeV3Mcf07YXIhZwdRpLVzJR0Z/MzhiPadHM+0fG
+ QyDxmiV6qKgLWgdZr6DwaHgFbKpZfIf+z0dIUo69AbVWt9UfNMfvpoJ4TL59T8DuPDwH
+ lxVhaIPlYfZAkG9K+1ULw9jtYBKoTyNj7pN61YQkmw5MbhYynKtjbPeIfx/zHElj5SE7
+ xMlA==
+X-Gm-Message-State: AOAM533wFhcOMoZvyjlCtFR5ybATFgcho/SzbgIQ4RkP6pf7tiH3tvEZ
+ R0KLcV8tBPs5DUcmGWwFuqWgbPrf8xIw
+X-Google-Smtp-Source: ABdhPJwUNfppkSqrWOOff7uy2SLwYKkb0kuM32euaNpCOtMJnZAJt2ld6mC1pWz0+P86LD8VIJ6tFg==
+X-Received: by 2002:a05:6512:33b8:: with SMTP id
+ i24mr1486982lfg.540.1624522529775; 
+ Thu, 24 Jun 2021 01:15:29 -0700 (PDT)
+Received: from localhost.localdomain ([91.247.148.7])
+ by smtp.gmail.com with ESMTPSA id r18sm215560ljp.76.2021.06.24.01.15.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 24 Jun 2021 01:15:29 -0700 (PDT)
+From: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
+To: ltp@lists.linux.it
+Date: Thu, 24 Jun 2021 11:14:59 +0300
+Message-Id: <20210624081500.11715-1-aleksei.kodanev@bell-sw.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD09.g08.fujitsu.local (10.167.33.85) To
- R01UKEXCASM126.r01.fujitsu.local (10.183.43.178)
 X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS autolearn=disabled
- version=3.4.4
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH] ipc/msgget03: Make sure we get ENOSPC error after
- creating MSGMNI message queues
+Subject: [LTP] [PATCH 1/2] lib/tst_test: setup TCID earlier in do_setup()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,76 +80,50 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Even msgget() failed, this for loop still continues. So we can't know whether
-system creates actual MSGMNI message queues and then fail with ENOSPC. Fix this by
-reporting fail if msgget failed in setup.
+TCID can be NULL in tst_tmpdir() because it is set after do_setup():
 
-Also make use of TST_EXP_FAIL2 macro.
+    tst_run_tcases()
+        do_setup()
+            ...
+            tid = get_tid();
+            ...
+            tst_tmpdir()  /* using TCID here */
+        TCID = tid;
 
-Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
+Signed-off-by: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
 ---
- .../kernel/syscalls/ipc/msgget/msgget03.c     | 21 +++++++------------
- 1 file changed, 7 insertions(+), 14 deletions(-)
+ lib/tst_test.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/ipc/msgget/msgget03.c b/testcases/kernel/syscalls/ipc/msgget/msgget03.c
-index 8fa620855..da3753a19 100644
---- a/testcases/kernel/syscalls/ipc/msgget/msgget03.c
-+++ b/testcases/kernel/syscalls/ipc/msgget/msgget03.c
-@@ -20,22 +20,14 @@
- #include "tst_safe_sysv_ipc.h"
- #include "libnewipc.h"
+diff --git a/lib/tst_test.c b/lib/tst_test.c
+index 36a4809c7..55449c80b 100644
+--- a/lib/tst_test.c
++++ b/lib/tst_test.c
+@@ -915,7 +915,7 @@ static void do_setup(int argc, char *argv[])
  
--static int maxmsgs;
-+static int maxmsgs, queue_cnt;
- static int *queues;
- static key_t msgkey;
+ 	assert_test_fn();
  
- static void verify_msgget(void)
- {
--	TEST(msgget(msgkey + maxmsgs, IPC_CREAT | IPC_EXCL));
--	if (TST_RET != -1)
--		tst_res(TFAIL, "msgget() succeeded unexpectedly");
+-	tid = get_tid(argv);
++	TCID = tid = get_tid(argv);
+ 
+ 	if (tst_test->sample)
+ 		tst_test = tst_timer_test_setup(tst_test);
+@@ -1412,8 +1412,6 @@ void tst_run_tcases(int argc, char *argv[], struct tst_test *self)
+ 
+ 	do_setup(argc, argv);
+ 
+-	TCID = tid;
 -
--	if (TST_ERR == ENOSPC) {
--		tst_res(TPASS | TTERRNO, "msgget() failed as expected");
--	} else {
--		tst_res(TFAIL | TTERRNO, "msgget() failed unexpectedly,"
--			" expected ENOSPC");
--	}
-+	TST_EXP_FAIL2(msgget(msgkey + maxmsgs, IPC_CREAT | IPC_EXCL), ENOSPC,
-+		"msgget(%i, %i)", msgkey + maxmsgs, IPC_CREAT | IPC_EXCL);
- }
+ 	SAFE_SIGNAL(SIGALRM, alarm_handler);
+ 	SAFE_SIGNAL(SIGUSR1, heartbeat_handler);
  
- static void setup(void)
-@@ -52,8 +44,9 @@ static void setup(void)
- 		queues[num] = -1;
- 
- 		res = msgget(msgkey + num, IPC_CREAT | IPC_EXCL);
--		if (res != -1)
--			queues[num] = res;
-+		if (res == -1)
-+			tst_brk(TBROK | TERRNO, "msgget failed unexpectedly");
-+		queues[queue_cnt++] = res;
- 	}
- 
- 	tst_res(TINFO, "The maximum number of message queues (%d) reached",
-@@ -67,7 +60,7 @@ static void cleanup(void)
- 	if (!queues)
- 		return;
- 
--	for (num = 0; num < maxmsgs; num++) {
-+	for (num = 0; num < queue_cnt; num++) {
- 		if (queues[num] != -1)
- 			SAFE_MSGCTL(queues[num], IPC_RMID, NULL);
- 	}
 -- 
-2.23.0
+2.25.1
 
 
 -- 
