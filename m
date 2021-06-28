@@ -1,61 +1,82 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 951AE3B57F7
-	for <lists+linux-ltp@lfdr.de>; Mon, 28 Jun 2021 05:58:07 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 69AC73B5851
+	for <lists+linux-ltp@lfdr.de>; Mon, 28 Jun 2021 06:27:52 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3B1BC3C76D7
-	for <lists+linux-ltp@lfdr.de>; Mon, 28 Jun 2021 05:58:07 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 2DEFE3C5771
+	for <lists+linux-ltp@lfdr.de>; Mon, 28 Jun 2021 06:27:52 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 660C73C291C
- for <ltp@lists.linux.it>; Mon, 28 Jun 2021 05:58:04 +0200 (CEST)
-Received: from regular1.263xmail.com (regular1.263xmail.com [211.150.70.199])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id C7FA03C21F2
+ for <ltp@lists.linux.it>; Mon, 28 Jun 2021 06:27:50 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 40B591000402
- for <ltp@lists.linux.it>; Mon, 28 Jun 2021 05:58:02 +0200 (CEST)
-Received: from localhost (unknown [192.168.167.235])
- by regular1.263xmail.com (Postfix) with ESMTP id 9AA0E11D8
- for <ltp@lists.linux.it>; Mon, 28 Jun 2021 11:58:00 +0800 (CST)
-X-MAIL-GRAY: 0
-X-MAIL-DELIVERY: 1
-X-ADDR-CHECKED: 0
-X-SKE-CHECKED: 1
-X-ABS-CHECKED: 1
-X-ANTISPAM-LEVEL: 2
-Received: from uos-pc (unknown [113.200.76.118])
- by smtp.263.net (postfix) whith ESMTP id
- P5175T139827863340800S1624852660197046_; 
- Mon, 28 Jun 2021 11:58:00 +0800 (CST)
-X-IP-DOMAINF: 1
-X-UNIQUE-TAG: <969d7b29aac56c17dcda0c2b6debfcc5>
-X-RL-SENDER: gouhao@uniontech.com
-X-SENDER: gouhao@uniontech.com
-X-LOGIN-NAME: gouhao@uniontech.com
-X-FST-TO: liwang@redhat.com
-X-RCPT-COUNT: 4
-X-SENDER-IP: 113.200.76.118
-X-ATTACHMENT-NUM: 0
-X-System-Flag: 0
-Date: Mon, 28 Jun 2021 11:57:40 +0800
-From: gouhao@uniontech.com
-To: liwang@redhat.com
-Message-Id: <20210628115740.5da3dbfda1c263f95d66c77a@uniontech.com>
-UOS-MsgId: <1624852660068-0>
-Mime-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 5CD731A0081A
+ for <ltp@lists.linux.it>; Mon, 28 Jun 2021 06:27:48 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1624854467;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=A88g9AUduFdDeKi1TkN2bgR0S6HHsxzcjfnyGrro/nY=;
+ b=Oee2g0mTytl6y/G+qJxcpe9ta0FqPFeVkK+URtbbOkDaqM7C0qLF33P7M6A1KKU4qVT0ii
+ 6cPXVhx8AYMndN/2MmMwxkk42avh+Hj2U54ZCh5/yN/C5cvu2IT+CDZhMg+iu2DNWI9Ide
+ TxrlTUzkZqSSq1VwwX4lmg4E2uKtQ8U=
+Received: from mail-yb1-f197.google.com (mail-yb1-f197.google.com
+ [209.85.219.197]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-142-ixCSGCXBMny2BYiwCeQkeQ-1; Mon, 28 Jun 2021 00:27:45 -0400
+X-MC-Unique: ixCSGCXBMny2BYiwCeQkeQ-1
+Received: by mail-yb1-f197.google.com with SMTP id
+ k32-20020a25b2a00000b0290557cf3415f8so3465331ybj.1
+ for <ltp@lists.linux.it>; Sun, 27 Jun 2021 21:27:45 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=IGLcMaMgsa9LJ3775mh79kwPA+lcSGShlQVkJpWu2Ww=;
+ b=OqheD8eUL6QJZWGjvufQMmMPVRUI5o8RJ+H5OPtpsDJU2sAPKDeQOgY0UYFb3f4pbr
+ MW4POQSGiDdPXlx9KHtLJTAzWxJU5qqVdNwi45cONfIvDdbM/ZID9qvxvA9i5ZZ6DHYG
+ pqvfpMai38q5Z5UyMYl/O6gWeyn/gru9GwUaCjLmAkcaACJFIw1kQGd+DaUa4sA2fuNe
+ jbBlAsZZ9U0V+mNjZjRb2T8rN87XWQUttgAmrCkhO8RHFJ4mstyg9c5SQKGWGogxCNRM
+ NKCHWsdgkN1bzevK4w/SOsWmCUF+AeK5DqNDRF2Khx1gN3ApLj2qctBMajnHL2+JV8+s
+ hl0Q==
+X-Gm-Message-State: AOAM530Vl6CTMfHPoM6Q1Z+DCRLnOW5S9wk2EZooAoYOUYppsouOsEI6
+ CjxpWqobiQWLsBHYc5TGgzcFr0PQnB+QiUnEpV0OqwStpQ3N9VooIzjHUxYn2aARoqALEVB1z83
+ 3KQ+edmzEpIzCM0UFAe1ElDfGolg=
+X-Received: by 2002:a25:3882:: with SMTP id
+ f124mr27454982yba.110.1624854464487; 
+ Sun, 27 Jun 2021 21:27:44 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwXKQNx9Zw7tMEgvqFOcxzrnnRljaxlwwXu2FnXn035qsrX9J+MqSwuuxPvt/jA5WUpKVQUGmDL4kObe6sDses=
+X-Received: by 2002:a25:3882:: with SMTP id
+ f124mr27454954yba.110.1624854464224; 
+ Sun, 27 Jun 2021 21:27:44 -0700 (PDT)
+MIME-Version: 1.0
+References: <20210628115740.5da3dbfda1c263f95d66c77a@uniontech.com>
+In-Reply-To: <20210628115740.5da3dbfda1c263f95d66c77a@uniontech.com>
+From: Li Wang <liwang@redhat.com>
+Date: Mon, 28 Jun 2021 12:27:32 +0800
+Message-ID: <CAEemH2cMAEuf_Qx-UE8LFX_1zB6N=p=RzJUXr2+tLAFLHuqg9A@mail.gmail.com>
+To: gouhao@uniontech.com
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=HTML_MESSAGE,MIME_HTML_ONLY,
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] =?gb2312?b?u9i4tKO6UmU6IFJlOiAgW1BBVENIXSBmaXggY3B1aG90?=
- =?gb2312?b?cGx1ZzA0IGNoZWNrIGxhc3QgY3B1IGVycm9y?=
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] fix cpuhotplug04 check last cpu error
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,39 +88,118 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: weidong@uniontech.com, jiaofenfang@uniontech.com, ltp@lists.linux.it
-Content-Type: multipart/mixed; boundary="===============0196449777=="
+Cc: weidong@uniontech.com, jiaofenfang@uniontech.com,
+ LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============1661315605=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0196449777==
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+--===============1661315605==
+Content-Type: multipart/alternative; boundary="00000000000026f66505c5cbe9bc"
 
-<html xmlns='http://www.w3.org/1999/xhtml'> <head><meta http-equiv='content-type' content='text/html;charset=utf-8'></head><body><div><div id="MailBelowDiv"></div><div style="word-wrap: break-word;"><div>This change makes sense.</div><div><br></div><div>On my computer, the last CPU can't be offline, which causes the execution of this testcase to fail.</div><div><br></div><div>However, the testcase makes special treatment to the last CPU. If the last CPU cannot be offline, the execution result of the testcase should not be affected.</div><div><br></div><div>Therefore, if cpu0 does not have an online file, it will lead to an error in the judgment of the last CPU.<br><div id="sign"><hr width="300" align="left"><p style="font-family: tahoma, arial, helvetica, sans-serif; font-size: 12px; background: rgb(254, 254, 254);"><strong><span style="font-size: 13.5pt;">统信软件技术有限公司</span></strong><span lang="EN-US">&nbsp;&nbsp; &nbsp;</span></p><p style="font-family: tah
- oma, arial, helvetica, sans-serif; font-size: 12px; background: rgb(254, 254, 254);"><strong><span lang="EN-US" style="font-size: 7.5pt;">UnionTech Software Technology Co., Ltd.&nbsp;</span></strong><span style="font-size: 10pt;">　</span></p><p style="font-family: tahoma, arial, helvetica, sans-serif; font-size: 12px; background: rgb(254, 254, 254);"><span style="background-color: rgb(255, 255, 255); font-size: 10pt;">官网：</span><span lang="EN-US" style="background-color: rgb(255, 255, 255); font-size: 10pt; font-family: Tahoma, sans-serif;">www.uniontech.com</span><span style="font-size: 9pt; background-color: rgb(255, 255, 255);">　　</span></p><p style="background-color: rgb(255, 255, 255); font-family: tahoma, arial, helvetica, sans-serif; font-size: 12px;"><br></p><div style="color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);"><span style="font-family: tahoma, arial, helvetica, sans-serif; font-size: 12px;">此电子邮件消息仅供预期收件人�
- ��用，其中可能包含保密或特权使用信息。如果您不是预期收件人，请勿使用、传播、分发或复制此电子邮件或信赖此邮件采取任何行动。如果您误收了此邮件，请立即回复邮件通知统信软件技术有限公司发件人，并删除误收电子邮件及其相关附件。感谢配合！</span>&nbsp;&nbsp;</div><div style="color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);"><span style="font-family: tahoma, arial, helvetica, sans-serif; font-size: 12px;"><br></span>&nbsp;</div><div style="color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);"><span style="font-family: tahoma, arial, helvetica, sans-serif; font-size: 12px;">This email message is intended only for the use of the individual or entity who/which is the intended recipient and may contain information that is privileged or confidential. If you are not the intended recipient, you are hereby notified that any use, dissemination, distribution or
-  copying of, or taking any action in reliance on, this e-mail is strictly prohibited. If you have received this email in error, please notify UnionTech Software Technology&nbsp; immediately by replying to this e-mail and immediately delete and discard all copies of the e-mail and the attachment thereto (if any). Thank you.</span>&nbsp;&nbsp;</div></div></div>------------------------------------------------------------------<div><br></div></div><div id="summernote"><div id="MailBelowDiv"></div></div><div dir="ltr"><div dir="ltr"><div style="font-size:small" class="gmail_default"><br></div></div><br><div class="gmail_quote"><div class="gmail_attr" dir="ltr">On Mon, Jun 28, 2021 at 11:03 AM &lt;<a href="mailto:gouhao@uniontech.com">gouhao@uniontech.com</a>&gt; wrote:<br></div><blockquote style="margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex" class="gmail_quote"> <div><div><div id="gmail-m_-2047747051835399752MailBelowDiv"></div><div style="over
- flow-wrap: break-word;"><div>hi, LiWang,</div><div><br></div><div>My cpu is&nbsp;Hygon C86 7185 32-core Processor, x86_64 architecture， kernel is 4.19.90</div><div>Only cpu0 has no files，It doesn't seem to have anything to do with the kernel. I tried other kernels, too</div></div></div></div></blockquote><div><br></div><div><div style="font-size:small" class="gmail_default">Thanks for the info.</div><div style="font-size:small" class="gmail_default"><br></div><div style="font-size:small" class="gmail_default">I checked my laptop (5.12.11-300.fc34.x86_64), it has no 'online' file in the first cpu0 as well.</div>It <span style="font-size:small" class="gmail_default">seems common to consider</span>&nbsp;cpu0 is always online, so it won’t have “cpu0/online”.</div><div><div style="font-size:small" class="gmail_default">(I got this view from google search ^)</div><br></div><div><div style="font-size:small" class="gmail_default"><br></div><div style="font-size:small" clas
- s="gmail_default">But go back to your patch, does it really make sense to correct</div><div style="font-size:small" class="gmail_default">the judgment of the last CPU?</div><div style="font-size:small" class="gmail_default"><br></div><div style="font-size:small" class="gmail_default">If I understand correctly, the original judgment is purposely to</div><div style="font-size:small" class="gmail_default">guarantee&nbsp;all CPUs can be safely offline, so if there is already</div><div style="font-size:small" class="gmail_default">a cpu0 without&nbsp;an 'online' file, it will be filtered&nbsp;out, right? This</div><div style="font-size:small" class="gmail_default">means all of the remaining hotplugged&nbsp;CPUs can be offline safely.&nbsp;</div><div style="font-size:small" class="gmail_default">In&nbsp;this case, the judgment of the last CPU is losing effect as</div><div style="font-size:small" class="gmail_default">expected. Why should we correct it?</div><div style="font-size:s
- mall" class="gmail_default"><br></div><div style="font-size:small" class="gmail_default">Or, do you get any failures/abnormal in&nbsp;testing?</div><br></div><div>&nbsp;</div><blockquote style="margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex" class="gmail_quote"><div><div><div style="overflow-wrap: break-word;"><div><br></div><div>Attached is a screenshot.<br><div id="gmail-m_-2047747051835399752sign"><hr align="left" width="300"><p style="font-family:tahoma,arial,helvetica,sans-serif;font-size:12px;background:rgb(254,254,254)"><strong><span style="font-size:13.5pt">统信软件技术有限公司</span></strong><span lang="EN-US">&nbsp;&nbsp; &nbsp;</span></p><p style="font-family:tahoma,arial,helvetica,sans-serif;font-size:12px;background:rgb(254,254,254)"><strong><span style="font-size:7.5pt" lang="EN-US">UnionTech Software Technology Co., Ltd.&nbsp;</span></strong><span style="font-size:10pt">　</span></p><p style="font-family:tahoma,aria
- l,helvetica,sans-serif;font-size:12px;background:rgb(254,254,254)"><span style="background-color:rgb(255,255,255);font-size:10pt">官网：</span><span style="background-color:rgb(255,255,255);font-size:10pt;font-family:Tahoma,sans-serif" lang="EN-US"><a href="http://www.uniontech.com">www.uniontech.com</a></span><span style="font-size:9pt;background-color:rgb(255,255,255)">　　</span></p><p style="background-color:rgb(255,255,255);font-family:tahoma,arial,helvetica,sans-serif;font-size:12px"><br></p><div style="color:rgb(51,51,51);background-color:rgb(255,255,255)"><span style="font-family:tahoma,arial,helvetica,sans-serif;font-size:12px">此电子邮件消息仅供预期收件人使用，其中可能包含保密或特权使用信息。如果您不是预期收件人，请勿使用、传播、分发或复制此电子邮件或信赖此邮件采取任何行动。如果您误收了此邮件，请立即回复邮件通知统信软件技术有限公司发件人，并删除误收
- 电子邮件及其相关附件。感谢配合！</span>&nbsp;&nbsp;</div><div style="color:rgb(51,51,51);background-color:rgb(255,255,255)"><span style="font-family:tahoma,arial,helvetica,sans-serif;font-size:12px"><br></span>&nbsp;</div><div style="color:rgb(51,51,51);backgrou
-nd-color:rgb(255,255,255)"><span style="font-family:tahoma,arial,helvetica,sans-serif;font-size:12px">This email message is intended only for the use of the individual or entity who/which is the intended recipient and may contain information that is privileged or confidential. If you are not the intended recipient, you are hereby notified that any use, dissemination, distribution or copying of, or taking any action in reliance on, this e-mail is strictly prohibited. If you have received this email in error, please notify UnionTech Software Technology&nbsp; immediately by replying to this e-mail and immediately delete and discard all copies of the e-mail and the attachment thereto (if any). Thank you.</span>&nbsp;&nbsp;</div></div></div>------------------------------------------------------------------<div><br></div></div><div id="gmail-m_-2047747051835399752summernote"><div id="gmail-m_-2047747051835399752MailBelowDiv"></div></div><div dir="ltr"><div dir="ltr"><div style="fon
- t-size:small">Hi Hao,</div></div><br><div class="gmail_quote"><div dir="ltr" class="gmail_attr">On Mon, Jun 28, 2021 at 9:16 AM Gou Hao &lt;<a href="mailto:gouhao@uniontech.com">gouhao@uniontech.com</a>&gt; wrote:<br></div><blockquote class="gmail_quote" style="margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">From: gouhao &lt;<a href="mailto:gouhao@uniontech.com">gouhao@uniontech.com</a>&gt;<br>
-<br></blockquote><div>&nbsp;</div><blockquote class="gmail_quote" style="margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-Cpuhotplug04 uses get_hotplug_cpus when traversing, <br>
-get_hotplug_cpus will filter out cpu without online files, <br>
-and $cpus_num will be used to determine the last cpu num。</blockquote><div>&nbsp;</div><blockquote class="gmail_quote" style="margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"> <br>
-If some cpu do not have an online file, <br>
-it will lead to an error in the judgment of the last cpu.<br></blockquote><div><br></div><div><div style="font-size:small">I'm wondering&nbsp;what kind of CPU does not have the online file, and which</div><div style="font-size:small">kernel version is being used? Is that test machine an x86 or MIPS?</div></div></div><div><br></div>-- <br><div dir="ltr"><div dir="ltr"><div>Regards,<br></div><div>Li Wang<br></div></div></div></div>
- </div></div>
-</blockquote></div><br clear="all"><div><br></div>-- <br><div class="gmail_signature" dir="ltr"><div dir="ltr"><div>Regards,<br></div><div>Li Wang<br></div></div></div></div>
- </div></body></html>
+--00000000000026f66505c5cbe9bc
+Content-Type: text/plain; charset="UTF-8"
+
+On Mon, Jun 28, 2021 at 11:58 AM <gouhao@uniontech.com> wrote:
+
+> This change makes sense.
+>
+> On my computer, the last CPU can't be offline, which causes the execution
+> of this testcase to fail.
+>
+
+But the CPU0 on your system will always online, so the last one should be
+offline safely.
+If it not, that might a kernel issue I guess.
+
+>
+> However, the testcase makes special treatment to the last CPU. If the last
+> CPU cannot be offline, the execution result of the testcase should not be
+> affected.
+>
+
+Yes, but from cpuhotplug04.sh comment line#84:
+
+# If all the CPUs are hotpluggable, we expect
+# that the kernel will refuse to offline the last CPU.
+# If only some of the CPUs are hotpluggable,
+# they all can be offlined.
+
+How do you think of this description? In your system, it obviously belongs
+to
+the second scenario that the cpu0 is online and you should be able to
+offline
+all the remaining hotplugged one, isn't it?
+
+>
+> Therefore, if cpu0 does not have an online file, it will lead to an error
+> in the judgment of the last CPU.
+>
+
+If cpu0 does not have an online file, that means the last CPU (hotplugged)
+can be offline as well.
+To verify this assumption, you can try manually offline CPU one by one,
+this time I suggest you
+try the last one first.
+
+-- 
+Regards,
+Li Wang
+
+--00000000000026f66505c5cbe9bc
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Mon, Jun 28, 2021 at 11:58 AM &lt;<a href=3D"mai=
+lto:gouhao@uniontech.com">gouhao@uniontech.com</a>&gt; wrote:<br></div><blo=
+ckquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left=
+:1px solid rgb(204,204,204);padding-left:1ex"> <div><div><div id=3D"gmail-m=
+_-854401823071140671MailBelowDiv"></div><div style=3D"overflow-wrap: break-=
+word;"><div>This change makes sense.</div><div><br></div><div>On my compute=
+r, the last CPU can&#39;t be offline, which causes the execution of this te=
+stcase to fail.</div></div></div></div></blockquote><div><br></div><div cla=
+ss=3D"gmail_default" style=3D"font-size:small">But the CPU0 on your system =
+will always online, so the last one should be offline=C2=A0safely.</div><di=
+v class=3D"gmail_default" style=3D"font-size:small">If it not, that might a=
+ kernel issue I guess.</div><div class=3D"gmail_default" style=3D"font-size=
+:small"></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px=
+ 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><div><div><=
+div style=3D"overflow-wrap: break-word;"><div><br></div><div>However, the t=
+estcase makes special treatment to the last CPU. If the last CPU cannot be =
+offline, the execution result of the testcase should not be affected.</div>=
+</div></div></div></blockquote><div><br></div><div class=3D"gmail_default" =
+style=3D"font-size:small">Yes, but from cpuhotplug04.sh comment line#84: </=
+div><div class=3D"gmail_default" style=3D"font-size:small"><br></div><div c=
+lass=3D"gmail_default" style=3D"font-size:small">=09=09# If all the CPUs ar=
+e hotpluggable, we expect<br>=09=09# that the kernel will refuse to offline=
+ the last CPU.<br>=09=09# If only some of the CPUs are hotpluggable,<br>=09=
+=09# they all can be offlined.<br></div><div class=3D"gmail_default" style=
+=3D"font-size:small"><br></div><div class=3D"gmail_default" style=3D"font-s=
+ize:small">How do you think of this description? In your system, it obvious=
+ly=C2=A0belongs to</div><div class=3D"gmail_default" style=3D"font-size:sma=
+ll">the second scenario that the cpu0 is online and you should be able to o=
+ffline</div><div class=3D"gmail_default" style=3D"font-size:small">all the =
+remaining hotplugged=C2=A0one, isn&#39;t=C2=A0it?</div><div class=3D"gmail_=
+default" style=3D"font-size:small"></div><blockquote class=3D"gmail_quote" =
+style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);pa=
+dding-left:1ex"><div><div><div style=3D"overflow-wrap: break-word;"><div><b=
+r></div><div>Therefore, if cpu0 does not have an online file, it will lead =
+to an error in the judgment of the last CPU.</div></div></div></div></block=
+quote><div><br></div><div class=3D"gmail_default" style=3D"font-size:small"=
+>If cpu0 does not have an online file, that means the last CPU (hotplugged)=
+ can be offline as well.</div><div class=3D"gmail_default" style=3D"font-si=
+ze:small">To verify this assumption, you can try manually offline CPU one b=
+y one, this time I suggest you</div><div class=3D"gmail_default" style=3D"f=
+ont-size:small">try the last one first.</div></div><div><br></div>-- <br><d=
+iv dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br>=
+</div><div>Li Wang<br></div></div></div></div>
+
+--00000000000026f66505c5cbe9bc--
 
 
-
---===============0196449777==
+--===============1661315605==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -109,4 +209,5 @@ Content-Disposition: inline
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
 
---===============0196449777==--
+--===============1661315605==--
+
