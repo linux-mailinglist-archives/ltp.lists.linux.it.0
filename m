@@ -2,55 +2,91 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id A10AD3B5A4B
-	for <lists+linux-ltp@lfdr.de>; Mon, 28 Jun 2021 10:13:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9E553B5AB3
+	for <lists+linux-ltp@lfdr.de>; Mon, 28 Jun 2021 10:49:47 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5922C3C8D9B
-	for <lists+linux-ltp@lfdr.de>; Mon, 28 Jun 2021 10:13:12 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 6649D3C86C5
+	for <lists+linux-ltp@lfdr.de>; Mon, 28 Jun 2021 10:49:47 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 9BBC33C6DEE
- for <ltp@lists.linux.it>; Mon, 28 Jun 2021 10:13:08 +0200 (CEST)
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 4911F3C6E14
+ for <ltp@lists.linux.it>; Mon, 28 Jun 2021 10:49:42 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 1AD271A00980
- for <ltp@lists.linux.it>; Mon, 28 Jun 2021 10:13:03 +0200 (CEST)
-Received: from dggemv711-chm.china.huawei.com (unknown [172.30.72.54])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4GD0dZ6X9NzZkjt
- for <ltp@lists.linux.it>; Mon, 28 Jun 2021 16:09:54 +0800 (CST)
-Received: from dggpemm500022.china.huawei.com (7.185.36.162) by
- dggemv711-chm.china.huawei.com (10.1.198.66) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2176.2; Mon, 28 Jun 2021 16:12:52 +0800
-Received: from [10.67.109.194] (10.67.109.194) by
- dggpemm500022.china.huawei.com (7.185.36.162) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
- 15.1.2176.2; Mon, 28 Jun 2021 16:12:52 +0800
-To: <ltp@lists.linux.it>
-References: <20210628080424.245911-1-xieziyao@huawei.com>
-From: Xie Ziyao <xieziyao@huawei.com>
-Message-ID: <6ae18b1d-6363-3dbc-0696-f0c7115aeb67@huawei.com>
-Date: Mon, 28 Jun 2021 16:12:52 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.2
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 831481400BDD
+ for <ltp@lists.linux.it>; Mon, 28 Jun 2021 10:49:42 +0200 (CEST)
+Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id E1EB120231;
+ Mon, 28 Jun 2021 08:49:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1624870181;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=aK5IbFpXErxuqYP6O1cDt76Xg8NwWYLZQkPMuEvLxus=;
+ b=JNb78m8NNE6+srarqQgNfJMzdEh1UNwwFravhNqxj68TsM6IkGXUxCAGfQGTW0TB5Vb4+Q
+ gQHHvqMGLSYOPH1mz7XeP4WSXJBCuxgq/hszUZGN8m4uup9n7RMGYq6or2yU7u4nkLzO3S
+ 5yHRezmbJVrxNPcDj2hZu/a8NaS2NdU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1624870181;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=aK5IbFpXErxuqYP6O1cDt76Xg8NwWYLZQkPMuEvLxus=;
+ b=75wvR1pEuBhEQ2eOs2DuK37g66XJTaSL2EFQN2recxNisM6BGa7yZ+xcw4UKN6ckSQ+HQ+
+ z6xPzIY1haqOskCw==
+Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ by imap.suse.de (Postfix) with ESMTP id 8E089118DD;
+ Mon, 28 Jun 2021 08:49:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1624870181;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=aK5IbFpXErxuqYP6O1cDt76Xg8NwWYLZQkPMuEvLxus=;
+ b=JNb78m8NNE6+srarqQgNfJMzdEh1UNwwFravhNqxj68TsM6IkGXUxCAGfQGTW0TB5Vb4+Q
+ gQHHvqMGLSYOPH1mz7XeP4WSXJBCuxgq/hszUZGN8m4uup9n7RMGYq6or2yU7u4nkLzO3S
+ 5yHRezmbJVrxNPcDj2hZu/a8NaS2NdU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1624870181;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=aK5IbFpXErxuqYP6O1cDt76Xg8NwWYLZQkPMuEvLxus=;
+ b=75wvR1pEuBhEQ2eOs2DuK37g66XJTaSL2EFQN2recxNisM6BGa7yZ+xcw4UKN6ckSQ+HQ+
+ z6xPzIY1haqOskCw==
+Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
+ id mmx4ICWN2WAURQAALh3uQQ
+ (envelope-from <pvorel@suse.cz>); Mon, 28 Jun 2021 08:49:41 +0000
+Date: Mon, 28 Jun 2021 10:49:39 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Joerg Vehlow <lkml@jv-coder.de>
+Message-ID: <YNmNI3omBfAnj5dN@pevik>
+References: <20210628033002.GA1469@andestech.com>
+ <caf1bb46-5212-3c3d-f180-e722ef2cf8dd@jv-coder.de>
 MIME-Version: 1.0
-In-Reply-To: <20210628080424.245911-1-xieziyao@huawei.com>
-X-Originating-IP: [10.67.109.194]
-X-ClientProxiedBy: dggeme719-chm.china.huawei.com (10.1.199.115) To
- dggpemm500022.china.huawei.com (7.185.36.162)
-X-CFilter-Loop: Reflected
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <caf1bb46-5212-3c3d-f180-e722ef2cf8dd@jv-coder.de>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 0/3] epoll_pwait2: Add test for epoll_pwait2
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/1] cgroup/cgroup_regression_test: Fix umount
+ failure
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,55 +98,39 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: richiejp@f-m.fm, alankao@andestech.com, ltp@lists.linux.it
+Content-Type: text/plain; charset="iso-8859-2"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
+Hi all,
 
-> Xie Ziyao (3):
->    lapi/syscalls: Add syscall number for epoll_pwait2
->    epoll_pwait2: Add test for epoll_pwait201
->    epoll_pwait2: Add test for epoll_pwait202
-Sorry for testing only under several archs (like arm, x86) on QEMU due 
-to environmental limitations.
+[ changed Cyril's address in Cc to the working one ]
 
-If possible, I would recommend testing it on other platforms as well.
+> >   	mkdir cgroup/0
+> >   	sleep 100 < cgroup/0 &	# add refcnt to this dir
+> >   	rmdir cgroup/0
+> > +	sync
+> >   	# remount with some subsystems removed
+> >   	# since 2.6.28, this remount will fail
+> I would like a short comment close to the syncs. When I converted
+> cpuset_regression_test.sh, I would have removed the sync in there, if the=
+re
+> wouldn't have been any comment.
+> Most of the time syncs are not required and just added by paranoid
+> developers, but if there is a real reason, I think it should be stated in=
+ a
+> comment.
 
-Kind Regards,
-Ziyao
-> 
->   include/lapi/syscalls/aarch64.in              |  1 +
->   include/lapi/syscalls/arc.in                  |  1 +
->   include/lapi/syscalls/arm.in                  |  1 +
->   include/lapi/syscalls/hppa.in                 |  3 +-
->   include/lapi/syscalls/i386.in                 |  1 +
->   include/lapi/syscalls/ia64.in                 |  1 +
->   include/lapi/syscalls/powerpc.in              |  1 +
->   include/lapi/syscalls/powerpc64.in            |  1 +
->   include/lapi/syscalls/s390.in                 |  1 +
->   include/lapi/syscalls/s390x.in                |  1 +
->   include/lapi/syscalls/sh.in                   |  1 +
->   include/lapi/syscalls/sparc.in                |  1 +
->   include/lapi/syscalls/sparc64.in              |  1 +
->   include/lapi/syscalls/x86_64.in               |  1 +
->   runtest/syscalls                              |  2 +
->   .../kernel/syscalls/epoll_pwait2/.gitignore   |  2 +
->   .../kernel/syscalls/epoll_pwait2/Makefile     |  9 +++
->   .../syscalls/epoll_pwait2/epoll_pwait201.c    | 62 +++++++++++++++
->   .../syscalls/epoll_pwait2/epoll_pwait202.c    | 76 +++++++++++++++++++
->   19 files changed, 166 insertions(+), 1 deletion(-)
->   create mode 100644 testcases/kernel/syscalls/epoll_pwait2/.gitignore
->   create mode 100644 testcases/kernel/syscalls/epoll_pwait2/Makefile
->   create mode 100644 testcases/kernel/syscalls/epoll_pwait2/epoll_pwait201.c
->   create mode 100644 testcases/kernel/syscalls/epoll_pwait2/epoll_pwait202.c
-> 
-> --
-> 2.17.1
-> 
-> .
-> 
+Agree with this. Are all these sync really needed? Or just some?
 
--- 
+Kind regards,
+Petr
+
+> J=F6rg
+
+-- =
+
 Mailing list info: https://lists.linux.it/listinfo/ltp
