@@ -2,91 +2,78 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9E553B5AB3
-	for <lists+linux-ltp@lfdr.de>; Mon, 28 Jun 2021 10:49:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B24103B5B97
+	for <lists+linux-ltp@lfdr.de>; Mon, 28 Jun 2021 11:48:03 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6649D3C86C5
-	for <lists+linux-ltp@lfdr.de>; Mon, 28 Jun 2021 10:49:47 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 3B6FB3C86C6
+	for <lists+linux-ltp@lfdr.de>; Mon, 28 Jun 2021 11:48:03 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 4911F3C6E14
- for <ltp@lists.linux.it>; Mon, 28 Jun 2021 10:49:42 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ by picard.linux.it (Postfix) with ESMTPS id F1BAC3C015C
+ for <ltp@lists.linux.it>; Mon, 28 Jun 2021 11:47:59 +0200 (CEST)
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [IPv6:2a00:1450:4864:20::12a])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 831481400BDD
- for <ltp@lists.linux.it>; Mon, 28 Jun 2021 10:49:42 +0200 (CEST)
-Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
- (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id E1EB120231;
- Mon, 28 Jun 2021 08:49:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1624870181;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=aK5IbFpXErxuqYP6O1cDt76Xg8NwWYLZQkPMuEvLxus=;
- b=JNb78m8NNE6+srarqQgNfJMzdEh1UNwwFravhNqxj68TsM6IkGXUxCAGfQGTW0TB5Vb4+Q
- gQHHvqMGLSYOPH1mz7XeP4WSXJBCuxgq/hszUZGN8m4uup9n7RMGYq6or2yU7u4nkLzO3S
- 5yHRezmbJVrxNPcDj2hZu/a8NaS2NdU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1624870181;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=aK5IbFpXErxuqYP6O1cDt76Xg8NwWYLZQkPMuEvLxus=;
- b=75wvR1pEuBhEQ2eOs2DuK37g66XJTaSL2EFQN2recxNisM6BGa7yZ+xcw4UKN6ckSQ+HQ+
- z6xPzIY1haqOskCw==
-Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
- by imap.suse.de (Postfix) with ESMTP id 8E089118DD;
- Mon, 28 Jun 2021 08:49:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1624870181;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=aK5IbFpXErxuqYP6O1cDt76Xg8NwWYLZQkPMuEvLxus=;
- b=JNb78m8NNE6+srarqQgNfJMzdEh1UNwwFravhNqxj68TsM6IkGXUxCAGfQGTW0TB5Vb4+Q
- gQHHvqMGLSYOPH1mz7XeP4WSXJBCuxgq/hszUZGN8m4uup9n7RMGYq6or2yU7u4nkLzO3S
- 5yHRezmbJVrxNPcDj2hZu/a8NaS2NdU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1624870181;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=aK5IbFpXErxuqYP6O1cDt76Xg8NwWYLZQkPMuEvLxus=;
- b=75wvR1pEuBhEQ2eOs2DuK37g66XJTaSL2EFQN2recxNisM6BGa7yZ+xcw4UKN6ckSQ+HQ+
- z6xPzIY1haqOskCw==
-Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
- id mmx4ICWN2WAURQAALh3uQQ
- (envelope-from <pvorel@suse.cz>); Mon, 28 Jun 2021 08:49:41 +0000
-Date: Mon, 28 Jun 2021 10:49:39 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Joerg Vehlow <lkml@jv-coder.de>
-Message-ID: <YNmNI3omBfAnj5dN@pevik>
-References: <20210628033002.GA1469@andestech.com>
- <caf1bb46-5212-3c3d-f180-e722ef2cf8dd@jv-coder.de>
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 557CD1A009B0
+ for <ltp@lists.linux.it>; Mon, 28 Jun 2021 11:47:59 +0200 (CEST)
+Received: by mail-lf1-x12a.google.com with SMTP id bp27so6414740lfb.9
+ for <ltp@lists.linux.it>; Mon, 28 Jun 2021 02:47:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=bell-sw-com.20150623.gappssmtp.com; s=20150623;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=aOjb4fbEMTeN09gpQJK2YyxtK1wyNuzzb2Qp1MAAHHI=;
+ b=fMWMftjSzyJQEr/c0bAU1MeVDeFXUbBSKeqbJlCpv2veZ8q6+Px7xjKYPdcpj2Xe1p
+ HzxuWAS+zs1MtyoOH6n1B6I+OYSTjC2KLhJZdKPM16q9v7bwJnMTMBsohx5Ph3EI5LRm
+ McvEKZlNsjE7l6f/Fqz7Qvmhn4yv4Ad/Zfi5NmQODtX5iNQ9lIO3dETgIrfDpuZA6BT3
+ mSkIpFhczglkbeDOernQQY8m+aCio6Vuoh2bHPNef+N8Y2tldCNVvr8fIQGgnfrXXunh
+ 2iwqC8GwAH6aRNCLaiJrXcWZEos2U8iemGTOb4vNw4LL5HpiZXYdiWI8STv1nB68u1OE
+ 9gqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=aOjb4fbEMTeN09gpQJK2YyxtK1wyNuzzb2Qp1MAAHHI=;
+ b=k6CvotfmNu2jHg5s3FXocnimJ8NmJ3gXsFMWYmOPV6mPs2ySzKft7dAAiKJBVCLwQ7
+ E3v1+RWRdcA6Yi8qtMGTrkHMipfE9RzogprmFUkpYs/1mkW1b7DK/eAz1d8mrYw5DxO5
+ e3DpoaHkDYx2Utuhwe5GNhSRJmElnTSooJEoQoSEtqq2YkC/be2LyqH/GNDprUcK1LrK
+ 6ao1+z01s9xt9Wq5XtpjkL38tWmWyO6LP3uFriYhxstYxGzuTt9FcUB515/FG4JSCXCg
+ OETHhyhRhnmYtOAEhVLbLv7t9cGJKlOiJn43q2eXPqVAGGxUte0fP/VEPnjoi4nm7k8V
+ LJ1Q==
+X-Gm-Message-State: AOAM531bR79RewHpreFmo6/RDurAinIW2dv9XPFIA6P2SJDJAvI5GFwC
+ gDoHyv5Z733HsAXL1JpVJoxJulSC5pdY
+X-Google-Smtp-Source: ABdhPJztIwvcvLFLEGb/8b2mghAS2DOIx7zsh4xY404AvUOmawaw99TjWtBkmJ19O1s3BBh7DkrH/g==
+X-Received: by 2002:a05:6512:4c5:: with SMTP id
+ w5mr18290283lfq.192.1624873678186; 
+ Mon, 28 Jun 2021 02:47:58 -0700 (PDT)
+Received: from [192.168.1.53] ([91.247.148.3])
+ by smtp.gmail.com with ESMTPSA id s12sm1276092lfg.44.2021.06.28.02.47.57
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 28 Jun 2021 02:47:57 -0700 (PDT)
+To: Cyril Hrubis <chrubis@suse.cz>, Li Wang <liwang@redhat.com>
+References: <20210624081500.11715-1-aleksei.kodanev@bell-sw.com>
+ <YNWhdgAUp5e/hNwx@yuki>
+From: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
+Message-ID: <e65771c9-709e-e6a6-977b-90c6ca194d08@bell-sw.com>
+Date: Mon, 28 Jun 2021 12:47:57 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <caf1bb46-5212-3c3d-f180-e722ef2cf8dd@jv-coder.de>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+In-Reply-To: <YNWhdgAUp5e/hNwx@yuki>
+Content-Language: en-US
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/1] cgroup/cgroup_regression_test: Fix umount
- failure
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/2] lib/tst_test: setup TCID earlier in do_setup()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,39 +85,33 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: richiejp@f-m.fm, alankao@andestech.com, ltp@lists.linux.it
-Content-Type: text/plain; charset="iso-8859-2"
-Content-Transfer-Encoding: quoted-printable
+Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi all,
+Hi Li, Cyril,
+On 25.06.2021 12:27, Cyril Hrubis wrote:
+> Hi!
+>> TCID can be NULL in tst_tmpdir() because it is set after do_setup():
+>>
+>>     tst_run_tcases()
+>>         do_setup()
+>>             ...
+>>             tid = get_tid();
+>>             ...
+>>             tst_tmpdir()  /* using TCID here */
+>>         TCID = tid;
+> 
+> Good catch, I wonder how we missed this for so long...
 
-[ changed Cyril's address in Cc to the working one ]
+Ran into this with musl, it pastes "(null)" to the tmpdir path if
+TCID is NULL, so the final template looked like "/tmp/(nuXXXXXX".
+But glibc skips it because the same string doesn't fit in 3 chars
+template in snprintf(..., "%s/%.3sXXXXXX",...).
 
-> >   	mkdir cgroup/0
-> >   	sleep 100 < cgroup/0 &	# add refcnt to this dir
-> >   	rmdir cgroup/0
-> > +	sync
-> >   	# remount with some subsystems removed
-> >   	# since 2.6.28, this remount will fail
-> I would like a short comment close to the syncs. When I converted
-> cpuset_regression_test.sh, I would have removed the sync in there, if the=
-re
-> wouldn't have been any comment.
-> Most of the time syncs are not required and just added by paranoid
-> developers, but if there is a real reason, I think it should be stated in=
- a
-> comment.
+Applied the patch. Thanks for review!
 
-Agree with this. Are all these sync really needed? Or just some?
-
-Kind regards,
-Petr
-
-> J=F6rg
-
--- =
-
+-- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
