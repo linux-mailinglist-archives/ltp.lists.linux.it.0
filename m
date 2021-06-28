@@ -2,27 +2,27 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F3E13B5A39
-	for <lists+linux-ltp@lfdr.de>; Mon, 28 Jun 2021 10:04:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 198203B5A34
+	for <lists+linux-ltp@lfdr.de>; Mon, 28 Jun 2021 10:03:50 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6D2AE3C8D9F
-	for <lists+linux-ltp@lfdr.de>; Mon, 28 Jun 2021 10:04:01 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C4F713C6E17
+	for <lists+linux-ltp@lfdr.de>; Mon, 28 Jun 2021 10:03:49 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 961873C86C4
- for <ltp@lists.linux.it>; Mon, 28 Jun 2021 10:03:39 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 018A03C6E2C
+ for <ltp@lists.linux.it>; Mon, 28 Jun 2021 10:03:37 +0200 (CEST)
 Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id A011B10009AF
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id D649210009C7
  for <ltp@lists.linux.it>; Mon, 28 Jun 2021 10:03:35 +0200 (CEST)
 Received: from dggemv711-chm.china.huawei.com (unknown [172.30.72.54])
- by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4GD0QL4x94z75FG
- for <ltp@lists.linux.it>; Mon, 28 Jun 2021 16:00:10 +0800 (CST)
+ by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4GD0QM499Mz75Bf
+ for <ltp@lists.linux.it>; Mon, 28 Jun 2021 16:00:11 +0800 (CST)
 Received: from dggpemm500022.china.huawei.com (7.185.36.162) by
  dggemv711-chm.china.huawei.com (10.1.198.66) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
@@ -33,8 +33,8 @@ Received: from ubuntu1804.huawei.com (10.67.174.209) by
  15.1.2176.2; Mon, 28 Jun 2021 16:03:30 +0800
 From: Xie Ziyao <xieziyao@huawei.com>
 To: <ltp@lists.linux.it>
-Date: Mon, 28 Jun 2021 16:04:22 +0800
-Message-ID: <20210628080424.245911-2-xieziyao@huawei.com>
+Date: Mon, 28 Jun 2021 16:04:23 +0800
+Message-ID: <20210628080424.245911-3-xieziyao@huawei.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20210628080424.245911-1-xieziyao@huawei.com>
 References: <20210628080424.245911-1-xieziyao@huawei.com>
@@ -48,7 +48,7 @@ X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH 1/3] lapi/syscalls: Add syscall number for epoll_pwait2
+Subject: [LTP] [PATCH 2/3] epoll_pwait2: Add test for epoll_pwait201
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,159 +65,121 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Add syscall number for epoll_pwait2.
+Basic test for epoll_pwait2().
 
 Signed-off-by: Xie Ziyao <xieziyao@huawei.com>
 ---
- include/lapi/syscalls/aarch64.in   | 1 +
- include/lapi/syscalls/arc.in       | 1 +
- include/lapi/syscalls/arm.in       | 1 +
- include/lapi/syscalls/hppa.in      | 3 ++-
- include/lapi/syscalls/i386.in      | 1 +
- include/lapi/syscalls/ia64.in      | 1 +
- include/lapi/syscalls/powerpc.in   | 1 +
- include/lapi/syscalls/powerpc64.in | 1 +
- include/lapi/syscalls/s390.in      | 1 +
- include/lapi/syscalls/s390x.in     | 1 +
- include/lapi/syscalls/sh.in        | 1 +
- include/lapi/syscalls/sparc.in     | 1 +
- include/lapi/syscalls/sparc64.in   | 1 +
- include/lapi/syscalls/x86_64.in    | 1 +
- 14 files changed, 15 insertions(+), 1 deletion(-)
+ runtest/syscalls                              |  1 +
+ .../kernel/syscalls/epoll_pwait2/.gitignore   |  1 +
+ .../kernel/syscalls/epoll_pwait2/Makefile     |  9 +++
+ .../syscalls/epoll_pwait2/epoll_pwait201.c    | 62 +++++++++++++++++++
+ 4 files changed, 73 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/epoll_pwait2/.gitignore
+ create mode 100644 testcases/kernel/syscalls/epoll_pwait2/Makefile
+ create mode 100644 testcases/kernel/syscalls/epoll_pwait2/epoll_pwait201.c
 
-diff --git a/include/lapi/syscalls/aarch64.in b/include/lapi/syscalls/aarch64.in
-index 2def6ba3d..5a2816099 100644
---- a/include/lapi/syscalls/aarch64.in
-+++ b/include/lapi/syscalls/aarch64.in
-@@ -313,4 +313,5 @@ clone3 435
- close_range 436
- openat2 437
- pidfd_getfd 438
-+epoll_pwait2 441
- _sysctl 1078
-diff --git a/include/lapi/syscalls/arc.in b/include/lapi/syscalls/arc.in
-index 9bcd84706..9c1654b0b 100644
---- a/include/lapi/syscalls/arc.in
-+++ b/include/lapi/syscalls/arc.in
-@@ -313,3 +313,4 @@ clone3 435
- close_range 436
- openat2 437
- pidfd_getfd 438
-+epoll_pwait2 441
-diff --git a/include/lapi/syscalls/arm.in b/include/lapi/syscalls/arm.in
-index 98c840cb8..ded2f5e03 100644
---- a/include/lapi/syscalls/arm.in
-+++ b/include/lapi/syscalls/arm.in
-@@ -391,3 +391,4 @@ clone3 (__NR_SYSCALL_BASE+435)
- close_range (__NR_SYSCALL_BASE+436)
- openat2 (__NR_SYSCALL_BASE+437)
- pidfd_getfd (__NR_SYSCALL_BASE+438)
-+epoll_pwait2 (__NR_SYSCALL_BASE+441)
-diff --git a/include/lapi/syscalls/hppa.in b/include/lapi/syscalls/hppa.in
-index e1628c4b1..d8f142b6a 100644
---- a/include/lapi/syscalls/hppa.in
-+++ b/include/lapi/syscalls/hppa.in
-@@ -39,4 +39,5 @@ fsconfig 431
- fsmount 432
- fspick 433
- pidfd_open 434
--close_range 436
-\ No newline at end of file
-+close_range 436
-+epoll_pwait2 441
-diff --git a/include/lapi/syscalls/i386.in b/include/lapi/syscalls/i386.in
-index aaa02c7bf..f69268e10 100644
---- a/include/lapi/syscalls/i386.in
-+++ b/include/lapi/syscalls/i386.in
-@@ -427,3 +427,4 @@ clone3 435
- close_range 436
- openat2 437
- pidfd_getfd 438
-+epoll_pwait2 441
-diff --git a/include/lapi/syscalls/ia64.in b/include/lapi/syscalls/ia64.in
-index 5467f80f2..3ba2406c4 100644
---- a/include/lapi/syscalls/ia64.in
-+++ b/include/lapi/syscalls/ia64.in
-@@ -340,3 +340,4 @@ pidfd_open 1458
- close_range 1460
- openat2 1461
- pidfd_getfd 1462
-+epoll_pwait2 1465
-diff --git a/include/lapi/syscalls/powerpc.in b/include/lapi/syscalls/powerpc.in
-index 2d287a606..a4ed2169c 100644
---- a/include/lapi/syscalls/powerpc.in
-+++ b/include/lapi/syscalls/powerpc.in
-@@ -420,3 +420,4 @@ clone3 435
- close_range 436
- openat2 437
- pidfd_getfd 438
-+epoll_pwait2 441
-diff --git a/include/lapi/syscalls/powerpc64.in b/include/lapi/syscalls/powerpc64.in
-index 2d287a606..a4ed2169c 100644
---- a/include/lapi/syscalls/powerpc64.in
-+++ b/include/lapi/syscalls/powerpc64.in
-@@ -420,3 +420,4 @@ clone3 435
- close_range 436
- openat2 437
- pidfd_getfd 438
-+epoll_pwait2 441
-diff --git a/include/lapi/syscalls/s390.in b/include/lapi/syscalls/s390.in
-index c978b6660..d99e5fd9e 100644
---- a/include/lapi/syscalls/s390.in
-+++ b/include/lapi/syscalls/s390.in
-@@ -407,3 +407,4 @@ clone3 435
- close_range 436
- openat2 437
- pidfd_getfd 438
-+epoll_pwait2 441
-diff --git a/include/lapi/syscalls/s390x.in b/include/lapi/syscalls/s390x.in
-index d123db6cb..f26cdaaae 100644
---- a/include/lapi/syscalls/s390x.in
-+++ b/include/lapi/syscalls/s390x.in
-@@ -355,3 +355,4 @@ clone3 435
- close_range 436
- openat2 437
- pidfd_getfd 438
-+epoll_pwait2 441
-diff --git a/include/lapi/syscalls/sh.in b/include/lapi/syscalls/sh.in
-index 22da7d6ff..20ee61ccc 100644
---- a/include/lapi/syscalls/sh.in
-+++ b/include/lapi/syscalls/sh.in
-@@ -401,3 +401,4 @@ pidfd_open 434
- close_range 436
- openat2 437
- pidfd_getfd 438
-+epoll_pwait2 441
-diff --git a/include/lapi/syscalls/sparc.in b/include/lapi/syscalls/sparc.in
-index 7324b4ac6..86decdd82 100644
---- a/include/lapi/syscalls/sparc.in
-+++ b/include/lapi/syscalls/sparc.in
-@@ -406,3 +406,4 @@ pidfd_open 434
- close_range 436
- openat2 437
- pidfd_getfd 438
-+epoll_pwait2 441
-diff --git a/include/lapi/syscalls/sparc64.in b/include/lapi/syscalls/sparc64.in
-index 862d806fa..02dfe473a 100644
---- a/include/lapi/syscalls/sparc64.in
-+++ b/include/lapi/syscalls/sparc64.in
-@@ -371,3 +371,4 @@ pidfd_open 434
- close_range 436
- openat2 437
- pidfd_getfd 438
-+epoll_pwait2 441
-diff --git a/include/lapi/syscalls/x86_64.in b/include/lapi/syscalls/x86_64.in
-index 1345002f5..cf6d78bf6 100644
---- a/include/lapi/syscalls/x86_64.in
-+++ b/include/lapi/syscalls/x86_64.in
-@@ -348,6 +348,7 @@ clone3 435
- close_range 436
- openat2 437
- pidfd_getfd 438
-+epoll_pwait2 441
- rt_sigaction 512
- rt_sigreturn 513
- ioctl 514
+diff --git a/runtest/syscalls b/runtest/syscalls
+index d3eb96249..8a6b8ba20 100644
+--- a/runtest/syscalls
++++ b/runtest/syscalls
+@@ -166,6 +166,7 @@ epoll_wait01 epoll_wait01
+ epoll_wait02 epoll_wait02
+ epoll_wait03 epoll_wait03
+ epoll_pwait01 epoll_pwait01
++epoll_pwait201 epoll_pwait201
+
+ eventfd01 eventfd01
+
+diff --git a/testcases/kernel/syscalls/epoll_pwait2/.gitignore b/testcases/kernel/syscalls/epoll_pwait2/.gitignore
+new file mode 100644
+index 000000000..2298cf9d9
+--- /dev/null
++++ b/testcases/kernel/syscalls/epoll_pwait2/.gitignore
+@@ -0,0 +1 @@
++epoll_pwait201
+diff --git a/testcases/kernel/syscalls/epoll_pwait2/Makefile b/testcases/kernel/syscalls/epoll_pwait2/Makefile
+new file mode 100644
+index 000000000..051db0b20
+--- /dev/null
++++ b/testcases/kernel/syscalls/epoll_pwait2/Makefile
+@@ -0,0 +1,9 @@
++# SPDX-License-Identifier: GPL-2.0-or-later
++# Copyright (c) 2021 HUAWEI LIMITED
++# Author: Xie Ziyao <xieziyao@huawei.com>
++
++top_srcdir		?= ../../../..
++
++include $(top_srcdir)/include/mk/testcases.mk
++
++include $(top_srcdir)/include/mk/generic_leaf_target.mk
+diff --git a/testcases/kernel/syscalls/epoll_pwait2/epoll_pwait201.c b/testcases/kernel/syscalls/epoll_pwait2/epoll_pwait201.c
+new file mode 100644
+index 000000000..a3fadc065
+--- /dev/null
++++ b/testcases/kernel/syscalls/epoll_pwait2/epoll_pwait201.c
+@@ -0,0 +1,62 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2021 HUAWEI LIMITED
++ * Author: Xie Ziyao <xieziyao@huawei.com>
++ */
++
++/*\
++ * [Description]
++ *
++ * Basic test for epoll_pwait2().
++ */
++
++#include <sys/epoll.h>
++
++#include "tst_test.h"
++#include "lapi/syscalls.h"
++
++static int efd, sfd[2];
++static struct epoll_event e;
++
++static void run(void)
++{
++	TEST(tst_syscall(__NR_epoll_pwait2, efd, &e, 1, NULL, NULL, 0));
++
++	if (TST_RET == 1) {
++		tst_res(TPASS, "epoll_pwait2() succeeded");
++		return;
++	}
++	tst_res(TFAIL, "epoll_pwait2() returned %li, expected 1", TST_RET);
++}
++
++static void setup(void)
++{
++	SAFE_SOCKETPAIR(AF_UNIX, SOCK_STREAM, 0, sfd);
++
++	efd = epoll_create(1);
++	if (efd == -1)
++		tst_brk(TBROK | TERRNO, "epoll_create()");
++
++	e.events = EPOLLIN;
++	if (epoll_ctl(efd, EPOLL_CTL_ADD, sfd[0], &e))
++		tst_brk(TBROK | TERRNO, "epoll_clt(..., EPOLL_CTL_ADD, ...)");
++	SAFE_WRITE(1, sfd[1], "w", 1);
++}
++
++static void cleanup(void)
++{
++	if (efd > 0)
++		SAFE_CLOSE(efd);
++
++	if (sfd[0] > 0)
++		SAFE_CLOSE(sfd[0]);
++
++	if (sfd[1] > 0)
++		SAFE_CLOSE(sfd[1]);
++}
++
++static struct tst_test test = {
++	.test_all = run,
++	.setup = setup,
++	.cleanup = cleanup,
++};
 --
 2.17.1
 
