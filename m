@@ -2,88 +2,79 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 754093B77CE
-	for <lists+linux-ltp@lfdr.de>; Tue, 29 Jun 2021 20:28:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC0DD3B7942
+	for <lists+linux-ltp@lfdr.de>; Tue, 29 Jun 2021 22:22:33 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C07BA3C939F
-	for <lists+linux-ltp@lfdr.de>; Tue, 29 Jun 2021 20:28:09 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id DD9643C93A0
+	for <lists+linux-ltp@lfdr.de>; Tue, 29 Jun 2021 22:22:31 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 7698C3C0234
- for <ltp@lists.linux.it>; Tue, 29 Jun 2021 20:28:05 +0200 (CEST)
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 255FB3C1A2B
+ for <ltp@lists.linux.it>; Tue, 29 Jun 2021 22:22:28 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 2DA81200241
- for <ltp@lists.linux.it>; Tue, 29 Jun 2021 20:28:04 +0200 (CEST)
-Received: from mail-ej1-f71.google.com ([209.85.218.71])
- by youngberry.canonical.com with esmtps (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
- (envelope-from <krzysztof.kozlowski@canonical.com>)
- id 1lyISq-00072U-9W
- for ltp@lists.linux.it; Tue, 29 Jun 2021 18:28:04 +0000
-Received: by mail-ej1-f71.google.com with SMTP id
- d21-20020a1709063455b02904c609ed19f1so1907101ejb.11
- for <ltp@lists.linux.it>; Tue, 29 Jun 2021 11:28:04 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:from:to:references:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=fYgcjWPuVQQkM+ld3lTDa/zt5ky7hqz4IgAOmjoJRPQ=;
- b=bRziPKmv6+qB+xBFXLRKd4ymFMoXHTg2DBaw9DNrjSOguNiaJHoBXX8P3PV4OxosTi
- ZQ0CWtopl7mUruo56O+dh/lLXg4Q+wh0w+yR/5+XYmLUaofWZ5ekA4OFkrPwd6hadQ2s
- fSaoOYqQypMvThyEfmpRNISQBupfg6T2Gg3dx8rGy3FNOLQ/IkkoPEn2OQKaDRPBotXS
- HRuZpxhxYqxLwmMt8SxUbuycbw3UnZuj7DLnST2KCDPzBp4V0/YdutO7L8n/gTeR/g86
- 68eUSPKmxmw67HY3FSb0QvaZ2t8da79YxrApbhvgBEU0fnT1LFU5xbuZ7FGWyW584PYn
- OTcQ==
-X-Gm-Message-State: AOAM532lEqxDxrF8dkysevHg52mOrcDn8Zen7ZKgl+7+XemlT1pC0Gjf
- NcgcRKkO8Cp9VDwa/zHBnU1h9mkpEow6/uGrYLQUrpMIdZSplL+/utxIg3Kjy6R63Uinw3/I3pw
- wH+EQkhjUYCB3QMxi8xc7Qz5nkPXk
-X-Received: by 2002:a17:906:3e15:: with SMTP id
- k21mr5923600eji.423.1624991283445; 
- Tue, 29 Jun 2021 11:28:03 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJwGLqw1AwUxKpu6bhggUbVqYJuFIfNL6mC+UNE1sLGRBFc9Q0iOasyqzGrIJbdWtKTmTRhc+w==
-X-Received: by 2002:a17:906:3e15:: with SMTP id
- k21mr5923594eji.423.1624991283312; 
- Tue, 29 Jun 2021 11:28:03 -0700 (PDT)
-Received: from [192.168.1.115] (xdsl-188-155-177-222.adslplus.ch.
- [188.155.177.222])
- by smtp.gmail.com with ESMTPSA id n13sm8598198ejk.97.2021.06.29.11.28.02
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 29 Jun 2021 11:28:02 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-To: Josef Bacik <josef@toxicpanda.com>, Chris Mason <clm@fb.com>,
- David Sterba <dsterba@suse.com>, linux-btrfs@vger.kernel.org,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- "kernel-team@lists.ubuntu.com" <kernel-team@lists.ubuntu.com>,
- "ltp@lists.linux.it" <ltp@lists.linux.it>, Qu Wenruo <wqu@suse.com>,
- Filipe Manana <fdmanana@suse.com>
-References: <a3b42abc-6996-ab06-ea9f-238e7c6f08d7@canonical.com>
- <124d7ead-6600-f369-7af1-a1bc27df135c@toxicpanda.com>
- <667133e5-44cb-8d95-c40a-12ac82f186f0@canonical.com>
- <0b6a502a-8db8-ef27-f48e-5001f351ef24@toxicpanda.com>
- <2576a472-1c99-889a-685c-a12bbfb08052@canonical.com>
-Message-ID: <9e2214b1-999d-90cf-a5c2-2dbb5a2eadd4@canonical.com>
-Date: Tue, 29 Jun 2021 20:28:02 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 2ABED1A003D1
+ for <ltp@lists.linux.it>; Tue, 29 Jun 2021 22:22:26 +0200 (CEST)
+Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ (using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 2AF231FDC9;
+ Tue, 29 Jun 2021 20:22:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1624998146;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type;
+ bh=vqagCd4OFc+hyCw7KngEqE5gSg/+wWM94IWvuxnKnQw=;
+ b=Iz0B+tDEVkw1hPorWeGjSzMHRRUHVG15i3EOgzOUNMsjc9iKtPdCdFyFdOc63fO5+T59wU
+ v5ZKMrW3iDwHNAsmxQ9s5zYnn4h+is19m9jN13E5GFR4fIjUmVVyIdHzPzFNzaPr3z/fAr
+ jpejgAh/T9LUX5r1b49Eyo2S2P2NxWI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1624998146;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type;
+ bh=vqagCd4OFc+hyCw7KngEqE5gSg/+wWM94IWvuxnKnQw=;
+ b=C1OrJcZTWlVe0wqMknBEsVyTkESb6jdsA/8fgFGx/XPHXOTNvIi7SAY+eZPICMXSWbBE5x
+ sl4qJy7GQR2L7CAw==
+Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
+ by imap.suse.de (Postfix) with ESMTP id CED2111906;
+ Tue, 29 Jun 2021 20:22:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1624998146;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type;
+ bh=vqagCd4OFc+hyCw7KngEqE5gSg/+wWM94IWvuxnKnQw=;
+ b=Iz0B+tDEVkw1hPorWeGjSzMHRRUHVG15i3EOgzOUNMsjc9iKtPdCdFyFdOc63fO5+T59wU
+ v5ZKMrW3iDwHNAsmxQ9s5zYnn4h+is19m9jN13E5GFR4fIjUmVVyIdHzPzFNzaPr3z/fAr
+ jpejgAh/T9LUX5r1b49Eyo2S2P2NxWI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1624998146;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type;
+ bh=vqagCd4OFc+hyCw7KngEqE5gSg/+wWM94IWvuxnKnQw=;
+ b=C1OrJcZTWlVe0wqMknBEsVyTkESb6jdsA/8fgFGx/XPHXOTNvIi7SAY+eZPICMXSWbBE5x
+ sl4qJy7GQR2L7CAw==
+Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
+ id 5dCkLwGB22DBJwAALh3uQQ
+ (envelope-from <pvorel@suse.cz>); Tue, 29 Jun 2021 20:22:25 +0000
+Date: Tue, 29 Jun 2021 22:22:23 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Richard Palethorpe <rpalethorpe@suse.com>
+Message-ID: <YNuA/0J20mjiV+NC@pevik>
 MIME-Version: 1.0
-In-Reply-To: <2576a472-1c99-889a-685c-a12bbfb08052@canonical.com>
-Content-Language: en-US
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+Content-Disposition: inline
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [BUG] btrfs potential failure on 32 core LTP test
- (fallocate05)
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] ee
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,26 +86,165 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: Martin Doucha <martin.doucha@suse.com>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 29/06/2021 20:06, Krzysztof Kozlowski wrote:
-> Minor update - it's not only Azure's. AWS m5.8xlarge and m5.16xlarge (32
-> and 64 cores) fail similarly. I'll try later also QEMU machines with
-> different amount of CPUs.
-> 
+Hi Richie,
 
-Test on QEMU machine with 31 CPUs passes. With 32 CPUs - failure as
-reported.
+sporadically tst_fuzzy_sync01 fails. I wonder if we can relax it somehow.
+I found it while working on enabling API tests in CI, I'll have to disable this
+one to avoid false positives.
 
-dmesg is empty - no error around this.
+Kind regards,
+Petr
 
-Maybe something with per-cpu variables?
+./tst_fuzzy_sync01
+tst_test.c:1311: TINFO: Timeout per run is 0h 05m 00s
+tst_fuzzy_sync01.c:224: TPASS: acs:0  act:0  art:0  | =:101  -:148  +:65  
+tst_fuzzy_sync01.c:224: TPASS: acs:0  act:1  art:0  | =:101  -:0    +:0   
+tst_fuzzy_sync01.c:224: TPASS: acs:1  act:1  art:1  | =:101  -:0    +:0   
+tst_fuzzy_sync01.c:224: TPASS: acs:3  act:1  art:1  | =:101  -:5    +:1   
+../../include/tst_fuzzy_sync.h:522: TINFO: Minimum sampling period ended
+../../include/tst_fuzzy_sync.h:345: TINFO: loop = 10000, delay_bias = 0
+../../include/tst_fuzzy_sync.h:333: TINFO: start_a - start_b: { avg =   -17ns, avg_dev =     4ns, dev_ratio = 0.25 }
+../../include/tst_fuzzy_sync.h:333: TINFO: end_a - start_a  : { avg = 20773ns, avg_dev =  4714ns, dev_ratio = 0.23 }
+../../include/tst_fuzzy_sync.h:333: TINFO: end_b - start_b  : { avg = 20849ns, avg_dev =  4710ns, dev_ratio = 0.23 }
+../../include/tst_fuzzy_sync.h:333: TINFO: end_a - end_b    : { avg =   -94ns, avg_dev =    24ns, dev_ratio = 0.26 }
+../../include/tst_fuzzy_sync.h:333: TINFO: spins            : { avg =    54  , avg_dev =    17  , dev_ratio = 0.31 }
+../../include/tst_fuzzy_sync.h:684: TINFO: Exceeded execution loops, requesting exit
+tst_fuzzy_sync01.c:224: TFAIL: acs:3  act:1  art:1  | =:0    -:1    +:2999999
+../../include/tst_fuzzy_sync.h:522: TINFO: Minimum sampling period ended
+../../include/tst_fuzzy_sync.h:345: TINFO: loop = 10000, delay_bias = 0
+../../include/tst_fuzzy_sync.h:333: TINFO: start_a - start_b: { avg =   -18ns, avg_dev =     8ns, dev_ratio = 0.46 }
+../../include/tst_fuzzy_sync.h:333: TINFO: end_a - start_a  : { avg = 21475ns, avg_dev =  4558ns, dev_ratio = 0.21 }
+../../include/tst_fuzzy_sync.h:333: TINFO: end_b - start_b  : { avg = 19960ns, avg_dev =  4702ns, dev_ratio = 0.24 }
+../../include/tst_fuzzy_sync.h:333: TINFO: end_a - end_b    : { avg =  1497ns, avg_dev =  1956ns, dev_ratio = 1.31 }
+../../include/tst_fuzzy_sync.h:333: TINFO: spins            : { avg =    43  , avg_dev =    17  , dev_ratio = 0.39 }
+../../include/tst_fuzzy_sync.h:684: TINFO: Exceeded execution loops, requesting exit
+tst_fuzzy_sync01.c:224: TFAIL: acs:1  act:1  art:3  | =:3    -:2999996 +:1   
+../../include/tst_fuzzy_sync.h:522: TINFO: Minimum sampling period ended
+../../include/tst_fuzzy_sync.h:345: TINFO: loop = 10000, delay_bias = 0
+../../include/tst_fuzzy_sync.h:333: TINFO: start_a - start_b: { avg =  1529ns, avg_dev =  1930ns, dev_ratio = 1.26 }
+../../include/tst_fuzzy_sync.h:333: TINFO: end_a - start_a  : { avg = 18630ns, avg_dev =  4565ns, dev_ratio = 0.25 }
+../../include/tst_fuzzy_sync.h:333: TINFO: end_b - start_b  : { avg =  8430ns, avg_dev =  4163ns, dev_ratio = 0.49 }
+../../include/tst_fuzzy_sync.h:333: TINFO: end_a - end_b    : { avg = 11729ns, avg_dev =  2725ns, dev_ratio = 0.23 }
+../../include/tst_fuzzy_sync.h:333: TINFO: spins            : { avg =  6115  , avg_dev =    33  , dev_ratio = 0.01 }
+../../include/tst_fuzzy_sync.h:684: TINFO: Exceeded execution loops, requesting exit
+tst_fuzzy_sync01.c:224: TFAIL: acs:3  act:1  art:1  | =:1    -:1    +:2999998
+../../include/tst_fuzzy_sync.h:522: TINFO: Minimum sampling period ended
+../../include/tst_fuzzy_sync.h:345: TINFO: loop = 10000, delay_bias = 0
+../../include/tst_fuzzy_sync.h:333: TINFO: start_a - start_b: { avg =  -126ns, avg_dev =   256ns, dev_ratio = 2.03 }
+../../include/tst_fuzzy_sync.h:333: TINFO: end_a - start_a  : { avg = 19028ns, avg_dev =  4655ns, dev_ratio = 0.24 }
+../../include/tst_fuzzy_sync.h:333: TINFO: end_b - start_b  : { avg =  5548ns, avg_dev =  1172ns, dev_ratio = 0.21 }
+../../include/tst_fuzzy_sync.h:333: TINFO: end_a - end_b    : { avg = 13354ns, avg_dev =  4411ns, dev_ratio = 0.33 }
+../../include/tst_fuzzy_sync.h:333: TINFO: spins            : { avg =  6070  , avg_dev =   157  , dev_ratio = 0.03 }
+tst_fuzzy_sync01.c:224: TPASS: acs:1  act:1  art:3  | =:101  -:69713 +:82  
+../../include/tst_fuzzy_sync.h:522: TINFO: Minimum sampling period ended
+../../include/tst_fuzzy_sync.h:345: TINFO: loop = 10000, delay_bias = 0
+../../include/tst_fuzzy_sync.h:333: TINFO: start_a - start_b: { avg =    -1ns, avg_dev =    35ns, dev_ratio = 41.69 }
+../../include/tst_fuzzy_sync.h:333: TINFO: end_a - start_a  : { avg =  5178ns, avg_dev =   496ns, dev_ratio = 0.10 }
+../../include/tst_fuzzy_sync.h:333: TINFO: end_b - start_b  : { avg = 20746ns, avg_dev =  4711ns, dev_ratio = 0.23 }
+../../include/tst_fuzzy_sync.h:333: TINFO: end_a - end_b    : { avg = -15569ns, avg_dev =  4639ns, dev_ratio = 0.30 }
+../../include/tst_fuzzy_sync.h:333: TINFO: spins            : { avg =  6127  , avg_dev =    48  , dev_ratio = 0.01 }
+tst_fuzzy_sync01.c:224: TPASS: acs:2  act:1  art:1  | =:101  -:67   +:103496
+../../include/tst_fuzzy_sync.h:522: TINFO: Minimum sampling period ended
+../../include/tst_fuzzy_sync.h:345: TINFO: loop = 10000, delay_bias = 0
+../../include/tst_fuzzy_sync.h:333: TINFO: start_a - start_b: { avg =  -174ns, avg_dev =   515ns, dev_ratio = 2.95 }
+../../include/tst_fuzzy_sync.h:333: TINFO: end_a - start_a  : { avg =  5382ns, avg_dev =  1036ns, dev_ratio = 0.19 }
+../../include/tst_fuzzy_sync.h:333: TINFO: end_b - start_b  : { avg = 19221ns, avg_dev =  4722ns, dev_ratio = 0.25 }
+../../include/tst_fuzzy_sync.h:333: TINFO: end_a - end_b    : { avg = -14014ns, avg_dev =  4570ns, dev_ratio = 0.33 }
+../../include/tst_fuzzy_sync.h:333: TINFO: spins            : { avg =  6141  , avg_dev =    57  , dev_ratio = 0.01 }
+../../include/tst_fuzzy_sync.h:678: TINFO: Exceeded execution time, requesting exit
+tst_fuzzy_sync01.c:224: TFAIL: acs:1  act:1  art:2  | =:6    -:2311522 +:7   
+../../include/tst_fuzzy_sync.h:522: TINFO: Minimum sampling period ended
+../../include/tst_fuzzy_sync.h:345: TINFO: loop = 10000, delay_bias = 0
+../../include/tst_fuzzy_sync.h:333: TINFO: start_a - start_b: { avg =   -16ns, avg_dev =     3ns, dev_ratio = 0.20 }
+../../include/tst_fuzzy_sync.h:333: TINFO: end_a - start_a  : { avg = 20317ns, avg_dev =  4728ns, dev_ratio = 0.23 }
+../../include/tst_fuzzy_sync.h:333: TINFO: end_b - start_b  : { avg = 20374ns, avg_dev =  4707ns, dev_ratio = 0.23 }
+../../include/tst_fuzzy_sync.h:333: TINFO: end_a - end_b    : { avg =   -73ns, avg_dev =    31ns, dev_ratio = 0.42 }
+../../include/tst_fuzzy_sync.h:333: TINFO: spins            : { avg =    58  , avg_dev =    18  , dev_ratio = 0.31 }
+../../include/tst_fuzzy_sync.h:532: TINFO: Reached deviation ratios < 0.10, introducing randomness
+../../include/tst_fuzzy_sync.h:535: TINFO: Delay range is [-14037, 8587]
+../../include/tst_fuzzy_sync.h:345: TINFO: loop = 663327, delay_bias = 0
+../../include/tst_fuzzy_sync.h:333: TINFO: start_a - start_b: { avg =   -43ns, avg_dev =     3ns, dev_ratio = 0.08 }
+../../include/tst_fuzzy_sync.h:333: TINFO: end_a - start_a  : { avg = 17713ns, avg_dev =    59ns, dev_ratio = 0.00 }
+../../include/tst_fuzzy_sync.h:333: TINFO: end_b - start_b  : { avg = 28954ns, avg_dev =    31ns, dev_ratio = 0.00 }
+../../include/tst_fuzzy_sync.h:333: TINFO: end_a - end_b    : { avg = -11283ns, avg_dev =    43ns, dev_ratio = 0.00 }
+../../include/tst_fuzzy_sync.h:333: TINFO: spins            : { avg =  5471  , avg_dev =    38  , dev_ratio = 0.01 }
+tst_fuzzy_sync01.c:224: TPASS: acs:3  act:1  art:0  | =:101  -:186  +:666740
+../../include/tst_fuzzy_sync.h:522: TINFO: Minimum sampling period ended
+../../include/tst_fuzzy_sync.h:345: TINFO: loop = 10000, delay_bias = 0
+../../include/tst_fuzzy_sync.h:333: TINFO: start_a - start_b: { avg =   -12ns, avg_dev =     6ns, dev_ratio = 0.47 }
+../../include/tst_fuzzy_sync.h:333: TINFO: end_a - start_a  : { avg = 20287ns, avg_dev =  4717ns, dev_ratio = 0.23 }
+../../include/tst_fuzzy_sync.h:333: TINFO: end_b - start_b  : { avg = 20310ns, avg_dev =  4685ns, dev_ratio = 0.23 }
+../../include/tst_fuzzy_sync.h:333: TINFO: end_a - end_b    : { avg =   -35ns, avg_dev =    41ns, dev_ratio = 1.18 }
+../../include/tst_fuzzy_sync.h:333: TINFO: spins            : { avg =    18  , avg_dev =    14  , dev_ratio = 0.77 }
+../../include/tst_fuzzy_sync.h:678: TINFO: Exceeded execution time, requesting exit
+tst_fuzzy_sync01.c:224: TFAIL: acs:0  act:1  art:3  | =:3    -:837016 +:1   
+../../include/tst_fuzzy_sync.h:522: TINFO: Minimum sampling period ended
+../../include/tst_fuzzy_sync.h:345: TINFO: loop = 10000, delay_bias = 0
+../../include/tst_fuzzy_sync.h:333: TINFO: start_a - start_b: { avg =   -30ns, avg_dev =     8ns, dev_ratio = 0.28 }
+../../include/tst_fuzzy_sync.h:333: TINFO: end_a - start_a  : { avg = 20287ns, avg_dev =  4703ns, dev_ratio = 0.23 }
+../../include/tst_fuzzy_sync.h:333: TINFO: end_b - start_b  : { avg =  4954ns, avg_dev =  1134ns, dev_ratio = 0.23 }
+../../include/tst_fuzzy_sync.h:333: TINFO: end_a - end_b    : { avg = 15303ns, avg_dev =  4468ns, dev_ratio = 0.29 }
+../../include/tst_fuzzy_sync.h:333: TINFO: spins            : { avg =  6042  , avg_dev =    34  , dev_ratio = 0.01 }
+../../include/tst_fuzzy_sync.h:532: TINFO: Reached deviation ratios < 0.10, introducing randomness
+../../include/tst_fuzzy_sync.h:535: TINFO: Delay range is [-2861, 8786]
+../../include/tst_fuzzy_sync.h:345: TINFO: loop = 402095, delay_bias = 0
+../../include/tst_fuzzy_sync.h:333: TINFO: start_a - start_b: { avg =   -18ns, avg_dev =     2ns, dev_ratio = 0.09 }
+../../include/tst_fuzzy_sync.h:333: TINFO: end_a - start_a  : { avg = 14168ns, avg_dev =   585ns, dev_ratio = 0.04 }
+../../include/tst_fuzzy_sync.h:333: TINFO: end_b - start_b  : { avg =  4615ns, avg_dev =    10ns, dev_ratio = 0.00 }
+../../include/tst_fuzzy_sync.h:333: TINFO: end_a - end_b    : { avg =  9535ns, avg_dev =   587ns, dev_ratio = 0.06 }
+../../include/tst_fuzzy_sync.h:333: TINFO: spins            : { avg =  5913  , avg_dev =   157  , dev_ratio = 0.03 }
+tst_fuzzy_sync01.c:224: TPASS: acs:3  act:1  art:0  | =:101  -:95   +:403404
+../../include/tst_fuzzy_sync.h:522: TINFO: Minimum sampling period ended
+../../include/tst_fuzzy_sync.h:345: TINFO: loop = 10000, delay_bias = 0
+../../include/tst_fuzzy_sync.h:333: TINFO: start_a - start_b: { avg =    -8ns, avg_dev =     0ns, dev_ratio = 0.06 }
+../../include/tst_fuzzy_sync.h:333: TINFO: end_a - start_a  : { avg = 20354ns, avg_dev =  4775ns, dev_ratio = 0.23 }
+../../include/tst_fuzzy_sync.h:333: TINFO: end_b - start_b  : { avg =  4607ns, avg_dev =     8ns, dev_ratio = 0.00 }
+../../include/tst_fuzzy_sync.h:333: TINFO: end_a - end_b    : { avg = 15739ns, avg_dev =  4783ns, dev_ratio = 0.30 }
+../../include/tst_fuzzy_sync.h:333: TINFO: spins            : { avg =  6109  , avg_dev =    66  , dev_ratio = 0.01 }
+../../include/tst_fuzzy_sync.h:678: TINFO: Exceeded execution time, requesting exit
+tst_fuzzy_sync01.c:224: TFAIL: acs:0  act:1  art:3  | =:31   -:210089 +:83  
+../../include/tst_fuzzy_sync.h:522: TINFO: Minimum sampling period ended
+../../include/tst_fuzzy_sync.h:345: TINFO: loop = 10000, delay_bias = 0
+../../include/tst_fuzzy_sync.h:333: TINFO: start_a - start_b: { avg =    -1ns, avg_dev =     6ns, dev_ratio = 5.49 }
+../../include/tst_fuzzy_sync.h:333: TINFO: end_a - start_a  : { avg =  4594ns, avg_dev =   185ns, dev_ratio = 0.04 }
+../../include/tst_fuzzy_sync.h:333: TINFO: end_b - start_b  : { avg = 18613ns, avg_dev =  4594ns, dev_ratio = 0.25 }
+../../include/tst_fuzzy_sync.h:333: TINFO: end_a - end_b    : { avg = -14020ns, avg_dev =  4509ns, dev_ratio = 0.32 }
+../../include/tst_fuzzy_sync.h:333: TINFO: spins            : { avg =  6192  , avg_dev =    44  , dev_ratio = 0.01 }
+../../include/tst_fuzzy_sync.h:678: TINFO: Exceeded execution time, requesting exit
+tst_fuzzy_sync01.c:224: TFAIL: acs:2  act:1  art:0  | =:7    -:0    +:142178
+../../include/tst_fuzzy_sync.h:522: TINFO: Minimum sampling period ended
+../../include/tst_fuzzy_sync.h:345: TINFO: loop = 10000, delay_bias = 0
+../../include/tst_fuzzy_sync.h:333: TINFO: start_a - start_b: { avg =   314ns, avg_dev =   251ns, dev_ratio = 0.80 }
+../../include/tst_fuzzy_sync.h:333: TINFO: end_a - start_a  : { avg =  4606ns, avg_dev =    27ns, dev_ratio = 0.01 }
+../../include/tst_fuzzy_sync.h:333: TINFO: end_b - start_b  : { avg = 14040ns, avg_dev =    44ns, dev_ratio = 0.00 }
+../../include/tst_fuzzy_sync.h:333: TINFO: end_a - end_b    : { avg = -9119ns, avg_dev =   234ns, dev_ratio = 0.03 }
+../../include/tst_fuzzy_sync.h:333: TINFO: spins            : { avg =  5928  , avg_dev =   146  , dev_ratio = 0.02 }
+../../include/tst_fuzzy_sync.h:678: TINFO: Exceeded execution time, requesting exit
+tst_fuzzy_sync01.c:224: TFAIL: acs:0  act:1  art:2  | =:0    -:47266 +:0   
+../../include/tst_fuzzy_sync.h:522: TINFO: Minimum sampling period ended
+../../include/tst_fuzzy_sync.h:345: TINFO: loop = 10000, delay_bias = 0
+../../include/tst_fuzzy_sync.h:333: TINFO: start_a - start_b: { avg =    -7ns, avg_dev =     7ns, dev_ratio = 0.98 }
+../../include/tst_fuzzy_sync.h:333: TINFO: end_a - start_a  : { avg = 19278ns, avg_dev =  4713ns, dev_ratio = 0.24 }
+../../include/tst_fuzzy_sync.h:333: TINFO: end_b - start_b  : { avg =   646ns, avg_dev =    82ns, dev_ratio = 0.13 }
+../../include/tst_fuzzy_sync.h:333: TINFO: end_a - end_b    : { avg = 18625ns, avg_dev =  4725ns, dev_ratio = 0.25 }
+../../include/tst_fuzzy_sync.h:333: TINFO: spins            : { avg =  8988  , avg_dev =    20  , dev_ratio = 0.00 }
+Test timeouted, sending SIGKILL!
+tst_test.c:1357: TINFO: If you are running on slow machine, try exporting LTP_TIMEOUT_MUL > 1
+tst_test.c:1359: TBROK: Test killed! (timeout?)
 
-Best regards,
-Krzysztof
+Summary:
+passed   8
+failed   8
+broken   1
+skipped  0
+warnings 0
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
