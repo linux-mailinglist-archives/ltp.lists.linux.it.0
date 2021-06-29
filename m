@@ -1,62 +1,61 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05DC53B7FF4
-	for <lists+linux-ltp@lfdr.de>; Wed, 30 Jun 2021 11:28:54 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D2EF3B7FF5
+	for <lists+linux-ltp@lfdr.de>; Wed, 30 Jun 2021 11:29:00 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A8D453C86A5
-	for <lists+linux-ltp@lfdr.de>; Wed, 30 Jun 2021 11:28:53 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 4DC8F3C86AA
+	for <lists+linux-ltp@lfdr.de>; Wed, 30 Jun 2021 11:29:00 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 61D613C0354
- for <ltp@lists.linux.it>; Tue, 29 Jun 2021 20:32:20 +0200 (CEST)
-Received: from mail-qk1-x72b.google.com (mail-qk1-x72b.google.com
- [IPv6:2607:f8b0:4864:20::72b])
+ by picard.linux.it (Postfix) with ESMTPS id D06223C1A2B
+ for <ltp@lists.linux.it>; Tue, 29 Jun 2021 22:14:47 +0200 (CEST)
+Received: from mail-qv1-xf2f.google.com (mail-qv1-xf2f.google.com
+ [IPv6:2607:f8b0:4864:20::f2f])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 863DB100053B
- for <ltp@lists.linux.it>; Tue, 29 Jun 2021 20:32:19 +0200 (CEST)
-Received: by mail-qk1-x72b.google.com with SMTP id z3so5583331qkl.4
- for <ltp@lists.linux.it>; Tue, 29 Jun 2021 11:32:19 -0700 (PDT)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id E3F6B1000544
+ for <ltp@lists.linux.it>; Tue, 29 Jun 2021 22:14:46 +0200 (CEST)
+Received: by mail-qv1-xf2f.google.com with SMTP id j14so2034624qvu.6
+ for <ltp@lists.linux.it>; Tue, 29 Jun 2021 13:14:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=toxicpanda-com.20150623.gappssmtp.com; s=20150623;
  h=subject:to:references:from:message-id:date:user-agent:mime-version
  :in-reply-to:content-language:content-transfer-encoding;
- bh=FdTAed2LSsBnzt5mppM7ptg5hTbGbhSZ1V8HyoAvOkg=;
- b=p4LxCNymyBtzGTN48VIjv5wsucwiQGUlrGyfEAYtdryNyX1VuRilWX0IH7v919zbW1
- hCDHX01SDCQolN4L5HVK3vJtA+VGpvaer5V0oCki282T7l9O/TJWIapCDZPjhAE3TRy4
- InPM43x/pEXuJcHqZ8CczhXKs09JS1elwlCsgHjKulLj8AnLlmiP0AJ35gjK0wMrFooN
- 1gfIWPEUdVhRhj98Iuy08od821uAJYvM9D19LnX2CqbNCO3H4DSqKE5qFKnSf9UVsIXQ
- EL7r1ih98PxBm9Y8zRtaAMNOb/uw2Zqw5bSEGZfvihcYr6QBSdXVzNxU2eOmiCsNmK3C
- gqVA==
+ bh=uvaby5gvroAX5HC+y94a4O9K04hquk3bJ0y+KPQxC60=;
+ b=QOfJ1i6doLCaLKvWd7QE9NcumeGgRhUUqOsGSH37yiiZvQQeBlo+twAHzgkC/+xR7G
+ 6Gg9pFiJhN1lWfpjA2zS3jC+D6wkGR9bfz1jquysNgTuoGXVLVahVI1FVAcB1VxBjV39
+ t6577/bHE6eEfg+R9ulGJnpOWWrdmLpbmi9eS7TnD6GwJXCHTzCfRHKrhX2WKFo0SGzV
+ yD5Urp7YBqb2aYcMX/Rw/R7k74UByXC6DXvtlpt6pluEbX4EGYahLBoChaUMfn+R8HDA
+ yPRQNBfJ6HD/6BgKEYC3L1lB9xORbDL9RPu6KBv4uzViTDFbaVVZAf8r0w2VZ6M+O3xV
+ BC0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:subject:to:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-language
  :content-transfer-encoding;
- bh=FdTAed2LSsBnzt5mppM7ptg5hTbGbhSZ1V8HyoAvOkg=;
- b=LvsT2yTG0cY2hUNFl6bed00tONxSDnpR5Moz5JaOc7P/BtERWUjOllkyWBVX5z5ZaM
- PC50SMWxBPNUzCJKb5SThncTPcZh4IgU32OgKvdmQ7PcYBRPOjasZW7i3PyW/+jmnqJR
- vhlUxRNRKlGPTo1mdV5WZNVHn6fvZ/gnAxMYvHU1nDRsX4UkfuTxo3AVAdeUcTis+d09
- m8R9eRmo8ahRmeACgvula87AP4DJUQYONMJCUis0GJw2D9cW9Xp2FUgmvzHkmOaMRQap
- XV+SQszaQ1TcrgKgcgTFREYXTYsu9wThK1lMOn5CMaBL7k2DJFaTHbG5dmri01i+g2o/
- EXCg==
-X-Gm-Message-State: AOAM5336WX4KfmkS/uPO1mDpdpINpgOD/x3yrEe4Qt/tmOUU8eGoZd/V
- QceZHA+8EvYFTE4ZqUB0ETzZdw==
-X-Google-Smtp-Source: ABdhPJwimaCD8ZfgQbaVJoflCansSCyaQJZuRQzAm8t9OSjmgNJoCCGt7uRXohHJeygN2eo+zwX3dQ==
-X-Received: by 2002:a37:ad02:: with SMTP id f2mr15664410qkm.357.1624991538273; 
- Tue, 29 Jun 2021 11:32:18 -0700 (PDT)
-Received: from ?IPv6:2620:10d:c0a8:11c1::12d2? ([2620:10d:c091:480::1:98e8])
- by smtp.gmail.com with ESMTPSA id d136sm4242135qkc.110.2021.06.29.11.32.16
+ bh=uvaby5gvroAX5HC+y94a4O9K04hquk3bJ0y+KPQxC60=;
+ b=D9wmzFnkVSpWckI69lB3hiozYsheffCiWcNkBvdAkeiCMdSUO3AC0fCTE6mOchZx9o
+ d3zvlwMQgWw8FUe6TdRWIvTOm47LYVpmI7nVBO+LgTW1imTXRTuL1ODEk8QqvvKy3Yfw
+ HobJpsMpMNkOvBVmGPG6y3g9Qe1JrOecDZUO+nP/RLRkTv31GC12w8PCgwQ++HbnkkSA
+ 6d/64GBtA/CYJchxRIDGqLe42htHTFiyWgQRu1Hzcfay+Osn+m7LpsUhK40p6JgrPpq0
+ ZSeybygUaf9tfYXPqVCaSjdiKx3SWtSWsx5fHuu81d3q4Rdd23tovTvQV+InwwMqvUtC
+ RGCg==
+X-Gm-Message-State: AOAM533uH3W2fU6rRA1dnO8UxkeaZX9xVQ/kRoTTJNt8RmyMpsQGf6X2
+ WodG0RghY2yW8OgeyvrMr906vT22LG5xLg==
+X-Google-Smtp-Source: ABdhPJypSBP2VAgao4SXGRkrO8wNKGE5V/NO4blik1cOk9WCQLNz/7YlzWaQ8Zkw6IZ3ZZ9yUrNTXg==
+X-Received: by 2002:ad4:4d85:: with SMTP id cv5mr17887549qvb.33.1624997685578; 
+ Tue, 29 Jun 2021 13:14:45 -0700 (PDT)
+Received: from ?IPv6:2620:10d:c0a8:11c1::12d2? ([2620:10d:c091:480::1:1f64])
+ by smtp.gmail.com with ESMTPSA id o200sm10300043qke.105.2021.06.29.13.14.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 29 Jun 2021 11:32:17 -0700 (PDT)
+ Tue, 29 Jun 2021 13:14:45 -0700 (PDT)
 To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
  Chris Mason <clm@fb.com>, David Sterba <dsterba@suse.com>,
  linux-btrfs@vger.kernel.org,
@@ -71,8 +70,8 @@ References: <a3b42abc-6996-ab06-ea9f-238e7c6f08d7@canonical.com>
  <2576a472-1c99-889a-685c-a12bbfb08052@canonical.com>
  <9e2214b1-999d-90cf-a5c2-2dbb5a2eadd4@canonical.com>
 From: Josef Bacik <josef@toxicpanda.com>
-Message-ID: <57cfa398-8a33-06e2-dfcd-fa959c27ac47@toxicpanda.com>
-Date: Tue, 29 Jun 2021 14:32:15 -0400
+Message-ID: <62d1df14-7ee5-8ff4-5676-cf98cdd966df@toxicpanda.com>
+Date: Tue, 29 Jun 2021 16:14:43 -0400
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
  Gecko/20100101 Thunderbird/78.11.0
 MIME-Version: 1.0
@@ -115,18 +114,12 @@ On 6/29/21 2:28 PM, Krzysztof Kozlowski wrote:
 > dmesg is empty - no error around this.
 > 
 > Maybe something with per-cpu variables?
+> 
 
-Ah yeah, so since you are further into this than I am, want to give my recent 
-batch of fixes a try?
-
-https://github.com/josefbacik/linux/tree/delalloc-shrink
-
-This might actually resolve the problems.  If not I'm getting one of our 64cpu 
-boxes setup to test this, I also couldn't reproduce it on my smaller local 
-machines.  Thanks,
+Can I get y'alls .config?  I ran it on one of my 80cpu boxes and it didn't 
+reproduce on my new code or on 5.12.  Thanks,
 
 Josef
-
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
