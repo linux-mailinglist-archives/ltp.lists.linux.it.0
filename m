@@ -1,80 +1,82 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77FF13B702C
-	for <lists+linux-ltp@lfdr.de>; Tue, 29 Jun 2021 11:38:32 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 697D43B7071
+	for <lists+linux-ltp@lfdr.de>; Tue, 29 Jun 2021 12:10:42 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 488543C6CB1
-	for <lists+linux-ltp@lfdr.de>; Tue, 29 Jun 2021 11:38:32 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 0DD483C6CB6
+	for <lists+linux-ltp@lfdr.de>; Tue, 29 Jun 2021 12:10:42 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id AF6E73C1A2B
- for <ltp@lists.linux.it>; Tue, 29 Jun 2021 11:38:30 +0200 (CEST)
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 53A223C180B
+ for <ltp@lists.linux.it>; Tue, 29 Jun 2021 12:10:40 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id A3FF81000A56
- for <ltp@lists.linux.it>; Tue, 29 Jun 2021 11:38:29 +0200 (CEST)
-Received: from mail-ej1-f70.google.com ([209.85.218.70])
- by youngberry.canonical.com with esmtps (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
- (envelope-from <krzysztof.kozlowski@canonical.com>)
- id 1lyACK-0005NL-Ln
- for ltp@lists.linux.it; Tue, 29 Jun 2021 09:38:28 +0000
-Received: by mail-ej1-f70.google.com with SMTP id
- f1-20020a1709064941b02903f6b5ef17bfso5462015ejt.20
- for <ltp@lists.linux.it>; Tue, 29 Jun 2021 02:38:28 -0700 (PDT)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 84E9E600198
+ for <ltp@lists.linux.it>; Tue, 29 Jun 2021 12:10:39 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1624961438;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=fLMNHCgOSx7Q21M+ma9IbVyPPaTbp21fu4iLCFTADyk=;
+ b=VQuQWUHqVyua1CQzyNY+cklKaJRMuJdtrsWdbkOMfo5r6L1PtI6qOg8YMRD8t7kgQ1iFq6
+ AHi/NE0lfMpk/krdtA05U04gJdMCwRyq1yWGkgHqzwDZ0mtFHzCi8zM+jJIay1P4aAVUsC
+ Go4kd0YqlTScmarKVLiQqRI65og5cQE=
+Received: from mail-yb1-f197.google.com (mail-yb1-f197.google.com
+ [209.85.219.197]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-451-6dRmKrdcP_yhFLQ47GIVjw-1; Tue, 29 Jun 2021 06:10:35 -0400
+X-MC-Unique: 6dRmKrdcP_yhFLQ47GIVjw-1
+Received: by mail-yb1-f197.google.com with SMTP id
+ c13-20020a25880d0000b029055492c8987bso20244384ybl.19
+ for <ltp@lists.linux.it>; Tue, 29 Jun 2021 03:10:35 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=RlngaNc3atOxDjzx29yMCULml8DPEyBpANTqTJc89hI=;
- b=lRmHgxsupQ+k5cjvbcFBEF55JE0hh3GuTv4YmS0IoFLQiDu6MHsPRBw8gV2IhC2ico
- gp3dfa7Pei7gfqVU7XPKhGmqDJCKPIyi/Me5L9/oJ8RO9YDSql3h1te2rXF7ukX2jvCe
- f0Ttzz13u56NNe3MzjsVEsMlXMBwMKLm1E/K9k1BlLY+Iz7lK9PtmNRiUXNn1C3b72bz
- Z48dJowgfgUERwsNMCF8PzKL45jijk1Xvwl5CcPTyBGzI69P9nYX08d8VRdS8l6g8B89
- HYEs94FVtfd+6KK8fuQYLemUQhs1RzhSy+jse/BrJY5lBDJcigQ4poRqOpvBMwl0BgZ2
- YTQw==
-X-Gm-Message-State: AOAM530RXHZutd3v+O7Oc17SY4Lg/znHJfntKOp6b9sIVFMlGTYCwuV+
- zyBISG3jq1BjGWcPMQ2uNq9kZYh++/9YtUj3wDtg5HlFKQn57jTHcy4yqwSs5Ds1HHmVUXhyizq
- L6bRUlWcKYImvQ5NAKUhAkzj+0wTf
-X-Received: by 2002:a17:907:9841:: with SMTP id
- jj1mr29013600ejc.94.1624959508124; 
- Tue, 29 Jun 2021 02:38:28 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJwIwkxMDqaIsgApmZYsMxildpISj5HG6khdtpFBkl0RDi92UrVYYXNcrke3OSbunvkZpJysJA==
-X-Received: by 2002:a17:907:9841:: with SMTP id
- jj1mr29013588ejc.94.1624959507972; 
- Tue, 29 Jun 2021 02:38:27 -0700 (PDT)
-Received: from [192.168.1.115] (xdsl-188-155-177-222.adslplus.ch.
- [188.155.177.222])
- by smtp.gmail.com with ESMTPSA id gv20sm8118240ejc.23.2021.06.29.02.38.27
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 29 Jun 2021 02:38:27 -0700 (PDT)
-To: Petr Vorel <pvorel@suse.cz>, Wang Xin <wangxin410@huawei.com>
-References: <20210401125127.45600-1-wangxin410@huawei.com>
- <YNoxKg+Hm0qa3Z70@pevik>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-Message-ID: <fd26cf45-7dd8-004f-3d41-422ce4d9bbdb@canonical.com>
-Date: Tue, 29 Jun 2021 11:38:27 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=fLMNHCgOSx7Q21M+ma9IbVyPPaTbp21fu4iLCFTADyk=;
+ b=DfB5/90f35FEZPy6D+Q1qv057te7X/rjQ0V7eehucBkZiDJD3CaSGL/6ObT4sJoNGK
+ HWSu6L3RsY+nM+k/2QfwKKZXtWxU72wbOkeKGVuyP7y6mIFS/ltIBFwIsAJ3dhIjMfmN
+ ygL+ICIqV6LMucxkxvwBaokVhrdZ17lVMOC6n6puNX7iL1ttjL5vTtjq2UOZcIrGIswA
+ jTuELJHJZZ3kiYQTkV+qZwGTs6SPQg9hrCtIQ+LoeDWFtYKlEpyIIhSXDby81d5r0C88
+ xBLGG8jK/ck2+8avQ7/KEHuA+KfArpDcjjFfouX97yqxPkBfesxt+jcJqe17IyMiGEGq
+ GPkg==
+X-Gm-Message-State: AOAM530jPGUVjIv7rHp/5IYftMcirLXSmZGUEInM6VxAXX3CYcEdI4oo
+ XSklnjNNEtpYgvdqHzsHCz8wrXruaym9Us74OwJSMmmQm2Q22utGgffB3AiYgKfZHtdfPiUtfwV
+ 1HFrsoJagOXzUTFfS1GXiBIluZNA=
+X-Received: by 2002:a25:b44d:: with SMTP id c13mr36917134ybg.86.1624961435436; 
+ Tue, 29 Jun 2021 03:10:35 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwsz7iw6EaeI+CuQUSCC0DpPNhx+0R2WKAoh0LExJaqNCdCpOkdrdjWdwM7zbrSJqn9ixRnPJBKatdpRnKoGZs=
+X-Received: by 2002:a25:b44d:: with SMTP id c13mr36917102ybg.86.1624961435114; 
+ Tue, 29 Jun 2021 03:10:35 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <YNoxKg+Hm0qa3Z70@pevik>
-Content-Language: en-US
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+References: <CAEemH2eJLd5cSHZLUyXCYBhr643noDPT4RrMb8YBxrE_M3d1gA@mail.gmail.com>
+ <1624930818-31474-1-git-send-email-xuyang2018.jy@fujitsu.com>
+In-Reply-To: <1624930818-31474-1-git-send-email-xuyang2018.jy@fujitsu.com>
+From: Li Wang <liwang@redhat.com>
+Date: Tue, 29 Jun 2021 18:10:22 +0800
+Message-ID: <CAEemH2cR2tFtVMPQE=SQqPDOA1gPo3ONTxrr5N5FVs5fJzXhyQ@mail.gmail.com>
+To: Yang Xu <xuyang2018.jy@fujitsu.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] ltp_tpci.c: Add release operation before
- allocation
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] ipc/msgget03: Make sure we get ENOSPC error
+ after creating MSGMNI message queues
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,45 +88,48 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============1787040505=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 28/06/2021 22:29, Petr Vorel wrote:
-> Hi Xin,
-> 
->> When we run the test case, the following results will be obtained:
->> test_pci  283  TPASS  :  PCI bus 7d slot 00 : Test-case '11'
->> test_pci  284  TFAIL  :  tpci.c:74: PCI bus 7d slot 00 : Test-case '12'
->> ...
->> test_pci  300  TFAIL  :  tpci.c:74: PCI bus 7d slot 01 : Test-case '12'
->> test_pci  301  TPASS  :  PCI bus 7d slot 01 : Test-case '13'
-> 
->> The analysis is that the space allocated by the bios is insufficient.
->> The solution to this problem can be in add pci_release_resource(dev, i)
->> before system resources are reallocated.Because the resources have been
->> allocated when the system is initialized.If it is redistributed, it
->> should be released and then allocated.
-> 
-> I wonder if this is the same issue as the one described by Krzysztof in his
-> patch:
-> https://patchwork.ozlabs.org/project/ltp/patch/20210401125127.45600-1-wangxin410@huawei.com/
-> 
-> Could you please share what HW and kernel you use and post dmesg?
+--===============1787040505==
+Content-Type: multipart/alternative; boundary="0000000000001d345d05c5e4d1c7"
 
-This solves my problem. It seems that could be the root cause - early
-configuration allocated too small resource? It might be also some
-specific BIOS issue (wrong resource allocated?) because in case of
-resource assignment failure, the kernel should try to get the original
-FW address from BIOS (pcibios_retrieve_fw_addr()) and this apparently
-returns NULL translated to -ENOMEM.
+--0000000000001d345d05c5e4d1c7
+Content-Type: text/plain; charset="UTF-8"
 
-I am fine with going with this patch instead of mine.
+Hi Xu,
 
-Best regards,
-Krzysztof
+Patch applied, thanks.
+
+-- 
+Regards,
+Li Wang
+
+--0000000000001d345d05c5e4d1c7
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small">Hi Xu,</div><div class=3D"gmail_default" style=3D"font-size:s=
+mall"><br></div><div class=3D"gmail_default" style=3D"font-size:small">Patc=
+h applied, thanks.</div></div><div><br></div>-- <br><div dir=3D"ltr" class=
+=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<b=
+r></div></div></div></div>
+
+--0000000000001d345d05c5e4d1c7--
+
+
+--===============1787040505==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============1787040505==--
+
