@@ -1,68 +1,84 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FCC03B7EC8
-	for <lists+linux-ltp@lfdr.de>; Wed, 30 Jun 2021 10:16:20 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id B69593B7F05
+	for <lists+linux-ltp@lfdr.de>; Wed, 30 Jun 2021 10:30:23 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9AA983C6E4D
-	for <lists+linux-ltp@lfdr.de>; Wed, 30 Jun 2021 10:16:19 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 87A6D3C6C51
+	for <lists+linux-ltp@lfdr.de>; Wed, 30 Jun 2021 10:30:23 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 2BFA83C6BE5
- for <ltp@lists.linux.it>; Wed, 30 Jun 2021 10:16:14 +0200 (CEST)
-Received: from vipregular1.263.net (vipregular1.263.net [211.150.80.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id C7A763C2310
+ for <ltp@lists.linux.it>; Wed, 30 Jun 2021 10:30:21 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id C998B2009CA
- for <ltp@lists.linux.it>; Wed, 30 Jun 2021 10:16:11 +0200 (CEST)
-Received: from localhost (unknown [192.168.167.218])
- by vipregular1.263.net (Postfix) with ESMTP id D3472454;
- Wed, 30 Jun 2021 16:16:05 +0800 (CST)
-X-MAIL-GRAY: 0
-X-MAIL-DELIVERY: 1
-X-ADDR-CHECKED: 0
-X-SKE-CHECKED: 1
-X-ABS-CHECKED: 1
-X-ANTISPAM-LEVEL: 2
-Received: from bj-wm-cp-8 (unknown [192.168.167.112])
- by smtp.263.net (postfix) whith ESMTP id
- P10521T139795919521536S1625040965636734_; 
- Wed, 30 Jun 2021 16:16:05 +0800 (CST)
-X-UNIQUE-TAG: <1d2cc2bd1191fb15d601842d1fcb8bf8>
-X-RL-SENDER: gouhao@uniontech.com
-X-SENDER: gouhao@uniontech.com
-X-LOGIN-NAME: wmsendmail@net263.com
-X-FST-TO: liwang@redhat.com
-X-RCPT-COUNT: 4
-X-SENDER-IP: 192.168.167.112
-X-ATTACHMENT-NUM: 0
-X-System-Flag: 0
-Date: Wed, 30 Jun 2021 16:16:06 +0800 (CST)
-From: =?UTF-8?B?6Iuf5rWp?= <gouhao@uniontech.com>
-To: =?UTF-8?B?TGkgV2FuZyA=?= <liwang@redhat.com>
-Message-ID: <1292921202.339978.1625040966427.JavaMail.xmail@bj-wm-cp-8>
-References: <20210628115740.5da3dbfda1c263f95d66c77a@uniontech.com>,
- <CAEemH2cMAEuf_Qx-UE8LFX_1zB6N=p=RzJUXr2+tLAFLHuqg9A@mail.gmail.com>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 83AD6200C1C
+ for <ltp@lists.linux.it>; Wed, 30 Jun 2021 10:30:20 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1625041819;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=eSsELy6bht/t1+DL8NNz8UAqO2tqDXvbLBc6VlfUvdI=;
+ b=acjul1q+Qj78Tyfwbd18YlDeU9MI2eiEFzCdPg3/uT4xbDqUPwrqXDt/04jAmoUHt+2ZIT
+ vXhgU9MYbbS5CXCq3w1roIVCIWGO6eOSGrFkARIPBOYlAJiqA+xRIwdVDVT6f8jr+xH2eP
+ h6loQFx1h5OXBtRSpcm4fnO4VmOEVRo=
+Received: from mail-yb1-f199.google.com (mail-yb1-f199.google.com
+ [209.85.219.199]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-406-ddENswBAM1m6IHZ9fo9Cow-1; Wed, 30 Jun 2021 04:30:16 -0400
+X-MC-Unique: ddENswBAM1m6IHZ9fo9Cow-1
+Received: by mail-yb1-f199.google.com with SMTP id
+ q10-20020a056902150ab02905592911c932so2871953ybu.15
+ for <ltp@lists.linux.it>; Wed, 30 Jun 2021 01:30:16 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=eSsELy6bht/t1+DL8NNz8UAqO2tqDXvbLBc6VlfUvdI=;
+ b=p3OMFtq5kvDxBoufMyoyCeCaLwGverRysC2E8e7TJUhsyWI80V+jHbJEn+vWIlPeJS
+ ty/5IFH7e6/tNQEkI1WmNh6iOWktw3D8zgOyGvpRY0tACWDZJSrrtbyPon3kMEqWuIaW
+ YcR05KkPGzSxR0pwocqbX2/AgCZme3fSKU3axAlgGW+EB4Lzxlz9DqcjHV8+9/nAakhk
+ 5paII0G97oqKw87DB7jqTGnbe0PSt/c0dKLLOXKyBL1j41kh9rIYx+VSzwohR0jMyFHp
+ 32dyVrLLFUCk6GwhW7L8QEOhzEfxz3z/BZK99I//HI8JUxpUdFWAHW/xLIms7FTnFZgr
+ z/Vg==
+X-Gm-Message-State: AOAM533S8ul4JwCHYMOf9PDqLXQQvWZEaDT+ppFAhdLkwFErZmyo9e2r
+ NiPEZhe4pt4QnZYI5kNBSkbS08f5PYNB899CaFOTGrtXC+EnLXY+rJXjdxzWcTAPrWHZJexOKYs
+ NqBb9UD/tOr9SxxssofgKBcs+VOU=
+X-Received: by 2002:a25:abc3:: with SMTP id v61mr17155215ybi.366.1625041815659; 
+ Wed, 30 Jun 2021 01:30:15 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwFxlUwJrXgEs3jrxm3M3FbC171li266c6MWGwSZfn7/gB71fzrKaMoqjWOoTBJHA8+hDCCcz7Q8JWI8Qj+BXA=
+X-Received: by 2002:a25:abc3:: with SMTP id v61mr17155207ybi.366.1625041815506; 
+ Wed, 30 Jun 2021 01:30:15 -0700 (PDT)
 MIME-Version: 1.0
-X-Send-Individually: 0
-X-Reply-Previous-EmailId: 
-X-SENDER-IP: 113.200.76.118
-X-Priority: 3
+References: <20210628115740.5da3dbfda1c263f95d66c77a@uniontech.com>
+ <CAEemH2cMAEuf_Qx-UE8LFX_1zB6N=p=RzJUXr2+tLAFLHuqg9A@mail.gmail.com>
+ <1292921202.339978.1625040966427.JavaMail.xmail@bj-wm-cp-8>
+In-Reply-To: <1292921202.339978.1625040966427.JavaMail.xmail@bj-wm-cp-8>
+From: Li Wang <liwang@redhat.com>
+Date: Wed, 30 Jun 2021 16:30:03 +0800
+Message-ID: <CAEemH2fQNwP3eRsUMmsHiZfad48ZLvsLPNMWfNS=8xTeWi_Q0g@mail.gmail.com>
+To: =?UTF-8?B?6Iuf5rWp?= <gouhao@uniontech.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.7 required=7.0 tests=HTML_MESSAGE,
- HTML_MIME_NO_HTML_TAG,MIME_HTML_ONLY,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
 Subject: Re: [LTP] 
- =?utf-8?q?=5BPATCH=5D_fix_cpuhotplug04_check_last_cpu_erro?=
- =?utf-8?q?r=E3=80=90Suspected_phishing_email=2C_please_pay_attention_to_p?=
- =?utf-8?q?assword_security=E3=80=91?=
+	=?utf-8?q?=5BPATCH=5D_fix_cpuhotplug04_check_last_cpu_erro?=
+	=?utf-8?q?r=E3=80=90Suspected_phishing_email=2C_please_pay_attenti?=
+	=?utf-8?q?on_to_password_security=E3=80=91?=
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,100 +90,77 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: =?UTF-8?B?d2VpZG9uZyA=?= <weidong@uniontech.com>,
- =?UTF-8?B?amlhb2ZlbmZhbmcg?= <jiaofenfang@uniontech.com>,
- =?UTF-8?B?TFRQIExpc3Qg?= <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============0707518814=="
+Cc: weidong <weidong@uniontech.com>, jiaofenfang <jiaofenfang@uniontech.com>,
+ LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============1429289282=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0707518814==
-Content-Type: text/html;  charset=utf-8
-Content-Transfer-Encoding: base64
+--===============1429289282==
+Content-Type: multipart/alternative; boundary="00000000000028a15e05c5f7881a"
 
-PHN0eWxlPnRhYmxlLmN1c3RvbVRhYmxlQ2xhc3NOYW1lIHttYXJnaW4tYm90dG9tOiAxMHB4O2Jv
-cmRlci1jb2xsYXBzZTogY29sbGFwc2U7ZGlzcGxheTogdGFibGU7fS5jdXN0b21UYWJsZUNsYXNz
-TmFtZSB0ZCwgLmN1c3RvbVRhYmxlQ2xhc3NOYW1lIHRoIHtib3JkZXI6IDFweCBzb2xpZCAjZGRk
-O308L3N0eWxlPjxwIHN0eWxlPSJtYXJnaW46MHB4OyI+PGJyPjwvcD48cCBzdHlsZT0ibWFyZ2lu
-OjBweDsiPjxicj48L3A+PHAgc3R5bGU9Im1hcmdpbjowcHg7Ij5IaSBMaVdhbmc6PGJyPjwvcD48
-cCBzdHlsZT0ibWFyZ2luOjBweDsiPjxicj48L3A+PHAgc3R5bGU9Im1hcmdpbjowcHg7Ij55b3Ug
-YXJlIHJpZ2h0LiZuYnNwOzwvcD48cCBzdHlsZT0ibWFyZ2luOjBweDsiPjxicj48L3A+PHAgc3R5
-bGU9Im1hcmdpbjowcHg7Ij5JIGFza2VkIHRoZSBDUFUgbWFudWZhY3R1cmVycyBhbmQgdHJpZWQg
-c2V2ZXJhbCBrZXJuZWwsIHdoaWNoIHNob3VsZCBiZSB0aGUgcHJvYmxlbSBvZiB0aGUga2VybmVs
-LiZuYnNwOzwvcD48cCBzdHlsZT0ibWFyZ2luOjBweDsiPjxicj48L3A+PHAgc3R5bGU9Im1hcmdp
-bjowcHg7Ij5JIGRvbid0IHVuZGVyc3RhbmQgdGhlIGNvZGUgcmlnaHQuPGJyPjwvcD48cCBzdHls
-ZT0ibWFyZ2luOjBweDsiPjxicj48L3A+PHAgc3R5bGU9Im1hcmdpbjowcHg7Ij5UaGFuayB5b3Ug
-dmVyeSBtdWNoLjwvcD48ZGl2IGlkPSJ3cml0ZS1jdXN0b20tY29tcGFueVNpZ25hdHVyZSI+Jm5i
-c3A7PC9kaXY+PHAgc3R5bGU9Im1hcmdpbjowcHg7Ij48YnI+DQogJm5ic3A7PC9wPjxkaXYgc3R5
-bGU9InBhZGRpbmc6NXB4O3BhZGRpbmctbGVmdDowcHg7Ym9yZGVyLXRvcDpzb2xpZCAjOTk5IDEu
-MHB0O2ZvbnQtZmFtaWx5OiBhcmlhbDsgZm9udC1zaXplOjEycHg7bWFyZ2luLWJvdHRvbToyMHB4
-OyI+PHAgc3R5bGU9Im1hcmdpbjowcHg7Ij48c3Ryb25nPkZyb206PC9zdHJvbmc+ICJMaSBXYW5n
-ICZsdDtsaXdhbmdAcmVkaGF0LmNvbSZndDsiPC9wPjxwIHN0eWxlPSJtYXJnaW46MHB4OyI+PHN0
-cm9uZz5Ubzo8L3N0cm9uZz4gImdvdWhhbyAmbHQ7Z291aGFvQHVuaW9udGVjaC5jb20mZ3Q7Ijwv
-cD48cCBzdHlsZT0ibWFyZ2luOjBweDsiPjxzdHJvbmc+Q0M6PC9zdHJvbmc+ICJMVFAgTGlzdCAm
-bHQ7bHRwQGxpc3RzLmxpbnV4Lml0Jmd0OyIsImppYW9mZW5mYW5nICZsdDtqaWFvZmVuZmFuZ0B1
-bmlvbnRlY2guY29tJmd0OyIsIndlaWRvbmcgJmx0O3dlaWRvbmdAdW5pb250ZWNoLmNvbSZndDsi
-PC9wPjxwIHN0eWxlPSJtYXJnaW46MHB4OyI+PHN0cm9uZz5TZW50Ojwvc3Ryb25nPiAyMDIxLTA2
-LTI4IDEyOjI3PC9wPjxwIHN0eWxlPSJtYXJnaW46MHB4OyI+PHN0cm9uZz5TdWJqZWN0Ojwvc3Ry
-b25nPiBSZTogUmU6IFJlOiBbTFRQXSBbUEFUQ0hdIGZpeCBjcHVob3RwbHVnMDQgY2hlY2sgbGFz
-dCBjcHUgZXJyb3LjgJBTdXNwZWN0ZWQgcGhpc2hpbmcgZW1haWwsIHBsZWFzZSBwYXkgYXR0ZW50
-aW9uIHRvIHBhc3N3b3JkIHNlY3VyaXR544CRPC9wPjwvZGl2PjxkaXYgZGlyPSJsdHIiPjxicj48
-YnI+DQogJm5ic3A7PGRpdiBjbGFzcz0iZ21haWxfcXVvdGUiPjxkaXYgZGlyPSJsdHIiIGNsYXNz
-PSJnbWFpbF9hdHRyIj5PbiBNb24sIEp1biAyOCwgMjAyMSBhdCAxMTo1OCBBTSAmbHQ7PGEgaHJl
-Zj0ibWFpbHRvOmdvdWhhb0B1bmlvbnRlY2guY29tIj5nb3VoYW9AdW5pb250ZWNoLmNvbTwvYT4m
-Z3Q7IHdyb3RlOiAmbmJzcDsgJm5ic3A7IDxicj48L2Rpdj48YmxvY2txdW90ZSBjbGFzcz0iZ21h
-aWxfcXVvdGUiIHN0eWxlPSJtYXJnaW46MHB4IDBweCAwcHggMC44ZXg7Ym9yZGVyLWxlZnQ6MXB4
-IHNvbGlkIHJnYigyMDQsMjA0LDIwNCk7cGFkZGluZy1sZWZ0OjFleCI+PGRpdj48ZGl2PjxkaXYg
-c3R5bGU9Im92ZXJmbG93LXdyYXA6IGJyZWFrLXdvcmQ7Ij48ZGl2PlRoaXMgY2hhbmdlIG1ha2Vz
-IHNlbnNlLjwvZGl2Pjxicj48ZGl2Pk9uIG15IGNvbXB1dGVyLCB0aGUgbGFzdCBDUFUgY2FuJ3Qg
-YmUgb2ZmbGluZSwgd2hpY2ggY2F1c2VzIHRoZSBleGVjdXRpb24gb2YgdGhpcyB0ZXN0Y2FzZSB0
-byBmYWlsLjwvZGl2PjwvZGl2PjwvZGl2PjwvZGl2PjwvYmxvY2txdW90ZT48YnI+PGRpdiBjbGFz
-cz0iZ21haWxfZGVmYXVsdCIgc3R5bGU9ImZvbnQtc2l6ZTpzbWFsbCI+QnV0IHRoZSBDUFUwIG9u
-IHlvdXIgc3lzdGVtIHdpbGwgYWx3YXlzIG9ubGluZSwgc28gdGhlIGxhc3Qgb25lIHNob3VsZCBi
-ZSBvZmZsaW5lJm5ic3A7c2FmZWx5LjwvZGl2PjxkaXYgY2xhc3M9ImdtYWlsX2RlZmF1bHQiIHN0
-eWxlPSJmb250LXNpemU6c21hbGwiPklmIGl0IG5vdCwgdGhhdCBtaWdodCBhIGtlcm5lbCBpc3N1
-ZSBJIGd1ZXNzLjwvZGl2PjxibG9ja3F1b3RlIGNsYXNzPSJnbWFpbF9xdW90ZSIgc3R5bGU9Im1h
-cmdpbjowcHggMHB4IDBweCAwLjhleDtib3JkZXItbGVmdDoxcHggc29saWQgcmdiKDIwNCwyMDQs
-MjA0KTtwYWRkaW5nLWxlZnQ6MWV4Ij48ZGl2PjxkaXY+PGRpdiBzdHlsZT0ib3ZlcmZsb3ctd3Jh
-cDogYnJlYWstd29yZDsiPjxicj48ZGl2Pkhvd2V2ZXIsIHRoZSB0ZXN0Y2FzZSBtYWtlcyBzcGVj
-aWFsIHRyZWF0bWVudCB0byB0aGUgbGFzdCBDUFUuIElmIHRoZSBsYXN0IENQVSBjYW5ub3QgYmUg
-b2ZmbGluZSwgdGhlIGV4ZWN1dGlvbiByZXN1bHQgb2YgdGhlIHRlc3RjYXNlIHNob3VsZCBub3Qg
-YmUgYWZmZWN0ZWQuPC9kaXY+PC9kaXY+PC9kaXY+PC9kaXY+PC9ibG9ja3F1b3RlPjxicj48ZGl2
-IGNsYXNzPSJnbWFpbF9kZWZhdWx0IiBzdHlsZT0iZm9udC1zaXplOnNtYWxsIj5ZZXMsIGJ1dCBm
-cm9tIGNwdWhvdHBsdWcwNC5zaCBjb21tZW50IGxpbmUjODQ6PC9kaXY+PGJyPjxkaXYgY2xhc3M9
-ImdtYWlsX2RlZmF1bHQiIHN0eWxlPSJmb250LXNpemU6c21hbGwiPiMgSWYgYWxsIHRoZSBDUFVz
-IGFyZSBob3RwbHVnZ2FibGUsIHdlIGV4cGVjdCAmbmJzcDsgJm5ic3A7IDxicj4gIyB0aGF0IHRo
-ZSBrZXJuZWwgd2lsbCByZWZ1c2UgdG8gb2ZmbGluZSB0aGUgbGFzdCBDUFUuICZuYnNwOyAmbmJz
-cDsgPGJyPiAjIElmIG9ubHkgc29tZSBvZiB0aGUgQ1BVcyBhcmUgaG90cGx1Z2dhYmxlLCAmbmJz
-cDsgJm5ic3A7IDxicj4gIyB0aGV5IGFsbCBjYW4gYmUgb2ZmbGluZWQuICZuYnNwOyAmbmJzcDsg
-PGJyPjwvZGl2Pjxicj48ZGl2IGNsYXNzPSJnbWFpbF9kZWZhdWx0IiBzdHlsZT0iZm9udC1zaXpl
-OnNtYWxsIj5Ib3cgZG8geW91IHRoaW5rIG9mIHRoaXMgZGVzY3JpcHRpb24/IEluIHlvdXIgc3lz
-dGVtLCBpdCBvYnZpb3VzbHkmbmJzcDtiZWxvbmdzIHRvPC9kaXY+PGRpdiBjbGFzcz0iZ21haWxf
-ZGVmYXVsdCIgc3R5bGU9ImZvbnQtc2l6ZTpzbWFsbCI+dGhlIHNlY29uZCBzY2VuYXJpbyB0aGF0
-IHRoZSBjcHUwIGlzIG9ubGluZSBhbmQgeW91IHNob3VsZCBiZSBhYmxlIHRvIG9mZmxpbmU8L2Rp
-dj48ZGl2IGNsYXNzPSJnbWFpbF9kZWZhdWx0IiBzdHlsZT0iZm9udC1zaXplOnNtYWxsIj5hbGwg
-dGhlIHJlbWFpbmluZyBob3RwbHVnZ2VkJm5ic3A7b25lLCBpc24ndCZuYnNwO2l0PzwvZGl2Pjxi
-bG9ja3F1b3RlIGNsYXNzPSJnbWFpbF9xdW90ZSIgc3R5bGU9Im1hcmdpbjowcHggMHB4IDBweCAw
-LjhleDtib3JkZXItbGVmdDoxcHggc29saWQgcmdiKDIwNCwyMDQsMjA0KTtwYWRkaW5nLWxlZnQ6
-MWV4Ij48ZGl2PjxkaXY+PGRpdiBzdHlsZT0ib3ZlcmZsb3ctd3JhcDogYnJlYWstd29yZDsiPjxi
-cj48ZGl2PlRoZXJlZm9yZSwgaWYgY3B1MCBkb2VzIG5vdCBoYXZlIGFuIG9ubGluZSBmaWxlLCBp
-dCB3aWxsIGxlYWQgdG8gYW4gZXJyb3IgaW4gdGhlIGp1ZGdtZW50IG9mIHRoZSBsYXN0IENQVS48
-L2Rpdj48L2Rpdj48L2Rpdj48L2Rpdj48L2Jsb2NrcXVvdGU+PGJyPjxkaXYgY2xhc3M9ImdtYWls
-X2RlZmF1bHQiIHN0eWxlPSJmb250LXNpemU6c21hbGwiPklmIGNwdTAgZG9lcyBub3QgaGF2ZSBh
-biBvbmxpbmUgZmlsZSwgdGhhdCBtZWFucyB0aGUgbGFzdCBDUFUgKGhvdHBsdWdnZWQpIGNhbiBi
-ZSBvZmZsaW5lIGFzIHdlbGwuPC9kaXY+PGRpdiBjbGFzcz0iZ21haWxfZGVmYXVsdCIgc3R5bGU9
-ImZvbnQtc2l6ZTpzbWFsbCI+VG8gdmVyaWZ5IHRoaXMgYXNzdW1wdGlvbiwgeW91IGNhbiB0cnkg
-bWFudWFsbHkgb2ZmbGluZSBDUFUgb25lIGJ5IG9uZSwgdGhpcyB0aW1lIEkgc3VnZ2VzdCB5b3U8
-L2Rpdj48ZGl2IGNsYXNzPSJnbWFpbF9kZWZhdWx0IiBzdHlsZT0iZm9udC1zaXplOnNtYWxsIj50
-cnkgdGhlIGxhc3Qgb25lIGZpcnN0LjwvZGl2PjwvZGl2PjxkaXY+PGJyPg0KICZuYnNwOzwvZGl2
-Pi0tIA0KICZuYnNwOyA8YnI+DQogJm5ic3A7PGRpdiBkaXI9Imx0ciIgY2xhc3M9ImdtYWlsX3Np
-Z25hdHVyZSI+PGRpdiBkaXI9Imx0ciI+PGRpdj5SZWdhcmRzLCAmbmJzcDsgJm5ic3A7ICZuYnNw
-Ozxicj4gPC9kaXY+PGRpdj5MaSBXYW5nICZuYnNwOyAmbmJzcDsgJm5ic3A7PGJyPiA8L2Rpdj48
-L2Rpdj48L2Rpdj48L2Rpdj4=
+--00000000000028a15e05c5f7881a
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi Hao,
+
+On Wed, Jun 30, 2021 at 4:16 PM =E8=8B=9F=E6=B5=A9 <gouhao@uniontech.com> w=
+rote:
+
+>
+>
+> Hi LiWang:
+>
+>
+> you are right.
+>
+>
+> I asked the CPU manufacturers and tried several kernel, which should be
+> the problem of the kernel.
+>
+>
+> I don't understand the code right.
+>
+>
+> Thank you very much.
+>
+
+You're welcome, and no one can always right,
+just like Petr said: we are all learning.
+
+--=20
+Regards,
+Li Wang
+
+--00000000000028a15e05c5f7881a
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small">Hi Hao,</div></div><br><div class=3D"gmail_quote"><div dir=3D=
+"ltr" class=3D"gmail_attr">On Wed, Jun 30, 2021 at 4:16 PM =E8=8B=9F=E6=B5=
+=A9 &lt;<a href=3D"mailto:gouhao@uniontech.com" target=3D"_blank">gouhao@un=
+iontech.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=
+=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
+-left:1ex"><p style=3D"margin:0px"><br></p><p style=3D"margin:0px"><br></p>=
+<p style=3D"margin:0px">Hi LiWang:<br></p><p style=3D"margin:0px"><br></p><=
+p style=3D"margin:0px">you are right.=C2=A0</p><p style=3D"margin:0px"><br>=
+</p><p style=3D"margin:0px">I asked the CPU manufacturers and tried several=
+ kernel, which should be the problem of the kernel.=C2=A0</p><p style=3D"ma=
+rgin:0px"><br></p><p style=3D"margin:0px">I don&#39;t understand the code r=
+ight.<br></p><p style=3D"margin:0px"><br></p><p style=3D"margin:0px">Thank =
+you very much.</p></blockquote><div><br></div><div><div class=3D"gmail_defa=
+ult" style=3D"font-size:small">You&#39;re welcome, and no one can always ri=
+ght,</div><div class=3D"gmail_default" style=3D"font-size:small">just like =
+Petr said: we are all learning.</div></div></div><div><br></div>-- <br><div=
+ dir=3D"ltr"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div>=
+</div></div></div>
+
+--00000000000028a15e05c5f7881a--
 
 
-
---===============0707518814==
+--===============1429289282==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -177,4 +170,5 @@ Content-Disposition: inline
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
 
---===============0707518814==--
+--===============1429289282==--
+
