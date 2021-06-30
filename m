@@ -1,77 +1,68 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2EB103B7EB2
-	for <lists+linux-ltp@lfdr.de>; Wed, 30 Jun 2021 10:08:57 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FCC03B7EC8
+	for <lists+linux-ltp@lfdr.de>; Wed, 30 Jun 2021 10:16:20 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7E1AD3C6C51
-	for <lists+linux-ltp@lfdr.de>; Wed, 30 Jun 2021 10:08:56 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 9AA983C6E4D
+	for <lists+linux-ltp@lfdr.de>; Wed, 30 Jun 2021 10:16:19 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id B053C3C00A6
- for <ltp@lists.linux.it>; Wed, 30 Jun 2021 10:08:52 +0200 (CEST)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 2BFA83C6BE5
+ for <ltp@lists.linux.it>; Wed, 30 Jun 2021 10:16:14 +0200 (CEST)
+Received: from vipregular1.263.net (vipregular1.263.net [211.150.80.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id ED0A76011F7
- for <ltp@lists.linux.it>; Wed, 30 Jun 2021 10:08:51 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1625040530;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:mime-version:mime-version:content-type:content-type;
- bh=cTO2AdcZV+1VmxuYh3V/KqRumhPEjR23RcfXsLMz+2M=;
- b=dmn4pyjOGPbP+0N98yGt0a8e0bspQBgwqVKJfy8t53XYWKk8kL4NnSkj+xpZqkGV25Oboj
- jXtZ5g5yTKmtaaHjv3zjur6BjgcHGRRV8NUIXgAwrCoabjWcmvpqTDUAbYGcuWmrWli4kD
- utG11D8q3YyQMlpkhztaAZcvFCa478k=
-Received: from mail-yb1-f198.google.com (mail-yb1-f198.google.com
- [209.85.219.198]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-274-_A43hkJ8M7-Kk0KMmXpPTA-1; Wed, 30 Jun 2021 04:08:48 -0400
-X-MC-Unique: _A43hkJ8M7-Kk0KMmXpPTA-1
-Received: by mail-yb1-f198.google.com with SMTP id
- h7-20020a5b0a870000b029054c59edf217so2833501ybq.3
- for <ltp@lists.linux.it>; Wed, 30 Jun 2021 01:08:48 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=cTO2AdcZV+1VmxuYh3V/KqRumhPEjR23RcfXsLMz+2M=;
- b=XNDJMkFoftdquh3LxMU8UwsY5aXZ+XOOupTVHNCOnJYHf2oHRfOJiFHkwFhXS+vSe4
- RP2bhKxha/AUwRqVp19gmw40wYJ7zMQ5My348AycO24ClTCq4pBa3Tk7WGM527mTd74p
- 8/u1ApVzdNwM+uuWD6xm54yHhJWcvvZVA+lU0YBAxRO6zWwqeEHaan6qyq9J1ulYdvBl
- t3hvzD83dkEa4WzFd62/YShApQo58NY0dN0+kehHuVnSoby56wKOX7VB6c+7LDs5K3yL
- xJAUq5N19B7AyOsxCAyoTsci0ajfxKMo2FkGSi06pIyI9i1iqQtkf9Wozh5MVvnMwRdX
- 9V3Q==
-X-Gm-Message-State: AOAM532wDSt2qohmrtJQqoGUMUTmUDV2KEpfg1Q9c+bwg3pgnMKkhvoN
- r27gsuEgSnxFx9ejk7iVEQTkkfvfj0HwBrp09A0BQyEeoY/tgo+s8VTJFZlh9C0UY2+dSD8+0D4
- oAP6/EwtQG3u+hOt0PnFOvo9aVSA=
-X-Received: by 2002:a25:3882:: with SMTP id
- f124mr42118637yba.110.1625040527539; 
- Wed, 30 Jun 2021 01:08:47 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJz/1HqzKVdaxq+OQL+2j8Kf0mElfJVLAWrFW+ZPIIS77OH2NT5N97PcEpjgYZHcWjQhEM6dRqZJDdr6nYsDHIM=
-X-Received: by 2002:a25:3882:: with SMTP id
- f124mr42118607yba.110.1625040527225; 
- Wed, 30 Jun 2021 01:08:47 -0700 (PDT)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id C998B2009CA
+ for <ltp@lists.linux.it>; Wed, 30 Jun 2021 10:16:11 +0200 (CEST)
+Received: from localhost (unknown [192.168.167.218])
+ by vipregular1.263.net (Postfix) with ESMTP id D3472454;
+ Wed, 30 Jun 2021 16:16:05 +0800 (CST)
+X-MAIL-GRAY: 0
+X-MAIL-DELIVERY: 1
+X-ADDR-CHECKED: 0
+X-SKE-CHECKED: 1
+X-ABS-CHECKED: 1
+X-ANTISPAM-LEVEL: 2
+Received: from bj-wm-cp-8 (unknown [192.168.167.112])
+ by smtp.263.net (postfix) whith ESMTP id
+ P10521T139795919521536S1625040965636734_; 
+ Wed, 30 Jun 2021 16:16:05 +0800 (CST)
+X-UNIQUE-TAG: <1d2cc2bd1191fb15d601842d1fcb8bf8>
+X-RL-SENDER: gouhao@uniontech.com
+X-SENDER: gouhao@uniontech.com
+X-LOGIN-NAME: wmsendmail@net263.com
+X-FST-TO: liwang@redhat.com
+X-RCPT-COUNT: 4
+X-SENDER-IP: 192.168.167.112
+X-ATTACHMENT-NUM: 0
+X-System-Flag: 0
+Date: Wed, 30 Jun 2021 16:16:06 +0800 (CST)
+From: =?UTF-8?B?6Iuf5rWp?= <gouhao@uniontech.com>
+To: =?UTF-8?B?TGkgV2FuZyA=?= <liwang@redhat.com>
+Message-ID: <1292921202.339978.1625040966427.JavaMail.xmail@bj-wm-cp-8>
+References: <20210628115740.5da3dbfda1c263f95d66c77a@uniontech.com>,
+ <CAEemH2cMAEuf_Qx-UE8LFX_1zB6N=p=RzJUXr2+tLAFLHuqg9A@mail.gmail.com>
 MIME-Version: 1.0
-From: Li Wang <liwang@redhat.com>
-Date: Wed, 30 Jun 2021 16:08:35 +0800
-Message-ID: <CAEemH2da0dOeKpnZZ6+A696gFL+nDAiP7UL9tqm68JH8KO-Qkw@mail.gmail.com>
-To: LTP List <ltp@lists.linux.it>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Send-Individually: 0
+X-Reply-Previous-EmailId: 
+X-SENDER-IP: 113.200.76.118
+X-Priority: 3
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=0.7 required=7.0 tests=HTML_MESSAGE,
+ HTML_MIME_NO_HTML_TAG,MIME_HTML_ONLY,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [RFC] Limit the tmpfs size on mounting
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] 
+ =?utf-8?q?=5BPATCH=5D_fix_cpuhotplug04_check_last_cpu_erro?=
+ =?utf-8?q?r=E3=80=90Suspected_phishing_email=2C_please_pay_attention_to_p?=
+ =?utf-8?q?assword_security=E3=80=91?=
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,182 +74,100 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============2096711469=="
+Cc: =?UTF-8?B?d2VpZG9uZyA=?= <weidong@uniontech.com>,
+ =?UTF-8?B?amlhb2ZlbmZhbmcg?= <jiaofenfang@uniontech.com>,
+ =?UTF-8?B?TFRQIExpc3Qg?= <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============0707518814=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============2096711469==
-Content-Type: multipart/alternative; boundary="0000000000005f0b6a05c5f73b4b"
+--===============0707518814==
+Content-Type: text/html;  charset=utf-8
+Content-Transfer-Encoding: base64
 
---0000000000005f0b6a05c5f73b4b
-Content-Type: text/plain; charset="UTF-8"
-
-Hi all,
-
-LTP mount and make use of the whole tmpfs of the test system,
-generally, it's fine. But if a test (e.g fallocate06) try to fill full in
-the
-filesystem, it takes too long to complete testing on a large memory
-system.
-
-I'm thinking whether we should limit the mount tmpfs size for the
-LTP test, maybe only give 512MB?  but the tricky part for me is to
-add options like "-o size=512M" to prepare_device(), or do some
-additional work for tmpfs mounting.
-
-and any else way can speed up is also welcome. I'd like to hear
-more advice. Thanks!
-
-
-   120 tst_test.c:1379: TINFO: Testing on tmpfs
-   121 tst_test.c:889: TINFO: Skipping mkfs for TMPFS filesystem
-   122 tst_test.c:1313: TINFO: Timeout per run is 0h 05m 00s
-   123 fallocate06.c:126: TINFO: Copy-on-write is not supported
-   124 fallocate06.c:177: TINFO: Case 1. Fill FS: no; Use copy on write: no
-   125 fallocate06.c:166: TPASS: write() successful
-   126 fallocate06.c:210: TPASS: Misaligned allocation works as expected
-   127 fallocate06.c:166: TPASS: fallocate(FALLOC_FL_PUNCH_HOLE |
-FALLOC_FL_KEEP_SIZE) successful
-   128 fallocate06.c:246: TPASS: fallocate(FALLOC_FL_PUNCH_HOLE |
-FALLOC_FL_KEEP_SIZE) cleared the correct file range
-   129 fallocate06.c:177: TINFO: Case 2. Fill FS: yes; Use copy on write: no
-   130 tst_fill_fs.c:32: TINFO: Creating file mntpoint/file0 size 21710183
-   131 tst_fill_fs.c:32: TINFO: Creating file mntpoint/file1 size 8070086
-   132 tst_fill_fs.c:32: TINFO: Creating file mntpoint/file2 size 3971177
-   133 tst_fill_fs.c:32: TINFO: Creating file mntpoint/file3 size 36915315
-   134 tst_fill_fs.c:32: TINFO: Creating file mntpoint/file4 size 70310993
-   135 tst_fill_fs.c:32: TINFO: Creating file mntpoint/file5 size 4807935
-   136 tst_fill_fs.c:32: TINFO: Creating file mntpoint/file6 size 90739786
-   137 tst_fill_fs.c:32: TINFO: Creating file mntpoint/file7 size 76896492
-   ...
-  2382 tst_fill_fs.c:32: TINFO: Creating file mntpoint/file2252 size
-57793556
-  2383 tst_fill_fs.c:32: TINFO: Creating file mntpoint/file2253 size
-44128200
-  2384 tst_fill_fs.c:32: TINFO: Creating file mntpoint/file2254 size
-31600129
-  2385 tst_fill_fs.c:32: TINFO: Creating file mntpoint/file2255 size 1865251
- <------- create too many files
-  2386 tst_fill_fs.c:59: TINFO: write(): ENOSPC (28)
-  2387 fallocate06.c:166: TPASS: write() successful
-  2388 fallocate06.c:210: TPASS: Misaligned allocation works as expected
-  2389 fallocate06.c:166: TPASS: fallocate(FALLOC_FL_PUNCH_HOLE |
-FALLOC_FL_KEEP_SIZE) successful
-  2390 fallocate06.c:246: TPASS: fallocate(FALLOC_FL_PUNCH_HOLE |
-FALLOC_FL_KEEP_SIZE) cleared the correct file range
-  2391 Test timeouted, sending SIGKILL!    <------- looks like takes too
-much time on purge dirs
-
-
-# df -Th | grep tmpfs
-Filesystem                             Type      Size  Used Avail Use%
-Mounted on
-devtmpfs                               devtmpfs  126G     0  126G   0% /dev
-tmpfs                                  tmpfs     126G  4.0K  126G   1%
-/dev/shm
-tmpfs                                  tmpfs     126G   18M  126G   1% /run
-tmpfs                                  tmpfs     126G     0  126G   0%
-/sys/fs/cgroup
-/dev/loop0                             tmpfs     126G   23G  104G  18%
-/tmp/falywSTkc/mntpoint
-
--- 
-Regards,
-Li Wang
-
---0000000000005f0b6a05c5f73b4b
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div class=3D"gmail_default" style=3D"font-size:small">Hi =
-all,</div><div class=3D"gmail_default" style=3D"font-size:small"><br></div>=
-<div class=3D"gmail_default" style=3D"font-size:small">LTP mount and make u=
-se of the whole tmpfs of the test system,</div><div class=3D"gmail_default"=
- style=3D"font-size:small">generally, it&#39;s fine. But if a test (e.g fal=
-locate06) try to fill full in the</div><div class=3D"gmail_default" style=
-=3D"font-size:small">filesystem, it takes too long to complete testing on a=
- large memory</div><div class=3D"gmail_default" style=3D"font-size:small">s=
-ystem.</div><div class=3D"gmail_default" style=3D"font-size:small"><br></di=
-v><div class=3D"gmail_default" style=3D"font-size:small">I&#39;m thinking w=
-hether we should limit the mount tmpfs size for the</div><div class=3D"gmai=
-l_default" style=3D"font-size:small">LTP test, maybe only give 512MB?=C2=A0=
- but the tricky part for me is to</div><div class=3D"gmail_default" style=
-=3D"font-size:small">add options like &quot;-o size=3D512M&quot; to prepare=
-_device(), or do some</div><div class=3D"gmail_default" style=3D"font-size:=
-small">additional work for tmpfs mounting.</div><div class=3D"gmail_default=
-" style=3D"font-size:small"><br></div><div class=3D"gmail_default" style=3D=
-"font-size:small">and=C2=A0any else way can speed up is also welcome. I&#39=
-;d like to hear</div><div class=3D"gmail_default" style=3D"font-size:small"=
->more advice. Thanks!</div><div><br></div><br>=C2=A0 =C2=A0120 tst_test.c:1=
-379: TINFO: Testing on tmpfs<br>=C2=A0 =C2=A0121 tst_test.c:889: TINFO: Ski=
-pping mkfs for TMPFS filesystem<br>=C2=A0 =C2=A0122 tst_test.c:1313: TINFO:=
- Timeout per run is 0h 05m 00s<br>=C2=A0 =C2=A0123 fallocate06.c:126: TINFO=
-: Copy-on-write is not supported<br>=C2=A0 =C2=A0124 fallocate06.c:177: TIN=
-FO: Case 1. Fill FS: no; Use copy on write: no<br>=C2=A0 =C2=A0125 fallocat=
-e06.c:166: TPASS: write() successful<br>=C2=A0 =C2=A0126 fallocate06.c:210:=
- TPASS: Misaligned allocation works as expected<br>=C2=A0 =C2=A0127 falloca=
-te06.c:166: TPASS: fallocate(FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE) su=
-ccessful<br>=C2=A0 =C2=A0128 fallocate06.c:246: TPASS: fallocate(FALLOC_FL_=
-PUNCH_HOLE | FALLOC_FL_KEEP_SIZE) cleared the correct file range<br>=C2=A0 =
-=C2=A0129 fallocate06.c:177: TINFO: Case 2. Fill FS: yes; Use copy on write=
-: no<br>=C2=A0 =C2=A0130 tst_fill_fs.c:32: TINFO: Creating file mntpoint/fi=
-le0 size 21710183<br>=C2=A0 =C2=A0131 tst_fill_fs.c:32: TINFO: Creating fil=
-e mntpoint/file1 size 8070086<br>=C2=A0 =C2=A0132 tst_fill_fs.c:32: TINFO: =
-Creating file mntpoint/file2 size 3971177<br>=C2=A0 =C2=A0133 tst_fill_fs.c=
-:32: TINFO: Creating file mntpoint/file3 size 36915315<br>=C2=A0 =C2=A0134 =
-tst_fill_fs.c:32: TINFO: Creating file mntpoint/file4 size 70310993<br>=C2=
-=A0 =C2=A0135 tst_fill_fs.c:32: TINFO: Creating file mntpoint/file5 size 48=
-07935<br>=C2=A0 =C2=A0136 tst_fill_fs.c:32: TINFO: Creating file mntpoint/f=
-ile6 size 90739786<br>=C2=A0 =C2=A0137 tst_fill_fs.c:32: TINFO: Creating fi=
-le mntpoint/file7 size 76896492<br>=C2=A0 =C2=A0...<br>=C2=A0<span class=3D=
-"gmail_default" style=3D"font-size:small"> </span> 2382 tst_fill_fs.c:32: T=
-INFO: Creating file mntpoint/file2252 size 57793556<br><span class=3D"gmail=
-_default" style=3D"font-size:small"> </span>=C2=A0 2383 tst_fill_fs.c:32: T=
-INFO: Creating file mntpoint/file2253 size 44128200<br>=C2=A0<span class=3D=
-"gmail_default" style=3D"font-size:small"> </span> 2384 tst_fill_fs.c:32: T=
-INFO: Creating file mntpoint/file2254 size 31600129<br>=C2=A0 <span class=
-=3D"gmail_default" style=3D"font-size:small"> </span>2385 tst_fill_fs.c:32:=
- TINFO: Creating file mntpoint/file2255 size 1865251<span class=3D"gmail_de=
-fault" style=3D"font-size:small">=C2=A0 =C2=A0&lt;------- create too many f=
-iles </span><br>=C2=A0 <span class=3D"gmail_default" style=3D"font-size:sma=
-ll"> </span>2386 tst_fill_fs.c:59: TINFO: write(): ENOSPC (28)<br>=C2=A0 <s=
-pan class=3D"gmail_default" style=3D"font-size:small"> </span>2387 fallocat=
-e06.c:166: TPASS: write() successful<br>=C2=A0 <span class=3D"gmail_default=
-" style=3D"font-size:small"> </span>2388 fallocate06.c:210: TPASS: Misalign=
-ed allocation works as expected<br>=C2=A0 <span class=3D"gmail_default" sty=
-le=3D"font-size:small"> </span>2389 fallocate06.c:166: TPASS: fallocate(FAL=
-LOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE) successful<br>=C2=A0 <span class=
-=3D"gmail_default" style=3D"font-size:small"> </span>2390 fallocate06.c:246=
-: TPASS: fallocate(FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE) cleared the =
-correct file range<br>=C2=A0 <span class=3D"gmail_default" style=3D"font-si=
-ze:small"> </span>2391 Test timeouted, sending SIGKILL!<span class=3D"gmail=
-_default" style=3D"font-size:small">=C2=A0 =C2=A0 &lt;------- looks like ta=
-kes too much time on purge dirs</span><br><div><br></div><div><br></div><di=
-v><div class=3D"gmail_default" style=3D"font-size:small"># df -Th | grep tm=
-pfs</div>Filesystem =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 Type =C2=A0 =C2=A0 =C2=A0Size =
-=C2=A0Used Avail Use% Mounted on<br>devtmpfs =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 devtmpfs =C2=A0126G =C2=A0 =C2=A0 0 =C2=A0126G =C2=A0 0% /dev<br>tmpfs =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tmpfs =C2=A0 =C2=A0 126G =C2=
-=A04.0K =C2=A0126G =C2=A0 1% /dev/shm<br>tmpfs =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0tmpfs =C2=A0 =C2=A0 126G =C2=A0 18M =C2=A0126G =C2=A0 1% /=
-run<br>tmpfs =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tmpfs =C2=A0 =C2=A0=
- 126G =C2=A0 =C2=A0 0 =C2=A0126G =C2=A0 0% /sys/fs/cgroup<br>/dev/loop0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 tmpfs =C2=A0 =C2=A0 126G =C2=A0 23G =C2=A0104G =C2=A01=
-8% /tmp/falywSTkc/mntpoint<br><div class=3D"gmail_default" style=3D"font-si=
-ze:small"></div></div><div><br></div>-- <br><div dir=3D"ltr" class=3D"gmail=
-_signature" data-smartmail=3D"gmail_signature"><div dir=3D"ltr"><div>Regard=
-s,<br></div><div>Li Wang<br></div></div></div></div>
-
---0000000000005f0b6a05c5f73b4b--
+PHN0eWxlPnRhYmxlLmN1c3RvbVRhYmxlQ2xhc3NOYW1lIHttYXJnaW4tYm90dG9tOiAxMHB4O2Jv
+cmRlci1jb2xsYXBzZTogY29sbGFwc2U7ZGlzcGxheTogdGFibGU7fS5jdXN0b21UYWJsZUNsYXNz
+TmFtZSB0ZCwgLmN1c3RvbVRhYmxlQ2xhc3NOYW1lIHRoIHtib3JkZXI6IDFweCBzb2xpZCAjZGRk
+O308L3N0eWxlPjxwIHN0eWxlPSJtYXJnaW46MHB4OyI+PGJyPjwvcD48cCBzdHlsZT0ibWFyZ2lu
+OjBweDsiPjxicj48L3A+PHAgc3R5bGU9Im1hcmdpbjowcHg7Ij5IaSBMaVdhbmc6PGJyPjwvcD48
+cCBzdHlsZT0ibWFyZ2luOjBweDsiPjxicj48L3A+PHAgc3R5bGU9Im1hcmdpbjowcHg7Ij55b3Ug
+YXJlIHJpZ2h0LiZuYnNwOzwvcD48cCBzdHlsZT0ibWFyZ2luOjBweDsiPjxicj48L3A+PHAgc3R5
+bGU9Im1hcmdpbjowcHg7Ij5JIGFza2VkIHRoZSBDUFUgbWFudWZhY3R1cmVycyBhbmQgdHJpZWQg
+c2V2ZXJhbCBrZXJuZWwsIHdoaWNoIHNob3VsZCBiZSB0aGUgcHJvYmxlbSBvZiB0aGUga2VybmVs
+LiZuYnNwOzwvcD48cCBzdHlsZT0ibWFyZ2luOjBweDsiPjxicj48L3A+PHAgc3R5bGU9Im1hcmdp
+bjowcHg7Ij5JIGRvbid0IHVuZGVyc3RhbmQgdGhlIGNvZGUgcmlnaHQuPGJyPjwvcD48cCBzdHls
+ZT0ibWFyZ2luOjBweDsiPjxicj48L3A+PHAgc3R5bGU9Im1hcmdpbjowcHg7Ij5UaGFuayB5b3Ug
+dmVyeSBtdWNoLjwvcD48ZGl2IGlkPSJ3cml0ZS1jdXN0b20tY29tcGFueVNpZ25hdHVyZSI+Jm5i
+c3A7PC9kaXY+PHAgc3R5bGU9Im1hcmdpbjowcHg7Ij48YnI+DQogJm5ic3A7PC9wPjxkaXYgc3R5
+bGU9InBhZGRpbmc6NXB4O3BhZGRpbmctbGVmdDowcHg7Ym9yZGVyLXRvcDpzb2xpZCAjOTk5IDEu
+MHB0O2ZvbnQtZmFtaWx5OiBhcmlhbDsgZm9udC1zaXplOjEycHg7bWFyZ2luLWJvdHRvbToyMHB4
+OyI+PHAgc3R5bGU9Im1hcmdpbjowcHg7Ij48c3Ryb25nPkZyb206PC9zdHJvbmc+ICJMaSBXYW5n
+ICZsdDtsaXdhbmdAcmVkaGF0LmNvbSZndDsiPC9wPjxwIHN0eWxlPSJtYXJnaW46MHB4OyI+PHN0
+cm9uZz5Ubzo8L3N0cm9uZz4gImdvdWhhbyAmbHQ7Z291aGFvQHVuaW9udGVjaC5jb20mZ3Q7Ijwv
+cD48cCBzdHlsZT0ibWFyZ2luOjBweDsiPjxzdHJvbmc+Q0M6PC9zdHJvbmc+ICJMVFAgTGlzdCAm
+bHQ7bHRwQGxpc3RzLmxpbnV4Lml0Jmd0OyIsImppYW9mZW5mYW5nICZsdDtqaWFvZmVuZmFuZ0B1
+bmlvbnRlY2guY29tJmd0OyIsIndlaWRvbmcgJmx0O3dlaWRvbmdAdW5pb250ZWNoLmNvbSZndDsi
+PC9wPjxwIHN0eWxlPSJtYXJnaW46MHB4OyI+PHN0cm9uZz5TZW50Ojwvc3Ryb25nPiAyMDIxLTA2
+LTI4IDEyOjI3PC9wPjxwIHN0eWxlPSJtYXJnaW46MHB4OyI+PHN0cm9uZz5TdWJqZWN0Ojwvc3Ry
+b25nPiBSZTogUmU6IFJlOiBbTFRQXSBbUEFUQ0hdIGZpeCBjcHVob3RwbHVnMDQgY2hlY2sgbGFz
+dCBjcHUgZXJyb3LjgJBTdXNwZWN0ZWQgcGhpc2hpbmcgZW1haWwsIHBsZWFzZSBwYXkgYXR0ZW50
+aW9uIHRvIHBhc3N3b3JkIHNlY3VyaXR544CRPC9wPjwvZGl2PjxkaXYgZGlyPSJsdHIiPjxicj48
+YnI+DQogJm5ic3A7PGRpdiBjbGFzcz0iZ21haWxfcXVvdGUiPjxkaXYgZGlyPSJsdHIiIGNsYXNz
+PSJnbWFpbF9hdHRyIj5PbiBNb24sIEp1biAyOCwgMjAyMSBhdCAxMTo1OCBBTSAmbHQ7PGEgaHJl
+Zj0ibWFpbHRvOmdvdWhhb0B1bmlvbnRlY2guY29tIj5nb3VoYW9AdW5pb250ZWNoLmNvbTwvYT4m
+Z3Q7IHdyb3RlOiAmbmJzcDsgJm5ic3A7IDxicj48L2Rpdj48YmxvY2txdW90ZSBjbGFzcz0iZ21h
+aWxfcXVvdGUiIHN0eWxlPSJtYXJnaW46MHB4IDBweCAwcHggMC44ZXg7Ym9yZGVyLWxlZnQ6MXB4
+IHNvbGlkIHJnYigyMDQsMjA0LDIwNCk7cGFkZGluZy1sZWZ0OjFleCI+PGRpdj48ZGl2PjxkaXYg
+c3R5bGU9Im92ZXJmbG93LXdyYXA6IGJyZWFrLXdvcmQ7Ij48ZGl2PlRoaXMgY2hhbmdlIG1ha2Vz
+IHNlbnNlLjwvZGl2Pjxicj48ZGl2Pk9uIG15IGNvbXB1dGVyLCB0aGUgbGFzdCBDUFUgY2FuJ3Qg
+YmUgb2ZmbGluZSwgd2hpY2ggY2F1c2VzIHRoZSBleGVjdXRpb24gb2YgdGhpcyB0ZXN0Y2FzZSB0
+byBmYWlsLjwvZGl2PjwvZGl2PjwvZGl2PjwvZGl2PjwvYmxvY2txdW90ZT48YnI+PGRpdiBjbGFz
+cz0iZ21haWxfZGVmYXVsdCIgc3R5bGU9ImZvbnQtc2l6ZTpzbWFsbCI+QnV0IHRoZSBDUFUwIG9u
+IHlvdXIgc3lzdGVtIHdpbGwgYWx3YXlzIG9ubGluZSwgc28gdGhlIGxhc3Qgb25lIHNob3VsZCBi
+ZSBvZmZsaW5lJm5ic3A7c2FmZWx5LjwvZGl2PjxkaXYgY2xhc3M9ImdtYWlsX2RlZmF1bHQiIHN0
+eWxlPSJmb250LXNpemU6c21hbGwiPklmIGl0IG5vdCwgdGhhdCBtaWdodCBhIGtlcm5lbCBpc3N1
+ZSBJIGd1ZXNzLjwvZGl2PjxibG9ja3F1b3RlIGNsYXNzPSJnbWFpbF9xdW90ZSIgc3R5bGU9Im1h
+cmdpbjowcHggMHB4IDBweCAwLjhleDtib3JkZXItbGVmdDoxcHggc29saWQgcmdiKDIwNCwyMDQs
+MjA0KTtwYWRkaW5nLWxlZnQ6MWV4Ij48ZGl2PjxkaXY+PGRpdiBzdHlsZT0ib3ZlcmZsb3ctd3Jh
+cDogYnJlYWstd29yZDsiPjxicj48ZGl2Pkhvd2V2ZXIsIHRoZSB0ZXN0Y2FzZSBtYWtlcyBzcGVj
+aWFsIHRyZWF0bWVudCB0byB0aGUgbGFzdCBDUFUuIElmIHRoZSBsYXN0IENQVSBjYW5ub3QgYmUg
+b2ZmbGluZSwgdGhlIGV4ZWN1dGlvbiByZXN1bHQgb2YgdGhlIHRlc3RjYXNlIHNob3VsZCBub3Qg
+YmUgYWZmZWN0ZWQuPC9kaXY+PC9kaXY+PC9kaXY+PC9kaXY+PC9ibG9ja3F1b3RlPjxicj48ZGl2
+IGNsYXNzPSJnbWFpbF9kZWZhdWx0IiBzdHlsZT0iZm9udC1zaXplOnNtYWxsIj5ZZXMsIGJ1dCBm
+cm9tIGNwdWhvdHBsdWcwNC5zaCBjb21tZW50IGxpbmUjODQ6PC9kaXY+PGJyPjxkaXYgY2xhc3M9
+ImdtYWlsX2RlZmF1bHQiIHN0eWxlPSJmb250LXNpemU6c21hbGwiPiMgSWYgYWxsIHRoZSBDUFVz
+IGFyZSBob3RwbHVnZ2FibGUsIHdlIGV4cGVjdCAmbmJzcDsgJm5ic3A7IDxicj4gIyB0aGF0IHRo
+ZSBrZXJuZWwgd2lsbCByZWZ1c2UgdG8gb2ZmbGluZSB0aGUgbGFzdCBDUFUuICZuYnNwOyAmbmJz
+cDsgPGJyPiAjIElmIG9ubHkgc29tZSBvZiB0aGUgQ1BVcyBhcmUgaG90cGx1Z2dhYmxlLCAmbmJz
+cDsgJm5ic3A7IDxicj4gIyB0aGV5IGFsbCBjYW4gYmUgb2ZmbGluZWQuICZuYnNwOyAmbmJzcDsg
+PGJyPjwvZGl2Pjxicj48ZGl2IGNsYXNzPSJnbWFpbF9kZWZhdWx0IiBzdHlsZT0iZm9udC1zaXpl
+OnNtYWxsIj5Ib3cgZG8geW91IHRoaW5rIG9mIHRoaXMgZGVzY3JpcHRpb24/IEluIHlvdXIgc3lz
+dGVtLCBpdCBvYnZpb3VzbHkmbmJzcDtiZWxvbmdzIHRvPC9kaXY+PGRpdiBjbGFzcz0iZ21haWxf
+ZGVmYXVsdCIgc3R5bGU9ImZvbnQtc2l6ZTpzbWFsbCI+dGhlIHNlY29uZCBzY2VuYXJpbyB0aGF0
+IHRoZSBjcHUwIGlzIG9ubGluZSBhbmQgeW91IHNob3VsZCBiZSBhYmxlIHRvIG9mZmxpbmU8L2Rp
+dj48ZGl2IGNsYXNzPSJnbWFpbF9kZWZhdWx0IiBzdHlsZT0iZm9udC1zaXplOnNtYWxsIj5hbGwg
+dGhlIHJlbWFpbmluZyBob3RwbHVnZ2VkJm5ic3A7b25lLCBpc24ndCZuYnNwO2l0PzwvZGl2Pjxi
+bG9ja3F1b3RlIGNsYXNzPSJnbWFpbF9xdW90ZSIgc3R5bGU9Im1hcmdpbjowcHggMHB4IDBweCAw
+LjhleDtib3JkZXItbGVmdDoxcHggc29saWQgcmdiKDIwNCwyMDQsMjA0KTtwYWRkaW5nLWxlZnQ6
+MWV4Ij48ZGl2PjxkaXY+PGRpdiBzdHlsZT0ib3ZlcmZsb3ctd3JhcDogYnJlYWstd29yZDsiPjxi
+cj48ZGl2PlRoZXJlZm9yZSwgaWYgY3B1MCBkb2VzIG5vdCBoYXZlIGFuIG9ubGluZSBmaWxlLCBp
+dCB3aWxsIGxlYWQgdG8gYW4gZXJyb3IgaW4gdGhlIGp1ZGdtZW50IG9mIHRoZSBsYXN0IENQVS48
+L2Rpdj48L2Rpdj48L2Rpdj48L2Rpdj48L2Jsb2NrcXVvdGU+PGJyPjxkaXYgY2xhc3M9ImdtYWls
+X2RlZmF1bHQiIHN0eWxlPSJmb250LXNpemU6c21hbGwiPklmIGNwdTAgZG9lcyBub3QgaGF2ZSBh
+biBvbmxpbmUgZmlsZSwgdGhhdCBtZWFucyB0aGUgbGFzdCBDUFUgKGhvdHBsdWdnZWQpIGNhbiBi
+ZSBvZmZsaW5lIGFzIHdlbGwuPC9kaXY+PGRpdiBjbGFzcz0iZ21haWxfZGVmYXVsdCIgc3R5bGU9
+ImZvbnQtc2l6ZTpzbWFsbCI+VG8gdmVyaWZ5IHRoaXMgYXNzdW1wdGlvbiwgeW91IGNhbiB0cnkg
+bWFudWFsbHkgb2ZmbGluZSBDUFUgb25lIGJ5IG9uZSwgdGhpcyB0aW1lIEkgc3VnZ2VzdCB5b3U8
+L2Rpdj48ZGl2IGNsYXNzPSJnbWFpbF9kZWZhdWx0IiBzdHlsZT0iZm9udC1zaXplOnNtYWxsIj50
+cnkgdGhlIGxhc3Qgb25lIGZpcnN0LjwvZGl2PjwvZGl2PjxkaXY+PGJyPg0KICZuYnNwOzwvZGl2
+Pi0tIA0KICZuYnNwOyA8YnI+DQogJm5ic3A7PGRpdiBkaXI9Imx0ciIgY2xhc3M9ImdtYWlsX3Np
+Z25hdHVyZSI+PGRpdiBkaXI9Imx0ciI+PGRpdj5SZWdhcmRzLCAmbmJzcDsgJm5ic3A7ICZuYnNw
+Ozxicj4gPC9kaXY+PGRpdj5MaSBXYW5nICZuYnNwOyAmbmJzcDsgJm5ic3A7PGJyPiA8L2Rpdj48
+L2Rpdj48L2Rpdj48L2Rpdj4=
 
 
---===============2096711469==
+
+--===============0707518814==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -268,5 +177,4 @@ Content-Disposition: inline
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
 
---===============2096711469==--
-
+--===============0707518814==--
