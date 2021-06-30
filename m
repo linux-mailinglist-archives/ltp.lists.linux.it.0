@@ -2,89 +2,67 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D2EF3B7FF5
-	for <lists+linux-ltp@lfdr.de>; Wed, 30 Jun 2021 11:29:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DC563B7FB9
+	for <lists+linux-ltp@lfdr.de>; Wed, 30 Jun 2021 11:12:47 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4DC8F3C86AA
-	for <lists+linux-ltp@lfdr.de>; Wed, 30 Jun 2021 11:29:00 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E93093C6C53
+	for <lists+linux-ltp@lfdr.de>; Wed, 30 Jun 2021 11:12:46 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id D06223C1A2B
- for <ltp@lists.linux.it>; Tue, 29 Jun 2021 22:14:47 +0200 (CEST)
-Received: from mail-qv1-xf2f.google.com (mail-qv1-xf2f.google.com
- [IPv6:2607:f8b0:4864:20::f2f])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ by picard.linux.it (Postfix) with ESMTPS id C4DCE3C1888
+ for <ltp@lists.linux.it>; Wed, 30 Jun 2021 11:12:44 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id E3F6B1000544
- for <ltp@lists.linux.it>; Tue, 29 Jun 2021 22:14:46 +0200 (CEST)
-Received: by mail-qv1-xf2f.google.com with SMTP id j14so2034624qvu.6
- for <ltp@lists.linux.it>; Tue, 29 Jun 2021 13:14:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=toxicpanda-com.20150623.gappssmtp.com; s=20150623;
- h=subject:to:references:from:message-id:date:user-agent:mime-version
- :in-reply-to:content-language:content-transfer-encoding;
- bh=uvaby5gvroAX5HC+y94a4O9K04hquk3bJ0y+KPQxC60=;
- b=QOfJ1i6doLCaLKvWd7QE9NcumeGgRhUUqOsGSH37yiiZvQQeBlo+twAHzgkC/+xR7G
- 6Gg9pFiJhN1lWfpjA2zS3jC+D6wkGR9bfz1jquysNgTuoGXVLVahVI1FVAcB1VxBjV39
- t6577/bHE6eEfg+R9ulGJnpOWWrdmLpbmi9eS7TnD6GwJXCHTzCfRHKrhX2WKFo0SGzV
- yD5Urp7YBqb2aYcMX/Rw/R7k74UByXC6DXvtlpt6pluEbX4EGYahLBoChaUMfn+R8HDA
- yPRQNBfJ6HD/6BgKEYC3L1lB9xORbDL9RPu6KBv4uzViTDFbaVVZAf8r0w2VZ6M+O3xV
- BC0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=uvaby5gvroAX5HC+y94a4O9K04hquk3bJ0y+KPQxC60=;
- b=D9wmzFnkVSpWckI69lB3hiozYsheffCiWcNkBvdAkeiCMdSUO3AC0fCTE6mOchZx9o
- d3zvlwMQgWw8FUe6TdRWIvTOm47LYVpmI7nVBO+LgTW1imTXRTuL1ODEk8QqvvKy3Yfw
- HobJpsMpMNkOvBVmGPG6y3g9Qe1JrOecDZUO+nP/RLRkTv31GC12w8PCgwQ++HbnkkSA
- 6d/64GBtA/CYJchxRIDGqLe42htHTFiyWgQRu1Hzcfay+Osn+m7LpsUhK40p6JgrPpq0
- ZSeybygUaf9tfYXPqVCaSjdiKx3SWtSWsx5fHuu81d3q4Rdd23tovTvQV+InwwMqvUtC
- RGCg==
-X-Gm-Message-State: AOAM533uH3W2fU6rRA1dnO8UxkeaZX9xVQ/kRoTTJNt8RmyMpsQGf6X2
- WodG0RghY2yW8OgeyvrMr906vT22LG5xLg==
-X-Google-Smtp-Source: ABdhPJypSBP2VAgao4SXGRkrO8wNKGE5V/NO4blik1cOk9WCQLNz/7YlzWaQ8Zkw6IZ3ZZ9yUrNTXg==
-X-Received: by 2002:ad4:4d85:: with SMTP id cv5mr17887549qvb.33.1624997685578; 
- Tue, 29 Jun 2021 13:14:45 -0700 (PDT)
-Received: from ?IPv6:2620:10d:c0a8:11c1::12d2? ([2620:10d:c091:480::1:1f64])
- by smtp.gmail.com with ESMTPSA id o200sm10300043qke.105.2021.06.29.13.14.44
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 29 Jun 2021 13:14:45 -0700 (PDT)
-To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
- Chris Mason <clm@fb.com>, David Sterba <dsterba@suse.com>,
- linux-btrfs@vger.kernel.org,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- "kernel-team@lists.ubuntu.com" <kernel-team@lists.ubuntu.com>,
- "ltp@lists.linux.it" <ltp@lists.linux.it>, Qu Wenruo <wqu@suse.com>,
- Filipe Manana <fdmanana@suse.com>
-References: <a3b42abc-6996-ab06-ea9f-238e7c6f08d7@canonical.com>
- <124d7ead-6600-f369-7af1-a1bc27df135c@toxicpanda.com>
- <667133e5-44cb-8d95-c40a-12ac82f186f0@canonical.com>
- <0b6a502a-8db8-ef27-f48e-5001f351ef24@toxicpanda.com>
- <2576a472-1c99-889a-685c-a12bbfb08052@canonical.com>
- <9e2214b1-999d-90cf-a5c2-2dbb5a2eadd4@canonical.com>
-From: Josef Bacik <josef@toxicpanda.com>
-Message-ID: <62d1df14-7ee5-8ff4-5676-cf98cdd966df@toxicpanda.com>
-Date: Tue, 29 Jun 2021 16:14:43 -0400
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.11.0
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 10A6B14010E7
+ for <ltp@lists.linux.it>; Wed, 30 Jun 2021 11:12:43 +0200 (CEST)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 6689822429;
+ Wed, 30 Jun 2021 09:12:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1625044363;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=IR3fw0upbJtkQkB1CxqHJ+VHaUG7Uc1XLok01D/KDSA=;
+ b=VDzvVAVbwRHn/tlPKwJ5gzwPo0jVT0eW47kIbTjNmOKoB4xOChro0b35LW289pka88S8gv
+ 4iYj10J5kfNH545rQX4QfgPmg6dwYglCPGaPTT4CnIDqqN/xQmqFrKwDD6fk8jihqoW/db
+ uvCk/bl/BGL+pClnbr06asMqQsC7trs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1625044363;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=IR3fw0upbJtkQkB1CxqHJ+VHaUG7Uc1XLok01D/KDSA=;
+ b=YNpo5zmt6Kcv+sC5XFupIx0lOi++yFHycpG0RzHSpvYLm5tkhR37FYttDnMVcciSha1VbI
+ MBy1VYSzOvqhIeCg==
+Received: from g78 (unknown [10.163.17.14])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by relay2.suse.de (Postfix) with ESMTPS id ED5CAA3B85;
+ Wed, 30 Jun 2021 09:12:42 +0000 (UTC)
+References: <YNuA/0J20mjiV+NC@pevik> <87tulf3jyk.fsf@suse.de>
+ <YNwk9EwTtqAnRWH6@pevik>
+User-agent: mu4e 1.4.15; emacs 27.2
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Petr Vorel <pvorel@suse.cz>
+In-reply-to: <YNwk9EwTtqAnRWH6@pevik>
+Date: Wed, 30 Jun 2021 10:12:41 +0100
+Message-ID: <87r1gj3ed2.fsf@suse.de>
 MIME-Version: 1.0
-In-Reply-To: <9e2214b1-999d-90cf-a5c2-2dbb5a2eadd4@canonical.com>
-Content-Language: en-US
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-X-Mailman-Approved-At: Wed, 30 Jun 2021 11:28:00 +0200
-Subject: Re: [LTP] [BUG] btrfs potential failure on 32 core LTP test
- (fallocate05)
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] ee
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,30 +74,63 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: rpalethorpe@suse.de
+Cc: ltp@lists.linux.it, Martin Doucha <martin.doucha@suse.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 6/29/21 2:28 PM, Krzysztof Kozlowski wrote:
-> On 29/06/2021 20:06, Krzysztof Kozlowski wrote:
->> Minor update - it's not only Azure's. AWS m5.8xlarge and m5.16xlarge (32
->> and 64 cores) fail similarly. I'll try later also QEMU machines with
->> different amount of CPUs.
->>
-> 
-> Test on QEMU machine with 31 CPUs passes. With 32 CPUs - failure as
-> reported.
-> 
-> dmesg is empty - no error around this.
-> 
-> Maybe something with per-cpu variables?
-> 
+Hello Petr,
 
-Can I get y'alls .config?  I ran it on one of my 80cpu boxes and it didn't 
-reproduce on my new code or on 5.12.  Thanks,
+Petr Vorel <pvorel@suse.cz> writes:
 
-Josef
+> Hi Richie,
+>
+> ...
+>> > tst_fuzzy_sync01.c:224: TFAIL: acs:1  act:1  art:3  | =:3    -:2999996 +:1   
+>
+>> It looks like the CI machines are too noisy/contended. The avg_dev is
+>> very high. Probably we could relax the dev_ratio threshold to 0.2 or
+>> 0.3. Although we would still get failures occassionally. As this is a
+>> probabalistic test.
+> Test is failing on my laptop, thus haven't enabled it in CI.
+> But maybe it'll be working on it more reliably than my busy machine.
+
+Is it really that busy? Perhaps we should increase the dev ratio
+threshold. Clearly the deviations from contention are not enough to
+reproduce the races, but are enough to prevent the radomization phase.
+
+> But I'd prefer to wasting time with false positives, thus I guess we should
+> enable only tests which are working reliably.
+>
+>> Could you change the script so that it passes so long as the test
+>> returns TPASS or TFAIL?
+> Well, accepting TFAIL sounds a bit strange to me :).
+> Also next effort will be (at least for shell tests) to compare actual test
+> output. Obviously that will not be straightforward for some tests, which aren't
+> reproducible (avg = 11729ns could be matched by regex, but having more variants
+> of results is kind of special case).
+>
+>> We don't want TBROK, TCONF or no result.
+> FYI in my CI patchset is TCONF accepted. Motivation was to not require root for
+> make test as some tests needed it. Thus TCONF will be a special case, then I
+> guess we could add tst_fuzzy_sync01 accepting TFAIL as a special case.
+
+At least if we run the tests and look for TPASS or TFAIL, we will catch
+segfaults and similar.
+
+Also, for fuzzy sync, returning TCONF would be a major error. It should
+run on all systems.
+
+>
+> Kind regards,
+> Petr
+
+
+-- 
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
