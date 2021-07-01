@@ -2,81 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id C490C3B91A5
-	for <lists+linux-ltp@lfdr.de>; Thu,  1 Jul 2021 14:29:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11A803B9216
+	for <lists+linux-ltp@lfdr.de>; Thu,  1 Jul 2021 15:14:34 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9908F3C91EF
-	for <lists+linux-ltp@lfdr.de>; Thu,  1 Jul 2021 14:29:08 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id D6E953C9AAB
+	for <lists+linux-ltp@lfdr.de>; Thu,  1 Jul 2021 15:14:33 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 33FAA3C6B08
- for <ltp@lists.linux.it>; Thu,  1 Jul 2021 14:29:07 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 25C193C6AF3
+ for <ltp@lists.linux.it>; Thu,  1 Jul 2021 15:14:33 +0200 (CEST)
 Received: from youngberry.canonical.com (youngberry.canonical.com
  [91.189.89.112])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id CC03B14011B0
- for <ltp@lists.linux.it>; Thu,  1 Jul 2021 14:29:06 +0200 (CEST)
-Received: from mail-ej1-f69.google.com ([209.85.218.69])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 7F6FD200DFF
+ for <ltp@lists.linux.it>; Thu,  1 Jul 2021 15:14:32 +0200 (CEST)
+Received: from mail-ej1-f72.google.com ([209.85.218.72])
  by youngberry.canonical.com with esmtps (TLS1.2) tls
  TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
  (envelope-from <krzysztof.kozlowski@canonical.com>)
- id 1lyvoY-0002Q9-4d
- for ltp@lists.linux.it; Thu, 01 Jul 2021 12:29:06 +0000
-Received: by mail-ej1-f69.google.com with SMTP id
- bz12-20020a1709070aacb02904cae86564c7so1938575ejc.6
- for <ltp@lists.linux.it>; Thu, 01 Jul 2021 05:29:06 -0700 (PDT)
+ id 1lywWV-0004zo-MC
+ for ltp@lists.linux.it; Thu, 01 Jul 2021 13:14:31 +0000
+Received: by mail-ej1-f72.google.com with SMTP id
+ ho42-20020a1709070eaab02904a77ea3380eso2087121ejc.4
+ for <ltp@lists.linux.it>; Thu, 01 Jul 2021 06:14:31 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=OSaYUZnU9asXn6eTM8vlSDugyrtHWT1xXpThmfVqRRM=;
- b=QYahCL7iISBIAV1aEqyWXFTFpMrEksSsyz8XGfWyzM9e+504ieLF/bfreAsrs2u6G0
- Mn/SPBq/ABG/yvMrnwyVmKowHtALDNaPRci61PPh+WSK8jGjP7WMJeIAFaPvxkXYXBlm
- j/jn1RyP/RmSkSmh9djmxqA7qhWbzh2OcDWFQuYAZCjeQFOkAHr3l7YSLfEivPcuDRjo
- wpcEPlgYmsdPyLGDd9v7lWG0mizm9EB5OmOv7nynxhXFDRm59xyrVKsMuIoO53MlgHnG
- G9znkzym4aD27WyWVp3pmxNkSYvRUCXyKaQiodSIpOiT03LLtk32gtQK1Sqg924kdimI
- BjEw==
-X-Gm-Message-State: AOAM532LPaEn0Kxh/cXAx86n7RgcAO0N/TXa5HsxfoFUDUtr7SjU5BJx
- yDCT9mio4WwWsz44nhc1WimGRNncmh8BepQvX7Q/nvJRoPQUleXvCQtV43jY0EI7RQG1XpZGvOU
- CFZos9RXjIQwtUGMRkqz8yS6T3xDI
-X-Received: by 2002:a05:6402:1111:: with SMTP id
- u17mr54177101edv.87.1625142545630; 
- Thu, 01 Jul 2021 05:29:05 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJwVmAkcwDvl92cYikLH/6Z4TwwR7894IeVyMzvgbf+dPvMsF++iLC+SYUGspgkYSel0xqeuyw==
-X-Received: by 2002:a05:6402:1111:: with SMTP id
- u17mr54177098edv.87.1625142545536; 
- Thu, 01 Jul 2021 05:29:05 -0700 (PDT)
-Received: from [192.168.1.115] (xdsl-188-155-177-222.adslplus.ch.
+ bh=TwBHLVGnWlzYo7VJm0OC3JQo+v9eRJS1C+we71KV2+8=;
+ b=oA/oticwbpDnug4KhrIAU1lCDVjUqdhSlEHM9JUUW1XfcsUWIrvkUpIMdF1ibxqkxd
+ rZ77vHODczwPxZceXNBSrHt41aH6bq0Zv1b+D3lWzOuwq5nKdBmV1c5mBZoNhqQelkdk
+ sn9EW/uWLYIchHJD6CpvlNTvA+f8JSx86etLY25nraLsfwVY86JHGpV6fHHlAaRYyPt9
+ veUrFw/6Bh7vaGDgvCbz6DK9+EuW7+bgT7YM9Cj1A9nlQjgTVEWsD3tRz7jK2AlCLSvi
+ LXV/eX0QBa3h4Ls7O1YznbWt5gkhVi2gi+5+n3ocpnK3Du1xHQ2efH9CdCqqwbJDNIzu
+ WztA==
+X-Gm-Message-State: AOAM531RdBwkHU5WwtudaQHzyehLMyeN1ZXcgUX6Cj3hd/UPJ5+6N5dl
+ 5gco64FyEur5HTgBrWHVPAOYl4VIOYc30ukYmzD9iZd2sx8ANozodeQB5od9zH3++cyHf5ju8mM
+ hL3BQoY+q4hraQVQr5zQlqq195Ygd
+X-Received: by 2002:a05:6402:138c:: with SMTP id
+ b12mr54492698edv.268.1625145271238; 
+ Thu, 01 Jul 2021 06:14:31 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwvfMLVPuR3yUQAZX/q2AuB/Eu7sEHeq5B+Y6MJWfzjuBkaCTmjx3kOzaHhonjSZ+HR/f0g3A==
+X-Received: by 2002:a05:6402:138c:: with SMTP id
+ b12mr54492684edv.268.1625145271042; 
+ Thu, 01 Jul 2021 06:14:31 -0700 (PDT)
+Received: from localhost.localdomain (xdsl-188-155-177-222.adslplus.ch.
  [188.155.177.222])
- by smtp.gmail.com with ESMTPSA id m10sm3047503edc.22.2021.07.01.05.29.04
- for <ltp@lists.linux.it>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 01 Jul 2021 05:29:05 -0700 (PDT)
-To: ltp@lists.linux.it
-References: <20210701122351.56397-1-krzysztof.kozlowski@canonical.com>
- <20210701122351.56397-2-krzysztof.kozlowski@canonical.com>
+ by smtp.gmail.com with ESMTPSA id du7sm14032595edb.1.2021.07.01.06.14.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 01 Jul 2021 06:14:30 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-Message-ID: <b9be0a14-aff3-c38f-18b4-2a20e7b05e09@canonical.com>
-Date: Thu, 1 Jul 2021 14:29:04 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+To: ltp@lists.linux.it
+Date: Thu,  1 Jul 2021 15:14:26 +0200
+Message-Id: <20210701131427.72574-1-krzysztof.kozlowski@canonical.com>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-In-Reply-To: <20210701122351.56397-2-krzysztof.kozlowski@canonical.com>
-Content-Language: en-US
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 2/2] proc01: remove unused lsm_should_work
- (-Wunused-const-variable)
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 1/2] proc01: fix selinux attributes without
+ libselinux-dev
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,28 +80,65 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-T24gMDEvMDcvMjAyMSAxNDoyMywgS3J6eXN6dG9mIEtvemxvd3NraSB3cm90ZToKPiBSZWNlbnQg
-cmVmYWN0b3JpbmcgbWFkZSB0aGUgImxzbV9zaG91bGRfd29yayIgdW51c2VkIHdpdGhvdXQKPiBs
-aWJzZWxpbnV4LWRldjoKPiAKPiAgICAgcHJvYzAxLmM6MTQyOjE5OiB3YXJuaW5nOiDigJhsc21f
-c2hvdWxkX3dvcmvigJkgZGVmaW5lZCBidXQgbm90IHVzZWQgWy1XdW51c2VkLWNvbnN0LXZhcmlh
-YmxlPV0KPiAKPiBTaWduZWQtb2ZmLWJ5OiBLcnp5c3p0b2YgS296bG93c2tpIDxrcnp5c3p0b2Yu
-a296bG93c2tpQGNhbm9uaWNhbC5jb20+Cj4gLS0tCj4gIHRlc3RjYXNlcy9rZXJuZWwvZnMvcHJv
-Yy9wcm9jMDEuYyB8IDcgKy0tLS0tLQo+ICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyks
-IDYgZGVsZXRpb25zKC0pCj4gCj4gZGlmZiAtLWdpdCBhL3Rlc3RjYXNlcy9rZXJuZWwvZnMvcHJv
-Yy9wcm9jMDEuYyBiL3Rlc3RjYXNlcy9rZXJuZWwvZnMvcHJvYy9wcm9jMDEuYwo+IGluZGV4IDI4
-MmM3MGU5NDg4Mi4uYzkwZTUwOWEzMjQzIDEwMDY0NAo+IC0tLSBhL3Rlc3RjYXNlcy9rZXJuZWwv
-ZnMvcHJvYy9wcm9jMDEuYwo+ICsrKyBiL3Rlc3RjYXNlcy9rZXJuZWwvZnMvcHJvYy9wcm9jMDEu
-Ywo+IEBAIC0xMzcsMTIgKzEzNyw3IEBAIHN0YXRpYyBjb25zdCBjaGFyIGxzbV9zaG91bGRfd29y
-a1tdW1BBVEhfTUFYXSA9IHsKPiAgCSIvcHJvYy9zZWxmL2F0dHIvKiIsCj4gIAkiL3Byb2Mvc2Vs
-Zi9hdHRyL3NlbGludXgvKiIsCj4gIAkiL3Byb2Mvc2VsZi90YXNrL1swLTldKi9hdHRyLyoiLAo+
-IC0JIiIKPiAtfTsKPiAtCj4gLS8qIFBsYWNlIGhvbGRlciBmb3Igbm9uZSBvZiBMU00gaXMgZGV0
-ZWN0ZWQuICovCj4gLSNlbHNlCj4gLXN0YXRpYyBjb25zdCBjaGFyIGxzbV9zaG91bGRfd29ya1td
-W1BBVEhfTUFYXSA9IHsKPiArCSIvcHJvYy9zZWxmL3Rhc2svWzAtOV0qL2F0dHIvc2VsaW51eC8q
-IiwKClRoaXMgc2hvdWxkIGJlIHBhcnQgb2YgcHJldmlvdXMgcGF0Y2gsIG15IGJhZCB3aXRoIGdp
-dCBhZGQgLXAuIEknbGwgc2VuZAphIHYyLgoKCkJlc3QgcmVnYXJkcywKS3J6eXN6dG9mCgotLSAK
-TWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
+SELinux can be enabled on the system which does not have development
+selinux libraries.  Such case was already done for Smack and Apparmor
+where we unconditionally accept their attribute failures.  Do the same
+for SELinux to fix failures like:
+
+    proc01      1  TFAIL  :  proc01.c:404: read failed: /proc/self/task/29986/attr/selinux/current: errno=EINVAL(22): Invalid argument
+    proc01      2  TFAIL  :  proc01.c:404: read failed: /proc/self/task/29986/attr/selinux/prev: errno=EINVAL(22): Invalid argument
+    proc01      3  TFAIL  :  proc01.c:404: read failed: /proc/self/task/29986/attr/selinux/exec: errno=EINVAL(22): Invalid argument
+    proc01      4  TFAIL  :  proc01.c:404: read failed: /proc/self/task/29986/attr/selinux/fscreate: errno=EINVAL(22): Invalid argument
+    proc01      5  TFAIL  :  proc01.c:404: read failed: /proc/self/task/29986/attr/selinux/keycreate: errno=EINVAL(22): Invalid argument
+    proc01      6  TFAIL  :  proc01.c:404: read failed: /proc/self/task/29986/attr/selinux/sockcreate: errno=EINVAL(22): Invalid argument
+    ...
+    proc01      7  TFAIL  :  proc01.c:404: read failed: /proc/self/attr/selinux/current: errno=EINVAL(22): Invalid argument
+    proc01      8  TFAIL  :  proc01.c:404: read failed: /proc/self/attr/selinux/prev: errno=EINVAL(22): Invalid argument
+    proc01      9  TFAIL  :  proc01.c:404: read failed: /proc/self/attr/selinux/exec: errno=EINVAL(22): Invalid argument
+    proc01     10  TFAIL  :  proc01.c:404: read failed: /proc/self/attr/selinux/fscreate: errno=EINVAL(22): Invalid argument
+    proc01     11  TFAIL  :  proc01.c:404: read failed: /proc/self/attr/selinux/keycreate: errno=EINVAL(22): Invalid argument
+    proc01     12  TFAIL  :  proc01.c:404: read failed: /proc/self/attr/selinux/sockcreate: errno=EINVAL(22): Invalid argument
+
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+---
+ testcases/kernel/fs/proc/proc01.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/testcases/kernel/fs/proc/proc01.c b/testcases/kernel/fs/proc/proc01.c
+index 0fae6754f7f7..6ddb6682f38b 100644
+--- a/testcases/kernel/fs/proc/proc01.c
++++ b/testcases/kernel/fs/proc/proc01.c
+@@ -97,10 +97,12 @@ static const struct mapping known_issues[] = {
+ 	{"read", "/proc/self/mem", EIO},
+ 	{"read", "/proc/self/task/[0-9]*/mem", EIO},
+ 	{"read", "/proc/self/attr/*", EINVAL},
++	{"read", "/proc/self/attr/selinux/*", EINVAL},
+ 	{"read", "/proc/self/attr/smack/*", EINVAL},
+ 	{"read", "/proc/self/attr/apparmor/*", EINVAL},
+ 	{"read", "/proc/self/task/[0-9]*/attr/*", EINVAL},
+ 	{"read", "/proc/self/task/[0-9]*/attr/smack/*", EINVAL},
++	{"read", "/proc/self/task/[0-9]*/attr/selinux/*", EINVAL},
+ 	{"read", "/proc/self/task/[0-9]*/attr/apparmor/*", EINVAL},
+ 	{"read", "/proc/self/ns/*", EINVAL},
+ 	{"read", "/proc/self/task/[0-9]*/ns/*", EINVAL},
+@@ -133,7 +135,9 @@ static const struct mapping known_issues[] = {
+ #ifdef HAVE_LIBSELINUX_DEVEL
+ static const char lsm_should_work[][PATH_MAX] = {
+ 	"/proc/self/attr/*",
++	"/proc/self/attr/selinux/*",
+ 	"/proc/self/task/[0-9]*/attr/*",
++	"/proc/self/task/[0-9]*/attr/selinux/*",
+ 	""
+ };
+ 
+-- 
+2.27.0
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
