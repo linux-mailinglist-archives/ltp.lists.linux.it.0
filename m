@@ -1,82 +1,53 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B9CE3BA0B5
-	for <lists+linux-ltp@lfdr.de>; Fri,  2 Jul 2021 14:48:28 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id C66DA3BA096
+	for <lists+linux-ltp@lfdr.de>; Fri,  2 Jul 2021 14:35:56 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D205A3C8E02
-	for <lists+linux-ltp@lfdr.de>; Fri,  2 Jul 2021 14:48:27 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 0C9163C8E76
+	for <lists+linux-ltp@lfdr.de>; Fri,  2 Jul 2021 14:35:56 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 663623C8259
- for <ltp@lists.linux.it>; Fri,  2 Jul 2021 14:48:23 +0200 (CEST)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 86FE13C84C9
+ for <ltp@lists.linux.it>; Fri,  2 Jul 2021 14:35:51 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 646D61A0175F
- for <ltp@lists.linux.it>; Fri,  2 Jul 2021 14:48:22 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1625230101;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=7hLpOTd5t9PafvB7pOKfScP0rm6EWsXAcF6FNZcqqno=;
- b=IeVH1ePrjOsCYsuDA53DQ/t+v0ZU1KxHUNYnw9tpj7MwZtFwk0VXpNbA9q+kaJwASg3Xe9
- kVFBzEtyxWsxQ7YEbYB+qKSgnHPSqLQRloTqF2gZyALDFntaxLdUYnIBVvAWP0Iluao/BX
- zbRAZjARoAs1PVDNXBN6OXdZU8u8AyE=
-Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com
- [209.85.222.71]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-166-Hl3GAesZO4aAwBZzT9_6KQ-1; Fri, 02 Jul 2021 08:48:19 -0400
-X-MC-Unique: Hl3GAesZO4aAwBZzT9_6KQ-1
-Received: by mail-ua1-f71.google.com with SMTP id
- 6-20020a9f24060000b029027872bb5b5dso2687975uaq.1
- for <ltp@lists.linux.it>; Fri, 02 Jul 2021 05:48:19 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=7hLpOTd5t9PafvB7pOKfScP0rm6EWsXAcF6FNZcqqno=;
- b=EnJhLVwVCHfow9Bpo+ni/6t4rKFb3GjAmT6pI+53t/NZ8/OiAwU81RDd39uKEHl++1
- wGkrjM9sxOggcVptlp7B1ihzZ4Bv2bhsSMqeCdcrnGtqI8VcrRfCcc7VMT9Nc1qJ4FUA
- OBxru9tgcfx591rtxSrLFvJ1/sGHKOI1Dwa9EXlN9UPmXl2eSvD6SQ8MyuOeXsHYJmO1
- gpIeMKkZ+s7GMjyCa85qz/NpCFlCJkTfWNEfsE5cWaVxYRewM57fUSmXRkwO5TRQ7NPd
- bk5g9rLXEd8k01c5kwiRk9Hk/iVq0Rg2A0xD4P/+nNfiZu5JNRWkmKd15VJLWm96mK4S
- 75XA==
-X-Gm-Message-State: AOAM531czmJNra9KqvkTIrx+AqCLfSS/rk6SbcRa8xo7Nu/DJH76w6/m
- 8DvtUce/aKKuVyecj2fqrRVLFKIAM/5YXyX4N4m/XtjxgulTM8UFz6YbJnCCH//CvZyKobRqY/V
- nOdmM0URto9X4ilaB+Igm9am+wYE=
-X-Received: by 2002:a25:bad1:: with SMTP id a17mr2032720ybk.286.1625228449662; 
- Fri, 02 Jul 2021 05:20:49 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJzvYMPdFn+t6/mfxJKPj3VIyMrUGWCX7ICaXepCMLaBJtyktmJSBUUDalY7bR4oFxiZFbjnsJgu1xyd6LAE1/0=
-X-Received: by 2002:a25:bad1:: with SMTP id a17mr2032708ybk.286.1625228449494; 
- Fri, 02 Jul 2021 05:20:49 -0700 (PDT)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 97DD71401356
+ for <ltp@lists.linux.it>; Fri,  2 Jul 2021 14:35:46 +0200 (CEST)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 1482A2055E;
+ Fri,  2 Jul 2021 12:35:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1625229346; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=o617ca9GY9bkGHnRWfCVttpwqeksFo3+zlCmJqKZ4Qw=;
+ b=aV9OIkl4eQeYO0SIFLVA0fvs3hA/eMtiju/HP5NkHHgSH0CJKU3NSkCnieFIxtGJ06leGr
+ 2HCRjPl0DH6Fm4oB5Rh/YicTsgk6eoiPyo/AsbJkRKL22gcWSTSqQ4m2/UR3oGfEqP1UGk
+ Gil5/xJqK+g61BhTTQIA5D8+PrEQKTw=
+Received: from g78.suse.de (unknown [10.163.24.38])
+ by relay2.suse.de (Postfix) with ESMTP id C2319A3B96;
+ Fri,  2 Jul 2021 12:35:45 +0000 (UTC)
+To: ltp@lists.linux.it
+Date: Fri,  2 Jul 2021 13:35:33 +0100
+Message-Id: <20210702123533.18008-1-rpalethorpe@suse.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-References: <20210701055208.715395-1-liwang@redhat.com> <YN7afAs3Mup5UbIf@yuki>
- <CAEemH2dJ4FYh-7-8C5na-uB1jg31mdV8wC+7w_DHG1463XudHA@mail.gmail.com>
- <YN77SxjQ2tHeXJfp@yuki>
-In-Reply-To: <YN77SxjQ2tHeXJfp@yuki>
-From: Li Wang <liwang@redhat.com>
-Date: Fri, 2 Jul 2021 20:20:37 +0800
-Message-ID: <CAEemH2cDM819aXG7yGwP77FjUNG8GSp-qYxbzZa-RWyJgtFVMw@mail.gmail.com>
-To: Cyril Hrubis <chrubis@suse.cz>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/2] lib: limit the size of tmpfs in LTP
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH] vsock01,
+ CVE-2021-26708: Add reproducer for race condition
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,109 +59,230 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============2142852976=="
+From: Richard Palethorpe via ltp <ltp@lists.linux.it>
+Reply-To: Richard Palethorpe <rpalethorpe@suse.com>
+Cc: Richard Palethorpe <rpalethorpe@suse.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============2142852976==
-Content-Type: multipart/alternative; boundary="000000000000694dd105c622fc13"
+Also as this is the first VSOCK test, add the necessary bits to lapi
+and configure.
 
---000000000000694dd105c622fc13
-Content-Type: text/plain; charset="UTF-8"
+Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
+---
+ configure.ac                        |   1 +
+ include/lapi/vm_sockets.h           |  14 +++
+ runtest/cve                         |   1 +
+ testcases/network/.gitignore        |   1 +
+ testcases/network/sockets/Makefile  |   1 +
+ testcases/network/sockets/vsock01.c | 129 ++++++++++++++++++++++++++++
+ 6 files changed, 147 insertions(+)
+ create mode 100644 include/lapi/vm_sockets.h
+ create mode 100644 testcases/network/sockets/vsock01.c
 
-On Fri, Jul 2, 2021 at 8:06 PM Cyril Hrubis <chrubis@suse.cz> wrote:
-
-> Hi!
-> > > > +
-> > > > +             if (!strcmp(tdev.fs_type, "tmpfs"))
-> > > > +                     tst_test->mnt_data = mnt_data;
-> > >
-> > > I guess that we are doing this in order to export the changes in the
-> > > mnt_data to the test, right?
-> > >
-> > > Is that needed for something or are you doing this just in a case that
-> > > somebody will use that?
-> > >
-> >
-> > No, you probably mis-read this part.
-> >
-> > In contrast, this is just to restore it to the original value,
-> > because we don't want to export the changed tst_test->mnt_data
-> > take effect on other filesystems.
->
-> I'm just asking why we are setting it in the first place?
->
-> If we do not change it there is no need to restore the value, so the
-> real question is, do we need to change the tst_test->mnt_data at all?
->
-
-Alright, we can just return a new pointer buf, and do nothing
-for the tst_test->mnt_data itself.
-
-Seems the misread person is me (I need more coffee now:).
-
+diff --git a/configure.ac b/configure.ac
+index eb675b367..1a43ebea8 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -79,6 +79,7 @@ AC_CHECK_HEADERS_ONCE([ \
+ ])
+ AC_CHECK_HEADERS(fts.h, [have_fts=1])
+ AC_SUBST(HAVE_FTS_H, $have_fts)
++AC_CHECK_HEADERS(linux/vm_sockets.h, [], [], [#include <sys/socket.h>])
+ 
+ AC_CHECK_FUNCS_ONCE([ \
+     clone3 \
+diff --git a/include/lapi/vm_sockets.h b/include/lapi/vm_sockets.h
+new file mode 100644
+index 000000000..94d0248c5
+--- /dev/null
++++ b/include/lapi/vm_sockets.h
+@@ -0,0 +1,14 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (C) 2021 SUSE LLC <rpalethorpe@suse.com>
++ */
++
++#include <sys/socket.h>
++
++#if HAVE_LINUX_VM_SOCKETS_H
++#  include <linux/vm_sockets.h>
++#endif
++
++#ifndef VMADDR_CID_LOCAL
++#  define VMADDR_CID_LOCAL 1
++#endif
+diff --git a/runtest/cve b/runtest/cve
+index 9da58d524..5a6ef966d 100644
+--- a/runtest/cve
++++ b/runtest/cve
+@@ -63,3 +63,4 @@ cve-2020-14416 pty03
+ cve-2020-25705 icmp_rate_limit01
+ cve-2020-29373 io_uring02
+ cve-2021-3444 bpf_prog05
++cve-2021-26708 vsock01
+diff --git a/testcases/network/.gitignore b/testcases/network/.gitignore
+index dab2bc34e..c65113960 100644
+--- a/testcases/network/.gitignore
++++ b/testcases/network/.gitignore
+@@ -24,6 +24,7 @@
+ /sctp/sctp_big_chunk
+ /sockets/ltpClient
+ /sockets/ltpServer
++/sockets/vsock01
+ /stress/ns-tools/ns-icmp_redirector
+ /stress/ns-tools/ns-icmpv4_sender
+ /stress/ns-tools/ns-icmpv6_sender
+diff --git a/testcases/network/sockets/Makefile b/testcases/network/sockets/Makefile
+index 7d4c289d0..5d655b8be 100644
+--- a/testcases/network/sockets/Makefile
++++ b/testcases/network/sockets/Makefile
+@@ -10,4 +10,5 @@ INSTALL_TARGETS		:= *.sh
+ 
+ LDLIBS			+= -lpthread
+ 
++include $(top_srcdir)/include/mk/testcases.mk
+ include $(top_srcdir)/include/mk/generic_leaf_target.mk
+diff --git a/testcases/network/sockets/vsock01.c b/testcases/network/sockets/vsock01.c
+new file mode 100644
+index 000000000..fe05ee683
+--- /dev/null
++++ b/testcases/network/sockets/vsock01.c
+@@ -0,0 +1,129 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (C) 2021 SUSE LLC <rpalethorpe@suse.com>
++ */
++
++/*\
++ * [Description]
++ *
++ * Reproducer of CVE-2021-26708
++ *
++ * Based on POC https://github.com/jordan9001/vsock_poc
++ * Fuzzy Sync has been substituted for userfaultfd.
++ *
++ * Fixed by: c518adafa39f ("vsock: fix the race conditions in multi-transport support")
++ * Fixes: c0cfa2d8a788fcf4 ("vsock: add multi-transports support")
++ *
++ * Note that in many testing environments this will reproduce the race
++ * silently. For the test to produce visible errors the loopback
++ * transport should be registered, but not the g2h or h2g transports.
++ *
++ * One way to do this is to remove CONFIG_VIRTIO_VSOCKETS in the guest
++ * or CONFIG_VHOST_VSOCK on the host. Or just unload the
++ * modules. Alternatively run the test on a bare metal host which has
++ * never started a VM.
++ */
++
++#include "config.h"
++#include "tst_test.h"
++
++#if HAVE_LINUX_VM_SOCKETS_H
++#  include "tst_fuzzy_sync.h"
++#  include "lapi/vm_sockets.h"
++
++static struct tst_fzsync_pair pair;
++int vsock = -1;
++
++void *writer(LTP_ATTRIBUTE_UNUSED void *unused)
++{
++	const uint64_t b_buflen = 0x4141;
++
++	while (tst_fzsync_run_b(&pair)) {
++		tst_fzsync_start_race_b(&pair);
++		SAFE_SETSOCKOPT(vsock, AF_VSOCK,
++				SO_VM_SOCKETS_BUFFER_SIZE,
++				&b_buflen, sizeof(b_buflen));
++		tst_fzsync_end_race_b(&pair);
++	}
++
++
++	return NULL;
++}
++
++static void run(void)
++{
++	struct sockaddr_vm addr = { 0 };
++	const struct timeval timeout = { 0, 1 };
++	const uint64_t a_buflen = 0x4140;
++
++	vsock = SAFE_SOCKET(AF_VSOCK, SOCK_STREAM, 0);
++	SAFE_SETSOCKOPT(vsock, AF_VSOCK, SO_VM_SOCKETS_CONNECT_TIMEOUT,
++			&timeout, sizeof(timeout));
++
++	tst_res(TINFO, "Colliding transport change and setsockopt");
++	tst_fzsync_pair_reset(&pair, writer);
++	while (tst_fzsync_run_a(&pair)) {
++
++		addr.svm_family = AF_VSOCK;
++		addr.svm_port = 1234;
++		addr.svm_cid = VMADDR_CID_LOCAL;
++
++		if (!connect(vsock, (struct sockaddr *)&addr, sizeof(addr)))
++			tst_brk(TCONF, "Connected to something on VSOCK loopback");
++
++		if (errno == ENODEV)
++			tst_brk(TCONF | TERRNO, "No loopback transport");
++
++		SAFE_SETSOCKOPT(vsock, AF_VSOCK,
++				SO_VM_SOCKETS_BUFFER_SIZE,
++				&a_buflen, sizeof(a_buflen));
++
++		addr.svm_family = AF_VSOCK;
++		addr.svm_port = 5678;
++		addr.svm_cid = VMADDR_CID_HOST + 3;
++
++		tst_fzsync_start_race_a(&pair);
++		TEST(connect(vsock, (struct sockaddr *)&addr, sizeof(addr)));
++		tst_fzsync_end_race_a(&pair);
++
++		if (!TST_RET) {
++			tst_brk(TCONF,
++				"g2h or h2g transport exists and we connected to something");
++		}
++	}
++
++	SAFE_CLOSE(vsock);
++	tst_res(TPASS, "Nothing bad happened, probably.");
++}
++
++static void cleanup(void)
++{
++	tst_fzsync_pair_cleanup(&pair);
++}
++
++static void setup(void)
++{
++	tst_fzsync_pair_init(&pair);
++}
++
++static struct tst_test test = {
++	.test_all = run,
++	.setup = setup,
++	.cleanup = cleanup,
++	.taint_check = TST_TAINT_W | TST_TAINT_D,
++	.needs_kconfigs = (const char *[]) {
++		"CONFIG_VSOCKETS_LOOPBACK",
++		NULL
++	},
++	.tags = (const struct tst_tag[]) {
++		{"linux-git", "c518adafa39f"},
++		{"CVE", "CVE-2021-26708"},
++		{}
++	},
++};
++
++#else
++
++TST_TEST_TCONF("No linux/vm_sockets.h");
++
++#endif
 -- 
-Regards,
-Li Wang
-
---000000000000694dd105c622fc13
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Fri, Jul 2, 2021 at 8:06 PM Cyril Hrubis &lt;<a =
-href=3D"mailto:chrubis@suse.cz">chrubis@suse.cz</a>&gt; wrote:<br></div><bl=
-ockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-lef=
-t:1px solid rgb(204,204,204);padding-left:1ex">Hi!<br>
-&gt; &gt; &gt; +<br>
-&gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!strcmp=
-(tdev.fs_type, &quot;tmpfs&quot;))<br>
-&gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0tst_test-&gt;mnt_data =3D mnt_data;<br>
-&gt; &gt;<br>
-&gt; &gt; I guess that we are doing this in order to export the changes in =
-the<br>
-&gt; &gt; mnt_data to the test, right?<br>
-&gt; &gt;<br>
-&gt; &gt; Is that needed for something or are you doing this just in a case=
- that<br>
-&gt; &gt; somebody will use that?<br>
-&gt; &gt;<br>
-&gt; <br>
-&gt; No, you probably mis-read this part.<br>
-&gt; <br>
-&gt; In contrast, this is just to restore it to the original value,<br>
-&gt; because we don&#39;t want to export the changed tst_test-&gt;mnt_data<=
-br>
-&gt; take effect on other filesystems.<br>
-<br>
-I&#39;m just asking why we are setting it in the first place?<br>
-<br>
-If we do not change it there is no need to restore the value, so the<br>
-real question is, do we need to change the tst_test-&gt;mnt_data at all?<br=
-></blockquote><div><br></div><div class=3D"gmail_default" style=3D"font-siz=
-e:small">Alright, we can just return a new pointer buf, and do nothing</div=
-><div class=3D"gmail_default" style=3D"font-size:small">for the tst_test-&g=
-t;mnt_data itself. </div><div class=3D"gmail_default" style=3D"font-size:sm=
-all"><br></div><div class=3D"gmail_default" style=3D"font-size:small">Seems=
- the misread person is me (I need more coffee now:).</div></div><div><br></=
-div>-- <br><div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><div=
->Regards,<br></div><div>Li Wang<br></div></div></div></div>
-
---000000000000694dd105c622fc13--
-
-
---===============2142852976==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+2.31.1
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============2142852976==--
-
