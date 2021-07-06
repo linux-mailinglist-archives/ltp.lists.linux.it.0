@@ -2,45 +2,48 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28D8A3BD7AF
-	for <lists+linux-ltp@lfdr.de>; Tue,  6 Jul 2021 15:22:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A16803BD7B4
+	for <lists+linux-ltp@lfdr.de>; Tue,  6 Jul 2021 15:22:58 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 801E23C955D
-	for <lists+linux-ltp@lfdr.de>; Tue,  6 Jul 2021 15:22:09 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 25C7E3C7694
+	for <lists+linux-ltp@lfdr.de>; Tue,  6 Jul 2021 15:22:58 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 57BE13C0F90
- for <ltp@lists.linux.it>; Tue,  6 Jul 2021 15:22:03 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 5340A3C0F90
+ for <ltp@lists.linux.it>; Tue,  6 Jul 2021 15:22:54 +0200 (CEST)
 Received: from youngberry.canonical.com (youngberry.canonical.com
  [91.189.89.112])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 4BAC76002EC
- for <ltp@lists.linux.it>; Tue,  6 Jul 2021 15:22:03 +0200 (CEST)
-Received: from 1.general.cascardo.us.vpn ([10.172.70.58]
- helo=localhost.localdomain)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id E062A600C46
+ for <ltp@lists.linux.it>; Tue,  6 Jul 2021 15:22:53 +0200 (CEST)
+Received: from 1.general.cascardo.us.vpn ([10.172.70.58] helo=mussarela)
  by youngberry.canonical.com with esmtpsa (TLS1.2) tls
  TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
  (envelope-from <cascardo@canonical.com>)
- id 1m0l1V-0005Zr-Ed; Tue, 06 Jul 2021 13:22:01 +0000
+ id 1m0l2K-0005g4-1M; Tue, 06 Jul 2021 13:22:52 +0000
+Date: Tue, 6 Jul 2021 10:22:47 -0300
 From: Thadeu Lima de Souza Cascardo <cascardo@canonical.com>
-To: ltp@lists.linux.it
-Date: Tue,  6 Jul 2021 10:21:14 -0300
-Message-Id: <20210706132114.204443-1-cascardo@canonical.com>
-X-Mailer: git-send-email 2.30.2
+To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+Message-ID: <YORZJ5vIMabVG0yG@mussarela>
+References: <YNM4rlDJLzb4xk6v@yuki>
+ <1624512827-3256-1-git-send-email-xuyang2018.jy@fujitsu.com>
+ <1624512827-3256-3-git-send-email-xuyang2018.jy@fujitsu.com>
+ <YNnlIVB9M4/11JmT@yuki>
+ <98a17ec4-3697-d5ba-583b-ce539782f18c@canonical.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <98a17ec4-3697-d5ba-583b-ce539782f18c@canonical.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH] shmget02: fix EPERM test when RLIMIT_MEMLOCK is large
- enough
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3 3/3] syscalls/shmget*: Convert into new api
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,48 +55,43 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: Po-Hsu Lin <po-hsu.lin@canonical.com>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-shmget(..., SHM_HUGETLB) will not fail with EPERM if there is enough space
-for RLIMIT_MEMLOCK. If the limit is 0, it will fail with EPERM as expected
-when a not enough privileged user calls it.
+On Mon, Jul 05, 2021 at 12:03:33PM +0200, Krzysztof Kozlowski wrote:
+> On 28/06/2021 17:05, Cyril Hrubis wrote:
+> > Hi!
+> > Pushed with a minor changes, thanks.
+> > 
+> 
+> It looks like this commit not only converted into new API but also
+> changed the test. We started noticing shmget02 and shmget03 test
+> failures on several systems.
+> 
+> https://bugs.launchpad.net/ubuntu-kernel-tests/+bug/1934432
+> 
+> Reverting the commit helps and tests pass.
+> 
+> Since it is one big patch doing multiple things at the same time, it is
+> difficult to bisect it more and find the cause.  Any ideas what went
+> different here comparing to previous version of these tests?
+> 
 
-Set RLIMIT_MEMLOCK to 0 for all calls, as this is the only one which will
-fail because of that limit, unless we are talking about very old kernels
-(before 2.6.9).
+New tests were added, like testing for EPERM when using SHM_HUGETLB.
+However, it does not fail with EPERM with there is sufficient
+RLIMIT_MEMLOCK. I have just sent a fix for that.
 
-Fixes: 4dc493b44a85 ("syscalls/shmget*: Convert into new api")
-Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@canonical.com>
----
- testcases/kernel/syscalls/ipc/shmget/shmget02.c | 2 ++
- 1 file changed, 2 insertions(+)
+Cascardo.
 
-diff --git a/testcases/kernel/syscalls/ipc/shmget/shmget02.c b/testcases/kernel/syscalls/ipc/shmget/shmget02.c
-index 6be8d8157999..8857207cfd3d 100644
---- a/testcases/kernel/syscalls/ipc/shmget/shmget02.c
-+++ b/testcases/kernel/syscalls/ipc/shmget/shmget02.c
-@@ -64,6 +64,7 @@ static void do_test(unsigned int n)
- {
- 	struct tcase *tc = &tcases[n];
- 	pid_t pid;
-+	struct rlimit rl = { 0, 0 };
- 
- 	if (tc->exp_user == 0 && tc->exp_group == 0) {
- 		TST_EXP_FAIL2(shmget(*tc->shmkey, tc->size, tc->flags), tc->exp_err,
-@@ -78,6 +79,7 @@ static void do_test(unsigned int n)
- 			SAFE_SETGID(pw->pw_gid);
- 		}
- 		SAFE_SETUID(pw->pw_uid);
-+		SAFE_SETRLIMIT(RLIMIT_MEMLOCK, &rl);
- 		TST_EXP_FAIL2(shmget(*tc->shmkey, tc->size, tc->flags), tc->exp_err,
- 			"shmget(%i, %lu, %i)", *tc->shmkey, tc->size, tc->flags);
- 		exit(0);
--- 
-2.30.2
-
+> 
+> Best regards,
+> Krzysztof
+> 
+> -- 
+> Mailing list info: https://lists.linux.it/listinfo/ltp
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
