@@ -2,50 +2,78 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 741623BE6C7
-	for <lists+linux-ltp@lfdr.de>; Wed,  7 Jul 2021 13:00:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2259B3BE946
+	for <lists+linux-ltp@lfdr.de>; Wed,  7 Jul 2021 16:04:03 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DBD813C89D7
-	for <lists+linux-ltp@lfdr.de>; Wed,  7 Jul 2021 13:00:09 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 70CFD3C89D6
+	for <lists+linux-ltp@lfdr.de>; Wed,  7 Jul 2021 16:04:02 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id B0CD33C1CE5
- for <ltp@lists.linux.it>; Wed,  7 Jul 2021 13:00:05 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 076E33C5841
+ for <ltp@lists.linux.it>; Wed,  7 Jul 2021 16:03:57 +0200 (CEST)
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 0B491601495
- for <ltp@lists.linux.it>; Wed,  7 Jul 2021 13:00:04 +0200 (CEST)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 71598220B5;
- Wed,  7 Jul 2021 11:00:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1625655604; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=IBCJDT2OrEdO1QprManmnsDmje3oNVcJus+pQfbhE9U=;
- b=F1lldXWVmDd1LSXX0DHhTiow8JKzCbEk2E32FJDtSNBLgxK9Pdf2tVk4hPC0jzmAmQXg/+
- ydrtCgNwSbXCrcQovNYgQNBOaQI3SpxehmPMkSzvr1T6tIGLsKuY10CQ5ontcH+CfOwz7m
- zajiZOLNf8Msg7lA13uNG3WDC4hs8FI=
-Received: from g78.suse.de (unknown [10.163.24.38])
- by relay2.suse.de (Postfix) with ESMTP id D6DBCA3B9D;
- Wed,  7 Jul 2021 11:00:01 +0000 (UTC)
-To: ltp@lists.linux.it
-Date: Wed,  7 Jul 2021 11:59:54 +0100
-Message-Id: <20210707105954.18182-1-rpalethorpe@suse.com>
-X-Mailer: git-send-email 2.31.1
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 39AB3200347
+ for <ltp@lists.linux.it>; Wed,  7 Jul 2021 16:03:57 +0200 (CEST)
+Received: by mail-lf1-x12f.google.com with SMTP id c28so4212401lfp.11
+ for <ltp@lists.linux.it>; Wed, 07 Jul 2021 07:03:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=bell-sw-com.20150623.gappssmtp.com; s=20150623;
+ h=subject:to:references:from:message-id:date:user-agent:mime-version
+ :in-reply-to:content-language:content-transfer-encoding;
+ bh=9TVzOxKnvv9QSrbOUYbGTnJsnZqNDF2ihlRF+k06G6Q=;
+ b=hBaNwDTyhceGUtmqUIgrCg56Xy1ZDeJGzX9cKwxs6Dp1rf74qw5yPX6gRjDawFIUqD
+ YP2F/2W270DRSBCdNXrI10pUAdIQvazKiFhbUXNyRgcdTapstrMb+LWkhdvhjqZgaosl
+ Y99yFuLj9MqdQX/3TR1Lu5Q+vNaunHjUk36KgMDbzfTsOgKf6LmhbhGCGBnI/BxENPM2
+ JtjuHqO1Pe2ZNwlAc8s/pcboeQP0g5PU0HQFiSASPTdHqzs8rB6TBGLOzRJwQY0W56gw
+ pBdTXTcVPDkfdOEt4r8z1vNATCk9MQjjPc5aV1R40C32HM0vjwW0qz1KdOov8i9/PV73
+ jyOQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=9TVzOxKnvv9QSrbOUYbGTnJsnZqNDF2ihlRF+k06G6Q=;
+ b=RwwcCZN3WDu5qPkuGk67Rv5mPLn/etHjJLjQglAqCtQjhEjz55YkZVKzMa4qRPiHbo
+ Ku6/R3sy0vtBU3xf+WBmLMHDGms5m/zohgHuWrUM4AiLc3iJPlMOZJFQV9eaWVoWP5uU
+ hLXWi8f4ZPdnSvM1nVYPZgV3HrZGe2OhoiMHw4ziZD0jV0VFTyqtSANHrnqw3UVihtUf
+ OnfFLTZ5DGksHWySUjH/93jzEaG4pj+16AXZUMU/5FYN0A/8ZMK3QO0FTsQvxQJLaVB2
+ o492LwJFOldZ9dP7k1YIRBiLU7iKacT9MM+Tnk0U7Z1Pg9CBIdSoSLNtVZ7s+5oLZJQc
+ qsSg==
+X-Gm-Message-State: AOAM531TCZ7xJDHepzN+93m531b005Z1OuisvLPSeDiPncxwbbi2DbA1
+ GnC9vinZrwVXyEKnbagPgx0A6FOaC4+4
+X-Google-Smtp-Source: ABdhPJw1pQOIxhHoD6frBjO04EWA56OZFdkMe0dLdO8GYvBrA1Fp6bgsweAWBjJsAIJg7oPaMXWTjw==
+X-Received: by 2002:a19:c352:: with SMTP id t79mr20184671lff.537.1625666636320; 
+ Wed, 07 Jul 2021 07:03:56 -0700 (PDT)
+Received: from [192.168.1.53] ([91.247.148.5])
+ by smtp.gmail.com with ESMTPSA id u2sm645762ljg.62.2021.07.07.07.03.55
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 07 Jul 2021 07:03:56 -0700 (PDT)
+To: Yang Xu <xuyang2018.jy@fujitsu.com>, ltp@lists.linux.it
+References: <1625649746-11987-1-git-send-email-xuyang2018.jy@fujitsu.com>
+From: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
+Message-ID: <50bca7a2-41f5-3eba-d1da-e8e12c883d22@bell-sw.com>
+Date: Wed, 7 Jul 2021 17:03:55 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+In-Reply-To: <1625649746-11987-1-git-send-email-xuyang2018.jy@fujitsu.com>
+Content-Language: en-US
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v2] kill13, CVE-2018-10124: Reproduce INT_MIN negation
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] network/tc01.sh: Add a regression test for tc
+ qdisc command
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,118 +85,125 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Richard Palethorpe via ltp <ltp@lists.linux.it>
-Reply-To: Richard Palethorpe <rpalethorpe@suse.com>
-Cc: Richard Palethorpe <rpalethorpe@suse.com>,
- Joerg Vehlow <joerg.vehlow@aox-tech.de>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
-Acked-by: Joerg Vehlow <joerg.vehlow@aox-tech.de>
----
+Hi!
+On 07.07.2021 12:22, Yang Xu wrote:
+> Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
+> ---
+>  runtest/net.tcp_cmds                   |  1 +
+>  testcases/network/tcp_cmds/tc/Makefile | 13 +++++++
+>  testcases/network/tcp_cmds/tc/tc01.sh  | 51 ++++++++++++++++++++++++++
+>  3 files changed, 65 insertions(+)
+>  create mode 100644 testcases/network/tcp_cmds/tc/Makefile
+>  create mode 100755 testcases/network/tcp_cmds/tc/tc01.sh
+> 
+> diff --git a/runtest/net.tcp_cmds b/runtest/net.tcp_cmds
+> index db47dfd5b..7e142de11 100644
+> --- a/runtest/net.tcp_cmds
+> +++ b/runtest/net.tcp_cmds
+> @@ -12,6 +12,7 @@ netstat netstat01.sh
+>  ping01 ping01.sh
+>  ping02 ping02.sh
+>  sendfile sendfile01.sh
+> +tc01 tc01.sh
+>  tcpdump tcpdump01.sh
+>  telnet telnet01.sh
+>  iptables iptables01.sh
+> diff --git a/testcases/network/tcp_cmds/tc/Makefile b/testcases/network/tcp_cmds/tc/Makefile
+> new file mode 100644
+> index 000000000..60150a1ce
+> --- /dev/null
+> +++ b/testcases/network/tcp_cmds/tc/Makefile
+> @@ -0,0 +1,13 @@
+> +# SPDX-License-Identifier: GPL-2.0-or-later
+> +# Copyright (C) 2009, Cisco Systems Inc.
+> +# Ngie Cooper, July 2009
+> +
+> +top_srcdir		?= ../../../..
+> +
+> +include $(top_srcdir)/include/mk/env_pre.mk
+> +
+> +INSTALL_TARGETS		:= tc01.sh
+> +
+> +MAKE_TARGETS		:=
+> +
+> +include $(top_srcdir)/include/mk/generic_leaf_target.mk
+> diff --git a/testcases/network/tcp_cmds/tc/tc01.sh b/testcases/network/tcp_cmds/tc/tc01.sh
+> new file mode 100755
+> index 000000000..0a241843b
+> --- /dev/null
+> +++ b/testcases/network/tcp_cmds/tc/tc01.sh
+> @@ -0,0 +1,51 @@
+> +#!/bin/sh
+> +# SPDX-License-Identifier: GPL-2.0-or-later
+> +# Copyright (c) 2021 FUJITSU LIMITED. All rights reserved.
+> +# Author: Yang Xu<xuyang2018.jy@fujitsu.com>
+> +#
+> +# When using "tc qdisc add dev teql0 root teql0 command", qdisc_create()
+> +# calls teql_qdisc_init() it imediately fails after check "if (m->dev == dev)"
+> +# because both devices are teql0, and it does not set qdisc_priv(sch)->m
+> +# leaving it zero on error path, then qdisc_create() imediately calls
+> +# teql_destroy() which does not expect zero master pointer and we get OOPS
+> +# on unpatched kernel.
+> +#
+> +# If we enable panic_on_oops, this case may crash.
+> +#
+> +# This kernel bug was introduced by
+> +# commit 87b60cfacf9f ("net_sched: fix error recovery at qdisc creation")
+> +# and has been fixed by
+> +# commit 1ffbc7ea9160 ("net: sched: sch_teql: fix null-pointer dereference")
+> +#
+> +
+> +TST_TESTFUNC="do_test"
+> +TST_NEEDS_ROOT=1
+> +TST_NEEDS_DRIVERS="sch_teql"
+> +TST_NEEDS_CMDS="tc modprobe"
+> +sys_file="/proc/sys/kernel/panic_on_oops"
+> +. tst_test.sh
+> +
+> +do_test()
+> +{
+> +	[ ! -f "$sys_file" ] && tst_brk TCONF "$sys_file not enabled"
 
-V2:
-* Add more explanation
-* Set signal to 0
-* Require signed overflow detection in the kernel
+Why this check is needed and also setting panic_on_oops to
+trigger the bug? If not, I would suggest to remove them from
+the test.
 
- runtest/cve                               |  1 +
- runtest/syscalls                          |  1 +
- testcases/kernel/syscalls/kill/.gitignore |  1 +
- testcases/kernel/syscalls/kill/kill13.c   | 45 +++++++++++++++++++++++
- 4 files changed, 48 insertions(+)
- create mode 100644 testcases/kernel/syscalls/kill/kill13.c
+> +	orig_value=$(cat "$sys_file")
+> +	if [ $orig_value = "0" ]; then
+> +		echo 1 > $sys_file
+> +	fi
+> +
+> +	tst_res TINFO "Use tc qdisc command to trigger a null-pointer dereference"
+> +	modprobe $TST_NEEDS_DRIVERS
 
-diff --git a/runtest/cve b/runtest/cve
-index 5a6ef966d..226b5ea44 100644
---- a/runtest/cve
-+++ b/runtest/cve
-@@ -49,6 +49,7 @@ cve-2018-5803 sctp_big_chunk
- cve-2018-7566 snd_seq01
- cve-2018-8897 ptrace09
- cve-2018-9568 connect02
-+cve-2018-10124 kill13
- cve-2018-1000001 realpath01
- cve-2018-1000199 ptrace08
- cve-2018-1000204 ioctl_sg01
-diff --git a/runtest/syscalls b/runtest/syscalls
-index 98fe3c02e..0c1e16f9e 100644
---- a/runtest/syscalls
-+++ b/runtest/syscalls
-@@ -644,6 +644,7 @@ kill09 kill09
- kill10 kill10
- kill11 kill11
- kill12 kill12
-+kill13 kill13
- 
- lchown01 lchown01
- lchown01_16 lchown01_16
-diff --git a/testcases/kernel/syscalls/kill/.gitignore b/testcases/kernel/syscalls/kill/.gitignore
-index 75fdaa561..810ed0200 100644
---- a/testcases/kernel/syscalls/kill/.gitignore
-+++ b/testcases/kernel/syscalls/kill/.gitignore
-@@ -8,3 +8,4 @@
- /kill10
- /kill11
- /kill12
-+/kill13
-diff --git a/testcases/kernel/syscalls/kill/kill13.c b/testcases/kernel/syscalls/kill/kill13.c
-new file mode 100644
-index 000000000..66ae37bc0
---- /dev/null
-+++ b/testcases/kernel/syscalls/kill/kill13.c
-@@ -0,0 +1,45 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (C) 2021 SUSE LLC <rpalethorpe@suse.com>
-+ */
-+
-+/*\
-+ * [Description]
-+ *
-+ * Reproducer of CVE-2018-10124; INT_MIN negation.
-+ *
-+ * On most two's complement CPUs negation of INT_MIN will result in
-+ * INT_MIN because ~((unsigned)INT_MIN) + 1 overflows to INT_MIN
-+ * (unless trapped). On one's complement ~((unsigned)INT_MIN) = INT_MAX.
-+ *
-+ * Without UBSAN kill will always return ESRCH. Regardless of if the
-+ * bug is present as INT_MIN/INT_MAX are invalid PIDs. It checks the
-+ * PID before the signal number so we can not cause EINVAL. A trivial
-+ * test of kill is performed elsewhere. So we don't run the test
-+ * without UBSAN to avoid giving the impression we have actually
-+ * tested for the bug.
-+ */
-+
-+#include <limits.h>
-+#include <signal.h>
-+#include "tst_test.h"
-+
-+static void run(void)
-+{
-+	TST_EXP_FAIL2(kill(INT_MIN, 0), ESRCH,
-+		      "kill(INT_MIN, ...) fails with ESRCH");
-+}
-+
-+static struct tst_test test = {
-+	.test_all = run,
-+	.taint_check = TST_TAINT_W | TST_TAINT_D,
-+	.needs_kconfigs = (const char *[]) {
-+		"CONFIG_UBSAN_SIGNED_OVERFLOW",
-+		NULL
-+	},
-+	.tags = (const struct tst_tag[]) {
-+		{"linux-git", "4ea77014af0d"},
-+		{"CVE", "CVE-2018-10124"},
-+		{}
-+	}
-+};
--- 
-2.31.1
+setup()
+{
+	ROD modprobe $TST_NEEDS_DRIVERS
+}
 
+> +
+> +	tc qdisc add dev teql0 root teql0 2>/dev/null
+
+TST_EXP_FAIL tc qdisc add dev teql0 root teql0
+
+> +	if [ $? -eq 0 ]; then
+> +		tst_res TFAIL "tc qdisc command succeeded unexpectedly"
+> +	else
+> +		tst_res TPASS "the bug was not reproduced"
+> +	fi
+> +
+> +	if [ $orig_value = "0" ]; then
+> +		 echo 0 > $sys_file
+> +	fi
+> +}
+> +
+> +tst_run
+>
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
