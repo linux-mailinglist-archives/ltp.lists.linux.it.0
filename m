@@ -2,80 +2,52 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDCBB3BF5BE
-	for <lists+linux-ltp@lfdr.de>; Thu,  8 Jul 2021 08:44:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AAF713BF6B5
+	for <lists+linux-ltp@lfdr.de>; Thu,  8 Jul 2021 10:07:01 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 90B9B3C681A
-	for <lists+linux-ltp@lfdr.de>; Thu,  8 Jul 2021 08:44:53 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 7301A3C6824
+	for <lists+linux-ltp@lfdr.de>; Thu,  8 Jul 2021 10:07:01 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 176973C4DB0
- for <ltp@lists.linux.it>; Thu,  8 Jul 2021 08:44:50 +0200 (CEST)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id E23933C2A8B
+ for <ltp@lists.linux.it>; Thu,  8 Jul 2021 10:06:59 +0200 (CEST)
+Received: from szxga08-in.huawei.com (szxga08-in.huawei.com [45.249.212.255])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id E88A9600748
- for <ltp@lists.linux.it>; Thu,  8 Jul 2021 08:44:49 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1625726688;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=N5gynopZD9q3VGEVRB2c5AOPO/QODPRGwhT/yCs2SYI=;
- b=IGhcP2lDZ2/CqJh9SYRkOQPwAQb3BGGfFm35uOw/Or+qx/QZcBj11HNck2DRFQO6yIkK26
- cVb8i8EXwdxH/3UpKeJvMoEQLxxVuUgAbGJSYO+zKmHOJlRQpJTNkiZxX6yGyFYOd2Z066
- vmqO9Ywi76RW/m9X1hoHx3MmG1QmM+E=
-Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com
- [209.85.222.70]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-86-gYl6VFYPNGSXvf5IElGnkA-1; Thu, 08 Jul 2021 02:44:47 -0400
-X-MC-Unique: gYl6VFYPNGSXvf5IElGnkA-1
-Received: by mail-ua1-f70.google.com with SMTP id
- h16-20020ab038500000b029029ec7ce7c99so293491uaw.14
- for <ltp@lists.linux.it>; Wed, 07 Jul 2021 23:44:47 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=N5gynopZD9q3VGEVRB2c5AOPO/QODPRGwhT/yCs2SYI=;
- b=cVicZiUwzIzmWo47+7nUslQs44oorfEz5euVJCvQI+VSzTMoAGhll9Hc2Ygpa2g6Md
- gIMdSzyIYYvdm8jxQwgT9XWApx2Uh4SGkqgSuaw4cHu9w4djDU9n4HEsx34yNbTvFQFQ
- xd3MeQtEMsA846uKCg+FlPvLH9afuxtGtmmcYvft7aGEG5m3fPJtp/98FjrrjXj7PPSh
- U1XvFSn+0UY3Yk3FBT8gl+rpI8Jsa5MWA5D10U49L70o4DcY3aZo2VDnIqAOkTfSTV4N
- w6QDqUsEHbILyfV55YawTXGQKPSBBXUMIZ46ij3/CdG2uproxAAujgOZafKNfd1ovDWG
- 39ww==
-X-Gm-Message-State: AOAM531OZSBiHwTQHDQ+QYkyBNrs9mL7sdDoW7veWPlo0XNgBd+rxNvf
- xngcB+EZn1dVrjEvH/JHhay6XL60tEzgblYAlEbWz8CN81dUhporVaeU15l1Y3ah0D3aWekSmqe
- tH1Uf6qNKS7qZzEGe4Drv5l1b6Qk=
-X-Received: by 2002:a25:f8b:: with SMTP id 133mr35668129ybp.86.1625726209844; 
- Wed, 07 Jul 2021 23:36:49 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJxOku2nsPvX0QpYQxw23NvN5jMimLl+12/weOqj0QOeptjt1P2MrMjcgaZrzqetQnfEhaqsJD7oawpVMLK7jpg=
-X-Received: by 2002:a25:f8b:: with SMTP id 133mr35668115ybp.86.1625726209652; 
- Wed, 07 Jul 2021 23:36:49 -0700 (PDT)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 8F8B2200DBA
+ for <ltp@lists.linux.it>; Thu,  8 Jul 2021 10:06:22 +0200 (CEST)
+Received: from dggemv704-chm.china.huawei.com (unknown [172.30.72.57])
+ by szxga08-in.huawei.com (SkyGuard) with ESMTP id 4GL7yQ3N65z1CGbw
+ for <ltp@lists.linux.it>; Thu,  8 Jul 2021 16:00:46 +0800 (CST)
+Received: from dggpemm500022.china.huawei.com (7.185.36.162) by
+ dggemv704-chm.china.huawei.com (10.3.19.47) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2176.2; Thu, 8 Jul 2021 16:06:16 +0800
+Received: from ubuntu1804.huawei.com (10.67.174.209) by
+ dggpemm500022.china.huawei.com (7.185.36.162) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2176.2; Thu, 8 Jul 2021 16:06:16 +0800
+From: Xie Ziyao <xieziyao@huawei.com>
+To: <ltp@lists.linux.it>
+Date: Thu, 8 Jul 2021 16:07:20 +0800
+Message-ID: <20210708080720.18997-1-xieziyao@huawei.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-References: <20210705082527.855688-1-liwang@redhat.com> <YOV0bemK+1NI0Cz4@yuki>
- <CAEemH2dRgd8m0Wtuw=QF0rH8SqOvQ11aTzi6O227q-PYQOYL4w@mail.gmail.com>
-In-Reply-To: <CAEemH2dRgd8m0Wtuw=QF0rH8SqOvQ11aTzi6O227q-PYQOYL4w@mail.gmail.com>
-From: Li Wang <liwang@redhat.com>
-Date: Thu, 8 Jul 2021 14:36:38 +0800
-Message-ID: <CAEemH2eEMMX6CC6-RF+q93bAxv8GMN7LcwZeBtAydsAnys+79g@mail.gmail.com>
-To: Cyril Hrubis <chrubis@suse.cz>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Originating-IP: [10.67.174.209]
+X-ClientProxiedBy: dggems704-chm.china.huawei.com (10.3.19.181) To
+ dggpemm500022.china.huawei.com (7.185.36.162)
+X-CFilter-Loop: Reflected
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 1/2] lib: limit the size of tmpfs in LTP
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH] gethostid: Rewrite with newlib and use/test sethostid
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,140 +59,327 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============0381479850=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0381479850==
-Content-Type: multipart/alternative; boundary="0000000000003a91bc05c696e14a"
+1. Rewrite gethostid01 with newlib.
+2. Use and test sethostid syscall which helps increase coverage and remove the need for configuration.
 
---0000000000003a91bc05c696e14a
-Content-Type: text/plain; charset="UTF-8"
+Fixes: #743
+Signed-off-by: Xie Ziyao <xieziyao@huawei.com>
+---
+ .../kernel/syscalls/gethostid/gethostid01.c   | 279 +++---------------
+ 1 file changed, 41 insertions(+), 238 deletions(-)
 
-On Thu, Jul 8, 2021 at 10:50 AM Li Wang <liwang@redhat.com> wrote:
+diff --git a/testcases/kernel/syscalls/gethostid/gethostid01.c b/testcases/kernel/syscalls/gethostid/gethostid01.c
+index 241335af7..9758e19aa 100644
+--- a/testcases/kernel/syscalls/gethostid/gethostid01.c
++++ b/testcases/kernel/syscalls/gethostid/gethostid01.c
+@@ -1,258 +1,61 @@
++// SPDX-License-Identifier: GPL-2.0
+ /*
+  * Copyright (c) 2000 Silicon Graphics, Inc.  All Rights Reserved.
+- *
+- * This program is free software; you can redistribute it and/or modify it
+- * under the terms of version 2 of the GNU General Public License as
+- * published by the Free Software Foundation.
+- *
+- * This program is distributed in the hope that it would be useful, but
+- * WITHOUT ANY WARRANTY; without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+- *
+- * Further, this software is distributed without any warranty that it is
+- * free of the rightful claim of any third person regarding infringement
+- * or the like.  Any license provided herein, whether implied or
+- * otherwise, applies only to this software file.  Patent licenses, if
+- * any, provided herein do not apply to combinations of this program with
+- * other software, or any other product whatsoever.
+- *
+- * You should have received a copy of the GNU General Public License along
+- * with this program; if not, write the Free Software Foundation, Inc.,
+- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+- *
+- * Contact information: Silicon Graphics, Inc., 1600 Amphitheatre Pkwy,
+- * Mountain View, CA  94043, or:
+- *
+- * http://www.sgi.com
+- *
+- * For further information regarding this notice, see:
+- *
+- * http://oss.sgi.com/projects/GenInfo/NoticeExplan/
+- *
++ * AUTHOR: William Roske
++ * CO-PILOT: Dave Fenner
++ * 12/2002 Paul Larson: Add functional test to compare output from hostid
++ * command and gethostid().
++ * 01/2003 Robbie Williamson: Add code to handle distros that add "0x" to
++ * beginning of `hostid` output.
++ * 01/2006  Marty Ridgeway: Correct 64 bit check so the second 64 bit check
++ * doesn't clobber the first 64 bit check.
++ * Copyright (c) 2021 Xie Ziyao <xieziyao@huawei.com>
++ * 07/2021 Xie Ziyao: Rewrite with newlib and use/test sethostid.
+  */
+-/* $Id: gethostid01.c,v 1.23 2009/03/23 13:35:42 subrata_modak Exp $ */
+-/**********************************************************
+- *
+- *    OS Test - Silicon Graphics, Inc.
+- *
+- *    TEST IDENTIFIER	: gethostid01
+- *
+- *    EXECUTED BY	: anyone
+- *
+- *    TEST TITLE	: Basic test for gethostid(2)
+- *
+- *    PARENT DOCUMENT	: usctpl01
+- *
+- *    TEST CASE TOTAL	: 1
+- *
+- *    WALL CLOCK TIME	: 1
+- *
+- *    CPU TYPES		: ALL
+- *
+- *    AUTHOR		: William Roske
+- *
+- *    CO-PILOT		: Dave Fenner
+- *
+- *    DATE STARTED	: 03/30/92
+- *
+- *    INITIAL RELEASE	: UNICOS 7.0
+- *
+- *    TEST CASES
+- *
+- * 	1.) gethostid(2) returns...(See Description)
+- *
+- *    INPUT SPECIFICATIONS
+- * 	The standard options for system call tests are accepted.
+- *	(See the parse_opts(3) man page).
+- *
+- *    DURATION
+- * 	Terminates - with frequency and infinite modes.
+- *
+- *    SIGNALS
+- * 	Uses SIGUSR1 to pause before test if option set.
+- * 	(See the parse_opts(3) man page).
+- *
+- *    RESOURCES
+- * 	None
+- *
+- *    ENVIRONMENTAL NEEDS
+- *      No run-time environmental needs.
+- *
+- *    SPECIAL PROCEDURAL REQUIREMENTS
+- * 	None
+- *
+- *    INTERCASE DEPENDENCIES
+- * 	None
+- *
+- *    DETAILED DESCRIPTION
+- *	This is a Phase I test for the gethostid(2) system call.  It is intended
+- *	to provide a limited exposure of the system call, for now.  It
+- *	should/will be extended when full functional tests are written for
+- *	gethostid(2).
+- *
+- * 	Setup:
+- * 	  Setup signal handling.
+- *	  Pause for SIGUSR1 if option specified.
+- *
+- * 	Test:
+- *	 Loop if the proper options are given.
+- * 	  Execute system call
+- *	  Check return code, if system call failed (return=-1)
+- *		Log the errno and Issue a FAIL message.
+- *	  Otherwise, Issue a PASS message.
+- *
+- * 	Cleanup:
+- * 	  Print errno log and/or timing stats if options given
+- *
+- * 	History:
+- * 	  12/2002 Paul Larson - Added functional test to compare
+- * 	  	output from hostid command and gethostid()
+- *
+- *        01/2003 Robbie Williamson - Added code to handle
+- *              distros that add "0x" to beginning of `hostid`
+- *              output.
+- *
+- *   01/31/2006  Marty Ridgeway - Corrected 64 bit check so
+- *              the second 64 bit check doesn't clobber the first 64 bit
+- *              check
+- *
+- *#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#**/
+-
+-#include <errno.h>
+-#include <string.h>
+-#include <signal.h>
+-#include <unistd.h>
+-
+-#include "test.h"
 
-> Cyril Hrubis <chrubis@suse.cz> wrote:
->
->
->>
->> > +static char *limit_tmpfs_mount_size(const char *mnt_data,
->> > +                     char *buf, size_t buf_size, const char *fs_type)
->> > +{
->> > +     int fd;
->> > +     uint64_t dev_size;
->> > +
->> > +     if (strcmp(fs_type, "tmpfs"))
->> > +             return mnt_data;
->> > +
->> > +     fd = SAFE_OPEN(tdev.dev, O_RDONLY);
->> > +     SAFE_IOCTL(fd, BLKGETSIZE64, &dev_size);
->> > +     SAFE_CLOSE(fd);
->>
->> We can as well add size to the struct tst_device and fill it in when
->> device is created, that would be a slightly cleaner solution.
->>
->
->
-> That should be fine. But I'm afraid we have to change the return type
-> for many functions in tst_device.c, because currently most of them
-> only return a path to the test device. And that will affect more tests.
->
-> Or, maybe just create a function to get the device size and pass it
-> to tdev.size simply?
->
+-#define HOSTIDLEN 40
+-/* Bitmasks for the 64 bit operating system checks */
+-#define FIRST_64_CHKBIT  0x01
+-#define SECOND_64_CHKBIT 0x02
++/*\
++ * [Description]
++ *
++ * Test the basic functionality of the sethostid() and gethostid() system call.
++ */
 
-With adding new field 'size' in struct tst_device, I'm also planning
-to extract that from tst_acquire_device__ and export it as a global
-function:
-    uint64_t tst_get_device_size(const char *dev_path);
+-void setup();
+-void cleanup();
++#include "tst_test.h"
 
-then reuse of it to get block device size in more places, like:
-     tdev.size = tst_get_device_size(tdev.dev);   <-- in prepare_device
-and
-      ltp_dev_size = tst_get_device_size(dev);   <-- in tst_acquire_device__
-That would keep most of the function API no change and save
-the tdev.size. Is this way OK, or any else?
+-char *TCID = "gethostid01";
+-int TST_TOTAL = 1;
++static long origin;
++static long tc[] = {0x00000000, 0x0000ffff};
 
--- 
-Regards,
-Li Wang
+-int main(int ac, char **av)
++static void run(unsigned int i)
+ {
+-	int lc, i, j;		/* loop counters */
+-	int bit_64 = 0;
+-	char *result;
+-	char name[HOSTIDLEN], name2[HOSTIDLEN], hostid[HOSTIDLEN],
+-	    hostid2[HOSTIDLEN], *hostid3, hex[2] = "0x";
+-	char hex_64[8] = "ffffffff";
+-	FILE *fp;
+-
+-	tst_parse_opts(ac, av, NULL, NULL);
+-
+-	setup();
+-
+-	for (lc = 0; TEST_LOOPING(lc); lc++) {
+-
+-		tst_count = 0;
+-
+-		TEST(gethostid());
+-
+-		if (TEST_RETURN == -1) {
+-			tst_resm(TFAIL | TTERRNO, "gethostid failed");
+-			continue;	/* next loop for MTKERNEL */
+-		}
+-		sprintf(hostid, "%08lx", TEST_RETURN);
++	TST_EXP_PASS(sethostid(tc[i]), "set hostid to %ld", tc[i]);
++	TEST(gethostid());
 
---0000000000003a91bc05c696e14a
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+-		if (system("hostid > hostid.x") == -1)
+-			tst_brkm(TFAIL, cleanup,
+-				 "system() returned errno %d", errno);
+-		if ((fp = fopen("hostid.x", "r")) == NULL)
+-			tst_brkm(TFAIL, cleanup, "fopen failed");
+-		if (fgets(name, HOSTIDLEN, fp) == NULL)
+-			tst_brkm(TFAIL, cleanup, "fgets failed");
+-		fclose(fp);
++	if (TST_RET == -1)
++		tst_res(TFAIL | TTERRNO, "gethostid failed");
 
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Thu, Jul 8, 2021 at 10:50 AM Li Wang &lt;<a href=
-=3D"mailto:liwang@redhat.com">liwang@redhat.com</a>&gt; wrote:<br></div><bl=
-ockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-lef=
-t:1px solid rgb(204,204,204);padding-left:1ex"><div dir=3D"ltr"><div dir=3D=
-"ltr"><div style=3D"font-size:small">Cyril Hrubis &lt;<a href=3D"mailto:chr=
-ubis@suse.cz" target=3D"_blank">chrubis@suse.cz</a>&gt; wrote:<br></div></d=
-iv><div class=3D"gmail_quote"><div>=C2=A0</div><blockquote class=3D"gmail_q=
-uote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,2=
-04);padding-left:1ex"> <br>
-&gt; +static char *limit_tmpfs_mount_size(const char *mnt_data,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0char *buf, size_t buf_size, const char *fs_type)<br>
-&gt; +{<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0int fd;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0uint64_t dev_size;<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (strcmp(fs_type, &quot;tmpfs&quot;))<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return mnt_data;<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0fd =3D SAFE_OPEN(<a href=3D"http://tdev.dev" rel=
-=3D"noreferrer" target=3D"_blank">tdev.dev</a>, O_RDONLY);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0SAFE_IOCTL(fd, BLKGETSIZE64, &amp;dev_size);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0SAFE_CLOSE(fd);<br>
-<br>
-We can as well add size to the struct tst_device and fill it in when<br>
-device is created, that would be a slightly cleaner solution.<br></blockquo=
-te><div><br></div><div><br></div><div style=3D"font-size:small">That should=
- be fine. But I&#39;m afraid we have to change the return type</div><div st=
-yle=3D"font-size:small">for many functions in tst_device.c, because=C2=A0cu=
-rrently most of them</div><div style=3D"font-size:small">only return=C2=A0a=
- path to the test device. And that will affect more tests.</div><div style=
-=3D"font-size:small"></div><div style=3D"font-size:small"><br></div><div st=
-yle=3D"font-size:small">Or, maybe just create a function to get the device =
-size and pass it</div><div style=3D"font-size:small">to tdev.size simply?</=
-div></div></div></blockquote><div>=C2=A0<br></div><div><div class=3D"gmail_=
-default" style=3D"font-size:small">With adding new field &#39;size&#39; in =
-struct tst_device, I&#39;m also planning</div><div class=3D"gmail_default" =
-style=3D"font-size:small">to extract that from tst_acquire_device__ and exp=
-ort it as a global</div><div class=3D"gmail_default" style=3D"font-size:sma=
-ll">function:=C2=A0</div></div></div><div class=3D"gmail_default" style=3D"=
-font-size:small">=C2=A0 =C2=A0 uint64_t tst_get_device_size(const char *dev=
-_path);<br></div><div class=3D"gmail_default" style=3D"font-size:small"><br=
-></div><div class=3D"gmail_default" style=3D"font-size:small">then reuse of=
- it to get block device size in more places, like:</div><div class=3D"gmail=
-_default" style=3D"font-size:small">=C2=A0 =C2=A0 =C2=A0tdev.size =3D tst_g=
-et_device_size(<a href=3D"http://tdev.dev">tdev.dev</a>);=C2=A0 =C2=A0&lt;-=
-- in=C2=A0prepare_device</div><div class=3D"gmail_default" style=3D"font-si=
-ze:small">and</div><div class=3D"gmail_default" style=3D"font-size:small">=
-=C2=A0 =C2=A0 =C2=A0 ltp_dev_size =3D tst_get_device_size(dev);=C2=A0 =C2=
-=A0&lt;-- in=C2=A0tst_acquire_device__</div><div class=3D"gmail_default" st=
-yle=3D"font-size:small"></div><div><div class=3D"gmail_default" style=3D"fo=
-nt-size:small">That would keep most of the function API no change and save<=
-/div><div class=3D"gmail_default" style=3D"font-size:small">the tdev.size. =
-Is this way OK, or any else?</div></div><div><br></div>-- <br><div dir=3D"l=
-tr" class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>=
-Li Wang<br></div></div></div></div>
+-		name[strlen(name) - 1] = 0;
+-
+-		if (strstr(hostid, "000000"))
+-			tst_resm(TCONF, "Host ID has not been set.");
+-
+-		if (strcmp(name, hostid) == 0) {
+-			tst_resm(TPASS,
+-				 "Hostid command and gethostid both report "
+-				 "hostid is %s", hostid);
+-		} else {
+-
+-			/*
+-			 * Some distros add an "0x" to the front of the
+-			 * `hostid` output. We compare the first 2
+-			 * characters of the `hostid` output with "0x",
+-			 * if it's equal, remove these first 2
+-			 * characters & re-test. -RW
+-			 */
+-			if (name[0] == hex[0] && name[1] == hex[1])
+-				for (i = 0; i < 38; i++)
+-					name2[i] = name[i + 2];
+-			else
+-				strncpy(name2, name, HOSTIDLEN);
+-
+-			/*
+-			 * This code handles situations where ffffffff
+-			 * is appended. Fixed to not clobber the first
+-			 * check with the 2nd check MR
+-			 */
+-
+-			if (0 == strncmp(hostid, hex_64, 8))
+-				bit_64 |= FIRST_64_CHKBIT;
+-
+-			if (0 == strncmp(name2, hex_64, 8))
+-				bit_64 |= SECOND_64_CHKBIT;
+-
+-			if (bit_64 & FIRST_64_CHKBIT)
+-				for (j = 0; j < 8; j++)
+-					hostid2[j] = hostid[j + 8];
+-			else
+-				strncpy(hostid2, hostid,
+-					strlen(hostid) + 1);
+-
+-			if (bit_64 & SECOND_64_CHKBIT)
+-				for (j = 0; j < 9; j++)
+-					name2[j] = name2[j + 8];
+-
+-			if ((result = strstr(hostid2, name2)) != NULL) {
+-				hostid3 = strdup(name2);
+-
+-				tst_resm(TPASS,
+-					 "Hostid command reports "
+-					 "hostid is %s, and gethostid "
+-					 "reports %s", name2, hostid3);
+-			} else
+-				tst_resm(TFAIL,
+-					 "Hostid command reports "
+-					 "hostid is %s, but gethostid "
+-					 "reports %s", name2, hostid2);
+-		}
+-	}
+-
+-	cleanup();
+-	tst_exit();
++	if (tc[i] == TST_RET)
++		tst_res(TPASS, "hostid is %ld, expected %ld", TST_RET, tc[i]);
++	else
++		tst_res(TFAIL, "hostid is %ld, expected %ld", TST_RET, tc[i]);
+ }
 
---0000000000003a91bc05c696e14a--
+ void setup(void)
+ {
+-	char path[2048];
+-
+-	if (tst_get_path("hostid", path, sizeof(path)))
+-		tst_brkm(TCONF, NULL, "Couldn't find hostid in $PATH");
++	TEST(gethostid());
 
+-	tst_sig(FORK, DEF_HANDLER, cleanup);
+-
+-	TEST_PAUSE;
+-
+-	tst_tmpdir();
++	if (TST_RET == -1)
++		tst_brk(TFAIL | TTERRNO, "gethostid failed");
++	tst_res(TINFO, "get original hostid: %ld", origin = TST_RET);
+ }
 
---===============0381479850==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+ void cleanup(void)
+ {
+-	tst_rmdir();
+-
++	TST_EXP_PASS(sethostid(origin), "set hostid to %ld", origin);
+ }
++
++static struct tst_test test = {
++	.test = run,
++	.setup = setup,
++	.cleanup = cleanup,
++	.needs_root = 1,
++	.tcnt = ARRAY_SIZE(tc),
++};
+--
+2.17.1
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============0381479850==--
-
