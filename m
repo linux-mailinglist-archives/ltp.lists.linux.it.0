@@ -1,51 +1,52 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id C26DB3BF555
-	for <lists+linux-ltp@lfdr.de>; Thu,  8 Jul 2021 07:58:10 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 54DB83BF556
+	for <lists+linux-ltp@lfdr.de>; Thu,  8 Jul 2021 07:58:21 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 359283C4DB0
-	for <lists+linux-ltp@lfdr.de>; Thu,  8 Jul 2021 07:58:10 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 2FC8E3C6821
+	for <lists+linux-ltp@lfdr.de>; Thu,  8 Jul 2021 07:58:20 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id D0D023C4DB0
- for <ltp@lists.linux.it>; Thu,  8 Jul 2021 07:58:06 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id C4EB93C899B
+ for <ltp@lists.linux.it>; Thu,  8 Jul 2021 07:58:09 +0200 (CEST)
 Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id D30B21A00816
- for <ltp@lists.linux.it>; Thu,  8 Jul 2021 07:58:05 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 4333B60071F
+ for <ltp@lists.linux.it>; Thu,  8 Jul 2021 07:58:07 +0200 (CEST)
 Received: from ubuntu.localdomain (unknown [178.26.168.79])
- by mail.jv-coder.de (Postfix) with ESMTPSA id 751919FBF9;
- Thu,  8 Jul 2021 05:58:03 +0000 (UTC)
+ by mail.jv-coder.de (Postfix) with ESMTPSA id 4DE8FA0476;
+ Thu,  8 Jul 2021 05:58:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
- t=1625723883; bh=Ayif26DTjy4nsReytRWcYqGZgtMXh43/c3z4ffDXtqM=;
+ t=1625723885; bh=AuYkfEUIDZO5u8MkW4uPwkm4J+kvcVinl1373C8fyes=;
  h=From:To:Subject:Date:Message-Id:MIME-Version;
- b=bGV4Y/GZ8WcO7mgQFNBAKq245m7xJ4taOsEVVllkAYZYzuASvawIz80B2/yIrR29l
- KIPeKuhwGRHSkm2/rJj1NyQnFX8SMPVtygpFMApKRPaSr+BeJjW0mcYrCqizjBxlBf
- Vg2CJUoi0KLBdHIVn5nzMjfDvaVDv/+CansSRaZ8=
+ b=oXWgATQGijKN1LjwHbYUNCN2en9/2PpbZWhiZkYJhtGI8gJRFAOIafWBPsflXg9JN
+ QCm/yClHow9HwUvkqdPP4O+pxImarsCKovEdjdZ/mxky9KXW7cAmP3oTItB+HDmxyx
+ 3NdoXe+w6TxOqi1G5Tz4/VxC+ia4Y7ZP0Dhw/VJA=
 From: Joerg Vehlow <lkml@jv-coder.de>
 To: ltp@lists.linux.it,
 	pvorel@suse.cz,
 	rpalethorpe@suse.de
-Date: Thu,  8 Jul 2021 07:57:53 +0200
-Message-Id: <20210708055757.945702-1-lkml@jv-coder.de>
+Date: Thu,  8 Jul 2021 07:57:54 +0200
+Message-Id: <20210708055757.945702-2-lkml@jv-coder.de>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20210708055757.945702-1-lkml@jv-coder.de>
+References: <20210708055757.945702-1-lkml@jv-coder.de>
 MIME-Version: 1.0
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v3 0/4] fs_bind: Convert to ltp tests
+Subject: [LTP] [PATCH v3 1/4] fs_bind: Rename tests to have unique names
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,24 +58,626 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: Richard Palethorpe <rpalethorpe@suse.com>,
+ Joerg Vehlow <joerg.vehlow@aox-tech.de>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
+From: Joerg Vehlow <joerg.vehlow@aox-tech.de>
 
-I split up the patch into 4 commits. The first one just renames
-all tests to the new nameing schema, in order to make git detect
-renames instead of delete/add.
+This is required in preparation of the next commit,
+that will install the tests as individual ltp tests
 
-Additonal in v2:
- - Fixed indentation (should be tabs in all new files now)
-Changes in v3:
- - Fix portability issue in getopts usage
+Signed-off-by: Joerg Vehlow <joerg.vehlow@aox-tech.de>
+Acked-by: Richard Palethorpe <rpalethorpe@suse.com>
+---
+ testcases/kernel/fs/fs_bind/Makefile                          | 2 +-
+ testcases/kernel/fs/fs_bind/bind/{test01 => fs_bind01.sh}     | 0
+ testcases/kernel/fs/fs_bind/bind/{test02 => fs_bind02.sh}     | 0
+ testcases/kernel/fs/fs_bind/bind/{test03 => fs_bind03.sh}     | 0
+ testcases/kernel/fs/fs_bind/bind/{test04 => fs_bind04.sh}     | 0
+ testcases/kernel/fs/fs_bind/bind/{test05 => fs_bind05.sh}     | 0
+ testcases/kernel/fs/fs_bind/bind/{test06 => fs_bind06.sh}     | 0
+ testcases/kernel/fs/fs_bind/bind/{test07-2 => fs_bind07-2.sh} | 0
+ testcases/kernel/fs/fs_bind/bind/{test07 => fs_bind07.sh}     | 0
+ testcases/kernel/fs/fs_bind/bind/{test08 => fs_bind08.sh}     | 0
+ testcases/kernel/fs/fs_bind/bind/{test09 => fs_bind09.sh}     | 0
+ testcases/kernel/fs/fs_bind/bind/{test10 => fs_bind10.sh}     | 0
+ testcases/kernel/fs/fs_bind/bind/{test11 => fs_bind11.sh}     | 0
+ testcases/kernel/fs/fs_bind/bind/{test12 => fs_bind12.sh}     | 0
+ testcases/kernel/fs/fs_bind/bind/{test13 => fs_bind13.sh}     | 0
+ testcases/kernel/fs/fs_bind/bind/{test14 => fs_bind14.sh}     | 0
+ testcases/kernel/fs/fs_bind/bind/{test15 => fs_bind15.sh}     | 0
+ testcases/kernel/fs/fs_bind/bind/{test16 => fs_bind16.sh}     | 0
+ testcases/kernel/fs/fs_bind/bind/{test17 => fs_bind17.sh}     | 0
+ testcases/kernel/fs/fs_bind/bind/{test18 => fs_bind18.sh}     | 0
+ testcases/kernel/fs/fs_bind/bind/{test19 => fs_bind19.sh}     | 0
+ testcases/kernel/fs/fs_bind/bind/{test20 => fs_bind20.sh}     | 0
+ testcases/kernel/fs/fs_bind/bind/{test21 => fs_bind21.sh}     | 0
+ testcases/kernel/fs/fs_bind/bind/{test22 => fs_bind22.sh}     | 0
+ testcases/kernel/fs/fs_bind/bind/{test23 => fs_bind23.sh}     | 0
+ testcases/kernel/fs/fs_bind/bind/{test24 => fs_bind24.sh}     | 0
+ .../fs/fs_bind/cloneNS/{test01 => fs_bind_cloneNS01.sh}       | 0
+ .../fs/fs_bind/cloneNS/{test02 => fs_bind_cloneNS02.sh}       | 0
+ .../fs/fs_bind/cloneNS/{test03 => fs_bind_cloneNS03.sh}       | 0
+ .../fs/fs_bind/cloneNS/{test04 => fs_bind_cloneNS04.sh}       | 0
+ .../fs/fs_bind/cloneNS/{test05 => fs_bind_cloneNS05.sh}       | 0
+ .../fs/fs_bind/cloneNS/{test06 => fs_bind_cloneNS06.sh}       | 0
+ .../fs/fs_bind/cloneNS/{test07 => fs_bind_cloneNS07.sh}       | 0
+ .../kernel/fs/fs_bind/move/{test01 => fs_bind_move01.sh}      | 0
+ .../kernel/fs/fs_bind/move/{test02 => fs_bind_move02.sh}      | 0
+ .../kernel/fs/fs_bind/move/{test03 => fs_bind_move03.sh}      | 0
+ .../kernel/fs/fs_bind/move/{test04 => fs_bind_move04.sh}      | 0
+ .../kernel/fs/fs_bind/move/{test05 => fs_bind_move05.sh}      | 0
+ .../kernel/fs/fs_bind/move/{test06 => fs_bind_move06.sh}      | 0
+ .../kernel/fs/fs_bind/move/{test07 => fs_bind_move07.sh}      | 0
+ .../kernel/fs/fs_bind/move/{test08 => fs_bind_move08.sh}      | 0
+ .../kernel/fs/fs_bind/move/{test09 => fs_bind_move09.sh}      | 0
+ .../kernel/fs/fs_bind/move/{test10 => fs_bind_move10.sh}      | 0
+ .../kernel/fs/fs_bind/move/{test11 => fs_bind_move11.sh}      | 0
+ .../kernel/fs/fs_bind/move/{test12 => fs_bind_move12.sh}      | 0
+ .../kernel/fs/fs_bind/move/{test13 => fs_bind_move13.sh}      | 0
+ .../kernel/fs/fs_bind/move/{test14 => fs_bind_move14.sh}      | 0
+ .../kernel/fs/fs_bind/move/{test15 => fs_bind_move15.sh}      | 0
+ .../kernel/fs/fs_bind/move/{test16 => fs_bind_move16.sh}      | 0
+ .../kernel/fs/fs_bind/move/{test17 => fs_bind_move17.sh}      | 0
+ .../kernel/fs/fs_bind/move/{test18 => fs_bind_move18.sh}      | 0
+ .../kernel/fs/fs_bind/move/{test19 => fs_bind_move19.sh}      | 0
+ .../kernel/fs/fs_bind/move/{test20 => fs_bind_move20.sh}      | 0
+ .../kernel/fs/fs_bind/move/{test21 => fs_bind_move21.sh}      | 0
+ .../kernel/fs/fs_bind/move/{test22 => fs_bind_move22.sh}      | 0
+ .../kernel/fs/fs_bind/rbind/{test01 => fs_bind_rbind01.sh}    | 0
+ .../kernel/fs/fs_bind/rbind/{test02 => fs_bind_rbind02.sh}    | 0
+ .../kernel/fs/fs_bind/rbind/{test03 => fs_bind_rbind03.sh}    | 0
+ .../kernel/fs/fs_bind/rbind/{test04 => fs_bind_rbind04.sh}    | 0
+ .../kernel/fs/fs_bind/rbind/{test05 => fs_bind_rbind05.sh}    | 0
+ .../kernel/fs/fs_bind/rbind/{test06 => fs_bind_rbind06.sh}    | 0
+ .../fs/fs_bind/rbind/{test07-2 => fs_bind_rbind07-2.sh}       | 0
+ .../kernel/fs/fs_bind/rbind/{test07 => fs_bind_rbind07.sh}    | 0
+ .../kernel/fs/fs_bind/rbind/{test08 => fs_bind_rbind08.sh}    | 0
+ .../kernel/fs/fs_bind/rbind/{test09 => fs_bind_rbind09.sh}    | 0
+ .../kernel/fs/fs_bind/rbind/{test10 => fs_bind_rbind10.sh}    | 0
+ .../kernel/fs/fs_bind/rbind/{test11 => fs_bind_rbind11.sh}    | 0
+ .../kernel/fs/fs_bind/rbind/{test12 => fs_bind_rbind12.sh}    | 0
+ .../kernel/fs/fs_bind/rbind/{test13 => fs_bind_rbind13.sh}    | 0
+ .../kernel/fs/fs_bind/rbind/{test14 => fs_bind_rbind14.sh}    | 0
+ .../kernel/fs/fs_bind/rbind/{test15 => fs_bind_rbind15.sh}    | 0
+ .../kernel/fs/fs_bind/rbind/{test16 => fs_bind_rbind16.sh}    | 0
+ .../kernel/fs/fs_bind/rbind/{test17 => fs_bind_rbind17.sh}    | 0
+ .../kernel/fs/fs_bind/rbind/{test18 => fs_bind_rbind18.sh}    | 0
+ .../kernel/fs/fs_bind/rbind/{test19 => fs_bind_rbind19.sh}    | 0
+ .../kernel/fs/fs_bind/rbind/{test20 => fs_bind_rbind20.sh}    | 0
+ .../kernel/fs/fs_bind/rbind/{test21 => fs_bind_rbind21.sh}    | 0
+ .../kernel/fs/fs_bind/rbind/{test22 => fs_bind_rbind22.sh}    | 0
+ .../kernel/fs/fs_bind/rbind/{test23 => fs_bind_rbind23.sh}    | 0
+ .../kernel/fs/fs_bind/rbind/{test24 => fs_bind_rbind24.sh}    | 0
+ .../kernel/fs/fs_bind/rbind/{test25 => fs_bind_rbind25.sh}    | 0
+ .../kernel/fs/fs_bind/rbind/{test26 => fs_bind_rbind26.sh}    | 0
+ .../kernel/fs/fs_bind/rbind/{test27 => fs_bind_rbind27.sh}    | 0
+ .../kernel/fs/fs_bind/rbind/{test28 => fs_bind_rbind28.sh}    | 0
+ .../kernel/fs/fs_bind/rbind/{test29 => fs_bind_rbind29.sh}    | 0
+ .../kernel/fs/fs_bind/rbind/{test30 => fs_bind_rbind30.sh}    | 0
+ .../kernel/fs/fs_bind/rbind/{test31 => fs_bind_rbind31.sh}    | 0
+ .../kernel/fs/fs_bind/rbind/{test32 => fs_bind_rbind32.sh}    | 0
+ .../kernel/fs/fs_bind/rbind/{test33 => fs_bind_rbind33.sh}    | 0
+ .../kernel/fs/fs_bind/rbind/{test34 => fs_bind_rbind34.sh}    | 0
+ .../kernel/fs/fs_bind/rbind/{test35 => fs_bind_rbind35.sh}    | 0
+ .../kernel/fs/fs_bind/rbind/{test36 => fs_bind_rbind36.sh}    | 0
+ .../kernel/fs/fs_bind/rbind/{test37 => fs_bind_rbind37.sh}    | 0
+ .../kernel/fs/fs_bind/rbind/{test38 => fs_bind_rbind38.sh}    | 0
+ .../kernel/fs/fs_bind/rbind/{test39 => fs_bind_rbind39.sh}    | 0
+ testscripts/test_fs_bind.sh                                   | 4 ++--
+ 96 files changed, 3 insertions(+), 3 deletions(-)
+ rename testcases/kernel/fs/fs_bind/bind/{test01 => fs_bind01.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/bind/{test02 => fs_bind02.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/bind/{test03 => fs_bind03.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/bind/{test04 => fs_bind04.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/bind/{test05 => fs_bind05.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/bind/{test06 => fs_bind06.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/bind/{test07-2 => fs_bind07-2.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/bind/{test07 => fs_bind07.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/bind/{test08 => fs_bind08.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/bind/{test09 => fs_bind09.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/bind/{test10 => fs_bind10.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/bind/{test11 => fs_bind11.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/bind/{test12 => fs_bind12.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/bind/{test13 => fs_bind13.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/bind/{test14 => fs_bind14.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/bind/{test15 => fs_bind15.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/bind/{test16 => fs_bind16.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/bind/{test17 => fs_bind17.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/bind/{test18 => fs_bind18.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/bind/{test19 => fs_bind19.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/bind/{test20 => fs_bind20.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/bind/{test21 => fs_bind21.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/bind/{test22 => fs_bind22.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/bind/{test23 => fs_bind23.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/bind/{test24 => fs_bind24.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/cloneNS/{test01 => fs_bind_cloneNS01.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/cloneNS/{test02 => fs_bind_cloneNS02.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/cloneNS/{test03 => fs_bind_cloneNS03.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/cloneNS/{test04 => fs_bind_cloneNS04.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/cloneNS/{test05 => fs_bind_cloneNS05.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/cloneNS/{test06 => fs_bind_cloneNS06.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/cloneNS/{test07 => fs_bind_cloneNS07.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/move/{test01 => fs_bind_move01.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/move/{test02 => fs_bind_move02.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/move/{test03 => fs_bind_move03.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/move/{test04 => fs_bind_move04.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/move/{test05 => fs_bind_move05.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/move/{test06 => fs_bind_move06.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/move/{test07 => fs_bind_move07.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/move/{test08 => fs_bind_move08.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/move/{test09 => fs_bind_move09.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/move/{test10 => fs_bind_move10.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/move/{test11 => fs_bind_move11.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/move/{test12 => fs_bind_move12.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/move/{test13 => fs_bind_move13.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/move/{test14 => fs_bind_move14.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/move/{test15 => fs_bind_move15.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/move/{test16 => fs_bind_move16.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/move/{test17 => fs_bind_move17.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/move/{test18 => fs_bind_move18.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/move/{test19 => fs_bind_move19.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/move/{test20 => fs_bind_move20.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/move/{test21 => fs_bind_move21.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/move/{test22 => fs_bind_move22.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/rbind/{test01 => fs_bind_rbind01.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/rbind/{test02 => fs_bind_rbind02.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/rbind/{test03 => fs_bind_rbind03.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/rbind/{test04 => fs_bind_rbind04.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/rbind/{test05 => fs_bind_rbind05.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/rbind/{test06 => fs_bind_rbind06.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/rbind/{test07-2 => fs_bind_rbind07-2.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/rbind/{test07 => fs_bind_rbind07.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/rbind/{test08 => fs_bind_rbind08.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/rbind/{test09 => fs_bind_rbind09.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/rbind/{test10 => fs_bind_rbind10.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/rbind/{test11 => fs_bind_rbind11.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/rbind/{test12 => fs_bind_rbind12.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/rbind/{test13 => fs_bind_rbind13.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/rbind/{test14 => fs_bind_rbind14.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/rbind/{test15 => fs_bind_rbind15.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/rbind/{test16 => fs_bind_rbind16.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/rbind/{test17 => fs_bind_rbind17.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/rbind/{test18 => fs_bind_rbind18.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/rbind/{test19 => fs_bind_rbind19.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/rbind/{test20 => fs_bind_rbind20.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/rbind/{test21 => fs_bind_rbind21.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/rbind/{test22 => fs_bind_rbind22.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/rbind/{test23 => fs_bind_rbind23.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/rbind/{test24 => fs_bind_rbind24.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/rbind/{test25 => fs_bind_rbind25.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/rbind/{test26 => fs_bind_rbind26.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/rbind/{test27 => fs_bind_rbind27.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/rbind/{test28 => fs_bind_rbind28.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/rbind/{test29 => fs_bind_rbind29.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/rbind/{test30 => fs_bind_rbind30.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/rbind/{test31 => fs_bind_rbind31.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/rbind/{test32 => fs_bind_rbind32.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/rbind/{test33 => fs_bind_rbind33.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/rbind/{test34 => fs_bind_rbind34.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/rbind/{test35 => fs_bind_rbind35.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/rbind/{test36 => fs_bind_rbind36.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/rbind/{test37 => fs_bind_rbind37.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/rbind/{test38 => fs_bind_rbind38.sh} (100%)
+ rename testcases/kernel/fs/fs_bind/rbind/{test39 => fs_bind_rbind39.sh} (100%)
 
-Joerg
-
+diff --git a/testcases/kernel/fs/fs_bind/Makefile b/testcases/kernel/fs/fs_bind/Makefile
+index 26d640831..d2b5b0f57 100644
+--- a/testcases/kernel/fs/fs_bind/Makefile
++++ b/testcases/kernel/fs/fs_bind/Makefile
+@@ -26,7 +26,7 @@ include $(top_srcdir)/include/mk/env_pre.mk
+ 
+ INSTALL_DIR			:= $(prefix)/testcases/bin/fs_bind
+ 
+-INSTALL_TARGETS			:= */test*
++INSTALL_TARGETS			:= */*.sh */test*
+ 
+ RECURSIVE_TARGETS		:= all install uninstall
+ 
+diff --git a/testcases/kernel/fs/fs_bind/bind/test01 b/testcases/kernel/fs/fs_bind/bind/fs_bind01.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/bind/test01
+rename to testcases/kernel/fs/fs_bind/bind/fs_bind01.sh
+diff --git a/testcases/kernel/fs/fs_bind/bind/test02 b/testcases/kernel/fs/fs_bind/bind/fs_bind02.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/bind/test02
+rename to testcases/kernel/fs/fs_bind/bind/fs_bind02.sh
+diff --git a/testcases/kernel/fs/fs_bind/bind/test03 b/testcases/kernel/fs/fs_bind/bind/fs_bind03.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/bind/test03
+rename to testcases/kernel/fs/fs_bind/bind/fs_bind03.sh
+diff --git a/testcases/kernel/fs/fs_bind/bind/test04 b/testcases/kernel/fs/fs_bind/bind/fs_bind04.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/bind/test04
+rename to testcases/kernel/fs/fs_bind/bind/fs_bind04.sh
+diff --git a/testcases/kernel/fs/fs_bind/bind/test05 b/testcases/kernel/fs/fs_bind/bind/fs_bind05.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/bind/test05
+rename to testcases/kernel/fs/fs_bind/bind/fs_bind05.sh
+diff --git a/testcases/kernel/fs/fs_bind/bind/test06 b/testcases/kernel/fs/fs_bind/bind/fs_bind06.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/bind/test06
+rename to testcases/kernel/fs/fs_bind/bind/fs_bind06.sh
+diff --git a/testcases/kernel/fs/fs_bind/bind/test07-2 b/testcases/kernel/fs/fs_bind/bind/fs_bind07-2.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/bind/test07-2
+rename to testcases/kernel/fs/fs_bind/bind/fs_bind07-2.sh
+diff --git a/testcases/kernel/fs/fs_bind/bind/test07 b/testcases/kernel/fs/fs_bind/bind/fs_bind07.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/bind/test07
+rename to testcases/kernel/fs/fs_bind/bind/fs_bind07.sh
+diff --git a/testcases/kernel/fs/fs_bind/bind/test08 b/testcases/kernel/fs/fs_bind/bind/fs_bind08.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/bind/test08
+rename to testcases/kernel/fs/fs_bind/bind/fs_bind08.sh
+diff --git a/testcases/kernel/fs/fs_bind/bind/test09 b/testcases/kernel/fs/fs_bind/bind/fs_bind09.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/bind/test09
+rename to testcases/kernel/fs/fs_bind/bind/fs_bind09.sh
+diff --git a/testcases/kernel/fs/fs_bind/bind/test10 b/testcases/kernel/fs/fs_bind/bind/fs_bind10.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/bind/test10
+rename to testcases/kernel/fs/fs_bind/bind/fs_bind10.sh
+diff --git a/testcases/kernel/fs/fs_bind/bind/test11 b/testcases/kernel/fs/fs_bind/bind/fs_bind11.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/bind/test11
+rename to testcases/kernel/fs/fs_bind/bind/fs_bind11.sh
+diff --git a/testcases/kernel/fs/fs_bind/bind/test12 b/testcases/kernel/fs/fs_bind/bind/fs_bind12.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/bind/test12
+rename to testcases/kernel/fs/fs_bind/bind/fs_bind12.sh
+diff --git a/testcases/kernel/fs/fs_bind/bind/test13 b/testcases/kernel/fs/fs_bind/bind/fs_bind13.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/bind/test13
+rename to testcases/kernel/fs/fs_bind/bind/fs_bind13.sh
+diff --git a/testcases/kernel/fs/fs_bind/bind/test14 b/testcases/kernel/fs/fs_bind/bind/fs_bind14.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/bind/test14
+rename to testcases/kernel/fs/fs_bind/bind/fs_bind14.sh
+diff --git a/testcases/kernel/fs/fs_bind/bind/test15 b/testcases/kernel/fs/fs_bind/bind/fs_bind15.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/bind/test15
+rename to testcases/kernel/fs/fs_bind/bind/fs_bind15.sh
+diff --git a/testcases/kernel/fs/fs_bind/bind/test16 b/testcases/kernel/fs/fs_bind/bind/fs_bind16.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/bind/test16
+rename to testcases/kernel/fs/fs_bind/bind/fs_bind16.sh
+diff --git a/testcases/kernel/fs/fs_bind/bind/test17 b/testcases/kernel/fs/fs_bind/bind/fs_bind17.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/bind/test17
+rename to testcases/kernel/fs/fs_bind/bind/fs_bind17.sh
+diff --git a/testcases/kernel/fs/fs_bind/bind/test18 b/testcases/kernel/fs/fs_bind/bind/fs_bind18.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/bind/test18
+rename to testcases/kernel/fs/fs_bind/bind/fs_bind18.sh
+diff --git a/testcases/kernel/fs/fs_bind/bind/test19 b/testcases/kernel/fs/fs_bind/bind/fs_bind19.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/bind/test19
+rename to testcases/kernel/fs/fs_bind/bind/fs_bind19.sh
+diff --git a/testcases/kernel/fs/fs_bind/bind/test20 b/testcases/kernel/fs/fs_bind/bind/fs_bind20.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/bind/test20
+rename to testcases/kernel/fs/fs_bind/bind/fs_bind20.sh
+diff --git a/testcases/kernel/fs/fs_bind/bind/test21 b/testcases/kernel/fs/fs_bind/bind/fs_bind21.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/bind/test21
+rename to testcases/kernel/fs/fs_bind/bind/fs_bind21.sh
+diff --git a/testcases/kernel/fs/fs_bind/bind/test22 b/testcases/kernel/fs/fs_bind/bind/fs_bind22.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/bind/test22
+rename to testcases/kernel/fs/fs_bind/bind/fs_bind22.sh
+diff --git a/testcases/kernel/fs/fs_bind/bind/test23 b/testcases/kernel/fs/fs_bind/bind/fs_bind23.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/bind/test23
+rename to testcases/kernel/fs/fs_bind/bind/fs_bind23.sh
+diff --git a/testcases/kernel/fs/fs_bind/bind/test24 b/testcases/kernel/fs/fs_bind/bind/fs_bind24.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/bind/test24
+rename to testcases/kernel/fs/fs_bind/bind/fs_bind24.sh
+diff --git a/testcases/kernel/fs/fs_bind/cloneNS/test01 b/testcases/kernel/fs/fs_bind/cloneNS/fs_bind_cloneNS01.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/cloneNS/test01
+rename to testcases/kernel/fs/fs_bind/cloneNS/fs_bind_cloneNS01.sh
+diff --git a/testcases/kernel/fs/fs_bind/cloneNS/test02 b/testcases/kernel/fs/fs_bind/cloneNS/fs_bind_cloneNS02.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/cloneNS/test02
+rename to testcases/kernel/fs/fs_bind/cloneNS/fs_bind_cloneNS02.sh
+diff --git a/testcases/kernel/fs/fs_bind/cloneNS/test03 b/testcases/kernel/fs/fs_bind/cloneNS/fs_bind_cloneNS03.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/cloneNS/test03
+rename to testcases/kernel/fs/fs_bind/cloneNS/fs_bind_cloneNS03.sh
+diff --git a/testcases/kernel/fs/fs_bind/cloneNS/test04 b/testcases/kernel/fs/fs_bind/cloneNS/fs_bind_cloneNS04.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/cloneNS/test04
+rename to testcases/kernel/fs/fs_bind/cloneNS/fs_bind_cloneNS04.sh
+diff --git a/testcases/kernel/fs/fs_bind/cloneNS/test05 b/testcases/kernel/fs/fs_bind/cloneNS/fs_bind_cloneNS05.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/cloneNS/test05
+rename to testcases/kernel/fs/fs_bind/cloneNS/fs_bind_cloneNS05.sh
+diff --git a/testcases/kernel/fs/fs_bind/cloneNS/test06 b/testcases/kernel/fs/fs_bind/cloneNS/fs_bind_cloneNS06.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/cloneNS/test06
+rename to testcases/kernel/fs/fs_bind/cloneNS/fs_bind_cloneNS06.sh
+diff --git a/testcases/kernel/fs/fs_bind/cloneNS/test07 b/testcases/kernel/fs/fs_bind/cloneNS/fs_bind_cloneNS07.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/cloneNS/test07
+rename to testcases/kernel/fs/fs_bind/cloneNS/fs_bind_cloneNS07.sh
+diff --git a/testcases/kernel/fs/fs_bind/move/test01 b/testcases/kernel/fs/fs_bind/move/fs_bind_move01.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/move/test01
+rename to testcases/kernel/fs/fs_bind/move/fs_bind_move01.sh
+diff --git a/testcases/kernel/fs/fs_bind/move/test02 b/testcases/kernel/fs/fs_bind/move/fs_bind_move02.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/move/test02
+rename to testcases/kernel/fs/fs_bind/move/fs_bind_move02.sh
+diff --git a/testcases/kernel/fs/fs_bind/move/test03 b/testcases/kernel/fs/fs_bind/move/fs_bind_move03.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/move/test03
+rename to testcases/kernel/fs/fs_bind/move/fs_bind_move03.sh
+diff --git a/testcases/kernel/fs/fs_bind/move/test04 b/testcases/kernel/fs/fs_bind/move/fs_bind_move04.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/move/test04
+rename to testcases/kernel/fs/fs_bind/move/fs_bind_move04.sh
+diff --git a/testcases/kernel/fs/fs_bind/move/test05 b/testcases/kernel/fs/fs_bind/move/fs_bind_move05.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/move/test05
+rename to testcases/kernel/fs/fs_bind/move/fs_bind_move05.sh
+diff --git a/testcases/kernel/fs/fs_bind/move/test06 b/testcases/kernel/fs/fs_bind/move/fs_bind_move06.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/move/test06
+rename to testcases/kernel/fs/fs_bind/move/fs_bind_move06.sh
+diff --git a/testcases/kernel/fs/fs_bind/move/test07 b/testcases/kernel/fs/fs_bind/move/fs_bind_move07.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/move/test07
+rename to testcases/kernel/fs/fs_bind/move/fs_bind_move07.sh
+diff --git a/testcases/kernel/fs/fs_bind/move/test08 b/testcases/kernel/fs/fs_bind/move/fs_bind_move08.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/move/test08
+rename to testcases/kernel/fs/fs_bind/move/fs_bind_move08.sh
+diff --git a/testcases/kernel/fs/fs_bind/move/test09 b/testcases/kernel/fs/fs_bind/move/fs_bind_move09.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/move/test09
+rename to testcases/kernel/fs/fs_bind/move/fs_bind_move09.sh
+diff --git a/testcases/kernel/fs/fs_bind/move/test10 b/testcases/kernel/fs/fs_bind/move/fs_bind_move10.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/move/test10
+rename to testcases/kernel/fs/fs_bind/move/fs_bind_move10.sh
+diff --git a/testcases/kernel/fs/fs_bind/move/test11 b/testcases/kernel/fs/fs_bind/move/fs_bind_move11.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/move/test11
+rename to testcases/kernel/fs/fs_bind/move/fs_bind_move11.sh
+diff --git a/testcases/kernel/fs/fs_bind/move/test12 b/testcases/kernel/fs/fs_bind/move/fs_bind_move12.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/move/test12
+rename to testcases/kernel/fs/fs_bind/move/fs_bind_move12.sh
+diff --git a/testcases/kernel/fs/fs_bind/move/test13 b/testcases/kernel/fs/fs_bind/move/fs_bind_move13.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/move/test13
+rename to testcases/kernel/fs/fs_bind/move/fs_bind_move13.sh
+diff --git a/testcases/kernel/fs/fs_bind/move/test14 b/testcases/kernel/fs/fs_bind/move/fs_bind_move14.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/move/test14
+rename to testcases/kernel/fs/fs_bind/move/fs_bind_move14.sh
+diff --git a/testcases/kernel/fs/fs_bind/move/test15 b/testcases/kernel/fs/fs_bind/move/fs_bind_move15.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/move/test15
+rename to testcases/kernel/fs/fs_bind/move/fs_bind_move15.sh
+diff --git a/testcases/kernel/fs/fs_bind/move/test16 b/testcases/kernel/fs/fs_bind/move/fs_bind_move16.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/move/test16
+rename to testcases/kernel/fs/fs_bind/move/fs_bind_move16.sh
+diff --git a/testcases/kernel/fs/fs_bind/move/test17 b/testcases/kernel/fs/fs_bind/move/fs_bind_move17.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/move/test17
+rename to testcases/kernel/fs/fs_bind/move/fs_bind_move17.sh
+diff --git a/testcases/kernel/fs/fs_bind/move/test18 b/testcases/kernel/fs/fs_bind/move/fs_bind_move18.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/move/test18
+rename to testcases/kernel/fs/fs_bind/move/fs_bind_move18.sh
+diff --git a/testcases/kernel/fs/fs_bind/move/test19 b/testcases/kernel/fs/fs_bind/move/fs_bind_move19.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/move/test19
+rename to testcases/kernel/fs/fs_bind/move/fs_bind_move19.sh
+diff --git a/testcases/kernel/fs/fs_bind/move/test20 b/testcases/kernel/fs/fs_bind/move/fs_bind_move20.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/move/test20
+rename to testcases/kernel/fs/fs_bind/move/fs_bind_move20.sh
+diff --git a/testcases/kernel/fs/fs_bind/move/test21 b/testcases/kernel/fs/fs_bind/move/fs_bind_move21.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/move/test21
+rename to testcases/kernel/fs/fs_bind/move/fs_bind_move21.sh
+diff --git a/testcases/kernel/fs/fs_bind/move/test22 b/testcases/kernel/fs/fs_bind/move/fs_bind_move22.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/move/test22
+rename to testcases/kernel/fs/fs_bind/move/fs_bind_move22.sh
+diff --git a/testcases/kernel/fs/fs_bind/rbind/test01 b/testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind01.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/rbind/test01
+rename to testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind01.sh
+diff --git a/testcases/kernel/fs/fs_bind/rbind/test02 b/testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind02.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/rbind/test02
+rename to testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind02.sh
+diff --git a/testcases/kernel/fs/fs_bind/rbind/test03 b/testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind03.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/rbind/test03
+rename to testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind03.sh
+diff --git a/testcases/kernel/fs/fs_bind/rbind/test04 b/testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind04.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/rbind/test04
+rename to testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind04.sh
+diff --git a/testcases/kernel/fs/fs_bind/rbind/test05 b/testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind05.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/rbind/test05
+rename to testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind05.sh
+diff --git a/testcases/kernel/fs/fs_bind/rbind/test06 b/testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind06.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/rbind/test06
+rename to testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind06.sh
+diff --git a/testcases/kernel/fs/fs_bind/rbind/test07-2 b/testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind07-2.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/rbind/test07-2
+rename to testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind07-2.sh
+diff --git a/testcases/kernel/fs/fs_bind/rbind/test07 b/testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind07.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/rbind/test07
+rename to testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind07.sh
+diff --git a/testcases/kernel/fs/fs_bind/rbind/test08 b/testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind08.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/rbind/test08
+rename to testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind08.sh
+diff --git a/testcases/kernel/fs/fs_bind/rbind/test09 b/testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind09.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/rbind/test09
+rename to testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind09.sh
+diff --git a/testcases/kernel/fs/fs_bind/rbind/test10 b/testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind10.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/rbind/test10
+rename to testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind10.sh
+diff --git a/testcases/kernel/fs/fs_bind/rbind/test11 b/testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind11.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/rbind/test11
+rename to testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind11.sh
+diff --git a/testcases/kernel/fs/fs_bind/rbind/test12 b/testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind12.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/rbind/test12
+rename to testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind12.sh
+diff --git a/testcases/kernel/fs/fs_bind/rbind/test13 b/testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind13.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/rbind/test13
+rename to testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind13.sh
+diff --git a/testcases/kernel/fs/fs_bind/rbind/test14 b/testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind14.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/rbind/test14
+rename to testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind14.sh
+diff --git a/testcases/kernel/fs/fs_bind/rbind/test15 b/testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind15.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/rbind/test15
+rename to testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind15.sh
+diff --git a/testcases/kernel/fs/fs_bind/rbind/test16 b/testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind16.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/rbind/test16
+rename to testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind16.sh
+diff --git a/testcases/kernel/fs/fs_bind/rbind/test17 b/testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind17.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/rbind/test17
+rename to testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind17.sh
+diff --git a/testcases/kernel/fs/fs_bind/rbind/test18 b/testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind18.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/rbind/test18
+rename to testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind18.sh
+diff --git a/testcases/kernel/fs/fs_bind/rbind/test19 b/testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind19.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/rbind/test19
+rename to testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind19.sh
+diff --git a/testcases/kernel/fs/fs_bind/rbind/test20 b/testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind20.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/rbind/test20
+rename to testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind20.sh
+diff --git a/testcases/kernel/fs/fs_bind/rbind/test21 b/testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind21.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/rbind/test21
+rename to testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind21.sh
+diff --git a/testcases/kernel/fs/fs_bind/rbind/test22 b/testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind22.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/rbind/test22
+rename to testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind22.sh
+diff --git a/testcases/kernel/fs/fs_bind/rbind/test23 b/testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind23.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/rbind/test23
+rename to testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind23.sh
+diff --git a/testcases/kernel/fs/fs_bind/rbind/test24 b/testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind24.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/rbind/test24
+rename to testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind24.sh
+diff --git a/testcases/kernel/fs/fs_bind/rbind/test25 b/testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind25.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/rbind/test25
+rename to testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind25.sh
+diff --git a/testcases/kernel/fs/fs_bind/rbind/test26 b/testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind26.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/rbind/test26
+rename to testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind26.sh
+diff --git a/testcases/kernel/fs/fs_bind/rbind/test27 b/testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind27.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/rbind/test27
+rename to testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind27.sh
+diff --git a/testcases/kernel/fs/fs_bind/rbind/test28 b/testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind28.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/rbind/test28
+rename to testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind28.sh
+diff --git a/testcases/kernel/fs/fs_bind/rbind/test29 b/testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind29.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/rbind/test29
+rename to testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind29.sh
+diff --git a/testcases/kernel/fs/fs_bind/rbind/test30 b/testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind30.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/rbind/test30
+rename to testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind30.sh
+diff --git a/testcases/kernel/fs/fs_bind/rbind/test31 b/testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind31.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/rbind/test31
+rename to testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind31.sh
+diff --git a/testcases/kernel/fs/fs_bind/rbind/test32 b/testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind32.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/rbind/test32
+rename to testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind32.sh
+diff --git a/testcases/kernel/fs/fs_bind/rbind/test33 b/testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind33.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/rbind/test33
+rename to testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind33.sh
+diff --git a/testcases/kernel/fs/fs_bind/rbind/test34 b/testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind34.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/rbind/test34
+rename to testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind34.sh
+diff --git a/testcases/kernel/fs/fs_bind/rbind/test35 b/testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind35.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/rbind/test35
+rename to testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind35.sh
+diff --git a/testcases/kernel/fs/fs_bind/rbind/test36 b/testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind36.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/rbind/test36
+rename to testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind36.sh
+diff --git a/testcases/kernel/fs/fs_bind/rbind/test37 b/testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind37.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/rbind/test37
+rename to testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind37.sh
+diff --git a/testcases/kernel/fs/fs_bind/rbind/test38 b/testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind38.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/rbind/test38
+rename to testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind38.sh
+diff --git a/testcases/kernel/fs/fs_bind/rbind/test39 b/testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind39.sh
+similarity index 100%
+rename from testcases/kernel/fs/fs_bind/rbind/test39
+rename to testcases/kernel/fs/fs_bind/rbind/fs_bind_rbind39.sh
+diff --git a/testscripts/test_fs_bind.sh b/testscripts/test_fs_bind.sh
+index d06564d7b..f78c1c92b 100755
+--- a/testscripts/test_fs_bind.sh
++++ b/testscripts/test_fs_bind.sh
+@@ -63,7 +63,7 @@ test_setup()
+ 
+ 	total=0 # total number of tests
+ 	for dir in "${test_dirs[@]}" ; do
+-		((total += `ls "${FS_BIND_ROOT}/${dir}/test"* | wc -l`))
++		((total += `ls "${FS_BIND_ROOT}/${dir}/"*.sh | wc -l`))
+ 	done
+ 	TST_TOTAL=${total}
+ 
+@@ -480,7 +480,7 @@ main()
+ {
+ 	TST_COUNT=1
+ 	for dir in "${test_dirs[@]}" ; do
+-		tests=( $(find "${FS_BIND_ROOT}/${dir}" -type f -name 'test*') )
++		tests=( $(find "${FS_BIND_ROOT}/${dir}" -type f -name '*.sh') )
+ 		clean_sandbox "$0" || break
+ 		for t in "${tests[@]}" ; do
+ 			run_test "$t"
+-- 
+2.25.1
 
 
 -- 
