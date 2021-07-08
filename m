@@ -2,78 +2,71 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CA343BFA13
-	for <lists+linux-ltp@lfdr.de>; Thu,  8 Jul 2021 14:27:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFC163C143B
+	for <lists+linux-ltp@lfdr.de>; Thu,  8 Jul 2021 15:24:12 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3E49C3C7931
-	for <lists+linux-ltp@lfdr.de>; Thu,  8 Jul 2021 14:27:54 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 663483C7930
+	for <lists+linux-ltp@lfdr.de>; Thu,  8 Jul 2021 15:24:12 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id B8F053C1D05
- for <ltp@lists.linux.it>; Thu,  8 Jul 2021 14:27:52 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id F212E3C1C00
+ for <ltp@lists.linux.it>; Thu,  8 Jul 2021 15:24:10 +0200 (CEST)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 465221000489
- for <ltp@lists.linux.it>; Thu,  8 Jul 2021 14:27:52 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 14E891A0119D
+ for <ltp@lists.linux.it>; Thu,  8 Jul 2021 15:24:05 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id A615D22333;
- Thu,  8 Jul 2021 12:27:51 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 434F022383;
+ Thu,  8 Jul 2021 13:24:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1625747271; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1625750645; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=i3M6JA6wFAOaXNZtJ+BTVgXlsDKvKoDpiNJR69E7qzU=;
- b=zw/ER2c6GNbl3dIPPagZYYpvnj+5UPBpfjOUCbya/8x++YKMOidCv4tILkBMr6FbIIPhHd
- m11hxAkA9bCTitCEx9qGKMeOH89yjWJ2JNRPXt2XhyE52gqym5m9ONHD2/zw2Q5kkFPP81
- mdtwFTBqNOBpc8RQzSS7HecQ+TXNwYA=
+ bh=jEzJ4iltSWRldpW7YSMhKXEeBEB3Urabjm/FTb4yd9c=;
+ b=cHs659v3NN+UHjeS3KYsu1IaZNyIpwCOtVYldVyGGGfR57e7RPKO1rTPRXaEXmjIvsGF5+
+ GftpexvAIhCZP1kO561fRdyw8wexJWU63YtnvO5m8lq1vsku0UpRHQ7spKsuM5LM1ljV52
+ 0o9s4tf3XcxWD1TR+hN/4T7qHBuh0k4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1625747271;
+ s=susede2_ed25519; t=1625750645;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=i3M6JA6wFAOaXNZtJ+BTVgXlsDKvKoDpiNJR69E7qzU=;
- b=QCrsRriKTlAVASODzPfVDi4lO+WltQZsQXq6jVn+YAzlFb0AxfzzEBN89gbGRX8Cy45Wqp
- tmo7Ra39f1Y4KuAg==
+ bh=jEzJ4iltSWRldpW7YSMhKXEeBEB3Urabjm/FTb4yd9c=;
+ b=+vXmKhauk8JkVWUZqJ3to4Hfkm+MdK34QQ2SkdTgUS/N0qT55v84p4ctVVlbV8ZVjfu2Cf
+ BvdqPZhNCPA8WFDg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4979913BDF;
- Thu,  8 Jul 2021 12:27:51 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2BAE913B00;
+ Thu,  8 Jul 2021 13:24:05 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id k6G/EEfv5mAVWAAAMHmgww
- (envelope-from <chrubis@suse.cz>); Thu, 08 Jul 2021 12:27:51 +0000
-Date: Thu, 8 Jul 2021 14:02:15 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id KA7dCXX85mDtagAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Thu, 08 Jul 2021 13:24:05 +0000
+Date: Thu, 8 Jul 2021 14:58:29 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <YObpRzTjx8T2GAZn@yuki>
-References: <20210706105758.43220-1-aleksei.kodanev@bell-sw.com>
- <CAEemH2cOm+1BMWE7oWVFttXNOeQsYk9veXePS+ctxAABk2rCWQ@mail.gmail.com>
- <c2c7ff46-df28-c7b6-49dd-c891d9655d00@bell-sw.com>
- <381b8420-3dba-d7c1-027c-e2e2adc719de@bell-sw.com>
- <CAEemH2fcubrbMpeoeSJJoZtD+xaiRrs_upG_+KQXB_8C9m3eQg@mail.gmail.com>
- <60E50AB4.7050404@fujitsu.com> <YObbKCNKUoC7lSxd@pevik>
+To: Li Wang <liwang@redhat.com>
+Message-ID: <YOb2ddFMEW1aniyI@yuki>
+References: <20210708130602.970689-1-liwang@redhat.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <YObbKCNKUoC7lSxd@pevik>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+In-Reply-To: <20210708130602.970689-1-liwang@redhat.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] shmget03: fix test when some shm segments already
- exist
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] gethostid: skip test if sethostid undefined
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,27 +78,61 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Huanian Li <huanli@redhat.com>, Richard Palethorpe <rpalethorpe@suse.com>,
- LTP List <ltp@lists.linux.it>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> > > Yes, good point, that would be more precise for ENOSPC testing.
-> > AFAIK, ltp doesn't support parallel test now. I think parallel test 
-> > maybe a future plan that is why we use docparase to collect each case's 
-> > used resources(so we can convert many groups, like pid, memory, disk 
-> > space..., then we can run pid group and memory groups test case parallelly).
-> Yes, parallel support is not supported atm. Richie and Cyril has done some work
-> on runltp-ng to support it. Yes, first it's needed to add support in resources
-> (docparse), see Cyril's old block post [1].
+> This is to avoid compiling error if the sethostid() is not
+> implemented, e.g. build with Alpine's musl-libc.
+> 
+> CI: https://github.com/wangli5665/ltp/runs/3019192920
+> 
+> Signed-off-by: Li Wang <liwang@redhat.com>
+> ---
+>  configure.ac                                      | 1 +
+>  testcases/kernel/syscalls/gethostid/gethostid01.c | 6 ++++++
+>  2 files changed, 7 insertions(+)
+> 
+> diff --git a/configure.ac b/configure.ac
+> index 1a43ebea8..25c421de0 100644
+> --- a/configure.ac
+> +++ b/configure.ac
+> @@ -128,6 +128,7 @@ AC_CHECK_FUNCS_ONCE([ \
+>      renameat2 \
+>      sched_getcpu \
+>      sendmmsg \
+> +    sethostid \
+>      setns \
+>      sigpending \
+>      splice \
+> diff --git a/testcases/kernel/syscalls/gethostid/gethostid01.c b/testcases/kernel/syscalls/gethostid/gethostid01.c
+> index 802604777..20e4cd307 100644
+> --- a/testcases/kernel/syscalls/gethostid/gethostid01.c
+> +++ b/testcases/kernel/syscalls/gethostid/gethostid01.c
+> @@ -26,6 +26,8 @@
+>  
+>  #include "tst_test.h"
 
-Besides most of the SHM tests will crash and burn if executed in
-parallel. The SysV IPC shares a global namespace and because of that we
-can't really write tests without assuming that we are the only one
-manipulating them when the test is executed.
+Shouldn't we include config.h here?
+
+> +#ifdef HAVE_SETHOSTID
+> +
+>  static long origin;
+>  static long tc[] = {0x00000000, 0x0000ffff};
+>  
+> @@ -64,3 +66,7 @@ static struct tst_test test = {
+>  	.needs_root = 1,
+>  	.tcnt = ARRAY_SIZE(tc),
+>  };
+> +
+> +#else
+> +TST_TEST_TCONF("sethostid is undefined.");
+> +#endif
+
+Other than that Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
 
 -- 
 Cyril Hrubis
