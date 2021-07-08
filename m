@@ -2,67 +2,68 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1AEBA3BF7C7
-	for <lists+linux-ltp@lfdr.de>; Thu,  8 Jul 2021 11:49:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE6263BF7BE
+	for <lists+linux-ltp@lfdr.de>; Thu,  8 Jul 2021 11:43:46 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id AF3ED3C89A8
-	for <lists+linux-ltp@lfdr.de>; Thu,  8 Jul 2021 11:49:20 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 764263C89A4
+	for <lists+linux-ltp@lfdr.de>; Thu,  8 Jul 2021 11:43:46 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 10B913C4DBA
- for <ltp@lists.linux.it>; Wed,  7 Jul 2021 21:22:35 +0200 (CEST)
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [IPv6:2a00:1450:4864:20::62a])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ by picard.linux.it (Postfix) with ESMTPS id AACAF3C2A8B
+ for <ltp@lists.linux.it>; Thu,  8 Jul 2021 11:43:42 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 775CF60070F
- for <ltp@lists.linux.it>; Wed,  7 Jul 2021 21:22:34 +0200 (CEST)
-Received: by mail-ej1-x62a.google.com with SMTP id o5so5079293ejy.7
- for <ltp@lists.linux.it>; Wed, 07 Jul 2021 12:22:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=gkFqaoFay5HbrfXNT39183Jo26dqXtIM3IPBCOS7j1g=;
- b=YxOQmr++2jWkice+ry8BJtKems5UrZyiYei2hceKqot1voa2txKuixs0C0wBxedIdw
- E485oGpQxmoMqSNNCXo2JItYIeZYK2iPPmYKPT/lhShh+XiWqE33MfRT9kQol0LvoJPr
- vETIN9CE5UaPzxWzcARi9rIuffBm21AbaEDUAU7pJWWu1DrB0xv4oiu2SDoLFd5EEw6v
- KNFFF1gdJxtM/GEG6aalMszDfPyyc26Gw1CesK0xCFX1yisNyaxevOiVWhlUe2zhWhyK
- BUKU7123fz8SUpDcQmItISpJwgry1RgFDftOCXFFQ+H5pfq/+MmOpfY5vV05CjxVHQZV
- HEVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=gkFqaoFay5HbrfXNT39183Jo26dqXtIM3IPBCOS7j1g=;
- b=I7ebj2nN9+ksz7mkNELUGnHsKNST/mGRIhfXALDu06EEe/dT66QEMT1sXQp/dgmZX9
- KTlg3X3qyU9jCcDDGYgXhX8k4GFdVI1fBAE5NdTn1mQxXNyPZZrJ5inFxXqsfGTj6bHR
- OxJ8ElR10L1hbalsnEIjOufbDMRKtA+/shtUPID5sniV58U+fged4FxHnd+lOPMl8u8n
- q/h6d/tsDEY/z52C7TMBhDBTE77/JlpovpWWfxPzuDISWOHF4YdHHNpqsWjakic1fFrF
- LjrslCWQi0heMpXYVlcHT3sMxd5jkLl15fEg+2tc7hN6cBgbrRBwDj5yOyAU0batU2j2
- jtiA==
-X-Gm-Message-State: AOAM532zjJAosmXZtBJddLSav7ecLiGDRa8tWwsNtObZm+zwL4ltrLew
- 9tqynT0lrDFostaHdhrnJ2sg/CB2SItoCr+SRUAW9IBesf//
-X-Google-Smtp-Source: ABdhPJwXeVqFB0jXtquMHYhQKk5LCVnC4CPJ5za2BgB0tgTEoogSJq6PaPlCCgDkkaR+osNSRXtXZhJGVNTgyMjyIKw=
-X-Received: by 2002:a17:907:9807:: with SMTP id
- ji7mr24215856ejc.35.1625685753543; 
- Wed, 07 Jul 2021 12:22:33 -0700 (PDT)
-MIME-Version: 1.0
-Date: Wed, 7 Jul 2021 15:22:22 -0400
-Message-ID: <CAPd9Lg-feW5KF=BDUzfGnqZPYs4S4ypBemb3b=qgG2z-9YsCiw@mail.gmail.com>
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 3689F1A00F64
+ for <ltp@lists.linux.it>; Thu,  8 Jul 2021 11:43:41 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 5C250201A0
+ for <ltp@lists.linux.it>; Thu,  8 Jul 2021 09:43:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1625737421; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=cH5sdNlgzNwk5asfPYzgQPqg8mRXgzTvNBd4nY35DXM=;
+ b=ELD+dL57knvuZD3QzhaE5Th2j8e0VMSUxJoCjn9QD0lNWG8i+CrQl/xa1vIRB9q6jOP5Ij
+ QtXIbX+JDDWeAlf0RXqrT2IMjPmZy0hP+I/r8HFwgq7oNkLyGWhzwuG6FqEWRB/9IsqVL+
+ ubb4RNrnY6SGVWQy22qVq3oSYKJ+450=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1625737421;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=cH5sdNlgzNwk5asfPYzgQPqg8mRXgzTvNBd4nY35DXM=;
+ b=DTrYByqwuBNzX8B47OcEkcyuvdUrh0d6aETIxo4h2fP4irlyXAqF8rAVDM9OnqK0gI1tGr
+ jrUgV+Rv6eXux2Cg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 48B7313B00
+ for <ltp@lists.linux.it>; Thu,  8 Jul 2021 09:43:41 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id U0uiEM3I5mCyHAAAMHmgww
+ (envelope-from <chrubis@suse.cz>)
+ for <ltp@lists.linux.it>; Thu, 08 Jul 2021 09:43:41 +0000
+From: Cyril Hrubis <chrubis@suse.cz>
 To: ltp@lists.linux.it
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+Date: Thu,  8 Jul 2021 11:18:05 +0200
+Message-Id: <20210708091805.23783-1-chrubis@suse.cz>
+X-Mailer: git-send-email 2.31.1
+MIME-Version: 1.0
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-14.9 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,ENV_AND_HDR_SPF_MATCH,HTML_MESSAGE,
- SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-X-Mailman-Approved-At: Thu, 08 Jul 2021 11:49:17 +0200
-Subject: [LTP] Existing kexec tests
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH] [COMMITTED] syscalls/wait403: Fix docparse comment
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,64 +75,33 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: David Hu via ltp <ltp@lists.linux.it>
-Reply-To: David Hu <xuehaohu@google.com>
-Content-Type: multipart/mixed; boundary="===============1603911696=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1603911696==
-Content-Type: multipart/alternative; boundary="000000000000dc3f4505c68d7562"
+Reported-by: Yang Xu <xuyang2018.jy@fujitsu.com
+Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
+---
+ testcases/kernel/syscalls/wait4/wait403.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
---000000000000dc3f4505c68d7562
-Content-Type: text/plain; charset="UTF-8"
-
-Hello !
-
-I am looking existing tests that cover kexec (kexec_load and
-kexec_file_load across LTS versions , platforms, etc)
-
-wondering if there are existing tests already ?
-
-thanks
-
---------
-David
-
-This email may be confidential or privileged. If you received this
-communication by mistake, please don't forward it to anyone else, please
-erase all copies and attachments, and please let me know that it went to
-the wrong person. Thank you.
-
---000000000000dc3f4505c68d7562
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hello !<div><br></div><div>I am looking existing tests tha=
-t cover kexec (kexec_load and kexec_file_load across LTS versions , platfor=
-ms, etc)</div><div><br></div><div>wondering if there are existing tests alr=
-eady ?</div><div><br></div><div>thanks</div><div><br clear=3D"all"><div><di=
-v dir=3D"ltr" class=3D"gmail_signature" data-smartmail=3D"gmail_signature">=
-<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div>--=
-------<br></div><div>David</div><div><br></div><div dir=3D"ltr"><table cell=
-spacing=3D"0" cellpadding=3D"0" style=3D"font-family:Times"><tbody></tbody>=
-</table><span style=3D"color:rgb(102,102,102);font-family:arial,helvetica,s=
-ans-serif;font-size:x-small">This email may be confidential or privileged. =
-If you received this communication by mistake, please don&#39;t forward it =
-to anyone else, please erase all copies and attachments, and please let me =
-know that it went to the wrong person. Thank you.</span><br></div></div></d=
-iv></div></div></div></div></div></div>
-
---000000000000dc3f4505c68d7562--
-
---===============1603911696==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/testcases/kernel/syscalls/wait4/wait403.c b/testcases/kernel/syscalls/wait4/wait403.c
+index bbd240770..8746794e5 100644
+--- a/testcases/kernel/syscalls/wait4/wait403.c
++++ b/testcases/kernel/syscalls/wait4/wait403.c
+@@ -3,7 +3,7 @@
+  * Copyright (c) 2021 SUSE LLC <rpalethorpe@suse.com>
+  */
+ 
+-/*
++/*\
+  * [Description]
+  *
+  * Check wait4(INT_MIN, ...) is not allowed. The pid is negated before
+-- 
+2.31.1
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============1603911696==--
