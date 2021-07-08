@@ -1,58 +1,72 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BC893BF927
-	for <lists+linux-ltp@lfdr.de>; Thu,  8 Jul 2021 13:38:45 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D3403BF9DA
+	for <lists+linux-ltp@lfdr.de>; Thu,  8 Jul 2021 14:09:27 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id CABFB3C7931
-	for <lists+linux-ltp@lfdr.de>; Thu,  8 Jul 2021 13:38:44 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id CC5563C791F
+	for <lists+linux-ltp@lfdr.de>; Thu,  8 Jul 2021 14:09:26 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 61B673C5747
- for <ltp@lists.linux.it>; Thu,  8 Jul 2021 13:38:43 +0200 (CEST)
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id E38F33C181C
+ for <ltp@lists.linux.it>; Thu,  8 Jul 2021 14:09:25 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id BF3C61A007F5
- for <ltp@lists.linux.it>; Thu,  8 Jul 2021 13:38:41 +0200 (CEST)
-Received: from dggemv711-chm.china.huawei.com (unknown [172.30.72.55])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4GLDk438GvzbbYS;
- Thu,  8 Jul 2021 19:35:24 +0800 (CST)
-Received: from dggpemm500022.china.huawei.com (7.185.36.162) by
- dggemv711-chm.china.huawei.com (10.1.198.66) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2176.2; Thu, 8 Jul 2021 19:38:37 +0800
-Received: from [10.67.109.194] (10.67.109.194) by
- dggpemm500022.china.huawei.com (7.185.36.162) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
- 15.1.2176.2; Thu, 8 Jul 2021 19:38:36 +0800
-To: Li Wang <liwang@redhat.com>
-References: <20210708080720.18997-1-xieziyao@huawei.com>
- <CAEemH2cTBd45n9F5Db+Xc3ZE0R8GyLVa1AVsgbEPYFB+2hVV5Q@mail.gmail.com>
-From: Xie Ziyao <xieziyao@huawei.com>
-Message-ID: <16e18b1d-93c7-9885-9485-c2d08c17c02d@huawei.com>
-Date: Thu, 8 Jul 2021 19:38:36 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.2
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 5631B200347
+ for <ltp@lists.linux.it>; Thu,  8 Jul 2021 14:09:24 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 6E56422141;
+ Thu,  8 Jul 2021 12:09:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1625746164; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=a3OHoOMMeMJ/ZsJfZru5+fvMe8Tzzu5r4m6oNGYPeWM=;
+ b=ufJBRJJXpcou8aj78G3IQvJEblmk3qVFv1j0n4MuGxIQC94S73616dc2v83e+47PtWJMb2
+ li0W+GCQvV8UiBPYyQUFrlzRrM7su5rgpdWVoqDOq5ulQtCq6Rze1il/hgUgGvucaWvl0d
+ h3yrh6lskqwLFDgO0wOouBSG4r4y5I4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1625746164;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=a3OHoOMMeMJ/ZsJfZru5+fvMe8Tzzu5r4m6oNGYPeWM=;
+ b=FjrocXMSloh+pdtYLDs3jRZO+gaHM/9csa9SW5iL2IWm7jvkS70stC3svQb9EpuuZjL222
+ XGBv0rlN+MJOOcBQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5C25413BDF;
+ Thu,  8 Jul 2021 12:09:24 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id ooenFfTq5mCMUgAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Thu, 08 Jul 2021 12:09:24 +0000
+Date: Thu, 8 Jul 2021 13:43:47 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Joerg Vehlow <lkml@jv-coder.de>
+Message-ID: <YObk85gnpGKFFLSv@yuki>
+References: <20210708055757.945702-1-lkml@jv-coder.de>
 MIME-Version: 1.0
-In-Reply-To: <CAEemH2cTBd45n9F5Db+Xc3ZE0R8GyLVa1AVsgbEPYFB+2hVV5Q@mail.gmail.com>
-X-Originating-IP: [10.67.109.194]
-X-ClientProxiedBy: dggeme706-chm.china.huawei.com (10.1.199.102) To
- dggpemm500022.china.huawei.com (7.185.36.162)
-X-CFilter-Loop: Reflected
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20210708055757.945702-1-lkml@jv-coder.de>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] gethostid: Rewrite with newlib and use/test
- sethostid
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3 0/4] fs_bind: Convert to ltp tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,29 +78,34 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
+Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
+Hi!
+> I split up the patch into 4 commits. The first one just renames
+> all tests to the new nameing schema, in order to make git detect
+> renames instead of delete/add.
 
-> I made some refine and pushed, thanks!
-Thanks for your review. Besides, I noticed the CI fails to be compiled 
-on Apine. The difference appears to be caused by the underlying libc 
-implementation: glibc and Alpine's musl-libc.
+Pushed with minor changes, great cleanup, thanks.
 
-Is there anything that needs to be modified for this patch? Or simply 
-ignore it in the CI script.
+I've removed a few trailing whitespaces and also the .gitignore that
+should have been included in the last removal patch.
 
-> 
-> -- 
-> Regards,
-> Li Wang
 
-Kind Regards,
-Ziyao
+Also I guess that we should move the ns_exec and ns_create tools to the
+testcases/lib/ directory so that:
+
+- it's easier to find it
+
+- to make the the how to on running tests from git checkout work
+  for these tests as well
+
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
