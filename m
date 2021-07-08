@@ -1,73 +1,154 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 153E13BEAA4
-	for <lists+linux-ltp@lfdr.de>; Wed,  7 Jul 2021 17:24:05 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 87AE03BF3F5
+	for <lists+linux-ltp@lfdr.de>; Thu,  8 Jul 2021 04:24:19 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 383013C6D06
-	for <lists+linux-ltp@lfdr.de>; Wed,  7 Jul 2021 17:24:04 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 5130A3C9544
+	for <lists+linux-ltp@lfdr.de>; Thu,  8 Jul 2021 04:24:19 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 8B5D23C5A9B
- for <ltp@lists.linux.it>; Wed,  7 Jul 2021 17:24:00 +0200 (CEST)
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [IPv6:2a00:1450:4864:20::12c])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id 037493C2A8B
+ for <ltp@lists.linux.it>; Thu,  8 Jul 2021 04:24:16 +0200 (CEST)
+Received: from esa12.fujitsucc.c3s2.iphmx.com (esa12.fujitsucc.c3s2.iphmx.com
+ [216.71.156.125])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 3F6661A00CA7
- for <ltp@lists.linux.it>; Wed,  7 Jul 2021 17:23:58 +0200 (CEST)
-Received: by mail-lf1-x12c.google.com with SMTP id p21so4657684lfj.13
- for <ltp@lists.linux.it>; Wed, 07 Jul 2021 08:23:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=c9GeYd0BFSYLjzlo1KFhrAQnO7dlGAJVxqkvuU8lV9U=;
- b=yAUQ/JOMiRrokiYg1RaI+Vg0L4SAJl386niVfjiAtBCm8hqDhDTnFyon9LyjbBFeTq
- rwflxu4hlIJw7/Qjg4p7NIzy64c3kQXQQZnMBDaWaCD/1TPVWqvYCWVZttF3lZ6YbUIF
- pKZ3w2w3EqKOAQSRkvntFv7Am2ueqv5ALq544EwIwVMPkn6r9gSPnHSBLg/s3K0vkpWv
- ik6fUzZGmNTfO1VQEerXFOLy1TBqNej687YPjBz++Ntk0E3Q1SWlyr/gMlyMIzFyCb+M
- EL6ivYlt3uFcGtkqOJ/maLJvwah56sDc/iBbuGU+V0AjwtjvYPtCIgfKWSK/1zQ3yA70
- 6O3w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=c9GeYd0BFSYLjzlo1KFhrAQnO7dlGAJVxqkvuU8lV9U=;
- b=QwSg/nL98LjsFQUPOALhY4jB8navTgy2VFQRFtRbhXNNzCsc2gsvcFryZ815LNLyZH
- 7skVKLvPAqZz2CJhczNTS+5GOr+dE8azkHfdIhhNvyTs67ayfeeKfHUkCWjaUVRuxnwB
- DUnVHAn96tNk0fjNivNmCq7d7sEP9XAplW1GU5/F9UoxJ/T0hcpHNv/jMYthrogGjlUY
- mhW3VLGsGcbAbqYvC21l1KG5ZEDSG1QKqbqEuBh6p7cFFS0ZQ/NnQZQOcxHeanYR4xQ6
- 4Q30UUh36eOU+a52A2xpTd9Vin5hVBM+cG3RwgPSbAAF2QN+agPO9JzGQ6gpPQ9upONb
- 3aHQ==
-X-Gm-Message-State: AOAM530SgYEOGf3U3jWGy8xEdA39VcCAsjiPZPy7Pyx25UzGWtf0ETU0
- PK1UUgspzQZ3GQ5u83xuQbvLNVOOjP5rlcU/9HAr1w==
-X-Google-Smtp-Source: ABdhPJy/x/dkSqDZdHC5gy/oLn2qqquHAn8gv+Xe5/W6hp/1WndIq8kO9YxYT3nSqHXoBW/hL0Rkqdf1HnfiU2Fs9/Q=
-X-Received: by 2002:a05:6512:398e:: with SMTP id
- j14mr15770578lfu.154.1625671437557; 
- Wed, 07 Jul 2021 08:23:57 -0700 (PDT)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id ED079600720
+ for <ltp@lists.linux.it>; Thu,  8 Jul 2021 04:24:15 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj1;
+ t=1625711056; x=1657247056;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-id:content-transfer-encoding: mime-version;
+ bh=38GFzZ1RwwxLnSP7JbPJuyg7+szgWOpymsz76kZmRjQ=;
+ b=Hv1f06Wazr30WB130mi5Yr3Lb/anN2amYSm8v73oqXV8rCWmIovGEoQK
+ PhM5vwc1tUb9i1yZSMcWwJFPr9f6tAypgxbU43+1h2vv5zFHdyp/PtJMd
+ wZdoDpQ186hy6zD/JV05fXtQEyCigIToagDb4gFlsdfCFUyPquS1bwsBH
+ qxLI31CaogmGwoYSWjLXiDEf94nOHFDu/37Ca7DawtF5YN1wXhte5ZA+E
+ Zyg3wf/E6JHiDbGVhhfXR6WYrjdmHcoyTrQ9hnBWtZZqNMn9tNdExd7Ex
+ 5a9vIy2pMWQy9U8s+cOIZwEjf6pqD5jOi+5vd5AYWUJ3Oy2djBMdxEsdM w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10038"; a="34586099"
+X-IronPort-AV: E=Sophos;i="5.84,222,1620658800"; d="scan'208";a="34586099"
+Received: from mail-os2jpn01lp2057.outbound.protection.outlook.com (HELO
+ JPN01-OS2-obe.outbound.protection.outlook.com) ([104.47.92.57])
+ by ob1.fujitsucc.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Jul 2021 11:24:13 +0900
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=VXXD+eXKdOPhYa4CkC/a/gpoTFKwOPvhAKDJMTa+iGfTNEwxNllE1VRHmeMjdAQZKIRqNrLuNYR+bhSgJ3Is5sFYVcT8btsavH9BtJ7UitAv16CHvyoOzyHwwcHRCJx2OdPfHfdbWWxEOQM+xurj01qw0oasg4nkgESO21fd+wp8F9yk0Y70rB9Wgk/PPqwpLRu7+k5STJEuxso0y9CNsHPqO9q7TR1HHIWol7j/GW2G5zpditHXEv2e1m+NiYQRQXLOddcguCO0M1uu0axnnJ2GUPF7NkHJzeTIzP5iF65PEm7p1zmagFuFmakhm9DBxO//wKiiO3qodLA00HDkeg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=38GFzZ1RwwxLnSP7JbPJuyg7+szgWOpymsz76kZmRjQ=;
+ b=UwrmNiIvbT13lQ03KsXD9NzHOvpXGu4Qv+DtPrpaHpY7q/S3JclD25/Blf+2boXVVoLh+V3jwv9F2zCCE6Tw557ML4DqukiGQMLtK3L6z7FcedAzOjicc/hOHDhqGos8ueFLDYq2Fod0fd9sGFA1tr9f9B2uZyS2uRL6JsHu7tDZ7jKUkOWHW4Gx07yc1+XZaXMCXkf4WL6JVmtvgAPTCOieFLIFBXfz8Giy9Ajbq1I7TFjV9jGKUn/dL22NpV7HlXA9TwNdm+HL0Nnv3Mjo3zeYhev9jytIY4ugSdRzPXagCg1STEarDDTcPvCEtxHx9kQd/cF1GS/X1XiGP3A8aA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=fujitsu.com; dmarc=pass action=none header.from=fujitsu.com;
+ dkim=pass header.d=fujitsu.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=fujitsu.onmicrosoft.com; s=selector2-fujitsu-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=38GFzZ1RwwxLnSP7JbPJuyg7+szgWOpymsz76kZmRjQ=;
+ b=bzXtiL6RYoqDteEieEOm+R+ZqOdfxrFIL5nvBl0ZHRB+xdwraRvfmCf6tRcp/1/1eedN1s3NBKX3H0hUswhO6Aj+bcXVytb4qF8HycPPm1v+lnSy9TZRHq7be8eeTGDdT3GUtrUd6ua8PlWvF3BXYSbzXKLOLhyN+t2Azw1ZtwM=
+Received: from TYCPR01MB6544.jpnprd01.prod.outlook.com (2603:1096:400:98::6)
+ by TYAPR01MB6538.jpnprd01.prod.outlook.com (2603:1096:400:a2::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4308.21; Thu, 8 Jul
+ 2021 02:24:10 +0000
+Received: from TYCPR01MB6544.jpnprd01.prod.outlook.com
+ ([fe80::2da1:e1d8:ba88:a4e0]) by TYCPR01MB6544.jpnprd01.prod.outlook.com
+ ([fe80::2da1:e1d8:ba88:a4e0%3]) with mapi id 15.20.4308.022; Thu, 8 Jul 2021
+ 02:24:10 +0000
+From: "xuyang2018.jy@fujitsu.com" <xuyang2018.jy@fujitsu.com>
+To: Li Wang <liwang@redhat.com>
+Thread-Topic: [LTP] [PATCH] shmget03: fix test when some shm segments already
+ exist
+Thread-Index: AQHXclX8FtNVc6CAyUCt+wJTvZ4uTKs15fuAgAAPCoCAAAnXAIAAwZgAgAAIVgCAACRLAIABbxSA
+Date: Thu, 8 Jul 2021 02:24:10 +0000
+Message-ID: <60E661ED.7000305@fujitsu.com>
+References: <20210706105758.43220-1-aleksei.kodanev@bell-sw.com>
+ <CAEemH2cOm+1BMWE7oWVFttXNOeQsYk9veXePS+ctxAABk2rCWQ@mail.gmail.com>
+ <c2c7ff46-df28-c7b6-49dd-c891d9655d00@bell-sw.com>
+ <381b8420-3dba-d7c1-027c-e2e2adc719de@bell-sw.com>
+ <60E50890.9040903@fujitsu.com>
+ <CAEemH2fKXJmgKAr4JXW5y+dcgEwL1taobXLY7OdTWBzLXGVOYg@mail.gmail.com>
+ <60E52E00.8020105@fujitsu.com>
+In-Reply-To: <60E52E00.8020105@fujitsu.com>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: redhat.com; dkim=none (message not signed)
+ header.d=none;redhat.com; dmarc=none action=none header.from=fujitsu.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 659f64cc-8dc0-450b-f164-08d941b77886
+x-ms-traffictypediagnostic: TYAPR01MB6538:
+x-microsoft-antispam-prvs: <TYAPR01MB6538A8C27686FF7B8067AE47FD199@TYAPR01MB6538.jpnprd01.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:9508;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: W5Pd9BRlRCEL2vdqdegXyKmF6NN40dU0gHHzGxTekQgwLJpB2iWho7gYjEVI4LeXIWnnp4pfNt4PCFJElDGD+T9/pndXJPa632NoXyVUZPRogv1YWEV4/zWILhYloxIscDbtx50B2aDYNR1dvu4HNoXRwpIRSdCJonrGHEnuNlrm4xuNK+LkJsfHZbsu5ChPUztVLuim8TgyLRGrM8hjdsOmq097R3G1qUoeEmdQ8Vy0MaSdO2p6OEekwPXUafGZnP/R7mSejyuegYGOzskPf8ds1ZccJCgEx4C/x283Am5bxjFgW+rSc9GPSiVGLhK1I7cnGrRDB1mssJPPVBFXDz4ZljyBSWfkav+llFEIKRf+3qzr85IgY+1Y4V6DAp9oFtO5hUkHOqwM7WY668u7AV7U88udboKf3anV+84DUPjdDfVqdfUH262BefFWObUoHRKCOhq4l/z8QoFKz6f4k/xLBl+jpI0of7GTxNpWA/CDtub+jSDEazbj8Ajtsu7Te+k4lZwq+m3VkPYps9wlpjNnGJACfTlb4ZjgtahwWkVQ/HXZy3Tancz+bV0BOVZXYmAEG89XSgU+kHrUURLROxMw7f4FmNnAmTeC4pdXpukixpDPL1ktnGMUqjss6DfQQygHwNf94uuZI3VQFgkSMg==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TYCPR01MB6544.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(376002)(366004)(346002)(136003)(396003)(39860400002)(2616005)(316002)(54906003)(6916009)(87266011)(33656002)(86362001)(85182001)(15843345004)(8676002)(122000001)(36756003)(8936002)(5660300002)(38100700002)(83380400001)(91956017)(2906002)(6512007)(64756008)(66476007)(76116006)(186003)(4326008)(6506007)(6486002)(66556008)(71200400001)(66946007)(478600001)(26005)(66446008);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?gb2312?B?bzlvTnpoTjZ5RUltUmw3OEZRblJCMVMxS3B3VTU4cmNjUzBoWjVBRituVTBa?=
+ =?gb2312?B?VjRlOG9OMDNJajVJOE4yZmdwRDlRRjJKMTJBdVV0ZXlwWFM2UFZMWUJNb2ho?=
+ =?gb2312?B?VThYOFVqaWlhaUphc1loYjQ1SmtQaldLUWh4cEVYQU12RjRXQUY3cDBiQUxx?=
+ =?gb2312?B?ZTg2QzhXcXA3NncwQUc1NEhRSkdQT05kOE1ueEQ2SG1NRTNiTFIrcW04dmxS?=
+ =?gb2312?B?d1dUU1J5R2VPUnJHVVR5Y2l6a3NscWU4L1R5dTVJVUdXWlFhd2VWOGV0Sm9q?=
+ =?gb2312?B?cC81TW5sRytaWjlReVd2R3RYaldTNUd0YTVEbjdQdTROSS85UmJwL2F0TWRr?=
+ =?gb2312?B?MkNpTkcwbXJ1cFQ3YldXSjk0ZXRXTFBpbWNzLzBSUWZpMUpGZVlMWDNlYktw?=
+ =?gb2312?B?Y3YxbkVCMzlBaFVyb3BaRUhidkU2ZFhPeEFwbzA3V1RDM3dQa2EyOUtwWkdM?=
+ =?gb2312?B?c2dLZDBQcDVucDdWODBTRldpbWF2ZGhkbzFsQ1M0VGMwQUpLODFSRVA0bVNF?=
+ =?gb2312?B?ejJ2RExVaHZ0b1lDNHJnSGtlUE1WdmdtRklLcnEzaVYraFE4cE5KU3dwNTZz?=
+ =?gb2312?B?ZzN6b2xzT1BWa1VDNWcyMmh6eXNsTWRVLzVKOUMxNTJpdkcxRjB5bTFmK3V6?=
+ =?gb2312?B?SWZyMmZGTHI5MHdJUlU5MExNcE0xeWNJcml0VWhRZmZhTGVaWWU0Y1FmdE1Y?=
+ =?gb2312?B?c0lycUFNSHN5OE1DUGJtZWNJZGlIZUlmKzhhNUJZRURWb2NIQTZzNnFJTHQ1?=
+ =?gb2312?B?Q1pnOWxxbFlpTVY1R0J2Yk5PUmtzbDhqR2J5OFRhRFdXcXZCNytuMUtyd3lR?=
+ =?gb2312?B?OXVWbU5qYUtlMC9VQ2c2Q3pQaGsvVlBQdkpVUlA1TTB1eFhlNmlSemovYlha?=
+ =?gb2312?B?RGRRazY1SUNZRFdRRU9MN3dCZkplenVRamxqZGxUc0t1WWN6WWIwSHNGOEpi?=
+ =?gb2312?B?Wlh4TDgvbEsxd09YQ2haNmR1Z0JMbExiNG8rc1FXc0JLNmRrWHhCeXdaL0Fm?=
+ =?gb2312?B?MW1QWC92M3p1RXZkVmUwakFTdFIwU2RtZTZzM25ha2grT3dDWXpuZDR6STE0?=
+ =?gb2312?B?WFRxdnVUcis5UWhxQ3lZZGRMYTRIZkswVlAzbnpOS2pQdXlQOXBGZ2FXTkFq?=
+ =?gb2312?B?b3RpZnd5NElwelJSYWo5SENhL2RndGRLc2lPM1RlYVVSSzNBcFp0bSt3Kzl2?=
+ =?gb2312?B?c2krU2NTcXVkelR6aFdvZnJOTHRSZi9JeWFybmNYU0d6c2JGWjN3WEpTaFpQ?=
+ =?gb2312?B?R1B4Qk4wZXREa2M1SlJwL0VjSzZTNDlZc0dEWTJLMnVaOTc5MXNKeUtjTW5W?=
+ =?gb2312?B?cURVclB1MjJFTWIyQ0lUSUpneDZWTUQ5cDNxTnpKSzFOY280YVBuR1R4MStM?=
+ =?gb2312?B?aHZ3UFdyUDBmQnBSZ2Q3MFdzWlAwUVg0RlR0aDNIdTNlUTVQV2JDY1NSeFd1?=
+ =?gb2312?B?eThEektxT1kxcWFRL1RLRDk4SGkrNitoZGZiRloxMjJMS28rbnBYL2dVSklY?=
+ =?gb2312?B?QmJOUU13UE9XQkRLRVN6U3VkelZnZTdtNVFMQllCSUtPa0Z4SzBCRndFNEpq?=
+ =?gb2312?B?eDRaVCtCZVdUS25GTGhpVHNOZHZlYkU0Y0YrbjRHTlNWNkdsWmtHcGpMUFNL?=
+ =?gb2312?B?RG55aXF1K3NkK25rUU1NT1liUElqNUJzb0Irbmh4QTU4dW15ZVNxQmdURWRs?=
+ =?gb2312?B?Ny8vUDdmQzRBV1lzUFZjVkI5VTdUdlJXOWprVXo3V1RJNE5DZVg3Tmt5aGVQ?=
+ =?gb2312?Q?KceIiT7h2OGegnzvniZPvYD8DcXPSBEN77BvRIs?=
+x-ms-exchange-transport-forked: True
+Content-ID: <A7901ED1EF0A69419258C52294200BC8@jpnprd01.prod.outlook.com>
 MIME-Version: 1.0
-References: <20210706085652.GF2022171@shao2-debian>
- <CAKfTPtBnEmMFwCWD3sGP=vrbG8tkLncKbjStYLN+od3z0K=RrA@mail.gmail.com>
- <20210707090722.GH2022171@shao2-debian>
-In-Reply-To: <20210707090722.GH2022171@shao2-debian>
-From: Vincent Guittot <vincent.guittot@linaro.org>
-Date: Wed, 7 Jul 2021 17:23:45 +0200
-Message-ID: <CAKfTPtCT_mVNT7-FnZSN=p0S2NWqDeoxRvn7vHO9R6XSwEC4iA@mail.gmail.com>
-To: kernel test robot <rong.a.chen@intel.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-OriginatorOrg: fujitsu.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB6544.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 659f64cc-8dc0-450b-f164-08d941b77886
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Jul 2021 02:24:10.5510 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: a19f121d-81e1-4858-a9d8-736e267fd4c7
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: FvYIjH9pN+vP3epHQYHgQPzjT8qf8SBGce1EtBJGpjvlQt128FWYsU5ysvh6z13TseOHNwJ8fx85IkU1+o4KbVuA8BlKCyITqfsNf5oU7ww=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYAPR01MB6538
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [sched/fair] 1c35b07e6d:
- RIP:native_queued_spin_lock_slowpath
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] shmget03: fix test when some shm segments already
+ exist
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,179 +160,67 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Sachin Sant <sachinp@linux.vnet.ibm.com>, Odin Ugedal <odin@uged.al>,
- kbuild test robot <lkp@intel.com>, Peter Zijlstra <peterz@infradead.org>,
- Aubrey Li <aubrey.li@linux.intel.com>, LKML <linux-kernel@vger.kernel.org>,
- lkp@lists.01.org, ltp@lists.linux.it, Chen Yu <yu.c.chen@intel.com>
+Cc: LTP List <ltp@lists.linux.it>, Huanian Li <huanli@redhat.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Wed, 7 Jul 2021 at 11:07, kernel test robot <rong.a.chen@intel.com> wrote:
+Hi Li
+
+How about using CLONE_NEWIPC to test this, so we can avoid this race 
+situation.
+
+Best Regards
+Yang Xu
+> Hi Li
+>> Hi Xu,
+>>
+>> xuyang2018.jy@fujitsu.com<mailto:xuyang2018.jy@fujitsu.com>
+>> <xuyang2018.jy@fujitsu.com<mailto:xuyang2018.jy@fujitsu.com>>  wrote:
+>>
+>>      If we use this old format, then we can not ensure whether we trigger
+>>      the
+>>      ENOSPC errer correctly when reaching the expected nums.
+>>
+>>      So to avoid the existed memory segments error, I think we should alter
+>>      get_used_queus api to count the existed memory segments by adding a
+>>      file argument.
+>>
+>>
+>> Just as Alex pointed, if there are some resources be freedafter invoking
+>> get_used_queus, then the value of existed_cntwill be imprecise, how do
+>> you think that affects the test result?
 >
-> On Tue, Jul 06, 2021 at 11:08:54AM +0200, Vincent Guittot wrote:
-> > Hi Rong
-> >
-> > On Tue, 6 Jul 2021 at 10:56, kernel test robot <rong.a.chen@intel.com> wrote:
-> > >
-> > > Greeting,
-> > >
-> > > FYI, we noticed the following commit (built with gcc-9):
-> > >
-> > > commit: 1c35b07e6d3986474e5635be566e7bc79d97c64d ("sched/fair: Ensure _sum and _avg values stay consistent")
-> > > https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git master
-> >
-> > I don't think this commit is the real culprit as it mainly replaces a
-> > sub by a mul whereas the dmesg mentioned spinlock deadlock . Have you
-> > bisect the problem down to this commit or you faced the problem while
-> > testing latest master branch ?
+> We can move this count api and the create phase into verify* function,
+> but still exist the chance to free resource after invoking get_used_queues.
 >
-> Hi Vincent,
+> We can't avoid it because /proc/sys/kernel/shmmni is designed for all
+> user instead of the calling process.
 >
-> It's bisected by 0day-CI, I tried to run more times and found the issue is not
-> first introduced by this commit, but boot always failed with this commit.
-
-Thanks for the detailed test results. By replacing sub by mul, it
-mainly increases the time spent under the lock and it seems to be
-enough to catch the deadlock all the time now.
-
-Will try to reproduce it
-
-
+> I think it is common in ltp because user also can set a different value
+> after we use ltp api to set proc value.
 >
-> adf3c31e18b765ea 1c35b07e6d3986474e5635be566
-> ---------------- ---------------------------
->        fail:runs  %reproduction    fail:runs
->            |             |             |
->           7:15         -47%            :12    last_state.booting
-
-Do you know since when you have a 31% (7:15)  rate of failure ?
-
-Thanks
-
-
->           2:15          67%          12:12    dmesg.Kernel_panic-not_syncing:Hard_LOCKUP
->            :15           7%           1:12    dmesg.RIP:cpuidle_enter_state
->           2:15          67%          12:12    dmesg.RIP:native_queued_spin_lock_slowpath
->            :15           7%           1:12    dmesg.RIP:sd_init_command[sd_mod]
->           1:15          -7%            :12    dmesg.RIP:update_blocked_averages
->           1:15          -7%            :12    dmesg.WARNING:at_kernel/sched/fair.c:#update_blocked_averages
->           3:15          60%          12:12    dmesg.boot_failures
+> But if we only use for loop to trigger the ENOSPC error, it goes against
+> the test's aim(see old shmget03.c, it also does the same thing as I do,
+> it doesn't trigger error because it uses a big value than default 4096).
 >
-> Best Regards,
-> Rong Chen
+> Since this case only wastes a little time when run, I don't think we
+> should avoid rare race to give up to test the ENOSPC error when reaching
+> the expected num.
 >
-> >
-> > >
-> > >
-> > > in testcase: ltp
-> > > version: ltp-x86_64-14c1f76-1_20210703
-> > > with following parameters:
-> > >
-> > >         disk: 1HDD
-> > >         fs: ext4
-> > >         test: dio-01
-> > >         ucode: 0xe2
-> > >
-> > > test-description: The LTP testsuite contains a collection of tools for testing the Linux kernel and related features.
-> > > test-url: http://linux-test-project.github.io/
-> > >
-> > >
-> > > on test machine: 8 threads Intel(R) Core(TM) i7-6700 CPU @ 3.40GHz with 28G memory
-> > >
-> > > caused below changes (please refer to attached dmesg/kmsg for entire log/backtrace):
-> > >
-> > >
-> > >
-> > > If you fix the issue, kindly add following tag
-> > > Reported-by: kernel test robot <rong.a.chen@intel.com>
-> > >
-> > >
-> > > [  160.446205]
-> > > [  160.451594] <<<test_output>>>
-> > > [  160.451595]
-> > > [  178.116525] ------------[ cut here ]------------
-> > > [  203.592757] NMI watchdog: Watchdog detected hard LOCKUP on cpu 3
-> > > [  203.592758] Modules linked in: dm_mod btrfs blake2b_generic xor zstd_compress raid6_pq libcrc32c ipmi_devintf ipmi_msghandler sd_mod t10_pi sg intel_rapl_msr intel_rapl_common x86_pkg_temp_thermal intel_powerclamp coretemp i915 kvm_intel kvm irqbypass crct10dif_pclmul crc32_pclmul crc32c_intel ghash_clmulni_intel mei_wdt intel_gtt drm_kms_helper ahci rapl syscopyarea libahci sysfillrect intel_cstate sysimgblt mei_me fb_sys_fops wmi_bmof drm intel_uncore libata mei joydev intel_pch_thermal wmi video intel_pmc_core acpi_pad ip_tables
-> > > [  203.592770] CPU: 3 PID: 3103 Comm: diotest6 Tainted: G          I       5.13.0-rc6-00076-g1c35b07e6d39 #1
-> > > [  203.592770] Hardware name: Dell Inc. OptiPlex 7040/0Y7WYT, BIOS 1.2.8 01/26/2016
-> > > [  203.592771] RIP: 0010:native_queued_spin_lock_slowpath (kbuild/src/consumer/kernel/locking/qspinlock.c:382 kbuild/src/consumer/kernel/locking/qspinlock.c:315)
-> > > [ 203.592771] Code: 6c f0 0f ba 2f 08 0f 92 c0 0f b6 c0 c1 e0 08 89 c2 8b 07 30 e4 09 d0 a9 00 01 ff ff 75 46 85 c0 74 0e 8b 07 84 c0 74 08 f3 90 <8b> 07 84 c0 75 f8 b8 01 00 00 00 66 89 07 c3 8b 37 b8 00 02 00 00
-> > > All code
-> > > ========
-> > >    0:   6c                      insb   (%dx),%es:(%rdi)
-> > >    1:   f0 0f ba 2f 08          lock btsl $0x8,(%rdi)
-> > >    6:   0f 92 c0                setb   %al
-> > >    9:   0f b6 c0                movzbl %al,%eax
-> > >    c:   c1 e0 08                shl    $0x8,%eax
-> > >    f:   89 c2                   mov    %eax,%edx
-> > >   11:   8b 07                   mov    (%rdi),%eax
-> > >   13:   30 e4                   xor    %ah,%ah
-> > >   15:   09 d0                   or     %edx,%eax
-> > >   17:   a9 00 01 ff ff          test   $0xffff0100,%eax
-> > >   1c:   75 46                   jne    0x64
-> > >   1e:   85 c0                   test   %eax,%eax
-> > >   20:   74 0e                   je     0x30
-> > >   22:   8b 07                   mov    (%rdi),%eax
-> > >   24:   84 c0                   test   %al,%al
-> > >   26:   74 08                   je     0x30
-> > >   28:   f3 90                   pause
-> > >   2a:*  8b 07                   mov    (%rdi),%eax              <-- trapping instruction
-> > >   2c:   84 c0                   test   %al,%al
-> > >   2e:   75 f8                   jne    0x28
-> > >   30:   b8 01 00 00 00          mov    $0x1,%eax
-> > >   35:   66 89 07                mov    %ax,(%rdi)
-> > >   38:   c3                      retq
-> > >   39:   8b 37                   mov    (%rdi),%esi
-> > >   3b:   b8 00 02 00 00          mov    $0x200,%eax
-> > >
-> > > Code starting with the faulting instruction
-> > > ===========================================
-> > >    0:   8b 07                   mov    (%rdi),%eax
-> > >    2:   84 c0                   test   %al,%al
-> > >    4:   75 f8                   jne    0xfffffffffffffffe
-> > >    6:   b8 01 00 00 00          mov    $0x1,%eax
-> > >    b:   66 89 07                mov    %ax,(%rdi)
-> > >    e:   c3                      retq
-> > >    f:   8b 37                   mov    (%rdi),%esi
-> > >   11:   b8 00 02 00 00          mov    $0x200,%eax
-> > > [  203.592772] RSP: 0018:ffffc90001f032d8 EFLAGS: 00000002
-> > > [  203.592773] RAX: 0000000000000101 RBX: ffff88810d4a0000 RCX: ffff888759cc0000
-> > > [  203.592773] RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffff888759ceba80
-> > > [  203.592774] RBP: ffffc90001f032e8 R08: ffff888759ceb420 R09: ffff888759ceb420
-> > > [  203.592774] R10: ffff88810cc01500 R11: 0000000000000000 R12: ffff888759ceba80
-> > > [  203.592774] R13: 0000000000000000 R14: 0000000000000087 R15: ffff88810d4a0c8c
-> > > [  203.592775] FS:  00007fc252ae2740(0000) GS:ffff888759cc0000(0000) knlGS:0000000000000000
-> > > [  203.592775] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> > > [  203.592776] CR2: 00007fa0a4d577f8 CR3: 000000074d22a005 CR4: 00000000003706e0
-> > > [  203.592776] DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
-> > > [  203.592776] DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
-> > > [  203.592777] Call Trace:
-> > > [  203.592777] _raw_spin_lock (kbuild/src/consumer/arch/x86/include/asm/paravirt.h:585 kbuild/src/consumer/arch/x86/include/asm/qspinlock.h:51 kbuild/src/consumer/include/asm-generic/qspinlock.h:85 kbuild/src/consumer/include/linux/spinlock.h:183 kbuild/src/consumer/include/linux/spinlock_api_smp.h:143 kbuild/src/consumer/kernel/locking/spinlock.c:151)
-> > > [  203.592777] raw_spin_rq_lock_nested (kbuild/src/consumer/arch/x86/include/asm/preempt.h:85 kbuild/src/consumer/kernel/sched/core.c:462)
-> > > [  203.592778] try_to_wake_up (kbuild/src/consumer/kernel/sched/sched.h:1536 kbuild/src/consumer/kernel/sched/sched.h:1611 kbuild/src/consumer/kernel/sched/core.c:3555 kbuild/src/consumer/kernel/sched/core.c:3835)
-> > > [  203.592778] __queue_work (kbuild/src/consumer/arch/x86/include/asm/paravirt.h:590 kbuild/src/consumer/arch/x86/include/asm/qspinlock.h:56 kbuild/src/consumer/include/linux/spinlock.h:212 kbuild/src/consumer/include/linux/spinlock_api_smp.h:151 kbuild/src/consumer/kernel/workqueue.c:1501)
-> > > [  203.592778] queue_work_on (kbuild/src/consumer/kernel/workqueue.c:1526)
-> > >
-> > >
-> > > To reproduce:
-> > >
-> > >         git clone https://github.com/intel/lkp-tests.git
-> > >         cd lkp-tests
-> > >         bin/lkp install                job.yaml  # job file is attached in this email
-> > >         bin/lkp split-job --compatible job.yaml  # generate the yaml file for lkp run
-> > >         bin/lkp run                    generated-yaml-file
-> > >
-> > >
-> > >
-> > > ---
-> > > 0DAY/LKP+ Test Infrastructure                   Open Source Technology Center
-> > > https://lists.01.org/hyperkitty/list/lkp@lists.01.org       Intel Corporation
-> > >
-> > > Thanks,
-> > > Rong Chen
-> > >
+> Also, Let's listen advise from other maintainers.
+> @Cyril,Petr
+>
+> Best Regards
+> Yang Xu
+>
+>>
+>>
+>> --
+>> Regards,
+>> Li Wang
+>
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
