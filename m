@@ -1,12 +1,12 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55E8B3C215A
-	for <lists+linux-ltp@lfdr.de>; Fri,  9 Jul 2021 11:19:58 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id B9F5F3C220F
+	for <lists+linux-ltp@lfdr.de>; Fri,  9 Jul 2021 12:05:40 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 053C33C67FF
-	for <lists+linux-ltp@lfdr.de>; Fri,  9 Jul 2021 11:19:58 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 1472C3C898A
+	for <lists+linux-ltp@lfdr.de>; Fri,  9 Jul 2021 12:05:40 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
@@ -14,67 +14,68 @@ Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 35FA03C1C00
- for <ltp@lists.linux.it>; Fri,  9 Jul 2021 11:19:56 +0200 (CEST)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id D5DF33C1CE5
+ for <ltp@lists.linux.it>; Fri,  9 Jul 2021 12:05:36 +0200 (CEST)
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [IPv6:2a00:1450:4864:20::230])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 14FDE100135A
- for <ltp@lists.linux.it>; Fri,  9 Jul 2021 11:19:54 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1625822393;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Xq37xIVsU847gX8h0JPmzdofarlK2Fw0Yliw8k+NYlw=;
- b=Aq969gJO80eNHaJk2mDzOtAjb+iMQHu4LL/x6aZlNTjMDgPakGgB/DX0x2/IzoMOQ0XJsI
- AQlIatpUp8SDOVSJcJVKGH02B+rkETAZSMUZSRr/N0wR6YQvwb9aEAQYOnMcEigeFC+qiM
- zkFftFfl+j7u8jLuSe/ISYDeXtngQ5o=
-Received: from mail-yb1-f200.google.com (mail-yb1-f200.google.com
- [209.85.219.200]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-539-w32z6TD8NdCKEHYu9Qeqcg-1; Fri, 09 Jul 2021 05:19:51 -0400
-X-MC-Unique: w32z6TD8NdCKEHYu9Qeqcg-1
-Received: by mail-yb1-f200.google.com with SMTP id
- v184-20020a257ac10000b02904f84a5c5297so10673718ybc.16
- for <ltp@lists.linux.it>; Fri, 09 Jul 2021 02:19:51 -0700 (PDT)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id CDF371001388
+ for <ltp@lists.linux.it>; Fri,  9 Jul 2021 12:05:35 +0200 (CEST)
+Received: by mail-lj1-x230.google.com with SMTP id t30so7189710ljo.5
+ for <ltp@lists.linux.it>; Fri, 09 Jul 2021 03:05:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=bell-sw-com.20150623.gappssmtp.com; s=20150623;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=qZnM+132Y4oOB9vUGYdfqjmy92j4YSebwZscNASvr68=;
+ b=Fsb2vF0Ct4URWVf6KyYW65AO9yEGPwA/EmssTn820iengspJoNYIS6bpQch/BTcpip
+ BL5mbp/UiIY0rkvB90Mx3NltqBBBpSkh+NDemdX2hV2M0MRRBRJoeTkUogDSo0CAdC5V
+ GT3ljjmS2YrTmYidBkrQXrjLZBg6fHKdh1qSVbVSVwchqv5sbngH1TCpp6mjGYNvpD8p
+ W6sGAbcVNRNNBXVXav8airLNuKIsEEfGcOCDzYp9DfIuOuO1/SSJThQqLl33EA1alb5j
+ x+B3GqbOPkB3d2vRN+0mmOW33YCkkEaphtF2auCZUh7jLpsLuX0WJWADr6HVfN4oN2/1
+ lz/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Xq37xIVsU847gX8h0JPmzdofarlK2Fw0Yliw8k+NYlw=;
- b=WYawCNWeyLobRT+1Jukd4zm8v7j7thq3thz5ZOjpZvaEs/iaukSQmSDzQSlgMe3fyJ
- Uk1AcX1Fmw7CgQ7B1K1bvE/EkthpBnDmnmeDe6tBtFfNHPH+4W2Sm+EFAOPpBo4ZmPaC
- KGRPgsRa6OZwGdwsezkTh9EQNJNiqcd2gVoDr/BnpcFb7v9dojXo4TtXD1JT5H4Xt703
- FACXMn+v0N/2qF0EFQCzEnmbPTj4r/4ZXSDu1xkFgH87LjpDlNLwiOOQNtbQSOzh4Zar
- pe92akUDhfZZEcDdZc2R3ji5/W3+Gjqd1wfJxuB3sfeTSaq84zI7EhDVpoZjlZldusz9
- cWiw==
-X-Gm-Message-State: AOAM530YZNUXNVMqoWSU08xd2YhOSKkVrGl/CiiDyBLuooLXUjbHCYc3
- PithdwV3u+M/x5KFRpYWvkKtBrIga1c6DUuqxVpdLg+QyioMLKIfAd8Dz5UZZeHvbwEapD331Pf
- T/yaINWjH4X0uOOro6S7+MMiKwso=
-X-Received: by 2002:a25:6e05:: with SMTP id j5mr7189574ybc.86.1625822391380;
- Fri, 09 Jul 2021 02:19:51 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJwldOJE4zS+psdbvgmh+571Rebx0buh5DylOfxL0nFGbJxSdkcJzojDtZIsVywwYJGf+KAkPeqAG3Ayc5IufCo=
-X-Received: by 2002:a25:6e05:: with SMTP id j5mr7189543ybc.86.1625822391031;
- Fri, 09 Jul 2021 02:19:51 -0700 (PDT)
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=qZnM+132Y4oOB9vUGYdfqjmy92j4YSebwZscNASvr68=;
+ b=a1jUqhR+0As8f9zEACWWEaoDH/YZTOq/i17OFj/cKFyOspMiQEghyC+5JcPovbLlgq
+ eV1hxIieyXp4QyFgzO5TDitjsElNhIIFFckHez+SoxgwhyJK9mrvBDnvnLH5gO+eoNf5
+ ZvD/ffYqK4anwyDgPvhd+SlTPYfn6nIUCSUy/vFfa/WCwKtSKXQZ7XKwGetDe2/ULcn2
+ WpliwesXDAwCsR3UfKl2QQGt9y7PUKC9x6vxYBHlRM64tFAGlz5fTzzkSWvr+177r0Tw
+ NOid4lTCt9CIe2QqISFUeblqYwN7sR3bGNlx/eFGiiq4Ft7baF58uHaT1fQz5ZAhEWAP
+ oNqw==
+X-Gm-Message-State: AOAM531FHoUl1iAyHczuMxeF5pPbzNcpLmQ+kFN5ztzRKONcnL6eVUv6
+ 31gY4SDR4XwuqlcRCNxEI+PINyUaY5XG
+X-Google-Smtp-Source: ABdhPJwhFoTWVhQGJcS8x/mCt0nPHJ92eDO96NPjKS1AkCJ4lF7n3DbsizikM/5rRS3wyef5lhLIyw==
+X-Received: by 2002:a05:651c:1689:: with SMTP id
+ bd9mr27863220ljb.373.1625825135082; 
+ Fri, 09 Jul 2021 03:05:35 -0700 (PDT)
+Received: from [192.168.1.53] ([91.247.148.5])
+ by smtp.gmail.com with ESMTPSA id u25sm425698lfm.131.2021.07.09.03.05.34
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 09 Jul 2021 03:05:34 -0700 (PDT)
+To: Yang Xu <xuyang2018.jy@fujitsu.com>
+References: <50bca7a2-41f5-3eba-d1da-e8e12c883d22@bell-sw.com>
+ <1625733759-30715-1-git-send-email-xuyang2018.jy@fujitsu.com>
+From: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
+Message-ID: <7d822a0c-451c-4653-23f1-9bbc81bd0842@bell-sw.com>
+Date: Fri, 9 Jul 2021 13:05:34 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-References: <20210709075204.999168-1-liwang@redhat.com> <YOgCtfqdl4719aXr@yuki>
-In-Reply-To: <YOgCtfqdl4719aXr@yuki>
-From: Li Wang <liwang@redhat.com>
-Date: Fri, 9 Jul 2021 17:19:39 +0800
-Message-ID: <CAEemH2c8EQR0XGM_uM+Mg55T3fMnXErcdy9bwOvxEyjk_hg4QQ@mail.gmail.com>
-To: Cyril Hrubis <chrubis@suse.cz>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+In-Reply-To: <1625733759-30715-1-git-send-email-xuyang2018.jy@fujitsu.com>
+Content-Language: en-US
 X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3 1/3] lib: add new function tst_get_device_size
+Subject: Re: [LTP] [PATCH v2] network/tc01.sh: Add a regression test for tc
+ qdisc command
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,62 +87,38 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============1042251353=="
+Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1042251353==
-Content-Type: multipart/alternative; boundary="00000000000015ebca05c6ad4617"
+On 08.07.2021 11:42, Yang Xu wrote:
+> Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
+> ---
+...
+> +do_test()
+> +{
+> +	tst_res TINFO "Use tc qdisc command to trigger a null-pointer dereference"
+> +
+> +	EXPECT_FAIL tc qdisc add dev teql0 root teql0
+> +
+> +	dmesg | grep RIP | grep teql_destroy | grep sch_teql > /dev/null
 
---00000000000015ebca05c6ad4617
-Content-Type: text/plain; charset="UTF-8"
+It can be simplified to:
 
-On Fri, Jul 9, 2021 at 4:28 PM Cyril Hrubis <chrubis@suse.cz> wrote:
+if dmesg | grep -q 'RIP:.*sch_teql'; then
 
-> Hi!
-> The whole patchset looks good.
->
-> Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
->
-
-Merged, thanks for the review!
-
--- 
-Regards,
-Li Wang
-
---00000000000015ebca05c6ad4617
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Fri, Jul 9, 2021 at 4:28 PM Cyril Hrubis &lt;<a =
-href=3D"mailto:chrubis@suse.cz">chrubis@suse.cz</a>&gt; wrote:<br></div><bl=
-ockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-lef=
-t:1px solid rgb(204,204,204);padding-left:1ex">Hi!<br>
-The whole patchset looks good.<br>
-<br>
-Reviewed-by: Cyril Hrubis &lt;<a href=3D"mailto:chrubis@suse.cz" target=3D"=
-_blank">chrubis@suse.cz</a>&gt;<br></blockquote><div><br></div><div class=
-=3D"gmail_default" style=3D"font-size:small">Merged, thanks for the review!=
-</div></div><div><br></div>-- <br><div dir=3D"ltr" class=3D"gmail_signature=
-"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div></div></div=
-></div>
-
---00000000000015ebca05c6ad4617--
-
-
---===============1042251353==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+> +	if [ $? -eq 0 ]; then
+> +		tst_res TFAIL "This bug is reproduced."
+> +	else
+> +		tst_res TPASS "This bug is not reproduced."
+> +	fi
+> +}
+> +
+> +tst_run
+> 
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============1042251353==--
-
