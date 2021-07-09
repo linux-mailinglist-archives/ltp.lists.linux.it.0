@@ -2,68 +2,71 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DE273C203E
-	for <lists+linux-ltp@lfdr.de>; Fri,  9 Jul 2021 09:52:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85EF13C20CF
+	for <lists+linux-ltp@lfdr.de>; Fri,  9 Jul 2021 10:28:40 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 499FB3C67DB
-	for <lists+linux-ltp@lfdr.de>; Fri,  9 Jul 2021 09:52:32 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 5611D3C67FA
+	for <lists+linux-ltp@lfdr.de>; Fri,  9 Jul 2021 10:28:40 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 4119B3C790A
- for <ltp@lists.linux.it>; Fri,  9 Jul 2021 09:52:14 +0200 (CEST)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 37A823C67A7
+ for <ltp@lists.linux.it>; Fri,  9 Jul 2021 10:28:37 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id B71366001F2
- for <ltp@lists.linux.it>; Fri,  9 Jul 2021 09:52:13 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1625817132;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id EAA391400C5B
+ for <ltp@lists.linux.it>; Fri,  9 Jul 2021 10:28:36 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 1C18B2026C;
+ Fri,  9 Jul 2021 08:28:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1625819316; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=tJgH3fbalZQlUHldMEHnzw72GqiKRIluSoozc+P1mU8=;
- b=aNlTwEf4RYbmdwQ+s3PbLnU87jWXwcLQv9Dm4qVMYIFFvlWgVpPbv3vBHREFak/fYtgprV
- FsBqM3mHk/XN/NVZKTCEaOlLKO0EoDWlDXsDGoY3tseQtCTQzO2CU2ZVWQNRYzwhQD48U0
- xZgbjxOyTsJU4mCDkgqP69sFRwXzzOw=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-107-yPem5-JpOcW7lA5B-qeOzQ-1; Fri, 09 Jul 2021 03:52:11 -0400
-X-MC-Unique: yPem5-JpOcW7lA5B-qeOzQ-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
- [10.5.11.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ bh=qStrAuSl5iigFBfGDV31Mg2cdH97zw/iG2LHCgvKSuM=;
+ b=BWFSXD6gRXRWCS5BcREqULMFv3myPTfShlef8RFGCfn5Rr/XWsVB+QK6ocKEy0+ic/ewbz
+ z6evIqmre2OfzL0yt4GShbDZjz/Y4Hn75SdymGypq1yD/1FBVyeX2ruFyzYY5ruTqEOTv7
+ WAOE2udon6gnQwX9JqngWD7S3xxFMi0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1625819316;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=qStrAuSl5iigFBfGDV31Mg2cdH97zw/iG2LHCgvKSuM=;
+ b=qaFt86fS+CaWO9703i6xYsmO2gOHgYeMFbME+W8g99nw+Z8CVyeppja9EJDI4YNpW7kXIo
+ lLVeOHVVxI5/TcDg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id F232D100CA89;
- Fri,  9 Jul 2021 07:52:09 +0000 (UTC)
-Received: from liwang-workstation.nay.redhat.com
- (dhcp-66-81-187.nay.redhat.com [10.66.81.187])
- by smtp.corp.redhat.com (Postfix) with ESMTP id DE3F05D6A8;
- Fri,  9 Jul 2021 07:52:08 +0000 (UTC)
-From: Li Wang <liwang@redhat.com>
-To: ltp@lists.linux.it
-Date: Fri,  9 Jul 2021 15:52:04 +0800
-Message-Id: <20210709075204.999168-3-liwang@redhat.com>
-In-Reply-To: <20210709075204.999168-1-liwang@redhat.com>
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id F1AF813B32;
+ Fri,  9 Jul 2021 08:28:35 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id Ez7KObMI6GCBVAAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Fri, 09 Jul 2021 08:28:35 +0000
+Date: Fri, 9 Jul 2021 10:03:01 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Li Wang <liwang@redhat.com>
+Message-ID: <YOgCtfqdl4719aXr@yuki>
 References: <20210709075204.999168-1-liwang@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwang@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20210709075204.999168-1-liwang@redhat.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v3 3/3] lib: mount tmpfs name as ltp-tmpfs
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3 1/3] lib: add new function tst_get_device_size
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,56 +78,20 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Given a specific name as "ltp-tmpfs" instead of the "/dev/loopX"
-string in order to make "tmpfs" filesystem more evident.
+Hi!
+The whole patchset looks good.
 
-Achieve that in get_device_name() function.
-
-Suggested-by: Cyril Hrubis <chrubis@suse.cz>
-Signed-off-by: Li Wang <liwang@redhat.com>
 Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
----
- lib/tst_test.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
 
-diff --git a/lib/tst_test.c b/lib/tst_test.c
-index b996f1b2e..f4d9f8e3b 100644
---- a/lib/tst_test.c
-+++ b/lib/tst_test.c
-@@ -898,6 +898,14 @@ static char *limit_tmpfs_mount_size(const char *mnt_data,
- 	return buf;
- }
- 
-+static const char *get_device_name(const char *fs_type)
-+{
-+       if (!strcmp(fs_type, "tmpfs"))
-+               return "ltp-tmpfs";
-+       else
-+               return tdev.dev;
-+}
-+
- static void prepare_device(void)
- {
- 	char *mnt_data, buf[1024];
-@@ -917,8 +925,8 @@ static void prepare_device(void)
- 		mnt_data = limit_tmpfs_mount_size(tst_test->mnt_data,
- 				buf, sizeof(buf), tdev.fs_type);
- 
--		SAFE_MOUNT(tdev.dev, tst_test->mntpoint, tdev.fs_type,
--			   tst_test->mnt_flags, mnt_data);
-+		SAFE_MOUNT(get_device_name(tdev.fs_type), tst_test->mntpoint,
-+				tdev.fs_type, tst_test->mnt_flags, mnt_data);
- 		mntpoint_mounted = 1;
- 	}
- }
 -- 
-2.31.1
-
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
