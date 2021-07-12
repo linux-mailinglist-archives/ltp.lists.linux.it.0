@@ -2,72 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 568EB3C45E9
-	for <lists+linux-ltp@lfdr.de>; Mon, 12 Jul 2021 09:53:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D8153C45EA
+	for <lists+linux-ltp@lfdr.de>; Mon, 12 Jul 2021 09:54:01 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id F30683C6740
-	for <lists+linux-ltp@lfdr.de>; Mon, 12 Jul 2021 09:53:48 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id CBEED3C879C
+	for <lists+linux-ltp@lfdr.de>; Mon, 12 Jul 2021 09:54:00 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 15C263C1B32
- for <ltp@lists.linux.it>; Mon, 12 Jul 2021 09:53:47 +0200 (CEST)
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [IPv6:2a00:1450:4864:20::12b])
+ by picard.linux.it (Postfix) with ESMTPS id 64D093C1B32
+ for <ltp@lists.linux.it>; Mon, 12 Jul 2021 09:53:48 +0200 (CEST)
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [IPv6:2a00:1450:4864:20::233])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 867B41400546
- for <ltp@lists.linux.it>; Mon, 12 Jul 2021 09:53:47 +0200 (CEST)
-Received: by mail-lf1-x12b.google.com with SMTP id x25so28815966lfu.13
- for <ltp@lists.linux.it>; Mon, 12 Jul 2021 00:53:47 -0700 (PDT)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 07BF07CEC83
+ for <ltp@lists.linux.it>; Mon, 12 Jul 2021 09:53:48 +0200 (CEST)
+Received: by mail-lj1-x233.google.com with SMTP id e20so22684882ljn.8
+ for <ltp@lists.linux.it>; Mon, 12 Jul 2021 00:53:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=bell-sw-com.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=GBwU8A27TbwsV0HTW5T3GdbL98OPP7MPst71Wjf3bfc=;
- b=Es6pmoH8xKfb2eYiTwj8zVG53TUZ8OpcHUt8XMnKecrvhFk2/6i8CuS/pZ7wtgPHa+
- quemzRP+xLDxrXKAW+p6enp1YFVWF8JXX+t0TBPRnOM5kxuIaYu/sQZ5SuSghhjBmhLh
- hrrNmrRy8CbDOthblHLO8kTC6Um7O0PUE+Ct0g5VbCLGDiSORtCI2QUZopzGanRRC39V
- Za5mvPr/7y0yTR7Ark4wBSWkRjlTuqUDPOz4CFMKerVIqCCAtJjyIhCpPFqfXWz+ciKA
- TtsTj0BvIrCOwxlOF3IQnrI5ur4VfQsX4mVmvtRUCIM6lz3KmeuNy1qjlUgUhqw0NI8E
- +4Mw==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=qzBx4XR/N05+xQJ3F7QsdMKmoCxMc2gePB+FZXVjimQ=;
+ b=zNV61SnPTwau+PONk1kPqMwWyb61IDa4Dr8bz/khIbVw9h+vxqat9Yy7ZHsUqMKLe7
+ 5uI8kE7RmfMIGGgy+rbPcd22N5n+4/VyuqOWEy5VL0ms5qzmMtTz28brvRrsO0jNJCys
+ dZ1B/UF7O+CaR7CH3rSn8vjeU2eTsBCbq54rJrEwt+3Ua85oIfiUJfbRhoslX+WOc61h
+ o2USTQqPdpv5fd3AFC7WEGY9OHKnquhSN+u5soLAXvUof7sSmoLh146OJ1DP+DQZJC1U
+ LYwGO3Xrb62kDej78utJKjxpQPUw90fUd2ojqDYBfi2zhpvaccci26gZ9O5a2RnSPn8c
+ t8kQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=GBwU8A27TbwsV0HTW5T3GdbL98OPP7MPst71Wjf3bfc=;
- b=ukYnkCJ7mIkTG3WnpIdxj9zkcPgeiFQxjL4sSGGrg/SvcF+EPqaYygotZrxIUkKITo
- 5+qH2SaVMZnzrSrzzRlmgFICYKgYtryfVtD/GhwxxHbF50LpnJrhgyr0zGFTYcJO0Zf4
- DfY6HDulei+kfGvlLxVxtevaxrQ22MvbrY7bg+jmyDn9n7ubk6qFuwFH/xGAecCr2mVy
- Ogec/4pvNu/4dtiQe6GishYc8DMLXrv3MU+bY84TAhkEvwIxeN/JQrGhcc3ZpnEUbgpS
- +g8IHAfljZRaOQnB9Yp+rm89ipj/FJLgbIUtLnHHZHIfKi3E9uXsv9SyFowpLj6TwO5G
- bsgA==
-X-Gm-Message-State: AOAM530zRspyMUtM20AilszMQYkM6qEhPD65/YGqQRol+q7q3hpK1HD0
- afovXYN1/ZMVwqwafNQ6R/+eTa7kH5fT
-X-Google-Smtp-Source: ABdhPJxBP4gu9lwNXvrmLhZ+C07sJB7Wq2e9rT+Pq7Ci0HwxNuk6yGYTDNRqiQtkI3YhSToq8TF2HA==
-X-Received: by 2002:a05:6512:260a:: with SMTP id
- bt10mr11720084lfb.636.1626076426824; 
- Mon, 12 Jul 2021 00:53:46 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=qzBx4XR/N05+xQJ3F7QsdMKmoCxMc2gePB+FZXVjimQ=;
+ b=DT2ab/GiorbxUBudPVdp8WVGzKhrnj827b/P8teEeOu40oMIOs6Xo3aSqrOL6xHqKd
+ FvngruNELSR9W4gLTQM4aywN/nb/SmoAki7ifwylWsQecvNFFebiR1rUjGHpTIULNVdn
+ Eh8G2+I2ZNhS33Kl9gaRDaAdoN374txZlG7RUO9/6IMbJK1NvOuCrxyY9HUttuuAk8Rl
+ nnwtdCn+0bkomaB+rLYzBM/vgK/cLKHx5gZqSnbYcG6kwYJ8uA8ewKimELv+vFNJUqYT
+ RPvJxeNKkJqYXbRwW7eeIBZsI5Kn/YqbZfgE6WkRb/VUZUMfVs0lPlWfY5Lw+u+sv1KW
+ hOLw==
+X-Gm-Message-State: AOAM532jbpHjvznwCyK+yUPO9+cRjhY6604CxmbT2YUn3uR5OXvZVmCB
+ xk7jX8ZOWNDc3LT5aKGOxjW2nji4wFEE
+X-Google-Smtp-Source: ABdhPJz5DorVXhDqZeHUw1Gjr60iPHC3QywHOPsSuSKAdcdFpMqEfDkPuch+yXhW8Fj0yOHULgl1MQ==
+X-Received: by 2002:a2e:557:: with SMTP id 84mr41281739ljf.211.1626076427376; 
+ Mon, 12 Jul 2021 00:53:47 -0700 (PDT)
 Received: from localhost.localdomain ([91.247.148.7])
- by smtp.gmail.com with ESMTPSA id f19sm1138194lfj.156.2021.07.12.00.53.46
+ by smtp.gmail.com with ESMTPSA id f19sm1138194lfj.156.2021.07.12.00.53.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 12 Jul 2021 00:53:46 -0700 (PDT)
+ Mon, 12 Jul 2021 00:53:47 -0700 (PDT)
 From: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
 To: ltp@lists.linux.it
-Date: Mon, 12 Jul 2021 10:52:22 +0300
-Message-Id: <20210712075223.10682-1-aleksei.kodanev@bell-sw.com>
+Date: Mon, 12 Jul 2021 10:52:23 +0300
+Message-Id: <20210712075223.10682-2-aleksei.kodanev@bell-sw.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20210712075223.10682-1-aleksei.kodanev@bell-sw.com>
+References: <20210712075223.10682-1-aleksei.kodanev@bell-sw.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 1/2] shmget03: don't depend on existed shared
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 2/2] msgget03: don't depend on existed shared
  resources
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -93,85 +94,60 @@ Signed-off-by: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
 ---
 v2: * Move the loop to the test run function and try to get
       ENOSPC errno there.
-    * Rename queues* to segments*
 
- .../kernel/syscalls/ipc/shmget/shmget03.c     | 42 ++++++++++---------
- 1 file changed, 22 insertions(+), 20 deletions(-)
+ .../kernel/syscalls/ipc/msgget/msgget03.c     | 31 ++++++++++---------
+ 1 file changed, 16 insertions(+), 15 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/ipc/shmget/shmget03.c b/testcases/kernel/syscalls/ipc/shmget/shmget03.c
-index efbc465e1..5dc5d55fd 100644
---- a/testcases/kernel/syscalls/ipc/shmget/shmget03.c
-+++ b/testcases/kernel/syscalls/ipc/shmget/shmget03.c
-@@ -21,47 +21,49 @@
- #include "tst_safe_sysv_ipc.h"
- #include "libnewipc.h"
+diff --git a/testcases/kernel/syscalls/ipc/msgget/msgget03.c b/testcases/kernel/syscalls/ipc/msgget/msgget03.c
+index 76cf82cd3..1ade8f942 100644
+--- a/testcases/kernel/syscalls/ipc/msgget/msgget03.c
++++ b/testcases/kernel/syscalls/ipc/msgget/msgget03.c
+@@ -26,29 +26,30 @@ static key_t msgkey;
  
--static int *queues;
--static int maxshms, queue_cnt;
-+static int *segments;
-+static int maxshms, segments_cnt;
- static key_t shmkey;
- 
- static void verify_shmget(void)
+ static void verify_msgget(void)
  {
--	TST_EXP_FAIL2(shmget(shmkey + maxshms, SHM_SIZE, IPC_CREAT | IPC_EXCL | SHM_RW), ENOSPC,
--		"shmget(%i, %i, %i)", shmkey + maxshms, SHM_SIZE, IPC_CREAT | IPC_EXCL | SHM_RW);
+-	TST_EXP_FAIL2(msgget(msgkey + maxmsgs, IPC_CREAT | IPC_EXCL), ENOSPC,
+-		"msgget(%i, %i)", msgkey + maxmsgs, IPC_CREAT | IPC_EXCL);
 +	int res = 0, num;
 +
 +	errno = 0;
-+	for (num = 0; num <= maxshms; ++num) {
-+		res = shmget(shmkey + num, SHM_SIZE, IPC_CREAT | IPC_EXCL | SHM_RW);
++	for (num = 0; num <= maxmsgs; ++num) {
++		res = msgget(msgkey + num, IPC_CREAT | IPC_EXCL);
 +		if (res == -1)
 +			break;
-+		segments[segments_cnt++] = res;
++		queues[queue_cnt++] = res;
 +	}
 +
 +	if (res != -1 || errno != ENOSPC)
 +		tst_brk(TFAIL | TERRNO, "Failed to trigger ENOSPC error");
 +
-+	tst_res(TPASS, "Maximum number of segments reached (%d), used by test %d",
-+		maxshms, segments_cnt);
++	tst_res(TPASS, "Maximum number of queues reached (%d), used by test %d",
++		maxmsgs, queue_cnt);
  }
  
  static void setup(void)
  {
 -	int res, num;
 -
- 	shmkey = GETIPCKEY();
+ 	msgkey = GETIPCKEY();
  
- 	SAFE_FILE_SCANF("/proc/sys/kernel/shmmni", "%i", &maxshms);
+ 	SAFE_FILE_SCANF("/proc/sys/kernel/msgmni", "%i", &maxmsgs);
  
--	queues = SAFE_MALLOC(maxshms * sizeof(int));
--	for (num = 0; num < maxshms; num++) {
--		res = shmget(shmkey + num, SHM_SIZE, IPC_CREAT | IPC_EXCL | SHM_RW);
--		if (res == -1)
--			tst_brk(TBROK | TERRNO, "shmget failed unexpectedly");
+-	queues = SAFE_MALLOC(maxmsgs * sizeof(int));
 -
+-	for (num = 0; num < maxmsgs; num++) {
+-		res = msgget(msgkey + num, IPC_CREAT | IPC_EXCL);
+-		if (res == -1)
+-			tst_brk(TBROK | TERRNO, "msgget failed unexpectedly");
 -		queues[queue_cnt++] = res;
 -	}
--	tst_res(TINFO, "The maximum number of memory segments (%d) has been reached",
--		maxshms);
-+	segments = SAFE_MALLOC((maxshms + 1) * sizeof(int));
+-
+-	tst_res(TINFO, "The maximum number of message queues (%d) reached",
+-		maxmsgs);
++	queues = SAFE_MALLOC((maxmsgs + 1) * sizeof(int));
  }
  
  static void cleanup(void)
- {
- 	int num;
- 
--	if (!queues)
-+	if (!segments)
- 		return;
- 
--	for (num = 0; num < queue_cnt; num++)
--		SAFE_SHMCTL(queues[num], IPC_RMID, NULL);
-+	for (num = 0; num < segments_cnt; num++)
-+		SAFE_SHMCTL(segments[num], IPC_RMID, NULL);
- 
--	free(queues);
-+	free(segments);
- }
- 
- static struct tst_test test = {
 -- 
 2.25.1
 
