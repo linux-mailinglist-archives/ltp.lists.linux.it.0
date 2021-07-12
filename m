@@ -1,79 +1,81 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D79B3C45FF
-	for <lists+linux-ltp@lfdr.de>; Mon, 12 Jul 2021 10:19:47 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 273FB3C460C
+	for <lists+linux-ltp@lfdr.de>; Mon, 12 Jul 2021 10:28:23 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E48513C6740
-	for <lists+linux-ltp@lfdr.de>; Mon, 12 Jul 2021 10:19:46 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id EDED33C6741
+	for <lists+linux-ltp@lfdr.de>; Mon, 12 Jul 2021 10:28:22 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 8CD713C2FDD
- for <ltp@lists.linux.it>; Mon, 12 Jul 2021 10:19:44 +0200 (CEST)
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [IPv6:2a00:1450:4864:20::233])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id 0A2AB3C1DD9
+ for <ltp@lists.linux.it>; Mon, 12 Jul 2021 10:28:21 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id D7FDA6008E1
- for <ltp@lists.linux.it>; Mon, 12 Jul 2021 10:19:43 +0200 (CEST)
-Received: by mail-lj1-x233.google.com with SMTP id b40so22782513ljf.12
- for <ltp@lists.linux.it>; Mon, 12 Jul 2021 01:19:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bell-sw-com.20150623.gappssmtp.com; s=20150623;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=XxmN1KkBse2I1CLNeFq23i2yW2xGMR8/uXJhDXx63RA=;
- b=FAlYEup7QTI/7dT0SRzHMXWJEbP110aIiog8wbM9qk937azp0VjUfVvbhyzb46Czg+
- uOd0EdM8EtodGy1x8uP2H+pXJ+JYw9zrBPY5X7P90qdUiXD5Y7EpNitxmZs6M5EcQ+cR
- RtGN5Yxlfa9G34aSzokALfp5YdMUkH77zHxS/AhbZz9d0wM7yux/KIgyVISUdFvVjydY
- PLeOKfUU+0eDbiZsy1/15O4FyidI37TFYXheTQB4Cklqyyvx7tYkeZzpOSUM9nPXiaDM
- O2kxl2+S1mOOelLHoKpeLam1O/H+cXa9fhG3T2tR2RnRMkUPPB5BnoJrjZdKoZxPG2yp
- oeFQ==
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id A43956002B9
+ for <ltp@lists.linux.it>; Mon, 12 Jul 2021 10:28:20 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1626078498;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=MHt9R1upg7MQiG9e3K8rVDArrYO0cNBanD24HNJqPlc=;
+ b=grnIWGNEARDeAviIF54cI/6Q2Bol1wqRrjclG5gAUq9nhPD5m5b29lx2o4rCM08NinMlRb
+ xmUtrXqnJvlZfb5DBO/dDJC1s9VFfIcEaE3phCN5gXhdwfM0Iytg60cewoG1ChWTTof8sj
+ zyRpAXGExdP4tAEEL9DK3MbUbE2B6w8=
+Received: from mail-yb1-f200.google.com (mail-yb1-f200.google.com
+ [209.85.219.200]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-595-TbDaPBSmM4meImRBEBqyOw-1; Mon, 12 Jul 2021 04:28:17 -0400
+X-MC-Unique: TbDaPBSmM4meImRBEBqyOw-1
+Received: by mail-yb1-f200.google.com with SMTP id
+ q10-20020a056902150ab02905592911c932so21642123ybu.15
+ for <ltp@lists.linux.it>; Mon, 12 Jul 2021 01:28:17 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=XxmN1KkBse2I1CLNeFq23i2yW2xGMR8/uXJhDXx63RA=;
- b=YENycZP2PSz5PXTsW7kvlPThI8WvD6xlhytYZPV6LR7qqNbPFO1RKnw8IdvzFnX1Vv
- Xlg3il8JB1gYzRDzysgaV5pwYd8reu6wTqkYq5j5IVe6Fv9B4XWZuoP6xdUJc1yclC9i
- Ea6iNA0oyD062IbtPKcTE2lx4gH6+NqhmgiEPiw4Pmnz3rqS5vjyATpKlR/gfbmdAVcc
- Cg15Gz+eStkCQcbjl/meEjOXW3EGtZ+7jxtwQlmyDnGZ3XFRs7p/aPzSPaeQswcgP0UA
- 8DRh9G0Ml4r5RCiUB6PE20JRXsSaIHgYjzu44iJC6WTd1Eqm4SsWqbCnvTUPYUe9bh6T
- XGkg==
-X-Gm-Message-State: AOAM531Uic3v0cjjzyBXzrve+ieOW60rcFopcvJ7aMJ/gV0Xuh64muuE
- wh0rM9/LGzuDZODEeoa1nEaB+dZsR6pd
-X-Google-Smtp-Source: ABdhPJwVwJVlF/s6Rn0/hj8V8n5N+6DWmLA/mJFd/8wS3B82R3kK1UJEgssaZt2TagB9CyxozUM4kA==
-X-Received: by 2002:a2e:bc21:: with SMTP id b33mr6530452ljf.188.1626077983082; 
- Mon, 12 Jul 2021 01:19:43 -0700 (PDT)
-Received: from [192.168.1.53] ([91.247.148.7])
- by smtp.gmail.com with ESMTPSA id u26sm5227lfi.305.2021.07.12.01.19.42
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 12 Jul 2021 01:19:42 -0700 (PDT)
-To: Yang Xu <xuyang2018.jy@fujitsu.com>
-References: <7d822a0c-451c-4653-23f1-9bbc81bd0842@bell-sw.com>
- <1626056297-5744-1-git-send-email-xuyang2018.jy@fujitsu.com>
-From: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
-Message-ID: <ae2bc43c-1745-a0f1-67a7-b9d5a6691404@bell-sw.com>
-Date: Mon, 12 Jul 2021 11:19:42 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=MHt9R1upg7MQiG9e3K8rVDArrYO0cNBanD24HNJqPlc=;
+ b=H16GEBRpAZ3yDgrDCC5/aMc7I3MbGI5mlPGZ0yBIXy8UkMEm3/i63Qz74IcMvapFpk
+ j8P5N6p4zBoGv+DUiPCM50Af7qCKhZaTI4lqrf2V4CCPVn/mGbkFM1wySDFhh0eXF+/6
+ p8woQ/QjTGa5M5zIb5aocJLvt/OiXmZETaF6egahjMjmGhdEtg6nfiRfagaDO85hKUzs
+ LaTvPDQnhQSIW6cLD/mUNy1dc94IYGJaTHhAieJJDMrEconJoR3D+rdntvD+KmeRSFn9
+ 2uQ/+4umzP1i4CNUAqiNKuP6kGv3fEjxthBmVr5SBuOfQe8h+Kx0Cy0SNJ4Gz6cI2XlR
+ 9V/w==
+X-Gm-Message-State: AOAM530/3i+TpLbuRDVk5ObFLUK2F9kWNXC9I++IQL9pOeIbcFT15rkD
+ O4DtHOW6t7yWCHr/SIYpfSq5MHUdGJRbOa/8JI2E1U2BtLvYOVZr5pnsfn0+oEAksAR/akwSafO
+ tmYIwJXYD1YIXVek/T7PxYX/MhW8=
+X-Received: by 2002:a25:6e05:: with SMTP id j5mr26089875ybc.86.1626078496705; 
+ Mon, 12 Jul 2021 01:28:16 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJxL8Pt4Qgo0mIZSv6pjqvpAnV/bIhEDad+ToRHOsIU0ganGYe3FfOwjIX5gpEOEWaxvQ2NVD81T+w1SkKGr0iE=
+X-Received: by 2002:a25:6e05:: with SMTP id j5mr26089845ybc.86.1626078496344; 
+ Mon, 12 Jul 2021 01:28:16 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <1626056297-5744-1-git-send-email-xuyang2018.jy@fujitsu.com>
-Content-Language: en-US
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+References: <20210712075223.10682-1-aleksei.kodanev@bell-sw.com>
+In-Reply-To: <20210712075223.10682-1-aleksei.kodanev@bell-sw.com>
+From: Li Wang <liwang@redhat.com>
+Date: Mon, 12 Jul 2021 16:28:04 +0800
+Message-ID: <CAEemH2ehOzddTbDqZBcbyZcnUy3899u_U81XGtckf1Gs_LJGMA@mail.gmail.com>
+To: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.5 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3] network/tc01.sh: Add a regression test for tc
- qdisc command
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 1/2] shmget03: don't depend on existed shared
+ resources
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,119 +87,93 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============0233662893=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Xu!
-On 12.07.2021 05:18, Yang Xu wrote:
-> Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
+--===============0233662893==
+Content-Type: multipart/alternative; boundary="00000000000026e9cb05c6e8e77d"
+
+--00000000000026e9cb05c6e8e77d
+Content-Type: text/plain; charset="UTF-8"
+
+On Mon, Jul 12, 2021 at 3:54 PM Alexey Kodanev <aleksei.kodanev@bell-sw.com>
+wrote:
+
+> It's unlikely, but still possible that some of them could be
+> created/released during the test as well, so the patch only
+> checks errno.
+>
+> Signed-off-by: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
 > ---
->  runtest/net.tcp_cmds                   |  1 +
->  testcases/network/tcp_cmds/tc/Makefile | 13 +++++++
->  testcases/network/tcp_cmds/tc/tc01.sh  | 47 ++++++++++++++++++++++++++
->  3 files changed, 61 insertions(+)
->  create mode 100644 testcases/network/tcp_cmds/tc/Makefile
->  create mode 100755 testcases/network/tcp_cmds/tc/tc01.sh
-> 
-> diff --git a/runtest/net.tcp_cmds b/runtest/net.tcp_cmds
-> index db47dfd5b..7e142de11 100644
-> --- a/runtest/net.tcp_cmds
-> +++ b/runtest/net.tcp_cmds
-> @@ -12,6 +12,7 @@ netstat netstat01.sh
->  ping01 ping01.sh
->  ping02 ping02.sh
->  sendfile sendfile01.sh
-> +tc01 tc01.sh
->  tcpdump tcpdump01.sh
->  telnet telnet01.sh
->  iptables iptables01.sh
-> diff --git a/testcases/network/tcp_cmds/tc/Makefile b/testcases/network/tcp_cmds/tc/Makefile
-> new file mode 100644
-> index 000000000..60150a1ce
-> --- /dev/null
-> +++ b/testcases/network/tcp_cmds/tc/Makefile
-> @@ -0,0 +1,13 @@
-> +# SPDX-License-Identifier: GPL-2.0-or-later
-> +# Copyright (C) 2009, Cisco Systems Inc.
-> +# Ngie Cooper, July 2009
+> v2: * Move the loop to the test run function and try to get
+>       ENOSPC errno there.
+>
 
-Since it's a new Makefile, not sure if it should be copy-pasted
-from the other tests...
+I'm fine to go with this but move the loop to test run without any
+limit will bring new fail if running with parameter '-i 2'.
 
-> +
-> +top_srcdir		?= ../../../..
-> +
-> +include $(top_srcdir)/include/mk/env_pre.mk
-> +
-> +INSTALL_TARGETS		:= tc01.sh
-> +
-> +MAKE_TARGETS		:=
+We have to handle that situation (maybe add a judgment to skip
+test for run more times) in case someone uses it like:
 
-There is no point adding an empty make targets here.
+# ./shmget03 -i 2
+tst_test.c:1344: TINFO: Timeout per run is 0h 05m 00s
+shmget03.c:44: TPASS: Maximum number of segments reached (4096), used by
+test 4096
+shmget03.c:41: TFAIL: Failed to trigger ENOSPC error: EEXIST (17)
 
-> +
-> +include $(top_srcdir)/include/mk/generic_leaf_target.mk
-> diff --git a/testcases/network/tcp_cmds/tc/tc01.sh b/testcases/network/tcp_cmds/tc/tc01.sh
-> new file mode 100755
-> index 000000000..a9da45b41
-> --- /dev/null
-> +++ b/testcases/network/tcp_cmds/tc/tc01.sh
-> @@ -0,0 +1,47 @@
-> +#!/bin/sh
-> +# SPDX-License-Identifier: GPL-2.0-or-later
-> +# Copyright (c) 2021 FUJITSU LIMITED. All rights reserved.
-> +# Author: Yang Xu<xuyang2018.jy@fujitsu.com>
-> +#
-> +# When using "tc qdisc add dev teql0 root teql0 command", qdisc_create()
-> +# calls teql_qdisc_init() it imediately fails after check "if (m->dev == dev)"
-> +# because both devices are teql0, and it does not set qdisc_priv(sch)->m
-> +# leaving it zero on error path, then qdisc_create() imediately calls
-> +# teql_destroy() which does not expect zero master pointer and we get OOPS
-> +# on unpatched kernel.
-> +#
-> +# If we enable panic_on_oops, this case may crash.
-> +#
-> +# This kernel bug was introduced by
-> +# commit 87b60cfacf9f ("net_sched: fix error recovery at qdisc creation")
-> +# and has been fixed by
-> +# commit 1ffbc7ea9160 ("net: sched: sch_teql: fix null-pointer dereference")
-> +#
-> +
-> +TST_SETUP="setup"
-> +TST_TESTFUNC="do_test"
-> +TST_NEEDS_ROOT=1
-> +TST_NEEDS_DRIVERS="sch_teql"
-> +TST_NEEDS_CMDS="tc modprobe dmesg grep"
-> +
-> +. tst_test.sh
-> +
-> +setup()
-> +{
-> +	ROD modprobe $TST_NEEDS_DRIVERS
-> +}
-> +
-> +do_test()
-> +{
-> +	tst_res TINFO "Use tc qdisc command to trigger a null-pointer dereference"
-> +
-> +	EXPECT_FAIL tc qdisc add dev teql0 root teql0
-> +
-> +	if dmesg | grep -q 'RIP:.*sch_teql'; then
-> +		tst_res TFAIL "This bug is reproduced."
-> +	else
-> +		tst_res TPASS "This bug is not reproduced."
-> +	fi
-> +}
-> +
-> +tst_run
-> 
+-- 
+Regards,
+Li Wang
 
-For the rest:
+--00000000000026e9cb05c6e8e77d
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Reviewed-by: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Mon, Jul 12, 2021 at 3:54 PM Alexey Kodanev &lt;=
+<a href=3D"mailto:aleksei.kodanev@bell-sw.com">aleksei.kodanev@bell-sw.com<=
+/a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0=
+px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">I=
+t&#39;s unlikely, but still possible that some of them could be<br>
+created/released during the test as well, so the patch only<br>
+checks errno.<br>
+<br>
+Signed-off-by: Alexey Kodanev &lt;<a href=3D"mailto:aleksei.kodanev@bell-sw=
+.com" target=3D"_blank">aleksei.kodanev@bell-sw.com</a>&gt;<br>
+---<br>
+v2: * Move the loop to the test run function and try to get<br>
+=C2=A0 =C2=A0 =C2=A0 ENOSPC errno there.<br></blockquote><div><br></div><di=
+v class=3D"gmail_default" style=3D"font-size:small">I&#39;m fine to go with=
+ this but move=C2=A0the loop to test run without any</div><div class=3D"gma=
+il_default" style=3D"font-size:small">limit will bring new fail if running =
+with parameter &#39;-i 2&#39;.</div><div class=3D"gmail_default" style=3D"f=
+ont-size:small"><br></div><div class=3D"gmail_default" style=3D"font-size:s=
+mall">We have to handle that situation (maybe add a judgment to skip</div><=
+div class=3D"gmail_default" style=3D"font-size:small">test for run=C2=A0mor=
+e times) in case someone uses it like:</div><div class=3D"gmail_default" st=
+yle=3D"font-size:small"><br></div># ./shmget03 -i 2<br>tst_test.c:1344: TIN=
+FO: Timeout per run is 0h 05m 00s<br>shmget03.c:44: TPASS: Maximum number o=
+f segments reached (4096), used by test 4096<br>shmget03.c:41: TFAIL: Faile=
+d to trigger ENOSPC error: EEXIST (17)<br><div class=3D"gmail_default" styl=
+e=3D"font-size:small"></div></div><div><br></div>-- <br><div dir=3D"ltr" cl=
+ass=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wan=
+g<br></div></div></div></div>
+
+--00000000000026e9cb05c6e8e77d--
+
+
+--===============0233662893==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============0233662893==--
+
