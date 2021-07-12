@@ -2,75 +2,54 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3B0A3C45A7
-	for <lists+linux-ltp@lfdr.de>; Mon, 12 Jul 2021 08:40:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E7F73C45D8
+	for <lists+linux-ltp@lfdr.de>; Mon, 12 Jul 2021 09:29:34 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id EDCDE3C75DF
-	for <lists+linux-ltp@lfdr.de>; Mon, 12 Jul 2021 08:40:45 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 24BFB3C6742
+	for <lists+linux-ltp@lfdr.de>; Mon, 12 Jul 2021 09:29:34 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 57ADB3C1CE5
- for <ltp@lists.linux.it>; Mon, 12 Jul 2021 08:40:42 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id 3D50B3C1B32
+ for <ltp@lists.linux.it>; Mon, 12 Jul 2021 09:29:31 +0200 (CEST)
+Received: from ATCSQR.andestech.com (exmail.andestech.com [60.248.187.195])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 5F56A6007A7
- for <ltp@lists.linux.it>; Mon, 12 Jul 2021 08:40:41 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 978AB1FD59;
- Mon, 12 Jul 2021 06:40:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1626072040;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=po+hSgB5ScAElRy4+TleFqY1vmZ7x35N99zf/PEwX+g=;
- b=gfwEYDXj446GAnihD3K4c94NBAhOQtd6zT0w8V8yDfHiLXzO6s/VjR0dneWWJ0FM23qzAb
- +S8zIiHDk3AAyQkC733dFnjkFeQzKRFTwSBOBt7Es0wo/KHHhKl1dkhgGejITNVOJ7iI/B
- nFOvb5aiVQbTrJe192E6bnotC+XEyaM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1626072040;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=po+hSgB5ScAElRy4+TleFqY1vmZ7x35N99zf/PEwX+g=;
- b=BYW3LKZRrJl7NFBoOqilN90ah5Yd6JOJiAfYDgRArk/LybmYBb12INLuZ0DG0MGRqlt+7o
- dpMeMny9uaSNppBQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6045913AC2;
- Mon, 12 Jul 2021 06:40:40 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id M00PFujj62BodQAAMHmgww
- (envelope-from <pvorel@suse.cz>); Mon, 12 Jul 2021 06:40:40 +0000
-Date: Mon, 12 Jul 2021 08:40:38 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Joerg Vehlow <lkml@jv-coder.de>
-Message-ID: <YOvj5p/5KL2uRNpT@pevik>
-References: <20210709140143.9180-1-pvorel@suse.cz>
- <CAEemH2fB5VakafKhTgcOsvwK6Q50AJ3WcpRY2fSLfhB86b03Nw@mail.gmail.com>
- <YOvX/tczl7Duu+6L@pevik>
- <34959e10-45fc-f7ea-9e2d-ebe186a97859@jv-coder.de>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id A532E2009F3
+ for <ltp@lists.linux.it>; Mon, 12 Jul 2021 09:29:28 +0200 (CEST)
+Received: from mail.andestech.com (atcpcs16.andestech.com [10.0.1.222])
+ by ATCSQR.andestech.com with ESMTP id 16C7Sjs6091456;
+ Mon, 12 Jul 2021 15:28:45 +0800 (GMT-8)
+ (envelope-from ycliang@andestech.com)
+Received: from andestech.com (10.0.15.65) by ATCPCS16.andestech.com
+ (10.0.1.222) with Microsoft SMTP Server id 14.3.498.0; Mon, 12 Jul 2021
+ 15:28:43 +0800
+Date: Mon, 12 Jul 2021 15:28:40 +0800
+From: Leo Liang <ycliang@andestech.com>
+To: "xuyang2018.jy@fujitsu.com" <xuyang2018.jy@fujitsu.com>
+Message-ID: <20210712072840.GA9612@andestech.com>
+References: <20210628033002.GA1469@andestech.com>
+ <caf1bb46-5212-3c3d-f180-e722ef2cf8dd@jv-coder.de>
+ <YNnJ18Q+cqb8zM5K@yuki> <20210706032748.GA16346@andestech.com>
+ <60E3EE1D.2090800@fujitsu.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <34959e10-45fc-f7ea-9e2d-ebe186a97859@jv-coder.de>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+In-Reply-To: <60E3EE1D.2090800@fujitsu.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Originating-IP: [10.0.15.65]
+X-DNSRBL: 
+X-MAIL: ATCSQR.andestech.com 16C7Sjs6091456
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/1] tst_net.sh: Declare prefix variable as empty
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/1] cgroup/cgroup_regression_test: Fix umount
+ failure
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,64 +61,58 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: LTP List <ltp@lists.linux.it>
+Cc: "richiejp@f-m.fm" <richiejp@f-m.fm>,
+ "alankao@andestech.com" <alankao@andestech.com>, "metan@ucw.cz" <metan@ucw.cz>,
+ "ltp@lists.linux.it" <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Joerg,
+Hi Yang,
 
-> Hi,
+On Tue, Jul 06, 2021 at 05:45:32AM +0000, xuyang2018.jy@fujitsu.com wrote:
+> Hi Leo
+> >
+> >> IMO, Even we call sync, this umount may fail because sync ensures
+> >> nothing.  Why not use tst_umount?
+> >
+> > Hi Yang,
+> >
+> > I think this might be a timing issue and a little delay could fix this problem. (e.g. 'sleep 1')
+> > Using 'sync' here IMHO would be more descriptive and has a semantic meaning.
+> Yes, it is a timing issue.
+> I also met a similar problem because of sync to lead EBUSY error in 
+> xfstests log time ago.
+> 
+> https://git.kernel.org/pub/scm/fs/xfs/xfstests-dev.git/commit/?id=b536de2a042484bb241cca120ce55c974309513a
+> 
+> So, I don't think using sync is a good idea because sync will make 
+> metadata into disk but no ensure it. So if we have other io work, then 
+> sync may push other's metadata into disk firstly instead of here's data.
+> 
+> Since we have tst_umount api to avoid EBUSY error, why not to use it in 
+> here to avoid your problem?
+> >
+> > Speaking of tst_umount, do you mean to convert this test to C code ?
+> No, we also have shell api  for tst_umount.
 
-> On 7/12/2021 7:49 AM, Petr Vorel wrote:
-> > Thanks for a review!
-> > It's a bit strange to add '=' only single variable, maybe I should have rename
-> > the variable.
+Thanks for the suggestion.
+I've tested the cgroup_regression_test with the tst_umount api
+and it works fine!
 
-> > Paranoid approach would be to add '=' to any variable which is assigned only on
-> > some circumstance or even any variable which is not assigned to any value.
-> > But we probably don't want to do it.
-> I think good common practice would be to add it to all variables, where it
-> matters.
-> There are probably only very few places, where a local variable is not
-> assigned before being accessed.
-> Maybe there is some kind of shell code linter, that can find uninitialized
-> variables?
-> A good linter could also find variables, that should be local, but are not.
-> But I have never looked into shell code linting.
+I will convert "add sync" patch to this!
+Thanks again.
 
-Thanks for your input.
+> >
+> >> Best Regards
+> >> Yang Xu
+> >
+> > Best regards,
+> > Leo
 
-I'm aware only of shellcheck [1], which I'm not a big fan of (false positives,
-useless hints). And yes, in this case it warns about 'local' not being POSIX
-=> useless :(.
-
-In testcases/lib/tst_net.sh line 411:
-	local counter host_id host_range is_counter max_host_id min_host_id net_id prefix tmp type
-        ^-- SC3043: In POSIX sh, 'local' is undefined.
-
-
-> In fs_bind_lib.sh, OPTIND in fs_bind_check probably also requires setting to
-> empty, or better 0.
-We use tst_test.sh in OPTIND=1 ("The index of the next argument to be processed
-by the getopts builtin command")
-
-> But maybe dash's implementation of getopts does not require it. I only had
-> to add local OPTIND for busybox sh iirc...
-I used to set local OPTIND (in tst_net.sh), which is obviously not working on
-dash.
-
-> Yet another case of: Shellcode is unpredictable :)
-Yep, I love shell (understand why everything is slowly rewritten into C).
-
-Kind regards,
-Petr
-
-> Joerg
-
-[1] https://github.com/koalaman/shellcheck
+Best regards,
+Leo
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
