@@ -2,78 +2,77 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 273FB3C460C
-	for <lists+linux-ltp@lfdr.de>; Mon, 12 Jul 2021 10:28:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B0253C4612
+	for <lists+linux-ltp@lfdr.de>; Mon, 12 Jul 2021 10:37:05 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id EDED33C6741
-	for <lists+linux-ltp@lfdr.de>; Mon, 12 Jul 2021 10:28:22 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id F108E3C6742
+	for <lists+linux-ltp@lfdr.de>; Mon, 12 Jul 2021 10:37:04 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 0A2AB3C1DD9
- for <ltp@lists.linux.it>; Mon, 12 Jul 2021 10:28:21 +0200 (CEST)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 7BA203C2FDD
+ for <ltp@lists.linux.it>; Mon, 12 Jul 2021 10:37:03 +0200 (CEST)
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id A43956002B9
- for <ltp@lists.linux.it>; Mon, 12 Jul 2021 10:28:20 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1626078498;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=MHt9R1upg7MQiG9e3K8rVDArrYO0cNBanD24HNJqPlc=;
- b=grnIWGNEARDeAviIF54cI/6Q2Bol1wqRrjclG5gAUq9nhPD5m5b29lx2o4rCM08NinMlRb
- xmUtrXqnJvlZfb5DBO/dDJC1s9VFfIcEaE3phCN5gXhdwfM0Iytg60cewoG1ChWTTof8sj
- zyRpAXGExdP4tAEEL9DK3MbUbE2B6w8=
-Received: from mail-yb1-f200.google.com (mail-yb1-f200.google.com
- [209.85.219.200]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-595-TbDaPBSmM4meImRBEBqyOw-1; Mon, 12 Jul 2021 04:28:17 -0400
-X-MC-Unique: TbDaPBSmM4meImRBEBqyOw-1
-Received: by mail-yb1-f200.google.com with SMTP id
- q10-20020a056902150ab02905592911c932so21642123ybu.15
- for <ltp@lists.linux.it>; Mon, 12 Jul 2021 01:28:17 -0700 (PDT)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 91C781A00E0B
+ for <ltp@lists.linux.it>; Mon, 12 Jul 2021 10:37:02 +0200 (CEST)
+Received: by mail-lf1-x12f.google.com with SMTP id t17so41876848lfq.0
+ for <ltp@lists.linux.it>; Mon, 12 Jul 2021 01:37:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=bell-sw-com.20150623.gappssmtp.com; s=20150623;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=mEUgYCOdDqSUglYqG1dJnJ0Z9fMNUwXlbD5czh4CjtA=;
+ b=Lx9XhR0iwDDXSASQKWVlMhO8UY5FfKWDuCwmZuRN9wdbAOa65D/LA7vsLtgsuZoFaH
+ s2l0RlA+lz3HfxGCQOzHRESH71XYA7NxpyDiAr213JJ5Agrz+W/1IK+r+WmVhnnHIBU6
+ r7LmKOvGCDXknEhkTJCzC6s0TtmoPlQePXeQzy2Effr7oJa6p9QpIV8krEsNDEDcTpx4
+ tgsFPn00wng4r3NvYPQ0X8SZkWfgoP5xtoxMKaSaNr6gWAR3UNGT2U5iX5VIV60zDu1r
+ tds3+3pptggd1Td1CVWdN5iiSAstuxKCfFQf1J6ojLtYe+LzH6a0GM97a+KXwMXVxrIH
+ iAMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=MHt9R1upg7MQiG9e3K8rVDArrYO0cNBanD24HNJqPlc=;
- b=H16GEBRpAZ3yDgrDCC5/aMc7I3MbGI5mlPGZ0yBIXy8UkMEm3/i63Qz74IcMvapFpk
- j8P5N6p4zBoGv+DUiPCM50Af7qCKhZaTI4lqrf2V4CCPVn/mGbkFM1wySDFhh0eXF+/6
- p8woQ/QjTGa5M5zIb5aocJLvt/OiXmZETaF6egahjMjmGhdEtg6nfiRfagaDO85hKUzs
- LaTvPDQnhQSIW6cLD/mUNy1dc94IYGJaTHhAieJJDMrEconJoR3D+rdntvD+KmeRSFn9
- 2uQ/+4umzP1i4CNUAqiNKuP6kGv3fEjxthBmVr5SBuOfQe8h+Kx0Cy0SNJ4Gz6cI2XlR
- 9V/w==
-X-Gm-Message-State: AOAM530/3i+TpLbuRDVk5ObFLUK2F9kWNXC9I++IQL9pOeIbcFT15rkD
- O4DtHOW6t7yWCHr/SIYpfSq5MHUdGJRbOa/8JI2E1U2BtLvYOVZr5pnsfn0+oEAksAR/akwSafO
- tmYIwJXYD1YIXVek/T7PxYX/MhW8=
-X-Received: by 2002:a25:6e05:: with SMTP id j5mr26089875ybc.86.1626078496705; 
- Mon, 12 Jul 2021 01:28:16 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJxL8Pt4Qgo0mIZSv6pjqvpAnV/bIhEDad+ToRHOsIU0ganGYe3FfOwjIX5gpEOEWaxvQ2NVD81T+w1SkKGr0iE=
-X-Received: by 2002:a25:6e05:: with SMTP id j5mr26089845ybc.86.1626078496344; 
- Mon, 12 Jul 2021 01:28:16 -0700 (PDT)
-MIME-Version: 1.0
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=mEUgYCOdDqSUglYqG1dJnJ0Z9fMNUwXlbD5czh4CjtA=;
+ b=MpB5BiunPY9c4phDSlM6/0vX4L3rUPhvc0m1Wz62vthJusn5FkVkHy8C82Hu1z5SL1
+ ml9hviIi8Xthi7rH09skudV+wl7OGk03IyvW2BTjlxj0DdHtY9sEWbzLG5PZLuHwTo5E
+ IkYjqVJLAa5p12NYDXciEqZOCC4/KqJt51KTZA5c0uG0WxH4GtGCOVP9cbOO73dPo3nb
+ Whn61BqagOcCsgIQU8s7n7eEHcgAmwdZuqrSbpS+dEZIjYvnF3MCjVX+4Eq1B9oZ7/0j
+ 0/94V1/85Akwi+heEfCeQ+4YWlVvKR5pLl4BT8WRww86NuXrTL73Qmt9+P7LtGrCPREF
+ bd1g==
+X-Gm-Message-State: AOAM530zoBBO3R0sWS8b4CEB69CvTooe3sid+Iy/nuTU9NJM9TP+5Q8O
+ LU9JZLNyuO4nXGmIsu6DKHGSHBuXGV2D
+X-Google-Smtp-Source: ABdhPJyZZ3tnmvrTp+gWA9+46IsEqkOa/mGOwZknMucXcnELPh0u5uJDxYr9pAKXpDid56r9yr1vJA==
+X-Received: by 2002:a05:6512:3147:: with SMTP id
+ s7mr1599385lfi.189.1626079021760; 
+ Mon, 12 Jul 2021 01:37:01 -0700 (PDT)
+Received: from [192.168.1.53] ([91.247.148.7])
+ by smtp.gmail.com with ESMTPSA id s6sm1147839lfd.171.2021.07.12.01.37.01
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 12 Jul 2021 01:37:01 -0700 (PDT)
+To: Li Wang <liwang@redhat.com>
 References: <20210712075223.10682-1-aleksei.kodanev@bell-sw.com>
-In-Reply-To: <20210712075223.10682-1-aleksei.kodanev@bell-sw.com>
-From: Li Wang <liwang@redhat.com>
-Date: Mon, 12 Jul 2021 16:28:04 +0800
-Message-ID: <CAEemH2ehOzddTbDqZBcbyZcnUy3899u_U81XGtckf1Gs_LJGMA@mail.gmail.com>
-To: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+ <CAEemH2ehOzddTbDqZBcbyZcnUy3899u_U81XGtckf1Gs_LJGMA@mail.gmail.com>
+From: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
+Message-ID: <af9eb653-4c75-938e-71b1-2e4050b39d26@bell-sw.com>
+Date: Mon, 12 Jul 2021 11:37:01 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
+MIME-Version: 1.0
+In-Reply-To: <CAEemH2ehOzddTbDqZBcbyZcnUy3899u_U81XGtckf1Gs_LJGMA@mail.gmail.com>
+Content-Language: en-US
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH v2 1/2] shmget03: don't depend on existed shared
  resources
 X-BeenThere: ltp@lists.linux.it
@@ -88,92 +87,29 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============0233662893=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0233662893==
-Content-Type: multipart/alternative; boundary="00000000000026e9cb05c6e8e77d"
-
---00000000000026e9cb05c6e8e77d
-Content-Type: text/plain; charset="UTF-8"
-
-On Mon, Jul 12, 2021 at 3:54 PM Alexey Kodanev <aleksei.kodanev@bell-sw.com>
-wrote:
-
-> It's unlikely, but still possible that some of them could be
-> created/released during the test as well, so the patch only
-> checks errno.
->
-> Signed-off-by: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
-> ---
-> v2: * Move the loop to the test run function and try to get
->       ENOSPC errno there.
->
-
-I'm fine to go with this but move the loop to test run without any
-limit will bring new fail if running with parameter '-i 2'.
-
-We have to handle that situation (maybe add a judgment to skip
-test for run more times) in case someone uses it like:
-
-# ./shmget03 -i 2
-tst_test.c:1344: TINFO: Timeout per run is 0h 05m 00s
-shmget03.c:44: TPASS: Maximum number of segments reached (4096), used by
-test 4096
-shmget03.c:41: TFAIL: Failed to trigger ENOSPC error: EEXIST (17)
-
--- 
-Regards,
-Li Wang
-
---00000000000026e9cb05c6e8e77d
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Mon, Jul 12, 2021 at 3:54 PM Alexey Kodanev &lt;=
-<a href=3D"mailto:aleksei.kodanev@bell-sw.com">aleksei.kodanev@bell-sw.com<=
-/a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0=
-px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">I=
-t&#39;s unlikely, but still possible that some of them could be<br>
-created/released during the test as well, so the patch only<br>
-checks errno.<br>
-<br>
-Signed-off-by: Alexey Kodanev &lt;<a href=3D"mailto:aleksei.kodanev@bell-sw=
-.com" target=3D"_blank">aleksei.kodanev@bell-sw.com</a>&gt;<br>
----<br>
-v2: * Move the loop to the test run function and try to get<br>
-=C2=A0 =C2=A0 =C2=A0 ENOSPC errno there.<br></blockquote><div><br></div><di=
-v class=3D"gmail_default" style=3D"font-size:small">I&#39;m fine to go with=
- this but move=C2=A0the loop to test run without any</div><div class=3D"gma=
-il_default" style=3D"font-size:small">limit will bring new fail if running =
-with parameter &#39;-i 2&#39;.</div><div class=3D"gmail_default" style=3D"f=
-ont-size:small"><br></div><div class=3D"gmail_default" style=3D"font-size:s=
-mall">We have to handle that situation (maybe add a judgment to skip</div><=
-div class=3D"gmail_default" style=3D"font-size:small">test for run=C2=A0mor=
-e times) in case someone uses it like:</div><div class=3D"gmail_default" st=
-yle=3D"font-size:small"><br></div># ./shmget03 -i 2<br>tst_test.c:1344: TIN=
-FO: Timeout per run is 0h 05m 00s<br>shmget03.c:44: TPASS: Maximum number o=
-f segments reached (4096), used by test 4096<br>shmget03.c:41: TFAIL: Faile=
-d to trigger ENOSPC error: EEXIST (17)<br><div class=3D"gmail_default" styl=
-e=3D"font-size:small"></div></div><div><br></div>-- <br><div dir=3D"ltr" cl=
-ass=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wan=
-g<br></div></div></div></div>
-
---00000000000026e9cb05c6e8e77d--
-
-
---===============0233662893==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============0233662893==--
-
+T24gMTIuMDcuMjAyMSAxMToyOCwgTGkgV2FuZyB3cm90ZToKPiAKPiAKPiBPbiBNb24sIEp1bCAx
+MiwgMjAyMSBhdCAzOjU0IFBNIEFsZXhleSBLb2RhbmV2IDxhbGVrc2VpLmtvZGFuZXZAYmVsbC1z
+dy5jb20gPG1haWx0bzphbGVrc2VpLmtvZGFuZXZAYmVsbC1zdy5jb20+PiB3cm90ZToKPiAKPiAg
+ICAgSXQncyB1bmxpa2VseSwgYnV0IHN0aWxsIHBvc3NpYmxlIHRoYXQgc29tZSBvZiB0aGVtIGNv
+dWxkIGJlCj4gICAgIGNyZWF0ZWQvcmVsZWFzZWQgZHVyaW5nIHRoZSB0ZXN0IGFzIHdlbGwsIHNv
+IHRoZSBwYXRjaCBvbmx5Cj4gICAgIGNoZWNrcyBlcnJuby4KPiAKPiAgICAgU2lnbmVkLW9mZi1i
+eTogQWxleGV5IEtvZGFuZXYgPGFsZWtzZWkua29kYW5ldkBiZWxsLXN3LmNvbSA8bWFpbHRvOmFs
+ZWtzZWkua29kYW5ldkBiZWxsLXN3LmNvbT4+Cj4gICAgIC0tLQo+ICAgICB2MjogKiBNb3ZlIHRo
+ZSBsb29wIHRvIHRoZSB0ZXN0IHJ1biBmdW5jdGlvbiBhbmQgdHJ5IHRvIGdldAo+ICAgICDCoCDC
+oCDCoCBFTk9TUEMgZXJybm8gdGhlcmUuCj4gCj4gCj4gSSdtIGZpbmUgdG8gZ28gd2l0aCB0aGlz
+IGJ1dCBtb3ZlwqB0aGUgbG9vcCB0byB0ZXN0IHJ1biB3aXRob3V0IGFueQo+IGxpbWl0IHdpbGwg
+YnJpbmcgbmV3IGZhaWwgaWYgcnVubmluZyB3aXRoIHBhcmFtZXRlciAnLWkgMicuCj4gCj4gV2Ug
+aGF2ZSB0byBoYW5kbGUgdGhhdCBzaXR1YXRpb24gKG1heWJlIGFkZCBhIGp1ZGdtZW50IHRvIHNr
+aXAKPiB0ZXN0IGZvciBydW7CoG1vcmUgdGltZXMpIGluIGNhc2Ugc29tZW9uZSB1c2VzIGl0IGxp
+a2U6CgpPciBqdXN0IHJlbGVhc2UgdGhlbSBhc2FwIGFmdGVyIHRwYXNzPwoKPiAKPiAjIC4vc2ht
+Z2V0MDMgLWkgMgo+IHRzdF90ZXN0LmM6MTM0NDogVElORk86IFRpbWVvdXQgcGVyIHJ1biBpcyAw
+aCAwNW0gMDBzCj4gc2htZ2V0MDMuYzo0NDogVFBBU1M6IE1heGltdW0gbnVtYmVyIG9mIHNlZ21l
+bnRzIHJlYWNoZWQgKDQwOTYpLCB1c2VkIGJ5IHRlc3QgNDA5Ngo+IHNobWdldDAzLmM6NDE6IFRG
+QUlMOiBGYWlsZWQgdG8gdHJpZ2dlciBFTk9TUEMgZXJyb3I6IEVFWElTVCAoMTcpCj4gCj4gLS0g
+Cj4gUmVnYXJkcywKPiBMaSBXYW5nCgoKLS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xp
+c3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0cAo=
