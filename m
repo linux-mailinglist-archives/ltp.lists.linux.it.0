@@ -1,71 +1,80 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B2E43C6157
-	for <lists+linux-ltp@lfdr.de>; Mon, 12 Jul 2021 19:02:35 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A2043C6A3E
+	for <lists+linux-ltp@lfdr.de>; Tue, 13 Jul 2021 08:08:33 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3AD193C7620
-	for <lists+linux-ltp@lfdr.de>; Mon, 12 Jul 2021 19:02:35 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id ECE903C6659
+	for <lists+linux-ltp@lfdr.de>; Tue, 13 Jul 2021 08:08:32 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A9CBE3C1C00
- for <ltp@lists.linux.it>; Mon, 12 Jul 2021 19:02:33 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id 887AB3C245D
+ for <ltp@lists.linux.it>; Tue, 13 Jul 2021 08:08:31 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id E220010009DA
- for <ltp@lists.linux.it>; Mon, 12 Jul 2021 19:02:32 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 372F71FFCD;
- Mon, 12 Jul 2021 17:02:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1626109352;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type;
- bh=UtrG5ByvMyKRPJw+WBQOuU29a+twqqsEMe6ui9XdoUk=;
- b=DJBvJeS7OLDjREZ+Fq7Rl54tGGWCIedq42bUEiTtdI0y1iPdJbklQrEOlSvt8aIX3jlvXz
- MVMLBWp47JeBUn9QmHHmq3o+VP/gLV5JpMqDO7ZPfSnbW1Hw1l0kbXtMPS1QrKbRULkQ9F
- YafruPknUS0Mz9Vbq4HMgu6SLrnsgVk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1626109352;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type;
- bh=UtrG5ByvMyKRPJw+WBQOuU29a+twqqsEMe6ui9XdoUk=;
- b=LcTMSVmKN9ZGGdw2VmqPAL/3kdM90xGUbxbVngQ8s8mpmAJCeedidgxaDu0hTo+iqRtxie
- mIz6BA77N1HqqVCw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E620113AC8;
- Mon, 12 Jul 2021 17:02:31 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id gb33Nad17GAQJQAAMHmgww
- (envelope-from <pvorel@suse.cz>); Mon, 12 Jul 2021 17:02:31 +0000
-Date: Mon, 12 Jul 2021 19:02:30 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Cyril Hrubis <chrubis@suse.cz>, Jan Stancek <jstancek@redhat.com>,
- Li Wang <liwang@redhat.com>
-Message-ID: <YOx1pir0UuBNM+4w@pevik>
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id C6BD21400C64
+ for <ltp@lists.linux.it>; Tue, 13 Jul 2021 08:08:30 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1626156509;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=3YPYLg9uCiHZPLFzDlIG62FOsJl3BjrllY5zlrUT30U=;
+ b=Zehn/7qn8TGcf/QGQcZbs8t4tJ6upzDOa/7dKo1PgRdEfFhevDPedFi6uEvK6bFf7Ita87
+ JOjPY3BRjQXx6KUtMk3ueUZ2zklloptJ4IGOOcvetGasYubT4KZ40SAr6vCzipAL92ObHA
+ WEFG/pfih8KbRTV1ZWNcIaM9RNmEkr0=
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com
+ [209.85.167.200]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-331-Mmx9fIvZMRGQT5reuui8kA-1; Tue, 13 Jul 2021 02:08:27 -0400
+X-MC-Unique: Mmx9fIvZMRGQT5reuui8kA-1
+Received: by mail-oi1-f200.google.com with SMTP id
+ w2-20020aca62020000b029024073490067so14674342oib.21
+ for <ltp@lists.linux.it>; Mon, 12 Jul 2021 23:08:27 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=3YPYLg9uCiHZPLFzDlIG62FOsJl3BjrllY5zlrUT30U=;
+ b=r3Zhh0B7qJ2+4+15bQDSA2JIJStLTKguZFdKOcmVj/mxwdeySV2ZdC7UwIJErdYERU
+ mqL+/2MFdTpUMifYYYt2NhzI3IfI8nHhC8KCnb8s5qYBQ1FyapwJ7KvSr15hj9dNmt5t
+ 4Vj85PU773H3g4FJM8ReRXw0SZlHAvKtNkCocVPDOltziOafnpJ3pqld0fivNwNw7Zku
+ Zjbo8Audn7raw6pNHR2dxh0qg+e29cBm21P8TLZPubYz7QYILF2WNxuP+Pezffo22fR8
+ FpfnJu2qAyQKVP3mrJh69j9aJA3FAUiNpBziuT3azjCCE7qMOWESMYEogXQW5BoCypnP
+ ZcMQ==
+X-Gm-Message-State: AOAM5320i8WShU2j8iNF8exwl9ua053zMfsRDIQ321nCTWuAbovwdZXv
+ 2tx0QXvqVqaM22BRp3Onwhcy2eLqL18zYxUk5f0bZS+h1CkYwIfXd0rGnK92xARNm7WBq5CwqVI
+ IL13zwDUPEV73uxXaTyKlot17dJ4=
+X-Received: by 2002:a4a:2242:: with SMTP id z2mr2189674ooe.90.1626156506730;
+ Mon, 12 Jul 2021 23:08:26 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwOlZkc8JOBzYb1hO5YwRz3V0YGjZ/AS06CwF+ZsETVeMqI0+6Nzvfpi78U7uov6UbmQljJYXjH3fDM6kB8Fpo=
+X-Received: by 2002:a4a:2242:: with SMTP id z2mr2189653ooe.90.1626156506470;
+ Mon, 12 Jul 2021 23:08:26 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+References: <YOx1pir0UuBNM+4w@pevik>
+In-Reply-To: <YOx1pir0UuBNM+4w@pevik>
+From: Jan Stancek <jstancek@redhat.com>
+Date: Tue, 13 Jul 2021 08:08:11 +0200
+Message-ID: <CAASaF6zS0kPHk6vSvANA1KzuOCtJHskLmOE_DE1n4b5AhMUPkg@mail.gmail.com>
+To: Petr Vorel <pvorel@suse.cz>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=jstancek@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] tst_strstatus.c fails on Alpine
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] tst_strstatus.c fails on Alpine
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,90 +86,79 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============1329384594=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi all,
+--===============1329384594==
+Content-Type: multipart/alternative; boundary="000000000000eaf0f605c6fb1042"
 
-I see failures of lib/newlib_tests/tst_strstatus on Alpine:
+--000000000000eaf0f605c6fb1042
+Content-Type: text/plain; charset="UTF-8"
 
-tst_strstatus.c:31: TPASS: exited with 1
-tst_strstatus.c:31: TPASS: killed by SIGHUP
-tst_strstatus.c:31: TPASS: is stopped
-tst_strstatus.c:31: TPASS: is resumed
-tst_strstatus.c:29: TFAIL: killed by ??? != invalid status 0xff
+On Mon, Jul 12, 2021 at 7:02 PM Petr Vorel <pvorel@suse.cz> wrote:
 
-Any idea what could be wrong?
+> Hi all,
+>
+> I see failures of lib/newlib_tests/tst_strstatus on Alpine:
+>
+> tst_strstatus.c:31: TPASS: exited with 1
+> tst_strstatus.c:31: TPASS: killed by SIGHUP
+> tst_strstatus.c:31: TPASS: is stopped
+> tst_strstatus.c:31: TPASS: is resumed
+> tst_strstatus.c:29: TFAIL: killed by ??? != invalid status 0xff
+>
+> Any idea what could be wrong?
+>
 
-Kind regards,
-Petr
+I'd start with definition of WIFSIGNALED on that system.
 
-$ strace -ff ./lib/newlib_tests/tst_strstatus
-write(2, "tst_test.c:1261: \33[1;34mTINFO: \33"..., 65tst_test.c:1261: TINFO: Timeout per run is 0h 05m 00s
-) = 65
-getpid()                                = 6286
-setitimer(ITIMER_REAL, {it_interval={tv_sec=0, tv_usec=0}, it_value={tv_sec=300, tv_usec=0}}, {it_interval={tv_sec=0, tv_usec=0}, it_value={tv_sec=0, tv_usec=0}}) = 0
-rt_sigaction(SIGINT, {sa_handler=0x557c315e0fd0, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f6b1a5b7304}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
-rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
-fork(strace: Process 6287 attached
- <unfinished ...>
-[pid  6287] gettid()                    = 6287
-[pid  6287] rt_sigprocmask(SIG_SETMASK, [],  <unfinished ...>
-[pid  6286] <... fork resumed>)         = 6287
-[pid  6287] <... rt_sigprocmask resumed>NULL, 8) = 0
-[pid  6287] rt_sigaction(SIGALRM, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f6b1a5b7304},  <unfinished ...>
-[pid  6286] rt_sigprocmask(SIG_SETMASK, [],  <unfinished ...>
-[pid  6287] <... rt_sigaction resumed>{sa_handler=0x557c315e1010, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f6b1a5b7304}, 8) = 0
-[pid  6286] <... rt_sigprocmask resumed>NULL, 8) = 0
-[pid  6287] rt_sigaction(SIGUSR1, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f6b1a5b7304},  <unfinished ...>
-[pid  6286] wait4(6287,  <unfinished ...>
-[pid  6287] <... rt_sigaction resumed>{sa_handler=0x557c315e0ea0, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f6b1a5b7304}, 8) = 0
-[pid  6287] rt_sigaction(SIGINT, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f6b1a5b7304}, {sa_handler=0x557c315e0fd0, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f6b1a5b7304}, 8) = 0
-[pid  6287] setpgid(0, 0)               = 0
-[pid  6287] clock_gettime(CLOCK_REALTIME, NULL) = -1 EFAULT (Bad address)
-[pid  6287] clock_gettime(CLOCK_MONOTONIC, {tv_sec=12534, tv_nsec=660628778}) = 0
-[pid  6287] getppid()                   = 6286
-[pid  6287] kill(6286, SIGUSR1)         = 0
-[pid  6287] getpid()                    = 6287
-[pid  6286] <... wait4 resumed>0x7ffc58615040, 0, NULL) = ? ERESTARTSYS (To be restarted if SA_RESTART is set)
-[pid  6287] getpid()                    = 6287
-[pid  6287] write(2, "tst_strstatus.c:31: \33[1;32mTPASS"..., 52tst_strstatus.c:31: TPASS: exited with 1
-) = 52
-[pid  6286] --- SIGUSR1 {si_signo=SIGUSR1, si_code=SI_USER, si_pid=6287, si_uid=1000} ---
-[pid  6287] getpid()                    = 6287
-[pid  6287] wait4(-1, 0x7ffc58614fe4, 0, NULL) = -1 ECHILD (No child process)
-[pid  6286] setitimer(ITIMER_REAL, {it_interval={tv_sec=0, tv_usec=0}, it_value={tv_sec=300, tv_usec=0}}, {it_interval={tv_sec=0, tv_usec=0}, it_value={tv_sec=299, tv_usec=994322}}) = 0
-[pid  6287] write(2, "tst_strstatus.c:31: \33[1;32mTPASS"..., 55tst_strstatus.c:31: TPASS: killed by SIGHUP
-) = 55
-[pid  6287] getpid()                    = 6287
-[pid  6287] wait4(-1, 0x7ffc58614fe4, 0, NULL) = -1 ECHILD (No child process)
-[pid  6287] write(2, "tst_strstatus.c:31: \33[1;32mTPASS"..., 49 <unfinished ...>
-[pid  6286] rt_sigreturn({mask=[]}tst_strstatus.c:31: TPASS: is stopped
- <unfinished ...>
-[pid  6287] <... write resumed>)        = 49
-[pid  6286] <... rt_sigreturn resumed>) = 61
-[pid  6287] getpid()                    = 6287
-[pid  6287] wait4(-1, 0x7ffc58614fe4, 0, NULL) = -1 ECHILD (No child process)
-[pid  6287] write(2, "tst_strstatus.c:31: \33[1;32mTPASS"..., 49 <unfinished ...>
-[pid  6286] wait4(6287, tst_strstatus.c:31: TPASS: is resumed
- <unfinished ...>
-[pid  6287] <... write resumed>)        = 49
-[pid  6287] getpid()                    = 6287
-[pid  6287] wait4(-1, 0x7ffc58614fe4, 0, NULL) = -1 ECHILD (No child process)
-[pid  6287] write(2, "tst_strstatus.c:29: \33[1;31mTFAIL"..., 75tst_strstatus.c:29: TFAIL: killed by ??? != invalid status 0xff
-) = 75
-[pid  6287] getpid()                    = 6287
-[pid  6287] wait4(-1, 0x7ffc58614fe4, 0, NULL) = -1 ECHILD (No child process)
-[pid  6287] clock_gettime(CLOCK_MONOTONIC, {tv_sec=12534, tv_nsec=663302915}) = 0
-[pid  6287] getppid()                   = 6286
-[pid  6287] kill(6286, SIGUSR1)         = 0
-[pid  6286] <... wait4 resumed>0x7ffc58615040, 0, NULL) = ? ERESTARTSYS (To be restarted if SA_RESTART is set)
-[pid  6287] exit_group(0)               = ?
+printf("%d\n", WIFSIGNALED(0xff));
+should give you 0, but it does appear to return 1 in output above.
+
+--000000000000eaf0f605c6fb1042
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-family:monospace"><br></div></div><br><div class=3D"gmail_quote"><div dir=
+=3D"ltr" class=3D"gmail_attr">On Mon, Jul 12, 2021 at 7:02 PM Petr Vorel &l=
+t;<a href=3D"mailto:pvorel@suse.cz" target=3D"_blank">pvorel@suse.cz</a>&gt=
+; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px=
+ 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Hi all,=
+<br>
+<br>
+I see failures of lib/newlib_tests/tst_strstatus on Alpine:<br>
+<br>
+tst_strstatus.c:31: TPASS: exited with 1<br>
+tst_strstatus.c:31: TPASS: killed by SIGHUP<br>
+tst_strstatus.c:31: TPASS: is stopped<br>
+tst_strstatus.c:31: TPASS: is resumed<br>
+tst_strstatus.c:29: TFAIL: killed by ??? !=3D invalid status 0xff<br>
+<br>
+Any idea what could be wrong?<br></blockquote><div><br></div><div><div styl=
+e=3D"font-family:monospace" class=3D"gmail_default">I&#39;d start with defi=
+nition of WIFSIGNALED on that system.<br></div><div style=3D"font-family:mo=
+nospace" class=3D"gmail_default"><br></div><div style=3D"font-family:monosp=
+ace" class=3D"gmail_default">printf(&quot;%d\n&quot;, WIFSIGNALED(0xff));</=
+div><div style=3D"font-family:monospace" class=3D"gmail_default">should giv=
+e you 0, but it does appear to return 1 in output above.<br></div><div styl=
+e=3D"font-family:monospace" class=3D"gmail_default"><br></div><br></div></d=
+iv></div>
+
+--000000000000eaf0f605c6fb1042--
+
+
+--===============1329384594==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============1329384594==--
+
