@@ -2,47 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76A923C713F
-	for <lists+linux-ltp@lfdr.de>; Tue, 13 Jul 2021 15:33:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09DBF3C7145
+	for <lists+linux-ltp@lfdr.de>; Tue, 13 Jul 2021 15:35:00 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6473E3C8775
-	for <lists+linux-ltp@lfdr.de>; Tue, 13 Jul 2021 15:32:54 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id ACF523C877E
+	for <lists+linux-ltp@lfdr.de>; Tue, 13 Jul 2021 15:34:59 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id D1F773C7583
- for <ltp@lists.linux.it>; Tue, 13 Jul 2021 15:32:50 +0200 (CEST)
-Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 302CA3C7583
+ for <ltp@lists.linux.it>; Tue, 13 Jul 2021 15:34:54 +0200 (CEST)
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [IPv6:2a00:1450:4864:20::62f])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id D4CE51400F22
- for <ltp@lists.linux.it>; Tue, 13 Jul 2021 15:32:49 +0200 (CEST)
-Received: from ubuntu.localdomain (unknown [37.156.92.209])
- by mail.jv-coder.de (Postfix) with ESMTPSA id 668BD9F6A1;
- Tue, 13 Jul 2021 13:32:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
- t=1626183167; bh=7zv/VlAFjgtD+oe3ZlAcuoirJj8wMlu7Ki23VSIRoqY=;
- h=From:To:Subject:Date:Message-Id:MIME-Version;
- b=ga+ssKixmqEGbb8D6LRYaH+nOSBkRvJGe/4y2Zk6DwrdgNngZqhx0xJCcIMuSx2W/
- ECk1czsziWOs+kn5lwZ7sRm3I1a1Z8C3WPyZDJURUxLH1Yf3Dt8MyXs75UJ2c9A6pD
- xIis9eR6MlvvW5vEqBfk1Glae4pnPbHefeWjd45Q=
-From: Joerg Vehlow <lkml@jv-coder.de>
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 52CC81A00E1A
+ for <ltp@lists.linux.it>; Tue, 13 Jul 2021 15:34:53 +0200 (CEST)
+Received: by mail-ej1-x62f.google.com with SMTP id o5so41539169ejy.7
+ for <ltp@lists.linux.it>; Tue, 13 Jul 2021 06:34:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=8323dr+y0e5ufju1sj69RCDc9bu7SuE4mTR7hzQ3LP4=;
+ b=PdBVdBOQ7ohLVh93pLZ6mqTrf3xGj6jk+MDF41mticqFuXwebdOyx0glWWJQZ7/FSq
+ OZ99PNq1/Zl8xcP6ciNQoX7zuQKRUhY5gPMiJc7l5uMmc1K95ro45pOsREInqfbQcbiF
+ ai8ha/QkMYMwtvdn5RZzH7g7eRvmoEzbTCyRJpxbjK47MKq3ehk1Fn4ADs3+h9MhNurY
+ NSZCOnEiqi0D2i+8DlPFrh/sAHz5J5HUdCKHXJGyGDFeO1A0Qzy7VoUb7O6sDYz3nQ9e
+ bC3t5Baf2GGcY2BBQ85dCAtpuNAjls6M2Ms2bn7hVg3omI2WQQmFXdB6FD4HU7JW4zko
+ wOuA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=8323dr+y0e5ufju1sj69RCDc9bu7SuE4mTR7hzQ3LP4=;
+ b=GBc/RyUs5HAcJ5XEEWqXmlWjMAA5zNomr7L2pqZs96sA85BgZ/TcJFxsPlGKOnBUlc
+ 6uL7+LaQ1CbJVA86kBNPg5Rp6pPIBlb+ex8CMIAqUojQhXVZBOquBNQrgAIiwcbgVDU1
+ S/wVJsWtqFFdn/qZzK95RRAaOeTeUIQK3BPuy8ccVYRpYPttyu55Wovyb4PXM9qmouZC
+ +KGkI9SwrhsQPwfpZy28vBrHRNSykB6Uw3tfeX3lOFWABNfMIpyVeZ9w/X5O6nWolClb
+ rJYPvitWjsfdi4rY8dKkV4KoecmCYKln2gAo+UJplljzfj1kr4jMCofqrtxHCG5+7ugJ
+ c8Wg==
+X-Gm-Message-State: AOAM533o9o1ZgmyivsgmEtI5/Jcwmu438NoDSpj0CLg/TJzN5qPqGHh6
+ CZ7++wgQRbdtlGUqzdu1aPl+QRbRLFqFZg==
+X-Google-Smtp-Source: ABdhPJzO49A/AqziZOa9+55LkJihQnzgRF+3roa7SyeEiUnP1qPMmuFnWtiECLM/14vjwLHPPH7S5Q==
+X-Received: by 2002:a17:906:d977:: with SMTP id
+ rp23mr5678215ejb.512.1626183292545; 
+ Tue, 13 Jul 2021 06:34:52 -0700 (PDT)
+Received: from localhost.localdomain (us.sesame.canonical.com. [91.189.91.16])
+ by smtp.gmail.com with ESMTPSA id
+ p20sm2752978ejy.95.2021.07.13.06.34.51 for <ltp@lists.linux.it>
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 13 Jul 2021 06:34:51 -0700 (PDT)
+From: Ian May <ian.s.may@gmail.com>
 To: ltp@lists.linux.it
-Date: Tue, 13 Jul 2021 15:32:36 +0200
-Message-Id: <20210713133236.1584958-1-lkml@jv-coder.de>
+Date: Tue, 13 Jul 2021 13:34:49 +0000
+Message-Id: <20210713133449.33278-1-ian.s.may@gmail.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH] squashfs: Add regression test for sanity check bug
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH] syscalls/shmctl05.c: Fix leak of shared memory segment
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,124 +80,69 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-RnJvbTogSm9lcmcgVmVobG93IDxqb2VyZy52ZWhsb3dAYW94LXRlY2guZGU+CgpBZGRzIGEgcmVn
-cmVzc2lvbiB0ZXN0IGZvciB0aGUgZml4ZXMKYzFiMjAyODMxNSAoInNxdWFzaGZzOiBmaXggaW5v
-ZGUgbG9va3VwIHNhbml0eSBjaGVja3Mg4oCmIikKYW5kCjhiNDRjYTJiNjIgKCJzcXVhc2hmczog
-Zml4IHhhdHRyIGlkIGFuZCBpZCBsb29rdXAgc2FuaXR5IGNoZWNrcyIpCgpTaWduZWQtb2ZmLWJ5
-OiBKb2VyZyBWZWhsb3cgPGpvZXJnLnZlaGxvd0Bhb3gtdGVjaC5kZT4KLS0tCiBydW50ZXN0L2Zz
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAgMiArCiB0ZXN0Y2FzZXMva2Vy
-bmVsL2ZzL3NxdWFzaGZzLy5naXRpZ25vcmUgICAgICAgfCAgMSArCiB0ZXN0Y2FzZXMva2VybmVs
-L2ZzL3NxdWFzaGZzL01ha2VmaWxlICAgICAgICAgfCAxMSArKysKIC4uLi9rZXJuZWwvZnMvc3F1
-YXNoZnMvc3F1YXNoZnMtY3JlYXRlZmlsZXMuYyB8IDg0ICsrKysrKysrKysrKysrKysrKysKIC4u
-Li9rZXJuZWwvZnMvc3F1YXNoZnMvc3F1YXNoZnNfcmVncmVzc2lvbi5zaCB8IDY1ICsrKysrKysr
-KysrKysrCiA1IGZpbGVzIGNoYW5nZWQsIDE2MyBpbnNlcnRpb25zKCspCiBjcmVhdGUgbW9kZSAx
-MDA2NDQgdGVzdGNhc2VzL2tlcm5lbC9mcy9zcXVhc2hmcy8uZ2l0aWdub3JlCiBjcmVhdGUgbW9k
-ZSAxMDA2NDQgdGVzdGNhc2VzL2tlcm5lbC9mcy9zcXVhc2hmcy9NYWtlZmlsZQogY3JlYXRlIG1v
-ZGUgMTAwNjQ0IHRlc3RjYXNlcy9rZXJuZWwvZnMvc3F1YXNoZnMvc3F1YXNoZnMtY3JlYXRlZmls
-ZXMuYwogY3JlYXRlIG1vZGUgMTAwNzU1IHRlc3RjYXNlcy9rZXJuZWwvZnMvc3F1YXNoZnMvc3F1
-YXNoZnNfcmVncmVzc2lvbi5zaAoKZGlmZiAtLWdpdCBhL3J1bnRlc3QvZnMgYi9ydW50ZXN0L2Zz
-CmluZGV4IDE3YjE0MTVlYi4uYTAxZWFmNDFkIDEwMDY0NAotLS0gYS9ydW50ZXN0L2ZzCisrKyBi
-L3J1bnRlc3QvZnMKQEAgLTg1LDMgKzg1LDUgQEAgZnNfZmlsbCBmc19maWxsCiAKIGJpbmZtdF9t
-aXNjMDEgYmluZm10X21pc2MwMS5zaAogYmluZm10X21pc2MwMiBiaW5mbXRfbWlzYzAyLnNoCisK
-K3NxdWFzaGZzX3JlZ3Jlc3Npb25fc2ggc3F1YXNoZnNfcmVncmVzc2lvbi5zaApkaWZmIC0tZ2l0
-IGEvdGVzdGNhc2VzL2tlcm5lbC9mcy9zcXVhc2hmcy8uZ2l0aWdub3JlIGIvdGVzdGNhc2VzL2tl
-cm5lbC9mcy9zcXVhc2hmcy8uZ2l0aWdub3JlCm5ldyBmaWxlIG1vZGUgMTAwNjQ0CmluZGV4IDAw
-MDAwMDAwMC4uY2ExMzA2Yjk5Ci0tLSAvZGV2L251bGwKKysrIGIvdGVzdGNhc2VzL2tlcm5lbC9m
-cy9zcXVhc2hmcy8uZ2l0aWdub3JlCkBAIC0wLDAgKzEgQEAKK3NxdWFzaGZzLWNyZWF0ZWZpbGVz
-CmRpZmYgLS1naXQgYS90ZXN0Y2FzZXMva2VybmVsL2ZzL3NxdWFzaGZzL01ha2VmaWxlIGIvdGVz
-dGNhc2VzL2tlcm5lbC9mcy9zcXVhc2hmcy9NYWtlZmlsZQpuZXcgZmlsZSBtb2RlIDEwMDY0NApp
-bmRleCAwMDAwMDAwMDAuLmY0ZTg1NGZhMgotLS0gL2Rldi9udWxsCisrKyBiL3Rlc3RjYXNlcy9r
-ZXJuZWwvZnMvc3F1YXNoZnMvTWFrZWZpbGUKQEAgLTAsMCArMSwxMSBAQAorIyBTUERYLUxpY2Vu
-c2UtSWRlbnRpZmllcjogR1BMLTIuMC1vci1sYXRlcgorIyBDb3B5cmlnaHQgKEMpIDIwMDksIENp
-c2NvIFN5c3RlbXMgSW5jLgorIyBOZ2llIENvb3BlciwgSnVseSAyMDA5CisKK3RvcF9zcmNkaXIJ
-CT89IC4uLy4uLy4uLy4uCisKK2luY2x1ZGUgJCh0b3Bfc3JjZGlyKS9pbmNsdWRlL21rL3Rlc3Rj
-YXNlcy5taworCitJTlNUQUxMX1RBUkdFVFMgOj0gc3F1YXNoZnNfcmVncmVzc2lvbi5zaAorCitp
-bmNsdWRlICQodG9wX3NyY2RpcikvaW5jbHVkZS9tay9nZW5lcmljX2xlYWZfdGFyZ2V0Lm1rCmRp
-ZmYgLS1naXQgYS90ZXN0Y2FzZXMva2VybmVsL2ZzL3NxdWFzaGZzL3NxdWFzaGZzLWNyZWF0ZWZp
-bGVzLmMgYi90ZXN0Y2FzZXMva2VybmVsL2ZzL3NxdWFzaGZzL3NxdWFzaGZzLWNyZWF0ZWZpbGVz
-LmMKbmV3IGZpbGUgbW9kZSAxMDA2NDQKaW5kZXggMDAwMDAwMDAwLi5lNzgwODA0MWYKLS0tIC9k
-ZXYvbnVsbAorKysgYi90ZXN0Y2FzZXMva2VybmVsL2ZzL3NxdWFzaGZzL3NxdWFzaGZzLWNyZWF0
-ZWZpbGVzLmMKQEAgLTAsMCArMSw4NCBAQAorLy8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQ
-TC0yLjAtb3ItbGF0ZXIKKy8qCisgKiBDb3B5cmlnaHQgKGMpIDIwMjEgSm9lcmcgVmVobG93IDxq
-b2VyZy52ZWhsb3dAYW94LXRlY2guZGU+CisgKgorICogU2ltcGxlIGMgcHJvZ3JhbSBmb3IgZmFz
-dCBiYXRjaCBjcmVhdGlvbiBvZiBkdW1teSBmaWxlcywKKyAqIGl0IGNhbiBhbHNvIHNldCB1bmlx
-dWUgdWlkL2dpZCBjb21iaW5hdGlvbnMgYW5kIHhhdHRyIGZvcgorICogYWxsIGZpbGVzIGNyZWF0
-ZXMuIFRoZSBzYW1lIGFzIHNoZWxsIGNvZGUgaXMgZXh0cmVtZWx5IHNsb3dlci4KKyAqLworCisK
-KyNpbmNsdWRlIDxzdGRsaWIuaD4KKyNpbmNsdWRlIDxzdGRpby5oPgorI2luY2x1ZGUgPHN5cy9z
-dGF0Lmg+CisjaW5jbHVkZSA8c3lzL3R5cGVzLmg+CisjaW5jbHVkZSA8dW5pc3RkLmg+CisjaW5j
-bHVkZSA8ZmNudGwuaD4KKyNpbmNsdWRlIDxzeXMveGF0dHIuaD4KKworI2RlZmluZSBUU1RfTk9f
-REVGQVVMVF9NQUlOCisjaW5jbHVkZSAidHN0X3Rlc3QuaCIKKyNpbmNsdWRlICJ0c3Rfc2FmZV9t
-YWNyb3MuaCIKKwordm9pZCBwcmludF91c2FnZShjb25zdCBjaGFyICpuYW1lKQoreworICAgIHBy
-aW50ZigiVXNhZ2U6ICVzIFtPUFRJT05dXG5cbiIsIG5hbWUpOworICAgIHByaW50ZigiQ3JlYXRl
-cyBuIGZpbGVzIGluIHRoZSBjdXJyZW50IGRpcmVjdG9yeSBuYW1lcyAwLDEsLi4uXG5cbiIpOwor
-ICAgIHByaW50ZigiIC1uIG4gICAgdGhlIG51bWJlciBvZiBmaWxlcyB0byBjcmVhdGUgKGRlZmF1
-bHQ6IDIwNDgpXG4iKTsKKyAgICBwcmludGYoIiAtYyAgICAgIHNldCB1aWQgYW5kIGdyb3VwaWQg
-b2YgZmlsZSBpIHRvIGk6aVxuIik7CisgICAgcHJpbnRmKCIgLXggICAgICBzZXQgeGF0dHIgc2Vj
-dXJpdHkueCBvZiBmaWxlIGkgdG8gaVxuIik7CisgICAgcHJpbnRmKCIgLWggICAgICB0aGlzIG1l
-c3NhZ2VcbiIpOworfQorCitpbnQgbWFpbihpbnQgYXJnYywgY2hhcioqIGFyZ3YpCit7CisgICAg
-aW50IGk7CisgICAgaW50IG9wdGlvbjsKKyAgICBpbnQgbmZpbGVzID0gMjA0ODsKKyAgICBpbnQg
-c2V0X293bmVyID0gMDsKKyAgICBpbnQgc2V0X3hhdHRyID0gMDsKKworCXdoaWxlICgob3B0aW9u
-ID0gZ2V0b3B0KGFyZ2MsIGFyZ3YsICJuOmN4aCIpKSAhPSAtMSkgeworCQlzd2l0Y2ggKG9wdGlv
-bikgeworCQljYXNlICduJzoKKwkJCWlmICh0c3RfcGFyc2VfaW50KG9wdGFyZywgJm5maWxlcywg
-MCwgSU5UX01BWCkpIHsKKyAgICAgICAgICAgICAgICBwcmludGYoIlZhbHVlIGZvciAtbiBpcyBp
-bnZhbGlkXG4iKTsKKyAgICAgICAgICAgICAgICBwcmludF91c2FnZShhcmd2WzBdKTsKKyAgICAg
-ICAgICAgICAgICByZXR1cm4gRVhJVF9GQUlMVVJFOworICAgICAgICAgICAgfQorCQkJYnJlYWs7
-CisgICAgICAgIGNhc2UgJ2MnOgorICAgICAgICAgICAgc2V0X293bmVyID0gMTsKKyAgICAgICAg
-ICAgIGJyZWFrOworICAgICAgICBjYXNlICd4JzoKKyAgICAgICAgICAgIHNldF94YXR0ciA9IDE7
-CisgICAgICAgICAgICBicmVhazsKKwkJY2FzZSAnaCc6CisJCQlwcmludF91c2FnZShhcmd2WzBd
-KTsKKwkJCXJldHVybiBFWElUX1NVQ0NFU1M7CisJCWRlZmF1bHQ6CisJCQlwcmludF91c2FnZShh
-cmd2WzBdKTsKKwkJCXJldHVybiBFWElUX0ZBSUxVUkU7CisJCX0KKwl9CisKKyAgICBmb3IgKGkg
-PSAwOyBpIDwgbmZpbGVzOyArK2kpCisgICAgeworICAgICAgICBpbnQgZmQ7CisgICAgICAgIGNo
-YXIgbmFtZVsyMF07CisgICAgICAgIHNwcmludGYobmFtZSwgIiVkIiwgaSk7CisgICAgICAgIGZk
-ID0gU0FGRV9PUEVOKG5hbWUsIE9fQ1JFQVQgfCBPX0VYQ0wsIDA2NjYpOworICAgICAgICBpZiAo
-c2V0X293bmVyKQorICAgICAgICAgICAgU0FGRV9GQ0hPV04oZmQsIGksIGkpOworCisgICAgICAg
-IC8qIFRoaXMgbXVzdCBiZSBlaXRoZXIgc2VjdXJpdHksIHVzZXIgb3IgdHJ1c3RlZCBuYW1lc3Bh
-Y2UuCisgICAgICAgICAqIE5vdGhpbmcgZWxzZSBjYW4gYmUgc3RvcmVzIGluIHNxdWFzaGZzLgor
-ICAgICAgICAgKiBTaW5jZSB0aGUgZmlsZXMgYXJlIG1vc3QgbGlrZWx5IGNyZWF0ZWQgb24gYSB0
-bXBmcywKKyAgICAgICAgICogdXNlciBpcyBhbHNvIG5vdCBwb3NzaWJsZSwgYmVjYXVzZSBpdCBp
-cyBub3QgYWxsb3dlZCBvbiB0bXBmcy4gKi8KKyAgICAgICAgaWYgKHNldF94YXR0cikKKyAgICAg
-ICAgICAgIFNBRkVfRlNFVFhBVFRSKGZkLCAic2VjdXJpdHkueCIsICZpLCBzaXplb2YoaSksIFhB
-VFRSX0NSRUFURSk7CisgICAgICAgIGNsb3NlKGZkKTsKKyAgICB9CisKKyAgICByZXR1cm4gMDsK
-K30KZGlmZiAtLWdpdCBhL3Rlc3RjYXNlcy9rZXJuZWwvZnMvc3F1YXNoZnMvc3F1YXNoZnNfcmVn
-cmVzc2lvbi5zaCBiL3Rlc3RjYXNlcy9rZXJuZWwvZnMvc3F1YXNoZnMvc3F1YXNoZnNfcmVncmVz
-c2lvbi5zaApuZXcgZmlsZSBtb2RlIDEwMDc1NQppbmRleCAwMDAwMDAwMDAuLjhkM2I4ODEyYwot
-LS0gL2Rldi9udWxsCisrKyBiL3Rlc3RjYXNlcy9rZXJuZWwvZnMvc3F1YXNoZnMvc3F1YXNoZnNf
-cmVncmVzc2lvbi5zaApAQCAtMCwwICsxLDY1IEBACisjIS9iaW4vc2gKKyMgU1BEWC1MaWNlbnNl
-LUlkZW50aWZpZXI6IEdQTC0yLjAtb3ItbGF0ZXIKKyMgQ29weXJpZ2h0IChjKSAyMDIxIEpvZXJn
-IFZlaGxvdyA8am9lcmcudmVobG93QGFveC10ZWNoLmRlPgorIworIyBUaGlzIGlzIGEgcmVncmVz
-c2lvbiB0ZXN0IGZvciBzcXVhc2hmcy4KKyMgU2VlIHRlc3QgY29tbWVudCBmb3IgZGV0YWlscy4K
-KworVFNUX1RFU1RGVU5DPXRlc3QKK1RTVF9DTEVBTlVQPWNsZWFudXAKK1RTVF9ORUVEU19DTURT
-PW1rc3F1YXNoZnMKK1RTVF9ORUVEU19ST09UPTEKK1RTVF9ORUVEU19UTVBESVI9MQorCisuIHRz
-dF90ZXN0LnNoCisKK2NsZWFudXAoKQoreworICAgIHVtb3VudCBtbnQgPi9kZXYvbnVsbCAyPiYx
-Cit9CisKKworIyBGb3IgaW5vZGVzOiAxMDIzICgrMSkgZW50cmllcworIyBGb3IgaWRzOiAyMDQ4
-CisjIEZveCB4YXR0cjogNTEyCisKK3Rlc3QxKCkKK3sKKyAgICAjIEtlcm5lbCBjb21taXRzCisg
-ICAgIyAgLSBmMzdhYTRjNzM2NmUyM2Y5MWI4MWQwMGJhZmQ2YTdhYjU0ZTRhMzgxCisgICAgIyAg
-LSBlYWJhYzE5ZTQwYzA5NTU0M2RlZjc5Y2I2ZmZlYjNhODU4OGFhZmY0CisgICAgIyAgLSA1MDYy
-MjBkMmJhMjE3OTEzMTRhZjU2OTIxMWZmZDg4NzBiODIwOGZhCisgICAgIyBhZGRlZCBzb21lIHNh
-bml0eSBjaGVja3MsIHRoYXQgdmVyaWZpZWQgdGhlIHNpemUgb2YKKyAgICAjIGlub2RlIGxvb2t1
-cCwgaWQgKHVpZC9naWQpIGFuZCB4YXR0ciBibG9ja3MgaW4gdGhlIHNxdWFzaGZzLAorICAgICMg
-YnV0IHJva2UgbW91bnRpbmcgZmlsZXN5c3RlbXMgd2l0aCBjb21wbGV0ZWx5IGZpbGxlZCBibG9j
-a3MuCisgICAgIyBBIGJsb2NrIGhhcyBhIG1heCBzaXplIG9mIDgxOTIuCisgICAgIyBBbiBpbm9k
-ZSBsb29rdXAgZW50cnkgaGFzIGFuIHVuY29tcHJlc3NlZCBzaXplIG9mIDggYnl0ZXMsCisgICAg
-IyBhbiBpZCBibG9jayA0IGJ5dGVzIGFuZCBhbiB4YXR0ciBibG9jayAxNiBieXRlcy4KKyAgICAj
-CisgICAgIyBUbyBmaWxsIHVwIGF0IGxlYXN0IG9uZSBibG9jayBmb3IgZWFjaCBvZiB0aGUgdGhy
-ZWUgdGFibGVzLAorICAgICMgMjA0OCBmaWxlcyB3aXRoIHVuaXF1ZSB1aWQvZ2lkIGFuZCB4YXR0
-ciBhcmUgY3JlYXRlZC4KKyAgICAjCisgICAgIyBUaGUgYnVncyBhcmUgZml4ZWQgaW4ga2VybmVs
-IGNvbW1pdHMKKyAgICAjICAtIGMxYjIwMjgzMTVjNmIxNWU4ZDY3MjVlMGQ1ODg0YjE1ODg3ZDNk
-YWEKKyAgICAjICAtIDhiNDRjYTJiNjM0NTI3MTUxYWYwNzQ0N2E4MDkwYTVmM2EwNDMzMjEKKwor
-ICAgIHRzdF9yZXMgVElORk8gIlRlc3Qgc3F1YXNoZnMgc2FuaXR5IGNoZWNrIHJlZ3Jlc3Npb25z
-IgorCisgICAgbWtkaXIgZGF0YQorICAgIGNkIGRhdGEKKyAgICBST0Qgc3F1YXNoZnMtY3JlYXRl
-ZmlsZXMgLWN4biAyMDQ4CisgICAgY2QgLi4KKworICAgICMgQ3JlYXRlIHNxdWFzaGZzIHdpdGhv
-dXQgYW55IGNvbXBvcmVzc2lvbi4KKyAgICAjIFRoaXMgYWxsb3dzIHJlYXNvbmluZyBhYm91dCBi
-bG9jayBzaXplcworICAgIG1rc3F1YXNoZnMgZGF0YSBpbWFnZS5yYXcgLW5vSSAtbm9EIC1ub1gg
-LW5vRiA+L2Rldi9udWxsIDI+JjEKKyAgICBzcXVhc2hmcy1pbmZvIGltYWdlLnJhdworCisgICAg
-bWtkaXIgbW50CisgICAgRVhQRUNUX1BBU1NfQlJLIG1vdW50IC1vIGxvb3AgaW1hZ2UucmF3IG1u
-dAorICAgIHVtb3VudCBtbnQKKworICAgIHRzdF9yZXMgVFBBU1MgIlRlc3QgcGFzc2VkIgorfQor
-Cit0c3RfcnVuCi0tIAoyLjI1LjEKCgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBzOi8vbGlz
-dHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
+The cleanup function is using the key 0xF00F instead of the id in the shmctl call.
+This causes the shared mem segment to not be removed properly.
+
+This can be reproduced with the following:
+
+$ ./shmctl05
+tst_test.c:1342: TINFO: Timeout per run is
+../../../../../include/tst_fuzzy_sync.h:522: TINFO: Minimum sampling period ended
+../../../../../include/tst_fuzzy_sync.h:345: TINFO: loop = 1024, delay_bias = 0
+../../../../../include/tst_fuzzy_sync.h:333: TINFO: start_a - start_b: { avg =   ns, avg_dev =     ns, dev_ratio = }
+../../../../../include/tst_fuzzy_sync.h:333: TINFO: end_a - start_a  : { avg =   ns, avg_dev =     ns, dev_ratio = }
+../../../../../include/tst_fuzzy_sync.h:333: TINFO: end_b - start_b  : { avg =   ns, avg_dev =     ns, dev_ratio = }
+../../../../../include/tst_fuzzy_sync.h:333: TINFO: end_a - end_b    : { avg =   ns, avg_dev =     ns, dev_ratio = }
+../../../../../include/tst_fuzzy_sync.h:333: TINFO: spins            : { avg =     , avg_dev =       , dev_ratio = }
+../../../../../include/tst_fuzzy_sync.h:678: TINFO: Exceeded execution time, requesting exit
+shmctl05.c:89: TPASS: didn't crash
+
+Summary:
+passed   1
+failed   0
+broken   0
+skipped  0
+warnings 0
+
+$ ipcs -m
+
+------ Shared Memory Segments --------
+key        shmid      owner      perms      bytes      nattch     status
+0x0000f00f 629964859  user       700        4096       0
+
+Fix
+In the cleanup, add a SAFE_SHMGET to fetch the id and pass into shmctl call.
+Confirmed this resolves the leaked segment.
+
+Signed-off-by: Ian May <ian.s.may@gmail.com>
+---
+ testcases/kernel/syscalls/ipc/shmctl/shmctl05.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/testcases/kernel/syscalls/ipc/shmctl/shmctl05.c b/testcases/kernel/syscalls/ipc/shmctl/shmctl05.c
+index f8b76bda7..ea7eef6f1 100644
+--- a/testcases/kernel/syscalls/ipc/shmctl/shmctl05.c
++++ b/testcases/kernel/syscalls/ipc/shmctl/shmctl05.c
+@@ -91,8 +91,10 @@ static void do_test(void)
+ 
+ static void cleanup(void)
+ {
++	int id;
+ 	tst_fzsync_pair_cleanup(&fzsync_pair);
+-	shmctl(0xF00F, IPC_RMID, NULL);
++	id = SAFE_SHMGET(0xF00F, 4096, 0);
++	SAFE_SHMCTL(id, IPC_RMID, NULL);
+ }
+ 
+ static struct tst_test test = {
+-- 
+2.25.1
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
