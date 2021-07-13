@@ -1,75 +1,68 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 657523C6DC4
-	for <lists+linux-ltp@lfdr.de>; Tue, 13 Jul 2021 11:51:33 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 202FF3C6DA9
+	for <lists+linux-ltp@lfdr.de>; Tue, 13 Jul 2021 11:40:52 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E7E9E3C8764
-	for <lists+linux-ltp@lfdr.de>; Tue, 13 Jul 2021 11:51:32 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id AD5123C876C
+	for <lists+linux-ltp@lfdr.de>; Tue, 13 Jul 2021 11:40:51 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 2EBB93C65F7
- for <ltp@lists.linux.it>; Tue, 13 Jul 2021 11:51:29 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 3167A3C65F7
+ for <ltp@lists.linux.it>; Tue, 13 Jul 2021 11:40:48 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 9FE1A200AC9
- for <ltp@lists.linux.it>; Tue, 13 Jul 2021 11:51:28 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 08B1421F66;
- Tue, 13 Jul 2021 09:51:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1626169888; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 64CC21400E52
+ for <ltp@lists.linux.it>; Tue, 13 Jul 2021 11:40:47 +0200 (CEST)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id B812620085;
+ Tue, 13 Jul 2021 09:40:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1626169246;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=SPrtzV24hbROFRoCdpc2WtFPQLnZpabBCJemKcwZNKU=;
- b=RnNX+lkvacvNmWQo6d3oUQ4G5d88JAQ2FBXJBgC8C/wkfDQWdK5TMN2w5perp3r3b/jSnG
- SY4+HIj5amL1TU5y0pfPEag7GooXSmExGlsnyFmj8xWLhoWnQCh+o15nnWs4wIs2IBavxH
- iQiSd8UJMjmdrsQh/tG7uzGLpr3aRKM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1626169888;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ bh=wSWuH79FG7///dmuJurhRE4rqd0OUbx42Dn3VKYCMHA=;
+ b=cfzy5lEl4F16bDO9qen/cPXHhd7xdBUgrEBSNXPactINHDcg1CTGHBcI2yK6U+o2r+0ZFY
+ b+XMJYbYJT+4DEbJauM07hgnJcxOPj5jJ6LUuFzJHTRUw0Ex1o/oyEjO2fnbBtDAfZdcNw
+ f3jDBApHQQ08z7Sp1FnCUj4h76PU+ao=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1626169246;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=SPrtzV24hbROFRoCdpc2WtFPQLnZpabBCJemKcwZNKU=;
- b=sQaAFGvEYXEBHzykyKJ+dO8URYB9dDzoxxf/efD2ElmDLWHI5HIHYTzVpbL1K0S+/ZoVYD
- QpzjbEYkd47RNgBg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ bh=wSWuH79FG7///dmuJurhRE4rqd0OUbx42Dn3VKYCMHA=;
+ b=CO9ZSfQLGzHXkEQ1dnDUKyMJ0mjuyp9g13RHYbTgwUSu/SveO1ZLYlzqVfr2t3cBFNlkKo
+ 4wa9FMhWonpjt/Cw==
+Received: from g78 (unknown [10.163.24.38])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DD8AD13AE2;
- Tue, 13 Jul 2021 09:51:27 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id oplPNR9i7WD7WgAAMHmgww
- (envelope-from <chrubis@suse.cz>); Tue, 13 Jul 2021 09:51:27 +0000
-Date: Tue, 13 Jul 2021 11:25:54 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <YO1cIhIKgEPrApUC@yuki>
-References: <YOx1pir0UuBNM+4w@pevik>
- <CAASaF6zS0kPHk6vSvANA1KzuOCtJHskLmOE_DE1n4b5AhMUPkg@mail.gmail.com>
- <YO1VaOB8nnMh6FT1@pevik>
+ by relay2.suse.de (Postfix) with ESMTPS id 876EEA3B81;
+ Tue, 13 Jul 2021 09:40:46 +0000 (UTC)
+References: <20210713092210.17141-1-krzysztof.kozlowski@canonical.com>
+ <20210713092210.17141-5-krzysztof.kozlowski@canonical.com>
+User-agent: mu4e 1.4.15; emacs 27.2
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+In-reply-to: <20210713092210.17141-5-krzysztof.kozlowski@canonical.com>
+Date: Tue, 13 Jul 2021 10:40:45 +0100
+Message-ID: <87y2aa5z6q.fsf@suse.de>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <YO1VaOB8nnMh6FT1@pevik>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] tst_strstatus.c fails on Alpine
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v4 4/5] controllers/memcg: increase memory limit
+ in subgroup charge
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,71 +74,74 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: rpalethorpe@suse.de
 Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> Thanks for a hint. Indeed WIFSIGNALED(0xff) returns 1, thus tst_strstatus()
-> returns signaled(status).
-> 
-> musl defines WIFSIGNALED() as:
-> 
-> #define WIFSIGNALED(s) (((s)&0xffff)-1U < 0xffu)
-> 
-> which returns 1.
-> 
-> Glibc defines __WIFSIGNALED() as:
-> 
-> #define __WIFSIGNALED(status) \
->   (((signed char) (((status) & 0x7f) + 1) >> 1) > 0)
-> 
-> which returns 0.
-> 
-> I wonder if it's a musl bug which we should report or {0x100, "invalid status
-> 0xff"} test case is glibc specific and we should guard it with #ifdef __GLIBC__.
+Hello Krzysztof,
 
-The process exit values are defined in the kernel ABI so I would say
-that there shouldn't be any differencies between how these are handled
-inside different libc implementation. That being said the musl version
-is incorrect only for invalid values that will probably not happen in
-practice. Glibc is simply more defensive in parsing and rejects invalid
-conditions.
+Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com> writes:
 
-WIFSIGNALED() is supposed to return 1 only if process was killed by a
-signal, which means that the upper byte of the status is ignored and the
-lower byte has to look like:
+> The memcg_subgroup_charge was failing on kernel v5.8 in around 10% cases
+> with:
+>
+>     memcg_subgroup_charge 1 TINFO: Running memcg_process --mmap-anon -s 135168
+>     memcg_subgroup_charge 1 TINFO: Warming up pid: 19289
+>     memcg_subgroup_charge 1 TINFO: Process is still here after warm up: 19289
+>     memcg_subgroup_charge 1 TFAIL: rss is 0, 135168 expected
+>     memcg_subgroup_charge 1 TPASS: rss is 0 as expected
+>
+> In dmesg one could see that OOM killer killed the process even though
+> group memory limit was matching the usage:
+>
+>     memcg_process invoked oom-killer: gfp_mask=0xcc0(GFP_KERNEL), order=0, oom_score_adj=0
+>     CPU: 4 PID: 19289 Comm: memcg_process Not tainted 5.8.0-1031-oracle #32~20.04.2-Ubuntu
+>     Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.4.1 12/03/2020
+>     ...
+>     memory: usage 132kB, limit 132kB, failcnt 9
+>     memory+swap: usage 132kB, limit 9007199254740988kB, failcnt 0
+>     kmem: usage 4kB, limit 9007199254740988kB, failcnt 0
+>     ...
+>     Tasks state (memory values in pages):
+>     [  pid  ]   uid  tgid total_vm      rss pgtables_bytes swapents oom_score_adj name
+>     [  19289]     0 19289      669      389    40960        0             0 memcg_process
+>     oom-kill:constraint=CONSTRAINT_MEMCG,nodemask=(null),cpuset=/,mems_allowed=0,oom_memcg=/ltp_19257,task_memcg=/ltp_19257,task=memcg_process,pid=19289,uid=0
+>     Memory cgroup out of memory: Killed process 19289 (memcg_process) total-vm:2676kB, anon-rss:84kB, file-rss:1468kB, shmem-rss:4kB, UID:0 pgtables:40kB oom_score_adj:0
+>     oom_reaper: reaped process 19289 (memcg_process), now anon-rss:0kB, file-rss:0kB, shmem-rss:4kB
+>
+> It seems actual kernel memory usage by a given group depends on number
+> of CPUs, where at least one page is allocated per-cpu beside regular
+> (expected) allocation.  Fix the test on machines with more CPUs by
+> including this per-CPU memory in group limits, plus some slack of 4
+> PAGES.  Increase also memory allocation from 32 to 64 pages to be more
+> distinctive from kernel per-CPU memory.
 
-7 6 5 4 3 2 1 0
-x . . . . . . .
-  ^
-^ Termination signal
-|
-Core dumped flag
+Actually I think it is 66 pages? Because PAGESIZES=pagesize*33.
 
-Also this value can't be set tio 0x7f since that means "stopped by
-signal".
-
-This is exaclty what glibc does since it masks the termination signal
-number with 0x7f then adds 1, which would overlfow to 0x80 if the value
-was 0x7f initially and end up being negative. The bitshift is there to
-erase the +1 in a case we started with 0.
-
-The musl libc returns 1 if the lower byte is non-zero and the upper byte
-is zero, which depends on the fact that the upper byte is unused and
-filled in zeroes when the process was killed by a signal and non-zero in
-all other cases where the lower byte is non-zero. As long as we get only
-valid status from wait() this is going to work fine.
-
-To be honest I like the defensive parsing from libc more than the musl
-variant but I'm not 100% sure if this is something that should be added
-to musl as well.
+>
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+> ---
+>  .../memcg/functional/memcg_subgroup_charge.sh | 33 ++++++++++++++-----
+>  1 file changed, 25 insertions(+), 8 deletions(-)
+>
+> diff --git a/testcases/kernel/controllers/memcg/functional/memcg_subgroup_charge.sh b/testcases/kernel/controllers/memcg/functional/memcg_subgroup_charge.sh
+> index 9b23177a4dc5..0d2b235aff7c 100755
+> --- a/testcases/kernel/controllers/memcg/functional/memcg_subgroup_charge.sh
+> +++ b/testcases/kernel/controllers/memcg/functional/memcg_subgroup_charge.sh
+> @@ -14,16 +14,33 @@ TST_CNT=3
+>  
+>  . memcg_lib.sh
+>  
+> +# Allocate memory bigger than per-cpu kernel memory
+> +MEM_TO_ALLOC=$((PAGESIZES * 2))
+> +
 
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
