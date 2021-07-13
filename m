@@ -1,86 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF18A3C742F
-	for <lists+linux-ltp@lfdr.de>; Tue, 13 Jul 2021 18:16:05 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id B3C103C7470
+	for <lists+linux-ltp@lfdr.de>; Tue, 13 Jul 2021 18:25:12 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 32AA73C9D3F
-	for <lists+linux-ltp@lfdr.de>; Tue, 13 Jul 2021 18:16:05 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 3991C3C9CBC
+	for <lists+linux-ltp@lfdr.de>; Tue, 13 Jul 2021 18:25:12 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 6D9F93C878C
- for <ltp@lists.linux.it>; Tue, 13 Jul 2021 18:16:01 +0200 (CEST)
-Received: from smtp-relay-canonical-1.canonical.com
- (smtp-relay-canonical-1.canonical.com [185.125.188.121])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id E9A46600BF5
- for <ltp@lists.linux.it>; Tue, 13 Jul 2021 18:16:00 +0200 (CEST)
-Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
- [209.85.218.72])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ by picard.linux.it (Postfix) with ESMTPS id B26A53C2A73
+ for <ltp@lists.linux.it>; Tue, 13 Jul 2021 18:25:08 +0200 (CEST)
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [IPv6:2a00:1450:4864:20::434])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPS id 42BF540612
- for <ltp@lists.linux.it>; Tue, 13 Jul 2021 16:16:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1626192960;
- bh=vMetiXMdvIbRMIPt7C/GQbBOhMT9/bYRlL0qNGvPk3M=;
- h=From:To:Subject:Date:Message-Id:MIME-Version;
- b=XWlFRp3o3Qz5NHDOP89FP1RAzSLnY0s+FODfN5NQOJ0yWCMkYlBrNyJxXQlf/XVCw
- d/PXceO7jrQrjccADtjf6HpjqXjzJvu8J61n7+X2rVIyvNB0rDIFBBowZQ2yRQgESt
- VJG6w3EqJ1Sv/fj4l6v796MNoi2ioIA6WmLz3q2i3vb0hNzavGLtk2/wi9Sh9MzSPh
- VdpFTfShiRXJ8EOwWdQbhrmEp19Vkd7oXwr6rr1la+W0Lc3sA6yTGD6qi1YBBfvpgA
- oZZulCVBnFiSHnrPJUuWX5QCsn0yPKxn/c7Ly9uTw/CJEnH0DkeK4a2RwbiCFrI+tN
- KQ4ukDKfS5MlA==
-Received: by mail-ej1-f72.google.com with SMTP id
- sd15-20020a170906ce2fb0290512261c5475so3152837ejb.13
- for <ltp@lists.linux.it>; Tue, 13 Jul 2021 09:16:00 -0700 (PDT)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 3FF431400191
+ for <ltp@lists.linux.it>; Tue, 13 Jul 2021 18:25:08 +0200 (CEST)
+Received: by mail-wr1-x434.google.com with SMTP id d2so31315284wrn.0
+ for <ltp@lists.linux.it>; Tue, 13 Jul 2021 09:25:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Yz1orakFwOS15hCFDHqrk9Q+hxeUg1yWzt866iS7T0w=;
+ b=SmoAe0zsZAovrFmqCTcWKNgsmB0nvETRWi5rfPD8BTuquyp4JhR5BPTo/G20CAF+cT
+ Ftz/WON4J1CWRyzeS5UijaCJBM8E6fme+wnFjSL62QfhgcFbTwC845R+Ke7zf+7h8sZw
+ hbwZvTpCPQxsWgIUL3vP7nWBQemdEHbrH/mgSF5gRgIyZVraRqbBCdwS+F6UMbdpfu6+
+ eajDA0+m7vyi0ft8SQ1IxCbv/W2wtcfsVDh40pqyilc2pCp9uPpVRWKzjK3cKlCRedf5
+ daoPpYGXs1Gid1TGfcisi575Ey74K7ptipNOIsDXHEoNJmOF9bU4yz+WlgBUNwRd80PP
+ G2pA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=vMetiXMdvIbRMIPt7C/GQbBOhMT9/bYRlL0qNGvPk3M=;
- b=OCw+pK2/eFWfDlKBtC9eXMfcR5/0RWESoORHlSE/xbrSk5UOVBV1ll8qOxOwdcT+oY
- Uft4OwjCKhON+8bHQQqXKhLzzm4l7AuXV2I3GUH97mxOyzpallGtCotZTUo2UwX2DPDE
- gOhyDsWFetdPafHpmgFpM1skSSoLo1aDi2OKk5hEo5Igj6Zils+I4mOquoCinalcTsiV
- CzREVbEcpgHzjaOko0adI3VLJp6h+CDclq9w22MTktRA+Hd5Zqy+3fG3ucjgkzd8K5KG
- VvFu/mX/Ybu0yXNn1llzfVGWOw1KG/O8VYdIlps2Xk2KKtrd55r66/oE+D8lPm96aRLY
- 7Jrg==
-X-Gm-Message-State: AOAM533juJiXjFRi+O/Go9zv+aVuHPTWAIaWLvCzchyLHIc5X71uJtlg
- PCcUtUPze1mQbhoKpZ/IwulNbeGO8qveTuFM0679nhgNbeaqSZJ5Dmd3gl+c0hl/SlZjXQk1V2K
- DKWasiGh/0FNxsqX9ZRFn6e/MN8nB
-X-Received: by 2002:a17:906:2dc9:: with SMTP id
- h9mr6651201eji.345.1626192959808; 
- Tue, 13 Jul 2021 09:15:59 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJyWpjVflA0eDqXk9DYLFOjKBdgUDN5cOWlqDK+lEAk4TL3lhwLiJfdOsrLjfcD88iaM/qFKpQ==
-X-Received: by 2002:a17:906:2dc9:: with SMTP id
- h9mr6651188eji.345.1626192959687; 
- Tue, 13 Jul 2021 09:15:59 -0700 (PDT)
-Received: from kozik-lap.lan (xdsl-188-155-177-222.adslplus.ch.
- [188.155.177.222])
- by smtp.gmail.com with ESMTPSA id b12sm9952161edu.30.2021.07.13.09.15.59
+ bh=Yz1orakFwOS15hCFDHqrk9Q+hxeUg1yWzt866iS7T0w=;
+ b=FuZvhiv5NxO7GIe3bnGypOef++M/nDO/Oowc8LgiP7wqaL7vWBhR+TOa/I9UUipwfr
+ wbfLa3JhNN2v3Og9Gbp5xBJBoT/2zAxp2xehlOfz+s/arWW258O8OC5XoeeJeUF0n4zx
+ yUs2PlXNkj/d7dGWYrNIpYsirmWuhUtUzFPPN/C0gRlsnqW8kVZSXzFayktPb2jeA7rW
+ 5Dtl1IYxzBiejmV0H6Xa08j4+lqgo297EDqDs44lyDHgHKddsQ00X+C9nOG4k8HAqcP/
+ AsJGSGnSkbFW+e884RJKlJoArGbUO2haEhWp++33g5ZklqNvbH/OKx8qWPo0Mz3z5WIa
+ T94w==
+X-Gm-Message-State: AOAM530s2ivpYS1MPtMPsSn/VaPQ0+pWNxpbOExFmTaz/EYtuiI+r7a3
+ uRoYEQKkzk4vgvpQuNmy4v/n2dmBhZc=
+X-Google-Smtp-Source: ABdhPJwq9Aj+Q+VHW9QH5Qa0NIQcOYFrl8ulu3Vha+/MVBNOh4X2q21Wxo2lzf7/IjsJNs91gysKhA==
+X-Received: by 2002:a5d:524e:: with SMTP id k14mr6865567wrc.264.1626193507862; 
+ Tue, 13 Jul 2021 09:25:07 -0700 (PDT)
+Received: from amir-ThinkPad-T480.ctera.local
+ (bzq-166-168-31-246.red.bezeqint.net. [31.168.166.246])
+ by smtp.gmail.com with ESMTPSA id r15sm4744963wrx.94.2021.07.13.09.25.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 13 Jul 2021 09:15:59 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-To: ltp@lists.linux.it
-Date: Tue, 13 Jul 2021 18:15:56 +0200
-Message-Id: <20210713161556.63096-1-krzysztof.kozlowski@canonical.com>
-X-Mailer: git-send-email 2.27.0
+ Tue, 13 Jul 2021 09:25:07 -0700 (PDT)
+From: Amir Goldstein <amir73il@gmail.com>
+To: Petr Vorel <pvorel@suse.cz>
+Date: Tue, 13 Jul 2021 19:24:50 +0300
+Message-Id: <20210713162450.34947-1-amir73il@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH] controllers/memcg: document non-hierarchical on v5.11
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH] syscalls/fanotify19: Add test cases for elevated
+ reader privileges
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,47 +80,160 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: Matthew Bobrowski <mbobrowski@mbobrowski.org>, Jan Kara <jack@suse.cz>,
+ ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Since kernel v5.11, there is no non-hierarchical mode, so mention it in
-the code.
+Even when event reader has elevated privileges, the information provided
+in events is determined by the privileges of the user that created the
+fanotify group.
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+Add test cases for unprivileged listener and privileged event reader.
+
+This is a regression test for kernel commit
+a8b98c808eab ("fanotify: fix permission model of unprivileged group")
+
+Signed-off-by: Amir Goldstein <amir73il@gmail.com>
 ---
- .../kernel/controllers/memcg/functional/memcg_lib.sh | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
 
-diff --git a/testcases/kernel/controllers/memcg/functional/memcg_lib.sh b/testcases/kernel/controllers/memcg/functional/memcg_lib.sh
-index 3d04c3a60700..873b637c88f9 100755
---- a/testcases/kernel/controllers/memcg/functional/memcg_lib.sh
-+++ b/testcases/kernel/controllers/memcg/functional/memcg_lib.sh
-@@ -124,13 +124,17 @@ memcg_setup()
- 	ROD mkdir /dev/memcg
- 	ROD mount -t cgroup -omemory memcg /dev/memcg
+Hi Petr,
+
+Added test for a fix in v5.13-rc5.
+
+Thanks,
+Amir.
+
+ .../kernel/syscalls/fanotify/fanotify19.c     | 57 ++++++++++++++++---
+ 1 file changed, 49 insertions(+), 8 deletions(-)
+
+diff --git a/testcases/kernel/syscalls/fanotify/fanotify19.c b/testcases/kernel/syscalls/fanotify/fanotify19.c
+index e4ac8a032..3792c717c 100644
+--- a/testcases/kernel/syscalls/fanotify/fanotify19.c
++++ b/testcases/kernel/syscalls/fanotify/fanotify19.c
+@@ -38,6 +38,7 @@
+ #define MOUNT_PATH	"fs_mnt"
+ #define TEST_FILE	MOUNT_PATH "/testfile"
  
--	# The default value for memory.use_hierarchy is 0 and some of tests
--	# (memcg_stat_test.sh and memcg_use_hierarchy_test.sh) expect it so
--	# while there are distributions (RHEL7U0Beta for example) that sets
--	# it to 1.
-+	# For kernels older than v5.11 the default value for
-+	# memory.use_hierarchy is 0 and some of tests (memcg_stat_test.sh and
-+	# memcg_use_hierarchy_test.sh) expect it so while there are
-+	# distributions (RHEL7U0Beta for example) that sets it to 1.
- 	# Note: If there are already subgroups created it is not possible,
- 	# to set this back to 0.
- 	# This seems to be the default for all systems using systemd.
-+	#
-+	# Starting with kernel v5.11, the non-hierarchical mode is not
-+	# available. See Linux kernel commit bef8620cd8e0 ("mm: memcg:
-+	# deprecate the non-hierarchical mode").
- 	orig_memory_use_hierarchy=$(cat /dev/memcg/memory.use_hierarchy)
- 	if [ -z "$orig_memory_use_hierarchy" ];then
- 		tst_res TINFO "cat /dev/memcg/ failed"
++static uid_t euid;
+ static int fd_notify;
+ static char buf[BUF_SIZE];
+ static struct fanotify_event_metadata event_buf[EVENT_BUF_LEN];
+@@ -45,12 +46,14 @@ static struct fanotify_event_metadata event_buf[EVENT_BUF_LEN];
+ static struct test_case_t {
+ 	const char *name;
+ 	unsigned int fork;
++	unsigned int elevate;
+ 	unsigned int event_count;
+ 	unsigned long long event_set[EVENT_SET_MAX];
+ } test_cases[] = {
+ 	{
+ 		"unprivileged listener - events by self",
+ 		0,
++		0,
+ 		4,
+ 		{
+ 			FAN_OPEN,
+@@ -62,6 +65,7 @@ static struct test_case_t {
+ 	{
+ 		"unprivileged lisneter - events by child",
+ 		1,
++		0,
+ 		4,
+ 		{
+ 			FAN_OPEN,
+@@ -69,7 +73,31 @@ static struct test_case_t {
+ 			FAN_MODIFY,
+ 			FAN_CLOSE,
+ 		}
+-	}
++	},
++	{
++		"unprivileged listener, privileged reader - events by self",
++		0,
++		1,
++		4,
++		{
++			FAN_OPEN,
++			FAN_ACCESS,
++			FAN_MODIFY,
++			FAN_CLOSE,
++		}
++	},
++	{
++		"unprivileged lisneter, privileged reader - events by child",
++		1,
++		1,
++		4,
++		{
++			FAN_OPEN,
++			FAN_ACCESS,
++			FAN_MODIFY,
++			FAN_CLOSE,
++		}
++	},
+ };
+ 
+ static void generate_events(void)
+@@ -118,6 +146,14 @@ static void test_fanotify(unsigned int n)
+ 
+ 	tst_res(TINFO, "Test #%d %s", n, tc->name);
+ 
++	/* Relinquish privileged user */
++	if (euid == 0) {
++		tst_res(TINFO,
++			"Running as privileged user, revoking.");
++		struct passwd *nobody = SAFE_GETPWNAM("nobody");
++		SAFE_SETEUID(nobody->pw_uid);
++	}
++
+ 	/* Initialize fanotify */
+ 	fd_notify = fanotify_init(FANOTIFY_REQUIRED_USER_INIT_FLAGS, O_RDONLY);
+ 
+@@ -149,6 +185,13 @@ static void test_fanotify(unsigned int n)
+ 	else
+ 		generate_events();
+ 
++	/* Restore privileges */
++	if (euid == 0 && tc->elevate) {
++		tst_res(TINFO,
++			"Restoring privileged user.");
++		SAFE_SETEUID(0);
++	}
++
+ 	/* Read events from queue */
+ 	len = SAFE_READ(0, fd_notify, event_buf + len, EVENT_BUF_LEN - len);
+ 
+@@ -224,13 +267,7 @@ static void setup(void)
+ 	/* Check for kernel fanotify support */
+ 	REQUIRE_FANOTIFY_INIT_FLAGS_SUPPORTED_ON_FS(FAN_REPORT_FID, TEST_FILE);
+ 
+-	/* Relinquish privileged user */
+-	if (geteuid() == 0) {
+-		tst_res(TINFO,
+-			"Running as privileged user, revoking.");
+-		struct passwd *nobody = SAFE_GETPWNAM("nobody");
+-		SAFE_SETUID(nobody->pw_uid);
+-	}
++	euid = geteuid();
+ }
+ 
+ static void cleanup(void)
+@@ -248,6 +285,10 @@ static struct tst_test test = {
+ 	.needs_root = 1,
+ 	.mount_device = 1,
+ 	.mntpoint = MOUNT_PATH,
++	.tags = (const struct tst_tag[]) {
++		{"linux-git", "a8b98c808eab"},
++		{}
++	}
+ };
+ 
+ #else
 -- 
-2.27.0
+2.25.1
 
 
 -- 
