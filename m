@@ -1,74 +1,75 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5E3E3C712B
-	for <lists+linux-ltp@lfdr.de>; Tue, 13 Jul 2021 15:25:24 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 610F83C7136
+	for <lists+linux-ltp@lfdr.de>; Tue, 13 Jul 2021 15:29:33 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6A3FC3C8777
-	for <lists+linux-ltp@lfdr.de>; Tue, 13 Jul 2021 15:25:24 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E14423C876E
+	for <lists+linux-ltp@lfdr.de>; Tue, 13 Jul 2021 15:29:32 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 1833E3C7583
- for <ltp@lists.linux.it>; Tue, 13 Jul 2021 15:25:21 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 655013C7583
+ for <ltp@lists.linux.it>; Tue, 13 Jul 2021 15:29:29 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id A0D7C60091B
- for <ltp@lists.linux.it>; Tue, 13 Jul 2021 15:25:20 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id D710B100094C
+ for <ltp@lists.linux.it>; Tue, 13 Jul 2021 15:29:28 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 0004721E43;
- Tue, 13 Jul 2021 13:25:19 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 3BD702056C;
+ Tue, 13 Jul 2021 13:29:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1626182720; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1626182968; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=uAJNUQ49hJoqoqDaZwZ6enWeXaq0WDRwkKduzDuSkws=;
- b=b/N6yldsNrxP+jS8toX35ywCIMeHHmRDooDe07iTH6Net9fQ2w9luszA/EM3gh/Wr0ik7l
- alfncoRLu84yYII6ceThJa3/pY8K1IZJLOR5TGgPNqPYrbIvV4pcLtr/vKAGN62KlcAORF
- +iU+HqHKcDdH9Nm08DENc5Bg4kJTWCk=
+ bh=+qEjuQevZqyO6CweEJ3yMgcImI5q9b4HueNFxukrWBY=;
+ b=b/W0mH/BGBOcDZMb1Fg4nvhSWH6HYWNPr0bUxd8SnxtRjylENuqEZZ3RuipNAw3d3kPXT/
+ QO756YBS5bov3SvfjNXaM6OkZlyC33od17UBWCANQrONEUxpCaK0WAg5sbBqp/T/mZa4xI
+ VnKGsmBK2gzJScR8a01fYkkDVGNwRZU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1626182720;
+ s=susede2_ed25519; t=1626182968;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=uAJNUQ49hJoqoqDaZwZ6enWeXaq0WDRwkKduzDuSkws=;
- b=TRSCQozjmvsENvi3L5IGI3iWEScu3IBpV69YtziH1bxvu+6ROM9kXWN8urB5oCgdHX1z3C
- X00noEwmb/wOllDg==
+ bh=+qEjuQevZqyO6CweEJ3yMgcImI5q9b4HueNFxukrWBY=;
+ b=rh0+H7dO4dd/jbq1YTHLSnpVaWGtakkDxHmt0v8BmpbEyqgTmFx/ExHKEsIj2eYpcG9kMR
+ ltkWSi/6C36BhVBQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D6D7113AE9;
- Tue, 13 Jul 2021 13:25:19 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 07DA313AE9;
+ Tue, 13 Jul 2021 13:29:27 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 8KsMMz+U7WCgEgAAMHmgww
- (envelope-from <chrubis@suse.cz>); Tue, 13 Jul 2021 13:25:19 +0000
-Date: Tue, 13 Jul 2021 14:59:46 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id mfGPNjeV7WDXEwAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Tue, 13 Jul 2021 13:29:27 +0000
+Date: Tue, 13 Jul 2021 15:03:54 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <YO2OQr3a+9GuJXa8@yuki>
+Message-ID: <YO2POhZ6jWSq6uGe@yuki>
 References: <20210713101338.6985-1-pvorel@suse.cz>
- <20210713101338.6985-3-pvorel@suse.cz>
+ <20210713101338.6985-4-pvorel@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210713101338.6985-3-pvorel@suse.cz>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+In-Reply-To: <20210713101338.6985-4-pvorel@suse.cz>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v4 2/7] tst_net.sh: Declare prefix variable as
- empty
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v4 3/7] tst_strstatus.c: Use musl compatible
+ status number
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,11 +88,6 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-It starts to look like it would be easier to write a shell just for LTP
-and stick to it :-).
-
-Anyways:
-
 Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
 
 -- 
