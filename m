@@ -1,75 +1,85 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E9D83C6CBE
-	for <lists+linux-ltp@lfdr.de>; Tue, 13 Jul 2021 10:57:20 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 85FBB3C6D33
+	for <lists+linux-ltp@lfdr.de>; Tue, 13 Jul 2021 11:22:23 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C621A3C8775
-	for <lists+linux-ltp@lfdr.de>; Tue, 13 Jul 2021 10:57:19 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id DD70E3C8774
+	for <lists+linux-ltp@lfdr.de>; Tue, 13 Jul 2021 11:22:22 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id C87063C6637
- for <ltp@lists.linux.it>; Tue, 13 Jul 2021 10:57:15 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 6EA0D3C65F7
+ for <ltp@lists.linux.it>; Tue, 13 Jul 2021 11:22:18 +0200 (CEST)
+Received: from smtp-relay-canonical-0.canonical.com
+ (smtp-relay-canonical-0.canonical.com [185.125.188.120])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 3B255200AC1
- for <ltp@lists.linux.it>; Tue, 13 Jul 2021 10:57:14 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 7C4A3600266
+ for <ltp@lists.linux.it>; Tue, 13 Jul 2021 11:22:17 +0200 (CEST)
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 4EB041FD45;
- Tue, 13 Jul 2021 08:57:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1626166634;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=mazN5gYO9auWAai+953oxQynXZGIqaK8TeVjzMzmaxw=;
- b=HqC8txzW+esyiDsufh49trCbPDV3ZnBhXrGYk8Gv0o3VrShqTEFLVaTbanyEeCCDc5KzBd
- 0llDbFuEfZyBCLaWuMM9xIsJtTejH1NnGEBMbidqzcwHRcnEYTDE17jr2QXmSpNl+uX+++
- S90a/xn9JZkBocNvOaqiqBLFOmLXCzE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1626166634;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=mazN5gYO9auWAai+953oxQynXZGIqaK8TeVjzMzmaxw=;
- b=0I6Nt/LRQlAOW6eywLKkBnGHLB14BC65PNsQMXN3p5GgutT1sUTpgX/vcoVpHnHN/7KKUi
- dfemmTKnAXmXb0Bg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 17E3413BC9;
- Tue, 13 Jul 2021 08:57:14 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id SBGrA2pV7WBVTQAAMHmgww
- (envelope-from <pvorel@suse.cz>); Tue, 13 Jul 2021 08:57:14 +0000
-Date: Tue, 13 Jul 2021 10:57:12 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Jan Stancek <jstancek@redhat.com>
-Message-ID: <YO1VaOB8nnMh6FT1@pevik>
-References: <YOx1pir0UuBNM+4w@pevik>
- <CAASaF6zS0kPHk6vSvANA1KzuOCtJHskLmOE_DE1n4b5AhMUPkg@mail.gmail.com>
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPS id 9ABDF40653
+ for <ltp@lists.linux.it>; Tue, 13 Jul 2021 09:22:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1626168135;
+ bh=gNanRshC/2JXKvToHfat2vXv5ThQ8q17TnH79vbjK1k=;
+ h=From:To:Subject:Date:Message-Id:MIME-Version;
+ b=Y0cY5CVn6v5coUEpsbuIIWXg4Z8iMULnbn47u872p9iu4SuW4qYclEgXOe/BNu2Da
+ 3SwhwV2AtiaBV2M9J9oIV2Ao/eMd73aKDhWsp+fth5wmRu6wUTmrUOO7J1t0ITpDQ2
+ qbGmsA+MxITIwksqamzQyE196InHj7jSjVkA7qDESyb4q3lEmtajF1lYjaPlxD6o6a
+ 01UARL5YY9/oUf5JoV6cVhD1T2A5PJZ8KzTXjqj2bVHg6JGRcaE07hb2lSdSRkVaU6
+ Tn9Luwi85ldllBRfPvaxjpzAUWF152McTG6hmQu8K+NLd5nUTcfSqXCTo0OGLyqiwr
+ Gg65PoXtTVhew==
+Received: by mail-wr1-f72.google.com with SMTP id
+ y15-20020a5d614f0000b029013cd60e9baaso6053143wrt.7
+ for <ltp@lists.linux.it>; Tue, 13 Jul 2021 02:22:15 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=gNanRshC/2JXKvToHfat2vXv5ThQ8q17TnH79vbjK1k=;
+ b=OC5OZOeUILjaIGMqPkeAoWbo+KegRW3PnOLfPiaXYDbNHNDYfvaxZBn9PHBJeV5atM
+ I+S9geUcfoSxh2XGmmgU9AV7l7FQA7wNUtT33Ue+V4mnRxbj9AWa7yoUPeQi+E6yn82I
+ eguBn11Xho+5qjZMv6F/zAedM0tsLV6AIGds5nsFLaWLlDVm19jt6c1BNT50S+GXcGsG
+ fGCKdyGo2Q9fGi1heVgXhCKHaU+Cu+y73FQswdoB9T0Sf1qNxKPNdDqWuKiWccCkdt9d
+ d2t0xg+yAaoIV3fgyEboW6SVsMu8/cDtS6dA997XFcnEy5Vnx4olFKTnESIX9Q5atlf8
+ hF+A==
+X-Gm-Message-State: AOAM5305+r5E5vqRN4ePMlsu//UmaF5PvWtPzGx2CReOP3DtP8Bskl0P
+ jXm41x/xNtDAYTg00G06D6s8uepRS4wrGBaglnyJHse6noClbxT++RDXJaFDjfvnccuIYlZoQXX
+ jdKbHbrA1JE6qCBl/l3lS6jMqhpLz
+X-Received: by 2002:a1c:1bc3:: with SMTP id b186mr19492520wmb.27.1626168135166; 
+ Tue, 13 Jul 2021 02:22:15 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJxXNufu+C6BkJoCgQwIDIS1vsBDBpVfVb/9Idv5+Dtg1hpF1gPFvZjrD04ym5QTtUh5s19blw==
+X-Received: by 2002:a1c:1bc3:: with SMTP id b186mr19492508wmb.27.1626168135032; 
+ Tue, 13 Jul 2021 02:22:15 -0700 (PDT)
+Received: from kozik-lap.lan (xdsl-188-155-177-222.adslplus.ch.
+ [188.155.177.222])
+ by smtp.gmail.com with ESMTPSA id e11sm15663393wrt.0.2021.07.13.02.22.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 13 Jul 2021 02:22:14 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+To: ltp@lists.linux.it
+Date: Tue, 13 Jul 2021 11:22:05 +0200
+Message-Id: <20210713092210.17141-1-krzysztof.kozlowski@canonical.com>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAASaF6zS0kPHk6vSvANA1KzuOCtJHskLmOE_DE1n4b5AhMUPkg@mail.gmail.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_NONE autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] tst_strstatus.c fails on Alpine
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH v4 0/5] controllers/memcg: fixes for newer kernels
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,56 +91,50 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Jan,
+Hi,
 
-> On Mon, Jul 12, 2021 at 7:02 PM Petr Vorel <pvorel@suse.cz> wrote:
+Changes since v3:
+1. Patch 4/5: Include per-CPU memory as well in group limits.
 
-> > Hi all,
+Changes since v2:
+1. Patch 1/5: Define MEM_USAGE_RANGE and explain it.
+2. Patch 3/5: Use PAGESIZES to explain it is the batch accounting.
+3. Patch 4/5: Add to this patchset (previously sent separately, no
+   dependencies on others).
+4. Patch 5/5: New patch, fixes additional difference, usually of 2-3
+   pages coming from the kernel.
 
-> > I see failures of lib/newlib_tests/tst_strstatus on Alpine:
+See also reply from Michal Hocko:
+https://lore.kernel.org/linux-mm/85b8a4f9-b9e9-a6ca-5d0c-c1ecb8c11ef3@canonical.com/T/#m6459b3be3a86f5eaf2cfc48dd586b6faf949e440
 
-> > tst_strstatus.c:31: TPASS: exited with 1
-> > tst_strstatus.c:31: TPASS: killed by SIGHUP
-> > tst_strstatus.c:31: TPASS: is stopped
-> > tst_strstatus.c:31: TPASS: is resumed
-> > tst_strstatus.c:29: TFAIL: killed by ??? != invalid status 0xff
+v2: https://lists.linux.it/pipermail/ltp/2021-June/023259.html
 
-> > Any idea what could be wrong?
+Best regards,
+Krzysztof
 
+Krzysztof Kozlowski (5):
+  controllers/memcg: accept range of max_usage_in_bytes
+  controllers/memcg: accept range of usage_in_bytes
+  controllers/memcg: accept non-zero max_usage_in_bytes after reset
+  controllers/memcg: increase memory limit in subgroup charge
+  controllers/memcg: offset kernel memory
 
-> I'd start with definition of WIFSIGNALED on that system.
+ .../controllers/memcg/functional/memcg_lib.sh | 41 ++++++++++++++++---
+ .../memcg_max_usage_in_bytes_test.sh          | 18 +++++++-
+ .../memcg/functional/memcg_stat_rss.sh        | 20 ++++-----
+ .../memcg/functional/memcg_stat_test.sh       |  8 ++--
+ .../memcg/functional/memcg_subgroup_charge.sh | 33 +++++++++++----
+ .../functional/memcg_usage_in_bytes_test.sh   |  7 +++-
+ 6 files changed, 96 insertions(+), 31 deletions(-)
 
-> printf("%d\n", WIFSIGNALED(0xff));
-> should give you 0, but it does appear to return 1 in output above.
+-- 
+2.27.0
 
-Thanks for a hint. Indeed WIFSIGNALED(0xff) returns 1, thus tst_strstatus()
-returns signaled(status).
-
-musl defines WIFSIGNALED() as:
-
-#define WIFSIGNALED(s) (((s)&0xffff)-1U < 0xffu)
-
-which returns 1.
-
-Glibc defines __WIFSIGNALED() as:
-
-#define __WIFSIGNALED(status) \
-  (((signed char) (((status) & 0x7f) + 1) >> 1) > 0)
-
-which returns 0.
-
-I wonder if it's a musl bug which we should report or {0x100, "invalid status
-0xff"} test case is glibc specific and we should guard it with #ifdef __GLIBC__.
-
-Kind regards,
-Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
