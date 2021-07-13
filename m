@@ -2,77 +2,75 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A2043C6A3E
-	for <lists+linux-ltp@lfdr.de>; Tue, 13 Jul 2021 08:08:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 662F13C6BB7
+	for <lists+linux-ltp@lfdr.de>; Tue, 13 Jul 2021 09:50:06 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id ECE903C6659
-	for <lists+linux-ltp@lfdr.de>; Tue, 13 Jul 2021 08:08:32 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id D1DB03C4CEA
+	for <lists+linux-ltp@lfdr.de>; Tue, 13 Jul 2021 09:50:05 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 887AB3C245D
- for <ltp@lists.linux.it>; Tue, 13 Jul 2021 08:08:31 +0200 (CEST)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 95E1A3C4CEA
+ for <ltp@lists.linux.it>; Tue, 13 Jul 2021 09:50:02 +0200 (CEST)
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [IPv6:2a00:1450:4864:20::234])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id C6BD21400C64
- for <ltp@lists.linux.it>; Tue, 13 Jul 2021 08:08:30 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1626156509;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=3YPYLg9uCiHZPLFzDlIG62FOsJl3BjrllY5zlrUT30U=;
- b=Zehn/7qn8TGcf/QGQcZbs8t4tJ6upzDOa/7dKo1PgRdEfFhevDPedFi6uEvK6bFf7Ita87
- JOjPY3BRjQXx6KUtMk3ueUZ2zklloptJ4IGOOcvetGasYubT4KZ40SAr6vCzipAL92ObHA
- WEFG/pfih8KbRTV1ZWNcIaM9RNmEkr0=
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com
- [209.85.167.200]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-331-Mmx9fIvZMRGQT5reuui8kA-1; Tue, 13 Jul 2021 02:08:27 -0400
-X-MC-Unique: Mmx9fIvZMRGQT5reuui8kA-1
-Received: by mail-oi1-f200.google.com with SMTP id
- w2-20020aca62020000b029024073490067so14674342oib.21
- for <ltp@lists.linux.it>; Mon, 12 Jul 2021 23:08:27 -0700 (PDT)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 0B1E31400DAB
+ for <ltp@lists.linux.it>; Tue, 13 Jul 2021 09:50:01 +0200 (CEST)
+Received: by mail-lj1-x234.google.com with SMTP id 11so24564707ljv.1
+ for <ltp@lists.linux.it>; Tue, 13 Jul 2021 00:50:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=bell-sw-com.20150623.gappssmtp.com; s=20150623;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=uqj9Ey2KPRz2yBwK4uYxhVDkQHe4Ct+2ePNvDDi6ee4=;
+ b=IvOhv/D7WXOlc50vztE4BBwBjypF1E31Q/C57KBkRZU7D9GPdcxRULeFq3xVjaq3Lx
+ GUyb/iPD5a0kyHHpHnjJgZ2gnBy08aCMdEzEDpR9uFmlbuHpfrZnYInczAikFndXEU66
+ 3HAx1ap2Uhlb+XgxPApHLT2YANj9VR3xnInnFZskO0uEKZRzxbLNSH6jwDuaUWnbIKoJ
+ MpP2GeM3pEoqRhFBh+DQx/x/Xea+8teFp1Ns60LVieZz0EZFkn17dzvUlH7ZZMW7aFwO
+ okTq+EwOfnGBLpEoPiqZXNL+kvAmG1JyyAtIdXadDsYxNwNs8aFB17uc4o1wPp2EgEGV
+ YCJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=3YPYLg9uCiHZPLFzDlIG62FOsJl3BjrllY5zlrUT30U=;
- b=r3Zhh0B7qJ2+4+15bQDSA2JIJStLTKguZFdKOcmVj/mxwdeySV2ZdC7UwIJErdYERU
- mqL+/2MFdTpUMifYYYt2NhzI3IfI8nHhC8KCnb8s5qYBQ1FyapwJ7KvSr15hj9dNmt5t
- 4Vj85PU773H3g4FJM8ReRXw0SZlHAvKtNkCocVPDOltziOafnpJ3pqld0fivNwNw7Zku
- Zjbo8Audn7raw6pNHR2dxh0qg+e29cBm21P8TLZPubYz7QYILF2WNxuP+Pezffo22fR8
- FpfnJu2qAyQKVP3mrJh69j9aJA3FAUiNpBziuT3azjCCE7qMOWESMYEogXQW5BoCypnP
- ZcMQ==
-X-Gm-Message-State: AOAM5320i8WShU2j8iNF8exwl9ua053zMfsRDIQ321nCTWuAbovwdZXv
- 2tx0QXvqVqaM22BRp3Onwhcy2eLqL18zYxUk5f0bZS+h1CkYwIfXd0rGnK92xARNm7WBq5CwqVI
- IL13zwDUPEV73uxXaTyKlot17dJ4=
-X-Received: by 2002:a4a:2242:: with SMTP id z2mr2189674ooe.90.1626156506730;
- Mon, 12 Jul 2021 23:08:26 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJwOlZkc8JOBzYb1hO5YwRz3V0YGjZ/AS06CwF+ZsETVeMqI0+6Nzvfpi78U7uov6UbmQljJYXjH3fDM6kB8Fpo=
-X-Received: by 2002:a4a:2242:: with SMTP id z2mr2189653ooe.90.1626156506470;
- Mon, 12 Jul 2021 23:08:26 -0700 (PDT)
-MIME-Version: 1.0
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=uqj9Ey2KPRz2yBwK4uYxhVDkQHe4Ct+2ePNvDDi6ee4=;
+ b=XiVF2ztu2NQQGnrthU0WEQCqWQGkXvDxKuxzifDlNCsR1NQamUQlVh2jWamLwjRP0R
+ OzORXtC7vtCQ/DQwZ6VgNb+YpN0BlSrxqyLcVOMfFcqZ6FkWKTKRS0xhsom/E6I7Q7Ju
+ mpvE4n02szpd2euDHvpKjc1Pg01Q0PEcACGA2KsfRN7gjL//z8NBTWnl1W0TOy+nop8g
+ Ss8N67Bf7lvuul6KhgPNclo4UMeabJeNpUMcRWkP9JYHqQyNOBe//jqpvsHQkpkCkrEd
+ y8sbeeGPRr8x4OYAK77Cow8pWBdmdw/3y/wQsSjgC9JcRZiAgUJ4Voets8Zk5jOMXZNg
+ nxgQ==
+X-Gm-Message-State: AOAM531c3vbTDgJlFTPv0I+Hi2qWerTS8KjEWS1xcSh01yTLbHpxnHpT
+ 0aZjLDJvO8L8E1a04aLWhDiC8nu2LLEM
+X-Google-Smtp-Source: ABdhPJwSp5uTL/UJ75FIHUBeLhQftQJ8YAeiHcxr2U8aVqHe58cUwiAeHDL2UwYFXJPCsHcVJPFAtg==
+X-Received: by 2002:a2e:743:: with SMTP id i3mr3079673ljd.266.1626162601059;
+ Tue, 13 Jul 2021 00:50:01 -0700 (PDT)
+Received: from [192.168.1.53] ([91.247.148.7])
+ by smtp.gmail.com with ESMTPSA id h19sm1438512ljj.23.2021.07.13.00.50.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 13 Jul 2021 00:50:00 -0700 (PDT)
+To: Jan Stancek <jstancek@redhat.com>, Petr Vorel <pvorel@suse.cz>
 References: <YOx1pir0UuBNM+4w@pevik>
-In-Reply-To: <YOx1pir0UuBNM+4w@pevik>
-From: Jan Stancek <jstancek@redhat.com>
-Date: Tue, 13 Jul 2021 08:08:11 +0200
-Message-ID: <CAASaF6zS0kPHk6vSvANA1KzuOCtJHskLmOE_DE1n4b5AhMUPkg@mail.gmail.com>
-To: Petr Vorel <pvorel@suse.cz>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=jstancek@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+ <CAASaF6zS0kPHk6vSvANA1KzuOCtJHskLmOE_DE1n4b5AhMUPkg@mail.gmail.com>
+From: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
+Message-ID: <d2d298df-b432-4afb-6654-cafb7de36bbb@bell-sw.com>
+Date: Tue, 13 Jul 2021 10:50:00 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
+MIME-Version: 1.0
+In-Reply-To: <CAASaF6zS0kPHk6vSvANA1KzuOCtJHskLmOE_DE1n4b5AhMUPkg@mail.gmail.com>
+Content-Language: en-US
 X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
 Subject: Re: [LTP] tst_strstatus.c fails on Alpine
 X-BeenThere: ltp@lists.linux.it
@@ -87,78 +85,43 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: ltp@lists.linux.it
-Content-Type: multipart/mixed; boundary="===============1329384594=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1329384594==
-Content-Type: multipart/alternative; boundary="000000000000eaf0f605c6fb1042"
+On 13.07.2021 09:08, Jan Stancek wrote:
+> 
+> 
+> On Mon, Jul 12, 2021 at 7:02 PM Petr Vorel <pvorel@suse.cz <mailto:pvorel@suse.cz>> wrote:
+> 
+>     Hi all,
+> 
+>     I see failures of lib/newlib_tests/tst_strstatus on Alpine:
+> 
+>     tst_strstatus.c:31: TPASS: exited with 1
+>     tst_strstatus.c:31: TPASS: killed by SIGHUP
+>     tst_strstatus.c:31: TPASS: is stopped
+>     tst_strstatus.c:31: TPASS: is resumed
+>     tst_strstatus.c:29: TFAIL: killed by ??? != invalid status 0xff
+> 
+>     Any idea what could be wrong?
+> 
+> 
+> I'd start with definition of WIFSIGNALED on that system.
+> 
+> printf("%d\n", WIFSIGNALED(0xff));
+> should give you 0, but it does appear to return 1 in output above.
+> 
 
---000000000000eaf0f605c6fb1042
-Content-Type: text/plain; charset="UTF-8"
+musl defines it as:
+#define WIFSIGNALED(s) (((s)&0xffff)-1U < 0xffu)
+so passing 0xff trigger this.
 
-On Mon, Jul 12, 2021 at 7:02 PM Petr Vorel <pvorel@suse.cz> wrote:
+This difference from the glibc have appeared since the commit:
+41c632824c08 ("fix definitions of WIFSTOPPED and WIFSIGNALED to support up to signal 127")
 
-> Hi all,
->
-> I see failures of lib/newlib_tests/tst_strstatus on Alpine:
->
-> tst_strstatus.c:31: TPASS: exited with 1
-> tst_strstatus.c:31: TPASS: killed by SIGHUP
-> tst_strstatus.c:31: TPASS: is stopped
-> tst_strstatus.c:31: TPASS: is resumed
-> tst_strstatus.c:29: TFAIL: killed by ??? != invalid status 0xff
->
-> Any idea what could be wrong?
->
-
-I'd start with definition of WIFSIGNALED on that system.
-
-printf("%d\n", WIFSIGNALED(0xff));
-should give you 0, but it does appear to return 1 in output above.
-
---000000000000eaf0f605c6fb1042
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-family:monospace"><br></div></div><br><div class=3D"gmail_quote"><div dir=
-=3D"ltr" class=3D"gmail_attr">On Mon, Jul 12, 2021 at 7:02 PM Petr Vorel &l=
-t;<a href=3D"mailto:pvorel@suse.cz" target=3D"_blank">pvorel@suse.cz</a>&gt=
-; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px=
- 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Hi all,=
-<br>
-<br>
-I see failures of lib/newlib_tests/tst_strstatus on Alpine:<br>
-<br>
-tst_strstatus.c:31: TPASS: exited with 1<br>
-tst_strstatus.c:31: TPASS: killed by SIGHUP<br>
-tst_strstatus.c:31: TPASS: is stopped<br>
-tst_strstatus.c:31: TPASS: is resumed<br>
-tst_strstatus.c:29: TFAIL: killed by ??? !=3D invalid status 0xff<br>
-<br>
-Any idea what could be wrong?<br></blockquote><div><br></div><div><div styl=
-e=3D"font-family:monospace" class=3D"gmail_default">I&#39;d start with defi=
-nition of WIFSIGNALED on that system.<br></div><div style=3D"font-family:mo=
-nospace" class=3D"gmail_default"><br></div><div style=3D"font-family:monosp=
-ace" class=3D"gmail_default">printf(&quot;%d\n&quot;, WIFSIGNALED(0xff));</=
-div><div style=3D"font-family:monospace" class=3D"gmail_default">should giv=
-e you 0, but it does appear to return 1 in output above.<br></div><div styl=
-e=3D"font-family:monospace" class=3D"gmail_default"><br></div><br></div></d=
-iv></div>
-
---000000000000eaf0f605c6fb1042--
-
-
---===============1329384594==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+May be changed 0xff to 0x1ff for invalid status...
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============1329384594==--
-
