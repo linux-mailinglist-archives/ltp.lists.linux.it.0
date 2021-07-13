@@ -1,74 +1,75 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09DBF3C7145
-	for <lists+linux-ltp@lfdr.de>; Tue, 13 Jul 2021 15:35:00 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id D36B43C71F0
+	for <lists+linux-ltp@lfdr.de>; Tue, 13 Jul 2021 16:16:56 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id ACF523C877E
-	for <lists+linux-ltp@lfdr.de>; Tue, 13 Jul 2021 15:34:59 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 152D83C77ED
+	for <lists+linux-ltp@lfdr.de>; Tue, 13 Jul 2021 16:16:56 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 302CA3C7583
- for <ltp@lists.linux.it>; Tue, 13 Jul 2021 15:34:54 +0200 (CEST)
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [IPv6:2a00:1450:4864:20::62f])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ by picard.linux.it (Postfix) with ESMTPS id D780A3C65F7
+ for <ltp@lists.linux.it>; Tue, 13 Jul 2021 16:16:51 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 52CC81A00E1A
- for <ltp@lists.linux.it>; Tue, 13 Jul 2021 15:34:53 +0200 (CEST)
-Received: by mail-ej1-x62f.google.com with SMTP id o5so41539169ejy.7
- for <ltp@lists.linux.it>; Tue, 13 Jul 2021 06:34:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=8323dr+y0e5ufju1sj69RCDc9bu7SuE4mTR7hzQ3LP4=;
- b=PdBVdBOQ7ohLVh93pLZ6mqTrf3xGj6jk+MDF41mticqFuXwebdOyx0glWWJQZ7/FSq
- OZ99PNq1/Zl8xcP6ciNQoX7zuQKRUhY5gPMiJc7l5uMmc1K95ro45pOsREInqfbQcbiF
- ai8ha/QkMYMwtvdn5RZzH7g7eRvmoEzbTCyRJpxbjK47MKq3ehk1Fn4ADs3+h9MhNurY
- NSZCOnEiqi0D2i+8DlPFrh/sAHz5J5HUdCKHXJGyGDFeO1A0Qzy7VoUb7O6sDYz3nQ9e
- bC3t5Baf2GGcY2BBQ85dCAtpuNAjls6M2Ms2bn7hVg3omI2WQQmFXdB6FD4HU7JW4zko
- wOuA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=8323dr+y0e5ufju1sj69RCDc9bu7SuE4mTR7hzQ3LP4=;
- b=GBc/RyUs5HAcJ5XEEWqXmlWjMAA5zNomr7L2pqZs96sA85BgZ/TcJFxsPlGKOnBUlc
- 6uL7+LaQ1CbJVA86kBNPg5Rp6pPIBlb+ex8CMIAqUojQhXVZBOquBNQrgAIiwcbgVDU1
- S/wVJsWtqFFdn/qZzK95RRAaOeTeUIQK3BPuy8ccVYRpYPttyu55Wovyb4PXM9qmouZC
- +KGkI9SwrhsQPwfpZy28vBrHRNSykB6Uw3tfeX3lOFWABNfMIpyVeZ9w/X5O6nWolClb
- rJYPvitWjsfdi4rY8dKkV4KoecmCYKln2gAo+UJplljzfj1kr4jMCofqrtxHCG5+7ugJ
- c8Wg==
-X-Gm-Message-State: AOAM533o9o1ZgmyivsgmEtI5/Jcwmu438NoDSpj0CLg/TJzN5qPqGHh6
- CZ7++wgQRbdtlGUqzdu1aPl+QRbRLFqFZg==
-X-Google-Smtp-Source: ABdhPJzO49A/AqziZOa9+55LkJihQnzgRF+3roa7SyeEiUnP1qPMmuFnWtiECLM/14vjwLHPPH7S5Q==
-X-Received: by 2002:a17:906:d977:: with SMTP id
- rp23mr5678215ejb.512.1626183292545; 
- Tue, 13 Jul 2021 06:34:52 -0700 (PDT)
-Received: from localhost.localdomain (us.sesame.canonical.com. [91.189.91.16])
- by smtp.gmail.com with ESMTPSA id
- p20sm2752978ejy.95.2021.07.13.06.34.51 for <ltp@lists.linux.it>
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 13 Jul 2021 06:34:51 -0700 (PDT)
-From: Ian May <ian.s.may@gmail.com>
-To: ltp@lists.linux.it
-Date: Tue, 13 Jul 2021 13:34:49 +0000
-Message-Id: <20210713133449.33278-1-ian.s.may@gmail.com>
-X-Mailer: git-send-email 2.25.1
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 3FD4C600296
+ for <ltp@lists.linux.it>; Tue, 13 Jul 2021 16:16:50 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 76A70201DA;
+ Tue, 13 Jul 2021 14:16:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1626185810;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=OWWq5uhLjei/pZ9R+Ayd1Gk4tla6mdqrPY0iiL2uG64=;
+ b=OXPBIYPyQgbzH9zj6/TNwYguC97nBdbVHM0IwSd0GVsBuoeUBFTCqXI+VzbLJoKdlJCSQE
+ KfeqfOTZCY7rLq5jCMiI/mEQJjU7nu8bXbYg8F9hCx+eDWl+cPPLvv5aXgZVpxPS5ckNwO
+ MhvK1XUPGBWMjJsRM8TXfNzGw0W4bL8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1626185810;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=OWWq5uhLjei/pZ9R+Ayd1Gk4tla6mdqrPY0iiL2uG64=;
+ b=dVrYsOMsXpVdpjqVdlasGR+QRWK+qBE055+RxerS+TXCKwh7dTg0EXszm8f27Ek/YmADsJ
+ Dsn6d+HPZzlTeVAg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 44B9D13AF0;
+ Tue, 13 Jul 2021 14:16:50 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id i8z6DlKg7WDaIQAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Tue, 13 Jul 2021 14:16:50 +0000
+Date: Tue, 13 Jul 2021 16:16:48 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <YO2gUL2/s29SGdNo@pevik>
+References: <20210713101338.6985-1-pvorel@suse.cz>
+ <20210713101338.6985-5-pvorel@suse.cz> <YO2T4J14roLUT32t@yuki>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <YO2T4J14roLUT32t@yuki>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH] syscalls/shmctl05.c: Fix leak of shared memory segment
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v4 4/7] lib: Add script for running tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,69 +81,147 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-The cleanup function is using the key 0xF00F instead of the id in the shmctl call.
-This causes the shared mem segment to not be removed properly.
+> Hi!
+> > For now run only tests which TPASS or TCONF.
 
-This can be reproduced with the following:
+> > Disabled also problematic tests:
 
-$ ./shmctl05
-tst_test.c:1342: TINFO: Timeout per run is
-../../../../../include/tst_fuzzy_sync.h:522: TINFO: Minimum sampling period ended
-../../../../../include/tst_fuzzy_sync.h:345: TINFO: loop = 1024, delay_bias = 0
-../../../../../include/tst_fuzzy_sync.h:333: TINFO: start_a - start_b: { avg =   ns, avg_dev =     ns, dev_ratio = }
-../../../../../include/tst_fuzzy_sync.h:333: TINFO: end_a - start_a  : { avg =   ns, avg_dev =     ns, dev_ratio = }
-../../../../../include/tst_fuzzy_sync.h:333: TINFO: end_b - start_b  : { avg =   ns, avg_dev =     ns, dev_ratio = }
-../../../../../include/tst_fuzzy_sync.h:333: TINFO: end_a - end_b    : { avg =   ns, avg_dev =     ns, dev_ratio = }
-../../../../../include/tst_fuzzy_sync.h:333: TINFO: spins            : { avg =     , avg_dev =       , dev_ratio = }
-../../../../../include/tst_fuzzy_sync.h:678: TINFO: Exceeded execution time, requesting exit
-shmctl05.c:89: TPASS: didn't crash
+> > * tst_bool_expr: for some reason killed after testing:
 
-Summary:
-passed   1
-failed   0
-broken   0
-skipped  0
-warnings 0
+> > /__w/ltp/ltp/lib/newlib_tests/tst_bool_expr.c:41: TINFO: Parsing 'A ( B )'
+> > A ( B )
 
-$ ipcs -m
+> > Summary:
+> > passed   24
+> > failed   0
+> > broken   0
+> > skipped  0
+> > warnings 0
+> > PATH: '/__w/ltp/ltp/../ltp-build/testcases/lib:/__w/ltp/ltp/lib/newlib_tests/../../testcases/lib/:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+> > DEBUG: 0
+> > /__w/ltp/ltp/lib/tst_test.c:1363: TBROK: Test killed by SIGSEGV!
 
------- Shared Memory Segments --------
-key        shmid      owner      perms      bytes      nattch     status
-0x0000f00f 629964859  user       700        4096       0
+> I've executed the test under valgrind and found some "conditional jump
+> depends on uninitialized value", which is because we do not clear the
+> priv pointer for newly added tokens. Does this patch fix it for you?
 
-Fix
-In the cleanup, add a SAFE_SHMGET to fetch the id and pass into shmctl call.
-Confirmed this resolves the leaked segment.
+> diff --git a/lib/tst_bool_expr.c b/lib/tst_bool_expr.c
+> index 387c38b91..15825e364 100644
+> --- a/lib/tst_bool_expr.c
+> +++ b/lib/tst_bool_expr.c
+> @@ -55,6 +55,7 @@ static int new_tok(struct tst_expr_tok **last, const char *tok, size_t tok_len)
+>         (*last)->tok = tok;
+>         (*last)->tok_len = tok_len;
+>         (*last)->op = char_to_op(tok[0]);
+> +       (*last)->priv = NULL;
+>         (*last)++;
 
-Signed-off-by: Ian May <ian.s.may@gmail.com>
----
- testcases/kernel/syscalls/ipc/shmctl/shmctl05.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Thanks! It looks like it helped (but few jobs haven't finished yet).
+https://github.com/pevik/ltp/actions/runs/1026771350
+Will you merge this fix yourself please?
 
-diff --git a/testcases/kernel/syscalls/ipc/shmctl/shmctl05.c b/testcases/kernel/syscalls/ipc/shmctl/shmctl05.c
-index f8b76bda7..ea7eef6f1 100644
---- a/testcases/kernel/syscalls/ipc/shmctl/shmctl05.c
-+++ b/testcases/kernel/syscalls/ipc/shmctl/shmctl05.c
-@@ -91,8 +91,10 @@ static void do_test(void)
- 
- static void cleanup(void)
- {
-+	int id;
- 	tst_fzsync_pair_cleanup(&fzsync_pair);
--	shmctl(0xF00F, IPC_RMID, NULL);
-+	id = SAFE_SHMGET(0xF00F, 4096, 0);
-+	SAFE_SHMCTL(id, IPC_RMID, NULL);
- }
- 
- static struct tst_test test = {
--- 
-2.25.1
+>         return 1;
 
+> > * tst_fuzzy_sync01: sporadically fails:
+> > ../../include/tst_fuzzy_sync.h:685: TINFO: Exceeded execution loops, requesting exit
+> > tst_fuzzy_sync01.c:227: TFAIL: acs:3  act:1  art:1  | =:23   -:46   +:2999931
+> > ...
+> > Summary:
+> > passed   21
+> > failed   3
+
+> Not sure what we can do here, I guess that timings would be hard to fix
+> on VMs that run the tests.
+
+If I remember correctly Richie suggested that FAIL is also OK. He said only
+TBROK and TCONF is a problem. I'd prefer to fuzzy sync tests which always pass,
+but after this effort I can work on API tests metadata, which would allow also
+this.
+
+...
+> > +# custom version
+> > +tst_res()
+> > +{
+> > +	if [ $# -eq 0 ]; then
+> > +		echo >&2
+> > +		return
+> > +	fi
+> > +
+> > +	local res="$1"
+> > +	shift
+> > +
+> > +	tst_color_enabled
+> > +	local color=$?
+> > +
+> > +	printf "runtest " >&2
+> > +	tst_print_colored $res "$res: " >&2
+> > +	echo "$@" >&2
+> > +
+> > +}
+> > +
+> > +# custom version
+> > +tst_brk()
+> > +{
+> > +	local res="$1"
+> > +	shift
+> > +
+> > +	tst_flag2mask "$res"
+> > +	local mask=$?
+> > +
+> > +	tst_res
+> > +	tst_res $res $@
+> > +
+> > +	exit $mask
+> > +}
+
+> I'm not sure that we should call these function tst_res and tst_brk it
+> only confuses everything since these are different from the ones in the
+> test library.
+OK, I'll rename it (runtest_res() and runtest_brk()).
+
+> > +run_tests()
+> > +{
+> > +	local target="$1"
+> > +	local i ret tconf tpass vars
+> > +
+> > +	eval vars="\$LTP_${target}_API_TESTS"
+> > +
+> > +	tst_res TINFO "=== Run $target tests ==="
+> > +
+> > +	for i in $vars; do
+> > +		tst_res TINFO "* $i"
+> > +		./$i
+> > +		ret=$?
+> > +
+> > +		case $ret in
+> > +			0) tpass="$tpass $i";;
+> > +			1) tst_brk TFAIL "$i failed with TFAIL";;
+> > +			2) tst_brk TFAIL "$i failed with TBROK";;
+> > +			4) tst_brk TFAIL "$i failed with TWARN";;
+> > +			32) tconf="$tconf $i";;
+> > +			127) tst_brk TBROK "Error: file not found (wrong PATH? out-of-tree build without -b?), exit code: $ret";;
+> > +			*) tst_brk TBROK "Error: unknown failure, exit code: $ret";;
+
+> Why do we exit on failure here?
+
+> We should just increase the fail counters and go ahead with next test.
+
+I quit here because you know how hard is to find error in very long log
+file. Also why to waste developer time when some test failed? Similar approach
+make has. But sure, I can continue here and print summary at the end.
+
+Thanks for your review!
+I merged the first 3 commits.
+
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
