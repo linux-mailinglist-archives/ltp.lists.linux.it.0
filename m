@@ -2,78 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D9153C711B
-	for <lists+linux-ltp@lfdr.de>; Tue, 13 Jul 2021 15:17:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 504993C7176
+	for <lists+linux-ltp@lfdr.de>; Tue, 13 Jul 2021 15:49:26 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 410EF3C8781
-	for <lists+linux-ltp@lfdr.de>; Tue, 13 Jul 2021 15:17:55 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C10313C876A
+	for <lists+linux-ltp@lfdr.de>; Tue, 13 Jul 2021 15:49:25 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by picard.linux.it (Postfix) with ESMTPS id 09EEC3C18F7
+ for <ltp@lists.linux.it>; Tue, 13 Jul 2021 15:49:21 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 50B4F3C2EB9
- for <ltp@lists.linux.it>; Tue, 13 Jul 2021 15:17:50 +0200 (CEST)
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [IPv6:2a00:1450:4864:20::133])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 704C06005E7
+ for <ltp@lists.linux.it>; Tue, 13 Jul 2021 15:49:20 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 6A2CC6002FC
- for <ltp@lists.linux.it>; Tue, 13 Jul 2021 15:17:50 +0200 (CEST)
-Received: by mail-lf1-x133.google.com with SMTP id y42so50252253lfa.3
- for <ltp@lists.linux.it>; Tue, 13 Jul 2021 06:17:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bell-sw-com.20150623.gappssmtp.com; s=20150623;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=fYA121bp8cSmP27OtDoQB+E8iTQZai4U2gV15/CPWBA=;
- b=kv0TOu7+//hPAFnSLE/OoH9CwRgysLEp1Zb17dJ3FPbO6kMh6I7GSqjo8mDYzJmAuK
- 0JdNEd9/FSmPub0iTr25+VDEHxj+A0LUNUsb76pJqAutot8dEs75EtNUxsxiZmwiqvAy
- 9QiBPMcw1fzh9d/hxWpnjFS/fAj1dGutzu9WnxniNl+t7X+o1x3rqXulMRm0TFug0xer
- vf3fVCFTNrvOLhXLcdPd3vS0b6d3aNrRL5cEtj0wxzO5rtYnAxq1ykHu/S7SQEVZHVru
- hkO+Q0DqQKX9Es7C1Up/1CHXUg2QmONYHYyfpwdjvo0h8lWs0jMc+Kz/riMTjFYcd0YI
- yitw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=fYA121bp8cSmP27OtDoQB+E8iTQZai4U2gV15/CPWBA=;
- b=ZR4biYlKAr00WHsVPMXl1TIkWL27AQNR23fO8qko29BTLLmJjsL7W/+taELZS00S7y
- holBVT/JMvfnGwOKT6ui3c5wqZXet5d6tulIAYigElnf5w8IjGZYthgz3tISkdX+n5uN
- hP4yQ6WEwKdL+xcUFG0i6I5FkEC8Jei0SwFX0TbGS+5a444lv0GlALBPP4hnjyncLZFc
- s6uOtoqdY+h/EQpD65oHeBkBbOk3VLDMWe3epmX/hztMQbxxkz5fDkjRwNbXpdKYaeJU
- ThCAogyQHr2zB8Yl8ATbWMHApkoAxRYptjrZ3fFEpYUs56N8KQ5Q+yMTHRnaU++WqBuo
- iebQ==
-X-Gm-Message-State: AOAM533Ux0Uc3wyqLqQBA6fJjEXtqLg+ZuaVxWTBYtrrhqYtu/kx2ooH
- pCM5/cpB7VdqDn7PjDpE1HYRUhFMtp7V
-X-Google-Smtp-Source: ABdhPJwGt4aH6/4YXkLaIk5xXage3sLpe8crp1Y40HXf9Yq6bZ8zCavXkyXY6XmDREVQZOjckCrRIQ==
-X-Received: by 2002:a19:48d2:: with SMTP id v201mr3341539lfa.55.1626182269529; 
- Tue, 13 Jul 2021 06:17:49 -0700 (PDT)
-Received: from [192.168.1.53] ([91.247.148.7])
- by smtp.gmail.com with ESMTPSA id s13sm1897330ljp.8.2021.07.13.06.17.49
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 13 Jul 2021 06:17:49 -0700 (PDT)
-To: Cyril Hrubis <chrubis@suse.cz>
-References: <20210712080322.11512-1-aleksei.kodanev@bell-sw.com>
- <YOxH9JgzwMfwo+Uc@yuki>
-From: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
-Message-ID: <b818611b-9d33-9982-3e2f-452057b5719f@bell-sw.com>
-Date: Tue, 13 Jul 2021 16:17:48 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
+ by smtp-out1.suse.de (Postfix) with ESMTPS id CAA31228FA;
+ Tue, 13 Jul 2021 13:49:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1626184159; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=CyTzz0iIBvgAJhpDcmBkrqHc+df89rB9iqPvggz+VgY=;
+ b=ssCJvFFk0PeCyovkXIhlHFxQ3rsYtjzryMdn6i91TLkfRNodbLpc7xEPpD0UZOT6+u3/ws
+ sws4e1pDh3AXh3MWGk/bWcSje/8/qZpu1AN2cuGpb3FF+zrxCwFUiV951uOHKvKcRUQCd0
+ wyVPNpdIEQkDHV9+KjJOIg4xc/yhIoU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1626184159;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=CyTzz0iIBvgAJhpDcmBkrqHc+df89rB9iqPvggz+VgY=;
+ b=JCjJUgG/shShiQ6S/ACYOnPfR0rqN14Q7Pb5+WTP2cNvsJLXnH55nP1Y8e4wm1J5V5+pR8
+ X3Yza0HZguurbVDg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8A46A13AE9;
+ Tue, 13 Jul 2021 13:49:19 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id dCc7Gd+Z7WAcGQAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Tue, 13 Jul 2021 13:49:19 +0000
+Date: Tue, 13 Jul 2021 15:23:44 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Petr Vorel <pvorel@suse.cz>
+Message-ID: <YO2T4J14roLUT32t@yuki>
+References: <20210713101338.6985-1-pvorel@suse.cz>
+ <20210713101338.6985-5-pvorel@suse.cz>
 MIME-Version: 1.0
-In-Reply-To: <YOxH9JgzwMfwo+Uc@yuki>
-Content-Language: en-US
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20210713101338.6985-5-pvorel@suse.cz>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.3 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] mmap18: fix when PTHREAD_STACK_MIN < PAGE_SIZE
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v4 4/7] lib: Add script for running tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,73 +80,238 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Cyril,
-On 12.07.2021 16:47, Cyril Hrubis wrote:
-> Hi!
->> PTHREAD_STACK_MIN can be less than the page size, to be more
->> precise 2048 on musl. This value is used in the test as an
->> offset for a new stack address with mmap() + MAP_FIXED flag.
->> Though it might not be aligned to the page size.
->>
->> This breaks the test with musl:
->>
->>   tst_test.c:1311: TINFO: Timeout per run is 0h 05m 00s
->>   mmap18.c:98: TBROK: mmap(0x7fe67e2ee800,2048,3,306,-1,0) failed: EINVAL (22)
->>   mmap18.c:169: TFAIL: Child: exited with 2
->>   [...]
->>
->> The fix is to align mapped_size arg to the page size.
->>
->> Signed-off-by: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
->> ---
->>  testcases/kernel/syscalls/mmap/mmap18.c | 7 ++++---
->>  1 file changed, 4 insertions(+), 3 deletions(-)
->>
->> diff --git a/testcases/kernel/syscalls/mmap/mmap18.c b/testcases/kernel/syscalls/mmap/mmap18.c
->> index dc2926454..b37b29890 100644
->> --- a/testcases/kernel/syscalls/mmap/mmap18.c
->> +++ b/testcases/kernel/syscalls/mmap/mmap18.c
->> @@ -200,11 +200,12 @@ static void grow_stack_fail(size_t stack_size, size_t mapped_size)
->>  
->>  static void run_test(void)
->>  {
->> -	size_t stack_size = 8 * PTHREAD_STACK_MIN;
->> +	size_t pthread_stack = LTP_ALIGN(PTHREAD_STACK_MIN, getpagesize());
->> +	size_t stack_size = 8 * pthread_stack;
+Hi!
+> For now run only tests which TPASS or TCONF.
 > 
-> Looking at the code we have to align both stack size and mapped size so
-> this is correct. I guess that we can save a bit by aligning each of them
-> independently since 8 * PTHREAD_STACK_MIN would in most cases be aligned
-> allready.
+> Disabled also problematic tests:
 > 
-> 	size_t pthread_stack = LTP_ALIGN(PTHREAD_STACK_MIN, getpagesize());
-> 	size_t stack_size = LTP_ALIGN(8 * PTHREAD_STACK_MIN, getpagesize());
+> * tst_bool_expr: for some reason killed after testing:
 > 
-> Either way this looks good so:
+> /__w/ltp/ltp/lib/newlib_tests/tst_bool_expr.c:41: TINFO: Parsing 'A ( B )'
+> A ( B )
 > 
-> Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
+> Summary:
+> passed   24
+> failed   0
+> broken   0
+> skipped  0
+> warnings 0
+> PATH: '/__w/ltp/ltp/../ltp-build/testcases/lib:/__w/ltp/ltp/lib/newlib_tests/../../testcases/lib/:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+> DEBUG: 0
+> /__w/ltp/ltp/lib/tst_test.c:1363: TBROK: Test killed by SIGSEGV!
 
-Thanks for review!
+I've executed the test under valgrind and found some "conditional jump
+depends on uninitialized value", which is because we do not clear the
+priv pointer for newly added tokens. Does this patch fix it for you?
 
-Applied the original patch, it keeps the original proportion between
-stack_size and mapped_size for both libc, also stack_size divided by
-two after that for the mapped_size arg (though it doesn't really
-matter with 8 * 2048):
+diff --git a/lib/tst_bool_expr.c b/lib/tst_bool_expr.c
+index 387c38b91..15825e364 100644
+--- a/lib/tst_bool_expr.c
++++ b/lib/tst_bool_expr.c
+@@ -55,6 +55,7 @@ static int new_tok(struct tst_expr_tok **last, const char *tok, size_t tok_len)
+        (*last)->tok = tok;
+        (*last)->tok_len = tok_len;
+        (*last)->op = char_to_op(tok[0]);
++       (*last)->priv = NULL;
+        (*last)++;
 
+        return 1;
+
+> * tst_fuzzy_sync01: sporadically fails:
+> ../../include/tst_fuzzy_sync.h:685: TINFO: Exceeded execution loops, requesting exit
+> tst_fuzzy_sync01.c:227: TFAIL: acs:3  act:1  art:1  | =:23   -:46   +:2999931
+> ...
+> Summary:
+> passed   21
+> failed   3
+
+Not sure what we can do here, I guess that timings would be hard to fix
+on VMs that run the tests.
+
+> Signed-off-by: Petr Vorel <pvorel@suse.cz>
+> ---
+> Partly rewritten since v3.
 > 
->> -	grow_stack_success(stack_size, PTHREAD_STACK_MIN);
->> +	grow_stack_success(stack_size, pthread_stack);
->>  	grow_stack_success(stack_size, stack_size/2);
->> -	grow_stack_fail(stack_size, PTHREAD_STACK_MIN);
->> +	grow_stack_fail(stack_size, pthread_stack);
->>  	grow_stack_fail(stack_size, stack_size/2);
->>  }
+>  lib/newlib_tests/runtest.sh | 148 ++++++++++++++++++++++++++++++++++++
+>  1 file changed, 148 insertions(+)
+>  create mode 100755 lib/newlib_tests/runtest.sh
+> 
+> diff --git a/lib/newlib_tests/runtest.sh b/lib/newlib_tests/runtest.sh
+> new file mode 100755
+> index 000000000..80bba00e9
+> --- /dev/null
+> +++ b/lib/newlib_tests/runtest.sh
+> @@ -0,0 +1,148 @@
+> +#!/bin/sh
+> +# Copyright (c) 2021 Petr Vorel <pvorel@suse.cz>
+> +
+> +LTP_C_API_TESTS="${LTP_C_API_TESTS:-test05 test07 test09 test12 test15 test18
+> +test_exec test_timer tst_res_hexd tst_strstatus tst_fuzzy_sync02 tst_fuzzy_sync03}"
+> +
+> +LTP_SHELL_API_TESTS="${LTP_SHELL_API_TESTS:-shell/tst_check_driver.sh shell/net/*.sh}"
+> +
+> +cd $(dirname $0)
+> +PATH="$PWD/../../testcases/lib/:$PATH"
+> +
+> +. tst_ansi_color.sh
+> +
+> +usage()
+> +{
+> +	cat << EOF
+> +Usage: $0 [-b DIR ] [-c|-s]
+> +-b DIR  build directory (required for out-of-tree build)
+> +-c      run C API tests only
+> +-s      run shell API tests only
+> +-h      print this help
+> +EOF
+> +}
+> +
+> +# custom version
+> +tst_flag2mask()
+> +{
+> +	case "$1" in
+> +	TPASS) return 0;;
+> +	TFAIL) return 1;;
+> +	TBROK) return 2;;
+> +	TWARN) return 4;;
+> +	TINFO) return 16;;
+> +	TCONF) return 32;;
+> +	esac
+> +}
+> +
+> +# custom version
+> +tst_res()
+> +{
+> +	if [ $# -eq 0 ]; then
+> +		echo >&2
+> +		return
+> +	fi
+> +
+> +	local res="$1"
+> +	shift
+> +
+> +	tst_color_enabled
+> +	local color=$?
+> +
+> +	printf "runtest " >&2
+> +	tst_print_colored $res "$res: " >&2
+> +	echo "$@" >&2
+> +
+> +}
+> +
+> +# custom version
+> +tst_brk()
+> +{
+> +	local res="$1"
+> +	shift
+> +
+> +	tst_flag2mask "$res"
+> +	local mask=$?
+> +
+> +	tst_res
+> +	tst_res $res $@
+> +
+> +	exit $mask
+> +}
+
+I'm not sure that we should call these function tst_res and tst_brk it
+only confuses everything since these are different from the ones in the
+test library.
+
+> +run_tests()
+> +{
+> +	local target="$1"
+> +	local i ret tconf tpass vars
+> +
+> +	eval vars="\$LTP_${target}_API_TESTS"
+> +
+> +	tst_res TINFO "=== Run $target tests ==="
+> +
+> +	for i in $vars; do
+> +		tst_res TINFO "* $i"
+> +		./$i
+> +		ret=$?
+> +
+> +		case $ret in
+> +			0) tpass="$tpass $i";;
+> +			1) tst_brk TFAIL "$i failed with TFAIL";;
+> +			2) tst_brk TFAIL "$i failed with TBROK";;
+> +			4) tst_brk TFAIL "$i failed with TWARN";;
+> +			32) tconf="$tconf $i";;
+> +			127) tst_brk TBROK "Error: file not found (wrong PATH? out-of-tree build without -b?), exit code: $ret";;
+> +			*) tst_brk TBROK "Error: unknown failure, exit code: $ret";;
+
+Why do we exit on failure here?
+
+We should just increase the fail counters and go ahead with next test.
+
+> +		esac
+> +		tst_res
+> +	done
+> +
+> +	[ -z "$tpass" ] && tpass=" none"
+> +	[ -z "$tconf" ] && tconf=" none"
+> +
+> +	tst_res TINFO "=== $target TEST RESULTS ==="
+> +	tst_res TINFO "Tests exited with TPASS:$tpass"
+> +	tst_res TINFO "Tests exited with TCONF:$tconf"
+> +	tst_res
+> +}
+> +
+> +run_c_tests()
+> +{
+> +	if [ "$builddir" ]; then
+> +		cd $builddir/lib/newlib_tests
+> +	fi
+> +
+> +	run_tests "C"
+> +
+> +	if [ "$builddir" ]; then
+> +		cd -
+> +	fi
+> +}
+> +
+> +run_shell_tests()
+> +{
+> +	run_tests "SHELL"
+> +}
+> +
+> +builddir=
+> +run=
+> +while getopts b:chs opt; do
+> +	case $opt in
+> +		'h') usage; exit 0;;
+> +		'b') builddir=$OPTARG; PATH="$builddir/testcases/lib:$PATH";;
+> +		'c') run="c";;
+> +		's') run="s";;
+> +		*) usage; tst_brk TBROK "Error: invalid option";;
+> +	esac
+> +done
+> +
+> +tst_res TINFO "PATH='$PATH'"
+> +
+> +if [ -z "$run" -o "$run" = "c" ]; then
+> +	run_c_tests
+> +fi
+> +
+> +if [ -z "$run" -o "$run" = "s" ]; then
+> +	run_shell_tests
+> +fi
+> +
+> +tst_res TPASS "No test failed"
+> -- 
+> 2.32.0
+> 
+
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
