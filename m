@@ -1,84 +1,83 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC1ED3C701D
-	for <lists+linux-ltp@lfdr.de>; Tue, 13 Jul 2021 14:07:04 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0EBB33C704F
+	for <lists+linux-ltp@lfdr.de>; Tue, 13 Jul 2021 14:32:34 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2DD573C877C
-	for <lists+linux-ltp@lfdr.de>; Tue, 13 Jul 2021 14:07:04 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A81833C877C
+	for <lists+linux-ltp@lfdr.de>; Tue, 13 Jul 2021 14:32:33 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id DF87C3C245D
- for <ltp@lists.linux.it>; Tue, 13 Jul 2021 14:07:00 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 023623C66A7
+ for <ltp@lists.linux.it>; Tue, 13 Jul 2021 14:32:29 +0200 (CEST)
 Received: from smtp-relay-canonical-1.canonical.com
  (smtp-relay-canonical-1.canonical.com [185.125.188.121])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 39721600A0E
- for <ltp@lists.linux.it>; Tue, 13 Jul 2021 14:07:00 +0200 (CEST)
-Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com
- [209.85.208.72])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id DF2AE600875
+ for <ltp@lists.linux.it>; Tue, 13 Jul 2021 14:32:28 +0200 (CEST)
+Received: from mail-ed1-f70.google.com (mail-ed1-f70.google.com
+ [209.85.208.70])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPS id 94AA74049F
- for <ltp@lists.linux.it>; Tue, 13 Jul 2021 12:06:59 +0000 (UTC)
+ by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPS id 2499640562
+ for <ltp@lists.linux.it>; Tue, 13 Jul 2021 12:32:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1626178019;
- bh=ERtqxdZIeKee7Pz1TynyR+x/oHzoVx1XFGSPFE8KfWM=;
- h=Subject:From:To:Message-ID:Date:MIME-Version:Content-Type;
- b=NLNRpXZ2nrkbwHq7UHAdilCKoAzFe8OkgcpKPmBdk+8RmWuRgpykWZ9WKF5goMMsW
- JPF4DZgca+FcZRSuqSyLIV/OAg6SmKtTBk10+Vv/g1Wc92zCvXcfmGC3B8nq9pO/Th
- jat8aUG8WACT8Tuj5t4td8VfRSEBr5txeoeQiL5nmzRU2nBPMwZxz2k8C/dBNf6F4q
- jWh8nJDoN+CWV08CyD6WDDSgLXGsIW37vvfW9oqApMpzs3XuCF/UlqAqoBaii6GGY7
- LsZ8HXfgp2MkYVQVeyGqEWNQcOE9QOw/Gkv2yBxcgOkxDC52yv+JejwVRpvQ+6AJMm
- bw0qY7G7+DwgQ==
-Received: by mail-ed1-f72.google.com with SMTP id
- s6-20020a0564020146b029039578926b8cso11778007edu.20
- for <ltp@lists.linux.it>; Tue, 13 Jul 2021 05:06:59 -0700 (PDT)
+ s=20210705; t=1626179548;
+ bh=32IhNfwKOCs6OPsF22rlileqx1SlWM3eeFCFRD4Qybk=;
+ h=Subject:To:From:Message-ID:Date:MIME-Version:Content-Type;
+ b=ayn/KqMGtx/ksY7pbTPvL4N5QV6nZ5ea6D1IfHcJfpPc4zZKIb3fdouk6nzsZVZ34
+ i2YNo4kIz4NyESbaQvmdzeadRFvOBQo/z9rKYNyknpmYcK9YThk5X252iSkhJJuEOa
+ +oYtbfJLSVF+Oomi3P3SwDRkW/jKEdeWVkqjtCAHD2/h8qiEDwl/vY+o/qNUfOnwq9
+ 0pTRWwSPWj17lV1ypBYe4zHkCO/zLIDjhfXZVcQsMf8x5FS11fYngFtC/VsgUwkBY7
+ EAL4imQ1sZj+BKJSrVx+hIR/7UUOr+B/wxUF/Mq0Bkt32YK1xfAQkww4s25bs5v919
+ chfDQGQl1MsWQ==
+Received: by mail-ed1-f70.google.com with SMTP id
+ n6-20020a05640205c6b02903a65bbc4aebso3952432edx.10
+ for <ltp@lists.linux.it>; Tue, 13 Jul 2021 05:32:28 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:from:to:references:message-id:date
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-language
  :content-transfer-encoding;
- bh=ERtqxdZIeKee7Pz1TynyR+x/oHzoVx1XFGSPFE8KfWM=;
- b=cnDnFsA8nJ6O/xVolIaU414UgtzT+w8k769/dbA65WcY9i8WpeNrGyi4pBdicNj5jG
- iHs85pbiOkBxkGmItwh9ER4s8mX+iPPODvYq0Z59RMT+dCbwd1k0OSna9gf+Qjb8+mxz
- GMmA0FNzHIbPYxZlX+SXWR1YMgupwVslElBg6mSLaXYw5DiLJ+A6KoWul5zfUDvFJMsJ
- m4bTrromtjQ5NZjQCt5Vqsk/dAOSRrpj8IybiTzDLCT46L8Bh/vDw0oFooUrjs5Kw7O3
- +V/KrXejD0kJMVF5wc5VZemCl41KXd8PfJT8eAx57mNB204373l5gVjnsPiS+7185Gh5
- j7uQ==
-X-Gm-Message-State: AOAM533fmOVp1/9KN1DXagnaEG4N8xN/zPqKsSryHZ+JsnXwvIAGiRie
- iqIwimqLR9vR8HEpXJSUFFXsE0EXoesr4ZVspGW0lb2d6EEjhDk/0a+ZKf1tXOa2dmradkKdamO
- MSld9IuCzUvVOkZ0cCYg9uPkedc+2
-X-Received: by 2002:a17:906:e088:: with SMTP id
- gh8mr5214353ejb.125.1626178019066; 
- Tue, 13 Jul 2021 05:06:59 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJy5SqdyQpelSHMw3mbWzE3WHgDYHbI8f00tRtyvLAsGsBavHYUrVfwKvA5nV261AnnKEG56hQ==
-X-Received: by 2002:a17:906:e088:: with SMTP id
- gh8mr5214331ejb.125.1626178018867; 
- Tue, 13 Jul 2021 05:06:58 -0700 (PDT)
+ bh=32IhNfwKOCs6OPsF22rlileqx1SlWM3eeFCFRD4Qybk=;
+ b=obgVQj5GvjkPgj0+14cBrlwoYQaj23spVMY84O4pewLoUWTSTfYAFUTiitDu7rt+8h
+ 6JlEbKuSAoVkoCDCNtn4UYp74uzk7yshoc9w9y0J6ytKRQl5HPv1BLHTow5L4yZQioEs
+ mGNT5XdqE4p0dmJ4RHiAfr8LdV0Q5vmMVcwEXmufIaZn0ChtisBrQGreMahHow537JMm
+ Dm/BrTnoTlIPHTtHWP753wDhewUlkyj+KX/VWZxxnrXt190MyhabI9nw2ZvuSlU8Gjmi
+ 4yV6R9Ul89aT9dBoyxYruRvsgsAex7lEMnOI6zHzKpLQBQZ0JXmH5/SFnxVS5wpaY3CE
+ d61A==
+X-Gm-Message-State: AOAM532aDZeg+2nmxElEKx/msoeN+dpoKWGGnAP2anwWZmA+38jWbZi/
+ 95N9teHGssnbjSQYBdsgb5ya2QHUSrZkusjFJCI3Az/1n0dC6aw2D2gGR2BnXm6tCfyG2VyOkh9
+ TG6Q3ESGu6nP0kBgKZcX3tMjfrlz2
+X-Received: by 2002:aa7:c801:: with SMTP id a1mr5520489edt.293.1626179547684; 
+ Tue, 13 Jul 2021 05:32:27 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJxdfPtiYXLwNPjH8BdQLJP7FAibVGpzHXY2qSi4XoM4tqrrDvcAmpdGsCt9VU8VS+dlCobsYQ==
+X-Received: by 2002:aa7:c801:: with SMTP id a1mr5520472edt.293.1626179547569; 
+ Tue, 13 Jul 2021 05:32:27 -0700 (PDT)
 Received: from [192.168.3.211] (xdsl-188-155-177-222.adslplus.ch.
  [188.155.177.222])
- by smtp.gmail.com with ESMTPSA id t17sm9444461edv.75.2021.07.13.05.06.58
- for <ltp@lists.linux.it>
+ by smtp.gmail.com with ESMTPSA id p5sm7997460ejm.115.2021.07.13.05.32.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 13 Jul 2021 05:06:58 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-To: "ltp@lists.linux.it" <ltp@lists.linux.it>
+ Tue, 13 Jul 2021 05:32:27 -0700 (PDT)
+To: Cyril Hrubis <chrubis@suse.cz>
 References: <9c05b592-e474-6a3e-2dc1-ec075a0bc558@canonical.com>
-Message-ID: <632cda7e-fe23-a0b6-cad8-4bd3aceac1d3@canonical.com>
-Date: Tue, 13 Jul 2021 14:06:57 +0200
+ <YO1/J2pTbSsX2dGb@yuki>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+Message-ID: <c253160b-7326-8583-9713-8b3978473c7d@canonical.com>
+Date: Tue, 13 Jul 2021 14:32:26 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <9c05b592-e474-6a3e-2dc1-ec075a0bc558@canonical.com>
+In-Reply-To: <YO1/J2pTbSsX2dGb@yuki>
 Content-Language: en-US
 X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
@@ -98,40 +97,44 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-T24gMTMvMDcvMjAyMSAxMzo1NiwgS3J6eXN6dG9mIEtvemxvd3NraSB3cm90ZToKPiAKPiBIaSBh
-bGwsCj4gCj4gSSBoYXZlIGEgZmFpbGluZyBtZW1jZ191c2VfaGllcmFyY2h5X3Rlc3QgKGluCj4g
-dGVzdGNhc2VzL2tlcm5lbC9jb250cm9sbGVycy9tZW1jZy9mdW5jdGlvbmFsLykgd2hpY2ggaGl0
-cyB1bmV4cGVjdGVkCj4gT09NIG9uIG9uZSBvZiBlYXJsaWVyIGNvbW1hbmRzLCBhbHJlYWR5IGlu
-IHRoZSB0ZXN0Ogo+IAo+ICAxOCAgICAgICAgIGVjaG8gMSA+IG1lbW9yeS51c2VfaGllcmFyY2h5
-Cj4gIDE5ICAgICAgICAgZWNobyAkUEFHRVNJWkUgPiBtZW1vcnkubGltaXRfaW5fYnl0ZXMKPiAg
-MjAgCj4gIDIxICAgICAgICAgbWtkaXIgc3ViZ3JvdXAgIAo+IG1rZGlyOiBjYW5ub3QgY3JlYXRl
-IGRpcmVjdG9yeSDigJhzdWJncm91cOKAmTogQ2Fubm90IGFsbG9jYXRlIG1lbW9yeQo+IC9ob21l
-L3VidW50dS9sdHAtaW5zdGFsbC90ZXN0Y2FzZXMvYmluL21lbWNnX3VzZV9oaWVyYXJjaHlfdGVz
-dC5zaDogMjI6IGNkOiBjYW4ndCBjZCB0byBzdWJncm91cAo+IAo+IFRoZSBjb21tYW5kIGRpZCBu
-b3QgZmFpbCwgYXMgdGhlcmUgaXMgbm8gInNldCAtZSIgYW5kIHRlc3QgZmFpbHMgbGF0ZXIuCgpB
-aCwgSSB3YW50ZWQgdG8gc2F5OgoiVGhlIGNvbW1hbmQgZGlkIG5vdCBmYWlsIGVudGlyZSB0ZXN0
-LCBhcyB0aGVyZSBpcyBubyAic2V0IC1lIiBhbmQgdGVzdApmYWlscyBsYXRlci4iCgo+IEhvd2V2
-ZXIgdGhlcmUgY291bGQgYmUgYSBjYXNlIHdoZXJlIHN1Y2ggZmFpbHVyZSBkb2VzIG5vdCB0cmln
-Z2VyIGxhdGVyCj4gaXNzdWUgYW5kIHRlc3QgaXMgYSBmYWxzZS1wb3NpdGl2ZS4KPiAKPiBXaGF0
-IGlzIHRoZSBwcmFjdGljZSBmb3IgTFRQIHNoZWxsIHRlc3RzIHRvIGhhbmRsZSBraW5kIG9mIHBy
-ZXBhcmF0aW9uCj4gY29tbWFuZHM/IE1heWJlIHRoaXMgc2hvdWxkIGJlIHNvbWV0aGluZyBsaWtl
-Ogo+IAo+IC0tLS0tLS0tCj4gCj4gZGlmZiAtLWdpdCBhL3Rlc3RjYXNlcy9rZXJuZWwvY29udHJv
-bGxlcnMvbWVtY2cvZnVuY3Rpb25hbC9tZW1jZ191c2VfaGllcmFyY2h5X3Rlc3Quc2ggYi90ZXN0
-Y2FzZXMva2VybmVsL2NvbnRyb2xsZXJzL21lbWNnL2Z1bmN0aW9uYWwvbWVtY2dfdXNlX2hpZXJh
-cmNoeV90ZXN0LnNoCj4gaW5kZXggOGJlMzQyNDk5ZWNlLi5mOGRkODk0NmY4MGIgMTAwNzU1Cj4g
-LS0tIGEvdGVzdGNhc2VzL2tlcm5lbC9jb250cm9sbGVycy9tZW1jZy9mdW5jdGlvbmFsL21lbWNn
-X3VzZV9oaWVyYXJjaHlfdGVzdC5zaAo+ICsrKyBiL3Rlc3RjYXNlcy9rZXJuZWwvY29udHJvbGxl
-cnMvbWVtY2cvZnVuY3Rpb25hbC9tZW1jZ191c2VfaGllcmFyY2h5X3Rlc3Quc2gKPiBAQCAtMTgs
-OCArMTgsOCBAQCB0ZXN0MSgpCj4gICAgICAgICBlY2hvIDEgPiBtZW1vcnkudXNlX2hpZXJhcmNo
-eQo+ICAgICAgICAgZWNobyAkUEFHRVNJWkUgPiBtZW1vcnkubGltaXRfaW5fYnl0ZXMKPiAgCj4g
-LSAgICAgICBta2RpciBzdWJncm91cAo+IC0gICAgICAgY2Qgc3ViZ3JvdXAKPiArICAgICAgIEVY
-UEVDVF9QQVNTIG1rZGlyIHN1Ymdyb3VwCj4gKyAgICAgICBFWFBFQ1RfUEFTUyBjZCBzdWJncm91
-cAo+ICAgICAgICAgdGVzdF9wcm9jX2tpbGwgJCgoUEFHRVNJWkUgKiAzKSkgIi0tbW1hcC1sb2Nr
-MSIgJCgoUEFHRVNJWkUgKiAyKSkgMAo+ICAKPiAgICAgICAgIGNkIC4uCj4gCj4gQmVzdCByZWdh
-cmRzLAo+IEtyenlzenRvZgo+IAoKCkJlc3QgcmVnYXJkcywKS3J6eXN6dG9mCgotLSAKTWFpbGlu
-ZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
+On 13/07/2021 13:55, Cyril Hrubis wrote:
+> Hi!
+>> I have a failing memcg_use_hierarchy_test (in
+>> testcases/kernel/controllers/memcg/functional/) which hits unexpected
+>> OOM on one of earlier commands, already in the test:
+>>
+>>  18         echo 1 > memory.use_hierarchy
+>>  19         echo $PAGESIZE > memory.limit_in_bytes
+>>  20 
+>>  21         mkdir subgroup  
+>> mkdir: cannot create directory ???subgroup???: Cannot allocate memory
+>> /home/ubuntu/ltp-install/testcases/bin/memcg_use_hierarchy_test.sh: 22: cd: can't cd to subgroup
+>>
+>> The command did not fail, as there is no "set -e" and test fails later.
+>> However there could be a case where such failure does not trigger later
+>> issue and test is a false-positive.
+>>
+>> What is the practice for LTP shell tests to handle kind of preparation
+>> commands? Maybe this should be something like:
+> 
+> We do have ROD (as a shorthand for "run or die") in the shell test
+> library, so this really should be:
+> 
+> 	ROD mkdir subgroup
+
+Thanks. This will however fail entire suite (memcg_use_hierarchy_test)
+and other tests won't get executed. The failure could be only local, so
+other tests are still meaningful.
+
+
+Best regards,
+Krzysztof
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
