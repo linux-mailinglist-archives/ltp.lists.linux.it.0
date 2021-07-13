@@ -1,89 +1,89 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABE2C3C73FC
-	for <lists+linux-ltp@lfdr.de>; Tue, 13 Jul 2021 18:13:44 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id B01B33C7404
+	for <lists+linux-ltp@lfdr.de>; Tue, 13 Jul 2021 18:14:31 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2BA9C3C9CBE
-	for <lists+linux-ltp@lfdr.de>; Tue, 13 Jul 2021 18:13:43 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 23C973C8776
+	for <lists+linux-ltp@lfdr.de>; Tue, 13 Jul 2021 18:14:30 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id C8A103C675A
- for <ltp@lists.linux.it>; Tue, 13 Jul 2021 18:13:38 +0200 (CEST)
-Received: from smtp-relay-canonical-1.canonical.com
- (smtp-relay-canonical-1.canonical.com [185.125.188.121])
+ by picard.linux.it (Postfix) with ESMTPS id 3AE4D3C9CBF
+ for <ltp@lists.linux.it>; Tue, 13 Jul 2021 18:13:39 +0200 (CEST)
+Received: from smtp-relay-canonical-0.canonical.com
+ (smtp-relay-canonical-0.canonical.com [185.125.188.120])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 0977E600787
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 1ACA9200972
  for <ltp@lists.linux.it>; Tue, 13 Jul 2021 18:13:37 +0200 (CEST)
-Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com
- [209.85.218.70])
+Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com
+ [209.85.208.71])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPS id 1C480401B9
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPS id D294E40596
  for <ltp@lists.linux.it>; Tue, 13 Jul 2021 16:13:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
  s=20210705; t=1626192813;
- bh=Ycn3/hsNOGzDsdJtDbKx5/Setyml7cicfp9qLeb0M/4=;
- h=From:To:Subject:Date:Message-Id:MIME-Version:Content-Type;
- b=UJ/A4a+LE6HAKU+FPG7NPTsxgk0rfBTkSlpHwd/cdQ5fv1zfAFSE3b0SB+KfShEo+
- IIMfNKcT3LTRv+fTSglMNgVH+Ui+o0QBQJzWrmQv9ZZyS6W50S+pRQyn252ACo7PDm
- /U8Q3tfyYmnQV8CHc8fE56azf0FDlmt5WZDCKGvREW+7A2SjnFmg9/kg5sw16CWOSG
- 4c3kidd9Xov5pAq9AUOg8AH5eyGjpGETjkXwO2XG/gnLBuML27NGk/0DKh2PfEG4NN
- ChQdIWKWObYp6HxHZtCnbvkGuVWq7VZWl/tbK2KdE9rDZ0LBsd9R95tcxu1hYzRN6w
- bzqCWO014DEiQ==
-Received: by mail-ej1-f70.google.com with SMTP id
- nc15-20020a1709071c0fb029052883e9de3eso762197ejc.19
+ bh=TUydvIL4WCw9DF//PsH7ynbDUp2wosd+9HFcZHRyLV0=;
+ h=From:To:Subject:Date:Message-Id:MIME-Version;
+ b=dNAv/aZdjh53p99DNyywQu07HyUsypaRCTefK7+NTLqXapEUmSXQ2MhxsqKb8Tych
+ YJYzuElFl7mUv5KmD89dXO5mrgBD6BCVXl9r8yv1XcYvkFLOr2Nb7vW1nM8AFSilQa
+ NxRKspl8zb2uSxOnLJ+YeT07HKlKkpPO4NEIfz3nb+6qUkcsQkW6R4Hk2mRmM5bcqX
+ 91+q/wRRtkqeH7Pp+O/xNYvPSlVFBOKeZVb/31ZFtH+nV0sWtFv/X6wKZHGCL5b9Mg
+ 8uTObrKLaP71zxg3K+s0GIkAMalf3xEdYLgGB6xDoqvDDG7blAb2umNX+23Hjobx3S
+ otgsF9JsK9V1Q==
+Received: by mail-ed1-f71.google.com with SMTP id
+ c21-20020aa7d6150000b02903ab03a06e86so359478edr.14
  for <ltp@lists.linux.it>; Tue, 13 Jul 2021 09:13:33 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=Ycn3/hsNOGzDsdJtDbKx5/Setyml7cicfp9qLeb0M/4=;
- b=UXIio7z1aSq+E7BxEJTzK2DFvC+C/+vVqk8EScuO60kpVzkpy77AhwGxhnrBLPpLjl
- tvxA5No2HwObxIK1y8Y/L3l6nxjmWshSUWTzmUbYf257vNbKNKVbVN6me0i0stZavz3I
- G/Jlgef8Z2MeKybdar2byvJ6MU1ZTOB/tnUl7U3hY0hgtVWeRlQ2dRuEjLq0xG7sa6Yj
- QREyLQThr9RcYRLdVoR7SKXvtyL1fYSoi8fI74Jd93ZKAIIS6dabVj5fNePq8sYsIDJU
- M5Fvaj4WM1wwbDM2o0XAUUiNyZGPrDatEBBgZcBq4yc2rX8SE2eyNxNO/xcr14ss1zCL
- 1DWg==
-X-Gm-Message-State: AOAM5313ytiD4rQOgLT3Xux83Z/OgShpJ/mYnvKrqfG3uLF7JROrpvau
- GTr4rhKZQ/DU5U+3Up/XIS6POc2fWvVyVwo7Yb5GOgw3zCTU6OMc01ZW7fN0Gmuj20E60R8qhYo
- XLdRD7tvwXnNYCST3XD9d9GBJ9B/5
-X-Received: by 2002:a17:906:a98e:: with SMTP id
- jr14mr6569533ejb.450.1626192812562; 
- Tue, 13 Jul 2021 09:13:32 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJzaYhehqtKRArM/too03456u5tm7JaismHM8+R+bdZcbn24LgxwThsqzbWfJnBovyJ2I/i/kQ==
-X-Received: by 2002:a17:906:a98e:: with SMTP id
- jr14mr6569509ejb.450.1626192812373; 
- Tue, 13 Jul 2021 09:13:32 -0700 (PDT)
+ bh=TUydvIL4WCw9DF//PsH7ynbDUp2wosd+9HFcZHRyLV0=;
+ b=OwG1dYKOKDvIZla3ZEM0rSxlaBWgzJdvCnQKqGJqTD9iULnlJalBBwPVwc8pK7M0Td
+ 7uNfb8FfAUduHUnaNIyVjg/7J79RLOLf/n2dmY3vI2AnktQqzIb7NdgnVqU0WXEUTeM4
+ bjZmRZ+BxknR9c2pZC+THEVSuwIy/73AA7qyo55loyI9hcAYguQMMp4CzFJ9J+l/PqCq
+ 91f4XetdsKpgWbAKqunFf5z/sRNHX69z5A9zS6UauKzFJ4VUazBkdQn9qqz1dThvs9yF
+ 3WwS/Kv6j7Fmtxv3isslMIW40hJpIlcVlswZb9RrowGRI61KGJijHn9hseCnMIi2zGO9
+ 6agg==
+X-Gm-Message-State: AOAM53153/+3VGXBdQIOmqNxmBorALqmaC8BjIR7ue91TQqVQXsMpHst
+ nN5Sr2MB/kjYzz3UcnwFxUrf+RwqIawcSmrW91isbRbfr/W+fhajLGZ/RCPRcHDb41aHYfEO7TA
+ 740rfuxSpqhCdRZS9QJkM2kbJQZhV
+X-Received: by 2002:a17:906:3693:: with SMTP id
+ a19mr6736891ejc.237.1626192813440; 
+ Tue, 13 Jul 2021 09:13:33 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJx99G8HvXYFuRC8hiMvGLneTwPBbIUQrLInz2EwtudLr6W+fVtGLVzN3Nfxo2GzadZwPiNqcQ==
+X-Received: by 2002:a17:906:3693:: with SMTP id
+ a19mr6736880ejc.237.1626192813333; 
+ Tue, 13 Jul 2021 09:13:33 -0700 (PDT)
 Received: from kozik-lap.lan (xdsl-188-155-177-222.adslplus.ch.
  [188.155.177.222])
- by smtp.gmail.com with ESMTPSA id qp12sm8331122ejb.90.2021.07.13.09.13.31
+ by smtp.gmail.com with ESMTPSA id qp12sm8331122ejb.90.2021.07.13.09.13.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 13 Jul 2021 09:13:31 -0700 (PDT)
+ Tue, 13 Jul 2021 09:13:32 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 To: ltp@lists.linux.it
-Date: Tue, 13 Jul 2021 18:13:25 +0200
-Message-Id: <20210713161328.62560-2-krzysztof.kozlowski@canonical.com>
+Date: Tue, 13 Jul 2021 18:13:26 +0200
+Message-Id: <20210713161328.62560-3-krzysztof.kozlowski@canonical.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210713161328.62560-1-krzysztof.kozlowski@canonical.com>
 References: <20210713161328.62560-1-krzysztof.kozlowski@canonical.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_NONE autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH 1/4] controllers/memcg: account per-node kernel memory
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH 2/4] controllers/memcg: fix memcg_stat_test on two
+ node machines
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,107 +95,66 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-UmVjZW50IExpbnV4IGtlcm5lbHMgKCkgY2hhcmdlIGdyb3VwcyBhbHNvIHdpdGgga2VybmVsIG1l
-bW9yeS4gIFRoaXMgaXMKbm90IGxpbWl0ZWQgb25seSB0byBwcm9jZXNzLWFsbG9jYXRlZCBtZW1v
-cnkgYnV0IGFsc28gY2dyb3VwLWhhbmRsaW5nCmNvZGUgbWVtb3J5IGFzIHdlbGwuCgpGb3IgZXhh
-bXBsZSBzaW5jZSBrZXJuZWwgdjUuOSB3aXRoIGNvbW1pdCAzZTM4ZTBhYWNhOWUgKCJtbTogbWVt
-Y2c6CmNoYXJnZSBtZW1jZyBwZXJjcHUgbWVtb3J5IHRvIHRoZSBwYXJlbnQgY2dyb3VwIikgY3Jl
-YXRpbmcgYSBzdWJncm91cApjYXVzZXMgc2V2ZXJhbCBrZXJuZWwgYWxsb2NhdGlvbnMgdG93YXJk
-cyB0aGlzIGdyb3VwLgoKVGhlc2UgYWRkaXRpb25hbCBrZXJuZWwgbWVtb3J5IGFsbG9jYXRpb25z
-IGFyZSBwcm9wb3J0aW9uYWwgdG8gbnVtYmVyIG9mCkNQVXMgYW5kIG51bWJlciBvZiBub2Rlcy4K
-Ck9uIGM0Ljh4bGFyZ2UgQVdTIGluc3RhbmNlIHdpdGggMzYgY29yZXMgaW4gdHdvIG5vZGVzIHdp
-dGggdjUuMTEgTGludXgKa2VybmVsIHRoZSBtZW1jZ19zdWJncm91cF9jaGFyZ2UgYW5kIG1lbWNn
-X3VzZV9oaWVyYXJjaHlfdGVzdCB0ZXN0cyB3ZXJlCmZhaWxpbmc6CgogICAgbWVtY2dfdXNlX2hp
-ZXJhcmNoeV90ZXN0IDEgVElORk86IHRpbWVvdXQgcGVyIHJ1biBpcyAwaCA1bSAwcwogICAgbWVt
-Y2dfdXNlX2hpZXJhcmNoeV90ZXN0IDEgVElORk86IHNldCAvZGV2L21lbWNnL21lbW9yeS51c2Vf
-aGllcmFyY2h5IHRvIDAgZmFpbGVkCiAgICBtZW1jZ191c2VfaGllcmFyY2h5X3Rlc3QgMSBUSU5G
-TzogdGVzdCBpZiBvbmUgb2YgdGhlIGFuY2VzdG9ycyBnb2VzIG92ZXIgaXRzIGxpbWl0LCB0aGUg
-cHJvY2VzIHdpbGwgYmUga2lsbGVkCiAgICBta2RpcjogY2Fubm90IGNyZWF0ZSBkaXJlY3Rvcnkg
-4oCYc3ViZ3JvdXDigJk6IENhbm5vdCBhbGxvY2F0ZSBtZW1vcnkKICAgIC9ob21lL3VidW50dS9s
-dHAtaW5zdGFsbC90ZXN0Y2FzZXMvYmluL21lbWNnX3VzZV9oaWVyYXJjaHlfdGVzdC5zaDogMjY6
-IGNkOiBjYW4ndCBjZCB0byBzdWJncm91cAogICAgbWVtY2dfdXNlX2hpZXJhcmNoeV90ZXN0IDEg
-VElORk86IFJ1bm5pbmcgbWVtY2dfcHJvY2VzcyAtLW1tYXAtbG9jazEgLXMgODE5MgogICAgbWVt
-Y2dfdXNlX2hpZXJhcmNoeV90ZXN0IDEgVEZBSUw6IHByb2Nlc3MgIGlzIG5vdCBraWxsZWQKICAg
-IHJtZGlyOiBmYWlsZWQgdG8gcmVtb3ZlICdzdWJncm91cCc6IE5vIHN1Y2ggZmlsZSBvciBkaXJl
-Y3RvcnkKClRoZSBrZXJuZWwgd2FzIHVuYWJsZSB0byBjcmVhdGUgdGhlIHN1Ymdyb3VwIChta2Rp
-ciByZXR1cm5lZCAtRU5PTUVNKQpkdWUgdG8gdGhpcyBhZGRpdGlvbmFsIHBlci1ub2RlIGtlcm5l
-bCBtZW1vcnkgYWxsb2NhdGlvbnMuCgpTaWduZWQtb2ZmLWJ5OiBLcnp5c3p0b2YgS296bG93c2tp
-IDxrcnp5c3p0b2Yua296bG93c2tpQGNhbm9uaWNhbC5jb20+Ci0tLQogLi4uL2NvbnRyb2xsZXJz
-L21lbWNnL2Z1bmN0aW9uYWwvbWVtY2dfbGliLnNoIHwgNDQgKysrKysrKysrKysrKysrKysrKwog
-Li4uL21lbWNnL2Z1bmN0aW9uYWwvbWVtY2dfc3ViZ3JvdXBfY2hhcmdlLnNoIHwgIDggKy0tLQog
-Li4uL2Z1bmN0aW9uYWwvbWVtY2dfdXNlX2hpZXJhcmNoeV90ZXN0LnNoICAgIHwgIDggKysrLQog
-MyBmaWxlcyBjaGFuZ2VkLCA1MiBpbnNlcnRpb25zKCspLCA4IGRlbGV0aW9ucygtKQoKZGlmZiAt
-LWdpdCBhL3Rlc3RjYXNlcy9rZXJuZWwvY29udHJvbGxlcnMvbWVtY2cvZnVuY3Rpb25hbC9tZW1j
-Z19saWIuc2ggYi90ZXN0Y2FzZXMva2VybmVsL2NvbnRyb2xsZXJzL21lbWNnL2Z1bmN0aW9uYWwv
-bWVtY2dfbGliLnNoCmluZGV4IGRhZDY2Yzc5OGUxOS4uNzAwZTllMzY3YmZmIDEwMDc1NQotLS0g
-YS90ZXN0Y2FzZXMva2VybmVsL2NvbnRyb2xsZXJzL21lbWNnL2Z1bmN0aW9uYWwvbWVtY2dfbGli
-LnNoCisrKyBiL3Rlc3RjYXNlcy9rZXJuZWwvY29udHJvbGxlcnMvbWVtY2cvZnVuY3Rpb25hbC9t
-ZW1jZ19saWIuc2gKQEAgLTYzLDYgKzYzLDUwIEBAIG1lbWNnX3JlcXVpcmVfaGllcmFyY2h5X2Rp
-c2FibGVkKCkKIAlmaQogfQogCisjIEtlcm5lbCBtZW1vcnkgYWxsb2NhdGVkIGZvciB0aGUgcHJv
-Y2VzcyBpcyBhbHNvIGNoYXJnZWQuICBJdCBtaWdodCBkZXBlbmQgb24KKyMgdGhlIG51bWJlciBv
-ZiBDUFVzIGFuZCBudW1iZXIgb2Ygbm9kZXMuIEZvciBleGFtcGxlIG9uIGtlcm5lbCB2NS4xMQor
-IyBhZGRpdGlvbmFsbHkgdG90YWxfY3B1cyAocGx1cyAxIG9yIDIpIHBhZ2VzIGFyZSBjaGFyZ2Vk
-IHRvIHRoZSBncm91cCB2aWEKKyMga2VybmVsIG1lbW9yeS4gIEZvciBhIHR3by1ub2RlIG1hY2hp
-bmUsIGFkZGl0aW9uYWwgMTA4IHBhZ2VzIGtlcm5lbCBtZW1vcnkKKyMgYXJlIGNoYXJnZWQgdG8g
-dGhlIGdyb3VwLgorIworIyBBZGp1c3QgdGhlIGxpbWl0IHRvIGFjY291bnQgc3VjaCBwZXItQ1BV
-IGFuZCBwZXItbm9kZSBrZXJuZWwgbWVtb3J5LgorIyAkMSAtIHZhcmlhYmxlIG5hbWUgd2l0aCBs
-aW1pdCB0byBhZGp1c3QKK21lbWNnX2FkanVzdF9saW1pdF9mb3Jfa21lbSgpCit7CisJWyAkIyAt
-bmUgMSBdICYmIHRzdF9icmsgVEJST0sgIm1lbWNnX2FkanVzdF9saW1pdF9mb3Jfa21lbSBleHBl
-Y3RzIDEgcGFyYW1ldGVyIgorCWV2YWwgImxvY2FsIF9saW1pdD1cJCQxIgorCisJIyBUb3RhbCBu
-dW1iZXIgb2YgQ1BVcworCWxvY2FsIHRvdGFsX2NwdXM9YHRzdF9uY3B1c2AKKworCSMgR2V0IHRo
-ZSBudW1iZXIgb2YgTk9ERVMKKwlpZiBbIC1mICIvc3lzL2RldmljZXMvc3lzdGVtL25vZGUvaGFz
-X2hpZ2hfbWVtb3J5IiBdOyB0aGVuCisJCWxvY2FsIG1lbV9zdHJpbmc9ImBjYXQgL3N5cy9kZXZp
-Y2VzL3N5c3RlbS9ub2RlL2hhc19oaWdoX21lbW9yeWAiCisJZWxzZQorCQlsb2NhbCBtZW1fc3Ry
-aW5nPSJgY2F0IC9zeXMvZGV2aWNlcy9zeXN0ZW0vbm9kZS9oYXNfbm9ybWFsX21lbW9yeWAiCisJ
-ZmkKKworCWxvY2FsIHRvdGFsX25vZGVzPSJgZWNobyAkbWVtX3N0cmluZyB8IHRyICcsJyAnICdg
-IgorCWxvY2FsIGNvdW50PTAKKwlmb3IgaXRlbSBpbiAkdG90YWxfbm9kZXM7IGRvCisJCWxvY2Fs
-IGRlbHRhPTEKKwkJaWYgWyAiJHtpdGVtIyotKn0iICE9ICIkaXRlbSIgXTsgdGhlbgorCQkJZGVs
-dGE9JCgoJHtpdGVtIyotKn0gLSAke2l0ZW0lKi0qfSArIDEpKQorCQlmaQorCQljb3VudD0kKChj
-b3VudCArICRkZWx0YSkpCisJZG9uZQorCXRvdGFsX25vZGVzPSRjb3VudAorCSMgQWRkaXRpb25h
-bCBub2RlcyBpbXBvc2UgY2hhcmdpbmcgdGhlIGttZW0sIG5vdCBoYXZpbmcgcmVndWxhciBvbmUg
-bm9kZQorCWxvY2FsIG5vZGVfbWVtPTAKKwlpZiBbICR0b3RhbF9ub2RlcyAtZ3QgMSBdOyB0aGVu
-CisJCW5vZGVfbWVtPSQoKHRvdGFsX25vZGVzIC0gMSkpCisJCW5vZGVfbWVtPSQoKG5vZGVfbWVt
-ICogUEFHRVNJWkUgKiAxMjgpKQorCWZpCisKKwlldmFsICIkMT0nJCgoX2xpbWl0ICsgNCAqIFBB
-R0VTSVpFICsgdG90YWxfY3B1cyAqIFBBR0VTSVpFICsgbm9kZV9tZW0pKSciCisJcmV0dXJuIDAK
-K30KKwogbWVtY2dfc2V0dXAoKQogewogCWlmICEgaXNfY2dyb3VwX3N1YnN5c3RlbV9hdmFpbGFi
-bGVfYW5kX2VuYWJsZWQgIm1lbW9yeSI7IHRoZW4KZGlmZiAtLWdpdCBhL3Rlc3RjYXNlcy9rZXJu
-ZWwvY29udHJvbGxlcnMvbWVtY2cvZnVuY3Rpb25hbC9tZW1jZ19zdWJncm91cF9jaGFyZ2Uuc2gg
-Yi90ZXN0Y2FzZXMva2VybmVsL2NvbnRyb2xsZXJzL21lbWNnL2Z1bmN0aW9uYWwvbWVtY2dfc3Vi
-Z3JvdXBfY2hhcmdlLnNoCmluZGV4IDBkMmIyMzVhZmY3Yy4uNzY1MDEyOGUzNjA1IDEwMDc1NQot
-LS0gYS90ZXN0Y2FzZXMva2VybmVsL2NvbnRyb2xsZXJzL21lbWNnL2Z1bmN0aW9uYWwvbWVtY2df
-c3ViZ3JvdXBfY2hhcmdlLnNoCisrKyBiL3Rlc3RjYXNlcy9rZXJuZWwvY29udHJvbGxlcnMvbWVt
-Y2cvZnVuY3Rpb25hbC9tZW1jZ19zdWJncm91cF9jaGFyZ2Uuc2gKQEAgLTI0LDE2ICsyNCwxMiBA
-QCB0ZXN0X3N1Ymdyb3VwKCkKIHsKIAlsb2NhbCBsaW1pdF9wYXJlbnQ9JDEKIAlsb2NhbCBsaW1p
-dF9zdWJncm91cD0kMgotCWxvY2FsIHRvdGFsX2NwdXM9YHRzdF9uY3B1c2AKIAotCSMgS2VybmVs
-IG1lbW9yeSBhbGxvY2F0ZWQgZm9yIHRoZSBwcm9jZXNzIGlzIGFsc28gY2hhcmdlZC4KLQkjIEl0
-IG1pZ2h0IGRlcGVuZCBvbiB0aGUgbnVtYmVyIG9mIENQVXMuIEZvciBleGFtcGxlIG9uIGtlcm5l
-bCB2NS4xMQotCSMgYWRkaXRpb25hbGx5IHRvdGFsX2NwdXMgcGx1cyAxLTIgcGFnZXMgYXJlIGNo
-YXJnZWQgdG8gdGhlIGdyb3VwLgogCWlmIFsgJGxpbWl0X3BhcmVudCAtbmUgMCBdOyB0aGVuCi0J
-CWxpbWl0X3BhcmVudD0kKChsaW1pdF9wYXJlbnQgKyA0ICogUEFHRVNJWkUgKyB0b3RhbF9jcHVz
-ICogUEFHRVNJWkUpKQorCQltZW1jZ19hZGp1c3RfbGltaXRfZm9yX2ttZW0gbGltaXRfcGFyZW50
-CiAJZmkKIAlpZiBbICRsaW1pdF9zdWJncm91cCAtbmUgMCBdOyB0aGVuCi0JCWxpbWl0X3N1Ymdy
-b3VwPSQoKGxpbWl0X3N1Ymdyb3VwICsgNCAqIFBBR0VTSVpFICsgdG90YWxfY3B1cyAqIFBBR0VT
-SVpFKSkKKwkJbWVtY2dfYWRqdXN0X2xpbWl0X2Zvcl9rbWVtIGxpbWl0X3N1Ymdyb3VwCiAJZmkK
-IAogCW1rZGlyIHN1Ymdyb3VwCmRpZmYgLS1naXQgYS90ZXN0Y2FzZXMva2VybmVsL2NvbnRyb2xs
-ZXJzL21lbWNnL2Z1bmN0aW9uYWwvbWVtY2dfdXNlX2hpZXJhcmNoeV90ZXN0LnNoIGIvdGVzdGNh
-c2VzL2tlcm5lbC9jb250cm9sbGVycy9tZW1jZy9mdW5jdGlvbmFsL21lbWNnX3VzZV9oaWVyYXJj
-aHlfdGVzdC5zaAppbmRleCA4YmUzNDI0OTllY2UuLmI2NDVmOWI0NGE4NiAxMDA3NTUKLS0tIGEv
-dGVzdGNhc2VzL2tlcm5lbC9jb250cm9sbGVycy9tZW1jZy9mdW5jdGlvbmFsL21lbWNnX3VzZV9o
-aWVyYXJjaHlfdGVzdC5zaAorKysgYi90ZXN0Y2FzZXMva2VybmVsL2NvbnRyb2xsZXJzL21lbWNn
-L2Z1bmN0aW9uYWwvbWVtY2dfdXNlX2hpZXJhcmNoeV90ZXN0LnNoCkBAIC0xNCwxMyArMTQsMTcg
-QEAgVFNUX0NOVD0zCiB0ZXN0MSgpCiB7CiAJdHN0X3JlcyBUSU5GTyAidGVzdCBpZiBvbmUgb2Yg
-dGhlIGFuY2VzdG9ycyBnb2VzIG92ZXIgaXRzIGxpbWl0LCB0aGUgcHJvY2VzIHdpbGwgYmUga2ls
-bGVkIgorCWxvY2FsIHRvdGFsX2NwdXM9YHRzdF9uY3B1c2AKKworCWxvY2FsIGxpbWl0PSRQQUdF
-U0laRQorCW1lbWNnX2FkanVzdF9saW1pdF9mb3Jfa21lbSBsaW1pdAogCiAJZWNobyAxID4gbWVt
-b3J5LnVzZV9oaWVyYXJjaHkKLQllY2hvICRQQUdFU0laRSA+IG1lbW9yeS5saW1pdF9pbl9ieXRl
-cworCWVjaG8gJGxpbWl0ID4gbWVtb3J5LmxpbWl0X2luX2J5dGVzCiAKIAlta2RpciBzdWJncm91
-cAogCWNkIHN1Ymdyb3VwCi0JdGVzdF9wcm9jX2tpbGwgJCgoUEFHRVNJWkUgKiAzKSkgIi0tbW1h
-cC1sb2NrMSIgJCgoUEFHRVNJWkUgKiAyKSkgMAorCXRlc3RfcHJvY19raWxsICQoKGxpbWl0ICsg
-UEFHRVNJWkUgKiAzKSkgIi0tbW1hcC1sb2NrMSIgJCgobGltaXQgKyBQQUdFU0laRSAqIDIpKSAw
-CiAKIAljZCAuLgogCXJtZGlyIHN1Ymdyb3VwCi0tIAoyLjI3LjAKCgotLSAKTWFpbGluZyBsaXN0
-IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
+Recent Linux kernels charge groups also with kernel memory.  This is not
+limited only to process-allocated memory but also cgroup-handling code
+memory as well.
+
+For example since kernel v5.9 with commit 3e38e0aaca9e ("mm: memcg:
+charge memcg percpu memory to the parent cgroup") creating a subgroup
+causes several kernel allocations towards this group.
+
+These additional kernel memory allocations are proportional to number of
+CPUs and number of nodes.
+
+On c4.8xlarge AWS instance with 36 cores in two nodes with v5.11 Linux
+kernel the memcg_stat_test was failing because of unable to set memory
+limit lower than current kernel memory accounted to the group:
+
+    memcg_stat_test 5 TINFO: Test hierarchical_memory_limit with enabling hierarchical accounting
+        shell code from test:
+        > mkdir subgroup
+        > cat memory.kmem.usage_in_bytes
+        > 442368
+        > echo $PAGESIZE > memory.limit_in_bytes
+    /home/ubuntu/ltp-install/testcases/bin/memcg_stat_test.sh: 47: echo: echo: I/O error
+    memcg_stat_test 5 TFAIL: hierarchical_memory_limit is 270336, 135168 expected
+
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+---
+ .../controllers/memcg/functional/memcg_stat_test.sh      | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/testcases/kernel/controllers/memcg/functional/memcg_stat_test.sh b/testcases/kernel/controllers/memcg/functional/memcg_stat_test.sh
+index e5eb7e5d0001..f6b5aa84e31e 100755
+--- a/testcases/kernel/controllers/memcg/functional/memcg_stat_test.sh
++++ b/testcases/kernel/controllers/memcg/functional/memcg_stat_test.sh
+@@ -43,12 +43,15 @@ test5()
+ 	tst_res TINFO "Test hierarchical_memory_limit with enabling hierarchical accounting"
+ 	echo 1 > memory.use_hierarchy
+ 
++	local limit=$PAGESIZES
++	memcg_adjust_limit_for_kmem limit
++
+ 	mkdir subgroup
+-	echo $PAGESIZES > memory.limit_in_bytes
+-	echo $((PAGESIZES * 2)) > subgroup/memory.limit_in_bytes
++	echo $limit > memory.limit_in_bytes
++	echo $((limit + PAGESIZES * 2)) > subgroup/memory.limit_in_bytes
+ 
+ 	cd subgroup
+-	check_mem_stat "hierarchical_memory_limit" $PAGESIZES
++	check_mem_stat "hierarchical_memory_limit" $limit
+ 
+ 	cd ..
+ 	rmdir subgroup
+-- 
+2.27.0
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
