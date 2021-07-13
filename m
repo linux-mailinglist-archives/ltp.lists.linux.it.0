@@ -1,90 +1,89 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7547E3C6D39
-	for <lists+linux-ltp@lfdr.de>; Tue, 13 Jul 2021 11:23:04 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1864B3C6D3A
+	for <lists+linux-ltp@lfdr.de>; Tue, 13 Jul 2021 11:23:14 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0FDD53C8772
-	for <lists+linux-ltp@lfdr.de>; Tue, 13 Jul 2021 11:23:04 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C57323C77ED
+	for <lists+linux-ltp@lfdr.de>; Tue, 13 Jul 2021 11:23:13 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 6AA893C7836
- for <ltp@lists.linux.it>; Tue, 13 Jul 2021 11:22:21 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 132ED3C876A
+ for <ltp@lists.linux.it>; Tue, 13 Jul 2021 11:22:22 +0200 (CEST)
 Received: from smtp-relay-canonical-1.canonical.com
  (smtp-relay-canonical-1.canonical.com [185.125.188.121])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id ECDFB1000A59
- for <ltp@lists.linux.it>; Tue, 13 Jul 2021 11:22:20 +0200 (CEST)
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id AB5CF600266
+ for <ltp@lists.linux.it>; Tue, 13 Jul 2021 11:22:21 +0200 (CEST)
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPS id 3C0AE4057E
- for <ltp@lists.linux.it>; Tue, 13 Jul 2021 09:22:20 +0000 (UTC)
+ by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPS id 3C2CD4057D
+ for <ltp@lists.linux.it>; Tue, 13 Jul 2021 09:22:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1626168140;
- bh=s/AHBoVVHYAcFgqWbnXVZ8RKSidDuXAyLdMQMbzmkwg=;
+ s=20210705; t=1626168141;
+ bh=EDC46LT3O4aj/p1iWKMRPSHT/vLiU3fXF+N8pBk1030=;
  h=From:To:Subject:Date:Message-Id:MIME-Version;
- b=IWf0O/PIx4O1bhly/KZaPwqR0HiFrLiHTTqBZ5BJZL7M/k8TxqBlFmvA1UWMQ1i0j
- CPfsbmlFPVxc9ySeJxM5tGdBk/bmIHIxsjsm/KqfCG3O00cfv0VGpzJNiMBhiZ4I4+
- oK2da3l/FUoHciS1xy9GyDD4JqBI+UqTRYSB6WQcQGBR5qOlY+T8NzXDfGnSlax1YB
- 6wzwZX3HNmHqoT88WZaqEOQOxAt+vH642SHqcAP08bJhT56Al4bX4nz6MjRqyCnubr
- xHJLpAP8mZbYf/pop0HEmFO+hmrrDJpkMd+peQn0EW3DkgMjD+Trc09EarQ8dPRPIH
- 6gD+L89lsgfdg==
-Received: by mail-wm1-f72.google.com with SMTP id
- j141-20020a1c23930000b0290212502cb19aso1186479wmj.0
- for <ltp@lists.linux.it>; Tue, 13 Jul 2021 02:22:20 -0700 (PDT)
+ b=nYoHZUESbaa0cV9Tohf4KITGYm8gjiaoiFKM07P5+VMTpTjU2cYX5BBvevf9YSC04
+ zEuwtR1rN9PGWaIPYKOOS1pcwtPvps5+y9YwEjg4rEdFGHHYM/ubxC1De4lStTDIOs
+ VOn5sH0EtRsOsxmbllUZhHIb68vm8zo4MqUMhW6BSuBa1z9QoRZEqp/5AGuQHnBg6S
+ Y1NjTJc02JeaDXQ80zAaxdiZxg1SVujkUviYRY+iQRHcRniJfEbMsjHamgqPczO5+t
+ OyQwokBuEnm3rq4gud7Qoq6xOjyri6HAv4K2N1DDv23/OOxOfrs5jmll6hTR8To+6L
+ MVyvr8g8vDs3w==
+Received: by mail-wm1-f70.google.com with SMTP id
+ b26-20020a7bc25a0000b0290218757e2783so1164545wmj.7
+ for <ltp@lists.linux.it>; Tue, 13 Jul 2021 02:22:21 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=s/AHBoVVHYAcFgqWbnXVZ8RKSidDuXAyLdMQMbzmkwg=;
- b=ej5oqx5QM7P5j4Yn7j/wb5c/CvPs9+kI/DMMJ8s6EP/Jnfu6UVKd9yDLsfTybIZMmI
- EWO5iOip6RbMHEniTT11rR9PaIenvH2GDK0NBvhY0ErswLadnjHU0iI5RtF7Py+qlmEW
- Lup/Cio+bHktIYPI8z2e8lbQWqpNTI0p7L0xgY/+km61o6pqrXbLhR2j9WywM27O6azz
- DTEjNI1950WO90izDI8Bdj8/N7BqT+hEs2HZ1bXqaoFud7Epuj3nnXDPA6bTAK7jOWCE
- 0eQwT1lVYgLoY9jHHJvpPIC/jEYiU3vCDOt55Z4rdrOP76hWKhux4fJpPrCkz4qpN6Fy
- /XFg==
-X-Gm-Message-State: AOAM531bVuTVPM+2JWg4cJVtKFYQOZVbEEQGW1UFAJb4n1GuNbCXB2fB
- WEg9rw3idbbZgujt12mmdJOUQViSemCnXGwh+kSj37oVSrq9UrgvwrXqFKYpy3dG5Wa/jm5lHIi
- iUgC1DNGg1aZpddMoNLV+3e34vj87
-X-Received: by 2002:a05:600c:3793:: with SMTP id
- o19mr4082666wmr.31.1626168139514; 
- Tue, 13 Jul 2021 02:22:19 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJx4U+DFmKhlMhnKE16LZm1Ft8Xkojwm5fm25l1Z0kvrxpxpzuDcCeHNvCH9Ij804y53uoy3Sg==
-X-Received: by 2002:a05:600c:3793:: with SMTP id
- o19mr4082651wmr.31.1626168139356; 
- Tue, 13 Jul 2021 02:22:19 -0700 (PDT)
+ bh=EDC46LT3O4aj/p1iWKMRPSHT/vLiU3fXF+N8pBk1030=;
+ b=dMXuXImFVmvlBlCy6US0Wj+zVdT+HW7hvIjBEFEXHyrx5O4nYZ+jGkoIzJ7Uj48lsy
+ 9jqcL9pRJzs/BAS1CNJG0LtFTuu5siCUKxqyOMY82XT19hvpG0pQ2qtGuWKZkaAssa/N
+ yu+grQ60dp8Sy0uO0UkaBXFJYgGylK9kC5p4g07m4ggeEQatiBLBTHtyTxgbyqkLFbrV
+ 2CeWvglpJ2gBl1bA1lxKlAIk1gJtKQVxKbGHkYKmbhmUzjSffVmqLsygBnDspJRFy3Pa
+ wP1Glb+xjVb218r2nem8NQwVRZu6+HLttdAJNNuDL7S6/PzLdCLm5YwW/OPkpr51i/jj
+ EPIg==
+X-Gm-Message-State: AOAM532YZFx2o5lhwZkFjPXDPGtDJIoUmu0/YZbCOYR1esVJMhcIThV4
+ fDGQbbJ2CPDaGvzAZ2voQfaHmmovwlPvTbZjQZQSQQ9h6ZKfu+W/PnN5GbJGlrlA6LGoiI9gouF
+ yGb1SJ06BBjP21Iri1UTP4yezmfVK
+X-Received: by 2002:a05:600c:2142:: with SMTP id
+ v2mr3872538wml.121.1626168140773; 
+ Tue, 13 Jul 2021 02:22:20 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJyan3JGnFpcVFr6tGY1KwdB8Q/g5jLh3Gupmvy+fJoKugXsx80BWgG4cZRpJ1j7Btq5F8ggbg==
+X-Received: by 2002:a05:600c:2142:: with SMTP id
+ v2mr3872526wml.121.1626168140654; 
+ Tue, 13 Jul 2021 02:22:20 -0700 (PDT)
 Received: from kozik-lap.lan (xdsl-188-155-177-222.adslplus.ch.
  [188.155.177.222])
- by smtp.gmail.com with ESMTPSA id e11sm15663393wrt.0.2021.07.13.02.22.18
+ by smtp.gmail.com with ESMTPSA id e11sm15663393wrt.0.2021.07.13.02.22.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Tue, 13 Jul 2021 02:22:19 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 To: ltp@lists.linux.it
-Date: Tue, 13 Jul 2021 11:22:09 +0200
-Message-Id: <20210713092210.17141-5-krzysztof.kozlowski@canonical.com>
+Date: Tue, 13 Jul 2021 11:22:10 +0200
+Message-Id: <20210713092210.17141-6-krzysztof.kozlowski@canonical.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210713092210.17141-1-krzysztof.kozlowski@canonical.com>
 References: <20210713092210.17141-1-krzysztof.kozlowski@canonical.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_NONE autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH v4 4/5] controllers/memcg: increase memory limit in
- subgroup charge
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH v4 5/5] controllers/memcg: offset kernel memory
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,118 +100,83 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-The memcg_subgroup_charge was failing on kernel v5.8 in around 10% cases
-with:
+The memory allocated by kernel with __GFP_ACCOUNT is counted as well in
+memory group usage limits.  Add it to fix failures like:
 
-    memcg_subgroup_charge 1 TINFO: Running memcg_process --mmap-anon -s 135168
-    memcg_subgroup_charge 1 TINFO: Warming up pid: 19289
-    memcg_subgroup_charge 1 TINFO: Process is still here after warm up: 19289
-    memcg_subgroup_charge 1 TFAIL: rss is 0, 135168 expected
-    memcg_subgroup_charge 1 TPASS: rss is 0 as expected
+    memcg_max_usage_in_bytes_test 1 TINFO: Running memcg_process --mmap-anon -s 4194304
+    memcg_max_usage_in_bytes_test 1 TINFO: Warming up pid: 925811
+    memcg_max_usage_in_bytes_test 1 TINFO: Process is still here after warm up: 925811
+    memcg_max_usage_in_bytes_test 1 TFAIL: memory.max_usage_in_bytes is 4333568, 4194304-4325376 expected
 
-In dmesg one could see that OOM killer killed the process even though
-group memory limit was matching the usage:
-
-    memcg_process invoked oom-killer: gfp_mask=0xcc0(GFP_KERNEL), order=0, oom_score_adj=0
-    CPU: 4 PID: 19289 Comm: memcg_process Not tainted 5.8.0-1031-oracle #32~20.04.2-Ubuntu
-    Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.4.1 12/03/2020
-    ...
-    memory: usage 132kB, limit 132kB, failcnt 9
-    memory+swap: usage 132kB, limit 9007199254740988kB, failcnt 0
-    kmem: usage 4kB, limit 9007199254740988kB, failcnt 0
-    ...
-    Tasks state (memory values in pages):
-    [  pid  ]   uid  tgid total_vm      rss pgtables_bytes swapents oom_score_adj name
-    [  19289]     0 19289      669      389    40960        0             0 memcg_process
-    oom-kill:constraint=CONSTRAINT_MEMCG,nodemask=(null),cpuset=/,mems_allowed=0,oom_memcg=/ltp_19257,task_memcg=/ltp_19257,task=memcg_process,pid=19289,uid=0
-    Memory cgroup out of memory: Killed process 19289 (memcg_process) total-vm:2676kB, anon-rss:84kB, file-rss:1468kB, shmem-rss:4kB, UID:0 pgtables:40kB oom_score_adj:0
-    oom_reaper: reaped process 19289 (memcg_process), now anon-rss:0kB, file-rss:0kB, shmem-rss:4kB
-
-It seems actual kernel memory usage by a given group depends on number
-of CPUs, where at least one page is allocated per-cpu beside regular
-(expected) allocation.  Fix the test on machines with more CPUs by
-including this per-CPU memory in group limits, plus some slack of 4
-PAGES.  Increase also memory allocation from 32 to 64 pages to be more
-distinctive from kernel per-CPU memory.
+    (where memory.kmem.max_usage_in_bytes:8192)
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 ---
- .../memcg/functional/memcg_subgroup_charge.sh | 33 ++++++++++++++-----
- 1 file changed, 25 insertions(+), 8 deletions(-)
+ .../controllers/memcg/functional/memcg_lib.sh     | 10 ++++++++++
+ .../functional/memcg_max_usage_in_bytes_test.sh   | 15 ++++++++++++++-
+ 2 files changed, 24 insertions(+), 1 deletion(-)
 
-diff --git a/testcases/kernel/controllers/memcg/functional/memcg_subgroup_charge.sh b/testcases/kernel/controllers/memcg/functional/memcg_subgroup_charge.sh
-index 9b23177a4dc5..0d2b235aff7c 100755
---- a/testcases/kernel/controllers/memcg/functional/memcg_subgroup_charge.sh
-+++ b/testcases/kernel/controllers/memcg/functional/memcg_subgroup_charge.sh
-@@ -14,16 +14,33 @@ TST_CNT=3
+diff --git a/testcases/kernel/controllers/memcg/functional/memcg_lib.sh b/testcases/kernel/controllers/memcg/functional/memcg_lib.sh
+index 9634eb7e9f42..dad66c798e19 100755
+--- a/testcases/kernel/controllers/memcg/functional/memcg_lib.sh
++++ b/testcases/kernel/controllers/memcg/functional/memcg_lib.sh
+@@ -251,6 +251,7 @@ test_mem_stat()
+ 	local exp_stat_size_low=$5
+ 	local exp_stat_size_up=$6
+ 	local check_after_free=$7
++	local kmem_stat_name="${stat_name##*.}"
  
- . memcg_lib.sh
+ 	start_memcg_process $memtypes -s $size
  
-+# Allocate memory bigger than per-cpu kernel memory
-+MEM_TO_ALLOC=$((PAGESIZES * 2))
-+
- # Test the memory charge won't move to subgroup
- # $1 - memory.limit_in_bytes in parent group
- # $2 - memory.limit_in_bytes in sub group
- test_subgroup()
- {
-+	local limit_parent=$1
-+	local limit_subgroup=$2
-+	local total_cpus=`tst_ncpus`
-+
-+	# Kernel memory allocated for the process is also charged.
-+	# It might depend on the number of CPUs. For example on kernel v5.11
-+	# additionally total_cpus plus 1-2 pages are charged to the group.
-+	if [ $limit_parent -ne 0 ]; then
-+		limit_parent=$((limit_parent + 4 * PAGESIZE + total_cpus * PAGESIZE))
-+	fi
-+	if [ $limit_subgroup -ne 0 ]; then
-+		limit_subgroup=$((limit_subgroup + 4 * PAGESIZE + total_cpus * PAGESIZE))
+@@ -261,6 +262,15 @@ test_mem_stat()
+ 	echo $MEMCG_PROCESS_PID > tasks
+ 	signal_memcg_process $size
+ 
++	if [ "$kmem_stat_name" = "max_usage_in_bytes" ] ||
++	   [ "$kmem_stat_name" = "usage_in_bytes" ]; then
++		local kmem=$(cat "memory.kmem.${kmem_stat_name}")
++		if [ $? -eq 0 ]; then
++			exp_stat_size_low=$((exp_stat_size_low + kmem))
++			exp_stat_size_up=$((exp_stat_size_up + kmem))
++		fi
 +	fi
 +
- 	mkdir subgroup
--	echo $1 > memory.limit_in_bytes
--	echo $2 > subgroup/memory.limit_in_bytes
-+	echo $limit_parent > memory.limit_in_bytes
-+	echo $limit_subgroup > subgroup/memory.limit_in_bytes
- 
--	start_memcg_process --mmap-anon -s $PAGESIZES
-+	start_memcg_process --mmap-anon -s $MEM_TO_ALLOC
+ 	if [ "$exp_stat_size_low" = "$exp_stat_size_up" ]; then
+ 		check_mem_stat $stat_name $exp_stat_size_low
+ 	else
+diff --git a/testcases/kernel/controllers/memcg/functional/memcg_max_usage_in_bytes_test.sh b/testcases/kernel/controllers/memcg/functional/memcg_max_usage_in_bytes_test.sh
+index 2d494ac3a78f..24e9d115c19e 100755
+--- a/testcases/kernel/controllers/memcg/functional/memcg_max_usage_in_bytes_test.sh
++++ b/testcases/kernel/controllers/memcg/functional/memcg_max_usage_in_bytes_test.sh
+@@ -22,6 +22,10 @@ test_max_usage_in_bytes()
+ 	local item="memory.max_usage_in_bytes"
+ 	[ $1 -eq 1 ] && item="memory.memsw.max_usage_in_bytes"
+ 	local check_after_reset=$2
++	local exp_stat_size_low=$MEM_TO_ALLOC
++	local exp_stat_size_up=$MEM_EXPECTED_UPPER
++	local kmem_stat_name="${item##*.}"
++
+ 	start_memcg_process --mmap-anon -s $MEM_TO_ALLOC
  
  	warmup
- 	if [ $? -ne 0 ]; then
-@@ -31,8 +48,8 @@ test_subgroup()
- 	fi
+@@ -33,7 +37,16 @@ test_max_usage_in_bytes()
+ 	signal_memcg_process $MEM_TO_ALLOC
+ 	signal_memcg_process $MEM_TO_ALLOC
  
- 	echo $MEMCG_PROCESS_PID > tasks
--	signal_memcg_process $PAGESIZES
--	check_mem_stat "rss" $PAGESIZES
-+	signal_memcg_process $MEM_TO_ALLOC
-+	check_mem_stat "rss" $MEM_TO_ALLOC
+-	check_mem_stat $item $MEM_TO_ALLOC $MEM_EXPECTED_UPPER
++	if [ "$kmem_stat_name" = "max_usage_in_bytes" ] ||
++	   [ "$kmem_stat_name" = "usage_in_bytes" ]; then
++		local kmem=$(cat "memory.kmem.${kmem_stat_name}")
++		if [ $? -eq 0 ]; then
++			exp_stat_size_low=$((exp_stat_size_low + kmem))
++			exp_stat_size_up=$((exp_stat_size_up + kmem))
++		fi
++	fi
++
++	check_mem_stat $item $exp_stat_size_low $exp_stat_size_up
  
- 	cd subgroup
- 	echo $MEMCG_PROCESS_PID > tasks
-@@ -47,17 +64,17 @@ test_subgroup()
- test1()
- {
- 	tst_res TINFO "Test that group and subgroup have no relationship"
--	test_subgroup $PAGESIZES $((2 * PAGESIZES))
-+	test_subgroup $MEM_TO_ALLOC $((2 * MEM_TO_ALLOC))
- }
- 
- test2()
- {
--	test_subgroup $PAGESIZES $PAGESIZES
-+	test_subgroup $MEM_TO_ALLOC $MEM_TO_ALLOC
- }
- 
- test3()
- {
--	test_subgroup $PAGESIZES 0
-+	test_subgroup $MEM_TO_ALLOC 0
- }
- 
- tst_run
+ 	if [ $check_after_reset -eq 1 ]; then
+ 		echo 0 > $item
 -- 
 2.27.0
 
