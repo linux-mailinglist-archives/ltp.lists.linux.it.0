@@ -1,75 +1,76 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id F02D33C83A9
-	for <lists+linux-ltp@lfdr.de>; Wed, 14 Jul 2021 13:18:36 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id BB77A3C83C2
+	for <lists+linux-ltp@lfdr.de>; Wed, 14 Jul 2021 13:21:17 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C03663C7583
-	for <lists+linux-ltp@lfdr.de>; Wed, 14 Jul 2021 13:18:36 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 7E02B3C7572
+	for <lists+linux-ltp@lfdr.de>; Wed, 14 Jul 2021 13:21:17 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 1DC1C3C2A73
- for <ltp@lists.linux.it>; Wed, 14 Jul 2021 13:18:33 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 719953C2A73
+ for <ltp@lists.linux.it>; Wed, 14 Jul 2021 13:21:16 +0200 (CEST)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 88772200D2A
- for <ltp@lists.linux.it>; Wed, 14 Jul 2021 13:18:33 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id EF8C41A00F32
+ for <ltp@lists.linux.it>; Wed, 14 Jul 2021 13:21:15 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id F05B420297;
- Wed, 14 Jul 2021 11:18:32 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 546BC20296;
+ Wed, 14 Jul 2021 11:21:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1626261512;
+ t=1626261675;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=v4Br0uVDjH9vrOJ91gOJVlh7xjmOBy6CHUCsBH1eHYA=;
- b=2yuM55ySas6cdwdZDn0OeRNlgXokl1/kEcUzhx178/YB/3pnqGg4OG3N+TByZ0gqNUWMlX
- 6bQTu57Lkd2TT0BtOaz0qEmsWyLYnQ9ku6LBURoplrlHPGOICpVU/In418djvm5GtM5VoY
- 8oLHM3qcc1PgM03Vw4Skc1PXHEMVmL8=
+ bh=MnBpm+2FuVx+QHGONJkv+OVp0aqWoBeKo73tKGtcmXk=;
+ b=CmtqSLHnlH2q3NF9YoJXXxWgzwRvu8a436d/VqH7GWzoQxEuxxG85LjbkCI5OOl/g4ci6F
+ uBfU+D4VfNL+orbOljeEB8EPWAd/yZl3jWmJlyyE3IDxGDmILjvwoEdkGA1l880P8wiG57
+ Uq8Fas/ZxU/kz7gQchlCccV+gzVtScE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1626261512;
+ s=susede2_ed25519; t=1626261675;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=v4Br0uVDjH9vrOJ91gOJVlh7xjmOBy6CHUCsBH1eHYA=;
- b=myv6xnIJ9kCUsOFjVlOBfaZuYF/MNxth+M3tlqKf8pOFqPE9l5ZqUkMedAwNazZc1yRf4n
- FCfZ6r6lpSr15tAA==
+ bh=MnBpm+2FuVx+QHGONJkv+OVp0aqWoBeKo73tKGtcmXk=;
+ b=COms+N5elAONDluFXxt3P2ZLxY4bGJn7RvG/qIVOAhpshRaJHdcJZtWuMdVIgyEzUu6RHs
+ KNN8jtrxGXUddUBg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A938A13BFC;
- Wed, 14 Jul 2021 11:18:32 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0F32B13BFF;
+ Wed, 14 Jul 2021 11:21:15 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id ZBIHJgjI7mB8QAAAMHmgww
- (envelope-from <pvorel@suse.cz>); Wed, 14 Jul 2021 11:18:32 +0000
-Date: Wed, 14 Jul 2021 13:18:30 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id rqQWAavI7mAnQQAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Wed, 14 Jul 2021 11:21:15 +0000
+Date: Wed, 14 Jul 2021 13:21:13 +0200
 From: Petr Vorel <pvorel@suse.cz>
 To: Richard Palethorpe <rpalethorpe@suse.com>
-Message-ID: <YO7IBmZVYJ3+PKzK@pevik>
+Message-ID: <YO7IqecaXFwjvHQn@pevik>
 References: <20210714071158.15868-1-rpalethorpe@suse.com>
- <20210714071158.15868-7-rpalethorpe@suse.com>
+ <20210714071158.15868-8-rpalethorpe@suse.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210714071158.15868-7-rpalethorpe@suse.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+In-Reply-To: <20210714071158.15868-8-rpalethorpe@suse.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 6/8] Reference LTP-002 rule in Cocci scripts
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 7/8] API: Move libtsc.h from realtime tests
+ include to tst_tsc.h
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,10 +89,12 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Riichie,
+Hi Richie,
 
-> Avoid duplication of rule description
-obviously correct.
+> Allow the meltdown test to use this file without modifying the
+> CFLAGS. This avoids having to add the include also to the CHECK_FLAGS.
++1
+
 Reviewed-by: Petr Vorel <pvorel@suse.cz>
 
 Kind regards,
