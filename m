@@ -1,76 +1,73 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C2FC3C83C6
-	for <lists+linux-ltp@lfdr.de>; Wed, 14 Jul 2021 13:22:34 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id A6E423C83CC
+	for <lists+linux-ltp@lfdr.de>; Wed, 14 Jul 2021 13:23:50 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 395A73C7572
-	for <lists+linux-ltp@lfdr.de>; Wed, 14 Jul 2021 13:22:34 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 76AD83C7572
+	for <lists+linux-ltp@lfdr.de>; Wed, 14 Jul 2021 13:23:50 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 3BFA53C2A73
- for <ltp@lists.linux.it>; Wed, 14 Jul 2021 13:22:33 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 7D2C43C2A73
+ for <ltp@lists.linux.it>; Wed, 14 Jul 2021 13:23:48 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id BCFEB1A00A4A
- for <ltp@lists.linux.it>; Wed, 14 Jul 2021 13:22:32 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 1F091140113B
+ for <ltp@lists.linux.it>; Wed, 14 Jul 2021 13:23:47 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 429FA22A08;
- Wed, 14 Jul 2021 11:22:32 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 8904720296;
+ Wed, 14 Jul 2021 11:23:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1626261752;
+ t=1626261827;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=GPIxayJ9jd6TWFj3feX1inpkJZOc11FRqGYCkX0cxYc=;
- b=rR3vCDWxeBDs127FYQGW+ur9aw7wjm9uVTeWMgC7yUMqQpSCHdLSvS6J9Sx3afhIk14FQI
- pKBrfbmXweHLALPEZRr655HFiT4Ei73ZbbHD4WS/uRnCMc9BPfEnc0a2Ye+O0BVD5HbjQs
- iciyIeYwCR3Sqvb918ScdyJgphKJeRI=
+ bh=KHYaSxFoB0c4LHtsOiHHZQSUyu9en6HTDiRC7tH6WFI=;
+ b=qF33y7AOz3P0yEdziEcero5w26LuiAp3bZeUiT7e3AzGQ1lxueUqqbyD1g81LbA27VHMmK
+ MZrF/w/KiyrExgNuXL1afojnDxelLF7nBtYDq3046GoZMRf8prdk7nXyDJgKXCBINKSapj
+ DBf8m6PYw1bEYmeC0wiJPDPsDO2eWoU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1626261752;
+ s=susede2_ed25519; t=1626261827;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=GPIxayJ9jd6TWFj3feX1inpkJZOc11FRqGYCkX0cxYc=;
- b=chf4djPX1QiD/0YI7yhldpP9FaavlE5o/bP/Ji1mNdMUk+ULQ0YadYEKAgp0FmN+dBODka
- OYYFYFrxCZ70HTBQ==
+ bh=KHYaSxFoB0c4LHtsOiHHZQSUyu9en6HTDiRC7tH6WFI=;
+ b=GUDbUOTC3VVG7vOqTabnklYgHRarwJyrkdUOiyggcVlHm2gGURKPOeKUh+kbUbLIoOrjr7
+ MtNwp0naP2PHsICQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 17C5513BFF;
- Wed, 14 Jul 2021 11:22:32 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 54A5613BFF;
+ Wed, 14 Jul 2021 11:23:47 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id UdA+A/jI7mB7QQAAMHmgww
- (envelope-from <pvorel@suse.cz>); Wed, 14 Jul 2021 11:22:32 +0000
-Date: Wed, 14 Jul 2021 13:22:30 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id BVTREkPJ7mDPQQAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Wed, 14 Jul 2021 11:23:47 +0000
+Date: Wed, 14 Jul 2021 13:23:45 +0200
 From: Petr Vorel <pvorel@suse.cz>
 To: Richard Palethorpe <rpalethorpe@suse.com>
-Message-ID: <YO7I9pmCwTTHDQzu@pevik>
+Message-ID: <YO7JQU9QjNEGkaMx@pevik>
 References: <20210714071158.15868-1-rpalethorpe@suse.com>
- <20210714071158.15868-9-rpalethorpe@suse.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210714071158.15868-9-rpalethorpe@suse.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+In-Reply-To: <20210714071158.15868-1-rpalethorpe@suse.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 8/8] API/tst_tsc: Add guards and remove some
- boilerplate
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 0/8] Sparse based checker and rule proposal
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,7 +88,7 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi Richie,
 
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
+thanks for this work! I'm looking forward enabling it in CI after we merge it.
 
 Kind regards,
 Petr
