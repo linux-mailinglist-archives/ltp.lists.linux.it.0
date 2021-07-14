@@ -2,79 +2,54 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D83C3C823E
-	for <lists+linux-ltp@lfdr.de>; Wed, 14 Jul 2021 11:59:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9559D3C8233
+	for <lists+linux-ltp@lfdr.de>; Wed, 14 Jul 2021 11:58:10 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 90CE43C866C
-	for <lists+linux-ltp@lfdr.de>; Wed, 14 Jul 2021 11:59:03 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 28C943C7525
+	for <lists+linux-ltp@lfdr.de>; Wed, 14 Jul 2021 11:58:10 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A06723C562F
- for <ltp@lists.linux.it>; Wed, 14 Jul 2021 11:58:59 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id B62CE3C562F
+ for <ltp@lists.linux.it>; Wed, 14 Jul 2021 11:58:06 +0200 (CEST)
+Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 3752314010FF
- for <ltp@lists.linux.it>; Wed, 14 Jul 2021 11:58:58 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 78260229FC;
- Wed, 14 Jul 2021 09:58:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1626256738; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=NiHPZOvmmkCVMs0bU5QLD7im7CSf8tA5icUktdZHw4Q=;
- b=26TA8F1hrYZUjowotJD2dNqMc5AD+DI0X2JylDIe6p6g6ZMJBu16T8pvosOSt+GGk+e1Ro
- 58FUc/rHPKTpeJAlf+xiTPBpNDA5StBn1WHCqjC6W+G9uO7IHpRSuRgUaa6Kgx2f5kYXiq
- 1pMnPow+utbEjHyhjBCTnxCdiW3HRIM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1626256738;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=NiHPZOvmmkCVMs0bU5QLD7im7CSf8tA5icUktdZHw4Q=;
- b=G8UAISf3EMI6ylGPgLyPGjoT8XUuHskC6GOoukm+RZQmkCQvyZe0/gAWNADR1fDr0mHyKA
- g06F0AAm5iE595Bg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5A87A13BFB;
- Wed, 14 Jul 2021 09:58:58 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id /JGAFmK17mAkKQAAMHmgww
- (envelope-from <chrubis@suse.cz>); Wed, 14 Jul 2021 09:58:58 +0000
-Date: Wed, 14 Jul 2021 11:33:24 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
-Message-ID: <YO6vZDRj4C15sg7K@yuki>
-References: <c2c7ff46-df28-c7b6-49dd-c891d9655d00@bell-sw.com>
- <381b8420-3dba-d7c1-027c-e2e2adc719de@bell-sw.com>
- <CAEemH2fcubrbMpeoeSJJoZtD+xaiRrs_upG_+KQXB_8C9m3eQg@mail.gmail.com>
- <60E50AB4.7050404@fujitsu.com> <YObbKCNKUoC7lSxd@pevik>
- <YObpRzTjx8T2GAZn@yuki> <60EBA9C3.4050103@fujitsu.com>
- <c81eee80-6cea-de14-aeff-8919495c4396@bell-sw.com>
- <YOwASqNKNXBl4lqe@pevik>
- <0b622e21-453c-5dc2-214e-c9c0a5d48f44@bell-sw.com>
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 43562600A79
+ for <ltp@lists.linux.it>; Wed, 14 Jul 2021 11:58:06 +0200 (CEST)
+Received: from [192.168.178.40] (unknown [188.192.68.141])
+ by mail.jv-coder.de (Postfix) with ESMTPSA id 07B449F920;
+ Wed, 14 Jul 2021 09:58:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
+ t=1626256684; bh=j8LKx5sjlOOsfZp7rHjVS7HoVnI7/6BKCOAivsDiAbc=;
+ h=Subject:To:From:Message-ID:Date:MIME-Version;
+ b=ZWXBGJDxz9sgyASnvJYFN0iijCN5K/+aUyVfLRuLS+uHYLwS6sZ5dTwFWqZNM4N38
+ /YvPYbG1i/62emPydD2ZYn/LspkYSg5Zn0bEgmZHofnZU7fYScOeNfIVWu52PVfCvt
+ h3WEKtes5IYgl8gZVR2AFJsFvBqMGz8kkdVEpClQ=
+To: Cyril Hrubis <chrubis@suse.cz>
+References: <20210714055253.1668374-1-lkml@jv-coder.de>
+ <YO6hz+OQLThjUQA1@yuki> <c4012edf-226b-ef55-8872-44d7398282da@jv-coder.de>
+ <YO6tv6cboxnLOuL+@yuki>
+From: Joerg Vehlow <lkml@jv-coder.de>
+Message-ID: <2d7b26bf-8b6c-ca22-81e5-76be1bea25ab@jv-coder.de>
+Date: Wed, 14 Jul 2021 11:58:03 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <0b622e21-453c-5dc2-214e-c9c0a5d48f44@bell-sw.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+In-Reply-To: <YO6tv6cboxnLOuL+@yuki>
+Content-Language: en-US
+X-Spam-Status: No, score=-0.3 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] shmget03: fix test when some shm segments already
- exist
+Subject: Re: [LTP] [PATCH v2] squashfs: Add regression test for sanity check
+ bug
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,41 +61,131 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Huanian Li <huanli@redhat.com>, Richard Palethorpe <rpalethorpe@suse.com>,
- LTP List <ltp@lists.linux.it>
-Content-Type: text/plain; charset="us-ascii"
+Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>, ltp@lists.linux.it
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> >> Perhaps it can be done at the higher level, e.g. in the ltp tests
-> >> runner if some tests request it with a newipc flag...
-> > Well, we have at least two runners (runltp which uses ltp-pan, runltp-ng) and we
-> > also support running tests without runner, it'd be nice to solve this in LTP
-> > API.
-> 
-> I didn't mean these runners, I was thinking about fork_testrun() in tst_test.c.
+Hi,
 
-We will need to have some kind of flag that would tell the testrunner
-that the test is using/modifying SysV IPC anyways as without namespaces
-these tests cannot run in parallel at all.
+On 7/14/2021 11:26 AM, Cyril Hrubis wrote:
+> Hi!
+>> Is there any guideline? I used regression suffix, because it
+>> specifically is a regression test and there are several regression
+>> tests, that use it.
+>> I dropped a number prefix, because there are several tests without a
+>> number...
+>> I don't really care what the name is here. If you don't have a strong
+>> opinion on the regression suffix, I will use squashfs_regression01.
+> Unfortunatelly apart from syscalls there is no clear rule how to name
+> tests and we are figuring out stuff as we go. Hoever most of the
+> regression tests do not have regression in name and generally tests are
+> named as "syscall/driver/filesystem/cve-nickname/etc" followed by a
+> number.
+Alright, then squashfs01 it is.
+>
+>>> We do have tst_umount() in the test library that retries the umount if
+>>> it failed because the mount point was bussy. This is because certain
+>>> damons scan all newly mounted filesystems and prevent us from umounting
+>>> shortly after mount.
+>>>
+>>> Also we usually keep track if device was mounted in a global flag that
+>>> is set after succesful mount and unset after successful umount and the
+>>> cleanup does:
+>>>
+>>> 	if (device_mounted)
+>>> 		tst_umount("mnt");
+>> Ok, but this could leave the mount, if the test is aborted between
+>> mounting and setting of the flag, but that should be a rare case.
+> As long as the flag is set/cleared right after the mount/umount it will
+> not happen.
+>
+> Also looking at the code, we have to handle the return value from
+> tst_umount() in the run() function since it does not call tst_brk().
+I guess SAFE_UMOUNT is the way to go here... It uses tst_umount 
+internally and tst_brk in case of error.
+>
+>>> We do have tst_cmd() that can do all this easily in C including the
+>>> redirection, it will look like:
+>>>
+>>> 	const char *argv[] = {"mksquashfs", "data", "image.raw", "-noI", "-noD", "-noX", "-noF"};
+>>>
+>>> 	tst_cmd(argv, "/dev/null", "/dev/null", 0);
+>>>
+>>> And this will redirect stdout and stderr to "/dev/null" and also do all
+>>> the error checks and exit the test if mksquashfs has failed.
+>> Did not know about that, also it requires a NULL at the end.
+> We do have most of the library functions documented at:
+>
+> https://github.com/linux-test-project/ltp/wiki/C-Test-API
+>
+> And yes, the argv has to be NULL terminated, sorry for forgetting that
+> part.
+>
+>>>> +	SAFE_MKDIR("mnt", 0777);
+>>> This preparatory part should be in the test setup otherwise the test
+>>> will fail with '-i 2'.
+>> Right, I'll move the whole setup part to setup.
+>>>> +	TST_EXP_PASS(tst_system("mount -tsquashfs -oloop image.raw mnt"));
+>>> Can we please use the mount() syscall here instead? That should be as
+>>> easy as mount("image.raw", "mnt", "squashfs", 0, "-oloop")
+>> Nope, -oloop does not work, because this is interpreted by the mount
+>> utility, not by the syscall.
+>> I guess I'll use the need_device stuff, to get rid of mount utility call
+>> then.
+> Ah my bad, so the mount command discovers the device in userspace then,
+> it makes much more sense to use the library to allocate free device for
+> the test.
+>
+> But I guess that it would probably be better to use the raw
+> tst_find_free_loopdev() because the .needs_device flag prepares a
+> backing file for the device and attaches it as well.
+I modified the test to use the backing file - or actually use the loop 
+device as target for mksquashfs.
+Otherwise it would add even more complexity (setting up and tearing down 
+the loop device)
+>
+>>>> +
+>>>> +	SAFE_UMOUNT("mnt");
+>>> Here as well, please use tst_umount();
+>> Ok
+>>
+>>>> +	tst_res(TPASS, "Test passed");
+>>> This is redundant, isn't it? Or is the umount part that fails?
+>> Since I cannot use TST_EXP_PASS further up, I will keep this and check
+>> the return of mount manually like this:
+>>
+>> static void run(void)
+>> {
+>>   ?????? tst_res(TINFO, "Test squashfs sanity check regressions");
+>>
+>>   ?????? if (mount(tst_device->dev, MOUNT_DIR, "squashfs", 0, NULL) != 0) {
+>>   ?????? ?????? tst_brk(TFAIL | TERRNO, "Mount failed");
+>>   ?????? }
+>>   ?????? mounted = 1;
+>>
+>>   ?????? tst_umount("mnt");
+>>   ?????? mounted = 0;
+>>
+>>   ?????? tst_res(TPASS, "Test passed");
+>> }
+>>
+>> Would that be ok for you or is there another variant of TST_EXP*, that
+>> uses tst_brk?
+> I guess that we should check the return value from tst_umount() here as
+> well, so ti would be better as:
+>
+> 	if (tst_umount("mnt")) {
+> 		tst_brk(TBROK, "Failed to unmount squashfs");
+> 	} else {
+> 		mounted = 0;
+> 		tst_res(TPASS, "Squashfs unmounted");
+> 	}
+SAFE_UMOUNT here as well. I don't care about the return value. The mount 
+is what fails, not the umount.
 
-So I would say that we should:
-
-* Write these tests in a way that they expect that they are the only
-  process that modifies these resources during the testrun
-
-* Mark all these tests with .sysv_ipc flag in the tst_test structure
-
-* Then we can easily add support for running them in a separate
-  namespace in the test library
-
-Does that sound reasonable?
-
--- 
-Cyril Hrubis
-chrubis@suse.cz
+Joerg
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
