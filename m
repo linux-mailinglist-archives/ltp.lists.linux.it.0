@@ -2,74 +2,74 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id F22DB3C85F5
-	for <lists+linux-ltp@lfdr.de>; Wed, 14 Jul 2021 16:20:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4717E3C85F6
+	for <lists+linux-ltp@lfdr.de>; Wed, 14 Jul 2021 16:20:32 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id BEFDB3C875C
-	for <lists+linux-ltp@lfdr.de>; Wed, 14 Jul 2021 16:20:23 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id ED34C3C8742
+	for <lists+linux-ltp@lfdr.de>; Wed, 14 Jul 2021 16:20:31 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 537433C18F7
+ by picard.linux.it (Postfix) with ESMTPS id 7F3763C18F7
  for <ltp@lists.linux.it>; Wed, 14 Jul 2021 16:20:09 +0200 (CEST)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id DA2CD200D37
- for <ltp@lists.linux.it>; Wed, 14 Jul 2021 16:20:08 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 27C5E600830
+ for <ltp@lists.linux.it>; Wed, 14 Jul 2021 16:20:09 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 8A79C205BA;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id CC5C7205BE;
  Wed, 14 Jul 2021 14:20:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1626272408; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=VmFC+Y7ZZs9l9Jz4cupub587XHtL1eLswZ+wj9+wx+8=;
- b=my+QNqVL+YdlIqI/yQITGT2SYmMKhJ5zHa+hp05a784TsEd0YkdHlvzOHOwsv+zID6SOqL
- dIO6KJpCME5pEV3QN2sk4Uou8jBrcMW+UYpZ0nD59+jDkcMFK80EzA0T5CbWXeE80JI9ZV
- ujvmSY/1+7Eer0Ss5Q+zFAXy04yQam0=
+ bh=zxvDFvvM3Ro+RZOKtp0S8HPGrZ+ryv/HILuk1Zbv9dc=;
+ b=LpKL3IZw+h0shmEmU+bqb+POtU7eX9iNvl/BqmWwUF9d+dYqcts9NmGX7jJJictS/0uPN4
+ HnGvMsrPrVN5lh1Y2mPdVXX865bQpyr+A/aJSnlHdIc/o8CyVIiJylEcFwt1K7Pwy5a170
+ jm6fbK5Cdn9+i808kJ9cN0fK2wcbDas=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1626272408;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=VmFC+Y7ZZs9l9Jz4cupub587XHtL1eLswZ+wj9+wx+8=;
- b=47Zr6jy0TBFLlYbyFtummnZEfw8yx5Uv2L8SwPeyC63uuGaXl8s+/k6lM5kipXd7Tvg1RV
- QfGjWPJLEvnpyoDA==
+ bh=zxvDFvvM3Ro+RZOKtp0S8HPGrZ+ryv/HILuk1Zbv9dc=;
+ b=0+qnnX9zXyQOsxIhosbd6zC8hCxfHBNTSWyrAe9QUREs3iLOnjoIYmyN8jOxJl322xFJnK
+ qtl0OauDud5Ji0Bw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4E98513C05;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8F7C913E77;
  Wed, 14 Jul 2021 14:20:08 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id UJxcEZjy7mCOdgAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id gLWyIZjy7mCOdgAAMHmgww
  (envelope-from <pvorel@suse.cz>); Wed, 14 Jul 2021 14:20:08 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Wed, 14 Jul 2021 16:19:59 +0200
-Message-Id: <20210714142001.20566-3-pvorel@suse.cz>
+Date: Wed, 14 Jul 2021 16:20:00 +0200
+Message-Id: <20210714142001.20566-4-pvorel@suse.cz>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210714142001.20566-1-pvorel@suse.cz>
 References: <20210714142001.20566-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH v5 2/4] make: Add make test{, -c, -shell} targets
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH v5 3/4] build.sh: Add support for make test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,48 +87,66 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-For testing C and shell API.
-
 Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- Makefile | 23 +++++++++++++++++++++++
- 1 file changed, 23 insertions(+)
+ build.sh | 22 +++++++++++++++++++++-
+ 1 file changed, 21 insertions(+), 1 deletion(-)
 
-diff --git a/Makefile b/Makefile
-index 56812d77b..ff4a70eec 100644
---- a/Makefile
-+++ b/Makefile
-@@ -192,6 +192,29 @@ $(INSTALL_TARGETS): $(INSTALL_DIR) $(DESTDIR)/$(bindir)
- ## Install
- install: $(INSTALL_TARGETS)
+diff --git a/build.sh b/build.sh
+index 240ce8e68..9cb26e899 100755
+--- a/build.sh
++++ b/build.sh
+@@ -119,6 +119,17 @@ build_out_tree()
+ 	make $MAKE_OPTS_OUT_TREE
+ }
  
-+## Test
-+define _test
-+	@set -e; $(top_srcdir)/lib/newlib_tests/runtest.sh -b $(abs_builddir) $(1)
-+endef
++test_in_tree()
++{
++	make test
++}
 +
-+test: lib-all
-+ifneq ($(build),$(host))
-+	$(error running tests on cross-compile build not supported)
-+endif
-+	$(call _test)
++test_out_tree()
++{
++	cd $BUILD_DIR
++	make $MAKE_OPTS_OUT_TREE test
++}
 +
-+test-c: lib-all
-+ifneq ($(build),$(host))
-+	$(error running tests on cross-compile build not supported)
-+endif
-+	$(call _test,-c)
+ install_in_tree()
+ {
+ 	make $MAKE_OPTS install
+@@ -165,6 +176,7 @@ RUN:
+ autotools   run only 'make autotools'
+ configure   run only 'configure'
+ build       run only 'make'
++test        run only 'make test' (not supported for cross-compile build)
+ install     run only 'make install'
+ 
+ Default configure options:
+@@ -192,7 +204,7 @@ while getopts "c:hio:p:r:t:" opt; do
+ 		esac;;
+ 	p) prefix="$OPTARG";;
+ 	r) case "$OPTARG" in
+-		autotools|configure|build|install) run="$OPTARG";;
++		autotools|configure|build|test|install) run="$OPTARG";;
+ 		*) echo "Wrong run type '$OPTARG'" >&2; usage; exit 1;;
+ 		esac;;
+ 	t) case "$OPTARG" in
+@@ -218,6 +230,14 @@ if [ -z "$run" -o "$run" = "build" ]; then
+ 	eval build_${tree}_tree
+ fi
+ 
++if [ -z "$run" -o "$run" = "test" ]; then
++	if [ "$build" = "cross" ]; then
++		echo "cross-compile build, skipping running tests" >&2
++	else
++		eval test_${tree}_tree
++	fi
++fi
 +
-+test-shell: lib-all
-+ifneq ($(build),$(host))
-+	$(error running tests on cross-compile build not supported)
-+endif
-+	$(call _test,-s)
-+
- ## Help
- .PHONY: help
- help:
+ if [ -z "$run" -o "$run" = "install" ]; then
+ 	if [ "$install" = 1 ]; then
+ 		eval install_${tree}_tree
 -- 
 2.32.0
 
