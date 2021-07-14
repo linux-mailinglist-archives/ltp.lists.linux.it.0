@@ -2,50 +2,71 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 674B03C818A
-	for <lists+linux-ltp@lfdr.de>; Wed, 14 Jul 2021 11:26:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04DF03C8212
+	for <lists+linux-ltp@lfdr.de>; Wed, 14 Jul 2021 11:52:02 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6B8F83C8719
-	for <lists+linux-ltp@lfdr.de>; Wed, 14 Jul 2021 11:26:19 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 991833C871A
+	for <lists+linux-ltp@lfdr.de>; Wed, 14 Jul 2021 11:52:01 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 924853C5580
- for <ltp@lists.linux.it>; Wed, 14 Jul 2021 11:26:14 +0200 (CEST)
-Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
+ by picard.linux.it (Postfix) with ESMTPS id 77CAC3C562F
+ for <ltp@lists.linux.it>; Wed, 14 Jul 2021 11:51:57 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 7133160117F
- for <ltp@lists.linux.it>; Wed, 14 Jul 2021 11:26:13 +0200 (CEST)
-Received: from [192.168.178.40] (unknown [188.192.68.141])
- by mail.jv-coder.de (Postfix) with ESMTPSA id E25649FB63;
- Wed, 14 Jul 2021 09:26:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
- t=1626254770; bh=Xch9AwY6rChKnlfO5mVssH1qZytrHwpB0wVu10hyC5Y=;
- h=Subject:To:From:Message-ID:Date:MIME-Version;
- b=Ikt/yGs5zOaP3ONYiuk71MuFi3C0MD7pwKLTr3DpjSHK3iPm7xBiHNnMuFcxqm8eK
- 9eDDR27v43pDPecoCKQG4AUWY4mwpD/tEIeGXBWS2H4WFiPiDFpPcT3pJ/gzqZdTIy
- BF0mhcenRrnWfsRchiQa3ww133pAfmWwbuy5TN9Y=
-To: Cyril Hrubis <chrubis@suse.cz>
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id E60FB1000EDA
+ for <ltp@lists.linux.it>; Wed, 14 Jul 2021 11:51:56 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 35C1C2027B;
+ Wed, 14 Jul 2021 09:51:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1626256316; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=JSZDS/Upe25ZWXif78l+QilhDSlRKoJ2ekOA+stZ2rI=;
+ b=iQ4K1S4KHukikIxDsszogG9VIVrQxk3+jN++erQsLyie7adfkVpQ16wvPXM4F5zJkZ5b8F
+ tuB89ESp6LTK6jMIuAH77CLULV3f0g8V36ouIqtuJB1duvhcvPgFZQqiiuEWhrkmdyzVAZ
+ MEWTBE9T2n2YJNcglJ7UX1P+Hr+Ah0Y=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1626256316;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=JSZDS/Upe25ZWXif78l+QilhDSlRKoJ2ekOA+stZ2rI=;
+ b=x0hoXx5Fubo7nCUeTvcDoDaWztn2y+bJs6/PCVhmbV9ONY7DAf/ol4vhvliRhyrQ5ij5oV
+ ln7cViW/N+LY7YAQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 23CE013BFB;
+ Wed, 14 Jul 2021 09:51:56 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 6kWaB7yz7mAUJwAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Wed, 14 Jul 2021 09:51:56 +0000
+Date: Wed, 14 Jul 2021 11:26:23 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Joerg Vehlow <lkml@jv-coder.de>
+Message-ID: <YO6tv6cboxnLOuL+@yuki>
 References: <20210714055253.1668374-1-lkml@jv-coder.de> <YO6hz+OQLThjUQA1@yuki>
-From: Joerg Vehlow <lkml@jv-coder.de>
-Message-ID: <c4012edf-226b-ef55-8872-44d7398282da@jv-coder.de>
-Date: Wed, 14 Jul 2021 11:26:09 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+ <c4012edf-226b-ef55-8872-44d7398282da@jv-coder.de>
 MIME-Version: 1.0
-In-Reply-To: <YO6hz+OQLThjUQA1@yuki>
-Content-Language: en-US
-X-Spam-Status: No, score=-0.3 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <c4012edf-226b-ef55-8872-44d7398282da@jv-coder.de>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH v2] squashfs: Add regression test for sanity check
  bug
 X-BeenThere: ltp@lists.linux.it
@@ -60,137 +81,127 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>, ltp@lists.linux.it
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGkgQ3lyaWwsCgpPbiA3LzE0LzIwMjEgMTA6MzUgQU0sIEN5cmlsIEhydWJpcyB3cm90ZToKPiBI
-aSEKPj4gQWRkcyBhIHJlZ3Jlc3Npb24gdGVzdCBmb3IgdGhlIGZpeGVzCj4+IGMxYjIwMjgzMTUg
-KCJzcXVhc2hmczogZml4IGlub2RlIGxvb2t1cCBzYW5pdHkgY2hlY2tzIikKPj4gYW5kCj4+IDhi
-NDRjYTJiNjIgKCJzcXVhc2hmczogZml4IHhhdHRyIGlkIGFuZCBpZCBsb29rdXAgc2FuaXR5IGNo
-ZWNrcyIpCj4+Cj4+IFNpZ25lZC1vZmYtYnk6IEpvZXJnIFZlaGxvdyA8am9lcmcudmVobG93QGFv
-eC10ZWNoLmRlPgo+PiAtLS0KPj4KPj4gQ2hhbmdlcyB0byB2MToKPj4gICAtIEltcGxlbWVudCB3
-aG9sZSB0ZXN0IGluIGMKPj4gICAtIEZpeGVkIHdoaXRlc3BhY2VzLi4uCj4+Cj4+ICAgcnVudGVz
-dC9mcyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgIDIgKwo+PiAgIHRlc3Rj
-YXNlcy9rZXJuZWwvZnMvc3F1YXNoZnMvLmdpdGlnbm9yZSAgICAgICB8ICAxICsKPj4gICB0ZXN0
-Y2FzZXMva2VybmVsL2ZzL3NxdWFzaGZzL01ha2VmaWxlICAgICAgICAgfCAgOSArKwo+PiAgIC4u
-Li9rZXJuZWwvZnMvc3F1YXNoZnMvc3F1YXNoZnNfcmVncmVzc2lvbi5jICB8IDk5ICsrKysrKysr
-KysrKysrKysrKysKPj4gICA0IGZpbGVzIGNoYW5nZWQsIDExMSBpbnNlcnRpb25zKCspCj4+ICAg
-Y3JlYXRlIG1vZGUgMTAwNjQ0IHRlc3RjYXNlcy9rZXJuZWwvZnMvc3F1YXNoZnMvLmdpdGlnbm9y
-ZQo+PiAgIGNyZWF0ZSBtb2RlIDEwMDY0NCB0ZXN0Y2FzZXMva2VybmVsL2ZzL3NxdWFzaGZzL01h
-a2VmaWxlCj4+ICAgY3JlYXRlIG1vZGUgMTAwNjQ0IHRlc3RjYXNlcy9rZXJuZWwvZnMvc3F1YXNo
-ZnMvc3F1YXNoZnNfcmVncmVzc2lvbi5jCj4+Cj4+IGRpZmYgLS1naXQgYS9ydW50ZXN0L2ZzIGIv
-cnVudGVzdC9mcwo+PiBpbmRleCAxN2IxNDE1ZWIuLjIwOTFiMDBmOCAxMDA2NDQKPj4gLS0tIGEv
-cnVudGVzdC9mcwo+PiArKysgYi9ydW50ZXN0L2ZzCj4+IEBAIC04NSwzICs4NSw1IEBAIGZzX2Zp
-bGwgZnNfZmlsbAo+PiAgIAo+PiAgIGJpbmZtdF9taXNjMDEgYmluZm10X21pc2MwMS5zaAo+PiAg
-IGJpbmZtdF9taXNjMDIgYmluZm10X21pc2MwMi5zaAo+PiArCj4+ICtzcXVhc2hmc19yZWdyZXNz
-aW9uIHNxdWFzaGZzX3JlZ3Jlc3Npb24KPiBJIHdvbmRlciBpZiB3ZSBzaG91bGQgYWRkIGEgbnVt
-YmVyIHN1ZmZpeCBvciBqdXN0IHJlbmFtZSBpdCB0bwo+IHNxdWFzaGZzMDEKSXMgdGhlcmUgYW55
-IGd1aWRlbGluZT8gSSB1c2VkIHJlZ3Jlc3Npb24gc3VmZml4LCBiZWNhdXNlIGl0IApzcGVjaWZp
-Y2FsbHkgaXMgYSByZWdyZXNzaW9uIHRlc3QgYW5kIHRoZXJlIGFyZSBzZXZlcmFsIHJlZ3Jlc3Np
-b24gCnRlc3RzLCB0aGF0IHVzZSBpdC4KSSBkcm9wcGVkIGEgbnVtYmVyIHByZWZpeCwgYmVjYXVz
-ZSB0aGVyZSBhcmUgc2V2ZXJhbCB0ZXN0cyB3aXRob3V0IGEgCm51bWJlci4uLgpJIGRvbid0IHJl
-YWxseSBjYXJlIHdoYXQgdGhlIG5hbWUgaXMgaGVyZS4gSWYgeW91IGRvbid0IGhhdmUgYSBzdHJv
-bmcgCm9waW5pb24gb24gdGhlIHJlZ3Jlc3Npb24gc3VmZml4LCBJIHdpbGwgdXNlIHNxdWFzaGZz
-X3JlZ3Jlc3Npb24wMS4KCj4+IGRpZmYgLS1naXQgYS90ZXN0Y2FzZXMva2VybmVsL2ZzL3NxdWFz
-aGZzLy5naXRpZ25vcmUgYi90ZXN0Y2FzZXMva2VybmVsL2ZzL3NxdWFzaGZzLy5naXRpZ25vcmUK
-Pj4gbmV3IGZpbGUgbW9kZSAxMDA2NDQKPj4gaW5kZXggMDAwMDAwMDAwLi40NWM5MDhmZmYKPj4g
-LS0tIC9kZXYvbnVsbAo+PiArKysgYi90ZXN0Y2FzZXMva2VybmVsL2ZzL3NxdWFzaGZzLy5naXRp
-Z25vcmUKPj4gQEAgLTAsMCArMSBAQAo+PiArc3F1YXNoZnNfcmVncmVzc2lvbgo+PiBkaWZmIC0t
-Z2l0IGEvdGVzdGNhc2VzL2tlcm5lbC9mcy9zcXVhc2hmcy9NYWtlZmlsZSBiL3Rlc3RjYXNlcy9r
-ZXJuZWwvZnMvc3F1YXNoZnMvTWFrZWZpbGUKPj4gbmV3IGZpbGUgbW9kZSAxMDA2NDQKPj4gaW5k
-ZXggMDAwMDAwMDAwLi42NzAyMTEzOWMKPj4gLS0tIC9kZXYvbnVsbAo+PiArKysgYi90ZXN0Y2Fz
-ZXMva2VybmVsL2ZzL3NxdWFzaGZzL01ha2VmaWxlCj4+IEBAIC0wLDAgKzEsOSBAQAo+PiArIyBT
-UERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMC1vci1sYXRlcgo+PiArIyBDb3B5cmlnaHQg
-KEMpIDIwMDksIENpc2NvIFN5c3RlbXMgSW5jLgo+PiArIyBOZ2llIENvb3BlciwgSnVseSAyMDA5
-Cj4+ICsKPj4gK3RvcF9zcmNkaXIJCT89IC4uLy4uLy4uLy4uCj4+ICsKPj4gK2luY2x1ZGUgJCh0
-b3Bfc3JjZGlyKS9pbmNsdWRlL21rL3Rlc3RjYXNlcy5tawo+PiArCj4+ICtpbmNsdWRlICQodG9w
-X3NyY2RpcikvaW5jbHVkZS9tay9nZW5lcmljX2xlYWZfdGFyZ2V0Lm1rCj4+IGRpZmYgLS1naXQg
-YS90ZXN0Y2FzZXMva2VybmVsL2ZzL3NxdWFzaGZzL3NxdWFzaGZzX3JlZ3Jlc3Npb24uYyBiL3Rl
-c3RjYXNlcy9rZXJuZWwvZnMvc3F1YXNoZnMvc3F1YXNoZnNfcmVncmVzc2lvbi5jCj4+IG5ldyBm
-aWxlIG1vZGUgMTAwNjQ0Cj4+IGluZGV4IDAwMDAwMDAwMC4uMjNmNjgxMzY3Cj4+IC0tLSAvZGV2
-L251bGwKPj4gKysrIGIvdGVzdGNhc2VzL2tlcm5lbC9mcy9zcXVhc2hmcy9zcXVhc2hmc19yZWdy
-ZXNzaW9uLmMKPj4gQEAgLTAsMCArMSw5OSBAQAo+PiArLy8gU1BEWC1MaWNlbnNlLUlkZW50aWZp
-ZXI6IEdQTC0yLjAtb3ItbGF0ZXIKPj4gKy8qCj4+ICsgKiBDb3B5cmlnaHQgKGMpIDIwMjEgSm9l
-cmcgVmVobG93IDxqb2VyZy52ZWhsb3dAYW94LXRlY2guZGU+Cj4+ICsgKi8KPj4gKwo+PiArLypc
-Cj4+ICsgKiBbREVTQ1JJUFRJT05dCj4+ICsgKgo+PiArICogS2VybmVsIGNvbW1pdHMKPj4gKyAq
-Cj4+ICsgKiAtIGYzN2FhNGM3MzY2IChzcXVhc2hmczogYWRkIG1vcmUgc2FuaXR5IGNoZWNrcyBp
-biBpZCBsb29rdXApCj4+ICsgKiAtIGVhYmFjMTllNDBjIChzcXVhc2hmczogYWRkIG1vcmUgc2Fu
-aXR5IGNoZWNrcyBpbiBpbm9kZSBsb29rdXApCj4+ICsgKiAtIDUwNjIyMGQyYmEyIChzcXVhc2hm
-czogYWRkIG1vcmUgc2FuaXR5IGNoZWNrcyBpbiB4YXR0ciBpZCBsb29rdXApCj4+ICsgKgo+PiAr
-ICogYWRkZWQgc29tZSBzYW5pdHkgY2hlY2tzLCB0aGF0IHZlcmlmeSB0aGUgc2l6ZSBvZgo+PiAr
-ICogaW5vZGUgbG9va3VwLCBpZCAodWlkL2dpZCkgYW5kIHhhdHRyIGJsb2NrcyBpbiB0aGUgc3F1
-YXNoZnMsCj4+ICsgKiBidXQgYnJva2UgbW91bnRpbmcgZmlsZXN5c3RlbXMgd2l0aCBjb21wbGV0
-ZWx5IGZpbGxlZCBibG9ja3MuCj4+ICsgKiBBIGJsb2NrIGhhcyBhIG1heCBzaXplIG9mIDgxOTIu
-Cj4+ICsgKiBBbiBpbm9kZSBsb29rdXAgZW50cnkgaGFzIGFuIHVuY29tcHJlc3NlZCBzaXplIG9m
-IDggYnl0ZXMsCj4+ICsgKiBhbiBpZCBibG9jayA0IGJ5dGVzIGFuZCBhbiB4YXR0ciBibG9jayAx
-NiBieXRlcy4KPj4gKyAqCj4+ICsgKgo+PiArICogVG8gZmlsbCB1cCBhdCBsZWFzdCBvbmUgYmxv
-Y2sgZm9yIGVhY2ggb2YgdGhlIHRocmVlIHRhYmxlcywKPj4gKyAqIDIwNDggZmlsZXMgd2l0aCB1
-bmlxdWUgdWlkL2dpZCBhbmQgeGF0dHIgYXJlIGNyZWF0ZWQuCj4+ICsgKgo+PiArICoKPj4gKyAq
-IFRoZSBidWdzIGFyZSBmaXhlZCBpbiBrZXJuZWwgY29tbWl0cwo+PiArICoKPj4gKyAqIC0gYzFi
-MjAyODMxNWMgKHNxdWFzaGZzOiBmaXggaW5vZGUgbG9va3VwIHNhbml0eSBjaGVja3MpCj4+ICsg
-KiAtIDhiNDRjYTJiNjM0IChzcXVhc2hmczogZml4IHhhdHRyIGlkIGFuZCBpZCBsb29rdXAgc2Fu
-aXR5IGNoZWNrcykKPj4gKyAqLwo+PiArCj4+ICsjaW5jbHVkZSA8c3RkaW8uaD4KPj4gKyNpbmNs
-dWRlIDxzeXMvbW91bnQuaD4KPj4gKwo+PiArI2luY2x1ZGUgInRzdF90ZXN0LmgiCj4+ICsjaW5j
-bHVkZSAidHN0X3NhZmVfbWFjcm9zLmgiCj4+ICsKPj4gK3N0YXRpYyB2b2lkIGNsZWFudXAodm9p
-ZCkKPj4gK3sKPj4gKwl1bW91bnQoIm1udCIpOwo+IFdlIGRvIGhhdmUgdHN0X3Vtb3VudCgpIGlu
-IHRoZSB0ZXN0IGxpYnJhcnkgdGhhdCByZXRyaWVzIHRoZSB1bW91bnQgaWYKPiBpdCBmYWlsZWQg
-YmVjYXVzZSB0aGUgbW91bnQgcG9pbnQgd2FzIGJ1c3N5LiBUaGlzIGlzIGJlY2F1c2UgY2VydGFp
-bgo+IGRhbW9ucyBzY2FuIGFsbCBuZXdseSBtb3VudGVkIGZpbGVzeXN0ZW1zIGFuZCBwcmV2ZW50
-IHVzIGZyb20gdW1vdW50aW5nCj4gc2hvcnRseSBhZnRlciBtb3VudC4KPgo+IEFsc28gd2UgdXN1
-YWxseSBrZWVwIHRyYWNrIGlmIGRldmljZSB3YXMgbW91bnRlZCBpbiBhIGdsb2JhbCBmbGFnIHRo
-YXQKPiBpcyBzZXQgYWZ0ZXIgc3VjY2VzZnVsIG1vdW50IGFuZCB1bnNldCBhZnRlciBzdWNjZXNz
-ZnVsIHVtb3VudCBhbmQgdGhlCj4gY2xlYW51cCBkb2VzOgo+Cj4gCWlmIChkZXZpY2VfbW91bnRl
-ZCkKPiAJCXRzdF91bW91bnQoIm1udCIpOwpPaywgYnV0IHRoaXMgY291bGQgbGVhdmUgdGhlIG1v
-dW50LCBpZiB0aGUgdGVzdCBpcyBhYm9ydGVkIGJldHdlZW4gCm1vdW50aW5nIGFuZCBzZXR0aW5n
-IG9mIHRoZSBmbGFnLCBidXQgdGhhdCBzaG91bGQgYmUgYSByYXJlIGNhc2UuCgo+Cj4+ICt9Cj4+
-ICsKPj4gK3N0YXRpYyB2b2lkIHJ1bih2b2lkKQo+PiArewo+PiArCWludCBpOwo+PiArCj4+ICsJ
-dHN0X3JlcyhUSU5GTywgIlRlc3Qgc3F1YXNoZnMgc2FuaXR5IGNoZWNrIHJlZ3Jlc3Npb25zIik7
-Cj4+ICsKPj4gKwlTQUZFX01LRElSKCJkYXRhIiwgMDc3Nyk7Cj4+ICsKPj4gKwlmb3IgKGkgPSAw
-OyBpIDwgMjA0ODsgKytpKSB7Cj4+ICsJCWludCBmZDsKPj4gKwkJY2hhciBuYW1lWzIwXTsKPj4g
-Kwo+PiArCQlzcHJpbnRmKG5hbWUsICJkYXRhLyVkIiwgaSk7Cj4+ICsJCWZkID0gU0FGRV9PUEVO
-KG5hbWUsIE9fQ1JFQVQgfCBPX0VYQ0wsIDA2NjYpOwo+PiArCQlTQUZFX0ZDSE9XTihmZCwgaSwg
-aSk7Cj4+ICsKPj4gKwkJLyogVGhpcyBtdXN0IGJlIGVpdGhlciAic2VjdXJpdHkiLCAidXNlciIg
-b3IgInRydXN0ZWQiIG5hbWVzcGFjZSwKPj4gKwkJICogYmVjYXVzZSBzcXVhc2hmcyBjYW5ub3Qg
-c3RvcmUgb3RoZXIgbmFtZXNwYWNlcy4KPj4gKwkJICogU2luY2UgdGhlIGZpbGVzIGFyZSBtb3N0
-IGxpa2VseSBjcmVhdGVkIG9uIGEgdG1wZnMsCj4+ICsJCSAqICJ1c2VyIiBuYW1lc3BhY2UgaXMg
-bm90IHBvc3NpYmxlLCBiZWNhdXNlIGl0IGlzIG5vdCBhbGxvd2VkLgo+PiArCQkgKi8KPj4gKwkJ
-U0FGRV9GU0VUWEFUVFIoZmQsICJzZWN1cml0eS54IiwgJmksIHNpemVvZihpKSwgMCk7Cj4+ICsJ
-CWNsb3NlKGZkKTsKPj4gKwl9Cj4+ICsKPj4gKwkvKiBDcmVhdGUgc3F1YXNoZnMgd2l0aG91dCBh
-bnkgY29tcG9yZXNzaW9uLgo+PiArCSAqIFRoaXMgYWxsb3dzIHJlYXNvbmluZyBhYm91dCBibG9j
-ayBzaXplcwo+PiArCSAqLwo+PiArCVRTVF9FWFBfUEFTUyh0c3Rfc3lzdGVtKAo+PiArCQkibWtz
-cXVhc2hmcyBkYXRhIGltYWdlLnJhdyAtbm9JIC1ub0QgLW5vWCAtbm9GID4vZGV2L251bGwgMj4m
-MSIKPj4gKwkpLCAiQ3JlYXRlIHNxdWFzaGZzIik7Cj4gV2UgZG8gaGF2ZSB0c3RfY21kKCkgdGhh
-dCBjYW4gZG8gYWxsIHRoaXMgZWFzaWx5IGluIEMgaW5jbHVkaW5nIHRoZQo+IHJlZGlyZWN0aW9u
-LCBpdCB3aWxsIGxvb2sgbGlrZToKPgo+IAljb25zdCBjaGFyICphcmd2W10gPSB7Im1rc3F1YXNo
-ZnMiLCAiZGF0YSIsICJpbWFnZS5yYXciLCAiLW5vSSIsICItbm9EIiwgIi1ub1giLCAiLW5vRiJ9
-Owo+Cj4gCXRzdF9jbWQoYXJndiwgIi9kZXYvbnVsbCIsICIvZGV2L251bGwiLCAwKTsKPgo+IEFu
-ZCB0aGlzIHdpbGwgcmVkaXJlY3Qgc3Rkb3V0IGFuZCBzdGRlcnIgdG8gIi9kZXYvbnVsbCIgYW5k
-IGFsc28gZG8gYWxsCj4gdGhlIGVycm9yIGNoZWNrcyBhbmQgZXhpdCB0aGUgdGVzdCBpZiBta3Nx
-dWFzaGZzIGhhcyBmYWlsZWQuCkRpZCBub3Qga25vdyBhYm91dCB0aGF0LCBhbHNvIGl0IHJlcXVp
-cmVzIGEgTlVMTCBhdCB0aGUgZW5kLgoKPgo+PiArCVNBRkVfTUtESVIoIm1udCIsIDA3NzcpOwo+
-IFRoaXMgcHJlcGFyYXRvcnkgcGFydCBzaG91bGQgYmUgaW4gdGhlIHRlc3Qgc2V0dXAgb3RoZXJ3
-aXNlIHRoZSB0ZXN0Cj4gd2lsbCBmYWlsIHdpdGggJy1pIDInLgpSaWdodCwgSSdsbCBtb3ZlIHRo
-ZSB3aG9sZSBzZXR1cCBwYXJ0IHRvIHNldHVwLgo+Cj4+ICsJVFNUX0VYUF9QQVNTKHRzdF9zeXN0
-ZW0oIm1vdW50IC10c3F1YXNoZnMgLW9sb29wIGltYWdlLnJhdyBtbnQiKSk7Cj4gQ2FuIHdlIHBs
-ZWFzZSB1c2UgdGhlIG1vdW50KCkgc3lzY2FsbCBoZXJlIGluc3RlYWQ/IFRoYXQgc2hvdWxkIGJl
-IGFzCj4gZWFzeSBhcyBtb3VudCgiaW1hZ2UucmF3IiwgIm1udCIsICJzcXVhc2hmcyIsIDAsICIt
-b2xvb3AiKQpOb3BlLCAtb2xvb3AgZG9lcyBub3Qgd29yaywgYmVjYXVzZSB0aGlzIGlzIGludGVy
-cHJldGVkIGJ5IHRoZSBtb3VudCAKdXRpbGl0eSwgbm90IGJ5IHRoZSBzeXNjYWxsLgpJIGd1ZXNz
-IEknbGwgdXNlIHRoZSBuZWVkX2RldmljZSBzdHVmZiwgdG8gZ2V0IHJpZCBvZiBtb3VudCB1dGls
-aXR5IGNhbGwgCnRoZW4uCgo+PiArCj4+ICsJU0FGRV9VTU9VTlQoIm1udCIpOwo+IEhlcmUgYXMg
-d2VsbCwgcGxlYXNlIHVzZSB0c3RfdW1vdW50KCk7Ck9rCgo+Cj4+ICsJdHN0X3JlcyhUUEFTUywg
-IlRlc3QgcGFzc2VkIik7Cj4gVGhpcyBpcyByZWR1bmRhbnQsIGlzbid0IGl0PyBPciBpcyB0aGUg
-dW1vdW50IHBhcnQgdGhhdCBmYWlscz8KU2luY2UgSSBjYW5ub3QgdXNlIFRTVF9FWFBfUEFTUyBm
-dXJ0aGVyIHVwLCBJIHdpbGwga2VlcCB0aGlzIGFuZCBjaGVjayAKdGhlIHJldHVybiBvZiBtb3Vu
-dCBtYW51YWxseSBsaWtlIHRoaXM6CgpzdGF0aWMgdm9pZCBydW4odm9pZCkKewogwqDCoMKgIHRz
-dF9yZXMoVElORk8sICJUZXN0IHNxdWFzaGZzIHNhbml0eSBjaGVjayByZWdyZXNzaW9ucyIpOwoK
-IMKgwqDCoCBpZiAobW91bnQodHN0X2RldmljZS0+ZGV2LCBNT1VOVF9ESVIsICJzcXVhc2hmcyIs
-IDAsIE5VTEwpICE9IDApIHsKIMKgwqDCoCDCoMKgwqAgdHN0X2JyayhURkFJTCB8IFRFUlJOTywg
-Ik1vdW50IGZhaWxlZCIpOwogwqDCoMKgIH0KIMKgwqDCoCBtb3VudGVkID0gMTsKCiDCoMKgwqAg
-dHN0X3Vtb3VudCgibW50Iik7CiDCoMKgwqAgbW91bnRlZCA9IDA7CgogwqDCoMKgIHRzdF9yZXMo
-VFBBU1MsICJUZXN0IHBhc3NlZCIpOwp9CgpXb3VsZCB0aGF0IGJlIG9rIGZvciB5b3Ugb3IgaXMg
-dGhlcmUgYW5vdGhlciB2YXJpYW50IG9mIFRTVF9FWFAqLCB0aGF0IAp1c2VzIHRzdF9icms/CgpK
-b2VyZwoKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0
-aW5mby9sdHAK
+Hi!
+> Is there any guideline? I used regression suffix, because it 
+> specifically is a regression test and there are several regression 
+> tests, that use it.
+> I dropped a number prefix, because there are several tests without a 
+> number...
+> I don't really care what the name is here. If you don't have a strong 
+> opinion on the regression suffix, I will use squashfs_regression01.
+
+Unfortunatelly apart from syscalls there is no clear rule how to name
+tests and we are figuring out stuff as we go. Hoever most of the
+regression tests do not have regression in name and generally tests are
+named as "syscall/driver/filesystem/cve-nickname/etc" followed by a
+number.
+
+> > We do have tst_umount() in the test library that retries the umount if
+> > it failed because the mount point was bussy. This is because certain
+> > damons scan all newly mounted filesystems and prevent us from umounting
+> > shortly after mount.
+> >
+> > Also we usually keep track if device was mounted in a global flag that
+> > is set after succesful mount and unset after successful umount and the
+> > cleanup does:
+> >
+> > 	if (device_mounted)
+> > 		tst_umount("mnt");
+> Ok, but this could leave the mount, if the test is aborted between 
+> mounting and setting of the flag, but that should be a rare case.
+
+As long as the flag is set/cleared right after the mount/umount it will
+not happen.
+
+Also looking at the code, we have to handle the return value from
+tst_umount() in the run() function since it does not call tst_brk().
+
+> > We do have tst_cmd() that can do all this easily in C including the
+> > redirection, it will look like:
+> >
+> > 	const char *argv[] = {"mksquashfs", "data", "image.raw", "-noI", "-noD", "-noX", "-noF"};
+> >
+> > 	tst_cmd(argv, "/dev/null", "/dev/null", 0);
+> >
+> > And this will redirect stdout and stderr to "/dev/null" and also do all
+> > the error checks and exit the test if mksquashfs has failed.
+> Did not know about that, also it requires a NULL at the end.
+
+We do have most of the library functions documented at:
+
+https://github.com/linux-test-project/ltp/wiki/C-Test-API
+
+And yes, the argv has to be NULL terminated, sorry for forgetting that
+part.
+
+> >> +	SAFE_MKDIR("mnt", 0777);
+> > This preparatory part should be in the test setup otherwise the test
+> > will fail with '-i 2'.
+> Right, I'll move the whole setup part to setup.
+> >
+> >> +	TST_EXP_PASS(tst_system("mount -tsquashfs -oloop image.raw mnt"));
+> > Can we please use the mount() syscall here instead? That should be as
+> > easy as mount("image.raw", "mnt", "squashfs", 0, "-oloop")
+> Nope, -oloop does not work, because this is interpreted by the mount 
+> utility, not by the syscall.
+> I guess I'll use the need_device stuff, to get rid of mount utility call 
+> then.
+
+Ah my bad, so the mount command discovers the device in userspace then,
+it makes much more sense to use the library to allocate free device for
+the test.
+
+But I guess that it would probably be better to use the raw
+tst_find_free_loopdev() because the .needs_device flag prepares a
+backing file for the device and attaches it as well.
+
+> >> +
+> >> +	SAFE_UMOUNT("mnt");
+> > Here as well, please use tst_umount();
+> Ok
+> 
+> >
+> >> +	tst_res(TPASS, "Test passed");
+> > This is redundant, isn't it? Or is the umount part that fails?
+> Since I cannot use TST_EXP_PASS further up, I will keep this and check 
+> the return of mount manually like this:
+> 
+> static void run(void)
+> {
+>  ?????? tst_res(TINFO, "Test squashfs sanity check regressions");
+> 
+>  ?????? if (mount(tst_device->dev, MOUNT_DIR, "squashfs", 0, NULL) != 0) {
+>  ?????? ?????? tst_brk(TFAIL | TERRNO, "Mount failed");
+>  ?????? }
+>  ?????? mounted = 1;
+> 
+>  ?????? tst_umount("mnt");
+>  ?????? mounted = 0;
+> 
+>  ?????? tst_res(TPASS, "Test passed");
+> }
+> 
+> Would that be ok for you or is there another variant of TST_EXP*, that 
+> uses tst_brk?
+
+I guess that we should check the return value from tst_umount() here as
+well, so ti would be better as:
+
+	if (tst_umount("mnt")) {
+		tst_brk(TBROK, "Failed to unmount squashfs");
+	} else {
+		mounted = 0;
+		tst_res(TPASS, "Squashfs unmounted");
+	}
+
+-- 
+Cyril Hrubis
+chrubis@suse.cz
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
