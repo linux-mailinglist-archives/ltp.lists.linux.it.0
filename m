@@ -1,68 +1,52 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 114213C7EC8
-	for <lists+linux-ltp@lfdr.de>; Wed, 14 Jul 2021 08:53:39 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B9D43C7F23
+	for <lists+linux-ltp@lfdr.de>; Wed, 14 Jul 2021 09:12:58 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C7A793C675C
-	for <lists+linux-ltp@lfdr.de>; Wed, 14 Jul 2021 08:53:38 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id D247B3C8717
+	for <lists+linux-ltp@lfdr.de>; Wed, 14 Jul 2021 09:12:57 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 184E53C65FF
- for <ltp@lists.linux.it>; Wed, 14 Jul 2021 08:53:34 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 22A753C6626
+ for <ltp@lists.linux.it>; Wed, 14 Jul 2021 09:12:11 +0200 (CEST)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id B82DE200C29
- for <ltp@lists.linux.it>; Wed, 14 Jul 2021 08:53:33 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 0E9F5600D28
+ for <ltp@lists.linux.it>; Wed, 14 Jul 2021 09:12:10 +0200 (CEST)
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id E1DEC20269;
- Wed, 14 Jul 2021 06:53:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1626245612;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=WuLqYUlUTpGXrNkQftOt54D8ZbALgTEnGvKRbTAoEhE=;
- b=YW10yhA3dx0RBa0KXb5pLBRTQ/O9MCJBCWRI+pc/tucFO++LQnq1CgXfJSPu0d8crYLBwI
- hj3iWnU7P2zMbxLy97sqjBdLueal7Cs9QXU2BT5Q37izH0ddHq5dtzTiMPI5Ktlr+5vuLI
- nhsqo7pd7FbZxY9AyoCAReTX7RhpjJc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1626245612;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=WuLqYUlUTpGXrNkQftOt54D8ZbALgTEnGvKRbTAoEhE=;
- b=YlcKaGsDs8rASeFJOSzpVztHOGeZLhQnm66e8P4d9NgTm0ONFcwlgC5BHcNQ8QPM76g9oO
- U6o3EmW+E92wpADg==
-Received: from g78 (unknown [10.163.24.38])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id 5583FA3B8B;
- Wed, 14 Jul 2021 06:53:32 +0000 (UTC)
-References: <20210714055253.1668374-1-lkml@jv-coder.de>
-User-agent: mu4e 1.4.15; emacs 27.2
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Joerg Vehlow <lkml@jv-coder.de>
-In-reply-to: <20210714055253.1668374-1-lkml@jv-coder.de>
-Date: Wed, 14 Jul 2021 07:53:31 +0100
-Message-ID: <871r81pes4.fsf@suse.de>
+ by smtp-out2.suse.de (Postfix) with ESMTP id 824B02025F;
+ Wed, 14 Jul 2021 07:12:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1626246730; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=YtlV/YeWQ/Lni4spgKYg5jaEg9lnpyMcQpnZ0khD4PI=;
+ b=VooOakTEM2ybWZvqGhoTfs+8ZywxiTk9cZsufxN5QbeGqXMJExgOG1CsD052ggKi60F5Jg
+ g+K41ZENJvZxmXBEGvD7IY55Uuab37SK7Jtbokfv2hIfdyAf84mGwrnC5qf4+9m8BRASsx
+ cPHS+H3MUgRfbYEhdcO+fSDQwamRZsg=
+Received: from g78.suse.de (unknown [10.163.24.38])
+ by relay2.suse.de (Postfix) with ESMTP id 2F978A3B85;
+ Wed, 14 Jul 2021 07:12:10 +0000 (UTC)
+To: ltp@lists.linux.it
+Date: Wed, 14 Jul 2021 08:11:50 +0100
+Message-Id: <20210714071158.15868-1-rpalethorpe@suse.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] squashfs: Add regression test for sanity check
- bug
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 0/8] Sparse based checker and rule proposal
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,198 +58,103 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
-Cc: ltp@lists.linux.it, Joerg Vehlow <joerg.vehlow@aox-tech.de>
+From: Richard Palethorpe via ltp <ltp@lists.linux.it>
+Reply-To: Richard Palethorpe <rpalethorpe@suse.com>
+Cc: Richard Palethorpe <rpalethorpe@suse.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello Joerg,
+Hello,
 
-Joerg Vehlow <lkml@jv-coder.de> writes:
+So it turns out that it is quite easy to implement the TST_RET/ERR
+check in Sparse. It compiles the code into an IR which is just the
+right abstraction for the test. It is also possible to inspect the AST
+with Sparse. It appears more difficult to inspect the AST before
+macros are expanded.
 
-> From: Joerg Vehlow <joerg.vehlow@aox-tech.de>
->
-> Adds a regression test for the fixes
-> c1b2028315 ("squashfs: fix inode lookup sanity checks")
-> and
-> 8b44ca2b62 ("squashfs: fix xattr id and id lookup sanity checks")
->
-> Signed-off-by: Joerg Vehlow <joerg.vehlow@aox-tech.de>
-> ---
->
-> Changes to v1:
->  - Implement whole test in c
->  - Fixed whitespaces...
->
->  runtest/fs                                    |  2 +
->  testcases/kernel/fs/squashfs/.gitignore       |  1 +
->  testcases/kernel/fs/squashfs/Makefile         |  9 ++
->  .../kernel/fs/squashfs/squashfs_regression.c  | 99 +++++++++++++++++++
->  4 files changed, 111 insertions(+)
->  create mode 100644 testcases/kernel/fs/squashfs/.gitignore
->  create mode 100644 testcases/kernel/fs/squashfs/Makefile
->  create mode 100644 testcases/kernel/fs/squashfs/squashfs_regression.c
->
-> diff --git a/runtest/fs b/runtest/fs
-> index 17b1415eb..2091b00f8 100644
-> --- a/runtest/fs
-> +++ b/runtest/fs
-> @@ -85,3 +85,5 @@ fs_fill fs_fill
->  
->  binfmt_misc01 binfmt_misc01.sh
->  binfmt_misc02 binfmt_misc02.sh
-> +
-> +squashfs_regression squashfs_regression
-> diff --git a/testcases/kernel/fs/squashfs/.gitignore b/testcases/kernel/fs/squashfs/.gitignore
-> new file mode 100644
-> index 000000000..45c908fff
-> --- /dev/null
-> +++ b/testcases/kernel/fs/squashfs/.gitignore
-> @@ -0,0 +1 @@
-> +squashfs_regression
-> diff --git a/testcases/kernel/fs/squashfs/Makefile b/testcases/kernel/fs/squashfs/Makefile
-> new file mode 100644
-> index 000000000..67021139c
-> --- /dev/null
-> +++ b/testcases/kernel/fs/squashfs/Makefile
-> @@ -0,0 +1,9 @@
-> +# SPDX-License-Identifier: GPL-2.0-or-later
-> +# Copyright (C) 2009, Cisco Systems Inc.
-> +# Ngie Cooper, July 2009
-> +
-> +top_srcdir		?= ../../../..
-> +
-> +include $(top_srcdir)/include/mk/testcases.mk
-> +
-> +include $(top_srcdir)/include/mk/generic_leaf_target.mk
-> diff --git a/testcases/kernel/fs/squashfs/squashfs_regression.c b/testcases/kernel/fs/squashfs/squashfs_regression.c
-> new file mode 100644
-> index 000000000..23f681367
-> --- /dev/null
-> +++ b/testcases/kernel/fs/squashfs/squashfs_regression.c
-> @@ -0,0 +1,99 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * Copyright (c) 2021 Joerg Vehlow <joerg.vehlow@aox-tech.de>
-> + */
-> +
-> +/*\
-> + * [DESCRIPTION]
+Sparse is not packaged as a shared library, but has few/no
+dependencies and is easy to compile. It seems like it was meant to be
+vendored. Including it as a git module seems reasonable to me. Please
+see tools/sparse/README.md.
 
-I think it is [Description] now.
+There are still a lot of errors/noise when running 'make check' on the
+entire tree. These are mainly caused by old function definitions and
+such. They need to be fixed before the tool can be used properly.
 
-> + *
-> + * Kernel commits
-> + *
-> + * - f37aa4c7366 (squashfs: add more sanity checks in id lookup)
-> + * - eabac19e40c (squashfs: add more sanity checks in inode lookup)
-> + * - 506220d2ba2 (squashfs: add more sanity checks in xattr id lookup)
-> + *
-> + * added some sanity checks, that verify the size of
-> + * inode lookup, id (uid/gid) and xattr blocks in the squashfs,
-> + * but broke mounting filesystems with completely filled blocks.
-> + * A block has a max size of 8192.
-> + * An inode lookup entry has an uncompressed size of 8 bytes,
-> + * an id block 4 bytes and an xattr block 16 bytes.
-> + *
-> + *
-> + * To fill up at least one block for each of the three tables,
-> + * 2048 files with unique uid/gid and xattr are created.
-> + *
-> + *
-> + * The bugs are fixed in kernel commits
-> + *
-> + * - c1b2028315c (squashfs: fix inode lookup sanity checks)
-> + * - 8b44ca2b634 (squashfs: fix xattr id and id lookup sanity checks)
-> + */
-> +
-> +#include <stdio.h>
-> +#include <sys/mount.h>
-> +
-> +#include "tst_test.h"
-> +#include "tst_safe_macros.h"
-> +
-> +static void cleanup(void)
-> +{
-> +	umount("mnt");
-> +}
-> +
-> +static void run(void)
-> +{
-> +	int i;
-> +
-> +	tst_res(TINFO, "Test squashfs sanity check regressions");
-> +
-> +	SAFE_MKDIR("data", 0777);
-> +
-> +	for (i = 0; i < 2048; ++i) {
-> +		int fd;
-> +		char name[20];
-> +
-> +		sprintf(name, "data/%d", i);
-> +		fd = SAFE_OPEN(name, O_CREAT | O_EXCL, 0666);
-> +		SAFE_FCHOWN(fd, i, i);
-> +
-> +		/* This must be either "security", "user" or "trusted" namespace,
-> +		 * because squashfs cannot store other namespaces.
-> +		 * Since the files are most likely created on a tmpfs,
-> +		 * "user" namespace is not possible, because it is not allowed.
-> +		 */
-> +		SAFE_FSETXATTR(fd, "security.x", &i, sizeof(i), 0);
-> +		close(fd);
-> +	}
-> +
-> +	/* Create squashfs without any comporession.
-> +	 * This allows reasoning about block sizes
-> +	 */
-> +	TST_EXP_PASS(tst_system(
-> +		"mksquashfs data image.raw -noI -noD -noX -noF >/dev/null 2>&1"
+Also I have tried to document the rule and created a list of rules. So
+this can also be taken as a formal proposal for the rule itself.
 
-I guess the existing API functions to create an image will not work with
-squashfs?
+Thanks,
 
-At any rate, mksquashfs should be added to .needs_cmds.
+V2:
+* Automatically download and build sparse.
+* Only build sparse if "make check" is run. It is filtered from "make all".
+* Move libtsc.h out of the realtime tests dir. Note that checking of metldown.c
+  now fails because it uses a GCC builtin sparse does not recognize.
 
-> +	), "Create squashfs");
-> +
-> +	SAFE_MKDIR("mnt", 0777);
-> +	TST_EXP_PASS(tst_system("mount -tsquashfs -oloop image.raw
-> mnt"));
+As mentioned above, there are various errors during checking that need
+fixing. For the most part these are legit errors (usually old style
+function definitions or redefining of symbols). With stuff like
+metldown I am tempted to filter it, but OTOH it looks relatively
+straight forward to add a builtin to Sparse upstream. I just need time
+to do it. First though I would like to get "make check" working on the
+library, so we can put that in CI.
 
-Also why not use safe_mount? I think we have some infra to find a spare
-loop device (.needs_device).
+Richard Palethorpe (8):
+  Add Sparse based checker and TST_RET/ERR check
+  Add 'make check' to the build system
+  doc: Add rules and recommendations list
+  doc: Remind authors and maintainers to run make check
+  doc: Document TEST macro and state TST_RET/ERR rule LTP-002
+  Reference LTP-002 rule in Cocci scripts
+  API: Move libtsc.h from realtime tests include to tst_tsc.h
+  API/tst_tsc: Add guards and remove some boilerplate
 
-> +
-> +	SAFE_UMOUNT("mnt");
-> +
-> +	tst_res(TPASS, "Test passed");
-> +}
-> +
-> +static struct tst_test test = {
-> +	.test_all = run,
-> +	.cleanup = cleanup,
-> +	.needs_root = 1,
-> +	.needs_drivers = (const char *const []) {
-> +		"squashfs",
-> +		"loop",
-> +		NULL
-> +	},
-> +	.tags = (const struct tst_tag[]) {
-> +		{"linux-git", "c1b2028315c"},
-> +		{"linux-git", "8b44ca2b634"},
-> +		{}
-> +	},
-> +	.needs_tmpdir = 1,
-> +};
-> -- 
-> 2.25.1
-
+ .gitmodules                                   |   3 +
+ Makefile                                      |   8 +
+ doc/c-test-api.txt                            |  47 ++++++
+ doc/library-api-writing-guidelines.txt        |  14 ++
+ doc/maintainer-patch-review-checklist.txt     |   2 +-
+ doc/rules.tsv                                 |   3 +
+ doc/test-writing-guidelines.txt               |   6 +
+ include/mk/env_post.mk                        |   8 +
+ include/mk/generic_leaf_target.inc            |   5 +-
+ include/mk/generic_trunk_target.inc           |   7 +-
+ include/mk/lib.mk                             |   3 +
+ include/mk/module.mk                          |   2 +
+ include/mk/rules.mk                           |   9 ++
+ include/mk/sparse.mk                          |   9 ++
+ include/mk/testcases.mk                       |   1 +
+ .../include/libtsc.h => include/tst_tsc.h     |  35 +----
+ .../coccinelle/libltp-test-macro-vars.cocci   |   6 +-
+ scripts/coccinelle/libltp-test-macro.cocci    |   4 +-
+ testcases/cve/Makefile                        |   2 -
+ testcases/cve/meltdown.c                      |   2 +-
+ testcases/open_posix_testsuite/Makefile       |   4 +
+ .../func/async_handler/async_handler_tsc.c    |   3 +-
+ .../func/measurement/preempt_timing.c         |   3 +-
+ .../realtime/func/measurement/rdtsc-latency.c |   3 +-
+ tools/Makefile                                |   2 +
+ tools/sparse/.gitignore                       |   1 +
+ tools/sparse/Makefile                         |  27 ++++
+ tools/sparse/README.md                        |  38 +++++
+ tools/sparse/main.c                           | 148 ++++++++++++++++++
+ tools/sparse/sparse-src                       |   1 +
+ 30 files changed, 362 insertions(+), 44 deletions(-)
+ create mode 100644 doc/rules.tsv
+ create mode 100644 include/mk/sparse.mk
+ rename testcases/realtime/include/libtsc.h => include/tst_tsc.h (53%)
+ create mode 100644 tools/sparse/.gitignore
+ create mode 100644 tools/sparse/Makefile
+ create mode 100644 tools/sparse/README.md
+ create mode 100644 tools/sparse/main.c
+ create mode 160000 tools/sparse/sparse-src
 
 -- 
-Thank you,
-Richard.
+2.31.1
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
