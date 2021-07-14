@@ -2,74 +2,74 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id C24D73C863A
-	for <lists+linux-ltp@lfdr.de>; Wed, 14 Jul 2021 16:34:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21F7B3C863F
+	for <lists+linux-ltp@lfdr.de>; Wed, 14 Jul 2021 16:37:17 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 86EA53C7572
-	for <lists+linux-ltp@lfdr.de>; Wed, 14 Jul 2021 16:34:45 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B90513C8651
+	for <lists+linux-ltp@lfdr.de>; Wed, 14 Jul 2021 16:37:16 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 21C963C0234
- for <ltp@lists.linux.it>; Wed, 14 Jul 2021 16:34:44 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 4E49E3C5580
+ for <ltp@lists.linux.it>; Wed, 14 Jul 2021 16:37:15 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id B3E40601286
- for <ltp@lists.linux.it>; Wed, 14 Jul 2021 16:34:43 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id DEE8C60070E
+ for <ltp@lists.linux.it>; Wed, 14 Jul 2021 16:37:14 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 0A10122A36;
- Wed, 14 Jul 2021 14:34:43 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 5AC1D202BC;
+ Wed, 14 Jul 2021 14:37:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1626273283;
+ t=1626273434;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=P9zNONeaGWOMI6so8iEdc66Ho5t1BYhwnXJps2y0+E0=;
- b=b97v3eBUZASre3qmgLjILO+feYN8qAUAUUsT/xK8CAaX6AsxJLtWaD2/XYzka4aOeON1vb
- o+qMU3sVbpM/nv/EUWvqJ3gZvE4NKs0Vkb+u0iJQCjAVAI4okCqfNNv5naugIkaqtJPY7H
- Q6hRBGKZCv5N66E1W/VJgo85W8LCBiY=
+ bh=wzo8kFDYpuh1N5Xkt87syHlwKTi1SLtdoZu1KmLHpe8=;
+ b=yyHDhFJX/ZGzYNUI6QXvnSWKDJ5Ks3B7wfQxCOQl8JOOV53H9K8HYWfip1heIvqwIkA+nn
+ /lwNlP2AlX3vNgaYl8iYn/gc+lPmGPm8OvQwqC5YJP6kNiOy8+xcukakqiWZKuQIW8H99r
+ OAD91ISYz4c5Hl8g+8A1qfqYLDLo6q0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1626273283;
+ s=susede2_ed25519; t=1626273434;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=P9zNONeaGWOMI6so8iEdc66Ho5t1BYhwnXJps2y0+E0=;
- b=0WrzZ0lWyNRN0z6ej5XJ7i4pcxykjRtlioYusvBDXUE+FkQpbD7VaDNE/pGgpr5Vr+evYV
- Id62bwOZqWakNEBg==
+ bh=wzo8kFDYpuh1N5Xkt87syHlwKTi1SLtdoZu1KmLHpe8=;
+ b=6A8YMflqJMdQefv4uzmdD8KozO0bRrk9cvS+/O7Dc21bjtSBOfMFa4Ll1z7wfxeLO+B52W
+ Kj+mU67fKcxmmfDw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D753B13C05;
- Wed, 14 Jul 2021 14:34:42 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2035A13C06;
+ Wed, 14 Jul 2021 14:37:14 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id wCkVMwL27mDhegAAMHmgww
- (envelope-from <pvorel@suse.cz>); Wed, 14 Jul 2021 14:34:42 +0000
-Date: Wed, 14 Jul 2021 16:34:40 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id LrxtBpr27mCFewAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Wed, 14 Jul 2021 14:37:14 +0000
+Date: Wed, 14 Jul 2021 16:37:12 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: Richard Palethorpe <rpalethorpe@suse.de>
-Message-ID: <YO72AKW7/AEDsMtp@pevik>
-References: <20210714071158.15868-1-rpalethorpe@suse.com>
- <20210714071158.15868-4-rpalethorpe@suse.com>
- <YO7CU8UebcFN2VtY@pevik> <87sg0hni07.fsf@suse.de>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <YO72mA9nhaCq1bLe@pevik>
+References: <20210713101338.6985-1-pvorel@suse.cz>
+ <20210713101338.6985-5-pvorel@suse.cz> <YO2T4J14roLUT32t@yuki>
+ <YO2gUL2/s29SGdNo@pevik> <YO2f+P8Z9l6SISDG@yuki>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <87sg0hni07.fsf@suse.de>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+In-Reply-To: <YO2f+P8Z9l6SISDG@yuki>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 3/8] doc: Add rules and recommendations list
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v4 4/7] lib: Add script for running tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,51 +82,31 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
+Cc: Richard Palethorpe <rpalethorpe@suse.com>,
+ Joerg Vehlow <joerg.vehlow@aox-tech.de>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Richie,
+Hi all,
 
-> Hello Petr,
+...
+> > > Not sure what we can do here, I guess that timings would be hard to fix
+> > > on VMs that run the tests.
 
-> Petr Vorel <pvorel@suse.cz> writes:
+> > If I remember correctly Richie suggested that FAIL is also OK. He said only
+> > TBROK and TCONF is a problem. I'd prefer to fuzzy sync tests which always pass,
+> > but after this effort I can work on API tests metadata, which would allow also
+> > this.
 
-> > Hi Richie,
-
-> >> +++ b/doc/test-writing-guidelines.txt
-> >> @@ -10,6 +10,11 @@ NOTE: See also
-> >>        https://github.com/linux-test-project/ltp/wiki/Shell-Test-API[Shell Test API],
-> >>        https://github.com/linux-test-project/ltp/wiki/LTP-Library-API-Writing-Guidelines[LTP Library API Writing Guidelines].
-
-> >> +Rules and recommendations which are "machine checkable" should be
-> >> +tagged with an ID like +LTP-XXX+. There will be a corresponding entry
-> >> +in 'doc/rules.tsv'. When you run 'make check' or 'make check-test' it
-> >> +will display these IDs as a reference.
-> >> +
-> > Actually text is on the top. I suppose, you probably planned to put
-> > this into "2.1 C coding style".
-
-> I'm not sure where to put it. The coding style is mostly about syntax
-> and formatting. The rules file can state anything machine checkable, so
-> that can include shell, directory structure, what functions are used
-> etc.
-
-Not sure myself myself. But my note was that you put it below NOTE,
-above "1. Guide to clean and understandable code" which looks strange to me.
-
-But not a big deal with it, just a nit.
+> Another possibility would be relaxing the timings on VMs. I guess that
+> we could change the treshold for reaching the criticall section to 10 on
+> VMs.
+I'd be for it, we have checks for VM. @Richie, any opinion about it?
 
 Kind regards,
 Petr
-
-> > Kind regards,
-> > Petr
-
-> >>  1. Guide to clean and understandable code
-> >>  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
