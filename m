@@ -1,90 +1,68 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44F373C7E91
-	for <lists+linux-ltp@lfdr.de>; Wed, 14 Jul 2021 08:34:18 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 114213C7EC8
+	for <lists+linux-ltp@lfdr.de>; Wed, 14 Jul 2021 08:53:39 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E512A3C675C
-	for <lists+linux-ltp@lfdr.de>; Wed, 14 Jul 2021 08:34:16 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C7A793C675C
+	for <lists+linux-ltp@lfdr.de>; Wed, 14 Jul 2021 08:53:38 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E74673C65FF
- for <ltp@lists.linux.it>; Wed, 14 Jul 2021 08:34:15 +0200 (CEST)
-Received: from mail1.bemta25.messagelabs.com (mail1.bemta25.messagelabs.com
- [195.245.230.1])
+ by picard.linux.it (Postfix) with ESMTPS id 184E53C65FF
+ for <ltp@lists.linux.it>; Wed, 14 Jul 2021 08:53:34 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id B82DE200C29
+ for <ltp@lists.linux.it>; Wed, 14 Jul 2021 08:53:33 +0200 (CEST)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id E1DEC20269;
+ Wed, 14 Jul 2021 06:53:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1626245612;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=WuLqYUlUTpGXrNkQftOt54D8ZbALgTEnGvKRbTAoEhE=;
+ b=YW10yhA3dx0RBa0KXb5pLBRTQ/O9MCJBCWRI+pc/tucFO++LQnq1CgXfJSPu0d8crYLBwI
+ hj3iWnU7P2zMbxLy97sqjBdLueal7Cs9QXU2BT5Q37izH0ddHq5dtzTiMPI5Ktlr+5vuLI
+ nhsqo7pd7FbZxY9AyoCAReTX7RhpjJc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1626245612;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=WuLqYUlUTpGXrNkQftOt54D8ZbALgTEnGvKRbTAoEhE=;
+ b=YlcKaGsDs8rASeFJOSzpVztHOGeZLhQnm66e8P4d9NgTm0ONFcwlgC5BHcNQ8QPM76g9oO
+ U6o3EmW+E92wpADg==
+Received: from g78 (unknown [10.163.24.38])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 2E19A200C29
- for <ltp@lists.linux.it>; Wed, 14 Jul 2021 08:34:13 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fujitsu.com;
- s=170520fj; t=1626244453; i=@fujitsu.com;
- bh=VE08/wXy2+sBeZv6w0kkBmAwNY99PANUU5VzbCVDX0o=;
- h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type;
- b=y3S5mwcYPF8TW7eDYHlGzOozvX7JxK4QjdtUAb7b8WUrxO0pLpwnjlsSdaFl4YSFk
- iYvzq+a7EaD4kVpvXhlucY9Kmg3GZEssr82xN0/XQFggo4QNfFfOdtn2wCCnjP1SjT
- sQkNr6knIOnuZAJ5EPMJbZ6ecuJbe2jDrCNgR3gHEZQgqgWZ67qscwreZ3wSjNIHRs
- diHU5j0cWDFCruVrIQ/yUF9FfAN+KK9JLXUbcZdNntpXmnbp27+THPKws0fgrmnkxp
- 0bDRCVQQbQTZY3vnO9KvPllZ1RwvR7FfY8JFlPEtZd6m+eqHM/Q8YYg2YiiwkUgnrx
- 4AqZXWF8lgpRg==
-Received: from [100.112.192.137] (using TLSv1.2 with cipher
- DHE-RSA-AES256-GCM-SHA384 (256 bits))
- by server-1.bemta.az-a.eu-west-1.aws.symcld.net id 4A/69-31114-5658EE06;
- Wed, 14 Jul 2021 06:34:13 +0000
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFprOIsWRWlGSWpSXmKPExsViZ8MxVTel9V2
- Cwc8mA4sV33cwOjB67Pu9jjWAMYo1My8pvyKBNePao21MBf0iFd23brM1MO4W6GLk4hASmM8k
- 8e3yFUYIZy+jxKdDD5m7GDk52AQ0JZ51LgCzRQQkJDoa3rKD2MwC6hLLJ/1iArGFBYIlfs55A
- lbDIqAqcXBpA5jNK+Ap8en7UhYQW0JAQWLKw/dQcUGJkzOfsEDMkZA4+OIFM0SNosSljm+MEH
- alxJ5Z/UwTGHlnIWmZhaRlASPTKkbzpKLM9IyS3MTMHF1DAwNdQ0MjXUNLE10LY73EKt1EvdR
- S3fLU4hJdQ73E8mK94src5JwUvbzUkk2MwPBKKTgUvIOx780HvUOMkhxMSqK8N3zeJgjxJeWn
- VGYkFmfEF5XmpBYfYpTh4FCS4M1reZcgJFiUmp5akZaZAwx1mLQEB4+SCK87SJq3uCAxtzgzH
- SJ1ilFRSpx3YTNQQgAkkVGaB9cGi69LjLJSwryMDAwMQjwFqUW5mSWo8q8YxTkYlYR580Gm8G
- TmlcBNfwW0mAlosfaatyCLSxIRUlINTAmfp3vdTDw6LTzTLEXonemR2SortzDpzwu6mi7g7+7
- 0OVTx2pfFF/zyt23myrmm17bz54PTVRllE5KS+MXuZK1tXlQ4NUDqrHGrf00UV0QM/643/3j+
- ZR884mi/qGTfff178wpl59SlTkgwa6pwVy7k/3pv5VvDnWpxnttNj9+XSS5VY+Rv8N3z9u+kO
- 5E50Y+8hbJmb1dO3Caw84eem6D25cmK2ivTvpyfcPf+plmZlfJ3dmV1dKfu3qL8VYFBYb+s0x
- 6/iw9vdX/Pj2zd9s7z7t83FZcfbZfZrLjhWLXk/WsnmNKDjV/H/NrU8/BPw+IvQWUiVWGNHw0
- nXf354GJQzvyL5+V07T/Nu98+W1OJpTgj0VCLuag4EQCagIO/KgMAAA==
-X-Env-Sender: xuyang2018.jy@fujitsu.com
-X-Msg-Ref: server-9.tower-265.messagelabs.com!1626244452!58253!1
-X-Originating-IP: [62.60.8.149]
-X-SYMC-ESS-Client-Auth: outbound-route-from=pass
-X-StarScan-Received: 
-X-StarScan-Version: 9.81.3; banners=-,-,-
-X-VirusChecked: Checked
-Received: (qmail 28189 invoked from network); 14 Jul 2021 06:34:12 -0000
-Received: from unknown (HELO mailhost2.uk.fujitsu.com) (62.60.8.149)
- by server-9.tower-265.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
- encrypted SMTP; 14 Jul 2021 06:34:12 -0000
-Received: from R01UKEXCASM223.r01.fujitsu.local (ex2k13_223.fs.fujitsu.com
- [10.182.185.121])
- by mailhost2.uk.fujitsu.com (8.14.5/8.14.5) with ESMTP id 16E6Y52V027175
- (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256 verify=FAIL)
- for <ltp@lists.linux.it>; Wed, 14 Jul 2021 07:34:12 +0100
-Received: from localhost.localdomain (10.167.220.84) by
- R01UKEXCASM223.r01.fujitsu.local (10.182.185.121) with Microsoft SMTP Server
- (TLS) id 15.0.1497.18; Wed, 14 Jul 2021 07:34:03 +0100
-From: Yang Xu <xuyang2018.jy@fujitsu.com>
-To: <ltp@lists.linux.it>
-Date: Wed, 14 Jul 2021 14:34:38 +0800
-Message-ID: <1626244478-15350-1-git-send-email-xuyang2018.jy@fujitsu.com>
-X-Mailer: git-send-email 1.8.3.1
+ by relay2.suse.de (Postfix) with ESMTPS id 5583FA3B8B;
+ Wed, 14 Jul 2021 06:53:32 +0000 (UTC)
+References: <20210714055253.1668374-1-lkml@jv-coder.de>
+User-agent: mu4e 1.4.15; emacs 27.2
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Joerg Vehlow <lkml@jv-coder.de>
+In-reply-to: <20210714055253.1668374-1-lkml@jv-coder.de>
+Date: Wed, 14 Jul 2021 07:53:31 +0100
+Message-ID: <871r81pes4.fsf@suse.de>
 MIME-Version: 1.0
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD09.g08.fujitsu.local (10.167.33.85) To
- R01UKEXCASM223.r01.fujitsu.local (10.182.185.121)
 X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS autolearn=disabled
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH] interfaces/sched_setparam/9-1.c: Fix leak of shared
- memory segment
+Subject: Re: [LTP] [PATCH v2] squashfs: Add regression test for sanity check
+ bug
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,104 +74,198 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: rpalethorpe@suse.de
+Cc: ltp@lists.linux.it, Joerg Vehlow <joerg.vehlow@aox-tech.de>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Since this case uses a shared memory segment to test, we should free it at the end.
+Hello Joerg,
 
-Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
----
- .../interfaces/sched_setparam/9-1.c           | 19 ++++++++++++-------
- 1 file changed, 12 insertions(+), 7 deletions(-)
+Joerg Vehlow <lkml@jv-coder.de> writes:
 
-diff --git a/testcases/open_posix_testsuite/conformance/interfaces/sched_setparam/9-1.c b/testcases/open_posix_testsuite/conformance/interfaces/sched_setparam/9-1.c
-index 87e726a8e..6f158da04 100644
---- a/testcases/open_posix_testsuite/conformance/interfaces/sched_setparam/9-1.c
-+++ b/testcases/open_posix_testsuite/conformance/interfaces/sched_setparam/9-1.c
-@@ -43,6 +43,7 @@
- #include <unistd.h>
- #include "posixtest.h"
- #include "ncpu.h"
-+#include "safe_helpers.h"
- 
- static int nb_cpu;
- static int *shmptr;
-@@ -134,7 +135,7 @@ int main(void)
- 	shmptr = shmat(shm_id, 0, 0);
- 	if (shmptr == (void *)-1) {
- 		perror("An error occurs when calling shmat()");
--		return PTS_UNRESOLVED;
-+		goto free_shm;
- 	}
- 	*shmptr = 0;
- 
-@@ -148,7 +149,7 @@ int main(void)
- 			perror("An error occurs when calling"
- 			       " sched_setscheduler()");
- 		}
--		return PTS_UNRESOLVED;
-+		goto free_shm;
- 	}
- 
- 	for (i = 0; i < (nb_cpu - 1); i++) {
-@@ -156,13 +157,13 @@ int main(void)
- 		if (child_pid[i] == -1) {
- 			perror("An error occurs when calling fork()");
- 			kill_children(child_pid, i);
--			return PTS_UNRESOLVED;
-+			goto free_shm;
- 		} else if (child_pid[i] == 0) {
- 
- 			child_process();
- 
- 			printf("This code should not be executed.\n");
--			return PTS_UNRESOLVED;
-+			goto free_shm;
- 		}
- 	}
- 
-@@ -170,13 +171,13 @@ int main(void)
- 	if (child_pid[i] == -1) {
- 		perror("An error occurs when calling fork()");
- 		kill_children(child_pid, i);
--		return PTS_UNRESOLVED;
-+		goto free_shm;
- 	} else if (child_pid[i] == 0) {
- 
- 		test_process();
- 
- 		printf("This code should not be executed.\n");
--		return PTS_UNRESOLVED;
-+		goto free_shm;
- 	}
- 
- 	param.sched_priority = mean_prio;
-@@ -184,10 +185,11 @@ int main(void)
- 	if (sched_setparam(child_pid[i], &param) != 0) {
- 		perror("An error occurs when calling sched_setparam()");
- 		kill_children(child_pid, nb_cpu);
--		return PTS_UNRESOLVED;
-+		goto free_shm;
- 	}
- 	newcount = *shmptr;
- 
-+	SAFE_FUNC(shmctl(shm_id, IPC_RMID, NULL));
- 	if (newcount == oldcount) {
- 		printf("The target process does not preempt"
- 		       " the calling process\n");
-@@ -198,4 +200,7 @@ int main(void)
- 	printf("Test PASSED\n");
- 	kill_children(child_pid, nb_cpu);
- 	return PTS_PASS;
-+free_shm:
-+	SAFE_FUNC(shmctl(shm_id, IPC_RMID, NULL));
-+	return PTS_UNRESOLVED;
- }
+> From: Joerg Vehlow <joerg.vehlow@aox-tech.de>
+>
+> Adds a regression test for the fixes
+> c1b2028315 ("squashfs: fix inode lookup sanity checks")
+> and
+> 8b44ca2b62 ("squashfs: fix xattr id and id lookup sanity checks")
+>
+> Signed-off-by: Joerg Vehlow <joerg.vehlow@aox-tech.de>
+> ---
+>
+> Changes to v1:
+>  - Implement whole test in c
+>  - Fixed whitespaces...
+>
+>  runtest/fs                                    |  2 +
+>  testcases/kernel/fs/squashfs/.gitignore       |  1 +
+>  testcases/kernel/fs/squashfs/Makefile         |  9 ++
+>  .../kernel/fs/squashfs/squashfs_regression.c  | 99 +++++++++++++++++++
+>  4 files changed, 111 insertions(+)
+>  create mode 100644 testcases/kernel/fs/squashfs/.gitignore
+>  create mode 100644 testcases/kernel/fs/squashfs/Makefile
+>  create mode 100644 testcases/kernel/fs/squashfs/squashfs_regression.c
+>
+> diff --git a/runtest/fs b/runtest/fs
+> index 17b1415eb..2091b00f8 100644
+> --- a/runtest/fs
+> +++ b/runtest/fs
+> @@ -85,3 +85,5 @@ fs_fill fs_fill
+>  
+>  binfmt_misc01 binfmt_misc01.sh
+>  binfmt_misc02 binfmt_misc02.sh
+> +
+> +squashfs_regression squashfs_regression
+> diff --git a/testcases/kernel/fs/squashfs/.gitignore b/testcases/kernel/fs/squashfs/.gitignore
+> new file mode 100644
+> index 000000000..45c908fff
+> --- /dev/null
+> +++ b/testcases/kernel/fs/squashfs/.gitignore
+> @@ -0,0 +1 @@
+> +squashfs_regression
+> diff --git a/testcases/kernel/fs/squashfs/Makefile b/testcases/kernel/fs/squashfs/Makefile
+> new file mode 100644
+> index 000000000..67021139c
+> --- /dev/null
+> +++ b/testcases/kernel/fs/squashfs/Makefile
+> @@ -0,0 +1,9 @@
+> +# SPDX-License-Identifier: GPL-2.0-or-later
+> +# Copyright (C) 2009, Cisco Systems Inc.
+> +# Ngie Cooper, July 2009
+> +
+> +top_srcdir		?= ../../../..
+> +
+> +include $(top_srcdir)/include/mk/testcases.mk
+> +
+> +include $(top_srcdir)/include/mk/generic_leaf_target.mk
+> diff --git a/testcases/kernel/fs/squashfs/squashfs_regression.c b/testcases/kernel/fs/squashfs/squashfs_regression.c
+> new file mode 100644
+> index 000000000..23f681367
+> --- /dev/null
+> +++ b/testcases/kernel/fs/squashfs/squashfs_regression.c
+> @@ -0,0 +1,99 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Copyright (c) 2021 Joerg Vehlow <joerg.vehlow@aox-tech.de>
+> + */
+> +
+> +/*\
+> + * [DESCRIPTION]
+
+I think it is [Description] now.
+
+> + *
+> + * Kernel commits
+> + *
+> + * - f37aa4c7366 (squashfs: add more sanity checks in id lookup)
+> + * - eabac19e40c (squashfs: add more sanity checks in inode lookup)
+> + * - 506220d2ba2 (squashfs: add more sanity checks in xattr id lookup)
+> + *
+> + * added some sanity checks, that verify the size of
+> + * inode lookup, id (uid/gid) and xattr blocks in the squashfs,
+> + * but broke mounting filesystems with completely filled blocks.
+> + * A block has a max size of 8192.
+> + * An inode lookup entry has an uncompressed size of 8 bytes,
+> + * an id block 4 bytes and an xattr block 16 bytes.
+> + *
+> + *
+> + * To fill up at least one block for each of the three tables,
+> + * 2048 files with unique uid/gid and xattr are created.
+> + *
+> + *
+> + * The bugs are fixed in kernel commits
+> + *
+> + * - c1b2028315c (squashfs: fix inode lookup sanity checks)
+> + * - 8b44ca2b634 (squashfs: fix xattr id and id lookup sanity checks)
+> + */
+> +
+> +#include <stdio.h>
+> +#include <sys/mount.h>
+> +
+> +#include "tst_test.h"
+> +#include "tst_safe_macros.h"
+> +
+> +static void cleanup(void)
+> +{
+> +	umount("mnt");
+> +}
+> +
+> +static void run(void)
+> +{
+> +	int i;
+> +
+> +	tst_res(TINFO, "Test squashfs sanity check regressions");
+> +
+> +	SAFE_MKDIR("data", 0777);
+> +
+> +	for (i = 0; i < 2048; ++i) {
+> +		int fd;
+> +		char name[20];
+> +
+> +		sprintf(name, "data/%d", i);
+> +		fd = SAFE_OPEN(name, O_CREAT | O_EXCL, 0666);
+> +		SAFE_FCHOWN(fd, i, i);
+> +
+> +		/* This must be either "security", "user" or "trusted" namespace,
+> +		 * because squashfs cannot store other namespaces.
+> +		 * Since the files are most likely created on a tmpfs,
+> +		 * "user" namespace is not possible, because it is not allowed.
+> +		 */
+> +		SAFE_FSETXATTR(fd, "security.x", &i, sizeof(i), 0);
+> +		close(fd);
+> +	}
+> +
+> +	/* Create squashfs without any comporession.
+> +	 * This allows reasoning about block sizes
+> +	 */
+> +	TST_EXP_PASS(tst_system(
+> +		"mksquashfs data image.raw -noI -noD -noX -noF >/dev/null 2>&1"
+
+I guess the existing API functions to create an image will not work with
+squashfs?
+
+At any rate, mksquashfs should be added to .needs_cmds.
+
+> +	), "Create squashfs");
+> +
+> +	SAFE_MKDIR("mnt", 0777);
+> +	TST_EXP_PASS(tst_system("mount -tsquashfs -oloop image.raw
+> mnt"));
+
+Also why not use safe_mount? I think we have some infra to find a spare
+loop device (.needs_device).
+
+> +
+> +	SAFE_UMOUNT("mnt");
+> +
+> +	tst_res(TPASS, "Test passed");
+> +}
+> +
+> +static struct tst_test test = {
+> +	.test_all = run,
+> +	.cleanup = cleanup,
+> +	.needs_root = 1,
+> +	.needs_drivers = (const char *const []) {
+> +		"squashfs",
+> +		"loop",
+> +		NULL
+> +	},
+> +	.tags = (const struct tst_tag[]) {
+> +		{"linux-git", "c1b2028315c"},
+> +		{"linux-git", "8b44ca2b634"},
+> +		{}
+> +	},
+> +	.needs_tmpdir = 1,
+> +};
+> -- 
+> 2.25.1
+
+
 -- 
-2.23.0
-
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
