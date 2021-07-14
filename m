@@ -2,66 +2,67 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9EEA63C857F
-	for <lists+linux-ltp@lfdr.de>; Wed, 14 Jul 2021 15:43:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B24213C85C3
+	for <lists+linux-ltp@lfdr.de>; Wed, 14 Jul 2021 16:07:29 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3D2D93C8651
-	for <lists+linux-ltp@lfdr.de>; Wed, 14 Jul 2021 15:43:55 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 6D5773C7572
+	for <lists+linux-ltp@lfdr.de>; Wed, 14 Jul 2021 16:07:29 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 439D03C66E6
- for <ltp@lists.linux.it>; Wed, 14 Jul 2021 15:43:52 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id B0A5A3C5580
+ for <ltp@lists.linux.it>; Wed, 14 Jul 2021 16:07:28 +0200 (CEST)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 7BA63600F08
- for <ltp@lists.linux.it>; Wed, 14 Jul 2021 15:43:52 +0200 (CEST)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id D1701202B1
- for <ltp@lists.linux.it>; Wed, 14 Jul 2021 13:43:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1626270231;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Sfzbz2hpo+azYb/Jp6BtA0jhD6qA8qXjqTFJ6NwDfYM=;
- b=dlZPxsUum9K2XsTrcL+qCs5NPDfT31abRuYL2IPFmV5pwajZKWALZBnmJdBis1UyIcEy0B
- coeHYgiobktJwPl+kO1p+LvAEe6PJC5sEzeNT+W9gB6deSQ2D/X4kwkJhizN+aE9b2TjsJ
- Se3F/UMi4RHFUCApIpivAkswWVzM1nw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1626270231;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Sfzbz2hpo+azYb/Jp6BtA0jhD6qA8qXjqTFJ6NwDfYM=;
- b=Pr/fEdZrJd63Zl1icgvbEZNTc4ioIuhrpN42TUpz9X/2rH7JS37BL8lILyb3x7BTQCW7mN
- gSdN2DgzG0wWu6DQ==
-Received: from g78 (unknown [10.163.24.38])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 2736B200D36
+ for <ltp@lists.linux.it>; Wed, 14 Jul 2021 16:07:27 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id 9E0A7A3B8B;
- Wed, 14 Jul 2021 13:43:51 +0000 (UTC)
-References: <20210714071158.15868-1-rpalethorpe@suse.com>
- <YO7JQU9QjNEGkaMx@pevik>
-User-agent: mu4e 1.4.15; emacs 27.2
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Petr Vorel <pvorel@suse.cz>
-In-reply-to: <YO7JQU9QjNEGkaMx@pevik>
-Date: Wed, 14 Jul 2021 14:43:50 +0100
-Message-ID: <87k0ltnh7t.fsf@suse.de>
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 6FDD3202BE;
+ Wed, 14 Jul 2021 14:07:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1626271647; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Bbw75OTg6d8Xoq5SjUR1muC7mQIdo3+ukU3kedrlXn0=;
+ b=GCqXQwDP3rnxJVCCpeNwAcUoL092xCuDBTG1uP5ZkUYEjquPuln6eSGy1/17iCHqV19HOq
+ 6tiNKb7d0C+S8ZjpczwJcEmHFzMnihTT5A/kdNNswkHYMJi1qwrp3WObY8rOXF6b3+FLn+
+ 0CPIbxg4FI9/Ec4SuPreRdmZWi6JLpY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1626271647;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Bbw75OTg6d8Xoq5SjUR1muC7mQIdo3+ukU3kedrlXn0=;
+ b=WXFaMrFMlF6jwyAWCULGZqr2Oi0e5hZ7idlFDg36BFKGvfDP2Rh1lk+v7uN3c9DyN2UPMt
+ LPbs0BGh4L9TWgBg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3A94713C05;
+ Wed, 14 Jul 2021 14:07:27 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id AdvoC5/v7mC/cgAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Wed, 14 Jul 2021 14:07:27 +0000
+From: Petr Vorel <pvorel@suse.cz>
+To: ltp@lists.linux.it
+Date: Wed, 14 Jul 2021 16:07:14 +0200
+Message-Id: <20210714140716.1568-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 0/8] Sparse based checker and rule proposal
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH 0/2] Add TST_NET_IPV{4,6}_ONLY and use on broken_ip
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,35 +74,37 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello Petr,
+Hi Alexey,
 
-Petr Vorel <pvorel@suse.cz> writes:
+https://github.com/linux-test-project/ltp/issues/843
 
-> Hi Richie,
->
-> thanks for this work! I'm looking forward enabling it in CI after we
-> merge it.
+does it make sense to run it on IPv4 and broken_ip-totlen on IPv6?
+Both don't break but not in runtest file.
 
-Thanks. Perhaps only in the lib directory for now though. Also it will
-only really be checking the checker itself doesn't crash or fail to
-build. There are some errors which need fixing in the library before we
-can enforce the checks in CI.
+Kind regards,
+Petr
 
->
-> Kind regards,
-> Petr
+Petr Vorel (2):
+  tst_net.sh: Add variable for supported protocol
+  broken_ip: TCONF when test run on unsupported protocol
 
+ testcases/lib/tst_net.sh                              | 8 ++++++++
+ testcases/lib/tst_test.sh                             | 2 +-
+ testcases/network/stress/broken_ip/broken_ip-checksum | 3 ++-
+ testcases/network/stress/broken_ip/broken_ip-fragment | 3 ++-
+ testcases/network/stress/broken_ip/broken_ip-ihl      | 3 ++-
+ testcases/network/stress/broken_ip/broken_ip-nexthdr  | 3 ++-
+ testcases/network/stress/broken_ip/broken_ip-protcol  | 3 ++-
+ 7 files changed, 19 insertions(+), 6 deletions(-)
 
 -- 
-Thank you,
-Richard.
+2.32.0
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
