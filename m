@@ -1,68 +1,75 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id B24213C85C3
-	for <lists+linux-ltp@lfdr.de>; Wed, 14 Jul 2021 16:07:29 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id D3CC33C85C4
+	for <lists+linux-ltp@lfdr.de>; Wed, 14 Jul 2021 16:07:39 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6D5773C7572
-	for <lists+linux-ltp@lfdr.de>; Wed, 14 Jul 2021 16:07:29 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 019003C7754
+	for <lists+linux-ltp@lfdr.de>; Wed, 14 Jul 2021 16:07:39 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id B0A5A3C5580
- for <ltp@lists.linux.it>; Wed, 14 Jul 2021 16:07:28 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id AF47C3C875C
+ for <ltp@lists.linux.it>; Wed, 14 Jul 2021 16:07:30 +0200 (CEST)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 2736B200D36
- for <ltp@lists.linux.it>; Wed, 14 Jul 2021 16:07:27 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id D0CA660146E
+ for <ltp@lists.linux.it>; Wed, 14 Jul 2021 16:07:29 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 6FDD3202BE;
- Wed, 14 Jul 2021 14:07:27 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 7C22D202BE;
+ Wed, 14 Jul 2021 14:07:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1626271647; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=Bbw75OTg6d8Xoq5SjUR1muC7mQIdo3+ukU3kedrlXn0=;
- b=GCqXQwDP3rnxJVCCpeNwAcUoL092xCuDBTG1uP5ZkUYEjquPuln6eSGy1/17iCHqV19HOq
- 6tiNKb7d0C+S8ZjpczwJcEmHFzMnihTT5A/kdNNswkHYMJi1qwrp3WObY8rOXF6b3+FLn+
- 0CPIbxg4FI9/Ec4SuPreRdmZWi6JLpY=
+ t=1626271649; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=IxWBzCpJdSMbA+Ru7LrQ/FCA2U/5UqxpK8HqGqFhu/0=;
+ b=WYRyD1MdVssFLpyXExl44mOSsQW7WuBBMgSnhg4kkhFzkrIUV0vBu1V7NFhywioTzsTeFo
+ YTtMJhgw4ts8EdcuJLsTasQiS12xpORf4keIueQSEBPuBdqPm0xd24v4IqwwfckjVedK4V
+ ikiZLETfkIMJrJ54uN3hW+HMJUvo51k=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1626271647;
+ s=susede2_ed25519; t=1626271649;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=Bbw75OTg6d8Xoq5SjUR1muC7mQIdo3+ukU3kedrlXn0=;
- b=WXFaMrFMlF6jwyAWCULGZqr2Oi0e5hZ7idlFDg36BFKGvfDP2Rh1lk+v7uN3c9DyN2UPMt
- LPbs0BGh4L9TWgBg==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=IxWBzCpJdSMbA+Ru7LrQ/FCA2U/5UqxpK8HqGqFhu/0=;
+ b=Ocnd52wuI1fARGS+JiFIpn0VW6Ib7ntkHQGVoH9zC7wyKMbAvys2rcvtVFwYaARI/GOaPm
+ zwsvf63O2qphXSAA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3A94713C05;
- Wed, 14 Jul 2021 14:07:27 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 516F613C05;
+ Wed, 14 Jul 2021 14:07:29 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id AdvoC5/v7mC/cgAAMHmgww
- (envelope-from <pvorel@suse.cz>); Wed, 14 Jul 2021 14:07:27 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id 8PdzEqHv7mC/cgAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Wed, 14 Jul 2021 14:07:29 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Wed, 14 Jul 2021 16:07:14 +0200
-Message-Id: <20210714140716.1568-1-pvorel@suse.cz>
+Date: Wed, 14 Jul 2021 16:07:15 +0200
+Message-Id: <20210714140716.1568-2-pvorel@suse.cz>
 X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20210714140716.1568-1-pvorel@suse.cz>
+References: <20210714140716.1568-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH 0/2] Add TST_NET_IPV{4,6}_ONLY and use on broken_ip
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/2] tst_net.sh: Add variable for supported protocol
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,29 +86,46 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Alexey,
+via TST_NET_IPV{4,6}_ONLY variables.
 
-https://github.com/linux-test-project/ltp/issues/843
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+---
+ testcases/lib/tst_net.sh  | 8 ++++++++
+ testcases/lib/tst_test.sh | 2 +-
+ 2 files changed, 9 insertions(+), 1 deletion(-)
 
-does it make sense to run it on IPv4 and broken_ip-totlen on IPv6?
-Both don't break but not in runtest file.
-
-Kind regards,
-Petr
-
-Petr Vorel (2):
-  tst_net.sh: Add variable for supported protocol
-  broken_ip: TCONF when test run on unsupported protocol
-
- testcases/lib/tst_net.sh                              | 8 ++++++++
- testcases/lib/tst_test.sh                             | 2 +-
- testcases/network/stress/broken_ip/broken_ip-checksum | 3 ++-
- testcases/network/stress/broken_ip/broken_ip-fragment | 3 ++-
- testcases/network/stress/broken_ip/broken_ip-ihl      | 3 ++-
- testcases/network/stress/broken_ip/broken_ip-nexthdr  | 3 ++-
- testcases/network/stress/broken_ip/broken_ip-protcol  | 3 ++-
- 7 files changed, 19 insertions(+), 6 deletions(-)
-
+diff --git a/testcases/lib/tst_net.sh b/testcases/lib/tst_net.sh
+index 511fb7eb1..b90fd9dfa 100644
+--- a/testcases/lib/tst_net.sh
++++ b/testcases/lib/tst_net.sh
+@@ -59,6 +59,14 @@ tst_net_remote_tmpdir()
+ 
+ tst_net_setup()
+ {
++	if [ "$TST_NET_IPV4_ONLY" = 1 -a $TST_IPVER = 6 ]; then
++		tst_brk TCONF "Test must be run on IPv4 only"
++	fi
++
++	if [ "$TST_NET_IPV6_ONLY" = 1 -a $TST_IPVER = 4 ]; then
++		tst_brk TCONF "Test must be run on IPv6 only"
++	fi
++
+ 	tst_net_remote_tmpdir
+ 	[ -n "$TST_SETUP_CALLER" ] && $TST_SETUP_CALLER
+ 
+diff --git a/testcases/lib/tst_test.sh b/testcases/lib/tst_test.sh
+index c6aa2c487..6e64ef0ff 100644
+--- a/testcases/lib/tst_test.sh
++++ b/testcases/lib/tst_test.sh
+@@ -577,7 +577,7 @@ tst_run()
+ 			IPV6|IPV6_FLAG|IPVER|TEST_DATA|TEST_DATA_IFS);;
+ 			RETRY_FUNC|RETRY_FN_EXP_BACKOFF|TIMEOUT);;
+ 			NET_DATAROOT|NET_MAX_PKT|NET_RHOST_RUN_DEBUG|NETLOAD_CLN_NUMBER);;
+-			NET_SKIP_VARIABLE_INIT);;
++			NET_IPV4_ONLY|NET_IPV6_ONLY|NET_SKIP_VARIABLE_INIT);;
+ 			*) tst_res TWARN "Reserved variable TST_$_tst_i used!";;
+ 			esac
+ 		done
 -- 
 2.32.0
 
