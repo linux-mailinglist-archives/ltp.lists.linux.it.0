@@ -1,75 +1,75 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3CC33C85C4
-	for <lists+linux-ltp@lfdr.de>; Wed, 14 Jul 2021 16:07:39 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 30F8D3C85C5
+	for <lists+linux-ltp@lfdr.de>; Wed, 14 Jul 2021 16:07:49 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 019003C7754
-	for <lists+linux-ltp@lfdr.de>; Wed, 14 Jul 2021 16:07:39 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id BAFA73C8651
+	for <lists+linux-ltp@lfdr.de>; Wed, 14 Jul 2021 16:07:48 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id AF47C3C875C
+ by picard.linux.it (Postfix) with ESMTPS id 344A63C9BF5
  for <ltp@lists.linux.it>; Wed, 14 Jul 2021 16:07:30 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id D0CA660146E
- for <ltp@lists.linux.it>; Wed, 14 Jul 2021 16:07:29 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 412721401167
+ for <ltp@lists.linux.it>; Wed, 14 Jul 2021 16:07:30 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 7C22D202BE;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id BAC1422A29;
  Wed, 14 Jul 2021 14:07:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1626271649; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=IxWBzCpJdSMbA+Ru7LrQ/FCA2U/5UqxpK8HqGqFhu/0=;
- b=WYRyD1MdVssFLpyXExl44mOSsQW7WuBBMgSnhg4kkhFzkrIUV0vBu1V7NFhywioTzsTeFo
- YTtMJhgw4ts8EdcuJLsTasQiS12xpORf4keIueQSEBPuBdqPm0xd24v4IqwwfckjVedK4V
- ikiZLETfkIMJrJ54uN3hW+HMJUvo51k=
+ bh=/fMzTisR9VK9mIJi38e0/Y/b8YB83J2TvktR3CQIDks=;
+ b=1ZQZi+0glQkxxUZBqGQYOfsuWP58twEyfpCqeBOX67gR5V5BtKt0fWY2/R82keOIr9h8NO
+ Eqrwxi1xW165uIsxJHQpAZNzYEFtiQGIP4m+DBXB3TZRzWkkIXqroAewro4XytddPHlii7
+ ATWs+tmp+igPiIPsC6pX/UJ6faziSFU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1626271649;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=IxWBzCpJdSMbA+Ru7LrQ/FCA2U/5UqxpK8HqGqFhu/0=;
- b=Ocnd52wuI1fARGS+JiFIpn0VW6Ib7ntkHQGVoH9zC7wyKMbAvys2rcvtVFwYaARI/GOaPm
- zwsvf63O2qphXSAA==
+ bh=/fMzTisR9VK9mIJi38e0/Y/b8YB83J2TvktR3CQIDks=;
+ b=VblSlsGaycTLTW8bTGYRiRx2luyhdDSVUre586OkKVFCWoqvPmjhpHSHmQb0ZbJ9gtXSrb
+ PClAz3FHwVIHR4Dw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 516F613C05;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 84DA713C05;
  Wed, 14 Jul 2021 14:07:29 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 8PdzEqHv7mC/cgAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id +L7UHqHv7mC/cgAAMHmgww
  (envelope-from <pvorel@suse.cz>); Wed, 14 Jul 2021 14:07:29 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Wed, 14 Jul 2021 16:07:15 +0200
-Message-Id: <20210714140716.1568-2-pvorel@suse.cz>
+Date: Wed, 14 Jul 2021 16:07:16 +0200
+Message-Id: <20210714140716.1568-3-pvorel@suse.cz>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210714140716.1568-1-pvorel@suse.cz>
 References: <20210714140716.1568-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH 1/2] tst_net.sh: Add variable for supported protocol
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH 2/2] broken_ip: TCONF when test run on unsupported
+ protocol
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,46 +86,110 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-via TST_NET_IPV{4,6}_ONLY variables.
+net_stress.broken_ip runtest file is correct, but some users try to run
+tests manually.
+
+Fixes: #843
 
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- testcases/lib/tst_net.sh  | 8 ++++++++
- testcases/lib/tst_test.sh | 2 +-
- 2 files changed, 9 insertions(+), 1 deletion(-)
+ testcases/network/stress/broken_ip/broken_ip-checksum | 3 ++-
+ testcases/network/stress/broken_ip/broken_ip-fragment | 3 ++-
+ testcases/network/stress/broken_ip/broken_ip-ihl      | 3 ++-
+ testcases/network/stress/broken_ip/broken_ip-nexthdr  | 3 ++-
+ testcases/network/stress/broken_ip/broken_ip-protcol  | 3 ++-
+ 5 files changed, 10 insertions(+), 5 deletions(-)
 
-diff --git a/testcases/lib/tst_net.sh b/testcases/lib/tst_net.sh
-index 511fb7eb1..b90fd9dfa 100644
---- a/testcases/lib/tst_net.sh
-+++ b/testcases/lib/tst_net.sh
-@@ -59,6 +59,14 @@ tst_net_remote_tmpdir()
+diff --git a/testcases/network/stress/broken_ip/broken_ip-checksum b/testcases/network/stress/broken_ip/broken_ip-checksum
+index 78f00ce98..707ffcb29 100644
+--- a/testcases/network/stress/broken_ip/broken_ip-checksum
++++ b/testcases/network/stress/broken_ip/broken_ip-checksum
+@@ -1,11 +1,12 @@
+ #!/bin/sh
+ # SPDX-License-Identifier: GPL-2.0-or-later
+-# Copyright (c) 2019 Petr Vorel <pvorel@suse.cz>
++# Copyright (c) 2019-2021 Petr Vorel <pvorel@suse.cz>
+ # Copyright (c) 2014-2017 Oracle and/or its affiliates. All Rights Reserved.
+ # Copyright (c) International Business Machines  Corp., 2006
+ # Author: Mitsuru Chinen <mitch@jp.ibm.com>
  
- tst_net_setup()
- {
-+	if [ "$TST_NET_IPV4_ONLY" = 1 -a $TST_IPVER = 6 ]; then
-+		tst_brk TCONF "Test must be run on IPv4 only"
-+	fi
-+
-+	if [ "$TST_NET_IPV6_ONLY" = 1 -a $TST_IPVER = 4 ]; then
-+		tst_brk TCONF "Test must be run on IPv6 only"
-+	fi
-+
- 	tst_net_remote_tmpdir
- 	[ -n "$TST_SETUP_CALLER" ] && $TST_SETUP_CALLER
+ TST_TESTFUNC="do_test"
++TST_NET_IPV4_ONLY=1
+ . tst_net.sh
  
-diff --git a/testcases/lib/tst_test.sh b/testcases/lib/tst_test.sh
-index c6aa2c487..6e64ef0ff 100644
---- a/testcases/lib/tst_test.sh
-+++ b/testcases/lib/tst_test.sh
-@@ -577,7 +577,7 @@ tst_run()
- 			IPV6|IPV6_FLAG|IPVER|TEST_DATA|TEST_DATA_IFS);;
- 			RETRY_FUNC|RETRY_FN_EXP_BACKOFF|TIMEOUT);;
- 			NET_DATAROOT|NET_MAX_PKT|NET_RHOST_RUN_DEBUG|NETLOAD_CLN_NUMBER);;
--			NET_SKIP_VARIABLE_INIT);;
-+			NET_IPV4_ONLY|NET_IPV6_ONLY|NET_SKIP_VARIABLE_INIT);;
- 			*) tst_res TWARN "Reserved variable TST_$_tst_i used!";;
- 			esac
- 		done
+ do_test()
+diff --git a/testcases/network/stress/broken_ip/broken_ip-fragment b/testcases/network/stress/broken_ip/broken_ip-fragment
+index 1f5e5f713..7356bb523 100644
+--- a/testcases/network/stress/broken_ip/broken_ip-fragment
++++ b/testcases/network/stress/broken_ip/broken_ip-fragment
+@@ -1,11 +1,12 @@
+ #!/bin/sh
+ # SPDX-License-Identifier: GPL-2.0-or-later
+-# Copyright (c) 2019 Petr Vorel <pvorel@suse.cz>
++# Copyright (c) 2019-2021 Petr Vorel <pvorel@suse.cz>
+ # Copyright (c) 2014-2017 Oracle and/or its affiliates. All Rights Reserved.
+ # Copyright (c) International Business Machines  Corp., 2006
+ # Author: Mitsuru Chinen <mitch@jp.ibm.com>
+ 
+ TST_TESTFUNC="do_test"
++TST_NET_IPV4_ONLY=1
+ . tst_net.sh
+ 
+ do_test()
+diff --git a/testcases/network/stress/broken_ip/broken_ip-ihl b/testcases/network/stress/broken_ip/broken_ip-ihl
+index 9f2a42568..e5e41ee8e 100644
+--- a/testcases/network/stress/broken_ip/broken_ip-ihl
++++ b/testcases/network/stress/broken_ip/broken_ip-ihl
+@@ -1,11 +1,12 @@
+ #!/bin/sh
+ # SPDX-License-Identifier: GPL-2.0-or-later
+-# Copyright (c) 2019 Petr Vorel <pvorel@suse.cz>
++# Copyright (c) 2019-2021 Petr Vorel <pvorel@suse.cz>
+ # Copyright (c) 2014-2017 Oracle and/or its affiliates. All Rights Reserved.
+ # Copyright (c) International Business Machines  Corp., 2006
+ # Author: Mitsuru Chinen <mitch@jp.ibm.com>
+ 
+ TST_TESTFUNC="do_test"
++TST_NET_IPV4_ONLY=1
+ . tst_net.sh
+ 
+ do_test()
+diff --git a/testcases/network/stress/broken_ip/broken_ip-nexthdr b/testcases/network/stress/broken_ip/broken_ip-nexthdr
+index 475b92b16..2ab0601ac 100644
+--- a/testcases/network/stress/broken_ip/broken_ip-nexthdr
++++ b/testcases/network/stress/broken_ip/broken_ip-nexthdr
+@@ -1,11 +1,12 @@
+ #!/bin/sh
+ # SPDX-License-Identifier: GPL-2.0-or-later
+-# Copyright (c) 2019 Petr Vorel <pvorel@suse.cz>
++# Copyright (c) 2019-2021 Petr Vorel <pvorel@suse.cz>
+ # Copyright (c) 2014-2017 Oracle and/or its affiliates. All Rights Reserved.
+ # Copyright (c) International Business Machines  Corp., 2006
+ # Author: Mitsuru Chinen <mitch@jp.ibm.com>
+ 
+ TST_TESTFUNC="do_test"
++TST_NET_IPV6_ONLY=1
+ . tst_net.sh
+ 
+ do_test()
+diff --git a/testcases/network/stress/broken_ip/broken_ip-protcol b/testcases/network/stress/broken_ip/broken_ip-protcol
+index a91cdaaeb..9f9275f03 100644
+--- a/testcases/network/stress/broken_ip/broken_ip-protcol
++++ b/testcases/network/stress/broken_ip/broken_ip-protcol
+@@ -1,11 +1,12 @@
+ #!/bin/sh
+ # SPDX-License-Identifier: GPL-2.0-or-later
+-# Copyright (c) 2019 Petr Vorel <pvorel@suse.cz>
++# Copyright (c) 2019-2021 Petr Vorel <pvorel@suse.cz>
+ # Copyright (c) 2014-2017 Oracle and/or its affiliates. All Rights Reserved.
+ # Copyright (c) International Business Machines  Corp., 2006
+ # Author: Mitsuru Chinen <mitch@jp.ibm.com>
+ 
+ TST_TESTFUNC="do_test"
++TST_NET_IPV4_ONLY=1
+ . tst_net.sh
+ 
+ do_test()
 -- 
 2.32.0
 
