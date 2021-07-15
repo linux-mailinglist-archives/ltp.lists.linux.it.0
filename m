@@ -1,75 +1,75 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD1F83C9B53
-	for <lists+linux-ltp@lfdr.de>; Thu, 15 Jul 2021 11:22:13 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id D80DA3C9BCF
+	for <lists+linux-ltp@lfdr.de>; Thu, 15 Jul 2021 11:30:00 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 655653C863E
-	for <lists+linux-ltp@lfdr.de>; Thu, 15 Jul 2021 11:22:13 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 29C3F3C8626
+	for <lists+linux-ltp@lfdr.de>; Thu, 15 Jul 2021 11:30:00 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 989D53C65D4
- for <ltp@lists.linux.it>; Thu, 15 Jul 2021 11:22:09 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 539BA3C65D4
+ for <ltp@lists.linux.it>; Thu, 15 Jul 2021 11:29:56 +0200 (CEST)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id E537F100117A
- for <ltp@lists.linux.it>; Thu, 15 Jul 2021 11:22:08 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id C051B600046
+ for <ltp@lists.linux.it>; Thu, 15 Jul 2021 11:29:55 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 432572284F;
- Thu, 15 Jul 2021 09:22:08 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 259B222924;
+ Thu, 15 Jul 2021 09:29:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1626340928;
+ t=1626341395;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=34IQhthz1lgJtdYcEk5Yu9TNg1EQF4Cle/qi/guHgYs=;
- b=RKjjZNPYftpns8qB3alkF2caPSHHX4ICp5Jec/cL3rmw+VgeDtQjMsUw8OOCxNvgyc8H4q
- PtDhaU8/bP6c2ZM062E4YPC6EaunRV2sKmh92RXI2UzZMacYjc6XFmxXNNimqKWbIoOZ+Q
- 72tqhbA9Q5J94Jpe4ittGDUF502tbng=
+ bh=9kLeV+MyXUjzV9u7Ka3zhOHruzryCXmSoh+vPyLhBY0=;
+ b=pOBpvmFK5OujRqwaOKzp+Ml+zahblIQKrf2q8kbzaey/R6clkcIg9VdxcKrJ3X6TcRc5Vf
+ R5/GAHijZXj2pw047DgRQlBwhPouc2ziLTaoF+GUxnm91iJp2BXXWmUMyWt0g4SvQ98BF7
+ 4T6x8o1xNIsgwREJM7WgEKMSOb34Zcs=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1626340928;
+ s=susede2_ed25519; t=1626341395;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=34IQhthz1lgJtdYcEk5Yu9TNg1EQF4Cle/qi/guHgYs=;
- b=yu9yIsDE4165tUYFQapLbAJPvTxaZvfCj4NuBSehGRpV2ZFmAnW9Lme0Rdowc85v45m0U0
- yVpMaMoBItiKtfCQ==
+ bh=9kLeV+MyXUjzV9u7Ka3zhOHruzryCXmSoh+vPyLhBY0=;
+ b=aV+inUQKQUGdaBWz2MoDsaJyJ2BolXMV/YnpA2yjc8pFODtamtNdRx1snydvNvIhe+W3BA
+ euH+yTMVbG5YNZAw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D68F113C30;
- Thu, 15 Jul 2021 09:22:07 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E16CA13C30;
+ Thu, 15 Jul 2021 09:29:54 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id mLlCLj/+72CxBAAAMHmgww
- (envelope-from <pvorel@suse.cz>); Thu, 15 Jul 2021 09:22:07 +0000
-Date: Thu, 15 Jul 2021 11:22:05 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id xGD8NBIA8GA8BwAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Thu, 15 Jul 2021 09:29:54 +0000
+Date: Thu, 15 Jul 2021 11:29:52 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <YO/+PVxKTMem0wZd@pevik>
-References: <20210714142001.20566-1-pvorel@suse.cz> <YO70PiTdyxzTw0k2@pevik>
- <YO77+MmmxwMewgnQ@yuki> <YO8UIP310jsAmq8I@pevik>
- <YO/l6yni/AAOGhn9@pevik> <YO/3AYqt8tAABFxy@yuki>
+To: Amir Goldstein <amir73il@gmail.com>
+Message-ID: <YPAAEPZMOnGWfWG6@pevik>
+References: <20210714180840.160798-1-amir73il@gmail.com>
+ <YO/e3wcY8oXyFCO5@pevik>
+ <CAOQ4uxj_vJVXTJex1W1cAJ_LQkbNqUnasuiUTsp=Bgrznm472A@mail.gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <YO/3AYqt8tAABFxy@yuki>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+In-Reply-To: <CAOQ4uxj_vJVXTJex1W1cAJ_LQkbNqUnasuiUTsp=Bgrznm472A@mail.gmail.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v5 0/4] Run tests in CI
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] syscalls/fanotify: Fix running tests in a loop
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,27 +82,37 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>, ltp@lists.linux.it
+Cc: Jan Kara <jack@suse.cz>, LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-> Hi!
-> > > Thanks! Testing it in https://github.com/pevik/ltp/actions/runs/1031005963
+Hi Amir,
 
-> > The result is much better but still not correct:
-> > https://github.com/pevik/ltp/runs/3068932859?check_suite_focus=true#step:11:707
+...
+> > FYI both fixes prolonged running for about 100% (comparing with runs on master
+> > which don't fail). Of course, that's not a problem at all, it's just interesting
+> > for me how simple closing of file descriptor can be expensive.
 
-> If tests are printing into stdout as well it will be easier to redirect
-> the test output in the script so that the CI gets it all into a single
-> file descriptor.
+> Nice observation! LTP is not the only test suite that observed this issue. See:
+> https://lore.kernel.org/linux-fsdevel/CAC-ggsFLmFpz5Y=-9MMLwxuO2LOS9rhpewDp_-u2hrT9J79ryg@mail.gmail.com/
 
-> What about doing ./$i 1>&2 in the loop that runs the tests instead?
-How simple, that should work, I'll test that.
+> In order to fix that issue we will need some LTP helpers to take care of closing
+> fanotify/inotify fds in batches for loop runs, which is kind of what
+> happened before
+> the fd leak fix only the batch was infinite...
 
-FYI I also need to install iproute (runtime shell API test dependency).
-Simple enough to just merge it after this gets merged.
+> Attached sample patch for fanotify18.
+> You will need to run some more experiments to see if it is worth it or not
+> and then if it is worth it, probably generalize the helpers.
+
+Thanks for detailed info and patch. I'm going to merge the original patch as
+it's not an issue to run tests slower (more important is to actually fix the
+issue) and have look into your patchset whether it's worth of adding it.
+
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
