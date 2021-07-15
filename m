@@ -1,74 +1,77 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D9733C9C9E
-	for <lists+linux-ltp@lfdr.de>; Thu, 15 Jul 2021 12:28:57 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 103FD3C9CCC
+	for <lists+linux-ltp@lfdr.de>; Thu, 15 Jul 2021 12:35:31 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D8FF33C740D
-	for <lists+linux-ltp@lfdr.de>; Thu, 15 Jul 2021 12:28:56 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id CAB343C7448
+	for <lists+linux-ltp@lfdr.de>; Thu, 15 Jul 2021 12:35:30 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id DB3963C65C5
- for <ltp@lists.linux.it>; Thu, 15 Jul 2021 12:28:54 +0200 (CEST)
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [IPv6:2a00:1450:4864:20::12b])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ by picard.linux.it (Postfix) with ESMTPS id CE8103C65C5
+ for <ltp@lists.linux.it>; Thu, 15 Jul 2021 12:35:28 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 93621200E0C
- for <ltp@lists.linux.it>; Thu, 15 Jul 2021 12:28:53 +0200 (CEST)
-Received: by mail-lf1-x12b.google.com with SMTP id v6so8990988lfp.6
- for <ltp@lists.linux.it>; Thu, 15 Jul 2021 03:28:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bell-sw-com.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=shYRFljjVxDWJHsgSE85YAjASf5s+xgeYw6mRfjtnA4=;
- b=ie0iDD73bCuwu4hFJhIrRu2HzTJWbo9QAZfvqFwFW/4GgxotRdssnkJUAHV88Xkp1M
- fHOl0EAdcXVVRxmak6/PhLOYPwzhMqxETsq5Kl+kesDgEa4hYang/kEswI1bmE02Vlvc
- bYBmvOmCztLx3n0Kjriymx5bV7F2xzrYkBUZ4RcSOJZ3eiXlLG4DVYLXEvYEpzd0PJhm
- tAOXn8pap6rnlvmosNog3XBBSWLqctnsGoKZQt6qAJN0sNwcRXyKV05ceauEK9trKFPR
- e3gh5m6/q9PfnqbTwnv6xjo89dPw8Svcf4yqjdv/b8uOzwzi0iL4nmiRLnAwx/IsUl+C
- Ff+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=shYRFljjVxDWJHsgSE85YAjASf5s+xgeYw6mRfjtnA4=;
- b=QH44hE6WsKqO0KBjxLbtnr16TvOZSwCttXaVmVhI7Y9GJJoRxJ71g+7oCTDy+qPsLS
- RRwhkf59V0mTHYTPucG0R6s2BdNou1XGtes/3KV1Dj6pTvN7pa2ookmW2Hc8+hXVdTXq
- 5HZ+3nmcR50hor5k7xDnBvPlfvbTSe0WokawOIazPYTvII/2PTFb5e3OoM3awDB1kE/s
- Jpr56FgvORqhW/5D5pKp4XJyenYAqfCZOHn5HmuGXRudQuZwx/lbt+LA6gWcbwnLhRbO
- ZALg0OUXLL2QQ/Jdn0h63/ofqT3EU2Gxl5nTjGqvsxrsVa7RhNCSXMOGTg3EUyTT/5Bv
- ockA==
-X-Gm-Message-State: AOAM5303wXemN1G5rF8wN3+1KPu9vQ3xouGQyOMYmFUK4/Wms4oQXoG1
- Raiej55yVeKUVbdRZ7NhLI2plNfztONz
-X-Google-Smtp-Source: ABdhPJyfYsVuDp2/JrCZTzjWkUnk2Qtm0jMGWfrnKz+hx3YtTraALHPJoxWXA2yDwNf01JfZl6jNAQ==
-X-Received: by 2002:ac2:4c90:: with SMTP id d16mr2767138lfl.412.1626344932871; 
- Thu, 15 Jul 2021 03:28:52 -0700 (PDT)
-Received: from localhost.localdomain ([91.247.148.7])
- by smtp.gmail.com with ESMTPSA id w29sm408257lfu.160.2021.07.15.03.28.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 Jul 2021 03:28:52 -0700 (PDT)
-From: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
-To: ltp@lists.linux.it
-Date: Thu, 15 Jul 2021 13:28:13 +0300
-Message-Id: <20210715102813.106843-1-aleksei.kodanev@bell-sw.com>
-X-Mailer: git-send-email 2.25.1
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 2BD911001199
+ for <ltp@lists.linux.it>; Thu, 15 Jul 2021 12:35:27 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 7E568228D2;
+ Thu, 15 Jul 2021 10:35:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1626345327; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=YTQUlh9vL9qiNESgcSnRPc/TbwWxFhouXMM1zDM8qEI=;
+ b=ynIfDlArv7BfPW9thzJL9nsVP4KMs5sFA+xYW8z426Qh4HLnJGZqc03XwiUzw5QK+ixVBe
+ OtcNoQuLgfHEm3CiO9tSgfVRo5SpkP27cfGENmO//yISqU2uh9HnYTwUybcBUlJBXKoR4t
+ PiQwGuhuJusemI7QGS/WHUxycD6WT04=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1626345327;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=YTQUlh9vL9qiNESgcSnRPc/TbwWxFhouXMM1zDM8qEI=;
+ b=KUemkxHd0k7jWdnXlRV1aiscgrpmEAqr2mzvHdR3hZ06qUYgLpoyJTJhWnMDH9AayXfKkh
+ 9ngEcg5ySrisWLDQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 607C313C33;
+ Thu, 15 Jul 2021 10:35:27 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id yYnLFm8P8GCQGwAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Thu, 15 Jul 2021 10:35:27 +0000
+Date: Thu, 15 Jul 2021 12:09:54 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Joerg Vehlow <lkml@jv-coder.de>
+Message-ID: <YPAJcuQ7irZAI+1Z@yuki>
+References: <20210715050812.1950884-1-lkml@jv-coder.de>
+ <60EFF034.6070800@fujitsu.com>
+ <4aaba9d9-e013-3c12-500a-647ff2c0b82d@jv-coder.de>
+ <YO//gakCvqaDZl9f@yuki>
+ <f2fd323e-a5da-2959-d130-2d3c0aa59e89@jv-coder.de>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <f2fd323e-a5da-2959-d130-2d3c0aa59e89@jv-coder.de>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH] crypto/af_alg02: use pthread_tryjoin_np() instead of
- pthread_kill()
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3] squashfs: Add regression test for sanity check
+ bug
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,39 +83,61 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>,
+ "ltp@lists.linux.it" <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-musl doesn't return ESRCH for pthread_kill() if thread id is not found.
+Hi!
+> > For instance mount_device flag needs implies format_device which implies
+> > needs_device which implies needs_tmpdir.
+> I agree with that. If needs_tmpdir was only required, because 
+> needs_device is required, I wouldn't add it.
+> But if needs_device implementation is changed, the test still needs a 
+> tmpdir. That's why I would always vote for adding it here.
 
-POSIX only recommends to return ESRCH, and also says that pthread_kill()
-produces undefined behavior if tid lifetime has ended [1].
+The .needs_device flag implies .needs_tmpdir that's a part of the test
+library API.
 
-[1]: https://man7.org/linux/man-pages/man3/pthread_kill.3.html
+> > Also the dev_min_size = 1 does not have any efect here, since it can be
+> > used only to request bigger-than-default size and gets ignored here. I
+> > guess that we can merge this as it is and I will add needs_loopdev to
+> > the tst_test structure later which will just allocate loop device and
+> > pass it down to the test.
+> This is true, but the test should also specify what it needs. If for 
+> whatever reason DEV_SIZE_MB is redefined to a smaller value, the test 
+> would still work.
 
-Signed-off-by: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
----
- testcases/kernel/crypto/af_alg02.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+The DEV_SIZE_MB will never go backward, this is actually the minimal
+size that is needed in order to create all supported Linux filesystems
+and we need to bump the size up every few years. I think that it was
+100MB when I started to work on LTP and it got up to 256MB, which is
+also the reason the tests cannot know and why this is hidden in the
+library.
 
-diff --git a/testcases/kernel/crypto/af_alg02.c b/testcases/kernel/crypto/af_alg02.c
-index 31d30777c..0f5793c16 100644
---- a/testcases/kernel/crypto/af_alg02.c
-+++ b/testcases/kernel/crypto/af_alg02.c
-@@ -60,7 +60,7 @@ static void run(void)
- 
- 	TST_CHECKPOINT_WAIT(0);
- 
--	while (pthread_kill(thr, 0) != ESRCH) {
-+	while (pthread_tryjoin_np(thr, NULL) == EBUSY) {
- 		if (tst_timeout_remaining() <= 10) {
- 			pthread_cancel(thr);
- 			tst_brk(TBROK,
+> To be honest, for "1" it doesn't matter. But it it was bigger, it makes 
+> total sense to specify the size if the test knows it...
+
+Also LTP allows to be passed a real block device to the tests, in a case
+that you want to test a block driver, in which case the test has no
+exact controll on the device size, which is also the reason why we
+allow minimal size to be specified but not exact size.
+
+> I don't understand why a lot of developers like implicit definitions so 
+> much more over explicit definitions.
+> I could understand it for language intrinsic stuff, because that is (or 
+> could be) known to all developers.
+> But for someone, who rarely works on a project or switches between 
+> different projects implicit information is bad!
+
+I think that we can actually make things better by adding all of the
+text I've written above as a top level description in the tst_device.c.
+
 -- 
-2.25.1
-
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
