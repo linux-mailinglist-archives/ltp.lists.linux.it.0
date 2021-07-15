@@ -2,75 +2,80 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B6E23C9C35
-	for <lists+linux-ltp@lfdr.de>; Thu, 15 Jul 2021 11:53:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C11453C9C08
+	for <lists+linux-ltp@lfdr.de>; Thu, 15 Jul 2021 11:38:11 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 16C293C82F3
-	for <lists+linux-ltp@lfdr.de>; Thu, 15 Jul 2021 11:53:07 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 2A8AC3C863E
+	for <lists+linux-ltp@lfdr.de>; Thu, 15 Jul 2021 11:38:11 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 3798F3C65D4
- for <ltp@lists.linux.it>; Thu, 15 Jul 2021 11:53:03 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id B45F31A01462
- for <ltp@lists.linux.it>; Thu, 15 Jul 2021 11:53:02 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ by picard.linux.it (Postfix) with ESMTPS id CB3CE3C65D4
+ for <ltp@lists.linux.it>; Thu, 15 Jul 2021 11:38:06 +0200 (CEST)
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [IPv6:2a00:1450:4864:20::230])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id EC0781FDF6;
- Thu, 15 Jul 2021 09:53:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1626342781; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=4gm4ZSnCmtuFdsXmeJHhKT/uOG1WHn4NvCVKjzh3SfY=;
- b=tmvjTY7b5gkraqF3a7kgVxc0mk+fcB5cRJx+vMWUku3PBWPUQiOZTZpu/xutUht1NGPxHe
- ro9LI+YkMsiLg5EvtyFjabigyIM9+fCOHj2wx6awxowluNANV1lkI+qnliQlRBdRHHATyN
- X+QQ6UnlGg1tLpGbg7wlWq3FLfLHccY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1626342781;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=4gm4ZSnCmtuFdsXmeJHhKT/uOG1WHn4NvCVKjzh3SfY=;
- b=fmVG77oL8U8WgX09MW+Qb2u8JChnOqyMUz5LVzGxtanlZxo74662oulkCAHHXjkKi8KZg8
- 6Y9A/2xH/f1MqWDA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D0CD113C31;
- Thu, 15 Jul 2021 09:53:01 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id URr+Mn0F8GB/DgAAMHmgww
- (envelope-from <chrubis@suse.cz>); Thu, 15 Jul 2021 09:53:01 +0000
-Date: Thu, 15 Jul 2021 11:27:29 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Joerg Vehlow <lkml@jv-coder.de>
-Message-ID: <YO//gakCvqaDZl9f@yuki>
-References: <20210715050812.1950884-1-lkml@jv-coder.de>
- <60EFF034.6070800@fujitsu.com>
- <4aaba9d9-e013-3c12-500a-647ff2c0b82d@jv-coder.de>
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id B146B600F5D
+ for <ltp@lists.linux.it>; Thu, 15 Jul 2021 11:38:05 +0200 (CEST)
+Received: by mail-lj1-x230.google.com with SMTP id 141so7893214ljj.2
+ for <ltp@lists.linux.it>; Thu, 15 Jul 2021 02:38:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=bell-sw-com.20150623.gappssmtp.com; s=20150623;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=YbthgLQX6PVxEgsoPOJaLAIyrZtTBCWitjyXiVAZKFc=;
+ b=ieDnR76VlnOYxx0qm1yXYlW43iIL27naKwhIyw65WWs280FFoK4f/HwZs3m7EWWMkc
+ 8mQNhEY9y25PVg3C6NxbdX9ZG8zbu1QviT/BcTW1Gxz8VRGCs/7VUUaYiqSDdFbezNqk
+ mlGkw6BBgzqgWpEEHByDOMoXlV1VphwIvjIQZOmpwoobJauoltUdBxzOHlrnm6ndEsPs
+ 3LQLZZkj+Gl7bbIb2NBIm8JaHj0U+hGgLL6R+4rFKAGKE1+im7dUzpFYS66VoHYeXpCH
+ yN631pQLCQBDwH41qen0zw+yaPzoqj+fIOhKNZDtz8ahvx/Aq0j8vF0mfh21OLBdEGic
+ TtTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=YbthgLQX6PVxEgsoPOJaLAIyrZtTBCWitjyXiVAZKFc=;
+ b=chg0Z5VtUXpvood8UJZ3nxku3qSb0sQKxh2MWfRI7kTg6cYoDy8SbAFfY4t1RLM+Up
+ +aKLRPS6wG2GLPj98pWQ7uxkExbqL0eEPQEIAdDwDP8CKCradu+r4cT4CbF99Kr74MgP
+ amGxjsloBvvDBqepsR1wvBuiZjl1JMttqp9r8tZrx57BkshatinMxZI8vVoh7Ei0GSaC
+ 2f6pe5FCuA3Y8Xg6E3NWDQnquGs7IeFi9+xX4BaVUE39BJhpR83qK9mUjXfDXmmMnO6p
+ Jarggd6I+A0AiZBIHD17IfxEfLHdD2PdBbD5XUFp2heW1NqD+DFp8kvHopy1JBodChPA
+ huHA==
+X-Gm-Message-State: AOAM532ZqFpM4C7hD0VkrSwW66xVOdq9xRbRKuMTgNBnQV47FAzcPQb8
+ Fst63N/bN79JLpS/7smrfRNn
+X-Google-Smtp-Source: ABdhPJyvP26vjZiloPCLxyUIb6Ev4a6e/3IDHi+VOhE/JIpUVFAK5ky/dcPUR43/qRzrOTKfGn+rSw==
+X-Received: by 2002:a2e:557:: with SMTP id 84mr3169798ljf.211.1626341885050;
+ Thu, 15 Jul 2021 02:38:05 -0700 (PDT)
+Received: from [192.168.1.53] ([91.247.148.7])
+ by smtp.gmail.com with ESMTPSA id m16sm391522lfl.300.2021.07.15.02.38.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 15 Jul 2021 02:38:04 -0700 (PDT)
+To: Petr Vorel <pvorel@suse.cz>, ltp@lists.linux.it
+References: <20210714140716.1568-1-pvorel@suse.cz>
+From: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
+Message-ID: <77583f09-e378-c39e-8ca2-6bf77adbda52@bell-sw.com>
+Date: Thu, 15 Jul 2021 12:38:04 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <4aaba9d9-e013-3c12-500a-647ff2c0b82d@jv-coder.de>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+In-Reply-To: <20210714140716.1568-1-pvorel@suse.cz>
+Content-Language: en-US
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3] squashfs: Add regression test for sanity check
- bug
+X-Spam-Status: No, score=1.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ LOTS_OF_MONEY,MONEY_NOHTML,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Level: *
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 0/2] Add TST_NET_IPV{4,
+ 6}_ONLY and use on broken_ip
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,57 +87,57 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>,
- "ltp@lists.linux.it" <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> >> +static struct tst_test test = {
-> >> +	.test_all = run,
-> >> +	.cleanup = cleanup,
-> >> +	.setup = setup,
-> >> +	.needs_root = 1,
-> >> +	.needs_device = 1,
-> >> +	.dev_min_size = 1,
-> >> +	.needs_cmds = (const char *const []) {
-> >> +		"mksquashfs",
-> >> +		NULL
-> >> +	},
-> >> +	.needs_drivers = (const char *const []) {
-> >> +		"squashfs",
-> >> +		NULL
-> >> +	},
-> >> +	.tags = (const struct tst_tag[]) {
-> >> +		{"linux-git", "c1b2028315c"},
-> >> +		{"linux-git", "8b44ca2b634"},
-> >> +		{}
-> >> +	},
-> >> +	.needs_tmpdir = 1,
-> > needs_device has enabled needs_tmpdir in internal, so we don't need to
-> > set it here.
-> Honestly I hate implicitness like that. I think if the test itself needs 
-> the tmpdir, it should state it and not rely on some other "needs_*" 
-> stuff to also enable it.
-> But if whoever merges this agrees with you, he can change it...
+On 14.07.2021 17:07, Petr Vorel wrote:
+> Hi Alexey,
+> 
+> https://github.com/linux-test-project/ltp/issues/843
+> 
+> does it make sense to run it on IPv4 and broken_ip-totlen on IPv6?
+> Both don't break but not in runtest file.
 
-We tend to avoid listing full subtree of dependencies, in this case it's
-not that bad, but it tends to get out of hand quickly.
+Hi Petr,
 
-For instance mount_device flag needs implies format_device which implies
-needs_device which implies needs_tmpdir.
+Yes it should work with the -L option, but these tests are the same
+(differs the descriptions for IPv4/IPv6):
 
-Also the dev_min_size = 1 does not have any efect here, since it can be
-used only to request bigger-than-default size and gets ignored here. I
-guess that we can merge this as it is and I will add needs_loopdev to
-the tst_test structure later which will just allocate loop device and
-pass it down to the test.
+diff -u broken_ip-plen broken_ip-totlen
+--- broken_ip-plen	2020-10-08 22:23:52.000000000 +0300
++++ broken_ip-totlen	2020-10-08 22:23:52.000000000 +0300
+@@ -10,7 +10,7 @@
 
--- 
-Cyril Hrubis
-chrubis@suse.cz
+ do_test()
+ {
+-	tst_res TINFO "Sending ICMPv$TST_IPVER with wrong payload len for $NS_DURATION sec"
++	tst_res TINFO "Sending ICMPv$TST_IPVER with wrong total len field for $NS_DURATION sec"
+ 	tst_icmp -t $NS_DURATION -s "0 100 500 1000 $NS_ICMP_SENDER_DATA_MAXSIZE" -L
+ 	tst_ping
+ }
+
+So broken_ip-totlen should be just removed.
+
+> 
+> Kind regards,
+> Petr
+> 
+> Petr Vorel (2):
+>   tst_net.sh: Add variable for supported protocol
+>   broken_ip: TCONF when test run on unsupported protocol
+> 
+>  testcases/lib/tst_net.sh                              | 8 ++++++++
+>  testcases/lib/tst_test.sh                             | 2 +-
+>  testcases/network/stress/broken_ip/broken_ip-checksum | 3 ++-
+>  testcases/network/stress/broken_ip/broken_ip-fragment | 3 ++-
+>  testcases/network/stress/broken_ip/broken_ip-ihl      | 3 ++-
+>  testcases/network/stress/broken_ip/broken_ip-nexthdr  | 3 ++-
+>  testcases/network/stress/broken_ip/broken_ip-protcol  | 3 ++-
+>  7 files changed, 19 insertions(+), 6 deletions(-)
+> 
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
