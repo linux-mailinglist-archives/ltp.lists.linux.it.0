@@ -2,47 +2,48 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FCE63CA095
-	for <lists+linux-ltp@lfdr.de>; Thu, 15 Jul 2021 16:25:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E5323CA09B
+	for <lists+linux-ltp@lfdr.de>; Thu, 15 Jul 2021 16:27:50 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D7BDA3C81F7
-	for <lists+linux-ltp@lfdr.de>; Thu, 15 Jul 2021 16:25:22 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id DDC6D3C81F7
+	for <lists+linux-ltp@lfdr.de>; Thu, 15 Jul 2021 16:27:49 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 3C7E83C18F7
- for <ltp@lists.linux.it>; Thu, 15 Jul 2021 16:25:21 +0200 (CEST)
-Received: from ATCSQR.andestech.com (exmail.andestech.com [60.248.187.195])
+ by picard.linux.it (Postfix) with ESMTPS id AFE9F3C18F7
+ for <ltp@lists.linux.it>; Thu, 15 Jul 2021 16:27:47 +0200 (CEST)
+Received: from ATCSQR.andestech.com (atcsqr.andestech.com [60.248.187.195])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 58536601027
- for <ltp@lists.linux.it>; Thu, 15 Jul 2021 16:25:19 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 8FF3F601C59
+ for <ltp@lists.linux.it>; Thu, 15 Jul 2021 16:27:44 +0200 (CEST)
 Received: from mail.andestech.com (atcpcs16.andestech.com [10.0.1.222])
- by ATCSQR.andestech.com with ESMTP id 16FEOott049017;
- Thu, 15 Jul 2021 22:24:50 +0800 (GMT-8)
+ by ATCSQR.andestech.com with ESMTP id 16FERHZp049393;
+ Thu, 15 Jul 2021 22:27:17 +0800 (GMT-8)
  (envelope-from ycliang@andestech.com)
-Received: from atcfdc88 (10.0.15.120) by ATCPCS16.andestech.com (10.0.1.222)
- with Microsoft SMTP Server id 14.3.498.0; Thu, 15 Jul 2021 22:24:50 +0800
-Date: Thu, 15 Jul 2021 22:24:48 +0800
+Received: from andestech.com (10.0.15.65) by ATCPCS16.andestech.com
+ (10.0.1.222) with Microsoft SMTP Server id 14.3.498.0; Thu, 15 Jul 2021
+ 22:27:18 +0800
+Date: Thu, 15 Jul 2021 22:27:16 +0800
 From: Leo Liang <ycliang@andestech.com>
 To: <ltp@lists.linux.it>
-Message-ID: <20210715142448.GA30641@atcfdc88>
+Message-ID: <20210715142716.GA32206@andestech.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Originating-IP: [10.0.15.120]
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Originating-IP: [10.0.15.65]
 X-DNSRBL: 
-X-MAIL: ATCSQR.andestech.com 16FEOott049017
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-MAIL: ATCSQR.andestech.com 16FERHZp049393
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
 Subject: [LTP] [PATCH v2,
- 1/2] lib/tst_test.sh: Make tst_umount work with argument that
+ 2/2] cgroup/cgroup_regression_test: Fix umount failure
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,33 +62,76 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-/proc/mounts shows the mount point without terminating slashes, e.g.
-~ $ cat /proc/mounts
-xxx /root/cgroup cgroup rw,relatime,cpu 0 0
+The test sequence
+	mount -t cgroup -o <controllers> <path>
+	mkdir <path>/<dir>
+	rmdir <path>/<dir>
+	umount <path>
+	mount -t cgroup -o <controllers> <path>
+would easily fail at the last mount with -EBUSY on certain platform.
 
-So current tst_umount would not work with argument that has terminating slash, e.g.
-tst_umount cgroup/ would give "The device is not mounted".
+The reason is that this test sequence would have the chance of
+missing a release code path when doing rmdir and umount.
 
-Fix this by using mountpoint command instead of grepping /proc/mounts.
+Adding a little delay between "rmdir" and "umount" could fix the problem,
+so use tst_umount API instead of umount in "rmdir, umount" sequence.
+
+Fixes: #839
 
 Signed-off-by: Leo Yu-Chi Liang <ycliang@andestech.com>
 ---
- testcases/lib/tst_test.sh | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../controllers/cgroup/cgroup_regression_test.sh       | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/testcases/lib/tst_test.sh b/testcases/lib/tst_test.sh
-index c6aa2c487..7e77711f1 100644
---- a/testcases/lib/tst_test.sh
-+++ b/testcases/lib/tst_test.sh
-@@ -282,7 +282,7 @@ tst_umount()
- 
- 	[ -z "$device" ] && return
- 
--	if ! grep -q "$device" /proc/mounts; then
-+	if ! mountpoint -q "$device"; then
- 		tst_res TINFO "The $device is not mounted, skipping umount"
- 		return
+diff --git a/testcases/kernel/controllers/cgroup/cgroup_regression_test.sh b/testcases/kernel/controllers/cgroup/cgroup_regression_test.sh
+index 1f7f3820e..056166f11 100755
+--- a/testcases/kernel/controllers/cgroup/cgroup_regression_test.sh
++++ b/testcases/kernel/controllers/cgroup/cgroup_regression_test.sh
+@@ -145,7 +145,7 @@ test2()
  	fi
+ 
+ 	rmdir cgroup/0 cgroup/1
+-	umount cgroup/
++	tst_umount cgroup/
+ }
+ 
+ #---------------------------------------------------------------------------
+@@ -193,7 +193,7 @@ test3()
+ 	wait $pid2 2>/dev/null
+ 
+ 	rmdir $cpu_subsys_path/0 2> /dev/null
+-	umount cgroup/ 2> /dev/null
++	tst_umount cgroup/ 2> /dev/null
+ 	check_kernel_bug
+ }
+ 
+@@ -222,7 +222,7 @@ test4()
+ 	mount -t cgroup -o none,name=foo cgroup cgroup/
+ 	mkdir cgroup/0
+ 	rmdir cgroup/0
+-	umount cgroup/
++	tst_umount cgroup/
+ 
+ 	if dmesg | grep -q "MAX_LOCKDEP_SUBCLASSES too low"; then
+ 		tst_res TFAIL "lockdep BUG was found"
+@@ -254,7 +254,7 @@ test5()
+ 	mount -t cgroup none cgroup 2> /dev/null
+ 	mkdir cgroup/0
+ 	rmdir cgroup/0
+-	umount cgroup/ 2> /dev/null
++	tst_umount cgroup/ 2> /dev/null
+ 	check_kernel_bug
+ }
+ 
+@@ -290,7 +290,7 @@ test6()
+ 
+ 	mount -t cgroup -o ns xxx cgroup/ > /dev/null 2>&1
+ 	rmdir cgroup/[1-9]* > /dev/null 2>&1
+-	umount cgroup/
++	tst_umount cgroup/
+ 	check_kernel_bug
+ }
+ 
 -- 
 2.17.0
 
