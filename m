@@ -1,89 +1,50 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 728363C95AA
-	for <lists+linux-ltp@lfdr.de>; Thu, 15 Jul 2021 03:39:13 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 637F53C9811
+	for <lists+linux-ltp@lfdr.de>; Thu, 15 Jul 2021 07:08:25 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 272643C8758
-	for <lists+linux-ltp@lfdr.de>; Thu, 15 Jul 2021 03:39:13 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 2DBF33C65E8
+	for <lists+linux-ltp@lfdr.de>; Thu, 15 Jul 2021 07:08:25 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 04FB93C1B12
- for <ltp@lists.linux.it>; Thu, 15 Jul 2021 03:39:10 +0200 (CEST)
-Received: from mail1.bemta26.messagelabs.com (mail1.bemta26.messagelabs.com
- [85.158.142.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 100033C4DF6
+ for <ltp@lists.linux.it>; Thu, 15 Jul 2021 07:08:23 +0200 (CEST)
+Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id A55F2200987
- for <ltp@lists.linux.it>; Thu, 15 Jul 2021 03:39:09 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fujitsu.com;
- s=170520fj; t=1626313148; i=@fujitsu.com;
- bh=apWj1sRytAoDUlvHscRyQzQyc82m3/cqu1zegzfb1f0=;
- h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type;
- b=KhwHP0zfFC5QT1KD1tvqye3fnG2cPRLLRl7CiVin7FKbVN/P0nISshJ5votnQC+k5
- 35EN3eqzPlpzAp2LRlfbwxaSDVaZACPZdIzIdjTGbDDWFw3Hvy+jNzqJleizZQdugG
- KNeuoYv3/RA3hc8+W5cLTVZaxZpCe/3NR4ULuVY9ASwsgFKVTSqVYVc+yQNyzPx10M
- ak20V3v0GIv2YN6RhAtRXkRQBEnqFXOCKYnd4RMFSBFqiOR5Ef+d5PIBQMRJdb4igm
- 4nhHbw7MTYWWaw4jR0oBwTNLH+ONIUL2f+0HGmqekSC/y6NeEoeimHzHvpe4Pf4QSx
- 3b3cBj3XRU2tA==
-Received: from [100.113.2.110] (using TLSv1.2 with cipher
- DHE-RSA-AES256-GCM-SHA384 (256 bits))
- by server-5.bemta.az-a.eu-central-1.aws.symcld.net id D4/85-07211-CB19FE06;
- Thu, 15 Jul 2021 01:39:08 +0000
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFlrMIsWRWlGSWpSXmKPExsViZ8MRort74vs
- Eg4XXhC1WfN/BaNH7dgaTA5PHhEUHGD32/V7HGsAUxZqZl5RfkcCasfTgGuaC+dwVLzouMTcw
- /uDsYuTiEBJoY5K4+H0DC4Szl1HiyP8Z7F2MnBxsApoSzzoXMIPYIgISEh0Nb8HizAIOEnsWr
- mcCsYUFrCWu7lnHBmKzCKhKHP66mxHE5hXwlDjVsgHMlhBQkJjy8D0zRFxQ4uTMJywQcyQkDr
- 54wQxRoyhxqeMbVH2lxJ5Z/UwTGHlnIWmZhaRlASPTKkbLpKLM9IyS3MTMHF1DAwNdQ0NjXUN
- dIyMzvcQq3US91FLd5NS8kqJEoKxeYnmxXnFlbnJOil5easkmRmDYpRQyPtrBePr1B71DjJIc
- TEqivJta3ycI8SXlp1RmJBZnxBeV5qQWH2KU4eBQkuDV6gfKCRalpqdWpGXmAGMAJi3BwaMkw
- hsKjAMh3uKCxNzizHSI1ClGRSlxXosJQAkBkERGaR5cGyzuLjHKSgnzMjIwMAjxFKQW5WaWoM
- q/YhTnYFQS5g0BGc+TmVcCN/0V0GImoMXaa96CLC5JREhJNTBlJgg/+vEmVechX2FFhOjqbOV
- V3lWNmWduWKjV8KRea034V+YygytQ2N487+W/ObWCVlF3ql8ffa/yXtF6Ux1v79Fn0cu164//
- cujz6lWbKHVxgeT8urp5PsrhVvcPff8QXhD7jYdpa/PM1bJf527vXb/uhWPDM6XyKb8nLp2+T
- OPq36Vb53hoqXcf49gxb+eUh+6edlPW7n5Rseh58L/V6fYNa2s/Fs7LCBdXDHxQe2/2Qy7Lmw
- vUOG/+9bprtjcuf1Xn/wUt2//+6FVjs2QtdN56WopjklVIUh5n4TZJjit70vZEX3XckZ2jq+e
- 9hGGT+yvmp2HZ3/iPev+qlcyeu/tbt3X+7huz7FgKlXyUWIozEg21mIuKEwGr41C7NgMAAA==
-X-Env-Sender: xuyang2018.jy@fujitsu.com
-X-Msg-Ref: server-17.tower-228.messagelabs.com!1626313146!173432!1
-X-Originating-IP: [62.60.8.84]
-X-SYMC-ESS-Client-Auth: outbound-route-from=pass
-X-StarScan-Received: 
-X-StarScan-Version: 9.81.3; banners=-,-,-
-X-VirusChecked: Checked
-Received: (qmail 22516 invoked from network); 15 Jul 2021 01:39:07 -0000
-Received: from unknown (HELO mailhost3.uk.fujitsu.com) (62.60.8.84)
- by server-17.tower-228.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
- encrypted SMTP; 15 Jul 2021 01:39:07 -0000
-Received: from R01UKEXCASM223.r01.fujitsu.local (ex2k13_223.fs.fujitsu.com
- [10.182.185.121])
- by mailhost3.uk.fujitsu.com (8.14.5/8.14.5) with ESMTP id 16F1d0YV002181
- (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256 verify=FAIL);
- Thu, 15 Jul 2021 02:39:00 +0100
-Received: from localhost.localdomain (10.167.220.84) by
- R01UKEXCASM223.r01.fujitsu.local (10.182.185.121) with Microsoft SMTP Server
- (TLS) id 15.0.1497.18; Thu, 15 Jul 2021 02:38:58 +0100
-From: Yang Xu <xuyang2018.jy@fujitsu.com>
-To: <ltp@lists.linux.it>
-Date: Thu, 15 Jul 2021 09:39:29 +0800
-Message-ID: <1626313169-30611-1-git-send-email-xuyang2018.jy@fujitsu.com>
-X-Mailer: git-send-email 1.8.3.1
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 2FDFE6019AD
+ for <ltp@lists.linux.it>; Thu, 15 Jul 2021 07:08:22 +0200 (CEST)
+Received: from ubuntu.localdomain (unknown [188.192.255.100])
+ by mail.jv-coder.de (Postfix) with ESMTPSA id 6875C9F920;
+ Thu, 15 Jul 2021 05:08:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
+ t=1626325700; bh=e6VbiOWAInWYKV6VMZU/1iqq3CePlHWEEGZx8ay2zb0=;
+ h=From:To:Subject:Date:Message-Id:MIME-Version;
+ b=Sz/A3UfdFaA4vFjXXgIgejDm9kqn9uwP741Bh0wBi38v2bmvdEdG7tQIRQqVIyc3N
+ /xuOq6TwTiOiWNNKHPirwwsM4ZbI//tv2M2jE1YqzIWiJRX47nDaEwSDE6vIjsov4B
+ JqNJUtc9yY3CRHQACS8Ow1ASVzztPyquSZhvC2rQ=
+From: Joerg Vehlow <lkml@jv-coder.de>
+To: ltp@lists.linux.it,
+	chrubis@suse.cz,
+	rpalethorpe@suse.de
+Date: Thu, 15 Jul 2021 07:08:12 +0200
+Message-Id: <20210715050812.1950884-1-lkml@jv-coder.de>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD09.g08.fujitsu.local (10.167.33.85) To
- R01UKEXCASM223.r01.fujitsu.local (10.182.185.121)
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
-X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS autolearn=disabled
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH] syscalls/ioctl_ns05,6: Fix buffer overflow
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Virus-Status: Clean
+Subject: [LTP] [PATCH v3] squashfs: Add regression test for sanity check bug
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,52 +56,204 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: mhillen@linux.ibm.com
+Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Since pid's max value is 2147483647, the child_namespace maybe not
-enough to store "/proc/%s/ns/user" string when using a large pid.
-Fix it by improving the length to 30.
+From: Joerg Vehlow <joerg.vehlow@aox-tech.de>
 
-Fixes: #847
-Reported-by: Marius Hillenbrand <mhillen@linux.ibm.com>
-Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
+Adds a regression test for the fixes
+c1b2028315 ("squashfs: fix inode lookup sanity checks")
+and
+8b44ca2b62 ("squashfs: fix xattr id and id lookup sanity checks")
+
+Signed-off-by: Joerg Vehlow <joerg.vehlow@aox-tech.de>
 ---
- testcases/kernel/syscalls/ioctl/ioctl_ns05.c | 2 +-
- testcases/kernel/syscalls/ioctl/ioctl_ns06.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/ioctl/ioctl_ns05.c b/testcases/kernel/syscalls/ioctl/ioctl_ns05.c
-index a67ddbe2c..488c48d8e 100644
---- a/testcases/kernel/syscalls/ioctl/ioctl_ns05.c
-+++ b/testcases/kernel/syscalls/ioctl/ioctl_ns05.c
-@@ -59,7 +59,7 @@ static void run(void)
- 	if (pid == -1)
- 		tst_brk(TBROK | TERRNO, "ltp_clone failed");
+Changes to v2:
+ - Rename to squashfs01
+ - Add mksquashfs to needs_cmds
+ - Use needs_device and mount syscall instead of mount tool
+ - Moved test file creation to setup
+ - Use tst_cmd instead of tst_system
+ - Use flag to call umount conditionally in cleanup
+
+Changes to v1:
+ - Implement whole test in c
+ - Fixed whitespaces...
+
+ runtest/fs                                |   2 +
+ testcases/kernel/fs/squashfs/.gitignore   |   1 +
+ testcases/kernel/fs/squashfs/Makefile     |   9 ++
+ testcases/kernel/fs/squashfs/squashfs01.c | 121 ++++++++++++++++++++++
+ 4 files changed, 133 insertions(+)
+ create mode 100644 testcases/kernel/fs/squashfs/.gitignore
+ create mode 100644 testcases/kernel/fs/squashfs/Makefile
+ create mode 100644 testcases/kernel/fs/squashfs/squashfs01.c
+
+diff --git a/runtest/fs b/runtest/fs
+index 17b1415eb..1d753e0dd 100644
+--- a/runtest/fs
++++ b/runtest/fs
+@@ -85,3 +85,5 @@ fs_fill fs_fill
  
--	char child_namespace[20];
-+	char child_namespace[30];
- 	int my_fd, child_fd, parent_fd;
- 
- 	sprintf(child_namespace, "/proc/%i/ns/pid", pid);
-diff --git a/testcases/kernel/syscalls/ioctl/ioctl_ns06.c b/testcases/kernel/syscalls/ioctl/ioctl_ns06.c
-index b6ac80208..77ec04edc 100644
---- a/testcases/kernel/syscalls/ioctl/ioctl_ns06.c
-+++ b/testcases/kernel/syscalls/ioctl/ioctl_ns06.c
-@@ -51,7 +51,7 @@ static int child(void *arg LTP_ATTRIBUTE_UNUSED)
- 
- static void run(void)
- {
--	char child_namespace[20];
-+	char child_namespace[30];
- 
- 	pid_t pid = ltp_clone(CLONE_NEWUSER | SIGCHLD, &child, 0,
- 		STACK_SIZE, child_stack);
+ binfmt_misc01 binfmt_misc01.sh
+ binfmt_misc02 binfmt_misc02.sh
++
++squashfs01 squashfs01
+diff --git a/testcases/kernel/fs/squashfs/.gitignore b/testcases/kernel/fs/squashfs/.gitignore
+new file mode 100644
+index 000000000..d28920fe8
+--- /dev/null
++++ b/testcases/kernel/fs/squashfs/.gitignore
+@@ -0,0 +1 @@
++squashfs01
+diff --git a/testcases/kernel/fs/squashfs/Makefile b/testcases/kernel/fs/squashfs/Makefile
+new file mode 100644
+index 000000000..67021139c
+--- /dev/null
++++ b/testcases/kernel/fs/squashfs/Makefile
+@@ -0,0 +1,9 @@
++# SPDX-License-Identifier: GPL-2.0-or-later
++# Copyright (C) 2009, Cisco Systems Inc.
++# Ngie Cooper, July 2009
++
++top_srcdir		?= ../../../..
++
++include $(top_srcdir)/include/mk/testcases.mk
++
++include $(top_srcdir)/include/mk/generic_leaf_target.mk
+diff --git a/testcases/kernel/fs/squashfs/squashfs01.c b/testcases/kernel/fs/squashfs/squashfs01.c
+new file mode 100644
+index 000000000..f02c91f83
+--- /dev/null
++++ b/testcases/kernel/fs/squashfs/squashfs01.c
+@@ -0,0 +1,121 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2021 Joerg Vehlow <joerg.vehlow@aox-tech.de>
++ */
++
++/*\
++ * [Description]
++ *
++ * Kernel commits
++ *
++ * - f37aa4c7366 (squashfs: add more sanity checks in id lookup)
++ * - eabac19e40c (squashfs: add more sanity checks in inode lookup)
++ * - 506220d2ba2 (squashfs: add more sanity checks in xattr id lookup)
++ *
++ * added some sanity checks, that verify the size of
++ * inode lookup, id (uid/gid) and xattr blocks in the squashfs,
++ * but broke mounting filesystems with completely filled blocks.
++ * A block has a max size of 8192.
++ * An inode lookup entry has an uncompressed size of 8 bytes,
++ * an id block 4 bytes and an xattr block 16 bytes.
++ *
++ *
++ * To fill up at least one block for each of the three tables,
++ * 2048 files with unique uid/gid and xattr are created.
++ *
++ *
++ * The bugs are fixed in kernel commits
++ *
++ * - c1b2028315c (squashfs: fix inode lookup sanity checks)
++ * - 8b44ca2b634 (squashfs: fix xattr id and id lookup sanity checks)
++ */
++
++#include <stdio.h>
++#include <sys/mount.h>
++
++#include "tst_test.h"
++#include "tst_safe_macros.h"
++
++static const char *MOUNT_DIR = "mnt";
++static const char *DATA_DIR = "data";
++
++static int mounted;
++
++static void cleanup(void)
++{
++	if (mounted)
++		SAFE_UMOUNT("mnt");
++}
++
++static void setup(void)
++{
++	int i;
++
++	SAFE_MKDIR(DATA_DIR, 0777);
++
++	for (i = 0; i < 2048; ++i) {
++		int fd;
++		char name[20];
++
++		sprintf(name, "%s/%d", DATA_DIR, i);
++		fd = SAFE_OPEN(name, O_CREAT | O_EXCL, 0666);
++		SAFE_FCHOWN(fd, i, i);
++
++		/* This must be either "security", "user" or "trusted" namespace,
++		 * because squashfs cannot store other namespaces.
++		 * Since the files are most likely created on a tmpfs,
++		 * "user" namespace is not possible, because it is not allowed.
++		 */
++		SAFE_FSETXATTR(fd, "security.x", &i, sizeof(i), 0);
++		close(fd);
++	}
++
++	/* Create squashfs without any compression.
++	 * This allows reasoning about block sizes.
++	 * Redirect stdout, to get rid of undefined uid messages
++	 */
++	const char *argv[] = {
++		"mksquashfs", DATA_DIR, tst_device->dev,
++		"-noappend", "-noI", "-noD", "-noX", "-noF", NULL
++	};
++	tst_cmd(argv, "/dev/null", NULL, 0);
++
++	SAFE_MKDIR(MOUNT_DIR, 0777);
++}
++
++static void run(void)
++{
++	tst_res(TINFO, "Test squashfs sanity check regressions");
++
++	if (mount(tst_device->dev, MOUNT_DIR, "squashfs", 0, NULL) != 0)
++		tst_brk(TFAIL | TERRNO, "Mount failed");
++	mounted = 1;
++
++	SAFE_UMOUNT("mnt");
++	mounted = 0;
++
++	tst_res(TPASS, "Test passed");
++}
++
++static struct tst_test test = {
++	.test_all = run,
++	.cleanup = cleanup,
++	.setup = setup,
++	.needs_root = 1,
++	.needs_device = 1,
++	.dev_min_size = 1,
++	.needs_cmds = (const char *const []) {
++		"mksquashfs",
++		NULL
++	},
++	.needs_drivers = (const char *const []) {
++		"squashfs",
++		NULL
++	},
++	.tags = (const struct tst_tag[]) {
++		{"linux-git", "c1b2028315c"},
++		{"linux-git", "8b44ca2b634"},
++		{}
++	},
++	.needs_tmpdir = 1,
++};
 -- 
-2.23.0
+2.25.1
 
 
 -- 
