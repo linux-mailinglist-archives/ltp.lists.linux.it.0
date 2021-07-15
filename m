@@ -1,71 +1,89 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1884B3C8A98
-	for <lists+linux-ltp@lfdr.de>; Wed, 14 Jul 2021 20:15:55 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 728363C95AA
+	for <lists+linux-ltp@lfdr.de>; Thu, 15 Jul 2021 03:39:13 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id CDC273C8740
-	for <lists+linux-ltp@lfdr.de>; Wed, 14 Jul 2021 20:15:54 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 272643C8758
+	for <lists+linux-ltp@lfdr.de>; Thu, 15 Jul 2021 03:39:13 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id DF0BD3C60E0
- for <ltp@lists.linux.it>; Wed, 14 Jul 2021 20:15:52 +0200 (CEST)
-Received: from mail-il1-x136.google.com (mail-il1-x136.google.com
- [IPv6:2607:f8b0:4864:20::136])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id 04FB93C1B12
+ for <ltp@lists.linux.it>; Thu, 15 Jul 2021 03:39:10 +0200 (CEST)
+Received: from mail1.bemta26.messagelabs.com (mail1.bemta26.messagelabs.com
+ [85.158.142.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 494981401166
- for <ltp@lists.linux.it>; Wed, 14 Jul 2021 20:15:52 +0200 (CEST)
-Received: by mail-il1-x136.google.com with SMTP id a11so2520474ilf.2
- for <ltp@lists.linux.it>; Wed, 14 Jul 2021 11:15:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=nx8XPSkDvbLki+GgyeK64V9GIHwjZmyQu0JXsYUGqio=;
- b=abWicCJfk0pfM/+YEUSBDYCvovecV8HZR8eE5Vn3Xnfm1j6NSApTqjmnqzWOXwql1L
- FNbnqLT8S0yT9Cg53CNQhPErlNOLtEcLW16rGbtyq1A3JZsBY5HFWtIxLwJ2ueHIdnuA
- GDB0m1M6XHl2wH9rrk8l34n4HG58+c/O1uKgwqcahG1iWQyYRea4zSCkTP5MF2OB7sNE
- FZTkp+W7d99Fxn1eRtDHIEWjh7+lyA0GLKT9ItcL6907bRSZAJgT423fnRl20wu0/6pV
- S26El3JN1N5bMjeOWJlFBayGtd11Ru6QcuVfs+TgfP6unyNojJ+VQfKXMDJHQJ2Y0hFl
- nDug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=nx8XPSkDvbLki+GgyeK64V9GIHwjZmyQu0JXsYUGqio=;
- b=d+QORAbQ6tnUbhf6HHHZhALI9lgo3S4U5cd2gmuB6tq6tBnNwnLGo/lAngEkUDWrPE
- P/x/VkTY0L1RgH6kCi5PTqJrO+Zf6X9H8HOfgL2VN3xm902aVZTNhIJPCDHrFQO9FQKB
- 5tD6JfExpATLPXeZ7xVa9SsnVk3S0FewRH0I8mas+xUBrtQIlzaRm6nLAgju4ZpLA4FC
- 8s9RIie2uRSHMklK4UQT/5iOpZhWNcLuAIb8K85i2BGUW14Z88FXI9W1pkI6O/BunbVF
- Yi8mj/E6Uvchy9QDadj/09hVlOh/RzlSEMwrBsg7XnvhJ/tF+R5sSzZa4vMAPYGeWMw8
- /+rQ==
-X-Gm-Message-State: AOAM530UgxE4CBcnwxngQzZ+fJKCgIFvXUIJAdeqIrn2mjzHZ+Eu8QVE
- 4zhsuwVv977xkACaFI9WR7cbZ/LBE9NWPpQ7OPU=
-X-Google-Smtp-Source: ABdhPJyxP88+ehmCp6fuo6nb+BPJpyPKLBAIsls+wghxpiEJFwdh+D4Vt9iE0wi75h9KN9jt61qracDwBIHWEmJDzfo=
-X-Received: by 2002:a05:6e02:1c02:: with SMTP id
- l2mr7622035ilh.9.1626286551014; 
- Wed, 14 Jul 2021 11:15:51 -0700 (PDT)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id A55F2200987
+ for <ltp@lists.linux.it>; Thu, 15 Jul 2021 03:39:09 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fujitsu.com;
+ s=170520fj; t=1626313148; i=@fujitsu.com;
+ bh=apWj1sRytAoDUlvHscRyQzQyc82m3/cqu1zegzfb1f0=;
+ h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type;
+ b=KhwHP0zfFC5QT1KD1tvqye3fnG2cPRLLRl7CiVin7FKbVN/P0nISshJ5votnQC+k5
+ 35EN3eqzPlpzAp2LRlfbwxaSDVaZACPZdIzIdjTGbDDWFw3Hvy+jNzqJleizZQdugG
+ KNeuoYv3/RA3hc8+W5cLTVZaxZpCe/3NR4ULuVY9ASwsgFKVTSqVYVc+yQNyzPx10M
+ ak20V3v0GIv2YN6RhAtRXkRQBEnqFXOCKYnd4RMFSBFqiOR5Ef+d5PIBQMRJdb4igm
+ 4nhHbw7MTYWWaw4jR0oBwTNLH+ONIUL2f+0HGmqekSC/y6NeEoeimHzHvpe4Pf4QSx
+ 3b3cBj3XRU2tA==
+Received: from [100.113.2.110] (using TLSv1.2 with cipher
+ DHE-RSA-AES256-GCM-SHA384 (256 bits))
+ by server-5.bemta.az-a.eu-central-1.aws.symcld.net id D4/85-07211-CB19FE06;
+ Thu, 15 Jul 2021 01:39:08 +0000
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFlrMIsWRWlGSWpSXmKPExsViZ8MRort74vs
+ Eg4XXhC1WfN/BaNH7dgaTA5PHhEUHGD32/V7HGsAUxZqZl5RfkcCasfTgGuaC+dwVLzouMTcw
+ /uDsYuTiEBJoY5K4+H0DC4Szl1HiyP8Z7F2MnBxsApoSzzoXMIPYIgISEh0Nb8HizAIOEnsWr
+ mcCsYUFrCWu7lnHBmKzCKhKHP66mxHE5hXwlDjVsgHMlhBQkJjy8D0zRFxQ4uTMJywQcyQkDr
+ 54wQxRoyhxqeMbVH2lxJ5Z/UwTGHlnIWmZhaRlASPTKkbLpKLM9IyS3MTMHF1DAwNdQ0NjXUN
+ dIyMzvcQq3US91FLd5NS8kqJEoKxeYnmxXnFlbnJOil5easkmRmDYpRQyPtrBePr1B71DjJIc
+ TEqivJta3ycI8SXlp1RmJBZnxBeV5qQWH2KU4eBQkuDV6gfKCRalpqdWpGXmAGMAJi3BwaMkw
+ hsKjAMh3uKCxNzizHSI1ClGRSlxXosJQAkBkERGaR5cGyzuLjHKSgnzMjIwMAjxFKQW5WaWoM
+ q/YhTnYFQS5g0BGc+TmVcCN/0V0GImoMXaa96CLC5JREhJNTBlJgg/+vEmVechX2FFhOjqbOV
+ V3lWNmWduWKjV8KRea034V+YygytQ2N487+W/ObWCVlF3ql8ffa/yXtF6Ux1v79Fn0cu164//
+ cujz6lWbKHVxgeT8urp5PsrhVvcPff8QXhD7jYdpa/PM1bJf527vXb/uhWPDM6XyKb8nLp2+T
+ OPq36Vb53hoqXcf49gxb+eUh+6edlPW7n5Rseh58L/V6fYNa2s/Fs7LCBdXDHxQe2/2Qy7Lmw
+ vUOG/+9bprtjcuf1Xn/wUt2//+6FVjs2QtdN56WopjklVIUh5n4TZJjit70vZEX3XckZ2jq+e
+ 9hGGT+yvmp2HZ3/iPev+qlcyeu/tbt3X+7huz7FgKlXyUWIozEg21mIuKEwGr41C7NgMAAA==
+X-Env-Sender: xuyang2018.jy@fujitsu.com
+X-Msg-Ref: server-17.tower-228.messagelabs.com!1626313146!173432!1
+X-Originating-IP: [62.60.8.84]
+X-SYMC-ESS-Client-Auth: outbound-route-from=pass
+X-StarScan-Received: 
+X-StarScan-Version: 9.81.3; banners=-,-,-
+X-VirusChecked: Checked
+Received: (qmail 22516 invoked from network); 15 Jul 2021 01:39:07 -0000
+Received: from unknown (HELO mailhost3.uk.fujitsu.com) (62.60.8.84)
+ by server-17.tower-228.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
+ encrypted SMTP; 15 Jul 2021 01:39:07 -0000
+Received: from R01UKEXCASM223.r01.fujitsu.local (ex2k13_223.fs.fujitsu.com
+ [10.182.185.121])
+ by mailhost3.uk.fujitsu.com (8.14.5/8.14.5) with ESMTP id 16F1d0YV002181
+ (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256 verify=FAIL);
+ Thu, 15 Jul 2021 02:39:00 +0100
+Received: from localhost.localdomain (10.167.220.84) by
+ R01UKEXCASM223.r01.fujitsu.local (10.182.185.121) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.18; Thu, 15 Jul 2021 02:38:58 +0100
+From: Yang Xu <xuyang2018.jy@fujitsu.com>
+To: <ltp@lists.linux.it>
+Date: Thu, 15 Jul 2021 09:39:29 +0800
+Message-ID: <1626313169-30611-1-git-send-email-xuyang2018.jy@fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
 MIME-Version: 1.0
-References: <20210713162450.34947-1-amir73il@gmail.com>
- <YO6SFGTvHJkAR5+9@pevik>
-In-Reply-To: <YO6SFGTvHJkAR5+9@pevik>
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Wed, 14 Jul 2021 21:15:39 +0300
-Message-ID: <CAOQ4uxjjbv996OC_xqAtV1wttK51ytb3dPavS8F28K3QMU6Xzw@mail.gmail.com>
-To: Petr Vorel <pvorel@suse.cz>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Originating-IP: [10.167.220.84]
+X-ClientProxiedBy: G08CNEXCHPEKD09.g08.fujitsu.local (10.167.33.85) To
+ R01UKEXCASM223.r01.fujitsu.local (10.182.185.121)
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/fanotify19: Add test cases for elevated
- reader privileges
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH] syscalls/ioctl_ns05,6: Fix buffer overflow
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,85 +95,53 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Matthew Bobrowski <mbobrowski@mbobrowski.org>, Jan Kara <jack@suse.cz>,
- LTP List <ltp@lists.linux.it>
+Cc: mhillen@linux.ibm.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Wed, Jul 14, 2021 at 10:28 AM Petr Vorel <pvorel@suse.cz> wrote:
->
-> Hi Amir,
->
-> > Even when event reader has elevated privileges, the information provided
-> > in events is determined by the privileges of the user that created the
-> > fanotify group.
->
-> > Add test cases for unprivileged listener and privileged event reader.
->
-> > This is a regression test for kernel commit
-> > a8b98c808eab ("fanotify: fix permission model of unprivileged group")
->
-> > Signed-off-by: Amir Goldstein <amir73il@gmail.com>
-> > ---
->
-> > Hi Petr,
->
-> > Added test for a fix in v5.13-rc5.
->
-> Thanks for your patch, pushed!
->
-> Things I've found, not related to this patch:
->
-> TBROK when running with higher number of iterations:
-> ./fanotify19 -i 30
-> ...
-> fanotify19.c:224: TPASS: Received event: mask=2b, pid=11351 fd=-1
-> fanotify19.c:224: TPASS: Received event: mask=b, pid=11351 fd=-1
-> fanotify19.c:224: TPASS: Received event: mask=a, pid=11351 fd=-1
-> fanotify19.c:224: TPASS: Received event: mask=8, pid=11351 fd=-1
-> fanotify19.c:147: TINFO: Test #3 unprivileged lisneter, privileged reader - events by child
-> fanotify19.c:151: TINFO: Running as privileged user, revoking.
-> fanotify19.c:136: TBROK: Child process terminated incorrectly. Aborting
->
-> Summary:
-> passed   316
-> failed   0
-> broken   1
-> skipped  0
-> warnings 0
->
-> Could you have look into it?
->
+Since pid's max value is 2147483647, the child_namespace maybe not
+enough to store "/proc/%s/ns/user" string when using a large pid.
+Fix it by improving the length to 30.
 
-Posted fix.
+Fixes: #847
+Reported-by: Marius Hillenbrand <mhillen@linux.ibm.com>
+Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
+---
+ testcases/kernel/syscalls/ioctl/ioctl_ns05.c | 2 +-
+ testcases/kernel/syscalls/ioctl/ioctl_ns06.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-> very minor nit: checkpatch complains about minor issues. Although all but quoted
-> string split across lines are easily fixable we don't need to bother with it.
-> But could you please use checkpatch for new tests?
+diff --git a/testcases/kernel/syscalls/ioctl/ioctl_ns05.c b/testcases/kernel/syscalls/ioctl/ioctl_ns05.c
+index a67ddbe2c..488c48d8e 100644
+--- a/testcases/kernel/syscalls/ioctl/ioctl_ns05.c
++++ b/testcases/kernel/syscalls/ioctl/ioctl_ns05.c
+@@ -59,7 +59,7 @@ static void run(void)
+ 	if (pid == -1)
+ 		tst_brk(TBROK | TERRNO, "ltp_clone failed");
+ 
+-	char child_namespace[20];
++	char child_namespace[30];
+ 	int my_fd, child_fd, parent_fd;
+ 
+ 	sprintf(child_namespace, "/proc/%i/ns/pid", pid);
+diff --git a/testcases/kernel/syscalls/ioctl/ioctl_ns06.c b/testcases/kernel/syscalls/ioctl/ioctl_ns06.c
+index b6ac80208..77ec04edc 100644
+--- a/testcases/kernel/syscalls/ioctl/ioctl_ns06.c
++++ b/testcases/kernel/syscalls/ioctl/ioctl_ns06.c
+@@ -51,7 +51,7 @@ static int child(void *arg LTP_ATTRIBUTE_UNUSED)
+ 
+ static void run(void)
+ {
+-	char child_namespace[20];
++	char child_namespace[30];
+ 
+ 	pid_t pid = ltp_clone(CLONE_NEWUSER | SIGCHLD, &child, 0,
+ 		STACK_SIZE, child_stack);
+-- 
+2.23.0
 
-Will do.
-
-> Also I'd personally join also strings which are below 100 chars, because it
-> helps to grep.
->
-> > @@ -248,6 +285,10 @@ static struct tst_test test = {
-> >       .needs_root = 1,
-> >       .mount_device = 1,
-> >       .mntpoint = MOUNT_PATH,
-> > +     .tags = (const struct tst_tag[]) {
-> > +             {"linux-git", "a8b98c808eab"},
-> FYI we also support "linux-stable-git", but we mainly use it for stable branch
-> specific patches (something required just for stable), not for regular backports
-> of fixes.
->
-
-I did not understand when linux-stable-git should be used or why it applies
-to this case.
-
-Thanks,
-Amir.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
