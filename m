@@ -2,52 +2,51 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D66A3CB2D0
-	for <lists+linux-ltp@lfdr.de>; Fri, 16 Jul 2021 08:43:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F20573CB2D4
+	for <lists+linux-ltp@lfdr.de>; Fri, 16 Jul 2021 08:44:20 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 34AB43C65B4
-	for <lists+linux-ltp@lfdr.de>; Fri, 16 Jul 2021 08:43:10 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id BEB073C73C1
+	for <lists+linux-ltp@lfdr.de>; Fri, 16 Jul 2021 08:44:20 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 6F2E23C65B4
- for <ltp@lists.linux.it>; Fri, 16 Jul 2021 08:43:06 +0200 (CEST)
-Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id 4496E3C65B4
+ for <ltp@lists.linux.it>; Fri, 16 Jul 2021 08:44:16 +0200 (CEST)
+Received: from ATCSQR.andestech.com (atcsqr.andestech.com [60.248.187.195])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id AF5B52010F3
- for <ltp@lists.linux.it>; Fri, 16 Jul 2021 08:43:05 +0200 (CEST)
-Received: from [192.168.178.40] (unknown [188.192.255.100])
- by mail.jv-coder.de (Postfix) with ESMTPSA id 3B2DEA048B;
- Fri, 16 Jul 2021 06:43:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
- t=1626417783; bh=3JJI7EKqFDUcjfcGmCeGlc3jgW9xqUgMKGS9Xif7TZ0=;
- h=Subject:To:From:Message-ID:Date:MIME-Version;
- b=Jf+OnnSIEghtghz3oA3YER67UZYLdttbCh+6Vkoj/4neWPIx+xWFa/enOXDBQlLc8
- EjQM4bDLEviybS7EAIiVWIASbiiXQNrr2oenOZBISSBuGVV/WSHdNn63EW9iseL/UY
- GIhcpeCjH0FdPA7Y70TNpY3ZkuRwTWlVlUwvmZ+s=
-To: Boyang Xue <bxue@redhat.com>, ltp@lists.linux.it
-References: <CAHLe9YYCDFxqoaciAcz4Ec9bU7cQPJM9SDL2_4ygjcaWx967-A@mail.gmail.com>
-From: Joerg Vehlow <lkml@jv-coder.de>
-Message-ID: <48573d84-20e4-11a1-6306-d82b6ada6efd@jv-coder.de>
-Date: Fri, 16 Jul 2021 08:43:03 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 5BCC220091A
+ for <ltp@lists.linux.it>; Fri, 16 Jul 2021 08:44:13 +0200 (CEST)
+Received: from mail.andestech.com (atcpcs16.andestech.com [10.0.1.222])
+ by ATCSQR.andestech.com with ESMTP id 16G6i07V019054;
+ Fri, 16 Jul 2021 14:44:00 +0800 (GMT-8)
+ (envelope-from ycliang@andestech.com)
+Received: from andestech.com (10.0.15.65) by ATCPCS16.andestech.com
+ (10.0.1.222) with Microsoft SMTP Server id 14.3.498.0; Fri, 16 Jul 2021
+ 14:44:01 +0800
+Date: Fri, 16 Jul 2021 14:43:58 +0800
+From: Leo Liang <ycliang@andestech.com>
+To: "xuyang2018.jy@fujitsu.com" <xuyang2018.jy@fujitsu.com>
+Message-ID: <20210716064358.GA9807@andestech.com>
+References: <20210715142448.GA30641@atcfdc88>
+ <60F0DF88.9020603@fujitsu.com>
 MIME-Version: 1.0
-In-Reply-To: <CAHLe9YYCDFxqoaciAcz4Ec9bU7cQPJM9SDL2_4ygjcaWx967-A@mail.gmail.com>
-Content-Language: en-US
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <60F0DF88.9020603@fujitsu.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Originating-IP: [10.0.15.65]
+X-DNSRBL: 
+X-MAIL: ATCSQR.andestech.com 16G6i07V019054
 X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [question] tst_rhost_run.sh not installed
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2,
+ 1/2] lib/tst_test.sh: Make tst_umount work with argument that
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,56 +58,58 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: "richiejp@f-m.fm" <richiejp@f-m.fm>,
+ Alan Quey-Liang =?utf-8?B?S2FvKOmrmOmtgeiJryk=?= <alankao@andestech.com>,
+ "metan@ucw.cz" <metan@ucw.cz>, "ltp@lists.linux.it" <ltp@lists.linux.it>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
+Hi Yang,
+On Fri, Jul 16, 2021 at 09:23:01AM +0800, xuyang2018.jy@fujitsu.com wrote:
+> Hi Leo
+> > /proc/mounts shows the mount point without terminating slashes, e.g.
+> > ~ $ cat /proc/mounts
+> > xxx /root/cgroup cgroup rw,relatime,cpu 0 0
+> >
+> > So current tst_umount would not work with argument that has terminating slash, e.g.
+> > tst_umount cgroup/ would give "The device is not mounted".
+> >
+> > Fix this by using mountpoint command instead of grepping /proc/mounts.
+> >
+> > Signed-off-by: Leo Yu-Chi Liang<ycliang@andestech.com>
+> > ---
+> >   testcases/lib/tst_test.sh | 2 +-
+> >   1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/testcases/lib/tst_test.sh b/testcases/lib/tst_test.sh
+> > index c6aa2c487..7e77711f1 100644
+> > --- a/testcases/lib/tst_test.sh
+> > +++ b/testcases/lib/tst_test.sh
+> > @@ -282,7 +282,7 @@ tst_umount()
+> >
+> >   	[ -z "$device" ]&&  return
+> >
+> > -	if ! grep -q "$device" /proc/mounts; then
+> > +	if ! mountpoint -q "$device"; then
+> Honestly speaking, I don't want to introduce mountpoint command.
+> we can just filter the last "/" string for $device.
+> 
+> Best Regards
+> Yang Xu
 
-Sorry for the duplicate, I forgot to add the mailing list...
+Got it! 
+I'll send a v3 patch with this approach:
+Filtering out the '/' when determining whether a $device is mounted.
+Thanks!
 
-On 7/16/2021 8:13 AM, Boyang Xue wrote:
-> Hi,
->
-> I'm trying to build, install and run LTP like this:
-> ```
-> git clone https://github.com/linux-test-project/ltp.git repo_ltp
-> pushd repo_ltp/
-> make autotools
-> ./configure
-> make
-> make install
-> # export RHOST, LHOST, etc. test vars
-> export LTPROOT=/opt/ltp; export PATH=$LTPROOT/bin:$LTPROOT/testcases/bin:$PATH
-> ./runltp -d /test -f net.nfs
-> ```
->
-> During the test run, it complains that
-> ```
-> /opt/ltp/testcases/bin/tst_net.sh: line 979: bash:: command not found
-> ```
-> line#979 is:
-> ```
-> eval $(tst_rhost_run -c 'tst_net_iface_prefix -r '$IPV4_RHOST || echo "exit $?")
-> ```
->
-> I can find tst_net_iface_prefix in the $PATH, so it should be
-> tst_rhost_run which leads to the error.
-> Searching for tst_rhost_run in /opt/ltp and $PATH shows not found, so
-> is it a bug or did I miss something that the file wasn't installed?
-No tst_rhost_run is a shell function defined in tst_net.sh.
-I guess the problem is your RHOST setup.
-LTP supports two setups for network tests:
-1. network namespace based. This is used if you don't set RHOST and LHOST.
-2. Two-host setup, where RHOST points to a second host.
+Best regards,
+Leo
 
-The important thing in two host setup is, that $LTP_ROOT/testcases/bin 
-is in the PATH for the user, that is used on the RHOST.
-I guess what happens in your setup is that tst_net_iface_prefix is not 
-found on the RHOST, because it is not in the path.
-
-Joerg
+> >   		tst_res TINFO "The $device is not mounted, skipping umount"
+> >   		return
+> >   	fi
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
