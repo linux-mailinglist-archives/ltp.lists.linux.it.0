@@ -1,49 +1,73 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6912C3CD094
-	for <lists+linux-ltp@lfdr.de>; Mon, 19 Jul 2021 11:23:23 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2039E3CD653
+	for <lists+linux-ltp@lfdr.de>; Mon, 19 Jul 2021 16:10:43 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 144233C0F6A
-	for <lists+linux-ltp@lfdr.de>; Mon, 19 Jul 2021 11:23:23 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id DFDAE3C6CF9
+	for <lists+linux-ltp@lfdr.de>; Mon, 19 Jul 2021 16:10:42 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by picard.linux.it (Postfix) with ESMTPS id 2875F3C22C9
+ for <ltp@lists.linux.it>; Mon, 19 Jul 2021 16:10:41 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 0A8B63C0F6A
- for <ltp@lists.linux.it>; Mon, 19 Jul 2021 11:23:19 +0200 (CEST)
-Received: from ATCSQR.andestech.com (exmail.andestech.com [60.248.187.195])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 9C59B600678
+ for <ltp@lists.linux.it>; Mon, 19 Jul 2021 16:10:40 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id CF87C1A000A4
- for <ltp@lists.linux.it>; Mon, 19 Jul 2021 11:23:18 +0200 (CEST)
-Received: from mail.andestech.com (atcpcs16.andestech.com [10.0.1.222])
- by ATCSQR.andestech.com with ESMTP id 16J9Mmrr074467;
- Mon, 19 Jul 2021 17:22:48 +0800 (GMT-8)
- (envelope-from ycliang@andestech.com)
-Received: from atcfdc88 (10.0.15.120) by ATCPCS16.andestech.com (10.0.1.222)
- with Microsoft SMTP Server id 14.3.498.0; Mon, 19 Jul 2021 17:22:45 +0800
-Date: Mon, 19 Jul 2021 17:22:43 +0800
-From: Leo Liang <ycliang@andestech.com>
-To: <ltp@lists.linux.it>
-Message-ID: <20210719092239.GA1475@atcfdc88>
+ by smtp-out1.suse.de (Postfix) with ESMTPS id B771E22300;
+ Mon, 19 Jul 2021 14:10:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1626703839; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=9mnnIvKRpbLSh8OsjrEs3OBLEeI3V+UDsFwYqGRznxM=;
+ b=ZoGwP7c49jICTQVmqRT1kdppMGsF9aBC7dptvjVzYUhwN7FlbKeknzmNr++qpdOZZYCtfi
+ KBEso1UA6VrxRQ4ooUAh5UEI9ShBg48WngFOJQmbDBJVbDhXfXHfq4X+3BeMUvywTJxhmi
+ ved3/P91yOtxQyX39Xd6Aw6IfQQ1vBk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1626703839;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=9mnnIvKRpbLSh8OsjrEs3OBLEeI3V+UDsFwYqGRznxM=;
+ b=apxWG02csH5Atc75JoTcVGx5tpBJQW70TOBHozaPTtNJpszWUEFI3fr1XC7hJm9fx2mSIV
+ fsxDX6VYJWG+rlAA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 942BD13D37;
+ Mon, 19 Jul 2021 14:10:39 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id pQ57I9+H9WAnBgAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Mon, 19 Jul 2021 14:10:39 +0000
+Date: Mon, 19 Jul 2021 15:45:10 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Xie Ziyao <xieziyao@huawei.com>
+Message-ID: <YPWB5hvIVTPjF7fO@yuki>
+References: <20210628080424.245911-3-xieziyao@huawei.com>
+ <20210716102257.20882-1-xieziyao@huawei.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Originating-IP: [10.0.15.120]
-X-DNSRBL: 
-X-MAIL: ATCSQR.andestech.com 16J9Mmrr074467
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+In-Reply-To: <20210716102257.20882-1-xieziyao@huawei.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH v4,
- 2/2] cgroup/cgroup_regression_test: Fix umount failure
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 0/5 v2] epoll_pwait2: Add test for epoll_pwait2
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,85 +79,26 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: richiejp@f-m.fm, Alan Quey-Liang Kao <alankao@andestech.com>, metan@ucw.cz,
- ycliang@cs.nctu.edu.tw, ltp@lists.linux.it
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-The test sequence
-	mount -t cgroup -o <controllers> <path>
-	mkdir <path>/<dir>
-	rmdir <path>/<dir>
-	umount <path>
-	mount -t cgroup -o <controllers> <path>
-would easily fail at the last mount with -EBUSY on certain platform.
+Hi!
+Pushed with minor changes, thanks.
 
-The reason is that this test sequence would have the chance of
-missing a release code path when doing rmdir and umount.
+* Changed the include in lapi/epoll.h to tst_timer.h
 
-Adding a little delay between "rmdir" and "umount" could fix the problem,
-so use tst_umount API instead of umount in "rmdir, umount" sequence.
+* Added better description to epoll_wait02
 
-Fixes: #839
 
-Signed-off-by: Leo Yu-Chi Liang <ycliang@andestech.com>
----
- .../controllers/cgroup/cgroup_regression_test.sh       | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+Also it would be nice to convert the epoll_pwait01.c to the variants as
+well...
 
-diff --git a/testcases/kernel/controllers/cgroup/cgroup_regression_test.sh b/testcases/kernel/controllers/cgroup/cgroup_regression_test.sh
-index 1f7f3820e..06379c7ae 100755
---- a/testcases/kernel/controllers/cgroup/cgroup_regression_test.sh
-+++ b/testcases/kernel/controllers/cgroup/cgroup_regression_test.sh
-@@ -145,7 +145,7 @@ test2()
- 	fi
- 
- 	rmdir cgroup/0 cgroup/1
--	umount cgroup/
-+	tst_umount cgroup/	# Avoid possible EBUSY error
- }
- 
- #---------------------------------------------------------------------------
-@@ -193,7 +193,7 @@ test3()
- 	wait $pid2 2>/dev/null
- 
- 	rmdir $cpu_subsys_path/0 2> /dev/null
--	umount cgroup/ 2> /dev/null
-+	tst_umount cgroup/ 2> /dev/null		# Avoid possible EBUSY error
- 	check_kernel_bug
- }
- 
-@@ -222,7 +222,7 @@ test4()
- 	mount -t cgroup -o none,name=foo cgroup cgroup/
- 	mkdir cgroup/0
- 	rmdir cgroup/0
--	umount cgroup/
-+	tst_umount cgroup/		# Avoid possible EBUSY error
- 
- 	if dmesg | grep -q "MAX_LOCKDEP_SUBCLASSES too low"; then
- 		tst_res TFAIL "lockdep BUG was found"
-@@ -254,7 +254,7 @@ test5()
- 	mount -t cgroup none cgroup 2> /dev/null
- 	mkdir cgroup/0
- 	rmdir cgroup/0
--	umount cgroup/ 2> /dev/null
-+	tst_umount cgroup/ 2> /dev/null		# Avoid possible EBUSY error
- 	check_kernel_bug
- }
- 
-@@ -290,7 +290,7 @@ test6()
- 
- 	mount -t cgroup -o ns xxx cgroup/ > /dev/null 2>&1
- 	rmdir cgroup/[1-9]* > /dev/null 2>&1
--	umount cgroup/
-+	tst_umount cgroup/		# Avoid possible EBUSY error
- 	check_kernel_bug
- }
- 
 -- 
-2.17.0
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
