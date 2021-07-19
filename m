@@ -2,77 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id D41363CCE1A
-	for <lists+linux-ltp@lfdr.de>; Mon, 19 Jul 2021 08:46:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4AAC3CCE1C
+	for <lists+linux-ltp@lfdr.de>; Mon, 19 Jul 2021 08:48:14 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7C1A83C6CF9
-	for <lists+linux-ltp@lfdr.de>; Mon, 19 Jul 2021 08:46:05 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 5E7D63C2E5C
+	for <lists+linux-ltp@lfdr.de>; Mon, 19 Jul 2021 08:48:14 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by picard.linux.it (Postfix) with ESMTPS id 33F0D3C0131
+ for <ltp@lists.linux.it>; Mon, 19 Jul 2021 08:48:13 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 3012F3C0131
- for <ltp@lists.linux.it>; Mon, 19 Jul 2021 08:46:01 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id A59BD1A01CF6
- for <ltp@lists.linux.it>; Mon, 19 Jul 2021 08:46:00 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id C272D1001F53
+ for <ltp@lists.linux.it>; Mon, 19 Jul 2021 08:48:12 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 03C1D2210B;
- Mon, 19 Jul 2021 06:46:00 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 10972201D2;
+ Mon, 19 Jul 2021 06:48:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1626677160;
+ t=1626677292;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=iVkrSWfJ+KOPQ/wRHTWhfxziJ7OyK4Gn3zSdJ+4Gs/o=;
- b=VXNuqUVwsOLPjukWCo/1o5QCiirWbBe9XwASfCMsPfoaNX0UCX5utbo741QLqHC4gon3d7
- EEm47Xjq6Cq6uaHMPGHMchaw6GFhT7Ss9N167eClcokl0YIO5GNeaA2s7CI9W1viDgvXPH
- wcYMddCA3/7tGjfkkBwRLdanvJin1JI=
+ bh=dSPMxuaR8qFMJN+llrRDszWanukXQNfYcGlbVGVQtOQ=;
+ b=JIq6V2vdVXVshfvN7ic2R411ANmvQj9hfFiMXf2CnanH6xGZowI8+EonalF5rCNZ20E5qO
+ SZGDTNrcxytLXGdWnyvNk0A2rvSCofJ6X9sszwLOZB06VSqK5RRWKcKqXFRSYS+Rh6SYs3
+ b3H8r+WugUxYv62BOjgy6MtcNUmbn08=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1626677160;
+ s=susede2_ed25519; t=1626677292;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=iVkrSWfJ+KOPQ/wRHTWhfxziJ7OyK4Gn3zSdJ+4Gs/o=;
- b=pOrVwYDxil0pkafGPVpP10i9zA8UIaeuC6fuXblOStxostW/q/c/qZVBcnOUmRNUleO2n1
- yaiJA6xHHgP1WGBw==
+ bh=dSPMxuaR8qFMJN+llrRDszWanukXQNfYcGlbVGVQtOQ=;
+ b=P83lEIkUtiV8IN7BBju94Rcln2XOEXWI8qzeZ1CGeCq1zbkTJALQ5FpxinN/bKVEnthCes
+ rz+Rhm50kTwSGaBQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9DC0813C9B;
- Mon, 19 Jul 2021 06:45:59 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A6CBC13C9B;
+ Mon, 19 Jul 2021 06:48:11 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id /U5LJKcf9WDxfAAAMHmgww
- (envelope-from <pvorel@suse.cz>); Mon, 19 Jul 2021 06:45:59 +0000
-Date: Mon, 19 Jul 2021 08:45:58 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id Cs1xJysg9WBHfQAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Mon, 19 Jul 2021 06:48:11 +0000
+Date: Mon, 19 Jul 2021 08:48:10 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: "xuyang2018.jy@fujitsu.com" <xuyang2018.jy@fujitsu.com>
-Message-ID: <YPUfpkJlrWTCH4p4@pevik>
-References: <20210716140142.GA7113@andestech.com>
- <60F50B67.4000807@fujitsu.com> <YPUS+/YZgAxUAlDn@pevik>
- <YPUUaOMUjRMy43ZH@pevik> <60F519D1.9040508@fujitsu.com>
+To: Leo Liang <ycliang@andestech.com>
+Message-ID: <YPUgKpSqTLYVCSRF@pevik>
+References: <20210716140235.GA22205@andestech.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <60F519D1.9040508@fujitsu.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+In-Reply-To: <20210716140235.GA22205@andestech.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH v3,
- 1/2] lib/tst_test.sh: Make tst_umount work with argument that has
- trailing slash
+ 2/2] cgroup/cgroup_regression_test: Fix umount failure
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,95 +81,91 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: "richiejp@f-m.fm" <richiejp@f-m.fm>,
- "alankao@andestech.com" <alankao@andestech.com>, "metan@ucw.cz" <metan@ucw.cz>,
- "ycliang@cs.nctu.edu.tw" <ycliang@cs.nctu.edu.tw>,
- "ltp@lists.linux.it" <ltp@lists.linux.it>
+Cc: richiejp@f-m.fm, alankao@andestech.com, metan@ucw.cz,
+ ycliang@cs.nctu.edu.tw, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Xu, all,
+> The test sequence
+> 	mount -t cgroup -o <controllers> <path>
+> 	mkdir <path>/<dir>
+> 	rmdir <path>/<dir>
+> 	umount <path>
+> 	mount -t cgroup -o <controllers> <path>
+> would easily fail at the last mount with -EBUSY on certain platform.
 
-> Hi Petr
-> > Hi all,
+> The reason is that this test sequence would have the chance of
+> missing a release code path when doing rmdir and umount.
 
-> >>> Hi Leo
+> Adding a little delay between "rmdir" and "umount" could fix the problem,
+> so use tst_umount API instead of umount in "rmdir, umount" sequence.
 
-> >>>> /proc/mounts shows the mount point without trailing slashes, e.g.
-> >>>> ~ $ cat /proc/mounts
-> >>>> xxx /root/cgroup cgroup rw,relatime,cpu 0 0
+> Fixes: #839
 
-> >>>> So current tst_umount would not work with argument that has trailing slash, e.g.
-> >>>> tst_umount cgroup/ would give "The device is not mounted".
+> Signed-off-by: Leo Yu-Chi Liang <ycliang@andestech.com>
+> ---
+>  .../controllers/cgroup/cgroup_regression_test.sh       | 10 +++++-----
+>  1 file changed, 5 insertions(+), 5 deletions(-)
 
-> >>>> Fix this by filtering out the trailing slash before grepping /proc/mounts.
+> diff --git a/testcases/kernel/controllers/cgroup/cgroup_regression_test.sh b/testcases/kernel/controllers/cgroup/cgroup_regression_test.sh
+> index 1f7f3820e..056166f11 100755
+> --- a/testcases/kernel/controllers/cgroup/cgroup_regression_test.sh
+> +++ b/testcases/kernel/controllers/cgroup/cgroup_regression_test.sh
+> @@ -145,7 +145,7 @@ test2()
+>  	fi
 
-> >>>> Signed-off-by: Leo Yu-Chi Liang<ycliang@andestech.com>
-> >>>> ---
-> >>>>    testcases/lib/tst_test.sh | 3 ++-
-> >>>>    1 file changed, 2 insertions(+), 1 deletion(-)
+>  	rmdir cgroup/0 cgroup/1
+> -	umount cgroup/
+> +	tst_umount cgroup/
+As I note in previous patch, with suggested change to tst_umount() to always add
+trailing "/" it'd be enough just "tst_umount cgroup".
 
-> >>>> diff --git a/testcases/lib/tst_test.sh b/testcases/lib/tst_test.sh
-> >>>> index c6aa2c487..f132512e7 100644
-> >>>> --- a/testcases/lib/tst_test.sh
-> >>>> +++ b/testcases/lib/tst_test.sh
-> >>>> @@ -282,13 +282,14 @@ tst_umount()
-
-> >>>>    	[ -z "$device" ]&&   return
-
-> >>>> +	device=${device%/}
-> >>>>    	if ! grep -q "$device" /proc/mounts; then
-> >>>>    		tst_res TINFO "The $device is not mounted, skipping umount"
-> >>>>    		return
-> >>>>    	fi
-
-> >>>>    	while [ "$i" -lt 50 ]; do
-> >>>> -		if umount "$device">   /dev/null; then
-> >>>> +		if umount "$device"/>   /dev/null; then
-> >>> With removing this(we don't need add "/" here), this patch looks good to me
-> >> +1
-> > Actually we need to keep / for next patch, right? (cgroup/)
-> I guess our ltp tst_umount api should support  to umount cgroup or 
-> cgroup/ like umount command does.
-
-Also the patch always added trailing /:
-+		if umount "$device"/ > /dev/null; then
-
-if we keep that, the second patch wouldn't have to add it to "tst_umount
-cgroup/" call ("tst_umount cgroup" would be enough).
-I'm not sure if we want it. @Cyril?
-
-> > Thus why not just changing argument for grep?
-> > -       if ! grep -q "$device" /proc/mounts; then
-> > +       if ! grep -q "${device%/}" /proc/mounts; then
-> Yes, it is more easier. But I think it still existed the problme when 
-> we only use "/" parameters. I guess we should reject this situation.
-
-I would not care about it. 1) no test does 'tst_umount /' 2) error reporting
-would be correct: umount: /: target is busy.
+I'm not sure what is better: automatic handling or having to explicitly add
+trailing "/".
 
 Kind regards,
 Petr
 
-> code maybe as below:
-> --- a/testcases/lib/tst_test.sh
-> +++ b/testcases/lib/tst_test.sh
-> @@ -282,7 +282,12 @@ tst_umount()
+>  }
 
->          [ -z "$device" ] && return
+>  #---------------------------------------------------------------------------
+> @@ -193,7 +193,7 @@ test3()
+>  	wait $pid2 2>/dev/null
 
-> -       if ! grep -q "$device" /proc/mounts; then
-> +       if [ "$device" = "/" ]; then
-> +               tst_res TINFO "We can not umount / directory"
-> +               return
-> +       fi
-> +
-> +       if ! grep -q "${device%/}" /proc/mounts; then
->                  tst_res TINFO "The $device is not mounted, skipping umount"
->                  return
->          fi
+>  	rmdir $cpu_subsys_path/0 2> /dev/null
+> -	umount cgroup/ 2> /dev/null
+> +	tst_umount cgroup/ 2> /dev/null
+>  	check_kernel_bug
+>  }
+
+> @@ -222,7 +222,7 @@ test4()
+>  	mount -t cgroup -o none,name=foo cgroup cgroup/
+>  	mkdir cgroup/0
+>  	rmdir cgroup/0
+> -	umount cgroup/
+> +	tst_umount cgroup/
+
+>  	if dmesg | grep -q "MAX_LOCKDEP_SUBCLASSES too low"; then
+>  		tst_res TFAIL "lockdep BUG was found"
+> @@ -254,7 +254,7 @@ test5()
+>  	mount -t cgroup none cgroup 2> /dev/null
+>  	mkdir cgroup/0
+>  	rmdir cgroup/0
+> -	umount cgroup/ 2> /dev/null
+> +	tst_umount cgroup/ 2> /dev/null
+>  	check_kernel_bug
+>  }
+
+> @@ -290,7 +290,7 @@ test6()
+
+>  	mount -t cgroup -o ns xxx cgroup/ > /dev/null 2>&1
+>  	rmdir cgroup/[1-9]* > /dev/null 2>&1
+> -	umount cgroup/
+> +	tst_umount cgroup/
+>  	check_kernel_bug
+>  }
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
