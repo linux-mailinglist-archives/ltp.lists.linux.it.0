@@ -1,75 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CB203CFAA4
-	for <lists+linux-ltp@lfdr.de>; Tue, 20 Jul 2021 15:34:42 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C8FE3CFAA5
+	for <lists+linux-ltp@lfdr.de>; Tue, 20 Jul 2021 15:34:53 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E8E313C6CBF
-	for <lists+linux-ltp@lfdr.de>; Tue, 20 Jul 2021 15:34:41 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 445303C9825
+	for <lists+linux-ltp@lfdr.de>; Tue, 20 Jul 2021 15:34:53 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 353DC3C2B48
- for <ltp@lists.linux.it>; Tue, 20 Jul 2021 15:34:09 +0200 (CEST)
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [IPv6:2a00:1450:4864:20::130])
+ by picard.linux.it (Postfix) with ESMTPS id 26A8A3C81AF
+ for <ltp@lists.linux.it>; Tue, 20 Jul 2021 15:34:10 +0200 (CEST)
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [IPv6:2a00:1450:4864:20::12e])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id BF32420034E
- for <ltp@lists.linux.it>; Tue, 20 Jul 2021 15:34:08 +0200 (CEST)
-Received: by mail-lf1-x130.google.com with SMTP id b26so35840193lfo.4
- for <ltp@lists.linux.it>; Tue, 20 Jul 2021 06:34:08 -0700 (PDT)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 885391400DB3
+ for <ltp@lists.linux.it>; Tue, 20 Jul 2021 15:34:09 +0200 (CEST)
+Received: by mail-lf1-x12e.google.com with SMTP id s13so14316459lfi.12
+ for <ltp@lists.linux.it>; Tue, 20 Jul 2021 06:34:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=bell-sw-com.20150623.gappssmtp.com; s=20150623;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=mCYi6Xu1yTNhkqv3qx6yaFuUxy+i8v/TAK5y4ZQTgKI=;
- b=eyNXrplQEwwYmIZka4t4TrCFGGn70PRcytT01W5CFqSmXWN3VdisXeMp7a82FLFSgh
- /8z8ccPina+fSQw1znjUmCubndbDtSJjsrfj3oovrLAvXFoaUXX2HVkWSgLUXOOTXDTk
- 5UKIuB/Y7CyUMtTDZvzeG+Cx6A74M8nAa2i3u9iHnDCUeZUoCnSrbDqDS2sysN3Ryf9k
- 74Inyo0BeD4f2DJ+GQJo8o8av1Ox+wwfPWQUNZKjWqWp7H9/yDRXHQtny0mHk6OsA2Ra
- w37TzzboyzCUuNOW+aTUEIcxuiBii/6EacBd/t/UaxjAZyxqKf50FDpfGU5ixJPxkXuz
- mcbQ==
+ bh=RJ2xBftM7w4OU7tTP/v/NCCkj7Hq9nLvMDuD0tN5Qpo=;
+ b=PP/xw04XzMEXYmBpWz32WWnSZ8at8m4iqCzFKz3Yy9UKsBFA+fmwLRxJkE9gERkTNE
+ HzOU+L+/Wo1D5SuzN61QvdU6bic5bM06ak6NH2MvQU8vHUmdiaOMTPYrsih/DabsgB5v
+ IGn9l58WHERwzadIv9aNE0SBL07yb8xRJIF0qi/YyXPlBpO6VQPD+gHH0tdtU+1+lxAp
+ vnPO2ap72ynd/uJd2hVKyKzkIlsu69owuKDsO1Cghgd/YjXWVdoNlzXyyQO0eK1j+G9B
+ Jen89muDRNVwEQyIQf3Tkh32fXLeKg8iyD5z3e1gZdSMRU6TGrKuY2wJCy4iwh0/sOFw
+ ftgQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=mCYi6Xu1yTNhkqv3qx6yaFuUxy+i8v/TAK5y4ZQTgKI=;
- b=T0/wPk+0W3ZhMtr9VE4U8NUVJF685xBMxLjAVX6gXw5ICz6p5GQw/HcHvzdqxWNY/7
- aFPOFLQL2IZbSKPL9dmEDvmO938tIfdzfF/zNDt9DzB/P6c3LPcW4tlQVkTGmVMSEyBR
- B67C3wz9vO8C4TT3xiefW+bJx3EvUPDplTgbAId0ZYNPqEf80SCzEBXPo1r3w6IgLMZg
- pp+vNt4Ul1CZcCL7WysTnMv2mOtVPdZHPWg4P8710aygSa9SkdCBmRu3bG3LfrrgSwOZ
- KHenmKHgh5IdsiznVTbdDwE6meT5ddVPNM4kuolb9v2iH0jFxtWtpWATEkzM2fZoTvpg
- h8nQ==
-X-Gm-Message-State: AOAM531M2rawwTw4fKo6SAMZkVM0319OhYlp4qrDg4wqMk0L/O1Djvlx
- gh4M8jYFUFGzsYis4gqOc49RZxZOf5C+
-X-Google-Smtp-Source: ABdhPJxucvCVS+c5jSBaWKgcmf5jZsXuaUj+nEQECr9YsVbLRE8KIO+dpkoSJYKirhLHt1X7iLyQPA==
-X-Received: by 2002:ac2:4e09:: with SMTP id e9mr3107171lfr.431.1626788048059; 
+ bh=RJ2xBftM7w4OU7tTP/v/NCCkj7Hq9nLvMDuD0tN5Qpo=;
+ b=susJ/cNlURXzjd8pHXUzWNqcAQ+tfDCKx5ByfACkbV2vhu/wKftgsFcTOEWpxMnbHz
+ b2T4DUTVAsyARm0fXFzhx0bTQDL70D1EioxQ/+mes9DpcS5cHHDiboFC0BbLbzh47wuj
+ /49OaufrLgcdbNDsER+Ik5XV4k5tZAmIc3cbL5wVSJJVotK6d+qAiiXpynk7PpnuA5GA
+ ehLuU/n4Yd28BDrMkK3GIvZak23JrQNtyHILlFgQaaeavQEmCu4gZZ2oXQiuLbGNGDzc
+ eNzNBm0l/oDVLSbS/5OGpSqC9WR4GuwVZVm1qAJhBUtuopDMNRH1p8aNNJUiy5e0yBNC
+ cBnQ==
+X-Gm-Message-State: AOAM532+0JUiUNnh+Ko/j5i4vS2yduwjSVKxnbWebxAzS0rUVxsiwqjO
+ qahiVlBshk/EKZdPlXZodNIEaNqZkLfs
+X-Google-Smtp-Source: ABdhPJzHjI9yWEWW2foQC6SaHkYItkbWJyC+6wecQQq9AqEsmTQcD8iu//gQn6cJZmnnvg9ZHVcX8A==
+X-Received: by 2002:a19:fc13:: with SMTP id a19mr23169331lfi.581.1626788048828; 
  Tue, 20 Jul 2021 06:34:08 -0700 (PDT)
 Received: from localhost.localdomain ([178.68.161.34])
- by smtp.gmail.com with ESMTPSA id x16sm1526828lfa.244.2021.07.20.06.34.07
+ by smtp.gmail.com with ESMTPSA id x16sm1526828lfa.244.2021.07.20.06.34.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 20 Jul 2021 06:34:07 -0700 (PDT)
+ Tue, 20 Jul 2021 06:34:08 -0700 (PDT)
 From: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
 To: ltp@lists.linux.it
-Date: Tue, 20 Jul 2021 16:33:11 +0300
-Message-Id: <20210720133324.21752-4-aleksei.kodanev@bell-sw.com>
+Date: Tue, 20 Jul 2021 16:33:12 +0300
+Message-Id: <20210720133324.21752-5-aleksei.kodanev@bell-sw.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210720133324.21752-1-aleksei.kodanev@bell-sw.com>
 References: <20210720133324.21752-1-aleksei.kodanev@bell-sw.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH 03/16] syscalls/sched_getparam03: use tst_sched_*()
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH 04/16] syscalls/sched_setparam01: convert to new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,32 +87,160 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Signed-off-by: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
 ---
- testcases/kernel/syscalls/sched_getparam/sched_getparam03.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ .../sched_setparam/sched_setparam01.c         | 135 +++---------------
+ 1 file changed, 18 insertions(+), 117 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/sched_getparam/sched_getparam03.c b/testcases/kernel/syscalls/sched_getparam/sched_getparam03.c
-index 19ecaf147..451bfdc50 100644
---- a/testcases/kernel/syscalls/sched_getparam/sched_getparam03.c
-+++ b/testcases/kernel/syscalls/sched_getparam/sched_getparam03.c
-@@ -17,8 +17,8 @@
+diff --git a/testcases/kernel/syscalls/sched_setparam/sched_setparam01.c b/testcases/kernel/syscalls/sched_setparam/sched_setparam01.c
+index a2272eb18..d677736a1 100644
+--- a/testcases/kernel/syscalls/sched_setparam/sched_setparam01.c
++++ b/testcases/kernel/syscalls/sched_setparam/sched_setparam01.c
+@@ -1,128 +1,29 @@
++// SPDX-License-Identifier: GPL-2.0-only
+ /*
++ * Copyright (c) 2021, BELLSOFT. All rights reserved.
+  * Copyright (c) Wipro Technologies Ltd, 2002.  All Rights Reserved.
+- *
+- * This program is free software; you can redistribute it and/or modify it
+- * under the terms of version 2 of the GNU General Public License as
+- * published by the Free Software Foundation.
+- *
+- * This program is distributed in the hope that it would be useful, but
+- * WITHOUT ANY WARRANTY; without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+- *
+- * You should have received a copy of the GNU General Public License along
+- * with this program; if not, write the Free Software Foundation, Inc.,
+- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+- *
++ * AUTHOR: Saji Kumar.V.R <saji.kumar@wipro.com>
   */
- 
- #include <errno.h>
+-/**********************************************************
+- *
+- *    TEST IDENTIFIER	: sched_setparam01
+- *
+- *    EXECUTED BY	: anyone
+- *
+- *    TEST TITLE	: Basic test for sched_setparam(2)
+- *
+- *    TEST CASE TOTAL	: 1
+- *
+- *    AUTHOR		: Saji Kumar.V.R <saji.kumar@wipro.com>
+- *
+- *    SIGNALS
+- * 	Uses SIGUSR1 to pause before test if option set.
+- * 	(See the parse_opts(3) man page).
+- *
+- *    DESCRIPTION
+- *	This is a Phase I test for the sched_setparam(2) system call.
+- *	It is intended to provide a limited exposure of the system call.
+- *
+- * 	Setup:
+- * 	  Setup signal handling.
+- *	  Pause for SIGUSR1 if option specified.
+- *
+- * 	Test:
+- *	 Loop if the proper options are given.
+- * 	  Execute system call
+- *	  Check return code, if system call failed (return=-1)
+- *		Log the errno and Issue a FAIL message.
+- *	  Otherwise, Issue a PASS message.
+- *
+- * 	Cleanup:
+- * 	  Print errno log and/or timing stats if options given
++
++/*\
++ * [Description]
+  *
+- * USAGE:  <for command-line>
+- *  sched_setparam01 [-c n] [-e] [-i n] [-I x] [-P x] [-t] [-h] [-f] [-p]
+- *			where,  -c n : Run n copies concurrently.
+- *				-e   : Turn on errno logging.
+- *				-h   : Show help screen
+- *				-f   : Turn off functional testing
+- *				-i n : Execute test n times.
+- *				-I x : Execute test for x seconds.
+- *				-p   : Pause for SIGUSR1 before starting
+- *				-P x : Pause for x seconds between iterations.
+- *				-t   : Turn on syscall timing.
++ * Basic test for sched_setparam(2)
+  *
+- ****************************************************************/
+-
+-#include <errno.h>
 -#include <sched.h>
- #include "tst_test.h"
+-#include "test.h"
+-
+-static void setup();
+-static void cleanup();
+-
+-char *TCID = "sched_setparam01";
+-int TST_TOTAL = 1;
+-
+-static struct sched_param param;
+-
+-int main(int ac, char **av)
+-{
+-
+-	int lc;
+-
+-	tst_parse_opts(ac, av, NULL, NULL);
+-
+-	setup();
+-
+-	for (lc = 0; TEST_LOOPING(lc); lc++) {
+-
+-		tst_count = 0;
+-
+-		/*
+-		 * Call sched_setparam(2) with pid=0 sothat it will
+-		 * set the scheduling parameters for the calling process
+-		 */
+-		TEST(sched_setparam(0, &param));
+-
+-		if (TEST_RETURN == 0) {
+-			tst_resm(TPASS, "sched_setparam() returned %ld",
+-				 TEST_RETURN);
+-		} else {
+-			tst_resm(TFAIL | TTERRNO,
+-				 "Test Failed, sched_setparam()" "returned %ld",
+-				 TEST_RETURN);
+-		}
+-	}
++ * Call sched_setparam(2) with pid=0 so that it will
++ * set the scheduling parameters for the calling process
++ */
+ 
+-	cleanup();
+-	tst_exit();
+-}
++#include "tst_test.h"
 +#include "tst_sched.h"
  
- static struct sched_param param;
- static pid_t unused_pid;
-@@ -43,7 +43,7 @@ static void verify_sched_getparam(unsigned int n)
+-/* setup() - performs all ONE TIME setup for this test */
+-void setup(void)
++static void run(void)
  {
- 	struct test_case_t *tc = &test_cases[n];
++	struct sched_param p = { .sched_priority = 0 };
  
--	TST_EXP_FAIL(sched_getparam(*(tc->pid), tc->p), tc->exp_errno, "%s", tc->desc);
-+	TST_EXP_FAIL(tst_sched_getparam(*(tc->pid), tc->p), tc->exp_errno, "%s", tc->desc);
+-	tst_sig(NOFORK, DEF_HANDLER, cleanup);
+-
+-	TEST_PAUSE;
+-
+-	param.sched_priority = 0;
+-
++	TST_EXP_PASS(tst_sched_setparam(0, &p));
  }
  
- static void setup(void)
+-/*
+- *cleanup() -  performs all ONE TIME cleanup for this test at
+- *		completion or premature exit.
+- */
+-void cleanup(void)
+-{
+-}
++static struct tst_test test = {
++	.test_all = run,
++};
 -- 
 2.25.1
 
