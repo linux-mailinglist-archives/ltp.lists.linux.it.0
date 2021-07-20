@@ -2,72 +2,69 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D9623CF777
-	for <lists+linux-ltp@lfdr.de>; Tue, 20 Jul 2021 12:13:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 510843CF804
+	for <lists+linux-ltp@lfdr.de>; Tue, 20 Jul 2021 12:39:47 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1206F3C65C3
-	for <lists+linux-ltp@lfdr.de>; Tue, 20 Jul 2021 12:13:16 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 932D23C821C
+	for <lists+linux-ltp@lfdr.de>; Tue, 20 Jul 2021 12:39:46 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id F24E63C6271
- for <ltp@lists.linux.it>; Tue, 20 Jul 2021 12:13:13 +0200 (CEST)
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [IPv6:2a00:1450:4864:20::12b])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 7D5B03C2090
+ for <ltp@lists.linux.it>; Tue, 20 Jul 2021 12:39:43 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 52638600293
- for <ltp@lists.linux.it>; Tue, 20 Jul 2021 12:13:13 +0200 (CEST)
-Received: by mail-lf1-x12b.google.com with SMTP id u13so34950376lfs.11
- for <ltp@lists.linux.it>; Tue, 20 Jul 2021 03:13:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bell-sw-com.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=kUACb9PvC0J4BQmfNmxgGv9vOhnPq58x+TgHmazeZ6w=;
- b=M0TwhfYhAig/QD/MkXWN76vYEvUKGglwBjmO/HNXEocIhgFA0GaLvFIg8eT2X+g0ZT
- qxfV07eKJaAJRPmvOtClnhwHyf3R9EvF3w42fDVNkSWQmVV8QO/jiNlhXW+kGtRbN32X
- d9OwDHx+SrRHQ8uFUOl/DBmKNOtO3jt7lInZrEiH+yzWZZs+C4QkKS2aAK/PkGne2vnU
- wHX213bZ+JJJu0QBHdu3OfPOrqTWw45M4NnDhm9bWCEjNuNJXXaXnYJCivRDFguPvnlk
- e9Kae47h6ujP0MexgBApIpzln70kEAf3ddwKF+zXBCgLLdQ6iVTGLPROOSlci6xEp0su
- 3Cfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=kUACb9PvC0J4BQmfNmxgGv9vOhnPq58x+TgHmazeZ6w=;
- b=TZu+08qTdNzW4BAlrj6sJg06AOb9rY5o3Bnf/v9WkO8qw8JbDtjigUzOIzyfCrxGBw
- Pz7WeVdFghVKqh26LoTGCSnYIGK/D++Ob5JoEpI+ustmGJQ581JzoSy1xK1RAW+UarAL
- mVTBWHwq63Y+Nod7wafzC4UDJeuKg03XcSCmsYA9kq2kOgfxV9lvPHkVgSfezRPNeiNp
- 9+ZoNkVXoCA5HvZPc0BUqLd0WTY+aNVcI1LejL2z5MDFCvyXlfbzF+nVfAUH7WNcw716
- pj8mqY+OGnvpl7G7944/CU5HinKUmBhx1CYYYCChKT4bkBkWDfXwIAb/AZfeefp3h//7
- wCIw==
-X-Gm-Message-State: AOAM530Dwsuev/By5vtsOY/RTG3S+GIkpR7K7HpdLESqDakkZvUrPelW
- mm9/3BYReDsIQyFRfOWfKrI2WxIJcGGe
-X-Google-Smtp-Source: ABdhPJyZimMZV+xcov015NrauDXlP8LKh15pHmUy6PV0S5YZ8p1D4rA/BMWctH3tggkY5jacIw28kQ==
-X-Received: by 2002:a05:6512:128e:: with SMTP id
- u14mr21139998lfs.483.1626775992560; 
- Tue, 20 Jul 2021 03:13:12 -0700 (PDT)
-Received: from localhost.localdomain ([178.68.161.34])
- by smtp.gmail.com with ESMTPSA id t72sm1491196lff.172.2021.07.20.03.13.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 20 Jul 2021 03:13:12 -0700 (PDT)
-From: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 1C1301A00A48
+ for <ltp@lists.linux.it>; Tue, 20 Jul 2021 12:39:42 +0200 (CEST)
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 41C061FE02
+ for <ltp@lists.linux.it>; Tue, 20 Jul 2021 10:39:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1626777582; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=mrMjzM7iHc97HvwdxNR6vk5yfNARHVd65JKSc+tlBJw=;
+ b=3XEQA7iQYHuEQ2CGJI1/9hxdxanYBWttJWLdXw4tdaIi2kP1nalX7ILXQK0WEINd9qZpZr
+ GpHkoRqWWSu+Gav/36e5RMHUPSLzGgvxG8yGLfymHOHUP7FWJ/tmMoOoif2+yrygd2n0Zu
+ A3Cdhc1dDmN6qKh10tA734pXOSWlh2o=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1626777582;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=mrMjzM7iHc97HvwdxNR6vk5yfNARHVd65JKSc+tlBJw=;
+ b=lo8p6QHnTQk6/1INJ8Tf/kgVJHM7A9ASqWgg/iR7BZjD4eDu6FKRZwZcjO1gPs9vvkVtB2
+ zWaTeiAyVdFjHRAw==
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 2E9FA13B2F
+ for <ltp@lists.linux.it>; Tue, 20 Jul 2021 10:39:42 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap1.suse-dmz.suse.de with ESMTPSA id QMJ0Cu6n9mAuOwAAGKfGzw
+ (envelope-from <mdoucha@suse.cz>)
+ for <ltp@lists.linux.it>; Tue, 20 Jul 2021 10:39:42 +0000
+From: Martin Doucha <mdoucha@suse.cz>
 To: ltp@lists.linux.it
-Date: Tue, 20 Jul 2021 13:12:49 +0300
-Message-Id: <20210720101249.10118-1-aleksei.kodanev@bell-sw.com>
-X-Mailer: git-send-email 2.25.1
+Date: Tue, 20 Jul 2021 12:39:39 +0200
+Message-Id: <20210720103941.9767-1-mdoucha@suse.cz>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v2] crypto/af_alg02: thread termination fixes
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/3] Add skip_in_lockdown flag to struct tst_test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,72 +81,43 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On musl, pthread_kill() doesn't return ESRCH if thread id is not found
-(POSIX only recommends to return ESRCH). Use tst_atomic_store/load()
-instead, when waiting for the thread.
+When the flag is set to 1, the LTP library will call tst_lockdown_enabled()
+during initialization and exit with TCONF if kernel lockdown is detected.
 
-Also, the thread's resources wasn't properly freed after the run(),
-so adding pthread_join() should fix that.
-
-Signed-off-by: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
+Signed-off-by: Martin Doucha <mdoucha@suse.cz>
 ---
-v2: convert pthread_tryjoin_np() into atomic_load/store() + pthread_join()
+ include/tst_test.h | 1 +
+ lib/tst_test.c     | 3 +++
+ 2 files changed, 4 insertions(+)
 
- testcases/kernel/crypto/af_alg02.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
-
-diff --git a/testcases/kernel/crypto/af_alg02.c b/testcases/kernel/crypto/af_alg02.c
-index 31d30777c..5863fd26b 100644
---- a/testcases/kernel/crypto/af_alg02.c
-+++ b/testcases/kernel/crypto/af_alg02.c
-@@ -18,11 +18,13 @@
- #include "tst_test.h"
- #include "tst_af_alg.h"
- #include "tst_safe_pthread.h"
-+#include "tst_atomic.h"
- #include <pthread.h>
- #include <errno.h>
+diff --git a/include/tst_test.h b/include/tst_test.h
+index 6ad355506..c7d77eb09 100644
+--- a/include/tst_test.h
++++ b/include/tst_test.h
+@@ -157,6 +157,7 @@ struct tst_test {
+ 	 * to the test function.
+ 	 */
+ 	int all_filesystems:1;
++	int skip_in_lockdown:1;
  
- #define SALSA20_IV_SIZE       8
- #define SALSA20_MIN_KEY_SIZE  16
-+static int completed;
+ 	/*
+ 	 * The skip_filesystem is a NULL terminated list of filesystems the
+diff --git a/lib/tst_test.c b/lib/tst_test.c
+index f4d9f8e3b..c7c77596c 100644
+--- a/lib/tst_test.c
++++ b/lib/tst_test.c
+@@ -957,6 +957,9 @@ static void do_setup(int argc, char *argv[])
+ 	if (tst_test->min_kver)
+ 		check_kver();
  
- static void *verify_encrypt(void *arg)
- {
-@@ -48,19 +50,21 @@ static void *verify_encrypt(void *arg)
- 		tst_res(TPASS, "Successfully \"encrypted\" an empty message");
- 	else
- 		tst_res(TFAIL, "read() didn't return 0");
++	if (tst_test->skip_in_lockdown && tst_lockdown_enabled())
++		tst_brk(TCONF, "Kernel is locked down, skipping test");
 +
-+	tst_atomic_store(1, &completed);
- 	return arg;
- }
- 
- static void run(void)
- {
- 	pthread_t thr;
--
-+	tst_atomic_store(0, &completed);
- 	pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
- 	SAFE_PTHREAD_CREATE(&thr, NULL, verify_encrypt, NULL);
- 
- 	TST_CHECKPOINT_WAIT(0);
- 
--	while (pthread_kill(thr, 0) != ESRCH) {
-+	while (!tst_atomic_load(&completed)) {
- 		if (tst_timeout_remaining() <= 10) {
- 			pthread_cancel(thr);
- 			tst_brk(TBROK,
-@@ -68,6 +72,7 @@ static void run(void)
- 		}
- 		usleep(1000);
- 	}
-+	pthread_join(thr, NULL);
- }
- 
- static struct tst_test test = {
+ 	if (tst_test->needs_cmds) {
+ 		const char *cmd;
+ 		char path[PATH_MAX];
 -- 
-2.25.1
+2.32.0
 
 
 -- 
