@@ -2,63 +2,64 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF1373CFAC0
-	for <lists+linux-ltp@lfdr.de>; Tue, 20 Jul 2021 15:36:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5914A3CFAC1
+	for <lists+linux-ltp@lfdr.de>; Tue, 20 Jul 2021 15:36:39 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B3CED3C981D
-	for <lists+linux-ltp@lfdr.de>; Tue, 20 Jul 2021 15:36:32 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 1AFFA3C81AA
+	for <lists+linux-ltp@lfdr.de>; Tue, 20 Jul 2021 15:36:39 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id BBA083C81AA
- for <ltp@lists.linux.it>; Tue, 20 Jul 2021 15:34:16 +0200 (CEST)
-Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
- [IPv6:2a00:1450:4864:20::230])
+ by picard.linux.it (Postfix) with ESMTPS id ADDCD3C9806
+ for <ltp@lists.linux.it>; Tue, 20 Jul 2021 15:34:17 +0200 (CEST)
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [IPv6:2a00:1450:4864:20::135])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 5E4F6140020B
- for <ltp@lists.linux.it>; Tue, 20 Jul 2021 15:34:16 +0200 (CEST)
-Received: by mail-lj1-x230.google.com with SMTP id l11so15841428ljq.4
- for <ltp@lists.linux.it>; Tue, 20 Jul 2021 06:34:16 -0700 (PDT)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 14F571400B6A
+ for <ltp@lists.linux.it>; Tue, 20 Jul 2021 15:34:17 +0200 (CEST)
+Received: by mail-lf1-x135.google.com with SMTP id f30so29247484lfv.10
+ for <ltp@lists.linux.it>; Tue, 20 Jul 2021 06:34:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=bell-sw-com.20150623.gappssmtp.com; s=20150623;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=Ms1QEP9seOQvhjSVxrQ7wEnWeIvfsByg0QiXLlu2/4c=;
- b=PVwL0cgBY9KFddx39D+8HZi69h/WSq7oqEY7Et8PEswCxu+m9GbuZ1egBVL6LRTaxN
- Y5PoKYtWckChhK8xJoC35FIGy4RC2nB37kgobcI8dUad6eZMdXjvSzlpAJGmEGER5oPH
- hgPAzdiMnahun0dJP3qlmB/A2bchpQ4pOSB6scLtWvcMmIzSWLojjJuIIvFvO/UWHzeZ
- 2DLNSNdyWfW+haxVQMcRATk1LbRMSX+qI4S9wIA4XfaFTFnrJ0+mVEzTpo9w7tAuPV06
- 21FQdDAcn2A891BjGSkWtkL7/zywotjbrZyGKR95sMaQM7FWPjyXvbha6Ay2lKSV5h5u
- 5Dbw==
+ bh=SnChm5UJVlNzR3XaxFa38l+3WZx/806uiMkKjiJJAUc=;
+ b=1Qwnqx85fZhriNrjvFxv+RypCMbvThtYd32ugA0sD2nDGL5IN7dJbWer2/fJvB/m70
+ NY77JftLMbYEsvlWAFpaEA0BdVKDQqDLHds6pGhlG3+UBL7UdqCYdXzlM+lgwlZ6uFoI
+ dWVDtGy3dcsQ1yv8N6I3e1R2MvnUQSev4ta4CkHtXdICcap+p2FXIIDpaQ93PGD+qXXP
+ tbY07VuLUY45oyVDgJ6sq/bOyd60m05Go8WzejoCB/qHcXyjFfUDw79DMXC7JxSE+UVH
+ elofMb7cii7kg6sG/yrnrL3S+MtTeE7RE77bztH4Tqw8mUIVHgjwmYxCltv3KzihBha0
+ qJhw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=Ms1QEP9seOQvhjSVxrQ7wEnWeIvfsByg0QiXLlu2/4c=;
- b=D4mW/KUzmUyif9ifqUTKXK1EMhnbbs7xYGzCPULNk78YwPQmsxOVSAsMb62Zn2y05P
- Kx73PQsn9JgrfwhT4+nFSmMlmAs9KThe0wLq3lTuPsNiDoTuwfEwTxw6XKllDuYospkt
- HMPV2eKFoaJegvDEpLPvOzrYceFzo0MIMtEcyvZQiv640Q7ewab2qomaVoiHezQVThyI
- tHMLgq/OyYwR/Winr49LF37thCpPag0sGJcWyuRHX2Bk+eExnr7Rw5e6OyjA6n4L6nCQ
- 00f3+g0jgRNQNwZEZ/jKkgrPfNUVXti1ZqECHMGBS6NFPsrvQyTmB1uJ29yxK54j3PD8
- FS5g==
-X-Gm-Message-State: AOAM533XMU35MhgwPUxBBQykzKAxr+q34FSFTub8MFIzRo+h7pVUkrZK
- f/oPE/Hvn9pKKvL1prJXoxFdOHpoTNNv
-X-Google-Smtp-Source: ABdhPJzoqYrT2ghV9ibcSEegRO0u9zLqjgvbtjOUFZyzZ0vD6Nq2TdgmW3b5Zdy2JwP4fuQaGORWCw==
-X-Received: by 2002:a2e:bf20:: with SMTP id c32mr26480699ljr.311.1626788055692; 
- Tue, 20 Jul 2021 06:34:15 -0700 (PDT)
+ bh=SnChm5UJVlNzR3XaxFa38l+3WZx/806uiMkKjiJJAUc=;
+ b=alLJ6DDNwLK4mmLbgYVKMMnxI2ER3WI3RVMmUXj77VIv9aq+nt0Ne6W+PmMEMP4XiE
+ bIxjGkNmwAl10myML2+6aur2KXxmkxlNpTWgobJhT/DV4Jw/FnTVj3Mb0YRaA+PEBme9
+ r1MStIUkeFm1hkMFOlY37qEj+cv3udnxPYyHNi/z78uTHx/Zw0dEwztpjyb1dENUp2wd
+ oOredMrz1pKx9SfJHHdGdsk27lZd5+gnIFsh7Yw1EKVg0OCF/0x+fbHBprJH3iYths/d
+ da2gd37yuenfv6zVxCk797ruHGIPYgcMJTKbYRD20us9epAl1yex5Bqm8VI7yU03/3VA
+ FeGQ==
+X-Gm-Message-State: AOAM532kWqoI3kUxNuGedKMJxd/C3kY2QAxxl9hjGfnXRg2o/KqZTX6x
+ +jCzStc8/W4g4lN4nRoplZ16UTxTI3EZ
+X-Google-Smtp-Source: ABdhPJyMshvZHI3JqGZ70/uPmUOMDir0DHk56rmAdiFJ8j8u07gHMUXmdfqcQazY+BIcv+67/aG00Q==
+X-Received: by 2002:ac2:4f92:: with SMTP id z18mr21267563lfs.343.1626788056325; 
+ Tue, 20 Jul 2021 06:34:16 -0700 (PDT)
 Received: from localhost.localdomain ([178.68.161.34])
  by smtp.gmail.com with ESMTPSA id x16sm1526828lfa.244.2021.07.20.06.34.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 20 Jul 2021 06:34:15 -0700 (PDT)
+ Tue, 20 Jul 2021 06:34:16 -0700 (PDT)
 From: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
 To: ltp@lists.linux.it
-Date: Tue, 20 Jul 2021 16:33:22 +0300
-Message-Id: <20210720133324.21752-15-aleksei.kodanev@bell-sw.com>
+Date: Tue, 20 Jul 2021 16:33:23 +0300
+Message-Id: <20210720133324.21752-16-aleksei.kodanev@bell-sw.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210720133324.21752-1-aleksei.kodanev@bell-sw.com>
 References: <20210720133324.21752-1-aleksei.kodanev@bell-sw.com>
@@ -68,7 +69,8 @@ X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH 14/16] syscalls/sched_setscheduler03: use tst_sched_*()
+Subject: [LTP] [PATCH 15/16] syscalls/sched_getscheduler01: convert to new
+ API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,53 +89,180 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Signed-off-by: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
 ---
- .../syscalls/sched_setscheduler/sched_setscheduler03.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ .../sched_getscheduler/sched_getscheduler01.c | 141 +++++-------------
+ 1 file changed, 37 insertions(+), 104 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/sched_setscheduler/sched_setscheduler03.c b/testcases/kernel/syscalls/sched_setscheduler/sched_setscheduler03.c
-index 9045d0366..af4b29300 100644
---- a/testcases/kernel/syscalls/sched_setscheduler/sched_setscheduler03.c
-+++ b/testcases/kernel/syscalls/sched_setscheduler/sched_setscheduler03.c
-@@ -17,13 +17,13 @@
- #include <stdio.h>
- #include <errno.h>
- #include <pwd.h>
--#include <sched.h>
- #include <sys/time.h>
- #include <sys/resource.h>
- #include <sys/wait.h>
- #include <stdlib.h>
+diff --git a/testcases/kernel/syscalls/sched_getscheduler/sched_getscheduler01.c b/testcases/kernel/syscalls/sched_getscheduler/sched_getscheduler01.c
+index f6bdf1a1b..e0da0510d 100644
+--- a/testcases/kernel/syscalls/sched_getscheduler/sched_getscheduler01.c
++++ b/testcases/kernel/syscalls/sched_getscheduler/sched_getscheduler01.c
+@@ -1,129 +1,62 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+- *
+- *   Copyright (c) International Business Machines  Corp., 2001
+- *
+- *   This program is free software;  you can redistribute it and/or modify
+- *   it under the terms of the GNU General Public License as published by
+- *   the Free Software Foundation; either version 2 of the License, or
+- *   (at your option) any later version.
+- *
+- *   This program is distributed in the hope that it will be useful,
+- *   but WITHOUT ANY WARRANTY;  without even the implied warranty of
+- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
+- *   the GNU General Public License for more details.
+- *
+- *   You should have received a copy of the GNU General Public License
+- *   along with this program;  if not, write to the Free Software
+- *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
++ * Copyright (c) 2021, BELLSOFT. All rights reserved.
++ * Copyright (c) International Business Machines  Corp., 2001
+  */
  
- #include "tst_test.h"
+-/*
+- * NAME
+- *	sched_getscheduler01.C
++/*\
++ * [Description]
+  *
+- * DESCRIPTION
+- *	Testcase to check sched_getscheduler() returns correct return value
++ * Testcase to check sched_getscheduler() returns correct return value.
+  *
+- * ALGORTIHM
+- *	Call sched_setcheduler() to set the scheduling policy of the current
+- *	process. Then call sched_getscheduler() to ensure that this is same
+- *	as what set by the previous call to sched_setscheduler().
++ * [Algorithm]
+  *
+- *	Use SCHED_RR, SCHED_FIFO, SCHED_OTHER as the scheduling policies for
+- *	sched_setscheduler().
++ * Call sched_setcheduler() to set the scheduling policy of the current
++ * process. Then call sched_getscheduler() to ensure that this is same
++ * as what set by the previous call to sched_setscheduler().
+  *
+- * USAGE:  <for command-line>
+- *  sched_getscheduler01 [-c n] [-f] [-i n] [-I x] [-P x] [-t]
+- *     where,  -c n : Run n copies concurrently.
+- *             -f   : Turn off functionality Testing.
+- *             -i n : Execute test n times.
+- *             -I x : Execute test for x seconds.
+- *             -P x : Pause for x seconds between iterations.
+- *             -t   : Turn on syscall timing.
++ * Use SCHED_RR, SCHED_FIFO, SCHED_OTHER as the scheduling policies for
++ * sched_setscheduler().
+  *
+- * RESTRICTION
+- *	Must run test as root.
+  */
+ 
+ #include <errno.h>
+-#include <sched.h>
+ #include <stdio.h>
+-#include "test.h"
+-
+-char *TCID = "sched_getscheduler01";
+-int TST_TOTAL = 3;
+ 
+-void setup(void);
+-void cleanup(void);
++#include "tst_test.h"
 +#include "tst_sched.h"
  
- #define RLIMIT_NICE_NORMAL 20
+-struct test_case_t {
+-	int prio;
++struct test_cases_t {
++	int priority;
+ 	int policy;
+-} TC[] = {
+-	/* set scheduling policy to SCHED_RR */
+-	{
+-	1, SCHED_RR},
+-	    /* set scheduling policy to SCHED_OTHER */
+-	{
+-	0, SCHED_OTHER},
+-	    /* set scheduling policy to SCHED_FIFO */
+-	{
+-	1, SCHED_FIFO}
++} tcases[] = {
++	{1, SCHED_RR},
++	{0, SCHED_OTHER},
++	{1, SCHED_FIFO}
+ };
  
-@@ -96,8 +96,8 @@ static void verify_fn(unsigned int i)
- 		"Verifying case[%d]: policy = %d, priority = %d",
- 		i + 1, cases[i].policy, cases[i].sched_param->sched_priority);
+-int main(int ac, char **av)
++static void run(unsigned int n)
+ {
+-	int lc;
+-	int i;
+-	struct sched_param param;
+-
+-	tst_parse_opts(ac, av, NULL, NULL);
+-
+-	setup();
+-
+-	for (lc = 0; TEST_LOOPING(lc); lc++) {
+-
+-		tst_count = 0;
+-
+-		for (i = 0; i < TST_TOTAL; i++) {
++	struct test_cases_t *tc = &tcases[n];
++	struct sched_param p = { .sched_priority = tc->priority };
  
--	TEST(sched_setscheduler(*cases[i].pid, cases[i].policy,
--					cases[i].sched_param));
-+	TEST(tst_sched_setscheduler(*cases[i].pid, cases[i].policy,
-+				    cases[i].sched_param));
- 	if (TST_RET)
- 		tst_res(TFAIL | TTERRNO, "case[%d] expected: %d, got: ",
- 			i + 1, cases[i].error);
-@@ -129,11 +129,11 @@ static void setup(void)
- 	l_rlimit_setup(RLIMIT_NICE, &limit);
+-			param.sched_priority = TC[i].prio;
++	TST_EXP_PASS_SILENT(tst_sched_setscheduler(0, tc->policy, &p));
  
- 	tst_res(TINFO, "Setting init sched policy to SCHED_OTHER");
--	if (sched_setscheduler(0, SCHED_OTHER, &param[0]) != 0)
-+	if (tst_sched_setscheduler(0, SCHED_OTHER, &param[0]) != 0)
- 		tst_res(TFAIL | TERRNO,
- 			 "ERROR sched_setscheduler: (0, SCHED_OTHER, param)");
+-			if (sched_setscheduler(0, TC[i].policy, &param) == -1)
+-				tst_brkm(TBROK, cleanup,
+-					 "sched_setscheduler failed");
++	TEST(tst_sched_getscheduler(0));
  
--	if (sched_getscheduler(0) != SCHED_OTHER)
-+	if (tst_sched_getscheduler(0) != SCHED_OTHER)
- 		tst_res(TFAIL | TERRNO, "ERROR sched_setscheduler");
+-			TEST(sched_getscheduler(0));
+-
+-			if (TEST_RETURN == -1) {
+-				tst_resm(TFAIL, "call failed unexpectedly");
+-				continue;
+-			}
+-
+-			if (TEST_RETURN != TC[i].policy)
+-				tst_resm(TFAIL,
+-					 "policy value returned is not "
+-					 "correct");
+-			else
+-				tst_resm(TPASS,
+-					 "policy value returned is correct");
+-		}
++	if (TST_RET == -1) {
++		tst_res(TFAIL, "sched_getscheduler() failed unexpectedly");
++		return;
+ 	}
  
- 	tst_res(TINFO, "Setting euid to nobody to drop privilege");
+-	cleanup();
+-	tst_exit();
++	if (TST_RET == tc->policy)
++		tst_res(TPASS, "got expected policy %d", tc->policy);
++	else
++		tst_res(TFAIL, "got policy %ld, expected %d", TST_RET, tc->policy);
+ }
+ 
+-void setup(void)
+-{
+-
+-	tst_require_root();
+-
+-	tst_sig(NOFORK, DEF_HANDLER, cleanup);
+-
+-	TEST_PAUSE;
+-}
+-
+-void cleanup(void)
+-{
+-}
++static struct tst_test test = {
++	.needs_root = 1,
++	.tcnt = ARRAY_SIZE(tcases),
++	.test = run,
++};
 -- 
 2.25.1
 
