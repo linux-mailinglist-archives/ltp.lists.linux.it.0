@@ -2,55 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5B883CF4E6
-	for <lists+linux-ltp@lfdr.de>; Tue, 20 Jul 2021 08:57:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5418F3CF59C
+	for <lists+linux-ltp@lfdr.de>; Tue, 20 Jul 2021 09:56:22 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 61C1E3C81AD
-	for <lists+linux-ltp@lfdr.de>; Tue, 20 Jul 2021 08:57:14 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B94AE3C81A6
+	for <lists+linux-ltp@lfdr.de>; Tue, 20 Jul 2021 09:56:21 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 75DE43C2174
- for <ltp@lists.linux.it>; Tue, 20 Jul 2021 08:57:10 +0200 (CEST)
-Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id B8E203C2B48
+ for <ltp@lists.linux.it>; Tue, 20 Jul 2021 09:56:18 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 632CF1A00881
- for <ltp@lists.linux.it>; Tue, 20 Jul 2021 08:57:07 +0200 (CEST)
-Received: from dggemv703-chm.china.huawei.com (unknown [172.30.72.56])
- by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4GTTv86Kn5z7wVf
- for <ltp@lists.linux.it>; Tue, 20 Jul 2021 14:53:24 +0800 (CST)
-Received: from dggpemm500022.china.huawei.com (7.185.36.162) by
- dggemv703-chm.china.huawei.com (10.3.19.46) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2176.2; Tue, 20 Jul 2021 14:57:03 +0800
-Received: from [10.67.109.194] (10.67.109.194) by
- dggpemm500022.china.huawei.com (7.185.36.162) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
- 15.1.2176.2; Tue, 20 Jul 2021 14:57:02 +0800
-To: Cyril Hrubis <chrubis@suse.cz>
-References: <20210628080424.245911-3-xieziyao@huawei.com>
- <20210716102257.20882-1-xieziyao@huawei.com> <YPWB5hvIVTPjF7fO@yuki>
-From: Xie Ziyao <xieziyao@huawei.com>
-Message-ID: <8f05475c-d105-1538-dcdc-9e20ff6e1d60@huawei.com>
-Date: Tue, 20 Jul 2021 14:57:02 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.2
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 427EA200923
+ for <ltp@lists.linux.it>; Tue, 20 Jul 2021 09:56:17 +0200 (CEST)
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 286592238E;
+ Tue, 20 Jul 2021 07:56:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1626767777;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=OnTEy19iuvDqsGks5ZBJ8kDbYuc4z+Js2KuNOkp0Ob8=;
+ b=lKgTJUcbIxe0Xffj4c7DTNlSitYfY5rT7xFeCyx8OiqLXFZq4/uFiNrD+7eNlbL1qvtvKd
+ fvHmiMLgHE1FsEA1xxtGu/PrAoEAUr9oSFH1KqPI5SiT+B8ZMmiydlDcGp8e1hKdCs71Xs
+ U2yzfzJtMbramD/jCZrC3OGEzdZCPZQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1626767777;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=OnTEy19iuvDqsGks5ZBJ8kDbYuc4z+Js2KuNOkp0Ob8=;
+ b=WuY2PWRvAdXC7uknju4BUVmsK7sFnw0JphNdBo6BIJxEvzzeZb4ZcIW5/635ptiMuZtlps
+ Qz/+/gOpD95aydDw==
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id EFE46139A5;
+ Tue, 20 Jul 2021 07:56:16 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap1.suse-dmz.suse.de with ESMTPSA id 0J+eNqCB9mDkfAAAGKfGzw
+ (envelope-from <pvorel@suse.cz>); Tue, 20 Jul 2021 07:56:16 +0000
+Date: Tue, 20 Jul 2021 09:56:15 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: zhanglianjie <zhanglianjie@uniontech.com>
+Message-ID: <YPaBnxlp2SsxCaPE@pevik>
+References: <20210720063852.1883-1-zhanglianjie@uniontech.com>
 MIME-Version: 1.0
-In-Reply-To: <YPWB5hvIVTPjF7fO@yuki>
-X-Originating-IP: [10.67.109.194]
-X-ClientProxiedBy: dggeme704-chm.china.huawei.com (10.1.199.100) To
- dggpemm500022.china.huawei.com (7.185.36.162)
-X-CFilter-Loop: Reflected
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20210720063852.1883-1-zhanglianjie@uniontech.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 0/5 v2] epoll_pwait2: Add test for epoll_pwait2
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] stime: Only o32 system calls require 32-bit
+ programs on mips
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,32 +80,31 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi, Cyril,
+Hi zhanglianjie,
 
-> Pushed with minor changes, thanks.
-> 
-> * Changed the include in lapi/epoll.h to tst_timer.h
-> 
-> * Added better description to epoll_wait02
-> 
-Looks good. Thanks for your modifications.
+> The stime() system call is only o32, not n32 and n64. If you do not
+> specify that the current program is compiled to 32-bit when compiling
+> the program on mips, the stime() system call will fail when the
+> program is running.
+You're right that stime() is only on o32. But tst_syscall() should catch that.
+Or does it set different errno than ENOSYS?
 
-> 
-> Also it would be nice to convert the epoll_pwait01.c to the variants as
-> well...
-> 
-OK, I'll fix it.
+Kind regards,
+Petr
 
-Thanks for your review.
-
-Kind Regards,
-Ziyao
+...
+> +#if defined(__mips__) && _MIPS_SZLONG == 32
+>  		return tst_syscall(__NR_stime, ntime);
+> +#else
+> +		tst_brk(TCONF, "the stime() syscall only o32 ABI in mips, make sure the current program is 32-bit");
+> +#endif
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
