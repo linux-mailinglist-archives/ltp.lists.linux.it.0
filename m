@@ -1,74 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6001C3CFC53
-	for <lists+linux-ltp@lfdr.de>; Tue, 20 Jul 2021 16:32:27 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 335153CFC98
+	for <lists+linux-ltp@lfdr.de>; Tue, 20 Jul 2021 16:49:30 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A8E0B3C9830
-	for <lists+linux-ltp@lfdr.de>; Tue, 20 Jul 2021 16:32:26 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 870153C9823
+	for <lists+linux-ltp@lfdr.de>; Tue, 20 Jul 2021 16:49:29 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id B6F983C6354
- for <ltp@lists.linux.it>; Tue, 20 Jul 2021 16:32:22 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id DF8CA3C6354
+ for <ltp@lists.linux.it>; Tue, 20 Jul 2021 16:49:25 +0200 (CEST)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 354E97CEC7C
- for <ltp@lists.linux.it>; Tue, 20 Jul 2021 16:32:21 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 67AF860094D
+ for <ltp@lists.linux.it>; Tue, 20 Jul 2021 16:49:25 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 6C0D71FE2B;
- Tue, 20 Jul 2021 14:32:21 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id A97961FE25;
+ Tue, 20 Jul 2021 14:49:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1626791541; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1626792564; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=DLfrrNIaiv9W2rZdrxH+48Qp+PIXRXXOe/3saywJm2s=;
- b=kmLJ60rO/xIxi4fAGKsYenNRpsHI6TWgoDSJtry8eqTAYU0DQj4q9vECQLYZUb++N+nstw
- bJloXh1j+ti32BTC4qXTzKDjDtrg3eVJ/wYjCwyt7TN2wHiRt9rkt7Z0M7dv+lYA086RWu
- JqzkKsTok00k26/vvdS0ZobgnYAcd1I=
+ bh=O667cd3J2JZv+ELmqXd3Ck9Q85mcgLgibyye7FDmSZo=;
+ b=BhwdX/4noxjOxYXaC2Vdev04AZNvefFRYB36kgnT+C9rDuNbBWC7TpnYEbe4uMEYmhOHos
+ Ag/DCfQkilotNfoiu9E825j91A55dEyoX+RVy6rwlpSmWZpE4OOqrpBaqlvravr4h6CqkK
+ hz2QWa6jCRRKuG4Ax9IEqoUO8vujUiM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1626791541;
+ s=susede2_ed25519; t=1626792564;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=DLfrrNIaiv9W2rZdrxH+48Qp+PIXRXXOe/3saywJm2s=;
- b=PiF44zCGVMS+DgId/52nz5o5ATWrCyaH4yhR8J1hafurhp3o0E2o2+YqblbxXNM1CkFqht
- 0PIIcia0ZBmjdYBA==
+ bh=O667cd3J2JZv+ELmqXd3Ck9Q85mcgLgibyye7FDmSZo=;
+ b=1LpVmuh5KTqMC0h65gcOraliyOsAP9frZ/qg46F24BNAR9iNc8D6NGUp3rGSBLZMD1/Q7x
+ vWYZBLZ8J+R4mIAA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 55D1C13D70;
- Tue, 20 Jul 2021 14:32:21 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 88A5B13D68;
+ Tue, 20 Jul 2021 14:49:24 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id IsGsE3Xe9mD2EgAAMHmgww
- (envelope-from <chrubis@suse.cz>); Tue, 20 Jul 2021 14:32:21 +0000
-Date: Tue, 20 Jul 2021 16:06:52 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id k/7lIHTi9mABGAAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Tue, 20 Jul 2021 14:49:24 +0000
+Date: Tue, 20 Jul 2021 16:23:56 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
-Message-ID: <YPbYfPWly+3kW7y5@yuki>
+Message-ID: <YPbcfEgPs66/ng7c@yuki>
 References: <20210720133324.21752-1-aleksei.kodanev@bell-sw.com>
  <YPbNQ4AebDiUMxVz@yuki>
  <f9767568-466f-73d2-7d73-aa880fde6a63@bell-sw.com>
 MIME-Version: 1.0
 Content-Disposition: inline
 In-Reply-To: <f9767568-466f-73d2-7d73-aa880fde6a63@bell-sw.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH 00/16] syscalls/sched_*: convert to new API and
  handle ENOSYS errno
 X-BeenThere: ltp@lists.linux.it
@@ -89,27 +89,12 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> >> The patch-set introduced new tst_sched_* wrappers to handle ENOSYS
-> >> error that can be returned by libc (musl [1]). In that particular
-> >> case the wrapper uses syscall directly to test the kernel anyway.
-> > 
-> > Can't we use the test_variants to test both the kernel and libc calls
-> > instead?
-> 
-> With glibc it seems it would be just a redundant work to call both
-> variants, wouldn't it?
-
-I do not think so, since the libc wrappers may be more complex than just
-a syscall(__NR_foo, ...). At least recently the libc variants are
-switching between foo and foo_time64 syscall variants and convert the
-timespecs accordingly.
-
 > BTW, sched_rr_get_interval* tests already using tst_variants, adding
 > more variants will double them too, right?
 
-That's true and this makes things slightly more complicated. But as
-these test just calls a few syscalls and check return values I doubt
-that doubling the test matrix would be measureable in the test runtime.
+Actually not, since we do run the test for both the libc
+sched_rr_get_interval and for all possible syscalls variants we don't
+have to touch these tests at all.
 
 -- 
 Cyril Hrubis
