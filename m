@@ -2,52 +2,55 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77D5A3CF4A2
-	for <lists+linux-ltp@lfdr.de>; Tue, 20 Jul 2021 08:39:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5B883CF4E6
+	for <lists+linux-ltp@lfdr.de>; Tue, 20 Jul 2021 08:57:14 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E5BC53C6366
-	for <lists+linux-ltp@lfdr.de>; Tue, 20 Jul 2021 08:39:18 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 61C1E3C81AD
+	for <lists+linux-ltp@lfdr.de>; Tue, 20 Jul 2021 08:57:14 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 7F7EA3C2174
- for <ltp@lists.linux.it>; Tue, 20 Jul 2021 08:39:15 +0200 (CEST)
-Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 75DE43C2174
+ for <ltp@lists.linux.it>; Tue, 20 Jul 2021 08:57:10 +0200 (CEST)
+Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 5A70D6002BB
- for <ltp@lists.linux.it>; Tue, 20 Jul 2021 08:39:12 +0200 (CEST)
-X-QQ-mid: bizesmtp49t1626763140tiwne51q
-Received: from localhost.localdomain (unknown [58.240.82.166])
- by esmtp6.qq.com (ESMTP) with 
- id ; Tue, 20 Jul 2021 14:38:53 +0800 (CST)
-X-QQ-SSF: 01400000008000106000B00D0000000
-X-QQ-FEAT: 4I5p1PuRj8Y70jkPt8oN4peNXOEyTV1PTX87Ob6dJqVKOWRnTz/JqpnxAP9xO
- 2y0dmX9+53JDa9V44XkWkFU+fKc/rQhf2W0M2WP7in1t8LYLBkbbMHkHVfF09py8VoAV/C6
- ZkbwPnD3ugnSE8ir2mCPcIkQrZJBBrgLhl6w0zBxHqm1R7mkxblYbyWzz3heGlExbkF0DCW
- ZcroIvAhuzdd4o869zh+LOPValBECipnB2VaG6mBphYmxmn3+KGyam3EN5gVyIID5iA7y5I
- w8JQ5wFc+0Lkc46QeZ4Vc/rQjLygoQe7jJCmZk7wr41mKEZ0bEbyFKJTfBxZGB6IraKN3W8
- OwIyoowdFCMkoAiQac=
-X-QQ-GoodBg: 2
-From: zhanglianjie <zhanglianjie@uniontech.com>
-To: ltp@lists.linux.it
-Date: Tue, 20 Jul 2021 14:38:52 +0800
-Message-Id: <20210720063852.1883-1-zhanglianjie@uniontech.com>
-X-Mailer: git-send-email 2.20.1
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 632CF1A00881
+ for <ltp@lists.linux.it>; Tue, 20 Jul 2021 08:57:07 +0200 (CEST)
+Received: from dggemv703-chm.china.huawei.com (unknown [172.30.72.56])
+ by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4GTTv86Kn5z7wVf
+ for <ltp@lists.linux.it>; Tue, 20 Jul 2021 14:53:24 +0800 (CST)
+Received: from dggpemm500022.china.huawei.com (7.185.36.162) by
+ dggemv703-chm.china.huawei.com (10.3.19.46) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2176.2; Tue, 20 Jul 2021 14:57:03 +0800
+Received: from [10.67.109.194] (10.67.109.194) by
+ dggpemm500022.china.huawei.com (7.185.36.162) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
+ 15.1.2176.2; Tue, 20 Jul 2021 14:57:02 +0800
+To: Cyril Hrubis <chrubis@suse.cz>
+References: <20210628080424.245911-3-xieziyao@huawei.com>
+ <20210716102257.20882-1-xieziyao@huawei.com> <YPWB5hvIVTPjF7fO@yuki>
+From: Xie Ziyao <xieziyao@huawei.com>
+Message-ID: <8f05475c-d105-1538-dcdc-9e20ff6e1d60@huawei.com>
+Date: Tue, 20 Jul 2021 14:57:02 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.2
 MIME-Version: 1.0
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign2
-X-QQ-Bgrelay: 1
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+In-Reply-To: <YPWB5hvIVTPjF7fO@yuki>
+X-Originating-IP: [10.67.109.194]
+X-ClientProxiedBy: dggeme704-chm.china.huawei.com (10.1.199.100) To
+ dggpemm500022.china.huawei.com (7.185.36.162)
+X-CFilter-Loop: Reflected
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH] stime: Only o32 system calls require 32-bit programs
- on mips
+X-Spam-Status: No, score=-0.0 required=7.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 0/5 v2] epoll_pwait2: Add test for epoll_pwait2
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,42 +62,32 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
+Cc: ltp@lists.linux.it
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-The stime() system call is only o32, not n32 and n64. If you do not
-specify that the current program is compiled to 32-bit when compiling
-the program on mips, the stime() system call will fail when the
-program is running.
+Hi, Cyril,
 
-Signed-off-by: zhanglianjie <zhanglianjie@uniontech.com>
----
- testcases/kernel/syscalls/stime/stime_var.h | 4 ++++
- 1 file changed, 4 insertions(+)
+> Pushed with minor changes, thanks.
+> 
+> * Changed the include in lapi/epoll.h to tst_timer.h
+> 
+> * Added better description to epoll_wait02
+> 
+Looks good. Thanks for your modifications.
 
-diff --git a/testcases/kernel/syscalls/stime/stime_var.h b/testcases/kernel/syscalls/stime/stime_var.h
-index 708b80573..c5bafac99 100644
---- a/testcases/kernel/syscalls/stime/stime_var.h
-+++ b/testcases/kernel/syscalls/stime/stime_var.h
-@@ -25,7 +25,11 @@ static int do_stime(time_t *ntime)
- #endif
- 	break;
- 	case 1:
-+#if defined(__mips__) && _MIPS_SZLONG == 32
- 		return tst_syscall(__NR_stime, ntime);
-+#else
-+		tst_brk(TCONF, "the stime() syscall only o32 ABI in mips, make sure the current program is 32-bit");
-+#endif
- 	case 2: {
- 		struct __kernel_old_timeval tv;
+> 
+> Also it would be nice to convert the epoll_pwait01.c to the variants as
+> well...
+> 
+OK, I'll fix it.
 
---
-2.20.1
+Thanks for your review.
 
-
-
+Kind Regards,
+Ziyao
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
