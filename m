@@ -1,75 +1,75 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id C73763CFA9E
-	for <lists+linux-ltp@lfdr.de>; Tue, 20 Jul 2021 15:34:20 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id A0F953CFAA2
+	for <lists+linux-ltp@lfdr.de>; Tue, 20 Jul 2021 15:34:34 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7C8703C6CBE
-	for <lists+linux-ltp@lfdr.de>; Tue, 20 Jul 2021 15:34:20 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 338FF3C6CBF
+	for <lists+linux-ltp@lfdr.de>; Tue, 20 Jul 2021 15:34:34 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E44223C2B48
- for <ltp@lists.linux.it>; Tue, 20 Jul 2021 15:34:07 +0200 (CEST)
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [IPv6:2a00:1450:4864:20::136])
+ by picard.linux.it (Postfix) with ESMTPS id B0B2A3C2B48
+ for <ltp@lists.linux.it>; Tue, 20 Jul 2021 15:34:08 +0200 (CEST)
+Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
+ [IPv6:2a00:1450:4864:20::22d])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 968B36008F6
- for <ltp@lists.linux.it>; Tue, 20 Jul 2021 15:34:07 +0200 (CEST)
-Received: by mail-lf1-x136.google.com with SMTP id y42so35830275lfa.3
- for <ltp@lists.linux.it>; Tue, 20 Jul 2021 06:34:07 -0700 (PDT)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 0AC8A20034E
+ for <ltp@lists.linux.it>; Tue, 20 Jul 2021 15:34:08 +0200 (CEST)
+Received: by mail-lj1-x22d.google.com with SMTP id e14so12617499ljo.7
+ for <ltp@lists.linux.it>; Tue, 20 Jul 2021 06:34:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=bell-sw-com.20150623.gappssmtp.com; s=20150623;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=S5VWBTnBXqkir1Cy8ZaFZbstsLWfUTJ8pLwtKKnsfS8=;
- b=jfqdE8R9vsckjszNdF5oVNITjko9hC/utePivbcjYzZT3qNgK9T8mcGgC7pTYgaB1T
- StJBdIGrfeINvApo7YNwRqIJ99HjHiy4ztUvxWl6RwcqSKKpnNGqHF0YQyHBsLe60yOv
- BxrrtxSypM+mrosMQb0JUgU+8/S9OF499zKD686lqNDc8bLAe/OAD6udDrwsP7LkoxxQ
- jPx5zKP1QRmCJzoJx1/rbtE3G/YVjItSzibMtTX/O6xNxSMBgya2gJ+C0l/Jt9HQJOo7
- 9G0IBIg4RIUSdIHrYqZZiEP+gKBNj9jj19vHijefg3QaLhiok/N0OfM7wPhqJuzukN3Q
- m5uQ==
+ bh=XBwax4a0fgGxf4yolXOhVP6m+1fe9diCHcr0mpEmJHg=;
+ b=wzb4lUarQI5Psm9ZE3rDpNwwQl/tgExSAcY2B/oICaD0GqXIj2dLh58tNUT2rdAdwW
+ AB2mVfuHjKwp9we7VwzGE98OhMxOv3SSn6Q9xR2IPhM9LKdO2wzFvWTJwJjGD8hkJqas
+ ZencwOUaWvtGXvD+t0+Jg8uM857yJWZIw0kxJ81OWbltqvZFnhb8f56ZuzWvcdRbZ4u0
+ jEEpj2z17fcdQIeQArCG9Nhpc9pd+1vxS5kkZtfsMVPw8LfDy18S+ZamlRnw7F+Sj94I
+ r1sqcBZfYhRnKeZ/ln+qMnON7Y03htWMtbCdX8M6K5iHxDiXIAlfM+wpY66Ivsih1w1+
+ zmbw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=S5VWBTnBXqkir1Cy8ZaFZbstsLWfUTJ8pLwtKKnsfS8=;
- b=eyqdrdnMorZKdUBu39NT0MVi6nAvuzU5GEl99ZRDwQMR78R4IxgeJ6lvmiZmwEtaQK
- SV2CSIUFgzwJ/qr652qcvNyi5bnbxr+dGuzCEpTMlY5Z5pmgawfommyPYQRniZobcKO8
- 0/Hhdocl3PsgbMLHVE+8/3X3K+T7RZbqflZ935KuqglH2lfpFLYWcMLOHnuWgYWG0nap
- Im5tgYqI+7v0BK3mtjIKf9p5frNsBLSkK0PLWswyBwvwFtWKS5G5DJL4D26UQknQy0T6
- XLRrbq3y7sVY36X5m3RAtgM+uBoeqFzdXVokamaeNVWeWcptXVm7j+wYT8H6mQp+25Ln
- TB7A==
-X-Gm-Message-State: AOAM533SOgoVN2NBgUQV4BDJ6Rknyly7Gn4nJzQ2Br6glmuy6GLduDW9
- wNlyxSwNoTAipxCShHRmYfLMtLYMLSqz
-X-Google-Smtp-Source: ABdhPJzLbpvLMfNn9J57utIJm2bpZ+Mac5ONAsriw77EOOl8Yi899OaXyJdm0uykWJPS8zmTAMYiAA==
-X-Received: by 2002:ac2:5b03:: with SMTP id v3mr14926502lfn.188.1626788046796; 
- Tue, 20 Jul 2021 06:34:06 -0700 (PDT)
+ bh=XBwax4a0fgGxf4yolXOhVP6m+1fe9diCHcr0mpEmJHg=;
+ b=bHQ8HBNR2Yz9dHlARFurpS6ws/x/ahN4GwEW2ub9l1HD9bwk3arQ+ac5VADuOGPjfO
+ KoZ2MXq8t6mto1ujtChvgv0vEkiYRP5/JMdzjK2ZoV3I3fCZmXwCz65nnMI2Up9HLZNP
+ ySHw+XDhwem3oinNgJOVTJaZKyuEWCNs5cTLezRSRWSd87X8nyyc+FBdZRpu4n8EvWE7
+ KNBBjtrIVpadIhxjXIpHMIi92RIBYruxGVhVnJnz3oxyvf/exDtPQGlmTdYTIR6SBe1M
+ vmyE7Ruem9k6U55sWzn7vIECpB8R2VnTI34f481LmglTMw2wqNVEa7z78rRHuobNLeVb
+ +bHQ==
+X-Gm-Message-State: AOAM533s4IyTzCb8c4tgYbd/VSzbwRqgBGy8lYsY2FB4iV8dvATI3wwQ
+ dlUB+eL8jbr+UnrogIN5rTm6jZF5cC+W
+X-Google-Smtp-Source: ABdhPJyEwsJT8nQ1moA7l8YoV/6Q/Q2D8EgGQhmeIUIguHbR8M60OM4Mu5FKUELa82XW2RBKiaUyeQ==
+X-Received: by 2002:a2e:a54d:: with SMTP id e13mr3310592ljn.1.1626788047358;
+ Tue, 20 Jul 2021 06:34:07 -0700 (PDT)
 Received: from localhost.localdomain ([178.68.161.34])
  by smtp.gmail.com with ESMTPSA id x16sm1526828lfa.244.2021.07.20.06.34.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 20 Jul 2021 06:34:06 -0700 (PDT)
+ Tue, 20 Jul 2021 06:34:07 -0700 (PDT)
 From: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
 To: ltp@lists.linux.it
-Date: Tue, 20 Jul 2021 16:33:09 +0300
-Message-Id: <20210720133324.21752-2-aleksei.kodanev@bell-sw.com>
+Date: Tue, 20 Jul 2021 16:33:10 +0300
+Message-Id: <20210720133324.21752-3-aleksei.kodanev@bell-sw.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210720133324.21752-1-aleksei.kodanev@bell-sw.com>
 References: <20210720133324.21752-1-aleksei.kodanev@bell-sw.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH 01/16] lib/tst_sched: add ltp tst_sched_*()
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH 02/16] syscalls/sched_getparam01: use tst_sched_*()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,85 +86,36 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-The new tst_sched_*() invoke libc variant first, and if ENOSYS errno
-has been returned, tries to invoke syscall directly.
-
-musl implementation returns ENOSYS for some sched_*() functions due
-to commit 1e21e78bf7a5 ("add support for thread scheduling (POSIX
-TPS option)").
-
 Signed-off-by: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
 ---
- include/tst_sched.h | 16 ++++++++++++++++
- lib/tst_sched.c     | 36 ++++++++++++++++++++++++++++++++++++
- 2 files changed, 52 insertions(+)
- create mode 100644 include/tst_sched.h
- create mode 100644 lib/tst_sched.c
+ testcases/kernel/syscalls/sched_getparam/sched_getparam01.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/include/tst_sched.h b/include/tst_sched.h
-new file mode 100644
-index 000000000..0e5d61344
---- /dev/null
-+++ b/include/tst_sched.h
-@@ -0,0 +1,16 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
-+/*
-+ * Copyright (c) 2021, BELLSOFT. All rights reserved.
-+ */
-+
-+#ifndef TST_SCHED_H_
-+#define TST_SCHED_H_
-+
-+#include <sched.h>
-+
-+int tst_sched_setparam(pid_t pid, const struct sched_param *param);
-+int tst_sched_getparam(pid_t pid, struct sched_param *param);
-+int tst_sched_setscheduler(pid_t pid, int policy, const struct sched_param *param);
-+int tst_sched_getscheduler(pid_t pid);
-+
-+#endif /* TST_SCHED_H_ */
-diff --git a/lib/tst_sched.c b/lib/tst_sched.c
-new file mode 100644
-index 000000000..d53273d8e
---- /dev/null
-+++ b/lib/tst_sched.c
-@@ -0,0 +1,36 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2021, BELLSOFT. All rights reserved.
-+ */
-+
-+#include <errno.h>
-+#include <unistd.h>
+diff --git a/testcases/kernel/syscalls/sched_getparam/sched_getparam01.c b/testcases/kernel/syscalls/sched_getparam/sched_getparam01.c
+index efb697707..c24d1c917 100644
+--- a/testcases/kernel/syscalls/sched_getparam/sched_getparam01.c
++++ b/testcases/kernel/syscalls/sched_getparam/sched_getparam01.c
+@@ -21,8 +21,8 @@
+ #include <stdlib.h>
+ #include <sys/types.h>
+ #include <unistd.h>
+-#include <sched.h>
+ #include "tst_test.h"
 +#include "tst_sched.h"
-+#include "lapi/syscalls.h"
-+
-+#define TST_SCHED_COMMON(SCALL, ...) do {			\
-+	int ret = SCALL(__VA_ARGS__);				\
-+	if (ret == -1 && errno == ENOSYS)			\
-+		return syscall(__NR_##SCALL, __VA_ARGS__);	\
-+	return ret;						\
-+} while (0)
-+
-+int tst_sched_setparam(pid_t pid, const struct sched_param *param)
-+{
-+	TST_SCHED_COMMON(sched_setparam, pid, param);
-+}
-+
-+int tst_sched_getparam(pid_t pid, struct sched_param *param)
-+{
-+	TST_SCHED_COMMON(sched_getparam, pid, param);
-+}
-+
-+int tst_sched_setscheduler(pid_t pid, int policy, const struct sched_param *param)
-+{
-+	TST_SCHED_COMMON(sched_setscheduler, pid, policy, param);
-+}
-+
-+int tst_sched_getscheduler(pid_t pid)
-+{
-+	TST_SCHED_COMMON(sched_getscheduler, pid);
-+}
+ 
+ static pid_t pids[2] = {0, 0};
+ 
+@@ -35,8 +35,8 @@ static void verify_sched_getparam(unsigned int n)
+ 
+ 	child_pid = SAFE_FORK();
+ 	if (!child_pid) {
+-		TST_EXP_PASS_SILENT(sched_getparam(pids[n], &param),
+-				    "sched_getparam(%d)", pids[n]);
++		TST_EXP_PASS_SILENT(tst_sched_getparam(pids[n], &param),
++				   "sched_getparam(%d)", pids[n]);
+ 		if (!TST_PASS)
+ 			exit(0);
+ 
 -- 
 2.25.1
 
