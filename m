@@ -2,74 +2,74 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87D343D1F46
-	for <lists+linux-ltp@lfdr.de>; Thu, 22 Jul 2021 09:49:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34F813D1F62
+	for <lists+linux-ltp@lfdr.de>; Thu, 22 Jul 2021 09:55:24 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id AB43C3C8190
-	for <lists+linux-ltp@lfdr.de>; Thu, 22 Jul 2021 09:49:45 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 059F43C61CD
+	for <lists+linux-ltp@lfdr.de>; Thu, 22 Jul 2021 09:55:24 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 426013C5613
- for <ltp@lists.linux.it>; Thu, 22 Jul 2021 09:49:42 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id D80F83C5E5D
+ for <ltp@lists.linux.it>; Thu, 22 Jul 2021 09:55:22 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id B20231A01150
- for <ltp@lists.linux.it>; Thu, 22 Jul 2021 09:49:41 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 33992140111C
+ for <ltp@lists.linux.it>; Thu, 22 Jul 2021 09:55:21 +0200 (CEST)
 Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 1F3EC20381;
- Thu, 22 Jul 2021 07:49:41 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 8CB8122590;
+ Thu, 22 Jul 2021 07:55:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1626940181;
+ t=1626940521;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=NNv8UgtoJ2mn0uuQLiRYREPFrA1MEiwqowZ/ooN4RDQ=;
- b=Tjx6CTbAXfgcvU7X7hUjvj+eU1nv/4kbRpj1ojUdYTDGtM/5x2I9u25t5kbBVQ5XYfa3Io
- AODNGpYzSMdTObzb4qkSl80Ftfa8Tx+r+Yp9V7312813h8f1Wkdbdjta8bqjfcTwvUyrtt
- 8V1K4n1+1+2s1OAWrt/haZC1sdBplng=
+ bh=oNZztyLJT2PjVF9gToDEGS6lL9XkfUC8I0HVLxc+K6U=;
+ b=sPYwWUDNrRt3h7XjPupBtVeYBIS08Zu6TS0xXd/3gjkQG7n0blJ1dVuuCEeyLnAKiPtpsU
+ TmcEiDsw8noMCELhm7e6QsGe76mogAJSNjzyZ/tYv52q0zHnomfTD2K/yeKaKPpjyYWTRv
+ QGHWruvKhICiihzPDgsJPSi8UvDFLZs=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1626940181;
+ s=susede2_ed25519; t=1626940521;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=NNv8UgtoJ2mn0uuQLiRYREPFrA1MEiwqowZ/ooN4RDQ=;
- b=sHEgEpvDZmUBdIPtsXlVDpDRgZsVqywiazyLbHU3qnWcjR4/kPyOS2hp3xWzvZKO3R5joH
- uHWLHhsdLPSaogDg==
+ bh=oNZztyLJT2PjVF9gToDEGS6lL9XkfUC8I0HVLxc+K6U=;
+ b=W908+nFkC4nDaWv/17x9ChjztApPRER3M0fyeCbSIqJXALgFyY7zF0F+0Xswz1d9XbLD8J
+ c+dxAKYms2VmbvDw==
 Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id E3970137DE;
- Thu, 22 Jul 2021 07:49:40 +0000 (UTC)
+ by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 50DA1137DE;
+ Thu, 22 Jul 2021 07:55:21 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id KKZ6NRQj+WAXCwAAGKfGzw
- (envelope-from <pvorel@suse.cz>); Thu, 22 Jul 2021 07:49:40 +0000
-Date: Thu, 22 Jul 2021 09:49:39 +0200
+ by imap1.suse-dmz.suse.de with ESMTPSA id eVxcEWkk+WDWDAAAGKfGzw
+ (envelope-from <pvorel@suse.cz>); Thu, 22 Jul 2021 07:55:21 +0000
+Date: Thu, 22 Jul 2021 09:55:19 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: Radoslav Kolev <radoslav.kolev@suse.com>
-Message-ID: <YPkjE3KHHnhYklp/@pevik>
-References: <20210722063422.18059-1-radoslav.kolev@suse.com>
+To: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
+Message-ID: <YPkkZ0Zq9DyHKBaT@pevik>
+References: <20210712075223.10682-1-aleksei.kodanev@bell-sw.com>
+ <20210712075223.10682-2-aleksei.kodanev@bell-sw.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210722063422.18059-1-radoslav.kolev@suse.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+In-Reply-To: <20210712075223.10682-2-aleksei.kodanev@bell-sw.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v1] lib/tst_test.sh: skip test if ip returns
- "Error: Unknown device type"
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 2/2] msgget03: don't depend on existed shared
+ resources
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,49 +82,62 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: radosla.kolev@suse.com, ltp@lists.linux.it
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Radoslav,
+Hi Alexey, Li,
 
-> In network stress test groups there are tests expecting
-> CONFIG_NET_IPVTI to be enabled in the kernel, and if it's not they
-> fail. There is a check for VTI support in the ip utility, but not
-> for the kernel. Skip these tests if vti device type is not known by
-> the kernel.
+> It's unlikely, but still possible that some of them could be
+> created/released during the test as well, so the patch only
+> checks errno.
 
-LGTM.
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
+> Signed-off-by: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
+> ---
+> v2: * Move the loop to the test run function and try to get
+>       ENOSPC errno there.
+
+>  .../kernel/syscalls/ipc/msgget/msgget03.c     | 31 ++++++++++---------
+>  1 file changed, 16 insertions(+), 15 deletions(-)
+
+> diff --git a/testcases/kernel/syscalls/ipc/msgget/msgget03.c b/testcases/kernel/syscalls/ipc/msgget/msgget03.c
+> index 76cf82cd3..1ade8f942 100644
+> --- a/testcases/kernel/syscalls/ipc/msgget/msgget03.c
+> +++ b/testcases/kernel/syscalls/ipc/msgget/msgget03.c
+> @@ -26,29 +26,30 @@ static key_t msgkey;
+
+>  static void verify_msgget(void)
+>  {
+> -	TST_EXP_FAIL2(msgget(msgkey + maxmsgs, IPC_CREAT | IPC_EXCL), ENOSPC,
+> -		"msgget(%i, %i)", msgkey + maxmsgs, IPC_CREAT | IPC_EXCL);
+> +	int res = 0, num;
+> +
+> +	errno = 0;
+> +	for (num = 0; num <= maxmsgs; ++num) {
+In different patch [1] (I forget you already send patches to fix this) I counted
+items in /proc/sysvipc/shm. Not sure what is safer: <= looks a bit drastic
+(how about bug which reports ENOSPC much earlier than it should be?), but
+obviously new mapping from other program created in the middle of testing.
 
 Kind regards,
 Petr
 
-> Signed-off-by: Radoslav Kolev <radoslav.kolev@suse.com>
-> ---
->  testcases/lib/tst_test.sh | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-
-> diff --git a/testcases/lib/tst_test.sh b/testcases/lib/tst_test.sh
-> index c6aa2c487..0458c90c2 100644
-> --- a/testcases/lib/tst_test.sh
-> +++ b/testcases/lib/tst_test.sh
-> @@ -241,12 +241,13 @@ TST_RTNL_CHK()
->  	local msg1="RTNETLINK answers: Function not implemented"
->  	local msg2="RTNETLINK answers: Operation not supported"
->  	local msg3="RTNETLINK answers: Protocol not supported"
-> +	local msg4="Error: Unknown device type"
->  	local output="$($@ 2>&1 || echo 'LTP_ERR')"
->  	local msg
-
->  	echo "$output" | grep -q "LTP_ERR" || return 0
-
-> -	for msg in "$msg1" "$msg2" "$msg3"; do
-> +	for msg in "$msg1" "$msg2" "$msg3" "$msg4"; do
->  		echo "$output" | grep -q "$msg" && tst_brk TCONF "'$@': $msg"
->  	done
+[1] https://patchwork.ozlabs.org/project/ltp/patch/20210722073523.5099-1-pvorel@suse.cz/
+> +		res = msgget(msgkey + num, IPC_CREAT | IPC_EXCL);
+> +		if (res == -1)
+> +			break;
+> +		queues[queue_cnt++] = res;
+> +	}
+> +
+> +	if (res != -1 || errno != ENOSPC)
+> +		tst_brk(TFAIL | TERRNO, "Failed to trigger ENOSPC error");
+> +
+> +	tst_res(TPASS, "Maximum number of queues reached (%d), used by test %d",
+> +		maxmsgs, queue_cnt);
+>  }
+...
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
