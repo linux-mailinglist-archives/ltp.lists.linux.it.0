@@ -1,75 +1,76 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92CC13D39F4
-	for <lists+linux-ltp@lfdr.de>; Fri, 23 Jul 2021 14:11:34 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E1053D3A23
+	for <lists+linux-ltp@lfdr.de>; Fri, 23 Jul 2021 14:24:24 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 351D83C68E9
-	for <lists+linux-ltp@lfdr.de>; Fri, 23 Jul 2021 14:11:34 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 7E0FD3C6FF6
+	for <lists+linux-ltp@lfdr.de>; Fri, 23 Jul 2021 14:24:23 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 89F483C5613
- for <ltp@lists.linux.it>; Fri, 23 Jul 2021 14:11:30 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 92AAA3C58B2
+ for <ltp@lists.linux.it>; Fri, 23 Jul 2021 14:24:19 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id DF8C620102B
- for <ltp@lists.linux.it>; Fri, 23 Jul 2021 14:11:29 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 03BA61A00359
+ for <ltp@lists.linux.it>; Fri, 23 Jul 2021 14:24:18 +0200 (CEST)
 Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 1F3A421ED5;
- Fri, 23 Jul 2021 12:11:29 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id D806B1FFA3;
+ Fri, 23 Jul 2021 12:24:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1627042289;
+ t=1627043057;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=Ja6nwq+QTYvORvqeaql/1nDZKN2h9LZDWj8zaPt/J40=;
- b=14NI5CgX04otBelne2hpHxex6dSQ/JlaxJbk98SAR6uwiOBezu1+wWEvQU/4DEKPeOqqgD
- 4JA6EncXiKGAUTJ79armxL3nqcgm4HQ8EvbJQDFoKiEpCdFTj3ykx+kygCY4Px6YigM9K5
- kunEcxGbcw9T10KcchbANbx9b12FEf0=
+ bh=8pjOmQz8BWDpHnLXmLkmkHAjxUn/r4Cgckb0NquTd7c=;
+ b=2rmfm3kkw90R8RZyPDcb7buoEg2wkeUp6f+iTmHwt/ZsvzFs1hheHyZdhZ6BVMllrHdh/4
+ /Lo8jgKM4IwjV/Ia8eNGuCErKUFrYCVMKv32c45eLDBOY3JHcjUhcltk1iGXaQx0y/GNzp
+ YGEoC9vCBuxtV9NimaPINbhMpzI/fWY=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1627042289;
+ s=susede2_ed25519; t=1627043057;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=Ja6nwq+QTYvORvqeaql/1nDZKN2h9LZDWj8zaPt/J40=;
- b=wc8QpbOJIJwgA80bXalb3Z1QWaryUb0UMWmRzpbiMteQD70kUCwmPp1vTMEu+cm3JH5zM6
- LZN/m/8tKzfx1FBw==
+ bh=8pjOmQz8BWDpHnLXmLkmkHAjxUn/r4Cgckb0NquTd7c=;
+ b=HbxNyJWwAEjQL5KclPbTVna+m2804/k88dvhf2jf5lBlxSe41z9eSP/HxsNJ6CoL/5Axo6
+ D9Q7auawwYNmr3Dw==
 Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id B678E13697;
- Fri, 23 Jul 2021 12:11:28 +0000 (UTC)
+ by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id ADB4413697;
+ Fri, 23 Jul 2021 12:24:17 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id ss/CKfCx+mAKEAAAGKfGzw
- (envelope-from <pvorel@suse.cz>); Fri, 23 Jul 2021 12:11:28 +0000
-Date: Fri, 23 Jul 2021 14:11:26 +0200
+ by imap1.suse-dmz.suse.de with ESMTPSA id czK5KPG0+mC9EwAAGKfGzw
+ (envelope-from <pvorel@suse.cz>); Fri, 23 Jul 2021 12:24:17 +0000
+Date: Fri, 23 Jul 2021 14:24:15 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <YPqx7si/bvK3alWj@pevik>
+To: "xuyang2018.jy@fujitsu.com" <xuyang2018.jy@fujitsu.com>
+Message-ID: <YPq0749ZnnGsAV2q@pevik>
 References: <20210712075223.10682-1-aleksei.kodanev@bell-sw.com>
  <20210712075223.10682-2-aleksei.kodanev@bell-sw.com>
  <YPkkZ0Zq9DyHKBaT@pevik> <YPlhMeRRsNnemT05@yuki>
  <YPlsK8fsMI8T+H7c@pevik> <YPlsVD2gbIiX8JJk@yuki>
+ <60FA81E4.3060709@fujitsu.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <YPlsVD2gbIiX8JJk@yuki>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+In-Reply-To: <60FA81E4.3060709@fujitsu.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH v2 2/2] msgget03: don't depend on existed shared
  resources
 X-BeenThere: ltp@lists.linux.it
@@ -84,37 +85,50 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
+Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Cyril, all,
+Hi all,
 
-> Hi!
-> > > I think that we allready discussed this in another thread:
+> Hi Cyril, Petr
+> > Hi!
+> >>> I think that we allready discussed this in another thread:
 
-> > > https://lists.linux.it/pipermail/ltp/2021-July/023831.html
+> >>> https://lists.linux.it/pipermail/ltp/2021-July/023831.html
 
-> > Thanks, I forgot this. In that case my approach (not using <=, but count
-> > segments in /proc/sysvipc/shm before testing) might be more precise.
-> > But no strong feeling about that, both solutions fix the test, let's chose one
-> > and merge.
+> >> Thanks, I forgot this. In that case my approach (not using<=, but count
+> >> segments in /proc/sysvipc/shm before testing) might be more precise.
+> >> But no strong feeling about that, both solutions fix the test, let's chose one
+> >> and merge.
 
-> As I said previously, there are many SysV IPC tests that do expect that
-> nobody will add/remove IPC shm/queue/semaphores during the testrun and
-> some of the testcases cannot even be implemented without this
-> expectation.
+> > As I said previously, there are many SysV IPC tests that do expect that
+> > nobody will add/remove IPC shm/queue/semaphores during the testrun and
+> > some of the testcases cannot even be implemented without this
+> > expectation.
 
-> Hence I wouldn't complicate the test here and just count how many
-> segments are there at the start and be done with it.
-Yes, that's what's done in "my approach" [1].
+> > Hence I wouldn't complicate the test here and just count how many
+> > segments are there at the start and be done with it.
+> Agree.
+
+> A possible solution(alter get_used_queues api in new ipc lib and add 
+> file parametrers, so we can use this api for msgget03) I have mentioned 
+> in the previous email, the url as below:
+> https://lists.linux.it/pipermail/ltp/2021-July/023653.html
+LGTM. Or use /proc/sysvipc/shm instead of /proc/sysvipc/msg in get_used_queues()
+as you noted get_used_queues() has not been used yet.
+
+BTW searching where get_used_queues() appeared, I see [LTP] [PATCH v3 1/4]
+syscalls/ipc: add newipc library for new API [1], but if I'm not mistaken
+get_used_queues() was not used even there, maybe it was in some previous
+versions.
 
 Kind regards,
 Petr
 
-[1] https://patchwork.ozlabs.org/project/ltp/patch/20210722073523.5099-1-pvorel@suse.cz/
+[1] https://lists.linux.it/pipermail/ltp/2016-December/003239.html
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
