@@ -1,59 +1,78 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D219B3D5538
-	for <lists+linux-ltp@lfdr.de>; Mon, 26 Jul 2021 10:22:46 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 159B53D55B8
+	for <lists+linux-ltp@lfdr.de>; Mon, 26 Jul 2021 10:37:01 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2D5F63C9229
-	for <lists+linux-ltp@lfdr.de>; Mon, 26 Jul 2021 10:22:46 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 8EF943C815C
+	for <lists+linux-ltp@lfdr.de>; Mon, 26 Jul 2021 10:37:00 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 08DCB3C1C02
- for <ltp@lists.linux.it>; Mon, 26 Jul 2021 10:22:39 +0200 (CEST)
-Received: from smtpbg511.qq.com (smtpbg511.qq.com [203.205.250.109])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 4F8CA3C65B1
+ for <ltp@lists.linux.it>; Mon, 26 Jul 2021 10:36:56 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 649EF100092B
- for <ltp@lists.linux.it>; Mon, 26 Jul 2021 10:22:36 +0200 (CEST)
-X-QQ-mid: bizesmtp35t1627287750tfdhgjvo
-Received: from [10.4.23.46] (unknown [58.240.82.166])
- by esmtp6.qq.com (ESMTP) with 
- id ; Mon, 26 Jul 2021 16:22:29 +0800 (CST)
-X-QQ-SSF: 01400000002000208000000B0000000
-X-QQ-FEAT: PWyfT+jp+FtfXVexn9PfmHhQnBOQxIfxakp669kWVAh+eaWGAmTcoORPMLIxt
- ttYu4drBmNKvdq7oa5nVOl+6fonLtw/6x/73q9yhOw6o8QEytC6NBnr6z/z0YFWVOP8/SHz
- r9feTLZ8q10g2KJMGAqGk4ktztHVmYpDXcizj2wH01Gd3sNAfzV4/0mdFszm09BdgNv1zu9
- IP3EXclH8yzsMq43WkJdBaBmzcocDCAo6i9E0VXKUki18dLyMi6G3JdqTslM6RmGMD6F1sY
- CpFgdmoSPskrq57rBYKkOPTuBm939Y/EC/Z8QvmCROXMc4ZEN0zDuw4o3gLAA2aZJPmVj1c
- qWm7xDHiXd/tRcSIJo=
-X-QQ-GoodBg: 2
-To: Li Wang <liwang@redhat.com>
-References: <20210726075540.11814-1-zhanglianjie@uniontech.com>
- <CAEemH2dmqb8EzS0mCuGEhV7_YbPN0dSfENTkDcuKx24404452A@mail.gmail.com>
-From: zhanglianjie <zhanglianjie@uniontech.com>
-Message-ID: <d38c9818-be22-2de6-2c10-607a3ceddc40@uniontech.com>+2D7A5EFD760AE589
-Date: Mon, 26 Jul 2021 16:22:29 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 146CB1000938
+ for <ltp@lists.linux.it>; Mon, 26 Jul 2021 10:36:54 +0200 (CEST)
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id CE9381FE53;
+ Mon, 26 Jul 2021 08:36:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1627288613;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=riScUwcn+T1SZJNRYdHSS9tDaQsSVn9h3wEgIxEsHK4=;
+ b=c0vw084JAkl5k98Z2quslsx4OJi4ucr6cPbvu9cIRkaFXQQli6zUFSrbdn2CYJV497fHg7
+ fni6XEyWSY9IFu3qwNbg3KT+nTN1yn9Vu0bO1dHjZS18JFQRyY3nRy1VuiBhPVD85jNuti
+ GGZBUmcLAwZxP17LWh8Z1SL6NDGZGh4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1627288613;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=riScUwcn+T1SZJNRYdHSS9tDaQsSVn9h3wEgIxEsHK4=;
+ b=gwFz1CLfHZuzkznnxDM56fhMpzQtWgpGg0HhqjnKaxwXmoxbQ94/YkWOUr/1A8m0/9Hrcx
+ 8CGAhYvxM8rz6yBw==
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 96E6B1365C;
+ Mon, 26 Jul 2021 08:36:53 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap1.suse-dmz.suse.de with ESMTPSA id 1mC2IiV0/mDDIQAAGKfGzw
+ (envelope-from <pvorel@suse.cz>); Mon, 26 Jul 2021 08:36:53 +0000
+Date: Mon, 26 Jul 2021 10:36:51 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+Message-ID: <YP50I9N3dfASNrvz@pevik>
+References: <20210401125127.45600-1-wangxin410@huawei.com>
+ <YNoxKg+Hm0qa3Z70@pevik>
+ <fd26cf45-7dd8-004f-3d41-422ce4d9bbdb@canonical.com>
+ <34bbe196-515c-f4f3-6d1c-5c9f1221e52a@canonical.com>
+ <ca6ecb17-c1b4-0d8a-a3c4-dc5e8e2bd275@canonical.com>
 MIME-Version: 1.0
-In-Reply-To: <CAEemH2dmqb8EzS0mCuGEhV7_YbPN0dSfENTkDcuKx24404452A@mail.gmail.com>
-Content-Language: en-US
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign1
-X-QQ-Bgrelay: 1
+Content-Disposition: inline
+In-Reply-To: <ca6ecb17-c1b4-0d8a-a3c4-dc5e8e2bd275@canonical.com>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=2.3 required=7.0 tests=FORGED_MUA_MOZILLA,
- INVALID_MSGID,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Level: **
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] [2/2] syscalls/memcpy01: Convert to new API
+Subject: Re: [LTP] [PATCH] ltp_tpci.c: Add release operation before
+ allocation
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,17 +84,66 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: Wang Xin <wangxin410@huawei.com>, ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-CgoKPiBIaSBMaWFuamllLAo+IAo+IEkgbWFkZSBzb21lIG1vZGlmaWNhdGlvbnMgYW5kIGFwcGxp
-ZWQgdGhlIHBhdGNoZXMuCj4gCj4gIMKgICogYWRkIFNQRFgtTGljZW5zZS1JZGVudGlmaWVyCj4g
-IMKgICogYWRkIHN0YXRpYyBzdGF0ZW1lbnQgaW4gZnJvbnQgb2YgZnVuY3Rpb25zCj4gIMKgICog
-Y29tbWVudHMgY29tYmluYXRpb24gJiBjbGVhbnVwCj4gIMKgICogcmVtb3ZlIHVudXNlZCBUQ0lE
-IGtleXdvcmRzCj4gIMKgICogY29kZSBpbmRlbnQgaXNzdWVzCj4gCj4gLS0gCgpUaGFuayB5b3Ug
-Zm9yIHlvdXIgZ3VpZGFuY2UsIEkgd2lsbCBwYXkgYXR0ZW50aW9uIHRvIHRoZXNlIGlzc3Vlcy4K
-Ci0tIApSZWdhcmRzLApaaGFuZyBMaWFuamllCgoKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0
-cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
+Hi all,
+
+> On 07/07/2021 09:04, Krzysztof Kozlowski wrote:
+> > On 29/06/2021 11:38, Krzysztof Kozlowski wrote:
+> >> On 28/06/2021 22:29, Petr Vorel wrote:
+> >>> Hi Xin,
+
+> >>>> When we run the test case, the following results will be obtained:
+> >>>> test_pci  283  TPASS  :  PCI bus 7d slot 00 : Test-case '11'
+> >>>> test_pci  284  TFAIL  :  tpci.c:74: PCI bus 7d slot 00 : Test-case '12'
+> >>>> ...
+> >>>> test_pci  300  TFAIL  :  tpci.c:74: PCI bus 7d slot 01 : Test-case '12'
+> >>>> test_pci  301  TPASS  :  PCI bus 7d slot 01 : Test-case '13'
+
+> >>>> The analysis is that the space allocated by the bios is insufficient.
+> >>>> The solution to this problem can be in add pci_release_resource(dev, i)
+> >>>> before system resources are reallocated.Because the resources have been
+> >>>> allocated when the system is initialized.If it is redistributed, it
+> >>>> should be released and then allocated.
+
+> >>> I wonder if this is the same issue as the one described by Krzysztof in his
+> >>> patch:
+> >>> https://patchwork.ozlabs.org/project/ltp/patch/20210401125127.45600-1-wangxin410@huawei.com/
+
+> >>> Could you please share what HW and kernel you use and post dmesg?
+
+> >> This solves my problem. It seems that could be the root cause - early
+> >> configuration allocated too small resource? It might be also some
+> >> specific BIOS issue (wrong resource allocated?) because in case of
+> >> resource assignment failure, the kernel should try to get the original
+> >> FW address from BIOS (pcibios_retrieve_fw_addr()) and this apparently
+> >> returns NULL translated to -ENOMEM.
+
+> >> I am fine with going with this patch instead of mine.
+
+
+> > Is there anything stopping Xin's patch from being applied? LGTM:
+Lack of time :)
+
+> > Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
+
+> Oh, I see what's wrong with the patch - it's corrupted, not possible to
+> apply.
+
+Trivial fix, I'll merge it shortly.
+
+Kind regards,
+Petr
+
+> Best regards,
+> Krzysztof
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
