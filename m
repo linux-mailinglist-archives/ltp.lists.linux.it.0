@@ -2,74 +2,52 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C74D3D5300
-	for <lists+linux-ltp@lfdr.de>; Mon, 26 Jul 2021 08:06:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2316D3D54AC
+	for <lists+linux-ltp@lfdr.de>; Mon, 26 Jul 2021 09:55:42 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 646403C6727
-	for <lists+linux-ltp@lfdr.de>; Mon, 26 Jul 2021 08:06:04 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 4817C3C922A
+	for <lists+linux-ltp@lfdr.de>; Mon, 26 Jul 2021 09:55:41 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 71EE43C32EE
- for <ltp@lists.linux.it>; Mon, 26 Jul 2021 08:05:59 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id 53ABC3C0D20
+ for <ltp@lists.linux.it>; Mon, 26 Jul 2021 09:55:36 +0200 (CEST)
+Received: from smtpbgbr2.qq.com (smtpbgbr2.qq.com [54.207.22.56])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 5813B1400B88
- for <ltp@lists.linux.it>; Mon, 26 Jul 2021 08:05:59 +0200 (CEST)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id A66702197D;
- Mon, 26 Jul 2021 06:05:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1627279558;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=j5MXP4YKKsHJtmgIvR+khoP2R0PiRhydbQ5s/yQmFfs=;
- b=EPQu+q3xsQyOMOO8gvPjGg/ft5RUMHw5ABwVm0pUBfkKOFz82R/mcuTgZR1MNiHL3aXxCc
- eQzy/qunhCWhwbBcsPBB9VvErON6iHj5Bndx2XGWQicJgkyrTykHG/2ybd9YZDhnkdfl5Z
- /yFw2lWyLEo2jzuPu5U2VSeRlqCrzRY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1627279558;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=j5MXP4YKKsHJtmgIvR+khoP2R0PiRhydbQ5s/yQmFfs=;
- b=mkYEbBGa51O8ie0LMn/hUSX+a0DbU9yzLqacpGd9AVjy6rJEtRH2/MZ5uZCw/r6G17Ry2+
- bU35CPNuw/KqUqBA==
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 749B61365C;
- Mon, 26 Jul 2021 06:05:58 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id KmqTGsZQ/mCjAQAAGKfGzw
- (envelope-from <pvorel@suse.cz>); Mon, 26 Jul 2021 06:05:58 +0000
-Date: Mon, 26 Jul 2021 08:05:56 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <YP5QxG01Gy/4As2S@pevik>
-References: <20210720103941.9767-1-mdoucha@suse.cz>
- <20210720103941.9767-3-mdoucha@suse.cz>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 76FCB200922
+ for <ltp@lists.linux.it>; Mon, 26 Jul 2021 09:55:33 +0200 (CEST)
+X-QQ-mid: bizesmtp52t1627286129tjmwi48x
+Received: from localhost.localdomain (unknown [58.240.82.166])
+ by esmtp6.qq.com (ESMTP) with 
+ id ; Mon, 26 Jul 2021 15:55:23 +0800 (CST)
+X-QQ-SSF: 01400000002000208000000B0000000
+X-QQ-FEAT: X+Lnu8pJYlcge8yWip7pXCJ3WDAo+nGUCl2r5Svmu99sAzImc/0ajeVGNu1GE
+ /J+QfKvxz+k2d617n2ATkcHfjz2gSadlJGG1B2DU6PPz/GcKqSekoVebXTM18+HyXVZeFvF
+ k2rsYAmaKEl2ko3g+1/0CDc/PMV/4g0/sNF72MO+xEy46ZBoulye4pIS72eqgQ4qpYKif6h
+ IFSEls74fS2dy9AnxT3B8rodjq3TYujT0i4k1bnHGXH32vT8FKXpxomdacBDzs3GRqKkFWC
+ Toxe88Uu5ONcAYkO+GWsIXpwqBI5z7K9loiY9WUzb+l6lN1/gpegG5HZGGsghCBFfot5zzI
+ pUBOax7oKhwiNObFms=
+X-QQ-GoodBg: 2
+From: zhanglianjie <zhanglianjie@uniontech.com>
+To: ltp@lists.linux.it
+Date: Mon, 26 Jul 2021 15:55:22 +0800
+Message-Id: <20210726075522.11529-1-zhanglianjie@uniontech.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210720103941.9767-3-mdoucha@suse.cz>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-QQ-SENDSIZE: 520
+Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign2
+X-QQ-Bgrelay: 1
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 3/3] Add lockdown checks to init_module* and
- finit_module* tests
+X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH] [1/2] syscalls/memset01: Convert to new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,19 +59,149 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Martin,
+Signed-off-by: zhanglianjie <zhanglianjie@uniontech.com>
 
-thanks a lot for fixing this.
+diff --git a/testcases/kernel/syscalls/memset/memset01.c b/testcases/kernel/syscalls/memset/memset01.c
+index 1a0ccd0df..0864443c7 100644
+--- a/testcases/kernel/syscalls/memset/memset01.c
++++ b/testcases/kernel/syscalls/memset/memset01.c
+@@ -1,36 +1,14 @@
+ /*
+- *
+  *   Copyright (c) International Business Machines  Corp., 2002
+- *
+- *   This program is free software;  you can redistribute it and/or modify
+- *   it under the terms of the GNU General Public License as published by
+- *   the Free Software Foundation; either version 2 of the License, or
+- *   (at your option) any later version.
+- *
+- *   This program is distributed in the hope that it will be useful,
+- *   but WITHOUT ANY WARRANTY;  without even the implied warranty of
+- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
+- *   the GNU General Public License for more details.
+- *
+- *   You should have received a copy of the GNU General Public License
+- *   along with this program;  if not, write to the Free Software
+- *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+  */
 
-Kind regards,
-Petr
+ /* 01/02/2003	Port to LTP	avenkat@us.ibm.com */
+ /* 06/30/2001	Port to Linux	nsharoff@us.ibm.com */
+
+-/*
+- * NAME
+- *	memset1.c -- test setting of  buffer
++/*\
++ * [DESCRIPTION]
+  *
+- * CALLS
+- *	memset(3)
+- *
+- * ALGORITHM
+- *	Check boundary conditions, go through 64 byte window.
+- *
+- * RESTRICTIONS
++ * The testcase for test setting of buffer by check boundary conditions.
+  */
+
+ #include <stdio.h>
+@@ -39,62 +17,44 @@
+ #include <stdlib.h>
+ #include <errno.h>
+
+-#include "test.h"
+-
+-char *TCID = "memset01";
++#include "tst_test.h"
+
+ #undef BSIZE
+ #define BSIZE	4096
+-#define LEN	100
+-#define FAILED 0
+-#define PASSED 1
+
+ char buf[BSIZE];
+
+-int local_flag = PASSED;
+-int block_number;
+-int TST_TOTAL = 1;
+-
+ void fill(void);
+ int checkit(char *str);
+
+-int main(int argc, char *argv[])
++static void setup(void)
+ {
+-	register int i, j;
+-	char *p;
+-
+-	tst_parse_opts(argc, argv, NULL, NULL);
+-
+-	local_flag = PASSED;
+-
+ 	fill();
++}
++
++static void verify_memset(void)
++{
++	register int i, j;
++	char *p = &buf[400];
+
+ 	for (i = 0; i < 200; i++) {
+ 		fill();
+-		p = &buf[400];
+ 		memset(p, 0, i);
+ 		if ((j = checkit(p)) != i) {
+-			tst_resm(TINFO,
+-				 "Not enough zero bytes, wanted %d, got %d", i,
+-				 j);
+-			local_flag = FAILED;
++			tst_res(TINFO, "Not enough zero bytes, wanted %d, got %d", i, j);
+ 			break;
+ 		}
+ 		if (!p[-1] || !p[i]) {
+-			tst_resm(TINFO, "Boundary error, clear of %d", i);
+-			local_flag = FAILED;
+-		}
+-		if (local_flag == FAILED)
++			tst_res(TINFO, "Boundary error, clear of %d", i);
+ 			break;
++		}
+ 	}
+
+-	(local_flag == FAILED) ? tst_resm(TFAIL,
+-					  "Test failed") : tst_resm(TPASS,
+-								    "Test passed");
+-	(local_flag == FAILED) ? tst_resm(TFAIL,
+-					  "Test failed") : tst_resm(TPASS,
+-								    "Test passed");
+-	tst_exit();
++	if (i == 200) {
++		tst_res(TPASS, "Test passed");
++	} else {
++		tst_res(TFAIL, "Test fails");
++	}
+ }
+
+ void fill(void)
+@@ -113,3 +73,7 @@ int checkit(char *str)
+
+ 	return (i);
+ }
++static struct tst_test test = {
++	.setup = setup,
++	.test_all = verify_memset,
++};
+--
+2.20.1
+
+
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
