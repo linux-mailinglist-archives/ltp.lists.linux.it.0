@@ -2,52 +2,52 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2316D3D54AC
-	for <lists+linux-ltp@lfdr.de>; Mon, 26 Jul 2021 09:55:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7C8C3D54AE
+	for <lists+linux-ltp@lfdr.de>; Mon, 26 Jul 2021 09:55:58 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4817C3C922A
-	for <lists+linux-ltp@lfdr.de>; Mon, 26 Jul 2021 09:55:41 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 23D123C6D05
+	for <lists+linux-ltp@lfdr.de>; Mon, 26 Jul 2021 09:55:58 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 53ABC3C0D20
- for <ltp@lists.linux.it>; Mon, 26 Jul 2021 09:55:36 +0200 (CEST)
-Received: from smtpbgbr2.qq.com (smtpbgbr2.qq.com [54.207.22.56])
+ by picard.linux.it (Postfix) with ESMTPS id 6C9E63C0D20
+ for <ltp@lists.linux.it>; Mon, 26 Jul 2021 09:55:54 +0200 (CEST)
+Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 76FCB200922
- for <ltp@lists.linux.it>; Mon, 26 Jul 2021 09:55:33 +0200 (CEST)
-X-QQ-mid: bizesmtp52t1627286129tjmwi48x
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 48018100093D
+ for <ltp@lists.linux.it>; Mon, 26 Jul 2021 09:55:52 +0200 (CEST)
+X-QQ-mid: bizesmtp46t1627286148t78ra3rg
 Received: from localhost.localdomain (unknown [58.240.82.166])
  by esmtp6.qq.com (ESMTP) with 
- id ; Mon, 26 Jul 2021 15:55:23 +0800 (CST)
+ id ; Mon, 26 Jul 2021 15:55:44 +0800 (CST)
 X-QQ-SSF: 01400000002000208000000B0000000
-X-QQ-FEAT: X+Lnu8pJYlcge8yWip7pXCJ3WDAo+nGUCl2r5Svmu99sAzImc/0ajeVGNu1GE
- /J+QfKvxz+k2d617n2ATkcHfjz2gSadlJGG1B2DU6PPz/GcKqSekoVebXTM18+HyXVZeFvF
- k2rsYAmaKEl2ko3g+1/0CDc/PMV/4g0/sNF72MO+xEy46ZBoulye4pIS72eqgQ4qpYKif6h
- IFSEls74fS2dy9AnxT3B8rodjq3TYujT0i4k1bnHGXH32vT8FKXpxomdacBDzs3GRqKkFWC
- Toxe88Uu5ONcAYkO+GWsIXpwqBI5z7K9loiY9WUzb+l6lN1/gpegG5HZGGsghCBFfot5zzI
- pUBOax7oKhwiNObFms=
+X-QQ-FEAT: Qdju4dZZJ7CAIaey3If1z/Uvsf0jJkLtd1An4ivU1+GvpjNHpIwrbUMOtS6+j
+ WDGB7J3OqZFivLDk9HdMbUdqROcacBZUk2kQX6Hjo/ISEev1dfW8Kt6rItS5FQKajlYiVCk
+ mkUDspNbPq0/shwRMZJWJSgarNbUuCxUzws4TZtuvsmQJRfj1uy0qy/A1X3ABZ5cbmZ4778
+ FgskQaezYPg3GQ5TXzbI1hjwFP9Tr4VPlzxsZxZrQtIRTB3M7I5Qlg1k/wwhbgDEDaKQiJc
+ 9Nezg/mLIg49TAauQUVLDYFMr6nl1IWbA1ljyDxZiiICNBiS53fJa32/pLxxok0KTEzHslX
+ UFxjS5Q4UEewVeYD4qlvynFGpBvhQ==
 X-QQ-GoodBg: 2
 From: zhanglianjie <zhanglianjie@uniontech.com>
 To: ltp@lists.linux.it
-Date: Mon, 26 Jul 2021 15:55:22 +0800
-Message-Id: <20210726075522.11529-1-zhanglianjie@uniontech.com>
+Date: Mon, 26 Jul 2021 15:55:40 +0800
+Message-Id: <20210726075540.11814-1-zhanglianjie@uniontech.com>
 X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
 X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign2
+Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign1
 X-QQ-Bgrelay: 1
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH] [1/2] syscalls/memset01: Convert to new API
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH] [2/2] syscalls/memcpy01: Convert to new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,11 +66,11 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Signed-off-by: zhanglianjie <zhanglianjie@uniontech.com>
 
-diff --git a/testcases/kernel/syscalls/memset/memset01.c b/testcases/kernel/syscalls/memset/memset01.c
-index 1a0ccd0df..0864443c7 100644
---- a/testcases/kernel/syscalls/memset/memset01.c
-+++ b/testcases/kernel/syscalls/memset/memset01.c
-@@ -1,36 +1,14 @@
+diff --git a/testcases/kernel/syscalls/memcpy/memcpy01.c b/testcases/kernel/syscalls/memcpy/memcpy01.c
+index 1212465f5..7c56475ac 100644
+--- a/testcases/kernel/syscalls/memcpy/memcpy01.c
++++ b/testcases/kernel/syscalls/memcpy/memcpy01.c
+@@ -1,41 +1,14 @@
  /*
 - *
   *   Copyright (c) International Business Machines  Corp., 2002
@@ -95,107 +95,223 @@ index 1a0ccd0df..0864443c7 100644
 
 -/*
 - * NAME
-- *	memset1.c -- test setting of  buffer
+- *	memcpy  --  test memcpy
+- *
+- * CALLS
+- *	memcpy1(3)
+- *
+- * ALGORITHM
+- *	There are 2 cases for copies:  S = Source, D = Destination
+- *
+- *	  1 - S < D no overlap
+- *	  2 - D < S no overlap
 +/*\
 + * [DESCRIPTION]
   *
-- * CALLS
-- *	memset(3)
-- *
-- * ALGORITHM
-- *	Check boundary conditions, go through 64 byte window.
+- *	We try both cases.  Check buffer boundaries.
 - *
 - * RESTRICTIONS
-+ * The testcase for test setting of buffer by check boundary conditions.
++ * The testcase for buffer copy by check boundary conditions.
   */
 
  #include <stdio.h>
-@@ -39,62 +17,44 @@
- #include <stdlib.h>
+@@ -44,98 +17,16 @@
+ #include <string.h>
  #include <errno.h>
 
 -#include "test.h"
--
--char *TCID = "memset01";
 +#include "tst_test.h"
 
- #undef BSIZE
+ char *TCID = "memcpy1";
+
+ #undef  BSIZE
  #define BSIZE	4096
--#define LEN	100
+ #define LEN	100
 -#define FAILED 0
 -#define PASSED 1
 
- char buf[BSIZE];
-
 -int local_flag = PASSED;
 -int block_number;
+-FILE *temp;
 -int TST_TOTAL = 1;
--
- void fill(void);
- int checkit(char *str);
+ char buf[BSIZE];
 
+-
+-int anyfail();
+-int blenter();
+-int blexit();
+-
+-void setup();
+-void clearit();
+-void fill(char *str);
+-int checkit(char *str);
+-
 -int main(int argc, char *argv[])
-+static void setup(void)
- {
--	register int i, j;
--	char *p;
+-{
+-	char *p, *q;
 -
 -	tst_parse_opts(argc, argv, NULL, NULL);
 -
--	local_flag = PASSED;
+-	setup();		/* temp file is now open        */
+-/*--------------------------------------------------------------*/
+-	blenter();
 -
- 	fill();
-+}
-+
-+static void verify_memset(void)
-+{
-+	register int i, j;
-+	char *p = &buf[400];
+-	clearit();
+-
+-	p = &buf[100];
+-
+-	fill(p);
+-	q = &buf[800];
+-	memcpy(q, p, LEN);
+-
+-	if (checkit(q)) {
+-		fprintf(temp, "\tcopy failed - missed data\n");
+-		local_flag = FAILED;
+-	}
+-
+-	if (p[-1] || p[LEN]) {
+-		fprintf(temp, "\tcopy failed - 'to' bounds\n");
+-		local_flag = FAILED;
+-	}
+-
+-	if (q[-1] || q[LEN]) {
+-		fprintf(temp, "\tcopy failed - 'from' bounds\n");
+-		local_flag = FAILED;
+-	}
+-
+-	blexit();
+-/*--------------------------------------------------------------*/
+-	blenter();
+-
+-	clearit();
+-
+-	p = &buf[800];
+-
+-	fill(p);
+-	q = &buf[100];
+-	memcpy(q, p, LEN);
+-
+-	if (checkit(q)) {
+-		fprintf(temp, "\tcopy failed - missed data\n");
+-		local_flag = FAILED;
+-	}
+-
+-	if (p[-1] || p[LEN]) {
+-		fprintf(temp, "\tcopy failed - 'to' bounds\n");
+-		local_flag = FAILED;
+-	}
+-
+-	if (q[-1] || q[LEN]) {
+-		fprintf(temp, "\tcopy failed - 'from' bounds\n");
+-		local_flag = FAILED;
+-	}
+-
+-	blexit();
+-
+-	anyfail();
+-	tst_exit();
+-}
+-
+ void clearit(void)
+ {
+ 	register int i;
+@@ -144,46 +35,76 @@ void clearit(void)
+ 		buf[i] = 0;
+ }
 
- 	for (i = 0; i < 200; i++) {
- 		fill();
--		p = &buf[400];
- 		memset(p, 0, i);
- 		if ((j = checkit(p)) != i) {
--			tst_resm(TINFO,
--				 "Not enough zero bytes, wanted %d, got %d", i,
--				 j);
--			local_flag = FAILED;
-+			tst_res(TINFO, "Not enough zero bytes, wanted %d, got %d", i, j);
- 			break;
- 		}
- 		if (!p[-1] || !p[i]) {
--			tst_resm(TINFO, "Boundary error, clear of %d", i);
--			local_flag = FAILED;
--		}
--		if (local_flag == FAILED)
-+			tst_res(TINFO, "Boundary error, clear of %d", i);
- 			break;
-+		}
- 	}
+-void fill(char *str)
++void fill(char *str, int len)
+ {
+ 	register int i;
+-	for (i = 0; i < LEN; i++)
++	for (i = 0; i < len; i++)
+ 		*str++ = 'a';
+ }
 
--	(local_flag == FAILED) ? tst_resm(TFAIL,
--					  "Test failed") : tst_resm(TPASS,
--								    "Test passed");
+-int checkit(char *str)
++int checkit(char *str, int len)
+ {
+ 	register int i;
+-	for (i = 0; i < LEN; i++)
++	for (i = 0; i < len; i++)
+ 		if (*str++ != 'a')
+ 			return (-1);
+
+ 	return (0);
+ }
+
+-int anyfail(void)
+-{
 -	(local_flag == FAILED) ? tst_resm(TFAIL,
 -					  "Test failed") : tst_resm(TPASS,
 -								    "Test passed");
 -	tst_exit();
-+	if (i == 200) {
-+		tst_res(TPASS, "Test passed");
-+	} else {
-+		tst_res(TFAIL, "Test fails");
+-}
++static struct test_case {
++	char *p;
++	char *q;
++	int len;
++} tcases[] = {
++	{ &buf[100], &buf[800], LEN},
++	{ &buf[800], &buf[100], LEN},
++};
+
+-void setup(void)
++static void setup(void)
+ {
+-	temp = stderr;
++	clearit();
++
++	return ;
+ }
+
+-int blenter(void)
++static void verify_memcpy(char *p, char *q, int len)
+ {
+-	local_flag = PASSED;
+-	return 0;
++	fill(p, len);
++	memcpy(q, p, LEN);
++
++	if (checkit(q, len)) {
++		tst_res(TFAIL, "\tcopy failed - missed data");
++		goto out;
 +	}
++
++	if (p[-1] || p[LEN]) {
++		tst_res(TFAIL, "\tcopy failed - 'to' bounds");
++		goto out;
++	}
++
++	if (q[-1] || q[LEN]) {
++		tst_res(TFAIL, "\tcopy failed - 'from' bounds");
++		goto out;
++	}
++
++	tst_res(TPASS, "Test passed");
++out:
++	return ;
  }
 
- void fill(void)
-@@ -113,3 +73,7 @@ int checkit(char *str)
-
- 	return (i);
+-int blexit(void)
++static void run_test(unsigned int nr)
+ {
+-	(local_flag == FAILED) ? tst_resm(TFAIL,
+-					  "Test failed") : tst_resm(TPASS,
+-								    "Test passed");
+-	return 0;
++	struct test_case *tcase = &tcases[nr];
++
++	clearit();
++	verify_memcpy(tcase->p, tcase->q, tcase->len);
++
++	return ;
  }
++
 +static struct tst_test test = {
++	.tcnt = ARRAY_SIZE(tcases),
 +	.setup = setup,
-+	.test_all = verify_memset,
++	.test = run_test,
 +};
 --
 2.20.1
