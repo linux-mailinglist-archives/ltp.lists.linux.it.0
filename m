@@ -1,79 +1,78 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CF913D8E85
-	for <lists+linux-ltp@lfdr.de>; Wed, 28 Jul 2021 15:06:30 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id F34493D8E8A
+	for <lists+linux-ltp@lfdr.de>; Wed, 28 Jul 2021 15:08:20 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id ECB513C9055
-	for <lists+linux-ltp@lfdr.de>; Wed, 28 Jul 2021 15:06:29 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 520B23C903C
+	for <lists+linux-ltp@lfdr.de>; Wed, 28 Jul 2021 15:08:20 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 4A2453C1882
- for <ltp@lists.linux.it>; Wed, 28 Jul 2021 15:06:26 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 16BF83C1882
+ for <ltp@lists.linux.it>; Wed, 28 Jul 2021 15:08:14 +0200 (CEST)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id B5EFD140118E
- for <ltp@lists.linux.it>; Wed, 28 Jul 2021 15:06:25 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 96EF31000F62
+ for <ltp@lists.linux.it>; Wed, 28 Jul 2021 15:08:14 +0200 (CEST)
 Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 152AA21A78;
- Wed, 28 Jul 2021 13:06:25 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 1144622305;
+ Wed, 28 Jul 2021 13:08:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1627477585;
+ t=1627477694;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=c7OMi7VvYcXr0WCkQGANFjZWVUSO80pUXoCg47pu8oM=;
- b=Q0iyIXgrz/pvC7ePzS/dHLdLiFdsld1UyhXNV0b5hdwOeXOociX94/RYfA9bzb/3YUYKwI
- ny9QDI2tTmLavgx2ik0yrZQJtTb3euaHkt0owkxJQpF7eJ4HDzPOEkM9E8KxBHqtSb8htx
- cULeT/AZdoBfPEMC2/LFezb5ZWYQqJw=
+ bh=HLjvJAZcm5/HnvrBB7jb5HXQNXAAKRJbnHiVW2HYy9c=;
+ b=MivaVXHNQdJiFvE9jP7A9WlspsJj9KkED8lrsOZWWwHHmu5ngSJenMT6ALyPQjTQlY4/o3
+ Fvf5klVuwa2gbrQfX82Wd5bV0+exFw45AD46ZGdZ5HBs818T5flN/i8Q02ksMVXXhwibqb
+ ZIZQg7sHEiCONDmZA9Q6aKfKiZLp3tc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1627477585;
+ s=susede2_ed25519; t=1627477694;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=c7OMi7VvYcXr0WCkQGANFjZWVUSO80pUXoCg47pu8oM=;
- b=rN8YGytqmb02vRtPGndygEZ5ec3sjMsifXwXvyP8eMyC8DAXliMlemFcUWhDHtquNwmBdZ
- 0y/TMSXPcQKdLuDA==
+ bh=HLjvJAZcm5/HnvrBB7jb5HXQNXAAKRJbnHiVW2HYy9c=;
+ b=ta+DayQ1HMsI6F5yJnsFpsTI8uIItiPkwORQgECpwpdnAVELwdLjb7l4Qmta9c5DOIknDF
+ al42LvWLKywudoCQ==
 Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id E46EF13318;
- Wed, 28 Jul 2021 13:06:24 +0000 (UTC)
+ by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id D8EBF13318;
+ Wed, 28 Jul 2021 13:08:13 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id XGhbNlBWAWEnYwAAGKfGzw
- (envelope-from <pvorel@suse.cz>); Wed, 28 Jul 2021 13:06:24 +0000
-Date: Wed, 28 Jul 2021 15:06:23 +0200
+ by imap1.suse-dmz.suse.de with ESMTPSA id FKxtMr1WAWGtYwAAGKfGzw
+ (envelope-from <pvorel@suse.cz>); Wed, 28 Jul 2021 13:08:13 +0000
+Date: Wed, 28 Jul 2021 15:08:07 +0200
 From: Petr Vorel <pvorel@suse.cz>
 To: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
-Message-ID: <YQFWT/0MBcZsLNVV@pevik>
-References: <20210722063422.18059-1-radoslav.kolev@suse.com>
- <YPkjE3KHHnhYklp/@pevik>
- <8b564e10-d87e-aaf0-03a4-1af347f02d4b@suse.com>
- <8cc8d5bc-b651-8e15-6389-69f36cf6bb49@bell-sw.com>
- <YP/ZxhYSZb/NusUs@pevik>
- <c94e1459-07d5-ceb0-f113-9d3f57343983@bell-sw.com>
+Message-ID: <YQFWt/NcacYfVt9R@pevik>
+References: <20210714140716.1568-1-pvorel@suse.cz>
+ <20210714140716.1568-3-pvorel@suse.cz>
+ <57d4c109-d01a-2c7f-39c7-41013e70abf9@bell-sw.com>
+ <YQBD4w2nKwY2G1l+@pevik>
+ <b0638d98-88d5-76d7-78a1-631c801d88ad@bell-sw.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <c94e1459-07d5-ceb0-f113-9d3f57343983@bell-sw.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+In-Reply-To: <b0638d98-88d5-76d7-78a1-631c801d88ad@bell-sw.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v1] lib/tst_test.sh: skip test if ip returns
- "Error: Unknown device type"
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 2/2] broken_ip: TCONF when test run on unsupported
+ protocol
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,60 +91,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-> On 27.07.2021 13:02, Petr Vorel wrote:
-> > Hi Alexey, Radoslav,
+> Hi Petr,
+> On 27.07.2021 20:35, Petr Vorel wrote:
+> > Hi Alexey,
 
-> >> Hi Radoslav,
+> >> On 14.07.2021 17:07, Petr Vorel wrote:
+> >>> net_stress.broken_ip runtest file is correct, but some users try to run
+> >>> tests manually.
 
-> >> On 27.07.2021 11:20, Radoslav Kolev wrote:
-> >>> On 7/22/21 10:49 AM, Petr Vorel wrote:
-> >>>> Hi Radoslav,
+> >>> Fixes: #843
 
-> >>>>> In network stress test groups there are tests expecting
-> >>>>> CONFIG_NET_IPVTI to be enabled in the kernel, and if it's not they
-> >>>>> fail. There is a check for VTI support in the ip utility, but not
-> >>>>> for the kernel. Skip these tests if vti device type is not known by
-> >>>>> the kernel.
-> >>>> LGTM.
-> >>>> Reviewed-by: Petr Vorel <pvorel@suse.cz>
+> ...
+> >>>  do_test()
 
-> >>> Thanks for the review, Petr!
+> >> The generic version looks fine:
 
-> >>> Alexey, please let me know if you have any comments.
+> >> Reviewed-by: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
 
+> > I didn't understand whether you'd prefer to add TST_IPV6=6 (or TST_IPV6=) where
+> > needed or accept this patchset. Both would work.
 
-
-> >> What about checking vti drivers in stress/ipsec/ipsec_lib.sh:tst_ipsec_setup_vti()
-> >> Similar to the checks for xfrm_user driver there...
-
-> >> For example:
-
-> >> tst_net_run -q "tst_check_drivers ip_vti ip6_vti" || \
-> >>     tst_brk TCONF "vti driver not available on lhost or rhost"
-
-
-> >> I think this should work for wireguard02 test as well.
-
-> > The above LGTM, Radoslav, do you have time to look into it?
-> > Alexey, do we also accept this patch? IMHO this error should be mostly TCONF and
-> > it'd work for other possible drivers.
-
-
-> Not sure if we really want to add the new patterns every time the
-> error message from ip changes. For example depending on the ip/libc
-> the error can be "Error: Unknown device type." or "RTNETLINK answers:
-> Not supported".
-Sure, more effective ways are always welcome.
-
-> We could also save the error message in setup by passing the wrong
-> type and then compare it during the test:
-
-> no_dev_msg="$(ip link add ltp0 type ltp0 2>&1)"
-Yep, that'd be safer. But your original proposal to check ip_vti ip6_vti
-is IMHO the best solution. Radoslav, would you send a new patch with it?
+> I think for manual runs it is better to set TST_IPV6=6 in the test
+> so it will run the test rather the require passing some options.
++1.
 
 Kind regards,
 Petr
+
+
+> > Kind regards,
+> > Petr
+
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
