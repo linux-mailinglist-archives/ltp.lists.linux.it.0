@@ -1,45 +1,44 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFDCF3D8DF0
-	for <lists+linux-ltp@lfdr.de>; Wed, 28 Jul 2021 14:35:38 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 733613D8DF1
+	for <lists+linux-ltp@lfdr.de>; Wed, 28 Jul 2021 14:35:52 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4D1163C9051
-	for <lists+linux-ltp@lfdr.de>; Wed, 28 Jul 2021 14:35:38 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id EA7E03C90EE
+	for <lists+linux-ltp@lfdr.de>; Wed, 28 Jul 2021 14:35:51 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id CD58D3C641F
- for <ltp@lists.linux.it>; Wed, 28 Jul 2021 14:34:25 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 0CFC33C641F
+ for <ltp@lists.linux.it>; Wed, 28 Jul 2021 14:34:26 +0200 (CEST)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 69BB7600F48
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id B12B2600F4B
  for <ltp@lists.linux.it>; Wed, 28 Jul 2021 14:34:25 +0200 (CEST)
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 25B0C1FF9F;
+ by smtp-out2.suse.de (Postfix) with ESMTP id 65B8D201A2;
  Wed, 28 Jul 2021 12:34:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
  t=1627475665; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
+ mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=f2UvmmvNF4XVDI5AYNrFJNSxzQrFumuKXkPMfGRj5x8=;
- b=ZXBJvjKj1CDD2YsYCMTdU1BNAZawRK0VXBlL6vPgnk6b3paU9OlJhZEHWWhz+mtnGFvkho
- k3XokYiAtMoOpgepCy6plvMRTFTSPKM81KdtRV3GmMPG6JEa+v732fm3hEEMprvCZN2YmQ
- tyWCwT1qr/LwHbGgHTa/vPnW1NcbVp8=
+ bh=Wlo3EwMihenbLS05yRwYT95Zi3vpovMNIxMDELxOY78=;
+ b=iC9E5HaNluHn9OAANrejHqj3e8nUqyR2pdR+ZLFsLtwOWXWdrFQwZ7aG/Iq43YPNBfMLi+
+ a0SRkKnOYlRnhNqHVRaTE2flx6J6bjQ2LcmdeZouxA5r01kaE5F0ED8PqDIhvaKH7BJV7q
+ yEE6P1OTCr0hQQ8QXX8eTR2EBwz2Dd4=
 Received: from g78.suse.de (unknown [10.163.24.38])
- by relay2.suse.de (Postfix) with ESMTP id EC48AA3B81;
- Wed, 28 Jul 2021 12:34:24 +0000 (UTC)
+ by relay2.suse.de (Postfix) with ESMTP id 362E1A3B81;
+ Wed, 28 Jul 2021 12:34:25 +0000 (UTC)
 To: ltp@lists.linux.it
-Date: Wed, 28 Jul 2021 13:34:11 +0100
-Message-Id: <20210728123412.31858-8-rpalethorpe@suse.com>
+Date: Wed, 28 Jul 2021 13:34:12 +0100
+Message-Id: <20210728123412.31858-9-rpalethorpe@suse.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210728123412.31858-1-rpalethorpe@suse.com>
 References: <20210728123412.31858-1-rpalethorpe@suse.com>
@@ -50,8 +49,8 @@ X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH v3 7/8] API: Move libtsc.h from realtime tests include
- to tst_tsc.h
+Subject: [LTP] [PATCH v3 8/8] API/tst_tsc: Add guards and remove some
+ boilerplate
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,100 +65,42 @@ List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
 From: Richard Palethorpe via ltp <ltp@lists.linux.it>
 Reply-To: Richard Palethorpe <rpalethorpe@suse.com>
 Cc: Richard Palethorpe <rpalethorpe@suse.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Allow the meltdown test to use this file without modifying the
-CFLAGS. This avoids having to add the include also to the CHECK_FLAGS.
-
-Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
----
- testcases/realtime/include/libtsc.h => include/tst_tsc.h  | 0
- testcases/cve/Makefile                                    | 2 --
- testcases/cve/meltdown.c                                  | 2 +-
- testcases/realtime/func/async_handler/async_handler_tsc.c | 3 ++-
- testcases/realtime/func/measurement/preempt_timing.c      | 3 ++-
- testcases/realtime/func/measurement/rdtsc-latency.c       | 3 ++-
- 6 files changed, 7 insertions(+), 6 deletions(-)
- rename testcases/realtime/include/libtsc.h => include/tst_tsc.h (100%)
-
-diff --git a/testcases/realtime/include/libtsc.h b/include/tst_tsc.h
-similarity index 100%
-rename from testcases/realtime/include/libtsc.h
-rename to include/tst_tsc.h
-diff --git a/testcases/cve/Makefile b/testcases/cve/Makefile
-index ddf8b6fe1..c5308794d 100644
---- a/testcases/cve/Makefile
-+++ b/testcases/cve/Makefile
-@@ -18,8 +18,6 @@ ifneq ($(ANDROID),1)
- cve-2014-0196:  LDLIBS += -lutil
- endif
- 
--meltdown: CFLAGS += -I$(abs_srcdir)/../realtime/include
--
- ifneq (,$(filter $(HOST_CPU),x86 x86_64))
- meltdown: CFLAGS += -msse2
- endif
-diff --git a/testcases/cve/meltdown.c b/testcases/cve/meltdown.c
-index a387b3205..5a984aba3 100644
---- a/testcases/cve/meltdown.c
-+++ b/testcases/cve/meltdown.c
-@@ -19,7 +19,7 @@
- 
- #include <emmintrin.h>
- 
--#include "libtsc.h"
-+#include "tst_tsc.h"
- 
- #define TARGET_OFFSET	9
- #define TARGET_SIZE	(1 << TARGET_OFFSET)
-diff --git a/testcases/realtime/func/async_handler/async_handler_tsc.c b/testcases/realtime/func/async_handler/async_handler_tsc.c
-index 7da4324a5..73d4ee5c6 100644
---- a/testcases/realtime/func/async_handler/async_handler_tsc.c
-+++ b/testcases/realtime/func/async_handler/async_handler_tsc.c
-@@ -46,7 +46,8 @@
- #include <pthread.h>
- #include <librttest.h>
- #include <libstats.h>
--#include <libtsc.h>
-+
-+#include "tst_tsc.h"
- 
- #define HANDLER_PRIO 98
- #define SIGNAL_PRIO 99
-diff --git a/testcases/realtime/func/measurement/preempt_timing.c b/testcases/realtime/func/measurement/preempt_timing.c
-index 8b5333480..b84d54692 100644
---- a/testcases/realtime/func/measurement/preempt_timing.c
-+++ b/testcases/realtime/func/measurement/preempt_timing.c
-@@ -52,7 +52,8 @@
- #include <sys/mman.h>
- #include <stdint.h>
- #include <librttest.h>
--#include <libtsc.h>
-+
-+#include "tst_tsc.h"
- 
- #define ITERATIONS 1000000ULL
- #define INTERVALS 10
-diff --git a/testcases/realtime/func/measurement/rdtsc-latency.c b/testcases/realtime/func/measurement/rdtsc-latency.c
-index d6ab89ff0..3829947bc 100644
---- a/testcases/realtime/func/measurement/rdtsc-latency.c
-+++ b/testcases/realtime/func/measurement/rdtsc-latency.c
-@@ -44,7 +44,8 @@
- #include <errno.h>
- #include <stdint.h>
- #include <librttest.h>
--#include <libtsc.h>
-+
-+#include "tst_tsc.h"
- 
- #define ITERATIONS 1000000
- 
--- 
-2.31.1
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+U2lnbmVkLW9mZi1ieTogUmljaGFyZCBQYWxldGhvcnBlIDxycGFsZXRob3JwZUBzdXNlLmNvbT4K
+LS0tCiBpbmNsdWRlL3RzdF90c2MuaCB8IDM1ICsrKysrKysrLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgOCBpbnNlcnRpb25zKCspLCAyNyBkZWxldGlvbnMoLSkK
+CmRpZmYgLS1naXQgYS9pbmNsdWRlL3RzdF90c2MuaCBiL2luY2x1ZGUvdHN0X3RzYy5oCmluZGV4
+IDlhZDVmZDY1OS4uM2Y0OWE2Y2E3IDEwMDY0NAotLS0gYS9pbmNsdWRlL3RzdF90c2MuaAorKysg
+Yi9pbmNsdWRlL3RzdF90c2MuaApAQCAtMSwyOCArMSw2IEBACi0vKioqKioqKioqKioqKioqKioq
+KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
+KioqCi0gKgotICogICBDb3B5cmlnaHQgwqkgSW50ZXJuYXRpb25hbCBCdXNpbmVzcyBNYWNoaW5l
+cyAgQ29ycC4sIDIwMDYtMjAwOAotICoKLSAqICAgVGhpcyBwcm9ncmFtIGlzIGZyZWUgc29mdHdh
+cmU7ICB5b3UgY2FuIHJlZGlzdHJpYnV0ZSBpdCBhbmQvb3IgbW9kaWZ5Ci0gKiAgIGl0IHVuZGVy
+IHRoZSB0ZXJtcyBvZiB0aGUgR05VIEdlbmVyYWwgUHVibGljIExpY2Vuc2UgYXMgcHVibGlzaGVk
+IGJ5Ci0gKiAgIHRoZSBGcmVlIFNvZnR3YXJlIEZvdW5kYXRpb247IGVpdGhlciB2ZXJzaW9uIDIg
+b2YgdGhlIExpY2Vuc2UsIG9yCi0gKiAgIChhdCB5b3VyIG9wdGlvbikgYW55IGxhdGVyIHZlcnNp
+b24uCi0gKgotICogICBUaGlzIHByb2dyYW0gaXMgZGlzdHJpYnV0ZWQgaW4gdGhlIGhvcGUgdGhh
+dCBpdCB3aWxsIGJlIHVzZWZ1bCwKLSAqICAgYnV0IFdJVEhPVVQgQU5ZIFdBUlJBTlRZOyAgd2l0
+aG91dCBldmVuIHRoZSBpbXBsaWVkIHdhcnJhbnR5IG9mCi0gKiAgIE1FUkNIQU5UQUJJTElUWSBv
+ciBGSVRORVNTIEZPUiBBIFBBUlRJQ1VMQVIgUFVSUE9TRS4gIFNlZQotICogICB0aGUgR05VIEdl
+bmVyYWwgUHVibGljIExpY2Vuc2UgZm9yIG1vcmUgZGV0YWlscy4KLSAqCi0gKiAgIFlvdSBzaG91
+bGQgaGF2ZSByZWNlaXZlZCBhIGNvcHkgb2YgdGhlIEdOVSBHZW5lcmFsIFB1YmxpYyBMaWNlbnNl
+Ci0gKiAgIGFsb25nIHdpdGggdGhpcyBwcm9ncmFtOyAgaWYgbm90LCB3cml0ZSB0byB0aGUgRnJl
+ZSBTb2Z0d2FyZQotICogICBGb3VuZGF0aW9uLCBJbmMuLCA1MSBGcmFua2xpbiBTdHJlZXQsIEZp
+ZnRoIEZsb29yLCBCb3N0b24sIE1BIDAyMTEwLTEzMDEgVVNBCi0gKgotICogTkFNRQotICogICAg
+ICAgbGlidHNjLmgKLSAqCi0gKiBERVNDUklQVElPTgotICoKLSAqIFVTQUdFOgotICogICAgICAg
+VG8gYmUgaW5jbHVkZWQgaW4gc29tZSB0ZXN0Y2FzZXMuCisvLyBTUERYLUxpY2Vuc2UtSWRlbnRp
+ZmllcjogR1BMLTIuMC1vci1sYXRlcgorLyoKKyAqIENvcHlyaWdodCDCqSBJbnRlcm5hdGlvbmFs
+IEJ1c2luZXNzIE1hY2hpbmVzICBDb3JwLiwgMjAwNi0yMDA4CiAgKgogICogQVVUSE9SCiAgKiAg
+ICAgICAgRGFycmVuIEhhcnQgPGR2aGx0Y0B1cy5pYm0uY29tPgpAQCAtMzAsOCArOCwxMCBAQAog
+ICoKICAqIEhJU1RPUlkKICAqICAgICAgSXQgZGlyZWN0bHkgY29tZXMgZnJvbSB0aGUgbGlicnR0
+ZXN0LmggKHNlZSBpdHMgSElTVE9SWSkuCi0gKgotICoqKioqKioqKioqKioqKioqKioqKioqKioq
+KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqLworICov
+CisKKyNpZm5kZWYgVFNUX1RTQ19ICisjZGVmaW5lIFRTVF9UU0NfSAogCiAjdW5kZWYgVFNDX1VO
+U1VQUE9SVEVECiAKQEAgLTcwLDMgKzUwLDQgQEAKICNkZWZpbmUgVFNDX1VOU1VQUE9SVEVECiAj
+ZW5kaWYKIAorI2VuZGlmCi0tIAoyLjMxLjEKCgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0dHBz
+Oi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
