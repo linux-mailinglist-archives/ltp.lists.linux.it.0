@@ -2,80 +2,80 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id A208E3D8CBC
-	for <lists+linux-ltp@lfdr.de>; Wed, 28 Jul 2021 13:27:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE1A73D8CDC
+	for <lists+linux-ltp@lfdr.de>; Wed, 28 Jul 2021 13:38:18 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1CDC03C6436
-	for <lists+linux-ltp@lfdr.de>; Wed, 28 Jul 2021 13:27:50 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 5CD1E3C9050
+	for <lists+linux-ltp@lfdr.de>; Wed, 28 Jul 2021 13:38:18 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E3F623C6436
- for <ltp@lists.linux.it>; Wed, 28 Jul 2021 13:27:45 +0200 (CEST)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id A2F513C6436
+ for <ltp@lists.linux.it>; Wed, 28 Jul 2021 13:38:14 +0200 (CEST)
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [IPv6:2a00:1450:4864:20::134])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id DE1FE200C22
- for <ltp@lists.linux.it>; Wed, 28 Jul 2021 13:27:44 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1627471663;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=sEDNg1Z8Sp3Y4VzS3YtD4niKSELi2P5kvQQzhnzYZN4=;
- b=eTHs5ZYwBaz8KbD+MCeHatYAxreOYriRZPOzS2zEXjJ7pCGDvOj0WImEOuAS6YKh7ryL2G
- /LEI8i68RFP4aRfCDEuii7Dz9TQfCRUH7cUFipBTb3YuvOfVrgohTwxJfq1103lllTa/dT
- yt23fvgpwBLPV4fI0tqXVgb98Unk/Jo=
-Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com
- [209.85.210.69]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-472-tGmyPt_kNFG-LynpvcOt3g-1; Wed, 28 Jul 2021 07:27:41 -0400
-X-MC-Unique: tGmyPt_kNFG-LynpvcOt3g-1
-Received: by mail-ot1-f69.google.com with SMTP id
- 20-20020a9d05940000b02904d1011b3b03so716721otd.10
- for <ltp@lists.linux.it>; Wed, 28 Jul 2021 04:27:41 -0700 (PDT)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 237BD1A01144
+ for <ltp@lists.linux.it>; Wed, 28 Jul 2021 13:38:14 +0200 (CEST)
+Received: by mail-lf1-x134.google.com with SMTP id h2so3337767lfu.4
+ for <ltp@lists.linux.it>; Wed, 28 Jul 2021 04:38:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=bell-sw-com.20150623.gappssmtp.com; s=20150623;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=ZaK2Rr6RiTqkscRyAZZXPoYKH+nBwe1JKMc+H0hl3Vs=;
+ b=WPyQ+d3YLzFMqpKXrOETvrLscgE0e5ZnJ85ejU2erKRkLuuaVyYZWuB+UE993KdeA8
+ hdUhSOccSpa8rrJ7q0dmgMVD1+B7X6NrsXdsYXOGirXPrc0ApYu4KmXA3RMaldEV3nwf
+ b98VOGEuMBgW5Q3wI3uS1asQt05YoSgbrTI+an8MKd1ydnz6ZpJ3DzeovgDSqXvkuN6Q
+ 8unOYQVCxN7RkCWNyfm8HzTt6sgakw51WQkThfE7SZNjA90DTlVT7ElDfRSN30Lf8EBb
+ jEJydkVGu30JUTrgiYYfCISP8al6vlE0uWslKBmsucRft0YO2Jxk4Bp0mrDM36IiRfyL
+ SdSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=sEDNg1Z8Sp3Y4VzS3YtD4niKSELi2P5kvQQzhnzYZN4=;
- b=oO4kLEPJ83qzNap/HKwt3M/eT2VjjTBY+VTD2ozqA9vvaDNmYRdvT2JDn1NlwIEN+D
- PcVY2G3VRKrcdZJph89KlGbm+a0Ya4wIo01mHfFhKiTv3BsxUbleq8/VE4Iiwxptaqwv
- E1LA3b7RLsaschQnBSsn2lVGrotWyB4LzLvsuWHrvmQxOsrDRMdseieONyFv3KgnJw8E
- mnSviYD6nEh4+HKh2K+OEyHHGT/3vk+uWpDWaEwq0IMqr4PP3zind19GsuQHLOD85qWf
- fXDXMw8s2yGXbTfJeHrQ4OnxFZDzGhgBFEBlfta1pNhQlhdDX3HyakrRXyccYefHdgWA
- hn5w==
-X-Gm-Message-State: AOAM530+gUwZHz1cgQpPg9oCPSwKrFG28s0WaS/nHPOwT5lT01zxovU1
- uTOXZDxrkog1qeKKDw4Qa1hkuL+hkl1jFrnf00GJNI+J09aMNr/xmgA+Ev/IiwafvlGC0x23P1v
- jeD605jNXlbOzYgOGDt1UuM5FzM8=
-X-Received: by 2002:a9d:4f09:: with SMTP id d9mr18459897otl.265.1627471660557; 
- Wed, 28 Jul 2021 04:27:40 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJxtPCG8soz/AH2c3VNXCDs/Ta0dkJxa2SA24w1D0KKORigJlij2OykStrBxtlXEqVkKsNRvcpuNN5hPzIwhx0k=
-X-Received: by 2002:a9d:4f09:: with SMTP id d9mr18459882otl.265.1627471660181; 
- Wed, 28 Jul 2021 04:27:40 -0700 (PDT)
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=ZaK2Rr6RiTqkscRyAZZXPoYKH+nBwe1JKMc+H0hl3Vs=;
+ b=o5JrkqWzLBBbNtMf/oXuGmYfer1oiSVL5On5V/bX+Pz1ykDWUHhVMNc1FJA382uwjo
+ pTVMwAmllnUENTn/0zgeD1GT1OuSrO72VpffZOYrSz9B2gqsdvEfR5T7po/LT8gBXTfw
+ WLRX2vvTMGtTmR2uxas52CFN/xWBXmdPrWW+WAgiijY+PEWiIjUL/wKLiyUFNzUrvhNO
+ xbzvEcGc8+OayhzMMUMRaLeZjer6IDK5luibbe+QAtp+XgGMuCEz6ZhG27CQCVimeOCB
+ PybmVlDnCtMVlyEuVJUhlc3itSy8hiMt4zfglpD79HXO9j84hihnbADZ0w2H6KUtUUC2
+ Q3lQ==
+X-Gm-Message-State: AOAM53267xNEYUKMuqydEVu2Y2InCeFpYe0eWeGRE/2GirwDhFsi6dDx
+ jSYS7a8z5xsd1MCcZCq2lVsIJBV7v3XV
+X-Google-Smtp-Source: ABdhPJx6luKhKqE5rMZZCHKstUxtSkRRPUnqa8WCkoIpwjkj91+86WQAxB49FrrVUFoT2XpEhRS3Ww==
+X-Received: by 2002:a05:6512:942:: with SMTP id
+ u2mr19998317lft.501.1627472293348; 
+ Wed, 28 Jul 2021 04:38:13 -0700 (PDT)
+Received: from [192.168.1.52] ([95.161.221.177])
+ by smtp.gmail.com with ESMTPSA id f14sm493123ljk.42.2021.07.28.04.38.12
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 28 Jul 2021 04:38:13 -0700 (PDT)
+To: Petr Vorel <pvorel@suse.cz>
+References: <20210722063422.18059-1-radoslav.kolev@suse.com>
+ <YPkjE3KHHnhYklp/@pevik> <8b564e10-d87e-aaf0-03a4-1af347f02d4b@suse.com>
+ <8cc8d5bc-b651-8e15-6389-69f36cf6bb49@bell-sw.com> <YP/ZxhYSZb/NusUs@pevik>
+From: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
+Message-ID: <c94e1459-07d5-ceb0-f113-9d3f57343983@bell-sw.com>
+Date: Wed, 28 Jul 2021 14:38:12 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-References: <15dd5ab99369da3cba33a748d1bf05be145ef373.1627046193.git.jstancek@redhat.com>
- <YPrbrX3VePpf84C+@yuki>
-In-Reply-To: <YPrbrX3VePpf84C+@yuki>
-From: Jan Stancek <jstancek@redhat.com>
-Date: Wed, 28 Jul 2021 13:27:24 +0200
-Message-ID: <CAASaF6zu+6rAuE7aRJShiHEF9_4f94AdfqDBb66kOv6Ymh9ErQ@mail.gmail.com>
-To: Cyril Hrubis <chrubis@suse.cz>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=jstancek@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+In-Reply-To: <YP/ZxhYSZb/NusUs@pevik>
+Content-Language: en-US
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] clock_gettime01: avoid zero exec runtime due to
- irq and steal time accounting
+X-Spam-Status: No, score=-0.2 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v1] lib/tst_test.sh: skip test if ip returns
+ "Error: Unknown device type"
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,52 +87,60 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
-Content-Type: multipart/mixed; boundary="===============1521306554=="
+Cc: radosla.kolev@suse.com, ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1521306554==
-Content-Type: multipart/alternative; boundary="0000000000002ffee005c82d4681"
+On 27.07.2021 13:02, Petr Vorel wrote:
+> Hi Alexey, Radoslav,
+> 
+>> Hi Radoslav,
+> 
+>> On 27.07.2021 11:20, Radoslav Kolev wrote:
+>>> On 7/22/21 10:49 AM, Petr Vorel wrote:
+>>>> Hi Radoslav,
+> 
+>>>>> In network stress test groups there are tests expecting
+>>>>> CONFIG_NET_IPVTI to be enabled in the kernel, and if it's not they
+>>>>> fail. There is a check for VTI support in the ip utility, but not
+>>>>> for the kernel. Skip these tests if vti device type is not known by
+>>>>> the kernel.
+>>>> LGTM.
+>>>> Reviewed-by: Petr Vorel <pvorel@suse.cz>
+> 
+>>> Thanks for the review, Petr!
+> 
+>>> Alexey, please let me know if you have any comments.
+> 
+> 
+> 
+>> What about checking vti drivers in stress/ipsec/ipsec_lib.sh:tst_ipsec_setup_vti()
+>> Similar to the checks for xfrm_user driver there...
+> 
+>> For example:
+> 
+>> tst_net_run -q "tst_check_drivers ip_vti ip6_vti" || \
+>>     tst_brk TCONF "vti driver not available on lhost or rhost"
+> 
+> 
+>> I think this should work for wireguard02 test as well.
+> 
+> The above LGTM, Radoslav, do you have time to look into it?
+> Alexey, do we also accept this patch? IMHO this error should be mostly TCONF and
+> it'd work for other possible drivers.
+> 
 
---0000000000002ffee005c82d4681
-Content-Type: text/plain; charset="UTF-8"
+Not sure if we really want to add the new patterns every time the
+error message from ip changes. For example depending on the ip/libc
+the error can be "Error: Unknown device type." or "RTNETLINK answers:
+Not supported".
 
-On Fri, Jul 23, 2021 at 5:35 PM Cyril Hrubis <chrubis@suse.cz> wrote:
+We could also save the error message in setup by passing the wrong
+type and then compare it during the test:
 
-> Hi!
-> Looks good: Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
->
-
-Thanks for review, pushed.
-
---0000000000002ffee005c82d4681
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-family:monospace"><br></div></div><br><div class=3D"gmail_quote"><div dir=
-=3D"ltr" class=3D"gmail_attr">On Fri, Jul 23, 2021 at 5:35 PM Cyril Hrubis =
-&lt;<a href=3D"mailto:chrubis@suse.cz">chrubis@suse.cz</a>&gt; wrote:<br></=
-div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bor=
-der-left:1px solid rgb(204,204,204);padding-left:1ex">Hi!<br>
-Looks good: Reviewed-by: Cyril Hrubis &lt;<a href=3D"mailto:chrubis@suse.cz=
-" target=3D"_blank">chrubis@suse.cz</a>&gt;<br></blockquote><div><br></div>=
-<div><div style=3D"font-family:monospace" class=3D"gmail_default">Thanks fo=
-r review, pushed.</div></div><br></div></div>
-
---0000000000002ffee005c82d4681--
-
-
---===============1521306554==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+no_dev_msg="$(ip link add ltp0 type ltp0 2>&1)"
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============1521306554==--
-
