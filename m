@@ -2,80 +2,50 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE1A73D8CDC
-	for <lists+linux-ltp@lfdr.de>; Wed, 28 Jul 2021 13:38:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD5A93D8DE4
+	for <lists+linux-ltp@lfdr.de>; Wed, 28 Jul 2021 14:34:36 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5CD1E3C9050
-	for <lists+linux-ltp@lfdr.de>; Wed, 28 Jul 2021 13:38:18 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 685583C90A1
+	for <lists+linux-ltp@lfdr.de>; Wed, 28 Jul 2021 14:34:36 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A2F513C6436
- for <ltp@lists.linux.it>; Wed, 28 Jul 2021 13:38:14 +0200 (CEST)
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [IPv6:2a00:1450:4864:20::134])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 0D0FB3C642D
+ for <ltp@lists.linux.it>; Wed, 28 Jul 2021 14:34:24 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 237BD1A01144
- for <ltp@lists.linux.it>; Wed, 28 Jul 2021 13:38:14 +0200 (CEST)
-Received: by mail-lf1-x134.google.com with SMTP id h2so3337767lfu.4
- for <ltp@lists.linux.it>; Wed, 28 Jul 2021 04:38:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bell-sw-com.20150623.gappssmtp.com; s=20150623;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=ZaK2Rr6RiTqkscRyAZZXPoYKH+nBwe1JKMc+H0hl3Vs=;
- b=WPyQ+d3YLzFMqpKXrOETvrLscgE0e5ZnJ85ejU2erKRkLuuaVyYZWuB+UE993KdeA8
- hdUhSOccSpa8rrJ7q0dmgMVD1+B7X6NrsXdsYXOGirXPrc0ApYu4KmXA3RMaldEV3nwf
- b98VOGEuMBgW5Q3wI3uS1asQt05YoSgbrTI+an8MKd1ydnz6ZpJ3DzeovgDSqXvkuN6Q
- 8unOYQVCxN7RkCWNyfm8HzTt6sgakw51WQkThfE7SZNjA90DTlVT7ElDfRSN30Lf8EBb
- jEJydkVGu30JUTrgiYYfCISP8al6vlE0uWslKBmsucRft0YO2Jxk4Bp0mrDM36IiRfyL
- SdSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=ZaK2Rr6RiTqkscRyAZZXPoYKH+nBwe1JKMc+H0hl3Vs=;
- b=o5JrkqWzLBBbNtMf/oXuGmYfer1oiSVL5On5V/bX+Pz1ykDWUHhVMNc1FJA382uwjo
- pTVMwAmllnUENTn/0zgeD1GT1OuSrO72VpffZOYrSz9B2gqsdvEfR5T7po/LT8gBXTfw
- WLRX2vvTMGtTmR2uxas52CFN/xWBXmdPrWW+WAgiijY+PEWiIjUL/wKLiyUFNzUrvhNO
- xbzvEcGc8+OayhzMMUMRaLeZjer6IDK5luibbe+QAtp+XgGMuCEz6ZhG27CQCVimeOCB
- PybmVlDnCtMVlyEuVJUhlc3itSy8hiMt4zfglpD79HXO9j84hihnbADZ0w2H6KUtUUC2
- Q3lQ==
-X-Gm-Message-State: AOAM53267xNEYUKMuqydEVu2Y2InCeFpYe0eWeGRE/2GirwDhFsi6dDx
- jSYS7a8z5xsd1MCcZCq2lVsIJBV7v3XV
-X-Google-Smtp-Source: ABdhPJx6luKhKqE5rMZZCHKstUxtSkRRPUnqa8WCkoIpwjkj91+86WQAxB49FrrVUFoT2XpEhRS3Ww==
-X-Received: by 2002:a05:6512:942:: with SMTP id
- u2mr19998317lft.501.1627472293348; 
- Wed, 28 Jul 2021 04:38:13 -0700 (PDT)
-Received: from [192.168.1.52] ([95.161.221.177])
- by smtp.gmail.com with ESMTPSA id f14sm493123ljk.42.2021.07.28.04.38.12
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 28 Jul 2021 04:38:13 -0700 (PDT)
-To: Petr Vorel <pvorel@suse.cz>
-References: <20210722063422.18059-1-radoslav.kolev@suse.com>
- <YPkjE3KHHnhYklp/@pevik> <8b564e10-d87e-aaf0-03a4-1af347f02d4b@suse.com>
- <8cc8d5bc-b651-8e15-6389-69f36cf6bb49@bell-sw.com> <YP/ZxhYSZb/NusUs@pevik>
-From: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
-Message-ID: <c94e1459-07d5-ceb0-f113-9d3f57343983@bell-sw.com>
-Date: Wed, 28 Jul 2021 14:38:12 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 479A61000F22
+ for <ltp@lists.linux.it>; Wed, 28 Jul 2021 14:34:24 +0200 (CEST)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 5A657222DA;
+ Wed, 28 Jul 2021 12:34:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1627475663; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=N4OhGfl6xckZpfxsBN8lc20Qy8gogwcl1oMUeWW0PBI=;
+ b=njZ1Uobo9Q3TvbQbllxqWvzfw+k7Hdd9gB4DH61JZxH7r+GqgwXUcqEnna4SMEUeBr4S1g
+ A0Nmcgti9dFYLSJ9Wh1nKNgvE90JYxz+mrRnDOSj99Z47MHunyEXb4HH7ZeBBfEclOgQgD
+ FpQDdGyr/ZYOLb1UiTl1bIsJrIrpx3A=
+Received: from g78.suse.de (unknown [10.163.24.38])
+ by relay2.suse.de (Postfix) with ESMTP id 291BAA3B83;
+ Wed, 28 Jul 2021 12:34:23 +0000 (UTC)
+To: ltp@lists.linux.it
+Date: Wed, 28 Jul 2021 13:34:04 +0100
+Message-Id: <20210728123412.31858-1-rpalethorpe@suse.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-In-Reply-To: <YP/ZxhYSZb/NusUs@pevik>
-Content-Language: en-US
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.2 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v1] lib/tst_test.sh: skip test if ip returns
- "Error: Unknown device type"
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH v3 0/8] Sparse based checker and rule proposal
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,60 +57,110 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: radosla.kolev@suse.com, ltp@lists.linux.it
+From: Richard Palethorpe via ltp <ltp@lists.linux.it>
+Reply-To: Richard Palethorpe <rpalethorpe@suse.com>
+Cc: Richard Palethorpe <rpalethorpe@suse.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 27.07.2021 13:02, Petr Vorel wrote:
-> Hi Alexey, Radoslav,
-> 
->> Hi Radoslav,
-> 
->> On 27.07.2021 11:20, Radoslav Kolev wrote:
->>> On 7/22/21 10:49 AM, Petr Vorel wrote:
->>>> Hi Radoslav,
-> 
->>>>> In network stress test groups there are tests expecting
->>>>> CONFIG_NET_IPVTI to be enabled in the kernel, and if it's not they
->>>>> fail. There is a check for VTI support in the ip utility, but not
->>>>> for the kernel. Skip these tests if vti device type is not known by
->>>>> the kernel.
->>>> LGTM.
->>>> Reviewed-by: Petr Vorel <pvorel@suse.cz>
-> 
->>> Thanks for the review, Petr!
-> 
->>> Alexey, please let me know if you have any comments.
-> 
-> 
-> 
->> What about checking vti drivers in stress/ipsec/ipsec_lib.sh:tst_ipsec_setup_vti()
->> Similar to the checks for xfrm_user driver there...
-> 
->> For example:
-> 
->> tst_net_run -q "tst_check_drivers ip_vti ip6_vti" || \
->>     tst_brk TCONF "vti driver not available on lhost or rhost"
-> 
-> 
->> I think this should work for wireguard02 test as well.
-> 
-> The above LGTM, Radoslav, do you have time to look into it?
-> Alexey, do we also accept this patch? IMHO this error should be mostly TCONF and
-> it'd work for other possible drivers.
-> 
+Hello,
 
-Not sure if we really want to add the new patterns every time the
-error message from ip changes. For example depending on the ip/libc
-the error can be "Error: Unknown device type." or "RTNETLINK answers:
-Not supported".
+So it turns out that it is quite easy to implement the TST_RET/ERR
+check in Sparse. It compiles the code into an IR which is just the
+right abstraction for the test. It is also possible to inspect the AST
+with Sparse. It appears more difficult to inspect the AST before
+macros are expanded.
 
-We could also save the error message in setup by passing the wrong
-type and then compare it during the test:
+Sparse is not packaged as a shared library, but has few/no
+dependencies and is easy to compile. It seems like it was meant to be
+vendored. Including it as a git module seems reasonable to me. Please
+see tools/sparse/README.md.
 
-no_dev_msg="$(ip link add ltp0 type ltp0 2>&1)"
+There are still a lot of errors/noise when running 'make check' on the
+entire tree. These are mainly caused by old function definitions and
+such. They need to be fixed before the tool can be used properly.
+
+Also I have tried to document the rule and created a list of rules. So
+this can also be taken as a formal proposal for the rule itself.
+
+Thanks,
+
+V3:
+* Rename main to sparse-ltp
+* Unify TEST/TST_EXP docs
+* Add/fix a couple of links in the docs
+* minor formatting changes in sparse-ltp
+* Add note on building with -m32
+
+V2:
+* Automatically download and build sparse.
+* Only build sparse if "make check" is run. It is filtered from "make all".
+* Move libtsc.h out of the realtime tests dir. Note that checking of metldown.c
+  now fails because it uses a GCC builtin sparse does not recognize.
+
+As mentioned above, there are various errors during checking that need
+fixing. For the most part these are legit errors (usually old style
+function definitions or redefining of symbols). With stuff like
+metldown I am tempted to filter it, but OTOH it looks relatively
+straight forward to add a builtin to Sparse upstream. I just need time
+to do it. First though I would like to get "make check" working on the
+library, so we can put that in CI.
+
+Richard Palethorpe (8):
+  Add Sparse based checker and TST_RET/ERR check
+  Add 'make check' to the build system
+  doc: Add rules and recommendations list
+  doc: Remind authors and maintainers to run make check
+  doc: Document TEST macro and state TST_RET/ERR rule LTP-002
+  Reference LTP-002 rule in Cocci scripts
+  API: Move libtsc.h from realtime tests include to tst_tsc.h
+  API/tst_tsc: Add guards and remove some boilerplate
+
+ .gitmodules                                   |   3 +
+ Makefile                                      |   8 +
+ doc/c-test-api.txt                            |  54 ++++++-
+ doc/library-api-writing-guidelines.txt        |  14 ++
+ doc/maintainer-patch-review-checklist.txt     |   4 +-
+ doc/rules.tsv                                 |   3 +
+ doc/test-writing-guidelines.txt               |   8 +
+ include/mk/env_post.mk                        |   8 +
+ include/mk/generic_leaf_target.inc            |   5 +-
+ include/mk/generic_trunk_target.inc           |   7 +-
+ include/mk/lib.mk                             |   3 +
+ include/mk/module.mk                          |   2 +
+ include/mk/rules.mk                           |   9 ++
+ include/mk/sparse.mk                          |   9 ++
+ include/mk/testcases.mk                       |   1 +
+ .../include/libtsc.h => include/tst_tsc.h     |  35 +----
+ .../coccinelle/libltp-test-macro-vars.cocci   |   6 +-
+ scripts/coccinelle/libltp-test-macro.cocci    |   4 +-
+ testcases/cve/Makefile                        |   2 -
+ testcases/cve/meltdown.c                      |   2 +-
+ testcases/open_posix_testsuite/Makefile       |   4 +
+ .../func/async_handler/async_handler_tsc.c    |   3 +-
+ .../func/measurement/preempt_timing.c         |   3 +-
+ .../realtime/func/measurement/rdtsc-latency.c |   3 +-
+ tools/Makefile                                |   2 +
+ tools/sparse/.gitignore                       |   1 +
+ tools/sparse/Makefile                         |  27 ++++
+ tools/sparse/README.md                        |  51 ++++++
+ tools/sparse/sparse-ltp.c                     | 147 ++++++++++++++++++
+ tools/sparse/sparse-src                       |   1 +
+ 30 files changed, 382 insertions(+), 47 deletions(-)
+ create mode 100644 doc/rules.tsv
+ create mode 100644 include/mk/sparse.mk
+ rename testcases/realtime/include/libtsc.h => include/tst_tsc.h (53%)
+ create mode 100644 tools/sparse/.gitignore
+ create mode 100644 tools/sparse/Makefile
+ create mode 100644 tools/sparse/README.md
+ create mode 100644 tools/sparse/sparse-ltp.c
+ create mode 160000 tools/sparse/sparse-src
+
+-- 
+2.31.1
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
