@@ -1,70 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6109F3DB95A
-	for <lists+linux-ltp@lfdr.de>; Fri, 30 Jul 2021 15:31:58 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id D2F1E3DB996
+	for <lists+linux-ltp@lfdr.de>; Fri, 30 Jul 2021 15:48:54 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0B7B83C8F02
-	for <lists+linux-ltp@lfdr.de>; Fri, 30 Jul 2021 15:31:58 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 9190D3C625C
+	for <lists+linux-ltp@lfdr.de>; Fri, 30 Jul 2021 15:48:54 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E9D363C22F1
- for <ltp@lists.linux.it>; Fri, 30 Jul 2021 15:31:53 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 566823C5638
+ for <ltp@lists.linux.it>; Fri, 30 Jul 2021 15:48:53 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 5A9991A014D3
- for <ltp@lists.linux.it>; Fri, 30 Jul 2021 15:31:53 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 8883B600C35
+ for <ltp@lists.linux.it>; Fri, 30 Jul 2021 15:48:52 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 97AFF20249;
- Fri, 30 Jul 2021 13:31:52 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id D1A5D2230D;
+ Fri, 30 Jul 2021 13:48:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1627651912; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=/mDqxUCLAEa2Kq8h7jUJKK3q+Yw78arrijH8LE5NnHA=;
- b=J/1mYB4Oyh2WGjVDsVwTlC9by7lM7/eRLK3q2B1l4TWP9V9IEPE4kpOOzqsR+mJEp+dXfo
- 1z9f8uuZHhiUgpBTx69N8j1ZbR75u7Mh/DcHF3zawzvnzPpcRyM831ldTEaC/pw40hmhsu
- cPsmJ12SEWfCUnxUo5IJHBuUywM4Yck=
+ t=1627652931; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=RSBNsCINgFrJc/QSVbDkz3BDJ2DeF4N49YO1XbIamzI=;
+ b=FHXnUCSPJ/zZ7LthLT4QloQRHdrdhehvVexQVskHSnjGswe+jj9EfU1MZM+F7UaLY1KmDu
+ 94s0xGIHL6DKK2NCxiK+kF93jOPnI7WY72ll3OMvmiJE/X4D0AmtflMfQ2xknZ0cxTlG29
+ gb7HzXl5gXikgxtVBJYQv6rnAQccezA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1627651912;
+ s=susede2_ed25519; t=1627652931;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=/mDqxUCLAEa2Kq8h7jUJKK3q+Yw78arrijH8LE5NnHA=;
- b=nwUhOrtE3vWxjopVw0CL4u8IlFadjrxoJCy7azWJdlQMRyGPS58mXeyrPRDQ18y4tX0raU
- 1adY26Ak+9FYXABQ==
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=RSBNsCINgFrJc/QSVbDkz3BDJ2DeF4N49YO1XbIamzI=;
+ b=p8ulGkKHcSyqDmcQeGzGm/LSSNtiyCNoI8hqsaOxAuK4wZu6+VtLNmrwx5VxZ1RfAyzkWA
+ qWYY6Hao+Z8KcoAA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 846D313C2E;
- Fri, 30 Jul 2021 13:31:52 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id AB6E813C17;
+ Fri, 30 Jul 2021 13:48:51 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id YapFH0j/A2FXfgAAMHmgww
- (envelope-from <chrubis@suse.cz>); Fri, 30 Jul 2021 13:31:52 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id 4nOQKEMDBGEKBAAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Fri, 30 Jul 2021 13:48:51 +0000
+Date: Fri, 30 Jul 2021 15:48:54 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
-To: ltp@lists.linux.it
-Date: Fri, 30 Jul 2021 15:31:55 +0200
-Message-Id: <20210730133155.31284-1-chrubis@suse.cz>
-X-Mailer: git-send-email 2.31.1
+To: Richard Palethorpe <rpalethorpe@suse.de>
+Message-ID: <YQQDRtIqfwFZFJy4@yuki>
+References: <20210726154605.7828-1-rpalethorpe@suse.com>
+ <YQALVdEAGOVa+g4H@yuki> <878s1rlqa6.fsf@suse.de>
+ <YQPTkYcAFcsmp+UV@yuki> <875ywsrmoh.fsf@suse.de>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <875ywsrmoh.fsf@suse.de>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH] lib: tst_device: Allow more control over the device
- size
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] Add set_mempolicy05, CVE-2017-7616
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,49 +80,25 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-There is actually no reason for lower limit on the device size, and we
-can safely allow the tests to request smaller device than the default
-hardcoded in the library. The backing file is preallocated without
-actually writing to it as long as the underlying filesystem supports it
-so the speedup will be minimal if measurable but we will at least spare
-some space which needs to be reserved on the filesystem which is still a
-good thing.
+Hi!
+> I suppose that compat syscalls seem to have a lot of CVEs. So reviewing
+> them and trying to come up with general tests is probably worth it. I'm
+> not sure if the user stack is the right place to look though.
 
-The test may end up with a device that is bigger than the requsted size
-in a case that a real device was passed to the LTP for the testrun.  So
-tests should be able to cope with that and that's also the reason why
-the turning knob is still called dev_min_size.
+Looks like the userspace stack allocations are going to get removed
+soon anyways, so we shouldn't invest into testing it:
 
-Also currently we use the dev_min_size only to increase the device size
-for a few tests so this change is safe and cannot break anything.
+https://www.spinics.net/lists/linux-api/msg49545.html
 
-CC: Joerg Vehlow <lkml@jv-coder.de>
-Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
----
- lib/tst_device.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/lib/tst_device.c b/lib/tst_device.c
-index c91c6cd55..4ef802c41 100644
---- a/lib/tst_device.c
-+++ b/lib/tst_device.c
-@@ -300,7 +300,7 @@ const char *tst_acquire_device__(unsigned int size)
- 	unsigned int acq_dev_size;
- 	uint64_t ltp_dev_size;
- 
--	acq_dev_size = MAX(size, DEV_SIZE_MB);
-+	acq_dev_size = size ? size : DEV_SIZE_MB;
- 
- 	dev = getenv("LTP_DEV");
- 
 -- 
-2.31.1
-
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
