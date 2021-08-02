@@ -1,75 +1,52 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55ECC3DD4DC
-	for <lists+linux-ltp@lfdr.de>; Mon,  2 Aug 2021 13:43:40 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5EA803DD4FF
+	for <lists+linux-ltp@lfdr.de>; Mon,  2 Aug 2021 13:57:44 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 769563C8AD4
-	for <lists+linux-ltp@lfdr.de>; Mon,  2 Aug 2021 13:43:39 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id D68403C8AD4
+	for <lists+linux-ltp@lfdr.de>; Mon,  2 Aug 2021 13:57:43 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id C40CF3C5D34
- for <ltp@lists.linux.it>; Mon,  2 Aug 2021 13:43:29 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 0BACD3C57C1
+ for <ltp@lists.linux.it>; Mon,  2 Aug 2021 13:57:39 +0200 (CEST)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 7C9111400BF3
- for <ltp@lists.linux.it>; Mon,  2 Aug 2021 13:43:29 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 9B8AF21F7F;
- Mon,  2 Aug 2021 11:43:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1627904608; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=mmcLl6aPTa8dAmV3botLRb0BLrt5XSGywOe78GPfP5o=;
- b=sPbClz/eNvc6VhDn4eJ65/jdmfWbkZ5K2XUXc9D0mnRSmP94bDfPFJ9w+8SGkYKh9ZHBLo
- uJE9IygJj9qh4oFGGduFE1wZbazyQLgGVyJI7iB1s890yjgRoK426bX3Cvk9D/8PhQuwRQ
- fLdAKBObOQv1+2FGKftlAK+yerMPY8Q=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1627904608;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=mmcLl6aPTa8dAmV3botLRb0BLrt5XSGywOe78GPfP5o=;
- b=N7HKVr3SYOC+snuKXR+m3+LQio6cNyp6qK9Cv6eP8Ucr7rDuSGx8rBDocHBrHefgB2MWnY
- kiRD/i76+z10w1AQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 878D513C66;
- Mon,  2 Aug 2021 11:43:28 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id i27AH2DaB2GvWQAAMHmgww
- (envelope-from <chrubis@suse.cz>); Mon, 02 Aug 2021 11:43:28 +0000
-Date: Mon, 2 Aug 2021 13:43:34 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Joerg Vehlow <lkml@jv-coder.de>
-Message-ID: <YQfaZsdzHbPrhCV0@yuki>
-References: <20210730133155.31284-1-chrubis@suse.cz>
- <d99456d3-c3d3-a180-7d0c-55bc3042e63c@jv-coder.de>
- <YQfZLXZznHjvlGJW@yuki>
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 7E7251400077
+ for <ltp@lists.linux.it>; Mon,  2 Aug 2021 13:57:39 +0200 (CEST)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id CE4E921F9E;
+ Mon,  2 Aug 2021 11:57:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1627905458; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=bxkfzu/wcWBzkCFrEF6zQdSApbR4fVNB3KNzzRkOvQg=;
+ b=njupk2AnJSV9yPZjKwwypS9UiibggddIDkxIzDSuSCTmOOSjZ8ze5Ct/eI1qPH+p2AS8xl
+ fhbIlPPTuws6wvpMFWDJqpfDUjRhoQu16nfYqIt+0W0N9afElmu2wmjmQ4gDIMoPuFjEHH
+ v5tox7aUXtjZ/HdaLKwLkfhJT3JiGOk=
+Received: from g78.suse.de (unknown [10.163.24.38])
+ by relay2.suse.de (Postfix) with ESMTP id 94975A3BB2;
+ Mon,  2 Aug 2021 11:57:38 +0000 (UTC)
+To: ltp@lists.linux.it
+Date: Mon,  2 Aug 2021 12:57:26 +0100
+Message-Id: <20210802115726.683-1-rpalethorpe@suse.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <YQfZLXZznHjvlGJW@yuki>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] lib: tst_device: Allow more control over the
- device size
+Subject: [LTP] [PATCH] setsockopt03: Add Git and CVE tags
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,32 +58,35 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+From: Richard Palethorpe via ltp <ltp@lists.linux.it>
+Reply-To: Richard Palethorpe <rpalethorpe@suse.com>
+Cc: Richard Palethorpe <rpalethorpe@suse.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> > This is not enough. tst_acquire_device__ calls tst_acquire_loop_device, 
-> > that again has MAX(size, DEV_SIZE_MB).
-> > But it should be sage to substitute it for size ? size : DEV_SIZE_MB as 
-> > well.
-> 
-> Right, that was the old API function to get loop devices which was
-> called from old API testcases. Looks like there are no old API tests
-> that work with loop devices anymore, so this function should be removed
-> from the public API as well. I will send v2 patchset.
+Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
+---
+ testcases/kernel/syscalls/setsockopt/setsockopt03.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Uff, that was tst_acquire_device_() not tst_acquire_loop_device() and
-tst_acquire_device_() is still in use.
-
-I'm really looking forward to a day where we can finally remove the old
-API from the library...
-
+diff --git a/testcases/kernel/syscalls/setsockopt/setsockopt03.c b/testcases/kernel/syscalls/setsockopt/setsockopt03.c
+index 14fdf400b..3d49628d6 100644
+--- a/testcases/kernel/syscalls/setsockopt/setsockopt03.c
++++ b/testcases/kernel/syscalls/setsockopt/setsockopt03.c
+@@ -114,4 +114,8 @@ static struct tst_test test = {
+ 	.setup = setup,
+ 	.test_all = run,
+ 	.needs_root = 1,
++	.tags = (const struct tst_tag[]){
++		{"linux-git", "ce683e5f9d04"},
++		{"CVE", "CVE-2016-4997"},
++	}
+ };
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+2.31.1
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
