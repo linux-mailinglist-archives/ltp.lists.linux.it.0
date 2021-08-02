@@ -2,52 +2,72 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA70F3DDB1B
-	for <lists+linux-ltp@lfdr.de>; Mon,  2 Aug 2021 16:32:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85ADE3DDB44
+	for <lists+linux-ltp@lfdr.de>; Mon,  2 Aug 2021 16:42:21 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 57C133C8AD4
-	for <lists+linux-ltp@lfdr.de>; Mon,  2 Aug 2021 16:32:45 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 3DA7C3C8ADF
+	for <lists+linux-ltp@lfdr.de>; Mon,  2 Aug 2021 16:42:21 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 7315F3C5F8A
- for <ltp@lists.linux.it>; Mon,  2 Aug 2021 16:32:43 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 2F68D3C5F8A
+ for <ltp@lists.linux.it>; Mon,  2 Aug 2021 16:42:19 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 991026002CE
- for <ltp@lists.linux.it>; Mon,  2 Aug 2021 16:32:42 +0200 (CEST)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id CF93A21FE6;
- Mon,  2 Aug 2021 14:32:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1627914761; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=0tl30vo+a560tPn2zV0jbkB1113v8dukgDVeAAjeMRk=;
- b=ctS/X/jb2VkP4OT+CIZBlXSsspCsowX0K9xryFtpddboaKnSACorJclDATwjEdIwO6jYkl
- f8OJB7QGYZxZGi1fqEuECq7uBNUOdS09aTY1kAsyjvAmuz3qQPG4QjmHxNsUBtwld2VB8y
- xG2I4bHqyh71d6gL/GDkynRr1+FtP3M=
-Received: from localhost.suse.de (unknown [10.163.30.42])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 8B7A91A007E8
+ for <ltp@lists.linux.it>; Mon,  2 Aug 2021 16:42:18 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id A81C9A3BB0;
- Mon,  2 Aug 2021 14:32:41 +0000 (UTC)
-To: ltp@lists.linux.it
-Date: Mon,  2 Aug 2021 17:32:36 +0300
-Message-Id: <20210802143236.28791-1-bogdan.lezhepekov@suse.com>
-X-Mailer: git-send-email 2.32.0
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 9FC0E1FFAA;
+ Mon,  2 Aug 2021 14:42:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1627915337; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=J90Fn+DPAtkUpk7qhLi7cnSFo/aE5RCIXSP/H7MLw6A=;
+ b=AQgEZ2f4uexf4Dl1ouyycAGAhB9Kh6MCTlERIJpAkIEQitr0T4LO5puT6y9er8wPhjIWMt
+ iUIlG2zyUyLDo8ewSb3FjYb2LBKQcDLSE2VybUq6NS9ZQSTPD5P8BjzECxOVQpc9K/cUIe
+ zYsvVD7ES/6890wXI5wJmVlQjC0uo5U=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1627915337;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=J90Fn+DPAtkUpk7qhLi7cnSFo/aE5RCIXSP/H7MLw6A=;
+ b=V1JFIQb1iCC3nKZ361LNG2WfARrULNPBTeyZifJndHHu7sUdtEUtW+rN4TACqJchlre/8X
+ eGgcxEL9/fpinkCQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8B79213C83;
+ Mon,  2 Aug 2021 14:42:17 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id YCrAIUkECGFtFQAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Mon, 02 Aug 2021 14:42:17 +0000
+Date: Mon, 2 Aug 2021 16:42:23 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Bogdan Lezhepekov <bogdan.lezhepekov@suse.com>
+Message-ID: <YQgET2rMo4BSNnrq@yuki>
+References: <20210802143236.28791-1-bogdan.lezhepekov@suse.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20210802143236.28791-1-bogdan.lezhepekov@suse.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH v1] shmget02: check if CONFIG_HUGETLBFS enabled in
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v1] shmget02: check if CONFIG_HUGETLBFS enabled in
  kernel
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -60,74 +80,102 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Bogdan Lezhepekov via ltp <ltp@lists.linux.it>
-Reply-To: Bogdan Lezhepekov <bogdan.lezhepekov@suse.com>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Two tests call shmget with a flag SHM_HUGETLB, trying to
-allocate the segment using "huge" pages. The hugetlbpage
-support needs to be enabled in kernel (CONFIG_HUGETLBFS),
-otherwise shmget returns EINVAL.
+Hi!
+> Two tests call shmget with a flag SHM_HUGETLB, trying to
+> allocate the segment using "huge" pages. The hugetlbpage
+> support needs to be enabled in kernel (CONFIG_HUGETLBFS),
+> otherwise shmget returns EINVAL.
+> 
+> Signed-off-by: Bogdan Lezhepekov <bogdan.lezhepekov@suse.com>
+> ---
+>  .../kernel/syscalls/ipc/shmget/shmget02.c     | 21 +++++++++++++++++++
+>  1 file changed, 21 insertions(+)
+> 
+> diff --git a/testcases/kernel/syscalls/ipc/shmget/shmget02.c b/testcases/kernel/syscalls/ipc/shmget/shmget02.c
+> index 66a4b94ee..4d515fb81 100644
+> --- a/testcases/kernel/syscalls/ipc/shmget/shmget02.c
+> +++ b/testcases/kernel/syscalls/ipc/shmget/shmget02.c
+> @@ -32,10 +32,13 @@
+>  #include <sys/shm.h>
+>  #include <grp.h>
+>  #include "tst_safe_sysv_ipc.h"
+> +#include "tst_kconfig.h"
+>  #include "tst_test.h"
+>  #include "libnewipc.h"
+>  #include "lapi/shm.h"
+>  
+> +#define CONFIG_HUGETLBFS "CONFIG_HUGETLBFS"
+> +
+>  static int shm_id = -1;
+>  static key_t shmkey, shmkey1;
+>  static struct passwd *pw;
+> @@ -60,11 +63,29 @@ static struct tcase {
+>  	{&shmkey1, SHM_SIZE, IPC_CREAT | SHM_HUGETLB, 0, 0, ENOMEM}
+>  };
+>  
+> +inline static int hugetlbfs_enabled()
+> +{
+> +	struct tst_kconfig_var kconfig = {
+> +		.id = CONFIG_HUGETLBFS,
+> +		.id_len = sizeof(CONFIG_HUGETLBFS)-1,
+> +	};
+> +
+> +	tst_kconfig_read(&kconfig, 1);
+> +	return kconfig.choice == 'y';
+> +}
+> +
+>  static void do_test(unsigned int n)
+>  {
+>  	struct tcase *tc = &tcases[n];
+>  	pid_t pid;
+>  
+> +	if (((tc->flags & SHM_HUGETLB) == SHM_HUGETLB) && ! hugetlbfs_enabled())
+> +	{
+> +		tst_brk(TCONF,
+> +			"Unsuitable kernel config: CONFIG_HUGETLBFS missing");
+> +		return;
+> +	}
 
-Signed-off-by: Bogdan Lezhepekov <bogdan.lezhepekov@suse.com>
----
- .../kernel/syscalls/ipc/shmget/shmget02.c     | 21 +++++++++++++++++++
- 1 file changed, 21 insertions(+)
+We whould really update the tcases array in the setup instead as this
+will re-read the whole kernel config on each do_test() iteration.
 
-diff --git a/testcases/kernel/syscalls/ipc/shmget/shmget02.c b/testcases/kernel/syscalls/ipc/shmget/shmget02.c
-index 66a4b94ee..4d515fb81 100644
---- a/testcases/kernel/syscalls/ipc/shmget/shmget02.c
-+++ b/testcases/kernel/syscalls/ipc/shmget/shmget02.c
-@@ -32,10 +32,13 @@
- #include <sys/shm.h>
- #include <grp.h>
- #include "tst_safe_sysv_ipc.h"
-+#include "tst_kconfig.h"
- #include "tst_test.h"
- #include "libnewipc.h"
- #include "lapi/shm.h"
- 
-+#define CONFIG_HUGETLBFS "CONFIG_HUGETLBFS"
-+
- static int shm_id = -1;
- static key_t shmkey, shmkey1;
- static struct passwd *pw;
-@@ -60,11 +63,29 @@ static struct tcase {
- 	{&shmkey1, SHM_SIZE, IPC_CREAT | SHM_HUGETLB, 0, 0, ENOMEM}
- };
- 
-+inline static int hugetlbfs_enabled()
-+{
-+	struct tst_kconfig_var kconfig = {
-+		.id = CONFIG_HUGETLBFS,
-+		.id_len = sizeof(CONFIG_HUGETLBFS)-1,
-+	};
-+
-+	tst_kconfig_read(&kconfig, 1);
-+	return kconfig.choice == 'y';
-+}
-+
- static void do_test(unsigned int n)
- {
- 	struct tcase *tc = &tcases[n];
- 	pid_t pid;
- 
-+	if (((tc->flags & SHM_HUGETLB) == SHM_HUGETLB) && ! hugetlbfs_enabled())
-+	{
-+		tst_brk(TCONF,
-+			"Unsuitable kernel config: CONFIG_HUGETLBFS missing");
-+		return;
-+	}
-+
- 	if (tc->exp_user == 0 && tc->exp_group == 0) {
- 		TST_EXP_FAIL2(shmget(*tc->shmkey, tc->size, tc->flags), tc->exp_err,
- 			"shmget(%i, %lu, %i)", *tc->shmkey, tc->size, tc->flags);
+Something as:
+
+static void setup(void)
+{
+	...
+
+	if (!hugetlb_supported()) {
+
+		tst_res(TINFO, "SHM_HUGETLB not supported by kernel");
+
+		for (i = 0; i < ARRAY_SIZE(tcases); i++) {
+			if (tcases[i].flags & SHM_HUGETLB)
+				tcases[i].exp_err = EINVAL;
+		}
+	}
+	...
+}
+
+>  	if (tc->exp_user == 0 && tc->exp_group == 0) {
+>  		TST_EXP_FAIL2(shmget(*tc->shmkey, tc->size, tc->flags), tc->exp_err,
+>  			"shmget(%i, %lu, %i)", *tc->shmkey, tc->size, tc->flags);
+> -- 
+> 2.32.0
+> 
+> 
+> -- 
+> Mailing list info: https://lists.linux.it/listinfo/ltp
+
 -- 
-2.32.0
-
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
