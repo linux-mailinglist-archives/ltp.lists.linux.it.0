@@ -1,73 +1,73 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 891F33DD4BF
-	for <lists+linux-ltp@lfdr.de>; Mon,  2 Aug 2021 13:38:23 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 55ECC3DD4DC
+	for <lists+linux-ltp@lfdr.de>; Mon,  2 Aug 2021 13:43:40 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id AFD5E3C8A76
-	for <lists+linux-ltp@lfdr.de>; Mon,  2 Aug 2021 13:38:22 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 769563C8AD4
+	for <lists+linux-ltp@lfdr.de>; Mon,  2 Aug 2021 13:43:39 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 00F683C5D34
- for <ltp@lists.linux.it>; Mon,  2 Aug 2021 13:38:17 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id C40CF3C5D34
+ for <ltp@lists.linux.it>; Mon,  2 Aug 2021 13:43:29 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 11510200A12
- for <ltp@lists.linux.it>; Mon,  2 Aug 2021 13:38:16 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 7C9111400BF3
+ for <ltp@lists.linux.it>; Mon,  2 Aug 2021 13:43:29 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 251151FF78;
- Mon,  2 Aug 2021 11:38:16 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 9B8AF21F7F;
+ Mon,  2 Aug 2021 11:43:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1627904296; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1627904608; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=8EX+JhqOq7K56Yf4WWHoGIyXlTeC/chOvG3IbmmqJxA=;
- b=qeSWaMU0EzWLFodlGJ6a3e4pqzsT/dD5q8g5BmLW1SeS8GBgV2161ZuJOcw3LWRr9RyXDe
- XyhaMLd+s64WRQKAGteu4lY2bPyomA8OZf4eYXYSZBrR3uv19V+IgLnQXgxRU9QYkzqhwX
- ZNCJsRHyvrwO61lfcydf9XbgyW5B6+s=
+ bh=mmcLl6aPTa8dAmV3botLRb0BLrt5XSGywOe78GPfP5o=;
+ b=sPbClz/eNvc6VhDn4eJ65/jdmfWbkZ5K2XUXc9D0mnRSmP94bDfPFJ9w+8SGkYKh9ZHBLo
+ uJE9IygJj9qh4oFGGduFE1wZbazyQLgGVyJI7iB1s890yjgRoK426bX3Cvk9D/8PhQuwRQ
+ fLdAKBObOQv1+2FGKftlAK+yerMPY8Q=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1627904296;
+ s=susede2_ed25519; t=1627904608;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=8EX+JhqOq7K56Yf4WWHoGIyXlTeC/chOvG3IbmmqJxA=;
- b=Zs4NflUf21gZVbzuA86zUHlFgr/RR+K5TTI1/1C7EkOYtJBvHdgIsqttiuGiZDwoUPw4fv
- KgsutJp80KSD9UAA==
+ bh=mmcLl6aPTa8dAmV3botLRb0BLrt5XSGywOe78GPfP5o=;
+ b=N7HKVr3SYOC+snuKXR+m3+LQio6cNyp6qK9Cv6eP8Ucr7rDuSGx8rBDocHBrHefgB2MWnY
+ kiRD/i76+z10w1AQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DBB7913C66;
- Mon,  2 Aug 2021 11:38:15 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 878D513C66;
+ Mon,  2 Aug 2021 11:43:28 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id sszUMSfZB2HQVwAAMHmgww
- (envelope-from <chrubis@suse.cz>); Mon, 02 Aug 2021 11:38:15 +0000
-Date: Mon, 2 Aug 2021 13:38:21 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id i27AH2DaB2GvWQAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Mon, 02 Aug 2021 11:43:28 +0000
+Date: Mon, 2 Aug 2021 13:43:34 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Joerg Vehlow <lkml@jv-coder.de>
-Message-ID: <YQfZLXZznHjvlGJW@yuki>
+Message-ID: <YQfaZsdzHbPrhCV0@yuki>
 References: <20210730133155.31284-1-chrubis@suse.cz>
  <d99456d3-c3d3-a180-7d0c-55bc3042e63c@jv-coder.de>
+ <YQfZLXZznHjvlGJW@yuki>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <d99456d3-c3d3-a180-7d0c-55bc3042e63c@jv-coder.de>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+In-Reply-To: <YQfZLXZznHjvlGJW@yuki>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH] lib: tst_device: Allow more control over the
  device size
 X-BeenThere: ltp@lists.linux.it
@@ -88,15 +88,21 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> This is not enough. tst_acquire_device__ calls tst_acquire_loop_device, 
-> that again has MAX(size, DEV_SIZE_MB).
-> But it should be sage to substitute it for size ? size : DEV_SIZE_MB as 
-> well.
+> > This is not enough. tst_acquire_device__ calls tst_acquire_loop_device, 
+> > that again has MAX(size, DEV_SIZE_MB).
+> > But it should be sage to substitute it for size ? size : DEV_SIZE_MB as 
+> > well.
+> 
+> Right, that was the old API function to get loop devices which was
+> called from old API testcases. Looks like there are no old API tests
+> that work with loop devices anymore, so this function should be removed
+> from the public API as well. I will send v2 patchset.
 
-Right, that was the old API function to get loop devices which was
-called from old API testcases. Looks like there are no old API tests
-that work with loop devices anymore, so this function should be removed
-from the public API as well. I will send v2 patchset.
+Uff, that was tst_acquire_device_() not tst_acquire_loop_device() and
+tst_acquire_device_() is still in use.
+
+I'm really looking forward to a day where we can finally remove the old
+API from the library...
 
 -- 
 Cyril Hrubis
