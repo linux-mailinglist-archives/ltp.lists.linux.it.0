@@ -2,51 +2,55 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5EA803DD4FF
-	for <lists+linux-ltp@lfdr.de>; Mon,  2 Aug 2021 13:57:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD3BD3DD52B
+	for <lists+linux-ltp@lfdr.de>; Mon,  2 Aug 2021 14:07:27 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D68403C8AD4
-	for <lists+linux-ltp@lfdr.de>; Mon,  2 Aug 2021 13:57:43 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 1497D3C8AD3
+	for <lists+linux-ltp@lfdr.de>; Mon,  2 Aug 2021 14:07:27 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 0BACD3C57C1
- for <ltp@lists.linux.it>; Mon,  2 Aug 2021 13:57:39 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 689833C4E18
+ for <ltp@lists.linux.it>; Mon,  2 Aug 2021 14:07:23 +0200 (CEST)
+Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 7E7251400077
- for <ltp@lists.linux.it>; Mon,  2 Aug 2021 13:57:39 +0200 (CEST)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id CE4E921F9E;
- Mon,  2 Aug 2021 11:57:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1627905458; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=bxkfzu/wcWBzkCFrEF6zQdSApbR4fVNB3KNzzRkOvQg=;
- b=njupk2AnJSV9yPZjKwwypS9UiibggddIDkxIzDSuSCTmOOSjZ8ze5Ct/eI1qPH+p2AS8xl
- fhbIlPPTuws6wvpMFWDJqpfDUjRhoQu16nfYqIt+0W0N9afElmu2wmjmQ4gDIMoPuFjEHH
- v5tox7aUXtjZ/HdaLKwLkfhJT3JiGOk=
-Received: from g78.suse.de (unknown [10.163.24.38])
- by relay2.suse.de (Postfix) with ESMTP id 94975A3BB2;
- Mon,  2 Aug 2021 11:57:38 +0000 (UTC)
-To: ltp@lists.linux.it
-Date: Mon,  2 Aug 2021 12:57:26 +0100
-Message-Id: <20210802115726.683-1-rpalethorpe@suse.com>
-X-Mailer: git-send-email 2.31.1
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id A35EC1A006A3
+ for <ltp@lists.linux.it>; Mon,  2 Aug 2021 14:07:22 +0200 (CEST)
+Received: from [192.168.178.40] (unknown [188.192.255.100])
+ by mail.jv-coder.de (Postfix) with ESMTPSA id 3C1E79F69E;
+ Mon,  2 Aug 2021 12:07:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
+ t=1627906041; bh=cRB8l7veuJ3LY9tFomUa96uj6pXKDWZmO2YcqWVbR/E=;
+ h=Subject:To:From:Message-ID:Date:MIME-Version;
+ b=ADzVRAKxnm2kWzXTupSxJQYWYVD8GQTXVeXrGlihQS4FHD4zxRKq/080d8ZHQonHF
+ u10ZXiRN/dCAOpCOaXtAKwj16QlH6DiXa3sjfcOPZhbgR5OZWsLTxdThsW/xGLN2F+
+ 9j/VuiGTYC8MTJoivxINA+faX0j2x/VlqS1ZBwpE=
+To: Cyril Hrubis <chrubis@suse.cz>
+References: <20210730133155.31284-1-chrubis@suse.cz>
+ <d99456d3-c3d3-a180-7d0c-55bc3042e63c@jv-coder.de> <YQfZLXZznHjvlGJW@yuki>
+ <YQfaZsdzHbPrhCV0@yuki>
+From: Joerg Vehlow <lkml@jv-coder.de>
+Message-ID: <e51c9469-73e5-69db-f5ff-c2abfd72dc95@jv-coder.de>
+Date: Mon, 2 Aug 2021 14:07:24 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
-X-Virus-Status: Clean
+In-Reply-To: <YQfaZsdzHbPrhCV0@yuki>
+Content-Language: en-US
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH] setsockopt03: Add Git and CVE tags
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Status: Clean
+Subject: Re: [LTP] [PATCH] lib: tst_device: Allow more control over the
+ device size
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,35 +62,36 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Richard Palethorpe via ltp <ltp@lists.linux.it>
-Reply-To: Richard Palethorpe <rpalethorpe@suse.com>
-Cc: Richard Palethorpe <rpalethorpe@suse.com>
-Content-Type: text/plain; charset="us-ascii"
+Cc: ltp@lists.linux.it
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
----
- testcases/kernel/syscalls/setsockopt/setsockopt03.c | 4 ++++
- 1 file changed, 4 insertions(+)
+Hi,
 
-diff --git a/testcases/kernel/syscalls/setsockopt/setsockopt03.c b/testcases/kernel/syscalls/setsockopt/setsockopt03.c
-index 14fdf400b..3d49628d6 100644
---- a/testcases/kernel/syscalls/setsockopt/setsockopt03.c
-+++ b/testcases/kernel/syscalls/setsockopt/setsockopt03.c
-@@ -114,4 +114,8 @@ static struct tst_test test = {
- 	.setup = setup,
- 	.test_all = run,
- 	.needs_root = 1,
-+	.tags = (const struct tst_tag[]){
-+		{"linux-git", "ce683e5f9d04"},
-+		{"CVE", "CVE-2016-4997"},
-+	}
- };
--- 
-2.31.1
+On 8/2/2021 1:43 PM, Cyril Hrubis wrote:
+>>> This is not enough. tst_acquire_device__ calls tst_acquire_loop_device,
+>>> that again has MAX(size, DEV_SIZE_MB).
+>>> But it should be sage to substitute it for size ? size : DEV_SIZE_MB as
+>>> well.
+>> Right, that was the old API function to get loop devices which was
+>> called from old API testcases. Looks like there are no old API tests
+>> that work with loop devices anymore, so this function should be removed
+>> from the public API as well. I will send v2 patchset.
+> Uff, that was tst_acquire_device_() not tst_acquire_loop_device() and
+> tst_acquire_device_() is still in use.
+>
+> I'm really looking forward to a day where we can finally remove the old
+> API from the library...
+The usage of foo foo_ and foo__ does not really help in reading the code :)
+There could also be some logic errors hiding, e.g. 
+tst_acquire_loop_device should probably not default to DEV_SIZE_MB at all.
+The caller should be responsible for finding a correct size and the two 
+users of this function (tst_device [the binary] and 
+tst_acquire_device__) do pass a concrete value for size.
 
+Joerg
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
