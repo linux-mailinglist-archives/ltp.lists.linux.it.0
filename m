@@ -1,74 +1,73 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id E67B43DE9AA
-	for <lists+linux-ltp@lfdr.de>; Tue,  3 Aug 2021 11:25:41 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E19F3DE9B0
+	for <lists+linux-ltp@lfdr.de>; Tue,  3 Aug 2021 11:30:28 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B73C03C57B8
-	for <lists+linux-ltp@lfdr.de>; Tue,  3 Aug 2021 11:25:41 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 445503C56BD
+	for <lists+linux-ltp@lfdr.de>; Tue,  3 Aug 2021 11:30:28 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 761B13C245D
- for <ltp@lists.linux.it>; Tue,  3 Aug 2021 11:25:40 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 1B8A73C03FF
+ for <ltp@lists.linux.it>; Tue,  3 Aug 2021 11:30:27 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id C2C911A00CC9
- for <ltp@lists.linux.it>; Tue,  3 Aug 2021 11:25:39 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 9F7C91000D08
+ for <ltp@lists.linux.it>; Tue,  3 Aug 2021 11:30:26 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id BD0B3220C0;
- Tue,  3 Aug 2021 09:25:38 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id B9A9A2000C;
+ Tue,  3 Aug 2021 09:30:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1627982738; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1627983025; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=Q7fNRJzxc0SME/7bLZ+93nRHbEAdw9m1Qw/Io/dhHRY=;
- b=w8MvmO2+DK00pp+b2JkLybVC0f3lkHNiDVJ/aWqkjVdT3IWwQ4ppSOP/3ccZofJ/69LpvX
- E9piylUctNmRcMDL64MG83YYQhOFJjD57qhmO9GSbSLULyrdzXrnani2PxbK7IvDB9hhJ8
- rYV9rogMJqFvR7h5X+Y7EFI9MUTulwM=
+ bh=EFg5tggmIvtt7NYvYkASrPCCQJd5ZG7WV3XpAzYwlHI=;
+ b=0Qo2nQM93K7nEkAV0th601uthCmST3ONn3/ZwFIRKtV5vfSOCn/v4n1MpZ+b/1+VbxGIvo
+ hrUYw+Z42l80IPmMJmYGu4Yf3cihaa3E6F7jLAGig8z2Qv9LZhegVtn6Y+AoOOXChwTMNV
+ 1csjQOaUjW6lZlI760FL3e6eGGHowls=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1627982738;
+ s=susede2_ed25519; t=1627983025;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=Q7fNRJzxc0SME/7bLZ+93nRHbEAdw9m1Qw/Io/dhHRY=;
- b=kAu3VbfEgxmXutU0oFoeFUFpfLdD5FTsxv2PTsxbWJi2gz5Jp43m/J5wGYfPxTguvHEPxT
- E57XhTRWKP5hE/CA==
+ bh=EFg5tggmIvtt7NYvYkASrPCCQJd5ZG7WV3XpAzYwlHI=;
+ b=syvX+yyXz6U08ggFrTUfSnKfSkjVEXcGpagYPLHk/KUyKzl2E278xZUhTgljD0eShNoX9X
+ HhzEndzO9nA+yzDg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9A50013C8A;
- Tue,  3 Aug 2021 09:25:38 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A537513CCC;
+ Tue,  3 Aug 2021 09:30:25 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id +BLcIpILCWFtKgAAMHmgww
- (envelope-from <chrubis@suse.cz>); Tue, 03 Aug 2021 09:25:38 +0000
-Date: Tue, 3 Aug 2021 11:25:45 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id AKwQJ7EMCWEHLAAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Tue, 03 Aug 2021 09:30:25 +0000
+Date: Tue, 3 Aug 2021 11:30:32 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <YQkLmb3pUPY8cKP8@yuki>
+Message-ID: <YQkMuOHjZ4HHO+QQ@yuki>
 References: <20210802173536.19525-1-pvorel@suse.cz>
- <20210802173536.19525-3-pvorel@suse.cz>
+ <20210802173536.19525-2-pvorel@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210802173536.19525-3-pvorel@suse.cz>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+In-Reply-To: <20210802173536.19525-2-pvorel@suse.cz>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v7 2/7] test/test_zero_hugepage.sh: Skip test on
- read-only file system
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v7 1/7] lib: Print Summary: into stderr
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,49 +86,46 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> On GitHub Actions /proc/sys/vm/nr_hugepages is not allowed to be
-> changed:
-> 
-> ./test_zero_hugepage.sh: line 9: can't create /proc/sys/vm/nr_hugepages: Read-only file system
-> tst_hugepage.c:57: TBROK: Failed to open FILE '/proc/sys/vm/nr_hugepages' for writing: EROFS (30)
-> tst_sys_conf.c:102: TWARN: Failed to open FILE '/proc/sys/vm/nr_hugepages'
+I wonder if this change can break anything but I guess that it's
+unlikely.
 
-Hmm, it's rather strange to have proc mounted RO but I guess that we
-can't do much about it. I guess that it wouldn't allow us to remount it
-RW, so there is not much we can do about it.
+Also while you are at it can you also fix tags? We do print help() to
+stderr but tags that follow go into stdout which is rather starnge.
 
+And the failure hints are written to stdout as well, which should be
+fixed as well.
+
+> Suggested-by: Cyril Hrubis <chrubis@suse.cz>
 > Signed-off-by: Petr Vorel <pvorel@suse.cz>
 > ---
-> New in v7.
+> The same as in v6.
 > 
->  lib/newlib_tests/test_zero_hugepage.sh | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
+>  lib/tst_test.c | 12 ++++++------
+>  1 file changed, 6 insertions(+), 6 deletions(-)
 > 
-> diff --git a/lib/newlib_tests/test_zero_hugepage.sh b/lib/newlib_tests/test_zero_hugepage.sh
-> index 10113006b..8a462478e 100755
-> --- a/lib/newlib_tests/test_zero_hugepage.sh
-> +++ b/lib/newlib_tests/test_zero_hugepage.sh
-> @@ -1,12 +1,16 @@
->  #!/bin/sh
->  # SPDX-License-Identifier: GPL-2.0-or-later
->  # Copyright (c) 2021 Yang Xu <xuyang2018.jy@fujitsu.com>
-> +# Copyright (c) 2021 Petr Vorel <pvorel@suse.cz>
+> diff --git a/lib/tst_test.c b/lib/tst_test.c
+> index c7c77596c..d15c8c054 100644
+> --- a/lib/tst_test.c
+> +++ b/lib/tst_test.c
+> @@ -734,12 +734,12 @@ static void do_exit(int ret)
+>  		if (results->broken)
+>  			ret |= TBROK;
 >  
->  echo "Testing .request_hugepages = TST_NO_HUGEPAGES"
+> -		printf("\nSummary:\n");
+> -		printf("passed   %d\n", results->passed);
+> -		printf("failed   %d\n", results->failed);
+> -		printf("broken   %d\n", results->broken);
+> -		printf("skipped  %d\n", results->skipped);
+> -		printf("warnings %d\n", results->warnings);
+> +		fprintf(stderr, "\nSummary:\n");
+> +		fprintf(stderr, "passed   %d\n", results->passed);
+> +		fprintf(stderr, "failed   %d\n", results->failed);
+> +		fprintf(stderr, "broken   %d\n", results->broken);
+> +		fprintf(stderr, "skipped  %d\n", results->skipped);
+> +		fprintf(stderr, "warnings %d\n", results->warnings);
+>  	}
 >  
->  orig_value=`cat /proc/sys/vm/nr_hugepages`
->  
-> -echo "128" > /proc/sys/vm/nr_hugepages
-> +if ! echo "128" > /proc/sys/vm/nr_hugepages; then
-> +	echo "TCONF: failed to open /proc/sys/vm/nr_hugepages"
-> +	exit 32
-> +fi
-
-I wonder if we should rather check if proc is mounted readonly
-explicitly since this may hide all kinds of errors.
-
->  ./test_zero_hugepage
->  
+>  	do_cleanup();
 > -- 
 > 2.32.0
 > 
