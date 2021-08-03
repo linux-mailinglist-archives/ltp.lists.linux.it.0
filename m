@@ -2,69 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id A58EA3DE97A
-	for <lists+linux-ltp@lfdr.de>; Tue,  3 Aug 2021 11:08:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E67B43DE9AA
+	for <lists+linux-ltp@lfdr.de>; Tue,  3 Aug 2021 11:25:41 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6077C3C6D08
-	for <lists+linux-ltp@lfdr.de>; Tue,  3 Aug 2021 11:08:25 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B73C03C57B8
+	for <lists+linux-ltp@lfdr.de>; Tue,  3 Aug 2021 11:25:41 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 15CAE3C262C
- for <ltp@lists.linux.it>; Tue,  3 Aug 2021 11:08:24 +0200 (CEST)
-Received: from mail-io1-xd2e.google.com (mail-io1-xd2e.google.com
- [IPv6:2607:f8b0:4864:20::d2e])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 761B13C245D
+ for <ltp@lists.linux.it>; Tue,  3 Aug 2021 11:25:40 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 9B7F4600054
- for <ltp@lists.linux.it>; Tue,  3 Aug 2021 11:08:23 +0200 (CEST)
-Received: by mail-io1-xd2e.google.com with SMTP id y1so297263iod.10
- for <ltp@lists.linux.it>; Tue, 03 Aug 2021 02:08:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=PPERkJDmUqGoRJFFlz2gKtkglfVn/RWj0tAIej+ZdiE=;
- b=RRfnOeKlylu8ywyvQb6H0cO0JtzkY429YJjwumfAFf/SZscQirLsajSf5EgYv2OhWq
- El+BUjtEFtcUKnb8LQHJUIkdSccZCEAekR984fMhJfaIs+Oo5IJzSuK4ha2cYZA0Abfv
- yR1boDQpLB3w44V+pyqykhPjYREzPCPFOzN0UL2nGkB92VQAW8lSmfAZUlQszGwvk9iE
- hp8ZO3kb2Xj76uy//HssJIQkcCQhbv2fJ2ZgqOjnsabOX8APjTMy+rMnXIDdoV9nhSoU
- LIrejgyCZpyOpATOn5nZV/JLAhcl0bpF+hAVvcGRloLJ6uaSrD0xfbSwQbuqLGSOAqhs
- VG+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=PPERkJDmUqGoRJFFlz2gKtkglfVn/RWj0tAIej+ZdiE=;
- b=GEdieCJMDEgbqSpxmtnJPCUKlvFj4KS4WYE268sdhgtT0od/izcIGWELG7UBrky3Lv
- H2GitGFCtMtElNI0QTfq26cqZZLRIL6LY2hxLua1Hidbuq448dv9FsOCchNFIaPiiHbB
- t0Z/uMFU5UQY/VV9G7XHtk3d5B4+JP/RGMxVF+a0xfdqfRyn8Q8MfftfgKkSxg2/1X2j
- wHEKC1IAI7DUah6wg2thP9fSZTeRijGs15JbyHT57l/ArjL1UmkF6K5L58Ue0RGOFMVM
- uq2XQDhjvyUhCSg+TXhHgGAdMBLkEPI5TW4Tn4Y7AWxqwTts5kGVe/NBFJ+z/o8bvhJd
- nIUw==
-X-Gm-Message-State: AOAM531mZz/9wACe+1NeX15GiqfSzl8U70xqe3b/iMHi942yW7bvbskM
- lUuJEN9nbVh2VltNEk3tl/U9f9CrlvoiAE/gVn4=
-X-Google-Smtp-Source: ABdhPJz6F+shkrmdHDJroNU389Y4xO819lFYsCQG85LzU0uSAHVf0Pu149/WHxn8436j5m8vlPMSZvLTUwVDR0kzFmY=
-X-Received: by 2002:a02:908a:: with SMTP id x10mr17967649jaf.30.1627981702512; 
- Tue, 03 Aug 2021 02:08:22 -0700 (PDT)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id C2C911A00CC9
+ for <ltp@lists.linux.it>; Tue,  3 Aug 2021 11:25:39 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id BD0B3220C0;
+ Tue,  3 Aug 2021 09:25:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1627982738; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Q7fNRJzxc0SME/7bLZ+93nRHbEAdw9m1Qw/Io/dhHRY=;
+ b=w8MvmO2+DK00pp+b2JkLybVC0f3lkHNiDVJ/aWqkjVdT3IWwQ4ppSOP/3ccZofJ/69LpvX
+ E9piylUctNmRcMDL64MG83YYQhOFJjD57qhmO9GSbSLULyrdzXrnani2PxbK7IvDB9hhJ8
+ rYV9rogMJqFvR7h5X+Y7EFI9MUTulwM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1627982738;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Q7fNRJzxc0SME/7bLZ+93nRHbEAdw9m1Qw/Io/dhHRY=;
+ b=kAu3VbfEgxmXutU0oFoeFUFpfLdD5FTsxv2PTsxbWJi2gz5Jp43m/J5wGYfPxTguvHEPxT
+ E57XhTRWKP5hE/CA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9A50013C8A;
+ Tue,  3 Aug 2021 09:25:38 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id +BLcIpILCWFtKgAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Tue, 03 Aug 2021 09:25:38 +0000
+Date: Tue, 3 Aug 2021 11:25:45 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Petr Vorel <pvorel@suse.cz>
+Message-ID: <YQkLmb3pUPY8cKP8@yuki>
+References: <20210802173536.19525-1-pvorel@suse.cz>
+ <20210802173536.19525-3-pvorel@suse.cz>
 MIME-Version: 1.0
-References: <20210802214645.2633028-1-krisman@collabora.com>
- <20210802214645.2633028-7-krisman@collabora.com>
-In-Reply-To: <20210802214645.2633028-7-krisman@collabora.com>
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Tue, 3 Aug 2021 12:08:11 +0300
-Message-ID: <CAOQ4uxizX0ar7d9eYgazcenQcA7Ku7quEZOLbcaxKJiY0sTPLA@mail.gmail.com>
-To: Gabriel Krisman Bertazi <krisman@collabora.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20210802173536.19525-3-pvorel@suse.cz>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 6/7] syscalls/fanotify20: Test file event with
- broken inode
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v7 2/7] test/test_zero_hugepage.sh: Skip test on
+ read-only file system
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,85 +80,63 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Ext4 <linux-ext4@vger.kernel.org>, kernel@collabora.com,
- Khazhismel Kumykov <khazhy@google.com>, LTP List <ltp@lists.linux.it>,
- Jan Kara <jack@suse.com>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Tue, Aug 3, 2021 at 12:47 AM Gabriel Krisman Bertazi
-<krisman@collabora.com> wrote:
->
-> This test corrupts an inode entry with an invalid mode through debugfs
-> and then tries to access it.  This should result in a ext4 error, which
-> we monitor through the fanotify group.
->
-> Signed-off-by: Gabriel Krisman Bertazi <krisman@collabora.com>
+Hi!
+> On GitHub Actions /proc/sys/vm/nr_hugepages is not allowed to be
+> changed:
+> 
+> ./test_zero_hugepage.sh: line 9: can't create /proc/sys/vm/nr_hugepages: Read-only file system
+> tst_hugepage.c:57: TBROK: Failed to open FILE '/proc/sys/vm/nr_hugepages' for writing: EROFS (30)
+> tst_sys_conf.c:102: TWARN: Failed to open FILE '/proc/sys/vm/nr_hugepages'
+
+Hmm, it's rather strange to have proc mounted RO but I guess that we
+can't do much about it. I guess that it wouldn't allow us to remount it
+RW, so there is not much we can do about it.
+
+> Signed-off-by: Petr Vorel <pvorel@suse.cz>
 > ---
->  .../kernel/syscalls/fanotify/fanotify20.c     | 38 +++++++++++++++++++
->  1 file changed, 38 insertions(+)
->
-> diff --git a/testcases/kernel/syscalls/fanotify/fanotify20.c b/testcases/kernel/syscalls/fanotify/fanotify20.c
-> index e7ced28eb61d..0c63e90edc3a 100644
-> --- a/testcases/kernel/syscalls/fanotify/fanotify20.c
-> +++ b/testcases/kernel/syscalls/fanotify/fanotify20.c
-> @@ -76,6 +76,36 @@ static void trigger_fs_abort(void)
->                    MS_REMOUNT|MS_RDONLY, "abort");
->  }
->
-> +#define TCASE2_BASEDIR "tcase2"
-> +#define TCASE2_BAD_DIR TCASE2_BASEDIR"/bad_dir"
-> +
-> +static unsigned int tcase2_bad_ino;
-> +static void tcase2_prepare_fs(void)
-> +{
-> +       struct stat stat;
-> +
-> +       SAFE_MKDIR(MOUNT_PATH"/"TCASE2_BASEDIR, 0777);
-> +       SAFE_MKDIR(MOUNT_PATH"/"TCASE2_BAD_DIR, 0777);
-> +
-> +       SAFE_STAT(MOUNT_PATH"/"TCASE2_BAD_DIR, &stat);
-> +       tcase2_bad_ino = stat.st_ino;
-> +
-> +       SAFE_UMOUNT(MOUNT_PATH);
-> +       do_debugfs_request(tst_device->dev, "sif " TCASE2_BAD_DIR " mode 0xff");
-> +       SAFE_MOUNT(tst_device->dev, MOUNT_PATH, tst_device->fs_type, 0, NULL);
-> +}
-> +
-> +static void tcase2_trigger_lookup(void)
-> +{
-> +       int ret;
-> +
-> +       /* SAFE_OPEN cannot be used here because we expect it to fail. */
-> +       ret = open(MOUNT_PATH"/"TCASE2_BAD_DIR, O_RDONLY, 0);
-> +       if (ret != -1 && errno != EUCLEAN)
-> +               tst_res(TFAIL, "Unexpected lookup result(%d) of %s (%d!=%d)",
-> +                       ret, TCASE2_BAD_DIR, errno, EUCLEAN);
-> +}
-> +
->  static const struct test_case {
->         char *name;
->         int error;
-> @@ -92,6 +122,14 @@ static const struct test_case {
->                 .error_count = 1,
->                 .error = EXT4_ERR_ESHUTDOWN,
->                 .inode = NULL
-> +       },
-> +       {
-> +               .name = "Lookup of inode with invalid mode",
-> +               .prepare_fs = tcase2_prepare_fs,
-> +               .trigger_error = &tcase2_trigger_lookup,
-> +               .error_count = 1,
-> +               .error = 0,
-> +               .inode = &tcase2_bad_ino,
+> New in v7.
+> 
+>  lib/newlib_tests/test_zero_hugepage.sh | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+> 
+> diff --git a/lib/newlib_tests/test_zero_hugepage.sh b/lib/newlib_tests/test_zero_hugepage.sh
+> index 10113006b..8a462478e 100755
+> --- a/lib/newlib_tests/test_zero_hugepage.sh
+> +++ b/lib/newlib_tests/test_zero_hugepage.sh
+> @@ -1,12 +1,16 @@
+>  #!/bin/sh
+>  # SPDX-License-Identifier: GPL-2.0-or-later
+>  # Copyright (c) 2021 Yang Xu <xuyang2018.jy@fujitsu.com>
+> +# Copyright (c) 2021 Petr Vorel <pvorel@suse.cz>
+>  
+>  echo "Testing .request_hugepages = TST_NO_HUGEPAGES"
+>  
+>  orig_value=`cat /proc/sys/vm/nr_hugepages`
+>  
+> -echo "128" > /proc/sys/vm/nr_hugepages
+> +if ! echo "128" > /proc/sys/vm/nr_hugepages; then
+> +	echo "TCONF: failed to open /proc/sys/vm/nr_hugepages"
+> +	exit 32
+> +fi
 
-Why is error 0?
-What's the rationale?
+I wonder if we should rather check if proc is mounted readonly
+explicitly since this may hide all kinds of errors.
 
-Thanks,
-Amir.
+>  ./test_zero_hugepage
+>  
+> -- 
+> 2.32.0
+> 
+
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
