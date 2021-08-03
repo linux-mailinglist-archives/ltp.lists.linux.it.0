@@ -1,75 +1,76 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58E9B3DEBF0
-	for <lists+linux-ltp@lfdr.de>; Tue,  3 Aug 2021 13:35:24 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B8D53DEC1D
+	for <lists+linux-ltp@lfdr.de>; Tue,  3 Aug 2021 13:37:07 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 143463C813C
-	for <lists+linux-ltp@lfdr.de>; Tue,  3 Aug 2021 13:35:24 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C59C13C87E7
+	for <lists+linux-ltp@lfdr.de>; Tue,  3 Aug 2021 13:37:06 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 2F23B3C2AB9
- for <ltp@lists.linux.it>; Tue,  3 Aug 2021 13:35:19 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 36CC03C2AB9
+ for <ltp@lists.linux.it>; Tue,  3 Aug 2021 13:37:02 +0200 (CEST)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id AE9C21A00147
- for <ltp@lists.linux.it>; Tue,  3 Aug 2021 13:35:18 +0200 (CEST)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 6A92E1400500
+ for <ltp@lists.linux.it>; Tue,  3 Aug 2021 13:37:01 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 28B8421FEA;
- Tue,  3 Aug 2021 11:35:18 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 8E32521FEA;
+ Tue,  3 Aug 2021 11:37:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1627990518;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
+ t=1627990620; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=MaRJ5v6rvqFgrr+IA6xfd+NaFfI81M81DjmIv86gwMQ=;
- b=w/9bWLhOd/CccnIZ8dE/o9+nPxw1WNmleYtMILbSXzCUv6/VrWl3SR1EKDy3QlX3ubcp03
- avrEZrqbfDWaJ9+EbygHcVZgQ05SEuv1y0TdbNyfvyk4A3njIRG5h3dY6Gr7EKPJ1VzbE1
- +lS4tRFulF5j0s+1Q/b3+wbAWG/Edjo=
+ bh=1K2/0dACZxyz0kHXsAjyN9aI7Ib8NXvN6Eii+Eiiito=;
+ b=Z6ZLEQbDyE6c8fCXgm/T75I0fpR5L8EhZB0obHOfjNoiNt/2DCwiVO/ynjV3nP5FhUfrlh
+ fHEF97sc9omvp/ASiJaotCEVRs/7zGBx38rTW6wwQdUYv+oQVZhjqqIJ6KrMCoIZgTLNYf
+ EVmRjCl4wQbtHfpDCYq2d5r9F1BjH/w=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1627990518;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
+ s=susede2_ed25519; t=1627990620;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=MaRJ5v6rvqFgrr+IA6xfd+NaFfI81M81DjmIv86gwMQ=;
- b=yV1FozfVk3OIXqDG7a/+AlyxL7OPGaCzgm6UvpRM/MJ2v/OdrKsydykm0UJBKQVXSKobKG
- Gh4EJ2FYr/D9VXDg==
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ bh=1K2/0dACZxyz0kHXsAjyN9aI7Ib8NXvN6Eii+Eiiito=;
+ b=lDQc1PjxKrKfw1+B4XMibuLaIFLgV2BdJXdimiD8hGuN1KSdx3SxlBjdCCa+7x4P69yKOT
+ 9i/pkrlXczCuVmCw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id EA81813B57;
- Tue,  3 Aug 2021 11:35:17 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 78A3113CD6;
+ Tue,  3 Aug 2021 11:37:00 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id +qv6NvUpCWHNLQAAGKfGzw
- (envelope-from <pvorel@suse.cz>); Tue, 03 Aug 2021 11:35:17 +0000
-Date: Tue, 3 Aug 2021 13:35:16 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <YQkp9AP+fblqnXzI@pevik>
+ by imap2.suse-dmz.suse.de with ESMTPSA id NCWJHVwqCWFCUAAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Tue, 03 Aug 2021 11:37:00 +0000
+Date: Tue, 3 Aug 2021 13:37:07 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Petr Vorel <pvorel@suse.cz>
+Message-ID: <YQkqY3Mdmv4cYsFx@yuki>
 References: <20210802173536.19525-1-pvorel@suse.cz>
- <20210802173536.19525-2-pvorel@suse.cz> <YQkMuOHjZ4HHO+QQ@yuki>
+ <20210802173536.19525-3-pvorel@suse.cz> <YQkLmb3pUPY8cKP8@yuki>
+ <YQkps5nZ8gHJSaUQ@pevik>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <YQkMuOHjZ4HHO+QQ@yuki>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+In-Reply-To: <YQkps5nZ8gHJSaUQ@pevik>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v7 1/7] lib: Print Summary: into stderr
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v7 2/7] test/test_zero_hugepage.sh: Skip test on
+ read-only file system
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,29 +82,26 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Cyril,
+Hi!
+> > I wonder if we should rather check if proc is mounted readonly
+> > explicitly since this may hide all kinds of errors.
+> Sure, makes sense, I'll adapt it in v8. It's just not a fun to write tests which
+> you cannot debug on VM, but just pushing to git :(.
 
-> Hi!
-> I wonder if this change can break anything but I guess that it's
-> unlikely.
+Well I guess that you can remount proc RO on your testing machine with
+something as:
 
-> Also while you are at it can you also fix tags? We do print help() to
-> stderr but tags that follow go into stdout which is rather starnge.
+mount -o remount,ro /proc
 
-> And the failure hints are written to stdout as well, which should be
-> fixed as well.
-
-Sure, I'll fix them all in v8.
-
-Kind regards,
-Petr
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
