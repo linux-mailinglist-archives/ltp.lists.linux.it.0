@@ -2,88 +2,69 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D0613DE856
-	for <lists+linux-ltp@lfdr.de>; Tue,  3 Aug 2021 10:26:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 676223DE875
+	for <lists+linux-ltp@lfdr.de>; Tue,  3 Aug 2021 10:30:54 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2DCD63C8131
-	for <lists+linux-ltp@lfdr.de>; Tue,  3 Aug 2021 10:26:04 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 2B4883C8131
+	for <lists+linux-ltp@lfdr.de>; Tue,  3 Aug 2021 10:30:54 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 0E5143C5771
- for <ltp@lists.linux.it>; Tue,  3 Aug 2021 10:26:02 +0200 (CEST)
-Received: from mail1.bemta26.messagelabs.com (mail1.bemta26.messagelabs.com
- [85.158.142.2])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 3E0463C5771
+ for <ltp@lists.linux.it>; Tue,  3 Aug 2021 10:30:52 +0200 (CEST)
+Received: from mail-il1-x130.google.com (mail-il1-x130.google.com
+ [IPv6:2607:f8b0:4864:20::130])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 99D4E200B85
- for <ltp@lists.linux.it>; Tue,  3 Aug 2021 10:26:01 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fujitsu.com;
- s=170520fj; t=1627979160; i=@fujitsu.com;
- bh=yMNe34rmJal8pPIr7TfbqmKQQpHjsj0Ft+ra315dBPY=;
- h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type;
- b=S1h35TW2X3u4MNvVAXvdZiPkO7zbAy5IVw2mM/T4A9rMsKYQgwV5CnD/t6S7CFN1v
- IcQGMurCxhV+7ea2q/8XPo1h54voHgGrJnL7bMwnN2/MOksfRR5RwAaBfI9z6/m1er
- OGFI/x0wssg4L2vSuzZMyYBAOeCMDjJ/c+VsQdaJNf+LKqmbXo1CLjh0OCBWFzELwE
- AH4A2q9So8GojxAgoi5O8XE4FhKPhs4JrKhb9WdxBxFIX+kTPkg3zLYWFqgi4yakDo
- q77an8ttWY3feN0X1De5xLX9kQag+x8/c9K5edUw0IlIF3mEBfYAbEziQghJKILZVV
- x+khj3ImUpB2A==
-Received: from [100.113.0.182] (using TLSv1.2 with cipher
- DHE-RSA-AES256-GCM-SHA384 (256 bits))
- by server-2.bemta.az-a.eu-central-1.aws.symcld.net id 7B/57-09935-89DF8016;
- Tue, 03 Aug 2021 08:26:00 +0000
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFprOIsWRWlGSWpSXmKPExsViZ8MRojvjL0e
- iQe97AYsV33cwOjB67Pu9jjWAMYo1My8pvyKBNePi5+VsBTf5KyYfnsPSwLiDt4uRi0NIoJlJ
- ouP/EvYuRk4gZzejxPvVySA2m4CmxLPOBcwgtoiAhERHw1uwGmYBdYnlk34xdTFycAgLBEpcX
- iUIEmYRUJF49GkCI4jNK+Au8WrWMjBbQkBBYsrD98wQcUGJkzOfsECMkZA4+OIFM0SNosSljm
- 9Q9RUSs2a1MU1g5J2FpGUWkpYFjEyrGC2TijLTM0pyEzNzdA0NDHQNDY11DXSNTI30Eqt0E/V
- SS3WTU/NKihKBsnqJ5cV6xZW5yTkpenmpJZsYgeGVUsjwZwfj6jcf9A4xSnIwKYnyyt7kSBTi
- S8pPqcxILM6ILyrNSS0+xCjDwaEkwSv8GygnWJSanlqRlpkDDHWYtAQHj5IIbxxImre4IDG3O
- DMdInWKUVFKnJfrD1BCACSRUZoH1waLr0uMslLCvIwMDAxCPAWpRbmZJajyrxjFORiVhHnPg0
- zhycwrgZv+CmgxE9DiqRmsIItLEhFSUg1MkacF/RzFrv0Mvq+11nrqyu23Fva/ebjinp+gSkt
- SyaeJ4gfLPbkEl94seRa2NeSGsV/Xtzu9IpectJeZLWllZJ2gbp5YlrPq9LeuFK9Vz+rWr+jz
- CZJaOJ9/2vmk3yZK1fvaOy+IfVBZNu+Q2EeJl7Hz/4v+sinKNTSZuc6x3c1z25qw4kk+Zx+nf
- bphw+S5vu2BActfE8O07KiAhd0bWrLdPh+ViLNasUAvWTW1/qsK3xnJB991so/GvdLlTT1m8e
- Hb1jD7oJi6gqhb8XL9HtEfOV5KSWuIPTR4/M1M+ZrUXv+Jh7j1/oaWNV9aEuFt/mNXdsoOpkM
- T1nWeDhetuN61tcJecs+DV25H/buUWIozEg21mIuKEwECpK6eKgMAAA==
-X-Env-Sender: xuyang2018.jy@fujitsu.com
-X-Msg-Ref: server-10.tower-226.messagelabs.com!1627979159!160607!1
-X-Originating-IP: [62.60.8.84]
-X-SYMC-ESS-Client-Auth: outbound-route-from=pass
-X-StarScan-Received: 
-X-StarScan-Version: 9.81.3; banners=-,-,-
-X-VirusChecked: Checked
-Received: (qmail 6074 invoked from network); 3 Aug 2021 08:26:00 -0000
-Received: from unknown (HELO mailhost3.uk.fujitsu.com) (62.60.8.84)
- by server-10.tower-226.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
- encrypted SMTP; 3 Aug 2021 08:26:00 -0000
-Received: from R01UKEXCASM126.r01.fujitsu.local ([10.183.43.178])
- by mailhost3.uk.fujitsu.com (8.14.5/8.14.5) with ESMTP id 1738PqbE027488
- (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256 verify=FAIL)
- for <ltp@lists.linux.it>; Tue, 3 Aug 2021 09:25:59 +0100
-Received: from localhost.localdomain (10.167.220.84) by
- R01UKEXCASM126.r01.fujitsu.local (10.183.43.178) with Microsoft SMTP Server
- (TLS) id 15.0.1497.18; Tue, 3 Aug 2021 09:25:50 +0100
-From: Yang Xu <xuyang2018.jy@fujitsu.com>
-To: <ltp@lists.linux.it>
-Date: Tue, 3 Aug 2021 16:26:06 +0800
-Message-ID: <1627979166-967-1-git-send-email-xuyang2018.jy@fujitsu.com>
-X-Mailer: git-send-email 1.8.3.1
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 907E9600B38
+ for <ltp@lists.linux.it>; Tue,  3 Aug 2021 10:30:51 +0200 (CEST)
+Received: by mail-il1-x130.google.com with SMTP id i13so6931165ilm.11
+ for <ltp@lists.linux.it>; Tue, 03 Aug 2021 01:30:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=uCcXlwSAKTIF37G9Oo5Jh0ZARuxw2IkE3sJLiIMH2tw=;
+ b=i075z81cME7P4lYR3hb/d99BmR/hPnypw9laAJw02LW/p+NlpiSyc0xxRRh/bl2c+i
+ CpxrWHOMCEuSTSo7UHB4Y8ejtYlsZ7OAvKJvW46KXq3bAFvXTw5eyvkStGeQYuEU15M+
+ qH0pnVz4/KECR1JZpe6tQ5o/YqCAn7Juo6Dj4kc3NKgx8F7qqrDzf/CtjZPQYjaLDI82
+ qoDOcddYcsY+ZaFUx2nioejc3aF5BuR1TJzg9GTNTu7CkdRdbGoe3quovx3FaJzghR41
+ Jvnr+l2YifYVn2LUes+E4hcXjUFIdPuQRQArIKI4eb29d2zCNAHr9B7B+zbVTZGcJGhp
+ C1AQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=uCcXlwSAKTIF37G9Oo5Jh0ZARuxw2IkE3sJLiIMH2tw=;
+ b=e+kVXtAlQYI5dcRUbT9sezS0ZMIXQ9IVG/joMtj6ZMmVmvML8mhSzFuYHaai96DYD8
+ Jy4YYaz9GQs/QZV6Z2XNTv8xCuokzG1wEVusrQP9xkT61pvmM60J/Z0X5bCjbATYdxyq
+ 4kVv+M06J9sfkU3esqhapcT9iq/d7bwHxeJSg4Yh/5wCrTFYOLbc/mHWb0sE22wdRoh3
+ M7jINFtcJvx7iRVpfwc7GOmk9GMJJEg/liB2VGiPNP3CsvqDl1Nr8+FE0Mnf+jvhzChv
+ yVAf6rvykogZ4CJIHqhtRmhm1VdHKA9K/L/hzPteK/IRgqjCEtR7u3NCplUj0DRJ28mQ
+ +hjg==
+X-Gm-Message-State: AOAM533WFSdoCm57z6cRsOeyi6tHxsc563t1a0L7NlNg4zzKxi5hEovF
+ NhKw5bPJw/KyP5MorTwyVQUW1pdEPj51AC2y1CM=
+X-Google-Smtp-Source: ABdhPJwEEJ35hjJ6F+z0GpDh3Qb3ZgcxyqkAjj++FMG7+Mg9vmXPQrHF5gslVyP+0WolsRdp8nDmyhvF8/bTSW/SeeA=
+X-Received: by 2002:a05:6e02:1c02:: with SMTP id l2mr275707ilh.9.1627979450356; 
+ Tue, 03 Aug 2021 01:30:50 -0700 (PDT)
 MIME-Version: 1.0
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD07.g08.fujitsu.local (10.167.33.80) To
- R01UKEXCASM126.r01.fujitsu.local (10.183.43.178)
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+References: <20210802214645.2633028-1-krisman@collabora.com>
+ <20210802214645.2633028-2-krisman@collabora.com>
+In-Reply-To: <20210802214645.2633028-2-krisman@collabora.com>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Tue, 3 Aug 2021 11:30:39 +0300
+Message-ID: <CAOQ4uxjRULAa_+n-6xf--7B=afEVN_7kzJ0H8QQP7ZQwA8Ahig@mail.gmail.com>
+To: Gabriel Krisman Bertazi <krisman@collabora.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH] syscalls/madvise06: Add madvise WILLNEED performance
- problem tag
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/7] syscalls/fanotify20: Introduce helpers for
+ FAN_FS_ERROR test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,63 +76,198 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: Ext4 <linux-ext4@vger.kernel.org>, kernel@collabora.com,
+ Khazhismel Kumykov <khazhy@google.com>, LTP List <ltp@lists.linux.it>,
+ Jan Kara <jack@suse.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-When running this case on 5.10-rc1 kernel, it will trigger the following failure
-......
-madvise06.c:74: TINFO:  memory.kmem.usage_in_bytes: 1752 Kb
-madvise06.c:208: TPASS: more than 102400 Kb were moved to the swap cache
-madvise06.c:217: TINFO: PageFault(madvice / no mem access): 102400
-madvise06.c:221: TINFO: PageFault(madvice / mem access): 105600
-madvise06.c:82: TINFO: After page access
-madvise06.c:84: TINFO:  Swap: 307540 Kb
-madvise06.c:86: TINFO:  SwapCached: 100480 Kb
-madvise06.c:88: TINFO:  Cached: 102056 Kb
-madvise06.c:74: TINFO:  memory.current: 204636 Kb
-madvise06.c:74: TINFO:  memory.swap.current: 411476 Kb
-madvise06.c:74: TINFO:  memory.kmem.usage_in_bytes: 1752 Kb
-madvise06.c:226: TFAIL: 3200 pages were faulted out of 2 max
+On Tue, Aug 3, 2021 at 12:47 AM Gabriel Krisman Bertazi
+<krisman@collabora.com> wrote:
+>
+> fanotify20 is a new test validating the FAN_FS_ERROR file system error
+> event.  This adds some basic structure for the next patches.
+>
+> The strategy for error reporting testing in fanotify20 goes like this:
+>
+>   - Generate a broken filesystem
+>   - Start FAN_FS_ERROR monitoring group
+>   - Make the file system  notice the error through ordinary operations
+>   - Observe the event generated
+>
+> Signed-off-by: Gabriel Krisman Bertazi <krisman@collabora.com>
+> ---
+>  testcases/kernel/syscalls/fanotify/.gitignore |   1 +
+>  .../kernel/syscalls/fanotify/fanotify20.c     | 135 ++++++++++++++++++
+>  2 files changed, 136 insertions(+)
+>  create mode 100644 testcases/kernel/syscalls/fanotify/fanotify20.c
+>
+> diff --git a/testcases/kernel/syscalls/fanotify/.gitignore b/testcases/kernel/syscalls/fanotify/.gitignore
+> index 9554b16b196e..c99e6fff76d6 100644
+> --- a/testcases/kernel/syscalls/fanotify/.gitignore
+> +++ b/testcases/kernel/syscalls/fanotify/.gitignore
+> @@ -17,4 +17,5 @@
+>  /fanotify17
+>  /fanotify18
+>  /fanotify19
+> +/fanotify20
+>  /fanotify_child
+> diff --git a/testcases/kernel/syscalls/fanotify/fanotify20.c b/testcases/kernel/syscalls/fanotify/fanotify20.c
+> new file mode 100644
+> index 000000000000..50531bd99cc9
+> --- /dev/null
+> +++ b/testcases/kernel/syscalls/fanotify/fanotify20.c
+> @@ -0,0 +1,135 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Copyright (c) 2021 Collabora Ltd.
+> + *
+> + * Author: Gabriel Krisman Bertazi <gabriel@krisman.be>
+> + * Based on previous work by Amir Goldstein <amir73il@gmail.com>
+> + */
+> +
+> +/*\
+> + * [Description]
+> + * Check fanotify FAN_ERROR_FS events triggered by intentionally
+> + * corrupted filesystems:
+> + *
+> + * - Generate a broken filesystem
+> + * - Start FAN_FS_ERROR monitoring group
+> + * - Make the file system notice the error through ordinary operations
+> + * - Observe the event generated
+> + */
+> +
+> +#define _GNU_SOURCE
+> +#include "config.h"
+> +
+> +#include <stdio.h>
+> +#include <sys/stat.h>
+> +#include <sys/types.h>
+> +#include <errno.h>
+> +#include <string.h>
+> +#include <sys/mount.h>
+> +#include <sys/syscall.h>
+> +#include "tst_test.h"
+> +#include <sys/fanotify.h>
+> +#include <sys/types.h>
+> +#include <fcntl.h>
+> +
+> +#ifdef HAVE_SYS_FANOTIFY_H
+> +#include "fanotify.h"
+> +
+> +#ifndef FAN_FS_ERROR
+> +#define FAN_FS_ERROR           0x00008000
+> +#endif
+> +
+> +#define BUF_SIZE 256
+> +static char event_buf[BUF_SIZE];
+> +int fd_notify;
+> +
+> +#define MOUNT_PATH "test_mnt"
+> +
+> +static const struct test_case {
+> +       char *name;
+> +       void (*trigger_error)(void);
+> +       void (*prepare_fs)(void);
+> +} testcases[] = {
+> +};
+> +
+> +int check_error_event_metadata(struct fanotify_event_metadata *event)
+> +{
+> +       int fail = 0;
+> +
+> +       if (event->mask != FAN_FS_ERROR) {
+> +               fail++;
+> +               tst_res(TFAIL, "got unexpected event %llx",
+> +                       (unsigned long long)event->mask);
+> +       }
+> +
+> +       if (event->fd != FAN_NOFD) {
+> +               fail++;
+> +               tst_res(TFAIL, "Weird FAN_FD %llx",
+> +                       (unsigned long long)event->mask);
+> +       }
+> +       return fail;
+> +}
+> +
+> +void check_event(char *buf, size_t len, const struct test_case *ex)
+> +{
+> +       struct fanotify_event_metadata *event =
+> +               (struct fanotify_event_metadata *) buf;
+> +
+> +       if (len < FAN_EVENT_METADATA_LEN)
+> +               tst_res(TFAIL, "No event metadata found");
+> +
+> +       if (check_error_event_metadata(event))
+> +               return;
+> +
+> +       tst_res(TPASS, "Successfully received: %s", ex->name);
+> +}
+> +
+> +static void do_test(unsigned int i)
+> +{
+> +       const struct test_case *tcase = &testcases[i];
+> +       size_t read_len;
+> +
+> +       tcase->trigger_error();
+> +
+> +       read_len = SAFE_READ(0, fd_notify, event_buf, BUF_SIZE);
+> +
+> +       check_event(event_buf, read_len, tcase);
+> +}
+> +
+> +static void setup(void)
+> +{
+> +       unsigned long i;
+> +
+> +       for (i = 0; i < ARRAY_SIZE(testcases); i++)
+> +               if (testcases[i].prepare_fs)
+> +                       testcases[i].prepare_fs();
+> +
 
-It fails because of madvise WILLNEED performance problem, so add the introduced and
-fixed commit.
+Why is prepare_fs called up front and not on every test case?
 
-Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
----
- testcases/kernel/syscalls/madvise/madvise06.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+> +       fd_notify = SAFE_FANOTIFY_INIT(FAN_CLASS_NOTIF|FAN_REPORT_FID,
+> +                                      O_RDONLY);
+> +
+> +       SAFE_FANOTIFY_MARK(fd_notify, FAN_MARK_ADD|FAN_MARK_FILESYSTEM,
+> +                          FAN_FS_ERROR, AT_FDCWD, MOUNT_PATH);
 
-diff --git a/testcases/kernel/syscalls/madvise/madvise06.c b/testcases/kernel/syscalls/madvise/madvise06.c
-index 63d8d5452..f2f65ff96 100644
---- a/testcases/kernel/syscalls/madvise/madvise06.c
-+++ b/testcases/kernel/syscalls/madvise/madvise06.c
-@@ -35,6 +35,12 @@
-  * faults. Two faults are allowed incase some tasklet or something
-  * else unexpected, but irrelevant procedure, registers a fault to
-  * our process.
-+ *
-+ * It also can reproduce the MADV_WILLNEED preformance problem.
-+ * It was introduced since 5.9 kernel with the following commit
-+ *   e6e88712e43b ("mm: optimise madvise WILLNEED")
-+ * and fixed since 5.10-rc5 kernel with the following commit
-+ *   66383800df9c ("mm: fix madvise WILLNEED performance problem").
-  */
- 
- #include <errno.h>
-@@ -242,6 +248,8 @@ static struct tst_test test = {
- 	.tags = (const struct tst_tag[]) {
- 		{"linux-git", "55231e5c898c"},
- 		{"linux-git", "8de15e920dc8"},
-+		{"linux-git", "e6e88712e43b"},
-+		{"linux-git", "66383800df9c"},
- 		{}
- 	}
- };
--- 
-2.23.0
+This will cause test to fail on old kernels.
+You need to start this test with
+fanotify_events_supported_by_kernel(FAN_FS_ERROR)
+but you cannot use it as is.
 
+Create a macro like
+REQUIRE_FANOTIFY_INIT_FLAGS_SUPPORTED_ON_FS
+which calls fanotify_init_flags_err_msg(...fanotify_events_supported_by_kernel())
+and pass init flags as argument to fanotify_events_supported_by_kernel()
+instead of using hardcoded flags FAN_CLASS_CONTENT.
+
+
+> +}
+> +
+> +static void cleanup(void)
+> +{
+> +       if (fd_notify > 0)
+> +               SAFE_CLOSE(fd_notify);
+> +}
+> +
+> +static struct tst_test test = {
+> +       .test = do_test,
+> +       .tcnt = ARRAY_SIZE(testcases),
+> +       .setup = setup,
+> +       .cleanup = cleanup,
+> +       .mount_device = 1,
+> +       .mntpoint = MOUNT_PATH,
+> +       .all_filesystems = 0,
+
+This is 0 by default
+
+Thanks,
+Amir.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
