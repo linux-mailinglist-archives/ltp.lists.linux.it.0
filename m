@@ -2,71 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A7F13DF0CD
-	for <lists+linux-ltp@lfdr.de>; Tue,  3 Aug 2021 16:52:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 535A03DF139
+	for <lists+linux-ltp@lfdr.de>; Tue,  3 Aug 2021 17:16:41 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 466943C88C5
-	for <lists+linux-ltp@lfdr.de>; Tue,  3 Aug 2021 16:52:42 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id D5C593C88C5
+	for <lists+linux-ltp@lfdr.de>; Tue,  3 Aug 2021 17:16:40 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 47D553C57B8
- for <ltp@lists.linux.it>; Tue,  3 Aug 2021 16:52:38 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 073403C55BB
+ for <ltp@lists.linux.it>; Tue,  3 Aug 2021 17:16:35 +0200 (CEST)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id BF9A01000D37
- for <ltp@lists.linux.it>; Tue,  3 Aug 2021 16:52:37 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id E9E7C6002C9
+ for <ltp@lists.linux.it>; Tue,  3 Aug 2021 17:16:34 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id F359520049;
- Tue,  3 Aug 2021 14:52:36 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 27A232003A;
+ Tue,  3 Aug 2021 15:16:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1628002356; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1628003794; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=gxnXB4aXwbotCZqgSKA2ppDts5TgIWhzflFDy6Ehzcc=;
- b=qHjenGXxKOONomzMnWyvVPmROcES9eJphLtr0iXLfWVXQ0t7ugp2xcJ+U6husGH5zeg7Nr
- SmnWgHauiBi9xqu8vN4uK37/eczMDv3UzazTZhOsr0+x756QpDY7NR8lpB6NT4Vu1/Jr64
- z9kxtmPGOHHgcClTyAcoBTGlTdjhT3Y=
+ bh=/F5R5GpuFPnXnfvZfrijv7DtSyPwTeFWupVjdT03QvQ=;
+ b=hdXH6LyUQ+gAIVrm1uwDgvmX5O/Qq9duPGupz/ISjlr2+TOeJ56rV5aar6H2GtVwv5cCY7
+ H74XuCRWFqT/yBZMp29UpxVsWzJKwsPWH3xFs+EYrmP0wxrA+uBemJyRSxbIfmc+jGJ1Nt
+ +68lADF/V28oc36Kpn3DR9ptoRP3NoU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1628002357;
+ s=susede2_ed25519; t=1628003794;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=gxnXB4aXwbotCZqgSKA2ppDts5TgIWhzflFDy6Ehzcc=;
- b=i5PeH2vBkZBfK6hv9MzChoRn5GQD4O7IS5HBb3bzeHAac11Y2rYEdsJ3flLElgWCfVNV9a
- EtMPOr1PJu+X0PBQ==
+ bh=/F5R5GpuFPnXnfvZfrijv7DtSyPwTeFWupVjdT03QvQ=;
+ b=2sv9sFateEDgc5pVVYJ02nkPhAh8PXVV7Rhcil4Eh6NgGRqpueZnuJL2xtx/A30L5NJmti
+ mKxCgI/6cuFrUDAw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D823313CEB;
- Tue,  3 Aug 2021 14:52:36 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 10FEB13B0A;
+ Tue,  3 Aug 2021 15:16:34 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id OMBTNDRYCWGECQAAMHmgww
- (envelope-from <chrubis@suse.cz>); Tue, 03 Aug 2021 14:52:36 +0000
-Date: Tue, 3 Aug 2021 16:52:44 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id YmQaBNJdCWG3EAAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Tue, 03 Aug 2021 15:16:34 +0000
+Date: Tue, 3 Aug 2021 17:16:41 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <YQlYPM1XuRsHVyV0@yuki>
-References: <20210802160918.30861-1-mdoucha@suse.cz>
+To: Richard Palethorpe <rpalethorpe@suse.com>
+Message-ID: <YQld2RUQqb7VrTPd@yuki>
+References: <YQALVdEAGOVa+g4H@yuki>
+ <20210729071348.8911-1-rpalethorpe@suse.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210802160918.30861-1-mdoucha@suse.cz>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+In-Reply-To: <20210729071348.8911-1-rpalethorpe@suse.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/2] Add test for CVE 2020-25704
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] Add set_mempolicy05, CVE-2017-7616
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,75 +87,7 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> +static void run(void)
-> +{
-> +	struct sysinfo info1, info2;
-> +	unsigned long diff, memunit;
-> +	int i;
-> +
-> +	SAFE_SYSINFO(&info1);
-> +
-> +	/* leak about 100MB of RAM */
-> +	for (i = 0; i < 12000000; i++)
-> +		ioctl(fd, PERF_EVENT_IOC_SET_FILTER, "filter,0/0@abcd");
-> +
-> +	SAFE_SYSINFO(&info2);
-> +	memunit = info1.mem_unit;
-> +
-> +	/* sysinfo(2) man page does not guarantee consistent mem_unit... */
-> +	if (info1.mem_unit > info2.mem_unit) {
-> +		diff = info1.mem_unit / info2.mem_unit;
-> +		info2.freeram /= diff;
-> +	} else if (info1.mem_unit < info2.mem_unit) {
-> +		diff = info2.mem_unit / info1.mem_unit;
-> +		info1.freeram /= diff;
-> +		memunit = info2.mem_unit;
-> +	}
-
-I guess that SAFE_READ_MEMINFO() would be much easier to use with:
-
-	memfree_before = SAFE_READ_MEMINFO("MemFree:");
-
-	// do the test
-
-	memfree_after = SAFE_READ_MEMINFO("MemFree:");
-
-And the result is conviniently in kilobytes.
-
-> +	if (info1.freeram > info2.freeram + 50 * 1024 * 1024 / memunit)
-> +		tst_res(TFAIL, "Likely kernel memory leak detected");
-> +	else
-> +		tst_res(TPASS, "No memory leak found");
-> +}
-> +
-> +static void cleanup(void)
-> +{
-> +	if (fd >= 0)
-> +		SAFE_CLOSE(fd);
-> +}
-> +
-> +static struct tst_test test = {
-> +	.test_all = run,
-> +	.setup = setup,
-> +	.cleanup = cleanup,
-> +	.needs_root = 1,
-> +	.tags = (const struct tst_tag[]) {
-> +		{"linux-git", "7bdb157cdebb"},
-> +		{"CVE", "2020-25704"},
-> +		{}
-> +	}
-> +};
-> +
-> +#else /* HAVE_PERF_EVENT_ATTR */
-> +TST_TEST_TCONF("This system doesn't have <linux/perf_event.h> or "
-> +	"struct perf_event_attr is not defined.");
-> +#endif
-> -- 
-> 2.32.0
-> 
-> 
-> -- 
-> Mailing list info: https://lists.linux.it/listinfo/ltp
+Applied, thanks.
 
 -- 
 Cyril Hrubis
