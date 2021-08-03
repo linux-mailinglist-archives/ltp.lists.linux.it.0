@@ -1,12 +1,12 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27EEB3DF19F
-	for <lists+linux-ltp@lfdr.de>; Tue,  3 Aug 2021 17:37:55 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 28C793DF1EB
+	for <lists+linux-ltp@lfdr.de>; Tue,  3 Aug 2021 17:58:29 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B44A23C88BB
-	for <lists+linux-ltp@lfdr.de>; Tue,  3 Aug 2021 17:37:54 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 96FAF3C87F1
+	for <lists+linux-ltp@lfdr.de>; Tue,  3 Aug 2021 17:58:28 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
@@ -14,69 +14,59 @@ Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 7187D3C5535
- for <ltp@lists.linux.it>; Tue,  3 Aug 2021 17:37:49 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 776673C55BB
+ for <ltp@lists.linux.it>; Tue,  3 Aug 2021 17:58:24 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 802986008B8
- for <ltp@lists.linux.it>; Tue,  3 Aug 2021 17:37:49 +0200 (CEST)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id D57316003FE
+ for <ltp@lists.linux.it>; Tue,  3 Aug 2021 17:58:23 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 5FBB621639;
- Tue,  3 Aug 2021 15:37:48 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 1179C200E9
+ for <ltp@lists.linux.it>; Tue,  3 Aug 2021 15:58:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1628005068;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=kfOBodmLqzckQXQTFrkelZmnSyC8c9JnQbQu3Uabe6Q=;
- b=vB8k9CwFh2JppjQyPlhMl9ynpv3lFsjaPAfT+MMcqupnRdzpuRreGfoMaVmlOnKxKoqS2f
- PjhtyE0luQG/JsEcxHgYL7WEVOxTPaUs54n+PD/FBO3pq7kyCgsm5Vt11QlflP65NxhIn4
- UvRtm15hk6hQ36fNS1wLzb4TfuiZOuQ=
+ t=1628006303; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=RaOe6k33SsZgcQvUkxR32frkLvc2vWdH/OsAUFgwf+g=;
+ b=hOyzpoN6VT/JXBRSuhsm7FbTg5kwokFrbYTjQtI/Sbv/E9eHRReM/OctyXUWdu0A0U9EgL
+ J01leBefoFzPgq4ssq7NGsG6Ec3p1n65YHnehBS4zNIrOgPqrTEBTv6xv5yu7LrT8v0UIm
+ cM/dCj3ggiR4tBtKAh6ZQxYIA8ePM8I=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1628005068;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=kfOBodmLqzckQXQTFrkelZmnSyC8c9JnQbQu3Uabe6Q=;
- b=r0cGVmsf07Ft/ye4yRFq3B6ur3e70ZcVTII1Jc2hRrENsamT4WjEsTlvidJz5hE9H8KCyE
- 9kOl+iKbQGU2HVDg==
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ s=susede2_ed25519; t=1628006303;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=RaOe6k33SsZgcQvUkxR32frkLvc2vWdH/OsAUFgwf+g=;
+ b=FJ1xYu/B/C+HV13QJoevyhjYHBeDkYpniTJfH0DO6YIAIrYMyvK/81Ogu5j3iihCUeIxSQ
+ OeqYjdmGOZ6xBJAQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 32ADE13B68;
- Tue,  3 Aug 2021 15:37:48 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E47AA13B0A
+ for <ltp@lists.linux.it>; Tue,  3 Aug 2021 15:58:22 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id mws4CsxiCWGbegAAGKfGzw
- (envelope-from <pvorel@suse.cz>); Tue, 03 Aug 2021 15:37:48 +0000
-Date: Tue, 3 Aug 2021 17:37:46 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
-Message-ID: <YQliykiyDtJwEKVK@pevik>
-References: <20210714140716.1568-1-pvorel@suse.cz>
- <20210714140716.1568-3-pvorel@suse.cz>
- <57d4c109-d01a-2c7f-39c7-41013e70abf9@bell-sw.com>
- <YQBD4w2nKwY2G1l+@pevik>
- <b0638d98-88d5-76d7-78a1-631c801d88ad@bell-sw.com>
- <YQg0LIXG8LK0OV74@pevik>
- <80a6cbec-50b7-9912-d682-915a1076bbec@bell-sw.com>
+ by imap2.suse-dmz.suse.de with ESMTPSA id LTHtNJ5nCWHYHAAAMHmgww
+ (envelope-from <mdoucha@suse.cz>)
+ for <ltp@lists.linux.it>; Tue, 03 Aug 2021 15:58:22 +0000
+From: Martin Doucha <mdoucha@suse.cz>
+To: ltp@lists.linux.it
+Date: Tue,  3 Aug 2021 17:58:21 +0200
+Message-Id: <20210803155822.1973-1-mdoucha@suse.cz>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <80a6cbec-50b7-9912-d682-915a1076bbec@bell-sw.com>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=1.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,LOTS_OF_MONEY,MONEY_NOHTML,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Level: *
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 2/2] broken_ip: TCONF when test run on unsupported
- protocol
+Subject: [LTP] [PATCH v2 1/2] Add test for CVE 2020-25704
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,89 +78,99 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Alexey,
-
-> Hi Petr,
-> On 02.08.2021 21:06, Petr Vorel wrote:
-> > Hi Alexey,
-
-> >> Hi Petr,
-> >> On 27.07.2021 20:35, Petr Vorel wrote:
-> >>> Hi Alexey,
-
-> >>>> On 14.07.2021 17:07, Petr Vorel wrote:
-> >>>>> net_stress.broken_ip runtest file is correct, but some users try to run
-> >>>>> tests manually.
-
-> >>>>> Fixes: #843
-
-> >> ...
-> >>>>>  do_test()
-
-> >>>> The generic version looks fine:
-
-> >>>> Reviewed-by: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
-
-> >>> I didn't understand whether you'd prefer to add TST_IPV6=6 (or TST_IPV6=) where
-> >>> needed or accept this patchset. Both would work.
-
-> >> I think for manual runs it is better to set TST_IPV6=6 in the test
-> >> so it will run the test rather the require passing some options.
-> > It looks like specifying TST_IPV6=6 is not enough, because tests are using
-> > $NS_ICMP_SENDER_DATA_MAXSIZE which is defined in tst_net.sh according to
-> > TST_IPV6. We can
-
-> > 1) overwrite NS_ICMP_SENDER_DATA_MAXSIZE="$NS_ICMPV6_SENDER_DATA_MAXSIZE"
-> > 2) check TST_IPV6 before running tst_net_parse_args and if set overwrite -6 flag
-
-> > But both are quite ugly, thus unless you have better idea I merge this patchset.
-
-
-> Are you sure that you are getting the wrong maxsize? if TST_IPV6=6
-> is set before the setup, in the test, why tst_net_setup() is setting
-> the IPv4 value?
-
-The problem is actually in IPv6, ns-icmpv6_sender does not support -c.
-IPv6 only is only broken_ip-ihl tests, the other 4 are IPv4 only.
-I tested variables after loading tst_net.sh, but that was later overwritten with
-getopt -6. But setting it in the test function works (you probably meant this).
-I still don't like having to specify 2 variables (yes both are needed), but it's
-not a big deal thus I'll merge this version.
-
-Kind regards,
-Petr
-
---- testcases/network/stress/broken_ip/broken_ip-checksum
-+++ testcases/network/stress/broken_ip/broken_ip-checksum
-@@ -10,7 +10,10 @@ TST_TESTFUNC="do_test"
- 
- do_test()
- {
--	tst_res TINFO "Sending ICMPv$TST_IPVER with wrong chksum field for $NS_DURATION sec"
-+	TST_IPV6=
-+	TST_IPVER=4
-+
-+	tst_res TINFO "Sending ICMPv4 with wrong chksum field for $NS_DURATION sec"
- 	tst_icmp -t $NS_DURATION -s "0 100 500 1000 $NS_ICMP_SENDER_DATA_MAXSIZE" -c
- 	tst_ping
- }
-
-
-> > Kind regards,
-> > Petr
-
-> >>> Kind regards,
-> >>> Petr
-
-
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+Rml4ZXMgIzc0MAoKU2lnbmVkLW9mZi1ieTogTWFydGluIERvdWNoYSA8bWRvdWNoYUBzdXNlLmN6
+PgotLS0KCkNoYW5nZXMgc2luY2UgdjE6Ci0gVXNlIG1lbW9yeSBzdGF0aXN0aWNzIGZyb20gL3By
+b2MvbWVtaW5mbyBpbnN0ZWFkIG9mIHN5c2luZm8oKQoKIHJ1bnRlc3QvY3ZlICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICB8ICAyICsKIHJ1bnRlc3Qvc3lzY2FsbHMgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICB8ICAzICsKIC4uLi9zeXNjYWxscy9wZXJmX2V2ZW50X29wZW4v
+LmdpdGlnbm9yZSAgICAgICB8ICAxICsKIC4uLi9wZXJmX2V2ZW50X29wZW4vcGVyZl9ldmVudF9v
+cGVuLmggICAgICAgICB8IDM5ICsrKysrKysrKwogLi4uL3BlcmZfZXZlbnRfb3Blbi9wZXJmX2V2
+ZW50X29wZW4wMy5jICAgICAgIHwgODQgKysrKysrKysrKysrKysrKysrKwogNSBmaWxlcyBjaGFu
+Z2VkLCAxMjkgaW5zZXJ0aW9ucygrKQogY3JlYXRlIG1vZGUgMTAwNjQ0IHRlc3RjYXNlcy9rZXJu
+ZWwvc3lzY2FsbHMvcGVyZl9ldmVudF9vcGVuL3BlcmZfZXZlbnRfb3Blbi5oCiBjcmVhdGUgbW9k
+ZSAxMDA2NDQgdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9wZXJmX2V2ZW50X29wZW4vcGVyZl9l
+dmVudF9vcGVuMDMuYwoKZGlmZiAtLWdpdCBhL3J1bnRlc3QvY3ZlIGIvcnVudGVzdC9jdmUKaW5k
+ZXggNWI3YmY1MzIzLi5lMGQzNzIzZGUgMTAwNjQ0Ci0tLSBhL3J1bnRlc3QvY3ZlCisrKyBiL3J1
+bnRlc3QvY3ZlCkBAIC02NywzICs2Nyw1IEBAIGN2ZS0yMDIwLTI1NzA1IGljbXBfcmF0ZV9saW1p
+dDAxCiBjdmUtMjAyMC0yOTM3MyBpb191cmluZzAyCiBjdmUtMjAyMS0zNDQ0IGJwZl9wcm9nMDUK
+IGN2ZS0yMDIxLTI2NzA4IHZzb2NrMDEKKyMgVGVzdHMgYmVsb3cgbWF5IGNhdXNlIGtlcm5lbCBt
+ZW1vcnkgbGVhaworY3ZlLTIwMjAtMjU3MDQgcGVyZl9ldmVudF9vcGVuMDMKZGlmZiAtLWdpdCBh
+L3J1bnRlc3Qvc3lzY2FsbHMgYi9ydW50ZXN0L3N5c2NhbGxzCmluZGV4IGIzNzliMmQ5MC4uNWUz
+YWM1MTdmIDEwMDY0NAotLS0gYS9ydW50ZXN0L3N5c2NhbGxzCisrKyBiL3J1bnRlc3Qvc3lzY2Fs
+bHMKQEAgLTE3MzcsMyArMTczNyw2IEBAIG1lbWJhcnJpZXIwMSBtZW1iYXJyaWVyMDEKIAogaW9f
+dXJpbmcwMSBpb191cmluZzAxCiBpb191cmluZzAyIGlvX3VyaW5nMDIKKworIyBUZXN0cyBiZWxv
+dyBtYXkgY2F1c2Uga2VybmVsIG1lbW9yeSBsZWFrCitwZXJmX2V2ZW50X29wZW4wMyBwZXJmX2V2
+ZW50X29wZW4wMwpkaWZmIC0tZ2l0IGEvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9wZXJmX2V2
+ZW50X29wZW4vLmdpdGlnbm9yZSBiL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvcGVyZl9ldmVu
+dF9vcGVuLy5naXRpZ25vcmUKaW5kZXggMDU3NjkwMDYzLi5hMWU1OTg3YjYgMTAwNjQ0Ci0tLSBh
+L3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvcGVyZl9ldmVudF9vcGVuLy5naXRpZ25vcmUKKysr
+IGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNjYWxscy9wZXJmX2V2ZW50X29wZW4vLmdpdGlnbm9yZQpA
+QCAtMSwyICsxLDMgQEAKIC9wZXJmX2V2ZW50X29wZW4wMQogL3BlcmZfZXZlbnRfb3BlbjAyCisv
+cGVyZl9ldmVudF9vcGVuMDMKZGlmZiAtLWdpdCBhL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMv
+cGVyZl9ldmVudF9vcGVuL3BlcmZfZXZlbnRfb3Blbi5oIGIvdGVzdGNhc2VzL2tlcm5lbC9zeXNj
+YWxscy9wZXJmX2V2ZW50X29wZW4vcGVyZl9ldmVudF9vcGVuLmgKbmV3IGZpbGUgbW9kZSAxMDA2
+NDQKaW5kZXggMDAwMDAwMDAwLi4wMmYwZGQ3MmUKLS0tIC9kZXYvbnVsbAorKysgYi90ZXN0Y2Fz
+ZXMva2VybmVsL3N5c2NhbGxzL3BlcmZfZXZlbnRfb3Blbi9wZXJmX2V2ZW50X29wZW4uaApAQCAt
+MCwwICsxLDM5IEBACisvKiBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMC1vci1sYXRl
+ciAqLworLyoKKyAqIENvcHlyaWdodCAoYykgMjAyMSBTVVNFIExMQyA8bWRvdWNoYUBzdXNlLmN6
+PgorICoKKyAqIENvbW1vbiBkZWZpbml0aW9ucyBmb3IgcGVyZl9ldmVudF9vcGVuIHRlc3RzCisg
+Ki8KKworI2lmbmRlZiBfUEVSRl9FVkVOVF9PUEVOX0gKKyNkZWZpbmUgX1BFUkZfRVZFTlRfT1BF
+Tl9ICisKKyNpbmNsdWRlIDxsaW51eC90eXBlcy5oPgorI2luY2x1ZGUgPGxpbnV4L3BlcmZfZXZl
+bnQuaD4KKyNpbmNsdWRlIDxpbnR0eXBlcy5oPgorCitzdGF0aWMgaW50IHBlcmZfZXZlbnRfb3Bl
+bihzdHJ1Y3QgcGVyZl9ldmVudF9hdHRyICpldmVudCwgcGlkX3QgcGlkLAorCWludCBjcHUsIGlu
+dCBncm91cF9mZCwgdW5zaWduZWQgbG9uZyBmbGFncykKK3sKKwlpbnQgcmV0OworCisJcmV0ID0g
+dHN0X3N5c2NhbGwoX19OUl9wZXJmX2V2ZW50X29wZW4sIGV2ZW50LCBwaWQsIGNwdSwKKwkJZ3Jv
+dXBfZmQsIGZsYWdzKTsKKworCWlmIChyZXQgIT0gLTEpCisJCXJldHVybiByZXQ7CisKKwl0c3Rf
+cmVzKFRJTkZPLCAiJXMgZXZlbnQudHlwZTogJSJQUkl1MzIKKwkJIiwgZXZlbnQuY29uZmlnOiAl
+IlBSSXU2NCwgX19mdW5jX18sICh1aW50MzJfdClldmVudC0+dHlwZSwKKwkJKHVpbnQ2NF90KWV2
+ZW50LT5jb25maWcpOworCWlmIChlcnJubyA9PSBFTk9FTlQgfHwgZXJybm8gPT0gRU5PREVWKSB7
+CisJCXRzdF9icmsoVENPTkYgfCBURVJSTk8sICIlcyB0eXBlL2NvbmZpZyBub3Qgc3VwcG9ydGVk
+IiwKKwkJCV9fZnVuY19fKTsKKwl9CisJdHN0X2JyayhUQlJPSyB8IFRFUlJOTywgIiVzIGZhaWxl
+ZCIsIF9fZnVuY19fKTsKKworCS8qIHVucmVhY2hhYmxlICovCisJcmV0dXJuIC0xOworfQorCisj
+ZW5kaWYgLyogX1BFUkZfRVZFTlRfT1BFTl9IICovCmRpZmYgLS1naXQgYS90ZXN0Y2FzZXMva2Vy
+bmVsL3N5c2NhbGxzL3BlcmZfZXZlbnRfb3Blbi9wZXJmX2V2ZW50X29wZW4wMy5jIGIvdGVzdGNh
+c2VzL2tlcm5lbC9zeXNjYWxscy9wZXJmX2V2ZW50X29wZW4vcGVyZl9ldmVudF9vcGVuMDMuYwpu
+ZXcgZmlsZSBtb2RlIDEwMDY0NAppbmRleCAwMDAwMDAwMDAuLmY1OGJlYTc5ZQotLS0gL2Rldi9u
+dWxsCisrKyBiL3Rlc3RjYXNlcy9rZXJuZWwvc3lzY2FsbHMvcGVyZl9ldmVudF9vcGVuL3BlcmZf
+ZXZlbnRfb3BlbjAzLmMKQEAgLTAsMCArMSw4NCBAQAorLy8gU1BEWC1MaWNlbnNlLUlkZW50aWZp
+ZXI6IEdQTC0yLjAtb3ItbGF0ZXIKKy8qCisgKiBDb3B5cmlnaHQgKGMpIDIwMjEgU1VTRSBMTEMg
+PG1kb3VjaGFAc3VzZS5jej4KKyAqCisgKiBDVkUtMjAyMC0yNTcwNAorICoKKyAqIENoZWNrIGZv
+ciBtZW1vcnkgbGVhayBpbiBQRVJGX0VWRU5UX0lPQ19TRVRfRklMVEVSIGlvY3RsIGNvbW1hbmQu
+IEZpeGVkIGluOgorICoKKyAqICBjb21taXQgN2JkYjE1N2NkZWJiZjk1YTFjZDk0ZWQyZTAxYjMz
+ODcxNDA3NWQwMAorICogIEF1dGhvcjoga2l5aW4o5bC55LquKSA8a2l5aW5AdGVuY2VudC5jb20+
+CisgKiAgRGF0ZTogICBXZWQgTm92IDQgMDg6MjM6MjIgMjAyMCArMDMwMAorICoKKyAqICBwZXJm
+L2NvcmU6IEZpeCBhIG1lbW9yeSBsZWFrIGluIHBlcmZfZXZlbnRfcGFyc2VfYWRkcl9maWx0ZXIo
+KQorICovCisKKyNpbmNsdWRlICJjb25maWcuaCIKKyNpbmNsdWRlICJ0c3RfdGVzdC5oIgorI2lu
+Y2x1ZGUgImxhcGkvc3lzY2FsbHMuaCIKKworI2lmIEhBVkVfUEVSRl9FVkVOVF9BVFRSCisjaW5j
+bHVkZSAicGVyZl9ldmVudF9vcGVuLmgiCisKKyNkZWZpbmUgSU5URUxfUFRfUEFUSCAiL3N5cy9i
+dXMvZXZlbnRfc291cmNlL2RldmljZXMvaW50ZWxfcHQvdHlwZSIKKworc3RhdGljIGludCBmZCA9
+IC0xOworCitzdGF0aWMgdm9pZCBzZXR1cCh2b2lkKQoreworCXN0cnVjdCBwZXJmX2V2ZW50X2F0
+dHIgZXYgPSB7CisJCS5zaXplID0gc2l6ZW9mKHN0cnVjdCBwZXJmX2V2ZW50X2F0dHIpLAorCQku
+ZXhjbHVkZV9rZXJuZWwgPSAxLAorCQkuZXhjbHVkZV9odiA9IDEsCisJCS5leGNsdWRlX2lkbGUg
+PSAxCisJfTsKKworCS8qIGludGVsX3B0IGlzIGN1cnJlbnRseSB0aGUgb25seSBldmVudCBzb3Vy
+Y2UgdGhhdCBzdXBwb3J0cyBmaWx0ZXJzICovCisJaWYgKGFjY2VzcyhJTlRFTF9QVF9QQVRILCBG
+X09LKSkKKwkJdHN0X2JyayhUQ09ORiwgImludGVsX3B0IGlzIG5vdCBhdmFpbGFibGUiKTsKKwor
+CVNBRkVfRklMRV9TQ0FORihJTlRFTF9QVF9QQVRILCAiJWQiLCAmZXYudHlwZSk7CisJZmQgPSBw
+ZXJmX2V2ZW50X29wZW4oJmV2LCBnZXRwaWQoKSwgLTEsIC0xLCAwKTsKK30KKworc3RhdGljIHZv
+aWQgcnVuKHZvaWQpCit7CisJbG9uZyBkaWZmOworCWludCBpOworCisJZGlmZiA9IFNBRkVfUkVB
+RF9NRU1JTkZPKCJNZW1BdmFpbGFibGU6Iik7CisKKwkvKiBsZWFrIGFib3V0IDEwME1CIG9mIFJB
+TSAqLworCWZvciAoaSA9IDA7IGkgPCAxMjAwMDAwMDsgaSsrKQorCQlpb2N0bChmZCwgUEVSRl9F
+VkVOVF9JT0NfU0VUX0ZJTFRFUiwgImZpbHRlciwwLzBAYWJjZCIpOworCisJZGlmZiAtPSBTQUZF
+X1JFQURfTUVNSU5GTygiTWVtQXZhaWxhYmxlOiIpOworCisJaWYgKGRpZmYgPiA1MCAqIDEwMjQp
+CisJCXRzdF9yZXMoVEZBSUwsICJMaWtlbHkga2VybmVsIG1lbW9yeSBsZWFrIGRldGVjdGVkIik7
+CisJZWxzZQorCQl0c3RfcmVzKFRQQVNTLCAiTm8gbWVtb3J5IGxlYWsgZm91bmQiKTsKK30KKwor
+c3RhdGljIHZvaWQgY2xlYW51cCh2b2lkKQoreworCWlmIChmZCA+PSAwKQorCQlTQUZFX0NMT1NF
+KGZkKTsKK30KKworc3RhdGljIHN0cnVjdCB0c3RfdGVzdCB0ZXN0ID0geworCS50ZXN0X2FsbCA9
+IHJ1biwKKwkuc2V0dXAgPSBzZXR1cCwKKwkuY2xlYW51cCA9IGNsZWFudXAsCisJLm5lZWRzX3Jv
+b3QgPSAxLAorCS50YWdzID0gKGNvbnN0IHN0cnVjdCB0c3RfdGFnW10pIHsKKwkJeyJsaW51eC1n
+aXQiLCAiN2JkYjE1N2NkZWJiIn0sCisJCXsiQ1ZFIiwgIjIwMjAtMjU3MDQifSwKKwkJe30KKwl9
+Cit9OworCisjZWxzZSAvKiBIQVZFX1BFUkZfRVZFTlRfQVRUUiAqLworVFNUX1RFU1RfVENPTkYo
+IlRoaXMgc3lzdGVtIGRvZXNuJ3QgaGF2ZSA8bGludXgvcGVyZl9ldmVudC5oPiBvciAiCisJInN0
+cnVjdCBwZXJmX2V2ZW50X2F0dHIgaXMgbm90IGRlZmluZWQuIik7CisjZW5kaWYKLS0gCjIuMzIu
+MAoKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5m
+by9sdHAK
