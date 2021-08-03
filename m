@@ -2,61 +2,62 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id A703A3DE898
-	for <lists+linux-ltp@lfdr.de>; Tue,  3 Aug 2021 10:42:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A02B43DE907
+	for <lists+linux-ltp@lfdr.de>; Tue,  3 Aug 2021 10:56:47 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6BC2A3C8133
-	for <lists+linux-ltp@lfdr.de>; Tue,  3 Aug 2021 10:42:30 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 60E5C3C8131
+	for <lists+linux-ltp@lfdr.de>; Tue,  3 Aug 2021 10:56:47 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 6C0753C2C99
- for <ltp@lists.linux.it>; Tue,  3 Aug 2021 10:42:29 +0200 (CEST)
-Received: from mail-io1-xd2d.google.com (mail-io1-xd2d.google.com
- [IPv6:2607:f8b0:4864:20::d2d])
+ by picard.linux.it (Postfix) with ESMTPS id C81CE3C2DBE
+ for <ltp@lists.linux.it>; Tue,  3 Aug 2021 10:56:43 +0200 (CEST)
+Received: from mail-io1-xd2c.google.com (mail-io1-xd2c.google.com
+ [IPv6:2607:f8b0:4864:20::d2c])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id D8F92600666
- for <ltp@lists.linux.it>; Tue,  3 Aug 2021 10:42:28 +0200 (CEST)
-Received: by mail-io1-xd2d.google.com with SMTP id y1so233958iod.10
- for <ltp@lists.linux.it>; Tue, 03 Aug 2021 01:42:28 -0700 (PDT)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 702D7600956
+ for <ltp@lists.linux.it>; Tue,  3 Aug 2021 10:56:43 +0200 (CEST)
+Received: by mail-io1-xd2c.google.com with SMTP id r6so15168918ioj.8
+ for <ltp@lists.linux.it>; Tue, 03 Aug 2021 01:56:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=3V77oViv0XYlTBqXdkkWQBA0edv1sYPU0QfQcSuYzf4=;
- b=RxS1gZtRwZXokDQnkjXJJLbRZQn3nDzXZZFERpLvf7HhCKx2jPxmv7p2Fdm5rLqspq
- sp911Ba6LIpHi8RPMEGc8WdlbQA4+CEBaeWEiAWvTsLOVEucvTDXqDL4D5aBnCv3bc77
- kJLFo4At1VD3j6J5dC2TUJkKQdZ9cZehvxGVhHX1ADWGszUZHwXjLmymFLTLawXusyTf
- qBZ1hCb0UtqDVraXqhZ6Ktw5YgLTWt97maSnQ6Qqlc6+sl7qnNyFcJWJlYw6BOtBf64A
- eI5r1yMn5re++vUqASEbjkyKLvnRa3xUjxLK8f51g+ah+9X0sJh16hqiReoeQq9DL2Wx
- B4og==
+ :cc; bh=7SsFV2iOXhu6gJLnc6G6fBI8/OQbVqmopZT5kD/FcIs=;
+ b=hahqrRRSNDxZMk6jEqqdCYQMZnmFhozTgz/v2l2OyEpN0XE9axp4g+uUg0B4IVXtJl
+ F8FojYZGy7QoKv/o8/73A+2islxAtMxqrWMb0vHD0d5rixpjAWEwIOlA8uA7ClO4eOtH
+ v0WfzPwU+iE+doh5PSZDmUV6dFXL9OIR0cV3p1ehfyw0azdChf3HbahiTMbi1N/PKZks
+ WXJfjhngcQa70rOz3AVDuROoTuHCogbGDL3nnpogMQh0fINLmn6ZiZQDw2hRxGH7Pe4K
+ JeIGAXr/FRFQ+yBHyVYmbjmRzsuRA/q5XVIj1y3pzhmLI+eEA7ge+hA2IJu/rXe6we8E
+ yQyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=3V77oViv0XYlTBqXdkkWQBA0edv1sYPU0QfQcSuYzf4=;
- b=TY4lt0YprFSbPS5Ll98l9Ze6Nws6eAWSziLOuxsg/B/AkYAEb5b6iPCkm1bfZ2hhjm
- 0mP8OJ6nnO2a0UOOs7DnUzfVoN68zTCzo2gj2hsLkYUI/FpBJltPKz4V8+SkkeZsyB6I
- 5ZlDWS6JuA3uhVD3IJuszw4J8HPnVdmlcxKb6cNhX6lsErIpcJVnfngGfTdOs+JHUO2p
- O2juR/4hcjQQcb1dpmcbUtlG4T8Wu/7MdasVPdYN2KGApji4g7HCiEeyIvZHq8VJzraY
- 4Qv3IGVllf+u5TxkT1ttgEAG7lx7OK+jEkeKfu5yUG1fOsFxm1XZQtTTMu5DvK1hueQb
- i7bQ==
-X-Gm-Message-State: AOAM533jJz5Ub5Aw0Ezy19fVX75vGxTN4S7sruzZ1AxQi/ryoIg2LGF5
- a/u9jiPI+6fohbPr0PvBPwbxZaRcEs6gH1ZJRlQ=
-X-Google-Smtp-Source: ABdhPJy6QwItcOMWcc2V/SuuX+hs6i/S/v6H58kQ5Zkck7Slb4U/vQol3er0yx1TUMKcx+Eb8dt1uSTXK+CT651wC5A=
-X-Received: by 2002:a05:6638:1036:: with SMTP id
- n22mr14836075jan.81.1627980147689; 
- Tue, 03 Aug 2021 01:42:27 -0700 (PDT)
+ bh=7SsFV2iOXhu6gJLnc6G6fBI8/OQbVqmopZT5kD/FcIs=;
+ b=OdOp22i6b4Uo+jZbtFdF+XJh359mXcRfrIzO0S4UCQCM+Bo0iFqzfJ8Do4tzhF17RN
+ 5yZiz8fO8DHAVM10673cIkCvuI5pe8HCGl7+wlph7MLJfGQh/MayQhtWQIRYiVBC6iNJ
+ kvRrSxjBYEZkpMWrf0neYKyGeJLORCgJPiR9JdqlpPu1HzOHA0XgsbOMhcOsNaM8hHKq
+ gq+ZMpYfo0QDUN1u/jC90/A8KJK/Ofufia21j85R7GwIh9SrG0UmDyzfThFFz3OdYOJX
+ H/eV7m092P3f4hG3OAt0sGADPp7k2fD6SYEK/LVetBAKGxAQhriwV4lB+Oj3jmZ90hOa
+ UV4A==
+X-Gm-Message-State: AOAM531i3J4JONgES+qXZq0Zt2nCtwRNGgRiiHwshsvVE+QDGbmrn818
+ EofCvn6IQB7GQdqbMhECjqU1smpWLb4pHrh+fAE=
+X-Google-Smtp-Source: ABdhPJy0vwWcnNizvdeVjYXwq4nHkZgMGj0gupr2wyZ17s8UZye0j+4lfNn2qmtR3XhFEfpxNQ3Mj9FxzlZaECwRnPo=
+X-Received: by 2002:a05:6638:1928:: with SMTP id
+ p40mr4348179jal.93.1627981002326; 
+ Tue, 03 Aug 2021 01:56:42 -0700 (PDT)
 MIME-Version: 1.0
 References: <20210802214645.2633028-1-krisman@collabora.com>
- <20210802214645.2633028-3-krisman@collabora.com>
-In-Reply-To: <20210802214645.2633028-3-krisman@collabora.com>
+ <20210802214645.2633028-4-krisman@collabora.com>
+In-Reply-To: <20210802214645.2633028-4-krisman@collabora.com>
 From: Amir Goldstein <amir73il@gmail.com>
-Date: Tue, 3 Aug 2021 11:42:16 +0300
-Message-ID: <CAOQ4uxhDUZND7Ak9vL-_vR50KSoewyKNzFsTsGP+UeDQmB2Rhg@mail.gmail.com>
+Date: Tue, 3 Aug 2021 11:56:31 +0300
+Message-ID: <CAOQ4uxjMfJM4FM4tWJWgjbK4a2K1hNJdEBRvwQTh9+5su2N0Tw@mail.gmail.com>
 To: Gabriel Krisman Bertazi <krisman@collabora.com>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
@@ -64,8 +65,8 @@ X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 2/7] syscalls/fanotify20: Validate the generic
- error info
+Subject: Re: [LTP] [PATCH 3/7] syscalls/fanotify20: Validate incoming FID in
+ FAN_FS_ERROR
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,70 +89,42 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 On Tue, Aug 3, 2021 at 12:47 AM Gabriel Krisman Bertazi
 <krisman@collabora.com> wrote:
 >
-> Implement some validation for the generic error info record emitted by
-> the kernel.  The error number is fs-specific but, well, we only support
-> ext4 for now anyway.
+> Verify the FID provided in the event.  If the testcase has a null inode,
+> this is assumed to be a superblock error (i.e. null FH).
 >
 > Signed-off-by: Gabriel Krisman Bertazi <krisman@collabora.com>
 > ---
->  .../kernel/syscalls/fanotify/fanotify20.c     | 59 ++++++++++++++++++-
->  1 file changed, 58 insertions(+), 1 deletion(-)
+>  .../kernel/syscalls/fanotify/fanotify20.c     | 51 +++++++++++++++++++
+>  1 file changed, 51 insertions(+)
 >
 > diff --git a/testcases/kernel/syscalls/fanotify/fanotify20.c b/testcases/kernel/syscalls/fanotify/fanotify20.c
-> index 50531bd99cc9..fd5cfb8744f1 100644
+> index fd5cfb8744f1..d8d788ae685f 100644
 > --- a/testcases/kernel/syscalls/fanotify/fanotify20.c
 > +++ b/testcases/kernel/syscalls/fanotify/fanotify20.c
-> @@ -37,6 +37,14 @@
+> @@ -40,6 +40,14 @@
 >
->  #ifndef FAN_FS_ERROR
->  #define FAN_FS_ERROR           0x00008000
+>  #define FAN_EVENT_INFO_TYPE_ERROR      4
+>
+> +#ifndef FILEID_INVALID
+> +#define        FILEID_INVALID          0xff
+> +#endif
 > +
-> +#define FAN_EVENT_INFO_TYPE_ERROR      4
+> +#ifndef FILEID_INO32_GEN
+> +#define FILEID_INO32_GEN       1
+> +#endif
 > +
-> +struct fanotify_event_info_error {
-> +       struct fanotify_event_info_header hdr;
-> +       __s32 error;
-> +       __u32 error_count;
-> +};
->  #endif
-
-Those defines go in fanotify.h
-
->
->  #define BUF_SIZE 256
-> @@ -47,11 +55,54 @@ int fd_notify;
->
->  static const struct test_case {
+>  struct fanotify_event_info_error {
+>         struct fanotify_event_info_header hdr;
+>         __s32 error;
+> @@ -57,6 +65,9 @@ static const struct test_case {
 >         char *name;
-> +       int error;
-> +       unsigned int error_count;
->         void (*trigger_error)(void);
->         void (*prepare_fs)(void);
->  } testcases[] = {
->  };
->
-> +struct fanotify_event_info_header *get_event_info(
-> +                                       struct fanotify_event_metadata *event,
-> +                                       int info_type)
-> +{
-> +       struct fanotify_event_info_header *hdr = NULL;
-> +       char *start = (char *) event;
-> +       int off;
+>         int error;
+>         unsigned int error_count;
 > +
-> +       for (off = event->metadata_len; (off+sizeof(*hdr)) < event->event_len;
-> +            off += hdr->len) {
-> +               hdr = (struct fanotify_event_info_header *) &(start[off]);
-> +               if (hdr->info_type == info_type)
-> +                       return hdr;
-> +       }
-> +       return NULL;
-> +}
-> +
-> +#define get_event_info_error(event)                                    \
-> +       ((struct fanotify_event_info_error *)                           \
-> +        get_event_info((event), FAN_EVENT_INFO_TYPE_ERROR))
+> +       /* inode can be null for superblock errors */
+> +       unsigned int *inode;
 
-This helper and macro would be very useful in fanotify.h for other tests to use.
+Any reason not to use fanotify_fid_t * like fanotify16.c?
 
 Thanks,
 Amir.
