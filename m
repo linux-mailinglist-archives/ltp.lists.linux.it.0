@@ -2,71 +2,74 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 311BB3E042F
-	for <lists+linux-ltp@lfdr.de>; Wed,  4 Aug 2021 17:29:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2B703E0445
+	for <lists+linux-ltp@lfdr.de>; Wed,  4 Aug 2021 17:36:19 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 796B53C8010
-	for <lists+linux-ltp@lfdr.de>; Wed,  4 Aug 2021 17:29:32 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 3ABD23C804D
+	for <lists+linux-ltp@lfdr.de>; Wed,  4 Aug 2021 17:36:19 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id DFA8D3C57C1
- for <ltp@lists.linux.it>; Wed,  4 Aug 2021 17:29:28 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 9BD513C57C1
+ for <ltp@lists.linux.it>; Wed,  4 Aug 2021 17:36:15 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 6D83E600A81
- for <ltp@lists.linux.it>; Wed,  4 Aug 2021 17:29:28 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 0FD73600CE7
+ for <ltp@lists.linux.it>; Wed,  4 Aug 2021 17:36:14 +0200 (CEST)
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id D0DE72017C;
- Wed,  4 Aug 2021 15:29:27 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 4F533221DC;
+ Wed,  4 Aug 2021 15:36:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1628090967; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ t=1628091374;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=d8T1rMCK5I5A0rnboHGD1b5c3ioVdF0Yp2k7poZxUbo=;
- b=Txeyh10huzID2O4iBIJgEgY8l/yBYsYlMja8GY9L+w+fOmAl1KGd2pUyDglumDwBxYy9Dt
- ZhY4JL4QifyqNhINRyWf530OQ8pZooK4YLwyyiNEg0C1nvyVWXG/TONINKuZoGkicmCTDQ
- 5aMq6WNJfPsdyISWXnc3Yt9t3LlLSOU=
+ bh=DD4BtVrgiA7OLHucYm/2r2HJ9cw5YEKBu9d8TTy3PLg=;
+ b=wQxIhI3co6szDSqCDFtzp3BLhpDGcX3FXOrSycXGVDYB6UySMaFg1VjFL1NZ0ao/Kk5Nu2
+ HwsWnd2Rl1wfa4mcC3IHoWUqjiHmTf63XyttfPz0S2K+cqExBPWHr4+uFqwsNtCLtsPPAg
+ YP+9o+40ZJz9bgcrnIxJNNK6xV5S1bc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1628090967;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ s=susede2_ed25519; t=1628091374;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=d8T1rMCK5I5A0rnboHGD1b5c3ioVdF0Yp2k7poZxUbo=;
- b=QstSwoktjg/dG2xJvcdwMZE8chlm9m6jr97D5BV1ymq/c40Al5b4Hmx/uMGXnmU0P7TjCs
- th5DPhdKCkHiw2AA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ bh=DD4BtVrgiA7OLHucYm/2r2HJ9cw5YEKBu9d8TTy3PLg=;
+ b=6XpJTVcLx7O7okZVOvszgFGyTXFW/F04q02BU/UD7nkHcpwVybh3fzl3V5eGGnJ7Udz7Zk
+ YynQbVnI5QSNEpCw==
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B554B13D08;
- Wed,  4 Aug 2021 15:29:27 +0000 (UTC)
+ by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 1906F13BD7;
+ Wed,  4 Aug 2021 15:36:14 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 41B+K1eyCmG2AwAAMHmgww
- (envelope-from <chrubis@suse.cz>); Wed, 04 Aug 2021 15:29:27 +0000
-Date: Wed, 4 Aug 2021 17:29:36 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <YQqyYGXNpUl0ShkR@yuki>
-References: <20210803155822.1973-1-mdoucha@suse.cz>
+ by imap1.suse-dmz.suse.de with ESMTPSA id nCnOA+6zCmHFYwAAGKfGzw
+ (envelope-from <pvorel@suse.cz>); Wed, 04 Aug 2021 15:36:14 +0000
+Date: Wed, 4 Aug 2021 17:36:12 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <YQqz7BhU+Z6xCq5L@pevik>
+References: <20210804092407.16015-1-pvorel@suse.cz>
+ <20210804092407.16015-3-pvorel@suse.cz> <YQqgMq8KnNRAn8MX@yuki>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210803155822.1973-1-mdoucha@suse.cz>
+In-Reply-To: <YQqgMq8KnNRAn8MX@yuki>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 1/2] Add test for CVE 2020-25704
+Subject: Re: [LTP] [PATCH v8 2/7] test/test_zero_hugepage.sh: Skip test on
+ read-only /proc
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,24 +81,19 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-Pushed with a minor change, thanks.
+Hi Cyril,
 
-> +#ifndef _PERF_EVENT_OPEN_H
+Thanks a lot, whole patchset merged!
 
-Identifiers starting with single or double underscore are reserved for
-system implemntation, e.g. libc so I've changed the guards just to
-PERF_EVENT_OPEN_H.
-
--- 
-Cyril Hrubis
-chrubis@suse.cz
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
