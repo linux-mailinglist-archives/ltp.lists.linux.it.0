@@ -2,49 +2,48 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF5833DF974
-	for <lists+linux-ltp@lfdr.de>; Wed,  4 Aug 2021 03:55:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89FAF3DF976
+	for <lists+linux-ltp@lfdr.de>; Wed,  4 Aug 2021 03:56:13 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B218A3C87CA
-	for <lists+linux-ltp@lfdr.de>; Wed,  4 Aug 2021 03:55:13 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 4B3BF3C87E7
+	for <lists+linux-ltp@lfdr.de>; Wed,  4 Aug 2021 03:56:13 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 75D243C1882
- for <ltp@lists.linux.it>; Wed,  4 Aug 2021 03:55:11 +0200 (CEST)
-Received: from ATCSQR.andestech.com (exmail.andestech.com [60.248.187.195])
+ by picard.linux.it (Postfix) with ESMTPS id 5F0F63C2116
+ for <ltp@lists.linux.it>; Wed,  4 Aug 2021 03:56:11 +0200 (CEST)
+Received: from ATCSQR.andestech.com (atcsqr.andestech.com [60.248.187.195])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 5AFF9140110D
- for <ltp@lists.linux.it>; Wed,  4 Aug 2021 03:55:09 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 815FA1400331
+ for <ltp@lists.linux.it>; Wed,  4 Aug 2021 03:56:10 +0200 (CEST)
 Received: from mail.andestech.com (atcpcs16.andestech.com [10.0.1.222])
- by ATCSQR.andestech.com with ESMTP id 1741slMf035515;
- Wed, 4 Aug 2021 09:54:47 +0800 (GMT-8)
+ by ATCSQR.andestech.com with ESMTP id 1741tmHh035987;
+ Wed, 4 Aug 2021 09:55:48 +0800 (GMT-8)
  (envelope-from ycliang@andestech.com)
 Received: from andestech.com (10.0.15.65) by ATCPCS16.andestech.com
  (10.0.1.222) with Microsoft SMTP Server id 14.3.498.0; Wed, 4 Aug 2021
- 09:54:45 +0800
-Date: Wed, 4 Aug 2021 09:54:42 +0800
+ 09:55:45 +0800
+Date: Wed, 4 Aug 2021 09:55:43 +0800
 From: Leo Liang <ycliang@andestech.com>
 To: <ltp@lists.linux.it>
-Message-ID: <20210804015438.GA22798@andestech.com>
+Message-ID: <20210804015539.GA22997@andestech.com>
 MIME-Version: 1.0
 Content-Disposition: inline
 User-Agent: Mutt/1.5.24 (2015-08-30)
 X-Originating-IP: [10.0.15.65]
 X-DNSRBL: 
-X-MAIL: ATCSQR.andestech.com 1741slMf035515
+X-MAIL: ATCSQR.andestech.com 1741tmHh035987
 X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH v6,
- 3/4] cgroup/cgroup_regression_test: Fix umount failure
+Subject: [LTP] [PATCH v6, 4/4] Make argument to tst_umount an absolute path
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,76 +62,55 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-The test sequence
-	mount -t cgroup -o <controllers> <path>
-	mkdir <path>/<dir>
-	rmdir <path>/<dir>
-	umount <path>
-	mount -t cgroup -o <controllers> <path>
-would easily fail at the last mount with -EBUSY on certain platform.
-
-The reason is that this test sequence would have the chance of
-missing a release code path when doing rmdir and umount.
-
-Adding a little delay between "rmdir" and "umount" could fix the problem,
-so use tst_umount API instead of umount in "rmdir, umount" sequence.
-
-Fixes: #839
+tst_umount only takes mount point as an argument,
+so modify the argument to an absolute path for tst_umount.
 
 Signed-off-by: Leo Yu-Chi Liang <ycliang@andestech.com>
 ---
- .../controllers/cgroup/cgroup_regression_test.sh       | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ testcases/kernel/fs/quota_remount/quota_remount_test01.sh    | 2 +-
+ testcases/kernel/security/integrity/ima/tests/evm_overlay.sh | 2 +-
+ testcases/kernel/tracing/dynamic_debug/dynamic_debug01.sh    | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/testcases/kernel/controllers/cgroup/cgroup_regression_test.sh b/testcases/kernel/controllers/cgroup/cgroup_regression_test.sh
-index 1f7f3820e..592a1d3b1 100755
---- a/testcases/kernel/controllers/cgroup/cgroup_regression_test.sh
-+++ b/testcases/kernel/controllers/cgroup/cgroup_regression_test.sh
-@@ -145,7 +145,7 @@ test2()
- 	fi
- 
- 	rmdir cgroup/0 cgroup/1
--	umount cgroup/
-+	tst_umount $PWD/cgroup
+diff --git a/testcases/kernel/fs/quota_remount/quota_remount_test01.sh b/testcases/kernel/fs/quota_remount/quota_remount_test01.sh
+index e84716c03..1b4bdbb99 100755
+--- a/testcases/kernel/fs/quota_remount/quota_remount_test01.sh
++++ b/testcases/kernel/fs/quota_remount/quota_remount_test01.sh
+@@ -32,7 +32,7 @@ do_setup()
+ do_clean()
+ {
+ 	[ "$mounted" ] || return
+-	tst_umount $MNTDIR
++	tst_umount $PWD/$MNTDIR
+ 	mounted=
  }
  
- #---------------------------------------------------------------------------
-@@ -193,7 +193,7 @@ test3()
- 	wait $pid2 2>/dev/null
+diff --git a/testcases/kernel/security/integrity/ima/tests/evm_overlay.sh b/testcases/kernel/security/integrity/ima/tests/evm_overlay.sh
+index 9d86778b6..23a5ec556 100755
+--- a/testcases/kernel/security/integrity/ima/tests/evm_overlay.sh
++++ b/testcases/kernel/security/integrity/ima/tests/evm_overlay.sh
+@@ -83,7 +83,7 @@ cleanup()
+ {
+ 	[ -n "$mounted" ] || return 0
  
- 	rmdir $cpu_subsys_path/0 2> /dev/null
--	umount cgroup/ 2> /dev/null
-+	tst_umount $PWD/cgroup
- 	check_kernel_bug
- }
+-	tst_umount $TST_DEVICE
++	tst_umount $TST_MNTPOINT
  
-@@ -222,7 +222,7 @@ test4()
- 	mount -t cgroup -o none,name=foo cgroup cgroup/
- 	mkdir cgroup/0
- 	rmdir cgroup/0
--	umount cgroup/
-+	tst_umount $PWD/cgroup
- 
- 	if dmesg | grep -q "MAX_LOCKDEP_SUBCLASSES too low"; then
- 		tst_res TFAIL "lockdep BUG was found"
-@@ -254,7 +254,7 @@ test5()
- 	mount -t cgroup none cgroup 2> /dev/null
- 	mkdir cgroup/0
- 	rmdir cgroup/0
--	umount cgroup/ 2> /dev/null
-+	tst_umount $PWD/cgroup
- 	check_kernel_bug
- }
- 
-@@ -290,7 +290,7 @@ test6()
- 
- 	mount -t cgroup -o ns xxx cgroup/ > /dev/null 2>&1
- 	rmdir cgroup/[1-9]* > /dev/null 2>&1
--	umount cgroup/
-+	tst_umount $PWD/cgroup
- 	check_kernel_bug
- }
- 
+ 	TST_DEVICE="$device_backup"
+ 	TST_FS_TYPE="$fs_type_backup"
+diff --git a/testcases/kernel/tracing/dynamic_debug/dynamic_debug01.sh b/testcases/kernel/tracing/dynamic_debug/dynamic_debug01.sh
+index 7f06c2488..fd5ee06c8 100755
+--- a/testcases/kernel/tracing/dynamic_debug/dynamic_debug01.sh
++++ b/testcases/kernel/tracing/dynamic_debug/dynamic_debug01.sh
+@@ -38,7 +38,7 @@ mount_debugfs()
+ 		if ! grep -q debugfs /proc/filesystems ; then
+ 			tst_res TCONF "debugfs not supported"
+ 		fi
+-		DEBUGFS_PATH="./tst_debug"
++		DEBUGFS_PATH="$PWD/tst_debug"
+ 		mkdir "$DEBUGFS_PATH"
+ 		if mount -t debugfs xxx "$DEBUGFS_PATH" ; then
+ 			tst_res TINFO "debugfs mounted at $DEBUGFS_PATH"
 -- 
 2.17.0
 
