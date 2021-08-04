@@ -1,46 +1,47 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E4553DFAC7
-	for <lists+linux-ltp@lfdr.de>; Wed,  4 Aug 2021 06:53:00 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 066073DFACC
+	for <lists+linux-ltp@lfdr.de>; Wed,  4 Aug 2021 06:54:18 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 60DE23C7FEB
-	for <lists+linux-ltp@lfdr.de>; Wed,  4 Aug 2021 06:53:00 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 0F23F3C7FEB
+	for <lists+linux-ltp@lfdr.de>; Wed,  4 Aug 2021 06:54:17 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 68E6B3C2BE3
- for <ltp@lists.linux.it>; Wed,  4 Aug 2021 06:52:58 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id A894A3C2BE3
+ for <ltp@lists.linux.it>; Wed,  4 Aug 2021 06:54:15 +0200 (CEST)
 Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 03A21100037E
- for <ltp@lists.linux.it>; Wed,  4 Aug 2021 06:52:56 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id AA2151A00484
+ for <ltp@lists.linux.it>; Wed,  4 Aug 2021 06:54:14 +0200 (CEST)
 Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: krisman) with ESMTPSA id 8322C1F43565
+ (Authenticated sender: krisman) with ESMTPSA id B56E21F43565
 From: Gabriel Krisman Bertazi <krisman@collabora.com>
 To: Amir Goldstein <amir73il@gmail.com>
 Organization: Collabora
 References: <20210802214645.2633028-1-krisman@collabora.com>
- <20210802214645.2633028-7-krisman@collabora.com>
- <CAOQ4uxizX0ar7d9eYgazcenQcA7Ku7quEZOLbcaxKJiY0sTPLA@mail.gmail.com>
-Date: Wed, 04 Aug 2021 00:52:52 -0400
-In-Reply-To: <CAOQ4uxizX0ar7d9eYgazcenQcA7Ku7quEZOLbcaxKJiY0sTPLA@mail.gmail.com>
- (Amir Goldstein's message of "Tue, 3 Aug 2021 12:08:11 +0300")
-Message-ID: <87k0l1hkuz.fsf@collabora.com>
+ <20210802214645.2633028-4-krisman@collabora.com>
+ <CAOQ4uxjMfJM4FM4tWJWgjbK4a2K1hNJdEBRvwQTh9+5su2N0Tw@mail.gmail.com>
+Date: Wed, 04 Aug 2021 00:54:09 -0400
+In-Reply-To: <CAOQ4uxjMfJM4FM4tWJWgjbK4a2K1hNJdEBRvwQTh9+5su2N0Tw@mail.gmail.com>
+ (Amir Goldstein's message of "Tue, 3 Aug 2021 11:56:31 +0300")
+Message-ID: <87fsvphksu.fsf@collabora.com>
 User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/27.1 (gnu/linux)
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 6/7] syscalls/fanotify20: Test file event with
- broken inode
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 3/7] syscalls/fanotify20: Validate incoming FID in
+ FAN_FS_ERROR
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,76 +66,45 @@ Amir Goldstein <amir73il@gmail.com> writes:
 > On Tue, Aug 3, 2021 at 12:47 AM Gabriel Krisman Bertazi
 > <krisman@collabora.com> wrote:
 >>
->> This test corrupts an inode entry with an invalid mode through debugfs
->> and then tries to access it.  This should result in a ext4 error, which
->> we monitor through the fanotify group.
+>> Verify the FID provided in the event.  If the testcase has a null inode,
+>> this is assumed to be a superblock error (i.e. null FH).
 >>
 >> Signed-off-by: Gabriel Krisman Bertazi <krisman@collabora.com>
 >> ---
->>  .../kernel/syscalls/fanotify/fanotify20.c     | 38 +++++++++++++++++++
->>  1 file changed, 38 insertions(+)
+>>  .../kernel/syscalls/fanotify/fanotify20.c     | 51 +++++++++++++++++++
+>>  1 file changed, 51 insertions(+)
 >>
 >> diff --git a/testcases/kernel/syscalls/fanotify/fanotify20.c b/testcases/kernel/syscalls/fanotify/fanotify20.c
->> index e7ced28eb61d..0c63e90edc3a 100644
+>> index fd5cfb8744f1..d8d788ae685f 100644
 >> --- a/testcases/kernel/syscalls/fanotify/fanotify20.c
 >> +++ b/testcases/kernel/syscalls/fanotify/fanotify20.c
->> @@ -76,6 +76,36 @@ static void trigger_fs_abort(void)
->>                    MS_REMOUNT|MS_RDONLY, "abort");
->>  }
+>> @@ -40,6 +40,14 @@
 >>
->> +#define TCASE2_BASEDIR "tcase2"
->> +#define TCASE2_BAD_DIR TCASE2_BASEDIR"/bad_dir"
+>>  #define FAN_EVENT_INFO_TYPE_ERROR      4
+>>
+>> +#ifndef FILEID_INVALID
+>> +#define        FILEID_INVALID          0xff
+>> +#endif
 >> +
->> +static unsigned int tcase2_bad_ino;
->> +static void tcase2_prepare_fs(void)
->> +{
->> +       struct stat stat;
+>> +#ifndef FILEID_INO32_GEN
+>> +#define FILEID_INO32_GEN       1
+>> +#endif
 >> +
->> +       SAFE_MKDIR(MOUNT_PATH"/"TCASE2_BASEDIR, 0777);
->> +       SAFE_MKDIR(MOUNT_PATH"/"TCASE2_BAD_DIR, 0777);
->> +
->> +       SAFE_STAT(MOUNT_PATH"/"TCASE2_BAD_DIR, &stat);
->> +       tcase2_bad_ino = stat.st_ino;
->> +
->> +       SAFE_UMOUNT(MOUNT_PATH);
->> +       do_debugfs_request(tst_device->dev, "sif " TCASE2_BAD_DIR " mode 0xff");
->> +       SAFE_MOUNT(tst_device->dev, MOUNT_PATH, tst_device->fs_type, 0, NULL);
->> +}
->> +
->> +static void tcase2_trigger_lookup(void)
->> +{
->> +       int ret;
->> +
->> +       /* SAFE_OPEN cannot be used here because we expect it to fail. */
->> +       ret = open(MOUNT_PATH"/"TCASE2_BAD_DIR, O_RDONLY, 0);
->> +       if (ret != -1 && errno != EUCLEAN)
->> +               tst_res(TFAIL, "Unexpected lookup result(%d) of %s (%d!=%d)",
->> +                       ret, TCASE2_BAD_DIR, errno, EUCLEAN);
->> +}
->> +
->>  static const struct test_case {
+>>  struct fanotify_event_info_error {
+>>         struct fanotify_event_info_header hdr;
+>>         __s32 error;
+>> @@ -57,6 +65,9 @@ static const struct test_case {
 >>         char *name;
 >>         int error;
->> @@ -92,6 +122,14 @@ static const struct test_case {
->>                 .error_count = 1,
->>                 .error = EXT4_ERR_ESHUTDOWN,
->>                 .inode = NULL
->> +       },
->> +       {
->> +               .name = "Lookup of inode with invalid mode",
->> +               .prepare_fs = tcase2_prepare_fs,
->> +               .trigger_error = &tcase2_trigger_lookup,
->> +               .error_count = 1,
->> +               .error = 0,
->> +               .inode = &tcase2_bad_ino,
+>>         unsigned int error_count;
+>> +
+>> +       /* inode can be null for superblock errors */
+>> +       unsigned int *inode;
 >
-> Why is error 0?
-> What's the rationale?
+> Any reason not to use fanotify_fid_t * like fanotify16.c?
 
-Hi Amir,
-
-That is specific to Ext4.  Some ext4 conditions report bogus error codes.  I will
-come up with a kernel patch changing it.
+No reason other than I didn't notice they existed. Sorry. I will get
+this fixed.
 
 -- 
 Gabriel Krisman Bertazi
