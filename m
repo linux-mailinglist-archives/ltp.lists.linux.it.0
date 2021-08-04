@@ -2,81 +2,68 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13D2C3DFDDE
-	for <lists+linux-ltp@lfdr.de>; Wed,  4 Aug 2021 11:21:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 031CB3DFDF5
+	for <lists+linux-ltp@lfdr.de>; Wed,  4 Aug 2021 11:24:49 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7D0E73C8088
-	for <lists+linux-ltp@lfdr.de>; Wed,  4 Aug 2021 11:21:14 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 94C2D3C8010
+	for <lists+linux-ltp@lfdr.de>; Wed,  4 Aug 2021 11:24:48 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by picard.linux.it (Postfix) with ESMTPS id E08723C65B1
+ for <ltp@lists.linux.it>; Wed,  4 Aug 2021 11:24:26 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 5EB5D3C7FF9
- for <ltp@lists.linux.it>; Wed,  4 Aug 2021 09:40:15 +0200 (CEST)
-Received: from mail-pj1-x102a.google.com (mail-pj1-x102a.google.com
- [IPv6:2607:f8b0:4864:20::102a])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id CA214601419
+ for <ltp@lists.linux.it>; Wed,  4 Aug 2021 11:24:25 +0200 (CEST)
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 131DC1A010F9
- for <ltp@lists.linux.it>; Wed,  4 Aug 2021 09:40:15 +0200 (CEST)
-Received: by mail-pj1-x102a.google.com with SMTP id j1so1742710pjv.3
- for <ltp@lists.linux.it>; Wed, 04 Aug 2021 00:40:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=ufsAD/3Qdi1T2HB3quxBOdR/T1U1h8GciPGwUgTjHCI=;
- b=qqocDoGSTbG1vEp6u73Alx+v/Hts8tf3aADkUHdMUM+qdnPusHXtBXwz5UV8Bi5Aay
- MSEByll6Ne+XnITdf9lRuktuFv/jdget/bDiltssjlXsx/jrlw+jCTSIIeVRY4AOpqI3
- P2dCZXuVbafOx2LGtlpLd9cN0Cl5xGApnS0hmc6LQfolI/ZC/9GKJ4IcSIjsc1L/15Pe
- i6cDkHrVV4jTL5IMqziWgBynBnEYLKFnDlmRZAiSTeqfukID/SgYlMunruRg3tZkAkst
- OqaLbg+3MxBJbCZaKKu+UJTMxEkhpYXd86wtoHGMmox5mLIlrhZxYsmiUQGH232D1+n+
- oyWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=ufsAD/3Qdi1T2HB3quxBOdR/T1U1h8GciPGwUgTjHCI=;
- b=Hu+XOgKXqqnVIK0MVkB5JnuTvEy2ZdM7gUynY06664zxVR7Vn1wWzkxxi6IVYsGaZ4
- o3e9masfVnFbNJCdAy16wmoOGo3ppYCpaPTgBk7Dn8bocOTKfVvGpN5q7TpBDi8VMCzK
- ExsojWHC8gU9kCaEwAQbVWMqcefD9hm7GQ7cTsyhUuRr4xrRUquz9mX1Jf3rARIoM8Ss
- YJ6EjKzxHRmGRanSeBBbmDapd42/RO/Y2alx/tfpOMjdIz9kv+kAqOw7bnt8AMInm0xn
- G4isuGnraY79912AeDqIHyBIqrpkvcX7nqimPr0TukS5DFTxkMUTNOZzdvLy5ldddrOd
- IbKg==
-X-Gm-Message-State: AOAM533wiw1wpslg92eDGB8LM9FCvLiH0IAbBzjiS7cCK6GNYnVFs9pH
- a3SZhX0Roag/eAxK9Th4S/Ra8Q==
-X-Google-Smtp-Source: ABdhPJyJzGt5DaIcM08PAh3ojkjZLyP/hOJ8VK8e6kqydHwEcjJ0mjGGqd66M4KyR8PZSrTHwFsxnw==
-X-Received: by 2002:a62:8643:0:b029:3b1:a6ee:196 with SMTP id
- x64-20020a6286430000b02903b1a6ee0196mr23380719pfd.13.1628062813093; 
- Wed, 04 Aug 2021 00:40:13 -0700 (PDT)
-Received: from google.com ([2401:fa00:9:211:7ff1:360d:6b2e:2bd2])
- by smtp.gmail.com with ESMTPSA id r18sm2164903pgk.54.2021.08.04.00.40.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 04 Aug 2021 00:40:12 -0700 (PDT)
-Date: Wed, 4 Aug 2021 17:40:00 +1000
-To: krisman@collabora.com
-Message-ID: <YQpEEQT358LYPbMX@google.com>
-References: <20210802214645.2633028-1-krisman@collabora.com>
- <20210802214645.2633028-4-krisman@collabora.com>
- <CAOQ4uxjMfJM4FM4tWJWgjbK4a2K1hNJdEBRvwQTh9+5su2N0Tw@mail.gmail.com>
- <87fsvphksu.fsf@collabora.com>
- <CAOQ4uxj_WwDPxZv0nr9+Hh+pim6+2onaBdFq_BR-qK=xz+8yUg@mail.gmail.com>
+ by smtp-out2.suse.de (Postfix) with ESMTPS id ED8332011B;
+ Wed,  4 Aug 2021 09:24:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1628069064; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=hdCkMMmzCVqKEn97UIXX3MRXpiKteLrdsFpA2IfFbUk=;
+ b=KEkS6e4xyXO8sNx/E58LOAosPXc8AN7X7VVAyQNMCHwzo5yMZM1pKQFm78+yRtZarxin3W
+ Axd5ARFz3VDI8kI7wtmXvdykDraEF3pTZJqhLL1KEHiJN4TuaYhbDkr4ZTzCsrfT8Droo1
+ Szn8i3BsPjt//IXlDlTEYXcijN4YeHQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1628069064;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=hdCkMMmzCVqKEn97UIXX3MRXpiKteLrdsFpA2IfFbUk=;
+ b=nv3kb9Th05hEGE1/rn4SNnkVjNtbi2vKhqjwzUsbDhHFUOAITHI7FNJTeNk6Ov63Hb82Sc
+ 32iLCdIrjOieVhDg==
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id C116C1338E;
+ Wed,  4 Aug 2021 09:24:24 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap1.suse-dmz.suse.de with ESMTPSA id pxlvLchcCmHhagAAGKfGzw
+ (envelope-from <pvorel@suse.cz>); Wed, 04 Aug 2021 09:24:24 +0000
+From: Petr Vorel <pvorel@suse.cz>
+To: ltp@lists.linux.it
+Date: Wed,  4 Aug 2021 11:24:05 +0200
+Message-Id: <20210804092407.16015-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAOQ4uxj_WwDPxZv0nr9+Hh+pim6+2onaBdFq_BR-qK=xz+8yUg@mail.gmail.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-12.0 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,ENV_AND_HDR_SPF_MATCH,FSL_HELO_FAKE,
- SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-X-Mailman-Approved-At: Wed, 04 Aug 2021 11:21:10 +0200
-Subject: Re: [LTP] [PATCH 3/7] syscalls/fanotify20: Validate incoming FID in
- FAN_FS_ERROR
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH v8 0/7] Run tests in CI
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,82 +75,133 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Matthew Bobrowski via ltp <ltp@lists.linux.it>
-Reply-To: Matthew Bobrowski <repnop@google.com>
-Cc: kernel@collabora.com, Khazhismel Kumykov <khazhy@google.com>,
- Jan Kara <jack@suse.com>, Ext4 <linux-ext4@vger.kernel.org>,
- LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Wed, Aug 04, 2021 at 08:39:55AM +0300, Amir Goldstein wrote:
-> On Wed, Aug 4, 2021 at 7:54 AM Gabriel Krisman Bertazi
-> <krisman@collabora.com> wrote:
-> >
-> > Amir Goldstein <amir73il@gmail.com> writes:
-> >
-> > > On Tue, Aug 3, 2021 at 12:47 AM Gabriel Krisman Bertazi
-> > > <krisman@collabora.com> wrote:
-> > >>
-> > >> Verify the FID provided in the event.  If the testcase has a null inode,
-> > >> this is assumed to be a superblock error (i.e. null FH).
-> > >>
-> > >> Signed-off-by: Gabriel Krisman Bertazi <krisman@collabora.com>
-> > >> ---
-> > >>  .../kernel/syscalls/fanotify/fanotify20.c     | 51 +++++++++++++++++++
-> > >>  1 file changed, 51 insertions(+)
-> > >>
-> > >> diff --git a/testcases/kernel/syscalls/fanotify/fanotify20.c b/testcases/kernel/syscalls/fanotify/fanotify20.c
-> > >> index fd5cfb8744f1..d8d788ae685f 100644
-> > >> --- a/testcases/kernel/syscalls/fanotify/fanotify20.c
-> > >> +++ b/testcases/kernel/syscalls/fanotify/fanotify20.c
-> > >> @@ -40,6 +40,14 @@
-> > >>
-> > >>  #define FAN_EVENT_INFO_TYPE_ERROR      4
-> > >>
-> > >> +#ifndef FILEID_INVALID
-> > >> +#define        FILEID_INVALID          0xff
-> > >> +#endif
-> > >> +
-> > >> +#ifndef FILEID_INO32_GEN
-> > >> +#define FILEID_INO32_GEN       1
-> > >> +#endif
-> > >> +
-> > >>  struct fanotify_event_info_error {
-> > >>         struct fanotify_event_info_header hdr;
-> > >>         __s32 error;
-> > >> @@ -57,6 +65,9 @@ static const struct test_case {
-> > >>         char *name;
-> > >>         int error;
-> > >>         unsigned int error_count;
-> > >> +
-> > >> +       /* inode can be null for superblock errors */
-> > >> +       unsigned int *inode;
-> > >
-> > > Any reason not to use fanotify_fid_t * like fanotify16.c?
-> >
-> > No reason other than I didn't notice they existed. Sorry. I will get
-> > this fixed.
-> 
-> No problem. That's what review is for ;-)
-> 
-> BTW, unless anyone is specifically interested I don't think there
-> is a reason to re post the test patches before the submission request.
-> Certainly not for the small fixes that I requested.
-> 
-> I do request that you post a link to a branch with the fixed test
-> so that we can experiment with the kernel patches.
-> 
-> I've also CC'ed Matthew who may want to help with review of the test
-> and man page that you posted in the cover letter [1].
+Hi,
 
-I'll get around to going through both the LTP and man-page series by the
-end of this week. Feel free to also loop me in directly on any subsequent
-iterations of the like.
+* print more items in lib into stderr (Cyril, 1st commit)
+* check for readonly fs instead TCONF on any error during writing to
+/proc/sys/vm/nr_hugepages (Cyril, 2nd commit)
 
-/M
+NOTE: sending just these 2 patches which are different
+
+Tested:
+https://github.com/pevik/ltp/actions/runs/1097004804
+
+Diff to v7
+
+diff --git lib/newlib_tests/test_zero_hugepage.sh lib/newlib_tests/test_zero_hugepage.sh
+index 8a462478e..d270e686c 100755
+--- lib/newlib_tests/test_zero_hugepage.sh
++++ lib/newlib_tests/test_zero_hugepage.sh
+@@ -7,11 +7,13 @@ echo "Testing .request_hugepages = TST_NO_HUGEPAGES"
+ 
+ orig_value=`cat /proc/sys/vm/nr_hugepages`
+ 
+-if ! echo "128" > /proc/sys/vm/nr_hugepages; then
+-	echo "TCONF: failed to open /proc/sys/vm/nr_hugepages"
++if grep -q -E '^proc /proc(/sys)? proc ro' /proc/mounts; then
++	echo "TCONF: /proc or /proc/sys mounted as read-only"
+ 	exit 32
+ fi
+ 
++echo "128" > /proc/sys/vm/nr_hugepages
++
+ ./test_zero_hugepage
+ 
+ echo $orig_value > /proc/sys/vm/nr_hugepages
+diff --git lib/tst_test.c lib/tst_test.c
+index d15c8c054..8a6a112ef 100644
+--- lib/tst_test.c
++++ lib/tst_test.c
+@@ -488,23 +488,23 @@ static void print_test_tags(void)
+ 	if (!tags)
+ 		return;
+ 
+-	printf("\nTags\n");
+-	printf("----\n");
++	fprintf(stderr, "\nTags\n");
++	fprintf(stderr, "----\n");
+ 
+ 	for (i = 0; tags[i].name; i++) {
+ 		if (!strcmp(tags[i].name, "CVE"))
+-			printf(CVE_DB_URL "%s\n", tags[i].value);
++			fprintf(stderr, CVE_DB_URL "%s\n", tags[i].value);
+ 		else if (!strcmp(tags[i].name, "linux-git"))
+-			printf(LINUX_GIT_URL "%s\n", tags[i].value);
++			fprintf(stderr, LINUX_GIT_URL "%s\n", tags[i].value);
+ 		else if (!strcmp(tags[i].name, "linux-stable-git"))
+-			printf(LINUX_STABLE_GIT_URL "%s\n", tags[i].value);
++			fprintf(stderr, LINUX_STABLE_GIT_URL "%s\n", tags[i].value);
+ 		else if (!strcmp(tags[i].name, "glibc-git"))
+-			printf(GLIBC_GIT_URL "%s\n", tags[i].value);
++			fprintf(stderr, GLIBC_GIT_URL "%s\n", tags[i].value);
+ 		else
+-			printf("%s: %s\n", tags[i].name, tags[i].value);
++			fprintf(stderr, "%s: %s\n", tags[i].name, tags[i].value);
+ 	}
+ 
+-	printf("\n");
++	fprintf(stderr, "\n");
+ }
+ 
+ static void check_option_collision(void)
+@@ -674,9 +674,9 @@ int tst_parse_float(const char *str, float *val, float min, float max)
+ static void print_colored(const char *str)
+ {
+ 	if (tst_color_enabled(STDOUT_FILENO))
+-		printf("%s%s%s", ANSI_COLOR_YELLOW, str, ANSI_COLOR_RESET);
++		fprintf(stderr, "%s%s%s", ANSI_COLOR_YELLOW, str, ANSI_COLOR_RESET);
+ 	else
+-		printf("%s", str);
++		fprintf(stderr, "%s", str);
+ }
+ 
+ static void print_failure_hint(const char *tag, const char *hint,
+@@ -694,12 +694,12 @@ static void print_failure_hint(const char *tag, const char *hint,
+ 		if (!strcmp(tags[i].name, tag)) {
+ 			if (!hint_printed) {
+ 				hint_printed = 1;
+-				printf("\n");
++				fprintf(stderr, "\n");
+ 				print_colored("HINT: ");
+-				printf("You _MAY_ be %s, see:\n\n", hint);
++				fprintf(stderr, "You _MAY_ be %s, see:\n\n", hint);
+ 			}
+ 
+-			printf("%s%s\n", url, tags[i].value);
++			fprintf(stderr, "%s%s\n", url, tags[i].value);
+ 		}
+ 	}
+ }
+
+Petr Vorel (7):
+  lib: Print everything to stderr
+  test/test_zero_hugepage.sh: Skip test on read-only /proc
+  lib: Add script for running tests
+  make: Add make test{, -c, -shell} targets
+  build.sh: Add support for make test{,-c,-shell}
+  CI: Run also make test-c, test-shell
+  ci: Install iproute2
+
+ .github/workflows/ci.yml               |  10 ++
+ Makefile                               |  23 +++
+ build.sh                               |  24 +++-
+ ci/debian.sh                           |   1 +
+ ci/fedora.sh                           |   1 +
+ ci/tumbleweed.sh                       |   1 +
+ lib/newlib_tests/runtest.sh            | 190 +++++++++++++++++++++++++
+ lib/newlib_tests/test_zero_hugepage.sh |   6 +
+ lib/tst_test.c                         |  38 ++---
+ 9 files changed, 274 insertions(+), 20 deletions(-)
+ create mode 100755 lib/newlib_tests/runtest.sh
+
+-- 
+2.32.0
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
