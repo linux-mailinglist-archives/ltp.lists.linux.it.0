@@ -1,69 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 031CB3DFDF5
-	for <lists+linux-ltp@lfdr.de>; Wed,  4 Aug 2021 11:24:49 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id C8CFC3DFDF4
+	for <lists+linux-ltp@lfdr.de>; Wed,  4 Aug 2021 11:24:41 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 94C2D3C8010
-	for <lists+linux-ltp@lfdr.de>; Wed,  4 Aug 2021 11:24:48 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 3C4D93C7FFE
+	for <lists+linux-ltp@lfdr.de>; Wed,  4 Aug 2021 11:24:41 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E08723C65B1
+ by picard.linux.it (Postfix) with ESMTPS id 63CFE3C7FFC
  for <ltp@lists.linux.it>; Wed,  4 Aug 2021 11:24:26 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id CA214601419
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id CE8D31000A57
  for <ltp@lists.linux.it>; Wed,  4 Aug 2021 11:24:25 +0200 (CEST)
 Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id ED8332011B;
- Wed,  4 Aug 2021 09:24:24 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 2C3F6221D8;
+ Wed,  4 Aug 2021 09:24:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1628069064; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=hdCkMMmzCVqKEn97UIXX3MRXpiKteLrdsFpA2IfFbUk=;
- b=KEkS6e4xyXO8sNx/E58LOAosPXc8AN7X7VVAyQNMCHwzo5yMZM1pKQFm78+yRtZarxin3W
- Axd5ARFz3VDI8kI7wtmXvdykDraEF3pTZJqhLL1KEHiJN4TuaYhbDkr4ZTzCsrfT8Droo1
- Szn8i3BsPjt//IXlDlTEYXcijN4YeHQ=
+ t=1628069065; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=v4icKGYRrNb3cGjezR3GwJDH6s9n13Mtlmhm+QQXhJk=;
+ b=f5eYUR5iOLgNO2LtBjVwTNKxbssLTMmKGgBAG8z0R6SS7RCkYlFBZvYYy8jedYlXFzUSMI
+ cSThbXKTNnQ4MoItggiZbDZbkmfMVaSE0bWm8DjIAVGwCIy1HOwKQ3tFdnFWjVV451H9G+
+ XJxbw2vXbl0au4G1oUBS8svTVyAs5Ho=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1628069064;
+ s=susede2_ed25519; t=1628069065;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=hdCkMMmzCVqKEn97UIXX3MRXpiKteLrdsFpA2IfFbUk=;
- b=nv3kb9Th05hEGE1/rn4SNnkVjNtbi2vKhqjwzUsbDhHFUOAITHI7FNJTeNk6Ov63Hb82Sc
- 32iLCdIrjOieVhDg==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=v4icKGYRrNb3cGjezR3GwJDH6s9n13Mtlmhm+QQXhJk=;
+ b=wbER6e2PxXPLHnVr5fLGydg1YpeduXCDCMBOyO4nb8QoVbV4huLgWVxjhKhKpuXPHlpa/f
+ 2YQKmolWgKbXW0Bw==
 Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id C116C1338E;
+ by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 038811338E;
  Wed,  4 Aug 2021 09:24:24 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id pxlvLchcCmHhagAAGKfGzw
+ by imap1.suse-dmz.suse.de with ESMTPSA id 4KuYOshcCmHhagAAGKfGzw
  (envelope-from <pvorel@suse.cz>); Wed, 04 Aug 2021 09:24:24 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Wed,  4 Aug 2021 11:24:05 +0200
-Message-Id: <20210804092407.16015-1-pvorel@suse.cz>
+Date: Wed,  4 Aug 2021 11:24:06 +0200
+Message-Id: <20210804092407.16015-2-pvorel@suse.cz>
 X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20210804092407.16015-1-pvorel@suse.cz>
+References: <20210804092407.16015-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v8 0/7] Run tests in CI
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH v8 1/7] lib: Print everything to stderr
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,43 +85,26 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
+ie.e hint, tags, summary to unify the behavior with tst_{brk,res}()
+which printed into stderr from the beginning.
 
-* print more items in lib into stderr (Cyril, 1st commit)
-* check for readonly fs instead TCONF on any error during writing to
-/proc/sys/vm/nr_hugepages (Cyril, 2nd commit)
+Initial motivation was issue in GitHub Actions, where stdout and stderr
+are probably block buffered and flushed at different times. The result
+was mangled summary into other test output.
 
-NOTE: sending just these 2 patches which are different
+Suggested-by: Cyril Hrubis <chrubis@suse.cz>
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+---
+Changes v7->v8:
+* print more items in lib into stderr (Cyril)
 
-Tested:
-https://github.com/pevik/ltp/actions/runs/1097004804
+ lib/tst_test.c | 38 +++++++++++++++++++-------------------
+ 1 file changed, 19 insertions(+), 19 deletions(-)
 
-Diff to v7
-
-diff --git lib/newlib_tests/test_zero_hugepage.sh lib/newlib_tests/test_zero_hugepage.sh
-index 8a462478e..d270e686c 100755
---- lib/newlib_tests/test_zero_hugepage.sh
-+++ lib/newlib_tests/test_zero_hugepage.sh
-@@ -7,11 +7,13 @@ echo "Testing .request_hugepages = TST_NO_HUGEPAGES"
- 
- orig_value=`cat /proc/sys/vm/nr_hugepages`
- 
--if ! echo "128" > /proc/sys/vm/nr_hugepages; then
--	echo "TCONF: failed to open /proc/sys/vm/nr_hugepages"
-+if grep -q -E '^proc /proc(/sys)? proc ro' /proc/mounts; then
-+	echo "TCONF: /proc or /proc/sys mounted as read-only"
- 	exit 32
- fi
- 
-+echo "128" > /proc/sys/vm/nr_hugepages
-+
- ./test_zero_hugepage
- 
- echo $orig_value > /proc/sys/vm/nr_hugepages
-diff --git lib/tst_test.c lib/tst_test.c
-index d15c8c054..8a6a112ef 100644
---- lib/tst_test.c
-+++ lib/tst_test.c
+diff --git a/lib/tst_test.c b/lib/tst_test.c
+index c7c77596c..8a6a112ef 100644
+--- a/lib/tst_test.c
++++ b/lib/tst_test.c
 @@ -488,23 +488,23 @@ static void print_test_tags(void)
  	if (!tags)
  		return;
@@ -177,28 +165,25 @@ index d15c8c054..8a6a112ef 100644
  		}
  	}
  }
-
-Petr Vorel (7):
-  lib: Print everything to stderr
-  test/test_zero_hugepage.sh: Skip test on read-only /proc
-  lib: Add script for running tests
-  make: Add make test{, -c, -shell} targets
-  build.sh: Add support for make test{,-c,-shell}
-  CI: Run also make test-c, test-shell
-  ci: Install iproute2
-
- .github/workflows/ci.yml               |  10 ++
- Makefile                               |  23 +++
- build.sh                               |  24 +++-
- ci/debian.sh                           |   1 +
- ci/fedora.sh                           |   1 +
- ci/tumbleweed.sh                       |   1 +
- lib/newlib_tests/runtest.sh            | 190 +++++++++++++++++++++++++
- lib/newlib_tests/test_zero_hugepage.sh |   6 +
- lib/tst_test.c                         |  38 ++---
- 9 files changed, 274 insertions(+), 20 deletions(-)
- create mode 100755 lib/newlib_tests/runtest.sh
-
+@@ -734,12 +734,12 @@ static void do_exit(int ret)
+ 		if (results->broken)
+ 			ret |= TBROK;
+ 
+-		printf("\nSummary:\n");
+-		printf("passed   %d\n", results->passed);
+-		printf("failed   %d\n", results->failed);
+-		printf("broken   %d\n", results->broken);
+-		printf("skipped  %d\n", results->skipped);
+-		printf("warnings %d\n", results->warnings);
++		fprintf(stderr, "\nSummary:\n");
++		fprintf(stderr, "passed   %d\n", results->passed);
++		fprintf(stderr, "failed   %d\n", results->failed);
++		fprintf(stderr, "broken   %d\n", results->broken);
++		fprintf(stderr, "skipped  %d\n", results->skipped);
++		fprintf(stderr, "warnings %d\n", results->warnings);
+ 	}
+ 
+ 	do_cleanup();
 -- 
 2.32.0
 
