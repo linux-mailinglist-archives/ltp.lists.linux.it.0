@@ -2,75 +2,72 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 929EE3E00D1
-	for <lists+linux-ltp@lfdr.de>; Wed,  4 Aug 2021 14:05:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 251563E02B6
+	for <lists+linux-ltp@lfdr.de>; Wed,  4 Aug 2021 16:05:24 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id F0CC03C7FEA
-	for <lists+linux-ltp@lfdr.de>; Wed,  4 Aug 2021 14:05:35 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A9B6D3C80BC
+	for <lists+linux-ltp@lfdr.de>; Wed,  4 Aug 2021 16:05:23 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id AC9A23C65B1
- for <ltp@lists.linux.it>; Wed,  4 Aug 2021 14:05:13 +0200 (CEST)
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [IPv6:2a00:1450:4864:20::130])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 4B83610005CC
- for <ltp@lists.linux.it>; Wed,  4 Aug 2021 14:05:13 +0200 (CEST)
-Received: by mail-lf1-x130.google.com with SMTP id y34so3971815lfa.8
- for <ltp@lists.linux.it>; Wed, 04 Aug 2021 05:05:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bell-sw-com.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=lQ6kK2qhKlXYJ3CHafuHzB41soE4amaNIlHVspG3E1Y=;
- b=dUy+nDE2cVE+bV+nfgAGHlLuYgYyya5ijKIT3K7QfOxzKD/3Y/d4F5kD84mTu/xQRW
- r55/5PoJvw0lG5ceVRdAgLsdDKHWgqR4NIsAog+ncmMCTQGhenGsElAV3CkX5gsa1r67
- jLzK11S9FBN/69/YOuANePbtipa19dAqtC1/l7IU8TW0WEn+WVUx20LxqP0LWEcSf2BD
- xLZI6n+FcHUGh8rMBay0muAhx+E09d8n7JaKMExFozfb/p1wkMHt2ml6zvbhf6CJKy/d
- krbR/VVSUQZsHmy/qnKm9kv4WaLsGs3wyvGuHG86BwmZY6lMWs9u+Fo7K9GcU727vmsM
- 7eqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=lQ6kK2qhKlXYJ3CHafuHzB41soE4amaNIlHVspG3E1Y=;
- b=omkK8ANMLH17WJxVH6xhZksTmDAE/wQYS5V9vUNiWYIDbQDXeSaVR2mF523ijLiSm8
- 3/6gYkYgzpu44A+Kv5qNPr7DH16oR6QPDe0vKGNYcE4F8mAMVAc89mX7ItMfHGyQSLba
- emnsu3pyxMXTmUm+StkavbhHWvMZUl+7HVWAL0x1Q+9qWN7UQosmodJo6o6mnXUvb4AO
- fDHRgoBwpa6ED2oou+F4H6dSoyq3NZN1fUQz6ESW40i3bsiqJV5Up013owVpFYk7UNd5
- Olh2YkDKwhPWPDZ3yv/G+cJ+OVxA1aZ5BJakAN4yE8dZVODaxfj5KLr7/0OieMKqCqbB
- fjxQ==
-X-Gm-Message-State: AOAM532hIy37eohiAhapAaNtARF/+kPhimOxda0D3vsdRX93/IPMiVSf
- VKHga0aSRyXICE/2AC7Tu1tW6NAjbIqf
-X-Google-Smtp-Source: ABdhPJxEWPfhOGU3i/lUTJSBuAWTyuV7HPln2RtQJMP/Td2Rgm3ZKOztaLhjKEwbW01WC2H8T3QMXg==
-X-Received: by 2002:a05:6512:e86:: with SMTP id
- bi6mr5990246lfb.592.1628078712623; 
- Wed, 04 Aug 2021 05:05:12 -0700 (PDT)
-Received: from localhost.localdomain ([91.247.148.2])
- by smtp.gmail.com with ESMTPSA id w16sm179768lfp.1.2021.08.04.05.05.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 04 Aug 2021 05:05:12 -0700 (PDT)
-From: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
-To: ltp@lists.linux.it
-Date: Wed,  4 Aug 2021 15:04:46 +0300
-Message-Id: <20210804120446.32835-3-aleksei.kodanev@bell-sw.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210804120446.32835-1-aleksei.kodanev@bell-sw.com>
-References: <20210804120446.32835-1-aleksei.kodanev@bell-sw.com>
+ by picard.linux.it (Postfix) with ESMTPS id E1A943C7FEB
+ for <ltp@lists.linux.it>; Wed,  4 Aug 2021 16:05:19 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 6A97B601496
+ for <ltp@lists.linux.it>; Wed,  4 Aug 2021 16:05:19 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 51F1820141;
+ Wed,  4 Aug 2021 14:05:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1628085918; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=7H30HGg/oRa/auU5JfFXW50E1StrkSWi3gTu2ZV7HHg=;
+ b=pGu4ZlZjMeT/RCiPwsj37qpQN7AxF+LpraqlPJRCLmqVNOAaZ46xL5RRvFbHCKCBBw0jJt
+ jIa24CB/Mfopuwr+kLsOqRlpmK5qD/uF8lDjAubYi2YoookQUs0C0IM2c7GWLSSq/b9ueL
+ 43Sz0gYVbhyRysdEsATRcvqNpAS2Idg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1628085918;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=7H30HGg/oRa/auU5JfFXW50E1StrkSWi3gTu2ZV7HHg=;
+ b=JEYl6jUaxyFLiJGJzo3V5K4GdTmgay9bKDY2UdhGzqzBmgAn3JlwYKBKRJAWWfEimysaEt
+ 6uiEdTSuCgohQyAQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2B9B113B3C;
+ Wed,  4 Aug 2021 14:05:18 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id h4AECp6eCmEkaQAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Wed, 04 Aug 2021 14:05:18 +0000
+Date: Wed, 4 Aug 2021 16:05:26 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Joerg Vehlow <lkml@jv-coder.de>
+Message-ID: <YQqepmX0gmdpSqn5@yuki>
+References: <20210715050812.1950884-1-lkml@jv-coder.de>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20210715050812.1950884-1-lkml@jv-coder.de>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH 3/3] network/tst_net.sh: extend the pattern in
- tst_ping_opt_unsupported()
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3] squashfs: Add regression test for sanity check
+ bug
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,32 +79,62 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
----
- testcases/lib/tst_net.sh | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Hi!
+Pushed with minor changes, thanks.
 
-diff --git a/testcases/lib/tst_net.sh b/testcases/lib/tst_net.sh
-index bb30c13ec..c15413a6d 100644
---- a/testcases/lib/tst_net.sh
-+++ b/testcases/lib/tst_net.sh
-@@ -811,7 +811,7 @@ tst_netload_compare()
- 
- tst_ping_opt_unsupported()
+Apart from removing the needs_tmpdir I've also changed the TPASS message
+to something more meaningful and move the TINFO message to setup so that
+it's not printed on each iteration.
+
+Full diff:
+
+diff --git a/testcases/kernel/fs/squashfs/squashfs01.c b/testcases/kernel/fs/squashfs/squashfs01.c
+index f02c91f83..502de419d 100644
+--- a/testcases/kernel/fs/squashfs/squashfs01.c
++++ b/testcases/kernel/fs/squashfs/squashfs01.c
+@@ -51,6 +51,8 @@ static void setup(void)
  {
--	ping $@ 2>&1 | grep -q "invalid option"
-+	ping $@ 2>&1 | grep -qE "(invalid|unrecognized) option"
+ 	int i;
+ 
++	tst_res(TINFO, "Test squashfs sanity check regressions");
++
+ 	SAFE_MKDIR(DATA_DIR, 0777);
+ 
+ 	for (i = 0; i < 2048; ++i) {
+@@ -85,8 +87,6 @@ static void setup(void)
+ 
+ static void run(void)
+ {
+-	tst_res(TINFO, "Test squashfs sanity check regressions");
+-
+ 	if (mount(tst_device->dev, MOUNT_DIR, "squashfs", 0, NULL) != 0)
+ 		tst_brk(TFAIL | TERRNO, "Mount failed");
+ 	mounted = 1;
+@@ -94,7 +94,7 @@ static void run(void)
+ 	SAFE_UMOUNT("mnt");
+ 	mounted = 0;
+ 
+-	tst_res(TPASS, "Test passed");
++	tst_res(TPASS, "Regression not detected");
  }
  
- # tst_ping -c COUNT -s MESSAGE_SIZES -p PATTERN -I IFACE -H HOST
--- 
-2.25.1
+ static struct tst_test test = {
+@@ -117,5 +117,4 @@ static struct tst_test test = {
+ 		{"linux-git", "8b44ca2b634"},
+ 		{}
+ 	},
+-	.needs_tmpdir = 1,
+ };
 
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
