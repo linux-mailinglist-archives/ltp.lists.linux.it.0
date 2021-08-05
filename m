@@ -2,51 +2,51 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F1F13E0F46
-	for <lists+linux-ltp@lfdr.de>; Thu,  5 Aug 2021 09:34:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A8C33E0F4A
+	for <lists+linux-ltp@lfdr.de>; Thu,  5 Aug 2021 09:34:22 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 264E83C7E16
-	for <lists+linux-ltp@lfdr.de>; Thu,  5 Aug 2021 09:34:01 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 0559F3C7D90
+	for <lists+linux-ltp@lfdr.de>; Thu,  5 Aug 2021 09:34:22 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 619693C5F37
- for <ltp@lists.linux.it>; Thu,  5 Aug 2021 09:33:56 +0200 (CEST)
-Received: from smtpbg516.qq.com (smtpbg516.qq.com [203.205.250.54])
+ by picard.linux.it (Postfix) with ESMTPS id B3C6F3C5F37
+ for <ltp@lists.linux.it>; Thu,  5 Aug 2021 09:34:18 +0200 (CEST)
+Received: from smtpbgbr2.qq.com (smtpbgbr2.qq.com [54.207.22.56])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 585B8600F04
- for <ltp@lists.linux.it>; Thu,  5 Aug 2021 09:33:52 +0200 (CEST)
-X-QQ-mid: bizesmtp46t1628148826tbbjkyb2
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 0155C140051E
+ for <ltp@lists.linux.it>; Thu,  5 Aug 2021 09:34:16 +0200 (CEST)
+X-QQ-mid: bizesmtp52t1628148850tj0mrv4w
 Received: from localhost.localdomain (unknown [58.240.82.166])
  by esmtp6.qq.com (ESMTP) with 
- id ; Thu, 05 Aug 2021 15:33:41 +0800 (CST)
+ id ; Thu, 05 Aug 2021 15:34:06 +0800 (CST)
 X-QQ-SSF: 0140000000200020B000000A0000000
-X-QQ-FEAT: gDbwoeOnDAGaus3YuyqEk1q0cNGA6N9eBGxb+D0jcUUFT8eruuz4/mveWxYV3
- uBzasp+wwu1AdbgcpxCD08r0/D+4+i1FfPQds7Who7ewJCo4zzzwkGWprs210T9KFOGM3ob
- 7y5kS0KgSr+BY7PJX8JAh3lY8fSTEWC1SdY7f4kmvtJPvbaBUGiz/kRyAEMH11FLR5cKBhi
- u1vnADJva5Dgx6HFTldSyDlSKy55vZA7VyUrcf2I28dGFRsR6TUdtAx0DWku3mbHfswGQrO
- TMQX9jCyC5PbUNmJpgxDoF+d3dRPY1ASpzpb0ZQ6EQpE8GhK4zwBx36//7fO4JX0u+ZuIjn
- NGki8q97/kd+sJQdV1CtU/9wrgqiw==
+X-QQ-FEAT: uPKj8ga2w7HKFXHXQWoNQza7tVqpRg089AKtYwrYwxpL60CnQOeJ9jhd7zmJC
+ r8T7oZ0gRBMH8RrJ97Wr7mhWfvG8gAiGvwk8r+JUpmdZR1inMjg8aq7w2aGQtIJaePuaduM
+ m2mGbyTWJxalyY+WlxfDAXIUokzp/0kp5DjjMZCTnSXlqfR5y1XOVOmJUM5p2YzglWJAuDE
+ +YmPEisQtvRclvyPCnvfYfa2z8OJ9hKUH01fSq1arrXUmRM387KaVcxQeY/JG/1hQvxMcBr
+ YIal+Go6XuJG4qJ3TqiY/5KBcm2SkQTAMksPO+DlCSUFx+64cn7xbCODd9IdauPdVlVgwfI
+ owEMcPBqiqZ1sQPNQ8BCey7DbUKzg==
 X-QQ-GoodBg: 2
 From: zhanglianjie <zhanglianjie@uniontech.com>
 To: ltp@lists.linux.it
-Date: Thu,  5 Aug 2021 15:33:39 +0800
-Message-Id: <20210805073339.15027-1-zhanglianjie@uniontech.com>
+Date: Thu,  5 Aug 2021 15:34:05 +0800
+Message-Id: <20210805073405.15310-1-zhanglianjie@uniontech.com>
 X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
 X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign5
+Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign7
 X-QQ-Bgrelay: 1
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH] [1/4] syscalls/chroot01: Convert to new API
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH] [2/4] syscalls/chroot02: Convert to new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,11 +65,11 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Signed-off-by: zhanglianjie <zhanglianjie@uniontech.com>
 
-diff --git a/testcases/kernel/syscalls/chroot/chroot01.c b/testcases/kernel/syscalls/chroot/chroot01.c
-index a1db5e157..37c73c756 100644
---- a/testcases/kernel/syscalls/chroot/chroot01.c
-+++ b/testcases/kernel/syscalls/chroot/chroot01.c
-@@ -1,116 +1,63 @@
+diff --git a/testcases/kernel/syscalls/chroot/chroot02.c b/testcases/kernel/syscalls/chroot/chroot02.c
+index e483ca4b5..ac8bff304 100644
+--- a/testcases/kernel/syscalls/chroot/chroot02.c
++++ b/testcases/kernel/syscalls/chroot/chroot02.c
+@@ -1,148 +1,78 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
  /*
 - *
@@ -92,52 +92,54 @@ index a1db5e157..37c73c756 100644
 
 -/*
 - * NAME
-- * 	chroot01.c
+- *	chroot02.c
 - *
 - * DESCRIPTION
-- *	Testcase to check the whether chroot sets errno to EPERM.
-+/*\
-+ * [DESCRIPTION]
-  *
+- *	Test functionality of chroot(2)
+- *
 - * ALGORITHM
-- *	As a non-root user attempt to perform chroot() to a directory. The
-- *	chroot() call should fail with EPERM
+- *	Change root directory and then stat a file.
 - *
 - * USAGE:  <for command-line>
-- *  chroot01 [-c n] [-e] [-i n] [-I x] [-P x] [-t]
+- *  chroot02 [-c n] [-f] [-i n] [-I x] [-P x] [-t]
 - *     where,  -c n : Run n copies concurrently.
-- *             -e   : Turn on errno logging.
+- *             -f   : Turn off functionality Testing.
 - *             -i n : Execute test n times.
 - *             -I x : Execute test for x seconds.
 - *             -P x : Pause for x seconds between iterations.
 - *             -t   : Turn on syscall timing.
-- *
++/*\
++ * [DESCRIPTION]
+  *
 - * HISTORY
 - *	07/2001 Ported by Wayne Boyer
+- *	04/2003 Modified by Manoj Iyer - manjo@mail.utexas.edu
+- *	Change testcase to chroot into a temporary directory
+- *	and stat() a known file.
 - *
 - * RESTRICTIONS
-- * 	Must be run as non-root user.
-+ * Testcase to check the whether chroot sets errno to EPERM.
-+ * As a non-root user attempt to perform chroot() to a directory. The
-+ * chroot() call should fail with EPERM
+- *	NONE
++ * Change root directory and then stat a file.
   */
-
--#include <stdio.h>
--#include <errno.h>
--#include "test.h"
--#include "safe_macros.h"
-+#include <stdlib.h>
- #include <pwd.h>
 -
--char *TCID = "chroot01";
+-#include <sys/types.h>
+-#include <sys/stat.h>
+-#include <sys/wait.h>
++#include <stdio.h>
++#include <stdlib.h>
+ #include <errno.h>
+-#include "test.h"
++#include <sys/stat.h>
+ #include <fcntl.h>
+-
+-char *TCID = "chroot02";
 -int TST_TOTAL = 1;
--int fail;
+-int fileHandle = 0;
 +#include "tst_test.h"
 
- char *path;
--
- char nobody_uid[] = "nobody";
- struct passwd *ltpuser;
+ #define TMP_FILENAME	"chroot02_testfile"
++int fileHandle = 0;
+ struct stat buf;
 
 -void setup(void);
 -void cleanup(void);
@@ -146,73 +148,110 @@ index a1db5e157..37c73c756 100644
 +static void verify_chroot(void)
  {
 -	int lc;
-+	TEST(chroot(path));
+ 	int pid, status, retval;
 
 -	tst_parse_opts(ac, av, NULL, NULL);
 -
 -	setup();
 -
+-	/* Check for looping state if -i option is given */
 -	for (lc = 0; TEST_LOOPING(lc); lc++) {
--
+-		/* reset tst_count in case we are looping */
 -		tst_count = 0;
 -
--		TEST(chroot(path));
+-		if ((pid = FORK_OR_VFORK()) == -1) {
+-			tst_brkm(TBROK, cleanup, "Could not fork");
+-		}
++	if ((pid = SAFE_FORK()) == -1) {
++		tst_brk(TBROK, "Could not fork");
++	}
+
+-		if (pid == 0) {
+-			retval = 0;
++	if (pid == 0) {
++		retval = 0;
+
+-			if (chroot(tst_get_tmpdir()) == -1) {
+-				perror("chroot failed");
++		if (chroot(tst_get_tmpdir()) == -1) {
++			perror("chroot failed");
++			retval = 1;
++		} else {
++			if (stat("/" TMP_FILENAME, &buf) == -1) {
+ 				retval = 1;
+-			} else {
+-				if (stat("/" TMP_FILENAME, &buf) == -1) {
+-					retval = 1;
+-					perror("stat failed");
+-				}
++				perror("stat failed");
+ 			}
 -
--		if (TEST_RETURN != -1)
--			tst_resm(TFAIL, "call succeeded unexpectedly");
--		else if (errno != EPERM)
--			tst_resm(TFAIL | TTERRNO, "chroot failed unexpectedly");
+-			exit(retval);
+ 		}
+
+-		/* parent */
+-		wait(&status);
+-		/* make sure the child returned a good exit status */
+-		if (WIFSIGNALED(status) ||
+-		    (WIFEXITED(status) && WEXITSTATUS(status) != 0))
+-			tst_resm(TFAIL, "chroot functionality incorrect");
 -		else
--			tst_resm(TPASS, "chroot set errno to EPERM.");
--	}
+-			tst_resm(TPASS, "chroot functionality correct");
++		exit(retval);
+ 	}
+
 -	cleanup();
--
 -	tst_exit();
-+	if (TST_RET != -1)
-+		tst_res(TFAIL, "call succeeded unexpectedly");
-+	else if (errno != EPERM)
-+		tst_res(TFAIL | TTERRNO, "chroot failed unexpectedly");
++	/* parent */
++	SAFE_WAIT(&status);
++	/* make sure the child returned a good exit status */
++	if (WIFSIGNALED(status) ||
++			(WIFEXITED(status) && WEXITSTATUS(status) != 0))
++		tst_res(TFAIL, "chroot functionality incorrect");
 +	else
-+		tst_res(TPASS, "chroot set errno to EPERM.");
++		tst_res(TPASS, "chroot functionality correct");
 
  }
 
+-/*
+- * setup() - performs all ONE TIME setup for this test.
+- */
 -void setup(void)
 +static void setup(void)
  {
 -	tst_require_root();
 -
 -	tst_tmpdir();
- 	path = tst_get_tmpdir();
-+	if (path == NULL)
-+		tst_brk(TBROK | TERRNO, "tst_get_tmpdir failed");
-
--	if ((ltpuser = getpwnam(nobody_uid)) == NULL)
--		tst_brkm(TBROK | TERRNO, cleanup,
--			 "getpwnam(\"nobody\") failed");
+ 	if ((fileHandle = creat(TMP_FILENAME, 0777)) == -1)
+-		tst_brkm(TBROK, cleanup, "failed to create temporary file "
+-			 TMP_FILENAME);
++		tst_brk(TBROK, "failed to create temporary file "
++				TMP_FILENAME);
+ 	if (stat(TMP_FILENAME, &buf) != 0)
+-		tst_brkm(TBROK, cleanup, TMP_FILENAME " does not exist");
 -
--	SAFE_SETEUID(cleanup, ltpuser->pw_uid);
-+	if ((ltpuser = SAFE_GETPWNAM(nobody_uid)) == NULL)
-+		tst_brk(TBROK | TERRNO, "getpwnam(\"nobody\") failed");
-
--	tst_sig(NOFORK, DEF_HANDLER, cleanup);
+-	tst_sig(FORK, DEF_HANDLER, cleanup);
 -
 -	TEST_PAUSE;
-+	SAFE_SETEUID(ltpuser->pw_uid);
++		tst_brk(TBROK, TMP_FILENAME " does not exist");
  }
 
+-/*
+- * cleanup() - performs all ONE TIME cleanup for this test at
+- *	       completion or premature exit.
+- */
 -void cleanup(void)
 +static void cleanup(void)
  {
--	SAFE_SETEUID(NULL, 0);
-+	SAFE_SETEUID(0);
-
--	free(path);
+-	/*
+-	 * print timing stats if that option was specified.
+-	 * print errno log if that option was specified.
+-	 */
+ 	close(fileHandle);
+-
 -	tst_rmdir();
-+	if (path) {
-+		free(path);
-+		path = NULL;
-+	}
+-
  }
 +
 +static struct tst_test test = {
@@ -220,6 +259,7 @@ index a1db5e157..37c73c756 100644
 +	.setup = setup,
 +	.test_all = verify_chroot,
 +	.needs_root = 1,
++	.forks_child = 1,
 +	.needs_tmpdir = 1,
 +};
 --
