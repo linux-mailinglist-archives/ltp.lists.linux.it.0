@@ -2,52 +2,79 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CA4D3E0E4E
-	for <lists+linux-ltp@lfdr.de>; Thu,  5 Aug 2021 08:28:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BDE1F3E0E76
+	for <lists+linux-ltp@lfdr.de>; Thu,  5 Aug 2021 08:36:13 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id AF28E3C7D7B
-	for <lists+linux-ltp@lfdr.de>; Thu,  5 Aug 2021 08:28:30 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 78E2B3C7D7D
+	for <lists+linux-ltp@lfdr.de>; Thu,  5 Aug 2021 08:36:13 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 874B93C7D1E
- for <ltp@lists.linux.it>; Thu,  5 Aug 2021 08:28:28 +0200 (CEST)
-Received: from smtpproxy21.qq.com (smtpbg702.qq.com [203.205.195.102])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 4A8053C7D1F
+ for <ltp@lists.linux.it>; Thu,  5 Aug 2021 08:36:12 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 1789E200DBB
- for <ltp@lists.linux.it>; Thu,  5 Aug 2021 08:28:25 +0200 (CEST)
-X-QQ-mid: bizesmtp54t1628144898t5ukmkrb
-Received: from localhost.localdomain (unknown [58.240.82.166])
- by esmtp6.qq.com (ESMTP) with 
- id ; Thu, 05 Aug 2021 14:28:14 +0800 (CST)
-X-QQ-SSF: 0140000000200020B000B00A0000000
-X-QQ-FEAT: NviVax2pLsWVIGU4J3CIG33LtV7G4zGh9ZA7oBWxpfJX77xU/UEGE2txtaV0n
- JIIuwTWSKrayGaauUzaqTdxJpebCIjN8oFIgBur1l15z5/N4PkVP5CBpCFfECCFIH8HB4Vq
- pVZO5Ci64sT4aa88KLI7cxsE3E5lfXuO6jI4G26KERrdr+GzmeMAe2GNAx+kt2WptEOzBlG
- W7YtfVyNo38ke4VrFUK23uevqKPVneIUfWWQuIse1myV5WfDxs7LE+jcIwVbLssjZtKI7A5
- b3pw3KXOqR8k3wP9gzUEnEqnxhTm9png1gPBG/BUGEEpj+murrYjOEh6MCt8EyapmpjOSjA
- AMkaCXP
-X-QQ-GoodBg: 2
-From: zhanglianjie <zhanglianjie@uniontech.com>
-To: ltp@lists.linux.it
-Date: Thu,  5 Aug 2021 14:28:12 +0800
-Message-Id: <20210805062812.7363-1-zhanglianjie@uniontech.com>
-X-Mailer: git-send-email 2.20.1
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id C9E731000EDD
+ for <ltp@lists.linux.it>; Thu,  5 Aug 2021 08:36:11 +0200 (CEST)
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id A92EC1FE2A;
+ Thu,  5 Aug 2021 06:36:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1628145370;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=YeWRYtC1pAp406sshrIxjWW2z9eimEyBmtlkvKSduhc=;
+ b=NKA5Y5KOMNOmCU+QU2E/OkPnMf8zARJh27s5vFSvfEMdsQlrNOGIBH/q6QLhAPrAT1eL39
+ PXpdh67bgYUaxxcE2+QbXfHG+fwS2B3Y8cArlJu/xyAPc4ZhGSr09/CRi2sMIY8rbTa1Hk
+ yv6k/A1jzhALfW8zwXNN2M25rAIhzfg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1628145370;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=YeWRYtC1pAp406sshrIxjWW2z9eimEyBmtlkvKSduhc=;
+ b=By6qObBFT5t7Czcu6QlRD+UcBNkg3HNpg5naqfaj34DcozrEFNtcvYvPGAGt5/MRcQ8zj+
+ +mU+UTJzKxU73SDA==
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 8077813785;
+ Thu,  5 Aug 2021 06:36:10 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap1.suse-dmz.suse.de with ESMTPSA id +kAbHdqGC2FMKAAAGKfGzw
+ (envelope-from <pvorel@suse.cz>); Thu, 05 Aug 2021 06:36:10 +0000
+Date: Thu, 5 Aug 2021 08:36:08 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: "xuyang2018.jy@fujitsu.com" <xuyang2018.jy@fujitsu.com>
+Message-ID: <YQuG2CllvzVqdw8L@pevik>
+References: <20210712075223.10682-2-aleksei.kodanev@bell-sw.com>
+ <YPkkZ0Zq9DyHKBaT@pevik> <YPlhMeRRsNnemT05@yuki>
+ <YPlsK8fsMI8T+H7c@pevik> <YPlsVD2gbIiX8JJk@yuki>
+ <60FA81E4.3060709@fujitsu.com> <YPq0749ZnnGsAV2q@pevik>
+ <60FF9EFA.308@fujitsu.com> <YQqor4LiNK4/Xrbe@yuki>
+ <610B5E7D.1070104@fujitsu.com>
 MIME-Version: 1.0
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign6
-X-QQ-Bgrelay: 1
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <610B5E7D.1070104@fujitsu.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH] include/tst_test: Expose tst_tmpdir and tst_rmdir to
- newlib tests.
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 2/2] msgget03: don't depend on existed shared
+ resources
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,36 +86,28 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: zhanglianjie <zhanglianjie@uniontech.com>
+Hi Xu,
 
-diff --git a/include/tst_test.h b/include/tst_test.h
-index ce4e007cf..0e0806c93 100644
---- a/include/tst_test.h
-+++ b/include/tst_test.h
-@@ -303,6 +303,14 @@ void tst_set_timeout(int timeout);
-  * Returns path to the test temporary directory in a newly allocated buffer.
-  */
- char *tst_get_tmpdir(void);
-+/*
-+ * Make the temporary directory and change to the temporary directory.
-+ */
-+void tst_tmpdir(void);
-+/*
-+ * Remove the temporary directory.
-+ */
-+void tst_rmdir(void);
+> >> -	if (used_queues<  0) {
+> >> -		tst_brk(TBROK, "can't read /proc/sysvipc/msg to get "
+> >> -			"used message queues at %s:%d", file, lineno);
+> >> +	if (used_cnt<  0) {
+> >> +		tst_brk(TBROK, "can't read %s to get used message queues "
+> >> +			"at %s:%d", sysvipc_file, file, lineno);
+> >>   	}
+> I also modify this info.
+> message queues => sysvipc resource total
++1. nit: I'd also move "at" at the previous line (better for grep).
 
- #ifndef TST_NO_DEFAULT_MAIN
-
---
-2.20.1
-
-
+Kind regards,
+Petr
 
 
 -- 
