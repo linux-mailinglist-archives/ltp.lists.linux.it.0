@@ -2,73 +2,74 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C5B03E1753
-	for <lists+linux-ltp@lfdr.de>; Thu,  5 Aug 2021 16:51:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E2FA3E17AA
+	for <lists+linux-ltp@lfdr.de>; Thu,  5 Aug 2021 17:11:13 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 372AF3C7DB8
-	for <lists+linux-ltp@lfdr.de>; Thu,  5 Aug 2021 16:51:36 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id ECB013C7DC1
+	for <lists+linux-ltp@lfdr.de>; Thu,  5 Aug 2021 17:11:12 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 0A0C83C5F73
- for <ltp@lists.linux.it>; Thu,  5 Aug 2021 16:51:34 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id A1F3B3C5F37
+ for <ltp@lists.linux.it>; Thu,  5 Aug 2021 17:11:11 +0200 (CEST)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 2B5A1200D4A
- for <ltp@lists.linux.it>; Thu,  5 Aug 2021 16:51:33 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id D4FFF1001163
+ for <ltp@lists.linux.it>; Thu,  5 Aug 2021 17:11:08 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 5B3EB1FE5D;
- Thu,  5 Aug 2021 14:51:33 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 237EF1FDDD;
+ Thu,  5 Aug 2021 15:11:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1628175093; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1628176268; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=6grE1omD5OZNgEnTE1IKWe93Mzrp1RsyM4G+KvXRZaw=;
- b=xyynOCKoycCkeX9W+ULH3IzuOtvOwmYsLCaWYF/+K9es7/W2BWqYgef30QxPuUGHrtG9dd
- ABpyO4cJJeyEvNaMriDG29k2yyCKBidc358JwJVopG+2t19ptdHE+1t0RA97xm6ZzXAkFX
- DrSGuWwzgq/f4HIhcH+KjbMbVn3KjP8=
+ bh=fI6W4xzqMF7kp65h7WBRwfnc2s3AzawT/dTSvLzqhFU=;
+ b=sJAyk74tvvGqbEHLENqf7zlAF46BwXT6yjUV1U95UgBEas0hNqNOjRxAeX6qsJQXMPFlCW
+ ZA0Sl6znfO8jIzVw4B0YWNYMEfwuM+pazTnbiQdczKBjq0jRogwIam4f79aS6uh/Soye3c
+ IbVQp7VGBJpRtwqIrUUTtngr8VvF5w4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1628175093;
+ s=susede2_ed25519; t=1628176268;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=6grE1omD5OZNgEnTE1IKWe93Mzrp1RsyM4G+KvXRZaw=;
- b=HM6sEzyrXPVSEysgxwnVxqIwKIzIUssU2FijIl2jNwSv191vHVKAP80Y/t00UoBtXTbcsO
- MK0VQBy2NiG6hOCA==
+ bh=fI6W4xzqMF7kp65h7WBRwfnc2s3AzawT/dTSvLzqhFU=;
+ b=7sT6Bkt+KPx/qKnQjqOTiN9tj124YLetg74SWbUjawsO8jXkLsYEOCElMt85hM52YCWcbn
+ 7FaLFRrkOwrdmLDQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 316AA13DA8;
- Thu,  5 Aug 2021 14:51:33 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0B38513DA8;
+ Thu,  5 Aug 2021 15:11:08 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id CLSlC/X6C2H6bAAAMHmgww
- (envelope-from <chrubis@suse.cz>); Thu, 05 Aug 2021 14:51:33 +0000
-Date: Thu, 5 Aug 2021 16:51:42 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id KMZXAoz/C2GncgAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Thu, 05 Aug 2021 15:11:08 +0000
+Date: Thu, 5 Aug 2021 17:11:17 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Richard Palethorpe <rpalethorpe@suse.com>
-Message-ID: <YQv6/oHmYUVeb63S@yuki>
+Message-ID: <YQv/lZ858UReF5Vs@yuki>
 References: <87a6lwmm6c.fsf@suse.de>
  <20210805083539.20634-1-rpalethorpe@suse.com>
  <20210805083539.20634-3-rpalethorpe@suse.com>
+ <YQv6/oHmYUVeb63S@yuki>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210805083539.20634-3-rpalethorpe@suse.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+In-Reply-To: <YQv6/oHmYUVeb63S@yuki>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH v4 3/3] Add setsockopt08, CVE-2021-22555
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -88,22 +89,26 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> +#include "tst_test.h"
-> +#include "tst_safe_net.h"
-> +#include "lapi/ip_tables.h"
+> > +#include "tst_test.h"
+> > +#include "tst_safe_net.h"
+> > +#include "lapi/ip_tables.h"
+> 
+> I've fixed the failure on Centos with missing IFNAMSIZ but this still
+> fails to compile on ubuntu xenial because the tst_safe_net.h pull in
+> netinet/in.h and lapi/ip_tables.h pulls in linux/in.h and on old enough
+> systems these two headers does not like to be included at the same time.
+> 
+> I'm not sure how to fix this, either we drop the include to
+> linux/netfilter_ipv4/ip_tables.h completely or we add a configure check
+> if netinet/in.h and linux/in.h could be included at the same time and
+> ifdef the linux/netfilter_ipv4/ip_tables.h with that check.
+> 
+> Either way both looks like a hack, if anyone has a better idea please
+> suggest it.
 
-I've fixed the failure on Centos with missing IFNAMSIZ but this still
-fails to compile on ubuntu xenial because the tst_safe_net.h pull in
-netinet/in.h and lapi/ip_tables.h pulls in linux/in.h and on old enough
-systems these two headers does not like to be included at the same time.
-
-I'm not sure how to fix this, either we drop the include to
-linux/netfilter_ipv4/ip_tables.h completely or we add a configure check
-if netinet/in.h and linux/in.h could be included at the same time and
-ifdef the linux/netfilter_ipv4/ip_tables.h with that check.
-
-Either way both looks like a hack, if anyone has a better idea please
-suggest it.
+Uff and it looks like setsockopt03 does include the same headers so this
+could probably be fixed by another shuffle, but I will have to figure
+out what has to be moved and where.
 
 -- 
 Cyril Hrubis
