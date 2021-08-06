@@ -1,72 +1,52 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20A743E2469
-	for <lists+linux-ltp@lfdr.de>; Fri,  6 Aug 2021 09:48:52 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 77C823E24D7
+	for <lists+linux-ltp@lfdr.de>; Fri,  6 Aug 2021 10:14:28 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A2C813C7AF3
-	for <lists+linux-ltp@lfdr.de>; Fri,  6 Aug 2021 09:48:51 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id D08643C7AF4
+	for <lists+linux-ltp@lfdr.de>; Fri,  6 Aug 2021 10:14:27 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id DC9143C1892
- for <ltp@lists.linux.it>; Fri,  6 Aug 2021 09:48:47 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 3A9353C03FF
+ for <ltp@lists.linux.it>; Fri,  6 Aug 2021 10:14:24 +0200 (CEST)
+Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 48C97200ADB
- for <ltp@lists.linux.it>; Fri,  6 Aug 2021 09:48:47 +0200 (CEST)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 768B91FEAF;
- Fri,  6 Aug 2021 07:48:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1628236126;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=vO5Ol7HjYebPG5fPCz8hxD+o75eRTnGVs6F28uLMFTA=;
- b=hTmFyBoYYIG1cLp+mZtm+w6KV0gLQqpQejVrCrOkHdWcPNFgCSy8kJWrCW7MgjJAHsHNSo
- ceWMwWoVo92OIYmFjlmpQO5kqnj27yET8J0MsqSa/bkHg+mfYByFu/N/oxCKXIIru2KnG1
- tzfWV6BzmAL2IXlQsP0xd/l0a2xbqhQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1628236126;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=vO5Ol7HjYebPG5fPCz8hxD+o75eRTnGVs6F28uLMFTA=;
- b=PEs3MqXqaBU2uiIgpZUmuad6U38vKl5D1bo1HcwET1w1lAw+dWsJuNUNlrpfx9aFrsJWmg
- oON42br1J5+Ok3AQ==
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 4C0EB13990;
- Fri,  6 Aug 2021 07:48:46 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id U6EmEV7pDGG3GQAAGKfGzw
- (envelope-from <pvorel@suse.cz>); Fri, 06 Aug 2021 07:48:46 +0000
-Date: Fri, 6 Aug 2021 09:48:44 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Bogdan Lezhepekov <bogdan.lezhepekov@suse.com>
-Message-ID: <YQzpXHDvFmoaSFhi@pevik>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 72C2F201084
+ for <ltp@lists.linux.it>; Fri,  6 Aug 2021 10:14:23 +0200 (CEST)
+Received: from [192.168.178.40] (unknown [188.192.255.100])
+ by mail.jv-coder.de (Postfix) with ESMTPSA id 3638C9F69E;
+ Fri,  6 Aug 2021 08:14:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
+ t=1628237662; bh=ELY9nLT0c9B0DHbgUBaJ7LjYyGgID1WwjJEcWojTjnQ=;
+ h=Subject:To:From:Message-ID:Date:MIME-Version;
+ b=p6mPb+b53Beg///YHLViiYKSTwkP7IchOpZxZJUbgqABjMbJSgCViaOWuvr2/RrBp
+ LZUJ7y7f8v/H52PVlqOLvQ8KWnSH3tqEwPSrlROOm1s4P3UhO3MgjFKiYErvacl97U
+ GbB1HBVx0AKJIwvQleSUw+RXj0vW1xvVQIOjCKWY=
+To: Petr Vorel <pvorel@suse.cz>, Bogdan Lezhepekov <bogdan.lezhepekov@suse.com>
 References: <20210805140806.3884-1-bogdan.lezhepekov@suse.com>
+ <YQzpXHDvFmoaSFhi@pevik>
+From: Joerg Vehlow <lkml@jv-coder.de>
+Message-ID: <bb73135b-4ee3-71c3-5442-bf39064b3534@jv-coder.de>
+Date: Fri, 6 Aug 2021 10:14:22 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210805140806.3884-1-bogdan.lezhepekov@suse.com>
+In-Reply-To: <YQzpXHDvFmoaSFhi@pevik>
+Content-Language: en-US
+X-Spam-Status: No, score=-2.5 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
 X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH v1] connectors/cn_pec: improve reliability
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -79,51 +59,37 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Bogdan, Joerg,
-> Sometimes pec_listener has not enough time to handle all
-> the generated events.
+Hi Petr,
 
-> This patch only returns back the delay that was removed
-> in a recent patch.
+On 8/6/2021 9:48 AM, Petr Vorel wrote:
+>
+> If I understand the code correctly, pec_listener keeps receiving msg from PEC
+> until got signaled by kill. We generally try to avoid sleep in tests [1].
+>
+> @Joerg: I'm not sure if it's reasonable to add another signal handler in which
+> pec_listener would print number of already handled requests (with write() as
+> printf() is not reentrant). Then we could loop for certain time before sending INT.
+>
+The problem is, that it is hard to know, if all expected events were 
+received. pec_listener receives events from all processes.
+The only way to reliably handle the issue without sleeping is tracking 
+exit-events in pec_listener and to tell it to die, once it received an 
+exit event from event_generator.
+Only then we can be sure, that all events generated by the generator 
+(and hopefully all it's children) were received.
 
-> Signed-off-by: Bogdan Lezhepekov <bogdan.lezhepekov@suse.com>
-> ---
->  testcases/kernel/connectors/pec/cn_pec.sh | 2 ++
->  1 file changed, 2 insertions(+)
+We could also get rid of the other sleep (after starting the listener 
+using some kind of synchronization (I guess right after 
+PROC_CN_MCAST_LISTEN should work). I think checkpoints are not part of 
+the new lib...
 
-> diff --git a/testcases/kernel/connectors/pec/cn_pec.sh b/testcases/kernel/connectors/pec/cn_pec.sh
-> index 9b85a5c81..24b1db761 100755
-> --- a/testcases/kernel/connectors/pec/cn_pec.sh
-> +++ b/testcases/kernel/connectors/pec/cn_pec.sh
-> @@ -77,6 +77,8 @@ test()
->  	tst_sleep 100ms
-
->  	ROD event_generator -n $num_events -e $event \>gen_$event.log 2\>gen_$event.err
-> +    # sleep until pec_listener has seen and handled all of the generated events
-> +    tst_sleep 100ms
-nit: mixing tabs and spaces (script uses tabs), can be fixed during merge.
-
-If I understand the code correctly, pec_listener keeps receiving msg from PEC
-until got signaled by kill. We generally try to avoid sleep in tests [1].
-
-@Joerg: I'm not sure if it's reasonable to add another signal handler in which
-pec_listener would print number of already handled requests (with write() as
-printf() is not reentrant). Then we could loop for certain time before sending INT.
-
-Kind regards,
-Petr
-
-[1] https://people.kernel.org/metan/why-sleep-is-almost-never-acceptable-in-tests
-
->  	kill -s INT $pid 2> /dev/null
->  	wait $pid
+Joerg
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
