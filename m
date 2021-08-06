@@ -1,45 +1,39 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E2F23E2337
-	for <lists+linux-ltp@lfdr.de>; Fri,  6 Aug 2021 08:25:34 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BE9A3E2338
+	for <lists+linux-ltp@lfdr.de>; Fri,  6 Aug 2021 08:25:56 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 09C893C6A99
-	for <lists+linux-ltp@lfdr.de>; Fri,  6 Aug 2021 08:25:34 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 1CBBD3C6A99
+	for <lists+linux-ltp@lfdr.de>; Fri,  6 Aug 2021 08:25:56 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 7F24E3C0080
- for <ltp@lists.linux.it>; Fri,  6 Aug 2021 08:25:32 +0200 (CEST)
-Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
+ by picard.linux.it (Postfix) with ESMTPS id 489463C0080
+ for <ltp@lists.linux.it>; Fri,  6 Aug 2021 08:25:55 +0200 (CEST)
+Received: from smtpproxy21.qq.com (smtpbg704.qq.com [203.205.195.105])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id B019814011AF
- for <ltp@lists.linux.it>; Fri,  6 Aug 2021 08:25:30 +0200 (CEST)
-X-QQ-mid: bizesmtp37t1628231124trs2u06e
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 11CEE1400BC8
+ for <ltp@lists.linux.it>; Fri,  6 Aug 2021 08:25:53 +0200 (CEST)
+X-QQ-mid: bizesmtp49t1628231148tlv24r3y
 Received: from localhost.localdomain (unknown [58.240.82.166])
  by esmtp6.qq.com (ESMTP) with 
- id ; Fri, 06 Aug 2021 14:25:17 +0800 (CST)
+ id ; Fri, 06 Aug 2021 14:25:40 +0800 (CST)
 X-QQ-SSF: 01400000002000209000000C0000000
-X-QQ-FEAT: 6YaWKVf+Rx7FNYljMwq5PboqfegiwKNm3YHZ+Ce1f04T330cLHQ/sz3tZV/EX
- Lf+U/7RbgSyob5EI+5I2ANbTOLgIP/VDCmLkZQrFe3Q16QVLLgCA4c/Beg6IiRWPNFvmpyb
- NWvHmWcrOjdVnLJLjsyrpuQSV5uQwXVrA3md/s22PXuGDKVMbWkL50TPr0UVjTTBu0BOLwY
- awzZ24TvTyXA5GG9SbKvcrkzlRs0zw/XQRIYkbOqssujmXFZahI1/9YUk0C9bGoknU3RUyX
- 6PiN7PXRmT8JO4gZ1SdcdAw/bpbuW0CTGsy3ZEmqkxFTAQlpdAjRk8LyuPmtyxhu7BR5h4Z
- aLsUGL6
 X-QQ-GoodBg: 2
 From: sujiaxun <sujiaxun@uniontech.com>
 To: ltp@lists.linux.it
-Date: Fri,  6 Aug 2021 14:25:15 +0800
-Message-Id: <20210806062515.11784-1-sujiaxun@uniontech.com>
+Date: Fri,  6 Aug 2021 14:25:38 +0800
+Message-Id: <20210806062538.12014-1-sujiaxun@uniontech.com>
 X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
 X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign5
+Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign1
 X-QQ-Bgrelay: 1
 X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
@@ -47,7 +41,7 @@ X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
  autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
 Subject: [LTP] [PATCH] [v2,
- 2/6] syscalls/sysfs: Convert sysfs02 to the new API
+ 3/6] syscalls/sysfs: Convert sysfs03 to the new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,14 +61,14 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Signed-off-by: sujiaxun <sujiaxun@uniontech.com>
 ---
- testcases/kernel/syscalls/sysfs/sysfs02.c | 132 +++-------------------
- 1 file changed, 18 insertions(+), 114 deletions(-)
+ testcases/kernel/syscalls/sysfs/sysfs03.c | 128 +++-------------------
+ 1 file changed, 17 insertions(+), 111 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/sysfs/sysfs02.c b/testcases/kernel/syscalls/sysfs/sysfs02.c
-index e9065dda7..31794d9c0 100644
---- a/testcases/kernel/syscalls/sysfs/sysfs02.c
-+++ b/testcases/kernel/syscalls/sysfs/sysfs02.c
-@@ -1,127 +1,31 @@
+diff --git a/testcases/kernel/syscalls/sysfs/sysfs03.c b/testcases/kernel/syscalls/sysfs/sysfs03.c
+index 98bd5c692..289bbebf0 100644
+--- a/testcases/kernel/syscalls/sysfs/sysfs03.c
++++ b/testcases/kernel/syscalls/sysfs/sysfs03.c
+@@ -1,125 +1,31 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
  /*
   * Copyright (c) Wipro Technologies Ltd, 2002.  All Rights Reserved.
@@ -94,7 +88,7 @@ index e9065dda7..31794d9c0 100644
   */
 -/**************************************************************************
 - *
-- *    TEST IDENTIFIER	: sysfs02
+- *    TEST IDENTIFIER	: sysfs03
 - *
 - *    EXECUTED BY	: anyone
 - *
@@ -111,7 +105,7 @@ index e9065dda7..31794d9c0 100644
 - *    DESCRIPTION
 - *    This is a Phase I test for the sysfs(2) system call.
 - *    It is intended to provide a limited exposure of the system call.
-- *    This test is run for option 2 for sysfs(2)
+- *    This testcase tests sysfs(2) for option 3
 - *
 - *	Setup:
 - *	  Setup signal handling.
@@ -128,9 +122,9 @@ index e9065dda7..31794d9c0 100644
 - *	  Print errno log and/or timing stats if options given
 - *
 - * USAGE:  <for command-line>
-- * sysfs02  [-c n] [-e] [-i n] [-I x] [-P x] [-t] [-h] [-t] [-p] [-f]
+- * sysfs03 [-c n] [-e] [-i n] [-I x] [-P x] [-t] [-h] [-p] [-f]
 - * where:
-- *	-c n : run n copies simultaneously
+- *	-c n : Run n copies simultaneously
 - *	-e   : Turn on errno logging.
 - *	-i n : Execute test n times.
 - *	-I x : Execute test for x seconds.
@@ -141,15 +135,13 @@ index e9065dda7..31794d9c0 100644
 - *RESTRICTIONS:
 - *There is no glibc or libc support
 - *****************************************************************************/
-
++
 +/*
 + * [DESCRIPTION]
-+ * This test is run for option 2 for sysfs(2).
-+ * Translate the filesystem type index fs_index into a null-terminated filesystem
-+ * identifier string. This string will be written to the buffer pointed to by buf.
-+ * Make sure that buf has enough space to accept the string.
++ * This test is run for option 3 for sysfs(2).
++ * Return the total number of filesystem types currently present in the kernel.
 +*/
-+
+
  #include <errno.h>
  #include <unistd.h>
  #include <sys/syscall.h>
@@ -160,13 +152,12 @@ index e9065dda7..31794d9c0 100644
 -static void setup();
 -static void cleanup();
 -
--char *TCID = "sysfs02";
+-char *TCID = "sysfs03";
 -int TST_TOTAL = 1;
 -
 -int main(int ac, char **av)
 -{
 -	int lc;
--	char buf[40];		/* 40 bytes suffice to store fs name */
 -
 -	tst_parse_opts(ac, av, NULL, NULL);
 -
@@ -176,37 +167,37 @@ index e9065dda7..31794d9c0 100644
 -
 -		tst_count = 0;
 -
--		/*option 2 buf holds fs name */
--		TEST(ltp_syscall(__NR_sysfs, 2, 0, buf));
+-		TEST(ltp_syscall(__NR_sysfs, 3));
 -
 -		/* check return code */
 -		if (TEST_RETURN == -1) {
--			tst_resm(TFAIL, "sysfs(2) Failed for "
--				 "option 2 and returned"
+-			tst_resm(TFAIL, "sysfs(2) Failed for"
+-				 " option 3 and returned"
 -				 " %d as error number", TEST_ERRNO);
 -		} else {
--			tst_resm(TPASS, "sysfs(2) Passed for option 2");
+-			tst_resm(TPASS, "sysfs(2) Passed for option 3");
 -		}
 -	}			/*End of TEST_LOOPING */
 -
 -	/*Clean up and exit */
 -	cleanup();
--
 -	tst_exit();
+-
 -}
 -
 -/* setup() - performs all ONE TIME setup for this test */
 -void setup(void)
-+static void verify_sysfs02(void)
++static void verify_sysfs03(void)
  {
-+    char buf[40];       /* 40 bytes suffice to store fs name */
 
 -	tst_sig(NOFORK, DEF_HANDLER, cleanup);
--
++    TST_EXP_POSITIVE(tst_syscall(__NR_sysfs, 3),
++                     "sysfs(3)");
++
++   if (TST_PASS == 1)
++        tst_res(TPASS, "sysfs(2) Passed for option 3");
+
 -	TEST_PAUSE;
-+    /*option 2 buf holds fs name */
-+    TST_EXP_PASS(tst_syscall(__NR_sysfs, 2, 0, buf),
-+                "sysfs(2,0,buf)");
  }
 
 -/*
@@ -218,7 +209,7 @@ index e9065dda7..31794d9c0 100644
 -
 -}
 +static struct tst_test test = {
-+    .test_all = verify_sysfs02,
++    .test_all = verify_sysfs03,
 +};
 --
 2.20.1
