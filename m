@@ -2,73 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id A03BD3E2E88
-	for <lists+linux-ltp@lfdr.de>; Fri,  6 Aug 2021 18:49:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C56523E2E89
+	for <lists+linux-ltp@lfdr.de>; Fri,  6 Aug 2021 18:49:18 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6D23A3CABC6
-	for <lists+linux-ltp@lfdr.de>; Fri,  6 Aug 2021 18:49:11 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 77D723CAA88
+	for <lists+linux-ltp@lfdr.de>; Fri,  6 Aug 2021 18:49:18 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id DE7823CA3D3
+ by picard.linux.it (Postfix) with ESMTPS id 032B23CA400
  for <ltp@lists.linux.it>; Fri,  6 Aug 2021 18:48:06 +0200 (CEST)
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [IPv6:2a00:1450:4864:20::130])
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [IPv6:2a00:1450:4864:20::132])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id E33191A006FC
- for <ltp@lists.linux.it>; Fri,  6 Aug 2021 18:48:05 +0200 (CEST)
-Received: by mail-lf1-x130.google.com with SMTP id bq29so19176554lfb.5
- for <ltp@lists.linux.it>; Fri, 06 Aug 2021 09:48:05 -0700 (PDT)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 2B8DF601491
+ for <ltp@lists.linux.it>; Fri,  6 Aug 2021 18:48:06 +0200 (CEST)
+Received: by mail-lf1-x132.google.com with SMTP id bq29so19176585lfb.5
+ for <ltp@lists.linux.it>; Fri, 06 Aug 2021 09:48:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=bell-sw-com.20150623.gappssmtp.com; s=20150623;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=QOmvIzKGJi485fK97S+wBQKDY+sSoNXg1trV5qOqYCk=;
- b=MI65ZveEjYh0y2qEbVoEH4zwlQa8049355LvQhQg9C+CUKv9ZDssQcDneBTFPLaTVc
- GrRKZMMKqqVFZT6QYxlAIRgDjJWjMyWqmVrgx1o3POnsHFTjcD4aGy6wgqYk+EEJfvVb
- vPHyX++1BQwaDCBDx+pxPExpYwkAH3PPsWZfrQJcKTLc8y7xqBRnWt9UJWGjNxioXsPh
- 8wmqKMOv0ILWAofIwDsFXwuOambs8KJizgSkC8zXCO1fnJtHb7O3xXTTzBL7X03ZQ4HQ
- bqrKV0RBrjyAwN5NGBAOPf46feuKy3XEvK8RxlsbS2rhbaBZH+h4x7dPbLIz4pnl1kvP
- FYUg==
+ bh=11MbPF0y2a4SqSvxym5sKtrrm/kvXCwABhZBA6ggg9A=;
+ b=nxwjVhVWaaZYNXuUGeOFW3l+zl+zRtihAuu9tKBAf4Ml95sECYAduqzuRj6/lAc0aT
+ j3YwjbGdE7TdECUXGawfMmjm2XOglsKRud9h53+uosmFI31UdmEpOIakljNLo8+zP0Y8
+ kSS1+nRhQyxhOYLw4On7US7EhjyocSUgDgEvJw6FSWJqIeAMPxETAo1Rmx0UJ9RdE+DL
+ CefdU/JxjwhioF9tM5ZZGlJjI+IXD2gwX4q1On9Xu8TyfidCl897a+Wcy9KGHwZOgq+p
+ oDhVehuSW+Pyp48j6j1jBl4I947au1AeTgksPllIj9n8KPuGDUaytk/BrRyF2x8ODgbv
+ D90g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=QOmvIzKGJi485fK97S+wBQKDY+sSoNXg1trV5qOqYCk=;
- b=m9x68dcgRgVL8SDOnPCuvvYMiKoQLkcWhGhUoCbJXrhBs6s603skKyNYu7zPSBFFVh
- OwXMQs9JfSprTrga1bHoHRw6lH9j6EudmfWB8IFsglvDR2c7DLtT5IIgrrl/Iwipotiv
- T+ksYqt37jxv0fOgUYuC2zXgw+nchDU2WOmME+iVprA9xw7/1uCGZS7Gl+qSamaCZ/No
- Nw8gqhR597hJwSmySAkO95Lwy8/2MtvUrrk+b74nyuWairNL2bBs+3WwmRVZrFkOLbL4
- C3kks8rXKO9G/ZZmH0dQtR76okD7GrftzVnWOdFJqZG4KhvJEisfS7qRWDIJVY9EgtM/
- crdg==
-X-Gm-Message-State: AOAM532Unzzu443Z/u2UF5ua1ksl/Q+MQWV4TGNYA/ogcHUZI9WZlacu
- Bm7DFSiZKEasWzMdUvWiEA6ReKGbW8WC
-X-Google-Smtp-Source: ABdhPJxQdp0FRAhMpcOhCIidGfqfVJvaSgdK9xD14kEiXYXfTVPgdBTroUSC+XYYk1LsGN1bvj/c+A==
-X-Received: by 2002:ac2:50d8:: with SMTP id h24mr8272467lfm.631.1628268485061; 
+ bh=11MbPF0y2a4SqSvxym5sKtrrm/kvXCwABhZBA6ggg9A=;
+ b=A27HP2E4Mcrhie2CAL8TPBQgD/yCwuK3YUeM4v7Lzbkp0lSHRTtHJ7cQ1et11rsGKl
+ HAhd7/Gy5teQwKNeH7Z9AD3gqEJw4kQEpQmIr0uAIWqcINTssiORgjhQh7n3QmELSMMo
+ qrKGdd42KyEIfrFZnqBYqpliTOFzRSZuM+rbc7FVEqlHOiO5NdfjH3PX8qRcpwNtRA8a
+ 4nvGLrFPjrBu8pjknsr+a/7OwFSN8SyG8yxNeUtM5ccgJV91XbOjwqufJSHU6S+nuiFW
+ 6ip7xoGKDZ9rhUV7TlEDtr/vO0ITLQpmGqoWRTs0AhklvvGCg68pWW89Q1BioKE9P0Dm
+ zwIQ==
+X-Gm-Message-State: AOAM533G2fQ082xuFxsjqRLFzxHH5HmY0Bq1Pawi3Rtx8D4PNPv4iHC6
+ VFAVnbMT4HncjaZy75kX/a4f9CGUF8/A
+X-Google-Smtp-Source: ABdhPJyK9ingFwP8Olor/BkZAUx7gsofH0FFaogBnBLH6NHnGi15Emqm0Gu9asgTF7E9TfQKzv9YuQ==
+X-Received: by 2002:a19:6b06:: with SMTP id d6mr8253172lfa.183.1628268485421; 
  Fri, 06 Aug 2021 09:48:05 -0700 (PDT)
 Received: from localhost.localdomain ([91.247.148.2])
- by smtp.gmail.com with ESMTPSA id y10sm960297lfh.40.2021.08.06.09.48.04
+ by smtp.gmail.com with ESMTPSA id y10sm960297lfh.40.2021.08.06.09.48.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 06 Aug 2021 09:48:04 -0700 (PDT)
+ Fri, 06 Aug 2021 09:48:05 -0700 (PDT)
 From: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
 To: ltp@lists.linux.it
-Date: Fri,  6 Aug 2021 19:47:21 +0300
-Message-Id: <20210806164730.51040-8-aleksei.kodanev@bell-sw.com>
+Date: Fri,  6 Aug 2021 19:47:22 +0300
+Message-Id: <20210806164730.51040-9-aleksei.kodanev@bell-sw.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20210806164730.51040-1-aleksei.kodanev@bell-sw.com>
 References: <20210806164730.51040-1-aleksei.kodanev@bell-sw.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 07/16] syscalls/sched_setparam04: convert to new API
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 08/16] syscalls/sched_setparam05: convert to new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,14 +87,14 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Signed-off-by: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
 ---
- .../sched_setparam/sched_setparam04.c         | 167 ++++--------------
- 1 file changed, 36 insertions(+), 131 deletions(-)
+ .../sched_setparam/sched_setparam05.c         | 192 ++++--------------
+ 1 file changed, 36 insertions(+), 156 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/sched_setparam/sched_setparam04.c b/testcases/kernel/syscalls/sched_setparam/sched_setparam04.c
-index f6e017d3d..1c00f5eb6 100644
---- a/testcases/kernel/syscalls/sched_setparam/sched_setparam04.c
-+++ b/testcases/kernel/syscalls/sched_setparam/sched_setparam04.c
-@@ -1,34 +1,14 @@
+diff --git a/testcases/kernel/syscalls/sched_setparam/sched_setparam05.c b/testcases/kernel/syscalls/sched_setparam/sched_setparam05.c
+index 53db641d7..c6c9d9bdd 100644
+--- a/testcases/kernel/syscalls/sched_setparam/sched_setparam05.c
++++ b/testcases/kernel/syscalls/sched_setparam/sched_setparam05.c
+@@ -1,176 +1,56 @@
 +// SPDX-License-Identifier: GPL-2.0-only
  /*
 + * Copyright (c) 2021, BELLSOFT. All rights reserved.
@@ -108,192 +108,204 @@ index f6e017d3d..1c00f5eb6 100644
 - * WITHOUT ANY WARRANTY; without even the implied warranty of
 - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 - *
-- * You should have received a copy of the GNU General Public License
-- * along with this program;  if not, write to the Free Software
-- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+- * You should have received a copy of the GNU General Public License along
+- * with this program; if not, write the Free Software Foundation, Inc.,
+- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 - *
 + * AUTHOR: Saji Kumar.V.R <saji.kumar@wipro.com>
   */
-- /*******************************************************************
+-/**********************************************************
 - *
-- *    TEST IDENTIFIER   : sched_setparam04
+- *    TEST IDENTIFIER	: sched_setparam05
 - *
-- *    EXECUTED BY       : anyone
+- *    EXECUTED BY	: root/superuser
 - *
-- *    TEST TITLE        : testing error conditions for sched_setparam(2)
+- *    TEST TITLE	: verify that sched_setparam() fails if the user does
+- *			  not have proper privilages
 - *
-- *    TEST CASE TOTAL   : 4
+- *    TEST CASE TOTAL	: 1
 - *
-- *    AUTHOR            : Saji Kumar.V.R <saji.kumar@wipro.com>
+- *    AUTHOR		: Saji Kumar.V.R <saji.kumar@wipro.com>
+- *
+- *    SIGNALS
+- * 	Uses SIGUSR1 to pause before test if option set.
+- * 	(See the parse_opts(3) man page).
+- *
+- *    DESCRIPTION
+- *	Verify that sched_setparam() fails if the user does
+- *	not have proper privilages
+- *
+- * 	Setup:
+- * 	  Setup signal handling.
+- *	  Pause for SIGUSR1 if option specified.
+- *
+- * 	Test:
+- *	 Loop if the proper options are given.
+- *	 Fork a child
+- *
+- *	 CHILD:
+- *	  Changes euid to "nobody" user.
+- *	  Try to Change scheduling priority for parent
+- *	  If call failed with errno = EPERM,
+- *		Test passed
+- *	  else
+- *		Test failed
+- *
+- *	 PARENT:
+- *		wait for child to finish
+- *
+- * 	Cleanup:
+- * 	  Print errno log and/or timing stats if options given
+- *
+- * USAGE:  <for command-line>
+- *  sched_setparam05 [-c n] [-e] [-i n] [-I x] [-P x] [-t] [-h] [-f] [-p]
+- *			where,  -c n : Run n copies concurrently.
+- *				-e   : Turn on errno logging.
+- *				-h   : Show help screen
+- *				-f   : Turn off functional testing
+- *				-i n : Execute test n times.
+- *				-I x : Execute test for x seconds.
+- *				-p   : Pause for SIGUSR1 before starting
+- *				-P x : Pause for x seconds between iterations.
+- *				-t   : Turn on syscall timing.
 +
 +/*\
 + * [Description]
   *
-- *    SIGNALS
-- *      Uses SIGUSR1 to pause before test if option set.
-- *      (See the parse_opts(3) man page).
-+ * Testing error conditions for sched_setparam(2)
-  *
-  * DESCRIPTION
-  * 	Verify that,
-@@ -41,129 +21,54 @@
-  *   4) sched_setparam(2) returns -1 sets errno to EINVAL if the
-  *	value for p.sched_priority is other than 0 for scheduling
-  *	policy, SCHED_OTHER
-- *
-- * ALGORITHM
-- * Setup:
-- *   Setup signal handling.
-- *   Pause for SIGUSR1 if option specified.
-- *
-- *  Test:
-- *   Loop if the proper options are given.
-- *   Execute system call
-- *   Check return code, if (system call failed (return=-1)) &
-- *			   (errno set == expected errno)
-- *              Issue sys call fails with expected return value and errno.
-- *   Otherwise,
-- *      Issue sys call returns unexpected value.
-- *
-- *  Cleanup:
-- *        Print errno log and/or timing stats if options given
-- *
-- * USAGE:  <for command-line>
-- *  sched_setparam04 [-c n] [-e] [-i n] [-I x] [-P x] [-t] [-h] [-f] [-p]
-- *		where,  -c n : Run n copies concurrently.
-- *			-e   : Turn on errno logging.
-- *			-h   : Show help screen
-- *			-f   : Turn off functional testing
-- *			-i n : Execute test n times.
-- *			-I x : Execute test for x seconds.
-- *			-p   : Pause for SIGUSR1 before starting
-- *			-P x : Pause for x seconds between iterations.
-- *			-t   : Turn on syscall timing.
-- *
-- *********************************************************************/
--
--#include <errno.h>
--#include <sched.h>
--#include <pwd.h>
--#include "test.h"
--
--static void cleanup(void);
--static void setup(void);
+- ****************************************************************/
++ * Verify that sched_setparam() fails if the user does not have proper
++ * privileges.
 + */
  
--static struct sched_param param = { 0 };
--static struct sched_param param1 = { 1 };
+-#include <errno.h>
+-#include <sched.h>
++#include <stdlib.h>
+ #include <pwd.h>
+-#include <sys/wait.h>
+-#include "test.h"
+-
+-static void setup();
+-static void cleanup();
+ 
+-char *TCID = "sched_setparam05";
+-int TST_TOTAL = 1;
 +#include "tst_test.h"
 +#include "tst_sched.h"
  
--char *TCID = "sched_setparam04";
-+static struct sched_param p = { .sched_priority = 0 };
-+static struct sched_param p1 = { .sched_priority = 1 };
- 
- static pid_t unused_pid;
- static pid_t inval_pid = -1;
- static pid_t zero_pid;
- 
--static struct test_case_t {
+-static struct sched_param param = { 0 };
 +static struct sched_variants variants[] = {
 +	{ .sched_setparam = libc_sched_setparam, .desc = "libc" },
 +	{ .sched_setparam = sys_sched_setparam,  .desc = "syscall" },
 +};
-+
-+static struct test_cases_t {
- 	char *desc;
- 	pid_t *pid;
- 	struct sched_param *p;
- 	int exp_errno;
--	char err_desc[10];
--} test_cases[] = {
-+} tcases[] = {
- 	{
--	"test with non-existing pid", &unused_pid, &param, ESRCH, "ESRCH"}, {
--	"test invalid pid value", &inval_pid, &param, EINVAL, "EINVAL"}, {
--	"test with invalid address for p", &zero_pid, NULL, EINVAL, "EINVAL"}, {
--	"test with invalid p.sched_priority", &zero_pid, &param1, EINVAL,
--		    "EINVAL"}
-+	"test with non-existing pid", &unused_pid, &p, ESRCH}, {
-+	"test invalid pid value", &inval_pid, &p, EINVAL,}, {
-+	"test with invalid address for p", &zero_pid, NULL, EINVAL}, {
-+	"test with invalid p.sched_priority", &zero_pid, &p1, EINVAL}
- };
  
--int TST_TOTAL = sizeof(test_cases) / sizeof(test_cases[0]);
+-static char nobody_uid[] = "nobody";
+-struct passwd *ltpuser;
 -
 -int main(int ac, char **av)
-+static void setup(void)
++static void run(void)
  {
--	int lc, ind;
++	struct sched_variants *tv = &variants[tst_variant];
++	pid_t child_pid = SAFE_FORK();
+ 
+-	int lc;
+-	int status;
+-	pid_t child_pid;
 -
 -	tst_parse_opts(ac, av, NULL, NULL);
 -
--	setup();		/* global setup */
+-	setup();
 -
--	/* The following loop checks looping state if -i option given */
 -	for (lc = 0; TEST_LOOPING(lc); lc++) {
--		/* reset tst_count in case we are looping */
--		tst_count = 0;
-+	tst_res(TINFO, "Testing %s variant", variants[tst_variant].desc);
- 
--		for (ind = 0; ind < TST_TOTAL; ind++) {
--			/*
--			 * call the system call with the TEST() macro
--			 */
--			TEST(sched_setparam(*(test_cases[ind].pid),
--					    test_cases[ind].p));
 -
--			if ((TEST_RETURN == -1) &&
--			    (TEST_ERRNO == test_cases[ind].exp_errno)) {
--				tst_resm(TPASS, "expected failure; Got %s",
--					 test_cases[ind].err_desc);
+-		tst_count = 0;
+-
+-		switch (child_pid = FORK_OR_VFORK()) {
+-
+-		case -1:
+-			/* fork() failed */
+-			tst_resm(TFAIL, "fork() failed");
+-			continue;
+-
+-		case 0:
+-			/* Child */
+-
+-			/* Switch to nobody user */
+-			if ((ltpuser = getpwnam(nobody_uid)) == NULL) {
+-				tst_brkm(TBROK, NULL, "'%s' user not present", nobody_uid);
+-			}
+-			if (seteuid(ltpuser->pw_uid) == -1) {
+-				tst_resm(TWARN, "seteuid failed to to set the effective uid to %d",
+-					 ltpuser->pw_uid);
+-				exit(1);
+-			}
+-
+-			/*
+-			 * Call sched_setparam(2) with pid = getppid()
+-			 */
+-			TEST(sched_setparam(getppid(), &param));
++	if (!child_pid) {
++		struct sched_param p = { .sched_priority = 0 };
++		struct passwd *pw = SAFE_GETPWNAM("nobody");
+ 
+-			if ((TEST_RETURN == -1) && (TEST_ERRNO == EPERM)) {
+-				exit(0);
+-			}
++		SAFE_SETEUID(pw->pw_uid);
++		TST_EXP_FAIL(tv->sched_setparam(getppid(), &p), EPERM,
++			     "sched_setparam(%d, 0)", getppid());
+ 
+-			tst_resm(TWARN | TTERRNO,
+-				 "Test failed, sched_setparam()"
+-				 " returned : %ld", TEST_RETURN);
+-			exit(1);
+-
+-		default:
+-			/* Parent */
+-			if ((waitpid(child_pid, &status, 0)) < 0) {
+-				tst_resm(TFAIL, "wait() failed");
+-				continue;
+-			}
+-			if ((WIFEXITED(status)) && (WEXITSTATUS(status) == 0)) {
+-				tst_resm(TPASS, "Test passed, Got EPERM");
 -			} else {
--				tst_resm(TFAIL, "Call failed to produce "
--					 "expected error;  Expected errno: %d "
--					 "Got : %d, %s",
--					 test_cases[ind].exp_errno,
--					 TEST_ERRNO, strerror(TEST_ERRNO));
+-				tst_resm(TFAIL, "Test Failed");
 -			}
 -		}
--	}
--
++		exit(0);
+ 	}
+ 
 -	cleanup();
--
 -	tst_exit();
-+	unused_pid = tst_get_unused_pid();
++	tst_reap_children();
  }
  
--/*
-- * setup() - performs all the ONE TIME setup for this test.
-- */
+-/* setup() - performs all ONE TIME setup for this test */
 -void setup(void)
-+static void run(unsigned int n)
++static void setup(void)
  {
--	unused_pid = tst_get_unused_pid(cleanup);
 -
--	tst_sig(NOFORK, DEF_HANDLER, cleanup);
+-	tst_require_root();
+-
+-	tst_sig(FORK, DEF_HANDLER, cleanup);
 -
 -	TEST_PAUSE;
-+	struct sched_variants *tv = &variants[tst_variant];
-+	struct test_cases_t *tc = &tcases[n];
- 
-+	TST_EXP_FAIL(tv->sched_setparam(*tc->pid, tc->p), tc->exp_errno, "%s", tc->desc);
+-
++	tst_res(TINFO, "Testing %s variant", variants[tst_variant].desc);
  }
  
 -/*
-- * cleanup() -  performs all the ONE TIME cleanup for this test at completion
-- *		or premature exit.
+- *cleanup() -  performs all ONE TIME cleanup for this test at
+- *		completion or premature exit.
 - */
 -void cleanup(void)
 -{
--
 -}
 +static struct tst_test test = {
++	.needs_root = 1,
++	.forks_child = 1,
 +	.setup = setup,
-+	.test = run,
 +	.test_variants = ARRAY_SIZE(variants),
-+	.tcnt = ARRAY_SIZE(tcases),
++	.test_all = run,
 +};
 -- 
 2.25.1
