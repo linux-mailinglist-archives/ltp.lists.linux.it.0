@@ -2,80 +2,128 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8BD33E2620
-	for <lists+linux-ltp@lfdr.de>; Fri,  6 Aug 2021 10:30:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 285CA3E26BE
+	for <lists+linux-ltp@lfdr.de>; Fri,  6 Aug 2021 11:06:41 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9C5C73C7AEE
-	for <lists+linux-ltp@lfdr.de>; Fri,  6 Aug 2021 10:29:59 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 95D133CA396
+	for <lists+linux-ltp@lfdr.de>; Fri,  6 Aug 2021 11:06:40 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id CE1A53C181C
- for <ltp@lists.linux.it>; Fri,  6 Aug 2021 10:29:55 +0200 (CEST)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by picard.linux.it (Postfix) with ESMTPS id 6ED1D3C7AE6
+ for <ltp@lists.linux.it>; Fri,  6 Aug 2021 11:06:37 +0200 (CEST)
+Received: from de-smtp-delivery-102.mimecast.com
+ (de-smtp-delivery-102.mimecast.com [194.104.109.102])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 094181A01447
- for <ltp@lists.linux.it>; Fri,  6 Aug 2021 10:29:54 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1628238593;
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 48E821400138
+ for <ltp@lists.linux.it>; Fri,  6 Aug 2021 11:06:36 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com;
+ s=mimecast20200619; t=1628240795;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=mdZRMyt6HdFL+81Q4GgKP3yFv9kMcdJR59aIftNCn64=;
- b=bgQMjwR/CyEJqePzjvcfBUrflUfR9DHNOONoS0LvLz6x/KaiZ1/QKjlWraBV+8/KjC4rJo
- HWub2UXmKtIccurwj5fCH2/bpPoJw8jNnSoDwBToeenT4nxD+gIQWV7OuCPTe3k7xhWuIY
- mIPbrrjLZibqqiQvMajoEXxvqFRCOC8=
-Received: from mail-yb1-f198.google.com (mail-yb1-f198.google.com
- [209.85.219.198]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-194-fSUzw8oeMvqY96dOQrqOag-1; Fri, 06 Aug 2021 04:29:51 -0400
-X-MC-Unique: fSUzw8oeMvqY96dOQrqOag-1
-Received: by mail-yb1-f198.google.com with SMTP id
- i32-20020a25b2200000b02904ed415d9d84so8827046ybj.0
- for <ltp@lists.linux.it>; Fri, 06 Aug 2021 01:29:51 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=5ifxk82ljQssYL5viFddlXDCXuwNUjBlwayPa9VtSUI=;
- b=Vtxn/mqAJKDeNyrQrwA73u5/F9yn9sfGQTrVzQFTe99HWqT3OoLbtoS9qJPG7WQ6+F
- x/PWtTmKMKMmnBlww8fnPj8ehTumr15MyGFKpCbBEbeIceEnWo1xjtm6OR2Xs/kSWxOV
- mum6m7wNVbiKBtpE5pAMQQJBjeZb1hmSrQAjW1hpSfJUuQvc97XiMmMzIi7ME7c8a3e0
- rSOtLjpkK5mKkrBhlxGJD6nct8wEVwT/pdkirYHQduDkvwrV+QrM4hjfQ5c9eRvzDOfA
- jYme0rwuKDTMFOEi3CuPNGH7iiqzCGbF94B+GZifZC4csnrz3uSMDKzx/YrH53ydbOH+
- vrLg==
-X-Gm-Message-State: AOAM531HdCab+UYB41ZHPsLLV9L0pj4T6RA0MRHzS9YmVLFN3W38LWZI
- 7EqM9w6TyN1iaFz0e7gXU9nbboh52iW0t8mLcpF2JpSSfyVP3xy1y8qSKCPvjDe0zAxS4iSBfsl
- 4SdqbEuUebPo4pGIQ2sjg//kPwUM=
-X-Received: by 2002:a25:6e05:: with SMTP id j5mr11676949ybc.86.1628238590467; 
- Fri, 06 Aug 2021 01:29:50 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJxOnGYkNmQHQXzsBVEhkgEOZXKQ1kbB/zoUu49zG0U+s1j+iPY0rBNi4pdcNdWUXFzab/L+XXYHiKfTRRuVCGw=
-X-Received: by 2002:a25:6e05:: with SMTP id j5mr11676921ybc.86.1628238590156; 
- Fri, 06 Aug 2021 01:29:50 -0700 (PDT)
+ bh=xQmczkg4Oizf0gupQImN/ZVBWAr2dnpb+PG30K5geBM=;
+ b=SBDkQqSVEKOGQnL/D/iPOzpnML8KI3kkA+uDs1nOzp5iyiP9hW2SKV/Ea5sHTRfJnici6K
+ Aprf2YHS4LuzzlHlTfkGSC2j1nKupO3leqJ8T3KbZSekCtO7XOJyccPFsYXziCo85ON/v0
+ o9dkzXhI7WK+C00+0e/y/3qJJuJoJjY=
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur04lp2057.outbound.protection.outlook.com [104.47.14.57]) (Using
+ TLS) by relay.mimecast.com with ESMTP id
+ de-mta-11-Fh_q_a5KNry3p5AA7Qgy5w-1; Fri, 06 Aug 2021 11:06:34 +0200
+X-MC-Unique: Fh_q_a5KNry3p5AA7Qgy5w-1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=VzDC2ES8PkhWbyKOtJ5+8mrHZNAImpZMycZMBXMwkIaZNXjf0rVgTaxrC399CmaR6ay48lqVaXAw7/UUJ3tM3yvR6dap3f8c/A7/TwcjKHLNNAleAt+LgIEQ7/WTdcvX6BPcGq9oytyUmC3kx5C4AOi6yBxNORIG6Y/52iLuIkqoYsgNQ2QCruo2wDSmUpzg5gXuzTON6eFQkgChgqdb5IWoPMEattvMVpdr4oidsGZDpf/pckGhheCM/ucZuTJ/SPXtraJuj4LwckVxpS2EyTyEUir4BzHKNAWbZ3U65gxcVdSCReH8YX2lJK5mvXPwYFU+j/zatqZLObAOlVJF3Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xQmczkg4Oizf0gupQImN/ZVBWAr2dnpb+PG30K5geBM=;
+ b=cF9SarKR5wpRvbEyxGDg3mMGP1TimLPFTC/DrEc2rYbWctLMSS35nrjpLUNdTYsyIML1fftymuQinlOC7Y2AXZNW1Z1fobdQ4k8Y8jM2GShKtVXLZBAZzHKmWZjMcm4SVDBWM5Th1Res5IPuHQ+qRMV/Vt1WxIZJXmI2ChrRJZYYxozI0y5vemNvIZ+AWevmeHoP6Yw8wGKWqw2dFFDLhfJMUm/Q+auEC1YD4o3yEJ4s02Id4V8tt3YyDts/UwVFiHi0gbuKgjOi3rEXbz2ZaB+7EAc1Y4MD93BLNeCBHI4I0g4CLLzUuul3WD+41LY3x2PHg6Xyns7PR9byu91+EQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Received: from VI1PR04MB4958.eurprd04.prod.outlook.com (2603:10a6:803:60::23)
+ by VI1PR04MB4063.eurprd04.prod.outlook.com (2603:10a6:803:43::28)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4373.23; Fri, 6 Aug
+ 2021 09:06:32 +0000
+Received: from VI1PR04MB4958.eurprd04.prod.outlook.com
+ ([fe80::24fb:2049:fc5f:fbed]) by VI1PR04MB4958.eurprd04.prod.outlook.com
+ ([fe80::24fb:2049:fc5f:fbed%6]) with mapi id 15.20.4394.017; Fri, 6 Aug 2021
+ 09:06:32 +0000
+To: Joerg Vehlow <lkml@jv-coder.de>, Petr Vorel <pvorel@suse.cz>
+Thread-Topic: [LTP] [PATCH v1] connectors/cn_pec: improve reliability
+Thread-Index: AQHXigNTFnJRT5+geUyN05b9R3TKK6tmGu8AgAAHKQCAAAu2hA==
+Date: Fri, 6 Aug 2021 09:06:32 +0000
+Message-ID: <VI1PR04MB4958D95FE7A478B771C73A4493F39@VI1PR04MB4958.eurprd04.prod.outlook.com>
+References: <20210805140806.3884-1-bogdan.lezhepekov@suse.com>
+ <YQzpXHDvFmoaSFhi@pevik>,<bb73135b-4ee3-71c3-5442-bf39064b3534@jv-coder.de>
+In-Reply-To: <bb73135b-4ee3-71c3-5442-bf39064b3534@jv-coder.de>
+Accept-Language: en-US, ru-RU
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: jv-coder.de; dkim=none (message not signed)
+ header.d=none;jv-coder.de; dmarc=none action=none header.from=suse.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: d70dd2e8-91bc-4eab-5870-08d958b97c24
+x-ms-traffictypediagnostic: VI1PR04MB4063:
+x-microsoft-antispam-prvs: <VI1PR04MB40633E69719029A018DB79B793F39@VI1PR04MB4063.eurprd04.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:4125;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: +h4/jtmy79MgcEfCLNAUFrgVMjSTh9DeCXDPHjDI/dKi++HmTFCXVFDegacf5bLegb09zuLU33Doa31iUlriyAuJc55c5MPRvhrhHUK8ozImPcIG+qp7KUU60UG1/YhBn6VYB4juiZHTtSjbsUpSiHKT5XjMovSs0uG1SwLjZLWmZmSLQJFwuCf2gDFKUXfbA/ScyDhheoJDr3ckfy1KLy/9+yrza4MbheiAOjrrclsZNLMXsw1sOj50sNRK8o3p2TivZy91bTBMhG+pQ2UZ4+HU5M0XWLCPgZyb62mfpDUm8qau47guX9ELM6PTol7vri95JmlVbaeKU3LQ5SThTTnC3Atd5lOf14U6lP2Ezq+kDpx6ShoiKYBR4wiFaobixixp1Oe3VAHsKs3H0Q6Hp34RCslP53/itZEO9L0zow73iV6bAAUvCiTs6bpf9ltxwY/7f/mOteq/a3Bs1jSeeKfh8yxLenzJeNJU+FqFAz1KQrizwynOuYs91I3Cl7xs770jidkPy6BPyWspSXu1x0myPHjvlPOd/p0w0zsEog7Xtxyu93EUGQib9Oh3FHABfpSp9FaKOlBSz0Y6vr09B/BITm5jPso3HFiCaSCyjWI4AsHZ3jrtRp8Yf0d8z/AeEzZDxDZZpwmSoC+w/wYBx7NXhFqKd3rsUqKYsE+KoMjHT1Zj2xixIOi1ZJ2AStj8kTVonrfWga1/cZ+yz+/aEg==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:VI1PR04MB4958.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(366004)(346002)(136003)(39850400004)(396003)(376002)(186003)(8676002)(26005)(8936002)(52536014)(33656002)(5660300002)(478600001)(4326008)(38100700002)(122000001)(53546011)(2906002)(9686003)(38070700005)(55016002)(6506007)(76116006)(71200400001)(83380400001)(44832011)(66476007)(66556008)(64756008)(66446008)(91956017)(19627405001)(66946007)(110136005)(7696005)(316002)(86362001);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?RhsvJOTO7YxguchOLzRUophTDjfpFk4rSO0E5JX+c1cHSOeK1VKINDtg3GVx?=
+ =?us-ascii?Q?Z8BJ2iteC05JvHo/+7OTfv3s3kgyRzI5lIxbNE7gnJci/RXdbI4fq5Bqntip?=
+ =?us-ascii?Q?XKcBWpQOpEyqi3FRndMdW9PqKTuE7F3yZqdkZqGbMaAzdCGu3RbdTZJ2ytlX?=
+ =?us-ascii?Q?NhyrK6S9ak2ANzP/7OhOvFFBfGKl7w+pifw0Vv+yPqPgfPMGRuXWEMWMWb0S?=
+ =?us-ascii?Q?WjJ+9Zbpy5gUN6OD7xtzpjQ97YKovtFEltyS03TF68Pyq+J3AZkCJonZ0QL4?=
+ =?us-ascii?Q?aPGCB0R5Jk8TbIFGCnNOmz1FCIgllrOOBhsJ0iDW5ftt/KsAhZ4eAVluZ2Il?=
+ =?us-ascii?Q?hqCmSigMmzfOX6VvNswyqywC0DpkipeLhFVF2gIjP3ynX6cTq3km5rBYkKyU?=
+ =?us-ascii?Q?NkIr4kw2dx7bz5zfim2W0dLMIwe3UAJEiOrfAaf0O6CeSzzHY3tim5w53C/m?=
+ =?us-ascii?Q?ZAdpoeEilEiWOvC51z6T/4GFVeYpkG8MPSiiOVm8q7fjEwSnygYeL+LgjAl8?=
+ =?us-ascii?Q?ZUzb5UjVt86ODZofhTPZ5ADFzgUSBIp0T8+gL1LuW5GCSJYNomwKeYfjblCM?=
+ =?us-ascii?Q?FIvRgPRhs4xBV5IYQmCc7Or8qV28/c4m2m63MznhF361C/+2X19YsUDnfqb1?=
+ =?us-ascii?Q?LEVHkG679TwD2MTmXL6q37ENeo457RDOijJOTcvTY9ljHL3wHokuJ5EHA5gF?=
+ =?us-ascii?Q?wfYyXIQOIGcxvD2zal4NJp5cITKR+aHAVKMCZWn17aORxoXiTgs8h5L7LVFf?=
+ =?us-ascii?Q?Ma72EXnxE2Wxpg7EVrT4mCFoff3R0+KbnkLQ2Hpd8bvZ2WJUCevyCqqEtdek?=
+ =?us-ascii?Q?oJz6dV32LwmF9dnc58HQ5Q2WI7CBIRcDJuqCHApe363dAPBcpZgqcscHRQku?=
+ =?us-ascii?Q?xBi+lfKKVere7E+mr1qndniIWdz/hX++8okAKyRPfNOtQg/xqDZOMXSR3EVs?=
+ =?us-ascii?Q?P+reaIP4hPOYMaVU2gf+ZpVz8lv4IdPtOtYJ+sz344YPF9zpziC+QS9vaxHe?=
+ =?us-ascii?Q?x1tV3tyvvq4ewOi+LncXsallVi+qhvC7ADDUm9ouMSVdlmzO8lsIOLm7uxae?=
+ =?us-ascii?Q?1qFJw+kzI1PfmcsosOpqBFvDMDHEhBLPsm5z40V9H9hXLb3AQklvm9mmaHJM?=
+ =?us-ascii?Q?4v/liE1/xLBgkr9gHfBrRMSR8wtkDy8U6oecYOQ38p80LLI8ibdgSSLR8c0P?=
+ =?us-ascii?Q?VR40pwiIPh+y/oNvqFKKesTnyc/7lU432GLYzACPnr8R5+50G5hoNTLM5Bvo?=
+ =?us-ascii?Q?pggLwIv39cWqn+5CNElDqyQEDpcjQCM3O3+v9xzax6OSeOmFa+5qJPZngT2n?=
+ =?us-ascii?Q?H8M=3D?=
+x-ms-exchange-transport-forked: True
 MIME-Version: 1.0
-References: <20210806025659.1962902-1-liwang@redhat.com>
- <YQzLUUKbLcoJjRVb@pevik> <YQzOxg35JjpDOj7X@pevik>
-In-Reply-To: <YQzOxg35JjpDOj7X@pevik>
-From: Li Wang <liwang@redhat.com>
-Date: Fri, 6 Aug 2021 16:29:38 +0800
-Message-ID: <CAEemH2cNk-L1kRRHy=vvLVjcEm0HPQXaz8fJR00M1TyzoJAynw@mail.gmail.com>
-To: Petr Vorel <pvorel@suse.cz>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB4958.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d70dd2e8-91bc-4eab-5870-08d958b97c24
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Aug 2021 09:06:32.3877 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Br1rxRPdk++jWjcH56rkHTF9+SultfJkernRNGLIj49KHN0Y38FCGhoGMBkWLCGiQAOfYh5OxxwsvrJqgoIdMTDKey166zbu7g7sfbDr3kU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB4063
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [COMMITTED] setsockopt08: includes netinet/in.h
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v1] connectors/cn_pec: improve reliability
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,191 +135,173 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>, Richard Palethorpe <rpalethorpe@suse.com>
-Content-Type: multipart/mixed; boundary="===============0815108236=="
+From: Bogdan Lezhepekov via ltp <ltp@lists.linux.it>
+Reply-To: Bogdan Lezhepekov <bogdan.lezhepekov@suse.com>
+Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============0970783279=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0815108236==
-Content-Type: multipart/alternative; boundary="000000000000c6c28d05c8dfd679"
+--===============0970783279==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_VI1PR04MB4958D95FE7A478B771C73A4493F39VI1PR04MB4958eurp_"
 
---000000000000c6c28d05c8dfd679
-Content-Type: text/plain; charset="UTF-8"
+--_000_VI1PR04MB4958D95FE7A478B771C73A4493F39VI1PR04MB4958eurp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Hi Joerg, Petr!
+
+Thanks for reviewing and commenting! I don't have a strong opinion on how t=
+he test flow should look like, but I can say this sleep definitely makes th=
+e test much more reliable.
+
+The results, we get on known to both of you SUSE Carwos, are pretty consist=
+ent. My feeling is that 8/10 runs end up with some sporadic failures. The f=
+act that extra sleep solves the problem obviously indicates a lack of synch=
+ronization.
+
+@Joerg: if you need more info about the environment, please reach out to me=
+.
+
+-Bogdan
+________________________________
+From: Joerg Vehlow <lkml@jv-coder.de>
+Sent: Friday, August 6, 2021 11:14
+To: Petr Vorel <pvorel@suse.cz>; Bogdan Lezhepekov <bogdan.lezhepekov@suse.=
+com>
+Cc: ltp@lists.linux.it <ltp@lists.linux.it>
+Subject: Re: [LTP] [PATCH v1] connectors/cn_pec: improve reliability
 
 Hi Petr,
 
-
-
-> > > See:
-> https://www.mail-archive.com/netdev@vger.kernel.org/msg132711.html
+On 8/6/2021 9:48 AM, Petr Vorel wrote:
 >
-> > Thanks for fixing it, it's not a first time we got hit by this.
-> > I wonder where <linux/in.h> is included. It's not directly in
-> setsockopt08.c,
-> > it must be in our lapi header. But it's not in tst_safe_net.h, not in
-> > safe_net_fn.h nor in tst_net.h and both actually include <netinet/in.h>,
-> thus it must be
-> > before. But there is only tst_test.h.
+> If I understand the code correctly, pec_listener keeps receiving msg from=
+ PEC
+> until got signaled by kill. We generally try to avoid sleep in tests [1].
 >
-> > I'm asking because it'd be better to add <netinet/in.h> into header
-> before
-> > <linux/in.h>.
+> @Joerg: I'm not sure if it's reasonable to add another signal handler in =
+which
+> pec_listener would print number of already handled requests (with write()=
+ as
+> printf() is not reentrant). Then we could loop for certain time before se=
+nding INT.
 >
-> OK, it's in lapi/ip_tables.h, which includes
-> <linux/netfilter_ipv4/ip_tables.h>
-> which includes <linux/if.h>. But I wonder why inclusion of <netinet/in.h>
-> from
->
+The problem is, that it is hard to know, if all expected events were
+received. pec_listener receives events from all processes.
+The only way to reliably handle the issue without sleeping is tracking
+exit-events in pec_listener and to tell it to die, once it received an
+exit event from event_generator.
+Only then we can be sure, that all events generated by the generator
+(and hopefully all it's children) were received.
 
-No, it's not caused by the lapi/ip_tables.h which finally includes
-<linux/if.h>.
-See experiment commit:
-https://github.com/wangli5665/ltp/commit/f1a37712c63472b19d3355446fb66e651b4a186e
+We could also get rid of the other sleep (after starting the listener
+using some kind of synchronization (I guess right after
+PROC_CN_MCAST_LISTEN should work). I think checkpoints are not part of
+the new lib...
 
-The conflict happened early in tst_test.h and I guess some header files
-between line#14 to line#44 probably involves <linux/if.h>, but I'm not sure
-which one is the culprit.
+Joerg
 
-If we simply put the <netinet/in.h> at the top of tst_test.h, the
-conflict disappears
-as well.
-See experiment commit:
-https://github.com/wangli5665/ltp/commit/0155df479811d9a51f30e09accb330238607f73d
 
-$ cat include/tst_test.h  -n
-...
-    14 #include <unistd.h>
-    15 #include <limits.h>
-    16 #include <string.h>
-    17 #include <errno.h>
-    18
-    19 #include "tst_common.h"
-    20 #include "tst_res_flags.h"
-    21 #include "tst_test_macros.h"
-    22 #include "tst_checkpoint.h"
-    23 #include "tst_device.h"
-    24 #include "tst_mkfs.h"
-    25 #include "tst_fs.h"
-    26 #include "tst_pid.h"
-    27 #include "tst_cmd.h"
-    28 #include "tst_cpu.h"
-    29 #include "tst_process_state.h"
-    30 #include "tst_atomic.h"
-    31 #include "tst_kvercmp.h"
-    32 #include "tst_kernel.h"
-    33 #include "tst_minmax.h"
-    34 #include "tst_get_bad_addr.h"
-    35 #include "tst_path_has_mnt_flags.h"
-    36 #include "tst_sys_conf.h"
-    37 #include "tst_coredump.h"
-    38 #include "tst_buffers.h"
-    39 #include "tst_capability.h"
-    40 #include "tst_hugepage.h"
-    41 #include "tst_assert.h"
-    42 #include "tst_lockdown.h"
-    43 #include "tst_fips.h"
-    44 #include "tst_taint.h"
-...
-    93 #include "tst_safe_macros.h"
-    94 #include "tst_safe_file_ops.h"
-    95 #include "tst_safe_net.h"    <===== includes the <netinet/in.h> here
-    96 #include "tst_clone.h"
-
--- 
-Regards,
-Li Wang
-
---000000000000c6c28d05c8dfd679
-Content-Type: text/html; charset="UTF-8"
+--_000_VI1PR04MB4958D95FE7A478B771C73A4493F39VI1PR04MB4958eurp_
+Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small">Hi Petr,</div></div><div class=3D"gmail_quote"><div>=C2=A0</d=
-iv><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0=
-px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-&gt; &gt; See: <a href=3D"https://www.mail-archive.com/netdev@vger.kernel.o=
-rg/msg132711.html" rel=3D"noreferrer" target=3D"_blank">https://www.mail-ar=
-chive.com/netdev@vger.kernel.org/msg132711.html</a><br>
-<br>
-&gt; Thanks for fixing it, it&#39;s not a first time we got hit by this.<br=
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
-&gt; I wonder where &lt;linux/in.h&gt; is included. It&#39;s not directly i=
-n setsockopt08.c,<br>
-&gt; it must be in our lapi header. But it&#39;s not in tst_safe_net.h, not=
- in<br>
-&gt; safe_net_fn.h nor in tst_net.h and both actually include &lt;netinet/i=
-n.h&gt;, thus it must be<br>
-&gt; before. But there is only tst_test.h.<br>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Hi Joerg, Petr!
+<div><br>
+</div>
+<div>Thanks for reviewing and commenting! I don't have a strong opinion on =
+how the test flow should look like, but I can say this sleep definitely mak=
+es the test much more reliable.
+</div>
+<div><br>
+</div>
+<div>The results, we get on known to both of you SUSE Carwos, are pretty co=
+nsistent. My feeling is that 8/10 runs end up with some sporadic failures.
+<span class=3D"VIiyi" lang=3D"en"><span class=3D"JLqJ4b ChMk0b" data-langua=
+ge-for-alternatives=3D"en" data-language-to-translate-into=3D"ru" data-phra=
+se-index=3D"2"><span>The fact that extra sleep solves the problem obviously=
+ indicates a lack of synchronization.</span></span></span>
+</div>
+<div><br>
+</div>
+@Joerg: if you need more info about the environment, please reach out to me=
+.<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
 <br>
-&gt; I&#39;m asking because it&#39;d be better to add &lt;netinet/in.h&gt; =
-into header before<br>
-&gt; &lt;linux/in.h&gt;.<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+-Bogdan</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Joerg Vehlow &lt;lkml=
+@jv-coder.de&gt;<br>
+<b>Sent:</b> Friday, August 6, 2021 11:14<br>
+<b>To:</b> Petr Vorel &lt;pvorel@suse.cz&gt;; Bogdan Lezhepekov &lt;bogdan.=
+lezhepekov@suse.com&gt;<br>
+<b>Cc:</b> ltp@lists.linux.it &lt;ltp@lists.linux.it&gt;<br>
+<b>Subject:</b> Re: [LTP] [PATCH v1] connectors/cn_pec: improve reliability=
+</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Hi Petr,<br>
 <br>
-OK, it&#39;s in lapi/ip_tables.h, which includes &lt;linux/netfilter_ipv4/i=
-p_tables.h&gt;<br>
-which includes &lt;linux/if.h&gt;. But I wonder why inclusion of &lt;netine=
-t/in.h&gt; from<br></blockquote><div><br></div><div><div class=3D"gmail_def=
-ault" style=3D"font-size:small">No, it&#39;s not caused by the lapi/ip_tabl=
-es.h which finally includes &lt;linux/if.h&gt;.</div><div class=3D"gmail_de=
-fault" style=3D"font-size:small">See experiment commit:=C2=A0</div><div cla=
-ss=3D"gmail_default" style=3D"font-size:small"><a href=3D"https://github.co=
-m/wangli5665/ltp/commit/f1a37712c63472b19d3355446fb66e651b4a186e">https://g=
-ithub.com/wangli5665/ltp/commit/f1a37712c63472b19d3355446fb66e651b4a186e</a=
-></div><div class=3D"gmail_default" style=3D"font-size:small"><br></div><di=
-v class=3D"gmail_default" style=3D"font-size:small">The conflict happened e=
-arly in tst_test.h and I guess some header files</div><div class=3D"gmail_d=
-efault" style=3D"font-size:small">between line#14 to line#44 probably invol=
-ves &lt;linux/if.h&gt;, but I&#39;m not sure</div><div class=3D"gmail_defau=
-lt" style=3D"font-size:small">which one is the=C2=A0culprit.</div><div clas=
-s=3D"gmail_default" style=3D"font-size:small"><br></div><div class=3D"gmail=
-_default" style=3D"font-size:small">If we simply put the=C2=A0<span class=
-=3D"gmail_default"></span>&lt;netinet/in.h&gt;<span class=3D"gmail_default"=
-> at the top of tst_test.h, the conflict=C2=A0</span>disappears as well.</d=
-iv><div class=3D"gmail_default" style=3D"font-size:small">See experiment co=
-mmit:</div><div class=3D"gmail_default" style=3D"font-size:small"><a href=
-=3D"https://github.com/wangli5665/ltp/commit/0155df479811d9a51f30e09accb330=
-238607f73d">https://github.com/wangli5665/ltp/commit/0155df479811d9a51f30e0=
-9accb330238607f73d<br></a></div><br></div><div><div class=3D"gmail_default"=
- style=3D"font-size:small">$ cat include/tst_test.h =C2=A0-n</div><span cla=
-ss=3D"gmail_default" style=3D"font-size:small">...</span><br>=C2=A0 =C2=A0 =
-14=09#include &lt;unistd.h&gt;<br>=C2=A0 =C2=A0 15=09#include &lt;limits.h&=
-gt;<br>=C2=A0 =C2=A0 16=09#include &lt;string.h&gt;<br>=C2=A0 =C2=A0 17=09#=
-include &lt;errno.h&gt;<br>=C2=A0 =C2=A0 18=09<br>=C2=A0 =C2=A0 19=09#inclu=
-de &quot;tst_common.h&quot;<br>=C2=A0 =C2=A0 20=09#include &quot;tst_res_fl=
-ags.h&quot;<br>=C2=A0 =C2=A0 21=09#include &quot;tst_test_macros.h&quot;<br=
->=C2=A0 =C2=A0 22=09#include &quot;tst_checkpoint.h&quot;<br>=C2=A0 =C2=A0 =
-23=09#include &quot;tst_device.h&quot;<br>=C2=A0 =C2=A0 24=09#include &quot=
-;tst_mkfs.h&quot;<br>=C2=A0 =C2=A0 25=09#include &quot;tst_fs.h&quot;<br>=
-=C2=A0 =C2=A0 26=09#include &quot;tst_pid.h&quot;<br>=C2=A0 =C2=A0 27=09#in=
-clude &quot;tst_cmd.h&quot;<br>=C2=A0 =C2=A0 28=09#include &quot;tst_cpu.h&=
-quot;<br>=C2=A0 =C2=A0 29=09#include &quot;tst_process_state.h&quot;<br>=C2=
-=A0 =C2=A0 30=09#include &quot;tst_atomic.h&quot;<br>=C2=A0 =C2=A0 31=09#in=
-clude &quot;tst_kvercmp.h&quot;<br>=C2=A0 =C2=A0 32=09#include &quot;tst_ke=
-rnel.h&quot;<br>=C2=A0 =C2=A0 33=09#include &quot;tst_minmax.h&quot;<br>=C2=
-=A0 =C2=A0 34=09#include &quot;tst_get_bad_addr.h&quot;<br>=C2=A0 =C2=A0 35=
-=09#include &quot;tst_path_has_mnt_flags.h&quot;<br>=C2=A0 =C2=A0 36=09#inc=
-lude &quot;tst_sys_conf.h&quot;<br>=C2=A0 =C2=A0 37=09#include &quot;tst_co=
-redump.h&quot;<br>=C2=A0 =C2=A0 38=09#include &quot;tst_buffers.h&quot;<br>=
-=C2=A0 =C2=A0 39=09#include &quot;tst_capability.h&quot;<br>=C2=A0 =C2=A0 4=
-0=09#include &quot;tst_hugepage.h&quot;<br>=C2=A0 =C2=A0 41=09#include &quo=
-t;tst_assert.h&quot;<br>=C2=A0 =C2=A0 42=09#include &quot;tst_lockdown.h&qu=
-ot;<br>=C2=A0 =C2=A0 43=09#include &quot;tst_fips.h&quot;<br>=C2=A0 =C2=A0 =
-44=09#include &quot;tst_taint.h&quot;<br><div class=3D"gmail_default" style=
-=3D"font-size:small">...</div>=C2=A0 =C2=A0 93=09#include &quot;tst_safe_ma=
-cros.h&quot;<br>=C2=A0 =C2=A0 94=09#include &quot;tst_safe_file_ops.h&quot;=
-<br>=C2=A0 =C2=A0 95=09#include &quot;tst_safe_net.h&quot;<span class=3D"gm=
-ail_default" style=3D"font-size:small">=C2=A0 =C2=A0 &lt;=3D=3D=3D=3D=3D in=
-cludes the </span>&lt;netinet/in.h&gt;<span class=3D"gmail_default" style=
-=3D"font-size:small"> here</span><br>=C2=A0 =C2=A0 96=09#include &quot;tst_=
-clone.h&quot;<br><div class=3D"gmail_default" style=3D"font-size:small"></d=
-iv></div></div><div><br></div>-- <br><div dir=3D"ltr" class=3D"gmail_signat=
-ure"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div></div></=
-div></div>
+On 8/6/2021 9:48 AM, Petr Vorel wrote:<br>
+&gt;<br>
+&gt; If I understand the code correctly, pec_listener keeps receiving msg f=
+rom PEC<br>
+&gt; until got signaled by kill. We generally try to avoid sleep in tests [=
+1].<br>
+&gt;<br>
+&gt; @Joerg: I'm not sure if it's reasonable to add another signal handler =
+in which<br>
+&gt; pec_listener would print number of already handled requests (with writ=
+e() as<br>
+&gt; printf() is not reentrant). Then we could loop for certain time before=
+ sending INT.<br>
+&gt;<br>
+The problem is, that it is hard to know, if all expected events were <br>
+received. pec_listener receives events from all processes.<br>
+The only way to reliably handle the issue without sleeping is tracking <br>
+exit-events in pec_listener and to tell it to die, once it received an <br>
+exit event from event_generator.<br>
+Only then we can be sure, that all events generated by the generator <br>
+(and hopefully all it's children) were received.<br>
+<br>
+We could also get rid of the other sleep (after starting the listener <br>
+using some kind of synchronization (I guess right after <br>
+PROC_CN_MCAST_LISTEN should work). I think checkpoints are not part of <br>
+the new lib...<br>
+<br>
+Joerg<br>
+<br>
+</div>
+</span></font></div>
+</body>
+</html>
 
---000000000000c6c28d05c8dfd679--
+--_000_VI1PR04MB4958D95FE7A478B771C73A4493F39VI1PR04MB4958eurp_--
 
 
---===============0815108236==
+--===============0970783279==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -281,5 +311,5 @@ Content-Disposition: inline
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
 
---===============0815108236==--
+--===============0970783279==--
 
