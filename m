@@ -1,75 +1,75 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 092CE3E438D
-	for <lists+linux-ltp@lfdr.de>; Mon,  9 Aug 2021 12:03:50 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 992173E438E
+	for <lists+linux-ltp@lfdr.de>; Mon,  9 Aug 2021 12:05:04 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A9E653C717B
-	for <lists+linux-ltp@lfdr.de>; Mon,  9 Aug 2021 12:03:49 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 5C4D33C71BC
+	for <lists+linux-ltp@lfdr.de>; Mon,  9 Aug 2021 12:05:04 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 166113C0CFD
- for <ltp@lists.linux.it>; Mon,  9 Aug 2021 12:03:45 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id D42693C0CFD
+ for <ltp@lists.linux.it>; Mon,  9 Aug 2021 12:05:00 +0200 (CEST)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 6E6041A00CAB
- for <ltp@lists.linux.it>; Mon,  9 Aug 2021 12:03:43 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 73DC4600057
+ for <ltp@lists.linux.it>; Mon,  9 Aug 2021 12:05:00 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id A65C41FFF4;
- Mon,  9 Aug 2021 10:03:42 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id DE3C21FFF2;
+ Mon,  9 Aug 2021 10:04:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1628503422; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1628503499; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=eKCQAwniphSbgIRDZNcNiPeIaDklGeqF4c1Az+LgqwA=;
- b=vSsU0+ekRHw1rp8PiS8PeNfPPchjiBeCYWKnFmsZXaxD73eDwMaTSmeSxNbkY2KQ0d3YuK
- NsxXA07gp9xzZ0Y4ZeaWe3qM8Tod32fNReFStEpa2N8oSOsZg9coH31q9hp+6kEyCVCVYf
- 0PeMNcnn+6DAMD7y4aQdl7MynP0pUuk=
+ bh=U0LOwjknXmbLyBquo4cOOVibOW0g0rTAk/G9MYw8g+A=;
+ b=ODrztH2p/KSxMlpZGB0HPJVjgSSfVDnqymHgTLxxhTq6yIsCBlwQJmuVT2GhXbgxwzSx5W
+ wV3bkQS8R6FpLoAsKOiEE1qIXjeA1mT8ywPeAebgyOkY4UM3jaoKnU5wHwnKZSRAaKbY2g
+ 8jtz85su+Ovrk+0f3TS2LreuCUA5U3U=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1628503422;
+ s=susede2_ed25519; t=1628503499;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=eKCQAwniphSbgIRDZNcNiPeIaDklGeqF4c1Az+LgqwA=;
- b=FFj34/pdeqrRUDwikvc4j2DCuP6yaWgStOBBLxNtsFF3mS5TrxUinE6mPjk4DHP896y96/
- 6XHR6yD5J6nOwcAA==
+ bh=U0LOwjknXmbLyBquo4cOOVibOW0g0rTAk/G9MYw8g+A=;
+ b=er3rX24CuIQCTFnlnVQXDJN5fT1ILPSjTvSrU+Ts0AEb6qhhRJEr8Fsv57a75vrYiFfWh4
+ ggxhMKejBOLW7dAw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8BACC13BA9;
- Mon,  9 Aug 2021 10:03:42 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C37AF13BA9;
+ Mon,  9 Aug 2021 10:04:59 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id zNoLIX79EGF9ZwAAMHmgww
- (envelope-from <chrubis@suse.cz>); Mon, 09 Aug 2021 10:03:42 +0000
-Date: Mon, 9 Aug 2021 12:03:52 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id L/B8Lsv9EGH4ZwAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Mon, 09 Aug 2021 10:04:59 +0000
+Date: Mon, 9 Aug 2021 12:05:09 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
-Message-ID: <YRD9iIMbpmliSrz2@yuki>
+Message-ID: <YRD91UCbfm0XuHGT@yuki>
 References: <20210806164730.51040-1-aleksei.kodanev@bell-sw.com>
- <20210806164730.51040-4-aleksei.kodanev@bell-sw.com>
+ <20210806164730.51040-5-aleksei.kodanev@bell-sw.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210806164730.51040-4-aleksei.kodanev@bell-sw.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+In-Reply-To: <20210806164730.51040-5-aleksei.kodanev@bell-sw.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 03/16] syscalls/sched_getparam03: use
- libc/sys_sched_*()
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 04/16] syscalls/sched_setparam01: convert to
+ new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,14 +88,10 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> +static struct sched_variants variants[] = {
-> +	{ .sched_getparam = libc_sched_getparam, .desc = "libc"},
-> +	{ .sched_getparam = sys_sched_getparam, .desc = "syscall"},
-> +};
-
-Here as well.
+Nice cleanup :-)
 
 Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
+
 
 -- 
 Cyril Hrubis
