@@ -2,71 +2,70 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id E167A3E5737
-	for <lists+linux-ltp@lfdr.de>; Tue, 10 Aug 2021 11:42:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 277353E573F
+	for <lists+linux-ltp@lfdr.de>; Tue, 10 Aug 2021 11:42:57 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 82A4E3C70A9
-	for <lists+linux-ltp@lfdr.de>; Tue, 10 Aug 2021 11:42:13 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id BBB243C70A9
+	for <lists+linux-ltp@lfdr.de>; Tue, 10 Aug 2021 11:42:56 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by picard.linux.it (Postfix) with ESMTPS id 2DA0F3C4E18
+ for <ltp@lists.linux.it>; Tue, 10 Aug 2021 11:42:53 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 618593C4E18
- for <ltp@lists.linux.it>; Tue, 10 Aug 2021 11:42:10 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 7466A1000BD4
- for <ltp@lists.linux.it>; Tue, 10 Aug 2021 11:42:10 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 138C362349E
+ for <ltp@lists.linux.it>; Tue, 10 Aug 2021 11:42:52 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 7D7FA1FE39;
- Tue, 10 Aug 2021 09:42:09 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 6B89721E74;
+ Tue, 10 Aug 2021 09:42:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1628588529; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1628588572; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=uKkCkS3cAHDtO3OxnSeH5Nk4IIhQ//+UPIihVnTql8U=;
- b=ozLN+9QXLnIJP3caF3D0YlLGINCEeyu2T+/g8h/txeNkntoq6scifE+rt+iamChjguvLtF
- 9aRGE/kqui4CIWRmXX5ODNQ+ytWFOwYJzDXzHFRF/DmU+tvUuL+EJlxD8tVxM5OpClAIJP
- bHT6yJFqjiruFZIA5BfY6vxSmzxlX34=
+ bh=7LhQwjyeT8xfo25ohesqBdzM17SAq85hfDatNK8czSo=;
+ b=EtJWBg3QcXiajUAJMsof56A9SdolMGyeBhTGTEzf3lqxnq1zUvnwq3BNxeSi+a3Jw5Eu+x
+ +UKqThxT4xZAnL7vEhVKILsE8aGqg3cb9GW0WjpnsfR+m0/VFuAZEh3AImZlWxcTRKJ19C
+ TaR5zaI+gDpuqleTqn2kpzoYaixYhXI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1628588529;
+ s=susede2_ed25519; t=1628588572;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=uKkCkS3cAHDtO3OxnSeH5Nk4IIhQ//+UPIihVnTql8U=;
- b=ZzlWDDeJdeee9Z26EDgM73OewX0e4jZyKjyFC4xCsSZvryv/GB0gyxozT37maZH9NBW7jj
- m5Lb5QLSYRaVqdAw==
+ bh=7LhQwjyeT8xfo25ohesqBdzM17SAq85hfDatNK8czSo=;
+ b=GxCZCiyPoYovq1y/PaDTdZ3+lcjuuQIJQyRSCSHXoHZQGn65v32SOGaB50W0s5/7IaSZdd
+ w2RN28zreUVdQfBQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6A5A213ABA;
- Tue, 10 Aug 2021 09:42:09 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 580E413ABA;
+ Tue, 10 Aug 2021 09:42:52 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id GqCeGfFJEmEeJAAAMHmgww
- (envelope-from <chrubis@suse.cz>); Tue, 10 Aug 2021 09:42:09 +0000
-Date: Tue, 10 Aug 2021 11:42:20 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id +f92FRxKEmFWJAAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Tue, 10 Aug 2021 09:42:52 +0000
+Date: Tue, 10 Aug 2021 11:43:03 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
 To: zhanglianjie <zhanglianjie@uniontech.com>
-Message-ID: <YRJJ/Dsw3ubuzMdO@yuki>
+Message-ID: <YRJKJ0OSLKwbu+cl@yuki>
 References: <20210810015250.21315-1-zhanglianjie@uniontech.com>
 MIME-Version: 1.0
 Content-Disposition: inline
 In-Reply-To: <20210810015250.21315-1-zhanglianjie@uniontech.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH 3/4] syscalls/chmod03: Convert to new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -86,24 +85,7 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-Pushed with a minor changes, thanks.
-
-> +} tcases[] = {
-> +	{bad_dir, ENAMETOOLONG, "chroot(pathname more than VFS_MAXNAMELEN)"},
-> +	{fname, ENOTDIR, "chroot(not a directory)"},
-> +	{nonexistent_dir, ENOENT, "chroot(path does not exists)"},
-> +	{(char *)-1, EFAULT, "chroot(a path pointing to an invalid address)"},
-> +	{symbolic_dir, ELOOP, "chroot(two symbolic directory who point to each other)"}
->  };
-
-I've shortened the descriptions here a bit.
-
->  	/*
->  	 * create two symbolic directory who point to each other to
->  	 * test ELOOP.
->  	 */
-
-And also remove this comment that have been commenting the obvious.
+And also fixed the subject, which should have been chroot03 not chmod03.
 
 -- 
 Cyril Hrubis
