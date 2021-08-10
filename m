@@ -1,25 +1,26 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DE7B3E58B4
-	for <lists+linux-ltp@lfdr.de>; Tue, 10 Aug 2021 12:58:39 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 94A4C3E58CA
+	for <lists+linux-ltp@lfdr.de>; Tue, 10 Aug 2021 13:03:38 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E7E023C70CC
-	for <lists+linux-ltp@lfdr.de>; Tue, 10 Aug 2021 12:58:37 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id F3F8F3C70D0
+	for <lists+linux-ltp@lfdr.de>; Tue, 10 Aug 2021 13:03:37 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 0C5C63C5907
- for <ltp@lists.linux.it>; Tue, 10 Aug 2021 12:58:29 +0200 (CEST)
-Received: from smtpbgeu2.qq.com (smtpbgeu2.qq.com [18.194.254.142])
+ by picard.linux.it (Postfix) with ESMTPS id BF32E3C3362
+ for <ltp@lists.linux.it>; Tue, 10 Aug 2021 13:03:33 +0200 (CEST)
+Received: from smtpproxy21.qq.com (smtpbg701.qq.com [203.205.195.86])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id DC459600C7F
- for <ltp@lists.linux.it>; Tue, 10 Aug 2021 12:58:26 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id CE8F91000CE0
+ for <ltp@lists.linux.it>; Tue, 10 Aug 2021 13:03:31 +0200 (CEST)
 X-QQ-mid: bizesmtp32t1628593100tc6jw6gh
 Received: from [10.4.23.179] (unknown [58.240.82.166])
  by esmtp6.qq.com (ESMTP) with 
@@ -46,13 +47,13 @@ Content-Language: en-US
 X-QQ-SENDSIZE: 520
 Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign7
 X-QQ-Bgrelay: 1
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=2.8 required=7.0 tests=FORGED_MUA_MOZILLA,
- INVALID_MSGID,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ INVALID_MSGID,NICE_REPLY_A,SPF_HELO_PASS,SPF_PASS autolearn=disabled
  version=3.4.4
 X-Spam-Level: **
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH] [v2,
  1/6] syscalls/sysfs: Convert sysfs01 to the new API
 X-BeenThere: ltp@lists.linux.it
