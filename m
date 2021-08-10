@@ -1,54 +1,53 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id C913A3E7BEC
-	for <lists+linux-ltp@lfdr.de>; Tue, 10 Aug 2021 17:15:41 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id CD0C73E7BEF
+	for <lists+linux-ltp@lfdr.de>; Tue, 10 Aug 2021 17:15:51 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6417E3C70B4
-	for <lists+linux-ltp@lfdr.de>; Tue, 10 Aug 2021 17:15:41 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 45C0C3C710A
+	for <lists+linux-ltp@lfdr.de>; Tue, 10 Aug 2021 17:15:51 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 6F05F3C4E18
- for <ltp@lists.linux.it>; Tue, 10 Aug 2021 17:15:39 +0200 (CEST)
-Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
+ by picard.linux.it (Postfix) with ESMTPS id 928B83C7103
+ for <ltp@lists.linux.it>; Tue, 10 Aug 2021 17:15:49 +0200 (CEST)
+Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 92B49600708
- for <ltp@lists.linux.it>; Tue, 10 Aug 2021 17:15:36 +0200 (CEST)
-X-QQ-mid: bizesmtp33t1628608527tevmlifo
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id EEFAC1A00894
+ for <ltp@lists.linux.it>; Tue, 10 Aug 2021 17:15:46 +0200 (CEST)
+X-QQ-mid: bizesmtp53t1628608541tn04cgd4
 Received: from localhost.localdomain (unknown [58.240.82.166])
  by esmtp6.qq.com (ESMTP) with 
- id ; Tue, 10 Aug 2021 23:15:22 +0800 (CST)
+ id ; Tue, 10 Aug 2021 23:15:37 +0800 (CST)
 X-QQ-SSF: 0140000000200040B000000B0000000
-X-QQ-FEAT: Tp2hW+Mew+eG/QxuLdRPDjeTdRGANSw/F7VeUmzriKv3A/VADqbJWqm9O0tXj
- zhmYMmz8mqM+jstiP4iyqaCRCd8Pus8DHKa6er7EJq5QhDJwydiK2VOUbwvJ0OCQO+OFTZR
- 6nsst9ftihGDrar3i/Ox6MNbxcEuuarMRb13mFE72qbuH8QpjCvj91xhYF27cPfYtTQYfzR
- ELDao6NGZ8teBmBnucsIHg98CLPDXvVpSWbHwn9t1bnlnO6hcqXwbqa3jFBBEXt7SZru0mV
- pCkKozYMNRI8u8pDoehKD7jKgLXIHnFTxaTrm/DXnUHMwCoEbqY4I8tBVRtpqbQLayfNTY2
- 1dHCTCK1hsxQY+XKRU=
+X-QQ-FEAT: f0dVAzX4zgmns2izz4jawEETy6PrICfZSYfqxPtRl9i6ykNAry9n2zPYPjAM7
+ w4TowLcNJvS293uWJO+X3+K6hlKyLQ+X/sH12HPBcYBcRZH89hUSDvhLyNuXR6kVSncbNO2
+ TJr68qMzdsm2i2gRtBrjzdBQQ0MUqp9j57VH0ZktDIVgxDOwdDmcGuO30VgmwnZ/cVen8r1
+ 0sI2BNnq+6xDxrZ5yNes/OA8tuhF0ZWuo4nezPA9szQ38Wti43UNVFshLQ2ItJXG8a1cD3M
+ INt3OeNK9gbx4TcDWF+XpOBcSIWSB5wZeytNItseVEQ2zdIUqrf9hWyvetUSW8+V8PnnLnZ
+ n23R+t2WtTs6jrBODQ=
 X-QQ-GoodBg: 2
 From: zhanglianjie <zhanglianjie@uniontech.com>
 To: ltp@lists.linux.it
-Date: Tue, 10 Aug 2021 23:15:18 +0800
-Message-Id: <20210810151518.27618-1-zhanglianjie@uniontech.com>
+Date: Tue, 10 Aug 2021 23:15:35 +0800
+Message-Id: <20210810151535.27829-1-zhanglianjie@uniontech.com>
 X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
 X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign2
+Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign5
 X-QQ-Bgrelay: 1
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 1/4] syscalls/chmod01: Convert to new API and add
- directory tests
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 2/4] syscalls/chmod02: Remove the testcase
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,86 +66,74 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Signed-off-by: zhanglianjie <zhanglianjie@uniontech.com>
 
-diff --git a/testcases/kernel/syscalls/chmod/chmod01.c b/testcases/kernel/syscalls/chmod/chmod01.c
-index 55ddf8a73..4dd39efca 100644
---- a/testcases/kernel/syscalls/chmod/chmod01.c
-+++ b/testcases/kernel/syscalls/chmod/chmod01.c
-@@ -1,159 +1,77 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
- /*
-  *
-  *   Copyright (c) International Business Machines  Corp., 2001
-+ *   07/2001 Ported by Wayne Boyer
-  *
-- *   This program is free software;  you can redistribute it and/or modify
-- *   it under the terms of the GNU General Public License as published by
-- *   the Free Software Foundation; either version 2 of the License, or
-- *   (at your option) any later version.
-- *
-- *   This program is distributed in the hope that it will be useful,
-- *   but WITHOUT ANY WARRANTY;  without even the implied warranty of
-- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
-- *   the GNU General Public License for more details.
-- *
-- *   You should have received a copy of the GNU General Public License
-- *   along with this program;  if not, write to the Free Software
-- *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
-  */
+diff --git a/runtest/syscalls b/runtest/syscalls
+index 9af5aa5c0..1e627ab47 100644
+--- a/runtest/syscalls
++++ b/runtest/syscalls
+@@ -63,7 +63,6 @@ chdir04 chdir04
 
+ chmod01 chmod01
+ chmod01A symlink01 -T chmod01
+-chmod02 chmod02
+ chmod03 chmod03
+ chmod04 chmod04
+ chmod05 chmod05
+diff --git a/testcases/kernel/syscalls/chmod/.gitignore b/testcases/kernel/syscalls/chmod/.gitignore
+index 4e856df43..072fa5b80 100644
+--- a/testcases/kernel/syscalls/chmod/.gitignore
++++ b/testcases/kernel/syscalls/chmod/.gitignore
+@@ -1,5 +1,4 @@
+ /chmod01
+-/chmod02
+ /chmod03
+ /chmod04
+ /chmod05
+diff --git a/testcases/kernel/syscalls/chmod/chmod02.c b/testcases/kernel/syscalls/chmod/chmod02.c
+deleted file mode 100644
+index 94a77aeb1..000000000
+--- a/testcases/kernel/syscalls/chmod/chmod02.c
++++ /dev/null
+@@ -1,107 +0,0 @@
 -/*
-- * Test Name: chmod01
-+/*\
-+ * [Description]
-  *
-  * Test Description:
-  *  Verify that, chmod(2) succeeds when used to change the mode permissions
-- *  of a file.
-+ *  of a file or directory.
-  *
-  * Expected Result:
-  *  chmod(2) should return 0 and the mode permissions set on file should match
-  *  the specified mode.
-  *
-- * Algorithm:
-- *  Setup:
-- *   Setup signal handling.
-- *   Create temporary directory.
-- *   Pause for SIGUSR1 if option specified.
+- * Copyright (c) 2000 Silicon Graphics, Inc.  All Rights Reserved.
 - *
-- *  Test:
-- *   Loop if the proper options are given.
-- *   Execute system call
-- *   Check return code, if system call failed (return=-1)
-- *   	Log the errno and Issue a FAIL message.
-- *   Otherwise,
-- *   	Verify the Functionality of system call
-- *      if successful,
-- *      	Issue Functionality-Pass message.
-- *      Otherwise,
-- *		Issue Functionality-Fail message.
-- *  Cleanup:
-- *   Print errno log and/or timing stats if options given
-- *   Delete the temporary directory created.
+- * This program is free software; you can redistribute it and/or modify it
+- * under the terms of version 2 of the GNU General Public License as
+- * published by the Free Software Foundation.
 - *
-- * Usage:  <for command-line>
-- *  chmod01 [-c n] [-e] [-f] [-i n] [-I x] [-P x] [-t]
-- *     where,  -c n : Run n copies concurrently.
-- *             -e   : Turn on errno logging.
-- *             -f   : Turn off functionality Testing.
-- *	       -i n : Execute test n times.
-- *	       -I x : Execute test for x seconds.
-- *	       -P x : Pause for x seconds between iterations.
-- *	       -t   : Turn on syscall timing.
+- * This program is distributed in the hope that it would be useful, but
+- * WITHOUT ANY WARRANTY; without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 - *
-- * HISTORY
-- *	07/2001 Ported by Wayne Boyer
+- * Further, this software is distributed without any warranty that it is
+- * free of the rightful claim of any third person regarding infringement
+- * or the like.  Any license provided herein, whether implied or
+- * otherwise, applies only to this software file.  Patent licenses, if
+- * any, provided herein do not apply to combinations of this program with
+- * other software, or any other product whatsoever.
 - *
-- * RESTRICTIONS:
-- *  None.
+- * You should have received a copy of the GNU General Public License along
+- * with this program; if not, write the Free Software Foundation, Inc.,
+- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 - *
-  */
-
--#include <stdio.h>
+- * Contact information: Silicon Graphics, Inc., 1600 Amphitheatre Pkwy,
+- * Mountain View, CA  94043, or:
+- *
+- * http://www.sgi.com
+- *
+- * For further information regarding this notice, see:
+- *
+- * http://oss.sgi.com/projects/GenInfo/NoticeExplan/
+- */
+-
+-/*
+- * AUTHOR	: William Roske
+- * CO-PILOT	: Dave Fenner
+- * DATE STARTED	: 03/30/92
+- *
+- *  Calls chmod(2) with different modes and expects success.
+- */
+-
 -#include <sys/types.h>
 -#include <sys/stat.h>
 -#include <fcntl.h>
@@ -156,39 +143,20 @@ index 55ddf8a73..4dd39efca 100644
 -
 -#include "test.h"
 -#include "safe_macros.h"
-+#include "tst_test.h"
-
--#define FILE_MODE	S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH
-+#define MODE	S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH
- #define TESTFILE	"testfile"
-+#define TESTDIR		"testdir_1"
-
--char *TCID = "chmod01";
--int TST_TOTAL = 8;
-+static int modes[] = { 0, 07, 070, 0700, 0777, 02777, 04777, 06777 };
-
--int modes[] = { 0, 07, 070, 0700, 0777, 02777, 04777, 06777 };
-+static struct variant {
-+	char *name;
-+	unsigned int mode_mask;
-+	char *desc;
-+} variants[] = {
-+	{TESTFILE, S_IFREG, "verify permissions of file"},
-+	{TESTDIR, S_IFDIR, "verify permissions of directory"},
-+};
-
--void setup();
--void cleanup();
+-
+-static int modes[] = { 0, 07, 070, 0700, 0777, 02777, 04777, 06777 };
+-
+-char *TCID = "chmod02";
+-int TST_TOTAL = ARRAY_SIZE(modes);
+-
+-#define FNAME "test_file"
+-
+-static void setup(void);
+-static void cleanup(void);
 -
 -int main(int ac, char **av)
-+static void verify_chmod(unsigned int n)
- {
- 	struct stat stat_buf;
--	int lc;
--	int i;
--	int mode;
--
--	TST_TOTAL = sizeof(modes) / sizeof(int);
+-{
+-	int lc, i;
 -
 -	tst_parse_opts(ac, av, NULL, NULL);
 -
@@ -199,87 +167,40 @@ index 55ddf8a73..4dd39efca 100644
 -		tst_count = 0;
 -
 -		for (i = 0; i < TST_TOTAL; i++) {
--			mode = modes[i];
 -
--			TEST(chmod(TESTFILE, mode));
+-			TEST(chmod(FNAME, modes[i]));
 -
 -			if (TEST_RETURN == -1) {
 -				tst_resm(TFAIL | TTERRNO,
--					 "chmod(%s, %#o) failed", TESTFILE,
--					 mode);
--				continue;
+-					 "chmod(%s, %#o) failed", FNAME, modes[i]);
+-			} else {
+-				tst_resm(TPASS,
+-					 "chmod(%s, %#o) returned %ld",
+-					 FNAME, modes[i], TEST_RETURN);
 -			}
--			if (stat(TESTFILE, &stat_buf) < 0)
--				tst_brkm(TFAIL | TERRNO, cleanup,
--					 "stat(%s) failed", TESTFILE);
--			stat_buf.st_mode &= ~S_IFREG;
--
--			if (stat_buf.st_mode == (unsigned int)mode)
--				tst_resm(TPASS, "Functionality of "
--					 "chmod(%s, %#o) successful",
--					 TESTFILE, mode);
--			else
--				tst_resm(TFAIL, "%s: Incorrect "
--					 "modes 0%03o, Expected 0%03o",
--					 TESTFILE, stat_buf.st_mode,
--					 mode);
 -		}
+-
 -	}
 -
 -	cleanup();
 -	tst_exit();
-+	int mode = modes[n];
-+	struct variant *tc = &variants[tst_variant];
-+
-+	TST_EXP_PASS(chmod(tc->name, mode), "chmod(%s, %04o)",
-+	tc->name, mode);
-+	if (!TST_PASS)
-+		return;
-+
-+	SAFE_STAT(tc->name, &stat_buf);
-+	stat_buf.st_mode &= ~tc->mode_mask;
-+
-+	if (stat_buf.st_mode == (unsigned int)mode)
-+		tst_res(TPASS, "stat(%s) mode=%04o",
-+				tc->name, stat_buf.st_mode);
-+	else
-+		tst_res(TFAIL, "stat(%s) mode=%04o",
-+				tc->name, stat_buf.st_mode);
- }
-
--void setup(void)
-+static void setup(void)
- {
--	int fd;
+-}
 -
+-static void setup(void)
+-{
 -	tst_sig(NOFORK, DEF_HANDLER, cleanup);
 -
 -	TEST_PAUSE;
 -
 -	tst_tmpdir();
 -
--	fd = SAFE_OPEN(cleanup, TESTFILE, O_RDWR | O_CREAT, FILE_MODE);
--	SAFE_CLOSE(cleanup, fd);
+-	SAFE_FILE_PRINTF(cleanup, FNAME, "File content\n");
+-}
 -
-+	tst_res(TINFO, "Testing variant: %s", variants[tst_variant].desc);
-+	if (tst_variant)
-+		SAFE_MKDIR(variants[tst_variant].name, MODE);
-+	else
-+		SAFE_TOUCH(variants[tst_variant].name, MODE, NULL);
- }
-
--void cleanup(void)
+-static void cleanup(void)
 -{
 -	tst_rmdir();
 -}
-+static struct tst_test test = {
-+	.setup = setup,
-+	.test_variants = ARRAY_SIZE(variants),
-+	.tcnt = ARRAY_SIZE(modes),
-+	.test = verify_chmod,
-+	.needs_tmpdir = 1,
-+};
-+
 --
 2.20.1
 
