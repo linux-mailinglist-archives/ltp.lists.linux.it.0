@@ -2,54 +2,72 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47BB63E58B8
-	for <lists+linux-ltp@lfdr.de>; Tue, 10 Aug 2021 12:59:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B4213E58DC
+	for <lists+linux-ltp@lfdr.de>; Tue, 10 Aug 2021 13:11:57 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id AF3EC3C70D9
-	for <lists+linux-ltp@lfdr.de>; Tue, 10 Aug 2021 12:59:23 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 3CB7B3C70AF
+	for <lists+linux-ltp@lfdr.de>; Tue, 10 Aug 2021 13:11:57 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A0DC73C5907
- for <ltp@lists.linux.it>; Tue, 10 Aug 2021 12:59:12 +0200 (CEST)
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 789B13C709F
+ for <ltp@lists.linux.it>; Tue, 10 Aug 2021 13:11:51 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 2197E1A001A9
- for <ltp@lists.linux.it>; Tue, 10 Aug 2021 12:59:10 +0200 (CEST)
-Received: from dggemv711-chm.china.huawei.com (unknown [172.30.72.54])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4GkVGm14qpzb0Mq
- for <ltp@lists.linux.it>; Tue, 10 Aug 2021 18:55:28 +0800 (CST)
-Received: from dggpemm500022.china.huawei.com (7.185.36.162) by
- dggemv711-chm.china.huawei.com (10.1.198.66) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2176.2; Tue, 10 Aug 2021 18:59:06 +0800
-Received: from ubuntu1804.huawei.com (10.67.174.209) by
- dggpemm500022.china.huawei.com (7.185.36.162) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2176.2; Tue, 10 Aug 2021 18:59:06 +0800
-From: Xie Ziyao <xieziyao@huawei.com>
-To: <ltp@lists.linux.it>
-Date: Tue, 10 Aug 2021 19:00:24 +0800
-Message-ID: <20210810110024.106436-3-xieziyao@huawei.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210810110024.106436-1-xieziyao@huawei.com>
-References: <20210810110024.106436-1-xieziyao@huawei.com>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id C8EB0200BB2
+ for <ltp@lists.linux.it>; Tue, 10 Aug 2021 13:11:50 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 1B8BB1FE45;
+ Tue, 10 Aug 2021 11:11:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1628593910; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=JUaHIdXdJHAxV6xgVPcU+RUqa83CIhP5TY34QToV6Ao=;
+ b=MNmH32oo6/IH0gjl3JxmWbDza656oIvHNa0fO3WqIlsqZOsUrV2F4JDeT6P+72u50la0Ro
+ bB95xbInpoIUOCrpWDH4Mx7ngd+G4aKGlyoQX8vY5E0BnJses/tGPiQXUB6D2WqIeCkvR/
+ OqhPZLx9Jon17auPqsyw3qCfEW3T/BE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1628593910;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=JUaHIdXdJHAxV6xgVPcU+RUqa83CIhP5TY34QToV6Ao=;
+ b=2LMlkbhpvx19Y3HenaRlK46AdoiPc8AFOJQv7Qlgjlh2pumO7ZWXDbK/hhUDi0VAjpmH4n
+ wQ+HCkNp2EFz5bDg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 09F8313AF2;
+ Tue, 10 Aug 2021 11:11:50 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id c0djAvZeEmFTPwAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Tue, 10 Aug 2021 11:11:50 +0000
+Date: Tue, 10 Aug 2021 13:12:01 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: zhanglianjie <zhanglianjie@uniontech.com>
+Message-ID: <YRJfAXd3mryUhH0+@yuki>
+References: <20210806072338.8240-1-zhanglianjie@uniontech.com>
+ <YRJRQUSJJHjwNNZy@yuki>
 MIME-Version: 1.0
-X-Originating-IP: [10.67.174.209]
-X-ClientProxiedBy: dggems702-chm.china.huawei.com (10.3.19.179) To
- dggpemm500022.china.huawei.com (7.185.36.162)
-X-CFilter-Loop: Reflected
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <YRJRQUSJJHjwNNZy@yuki>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/2] epoll_pwait: Add invalid timespec test for
- epoll_pwait05
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/4] syscalls/chmod01: Convert to new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,122 +79,19 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Verify that, epoll_pwait2() return -1 and set errno to EINVAL with an invalid timespec.
+Hi!
+It may be also a good idea to add directory tests to the testcase as
+well.
 
-Fixes: #792
-Signed-off-by: Xie Ziyao <xieziyao@huawei.com>
----
- runtest/syscalls                              |  1 +
- .../kernel/syscalls/epoll_pwait/.gitignore    |  1 +
- .../syscalls/epoll_pwait/epoll_pwait05.c      | 70 +++++++++++++++++++
- 3 files changed, 72 insertions(+)
- create mode 100644 testcases/kernel/syscalls/epoll_pwait/epoll_pwait05.c
-
-diff --git a/runtest/syscalls b/runtest/syscalls
-index 206281f6e..d3fc98758 100644
---- a/runtest/syscalls
-+++ b/runtest/syscalls
-@@ -169,6 +169,7 @@ epoll_pwait01 epoll_pwait01
- epoll_pwait02 epoll_pwait02
- epoll_pwait03 epoll_pwait03
- epoll_pwait04 epoll_pwait04
-+epoll_pwait05 epoll_pwait05
-
- eventfd01 eventfd01
-
-diff --git a/testcases/kernel/syscalls/epoll_pwait/.gitignore b/testcases/kernel/syscalls/epoll_pwait/.gitignore
-index cdefffa2d..fafb2d782 100644
---- a/testcases/kernel/syscalls/epoll_pwait/.gitignore
-+++ b/testcases/kernel/syscalls/epoll_pwait/.gitignore
-@@ -2,3 +2,4 @@ epoll_pwait01
- epoll_pwait02
- epoll_pwait03
- epoll_pwait04
-+epoll_pwait05
-diff --git a/testcases/kernel/syscalls/epoll_pwait/epoll_pwait05.c b/testcases/kernel/syscalls/epoll_pwait/epoll_pwait05.c
-new file mode 100644
-index 000000000..1373c36e5
---- /dev/null
-+++ b/testcases/kernel/syscalls/epoll_pwait/epoll_pwait05.c
-@@ -0,0 +1,70 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) Huawei Technologies Co., Ltd. 2021. All rights reserved.
-+ * Author: Xie Ziyao <xieziyao@huawei.com>
-+ */
-+
-+/*\
-+ * [Description]
-+ *
-+ * Verify that, epoll_pwait2() return -1 and set errno to EINVAL with an
-+ * invalid timespec.
-+ */
-+
-+#include <sys/epoll.h>
-+
-+#include "tst_test.h"
-+#include "tst_timer.h"
-+#include "lapi/epoll.h"
-+
-+static int efd, sfd[2];
-+static struct epoll_event e;
-+
-+static struct test_case_t {
-+	struct timespec ts;
-+	int exp_errno;
-+	const char *desc;
-+} tc[] = {
-+	{{.tv_sec = -1}, EINVAL, "ts.tv_sec < 0"},
-+	{{.tv_nsec = -1}, EINVAL, "ts.tv_nsec < 0"},
-+	{{.tv_nsec = NSEC_PER_SEC}, EINVAL, "ts.tv_nsec >= NSEC_PER_SEC"},
-+};
-+
-+static void run_all(unsigned int n)
-+{
-+	TST_EXP_FAIL(epoll_pwait2(efd, &e, 1, &tc[n].ts, NULL),
-+		     tc[n].exp_errno, "with %s", tc[n].desc);
-+}
-+
-+static void setup(void)
-+{
-+	SAFE_SOCKETPAIR(AF_UNIX, SOCK_STREAM, 0, sfd);
-+
-+	efd = epoll_create(1);
-+	if (efd == -1)
-+		tst_brk(TBROK | TERRNO, "epoll_create()");
-+
-+	e.events = EPOLLIN;
-+	if (epoll_ctl(efd, EPOLL_CTL_ADD, sfd[0], &e))
-+		tst_brk(TBROK | TERRNO, "epoll_clt(..., EPOLL_CTL_ADD, ...)");
-+	SAFE_WRITE(1, sfd[1], "w", 1);
-+}
-+
-+static void cleanup(void)
-+{
-+	if (efd > 0)
-+		SAFE_CLOSE(efd);
-+
-+	if (sfd[0] > 0)
-+		SAFE_CLOSE(sfd[0]);
-+
-+	if (sfd[1] > 0)
-+		SAFE_CLOSE(sfd[1]);
-+}
-+
-+static struct tst_test test = {
-+	.test = run_all,
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.tcnt = ARRAY_SIZE(tc),
-+};
---
-2.17.1
-
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
