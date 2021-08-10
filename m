@@ -2,52 +2,72 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id E41013E50C7
-	for <lists+linux-ltp@lfdr.de>; Tue, 10 Aug 2021 03:53:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41E7B3E5624
+	for <lists+linux-ltp@lfdr.de>; Tue, 10 Aug 2021 11:02:02 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 8595B3C719C
-	for <lists+linux-ltp@lfdr.de>; Tue, 10 Aug 2021 03:53:15 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 72F1D3C70A7
+	for <lists+linux-ltp@lfdr.de>; Tue, 10 Aug 2021 11:02:01 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 6725F3C7182
- for <ltp@lists.linux.it>; Tue, 10 Aug 2021 03:53:10 +0200 (CEST)
-Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 638AA3C5DC7
+ for <ltp@lists.linux.it>; Tue, 10 Aug 2021 11:01:59 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 6715B1000464
- for <ltp@lists.linux.it>; Tue, 10 Aug 2021 03:53:09 +0200 (CEST)
-X-QQ-mid: bizesmtp38t1628560384tm296imb
-Received: from localhost.localdomain (unknown [58.240.82.166])
- by esmtp6.qq.com (ESMTP) with 
- id ; Tue, 10 Aug 2021 09:52:55 +0800 (CST)
-X-QQ-SSF: 0140000000200040B000000A0000000
-X-QQ-FEAT: uPLuWhYJ8bgiBdF4V4Xov1lUEOQkfOdYGHyYUACC65txBGPjRPsWLltrNgCdz
- K5eNlIaiME726DbIJS4/BVSNudk0SEgKVVdau/ZC4ViYHtHQcGak3dZjI5y9j0D8yUpCF8t
- 85MmppXnRKya7oBmoGTsK5TKryUZxPGr4JK9iM9wjVFCC1CQQPqMQfckqtrBxdK5OhwBu2j
- alZ9GvYM3k/F1yErnxDEXlmw7eY5dJePaxgQxZwuVTYReRJ0mz2Z3c+8py/m9oBiADnA2O6
- Uxmb4DWrVu21Yg9qHy+KqRrRR/6PyydVs0+MPIRfb2pzLRvhglyoe1QnFv9vHWdMQEEwk1y
- QOBS1rOpKOMcPd4CKY=
-X-QQ-GoodBg: 2
-From: zhanglianjie <zhanglianjie@uniontech.com>
-To: ltp@lists.linux.it
-Date: Tue, 10 Aug 2021 09:52:50 +0800
-Message-Id: <20210810015250.21315-1-zhanglianjie@uniontech.com>
-X-Mailer: git-send-email 2.20.1
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id ABC801000B11
+ for <ltp@lists.linux.it>; Tue, 10 Aug 2021 11:01:58 +0200 (CEST)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id B091820087;
+ Tue, 10 Aug 2021 09:01:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1628586117; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Ep7SF3OSAdN5LNcUHAfUBVM4NwAiVCcHkrzD09Wx1Ps=;
+ b=icHu2aQbTKroOcaoEFaoImGxywcg08Sim7ZUzJb638p6Q5uCYSlR9njFN1wemJXdbpjPwG
+ d4+mBHy4qgPjQ8bCLYUS757zSFBbnmFd04BuUU2HV1iSkyu7fB2HfHsoTjI6xb90kZcqPB
+ Fw4FaQdHgZbPtiT43DsutUNPGVMu+js=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1628586117;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Ep7SF3OSAdN5LNcUHAfUBVM4NwAiVCcHkrzD09Wx1Ps=;
+ b=79mIsx5Xem+qv8n+ExyVfdt6sHFZnbDnwQL5808RSC5KCeie53QkAUajrHciNQrpTAZ4jq
+ s+1qOQwmBHNzLoCQ==
+Received: from quack2.suse.cz (unknown [10.100.224.230])
+ by relay2.suse.de (Postfix) with ESMTP id 7F6A0A3BEC;
+ Tue, 10 Aug 2021 09:01:57 +0000 (UTC)
+Received: by quack2.suse.cz (Postfix, from userid 1000)
+ id 0CB621E3BFC; Tue, 10 Aug 2021 11:01:57 +0200 (CEST)
+Date: Tue, 10 Aug 2021 11:01:57 +0200
+From: Jan Kara <jack@suse.cz>
+To: "Eric W. Biederman" <ebiederm@xmission.com>
+Message-ID: <20210810090157.GA18722@quack2.suse.cz>
+References: <20210730062854.3601635-1-svens@linux.ibm.com>
+ <YQn+GomdRCoYc/E8@Ryzen-9-3900X.localdomain>
+ <875ywlat5e.fsf@disp2133>
+ <94478003-8259-4b57-6d93-5a07e0750946@kernel.org>
+ <87v94jalck.fsf@disp2133>
+ <56b7c0fe-f2e1-7c4f-eb1b-1d9793dea5a8@kernel.org>
+ <CA+G9fYv+Azmu+_YUv6+C6RRM990k0FhUc0hgSJKssubmsWfvhA@mail.gmail.com>
+ <8735rijqlv.fsf_-_@disp2133>
 MIME-Version: 1.0
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign7
-X-QQ-Bgrelay: 1
+Content-Disposition: inline
+In-Reply-To: <8735rijqlv.fsf_-_@disp2133>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
- autolearn=disabled version=3.4.4
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH 3/4] syscalls/chmod03: Convert to new API
+Subject: Re: [LTP] [PATCH v4] ucounts: add missing data type changes
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,235 +79,165 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: Jan Kara <jack@suse.cz>, open list <linux-kernel@vger.kernel.org>,
+ Nathan Chancellor <nathan@kernel.org>, Sven Schnelle <svens@linux.ibm.com>,
+ linux-fsdevel@vger.kernel.org, Alexey Gladkov <legion@kernel.org>,
+ LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: zhanglianjie <zhanglianjie@uniontech.com>
+On Mon 09-08-21 15:43:56, Eric W. Biederman wrote:
+> 
+> commit f9c82a4ea89c3 ("Increase size of ucounts to atomic_long_t")
+> changed the data type of ucounts/ucounts_max to long, but missed to
+> adjust a few other places. This is noticeable on big endian platforms
+> from user space because the /proc/sys/user/max_*_names files all
+> contain 0.
+> 
+> v4 - Made the min and max constants long so the sysctl values
+>      are actually settable on little endian machines.
+>      -- EWB
+> 
+> Fixes: f9c82a4ea89c ("Increase size of ucounts to atomic_long_t")
+> Signed-off-by: Sven Schnelle <svens@linux.ibm.com>
+> Tested-by: Nathan Chancellor <nathan@kernel.org>
+> Tested-by: Linux Kernel Functional Testing <lkft@linaro.org>
+> Acked-by: Alexey Gladkov <legion@kernel.org>
+> v1: https://lkml.kernel.org/r/20210721115800.910778-1-svens@linux.ibm.com
+> v2: https://lkml.kernel.org/r/20210721125233.1041429-1-svens@linux.ibm.com
+> v3: https://lkml.kernel.org/r/20210730062854.3601635-1-svens@linux.ibm.com
+> Signed-off-by: Eric W. Biederman <ebiederm@xmission.com>
 
-diff --git a/testcases/kernel/syscalls/chroot/chroot03.c b/testcases/kernel/syscalls/chroot/chroot03.c
-index b904e4ac9..0e509f415 100644
---- a/testcases/kernel/syscalls/chroot/chroot03.c
-+++ b/testcases/kernel/syscalls/chroot/chroot03.c
-@@ -1,168 +1,77 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
- /*
-  *   Copyright (c) International Business Machines  Corp., 2001
-  *
-- *   This program is free software;  you can redistribute it and/or modify
-- *   it under the terms of the GNU General Public License as published by
-- *   the Free Software Foundation; either version 2 of the License, or
-- *   (at your option) any later version.
-- *
-- *   This program is distributed in the hope that it will be useful,
-- *   but WITHOUT ANY WARRANTY;  without even the implied warranty of
-- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
-- *   the GNU General Public License for more details.
-- *
-- *   You should have received a copy of the GNU General Public License
-- *   along with this program;  if not, write to the Free Software
-- *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
-+ *	 07/2001 Ported by Wayne Boyer
-  */
+Looks good. Feel free to add:
 
--/*
-- *	Testcase to test whether chroot(2) sets errno correctly.
-- *
-- *	1.	Test for ENAMETOOLONG:
-- *		Create a bad directory name with length more than
-- *		VFS_MAXNAMELEN (Linux kernel variable), and pass it as the
-- *		path to chroot(2).
-- *
-- *	2.	Test for ENOENT:
-- *		Attempt to chroot(2) on a non-existent directory
-- *
-- *	3.	Test for ENOTDIR:
-- *		Attempt to chdir(2) on a file.
-- *
-- *	4.	Test for EFAULT:
-- *		The pathname parameter to chroot() points to an invalid address,
-- *		chroot(2) fails with EPERM.
-+/*\
-+ * [Description]
-  *
-- *	5.	Test for ELOOP:
-- *		Too many symbolic links were encountered When resolving the
-- *		pathname parameter.
-- *
-- *	07/2001 Ported by Wayne Boyer
-+ * Testcase to test whether chroot(2) sets errno correctly.
-+ *
-+ * - to test whether chroot() is setting ENAMETOOLONG if the
-+ *   pathname is more than VFS_MAXNAMELEN.
-+ * - to test whether chroot() is setting ENOTDIR if the argument
-+ *   is not a directory.
-+ * - to test whether chroot() is setting ENOENT if the directory
-+ *   does not exist.
-+ * - attempt to chroot to a path pointing to an invalid address
-+ *   and expect EFAULT as errno.
-+ * - to test whether chroot() is setting ELOOP if the two
-+ *   symbolic directory who point to each other.
-  */
+Reviewed-by: Jan Kara <jack@suse.cz>
 
- #include <stdio.h>
--#include <errno.h>
--#include <sys/stat.h>
--#include <sys/mman.h>
--#include "test.h"
--#include <fcntl.h>
--#include "safe_macros.h"
--
--char *TCID = "chroot03";
-+#include "tst_test.h"
+								Honza
 
--static int fd;
- static char fname[255];
- static char nonexistent_dir[100] = "testdir";
- static char bad_dir[] = "abcdefghijklmnopqrstmnopqrstuvwxyzabcdefghijklmnopqrstmnopqrstuvwxyzabcdefghijklmnopqrstmnopqrstuvwxyzabcdefghijklmnopqrstmnopqrstuvwxyzabcdefghijklmnopqrstmnopqrstuvwxyzabcdefghijklmnopqrstmnopqrstuvwxyzabcdefghijklmnopqrstmnopqrstuvwxyzabcdefghijklmnopqrstmnopqrstuvwxyz";
- static char symbolic_dir[] = "sym_dir1";
-
--struct test_case_t {
-+static struct tcase {
- 	char *dir;
- 	int error;
--} TC[] = {
--	/*
--	 * to test whether chroot() is setting ENAMETOOLONG if the
--	 * pathname is more than VFS_MAXNAMELEN
--	 */
--	{
--	bad_dir, ENAMETOOLONG},
--	    /*
--	     * to test whether chroot() is setting ENOTDIR if the argument
--	     * is not a directory.
--	     */
--	{
--	fname, ENOTDIR},
--	    /*
--	     * to test whether chroot() is setting ENOENT if the directory
--	     * does not exist.
--	     */
--	{
--	nonexistent_dir, ENOENT},
--#if !defined(UCLINUX)
--	    /*
--	     * attempt to chroot to a path pointing to an invalid address
--	     * and expect EFAULT as errno
--	     */
--	{
--	(char *)-1, EFAULT},
--#endif
--	{symbolic_dir, ELOOP}
-+	char *desc;
-+} tcases[] = {
-+	{bad_dir, ENAMETOOLONG, "chroot(pathname more than VFS_MAXNAMELEN)"},
-+	{fname, ENOTDIR, "chroot(not a directory)"},
-+	{nonexistent_dir, ENOENT, "chroot(path does not exists)"},
-+	{(char *)-1, EFAULT, "chroot(a path pointing to an invalid address)"},
-+	{symbolic_dir, ELOOP, "chroot(two symbolic directory who point to each other)"}
- };
-
--int TST_TOTAL = ARRAY_SIZE(TC);
--
--static char *bad_addr;
--
--static void setup(void);
--static void cleanup(void);
--
--int main(int ac, char **av)
-+static void verify_chroot(unsigned int n)
- {
--	int lc;
--	int i;
-+	struct tcase *tc = &tcases[n];
-
--	tst_parse_opts(ac, av, NULL, NULL);
--
--	setup();
--
--	for (lc = 0; TEST_LOOPING(lc); lc++) {
--		tst_count = 0;
--
--		for (i = 0; i < TST_TOTAL; i++) {
--			TEST(chroot(TC[i].dir));
--
--			if (TEST_RETURN != -1) {
--				tst_resm(TFAIL, "call succeeded unexpectedly");
--				continue;
--			}
--
--			if (TEST_ERRNO == TC[i].error) {
--				tst_resm(TPASS | TTERRNO, "failed as expected");
--			} else {
--				tst_resm(TFAIL | TTERRNO,
--					 "didn't fail as expected (expected errno "
--					 "= %d : %s)",
--					 TC[i].error, strerror(TC[i].error));
--			}
--		}
--	}
--
--	cleanup();
--	tst_exit();
-+	TST_EXP_FAIL(chroot(tc->dir), tc->error, "%s", tc->desc);
- }
-
- static void setup(void)
- {
--	tst_sig(NOFORK, DEF_HANDLER, cleanup);
--	TEST_PAUSE;
--	tst_tmpdir();
-+	unsigned int i;
-
--	/*
--	 * create a file and use it to test whether chroot() is setting
--	 * ENOTDIR if the argument is not a directory.
--	 */
- 	(void)sprintf(fname, "tfile_%d", getpid());
--	fd = SAFE_CREAT(cleanup, fname, 0777);
-+	SAFE_TOUCH(fname, 0666, NULL);
-
--#if !defined(UCLINUX)
--	bad_addr = mmap(0, 1, PROT_NONE,
--			MAP_PRIVATE_EXCEPT_UCLINUX | MAP_ANONYMOUS, 0, 0);
--	if (bad_addr == MAP_FAILED)
--		tst_brkm(TBROK, cleanup, "mmap failed");
--
--	TC[3].dir = bad_addr;
--#endif
-+	for (i = 0; i < ARRAY_SIZE(tcases); i++) {
-+		if (tcases[i].error == EFAULT)
-+			tcases[3].dir = tst_get_bad_addr(NULL);
-+	}
-+
- 	/*
- 	 * create two symbolic directory who point to each other to
- 	 * test ELOOP.
- 	 */
--	SAFE_SYMLINK(cleanup, "sym_dir1/", "sym_dir2");
--	SAFE_SYMLINK(cleanup, "sym_dir2/", "sym_dir1");
-+	SAFE_SYMLINK("sym_dir1/", "sym_dir2");
-+	SAFE_SYMLINK("sym_dir2/", "sym_dir1");
- }
-
--static void cleanup(void)
--{
--	close(fd);
--	tst_rmdir();
--}
-+static struct tst_test test = {
-+	.setup = setup,
-+	.tcnt = ARRAY_SIZE(tcases),
-+	.test = verify_chroot,
-+	.needs_tmpdir = 1,
-+};
---
-2.20.1
-
-
-
-
+> ---
+> 
+> Thanks everyone for testing and helping find the cause of this bug.  I
+> will push this out to linux-next shortly.
+> 
+>  fs/notify/fanotify/fanotify_user.c | 17 +++++++++++------
+>  fs/notify/inotify/inotify_user.c   | 17 +++++++++++------
+>  kernel/ucount.c                    | 19 +++++++++++--------
+>  3 files changed, 33 insertions(+), 20 deletions(-)
+> 
+> diff --git a/fs/notify/fanotify/fanotify_user.c b/fs/notify/fanotify/fanotify_user.c
+> index 64864fb40b40..28b67cb9458d 100644
+> --- a/fs/notify/fanotify/fanotify_user.c
+> +++ b/fs/notify/fanotify/fanotify_user.c
+> @@ -54,22 +54,27 @@ static int fanotify_max_queued_events __read_mostly;
+>  
+>  #include <linux/sysctl.h>
+>  
+> +static long ft_zero = 0;
+> +static long ft_int_max = INT_MAX;
+> +
+>  struct ctl_table fanotify_table[] = {
+>  	{
+>  		.procname	= "max_user_groups",
+>  		.data	= &init_user_ns.ucount_max[UCOUNT_FANOTIFY_GROUPS],
+> -		.maxlen		= sizeof(int),
+> +		.maxlen		= sizeof(long),
+>  		.mode		= 0644,
+> -		.proc_handler	= proc_dointvec_minmax,
+> -		.extra1		= SYSCTL_ZERO,
+> +		.proc_handler	= proc_doulongvec_minmax,
+> +		.extra1		= &ft_zero,
+> +		.extra2		= &ft_int_max,
+>  	},
+>  	{
+>  		.procname	= "max_user_marks",
+>  		.data	= &init_user_ns.ucount_max[UCOUNT_FANOTIFY_MARKS],
+> -		.maxlen		= sizeof(int),
+> +		.maxlen		= sizeof(long),
+>  		.mode		= 0644,
+> -		.proc_handler	= proc_dointvec_minmax,
+> -		.extra1		= SYSCTL_ZERO,
+> +		.proc_handler	= proc_doulongvec_minmax,
+> +		.extra1		= &ft_zero,
+> +		.extra2		= &ft_int_max,
+>  	},
+>  	{
+>  		.procname	= "max_queued_events",
+> diff --git a/fs/notify/inotify/inotify_user.c b/fs/notify/inotify/inotify_user.c
+> index 98f61b31745a..62051247f6d2 100644
+> --- a/fs/notify/inotify/inotify_user.c
+> +++ b/fs/notify/inotify/inotify_user.c
+> @@ -55,22 +55,27 @@ struct kmem_cache *inotify_inode_mark_cachep __read_mostly;
+>  
+>  #include <linux/sysctl.h>
+>  
+> +static long it_zero = 0;
+> +static long it_int_max = INT_MAX;
+> +
+>  struct ctl_table inotify_table[] = {
+>  	{
+>  		.procname	= "max_user_instances",
+>  		.data		= &init_user_ns.ucount_max[UCOUNT_INOTIFY_INSTANCES],
+> -		.maxlen		= sizeof(int),
+> +		.maxlen		= sizeof(long),
+>  		.mode		= 0644,
+> -		.proc_handler	= proc_dointvec_minmax,
+> -		.extra1		= SYSCTL_ZERO,
+> +		.proc_handler	= proc_doulongvec_minmax,
+> +		.extra1		= &it_zero,
+> +		.extra2		= &it_int_max,
+>  	},
+>  	{
+>  		.procname	= "max_user_watches",
+>  		.data		= &init_user_ns.ucount_max[UCOUNT_INOTIFY_WATCHES],
+> -		.maxlen		= sizeof(int),
+> +		.maxlen		= sizeof(long),
+>  		.mode		= 0644,
+> -		.proc_handler	= proc_dointvec_minmax,
+> -		.extra1		= SYSCTL_ZERO,
+> +		.proc_handler	= proc_doulongvec_minmax,
+> +		.extra1		= &it_zero,
+> +		.extra2		= &it_int_max,
+>  	},
+>  	{
+>  		.procname	= "max_queued_events",
+> diff --git a/kernel/ucount.c b/kernel/ucount.c
+> index 77be3bbe3cc4..bb51849e6375 100644
+> --- a/kernel/ucount.c
+> +++ b/kernel/ucount.c
+> @@ -58,14 +58,17 @@ static struct ctl_table_root set_root = {
+>  	.permissions = set_permissions,
+>  };
+>  
+> -#define UCOUNT_ENTRY(name)				\
+> -	{						\
+> -		.procname	= name,			\
+> -		.maxlen		= sizeof(int),		\
+> -		.mode		= 0644,			\
+> -		.proc_handler	= proc_dointvec_minmax,	\
+> -		.extra1		= SYSCTL_ZERO,		\
+> -		.extra2		= SYSCTL_INT_MAX,	\
+> +static long ue_zero = 0;
+> +static long ue_int_max = INT_MAX;
+> +
+> +#define UCOUNT_ENTRY(name)					\
+> +	{							\
+> +		.procname	= name,				\
+> +		.maxlen		= sizeof(long),			\
+> +		.mode		= 0644,				\
+> +		.proc_handler	= proc_doulongvec_minmax,	\
+> +		.extra1		= &ue_zero,			\
+> +		.extra2		= &ue_int_max,			\
+>  	}
+>  static struct ctl_table user_table[] = {
+>  	UCOUNT_ENTRY("max_user_namespaces"),
+> -- 
+> 2.20.1
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
