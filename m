@@ -1,71 +1,76 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C0393E93CF
-	for <lists+linux-ltp@lfdr.de>; Wed, 11 Aug 2021 16:43:05 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id BC68F3E943C
+	for <lists+linux-ltp@lfdr.de>; Wed, 11 Aug 2021 17:07:05 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 44E6C3C7020
-	for <lists+linux-ltp@lfdr.de>; Wed, 11 Aug 2021 16:43:04 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id AC87C3C6F4E
+	for <lists+linux-ltp@lfdr.de>; Wed, 11 Aug 2021 17:07:04 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E51253C0F90
- for <ltp@lists.linux.it>; Wed, 11 Aug 2021 16:43:00 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 1C01B3C0F90
+ for <ltp@lists.linux.it>; Wed, 11 Aug 2021 17:07:00 +0200 (CEST)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id A18321000541
- for <ltp@lists.linux.it>; Wed, 11 Aug 2021 16:42:59 +0200 (CEST)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 068682214D;
- Wed, 11 Aug 2021 14:42:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1628692979;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=L19tNq0X0WJpq0eoLfnXmDyrQcq8U6fcAIZIR6lZJ1E=;
- b=rr1h92SaJs5LOWQUMbqkXtSpUIhCCAqSrSSu8StxST6YvXBC1GYQp9nnYMH6BVmBzN2IF4
- iwk5UZ5vRFszjIUJgfNrgjwCzfWSoXMxbIu4pJHduJJ191El+6J6NVUqyhkkrqdlofZ1Bp
- rnb1/p/etCdKuvsVLp095Ld+AuYT+Sw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1628692979;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=L19tNq0X0WJpq0eoLfnXmDyrQcq8U6fcAIZIR6lZJ1E=;
- b=4pQH4NIVwhdbL+lAbN1CvuOIBuexrQ/L3/OTGCKFeOhXAtXrTjt0/fDYazmmnYiFcnXSS3
- L44XFtkMDcPS0bDA==
-Received: from g78 (rpalethorpe.tcp.ovpn1.nue.suse.de [10.163.17.14])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 5D1491A006B0
+ for <ltp@lists.linux.it>; Wed, 11 Aug 2021 17:07:00 +0200 (CEST)
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id A9AE2A3CC9;
- Wed, 11 Aug 2021 14:42:58 +0000 (UTC)
-References: <20210811101058.36695-1-krzysztof.kozlowski@canonical.com>
- <20210811101058.36695-2-krzysztof.kozlowski@canonical.com>
-User-agent: mu4e 1.4.15; emacs 27.2
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-In-reply-to: <20210811101058.36695-2-krzysztof.kozlowski@canonical.com>
-Date: Wed, 11 Aug 2021 15:42:55 +0100
-Message-ID: <87v94ckpow.fsf@suse.de>
+ by smtp-out1.suse.de (Postfix) with ESMTPS id A205822201;
+ Wed, 11 Aug 2021 15:06:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1628694419; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=1PMtf10CToqOsEY2j1wGBCr7oQIjld7ySOa/Bc20nlI=;
+ b=VdtZstuVIJJR0BYbQ2qNhOOWbXUBkkPlofoH7l5mDEDd6XeJPJJe3dEUzNavH1AMSMZuLl
+ X/aEuquZe+jv8BvbbwaHRirlbepIMNMNjT0DGvvvoIMZuuegAdDK8kOKCXf8TGhXUHVuNi
+ zBG0pz8Lu5QsgcmKk/v0/vAL7Yo33Wc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1628694419;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=1PMtf10CToqOsEY2j1wGBCr7oQIjld7ySOa/Bc20nlI=;
+ b=KYVe7jj+1P+3yJuF8z+p+IHqO6ciWOGcPL2hXmn7tsnps1CLm/vbdJV7fQC23DMQtw6t6H
+ Hs+cpmC0kVI+LZDw==
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 82D6A136D9;
+ Wed, 11 Aug 2021 15:06:59 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap1.suse-dmz.suse.de with ESMTPSA id 4XU6HpPnE2HHVQAAGKfGzw
+ (envelope-from <mdoucha@suse.cz>); Wed, 11 Aug 2021 15:06:59 +0000
+To: Cyril Hrubis <chrubis@suse.cz>, ltp@lists.linux.it
+References: <20210810151631.17420-1-chrubis@suse.cz>
+From: Martin Doucha <mdoucha@suse.cz>
+Message-ID: <5eff1cf9-239a-ad37-7931-99a632e6dad1@suse.cz>
+Date: Wed, 11 Aug 2021 17:06:59 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+In-Reply-To: <20210810151631.17420-1-chrubis@suse.cz>
+Content-Language: en-US
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [RESEND PATCH 1/4] controllers/memcg: account per-node
- kernel memory
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] lapi: Fix guards
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,85 +82,220 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGVsbG8gS3J6eXN6dG9mLAoKS3J6eXN6dG9mIEtvemxvd3NraSA8a3J6eXN6dG9mLmtvemxvd3Nr
-aUBjYW5vbmljYWwuY29tPiB3cml0ZXM6Cgo+IFJlY2VudCBMaW51eCBrZXJuZWxzICgpIGNoYXJn
-ZSBncm91cHMgYWxzbyB3aXRoIGtlcm5lbCBtZW1vcnkuICBUaGlzIGlzCj4gbm90IGxpbWl0ZWQg
-b25seSB0byBwcm9jZXNzLWFsbG9jYXRlZCBtZW1vcnkgYnV0IGFsc28gY2dyb3VwLWhhbmRsaW5n
-Cj4gY29kZSBtZW1vcnkgYXMgd2VsbC4KPgo+IEZvciBleGFtcGxlIHNpbmNlIGtlcm5lbCB2NS45
-IHdpdGggY29tbWl0IDNlMzhlMGFhY2E5ZSAoIm1tOiBtZW1jZzoKPiBjaGFyZ2UgbWVtY2cgcGVy
-Y3B1IG1lbW9yeSB0byB0aGUgcGFyZW50IGNncm91cCIpIGNyZWF0aW5nIGEgc3ViZ3JvdXAKPiBj
-YXVzZXMgc2V2ZXJhbCBrZXJuZWwgYWxsb2NhdGlvbnMgdG93YXJkcyB0aGlzIGdyb3VwLgo+Cj4g
-VGhlc2UgYWRkaXRpb25hbCBrZXJuZWwgbWVtb3J5IGFsbG9jYXRpb25zIGFyZSBwcm9wb3J0aW9u
-YWwgdG8gbnVtYmVyIG9mCj4gQ1BVcyBhbmQgbnVtYmVyIG9mIG5vZGVzLgo+Cj4gT24gYzQuOHhs
-YXJnZSBBV1MgaW5zdGFuY2Ugd2l0aCAzNiBjb3JlcyBpbiB0d28gbm9kZXMgd2l0aCB2NS4xMSBM
-aW51eAo+IGtlcm5lbCB0aGUgbWVtY2dfc3ViZ3JvdXBfY2hhcmdlIGFuZCBtZW1jZ191c2VfaGll
-cmFyY2h5X3Rlc3QgdGVzdHMgd2VyZQo+IGZhaWxpbmc6Cj4KPiAgICAgbWVtY2dfdXNlX2hpZXJh
-cmNoeV90ZXN0IDEgVElORk86IHRpbWVvdXQgcGVyIHJ1biBpcyAwaCA1bSAwcwo+ICAgICBtZW1j
-Z191c2VfaGllcmFyY2h5X3Rlc3QgMSBUSU5GTzogc2V0IC9kZXYvbWVtY2cvbWVtb3J5LnVzZV9o
-aWVyYXJjaHkgdG8gMCBmYWlsZWQKPiAgICAgbWVtY2dfdXNlX2hpZXJhcmNoeV90ZXN0IDEgVElO
-Rk86IHRlc3QgaWYgb25lIG9mIHRoZSBhbmNlc3RvcnMgZ29lcyBvdmVyIGl0cyBsaW1pdCwgdGhl
-IHByb2NlcyB3aWxsIGJlIGtpbGxlZAo+ICAgICBta2RpcjogY2Fubm90IGNyZWF0ZSBkaXJlY3Rv
-cnkg4oCYc3ViZ3JvdXDigJk6IENhbm5vdCBhbGxvY2F0ZSBtZW1vcnkKPiAgICAgL2hvbWUvdWJ1
-bnR1L2x0cC1pbnN0YWxsL3Rlc3RjYXNlcy9iaW4vbWVtY2dfdXNlX2hpZXJhcmNoeV90ZXN0LnNo
-OiAyNjogY2Q6IGNhbid0IGNkIHRvIHN1Ymdyb3VwCj4gICAgIG1lbWNnX3VzZV9oaWVyYXJjaHlf
-dGVzdCAxIFRJTkZPOiBSdW5uaW5nIG1lbWNnX3Byb2Nlc3MgLS1tbWFwLWxvY2sxIC1zIDgxOTIK
-PiAgICAgbWVtY2dfdXNlX2hpZXJhcmNoeV90ZXN0IDEgVEZBSUw6IHByb2Nlc3MgIGlzIG5vdCBr
-aWxsZWQKPiAgICAgcm1kaXI6IGZhaWxlZCB0byByZW1vdmUgJ3N1Ymdyb3VwJzogTm8gc3VjaCBm
-aWxlIG9yIGRpcmVjdG9yeQo+Cj4gVGhlIGtlcm5lbCB3YXMgdW5hYmxlIHRvIGNyZWF0ZSB0aGUg
-c3ViZ3JvdXAgKG1rZGlyIHJldHVybmVkIC1FTk9NRU0pCj4gZHVlIHRvIHRoaXMgYWRkaXRpb25h
-bCBwZXItbm9kZSBrZXJuZWwgbWVtb3J5IGFsbG9jYXRpb25zLgo+Cj4gU2lnbmVkLW9mZi1ieTog
-S3J6eXN6dG9mIEtvemxvd3NraSA8a3J6eXN6dG9mLmtvemxvd3NraUBjYW5vbmljYWwuY29tPgo+
-IC0tLQo+ICAuLi4vY29udHJvbGxlcnMvbWVtY2cvZnVuY3Rpb25hbC9tZW1jZ19saWIuc2ggfCA0
-NCArKysrKysrKysrKysrKysrKysrCj4gIC4uLi9tZW1jZy9mdW5jdGlvbmFsL21lbWNnX3N1Ymdy
-b3VwX2NoYXJnZS5zaCB8ICA4ICstLS0KPiAgLi4uL2Z1bmN0aW9uYWwvbWVtY2dfdXNlX2hpZXJh
-cmNoeV90ZXN0LnNoICAgIHwgIDggKysrLQo+ICAzIGZpbGVzIGNoYW5nZWQsIDUyIGluc2VydGlv
-bnMoKyksIDggZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0tZ2l0IGEvdGVzdGNhc2VzL2tlcm5lbC9j
-b250cm9sbGVycy9tZW1jZy9mdW5jdGlvbmFsL21lbWNnX2xpYi5zaCBiL3Rlc3RjYXNlcy9rZXJu
-ZWwvY29udHJvbGxlcnMvbWVtY2cvZnVuY3Rpb25hbC9tZW1jZ19saWIuc2gKPiBpbmRleCBkYWQ2
-NmM3OThlMTkuLjcwMGU5ZTM2N2JmZiAxMDA3NTUKPiAtLS0gYS90ZXN0Y2FzZXMva2VybmVsL2Nv
-bnRyb2xsZXJzL21lbWNnL2Z1bmN0aW9uYWwvbWVtY2dfbGliLnNoCj4gKysrIGIvdGVzdGNhc2Vz
-L2tlcm5lbC9jb250cm9sbGVycy9tZW1jZy9mdW5jdGlvbmFsL21lbWNnX2xpYi5zaAo+IEBAIC02
-Myw2ICs2Myw1MCBAQCBtZW1jZ19yZXF1aXJlX2hpZXJhcmNoeV9kaXNhYmxlZCgpCj4gIAlmaQo+
-ICB9Cj4gIAo+ICsjIEtlcm5lbCBtZW1vcnkgYWxsb2NhdGVkIGZvciB0aGUgcHJvY2VzcyBpcyBh
-bHNvIGNoYXJnZWQuICBJdCBtaWdodCBkZXBlbmQgb24KPiArIyB0aGUgbnVtYmVyIG9mIENQVXMg
-YW5kIG51bWJlciBvZiBub2Rlcy4gRm9yIGV4YW1wbGUgb24ga2VybmVsIHY1LjExCj4gKyMgYWRk
-aXRpb25hbGx5IHRvdGFsX2NwdXMgKHBsdXMgMSBvciAyKSBwYWdlcyBhcmUgY2hhcmdlZCB0byB0
-aGUgZ3JvdXAgdmlhCj4gKyMga2VybmVsIG1lbW9yeS4gIEZvciBhIHR3by1ub2RlIG1hY2hpbmUs
-IGFkZGl0aW9uYWwgMTA4IHBhZ2VzIGtlcm5lbCBtZW1vcnkKPiArIyBhcmUgY2hhcmdlZCB0byB0
-aGUgZ3JvdXAuCj4gKyMKPiArIyBBZGp1c3QgdGhlIGxpbWl0IHRvIGFjY291bnQgc3VjaCBwZXIt
-Q1BVIGFuZCBwZXItbm9kZSBrZXJuZWwgbWVtb3J5Lgo+ICsjICQxIC0gdmFyaWFibGUgbmFtZSB3
-aXRoIGxpbWl0IHRvIGFkanVzdAo+ICttZW1jZ19hZGp1c3RfbGltaXRfZm9yX2ttZW0oKQo+ICt7
-Cj4gKwlbICQjIC1uZSAxIF0gJiYgdHN0X2JyayBUQlJPSyAibWVtY2dfYWRqdXN0X2xpbWl0X2Zv
-cl9rbWVtIGV4cGVjdHMgMSBwYXJhbWV0ZXIiCj4gKwlldmFsICJsb2NhbCBfbGltaXQ9XCQkMSIK
-CkNvdWxkIHdlIGRvIHRoaXMgYSBzaW1wbGVyIHdheT8KCkl0IHdvdWxkIGJlIG11Y2ggZWFzaWVy
-IHRvIHJlYWQgaWYgd2UganVzdCByZXR1cm5lZCB0aGUgdmFsdWUgd2hpY2gKbmVlZGVkIHRvIGJl
-IGFkZGVkLgoKPiArCj4gKwkjIFRvdGFsIG51bWJlciBvZiBDUFVzCj4gKwlsb2NhbCB0b3RhbF9j
-cHVzPWB0c3RfbmNwdXNgCj4gKwo+ICsJIyBHZXQgdGhlIG51bWJlciBvZiBOT0RFUwoKSXMgaXQg
-YWNjZXB0YWJsZSBvciBuZWNlc3NhcnkgdG8gdXNlIC9zeXMvZGV2aWNlcy9zeXN0ZW0vbm9kZS9w
-b3NzaWJsZQoob3Igb25saW5lKSBpbnN0ZWFkPwoKPiArCWlmIFsgLWYgIi9zeXMvZGV2aWNlcy9z
-eXN0ZW0vbm9kZS9oYXNfaGlnaF9tZW1vcnkiIF07IHRoZW4KPiArCQlsb2NhbCBtZW1fc3RyaW5n
-PSJgY2F0IC9zeXMvZGV2aWNlcy9zeXN0ZW0vbm9kZS9oYXNfaGlnaF9tZW1vcnlgIgo+ICsJZWxz
-ZQo+ICsJCWxvY2FsIG1lbV9zdHJpbmc9ImBjYXQgL3N5cy9kZXZpY2VzL3N5c3RlbS9ub2RlL2hh
-c19ub3JtYWxfbWVtb3J5YCIKPiArCWZpCj4gKwo+ICsJbG9jYWwgdG90YWxfbm9kZXM9ImBlY2hv
-ICRtZW1fc3RyaW5nIHwgdHIgJywnICcgJ2AiCj4gKwlsb2NhbCBjb3VudD0wCj4gKwlmb3IgaXRl
-bSBpbiAkdG90YWxfbm9kZXM7IGRvCj4gKwkJbG9jYWwgZGVsdGE9MQo+ICsJCWlmIFsgIiR7aXRl
-bSMqLSp9IiAhPSAiJGl0ZW0iIF07IHRoZW4KPiArCQkJZGVsdGE9JCgoJHtpdGVtIyotKn0gLSAk
-e2l0ZW0lKi0qfSArIDEpKQo+ICsJCWZpCj4gKwkJY291bnQ9JCgoY291bnQgKyAkZGVsdGEpKQo+
-ICsJZG9uZQoKT3IgcGVyaGFwcyB3ZSBjb3VsZCBjb3VudCB0aGUgbnVtYmVyIG9mICdub2RlWzAt
-OV0rJyBkaXJlY3Rvcmllcz8gSQp0aGluayB0aGF0IHdvdWxkIGJlIGVhc2llciB0byB1bmRlcnN0
-YW5kLgoKPiArCXRvdGFsX25vZGVzPSRjb3VudAo+ICsJIyBBZGRpdGlvbmFsIG5vZGVzIGltcG9z
-ZSBjaGFyZ2luZyB0aGUga21lbSwgbm90IGhhdmluZyByZWd1bGFyIG9uZSBub2RlCj4gKwlsb2Nh
-bCBub2RlX21lbT0wCj4gKwlpZiBbICR0b3RhbF9ub2RlcyAtZ3QgMSBdOyB0aGVuCj4gKwkJbm9k
-ZV9tZW09JCgodG90YWxfbm9kZXMgLSAxKSkKPiArCQlub2RlX21lbT0kKChub2RlX21lbSAqIFBB
-R0VTSVpFICogMTI4KSkKPiArCWZpCj4gKwo+ICsJZXZhbCAiJDE9JyQoKF9saW1pdCArIDQgKiBQ
-QUdFU0laRSArIHRvdGFsX2NwdXMgKiBQQUdFU0laRSArIG5vZGVfbWVtKSknIgo+ICsJcmV0dXJu
-IDAKPiArfQoKT3RoZXJ3aXNlIGxvb2tzIGdvb2QuCgotLSAKVGhhbmsgeW91LApSaWNoYXJkLgoK
-LS0gCk1haWxpbmcgbGlzdCBpbmZvOiBodHRwczovL2xpc3RzLmxpbnV4Lml0L2xpc3RpbmZvL2x0
-cAo=
+Hi,
+one small nit below but otherwise looks good.
+
+Reviewed-by: Martin Doucha <mdoucha@suse.cz>
+
+On 10. 08. 21 17:16, Cyril Hrubis wrote:
+> This fixes several problems with guards in lapi and unifies them to be
+> in format LAPI_FOO_H__ as well.
+> 
+> Problems fixed:
+> 
+> - Some guard identifiers started with reserved double underscore
+> - A few headers had incomplete or missing guards
+> - Quite a bit did just used SYSCALL_H which probably isn't unique enough
+> 
+> Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
+> ---
+>  include/lapi/abisize.h              | 6 +++---
+>  include/lapi/acct.h                 | 6 +++---
+>  include/lapi/bpf.h                  | 6 +++---
+>  include/lapi/capability.h           | 6 +++---
+>  include/lapi/common_timers.h        | 6 +++---
+>  include/lapi/cpuset.h               | 6 +++---
+>  include/lapi/cryptouser.h           | 6 +++---
+>  include/lapi/execveat.h             | 6 +++---
+>  include/lapi/fallocate.h            | 6 +++---
+>  include/lapi/fcntl.h                | 6 +++---
+>  include/lapi/fnmatch.h              | 6 +++---
+>  include/lapi/fs.h                   | 6 +++---
+>  include/lapi/fsmount.h              | 6 +++---
+>  include/lapi/getrandom.h            | 6 +++---
+>  include/lapi/if_alg.h               | 6 +++---
+>  include/lapi/if_ether.h             | 6 +++---
+>  include/lapi/if_packet.h            | 6 +++---
+>  include/lapi/init_module.h          | 6 +++---
+>  include/lapi/io_pgetevents.h        | 6 +++---
+>  include/lapi/io_uring.h             | 6 +++---
+>  include/lapi/ioctl.h                | 6 +++---
+>  include/lapi/ioctl_ns.h             | 6 +++---
+>  include/lapi/iovec.h                | 6 +++---
+>  include/lapi/ip_tables.h            | 2 +-
+>  include/lapi/ipcbuf.h               | 6 +++---
+>  include/lapi/keyctl.h               | 6 +++---
+>  include/lapi/loop.h                 | 6 +++---
+>  include/lapi/membarrier.h           | 6 +++---
+>  include/lapi/memfd.h                | 6 +++---
+>  include/lapi/mkdirat.h              | 6 +++---
+>  include/lapi/mlock2.h               | 2 +-
+>  include/lapi/mount.h                | 6 +++---
+>  include/lapi/msg.h                  | 7 ++++---
+>  include/lapi/msgbuf.h               | 6 +++---
+>  include/lapi/name_to_handle_at.h    | 6 +++---
+>  include/lapi/namespaces_constants.h | 6 +++---
+>  include/lapi/numaif.h               | 6 +++---
+>  include/lapi/openat2.h              | 6 +++---
+>  include/lapi/personality.h          | 6 +++---
+>  include/lapi/pidfd_open.h           | 6 +++---
+>  include/lapi/pidfd_send_signal.h    | 6 +++---
+>  include/lapi/posix_clocks.h         | 6 +++---
+>  include/lapi/posix_types.h          | 6 +++---
+>  include/lapi/prctl.h                | 2 +-
+>  include/lapi/preadv2.h              | 6 +++---
+>  include/lapi/pwritev2.h             | 6 +++---
+>  include/lapi/readdir.h              | 6 +++---
+>  include/lapi/readlinkat.h           | 6 +++---
+>  include/lapi/renameat.h             | 6 +++---
+>  include/lapi/rt_sigaction.h         | 6 +++---
+>  include/lapi/sched.h                | 6 +++---
+>  include/lapi/seccomp.h              | 6 +++---
+>  include/lapi/securebits.h           | 6 +++---
+>  include/lapi/seek.h                 | 6 +++---
+>  include/lapi/sem.h                  | 6 +++---
+>  include/lapi/sembuf.h               | 6 +++---
+>  include/lapi/shmbuf.h               | 6 +++---
+>  include/lapi/signal.h               | 6 +++---
+>  include/lapi/socket.h               | 6 +++---
+>  include/lapi/splice.h               | 6 +++---
+>  include/lapi/stat.h                 | 7 ++++---
+>  include/lapi/sync_file_range.h      | 6 +++---
+>  include/lapi/syncfs.h               | 6 +++---
+>  include/lapi/syscalls/regen.sh      | 4 ++--
+>  include/lapi/tee.h                  | 6 +++---
+>  include/lapi/termbits.h             | 2 +-
+>  include/lapi/timerfd.h              | 6 +++---
+>  include/lapi/tty.h                  | 6 +++---
+>  include/lapi/ustat.h                | 6 +++---
+>  include/lapi/utime.h                | 5 +++--
+>  include/lapi/utsname.h              | 5 +++++
+>  include/lapi/vm_sockets.h           | 6 +++---
+>  include/lapi/vmsplice.h             | 6 +++---
+>  include/lapi/xfrm.h                 | 2 +-
+>  74 files changed, 215 insertions(+), 207 deletions(-)
+> 
+> diff --git a/include/lapi/abisize.h b/include/lapi/abisize.h
+> index 9e6622ca1..d19d73f0b 100644
+> --- a/include/lapi/abisize.h
+> +++ b/include/lapi/abisize.h
+> @@ -5,8 +5,8 @@
+>   *  Petr Vorel <petr.vorel@gmail.com>
+>   */
+>  
+> -#ifndef ABISIZE_H__
+> -#define ABISIZE_H__
+> +#ifndef LAPI_ABISIZE_H__
+> +#define LAPI_ABISIZE_H__
+>  
+>  /* __WORDSIZE replacement */
+>  #if defined(__LP64__) || defined(_LP64)
+> @@ -28,4 +28,4 @@
+>       (defined(__aarch64__) && defined(__ILP32__)) || \
+>       defined(TST_ABI64)
+>  
+> -#endif /* ABISIZE_H__ */
+> +#endif /* LAPI_ABISIZE_H__ */
+> diff --git a/include/lapi/acct.h b/include/lapi/acct.h
+> index c81b78b44..6c521118e 100644
+> --- a/include/lapi/acct.h
+> +++ b/include/lapi/acct.h
+> @@ -1,7 +1,7 @@
+>  //SPDX-License-Identifier: GPL-2.0-or-later
+>  
+> -#ifndef LAPI_ACCT_H
+> -#define LAPI_ACCT_H
+> +#ifndef LAPI_ACCT_H__
+> +#define LAPI_ACCT_H__
+>  
+>  #include <sys/types.h>
+>  #include "config.h"
+> @@ -71,4 +71,4 @@ enum {
+>  # endif
+>  #endif /* HAVE_STRUCT_ACCT_V3 */
+>  
+> -#endif /* LAPI_ACCT_H */
+> +#endif /* LAPI_ACCT_H__ */
+> diff --git a/include/lapi/bpf.h b/include/lapi/bpf.h
+> index 5ae25293b..0e4527b8b 100644
+> --- a/include/lapi/bpf.h
+> +++ b/include/lapi/bpf.h
+> @@ -8,8 +8,8 @@
+>   * some eBPF testing without any external dependencies.
+>   */
+>  
+> -#ifndef BPF_H
+> -# define BPF_H
+> +#ifndef LAPI_BPF_H__
+> +#define LAPI_BPF_H__
+>  
+>  #include <stdint.h>
+>  
+> @@ -590,4 +590,4 @@ static inline int bpf(enum bpf_cmd cmd, union bpf_attr *attr, unsigned int size)
+>  }
+>  /* End copy from tools/lib/bpf */
+>  
+> -#endif	/* BPF_H */
+> +#endif	/* LAPI_BPF_H__ */
+> diff --git a/include/lapi/capability.h b/include/lapi/capability.h
+> index 95cb6819b..c6470f389 100644
+> --- a/include/lapi/capability.h
+> +++ b/include/lapi/capability.h
+> @@ -3,8 +3,8 @@
+>   * Copyright (c) 2019 Richard Palethorpe <rpalethorpe@suse.com>
+>   */
+>  
+> -#ifndef LAPI_CAPABILITY_H
+> -#define LAPI_CAPABILITY_H
+> +#ifndef LAPI_CAPABILITY_H__
+> +#define LAPI_CAPABILITY_H__
+>  
+>  #include "config.h"
+>  
+> @@ -52,4 +52,4 @@
+>  # define CAP_TO_MASK(x)      (1 << ((x) & 31))
+>  #endif
+>  
+> -#endif
+> +#endif /* LAPI_CAPABILITY_H__ */
+> diff --git a/include/lapi/common_timers.h b/include/lapi/common_timers.h
+> index e50f698d6..74f9ca67f 100644
+> --- a/include/lapi/common_timers.h
+> +++ b/include/lapi/common_timers.h
+> @@ -4,8 +4,8 @@
+>   * Keep all the common defines/checks for the timer tests here
+>   */
+>  
+> -#ifndef __COMMON_TIMERS_H__
+> -#define __COMMON_TIMERS_H__
+> +#ifndef LAPI_COMMON_TIMERS_H__
+> +#define LAPI_COMMON_TIMERS_H__
+>  
+>  #include "config.h"
+>  #include "lapi/syscalls.h"
+> @@ -78,4 +78,4 @@ static inline int have_cputime_timers(void)
+>   */
+>  typedef int kernel_timer_t;
+>  
+> -#endif
+> +#endif /* LAPI_COMMON_TIMERS__ */
+
+This should be:
+#endif /* LAPI_COMMON_TIMERS_H__ */
+
+-- 
+Martin Doucha   mdoucha@suse.cz
+QA Engineer for Software Maintenance
+SUSE LINUX, s.r.o.
+CORSO IIa
+Krizikova 148/34
+186 00 Prague 8
+Czech Republic
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
