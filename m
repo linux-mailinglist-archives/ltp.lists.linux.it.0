@@ -1,53 +1,68 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id D09413E8831
-	for <lists+linux-ltp@lfdr.de>; Wed, 11 Aug 2021 04:49:09 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id A3EBF3E8ACA
+	for <lists+linux-ltp@lfdr.de>; Wed, 11 Aug 2021 09:09:36 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 75E8E3C70CD
-	for <lists+linux-ltp@lfdr.de>; Wed, 11 Aug 2021 04:49:09 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 4D01E3C5DCD
+	for <lists+linux-ltp@lfdr.de>; Wed, 11 Aug 2021 09:09:36 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by picard.linux.it (Postfix) with ESMTPS id A0DB03C29B4
+ for <ltp@lists.linux.it>; Wed, 11 Aug 2021 09:09:35 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 2EACC3C70B7
- for <ltp@lists.linux.it>; Wed, 11 Aug 2021 04:49:06 +0200 (CEST)
-Received: from smtpbgbr2.qq.com (smtpbgbr2.qq.com [54.207.22.56])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id F1F2B600C2F
+ for <ltp@lists.linux.it>; Wed, 11 Aug 2021 09:09:34 +0200 (CEST)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 234A722152
+ for <ltp@lists.linux.it>; Wed, 11 Aug 2021 07:09:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1628665774;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=gSiBbOeWDQ7eaPb0PI2fSB7IaE6fnTI5BR9roBK/boA=;
+ b=MA5teehgVaqgHnzDWvjjWVBZJ6cPo4dVI3Ahnz9M7OeGG6sWPq9LbOGiv6gTLyJoYqf6Dz
+ 1astxb4IXwB9SqIaA1h6vI0UV4puubFJJgBJILSwTzyop2WygfK2gwX9uzHoCU+0vm7mo/
+ HKTuFvXqBvqzXQz6YSL5uwRmxs0FDgA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1628665774;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=gSiBbOeWDQ7eaPb0PI2fSB7IaE6fnTI5BR9roBK/boA=;
+ b=YeFvOtcKnA8N3fmuNDep/8unHGcK4gxNGOcnEG8DZMU40JwUWBNQuIGK7QXai2FbcA1pHQ
+ a3rFVQhBkldV5lBg==
+Received: from g78 (rpalethorpe.tcp.ovpn1.nue.suse.de [10.163.17.14])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 8307F1000950
- for <ltp@lists.linux.it>; Wed, 11 Aug 2021 04:49:02 +0200 (CEST)
-X-QQ-mid: bizesmtp40t1628650135th5iub1l
-Received: from localhost.localdomain (unknown [58.240.82.166])
- by esmtp6.qq.com (ESMTP) with 
- id ; Wed, 11 Aug 2021 10:48:50 +0800 (CST)
-X-QQ-SSF: 0140000000200020B000B00A0000000
-X-QQ-FEAT: Ry58bBY793sMzchiszt5eXHvlDRaHD9mNrG0U6zMSAFE483mdUe1zmqwNr0XO
- hUjnhp2hL/XLlWH9Y/Y3Lp3NI/yoCQ5Ix84xwEdBULbL5BpE054+pXbbg+nXJ+hvCVxMDMj
- zAU7BW+o717/JPhcVu9qmLzt5P+D7zhOhmqiAsVyXASELSpc4wC8zC726djvlDiA/8lhKdN
- 9iZA4w2KB4DYwAGlXTSBjQxnaEmHN7FHy6qOoGUfivj5Ixlwk1G48jA1c+KnF4seTPwU4VS
- UxFyHhm8O6m60qOQZT+Yn79jTL6y8dUU0IISnXbg2+8oICWz3y08Da0EvMmrnFTt27VJWM0
- TuXKxe7DDAd/8+WZ00W5GzXsRrYBA==
-X-QQ-GoodBg: 2
-From: sujiaxun <sujiaxun@uniontech.com>
-To: ltp@lists.linux.it
-Date: Wed, 11 Aug 2021 10:48:48 +0800
-Message-Id: <20210811024848.18265-1-sujiaxun@uniontech.com>
-X-Mailer: git-send-email 2.20.1
+ by relay2.suse.de (Postfix) with ESMTPS id D6124A3B85;
+ Wed, 11 Aug 2021 07:09:33 +0000 (UTC)
+References: <20210806111938.12007-1-rpalethorpe@suse.com>
+ <28d60c6e-f29b-e17b-a34c-31142e872e3f@suse.cz>
+User-agent: mu4e 1.4.15; emacs 27.2
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Martin Doucha <mdoucha@suse.cz>
+In-reply-to: <28d60c6e-f29b-e17b-a34c-31142e872e3f@suse.cz>
+Date: Wed, 11 Aug 2021 08:09:30 +0100
+Message-ID: <87y298laol.fsf@suse.de>
 MIME-Version: 1.0
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign2
-X-QQ-Bgrelay: 1
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_PASS, T_SPF_HELO_TEMPERROR
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH] [v2,
- 4/6] syscalls/sysfs: Convert sysfs04 to the new API
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] setsockopt08: Handle ENOPROTOOPT even with
+ compatible config
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,171 +74,80 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: sujiaxun <sujiaxun@uniontech.com>
+Reply-To: rpalethorpe@suse.de
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: sujiaxun <sujiaxun@uniontech.com>
----
- testcases/kernel/syscalls/sysfs/sysfs04.c | 129 +++-------------------
- 1 file changed, 15 insertions(+), 114 deletions(-)
+Hello Martin,
 
-diff --git a/testcases/kernel/syscalls/sysfs/sysfs04.c b/testcases/kernel/syscalls/sysfs/sysfs04.c
-index 6356a89c8..f2ede1375 100644
---- a/testcases/kernel/syscalls/sysfs/sysfs04.c
-+++ b/testcases/kernel/syscalls/sysfs/sysfs04.c
-@@ -1,129 +1,30 @@
-+// SPDX-License-Identifier: GPL-2.0-only
- /*
-  * Copyright (c) Wipro Technologies Ltd, 2002.  All Rights Reserved.
-- *
-- * This program is free software; you can redistribute it and/or modify it
-- * under the terms of version 2 of the GNU General Public License as
-- * published by the Free Software Foundation.
-- *
-- * This program is distributed in the hope that it would be useful, but
-- * WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-- *
-- * You should have received a copy of the GNU General Public License along
-- * with this program; if not, write the Free Software Foundation, Inc.,
-- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-- *
-  */
--/**************************************************************************
-- *
-- *    TEST IDENTIFIER	: sysfs04
-- *
-- *
-- *    EXECUTED BY	: anyone
-- *
-- *    TEST TITLE	: Test checking for basic error conditions
-- *				 for sysfs(2)
-- *
-- *    TEST CASE TOTAL	: 1
-- *
-- *    AUTHOR		: Aniruddha Marathe <aniruddha.marathe@wipro.com>
-- *
-- *    SIGNALS
-- *	Uses SIGUSR1 to pause before test if option set.
-- *	(See the parse_opts(3) man page).
-- *
-- *    DESCRIPTION
-- *	This test case checks whether sysfs(2) system call  returns
-- *	appropriate error number for invalid
-- *	option.
-- *
-- *	Setup:
-- *	  Setup signal handling.
-- *	  Pause for SIGUSR1 if option specified.
-- *
-- *	Test:
-- *	  Loop if the proper options are given.
-- *	  Execute system call with invaid  option parameter
-- *
-- *	  Check return code, if system call fails with errno == expected errno
-- *		Issue syscall passed with expected errno
-- *	  Otherwise,
-- *	  Issue syscall failed to produce expected errno
-- *
-- *	Cleanup:
-- *	  Do cleanup for the test.
-- *
-- * USAGE:  <for command-line>
-- * sysfs04  [-c n] [-e] [-i n] [-I x] [-P x] [-t] [-h] [-f] [-p]
-- * where:
-- *	-c n : run n copies simultaneously
-- *	-e   : Turn on errno logging.
-- *	-i n : Execute test n times.
-- *	-I x : Execute test for x seconds.
-- *	-p   : Pause for SIGUSR1 before starting
-- *	-P x : Pause for x seconds between iterations.
-- *	-t   : Turn on syscall timing.
-- *
-- *RESTRICTIONS:
-- *No libc or glibc support
-- *****************************************************************************/
-+
-+/*\
-+ * [Description]
-+ * This test case checks whether sysfs(2) system call returns
-+ * appropriate error number for invalid option.
-+ */
+Martin Doucha <mdoucha@suse.cz> writes:
 
- #include <errno.h>
--#include  <sys/syscall.h>
--#include "test.h"
-+#include <sys/syscall.h>
-+#include "tst_test.h"
- #include "lapi/syscalls.h"
+> Hi,
+>
+> On 06. 08. 21 13:19, Richard Palethorpe via ltp wrote:
+>> One or more necessary modules can be missing even if they are present
+>> in the config.
+>> 
+>> Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
+>> ---
+>>  .../kernel/syscalls/setsockopt/setsockopt08.c | 24 +++++++++++++++----
+>>  1 file changed, 20 insertions(+), 4 deletions(-)
+>> 
+>> diff --git a/testcases/kernel/syscalls/setsockopt/setsockopt08.c b/testcases/kernel/syscalls/setsockopt/setsockopt08.c
+>> index 33892f9b1..d3cd5b5b2 100644
+>> --- a/testcases/kernel/syscalls/setsockopt/setsockopt08.c
+>> +++ b/testcases/kernel/syscalls/setsockopt/setsockopt08.c
+>> @@ -110,6 +110,7 @@ void run(void)
+>>  	struct xt_entry_target *xt_entry_tgt =
+>>  		((struct xt_entry_target *) (&ipt_entry->elems[0] + match_size));
+>>  	int fd = SAFE_SOCKET(AF_INET, SOCK_DGRAM, 0);
+>> +	int result;
+>>  
+>>  	xt_entry_match->u.user.match_size = (u_int16_t)match_size;
+>>  	strcpy(xt_entry_match->u.user.name, "state");
+>> @@ -126,10 +127,25 @@ void run(void)
+>>  	ipt_replace->num_counters = 1;
+>>  	ipt_replace->size = ipt_entry->next_offset;
+>>  
+>> -	TST_EXP_FAIL(setsockopt(fd, IPPROTO_IP, IPT_SO_SET_REPLACE, buffer, 1),
+>> -		     EINVAL,
+>> -		     "setsockopt(%d, IPPROTO_IP, IPT_SO_SET_REPLACE, %p, 1)",
+>> -		     fd, buffer);
+>> +	errno = 0;
+>> +	if (setsockopt(fd, IPPROTO_IP, IPT_SO_SET_REPLACE, buffer, 1) == -1) {
+>> +		switch (errno) {
+>> +		case EINVAL:
+>> +			result = TPASS;
+>> +			break;
+>> +		case ENOPROTOOPT:
+>> +			result = TCONF;
+>> +			break;
+>> +		default:
+>> +			result = TFAIL;
+>> +		}
+>> +	} else {
+>> +		result = TFAIL;
+>> +	}
+>> +
+>> +	tst_res(result | TERRNO,
+>> +		"setsockopt(%d, IPPROTO_IP, IPT_SO_SET_REPLACE, %p, 1)",
+>> +		fd, buffer);
+>>  
+>>  	SAFE_CLOSE(fd);
+>>  }
+>
+> I think it'd be better to call tst_brk(TCONF) when setsockopt() returns
+> ENOPROTOOPT. The CVE runfile iterates the test 100 times and this error
+> will not change between iterations.
 
- #define INVALID_OPTION 100
--static void setup();
--static void cleanup();
+Ah, yes, this is a mistake, I will reroll the patch.
 
--char *TCID = "sysfs04";
--int TST_TOTAL = 1;
--
--int main(int ac, char **av)
-+static void verify_sysfs04(void)
- {
--	int lc;
--
--	tst_parse_opts(ac, av, NULL, NULL);
--
--	setup();
--
--	for (lc = 0; TEST_LOOPING(lc); lc++) {
--
--		tst_count = 0;
--		TEST(ltp_syscall(__NR_sysfs, INVALID_OPTION));
--
--		/* check return code */
--		if ((TEST_RETURN == -1) && (TEST_ERRNO == EINVAL)) {
--			tst_resm(TPASS, "sysfs(2) expected failure;"
--				 " Got errno - EINVAL :" " Invalid option");
--		} else {
--			tst_resm(TFAIL, "sysfs(2) failed to produce"
--				 " expected error; %d, errno"
--				 " : EINVAL and got %d", EINVAL, TEST_ERRNO);
--		}
--	}
-
--	/*Clean up and exit */
--	cleanup();
--	tst_exit();
-+	TST_EXP_FAIL(tst_syscall(__NR_sysfs, INVALID_OPTION),
-+				EINVAL, "sysfs(INVALID_OPTION)");
-
--}				/*End of main */
--
--/* setup() - performs all ONE TIME setup for this test */
--void setup(void)
--{
--
--	tst_sig(NOFORK, DEF_HANDLER, cleanup);
--
--	TEST_PAUSE;
- }
-
--/*
--* cleanup() - Performs one time cleanup for this test at
--* completion or premature exit
--*/
--void cleanup(void)
--{
-+static struct tst_test test = {
-+	.test_all = verify_sysfs04,
-+};
-
--}
---
-2.20.1
-
-
-
+-- 
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
