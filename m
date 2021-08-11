@@ -2,52 +2,52 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id E00B03E8830
-	for <lists+linux-ltp@lfdr.de>; Wed, 11 Aug 2021 04:48:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D09413E8831
+	for <lists+linux-ltp@lfdr.de>; Wed, 11 Aug 2021 04:49:09 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 646F83C70CD
-	for <lists+linux-ltp@lfdr.de>; Wed, 11 Aug 2021 04:48:49 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 75E8E3C70CD
+	for <lists+linux-ltp@lfdr.de>; Wed, 11 Aug 2021 04:49:09 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 9F1143C70B7
- for <ltp@lists.linux.it>; Wed, 11 Aug 2021 04:48:45 +0200 (CEST)
-Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
+ by picard.linux.it (Postfix) with ESMTPS id 2EACC3C70B7
+ for <ltp@lists.linux.it>; Wed, 11 Aug 2021 04:49:06 +0200 (CEST)
+Received: from smtpbgbr2.qq.com (smtpbgbr2.qq.com [54.207.22.56])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 54F5F601256
- for <ltp@lists.linux.it>; Wed, 11 Aug 2021 04:48:43 +0200 (CEST)
-X-QQ-mid: bizesmtp42t1628650118tc6fqc2v
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 8307F1000950
+ for <ltp@lists.linux.it>; Wed, 11 Aug 2021 04:49:02 +0200 (CEST)
+X-QQ-mid: bizesmtp40t1628650135th5iub1l
 Received: from localhost.localdomain (unknown [58.240.82.166])
  by esmtp6.qq.com (ESMTP) with 
- id ; Wed, 11 Aug 2021 10:48:33 +0800 (CST)
+ id ; Wed, 11 Aug 2021 10:48:50 +0800 (CST)
 X-QQ-SSF: 0140000000200020B000B00A0000000
-X-QQ-FEAT: QGWlG8nlCFiyW1Bej8QgHhO0GrykkfFc0yxsf3rhZA82wDPL5Eb3ATTRf3epM
- zD2CPcFbw9afxgKb8XooWzgL7RPWU4jfEcifXODHOXjfrD0FgmHxiqPUC9TvcRV/nkEFbwP
- WvMzeRki4JOFLNBrZQhIbVN4qz3GnkMcuufym1yX0/HLFjI2KwtavxWLmJepbtBjd3XVRts
- KP5IN4g1mlCGKT1s8CY2pC2kCqm9ItzXRTfxOkKWqoh26Dbss7lTb8tFrHxWPwgGHL0OiN5
- PmCpQsi37tNx3Lq26uwag53C04+Gz6XZqrE7cs4+CucYbPyYBZlt2xcSKUvs+e77rb1MbRs
- gMDpFHwJ5GeUTwU/zVrs8B7r9m9gw==
+X-QQ-FEAT: Ry58bBY793sMzchiszt5eXHvlDRaHD9mNrG0U6zMSAFE483mdUe1zmqwNr0XO
+ hUjnhp2hL/XLlWH9Y/Y3Lp3NI/yoCQ5Ix84xwEdBULbL5BpE054+pXbbg+nXJ+hvCVxMDMj
+ zAU7BW+o717/JPhcVu9qmLzt5P+D7zhOhmqiAsVyXASELSpc4wC8zC726djvlDiA/8lhKdN
+ 9iZA4w2KB4DYwAGlXTSBjQxnaEmHN7FHy6qOoGUfivj5Ixlwk1G48jA1c+KnF4seTPwU4VS
+ UxFyHhm8O6m60qOQZT+Yn79jTL6y8dUU0IISnXbg2+8oICWz3y08Da0EvMmrnFTt27VJWM0
+ TuXKxe7DDAd/8+WZ00W5GzXsRrYBA==
 X-QQ-GoodBg: 2
 From: sujiaxun <sujiaxun@uniontech.com>
 To: ltp@lists.linux.it
-Date: Wed, 11 Aug 2021 10:48:32 +0800
-Message-Id: <20210811024832.18083-1-sujiaxun@uniontech.com>
+Date: Wed, 11 Aug 2021 10:48:48 +0800
+Message-Id: <20210811024848.18265-1-sujiaxun@uniontech.com>
 X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
 X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign1
+Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign2
 X-QQ-Bgrelay: 1
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_PASS, T_SPF_HELO_TEMPERROR
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH] [v3,
- 3/6] syscalls/sysfs: Convert sysfs03 to the new API
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH] [v2,
+ 4/6] syscalls/sysfs: Convert sysfs04 to the new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,14 +67,14 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Signed-off-by: sujiaxun <sujiaxun@uniontech.com>
 ---
- testcases/kernel/syscalls/sysfs/sysfs03.c | 125 +++-------------------
- 1 file changed, 15 insertions(+), 110 deletions(-)
+ testcases/kernel/syscalls/sysfs/sysfs04.c | 129 +++-------------------
+ 1 file changed, 15 insertions(+), 114 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/sysfs/sysfs03.c b/testcases/kernel/syscalls/sysfs/sysfs03.c
-index 98bd5c692..8e53e92d8 100644
---- a/testcases/kernel/syscalls/sysfs/sysfs03.c
-+++ b/testcases/kernel/syscalls/sysfs/sysfs03.c
-@@ -1,125 +1,30 @@
+diff --git a/testcases/kernel/syscalls/sysfs/sysfs04.c b/testcases/kernel/syscalls/sysfs/sysfs04.c
+index 6356a89c8..f2ede1375 100644
+--- a/testcases/kernel/syscalls/sysfs/sysfs04.c
++++ b/testcases/kernel/syscalls/sysfs/sysfs04.c
+@@ -1,129 +1,30 @@
 +// SPDX-License-Identifier: GPL-2.0-only
  /*
   * Copyright (c) Wipro Technologies Ltd, 2002.  All Rights Reserved.
@@ -94,11 +94,13 @@ index 98bd5c692..8e53e92d8 100644
   */
 -/**************************************************************************
 - *
-- *    TEST IDENTIFIER	: sysfs03
+- *    TEST IDENTIFIER	: sysfs04
+- *
 - *
 - *    EXECUTED BY	: anyone
 - *
-- *    TEST TITLE	: Basic test for sysfs(2)
+- *    TEST TITLE	: Test checking for basic error conditions
+- *				 for sysfs(2)
 - *
 - *    TEST CASE TOTAL	: 1
 - *
@@ -109,28 +111,30 @@ index 98bd5c692..8e53e92d8 100644
 - *	(See the parse_opts(3) man page).
 - *
 - *    DESCRIPTION
-- *    This is a Phase I test for the sysfs(2) system call.
-- *    It is intended to provide a limited exposure of the system call.
-- *    This testcase tests sysfs(2) for option 3
+- *	This test case checks whether sysfs(2) system call  returns
+- *	appropriate error number for invalid
+- *	option.
 - *
 - *	Setup:
 - *	  Setup signal handling.
 - *	  Pause for SIGUSR1 if option specified.
 - *
 - *	Test:
-- *	 Loop if the proper options are given.
-- *	  Execute system call
-- *	  Check return code, if system call failed (return=-1)
-- *		Log the errno and Issue a FAIL message.
-- *	  Otherwise, Issue a PASS message.
+- *	  Loop if the proper options are given.
+- *	  Execute system call with invaid  option parameter
+- *
+- *	  Check return code, if system call fails with errno == expected errno
+- *		Issue syscall passed with expected errno
+- *	  Otherwise,
+- *	  Issue syscall failed to produce expected errno
 - *
 - *	Cleanup:
-- *	  Print errno log and/or timing stats if options given
+- *	  Do cleanup for the test.
 - *
 - * USAGE:  <for command-line>
-- * sysfs03 [-c n] [-e] [-i n] [-I x] [-P x] [-t] [-h] [-p] [-f]
+- * sysfs04  [-c n] [-e] [-i n] [-I x] [-P x] [-t] [-h] [-f] [-p]
 - * where:
-- *	-c n : Run n copies simultaneously
+- *	-c n : run n copies simultaneously
 - *	-e   : Turn on errno logging.
 - *	-i n : Execute test n times.
 - *	-I x : Execute test for x seconds.
@@ -139,30 +143,31 @@ index 98bd5c692..8e53e92d8 100644
 - *	-t   : Turn on syscall timing.
 - *
 - *RESTRICTIONS:
-- *There is no glibc or libc support
+- *No libc or glibc support
 - *****************************************************************************/
 +
 +/*\
 + * [Description]
-+ * This test is run for option 3 for sysfs(2).
-+ * Return the total number of filesystem types currently present in the kernel.
++ * This test case checks whether sysfs(2) system call returns
++ * appropriate error number for invalid option.
 + */
 
  #include <errno.h>
- #include <unistd.h>
- #include <sys/syscall.h>
+-#include  <sys/syscall.h>
 -#include "test.h"
++#include <sys/syscall.h>
 +#include "tst_test.h"
  #include "lapi/syscalls.h"
 
+ #define INVALID_OPTION 100
 -static void setup();
 -static void cleanup();
--
--char *TCID = "sysfs03";
+
+-char *TCID = "sysfs04";
 -int TST_TOTAL = 1;
 -
 -int main(int ac, char **av)
-+static void verify_sysfs03(void)
++static void verify_sysfs04(void)
  {
 -	int lc;
 -
@@ -173,48 +178,47 @@ index 98bd5c692..8e53e92d8 100644
 -	for (lc = 0; TEST_LOOPING(lc); lc++) {
 -
 -		tst_count = 0;
--
--		TEST(ltp_syscall(__NR_sysfs, 3));
+-		TEST(ltp_syscall(__NR_sysfs, INVALID_OPTION));
 -
 -		/* check return code */
--		if (TEST_RETURN == -1) {
--			tst_resm(TFAIL, "sysfs(2) Failed for"
--				 " option 3 and returned"
--				 " %d as error number", TEST_ERRNO);
+-		if ((TEST_RETURN == -1) && (TEST_ERRNO == EINVAL)) {
+-			tst_resm(TPASS, "sysfs(2) expected failure;"
+-				 " Got errno - EINVAL :" " Invalid option");
 -		} else {
--			tst_resm(TPASS, "sysfs(2) Passed for option 3");
+-			tst_resm(TFAIL, "sysfs(2) failed to produce"
+-				 " expected error; %d, errno"
+-				 " : EINVAL and got %d", EINVAL, TEST_ERRNO);
 -		}
--	}			/*End of TEST_LOOPING */
+-	}
 
 -	/*Clean up and exit */
 -	cleanup();
 -	tst_exit();
-+	TST_EXP_POSITIVE(tst_syscall(__NR_sysfs, 3), "sysfs(3)");
++	TST_EXP_FAIL(tst_syscall(__NR_sysfs, INVALID_OPTION),
++				EINVAL, "sysfs(INVALID_OPTION)");
 
--}
+-}				/*End of main */
 -
 -/* setup() - performs all ONE TIME setup for this test */
 -void setup(void)
 -{
-+	if (TST_PASS == 1)
-+		tst_res(TPASS, "sysfs(2) Passed for option 3");
-
+-
 -	tst_sig(NOFORK, DEF_HANDLER, cleanup);
 -
 -	TEST_PAUSE;
  }
 
 -/*
-- * cleanup() - Performs one time cleanup for this test at
-- * completion or premature exit
-- */
+-* cleanup() - Performs one time cleanup for this test at
+-* completion or premature exit
+-*/
 -void cleanup(void)
 -{
--
--}
 +static struct tst_test test = {
-+	.test_all = verify_sysfs03,
++	.test_all = verify_sysfs04,
 +};
+
+-}
 --
 2.20.1
 
