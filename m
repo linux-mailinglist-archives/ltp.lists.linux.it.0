@@ -2,88 +2,93 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id B49C43E8E37
-	for <lists+linux-ltp@lfdr.de>; Wed, 11 Aug 2021 12:12:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E15743E8E38
+	for <lists+linux-ltp@lfdr.de>; Wed, 11 Aug 2021 12:12:31 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1BA453C7028
-	for <lists+linux-ltp@lfdr.de>; Wed, 11 Aug 2021 12:12:22 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 5A0C73C6FEF
+	for <lists+linux-ltp@lfdr.de>; Wed, 11 Aug 2021 12:12:31 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 5D9A03C6F4C
- for <ltp@lists.linux.it>; Wed, 11 Aug 2021 12:11:43 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 82E943C701C
+ for <ltp@lists.linux.it>; Wed, 11 Aug 2021 12:12:15 +0200 (CEST)
 Received: from smtp-relay-canonical-1.canonical.com
  (smtp-relay-canonical-1.canonical.com [185.125.188.121])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 6940A6002F4
- for <ltp@lists.linux.it>; Wed, 11 Aug 2021 12:11:42 +0200 (CEST)
-Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com
- [209.85.218.71])
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 103F61A008BF
+ for <ltp@lists.linux.it>; Wed, 11 Aug 2021 12:12:13 +0200 (CEST)
+Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com
+ [209.85.208.71])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPS id 0C51B3F109
- for <ltp@lists.linux.it>; Wed, 11 Aug 2021 10:11:42 +0000 (UTC)
+ by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPS id 6F2D73F370
+ for <ltp@lists.linux.it>; Wed, 11 Aug 2021 10:12:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1628676702;
- bh=nLLOoOj6VV1dhGXDa468G8xFiYWRaTHM2tIv0V64Y24=;
- h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
- MIME-Version;
- b=nTqxZ74pNXapoqmPZNQIDSH01GAuoBSEjjC952N6oMLE+HgJuGrdhFmkYvBhd4g/W
- usbkyaB9gU55idyHhxfn1zS4pt3171sOG2izMmdcNnezIGVYVc2D8vClZ2Mt7IQJ4Q
- HkfUXRZaYVUfdH9J6+FJeGWzA5IFXVgj3gxeP/5S+Lad9IFZ0kfg6xh4+D4F01IR2E
- 8FleCok6GIFVLF6flGTBktwnFhTHleyoBe5b80+yQ4HGLQQOCf1UUgggpOuROb9XZ9
- uu/HjER4vcWhF+ML8Y/Wk/lgu+hUB+6pqeFPZpTYa34ASdavAaqtW3wmbz1g0vU7QM
- kaJZq7fzosQrA==
-Received: by mail-ej1-f71.google.com with SMTP id
- r21-20020a1709067055b02904be5f536463so502251ejj.0
- for <ltp@lists.linux.it>; Wed, 11 Aug 2021 03:11:42 -0700 (PDT)
+ s=20210705; t=1628676733;
+ bh=yoaS1aVrGfA6WPJqduXecav7/IuE5WNsUd3cFxr7d0o=;
+ h=Subject:From:To:Cc:References:Message-ID:Date:MIME-Version:
+ In-Reply-To:Content-Type;
+ b=rl6eMxqbKDGbtWwaaPKqgVTlX1SqvmZu9aoWT5DSsISDyc0MmpRsUhIZ8DJtqK9Kx
+ ZNF/CM/x+0foNpHpVvY+gOOP49ya8XQ2heHbQukutOG6dzAFWO5RsxwxfJDrDSGHzn
+ Ibjo6gbQGNcBOY8vOfClwsdu+9o9CrfNRmArO60mzFwIkEbrAI1hrwY7v/boX53VQs
+ c6GXzsJUR/Mf3TSRCSkExbdFRKqi24f8PLkWUMQDpS4zQVKp/RyzlmxYFdNbLRaeQr
+ 8CVDsJkCyloRNkSZEypwCVuvSHwLB5x9+FGcYPJSunghvRWnZx5g7t0hiw7UEGJXrl
+ pynpR09AqcTGA==
+Received: by mail-ed1-f71.google.com with SMTP id
+ dh21-20020a0564021d35b02903be0aa37025so977105edb.7
+ for <ltp@lists.linux.it>; Wed, 11 Aug 2021 03:12:13 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=nLLOoOj6VV1dhGXDa468G8xFiYWRaTHM2tIv0V64Y24=;
- b=nXaDGajGQSCy8bGlxSk3OzAPQ1Ljp3H8JZiBWwre6bY/XRdDAZ6bjbx3daKmHPcxOR
- DTGPDE55e3xylzavGeD+I0AOtldXit7wzNXhzkeC4AJWmI/b4A5QeOv9t78YJoyuVAtf
- NBI82rNEBxg8Cn6phh0IVLV/Q0drbj+H6OeY1rhnSF4n4DMKL1HU1pcpj0WlH1EgKDi4
- akiK3PsMn1rd1v8rM1M5RK5jZtQw/w7KVN391r7m3HSWWnIYjkVU1dOWVuE4l98MQBna
- +h5jqC644DfJ3EOhuIEThbcxt2M8jIpsLTYtPCctDqOeTWQCdfbgSz375d0BFEEdbh/M
- ZVoQ==
-X-Gm-Message-State: AOAM5335OwgldDP/gvOwE1sEk8tfYSuiVNGULiNqpKnN2Hm1FRxkbC1q
- gU38A5ANvP1LjaHmlle2qFMBwuTl/CK1/4tu2UhtVsb1wrzsT1HLZo6Y0IBDSxHyd/rUnksmzVV
- Dq+GgYQOq9TbiJYFbyfD045dadJYA
-X-Received: by 2002:a17:907:2ce7:: with SMTP id
- hz7mr2855361ejc.35.1628676701225; 
- Wed, 11 Aug 2021 03:11:41 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJy3Kl2ulqE3UGYOQeoKyydl1z9QaXJKVKEn5FSJSxN0Y9PlLdP4nUETpGKcfkFCzmqbfFuArg==
-X-Received: by 2002:a17:907:2ce7:: with SMTP id
- hz7mr2855352ejc.35.1628676701054; 
- Wed, 11 Aug 2021 03:11:41 -0700 (PDT)
-Received: from localhost.localdomain ([86.32.42.198])
- by smtp.gmail.com with ESMTPSA id c6sm7938345eje.105.2021.08.11.03.11.40
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 Aug 2021 03:11:40 -0700 (PDT)
+ h=x-gm-message-state:subject:from:to:cc:references:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=yoaS1aVrGfA6WPJqduXecav7/IuE5WNsUd3cFxr7d0o=;
+ b=Vhzl8YQMj8e7cSFKB1mz0peu1xSPp4bffTXgF+H/WxuIXp9fkZFsyLw6XF1KC6aFBM
+ guzkbtpmIygTGJd9DCWPaQcwWyPE+0Bg+sQuRtLqzBJTBECEHtRvO5N1NZmkTZBoSbY+
+ y+LSixlX4JHuCQNaR0Oi3x24pf9NfwEWeJfW7WfIIjvnIdp1bNSP+/MzCBeRbxS6b55A
+ 2qk7wvCrS+WAbEwYugIIbPlN7Q+aeqyfa2PH95wqjCz+AjiD3kLsvtxO+JIXT0QoZQ4c
+ 5ybxJnfe+00aW2WF6XPPkKQpAsRTZvSoMbgHgVtlICJzuTfd8B3EzaAStiNL8sThM/mR
+ Dt6w==
+X-Gm-Message-State: AOAM5334cd8Q0LEVA7CespYj57o2wuTEcb4Bwsi57CjGKVdUJI5e+GGl
+ aHY0RhRlKyViJIKPHNFWjm/h5aDk/Nw43HlFHSNQellzlwaUH2x7FZ1OFAhL8LxH2k9jBdr0btJ
+ S+W7+Z2OLInw09cI/uXe+f60Qds+P
+X-Received: by 2002:a05:6402:4d1:: with SMTP id
+ n17mr10354586edw.337.1628676732961; 
+ Wed, 11 Aug 2021 03:12:12 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwWf66XijkNPilBTp+/MiRqtCIYGHYcPp/d+7/Pz3LCocdpCA76+n7QHGt0lMkrVdybikp5FQ==
+X-Received: by 2002:a05:6402:4d1:: with SMTP id
+ n17mr10354580edw.337.1628676732862; 
+ Wed, 11 Aug 2021 03:12:12 -0700 (PDT)
+Received: from [192.168.8.102] ([86.32.42.198])
+ by smtp.gmail.com with ESMTPSA id u23sm6293434edr.42.2021.08.11.03.12.12
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 11 Aug 2021 03:12:12 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-To: ltp@lists.linux.it
-Date: Wed, 11 Aug 2021 12:10:58 +0200
-Message-Id: <20210811101058.36695-5-krzysztof.kozlowski@canonical.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210811101058.36695-1-krzysztof.kozlowski@canonical.com>
-References: <20210811101058.36695-1-krzysztof.kozlowski@canonical.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+References: <20210623080157.26424-1-krzysztof.kozlowski@canonical.com>
+ <2a08d5c4-c002-7284-03d1-ff4441f8c9c5@canonical.com> <YNMdNqGiGXOgby6v@yuki>
+ <aaf8acb9-f28f-b550-ccbc-8feb5aad17b0@canonical.com>
+Message-ID: <34c93a03-ca56-1648-5db0-4f15d617b4d9@canonical.com>
+Date: Wed, 11 Aug 2021 12:12:11 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+In-Reply-To: <aaf8acb9-f28f-b550-ccbc-8feb5aad17b0@canonical.com>
+Content-Language: en-US
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [RESEND PATCH 4/4] controllers/memcg: check status of
- commands using interface
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] device-drivers/cpufreq_boost: skip test on
+ virtual machines
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,159 +100,50 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Most of the cgroups interface returns some valid and meaningful error
-code (e.g. ENOMEM if creating subgroup failed).  Check these to be sure
-that all errors are caught, like in this example:
+On 23/06/2021 17:33, Krzysztof Kozlowski wrote:
+> On 23/06/2021 13:38, Cyril Hrubis wrote:
+>> Hi!
+>>>> diff --git a/testcases/kernel/device-drivers/cpufreq/cpufreq_boost.c b/testcases/kernel/device-drivers/cpufreq/cpufreq_boost.c
+>>>> index b9739db37cb7..67917b3fea25 100644
+>>>> --- a/testcases/kernel/device-drivers/cpufreq/cpufreq_boost.c
+>>>> +++ b/testcases/kernel/device-drivers/cpufreq/cpufreq_boost.c
+>>>> @@ -90,6 +90,9 @@ static void setup(void)
+>>>>  	unsigned int i;
+>>>>  	tst_require_root();
+>>>>  
+>>>> +	if (tst_is_virt(VIRT_ANY))
+>>>> +		tst_brkm(TCONF, NULL, "running in a virtual machine, overclock not reliably measureable");
+>>>> +
+>>>>  	for (i = 0; i < ARRAY_SIZE(cdrv); ++i) {
+>>>>  		fd = open(cdrv[i].file, O_RDWR);
+>>>>  		if (fd == -1)
+>>>>
+>>>
+>>> Optionally, under virtual machine the test failure could be converted to
+>>> accepted pass. This would still allow to test CPUfreq boosting
+>>> interface. Any preferences?
+>>
+>> I wonder what is the likehood of actually dicovering a bug by writing to
+>> the cpufreq boost file from within a VM, I guess that it's non-zero at
+>> least.
+> 
+> It's a test of kernel interface and whether the driver accepts input via
+> sysfs... so not much of a real cpufreq test. Indeed maybe better to skip
+> the test explicitly instead of giving some false hopes that cpufreq is
+> being tested.
 
-    memcg_subgroup_charge 1 TINFO: set /dev/memcg/memory.use_hierarchy to 0 failed
-    memcg_subgroup_charge 1 TINFO: Test that group and subgroup have no relationship
-    /home/ubuntu/ltp-install/testcases/bin/memcg_subgroup_charge.sh: 36: echo: echo: I/O error
-    memcg_subgroup_charge 1 TINFO: Running memcg_process --mmap-anon -s 270336
-    memcg_subgroup_charge 1 TINFO: Warming up pid: 13496
-    memcg_subgroup_charge 1 TINFO: Process is still here after warm up: 13496
+Hi Cyril and all,
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
----
- .../controllers/memcg/functional/memcg_lib.sh |  2 +-
- .../memcg_max_usage_in_bytes_test.sh          |  8 +++----
- .../memcg/functional/memcg_stat_test.sh       | 24 +++++++++----------
- .../memcg/functional/memcg_subgroup_charge.sh |  4 ++--
- .../functional/memcg_usage_in_bytes_test.sh   |  4 ++--
- 5 files changed, 21 insertions(+), 21 deletions(-)
+Anything stops this patch from being applied?
 
-diff --git a/testcases/kernel/controllers/memcg/functional/memcg_lib.sh b/testcases/kernel/controllers/memcg/functional/memcg_lib.sh
-index 700e9e367bff..3d04c3a60700 100755
---- a/testcases/kernel/controllers/memcg/functional/memcg_lib.sh
-+++ b/testcases/kernel/controllers/memcg/functional/memcg_lib.sh
-@@ -389,7 +389,7 @@ test_limit_in_bytes()
- 	local use_memsw=$2
- 	local elimit
- 
--	echo $limit > memory.limit_in_bytes
-+	EXPECT_PASS echo $limit \> memory.limit_in_bytes
- 	if [ $use_memsw -eq 1 ]; then
- 		memcg_require_memsw
- 		echo $limit > memory.memsw.limit_in_bytes
-diff --git a/testcases/kernel/controllers/memcg/functional/memcg_max_usage_in_bytes_test.sh b/testcases/kernel/controllers/memcg/functional/memcg_max_usage_in_bytes_test.sh
-index a0c4dd17f0f3..6a2607c4333b 100755
---- a/testcases/kernel/controllers/memcg/functional/memcg_max_usage_in_bytes_test.sh
-+++ b/testcases/kernel/controllers/memcg/functional/memcg_max_usage_in_bytes_test.sh
-@@ -67,8 +67,8 @@ test2()
- 	tst_res TINFO "Test memory.memsw.max_usage_in_bytes"
- 	memcg_require_memsw
- 
--	echo $MEM_LIMIT > memory.limit_in_bytes
--	echo $MEM_LIMIT > memory.memsw.limit_in_bytes
-+	EXPECT_PASS echo $MEM_LIMIT \> memory.limit_in_bytes
-+	EXPECT_PASS echo $MEM_LIMIT \> memory.memsw.limit_in_bytes
- 	test_max_usage_in_bytes 1 0
- }
- 
-@@ -83,8 +83,8 @@ test4()
- 	tst_res TINFO "Test reset memory.memsw.max_usage_in_bytes"
- 	memcg_require_memsw
- 
--	echo $MEM_LIMIT > memory.limit_in_bytes
--	echo $MEM_LIMIT > memory.memsw.limit_in_bytes
-+	EXPECT_PASS echo $MEM_LIMIT \> memory.limit_in_bytes
-+	EXPECT_PASS echo $MEM_LIMIT \> memory.memsw.limit_in_bytes
- 	test_max_usage_in_bytes 1 1
- }
- 
-diff --git a/testcases/kernel/controllers/memcg/functional/memcg_stat_test.sh b/testcases/kernel/controllers/memcg/functional/memcg_stat_test.sh
-index b86331f0fc26..5fb52bb1d24c 100755
---- a/testcases/kernel/controllers/memcg/functional/memcg_stat_test.sh
-+++ b/testcases/kernel/controllers/memcg/functional/memcg_stat_test.sh
-@@ -47,8 +47,8 @@ test5()
- 	memcg_adjust_limit_for_kmem limit
- 
- 	ROD mkdir subgroup
--	echo $limit > memory.limit_in_bytes
--	echo $((limit + PAGESIZES * 2)) > subgroup/memory.limit_in_bytes
-+	EXPECT_PASS echo $limit \> memory.limit_in_bytes
-+	EXPECT_PASS echo $((limit + PAGESIZES * 2)) \> subgroup/memory.limit_in_bytes
- 
- 	cd subgroup
- 	check_mem_stat "hierarchical_memory_limit" $limit
-@@ -65,8 +65,8 @@ test6()
- 	ROD echo 0 \> memory.use_hierarchy
- 
- 	ROD mkdir subgroup
--	echo $PAGESIZES > memory.limit_in_bytes
--	echo $((PAGESIZES * 2)) > subgroup/memory.limit_in_bytes
-+	EXPECT_PASS echo $PAGESIZES \> memory.limit_in_bytes
-+	EXPECT_PASS echo $((PAGESIZES * 2)) \> subgroup/memory.limit_in_bytes
- 
- 	cd subgroup
- 	check_mem_stat "hierarchical_memory_limit" $((PAGESIZES * 2))
-@@ -83,10 +83,10 @@ test7()
- 	ROD echo 1 \> memory.use_hierarchy
- 
- 	ROD mkdir subgroup
--	echo $PAGESIZES > memory.limit_in_bytes
--	echo $PAGESIZES > memory.memsw.limit_in_bytes
--	echo $((PAGESIZES * 2)) > subgroup/memory.limit_in_bytes
--	echo $((PAGESIZES * 2)) > subgroup/memory.memsw.limit_in_bytes
-+	EXPECT_PASS echo $PAGESIZES \> memory.limit_in_bytes
-+	EXPECT_PASS echo $PAGESIZES \> memory.memsw.limit_in_bytes
-+	EXPECT_PASS echo $((PAGESIZES * 2)) \> subgroup/memory.limit_in_bytes
-+	EXPECT_PASS echo $((PAGESIZES * 2)) \> subgroup/memory.memsw.limit_in_bytes
- 
- 	cd subgroup
- 	check_mem_stat "hierarchical_memsw_limit" $PAGESIZES
-@@ -104,10 +104,10 @@ test8()
- 	ROD echo 0 \> memory.use_hierarchy
- 
- 	ROD mkdir subgroup
--	echo $PAGESIZES > memory.limit_in_bytes
--	echo $PAGESIZES > memory.memsw.limit_in_bytes
--	echo $((PAGESIZES * 2)) > subgroup/memory.limit_in_bytes
--	echo $((PAGESIZES * 2)) > subgroup/memory.memsw.limit_in_bytes
-+	EXPECT_PASS echo $PAGESIZES \> memory.limit_in_bytes
-+	EXPECT_PASS echo $PAGESIZES \> memory.memsw.limit_in_bytes
-+	EXPECT_PASS echo $((PAGESIZES * 2)) \> subgroup/memory.limit_in_bytes
-+	EXPECT_PASS echo $((PAGESIZES * 2)) \> subgroup/memory.memsw.limit_in_bytes
- 
- 	cd subgroup
- 	check_mem_stat "hierarchical_memsw_limit" $((PAGESIZES * 2))
-diff --git a/testcases/kernel/controllers/memcg/functional/memcg_subgroup_charge.sh b/testcases/kernel/controllers/memcg/functional/memcg_subgroup_charge.sh
-index e831097dab3e..4434168a7a6c 100755
---- a/testcases/kernel/controllers/memcg/functional/memcg_subgroup_charge.sh
-+++ b/testcases/kernel/controllers/memcg/functional/memcg_subgroup_charge.sh
-@@ -33,8 +33,8 @@ test_subgroup()
- 	fi
- 
- 	ROD mkdir subgroup
--	echo $limit_parent > memory.limit_in_bytes
--	echo $limit_subgroup > subgroup/memory.limit_in_bytes
-+	EXPECT_PASS echo $limit_parent \> memory.limit_in_bytes
-+	EXPECT_PASS echo $limit_subgroup \> subgroup/memory.limit_in_bytes
- 
- 	start_memcg_process --mmap-anon -s $MEM_TO_ALLOC
- 
-diff --git a/testcases/kernel/controllers/memcg/functional/memcg_usage_in_bytes_test.sh b/testcases/kernel/controllers/memcg/functional/memcg_usage_in_bytes_test.sh
-index 9140fd9d1fd7..6c1b365057f8 100755
---- a/testcases/kernel/controllers/memcg/functional/memcg_usage_in_bytes_test.sh
-+++ b/testcases/kernel/controllers/memcg/functional/memcg_usage_in_bytes_test.sh
-@@ -28,8 +28,8 @@ test2()
- 	tst_res TINFO "Test memory.memsw.usage_in_bytes"
- 	memcg_require_memsw
- 
--	echo $MEM_LIMIT > memory.limit_in_bytes
--	echo $MEM_LIMIT > memory.memsw.limit_in_bytes
-+	EXPECT_PASS echo $MEM_LIMIT \> memory.limit_in_bytes
-+	EXPECT_PASS echo $MEM_LIMIT \> memory.memsw.limit_in_bytes
- 	test_mem_stat "--mmap-anon" $MEM_TO_ALLOC $MEM_TO_ALLOC \
- 		"memory.memsw.usage_in_bytes" $MEM_TO_ALLOC \
- 		$MEM_EXPECTED_UPPER false
--- 
-2.30.2
-
+Best regards,
+Krzysztof
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
