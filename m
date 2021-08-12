@@ -1,12 +1,12 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5827A3E9DA6
-	for <lists+linux-ltp@lfdr.de>; Thu, 12 Aug 2021 06:38:30 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A7293E9EBD
+	for <lists+linux-ltp@lfdr.de>; Thu, 12 Aug 2021 08:45:36 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A68BE3C5A57
-	for <lists+linux-ltp@lfdr.de>; Thu, 12 Aug 2021 06:38:29 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 061763C6ACC
+	for <lists+linux-ltp@lfdr.de>; Thu, 12 Aug 2021 08:45:36 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
@@ -14,39 +14,82 @@ Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id B7EF63C6CAA
- for <ltp@lists.linux.it>; Thu, 12 Aug 2021 06:38:19 +0200 (CEST)
-Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
+ by picard.linux.it (Postfix) with ESMTPS id 46DE43C29B4
+ for <ltp@lists.linux.it>; Thu, 12 Aug 2021 08:45:33 +0200 (CEST)
+Received: from smtp-relay-canonical-0.canonical.com
+ (smtp-relay-canonical-0.canonical.com [185.125.188.120])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 7D4A260055D
- for <ltp@lists.linux.it>; Thu, 12 Aug 2021 06:38:18 +0200 (CEST)
-Received: from ubuntu.localdomain (unknown [188.192.255.100])
- by mail.jv-coder.de (Postfix) with ESMTPSA id 85DF59F81F;
- Thu, 12 Aug 2021 04:38:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
- t=1628743096; bh=ylLAjFiZ9PSwjr7/w+LIvVgHKeubkCHf63+ZwnMe9MA=;
- h=From:To:Subject:Date:Message-Id:MIME-Version;
- b=kVhcZ/hjRz8Dq+wkvHFF112m3G24Qv8U+wiB3rSGyDEMZiOPw+Yx3BDdox5vULExO
- d4LDesLtR0MVEL/xx0+SojgjHIDwgXt+Hb/8Z0cO9r/5/Hd6JYOiPY9OVuWLlwvXj1
- Cg7yYeXNsjNth2IfqktcCe+jGlqS4DYCUZEeqeeU=
-From: Joerg Vehlow <lkml@jv-coder.de>
-To: ltp@lists.linux.it, pvorel@suse.cz, bogdan.lezhepekov@suse.com,
- chrubis@suse.cz
-Date: Thu, 12 Aug 2021 06:38:07 +0200
-Message-Id: <20210812043807.3497492-2-lkml@jv-coder.de>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210812043807.3497492-1-lkml@jv-coder.de>
-References: <20210812043807.3497492-1-lkml@jv-coder.de>
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id E824E600219
+ for <ltp@lists.linux.it>; Thu, 12 Aug 2021 08:45:32 +0200 (CEST)
+Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com
+ [209.85.208.71])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPS id 7E02D3F049
+ for <ltp@lists.linux.it>; Thu, 12 Aug 2021 06:45:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1628750725;
+ bh=fHys+STg8WsXW2Z/sQ8PQl5oPizp1MJqX77K6JyXlrI=;
+ h=To:Cc:References:From:Subject:Message-ID:Date:MIME-Version:
+ In-Reply-To:Content-Type;
+ b=n1ubA+YQCjKVwrEBjrggnG/nN11Rm1sDyV5XgEJW2gtWWQ28j33PHSm80OHnDrgc8
+ J+HGXtNiNgHx3GMTGbbbfsAiq/1aUA6XS6F1rDa/3N3Ro6XwRnqzM83RZQud09+NuG
+ rpzGgmn98Lc74hTQ3Z+1D0paa57G8BRgP8qNv1dYILhbjMuTbvV4PbhdadtG5aKKVU
+ H74OD6Et/IhSFFKUYGbb2W6s3Y3ShwpjZvTH+70LzV0Rtr2GFw+FJ/1RD8BFGWMNkl
+ mAmk/di8N3xc6H2a4FgzN0DHo87TNU5EtPMe33lwu+UPOd+H4RRcNTaln6CgFN/kgM
+ rOPfPNUbhbReg==
+Received: by mail-ed1-f71.google.com with SMTP id
+ b16-20020a0564022790b02903be6352006cso2538864ede.15
+ for <ltp@lists.linux.it>; Wed, 11 Aug 2021 23:45:25 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:to:cc:references:from:subject:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=fHys+STg8WsXW2Z/sQ8PQl5oPizp1MJqX77K6JyXlrI=;
+ b=YpG5x1iuRCCmFGfIoz2L83lsFTlPgIifIQg1arj+oF9OX4qRu6RvFI/byKIVtHu7uf
+ GPFSvciQ8Bq4I3lyF5eOrNlNmdOkc77YN3hFFKCKV1Sk0qDmhygCTm2bbIqiEREIO6/A
+ eEkCl/2UMWJN60l6f2wz/y1iSbY+NRSKE7p8uhCISMDC7vCDEpZbfhe0/EFRo+kEuB9Z
+ K4dss32wx84Ynyvl3BzzWjv8GM6WAG8xxlnz/0PQaUtaln0SZy8a7IjN4K/3I59s/38J
+ fEBhbYok/mhzTxeAnw9dZhqn2RDUOhI0P+IpciEfq3+vLSIYTr8xuKcHiwrVcJk3WXWS
+ POvw==
+X-Gm-Message-State: AOAM533b12LAyz0SUYyMTpP354Q4sPrHFDPxK1F7vel2VjUvS6RM9l1V
+ zqBHHgCF/ueawUA3iHypdvaOEPk/jFIVT2MRsUIHGaWUXhz7Y4lviwau/0fSdBGQXDrO6dC0aaD
+ L44pWc2hl/EGlSlG9pNU8gOT1DKqw
+X-Received: by 2002:a17:906:c249:: with SMTP id
+ bl9mr2190384ejb.225.1628750724830; 
+ Wed, 11 Aug 2021 23:45:24 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJyf2zFKcXBxcwUeDhWRkNPANcrZPqoqgLBzcaGcZOEpn0aW40r1FqNpy2q8gX7ZOhiUF5BMog==
+X-Received: by 2002:a17:906:c249:: with SMTP id
+ bl9mr2190374ejb.225.1628750724665; 
+ Wed, 11 Aug 2021 23:45:24 -0700 (PDT)
+Received: from [192.168.8.102] ([86.32.42.198])
+ by smtp.gmail.com with ESMTPSA id o23sm670502eds.75.2021.08.11.23.45.24
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 11 Aug 2021 23:45:24 -0700 (PDT)
+To: rpalethorpe@suse.de
+References: <20210811101058.36695-1-krzysztof.kozlowski@canonical.com>
+ <20210811101058.36695-2-krzysztof.kozlowski@canonical.com>
+ <87v94ckpow.fsf@suse.de>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+Message-ID: <90ff7e98-eea9-fe31-15ea-6bb1f12b4eb8@canonical.com>
+Date: Thu, 12 Aug 2021 08:45:23 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+In-Reply-To: <87v94ckpow.fsf@suse.de>
+Content-Language: en-US
 X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v2 2/2] pec: Improve reliability
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [RESEND PATCH 1/4] controllers/memcg: account per-node
+ kernel memory
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,418 +101,91 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-From: Joerg Vehlow <joerg.vehlow@aox-tech.de>
-
-This fixes two problems:
-1. It was possible, that the event listener was terminated,
-before all events were recorded.
-The listener now terminates, after receiving the exit event of the generator.
-This also gets rid of the 100ms sleep in cn_pec.sh by
-using proper synchronization points.
-2. Sometimes exit events were generated in the wrong order,
-Adding a short delay seems to solve this. While this adds in a new sleep,
-it is just a 1 ms for default the execution.
-
-Reported-by: Bogdan Lezhepekov <bogdan.lezhepekov@suse.com>
-Signed-off-by: Joerg Vehlow <joerg.vehlow@aox-tech.de>
----
- testcases/kernel/connectors/pec/cn_pec.sh     | 36 ++++---
- .../kernel/connectors/pec/event_generator.c   | 97 ++++++++++---------
- .../kernel/connectors/pec/pec_listener.c      | 56 ++++++++++-
- 3 files changed, 128 insertions(+), 61 deletions(-)
-
-diff --git a/testcases/kernel/connectors/pec/cn_pec.sh b/testcases/kernel/connectors/pec/cn_pec.sh
-index 9b85a5c81..74e94dc5e 100755
---- a/testcases/kernel/connectors/pec/cn_pec.sh
-+++ b/testcases/kernel/connectors/pec/cn_pec.sh
-@@ -16,12 +16,16 @@ TST_PARSE_ARGS=parse_args
- TST_USAGE=usage
- TST_NEEDS_ROOT=1
- TST_NEEDS_TMPDIR=1
-+TST_NEEDS_CHECKPOINTS=1
- TST_TEST_DATA="fork exec exit uid gid"
- 
- . tst_test.sh
- 
- num_events=10
- 
-+LISTENER_ID=0
-+GENERATOR_ID=1
-+
- usage()
- {
- 	cat << EOF
-@@ -67,27 +71,31 @@ setup()
- test()
- {
- 	local event=$2
--	local expected_events lis_rc pid fd_act failed act_nevents exp act
-+	local gen_pid list_pid gen_rc lis_rc
-+	local expected_events fd_act failed act_nevents exp act
- 
- 	tst_res TINFO "Testing $2 event (nevents=$num_events)"
- 
--	pec_listener >lis_$event.log 2>lis_$event.err &
--	pid=$!
--	# wait for pec_listener to start listening
--	tst_sleep 100ms
-+	event_generator -n $num_events -e $event -c $GENERATOR_ID >gen.log &
-+	gen_pid=$!
-+
-+	pec_listener -p $gen_pid -c $LISTENER_ID >lis.log &
-+	lis_pid=$!
- 
--	ROD event_generator -n $num_events -e $event \>gen_$event.log 2\>gen_$event.err
-+	TST_CHECKPOINT_WAIT $LISTENER_ID
-+	TST_CHECKPOINT_WAKE $GENERATOR_ID
- 
--	kill -s INT $pid 2> /dev/null
--	wait $pid
-+	wait $gen_pid
-+	gen_rc=$?
-+	wait $lis_pid
- 	lis_rc=$?
- 
--	if [ ! -s gen_$event.log ]; then
--		tst_brk TBROK "failed to generate process events: $(cat gen_$event.err)"
-+	if [ $gen_rc -ne 0 ]; then
-+		tst_brk TBROK "failed to execute event_generator"
- 	fi
- 
- 	if [ $lis_rc -ne 0 ]; then
--		tst_brk TBROK "failed to execute the listener: $(cat lis_$event.err)"
-+		tst_brk TBROK "failed to execute pec_listener"
- 	fi
- 
- 	# The listener writes the same messages as the generator, but it can
-@@ -104,7 +112,7 @@ test()
- 
- 	fd_act=$(free_fd)
- 	[ -z "$fd_act" ] && tst_brk TBROK "No free filehandle found"
--	eval "exec ${fd_act}<lis_$event.log"
-+	eval "exec ${fd_act}<lis.log"
- 
- 	failed=0
- 	act_nevents=0
-@@ -122,7 +130,7 @@ test()
- 			tst_res TFAIL "Event was not detected by the event listener: $exp"
- 			break
- 		fi
--	done <gen_$event.log
-+	done <gen.log
- 
- 	eval "exec ${fd_act}<&-"
- 
-@@ -134,7 +142,7 @@ test()
- 		fi
- 	else
- 		# TFAIL message is already printed in the loop above
--		cat lis_$event.log
-+		cat lis.log
- 	fi
- }
- 
-diff --git a/testcases/kernel/connectors/pec/event_generator.c b/testcases/kernel/connectors/pec/event_generator.c
-index 62e341268..722efec96 100644
---- a/testcases/kernel/connectors/pec/event_generator.c
-+++ b/testcases/kernel/connectors/pec/event_generator.c
-@@ -24,17 +24,16 @@ static struct tst_test test = {
- 	.forks_child = 1
- };
- 
--#define DEFAULT_EVENT_NUM       1
-+static uid_t ltp_uid;
-+static gid_t ltp_gid;
-+static const char *ltp_user = "nobody";
-+static char *prog_name;
- 
--unsigned long nr_event = DEFAULT_EVENT_NUM;
-+static int checkpoint_id = -1;
-+static int nr_event = 1;
- 
--uid_t ltp_uid;
--gid_t ltp_gid;
--const char *ltp_user = "nobody";
-+static void (*gen_event)(void);
- 
--char **exec_argv;
--
--void (*gen_event) (void);
- static void usage(int status) LTP_ATTRIBUTE_NORETURN;
- 
- /*
-@@ -47,45 +46,29 @@ static void usage(int status)
- 	FILE *stream = (status ? stderr : stdout);
- 
- 	fprintf(stream,
--		"Usage: event_generator -e fork|exit|exec|uid|gid [-n nr_event]\n");
-+		"Usage: event_generator -e fork|exit|exec|uid|gid [-n nr_event] [-c checkpoint_id]\n");
- 
- 	exit(status);
- }
- 
- /*
-  * Generate exec event.
-- *
-- * We can't just exec nr_event times, because the current process image
-- * will be replaced with the new process image, so we use environment
-- * variable as event counters, as it will be inherited after exec.
-  */
- static void gen_exec(void)
- {
--	char *val;
- 	char buf[10];
--	unsigned long nr_exec;
--
--	/* get the event counter */
--	val = getenv("NR_EXEC");
--	if (!val) {
--		nr_exec = 0;
--		setenv("NR_EXEC", "1", 1);
--	} else {
--		nr_exec = atoi(val);
--		snprintf(buf, 10, "%lu", nr_exec + 1);
--		setenv("NR_EXEC", buf, 1);
--	}
--
--	/* stop generate exec event */
--	if (nr_exec >= nr_event)
--		return;
- 
- 	/* fflush is needed before exec */
- 	printf("exec pid: %d\n", getpid());
- 	fflush(stdout);
- 
--	/* Note: This expects the full path to self in exec_argv[0]! */
--	SAFE_EXECVP(exec_argv[0], exec_argv);
-+	/*
-+	 * Decrease number of events to generate.
-+	 * Don't pass checkpoint_id here. It is only used for synchronizing with
-+	 * the shell script, before the first exec.
-+	 */
-+	sprintf(buf, "%u", nr_event - 1);
-+	SAFE_EXECLP(prog_name, prog_name, "-e", "exec", "-n", buf, NULL);
- }
- 
- /*
-@@ -135,9 +118,8 @@ static inline void gen_gid(void)
- static void process_options(int argc, char **argv)
- {
- 	int c;
--	char *end;
- 
--	while ((c = getopt(argc, argv, "e:n:h")) != -1) {
-+	while ((c = getopt(argc, argv, "e:n:c:h")) != -1) {
- 		switch (c) {
- 			/* which event to generate */
- 		case 'e':
-@@ -158,17 +140,21 @@ static void process_options(int argc, char **argv)
- 			break;
- 			/* number of event to generate */
- 		case 'n':
--			nr_event = strtoul(optarg, &end, 10);
--			if (*end != '\0' || nr_event == 0) {
--				fprintf(stderr, "wrong -n argument!");
--				exit(1);
-+			if (tst_parse_int(optarg, &nr_event, 0, INT_MAX)) {
-+				fprintf(stderr, "invalid value for nr_event");
-+				usage(1);
-+			}
-+			break;
-+		case 'c':
-+			if (tst_parse_int(optarg, &checkpoint_id, 0, INT_MAX)) {
-+				fprintf(stderr, "invalid value for checkpoint_id");
-+				usage(1);
- 			}
- 			break;
- 			/* help */
- 		case 'h':
- 			usage(0);
- 		default:
--			fprintf(stderr, "unknown option!\n");
- 			usage(1);
- 		}
- 	}
-@@ -179,11 +165,14 @@ static void process_options(int argc, char **argv)
- 	}
- }
- 
-+void *tst_futexes;
- int main(int argc, char **argv)
- {
--	unsigned long i;
-+	int i;
- 	struct passwd *ent;
- 
-+	prog_name = argv[0];
-+
- 	tst_test = &test;
- 
- 	process_options(argc, argv);
-@@ -196,13 +185,21 @@ int main(int argc, char **argv)
- 	ltp_uid = ent->pw_uid;
- 	ltp_gid = ent->pw_gid;
- 
--	/* special processing for gen_exec, see comments above gen_exec() */
--	if (gen_event == gen_exec) {
--		exec_argv = argv;
--
--		gen_exec();
-+	/* ready to generate events */
-+	if (checkpoint_id != -1) {
-+		tst_reinit();
-+		TST_CHECKPOINT_WAIT(checkpoint_id);
-+	}
- 
--		/* won't reach here */
-+	if (gen_event == gen_exec) {
-+		/*
-+		 * The nr_event events are generated,
-+		 * by recursively replacing ourself with
-+		 * a fresh copy, decrementing the number of events
-+		 * for each execution
-+		 */
-+		if (nr_event != 0)
-+			gen_exec();
- 		return 0;
- 	}
- 
-@@ -225,6 +222,14 @@ int main(int argc, char **argv)
- 				fprintf(stderr, "Child process did not terminate with 0\n");
- 				return 1;
- 			}
-+			/*
-+			 * We need a tiny sleep here, so the kernel can generate
-+			 * exit events in the correct order.
-+			 * Otherwise it can happen, that exit events are generated
-+			 * out-of-order.
-+			 */
-+			if (gen_event == gen_exit)
-+				usleep(100);
- 		}
- 	}
- 
-diff --git a/testcases/kernel/connectors/pec/pec_listener.c b/testcases/kernel/connectors/pec/pec_listener.c
-index 2707ea8fb..21ae53e87 100644
---- a/testcases/kernel/connectors/pec/pec_listener.c
-+++ b/testcases/kernel/connectors/pec/pec_listener.c
-@@ -19,6 +19,9 @@
- #include <signal.h>
- #include <linux/types.h>
- #include <linux/netlink.h>
-+#include <tst_checkpoint.h>
-+#define TST_NO_DEFAULT_MAIN
-+#include <tst_test.h>
- 
- #ifndef NETLINK_CONNECTOR
- 
-@@ -52,9 +55,13 @@ static __u32 seq;
- 
- static volatile int exit_flag;
- static struct sigaction sigint_action;
-+static pid_t terminate_pid;
-+static int checkpoint_id = -1;
- 
- struct nlmsghdr *nlhdr;
- 
-+static void usage(int status) LTP_ATTRIBUTE_NORETURN;
-+
- /*
-  * Handler for signal int. Set exit flag.
-  *
-@@ -176,6 +183,7 @@ static void process_event(struct nlmsghdr *nlhdr)
- 
- 	pe = (struct proc_event *)msg->data;
- 
-+	//printf("TS: %llu\n", pe->timestamp_ns);
- 	switch (pe->what) {
- 	case PROC_EVENT_NONE:
- 		printf("none err: %u\n", pe->event_data.ack.err);
-@@ -203,6 +211,9 @@ static void process_event(struct nlmsghdr *nlhdr)
- 		       pe->event_data.exit.process_pid,
- 		       pe->event_data.exit.exit_code,
- 		       pe->event_data.exit.exit_signal);
-+			if (terminate_pid
-+				&& terminate_pid == pe->event_data.exec.process_pid)
-+				exit_flag = 1;
- 		break;
- 	default:
- 		printf("unknown event\n");
-@@ -210,7 +221,42 @@ static void process_event(struct nlmsghdr *nlhdr)
- 	}
- }
- 
--int main(void)
-+static void usage(int status)
-+{
-+	FILE *stream = (status ? stderr : stdout);
-+
-+	fprintf(stream, "Usage: pec_listener [-p terminate_pid] [-c checkpoint_id]\n");
-+
-+	exit(status);
-+}
-+
-+static void parse_args(int argc, char * const argv[])
-+{
-+	int c;
-+
-+	while ((c = getopt(argc, argv, "p:c:h")) != -1) {
-+		switch (c) {
-+		case 'p':
-+			if (tst_parse_int(optarg, &terminate_pid, 0, INT_MAX)) {
-+				fprintf(stderr, "Invalid value for terminate pid\n");
-+				exit(1);
-+			}
-+			break;
-+		case 'c':
-+			if (tst_parse_int(optarg, &checkpoint_id, 0, INT_MAX)) {
-+				fprintf(stderr, "invalid value for checkpoint_id");
-+				usage(1);
-+			}
-+			break;
-+		case 'h':
-+			usage(0);
-+		default:
-+			usage(1);
-+		}
-+	}
-+}
-+
-+int main(int argc, char * const argv[])
- {
- 	int ret;
- 	int sd;
-@@ -218,6 +264,8 @@ int main(void)
- 	struct sockaddr_nl src_addr;
- 	struct pollfd pfd;
- 
-+	parse_args(argc, argv);
-+
- 	sigint_action.sa_flags = SA_RESETHAND;
- 	sigint_action.sa_handler = &sigint_handler;
- 	sigaction(SIGINT, &sigint_action, NULL);
-@@ -257,6 +305,12 @@ int main(void)
- 		exit(1);
- 	}
- 
-+	/* ready to receive events */
-+	if (checkpoint_id != -1) {
-+		tst_reinit();
-+		TST_CHECKPOINT_WAKE(0);
-+	}
-+
- 	/* Receive msg from PEC */
- 	pfd.fd = sd;
- 	pfd.events = POLLIN;
--- 
-2.25.1
-
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+T24gMTEvMDgvMjAyMSAxNjo0MiwgUmljaGFyZCBQYWxldGhvcnBlIHdyb3RlOgo+IEhlbGxvIEty
+enlzenRvZiwKPiAKPiBLcnp5c3p0b2YgS296bG93c2tpIDxrcnp5c3p0b2Yua296bG93c2tpQGNh
+bm9uaWNhbC5jb20+IHdyaXRlczoKPiAKPj4gUmVjZW50IExpbnV4IGtlcm5lbHMgKCkgY2hhcmdl
+IGdyb3VwcyBhbHNvIHdpdGgga2VybmVsIG1lbW9yeS4gIFRoaXMgaXMKPj4gbm90IGxpbWl0ZWQg
+b25seSB0byBwcm9jZXNzLWFsbG9jYXRlZCBtZW1vcnkgYnV0IGFsc28gY2dyb3VwLWhhbmRsaW5n
+Cj4+IGNvZGUgbWVtb3J5IGFzIHdlbGwuCj4+Cj4+IEZvciBleGFtcGxlIHNpbmNlIGtlcm5lbCB2
+NS45IHdpdGggY29tbWl0IDNlMzhlMGFhY2E5ZSAoIm1tOiBtZW1jZzoKPj4gY2hhcmdlIG1lbWNn
+IHBlcmNwdSBtZW1vcnkgdG8gdGhlIHBhcmVudCBjZ3JvdXAiKSBjcmVhdGluZyBhIHN1Ymdyb3Vw
+Cj4+IGNhdXNlcyBzZXZlcmFsIGtlcm5lbCBhbGxvY2F0aW9ucyB0b3dhcmRzIHRoaXMgZ3JvdXAu
+Cj4+Cj4+IFRoZXNlIGFkZGl0aW9uYWwga2VybmVsIG1lbW9yeSBhbGxvY2F0aW9ucyBhcmUgcHJv
+cG9ydGlvbmFsIHRvIG51bWJlciBvZgo+PiBDUFVzIGFuZCBudW1iZXIgb2Ygbm9kZXMuCj4+Cj4+
+IE9uIGM0Ljh4bGFyZ2UgQVdTIGluc3RhbmNlIHdpdGggMzYgY29yZXMgaW4gdHdvIG5vZGVzIHdp
+dGggdjUuMTEgTGludXgKPj4ga2VybmVsIHRoZSBtZW1jZ19zdWJncm91cF9jaGFyZ2UgYW5kIG1l
+bWNnX3VzZV9oaWVyYXJjaHlfdGVzdCB0ZXN0cyB3ZXJlCj4+IGZhaWxpbmc6Cj4+Cj4+ICAgICBt
+ZW1jZ191c2VfaGllcmFyY2h5X3Rlc3QgMSBUSU5GTzogdGltZW91dCBwZXIgcnVuIGlzIDBoIDVt
+IDBzCj4+ICAgICBtZW1jZ191c2VfaGllcmFyY2h5X3Rlc3QgMSBUSU5GTzogc2V0IC9kZXYvbWVt
+Y2cvbWVtb3J5LnVzZV9oaWVyYXJjaHkgdG8gMCBmYWlsZWQKPj4gICAgIG1lbWNnX3VzZV9oaWVy
+YXJjaHlfdGVzdCAxIFRJTkZPOiB0ZXN0IGlmIG9uZSBvZiB0aGUgYW5jZXN0b3JzIGdvZXMgb3Zl
+ciBpdHMgbGltaXQsIHRoZSBwcm9jZXMgd2lsbCBiZSBraWxsZWQKPj4gICAgIG1rZGlyOiBjYW5u
+b3QgY3JlYXRlIGRpcmVjdG9yeSDigJhzdWJncm91cOKAmTogQ2Fubm90IGFsbG9jYXRlIG1lbW9y
+eQo+PiAgICAgL2hvbWUvdWJ1bnR1L2x0cC1pbnN0YWxsL3Rlc3RjYXNlcy9iaW4vbWVtY2dfdXNl
+X2hpZXJhcmNoeV90ZXN0LnNoOiAyNjogY2Q6IGNhbid0IGNkIHRvIHN1Ymdyb3VwCj4+ICAgICBt
+ZW1jZ191c2VfaGllcmFyY2h5X3Rlc3QgMSBUSU5GTzogUnVubmluZyBtZW1jZ19wcm9jZXNzIC0t
+bW1hcC1sb2NrMSAtcyA4MTkyCj4+ICAgICBtZW1jZ191c2VfaGllcmFyY2h5X3Rlc3QgMSBURkFJ
+TDogcHJvY2VzcyAgaXMgbm90IGtpbGxlZAo+PiAgICAgcm1kaXI6IGZhaWxlZCB0byByZW1vdmUg
+J3N1Ymdyb3VwJzogTm8gc3VjaCBmaWxlIG9yIGRpcmVjdG9yeQo+Pgo+PiBUaGUga2VybmVsIHdh
+cyB1bmFibGUgdG8gY3JlYXRlIHRoZSBzdWJncm91cCAobWtkaXIgcmV0dXJuZWQgLUVOT01FTSkK
+Pj4gZHVlIHRvIHRoaXMgYWRkaXRpb25hbCBwZXItbm9kZSBrZXJuZWwgbWVtb3J5IGFsbG9jYXRp
+b25zLgo+Pgo+PiBTaWduZWQtb2ZmLWJ5OiBLcnp5c3p0b2YgS296bG93c2tpIDxrcnp5c3p0b2Yu
+a296bG93c2tpQGNhbm9uaWNhbC5jb20+Cj4+IC0tLQo+PiAgLi4uL2NvbnRyb2xsZXJzL21lbWNn
+L2Z1bmN0aW9uYWwvbWVtY2dfbGliLnNoIHwgNDQgKysrKysrKysrKysrKysrKysrKwo+PiAgLi4u
+L21lbWNnL2Z1bmN0aW9uYWwvbWVtY2dfc3ViZ3JvdXBfY2hhcmdlLnNoIHwgIDggKy0tLQo+PiAg
+Li4uL2Z1bmN0aW9uYWwvbWVtY2dfdXNlX2hpZXJhcmNoeV90ZXN0LnNoICAgIHwgIDggKysrLQo+
+PiAgMyBmaWxlcyBjaGFuZ2VkLCA1MiBpbnNlcnRpb25zKCspLCA4IGRlbGV0aW9ucygtKQo+Pgo+
+PiBkaWZmIC0tZ2l0IGEvdGVzdGNhc2VzL2tlcm5lbC9jb250cm9sbGVycy9tZW1jZy9mdW5jdGlv
+bmFsL21lbWNnX2xpYi5zaCBiL3Rlc3RjYXNlcy9rZXJuZWwvY29udHJvbGxlcnMvbWVtY2cvZnVu
+Y3Rpb25hbC9tZW1jZ19saWIuc2gKPj4gaW5kZXggZGFkNjZjNzk4ZTE5Li43MDBlOWUzNjdiZmYg
+MTAwNzU1Cj4+IC0tLSBhL3Rlc3RjYXNlcy9rZXJuZWwvY29udHJvbGxlcnMvbWVtY2cvZnVuY3Rp
+b25hbC9tZW1jZ19saWIuc2gKPj4gKysrIGIvdGVzdGNhc2VzL2tlcm5lbC9jb250cm9sbGVycy9t
+ZW1jZy9mdW5jdGlvbmFsL21lbWNnX2xpYi5zaAo+PiBAQCAtNjMsNiArNjMsNTAgQEAgbWVtY2df
+cmVxdWlyZV9oaWVyYXJjaHlfZGlzYWJsZWQoKQo+PiAgCWZpCj4+ICB9Cj4+ICAKPj4gKyMgS2Vy
+bmVsIG1lbW9yeSBhbGxvY2F0ZWQgZm9yIHRoZSBwcm9jZXNzIGlzIGFsc28gY2hhcmdlZC4gIEl0
+IG1pZ2h0IGRlcGVuZCBvbgo+PiArIyB0aGUgbnVtYmVyIG9mIENQVXMgYW5kIG51bWJlciBvZiBu
+b2Rlcy4gRm9yIGV4YW1wbGUgb24ga2VybmVsIHY1LjExCj4+ICsjIGFkZGl0aW9uYWxseSB0b3Rh
+bF9jcHVzIChwbHVzIDEgb3IgMikgcGFnZXMgYXJlIGNoYXJnZWQgdG8gdGhlIGdyb3VwIHZpYQo+
+PiArIyBrZXJuZWwgbWVtb3J5LiAgRm9yIGEgdHdvLW5vZGUgbWFjaGluZSwgYWRkaXRpb25hbCAx
+MDggcGFnZXMga2VybmVsIG1lbW9yeQo+PiArIyBhcmUgY2hhcmdlZCB0byB0aGUgZ3JvdXAuCj4+
+ICsjCj4+ICsjIEFkanVzdCB0aGUgbGltaXQgdG8gYWNjb3VudCBzdWNoIHBlci1DUFUgYW5kIHBl
+ci1ub2RlIGtlcm5lbCBtZW1vcnkuCj4+ICsjICQxIC0gdmFyaWFibGUgbmFtZSB3aXRoIGxpbWl0
+IHRvIGFkanVzdAo+PiArbWVtY2dfYWRqdXN0X2xpbWl0X2Zvcl9rbWVtKCkKPj4gK3sKPj4gKwlb
+ICQjIC1uZSAxIF0gJiYgdHN0X2JyayBUQlJPSyAibWVtY2dfYWRqdXN0X2xpbWl0X2Zvcl9rbWVt
+IGV4cGVjdHMgMSBwYXJhbWV0ZXIiCj4+ICsJZXZhbCAibG9jYWwgX2xpbWl0PVwkJDEiCj4gCj4g
+Q291bGQgd2UgZG8gdGhpcyBhIHNpbXBsZXIgd2F5Pwo+IAo+IEl0IHdvdWxkIGJlIG11Y2ggZWFz
+aWVyIHRvIHJlYWQgaWYgd2UganVzdCByZXR1cm5lZCB0aGUgdmFsdWUgd2hpY2gKPiBuZWVkZWQg
+dG8gYmUgYWRkZWQuCgpTdXJlLCBJIGNhbiBjaGFuZ2UgaXQuIEp1c3Qgbm90ZSB0aGF0IHRoZSBj
+YWxsZXIvdXNlciB3aWxsIHJlcXVpcmUKc2xpZ2h0bHkgbW9yZSBjb2RlLgoKPiAKPj4gKwo+PiAr
+CSMgVG90YWwgbnVtYmVyIG9mIENQVXMKPj4gKwlsb2NhbCB0b3RhbF9jcHVzPWB0c3RfbmNwdXNg
+Cj4+ICsKPj4gKwkjIEdldCB0aGUgbnVtYmVyIG9mIE5PREVTCj4gCj4gSXMgaXQgYWNjZXB0YWJs
+ZSBvciBuZWNlc3NhcnkgdG8gdXNlIC9zeXMvZGV2aWNlcy9zeXN0ZW0vbm9kZS9wb3NzaWJsZQo+
+IChvciBvbmxpbmUpIGluc3RlYWQ/CgpNYWtlcyBzZW5zZSwgSSB0b29rIGl0IGZyb20gZXhpc3Rp
+bmcgY29kZSBidXQgaXQgbG9va3MgdW5uZWNlc3NhcmlseQpjb21wbGljYXRlZC4KCj4gCj4+ICsJ
+aWYgWyAtZiAiL3N5cy9kZXZpY2VzL3N5c3RlbS9ub2RlL2hhc19oaWdoX21lbW9yeSIgXTsgdGhl
+bgo+PiArCQlsb2NhbCBtZW1fc3RyaW5nPSJgY2F0IC9zeXMvZGV2aWNlcy9zeXN0ZW0vbm9kZS9o
+YXNfaGlnaF9tZW1vcnlgIgo+PiArCWVsc2UKPj4gKwkJbG9jYWwgbWVtX3N0cmluZz0iYGNhdCAv
+c3lzL2RldmljZXMvc3lzdGVtL25vZGUvaGFzX25vcm1hbF9tZW1vcnlgIgo+PiArCWZpCj4+ICsK
+Pj4gKwlsb2NhbCB0b3RhbF9ub2Rlcz0iYGVjaG8gJG1lbV9zdHJpbmcgfCB0ciAnLCcgJyAnYCIK
+Pj4gKwlsb2NhbCBjb3VudD0wCj4+ICsJZm9yIGl0ZW0gaW4gJHRvdGFsX25vZGVzOyBkbwo+PiAr
+CQlsb2NhbCBkZWx0YT0xCj4+ICsJCWlmIFsgIiR7aXRlbSMqLSp9IiAhPSAiJGl0ZW0iIF07IHRo
+ZW4KPj4gKwkJCWRlbHRhPSQoKCR7aXRlbSMqLSp9IC0gJHtpdGVtJSotKn0gKyAxKSkKPj4gKwkJ
+ZmkKPj4gKwkJY291bnQ9JCgoY291bnQgKyAkZGVsdGEpKQo+PiArCWRvbmUKPiAKPiBPciBwZXJo
+YXBzIHdlIGNvdWxkIGNvdW50IHRoZSBudW1iZXIgb2YgJ25vZGVbMC05XSsnIGRpcmVjdG9yaWVz
+PyBJCj4gdGhpbmsgdGhhdCB3b3VsZCBiZSBlYXNpZXIgdG8gdW5kZXJzdGFuZC4KCkkganVzdCBj
+b3BpZWQgdGhlIGV4aXN0aW5nIGNvZGUsIGJ1dCBJIGNhbiB0cnkgdG8gc2ltcGxpZnkgaXQuCgo+
+IAo+PiArCXRvdGFsX25vZGVzPSRjb3VudAo+PiArCSMgQWRkaXRpb25hbCBub2RlcyBpbXBvc2Ug
+Y2hhcmdpbmcgdGhlIGttZW0sIG5vdCBoYXZpbmcgcmVndWxhciBvbmUgbm9kZQo+PiArCWxvY2Fs
+IG5vZGVfbWVtPTAKPj4gKwlpZiBbICR0b3RhbF9ub2RlcyAtZ3QgMSBdOyB0aGVuCj4+ICsJCW5v
+ZGVfbWVtPSQoKHRvdGFsX25vZGVzIC0gMSkpCj4+ICsJCW5vZGVfbWVtPSQoKG5vZGVfbWVtICog
+UEFHRVNJWkUgKiAxMjgpKQo+PiArCWZpCj4+ICsKPj4gKwlldmFsICIkMT0nJCgoX2xpbWl0ICsg
+NCAqIFBBR0VTSVpFICsgdG90YWxfY3B1cyAqIFBBR0VTSVpFICsgbm9kZV9tZW0pKSciCj4+ICsJ
+cmV0dXJuIDAKPj4gK30KPiAKPiBPdGhlcndpc2UgbG9va3MgZ29vZC4KClRoYW5rcyBmb3IgcmV2
+aWV3IQoKCkJlc3QgcmVnYXJkcywKS3J6eXN6dG9mCgotLSAKTWFpbGluZyBsaXN0IGluZm86IGh0
+dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
