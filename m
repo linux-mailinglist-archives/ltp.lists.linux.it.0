@@ -2,51 +2,51 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 477743EB161
-	for <lists+linux-ltp@lfdr.de>; Fri, 13 Aug 2021 09:26:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 233283EB163
+	for <lists+linux-ltp@lfdr.de>; Fri, 13 Aug 2021 09:27:07 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 127533C65EE
-	for <lists+linux-ltp@lfdr.de>; Fri, 13 Aug 2021 09:26:54 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C1AB13C67DE
+	for <lists+linux-ltp@lfdr.de>; Fri, 13 Aug 2021 09:27:06 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 670DC3C6570
- for <ltp@lists.linux.it>; Fri, 13 Aug 2021 09:26:49 +0200 (CEST)
-Received: from smtpproxy21.qq.com (smtpbg704.qq.com [203.205.195.105])
+ by picard.linux.it (Postfix) with ESMTPS id 0BDC73C66F0
+ for <ltp@lists.linux.it>; Fri, 13 Aug 2021 09:27:01 +0200 (CEST)
+Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 6E12D2009C8
- for <ltp@lists.linux.it>; Fri, 13 Aug 2021 09:26:46 +0200 (CEST)
-X-QQ-mid: bizesmtp37t1628839602tkb2sexc
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id B15572002DE
+ for <ltp@lists.linux.it>; Fri, 13 Aug 2021 09:26:57 +0200 (CEST)
+X-QQ-mid: bizesmtp42t1628839612twpd4b39
 Received: from localhost.localdomain (unknown [58.240.82.166])
  by esmtp6.qq.com (ESMTP) with 
- id ; Fri, 13 Aug 2021 15:26:37 +0800 (CST)
+ id ; Fri, 13 Aug 2021 15:26:48 +0800 (CST)
 X-QQ-SSF: 0140000000200040B000B00A0000000
-X-QQ-FEAT: dGzbHhWtMGwtNBuwNGTa8+t3z+QyKcQ98+Gfvwo6HPRM22G7hs0od/RDVEzS9
- dVwomsnKk7pHU0BfXtkb2jzFmJVVFbBZrb2qvY/1V2T4MCtozYIJcmN38G7Ck23dAjFk+Hv
- mEmzakaEZdzqjDYPk6Bn2tC4mjQ30+hsjfSJcV7pQRiVngUmkJS2B0r1fpnhNBC8l/opEs8
- rrUsubBeNfOfwZ9qeusDsMMmavA2eFK915XUp1vShT1lQhRqoEo04ldlQOCWFlO6RhTsxyw
- HFR1ti+S50sO9RbgoIrooLXVcQXXdKlX2Lzn50NxYsqFBR3thC4zgGsuRCR4a0+9tY37gAT
- dI4iK7lLVwW8GtDC8yPQAcW1iQKyA==
+X-QQ-FEAT: l6IKqkG+Nbm9G+CbtXygHInOvpMSOScm6MdnuEorjF9RivVbJRGwOtLJ+acjC
+ wVcfok/VsCX9iGYkW/cW/E2qtRaytO7hLjF8ZNinFvVLxU6VU1DpBH27ayCjuHrLSNXozEq
+ D+EtJIVUyg+kV/0aFHXoomiFC9rlmrj6QzEno/DnjVm3XLwXtbelLsbmHdUqoRUL7alkbaE
+ BZjr3/GtfNvtq4SlfOJDAJ2RHwJ8Qx4aaEUHQB3nOHIOXxpQaHqkn7jWvWSDdqUlabB+fV2
+ dnOtnIkhXOhFI+HBWgucQn1sg9qn0Cs3AtXizS7cTYxMSKg2l8e/nQUCmVVymBXDWAcv0pm
+ giNCFa2qGv+0kdwRWURRlMEBP0bKQ==
 X-QQ-GoodBg: 2
 From: zhanglianjie <zhanglianjie@uniontech.com>
 To: ltp@lists.linux.it
-Date: Fri, 13 Aug 2021 15:26:36 +0800
-Message-Id: <20210813072636.21590-1-zhanglianjie@uniontech.com>
+Date: Fri, 13 Aug 2021 15:26:47 +0800
+Message-Id: <20210813072647.21802-1-zhanglianjie@uniontech.com>
 X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
 X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign2
+Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign5
 X-QQ-Bgrelay: 1
 X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
  autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH 3/7] syscalls/clone03: Convert to new API
+Subject: [LTP] [PATCH 4/7] syscalls/clone04: Convert to new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,11 +65,11 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Signed-off-by: zhanglianjie <zhanglianjie@uniontech.com>
 
-diff --git a/testcases/kernel/syscalls/clone/clone03.c b/testcases/kernel/syscalls/clone/clone03.c
-index f4216ead8..b80c60bc4 100644
---- a/testcases/kernel/syscalls/clone/clone03.c
-+++ b/testcases/kernel/syscalls/clone/clone03.c
-@@ -1,147 +1,68 @@
+diff --git a/testcases/kernel/syscalls/clone/clone04.c b/testcases/kernel/syscalls/clone/clone04.c
+index 647bde560..fba4f186c 100644
+--- a/testcases/kernel/syscalls/clone/clone04.c
++++ b/testcases/kernel/syscalls/clone/clone04.c
+@@ -1,110 +1,46 @@
 +// SPDX-License-Identifier: GPL-2.0-only
  /*
   * Copyright (c) Wipro Technologies Ltd, 2002.  All Rights Reserved.
@@ -83,180 +83,131 @@ index f4216ead8..b80c60bc4 100644
 - * WITHOUT ANY WARRANTY; without even the implied warranty of
 - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 - *
-- * You should have received a copy of the GNU General Public License along
-- * with this program; if not, write the Free Software Foundation, Inc.,
-- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+- * You should have received a copy of the GNU General Public License
+- * along with this program;  if not, write to the Free Software
+- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
 - *
   */
--/*
-+
-+/*\
-+ * [Description]
-  *	Check for equality of pid of child & return value of clone(2)
-- *	Test:
-- *	 Open a pipe.
-- *	 Loop if the proper options are given.
-- *	  Call clone(2) called without SIGCHLD
-- *
-- *	  CHILD:
-- *		writes the pid to pipe
-- *	  PARENT:
-- *		reads child'd pid from pipe
-- *		if child's pid == return value from clone(2)
-- *			Test passed
-- *		else
-- *			test failed
-  */
--
+- /*
+-  *     Verify that,
+-  *      clone(2) returns -1 and sets errno to EINVAL if
+-  *     child stack is set to a zero value(NULL)
+-  */
+
 -#if defined UCLINUX && !__THROW
 -/* workaround for libc bug */
 -#define __THROW
 -#endif
--
--#include <errno.h>
++/*\
++ * [Description]
++ * Verify that,
++ * clone(2) returns -1 and sets errno to EINVAL if
++ * child stack is set to a zero value(NULL)
++ */
+
 -#include <sched.h>
+-#include <errno.h>
 -#include <sys/wait.h>
 -#include "test.h"
--
-+#include <stdio.h>
 +#include <stdlib.h>
 +#include "tst_test.h"
  #include "clone_platform.h"
 
--static void setup(void);
 -static void cleanup(void);
+-static void setup(void);
 -static int child_fn();
 -
- static int pfd[2];
-+static void *child_stack;
+-static void *child_stack;
++static int child_fn(void *arg LTP_ATTRIBUTE_UNUSED);
 
--char *TCID = "clone03";
--int TST_TOTAL = 1;
+-static struct test_case_t {
+-	int (*child_fn) ();
+-	void **child_stack;
++static struct tcase {
++	int (*child_fn)(void *arg);
++	void *child_stack;
+ 	int exp_errno;
+ 	char err_desc[10];
+-} test_cases[] = {
+-	{
+-child_fn, NULL, EINVAL, "EINVAL"},};
++} tcases[] = {
++	{child_fn, NULL, EINVAL, "EINVAL"},
++};
+
+-char *TCID = "clone04";
+-int TST_TOTAL = sizeof(test_cases) / sizeof(test_cases[0]);
 -
 -int main(int ac, char **av)
 +static int child_fn(void *arg LTP_ATTRIBUTE_UNUSED)
  {
-+	char pid[10];
-+
-+	sprintf(pid, "%d", getpid());
-
--	int lc;
--	void *child_stack;
--	char buff[10];
--	int child_pid, status;
+-	int lc, ind;
+-	void *test_stack;
 -
 -	tst_parse_opts(ac, av, NULL, NULL);
 -
 -	setup();
 -
--	/* Allocate stack for child */
--	child_stack = malloc(CHILD_STACK_SIZE);
--	if (child_stack == NULL)
--		tst_brkm(TBROK, cleanup, "Cannot allocate stack for child");
--
 -	for (lc = 0; TEST_LOOPING(lc); lc++) {
 -		tst_count = 0;
 -
--		if ((pipe(pfd)) == -1)
--			tst_brkm(TBROK | TERRNO, cleanup, "pipe failed");
+-		for (ind = 0; ind < TST_TOTAL; ind++) {
+-			if (test_cases[ind].child_stack == NULL) {
+-				test_stack = NULL;
+-			} else if (*test_cases[ind].child_stack == NULL) {
+-				tst_resm(TWARN, "Can not allocate stack for child, skipping test case");
+-				continue;
+-			} else {
+-				test_stack = child_stack;
+-			}
 -
--		TEST(ltp_clone(SIGCHLD, child_fn, NULL, CHILD_STACK_SIZE,
--			       child_stack));
+-			TEST(ltp_clone(0, test_cases[ind].child_fn, NULL,
+-				       CHILD_STACK_SIZE, test_stack));
 -
--		if (TEST_RETURN == -1)
--			tst_brkm(TFAIL | TTERRNO, cleanup, "clone() failed");
--
--		/* close write end from parent */
--		if ((close(pfd[1])) == -1)
--			tst_brkm(TBROK | TERRNO, cleanup,
--				 "close(pfd[1]) failed");
--
--		/* Read pid from read end */
--		if ((read(pfd[0], buff, sizeof(buff))) == -1)
--			tst_brkm(TBROK | TERRNO, cleanup,
--				 "read from pipe failed");
-+	SAFE_CLOSE(pfd[0]);
-+	SAFE_WRITE(1, pfd[1], pid, sizeof(pid));
-+	SAFE_CLOSE(pfd[1]);
-
--		/* Close read end from parent */
--		if ((close(pfd[0])) == -1)
--			tst_resm(TWARN | TERRNO, "close(pfd[0]) failed");
-+	exit(0);
-+}
-
--		/* Get child's pid from pid string */
--		child_pid = atoi(buff);
-+static void verify_clone(void)
-+{
-+	char buff[10];
-+	int child_pid;
-
--		if (TEST_RETURN == child_pid)
--			tst_resm(TPASS, "Test passed");
--		else
--			tst_resm(TFAIL, "Test failed");
-+	TST_EXP_POSITIVE(ltp_clone(SIGCHLD, child_fn, NULL, CHILD_STACK_SIZE,
-+				child_stack));
-
--		if ((wait(&status)) == -1)
--			tst_brkm(TBROK | TERRNO, cleanup,
--				 "wait failed, status: %d", status);
+-			if ((TEST_RETURN == -1) &&
+-			    (TEST_ERRNO == test_cases[ind].exp_errno)) {
+-				tst_resm(TPASS, "expected failure; Got %s",
+-					 test_cases[ind].err_desc);
+-			} else {
+-				tst_resm(TFAIL | TTERRNO,
+-					 "Failed to produce expected error, expected errno: %d and result: -1, got result %ld",
+-					 test_cases[ind].exp_errno, TEST_RETURN);
+-			}
+-		}
 -	}
-+	if (!TST_PASS)
-+		return;
-+
-+	tst_reap_children();
-
--	free(child_stack);
-+	SAFE_CLOSE(pfd[1]);
-+	SAFE_READ(1, pfd[0], buff, sizeof(buff));
-+	SAFE_CLOSE(pfd[0]);
-+	child_pid = atoi(buff);
-
+-
 -	cleanup();
 -	tst_exit();
-+	TST_EXP_PASS(!(TST_RET == child_pid), "pid(%d)", child_pid);
++	exit(0);
  }
 
- static void setup(void)
+-static void setup(void)
++static void verify_clone(unsigned int nr)
  {
--	tst_sig(FORK, DEF_HANDLER, cleanup);
+-	tst_sig(NOFORK, DEF_HANDLER, cleanup);
 -	TEST_PAUSE;
-+	child_stack = SAFE_MALLOC(CHILD_STACK_SIZE);
-+	SAFE_PIPE(pfd);
++	struct tcase *tc = &tcases[nr];
+
+-	child_stack = malloc(CHILD_STACK_SIZE);
++	TST_EXP_FAIL(ltp_clone(0, tc->child_fn, NULL,
++				CHILD_STACK_SIZE, tc->child_stack),
++				tc->exp_errno, "%s", tc->err_desc);
  }
 
- static void cleanup(void)
- {
-+	free(child_stack);
- }
-
+-static void cleanup(void)
+-{
+-	free(child_stack);
+-}
+-
 -static int child_fn(void)
 -{
--	char pid[10];
--
--	/* Close read end from child */
--	if ((close(pfd[0])) == -1)
--		perror("close(pfd[0]) failed");
--
--	sprintf(pid, "%d", getpid());
--
--	/* Write pid string to pipe */
--	if ((write(pfd[1], pid, sizeof(pid))) == -1)
--		perror("write to pipe failed");
--
--	/* Close write end of pipe from child */
--	if ((close(pfd[1])) == -1)
--		perror("close(pfd[1]) failed");
--
 -	exit(1);
 -}
 +static struct tst_test test = {
-+	.setup = setup,
-+	.test_all = verify_clone,
-+	.cleanup = cleanup,
++	.tcnt = ARRAY_SIZE(tcases),
++	.test = verify_clone,
 +};
+\ No newline at end of file
 --
 2.20.1
 
