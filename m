@@ -1,77 +1,67 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id A459D3EEB09
-	for <lists+linux-ltp@lfdr.de>; Tue, 17 Aug 2021 12:33:30 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id DC9313EEB2F
+	for <lists+linux-ltp@lfdr.de>; Tue, 17 Aug 2021 12:46:38 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3459D3C57BC
-	for <lists+linux-ltp@lfdr.de>; Tue, 17 Aug 2021 12:33:30 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 7C3A93C57D4
+	for <lists+linux-ltp@lfdr.de>; Tue, 17 Aug 2021 12:46:38 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 1389E3C2304
- for <ltp@lists.linux.it>; Tue, 17 Aug 2021 12:33:25 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id 6414B3C56D3
+ for <ltp@lists.linux.it>; Tue, 17 Aug 2021 12:46:35 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 6A14F1000A57
- for <ltp@lists.linux.it>; Tue, 17 Aug 2021 12:33:25 +0200 (CEST)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 67EB76008C6
+ for <ltp@lists.linux.it>; Tue, 17 Aug 2021 12:46:34 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1629197193;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=Uh47/8tEt1Ua2OvUs/oGV8+rBpqsRoW0nlqAA2cnXTQ=;
+ b=fjAUWRnqqUFm78NoOd4GdIjwh/BMn75r/Vcn0kWcBR2OVPMhF6oEmdEYIC4XqmNHV6d5qN
+ FCNxWrc2R0aOom6ezmIpRPIxH0o0bpJ0JALUadP+p3Q2qpJSrTDuIYpa1TIOxR4K+g9z0l
+ 3s/sWj+NaHjzzPqk6V/JH7gyE0GoMmA=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-559-rmslz1J-OeuVdaFIQ4nbjQ-1; Tue, 17 Aug 2021 06:46:31 -0400
+X-MC-Unique: rmslz1J-OeuVdaFIQ4nbjQ-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+ [10.5.11.12])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 80A231FF2C;
- Tue, 17 Aug 2021 10:33:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1629196404; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=H3qyKplVmv16zEbgkRyxGI7q1Op7gbvdUwqFlOu4g5Q=;
- b=hjNDrnOhaASk551veAr8DlD99Y5bDl3EyRImjnI8O7WgyMex5tHYWm8BxRQ7IRJo3wyscr
- GzOENWlriT2Ku5xmgtxTuXmf2nIgUkNu83x9AeaZHJWe6WCL0mIyVxJIMClMgmyYHUjK9I
- hRle6rtzHbNgfJ+o7Hh0GZz5JCEyy8I=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1629196404;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=H3qyKplVmv16zEbgkRyxGI7q1Op7gbvdUwqFlOu4g5Q=;
- b=s/9wcHF+d0pYbpdo0PeL+9Kn7CUXQm+TTSIFPreFGtQiPd/8A6Vx3BI2AeCKRvNCsnZBHD
- F8WJxUKkbzqYVSBA==
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 6D2FC13318;
- Tue, 17 Aug 2021 10:33:24 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id 4MSBGXSQG2ECGAAAGKfGzw
- (envelope-from <mdoucha@suse.cz>); Tue, 17 Aug 2021 10:33:24 +0000
-To: rpalethorpe@suse.de
-References: <20210806154557.19551-1-mdoucha@suse.cz>
- <20210806154557.19551-3-mdoucha@suse.cz> <87sfz8l68q.fsf@suse.de>
-From: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <f1b416ce-cacf-55be-a7cd-bcff821d0ec7@suse.cz>
-Date: Tue, 17 Aug 2021 12:33:24 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 178E31008064;
+ Tue, 17 Aug 2021 10:46:30 +0000 (UTC)
+Received: from liwang-workstation.nay.redhat.com (unknown [10.66.81.187])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id D167260C81;
+ Tue, 17 Aug 2021 10:46:27 +0000 (UTC)
+From: Li Wang <liwang@redhat.com>
+To: ltp@lists.linux.it
+Date: Tue, 17 Aug 2021 18:46:25 +0800
+Message-Id: <20210817104625.2559362-1-liwang@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <87sfz8l68q.fsf@suse.de>
-Content-Language: en-US
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwang@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-1.9 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 3/3] Add test for CVE 2018-13405
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: [LTP] [RFC PATCH] fallocate05: increase the fallocate and
+ defallocate size
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,49 +73,60 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 17. 08. 21 12:23, Richard Palethorpe wrote:
-> Hello Martin,
-> 
-> Martin Doucha <mdoucha@suse.cz> writes:
->> +static void setup(void)
->> +{
->> +	struct stat buf;
->> +	struct passwd *ltpuser = SAFE_GETPWNAM("nobody");
->> +	struct group *ltpgroup = SAFE_GETGRNAM("bin");
-> 
-> These might not exist on some systems. I think you can just pick
-> arbitrary UID/GID numbers instead. No need to check the user/group
-> databases.
+The last write(fd, buf, 10) in the test is used to detect whether
+'FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE' deallocating file space
+success or not.
 
-I'm planning to rewrite this test after the first two patches get
-merged. See previous discussion under the creat08 patch.
+But it is not to be a reliable way on returning ENOSPEC if the defallocated
+space is too small(only 4 blocks, x86_64). That's because filesystem metadata
+might be extending to occupy that space during punch a hole.
 
+Better to increase the size of fallocate/defallocate to reduce interference
+from metadata changing.
 
->> +static void cleanup(void)
->> +{
->> +	SAFE_SETREUID(-1, orig_uid);
-> 
-> Why are you doing this? I am assuming the temp dir will be deleted by
-> the parent process.
+    33	tst_test.c:1410: TINFO: Testing on ext4
+    34	tst_test.c:914: TINFO: Formatting /dev/loop0 with ext4 opts='' extra opts=''
+    35	mke2fs 1.45.6 (20-Mar-2020)
+    36	tst_test.c:1342: TINFO: Timeout per run is 0h 05m 00s
+    37	tst_fill_fs.c:32: TINFO: Creating file mntpoint/file0 size 21710183
+        ...
+    46	tst_fill_fs.c:32: TINFO: Creating file mntpoint/file9 size 36207821
+    47	tst_fill_fs.c:32: TINFO: Creating file mntpoint/file10 size 81483962
+    48	tst_fill_fs.c:59: TINFO: write(): ENOSPC (28)
+    49	fallocate05.c:81: TPASS: write() wrote 65536 bytes
+    50	fallocate05.c:102: TINFO: fallocate()d 0 extra blocks on full FS
+    51	fallocate05.c:114: TPASS: fallocate() on full FS
+    52	fallocate05.c:130: TPASS: fallocate(FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE)
+    53	fallocate05.c:134: TFAIL: write(): ENOSPC (28)
 
-That assumption is incorrect.
+Signed-off-by: Li Wang <liwang@redhat.com>
+---
+ testcases/kernel/syscalls/fallocate/fallocate05.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-https://github.com/linux-test-project/ltp/commit/3833d44a2ba3773359d3b35a2108af691d75b4f9
-
+diff --git a/testcases/kernel/syscalls/fallocate/fallocate05.c b/testcases/kernel/syscalls/fallocate/fallocate05.c
+index 55ec1aee4..74bfa4861 100644
+--- a/testcases/kernel/syscalls/fallocate/fallocate05.c
++++ b/testcases/kernel/syscalls/fallocate/fallocate05.c
+@@ -26,8 +26,8 @@
+ #include "lapi/fallocate.h"
+ 
+ #define MNTPOINT "mntpoint"
+-#define FALLOCATE_BLOCKS 16
+-#define DEALLOCATE_BLOCKS 4
++#define FALLOCATE_BLOCKS 256
++#define DEALLOCATE_BLOCKS 64
+ #define TESTED_FLAGS "fallocate(FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE)"
+ 
+ static char *buf;
 -- 
-Martin Doucha   mdoucha@suse.cz
-QA Engineer for Software Maintenance
-SUSE LINUX, s.r.o.
-CORSO IIa
-Krizikova 148/34
-186 00 Prague 8
-Czech Republic
+2.31.1
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
