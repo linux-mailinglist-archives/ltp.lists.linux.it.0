@@ -1,55 +1,68 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34BA83EE6E0
-	for <lists+linux-ltp@lfdr.de>; Tue, 17 Aug 2021 08:49:14 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id DE4FF3EEAE2
+	for <lists+linux-ltp@lfdr.de>; Tue, 17 Aug 2021 12:23:46 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0515F3C5722
-	for <lists+linux-ltp@lfdr.de>; Tue, 17 Aug 2021 08:49:14 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 1C08F3C5728
+	for <lists+linux-ltp@lfdr.de>; Tue, 17 Aug 2021 12:23:46 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by picard.linux.it (Postfix) with ESMTPS id 88F733C2304
+ for <ltp@lists.linux.it>; Tue, 17 Aug 2021 12:23:41 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 2F3703C207C
- for <ltp@lists.linux.it>; Tue, 17 Aug 2021 08:48:40 +0200 (CEST)
-Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 5CC4D1400F34
+ for <ltp@lists.linux.it>; Tue, 17 Aug 2021 12:23:40 +0200 (CEST)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id A16FC21CFD
+ for <ltp@lists.linux.it>; Tue, 17 Aug 2021 10:23:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1629195819;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=zbk5DbK74EbdgrbPHuDxlHZubU+EOp1ctZGR+Al9oTE=;
+ b=TJx3IRLcW+SSETBTnLhLaKhGQo9L5nJIrZhRkcATaKNO+R/puHqtOHxHn7e9eNUxGvrpjr
+ 6sLtQqCD6ffFqfcQEesf1HQ1VHcO8yofq58XFUD+prBwH2Rws/WAE+3QztIDxFA1dfvVMx
+ P3vRJ2iKToSOaL64j/r4xiaaaVJLqsE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1629195819;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=zbk5DbK74EbdgrbPHuDxlHZubU+EOp1ctZGR+Al9oTE=;
+ b=KhedEq4lvt1qN9Nd1eCh2LXkc55GKbHZN49jkNTI/8v6S7KZU/W5TN1fGAnR+a2rmOGEYB
+ Ke7vTxBz2YcbWdBQ==
+Received: from g78 (unknown [10.163.24.38])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 858F71400E19
- for <ltp@lists.linux.it>; Tue, 17 Aug 2021 08:48:39 +0200 (CEST)
-Received: from dggemv711-chm.china.huawei.com (unknown [172.30.72.54])
- by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4GphN24PLtz88Mr
- for <ltp@lists.linux.it>; Tue, 17 Aug 2021 14:44:34 +0800 (CST)
-Received: from dggpemm500022.china.huawei.com (7.185.36.162) by
- dggemv711-chm.china.huawei.com (10.1.198.66) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2176.2; Tue, 17 Aug 2021 14:48:34 +0800
-Received: from ubuntu1804.huawei.com (10.67.174.209) by
- dggpemm500022.china.huawei.com (7.185.36.162) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2176.2; Tue, 17 Aug 2021 14:48:34 +0800
-From: Xie Ziyao <xieziyao@huawei.com>
-To: <ltp@lists.linux.it>
-Date: Tue, 17 Aug 2021 14:49:24 +0800
-Message-ID: <20210817064924.127970-8-xieziyao@huawei.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210817064924.127970-1-xieziyao@huawei.com>
-References: <20210817064924.127970-1-xieziyao@huawei.com>
+ by relay2.suse.de (Postfix) with ESMTPS id 36DF1A3B91;
+ Tue, 17 Aug 2021 10:23:39 +0000 (UTC)
+References: <20210806154557.19551-1-mdoucha@suse.cz>
+ <20210806154557.19551-3-mdoucha@suse.cz>
+User-agent: mu4e 1.4.15; emacs 27.2
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Martin Doucha <mdoucha@suse.cz>
+In-reply-to: <20210806154557.19551-3-mdoucha@suse.cz>
+Date: Tue, 17 Aug 2021 11:23:33 +0100
+Message-ID: <87sfz8l68q.fsf@suse.de>
 MIME-Version: 1.0
-X-Originating-IP: [10.67.174.209]
-X-ClientProxiedBy: dggems704-chm.china.huawei.com (10.3.19.181) To
- dggpemm500022.china.huawei.com (7.185.36.162)
-X-CFilter-Loop: Reflected
 X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH 7/7] epoll_create: Add test for epoll_create02
+Subject: Re: [LTP] [PATCH 3/3] Add test for CVE 2018-13405
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,87 +74,204 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: rpalethorpe@suse.de
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Verify that epoll_create returns -1 and set errno to EINVAL if size is
-not positive.
+Hello Martin,
 
-Signed-off-by: Xie Ziyao <xieziyao@huawei.com>
----
- runtest/syscalls                              |  1 +
- .../kernel/syscalls/epoll_create/.gitignore   |  1 +
- .../syscalls/epoll_create/epoll_create02.c    | 37 +++++++++++++++++++
- 3 files changed, 39 insertions(+)
- create mode 100644 testcases/kernel/syscalls/epoll_create/epoll_create02.c
+Martin Doucha <mdoucha@suse.cz> writes:
 
-diff --git a/runtest/syscalls b/runtest/syscalls
-index 2540905a0..d5a1e86e8 100644
---- a/runtest/syscalls
-+++ b/runtest/syscalls
-@@ -157,6 +157,7 @@ dup3_01 dup3_01
- dup3_02 dup3_02
+> Signed-off-by: Martin Doucha <mdoucha@suse.cz>
+> ---
+>  runtest/cve                                |   1 +
+>  runtest/syscalls                           |   1 +
+>  testcases/kernel/syscalls/creat/.gitignore |   1 +
+>  testcases/kernel/syscalls/creat/creat09.c  | 115 +++++++++++++++++++++
+>  4 files changed, 118 insertions(+)
+>  create mode 100644 testcases/kernel/syscalls/creat/creat09.c
+>
+> diff --git a/runtest/cve b/runtest/cve
+> index c27f58d8d..42c8eedbe 100644
+> --- a/runtest/cve
+> +++ b/runtest/cve
+> @@ -55,6 +55,7 @@ cve-2018-1000001 realpath01
+>  cve-2018-1000199 ptrace08
+>  cve-2018-1000204 ioctl_sg01
+>  cve-2018-12896 timer_settime03
+> +cve-2018-13405 creat09
+>  cve-2018-18445 bpf_prog04
+>  cve-2018-18559 bind06
+>  cve-2018-18955 userns08
+> diff --git a/runtest/syscalls b/runtest/syscalls
+> index 9af5aa5c0..161794f2a 100644
+> --- a/runtest/syscalls
+> +++ b/runtest/syscalls
+> @@ -136,6 +136,7 @@ creat05 creat05
+>  creat06 creat06
+>  creat07 creat07
+>  creat08 creat08
+> +creat09 creat09
+>  
+>  delete_module01 delete_module01
+>  delete_module02 delete_module02
+> diff --git a/testcases/kernel/syscalls/creat/.gitignore b/testcases/kernel/syscalls/creat/.gitignore
+> index a39e63590..caafc02b6 100644
+> --- a/testcases/kernel/syscalls/creat/.gitignore
+> +++ b/testcases/kernel/syscalls/creat/.gitignore
+> @@ -6,3 +6,4 @@
+>  /creat07
+>  /creat07_child
+>  /creat08
+> +/creat09
+> diff --git a/testcases/kernel/syscalls/creat/creat09.c b/testcases/kernel/syscalls/creat/creat09.c
+> new file mode 100644
+> index 000000000..6255d8784
+> --- /dev/null
+> +++ b/testcases/kernel/syscalls/creat/creat09.c
+> @@ -0,0 +1,115 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Copyright (c) 2021 SUSE LLC <mdoucha@suse.cz>
+> + *
+> + * CVE-2018-13405
+> + *
+> + * Check for possible privilege escalation through creating files with setgid
+> + * bit set inside a setgid directory owned by a group which the user does not
+> + * belong to. Fixed in:
+> + *
+> + *  commit 0fa3ecd87848c9c93c2c828ef4c3a8ca36ce46c7
+> + *  Author: Linus Torvalds <torvalds@linux-foundation.org>
+> + *  Date:   Tue Jul 3 17:10:19 2018 -0700
+> + *
+> + *  Fix up non-directory creation in SGID directories
+> + */
 
- epoll_create01 epoll_create01
-+epoll_create02 epoll_create02
- epoll_create1_01 epoll_create1_01
- epoll_create1_02 epoll_create1_02
- epoll01 epoll-ltp
-diff --git a/testcases/kernel/syscalls/epoll_create/.gitignore b/testcases/kernel/syscalls/epoll_create/.gitignore
-index 0ed4d940a..5c16cfa8c 100644
---- a/testcases/kernel/syscalls/epoll_create/.gitignore
-+++ b/testcases/kernel/syscalls/epoll_create/.gitignore
-@@ -1 +1,2 @@
- epoll_create01
-+epoll_create02
-diff --git a/testcases/kernel/syscalls/epoll_create/epoll_create02.c b/testcases/kernel/syscalls/epoll_create/epoll_create02.c
-new file mode 100644
-index 000000000..bbc493906
---- /dev/null
-+++ b/testcases/kernel/syscalls/epoll_create/epoll_create02.c
-@@ -0,0 +1,37 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) Huawei Technologies Co., Ltd. 2021. All rights reserved.
-+ * Author: Xie Ziyao <xieziyao@huawei.com>
-+ */
-+
-+/*\
-+ * [Description]
-+ *
-+ * Verify that epoll_create returns -1 and set errno to EINVAL if size is not
-+ * positive.
-+ */
-+
-+#include <sys/epoll.h>
-+
-+#include "tst_test.h"
-+#include "lapi/epoll.h"
-+#include "lapi/syscalls.h"
-+
-+static struct test_case_t {
-+	int size;
-+	int exp_err;
-+} tc[] = {
-+	{0, EINVAL},
-+	{-1, EINVAL}
-+};
-+
-+static void run(unsigned int n)
-+{
-+	TST_EXP_FAIL(tst_syscall(__NR_epoll_create, tc[n].size),
-+		     tc[n].exp_err, "create(%d)", tc[n].size);
-+}
-+
-+static struct tst_test test = {
-+	.tcnt = ARRAY_SIZE(tc),
-+	.test = run,
-+};
---
-2.17.1
+Very interesting bug! FYI, I noticed this code was changed again
+recently to make it mount/user namespace aware. Which then reminds me of
+userns08.
 
+> +
+> +#include <stdlib.h>
+> +#include <sys/types.h>
+> +#include <pwd.h>
+> +#include "tst_test.h"
+> +
+> +#define MODE_RWX        0777
+> +#define MODE_SGID       (S_ISGID|0777)
+> +
+> +#define WORKDIR		"testdir"
+> +#define CREAT_FILE	WORKDIR "/creat.tmp"
+> +#define OPEN_FILE	WORKDIR "/open.tmp"
+> +
+> +static uid_t orig_uid;
+> +static gid_t bin_gid;
+> +static int fd = -1;
+> +
+> +static void setup(void)
+> +{
+> +	struct stat buf;
+> +	struct passwd *ltpuser = SAFE_GETPWNAM("nobody");
+> +	struct group *ltpgroup = SAFE_GETGRNAM("bin");
+
+These might not exist on some systems. I think you can just pick
+arbitrary UID/GID numbers instead. No need to check the user/group
+databases.
+
+> +
+> +	orig_uid = getuid();
+> +	bin_gid = ltpgroup->gr_gid;
+> +
+> +	/* Create directories and set permissions */
+> +	SAFE_MKDIR(WORKDIR, MODE_RWX);
+> +	SAFE_CHOWN(WORKDIR, ltpuser->pw_uid, bin_gid);
+> +	SAFE_CHMOD(WORKDIR, MODE_SGID);
+> +	SAFE_STAT(WORKDIR, &buf);
+> +
+> +	if (!(buf.st_mode & S_ISGID))
+> +		tst_brk(TBROK, "%s: Setgid bit not set", WORKDIR);
+> +
+> +	if (buf.st_gid != bin_gid) {
+> +		tst_brk(TBROK, "%s: Incorrect group, %u != %u", WORKDIR,
+> +			buf.st_gid, bin_gid);
+> +	}
+> +
+> +	/* Switch user */
+> +	ltpgroup = SAFE_GETGRNAM_FALLBACK("nobody", "nogroup");
+> +	SAFE_SETGID(ltpgroup->gr_gid);
+> +	SAFE_SETREUID(-1, ltpuser->pw_uid);
+> +}
+> +
+> +static void file_test(const char *name, gid_t gid)
+
+gid is always set to bin_gid.
+
+> +{
+> +	struct stat buf;
+> +
+> +	SAFE_STAT(name, &buf);
+> +
+> +	if (buf.st_gid != gid) {
+> +		tst_res(TFAIL, "%s: Incorrect group, %u != %u", name,
+> +			buf.st_gid, gid);
+> +	} else {
+> +		tst_res(TPASS, "%s: Owned by correct group", name);
+> +	}
+> +
+> +	if (buf.st_mode & S_ISGID)
+> +		tst_res(TFAIL, "%s: Setgid bit is set", name);
+> +	else
+> +		tst_res(TPASS, "%s: Setgid bit not set", name);
+> +}
+> +
+> +static void run(void)
+> +{
+> +	fd = SAFE_CREAT(CREAT_FILE, MODE_SGID);
+> +	SAFE_CLOSE(fd);
+> +	file_test(CREAT_FILE, bin_gid);
+> +
+> +	fd = SAFE_OPEN(OPEN_FILE, O_CREAT | O_EXCL | O_RDWR, MODE_SGID);
+> +	file_test(OPEN_FILE, bin_gid);
+> +	SAFE_CLOSE(fd);
+> +
+> +	/* Cleanup between loops */
+> +	tst_purge_dir(WORKDIR);
+> +}
+> +
+> +static void cleanup(void)
+> +{
+> +	SAFE_SETREUID(-1, orig_uid);
+
+Why are you doing this? I am assuming the temp dir will be deleted by
+the parent process.
+
+> +
+> +	if (fd >= 0)
+> +		SAFE_CLOSE(fd);
+> +}
+> +
+> +static struct tst_test test = {
+> +	.test_all = run,
+> +	.setup = setup,
+> +	.cleanup = cleanup,
+> +	.needs_root = 1,
+> +	.needs_tmpdir = 1,
+> +	.tags = (const struct tst_tag[]) {
+> +		{"linux-git", "0fa3ecd87848"},
+> +		{"CVE", "2018-13405"},
+> +		{}
+> +	},
+> +};
+> -- 
+> 2.32.0
+
+
+-- 
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
