@@ -2,74 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8395B3F0014
-	for <lists+linux-ltp@lfdr.de>; Wed, 18 Aug 2021 11:13:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 618B13F0017
+	for <lists+linux-ltp@lfdr.de>; Wed, 18 Aug 2021 11:13:15 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 735023C5605
-	for <lists+linux-ltp@lfdr.de>; Wed, 18 Aug 2021 11:13:01 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 2AEF63C5689
+	for <lists+linux-ltp@lfdr.de>; Wed, 18 Aug 2021 11:13:14 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 0E2243C248D
- for <ltp@lists.linux.it>; Wed, 18 Aug 2021 11:12:49 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 429583C248D
+ for <ltp@lists.linux.it>; Wed, 18 Aug 2021 11:12:50 +0200 (CEST)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 827F46008B0
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id C81CF1000D25
  for <ltp@lists.linux.it>; Wed, 18 Aug 2021 11:12:49 +0200 (CEST)
 Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id E56E722037;
- Wed, 18 Aug 2021 09:12:48 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 4493722039;
+ Wed, 18 Aug 2021 09:12:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1629277968; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1629277969; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=KfPYiBsDxIfYWEGc1IwYqjO5UrFg2+aAvAIcgxWkdXM=;
- b=d1zu1be43YSrv7MmwDgH+my7jC91HaR1q0c6BGrxApUtvqs5HNSSuYlgHoY5sPd/vdLZiM
- rNzo6nfMiLIalI4vY6GPI6P/8cblIJBds8x9mwXFae2D7i+Cii8ANPU4TS4cuWe+MALDPP
- M65sZWXpyiDaFqZexeYXQwt+5s2cn3s=
+ bh=DM76UxobuXImFPNZ/ATMOHYxgU7GEnexkDBwtHh2L04=;
+ b=OV9LfeywWV6eZL4aG1XiZbK/SHhwG0H/x3YkW+I0MWumci2NS7arrU7YwKe954uEO1TKEs
+ IQ/W+556g/bx9IQYmPO+qwwW1FgUP0fCj1NILWnWG7X8pdE8uDOZWBjB4mlxubmSP5Us37
+ x6brhNFEPuqAjKn9Ukq7+qORjwlY9Fg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1629277968;
+ s=susede2_ed25519; t=1629277969;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=KfPYiBsDxIfYWEGc1IwYqjO5UrFg2+aAvAIcgxWkdXM=;
- b=isAFmtoOuLmaqeUCD/hU3HYidZehNIzLzpp6f+t5NAa4yERJr9IuVDQsHSJYzs4Wdxce7N
- cl3kBszy+hWfwkCw==
+ bh=DM76UxobuXImFPNZ/ATMOHYxgU7GEnexkDBwtHh2L04=;
+ b=ZbAml+BVgwlo0rPvaKHIlCbOGUaYJ02JNQfq/Ze2yLREtwyC5HiLsXCtpEPe6eI2k9kJTQ
+ t5w7swxMvV2ubZAA==
 Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 987B213690;
+ by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id F2F37133D0;
  Wed, 18 Aug 2021 09:12:48 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id OAoJIxDPHGFKFwAAGKfGzw
+ by imap1.suse-dmz.suse.de with ESMTPSA id yGzEOBDPHGFKFwAAGKfGzw
  (envelope-from <pvorel@suse.cz>); Wed, 18 Aug 2021 09:12:48 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Wed, 18 Aug 2021 11:12:23 +0200
-Message-Id: <20210818091224.27578-3-pvorel@suse.cz>
+Date: Wed, 18 Aug 2021 11:12:24 +0200
+Message-Id: <20210818091224.27578-4-pvorel@suse.cz>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20210818091224.27578-1-pvorel@suse.cz>
 References: <20210818091224.27578-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/3] binfmt_misc02.sh: Use "command -v" instead of
- "which"
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH 3/3] commands: Drop which01.sh
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,57 +87,161 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 "which" has been discontinued after 2.21 release in 2015 due this (git
-repository is empty [1]) it provides warning on Debian/Ubuntu [2].
-
-Use "command -v" which is POSIX [3] and supported on all common shells
-(bash, zsh, dash, busybox sh, mksh).
+repository is empty [1]).
 
 [1] https://git.savannah.gnu.org/cgit/which.git
-[2] https://salsa.debian.org/debian/debianutils/-/commit/3a8dd10b4502f7bae8fc6973c13ce23fc9da7efb
-[3] https://pubs.opengroup.org/onlinepubs/9699919799/utilities/command.html
 
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- testcases/kernel/fs/binfmt_misc/binfmt_misc02.sh | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ runtest/commands                    |   1 -
+ testcases/commands/which/Makefile   |  11 ---
+ testcases/commands/which/which01.sh | 107 ----------------------------
+ 3 files changed, 119 deletions(-)
+ delete mode 100644 testcases/commands/which/Makefile
+ delete mode 100755 testcases/commands/which/which01.sh
 
-diff --git a/testcases/kernel/fs/binfmt_misc/binfmt_misc02.sh b/testcases/kernel/fs/binfmt_misc/binfmt_misc02.sh
-index 9dbcd68cc..cb4e770e3 100755
---- a/testcases/kernel/fs/binfmt_misc/binfmt_misc02.sh
-+++ b/testcases/kernel/fs/binfmt_misc/binfmt_misc02.sh
-@@ -19,7 +19,7 @@
- 
- TST_CNT=6
- TST_TESTFUNC=do_test
--TST_NEEDS_CMDS="which cat head"
-+TST_NEEDS_CMDS="cat head"
- 
- . binfmt_misc_lib.sh
- 
-@@ -89,17 +89,17 @@ verify_binfmt_misc()
- do_test()
- {
- 	case $1 in
--	1) verify_binfmt_misc ":textension:E::extension::$(which cat):" \
-+	1) verify_binfmt_misc ":textension:E::extension::$(type cat):" \
- 			      "$TST_DATAROOT/file.extension" "1";;
--	2) verify_binfmt_misc ":tmagic:M:1:This::$(which cat):" \
-+	2) verify_binfmt_misc ":tmagic:M:1:This::$(type cat):" \
- 			      "$TST_DATAROOT/file.magic" "1";;
--	3) verify_binfmt_misc ".textension.E..extension..$(which cat)." \
-+	3) verify_binfmt_misc ".textension.E..extension..$(type cat)." \
- 			      "$TST_DATAROOT/file.extension" "1";;
--	4) verify_binfmt_misc ",tmagic,M,1,This,,$(which cat)," \
-+	4) verify_binfmt_misc ",tmagic,M,1,This,,$(type cat)," \
- 			      "$TST_DATAROOT/file.magic" "1";;
--	5) verify_binfmt_misc ":textension:E::ltp::$(which cat):" \
-+	5) verify_binfmt_misc ":textension:E::ltp::$(type cat):" \
- 			      "$TST_DATAROOT/file.extension" "0";;
--	6) verify_binfmt_misc ":tmagic:M:0:This::$(which cat):" \
-+	6) verify_binfmt_misc ":tmagic:M:0:This::$(type cat):" \
- 			      "$TST_DATAROOT/file.magic" "0";;
- 	esac
- }
+diff --git a/runtest/commands b/runtest/commands
+index 8cfad0449..fc5c86684 100644
+--- a/runtest/commands
++++ b/runtest/commands
+@@ -32,7 +32,6 @@ mkfs01_msdos_sh mkfs01.sh -f msdos
+ mkfs01_vfat_sh mkfs01.sh -f vfat
+ mkfs01_ntfs_sh mkfs01.sh -f ntfs
+ mkswap01_sh mkswap01.sh
+-which01_sh which01.sh
+ lsmod01_sh lsmod01.sh
+ insmod01_sh insmod01.sh
+ wc01_sh wc01.sh
+diff --git a/testcases/commands/which/Makefile b/testcases/commands/which/Makefile
+deleted file mode 100644
+index 1be02f7d7..000000000
+--- a/testcases/commands/which/Makefile
++++ /dev/null
+@@ -1,11 +0,0 @@
+-# SPDX-License-Identifier: GPL-2.0-or-later
+-# Copyright (c) 2015 Fujitsu Ltd.
+-# Author:Guangwen Feng <fenggw-fnst@cn.fujitsu.com>
+-
+-top_srcdir		?= ../../..
+-
+-include $(top_srcdir)/include/mk/env_pre.mk
+-
+-INSTALL_TARGETS		:= which01.sh
+-
+-include $(top_srcdir)/include/mk/generic_leaf_target.mk
+diff --git a/testcases/commands/which/which01.sh b/testcases/commands/which/which01.sh
+deleted file mode 100755
+index dd6659ea0..000000000
+--- a/testcases/commands/which/which01.sh
++++ /dev/null
+@@ -1,107 +0,0 @@
+-#!/bin/sh
+-# SPDX-License-Identifier: GPL-2.0-or-later
+-# Copyright (c) 2015 Fujitsu Ltd.
+-# Author: Guangwen Feng <fenggw-fnst@cn.fujitsu.com>
+-#
+-# Test which command with some basic options.
+-
+-TST_CNT=10
+-TST_SETUP=setup
+-TST_TESTFUNC=do_test
+-TST_NEEDS_TMPDIR=1
+-TST_NEEDS_CMDS="which"
+-. tst_test.sh
+-
+-setup()
+-{
+-	touch pname
+-	chmod +x pname
+-	PATH=$PATH:.
+-
+-	mkdir bin
+-	touch bin/pname
+-	chmod +x bin/pname
+-	PATH=$PATH:./bin
+-
+-	alias pname='pname -i'
+-}
+-
+-which_verify()
+-{
+-	local IFS i j
+-	IFS="$IFS_FIRST_LEVEL"
+-	for i in $1; do
+-		found="no"
+-		IFS="$IFS_SECOND_LEVEL"
+-		for j in $i; do
+-			if grep -F -q "$j" temp; then
+-				found="yes"
+-			fi
+-		done
+-		if [ "$found" != "yes" ]; then
+-			echo "'$i' not found in:"
+-			cat temp
+-			echo
+-			return 1
+-		fi
+-	done
+-}
+-
+-which_test()
+-{
+-	local which_op=$1
+-	local prog_name=$2
+-
+-	local which_cmd="which $which_op $prog_name"
+-
+-	if [ "$which_op" = "--read-alias" ] || [ "$which_op" = "-i" ] || \
+-		[ "$which_op" = "--skip-alias" ]; then
+-		which_cmd="alias | $which_cmd"
+-	fi
+-
+-	eval ${which_cmd} >temp 2>&1
+-	if [ $? -ne 0 ]; then
+-		grep -q -E "unknown option|invalid option|Usage" temp
+-		if [ $? -eq 0 ]; then
+-			tst_res TCONF "'${which_cmd}' not supported."
+-			return
+-		fi
+-
+-		tst_res TFAIL "'${which_cmd}' failed."
+-		cat temp
+-		return
+-	fi
+-
+-	if [ $# -gt 2 ]; then
+-		shift 2
+-		which_verify "$@"
+-		if [ $? -ne 0 ]; then
+-			tst_res TFAIL "'${which_cmd}' failed, not expected."
+-			return
+-		fi
+-	fi
+-
+-	tst_res TPASS "'${which_cmd}' passed."
+-}
+-
+-IFS_FIRST_LEVEL='^'
+-IFS_SECOND_LEVEL='|'
+-do_test()
+-{
+-	case $1 in
+-	1) which_test "" "pname" "$PWD/pname|./pname";;
+-	2) which_test "-all" "pname" "$PWD/bin/pname|./bin/pname^$PWD/pname|./pname";;
+-	3) which_test "-a" "pname" "$PWD/bin/pname|./bin/pname^$PWD/pname|./pname";;
+-	4) which_test "--read-alias" "pname" "pname='pname -i'^$PWD/pname";;
+-	5) which_test "-i" "pname" "pname='pname -i'^$PWD/pname";;
+-	6) alias which='which --read-alias';
+-	   which_test "--skip-alias" "pname" "$PWD/pname";
+-	   unalias which;;
+-	7) which_test "--version";;
+-	8) which_test "-v";;
+-	9) which_test "-V";;
+-	10) which_test "--help";;
+-	esac
+-}
+-
+-tst_run
 -- 
 2.32.0
 
