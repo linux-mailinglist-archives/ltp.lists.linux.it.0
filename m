@@ -1,51 +1,53 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E7563F43D6
-	for <lists+linux-ltp@lfdr.de>; Mon, 23 Aug 2021 05:22:19 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3BA463F4459
+	for <lists+linux-ltp@lfdr.de>; Mon, 23 Aug 2021 06:31:48 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1DB0F3C5851
-	for <lists+linux-ltp@lfdr.de>; Mon, 23 Aug 2021 05:22:18 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E12653C3232
+	for <lists+linux-ltp@lfdr.de>; Mon, 23 Aug 2021 06:31:47 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 34BFD3C255A
- for <ltp@lists.linux.it>; Mon, 23 Aug 2021 05:22:15 +0200 (CEST)
-Received: from ATCSQR.andestech.com (atcsqr.andestech.com [60.248.187.195])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id A41903C2A0F
+ for <ltp@lists.linux.it>; Mon, 23 Aug 2021 06:31:43 +0200 (CEST)
+Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id E3C87100044F
- for <ltp@lists.linux.it>; Mon, 23 Aug 2021 05:22:13 +0200 (CEST)
-Received: from mail.andestech.com (atcpcs16.andestech.com [10.0.1.222])
- by ATCSQR.andestech.com with ESMTP id 17N3LPSo034190;
- Mon, 23 Aug 2021 11:21:25 +0800 (GMT-8)
- (envelope-from ycliang@andestech.com)
-Received: from ubuntu02 (10.0.12.212) by ATCPCS16.andestech.com (10.0.1.222)
- with Microsoft SMTP Server id 14.3.498.0; Mon, 23 Aug 2021 11:21:26 +0800
-Date: Mon, 23 Aug 2021 11:21:15 +0800
-From: Leo Liang <ycliang@andestech.com>
-To: <ltp@lists.linux.it>
-Message-ID: <YSMUK+St5DsIf9O/@ubuntu02>
-References: <20210804015053.GA21545@andestech.com>
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 339831A00886
+ for <ltp@lists.linux.it>; Mon, 23 Aug 2021 06:31:42 +0200 (CEST)
+Received: from [192.168.178.40] (unknown [188.192.255.100])
+ by mail.jv-coder.de (Postfix) with ESMTPSA id ADB9E9F75F;
+ Mon, 23 Aug 2021 04:31:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
+ t=1629693101; bh=hCEup8OxK9I2XZY+kJqwiS3oid1tGMncmg1BVPQkDio=;
+ h=Subject:To:From:Message-ID:Date:MIME-Version;
+ b=l7JV58FBEDcmXFG4UxMugE+EYgz3CUGXojNjzSNf+cGLx+28l4PsJVGsUCHSAnRDU
+ epyaFS8NIqCFINGz+bCzOVGWKqWCJZBKkgdgtU7LwGf5vBgCmjTe6clyZb/Rbzb28s
+ NaZCJRstI3n34vpXfC2hMGa9EwkG9VVsozSB8nuc=
+To: Petr Vorel <pvorel@suse.cz>
+References: <20210812043807.3497492-1-lkml@jv-coder.de>
+ <20210812043807.3497492-2-lkml@jv-coder.de> <YR+Lc8aBnK6KBOnW@pevik>
+From: Joerg Vehlow <lkml@jv-coder.de>
+Message-ID: <d6443e3f-9859-82ff-7ba0-f8842cd2f437@jv-coder.de>
+Date: Mon, 23 Aug 2021 06:31:43 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210804015053.GA21545@andestech.com>
-User-Agent: Mutt/2.0.5 (2021-01-21)
-X-Originating-IP: [10.0.12.212]
-X-DNSRBL: 
-X-MAIL: ATCSQR.andestech.com 17N3LPSo034190
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
-X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+In-Reply-To: <YR+Lc8aBnK6KBOnW@pevik>
+Content-Language: en-US
+X-Spam-Status: No, score=-0.9 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v6,
- 0/4] cgroup/cgroup_regression_test: Fix umount failure
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Status: Clean
+Subject: Re: [LTP] [PATCH v2 2/2] pec: Improve reliability
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,72 +59,30 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: richiejp@f-m.fm, ycliang@cs.nctu.edu.tw, alankao@andestech.com,
- metan@ucw.cz
-Content-Type: text/plain; charset="us-ascii"
+Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>, ltp@lists.linux.it
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
+Hi Petr,
 
-A gentel ping.
-If there's any modification needs to be made, please let me know.
-Thanks!
+On 8/20/2021 1:01 PM, Petr Vorel wrote:
+> Hi Joerg,
+>
+> I suppose this one is superseded by adding volatile by Martin's fix in
+> b1e7776bf ("connectors/pec_listener: Make exit_flag volatile")
+No, not at all.
+The first issue is a timing issue between the event generator -> kernel 
+-> pec_listener,
+that cannot be fixed by a volatile, only by correct synchronization.
+The second issue is also unrelated.
 
-Best regards,
-Leo
+Martin's fix is only for the rare case, where the exit_flag could be 
+optimized out by the compiler,
+which would have made the event_listener run forever instead of terminating.
 
-On Wed, Aug 04, 2021 at 09:51:07AM +0800, Leo Liang wrote:
-> The test sequence
-> 	mount -t cgroup -o <controllers> <path>
-> 	mkdir <path>/<dir>
-> 	rmdir <path>/<dir>
-> 	umount <path>
-> 	mount -t cgroup -o <controllers> <path>
-> would easily fail at the last mount with -EBUSY on certain platform.
-> 
-> Adding a little delay between "rmdir" and "umount" could fix the problem,
-> so use tst_umount API instead of umount in "rmdir, umount" sequence.
-> 
-> tst_umount API is ambiguous when checking for whether a device is mounted.
-> Modify it to check an actual mount point instead of device
-> and reject anything that does not start with '/' as an argument.
-> 
-> Changes since v1
-> - Use "tst_umount" instead of "sync" as suggested
-> - Make "tst_umount" work with argument that has terminating slash
-> 
-> Changes since v2
-> - Filter out the trailing slash instead of using mountpoint command
-> 
-> Changes since v3
-> - Filter out the trailing slash only in grep command
-> - Add comment in the test script
-> 
-> Changes since v4
-> - Remove unnecessary stderr redirection
-> 
-> Changes since v5
-> - Make tst_umount to only accept absolute mount point as an argument
-> - Modify tests that use tst_umount to pass mount point in instead of device
-> 
-> Leo Yu-Chi Liang (4):
->   lib: tst_umount: umount a mount point instead of device
->   doc: change the default behavior of tst_umount
->   cgroup/cgroup_regression_test: Fix umount failure
->   Make argument to tst_umount an absolute path
-> 
->  doc/shell-test-api.txt                         |  8 ++++----
->  .../cgroup/cgroup_regression_test.sh           | 10 +++++-----
->  .../fs/quota_remount/quota_remount_test01.sh   |  2 +-
->  .../integrity/ima/tests/evm_overlay.sh         |  2 +-
->  .../tracing/dynamic_debug/dynamic_debug01.sh   |  2 +-
->  testcases/lib/tst_test.sh                      | 18 +++++++++++-------
->  6 files changed, 23 insertions(+), 19 deletions(-)
-> 
-> -- 
-> 2.17.0
+Joerg
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
