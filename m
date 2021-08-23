@@ -1,75 +1,75 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95C133F4BEE
-	for <lists+linux-ltp@lfdr.de>; Mon, 23 Aug 2021 15:54:18 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id CD81E3F4BFC
+	for <lists+linux-ltp@lfdr.de>; Mon, 23 Aug 2021 15:58:36 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1EC153C9E8D
-	for <lists+linux-ltp@lfdr.de>; Mon, 23 Aug 2021 15:54:18 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 6B4A53C3290
+	for <lists+linux-ltp@lfdr.de>; Mon, 23 Aug 2021 15:58:36 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 918AC3C3290
- for <ltp@lists.linux.it>; Mon, 23 Aug 2021 15:54:14 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 544EA3C3290
+ for <ltp@lists.linux.it>; Mon, 23 Aug 2021 15:58:29 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 525F2600478
- for <ltp@lists.linux.it>; Mon, 23 Aug 2021 15:54:13 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 6E54B60006D
+ for <ltp@lists.linux.it>; Mon, 23 Aug 2021 15:58:28 +0200 (CEST)
 Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id A63E11FFCF;
- Mon, 23 Aug 2021 13:54:12 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 7D8BA21F82;
+ Mon, 23 Aug 2021 13:58:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1629726852;
+ t=1629727108;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=KUVfGNfSYASe3mpW6zgNniAc3zPlt8JGdQe1FfpWyoQ=;
- b=UAS0KaZRZVKhbioPcfH2lMdTUmpe5wb4PsgoctgSENlA5xv8H0Uv3fn1NhxS7ceiNReFtk
- bx2EYkzScgoG3AZSICe3UWnxrrgg4gIEnaiJazCUngQJWINxXPjpi32zCj+ghmlHgs30OC
- 5cQK719eQzMBBD76CBqiGl4kANE26Jw=
+ bh=WPtY0S0nPFss0CLbLuYhqrUlp1iBBY7/LJoN9/b3BNA=;
+ b=IaBNngLNpgaDRTSjyg2+nA5tdakeU0iTxWhJslZkLrNc5yr/j0igBVSD2ck3EQc6x5Sj/i
+ 1ASeVwAypDfCNDS7TO7PYtOdsn4bOV2Br6tl5A43k/kev+O7WQarT4Vjkd7sv+MgwdPPp3
+ VddMOD41O0R8flwOZ5DVyqW5kqPROx4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1629726852;
+ s=susede2_ed25519; t=1629727108;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=KUVfGNfSYASe3mpW6zgNniAc3zPlt8JGdQe1FfpWyoQ=;
- b=8pFBgVqauc/z9G7g/vEQYT39dljOBKQhfGq3FFtK78tzcfuZV+b5r4erQR1orFknV9J5Vr
- ZUbo4BcpjjjM4DDQ==
+ bh=WPtY0S0nPFss0CLbLuYhqrUlp1iBBY7/LJoN9/b3BNA=;
+ b=Cn8/hMW9jGjN8f3lP8DKPysXqRm9gSiU0x++gYZuOvdILaUIDORDeUT4oMUg7GHB6VzdVa
+ orLvbFGSQZ0k44BQ==
 Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 1486013B2A;
- Mon, 23 Aug 2021 13:54:12 +0000 (UTC)
+ by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id D970C13B2A;
+ Mon, 23 Aug 2021 13:58:27 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id 7TnwAoSoI2H6LQAAGKfGzw
- (envelope-from <pvorel@suse.cz>); Mon, 23 Aug 2021 13:54:12 +0000
-Date: Mon, 23 Aug 2021 15:54:10 +0200
+ by imap1.suse-dmz.suse.de with ESMTPSA id gFixMoOpI2HwLgAAGKfGzw
+ (envelope-from <pvorel@suse.cz>); Mon, 23 Aug 2021 13:58:27 +0000
+Date: Mon, 23 Aug 2021 15:58:25 +0200
 From: Petr Vorel <pvorel@suse.cz>
 To: Leo Liang <ycliang@andestech.com>
-Message-ID: <YSOognf90zkmAW2a@pevik>
-References: <20210804015336.GA22694@andestech.com>
+Message-ID: <YSOpgaQUx4cmuxpb@pevik>
+References: <20210804015539.GA22997@andestech.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210804015336.GA22694@andestech.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+In-Reply-To: <20210804015539.GA22997@andestech.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH v6,
- 2/4] doc: change the default behavior of tst_umount
+ 4/4] Make argument to tst_umount an absolute path
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,11 +89,11 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+Hi Leo,
 
-> Modify tst_umount to umount TST_MNTPOINT by default.
-nit: I'd add "in previous commit"
-
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
+unfortunately not all tests has been fixed.
+df01.sh uses tst_umount as a cleanup function with the default TST_MNTPOINT,
+thus we should change it => I'll comment that in the first patch.
 
 Kind regards,
 Petr
