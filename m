@@ -1,79 +1,52 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 992933F5C54
-	for <lists+linux-ltp@lfdr.de>; Tue, 24 Aug 2021 12:47:43 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DF193F5D12
+	for <lists+linux-ltp@lfdr.de>; Tue, 24 Aug 2021 13:28:51 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3296C3C31F7
-	for <lists+linux-ltp@lfdr.de>; Tue, 24 Aug 2021 12:47:37 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 170313C31F1
+	for <lists+linux-ltp@lfdr.de>; Tue, 24 Aug 2021 13:28:45 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id CF7EB3C18F7
- for <ltp@lists.linux.it>; Tue, 24 Aug 2021 12:47:34 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id BC2893C1A29
+ for <ltp@lists.linux.it>; Tue, 24 Aug 2021 13:28:41 +0200 (CEST)
+Received: from ATCSQR.andestech.com (atcsqr.andestech.com [60.248.187.195])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 21AA3140110C
- for <ltp@lists.linux.it>; Tue, 24 Aug 2021 12:47:33 +0200 (CEST)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 19C43220C1;
- Tue, 24 Aug 2021 10:47:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1629802053;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=GrJkQUO5I0LbWH0x0gsxGVX+zHMo3PoG38JYg0jCoac=;
- b=pLgHrGymu1UTG8EaGnTZDFZRsAlwM+kNQhKtaEhEoUS8PsQ33Ed05LCpy2Tb6f6EiR4vKn
- JogXVGawYV+WFBKGh5WVL9wqiIfHSQITEc1yutBYtLJTqa3ksrPWeggPYuTMEnhTKU+CsG
- YlFD5K1jFtbyP69XpgvTZh8j1qCKvx8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1629802053;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=GrJkQUO5I0LbWH0x0gsxGVX+zHMo3PoG38JYg0jCoac=;
- b=yfv2H58mUSfmqIyokvp//xtuLX3DkaBGp3BSspfZkMToFFCDF2F8xA959OrqHvTF0xx/Ri
- XtgwsqTSgYMVaFDA==
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id D05FA137F3;
- Tue, 24 Aug 2021 10:47:32 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id mqqaMETOJGFHEwAAGKfGzw
- (envelope-from <pvorel@suse.cz>); Tue, 24 Aug 2021 10:47:32 +0000
-Date: Tue, 24 Aug 2021 12:47:31 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Joerg Vehlow <lkml@jv-coder.de>
-Message-ID: <YSTOQy+uYU4iNb3n@pevik>
-References: <20210812043807.3497492-1-lkml@jv-coder.de>
- <20210812043807.3497492-2-lkml@jv-coder.de>
- <YR+Lc8aBnK6KBOnW@pevik>
- <d6443e3f-9859-82ff-7ba0-f8842cd2f437@jv-coder.de>
- <YSSRrEzZ2uSacXEM@pevik>
- <5441d7fb-3a76-0160-8f48-b9c78be875dd@jv-coder.de>
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 837E31A001C9
+ for <ltp@lists.linux.it>; Tue, 24 Aug 2021 13:28:38 +0200 (CEST)
+Received: from mail.andestech.com (atcpcs16.andestech.com [10.0.1.222])
+ by ATCSQR.andestech.com with ESMTP id 17OBRkcs059758;
+ Tue, 24 Aug 2021 19:27:46 +0800 (GMT-8)
+ (envelope-from ycliang@andestech.com)
+Received: from ubuntu02 (10.0.12.212) by ATCPCS16.andestech.com (10.0.1.222)
+ with Microsoft SMTP Server id 14.3.498.0; Tue, 24 Aug 2021 19:27:44 +0800
+Date: Tue, 24 Aug 2021 19:27:37 +0800
+From: Leo Liang <ycliang@andestech.com>
+To: Petr Vorel <pvorel@suse.cz>
+Message-ID: <YSTXqWWebzq+mBIQ@ubuntu02>
+References: <20210804015248.GA22328@andestech.com>
+ <YSOuhTL87oYnwfk3@pevik>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <5441d7fb-3a76-0160-8f48-b9c78be875dd@jv-coder.de>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+In-Reply-To: <YSOuhTL87oYnwfk3@pevik>
+User-Agent: Mutt/2.0.5 (2021-01-21)
+X-Originating-IP: [10.0.12.212]
+X-DNSRBL: 
+X-MAIL: ATCSQR.andestech.com 17OBRkcs059758
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 2/2] pec: Improve reliability
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v6,
+ 1/4] lib: tst_umount: umount a mount point instead of a device
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,29 +58,92 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>, ltp@lists.linux.it
+Cc: richiejp@f-m.fm, ycliang@cs.nctu.edu.tw, alankao@andestech.com,
+ metan@ucw.cz, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Joerg,
+Hi Petr,
 
-> > FYI, this patch breaks build:
+Understood! Thanks for explaining everything!
+I will send a v7 soon including all the modifications needed.
 
-> > make[1]: Leaving directory 'ltp.git/lib'
-> > /usr/lib64/gcc/x86_64-suse-linux/11/../../../../x86_64-suse-linux/bin/ld: ../../../../lib/libltp.a(tst_checkpoint.o):ltp.git/lib/tst_checkpoint.c:36: multiple definition of `tst_futexes'; /tmp/ccITQEiq.o:ltp.git/testcases/kernel/connectors/pec/event_generator.c:168: first defined here
-> > collect2: error: ld returned 1 exit status
-> > make: *** [../../../../include/mk/rules.mk:37: event_generator] Error 1
-> Strange that it builds on my system... The symbol is indeed duplicated and a
-> leftover from experimenting.
-> The declaration in event_generator.c can be removed.
-> Should I post a v3?
-Yes please.
+Best regards,
+Leo
 
-Kind regards,
-Petr
+On Mon, Aug 23, 2021 at 04:19:49PM +0200, Petr Vorel wrote:
+> Hi Leo,
+> 
+> as I noted at forth patch, some tests use tst_umount with the default parameter.
+> Thus we should set the default TST_MNTPOINT to use $PWD as well.
+> 
+> I'd also add quotes around $mntpoint in TCONF/TINFO messages in tst_mount() as
+> the original message was a bit confusing when the mountpoint was called
+> 'mntpoint' (TWARN: The mntpoint is not an absolute path).
+> 
+> Kind regards,
+> Petr
+> 
+> +++ testcases/lib/tst_test.sh
+> @@ -279,31 +279,35 @@ tst_mount()
+>  
+>  tst_umount()
+>  {
+> -	local device="${1:-$TST_DEVICE}"
+> +	local mntpoint="${1:-$TST_MNTPOINT}"
+>  	local i=0
+>  
+> -	[ -z "$device" ] && return
+> +	[ -z "$mntpoint" ] && return
+>  
+> -	if ! grep -q "$device" /proc/mounts; then
+> -		tst_res TINFO "The $device is not mounted, skipping umount"
+> +	if ! echo "$mntpoint" | grep -q ^/; then
+> +		tst_brk TCONF "The '$mntpoint' is not an absolute path"
+> +	fi
+> +
+> +	if ! grep -q "${mntpoint%/}" /proc/mounts; then
+> +		tst_res TINFO "The '$mntpoint' is not mounted upon, skipping umount"
+Will add this in v7!
+>  		return
+>  	fi
+>  
+>  	while [ "$i" -lt 50 ]; do
+> -		if umount "$device" > /dev/null; then
+> +		if umount "$mntpoint" > /dev/null; then
+>  			return
+>  		fi
+>  
+>  		i=$((i+1))
+>  
+> -		tst_res TINFO "umount($device) failed, try $i ..."
+> +		tst_res TINFO "umount($mntpoint) failed, try $i ..."
+>  		tst_res TINFO "Likely gvfsd-trash is probing newly mounted "\
+>  		              "fs, kill it to speed up tests."
+>  
+>  		tst_sleep 100ms
+>  	done
+>  
+> -	tst_res TWARN "Failed to umount($device) after 50 retries"
+> +	tst_res TWARN "Failed to umount($mntpoint) after 50 retries"
+>  }
+>  
+>  tst_mkfs()
+> @@ -628,7 +632,7 @@ tst_run()
+>  		cd "$TST_TMPDIR"
+>  	fi
+>  
+> -	TST_MNTPOINT="${TST_MNTPOINT:-mntpoint}"
+> +	TST_MNTPOINT="${TST_MNTPOINT:-$PWD/mntpoint}"
+This is a good catch.
+I think I did notice that df01.sh uses tst_umount as a clean up
+function, but didn't realize that this should be changed!
+Thanks for the heads up!
+>  	if [ "$TST_NEEDS_DEVICE" = 1 ]; then
+>  
+>  		TST_DEVICE=$(tst_device acquire)
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
