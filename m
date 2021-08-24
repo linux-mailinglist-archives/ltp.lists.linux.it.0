@@ -1,84 +1,52 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 674263F5B1C
-	for <lists+linux-ltp@lfdr.de>; Tue, 24 Aug 2021 11:29:53 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1EAA83F5BBD
+	for <lists+linux-ltp@lfdr.de>; Tue, 24 Aug 2021 12:11:26 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 825673C93BC
-	for <lists+linux-ltp@lfdr.de>; Tue, 24 Aug 2021 11:29:52 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 7BF353C31DA
+	for <lists+linux-ltp@lfdr.de>; Tue, 24 Aug 2021 12:11:25 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 0B52F3C30CC
- for <ltp@lists.linux.it>; Tue, 24 Aug 2021 11:29:48 +0200 (CEST)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 13D053C18F7
+ for <ltp@lists.linux.it>; Tue, 24 Aug 2021 12:11:24 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id A0D15600103
- for <ltp@lists.linux.it>; Tue, 24 Aug 2021 11:29:46 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1629797385;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=tsoNGSAnScXkTsh4WP5oEmNTgtBvzIVBRvdYZL9fJto=;
- b=QmIgVHRZDx918xf1jwwrBA4dfNNcwPDR4ETQ/5SsVJjJdPeeArXAe0sPopuibyO9iHSl3R
- V4eIvLkluOGXXlWAjYaWGWxZXY/h4WCkAIWKZ/ejLGjwVB8zqtVAEcqGbl4poAMbFOjwup
- rLZ2kuHcrix1PT5CG7aDErUBHkmIzvE=
-Received: from mail-yb1-f197.google.com (mail-yb1-f197.google.com
- [209.85.219.197]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-230-D4JjdBtAN_2CN9xTux5XEg-1; Tue, 24 Aug 2021 05:29:44 -0400
-X-MC-Unique: D4JjdBtAN_2CN9xTux5XEg-1
-Received: by mail-yb1-f197.google.com with SMTP id
- f14-20020a5b01ce000000b0059b74ec1d94so1935382ybp.16
- for <ltp@lists.linux.it>; Tue, 24 Aug 2021 02:29:44 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=tsoNGSAnScXkTsh4WP5oEmNTgtBvzIVBRvdYZL9fJto=;
- b=dXcC7apN36aDg4N7IXFELcHpSs8Ohn1jNS5tjthW9nrvkHt9/NjW7RSw6tl3q3myZ2
- KZwE3nBmPD1sZVC8YMiW+heiNx3LWRP5JFL7H6SQNHgColO43flyf0JfLHONmXGLx9u9
- DpGnmQZgTk/28aBGaUDK+PxapOVQWBC6HklknPZEQIYRSoftnJ4O2pY1U6ss5XT+HUCN
- KpM+sBIZOSlnHJfYAOfWFlCaOC4znqVSnUlj7gEIyhnwc5HBd17MOpXHeTORrRF6EBED
- nmT5u4+096tLMAsi/Gw9g91Z528DIxKcMeHGltvw7eVgZIHfd3Q0UiJfofu0p4ZhfIfk
- hwYw==
-X-Gm-Message-State: AOAM531LOY/C2caOrIZetOlKw159EjRHTCreuPnq1hex+23eThV3KmgG
- og18ElkMXtkcKgybN8OpyjFw/7hzXaG5imDoJGXJQYAPsV7o9bod+DRXW3L49CKF6/ekjTrsitA
- 2y+ud7BnHvh0uw4kcmCv57A9f6Ws=
-X-Received: by 2002:a25:bdc5:: with SMTP id g5mr14283367ybk.403.1629797383669; 
- Tue, 24 Aug 2021 02:29:43 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJyABqi5Fh5mgHwy6OROdK8WX2G7U9amT8qAkfsIb+r6J1IX2NlBap3yZ2rFW20ofUcNFVtYDcx779RmHokgC00=
-X-Received: by 2002:a25:bdc5:: with SMTP id g5mr14283350ybk.403.1629797383480; 
- Tue, 24 Aug 2021 02:29:43 -0700 (PDT)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 2BE1E1400BDE
+ for <ltp@lists.linux.it>; Tue, 24 Aug 2021 12:11:22 +0200 (CEST)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 7E53A220AD;
+ Tue, 24 Aug 2021 10:11:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1629799882; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=F0fdLSshVVLFuWpdp7gYPst3CQxciAb7JdWVwRWGWFw=;
+ b=ctZK9oBFjjqNnXGdcNDEjskjmjoa3xUl+1pUnY+oAnaqbieZ3jJBnwGBbLxGAZDUhFULu1
+ uVkcxpBmvsY7gRh0KvsLxTWW2BAgX2N9C+uSi6wjMWCdV/2gvKVpIurNMvoHv1gT15xxji
+ NtLVTh5VBOJEvXq+r8Ad/M69jHLsGf8=
+Received: from g78.suse.de (unknown [10.163.24.38])
+ by relay2.suse.de (Postfix) with ESMTP id 4ABEDA3BC0;
+ Tue, 24 Aug 2021 10:11:22 +0000 (UTC)
+To: ltp@lists.linux.it
+Date: Tue, 24 Aug 2021 11:10:42 +0100
+Message-Id: <20210824101042.11772-1-rpalethorpe@suse.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-References: <20210823150520.25614-1-chrubis@suse.cz>
- <20210823150520.25614-2-chrubis@suse.cz>
- <CAEemH2dYcF=N3F=MZXPVLgBHBa3Xt=iT8ACeQ4_9THXu-kyYtA@mail.gmail.com>
- <YSSyVtSF6UmqYlu4@yuki>
-In-Reply-To: <YSSyVtSF6UmqYlu4@yuki>
-From: Li Wang <liwang@redhat.com>
-Date: Tue, 24 Aug 2021 17:29:31 +0800
-Message-ID: <CAEemH2dpz577XH6q2fEw7uHYOvOORs8NLT_CroRvOnoAK2jQnw@mail.gmail.com>
-To: Cyril Hrubis <chrubis@suse.cz>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/3] tst_test_macros: Fix TST_EXP_*() default
- message
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH] kernel/irq: Add irqbalance01
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,77 +58,362 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============1395443895=="
+From: Richard Palethorpe via ltp <ltp@lists.linux.it>
+Reply-To: Richard Palethorpe <rpalethorpe@suse.com>
+Cc: Richard Palethorpe <rpalethorpe@suse.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1395443895==
-Content-Type: multipart/alternative; boundary="000000000000193ad505ca4ac68c"
+Add first test specifically targeting interrupts and IRQ management.
 
---000000000000193ad505ca4ac68c
-Content-Type: text/plain; charset="UTF-8"
+This includes some comments inline because I think the parsing code is
+unavoidably confusing.
 
-On Tue, Aug 24, 2021 at 4:48 PM Cyril Hrubis <chrubis@suse.cz> wrote:
+Note on the CPU mask parsing; there is already some code for parsing
+and manipulating bitmaps in the LTP. However it is absurdly
+complicated and we don't need actual bitmaps. In fact an array of
+bytes is more flexible.
 
-> Hi!
-> > Patchset looks good from the code layer though it is a bit complicate
-> > in 2/3 stringify handling, but that should be acceptable.
-> >
-> > My only hesitating is about ##__VA_ARGS__, because it says that is still
-> > as GNU's extension but have not got into standard C.
->
-> Note that we have been using it in the header from the start. There were
-> just a few places where it was missing, mostly in the variants that have
-> been added later.
->
+Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
+---
+ runtest/irq                         |   1 +
+ testcases/kernel/irq/.gitignore     |   1 +
+ testcases/kernel/irq/Makefile       |   9 +
+ testcases/kernel/irq/irqbalance01.c | 288 ++++++++++++++++++++++++++++
+ 4 files changed, 299 insertions(+)
+ create mode 100644 runtest/irq
+ create mode 100644 testcases/kernel/irq/.gitignore
+ create mode 100644 testcases/kernel/irq/Makefile
+ create mode 100644 testcases/kernel/irq/irqbalance01.c
 
-Ah great, I was neglect that point.  Hence it should be safe enough.
-
+diff --git a/runtest/irq b/runtest/irq
+new file mode 100644
+index 000000000..56d0d23c8
+--- /dev/null
++++ b/runtest/irq
+@@ -0,0 +1 @@
++irqbalance01 irqbalance01
+diff --git a/testcases/kernel/irq/.gitignore b/testcases/kernel/irq/.gitignore
+new file mode 100644
+index 000000000..8ed69a99c
+--- /dev/null
++++ b/testcases/kernel/irq/.gitignore
+@@ -0,0 +1 @@
++irqbalance01
+diff --git a/testcases/kernel/irq/Makefile b/testcases/kernel/irq/Makefile
+new file mode 100644
+index 000000000..085e06fac
+--- /dev/null
++++ b/testcases/kernel/irq/Makefile
+@@ -0,0 +1,9 @@
++# SPDX-License-Identifier: GPL-2.0-or-later
++
++top_srcdir		?= ../../..
++
++include $(top_srcdir)/include/mk/testcases.mk
++
++INSTALL_TARGETS		:= *.sh
++
++include $(top_srcdir)/include/mk/generic_leaf_target.mk
+diff --git a/testcases/kernel/irq/irqbalance01.c b/testcases/kernel/irq/irqbalance01.c
+new file mode 100644
+index 000000000..0a476839c
+--- /dev/null
++++ b/testcases/kernel/irq/irqbalance01.c
+@@ -0,0 +1,288 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/* Copyright (c) 2021 SUSE LLC <rpalethorpe@suse.com> */
++/*\
++ * [Description]
++ *
++ * Check that something (e.g. irqbalance daemon) is performing IRQ
++ * load balancing.
++ *
++ * On most systems userland needs to set /proc/irq/$IRQ/smp_affinity
++ * to prevent many IRQs being delivered to the same CPU.
++ *
++ * Note some drivers and IRQ controllers will distribute IRQs
++ * evenly. Some systems will have housekeeping CPUs configured. Some
++ * IRQs can not be masked etc. So this test is not appropriate for all
++ * scenarios.
++ *
++ * Furthermore, exactly how IRQs should be distributed is a
++ * performance and/or security issue. This is only a generic smoke
++ * test. It will hopefully detect misconfigured systems and total
++ * balancing failures which are often silent errors.
++ *
++ * Heuristic: Evidence of Change
++ * 1. Find IRQs with a non-zero count
++ * 2. Check if they are now disallowed
++ *
++ * There are two sources of information we need to parse:
++ * 1. /proc/interrupts
++ * 2. /proc/irq/$IRQ/smp_affinity
++ *
++ * We get the active IRQs and CPUs from /proc/interrupts. It also
++ * contains the per-CPU IRQ counts and info we do not care about.
++ *
++ * We get the IRQ masks from each active IRQ's smp_affinity file. This
++ * is a bitmask written out in hexidecimal format. It shows which CPUs
++ * an IRQ may be recieved by.
++ */
++
++#include <stdlib.h>
++
++#include "tst_test.h"
++#include "tst_safe_stdio.h"
++#include "tst_safe_file_at.h"
++
++enum affinity {
++	ALLOW,
++	DENY,
++};
++
++static unsigned int *irq_stats;
++static enum affinity *irq_affinity;
++
++static unsigned int nr_cpus;
++static unsigned int nr_irqs;
++static unsigned int *irq_ids;
++
++static void collect_irq_info(void)
++{
++	char *buf = NULL, *c, *first_row;
++	char path[PATH_MAX];
++	size_t size = 1024;
++	size_t ret, row, col;
++	long acc;
++	unsigned int cpu_total, mask_pos;
++	int fd = SAFE_OPEN("/proc/interrupts", O_RDONLY);
++
++	nr_cpus = 0;
++	nr_irqs = 0;
++
++	do {
++		size *= 2;
++		buf = SAFE_REALLOC(buf, size);
++		SAFE_LSEEK(fd, SEEK_SET, 0);
++		ret = SAFE_READ(0, fd, buf, size - 1);
++	} while (ret >= size - 1);
++
++	SAFE_CLOSE(fd);
++
++	if (ret < 1)
++		tst_brk(TBROK, "Empty /proc/interrupts?");
++
++	buf[ret] = '\0';
++
++	/* Count CPUs, header columns are like /CPU[0-9]+/ */
++	for (c = buf; *c != '\0' && *c != '\n'; c++) {
++		if (!strncmp(c, "CPU", 3))
++			nr_cpus++;
++	}
++
++	c++;
++	first_row = c;
++	/* Count IRQs, real IRQs start with /[0-9]+:/ */
++	while (*c != '\0') {
++		switch (*c) {
++		case ' ':
++		case '\t':
++		case '\n':
++		case '0' ... '9':
++			c++;
++			break;
++		case ':':
++			nr_irqs++;
++			/* fall-through */
++		default:
++			while (*c != '\n' && *c != '\0')
++				c++;
++		}
++	}
++
++	tst_res(TINFO, "Found %u CPUS, %u IRQs", nr_cpus, nr_irqs);
++
++	irq_ids = SAFE_REALLOC(irq_ids, nr_irqs * sizeof(*irq_ids));
++	irq_stats = SAFE_REALLOC(irq_stats, nr_cpus * (nr_irqs + 1) * sizeof(*irq_stats));
++	irq_affinity = SAFE_REALLOC(irq_affinity, nr_cpus * nr_irqs * sizeof(*irq_affinity));
++
++	c = first_row;
++	acc = -1;
++	row = col = 0;
++	/* Parse columns containing IRQ counts and IRQ IDs into acc. Ignore everything else. */
++	while (*c != '\0') {
++		switch (*c) {
++		case ' ':
++		case '\t':
++			if (acc >= 0) {
++				irq_stats[row * nr_cpus + col] = acc;
++				acc = -1;
++				col++;
++			}
++			break;
++		case '\n':
++			col = 0;
++			row++;
++			break;
++		case '0' ... '9':
++			if (acc == -1)
++				acc = 0;
++
++			acc *= 10;
++			acc += *c - '0';
++			break;
++		case ':':
++			irq_ids[row] = acc;
++			acc = -1;
++			break;
++		default:
++			acc = -1;
++			while (*c != '\n' && *c != '\0')
++				c++;
++			continue;
++		}
++
++		c++;
++	}
++
++	for (col = 0; col < nr_cpus; col++) {
++		cpu_total = 0;
++
++		for (row = 0; row < nr_irqs; row++)
++			cpu_total += irq_stats[row * nr_cpus + col];
++
++		irq_stats[row * nr_cpus + col] = cpu_total;
++	}
++
++	/* Read the CPU affinity masks for each IRQ. See bitmap_string() in the kernel (%*pb) */
++	for (row = 0; row < nr_irqs; row++) {
++		sprintf(path, "/proc/irq/%u/smp_affinity", irq_ids[row]);
++		ret = SAFE_FILE_READAT(0, path, buf, size);
++		if (ret < 1)
++			tst_brk(TBROK, "Empty /proc/irq/%u/smp_affinity?", irq_ids[row]);
++		c = buf;
++		col = 0;
++
++		while (*c != '\0') {
++			switch (*c) {
++			case '\n':
++			case ' ':
++			case ',':
++				c++;
++				continue;
++			case '0' ... '9':
++				acc = *c - '0';
++				break;
++			case 'a' ... 'f':
++				acc = 10 + *c - 'a';
++				break;
++			default:
++				tst_res(TINFO, "%u/smp_affnity: %s", irq_ids[row], buf);
++				tst_brk(TBROK, "Wasn't expecting 0x%02x", *c);
++			}
++
++			for (mask_pos = 0; mask_pos < 4; mask_pos++) {
++				if (mask_pos + col >= nr_cpus)
++					break;
++
++				irq_affinity[row * nr_cpus + (nr_cpus - 1 - col - mask_pos)] =
++					(acc & (8 >> mask_pos)) ? ALLOW : DENY;
++			}
++
++			col += mask_pos;
++			c++;
++		}
++	}
++
++	free(buf);
++}
++
++static void print_irq_info(void)
++{
++	size_t row, col;
++	unsigned int count;
++	enum affinity aff;
++
++	for (row = 0; row < nr_irqs; row++) {
++		printf("%5u:", irq_ids[row]);
++
++		for (col = 0; col < nr_cpus; col++) {
++			count = irq_stats[row * nr_cpus + col];
++			aff = irq_affinity[row * nr_cpus + col] == ALLOW ? '+' : '-';
++
++			printf("%10u%c", count, aff);
++		}
++
++		printf("\n");
++	}
++
++	printf("Total:");
++
++	for (col = 0; col < nr_cpus; col++)
++		printf("%11u", irq_stats[row * nr_cpus + col]);
++
++	printf("\n");
++}
++
++static void evidence_of_change(void)
++{
++	size_t row, col, changed = 0;
++
++	for (row = 0; row < nr_irqs; row++) {
++		for (col = 0; col < nr_cpus; col++) {
++			if (!irq_stats[row * nr_cpus + col])
++				continue;
++
++			if (irq_affinity[row * nr_cpus + col] == ALLOW)
++				continue;
++
++			changed++;
++		}
++	}
++
++	tst_res(changed ? TPASS : TFAIL,
++		"Heuristic: Detected %zu irq-cpu pairs have been dissallowed",
++		changed);
++}
++
++static void setup(void)
++{
++	collect_irq_info();
++	print_irq_info();
++
++	if (nr_cpus < 1)
++		tst_brk(TBROK, "No CPUs found in /proc/interrupts?");
++
++	if (nr_irqs < 1)
++		tst_brk(TBROK, "No IRQs found in /proc/interrupts?");
++}
++
++static void run(void)
++{
++	collect_irq_info();
++
++	evidence_of_change();
++}
++
++static void cleanup(void)
++{
++	if (irq_ids)
++		free(irq_ids);
++	if (irq_stats)
++		free(irq_stats);
++	if (irq_affinity)
++		free(irq_affinity);
++}
++
++static struct tst_test test = {
++	.test_all = run,
++	.setup = setup,
++	.cleanup = cleanup,
++	.min_cpus = 2,
++};
 -- 
-Regards,
-Li Wang
-
---000000000000193ad505ca4ac68c
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Tue, Aug 24, 2021 at 4:48 PM Cyril Hrubis &lt;<a=
- href=3D"mailto:chrubis@suse.cz">chrubis@suse.cz</a>&gt; wrote:<br></div><b=
-lockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-le=
-ft:1px solid rgb(204,204,204);padding-left:1ex">Hi!<br>
-&gt; Patchset looks good from the code layer though it is a bit complicate<=
-br>
-&gt; in 2/3 stringify handling, but that should be acceptable.<br>
-&gt; <br>
-&gt; My only hesitating is about ##__VA_ARGS__, because it says that is sti=
-ll<br>
-&gt; as GNU&#39;s extension but have not got into standard C.<br>
-<br>
-Note that we have been using it in the header from the start. There were<br=
->
-just a few places where it was missing, mostly in the variants that have<br=
->
-been added later.<br></blockquote><div><br></div><div><div class=3D"gmail_d=
-efault" style=3D"font-size:small">Ah great, I was neglect that point.=C2=A0=
- Hence it should be safe enough.</div></div></div><div><br></div>-- <br><di=
-v dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br><=
-/div><div>Li Wang<br></div></div></div></div>
-
---000000000000193ad505ca4ac68c--
-
-
---===============1395443895==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+2.31.1
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============1395443895==--
-
