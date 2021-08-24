@@ -1,55 +1,81 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id CEA123F58FA
-	for <lists+linux-ltp@lfdr.de>; Tue, 24 Aug 2021 09:27:34 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 500713F5915
+	for <lists+linux-ltp@lfdr.de>; Tue, 24 Aug 2021 09:35:41 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 949BC3C318C
-	for <lists+linux-ltp@lfdr.de>; Tue, 24 Aug 2021 09:27:28 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id AD8A43C31CB
+	for <lists+linux-ltp@lfdr.de>; Tue, 24 Aug 2021 09:35:40 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 19FC83C30C8
- for <ltp@lists.linux.it>; Tue, 24 Aug 2021 09:27:26 +0200 (CEST)
-Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id 583F43C30C8
+ for <ltp@lists.linux.it>; Tue, 24 Aug 2021 09:35:39 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id D1FAB200C30
- for <ltp@lists.linux.it>; Tue, 24 Aug 2021 09:27:25 +0200 (CEST)
-Received: from [192.168.178.40] (unknown [188.192.255.100])
- by mail.jv-coder.de (Postfix) with ESMTPSA id 559ACA070D;
- Tue, 24 Aug 2021 07:27:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
- t=1629790043; bh=u5JwCP8RIVPrkxbVbEj8vKVhV6VViU3ckShdueI46bQ=;
- h=Subject:To:From:Message-ID:Date:MIME-Version;
- b=s+CqNxoEmhCnXPpDSSJdub0hAbRYtV1t1DnM/etBGuLoK8xTz+CWXI4/dBrq+1g1T
- WpY5mDbutAxf7Rlbfs3Fl65JFwLDlAIwQ/M5RwOkyhV4Qgafeibdc347TV/i6corKC
- 3KXM/+57MeSE0YXMXk/5RKSYj7pOxDKWtcxsItn8=
-To: Petr Vorel <pvorel@suse.cz>
-References: <20210812043807.3497492-1-lkml@jv-coder.de>
- <20210812043807.3497492-2-lkml@jv-coder.de> <YR+Lc8aBnK6KBOnW@pevik>
- <d6443e3f-9859-82ff-7ba0-f8842cd2f437@jv-coder.de> <YSSRrEzZ2uSacXEM@pevik>
-From: Joerg Vehlow <lkml@jv-coder.de>
-Message-ID: <5441d7fb-3a76-0160-8f48-b9c78be875dd@jv-coder.de>
-Date: Tue, 24 Aug 2021 09:27:24 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 74D5B1000D2B
+ for <ltp@lists.linux.it>; Tue, 24 Aug 2021 09:35:37 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1629790536;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=02Q057LLr7drVKcmILtOeCIMTQNgbGXF93UJ1TmynnY=;
+ b=J1FhKxl1ySsSySC9Mu6dzBFHaK99WDkMhnpEWWFh0BWtMjnja5fr5dv/vC0wp3HH/HmoQt
+ fyc8aaXIebgGlArB/90QgYY6+O4ifQiUAR4kgXWWe8zVzqBCvy5eLhkRF2lrFqDBUWgqk6
+ AmT5qr9j+SrRe6tFQcFb4KjVp4do2uY=
+Received: from mail-yb1-f198.google.com (mail-yb1-f198.google.com
+ [209.85.219.198]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-584-TraiewElMXOJQ7FNSVKnxw-1; Tue, 24 Aug 2021 03:35:33 -0400
+X-MC-Unique: TraiewElMXOJQ7FNSVKnxw-1
+Received: by mail-yb1-f198.google.com with SMTP id
+ e137-20020a25698f000000b0059b84c50006so697778ybc.11
+ for <ltp@lists.linux.it>; Tue, 24 Aug 2021 00:35:33 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=02Q057LLr7drVKcmILtOeCIMTQNgbGXF93UJ1TmynnY=;
+ b=jwW2v/8VL0UbJCsLTKMO7JyJastilLaPoNM8LNyz6UqCWSeBknmjDZcAzYWa07cBzR
+ jOEkEUOHT4pR+OsnwOhkoRyhkvzF7agPI7iNplds+8WavVMHvlhaTDyxIORusEOd7RLK
+ dA/l/dNmqTBvd/XywNOn096Egf9yWEIzq+TQWHmKBM+QADnWlNncyvWIO1J4KgnRbZhF
+ Ns/TA+258/GpXDm2f2tsBa2Uzyc0RjR+kKOwSdy16VEC1I/9ygd/F+wTNE9U1u3IdWm8
+ mM1LUnsKbrX1pzbEj7uPyErompqeo1iEthiGz8ALuDERb2Xa2hJ4J/zhEHU9h2q8xhjU
+ 6xrA==
+X-Gm-Message-State: AOAM5304g4tKk8/9WQOXJ3SWaTuXYUKPLldoo0JHw2sBmnrW+penGt1d
+ wVRJ8GNoPKA/ug4vk0V5tObiWnCj8/ourtZGuhSa7pS9VdzcbnBQXSNkRHKhJlzwIs0GQd1iAqG
+ IUojHtJJew+Y1qfbRJ5hN1QZ2BAQ=
+X-Received: by 2002:a25:9d83:: with SMTP id v3mr46968081ybp.97.1629790532749; 
+ Tue, 24 Aug 2021 00:35:32 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwlSu3vTj+ojCuUsqvDofLvpGwDIvCpvVGX9G3NzMdP2kxaC2S5ydk0oiui3g/BM7MD51mRwK3W6gMEvxr2vAU=
+X-Received: by 2002:a25:9d83:: with SMTP id v3mr46968062ybp.97.1629790532526; 
+ Tue, 24 Aug 2021 00:35:32 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <YSSRrEzZ2uSacXEM@pevik>
-Content-Language: en-US
-X-Spam-Status: No, score=-1.2 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+References: <20210823150520.25614-1-chrubis@suse.cz>
+ <20210823150520.25614-2-chrubis@suse.cz>
+In-Reply-To: <20210823150520.25614-2-chrubis@suse.cz>
+From: Li Wang <liwang@redhat.com>
+Date: Tue, 24 Aug 2021 15:35:20 +0800
+Message-ID: <CAEemH2dYcF=N3F=MZXPVLgBHBa3Xt=iT8ACeQ4_9THXu-kyYtA@mail.gmail.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH v2 2/2] pec: Improve reliability
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/3] tst_test_macros: Fix TST_EXP_*() default
+ message
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,29 +87,98 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>, ltp@lists.linux.it
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============0081262829=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Petr,
+--===============0081262829==
+Content-Type: multipart/alternative; boundary="000000000000bff9d105ca492d3e"
 
-On 8/24/2021 8:29 AM, Petr Vorel wrote:
-> Hi Joerg,
->
-> FYI, this patch breaks build:
->
-> make[1]: Leaving directory 'ltp.git/lib'
-> /usr/lib64/gcc/x86_64-suse-linux/11/../../../../x86_64-suse-linux/bin/ld: ../../../../lib/libltp.a(tst_checkpoint.o):ltp.git/lib/tst_checkpoint.c:36: multiple definition of `tst_futexes'; /tmp/ccITQEiq.o:ltp.git/testcases/kernel/connectors/pec/event_generator.c:168: first defined here
-> collect2: error: ld returned 1 exit status
-> make: *** [../../../../include/mk/rules.mk:37: event_generator] Error 1
-Strange that it builds on my system... The symbol is indeed duplicated 
-and a leftover from experimenting.
-The declaration in event_generator.c can be removed.
-Should I post a v3?
+--000000000000bff9d105ca492d3e
+Content-Type: text/plain; charset="UTF-8"
 
-Joerg
+On Mon, Aug 23, 2021 at 11:05 PM Cyril Hrubis <chrubis@suse.cz> wrote:
+
+> We have to erase the last comma because otherwise we pass down one more
+> empty parameter to the TST_EXP_*_() macros which then causes the FMT
+> string to be empty and we end up with an empty default message.
+>
+
+
+Patchset looks good from the code layer though it is a bit complicate
+in 2/3 stringify handling, but that should be acceptable.
+
+My only hesitating is about ##__VA_ARGS__, because it says that is still
+as GNU's extension but have not got into standard C.
+
+So I especially run with GitHub CI and got pretty compiling results, then I
+have
+a positive attitude on applying these patches unless there is someone who
+blames it broken something in a general (but I guess the possibility is
+very little).
+https://github.com/wangli5665/ltp/runs/3408080506
+
+Feel free to add my reviews:
+Reviewed-by: Li Wang <liwang@redhat.com>
+
+-- 
+Regards,
+Li Wang
+
+--000000000000bff9d105ca492d3e
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Mon, Aug 23, 2021 at 11:05 PM Cyril Hrubis &lt;<=
+a href=3D"mailto:chrubis@suse.cz" target=3D"_blank">chrubis@suse.cz</a>&gt;=
+ wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px =
+0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">We have =
+to erase the last comma because otherwise we pass down one more<br>
+empty parameter to the TST_EXP_*_() macros which then causes the FMT<br>
+string to be empty and we end up with an empty default message.<br></blockq=
+uote><div><br></div><div><br></div><span class=3D"gmail_default" style=3D"f=
+ont-size:small">P</span>atchset looks good from the code layer though it is=
+ a bit complicate<br>in 2/3 <span class=3D"gmail_default" style=3D"font-siz=
+e:small"></span>stringify handling, but that should be <span class=3D"gmail=
+_default" style=3D"font-size:small">acceptable</span>.</div><div class=3D"g=
+mail_quote"><br><div><div class=3D"gmail_default" style=3D"font-size:small"=
+>My only hesitating is about ##__VA_ARGS__, because it says that is still</=
+div><div class=3D"gmail_default" style=3D"font-size:small">as GNU&#39;s ext=
+ension<span class=3D"gmail_default"> but have=C2=A0not=C2=A0got into standa=
+rd C.</span></div><div class=3D"gmail_default" style=3D"font-size:small"><s=
+pan class=3D"gmail_default"><br></span></div><div class=3D"gmail_default" s=
+tyle=3D"font-size:small"><span class=3D"gmail_default">So I especially run =
+with GitHub CI and got pretty compiling results, then I have</span></div><d=
+iv class=3D"gmail_default" style=3D"font-size:small"><span class=3D"gmail_d=
+efault">a positive=C2=A0</span>attitude on applying these patches unless th=
+ere is someone who</div><div class=3D"gmail_default" style=3D"font-size:sma=
+ll">blames it broken something in a general=C2=A0(but I guess the possibili=
+ty is very little).</div><div class=3D"gmail_default" style=3D"font-size:sm=
+all"><span class=3D"gmail_default"><a href=3D"https://github.com/wangli5665=
+/ltp/runs/3408080506" target=3D"_blank">https://github.com/wangli5665/ltp/r=
+uns/3408080506</a><br></span></div></div><div><div class=3D"gmail_default" =
+style=3D"font-size:small"><br></div></div><div class=3D"gmail_default" styl=
+e=3D"font-size:small">Feel free to add my reviews:</div><div class=3D"gmail=
+_default" style=3D"font-size:small">Reviewed-by: Li Wang &lt;<a href=3D"mai=
+lto:liwang@redhat.com">liwang@redhat.com</a>&gt;<br></div></div><div><br></=
+div>-- <br><div dir=3D"ltr"><div dir=3D"ltr"><div>Regards,<br></div><div>Li=
+ Wang<br></div></div></div></div>
+
+--000000000000bff9d105ca492d3e--
+
+
+--===============0081262829==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============0081262829==--
+
