@@ -1,71 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E8143F6009
-	for <lists+linux-ltp@lfdr.de>; Tue, 24 Aug 2021 16:18:25 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CEA63F617D
+	for <lists+linux-ltp@lfdr.de>; Tue, 24 Aug 2021 17:23:28 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 55BC93C9DEF
-	for <lists+linux-ltp@lfdr.de>; Tue, 24 Aug 2021 16:18:19 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 337E53C93BF
+	for <lists+linux-ltp@lfdr.de>; Tue, 24 Aug 2021 17:23:22 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 0ABC03C0234
- for <ltp@lists.linux.it>; Tue, 24 Aug 2021 16:18:14 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 896643C30C8
+ for <ltp@lists.linux.it>; Tue, 24 Aug 2021 17:23:18 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 7DA5C1400FA9
- for <ltp@lists.linux.it>; Tue, 24 Aug 2021 16:18:14 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 99C98600631
+ for <ltp@lists.linux.it>; Tue, 24 Aug 2021 17:23:17 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id CFA152005C
- for <ltp@lists.linux.it>; Tue, 24 Aug 2021 14:18:13 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id A7333220B3;
+ Tue, 24 Aug 2021 15:23:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1629814693; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=w1jh1LZeTUK+aqwl9c07KP2tfMo6S0P/UuuysqMkWhQ=;
- b=a3svJ8nNItWv7J25VE17Ju7m/r+eLtkP4ojxvtvk6Hpo5sQ298zWHYZJ/838lWbuoz4jcQ
- PVKDnQ6//1j50ZODHnxoGSAOTIB1vpL9BcezWPbx4Gohk6HzL1NF6ck4SzfodqgPeQx3xR
- xEweCX+nfTCnYi4wcipWEc+a7vEPKS4=
+ t=1629818596; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=vuTer6G5eQKhQwYstR2ij54S+CYfAJyS5seBokSjqJM=;
+ b=PmI+1XKXoELS/k6IJzaTUYrfRLmjN1GESq1I6MwlWak+qVhDFGMqri8XLXZeWEj1A8kqhS
+ GYGepAw3jtYTkelB3PNqzRLqKcFlzNmzFTzF4qUIivuQigGLpfXSqFCCMjO/ElIj9nFjrw
+ nf0hLGDkMGTauqaxiqoPws+SM/hjp/8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1629814693;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=w1jh1LZeTUK+aqwl9c07KP2tfMo6S0P/UuuysqMkWhQ=;
- b=Cl+LwK6syLS8pp5hFevMrAUP0NYVl1IsQbGsJ7S9uJcAdRD0FhU90UuYdJj7NQNhjuAJET
- v4SX584ZcogY39Cw==
+ s=susede2_ed25519; t=1629818596;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=vuTer6G5eQKhQwYstR2ij54S+CYfAJyS5seBokSjqJM=;
+ b=E+RvhVgyVdtp0G7tHJ/Nf+yNDp+xu+d8Ov0dVXzIBjeQEmjdPj1wA7stXW8C6vyoAVFxe+
+ G39uyOyiVZov1tCg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B478813AC6
- for <ltp@lists.linux.it>; Tue, 24 Aug 2021 14:18:13 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 85D2813AFF;
+ Tue, 24 Aug 2021 15:23:16 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id KnauK6X/JGHsBwAAMHmgww
- (envelope-from <chrubis@suse.cz>)
- for <ltp@lists.linux.it>; Tue, 24 Aug 2021 14:18:13 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id wNXrHuQOJWEoGwAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Tue, 24 Aug 2021 15:23:16 +0000
+Date: Tue, 24 Aug 2021 17:23:23 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
-To: ltp@lists.linux.it
-Date: Tue, 24 Aug 2021 16:18:20 +0200
-Message-Id: <20210824141820.8685-1-chrubis@suse.cz>
-X-Mailer: git-send-email 2.31.1
+To: Xie Ziyao <xieziyao@huawei.com>
+Message-ID: <YSUO65AuSLD3X5Xb@yuki>
+References: <20210817064924.127970-1-xieziyao@huawei.com>
+ <20210817064924.127970-2-xieziyao@huawei.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20210817064924.127970-2-xieziyao@huawei.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [COMMITTED] [PATCH] syscalls/sync_file_range02: Rewrite the
- decription
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/7] epoll_ctl: Add docparse formatting and
+ cleanup for epoll_ctl01
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,43 +80,18 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Into a docparse format.
+Hi!
+Pushed, thanks.
 
-Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
----
- .../syscalls/sync_file_range/sync_file_range02.c       | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
-
-diff --git a/testcases/kernel/syscalls/sync_file_range/sync_file_range02.c b/testcases/kernel/syscalls/sync_file_range/sync_file_range02.c
-index f9693089b..5da751c70 100644
---- a/testcases/kernel/syscalls/sync_file_range/sync_file_range02.c
-+++ b/testcases/kernel/syscalls/sync_file_range/sync_file_range02.c
-@@ -4,12 +4,12 @@
-  * Author: Sumit Garg <sumit.garg@linaro.org>
-  */
- 
--/*
-- * sync_file_range02
-+/*\
-+ * [Description]
-  *
-- * It basically tests sync_file_range() to sync test file range having large
-- * dirty file pages to block device. Also, it tests all supported filesystems
-- * on a test block device.
-+ * Tests if sync_file_range() does sync a test file range with a many dirty pages
-+ * to a block device. Also, it tests all supported filesystems on a test block
-+ * device.
-  */
- 
- #define _GNU_SOURCE
 -- 
-2.31.1
-
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
