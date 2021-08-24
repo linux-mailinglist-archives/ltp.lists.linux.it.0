@@ -2,47 +2,47 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4D973F5DB5
-	for <lists+linux-ltp@lfdr.de>; Tue, 24 Aug 2021 14:13:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9A4E3F5DC5
+	for <lists+linux-ltp@lfdr.de>; Tue, 24 Aug 2021 14:17:50 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B0B683C31F2
-	for <lists+linux-ltp@lfdr.de>; Tue, 24 Aug 2021 14:13:22 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 24C553C31F4
+	for <lists+linux-ltp@lfdr.de>; Tue, 24 Aug 2021 14:17:40 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 4AC2E3C03AB
- for <ltp@lists.linux.it>; Tue, 24 Aug 2021 14:13:19 +0200 (CEST)
-Received: from ATCSQR.andestech.com (atcsqr.andestech.com [60.248.187.195])
+ by picard.linux.it (Postfix) with ESMTPS id 790313C03AB
+ for <ltp@lists.linux.it>; Tue, 24 Aug 2021 14:17:38 +0200 (CEST)
+Received: from ATCSQR.andestech.com (exmail.andestech.com [60.248.187.195])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 855E71000DF0
- for <ltp@lists.linux.it>; Tue, 24 Aug 2021 14:13:16 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 4A57420004A
+ for <ltp@lists.linux.it>; Tue, 24 Aug 2021 14:17:36 +0200 (CEST)
 Received: from mail.andestech.com (atcpcs16.andestech.com [10.0.1.222])
- by ATCSQR.andestech.com with ESMTP id 17OCCciY073194;
- Tue, 24 Aug 2021 20:12:38 +0800 (GMT-8)
+ by ATCSQR.andestech.com with ESMTP id 17OCH71g075744;
+ Tue, 24 Aug 2021 20:17:07 +0800 (GMT-8)
  (envelope-from ycliang@andestech.com)
 Received: from ubuntu02 (10.0.12.212) by ATCPCS16.andestech.com (10.0.1.222)
- with Microsoft SMTP Server id 14.3.498.0; Tue, 24 Aug 2021 20:12:38 +0800
-Date: Tue, 24 Aug 2021 20:12:31 +0800
+ with Microsoft SMTP Server id 14.3.498.0; Tue, 24 Aug 2021 20:17:06 +0800
+Date: Tue, 24 Aug 2021 20:16:59 +0800
 From: Leo Liang <ycliang@andestech.com>
 To: <ltp@lists.linux.it>
-Message-ID: <YSTiLyXItnm6UdyR@ubuntu02>
+Message-ID: <YSTjO2rjk9sWRSWD@ubuntu02>
 MIME-Version: 1.0
 Content-Disposition: inline
 User-Agent: Mutt/2.0.5 (2021-01-21)
 X-Originating-IP: [10.0.12.212]
 X-DNSRBL: 
-X-MAIL: ATCSQR.andestech.com 17OCCciY073194
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-MAIL: ATCSQR.andestech.com 17OCH71g075744
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
 Subject: [LTP] [PATCH v7,
- 0/4] cgroup/cgroup_regression_test: Fix umount failure
+ 1/4] lib: tst_umount: umount a mount point instead of a device
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,65 +54,72 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: "richiejp@f-m.fm" <richiejp@f-m.fm>, ycliang@cs.nctu.edu.tw, Alan
- Quey-Liang =?utf-8?B?S2FvKOmrmOmtgeiJryk=?= <alankao@andestech.com>,
- "metan@ucw.cz" <metan@ucw.cz>
+Cc: richiejp@f-m.fm, ycliang@cs.nctu.edu.tw, alankao@andestech.com,
+ metan@ucw.cz
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-The test sequence
-	mount -t cgroup -o <controllers> <path>
-	mkdir <path>/<dir>
-	rmdir <path>/<dir>
-	umount <path>
-	mount -t cgroup -o <controllers> <path>
-would easily fail at the last mount with -EBUSY on certain platform.
+Current check inside tst_umount for whehter a device is mounted is ambiguous.
+Fix it by checking for the existance of the exact mount point the fs is mounted upon,
+and use the mount point instead of the device to do the umount process.
+This patch make tst_umount umount TST_MNTPOINT by default,
+and reject any argument that does not start with '/'.
 
-Adding a little delay between "rmdir" and "umount" could fix the problem,
-so use tst_umount API instead of umount in "rmdir, umount" sequence.
+Signed-off-by: Leo Yu-Chi Liang <ycliang@andestech.com>
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
+---
+ testcases/lib/tst_test.sh | 18 +++++++++++-------
+ 1 file changed, 11 insertions(+), 7 deletions(-)
 
-tst_umount API is ambiguous when checking for whether a device is mounted.
-Modify it to check an actual mount point instead of device
-and reject anything that does not start with '/' as an argument.
-
-Changes since v1
-- Use "tst_umount" instead of "sync" as suggested
-- Make "tst_umount" work with argument that has terminating slash
-
-Changes since v2
-- Filter out the trailing slash instead of using mountpoint command
-
-Changes since v3
-- Filter out the trailing slash only in grep command
-- Add comment in the test script
-
-Changes since v4
-- Remove unnecessary stderr redirection
-
-Changes since v5
-- Make tst_umount to only accept absolute mount point as an argument
-- Modify tests that use tst_umount to pass mount point in instead of device
-
-Changes since v6
-- Use grep instead of "bashism [[]]" to determine if the argument starts with '/'
-- Change the default TST_MNTPOINT to $PWD/mntpoint
-
-Leo Yu-Chi Liang (4):
-  lib: tst_umount: umount a mount point instead of a device
-  doc: change the default behavior of tst_umount
-  cgroup/cgroup_regression_test: Fix umount failure
-  Make argument to tst_umount an absolute path
-
- doc/shell-test-api.txt                        |  8 ++++----
- .../cgroup/cgroup_regression_test.sh          | 10 +++++-----
- .../fs/quota_remount/quota_remount_test01.sh  |  2 +-
- .../integrity/ima/tests/evm_overlay.sh        |  2 +-
- .../tracing/dynamic_debug/dynamic_debug01.sh  |  2 +-
- testcases/lib/tst_test.sh                     | 20 +++++++++++--------
- 6 files changed, 24 insertions(+), 20 deletions(-)
-
+diff --git a/testcases/lib/tst_test.sh b/testcases/lib/tst_test.sh
+index 78e2760e7..33015616d 100644
+--- a/testcases/lib/tst_test.sh
++++ b/testcases/lib/tst_test.sh
+@@ -279,31 +279,35 @@ tst_mount()
+ 
+ tst_umount()
+ {
+-	local device="${1:-$TST_DEVICE}"
++	local mntpoint="${1:-$TST_MNTPOINT}"
+ 	local i=0
+ 
+-	[ -z "$device" ] && return
++	[ -z "$mntpoint" ] && return
+ 
+-	if ! grep -q "$device" /proc/mounts; then
+-		tst_res TINFO "The $device is not mounted, skipping umount"
++	if ! echo "$mntpoint" | grep -q ^/; then
++		tst_brk TCONF "The '$mntpoint' is not an absolute path"
++	fi
++
++	if ! grep -q "${mntpoint%/}" /proc/mounts; then
++		tst_res TINFO "The '$mntpoint' is not mounted upon, skipping umount"
+ 		return
+ 	fi
+ 
+ 	while [ "$i" -lt 50 ]; do
+-		if umount "$device" > /dev/null; then
++		if umount "$mntpoint" > /dev/null; then
+ 			return
+ 		fi
+ 
+ 		i=$((i+1))
+ 
+-		tst_res TINFO "umount($device) failed, try $i ..."
++		tst_res TINFO "umount($mntpoint) failed, try $i ..."
+ 		tst_res TINFO "Likely gvfsd-trash is probing newly mounted "\
+ 		              "fs, kill it to speed up tests."
+ 
+ 		tst_sleep 100ms
+ 	done
+ 
+-	tst_res TWARN "Failed to umount($device) after 50 retries"
++	tst_res TWARN "Failed to umount($mntpoint) after 50 retries"
+ }
+ 
+ tst_mkfs()
 -- 
 2.17.0
 
