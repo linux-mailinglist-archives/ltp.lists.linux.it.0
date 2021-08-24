@@ -1,47 +1,71 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 130723F5DD2
-	for <lists+linux-ltp@lfdr.de>; Tue, 24 Aug 2021 14:20:35 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id C38353F5E30
+	for <lists+linux-ltp@lfdr.de>; Tue, 24 Aug 2021 14:46:40 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 433D93C31F7
-	for <lists+linux-ltp@lfdr.de>; Tue, 24 Aug 2021 14:20:29 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B4C043C31FA
+	for <lists+linux-ltp@lfdr.de>; Tue, 24 Aug 2021 14:46:34 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 245BC3C30CC
- for <ltp@lists.linux.it>; Tue, 24 Aug 2021 14:20:28 +0200 (CEST)
-Received: from ATCSQR.andestech.com (exmail.andestech.com [60.248.187.195])
+ by picard.linux.it (Postfix) with ESMTPS id DC0B73C3189
+ for <ltp@lists.linux.it>; Tue, 24 Aug 2021 14:46:32 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 099106005CC
+ for <ltp@lists.linux.it>; Tue, 24 Aug 2021 14:46:31 +0200 (CEST)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 621F01FD8B;
+ Tue, 24 Aug 2021 12:46:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1629809191;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Z5nOhePZn8kiSO6TcmVfZzxNvKAJ+MAuUSXcA2Q0vH4=;
+ b=dePeHnnwXoROrIam/Es9LTEPMFku8bX3na1LOrRb2tgYtSnVkqrAMISCElCEJvDk8c6AkN
+ 5Dz3bAlmqjcGdGwc/2Co0TOP7J4Pf15EpfY4yGG4vue08Jfwpz+RJnBuxO8A6NchxTyfDj
+ 4M3OoTOf+aEx6E4hdMTRKFffIpezowQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1629809191;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Z5nOhePZn8kiSO6TcmVfZzxNvKAJ+MAuUSXcA2Q0vH4=;
+ b=0U+gE75Fec3xf9/jcKzocTwWzSgnd0+L3gPeRxT4jnyX/R0Z4Ia7jiZVpuxHbBw5x8oNzD
+ vlqff/uRQcCdNrBA==
+Received: from g78 (unknown [10.163.24.38])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 39964200AEA
- for <ltp@lists.linux.it>; Tue, 24 Aug 2021 14:20:26 +0200 (CEST)
-Received: from mail.andestech.com (atcpcs16.andestech.com [10.0.1.222])
- by ATCSQR.andestech.com with ESMTP id 17OCK0WO076231;
- Tue, 24 Aug 2021 20:20:00 +0800 (GMT-8)
- (envelope-from ycliang@andestech.com)
-Received: from ubuntu02 (10.0.12.212) by ATCPCS16.andestech.com (10.0.1.222)
- with Microsoft SMTP Server id 14.3.498.0; Tue, 24 Aug 2021 20:20:02 +0800
-Date: Tue, 24 Aug 2021 20:19:56 +0800
-From: Leo Liang <ycliang@andestech.com>
-To: <ltp@lists.linux.it>
-Message-ID: <YSTj7CB6PdG2HZsQ@ubuntu02>
+ by relay2.suse.de (Postfix) with ESMTPS id 22EE4A3B81;
+ Tue, 24 Aug 2021 12:46:31 +0000 (UTC)
+References: <20210823150520.25614-1-chrubis@suse.cz>
+ <20210823150520.25614-2-chrubis@suse.cz>
+ <CAEemH2dYcF=N3F=MZXPVLgBHBa3Xt=iT8ACeQ4_9THXu-kyYtA@mail.gmail.com>
+ <YSSyVtSF6UmqYlu4@yuki>
+ <CAEemH2dpz577XH6q2fEw7uHYOvOORs8NLT_CroRvOnoAK2jQnw@mail.gmail.com>
+User-agent: mu4e 1.4.15; emacs 27.2
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Li Wang <liwang@redhat.com>
+In-reply-to: <CAEemH2dpz577XH6q2fEw7uHYOvOORs8NLT_CroRvOnoAK2jQnw@mail.gmail.com>
+Date: Tue, 24 Aug 2021 13:46:25 +0100
+Message-ID: <87mtp7ko2m.fsf@suse.de>
 MIME-Version: 1.0
-Content-Disposition: inline
-User-Agent: Mutt/2.0.5 (2021-01-21)
-X-Originating-IP: [10.0.12.212]
-X-DNSRBL: 
-X-MAIL: ATCSQR.andestech.com 17OCK0WO076231
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH v7, 4/4] Make argument to tst_umount an absolute path
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/3] tst_test_macros: Fix TST_EXP_*() default
+ message
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,81 +77,50 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: richiejp@f-m.fm, ycliang@cs.nctu.edu.tw, alankao@andestech.com,
- metan@ucw.cz
+Reply-To: rpalethorpe@suse.de
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-tst_umount only takes mount point as an argument,
-so modify the argument to an absolute path for tst_umount.
+Hello,
 
-df01.sh uses tst_umount as clean up function,
-modify its default TST_MNTPOINT to $PWD/mntpoint in tst_test.sh
+Li Wang <liwang@redhat.com> writes:
 
-Signed-off-by: Leo Yu-Chi Liang <ycliang@andestech.com>
----
- testcases/kernel/fs/quota_remount/quota_remount_test01.sh    | 2 +-
- testcases/kernel/security/integrity/ima/tests/evm_overlay.sh | 2 +-
- testcases/kernel/tracing/dynamic_debug/dynamic_debug01.sh    | 2 +-
- testcases/lib/tst_test.sh                                    | 2 +-
- 4 files changed, 4 insertions(+), 4 deletions(-)
+> On Tue, Aug 24, 2021 at 4:48 PM Cyril Hrubis <chrubis@suse.cz> wrote:
+>
+>> Hi!
+>> > Patchset looks good from the code layer though it is a bit complicate
+>> > in 2/3 stringify handling, but that should be acceptable.
+>> >
+>> > My only hesitating is about ##__VA_ARGS__, because it says that is still
+>> > as GNU's extension but have not got into standard C.
+>>
+>> Note that we have been using it in the header from the start. There were
+>> just a few places where it was missing, mostly in the variants that have
+>> been added later.
+>>
+>
+> Ah great, I was neglect that point.  Hence it should be safe enough.
+>
+> -- 
+> Regards,
+> Li Wang
 
-diff --git a/testcases/kernel/fs/quota_remount/quota_remount_test01.sh b/testcases/kernel/fs/quota_remount/quota_remount_test01.sh
-index e84716c03..1b4bdbb99 100755
---- a/testcases/kernel/fs/quota_remount/quota_remount_test01.sh
-+++ b/testcases/kernel/fs/quota_remount/quota_remount_test01.sh
-@@ -32,7 +32,7 @@ do_setup()
- do_clean()
- {
- 	[ "$mounted" ] || return
--	tst_umount $MNTDIR
-+	tst_umount $PWD/$MNTDIR
- 	mounted=
- }
- 
-diff --git a/testcases/kernel/security/integrity/ima/tests/evm_overlay.sh b/testcases/kernel/security/integrity/ima/tests/evm_overlay.sh
-index 9d86778b6..23a5ec556 100755
---- a/testcases/kernel/security/integrity/ima/tests/evm_overlay.sh
-+++ b/testcases/kernel/security/integrity/ima/tests/evm_overlay.sh
-@@ -83,7 +83,7 @@ cleanup()
- {
- 	[ -n "$mounted" ] || return 0
- 
--	tst_umount $TST_DEVICE
-+	tst_umount $TST_MNTPOINT
- 
- 	TST_DEVICE="$device_backup"
- 	TST_FS_TYPE="$fs_type_backup"
-diff --git a/testcases/kernel/tracing/dynamic_debug/dynamic_debug01.sh b/testcases/kernel/tracing/dynamic_debug/dynamic_debug01.sh
-index 7f06c2488..fd5ee06c8 100755
---- a/testcases/kernel/tracing/dynamic_debug/dynamic_debug01.sh
-+++ b/testcases/kernel/tracing/dynamic_debug/dynamic_debug01.sh
-@@ -38,7 +38,7 @@ mount_debugfs()
- 		if ! grep -q debugfs /proc/filesystems ; then
- 			tst_res TCONF "debugfs not supported"
- 		fi
--		DEBUGFS_PATH="./tst_debug"
-+		DEBUGFS_PATH="$PWD/tst_debug"
- 		mkdir "$DEBUGFS_PATH"
- 		if mount -t debugfs xxx "$DEBUGFS_PATH" ; then
- 			tst_res TINFO "debugfs mounted at $DEBUGFS_PATH"
-diff --git a/testcases/lib/tst_test.sh b/testcases/lib/tst_test.sh
-index 33015616d..ab9c5c6b9 100644
---- a/testcases/lib/tst_test.sh
-+++ b/testcases/lib/tst_test.sh
-@@ -632,7 +632,7 @@ tst_run()
- 		cd "$TST_TMPDIR"
- 	fi
- 
--	TST_MNTPOINT="${TST_MNTPOINT:-mntpoint}"
-+	TST_MNTPOINT="${TST_MNTPOINT:-$PWD/mntpoint}"
- 	if [ "$TST_NEEDS_DEVICE" = 1 ]; then
- 
- 		TST_DEVICE=$(tst_device acquire)
+There is also __VA_OPT__(,) which can't be confused with concatenation.
+
+I'm not sure we should use it thought, it seems like it was only
+recently added to other compilers. Still might be a good idea to link to
+the following page somewhere:
+
+https://gcc.gnu.org/onlinedocs/cpp/Variadic-Macros.html#Variadic-Macros
+
+LGTM otherwise!
+
 -- 
-2.17.0
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
