@@ -1,75 +1,73 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D52003F5ED0
-	for <lists+linux-ltp@lfdr.de>; Tue, 24 Aug 2021 15:17:29 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 775743F5E79
+	for <lists+linux-ltp@lfdr.de>; Tue, 24 Aug 2021 14:58:07 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 868E73C8DD1
-	for <lists+linux-ltp@lfdr.de>; Tue, 24 Aug 2021 15:17:28 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C9C6D3C31F4
+	for <lists+linux-ltp@lfdr.de>; Tue, 24 Aug 2021 14:58:06 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 2BA263C3189
- for <ltp@lists.linux.it>; Tue, 24 Aug 2021 14:56:07 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 294B83C03AB
+ for <ltp@lists.linux.it>; Tue, 24 Aug 2021 14:58:03 +0200 (CEST)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 53D5660007C
- for <ltp@lists.linux.it>; Tue, 24 Aug 2021 14:56:06 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 4EF2720015D
+ for <ltp@lists.linux.it>; Tue, 24 Aug 2021 14:58:02 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 5A28E220C6;
- Tue, 24 Aug 2021 12:56:06 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 5DC84220B4;
+ Tue, 24 Aug 2021 12:58:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1629809766; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1629809882; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=Z2T4LzZzWhOX2u4iWQkW4B5J8yOMqZz6b8MvFVh0hEY=;
- b=O0gT+HSdholIJOHfzS5rnWnjAwTAksWbkk9kC5i6iHHm5nLZ0tWOv5zxlg9nJbOMbAsWST
- pejMhy04/feX4hcQ8qWRhKnrW4Fq8uum2R7uybSQXo+bPNI5nDRQeRaxYm0QbCPi/aL81h
- xVhm6KbwZ4dowGEMGHhlY53ZqWhHiOg=
+ bh=+qEjuQevZqyO6CweEJ3yMgcImI5q9b4HueNFxukrWBY=;
+ b=CXJrAR35u1uvTqQ5jUpVywcJrUnY5NE2Mjvg+O9HXl5gikrNf+5ucTWYw8kBQzhdVgmKWI
+ EtXlJMsyElhKr7iEjBv7UDFyUpuu9Yty7FmnCJe51CnG2adLrv5QgXkRKMI67m0XNbAOsY
+ lwz6Po+QYHyv8pqhTC6ylFIYU8qeqzI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1629809766;
+ s=susede2_ed25519; t=1629809882;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=Z2T4LzZzWhOX2u4iWQkW4B5J8yOMqZz6b8MvFVh0hEY=;
- b=Fi0LV0Z9nGj+brPr6+d3ZUE/xdhbU97MDkYWsqU785JeHYsB2+4xrVDp/JZIstGdP2tVXF
- dWBjjd31UrhKNZCw==
+ bh=+qEjuQevZqyO6CweEJ3yMgcImI5q9b4HueNFxukrWBY=;
+ b=a+WWPTrAFiu/c0zANVR/dZ18qw9M0Y9lBrcMYTdaTSzMAnQJ8G1oOJyBl1H6tdeVs8k0pV
+ l+IbYXdpYH3IqEDQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 258D913ABB;
- Tue, 24 Aug 2021 12:56:05 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4035313AB9;
+ Tue, 24 Aug 2021 12:58:02 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id jyb7L2XsJGGLbwAAMHmgww
- (envelope-from <chrubis@suse.cz>); Tue, 24 Aug 2021 12:56:05 +0000
-Date: Tue, 24 Aug 2021 14:56:12 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id 9pdCD9rsJGFBcAAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Tue, 24 Aug 2021 12:58:02 +0000
+Date: Tue, 24 Aug 2021 14:58:08 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Leo Liang <ycliang@andestech.com>
-Message-ID: <YSTsbAIgIyih05tb@yuki>
-References: <YSTjO2rjk9sWRSWD@ubuntu02>
+Message-ID: <YSTs4BQEoGMIRpaz@yuki>
+References: <YSTjfqHs/vgYmU2l@ubuntu02>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <YSTjO2rjk9sWRSWD@ubuntu02>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+In-Reply-To: <YSTjfqHs/vgYmU2l@ubuntu02>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-X-Mailman-Approved-At: Tue, 24 Aug 2021 15:17:25 +0200
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH v7,
- 1/4] lib: tst_umount: umount a mount point instead of a device
+ 2/4] doc: change the default behavior of tst_umount
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,17 +87,6 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> +		tst_res TINFO "The '$mntpoint' is not mounted upon, skipping umount"
-                                                                 ^
-								I would
-								remove
-								this
-								'upon'
-								here
-
-
-Otherwise:
-
 Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
 
 -- 
