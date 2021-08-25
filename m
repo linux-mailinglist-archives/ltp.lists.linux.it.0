@@ -2,74 +2,51 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A6693F72E9
-	for <lists+linux-ltp@lfdr.de>; Wed, 25 Aug 2021 12:23:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BB723F7357
+	for <lists+linux-ltp@lfdr.de>; Wed, 25 Aug 2021 12:32:46 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id EE8883C30BC
-	for <lists+linux-ltp@lfdr.de>; Wed, 25 Aug 2021 12:23:51 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 3B0B33C9D9F
+	for <lists+linux-ltp@lfdr.de>; Wed, 25 Aug 2021 12:32:46 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 2A8DE3C2F77
- for <ltp@lists.linux.it>; Wed, 25 Aug 2021 12:23:47 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id 79FF43C2F77
+ for <ltp@lists.linux.it>; Wed, 25 Aug 2021 12:32:43 +0200 (CEST)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 5F80C200ACF
- for <ltp@lists.linux.it>; Wed, 25 Aug 2021 12:23:47 +0200 (CEST)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id B9F8322155;
- Wed, 25 Aug 2021 10:23:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1629887026;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=nRFZ+PjbHz5KebZfHYBJeBd9B5zMu8u9aE0mODmzMco=;
- b=jasmNqmI1yQeu73VzJeCazsGHOMppYf7IabmpAEceJNrXln2BQRjB6vNKS9R2x/6EHFL5k
- LNgguFQmVf98iGYneG8SsBWUj5CZOcn5k/HlyBlGYsY0qIWj1NqhXKORpI4FcJUPZ4+5Y3
- G9JuIwPUbkH7u22OYGSncrjEKFZLbVA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1629887026;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=nRFZ+PjbHz5KebZfHYBJeBd9B5zMu8u9aE0mODmzMco=;
- b=Le/GpEZMUFlk1ZbctKkMmHynxKiFyfxoULTc1baMWBrQNYvtu4DdzOF+gFbpQuXuoDf+NS
- iUA46Qr/z7Kg4QDA==
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 84BB613732;
- Wed, 25 Aug 2021 10:23:46 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id uwTLHTIaJmEtEAAAGKfGzw
- (envelope-from <pvorel@suse.cz>); Wed, 25 Aug 2021 10:23:46 +0000
-Date: Wed, 25 Aug 2021 12:23:44 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <YSYaMDCCTwwC8NW+@pevik>
-References: <20210825080933.12949-1-pvorel@suse.cz> <YSYGy3cewt9Sseb/@yuki>
- <YSYIt9TqTBU0AVKk@pevik> <YSYLVsq/UshH9wFx@yuki>
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id BEE101400C52
+ for <ltp@lists.linux.it>; Wed, 25 Aug 2021 12:32:42 +0200 (CEST)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id C8BC561139;
+ Wed, 25 Aug 2021 10:32:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1629887560;
+ bh=riIUKt2+jXTF9OV5PivRYHe4RIB9mskvpwhkELCFFzs=;
+ h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+ b=NgEHl53QL1cXNSyGNVT7rkSdYOtwQyFr3rZmUDMWELpYVDmjrd0eoiB43FFuHCo/F
+ 44VZ+YaJofRXqzZQygrdtc6G8O7gxHWFcHTJ2ABrGkMZGn79nseCxioPqSLvZvF9JQ
+ CmJzB/XqTDYMuDjTAjEWUM/odBNaLb7LQcOsYLE/cBqqtFCVQgdGTbHcWCviOLKgQn
+ +sE1HvhOkV2CEjkejdQX2f3k9AIn2xpN8FaNsUm4O7BEALAp8cOknCbh6kTML9npKr
+ l1d3BbHq2Kh/YXipK7a2oMYi8myPb/HH0CMSVO/s3LufiPXIMAGAVp068Zjf/Cs3mL
+ pT1Fv6ROk2PCw==
+Message-ID: <cf358b73cbda90fd6c023f3a59a8df94698cf0bc.camel@kernel.org>
+From: Jeff Layton <jlayton@kernel.org>
+To: kernel test robot <oliver.sang@intel.com>
+Date: Wed, 25 Aug 2021 06:32:38 -0400
+In-Reply-To: <20210825051710.GA5358@xsang-OptiPlex-9020>
+References: <20210825051710.GA5358@xsang-OptiPlex-9020>
+User-Agent: Evolution 3.40.4 (3.40.4-1.fc34) 
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <YSYLVsq/UshH9wFx@yuki>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 0/3] New API: Rename LTP_IPC_PATH -> TST_IPC_PATH
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [fs]  f7e33bdbd6: ltp.ftruncate04_64.fail
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,37 +58,80 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>, ltp@lists.linux.it
+Cc: lkp@lists.01.org, LKML <linux-kernel@vger.kernel.org>, ltp@lists.linux.it,
+ lkp@intel.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Cyril, Joerg,
+On Wed, 2021-08-25 at 13:17 +0800, kernel test robot wrote:
+> 
+> Greeting,
+> 
+> FYI, we noticed the following commit (built with gcc-9):
+> 
+> commit: f7e33bdbd6d1bdf9c3df8bba5abcf3399f957ac3 ("fs: remove mandatory file locking support")
+> https://git.kernel.org/cgit/linux/kernel/git/jlayton/linux.git locks-next
+> 
+> 
+> in testcase: ltp
+> version: ltp-x86_64-14c1f76-1_20210821
+> with following parameters:
+> 
+> 	disk: 1HDD
+> 	fs: ext4
+> 	test: syscalls-07
+> 	ucode: 0xe2
+> 
+> test-description: The LTP testsuite contains a collection of tools for testing the Linux kernel and related features.
+> test-url: http://linux-test-project.github.io/
+> 
+> 
+> on test machine: 4 threads Intel(R) Core(TM) i5-6500 CPU @ 3.20GHz with 32G memory
+> 
+> caused below changes (please refer to attached dmesg/kmsg for entire log/backtrace):
+> 
+> 
+> 
 
-> Hi!
-> > > As it is it's pretty clear where the environment variable comes from, if
-> > > we rename it to TST_IPC_PATH it's not obvious that this has been
-> > > exported by LTP test.
-> > I was thinking about it as well (just forget to write that into cover letter).
+[...]
 
-> > > Generally things that are visible on the running system tends to be
-> > > prefixed with LTP_ or ltp_ rather than TST_ or tst_...
-> > Sure. I just thought that LTP_ is for variables which are expected to be set by
-> > user. But let's keep the old name. How about the first commit (cleanup)?
+> <<<test_start>>>
+> tag=ftruncate04_64 stime=1629792639
+> cmdline="ftruncate04_64"
+> contacts=""
+> analysis=exit
+> <<<test_output>>>
+> tst_device.c:89: TINFO: Found free device 0 '/dev/loop0'
+> tst_test.c:916: TINFO: Formatting /dev/loop0 with ext2 opts='' extra opts=''
+> mke2fs 1.44.5 (15-Dec-2018)
+> tst_test.c:1348: TINFO: Timeout per run is 0h 25m 00s
+> ftruncate04.c:116: TINFO: Child locks file
+> ftruncate04.c:49: TFAIL: ftruncate() offset before lock succeeded unexpectedly
+> ftruncate04.c:49: TFAIL: ftruncate() offset in lock succeeded unexpectedly
+> ftruncate04.c:84: TPASS: ftruncate() offset after lock succeded
+> ftruncate04.c:127: TINFO: Child unlocks file
+> ftruncate04.c:84: TPASS: ftruncate() offset in lock succeded
+> ftruncate04.c:84: TPASS: ftruncate() offset before lock succeded
+> ftruncate04.c:84: TPASS: ftruncate() offset after lock succeded
+> 
+> Summary:
+> passed   4
+> failed   2
+> broken   0
+> skipped  0
+> warnings 0
 
-> There is no such rule I guess.
+I think this failed because of the above, which is expected now that we
+ignore the "mand" mount option (and mandatory locking support is gone).
 
-> It has been case by case, for instance we do have KCONFIG_PATH which we
-> agreed on with the testing community to be a canonical variable name
-> that is shared between different frameworks.
+Oliver, you may need to update the expected test output for this test.
 
-Ah, thanks for info. Obviously there cannot be rules for everything :).
-Thanks both for your time.
+Thanks,
+-- 
+Jeff Layton <jlayton@kernel.org>
 
-Kind regards,
-Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
