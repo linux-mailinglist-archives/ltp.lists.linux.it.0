@@ -1,53 +1,75 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1310C3F7101
-	for <lists+linux-ltp@lfdr.de>; Wed, 25 Aug 2021 10:18:29 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 18ABA3F7158
+	for <lists+linux-ltp@lfdr.de>; Wed, 25 Aug 2021 11:00:51 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id AEB303C304E
-	for <lists+linux-ltp@lfdr.de>; Wed, 25 Aug 2021 10:18:28 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id D25A23C3015
+	for <lists+linux-ltp@lfdr.de>; Wed, 25 Aug 2021 11:00:50 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 2C47C3C2FB4
- for <ltp@lists.linux.it>; Wed, 25 Aug 2021 10:18:27 +0200 (CEST)
-Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
+ by picard.linux.it (Postfix) with ESMTPS id 7E2AA3C2F5A
+ for <ltp@lists.linux.it>; Wed, 25 Aug 2021 11:00:48 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id BD564623492
- for <ltp@lists.linux.it>; Wed, 25 Aug 2021 10:18:26 +0200 (CEST)
-Received: from [192.168.178.40] (unknown [188.192.255.100])
- by mail.jv-coder.de (Postfix) with ESMTPSA id E10CA9F750;
- Wed, 25 Aug 2021 08:18:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
- t=1629879506; bh=JGf1JqzOC6Cz3s+wegq96WZf4T3MHmm+GxNI+zUrdpk=;
- h=Subject:To:From:Message-ID:Date:MIME-Version;
- b=vA9kw6lzeGHF0pfdLQhyJT8rBQ8cuWO1b8mX5QnFLPzk3DSMvOEqqATz00/koNtyV
- 7ZFkVgVGsSxcReP+qcDGFhwbmigSDfC4OvLutp1Okh8m78EqGZ/HBr4SkFIpgNNuHS
- iAWQVopTdhRyvzuYOFqeHdNuCFxgXf5RyGqFqzmQ=
-To: Petr Vorel <pvorel@suse.cz>, ltp@lists.linux.it
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 279FC6018B8
+ for <ltp@lists.linux.it>; Wed, 25 Aug 2021 11:00:32 +0200 (CEST)
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 5E0B522118;
+ Wed, 25 Aug 2021 09:00:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1629882032;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=TSIjOU9HoG+HrLjIxsLowx69g9HN7bIqW6YFpr8ypgM=;
+ b=jUX0XYWRnnKX+X43CcKoiUYQ3odpldb+vdgf+hUJQveMQRuiDBH4zXVeOahl7NPknkzLN+
+ ve3nCQXju4q/N5ZJhu+pD+iaVAOu7OXdC4oyZ57pmfzj2V6xqKEayQYbtVDxD3sPzCg34M
+ 8KnmUNG5r/9pKCBan8k6Rc/qHJ0PYrQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1629882032;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=TSIjOU9HoG+HrLjIxsLowx69g9HN7bIqW6YFpr8ypgM=;
+ b=MSUM/n+UyqGlYWag300S8rWvHV2o09aSL1fjqnnqu3+7G419I9l4ynXF6RCoZvy3dKnpx/
+ mQP3aQRsWx7vtmDQ==
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 311D313732;
+ Wed, 25 Aug 2021 09:00:32 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap1.suse-dmz.suse.de with ESMTPSA id IBRPCrAGJmE0fQAAGKfGzw
+ (envelope-from <pvorel@suse.cz>); Wed, 25 Aug 2021 09:00:32 +0000
+Date: Wed, 25 Aug 2021 11:00:30 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Joerg Vehlow <lkml@jv-coder.de>
+Message-ID: <YSYGrt7xn32GxeUm@pevik>
 References: <20210825080933.12949-1-pvorel@suse.cz>
- <20210825080933.12949-4-pvorel@suse.cz>
-From: Joerg Vehlow <lkml@jv-coder.de>
-Message-ID: <8d74045f-3ebc-526d-f875-6ca121475a4d@jv-coder.de>
-Date: Wed, 25 Aug 2021 10:18:27 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+ <20210825080933.12949-3-pvorel@suse.cz>
+ <ba968568-5f0d-07f8-e5df-78f62148a3da@jv-coder.de>
 MIME-Version: 1.0
-In-Reply-To: <20210825080933.12949-4-pvorel@suse.cz>
-Content-Language: en-US
-X-Spam-Status: No, score=-2.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <ba968568-5f0d-07f8-e5df-78f62148a3da@jv-coder.de>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH 3/3] shell API: Rename LTP_IPC_PATH -> TST_IPC_PATH
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 2/3] C API: Rename LTP_IPC_PATH -> TST_IPC_PATH
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,27 +81,23 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>, ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
+Hi Joerg,
 
-On 8/25/2021 10:09 AM, Petr Vorel wrote:
-> To follow the conventions in the new API.
->
-> Keep the old name in the legacy API.
-That doesn't make sense. If you update the variable name in the c api, 
-you also have to update the old shell api (i.e. test.sh).
-Or maybe even remove the code from the old shell api completely. As far 
-as I see there are no users of the checkpoint api anymore.
-Both tests (cn_pec and memcfg/functional) were rewritten. It is probably 
-safe to just drop the old api?
+...
+> > NOTE: IPC is not supported in the legacy API.
+> Do you mean legacy c api here? It is supported. See old_checkpoints.h.
+Ah good, point, thanks! (include/old/old_checkpoint.h). But if I look correctly,
+LTP_IPC_PATH is not used there, right?
 
-Joerg
-
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
