@@ -1,73 +1,73 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id B90513F7784
-	for <lists+linux-ltp@lfdr.de>; Wed, 25 Aug 2021 16:36:55 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3616A3F7797
+	for <lists+linux-ltp@lfdr.de>; Wed, 25 Aug 2021 16:43:01 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6846B3C9D9F
-	for <lists+linux-ltp@lfdr.de>; Wed, 25 Aug 2021 16:36:55 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 964C83C9DA3
+	for <lists+linux-ltp@lfdr.de>; Wed, 25 Aug 2021 16:43:00 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 0CD733C03AB
- for <ltp@lists.linux.it>; Wed, 25 Aug 2021 16:36:50 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id D71623C2F82
+ for <ltp@lists.linux.it>; Wed, 25 Aug 2021 16:42:56 +0200 (CEST)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 7C79D1400E00
- for <ltp@lists.linux.it>; Wed, 25 Aug 2021 16:36:50 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 1AD31200D4A
+ for <ltp@lists.linux.it>; Wed, 25 Aug 2021 16:42:55 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id C5CBA20121;
- Wed, 25 Aug 2021 14:36:49 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 7851320126;
+ Wed, 25 Aug 2021 14:42:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1629902209; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1629902575; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=fTxQUxXugCO0+t62LfB2Algh9pVG3qvos8Oz/m5th0I=;
- b=N9ZC48pj+xSt51eIo4G8AtWJvtGf12NLiTJ8qkFsAFhZYjYdRTBmTlk9o8TEReNALNp8CW
- ROxBbMOUyx813P5AZlwnjgvLumyLCi6NZOq+WZ52jIHkFL7XXjICoPy57rg8USRfqHw+fr
- GseGXz8EQqRU2Ywm4CVGASf+NsBuC7U=
+ bh=U4df2BeyMhs5xW3iwZv80kRR2iFP72O1BMk1vlul7jY=;
+ b=2eEer5T9Wvjmx8FciNwxCWWCwD4ZZ6E5eOjYFsb1lSh7ELzglJQDdmi7tIV+aI/bMW4xMo
+ V7d/nnA/++1AJHn5brs4gXma2sqbc5VUSWKdiYGhQAd5QjD4AF1UDai0deOIzobPbajxoJ
+ 44Zlp+HAL+hb+3bfH7Opdar5EJOU7qI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1629902209;
+ s=susede2_ed25519; t=1629902575;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=fTxQUxXugCO0+t62LfB2Algh9pVG3qvos8Oz/m5th0I=;
- b=BcomAVcX23Bdu26DYzm/0h9Y3I6f342flInDiQoEAld/7Ky3tdN2vdiHplRtgDwkbnWNNY
- 7PyB+NHPcfk+C2CA==
+ bh=U4df2BeyMhs5xW3iwZv80kRR2iFP72O1BMk1vlul7jY=;
+ b=CeXTaBMNeDYnxVbvRAVjZr+uIFR1VWDsv0aKYChk4rqLBOroF1M5gwmy7g61G+U9H25u43
+ vHKlhnc3Giru6KBA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A628613C28;
- Wed, 25 Aug 2021 14:36:49 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 63ECD13C28;
+ Wed, 25 Aug 2021 14:42:55 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id rbypJ4FVJmGubAAAMHmgww
- (envelope-from <chrubis@suse.cz>); Wed, 25 Aug 2021 14:36:49 +0000
-Date: Wed, 25 Aug 2021 16:36:57 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id YQMgF+9WJmFMbgAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Wed, 25 Aug 2021 14:42:55 +0000
+Date: Wed, 25 Aug 2021 16:43:03 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
 To: zhanglianjie <zhanglianjie@uniontech.com>
-Message-ID: <YSZViQMSzkSe9bCf@yuki>
-References: <20210813072731.22500-1-zhanglianjie@uniontech.com>
+Message-ID: <YSZW978RDyWd2UcY@yuki>
+References: <20210813072720.22318-1-zhanglianjie@uniontech.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210813072731.22500-1-zhanglianjie@uniontech.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+In-Reply-To: <20210813072720.22318-1-zhanglianjie@uniontech.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 7/7] syscalls/clone07: Remove the testcase
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 6/7] syscalls/clone06: Convert to new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,14 +86,32 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> -static int do_child(void)
-> -{
-> -	return 0;
-> -}
+> +	if (!TST_PASS)
+> +		return;
+> +
+> +	SAFE_CLOSE(pfd[1]);
+> +	SAFE_READ(1, pfd[0], buff, sizeof(buff));
+> +	SAFE_CLOSE(pfd[0]);
+> 
+> -	cleanup();
+> -	tst_exit();
+> +	parent_env = getenv("TERM") ? : "";
+> +	TST_EXP_PASS(strcmp(buff, parent_env),
+> +				"verify environment variables by child");
 
-As far as I can tell this test is asserting that return from the
-do_child() function exits the child, which is not done in any other
-tests where we do exit the child with _exit(0).
+This is misuse as well. I guess TST_EXP_VAL() could be useable in this
+case as well.
+
+>  }
+> 
+>  static void setup(void)
+>  {
+> -	tst_sig(FORK, DEF_HANDLER, cleanup);
+> -	TEST_PAUSE;
+> +	child_stack = SAFE_MALLOC(CHILD_STACK_SIZE);
+> +	SAFE_PIPE(pfd);
+
+Here as well it would be easier to use a shared memory as IPC.
 
 -- 
 Cyril Hrubis
