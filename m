@@ -1,53 +1,79 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99A383F841E
-	for <lists+linux-ltp@lfdr.de>; Thu, 26 Aug 2021 11:06:01 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 209303F84A2
+	for <lists+linux-ltp@lfdr.de>; Thu, 26 Aug 2021 11:36:15 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D1DA23C93B7
-	for <lists+linux-ltp@lfdr.de>; Thu, 26 Aug 2021 11:06:00 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 3786E3C93B4
+	for <lists+linux-ltp@lfdr.de>; Thu, 26 Aug 2021 11:36:14 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A19843C2E20
- for <ltp@lists.linux.it>; Thu, 26 Aug 2021 11:05:54 +0200 (CEST)
-Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id AA04E3C2E39
+ for <ltp@lists.linux.it>; Thu, 26 Aug 2021 11:36:10 +0200 (CEST)
+Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
+ [IPv6:2a00:1450:4864:20::235])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 3790A1A001EC
- for <ltp@lists.linux.it>; Thu, 26 Aug 2021 11:05:51 +0200 (CEST)
-Received: from dggemv703-chm.china.huawei.com (unknown [172.30.72.57])
- by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4GwGzz6H8Xz8vL6
- for <ltp@lists.linux.it>; Thu, 26 Aug 2021 17:01:35 +0800 (CST)
-Received: from dggpemm500002.china.huawei.com (7.185.36.229) by
- dggemv703-chm.china.huawei.com (10.3.19.46) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2176.2; Thu, 26 Aug 2021 17:04:48 +0800
-Received: from ubuntu1804.huawei.com (10.67.174.55) by
- dggpemm500002.china.huawei.com (7.185.36.229) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2176.2; Thu, 26 Aug 2021 17:04:47 +0800
-From: Wang Kunfeng <threefifteen.wangkunfeng@huawei.com>
-To: <ltp@lists.linux.it>
-Date: Thu, 26 Aug 2021 17:05:11 +0800
-Message-ID: <20210826090511.106853-1-threefifteen.wangkunfeng@huawei.com>
-X-Mailer: git-send-email 2.17.1
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 6B0341A01156
+ for <ltp@lists.linux.it>; Thu, 26 Aug 2021 11:36:09 +0200 (CEST)
+Received: by mail-lj1-x235.google.com with SMTP id j12so3920672ljg.10
+ for <ltp@lists.linux.it>; Thu, 26 Aug 2021 02:36:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=bell-sw-com.20150623.gappssmtp.com; s=20150623;
+ h=subject:to:references:from:message-id:date:user-agent:mime-version
+ :in-reply-to:content-language:content-transfer-encoding;
+ bh=9bCUL0agkRy/bB3orq97M3WQx0a1vMwks4ms2hRz3lM=;
+ b=ynY8aoFJPH5ppraNjikYdytAOJEgbMiP90uZyOTXOvf6FlJ25xHeXOQSP1N5vAGYlK
+ HmYUP+pDX8g4NojxgTSPXEq6bNrV9e8CYUdRRxwaqI4m1VA1LNHwFwBa8GU31G628ZCr
+ f3rgwYvfd+qRmL7Nzn53xpABrqHWIgDe/xFcprE/i0LuE34EEahGwG/m6K3L+yYkQ1lQ
+ HPZtCgcOi+Gbazg8o39M+b+T6XotXqBYtcotXy246dWGBz/NwvtxSrxLtDGjRHR1PyNM
+ DEfSibkY0vbOTAcIz6faY/Cl0BV4wVugj9NDV0zcfluvc/yP9vUVFFI+KRocY5uW3mYK
+ aOGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=9bCUL0agkRy/bB3orq97M3WQx0a1vMwks4ms2hRz3lM=;
+ b=TngvIdGUVkmw2SP2roQ0rsYgpZ0zhGEqckjvwr4QbhSZmWU9eMxQ3dKyK8cE0qQB19
+ 1QhqyQni2L5tksx2H5ztokpH8rcsy2l5rvjoyYPGrYUlnd/FMihk4UG3LDKGEW6DtWAn
+ bx8xBn9YVRwR5h8rxaF5h4jytnS0naW3LTxwaU+obmmyprCgnzqsmVe5fym6yxfzpnI2
+ Ed2M4polwmNhUrbEMm9ljHDmd8MvN168Wx+MMWykxmYAMUDA88S1+rNfh17Y0ItRkWG3
+ 3/4nXEn7NRtLi1NclW4+PLp11KNo1JlbaIXFmEy3qt5pHVxntot6lYIgEjcSLceDh9w+
+ vukw==
+X-Gm-Message-State: AOAM532M7cXo69VHESH9FMnxGZvzgDMe8AIT5IPIJpdiqJjHmXBhG1vn
+ rSHFYunSpEjX9ACEdjin0xz69EcdREwp
+X-Google-Smtp-Source: ABdhPJzRh54uAe1HTrZYQ7d2ezVbpQrNT4qlwKztTWbwf7j1iwGSTlrFw2L27nR1uhbjF+9VuzEmYQ==
+X-Received: by 2002:a2e:a234:: with SMTP id i20mr2273367ljm.38.1629970568425; 
+ Thu, 26 Aug 2021 02:36:08 -0700 (PDT)
+Received: from [192.168.1.52] ([95.161.221.177])
+ by smtp.gmail.com with ESMTPSA id a27sm264517lfm.305.2021.08.26.02.36.07
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 26 Aug 2021 02:36:08 -0700 (PDT)
+To: "suy.fnst@fujitsu.com" <suy.fnst@fujitsu.com>,
+ "ltp@lists.linux.it" <ltp@lists.linux.it>
+References: <TY2PR01MB212429263FC238F44A2C1D7D89C79@TY2PR01MB2124.jpnprd01.prod.outlook.com>
+From: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
+Message-ID: <410b2b2d-9633-7a57-527a-1663afe5f631@bell-sw.com>
+Date: Thu, 26 Aug 2021 12:36:07 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.8.1
 MIME-Version: 1.0
-X-Originating-IP: [10.67.174.55]
-X-ClientProxiedBy: dggems701-chm.china.huawei.com (10.3.19.178) To
- dggpemm500002.china.huawei.com (7.185.36.229)
-X-CFilter-Loop: Reflected
+In-Reply-To: <TY2PR01MB212429263FC238F44A2C1D7D89C79@TY2PR01MB2124.jpnprd01.prod.outlook.com>
+Content-Language: en-US
 X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
+X-Spam-Status: No, score=-1.9 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH] getuid: Convert getuid01 and getuid03 to new API
+Subject: Re: [LTP] [PATCH] network/mpls: sleep 1 after setup in mpls02
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,239 +90,67 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Convert getuid01 and getuid03 to new API.
+On 26.08.2021 08:26, suy.fnst@fujitsu.com wrote:
+> While running mpls02.sh -6 in our slow test box with kernel
+> version > v5.11, we found the test hangs at ping6 occasionally:
+> 
+>   + grep -q 'invalid option'
+>   + for size in ${msg_sizes:-"56"}
+>   + EXPECT_PASS ping6 -I fd00:23::2 -c 500 -s 10 -f fd00:23::1
+>   '>/dev/null'
+>   + _tst_expect_pass tst_res ping6 -I fd00:23::2 -c 500 -s 10 -f
+>   fd00:23::1 '>/dev/null'
+>   + local fnc=tst_res
+>   + shift
+>   + tst_rod ping6 -I fd00:23::2 -c 500 -s 10 -f fd00:23::1 '>/dev/null'
+> 
+> The weird part is that manual ping6 works in the meantime.
+> 
+> Then we found that adding `sleep 1` at end of mpls02.sh/setup() make
+> the test pass in 100%. Dig depper in the problem, ftrace catched during
+> the 1 second shows (The test started at [ 3979.485488]):
+> 
+>  3981.210701 |   2) kworker-24742  |               |  addrconf_dad_work() {
+>  3981.210712 |   2) kworker-24742  |               |    addrconf_dad_completed() {
+>  3981.210712 |   2) kworker-24742  |   0.417 us    |      addrconf_del_dad_work();
+>  3981.210713 |   2) kworker-24742  |               |      __ipv6_ifa_notify() {
+>  3981.210716 |   2) kworker-24742  |   1.097 us    |        inet6_fill_ifaddr();
+>  3981.210730 |   2) kworker-24742  |               |        ip6_ins_rt() {
+>  3981.210731 |   2) kworker-24742  |               |          fib6_add() {
+> 
+> In kernel, addrconf_dad_work() is delegated by inet6_addr_add() to do
+> route related jobs in a delayed workqueue . Hence, there is tiny period
+> we need to wait for it. Adding the `sleep 1` seems suffcient for now.
 
-Signed-off-by: Wang Kunfeng <threefifteen.wangkunfeng@huawei.com>
----
- testcases/kernel/syscalls/getuid/getuid01.c | 90 ++++---------------
- testcases/kernel/syscalls/getuid/getuid03.c | 99 ++++++---------------
- 2 files changed, 41 insertions(+), 148 deletions(-)
+What is happening in the ping6, it is OK for it to hang on this?
 
-diff --git a/testcases/kernel/syscalls/getuid/getuid01.c b/testcases/kernel/syscalls/getuid/getuid01.c
-index cf8c77424..d9770c8dd 100644
---- a/testcases/kernel/syscalls/getuid/getuid01.c
-+++ b/testcases/kernel/syscalls/getuid/getuid01.c
-@@ -1,84 +1,24 @@
-+// SPDX-License-Identifier: GPL-2.0
- /*
-  * Copyright (c) 2000 Silicon Graphics, Inc.  All Rights Reserved.
-- *
-- * This program is free software; you can redistribute it and/or modify it
-- * under the terms of version 2 of the GNU General Public License as
-- * published by the Free Software Foundation.
-- *
-- * This program is distributed in the hope that it would be useful, but
-- * WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-- *
-- * Further, this software is distributed without any warranty that it is
-- * free of the rightful claim of any third person regarding infringement
-- * or the like.  Any license provided herein, whether implied or
-- * otherwise, applies only to this software file.  Patent licenses, if
-- * any, provided herein do not apply to combinations of this program with
-- * other software, or any other product whatsoever.
-- *
-- * You should have received a copy of the GNU General Public License along
-- * with this program; if not, write the Free Software Foundation, Inc.,
-- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-- *
-- * Contact information: Silicon Graphics, Inc., 1600 Amphitheatre Pkwy,
-- * Mountain View, CA  94043, or:
-- *
-- * http://www.sgi.com
-- *
-- * For further information regarding this notice, see:
-- *
-- * http://oss.sgi.com/projects/GenInfo/NoticeExplan/
-- */
--/*
-- *    AUTHOR		: William Roske
-- *    CO-PILOT		: Dave Fenner
-+ * AUTHOR: William Roske
-+ * CO-PILOT: Dave Fenner
-  */
--#include <sys/types.h>
--#include <fcntl.h>
--#include <errno.h>
--#include <string.h>
--#include <signal.h>
--
--#include "test.h"
--#include "compat_16.h"
--
--static void setup(void);
--static void cleanup(void);
--
--TCID_DEFINE(getuid01);
--int TST_TOTAL = 1;
+Adding nodad to loopback might only change the flags (remove tentative
+if ifa_flags==IFA_F_NODAD), the delayed dad work should be completed in
+addrconf_dad_begin() for it anyway... but will it make any difference
+for ping6 to change the test as below?
 
--int main(int ac, char **av)
--{
--	int lc;
--
--	tst_parse_opts(ac, av, NULL, NULL);
--
--	setup();
--
--	for (lc = 0; TEST_LOOPING(lc); lc++) {
--
--		tst_count = 0;
--
--		TEST(GETUID(cleanup));
--
--		if (TEST_RETURN == -1)
--			tst_resm(TFAIL | TTERRNO, "getuid failed");
--		else
--			tst_resm(TPASS, "getuid returned %ld", TEST_RETURN);
--
--	}
-+/*\
-+ * [Description]
-+ *
-+ * Basic test for getuid() function.
-+ */
+ip addr add $ip_loc/$mask dev lo nodad
+tst_rhost_run -s -c "ip addr add $ip_rmt/$mask dev lo nodad"
 
--	cleanup();
--	tst_exit();
--}
-+#include "tst_test.h"
-+#include "compat_tst_16.h"
-
--static void setup(void)
-+static void verify_getuid(void)
- {
--	tst_sig(NOFORK, DEF_HANDLER, cleanup);
--	TEST_PAUSE;
-+	TST_EXP_POSITIVE(GETUID(), "getuid()");
- }
-
--static void cleanup(void)
--{
--}
-+static struct tst_test test = {
-+	.test_all = verify_getuid,
-+};
-diff --git a/testcases/kernel/syscalls/getuid/getuid03.c b/testcases/kernel/syscalls/getuid/getuid03.c
-index 7c81c628e..436cfd3bc 100644
---- a/testcases/kernel/syscalls/getuid/getuid03.c
-+++ b/testcases/kernel/syscalls/getuid/getuid03.c
-@@ -1,88 +1,41 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
- /*
-  * Copyright (c) International Business Machines  Corp., 2001
-  *  Ported by Wayne Boyer
-- *
-- * This program is free software;  you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License as published by
-- * the Free Software Foundation; either version 2 of the License, or
-- * (at your option) any later version.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY;  without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
-- * the GNU General Public License for more details.
-- *
-- * You should have received a copy of the GNU General Public License
-- * along with this program;  if not, write to the Free Software
-- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
-  */
-
--/*
-- * Testcase to check the basic functionality of the getuid() system call.
-+/*\
-+ * [Description]
-  *
-- * For functionality test the return value from getgid() is compared to passwd
-- * entry.
-+ * Testcase to check the basic functionality of the getuid() and test the
-+ * return value from getgid() is compared to passwd entry.
-  */
-
- #include <pwd.h>
- #include <errno.h>
-
--#include "test.h"
--#include "compat_16.h"
--
--TCID_DEFINE(getuid03);
--int TST_TOTAL = 1;
--
--static void setup(void);
--static void cleanup(void);
--
--int main(int ac, char **av)
--{
--	struct passwd *pwent;
--	int lc;
--	uid_t uid;
--
--	tst_parse_opts(ac, av, NULL, NULL);
--
--	setup();
--
--	for (lc = 0; TEST_LOOPING(lc); lc++) {
-+#include "tst_test.h"
-+#include "compat_tst_16.h"
-
--		tst_count = 0;
--
--		TEST(GETUID(cleanup));
--
--		if (TEST_RETURN == -1)
--			tst_brkm(TBROK | TTERRNO, cleanup, "getuid failed");
--
--		uid = getuid();
--		pwent = getpwuid(uid);
--
--		if (pwent == NULL)
--			tst_resm(TFAIL | TERRNO, "getpwuid failed");
--
--		UID16_CHECK(pwent->pw_uid, getuid, cleanup);
--
--		if (pwent->pw_uid != TEST_RETURN)
--			tst_resm(TFAIL, "getpwuid value, %d, "
--				 "does not match getuid "
--				 "value, %ld", pwent->pw_uid,
--				 TEST_RETURN);
--		else
--			tst_resm(TPASS, "values from getuid "
--				 "and getpwuid match");
--	}
--	cleanup();
--	tst_exit();
--}
--
--static void setup(void)
-+static void verify_getuid(void)
- {
--	tst_sig(NOFORK, DEF_HANDLER, cleanup);
--
--	TEST_PAUSE;
-+	static struct passwd *pwent;
-+
-+	TST_EXP_POSITIVE(GETUID(), "getuid()");
-+	if (!TST_PASS)
-+		return;
-+	pwent = getpwuid(TST_RET);
-+	if (pwent == NULL)
-+		tst_res(TFAIL | TERRNO, "getpwuid failed");
-+
-+	UID16_CHECK(pwent->pw_uid, getuid);
-+	if (pwent->pw_uid != TST_RET)
-+		tst_res(TFAIL, "getpwuid value, %d, does not match getuid value, %ld",
-+				pwent->pw_uid, TST_RET);
-+	else
-+		tst_res(TPASS, "values from getuid and getpwuid match");
- }
-
--static void cleanup(void)
--{
--}
-+static struct tst_test test = {
-+	.test_all = verify_getuid,
-+};
---
-2.17.1
+> Signed-off-by: Su Yue <suy.fnst@fujitsu.com>
+> ---
+>  testcases/network/mpls/mpls02.sh | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/testcases/network/mpls/mpls02.sh b/testcases/network/mpls/mpls02.sh
+> index 2fd3ec5bf4ba..75f5fca32f9a 100755
+> --- a/testcases/network/mpls/mpls02.sh
+> +++ b/testcases/network/mpls/mpls02.sh
+> @@ -35,6 +35,8 @@ setup()
+>  	tst_rhost_run -s -c "ip addr add $ip_rmt/$mask dev lo"
+>  	tst_rhost_run -s -c "ip route add $ip_loc/$mask encap mpls 60 via inet$TST_IPV6 $(tst_ipaddr)"
+>  	tst_rhost_run -s -c "ip -f mpls route add 50 dev lo"
+> +
+> +	sleep 1
+>  }
+>  
+>  do_test()
+> 
 
 
 -- 
