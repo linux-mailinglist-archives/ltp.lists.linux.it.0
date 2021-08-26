@@ -1,70 +1,75 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D2E23F864C
-	for <lists+linux-ltp@lfdr.de>; Thu, 26 Aug 2021 13:22:27 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A7673F864D
+	for <lists+linux-ltp@lfdr.de>; Thu, 26 Aug 2021 13:22:29 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DE8823C2F29
-	for <lists+linux-ltp@lfdr.de>; Thu, 26 Aug 2021 13:22:16 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 366A33C2F17
+	for <lists+linux-ltp@lfdr.de>; Thu, 26 Aug 2021 13:22:29 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 044273C2304
- for <ltp@lists.linux.it>; Thu, 26 Aug 2021 13:22:14 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 79BE13C2304
+ for <ltp@lists.linux.it>; Thu, 26 Aug 2021 13:22:15 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 6C7171400767
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 5790C600350
  for <ltp@lists.linux.it>; Thu, 26 Aug 2021 13:22:14 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 98E91222CC
+ by smtp-out2.suse.de (Postfix) with ESMTPS id B91B32018E
  for <ltp@lists.linux.it>; Thu, 26 Aug 2021 11:22:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1629976933; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=EtXmMpKipmtFJiBKknuU00/DZMhCjJcfzleUyDFi1eA=;
- b=MgMgoJ7YKVR1CRgJIHAXcm8Up1b4SzgkrWr8uGRvEFKiHc1xDWDPMyS3c+zNgpWSfg7hUB
- kKAWDduNtFtV7LIDknTE3Oe6gvPnvuf69HIQ6VK8mLTTrD/IIc557mM/kAp+eYtgTStWrZ
- UF5F76e2dnt/1hxotgrGgjscBApvZJc=
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=dMoRYeCzvvpVt5OxMK0MPEUnHdcbJyCEwizWZUFO2Ro=;
+ b=rxAqwnI92uGVYWwhoYIMiN57kHqORnT3sSYxWUQCWrMIi/1/iPmYIGeBhv/Jw+IZ/MKp9O
+ enlgxWeTbfzqb2zS48TAtPFtMIJ8agWrlmBIulVcNu8mpzGrllGYxBEpKp1NXMToO8ABrA
+ N6q0TafYDjNO7OuDl+0eev+Unu0Cgps=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1629976933;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=EtXmMpKipmtFJiBKknuU00/DZMhCjJcfzleUyDFi1eA=;
- b=aiK2cqZDm2QoalUx6NkqhmzxWT8RepHNQZY2E6HJRu50wB1j5n2SSrtKIdBJd5pzS18o6p
- ItJdVNY3iP9gcJCw==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=dMoRYeCzvvpVt5OxMK0MPEUnHdcbJyCEwizWZUFO2Ro=;
+ b=OrwSJS+GWF7eSrXIXfgDfYntyqBYs0dsNjHLFIuSiIePZFDws3IqFN5LXtvJZzqFMVYwBP
+ /Naa59I3VRs74FAA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 86885133A4
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9FE57133A4
  for <ltp@lists.linux.it>; Thu, 26 Aug 2021 11:22:13 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id b0q5H2V5J2FEPgAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id 6L33JWV5J2FEPgAAMHmgww
  (envelope-from <mdoucha@suse.cz>)
  for <ltp@lists.linux.it>; Thu, 26 Aug 2021 11:22:13 +0000
 From: Martin Doucha <mdoucha@suse.cz>
 To: ltp@lists.linux.it
-Date: Thu, 26 Aug 2021 13:22:09 +0200
-Message-Id: <20210826112212.26394-1-mdoucha@suse.cz>
+Date: Thu, 26 Aug 2021 13:22:10 +0200
+Message-Id: <20210826112212.26394-2-mdoucha@suse.cz>
 X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20210826112212.26394-1-mdoucha@suse.cz>
+References: <20210826112212.26394-1-mdoucha@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 1/4] Add tst_get_free_gid() helper function to LTP
- library
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 2/4] syscalls/creat08: Convert to new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,83 +89,582 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 Signed-off-by: Martin Doucha <mdoucha@suse.cz>
 ---
 
-Changes since v1: New patch
+Changes since v1:
+- Use nobody's primary group for setgid member subtests
+- Use any unassigned gid for setgid non-member subtests
+- Don't switch users in cleanup()
 
-The man page does not say anything about how setgroups() interacts with
-setuid()/setgid() so I've decided to use any unassigned gid for the non-member
-setgid subtests.
+ testcases/kernel/syscalls/creat/creat08.c | 531 +++++-----------------
+ 1 file changed, 107 insertions(+), 424 deletions(-)
 
- include/tst_uid.h | 18 ++++++++++++++++++
- lib/tst_uid.c     | 35 +++++++++++++++++++++++++++++++++++
- 2 files changed, 53 insertions(+)
- create mode 100644 include/tst_uid.h
- create mode 100644 lib/tst_uid.c
-
-diff --git a/include/tst_uid.h b/include/tst_uid.h
-new file mode 100644
-index 000000000..7135a9cad
---- /dev/null
-+++ b/include/tst_uid.h
-@@ -0,0 +1,18 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later
-+ * Copyright (c) 2021 Linux Test Project
-+ */
-+
-+#ifndef TST_UID_H_
-+#define TST_UID_H_
-+
-+#include <sys/types.h>
-+
-+/*
-+ * Find unassigned gid. The skip argument can be used to ignore e.g. the main
-+ * group of a specific user in case it's not listed in the group file. If you
-+ * do not need to skip any specific gid, simply set it to 0.
-+ */
-+gid_t tst_get_free_gid_(const char *file, const int lineno, gid_t skip);
-+#define tst_get_free_gid(skip) tst_get_free_gid_(__FILE__, __LINE__, (skip))
-+
-+#endif /* TST_UID_H_ */
-diff --git a/lib/tst_uid.c b/lib/tst_uid.c
-new file mode 100644
-index 000000000..a73cafa46
---- /dev/null
-+++ b/lib/tst_uid.c
-@@ -0,0 +1,35 @@
+diff --git a/testcases/kernel/syscalls/creat/creat08.c b/testcases/kernel/syscalls/creat/creat08.c
+index d22558ac3..7be401c0d 100644
+--- a/testcases/kernel/syscalls/creat/creat08.c
++++ b/testcases/kernel/syscalls/creat/creat08.c
+@@ -1,456 +1,139 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2021 Linux Test Project
-+ */
-+
-+#include <sys/types.h>
-+#include <grp.h>
-+#include <errno.h>
-+
-+#define TST_NO_DEFAULT_MAIN
+ /*
++ * Copyright (c) International Business Machines  Corp., 2002
++ *     Ported from SPIE by Airong Zhang <zhanga@us.ibm.com>
++ * Copyright (c) 2021 SUSE LLC <mdoucha@suse.cz>
+  *
+- *   Copyright (c) International Business Machines  Corp., 2002
+- *
+- *   This program is free software;  you can redistribute it and/or modify
+- *   it under the terms of the GNU General Public License as published by
+- *   the Free Software Foundation; either version 2 of the License, or
+- *   (at your option) any later version.
+- *
+- *   This program is distributed in the hope that it will be useful,
+- *   but WITHOUT ANY WARRANTY;  without even the implied warranty of
+- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
+- *   the GNU General Public License for more details.
+- *
+- *   You should have received a copy of the GNU General Public License
+- *   along with this program;  if not, write to the Free Software
+- *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
++ * Verify that the group ID and setgid bit are set correctly when a new file
++ * is created.
+  */
+ 
+-/*
+- * NAME
+- *	creat08.c - Verifies that the group ID and setgid bit are
+- *		   set correctly when a new file is created.
+- *		   (ported from SPIE, section2/iosuite/creat5.c,
+- *		    by Airong Zhang <zhanga@us.ibm.com>)
+- * CALLS
+- *	creat
+- *
+- * ALGORITHM
+- *	Create two directories, one with the group ID of this process
+- *	and the setgid bit not set, and the other with a group ID
+- *	other than that of this process and with the setgid bit set.
+- *	In each directory, create a file with and without the setgid
+- *	bit set in the creation modes. Verify that the modes and group
+- *	ID are correct on each of the 4 files.
+- *	As root, create a file with the setgid bit on in the
+- *	directory with the setgid bit.
+- *	This tests the SVID3 create group semantics.
+- *
+- * USAGE
+- *	creat08
+- *
+- * RESTRICTIONS
+- *
+- */
+-
+-#include <stdio.h>		/* needed by testhead.h         */
++#include <stdlib.h>
+ #include <sys/types.h>
+-#include <sys/stat.h>
+-#include <fcntl.h>
+-#include <errno.h>
+-#include <grp.h>
+ #include <pwd.h>
+-#include "test.h"
+-#include "safe_macros.h"
 +#include "tst_test.h"
 +#include "tst_uid.h"
-+
-+#define MAX_GID 32767
-+
-+gid_t tst_get_free_gid_(const char *file, const int lineno, gid_t skip)
+ 
+-char *TCID = "creat08";
+-int TST_TOTAL = 1;
+-int local_flag;
++#define MODE_RWX        0777
++#define MODE_SGID       (S_ISGID|0777)
+ 
+-#define PASSED 1
+-#define FAILED 0
++#define DIR_A		"dir_a"
++#define DIR_B		"dir_b"
++#define SETGID_A	DIR_A "/setgid"
++#define NOSETGID_A	DIR_A "/nosetgid"
++#define SETGID_B	DIR_B "/setgid"
++#define NOSETGID_B	DIR_B "/nosetgid"
++#define ROOT_SETGID	DIR_B "/root_setgid"
+ 
+-#define MODE_RWX        (S_IRWXU|S_IRWXG|S_IRWXO)
+-#define MODE_SGID       (S_ISGID|S_IRWXU|S_IRWXG|S_IRWXO)
+-#define DIR_A_TEMP	"testdir.A.%d"
+-#define DIR_B_TEMP	"testdir.B.%d"
+-#define SETGID		"setgid"
+-#define NOSETGID	"nosetgid"
+-#define ROOT_SETGID	"root_setgid"
+-#define	MSGSIZE		150
++static char *tmpdir;
++static uid_t orig_uid, nobody_uid;
++static gid_t nobody_gid, free_gid;
++static int fd = -1;
+ 
+-static void tst_cleanup(void);
+-static void cleanup(void);
+-static void setup(void);
++static void setup(void)
 +{
-+	gid_t ret;
-+
-+	errno = 0;
-+
-+	for (ret = 0; ret < MAX_GID; ret++) {
-+		if (ret == skip || getgrgid(ret))
-+			continue;
-+
-+		if (errno == 0 || errno == ENOENT || errno == ESRCH)
-+			return ret;
-+
-+		tst_brk_(file, lineno, TBROK|TERRNO, "Group ID lookup failed");
-+		return (gid_t)-1;
-+	}
-+
-+	tst_brk_(file, lineno, TBROK, "No free group ID found");
-+	return (gid_t)-1;
++	struct passwd *ltpuser = SAFE_GETPWNAM("nobody");
+ 
+-static char DIR_A[MSGSIZE], DIR_B[MSGSIZE];
+-static char setgid_A[MSGSIZE], nosetgid_A[MSGSIZE];
+-static char setgid_B[MSGSIZE], nosetgid_B[MSGSIZE], root_setgid_B[MSGSIZE];
++	orig_uid = getuid();
++	nobody_uid = ltpuser->pw_uid;
++	nobody_gid = ltpuser->pw_gid;
++	free_gid = tst_get_free_gid(nobody_gid);
++	tmpdir = tst_get_tmpdir();
 +}
+ 
+-int main(int ac, char **av)
++static void file_test(const char *name, mode_t mode, int sgid, gid_t gid)
+ {
+ 	struct stat buf;
+-	struct group *group;
+-	struct passwd *user1;
+-	gid_t group1_gid, group2_gid, mygid;
+-	uid_t save_myuid, user1_uid;
+-	pid_t mypid;
+-
+-	int fd;
+-	int lc;
+-
+-	tst_parse_opts(ac, av, NULL, NULL);
+-
+-	setup();
+-
+-	for (lc = 0; TEST_LOOPING(lc); lc++) {
+-
+-		local_flag = PASSED;
+-
+-		save_myuid = getuid();
+-		mypid = getpid();
+-		sprintf(DIR_A, DIR_A_TEMP, mypid);
+-		sprintf(DIR_B, DIR_B_TEMP, mypid);
+-		sprintf(setgid_A, "%s/%s", DIR_A, SETGID);
+-		sprintf(nosetgid_A, "%s/%s", DIR_A, NOSETGID);
+-		sprintf(setgid_B, "%s/%s", DIR_B, SETGID);
+-		sprintf(nosetgid_B, "%s/%s", DIR_B, NOSETGID);
+-		sprintf(root_setgid_B, "%s/%s", DIR_B, ROOT_SETGID);
+-
+-		/* Get the uid of user1 */
+-		if ((user1 = getpwnam("nobody")) == NULL) {
+-			tst_brkm(TBROK | TERRNO, NULL,
+-				 "getpwnam(\"nobody\") failed");
+-		}
+-
+-		user1_uid = user1->pw_uid;
+-
+-		/*
+-		 * Get the group IDs of group1 and group2.
+-		 */
+-		if ((group = getgrnam("nobody")) == NULL) {
+-			if ((group = getgrnam("nogroup")) == NULL) {
+-				tst_brkm(TBROK | TERRNO, cleanup,
+-					 "getgrnam(\"nobody\") and "
+-					 "getgrnam(\"nogroup\") failed");
+-			}
+-		}
+-		group1_gid = group->gr_gid;
+-		if ((group = getgrnam("bin")) == NULL) {
+-			tst_brkm(TBROK | TERRNO, cleanup,
+-				 "getgrnam(\"bin\") failed");
+-		}
+-		group2_gid = group->gr_gid;
+-
+-/*--------------------------------------------------------------*/
+-/* Block0: Set up the parent directories			*/
+-/*--------------------------------------------------------------*/
+-		/*
+-		 * Create a directory with group id the same as this process
+-		 * and with no setgid bit.
+-		 */
+-		if (mkdir(DIR_A, MODE_RWX) == -1) {
+-			tst_resm(TFAIL, "Creation of %s failed", DIR_A);
+-			local_flag = FAILED;
+-		}
+-
+-		if (chown(DIR_A, user1_uid, group2_gid) == -1) {
+-			tst_resm(TFAIL, "Chown of %s failed", DIR_A);
+-			local_flag = FAILED;
+-		}
+-
+-		if (stat(DIR_A, &buf) == -1) {
+-			tst_resm(TFAIL, "Stat of %s failed", DIR_A);
+-			local_flag = FAILED;
+-		}
+-
+-		/* Verify modes */
+-		if (buf.st_mode & S_ISGID) {
+-			tst_resm(TFAIL, "%s: Incorrect modes, setgid bit set",
+-				 DIR_A);
+-			local_flag = FAILED;
+-		}
+-
+-		/* Verify group ID */
+-		if (buf.st_gid != group2_gid) {
+-			tst_resm(TFAIL, "%s: Incorrect group", DIR_A);
+-			tst_resm(TINFO, "got %u and %u", buf.st_gid,
+-				 group2_gid);
+-			local_flag = FAILED;
+-		}
+-
+-		/*
+-		 * Create a directory with group id different from that of
+-		 * this process and with the setgid bit set.
+-		 */
+-		if (mkdir(DIR_B, MODE_RWX) == -1) {
+-			tst_resm(TFAIL, "Creation of %s failed", DIR_B);
+-			local_flag = FAILED;
+-		}
+-
+-		if (chown(DIR_B, user1_uid, group2_gid) == -1) {
+-			tst_resm(TFAIL, "Chown of %s failed", DIR_B);
+-			local_flag = FAILED;
+-		}
+-
+-		if (chmod(DIR_B, MODE_SGID) == -1) {
+-			tst_resm(TFAIL, "Chmod of %s failed", DIR_B);
+-			local_flag = FAILED;
+-		}
+-
+-		if (stat(DIR_B, &buf) == -1) {
+-			tst_resm(TFAIL, "Stat of %s failed", DIR_B);
+-			local_flag = FAILED;
+-		}
+-
+-		/* Verify modes */
+-		if (!(buf.st_mode & S_ISGID)) {
+-			tst_resm(TFAIL,
+-				 "%s: Incorrect modes, setgid bit not set",
+-				 DIR_B);
+-			local_flag = FAILED;
+-		}
+-
+-		/* Verify group ID */
+-		if (buf.st_gid != group2_gid) {
+-			tst_resm(TFAIL, "%s: Incorrect group", DIR_B);
+-			tst_resm(TINFO, "got %u and %u", buf.st_gid,
+-				 group2_gid);
+-			local_flag = FAILED;
+-		}
+-
+-		if (local_flag == PASSED) {
+-			tst_resm(TPASS, "Test passed in block0.");
+-		} else {
+-			tst_resm(TFAIL, "Test failed in block0.");
+-		}
+ 
+-		local_flag = PASSED;
++	fd = SAFE_CREAT(name, mode);
++	SAFE_STAT(name, &buf);
++	SAFE_CLOSE(fd);
+ 
+-/*--------------------------------------------------------------*/
+-/* Block1: Create two files in testdir.A, one with the setgid   */
+-/*         bit set in the creation modes and the other without. */
+-/*	   Both should inherit the group ID of the process and  */
+-/*	   maintain the setgid bit as specified in the creation */
+-/*	   modes.                                               */
+-/*--------------------------------------------------------------*/
+-		/*
+-		 * Now become user1, group1
+-		 */
+-		if (setgid(group1_gid) == -1) {
+-			tst_resm(TINFO,
+-				 "Unable to set process group ID to group1");
+-		}
+-
+-		if (setreuid(-1, user1_uid) == -1) {
+-			tst_resm(TINFO, "Unable to set process uid to user1");
+-		}
+-		mygid = getgid();
+-
+-		/*
+-		 * Create the file with setgid not set
+-		 */
+-		fd = open(nosetgid_A, O_CREAT | O_EXCL | O_RDWR, MODE_RWX);
+-		if (fd == -1) {
+-			tst_resm(TFAIL, "Creation of %s failed", nosetgid_A);
+-			local_flag = FAILED;
+-		}
+-
+-		if (stat(nosetgid_A, &buf) == -1) {
+-			tst_resm(TFAIL, "Stat of %s failed", nosetgid_A);
+-			local_flag = FAILED;
+-		}
+-
+-		/* Verify modes */
+-		if (buf.st_mode & S_ISGID) {
+-			tst_resm(TFAIL, "%s: Incorrect modes, setgid bit set",
+-				 nosetgid_A);
+-			local_flag = FAILED;
+-		}
+-
+-		/* Verify group ID */
+-		if (buf.st_gid != mygid) {
+-			tst_resm(TFAIL, "%s: Incorrect group", nosetgid_A);
+-			local_flag = FAILED;
+-		}
+-		close(fd);
+-
+-		/*
+-		 * Create the file with setgid set
+-		 */
+-		fd = open(setgid_A, O_CREAT | O_EXCL | O_RDWR, MODE_SGID);
+-		if (fd == -1) {
+-			tst_resm(TFAIL, "Creation of %s failed", setgid_A);
+-			local_flag = FAILED;
+-		}
+-
+-		if (stat(setgid_A, &buf) == -1) {
+-			tst_resm(TFAIL, "Stat of %s failed", setgid_A);
+-			local_flag = FAILED;
+-		}
+-
+-		/* Verify modes */
+-		if (!(buf.st_mode & S_ISGID)) {
+-			tst_resm(TFAIL,
+-				 "%s: Incorrect modes, setgid bit not set",
+-				 setgid_A);
+-			local_flag = FAILED;
+-		}
+-
+-		/* Verify group ID */
+-		if (buf.st_gid != mygid) {
+-			tst_resm(TFAIL, "%s: Incorrect group", setgid_A);
+-			tst_resm(TINFO, "got %u and %u", buf.st_gid, mygid);
+-			local_flag = FAILED;
+-		}
+-		close(fd);
+-
+-		if (local_flag == PASSED) {
+-			tst_resm(TPASS, "Test passed in block1.");
+-		} else {
+-			tst_resm(TFAIL, "Test failed in block1.");
+-		}
+-
+-		local_flag = PASSED;
+-
+-/*--------------------------------------------------------------*/
+-/* Block2: Create two files in testdir.B, one with the setgid   */
+-/*         bit set in the creation modes and the other without. */
+-/*	   Both should inherit the group ID of the parent       */
+-/*	   directory, group2.                                   */
+-/*--------------------------------------------------------------*/
+-		/*
+-		 * Create the file with setgid not set
+-		 */
+-		fd = creat(nosetgid_B, MODE_RWX);
+-		if (fd == -1) {
+-			tst_resm(TFAIL, "Creation of %s failed", nosetgid_B);
+-			local_flag = FAILED;
+-		}
+-
+-		if (stat(nosetgid_B, &buf) == -1) {
+-			tst_resm(TFAIL, "Stat of %s failed", nosetgid_B);
+-			local_flag = FAILED;
+-		}
+-
+-		/* Verify modes */
+-		if (buf.st_mode & S_ISGID) {
+-			tst_resm(TFAIL,
+-				 "%s: Incorrect modes, setgid bit should not be set",
+-				 nosetgid_B);
+-			local_flag = FAILED;
+-		}
+-
+-		/* Verify group ID */
+-		if (buf.st_gid != group2_gid) {
+-			tst_resm(TFAIL, "%s: Incorrect group", nosetgid_B);
+-			local_flag = FAILED;
+-		}
+-		close(fd);
+-
+-		/*
+-		 * Create the file with setgid set
+-		 */
+-		fd = creat(setgid_B, MODE_SGID);
+-		if (fd == -1) {
+-			tst_resm(TFAIL, "Creation of %s failed", setgid_B);
+-			local_flag = FAILED;
+-		}
+-
+-		if (stat(setgid_B, &buf) == -1) {
+-			tst_resm(TFAIL, "Stat of %s failed", setgid_B);
+-			local_flag = FAILED;
+-		}
+-
+-		/* Verify group ID */
+-		if (buf.st_gid != group2_gid) {
+-			tst_resm(TFAIL, "%s: Incorrect group", setgid_B);
+-			tst_resm(TFAIL, "got %u and %u", buf.st_gid,
+-				 group2_gid);
+-			local_flag = FAILED;
+-		}
++	if (buf.st_gid != gid) {
++		tst_res(TFAIL, "%s: Incorrect group, %u != %u", name,
++			buf.st_gid, gid);
++	} else {
++		tst_res(TPASS, "%s: Owned by correct group", name);
++	}
+ 
+-		/*
+-		 * Skip S_ISGID check
+-		 * 0fa3ecd87848 ("Fix up non-directory creation in SGID directories")
+-		 * clears S_ISGID for files created by non-group members
+-		 */
++	if (sgid < 0) {
++		tst_res(TINFO, "%s: Skipping setgid bit check", name);
++		return;
++	}
+ 
+-		close(fd);
++	if (buf.st_mode & S_ISGID)
++		tst_res(sgid ? TPASS : TFAIL, "%s: Setgid bit is set", name);
++	else
++		tst_res(sgid ? TFAIL : TPASS, "%s: Setgid bit not set", name);
++}
+ 
+-		if (local_flag == PASSED) {
+-			tst_resm(TPASS, "Test passed in block2.");
+-		} else {
+-			tst_resm(TFAIL, "Test failed in block2.");
+-		}
++static void run(void)
++{
++	struct stat buf;
+ 
+-		local_flag = PASSED;
+-/*--------------------------------------------------------------*/
+-/* Block3: Create a file in testdir.B, with the setgid bit set  */
+-/*	   in the creation modes and do so as root. The file    */
+-/*	   should inherit the group ID of the parent directory, */
+-/*	   group2 and should have the setgid bit set.		*/
+-/*--------------------------------------------------------------*/
+-		/* Become root again */
+-		if (setreuid(-1, save_myuid) == -1) {
+-			tst_resm(TFAIL | TERRNO,
+-				 "Changing back to root failed");
+-			local_flag = FAILED;
+-		}
++	/* Create directories and set permissions */
++	SAFE_MKDIR(DIR_A, MODE_RWX);
++	SAFE_CHOWN(DIR_A, nobody_uid, free_gid);
++	SAFE_STAT(DIR_A, &buf);
+ 
+-		/* Create the file with setgid set */
+-		fd = creat(root_setgid_B, MODE_SGID);
+-		if (fd == -1) {
+-			tst_resm(TFAIL, "Creation of %s failed", root_setgid_B);
+-			local_flag = FAILED;
+-		}
++	if (buf.st_mode & S_ISGID)
++		tst_brk(TBROK, "%s: Setgid bit is set", DIR_A);
+ 
+-		if (stat(root_setgid_B, &buf) == -1) {
+-			tst_resm(TFAIL, "Stat of %s failed", root_setgid_B);
+-			local_flag = FAILED;
+-		}
++	if (buf.st_gid != free_gid) {
++		tst_brk(TBROK, "%s: Incorrect group, %u != %u", DIR_A,
++			buf.st_gid, free_gid);
++	}
+ 
+-		/* Verify modes */
+-		if (!(buf.st_mode & S_ISGID)) {
+-			tst_resm(TFAIL,
+-				 "%s: Incorrect modes, setgid bit not set",
+-				 root_setgid_B);
+-			local_flag = FAILED;
+-		}
++	SAFE_MKDIR(DIR_B, MODE_RWX);
++	SAFE_CHOWN(DIR_B, nobody_uid, free_gid);
++	SAFE_CHMOD(DIR_B, MODE_SGID);
++	SAFE_STAT(DIR_B, &buf);
+ 
+-		/* Verify group ID */
+-		if (buf.st_gid != group2_gid) {
+-			tst_resm(TFAIL, "%s: Incorrect group", root_setgid_B);
+-			tst_resm(TINFO, "got %u and %u", buf.st_gid,
+-				 group2_gid);
+-			local_flag = FAILED;
+-		}
+-		close(fd);
++	if (!(buf.st_mode & S_ISGID))
++		tst_brk(TBROK, "%s: Setgid bit not set", DIR_B);
+ 
+-		if (local_flag == PASSED) {
+-			tst_resm(TPASS, "Test passed in block3");
+-		} else {
+-			tst_resm(TFAIL, "Test failed in block3");
+-		}
+-		tst_cleanup();
++	if (buf.st_gid != free_gid) {
++		tst_brk(TBROK, "%s: Incorrect group, %u != %u", DIR_B,
++			buf.st_gid, free_gid);
+ 	}
+-	cleanup();
+-	tst_exit();
+-}
+ 
+-static void setup(void)
+-{
+-	tst_require_root();
+-	tst_tmpdir();
+-}
+-
+-static void tst_cleanup(void)
+-{
+-	if (unlink(setgid_A) == -1) {
+-		tst_resm(TBROK, "%s failed", setgid_A);
+-	}
+-	if (unlink(nosetgid_A) == -1) {
+-		tst_resm(TBROK, "unlink %s failed", nosetgid_A);
+-	}
+-	SAFE_RMDIR(NULL, DIR_A);
+-	SAFE_UNLINK(NULL, setgid_B);
+-	SAFE_UNLINK(NULL, root_setgid_B);
+-	SAFE_UNLINK(NULL, nosetgid_B);
+-	SAFE_RMDIR(NULL, DIR_B);
++	/* Switch to user nobody and create two files in DIR_A */
++	/* Both files should inherit GID from the process */
++	SAFE_SETGID(nobody_gid);
++	SAFE_SETREUID(-1, nobody_uid);
++	file_test(NOSETGID_A, MODE_RWX, 0, nobody_gid);
++	file_test(SETGID_A, MODE_SGID, 1, nobody_gid);
++
++	/* Create two files in DIR_B and validate owner and permissions */
++	/* Both files should inherit GID from the parent directory */
++	file_test(NOSETGID_B, MODE_RWX, 0, free_gid);
++	/*
++	 * CVE 2018-13405 (privilege escalation using setgid bit) has its
++	 * own test, skip setgid check here
++	 */
++	file_test(SETGID_B, MODE_SGID, -1, free_gid);
++
++	/* Switch back to root UID and create a file in DIR_B */
++	/* The file should inherid GID from parent directory */
++	SAFE_SETREUID(-1, orig_uid);
++	file_test(ROOT_SETGID, MODE_SGID, 1, free_gid);
++
++	/* Cleanup between loops */
++	tst_purge_dir(tmpdir);
+ }
+ 
+ static void cleanup(void)
+ {
+-	tst_rmdir();
++	if (fd >= 0)
++		SAFE_CLOSE(fd);
++
++	free(tmpdir);
+ }
++
++static struct tst_test test = {
++	.test_all = run,
++	.setup = setup,
++	.cleanup = cleanup,
++	.needs_root = 1,
++	.needs_tmpdir = 1,
++};
 -- 
 2.32.0
 
