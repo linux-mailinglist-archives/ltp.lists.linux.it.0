@@ -1,51 +1,57 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 722AE3F93F5
-	for <lists+linux-ltp@lfdr.de>; Fri, 27 Aug 2021 07:13:25 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E8463F93F7
+	for <lists+linux-ltp@lfdr.de>; Fri, 27 Aug 2021 07:13:51 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D5F033C8DB9
-	for <lists+linux-ltp@lfdr.de>; Fri, 27 Aug 2021 07:13:24 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C72913C2D80
+	for <lists+linux-ltp@lfdr.de>; Fri, 27 Aug 2021 07:13:45 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 01D903C2D60
- for <ltp@lists.linux.it>; Fri, 27 Aug 2021 07:13:20 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 4AFFC3C2D6A
+ for <ltp@lists.linux.it>; Fri, 27 Aug 2021 07:13:21 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 5947D200BB0
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 7D03C601164
  for <ltp@lists.linux.it>; Fri, 27 Aug 2021 07:13:20 +0200 (CEST)
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 9AB1B22340;
+ by smtp-out2.suse.de (Postfix) with ESMTP id DF1281FEC2;
  Fri, 27 Aug 2021 05:13:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
  t=1630041199; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=/FzSl0eN1/m6ws8YCTtOVjV530yCk1JceOrpYUcuK1E=;
- b=ASykJXodFWEyC22zZHqid4Ha11gWzBj8KATDlN4GpnNGw24+W7rn/EUmq4i/tQch0AyBXF
- u//Y+uW9Aktm5h1wnc5rQ0aUVaEp/a9yruOj9U2x52JhQgxpw0o/mJbA/YBQj4Wh+6kpC0
- 4csPVDhSLWrHxC/C+AWDw1YolrlrCkw=
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=3Nn8sIE2X5+xg3CUHhGEMrJGP2JZmuk4hXjSNyuT+TA=;
+ b=JUP6ySokcsHlLPvPlIENqByxLtJpz/I1sJX7F3oF6y76JIjy8gh11JCzQ9UTx0FQbq4d9/
+ ZLi9EWiabQ4GSgrVCgK4JctH89SMwSvGgVu7q/iY7/czMiKuU2NS60wqwY/TwxEZp61sSf
+ sG4vR6wljd1xNfGs0cylikhBvOP7Gsg=
 Received: from g78.suse.de (unknown [10.163.24.38])
- by relay2.suse.de (Postfix) with ESMTP id 5F924A3B8F;
+ by relay2.suse.de (Postfix) with ESMTP id AB0E2A3B8F;
  Fri, 27 Aug 2021 05:13:19 +0000 (UTC)
 To: ltp@lists.linux.it
-Date: Fri, 27 Aug 2021 06:13:07 +0100
-Message-Id: <20210827051309.28521-1-rpalethorpe@suse.com>
+Date: Fri, 27 Aug 2021 06:13:08 +0100
+Message-Id: <20210827051309.28521-2-rpalethorpe@suse.com>
 X-Mailer: git-send-email 2.31.1
+In-Reply-To: <20210827051309.28521-1-rpalethorpe@suse.com>
+References: <20210827051309.28521-1-rpalethorpe@suse.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH 1/3] bpf: Print full verification log
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH 2/3] bpf: Mention CAP_BPF in required privs and add
+ fallback definition
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,40 +71,45 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-The log never falls within the 1024 byte limit imposed by format
-string buffer. So print it separately with dprintf.
+We don't need CAP_SYS_ADMIN most of the time. bpf() can be called with
+only CAP_BPF even when unprivileged_bpf_disable > 0. When
+unprivileged_bpf_disable == 0, CAP_BPF also allows more features Vs. no
+privileges at all.
 
 Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
 ---
- testcases/kernel/syscalls/bpf/bpf_common.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ include/lapi/capability.h                  | 4 ++++
+ testcases/kernel/syscalls/bpf/bpf_common.c | 2 +-
+ 2 files changed, 5 insertions(+), 1 deletion(-)
 
+diff --git a/include/lapi/capability.h b/include/lapi/capability.h
+index c6470f389..8cabd0f28 100644
+--- a/include/lapi/capability.h
++++ b/include/lapi/capability.h
+@@ -44,6 +44,10 @@
+ # define CAP_SYS_RESOURCE     24
+ #endif
+ 
++#ifndef CAP_BPF
++# define CAP_BPF              39
++#endif
++
+ #ifndef CAP_TO_INDEX
+ # define CAP_TO_INDEX(x)     ((x) >> 5)
+ #endif
 diff --git a/testcases/kernel/syscalls/bpf/bpf_common.c b/testcases/kernel/syscalls/bpf/bpf_common.c
-index ba0829a75..6e9cd498c 100644
+index 6e9cd498c..72957a487 100644
 --- a/testcases/kernel/syscalls/bpf/bpf_common.c
 +++ b/testcases/kernel/syscalls/bpf/bpf_common.c
-@@ -3,6 +3,8 @@
-  * Copyright (c) 2019-2020 Linux Test Project
-  */
- 
-+#include <stdio.h>
-+
- #define TST_NO_DEFAULT_MAIN
- #include "tst_test.h"
- #include "bpf_common.h"
-@@ -118,8 +120,10 @@ int bpf_load_prog(union bpf_attr *const attr, const char *const log)
- 	if (ret != -1)
- 		tst_brk(TBROK, "Invalid bpf() return value: %d", ret);
- 
--	if (log[0] != 0)
--		tst_brk(TBROK | TERRNO, "Failed verification: %s", log);
-+	if (log[0] != 0) {
-+		dprintf(STDERR_FILENO, "%s\n", log);
-+		tst_brk(TBROK | TERRNO, "Failed verification");
-+	}
- 
- 	tst_brk(TBROK | TERRNO, "Failed to load program");
- 	return ret;
+@@ -40,7 +40,7 @@ int bpf_map_create(union bpf_attr *const attr)
+ 		if (errno == EPERM) {
+ 			tst_res(TCONF, "Hint: check also /proc/sys/kernel/unprivileged_bpf_disabled");
+ 			tst_brk(TCONF | TERRNO,
+-				"bpf() requires CAP_SYS_ADMIN on this system");
++				"bpf() requires CAP_SYS_ADMIN or CAP_BPF on this system");
+ 		} else {
+ 			tst_brk(TBROK | TERRNO, "Failed to create array map");
+ 		}
 -- 
 2.31.1
 
