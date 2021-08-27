@@ -1,85 +1,87 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B9643F96C2
-	for <lists+linux-ltp@lfdr.de>; Fri, 27 Aug 2021 11:20:37 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id F3C2A3F96C1
+	for <lists+linux-ltp@lfdr.de>; Fri, 27 Aug 2021 11:20:30 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A20263C642F
-	for <lists+linux-ltp@lfdr.de>; Fri, 27 Aug 2021 11:20:31 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 9DC273C9C62
+	for <lists+linux-ltp@lfdr.de>; Fri, 27 Aug 2021 11:20:24 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E0B7B3C2DB3
- for <ltp@lists.linux.it>; Fri, 27 Aug 2021 11:20:20 +0200 (CEST)
-Received: from smtp-relay-internal-0.canonical.com
- (smtp-relay-internal-0.canonical.com [185.125.188.122])
+ by picard.linux.it (Postfix) with ESMTPS id D03153C29EF
+ for <ltp@lists.linux.it>; Fri, 27 Aug 2021 11:20:19 +0200 (CEST)
+Received: from smtp-relay-internal-1.canonical.com
+ (smtp-relay-internal-1.canonical.com [185.125.188.123])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id D01EE1A011CA
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id BCB02200DF3
  for <ltp@lists.linux.it>; Fri, 27 Aug 2021 11:20:18 +0200 (CEST)
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72])
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id BDD5A3F329
- for <ltp@lists.linux.it>; Fri, 27 Aug 2021 09:20:14 +0000 (UTC)
+ by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 37E103F043
+ for <ltp@lists.linux.it>; Fri, 27 Aug 2021 09:20:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1630056014;
- bh=fGiO0VJ45zRZnIMiijbMH8G4HjCcblU2fjo3Wtksec0=;
- h=From:To:Cc:Subject:Date:Message-Id:MIME-Version;
- b=MVQXHOeo6/PT+GKfv1j1c7nw9B1cmrNQvMxcaKmp8+zu9pB+r7ZDznsuTYpdiTSNm
- OKy2YjBAGBxr0+NjQ2wei++o5WBM+66oeuwYxbu4qW2iWxS2GE/MvtDWsess8mGODo
- wU1IgH/+ItuPfaohmmEvuOHm2+syBpKY7/r1OPfNgQDvo2D1aC2VbVNTFTLZCcDF9X
- fXiqgHd+dh3sT7TG79dHPXmQ61tf52L4cRJ2OJMNBHFMbpinpFxUXbQF08WKVsTJG/
- zb/fNqUg0Q0F4YBddDIBnec+v72JrYmAU9wCh5RJz1EmEzA5UEmx8by0LNf2H6k69a
- DETMBPu8myECQ==
-Received: by mail-wm1-f72.google.com with SMTP id
- u1-20020a05600c210100b002e74fc5af71so1866968wml.1
- for <ltp@lists.linux.it>; Fri, 27 Aug 2021 02:20:14 -0700 (PDT)
+ s=20210705; t=1630056015;
+ bh=8//P4nwknrJSbwhgjxzOQH3BO/eQqxQ80tUkgpEU1ZE=;
+ h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+ MIME-Version;
+ b=WSs4ynhVFSrFQcGZNKkLVhphcH53GxMnLFNRuNv6gUufc2Crv8fNBhJ8bkuZYYJqT
+ sFTVXOxDUtXtHKY/wLQBugTIFbJw8dzbS38z2s54b6CEmLTpKkEt0H6mfzgUNKw82m
+ sGw9Kx9o8iiHaOstUc+VGNRQkMAG+hKutvcL1SbruWkq2AEitwt6yDzjZyOfdMLEMF
+ FFKrZX4ruRZD+4eqBY167jSllWuv2itIo6TLEKSGV/KlTrlH8nBXVrwE81aSDf5yL5
+ D/OYWzT6wype+2RWm4gl+Pc1d42YHMjlKSlOPeggJu8WjO8o1l7wHBlRCDDqkVBLh9
+ 1CBvWvWSF9KoQ==
+Received: by mail-wm1-f70.google.com with SMTP id
+ u1-20020a05600c210100b002e74fc5af71so1866978wml.1
+ for <ltp@lists.linux.it>; Fri, 27 Aug 2021 02:20:15 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=fGiO0VJ45zRZnIMiijbMH8G4HjCcblU2fjo3Wtksec0=;
- b=cWRTnrlimd2C7uT0Jfogjuecm0GwPxypM3LlXZHm1UQ90jbd9hvYgCx97Bbv1jjqoc
- 1XtReRxcOvJIVvH/vP3PsW+rPL0j30ksAKyl4XEqVN+o84XNKwbwZjG4gttlddQmsLX+
- fO8qExPfjfU2pxAYRifpkx+Y0e7yaNl218JJwVWIT6eJJVV1jM4SzVFJmgU5CFq3Ywht
- Meiao7O/7+TNQT0snH6bxMFLSh90UvQu1IPLZDZal63Tpepi2SQzkWrMYkFKRpXBmZj3
- /Wqmp6L7w3P64t7apmh+njjpFSmOwnWb6NmwfBiEj7zA0VfdtBiRKNuaLVgZIzb6YXZL
- 709Q==
-X-Gm-Message-State: AOAM531FM+mZlLspvQMowP5NV6W/+R1O+QVoB8hi1eWbLz377wjU/9wA
- U3XLNWj64JYpkbOIqR2k3dbgPxhcnkFXPIdCDU+rB+rKEVjJdqulcNUoV9pySQ8EicAEzLBUBas
- DXcFpPqX7xLKmtJ0ROf0/YuxlEXAs
-X-Received: by 2002:a5d:6d86:: with SMTP id l6mr9009058wrs.158.1630056013798; 
- Fri, 27 Aug 2021 02:20:13 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJzzOC53/h81FbL14ZHQwq+lUUTeF4EBPeAL5Vb1XtjCrscQOwkbxzKN95ICjN2ehli1VTpjEA==
-X-Received: by 2002:a5d:6d86:: with SMTP id l6mr9009035wrs.158.1630056013594; 
- Fri, 27 Aug 2021 02:20:13 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=8//P4nwknrJSbwhgjxzOQH3BO/eQqxQ80tUkgpEU1ZE=;
+ b=kX3ufq5YjZLJNvz7ZiZhcw/YgyLEGOSQezCz7tL6wKsQE5KNTOXmv7oDhfc//b7ps+
+ 0oRzVRw40BPHGFx8okA8N0/pBVqf0fk8xn4pTEdy6kV4X5132ND/T2nw4WR4YOAFIcKB
+ c8rK/Y0OA1VpvW281KybykVaP8YnORZAcRatwwOLaGJC3bZhKhDYtzGdp4qa9ByrF/eV
+ HePAToZGbXwUHnlgqrIJDvWQPMQr/0DSRt7KbVYlvZ9dAeDoIUC2F4JF98al0GLPagAn
+ gTJQMgpAvXQFuycMRCciOI6FaMN6M+IlA1M3VAxJzbJa9I1456UDsMPzvihcMpkiMbyS
+ Jt9A==
+X-Gm-Message-State: AOAM532uS76Xh7Wl+U53n285AsvMmnQ2rjPDgUjVsmdDcua3nSK9SCHF
+ w3ETsx1Cx7Y76kVx2XJeuM+sNMN1BwEy3ZA3Ov+qr/XVVsKMtLn1t7pYzbylk6OThHFfhgqgym3
+ HxWThO1JwBMiiZ91sJHI0Wz/w91QF
+X-Received: by 2002:adf:ce85:: with SMTP id r5mr8905544wrn.323.1630056014431; 
+ Fri, 27 Aug 2021 02:20:14 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwlqZIgUwP6VNBUvfJ8qCfR1SYwba178JgSlboua2h3IXPX870mkGoUaPGVMridsp2Qk8uH+Q==
+X-Received: by 2002:adf:ce85:: with SMTP id r5mr8905527wrn.323.1630056014260; 
+ Fri, 27 Aug 2021 02:20:14 -0700 (PDT)
 Received: from kozik-lap.lan ([79.98.113.249])
- by smtp.gmail.com with ESMTPSA id c9sm2811525wrf.77.2021.08.27.02.20.12
+ by smtp.gmail.com with ESMTPSA id c9sm2811525wrf.77.2021.08.27.02.20.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Fri, 27 Aug 2021 02:20:13 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 To: ltp@lists.linux.it
-Date: Fri, 27 Aug 2021 11:20:06 +0200
-Message-Id: <20210827092007.20889-1-krzysztof.kozlowski@canonical.com>
+Date: Fri, 27 Aug 2021 11:20:07 +0200
+Message-Id: <20210827092007.20889-2-krzysztof.kozlowski@canonical.com>
 X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20210827092007.20889-1-krzysztof.kozlowski@canonical.com>
+References: <20210827092007.20889-1-krzysztof.kozlowski@canonical.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH v3 1/2] controllers/cpuacct: skip cpuacct_100_100 on
- small memory systems
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH v3 2/2] controllers/cpuacct: fix rmdir failures on
+ early test abort
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,118 +98,49 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Running cpuacct_100_100 on a system with less than ~4 GB of RAM fails:
+The "testpath" variable is assigned at the end of setup(), so if test
+exits early, the "rmdir $testpath" is wrong:
 
-    cpuacct 1 TINFO: timeout per run is 0h 5m 0s
-    cpuacct 1 TINFO: cpuacct: /sys/fs/cgroup/cpu,cpuacct
-    cpuacct 1 TINFO: Creating 100 subgroups each with 100 processes
-    testcases/bin/cpuacct.sh: 0: Cannot fork
-
-In dmesg:
-
-    LTP: starting cpuacct_100_100 (cpuacct.sh 100 100)
-    cgroup: fork rejected by pids controller in /user.slice/user-1000.slice/session-1.scope
-
-The reason is cgroups pid limit set by systemd user.slice.  For example
-on 2 GB RAM machine it is set as:
-    /sys/fs/cgroup/pids/user.slice/user-0.slice/pids.max:5207
-
-Add a check for both free memory and maximum number of pids (when using
-systemd) to skip the test.  Systems not using systemd might still fail.
+    cpuacct 1 TCONF: not enough of memory on this system (less than 3840 MB)
+    cpuacct 1 TINFO: removing created directories
+    rmdir: missing operand
+    Try 'rmdir --help' for more information.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 
 ---
 
 Changes since v2:
-1. Correct realuid->real_uid typo.
-2. Correct handling dash shell tests for return value.
-3. Correct handling numbers - infinite.
+1. None.
 
 Changes since v1:
-1. Add checking for pids.
-2. Accurately check the memory constraints.
+1. None.
 ---
- .../kernel/controllers/cpuacct/cpuacct.sh     | 60 +++++++++++++++++++
- 1 file changed, 60 insertions(+)
+ testcases/kernel/controllers/cpuacct/cpuacct.sh | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
 diff --git a/testcases/kernel/controllers/cpuacct/cpuacct.sh b/testcases/kernel/controllers/cpuacct/cpuacct.sh
-index 323aa7513bf4..cde2ea948cee 100755
+index cde2ea948cee..d2250fdd339d 100755
 --- a/testcases/kernel/controllers/cpuacct/cpuacct.sh
 +++ b/testcases/kernel/controllers/cpuacct/cpuacct.sh
-@@ -38,12 +38,72 @@ OPTIONS
- EOF
- }
- 
-+check_free_memory()
-+{
-+	local memneeded
-+	local memfree=`awk '/MemAvailable/ {print $2}' /proc/meminfo`
-+
-+	if [ $? -ne 0 ]; then
-+		local memcached
-+
-+		memfree=`awk '/MemFree/ {print $2}' /proc/meminfo`
-+		test $? -eq 0 || return 0
-+
-+		memcached=`awk '/MemCached/ {print $2}' /proc/meminfo`
-+		test $? -eq 0 || return 0
-+
-+		memfree=$((memfree + memcached))
-+	fi
-+
-+	# On x86_64, each 100 of processes were using ~16 MB of memory,
-+	# so try to estimate the needed free memory based on this.
-+	memneeded=$((max * nbprocess * 16384 / 100))
-+
-+	if [ $memfree -lt $memneeded ]; then
-+		tst_brk TCONF "not enough of free memory on this system (approximate need $memneeded kB, free $memfree kB)"
-+	fi
-+	tst_res TINFO "memory requirements fulfilled (approximate need $memneeded kB, free $memfree kB)"
-+
-+	return 0
-+}
-+
-+check_limits()
-+{
-+	local real_uid="$SUDO_UID"
-+	local tasksneeded=$((max * nbprocess + 100))
-+
-+	if [ "$real_uid" = "" ]; then
-+		real_uid=`id -u`
-+		test $? -eq 0 || return 0
-+	fi
-+
-+	local tasksmax=`systemctl show user-${real_uid}.slice | awk -F '=' '/TasksMax/ {print $2}'`
-+	test $? -eq 0 || return 0
-+
-+	# Check for number for cases like TasksMax=infinity
-+	[ -n "$tasksmax" ] && [ "$tasksmax" -eq "$tasksmax" ] 2>/dev/null
-+	test $? -eq 0 || return 0
-+
-+	if [ $tasksmax -le $tasksneeded ]; then
-+		tst_brk TCONF "limit of tasks is too low (approximate need $tasksneeded, limit $tasksmax)"
-+	fi
-+	tst_res TINFO "task limit fulfilled (approximate need $tasksneeded, limit $tasksmax)"
-+
-+	return 0
-+}
-+
- setup()
+@@ -131,12 +131,13 @@ cleanup()
  {
- 	if ! grep -q -w cpuacct /proc/cgroups; then
- 		tst_brk TCONF "cpuacct not supported on this system"
+ 	tst_res TINFO "removing created directories"
+ 
+-	if [ -d "$testpath/subgroup_1" ]; then
+-		rmdir $testpath/subgroup_*
++	if [ "$testpath" ]; then
++		if [ -d "$testpath/subgroup_1" ]; then
++			rmdir $testpath/subgroup_*
++		fi
++		rmdir $testpath
  	fi
  
-+	check_limits
-+	# Don't bother with memory limit checks on smaller tests
-+	if [ $max -ge 100 ] && [ $nbprocess -ge 100 ]; then
-+		check_free_memory
-+	fi
-+
- 	mount_point=`grep -w cpuacct /proc/mounts | cut -f 2 | cut -d " " -f2`
- 	tst_res TINFO "cpuacct: $mount_point"
- 	if [ "$mount_point" = "" ]; then
+-	rmdir $testpath
+-
+ 	if [ "$mounted" -ne 1 ]; then
+ 		tst_res TINFO "Umounting cpuacct"
+ 		umount $mount_point
 -- 
 2.30.2
 
