@@ -2,89 +2,78 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id F35083FB46C
-	for <lists+linux-ltp@lfdr.de>; Mon, 30 Aug 2021 13:17:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB7B63FB5BB
+	for <lists+linux-ltp@lfdr.de>; Mon, 30 Aug 2021 14:16:08 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A70CD3C2C6B
-	for <lists+linux-ltp@lfdr.de>; Mon, 30 Aug 2021 13:17:24 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 225643C2B55
+	for <lists+linux-ltp@lfdr.de>; Mon, 30 Aug 2021 14:16:08 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 9454B3C8DA7
- for <ltp@lists.linux.it>; Mon, 30 Aug 2021 13:16:53 +0200 (CEST)
-Received: from JPN01-OS2-obe.outbound.protection.outlook.com
- (mail-os2jpn01olkn0175.outbound.protection.outlook.com [104.47.92.175])
+ by picard.linux.it (Postfix) with ESMTPS id 039703C0234
+ for <ltp@lists.linux.it>; Mon, 30 Aug 2021 14:16:01 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id E46EA1400437
- for <ltp@lists.linux.it>; Mon, 30 Aug 2021 13:16:52 +0200 (CEST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=B0xjT1VGJpH0RctYt+/GUxteG2XDI+Vujuqx1O5hsAsgp0UX22BZjgMIcOLZb2NaB8bBxRv3//+zlBI2UArAgzOU9LGpEolLGZfI22R1bW5TRWutNkomnpss2qXcGIOJUTNAJM7tmqOt42ThnDU4Tzl52+mar6wckZZQakihH/Qbuy4O3COGboQd2LN+GhvVdHFS9E3xOtMHGqoQTikRtx65DwP5gGjB0BxubeajWOjST52bjSjCn9OAjFztBZC81orXD3rJergasp5BV5nk+T0UQ7DPm5siBOfrYvCGm4kOaM5+a/sXD3afZ1owpdNuKyeuZosaYq8IUsKrrbRtAA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GnuQRKsI/p3UC015Ecd+VLJECUZD9zwSpQ1HPtpOCS4=;
- b=nHnHx+6gra0mN3QmMtsTyKDeSs1FbCF7QMIGKB0KRkPAA+MvqDIILpfNeipcqzr+2gnz/ihiGy5fSKzE9GSs9GmzTBhrnT0GtRDxFdk0eGs81jmGfadAtFPHkDI4Fs5yIyof23m9MQwlSWQu2cfe7rfnoQP8pFqkRMk3G+iI0iczcTTA3MHJf/DAmo/uKOWyyHDhTOlunw4lB/Zi96m1iQ1+i+17XkYgU9K3nQIBqT/w7PySC3InuktI/fDWEy3j5ZZmSz2d1miJML/pkihKWiF6I2jVdB7VWT3zYVA4S/aXLydf74V2H7zhPp4aTE4c3ehyvAvTpJevtNddpu/YUg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GnuQRKsI/p3UC015Ecd+VLJECUZD9zwSpQ1HPtpOCS4=;
- b=HeE4jY42CprCqCQzWc+fPfMhDfjM4nteRT+zf0/rOWcYzvs5St3OT0bKMWOx4B1d4ZXbX18NVxYzpQt90k8YF64YIdRVMj+NK9YXtV5n1G8HESJKXRfZOW0pTnJ+FUJf/DQPFg/sX4bZIAo1ZWTMuWNWlrALDuFCSwK69QlpfAlcxcGtPQSCy3/PnON91t1Nax/1Usc42vekpR+TXdLHBgL1NTHWmpYyljO9PHReSiRqS3UMgx5h8IC3ootcn7X5WsdVnSbWWzIMwX/ZiYPPt6ba8ayQosnuti3XrUbmSwPHiydNCqC1oYD78l5epeeYYq/np+gg8sD/Xi+AYhUChw==
-Received: from OSZP286MB0871.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:e9::13)
- by OSZP286MB0888.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:eb::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.19; Mon, 30 Aug
- 2021 11:16:48 +0000
-Received: from OSZP286MB0871.JPNP286.PROD.OUTLOOK.COM
- ([fe80::fc56:5558:8b5e:4209]) by OSZP286MB0871.JPNP286.PROD.OUTLOOK.COM
- ([fe80::fc56:5558:8b5e:4209%5]) with mapi id 15.20.4457.024; Mon, 30 Aug 2021
- 11:16:48 +0000
-From: Xie Ziyao <ziyaoxie@outlook.com>
-To: ltp@lists.linux.it
-Date: Mon, 30 Aug 2021 19:16:38 +0800
-Message-ID: <OSZP286MB0871D15C101A02A134430703CCCB9@OSZP286MB0871.JPNP286.PROD.OUTLOOK.COM>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210830111638.66371-1-ziyaoxie@outlook.com>
-References: <20210830111638.66371-1-ziyaoxie@outlook.com>
-X-TMN: [v0RO/sfi8qmLAqKcRlUHs/cPej8hDPns]
-X-ClientProxiedBy: HK2PR04CA0078.apcprd04.prod.outlook.com
- (2603:1096:202:15::22) To OSZP286MB0871.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:604:e9::13)
-X-Microsoft-Original-Message-ID: <20210830111638.66371-4-ziyaoxie@outlook.com>
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 4D42A1A00617
+ for <ltp@lists.linux.it>; Mon, 30 Aug 2021 14:15:59 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1630325758;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=mUlMr1kRQfGX8Eq2dlZAm0nA9WVXwHFSOalCqGoPKbU=;
+ b=AH4MezCY2491XriRUZ+IY8Zlib9bQtqsaVamrOkXZd9kyAX8AQuTW0qutYSfnj/Fsqqdrf
+ 0GHu17/hIDU8/aia9HXqRV384N3mK3lerXw1rOuFbrFkdX7fKMn0JfrdTnWo/xmar5Mqe6
+ 53LSztRew4zzfGxVOJTGPHyq47MPT9Q=
+Received: from mail-yb1-f200.google.com (mail-yb1-f200.google.com
+ [209.85.219.200]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-501-FCifc7dKPjuNRHDibJ_WIA-1; Mon, 30 Aug 2021 08:15:55 -0400
+X-MC-Unique: FCifc7dKPjuNRHDibJ_WIA-1
+Received: by mail-yb1-f200.google.com with SMTP id
+ q9-20020a252a09000000b0059b9b61f6ceso14546557ybq.19
+ for <ltp@lists.linux.it>; Mon, 30 Aug 2021 05:15:55 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=mUlMr1kRQfGX8Eq2dlZAm0nA9WVXwHFSOalCqGoPKbU=;
+ b=p02gT6w4/IJUEvjV6lx+rbx5GrZgvg+fPtqbip8xg1xKO+nbZgcWJS5zSHIhY7gUVO
+ 6baWyrZgNAU0kEnzvbcD88Lxduk87dRQigTRSS6iJMLuVTPS2VESiBi4dqgSAEOUcuCV
+ OBGpbM4Trfo2g/xSkc7l024W7P4hrpo5d7RpuUSjW2VlL89qofAQYkXoMDwFWGfen3fG
+ RSMUNk9SG+F6MwDdaRJsKy9lWEkRlxRS2Q2GpduimDKHxK+ya73r0ltLgFzcxreunGXL
+ TAXiSQMkhFG1oK3Nf2QeKlipEZ59lOMXa9SRlAakDPVRLnqgq58X6MowaA9aomnBkOYu
+ cBKA==
+X-Gm-Message-State: AOAM532QnwRO9dVn5oTrsNokWU7DVaFO46UjqPzvm0yUV4MWHQh6XJIj
+ kos/FE9HMUzsQZ6AL6wcv+hcYWCyrviWuS91YAOMxodyeVzct0ewm5UIrY9wTp7orlyFPno7esg
+ hdKfQ92+nIxCk8xyPuCG4K6mlf+Y=
+X-Received: by 2002:a25:1257:: with SMTP id 84mr23757377ybs.243.1630325755165; 
+ Mon, 30 Aug 2021 05:15:55 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwqyx1354Ql48rfyH9nY0xo06VLgtyH39lgWxj5ydvMpGqVUWWCi1rbSqhG8UcXZFS79IVgOqpI1YgLMRGwxI8=
+X-Received: by 2002:a25:1257:: with SMTP id 84mr23757361ybs.243.1630325754939; 
+ Mon, 30 Aug 2021 05:15:54 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from localhost.localdomain (14.127.251.239) by
- HK2PR04CA0078.apcprd04.prod.outlook.com (2603:1096:202:15::22) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4457.17 via Frontend Transport; Mon, 30 Aug 2021 11:16:48 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 8f77f793-d9bb-4a53-7404-08d96ba7a89c
-X-MS-TrafficTypeDiagnostic: OSZP286MB0888:
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: dYM40MrJjvBcmAj25ew3Cs9JKUdVYqls7W+QpySwtQlkiJIyEiUCaCr6Gxg8lQa44Idi+KYfx12cj+jDipvo6CCBiS9hD+jSVg8I3waMFt1Tg1rM93mQfiroy8bHQr4K+98GdrK3deOhF+9RXRuN5OH8cMRuxekQCucV6axhgEDZil92x5gBnW9xBsBiOWBUL9afvdZLwzB/14vukuLhiEUJegQEnQTHfQijhTQbDmsiG35Slpb+TBk2Qccd3evUbz1a55zlh6MqAwX62mJ/PEO0lEhXXefq4sbUtrVEMHNOU9XJIw4JLlyTL7ZhSALtdGElq6CHPDhwhx35edxebxXk7xN7xyqRdBau/3WZ1fVfMBz47koSw7H+Fwi8Xzd2xAvONW4y4LXkNPpwFvm7MH4kFOx0qHxfD9pHpgPp4e59ZSZyCTZhOVoIM5yK2Del
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: aghGL1cbmXGuJXB15pazn4iv122/77RNVAJAxb81JHyintMlmD1kKH0/fRYCu8apu1aMBgyu2EqOuGOoj423lW9tIbq9g/l8o+0V9m8WaWIR3n8SuaRO8ckdf0ottB1iFi/ivyJEexh3D8whKWu0rQ==
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8f77f793-d9bb-4a53-7404-08d96ba7a89c
-X-MS-Exchange-CrossTenant-AuthSource: OSZP286MB0871.JPNP286.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Aug 2021 11:16:48.3725 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSZP286MB0888
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+References: <20210830073544.19620-1-zhanglianjie@uniontech.com>
+In-Reply-To: <20210830073544.19620-1-zhanglianjie@uniontech.com>
+From: Li Wang <liwang@redhat.com>
+Date: Mon, 30 Aug 2021 20:15:43 +0800
+Message-ID: <CAEemH2c=nZJCJk7_NbqQZNs83OpXaZPRyoJsOuWb=OmHjW9fhQ@mail.gmail.com>
+To: zhanglianjie <zhanglianjie@uniontech.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,MSGID_FROM_MTA_HEADER,
- SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH 3/3] epoll_ctl02: Add test for fd not supporting epoll
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] tst_test_macros: Add test_macros06 tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,65 +85,225 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============0735021705=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Verify that epoll_ctl() fails with EPERM if fd does not support epoll.
-This error can occur if fd refers to, for example, a regular file or a
-directory.
+--===============0735021705==
+Content-Type: multipart/alternative; boundary="0000000000007de2b105cac5cbd0"
 
-Signed-off-by: Xie Ziyao <ziyaoxie@outlook.com>
----
- testcases/kernel/syscalls/epoll_ctl/epoll_ctl02.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+--0000000000007de2b105cac5cbd0
+Content-Type: text/plain; charset="UTF-8"
 
-diff --git a/testcases/kernel/syscalls/epoll_ctl/epoll_ctl02.c b/testcases/kernel/syscalls/epoll_ctl/epoll_ctl02.c
-index 4872fcacb..fe16ad1cb 100644
---- a/testcases/kernel/syscalls/epoll_ctl/epoll_ctl02.c
-+++ b/testcases/kernel/syscalls/epoll_ctl/epoll_ctl02.c
-@@ -7,9 +7,10 @@
- /*\
-  * [Description]
-  *
-- * Verify that epoll_cnt() fails with:
-+ * Verify that epoll_ctl() fails with:
-  *
-  * - EBADF if epfd is an invalid fd.
-+ * - EPERM if fd does not support epoll.
-  * - EBADF if fd is an invalid fd.
-  * - EINVAL if op is not supported.
-  * - EINVAL if fd is the same as epfd.
-@@ -25,7 +26,7 @@
- #include "tst_test.h"
+On Mon, Aug 30, 2021 at 3:36 PM zhanglianjie <zhanglianjie@uniontech.com>
+wrote:
 
- static int epfd;
--static int fd[2];
-+static int fd[2], unsupported_fd;
- static int inv = -1;
+> Test the TST_EXP_VAL and TST_EXP_VAL_SILENT macros.
+>
+> Signed-off-by: zhanglianjie <zhanglianjie@uniontech.com>
+>
+> diff --git a/lib/newlib_tests/.gitignore b/lib/newlib_tests/.gitignore
+> index a0bad78c1..cf467b5a0 100644
+> --- a/lib/newlib_tests/.gitignore
+> +++ b/lib/newlib_tests/.gitignore
+> @@ -42,6 +42,7 @@ test_macros02
+>  test_macros03
+>  test_macros04
+>  test_macros05
+> +test_macros06
+>  tst_fuzzy_sync01
+>  tst_fuzzy_sync02
+>  tst_fuzzy_sync03
+> diff --git a/lib/newlib_tests/test_macros06.c
+> b/lib/newlib_tests/test_macros06.c
+> new file mode 100644
+> index 000000000..626f233d2
+> --- /dev/null
+> +++ b/lib/newlib_tests/test_macros06.c
+> @@ -0,0 +1,40 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Copyright (c) 2021 zhanglianjie <zhanglianjie@uniontech.com>
+> + */
+> +
+> +/*
+> + * Test TST_EXP_VAL and TST_EXP_VAL_SILENT macro.
+> + */
+> +
+> +#include "tst_test.h"
+> +
+> +static int fail_val(void)
+> +{
+> +       errno = EINVAL;
+> +       return 42;
+> +}
+> +
+> +static int pass_val(void)
+> +{
+> +       return 42;
+> +}
+> +
+> +static void do_test(void)
+> +{
+> +       tst_res(TINFO, "Testing TST_EXP_VAL macro");
+> +       TST_EXP_VAL(fail_val(), 40, "fail_val()");
+> +       tst_res(TINFO, "TST_PASS = %i", TST_PASS);
+> +       TST_EXP_VAL(pass_val(), 42, "fail_val()");
+>
 
- static struct epoll_event events[2] = {
-@@ -42,6 +43,7 @@ static struct testcase {
- 	const char *desc;
- } tc[] = {
- 	{&inv, EPOLL_CTL_ADD, &fd[1], &events[1], EBADF, "epfd is an invalid fd"},
-+	{&epfd, EPOLL_CTL_ADD, &unsupported_fd, &events[1], EPERM, "fd does not support epoll"},
- 	{&epfd, EPOLL_CTL_ADD, &inv, &events[1], EBADF, "fd is an invalid fd"},
- 	{&epfd, -1, &fd[1], &events[1], EINVAL, "op is not supported"},
- 	{&epfd, EPOLL_CTL_ADD, &epfd, &events[1], EINVAL, "fd is the same as epfd"},
-@@ -53,6 +55,8 @@ static struct testcase {
+Err, the last function name should be corrected to "pass_val()" or
+delete it like test_macros05.
 
- static void setup(void)
- {
-+	unsupported_fd = SAFE_OPEN(".", O_RDONLY|O_DIRECTORY, 0);
-+
- 	epfd = epoll_create(2);
- 	if (epfd == -1)
- 		tst_brk(TBROK | TERRNO, "fail to create epoll instance");
---
-2.25.1
+Someone who merges this can help fix it.
+
+
+
+> +       tst_res(TINFO, "TST_PASS = %i", TST_PASS);
+> +
+> +       tst_res(TINFO, "Testing TST_EXP_PID_SILENT macro");
+> +       TST_EXP_VAL_SILENT(fail_val(), 40, "fail_val()");
+> +       tst_res(TINFO, "TST_PASS = %i", TST_PASS);
+> +       TST_EXP_VAL_SILENT(pass_val(), 42, "%s", "pass_val()");
+> +       tst_res(TINFO, "TST_PASS = %i", TST_PASS);
+> +}
+> +
+> +static struct tst_test test = {
+> +       .test_all = do_test,
+> +};
+> --
+> 2.20.1
+>
+>
+>
+>
+> --
+> Mailing list info: https://lists.linux.it/listinfo/ltp
+>
+>
+
+-- 
+Regards,
+Li Wang
+
+--0000000000007de2b105cac5cbd0
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Mon, Aug 30, 2021 at 3:36 PM zhanglianjie &lt;<a=
+ href=3D"mailto:zhanglianjie@uniontech.com">zhanglianjie@uniontech.com</a>&=
+gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0=
+px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Test =
+the TST_EXP_VAL and TST_EXP_VAL_SILENT macros.<br>
+<br>
+Signed-off-by: zhanglianjie &lt;<a href=3D"mailto:zhanglianjie@uniontech.co=
+m" target=3D"_blank">zhanglianjie@uniontech.com</a>&gt;<br>
+<br>
+diff --git a/lib/newlib_tests/.gitignore b/lib/newlib_tests/.gitignore<br>
+index a0bad78c1..cf467b5a0 100644<br>
+--- a/lib/newlib_tests/.gitignore<br>
++++ b/lib/newlib_tests/.gitignore<br>
+@@ -42,6 +42,7 @@ test_macros02<br>
+=C2=A0test_macros03<br>
+=C2=A0test_macros04<br>
+=C2=A0test_macros05<br>
++test_macros06<br>
+=C2=A0tst_fuzzy_sync01<br>
+=C2=A0tst_fuzzy_sync02<br>
+=C2=A0tst_fuzzy_sync03<br>
+diff --git a/lib/newlib_tests/test_macros06.c b/lib/newlib_tests/test_macro=
+s06.c<br>
+new file mode 100644<br>
+index 000000000..626f233d2<br>
+--- /dev/null<br>
++++ b/lib/newlib_tests/test_macros06.c<br>
+@@ -0,0 +1,40 @@<br>
++// SPDX-License-Identifier: GPL-2.0-or-later<br>
++/*<br>
++ * Copyright (c) 2021 zhanglianjie &lt;<a href=3D"mailto:zhanglianjie@unio=
+ntech.com" target=3D"_blank">zhanglianjie@uniontech.com</a>&gt;<br>
++ */<br>
++<br>
++/*<br>
++ * Test TST_EXP_VAL and TST_EXP_VAL_SILENT macro.<br>
++ */<br>
++<br>
++#include &quot;tst_test.h&quot;<br>
++<br>
++static int fail_val(void)<br>
++{<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0errno =3D EINVAL;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0return 42;<br>
++}<br>
++<br>
++static int pass_val(void)<br>
++{<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0return 42;<br>
++}<br>
++<br>
++static void do_test(void)<br>
++{<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0tst_res(TINFO, &quot;Testing TST_EXP_VAL macro&=
+quot;);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0TST_EXP_VAL(fail_val(), 40, &quot;fail_val()&qu=
+ot;);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0tst_res(TINFO, &quot;TST_PASS =3D %i&quot;, TST=
+_PASS);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0TST_EXP_VAL(pass_val(), 42, &quot;fail_val()&qu=
+ot;);<br></blockquote><div><br></div><div><div class=3D"gmail_default" styl=
+e=3D"font-size:small">Err, the last function name should be corrected to &q=
+uot;pass_val()&quot; or=C2=A0</div><div class=3D"gmail_default" style=3D"fo=
+nt-size:small">delete it like test_macros05.</div><div class=3D"gmail_defau=
+lt" style=3D"font-size:small"><br></div><div class=3D"gmail_default" style=
+=3D"font-size:small">Someone who merges this can help fix it.</div><br></di=
+v><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0p=
+x 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
++=C2=A0 =C2=A0 =C2=A0 =C2=A0tst_res(TINFO, &quot;TST_PASS =3D %i&quot;, TST=
+_PASS);<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0tst_res(TINFO, &quot;Testing TST_EXP_PID_SILENT=
+ macro&quot;);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0TST_EXP_VAL_SILENT(fail_val(), 40, &quot;fail_v=
+al()&quot;);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0tst_res(TINFO, &quot;TST_PASS =3D %i&quot;, TST=
+_PASS);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0TST_EXP_VAL_SILENT(pass_val(), 42, &quot;%s&quo=
+t;, &quot;pass_val()&quot;);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0tst_res(TINFO, &quot;TST_PASS =3D %i&quot;, TST=
+_PASS);<br>
++}<br>
++<br>
++static struct tst_test test =3D {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0.test_all =3D do_test,<br>
++};<br>
+--<br>
+2.20.1<br>
+<br>
+<br>
+<br>
+<br>
+-- <br>
+Mailing list info: <a href=3D"https://lists.linux.it/listinfo/ltp" rel=3D"n=
+oreferrer" target=3D"_blank">https://lists.linux.it/listinfo/ltp</a><br>
+<br>
+</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
+ class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li =
+Wang<br></div></div></div></div>
+
+--0000000000007de2b105cac5cbd0--
+
+
+--===============0735021705==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============0735021705==--
+
