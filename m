@@ -1,73 +1,73 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EE053FB886
-	for <lists+linux-ltp@lfdr.de>; Mon, 30 Aug 2021 16:50:15 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B9A33FB8DA
+	for <lists+linux-ltp@lfdr.de>; Mon, 30 Aug 2021 17:12:51 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 14E1E3C9B29
-	for <lists+linux-ltp@lfdr.de>; Mon, 30 Aug 2021 16:50:09 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B162C3C9B37
+	for <lists+linux-ltp@lfdr.de>; Mon, 30 Aug 2021 17:12:45 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 77D6A3C2AE6
- for <ltp@lists.linux.it>; Mon, 30 Aug 2021 16:50:04 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 9E6D63C1830
+ for <ltp@lists.linux.it>; Mon, 30 Aug 2021 17:12:42 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id B4DD610007DE
- for <ltp@lists.linux.it>; Mon, 30 Aug 2021 16:50:03 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id CD425600475
+ for <ltp@lists.linux.it>; Mon, 30 Aug 2021 17:12:41 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id C10CD22122;
- Mon, 30 Aug 2021 14:50:02 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 265D2200C8;
+ Mon, 30 Aug 2021 15:12:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1630335002; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1630336361; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=/9iF2RaRRpKERGasgY2Sa7H9kZD5YM9qShZkBdDsUNk=;
- b=2UV9jGdqfL+QhlURpD3q4SJ5odmpMjve285Gm8Ux9s2Ft1cmpxnRfh5Ir/hEmkKB4vn+Zn
- 8JDhYfa1iWmrIMLCInaN0UQbqt+1Bmo998gru50FksoavKz3KN5d0TuYM0R/qR4iFXis6f
- H8koDp8QwujBqTwQd5kP0hbeMJW7EWY=
+ bh=obQ3N0DdkHxGwCFUhm0D5e+Q51CAJD/HLjUhl5erWvo=;
+ b=t2cYL7KDJa2STOwdsz0/69k+rJipbimSQBWAA1tr7FR5s+1iOnv7D+DmoOHqHE5BZOVzuK
+ G5P/+xyzwAYIh8Fnndr5Mebwj3twzWUH9gxkUFWAw67JOhRPzOtturaaVyAaSoWel1m4rT
+ oEUrvcL42dftJfCnWscQVGedGk0JLYQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1630335002;
+ s=susede2_ed25519; t=1630336361;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=/9iF2RaRRpKERGasgY2Sa7H9kZD5YM9qShZkBdDsUNk=;
- b=CcglRGXShLMKM/B0sh66RsqwxEmI5HNc/ToOsl0OjOyRpPZu9+YlveRFiZo560mPBNtSXu
- twshuNkNVu/u5zCg==
+ bh=obQ3N0DdkHxGwCFUhm0D5e+Q51CAJD/HLjUhl5erWvo=;
+ b=HlSvzsHqUdh6ocEs2vyCwjQU7ZKUs2Iuy3f8IFxdDF/jdo7Z2EcRMGMbCMkbCJrEr9HZar
+ uLIjw4wnQt9OUGDQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id AB8EE13B68;
- Mon, 30 Aug 2021 14:50:02 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 08C1213B68;
+ Mon, 30 Aug 2021 15:12:41 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id kZTfKRrwLGEqPgAAMHmgww
- (envelope-from <chrubis@suse.cz>); Mon, 30 Aug 2021 14:50:02 +0000
-Date: Mon, 30 Aug 2021 16:50:11 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id I6B8AGn1LGEtRQAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Mon, 30 Aug 2021 15:12:41 +0000
+Date: Mon, 30 Aug 2021 17:12:49 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Xie Ziyao <ziyaoxie@outlook.com>
-Message-ID: <YSzwIwm7q533tlpD@yuki>
-References: <OSZP286MB087168E8DE5E0E49C9F90E27CCC89@OSZP286MB0871.JPNP286.PROD.OUTLOOK.COM>
+Message-ID: <YSz1cfJa0vgYHokB@yuki>
+References: <20210830111638.66371-1-ziyaoxie@outlook.com>
+ <OSZP286MB08715F437E34B8DC078D293ACCCB9@OSZP286MB0871.JPNP286.PROD.OUTLOOK.COM>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <OSZP286MB087168E8DE5E0E49C9F90E27CCC89@OSZP286MB0871.JPNP286.PROD.OUTLOOK.COM>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+In-Reply-To: <OSZP286MB08715F437E34B8DC078D293ACCCB9@OSZP286MB0871.JPNP286.PROD.OUTLOOK.COM>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] epoll_creat01: Replace TST_PASS with TST_RET
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/3] epoll_ctl: Add test for epoll_ctl04
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,42 +86,7 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> diff --git a/testcases/kernel/syscalls/epoll_create/epoll_create01.c b/testcases/kernel/syscalls/epoll_create/epoll_create01.c
-> index 54fd0810d..29ac3763e 100644
-> --- a/testcases/kernel/syscalls/epoll_create/epoll_create01.c
-> +++ b/testcases/kernel/syscalls/epoll_create/epoll_create01.c
-> @@ -26,9 +26,8 @@ static void run(unsigned int n)
->  {
->  	TST_EXP_FD(tst_syscall(__NR_epoll_create, tc[n]), "epoll_create(%d)", tc[n]);
-> 
-> -	if (!TST_PASS)
-> -		return;
-> -	SAFE_CLOSE(TST_PASS);
-> +	if (TST_RET)
-> +		SAFE_CLOSE(TST_RET);
->  }
-
-Isn't this broken as well?
-
-As far as I can tell the if (!TST_PASS) part in the test is correct and
-we only have to change the TST_PASS to TST_RET in the SAFE_CLOSE().
-
-So we should apply:
-
-diff --git a/testcases/kernel/syscalls/epoll_create/epoll_create01.c b/testcases/kernel/syscalls/epoll_create/epoll_create01.c
-index 54fd0810d..3ef5b5cac 100644
---- a/testcases/kernel/syscalls/epoll_create/epoll_create01.c
-+++ b/testcases/kernel/syscalls/epoll_create/epoll_create01.c
-@@ -28,7 +28,7 @@ static void run(unsigned int n)
-
-        if (!TST_PASS)
-                return;
--       SAFE_CLOSE(TST_PASS);
-+       SAFE_CLOSE(TST_RET);
- }
-
- static struct tst_test test = {
-
+Patchset pushed, thanks.
 
 -- 
 Cyril Hrubis
