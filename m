@@ -2,74 +2,74 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 704913FB6D5
-	for <lists+linux-ltp@lfdr.de>; Mon, 30 Aug 2021 15:17:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7B0D3FB6FD
+	for <lists+linux-ltp@lfdr.de>; Mon, 30 Aug 2021 15:33:23 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 269A43C2B6E
-	for <lists+linux-ltp@lfdr.de>; Mon, 30 Aug 2021 15:17:34 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B8CCC3C2B6C
+	for <lists+linux-ltp@lfdr.de>; Mon, 30 Aug 2021 15:33:23 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 78AE93C2AD2
- for <ltp@lists.linux.it>; Mon, 30 Aug 2021 15:17:32 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id DFEF83C0234
+ for <ltp@lists.linux.it>; Mon, 30 Aug 2021 15:33:19 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id F08B4600812
- for <ltp@lists.linux.it>; Mon, 30 Aug 2021 15:17:31 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 094C31400779
+ for <ltp@lists.linux.it>; Mon, 30 Aug 2021 15:33:18 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 273D0200AC
- for <ltp@lists.linux.it>; Mon, 30 Aug 2021 13:17:31 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 49D5622145;
+ Mon, 30 Aug 2021 13:33:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1630329451; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ t=1630330398; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=MV+YCKh1CNvkcwi97PumSMhUPi2TSImtFZZ2R2lXXJw=;
- b=wATQH14Ow3w/dsVrxFDmitiZGdZDAuHVrSx1T6snjXLMFEZjiUIiFLBON8Wro4uQqs8lM5
- Ulz1n2IhwS9SfcmA29YNMNN3uKMk1xUROJvkHCr9oxX0drlpmVXjCUlu3F0bp6k3KdZPYx
- HQ7fSUr/YTaVULTsyw3xneCHrLgAOAo=
+ bh=2Dr55WggPAW1gEReII/XqRV2HMehm0LOOJzC2Q85k3M=;
+ b=LEwe7nyhXlnqMwcQWlSf+E4ZAfQa/LHYVAJcke7RHTT6GAxk56kqtkYJ3oDnlsoNkD8pBu
+ BHfS5mFBlaKNWHY/Hx2+kQL0VCvCSoAzAiAOWwT3iMFmGHHZeDO5RmIf30TNm9MapHSduw
+ /lV8lZDO3GkoNnNvRON9aWK7p9KUAcs=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1630329451;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ s=susede2_ed25519; t=1630330398;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=MV+YCKh1CNvkcwi97PumSMhUPi2TSImtFZZ2R2lXXJw=;
- b=hyawLU7OR4zCqUHLHhLK3AuPVB7JhyFPmRjAx0y17eT0FGECALbstD9CivsXgaLvfwBDwV
- WoMp+uxDhygwK2Dw==
+ bh=2Dr55WggPAW1gEReII/XqRV2HMehm0LOOJzC2Q85k3M=;
+ b=bXiEkvZPclPE6bZj+3AimROrS0DxS7R8tdw3p8qu+6zcw+NpbGr0C6kaC7TVysLeYjS8W3
+ gX3EVemOhGRvXuBw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0B5D413A98
- for <ltp@lists.linux.it>; Mon, 30 Aug 2021 13:17:31 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 303D013A98;
+ Mon, 30 Aug 2021 13:33:18 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id UAfAAWvaLGGCIAAAMHmgww
- (envelope-from <mdoucha@suse.cz>)
- for <ltp@lists.linux.it>; Mon, 30 Aug 2021 13:17:31 +0000
-From: Martin Doucha <mdoucha@suse.cz>
-To: ltp@lists.linux.it
-Date: Mon, 30 Aug 2021 15:17:30 +0200
-Message-Id: <20210830131730.31935-2-mdoucha@suse.cz>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20210830131730.31935-1-mdoucha@suse.cz>
-References: <20210830131730.31935-1-mdoucha@suse.cz>
+ by imap2.suse-dmz.suse.de with ESMTPSA id weaiCh7eLGGrJQAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Mon, 30 Aug 2021 13:33:18 +0000
+Date: Mon, 30 Aug 2021 15:33:26 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Petr Vorel <pvorel@suse.cz>
+Message-ID: <YSzeJvfWZja/oKnR@yuki>
+References: <20210827095210.23602-1-rpalethorpe@suse.com>
+ <20210827095210.23602-2-rpalethorpe@suse.com>
+ <YSjXX6NWbDzu5X9m@pevik>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <YSjXX6NWbDzu5X9m@pevik>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/2] tst_get_free_gid(): Skip GID 0
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 2/2] Add CHECK_NOFLAGS and checkpatch.pl to 'make
+ check'
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,38 +81,42 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: Richard Palethorpe <rpalethorpe@suse.com>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-tst_get_free_gid() may return GID 0 on systems where /etc/group (or another
-database of user groups) does not exist. But GID 0 exists implicitly and
-it may stay after setgid() as a supplemental group of the test process if it
-was executed with root privileges. Skip GID 0 to avoid unexpected test
-failures.
+Hi!
+> > Add another check command type. CHECK_NOFLAGS just takes the source
+> > file name as an argument. By default it is set to
+> > scripts/checkpatch.pl which is probably the only thing we want to use
+> > it for. OTOH you can set it to clang-tidy instead.
+> The same we could do with checkbashisms for tests using new shell API.
 
-Signed-off-by: Martin Doucha <mdoucha@suse.cz>
----
- lib/tst_uid.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+This would be a good idea as well.
 
-diff --git a/lib/tst_uid.c b/lib/tst_uid.c
-index 2163b1494..dd719d312 100644
---- a/lib/tst_uid.c
-+++ b/lib/tst_uid.c
-@@ -19,7 +19,7 @@ gid_t tst_get_free_gid_(const char *file, const int lineno, gid_t skip)
- 
- 	errno = 0;
- 
--	for (ret = 0; ret < MAX_GID; ret++) {
-+	for (ret = 1; ret < MAX_GID; ret++) {
- 		if (ret == skip || getgrgid(ret))
- 			continue;
- 
+> > It is run with '-' because of the large number of errors it presently
+> > produces. Also of course, check errors are not actually fatal. If we
+> > wish to stop on errors in the future (e.g. for CI) then a "strict"
+> > option can be introduced.
+> 
+> Thanks for doing this!
+> 
+> Could it be possible to run it only for tests which use new API? Otherwise it
+> takes long time before we can use it in CI due lots of output from tests using
+> legacy API:
+> 
+> tst_record_childstatus.c:1: WARNING: Missing or malformed SPDX-License-Identifier tag in line 1
+> => tst_record_childstatus.c uses test.h.
+
+Well I do see this to be mainly targetting development so that everyone
+can do 'make check' before submitting. So I would like to get this
+merged ASAP and we can try to make it work with CI later on.
+
 -- 
-2.32.0
-
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
