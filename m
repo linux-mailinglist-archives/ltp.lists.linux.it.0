@@ -2,74 +2,67 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D8BA3FC4AD
-	for <lists+linux-ltp@lfdr.de>; Tue, 31 Aug 2021 11:17:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1430F3FC4AF
+	for <lists+linux-ltp@lfdr.de>; Tue, 31 Aug 2021 11:18:41 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 048CE3C2A8A
-	for <lists+linux-ltp@lfdr.de>; Tue, 31 Aug 2021 11:17:18 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id BCB8D3C2A8C
+	for <lists+linux-ltp@lfdr.de>; Tue, 31 Aug 2021 11:18:40 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id AB5BA3C2435
- for <ltp@lists.linux.it>; Tue, 31 Aug 2021 11:17:16 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id E3DD03C2435
+ for <ltp@lists.linux.it>; Tue, 31 Aug 2021 11:18:39 +0200 (CEST)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 6062E200AF3
- for <ltp@lists.linux.it>; Tue, 31 Aug 2021 11:17:15 +0200 (CEST)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id A99CA2213D;
- Tue, 31 Aug 2021 09:17:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1630401434;
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id C375E1A00A58
+ for <ltp@lists.linux.it>; Tue, 31 Aug 2021 11:18:38 +0200 (CEST)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 2BE5F2213D;
+ Tue, 31 Aug 2021 09:18:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1630401518;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=djO3enbV3uUQqCiBvPlaG/jnHbhvV9Ikks7uv6QRwW0=;
- b=xF+8Nxyjayd7faS2qrvkOGI5A9HxcHOy9cjQnSkZxwX8Bo09wGXRLviK88Oj+lmeGjNloE
- 6DpnwpKOl1US/EnPagyjvouYL3DQpxhKrtO3/5GVaPj/PvVt84QsUvZ+lIjuGlmR1rgE9f
- sSh4X8f1Qxs/musICBHloEYycPBvFw4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1630401434;
+ bh=v1zf4yR5njK1Z733qlY106h/ETj4YF837G9/fPVdFqI=;
+ b=BspzlyKTg80te7SKpLk4BwJx13gm9QK9UOkhDrdhw4q/ZsMRxgwOgrP65mVK3vxNL31ks7
+ V2WgxggWpnBm1BBYaerOyNr94Qu0chJSKrVOGloYzF67y65NDTrQhExHQBp1IfNdIxLYS+
+ KgZHxoe6O7XMaZXkUfKp5hsen0drDuo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1630401518;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=djO3enbV3uUQqCiBvPlaG/jnHbhvV9Ikks7uv6QRwW0=;
- b=losRdEn3YuO5L43EC+fjL+uhOj8alabtTZ0ls/gGaWu9fBJdjfhHBSM89U/dnwGV4BUyC0
- YQ18YVa5yL6Q8SCw==
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ bh=v1zf4yR5njK1Z733qlY106h/ETj4YF837G9/fPVdFqI=;
+ b=UJhgGDJ/KwyR/NTmYIz0yNYE7Tl2IDVDhPSvfwRPn8z3vdL90ZaJ7QVwG7sGbphqzJtP0q
+ 4ai57VxKm8wvqNAg==
+Received: from g78 (unknown [10.163.24.38])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 8BD19137C7;
- Tue, 31 Aug 2021 09:17:14 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id psOnIJrzLWFlagAAGKfGzw
- (envelope-from <pvorel@suse.cz>); Tue, 31 Aug 2021 09:17:14 +0000
-Date: Tue, 31 Aug 2021 11:17:13 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <YS3zmWfGvZnTlefF@pevik>
-References: <20210831090837.30245-1-pvorel@suse.cz>
- <YS3yOSp5U0OS+CVd@yuki>
+ by relay2.suse.de (Postfix) with ESMTPS id E49B0A3B8C;
+ Tue, 31 Aug 2021 09:18:37 +0000 (UTC)
+References: <20210831090002.1431298-1-lkml@jv-coder.de>
+User-agent: mu4e 1.4.15; emacs 27.2
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Joerg Vehlow <lkml@jv-coder.de>
+In-reply-to: <20210831090002.1431298-1-lkml@jv-coder.de>
+Date: Tue, 31 Aug 2021 10:18:37 +0100
+Message-ID: <87eeaakm4y.fsf@suse.de>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <YS3yOSp5U0OS+CVd@yuki>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/1] utils: Remove kernbench-0.42
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/2] cfs_bandwidth01: Fix cleanup on failure in
+ set_cpu_quota
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,26 +74,50 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
+Reply-To: rpalethorpe@suse.de
+Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Cyril,
+Hello Joerg,
 
-> Hi!
-> Unlike other scripts you proposed to remove this one is used by the
-> power_management test as a workload. Just do 'git grep kernbench'
-Ah, I'm sorry, I made a typo when grepping. Marking it as rejected.
+Joerg Vehlow <lkml@jv-coder.de> writes:
 
-BTW I was looking into other power_management_tests_exclusive tests (the others,
-which use ebizzy-0.3) because not only on VM but even when running them on my
-laptop all tests TCONF: System is not a multi socket & multi core & hyper-threaded.
+> From: Joerg Vehlow <joerg.vehlow@aox-tech.de>
+>
+> If set_cpu_quota failed, mk_cpu_cgroup did not return
+> and cg_workers[n] was not set. This lead to a failure during
+> cleanup, because the worker cgroups were not deleted.
+>
+> Signed-off-by: Joerg Vehlow <joerg.vehlow@aox-tech.de>
+> ---
+>  .../sched/cfs-scheduler/cfs_bandwidth01.c       | 17 +++++++----------
+>  1 file changed, 7 insertions(+), 10 deletions(-)
+>
+> diff --git a/testcases/kernel/sched/cfs-scheduler/cfs_bandwidth01.c b/testcases/kernel/sched/cfs-scheduler/cfs_bandwidth01.c
+> index 9301ee458..e8032d65a 100644
+> --- a/testcases/kernel/sched/cfs-scheduler/cfs_bandwidth01.c
+> +++ b/testcases/kernel/sched/cfs-scheduler/cfs_bandwidth01.c
+> @@ -57,17 +57,14 @@ static void set_cpu_quota(const struct tst_cgroup_group *const cg,
+>  		tst_cgroup_group_name(cg), quota_us, period_us);
+>  }
+>  
+> -static struct tst_cgroup_group *
+> -mk_cpu_cgroup(const struct tst_cgroup_group *const cg_parent,
+> +static void mk_cpu_cgroup(struct tst_cgroup_group **cg,
+> +          const struct tst_cgroup_group *const cg_parent,
 
-Kind regards,
-Petr
+Seems like there are spaces instead of a tab at the start.
+
+Otherwise LGTM, thanks.
+
+Reviewed-by: Richard Palethorpe <rpalethorpe@suse.com>
+
+-- 
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
