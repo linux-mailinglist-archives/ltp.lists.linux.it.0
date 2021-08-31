@@ -2,149 +2,55 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B18B3FC53C
-	for <lists+linux-ltp@lfdr.de>; Tue, 31 Aug 2021 12:09:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CD683FC6A0
+	for <lists+linux-ltp@lfdr.de>; Tue, 31 Aug 2021 13:44:34 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3B70D3C9A58
-	for <lists+linux-ltp@lfdr.de>; Tue, 31 Aug 2021 12:09:20 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 23C043C9A5A
+	for <lists+linux-ltp@lfdr.de>; Tue, 31 Aug 2021 13:44:33 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 4A2A43C2A1E
- for <ltp@lists.linux.it>; Tue, 31 Aug 2021 12:09:14 +0200 (CEST)
-Received: from esa7.fujitsucc.c3s2.iphmx.com (esa7.fujitsucc.c3s2.iphmx.com
- [68.232.159.87])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id A1D043C2A1F
+ for <ltp@lists.linux.it>; Tue, 31 Aug 2021 13:44:28 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 8564E6009DF
- for <ltp@lists.linux.it>; Tue, 31 Aug 2021 12:09:12 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj1;
- t=1630404552; x=1661940552;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-id:content-transfer-encoding: mime-version;
- bh=Qwyga9fP5k4wlWCFGlzyCIZLaaXMiNnFzcZCnYDHQQw=;
- b=PubxA70iyUO15H4ZSNmwIMW63N/F6qBytDlkvHsaN+pb7f8zdZFsFPtm
- gIl/5W0SBKVxwbNMKkQj0TMRLD+J+d9r/rxYgHNkB6aFJiZdIlRYdQ63Q
- g3y/gMvpRHHdH+hWCLZGWaL2SnsnYTIQG6OIOVqQXhXtFNkhoDtgB6reF
- /1/KkdR7qi5hQKkd77EuC+dOg0E1YGZXSbMn6d4oWOCcvdkU5B0HLWMYM
- CoKrQF9ZbF2ivWs4DdY5yZhO+fflLax7vEAHX/6W4taOjPL3Fb0IVLg7T
- zF5dXLy+Kfatqt9gomSZs+W2phQyOcxMfeQK3EeTa0aI/MLHklvWuyW1n w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10092"; a="38062926"
-X-IronPort-AV: E=Sophos;i="5.84,366,1620658800"; d="scan'208";a="38062926"
-Received: from mail-os2jpn01lp2059.outbound.protection.outlook.com (HELO
- JPN01-OS2-obe.outbound.protection.outlook.com) ([104.47.92.59])
- by ob1.fujitsucc.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Aug 2021 19:09:10 +0900
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=foRmObLwKRtspX+Q91BCVc4kFtFB9XObtYpSSJDxvLssaDVhZird4ycZ+WTA9kwYaMfMlJ7axls9ZYxFKnW//r1rxBz+j906HXOETMy9tsSpuynShrZmmWeIhxQ1JQ1H57mpOP/+P94DNklLO7FVmni3Ywn9eHjCgJfw2PKQ+dsjTdGBx+jzjrQ4BQdJ2UwQUnFbuE9mI0n5P/NfBEF3OKKisxjBW/cW3SvRXa6bcvAwrEKyLd+QmQeqIorCmugfLj+OZe6ol3+qjd5dP+rDZbg2OI7NM2FoD10ve0Xg6eVwvN3PY8fyQmt0C44xra/7pl5G3YoH/+4bsRAGWhd4wQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Qwyga9fP5k4wlWCFGlzyCIZLaaXMiNnFzcZCnYDHQQw=;
- b=cFGDRng3Ems5qBvn8RpwJ4OwcpBemQj1HbgZykZDheYRpb+a0siXr5G/gYHuk8lzy11Ac8l2Vu76fzIK6P93K66M3DM3nO75pv22TIa3Gnt0JriMDrfsfi6BGOkU6y/7MeXpwNHu0Z87d0R2vWYqlAQi6B9xVu9LIKhNa+7j4zcZq9JAyvn0je0gj2ESXDEl3i5gV2wLK9BEQcYIeeDkcchZXXSwMns6Mj70jAXG3WAU7sYcz24L68oogdRHIA6FVz2a8CF7VzTpNsRZzfxj+gItO7Aos4aH3lJ7nU5WbzrLiDnXW3W9wKLFZlv2Eck0wwBzdlaAA/TL8/V5PQLCnA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=fujitsu.com; dmarc=pass action=none header.from=fujitsu.com;
- dkim=pass header.d=fujitsu.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fujitsu.onmicrosoft.com; s=selector2-fujitsu-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Qwyga9fP5k4wlWCFGlzyCIZLaaXMiNnFzcZCnYDHQQw=;
- b=epW/DncjvlQF1tUhVw63XzgnJP4/1nuZtZrZV1TC3KctcASOD0/bneODE7uxBOcwnV3giJiEuocPv97MiTetVnkwdIm64/3P0F6vIJzEN4kgTP1e/C+h162+fMj7VLaM67Y3zU+OowDCrHx3MYJ4CTMD9AzrmYAWBKyiOehTp1Y=
-Received: from TYCPR01MB6544.jpnprd01.prod.outlook.com (2603:1096:400:98::6)
- by TYAPR01MB2320.jpnprd01.prod.outlook.com (2603:1096:404:5::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4457.23; Tue, 31 Aug
- 2021 10:09:07 +0000
-Received: from TYCPR01MB6544.jpnprd01.prod.outlook.com
- ([fe80::783d:cf1b:a4b9:5791]) by TYCPR01MB6544.jpnprd01.prod.outlook.com
- ([fe80::783d:cf1b:a4b9:5791%5]) with mapi id 15.20.4457.024; Tue, 31 Aug 2021
- 10:09:06 +0000
-From: "xuyang2018.jy@fujitsu.com" <xuyang2018.jy@fujitsu.com>
-To: "rpalethorpe@suse.de" <rpalethorpe@suse.de>
-Thread-Topic: [LTP] [PATCH] userns/userns08.c: Enable userns in
- max_user_namespaces file
-Thread-Index: AQHXk9oIkQJYKCiRIU2gaINj5a0vnquHNt6AgAZCBQA=
-Date: Tue, 31 Aug 2021 10:09:06 +0000
-Message-ID: <612DFFDE.5050800@fujitsu.com>
-References: <1628144855-5924-1-git-send-email-xuyang2018.jy@fujitsu.com>
- <87h7fbkwe8.fsf@suse.de>
-In-Reply-To: <87h7fbkwe8.fsf@suse.de>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: suse.de; dkim=none (message not signed)
- header.d=none;suse.de; dmarc=none action=none header.from=fujitsu.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 57ddf9b5-8995-4948-7ea4-08d96c675e54
-x-ms-traffictypediagnostic: TYAPR01MB2320:
-x-microsoft-antispam-prvs: <TYAPR01MB23202C8A6A85574E29F3C4B6FDCC9@TYAPR01MB2320.jpnprd01.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:7691;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 1MQ6qnu5Xb4XQUlYrKoUq0hUkmlatEUIboSNGAHb7L7NuGnoKwQGLdxwFbZbFsc/Tqkp8PSWfelk7FFOPIY3uywX9UIYvoLgC0+elGk8dnBu84hhJuXPSNKnndh+r33I+u/t/gDGmR6q01K17c6kal2Yvz7ko9oyjYrgzit3t1S24mtvBUIjWfElqbF+ADiYJkhlFvwcQaVSVHeg7STXaYrqEzV0/7LlD4YifcXb2E38XG8XljCp8A7XpZFt77b1abzomWPKEGb/o2VJIDSymGjSM/dnFhpZk5Q7BMubPkPmE0ZC1vfotAzdcK2dmeyD8KwDng+JzRO5fIoV3Aq/HZlqDr8MmXJRAKa8RpgoEUjv37gazS7+C1MOqb5Aa9UFXQUiU9/aelr683VPy94ZZj0O4h5s9fAR5/2IYo4/ILLFhtRGdmoSo4Lp6/OQO9jehT8TtCgM+eT+lsWOwBqe2kL6aWd2IstNCOYGrDHowdUiQMUO/S0NYG8Z6c1VBBtt1JSQb23cI4XPwKA5xedqxgG5DwMK7W8W0uXBwjEhYZ1qTv1x5iG1igpW24NXktsfk64QUdklmLHwjKC6hHTsbTabqpagUGW2qxJwF7iNrFz3W0b1uGH/hbVG7+T8xvrS7DZkPhPphzkHdXY8xosh6dQUlyjLO8c4yQhIKSB0D6QOSOW12uVvNcJq5DAEqAscAukawHBtEWBDu9x/nXK8TQ==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TYCPR01MB6544.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(39860400002)(376002)(136003)(346002)(396003)(86362001)(6916009)(186003)(6512007)(26005)(76116006)(38070700005)(2616005)(316002)(33656002)(85182001)(36756003)(87266011)(4326008)(91956017)(2906002)(478600001)(66946007)(83380400001)(5660300002)(71200400001)(8936002)(66556008)(66476007)(8676002)(64756008)(6486002)(38100700002)(66446008)(6506007)(122000001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?gb2312?B?ckpxNlcwL0NrWGVrRm12L3laalpDVGw4TDVYemFvTnhpRXMwWU1XQ0NKUXZz?=
- =?gb2312?B?blI5dGNQdEpPWjlCQ2VqbTgwam1Sc2Q3cCtJZ2JhbExrbjBuY3czSDNrVjE1?=
- =?gb2312?B?Nmo1VW1QMUxuZk9yMDFiSXU4anZNZEFFd21rOUQrK043VHBVeUkvK3JDS0NK?=
- =?gb2312?B?L2lUYktBYzZER0Q2SEpLa0hNbWdNTmZqN0NmSkZoS2RBN0IvaWRBcmNzTWFD?=
- =?gb2312?B?bkpLUVNXT1UvSmFIbTNSVWJESDFKOXYxNms4WVJ4eDA5ajBZeG1LRzE5UTNN?=
- =?gb2312?B?TG15cUZORDRHT2RBM05XUjdva0R6VW4valZkakY2ZnR5d1dDTW5lVUR5UWxG?=
- =?gb2312?B?d3VkMVkwaWhvamlqczFDWTFhUFJuTDdBNFhvbG5yMjd1VFF3TDNCaWwvNGhW?=
- =?gb2312?B?YzhPcHZKSlhJeUw5YkMwTlQ1N2RTdmZIRDRuSmNsaFR4YTA0Y1M3WHk2Uk1K?=
- =?gb2312?B?QVEyM01yYlBOa1JGWXRCaEpoNS80NXVlT0w4OVkyK3luZS9KRC9zV0RwazBu?=
- =?gb2312?B?ZUJmS0VyMG0vVDJuVGx5Y0h1Y09HazZlT21TSC9PblViUnFJaktwQmJ5c1RG?=
- =?gb2312?B?Z3NVMDBicTNyRWRJMmZaZnhQT1FnQmY4c21XMGQ3NGlzOFExdTc1Q0hmQ2Fx?=
- =?gb2312?B?SzNJTnFURnRuNm10WlR1YVE3OXJBb3Z0WVZOay9VRnRjOG5jM25uS0NISzJV?=
- =?gb2312?B?cXRJNU1EcU5lSk9aSFE1VU9pS1BveGJhU3locENSNzFzYS9FOFVSV1hjblFp?=
- =?gb2312?B?ODlKa1BGck03cVVMZXd0a3Z5a3hpbmdTbTJLVXhJbnNXdEwyLzRvOWo0YmhQ?=
- =?gb2312?B?eE5xUytCS2ZEdEg2RjFDQVNueHQyejJWSk9lVHBnc0JLMlRFM3lCRHMxdExS?=
- =?gb2312?B?NWNTYmhSQ2xDTzdjbWFvS2ZoUThmcHIrYzFGUExBSjIrdWZjK3BiYkVXbDlj?=
- =?gb2312?B?bnFqbllha1V1SnFlSDY5MkJmWHRCUThyL1Q2MU51OHlHZkdiK1FhVHh3Q3l2?=
- =?gb2312?B?MjhuQTMwOHRVZkw5UGZtQTNVZFBlcWVTL216QmJlTk1Db1V6WXBvekJWOFNl?=
- =?gb2312?B?dTIyZDk2cHJBdkRHdDBGU0M0SEZQNHZidE85OEhVSksyUzhjNFE2aXcvV3ZJ?=
- =?gb2312?B?MEFNVDRIRkVVWXF6dlpiRWl1TFUyalVHQlJIODZaSzZqRml0cnlnM1pFcmYx?=
- =?gb2312?B?c2FaMFE4SEY4UkozamxNaklwVnhVeFlNd2YxQ0dGTUE4MnhwKzdmMUhYd1lJ?=
- =?gb2312?B?L2VUZ1J1V0s2cFF4UkY1N3RDZDRoRWN5d2NNZy95aTZ4VmdHdjB1UlNocGRH?=
- =?gb2312?B?RUk2L0grZFhuTDdYb0cyWjFHdm0wOTk3RmdVWHJxbHh3OVhLZWhQQ1NORzRk?=
- =?gb2312?B?TlZ0TUlQVzdFSlRoRWt0Uy9HWHpCc2JYdGFYNEUxVWpyZFlrS2lMSlByNDY5?=
- =?gb2312?B?dzFSeVVleEk5WDk3d21lRXFnZDFBSmQ3c2lVZis3MnYwbmorZXlSRzhLd1Ru?=
- =?gb2312?B?MmdBc1ZFSHAxYXE2N2Q1WjgzYk5BcjhYNEJpNVh6OVRGTVhnbE9oTXJ6MjZG?=
- =?gb2312?B?bzR1UDFGaThORXNkOWxZN0R5ck1pTUc1cVpJenFBVzhOSm1oYmdJRDU1Z0ty?=
- =?gb2312?B?ZUNtVklPdm5Ea1pVc3lBOVlSeW5wYXI4eXh4b0sremljNzJaRGtxYnlYb1BE?=
- =?gb2312?B?RmJXZ3ZSenVCaEJVMDVXTUVEMG42QmpMWUxkV3RhcVY4T3U5WTgySDNJRmdC?=
- =?gb2312?Q?h2639I8v9YRufKvQa8CR6mX2NnhMH+8qujvBX05?=
-x-ms-exchange-transport-forked: True
-Content-ID: <51FC152AE96FF84A8039688A80CA5118@jpnprd01.prod.outlook.com>
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 2C5CC1000DC7
+ for <ltp@lists.linux.it>; Tue, 31 Aug 2021 13:44:26 +0200 (CEST)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 1926920167;
+ Tue, 31 Aug 2021 11:44:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1630410266; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=2wSh2dyQYb3KFhFo+Yvuhg8hMynxE/5rvRdY0czWKVY=;
+ b=C5qCpdpcG76lAcMLNgqzD08Ftz4xsjhHtpRd3I6702Kz9UgyszyssYj6HVowSByYDfKLM+
+ rQevLzLeOTlmDPm0+rUCbLoU1Hc4M2unTK9kC4GC04kZbinnYub3+t8dsbeH/iL9w30bxv
+ xvMKqFsGpnNcJchOSIIpuTRVANw3eYk=
+Received: from g78.suse.de (unknown [10.163.24.38])
+ by relay2.suse.de (Postfix) with ESMTP id 3B56BA3B95;
+ Tue, 31 Aug 2021 11:44:25 +0000 (UTC)
+To: ltp@lists.linux.it
+Date: Tue, 31 Aug 2021 12:44:06 +0100
+Message-Id: <20210831114406.8527-1-rpalethorpe@suse.com>
+X-Mailer: git-send-email 2.31.1
+In-Reply-To: <878s0ikl6d.fsf@suse.de>
+References: <878s0ikl6d.fsf@suse.de>
 MIME-Version: 1.0
-X-OriginatorOrg: fujitsu.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB6544.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 57ddf9b5-8995-4948-7ea4-08d96c675e54
-X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Aug 2021 10:09:06.8537 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a19f121d-81e1-4858-a9d8-736e267fd4c7
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: V8lqR5FjKlumiRKAFAJ6Om5J+QdxKr8Hf3WqFgTsJ2NuihLiveNd7m9cFJrxNLZcahMkTwxMIH65w6Zb7ndbE8dfoYH+jIFbDFH+P8IJr0Y=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYAPR01MB2320
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS autolearn=disabled
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] userns/userns08.c: Enable userns in
- max_user_namespaces file
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH v2] kernel/irq: Add irqbalance01
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,53 +62,375 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
+From: Richard Palethorpe via ltp <ltp@lists.linux.it>
+Reply-To: Richard Palethorpe <rpalethorpe@suse.com>
+Cc: nhorman@gmail.com, Thomas Gleixner <tglx@linutronix.de>, anton@deadbeef.mx,
+ Richard Palethorpe <rpalethorpe@suse.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi  Richard
-> Hello Yang,
-> 
-> Yang Xu<xuyang2018.jy@fujitsu.com>  writes:
-> 
->> On old distros ie centos7, the default value of max_user_namespaces is set to 0.
->> Enable it by increasing this value.
->>
->> Signed-off-by: Yang Xu<xuyang2018.jy@fujitsu.com>
-> 
-> Looks good, except for very minor point below.
-> 
-> Reviewed-by: Richard Palethorpe<rpalethorpe@suse.com>
-> 
->> ---
->>   testcases/kernel/containers/userns/userns08.c | 9 +++++++++
->>   1 file changed, 9 insertions(+)
->>
->> diff --git a/testcases/kernel/containers/userns/userns08.c b/testcases/kernel/containers/userns/userns08.c
->> index aedfc6c4e..0910ea7d4 100644
->> --- a/testcases/kernel/containers/userns/userns08.c
->> +++ b/testcases/kernel/containers/userns/userns08.c
->> @@ -120,6 +120,11 @@ static void setup(void)
->>
->>   	SAFE_WRITE(fd, 1, "\n", 1);
->>   	SAFE_CLOSE(fd);
->> +
->> +	/* The default value of max_user_namespaces is set to 0 on some distros,
->> +	 * We need to change the default value to call clone().
->> +	 */
-> 
-> We don't need inline comments like this. In this case the commit message
-> and git-blame is fine. Other times the style guide requests it goes in
-> the comment at the top.
+Add first test specifically targeting interrupts and IRQ management.
 
-Thanks for your review. I have pushed the v2 patch with your
-reviewed-by(increase this value in more userns cases.)
+This includes some comments inline because I think the parsing code is
+unavoidably confusing.
 
-Best Regards
-Yang Xu
-> 
+Note on the CPU mask parsing; there is already some code for parsing
+and manipulating bitmaps in the LTP. However it is absurdly
+complicated and we don't need actual bitmaps. In fact an array of
+bytes is more flexible.
+
+Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
+---
+
+To be clear this is a Linux Test Project test.
+
+CC'ing IRQ subsystem and irqbalance maintainers in case they are
+interested.
+
+V2:
+* Use tst_printf
+* Fix typos
+* rm .sh from Makefile
+
+ runtest/irq                         |   1 +
+ testcases/kernel/irq/.gitignore     |   1 +
+ testcases/kernel/irq/Makefile       |   7 +
+ testcases/kernel/irq/irqbalance01.c | 290 ++++++++++++++++++++++++++++
+ 4 files changed, 299 insertions(+)
+ create mode 100644 runtest/irq
+ create mode 100644 testcases/kernel/irq/.gitignore
+ create mode 100644 testcases/kernel/irq/Makefile
+ create mode 100644 testcases/kernel/irq/irqbalance01.c
+
+diff --git a/runtest/irq b/runtest/irq
+new file mode 100644
+index 000000000..56d0d23c8
+--- /dev/null
++++ b/runtest/irq
+@@ -0,0 +1 @@
++irqbalance01 irqbalance01
+diff --git a/testcases/kernel/irq/.gitignore b/testcases/kernel/irq/.gitignore
+new file mode 100644
+index 000000000..8ed69a99c
+--- /dev/null
++++ b/testcases/kernel/irq/.gitignore
+@@ -0,0 +1 @@
++irqbalance01
+diff --git a/testcases/kernel/irq/Makefile b/testcases/kernel/irq/Makefile
+new file mode 100644
+index 000000000..aa51da7cb
+--- /dev/null
++++ b/testcases/kernel/irq/Makefile
+@@ -0,0 +1,7 @@
++# SPDX-License-Identifier: GPL-2.0-or-later
++
++top_srcdir		?= ../../..
++
++include $(top_srcdir)/include/mk/testcases.mk
++
++include $(top_srcdir)/include/mk/generic_leaf_target.mk
+diff --git a/testcases/kernel/irq/irqbalance01.c b/testcases/kernel/irq/irqbalance01.c
+new file mode 100644
+index 000000000..56f3aad1d
+--- /dev/null
++++ b/testcases/kernel/irq/irqbalance01.c
+@@ -0,0 +1,290 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/* Copyright (c) 2021 SUSE LLC <rpalethorpe@suse.com> */
++/*\
++ * [Description]
++ *
++ * Check that something (e.g. irqbalance daemon) is performing IRQ
++ * load balancing.
++ *
++ * On many systems userland needs to set /proc/irq/$IRQ/smp_affinity
++ * to prevent many IRQs being delivered to the same CPU.
++ *
++ * Note some drivers and IRQ controllers will distribute IRQs
++ * evenly. Some systems will have housekeeping CPUs configured. Some
++ * IRQs can not be masked etc. So this test is not appropriate for all
++ * scenarios.
++ *
++ * Furthermore, exactly how IRQs should be distributed is a
++ * performance and/or security issue. This is only a generic smoke
++ * test. It will hopefully detect misconfigured systems and total
++ * balancing failures which are often silent errors.
++ *
++ * Heuristic: Evidence of Change
++ *
++ * 1. Find IRQs with a non-zero count
++ * 2. Check if they are now disallowed
++ *
++ * There are two sources of information we need to parse:
++ *
++ * 1. /proc/interrupts
++ * 2. /proc/irq/$IRQ/smp_affinity
++ *
++ * We get the active IRQs and CPUs from /proc/interrupts. It also
++ * contains the per-CPU IRQ counts and info we do not care about.
++ *
++ * We get the IRQ masks from each active IRQ's smp_affinity file. This
++ * is a bitmask written out in hexadecimal format. It shows which CPUs
++ * an IRQ may be received by.
++ */
++
++#include <stdlib.h>
++
++#include "tst_test.h"
++#include "tst_safe_stdio.h"
++#include "tst_safe_file_at.h"
++
++enum affinity {
++	ALLOW,
++	DENY,
++};
++
++static unsigned int *irq_stats;
++static enum affinity *irq_affinity;
++
++static unsigned int nr_cpus;
++static unsigned int nr_irqs;
++static unsigned int *irq_ids;
++
++static void collect_irq_info(void)
++{
++	char *buf = NULL, *c, *first_row;
++	char path[PATH_MAX];
++	size_t size = 1024;
++	size_t ret, row, col;
++	long acc;
++	unsigned int cpu_total, mask_pos;
++	int fd = SAFE_OPEN("/proc/interrupts", O_RDONLY);
++
++	nr_cpus = 0;
++	nr_irqs = 0;
++
++	do {
++		size *= 2;
++		buf = SAFE_REALLOC(buf, size);
++		SAFE_LSEEK(fd, 0, SEEK_SET);
++		ret = SAFE_READ(0, fd, buf, size - 1);
++	} while (ret >= size - 1);
++
++	SAFE_CLOSE(fd);
++
++	if (ret < 1)
++		tst_brk(TBROK, "Empty /proc/interrupts?");
++
++	buf[ret] = '\0';
++
++	/* Count CPUs, header columns are like /CPU[0-9]+/ */
++	for (c = buf; *c != '\0' && *c != '\n'; c++) {
++		if (!strncmp(c, "CPU", 3))
++			nr_cpus++;
++	}
++
++	c++;
++	first_row = c;
++	/* Count IRQs, real IRQs start with /[0-9]+:/ */
++	while (*c != '\0') {
++		switch (*c) {
++		case ' ':
++		case '\t':
++		case '\n':
++		case '0' ... '9':
++			c++;
++			break;
++		case ':':
++			nr_irqs++;
++			/* fall-through */
++		default:
++			while (*c != '\n' && *c != '\0')
++				c++;
++		}
++	}
++
++	tst_res(TINFO, "Found %u CPUS, %u IRQs", nr_cpus, nr_irqs);
++
++	irq_ids = SAFE_REALLOC(irq_ids, nr_irqs * sizeof(*irq_ids));
++	irq_stats = SAFE_REALLOC(irq_stats, nr_cpus * (nr_irqs + 1) * sizeof(*irq_stats));
++	irq_affinity = SAFE_REALLOC(irq_affinity, nr_cpus * nr_irqs * sizeof(*irq_affinity));
++
++	c = first_row;
++	acc = -1;
++	row = col = 0;
++	/* Parse columns containing IRQ counts and IRQ IDs into acc. Ignore everything else. */
++	while (*c != '\0') {
++		switch (*c) {
++		case ' ':
++		case '\t':
++			if (acc >= 0) {
++				irq_stats[row * nr_cpus + col] = acc;
++				acc = -1;
++				col++;
++			}
++			break;
++		case '\n':
++			col = 0;
++			row++;
++			break;
++		case '0' ... '9':
++			if (acc == -1)
++				acc = 0;
++
++			acc *= 10;
++			acc += *c - '0';
++			break;
++		case ':':
++			irq_ids[row] = acc;
++			acc = -1;
++			break;
++		default:
++			acc = -1;
++			while (*c != '\n' && *c != '\0')
++				c++;
++			continue;
++		}
++
++		c++;
++	}
++
++	for (col = 0; col < nr_cpus; col++) {
++		cpu_total = 0;
++
++		for (row = 0; row < nr_irqs; row++)
++			cpu_total += irq_stats[row * nr_cpus + col];
++
++		irq_stats[row * nr_cpus + col] = cpu_total;
++	}
++
++	/* Read the CPU affinity masks for each IRQ. See bitmap_string() in the kernel (%*pb) */
++	for (row = 0; row < nr_irqs; row++) {
++		sprintf(path, "/proc/irq/%u/smp_affinity", irq_ids[row]);
++		ret = SAFE_FILE_READAT(0, path, buf, size);
++		if (ret < 1)
++			tst_brk(TBROK, "Empty /proc/irq/%u/smp_affinity?", irq_ids[row]);
++		c = buf;
++		col = 0;
++
++		while (*c != '\0') {
++			switch (*c) {
++			case '\n':
++			case ' ':
++			case ',':
++				c++;
++				continue;
++			case '0' ... '9':
++				acc = *c - '0';
++				break;
++			case 'a' ... 'f':
++				acc = 10 + *c - 'a';
++				break;
++			default:
++				tst_res(TINFO, "%u/smp_affnity: %s", irq_ids[row], buf);
++				tst_brk(TBROK, "Wasn't expecting 0x%02x", *c);
++			}
++
++			for (mask_pos = 0; mask_pos < 4; mask_pos++) {
++				if (mask_pos + col >= nr_cpus)
++					break;
++
++				irq_affinity[row * nr_cpus + (nr_cpus - 1 - col - mask_pos)] =
++					(acc & (8 >> mask_pos)) ? ALLOW : DENY;
++			}
++
++			col += mask_pos;
++			c++;
++		}
++	}
++
++	free(buf);
++}
++
++static void print_irq_info(void)
++{
++	size_t row, col;
++	unsigned int count;
++	enum affinity aff;
++
++	for (row = 0; row < nr_irqs; row++) {
++		tst_printf("%5u:", irq_ids[row]);
++
++		for (col = 0; col < nr_cpus; col++) {
++			count = irq_stats[row * nr_cpus + col];
++			aff = irq_affinity[row * nr_cpus + col] == ALLOW ? '+' : '-';
++
++			tst_printf("%10u%c", count, aff);
++		}
++
++		tst_printf("\n");
++	}
++
++	tst_printf("Total:");
++
++	for (col = 0; col < nr_cpus; col++)
++		tst_printf("%11u", irq_stats[row * nr_cpus + col]);
++
++	tst_printf("\n");
++}
++
++static void evidence_of_change(void)
++{
++	size_t row, col, changed = 0;
++
++	for (row = 0; row < nr_irqs; row++) {
++		for (col = 0; col < nr_cpus; col++) {
++			if (!irq_stats[row * nr_cpus + col])
++				continue;
++
++			if (irq_affinity[row * nr_cpus + col] == ALLOW)
++				continue;
++
++			changed++;
++		}
++	}
++
++	tst_res(changed ? TPASS : TFAIL,
++		"Heuristic: Detected %zu irq-cpu pairs have been dissallowed",
++		changed);
++}
++
++static void setup(void)
++{
++	collect_irq_info();
++	print_irq_info();
++
++	if (nr_cpus < 1)
++		tst_brk(TBROK, "No CPUs found in /proc/interrupts?");
++
++	if (nr_irqs < 1)
++		tst_brk(TBROK, "No IRQs found in /proc/interrupts?");
++}
++
++static void run(void)
++{
++	collect_irq_info();
++
++	evidence_of_change();
++}
++
++static void cleanup(void)
++{
++	if (irq_ids)
++		free(irq_ids);
++	if (irq_stats)
++		free(irq_stats);
++	if (irq_affinity)
++		free(irq_affinity);
++}
++
++static struct tst_test test = {
++	.test_all = run,
++	.setup = setup,
++	.cleanup = cleanup,
++	.min_cpus = 2,
++};
+-- 
+2.31.1
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
