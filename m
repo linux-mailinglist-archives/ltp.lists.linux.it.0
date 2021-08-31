@@ -2,50 +2,78 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id D95D73FC450
-	for <lists+linux-ltp@lfdr.de>; Tue, 31 Aug 2021 11:00:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 149093FC495
+	for <lists+linux-ltp@lfdr.de>; Tue, 31 Aug 2021 11:02:04 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3B69D3C9A57
-	for <lists+linux-ltp@lfdr.de>; Tue, 31 Aug 2021 11:00:26 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 200793C2A8C
+	for <lists+linux-ltp@lfdr.de>; Tue, 31 Aug 2021 11:01:58 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 1F10C3C2A3D
- for <ltp@lists.linux.it>; Tue, 31 Aug 2021 11:00:12 +0200 (CEST)
-Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id 956383C2A05
+ for <ltp@lists.linux.it>; Tue, 31 Aug 2021 11:01:56 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 9544C1400DB4
- for <ltp@lists.linux.it>; Tue, 31 Aug 2021 11:00:12 +0200 (CEST)
-Received: from ubuntu.localdomain (unknown [188.192.255.100])
- by mail.jv-coder.de (Postfix) with ESMTPSA id BFBDDA076E;
- Tue, 31 Aug 2021 09:00:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
- t=1630400411; bh=zdXcWeKn0Sx974d4zvL8EHx3zYUPGH9rxAHUhPjraLk=;
- h=From:To:Subject:Date:Message-Id:MIME-Version;
- b=TbGOJUet1S7F/3yE18C8GNrT9sUU7XIjzb7UHfOOQ+Czu1XzhcAmOoQVFyrlNqhAO
- tbSmNkEWc/s0H+I0d9XT8o/Jut1XqAgBGRTM5zwZJ++x7kP5rPIBBOR4XnzQEFZN0R
- NYqPzxIv9/hIZVCsX6t1wwaWCqhELstaXLdBvHIk=
-From: Joerg Vehlow <lkml@jv-coder.de>
-To: ltp@lists.linux.it,
-	rpalethorpe@suse.com
-Date: Tue, 31 Aug 2021 11:00:02 +0200
-Message-Id: <20210831090002.1431298-2-lkml@jv-coder.de>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210831090002.1431298-1-lkml@jv-coder.de>
-References: <20210831090002.1431298-1-lkml@jv-coder.de>
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 70C301000A5D
+ for <ltp@lists.linux.it>; Tue, 31 Aug 2021 11:01:54 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1630400513;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=6ZUVmMK6005xTduTTbsSgd26NMk2PsTc6PLaGm+u2Yc=;
+ b=N4myRY/A20vBwySVIF/d7EAvzVw01+EKtb7i/XfYyRfIGI5AyzGELwLrTOlmHEFLS32M1h
+ wpRWMTNeEUeL4lnFE/AGu1DWV9/byuJA1+Mw5jw/KqCRbkC/Ehjx4+THgtR93vMFh2sgBQ
+ AMlUjA0XNeVgF9RkOWJ0jVuQZzyvt30=
+Received: from mail-yb1-f198.google.com (mail-yb1-f198.google.com
+ [209.85.219.198]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-232-fc4zqawkOlGT3BR3h0SLYQ-1; Tue, 31 Aug 2021 05:01:51 -0400
+X-MC-Unique: fc4zqawkOlGT3BR3h0SLYQ-1
+Received: by mail-yb1-f198.google.com with SMTP id
+ q13-20020a25820d000000b0059a84a55d89so17760011ybk.23
+ for <ltp@lists.linux.it>; Tue, 31 Aug 2021 02:01:51 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=6ZUVmMK6005xTduTTbsSgd26NMk2PsTc6PLaGm+u2Yc=;
+ b=bq35rQADzwiKTdQ31NtBqRYcyVT/poQNqTgF5er6IU7azMHeUKTChuamf2H5fYWGVa
+ 5G4KmZQb6NqReJcMP4e2MjDuYxkfp8C0Q+K0EsE1Hr7ArLIkqeZ/j4xnOHlEKu6M1og7
+ V6BOlhLYBCNZx2oHWFeLcSSH5yoRmzbQ9lWFZjMp1e4f2RebcMxhYL2kZMjajJTshKnL
+ 5/lDM930Yd73SM8laUwo7QShxtceTfG2yaLKcSVbq+NkufpaOhGVhiQW+Re07uNsN5Q/
+ Lf3QT0P1gFFXDD67R0opucM6EmvG/IY+c2WhVSeiTFzd/TgW6qNBUn6tyGYOEIG0HZn5
+ mZog==
+X-Gm-Message-State: AOAM533cdBbt0FYNlmUQJ2FjXIrN2fmTLV1qgMkukmswfijK43yYR37v
+ Zdabkxm0jnoV6ZmmtiNkP4E+x1X1Qx+kz22azHxY9wUTi1izJkUsta3CFXezaUNWI7Gi/jNfbWK
+ Xz+cMZlhxu4/cGZQdCaQClv85NQI=
+X-Received: by 2002:a25:bdc5:: with SMTP id g5mr28838299ybk.403.1630400511168; 
+ Tue, 31 Aug 2021 02:01:51 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwnTtSdo81NBkBNjUVOK1YCp6d77fhpFdItnysQX+H1+DBF+gp10W87k915lM1ADYvMRsIUvjl1uoR278AFn0o=
+X-Received: by 2002:a25:bdc5:: with SMTP id g5mr28838270ybk.403.1630400510956; 
+ Tue, 31 Aug 2021 02:01:50 -0700 (PDT)
 MIME-Version: 1.0
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+References: <20210831014358.28459-1-zhanglianjie@uniontech.com>
+In-Reply-To: <20210831014358.28459-1-zhanglianjie@uniontech.com>
+From: Li Wang <liwang@redhat.com>
+Date: Tue, 31 Aug 2021 17:01:32 +0800
+Message-ID: <CAEemH2c1cwsxiqg7p+E0NvNg1Qw2j8+mYQYVqre0r1y_LiF9Pg@mail.gmail.com>
+To: zhanglianjie <zhanglianjie@uniontech.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 2/2] cfs_bandwidth01: Add misssing needs_kconfigs
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3] tst_test_macros.h: Add TST_EXP_VAL macro
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,40 +85,52 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============0092659999=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-From: Joerg Vehlow <joerg.vehlow@aox-tech.de>
+--===============0092659999==
+Content-Type: multipart/alternative; boundary="0000000000004c2c6d05cad733cd"
 
-The test requires CONFIG_CFS_BANDWIDTH, otherwise it fails with
-cfs_bandwidth01.c:51: TBROK: openat(13</sys/fs/cgroup/cpu,cpuacct/ltp/test-5666/level2/level3a/worker1>, 'cpu.cfs_period_us', O_WRONLY): ENOENT (2)
+--0000000000004c2c6d05cad733cd
+Content-Type: text/plain; charset="UTF-8"
 
-Signed-off-by: Joerg Vehlow <joerg.vehlow@aox-tech.de>
----
- testcases/kernel/sched/cfs-scheduler/cfs_bandwidth01.c | 4 ++++
- 1 file changed, 4 insertions(+)
+Hi Lianjie, Cyril,
 
-diff --git a/testcases/kernel/sched/cfs-scheduler/cfs_bandwidth01.c b/testcases/kernel/sched/cfs-scheduler/cfs_bandwidth01.c
-index e8032d65a..001fb2685 100644
---- a/testcases/kernel/sched/cfs-scheduler/cfs_bandwidth01.c
-+++ b/testcases/kernel/sched/cfs-scheduler/cfs_bandwidth01.c
-@@ -178,6 +178,10 @@ static struct tst_test test = {
- 	.forks_child = 1,
- 	.needs_checkpoints = 1,
- 	.taint_check = TST_TAINT_W | TST_TAINT_D,
-+	.needs_kconfigs = (const char *[]) {
-+		"CONFIG_CFS_BANDWIDTH",
-+		NULL
-+	},
- 	.tags = (const struct tst_tag[]) {
- 		{"linux-git", "39f23ce07b93"},
- 		{"linux-git", "b34cb07dde7c"},
+I have revised the order of the macros and pushed them.
+(put them on the top of TST_EXP_PASS_* to make the whole more readable)
+
 -- 
-2.25.1
+Regards,
+Li Wang
+
+--0000000000004c2c6d05cad733cd
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small">Hi Lianjie, Cyril,</div><div class=3D"gmail_default" style=3D=
+"font-size:small"><br></div><div class=3D"gmail_default" style=3D"font-size=
+:small">I have revised the order of the macros and pushed them.</div><div c=
+lass=3D"gmail_default" style=3D"font-size:small">(put them on the top of TS=
+T_EXP_PASS_* to make the whole more readable) </div></div><div class=3D"gma=
+il_quote"><div dir=3D"ltr" class=3D"gmail_attr"><br></div></div>-- <br><div=
+ dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></=
+div><div>Li Wang<br></div></div></div></div>
+
+--0000000000004c2c6d05cad733cd--
+
+
+--===============0092659999==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============0092659999==--
+
