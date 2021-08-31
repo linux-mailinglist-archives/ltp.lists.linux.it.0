@@ -1,56 +1,56 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id B570C3FC4A3
-	for <lists+linux-ltp@lfdr.de>; Tue, 31 Aug 2021 11:10:32 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 395303FC4A1
+	for <lists+linux-ltp@lfdr.de>; Tue, 31 Aug 2021 11:10:21 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3782F3C9A50
-	for <lists+linux-ltp@lfdr.de>; Tue, 31 Aug 2021 11:10:32 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id DBA3D3C2A8C
+	for <lists+linux-ltp@lfdr.de>; Tue, 31 Aug 2021 11:10:20 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 7F0503C2A3D
+ by picard.linux.it (Postfix) with ESMTPS id 619D03C2A0B
  for <ltp@lists.linux.it>; Tue, 31 Aug 2021 11:10:19 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 9AF751400176
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id D00B21A00162
  for <ltp@lists.linux.it>; Tue, 31 Aug 2021 11:10:18 +0200 (CEST)
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id ED5841FE51;
- Tue, 31 Aug 2021 09:10:17 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 494232200C;
+ Tue, 31 Aug 2021 09:10:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1630401017; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1630401018; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=xeNQ/MbTXU8ItX0KHTt5PIsuWo9QGYbToKdoFhjVCD4=;
- b=sPvV4lo2c1pTiSAHaElWwYSWpjvZUOVdoGLYbGbPTZ7Ba+1hXKNXHJsJP/BICnfXJuJY+M
- 1rh+a+k4nGT9dmRAoIfGXfC5id5JM7IcIPl50oFAS9Pmpgw8d1uqFLnbu0YIyPqG5JX6qP
- R7L28+EB/xQnDjgkFI/CVHAeKSNB4NE=
+ bh=Jrcar/bR5Kxl1HxCeLU/dAGjaOyGWJfhcKqdwDo75Kk=;
+ b=c00mR2/MIRehf3wb3GU4r0Fvyr9P5823F9Rq4n/26dgknIApYClw+gK5jl15cDT8N1DTz9
+ Lc390I7OjwH1o5uVj5yaQD/AG0VTYALbuz+SZQEZjblLIPynBOR0VZbiggHbOPhv9mwDU/
+ cYQ9alPP7/oxYwWqm+RLOSWIL1edwNg=
 Received: from g78.suse.de (unknown [10.163.24.38])
- by relay2.suse.de (Postfix) with ESMTP id BB751A3BA1;
- Tue, 31 Aug 2021 09:10:17 +0000 (UTC)
+ by relay2.suse.de (Postfix) with ESMTP id 0C6DAA3B98;
+ Tue, 31 Aug 2021 09:10:18 +0000 (UTC)
 To: ltp@lists.linux.it
-Date: Tue, 31 Aug 2021 10:10:02 +0100
-Message-Id: <20210831091005.25361-1-rpalethorpe@suse.com>
+Date: Tue, 31 Aug 2021 10:10:03 +0100
+Message-Id: <20210831091005.25361-2-rpalethorpe@suse.com>
 X-Mailer: git-send-email 2.31.1
-In-Reply-To: <YSz36VZ18+N4YsM/@yuki>
+In-Reply-To: <20210831091005.25361-1-rpalethorpe@suse.com>
 References: <YSz36VZ18+N4YsM/@yuki>
+ <20210831091005.25361-1-rpalethorpe@suse.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 1/4] API: Add tst_printf to avoid specifying the
- output FD in tests
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 2/4] bpf: Print full verification log
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,57 +70,40 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-In bpf_common.h we have to print the verifier log with
-dprintf(STDERR_FILENO, ...)  because it is usually too large for
-tst_{res,brk}(). As these functions use sprintf() and write() to allow
-printing in signal handlers.
-
-We can hide the STDERR_FILENO part in the library. Just incase we want
-to change the fileno at some point.
+The log never falls within the 1024 byte limit imposed by format
+string buffer. So print it separately with dprintf.
 
 Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
 ---
+ testcases/kernel/syscalls/bpf/bpf_common.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-V2: Add this patch and use tst_printf
-
- include/tst_test.h | 3 +++
- lib/tst_test.c     | 9 +++++++++
- 2 files changed, 12 insertions(+)
-
-diff --git a/include/tst_test.h b/include/tst_test.h
-index 27ebed94e..5e3619698 100644
---- a/include/tst_test.h
-+++ b/include/tst_test.h
-@@ -79,6 +79,9 @@ void tst_brk_(const char *file, const int lineno, int ttype,
- 		tst_brk_(__FILE__, __LINE__, (ttype), (arg_fmt), ##__VA_ARGS__);\
- 	})
+diff --git a/testcases/kernel/syscalls/bpf/bpf_common.c b/testcases/kernel/syscalls/bpf/bpf_common.c
+index ba0829a75..aac235cac 100644
+--- a/testcases/kernel/syscalls/bpf/bpf_common.c
++++ b/testcases/kernel/syscalls/bpf/bpf_common.c
+@@ -3,6 +3,8 @@
+  * Copyright (c) 2019-2020 Linux Test Project
+  */
  
-+void tst_printf(const char *const fmt, ...)
-+		__attribute__((nonnull(1), format (printf, 1, 2)));
++#include <stdio.h>
 +
- /* flush stderr and stdout */
- void tst_flush(void);
+ #define TST_NO_DEFAULT_MAIN
+ #include "tst_test.h"
+ #include "bpf_common.h"
+@@ -118,8 +120,10 @@ int bpf_load_prog(union bpf_attr *const attr, const char *const log)
+ 	if (ret != -1)
+ 		tst_brk(TBROK, "Invalid bpf() return value: %d", ret);
  
-diff --git a/lib/tst_test.c b/lib/tst_test.c
-index b61aa8b03..4224353da 100644
---- a/lib/tst_test.c
-+++ b/lib/tst_test.c
-@@ -360,6 +360,15 @@ void tst_brk_(const char *file, const int lineno, int ttype,
- 	va_end(va);
- }
+-	if (log[0] != 0)
+-		tst_brk(TBROK | TERRNO, "Failed verification: %s", log);
++	if (log[0] != 0) {
++		tst_printf("%s\n", log);
++		tst_brk(TBROK | TERRNO, "Failed verification");
++	}
  
-+void tst_printf(const char *const fmt, ...)
-+{
-+	va_list va;
-+
-+	va_start(va, fmt);
-+	vdprintf(STDERR_FILENO, fmt, va);
-+	va_end(va);
-+}
-+
- static void check_child_status(pid_t pid, int status)
- {
- 	int ret;
+ 	tst_brk(TBROK | TERRNO, "Failed to load program");
+ 	return ret;
 -- 
 2.31.1
 
