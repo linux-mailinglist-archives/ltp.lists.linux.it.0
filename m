@@ -1,83 +1,75 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id C91953FC82C
-	for <lists+linux-ltp@lfdr.de>; Tue, 31 Aug 2021 15:25:16 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 251DC3FCB15
+	for <lists+linux-ltp@lfdr.de>; Tue, 31 Aug 2021 17:56:10 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6582F3C9A50
-	for <lists+linux-ltp@lfdr.de>; Tue, 31 Aug 2021 15:25:16 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 49C143C9A5E
+	for <lists+linux-ltp@lfdr.de>; Tue, 31 Aug 2021 17:56:03 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 149323C2A75
- for <ltp@lists.linux.it>; Tue, 31 Aug 2021 15:25:12 +0200 (CEST)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 5E6223C2A05
+ for <ltp@lists.linux.it>; Tue, 31 Aug 2021 17:55:58 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 0BCBA6001F9
- for <ltp@lists.linux.it>; Tue, 31 Aug 2021 15:25:11 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1630416310;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 03E546008C7
+ for <ltp@lists.linux.it>; Tue, 31 Aug 2021 17:55:57 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id D777A20195;
+ Tue, 31 Aug 2021 15:55:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1630425356; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=plS07h5RkTNE2QgmbgWwKMjq2TTunqpTTMLSq0Dyvko=;
- b=VOTvQLj5P4EDKljHZhoVr/3aK1tp04U/klAsUGDJ6IsDxXpyFDqNEYzxw99XZEqakzTCD8
- dHRyhiMePaIFHk/dAuqZcVKN24c8UxCLzVjjy+gtDsYZmX5PR+VZbbhzwTnNtsBovA8iG/
- I6W0DiXWusajisVGETUfzN5/EF1+tuA=
-Received: from mail-yb1-f199.google.com (mail-yb1-f199.google.com
- [209.85.219.199]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-106-Ln6Hz7JaOKKIULFGCTz1cw-1; Tue, 31 Aug 2021 09:25:08 -0400
-X-MC-Unique: Ln6Hz7JaOKKIULFGCTz1cw-1
-Received: by mail-yb1-f199.google.com with SMTP id
- z15-20020a25868f000000b0059c56f47e94so1161031ybk.21
- for <ltp@lists.linux.it>; Tue, 31 Aug 2021 06:25:08 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=plS07h5RkTNE2QgmbgWwKMjq2TTunqpTTMLSq0Dyvko=;
- b=s6rdiHoGCmlDBsoA+lUq+/tztcpawxgsWoSPBX7Bq1G+TB/eyoryvA2bc1SNztiyEu
- 0Ydj/h1I0GXxJ7meIzgd7PQ5pt6zy4nbKlORZGVy6QSrCxKVinUQz2qzMXi8BtmaKtnu
- LTuuHjdDsapnS//NL9UEoXHTgvsh++lk4FYSXxjdeWrdGGtK3oX3GbvzTaJRh8D2wGEV
- I6vOyHb/RV69p/4p+0sAlO0tLOCAPqau7jsiWi3D5biKxeFGkjzUki/9LZ7xLklNvqaH
- RYm/y1/jUo8jLc+ov7Qukrj451MlB7rfF7HfawVZ/bqEa12Gk9vKSAO7QI/6AVgsHImn
- OZiQ==
-X-Gm-Message-State: AOAM5309WQOQygOo0lS9NKp6Acamelg2ilDUDp2Yq/Vg16VuVquQZmys
- 5CU1kTTtB1SaEMAU1Aq3XTZTYJFMCbSwnHbQ6cJKNz5QdgKi3nA0+FpF95QWUN1qF6XCD8ITh0v
- Uqy2CmyQbzBCPAE4vaN2M59T+hRo=
-X-Received: by 2002:a25:b9cf:: with SMTP id y15mr13583457ybj.110.1630416308435; 
- Tue, 31 Aug 2021 06:25:08 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJwRzndhrCAoX5czpJST4IGrifrtFZHgqEQ3clfEyQNdI2Vz1+SrxCdtb9ywNf3alK6UGg1Kyig0/IwmjpwhEGY=
-X-Received: by 2002:a25:b9cf:: with SMTP id y15mr13583431ybj.110.1630416308230; 
- Tue, 31 Aug 2021 06:25:08 -0700 (PDT)
+ bh=F6CcoEEVpgxqDIV2y8d4Yvak8+6czZNgsGsAF9bGPFE=;
+ b=extyI9guY8tpjQUuqWoQdoL6AoX2JakJskbEvAU4/Y1Zp4FuHTnXk5wTEXNjrbBdbUSMJu
+ LLlREtEsGwe3LHLUpF7sJ3kPiVpzR31bqbnemG7Ti2KoCiFEPycpep+A7FMCdl4HF8zN10
+ pypmiP4RTeE9u6Qi7s7xHb4ulafNMy4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1630425356;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=F6CcoEEVpgxqDIV2y8d4Yvak8+6czZNgsGsAF9bGPFE=;
+ b=1rI2ZmZuuPDyk7mxvSguN9Rzn+YbwN6uFR/JqLtkfBBmnDOxfM0ZKGjKISqPrfvbUMD6tZ
+ LtUs6S10ZOusgUDQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B38A8139F0;
+ Tue, 31 Aug 2021 15:55:56 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 93prKwxRLmHpNwAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Tue, 31 Aug 2021 15:55:56 +0000
+Date: Tue, 31 Aug 2021 17:55:49 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Dai Shili <daisl.fnst@fujitsu.com>
+Message-ID: <YS5RBesRGNvIfaWp@yuki>
+References: <YQlIFagVIrWXjmgY@yuki>
+ <1629025363-21885-1-git-send-email-daisl.fnst@fujitsu.com>
 MIME-Version: 1.0
-References: <20210831090002.1431298-1-lkml@jv-coder.de>
- <87eeaakm4y.fsf@suse.de>
- <2278cad7-66ab-d014-ca2b-ab3081f1284d@jv-coder.de>
-In-Reply-To: <2278cad7-66ab-d014-ca2b-ab3081f1284d@jv-coder.de>
-From: Li Wang <liwang@redhat.com>
-Date: Tue, 31 Aug 2021 21:24:51 +0800
-Message-ID: <CAEemH2cSKUz63b_607Zs0_5q3RNb5-muh_jQa+2EBbTBEHsVww@mail.gmail.com>
-To: Joerg Vehlow <lkml@jv-coder.de>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <1629025363-21885-1-git-send-email-daisl.fnst@fujitsu.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/2] cfs_bandwidth01: Fix cleanup on failure in
- set_cpu_quota
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] syscalls/readv02: Convert to new API and merge
+ readv03 into readv02
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,77 +81,121 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>, Joerg Vehlow <joerg.vehlow@aox-tech.de>
-Content-Type: multipart/mixed; boundary="===============1127905963=="
+Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1127905963==
-Content-Type: multipart/alternative; boundary="000000000000e371e105cadae07e"
+Hi!
+Pushed with minor changes, thanks.
 
---000000000000e371e105cadae07e
-Content-Type: text/plain; charset="UTF-8"
+- reformatted the documentation comment so that it renders nicely in
+  asccidoc
 
-Hi Joerg, Richard,
+- got rid of the fd array, it's a bit more readable with fd_file and
+  fd_dir instead
 
+- simplified setup a bit
 
+Full diff:
 
-> >> -static struct tst_cgroup_group *
-> >> -mk_cpu_cgroup(const struct tst_cgroup_group *const cg_parent,
-> >> +static void mk_cpu_cgroup(struct tst_cgroup_group **cg,
-> >> +          const struct tst_cgroup_group *const cg_parent,
-> > Seems like there are spaces instead of a tab at the start.
->
-
-
-> Right, I wanted to keep the same format you had, but did not realize it
-> was one tab and 5 spaces instead of 9 spaces.
-> I guess this can be fixed during merging.
->
-
-I fixed that and pushed those patches. Thanks!
+diff --git a/testcases/kernel/syscalls/readv/readv02.c b/testcases/kernel/syscalls/readv/readv02.c
+index 9a26e50a8..c09e69bc8 100644
+--- a/testcases/kernel/syscalls/readv/readv02.c
++++ b/testcases/kernel/syscalls/readv/readv02.c
+@@ -7,22 +7,15 @@
+  */
+ 
+ /*\
+- * DESCRIPTION
+- *  test 1:
+- *  The sum of the iov_len values overflows an ssize_t value, expect an EINVAL.
++ * [Description]
+  *
+- *  test 2:
+- *  Buf is outside the accessible address space, expect an EFAULT.
++ * Tests readv() failures:
+  *
+- *  test 3:
+- *  The vector count iovcnt is less than zero, expect an EINVAL.
+- *
+- *  test 4:
+- *  The parameter passed to read is a directory, check if the errno is
+- *  set to EISDIR.
+- *
+- *  test 5:
+- *  Read with an invalid file descriptor, and expect an EBADF.
++ * - EINVAL the sum of the iov_len values overflows an ssize_t value
++ * - EFAULT buffer is outside the accessible address space
++ * - EINVAL the vector count iovcnt is less than zero
++ * - EISDIR the file descriptor is a directory
++ * - EBADF  the file descriptor is not valid
+  */
+ 
+ #include <sys/uio.h>
+@@ -34,7 +27,7 @@
+ #define CHUNK           64
+ 
+ static int badfd = -1;
+-static int fd[2] = {-1, -1};
++static int fd_dir, fd_file;
+ static char buf1[K_1];
+ const char *TEST_DIR = "test_dir";
+ const char *TEST_FILE = "test_file";
+@@ -67,10 +60,10 @@ static struct tcase {
+ 	int count;
+ 	int exp_error;
+ } tcases[] = {
+-	{&fd[0], invalid_iovec, 1, EINVAL},
+-	{&fd[0], efault_iovec, 3, EFAULT},
+-	{&fd[0], large_iovec, -1, EINVAL},
+-	{&fd[1], valid_iovec, 1, EISDIR},
++	{&fd_file, invalid_iovec, 1, EINVAL},
++	{&fd_file, efault_iovec, 3, EFAULT},
++	{&fd_file, large_iovec, -1, EINVAL},
++	{&fd_dir, valid_iovec, 1, EISDIR},
+ 	{&badfd, valid_iovec, 3, EBADF},
+ };
+ 
+@@ -84,26 +77,23 @@ static void verify_readv(unsigned int n)
+ 
+ static void setup(void)
+ {
+-	fd[0] = SAFE_OPEN(TEST_FILE, O_WRONLY | O_CREAT, 0666);
+-	SAFE_WRITE(1, fd[0], buf1, CHUNK);
+-	SAFE_CLOSE(fd[0]);
++	SAFE_FILE_PRINTF(TEST_FILE, "test");
+ 
+-	fd[0] = SAFE_OPEN(TEST_FILE, O_RDONLY, 0666);
++	fd_file = SAFE_OPEN(TEST_FILE, O_RDONLY);
+ 
+ 	efault_iovec[0].iov_base = tst_get_bad_addr(NULL);
+ 
+ 	SAFE_MKDIR(TEST_DIR, MODES);
+-	fd[1] = SAFE_OPEN(TEST_DIR, O_RDONLY);
++	fd_dir = SAFE_OPEN(TEST_DIR, O_RDONLY);
+ }
+ 
+ static void cleanup(void)
+ {
+-	int i;
++	if (fd_file > 0)
++		SAFE_CLOSE(fd_file);
+ 
+-	for (i = 0; i < 2; i++) {
+-		if (fd[i] > 0)
+-			SAFE_CLOSE(fd[i]);
+-	}
++	if (fd_dir > 0)
++		SAFE_CLOSE(fd_dir);
+ }
+ 
+ static struct tst_test test = {
 
 -- 
-Regards,
-Li Wang
-
---000000000000e371e105cadae07e
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small">Hi Joerg, Richard,</div></div><br><div class=3D"gmail_quote">=
-<div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px =
-0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-&gt;&gt; -static struct tst_cgroup_group *<br>
-&gt;&gt; -mk_cpu_cgroup(const struct tst_cgroup_group *const cg_parent,<br>
-&gt;&gt; +static void mk_cpu_cgroup(struct tst_cgroup_group **cg,<br>
-&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 const struct tst_cgroup_group =
-*const cg_parent,<br>
-&gt; Seems like there are spaces instead of a tab at the start.<br></blockq=
-uote><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px=
- 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-Right, I wanted to keep the same format you had, but did not realize it <br=
->
-was one tab and 5 spaces instead of 9 spaces.<br>
-I guess this can be fixed during merging.<br></blockquote><div><br></div><d=
-iv><div class=3D"gmail_default" style=3D"font-size:small">I fixed that and =
-pushed those patches. Thanks!</div></div><div>=C2=A0</div></div>-- <br><div=
- dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></=
-div><div>Li Wang<br></div></div></div></div>
-
---000000000000e371e105cadae07e--
-
-
---===============1127905963==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============1127905963==--
-
