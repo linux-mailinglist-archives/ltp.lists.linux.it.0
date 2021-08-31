@@ -1,59 +1,68 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 781133FC4B0
-	for <lists+linux-ltp@lfdr.de>; Tue, 31 Aug 2021 11:19:21 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A63B3FC4B1
+	for <lists+linux-ltp@lfdr.de>; Tue, 31 Aug 2021 11:19:34 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 481273C2AAC
-	for <lists+linux-ltp@lfdr.de>; Tue, 31 Aug 2021 11:19:21 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id D71CA3C2ABC
+	for <lists+linux-ltp@lfdr.de>; Tue, 31 Aug 2021 11:19:33 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 171FB3C2435
- for <ltp@lists.linux.it>; Tue, 31 Aug 2021 11:19:19 +0200 (CEST)
-Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
+ by picard.linux.it (Postfix) with ESMTPS id 0AD3D3C2A3D
+ for <ltp@lists.linux.it>; Tue, 31 Aug 2021 11:19:31 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 55F9960092B
+ for <ltp@lists.linux.it>; Tue, 31 Aug 2021 11:19:31 +0200 (CEST)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id B98BE2213D;
+ Tue, 31 Aug 2021 09:19:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1630401570;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=XliuTCwBDk8jPgGsv8pmoLJkkWtCgtY/IVQIDm9bTXI=;
+ b=IyOD5Z65N+TEPmqjg1AE8P4yXSk03+7+jAhfnC7yGEgz+/lFFQH2HEdgksJp88Whi1iMRl
+ b+g5WyvhU6/EJNynUhUH2SmJ8BX8FD4HR526yURO4GCklmIcawHTLV1j9viKGPTqCRomVo
+ 0f1sVIy5FXuSiFYcdz97KYGluVztU34=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1630401570;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=XliuTCwBDk8jPgGsv8pmoLJkkWtCgtY/IVQIDm9bTXI=;
+ b=VZnL2Z8I7E3+1UeI2b1TBSQcENovYR96JUn98agrdXdeKFruJFc173/pOS9+fKeR7NrhBx
+ fO4z/U8sJ/3TS6Bg==
+Received: from g78 (unknown [10.163.24.38])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 0D0231A00CBA
- for <ltp@lists.linux.it>; Tue, 31 Aug 2021 11:19:17 +0200 (CEST)
-X-QQ-mid: bizesmtp53t1630401552tze3bagr
-Received: from [10.4.23.46] (unknown [58.240.82.166])
- by esmtp6.qq.com (ESMTP) with 
- id ; Tue, 31 Aug 2021 17:19:11 +0800 (CST)
-X-QQ-SSF: 0140000000200040C000B00A0000000
-X-QQ-FEAT: VPkm+FfqhV8J4vryER54/KjYKJ0WcMp1389uwRI6OA5ZDUgaqoJ646MDuntMp
- iK52OkFaQAH0v5UfirJeKMLGtAw0VA8uKuujVp6lzpk9Kq7Qevi8cj7bm8mw4Tp24r+szRj
- xPg1zRPZ9naQ06zYa2Q/5JCvoOcEEQwJpoNnpOkCv8Gynkw/zyVd+5TDla2Ao8LwGd1uScz
- jkZnwCslHfDVDYZFPS4zBTNrQJ42JNyFbbXDwdED13A649FVq0pIOhflb+/0qGxWSjZZHdj
- FEzMLr43HHzKFrsvh9CNB3S7WtcXQeYbgjwPJNXHUJKRET9GNDvseHMPrbyax9uoTl6wYu+
- +Ba0ED9drrtqpI3cZ+EEd7jK7Uw5w==
-X-QQ-GoodBg: 2
-To: Li Wang <liwang@redhat.com>
-References: <20210831014358.28459-1-zhanglianjie@uniontech.com>
- <CAEemH2c1cwsxiqg7p+E0NvNg1Qw2j8+mYQYVqre0r1y_LiF9Pg@mail.gmail.com>
-From: zhanglianjie <zhanglianjie@uniontech.com>
-Message-ID: <04c5fdac-3930-e160-ab15-45f66a83f401@uniontech.com>+993BC5525893FADA
-Date: Tue, 31 Aug 2021 17:19:11 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
+ by relay2.suse.de (Postfix) with ESMTPS id 7BF7BA3B9B;
+ Tue, 31 Aug 2021 09:19:30 +0000 (UTC)
+References: <20210831090002.1431298-1-lkml@jv-coder.de>
+ <20210831090002.1431298-2-lkml@jv-coder.de>
+User-agent: mu4e 1.4.15; emacs 27.2
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Joerg Vehlow <lkml@jv-coder.de>
+In-reply-to: <20210831090002.1431298-2-lkml@jv-coder.de>
+Date: Tue, 31 Aug 2021 10:19:29 +0100
+Message-ID: <87bl5ekm3i.fsf@suse.de>
 MIME-Version: 1.0
-In-Reply-To: <CAEemH2c1cwsxiqg7p+E0NvNg1Qw2j8+mYQYVqre0r1y_LiF9Pg@mail.gmail.com>
-Content-Language: en-US
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign5
-X-QQ-Bgrelay: 1
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=1.8 required=7.0 tests=FORGED_MUA_MOZILLA,
- INVALID_MSGID,NICE_REPLY_A,SPF_HELO_PASS,SPF_PASS autolearn=disabled
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Level: *
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3] tst_test_macros.h: Add TST_EXP_VAL macro
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 2/2] cfs_bandwidth01: Add misssing needs_kconfigs
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,30 +74,22 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
+Reply-To: rpalethorpe@suse.de
+Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>, ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi,
-thank you.
 
-On 2021-08-31 17:01, Li Wang wrote:
-> Hi Lianjie, Cyril,
-> 
-> I have revised the order of the macros and pushed them.
-> (put them on the top of TST_EXP_PASS_* to make the whole more readable)
-> 
-> -- 
-> Regards,
-> Li Wang
+LGTM, thanks.
+
+Reviewed-by: Richard Palethorpe <rpalethorpe@suse.com>
 
 -- 
-Regards,
-Zhang Lianjie
-
-
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
