@@ -1,75 +1,73 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 511FE3FE186
-	for <lists+linux-ltp@lfdr.de>; Wed,  1 Sep 2021 19:54:55 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 41B0A3FE233
+	for <lists+linux-ltp@lfdr.de>; Wed,  1 Sep 2021 20:14:42 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 00E103C6449
-	for <lists+linux-ltp@lfdr.de>; Wed,  1 Sep 2021 19:54:55 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C9D023C6449
+	for <lists+linux-ltp@lfdr.de>; Wed,  1 Sep 2021 20:14:41 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 4C50D3C2B78
- for <ltp@lists.linux.it>; Wed,  1 Sep 2021 19:54:52 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 507523C29EC
+ for <ltp@lists.linux.it>; Wed,  1 Sep 2021 20:14:40 +0200 (CEST)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 5A5C96002B4
- for <ltp@lists.linux.it>; Wed,  1 Sep 2021 19:54:51 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id AFA93200D2A
+ for <ltp@lists.linux.it>; Wed,  1 Sep 2021 20:14:39 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 479E82259D;
- Wed,  1 Sep 2021 17:54:51 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 01B2F22562;
+ Wed,  1 Sep 2021 18:14:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1630518891; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1630520079; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=w/s5W3shdQ2GgUMBi9VKxFdESo+UsQ/AC2dKtNSXeWI=;
- b=RQVKyzsm0xhrTZhvBj7iGM/BxnQRbuckmlObJaGYZObFYtkLwrU3lFO+WyMTltF+prXjYP
- aOqbfxAPSCVvka/rul39Qkr2/tl/1bDFKoJwfe4s+TSie3cN26SK+T/OpzfLrEjTb5vF7+
- ppp+QA2syOm4bujZ8Urqu0SwDWOuRzU=
+ bh=IYKDddhzMNpvybko68iTCuag0tuCoEvBrh6DWS3KTXg=;
+ b=ZOtO69yGhdgMESqVzNn1Ekqxpn5MZqXcTg+QgB6OS4u/XS9M30rfQQiSWVNCUhvNBB6QKg
+ L9CCsEZdfYClRJvZOJcYd7tmuEyuJFPHDZvW0HCzYpbbUSpqEAz/PlSDhlUcrmTCJUKOj7
+ Jf/17/L1M8027XXO69xNibRlUOs8tFE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1630518891;
+ s=susede2_ed25519; t=1630520079;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=w/s5W3shdQ2GgUMBi9VKxFdESo+UsQ/AC2dKtNSXeWI=;
- b=fTgBDRMu92sQ99a5PE+0PeOeQMswrtuBEzyBq+IlQFsM+iaskmXfyJAkraggZcv4dX0+SD
- /XeIZLrrATpYtTBA==
+ bh=IYKDddhzMNpvybko68iTCuag0tuCoEvBrh6DWS3KTXg=;
+ b=FnRryEg1oRh+Ut6ZjnvyYPxTvxqJ2kUjXl3Obg1JFeJUYFlg/yxoPZ+OLZpGdTc7tizffx
+ /OFbB5LYJq4XC/BQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2C62513B03;
- Wed,  1 Sep 2021 17:54:51 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D9CC013B03;
+ Wed,  1 Sep 2021 18:14:38 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id V79mCmu+L2FkXQAAMHmgww
- (envelope-from <chrubis@suse.cz>); Wed, 01 Sep 2021 17:54:51 +0000
-Date: Wed, 1 Sep 2021 19:55:00 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id b+EKNA7DL2GpYgAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Wed, 01 Sep 2021 18:14:38 +0000
+Date: Wed, 1 Sep 2021 20:14:48 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-Message-ID: <YS++dM4sC2Do8rDM@yuki>
-References: <20210827092007.20889-1-krzysztof.kozlowski@canonical.com>
- <YS99h3rPMLeSEFv5@yuki>
- <440b0bcf-63b5-bb78-6a0b-565a5266d9da@canonical.com>
+Message-ID: <YS/DGPyHmEHnRSZk@yuki>
+References: <20210901151655.95760-1-krzysztof.kozlowski@canonical.com>
+ <20210901151655.95760-2-krzysztof.kozlowski@canonical.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <440b0bcf-63b5-bb78-6a0b-565a5266d9da@canonical.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+In-Reply-To: <20210901151655.95760-2-krzysztof.kozlowski@canonical.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3 1/2] controllers/cpuacct: skip cpuacct_100_100
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v5 2/3] controllers/cpuacct: skip cpuacct_100_100
  on small memory systems
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -89,11 +87,13 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> I'll move this piece, as you suggested. The free memory limits is okay
-> to stay here?
+> +check_limits()
+> +{
+> +	local tasksneeded=$((max * nbprocess + 100))
 
-There is no such API in the C library yet, so unless you want to add it
-it can stay where it is.
+We allready have some reserve for the system in the tst_get_free_pids()
+so shouldn't this be just max * nbprocess ?
+
 
 -- 
 Cyril Hrubis
