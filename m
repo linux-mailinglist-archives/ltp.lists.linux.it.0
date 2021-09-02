@@ -2,66 +2,72 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCB9C3FEC5A
-	for <lists+linux-ltp@lfdr.de>; Thu,  2 Sep 2021 12:46:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1C743FED29
+	for <lists+linux-ltp@lfdr.de>; Thu,  2 Sep 2021 13:51:03 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5F6123C9953
-	for <lists+linux-ltp@lfdr.de>; Thu,  2 Sep 2021 12:46:05 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B9D2E3C9956
+	for <lists+linux-ltp@lfdr.de>; Thu,  2 Sep 2021 13:51:02 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 3BBEE3C2BD6
- for <ltp@lists.linux.it>; Thu,  2 Sep 2021 12:46:02 +0200 (CEST)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id F19343C29D1
+ for <ltp@lists.linux.it>; Thu,  2 Sep 2021 13:50:57 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 7BD4310009A3
- for <ltp@lists.linux.it>; Thu,  2 Sep 2021 12:46:00 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1630579559;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=l2KcxtsMnz07vPaJT3gNgbTvgvbGF/2Fx1sepMeU3RQ=;
- b=TTiAp81jD0G6VJB+7ksYNQ9VQAq2/ysM531gWoZmeDkJFfCRv2HfihRFCLnHak2k6Nbnsi
- id0OV+gkrHzAsNLRJF80CV4yfP94w0dF278n7O++Icz/uWmpycaxsqEHRVMsbPEe0mbGGI
- PiYsisqFxRjpXaSDYP0msUM3okBPBRk=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-366-M7dWhMyjP2O7Evlr278nRw-1; Thu, 02 Sep 2021 06:45:56 -0400
-X-MC-Unique: M7dWhMyjP2O7Evlr278nRw-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
- [10.5.11.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id E1E4260085F
+ for <ltp@lists.linux.it>; Thu,  2 Sep 2021 13:50:56 +0200 (CEST)
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5C79F835DE0
- for <ltp@lists.linux.it>; Thu,  2 Sep 2021 10:45:55 +0000 (UTC)
-Received: from liwang-laptop.redhat.com (ovpn-13-57.pek2.redhat.com
- [10.72.13.57])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 365F35D6B1
- for <ltp@lists.linux.it>; Thu,  2 Sep 2021 10:45:53 +0000 (UTC)
-From: Li Wang <liwang@redhat.com>
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 21B6C225FB;
+ Thu,  2 Sep 2021 11:50:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1630583456;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=cCzkzEy42tfQe+xaPAhX//Wxbg4yQWODycC2oth+nzk=;
+ b=iFjJ1HHi1bXraDL3+hyJZGnlGRtl1NFQiBK9ugr17d0RL0BjsVZs1y8F4cuajgub2lMB8O
+ 7og+CJpITC3fmwye2MBSYTATqF2SHjcb4uL2J4JY/4PV9Uuc60jUUB9tUI/jBWwDVOmex4
+ hCUrQo4ikpERMLHZOMs2ClcPMi5+fy0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1630583456;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=cCzkzEy42tfQe+xaPAhX//Wxbg4yQWODycC2oth+nzk=;
+ b=vTxf1qc09/0uvk9ZO3ogIN1NjDCUNIQHdVkvqP/P3+DoKgcB5FbGyLJueNzaKCj5cFwJ3p
+ RV2cKWhfH/Y0mdBw==
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id C5F1413732;
+ Thu,  2 Sep 2021 11:50:55 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap1.suse-dmz.suse.de with ESMTPSA id 4458K5+6MGHkegAAGKfGzw
+ (envelope-from <pvorel@suse.cz>); Thu, 02 Sep 2021 11:50:55 +0000
+Date: Thu, 2 Sep 2021 13:50:54 +0200
+From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Thu,  2 Sep 2021 18:45:51 +0800
-Message-Id: <20210902104551.58293-1-liwang@redhat.com>
+Message-ID: <YTC6nujBQURztwei@pevik>
+References: <20210902103740.19446-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwang@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20210902103740.19446-1-pvorel@suse.cz>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [RFC PATCH] copy_file_range03: comparing timestamp with
- tst_timespec_diff
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 0/4] checkbashisms.pl in make check + fixed docs
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,85 +79,48 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: Richard Palethorpe <rpalethorpe@suse.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-The st_mtime field is defined as st_mtim.tv_sec for backward
-compatibility in struct stat, which might not precise enough
-for timestamp comparing.
+Hi All,
 
-Similar issue as:
-  https://lists.linux.it/pipermail/ltp/2020-November/019982.html
+> checkbashisms.pl has problem with type. Although it's in POSIX [1] even
+> in old one from 2004 [2] and it's supported by all common shells (i.e.
+> bash, zsh, dash, busybox sh, mksh; even in ksh; maybe just csh does not
+> support it) checkbashisms.pl complains about it:
 
-Here switch to timespec diff (with compare nanosecond as well) to
-get rid of this kind of rare faliure:
+> $ make check-tst_test.sh
+> CHECK testcases/lib/tst_test.sh
+> possible bashism in tst_test.sh line 33 (type):
+> 		if type $TST_CLEANUP >/dev/null 2>/dev/null; then
+> possible bashism in tst_test.sh line 694 (type):
+> 		if type $TST_SETUP >/dev/null 2>/dev/null; then
+> possible bashism in tst_test.sh line 726 (type):
+> 		if type ${TST_TESTFUNC}1 > /dev/null 2>&1; then
+> make: [../../include/mk/rules.mk:58: check-tst_test.sh] Error 1 (ignored)
 
-   7	tst_test.c:1345: TINFO: Timeout per run is 0h 05m 00s
-   8	copy_file_range.h:36: TINFO: Testing libc copy_file_range()
-   9	copy_file_range03.c:48: TPASS: copy_file_range sucessfully updated the timestamp
-   10	tst_test.c:1345: TINFO: Timeout per run is 0h 05m 00s
-   11	copy_file_range.h:39: TINFO: Testing __NR_copy_file_range syscall
-   12	copy_file_range03.c:46: TFAIL: copy_file_range did not update timestamp.
 
-Signed-off-by: Li Wang <liwang@redhat.com>
----
- .../syscalls/copy_file_range/copy_file_range03.c  | 15 +++++++++------
- 1 file changed, 9 insertions(+), 6 deletions(-)
+> Should I report it to Debian (the upstream)? Or at least ask for way to
+> suppress the warning?
 
-diff --git a/testcases/kernel/syscalls/copy_file_range/copy_file_range03.c b/testcases/kernel/syscalls/copy_file_range/copy_file_range03.c
-index 253eb57ad..5d055e6ba 100644
---- a/testcases/kernel/syscalls/copy_file_range/copy_file_range03.c
-+++ b/testcases/kernel/syscalls/copy_file_range/copy_file_range03.c
-@@ -12,25 +12,26 @@
- #define _GNU_SOURCE
- 
- #include "tst_test.h"
-+#include "tst_timer.h"
- #include "copy_file_range.h"
- 
- static int fd_src;
- static int fd_dest;
- 
--unsigned long get_timestamp(int fd)
-+struct timespec get_timestamp(int fd)
- {
- 	struct stat filestat;
- 
- 	fstat(fd, &filestat);
--	return filestat.st_mtime;
-+	return filestat.st_mtim;
- }
- 
- static void verify_copy_file_range_timestamp(void)
- {
- 	loff_t offset;
--	unsigned long timestamp, updated_timestamp;
-+	struct timespec timestamp1, timestamp2, diff;
- 
--	timestamp = get_timestamp(fd_dest);
-+	timestamp1 = get_timestamp(fd_dest);
- 	usleep(1000000);
- 
- 	offset = 0;
-@@ -40,9 +41,11 @@ static void verify_copy_file_range_timestamp(void)
- 		tst_brk(TBROK | TTERRNO,
- 				"copy_file_range unexpectedly failed");
- 
--	updated_timestamp = get_timestamp(fd_dest);
-+	timestamp2 = get_timestamp(fd_dest);
- 
--	if (timestamp == updated_timestamp)
-+	diff = tst_timespec_diff(timestamp1, timestamp2);
-+
-+	if (!diff.tv_sec && !diff.tv_nsec)
- 		tst_brk(TFAIL, "copy_file_range did not update timestamp.");
- 
- 	tst_res(TPASS, "copy_file_range sucessfully updated the timestamp");
--- 
-2.31.1
+type is part of POSIX, but as part of the X/Open Systems Interfaces option
+(XSI). The checkbashisms man page explicitly says:
 
+	Note that the definition of a bashism in this context roughly equates to "a
+	shell feature that is not required to be supported by POSIX"; this means that
+	some issues flagged may be permitted under optional sections of POSIX, such as
+	XSI or User Portability.
+
+=> type is flagged because it is an optional feature.
+
+I just send a patch which disabled it from source code.
+
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
