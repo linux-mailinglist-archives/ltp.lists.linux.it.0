@@ -1,68 +1,77 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D20473FEF14
-	for <lists+linux-ltp@lfdr.de>; Thu,  2 Sep 2021 16:03:12 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D8CB3FEFDE
+	for <lists+linux-ltp@lfdr.de>; Thu,  2 Sep 2021 17:10:00 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A61D03C939D
-	for <lists+linux-ltp@lfdr.de>; Thu,  2 Sep 2021 16:03:12 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 4F7373C939D
+	for <lists+linux-ltp@lfdr.de>; Thu,  2 Sep 2021 17:10:00 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 270003C2982
- for <ltp@lists.linux.it>; Thu,  2 Sep 2021 16:03:08 +0200 (CEST)
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [IPv6:2a00:1450:4864:20::534])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 94C6A3C2949
+ for <ltp@lists.linux.it>; Thu,  2 Sep 2021 17:09:58 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 4E52B140120C
- for <ltp@lists.linux.it>; Thu,  2 Sep 2021 16:03:08 +0200 (CEST)
-Received: by mail-ed1-x534.google.com with SMTP id i6so3070267edu.1
- for <ltp@lists.linux.it>; Thu, 02 Sep 2021 07:03:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:from:date:message-id:subject:to:cc;
- bh=hUzWJcdfQhfud3uRFK51QwpcOlINZhZFuA16L2RdrPU=;
- b=Xm7VbLS3uRyMgm6cfXnFTU6GF2+JgMndFp5SVQ0GiiqN/21NF0J6oB2zEl31OOHMWZ
- bpD/jg+xUPhRl+7YSZJPa9VHJPEkFUoMkTsRBqRiESploEfxswi9cJ7/FZRmHbYF+06t
- skGA5/Zqm2oI4qC7hfHkIr0nqGAjLKhQbrEG6Tou0tSmxSNsxS1fomGSjgbzDMYisRPP
- 3SeXZAyi9TtI8QxQ3nQQt3Rt67X6dryRQTzBu2EjEQ03eMABUDvPnLmM+OTia0UEfyzG
- 61m0+cdnt4Vi6uUIW/IYQgCiTDrEHmmq3UlqzEdGRUjRvunzhoYFFISszvBBiv/s76NB
- 0a5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
- bh=hUzWJcdfQhfud3uRFK51QwpcOlINZhZFuA16L2RdrPU=;
- b=WtfPPS7Pa5d/LDM5EkIcXCLAvOjZoG0c1ffFlhWqkx+A9Rfn1cKvHDyM88ivgvDNhY
- +MT0EPnNolbMQPgUwk5oA6tu/YffYQRfBLiUM8ooUE1eMbLGFuy3lTmpvkugaF9MQUic
- 7tv/otIbrcEnBfJdh94mlhj/Gy+J3eAzacd4LeJ6t6hOXfzNqV60ZuNwASE3B3gG4n3k
- 8/qoLJ5NM029RXl9srHLNKMhqWocbK3dLlVGj3nBmMPY5KRc4ytnMgdECdwfnQADtZh0
- wZ8xo6w20+LorK6SC1eup1SB1v6RZVMIDdpEoe5hheGc1EcAwsgWkXtLFb/AfKZ6rERe
- HqAQ==
-X-Gm-Message-State: AOAM532BULGOsLdOxkaIn2xCwzw/IFAEnczExyVMeyIt1UFmTY0XIfK9
- ic/cOJfzz+BbHxvDVASeEkaHW5Qm7EbCGISiEP5UTw7ckRGWAvP5
-X-Google-Smtp-Source: ABdhPJy/ahojUbN3NAhrTuVMSc+2NsB9Osb593CarCGmU0aJ7tJvqOD6jb+ZmwS15Y9NxsP5xYtUE/pTy++07bQOj7M=
-X-Received: by 2002:a05:6402:1b02:: with SMTP id
- by2mr3707318edb.365.1630591386637; 
- Thu, 02 Sep 2021 07:03:06 -0700 (PDT)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 894C7140121F
+ for <ltp@lists.linux.it>; Thu,  2 Sep 2021 17:09:57 +0200 (CEST)
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id BEA5A1FFBD;
+ Thu,  2 Sep 2021 15:09:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1630595396;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=6va+iPlRzwIer/VsZZ/4jra5iN0rS3uVNXpkLF4NaPw=;
+ b=DFdeFFbBSOzmYtkR0FVQWSAk99fppc45aaDf5CJodsVrQl1J/S3XE05KJLQqpd9XBIrA1/
+ 3MPlCXluQjIcVx0pZLL/ZC3wRFDAZlDwi47u54WLVCYdjSRT3zFvtvTIMX6WyrU7ZPADGt
+ juC6w5QPKRqSPU5rd42P5cLuXEv9Thg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1630595396;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=6va+iPlRzwIer/VsZZ/4jra5iN0rS3uVNXpkLF4NaPw=;
+ b=RgC2V9FW68R5XMJiTq5seoEBbnVALpgHEIe+qzfCFJxm+etK3NCBoXdGV5rMRWU3a5pgo0
+ m7ER/3ovZajgEPBA==
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 8BF1B13AA5;
+ Thu,  2 Sep 2021 15:09:56 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap1.suse-dmz.suse.de with ESMTPSA id ft4BIETpMGHlNAAAGKfGzw
+ (envelope-from <pvorel@suse.cz>); Thu, 02 Sep 2021 15:09:56 +0000
+Date: Thu, 2 Sep 2021 17:09:55 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Joerg Vehlow <lkml@jv-coder.de>
+Message-ID: <YTDpQxDDPY3HCli6@pevik>
+References: <20210902103740.19446-1-pvorel@suse.cz>
+ <015140e9-0eba-4057-4a91-35d958af2bb8@jv-coder.de>
 MIME-Version: 1.0
-From: Naresh Kamboju <naresh.kamboju@linaro.org>
-Date: Thu, 2 Sep 2021 19:32:55 +0530
-Message-ID: <CA+G9fYs=GY7eQSEc08PHdaT1WtzZtaxD3Fc8jpu1Dy4g=o5Xtg@mail.gmail.com>
-To: LTP List <ltp@lists.linux.it>, open list <linux-kernel@vger.kernel.org>, 
- lkft-triage@lists.linaro.org
+Content-Disposition: inline
+In-Reply-To: <015140e9-0eba-4057-4a91-35d958af2bb8@jv-coder.de>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] ftruncate04: WARNING: the mand mount option is being
- deprecated and will be removed in v5.15!
+Subject: Re: [LTP] [PATCH 0/4] checkbashisms.pl in make check + fixed docs
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,51 +83,63 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Robbie Williamson <robbiew@us.ibm.com>, Roy Lee <roylee@andestech.com>,
- Jeff Layton <jlayton@kernel.org>, Jan Kara <jack@suse.cz>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: Richard Palethorpe <rpalethorpe@suse.com>, ltp@lists.linux.it
+Content-Type: text/plain; charset="iso-8859-2"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-While running LTP syscalls test case ftruncate04 found this warning.
+Hi Joerg,
 
-[  136.115071] loop0: detected capacity change from 0 to 524288
-tst_device.c:89: TINFO: Found free device 0 '/dev/loop0'
-tst_test.c:889: TINFO: Formatting /dev/loop0 with ext2 opts='' extra opts=''
-mke2fs 1.43.8 (1-Jan-2018)
-[  136.250270] EXT4-fs (loop0): mounting ext2 file system using the
-ext4 subsystem
-[  136.255226] ext2 filesystem being mounted at
-/tmp/ltp-GKVnWFZH5N/nTMmf9/mntpoint supports timestamps until 2038
-(0x7fffffff)
-[  136.258936] ======================================================
-[  136.258936] WARNING: the mand mount option is being deprecated and
-[  136.258936]          will be removed in v5.15!
-[  136.258936] ======================================================
-tst_test.c:1313: TINFO: Timeout per run is 0h 15m 00s
-[  136.266703] EXT4-fs (loop0): re-mounted. Opts: (null). Quota mode: none.
-[  136.267843] ext2 filesystem being remounted at
-/tmp/ltp-GKVnWFZH5N/nTMmf9/mntpoint supports timestamps until 2038
-(0x7fffffff)
-ftruncate04.c:116: TINFO: Child locks file
-ftruncate04.c:60: TPASS: ftruncate() offset before lock failed with EAGAIN
-ftruncate04.c:60: TPASS: ftruncate() offset in lock failed with EAGAIN
-ftruncate04.c:84: TPASS: ftruncate() offset after lock succeded
-ftruncate04.c:127: TINFO: Child unlocks file
-ftruncate04.c:84: TPASS: ftruncate() offset in lock succeded
-ftruncate04.c:84: TPASS: ftruncate() offset before lock succeded
-ftruncate04.c:84: TPASS: ftruncate() offset after lock succeded
+> Hi
 
-Reported-by: Naresh Kamboju <naresh.kamboju@linaro.org>
+> one general question about this: How to we want to handle false-positives?
+Good point, thanks! Generally we can disable things which does not work for=
+ us.
+I'd be pragmatic, if something works on most of shells and let's disable it,
+just not disable needed test just due one false positive.
 
-Full test log link,
-https://qa-reports.linaro.org/lkft/linux-stable-rc-linux-5.14.y/build/v5.14-rc6-389-g95dc72bb9c03/testrun/5607838/suite/linux-log-parser/test/check-kernel-warning-3410862/log
+> e.g.:
 
-Test case link,
-https://github.com/linux-test-project/ltp/blob/master/testcases/kernel/syscalls/ftruncate/ftruncate04.c
+> $ checkbashisms testcases/kernel/controllers/memcg/functional/memcg_lib.sh
+> possible bashism in
+> testcases/kernel/controllers/memcg/functional/memcg_lib.sh line 387 ('(('
+> should be '$(('):
+> =A0=A0=A0=A0=A0=A0=A0 local limit_down=3D$(( PAGESIZE * ((limit + PAGESIZ=
+E - 1) / PAGESIZE)
+> ))
 
-- Naresh
+> This is obviously a false positive, but could probably be adding a space
+> between the brackets.
 
--- 
+The only thing how to get away this was to introduce another variable:
+	local limit_psize=3D$((limit + PAGESIZE - 1))
+	local limit_down=3D$((PAGESIZE * (limit_psize / PAGESIZE)))
+
+I'm not sure if it's not POSIX, but works because supported by all shells
+(similar case to 'typo' not being POSIX but POSIX extensions). Maybe we sho=
+uld
+report it.
+
+> or
+
+> $ checkbashisms testcases/kernel/connectors/pec/cn_pec.sh
+> possible bashism in testcases/kernel/connectors/pec/cn_pec.sh line 127
+> (should be >word 2>&1):
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 done <&${fd_act}
+
+> This one is just a false positive and I have no clue how to prevent this.
+> I think the script does not like the <&, but this is posix...
+The same here, I'm not sure if it's POSIX. &> definitely is not POSIX.
+I remember we were talking about it. Can we avoid it somehow?
+
+Kind regards,
+Petr
+
+
+> Joerg
+
+-- =
+
 Mailing list info: https://lists.linux.it/listinfo/ltp
