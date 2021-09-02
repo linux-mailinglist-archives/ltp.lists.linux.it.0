@@ -2,73 +2,91 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FE4E3FEA91
-	for <lists+linux-ltp@lfdr.de>; Thu,  2 Sep 2021 10:23:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0300E3FEA92
+	for <lists+linux-ltp@lfdr.de>; Thu,  2 Sep 2021 10:24:07 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id EE3CA3C2CC4
-	for <lists+linux-ltp@lfdr.de>; Thu,  2 Sep 2021 10:23:20 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id CC7FB3C2D5C
+	for <lists+linux-ltp@lfdr.de>; Thu,  2 Sep 2021 10:24:06 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by picard.linux.it (Postfix) with ESMTPS id ECA9E3C29B2
+ for <ltp@lists.linux.it>; Thu,  2 Sep 2021 10:24:04 +0200 (CEST)
+Received: from smtp-relay-internal-0.canonical.com
+ (smtp-relay-internal-0.canonical.com [185.125.188.122])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 04A7E3C29B2
- for <ltp@lists.linux.it>; Thu,  2 Sep 2021 10:23:19 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 3F81A200DB1
+ for <ltp@lists.linux.it>; Thu,  2 Sep 2021 10:24:04 +0200 (CEST)
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 7A245600705
- for <ltp@lists.linux.it>; Thu,  2 Sep 2021 10:23:18 +0200 (CEST)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 8885C224ED;
- Thu,  2 Sep 2021 08:23:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1630570998;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=UJVMjeTEOQyPUCCGh6V3A3UWSoFbhRr/NSSodjVmhgk=;
- b=p4npUZ9KQVUcTiJlK5GSBnQzx2x/f91NKncPaxrGOsgO/WsgkLfm5VsvyzM3fIcyN44qDK
- JcgsmILrtxM3PvpyQv6XSjlgnfzWdbp7ps3Nmgg/cs/SjitxEtmTUp9QRP8ym/YAVVOV2m
- q4ihh4RxTpSw7gEWHSXICri4j66YHfI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1630570998;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=UJVMjeTEOQyPUCCGh6V3A3UWSoFbhRr/NSSodjVmhgk=;
- b=2PWD7+t1B6js0cSDtTB2lXuaLk9WnwTCMn1hiYfHGqDwAlT8UrBW4Cs6RwCrERT7RMz+36
- MuYmRALN1JBCBNAQ==
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 5F10313A75;
- Thu,  2 Sep 2021 08:23:18 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id BiesFfaJMGG3SAAAGKfGzw
- (envelope-from <pvorel@suse.cz>); Thu, 02 Sep 2021 08:23:18 +0000
-Date: Thu, 2 Sep 2021 10:23:16 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: "xuyang2018.jy@fujitsu.com" <xuyang2018.jy@fujitsu.com>
-Message-ID: <YTCJ9KrZTMDg+Wsp@pevik>
-References: <1630564446-3393-1-git-send-email-xuyang2018.jy@fujitsu.com>
- <61307148.1050605@fujitsu.com>
+ by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 3F4D73F046
+ for <ltp@lists.linux.it>; Thu,  2 Sep 2021 08:24:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1630571043;
+ bh=mgzd70UBUCCry7ycIGnygE0veHWQhKxJAM9f9dc5Kf0=;
+ h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
+ In-Reply-To:Content-Type;
+ b=s1YUdCoTn5q0cABSnTt5NeZsj/pq4d+W3of7+FuzgYRwxRVAMT+ab/0Nv5pBIcPrA
+ SkVW8fE9OnSsxoBtvjAtcCmEvZQbEKohO3xYMiqU4bUjKywV5efWBwfMKKuWC0b6d2
+ nMTKccqKN+VTgMhrConsFEaFVUKxxGCdpvJyhrU0cn13nKBsMqZSbLe3III7vj0/1w
+ wlZHgz1TQHcYhP29Q2ma6IcJxGWnDaHpUSxlRRY5kbK1+ULh31bvXgmSTsx2Tq2lMv
+ odlefHZD5qAkhw+5rG2i1hIJFEvhyyaL/h9A7fBUMMTJS38oPHW5C6jKQhZi/FAysJ
+ HXO+0nVHPazDw==
+Received: by mail-wr1-f71.google.com with SMTP id
+ r17-20020adfda510000b02901526f76d738so291849wrl.0
+ for <ltp@lists.linux.it>; Thu, 02 Sep 2021 01:24:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=mgzd70UBUCCry7ycIGnygE0veHWQhKxJAM9f9dc5Kf0=;
+ b=XePh1SrzYriNKOz4JvMQQj9AiTF61sGUkpkRpdDkuTrrENWRwo0QZFQPsu1hKUrcQt
+ NjUqKT4SxNAR/p3jF87XprS8RjwVMy6yTEkzXTOCtjPy34lKyDL6Bna5ZdOwW5G0oEUJ
+ lOe2UDEiLhM51gCa5dFnqYYBTEJgoOnPQCGs81J+HjoIjyPR/7pqyHazYGhATeJuIqmV
+ lQVr/kmY1DHPPDKZLPKyTVpnEy71aNut8amflMDQN/Y9SsnQFJ4XGeJ9bk1aQHLvG6xF
+ 7wGxdE2TE8Tv7mW7GTj5X3/uXWgypzIK3NLAzb9WZJ3E3ecta4GVmQlrSAUOR4eAL98B
+ UYKw==
+X-Gm-Message-State: AOAM530/Qx2cOO9fJd0Lshye4ibJ9Lk8i16ZtPnRgWXCmuQT4ntE9h/m
+ rFoOGH3exhOjsk3rBeR7mE181X1/5t7Xpk4yJ9cy5B08XJI0MF9yOvJdb8TzFzVq4hbVShBak4t
+ +J36tOOxkzRqOYSSOF1dlzQcTnpWA
+X-Received: by 2002:adf:d1a4:: with SMTP id w4mr2173877wrc.233.1630571042159; 
+ Thu, 02 Sep 2021 01:24:02 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwVFY32TXzIgfH7ENM18vgQ7F3UFJ1puZyFOjgJ7/K6GexC1uDBT/DI3xDr7h8RNRNLlnI1iQ==
+X-Received: by 2002:adf:d1a4:: with SMTP id w4mr2173866wrc.233.1630571041999; 
+ Thu, 02 Sep 2021 01:24:01 -0700 (PDT)
+Received: from [192.168.3.211] ([79.98.112.166])
+ by smtp.gmail.com with ESMTPSA id s13sm970856wmc.47.2021.09.02.01.24.01
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 02 Sep 2021 01:24:01 -0700 (PDT)
+To: Petr Vorel <pvorel@suse.cz>
+References: <20210901151655.95760-1-krzysztof.kozlowski@canonical.com>
+ <20210901151655.95760-3-krzysztof.kozlowski@canonical.com>
+ <YTCI3O7Et+VvYJfc@pevik>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+Message-ID: <21179557-f1d9-4129-533e-eac6bfe8684b@canonical.com>
+Date: Thu, 2 Sep 2021 10:24:01 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <61307148.1050605@fujitsu.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+In-Reply-To: <YTCI3O7Et+VvYJfc@pevik>
+Content-Language: en-US
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/creat09: Add another linux tag
+X-Spam-Status: No, score=-2.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v5 3/3] controllers/cpuacct: fix rmdir failures on
+ early test abort
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,24 +98,49 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
+On 02/09/2021 10:18, Petr Vorel wrote:
+> Hi Krzysztof,
+> 
+> ...
+>> -	if [ -d "$testpath/subgroup_1" ]; then
+>> -		rmdir $testpath/subgroup_*
+>> +	if [ "$testpath" ]; then
+>> +		if [ -d "$testpath/subgroup_1" ]; then
+>> +			rmdir $testpath/subgroup_*
+>> +		fi
+>> +		rmdir $testpath
+>>  	fi
+> 
+>> -	rmdir $testpath
+>> -
+> 
+> LGTM, but how about use `rm -rf' instead?
+> 
+> e.g.
+> 
+> if [ "$testpath" ]; then
+> 	rm -rf $testpath
+> fi
+> 
+> That could simplify checks. Or is it needed to use `rmdir' to make sure there is
+> no content in the directory? I suppose check like this is needed in cleanup,
+> thus no problem to use `rm -rf'.
 
-> >   	.tags = (const struct tst_tag[]) {
-> >   		{"linux-git", "0fa3ecd87848"},
-> >   		{"CVE", "2018-13405"},
-> > +		{"linux-git", "01ea173e103e"}
-> Sorry, I miss comma here.
-Fixed and merged. Thanks!
+It isn't the point of this patch. I don't add here rmdir - all this code
+was here before. The only thing added here is to check whether the
+"testpath" variable is set or not.
 
-Kind regards,
-Petr
+I think using rm -rf should work, but anyway it's a separate commit :)
+
+
+Best regards,
+Krzysztof
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
