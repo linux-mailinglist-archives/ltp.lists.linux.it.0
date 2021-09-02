@@ -2,91 +2,78 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0300E3FEA92
-	for <lists+linux-ltp@lfdr.de>; Thu,  2 Sep 2021 10:24:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 783053FEAF2
+	for <lists+linux-ltp@lfdr.de>; Thu,  2 Sep 2021 11:07:47 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id CC7FB3C2D5C
-	for <lists+linux-ltp@lfdr.de>; Thu,  2 Sep 2021 10:24:06 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 190D63C4C1F
+	for <lists+linux-ltp@lfdr.de>; Thu,  2 Sep 2021 11:07:47 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id ECA9E3C29B2
- for <ltp@lists.linux.it>; Thu,  2 Sep 2021 10:24:04 +0200 (CEST)
-Received: from smtp-relay-internal-0.canonical.com
- (smtp-relay-internal-0.canonical.com [185.125.188.122])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ by picard.linux.it (Postfix) with ESMTPS id F12C63C28B0
+ for <ltp@lists.linux.it>; Thu,  2 Sep 2021 11:07:44 +0200 (CEST)
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [IPv6:2a00:1450:4864:20::135])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 3F81A200DB1
- for <ltp@lists.linux.it>; Thu,  2 Sep 2021 10:24:04 +0200 (CEST)
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 3F4D73F046
- for <ltp@lists.linux.it>; Thu,  2 Sep 2021 08:24:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1630571043;
- bh=mgzd70UBUCCry7ycIGnygE0veHWQhKxJAM9f9dc5Kf0=;
- h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
- In-Reply-To:Content-Type;
- b=s1YUdCoTn5q0cABSnTt5NeZsj/pq4d+W3of7+FuzgYRwxRVAMT+ab/0Nv5pBIcPrA
- SkVW8fE9OnSsxoBtvjAtcCmEvZQbEKohO3xYMiqU4bUjKywV5efWBwfMKKuWC0b6d2
- nMTKccqKN+VTgMhrConsFEaFVUKxxGCdpvJyhrU0cn13nKBsMqZSbLe3III7vj0/1w
- wlZHgz1TQHcYhP29Q2ma6IcJxGWnDaHpUSxlRRY5kbK1+ULh31bvXgmSTsx2Tq2lMv
- odlefHZD5qAkhw+5rG2i1hIJFEvhyyaL/h9A7fBUMMTJS38oPHW5C6jKQhZi/FAysJ
- HXO+0nVHPazDw==
-Received: by mail-wr1-f71.google.com with SMTP id
- r17-20020adfda510000b02901526f76d738so291849wrl.0
- for <ltp@lists.linux.it>; Thu, 02 Sep 2021 01:24:03 -0700 (PDT)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 287C6200DBB
+ for <ltp@lists.linux.it>; Thu,  2 Sep 2021 11:07:44 +0200 (CEST)
+Received: by mail-lf1-x135.google.com with SMTP id c8so2785120lfi.3
+ for <ltp@lists.linux.it>; Thu, 02 Sep 2021 02:07:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=bell-sw-com.20150623.gappssmtp.com; s=20150623;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=JWwgd0RWEBX18ocNIqcEmxG3JagS14bkH1QX3o+ss64=;
+ b=O88s2RoKAjOEcFYtwNI1l7NRXOfM3mfnrVggqX7mV4AgxF4ZqG3UOtL8AplLYQ/bYw
+ pvC/OBEedtagxnkMF2RMozWaVkToI/dgclXtWBd4THyx3zhLgCqNGxbHKMKVi0ypHVGh
+ s2CSy/u2Eqx9g66H8wu23AmpkDFJAkGyqMF57nPJQhFqw8/Os7sh6tqzvmYIIbfzSJFs
+ YPTnmfyDBWEci4Sun2OMTpWp81ort3N5MItFW0skr7WlF5e/GBqAwLezIC0HWMMFv8Zl
+ 9X1Ds/kEWZ84eDT5lK+Va2gXyHP2PUfHaEYIG9VYW2pWpG7/GMRWmpcaCq7zDj30rWMK
+ Z6VQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:subject:to:cc:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-language
  :content-transfer-encoding;
- bh=mgzd70UBUCCry7ycIGnygE0veHWQhKxJAM9f9dc5Kf0=;
- b=XePh1SrzYriNKOz4JvMQQj9AiTF61sGUkpkRpdDkuTrrENWRwo0QZFQPsu1hKUrcQt
- NjUqKT4SxNAR/p3jF87XprS8RjwVMy6yTEkzXTOCtjPy34lKyDL6Bna5ZdOwW5G0oEUJ
- lOe2UDEiLhM51gCa5dFnqYYBTEJgoOnPQCGs81J+HjoIjyPR/7pqyHazYGhATeJuIqmV
- lQVr/kmY1DHPPDKZLPKyTVpnEy71aNut8amflMDQN/Y9SsnQFJ4XGeJ9bk1aQHLvG6xF
- 7wGxdE2TE8Tv7mW7GTj5X3/uXWgypzIK3NLAzb9WZJ3E3ecta4GVmQlrSAUOR4eAL98B
- UYKw==
-X-Gm-Message-State: AOAM530/Qx2cOO9fJd0Lshye4ibJ9Lk8i16ZtPnRgWXCmuQT4ntE9h/m
- rFoOGH3exhOjsk3rBeR7mE181X1/5t7Xpk4yJ9cy5B08XJI0MF9yOvJdb8TzFzVq4hbVShBak4t
- +J36tOOxkzRqOYSSOF1dlzQcTnpWA
-X-Received: by 2002:adf:d1a4:: with SMTP id w4mr2173877wrc.233.1630571042159; 
- Thu, 02 Sep 2021 01:24:02 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJwVFY32TXzIgfH7ENM18vgQ7F3UFJ1puZyFOjgJ7/K6GexC1uDBT/DI3xDr7h8RNRNLlnI1iQ==
-X-Received: by 2002:adf:d1a4:: with SMTP id w4mr2173866wrc.233.1630571041999; 
- Thu, 02 Sep 2021 01:24:01 -0700 (PDT)
-Received: from [192.168.3.211] ([79.98.112.166])
- by smtp.gmail.com with ESMTPSA id s13sm970856wmc.47.2021.09.02.01.24.01
+ bh=JWwgd0RWEBX18ocNIqcEmxG3JagS14bkH1QX3o+ss64=;
+ b=rSc4g8nGZK6wkNrvihpoZi/yf9rt1CDH9p/Nxn48RzBMK5vKsjyeVaL7PYMwfPubET
+ N40m9lBYNeEuCGPKrfzEPv79IPYXlKjw+bDBYUoqJfjBkb90D3ICYwMr1DqmzWB3akl5
+ E6XV7aJdI8iun0vy4tlv8BjTPUiL0/jGHKqQ0W+ED2NO5m1EQMaqqJWqY0J5SLNHSmuM
+ JX3MbJ/JBBepGNZy/PrqQE4Ji9TvSViekEmM8Qn87/yWDaanCPrOHX9VQjtggtrRqtdT
+ m+khr3thqKL02iTasR3zdLC52BiWF+MQTjNbi9bYstplwYIeuzUNpMqXMVYBy6Pv/HtR
+ y27w==
+X-Gm-Message-State: AOAM533nfhJbmBGU+dPwxSF/tqZHb53dWH1E9KG3Jdmrd+yZSEn43+0X
+ IRTp19NlkIBOCGHYAoZqhQT8oq4/SkYY
+X-Google-Smtp-Source: ABdhPJwRJESgKQcbtwtJuhqkrjNTb0YKHo4XbyV+qpJUODRx9xnnI1A1JhHLBzsQBX9n3QkpJ3Wzdg==
+X-Received: by 2002:ac2:44d9:: with SMTP id d25mr1815601lfm.267.1630573663293; 
+ Thu, 02 Sep 2021 02:07:43 -0700 (PDT)
+Received: from [192.168.1.52] ([95.161.221.177])
+ by smtp.gmail.com with ESMTPSA id e1sm140397lfj.85.2021.09.02.02.07.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 02 Sep 2021 01:24:01 -0700 (PDT)
-To: Petr Vorel <pvorel@suse.cz>
-References: <20210901151655.95760-1-krzysztof.kozlowski@canonical.com>
- <20210901151655.95760-3-krzysztof.kozlowski@canonical.com>
- <YTCI3O7Et+VvYJfc@pevik>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-Message-ID: <21179557-f1d9-4129-533e-eac6bfe8684b@canonical.com>
-Date: Thu, 2 Sep 2021 10:24:01 +0200
+ Thu, 02 Sep 2021 02:07:42 -0700 (PDT)
+To: Petr Vorel <pvorel@suse.cz>, Alexey Kodanev <alexey.kodanev@oracle.com>
+References: <20201116220325.413764-1-pvorel@suse.cz>
+ <689bea29-9717-1b2a-a53f-4b3a7f9f4e9b@oracle.com> <YS9u/k/b7lM/l1ki@pevik>
+From: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
+Message-ID: <a07de84c-5251-9e46-afac-84544247534b@bell-sw.com>
+Date: Thu, 2 Sep 2021 12:07:42 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 MIME-Version: 1.0
-In-Reply-To: <YTCI3O7Et+VvYJfc@pevik>
+In-Reply-To: <YS9u/k/b7lM/l1ki@pevik>
 Content-Language: en-US
 X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=-2.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
+ NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v5 3/3] controllers/cpuacct: fix rmdir failures on
- early test abort
+Subject: Re: [LTP] [PATCH 1/1] net/route: Rewrite route-rmmod to new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,49 +85,72 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Cc: ltp@lists.linux.it, Joerg Vehlow <joerg.vehlow@aox-tech.de>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 02/09/2021 10:18, Petr Vorel wrote:
-> Hi Krzysztof,
+Hi Petr,
+On 01.09.2021 15:15, Petr Vorel wrote:
+> Hi Alexey,
 > 
 > ...
->> -	if [ -d "$testpath/subgroup_1" ]; then
->> -		rmdir $testpath/subgroup_*
->> +	if [ "$testpath" ]; then
->> +		if [ -d "$testpath/subgroup_1" ]; then
->> +			rmdir $testpath/subgroup_*
->> +		fi
->> +		rmdir $testpath
->>  	fi
+>>> diff --git a/testcases/network/stress/route/route-rmmod.sh b/testcases/network/stress/route/route-rmmod.sh
+> ...
+>>> +setup()
+>>> +{
+>>> +	tst_res TINFO "adding IPv$TST_IPVER route destination and delete network driver $ROUTE_CHANGE_IP times"
+>>> +}
 > 
->> -	rmdir $testpath
->> -
+>> It is probably unsafe to go straight to the do_test() and removing
+>> the veth... it would be nice to check that it is indeed using default
+>> ltp netns, and veth not used for other interfaces, TCONF otherwise...
 > 
-> LGTM, but how about use `rm -rf' instead?
+>> Perhaps in init_ltp_netspace(), create a special symlink in the if block,
+>> where the default ltp netns created:
 > 
-> e.g.
+>> if [ ! -f /var/run/netns/ltp_ns -a -z "$LTP_NETNS" ]; then
+>>    ...
+>>    ROD ln -s /var/run/netns/ltp_ns /var/run/netns/ltp_ns_default
+>>    ...
+>> }
 > 
-> if [ "$testpath" ]; then
-> 	rm -rf $testpath
-> fi
+>> then check via this function:
 > 
-> That could simplify checks. Or is it needed to use `rmdir' to make sure there is
-> no content in the directory? I suppose check like this is needed in cleanup,
-> thus no problem to use `rm -rf'.
+>> is_ltp_ns_default()
+>> {
+>> 	test -f /var/run/netns/ltp_ns_default
+>> }
+> 
+> 
+>> BTW, why not using add_macvlan() in route_lib.sh (or gre, vxlan, etc.)
+>> and remove that driver, so that this test can be run with custom setup, and
+>> with remote host setup?
+> 
+> Looking into this old patch, it looked to me quite bad approach to move
+> add_macvlan() into tst_net.sh to be reused (you didn't suggested that, that's
+> what I'd do to prevent the duplicity).
 
-It isn't the point of this patch. I don't add here rmdir - all this code
-was here before. The only thing added here is to check whether the
-"testpath" variable is set or not.
+Why not move add_macvlan() to the virt_lib.sh, I think this lib is better
+suited for creating macvlan?
 
-I think using rm -rf should work, but anyway it's a separate commit :)
+> 
+> But much better approach would be IMHO to move virt_add() and virt_add_rhost()
+> from virt_lib.sh to tst_net.sh and adjust it not to be too tight to virt_lib.sh.
+> I suppose $virt_type should became $2 (second parameter).
+> 
+> Also there could be moved from virt_lib.sh to tst_net.sh: e.g. add flag
+> TST_NET_ADD_VIRT_TYPE (e.g. macvlan, gre, ...) and doing setup and cleanup
+> there. We could reduce code and document which virt drivers are used.
+> 
+> route-change-netlink-if is the only test which needs to call tst_init_iface()
+> (to add routes), virt_lib.sh does not need it.
+> 
+> Kind regards,
+> Petr
+> 
 
-
-Best regards,
-Krzysztof
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
