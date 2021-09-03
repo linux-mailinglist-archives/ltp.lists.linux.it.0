@@ -2,76 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33AAD400298
-	for <lists+linux-ltp@lfdr.de>; Fri,  3 Sep 2021 17:49:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EDAA40078C
+	for <lists+linux-ltp@lfdr.de>; Fri,  3 Sep 2021 23:48:24 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id CFC0B3C7093
-	for <lists+linux-ltp@lfdr.de>; Fri,  3 Sep 2021 17:49:57 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B8E793C9595
+	for <lists+linux-ltp@lfdr.de>; Fri,  3 Sep 2021 23:48:23 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id D59313C27DB
- for <ltp@lists.linux.it>; Fri,  3 Sep 2021 17:48:51 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ by picard.linux.it (Postfix) with ESMTPS id CFFAD3C2833
+ for <ltp@lists.linux.it>; Fri,  3 Sep 2021 23:48:19 +0200 (CEST)
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [IPv6:2a00:1450:4864:20::52c])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id C32EA14012D2
- for <ltp@lists.linux.it>; Fri,  3 Sep 2021 17:48:50 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 6ABB4203F7
- for <ltp@lists.linux.it>; Fri,  3 Sep 2021 15:48:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1630684130; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Y10UsmgL1LM3rb0kWFRpY2OuocjCdb5o8H2IEuRNbSA=;
- b=hKEEPvQiuuYmaNXZTX+znz3jDsJoilEGepht8+1fs1MK4tSz7a4bz2lyfhnh1GQ5Vn28fY
- 08iRfLF+GNTDBjA2+tFB8jMvE3QOZPbOqrpWHeG8yk/MIPEtz7y5DwpmCtBesXcrE9N84j
- psqGqnI3np/tjufM+FoTSU4KaIs9Vtc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1630684130;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Y10UsmgL1LM3rb0kWFRpY2OuocjCdb5o8H2IEuRNbSA=;
- b=meTcv0Mspf4mhfYkqTN4+cE86iGekVnO+p0yS5e/y0/NZeVFecInCSzey7qqg1VIGYnZtN
- WuTyiJV+Aw2Ve+Cw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4CB8F13B86
- for <ltp@lists.linux.it>; Fri,  3 Sep 2021 15:48:50 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id oNvvEeJDMmHpXgAAMHmgww
- (envelope-from <mdoucha@suse.cz>)
- for <ltp@lists.linux.it>; Fri, 03 Sep 2021 15:48:50 +0000
-From: Martin Doucha <mdoucha@suse.cz>
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id BE41B1000968
+ for <ltp@lists.linux.it>; Fri,  3 Sep 2021 23:48:18 +0200 (CEST)
+Received: by mail-ed1-x52c.google.com with SMTP id z19so744604edi.9
+ for <ltp@lists.linux.it>; Fri, 03 Sep 2021 14:48:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=9pMFh+rg2IDGeWuT/jtN0LuVfUsvh5mW6KNQbNzKnAk=;
+ b=QHRlu9MZc2QL0TBAVcVcOCqxHqGN4Z1njjVaoIecl2/R7dz778+lggE/Qtro5WkCgl
+ nFCYlPord9r6EOty813ebDlGajshkC22BpU8gTvzdUs0FMDOzm+S35VrqRA3PkHLYT89
+ qA13RzWQeuPgqdMk2j3dLFeqdOxDi4k+9eJY/BOD5XoUBV2DFhiZ5yukUf4dulc+dF9h
+ 7/6rkxggvPVqm68Rdm64EHFMfSg4JRo08AtAvjO9b8stSk7lMkwmgZvAXStHV9SCMjai
+ 9K9Cc5LTLOoz1+P7r3NWsf2LAgcJlho05xEvnKprbw5ibn/MSpL8RJpsFyyusKDApr35
+ Ec8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=9pMFh+rg2IDGeWuT/jtN0LuVfUsvh5mW6KNQbNzKnAk=;
+ b=eUnAsDWIlFmG96/RDO3iSDT54i/GJSsRnXM6KcK1gQLmy/iXY1wif90dct6Kqu65Hp
+ SLKcoViFH6RSeCOQspkzINGh9CtAWt6XNMn13rJoNTV4I5ca9JB6rFzQY4ut2F/1ArlJ
+ LLLrCjnR8DyBswzy17bm8/IfBeErn/M2ggWkS/08tdVs7+ZnUBRXbsDwvdULpJ9lm/T4
+ paAZ6C/6spbJe8NN7KTQsXsoFTRX1afyESeK1/e6GyCVSe1kMsvvsyol3zC7b2Ge0/GP
+ 3uPtNkOempwa3o0J5xxKzoyDoK4pQ0rdsbNzGW2rdKcPHjLP91dCxvAzdfC/dEoMBh5d
+ ReLw==
+X-Gm-Message-State: AOAM531pAfrer2KRaUEL7LNIWXRWSVajpUT39bRHDklt+uocfxUEGwNo
+ agIeSGgoab3Qa72jim06V3U5BNKZMB3KUQ==
+X-Google-Smtp-Source: ABdhPJyZGoVDScYKv+ZybGb5Avt5lioK9H5bi1FaJLkYl7YHbQjJclqOIm4RbIR4fBMUtiDf2HCGUg==
+X-Received: by 2002:a05:6402:959:: with SMTP id
+ h25mr1031730edz.283.1630705698304; 
+ Fri, 03 Sep 2021 14:48:18 -0700 (PDT)
+Received: from localhost.localdomain (gw1.ms-free.net. [185.243.124.10])
+ by smtp.gmail.com with ESMTPSA id o26sm157070eje.24.2021.09.03.14.48.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 03 Sep 2021 14:48:17 -0700 (PDT)
+From: Petr Vorel <petr.vorel@gmail.com>
 To: ltp@lists.linux.it
-Date: Fri,  3 Sep 2021 17:48:48 +0200
-Message-Id: <20210903154848.18705-8-mdoucha@suse.cz>
+Date: Fri,  3 Sep 2021 23:48:10 +0200
+Message-Id: <20210903214811.61727-1-petr.vorel@gmail.com>
 X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20210903154848.18705-1-mdoucha@suse.cz>
-References: <20210903154848.18705-1-mdoucha@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH 7/7] syscalls/setregid02-04: Eliminate named group
- lookups
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [RFC][PATCH 1/2] sched/process.c: Always use pointer to stderr
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,229 +85,64 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Group names like "bin" or "daemon" may not exist on some systems. Find and use
-any unprivieged group IDs instead of specific named groups.
+which was previously used for non-linux OS (not relevant to LTP thus not
+used in LTP), for linux stderr directly was used.
 
-Signed-off-by: Martin Doucha <mdoucha@suse.cz>
+This fixes compilation on MUSL which does not like assignment to stderr:
+
+process.c:553:14: error: assignment of read-only variable 'stderr'
+  553 |      debugfp = fopen(foo, "a+");
+      |              ^
+
+NOTE: needed to initialization in main(), because C standard does not
+require stdin, stdout and stderr to be constants (at least not C99),
+otherwise it fails to compile:
+
+process.c:144:15: error: initializer element is not constant
+
+Signed-off-by: Petr Vorel <petr.vorel@gmail.com>
 ---
- .../kernel/syscalls/setregid/setregid02.c     | 39 +++++++++--------
- .../kernel/syscalls/setregid/setregid03.c     | 43 +++++++++----------
- .../kernel/syscalls/setregid/setregid04.c     | 22 +++++++---
- 3 files changed, 58 insertions(+), 46 deletions(-)
+Hi,
 
-diff --git a/testcases/kernel/syscalls/setregid/setregid02.c b/testcases/kernel/syscalls/setregid/setregid02.c
-index 2174f81f9..d7d5eaa24 100644
---- a/testcases/kernel/syscalls/setregid/setregid02.c
-+++ b/testcases/kernel/syscalls/setregid/setregid02.c
-@@ -17,6 +17,7 @@
- #include <stdlib.h>
+not really sure why anything needs to be assigned to stderr and whether
+this is a correct approach. Comments are welcome.
+
+Kind regards,
+Petr
+
+ testcases/kernel/sched/process_stress/process.c | 12 +++++-------
+ 1 file changed, 5 insertions(+), 7 deletions(-)
+
+diff --git a/testcases/kernel/sched/process_stress/process.c b/testcases/kernel/sched/process_stress/process.c
+index a5ff80987..11837c3cb 100644
+--- a/testcases/kernel/sched/process_stress/process.c
++++ b/testcases/kernel/sched/process_stress/process.c
+@@ -141,13 +141,8 @@ timer_t timer;			/* timer structure */
  
- #include "tst_test.h"
-+#include "tst_uid.h"
- #include "compat_tst_16.h"
+ Pinfo *shmaddr;			/* Start address  of shared memory */
  
- static gid_t root_gid, nobody_gid, other_gid, neg_one = -1;
-@@ -40,26 +41,17 @@ static struct tcase {
- 	&neg_one, &root_gid, EPERM, &nobody_gid, &nobody_gid,
- 		    "After setregid(-1, root),"}, {
- 	&neg_one, &other_gid, EPERM, &nobody_gid, &nobody_gid,
--		    "After setregid(-1, bin)"}, {
-+		    "After setregid(-1, other)"}, {
- 	&root_gid, &neg_one, EPERM, &nobody_gid, &nobody_gid,
- 		    "After setregid(root,-1),"}, {
- 	&other_gid, &neg_one, EPERM, &nobody_gid, &nobody_gid,
--		    "After setregid(bin, -1),"}, {
-+		    "After setregid(other, -1),"}, {
- 	&root_gid, &other_gid, EPERM, &nobody_gid, &nobody_gid,
--		    "After setregid(root, bin)"}, {
-+		    "After setregid(root, other)"}, {
- 	&other_gid, &root_gid, EPERM, &nobody_gid, &nobody_gid,
--		    "After setregid(bin, root),"}
-+		    "After setregid(other, root),"}
- };
+-#ifndef _LINUX
+-FILE *errfp = stderr;		/* error file pointer, probably not necessary */
+-FILE *debugfp = stderr;		/* debug file pointer, used if AUSDEBUG set */
+-#else
+-#define errfp stderr
+-#define debugfp stderr
+-#endif
++FILE *errfp;
++FILE *debugfp;
  
--static gid_t get_group_by_name(const char *name)
--{
--	struct group *ret = SAFE_GETGRNAM(name);
--
--	GID16_CHECK(ret->gr_gid, setregid);
--
--	return ret->gr_gid;
--}
--
- void gid_verify(gid_t rg, gid_t eg, char *when)
+ struct envstruct *edat = envdata;	/* pointer to environment data */
+ 
+@@ -1221,6 +1216,9 @@ void doit(void)
+ /* main */
+ int main(int argc, char *argv[])
  {
- 	if ((getgid() != rg) || (getegid() != eg)) {
-@@ -101,15 +93,26 @@ static void run(unsigned int n)
- 
- static void setup(void)
- {
-+	struct group *grp;
++	errfp = stderr;
++	debugfp = stderr;
 +
- 	ltpuser = SAFE_GETPWNAM("nobody");
-+	nobody_gid = ltpuser->pw_gid;
-+	root_gid = getgid();
-+	setgrent();
+ 	extern Pinfo *shmaddr;	/* start address of shared memory */
  
--	SAFE_SETGID(ltpuser->pw_gid);
--	SAFE_SETUID(ltpuser->pw_uid);
-+	do {
-+		grp = SAFE_GETGRENT();
-+	} while (grp->gr_gid == root_gid || grp->gr_gid == nobody_gid);
- 
--	nobody_gid = ltpuser->pw_gid;
-+	other_gid = grp->gr_gid;
-+	endgrent();
-+
-+	GID16_CHECK(root_gid, setregid);
- 	GID16_CHECK(nobody_gid, setregid);
--	root_gid = get_group_by_name("root");
--	other_gid = get_group_by_name("bin");
-+	GID16_CHECK(other_gid, setregid);
-+
-+	SAFE_SETGID(ltpuser->pw_gid);
-+	SAFE_SETUID(ltpuser->pw_uid);
- }
- 
- static struct tst_test test = {
-diff --git a/testcases/kernel/syscalls/setregid/setregid03.c b/testcases/kernel/syscalls/setregid/setregid03.c
-index 35aa92b8e..66667c6b2 100644
---- a/testcases/kernel/syscalls/setregid/setregid03.c
-+++ b/testcases/kernel/syscalls/setregid/setregid03.c
-@@ -9,9 +9,12 @@
-  * Test setregid() when executed by a non-root user.
-  */
- 
-+#include <sys/types.h>
-+#include <grp.h>
- #include <pwd.h>
- 
- #include "tst_test.h"
-+#include "tst_uid.h"
- #include "compat_tst_16.h"
- 
- static int fail = -1;
-@@ -30,44 +33,40 @@ struct tcase {
- } tcases[] = {
- 	{
- 	&primary_gid, &secondary_gid, &pass, &primary_gid, &secondary_gid,
--		    "After setregid(daemon, bin),"}, {
-+		    "After setregid(primary, secondary),"}, {
- 	&neg_one, &primary_gid, &pass, &primary_gid, &primary_gid,
--		    "After setregid(-1, daemon)"}, {
-+		    "After setregid(-1, primary)"}, {
- 	&neg_one, &secondary_gid, &pass, &primary_gid, &secondary_gid,
--		    "After setregid(-1, bin),"}, {
-+		    "After setregid(-1, secondary),"}, {
- 	&secondary_gid, &neg_one, &pass, &secondary_gid, &secondary_gid,
--		    "After setregid(bin, -1),"}, {
-+		    "After setregid(secondary, -1),"}, {
- 	&neg_one, &neg_one, &pass, &secondary_gid, &secondary_gid,
- 		    "After setregid(-1, -1),"}, {
- 	&neg_one, &secondary_gid, &pass, &secondary_gid, &secondary_gid,
--		    "After setregid(-1, bin),"}, {
-+		    "After setregid(-1, secondary),"}, {
- 	&secondary_gid, &neg_one, &pass, &secondary_gid, &secondary_gid,
--		    "After setregid(bin, -1),"}, {
-+		    "After setregid(secondary, -1),"}, {
- 	&secondary_gid, &secondary_gid, &pass, &secondary_gid, &secondary_gid,
--		    "After setregid(bin, bin),"}, {
-+		    "After setregid(secondary, secondary),"}, {
- 	&primary_gid, &neg_one, &fail, &secondary_gid, &secondary_gid,
--		    "After setregid(daemon, -1)"}, {
-+		    "After setregid(primary, -1)"}, {
- 	&neg_one, &primary_gid, &fail, &secondary_gid, &secondary_gid,
--		    "After setregid(-1, daemon)"}, {
-+		    "After setregid(-1, primary)"}, {
- 	&primary_gid, &primary_gid, &fail, &secondary_gid, &secondary_gid,
--		    "After setregid(daemon, daemon)"},};
--
--
--static gid_t get_group(const char *group)
--{
--	struct group *junk;
--
--	junk = SAFE_GETGRNAM(group);
--	GID16_CHECK(junk->gr_gid, setregid);
--	return junk->gr_gid;
--}
-+		    "After setregid(primary, primary)"},};
- 
- static void setup(void)
- {
-+	gid_t test_groups[2];
-+
- 	nobody = *SAFE_GETPWNAM("nobody");
- 
--	primary_gid = get_group("daemon");
--	secondary_gid = get_group("bin");
-+	tst_get_gids(2, test_groups);
-+	primary_gid = test_groups[0];
-+	secondary_gid = test_groups[1];
-+	endgrent();
-+	GID16_CHECK(primary_gid, setregid);
-+	GID16_CHECK(secondary_gid, setregid);
- 
- 	/* set the appropriate ownership values */
- 	SAFE_SETREGID(primary_gid, secondary_gid);
-diff --git a/testcases/kernel/syscalls/setregid/setregid04.c b/testcases/kernel/syscalls/setregid/setregid04.c
-index 6b9e3f524..911dc0d01 100644
---- a/testcases/kernel/syscalls/setregid/setregid04.c
-+++ b/testcases/kernel/syscalls/setregid/setregid04.c
-@@ -9,7 +9,11 @@
-  * Test setregid() when executed by root.
-  */
- 
-+#include <sys/types.h>
-+#include <grp.h>
-+
- #include "tst_test.h"
-+#include "tst_uid.h"
- #include "compat_tst_16.h"
- 
- static gid_t first_gid, second_gid, root_gid, neg_one = -1;
-@@ -30,7 +34,7 @@ struct test_data_t {
- 	&root_gid, &root_gid, &root_gid, &root_gid,
- 		    "After setregid(root, root),"}, {
- 	&first_gid, &neg_one, &first_gid, &root_gid,
--		    "After setregid(nobody, -1)"}, {
-+		    "After setregid(first, -1)"}, {
- 	&root_gid, &neg_one, &root_gid, &root_gid,
- 		    "After setregid(root,-1),"}, {
- 	&neg_one, &neg_one, &root_gid, &root_gid,
-@@ -40,11 +44,11 @@ struct test_data_t {
- 	&root_gid, &neg_one, &root_gid, &root_gid,
- 		    "After setregid(root, -1),"}, {
- 	&second_gid, &first_gid, &second_gid, &first_gid,
--		    "After setregid(daemon, nobody)"}, {
-+		    "After setregid(second, first)"}, {
- 	&neg_one, &neg_one, &second_gid, &first_gid,
- 		    "After setregid(-1, -1)"}, {
- 	&neg_one, &first_gid, &second_gid, &first_gid,
--		    "After setregid(-1, nobody)"}
-+		    "After setregid(-1, first)"}
- };
- 
- static void gid_verify(gid_t rg, gid_t eg, const char *when)
-@@ -77,9 +81,15 @@ static void run(unsigned int i)
- 
- static void setup(void)
- {
--	root_gid = SAFE_GETGRNAM("root")->gr_gid;
--	first_gid = SAFE_GETGRNAM_FALLBACK("nobody", "nogroup")->gr_gid;
--	second_gid = SAFE_GETGRNAM("daemon")->gr_gid;
-+	gid_t groups[3];
-+
-+	tst_get_gids(3, groups);
-+	root_gid = getgid();
-+
-+	/* At most one of the groups may be equal to root_gid */
-+	first_gid = groups[0] != root_gid ? groups[0] : groups[2];
-+	second_gid = groups[1] != root_gid ? groups[1] : groups[2];
-+	endgrent();
- }
- 
- static struct tst_test test = {
+ 	prtln();
 -- 
 2.33.0
 
