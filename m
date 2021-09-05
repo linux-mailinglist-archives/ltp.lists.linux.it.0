@@ -2,51 +2,47 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id F360B4027EB
-	for <lists+linux-ltp@lfdr.de>; Tue,  7 Sep 2021 13:35:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95F29402917
+	for <lists+linux-ltp@lfdr.de>; Tue,  7 Sep 2021 14:41:27 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 95EB63C2968
-	for <lists+linux-ltp@lfdr.de>; Tue,  7 Sep 2021 13:35:28 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id BC0953C9391
+	for <lists+linux-ltp@lfdr.de>; Tue,  7 Sep 2021 14:41:26 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id B02583C05A0
- for <ltp@lists.linux.it>; Tue,  7 Sep 2021 13:35:23 +0200 (CEST)
-Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 5CE7F3C23B8
+ for <ltp@lists.linux.it>; Tue,  7 Sep 2021 14:41:21 +0200 (CEST)
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 55B581401121
- for <ltp@lists.linux.it>; Tue,  7 Sep 2021 13:35:20 +0200 (CEST)
-X-QQ-mid: bizesmtp42t1631014515t2uapkir
-Received: from localhost.localdomain (unknown [58.240.82.166])
- by esmtp6.qq.com (ESMTP) with 
- id ; Tue, 07 Sep 2021 19:35:11 +0800 (CST)
-X-QQ-SSF: 0140000000200040C000B00C0000000
-X-QQ-FEAT: jXjag1m6xl6LPmd4Vz/RKOT/XwkhtCESqGlhDXTecr7ZrEyhCXvbbMrGSoITy
- 9fHYaW+ZG5r5jkcq2C0DSOTeP8oD6ZjUVCxOYvJ8K0Tijes6/k3MCEKjv4TGx5BIkE+yka3
- gfS6m0vD/JQucQ2lS9ERAUxIeVYB/X8U4vu5fX50/jhGAFS32MvUDEV/TtKBXn6Hw/OEEFe
- DCT1bLFaX52yYqpKCikN70eWoX7ORs3SwaQkda1oGtx2izoAADSe+gpGeiFQMn4TXO5MDb3
- sf/JA+fPZFn0x3pLddgpAyyBrMbS4YZ831gtu1txiH+JR26MRO1Rt5F0JOxVZJceE65H5jt
- JFIqSg1I2oaovhsPGKP30tc90KDNRpMsq7gwgzO
-X-QQ-GoodBg: 2
-From: zhanglianjie <zhanglianjie@uniontech.com>
-To: ltp@lists.linux.it
-Date: Tue,  7 Sep 2021 19:35:10 +0800
-Message-Id: <20210907113510.7431-1-zhanglianjie@uniontech.com>
-X-Mailer: git-send-email 2.20.1
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 563761401127
+ for <ltp@lists.linux.it>; Tue,  7 Sep 2021 14:41:18 +0200 (CEST)
+Received: from dggeml753-chm.china.huawei.com (unknown [172.30.72.53])
+ by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4H3lCG6F4yzblvn
+ for <ltp@lists.linux.it>; Tue,  7 Sep 2021 20:37:14 +0800 (CST)
+Received: from ubuntu1804.huawei.com (10.67.174.63) by
+ dggeml753-chm.china.huawei.com (10.1.199.152) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
+ 15.1.2308.8; Tue, 7 Sep 2021 20:41:14 +0800
+From: Zhao Gongyi <zhaogongyi@huawei.com>
+To: <ltp@lists.linux.it>
+Date: Sun, 5 Sep 2021 11:11:13 +0800
+Message-ID: <20210905031113.2740-1-zhaogongyi@huawei.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign5
-X-QQ-Bgrelay: 1
+X-Originating-IP: [10.67.174.63]
+X-ClientProxiedBy: dggems702-chm.china.huawei.com (10.3.19.179) To
+ dggeml753-chm.china.huawei.com (10.1.199.152)
+X-CFilter-Loop: Reflected
 X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH v3] syscalls/clone01: Convert to new API
+Subject: [LTP] [PATCH] open_posix: Add failure handling of fork()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,142 +59,91 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: zhanglianjie <zhanglianjie@uniontech.com>
+When fork() failed and transfer the return value(-1) to kill(),
+kill(-1, SIGSTOP) would freeze the system, so it is very serious
+in this cases and should be avoided.
 
-diff --git a/testcases/kernel/syscalls/clone/clone01.c b/testcases/kernel/syscalls/clone/clone01.c
-index e490b4e77..9601f6670 100644
---- a/testcases/kernel/syscalls/clone/clone01.c
-+++ b/testcases/kernel/syscalls/clone/clone01.c
-@@ -1,90 +1,63 @@
-+// SPDX-License-Identifier: GPL-2.0-only
- /*
-  * Copyright (c) Wipro Technologies Ltd, 2002.  All Rights Reserved.
-  * Copyright (c) 2012 Wanlong Gao <gaowanlong@cn.fujitsu.com>
-- *
-- * This program is free software; you can redistribute it and/or modify it
-- * under the terms of version 2 of the GNU General Public License as
-- * published by the Free Software Foundation.
-- *
-- * This program is distributed in the hope that it would be useful, but
-- * WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-- *
-- * You should have received a copy of the GNU General Public License along
-- * with this program; if not, write the Free Software Foundation, Inc.,
-- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-- *
-  */
+Signed-off-by: Zhao Gongyi <zhaogongyi@huawei.com>
+---
+ .../conformance/interfaces/clock_nanosleep/1-5.c               | 3 +++
+ .../conformance/interfaces/nanosleep/3-2.c                     | 3 +++
+ .../conformance/interfaces/sigaction/10-1.c                    | 3 +++
+ .../conformance/interfaces/sigaction/11-1.c                    | 3 +++
+ .../conformance/interfaces/sigaction/9-1.c                     | 3 +++
+ 5 files changed, 15 insertions(+)
 
--/*
-- *	This is a test for the clone(2) system call.
-- *	It is intended to provide a limited exposure of the system call.
-+/*\
-+ * [Description]
-+ *
-+ * Basic clone() test.
-+ *
-+ * Use clone() to create a child process, and wait for the child process to exit,
-+ * verify that the child process pid is correct.
-  */
-
--#if defined UCLINUX && !__THROW
--/* workaround for libc bug */
--#define __THROW
--#endif
--
--#include <errno.h>
--#include <sched.h>
--#include <sys/wait.h>
--#include "test.h"
--#include "safe_macros.h"
-+#include <stdlib.h>
-+#include "tst_test.h"
- #include "clone_platform.h"
-
--static void setup(void);
--static void cleanup(void);
--static int do_child();
-+static void *child_stack;
-
--char *TCID = "clone01";
--int TST_TOTAL = 1;
-+static int do_child(void *arg LTP_ATTRIBUTE_UNUSED)
-+{
-+	exit(0);
-+}
-
--int main(int ac, char **av)
-+static void verify_clone(void)
- {
--	void *child_stack;
- 	int status, child_pid;
-
--	tst_parse_opts(ac, av, NULL, NULL);
--
--	setup();
-+	TST_EXP_PID_SILENT(ltp_clone(SIGCHLD, do_child, NULL,
-+		CHILD_STACK_SIZE, child_stack), "clone()");
-
--	child_stack = malloc(CHILD_STACK_SIZE);
--	if (child_stack == NULL)
--		tst_brkm(TBROK, cleanup, "Cannot allocate stack for child");
-+	child_pid = SAFE_WAIT(&status);
-
--	tst_count = 0;
--
--	TEST(ltp_clone(SIGCHLD, do_child, NULL, CHILD_STACK_SIZE, child_stack));
--	if (TEST_RETURN == -1)
--		tst_resm(TFAIL | TTERRNO, "clone failed");
--
--	child_pid = SAFE_WAIT(cleanup, &status);
--
--	if (TEST_RETURN == child_pid)
--		tst_resm(TPASS, "clone returned %ld", TEST_RETURN);
-+	if (child_pid == TST_RET)
-+		tst_res(TPASS, "clone returned %ld", TST_RET);
- 	else
--		tst_resm(TFAIL, "clone returned %ld, wait returned %d",
--			 TEST_RETURN, child_pid);
--
--	free(child_stack);
--
--	cleanup();
-+		tst_res(TFAIL, "clone returned %ld, wait returned %d",
-+			 TST_RET, child_pid);
-
--	tst_exit();
-+	if (WIFEXITED(status) && WEXITSTATUS(status) == 0)
-+		tst_res(TPASS, "Child exited with 0");
-+	else
-+		tst_res(TFAIL, "Child %s", tst_strstatus(status));
- }
-
- static void setup(void)
- {
--	tst_sig(FORK, DEF_HANDLER, cleanup);
--	TEST_PAUSE;
-+	child_stack = SAFE_MALLOC(CHILD_STACK_SIZE);
- }
-
- static void cleanup(void)
- {
-+	free(child_stack);
- }
-
--static int do_child(void)
--{
--	exit(0);
--}
-+static struct tst_test test = {
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.test_all = verify_clone,
-+	.forks_child = 1,
-+};
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/clock_nanosleep/1-5.c b/testcases/open_posix_testsuite/conformance/interfaces/clock_nanosleep/1-5.c
+index 46f26163d..a87585884 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/clock_nanosleep/1-5.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/clock_nanosleep/1-5.c
+@@ -48,6 +48,9 @@ int main(void)
+ 			return CHILDFAIL;
+ 		}
+ 		return CHILDFAIL;
++	} else if (pid < 0) {
++		printf("fork() did not return success\n");
++		return PTS_UNRESOLVED;
+ 	} else {
+ 		/* parent here */
+ 		int i;
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/nanosleep/3-2.c b/testcases/open_posix_testsuite/conformance/interfaces/nanosleep/3-2.c
+index 4016fb4e6..472dd48ba 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/nanosleep/3-2.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/nanosleep/3-2.c
+@@ -45,6 +45,9 @@ int main(void)
+ 			return CHILDFAIL;
+ 		}
+ 		return CHILDFAIL;
++	} else if ( pid < 0) {
++		printf("fork() did not return success\n");
++		return PTS_UNRESOLVED;
+ 	} else {
+ 		/* parent here */
+ 		int i;
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/sigaction/10-1.c b/testcases/open_posix_testsuite/conformance/interfaces/sigaction/10-1.c
+index 02150a150..2212c98f0 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/sigaction/10-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/sigaction/10-1.c
+@@ -76,6 +76,9 @@ int main(void)
+ 			select(0, NULL, NULL, NULL, &tv);
+ 		}
+ 		return 0;
++	} else if (pid < 0) {
++		printf("fork() did not return success\n");
++		return PTS_UNRESOLVED;
+ 	} else {
+ 		/* parent */
+ 		int s;
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/sigaction/11-1.c b/testcases/open_posix_testsuite/conformance/interfaces/sigaction/11-1.c
+index 41db84865..a88e969dc 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/sigaction/11-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/sigaction/11-1.c
+@@ -61,6 +61,9 @@ int main(void)
+ 			select(0, NULL, NULL, NULL, &tv);
+ 		}
+ 		return 0;
++	} else if (pid < 0) {
++		printf("fork() did not return success\n");
++		return PTS_UNRESOLVED;
+ 	} else {
+ 		/* parent */
+ 		int s;
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/sigaction/9-1.c b/testcases/open_posix_testsuite/conformance/interfaces/sigaction/9-1.c
+index 1d45c09c6..70df68332 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/sigaction/9-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/sigaction/9-1.c
+@@ -57,6 +57,9 @@ int main(void)
+ 		   interrupted by a signal */
+ 		select(0, NULL, NULL, NULL, NULL);
+ 		return 0;
++	} else if (pid < 0) {
++		printf("fork() did not return success\n");
++		return PTS_UNRESOLVED;
+ 	} else {
+ 		/* parent */
+ 		int s;
 --
-2.20.1
-
-
+2.17.1
 
 
 -- 
