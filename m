@@ -2,81 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BC064019E8
-	for <lists+linux-ltp@lfdr.de>; Mon,  6 Sep 2021 12:35:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 735004019EB
+	for <lists+linux-ltp@lfdr.de>; Mon,  6 Sep 2021 12:37:56 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1829E3C297A
-	for <lists+linux-ltp@lfdr.de>; Mon,  6 Sep 2021 12:35:41 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id BAB763C772E
+	for <lists+linux-ltp@lfdr.de>; Mon,  6 Sep 2021 12:37:55 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 16C413C077E
- for <ltp@lists.linux.it>; Mon,  6 Sep 2021 12:35:38 +0200 (CEST)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id AC02C3C077E
+ for <ltp@lists.linux.it>; Mon,  6 Sep 2021 12:37:51 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id C4EEE200AE4
- for <ltp@lists.linux.it>; Mon,  6 Sep 2021 12:35:36 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1630924535;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 60BBE600842
+ for <ltp@lists.linux.it>; Mon,  6 Sep 2021 12:37:50 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id BEF6822119;
+ Mon,  6 Sep 2021 10:37:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1630924669; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=2e8s5OEHxYVD8kI3qGCPQoTafewqlZuu/Gc75/51cEs=;
- b=EHsQUz/agujy8u51OQ49f8/5azVa+sQLD4OioJC2LOuJtlpX4xG1+n/+kpVpSpPVv6IkAO
- 4OiizF1hLGGCZdn3gFo9mW4XmgkGK+HUP+nPky084wb9Q2C54JDoefQYrZgqtSPLLQaXJ6
- l+CVKZdq7GKCjl5rYA97pH6fG3xF+vY=
-Received: from mail-yb1-f198.google.com (mail-yb1-f198.google.com
- [209.85.219.198]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-363-MWNM4BegNC-vA6UjX6sS8Q-1; Mon, 06 Sep 2021 06:35:32 -0400
-X-MC-Unique: MWNM4BegNC-vA6UjX6sS8Q-1
-Received: by mail-yb1-f198.google.com with SMTP id
- f64-20020a2538430000b0290593bfc4b046so7899003yba.9
- for <ltp@lists.linux.it>; Mon, 06 Sep 2021 03:35:32 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=2e8s5OEHxYVD8kI3qGCPQoTafewqlZuu/Gc75/51cEs=;
- b=rcwZDmuSeaFkEdle7b4PwW0VtMQB6HH/iqDVXNKFmqESIVGKPpNNzBVDPRqu3Ie1+g
- aq+/AltKeKiIs7qUTsSaPLFoQzLZbUOat7XVWsGJLTH94VtC0JUT4mDBZcW4oWWjcQhL
- a8JMw+p1zKqI2w9GN53X/GTIcUSk1fbW+/HW3n9OjIDPx2HRtvP72ygZ7CPLTmiN6uXC
- rprE9TNYOZI7hN7s7hAuEjlKvN36BwBYLwkuRvmxsnkO7M5gFGgrljbrZ8akVqTcphZI
- r1gz95HBR4UgrqnBhCp3M5XnTSVWbWAVHtORfjB478gn+guG64d4D2XsFxIGC8/aAMUK
- XcDQ==
-X-Gm-Message-State: AOAM5316wUXux36e3n+245FgstWg5cGbI1TTHCMzjdhG69tsR+afNGP/
- QAJSotLLG2nQMV1mWvC7tj00M+YPv5k/V+fUqaVAdBMJjVmCSQcHvoerOLJH7UpKNNVchTuHXt7
- qzETGpgdGsnEq19XHf5dRpHmhNuI=
-X-Received: by 2002:a25:e6d2:: with SMTP id
- d201mr15363079ybh.396.1630924531565; 
- Mon, 06 Sep 2021 03:35:31 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJyq55Htv0a/VMoTLBXuvwWoueRvwyWpRvCI2gTsYKaNbh38cWp8/lXygGQ99XZ171PcR1FLNggid/cBck3jXuU=
-X-Received: by 2002:a25:e6d2:: with SMTP id
- d201mr15363054ybh.396.1630924531274; 
- Mon, 06 Sep 2021 03:35:31 -0700 (PDT)
-MIME-Version: 1.0
+ bh=9bWvzfKBEkunxvk043+NYVODGvQuPcinY4vMj+4+EuU=;
+ b=MmexavAOS8hWSoGe+yBjSVLJcytezuSLPx3jlct56CZgKl9CSru6PRMlDkqYDnwQXDDS9e
+ U8hXchUbVbm+a/PUN6JSG1N2/LM+dR3SE1B7DqUhdg2ppjEfjqsDVnu1HIrJLUYcc2mabx
+ abGD+ZbKnlZT6gvicRmNQa+nhvIZi4k=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1630924669;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=9bWvzfKBEkunxvk043+NYVODGvQuPcinY4vMj+4+EuU=;
+ b=+x2w5INP21EzAGFRwItHlgk/QlhiWlxxBirjv6VXi1rW/owjZmCxW7uhuqX+cGUWUoZqZ7
+ grA2+kKiAnNK1DCg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id AFA1F13B4C;
+ Mon,  6 Sep 2021 10:37:49 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id Zp3LKX3vNWHtGgAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Mon, 06 Sep 2021 10:37:49 +0000
+Date: Mon, 6 Sep 2021 12:38:00 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Li Wang <liwang@redhat.com>
+Message-ID: <YTXviHdUSqTaR1hx@yuki>
 References: <20210906060020.3219023-1-liwang@redhat.com>
  <YTXYixG37nBTzhXk@yuki>
-In-Reply-To: <YTXYixG37nBTzhXk@yuki>
-From: Li Wang <liwang@redhat.com>
-Date: Mon, 6 Sep 2021 18:35:19 +0800
-Message-ID: <CAEemH2frfyGCsZAsam7CgGfW-BC1ah9YQZz=H=meJMM+zrTnAw@mail.gmail.com>
-To: Cyril Hrubis <chrubis@suse.cz>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+ <CAEemH2frfyGCsZAsam7CgGfW-BC1ah9YQZz=H=meJMM+zrTnAw@mail.gmail.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <CAEemH2frfyGCsZAsam7CgGfW-BC1ah9YQZz=H=meJMM+zrTnAw@mail.gmail.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH v2] copy_file_range03: comparing timestamp in
  tst_timespec_diff
 X-BeenThere: ltp@lists.linux.it
@@ -91,162 +83,25 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============1539729206=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1539729206==
-Content-Type: multipart/alternative; boundary="00000000000057acb305cb513542"
+Hi!
+> Theoretically, this is correct, but I'm fearing that the process might
+> cost more time on performing with different system loads.
+> 
+> This means 'diff_us <= 2000000' is an unreliable condition to
+> many virtual machines. That largely depends on the system
+> scheduler at that moment as well.
 
---00000000000057acb305cb513542
-Content-Type: text/plain; charset="UTF-8"
-
-On Mon, Sep 6, 2021 at 4:59 PM Cyril Hrubis <chrubis@suse.cz> wrote:
-
-> Hi!
-> > -     updated_timestamp = get_timestamp(fd_dest);
-> > +     timestamp2 = get_timestamp(fd_dest);
-> >
-> > -     if (timestamp == updated_timestamp)
-> > +     diff = tst_timespec_diff(timestamp1, timestamp2);
-> > +
-> > +     if (!diff.tv_sec && !diff.tv_nsec)
-> >               tst_brk(TFAIL, "copy_file_range did not update
-> timestamp.");
->
-> So as we changed the code to sleep for 1.5 sec I guess that we can
-> expect the difference to be at least 1 second because:
->
-> - the minimal granularity is 1s in which case we will get exactly 1s in
->   the diff
->
-> - if the granularity is greater, we will get a bit more than 1s
->
-> So I would go for something as:
->
->         long long diff_us = tst_timespec_diff_us(timestamp2, timestamp1);
->
->         if (diff_us >= 1000000 && diff_us <= 2000000)
->                 tst_res(TPASS, "...");
->
-> Which expects that the difference between timestamps is in a sane range
-> not that it just have been changed.
->
-
-Theoretically, this is correct, but I'm fearing that the process might
-cost more time on performing with different system loads.
-
-This means 'diff_us <= 2000000' is an unreliable condition to
-many virtual machines. That largely depends on the system
-scheduler at that moment as well.
-
-
-
->
-> >       tst_res(TPASS, "copy_file_range sucessfully updated the
-> timestamp");
-> > --
-> > 2.31.1
-> >
-> >
-> > --
-> > Mailing list info: https://lists.linux.it/listinfo/ltp
->
-> --
-> Cyril Hrubis
-> chrubis@suse.cz
->
->
+Right, I guess that we can relax the upper bound, it can be even a
+minute and it would still be a good sanity check.
 
 -- 
-Regards,
-Li Wang
-
---00000000000057acb305cb513542
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Mon, Sep 6, 2021 at 4:59 PM Cyril Hrubis &lt;<a =
-href=3D"mailto:chrubis@suse.cz">chrubis@suse.cz</a>&gt; wrote:<br></div><bl=
-ockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-lef=
-t:1px solid rgb(204,204,204);padding-left:1ex">Hi!<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0updated_timestamp =3D get_timestamp(fd_dest);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0timestamp2 =3D get_timestamp(fd_dest);<br>
-&gt;=C2=A0 <br>
-&gt; -=C2=A0 =C2=A0 =C2=A0if (timestamp =3D=3D updated_timestamp)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0diff =3D tst_timespec_diff(timestamp1, timestamp2=
-);<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (!diff.tv_sec &amp;&amp; !diff.tv_nsec)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_brk(TFAIL, &=
-quot;copy_file_range did not update timestamp.&quot;);<br>
-<br>
-So as we changed the code to sleep for 1.5 sec I guess that we can<br>
-expect the difference to be at least 1 second because:<br>
-<br>
-- the minimal granularity is 1s in which case we will get exactly 1s in<br>
-=C2=A0 the diff<br>
-<br>
-- if the granularity is greater, we will get a bit more than 1s<br>
-<br>
-So I would go for something as:<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 long long diff_us =3D tst_timespec_diff_us(time=
-stamp2, timestamp1);<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (diff_us &gt;=3D 1000000 &amp;&amp; diff_us =
-&lt;=3D 2000000)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 tst_res(TPASS, &quo=
-t;...&quot;);<br>
-<br>
-Which expects that the difference between timestamps is in a sane range<br>
-not that it just have been changed.<br></blockquote><div><br></div><div><di=
-v class=3D"gmail_default" style=3D"font-size:small">Theoretically, this is =
-correct, but I&#39;m fearing that the process might</div><div class=3D"gmai=
-l_default" style=3D"font-size:small">cost more time on performing with diff=
-erent system loads.</div><div class=3D"gmail_default" style=3D"font-size:sm=
-all"><br></div><div class=3D"gmail_default" style=3D"font-size:small">This =
-means &#39;diff_us &lt;=3D 2000000&#39; is an unreliable condition to</div>=
-<div class=3D"gmail_default" style=3D"font-size:small">many virtual machine=
-s. That largely depends on the system</div><div class=3D"gmail_default" sty=
-le=3D"font-size:small">scheduler at that moment as well.</div><br></div><di=
-v>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px=
- 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0tst_res(TPASS, &quot;copy_file_range sucessf=
-ully updated the timestamp&quot;);<br>
-&gt; -- <br>
-&gt; 2.31.1<br>
-&gt; <br>
-&gt; <br>
-&gt; -- <br>
-&gt; Mailing list info: <a href=3D"https://lists.linux.it/listinfo/ltp" rel=
-=3D"noreferrer" target=3D"_blank">https://lists.linux.it/listinfo/ltp</a><b=
-r>
-<br>
--- <br>
-Cyril Hrubis<br>
-<a href=3D"mailto:chrubis@suse.cz" target=3D"_blank">chrubis@suse.cz</a><br=
->
-<br>
-</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
- class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li =
-Wang<br></div></div></div></div>
-
---00000000000057acb305cb513542--
-
-
---===============1539729206==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============1539729206==--
-
