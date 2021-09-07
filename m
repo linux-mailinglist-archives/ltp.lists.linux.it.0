@@ -1,81 +1,82 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4FFF4021E6
-	for <lists+linux-ltp@lfdr.de>; Tue,  7 Sep 2021 04:20:57 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 156794021EB
+	for <lists+linux-ltp@lfdr.de>; Tue,  7 Sep 2021 04:25:32 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2DF1B3C9784
-	for <lists+linux-ltp@lfdr.de>; Tue,  7 Sep 2021 04:20:57 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 9BACD3C939B
+	for <lists+linux-ltp@lfdr.de>; Tue,  7 Sep 2021 04:25:31 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id EFA863C2E47
- for <ltp@lists.linux.it>; Tue,  7 Sep 2021 04:20:53 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 34F143C314B
+ for <ltp@lists.linux.it>; Tue,  7 Sep 2021 04:25:29 +0200 (CEST)
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 4900B1A00363
- for <ltp@lists.linux.it>; Tue,  7 Sep 2021 04:20:50 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 3DB061000741
+ for <ltp@lists.linux.it>; Tue,  7 Sep 2021 04:25:28 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1630981249;
+ s=mimecast20190719; t=1630981527;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=9pOGrJaGzxB2tQOLNRGdmPO3yaIO8vd0DAk9dhJrRHc=;
- b=YdGzEcabf0Cw6/Rm6X2T+uuT+55WmBVPM9g2RxzV0S7Rgyr0bTSArNY3zEvXFYAFWQ5L5E
- 3kedbYrs0azRPSNRZV3kZve8Fs/vitpxmI54Sj1b2hMMwK6lBLUykIQ7PqclCzbG40IKBT
- tqWkeyvWqKeEiMm2uxhHO0V+HxIYFcw=
+ bh=35ZVp6iT0j+Z6uv86lju06Et2/BXCLCWZS+K3O0M9uE=;
+ b=Dn/frlLummZ8pJ/+9nEtAxyrGUvXqHrrqbTGaswM0djemJX46esOtK0WeC6BSWNEXx0PA5
+ S0MJCkrkBZnNEzkGrxJTSo0jGLu5BzoPPnKtQDUPz64nUet8O+Q6Ed3ZQ5GwP+FCMPiFJm
+ ilBSuwjirydu2RGy0kyF8pxniinqnnY=
 Received: from mail-yb1-f198.google.com (mail-yb1-f198.google.com
  [209.85.219.198]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-21-4fBr2NqdOTibd7RysK1pCA-1; Mon, 06 Sep 2021 22:20:47 -0400
-X-MC-Unique: 4fBr2NqdOTibd7RysK1pCA-1
+ us-mta-590-dBfLJ_92O5O-AV0jn07bZg-1; Mon, 06 Sep 2021 22:25:26 -0400
+X-MC-Unique: dBfLJ_92O5O-AV0jn07bZg-1
 Received: by mail-yb1-f198.google.com with SMTP id
- b9-20020a5b07890000b0290558245b7eabso9812234ybq.10
- for <ltp@lists.linux.it>; Mon, 06 Sep 2021 19:20:47 -0700 (PDT)
+ b84-20020a253457000000b0059e6b730d45so9858933yba.6
+ for <ltp@lists.linux.it>; Mon, 06 Sep 2021 19:25:26 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=9pOGrJaGzxB2tQOLNRGdmPO3yaIO8vd0DAk9dhJrRHc=;
- b=cfFIDFYZE1ckzm0L8ECCg40eJLmkhJrSA12MytE0qqGv7iev5gSsPHnS3QUpRb80el
- k6kNGRMURhtv+ijSrTLL2SDbkNFwAucHZUlZamfGSPlMwJdi3TR29BghLtwKf3RCbs+O
- 6v1aJ6GcVIKlTqh4LMBnQpzHvV/TeTYEG+ocR0O/j20hNVkbI3M6gzRO7fNzXY0h+uH8
- IjpdzV5tG2MIsTdeCn/ojs15Od5fbIutGCy2/zANMP+t3BE47Mvfe79Ud3MLg+eaPxfP
- XGv2JJutJsmxBJqFEw9fo6z1GmTl/bQJTbaqaQtiRU8qaf4FtBWB2c8IsVxD1gH8D3WS
- qPeg==
-X-Gm-Message-State: AOAM530Ud/VT2SAnNub5/Al6jY7qDKNvk7mRoEgaPvICJz3iT1j1zG+N
- B98E1fsM//I+O+vj6QuYtYq3iylwd9g++KOgWzhkuNlgYDlwwOOfEAJNcb1GrHodyve2K6YZGvQ
- PKNE5zSExF4AocIk5akV38a+XO6M=
-X-Received: by 2002:a25:ba41:: with SMTP id z1mr19560280ybj.169.1630981247372; 
- Mon, 06 Sep 2021 19:20:47 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJxq8McoMI06O5U93UzJnvgnZk6RA60sDf1gtAhUWswBId8FMkF1jsAqAN9sh/NkI6jqANDzeLQNQl2SXj0Wn6s=
-X-Received: by 2002:a25:ba41:: with SMTP id z1mr19560260ybj.169.1630981247123; 
- Mon, 06 Sep 2021 19:20:47 -0700 (PDT)
+ bh=35ZVp6iT0j+Z6uv86lju06Et2/BXCLCWZS+K3O0M9uE=;
+ b=g5ML99J6TdMhZq8iT8ohkYVVUd9mkDTLN4HAK0zrTq4S/D2rKl0WDH+gCdJCmJJDTp
+ DR2z1Hn9MdiM1us9aqK0+RzXPKuWAzd5axzbOa5/ZnyP1w9EgKlgwCpuUKdZJmac2H8Q
+ viinTdZxQWBiy5nen0zjaBfoQ2UJTb9CCsnzYL38Mztex5cwACpucOwu+sGlciTSuIm+
+ nqV5XmoVTTfu41EpKGAokhSS/JojEf2kxLlrDIXp3UB7WBEuQ4Rdnefi2KPeHxgINJCV
+ /khT1233g6zoJG5NxVigUeEkY5+oL06K/c2mo3yApXXeKbAiHRRf+muTLDhLtkbhQv0z
+ gOeQ==
+X-Gm-Message-State: AOAM532CKU+cql6CBrFJe8AWjC/8W26nMNZ/p20zqLntCyjC0aLwxEtR
+ +vMfcmyacaEqh30jamQxlQSdo+uHrtFDDBJBLmTMFAM4JsbfT7dqqR02AHIO7DUeBIpq/HUPgh3
+ E7l5cMa5MZGDmGInNclcMH0vyOkE=
+X-Received: by 2002:a25:40b:: with SMTP id 11mr20842272ybe.398.1630981525818; 
+ Mon, 06 Sep 2021 19:25:25 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJyO8AY3qFR8GM0N7UwjthpqudG/yTgDSd20uJtcPcP2KnnXPKGlIsx+CoB2XVE0t6qg/hb6pcNLCoiVg/k1Xqc=
+X-Received: by 2002:a25:40b:: with SMTP id 11mr20842253ybe.398.1630981525629; 
+ Mon, 06 Sep 2021 19:25:25 -0700 (PDT)
 MIME-Version: 1.0
-References: <77a5903b5ddf8b63c1acc6c24e4d3195590e8628.1630917312.git.jstancek@redhat.com>
-In-Reply-To: <77a5903b5ddf8b63c1acc6c24e4d3195590e8628.1630917312.git.jstancek@redhat.com>
+References: <20210906114143.3230967-1-liwang@redhat.com>
+ <YTYKpGMilmiyMWos@yuki>
+In-Reply-To: <YTYKpGMilmiyMWos@yuki>
 From: Li Wang <liwang@redhat.com>
-Date: Tue, 7 Sep 2021 10:20:35 +0800
-Message-ID: <CAEemH2cZNzOawYPHQGgeLGVxob37=0kbJyQz=NSvBM0uGpANSg@mail.gmail.com>
-To: Jan Stancek <jstancek@redhat.com>
+Date: Tue, 7 Sep 2021 10:25:14 +0800
+Message-ID: <CAEemH2cMuMR5gyrM2tX1mDOaLSTE7wrOoxMGF4BQm5heCc2a-g@mail.gmail.com>
+To: Cyril Hrubis <chrubis@suse.cz>
 Authentication-Results: relay.mimecast.com;
  auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] ftruncate04: require
- CONFIG_MANDATORY_FILE_LOCKING=y
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3] copy_file_range03: comparing timestamp by
+ tst_timespec_diff_us
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,69 +89,50 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============0725419818=="
+Content-Type: multipart/mixed; boundary="===============1051207342=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0725419818==
-Content-Type: multipart/alternative; boundary="000000000000ded71c05cb5e690a"
+--===============1051207342==
+Content-Type: multipart/alternative; boundary="0000000000007884a205cb5e7a20"
 
---000000000000ded71c05cb5e690a
+--0000000000007884a205cb5e7a20
 Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Sep 6, 2021 at 4:36 PM Jan Stancek <jstancek@redhat.com> wrote:
+On Mon, Sep 6, 2021 at 8:33 PM Cyril Hrubis <chrubis@suse.cz> wrote:
 
-> commit f7e33bdbd6d1 ("fs: remove mandatory file locking support")
-> removed mandatory file locking support, but mount option
-> is still allowed and produces no error. There's a warning
-> in dmesg but it's pr_warn_once() so we can't rely to always
-> find it there.
->
-> Make the test check also for CONFIG_MANDATORY_FILE_LOCKING=y.
+> Hi!
+> Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
 >
 
-I'm wondering, if the SUT without CONFIG_MANDATORY_FILE_LOCKING
-enabling, why the mount-check in setup() didn't report EPERM?
+Thanks for the review, pushed.
 
-And, should we drop the mount-check for EPERM from setup after adding
-this .needs_kconfigs?
 
 -- 
 Regards,
 Li Wang
 
---000000000000ded71c05cb5e690a
+--0000000000007884a205cb5e7a20
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 <div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
 t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Mon, Sep 6, 2021 at 4:36 PM Jan Stancek &lt;<a h=
-ref=3D"mailto:jstancek@redhat.com">jstancek@redhat.com</a>&gt; wrote:<br></=
-div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bor=
-der-left:1px solid rgb(204,204,204);padding-left:1ex">commit f7e33bdbd6d1 (=
-&quot;fs: remove mandatory file locking support&quot;)<br>
-removed mandatory file locking support, but mount option<br>
-is still allowed and produces no error. There&#39;s a warning<br>
-in dmesg but it&#39;s pr_warn_once() so we can&#39;t rely to always<br>
-find it there.<br>
-<br>
-Make the test check also for CONFIG_MANDATORY_FILE_LOCKING=3Dy.<br></blockq=
-uote><div><br></div><div><div class=3D"gmail_default" style=3D"font-size:sm=
-all">I&#39;m wondering, if the SUT without CONFIG_MANDATORY_FILE_LOCKING</d=
-iv><div class=3D"gmail_default" style=3D"font-size:small">enabling, why the=
- mount-check in setup() didn&#39;t report EPERM?</div><div class=3D"gmail_d=
-efault" style=3D"font-size:small"><br></div><div class=3D"gmail_default" st=
-yle=3D"font-size:small">And, should we drop the mount-check for=C2=A0EPERM =
-from setup after adding</div><div class=3D"gmail_default" style=3D"font-siz=
-e:small">this .needs_kconfigs?</div></div></div><div><br></div>-- <br><div =
-dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></d=
-iv><div>Li Wang<br></div></div></div></div>
+r" class=3D"gmail_attr">On Mon, Sep 6, 2021 at 8:33 PM Cyril Hrubis &lt;<a =
+href=3D"mailto:chrubis@suse.cz">chrubis@suse.cz</a>&gt; wrote:<br></div><bl=
+ockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-lef=
+t:1px solid rgb(204,204,204);padding-left:1ex">Hi!<br>
+Reviewed-by: Cyril Hrubis &lt;<a href=3D"mailto:chrubis@suse.cz" target=3D"=
+_blank">chrubis@suse.cz</a>&gt;<br></blockquote><div>=C2=A0</div><div><div =
+class=3D"gmail_default" style=3D"font-size:small">Thanks for the review, pu=
+shed.</div></div></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"=
+ltr" class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div=
+>Li Wang<br></div></div></div></div>
 
---000000000000ded71c05cb5e690a--
+--0000000000007884a205cb5e7a20--
 
 
---===============0725419818==
+--===============1051207342==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -160,5 +142,5 @@ Content-Disposition: inline
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
 
---===============0725419818==--
+--===============1051207342==--
 
