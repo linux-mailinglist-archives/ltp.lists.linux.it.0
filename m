@@ -1,84 +1,159 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C0184024C8
-	for <lists+linux-ltp@lfdr.de>; Tue,  7 Sep 2021 10:00:40 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id C025D402635
+	for <lists+linux-ltp@lfdr.de>; Tue,  7 Sep 2021 11:31:57 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id F26AF3C92E7
-	for <lists+linux-ltp@lfdr.de>; Tue,  7 Sep 2021 10:00:39 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E42DE3C3265
+	for <lists+linux-ltp@lfdr.de>; Tue,  7 Sep 2021 11:31:56 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 6A9FD3C240F
- for <ltp@lists.linux.it>; Tue,  7 Sep 2021 10:00:35 +0200 (CEST)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by picard.linux.it (Postfix) with ESMTPS id 498BC3C2590
+ for <ltp@lists.linux.it>; Tue,  7 Sep 2021 02:43:02 +0200 (CEST)
+Received: from esa4.fujitsucc.c3s2.iphmx.com (esa4.fujitsucc.c3s2.iphmx.com
+ [68.232.151.214])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id D5289200C11
- for <ltp@lists.linux.it>; Tue,  7 Sep 2021 10:00:34 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1631001633;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=UceBPiZ5OI2e7IYAR9txXvvnFWtXv4NoC/FSsLTJfQ8=;
- b=F2ewR6Q3wgoTE8z1NWhPTiF+fjKr1HYcNlHhhSzb1fvLp8HiBH9kL1ZcVTFC6ViiNZG86g
- nOFaxZ6kMVDxzMJOA4j/9IKh/9b36EXgSm1Z9SWDQBsKVZi+1vCtw1bzAqkV75/Dc7sbFZ
- P3ftPJbwBEAjfU/ieNFWp/UwLs9Q0bM=
-Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com
- [209.85.210.70]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-430-QQmbESlWOf2R5npt0jRdtw-1; Tue, 07 Sep 2021 04:00:32 -0400
-X-MC-Unique: QQmbESlWOf2R5npt0jRdtw-1
-Received: by mail-ot1-f70.google.com with SMTP id
- y8-20020a0568301d8800b0051b222a05a6so5847153oti.6
- for <ltp@lists.linux.it>; Tue, 07 Sep 2021 01:00:31 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=UceBPiZ5OI2e7IYAR9txXvvnFWtXv4NoC/FSsLTJfQ8=;
- b=nYqBWx/LZHKss6mNwLrFhjDbbnOUAI0e9b2ac7a1EozkoS65Qia77WIyg38FXxJx+7
- uGftH668AoHNJ4sxSAbPDDuV7DZPqsNhnUY0royIxNnO2nIhqygd8kC6BKW1wjOI2wiC
- sYqZzXudwbszwFXJgsiTRxXn/Gx5T2eyJudRjwLIR7yVmVcqSffnSOj+z4n7puICaWOb
- zgVfEqZfLPZZsnOIIe9/lAwTUHvLKIG+0tEjeFABJO5uXLddiH7T+AHHhy5QbjX7TpfW
- nsU7HEG7i2f5q2ud4qHQa7EtqSYZZW+GdctH4RV5Z3Lf3GfQyDZknB7JhNuyLk1icoVo
- gUHA==
-X-Gm-Message-State: AOAM532RDsPFW5qO9cvYWni4DEYMn9r0CzpkAgBCIUgZRqp1k6muHml1
- Qy3lLLfOf0vioqlyEzimat6A/l38RDupIVMQsfaEt6qSA4GNSNWzvDreCuQ01dnybR8ZaMZR1VV
- dK1nzXKTLzvNpMneyh35JYGr2Q2o=
-X-Received: by 2002:a05:6830:1105:: with SMTP id
- w5mr13893591otq.85.1631001631089; 
- Tue, 07 Sep 2021 01:00:31 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJyFmb/CKQKDk1+L9fjyvuqrwa++LgW2q18YiLio32ghkjgE+663CGUP/fkmhnUMIgsDDN+pETCv0TJ2Rteiars=
-X-Received: by 2002:a05:6830:1105:: with SMTP id
- w5mr13893575otq.85.1631001630821; 
- Tue, 07 Sep 2021 01:00:30 -0700 (PDT)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id EAEFC20035F
+ for <ltp@lists.linux.it>; Tue,  7 Sep 2021 02:43:00 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj1;
+ t=1630975381; x=1662511381;
+ h=from:to:subject:date:message-id:references:in-reply-to:
+ content-transfer-encoding:mime-version;
+ bh=0mcpylGB/RII/YDkuc8TlpUYIUMlDon0VcM/PmNqzXM=;
+ b=aZgZWJJonUTwZJDF/M/ny/0f944a3Dv575vzYMS12+VXoDHsWW3LM6zx
+ 5ODkwf6GC0/mWYjfX0BFc3za8A9wjS3lr3n2tYSYHhlrPDeYOS6FQ6QQ3
+ kEwI/UUXBy6QwW+V23H+92A70kDcn77KG/bdb09hA/l+Vqb3rIEzLtRYx
+ QEnxJzHzE3xoTVLzFkQNbZCXe4bqz+FKXAE0zc2XPprhMxUW9x3OtagP3
+ NZ77ONr6vQKgUP3N36r5ElDFtzHqD1PBynYlsbwWdP7zwZtBrS6WN2RWD
+ yQdrRKCuI2dQMPQGJTySqzJ8q70A5x9/7NRHpMcLk1tKwfJh6JAxfi18e A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10099"; a="46591463"
+X-IronPort-AV: E=Sophos;i="5.85,273,1624287600"; d="scan'208";a="46591463"
+Received: from mail-ty1jpn01lp2051.outbound.protection.outlook.com (HELO
+ JPN01-TY1-obe.outbound.protection.outlook.com) ([104.47.93.51])
+ by ob1.fujitsucc.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Sep 2021 09:42:58 +0900
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=KO64EzjHawMnPSf62sfPCFZ1YqfeESCD0X/BBWe1hJvIRrf7Usb+VY69WbN8t+O5Pm9lkrzZeVlXM0Hgn/tK0lCvOAUDlfmE2ko/zWWhOUD6c0xiBso1r8cIn+CIq9VZcajRwcvv4LtwIg0XKMt0LSpW/VTeMHuEC7dTMe9lc1DQg8X9/S1ZGG6eIx/ABZBSOGibbVwfNFeuidLUJNfMTKew1VgoXFR17Tdfzu7jDJMx/V75SIIul8hwZIAPKAP7wnnSQEEOTS1KTthCo3ZYnqASJ5gTHSgi/6vDmbacfPS+D9v6jTdTW0Y87HfPCct2WkRyrsWpKFj4DsIxpn9pqg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
+ bh=WGb67jr+/lphZ8gjfpA3rVk4C9thVi9eVgMoxdEzbKM=;
+ b=dD3rVVpZ+zWw7wCfV78egRM3YL00jDNBEZOiJ6eNhWe7Gy9eYwVfJgFRQEcTWt+k+pvU9r/l6MIW436XCeYjNiajOqcLQISagCVW0kRWzoAkGSrtHTGVTXHNzXQwBQCZ6hNuDZ84pI+DFImPm4ja/u08xqxPM6+eXM8u/WoeZqTXn03WelC/lSaLbDdnXRkfdmAHhZcSwe4VnubCWtaXT70j6TEwLVEitgjZQLNN1FFOpgHZitroreO7Mi1UEGu6qy8Mo9dJftejBYrV2xlcq1WfniUbF+odkahMCpSnAY5V/winvSgiBTANXeXNxDse+LK409mtbRAq+tHRjIxULA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=fujitsu.com; dmarc=pass action=none header.from=fujitsu.com;
+ dkim=pass header.d=fujitsu.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=fujitsu.onmicrosoft.com; s=selector2-fujitsu-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WGb67jr+/lphZ8gjfpA3rVk4C9thVi9eVgMoxdEzbKM=;
+ b=lR7gvAkAxZnCTJQ6vPpsbBSr8Y2w9PbBXCTuvFDOjcA4A6yY9kZZdIfmjRqH0UKVG0DlamaPCerCH02cFYspoiJP3oHAXoRYk4ap/aCokqOLbH0/dJnoS5I7KJBe9Q8/L3tAI/Ktb1MNZZ0Vb4RUvMjL7gieUtXKZkMDRcD6CyM=
+Received: from TYCPR01MB6461.jpnprd01.prod.outlook.com (2603:1096:400:7b::10)
+ by TYCPR01MB5757.jpnprd01.prod.outlook.com (2603:1096:400:46::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.20; Tue, 7 Sep
+ 2021 00:42:55 +0000
+Received: from TYCPR01MB6461.jpnprd01.prod.outlook.com
+ ([fe80::a91d:f519:509:56f8]) by TYCPR01MB6461.jpnprd01.prod.outlook.com
+ ([fe80::a91d:f519:509:56f8%9]) with mapi id 15.20.4478.026; Tue, 7 Sep 2021
+ 00:42:55 +0000
+From: "qi.fuli@fujitsu.com" <qi.fuli@fujitsu.com>
+To: 'Xiao Yang' <ice_yangxiao@163.com>, QI Fuli <fukuri.sai@gmail.com>,
+ "ltp@lists.linux.it" <ltp@lists.linux.it>
+Thread-Topic: [LTP] [PATCH 1/5] syscalls/dup2/dup201: Convert dup201 to the
+ new API
+Thread-Index: AQHXn/HyJHN7r5yhc0eLCzjmbE8CbKuWw2OAgAD+8pA=
+Date: Tue, 7 Sep 2021 00:42:55 +0000
+Message-ID: <TYCPR01MB64618BBB4BF106FAF853652EF7D39@TYCPR01MB6461.jpnprd01.prod.outlook.com>
+References: <20210902115849.72382-1-qi.fuli@fujitsu.com>
+ <20210902115849.72382-2-qi.fuli@fujitsu.com>
+ <169c8ba3-fbc3-f628-f5cc-b157d4aada85@163.com>
+In-Reply-To: <169c8ba3-fbc3-f628-f5cc-b157d4aada85@163.com>
+Accept-Language: en-US
+Content-Language: ja-JP
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_a7295cc1-d279-42ac-ab4d-3b0f4fece050_Enabled=true;
+ MSIP_Label_a7295cc1-d279-42ac-ab4d-3b0f4fece050_SetDate=2021-09-07T00:41:36Z; 
+ MSIP_Label_a7295cc1-d279-42ac-ab4d-3b0f4fece050_Method=Standard;
+ MSIP_Label_a7295cc1-d279-42ac-ab4d-3b0f4fece050_Name=FUJITSU-RESTRICTED?;
+ MSIP_Label_a7295cc1-d279-42ac-ab4d-3b0f4fece050_SiteId=a19f121d-81e1-4858-a9d8-736e267fd4c7;
+ MSIP_Label_a7295cc1-d279-42ac-ab4d-3b0f4fece050_ActionId=6d29f209-4053-4e3f-85af-c51dbaa9889c;
+ MSIP_Label_a7295cc1-d279-42ac-ab4d-3b0f4fece050_ContentBits=0
+authentication-results: 163.com; dkim=none (message not signed)
+ header.d=none;163.com; dmarc=none action=none header.from=fujitsu.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: a8f266b2-785d-4076-b368-08d971986e96
+x-ms-traffictypediagnostic: TYCPR01MB5757:
+x-microsoft-antispam-prvs: <TYCPR01MB5757B849701E6697765B011CF7D39@TYCPR01MB5757.jpnprd01.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:3631;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: ifZQiJ39eCmsbo/q73qaF657LDsMb0CQhREgbCOYRWyA8zxJ4gCl4V1ZhUxZY1kp8ausieLAM9TBD7qG0s2c6gndSWlge8DN3d0lxXAtEp07at9Jy9AaaB+QKyMv6GJ4XRrM7ad75JDRbv6NU75m5vqql7SJQrABFTmuKN5uBS8mEHNjFX9diaNRsyY7iTy58M2EMt9vqUddyCvWX5p+3sSm9TLWHX1REmqOCQ3d0FpUzzGByn1mBnFHI8m3tkVdhDlojbod4B+J9vN4Y6YgVTyGtTwsTGyrIcIz6MNGkL0j8kb0wjB7GcdYZ6LJSxOY+f2B2QKFyln1ipRvqQA2HMAk8bED1CHb+Up/upUt0C9LzrAF1fbjtdu/NPaMecUnc2Ytq4sYSIZC3gL/Z5I8jI2u0FYIy/YWkBlxNxvmyMzsdmpmkV/nLK+mXdMkRBd1DAl4qMU21a1KzViVDTH2fgUfgonjBtQeFD4MHTB0DCfUOBZCn91PIyqRBtzakeGvGoe8akGQxQU8kINQ/u9REMX9DHCQ3l8inh20UmCXPvNVJFsLOvkRs7UluzAoZxx0zwtxgDOSMSHX0KDZk3pepFCigCQvVw3p7Y52YMhTc4gXkgVrym/FBKDjva0GpZfJzPNVu6b334JV3kRqWe0IIlwrdmXa28LGKLIKqE3v4Vh3VS44JId8QMobdJyKt4UpsUkLJT8kuUJRtmJ8hJyLXHv2ch+0OBfEImCx3SuaPjE=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TYCPR01MB6461.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(346002)(136003)(39860400002)(366004)(396003)(376002)(110136005)(122000001)(9686003)(83380400001)(8676002)(38100700002)(26005)(2906002)(478600001)(5660300002)(186003)(66556008)(66476007)(316002)(66946007)(86362001)(66446008)(64756008)(38070700005)(85182001)(52536014)(33656002)(6506007)(7696005)(55016002)(53546011)(76116006)(8936002)(71200400001)(2004002);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-2022-jp?B?WnZ6SC8vTnFqZ2F3VFVIaFMzVmc0TmdjM0c3c05JLzNYeVgraDZFVEN2?=
+ =?iso-2022-jp?B?aVhxaml3SUJxdmEvdzJManJMZ3p3TG5ia2Myb3ZRVTE3T2ZURTN4blJa?=
+ =?iso-2022-jp?B?MVY5VnMrM3d5a0RTQ3JtZUt4ajVlVVlkdVlROTRoTkNHRVByZCtpM2hO?=
+ =?iso-2022-jp?B?REdNVzVWS0JFQ2Nldy9wWVo2Rkc1Mi9mQ3JOWDVPTVEvLzhaVXBmYmdT?=
+ =?iso-2022-jp?B?eHl4VTRqc21NcVU4VWQvQnArKzdObzJxYnhuQW5ERWtuSWwyTGc1WGVR?=
+ =?iso-2022-jp?B?REtqZ3VQM0tBazhaVTQyV0hUV1FZZVhNZ1gvZ0FDWjhaeDJnZnRSRURw?=
+ =?iso-2022-jp?B?NGUzdGc2a2ErVldKcURQZGw0RE5YQlhGMWx1djJDNHFkbko3NjVRMWdP?=
+ =?iso-2022-jp?B?TkFETHAzbDcvYnIyaTkxMmJ0VnJqdGx0dzJLdDZ2TEtSWlpzdGlaTDNC?=
+ =?iso-2022-jp?B?cm5VV2dKemd2cTJPYm44cGRNS0NRMWRQbzhZYjg0VGxhWWlPQUVVV3VY?=
+ =?iso-2022-jp?B?bmVzYW1xd2JjVU1VdTRWRjZoUkdHdDVDckVWSjF5SjZXSnBzSERyczhm?=
+ =?iso-2022-jp?B?dEQvL2h1SGE0QkdJanBlUnJVLzliSUtrUUJXV0xRSmJ0NFV0bWNTL2tQ?=
+ =?iso-2022-jp?B?eUZnekhRRFR4OEhrazRQZ0hweXZjeXdieVhEWEhxQ0t1VWo3ZVd5Mk1Z?=
+ =?iso-2022-jp?B?UGEwWVVTVmtLdEFTRTFuUVJpOCtwcmR3N0c0anROZVFXZXlPNXo2S0lE?=
+ =?iso-2022-jp?B?NE1wZVczRzNxRnhyQXRUZWxpNzkvQi9rVFZpY1BDbWVjWjBHQk9HOVVy?=
+ =?iso-2022-jp?B?ZHlidnQ3OWE5VSs4Tk9DcFJRelhlai9Hb0M1SnE4TGtKYUVRVHhhcllr?=
+ =?iso-2022-jp?B?UXdaZHdrZWVxM2Vub2lkWXE4SHhQTnh4RzdnOWx2ZEM2S3ZBZ1Q3VEJ1?=
+ =?iso-2022-jp?B?aVBtYm5kb0NHMlB2YytLSGx5NjA5cGFKZFdEckdDcTRpRjRWRks4Vjhs?=
+ =?iso-2022-jp?B?Z2hGV2I2ZFR3YVJZOFF4YlpEa0JMemF1a1lYTGZtRGN3YUVLTHA4V0Vk?=
+ =?iso-2022-jp?B?dWxHTWVVODUvZUdtNmhmdmVBYnNIQ2krZFAzaTJ0VExDRG9QNkthdlFv?=
+ =?iso-2022-jp?B?SElHNTVQeS9nMGJZdE5acDV4aUQvaFRNZGphUWVCZGxtRWxHVXl1a0xt?=
+ =?iso-2022-jp?B?dzM1cm9ZQy8wL05aY0JadTM4eWd0U0hQRU1vMUpYZVdOYktBTWlQVVpT?=
+ =?iso-2022-jp?B?R1ZnL29xVWw3dzNzS2Jya043b3BhZDlRMnY5Sm1mbWRWK0g5N1RhNjl0?=
+ =?iso-2022-jp?B?cDhyUklDUjNvRStBaUJwQXRPL1hzcnYvNEdlWGJZd0MzM2g3eHBsMWZ1?=
+ =?iso-2022-jp?B?MGFYVS8yRElyYzRMRmx0YVlQOHByMVBxb1BCY3JiVlQxZlJFeDVMWWJj?=
+ =?iso-2022-jp?B?dXRpdmNpaWFaR09wWlVsaXRVbHgyUnZsUm1UNEJFbjZ6Y3RZUkI1Y0Y1?=
+ =?iso-2022-jp?B?T0U2MmxmRWZBZEdDcTFIdEh1NXkzM3JJRHZxd2dtUm14NVlZVXZuNUg5?=
+ =?iso-2022-jp?B?bkxIa1BpcWNGemlQRXlnMXhBVE1jN3laZWVnaGZiN2h1b2lTcVpNaTBi?=
+ =?iso-2022-jp?B?b0x5SzdCelRHNEFKdEw5MGdVb25yRm1yMnFiYnA4S1ZzL3hJZHIvTkNF?=
+ =?iso-2022-jp?B?U1N5VFZGejJ2VUR1ZjB3UTExT2sxM0d1QVBtbTlTc2FFTmtmWmNpQ21E?=
+ =?iso-2022-jp?B?S0pVb1FITjBRZUxveTFZMnpwdHNJa01ZbEc0SkZqaEViZ0U0ZWIwM0c4?=
+ =?iso-2022-jp?B?NmVBZ1N6K2REWTY3dkd4MnMxdXQxMTdRQk9MR1ErVXoyNGRQbVpzK0Vz?=
+ =?iso-2022-jp?B?RmNqVHBXU3Z4TnhwMjlwdG1TV1NrPQ==?=
+x-ms-exchange-transport-forked: True
 MIME-Version: 1.0
-References: <20210817104625.2559362-1-liwang@redhat.com>
- <CAEemH2fOWt1SjoTyqcWFkSyGf_S28FsPreLrKcUvOHu0pRz9OQ@mail.gmail.com>
-In-Reply-To: <CAEemH2fOWt1SjoTyqcWFkSyGf_S28FsPreLrKcUvOHu0pRz9OQ@mail.gmail.com>
-From: Jan Stancek <jstancek@redhat.com>
-Date: Tue, 7 Sep 2021 10:00:12 +0200
-Message-ID: <CAASaF6wWvezTpRcvewaaUF_-duEuQA1Oh2vEd9W-xC+AhGX12A@mail.gmail.com>
-To: Li Wang <liwang@redhat.com>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=jstancek@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+X-OriginatorOrg: fujitsu.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB6461.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a8f266b2-785d-4076-b368-08d971986e96
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Sep 2021 00:42:55.2699 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: a19f121d-81e1-4858-a9d8-736e267fd4c7
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 4qpfSUvoaMfkQxMu3zjDHpVgAVMOudg4X+Og/4Mi1Hf8D8peZzP09H2j6x7y3edrF2+DZiRGNeLZDp712+NtZg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB5757
 X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
+ SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [RFC PATCH] fallocate05: increase the fallocate and
- defallocate size
+X-Mailman-Approved-At: Tue, 07 Sep 2021 11:31:53 +0200
+Subject: Re: [LTP] [PATCH 1/5] syscalls/dup2/dup201: Convert dup201 to the
+ new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,57 +165,249 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============1592922363=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1592922363==
-Content-Type: multipart/alternative; boundary="000000000000d55c6305cb63289f"
+> Subject: Re: [LTP] [PATCH 1/5] syscalls/dup2/dup201: Convert dup201 to the
+> new API
+> 
+> On 9/2/21 7:58 PM, QI Fuli wrote:
+> > From: QI Fuli <qi.fuli@fujitsu.com>
+> >
+> > Signed-off-by: QI Fuli <qi.fuli@fujitsu.com>
+> > ---
+> >   testcases/kernel/syscalls/dup2/dup201.c | 161 +++++-------------------
+> >   1 file changed, 34 insertions(+), 127 deletions(-)
+> >
+> > diff --git a/testcases/kernel/syscalls/dup2/dup201.c
+> b/testcases/kernel/syscalls/dup2/dup201.c
+> > index 4fa34466a..231c262bf 100644
+> > --- a/testcases/kernel/syscalls/dup2/dup201.c
+> > +++ b/testcases/kernel/syscalls/dup2/dup201.c
+> > @@ -1,87 +1,30 @@
+> > -/*
+> > - *
+> > - *   Copyright (c) International Business Machines  Corp., 2001
+> > - *
+> > - *   This program is free software;  you can redistribute it and/or modify
+> > - *   it under the terms of the GNU General Public License as published by
+> > - *   the Free Software Foundation; either version 2 of the License, or
+> > - *   (at your option) any later version.
+> > - *
+> > - *   This program is distributed in the hope that it will be useful,
+> > - *   but WITHOUT ANY WARRANTY;  without even the implied warranty of
+> > - *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
+> > - *   the GNU General Public License for more details.
+> > - *
+> > - *   You should have received a copy of the GNU General Public License
+> > - *   along with this program;  if not, write to the Free Software
+> > - *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301
+> USA
+> > - */
+> > +// SPDX-License-Identifier: GPL-2.0-or-later
+> >
+> >   /*
+> > - * NAME
+> > - *	dup201.c
+> > + * Copyright (c) International Business Machines  Corp., 2001
+> >    *
+> > - * DESCRIPTION
+> > + * DESCRIPTION:
+> >    *	Negative tests for dup2() with bad fd (EBADF)
+> >    *
+> > - * ALGORITHM
+> > - * 	Setup:
+> > - *	a.	Setup signal handling.
+> > - *	b.	Pause for SIGUSR1 if option specified.
+> > - *
+> > - * 	Test:
+> > - *	a.	Loop if the proper options are given.
+> > - *	b.	Loop through the test cases
+> > - * 	c.	Execute dup2() system call
+> > - *	d.	Check return code, if system call failed (return=-1), test
+> > - *		for EBADF.
+> > - *
+> > - * 	Cleanup:
+> > - * 	a.	Print errno log and/or timing stats if options given
+> > - *
+> > - * USAGE:  <for command-line>
+> > - *  dup201 [-c n] [-e] [-i n] [-I x] [-P x] [-t]
+> > - *     where,  -c n : Run n copies concurrently.
+> > - *             -e   : Turn on errno logging.
+> > - *             -i n : Execute test n times.
+> > - *             -I x : Execute test for x seconds.
+> > - *             -P x : Pause for x seconds between iterations.
+> > - *             -t   : Turn on syscall timing.
+> > - *
+> > - * HISTORY
+> > - *	07/2001 Ported by Wayne Boyer
+> > - *	01/2002 Removed EMFILE test - Paul Larson
+> > - *
+> > - * RESTRICTIONS
+> > - * 	NONE
+> > + * HISTORY:
+> > + * 	07/2001 Ported by Wayne Boyer
+> > + * 	01/2002 Removed EMFILE test - Paul Larson
+> >    */
+> >
+> > -#include <sys/types.h>
+> > -#include <fcntl.h>
+> >   #include <errno.h>
+> > -#include <sys/time.h>
+> > -#include <sys/resource.h>
+> > -#include <unistd.h>
+> 
+> Hi Qi,
+> 
+> Please keep <unistd.h> for dup2() and getdtablesize().
+> 
+> > -#include <signal.h>
+> > -#include "test.h"
+> > -
+> > -void setup(void);
+> > -void cleanup(void);
+> > -
+> > -char *TCID = "dup201";
+> > -int TST_TOTAL = 4;
+> > +#include "tst_test.h"
+> >
+> >   int maxfd;
+> >   int goodfd = 5;
+> >   int badfd = -1;
+> >   int mystdout = 0;
+> Please add static prefix.
+> >
+> > -struct test_case_t {
+> > +static struct tcase {
+> >   	int *ofd;
+> >   	int *nfd;
+> >   	int error;
+> >   	void (*setupfunc) ();
+> > -} TC[] = {
+> > +} tcases[] = {
+> >   	/* First fd argument is less than 0 - EBADF */
+> >   	{&badfd, &goodfd, EBADF, NULL},
+> >   	    /* First fd argument is getdtablesize() - EBADF */
+> > @@ -92,72 +35,36 @@ struct test_case_t {
+> >   	{&mystdout, &maxfd, EBADF, NULL},
+> >   };
+> >
+> > -int main(int ac, char **av)
+> > -{
+> > -	int lc;
+> > -	int i;
+> > -
+> > -	tst_parse_opts(ac, av, NULL, NULL);
+> > -
+> > -	setup();
+> > -
+> > -	for (lc = 0; TEST_LOOPING(lc); lc++) {
+> > -
+> > -		tst_count = 0;
+> > -
+> > -		/* loop through the test cases */
+> > -
+> > -		for (i = 0; i < TST_TOTAL; i++) {
+> > -
+> > -			/* call the test case setup routine if necessary */
+> > -			if (TC[i].setupfunc != NULL)
+> > -				(*TC[i].setupfunc) ();
+> > -
+> > -			TEST(dup2(*TC[i].ofd, *TC[i].nfd));
+> > -
+> > -			if (TEST_RETURN != -1) {
+> > -				tst_resm(TFAIL, "call succeeded
+> unexpectedly");
+> > -				continue;
+> > -			}
+> > -
+> > -			if (TEST_ERRNO == TC[i].error) {
+> > -				tst_resm(TPASS,
+> > -					 "failed as expected - errno
+> = %d : %s",
+> > -					 TEST_ERRNO,
+> strerror(TEST_ERRNO));
+> > -			} else {
+> > -				tst_resm(TFAIL | TTERRNO,
+> > -					 "failed unexpectedly; "
+> > -					 "expected %d: %s", TC[i].error,
+> > -					 strerror(TC[i].error));
+> > -			}
+> > -		}
+> > -	}
+> > -	cleanup();
+> > -
+> > -	tst_exit();
+> > -}
+> > -
+> > -/*
+> > - * setup() - performs all ONE TIME setup for this test.
+> > - */
+> >   void setup(void)
+> >   {
+> Please add static prefix.
+> > -
+> > -	tst_sig(NOFORK, DEF_HANDLER, cleanup);
+> > -
+> > -	TEST_PAUSE;
+> > -
+> > -	tst_tmpdir();
+> > -
+> >   	/* get some test specific values */
+> >   	maxfd = getdtablesize();
+> >   }
+> >
+> > -/*
+> > - * cleanup() - performs all ONE TIME cleanup for this test at
+> > - *	       completion or premature exit.
+> > - */
+> > -void cleanup(void)
+> > +static void run(unsigned int i)
+> >   {
+> > -	tst_rmdir();
+> > +	struct tcase *tc = tcases + i;
+> > +
+> > +	if (tc->setupfunc)
+> > +		tc->setupfunc();
+> 
+> tc->setupfunc always NULL so you can remove it directly.
+> 
+> > +
+> > +	TEST(dup2(*tc->ofd, *tc->nfd));
+> > +
+> > +	if (TST_RET == -1) {
+> > +		if (TST_ERR == tc->error)
+> > +			tst_res(TPASS, "failed as expected - errno = %d : %s",
+> > +				TST_ERR, strerror(TST_ERR));
+> > +		else
+> > +			tst_res(TFAIL | TTERRNO, "failed unexpectedly; "
+> > +				"expected %d: %s", tc->error,
+> > +				strerror(tc->error));
+> > +	} else
+> > +		tst_res(TFAIL, "call succeeded unexpectedly");
+> It is simpler to call TST_EXP_FAIL2() here.
+> >   }
+> > +
+> > +static struct tst_test test = {
+> > +	.needs_tmpdir = 1,
+> 
+> It seems that we don't need any temp file.
+> 
+> Best Regards,
+> 
+> Xiao Yang
+> 
+> > +	.tcnt = ARRAY_SIZE(tcases),
+> > +	.test = run,
+> > +	.setup = setup,
+> > +};
 
---000000000000d55c6305cb63289f
-Content-Type: text/plain; charset="UTF-8"
+Thank you for the comments.
+I will make a v2 patch.
 
-On Tue, Sep 7, 2021 at 4:40 AM Li Wang <liwang@redhat.com> wrote:
-
-> Ping~
->
-> This patch is only to increase the test blocks to make it robust,
-> it's no harmful and actually changes nothing from code logic.
->
-
-Acked-by: Jan Stancek <jstancek@redhat.com>
-
---000000000000d55c6305cb63289f
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-family:monospace"><br></div></div><br><div class=3D"gmail_quote"><div dir=
-=3D"ltr" class=3D"gmail_attr">On Tue, Sep 7, 2021 at 4:40 AM Li Wang &lt;<a=
- href=3D"mailto:liwang@redhat.com">liwang@redhat.com</a>&gt; wrote:<br></di=
-v><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;borde=
-r-left:1px solid rgb(204,204,204);padding-left:1ex"><div dir=3D"ltr"><div d=
-ir=3D"ltr"><div style=3D"font-size:small">Ping~</div><div style=3D"font-siz=
-e:small"><br></div><div style=3D"font-size:small">This patch is only to inc=
-rease the test blocks to make it robust,</div><div style=3D"font-size:small=
-">it&#39;s no harmful and actually changes nothing from code logic.</div></=
-div></div></blockquote><div><br></div><div><div>Acked-by: Jan Stancek &lt;<=
-a href=3D"mailto:jstancek@redhat.com">jstancek@redhat.com</a>&gt;</div></di=
-v></div></div>
-
---000000000000d55c6305cb63289f--
-
-
---===============1592922363==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Qi
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============1592922363==--
-
