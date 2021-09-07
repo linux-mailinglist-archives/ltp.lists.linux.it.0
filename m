@@ -2,63 +2,64 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 107414027CB
-	for <lists+linux-ltp@lfdr.de>; Tue,  7 Sep 2021 13:32:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E37BC4027D5
+	for <lists+linux-ltp@lfdr.de>; Tue,  7 Sep 2021 13:32:56 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 03FE83C973C
-	for <lists+linux-ltp@lfdr.de>; Tue,  7 Sep 2021 13:32:36 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 92A183C8A2E
+	for <lists+linux-ltp@lfdr.de>; Tue,  7 Sep 2021 13:32:56 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 10ACE3C231C
- for <ltp@lists.linux.it>; Tue,  7 Sep 2021 13:32:25 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 61AEA3C05A0
+ for <ltp@lists.linux.it>; Tue,  7 Sep 2021 13:32:24 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 3E0DC600C97
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 49DA9600CFA
  for <ltp@lists.linux.it>; Tue,  7 Sep 2021 13:32:24 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 966381FF72
+ by smtp-out1.suse.de (Postfix) with ESMTPS id ACB05220E2
  for <ltp@lists.linux.it>; Tue,  7 Sep 2021 11:32:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1631014343; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Bj4HvapsdhHQ0pekipTeU3ajfJCpC18wAn8QRoExi90=;
- b=bYj1A/ccecEooniYupBiTHTwsZ3+7ZhbEexnXoiFw1be7NOAVQ525qQHx+G6j6cNqfgY4m
- zrwK3akhpmhXqoY924bfT4IHKqO98QXaEldTzFeCLRP6PMAtrl3V0fu7Wja7UaisEbWzgr
- +EGRNM8dYm3ChcW5wOvpHPPAsWScYIc=
+ bh=Zr0ya0iAdm/B+4BKD88qtNDG6HaYAn0UOWnoVsiziLw=;
+ b=ff4LhnA09AVDTFd1VlxSrZev82Xrgw9pxmbGauudADcfPEE+8QxCXe8GkzH7l73PAEe5yb
+ gYvbb3TVQZPCHAp3DO/ts3dLAiqbA/IJaDBoFfKbPEtSfl3CbY4cdag9eebcax+J70s9Vl
+ i2nx3/R3loiTsdoTTTHKK0jxYSX8lJk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1631014343;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Bj4HvapsdhHQ0pekipTeU3ajfJCpC18wAn8QRoExi90=;
- b=OEtEEqRJZ6kAJN3Z00xMZC5/iX6SKClBu6izR8J6JO1jGGhs1UvK0nxGKooGpOikRD/6i6
- kKFfjGGGRGCLJ/AA==
+ bh=Zr0ya0iAdm/B+4BKD88qtNDG6HaYAn0UOWnoVsiziLw=;
+ b=YfDoPPAYChd0OTyCLPiAdrv1uLdZJnntfF0cg3+RoJFUrruw0EKfmyGkzqPC2wB3m8R4fA
+ wGjGD1uXhNlyGTDw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 84A7013C59
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9AB1113C59
  for <ltp@lists.linux.it>; Tue,  7 Sep 2021 11:32:23 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id +AVbH8dNN2EyBQAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id sNXDJMdNN2EyBQAAMHmgww
  (envelope-from <mdoucha@suse.cz>)
  for <ltp@lists.linux.it>; Tue, 07 Sep 2021 11:32:23 +0000
 From: Martin Doucha <mdoucha@suse.cz>
 To: ltp@lists.linux.it
-Date: Tue,  7 Sep 2021 13:32:19 +0200
-Message-Id: <20210907113222.5156-2-mdoucha@suse.cz>
+Date: Tue,  7 Sep 2021 13:32:20 +0200
+Message-Id: <20210907113222.5156-3-mdoucha@suse.cz>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20210907113222.5156-1-mdoucha@suse.cz>
 References: <20210907113222.5156-1-mdoucha@suse.cz>
@@ -69,7 +70,8 @@ X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 2/5] syscalls/kill05: Use any two unprivileged users
+Subject: [LTP] [PATCH v2 3/5] syscalls/mkdir04: Simplify test and use any
+ existing users
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,81 +88,79 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Usernames such as "bin" may not exist on some systems. Find and use any two
-unprivileged user IDs for the test instead of specific named users.
-
-Includes minor code style cleanup in wait_for_flag().
+mkdir04 does not need to fork() in setup(). Usernames such as "bin" may not
+exist on some systems. Find and use any two unprivileged users instead of
+specific named users.
 
 Signed-off-by: Martin Doucha <mdoucha@suse.cz>
 ---
 
 Changes since v1: Update to new tst_uid API
 
- testcases/kernel/syscalls/kill/kill05.c | 20 +++++++-------------
- 1 file changed, 7 insertions(+), 13 deletions(-)
+ testcases/kernel/syscalls/mkdir/mkdir04.c | 28 +++++------------------
+ 1 file changed, 6 insertions(+), 22 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/kill/kill05.c b/testcases/kernel/syscalls/kill/kill05.c
-index e694126f6..8ec71be49 100644
---- a/testcases/kernel/syscalls/kill/kill05.c
-+++ b/testcases/kernel/syscalls/kill/kill05.c
-@@ -24,8 +24,9 @@
- #include "libnewipc.h"
- #include "tst_safe_sysv_ipc.h"
- #include "tst_safe_macros.h"
+diff --git a/testcases/kernel/syscalls/mkdir/mkdir04.c b/testcases/kernel/syscalls/mkdir/mkdir04.c
+index 87512a4be..bc060f3b5 100644
+--- a/testcases/kernel/syscalls/mkdir/mkdir04.c
++++ b/testcases/kernel/syscalls/mkdir/mkdir04.c
+@@ -8,19 +8,14 @@
+  */
+ 
+ #include <errno.h>
+-#include <sys/stat.h>
+ #include <sys/types.h>
+ #include <pwd.h>
+-#include <sys/wait.h>
+-#include <unistd.h>
+-#include <stdlib.h>
+ #include "tst_test.h"
 +#include "tst_uid.h"
  
+ #define TESTDIR	 "testdir"
+ #define TESTSUBDIR "testdir/testdir"
+ 
 -static uid_t nobody_uid, bin_uid;
-+static uid_t test_users[2];
- static int *flag;
- static int shm_id = -1;
- static key_t shm_key;
-@@ -35,8 +36,8 @@ static void wait_for_flag(int value)
- 	while (1) {
- 		if (*flag == value)
- 			break;
--		else
--			usleep(100);
-+
-+		usleep(100);
- 	}
- }
- 
-@@ -47,14 +48,14 @@ static void do_master_child(void)
- 	*flag = 0;
- 	pid1 = SAFE_FORK();
- 	if (pid1 == 0) {
--		SAFE_SETREUID(nobody_uid, nobody_uid);
-+		SAFE_SETREUID(test_users[0], test_users[0]);
- 		*flag = 1;
- 		wait_for_flag(2);
- 
- 		exit(0);
- 	}
- 
--	SAFE_SETREUID(bin_uid, bin_uid);
-+	SAFE_SETREUID(test_users[1], test_users[1]);
- 	wait_for_flag(1);
- 	TEST(kill(pid1, SIGKILL));
- 
-@@ -85,17 +86,10 @@ static void verify_kill(void)
+-
+ static void verify_mkdir(void)
+ {
+ 	if (mkdir(TESTSUBDIR, 0777) != -1) {
+@@ -39,24 +34,14 @@ static void verify_mkdir(void)
  
  static void setup(void)
  {
 -	struct passwd *pw;
--
- 	shm_key = GETIPCKEY();
- 	shm_id = SAFE_SHMGET(shm_key, getpagesize(), 0666 | IPC_CREAT);
- 	flag = SAFE_SHMAT(shm_id, 0, 0);
+-	pid_t pid;
 -
 -	pw = SAFE_GETPWNAM("nobody");
 -	nobody_uid = pw->pw_uid;
--
 -	pw = SAFE_GETPWNAM("bin");
 -	bin_uid = pw->pw_uid;
++	uid_t test_users[2];
+ 
+-	pid = SAFE_FORK();
+-	if (pid == 0) {
+-		SAFE_SETREUID(nobody_uid, nobody_uid);
+-		SAFE_MKDIR(TESTDIR, 0700);
+-		exit(0);
+-	}
 +	tst_get_uids(test_users, 0, 2);
+ 
+-	tst_reap_children();
++	SAFE_MKDIR(TESTDIR, 0700);
++	SAFE_CHOWN(TESTDIR, test_users[0], getgid());
+ 
+-	SAFE_SETREUID(bin_uid, bin_uid);
++	SAFE_SETREUID(test_users[1], test_users[1]);
  }
  
- static void cleanup(void)
+ static struct tst_test test = {
+@@ -64,5 +49,4 @@ static struct tst_test test = {
+ 	.needs_tmpdir = 1,
+ 	.needs_root = 1,
+ 	.setup = setup,
+-	.forks_child = 1,
+ };
 -- 
 2.33.0
 
