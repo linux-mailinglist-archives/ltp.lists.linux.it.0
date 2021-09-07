@@ -2,79 +2,51 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2907040BEC1
-	for <lists+linux-ltp@lfdr.de>; Wed, 15 Sep 2021 06:13:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 830BA40C1AC
+	for <lists+linux-ltp@lfdr.de>; Wed, 15 Sep 2021 10:25:47 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2FE273CA4DB
-	for <lists+linux-ltp@lfdr.de>; Wed, 15 Sep 2021 06:13:47 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 505163C9185
+	for <lists+linux-ltp@lfdr.de>; Wed, 15 Sep 2021 10:25:46 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id B680D3C1E0C
- for <ltp@lists.linux.it>; Wed, 15 Sep 2021 06:13:43 +0200 (CEST)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ by picard.linux.it (Postfix) with ESMTPS id 414B13C231C
+ for <ltp@lists.linux.it>; Wed, 15 Sep 2021 03:44:09 +0200 (CEST)
+Received: from unicom146.biz-email.net (unicom146.biz-email.net
+ [210.51.26.146])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 4264714012AE
- for <ltp@lists.linux.it>; Wed, 15 Sep 2021 06:13:41 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1631679220;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=J3nRyv/Ok3qjxStVaiKh5u0TCwygkxDaH+vIVVw01eo=;
- b=b2NctqGun8zPbq0j++wWXENFoFiJKEROOW6s/uzQ0fJcB8bJyzVXkGlV5nn+tS48QdNwJt
- akSAvya7nJNB3skzFnapOy9V7O2AhEuPOzamc3NBiSee3UHnWgwziqT3rK5dYS2dubLz96
- JcHs9oiquk+DzcX/TWoUP9vS8G+7Wis=
-Received: from mail-yb1-f197.google.com (mail-yb1-f197.google.com
- [209.85.219.197]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-199-EgghIgqmNDOE5xTiRWM_eg-1; Wed, 15 Sep 2021 00:13:38 -0400
-X-MC-Unique: EgghIgqmNDOE5xTiRWM_eg-1
-Received: by mail-yb1-f197.google.com with SMTP id
- f8-20020a2585480000b02905937897e3daso2037695ybn.2
- for <ltp@lists.linux.it>; Tue, 14 Sep 2021 21:13:38 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=J3nRyv/Ok3qjxStVaiKh5u0TCwygkxDaH+vIVVw01eo=;
- b=i/vU1bKBJ6uGEtfdRNP6KtEIxBiYWGUlqzATXKDw9/hkrm6L8bIcPklGFfNwLRMkkQ
- nOdJypd5sntS334o6AhVPjFMAx3mWRhX7Agv8KyxlZBPcMXHevEF+7bPMcroZxWtq3xi
- LuFsEwaBtd8UF1sbuDsCtG2waLTtXnnXP08l/ACXkQAosc3bBuUKgsH57Tn1lJhI2hXd
- U/NkNilkKOK2/vGsSXJTxq8REFkG0I2CHIT7/1TY42qA3VIC0fzEaELj+thq71iOBoqY
- +3Oqyw5xH59D84B3FQpd3czhkr4FjboE08T3COmWK548f86i2Dl/XmbLlSFdOqSfpGD4
- 8Gjw==
-X-Gm-Message-State: AOAM531rkJUhWdY+vahA6kQEvkvPckbougeS45SUlhj17xR3iJfAotrN
- GwAb7JjexzmpfiOo+Y5TwsWeDmvegKuekFTOiP6a32tzMPcTQxw95+TKEuZpmvGsYCEdiG1bdHl
- QZZDBX37qrpzGl6wNORBI4XQtYh4=
-X-Received: by 2002:a5b:142:: with SMTP id c2mr3556101ybp.425.1631679218222;
- Tue, 14 Sep 2021 21:13:38 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJw7Bx/voMHy4mtJiMqvfeggpuFUZUeSbqTL6kcou4aCeih76652pbpmR776zcic6al0wKEBr9U537TyHavcC/k=
-X-Received: by 2002:a5b:142:: with SMTP id c2mr3556091ybp.425.1631679218026;
- Tue, 14 Sep 2021 21:13:38 -0700 (PDT)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 60097201026
+ for <ltp@lists.linux.it>; Wed, 15 Sep 2021 03:44:05 +0200 (CEST)
+Received: from ([60.208.111.195])
+ by unicom146.biz-email.net ((LNX1044)) with ASMTP (SSL) id IAG00059
+ for <ltp@lists.linux.it>; Wed, 15 Sep 2021 09:43:59 +0800
+Received: from localhost.localdomain (10.200.104.119) by
+ jtjnmail201603.home.langchao.com (10.100.2.3) with Microsoft SMTP Server id
+ 15.1.2308.14; Wed, 15 Sep 2021 09:44:00 +0800
+From: songkai <songkai01@inspur.com>
+To: <ltp@lists.linux.it>
+Date: Tue, 7 Sep 2021 19:57:46 -0400
+Message-ID: <20210907235746.112665-1-songkai01@inspur.com>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-References: <20210914150220.2467-1-chrubis@suse.cz>
-In-Reply-To: <20210914150220.2467-1-chrubis@suse.cz>
-From: Li Wang <liwang@redhat.com>
-Date: Wed, 15 Sep 2021 12:13:26 +0800
-Message-ID: <CAEemH2cfT85O5HFPwG1d1Fso+JQBPi2h+cNFKRxhgsmW2j8f4w@mail.gmail.com>
-To: Cyril Hrubis <chrubis@suse.cz>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Originating-IP: [10.200.104.119]
+tUid: 2021915094359bfdc9f88e381e67e47b2e42262fafab6
+X-Abuse-Reports-To: service@corp-email.com
+Abuse-Reports-To: service@corp-email.com
+X-Complaints-To: service@corp-email.com
+X-Report-Abuse-To: service@corp-email.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] lib: tst_virt: Add option to override virt
- detection
+X-Spam-Status: No, score=2.1 required=7.0 tests=DATE_IN_PAST_96_XX,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Level: **
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+X-Mailman-Approved-At: Wed, 15 Sep 2021 10:25:42 +0200
+Subject: [LTP] [PATCH] Fix the statistical number of results in the html
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,69 +58,128 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============0844000334=="
+Cc: wangkaiyuan@inspur.com, songkai01@inspur.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0844000334==
-Content-Type: multipart/alternative; boundary="0000000000002da0cf05cc00ec1f"
+From: wangkaiyuan <wangkaiyuan@inspur.com>
 
---0000000000002da0cf05cc00ec1f
-Content-Type: text/plain; charset="UTF-8"
+According to the statistical method of ltp-pan on TFAIL TBROK TCONF
+TPASS..., the statistical method of the ltp test result type in 
+genhtml.pl is modified to ensure that the .log format of the ltp 
+result is consistent with the test result in the .html format.
 
-On Tue, Sep 14, 2021 at 11:02 PM Cyril Hrubis <chrubis@suse.cz> wrote:
+The original statistical method policy expression "/\ TFAIL\ /" in 
+the original genhtml.pl for the test result type cannot match the 
+"TFAIL:" in the normal test result, causing problems in the 
+calculation result. At the same time, the statistical method in 
+genhtml.pl cannot guarantee that each test item has only one test 
+result, because the output of a test item may include TFAIL, TCONF,
+and TPASS at the same time.
 
-> There seems to be cases where systemd-detect-virt does not detect
-> virtualization correctly. To work around this bugs this commit adds a
-> a support for LTP_VIRT_OVERRIDE environment variable that if set is used
-> instead of the output from the systemd-detect-virt command.
->
-> Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
->
+Signed-off-by: wangkaiyuan <wangkaiyuan@inspur.com> 
+               Chunsing.dey <daichx@inspur.com>
+---
+ tools/genhtml.pl | 52 ++++++++++++++++++++----------------------------
+ 1 file changed, 22 insertions(+), 30 deletions(-)
+ mode change 100644 => 100755 tools/genhtml.pl
 
-Reviewed-by: Li Wang <liwang@redhat.com>
-
+diff --git a/tools/genhtml.pl b/tools/genhtml.pl
+old mode 100644
+new mode 100755
+index 7e9bdd471..1f440b4fa
+--- a/tools/genhtml.pl
++++ b/tools/genhtml.pl
+@@ -50,6 +50,7 @@ my $retr_test_counter       = 0;
+ my $retr_test_counter_flag  = 0;
+ my $conf_test_counter       = 0;
+ my $conf_test_counter_flag  = 0;
++my $test_passed = 0;
+ 
+ my $detected_fail = 0;
+ my $detected_pass = 0;
+@@ -115,7 +116,7 @@ foreach my $file (@ARGV) {
+ 		if ($line =~ /$end_tag/) {
+                         print "$row_line";
+ 			$process_line  = 0;
+-                        $flag  = 0;             $flag2 = 0;            $flag3 = 0;            $flag4 = 0;
++                        $flag  = 0;             $flag2 = 0;            $flag3 = 0;            $flag4 = 0;            $flag5 = 0;
+                         $detected_fail = 0;     $detected_pass = 0;    $detected_warn = 0;    $detected_brok = 0;    $detected_retr = 0;    $detected_conf = 0;
+                         $background_colour = 0; $failed_test_counter_flag = 0; $brok_test_counter_flag = 0; $warn_test_counter_flag = 0; $retr_test_counter_flag = 0; $conf_test_counter_flag = 0;  $row_line= "";
+ 		}
+@@ -175,39 +176,31 @@ foreach my $file (@ARGV) {
+                              $flag2 = 0;
+                              $flag3 = 1;
+                              $flag4 = 1;
++			     $flag5 = 1;
+                              $row_line = $row_line . "</strong></pre></td>";
+                         }
+-                        if ( $flag2 == 1 ) {
++			if ( $flag2 == 1 ) {
+ 			    $row_line = $row_line . "$line \n";
+-			    if ($line =~ /\ TFAIL\ / ) {
+-				$detected_fail = 1;
+-				if ( $failed_test_counter_flag == 0 ) {
+-				    $failed_test_counter++;
+-				    $failed_test_counter_flag=1;
+-				}
+-			    } elsif ($line =~ /\ TBROK\ / ) {
+-				$detected_brok = 1;
+-				if ( $brok_test_counter_flag == 0 ) {
+-				    $brok_test_counter++;
+-				    $brok_test_counter_flag=1;
+-				}
+-			    } elsif ($line =~ /\ TWARN\ / ) {
+-				$detected_warn = 1;
+-				if ( $warn_test_counter_flag == 0 ) {
+-				    $warn_test_counter++;
+-				    $warn_test_counter_flag=1;
+-				}
+-			    } elsif ($line =~ /\ TCONF\ / ) {
+-				$detected_conf = 1;
+-				if ( $conf_test_counter_flag == 0 ) {
+-				    $conf_test_counter++;
+-				    $conf_test_counter_flag=1;
+-				}
+-                             } else {
++			}
++                        if ( $flag5 == 1 ) {
++                            if ($line =~  "termination_id=1" ) {
++                                $detected_fail = 1;
++                                $failed_test_counter++;
++                            } elsif ($line =~ "termination_id=2" ) {
++                                $detected_brok = 1;
++                                $brok_test_counter++;
++                            } elsif ($line =~ "termination_id=4" ) {
++                                $detected_warn = 1;
++                                $warn_test_counter++;
++                            } elsif ($line =~ "termination_id=32" ) {
++                                $detected_conf = 1;
++                                $conf_test_counter++;
++                            } elsif ($line =~ "termination_id=0" ) {
+                                  $detected_pass = 1;
+-                             }
++                                 $test_passed++;
++                            }
+                         }
+-                        if ( $line =~ /$output_tag/ ) {
++			if ( $line =~ /$output_tag/ ) {
+                              $flag2 = 1;
+                              $row_line = $row_line . "<td><pre><strong>";
+                         }
+@@ -233,7 +226,6 @@ print "<tr><td><strong>Output/Failed Result</strong></td><td><a href=\"file://$E
+ print "<tr><td><strong>Total Tests</strong></td><td><strong>";
+ $test_counter--;
+ print "$test_counter                         </strong></td></tr>\n";
+-$test_passed=$test_counter-$failed_test_counter-$brok_test_counter-$warn_test_counter-$retr_test_counter-$conf_test_counter;
+ print "<tr><td><strong>Total Test TPASS:</strong></td><td><strong> $test_passed </strong></td></tr>\n";
+ print "<tr><td><strong>Total Test TFAIL:</strong></td><td><strong> $failed_test_counter </strong></td></tr>\n";
+ print "<tr><td><strong>Total Test TBROK</strong></td><td><strong> $brok_test_counter </strong></td></tr>\n";
 -- 
-Regards,
-Li Wang
-
---0000000000002da0cf05cc00ec1f
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Tue, Sep 14, 2021 at 11:02 PM Cyril Hrubis &lt;<=
-a href=3D"mailto:chrubis@suse.cz">chrubis@suse.cz</a>&gt; wrote:<br></div><=
-blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-l=
-eft:1px solid rgb(204,204,204);padding-left:1ex">There seems to be cases wh=
-ere systemd-detect-virt does not detect<br>
-virtualization correctly. To work around this bugs this commit adds a<br>
-a support for LTP_VIRT_OVERRIDE environment variable that if set is used<br=
->
-instead of the output from the systemd-detect-virt command.<br>
-<br>
-Signed-off-by: Cyril Hrubis &lt;<a href=3D"mailto:chrubis@suse.cz" target=
-=3D"_blank">chrubis@suse.cz</a>&gt;<br></blockquote><div><br></div><div cla=
-ss=3D"gmail_default" style=3D"font-size:small">Reviewed-by: Li Wang &lt;<a =
-href=3D"mailto:liwang@redhat.com" target=3D"_blank">liwang@redhat.com</a>&g=
-t;</div></div><div><br></div>-- <br><div dir=3D"ltr" class=3D"gmail_signatu=
-re"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div></div></d=
-iv></div>
-
---0000000000002da0cf05cc00ec1f--
-
-
---===============0844000334==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+2.27.0
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============0844000334==--
-
