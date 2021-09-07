@@ -1,75 +1,77 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAD934027D0
-	for <lists+linux-ltp@lfdr.de>; Tue,  7 Sep 2021 13:32:48 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 018FA4027DA
+	for <lists+linux-ltp@lfdr.de>; Tue,  7 Sep 2021 13:33:11 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 080063C8A2A
-	for <lists+linux-ltp@lfdr.de>; Tue,  7 Sep 2021 13:32:48 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 6C6063C973A
+	for <lists+linux-ltp@lfdr.de>; Tue,  7 Sep 2021 13:33:10 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 224113C05A0
+ by picard.linux.it (Postfix) with ESMTPS id 4D35D3C05A0
  for <ltp@lists.linux.it>; Tue,  7 Sep 2021 13:32:25 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 482AA600CF8
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 5E47F1A010ED
  for <ltp@lists.linux.it>; Tue,  7 Sep 2021 13:32:24 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id C811E220E6
+ by smtp-out2.suse.de (Postfix) with ESMTPS id EE4D71FF73
  for <ltp@lists.linux.it>; Tue,  7 Sep 2021 11:32:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1631014343; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=znvsJUoL4A7bxBPbKUJ/KrLocK3J8K+g8rMZR1NokDk=;
- b=BQGeIcXJgE5EQFpT5Yjq+tH02tD6MCXqK+itYERf6Yw3P0ZyIT/H7gqnvjjHTYQhYFZTma
- lDFP72czWqgmHSkAVp0EEgYoqGDM1gnca6C6IhAWiyMWivABCXpxKEpVknrq5Rv3MYwXmI
- dSEl7i01sYzn6XOcKfrI1kNtzdCih5E=
+ bh=uhocCpM9RNaF1SFakOabsIqX1gAARVGy1Pik7LkrYBc=;
+ b=iRaisOLKH1Wl/b9M1a6Gv5HXWiY+2YanV9wKSSHgeGYVfyf9q1x//OQPy0UNfK8Wnx6Gex
+ RD49l3TN0z0q/0piJ23zcADpW6WedL31aGg9DSq0iFettv31J6S6oIWWEnstNnIUT+msRu
+ CVzLF1pRfZWVHhluQQ73+GDRCJJ9xEU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1631014343;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=znvsJUoL4A7bxBPbKUJ/KrLocK3J8K+g8rMZR1NokDk=;
- b=uUV8lwDu+0Klft2Pl195m1c7bNoO74nB4LjJ1yXbyZXGCcxTaCaeLph3dfO582abvRGY87
- 6L2FnYqRj8KRglBg==
+ bh=uhocCpM9RNaF1SFakOabsIqX1gAARVGy1Pik7LkrYBc=;
+ b=qgRKysNSUbuW15pxN/RObOQnB/NPiEpzG8tOmhRN4mPimFAfQz1ni/5bSaxBgirCGXauwy
+ c1Uhp85rsQvanPBw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B2AC213C59
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CCC0413C6F
  for <ltp@lists.linux.it>; Tue,  7 Sep 2021 11:32:23 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id QORvKsdNN2EyBQAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id mDL/MMdNN2EyBQAAMHmgww
  (envelope-from <mdoucha@suse.cz>)
  for <ltp@lists.linux.it>; Tue, 07 Sep 2021 11:32:23 +0000
 From: Martin Doucha <mdoucha@suse.cz>
 To: ltp@lists.linux.it
-Date: Tue,  7 Sep 2021 13:32:21 +0200
-Message-Id: <20210907113222.5156-4-mdoucha@suse.cz>
+Date: Tue,  7 Sep 2021 13:32:22 +0200
+Message-Id: <20210907113222.5156-5-mdoucha@suse.cz>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20210907113222.5156-1-mdoucha@suse.cz>
 References: <20210907113222.5156-1-mdoucha@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 4/5] syscalls/setregid02-04: Simplify GID handling
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 5/5] syscalls/setregid02-04: Eliminate named group
+ lookups
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,336 +88,210 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+Group names like "bin" or "daemon" may not exist on some systems. Find and use
+any unprivieged group IDs instead of specific named groups.
+
 Signed-off-by: Martin Doucha <mdoucha@suse.cz>
 ---
 
-Changes since v1: None
+Changes since v1: Update to new tst_uid API
 
- .../kernel/syscalls/setregid/setregid02.c     | 48 +++++++---------
- .../kernel/syscalls/setregid/setregid03.c     | 57 ++++++++-----------
- .../kernel/syscalls/setregid/setregid04.c     | 42 +++++++-------
- 3 files changed, 61 insertions(+), 86 deletions(-)
+ .../kernel/syscalls/setregid/setregid02.c     | 33 +++++++--------
+ .../kernel/syscalls/setregid/setregid03.c     | 40 +++++++++----------
+ .../kernel/syscalls/setregid/setregid04.c     | 16 +++++---
+ 3 files changed, 43 insertions(+), 46 deletions(-)
 
 diff --git a/testcases/kernel/syscalls/setregid/setregid02.c b/testcases/kernel/syscalls/setregid/setregid02.c
-index 310eb3a21..2174f81f9 100644
+index 2174f81f9..0210f485a 100644
 --- a/testcases/kernel/syscalls/setregid/setregid02.c
 +++ b/testcases/kernel/syscalls/setregid/setregid02.c
-@@ -19,12 +19,10 @@
+@@ -17,6 +17,7 @@
+ #include <stdlib.h>
+ 
  #include "tst_test.h"
++#include "tst_uid.h"
  #include "compat_tst_16.h"
  
--static gid_t neg_one = -1;
-+static gid_t root_gid, nobody_gid, other_gid, neg_one = -1;
- 
- static struct passwd *ltpuser;
- 
--static struct group ltpgroup, root, bin;
--
- /*
-  * The following structure contains all test data.  Each structure in the array
-  * is used for a separate test.  The tests are executed in the for loop below.
-@@ -34,50 +32,41 @@ static struct tcase {
- 	gid_t *real_gid;
- 	gid_t *eff_gid;
- 	int exp_errno;
--	struct group *exp_real_usr;
--	struct group *exp_eff_usr;
-+	gid_t *exp_real_usr;
-+	gid_t *exp_eff_usr;
- 	char *test_msg;
- } tcases[] = {
- 	{
--	&neg_one, &root.gr_gid, EPERM, &ltpgroup, &ltpgroup,
-+	&neg_one, &root_gid, EPERM, &nobody_gid, &nobody_gid,
+ static gid_t root_gid, nobody_gid, other_gid, neg_one = -1;
+@@ -40,26 +41,17 @@ static struct tcase {
+ 	&neg_one, &root_gid, EPERM, &nobody_gid, &nobody_gid,
  		    "After setregid(-1, root),"}, {
--	&neg_one, &bin.gr_gid, EPERM, &ltpgroup, &ltpgroup,
-+	&neg_one, &other_gid, EPERM, &nobody_gid, &nobody_gid,
- 		    "After setregid(-1, bin)"}, {
--	&root.gr_gid, &neg_one, EPERM, &ltpgroup, &ltpgroup,
-+	&root_gid, &neg_one, EPERM, &nobody_gid, &nobody_gid,
+ 	&neg_one, &other_gid, EPERM, &nobody_gid, &nobody_gid,
+-		    "After setregid(-1, bin)"}, {
++		    "After setregid(-1, other)"}, {
+ 	&root_gid, &neg_one, EPERM, &nobody_gid, &nobody_gid,
  		    "After setregid(root,-1),"}, {
--	&bin.gr_gid, &neg_one, EPERM, &ltpgroup, &ltpgroup,
-+	&other_gid, &neg_one, EPERM, &nobody_gid, &nobody_gid,
- 		    "After setregid(bin, -1),"}, {
--	&root.gr_gid, &bin.gr_gid, EPERM, &ltpgroup, &ltpgroup,
-+	&root_gid, &other_gid, EPERM, &nobody_gid, &nobody_gid,
- 		    "After setregid(root, bin)"}, {
--	&bin.gr_gid, &root.gr_gid, EPERM, &ltpgroup, &ltpgroup,
-+	&other_gid, &root_gid, EPERM, &nobody_gid, &nobody_gid,
- 		    "After setregid(bin, root),"}
+ 	&other_gid, &neg_one, EPERM, &nobody_gid, &nobody_gid,
+-		    "After setregid(bin, -1),"}, {
++		    "After setregid(other, -1),"}, {
+ 	&root_gid, &other_gid, EPERM, &nobody_gid, &nobody_gid,
+-		    "After setregid(root, bin)"}, {
++		    "After setregid(root, other)"}, {
+ 	&other_gid, &root_gid, EPERM, &nobody_gid, &nobody_gid,
+-		    "After setregid(bin, root),"}
++		    "After setregid(other, root),"}
  };
  
--static struct group get_group_by_name(const char *name)
-+static gid_t get_group_by_name(const char *name)
- {
- 	struct group *ret = SAFE_GETGRNAM(name);
- 
- 	GID16_CHECK(ret->gr_gid, setregid);
- 
--	return *ret;
--}
--
--static struct group get_group_by_gid(gid_t gid)
+-static gid_t get_group_by_name(const char *name)
 -{
--	struct group *ret = SAFE_GETGRGID(gid);
+-	struct group *ret = SAFE_GETGRNAM(name);
 -
 -	GID16_CHECK(ret->gr_gid, setregid);
 -
--	return *ret;
-+	return ret->gr_gid;
- }
- 
--void gid_verify(struct group *rg, struct group *eg, char *when)
-+void gid_verify(gid_t rg, gid_t eg, char *when)
+-	return ret->gr_gid;
+-}
+-
+ void gid_verify(gid_t rg, gid_t eg, char *when)
  {
--	if ((getgid() != rg->gr_gid) || (getegid() != eg->gr_gid)) {
-+	if ((getgid() != rg) || (getegid() != eg)) {
- 		tst_res(TFAIL, "ERROR: %s real gid = %d; effective gid = %d",
- 			 when, getgid(), getegid());
- 		tst_res(TINFO, "Expected: real gid = %d; effective gid = %d",
--			 rg->gr_gid, eg->gr_gid);
-+			 rg, eg);
- 		return;
- 	}
- 
-@@ -107,7 +96,7 @@ static void run(unsigned int n)
- 			"setregid(%d, %d) did not fail (ret: %ld) as expected (ret: -1).",
- 			*tc->real_gid, *tc->eff_gid, TST_RET);
- 	}
--	gid_verify(tc->exp_real_usr, tc->exp_eff_usr, tc->test_msg);
-+	gid_verify(*tc->exp_real_usr, *tc->exp_eff_usr, tc->test_msg);
- }
+ 	if ((getgid() != rg) || (getegid() != eg)) {
+@@ -101,15 +93,20 @@ static void run(unsigned int n)
  
  static void setup(void)
-@@ -117,9 +106,10 @@ static void setup(void)
+ {
++	gid_t test_groups[3];
++
+ 	ltpuser = SAFE_GETPWNAM("nobody");
++	nobody_gid = test_groups[0] = ltpuser->pw_gid;
++	root_gid = test_groups[1] = getgid();
++	tst_get_gids(test_groups, 2, 3);
++	other_gid = test_groups[2];
++
++	GID16_CHECK(root_gid, setregid);
++	GID16_CHECK(nobody_gid, setregid);
++	GID16_CHECK(other_gid, setregid);
+ 
  	SAFE_SETGID(ltpuser->pw_gid);
  	SAFE_SETUID(ltpuser->pw_uid);
- 
--	root = get_group_by_name("root");
--	ltpgroup = get_group_by_gid(ltpuser->pw_gid);
--	bin = get_group_by_name("bin");
-+	nobody_gid = ltpuser->pw_gid;
-+	GID16_CHECK(nobody_gid, setregid);
-+	root_gid = get_group_by_name("root");
-+	other_gid = get_group_by_name("bin");
+-
+-	nobody_gid = ltpuser->pw_gid;
+-	GID16_CHECK(nobody_gid, setregid);
+-	root_gid = get_group_by_name("root");
+-	other_gid = get_group_by_name("bin");
  }
  
  static struct tst_test test = {
 diff --git a/testcases/kernel/syscalls/setregid/setregid03.c b/testcases/kernel/syscalls/setregid/setregid03.c
-index e25a7ec72..35aa92b8e 100644
+index 35aa92b8e..334aceb04 100644
 --- a/testcases/kernel/syscalls/setregid/setregid03.c
 +++ b/testcases/kernel/syscalls/setregid/setregid03.c
-@@ -16,72 +16,61 @@
+@@ -12,6 +12,7 @@
+ #include <pwd.h>
+ 
+ #include "tst_test.h"
++#include "tst_uid.h"
+ #include "compat_tst_16.h"
  
  static int fail = -1;
- static int pass;
--static gid_t neg_one = -1;
-+static gid_t primary_gid, secondary_gid, neg_one = -1;
- 
--struct group nobody_gr, daemon_gr, root_gr, bin_gr;
- struct passwd nobody;
- 
- struct tcase {
- 	gid_t *real_gid;
- 	gid_t *eff_gid;
- 	int *exp_ret;
--	struct group *exp_real_usr;
--	struct group *exp_eff_usr;
-+	gid_t *exp_real_usr;
-+	gid_t *exp_eff_usr;
- 	char *test_msg;
+@@ -30,44 +31,39 @@ struct tcase {
  } tcases[] = {
  	{
--	&daemon_gr.gr_gid, &bin_gr.gr_gid, &pass, &daemon_gr, &bin_gr,
-+	&primary_gid, &secondary_gid, &pass, &primary_gid, &secondary_gid,
- 		    "After setregid(daemon, bin),"}, {
--	&neg_one, &daemon_gr.gr_gid, &pass, &daemon_gr, &daemon_gr,
-+	&neg_one, &primary_gid, &pass, &primary_gid, &primary_gid,
- 		    "After setregid(-1, daemon)"}, {
--	&neg_one, &bin_gr.gr_gid, &pass, &daemon_gr, &bin_gr,
-+	&neg_one, &secondary_gid, &pass, &primary_gid, &secondary_gid,
- 		    "After setregid(-1, bin),"}, {
--	&bin_gr.gr_gid, &neg_one, &pass, &bin_gr, &bin_gr,
-+	&secondary_gid, &neg_one, &pass, &secondary_gid, &secondary_gid,
- 		    "After setregid(bin, -1),"}, {
--	&neg_one, &neg_one, &pass, &bin_gr, &bin_gr,
-+	&neg_one, &neg_one, &pass, &secondary_gid, &secondary_gid,
+ 	&primary_gid, &secondary_gid, &pass, &primary_gid, &secondary_gid,
+-		    "After setregid(daemon, bin),"}, {
++		    "After setregid(primary, secondary),"}, {
+ 	&neg_one, &primary_gid, &pass, &primary_gid, &primary_gid,
+-		    "After setregid(-1, daemon)"}, {
++		    "After setregid(-1, primary)"}, {
+ 	&neg_one, &secondary_gid, &pass, &primary_gid, &secondary_gid,
+-		    "After setregid(-1, bin),"}, {
++		    "After setregid(-1, secondary),"}, {
+ 	&secondary_gid, &neg_one, &pass, &secondary_gid, &secondary_gid,
+-		    "After setregid(bin, -1),"}, {
++		    "After setregid(secondary, -1),"}, {
+ 	&neg_one, &neg_one, &pass, &secondary_gid, &secondary_gid,
  		    "After setregid(-1, -1),"}, {
--	&neg_one, &bin_gr.gr_gid, &pass, &bin_gr, &bin_gr,
-+	&neg_one, &secondary_gid, &pass, &secondary_gid, &secondary_gid,
- 		    "After setregid(-1, bin),"}, {
--	&bin_gr.gr_gid, &neg_one, &pass, &bin_gr, &bin_gr,
-+	&secondary_gid, &neg_one, &pass, &secondary_gid, &secondary_gid,
- 		    "After setregid(bin, -1),"}, {
--	&bin_gr.gr_gid, &bin_gr.gr_gid, &pass, &bin_gr, &bin_gr,
-+	&secondary_gid, &secondary_gid, &pass, &secondary_gid, &secondary_gid,
- 		    "After setregid(bin, bin),"}, {
--	&daemon_gr.gr_gid, &neg_one, &fail, &bin_gr, &bin_gr,
-+	&primary_gid, &neg_one, &fail, &secondary_gid, &secondary_gid,
- 		    "After setregid(daemon, -1)"}, {
--	&neg_one, &daemon_gr.gr_gid, &fail, &bin_gr, &bin_gr,
-+	&neg_one, &primary_gid, &fail, &secondary_gid, &secondary_gid,
- 		    "After setregid(-1, daemon)"}, {
--	&daemon_gr.gr_gid, &daemon_gr.gr_gid, &fail, &bin_gr, &bin_gr,
-+	&primary_gid, &primary_gid, &fail, &secondary_gid, &secondary_gid,
- 		    "After setregid(daemon, daemon)"},};
- 
- 
--static struct group get_group_fallback(const char *gr1, const char *gr2)
+ 	&neg_one, &secondary_gid, &pass, &secondary_gid, &secondary_gid,
+-		    "After setregid(-1, bin),"}, {
++		    "After setregid(-1, secondary),"}, {
+ 	&secondary_gid, &neg_one, &pass, &secondary_gid, &secondary_gid,
+-		    "After setregid(bin, -1),"}, {
++		    "After setregid(secondary, -1),"}, {
+ 	&secondary_gid, &secondary_gid, &pass, &secondary_gid, &secondary_gid,
+-		    "After setregid(bin, bin),"}, {
++		    "After setregid(secondary, secondary),"}, {
+ 	&primary_gid, &neg_one, &fail, &secondary_gid, &secondary_gid,
+-		    "After setregid(daemon, -1)"}, {
++		    "After setregid(primary, -1)"}, {
+ 	&neg_one, &primary_gid, &fail, &secondary_gid, &secondary_gid,
+-		    "After setregid(-1, daemon)"}, {
++		    "After setregid(-1, primary)"}, {
+ 	&primary_gid, &primary_gid, &fail, &secondary_gid, &secondary_gid,
+-		    "After setregid(daemon, daemon)"},};
+-
+-
+-static gid_t get_group(const char *group)
 -{
 -	struct group *junk;
 -
--	junk = SAFE_GETGRNAM_FALLBACK(gr1, gr2);
+-	junk = SAFE_GETGRNAM(group);
 -	GID16_CHECK(junk->gr_gid, setregid);
--	return *junk;
+-	return junk->gr_gid;
 -}
--
--static struct group get_group(const char *group)
-+static gid_t get_group(const char *group)
- {
- 	struct group *junk;
- 
- 	junk = SAFE_GETGRNAM(group);
- 	GID16_CHECK(junk->gr_gid, setregid);
--	return *junk;
-+	return junk->gr_gid;
- }
++		    "After setregid(primary, primary)"},};
  
  static void setup(void)
  {
++	gid_t test_groups[2];
++
  	nobody = *SAFE_GETPWNAM("nobody");
  
--	nobody_gr = get_group_fallback("nobody", "nogroup");
--	daemon_gr = get_group("daemon");
--	bin_gr = get_group("bin");
-+	primary_gid = get_group("daemon");
-+	secondary_gid = get_group("bin");
+-	primary_gid = get_group("daemon");
+-	secondary_gid = get_group("bin");
++	tst_get_gids(test_groups, 0, 2);
++	primary_gid = test_groups[0];
++	secondary_gid = test_groups[1];
++	GID16_CHECK(primary_gid, setregid);
++	GID16_CHECK(secondary_gid, setregid);
  
  	/* set the appropriate ownership values */
--	SAFE_SETREGID(daemon_gr.gr_gid, bin_gr.gr_gid);
-+	SAFE_SETREGID(primary_gid, secondary_gid);
- 	SAFE_SETEUID(nobody.pw_uid);
- }
- 
-@@ -109,13 +98,13 @@ static void test_failure(struct tcase *tc)
- 			*tc->real_gid, *tc->eff_gid);
- }
- 
--static void gid_verify(struct group *rg, struct group *eg, char *when)
-+static void gid_verify(gid_t rg, gid_t eg, char *when)
- {
--	if ((getgid() != rg->gr_gid) || (getegid() != eg->gr_gid)) {
-+	if ((getgid() != rg) || (getegid() != eg)) {
- 		tst_res(TFAIL, "ERROR: %s real gid = %d; effective gid = %d",
- 			 when, getgid(), getegid());
- 		tst_res(TINFO, "Expected: real gid = %d; effective gid = %d",
--			 rg->gr_gid, eg->gr_gid);
-+			 rg, eg);
- 	} else {
- 		tst_res(TPASS,
- 			"real or effective gid was modified as expected");
-@@ -134,7 +123,7 @@ static void run(unsigned int i)
- 	else
- 		test_failure(tc);
- 
--	gid_verify(tc->exp_real_usr, tc->exp_eff_usr, tc->test_msg);
-+	gid_verify(*tc->exp_real_usr, *tc->exp_eff_usr, tc->test_msg);
- }
- 
- void run_all(void)
+ 	SAFE_SETREGID(primary_gid, secondary_gid);
 diff --git a/testcases/kernel/syscalls/setregid/setregid04.c b/testcases/kernel/syscalls/setregid/setregid04.c
-index 9490ae173..6b9e3f524 100644
+index 6b9e3f524..dbeb98ae6 100644
 --- a/testcases/kernel/syscalls/setregid/setregid04.c
 +++ b/testcases/kernel/syscalls/setregid/setregid04.c
-@@ -12,9 +12,7 @@
+@@ -10,6 +10,7 @@
+  */
+ 
  #include "tst_test.h"
++#include "tst_uid.h"
  #include "compat_tst_16.h"
  
--static gid_t neg_one = -1;
--
--static struct group nobody_gr, daemon_gr, root_gr, bin_gr;
-+static gid_t first_gid, second_gid, root_gid, neg_one = -1;
- 
- /*
-  * The following structure contains all test data.  Each structure in the array
-@@ -24,45 +22,44 @@ static struct group nobody_gr, daemon_gr, root_gr, bin_gr;
- struct test_data_t {
- 	gid_t *real_gid;
- 	gid_t *eff_gid;
--	struct group *exp_real_usr;
--	struct group *exp_eff_usr;
-+	gid_t *exp_real_usr;
-+	gid_t *exp_eff_usr;
- 	const char *test_msg;
- } test_data[] = {
- 	{
--	&root_gr.gr_gid, &root_gr.gr_gid, &root_gr, &root_gr,
-+	&root_gid, &root_gid, &root_gid, &root_gid,
+ static gid_t first_gid, second_gid, root_gid, neg_one = -1;
+@@ -30,7 +31,7 @@ struct test_data_t {
+ 	&root_gid, &root_gid, &root_gid, &root_gid,
  		    "After setregid(root, root),"}, {
--	&nobody_gr.gr_gid, &neg_one, &nobody_gr, &root_gr,
-+	&first_gid, &neg_one, &first_gid, &root_gid,
- 		    "After setregid(nobody, -1)"}, {
--	&root_gr.gr_gid, &neg_one, &root_gr, &root_gr,
-+	&root_gid, &neg_one, &root_gid, &root_gid,
+ 	&first_gid, &neg_one, &first_gid, &root_gid,
+-		    "After setregid(nobody, -1)"}, {
++		    "After setregid(first, -1)"}, {
+ 	&root_gid, &neg_one, &root_gid, &root_gid,
  		    "After setregid(root,-1),"}, {
--	&neg_one, &neg_one, &root_gr, &root_gr,
-+	&neg_one, &neg_one, &root_gid, &root_gid,
- 		    "After setregid(-1, -1),"}, {
--	&neg_one, &root_gr.gr_gid, &root_gr, &root_gr,
-+	&neg_one, &root_gid, &root_gid, &root_gid,
- 		    "After setregid(-1, root)"}, {
--	&root_gr.gr_gid, &neg_one, &root_gr, &root_gr,
-+	&root_gid, &neg_one, &root_gid, &root_gid,
+ 	&neg_one, &neg_one, &root_gid, &root_gid,
+@@ -40,11 +41,11 @@ struct test_data_t {
+ 	&root_gid, &neg_one, &root_gid, &root_gid,
  		    "After setregid(root, -1),"}, {
--	&daemon_gr.gr_gid, &nobody_gr.gr_gid, &daemon_gr, &nobody_gr,
-+	&second_gid, &first_gid, &second_gid, &first_gid,
- 		    "After setregid(daemon, nobody)"}, {
--	&neg_one, &neg_one, &daemon_gr, &nobody_gr,
-+	&neg_one, &neg_one, &second_gid, &first_gid,
+ 	&second_gid, &first_gid, &second_gid, &first_gid,
+-		    "After setregid(daemon, nobody)"}, {
++		    "After setregid(second, first)"}, {
+ 	&neg_one, &neg_one, &second_gid, &first_gid,
  		    "After setregid(-1, -1)"}, {
--	&neg_one, &nobody_gr.gr_gid, &daemon_gr, &nobody_gr,
-+	&neg_one, &first_gid, &second_gid, &first_gid,
- 		    "After setregid(-1, nobody)"}
+ 	&neg_one, &first_gid, &second_gid, &first_gid,
+-		    "After setregid(-1, nobody)"}
++		    "After setregid(-1, first)"}
  };
  
--static void gid_verify(struct group *rg, struct group *eg, const char *when)
-+static void gid_verify(gid_t rg, gid_t eg, const char *when)
- {
--	if ((getgid() != rg->gr_gid) || (getegid() != eg->gr_gid)) {
-+	if ((getgid() != rg) || (getegid() != eg)) {
- 		tst_res(TFAIL, "ERROR: %s real gid = %d; effective gid = %d",
- 			 when, getgid(), getegid());
- 		tst_res(TINFO, "Expected: real gid = %d; effective gid = %d",
--			 rg->gr_gid, eg->gr_gid);
-+			 rg, eg);
- 	} else {
- 		tst_res(TPASS,
- 			"real or effective gid was modified as expected");
- 	}
- }
- 
--
- static void run(unsigned int i)
- {
- 	/* Set the real or effective group id */
-@@ -74,16 +71,15 @@ static void run(unsigned int i)
- 		return;
- 	}
- 
--	gid_verify(test_data[i].exp_real_usr, test_data[i].exp_eff_usr,
-+	gid_verify(*test_data[i].exp_real_usr, *test_data[i].exp_eff_usr,
- 		   test_data[i].test_msg);
- }
+ static void gid_verify(gid_t rg, gid_t eg, const char *when)
+@@ -77,9 +78,12 @@ static void run(unsigned int i)
  
  static void setup(void)
  {
--	root_gr = *SAFE_GETGRNAM("root");
--	nobody_gr = *SAFE_GETGRNAM_FALLBACK("nobody", "nogroup");
--	daemon_gr = *SAFE_GETGRNAM("daemon");
--	bin_gr = *SAFE_GETGRNAM("bin");
-+	root_gid = SAFE_GETGRNAM("root")->gr_gid;
-+	first_gid = SAFE_GETGRNAM_FALLBACK("nobody", "nogroup")->gr_gid;
-+	second_gid = SAFE_GETGRNAM("daemon")->gr_gid;
+-	root_gid = SAFE_GETGRNAM("root")->gr_gid;
+-	first_gid = SAFE_GETGRNAM_FALLBACK("nobody", "nogroup")->gr_gid;
+-	second_gid = SAFE_GETGRNAM("daemon")->gr_gid;
++	gid_t test_groups[3];
++
++	root_gid = test_groups[0] = getgid();
++	tst_get_gids(test_groups, 1, 3);
++	first_gid = test_groups[1];
++	second_gid = test_groups[2];
  }
  
  static struct tst_test test = {
