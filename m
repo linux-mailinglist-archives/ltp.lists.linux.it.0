@@ -1,74 +1,69 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE834403826
-	for <lists+linux-ltp@lfdr.de>; Wed,  8 Sep 2021 12:44:50 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id D4F1B40396D
+	for <lists+linux-ltp@lfdr.de>; Wed,  8 Sep 2021 14:04:29 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5D3373C91A1
-	for <lists+linux-ltp@lfdr.de>; Wed,  8 Sep 2021 12:44:50 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 71F953C86D5
+	for <lists+linux-ltp@lfdr.de>; Wed,  8 Sep 2021 14:04:29 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 921A73C2266
- for <ltp@lists.linux.it>; Wed,  8 Sep 2021 12:44:46 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 2C0313C22CB
+ for <ltp@lists.linux.it>; Wed,  8 Sep 2021 14:04:27 +0200 (CEST)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 8A05B1A0037B
- for <ltp@lists.linux.it>; Wed,  8 Sep 2021 12:44:45 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 9A37A200DEC
+ for <ltp@lists.linux.it>; Wed,  8 Sep 2021 14:04:26 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 6C8882012D;
- Wed,  8 Sep 2021 10:44:44 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id E421A20138
+ for <ltp@lists.linux.it>; Wed,  8 Sep 2021 12:04:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1631097884; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=ilkbXsSXeAtUWjI1lMOqfQQC2bLHEBQrANTfjxeMmd0=;
- b=zs3SBFIRaSAR4yhPQixRSqlY6L0tcva2fxMYCFbCQNfU2pFilG01pQB0VhnggMeWRCF3kq
- ntA+msyn84/NyOZDwRB0UQavAikIHrrGy/VXSDfpzJIXXeh6N0Lc+KVIABHpA/fX8GZZVE
- bh4py7lDXJM3ZDafP5PMKXSOaffisdg=
+ t=1631102665; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type;
+ bh=a9QDi12j26HmQzJC/IgpWkqBJ7VUWmiRe2LBRhn/63c=;
+ b=hgIvg2q+oIS2DU/dLaepQ5oiAG6F3oM89LDSy2XDtv9y7WUM/VsfFoNgw47gyYwsWrTeZ+
+ pdoIUVEL+LWmft7mXFD29VPVxl2pWpAs8HTh1IncncWuskejEJIbgT5nuVcmAqa/UVQBo1
+ 0O8EJxGdQ8hL+dMlkzoTJoAUQOLToTE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1631097884;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=ilkbXsSXeAtUWjI1lMOqfQQC2bLHEBQrANTfjxeMmd0=;
- b=rUEseFpdGX24muwFvCYKhdUYv6W/YDS4ePt1ZKcEOJWLvEmFMPZwGTMgTtb9Q66exu7+pf
- 2mUkYZ9Ac9VQe0AQ==
+ s=susede2_ed25519; t=1631102665;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type;
+ bh=a9QDi12j26HmQzJC/IgpWkqBJ7VUWmiRe2LBRhn/63c=;
+ b=XYbtCmt0qOQoc++uJxpxyItluil+j+U3vak2WYgeQS1gNUNpjjU5Tl21AcFzLuGPyq7bO3
+ dywp/xe+i2qXTWAA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5C0A613CC6;
- Wed,  8 Sep 2021 10:44:44 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C16F313D0B
+ for <ltp@lists.linux.it>; Wed,  8 Sep 2021 12:04:25 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id UMifFRyUOGFpTQAAMHmgww
- (envelope-from <chrubis@suse.cz>); Wed, 08 Sep 2021 10:44:44 +0000
-Date: Wed, 8 Sep 2021 12:44:57 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id mcquLsmmOGFoZQAAMHmgww
+ (envelope-from <chrubis@suse.cz>)
+ for <ltp@lists.linux.it>; Wed, 08 Sep 2021 12:04:25 +0000
+Date: Wed, 8 Sep 2021 14:04:39 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <YTiUKRnhWh6b6iS9@yuki>
-References: <1630897958-2160-1-git-send-email-xuyang2018.jy@fujitsu.com>
- <613864D4.5030400@fujitsu.com>
- <5b7f4a92-983f-2a7b-21f3-f9e2110bc0c2@suse.cz>
+To: ltp@lists.linux.it
+Message-ID: <YTim11sKKT8ioZBe@yuki>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <5b7f4a92-983f-2a7b-21f3-f9e2110bc0c2@suse.cz>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [COMMITTED] runtest/cve: Fix wrong cve tag
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] LTP release planning
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,30 +75,28 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> > In fact, Look the following url:
-> > https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-3609
-> > 
-> > It said nothing and seems this cve number doesn't exist.
-> > 
-> > Do you know what happen?
-> 
-> This vulnerability is tracked under this CVE number in SUSE Bugzilla and
-> RedHat security portal:
-> https://bugzilla.suse.com/show_bug.cgi?id=1187215
-> https://access.redhat.com/security/cve/cve-2021-3609
-> 
-> I didn't check any "upstream" CVE databases.
+Since september has started already we should start preparing for next
+LTP release. Lately we tend to release at the end of the month, which
+still leaves us plenty of time for the preparations.
 
-Looks like the CVE has been allocated though, so possibly somehow the
-the notification that it has been assigned has failed. I guess that
-RedHat security team should look into this.
+Looking at the calendar we should start the git freeze at the end of the
+next week on Friday 17.09. That would give us a bit less than two weeks
+for pre-release testing and then we can finalize the release at 29.09.
+or 30.09. If this schedulle does not work for you, let me know.
+
+If there are no complaints I will continue to review patches until the
+end of the next week, especially the ones that have been hanging in the
+queue for a while.
+
+And lastly but not least if you have some patches that should be
+included in the release please make me know ASAP so that we have a
+chance of getting them in.
 
 -- 
 Cyril Hrubis
