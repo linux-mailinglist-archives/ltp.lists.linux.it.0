@@ -1,74 +1,70 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4EA8A405A37
-	for <lists+linux-ltp@lfdr.de>; Thu,  9 Sep 2021 17:33:54 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 36E01405A70
+	for <lists+linux-ltp@lfdr.de>; Thu,  9 Sep 2021 17:52:27 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id F0AEC3C8D8B
-	for <lists+linux-ltp@lfdr.de>; Thu,  9 Sep 2021 17:33:53 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 747A03C96CE
+	for <lists+linux-ltp@lfdr.de>; Thu,  9 Sep 2021 17:52:26 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 558383C279F
- for <ltp@lists.linux.it>; Thu,  9 Sep 2021 17:33:52 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 311123C8D8A
+ for <ltp@lists.linux.it>; Thu,  9 Sep 2021 17:51:29 +0200 (CEST)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id B1A9A10013A2
- for <ltp@lists.linux.it>; Thu,  9 Sep 2021 17:33:51 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id D3E13600095
+ for <ltp@lists.linux.it>; Thu,  9 Sep 2021 17:51:28 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id D972F223BA;
- Thu,  9 Sep 2021 15:33:49 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 951D221CDC
+ for <ltp@lists.linux.it>; Thu,  9 Sep 2021 15:51:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1631201629; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=vuTer6G5eQKhQwYstR2ij54S+CYfAJyS5seBokSjqJM=;
- b=ZWF948XgRv6NJSsWRel+wAqxFJeQ4/pMdxbI1Hqkx9LblsEg2vd+Kf30weyX1MoSNVx4Xz
- DtYdguKpoG0Rs3cpVkjQBPQzUu4xfgQPBD3q9cXIfVEV39LNyrQL69uHDsAFOH3m1n024+
- S1uxu7mBmCkmrDi+DZFTg80iKx4o6BQ=
+ t=1631202687; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=CRN/bWTFe48KkbxGojjR+2VbuqjxPPytkL85fezLFWw=;
+ b=OnsaI7kQcLwYXsa/gt3jtsqmDFr/1P4HKuM2pOGI+FXAWXVGRLWX7JzN+OhOGgldhWBMQ7
+ dFvAhqX5Is0/S6JbLZEl2sb2hvVXtK2YUnaChyF7qBnasnWyk39eTFCie0bH+EKAAuqKOD
+ kDyi1E9BMVSM5YnPfdH6cmvxNwBQ8WI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1631201629;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=vuTer6G5eQKhQwYstR2ij54S+CYfAJyS5seBokSjqJM=;
- b=IxVY7CG8bsm4F9Tm7ob7QFIeabWTpurJyOEvOPu8Re8ggL87Dx2aDmQP/K2xYRDl2i0pnX
- MetKC7Sx/NJ2HBAg==
+ s=susede2_ed25519; t=1631202687;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=CRN/bWTFe48KkbxGojjR+2VbuqjxPPytkL85fezLFWw=;
+ b=iJ/ckHOrwMbueEoeQereWIRjb1EyH87wa9NvmcCnrThUmEdk+yqQTMSmvgT2aGT7ZpYoUg
+ WJd8Mvr6YdxcCqCA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C554113A98;
- Thu,  9 Sep 2021 15:33:49 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 729B213CC8
+ for <ltp@lists.linux.it>; Thu,  9 Sep 2021 15:51:27 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id Z/xJMF0pOmEIVwAAMHmgww
- (envelope-from <chrubis@suse.cz>); Thu, 09 Sep 2021 15:33:49 +0000
-Date: Thu, 9 Sep 2021 17:34:04 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>, h@yuki
-Message-ID: <YTopbNlVz6IcF+K4@yuki>
-References: <20210909133314.30997-1-krzysztof.kozlowski@canonical.com>
+ by imap2.suse-dmz.suse.de with ESMTPSA id lPdqGn8tOmFZXwAAMHmgww
+ (envelope-from <mdoucha@suse.cz>)
+ for <ltp@lists.linux.it>; Thu, 09 Sep 2021 15:51:27 +0000
+From: Martin Doucha <mdoucha@suse.cz>
+To: ltp@lists.linux.it
+Date: Thu,  9 Sep 2021 17:51:19 +0200
+Message-Id: <20210909155126.2720-1-mdoucha@suse.cz>
+X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210909133314.30997-1-krzysztof.kozlowski@canonical.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] controllers: detect previous test failure on
- cgroup mounts
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/8] syscalls/rename09: Simplify and convert to new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,18 +76,346 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-Pushed, thanks.
+The original test does unnecessaty fork()s and looks up specific usernames
+which may not exist on some systems. Simplify test and use any two UIDs.
 
+Signed-off-by: Martin Doucha <mdoucha@suse.cz>
+---
+
+This is the second batch of fixes for tests failing due to missing system
+users, this time with API conversions. I'll send one more batch next week.
+
+ testcases/kernel/syscalls/rename/rename09.c | 293 ++++----------------
+ 1 file changed, 49 insertions(+), 244 deletions(-)
+
+diff --git a/testcases/kernel/syscalls/rename/rename09.c b/testcases/kernel/syscalls/rename/rename09.c
+index 9b2022592..368a436c2 100644
+--- a/testcases/kernel/syscalls/rename/rename09.c
++++ b/testcases/kernel/syscalls/rename/rename09.c
+@@ -1,266 +1,71 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+- *
+- *   Copyright (c) International Business Machines  Corp., 2001
+- *
+- *   This program is free software;  you can redistribute it and/or modify
+- *   it under the terms of the GNU General Public License as published by
+- *   the Free Software Foundation; either version 2 of the License, or
+- *   (at your option) any later version.
+- *
+- *   This program is distributed in the hope that it will be useful,
+- *   but WITHOUT ANY WARRANTY;  without even the implied warranty of
+- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
+- *   the GNU General Public License for more details.
+- *
+- *   You should have received a copy of the GNU General Public License
+- *   along with this program;  if not, write to the Free Software
+- *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
++ * Copyright (c) International Business Machines  Corp., 2001
++ *	07/2001 Ported by Wayne Boyer
++ * Copyright (C) 2021 SUSE LLC <mdoucha@suse.cz>
+  */
+ 
+-/*
+- * NAME
+- *	rename09
+- *
+- * DESCRIPTION
+- *      check rename() fails with EACCES
+- *
+- * ALGORITHM
+- *	Setup:
+- *		Setup signal handling.
+- *		Create temporary directory.
+- *		Pause for SIGUSR1 if option specified.
+- *
+- *	Test:
+- *		Loop if the proper options are given.
+- *              fork the first child
+- *                      set to be nobody
+- *                      create old dir with mode 0700
+- *                      creat a file under it
+- *              fork the second child
+- *                      set to bin
+- *                      create new dir with mode 0700
+- *                      create a "new" file under it
+- *                      try to rename file under old dir to file under new dir
+- *                      check the return value, if succeeded (return=0)
+- *			       Issue a FAIL message.
+- *		        Otherwise,
+- *			       Log the errno
+- *			       Verify the errno
+- *			       if equals to EACCESS,
+- *				       Issue Pass message.
+- *			       Otherwise,
+- *				       Issue Fail message.
+- *	Cleanup:
+- *		Print errno log and/or timing stats if options given
+- *		Delete the temporary directory created.
+- *
+- * USAGE
+- *	rename09 [-c n] [-e] [-i n] [-I x] [-P x] [-t]
+- *	where,  -c n : Run n copies concurrently.
+- *		-e   : Turn on errno logging.
+- *		-i n : Execute test n times.
+- *		-I x : Execute test for x seconds.
+- *		-P x : Pause for x seconds between iterations.
+- *		-t   : Turn on syscall timing.
+- *
+- * HISTORY
+- *	07/2001 Ported by Wayne Boyer
+- *
+- * RESTRICTIONS
+- *	Must run test as root.
++/*\
++ * [Description]
+  *
++ * Check that renaming/moving a file from directory where the current user does
++ * not have write permissions fails with EACCES.
+  */
+-#include <errno.h>
+-#include <sys/types.h>
+-#include <sys/stat.h>
+-#include <fcntl.h>
+-#include <pwd.h>
+-#include <sys/wait.h>
+-#include <unistd.h>
+-
+-#include "test.h"
+-#include "safe_macros.h"
+ 
+-void setup();
+-void cleanup();
++#include <stdio.h>
++#include <stdlib.h>
++#include <sys/types.h>
+ 
+-#define PERMS		0700
++#include "tst_test.h"
++#include "tst_safe_file_ops.h"
++#include "tst_uid.h"
+ 
+-char *TCID = "rename09";
+-int TST_TOTAL = 1;
++#define SRCDIR   "srcdir"
++#define DESTDIR  "destdir"
++#define SRCFILE  SRCDIR "/file"
++#define DESTFILE DESTDIR "/file"
++#define PERMS    0700
+ 
+-char fdir[255], mdir[255];
+-char fname[255], mname[255];
+-uid_t nobody_uid, bin_uid;
++static uid_t orig_uid, test_users[2];
++static char *tmpdir;
+ 
+-int main(int ac, char **av)
++static void setup(void)
+ {
+-	int lc;
+-	int rval;
+-	pid_t pid, pid1;
+-	int status;
+-
+-	/*
+-	 * parse standard options
+-	 */
+-	tst_parse_opts(ac, av, NULL, NULL);
+-
+-	/*
+-	 * perform global setup for test
+-	 */
+-	setup();
+-
+-	/*
+-	 * check looping state if -i option given
+-	 */
+-	for (lc = 0; TEST_LOOPING(lc); lc++) {
+-
+-		tst_count = 0;
+-
+-		if ((pid = FORK_OR_VFORK()) == -1) {
+-			tst_brkm(TBROK, cleanup, "fork() #1 failed");
+-		}
+-
+-		if (pid == 0) {	/* first child */
+-			/* set to nobody */
+-			rval = setreuid(nobody_uid, nobody_uid);
+-			if (rval < 0) {
+-				tst_resm(TWARN, "setreuid failed to "
+-					 "to set the real uid to %d and "
+-					 "effective uid to %d",
+-					 nobody_uid, nobody_uid);
+-				perror("setreuid");
+-				exit(1);
+-			}
+-
+-			/* create the a directory with 0700 permits */
+-			if (mkdir(fdir, PERMS) == -1) {
+-				tst_resm(TWARN, "mkdir(%s, %#o) Failed",
+-					 fdir, PERMS);
+-				exit(1);
+-			}
+-
+-			/* create "old" file under it */
+-			SAFE_TOUCH(cleanup, fname, 0700, NULL);
+-
+-			exit(0);
+-		}
+-
+-		/* wait for child to exit */
+-		wait(&status);
+-		if (!WIFEXITED(status) || (WEXITSTATUS(status) != 0)) {
+-			tst_brkm(TBROK, cleanup, "First child failed to set "
+-				 "up conditions for the test");
+-		}
+-
+-		if ((pid1 = FORK_OR_VFORK()) == -1) {
+-			tst_brkm(TBROK, cleanup, "fork() #2 failed");
+-		}
+-
+-		if (pid1 == 0) {	/* second child */
+-			/* set to bin */
+-			if ((rval = seteuid(bin_uid)) == -1) {
+-				tst_resm(TWARN, "seteuid() failed");
+-				perror("setreuid");
+-				exit(1);
+-			}
+-
+-			/* create "new" directory */
+-			if (mkdir(mdir, PERMS) == -1) {
+-				tst_resm(TWARN, "mkdir(%s, %#o) failed",
+-					 mdir, PERMS);
+-				exit(1);
+-			}
+-
+-			SAFE_TOUCH(cleanup, mname, 0700, NULL);
+-
+-			/* rename "old" to "new" */
+-			TEST(rename(fname, mname));
+-			if (TEST_RETURN != -1) {
+-				tst_resm(TFAIL, "call succeeded unexpectedly");
+-				continue;
+-			}
+-
+-			if (TEST_ERRNO != EACCES) {
+-				tst_resm(TFAIL, "Expected EACCES got %d",
+-					 TEST_ERRNO);
+-			} else {
+-				tst_resm(TPASS, "rename() returned EACCES");
+-			}
+-
+-			/* set the process id back to root */
+-			if (seteuid(0) == -1) {
+-				tst_resm(TWARN, "seteuid(0) failed");
+-				exit(1);
+-			}
+-
+-			/* clean up things in case we are looping */
+-			SAFE_UNLINK(cleanup, fname);
+-			SAFE_UNLINK(cleanup, mname);
+-			SAFE_RMDIR(cleanup, fdir);
+-			SAFE_RMDIR(cleanup, mdir);
+-		} else {
+-			/* parent - let the second child carry on */
+-			waitpid(pid1, &status, 0);
+-			if (!WIFEXITED(status) || (WEXITSTATUS(status) != 0)) {
+-				exit(WEXITSTATUS(status));
+-			} else {
+-				exit(0);
+-			}
+-		}
+-	}
+-
+-	/*
+-	 * cleanup and exit
+-	 */
+-	cleanup();
+-	tst_exit();
+-
++	umask(0);
++	orig_uid = getuid();
++	tst_get_uids(test_users, 0, 2);
++	tmpdir = tst_get_tmpdir();
+ }
+ 
+-/*
+- * setup() - performs all ONE TIME setup for this test.
+- */
+-void setup(void)
++static void run(void)
+ {
+-	struct passwd *pw;
+-
+-	tst_require_root();
++	gid_t curgid = getgid();
+ 
+-	pw = SAFE_GETPWNAM(NULL, "nobody");
+-	nobody_uid = pw->pw_uid;
+-	pw = SAFE_GETPWNAM(NULL, "bin");
+-	bin_uid = pw->pw_uid;
++	SAFE_MKDIR(SRCDIR, PERMS);
++	SAFE_TOUCH(SRCFILE, PERMS, NULL);
++	SAFE_CHOWN(SRCDIR, test_users[0], curgid);
++	SAFE_CHOWN(SRCFILE, test_users[0], curgid);
+ 
+-	tst_sig(FORK, DEF_HANDLER, cleanup);
++	SAFE_SETEUID(test_users[1]);
++	SAFE_MKDIR(DESTDIR, PERMS);
++	SAFE_TOUCH(DESTFILE, PERMS, NULL);
+ 
+-	TEST_PAUSE;
+-
+-	/* Create a temporary directory and make it current. */
+-	tst_tmpdir();
+-
+-	umask(0);
++	TST_EXP_FAIL(rename(SRCFILE, DESTFILE), EACCES, "rename()");
+ 
+-	sprintf(fdir, "tdir_%d", getpid());
+-	sprintf(mdir, "rndir_%d", getpid());
+-	sprintf(fname, "%s/tfile_%d", fdir, getpid());
+-	sprintf(mname, "%s/rnfile_%d", mdir, getpid());
++	/* Cleanup between loops */
++	SAFE_SETEUID(orig_uid);
++	tst_purge_dir(tmpdir);
+ }
+ 
+-/*
+- * cleanup() - performs all ONE TIME cleanup for this test at
+- *             completion or premature exit.
+- */
+-void cleanup(void)
++static void cleanup(void)
+ {
+-
+-	/*
+-	 * Remove the temporary directory.
+-	 */
+-	tst_rmdir();
+-
+-	/*
+-	 * Exit with return code appropriate for results.
+-	 */
+-
++	free(tmpdir);
+ }
++
++static struct tst_test test = {
++	.test_all = run,
++	.setup = setup,
++	.cleanup = cleanup,
++	.needs_root = 1,
++	.needs_tmpdir = 1,
++};
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+2.33.0
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
