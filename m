@@ -1,74 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7CC84406CA8
-	for <lists+linux-ltp@lfdr.de>; Fri, 10 Sep 2021 15:08:42 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 25302406CAF
+	for <lists+linux-ltp@lfdr.de>; Fri, 10 Sep 2021 15:09:40 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 34B4B3C8CC9
-	for <lists+linux-ltp@lfdr.de>; Fri, 10 Sep 2021 15:08:42 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A87873C8C7F
+	for <lists+linux-ltp@lfdr.de>; Fri, 10 Sep 2021 15:09:39 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A55213C8C68
- for <ltp@lists.linux.it>; Fri, 10 Sep 2021 15:08:30 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 05CD23C8CE3
+ for <ltp@lists.linux.it>; Fri, 10 Sep 2021 15:08:31 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 591511000489
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id A7F1F1A00FAC
  for <ltp@lists.linux.it>; Fri, 10 Sep 2021 15:08:30 +0200 (CEST)
 Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id F056420217;
- Fri, 10 Sep 2021 13:08:29 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 3B3BE2243E;
+ Fri, 10 Sep 2021 13:08:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1631279309; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1631279310; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=5RAHtPs78SFK3bcXJUjFJyl6JqT3+Hiu7xnwgXWbStw=;
- b=lvaOr7MtXiS6h0MjzI2vwJRYRnr0UneR3HcdwXvG7Fbfa8kiMX7U72yE+RlnnBu2JSNWqN
- RXpRQPFChFbcDtMl+zuWbMMCMop9p1F3GeFPJAqOSKu096czRDmszaQIDum5iyeUx/pExv
- GPEHwEv/g2ftgM9+X04R4sMVIBMw4hw=
+ bh=yFe/gPfdsREhEa1XU7zrU7RRhw3Y4rH+//yfS9EjJkE=;
+ b=t3neBcuQoIAizyzcB81pdXlODhYCGsW8FzIA9zFBH19Gks5aRCrCKzhOXaH/Ro04N+v8UN
+ Iszjqp5Fan0vMc2yHc6DwLd5ASgm6w2FJOJh3g+ZNVQxZTsmy2+GiO6/oxx6RSdcdhMVaE
+ MGXR61eLba6ohP8Xbl8jl7hU1YyvgK0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1631279309;
+ s=susede2_ed25519; t=1631279310;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=5RAHtPs78SFK3bcXJUjFJyl6JqT3+Hiu7xnwgXWbStw=;
- b=ZwuOGUxsIsNcPv+ziEF2pbx/nF0C4SiTqiyVjSrZBPrtNM0K1ZgM6WsjQ7S2HZVqir/5ZI
- YhX0I2RdaPMWltBg==
+ bh=yFe/gPfdsREhEa1XU7zrU7RRhw3Y4rH+//yfS9EjJkE=;
+ b=3dM/PxrME+ZWulfJA4MF7Gz4mUj9rMEXcvrFbRUQ8DxkngYdt06IshLa4ufyZWoDkUjurB
+ k+83tLiPuOI72HDw==
 Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id B4F0D136B1;
+ by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 08BAF133D0;
  Fri, 10 Sep 2021 13:08:29 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id MLFxKs1YO2HKdAAAGKfGzw
+ by imap1.suse-dmz.suse.de with ESMTPSA id sG5fO81YO2HKdAAAGKfGzw
  (envelope-from <pvorel@suse.cz>); Fri, 10 Sep 2021 13:08:29 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Fri, 10 Sep 2021 15:08:18 +0200
-Message-Id: <20210910130820.21141-6-pvorel@suse.cz>
+Date: Fri, 10 Sep 2021 15:08:19 +0200
+Message-Id: <20210910130820.21141-7-pvorel@suse.cz>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20210910130820.21141-1-pvorel@suse.cz>
 References: <20210910130820.21141-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 5/7] sched/.gitignore: Ignore logs
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 6/7] sched/process.c: Remove non-Linux code
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,18 +85,186 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+as we don't care about other platforms.
+Also remove -D_LINUX definition from Makefile.
+
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- testcases/kernel/sched/process_stress/.gitignore | 1 +
- 1 file changed, 1 insertion(+)
+ .../kernel/sched/process_stress/Makefile      |  2 -
+ .../kernel/sched/process_stress/process.c     | 67 +------------------
+ 2 files changed, 2 insertions(+), 67 deletions(-)
 
-diff --git a/testcases/kernel/sched/process_stress/.gitignore b/testcases/kernel/sched/process_stress/.gitignore
-index b2d4946e6..d05d23b94 100644
---- a/testcases/kernel/sched/process_stress/.gitignore
-+++ b/testcases/kernel/sched/process_stress/.gitignore
-@@ -1 +1,2 @@
- /process
-+/*.log
+diff --git a/testcases/kernel/sched/process_stress/Makefile b/testcases/kernel/sched/process_stress/Makefile
+index 011017c65..48c825bd9 100644
+--- a/testcases/kernel/sched/process_stress/Makefile
++++ b/testcases/kernel/sched/process_stress/Makefile
+@@ -24,6 +24,4 @@ top_srcdir		?= ../../../..
+ 
+ include $(top_srcdir)/include/mk/env_pre.mk
+ 
+-CPPFLAGS		+= -D_LINUX
+-
+ include $(top_srcdir)/include/mk/generic_leaf_target.mk
+diff --git a/testcases/kernel/sched/process_stress/process.c b/testcases/kernel/sched/process_stress/process.c
+index 1fd520eee..b66908e7a 100644
+--- a/testcases/kernel/sched/process_stress/process.c
++++ b/testcases/kernel/sched/process_stress/process.c
+@@ -27,16 +27,9 @@
+ #include <string.h>
+ #include <time.h>
+ #include <unistd.h>
+-
+-#ifndef _LINUX
+-			/* LINUX INCLUDES */
+-#include <sys/mode.h>
+-#include <sys/timers.h>
+-#else
+ #include <sys/stat.h>
+ #include <sys/time.h>
+ #include <sys/ipc.h>
+-#endif
+ #include <sys/msg.h>
+ #include <sys/resource.h>
+ #include <sys/select.h>
+@@ -53,17 +46,14 @@
+ #define MAXBVAL 70
+ #define MAXDVAL 11
+ 
+-#ifdef _LINUX
+-			/* LINUX #defnes */
+ #ifndef TRUE
+ #define TRUE 1
+ #endif
+ #ifndef FALSE
+ #define FALSE 0
+ #endif
+-#endif
+ 
+-#if defined _LINUX && defined DEBUG
++#ifdef DEBUG
+ #define prtln()	printf("At line number: %d\n", __LINE__); \
+ 		fflush(NULL)
+ #define dprt(fmt, args...) printf(fmt, ## args)
+@@ -78,9 +68,7 @@
+ #define    DVAL  (*edat[DNDX].eval.vint)	/* depth of process tree */
+ #define    TVAL  (*edat[TNDX].eval.vint)	/* timer value */
+ 
+-#ifdef _LINUX
+ typedef long mtyp_t;
+-#endif
+ 
+ /* structure of information stored about each process in shared memory */
+ typedef struct proc_info {
+@@ -346,9 +334,6 @@ void nextofkin(int sig, int code, struct sigcontext *scp)
+ 		severe("msgsnd failed: %d msgid %d mtyp %d mtext %d\n",
+ 		       errno, msgerr, 3, mtext);
+ 	}
+-#ifndef _LINUX
+-	reltimerid(timer);
+-#endif
+ 	exit(1);
+ }
+ 
+@@ -799,25 +784,14 @@ void set_signals(void *sighandler())
+ 
+ 	action.sa_handler = (void *)sighandler;
+ 
+-#ifdef _LINUX
+ 	sigfillset(&action.sa_mask);
+-#else
+-	SIGINITSET(action.sa_mask);
+-#endif
+ 	action.sa_flags = 0;
+ 
+ 	/* Set the signal handler up */
+-#ifdef _LINUX
+ 	sigaddset(&action.sa_mask, SIGTERM);
+-#else
+-	SIGADDSET(action.sa_mask, SIGTERM);
+-#endif
++
+ 	for (i = 0; siginfo[i].signum != -1; i++) {
+-#ifdef _LINUX
+ 		sigaddset(&action.sa_mask, siginfo[i].signum);
+-#else
+-		SIGADDSET(action.sa_mask, siginfo[i].signum);
+-#endif
+ 		rc = sigaction(siginfo[i].signum, &action, NULL);
+ 		if (rc == -1) {
+ 			sprintf(tmpstr, "sigaction: %s\n", siginfo[i].signame);
+@@ -833,36 +807,6 @@ void set_signals(void *sighandler())
+ /*
+ * Get and set a timer for current process.
+ */
+-#ifndef _LINUX
+-void set_timer(void)
+-{
+-	struct itimerstruc_t itimer, old_itimer;
+-
+-	if ((timer = gettimerid(TIMERID_REAL, DELIVERY_SIGNALS)) == -1) {
+-		perror("gettimerid");
+-		fprintf(stderr, " SEVERE : Could not get timer id, errno=%d.",
+-			errno);
+-		exit(1);
+-	}
+-
+-	/*
+-	 * Start the timer.
+-	 */
+-	itimer.it_interval.tv_nsec = 0;
+-	itimer.it_interval.tv_sec = 0;
+-	itimer.it_value.tv_nsec = 0;
+-	itimer.it_value.tv_sec = (time_t) (TVAL * 60.0);
+-	if (incinterval(timer, &itimer, &old_itimer) == -1) {
+-		perror("incinterval");
+-		fprintf(stderr,
+-			" SEVERE : Could not set timer interval, errno=%d.",
+-			errno);
+-		(void)reltimerid(timer);
+-		exit(1);
+-	}
+-}
+-#else
+-
+ void set_timer(void)
+ {
+ 	struct itimerval itimer;
+@@ -881,7 +825,6 @@ void set_timer(void)
+ 		exit(1);
+ 	}
+ }
+-#endif
+ 
+ /*
+  * parse_args
+@@ -1157,11 +1100,7 @@ void doit(void)
+ #endif
+ 		/* set the process group so we can terminate all children */
+ 		set_signals((void *)nextofkin);	/* set up signal handlers and initialize pgrp */
+-#ifndef _LINUX
+-		procgrp = setpgrp(0, 0);
+-#else
+ 		procgrp = setpgrp();
+-#endif
+ 		if (AUSDEBUG) {
+ 			fprintf(stderr, "process group: %d\n", procgrp);
+ 			fflush(stderr);
+@@ -1239,7 +1178,6 @@ int main(int argc, char *argv[])
+ 	parse_args(argc, argv);	/* Get all command line arguments */
+ 	dprt("value of BVAL = %d, value of DVAL = %d\n", BVAL, DVAL);
+ 	nodesum = sumit(BVAL, DVAL);
+-#ifdef _LINUX
+ 	if (nodesum > 250) {
+ 		printf("total number of process to be created "
+ 		       "nodesum (%d) is greater\n than the allowed "
+@@ -1247,7 +1185,6 @@ int main(int argc, char *argv[])
+ 		printf("reseting the value of nodesum to SEMMSL\n");
+ 		nodesum = 250;
+ 	}
+-#endif
+ 
+ 	dprt("value of nodesum is initiallized to: %d\n", nodesum);
+ 
 -- 
 2.33.0
 
