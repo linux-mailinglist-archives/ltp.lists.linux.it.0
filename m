@@ -2,74 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00C55406CA9
-	for <lists+linux-ltp@lfdr.de>; Fri, 10 Sep 2021 15:08:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54B57406CAE
+	for <lists+linux-ltp@lfdr.de>; Fri, 10 Sep 2021 15:09:32 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9AD553C8C68
-	for <lists+linux-ltp@lfdr.de>; Fri, 10 Sep 2021 15:08:53 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id AAECD3C96C8
+	for <lists+linux-ltp@lfdr.de>; Fri, 10 Sep 2021 15:09:31 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A85803C2185
+ by picard.linux.it (Postfix) with ESMTPS id A291B3C8CD7
  for <ltp@lists.linux.it>; Fri, 10 Sep 2021 15:08:30 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 96ED22011B2
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 913F41A00891
  for <ltp@lists.linux.it>; Fri, 10 Sep 2021 15:08:29 +0200 (CEST)
 Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id DB705223B5;
- Fri, 10 Sep 2021 13:08:28 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 2464920212;
+ Fri, 10 Sep 2021 13:08:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1631279308; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1631279309; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=S2HOo+JBKH38Y0m6j0T5vNKf2c+dO6/tAeCN8wy3QBA=;
- b=dk7BOtScJ8zko9Gfc6wqhj8QhnQGMcq9BrfrPXwZlZn6l0OEdAyp29hnTl9Mt4CnxiTDCk
- P0QxmeFRRuPskRjH7DgKA9DSgL25ArCT0XgpAIIDOQrJtdjgn/7qp4whHN6FiY//HC6cIJ
- stoSvWrBUzn8thUqvF468rfjhon7Jz0=
+ bh=vzO2rNfG4s8JtNFUQt5Lqmsh/XHzFoTz0q241AYSk28=;
+ b=0+PAAnH//MxPslKBchdBIv9HLbmKz2r71txBzOkayQ8cP8wu7IP8UNVajWJ/nog1fD6esV
+ yGEDTqRlirsKeLnXknmPk/Lxkr5kClQcsnnCma3zLRw8fXnE0MKwJNVne+sn9B61RMSvD4
+ UZ72veD1G+hxLH5eNXV3m0vME8FCRQk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1631279308;
+ s=susede2_ed25519; t=1631279309;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=S2HOo+JBKH38Y0m6j0T5vNKf2c+dO6/tAeCN8wy3QBA=;
- b=UWoz6iI16THcMbm+9hlT2cByXnDZKoTjCRW4GuS5hQfAsepUxHcEko0xMlI5FVuQpDnDQq
- JUwOpTOzQoD7XhCw==
+ bh=vzO2rNfG4s8JtNFUQt5Lqmsh/XHzFoTz0q241AYSk28=;
+ b=xqxVWOz8JYK3Ls+Ih44mkYNUusrGpF/M00sXHn04H5a3uygCPfsRcEaG4StLNC6Vpr/3jB
+ BUxRrMlBw8dw+eCA==
 Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id A5549133D0;
+ by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id E30F5133D0;
  Fri, 10 Sep 2021 13:08:28 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id mGDgJsxYO2HKdAAAGKfGzw
+ by imap1.suse-dmz.suse.de with ESMTPSA id eO/zNcxYO2HKdAAAGKfGzw
  (envelope-from <pvorel@suse.cz>); Fri, 10 Sep 2021 13:08:28 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Fri, 10 Sep 2021 15:08:14 +0200
-Message-Id: <20210910130820.21141-2-pvorel@suse.cz>
+Date: Fri, 10 Sep 2021 15:08:15 +0200
+Message-Id: <20210910130820.21141-3-pvorel@suse.cz>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20210910130820.21141-1-pvorel@suse.cz>
 References: <20210910130820.21141-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 1/7] sched/process.c: Replace errfp with stderr
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 2/7] sched/process.c: Open debugfp with freopen()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,103 +87,68 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 From: Petr Vorel <petr.vorel@gmail.com>
 
-As comment suggest it's indeed not needed :).
+i.e. use the recommended way.
 
+This fixes compilation on MUSL which does not like assignment to stderr:
+
+    process.c:551:14: error: assignment of read-only variable 'stderr'
+      551 |      debugfp = fopen(foo, "a+");
+          |              ^
+
+Also drop debugfp definition. It'd be more obvious to use FILE pointer
+for logging, but some debug functions are intended to use to log into
+both stderr and into the log files (or at least logging is before stderr
+is redirected into the log files), thus use stderr as file descriptor.
+
+Although not sure why part of the code is logged into stdout and other
+part into file, let's keep it.
+
+Suggested-by: Li Wang <liwang@redhat.com>
 Signed-off-by: Petr Vorel <petr.vorel@gmail.com>
 ---
- .../kernel/sched/process_stress/process.c     | 22 +++++++++----------
- 1 file changed, 10 insertions(+), 12 deletions(-)
+ testcases/kernel/sched/process_stress/process.c | 15 +++++++--------
+ 1 file changed, 7 insertions(+), 8 deletions(-)
 
 diff --git a/testcases/kernel/sched/process_stress/process.c b/testcases/kernel/sched/process_stress/process.c
-index a5ff80987..2dd501f2e 100644
+index 2dd501f2e..777cdecd4 100644
 --- a/testcases/kernel/sched/process_stress/process.c
 +++ b/testcases/kernel/sched/process_stress/process.c
-@@ -142,10 +142,8 @@ timer_t timer;			/* timer structure */
+@@ -141,12 +141,6 @@ timer_t timer;			/* timer structure */
+ 
  Pinfo *shmaddr;			/* Start address  of shared memory */
  
- #ifndef _LINUX
--FILE *errfp = stderr;		/* error file pointer, probably not necessary */
- FILE *debugfp = stderr;		/* debug file pointer, used if AUSDEBUG set */
- #else
--#define errfp stderr
- #define debugfp stderr
- #endif
+-#ifndef _LINUX
+-FILE *debugfp = stderr;		/* debug file pointer, used if AUSDEBUG set */
+-#else
+-#define debugfp stderr
+-#endif
+-
+ struct envstruct *edat = envdata;	/* pointer to environment data */
  
-@@ -201,12 +199,12 @@ void print_shm(void)
- 		return;
+ /* external function declarations */
+@@ -260,7 +254,7 @@ void debugout(char *fmt, ...)
  
- 	for (pinfo = shmaddr, i = 0; i < nodesum; i++, pinfo++) {
--		fprintf(errfp,
-+		fprintf(stderr,
- 			"slot: %-4d pid: %-6d ppid: %-6d msg: %-2d err: %-2d lst:",
- 			i, pinfo->pid, pinfo->ppid, pinfo->msg, pinfo->err);
- 		for (j = 0, listp = pinfo->list; j < BVAL; j++, listp++)
--			fprintf(errfp, " %d", *listp);
--		fprintf(errfp, "\n");
-+			fprintf(stderr, " %d", *listp);
-+		fprintf(stderr, "\n");
+ 	if (AUSDEBUG) {
+ 		va_start(args, fmt);
+-		vfprintf(debugfp, fmt, args);
++		vfprintf(stderr, fmt, args);
+ 		va_end(args);
  	}
  }
+@@ -546,7 +540,12 @@ int spawn(int val)
+ 			if (!pid) {	/* CHILD */
+ 				if (AUSDEBUG) {
+ 					sprintf(foo, "%sslot%d", SLOTDIR, tval);
+-					debugfp = fopen(foo, "a+");
++
++					if ((freopen(foo, "w", stderr)) == NULL) {
++						fprintf(stderr, "freopen(%s, w, stderr) failed: %s (%d)\n",
++								foo, strerror(errno), errno);
++						exit(1);
++					}
+ 				}
+ 				pinfo = put_proc_info(tval);
  
-@@ -276,13 +274,13 @@ void rm_msgqueue(void)
- 
- 	/* remove message queue id. */
- 	if (msgctl(msgid, IPC_RMID, NULL) && errno != EINVAL) {
--		fprintf(errfp, "msgctl failed msgid: errno %d\n", errno);
-+		fprintf(stderr, "msgctl failed msgid: errno %d\n", errno);
- 		perror("msgctl failed");
- 	}
- 
- 	/* remove message queue id. */
- 	if (msgctl(msgerr, IPC_RMID, NULL) && errno != EINVAL) {
--		fprintf(errfp, "msgctl failed msgerr: errno %d\n", errno);
-+		fprintf(stderr, "msgctl failed msgerr: errno %d\n", errno);
- 		perror("msgctl failed");
- 	}
- }
-@@ -297,7 +295,7 @@ void rm_shmseg(void)
- 
- 	/* remove shared memory id (and shared memory segment). */
- 	if (shmctl(shmid, IPC_RMID, NULL) && errno != EINVAL) {
--		fprintf(errfp, "shmctl failed: errno %d\n", errno);
-+		fprintf(stderr, "shmctl failed: errno %d\n", errno);
- 		perror("shmctl failed");
- 	}
- }
-@@ -313,13 +311,13 @@ void rm_semseg(void)
- 	/* remove sem_lock semaphore id */
- 	semarg.val = 0;		/* to fix problem with 4th arg of semctl in 64 bits MARIOG */
- 	if (semctl(sem_lock, 0, IPC_RMID, semarg.val) && errno != EINVAL) {
--		fprintf(errfp, "semctl failed: errno %d\n", errno);
-+		fprintf(stderr, "semctl failed: errno %d\n", errno);
- 		perror("semctl failed");
- 	}
- 	/* remove sem_count semaphore id. */
- 	semarg.val = 0;		/* to fix problem with 4th arg of semctl in 64 bits MARIOG */
- 	if (semctl(sem_count, 0, IPC_RMID, semarg.val) && errno != EINVAL) {
--		fprintf(errfp, "semctl failed: errno %d\n", errno);
-+		fprintf(stderr, "semctl failed: errno %d\n", errno);
- 		perror("semctl failed");
- 	}
- }
-@@ -1094,7 +1092,7 @@ void messenger(void)
- 				case SIGALRM:
- 					/* a process is hung, we will terminate */
- 					killpg(procgrp, sig);
--					fprintf(errfp,
-+					fprintf(stderr,
- 						"ALERT! ALERT! WE HAVE TIMED OUT\n");
- 					fprintf(stderr,
- 						" SEVERE : SIGALRM: A process timed out, we failed\n");
-@@ -1109,7 +1107,7 @@ void messenger(void)
- 				default:
- 					/* somebody sent a signal, we will terminate */
- 					killpg(procgrp, sig);
--					fprintf(errfp,
-+					fprintf(stderr,
- 						"We received signal %d\n", sig);
- 					fprintf(stderr,
- 						" SEVERE : signal %d received, A proc was killed\n",
 -- 
 2.33.0
 
