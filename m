@@ -2,75 +2,74 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D31094095A5
-	for <lists+linux-ltp@lfdr.de>; Mon, 13 Sep 2021 16:45:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E1924095B3
+	for <lists+linux-ltp@lfdr.de>; Mon, 13 Sep 2021 16:45:34 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4D8EA3C927A
-	for <lists+linux-ltp@lfdr.de>; Mon, 13 Sep 2021 16:45:01 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id CAF253CA4F2
+	for <lists+linux-ltp@lfdr.de>; Mon, 13 Sep 2021 16:45:33 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 1E5953C1DF5
+ by picard.linux.it (Postfix) with ESMTPS id 0CC253C927F
  for <ltp@lists.linux.it>; Mon, 13 Sep 2021 16:44:56 +0200 (CEST)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 2EF471A00E03
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 2A8C1600BA6
  for <ltp@lists.linux.it>; Mon, 13 Sep 2021 16:44:55 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 79BF81FFF3
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 8FFC31FFF5
  for <ltp@lists.linux.it>; Mon, 13 Sep 2021 14:44:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1631544295; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=TuscYu0maQ4TZKwehhyP0Lk2YDevuVExJzhyTY7hZbc=;
- b=L77IPK0aO9fcCbnXk9mJcqYyP+LLra7eXoAe/gBbmnXTo9vp6Id88nRYTpYF4hLcZNh2iR
- b24ZuigZirN2XIVdjkTXKUaptgemmcFjlCY6e75keaU3tNbo8Rhe+j1yNzYMeaplHaPhdo
- n8XSYd4k542q0pIFZfanfAnp7UzsPFQ=
+ bh=YJMuW/YMerxEraguqQJZBuhBCOUtPsIkTos1qHJViks=;
+ b=h0UVgP+tIN6v13RtHl+Zp+dlFPqbir0dgdUaLPCjR3qblt2PIcBM6tn4KsC04Gzscumez8
+ djQY/ZBq4bPo87Wk2k24lfwXdprzVX72SdncV3SCF0p5/6NszaQooUgqRgEhmLZDart995
+ Cxj/ewtr6bA/Dz51/bumuSjnsHICUCo=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1631544295;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=TuscYu0maQ4TZKwehhyP0Lk2YDevuVExJzhyTY7hZbc=;
- b=cdDq1CaWXzM2O+WoWQgGwrxeBfxF56QcV+JZFgC6rieNvarpdp1KEwAlbXK8+l6sMSWx9d
- eSFrCIf2vyVmr8CA==
+ bh=YJMuW/YMerxEraguqQJZBuhBCOUtPsIkTos1qHJViks=;
+ b=xfMTnJfopyHbbvFtdeEpINOYAsV4qkbLuJgtBcdOxyFHpN53NqZff/AjbD6sPxjWjT8XLW
+ xA9QvHY9i5fEmtDQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 62D9F13F17
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7C84013AB9
  for <ltp@lists.linux.it>; Mon, 13 Sep 2021 14:44:55 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id aLP1FudjP2FYbgAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id YLNqHedjP2FYbgAAMHmgww
  (envelope-from <mdoucha@suse.cz>)
  for <ltp@lists.linux.it>; Mon, 13 Sep 2021 14:44:55 +0000
 From: Martin Doucha <mdoucha@suse.cz>
 To: ltp@lists.linux.it
-Date: Mon, 13 Sep 2021 16:44:52 +0200
-Message-Id: <20210913144454.22992-2-mdoucha@suse.cz>
+Date: Mon, 13 Sep 2021 16:44:53 +0200
+Message-Id: <20210913144454.22992-3-mdoucha@suse.cz>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20210913144454.22992-1-mdoucha@suse.cz>
 References: <20210913144454.22992-1-mdoucha@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 2/4] syscalls/setresuid01: Convert to new API
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 3/4] syscalls/setresuid02: Convert to new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,14 +94,14 @@ Signed-off-by: Martin Doucha <mdoucha@suse.cz>
 
 Changes since v1: None
 
- .../kernel/syscalls/setresuid/setresuid01.c   | 256 ++++--------------
- 1 file changed, 59 insertions(+), 197 deletions(-)
+ .../kernel/syscalls/setresuid/setresuid02.c   | 256 ++++--------------
+ 1 file changed, 52 insertions(+), 204 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/setresuid/setresuid01.c b/testcases/kernel/syscalls/setresuid/setresuid01.c
-index 9f448896b..e9eb8517e 100644
---- a/testcases/kernel/syscalls/setresuid/setresuid01.c
-+++ b/testcases/kernel/syscalls/setresuid/setresuid01.c
-@@ -1,221 +1,83 @@
+diff --git a/testcases/kernel/syscalls/setresuid/setresuid02.c b/testcases/kernel/syscalls/setresuid/setresuid02.c
+index 87c5eab90..b3b70dea7 100644
+--- a/testcases/kernel/syscalls/setresuid/setresuid02.c
++++ b/testcases/kernel/syscalls/setresuid/setresuid02.c
+@@ -1,232 +1,80 @@
 +// SPDX-License-Identifier: GPL-2.0-only
  /*
 - *
@@ -128,12 +127,11 @@ index 9f448896b..e9eb8517e 100644
  
 -/*
 - * NAME
-- * 	setresuid01.c
-+/*\
-+ * [Description]
-  *
+- * 	setresuid02.c
+- *
 - * DESCRIPTION
-- * 	Test setresuid() when executed by root.
+- * 	Test that a non-root user can change the real, effective and saved
+- *	uid values through the setresuid system call.
 - *
 - * ALGORITHM
 - *
@@ -141,57 +139,62 @@ index 9f448896b..e9eb8517e 100644
 - *	  Setup signal handling
 - *	  Get user information.
 - *	  Pause for SIGUSER1 if option specified.
+- *
 - *	Setup test values.
 - *	Loop if the proper options are given.
-- *	For each test execute the system call
-- *	  Check return code, if system call failed (return=-1)
-- *		Log the errno and Issue a FAIL message.
-- *	  Otherwise,
-- *		Verify the Functionality of system call
-- *		if successful,
-- *			Issue Functionality-Pass message.
-- *		Otherwise,
-- *			Issue Functionality-Fail message.
+- * 	For each test set execute the system call
+- * 	  Check that we received the expected result.
+- *	  Verify that the uid, euid and suid values are still correct.
 - *	Cleanup:
-- *	  Print errno log and/or timing stats if options given.
+- *	  Print errno log and/or timing stats if option given.
 - *
 - * USAGE:  <for command-line>
-- *	setresuid01 [-c n] [-e] [-f] [-i n] [-I x] [-P x] [-t]
+- *	setresuid02 [-c n] [-f] [-i n] [-I x] [-P x] [-t]
 - *	where,  -c n : Run n copies concurrently.
-- *		-e   : Turn on errno logging.
 - *		-f   : Turn off functionality Testing.
 - *		-i n : Execute test n times.
 - *		-I x : Execute test for x seconds.
 - *		-P x : Pause for x seconds between iterations.
 - *		-t   : Turn on syscall timing.
+- *
 - * History
 - *	07/2001 John George
 - *		-Ported
-- *
++/*\
++ * [Description]
+  *
 - * Restrictions
-- * 	This test must be ran as root.
-- *	nobody and bin must be valid users.
-+ * Test setresuid() when executed by root.
+- * 	This test must be run by root.
+- *	nobody and bin must be a valid users.
++ * Test that a non-root user can change the real, effective and saved uid
++ * values through the setresuid system call.
   */
  
--#define _GNU_SOURCE 1
--#include <pwd.h>
+ #define _GNU_SOURCE 1
++#include <sys/types.h>
+ #include <pwd.h>
 -#include <stdlib.h>
--#include <string.h>
 -#include "test.h"
 -#include <errno.h>
+-#include <sys/wait.h>
 -#include "compat_16.h"
--
--TCID_DEFINE(setresuid01);
+ 
+-TCID_DEFINE(setresuid02);
 +#include "tst_test.h"
 +#include "tst_uid.h"
 +#include "compat_tst_16.h"
  
--uid_t nobody_pw_uid, root_pw_uid, bin_pw_uid;
 -uid_t neg_one = -1;
-+static uid_t root_uid, main_uid, other_uid, neg_one = -1;
++static uid_t nobody_uid, other_uid, neg_one = -1;
  
--struct passwd nobody, bin, root;
+-/* flag to tell parent if child passed or failed. */
+-int flag = 0;
+-
+-uid_t nobody_pw_uid, bin_pw_uid;
+-char user1name[] = "nobody";
+-char user2name[] = "bin";
+-
+-struct passwd nobody, bin;
 -
 -/*
 - * The following structure contains all test data.  Each structure in the array
@@ -212,24 +215,12 @@ index 9f448896b..e9eb8517e 100644
  	char *test_msg;
  } test_data[] = {
 -	{
--	&neg_one, &neg_one, &neg_one, &root, &root, &root,
--		    "After setresuid(-1, -1, -1),"}, {
--	&neg_one, &neg_one, &nobody_pw_uid, &root, &root, &nobody,
--		    "After setresuid(-1, -1, nobody),"}, {
--	&neg_one, &bin_pw_uid, &neg_one, &root, &bin, &nobody,
--		    "After setresuid(-1, bin, -1),"}, {
--	&neg_one, &neg_one, &root_pw_uid, &root, &bin, &root,
--		    "After setresuid(-1, -1, root),"}, {
--	&neg_one, &neg_one, &bin_pw_uid, &root, &bin, &bin,
+-	&neg_one, &neg_one, &bin_pw_uid, &nobody, &bin, &bin,
 -		    "After setresuid(-1, -1, bin),"}, {
--	&neg_one, &root_pw_uid, &neg_one, &root, &root, &bin,
--		    "After setresuid(-1, root, -1),"}, {
--	&nobody_pw_uid, &neg_one, &neg_one, &nobody, &root, &bin,
--		    "After setresuid(nobody, -1, -1)"}, {
--	&neg_one, &root_pw_uid, &neg_one, &nobody, &root, &bin,
--		    "After setresuid(-1, root, -1),"}, {
--&root_pw_uid, &neg_one, &root_pw_uid, &root, &root, &root,
--		    "After setresuid(root, -1, -1),"},};
+-	&neg_one, &nobody_pw_uid, &neg_one, &nobody, &nobody, &bin,
+-		    "After setresuid(-1, nobody -1),"}, {
+-&bin_pw_uid, &neg_one, &neg_one, &bin, &nobody, &bin,
+-		    "After setresuid(bin, -1 -1),"},};
 -
 -int TST_TOTAL = sizeof(test_data) / sizeof(test_data[0]);
 -
@@ -237,73 +228,85 @@ index 9f448896b..e9eb8517e 100644
 -void cleanup(void);
 -
 -void
--uid_verify(struct passwd *ru, struct passwd *eu, struct passwd *su, char *when);
+-uid_verify(struct passwd *ru, struct passwd *eu, struct passwd *su, char *);
 -
 -int main(int ac, char **av)
-+	{&neg_one, &neg_one, &neg_one, &root_uid, &root_uid, &root_uid,
-+		"After setresuid(-1, -1, -1),"},
-+	{&neg_one, &neg_one, &main_uid, &root_uid, &root_uid, &main_uid,
-+		"After setresuid(-1, -1, main),"},
-+	{&neg_one, &other_uid, &neg_one, &root_uid, &other_uid, &main_uid,
-+		"After setresuid(-1, other, -1),"},
-+	{&neg_one, &neg_one, &root_uid, &root_uid, &other_uid, &root_uid,
-+		"After setresuid(-1, -1, root),"},
-+	{&neg_one, &neg_one, &other_uid, &root_uid, &other_uid, &other_uid,
-+		"After setresuid(-1, -1, other),"},
-+	{&neg_one, &root_uid, &neg_one, &root_uid, &root_uid, &other_uid,
-+		"After setresuid(-1, root, -1),"},
-+	{&main_uid, &neg_one, &neg_one, &main_uid, &root_uid, &other_uid,
-+		"After setresuid(main, -1, -1)"},
-+	{&neg_one, &root_uid, &neg_one, &main_uid, &root_uid, &other_uid,
-+		"After setresuid(-1, root, -1),"},
-+	{&root_uid, &neg_one, &root_uid, &root_uid, &root_uid, &root_uid,
-+		"After setresuid(root, -1, -1),"},
++	{&neg_one, &neg_one, &other_uid, &nobody_uid, &other_uid, &other_uid,
++		"setresuid(-1, -1, other)"},
++	{&neg_one, &nobody_uid, &neg_one, &nobody_uid, &nobody_uid, &other_uid,
++		"setresuid(-1, nobody -1)"},
++	{&other_uid, &neg_one, &neg_one, &other_uid, &nobody_uid, &other_uid,
++		"setresuid(other, -1 -1)"},
++	/* Return to initial state */
++	{&nobody_uid, &other_uid, &nobody_uid, &nobody_uid, &other_uid,
++		&nobody_uid, "setresuid(nobody, other, nobody)"},
 +};
 +
 +static void setup(void)
  {
 -	int lc;
--
--	tst_parse_opts(ac, av, NULL, NULL);
 +	uid_t test_users[2];
++	struct passwd *pw = SAFE_GETPWNAM("nobody");
  
--	setup();
-+	root_uid = getuid();
-+	tst_get_uids(test_users, 0, 2);
-+	main_uid = test_users[0];
+-	tst_parse_opts(ac, av, NULL, NULL);
++	nobody_uid = test_users[0] = pw->pw_uid;
++	tst_get_uids(test_users, 1, 2);
 +	other_uid = test_users[1];
  
+-	setup();
++	UID16_CHECK(nobody_uid, setresuid);
++	UID16_CHECK(other_uid, setresuid);
+ 
 -	for (lc = 0; TEST_LOOPING(lc); lc++) {
--		int i;
+-		int i, pid;
 -
 -		/* reset tst_count in case we are looping */
 -		tst_count = 0;
 -
--		for (i = 0; i < TST_TOTAL; i++) {
--			/* Set the real, effective or user id */
--			TEST(SETRESUID(cleanup, *test_data[i].real_uid,
--				       *test_data[i].eff_uid,
--				       *test_data[i].sav_uid));
+-		/* set the appropriate ownership values */
+-		if (setresuid(nobody_pw_uid, bin_pw_uid, nobody_pw_uid) == -1) {
+-			tst_brkm(TFAIL, cleanup, "Initial setresuid failed");
+-		}
 -
--			if (TEST_RETURN == -1) {
--				tst_resm(TFAIL, "setresuid(%d, %d, %d) failed",
--					 *test_data[i].real_uid,
--					 *test_data[i].eff_uid,
--					 *test_data[i].sav_uid);
--			} else {
+-		if ((pid = FORK_OR_VFORK()) == -1) {
+-			tst_brkm(TBROK, cleanup, "fork failed");
+-		} else if (pid == 0) {	/* child */
+-
+-			for (i = 0; i < TST_TOTAL; i++) {
+-
+-				/* Set the real, effective or saved user id */
+-				TEST(SETRESUID(NULL, *test_data[i].real_uid,
+-					       *test_data[i].eff_uid,
+-					       *test_data[i].sav_uid));
+-
+-				if (TEST_RETURN != -1) {
+-					tst_resm(TPASS, "setresuid(%d, %d, %d) "
+-						 "succeeded as expected.",
+-						 *test_data[i].real_uid,
+-						 *test_data[i].eff_uid,
+-						 *test_data[i].sav_uid);
+-				} else {
+-					tst_resm(TFAIL, "setresuid(%d, %d, %d) "
+-						 "did not return as expected.",
+-						 *test_data[i].real_uid,
+-						 *test_data[i].eff_uid,
+-						 *test_data[i].sav_uid);
+-					flag = -1;
+-				}
+-
 -				uid_verify(test_data[i].exp_real_usr,
 -					   test_data[i].exp_eff_usr,
 -					   test_data[i].exp_sav_usr,
 -					   test_data[i].test_msg);
 -			}
+-			exit(flag);
+-		} else {	/* parent */
+-			tst_record_childstatus(cleanup, pid);
 -		}
 -	}
--
 -	cleanup();
 -	tst_exit();
-+	UID16_CHECK(root_uid, setresuid);
-+	UID16_CHECK(main_uid, setresuid);
-+	UID16_CHECK(other_uid, setresuid);
++	SAFE_SETRESUID(nobody_uid, other_uid, nobody_uid);
  }
  
 -/*
@@ -316,38 +319,32 @@ index 9f448896b..e9eb8517e 100644
 -	tst_require_root();
 -
 -	tst_sig(FORK, DEF_HANDLER, cleanup);
--
++	const struct test_data_t *tc = test_data + n;
+ 
 -	if (getpwnam("nobody") == NULL) {
 -		tst_brkm(TBROK, NULL, "nobody must be a valid user.");
 -	}
--
--	if (getpwnam("bin") == NULL) {
--		tst_brkm(TBROK, NULL, "bin must be a valid user.");
--	}
-+	const struct test_data_t *tc = test_data + n;
- 
--	root = *(getpwnam("root"));
--	UID16_CHECK((root_pw_uid = root.pw_uid), "setresuid", cleanup)
 +	TST_EXP_PASS_SILENT(SETRESUID(*tc->real_uid, *tc->eff_uid,
 +		*tc->sav_uid), "%s", tc->test_msg);
  
+-	if (getpwnam("bin") == NULL) {
+-		tst_brkm(TBROK, NULL, "bin must be a valid user.");
+-	}
+-
 -	nobody = *(getpwnam("nobody"));
 -	UID16_CHECK((nobody_pw_uid = nobody.pw_uid), "setresuid", cleanup)
-+	if (!TST_PASS)
-+		return;
- 
+-
 -	bin = *(getpwnam("bin"));
 -	UID16_CHECK((bin_pw_uid = bin.pw_uid), "setresuid", cleanup)
 -
 -	/* Pause if that option was specified
--	 * TEST_PAUSE contains the code to fork the test with the -c option.
+-	 * TEST_PAUSE contains the code to fork the test with the -i option.
+-	 * You want to make sure you do this before you create your temporary
+-	 * directory.
 -	 */
 -	TEST_PAUSE;
-+	if (tst_check_resuid(tc->test_msg, *tc->exp_real_uid,
-+		*tc->exp_eff_uid, *tc->exp_sav_uid))
-+		tst_res(TPASS, "%s works as expected", tc->test_msg);
- }
- 
+-}
+-
 -/*
 - * cleanup()
 - *	performs all ONE TIME cleanup for this test at
@@ -355,14 +352,20 @@ index 9f448896b..e9eb8517e 100644
 - */
 -void cleanup(void)
 -{
--
--}
--
++	if (!TST_PASS)
++		return;
+ 
++	if (tst_check_resuid(tc->test_msg, *tc->exp_real_uid,
++		*tc->exp_eff_uid, *tc->exp_sav_uid))
++		tst_res(TPASS, "%s works as expected", tc->test_msg);
+ }
+ 
 -void
 -uid_verify(struct passwd *ru, struct passwd *eu, struct passwd *su, char *when)
 -{
 -	uid_t cur_ru, cur_eu, cur_su;
 -	if (getresuid(&cur_ru, &cur_eu, &cur_su) != 0) {
+-		flag = -1;
 -		tst_brkm(TBROK, cleanup, "Set getresuid() failed");
 -	}
 -	if ((cur_ru != ru->pw_uid) || (cur_eu != eu->pw_uid) || (cur_su !=
@@ -371,10 +374,10 @@ index 9f448896b..e9eb8517e 100644
 -			 "saved uid = %d", when, cur_ru, cur_eu, cur_su);
 -		tst_resm(TINFO, "Expected: real uid = %d, effective uid = %d "
 -			 "saved uid = %d", ru->pw_uid, eu->pw_uid, su->pw_uid);
+-		flag = -1;
 -	} else {
--		tst_resm(TPASS,
--			 "real uid = %d, effective uid = %d, and saved uid = "
--			 "%d as expected", cur_ru, cur_eu, cur_su);
+-		tst_resm(TINFO, "real uid = %d, effective uid = %d, and "
+-			 "saved uid = %d as expected", cur_ru, cur_eu, cur_su);
 -	}
 -}
 +static struct tst_test test = {
