@@ -1,79 +1,76 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FBDE40AB10
-	for <lists+linux-ltp@lfdr.de>; Tue, 14 Sep 2021 11:42:44 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 47DFC40AB22
+	for <lists+linux-ltp@lfdr.de>; Tue, 14 Sep 2021 11:49:59 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0141C3C89B7
-	for <lists+linux-ltp@lfdr.de>; Tue, 14 Sep 2021 11:42:44 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id CE1583C89B9
+	for <lists+linux-ltp@lfdr.de>; Tue, 14 Sep 2021 11:49:58 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A36C03C1D8F
- for <ltp@lists.linux.it>; Tue, 14 Sep 2021 11:42:42 +0200 (CEST)
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [IPv6:2a00:1450:4864:20::12c])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 3289B3C1D75
+ for <ltp@lists.linux.it>; Tue, 14 Sep 2021 11:49:57 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id DDC3F20015E
- for <ltp@lists.linux.it>; Tue, 14 Sep 2021 11:42:41 +0200 (CEST)
-Received: by mail-lf1-x12c.google.com with SMTP id k13so27479325lfv.2
- for <ltp@lists.linux.it>; Tue, 14 Sep 2021 02:42:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bell-sw-com.20150623.gappssmtp.com; s=20150623;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=nzSjD0M+zYK5G3CfL2R+DkReBXH4ic4+66S1vNRcUnU=;
- b=UYjPY3pKa6zbRZ5pF+SFphWvMNSodgu/ZWI2sZGyQbOu/5Kabd9+Bgv2080okScfSs
- tNKG/LUryIHjvV/aLk/aWa3z8s1mkoRromIzr4lTi77UikYi7Q8gmtJXmEqqyNwvClst
- Lc0Qutpe4p/NIwLXTIgKiAshCldT625l9pc+4Du4ApRldz+pgnmRlcKKz2uI/v2QSfja
- NSUi7mOpXjxxzsFbP4I74eRqqmdjn3fyF9X+eY/ilDnakjEbxFe7Tb0hb1+asvi6dnc1
- bMF7sCvi7SFwb/deA817+maVAlJtIpRZ0E4pBp54SXskrMHY+LGzSAAo8VV9T8nF3Tjj
- 44nw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=nzSjD0M+zYK5G3CfL2R+DkReBXH4ic4+66S1vNRcUnU=;
- b=7j9s2HPYhEqzK2gDPY7XPSHGLpc9hYHNN+fl8jL8VXZAcjCbXRSq5NYvHQAaayOwFQ
- PZG/R4tRt+t9b/KoQVEighvdpRqhFJbCSuixKcn0cnfUZY8Nz5aQOpfXGZFgRWASAw6e
- j5AI14AkaSLuZSU/62glnY5NeVUNlSkWPKas497pqgK+R8lhCbUhbTucuzH7vtccnsxF
- yaIUn7kVC0opgBqVTlyrRd2faCtgll4m9tS7jikQ+1Nu/rOhWwj4njA2tzbBXeNJx0jG
- hh40njXMlXWyUi4PEEmcntBIbKYT3gQ4+O+chUXjVv4Chwt43Elj4Lhm8Q6+xtZHPv1s
- n1FA==
-X-Gm-Message-State: AOAM531gTd8VBHiz+inLBRfnwJkHLSyn2ntZonDHsfNI/x/L11dYFoaH
- 8mO/zLPNbpcGq4/5CVEYjvEooaWJB8Md
-X-Google-Smtp-Source: ABdhPJwWH8NAqjRaYLge7W9Vcs6mhDyrh2yTJnvbvWdJAqSsxs3aFQssviX83hRLBnRVV7subgdxeQ==
-X-Received: by 2002:a19:6b18:: with SMTP id d24mr12915155lfa.84.1631612561059; 
- Tue, 14 Sep 2021 02:42:41 -0700 (PDT)
-Received: from [192.168.1.52] ([95.161.221.177])
- by smtp.gmail.com with ESMTPSA id z1sm1073536lfu.222.2021.09.14.02.42.40
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 14 Sep 2021 02:42:40 -0700 (PDT)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 7FDC8600D27
+ for <ltp@lists.linux.it>; Tue, 14 Sep 2021 11:49:57 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id B83AC21F31;
+ Tue, 14 Sep 2021 09:49:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1631612996; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=eefuILk2hn9Yi4OT8tbBbFTyHc0XCsakjEPprjgGAsU=;
+ b=KNnoerYz3Z7/ka9635t/0m9KUcX8XxfgdMcK3bmnC4YuevdkvbOzlKZE3WiehxXGk0wuYf
+ 6ERR9lRci+iTELAufCpasqzp+mapr5ymgRvmqircYFB+9UQxEEFHJyu02mIfQ1MPehrUm1
+ fWC43SgZQ4BMiUOURRqCayQqbjN8oFw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1631612996;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=eefuILk2hn9Yi4OT8tbBbFTyHc0XCsakjEPprjgGAsU=;
+ b=r3r4q2yy3g11VOv0qzoU3J2g95FVWVL6wwUd/ge/RduKIiHEn2Nmi5LQEyApdtY/k5vFDm
+ r34lSh56srplefAw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A014E13E55;
+ Tue, 14 Sep 2021 09:49:56 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id MxBxJkRwQGFwUAAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Tue, 14 Sep 2021 09:49:56 +0000
+Date: Tue, 14 Sep 2021 11:50:17 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
 To: Petr Vorel <pvorel@suse.cz>
-References: <20210913123935.10761-1-aleksei.kodanev@bell-sw.com>
- <YUA3UIvykJPNyyi4@pevik>
-From: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
-Message-ID: <82b63456-0ba6-dedc-9688-cc74c40e4982@bell-sw.com>
-Date: Tue, 14 Sep 2021 12:42:40 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+Message-ID: <YUBwWfOYeuzWetO9@yuki>
+References: <20210909155126.2720-1-mdoucha@suse.cz>
+ <20210909155126.2720-8-mdoucha@suse.cz>
+ <287a9879ef8b3342cb88225e4e319733@suse.de>
+ <3b789dc4-5232-a6d6-d864-7f75c5a0a030@suse.cz>
+ <YT9laHIulnmtBSgK@yuki> <YUAt6/LvtDTVENJB@pevik>
 MIME-Version: 1.0
-In-Reply-To: <YUA3UIvykJPNyyi4@pevik>
-Content-Language: en-US
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <YUAt6/LvtDTVENJB@pevik>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-1.9 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/2] lib/tst_net.sh: ignore errors on rhost with
- -i option in tst_net_run()
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 8/8] syscalls/setresuid03: Convert to new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,29 +88,14 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Petr,
-On 14.09.2021 08:46, Petr Vorel wrote:
-> Hi Alexey,
-> 
-> good catch!
-> Reviewed-by: Petr Vorel <pvorel@suse.cz>
-> 
-> BTW are you going to send patch / report it to busybox? (I haven't find anything on ML)
+Hi!
+> Yep, that works, thanks!
 
-Looking at busybox history, seems expected from the beginning there:
+Let me send a proper patch then.
 
-commit 64309f8669f08f2c3c16a3b5bf82d9cae84ec388
-Author: Denis Vlasenko <vda.linux@googlemail.com>
-Date:   Thu Nov 29 06:40:28 2007 +0000
-
-    sysctl: add -e: supress warnings about invalid key (Jeremy Kerr <jk@ozlabs.org>)
-
--e option unsets FLAG_SHOW_KEY_ERRORS.
-
-busybox/sysctl: "-e	Don't warn about unknown keys"
-(Though, -q option can be used for that, which was added later, in 2012)
-vs
-procps/sysctl:  "-e, --ignore         ignore unknown variables errors"
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
