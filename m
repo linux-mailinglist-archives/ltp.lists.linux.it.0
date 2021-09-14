@@ -2,11 +2,11 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3150E40B1F3
-	for <lists+linux-ltp@lfdr.de>; Tue, 14 Sep 2021 16:48:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6674640B26C
+	for <lists+linux-ltp@lfdr.de>; Tue, 14 Sep 2021 17:02:06 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B6E223C9266
-	for <lists+linux-ltp@lfdr.de>; Tue, 14 Sep 2021 16:48:46 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id D7D523C9243
+	for <lists+linux-ltp@lfdr.de>; Tue, 14 Sep 2021 17:02:05 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
@@ -14,67 +14,57 @@ Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 7860A3C2A74
- for <ltp@lists.linux.it>; Tue, 14 Sep 2021 16:48:43 +0200 (CEST)
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [IPv6:2a00:1450:4864:20::133])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ by picard.linux.it (Postfix) with ESMTPS id BB2733C1D8B
+ for <ltp@lists.linux.it>; Tue, 14 Sep 2021 17:02:01 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id A66E11A00701
- for <ltp@lists.linux.it>; Tue, 14 Sep 2021 16:48:42 +0200 (CEST)
-Received: by mail-lf1-x133.google.com with SMTP id bq5so29389912lfb.9
- for <ltp@lists.linux.it>; Tue, 14 Sep 2021 07:48:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bell-sw-com.20150623.gappssmtp.com; s=20150623;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=mXgQXwv4NvQHphxgeMU2N142mFPl8ZK2ROmQ8NMqOlE=;
- b=Usn78hiQvZws5V8M9a3n/fNxZgb2zySLN7Y/4nPq1VVoudoBBFyLGXQhwWpEKDIahW
- wtKN1heNSXmRS1oguFhf3imOIo8kUWqQOVkJZXE0ynHbGVhjChaLmgw9bYy1fsXH55/6
- bOZ4MKINt98lRto/SrrF00dSCnpR9FeQcdRxsUJ7cB69tGI9P7HHPD8AYrkJNdfjag0i
- +E81wfORXDgQiZST/Bkwqo0dzo0Ik4r1XlDdj4KTd50ASWwysqGfRPgwPkXvd2xqshWh
- LIk19gc/91zlabitQKjRRxlNnNT0fud+2rpC9WhCEecGQjadnRTmAu/XQAgox5us630U
- ABBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=mXgQXwv4NvQHphxgeMU2N142mFPl8ZK2ROmQ8NMqOlE=;
- b=xhVrE+QhsYJPwhE6JDfI9Vs29KK+1NhhT6XwElCemTng0CE+/M+mQomV/5F0b/Mryg
- nMJZthJ+OISo4Y2Hv7+whIbzmFviIa+kLtBLYlfbl7rKiC/Im1ZLhvnwqjgwvvCy7upU
- oaWb8QdajvNjg1iIlU6C4pi5e7Y0Un1VFW3ZsNiZkwMVpAjjRMC38KBoFM8zkeOyrirO
- hPy7OveqJFwl9Un8Z2hq2ny3+17BwVsAUAmCc5pETyK5xnF9DmT9y2Un0S0Y/CNU1LTX
- rf1u8+G1shnhZLw9BlQqWQCPi3em++Mk+yK4wDE7AkcCxcP0i3ns6LpSnicpe7QRBYYL
- X2Qw==
-X-Gm-Message-State: AOAM531b9H5yOUp+MlIGS3ZIduqaDIgCQDvyFn3Atkwh6aadJg8qK4ie
- ceKXOl0gF9PiapYm7JLi3kyeSijGN2e5
-X-Google-Smtp-Source: ABdhPJy0yfrOLKx0FjIOXPKyzIoQXUMbngyDNPOBj1pLTMbpQA5YR0kQBrNttoXixjIMFhjDJ+L63g==
-X-Received: by 2002:ac2:5559:: with SMTP id l25mr12817007lfk.579.1631630921852; 
- Tue, 14 Sep 2021 07:48:41 -0700 (PDT)
-Received: from [192.168.1.52] ([95.161.221.177])
- by smtp.gmail.com with ESMTPSA id d7sm867413lfn.27.2021.09.14.07.48.41
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 14 Sep 2021 07:48:41 -0700 (PDT)
-To: Petr Vorel <pvorel@suse.cz>, Naresh Kamboju <naresh.kamboju@linaro.org>
-References: <20210914122425.85129-1-naresh.kamboju@linaro.org>
- <YUCah4R0SBDKZvPQ@pevik>
-From: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
-Message-ID: <e1873210-6d75-703d-f468-c4b826e20d54@bell-sw.com>
-Date: Tue, 14 Sep 2021 17:48:41 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id AFE2D1A00FB8
+ for <ltp@lists.linux.it>; Tue, 14 Sep 2021 17:02:00 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id A9A141FDFE
+ for <ltp@lists.linux.it>; Tue, 14 Sep 2021 15:01:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1631631719; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=fcxa6xkok6yCmf6dlR8kLdNjXBbO+JyMy+kQ6NqJZHc=;
+ b=NEVZql4IsAyoi26kbM2YJhbMH9ZJqOFyOL6JaugZ3/Fc7O2h/NkJjhu9EKGl5lSanfO4O6
+ 83eks2guv/ZT+2f6TUj3/jj0LhcZPJrcpJUfIbzB7Shm4R2GP4as3yBK6DU+76t+Rv58IU
+ N8P55OINbmLTevmGrne/JkdPWkuEoag=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1631631719;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=fcxa6xkok6yCmf6dlR8kLdNjXBbO+JyMy+kQ6NqJZHc=;
+ b=iyRKkVTp4oLCOU7qWpOjIAB1Kyav1ZzlmY5Xs/GTP8S6VrFAL+38R9ygPUJ/SrLy9wq/VS
+ gVtqe3n1CneKmkDQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 938E213C15
+ for <ltp@lists.linux.it>; Tue, 14 Sep 2021 15:01:59 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id XiAHI2e5QGFBCAAAMHmgww
+ (envelope-from <chrubis@suse.cz>)
+ for <ltp@lists.linux.it>; Tue, 14 Sep 2021 15:01:59 +0000
+From: Cyril Hrubis <chrubis@suse.cz>
+To: ltp@lists.linux.it
+Date: Tue, 14 Sep 2021 17:02:20 +0200
+Message-Id: <20210914150220.2467-1-chrubis@suse.cz>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-In-Reply-To: <YUCah4R0SBDKZvPQ@pevik>
-Content-Language: en-US
 X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-1.9 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/2] runtest/smoketest: Remove intermittent failed
- test case route4-change-dst
+Subject: [LTP] [PATCH] lib: tst_virt: Add option to override virt detection
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,48 +76,55 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 14.09.2021 15:50, Petr Vorel wrote:
->> The test case route4-change-dst fails intermittently creating
->> the problem for smoketest results verdict. route4-change-dst
->> is a stress test should not be a part of smoketest. because of
->> these issues removing route4-change-dst from the smoketest.
-> 
->> Suggested-by: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
->> Signed-off-by: Naresh Kamboju <naresh.kamboju@linaro.org>
-> 
-> Did 75184c30a ("lib/tst_net.sh: disable ipv6_dad work on test interfaces")
-> fixed your problem? I'd actually like to route4-change-dst in smoketest to
-> have it as a detection DAD issue is working.
+There seems to be cases where systemd-detect-virt does not detect
+virtualization correctly. To work around this bugs this commit adds a
+a support for LTP_VIRT_OVERRIDE environment variable that if set is used
+instead of the output from the systemd-detect-virt command.
 
-75184c30a is fixing ipv6. From the log, it seems the error happens
-in ping, when it once again tried to bind to 10.0.0.2 as a source
-address (with -I option)...
+Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
+---
+ lib/tst_virt.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
 
-> 
-> Kind regards,
-> Petr
-> 
->> ---
->>  runtest/smoketest | 1 -
->>  1 file changed, 1 deletion(-)
-> 
->> diff --git a/runtest/smoketest b/runtest/smoketest
->> index 7f395936e..dd689bd6f 100644
->> --- a/runtest/smoketest
->> +++ b/runtest/smoketest
->> @@ -12,5 +12,4 @@ stat04 symlink01 -T stat04
->>  utime01A symlink01 -T utime01
->>  rename01A symlink01 -T rename01
->>  splice02 splice02 -s 20
->> -route4-change-dst route-change-dst.sh
->>  shell_test01 echo "SUCCESS" | shell_pipe01.sh
-> 
+diff --git a/lib/tst_virt.c b/lib/tst_virt.c
+index d23d7f564..0fda20a17 100644
+--- a/lib/tst_virt.c
++++ b/lib/tst_virt.c
+@@ -100,8 +100,18 @@ static int is_ibmz(int virt_type)
+ static int try_systemd_detect_virt(void)
+ {
+ 	FILE *f;
+-	char virt_type[64];
++	char virt_buf[64];
+ 	int ret;
++	char *virt_type = getenv("LTP_VIRT_OVERRIDE");
++
++	if (virt_type) {
++		if (!strcmp("", virt_type))
++			return 0;
++
++		goto cmp;
++	}
++
++	virt_type = virt_buf;
+ 
+ 	/* See tst_cmd.c */
+ 	void *old_handler = signal(SIGCHLD, SIG_DFL);
+@@ -129,6 +139,7 @@ static int try_systemd_detect_virt(void)
+ 	if (ret)
+ 		return 0;
+ 
++cmp:
+ 	if (!strncmp("kvm", virt_type, 3))
+ 		return VIRT_KVM;
+ 
+-- 
+2.26.3
 
 
 -- 
