@@ -1,70 +1,77 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id D273D40AD4D
-	for <lists+linux-ltp@lfdr.de>; Tue, 14 Sep 2021 14:15:47 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id CEE8C40AD7B
+	for <lists+linux-ltp@lfdr.de>; Tue, 14 Sep 2021 14:24:53 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 681A03C89F2
-	for <lists+linux-ltp@lfdr.de>; Tue, 14 Sep 2021 14:15:47 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id F16603C8A08
+	for <lists+linux-ltp@lfdr.de>; Tue, 14 Sep 2021 14:24:52 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id BB6203C1DB4
- for <ltp@lists.linux.it>; Tue, 14 Sep 2021 14:15:43 +0200 (CEST)
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [IPv6:2a00:1450:4864:20::533])
+ by picard.linux.it (Postfix) with ESMTPS id DF8F13C1DB4
+ for <ltp@lists.linux.it>; Tue, 14 Sep 2021 14:24:47 +0200 (CEST)
+Received: from mail-pj1-x1036.google.com (mail-pj1-x1036.google.com
+ [IPv6:2607:f8b0:4864:20::1036])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id D7274200DDA
- for <ltp@lists.linux.it>; Tue, 14 Sep 2021 14:15:42 +0200 (CEST)
-Received: by mail-ed1-x533.google.com with SMTP id t6so18136005edi.9
- for <ltp@lists.linux.it>; Tue, 14 Sep 2021 05:15:42 -0700 (PDT)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id F29E460162F
+ for <ltp@lists.linux.it>; Tue, 14 Sep 2021 14:24:46 +0200 (CEST)
+Received: by mail-pj1-x1036.google.com with SMTP id
+ g13-20020a17090a3c8d00b00196286963b9so1984503pjc.3
+ for <ltp@lists.linux.it>; Tue, 14 Sep 2021 05:24:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=p2IBqSDhOVEDFvwBK5B69Ld/BKdedhZu0WbMQKGDl2s=;
- b=dgdIiBwnyBBp3h/ZmQxMDA9QIMYgxTpn9A6JmFaGHXmNjt8gG6VfeE8mNeZkS3bb82
- VdoJyxu7UFulFR5FihxC29QDqTE5RKF1oEegQPeB4rOCvCWWFZaecZ/oTrY72zrT11v8
- k/fu+KeX3UObGxkHBQVkMpVRa1o90UJ0SSKPmAr/mAl/WWbRvp12Wt0yVM7LfPgvdB2X
- EBK7KSCXVVyqUDaOc/OVODam1vnCOM8m7G6r8Kl8wCeOM2iadgrwuGOEIu+flCBBMZ5r
- P/vVWPQ6h5V3IGt/wCV38EOq9BKfRh6SM5d57yqQkcPndk6MPM/FE724HmIn9ywIa+kf
- dvcw==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=mPQSxuqw1e0LZL3sG+vkk08aLtCQcjJZeNX6AKx+h+M=;
+ b=iYYcZ3xv1H7Tek7kgU6P9ELzQR84kT6q3ZEgEOXJokWN0QubAZddh1O/hiJAjI3Lnc
+ HJn3Hy2XJCuZdG7sxgF4B0OujRVcz1dgNyqsdc6AhUPbKb1gfKTWPagtXM/+gMIQCR2O
+ FrmdnShJ/7QhnS1OwBBTyslH2yIwmssui5SJ3AMt2K27ZqnxENDGNqgig18P7fsyx3Rc
+ 35Fa8HDbePEmak+ukcebeHnrfdUq3r8kZ6AZwwHIiJrDhfc75nqbYvvBAC4sS6cA2M8z
+ PvAg3Jz/PvqtpG41pUPyhrcn95ToJCAC3sdjRzIn7iPI/ggoTTXJNDnJ4URT9eFca08h
+ bWnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=p2IBqSDhOVEDFvwBK5B69Ld/BKdedhZu0WbMQKGDl2s=;
- b=QVsUgAFvw+osdpSe0XC8zpfazPpPT7Z3RRYqO3PumSlu3qu80D86AyOtzV1pSDAE5W
- JxW8Y5a68fcC/tZlN5BwLxJ1fUlNxopFUboTDliBFj6hbM/S2sE564m3OXiojMvxePIT
- Vd+9ir3UyLSypx9q4itG8IPTl6btPDPXAf8IOiDP+Xy6d5b/h+VbLNW7xPIFlfkBDy43
- 6IgzKPvhOfT6z0+V9gHQQKs8BKpMBI2A7c/MsdrAxOtWdS/6gePtBX/2U8g0xC7A3n6T
- B2V+d3+83zBrGY98fnF43yCMEmta/vhV6hP4o1FJg4HUnnWB7pFoE7iX2+CmQAXA5NNA
- NICA==
-X-Gm-Message-State: AOAM530eGUkw+UUhtpm5pi+vx37yErVCYb/JCw08sf5ttlpo+IgkhykK
- rKw4/gYpXe1C0GujDvEnwHetQSEC48m3FzcUbZ7gbg==
-X-Google-Smtp-Source: ABdhPJwXksD1jDWChIU28d14t57g4IyoNzXkeY0x4x0i9jOrXf8tjKPq3EzgUr7HxuTeqibDpd5r4iF+8hjaHCDXNy0=
-X-Received: by 2002:aa7:d1d3:: with SMTP id g19mr11673337edp.103.1631621742223; 
- Tue, 14 Sep 2021 05:15:42 -0700 (PDT)
-MIME-Version: 1.0
-References: <CA+G9fYtJYK4C4q7v2VBgyHe1EdOeZ=auEytoKJr0gYThj8gS5w@mail.gmail.com>
- <YUA4tLquwA3XRKfW@pevik>
-In-Reply-To: <YUA4tLquwA3XRKfW@pevik>
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=mPQSxuqw1e0LZL3sG+vkk08aLtCQcjJZeNX6AKx+h+M=;
+ b=OFSDcdKZmS6/9BTwew4C64rTSQQ+F+g1v7QRZJav38eqmG09YzTh3C9KUiXmQTXK82
+ XSJP20BRyHY9aoF9ys0/qIZFl5RT+88T4GQrb9u6nI9VQwvj+nYyfuKU0cnXKEOnJ6VD
+ 2R20A2GIue279rpOZe5fT865AxuH7KFf9YUD9bXpOt6oS+TP0IzzTQg7+prsusgXko9u
+ GbN5H5lbw61MiyA/XfvoqAgITnYPO37lUIaLFUqPS6Z8nOd8UyhpZ7ewIoixqzUzfS2O
+ ZqZXNDOeKTSHlgelP8lv/Zf9LRZDX037KCp4MxhbPh7IFtgsGVtaoSqcZFnQ/Al8oF/f
+ kC2w==
+X-Gm-Message-State: AOAM533I15LjZb7JLLphGrmUFeJc4yFLOU1HGuZy8nulPEQneD6JAfpx
+ B9K3N4An1CQWM9DLT/C3IKlokKsUubrYkQ==
+X-Google-Smtp-Source: ABdhPJz8cbdKCE4cD9FCJEGiLzzmRdKTjirnuFsHNc1MD2YpLL2ibWqmCoykv64aiRwzQPK7x6m9MQ==
+X-Received: by 2002:a17:902:9a8e:b0:12d:cb3c:c4d7 with SMTP id
+ w14-20020a1709029a8e00b0012dcb3cc4d7mr14899588plp.18.1631622284400; 
+ Tue, 14 Sep 2021 05:24:44 -0700 (PDT)
+Received: from localhost.localdomain
+ ([2409:4070:4e95:9173:770c:2c67:ffa6:19ab])
+ by smtp.gmail.com with ESMTPSA id d63sm1663606pjk.17.2021.09.14.05.24.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 Sep 2021 05:24:43 -0700 (PDT)
 From: Naresh Kamboju <naresh.kamboju@linaro.org>
-Date: Tue, 14 Sep 2021 17:45:30 +0530
-Message-ID: <CA+G9fYtLzhDG+kz-4yigaV_Pxu2UvSa-azXNtzrbr5qv-MZZjw@mail.gmail.com>
-To: Petr Vorel <pvorel@suse.cz>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+To: ltp@lists.linux.it
+Date: Tue, 14 Sep 2021 17:54:24 +0530
+Message-Id: <20210914122425.85129-1-naresh.kamboju@linaro.org>
+X-Mailer: git-send-email 2.30.2
+MIME-Version: 1.0
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] LTP: smoketest: route4-change-dst fails intermittently
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/2] runtest/smoketest: Remove intermittent failed
+ test case route4-change-dst
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,39 +83,35 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Tue, 14 Sept 2021 at 11:22, Petr Vorel <pvorel@suse.cz> wrote:
->
-> Hi Naresh, Alexey,
->
-> > LTP smoketest  "route4-change-dst" fails intermittently on various
-> > devices and qemu.
-> > We do not want any intermittent failures on LTP smoketest.
-> > Shall i send a patch to delete this test case from runtest/smoketest ?
->
-> > - Naresh
->
-> After Alexey merges DAD related fix [1] we can keep route test right?
+The test case route4-change-dst fails intermittently creating
+the problem for smoketest results verdict. route4-change-dst
+is a stress test should not be a part of smoketest. because of
+these issues removing route4-change-dst from the smoketest.
 
-No.
-We will delete " route4-change-dst".
+Suggested-by: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
+Signed-off-by: Naresh Kamboju <naresh.kamboju@linaro.org>
+---
+ runtest/smoketest | 1 -
+ 1 file changed, 1 deletion(-)
 
-> Do we want to add ping02.sh -6 or replace route with test with ping02.sh?
-Yes. I replace it with
-ping02.sh -6
+diff --git a/runtest/smoketest b/runtest/smoketest
+index 7f395936e..dd689bd6f 100644
+--- a/runtest/smoketest
++++ b/runtest/smoketest
+@@ -12,5 +12,4 @@ stat04 symlink01 -T stat04
+ utime01A symlink01 -T utime01
+ rename01A symlink01 -T rename01
+ splice02 splice02 -s 20
+-route4-change-dst route-change-dst.sh
+ shell_test01 echo "SUCCESS" | shell_pipe01.sh
+-- 
+2.30.2
 
-- Naresh
-
->
-> Kind regards,
-> Petr
->
-> [1] https://patchwork.ozlabs.org/project/ltp/patch/20210913123935.10761-2-aleksei.kodanev@bell-sw.com/
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
