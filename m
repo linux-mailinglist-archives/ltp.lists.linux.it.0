@@ -1,78 +1,75 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA4F740DD27
-	for <lists+linux-ltp@lfdr.de>; Thu, 16 Sep 2021 16:46:33 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A87640EBE2
+	for <lists+linux-ltp@lfdr.de>; Thu, 16 Sep 2021 22:55:36 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 354E73C9132
-	for <lists+linux-ltp@lfdr.de>; Thu, 16 Sep 2021 16:46:33 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id BD9AA3C9163
+	for <lists+linux-ltp@lfdr.de>; Thu, 16 Sep 2021 22:55:35 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A8FD73C917A
- for <ltp@lists.linux.it>; Thu, 16 Sep 2021 16:46:26 +0200 (CEST)
-Received: from mail-pj1-x102b.google.com (mail-pj1-x102b.google.com
- [IPv6:2607:f8b0:4864:20::102b])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 31BC36009F3
- for <ltp@lists.linux.it>; Thu, 16 Sep 2021 16:46:26 +0200 (CEST)
-Received: by mail-pj1-x102b.google.com with SMTP id
- w19-20020a17090aaf9300b00191e6d10a19so4946126pjq.1
- for <ltp@lists.linux.it>; Thu, 16 Sep 2021 07:46:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=0rHhMGXoWz0JSlrDoJyKhmK5uu8LzkRw62qKOCUI+Tc=;
- b=efVk79eTVjua2dpHjsPm6UQurwbvm2SjH0gAu/tYmmLMOuRnWzfs1Cnvd0sqEL9pch
- PwYzHTS2X2g1QbF57Wde2kcLWeTzcienOa5bWOlXNJhixk/VPv/MUoJGPHh/huJ5cY3I
- abDvRrDX4FN04nG8emvC14lPlvVqMPT8Tb8aSN7Xh8MrjqVxnSEY373of0JZaNj9giAT
- aDaRiFRzAdcoTJfdeDhu4kZKBP5RjPCBIskE7tYPni2IrYXgVmsFpgrrBdOSgzAU5h7g
- 6ySTgAklnX0TUXdCyUD44HKqBrdZEoyl6WhqUBj9p2hpeHvNYpyrh+4TGsdjRqR/pxks
- s5hg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=0rHhMGXoWz0JSlrDoJyKhmK5uu8LzkRw62qKOCUI+Tc=;
- b=qoNlf2Rf4ERMmwY1sujNHpDwL1VwVFptkTdnm9FLcj08gK3p/EZF1ktJZ4n79VD94G
- 6YAhtbveDTit06IJhdQBRI99bq5SCeA8h8lHUjdENVNOMOfsKa6jOBz2wim9Qbvozl14
- pFE5mtsyYzuHk0SIAKMTJZnd4r18yt9//NzbOxK83zQL1TzCzY+BHPNTnGhmz5Fy5BRF
- c4GH9rmJzntVT8KfJuwzKIU9gzAU9E4hntc5lY3ehQPPP+9qjPX7U2CVi5RkgY4gLMgV
- JS8049jF4Lvs1zofQXbQoTlsuwrvOz8yxUIFyXxN9DY2E8stlxrNIonArk3YcmAKWqp8
- uSZw==
-X-Gm-Message-State: AOAM532R//mefxIoAxKiiSeoGQVqoXBKcLoGS4KTjsChcOQyfETlq/tu
- 1FclFrMnBN5fo0fNS2l6IWnIn0l3mPHmJRxI
-X-Google-Smtp-Source: ABdhPJyYx5bJSOIzT7KZdeoA7F2Q9pg5vHuRBVCBTSUAgn/AE8oN8UwgNsh6D1WNMXZ7q6WllXMycg==
-X-Received: by 2002:a17:902:680a:b0:139:edc9:ed4c with SMTP id
- h10-20020a170902680a00b00139edc9ed4cmr5168641plk.5.1631803584737; 
- Thu, 16 Sep 2021 07:46:24 -0700 (PDT)
-Received: from fedora34.. (125x103x255x1.ap125.ftth.ucom.ne.jp.
- [125.103.255.1])
- by smtp.gmail.com with ESMTPSA id v25sm3299097pfm.202.2021.09.16.07.46.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Sep 2021 07:46:24 -0700 (PDT)
-From: QI Fuli <fukuri.sai@gmail.com>
-X-Google-Original-From: QI Fuli <qi.fuli@fujitsu.com>
-To: ltp@lists.linux.it
-Date: Thu, 16 Sep 2021 23:46:05 +0900
-Message-Id: <20210916144605.36204-3-qi.fuli@fujitsu.com>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210916144605.36204-1-qi.fuli@fujitsu.com>
-References: <20210916144605.36204-1-qi.fuli@fujitsu.com>
+ by picard.linux.it (Postfix) with ESMTPS id 22C163C1D25
+ for <ltp@lists.linux.it>; Thu, 16 Sep 2021 22:55:32 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 45AFA60090B
+ for <ltp@lists.linux.it>; Thu, 16 Sep 2021 22:55:32 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id E2E361FF21;
+ Thu, 16 Sep 2021 20:55:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1631825730;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=BRXoiL4P/tpW63qL488yIU/u9LqbQnP/kDmT/J3GQV0=;
+ b=muxYCL5sijE/BoXfzeAQwJFpkjvSfexTuazsvntSObKBsUsio1An7xe9oqC+V+V8EmgLW8
+ rPjgwDhos8fHH12vmtU+eX06zjx5q8qUwxjLqv7z+gcmLTzAH3HkGJLuTCDFxbbmHsUZts
+ NB9jtu0f6mooZBm74WdOCuSK1lNwIQk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1631825730;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=BRXoiL4P/tpW63qL488yIU/u9LqbQnP/kDmT/J3GQV0=;
+ b=gAcHGqffFJiFUeRYfiTRLoeA098/oMRd6HsN1ATv8BEfBV90QPo2gomD4YAAWNN7FaOIP9
+ DeZMMA4sE1byWaAg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7F21413D6A;
+ Thu, 16 Sep 2021 20:55:29 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id II8pLEGvQ2GAOAAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Thu, 16 Sep 2021 20:55:29 +0000
+Date: Thu, 16 Sep 2021 22:55:27 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Richard Palethorpe <rpalethorpe@suse.com>
+Message-ID: <YUOvPxU5NcPq8gw0@pevik>
+References: <20210909140911.44EC9A4308@relay2.suse.de>
+ <20210916123248.4974-1-rpalethorpe@suse.com>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20210916123248.4974-1-rpalethorpe@suse.com>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/2] syscalls/dup3_02: Convert to new API
+Subject: Re: [LTP] [PATCH v2] kernel/irq: Add irqbalance01
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,169 +81,29 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: QI Fuli <qi.fuli@fujitsu.com>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-From: QI Fuli <qi.fuli@fujitsu.com>
+Hi Richie,
 
-Signed-off-by: QI Fuli <qi.fuli@fujitsu.com>
----
- testcases/kernel/syscalls/dup3/dup3_02.c | 111 +++++------------------
- 1 file changed, 25 insertions(+), 86 deletions(-)
+Changes to this version (it's actually v3) LGTM.
+I suppose Cyril wants to recheck it, thus not merging it yet.
 
-diff --git a/testcases/kernel/syscalls/dup3/dup3_02.c b/testcases/kernel/syscalls/dup3/dup3_02.c
-index e49ec3575..76c4e6e35 100644
---- a/testcases/kernel/syscalls/dup3/dup3_02.c
-+++ b/testcases/kernel/syscalls/dup3/dup3_02.c
-@@ -1,118 +1,57 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
- /*
-  * Copyright (c) 2013 Fujitsu Ltd.
-  * Author: Xiaoguang Wang <wangxg.fnst@cn.fujitsu.com>
-- *
-- * This program is free software; you can redistribute it and/or modify it
-- * under the terms of version 2 of the GNU General Public License as
-- * published by the Free Software Foundation.
-- *
-- * This program is distributed in the hope that it would be useful, but
-- * WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-- *
-- * You should have received a copy of the GNU General Public License along
-- * with this program; if not, write the Free Software Foundation, Inc.,
-- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-  */
- 
--/*
-- * Description:
-+/*\
-+ * [Description]
-  * Verify that,
-  *  1. dup3() fails with -1 return value and sets errno to EINVAL
-  *     if flags contain an invalid value or oldfd was equal to newfd.
-  */
- 
--#define _GNU_SOURCE
--
--#include <stdio.h>
- #include <errno.h>
--#include <unistd.h>
--#include <fcntl.h>
--#include <string.h>
--#include <signal.h>
--#include <sys/types.h>
--
--#include "test.h"
--#include "safe_macros.h"
--#include "lapi/fcntl.h"
-+#include "tst_test.h"
-+#include "tst_safe_macros.h"
- #include "lapi/syscalls.h"
- 
--
--static void setup(void);
--static void cleanup(void);
--
--#define INVALID_FLAG	-1
--
- static int old_fd;
--static int new_fd;
-+static int new_fd = -1;
- 
--static struct test_case_t {
-+static struct tcase {
- 	int *oldfd;
- 	int *newfd;
- 	int flags;
--	int exp_errno;
--} test_cases[] = {
--	{&old_fd, &old_fd, O_CLOEXEC, EINVAL},
--	{&old_fd, &old_fd, 0, EINVAL},
--	{&old_fd, &new_fd, INVALID_FLAG, EINVAL}
-+} tcases[] = {
-+	{&old_fd, &old_fd, O_CLOEXEC},
-+	{&old_fd, &old_fd, 0},
-+	{&old_fd, &new_fd, -1}
- };
- 
--char *TCID = "dup3_02";
--int TST_TOTAL = ARRAY_SIZE(test_cases);
--
--int main(int ac, char **av)
-+static void run(unsigned int i)
- {
--	int lc;
--	int i;
--
--	tst_parse_opts(ac, av, NULL, NULL);
--
--	setup();
--
--	for (lc = 0; TEST_LOOPING(lc); lc++) {
--		tst_count = 0;
-+	struct tcase *tc = tcases + i;
- 
--		for (i = 0; i < TST_TOTAL; i++) {
--			TEST(ltp_syscall(__NR_dup3, *(test_cases[i].oldfd),
--			     *(test_cases[i].newfd), test_cases[i].flags));
--
--			if (TEST_RETURN != -1) {
--				tst_resm(TFAIL, "dup3 succeeded unexpectedly");
--				continue;
--			}
--
--			if (TEST_ERRNO == test_cases[i].exp_errno) {
--				tst_resm(TPASS | TTERRNO,
--					 "dup3 failed as expected");
--			} else {
--				tst_resm(TFAIL | TTERRNO,
--					 "dup3 failed unexpectedly; expected:"
--					 "%d - %s", test_cases[i].exp_errno,
--					 strerror(test_cases[i].exp_errno));
--			}
--		}
--	}
--
--	cleanup();
--	tst_exit();
-+	TST_EXP_FAIL2(tst_syscall(__NR_dup3, *tc->oldfd, *tc->newfd, tc->flags),
-+				EINVAL,	"syscall(__NR_dup3, %d, %d, %d)",
-+				*tc->oldfd, *tc->newfd, tc->flags);
- }
- 
- static void setup(void)
- {
--	tst_sig(NOFORK, DEF_HANDLER, cleanup);
--
--	tst_tmpdir();
--
--	TEST_PAUSE;
--
--	old_fd = SAFE_CREAT(cleanup, "testeinval.file", 0644);
--	new_fd = -1;
-+	old_fd = SAFE_CREAT("testeinval.file", 0644);
- }
- 
- static void cleanup(void)
- {
- 	if (old_fd > 0)
--		SAFE_CLOSE(NULL, old_fd);
--
--	tst_rmdir();
-+		SAFE_CLOSE(old_fd);
- }
-+
-+static struct tst_test test = {
-+	.tcnt = ARRAY_SIZE(tcases),
-+	.test = run,
-+	.setup = setup,
-+	.cleanup = cleanup,
-+};
--- 
-2.31.1
+Thanks!
+
+Kind regards,
+Petr
+
+> +++ b/testcases/kernel/irq/.gitignore
+> @@ -0,0 +1 @@
+> +irqbalance01
+Very nit: we usually put '/' at the beginning to: /irqbalance01
+(to apply files only in testcases/kernel/irq/, but that's irrelevant in most
+cases as there are no subdirectories). If we even bother, it can be changed during merge.
 
 
 -- 
