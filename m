@@ -1,77 +1,76 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFB8640F5C1
-	for <lists+linux-ltp@lfdr.de>; Fri, 17 Sep 2021 12:18:30 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 89CA540F5C4
+	for <lists+linux-ltp@lfdr.de>; Fri, 17 Sep 2021 12:19:49 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B7BFF3C883A
-	for <lists+linux-ltp@lfdr.de>; Fri, 17 Sep 2021 12:18:30 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 163B73C8997
+	for <lists+linux-ltp@lfdr.de>; Fri, 17 Sep 2021 12:19:49 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 2DC8F3C1D1D
- for <ltp@lists.linux.it>; Fri, 17 Sep 2021 12:18:29 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 933193C8854
+ for <ltp@lists.linux.it>; Fri, 17 Sep 2021 12:19:22 +0200 (CEST)
+Received: from mail-pg1-x531.google.com (mail-pg1-x531.google.com
+ [IPv6:2607:f8b0:4864:20::531])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 7B6AB1000608
- for <ltp@lists.linux.it>; Fri, 17 Sep 2021 12:18:29 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id ACCA81FD6B;
- Fri, 17 Sep 2021 10:18:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1631873908;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=HccEXP3qa7ZiYUqYAJYlFEA1NyTfJI0GzzmRPHS1tkw=;
- b=p0MsJeRBvJpvOxVnhZAsYj0+KIgKHbedk4AcaoCqvzmwWsHyBVzzAkTSSGy1cUblhCxnpf
- kEVwem5j1msR7zBiyqEqMLNa/b55q/GbNB6ut4jjoxWGT21M+QrEUnR44WWBUOJoAVEd/E
- MBwthNCiDI4BzWXvycBBDjxqI7zenks=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1631873908;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=HccEXP3qa7ZiYUqYAJYlFEA1NyTfJI0GzzmRPHS1tkw=;
- b=tAGwMYMsA7U7NJjTr8Q58QxeijQorFLBfwLvg4EJ8rH0Z2AETw7uNvDleciLtyJ3nSvgTq
- AnISWEidTP4AUzCg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4D73B13A91;
- Fri, 17 Sep 2021 10:18:28 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id QABQEHRrRGGQdgAAMHmgww
- (envelope-from <pvorel@suse.cz>); Fri, 17 Sep 2021 10:18:28 +0000
-Date: Fri, 17 Sep 2021 12:18:26 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Cyril Hrubis <chrubis@suse.cz>, Li Wang <liwang@redhat.com>,
- Joerg Vehlow <joerg.vehlow@aox-tech.de>, ltp@lists.linux.it,
- Alexey Kodanev <aleksei.kodanev@bell-sw.com>
-Message-ID: <YURrcrX9RQYIMt4V@pevik>
-References: <20210519085812.27263-1-liwang@redhat.com> <YUJ2XA7W3JPODyNC@pevik>
- <YUJ7SC/FoA8wTaf2@pevik> <YURW7NKNSSr0J6pL@yuki>
- <YURdMRsvyGRcF77X@pevik>
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 90B3D60024C
+ for <ltp@lists.linux.it>; Fri, 17 Sep 2021 12:19:22 +0200 (CEST)
+Received: by mail-pg1-x531.google.com with SMTP id 17so9196907pgp.4
+ for <ltp@lists.linux.it>; Fri, 17 Sep 2021 03:19:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=CCONt8sX221svskrGZ7kmHtSCFRdAswJcrmbaMeJgWk=;
+ b=cXn8fznTb/y9u7QDBz9xQvuCXyM5geCGRvosl5hJ2NeU/RX1urn6MPCMlW0umrLMxo
+ v4TItKCuDDZVAQtBl/Y2BUZryhM1f63DlDzfmrjjdlr9LKLfn4ajUfRBXzoP7zi8BUr+
+ uAaGhUqXAm2OHQRdbvGZMHxxEOm2nOKuX0qhr2ixECbPy9RQmxQcrf+fwwiKHL/oJ+y8
+ L+F2vXE+BqfKaVT5SLuCPebBMiG/q7M15XZfVxdkchcykIYmF2M4L0H4TYinSorzjCPg
+ jDZtVfA3QV96q7Z+2W9wvUW51yFgaU9I/I65IU2s7nKxePsPAnrjlktTpEqTx2rf4aRm
+ jPGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=CCONt8sX221svskrGZ7kmHtSCFRdAswJcrmbaMeJgWk=;
+ b=qtbP0dryv+paTskDXumC7169IGTxKBRpS9NziR26vLUx5fYdrZjJ11GNt1VLNZ9qiV
+ +fv+qsZ1D8HHKtfmjLhMhMuJ4KXOWQ6aTA2ttGiaYI2OIPwdb1zkMmq0DOCe5ZpHf/V4
+ OVp75JZ6E54QPxtADTWjTS8SMz3jm0SHnqPf8yqD8YQypWES+e5O344GdQZMUC/ikGtQ
+ SZWY6kCu7cglGl+NAFol53APi3ThTDLs+G+PH7mXPK8uD02rMe/L/LcVIAXWy06dAOT2
+ zIx/bodlzeEVsp6/Zk2EnJqFZkQ5Hyhm42XtHcdMVWINTnig0csacESWwtsWu9uDhWDo
+ DXVg==
+X-Gm-Message-State: AOAM5308B2HDPUgPjGzAEzEH/1zVluX2ZuFMkRpw54YwXhPkg57EkAEl
+ grv1S0yIT462q9pHXAVhal1UOStUNJhQ0vOF
+X-Google-Smtp-Source: ABdhPJyPnWn7SKv2BCbfTw29B8jpXZQ87M34QhSPlqYv8bJEYDhHN9sYzFTduo59tQitrBmX78CcTA==
+X-Received: by 2002:a62:3383:0:b0:438:4b0d:e50e with SMTP id
+ z125-20020a623383000000b004384b0de50emr9726016pfz.9.1631873961031; 
+ Fri, 17 Sep 2021 03:19:21 -0700 (PDT)
+Received: from fedora34.. (125x103x255x1.ap125.ftth.ucom.ne.jp.
+ [125.103.255.1])
+ by smtp.gmail.com with ESMTPSA id l1sm10208453pju.15.2021.09.17.03.19.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 17 Sep 2021 03:19:20 -0700 (PDT)
+From: QI Fuli <fukuri.sai@gmail.com>
+X-Google-Original-From: QI Fuli <qi.fuli@fujitsu.com>
+To: ltp@lists.linux.it
+Date: Fri, 17 Sep 2021 19:19:05 +0900
+Message-Id: <20210917101907.2657-1-qi.fuli@fujitsu.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <YURdMRsvyGRcF77X@pevik>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] tst_test: using SIGTERM to terminate process
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 0/2] Convert syscalls/dup3_{01,02} to new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,64 +82,27 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: QI Fuli <qi.fuli@fujitsu.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-> Hi Cyril,
+From: QI Fuli <qi.fuli@fujitsu.com>
 
-> > Hi!
-> > > setup()
-> > > {
-> > > 	tst_brk TCONF "quit now!"
-> > > }
+Convert syscalls/dup3_{01,02} to new API
 
-> > > do_test()
-> > > {
-> > > 	tst_res TPASS "pass :)"
-> > > }
+QI Fuli (2):
+  syscalls/dup3_01: Rewrite and convert to new API
+  syscalls/dup3_02: Convert to new API
 
-> > > tst_run
-> > > EOF
+ testcases/kernel/syscalls/dup3/dup3_01.c | 159 +++++++----------------
+ testcases/kernel/syscalls/dup3/dup3_02.c | 118 +++++------------
+ 2 files changed, 76 insertions(+), 201 deletions(-)
 
-> > > # while true; do ./debug.sh; done
+-- 
+2.31.1
 
-> > I managed to reproduce this in dash. I bet that this is a bug where
-> > signal handler inside dash is temporarily disabled when we install the
-> > trap and if we manage to hit that window the signal is discarded. At
-> > least that is my working theory. After I've installed debug prints, in
-> > the cases where it hangs the signal was sent just before have installed
-> > the trap. And in some cases when the signal arrives the timer process is
-> > killed but the trap is not invoked. So it really looks like signal
-> > handling in dash is simply broken. Not sure what we can do about bugs
-> > like this apart from switching to a real programming language.
-Which version of bash and dash are you testing on?
-
-> Thanks for the debugging. *bash* is also affected, at least some releases.
-> I reproduced it also on some older SLES, with bash 4.4.
-dash 0.5.11.4 and 5.1.8 on my Tumbleweed laptop are OK.
-
-I tested it on various my VM:
-
-dash *failing*: 0.5.8 (SLES), 0.5.11.3 (Tumbleweed), 0.5.11+git20200708+dd9ef66-5 (Debian), 0.5.7-4+b1 (Debian)
-dash *OK*: 0.5.11.2 (SLES 15), 0.5.10.2 (CentOS)
-
-bash *failing*: 5.1.4-1.4 (Tumbleweed), 4.4-9.7.1 (SLES 15)
-bash *ok*: 4.4-17 (SLES 15), 4.3-83 (SLES 12), 4.3-11+deb8u (Debian), 5.1-2+b3
-(Debian), 4.2.46-34 (CentOS)
-
-I have no idea what it causes, whether really some bash and dash versions are
-buggy or it's reproducible only on certain environment.
-
-Any tip what to search for?
-
-Kind regards,
-Petr
-
-> Kind regards,
-> Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
