@@ -2,86 +2,48 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7EC8C4155AD
-	for <lists+linux-ltp@lfdr.de>; Thu, 23 Sep 2021 05:00:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5923F415937
+	for <lists+linux-ltp@lfdr.de>; Thu, 23 Sep 2021 09:42:43 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1A41F3CA220
-	for <lists+linux-ltp@lfdr.de>; Thu, 23 Sep 2021 05:00:39 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id F1A463C8789
+	for <lists+linux-ltp@lfdr.de>; Thu, 23 Sep 2021 09:42:42 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 963963C813A
- for <ltp@lists.linux.it>; Thu, 23 Sep 2021 05:00:37 +0200 (CEST)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 8EB7C3C8120
+ for <ltp@lists.linux.it>; Thu, 23 Sep 2021 09:42:40 +0200 (CEST)
+Received: from szxga08-in.huawei.com (szxga08-in.huawei.com [45.249.212.255])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id D561E1400991
- for <ltp@lists.linux.it>; Thu, 23 Sep 2021 05:00:35 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1632366034;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=nt7WQ7c7KrmDQS+ftU72qfPMFpzzS6SlyVgp5JW+/HA=;
- b=Fj77WgfFjUnsc5JFOWfqcQrrcuHxpBbHX5Ixq2o4qgaID+51vXmxIhgFC472Msm8iw+Yf2
- pDiMSMoNj/aK0ZzyxSWktHyoDivugt5ybEs5elrEUpTvsv/0AqApFLz0zdQui4fDornZ+u
- 5NUnqKJ/t2uT1BBpt3j8HugfOZAbw1w=
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
- [209.85.219.69]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-39-cbIPXQl5PZa1bry9eUFO8A-1; Wed, 22 Sep 2021 23:00:30 -0400
-X-MC-Unique: cbIPXQl5PZa1bry9eUFO8A-1
-Received: by mail-qv1-f69.google.com with SMTP id
- z6-20020a056214060600b0037a3f6bd9abso17178986qvw.3
- for <ltp@lists.linux.it>; Wed, 22 Sep 2021 20:00:30 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=nt7WQ7c7KrmDQS+ftU72qfPMFpzzS6SlyVgp5JW+/HA=;
- b=rCeo4w0R1Vb+sdneMScmP7kovdiwBKWBvKrLNTIM73pK6GY3iC7SM5nsJ+cINjd4Wf
- qiPVMsKXe/Jyear/a+G86E/iET0bwkq4Bu2HDMvXaT/hSi4Q/GfvtSyh8ScFOjlsdKjl
- Pn6SDDxjtW3aU4wA4+na1R9wR88EN560Nglwns+j9Mxt6BcV94v0Rrf6g+SLF6IWg/If
- 5jvi06OYrWA6nKBndwPezCrKuC3emN/l7YkAHvNR7J04e9QKeaDbAJn0aS5vT7d4RaNG
- ITFS0OMWszI1csFmqXpTxi6o4mfEtFA8Kk4MFAqVWPLIwx/ajk+JeOkmqdIcg0cDYUtv
- ILZA==
-X-Gm-Message-State: AOAM530OsLQhFdXQBFUIYhDD4gpCDMcr6AjwNJqo6MU9ehBQNa57M8Iv
- 7Z0Q6U+da6/fGnfz3zxbn95uPbFIjbX3DDoKq9KutbyAAM9El05F09qzc+NXvgR84GVo9xx+/Vg
- 9z/07jOFmwg55AjDgKR2lvqrTXFc=
-X-Received: by 2002:a25:94e:: with SMTP id u14mr2922585ybm.425.1632366029899; 
- Wed, 22 Sep 2021 20:00:29 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJxK3ETSTzXxbAzHJA/+TV8V9D3IWqYx6sw4BfUVPYT83/UTu3XBE/gMT1zjF5KK1yB/NhNGMqrXbzTqFCMLIJU=
-X-Received: by 2002:a25:94e:: with SMTP id u14mr2922556ybm.425.1632366029635; 
- Wed, 22 Sep 2021 20:00:29 -0700 (PDT)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 6B512201020
+ for <ltp@lists.linux.it>; Thu, 23 Sep 2021 09:42:37 +0200 (CEST)
+Received: from dggeml753-chm.china.huawei.com (unknown [172.30.72.53])
+ by szxga08-in.huawei.com (SkyGuard) with ESMTP id 4HFRtV1tFfz1DHCF
+ for <ltp@lists.linux.it>; Thu, 23 Sep 2021 15:41:22 +0800 (CST)
+Received: from ubuntu1804.huawei.com (10.67.174.63) by
+ dggeml753-chm.china.huawei.com (10.1.199.152) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
+ 15.1.2308.8; Thu, 23 Sep 2021 15:42:33 +0800
+From: Zhao Gongyi <zhaogongyi@huawei.com>
+To: <ltp@lists.linux.it>
+Date: Tue, 21 Sep 2021 06:12:12 +0800
+Message-ID: <20210920221212.8478-1-zhaogongyi@huawei.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-References: <20210817104625.2559362-1-liwang@redhat.com>
- <20210921203349.GA2014441@maple.netwinder.org>
- <CAEemH2dMCmYDkZYxfaeJ_oQCCcHzeMgSOGVQ_wS6BwCrp0YiQw@mail.gmail.com>
- <YUrnljqYd5Hx/fi+@yuki>
- <CAEemH2dDRT-iQPH0a-Aip8OZDUpp2Z3_x4dgVBEg4tv_pyWvfw@mail.gmail.com>
- <YUr9676LXNi0xMs6@yuki>
- <CAEemH2c37Qx6uEG40utX8pGC2Gp0ZLtT_z194L4RVNm6N2CefQ@mail.gmail.com>
- <YUs+jf35Zqp8GjJl@yuki> <20210922165218.GA3081072@maple.netwinder.org>
-In-Reply-To: <20210922165218.GA3081072@maple.netwinder.org>
-From: Li Wang <liwang@redhat.com>
-Date: Thu, 23 Sep 2021 11:00:17 +0800
-Message-ID: <CAEemH2cj3AJU01aUrodUh6WnSioyWmzC4U53gEumM9p7hnxmfw@mail.gmail.com>
-To: Ralph Siemsen <ralph.siemsen@linaro.org>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Originating-IP: [10.67.174.63]
+X-ClientProxiedBy: dggems705-chm.china.huawei.com (10.3.19.182) To
+ dggeml753-chm.china.huawei.com (10.1.199.152)
+X-CFilter-Loop: Reflected
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [RFC PATCH] fallocate05: increase the fallocate and
- defallocate size
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH v2] open_posix: Add failure handling of fork()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,272 +55,107 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============1202336483=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1202336483==
-Content-Type: multipart/alternative; boundary="000000000000571af505cca0d5b0"
+When fork() failed and transfer the return value(-1) to kill(),
+it would freeze the system, so it is very serious in this
+cases and should be avoided.
 
---000000000000571af505cca0d5b0
-Content-Type: text/plain; charset="UTF-8"
+Signed-off-by: Zhao Gongyi <zhaogongyi@huawei.com>
+---
+ .../conformance/interfaces/clock_nanosleep/1-5.c             | 5 ++++-
+ .../conformance/interfaces/nanosleep/3-2.c                   | 5 ++++-
+ .../conformance/interfaces/sigaction/10-1.c                  | 5 ++++-
+ .../conformance/interfaces/sigaction/11-1.c                  | 5 ++++-
+ .../conformance/interfaces/sigaction/9-1.c                   | 5 ++++-
+ 5 files changed, 20 insertions(+), 5 deletions(-)
 
-On Thu, Sep 23, 2021 at 12:52 AM Ralph Siemsen <ralph.siemsen@linaro.org>
-wrote:
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/clock_nanosleep/1-5.c b/testcases/open_posix_testsuite/conformance/interfaces/clock_nanosleep/1-5.c
+index 263d98a08..7c09d7599 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/clock_nanosleep/1-5.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/clock_nanosleep/1-5.c
+@@ -35,7 +35,10 @@ int main(void)
+ 		return PTS_UNRESOLVED;
+ 	}
 
-> Hello,
->
-> On Wed, Sep 22, 2021 at 04:32:45PM +0200, Cyril Hrubis wrote:
-> >>
-> >> That try one by one block after filling full of the FS because nobody
-> knows
-> >> when fails.
-> >>
-> >> But as you suggested we can do that as well for the previous allocation
-> :).
-> >>
-> >> So, will you create a patch, or I do that tomorrow?
-> >
-> >I will not manage today. So either you do it or I can do it tomorrow
-> >:-).
->
-> I tried making a patch for this, which I can share. But after testing, I
-> am still seeing OOM. Upon further inspection, it seems to be coming from
-> tst_fill_fs() function, when operating on a tmpfs.  I see the message:
->
-> tst_test.c:903: TINFO: Limiting tmpfs size to 512MB
->
-> However the machine only has 256MB total, of which at best 200 MB is
-> available after kernel has booted.
->
-> I'm now a bit confused as to why fallocate05 test worked previously.
-> With release 20210524 version, I see the following:
->
+-	if ((pid = fork()) == 0) {
++	if ((pid = fork()) < 0) {
++		printf("fork() did not return success\n");
++		return PTS_UNRESOLVED;
++	} else if (pid == 0) {
+ 		/* child here */
+ 		struct timespec tssleep;
 
-Ah, I see, that because we set the tmpfs size from the commit below,
-so you got 512MB tmpfs mount which is the root cause of OOM.
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/nanosleep/3-2.c b/testcases/open_posix_testsuite/conformance/interfaces/nanosleep/3-2.c
+index 4016fb4e6..bfc271edf 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/nanosleep/3-2.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/nanosleep/3-2.c
+@@ -31,7 +31,10 @@ int main(void)
+ 		return PTS_UNRESOLVED;
+ 	}
 
-commit c305a53c561d8517340daa27790a3624f2491b72
-Author: Li Wang <liwang@redhat.com>
-Date:   Fri Jul 9 15:52:03 2021 +0800
+-	if ((pid = fork()) == 0) {
++	if ((pid = fork()) < 0) {
++		printf("fork() did not return success\n");
++		return PTS_UNRESOLVED;
++	} else if (pid == 0) {
+ 		/* child here */
+ 		struct timespec tssleep;
 
-    lib: limit the size of tmpfs in LTP
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/sigaction/10-1.c b/testcases/open_posix_testsuite/conformance/interfaces/sigaction/10-1.c
+index 02150a150..722cbf2b5 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/sigaction/10-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/sigaction/10-1.c
+@@ -66,7 +66,10 @@ int main(void)
+ 	sigemptyset(&act.sa_mask);
+ 	sigaction(SIGCHLD, &act, 0);
 
-    LTP mount and make use of the whole tmpfs of the test system,
-    generally, it's fine. But if a test (e.g fallocate06) try to
-    fill full in the filesystem, it takes too long to complete
-    testing on a large memory system.
+-	if ((pid = fork()) == 0) {
++	if ((pid = fork()) < 0) {
++		printf("fork() did not return success\n");
++		return PTS_UNRESOLVED;
++	} else if (pid == 0) {
+ 		/* child */
+ 		while (1) {
+ 			/* wait forever, or until we are
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/sigaction/11-1.c b/testcases/open_posix_testsuite/conformance/interfaces/sigaction/11-1.c
+index 41db84865..fcf5e7837 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/sigaction/11-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/sigaction/11-1.c
+@@ -51,7 +51,10 @@ int main(void)
+ 	sigemptyset(&act.sa_mask);
+ 	sigaction(SIGCHLD, &act, 0);
 
-    This patch adds a new function limit_tmpfs_mount_size with
-    appending '-o size=xxM' to the mount options in prepare_device()
-    which helps limit the tmpfs mount size.
-A simple way to verify my assumption, you can try:
+-	if ((pid = fork()) == 0) {
++	if ((pid = fork()) < 0) {
++		printf("fork() did not return success\n");
++		return PTS_UNRESOLVED;
++	} else if (pid == 0) {
+ 		/* child */
+ 		while (1) {
+ 			/* wait forever, or until we are
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/sigaction/9-1.c b/testcases/open_posix_testsuite/conformance/interfaces/sigaction/9-1.c
+index 1d45c09c6..dc3200eae 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/sigaction/9-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/sigaction/9-1.c
+@@ -51,7 +51,10 @@ int main(void)
+ 	sigemptyset(&act.sa_mask);
+ 	sigaction(SIGCHLD, &act, 0);
 
---- a/testcases/kernel/syscalls/fallocate/fallocate05.c
-+++ b/testcases/kernel/syscalls/fallocate/fallocate05.c
-@@ -147,7 +147,7 @@ static void cleanup(void)
- static struct tst_test test = {
-        .needs_root = 1,
-        .mount_device = 1,
--       .dev_min_size = 512,
-+       .dev_min_size = 64,
-        .mntpoint = MNTPOINT,
-        .all_filesystems = 1,
-        .setup = setup,
-
-
->
-> tst_test.c:1379: TINFO: Testing on tmpfs
-> tst_test.c:888: TINFO: Skipping mkfs for TMPFS filesystem
-> tst_test.c:1311: TINFO: Timeout per run is 0h 15m 00s
-> tst_fill_fs.c:32: TINFO: Creating file mntpoint/file0 size 21710183
-> tst_fill_fs.c:32: TINFO: Creating file mntpoint/file1 size 8070086
-> tst_fill_fs.c:32: TINFO: Creating file mntpoint/file2 size 3971177
-> tst_fill_fs.c:32: TINFO: Creating file mntpoint/file3 size 36915315
-> tst_fill_fs.c:32: TINFO: Creating file mntpoint/file4 size 70310993
-> tst_fill_fs.c:59: TINFO: write(): ENOSPC (28)
-> fallocate05.c:81: TPASS: write() wrote 65536 bytes
-> fallocate05.c:102: TINFO: fallocate()d 0 extra blocks on full FS
-> fallocate05.c:114: TPASS: fallocate() on full FS
-> fallocate05.c:130: TPASS: fallocate(FALLOC_FL_PUNCH_HOLE |
-> FALLOC_FL_KEEP_SIZE)
-> fallocate05.c:136: TPASS: write()
->
-> Whereas with the latest git version, it seems to create two more
-> additional files, before OOM kicks in:
->
-
-Before the above commit, LTP took the whole tmpfs of SUT,
-so the test size depends on the real system situation.
-
-We  do the improvement because we don't want to use larger
-tmpfs size on a Huge RAM machine. But seems we neglect small
-systems :).
-
-
-
->
-> tst_test.c:1421: TINFO: Testing on tmpfs
-> tst_test.c:922: TINFO: Skipping mkfs for TMPFS filesystem
-> tst_test.c:903: TINFO: Limiting tmpfs size to 512MB
-> tst_test.c:1353: TINFO: Timeout per run is 0h 15m 00s
-> tst_fill_fs.c:32: TINFO: Creating file mntpoint/file0 size 21710183
-> tst_fill_fs.c:32: TINFO: Creating file mntpoint/file1 size 8070086
-> tst_fill_fs.c:32: TINFO: Creating file mntpoint/file2 size 3971177
-> tst_fill_fs.c:32: TINFO: Creating file mntpoint/file3 size 36915315
-> tst_fill_fs.c:32: TINFO: Creating file mntpoint/file4 size 70310993
-> tst_fill_fs.c:32: TINFO: Creating file mntpoint/file5 size 4807935
-> tst_fill_fs.c:32: TINFO: Creating file mntpoint/file6 size 90739786
-> <... OOM begins here ...>
->
-> Any thoughts on what might be happening?
->
-> Regards,
-> Ralph
->
->
-
--- 
-Regards,
-Li Wang
-
---000000000000571af505cca0d5b0
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Thu, Sep 23, 2021 at 12:52 AM Ralph Siemsen &lt;=
-<a href=3D"mailto:ralph.siemsen@linaro.org">ralph.siemsen@linaro.org</a>&gt=
-; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px=
- 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Hello,<=
-br>
-<br>
-On Wed, Sep 22, 2021 at 04:32:45PM +0200, Cyril Hrubis wrote:<br>
-&gt;&gt;<br>
-&gt;&gt; That try one by one block after filling full of the FS because nob=
-ody knows<br>
-&gt;&gt; when fails.<br>
-&gt;&gt;<br>
-&gt;&gt; But as you suggested we can do that as well for the previous alloc=
-ation :).<br>
-&gt;&gt;<br>
-&gt;&gt; So, will you create a patch, or I do that tomorrow?<br>
-&gt;<br>
-&gt;I will not manage today. So either you do it or I can do it tomorrow<br=
->
-&gt;:-).<br>
-<br>
-I tried making a patch for this, which I can share. But after testing, I <b=
-r>
-am still seeing OOM. Upon further inspection, it seems to be coming from <b=
-r>
-tst_fill_fs() function, when operating on a tmpfs.=C2=A0 I see the message:=
-<br>
-<br>
-tst_test.c:903: TINFO: Limiting tmpfs size to 512MB<br>
-<br>
-However the machine only has 256MB total, of which at best 200 MB is <br>
-available after kernel has booted.<br>
-<br>
-I&#39;m now a bit confused as to why fallocate05 test worked previously. <b=
-r>
-With release 20210524 version, I see the following:<br></blockquote><div><b=
-r></div><div><div class=3D"gmail_default" style=3D"font-size:small">Ah, I s=
-ee, that because=C2=A0we set the tmpfs size from the commit below,</div><di=
-v class=3D"gmail_default" style=3D"font-size:small">so you got 512MB tmpfs =
-mount which is the root cause of OOM.</div><div class=3D"gmail_default" sty=
-le=3D"font-size:small"><br></div>commit c305a53c561d8517340daa27790a3624f24=
-91b72<br>Author: Li Wang &lt;<a href=3D"mailto:liwang@redhat.com">liwang@re=
-dhat.com</a>&gt;<br>Date: =C2=A0 Fri Jul 9 15:52:03 2021 +0800<br><br>=C2=
-=A0 =C2=A0 lib: limit the size of tmpfs in LTP<br>=C2=A0 =C2=A0 <br>=C2=A0 =
-=C2=A0 LTP mount and make use of the whole tmpfs of the test system,<br>=C2=
-=A0 =C2=A0 generally, it&#39;s fine. But if a test (e.g fallocate06) try to=
-<br>=C2=A0 =C2=A0 fill full in the filesystem, it takes too long to complet=
-e<br>=C2=A0 =C2=A0 testing on a large memory system.<br>=C2=A0 =C2=A0 <br>=
-=C2=A0 =C2=A0 This patch adds a new function limit_tmpfs_mount_size with<br=
->=C2=A0 =C2=A0 appending &#39;-o size=3DxxM&#39; to the mount options in pr=
-epare_device()<br>=C2=A0 =C2=A0 which helps limit the tmpfs mount size.<br>=
-<div class=3D"gmail_default" style=3D"font-size:small"></div><div class=3D"=
-gmail_default" style=3D"font-size:small">A simple way to verify my assumpti=
-on, you can try:</div><div class=3D"gmail_default" style=3D"font-size:small=
-"><br></div>--- a/testcases/kernel/syscalls/fallocate/fallocate05.c<br>+++ =
-b/testcases/kernel/syscalls/fallocate/fallocate05.c<br>@@ -147,7 +147,7 @@ =
-static void cleanup(void)<br>=C2=A0static struct tst_test test =3D {<br>=C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 .needs_root =3D 1,<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-.mount_device =3D 1,<br>- =C2=A0 =C2=A0 =C2=A0 .dev_min_size =3D 512,<br>+ =
-=C2=A0 =C2=A0 =C2=A0 .dev_min_size =3D 64,<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 .=
-mntpoint =3D MNTPOINT,<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 .all_filesystems =3D =
-1,<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 .setup =3D setup,<br><div class=3D"gmail_=
-default" style=3D"font-size:small"></div></div><div>=C2=A0</div><blockquote=
- class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px so=
-lid rgb(204,204,204);padding-left:1ex">
-<br>
-tst_test.c:1379: TINFO: Testing on tmpfs<br>
-tst_test.c:888: TINFO: Skipping mkfs for TMPFS filesystem<br>
-tst_test.c:1311: TINFO: Timeout per run is 0h 15m 00s<br>
-tst_fill_fs.c:32: TINFO: Creating file mntpoint/file0 size 21710183<br>
-tst_fill_fs.c:32: TINFO: Creating file mntpoint/file1 size 8070086<br>
-tst_fill_fs.c:32: TINFO: Creating file mntpoint/file2 size 3971177<br>
-tst_fill_fs.c:32: TINFO: Creating file mntpoint/file3 size 36915315<br>
-tst_fill_fs.c:32: TINFO: Creating file mntpoint/file4 size 70310993<br>
-tst_fill_fs.c:59: TINFO: write(): ENOSPC (28)<br>
-fallocate05.c:81: TPASS: write() wrote 65536 bytes<br>
-fallocate05.c:102: TINFO: fallocate()d 0 extra blocks on full FS<br>
-fallocate05.c:114: TPASS: fallocate() on full FS<br>
-fallocate05.c:130: TPASS: fallocate(FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_S=
-IZE)<br>
-fallocate05.c:136: TPASS: write()<br>
-<br>
-Whereas with the latest git version, it seems to create two more <br>
-additional files, before OOM kicks in:<br></blockquote><div><br></div><div>=
-<div class=3D"gmail_default" style=3D"font-size:small">Before the above com=
-mit, LTP took the whole tmpfs of SUT,</div><div class=3D"gmail_default" sty=
-le=3D"font-size:small">so the test size depends on the real=C2=A0system sit=
-uation.=C2=A0</div><div class=3D"gmail_default" style=3D"font-size:small"><=
-br></div><div class=3D"gmail_default" style=3D"font-size:small">We=C2=A0 do=
- the improvement because=C2=A0we don&#39;t want to use=C2=A0larger</div><di=
-v class=3D"gmail_default" style=3D"font-size:small">tmpfs size on a Huge RA=
-M machine. But seems we neglect=C2=A0small</div><div class=3D"gmail_default=
-" style=3D"font-size:small">systems :).</div><br></div><div>=C2=A0</div><bl=
-ockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-lef=
-t:1px solid rgb(204,204,204);padding-left:1ex">
-<br>
-tst_test.c:1421: TINFO: Testing on tmpfs<br>
-tst_test.c:922: TINFO: Skipping mkfs for TMPFS filesystem<br>
-tst_test.c:903: TINFO: Limiting tmpfs size to 512MB<br>
-tst_test.c:1353: TINFO: Timeout per run is 0h 15m 00s<br>
-tst_fill_fs.c:32: TINFO: Creating file mntpoint/file0 size 21710183<br>
-tst_fill_fs.c:32: TINFO: Creating file mntpoint/file1 size 8070086<br>
-tst_fill_fs.c:32: TINFO: Creating file mntpoint/file2 size 3971177<br>
-tst_fill_fs.c:32: TINFO: Creating file mntpoint/file3 size 36915315<br>
-tst_fill_fs.c:32: TINFO: Creating file mntpoint/file4 size 70310993<br>
-tst_fill_fs.c:32: TINFO: Creating file mntpoint/file5 size 4807935<br>
-tst_fill_fs.c:32: TINFO: Creating file mntpoint/file6 size 90739786<br>
-&lt;... OOM begins here ...&gt;<br>
-<br>
-Any thoughts on what might be happening?<br>
-<br>
-Regards,<br>
-Ralph<br>
-<br>
-</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
- class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li =
-Wang<br></div></div></div></div>
-
---000000000000571af505cca0d5b0--
-
-
---===============1202336483==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+-	if ((pid = fork()) == 0) {
++	if ((pid = fork()) < 0) {
++		printf("fork() did not return success\n");
++		return PTS_UNRESOLVED;
++	} else if (pid == 0) {
+ 		/* child */
+ 		/* wait forever, or until we are
+ 		   interrupted by a signal */
+--
+2.17.1
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============1202336483==--
-
