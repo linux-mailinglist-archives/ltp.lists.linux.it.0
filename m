@@ -1,54 +1,57 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15D33410F46
-	for <lists+linux-ltp@lfdr.de>; Mon, 20 Sep 2021 07:20:13 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id DB9A4410F53
+	for <lists+linux-ltp@lfdr.de>; Mon, 20 Sep 2021 07:32:25 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C60833C8633
-	for <lists+linux-ltp@lfdr.de>; Mon, 20 Sep 2021 07:20:12 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 9DFEA3C8631
+	for <lists+linux-ltp@lfdr.de>; Mon, 20 Sep 2021 07:32:25 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 8D4223C1CC5
- for <ltp@lists.linux.it>; Mon, 20 Sep 2021 07:20:11 +0200 (CEST)
-Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id BEF9E60090E
- for <ltp@lists.linux.it>; Mon, 20 Sep 2021 07:20:10 +0200 (CEST)
-Received: from [192.168.178.40] (unknown [188.192.255.100])
- by mail.jv-coder.de (Postfix) with ESMTPSA id C2FDD9FBF7;
- Mon, 20 Sep 2021 05:20:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
- t=1632115209; bh=OHdH6PO3OmyGQrfHeDZ9JzG210AqWJTOVGtAzij4HD8=;
- h=Subject:To:From:Message-ID:Date:MIME-Version;
- b=T0+SB/U/5E5NC6bEEI7iVirxf0sasq9mkmElkYajwSWcA9wWaY5Bb+XBpHRFtWyhS
- ZwqGSKWBhyzSzHsmbx0AY5sU4sdGEKWSoK2dzp01McS8SGSxIvuqGrGVyxQQBcP6JU
- djy6lh3JdrE83pU9AALJnEtj1YPK1xSBRNwAj5/c=
-To: ltp@lists.linux.it, Richard Palethorpe <rpalethorpe@suse.com>
-References: <a47ecbd7-ba4a-ff2c-ead9-e731040cb845@jv-coder.de>
- <20210914083444.23848-1-rpalethorpe@suse.com>
-From: Joerg Vehlow <lkml@jv-coder.de>
-Message-ID: <940b657a-ae79-a9f3-c2aa-30d441ad1e4e@jv-coder.de>
-Date: Mon, 20 Sep 2021 07:20:23 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+ by picard.linux.it (Postfix) with ESMTPS id 55FDF3C1B0A
+ for <ltp@lists.linux.it>; Mon, 20 Sep 2021 07:32:23 +0200 (CEST)
+Received: from m12-16.163.com (m12-16.163.com [220.181.12.16])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTP id A86CA200990
+ for <ltp@lists.linux.it>; Mon, 20 Sep 2021 07:32:21 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=Subject:From:Message-ID:Date:MIME-Version; bh=Eodk4
+ mW1IncHtkThSxcuW2e9wUMZY2OfJZFnG1BIlyE=; b=FP9M6x/HVv/+fbKDoUuHu
+ z6higx3Ww158oPAcetzsYbClyn5scazzeDd/r8XuhnKXO+a0yJScFUzIa9EyL8Dx
+ L216AfTvIhlBaTtCdmFxlQz8i0PHY/WLoFn95oZz27cFArSrPm9OukvbQP/dKP9w
+ tyZ0Piz2EFN6kygsAS2suM=
+Received: from [192.168.0.11] (unknown [183.210.46.254])
+ by smtp12 (Coremail) with SMTP id EMCowAB3h7HcHEhhxRJMBg--.1093S2;
+ Mon, 20 Sep 2021 13:32:14 +0800 (CST)
+To: QI Fuli <fukuri.sai@gmail.com>, ltp@lists.linux.it
+References: <20210920033705.20544-1-qi.fuli@fujitsu.com>
+From: Xiao Yang <ice_yangxiao@163.com>
+Message-ID: <3b698f71-b8d8-2ef6-3a83-d978f659c4d1@163.com>
+Date: Mon, 20 Sep 2021 13:32:12 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.11.0
 MIME-Version: 1.0
-In-Reply-To: <20210914083444.23848-1-rpalethorpe@suse.com>
+In-Reply-To: <20210920033705.20544-1-qi.fuli@fujitsu.com>
 Content-Language: en-US
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-CM-TRANSID: EMCowAB3h7HcHEhhxRJMBg--.1093S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWrZr4kZF4rGF4DKw1xAFW5Jrb_yoWftwcEvF
+ yUJFy5Jr4UAa9xJFnxGrsYqrs8KrWkJFs5JrnxG395JrsF9r17CFnIyr45ZFn5WFWrWF93
+ Grs8KrW5J3sxAjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IU0hYFtUUUUU==
+X-Originating-IP: [183.210.46.254]
+X-CM-SenderInfo: 5lfhs5xdqj5xldr6il2tof0z/1tbiTB4UXlSIpCCgFAAAs0
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH] memcg_subgroup_charge: Remove limiting of parent
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v6 0/5] Convert syscalls/dup2/dup2{01...05} to new
+ API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,105 +63,44 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Masayoshi Mizuma <m.mizuma@jp.fujitsu.com>
+Cc: QI Fuli <qi.fuli@fujitsu.com>
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi
+Hi Qi,
 
-On 9/14/2021 10:34 AM, Richard Palethorpe via ltp wrote:
-> It is not important how much memory is assigned to the parent
-> group. The stated purpose of the test is to check no memory is
-> assigned to the child group.
-I still don't know why the test even wants to limit anything, when it is 
-just checking what is charged.
-So I would still vote for completely removing the limits and simplifying 
-to just one test case.
+I have pushed the patch set with two minor changes:
 
-But removing one limitation for now is a step in the right direction, so 
-I will not argue anymore :)
+1) Fix some warnings from checkpatch.pl.
 
+2) Fix the description in dup204.
+
+Best Regards,
+
+Xiao Yang
+
+On 9/20/21 11:37 AM, QI Fuli wrote:
+> From: QI Fuli <qi.fuli@fujitsu.com>
 >
-> Also add the usage stats for the memcg_process because it appears
-> the test will fail because the starting memory counter already
-> includes some buffer/cache on linux-next. I'm not sure this
-> is exactly what happens, but displaying the stats might help.
+> Convert syscalls/dup2/dup2{01...05} to new API
 >
-> Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
-> Suggested-by: Joerg Vehlow <joerg.vehlow@aox-tech.de>
-> Cc: Masayoshi Mizuma <m.mizuma@jp.fujitsu.com>
-> ---
->   .../controllers/memcg/functional/memcg_lib.sh    |  2 +-
->   .../memcg/functional/memcg_subgroup_charge.sh    | 16 +++++-----------
->   2 files changed, 6 insertions(+), 12 deletions(-)
+> QI Fuli (5):
+>    syscalls/dup2/dup201: Convert to new API
+>    syscalls/dup2/dup202: Convert to new API
+>    syscalls/dup2/dup203: Convert to new API
+>    syscalls/dup2/dup204: Convert to new API
+>    syscalls/dup2/dup205: Convert to new API
 >
-> diff --git a/testcases/kernel/controllers/memcg/functional/memcg_lib.sh b/testcases/kernel/controllers/memcg/functional/memcg_lib.sh
-> index ac9ad8268..1b76b6597 100755
-> --- a/testcases/kernel/controllers/memcg/functional/memcg_lib.sh
-> +++ b/testcases/kernel/controllers/memcg/functional/memcg_lib.sh
-> @@ -240,7 +240,7 @@ signal_memcg_process()
->   
->   		loops=$((loops - 1))
->   		if [ $loops -le 0 ]; then
-> -			tst_brk TBROK "timed out on memory.usage_in_bytes"
-> +			tst_brk TBROK "timed out on memory.usage_in_bytes" $usage $usage_start $size
->   		fi
->   	done
->   }
-> diff --git a/testcases/kernel/controllers/memcg/functional/memcg_subgroup_charge.sh b/testcases/kernel/controllers/memcg/functional/memcg_subgroup_charge.sh
-> index 3fa016102..cda624923 100755
-> --- a/testcases/kernel/controllers/memcg/functional/memcg_subgroup_charge.sh
-> +++ b/testcases/kernel/controllers/memcg/functional/memcg_subgroup_charge.sh
-> @@ -18,22 +18,16 @@ TST_CNT=3
->   MEM_TO_ALLOC=$((PAGESIZES * 2))
->   
->   # Test the memory charge won't move to subgroup
-> -# $1 - memory.limit_in_bytes in parent group
-> -# $2 - memory.limit_in_bytes in sub group
-> +# $1 - memory.limit_in_bytes in sub group
->   test_subgroup()
->   {
-> -	local limit_parent=$1
-> -	local limit_subgroup=$2
-> +	local limit_subgroup=$1
->   
-> -	if [ $limit_parent -ne 0 ]; then
-> -		limit_parent=$(memcg_adjust_limit_for_kmem $limit_parent)
-> -	fi
->   	if [ $limit_subgroup -ne 0 ]; then
->   		limit_subgroup=$(memcg_adjust_limit_for_kmem $limit_subgroup)
->   	fi
->   
->   	ROD mkdir subgroup
-> -	EXPECT_PASS echo $limit_parent \> memory.limit_in_bytes
->   	EXPECT_PASS echo $limit_subgroup \> subgroup/memory.limit_in_bytes
->   
->   	start_memcg_process --mmap-anon -s $MEM_TO_ALLOC
-> @@ -60,17 +54,17 @@ test_subgroup()
->   test1()
->   {
->   	tst_res TINFO "Test that group and subgroup have no relationship"
-> -	test_subgroup $MEM_TO_ALLOC $((2 * MEM_TO_ALLOC))
-> +	test_subgroup $((2 * MEM_TO_ALLOC))
->   }
->   
->   test2()
->   {
-> -	test_subgroup $MEM_TO_ALLOC $MEM_TO_ALLOC
-> +	test_subgroup $MEM_TO_ALLOC
->   }
->   
->   test3()
->   {
-> -	test_subgroup $MEM_TO_ALLOC 0
-> +	test_subgroup 0
->   }
->   
->   tst_run
+>   testcases/kernel/syscalls/dup2/dup201.c | 174 +++-------------
+>   testcases/kernel/syscalls/dup2/dup202.c | 196 ++++++------------
+>   testcases/kernel/syscalls/dup2/dup203.c | 265 ++++++++----------------
+>   testcases/kernel/syscalls/dup2/dup204.c | 147 ++++---------
+>   testcases/kernel/syscalls/dup2/dup205.c | 178 ++++++----------
+>   5 files changed, 276 insertions(+), 684 deletions(-)
+>
 
-Joerg
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
