@@ -2,68 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32797411604
-	for <lists+linux-ltp@lfdr.de>; Mon, 20 Sep 2021 15:42:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B31341160B
+	for <lists+linux-ltp@lfdr.de>; Mon, 20 Sep 2021 15:45:52 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id EE3593C875C
-	for <lists+linux-ltp@lfdr.de>; Mon, 20 Sep 2021 15:42:40 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 4D27E3C8758
+	for <lists+linux-ltp@lfdr.de>; Mon, 20 Sep 2021 15:45:52 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id B58FB3C19F3
- for <ltp@lists.linux.it>; Mon, 20 Sep 2021 15:42:39 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 7CD2D3C05A0
+ for <ltp@lists.linux.it>; Mon, 20 Sep 2021 15:45:50 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id ACFFC1A010F4
- for <ltp@lists.linux.it>; Mon, 20 Sep 2021 15:42:38 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 182916011FC
+ for <ltp@lists.linux.it>; Mon, 20 Sep 2021 15:45:49 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id C001F22081;
- Mon, 20 Sep 2021 13:42:37 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 5C67C20060;
+ Mon, 20 Sep 2021 13:45:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1632145357; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=DHb2PBl39GmNXd/rzr5N/JGEJYlwMec8v+tMQkDg58k=;
- b=zI550s8Hs5WJjUjaXgxafMTMZCftqdgcsJdIYrT9rdoM1nDbzq5bXCYFO4RpA7gsvx1t55
- 3BHi5teiLkovvMEUIcIl6I/XmHV08vWPxHsfo77WwBYNnY5/KHiJzbhIbOh20Lc71sGAZF
- 2ECMx2TTX1hbE4R0cm4uhfYCgO2Q+tw=
+ t=1632145549;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=oKY4JF9kntODd4CpG0PnsnasMDgM6OlmcppegE1bOVk=;
+ b=oSAZAowT1Bba33MUqprn25TEh4yO+DqRauZ/Wp1fltZnu37rHXuRloRkINEm/f22QOF1ls
+ vRAyHxWCt/eoG8hl9A73MMoZlMrkjLHHgb/VOJFrE5WzouKwG439MpNB5F+tA45h/R3eJ7
+ INBkhSth/StXFZJHx59R2jYXidaILt4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1632145357;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=DHb2PBl39GmNXd/rzr5N/JGEJYlwMec8v+tMQkDg58k=;
- b=iHE6sTsdB7NCvRBNZORU55eChE3Djq0JcDQaALiUnZStytGOKjkiJmvcTZPLAdAA4DRU5F
- booUkTChalNKPTBg==
+ s=susede2_ed25519; t=1632145549;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=oKY4JF9kntODd4CpG0PnsnasMDgM6OlmcppegE1bOVk=;
+ b=73r0CRscRNu8cRyIqiH2ATqm0JkppiwhtnTfoNLgeKGVvdWC6kCyPR1CaCkjXXD6nh0qcd
+ ciK16uHv57H9uuCQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9135513A71;
- Mon, 20 Sep 2021 13:42:37 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 29AF813A71;
+ Mon, 20 Sep 2021 13:45:49 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id W3GzIc2PSGGNXgAAMHmgww
- (envelope-from <pvorel@suse.cz>); Mon, 20 Sep 2021 13:42:37 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id ohSQCI2QSGEDYQAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Mon, 20 Sep 2021 13:45:49 +0000
+Date: Mon, 20 Sep 2021 15:45:47 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Mon, 20 Sep 2021 15:42:29 +0200
-Message-Id: <20210920134229.28014-1-pvorel@suse.cz>
-X-Mailer: git-send-email 2.33.0
+To: Richard Palethorpe <rpalethorpe@suse.com>
+Message-ID: <YUiQixU5x8aQPZGT@pevik>
+References: <20210920131412.26186-1-rpalethorpe@suse.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20210920131412.26186-1-rpalethorpe@suse.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH 1/1] cpuacct.sh: Fix tst_get_free_pids failure
- detection
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] io_pgetevents02: Pass the union member of tst_ts
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,46 +80,23 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: Viresh Kumar <viresh.kumar@linaro.org>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-local tasksmax=$(tst_get_free_pids) is successful, even
-tst_get_free_pids fails. Assignment needs to be separated from
-declaration to get tst_get_free_pids exit code. Similar fix to
-87a82a62c ("lib/tst_test.sh: fix ROD_SILENT command return status check")
+Hi Richard,
 
-It fixes error:
-tst_pid.c:79: TINFO: Cannot read session user limits from '/sys/fs/cgroup/user.slice/user-0.slice/pids.max'
-tst_pid.c:83: TBROK: Expected 1 conversions got 0 FILE '/sys/fs/cgroup/pids/user.slice/user-0.slice/pids.max'
-/opt/ltp/testcases/bin/cpuacct.sh: line 77: [: -le: unary operator expected
+> Currently we pass the whole tst_ts struct. The kernel expects the
+> union part of this struct.
+Thanks!
 
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
- testcases/kernel/controllers/cpuacct/cpuacct.sh | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
 
-diff --git a/testcases/kernel/controllers/cpuacct/cpuacct.sh b/testcases/kernel/controllers/cpuacct/cpuacct.sh
-index 3002d0a8a..ca881988f 100755
---- a/testcases/kernel/controllers/cpuacct/cpuacct.sh
-+++ b/testcases/kernel/controllers/cpuacct/cpuacct.sh
-@@ -71,8 +71,10 @@ check_free_memory()
- check_limits()
- {
- 	local tasksneeded=$((max * nbprocess))
--	local tasksmax=$(tst_get_free_pids)
--	test $? -eq 0 || return 0
-+	local tasksmax
-+
-+	tasksmax=$(tst_get_free_pids)
-+	[ $? -eq 0 ] || return 0
- 
- 	if [ $tasksmax -le $tasksneeded ]; then
- 		tst_brk TCONF "limit of tasks is too low (approximate need $tasksneeded, limit $tasksmax)"
--- 
-2.33.0
-
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
