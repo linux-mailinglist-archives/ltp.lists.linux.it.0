@@ -2,75 +2,68 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5627412FA5
-	for <lists+linux-ltp@lfdr.de>; Tue, 21 Sep 2021 09:46:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C343C413198
+	for <lists+linux-ltp@lfdr.de>; Tue, 21 Sep 2021 12:30:54 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DE3393CA2AC
-	for <lists+linux-ltp@lfdr.de>; Tue, 21 Sep 2021 09:46:06 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 8D4093C8622
+	for <lists+linux-ltp@lfdr.de>; Tue, 21 Sep 2021 12:30:54 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by picard.linux.it (Postfix) with ESMTPS id 1CCB33C1AE4
+ for <ltp@lists.linux.it>; Tue, 21 Sep 2021 12:30:52 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id CBDEC3C2435
- for <ltp@lists.linux.it>; Tue, 21 Sep 2021 09:46:02 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 3185C1000CE0
- for <ltp@lists.linux.it>; Tue, 21 Sep 2021 09:46:01 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 2942B100117E
+ for <ltp@lists.linux.it>; Tue, 21 Sep 2021 12:30:51 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 64C331FEA7;
- Tue, 21 Sep 2021 07:46:01 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 39F5D220E8
+ for <ltp@lists.linux.it>; Tue, 21 Sep 2021 10:30:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1632210361;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=lbaVPv4vSSElBKs3pswuaVlQJR+eOjyDCJovMxOgnqk=;
- b=dGm4CkiIXYfobIWE/thguVkW5zmNYSu/u0z5fPbFab4djtg6bi3oHTA74TWScP5fqzD/sU
- jSc49jZuB0T40nCP2lUlngCNFC+OndZm9D0ev6uqp5XMKI2NdOlSquZp03MzbE91sX+OHz
- Vo1+8OdvY0XnpIdAItoCzR78If2LYhY=
+ t=1632220251; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=/UlvhqoocZp9K2TT8F+Lqq07KCJeVYriyTA8q7UlfJQ=;
+ b=mnD9e1LvrwK8fpt2CdYUMYo6XH85JNzvLGucE5FOrlOcH+9SGKICwd6U1R95lJsy4c4Zsq
+ JmgT17Zvtxf/0hqdvsjV+rjPYE3TlD+DDidP8JeEXWLRnVYfmfanoPYYI6T98Q/4XjiTaU
+ VZRKWufAkVz2Uhf0G6aMO3aY0VYE/Xg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1632210361;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=lbaVPv4vSSElBKs3pswuaVlQJR+eOjyDCJovMxOgnqk=;
- b=9fNKcD1Xtg0NULcFj1a/CPLcpYQU6J996R/3UTJIEGnfrGJkBa4NV3QnaJztsQBAl0cHJ5
- Y9AgtJ/az/V0g3CA==
+ s=susede2_ed25519; t=1632220251;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=/UlvhqoocZp9K2TT8F+Lqq07KCJeVYriyTA8q7UlfJQ=;
+ b=E4dudLjqDNBPnIEFp9ifQroMNyaqdoap+OihRvo0Pp1/kvnSc0aEG3LlScN6ojEykmQ1Hj
+ GxtHRRRNmeVFkBCw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 306D513B0A;
- Tue, 21 Sep 2021 07:46:01 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2867313BBF
+ for <ltp@lists.linux.it>; Tue, 21 Sep 2021 10:30:51 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id txCyCbmNSWFnDwAAMHmgww
- (envelope-from <pvorel@suse.cz>); Tue, 21 Sep 2021 07:46:01 +0000
-Date: Tue, 21 Sep 2021 09:45:59 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Alex Henrie <alexh@vpitech.com>
-Message-ID: <YUmNt06CD97u0Drs@pevik>
-References: <20210921004140.15041-1-alexh@vpitech.com>
- <20210921004140.15041-3-alexh@vpitech.com>
+ by imap2.suse-dmz.suse.de with ESMTPSA id QgxuCFu0SWHLXgAAMHmgww
+ (envelope-from <mdoucha@suse.cz>)
+ for <ltp@lists.linux.it>; Tue, 21 Sep 2021 10:30:51 +0000
+From: Martin Doucha <mdoucha@suse.cz>
+To: ltp@lists.linux.it
+Date: Tue, 21 Sep 2021 12:30:50 +0200
+Message-Id: <20210921103050.12942-1-mdoucha@suse.cz>
+X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210921004140.15041-3-alexh@vpitech.com>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH ltp v4 3/3] IMA: Add tests for uid, gid, fowner,
- and fgroup options
+Subject: [LTP] [PATCH] syscalls/finit_module02: Rewrite lockdown skips
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,33 +75,101 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: linux-integrity@vger.kernel.org, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Alex,
+Different kernels may return different module signature validation errors
+for null-param and invalid-param test cases. Skip both test cases when
+the kernel is in lockdown.
 
-...
-> +++ b/testcases/kernel/security/integrity/ima/tests/ima_conditionals.sh
-> @@ -0,0 +1,57 @@
-> +#!/bin/sh
-> +# SPDX-License-Identifier: GPL-2.0-or-later
-> +# Copyright (c) 2021 VPI Technology
-> +# Author: Alex Henrie <alexh@vpitech.com>
-> +#
-> +# Verify that conditional rules work.
-> +
-> +TST_NEEDS_CMDS="awk chgrp chown cut sg sudo"
-awk, cut are not used. Or is that a dependency from some helpers in
-ima_setup.sh? (these should check the dependency themselves via tst_require_cmds).
+Signed-off-by: Martin Doucha <mdoucha@suse.cz>
+---
+ .../syscalls/finit_module/finit_module02.c    | 44 +++++++++----------
+ 1 file changed, 20 insertions(+), 24 deletions(-)
 
-The rest LGTM, I just need to retest it.
+diff --git a/testcases/kernel/syscalls/finit_module/finit_module02.c b/testcases/kernel/syscalls/finit_module/finit_module02.c
+index 503c8e994..0d2bf917e 100644
+--- a/testcases/kernel/syscalls/finit_module/finit_module02.c
++++ b/testcases/kernel/syscalls/finit_module/finit_module02.c
+@@ -38,6 +38,7 @@ struct tcase {
+ 	int flags;
+ 	int cap;
+ 	int exp_errno;
++	int skip_in_lockdown;
+ 	void (*fix_errno)(struct tcase *tc);
+ };
+ 
+@@ -65,24 +66,21 @@ static void dir_setup(struct tcase *tc)
+ 		tc->exp_errno = EINVAL;
+ }
+ 
+-static void lockdown_setup(struct tcase *tc)
+-{
+-	if (kernel_lockdown)
+-		tc->exp_errno = EPERM;
+-}
+-
+ static struct tcase tcases[] = {
+-	{"invalid-fd", &fd_invalid, "", O_RDONLY | O_CLOEXEC, 0, 0, 0, bad_fd_setup},
+-	{"zero-fd", &fd_zero, "", O_RDONLY | O_CLOEXEC, 0, 0, EINVAL, NULL},
+-	{"null-param", &fd, NULL, O_RDONLY | O_CLOEXEC, 0, 0, EFAULT,
+-		lockdown_setup},
++	{"invalid-fd", &fd_invalid, "", O_RDONLY | O_CLOEXEC, 0, 0, 0, 0,
++		bad_fd_setup},
++	{"zero-fd", &fd_zero, "", O_RDONLY | O_CLOEXEC, 0, 0, EINVAL, 0, NULL},
++	{"null-param", &fd, NULL, O_RDONLY | O_CLOEXEC, 0, 0, EFAULT, 1, NULL},
+ 	{"invalid-param", &fd, "status=invalid", O_RDONLY | O_CLOEXEC, 0, 0,
+-		EINVAL, lockdown_setup},
+-	{"invalid-flags", &fd, "", O_RDONLY | O_CLOEXEC, -1, 0, EINVAL, NULL},
+-	{"no-perm", &fd, "", O_RDONLY | O_CLOEXEC, 0, 1, EPERM, NULL},
+-	{"module-exists", &fd, "", O_RDONLY | O_CLOEXEC, 0, 0, EEXIST, NULL},
+-	{"file-not-readable", &fd, "", O_WRONLY | O_CLOEXEC, 0, 0, 0, wo_file_setup},
+-	{"directory", &fd_dir, "", O_RDONLY | O_CLOEXEC, 0, 0, 0, dir_setup},
++		EINVAL, 1, NULL},
++	{"invalid-flags", &fd, "", O_RDONLY | O_CLOEXEC, -1, 0, EINVAL, 0,
++		NULL},
++	{"no-perm", &fd, "", O_RDONLY | O_CLOEXEC, 0, 1, EPERM, 0, NULL},
++	{"module-exists", &fd, "", O_RDONLY | O_CLOEXEC, 0, 0, EEXIST, 1,
++		NULL},
++	{"file-not-readable", &fd, "", O_WRONLY | O_CLOEXEC, 0, 0, 0, 0,
++		wo_file_setup},
++	{"directory", &fd_dir, "", O_RDONLY | O_CLOEXEC, 0, 0, 0, 0, dir_setup},
+ };
+ 
+ static void setup(void)
+@@ -112,21 +110,19 @@ static void run(unsigned int n)
+ {
+ 	struct tcase *tc = &tcases[n];
+ 
++	if (tc->skip_in_lockdown && kernel_lockdown) {
++		tst_res(TCONF, "Kernel is locked down, skipping %s", tc->name);
++		return;
++	}
++
+ 	fd = SAFE_OPEN(mod_path, tc->open_flags);
+ 
+ 	if (tc->cap)
+ 		tst_cap_action(&cap_drop);
+ 
+ 	/* Insert module twice */
+-	if (tc->exp_errno == EEXIST) {
+-		if (kernel_lockdown) {
+-			tst_res(TCONF, "Kernel is locked down, skipping %s",
+-				tc->name);
+-			return;
+-		}
+-
++	if (tc->exp_errno == EEXIST)
+ 		tst_module_load(MODULE_NAME, NULL);
+-	}
+ 
+ 	TST_EXP_FAIL(finit_module(*tc->fd, tc->param, tc->flags), tc->exp_errno,
+ 		     "TestName: %s", tc->name);
+-- 
+2.33.0
 
-Kind regards,
-Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
