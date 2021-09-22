@@ -2,76 +2,122 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD32A413B70
-	for <lists+linux-ltp@lfdr.de>; Tue, 21 Sep 2021 22:33:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 942C8413F45
+	for <lists+linux-ltp@lfdr.de>; Wed, 22 Sep 2021 04:09:43 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E24643CA2C6
-	for <lists+linux-ltp@lfdr.de>; Tue, 21 Sep 2021 22:33:54 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id F1F183CA2BA
+	for <lists+linux-ltp@lfdr.de>; Wed, 22 Sep 2021 04:09:42 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E8BF03C1AEB
- for <ltp@lists.linux.it>; Tue, 21 Sep 2021 22:33:51 +0200 (CEST)
-Received: from mail-qk1-x731.google.com (mail-qk1-x731.google.com
- [IPv6:2607:f8b0:4864:20::731])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id 6BA1D3C1B0A
+ for <ltp@lists.linux.it>; Wed, 22 Sep 2021 04:09:31 +0200 (CEST)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam07on2069.outbound.protection.outlook.com [40.107.212.69])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 685A81A01475
- for <ltp@lists.linux.it>; Tue, 21 Sep 2021 22:33:51 +0200 (CEST)
-Received: by mail-qk1-x731.google.com with SMTP id 194so1437885qkj.11
- for <ltp@lists.linux.it>; Tue, 21 Sep 2021 13:33:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=5V7tPbF6pqrRtnrFFjIavekV6IgZDn4iTrEFpKRzrwg=;
- b=bfI0jP0cT0z0grzyWqZ1j5eg3AUamnRouzActDHZXGjWoS/zyxL3kNV5zWnr1LtsP/
- yohMNeoKIa9aln2eHNUckLmIsXAxeGnTip5rErEViOyHX8ZPdx9EWiM5fOpl0VYgNY6H
- tNw69K5I16II3e38WcAYeSNPq+SgGiEGWy23FpxdzSzm5LTwJgfWz3tx5Ap5T8giLH04
- B4bNQBM25Lbw7kosjEnGhDglnaWS0wIy4AiE7WSW8XEct80I1IyO1MyIu5ItYagfLjd8
- Nb074uKSjPBV7+5brdcRVZ5RBJwKa+SRyVeGUHZ3hcprNVHl6uR4kN8B95S/xLRUidcn
- p76A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=5V7tPbF6pqrRtnrFFjIavekV6IgZDn4iTrEFpKRzrwg=;
- b=EHpLcy2LIye29m0W7rCJNIRJbrZ8QQMxC4ryKCYNFOHMJkG8jqkl1Gu279eogj+C8+
- 7es/cKLGq2enySJDAt28ub+X9kQVl3q3r1NO3PgzpGIevqsW0PhXUxFW/54gkmiFGgV4
- fkypI+KTchqcXat0LfFH8L8FH083/aKZzb6vRUn6ReYYYlX2sW3iutqa9OpJZGuGOcp0
- wQ5Cp6URDwQkOa4re934Gr3VJHsQ6Jv+Hw3cLWw8zBL7VxxTgGtBMX04rYL6ZBVz131g
- aU4fJCjHMVnuVKnQtrnwKFHXWQ4hZGM0qYx91jTP7j1HFmIiPYWg8ibTtWkC/xO0Ptzl
- x6EQ==
-X-Gm-Message-State: AOAM532wb5zjCYwBrjD25HQs5c6C3dpwF/B8385/U6BsOnaeMAbfWAQK
- R2/dEXDzYCKjTzPCwfqw1IE8Tg==
-X-Google-Smtp-Source: ABdhPJxmI22NoDEaTPDU/zVsWKB5MU7gr0SZoWkogFGgFt4vXYibhzDjtMNhOwLka+cT3jLD6ncdig==
-X-Received: by 2002:a37:6396:: with SMTP id
- x144mr21206905qkb.163.1632256430123; 
- Tue, 21 Sep 2021 13:33:50 -0700 (PDT)
-Received: from localhost (rfs.netwinder.org. [206.248.184.2])
- by smtp.gmail.com with ESMTPSA id c10sm68925qtb.20.2021.09.21.13.33.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Sep 2021 13:33:49 -0700 (PDT)
-Date: Tue, 21 Sep 2021 16:33:49 -0400
-From: Ralph Siemsen <ralph.siemsen@linaro.org>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <20210921203349.GA2014441@maple.netwinder.org>
-References: <20210817104625.2559362-1-liwang@redhat.com>
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id E228610005ED
+ for <ltp@lists.linux.it>; Wed, 22 Sep 2021 04:09:30 +0200 (CEST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=GgA05g6vQQqx4vPGFAagdsJGu4Bl/UwPelzoT1o3Oq/ZTxMhBnwfNGtv6S5xRTew1eApKKgwvzojLz0OqC0rope/yKzqMBdhAWyx0mSyVP7ucSnsS7XCImp0L+Cv0GtFnUS880YzgLgGmaJ6dPmPwOF++FHtVxJz/FtJ7pu63O3OqIqomnT5Cc5rIdQc4RNZZK3uhC22vgdcErpcnq62PDdruhIC4Pq4/I+Qafbt6e32v7j5OSx2eBXN67fIDaZ+tmbAfzBYhAkd590mWpqhr/mZ9xz+luyYuHKXRC8D5MkkC0GOj/L6ukb4qTVjLi8qeSJa8tCrAyxD8nRIVH94xQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
+ bh=zMxu75s0OhBb/Yj7WUME2AQQ2gmO12Nyk27SSpLlHuk=;
+ b=IAPjxVQMjjj+XvgIWk8oosAAsBjAklZQM7Qjb6jbojk0ku7KwILaLPn6tt61tOm6L89JHeUFDDSzPKDy2xqwuPfqHP3/2/FVFVRbYykJjOeA/8I0o00GRbmayHwbhU6gih43xZcTa9HHUq05Y+IoZSQqUGz6JsSgb50OBQs1V//1Jgwi1LQ+VogUz02aN8XwKzYEuVK7/SLQmAcsnfDv9qpf7NE7mmuGKSpo0LroU9Iw/VHvSoJn00eXQVnREYGI33P2b8BZGDUjGPhd4M0K7bKLzG06tVXmg2RrXXQg/66FT69XymsU+R3cL5BgkG5apBr3giEjylqyCrmyka+PIg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=vpitech.com; dmarc=pass action=none header.from=vpitech.com;
+ dkim=pass header.d=vpitech.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=vpitech.onmicrosoft.com; s=selector2-vpitech-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zMxu75s0OhBb/Yj7WUME2AQQ2gmO12Nyk27SSpLlHuk=;
+ b=nrZueeN319AN3CReihtmrX0oiZfWFoikn6Gj7KuiJyB0k5cvLcYMV+SG0Nf+i1GSLCRXEFqbpJhDr+9DQWPy4Wu3fZe8MPx/Xo0xv6vB+NJSh+gvapX/L4qmo+wKhJdJ8wJBJ/mFx0vQFMtrjrL0aos0TlIJQLOpvJyntV6mbKE=
+Authentication-Results: vger.kernel.org; dkim=none (message not signed)
+ header.d=none;vger.kernel.org; dmarc=none action=none
+ header.from=vpitech.com;
+Received: from MW2PR07MB3980.namprd07.prod.outlook.com (2603:10b6:907:a::32)
+ by MWHPR07MB3149.namprd07.prod.outlook.com (2603:10b6:300:e8::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4523.16; Wed, 22 Sep
+ 2021 02:09:23 +0000
+Received: from MW2PR07MB3980.namprd07.prod.outlook.com
+ ([fe80::cc48:9777:4f07:6014]) by MW2PR07MB3980.namprd07.prod.outlook.com
+ ([fe80::cc48:9777:4f07:6014%4]) with mapi id 15.20.4544.013; Wed, 22 Sep 2021
+ 02:09:23 +0000
+From: Alex Henrie <alexh@vpitech.com>
+To: linux-integrity@vger.kernel.org, ltp@lists.linux.it, zohar@linux.ibm.com,
+ pvorel@suse.cz, alexhenrie24@gmail.com
+Date: Tue, 21 Sep 2021 20:07:59 -0600
+Message-Id: <20210922020801.466936-1-alexh@vpitech.com>
+X-Mailer: git-send-email 2.33.0
+X-ClientProxiedBy: MW4PR04CA0222.namprd04.prod.outlook.com
+ (2603:10b6:303:87::17) To MW2PR07MB3980.namprd07.prod.outlook.com
+ (2603:10b6:907:a::32)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210817104625.2559362-1-liwang@redhat.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+Received: from demeter.ad.vpitech.com (66.60.105.30) by
+ MW4PR04CA0222.namprd04.prod.outlook.com (2603:10b6:303:87::17) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4523.14 via Frontend Transport; Wed, 22 Sep 2021 02:09:22 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: e0251680-5475-47ef-dd5a-08d97d6dfefb
+X-MS-TrafficTypeDiagnostic: MWHPR07MB3149:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <MWHPR07MB314955A8A2EB4ADF042E4C99B8A29@MWHPR07MB3149.namprd07.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:962;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: NMvK88vb9NfV68IyIFPWq3RjN3oF2A3Jv8DJBDJGQeqgbCiz+49JIotLxeI+DmfqA0rPRNICWDhRK+m1FbnzUlOCAGc+dsc94c9MPEGmMJYOA7sUjGS1IVHNYBgszD7gKDDHGi39M95X2YrK7Loa2ieg4+AU7mxGxdaZuwW9NE2w226bwHhLVKkOwrNt7DgzEcHzaMS5aexYAeYHtxTJ6gouimp45g9l4XALdTFQE9ZCxHdRPaOeVp98jMGxxiyUoq/7nZRuu6f1CogCCT0sbYlYuguI9Ico7EeDs3TTuDTCdiUbSqw4FCqKTt/G3IWOjnbWT0+6GEwHZtiMmQ8weZRXl68NqS1NsLkerC7DJdgFLlSVXAXC7ox7TiPErEDKnvuvhk3Gfl0wMvOhHxC1SWEqn+G/h4G/nElD0wSB63oaBASi2NuVAJmEJ9itCYcQIBPsDFCHtBB8uzY/JnOjcjQHUEZmaEzOU9NCKGAE0KKlQewvSSq2CmuUO83gn+VZC51vQGSGJbMERHfGWc6LbTlEx4YtO+V0b7yHuD+o6XNIixDff3BdmXgDplwe10cjJA8pkiuEOjh1mbLJuwlsF63MiWoNPp/hWjM9ecqVYJ994mkoWQmH+wnkCDrfTv38fExBpGjI3DftPNCsZb5CN3AyD2pwEyQBdMggSFdueysX/QykvZOkMvx29duHh9lO5H7SCRBsCbw8ja6HzyQenw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW2PR07MB3980.namprd07.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(346002)(39830400003)(136003)(376002)(396003)(366004)(66946007)(36756003)(66476007)(66556008)(1076003)(5660300002)(52116002)(7696005)(316002)(6666004)(2616005)(956004)(86362001)(2906002)(83380400001)(26005)(107886003)(508600001)(8676002)(8936002)(6486002)(186003)(38100700002)(38350700002)(4326008);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?n/ovwJi2GkvBnG9xk2AtUEmSO8bsl9LxgzUNk7+hEL290agVDpVdLsO/K2fI?=
+ =?us-ascii?Q?koT6QGMJbCyrZILHCt3Blx28gp6mloBpBwZfUa/OVVPe+5UF19V/jt6uRsdc?=
+ =?us-ascii?Q?R2OUY8ocAYk3/jBn8vu87chHjAngENBsy0qWDUzX2HF59numNAl7pCkJrfsO?=
+ =?us-ascii?Q?PKPBVCINeCl8sINM52POI/pnRP5CXgwl0WtjjCfDUprkTlmvvfRIk1xxUA/b?=
+ =?us-ascii?Q?S/kSPzLD+yiX/ePsyam6hyfRGUHIREGihLowwks/9xU8FJyJ6re9NRNiR/QB?=
+ =?us-ascii?Q?HOZvNtovtV55s0KfEUe6efVaJ1BAKBEgyhg1TK4PbqvVDKVlYy/5+tksWCOM?=
+ =?us-ascii?Q?qJKh8rkfCVmj1lpF97oW31oqR9am/nIkLE2SiAm5cLWOFqmdQE9tCCqQodQE?=
+ =?us-ascii?Q?8Y3hQ83R3Dc/4sywQhHLyODpZdNsZs1j1oIlHDxf0OGTfuYtxI3pT6+l352G?=
+ =?us-ascii?Q?kRIHrOHHd7J6kLraP2DwK57pumL8byAt7RfMEvtHMPNcEQWtBFlXEGWDDh9e?=
+ =?us-ascii?Q?7z+5s4sFkM6a5eg/DdzlmV9YRjPHzI0Cf0TB3gU8pm3TPE2t1bSyVC43SdYs?=
+ =?us-ascii?Q?azCfzZj014UWspWEtKXhDv7nh/9c7eOLKh7si8GfAHtCrsPDs0rBmv39xhWK?=
+ =?us-ascii?Q?qp2RMGwrtvGhO1P+MkBE+a/IIMcRgNtbBv18Hpdbzlln3bzPT7K1j9VV6P1b?=
+ =?us-ascii?Q?RkWZ9vvV0BpvRZ7YM5mdTTWyZ+y/da+If3TQezU6VinqDcUpZYNkLp2d0Tnc?=
+ =?us-ascii?Q?pxSy8QnZyED+VN1FcsxmkkuJmmpMJnO2x9MBVlvKbKjom+d9NiIm/OEtg9D+?=
+ =?us-ascii?Q?S/ZjBbQcMS0henGMKDT2FN3XzpzLKNfAcd8gVz/LKJ9KG67dfL3bpzOTHT7X?=
+ =?us-ascii?Q?jnpZdIuRuSJ/ANNf9rBuoCXaSc6RS39X769ObprWxgfGOkHjNFWO0+jQso7B?=
+ =?us-ascii?Q?SGDsCplqQa0zlnt9NYftFHhYMgIVZhQmfl2KE04yqdiszqkonVg4O2OK4WKx?=
+ =?us-ascii?Q?nWiKxRXGQx+FkkwlkOBX+DMLgsHsNjp1z5U81AC4KHCnC27gca29wYHnW1Cj?=
+ =?us-ascii?Q?18J17cYKuG3bZVpwaRjCLUAk5bHZDePL2rEhIDaqp+pn+El9doy1w61HIokt?=
+ =?us-ascii?Q?ZSQ4ce1tHQvVWu+hAH6yfQOV9V7NdqXgh/1DWvl0oheRtitC+E+VDs1sDZ/W?=
+ =?us-ascii?Q?crdT05GBIqf/fsCnwj3tPNur2iVWQg5PxcyO6kIAMp2EKooKh/lCk+BghlTZ?=
+ =?us-ascii?Q?QK47hL9NzebhHORr0Idf5Z1+Y85O1tSJthED35VFfn82ywO9Rm48/6KKH5YV?=
+ =?us-ascii?Q?XolNG678J/UKfBaU4cgiURhJ?=
+X-OriginatorOrg: vpitech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e0251680-5475-47ef-dd5a-08d97d6dfefb
+X-MS-Exchange-CrossTenant-AuthSource: MW2PR07MB3980.namprd07.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2021 02:09:23.5080 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 130d6264-38b7-4474-a9bf-511ff1224fac
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6Y8EjFfloOtc0YpHxwss+2odNhSjM87vl/nuKxnE7AjNiXtnv4p/npdwEFxO4AUv9djdOH1jlvj8rJOR4H1w/Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR07MB3149
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ MSGID_FROM_MTA_HEADER,SPF_HELO_PASS,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [RFC PATCH] fallocate05: increase the fallocate and
- defallocate size
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH ltp v5 1/3] IMA: Move check_policy_writable to
+ ima_setup.sh and rename it
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,41 +129,84 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello,
+Signed-off-by: Alex Henrie <alexh@vpitech.com>
+---
+ .../security/integrity/ima/tests/ima_policy.sh   | 16 +++-------------
+ .../security/integrity/ima/tests/ima_setup.sh    | 10 ++++++++++
+ 2 files changed, 13 insertions(+), 13 deletions(-)
 
-On Tue, Aug 17, 2021 at 06:46:25PM +0800, Li Wang wrote:
->
->diff --git a/testcases/kernel/syscalls/fallocate/fallocate05.c b/testcases/kernel/syscalls/fallocate/fallocate05.c
->index 55ec1aee4..74bfa4861 100644
->--- a/testcases/kernel/syscalls/fallocate/fallocate05.c
->+++ b/testcases/kernel/syscalls/fallocate/fallocate05.c
->@@ -26,8 +26,8 @@
-> #include "lapi/fallocate.h"
->
-> #define MNTPOINT "mntpoint"
->-#define FALLOCATE_BLOCKS 16
->-#define DEALLOCATE_BLOCKS 4
->+#define FALLOCATE_BLOCKS 256
->+#define DEALLOCATE_BLOCKS 64
-> #define TESTED_FLAGS "fallocate(FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE)"
->
-> static char *buf;
+diff --git a/testcases/kernel/security/integrity/ima/tests/ima_policy.sh b/testcases/kernel/security/integrity/ima/tests/ima_policy.sh
+index 244cf081d..8924549df 100755
+--- a/testcases/kernel/security/integrity/ima/tests/ima_policy.sh
++++ b/testcases/kernel/security/integrity/ima/tests/ima_policy.sh
+@@ -11,19 +11,9 @@ TST_CNT=2
+ 
+ . ima_setup.sh
+ 
+-check_policy_writable()
+-{
+-	local err="IMA policy already loaded and kernel not configured to enable multiple writes to it (need CONFIG_IMA_WRITE_POLICY=y)"
+-
+-	[ -f $IMA_POLICY ] || tst_brk TCONF "$err"
+-	# CONFIG_IMA_READ_POLICY
+-	echo "" 2> log > $IMA_POLICY
+-	grep -q "Device or resource busy" log && tst_brk TCONF "$err"
+-}
+-
+ setup()
+ {
+-	check_policy_writable
++	require_policy_writable
+ 
+ 	VALID_POLICY="$TST_DATAROOT/measure.policy"
+ 	[ -f $VALID_POLICY ] || tst_brk TCONF "missing $VALID_POLICY"
+@@ -55,7 +45,7 @@ test1()
+ 
+ 	local p1
+ 
+-	check_policy_writable
++	require_policy_writable
+ 	load_policy $INVALID_POLICY & p1=$!
+ 	wait "$p1"
+ 	if [ $? -ne 0 ]; then
+@@ -71,7 +61,7 @@ test2()
+ 
+ 	local p1 p2 rc1 rc2
+ 
+-	check_policy_writable
++	require_policy_writable
+ 	load_policy $VALID_POLICY & p1=$!
+ 	load_policy $VALID_POLICY & p2=$!
+ 	wait "$p1"; rc1=$?
+diff --git a/testcases/kernel/security/integrity/ima/tests/ima_setup.sh b/testcases/kernel/security/integrity/ima/tests/ima_setup.sh
+index 565f0bc3e..9c25d634d 100644
+--- a/testcases/kernel/security/integrity/ima/tests/ima_setup.sh
++++ b/testcases/kernel/security/integrity/ima/tests/ima_setup.sh
+@@ -73,6 +73,16 @@ require_policy_readable()
+ 	fi
+ }
+ 
++require_policy_writable()
++{
++	local err="IMA policy already loaded and kernel not configured to enable multiple writes to it (need CONFIG_IMA_WRITE_POLICY=y)"
++
++	[ -f $IMA_POLICY ] || tst_brk TCONF "$err"
++	# CONFIG_IMA_READ_POLICY
++	echo "" 2> log > $IMA_POLICY
++	grep -q "Device or resource busy" log && tst_brk TCONF "$err"
++}
++
+ check_ima_policy_content()
+ {
+ 	local pattern="$1"
+-- 
+2.33.0
 
-This change appears seems to be causing fallocate05 test to reliably 
-trigger OOM (out of memory) on my test machine, which has only 256MB 
-RAM.
-
-I previously used the 20210524 and 20200120 release versions, and did 
-not encounter this problem.
-
-Regards,
-Ralph
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
