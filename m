@@ -2,64 +2,61 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08586414504
-	for <lists+linux-ltp@lfdr.de>; Wed, 22 Sep 2021 11:23:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72F75414529
+	for <lists+linux-ltp@lfdr.de>; Wed, 22 Sep 2021 11:31:30 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 62A433C8614
-	for <lists+linux-ltp@lfdr.de>; Wed, 22 Sep 2021 11:23:05 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 0A2393CA200
+	for <lists+linux-ltp@lfdr.de>; Wed, 22 Sep 2021 11:31:30 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E92543C73FA
- for <ltp@lists.linux.it>; Wed, 22 Sep 2021 11:23:00 +0200 (CEST)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 387643C2178
+ for <ltp@lists.linux.it>; Wed, 22 Sep 2021 11:31:26 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 4BF2B200DCC
- for <ltp@lists.linux.it>; Wed, 22 Sep 2021 11:22:59 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1632302578;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 72E8D600D71
+ for <ltp@lists.linux.it>; Wed, 22 Sep 2021 11:31:25 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 9DE5F2221E;
+ Wed, 22 Sep 2021 09:31:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1632303084; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=PM3nHYAxpF5T1pa4qTd80yhhbu7FQRmTD078Bx4/kOw=;
- b=N+Ndk1UNRw2JaZGrDfaSUK5j/rK+pXvbGbI+mIOf89f9PJwHxWnCOJ0aHuDreoF//H9xLJ
- pJaiakmpaoOzQUhUKmNGlariBWK2WG+EVPI1LhS9NIK/oGEKQnzJRQwHTyvDe8F0HcOYZf
- eA9x9+RG5uwmLp5jlh72mnPZiCTpxXo=
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
- [209.85.219.70]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-105-8RJmYnLlMayU3k6FqrYZYQ-1; Wed, 22 Sep 2021 05:22:56 -0400
-X-MC-Unique: 8RJmYnLlMayU3k6FqrYZYQ-1
-Received: by mail-qv1-f70.google.com with SMTP id
- ib9-20020a0562141c8900b003671c3a1243so9352699qvb.21
- for <ltp@lists.linux.it>; Wed, 22 Sep 2021 02:22:56 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=PM3nHYAxpF5T1pa4qTd80yhhbu7FQRmTD078Bx4/kOw=;
- b=ZKvuxBVIu5r16DQmkTzCbpOd0b9xxgXlNsod2VfVEjfGdToXIYnwt2pNlO+vKoXgUT
- OwerT+TwIypC8ZLI4Ev1tysfjBnfSzkqM7VW7zP27uYQ0zFg8NgP8euwn/2UJqnt3E0Y
- rE983H0lAY2Gu7JdZJi2DwNwJJ+0SOO/xGcRSd2umgU+dwlUKDehHfzEqxMdYRLXImAv
- w+HppDhk9J57G6Jz4xJMnyITK2kmPqqLtrzQ7PldMFP1LD/qNW5k3qLLJbZINnvFEZrr
- XmBZybaN+f0QgGZTUL1yhFUX/gj6jT2abq+ywY2tTQvtu9UzzfqV1U32y1V7MQt/Dnmo
- p81Q==
-X-Gm-Message-State: AOAM532vtkeq4mkSWG+UTT2FCVXgVZhhV9+SOm8b+UKGwywEsRp0oyhC
- lQRJ4g0iNpheSvJhtST33TgZB0exyYxux6wXbutrTjMcFJjd2H5nnzPMpdWTfXVXOsHdSUTnUxP
- vBJtrLh2tuibrm9X55gSTt9HKY78=
-X-Received: by 2002:a25:e4c7:: with SMTP id
- b190mr41844601ybh.302.1632302576206; 
- Wed, 22 Sep 2021 02:22:56 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJxqV0QmQHCq2uy5RdxtDF+IHKXNki0NeDXzB955uPnVRJRDEp2WmnNKuwKVjWhtEA3zQTH8bpN0ypVa21FQX3M=
-X-Received: by 2002:a25:e4c7:: with SMTP id
- b190mr41844585ybh.302.1632302576009; 
- Wed, 22 Sep 2021 02:22:56 -0700 (PDT)
-MIME-Version: 1.0
+ bh=a5qn7Ou8ETrK5P0Z+VtsgNtYkBYTYetzuA57RUPPEMY=;
+ b=ZxiAzWZTWpicfbK0VIIAjDwnay2P/OmbaUtk8jq+zFSgZjm5Oiw4T+3DVelmS/hi/9AyoU
+ uqMhr+QpVmCmQo4H0yG9t8+o/z1cvPH3A2Hrph48nUjzGPLzZbg5q0Cl40loS7NAdx8jkN
+ dGS1lGUtOtNrisZpEBeSI/fm2Qx/S9w=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1632303084;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=a5qn7Ou8ETrK5P0Z+VtsgNtYkBYTYetzuA57RUPPEMY=;
+ b=F3WBLwLgrU2P5Ru52/cEf70xpis9gS2+ho/N5/d25Z53UYQcwaWPBrTGXRyfFGiuOTvQSl
+ fsHcDDUQ0MOOrFAQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4BFC813D6E;
+ Wed, 22 Sep 2021 09:31:24 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 8dcuEez3SmEINQAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Wed, 22 Sep 2021 09:31:24 +0000
+Date: Wed, 22 Sep 2021 11:31:55 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Li Wang <liwang@redhat.com>
+Message-ID: <YUr4C3VOYI4qtS/F@yuki>
 References: <20210920122146.31576-1-chrubis@suse.cz>
  <CAEemH2eRgUDNLmmzNF5cDaAXp7kMgPOBHeJeWqyStOiAq7QLHw@mail.gmail.com>
  <YUnCYvtAZkO/LZIP@yuki>
@@ -67,21 +64,16 @@ References: <20210920122146.31576-1-chrubis@suse.cz>
  <YUrxJfAOO3+B8//7@yuki>
  <CAEemH2d=+h1k62SnVY8Rh=c0UGGEvvTQieW3YgUq8j2Mg6UW=g@mail.gmail.com>
  <YUr1ga3JSak7Gfry@yuki>
-In-Reply-To: <YUr1ga3JSak7Gfry@yuki>
-From: Li Wang <liwang@redhat.com>
-Date: Wed, 22 Sep 2021 17:22:43 +0800
-Message-ID: <CAEemH2etot5qBfTWkk3JqRZ1ywTo75M7Vu-ZhXvnQgVqcZovBw@mail.gmail.com>
-To: Cyril Hrubis <chrubis@suse.cz>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+ <CAEemH2etot5qBfTWkk3JqRZ1ywTo75M7Vu-ZhXvnQgVqcZovBw@mail.gmail.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <CAEemH2etot5qBfTWkk3JqRZ1ywTo75M7Vu-ZhXvnQgVqcZovBw@mail.gmail.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH v2] lib: shell: Fix timeout process races
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -95,66 +87,34 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============0764010244=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0764010244==
-Content-Type: multipart/alternative; boundary="000000000000359ca305cc920f85"
+Hi!
+> > > Agreed, that sounds like a great method.
+> >
+> > Should I send v3 or can I commit v2 with this change?
+> >
+> 
+> V3 please, I will help test it all.
 
---000000000000359ca305cc920f85
-Content-Type: text/plain; charset="UTF-8"
+Ok, will send ASAP.
 
-On Wed, Sep 22, 2021 at 5:20 PM Cyril Hrubis <chrubis@suse.cz> wrote:
+> I just think of setsid(), is that works and better than setpgid(0, 0)?
 
-> Hi!
-> > Agreed, that sounds like a great method.
->
-> Should I send v3 or can I commit v2 with this change?
->
+For moving the process out of the process group setpgid() is enough, we
+use it in the lib/tst_test.c for the fork_testrun() in order to track
+all children of the test process as well.
 
-V3 please, I will help test it all.
-
-I just think of setsid(), is that works and better than setpgid(0, 0)?
+I do not think that we need a new session here, that would probably have
+strange side effects, for instance it would isolate the tst_timeout_kill
+process from the terminal the tests were started in.
 
 -- 
-Regards,
-Li Wang
-
---000000000000359ca305cc920f85
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Wed, Sep 22, 2021 at 5:20 PM Cyril Hrubis &lt;<a=
- href=3D"mailto:chrubis@suse.cz">chrubis@suse.cz</a>&gt; wrote:<br></div><b=
-lockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-le=
-ft:1px solid rgb(204,204,204);padding-left:1ex">Hi!<br>
-&gt; Agreed, that sounds like a great method.<br>
-<br>
-Should I send v3 or can I commit v2 with this change?<br></blockquote><div>=
-<br></div><div class=3D"gmail_default" style=3D"font-size:small">V3 please,=
- I will help test it all.</div><div class=3D"gmail_default" style=3D"font-s=
-ize:small"><br></div>I just think of setsid(), is that <span class=3D"gmail=
-_default" style=3D"font-size:small">works and </span>better than setpgid(0,=
- 0)?</div><div class=3D"gmail_quote"><br><div class=3D"gmail_default" style=
-=3D"font-size:small"></div></div>-- <br><div dir=3D"ltr" class=3D"gmail_sig=
-nature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div></div=
-></div></div>
-
---000000000000359ca305cc920f85--
-
-
---===============0764010244==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============0764010244==--
-
