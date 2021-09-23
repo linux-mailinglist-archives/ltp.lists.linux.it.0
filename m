@@ -1,75 +1,70 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44CF9415F3D
-	for <lists+linux-ltp@lfdr.de>; Thu, 23 Sep 2021 15:09:35 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 71A4E415F3E
+	for <lists+linux-ltp@lfdr.de>; Thu, 23 Sep 2021 15:10:28 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9DE553CA1DE
-	for <lists+linux-ltp@lfdr.de>; Thu, 23 Sep 2021 15:09:34 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id D4D093CA1D8
+	for <lists+linux-ltp@lfdr.de>; Thu, 23 Sep 2021 15:10:27 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 741AC3C79C0
- for <ltp@lists.linux.it>; Thu, 23 Sep 2021 15:09:30 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 59ACD3C79C0
+ for <ltp@lists.linux.it>; Thu, 23 Sep 2021 15:10:23 +0200 (CEST)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 8B0271A01545
- for <ltp@lists.linux.it>; Thu, 23 Sep 2021 15:09:29 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id DE9941A0043C
+ for <ltp@lists.linux.it>; Thu, 23 Sep 2021 15:10:22 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id B447A1FFB0;
- Thu, 23 Sep 2021 13:09:28 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 591511FFB0;
+ Thu, 23 Sep 2021 13:10:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1632402568; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1632402622; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=xUISyGj9ite+0PPleIQtCiv7xvBGPFUoPW8ILZCCIKg=;
- b=QGG0mjJ4e0oAAw+EpCn0WT675PXy7zmKEa7bHZt7v/h2LR8sFlCQ689vsIQAaUlDN8K/0K
- Xj8wAB1rDHx3wOXOBtARfvNpQu+AXYnYtxrPY/qXDyvgMDoIRNYAiMzR6E8scuhwP1hmYN
- 1cdDaw3GnW/hKDwGY+zopQ1ysMKBmkg=
+ bh=W354F09ONwgX75K2dvTIcwQk0FN5LIkn8BFzLSh6MfQ=;
+ b=KJZt5/bvOZx9r6zY+aIfRtwgz28imya9wUjE820w//za1WM3rYpu75hKX571x7nH7RrjC1
+ BVKgfs9wX1TZwUsMHofqzzaxkYbh1eAQsNRtSMcHjV+qH3qv8gEh/XVGiF9/N1nDwWzCkC
+ JjQ5ok8/DK7azsXeUpfOmFbG8UettPI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1632402568;
+ s=susede2_ed25519; t=1632402622;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=xUISyGj9ite+0PPleIQtCiv7xvBGPFUoPW8ILZCCIKg=;
- b=S9a6f8t8yc/37OY8hjMShRNqh+7kyHrr8mgWqSp0Ab9Pm09yFKO5rVpoma39wLuR36nZK0
- T8Q6nls9cexzKZDg==
+ bh=W354F09ONwgX75K2dvTIcwQk0FN5LIkn8BFzLSh6MfQ=;
+ b=13SqDIcgVH5/G/F3Ob3jDsiB3nFN5riyqr99sNM+6V1i9vkn+HVumMdaFX5wu/IKak1w/D
+ csuc2KQ+csCyxCDw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9E9A113DD5;
- Thu, 23 Sep 2021 13:09:28 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4557A13DD5;
+ Thu, 23 Sep 2021 13:10:22 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id QofcJYh8TGE8QAAAMHmgww
- (envelope-from <chrubis@suse.cz>); Thu, 23 Sep 2021 13:09:28 +0000
-Date: Thu, 23 Sep 2021 15:09:59 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id ruXiD758TGHsQAAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Thu, 23 Sep 2021 13:10:22 +0000
+Date: Thu, 23 Sep 2021 15:10:53 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Li Wang <liwang@redhat.com>
-Message-ID: <YUx8p515ro8Y/Z8l@yuki>
-References: <20210921203349.GA2014441@maple.netwinder.org>
+Message-ID: <YUx83R4D+P2969Nx@yuki>
+References: <20210817104625.2559362-1-liwang@redhat.com>
+ <20210921203349.GA2014441@maple.netwinder.org>
  <CAEemH2dMCmYDkZYxfaeJ_oQCCcHzeMgSOGVQ_wS6BwCrp0YiQw@mail.gmail.com>
  <YUrnljqYd5Hx/fi+@yuki>
- <CAEemH2dDRT-iQPH0a-Aip8OZDUpp2Z3_x4dgVBEg4tv_pyWvfw@mail.gmail.com>
- <YUr9676LXNi0xMs6@yuki>
- <CAEemH2c37Qx6uEG40utX8pGC2Gp0ZLtT_z194L4RVNm6N2CefQ@mail.gmail.com>
- <YUs+jf35Zqp8GjJl@yuki>
- <20210922165218.GA3081072@maple.netwinder.org>
- <CAEemH2cj3AJU01aUrodUh6WnSioyWmzC4U53gEumM9p7hnxmfw@mail.gmail.com>
- <CAEemH2f0+SL6pizzNs4syontAD5SeKmXFbVchRs=oXM-oEsEzw@mail.gmail.com>
+ <CAEemH2e5P-VbEw1xM=tvR=F9Bd+45==hW4rcP2xAbVTuy8rmDg@mail.gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CAEemH2f0+SL6pizzNs4syontAD5SeKmXFbVchRs=oXM-oEsEzw@mail.gmail.com>
+In-Reply-To: <CAEemH2e5P-VbEw1xM=tvR=F9Bd+45==hW4rcP2xAbVTuy8rmDg@mail.gmail.com>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -96,38 +91,20 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> Or, another way I can think of, is to cancel the tmpfs size limitation
-> when MemFree is less than the twofold size to be mounted.
-
-This would fail horribly if the machine has all RAM used but there is
-plenty in buffers that should be freed.
-
-I guess that we should really add tst_available_ram() function that
-would print either MemAvailable or sum of MemFree + MemCached. And of
-course we shouldn't eat more than half of that in the tests.
-
-> --- a/lib/tst_test.c
-> +++ b/lib/tst_test.c
-> @@ -895,6 +895,9 @@ static const char *limit_tmpfs_mount_size(const char
-> *mnt_data,
->         if (strcmp(fs_type, "tmpfs"))
->                 return mnt_data;
+> > I do not think that it's a good idea to pass ~100MB buffer to a single
+> > write()
+> > and expect it to succeed anyways.
+> >
 > 
-> +       if ((SAFE_READ_MEMINFO("MemFree:") / 1024) < (tdev.size * 2))
-> +               return mnt_data;
-
-I guess that we should as well skip the tmpfs completely if we think
-that the size is too small as well.
-
->         if (mnt_data)
->                 snprintf(buf, buf_size, "%s,size=%luM", mnt_data,
-> tdev.size);
->         else
+> I suddenly realized that it is 1MB buffer but not 100MB, so that block
+> number
+> is not the key point for OOM.
 > 
-> 
-> -- 
-> Regards,
-> Li Wang
+> 1 Block == 4k on x86_64,
+> 256 * 4k == 1024kB == 1MB
+
+Uff my bad. Indeed the problem is the tmpfs that have been added to the
+list of filesystems to test recently.
 
 -- 
 Cyril Hrubis
