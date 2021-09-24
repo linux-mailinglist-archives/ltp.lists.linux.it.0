@@ -2,74 +2,83 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A58441613A
-	for <lists+linux-ltp@lfdr.de>; Thu, 23 Sep 2021 16:40:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B994416998
+	for <lists+linux-ltp@lfdr.de>; Fri, 24 Sep 2021 03:49:09 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5ADF83CAB30
-	for <lists+linux-ltp@lfdr.de>; Thu, 23 Sep 2021 16:40:03 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id EA74C3CB392
+	for <lists+linux-ltp@lfdr.de>; Fri, 24 Sep 2021 03:49:07 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id F415F3C330B
- for <ltp@lists.linux.it>; Thu, 23 Sep 2021 16:39:59 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 9E0FE3C6E48
+ for <ltp@lists.linux.it>; Fri, 24 Sep 2021 03:49:03 +0200 (CEST)
+Received: from mail-qt1-x82c.google.com (mail-qt1-x82c.google.com
+ [IPv6:2607:f8b0:4864:20::82c])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id D761110000D2
- for <ltp@lists.linux.it>; Thu, 23 Sep 2021 16:39:58 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 217E522251;
- Thu, 23 Sep 2021 14:39:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1632407998;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=ol8ZWldr4J99/SJWkFEstwCX2itcrVyBCbN+RS9VLCU=;
- b=McwKMCira8Ez3EOIVu8cwhwU/M7bQ8OOGk4hWtyQn8LG9YnJfd3rctPGJ8tahGea3OmywV
- dA3TM0mtwUoyXOKXOqGOVlYDATcA+D+/G7z26cALP1LSbbn9s/E7z/M7b5HM+oQTNzleVa
- XOq67xq/moYId3yNhPFCtrQNj5ZVZ7E=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1632407998;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=ol8ZWldr4J99/SJWkFEstwCX2itcrVyBCbN+RS9VLCU=;
- b=JvnuF8UrwS/6/0hzRCeSA2h6H9lnZicX5wfHPzWnP61l5AO4ucGCoP/MW9U2IErT5tbi/l
- gwauhjLdatv/M5Bg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C567E13E76;
- Thu, 23 Sep 2021 14:39:57 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 33C4J72RTGFedQAAMHmgww
- (envelope-from <pvorel@suse.cz>); Thu, 23 Sep 2021 14:39:57 +0000
-Date: Thu, 23 Sep 2021 16:39:55 +0200
-From: Petr Vorel <pvorel@suse.cz>
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 115D66009D4
+ for <ltp@lists.linux.it>; Fri, 24 Sep 2021 03:49:02 +0200 (CEST)
+Received: by mail-qt1-x82c.google.com with SMTP id r16so8097186qtw.11
+ for <ltp@lists.linux.it>; Thu, 23 Sep 2021 18:49:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=rjn7aB7pBry+pt12kluBazATUfRYnl+KY0Tk2zBMeAs=;
+ b=xXGolQmbMY9nWOtZ82JpsGiRwaKgwdc/ut6qui7AFXhd7/peL8bpCiI/XxfF8mSxJH
+ NAwXVIu5L64W0OtkY7NyugIDogMYPbgsxOrZsbonmcK6f5mARCQNp8P3VQ7UOOz1pxko
+ QgZLmKZFTG5chULqtp5IgYz9SPxW+etZ9xB8V4uRavMPLvm+/YHfBFMAlXZAnpF2ISdq
+ 5zvmapjJb9Bbb8oqZNETkyEaaf7g9Avolzj/Y0d9LezT5JUaomHZ9QzYaykU69NYyTLD
+ RowQ2FcqcI4z3zbbR4vIYJFYQkYzMDjShBPBDDv9uc5vHaQSkSR9YvwxmhZf3hNZ81+j
+ HFfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=rjn7aB7pBry+pt12kluBazATUfRYnl+KY0Tk2zBMeAs=;
+ b=VQvOl0JY5tiJwpGdu22JbfJM1AFSGn0b2qEUMxvDHO/V8zZAQzmHZj3VrXUAHUcGqu
+ BhlD+WYwen4HoZs5QGuiDGM9dqbqXMehaQ7W6asV41YIGpbPGVPJhAa/L2aizwdKrssz
+ UcYWJecWs6UILU8Wwos4HRhnjLjloasBJmwUS3D5GZBTXxP81Z6GirT42hF4wHXDo2JV
+ ACTLHRU2c4AvTjem4dLtolNH8z/JhBMwWDQKVAWZq74JyzaQHpHa/NRfYOmFnqqgV9KW
+ wulGoN03ngCoCnsvPmNVh5JzKDbx/6tJSJKE2PUM0KHGupusfsnshkt8wOVp7t3WoXrD
+ Xoqg==
+X-Gm-Message-State: AOAM5306N0d9DaucOoyOFwDOhcMVecVCOcmcDAM2+rQ7rdl3lgrt8aCI
+ IlLOkBlWOYquYsoLKn5p4fp9+Q==
+X-Google-Smtp-Source: ABdhPJzvN85bX0dEtcyR9jSsw2Afqg8pyuQ3e9+WsJITPQe5kdzNhqgrFTOfbwBuQqotwX/tkUMplw==
+X-Received: by 2002:ac8:4149:: with SMTP id e9mr1807641qtm.249.1632448141841; 
+ Thu, 23 Sep 2021 18:49:01 -0700 (PDT)
+Received: from localhost (rfs.netwinder.org. [206.248.184.2])
+ by smtp.gmail.com with ESMTPSA id az6sm5428444qkb.70.2021.09.23.18.49.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 23 Sep 2021 18:49:01 -0700 (PDT)
+Date: Thu, 23 Sep 2021 21:49:00 -0400
+From: Ralph Siemsen <ralph.siemsen@linaro.org>
 To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <YUyRu382J8ybywBQ@pevik>
-References: <20210921103050.12942-1-mdoucha@suse.cz>
- <YUnk9hqapFL0DJcC@yuki>
+Message-ID: <20210924014900.GA3975163@maple.netwinder.org>
+References: <20210817104625.2559362-1-liwang@redhat.com>
+ <20210921203349.GA2014441@maple.netwinder.org>
+ <CAEemH2dMCmYDkZYxfaeJ_oQCCcHzeMgSOGVQ_wS6BwCrp0YiQw@mail.gmail.com>
+ <YUrnljqYd5Hx/fi+@yuki>
+ <CAEemH2dDRT-iQPH0a-Aip8OZDUpp2Z3_x4dgVBEg4tv_pyWvfw@mail.gmail.com>
+ <YUr9676LXNi0xMs6@yuki>
+ <CAEemH2c37Qx6uEG40utX8pGC2Gp0ZLtT_z194L4RVNm6N2CefQ@mail.gmail.com>
+ <YUs+jf35Zqp8GjJl@yuki>
+ <20210922165218.GA3081072@maple.netwinder.org>
+ <YUyQMBLPbCs4/Gur@yuki>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <YUnk9hqapFL0DJcC@yuki>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+In-Reply-To: <YUyQMBLPbCs4/Gur@yuki>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/finit_module02: Rewrite lockdown skips
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [RFC PATCH] fallocate05: increase the fallocate and
+ defallocate size
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,19 +90,29 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
+Cc: LTP List <ltp@lists.linux.it>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Martin, Cyril,
+Thanks for the suggestions!
 
-thanks, pushed!
+I have tried setting .dev_min_size = 64, in addition to setting 
+FALLOCATE_BLOCKS back to the previous value of 16. Unfortunately I am 
+still seeing OOM when filling the tmpfs. I am confident I made the 
+change correctly, as I can see the message:
 
-Kind regards,
-Petr
+tst_test.c:903: TINFO: Limiting tmpfs size to 64MB
+
+For other filesystems (ext4/btrfs/vfat) the test is fine, and I get 
+ENOSPC error as expected.
+
+I'm testing on kernel version 5.10.52 currently, but I could also switch 
+back to 4.19. I'm on ARMv7 rather than amd64.
+
+Regards,
+Ralph
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
