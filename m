@@ -1,63 +1,63 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C9E241A549
-	for <lists+linux-ltp@lfdr.de>; Tue, 28 Sep 2021 04:22:52 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BD2841AA1F
+	for <lists+linux-ltp@lfdr.de>; Tue, 28 Sep 2021 09:53:35 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6D4E43CAADA
-	for <lists+linux-ltp@lfdr.de>; Tue, 28 Sep 2021 04:22:51 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id CDDBE3C71C8
+	for <lists+linux-ltp@lfdr.de>; Tue, 28 Sep 2021 09:53:34 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 9290D3C7591
- for <ltp@lists.linux.it>; Tue, 28 Sep 2021 04:22:47 +0200 (CEST)
-Received: from mail-qt1-x82b.google.com (mail-qt1-x82b.google.com
- [IPv6:2607:f8b0:4864:20::82b])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id EBCE7200B93
- for <ltp@lists.linux.it>; Tue, 28 Sep 2021 04:22:46 +0200 (CEST)
-Received: by mail-qt1-x82b.google.com with SMTP id j13so18598889qtq.6
- for <ltp@lists.linux.it>; Mon, 27 Sep 2021 19:22:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=SbYHx5xfgPeM2de6sicMilKF11vnKZd/g1LWiYGuedA=;
- b=hrxbOcBfdPR8RRM+mSh7Fl7+GeHtXvC6XPasFDRQM04AgqAZJ2O/VlpBahYP8+Z5O5
- SMW8z5+UBd1HFRKZsTrHCV85F1Bby34JU/Eu9BxbUsd8PYb7+7ZWtIhqfkKaHj6BbyM+
- T+d6olauwUI7VT5JwMV4cAPDgoJNBeKhzg3O9zOiR582IJR8MVR+xorGX8gfZMroaObS
- rKIixb7PLT2Rl/OuvA1e+51sOC+T7PCHHx445aUXQvaot7HnO82xApeZ7bYthQz13YjN
- a+7kdvItHmHn+NZvLYdblOP60FYEUM8C6+YsKLcE+uZmdffKzinc1j3sbdu0CFk4XrFy
- 5aLA==
+ by picard.linux.it (Postfix) with ESMTPS id A41A73C4F65
+ for <ltp@lists.linux.it>; Tue, 28 Sep 2021 09:53:32 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id E26251A01197
+ for <ltp@lists.linux.it>; Tue, 28 Sep 2021 09:53:30 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1632815609;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=01dj86eTzM6LS1AQe4AwjgrhPvG/rHGW3G1HB8ioW8k=;
+ b=dyK9hbUOI/0HA+mOM3xAZKlEwetMqDbiLOW7jFJrQGXHqf+M1WY3tI9PchRgR1qNpvvxwG
+ 6yK5VtAg5BK6GbZnSTvmjIjV1egdGHdhJmBhH489bH1KjOOdXHukgzFqk0OT6CndxwFucD
+ I8UZukjwga91hwYQgZ1aYeesbY+aQec=
+Received: from mail-yb1-f199.google.com (mail-yb1-f199.google.com
+ [209.85.219.199]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-479-QouWFvDlP0GZmjDFs-fJfA-1; Tue, 28 Sep 2021 03:53:22 -0400
+X-MC-Unique: QouWFvDlP0GZmjDFs-fJfA-1
+Received: by mail-yb1-f199.google.com with SMTP id
+ x1-20020a056902102100b005b6233ad6b5so20606221ybt.6
+ for <ltp@lists.linux.it>; Tue, 28 Sep 2021 00:53:22 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=SbYHx5xfgPeM2de6sicMilKF11vnKZd/g1LWiYGuedA=;
- b=4pqwDkxQwWaF1fpdX8PFh8lA7kMX/t71KJEeMHMViAFOZIe7pv5PCDlpPfAbkkZjrQ
- ltptcbNco/Y4zhejHvybHRdB9MAKAavAdMHDPr2D+zSzjegG95CyRO/D1PUAmbPNkOOZ
- 860P5s8D6KqgxLb1dpgs2BIrWA4dskTcK2HR4qhJ49INU50XYpntbZtpu918dIHUSJwH
- GetZlq3kEY3wXFIBt32DcRW3jb7b5P9qq9XAF/bEezPYpnywauao5lOYU4F0L/UbyqDO
- e8wP7LD9bu76q6rtvHOGJHiQSR3qNZibKOrOTFmDkMYZSRk8c2JFwiz/1IE9LRjCrlwv
- aARA==
-X-Gm-Message-State: AOAM533Bgip3T94PelPzMvP0V530EahnaXUHwTcdSzuDVTVFymdfunrH
- RSf7x2rpfYtD3vIe/J0oX7FSgA==
-X-Google-Smtp-Source: ABdhPJyjxXhAaP42IBGrt3ULanIhOnJK8u0LMZO7QLUnP3lJE7B/VpmptAUVhZu31zNiXMUtHSPtzQ==
-X-Received: by 2002:ac8:4149:: with SMTP id e9mr3148348qtm.249.1632795765652; 
- Mon, 27 Sep 2021 19:22:45 -0700 (PDT)
-Received: from localhost (rfs.netwinder.org. [206.248.184.2])
- by smtp.gmail.com with ESMTPSA id j15sm7984199qth.3.2021.09.27.19.22.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Sep 2021 19:22:45 -0700 (PDT)
-Date: Mon, 27 Sep 2021 22:22:44 -0400
-From: Ralph Siemsen <ralph.siemsen@linaro.org>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <20210928022244.GA2015014@maple.netwinder.org>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=01dj86eTzM6LS1AQe4AwjgrhPvG/rHGW3G1HB8ioW8k=;
+ b=PkXK8bAM051VDjiUD4pZq+dKFOQZU+iSVgH8XmwB5cLQ7ZNNBFkdiqL5zMTZD31CKz
+ 0hOhyDuSRQm8qiviRk57lX4O3gSW1NDn4vZydUIVkLGqDO8FklfnfCxuOEagGjFv/vSe
+ 0yHtoWw4UPs8So+RucgEKoo3W54oBJ8DYKx0Ga5xggIl+mpYyAK4g1Ybhyaih+pFijWo
+ h2tcOPMeHdfeK0czC1rpKT6JnexD1Uf8LDIFk58s3gboohzPVtkQS7u7NTJ4jNMlQgwI
+ /hSBjkIrkrgiLbvdK4wX7iO+r+bxRmX/z8+M28rt3uIfmY9HTO8ThcVPJVoDvgDIN2/k
+ HfQg==
+X-Gm-Message-State: AOAM530I+JYHHP3T7ucxZ84jdO66aUZYfYDw6Fp5fvYyRWjHHTGn0Iue
+ 8+00KDw/a3iT/wHOiu5aVbD3t0SNHhS0dAyhAwl05o1Ax7gDcMPTgoiLOw+Hg+quv5UhDyhYBmu
+ EOv8hWm99Xqz5MMFhgrysknEqxi4=
+X-Received: by 2002:a25:4b02:: with SMTP id y2mr5057647yba.144.1632815602253; 
+ Tue, 28 Sep 2021 00:53:22 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJxgOl9t5kA/qwFKSkVP/u6IpKhaGFhsZKSJtccrhzPQqVMiJvJfFCTQ9f/BABr6z4GnEGzalQiuZHtlHLCyRwU=
+X-Received: by 2002:a25:4b02:: with SMTP id y2mr5057631yba.144.1632815602047; 
+ Tue, 28 Sep 2021 00:53:22 -0700 (PDT)
+MIME-Version: 1.0
 References: <20210924070756.3916953-3-liwang@redhat.com>
  <20210924105234.3927811-1-liwang@redhat.com>
  <YU3fTlVIIUU7Ff3d@pevik>
@@ -65,15 +65,22 @@ References: <20210924070756.3916953-3-liwang@redhat.com>
  <20210927151220.GB4173236@maple.netwinder.org>
  <20210927190951.GC4173236@maple.netwinder.org>
  <CAEemH2cntaCBq+BJRZiWpBcrzOvzcBdhS-Hz4O1vZstjT6G=mw@mail.gmail.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAEemH2cntaCBq+BJRZiWpBcrzOvzcBdhS-Hz4O1vZstjT6G=mw@mail.gmail.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+ <20210928022244.GA2015014@maple.netwinder.org>
+In-Reply-To: <20210928022244.GA2015014@maple.netwinder.org>
+From: Li Wang <liwang@redhat.com>
+Date: Tue, 28 Sep 2021 15:53:10 +0800
+Message-ID: <CAEemH2dX425dA2JtxAECnQiKy-RgwOoxWucqE5rJ75fQcAq0-Q@mail.gmail.com>
+To: Ralph Siemsen <ralph.siemsen@linaro.org>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH v2 3/3] lib: adjust the tmpfs size according to
  .dev_min_size and MemAvailable
 X-BeenThere: ltp@lists.linux.it
@@ -88,25 +95,64 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: LTP List <ltp@lists.linux.it>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============0832860000=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Tue, Sep 28, 2021 at 09:19:28AM +0800, Li Wang wrote:
+--===============0832860000==
+Content-Type: multipart/alternative; boundary="000000000000f1b67605cd098176"
+
+--000000000000f1b67605cd098176
+Content-Type: text/plain; charset="UTF-8"
+
 >
->Thanks for the debugging. Can you send a patch?
+> >> Also, when I remove the .dev_min_size=512 from fallocate06, then it
+> >> uses the default size of 32MB, and the fallocate06 test runs and
+> >> passes.
+>
+> Should we also change fallocate96 test to not request 512MB?
+>
 
-Yes, I will send one in a few moments (and then it's off to sleep).
+I think yes, there is no place that shows it needs a specific size 512.
 
->> Also, when I remove the .dev_min_size=512 from fallocate06, then it 
->> uses the default size of 32MB, and the fallocate06 test runs and 
->> passes.
-
-Should we also change fallocate96 test to not request 512MB?
-
+-- 
 Regards,
-Ralph
+Li Wang
+
+--000000000000f1b67605cd098176
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small">=C2=A0<br></div></div><div class=3D"gmail_quote"><blockquote =
+class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px sol=
+id rgb(204,204,204);padding-left:1ex">
+<br>
+&gt;&gt; Also, when I remove the .dev_min_size=3D512 from fallocate06, then=
+ it <br>
+&gt;&gt; uses the default size of 32MB, and the fallocate06 test runs and <=
+br>
+&gt;&gt; passes.<br>
+<br>
+Should we also change fallocate96 test to not request 512MB?<br></blockquot=
+e><div><br></div><div><div class=3D"gmail_default" style=3D"font-size:small=
+">I think yes, there is no=C2=A0place that shows it needs a specific size 5=
+12.</div></div></div><div><br></div>-- <br><div dir=3D"ltr" class=3D"gmail_=
+signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div></=
+div></div></div>
+
+--000000000000f1b67605cd098176--
+
+
+--===============0832860000==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============0832860000==--
+
