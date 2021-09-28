@@ -1,74 +1,81 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id B718B41A54B
-	for <lists+linux-ltp@lfdr.de>; Tue, 28 Sep 2021 04:23:10 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C9E241A549
+	for <lists+linux-ltp@lfdr.de>; Tue, 28 Sep 2021 04:22:52 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 47B353CA0BF
-	for <lists+linux-ltp@lfdr.de>; Tue, 28 Sep 2021 04:23:10 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 6D4E43CAADA
+	for <lists+linux-ltp@lfdr.de>; Tue, 28 Sep 2021 04:22:51 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id BE44C3C7591
- for <ltp@lists.linux.it>; Tue, 28 Sep 2021 04:23:08 +0200 (CEST)
-Received: from mail-qk1-x734.google.com (mail-qk1-x734.google.com
- [IPv6:2607:f8b0:4864:20::734])
+ by picard.linux.it (Postfix) with ESMTPS id 9290D3C7591
+ for <ltp@lists.linux.it>; Tue, 28 Sep 2021 04:22:47 +0200 (CEST)
+Received: from mail-qt1-x82b.google.com (mail-qt1-x82b.google.com
+ [IPv6:2607:f8b0:4864:20::82b])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 5A9FA1000926
- for <ltp@lists.linux.it>; Tue, 28 Sep 2021 04:23:08 +0200 (CEST)
-Received: by mail-qk1-x734.google.com with SMTP id b65so38769601qkc.13
- for <ltp@lists.linux.it>; Mon, 27 Sep 2021 19:23:08 -0700 (PDT)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id EBCE7200B93
+ for <ltp@lists.linux.it>; Tue, 28 Sep 2021 04:22:46 +0200 (CEST)
+Received: by mail-qt1-x82b.google.com with SMTP id j13so18598889qtq.6
+ for <ltp@lists.linux.it>; Mon, 27 Sep 2021 19:22:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=oBYwgtkDRrCo56B7pHHXdAcCo5ZMZcU+JypLeScVn44=;
- b=F6KxrM6uRkqC6DmH4bgiEj4JUBnxn7r4pKqCI73wSn3ji216yc6oecTX4n10V3BQMr
- kVLQM6V6L/qD0zQ5Djve7YlIkNNVEa201v2a+nd2mJgNLS1G+j+Vabwfpr6XLVHZQ8+w
- HcNWo2c2R8LLxl6h0w5okrvxXryLAsUs9zwdZdKBCnSGKXNtVSvYHOQ9ruvLMzQAbloe
- Sn4SzXSw/En33C3R7olacD6hZufY1wv61MJMdOAPbXxRpmv8I6CQponKJq9rqZtsUO51
- CO6ZAk8gtdmGTYn+0j3klF2NF6RTP6OU2ega0eHJfv8swOxPuuTuET6HhpwoDS/9orcj
- eMYg==
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=SbYHx5xfgPeM2de6sicMilKF11vnKZd/g1LWiYGuedA=;
+ b=hrxbOcBfdPR8RRM+mSh7Fl7+GeHtXvC6XPasFDRQM04AgqAZJ2O/VlpBahYP8+Z5O5
+ SMW8z5+UBd1HFRKZsTrHCV85F1Bby34JU/Eu9BxbUsd8PYb7+7ZWtIhqfkKaHj6BbyM+
+ T+d6olauwUI7VT5JwMV4cAPDgoJNBeKhzg3O9zOiR582IJR8MVR+xorGX8gfZMroaObS
+ rKIixb7PLT2Rl/OuvA1e+51sOC+T7PCHHx445aUXQvaot7HnO82xApeZ7bYthQz13YjN
+ a+7kdvItHmHn+NZvLYdblOP60FYEUM8C6+YsKLcE+uZmdffKzinc1j3sbdu0CFk4XrFy
+ 5aLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=oBYwgtkDRrCo56B7pHHXdAcCo5ZMZcU+JypLeScVn44=;
- b=B/tVi0xEnUMwdKbrBH7C77CCNA23HY8GVjcZuLmgH0YQt+UhvmXbSgf8bEAzEDU5TF
- 1Fe4JHFbk29QdSkfL6xwwaQUTLRN/QRkWIVoLxlFxnhIFPNOzFb7nZynZTP4N0CC5h9/
- lTtMwWDnHJb39BfVvl8W9LlqwgdPIHQfRU0JTL18WKtCE8qMsok8b0jclk5HPRLP08o3
- UdT/FIgs9q5qYuxwNx7CGPidJM4wTbYsDTEVR92YEvs8FC4Ab/7So5eXppU6kLkTyc1m
- Ss7C+wsCxjiNw92ohnGzKR2Or6gUCJnGMrBUVAwKanWRtIg4ME5EoeR1Q0oOQ2NQC8AA
- wklw==
-X-Gm-Message-State: AOAM532MhZoSV2ktifTQJ10CPDPA04t6Kt0ky6Qdd1qX0o7cRqygLFeQ
- ezsvlKQ8i/1CBqatHArA9vfRJhxSnFnOJw==
-X-Google-Smtp-Source: ABdhPJwMH3LAGZplGYN09zVgH17akmfXs9biwoSIaWDSD/QjA0o2fN4Xz3X1MRlLWpNEEWxrqP4esg==
-X-Received: by 2002:a05:620a:53d:: with SMTP id
- h29mr3166195qkh.395.1632795787197; 
- Mon, 27 Sep 2021 19:23:07 -0700 (PDT)
-Received: from maple.netwinder.org (rfs.netwinder.org. [206.248.184.2])
- by smtp.gmail.com with ESMTPSA id c139sm14269205qkg.2.2021.09.27.19.23.06
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=SbYHx5xfgPeM2de6sicMilKF11vnKZd/g1LWiYGuedA=;
+ b=4pqwDkxQwWaF1fpdX8PFh8lA7kMX/t71KJEeMHMViAFOZIe7pv5PCDlpPfAbkkZjrQ
+ ltptcbNco/Y4zhejHvybHRdB9MAKAavAdMHDPr2D+zSzjegG95CyRO/D1PUAmbPNkOOZ
+ 860P5s8D6KqgxLb1dpgs2BIrWA4dskTcK2HR4qhJ49INU50XYpntbZtpu918dIHUSJwH
+ GetZlq3kEY3wXFIBt32DcRW3jb7b5P9qq9XAF/bEezPYpnywauao5lOYU4F0L/UbyqDO
+ e8wP7LD9bu76q6rtvHOGJHiQSR3qNZibKOrOTFmDkMYZSRk8c2JFwiz/1IE9LRjCrlwv
+ aARA==
+X-Gm-Message-State: AOAM533Bgip3T94PelPzMvP0V530EahnaXUHwTcdSzuDVTVFymdfunrH
+ RSf7x2rpfYtD3vIe/J0oX7FSgA==
+X-Google-Smtp-Source: ABdhPJyjxXhAaP42IBGrt3ULanIhOnJK8u0LMZO7QLUnP3lJE7B/VpmptAUVhZu31zNiXMUtHSPtzQ==
+X-Received: by 2002:ac8:4149:: with SMTP id e9mr3148348qtm.249.1632795765652; 
+ Mon, 27 Sep 2021 19:22:45 -0700 (PDT)
+Received: from localhost (rfs.netwinder.org. [206.248.184.2])
+ by smtp.gmail.com with ESMTPSA id j15sm7984199qth.3.2021.09.27.19.22.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Sep 2021 19:23:06 -0700 (PDT)
+ Mon, 27 Sep 2021 19:22:45 -0700 (PDT)
+Date: Mon, 27 Sep 2021 22:22:44 -0400
 From: Ralph Siemsen <ralph.siemsen@linaro.org>
-To: ltp@lists.linux.it
-Date: Mon, 27 Sep 2021 22:18:50 -0400
-Message-Id: <20210928021850.2015065-1-ralph.siemsen@linaro.org>
-X-Mailer: git-send-email 2.25.1
+To: Li Wang <liwang@redhat.com>
+Message-ID: <20210928022244.GA2015014@maple.netwinder.org>
+References: <20210924070756.3916953-3-liwang@redhat.com>
+ <20210924105234.3927811-1-liwang@redhat.com>
+ <YU3fTlVIIUU7Ff3d@pevik>
+ <CAEemH2crBA=-piu3Z+CM7+Z3neWWxkuMY6+y9i6vdHSvZukKgw@mail.gmail.com>
+ <20210927151220.GB4173236@maple.netwinder.org>
+ <20210927190951.GC4173236@maple.netwinder.org>
+ <CAEemH2cntaCBq+BJRZiWpBcrzOvzcBdhS-Hz4O1vZstjT6G=mw@mail.gmail.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <CAEemH2cntaCBq+BJRZiWpBcrzOvzcBdhS-Hz4O1vZstjT6G=mw@mail.gmail.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH] lib: fix MemAvailable parsing
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 3/3] lib: adjust the tmpfs size according to
+ .dev_min_size and MemAvailable
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,39 +87,26 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
+Cc: LTP List <ltp@lists.linux.it>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-The amount of available memory was not being returned correctly, which
-resulted in tests being executed when they should have been skipped.
+On Tue, Sep 28, 2021 at 09:19:28AM +0800, Li Wang wrote:
+>
+>Thanks for the debugging. Can you send a patch?
 
-Fixes: 8759f4 ("lib: adjust the tmpfs size according to .dev_min_size and MemAvailable")
-Signed-off-by: Ralph Siemsen <ralph.siemsen@linaro.org>
----
- lib/tst_memutils.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Yes, I will send one in a few moments (and then it's off to sleep).
 
-diff --git a/lib/tst_memutils.c b/lib/tst_memutils.c
-index 69077861f..90911da56 100644
---- a/lib/tst_memutils.c
-+++ b/lib/tst_memutils.c
-@@ -65,9 +65,9 @@ void tst_pollute_memory(size_t maxsize, int fillchar)
- 
- long long tst_available_mem(void)
- {
--	long long mem_available;
-+	long long mem_available = 0;
- 
--	if (FILE_LINES_SCANF("/proc/meminfo", "MemAvailable: %ld",
-+	if (FILE_LINES_SCANF("/proc/meminfo", "MemAvailable: %lld",
- 		&mem_available)) {
- 		mem_available = SAFE_READ_MEMINFO("MemFree:")
- 			+ SAFE_READ_MEMINFO("Cached:");
--- 
-2.25.1
+>> Also, when I remove the .dev_min_size=512 from fallocate06, then it 
+>> uses the default size of 32MB, and the fallocate06 test runs and 
+>> passes.
 
+Should we also change fallocate96 test to not request 512MB?
+
+Regards,
+Ralph
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
