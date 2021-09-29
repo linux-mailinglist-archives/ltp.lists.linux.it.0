@@ -1,56 +1,76 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6683C41C12C
-	for <lists+linux-ltp@lfdr.de>; Wed, 29 Sep 2021 10:59:17 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id A1D1241C6A4
+	for <lists+linux-ltp@lfdr.de>; Wed, 29 Sep 2021 16:28:11 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0AA0B3C6F36
-	for <lists+linux-ltp@lfdr.de>; Wed, 29 Sep 2021 10:59:17 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 4021A3C8B2B
+	for <lists+linux-ltp@lfdr.de>; Wed, 29 Sep 2021 16:28:11 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 9AD763C17A1
- for <ltp@lists.linux.it>; Wed, 29 Sep 2021 10:59:14 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 718FE3C6DF5
+ for <ltp@lists.linux.it>; Wed, 29 Sep 2021 16:28:10 +0200 (CEST)
+Received: from mail-il1-x134.google.com (mail-il1-x134.google.com
+ [IPv6:2607:f8b0:4864:20::134])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id E1B046008C7
- for <ltp@lists.linux.it>; Wed, 29 Sep 2021 10:59:13 +0200 (CEST)
-Received: from relay1.suse.de (relay1.suse.de [149.44.160.133])
- by smtp-out1.suse.de (Postfix) with ESMTP id 5481622525;
- Wed, 29 Sep 2021 08:59:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1632905953; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=gvVxPg0AIhJCK8UX7BYnKmW0jxwoqtTsxgRsqy1EDxo=;
- b=fEYxbeQU4S7inNyzWGBPRmIC8PvSidLG//YbV2eOgy1TjT6cDwjq6tCThO6re0CjeQy5K4
- Z9MME0oBC7Ky3r+tgGu90R5atyxkxHTzXiU9+9SO+EzB7UjZ+WTvOXUt4mOcIh8/Ctkzgk
- ut39bGBnefyRZ8fs94h8j6D68Vm1aeo=
-Received: from g78.suse.de (unknown [10.163.24.38])
- by relay1.suse.de (Postfix) with ESMTP id 1DA0025D8B;
- Wed, 29 Sep 2021 08:59:13 +0000 (UTC)
-To: ltp@lists.linux.it
-Date: Wed, 29 Sep 2021 09:59:10 +0100
-Message-Id: <20210929085910.23073-2-rpalethorpe@suse.com>
-X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20210929085910.23073-1-rpalethorpe@suse.com>
-References: <20210929085910.23073-1-rpalethorpe@suse.com>
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id AC1991001280
+ for <ltp@lists.linux.it>; Wed, 29 Sep 2021 16:28:09 +0200 (CEST)
+Received: by mail-il1-x134.google.com with SMTP id j15so3040702ila.6
+ for <ltp@lists.linux.it>; Wed, 29 Sep 2021 07:28:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=5iBXdIGgxweNNV5b8hPatfsLjTXomXv+XrkI5wSls78=;
+ b=tIDlnx0NW62z7GrS3cDtnIPiFtFhlC8Jp5bcVjQRevl2upi/hyVj/QPc/zESsaFh8o
+ aIE7U5GlGTaYsic0cfW7iGrxdrMGC6LraArZDwPnNIt5HPJ+GvzaVKHQUJ5MPJyLmtmy
+ WjWrsDZJSPfz8DUufo/g1VJ9Op5B5d7zSykU72KLrABbPjMiH5iMcZ0YT1lxImcJYInB
+ B07mCwSOytMwdKe6NdhSZcnkwKTRioADOQE286IVrPbjgJ+H+Ka3n0AjxySiM1aw1+me
+ 1vVAtqT4WhhVBN1VAM/wN+Olu/k/JKmUcvl4JoBT0UWjsVypTaDOiQt14bcEgfc0hUvV
+ C4vw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=5iBXdIGgxweNNV5b8hPatfsLjTXomXv+XrkI5wSls78=;
+ b=W1MQ1V7+582j+ekVdQiYaWfsv+LPAgbF+2LxK3tMELinOfCG49tlNyYC/TgoPwFswz
+ kVCHkAh9QXltMX9aNiVopYrLtFzOUunBiXHyqUbptdm52+2SkjZEO21lyzHSwYaRawjS
+ SwWbZXJcHvzc/ydx8zdKUSRKF+yFwXfheRRfvQ+SOBG7eiFZDEI6MOnahEx2YWKLcJb9
+ 4pkzMP4PcPmFfcfnlMMjDTpOYytFGMwNA+H+/TyDwVM83IdzWuC0PbnlvOqWWOb+YZGi
+ xGEw+69f+yZ43zi0gd9iPSWtjh2GrMT6vX/gXKYwISto6ML8gN4zQSzAjV3HGCzfCSGo
+ E5yg==
+X-Gm-Message-State: AOAM531iE2mVm3QRYsHWlYXDGiOkwURu15Jodlv3smv01WLZ85R7az0y
+ s9cX84qyPFU9c/GKG7lZQg6Frw==
+X-Google-Smtp-Source: ABdhPJxVFa6OD333otGQmJC4/vmWYPDWlXST5c69FSbf+ABG5Rdsnpo03oFGcN2pfsiAI1ccv0ry3g==
+X-Received: by 2002:a05:6e02:1c2d:: with SMTP id
+ m13mr8494532ilh.2.1632925688409; 
+ Wed, 29 Sep 2021 07:28:08 -0700 (PDT)
+Received: from localhost (rfs.netwinder.org. [206.248.184.2])
+ by smtp.gmail.com with ESMTPSA id b6sm1464194iod.55.2021.09.29.07.28.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 29 Sep 2021 07:28:08 -0700 (PDT)
+Date: Wed, 29 Sep 2021 10:28:06 -0400
+From: Ralph Siemsen <ralph.siemsen@linaro.org>
+To: Richard Palethorpe <rpalethorpe@suse.de>
+Message-ID: <20210929142806.GA3993090@maple.netwinder.org>
+References: <20210928021850.2015065-1-ralph.siemsen@linaro.org>
+ <87ee97g5gi.fsf@suse.de>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <87ee97g5gi.fsf@suse.de>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/2] clock_nanosleep01: Add space to make make-check
- happy
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] lib: fix MemAvailable parsing
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,35 +82,27 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Richard Palethorpe via ltp <ltp@lists.linux.it>
-Reply-To: Richard Palethorpe <rpalethorpe@suse.com>
-Cc: Richard Palethorpe <rpalethorpe@suse.com>
-Content-Type: text/plain; charset="us-ascii"
+Cc: ltp@lists.linux.it
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
----
- testcases/kernel/syscalls/clock_nanosleep/clock_nanosleep01.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Hi Richard,
 
-diff --git a/testcases/kernel/syscalls/clock_nanosleep/clock_nanosleep01.c b/testcases/kernel/syscalls/clock_nanosleep/clock_nanosleep01.c
-index 7dc5a043d..d7b14fd94 100644
---- a/testcases/kernel/syscalls/clock_nanosleep/clock_nanosleep01.c
-+++ b/testcases/kernel/syscalls/clock_nanosleep/clock_nanosleep01.c
-@@ -200,7 +200,7 @@ static void do_test(unsigned int i)
- 		}
- 
- 		if (remain_ms > expect_ms) {
--			tst_res(TFAIL| TTERRNO,
-+			tst_res(TFAIL | TTERRNO,
- 				"remaining time > requested time (%lld > %lld)",
- 				remain_ms, expect_ms);
- 			return;
--- 
-2.33.0
+On Wed, Sep 29, 2021 at 09:14:56AM +0100, Richard Palethorpe wrote:
+>
+>Just curious, did you find this on 32-bit ARM?
 
+Yes, it was on 32-bit ARMv7. It happens on the real hardware, and also 
+under qemuarm emulation.
+
+You can see my replies in the "fallocate05: increase the the fallocate 
+and defallocate size" thread, so see how I ended up discovering this 
+problem.
+
+Cheers,
+Ralph
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
