@@ -1,77 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7209F41E12D
-	for <lists+linux-ltp@lfdr.de>; Thu, 30 Sep 2021 20:31:39 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A5DA41E137
+	for <lists+linux-ltp@lfdr.de>; Thu, 30 Sep 2021 20:32:03 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 434773C9AF9
-	for <lists+linux-ltp@lfdr.de>; Thu, 30 Sep 2021 20:31:39 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 770DA3C9631
+	for <lists+linux-ltp@lfdr.de>; Thu, 30 Sep 2021 20:32:02 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 112B13C229B
- for <ltp@lists.linux.it>; Thu, 30 Sep 2021 20:31:28 +0200 (CEST)
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [IPv6:2a00:1450:4864:20::332])
+ by picard.linux.it (Postfix) with ESMTPS id 300E13C962E
+ for <ltp@lists.linux.it>; Thu, 30 Sep 2021 20:31:30 +0200 (CEST)
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [IPv6:2a00:1450:4864:20::42f])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 56977140097F
- for <ltp@lists.linux.it>; Thu, 30 Sep 2021 20:31:28 +0200 (CEST)
-Received: by mail-wm1-x332.google.com with SMTP id v127so5378926wme.5
- for <ltp@lists.linux.it>; Thu, 30 Sep 2021 11:31:28 -0700 (PDT)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id A22B320100D
+ for <ltp@lists.linux.it>; Thu, 30 Sep 2021 20:31:29 +0200 (CEST)
+Received: by mail-wr1-x42f.google.com with SMTP id u18so11614632wrg.5
+ for <ltp@lists.linux.it>; Thu, 30 Sep 2021 11:31:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=LxT1wJPlx8epPQ96gI9CFqtHDY9ypMS44oyi3q70HIM=;
- b=CKy24y7Ob0Tg5Hepj/VEjR980fK15llL5ULmjUCX044NArlpJeWdh+ygog9tau8z+5
- i/rACg/LOG1tLZbMZKvoJwopLm7af/T/zDOShXkcnmCfZxdkyj4XSJpwuop3wHaKXOMP
- useTZO0xc4WMyTUliOw61+EOx0Lze1JnfqRmVwypulyTbxNad64VLzpp9NJc5+dMQ7no
- tmfFGLvwJqIbXrZvQ62Wdk/o0dZG1bu3nre2gU99YllgwmmgmX/sqHmEwQSBdtJLdVjJ
- uM8XzAJGfK1mNKGqKfzvgZDb+O5XJC6YPSDNY9fOphFCwS/i1DczZjStvXY0NUsq06f2
- GSTw==
+ bh=AAG1//VMYMPBv+IFXUH8wp7fzoZo8lPLbUSkd/KIWr0=;
+ b=JZ74ZFWIkoqAxBi5b/PrHBeIdO0pxm4zHJANuki1iR5M2+8YJk4FJaqv8ArZKRU33d
+ ZqClHbDmGwMWodmIIt0xC9Nqa9ZT+ofb3ZXdyevxF/bCM9M9qT4eLgqvpJue0Yt5scLl
+ dL62+UWbUXCTjLhJ6K1w0u93UuMTYtSH5sCtD7qG35CS/t5SWBQR2BzzICOs23zM2sam
+ SjZCClXWlUqgzM+m9sO/z/ctePBFkhX4irU0yBUId9Zo8Lx+dKdrLu+qOTt0lZwt0WR3
+ Qycyybr5Z2gZeefzlkbn3HyGZQacQExjLH1nZ+p6UsAd9mlBlVnODzP93GBZpPnEQDnz
+ OLzg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=LxT1wJPlx8epPQ96gI9CFqtHDY9ypMS44oyi3q70HIM=;
- b=hK67XYlVrReB1LLxYA1PFIZ3mWtWxMTwWs+Fkd0GsFbuj++ZysAEFHGjj3xQumf1NT
- ihTihYRbXTGpDeEWIyjCiROMTxrcg81KuTTXF94nBU2ppFBOWPk+GLCg4wo1I+3jBN++
- BWajfIA6MRG8fySOf4TEIOj4/GoU8BJJ8dYk7lK8f1wjTMnBic2yUr8mO4lapI/AVj+a
- V6ZDBYCTCj1141+2UT7CmcY/NJJoT1wpiVXa2P2pYTed2ZJhvQ/jShAPyxA2DHFiGFpX
- /RZUr+RBW5HRVo2mgDcCESYdLLQyIoVY4Va/YYr1PnXRNgOwdjFrInSr2PMbybBJf89Q
- OIkw==
-X-Gm-Message-State: AOAM531jQob9iukaCC1ZB92lPW4whDr5l4i8gb1S5vRNTN1O4Ti44NRI
- ocC4Q2rVkR2Q+FK6otrq9a62w7rZVoI=
-X-Google-Smtp-Source: ABdhPJxIwNmEdLd4AjjCjtQJ3U0GLdS0YdGqvCoVyGbr4pthNAS2O9HfxSFfq7qVj4a3i03+bcD0Kg==
-X-Received: by 2002:a05:600c:4fd3:: with SMTP id
- o19mr739854wmq.134.1633026687871; 
- Thu, 30 Sep 2021 11:31:27 -0700 (PDT)
+ bh=AAG1//VMYMPBv+IFXUH8wp7fzoZo8lPLbUSkd/KIWr0=;
+ b=JSdYd1zgpp0KnGVla6Y0h2F2p8Dg0OMHQKO0xwWc5NiF/6b/RUQQcmxMU03JkpGmFP
+ 6PyFVMZoMEfiwMJcfa0ZdWiqDyigwME4Kpo+QH5nI0bfaSFSEv9WOUvuZ8HqiJxRX8wz
+ +gevosH0hEBX9LEW1Hhnlm0+lFAAKTAGaNUgb57hPlxRbhDXY4d2iR8AtaGwM+2uh4qC
+ PpgZn8tCqely5VmyYbH1Q3bqJ7xBnXVi7TC1c6GrDv1hhqpTqXATVnFmbb/NgRrlqWQ7
+ 78wFRcp+9F/Q3j9tGj8iqwm2/9EX5xgt7gKKNUyhp4L9QYJctlzfbf/MY5PpZhg9HSyH
+ 6TVw==
+X-Gm-Message-State: AOAM533DWYqKkpuh+Zg3AEFShwTPYsqhX8EsLQEmiwKEgD4Chm4edzUF
+ d3KZdtblyXJsXy4vGr2h/o4n7GYCTsA=
+X-Google-Smtp-Source: ABdhPJw7Kk06hM4RBBQtnG3r4NOjUdXWQHw90JTtNN0UXOHibqV/7js0+q4jj1FJw72OOsEvfohynA==
+X-Received: by 2002:a5d:6292:: with SMTP id k18mr8025956wru.110.1633026689162; 
+ Thu, 30 Sep 2021 11:31:29 -0700 (PDT)
 Received: from dell5510.suse.de (gw1.ms-free.net. [185.243.124.10])
- by smtp.gmail.com with ESMTPSA id c9sm5767996wmb.41.2021.09.30.11.31.26
+ by smtp.gmail.com with ESMTPSA id c9sm5767996wmb.41.2021.09.30.11.31.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 30 Sep 2021 11:31:27 -0700 (PDT)
+ Thu, 30 Sep 2021 11:31:28 -0700 (PDT)
 From: Petr Vorel <petr.vorel@gmail.com>
 To: ltp@lists.linux.it
-Date: Thu, 30 Sep 2021 20:30:57 +0200
-Message-Id: <20210930183058.5240-3-petr.vorel@gmail.com>
+Date: Thu, 30 Sep 2021 20:30:58 +0200
+Message-Id: <20210930183058.5240-4-petr.vorel@gmail.com>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20210930183058.5240-1-petr.vorel@gmail.com>
 References: <20210930183058.5240-1-petr.vorel@gmail.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [RFC PATCH v2 2/3] lapi: Create if_addr.h and reuse it in
- rtnetlink.h
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] [RFC PATCH v2 3/3] lapi/if_addr.h: Define IFA_FLAGS
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,55 +86,57 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-There will be fix in next commit for missing IFA_F_NOPREFIXROUTE which
-requires creating lapi/if_addr.h. Thus move IFA_FLAGS to lapi/if_addr.h,
-as it belongs there and reuse lapi/if_addr.h in lapi/rtnetlink.h just
-like <linux/rtnetlink.h> includes <linux/if_addr.h>.
+and use it in icmp_rate_limit01.c.
+
+This fixes error on toolchains with very old kernel headers, e.g.
+Buildroot sourcery-arm:
+
+icmp_rate_limit01.c:82:3: error: 'IFA_F_NOPREFIXROUTE' undeclared (first use in this function)
+   IFA_F_NOPREFIXROUTE);
+
+Fixed because IFA_F_NOPREFIXROUTE was added in 3.14 and the oldest
+system we still support is Cent0S 7 with 3.10 kernel.
+
+NOTE: Cent0S 7 is obviously heavily patched thus it contains
+IFA_F_NOPREFIXROUTE and therefore CI build didn't catch this error.
 
 Signed-off-by: Petr Vorel <petr.vorel@gmail.com>
 ---
- include/lapi/if_addr.h   | 16 ++++++++++++++++
- include/lapi/rtnetlink.h |  5 +----
- 2 files changed, 17 insertions(+), 4 deletions(-)
- create mode 100644 include/lapi/if_addr.h
+ include/lapi/if_addr.h            | 3 +++
+ testcases/cve/icmp_rate_limit01.c | 3 ++-
+ 2 files changed, 5 insertions(+), 1 deletion(-)
 
 diff --git a/include/lapi/if_addr.h b/include/lapi/if_addr.h
-new file mode 100644
-index 000000000..4e50a0a4e
---- /dev/null
+index 4e50a0a4e..0f7e44784 100644
+--- a/include/lapi/if_addr.h
 +++ b/include/lapi/if_addr.h
-@@ -0,0 +1,16 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2021 Petr Vorel <petr.vorel@gmail.com>
-+ */
-+
-+#ifndef LAPI_IF_ADDR_H__
-+#define LAPI_IF_ADDR_H__
-+
-+#include <linux/if_addr.h>
-+
-+#ifndef IFA_FLAGS
-+# define IFA_FLAGS 8
+@@ -12,5 +12,8 @@
+ # define IFA_FLAGS 8
+ #endif
+ 
++#ifndef IFA_F_NOPREFIXROUTE
++# define IFA_F_NOPREFIXROUTE	0x200
 +#endif
-+
-+
-+#endif /* LAPI_IF_ADDR_H__ */
-diff --git a/include/lapi/rtnetlink.h b/include/lapi/rtnetlink.h
-index 04e9ad51a..089bf1a0d 100644
---- a/include/lapi/rtnetlink.h
-+++ b/include/lapi/rtnetlink.h
-@@ -5,9 +5,6 @@
- # define LAPI_RTNETLINK_H__
  
- #include <linux/rtnetlink.h>
--
--#ifndef IFA_FLAGS
--# define IFA_FLAGS 8
--#endif
+ #endif /* LAPI_IF_ADDR_H__ */
+diff --git a/testcases/cve/icmp_rate_limit01.c b/testcases/cve/icmp_rate_limit01.c
+index b3a237b30..3ada32675 100644
+--- a/testcases/cve/icmp_rate_limit01.c
++++ b/testcases/cve/icmp_rate_limit01.c
+@@ -27,11 +27,12 @@
+ #include <sys/socket.h>
+ #include <netinet/in.h>
+ #include <arpa/inet.h>
+-#include <linux/if_addr.h>
+ #include <linux/errqueue.h>
+ 
+ #include <sched.h>
+ #include <limits.h>
++
 +#include "lapi/if_addr.h"
+ #include "tst_test.h"
+ #include "tst_netdevice.h"
  
- #endif	/* LAPI_RTNETLINK_H__ */
 -- 
 2.33.0
 
