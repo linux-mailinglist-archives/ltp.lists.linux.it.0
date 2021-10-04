@@ -1,77 +1,82 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id DED794215F3
-	for <lists+linux-ltp@lfdr.de>; Mon,  4 Oct 2021 20:02:40 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 36FF9421998
+	for <lists+linux-ltp@lfdr.de>; Tue,  5 Oct 2021 00:10:44 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 03C3F3CA6EB
-	for <lists+linux-ltp@lfdr.de>; Mon,  4 Oct 2021 20:02:40 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id BDFCB3CA6ED
+	for <lists+linux-ltp@lfdr.de>; Tue,  5 Oct 2021 00:10:43 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E32273C6EA3
- for <ltp@lists.linux.it>; Mon,  4 Oct 2021 20:02:35 +0200 (CEST)
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [IPv6:2a00:1450:4864:20::32e])
+ by picard.linux.it (Postfix) with ESMTPS id B36543C4D0C
+ for <ltp@lists.linux.it>; Tue,  5 Oct 2021 00:10:38 +0200 (CEST)
+Received: from mail-pl1-x631.google.com (mail-pl1-x631.google.com
+ [IPv6:2607:f8b0:4864:20::631])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id C3A2F60066C
- for <ltp@lists.linux.it>; Mon,  4 Oct 2021 20:02:34 +0200 (CEST)
-Received: by mail-wm1-x32e.google.com with SMTP id
- g193-20020a1c20ca000000b0030d55f1d984so50835wmg.3
- for <ltp@lists.linux.it>; Mon, 04 Oct 2021 11:02:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=date:from:to:cc:subject:message-id:reply-to:references:mime-version
- :content-disposition:in-reply-to;
- bh=qBqo/Bu+11mnPiT/ecyfowDH+il5bZItcP881icIC4E=;
- b=BOkkXGDn5gv4YKOoXiTECw/fFvfXl4VnrPgpahziEuH0ue4ELXpZ66NO7fQEoT6tPv
- 9xblnTiMa+xI+DUvw3hwMqSLiZLhHp/BU1I4XiW96m1GmEvA01JgD6OEt0t7BUkacOuL
- lJ+Snf4f9gIaXNnOhw9BFMTGpQRSOOKRS/L1wtyKgKJ6MRZRo6+jbfmC3WfmtA4kpMxX
- juDqDo+WqIatS5SExzZxs0DZnuNcNJXmjJzeamNyOpkAoY32kV2zkNbGS3H4YhaHsZQm
- GzBtalaxsM+8EN8v0OuG7aOniCOZRbckI2oLo55XxJpu27U3MsE717uJysFjL51PnZMR
- Z4xQ==
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 1D53F1A003EF
+ for <ltp@lists.linux.it>; Tue,  5 Oct 2021 00:10:38 +0200 (CEST)
+Received: by mail-pl1-x631.google.com with SMTP id y1so875786plk.10
+ for <ltp@lists.linux.it>; Mon, 04 Oct 2021 15:10:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=NwsTI3CQQGkDOXyEM9w3e5p7zsfy6iE7LxChlq/1awE=;
+ b=pVVWEJUhvECA3Ztq+eLszPXiei3Em3wSlDGFQiYRu7fOwHu/d0aBud/VI6fYIxMJm3
+ v6Gx7Kr67JUTOIB8i79js8PNFpBZYRulwHXL89vApoFDKz6kOLOM4VZAcVGxD91lcA0v
+ TNZJrF6adYW8wXDgoFknI4m1zsubKjXWrx5PqiPh5ORNmDA8sNg7NfG7HyTDkge9LZcc
+ OHprvVIUWnfXkw5lGgtKzOfCiQXgiYBBuceeClC/jRwkE1H2/2Bde0ZuIIHoEIlZIkHP
+ RL/fN+Fd/otTp13OTK8xvNtGFgNsEzN2uqZWKgEac+6uIMKM48V6PtnCs6ekx/FxEqKT
+ H9GQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:reply-to
- :references:mime-version:content-disposition:in-reply-to;
- bh=qBqo/Bu+11mnPiT/ecyfowDH+il5bZItcP881icIC4E=;
- b=YRb9bvY8w+wDE2sTKPpE5EbHqZEPQnDawaMWyAlZ6dm2KbitWNWKgzvo11uw+G4Nwq
- 4JMB/Co6Wui36DcOWWRhuJoIl87jOuIUA6Lesqv+enGvmBXjjhZoS0uKlMacpTg64hNp
- dAT5HNu1o4uLKISmldXXziNWAniT0Nim/rK+aLUbKDclS4m1iBfTUJvUO1x++9c/45o7
- ZFMUJZjakXRf5s7np0Dj24uuz4TnbDEf2TddXA2akfaYh0pOnJNP1aLkR4ZLNIBvkV0X
- p4VP5J7Ue+6yac8JH1iMLlx960kanPHkZpsDe08dz/6wyjnZV1RojVqv8NAj2KTvcyoO
- YHMw==
-X-Gm-Message-State: AOAM532iHnu1v7CFi8oSQWsA358TOPGp+/6SG8na1NcF3gY0XieYxicc
- QDF+1Xm3HbhArmhPryFKCtQ=
-X-Google-Smtp-Source: ABdhPJxMEuejtzTSXqKveJNbXbNpqEhtq4CEIi8fSRSNF25lQ/w4GDPh5QpturFPr11ZlAdnJrMCKA==
-X-Received: by 2002:a1c:f00a:: with SMTP id a10mr19648986wmb.112.1633370554351; 
- Mon, 04 Oct 2021 11:02:34 -0700 (PDT)
-Received: from pevik (gw1.ms-free.net. [185.243.124.10])
- by smtp.gmail.com with ESMTPSA id c5sm5301213wml.9.2021.10.04.11.02.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 04 Oct 2021 11:02:33 -0700 (PDT)
-Date: Mon, 4 Oct 2021 20:02:31 +0200
-From: Petr Vorel <petr.vorel@gmail.com>
-To: Sandeep Patil <sspatil@android.com>
-Message-ID: <YVtBt+WeskISn5+9@pevik>
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=NwsTI3CQQGkDOXyEM9w3e5p7zsfy6iE7LxChlq/1awE=;
+ b=k9I4Jbv1jsXgVKc4DMLuXVIUfoU9RnJWERN7NlW+cXIHKn4oI4GqxtbjpSeiheZC9m
+ SbeWPDgV03EqyIpEEugRcUfJEG0hYLgUQ0l2IykGdJAi6fEjbWCl4gGW6ViNvOMGKULs
+ 4wNccoJ6FsSmmMpaw4oZn/7HlZX+XEK1NV48SZyqOcO9e4iPynPzQS8l5y6JY2vgyuZY
+ SdoAFs0U6Fa0igV1hZccdLixd2VVczZHTtnfEL6YfE8R3hIssi4Lk+Bho7ITtrMf0i9M
+ c9itM8MOdYKT5jEXJXAi8ovhbamWvs+PgrIQIyEc8JTugYbGlAOFKrH5YCDTrF5RCQAR
+ ijbQ==
+X-Gm-Message-State: AOAM530IPAZY5JYr9Nt1oQ5yAvcJ/0ruxCKv/NLptb2hx3awoTcVT1YY
+ DnRs5uRqN2lWs+vOM8trh6moD93PC7R/pw==
+X-Google-Smtp-Source: ABdhPJzWUzcNBpayaPbtcj2+VigPM0fZyl/xizVvCd5EOIDq2keZdGKNRjFRjz+qb+1V/nfHHmXRiA==
+X-Received: by 2002:a17:90a:7892:: with SMTP id
+ x18mr6053630pjk.33.1633385435641; 
+ Mon, 04 Oct 2021 15:10:35 -0700 (PDT)
+Received: from [192.168.4.77] (c-73-53-102-249.hsd1.wa.comcast.net.
+ [73.53.102.249])
+ by smtp.gmail.com with ESMTPSA id z12sm13741413pjb.52.2021.10.04.15.10.34
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 04 Oct 2021 15:10:34 -0700 (PDT)
+To: Petr Vorel <petr.vorel@gmail.com>, Sandeep Patil <sspatil@android.com>
 References: <linux-test-project/ltp/releases/50325863@github.com>
  <YVQf9xSxrXjobBM9@pevik>
  <CA+nhYX2qvXjaxOBRmEJyqBr0B3JY053PiqMZ3MN-M8HdYvEnRA@mail.gmail.com>
+ <YVtBt+WeskISn5+9@pevik>
+Message-ID: <2a6a43e1-25da-7eef-f212-bfe0371275d3@google.com>
+Date: Mon, 4 Oct 2021 15:10:33 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CA+nhYX2qvXjaxOBRmEJyqBr0B3JY053PiqMZ3MN-M8HdYvEnRA@mail.gmail.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+In-Reply-To: <YVtBt+WeskISn5+9@pevik>
+Content-Language: en-US
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=-14.9 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,ENV_AND_HDR_SPF_MATCH,NICE_REPLY_A,
+ SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
 Subject: Re: [LTP] Requested user & group [was: Re: [linux-test-project/ltp]
  Release 20210927 - LTP 20210927]
 X-BeenThere: ltp@lists.linux.it
@@ -85,61 +90,26 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <petr.vorel@gmail.com>
+From: Steve Muckle via ltp <ltp@lists.linux.it>
+Reply-To: Steve Muckle <smuckle@google.com>
 Cc: Sandeep Patil <sspatil@google.com>, ltp <ltp@lists.linux.it>,
  Martin Doucha <martin.doucha@suse.com>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-> On Wed, Sep 29, 2021 at 1:12 AM Petr Vorel <pvorel@suse.cz> wrote:
+On 10/4/21 11:02 AM, Petr Vorel wrote:
+> I'm sorry, I was wrong, I meant GID "nogroup". Looking into the source, there is
+> no "AID_NOGROUP", thus we need to keep using GID "daemon" for AOSP instead
+> "nogroup". IMHO instead SAFE_GETGRNAM_FALLBACK() this should be set somewhere in
+> the library, so that it's for all tests.
 
-> > Hi,
+Hi Petr, I've created an issue internally to track adding 'nogroup'. It 
+may be a little while before it goes in though.
 
-> > from 20210927 LTP release:
-> > > * Testcases were fixed not to expect certain users and groups to be
-> > present on the system
-> > >   - some tests were expecting bin, daemon and similar groups and users
-> > to exist on the system
-> > >   - now LTP depends only on user 'nobody' and group 'nogroup'
-
-> > At least some tests (e.g. fchmod02.c, chmod07.c) require other groups
-> > ('users',
-> > fallback to 'daemon' which is on AOSP):
-> > ltpgroup = SAFE_GETGRNAM_FALLBACK("users", "daemon");
-
-> > @Sandeep: is 'nobody' on AOSP or do we still need SAFE_GETGRNAM_FALLBACK()?
-
-
-> AID_NOBODY seems to be part of the AOSP already[1], so I think that might
-> work.
-> I dont have a way to test this immediately right now, so adding others who
-> may be able
-> to verify in CC.
-
-I'm sorry, I was wrong, I meant GID "nogroup". Looking into the source, there is
-no "AID_NOGROUP", thus we need to keep using GID "daemon" for AOSP instead
-"nogroup". IMHO instead SAFE_GETGRNAM_FALLBACK() this should be set somewhere in
-the library, so that it's for all tests.
-
-
-Kind regards,
-Petr
-
-> - ssp
-
-> 1.
-> https://cs.android.com/android/platform/superproject/+/master:system/core/libcutils/include/private/android_filesystem_config.h;l=183?q=AID_NOBODY
-
-
-
-
-> > Kind regards,
-> > Petr
-
-> > --
-> > Mailing list info: https://lists.linux.it/listinfo/ltp
+cheers,
+Steve
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
