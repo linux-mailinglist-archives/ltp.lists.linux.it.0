@@ -1,76 +1,75 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04260423B84
-	for <lists+linux-ltp@lfdr.de>; Wed,  6 Oct 2021 12:31:10 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id B1052423B89
+	for <lists+linux-ltp@lfdr.de>; Wed,  6 Oct 2021 12:31:23 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A6A0B3C7DC6
-	for <lists+linux-ltp@lfdr.de>; Wed,  6 Oct 2021 12:31:09 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 0D8963C9F82
+	for <lists+linux-ltp@lfdr.de>; Wed,  6 Oct 2021 12:31:23 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 75BE33C6646
+ by picard.linux.it (Postfix) with ESMTPS id 9C92A3C6646
  for <ltp@lists.linux.it>; Wed,  6 Oct 2021 12:31:08 +0200 (CEST)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id E4C78100117F
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id F1DA31400F3B
  for <ltp@lists.linux.it>; Wed,  6 Oct 2021 12:31:07 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 529742036A;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 942592036B;
  Wed,  6 Oct 2021 10:31:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1633516267; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=NNNgVBra1c7ohlixB9tbEM5GavTzgMz6c6gx/RmLODI=;
- b=DvLDA+O4Bp4wALexWn1GBuF7VTUWCBymLJN1IeqTJKFgKNZzN7dUB/kX7XqRORjHPe09rP
- sxXiLvl2Wx+qSzWwgDwc4EOMjd2Swe+otCbMlqX8hALnUyrZZI4HbnrifkQRPlnPefB7C9
- kaWdnEtJKdvX5BOrYBAbDPVEk5cfNDo=
+ bh=mAyH2CJtRCU4xqE/aaGcE/R2zsO563hWfAIpryl4syc=;
+ b=hrVAoC3lOIJq4E1CvdSkFPzfRX0Namn90jkVzugIqeiJNkt5yYVCzHj3RungHW1PWxa817
+ RXt3fJKxUI9ewXzf2uKvFEFP6L4JIh7fs9P/xOT/2gkl2VSfZ5EDhHEkMfos4CDnIL1mln
+ Z/8STleHgC3fgZzGkvBGtd1dsSWCKV8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1633516267;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=NNNgVBra1c7ohlixB9tbEM5GavTzgMz6c6gx/RmLODI=;
- b=8qgfjLQ+beMqBkAk4boMX2M88oZ84gF3cze2865HsX+cotR0TIpRiY4NFte1Kj9Uqw4nac
- cBg49xHVyp6s3zDg==
+ bh=mAyH2CJtRCU4xqE/aaGcE/R2zsO563hWfAIpryl4syc=;
+ b=qq+RELZbPbkyGAf160A8Gjgd3ORKNLnPovVv7wbnzfMOkFu/oPM4PMSnEJ4Mvgg12w3pHm
+ TB3WDIH1aohFW9Cg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1959013E19;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5BA8F13E19;
  Wed,  6 Oct 2021 10:31:07 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id cId8BOt6XWF/dAAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id cLu6FOt6XWF/dAAAMHmgww
  (envelope-from <pvorel@suse.cz>); Wed, 06 Oct 2021 10:31:07 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Wed,  6 Oct 2021 12:30:57 +0200
-Message-Id: <20211006103059.9617-2-pvorel@suse.cz>
+Date: Wed,  6 Oct 2021 12:30:58 +0200
+Message-Id: <20211006103059.9617-3-pvorel@suse.cz>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20211006103059.9617-1-pvorel@suse.cz>
 References: <20211006103059.9617-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH v8 1/3] IMA: Move check_policy_writable() to
- ima_setup.sh and rename it
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH v8 2/3] IMA: Move ima_check to ima_setup.sh
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,79 +89,111 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 From: Alex Henrie <alexh@vpitech.com>
 
-Suggested-by: Petr Vorel <pvorel@suse.cz>
 Reviewed-by: Petr Vorel <pvorel@suse.cz>
 Signed-off-by: Alex Henrie <alexh@vpitech.com>
+[ pvorel: add test_file parameter to ima_check(), keep $TEST_FILE in
+ima_measurements.sh ]
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- .../security/integrity/ima/tests/ima_policy.sh   | 16 +++-------------
- .../security/integrity/ima/tests/ima_setup.sh    | 10 ++++++++++
- 2 files changed, 13 insertions(+), 13 deletions(-)
+ .../integrity/ima/tests/ima_measurements.sh   | 31 ++-----------------
+ .../security/integrity/ima/tests/ima_setup.sh | 28 +++++++++++++++++
+ 2 files changed, 30 insertions(+), 29 deletions(-)
 
-diff --git a/testcases/kernel/security/integrity/ima/tests/ima_policy.sh b/testcases/kernel/security/integrity/ima/tests/ima_policy.sh
-index 244cf081d..8924549df 100755
---- a/testcases/kernel/security/integrity/ima/tests/ima_policy.sh
-+++ b/testcases/kernel/security/integrity/ima/tests/ima_policy.sh
-@@ -11,19 +11,9 @@ TST_CNT=2
- 
- . ima_setup.sh
- 
--check_policy_writable()
--{
--	local err="IMA policy already loaded and kernel not configured to enable multiple writes to it (need CONFIG_IMA_WRITE_POLICY=y)"
--
--	[ -f $IMA_POLICY ] || tst_brk TCONF "$err"
--	# CONFIG_IMA_READ_POLICY
--	echo "" 2> log > $IMA_POLICY
--	grep -q "Device or resource busy" log && tst_brk TCONF "$err"
--}
--
- setup()
- {
--	check_policy_writable
-+	require_policy_writable
- 
- 	VALID_POLICY="$TST_DATAROOT/measure.policy"
- 	[ -f $VALID_POLICY ] || tst_brk TCONF "missing $VALID_POLICY"
-@@ -55,7 +45,7 @@ test1()
- 
- 	local p1
- 
--	check_policy_writable
-+	require_policy_writable
- 	load_policy $INVALID_POLICY & p1=$!
- 	wait "$p1"
- 	if [ $? -ne 0 ]; then
-@@ -71,7 +61,7 @@ test2()
- 
- 	local p1 p2 rc1 rc2
- 
--	check_policy_writable
-+	require_policy_writable
- 	load_policy $VALID_POLICY & p1=$!
- 	load_policy $VALID_POLICY & p2=$!
- 	wait "$p1"; rc1=$?
-diff --git a/testcases/kernel/security/integrity/ima/tests/ima_setup.sh b/testcases/kernel/security/integrity/ima/tests/ima_setup.sh
-index 565f0bc3e..9c25d634d 100644
---- a/testcases/kernel/security/integrity/ima/tests/ima_setup.sh
-+++ b/testcases/kernel/security/integrity/ima/tests/ima_setup.sh
-@@ -73,6 +73,16 @@ require_policy_readable()
- 	fi
+diff --git a/testcases/kernel/security/integrity/ima/tests/ima_measurements.sh b/testcases/kernel/security/integrity/ima/tests/ima_measurements.sh
+index ef8577d30..a83c416de 100755
+--- a/testcases/kernel/security/integrity/ima/tests/ima_measurements.sh
++++ b/testcases/kernel/security/integrity/ima/tests/ima_measurements.sh
+@@ -21,33 +21,6 @@ setup()
+ 	[ -f "$IMA_POLICY" ] || tst_res TINFO "not using default policy"
  }
  
-+require_policy_writable()
+-ima_check()
+-{
+-	local algorithm digest expected_digest line tmp
+-
+-	# need to read file to get updated $ASCII_MEASUREMENTS
+-	cat $TEST_FILE > /dev/null
+-
+-	line="$(grep $TEST_FILE $ASCII_MEASUREMENTS | tail -1)"
+-
+-	if tmp=$(get_algorithm_digest "$line"); then
+-		algorithm=$(echo "$tmp" | cut -d'|' -f1)
+-		digest=$(echo "$tmp" | cut -d'|' -f2)
+-	else
+-		tst_res TBROK "failed to get algorithm/digest for '$TEST_FILE': $tmp"
+-	fi
+-
+-	tst_res TINFO "computing digest for $algorithm algorithm"
+-	expected_digest="$(compute_digest $algorithm $TEST_FILE)" || \
+-		tst_brk TCONF "cannot compute digest for $algorithm algorithm"
+-
+-	if [ "$digest" = "$expected_digest" ]; then
+-		tst_res TPASS "correct digest found"
+-	else
+-		tst_res TFAIL "digest not found"
+-	fi
+-}
+-
+ check_iversion_support()
+ {
+ 	local device mount fs
+@@ -83,7 +56,7 @@ test1()
+ {
+ 	tst_res TINFO "verify adding record to the IMA measurement list"
+ 	ROD echo "$(date) this is a test file" \> $TEST_FILE
+-	ima_check
++	ima_check $TEST_FILE
+ }
+ 
+ test2()
+@@ -92,7 +65,7 @@ test2()
+ 	tst_res TINFO "verify updating record in the IMA measurement list"
+ 	check_iversion_support || return
+ 	ROD echo "$(date) modified file" \> $TEST_FILE
+-	ima_check
++	ima_check $TEST_FILE
+ }
+ 
+ test3()
+diff --git a/testcases/kernel/security/integrity/ima/tests/ima_setup.sh b/testcases/kernel/security/integrity/ima/tests/ima_setup.sh
+index 9c25d634d..af7f3a5f5 100644
+--- a/testcases/kernel/security/integrity/ima/tests/ima_setup.sh
++++ b/testcases/kernel/security/integrity/ima/tests/ima_setup.sh
+@@ -279,6 +279,34 @@ get_algorithm_digest()
+ 	echo "$algorithm|$digest"
+ }
+ 
++ima_check()
 +{
-+	local err="IMA policy already loaded and kernel not configured to enable multiple writes to it (need CONFIG_IMA_WRITE_POLICY=y)"
++	local test_file="$1"
++	local algorithm digest expected_digest line tmp
 +
-+	[ -f $IMA_POLICY ] || tst_brk TCONF "$err"
-+	# CONFIG_IMA_READ_POLICY
-+	echo "" 2> log > $IMA_POLICY
-+	grep -q "Device or resource busy" log && tst_brk TCONF "$err"
++	# need to read file to get updated $ASCII_MEASUREMENTS
++	cat $test_file > /dev/null
++
++	line="$(grep $test_file $ASCII_MEASUREMENTS | tail -1)"
++
++	if tmp=$(get_algorithm_digest "$line"); then
++		algorithm=$(echo "$tmp" | cut -d'|' -f1)
++		digest=$(echo "$tmp" | cut -d'|' -f2)
++	else
++		tst_res TBROK "failed to get algorithm/digest for '$test_file': $tmp"
++	fi
++
++	tst_res TINFO "computing digest for $algorithm algorithm"
++	expected_digest="$(compute_digest $algorithm $test_file)" || \
++		tst_brk TCONF "cannot compute digest for $algorithm algorithm"
++
++	if [ "$digest" = "$expected_digest" ]; then
++		tst_res TPASS "correct digest found"
++	else
++		tst_res TFAIL "digest not found"
++	fi
 +}
 +
- check_ima_policy_content()
- {
- 	local pattern="$1"
+ # check_evmctl REQUIRED_TPM_VERSION
+ # return: 0: evmctl is new enough, 1: version older than required (or version < v0.9)
+ check_evmctl()
 -- 
 2.33.0
 
