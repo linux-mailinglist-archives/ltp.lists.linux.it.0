@@ -2,73 +2,72 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2AC4423FA0
-	for <lists+linux-ltp@lfdr.de>; Wed,  6 Oct 2021 15:52:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 721AE423FB1
+	for <lists+linux-ltp@lfdr.de>; Wed,  6 Oct 2021 15:59:33 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 81F8D3C7E11
-	for <lists+linux-ltp@lfdr.de>; Wed,  6 Oct 2021 15:52:16 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 42E633C7EBF
+	for <lists+linux-ltp@lfdr.de>; Wed,  6 Oct 2021 15:59:33 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 166B53C1CC3
- for <ltp@lists.linux.it>; Wed,  6 Oct 2021 15:52:14 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 06D923C7DC1
+ for <ltp@lists.linux.it>; Wed,  6 Oct 2021 15:59:31 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 980DD1A01118
- for <ltp@lists.linux.it>; Wed,  6 Oct 2021 15:52:13 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 6AC6E1001144
+ for <ltp@lists.linux.it>; Wed,  6 Oct 2021 15:59:31 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id E6B5622518;
- Wed,  6 Oct 2021 13:52:12 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id AC7D91FED2;
+ Wed,  6 Oct 2021 13:59:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1633528332; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1633528770; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=MABju9i2qIqLkeWGW6ZoopBfLZuCQlfpzrqw70BLAMI=;
- b=tn9/Jh9UZW0gLpzhbVHjqoOUre6nOn2H4as5VOAEwqqKKxlIZBf3vTxoQi5OUzhs6DrBhh
- TbSdquD++N6/J3POty7Co8rWoWcPOKqHXIwqKaIx7cE1oKL7d+VQth0AH42Mxjb2XdTCtA
- UB9AtuKxWhTgj1i09umEJliI5dZTGQo=
+ bh=Cb9vxsLYs59uPukrK/iV+23KE78+mylpvNsu59O8CNc=;
+ b=A7xIMPHlVFdROfy5eU6NKiqZAJF9OwveOsBwi6TWeeFUNn3bsQ41oI5Z0F1/ngbm25xSOq
+ xQhsDCJHWpuIU7Z+s9b8KvC1EliT0TdjUR/1cdLpam/Mj6ercxwRqTpi9068Toly278GmQ
+ JyNoAMWbRhza4aOsNGw8CBgFQxz9pTE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1633528332;
+ s=susede2_ed25519; t=1633528770;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=MABju9i2qIqLkeWGW6ZoopBfLZuCQlfpzrqw70BLAMI=;
- b=PAaXHsMa+60W2Hc0Ikxif6sU58TfZGfXRIrl5fB9Yd3TGealKFDScWe7ybOmzGq1KAzZKI
- NRzujluZ0gH4reDQ==
+ bh=Cb9vxsLYs59uPukrK/iV+23KE78+mylpvNsu59O8CNc=;
+ b=hd4PmCNCCN9LHIIn8vQQUwehqy2e07HQm3NN2c7FmGnbSPLlsXKpWKKtQMVAoQ3Ff1JYhI
+ JHhOV/ELpk0DZVAQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C767013C55;
- Wed,  6 Oct 2021 13:52:12 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7E4E513C55;
+ Wed,  6 Oct 2021 13:59:30 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id O8yaLwyqXWHmbAAAMHmgww
- (envelope-from <chrubis@suse.cz>); Wed, 06 Oct 2021 13:52:12 +0000
-Date: Wed, 6 Oct 2021 15:52:46 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id m8jBHMKrXWEtcQAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Wed, 06 Oct 2021 13:59:30 +0000
+Date: Wed, 6 Oct 2021 16:00:04 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Petr Vorel <petr.vorel@gmail.com>
-Message-ID: <YV2qLs+gqKaD6cr7@yuki>
+Message-ID: <YV2r5IvFeiVIoY9a@yuki>
 References: <20210930183058.5240-1-petr.vorel@gmail.com>
- <20210930183058.5240-3-petr.vorel@gmail.com>
+ <20210930183058.5240-4-petr.vorel@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20210930183058.5240-3-petr.vorel@gmail.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+In-Reply-To: <20210930183058.5240-4-petr.vorel@gmail.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [RFC PATCH v2 2/3] lapi: Create if_addr.h and reuse it in
- rtnetlink.h
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [RFC PATCH v2 3/3] lapi/if_addr.h: Define IFA_FLAGS
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,9 +86,9 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-Looks good.
+Looks good, as long as it passed CI:
 
-Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
+Reviewd-by: Cyril Hrubis <chrubis@suse.cz>
 
 -- 
 Cyril Hrubis
