@@ -2,95 +2,59 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7E7B42B1E1
-	for <lists+linux-ltp@lfdr.de>; Wed, 13 Oct 2021 03:14:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EC9742B2E2
+	for <lists+linux-ltp@lfdr.de>; Wed, 13 Oct 2021 04:49:28 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 169E13C1114
-	for <lists+linux-ltp@lfdr.de>; Wed, 13 Oct 2021 03:14:04 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id BAF303C1112
+	for <lists+linux-ltp@lfdr.de>; Wed, 13 Oct 2021 04:49:27 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 6F2923C0D08
- for <ltp@lists.linux.it>; Wed, 13 Oct 2021 03:13:59 +0200 (CEST)
-Received: from mail1.bemta26.messagelabs.com (mail1.bemta26.messagelabs.com
- [85.158.142.113])
+ by picard.linux.it (Postfix) with ESMTPS id 2808A3C0E8A
+ for <ltp@lists.linux.it>; Wed, 13 Oct 2021 04:49:22 +0200 (CEST)
+Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id D014420076E
- for <ltp@lists.linux.it>; Wed, 13 Oct 2021 03:13:57 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fujitsu.com;
- s=170520fj; t=1634087636; i=@fujitsu.com;
- bh=spQTsWsvJPF3czAlmcjKNjuOu+tzpDxd5JITKcKEWFw=;
- h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
- MIME-Version:Content-Type;
- b=PJRdFhIkmwzHQ/I2jtfNl0tVLIfgTQU0mvW+Z+hbYJaNn1zp/wKW4do9sRSfnM79G
- fY4BatfF+22FjYW0lMlQQDCdY4GG/Uf7jdh8OY8dR/zYPvIcSu8TnKWHxy66nFVUYI
- YuOppV8SdYCvRfqpNSeNCY/Il+7NaqeYMPnIpTc4EO+VsD/AUxoIeTa2/VpMO02BSL
- eHbS1WUkhxtSblkASQYFFhTW4nUV89aG7EFi9NGnuzzKpDdC8DxV/8kCZtv1LUOL2s
- r2BMYxajGoE+G7uzNRd1RrOtfuzHhIiCW52aaPrYS2+vz9ChQG/FQHY/OdRQE6+z/b
- tkKc8wkuPosmA==
-Received: from [100.113.6.246] (using TLSv1.2 with cipher
- DHE-RSA-AES256-GCM-SHA384 (256 bits))
- by server-2.bemta.az-b.eu-central-1.aws.symcld.net id 56/17-14220-4D236616;
- Wed, 13 Oct 2021 01:13:56 +0000
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFjrJIsWRWlGSWpSXmKPExsViZ8ORqHvFKC3
- RoP8ph8WK7zsYHRg99v1exxrAGMWamZeUX5HAmrF2306WgptMFVPf3GVrYFzO1MXIxSEkcJZR
- YnnLX3YIZyeTxIvZW1ggnD2MEp0H9zF3MXJysAloSjzrXABmiwhISHQ0vGUHsZkF1CWWT/rFB
- GILC7hJ/Dt1hRHEZhFQlVg75y9YnFfAQ6Jl/kqwegkBBYkpD9+DzeEU8JT49Hg20DIOoGUeEo
- ffGkCUC0qcnPmEBWK8hMTBFy+YIVoVJS51fGOEsCskZs1qY4Kw1SSuntvEPIFRcBaS9llI2hc
- wMq1itEwqykzPKMlNzMzRNTQw0DU0NNY10TU0NtBLrNJN0kst1U1OzSspSgTK6iWWF+sVV+Ym
- 56To5aWWbGIEhnBKIUvTDsbfrz7oHWKU5GBSEuW1W5iaKMSXlJ9SmZFYnBFfVJqTWnyIUYaDQ
- 0mCl8UwLVFIsCg1PbUiLTMHGE8waQkOHiUR3rkgad7igsTc4sx0iNQpRkUpcV4pkIQASCKjNA
- +uDRbDlxhlpYR5GRkYGIR4ClKLcjNLUOVfMYpzMCoJ83JqAU3hycwrgZv+CmgxE9DiwKgUkMU
- liQgpqQYmbyNHQYcPHXH7mi1Zo/dOkrBWT/5X02v4uWzB9333Z+QlH7rV5uPv4/Ho1PaTcxfx
- d0R9sxHMYFdVkU9kOfq+ymxDY3nrlE/rPf2KT3RNnMncs0i5etOB2P2P9ojdOfna6+ZsD5PJn
- kY55293HePd+93ZJXHiwYo1/YvztXuf7CiaNGfBn9veJ968UDpsMLuhZ0V5iIaqwyzxIq4lc0
- IvlW3uaGkPnepyi2kzt1DP3pmzbNYtFnl9zb4i/4ujiYFmhXr2u+KjFeXT1pk8unJbIeJzBdt
- p1jWP/2tNXZ0e8b43buvMZI9eppvnjgS/q2iucGCMZV/zav7yfX51nP3Slt9ldVob309fuuLb
- nNOdSizFGYmGWsxFxYkAhaVvrlwDAAA=
-X-Env-Sender: xuyang2018.jy@fujitsu.com
-X-Msg-Ref: server-9.tower-238.messagelabs.com!1634087635!626789!1
-X-Originating-IP: [62.60.8.97]
-X-SYMC-ESS-Client-Auth: outbound-route-from=pass
-X-StarScan-Received: 
-X-StarScan-Version: 9.81.4; banners=-,-,-
-X-VirusChecked: Checked
-Received: (qmail 21593 invoked from network); 13 Oct 2021 01:13:56 -0000
-Received: from unknown (HELO n03ukasimr01.n03.fujitsu.local) (62.60.8.97)
- by server-9.tower-238.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
- encrypted SMTP; 13 Oct 2021 01:13:56 -0000
-Received: from n03ukasimr01.n03.fujitsu.local (localhost [127.0.0.1])
- by n03ukasimr01.n03.fujitsu.local (Postfix) with ESMTP id 9DBD51009E5
- for <ltp@lists.linux.it>; Wed, 13 Oct 2021 02:13:55 +0100 (BST)
-Received: from R01UKEXCASM126.r01.fujitsu.local (unknown [10.183.43.178])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
- (No client certificate requested)
- by n03ukasimr01.n03.fujitsu.local (Postfix) with ESMTPS id 62D8910025A
- for <ltp@lists.linux.it>; Wed, 13 Oct 2021 02:13:55 +0100 (BST)
-Received: from localhost.localdomain (10.167.220.84) by
- R01UKEXCASM126.r01.fujitsu.local (10.183.43.178) with Microsoft SMTP Server
- (TLS) id 15.0.1497.23; Wed, 13 Oct 2021 02:13:51 +0100
-From: Yang Xu <xuyang2018.jy@fujitsu.com>
-To: <ltp@lists.linux.it>
-Date: Wed, 13 Oct 2021 09:14:09 +0800
-Message-ID: <1634087649-2137-2-git-send-email-xuyang2018.jy@fujitsu.com>
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <1634087649-2137-1-git-send-email-xuyang2018.jy@fujitsu.com>
-References: <1634087649-2137-1-git-send-email-xuyang2018.jy@fujitsu.com>
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 7FE6D600E5F
+ for <ltp@lists.linux.it>; Wed, 13 Oct 2021 04:49:18 +0200 (CEST)
+X-QQ-mid: bizesmtp46t1634093352tyfc22j9
+Received: from [10.4.23.19] (unknown [58.240.82.166])
+ by esmtp6.qq.com (ESMTP) with 
+ id ; Wed, 13 Oct 2021 10:49:11 +0800 (CST)
+X-QQ-SSF: 0140000000200040D000B00A0000000
+X-QQ-FEAT: F3yR32iATbhuiQ+JOQtxovSwEStZBKc19+3UVnYRyN8gbrotyy5kksh3B2Rvm
+ ZRyoeMAFGkYzY+uPd9+rxeKVKQ1d8gTlySn4TXxVUJNYhTLGvpokuLjd5SmGYtBZF7jbRdY
+ yEjkf7kBJFrZA6ePTVvh/7joSjlgp2+uO3gahnGiDegbBLhpsmxoHmD5KpPiNtKudqoXmPx
+ POrjaIolYW2t1uaSoBwPOVpSwWUEJG4jDHN/MFmAjXHo3M27SX+RgruTfHhzfn1MIxULUtw
+ EDrz+hdvXBxTRhDGv95UcMjf1oKSsX6apb7Sc+q01stUbxgEgOQGSbNs/SNDzyQkEFosVTg
+ SRbebOKYNP2y4jIY8g=
+X-QQ-GoodBg: 2
+To: Cyril Hrubis <chrubis@suse.cz>
+References: <20210923085224.868-1-zhanglianjie@uniontech.com>
+ <20210923085224.868-4-zhanglianjie@uniontech.com> <YWVTsg3BLFwZRcl0@yuki>
+From: zhanglianjie <zhanglianjie@uniontech.com>
+Message-ID: <41caea86-50f4-ce70-be6e-654fa5892880@uniontech.com>+5FCA4DE9235618E4
+Date: Wed, 13 Oct 2021 10:49:11 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD07.g08.fujitsu.local (10.167.33.80) To
- R01UKEXCASM126.r01.fujitsu.local (10.183.43.178)
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+In-Reply-To: <YWVTsg3BLFwZRcl0@yuki>
+Content-Language: en-US
+X-QQ-SENDSIZE: 520
+Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign1
+X-QQ-Bgrelay: 1
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS autolearn=disabled
+X-Spam-Status: No, score=2.8 required=7.0 tests=FORGED_MUA_MOZILLA,
+ INVALID_MSGID,NICE_REPLY_A,SPF_HELO_PASS,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/2] scenario_groups/default: Add irq into default run
+X-Spam-Level: **
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3 4/5] syscalls/clone06: Convert to new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,30 +66,128 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
+Cc: ltp@lists.linux.it
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
----
- scenario_groups/default | 1 +
- 1 file changed, 1 insertion(+)
+Hi,
+This is a good idea, just do it, thank you.
 
-diff --git a/scenario_groups/default b/scenario_groups/default
-index 439783dac..1dc2987d5 100644
---- a/scenario_groups/default
-+++ b/scenario_groups/default
-@@ -6,6 +6,7 @@ dio
- io
- mm
- ipc
-+irq
- sched
- math
- nptl
+On 2021-10-12 17:21, Cyril Hrubis wrote:
+> Hi!
+>> -	cleanup();
+>> -	tst_exit();
+>> +	parent_env = getenv("TERM") ? : "";
+> 
+> I guess that it would make more sense to create a new variable than
+> depend on anything that may or may not be present on the system.
+> 
+> What about we setenv a variable instead and use that for the test?
+> 
+> #define ENV_VAL "LTP test variable value"
+> #define ENV_ID "LTP_CLONE_TEST"
+> 
+> static void setup(void)
+> {
+> 	int ret;
+> 
+> 	ret = setenv(ENV_ID, ENV_VAL, 0)
+> 	if (ret)
+> 		tst_brk(TBROK | TERRNO, "setenv() failed");
+> 
+> }
+> 
+> 
+>> +	TST_EXP_VAL(strcmp(buff, parent_env), 0,
+>> +				"verify environment variables by child");
+> 
+> Also there is no need to propagate the value to the parent like this,
+> the child process can report the result (in the new library) as well, so
+> this really could be as simple as:
+> 
+> static int do_child(void *arg LTP_ATTRIBUTE_UNUSED)
+> {
+> 	const char *env_val = getenv(ENV_ID);
+> 
+> 	if (!env_val) {
+> 		tst_res(TFAIL, "Variable " ENV_ID " not defined in child");
+> 		return;
+> 	}
+> 
+> 	if (strcmp(env_val, ENV_VAL)) {
+> 		tst_res(TFAIL, "Variable value is different");
+> 		return;
+> 	}
+> 
+> 	tst_res(TPASS, ...);
+> }
+> 
+>>   }
+>>
+>>   static void setup(void)
+>>   {
+>> -	tst_sig(FORK, DEF_HANDLER, cleanup);
+>> -	TEST_PAUSE;
+>> +	child_stack = SAFE_MALLOC(CHILD_STACK_SIZE);
+>> +	buff = SAFE_MMAP(NULL, MAX_LINE_LENGTH, PROT_READ | PROT_WRITE,
+>> +			MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+>>   }
+>>
+>>   static void cleanup(void)
+>>   {
+>> -}
+>> -
+>> -/*
+>> - *	Function executed by child.
+>> - *	Gets the value for environment variable,TERM &
+>> - *	writes it to  a pipe.
+>> - */
+>> -static int child_environ(void)
+>> -{
+>> -
+>> -	char var[MAX_LINE_LENGTH];
+>> -
+>> -	/* Close read end from child */
+>> -	if ((close(pfd[0])) == -1)
+>> -		tst_brkm(TBROK | TERRNO, cleanup, "close(pfd[0]) failed");
+>> -
+>> -	if ((sprintf(var, "%s", getenv("TERM") ? : "")) < 0)
+>> -		tst_resm(TWARN | TERRNO, "sprintf() failed");
+>> -
+>> -	if ((write(pfd[1], var, MAX_LINE_LENGTH)) == -1)
+>> -		tst_resm(TWARN | TERRNO, "write to pipe failed");
+>> -
+>> -	/* Close write end of pipe from child */
+>> -	if ((close(pfd[1])) == -1)
+>> -		tst_resm(TWARN | TERRNO, "close(pfd[1]) failed");
+>> +	free(child_stack);
+>>
+>> -	exit(0);
+>> +	if (buff)
+>> +		SAFE_MUNMAP(buff, MAX_LINE_LENGTH);
+>>   }
+>> +
+>> +static struct tst_test test = {
+>> +	.setup = setup,
+>> +	.test_all = verify_clone,
+>> +	.cleanup = cleanup,
+>> +};
+>> --
+>> 2.20.1
+>>
+>>
+>>
+>>
+>> -- 
+>> Mailing list info: https://lists.linux.it/listinfo/ltp
+> 
+
 -- 
-2.23.0
+Regards,
+Zhang Lianjie
+
 
 
 -- 
