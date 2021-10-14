@@ -2,54 +2,87 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA63A42CFE1
-	for <lists+linux-ltp@lfdr.de>; Thu, 14 Oct 2021 03:26:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C10BD42D03A
+	for <lists+linux-ltp@lfdr.de>; Thu, 14 Oct 2021 04:15:08 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 66E133C12FD
-	for <lists+linux-ltp@lfdr.de>; Thu, 14 Oct 2021 03:26:22 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 6D3733C131B
+	for <lists+linux-ltp@lfdr.de>; Thu, 14 Oct 2021 04:15:08 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 571393C12CF
- for <ltp@lists.linux.it>; Thu, 14 Oct 2021 03:26:00 +0200 (CEST)
-Received: from smtpbg516.qq.com (smtpbg516.qq.com [203.205.250.54])
+ by picard.linux.it (Postfix) with ESMTPS id 3EF9B3C0E6B
+ for <ltp@lists.linux.it>; Thu, 14 Oct 2021 04:15:05 +0200 (CEST)
+Received: from mail1.bemta26.messagelabs.com (mail1.bemta26.messagelabs.com
+ [85.158.142.4])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 6C33A14013A5
- for <ltp@lists.linux.it>; Thu, 14 Oct 2021 03:25:57 +0200 (CEST)
-X-QQ-mid: bizesmtp39t1634174752tnur10j7
-Received: from localhost.localdomain (unknown [58.240.82.166])
- by esmtp6.qq.com (ESMTP) with 
- id ; Thu, 14 Oct 2021 09:25:51 +0800 (CST)
-X-QQ-SSF: 0140000000200040D000B00A0000000
-X-QQ-FEAT: jfdGVjI73+SdQ5BqPkUEZLp/coFRC7kp52qVKlk3oxnEFtXyCobyYNP6b4hBe
- p6Xa/kuk/r2oQzIzpA6DvcoY7Y3s8piVwlMepdYrvn0FzIxifO4rjHy9wYSoECnsHjl9Scd
- dIjb11GeQurWqPuaIl8BC13pekm6tiB3Z8YYLsYp6Qm+AQFNgMuzgMLgZhfnxBD2dgVnTLP
- Yz/Hw7hJtWRdADOEDsT1bLhN6MifjRgYAu+qZQ9ICsOVLjncjSSWaHKISf3HEdYcmMWKYrQ
- fVWd3QBC+bjmOHrTvM/l61fwnVHdbE0+qivS0beZL7QNHmxg0fiKFXIeQzOH459IvIQnXKB
- wnHoOp5GMOAclxT3rLHvOfXJT2CsQ==
-X-QQ-GoodBg: 2
-From: zhanglianjie <zhanglianjie@uniontech.com>
-To: ltp@lists.linux.it
-Date: Thu, 14 Oct 2021 09:25:33 +0800
-Message-Id: <20211014012533.18205-5-zhanglianjie@uniontech.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20211014012533.18205-1-zhanglianjie@uniontech.com>
-References: <20211014012533.18205-1-zhanglianjie@uniontech.com>
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id DB5946011E5
+ for <ltp@lists.linux.it>; Thu, 14 Oct 2021 04:15:03 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fujitsu.com;
+ s=170520fj; t=1634177703; i=@fujitsu.com;
+ bh=nZQ2GygtJehJIZsZrdzl16kC06rrL483+EFw0Nger6k=;
+ h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type;
+ b=xIv2dbQI96xdOmc98a0A6MQfqfldjsPUGeLuuzHpgnXMaPXSpTk1jIlWryu9O8NLV
+ 19Ohf1puuTGcfiUbNjBe5ngUGK1/isYw948KHFYMIgE1FuTXbQAl6Dxq4BHS4BOJeX
+ zr+EsOPfZU47/vP7cmpuQa4nOmlufmgp60wFEX/ioXAOzVGM+ZCj2nbgr1LFmoM6Ts
+ Rh1euBrxn60NMi7THC4HBVmaK902XxDH5x3vZUiwWM9y50n5xI0TgQQx02AQfF6VtA
+ F8Ol1l4c44UH4DtZWjW0gkhJsqtXFYWOLOlqmeO7bLzgw/5yLtP235viVBmRAXqgPe
+ H5kpRHqGsc7/Q==
+Received: from [100.113.3.95] (using TLSv1.2 with cipher
+ DHE-RSA-AES256-GCM-SHA384 (256 bits))
+ by server-4.bemta.az-a.eu-central-1.aws.symcld.net id 48/36-09980-6A297616;
+ Thu, 14 Oct 2021 02:15:02 +0000
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFlrMIsWRWlGSWpSXmKPExsViZ8MRortsUnq
+ iQWuLpMXmPetYLFZ838HowOSx7/c6Vo/3+66yBTBFsWbmJeVXJLBmNF3ex17Qyl5x595cpgbG
+ NrYuRi4OIYHXjBKr/vxlgXD2MEps37GetYuRk4NNQFPiWecCZhBbREBCoqPhLTuIzSxgI9Hx7
+ SwjiC0s4Cqx+OUdsBoWAVWJee+WMYHYvAKeEjf/XmABsSUEFCSmPHzPDBEXlDg58wkLxBwJiY
+ MvXjBD1ChKXOr4xghhV0jMmtXGNIGRdxaSlllIWhYwMq1itEwqykzPKMlNzMzRNTQw0DU0NNY
+ FksYGeolVuol6qaW6yal5JUWJQFm9xPJiveLK3OScFL281JJNjMCwSylkaNrB+O7VB71DjJIc
+ TEqivB196YlCfEn5KZUZicUZ8UWlOanFhxhlODiUJHjdW4BygkWp6akVaZk5wBiASUtw8CiJ8
+ DpMBErzFhck5hZnpkOkTjEqSonzZoIkBEASGaV5cG2wuLvEKCslzMvIwMAgxFOQWpSbWYIq/4
+ pRnINRSZjXFWQKT2ZeCdz0V0CLmYAWB0algCwuSURISTUwRfN+kXEKdnqmtr38e9q05iBn3m3
+ OEjvzS/a8lJEwEFrqFVR0cvsp25rVpr1HIoO3tjBI/DLaUKU259ESyYv/XBbpqy0N6DJNnHXp
+ w5xnvbnWKxo/nVr4OEb9uhQrU6v69wWhszuDpv83bLbaJ/la5nFtPJ/6o3AbBobjx5MFNMqrx
+ NTefy6bffIqo/brD9nRgTfZv60/wCZlqfZC5PQCmRmN1/bFfU25/3unifcBi2v5oqLfn8hw92
+ kcWpT+lLWz4/Dbqzs7Nuq7V6Ukzq7eEtuxa4GjyeyHB6Tfsjuo2bcsXe/x36Vd3SmYySiLe5L
+ RbLHSU794P5XLbvc78uBH1YO1PZL2Ain/7URuXi9UYinOSDTUYi4qTgQAtPuwTTYDAAA=
+X-Env-Sender: xuyang2018.jy@fujitsu.com
+X-Msg-Ref: server-5.tower-232.messagelabs.com!1634177702!1828540!1
+X-Originating-IP: [62.60.8.84]
+X-SYMC-ESS-Client-Auth: outbound-route-from=pass
+X-StarScan-Received: 
+X-StarScan-Version: 9.81.4; banners=-,-,-
+X-VirusChecked: Checked
+Received: (qmail 21254 invoked from network); 14 Oct 2021 02:15:02 -0000
+Received: from unknown (HELO mailhost3.uk.fujitsu.com) (62.60.8.84)
+ by server-5.tower-232.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
+ encrypted SMTP; 14 Oct 2021 02:15:02 -0000
+Received: from R01UKEXCASM126.r01.fujitsu.local ([10.183.43.178])
+ by mailhost3.uk.fujitsu.com (8.14.5/8.14.5) with ESMTP id 19E2Etiq011847
+ (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256 verify=FAIL);
+ Thu, 14 Oct 2021 03:14:55 +0100
+Received: from localhost.localdomain (10.167.220.84) by
+ R01UKEXCASM126.r01.fujitsu.local (10.183.43.178) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.23; Thu, 14 Oct 2021 03:14:52 +0100
+From: Yang Xu <xuyang2018.jy@fujitsu.com>
+To: <ltp@lists.linux.it>
+Date: Thu, 14 Oct 2021 10:14:11 +0800
+Message-ID: <1634177651-16399-1-git-send-email-xuyang2018.jy@fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
 MIME-Version: 1.0
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign1
-X-QQ-Bgrelay: 1
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Originating-IP: [10.167.220.84]
+X-ClientProxiedBy: G08CNEXCHPEKD07.g08.fujitsu.local (10.167.33.80) To
+ R01UKEXCASM126.r01.fujitsu.local (10.183.43.178)
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH v4 5/5] syscalls/clone07: Convert to new API
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH] lib/tst_test.c: Use %u instead of %lu for tmpfs_size
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,179 +99,33 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: zhanglianjie <zhanglianjie@uniontech.com>
+Fixes: 21c8759f4 ("lib: adjust the tmpfs size according to .dev_min_size and MemAvailable")
+Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
+---
+ lib/tst_test.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/clone/clone07.c b/testcases/kernel/syscalls/clone/clone07.c
-index 4b2e04ee7..2c5931907 100644
---- a/testcases/kernel/syscalls/clone/clone07.c
-+++ b/testcases/kernel/syscalls/clone/clone07.c
-@@ -1,128 +1,55 @@
-+// SPDX-License-Identifier: GPL-2.0-only
- /*
-  * Copyright (c) International Business Machines  Corp., 2003.
-  * Copyright (c) 2012 Wanlong Gao <gaowanlong@cn.fujitsu.com>
-- *
-- * This program is free software; you can redistribute it and/or modify it
-- * under the terms of version 2 of the GNU General Public License as
-- * published by the Free Software Foundation.
-- *
-- * This program is distributed in the hope that it would be useful, but
-- * WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-- *
-- * You should have received a copy of the GNU General Public License along
-- * with this program; if not, write the Free Software Foundation, Inc.,
-- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-- *
-- */
--/*
-- *	This is a test for a glibc bug for the clone(2) system call.
-  */
-
--#if defined UCLINUX && !__THROW
--/* workaround for libc bug */
--#define __THROW
--#endif
-+/*\
-+ * [Description]
-+ * Test for a libc bug where exitting child function by returning from
-+ * it caused SIGSEGV.
-+ */
-
--#include <errno.h>
- #include <sched.h>
--#include <sys/wait.h>
--#include "test.h"
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include "tst_test.h"
-+#include "lapi/syscalls.h"
- #include "clone_platform.h"
-
--#define TRUE 1
--#define FALSE 0
--
--static void setup();
--static int do_child();
-+static void *child_stack;
-
--char *TCID = "clone07";
--int TST_TOTAL = 1;
--
--static void sigsegv_handler(int);
--static void sigusr2_handler(int);
--static int child_pid;
--static int fail = FALSE;
--
--int main(int ac, char **av)
-+static int do_child(void *arg LTP_ATTRIBUTE_UNUSED)
- {
--
--	int lc, status;
--	void *child_stack;
--
--	tst_parse_opts(ac, av, NULL, NULL);
--
--	setup();
--
--	for (lc = 0; TEST_LOOPING(lc); lc++) {
--		tst_count = 0;
--		child_stack = malloc(CHILD_STACK_SIZE);
--		if (child_stack == NULL)
--			tst_brkm(TBROK, NULL,
--				 "Cannot allocate stack for child");
--
--		child_pid = ltp_clone(SIGCHLD, do_child, NULL,
--				      CHILD_STACK_SIZE, child_stack);
--
--		if (child_pid < 0)
--			tst_brkm(TBROK | TERRNO, NULL, "clone failed");
--
--		if ((wait(&status)) == -1)
--			tst_brkm(TBROK | TERRNO, NULL,
--				 "wait failed, status: %d", status);
--
--		free(child_stack);
--	}
--
--	if (fail == FALSE)
--		tst_resm(TPASS,
--			 "Use of return() in child did not cause SIGSEGV");
--	else
--		tst_resm(TFAIL, "Use of return() in child caused SIGSEGV");
--
--	tst_exit();
-+	return 0;
+diff --git a/lib/tst_test.c b/lib/tst_test.c
+index ec80e17a6..02ae28335 100644
+--- a/lib/tst_test.c
++++ b/lib/tst_test.c
+@@ -906,11 +906,11 @@ static const char *limit_tmpfs_mount_size(const char *mnt_data,
+ 		tst_brk(TCONF, "No enough memory for tmpfs use");
+ 
+ 	if (mnt_data)
+-		snprintf(buf, buf_size, "%s,size=%luM", mnt_data, tmpfs_size);
++		snprintf(buf, buf_size, "%s,size=%uM", mnt_data, tmpfs_size);
+ 	else
+-		snprintf(buf, buf_size, "size=%luM", tmpfs_size);
++		snprintf(buf, buf_size, "size=%uM", tmpfs_size);
+ 
+-	tst_res(TINFO, "Limiting tmpfs size to %luMB", tmpfs_size);
++	tst_res(TINFO, "Limiting tmpfs size to %uMB", tmpfs_size);
+ 
+ 	return buf;
  }
-
--static void setup(void)
-+static void verify_clone(void)
- {
--	struct sigaction def_act;
--	struct sigaction act;
-+	int status;
-+	pid_t pid = 0;
-
--	TEST_PAUSE;
-+	TST_EXP_PID_SILENT(ltp_clone(SIGCHLD, do_child, NULL, CHILD_STACK_SIZE,
-+				child_stack));
-
--	act.sa_handler = sigsegv_handler;
--	act.sa_flags = SA_RESTART;
--	sigemptyset(&act.sa_mask);
--	if ((sigaction(SIGSEGV, &act, NULL)) == -1)
--		tst_resm(TWARN | TERRNO,
--			 "sigaction() for SIGSEGV failed in test_setup()");
-+	if (!TST_PASS)
-+		return;
-
--	/* Setup signal handler for SIGUSR2 */
--	def_act.sa_handler = sigusr2_handler;
--	def_act.sa_flags = SA_RESTART | SA_RESETHAND;
--	sigemptyset(&def_act.sa_mask);
-+	SAFE_WAITPID(pid, &status, 0);
-
--	if ((sigaction(SIGUSR2, &def_act, NULL)) == -1)
--		tst_resm(TWARN | TERRNO,
--			 "sigaction() for SIGUSR2 failed in test_setup()");
--}
--
--static int do_child(void)
--{
--	return 0;
--}
-+	if (WIFEXITED(status) && WEXITSTATUS(status) == 0)
-+		tst_res(TPASS, "Using return() in child will not cause abnormal exit");
-+	else
-+		tst_res(TFAIL, "Using return() in child will cause abnormal exit");
-
--static void sigsegv_handler(int sig)
--{
--	if (child_pid == 0) {
--		kill(getppid(), SIGUSR2);
--		_exit(42);
--	}
-+	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGSEGV)
-+		tst_res(TFAIL, "Use of return() in child caused SIGSEGV");
- }
-
--/* sig_default_handler() - Default handler for parent */
--static void sigusr2_handler(int sig)
--{
--	if (child_pid != 0)
--		fail = TRUE;
--}
-+static struct tst_test test = {
-+	.test_all = verify_clone,
-+	.bufs = (struct tst_buffers []) {
-+		{&child_stack, .size = CHILD_STACK_SIZE},
-+		{},
-+	},
-+};
---
-2.20.1
-
-
+-- 
+2.23.0
 
 
 -- 
