@@ -1,75 +1,73 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C0B042EDC4
-	for <lists+linux-ltp@lfdr.de>; Fri, 15 Oct 2021 11:35:17 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 131F442EE3C
+	for <lists+linux-ltp@lfdr.de>; Fri, 15 Oct 2021 11:57:46 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 01E063C176C
-	for <lists+linux-ltp@lfdr.de>; Fri, 15 Oct 2021 11:35:17 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id CF5513C1778
+	for <lists+linux-ltp@lfdr.de>; Fri, 15 Oct 2021 11:57:45 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by picard.linux.it (Postfix) with ESMTPS id 5A3D03C110D
+ for <ltp@lists.linux.it>; Fri, 15 Oct 2021 11:57:44 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 4D07A3C12F4
- for <ltp@lists.linux.it>; Fri, 15 Oct 2021 11:35:15 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 9EF3560159A
- for <ltp@lists.linux.it>; Fri, 15 Oct 2021 11:35:14 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id B023A1A01950
+ for <ltp@lists.linux.it>; Fri, 15 Oct 2021 11:57:43 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id D7A381FD39;
- Fri, 15 Oct 2021 09:35:13 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id EED6E21A61;
+ Fri, 15 Oct 2021 09:57:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1634290513;
+ t=1634291862;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=3WQHdSrshxX6+SXwvjr6WI08w20TPHgXEOKzFqTpJuw=;
- b=fnRgGT9Fa/irTq9DCLQUne6DYJ4u+e1AnCcSsE3sTjVTSlmhPleajVDI94bVRGRav1dYsF
- fvL/a71Gihyy7dMi1p6uLpGKXvMAFjsbZbFeSCgC1sj66G5IAdOtBibrA2YMNgFC5JPuwE
- waMI4CEWUIxIHZ/HfeOTqk5omgRdKHc=
+ bh=Npp59JNpJGXO0DbVUU9axYHcIFBIcm92F1IzwDjhBW4=;
+ b=lexudAbWTpvy/fgCDh9xbXjc4qvNZFwtx/Ip3uwQzMJjqq8TTOfPNlC2gQwEo+ucdqltg8
+ x8luG5ylWrtnDhPr7yjV3l2gIYH/PetREWWXkQFdRoY6Dmm2U9770Dmau/iGOy7Skqmr3H
+ CqfOw7SICwuXVSfIosmA5OfSvP3SUyU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1634290513;
+ s=susede2_ed25519; t=1634291862;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=3WQHdSrshxX6+SXwvjr6WI08w20TPHgXEOKzFqTpJuw=;
- b=H3VDl38CgruJjJcpxGqR+pWUkMQvvkupi5S7Hu7iiUOWiL/drKhTc34bG3RFyyzzwa/o+0
- G5EFI58XQw2/gqDw==
+ bh=Npp59JNpJGXO0DbVUU9axYHcIFBIcm92F1IzwDjhBW4=;
+ b=kdcwQr56VZNBHKJi0n2lNWFWBYKjTkzbkKvk5PbMA5CuCJePit1+I1rgRbpeEB4UWqLUpT
+ edKAOP0/gc2ENhAQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9B57713B5A;
- Fri, 15 Oct 2021 09:35:13 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id BFC6F13BEF;
+ Fri, 15 Oct 2021 09:57:42 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id pSk8JFFLaWFQNwAAMHmgww
- (envelope-from <pvorel@suse.cz>); Fri, 15 Oct 2021 09:35:13 +0000
-Date: Fri, 15 Oct 2021 11:35:11 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id I3qaLJZQaWFOQgAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Fri, 15 Oct 2021 09:57:42 +0000
+Date: Fri, 15 Oct 2021 11:57:41 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: Jan Stancek <jstancek@redhat.com>
-Message-ID: <YWlLT45dTvwfidm0@pevik>
-References: <20211015083820.11903-1-pvorel@suse.cz>
- <61693F84.6050007@fujitsu.com>
- <CAASaF6xutSRxaCbX8SqNw9g6wAXXgORvfC-QVv_9j4EFqh-bqQ@mail.gmail.com>
+To: zhanglianjie <zhanglianjie@uniontech.com>
+Message-ID: <YWlQlXfHu6FXQAx/@pevik>
+References: <20211014012533.18205-1-zhanglianjie@uniontech.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CAASaF6xutSRxaCbX8SqNw9g6wAXXgORvfC-QVv_9j4EFqh-bqQ@mail.gmail.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+In-Reply-To: <20211014012533.18205-1-zhanglianjie@uniontech.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v4 1/1] creat09: Run on all_filesystems
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v4 1/5] syscalls/clone02: Convert to new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,15 +80,37 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi all,
+Hi,
 
-thanks you all for your reviews, merged.
+> +++ b/testcases/kernel/syscalls/clone/clone02.c
+...
+> +static char *res_name[] = {
+> +	[1] = "CLONE_VM",
+> +	[2] = "CLONE_FS",
+> +	[4] = "CLONE_FILES",
+> +	[8] = "CLONE_SIGHAND",
+>  };
+
+Not really that important, but you could
+1) Instead of hardwired indexes use constants from <sched.h>.
+2) To get their string values with macro stringification.
+
+#define CLONE_DESC(x) [x] = #x
+
+static char *res_name[] = {
+	CLONE_DESC(CLONE_VM),
+	CLONE_DESC(CLONE_FS),
+	CLONE_DESC(CLONE_FILES),
+	CLONE_DESC(CLONE_SIGHAND),
+};
+
+If this is the only change, it can be replaced during merge.
 
 Kind regards,
 Petr
