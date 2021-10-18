@@ -1,79 +1,79 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5304E431A6C
-	for <lists+linux-ltp@lfdr.de>; Mon, 18 Oct 2021 15:10:17 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id A689D431A6E
+	for <lists+linux-ltp@lfdr.de>; Mon, 18 Oct 2021 15:10:39 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 04C593C2DE2
-	for <lists+linux-ltp@lfdr.de>; Mon, 18 Oct 2021 15:10:17 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 550063C2DAD
+	for <lists+linux-ltp@lfdr.de>; Mon, 18 Oct 2021 15:10:39 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 2BC9E3C0E65
+ by picard.linux.it (Postfix) with ESMTPS id 014073C3006
  for <ltp@lists.linux.it>; Mon, 18 Oct 2021 15:10:05 +0200 (CEST)
 Received: from mail1.bemta25.messagelabs.com (mail1.bemta25.messagelabs.com
- [195.245.230.66])
+ [195.245.230.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 3011B600906
- for <ltp@lists.linux.it>; Mon, 18 Oct 2021 15:10:04 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 376C9200D36
+ for <ltp@lists.linux.it>; Mon, 18 Oct 2021 15:10:05 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fujitsu.com;
  s=170520fj; t=1634562604; i=@fujitsu.com;
- bh=95TLkjhd6gaODzmlPAbHvrSRRawjt1VU2tQKMgZByhk=;
+ bh=vSmV9yXz8QeryZCGYp8morlFkjV2VxCJgiq4uxFQwAU=;
  h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
  MIME-Version:Content-Type;
- b=QCpdHbHnfAThSY8NmCF3aNJYLX/p3yj+pHgLonOy0WkdPvhLCDPz5fGkGkGf16Jmz
- i3m7+8AV+UnNd7BnUfmztznY1bxtHOHsP2JyHkdypYRe2snNUI0aHOzFJE3OL0EBG0
- bnCI84nIhQte6yVbTt9SdDUvNXcNERAM5qui/t5xoAhyjqet/DGgbF1iyVclqddk2Q
- bojQulHk2Rd4LLKSb75loe4Z+PaPQYoApil7E1K7P2S7bdaioiMZPXBLzQTfHc/+3Q
- JDX3lzvIPVme2agoalS7rkOdIfVzq1OB7aMa58I/c0B5jzMmGCA8URxUIgXFArPHWD
- 9L762JEvEs3Mg==
-Received: from [100.112.197.4] (using TLSv1.2 with cipher
+ b=cNEKpu2qJoG8Y+riPfnpyibdtJWXgDv04Cs/eHQWky/2J3zXLY+nZAiB88XZFdkrC
+ sQDM5Hk8A4ReZcJJNpd6nc1HE97Ew9oLuclTKxdeF8m66fh114HtzKSe+PF4sZWYXf
+ nmWNmZmqWyP/bzxXH4SPpl9C/higl0InkSjYkKQOHfM7UdhEWo47xDia3pcJeYc5A8
+ 5Vxcc3WXQDeXX1ID/mC9YY1Gk7UIWPF/uHZfHJvnpkF+jfDzlZ+PlpkyMw5LrK+dm3
+ i1NYbeduHcrOiuroLOyr/TIPoNabIg2BEWC9K2KINLfi2fkQvDgooRkf9DCXhOrwAz
+ jLDYcsUPh5VMA==
+Received: from [100.112.195.206] (using TLSv1.2 with cipher
  DHE-RSA-AES256-GCM-SHA384 (256 bits))
- by server-2.bemta.az-b.eu-west-1.aws.symcld.net id 37/B6-18279-C227D616;
+ by server-5.bemta.az-a.eu-west-1.aws.symcld.net id 06/25-17094-C227D616;
  Mon, 18 Oct 2021 13:10:04 +0000
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFtrNIsWRWlGSWpSXmKPExsViZ8MxVVe7KDf
- R4Mlea4sV33cwOjB67Pu9jjWAMYo1My8pvyKBNeP+3tfsBYeFKt6uKm1gPMjfxcjFISTQwiQx
- +84VJghnD6PEolWrGLsYOTnYBDQlnnUuYAaxRQQkJDoa3rKD2MwC6hLLJ/1iArGFBUIkps+Yx
- AJiswioSuw6/RushlfAQ+L3zMesILaEgILElIfvweZwCnhKXH29BswWAqq5d/M2M0S9oMTJmU
- 9YIOZLSBx88YIZoldR4lLHN0YIu0Ji1qw2pgmM/LOQtMxC0rKAkWkVo0VSUWZ6RkluYmaOrqG
- Bga6hoZGuoaWFrpGhqV5ilW6SXmqpbnlqcYmuoV5iebFecWVuck6KXl5qySZGYDimFBy7voPx
- 6usPeocYJTmYlER5+5VyE4X4kvJTKjMSizPii0pzUosPMcpwcChJ8J7OB8oJFqWmp1akZeYAY
- wMmLcHBoyTC618AlOYtLkjMLc5Mh0idYtTlePdz8SJmIZa8/LxUKXFeVpAiAZCijNI8uBGwOL
- 3EKCslzMvIwMAgxFOQWpSbWYIq/4pRnINRSZhXF2QKT2ZeCdymV0BHMAEdcdU5B+SIkkSElFQ
- DU0lG71ymm+Jfw9XSQkRFb93w0uf0cDqha9Mx62OG1o0re39s+t3fNffS61tzrWb5yVZp8Zc6
- P05Yee6laEnIt3JRlp3vJKIEuuK+L2DcN0NcVqbv8p3YJ9wajNvznwctaiyIKrg87/QP26Cql
- XFNs2L5rqi77Rdu5YqeKXo87qbltVL/baLsPhlPtly8wrhZJs1qgcHLa2rMSx+/ad/4e+8HU6
- OXnue08tvWPP9nLzLbP8/lXeqSp0+cTK6suGtz52tHeH7I3H9W+U7ixx7kHzSv2vWMV+6TdXI
- Di/tFrit9q+axRh95XvJk26LYfrma4PPnixQNrQ5fOdtam+9adLhR+1vxkdZlC6dXNX+cpMRS
- nJFoqMVcVJwIAEGCh1NOAwAA
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFlrDIsWRWlGSWpSXmKPExsViZ8MxVVenKDf
+ R4MUqZosV33cwOjB67Pu9jjWAMYo1My8pvyKBNePMt8nsBXMlK56+2M/SwPhfpIuRk0NIoIVJ
+ oq3JqouRC8jewyhxquk/I0iCTUBT4lnnAmYQW0RAQqKj4S07iM0soC6xfNIvpi5GDg5hAW+Jl
+ lelICaLgKrE7q8iICavgIdE7wltkGIJAQWJKQ/fgw3hFPCUuPp6DTPEVg+Jezdvg9m8AoISJ2
+ c+YYEYLiFx8MULZoheRYlLHd8YIewKiVmz2pgmMPLPQtIyC0nLAkamVYwWSUWZ6RkluYmZObq
+ GBga6hoZGuoaWprpGhqZ6iVW6iXqppbrlqcUluoZ6ieXFesWVuck5KXp5qSWbGIGBmFJw+PoO
+ xluvP+gdYpTkYFIS5e1Xyk0U4kvKT6nMSCzOiC8qzUktPsQow8GhJMF7Oh8oJ1iUmp5akZaZA
+ 4wKmLQEB4+SCG9VIVCat7ggMbc4Mx0idYpRUUqcl7UAKCEAksgozYNrg0XiJUZZKWFeRgYGBi
+ GegtSi3MwSVPlXjOIcjErCvNEg43ky80rgpr8CWswEtPiqcw7I4pJEhJRUA5O3Q8SND2eOTr7
+ K/9xRbtrd6XcPVAT/mVw8f0O3n+fysHdTuILk1z1fpqsq7Niqs7xQZq15VftXk/e63/7dX5bR
+ WnXuyNfQdqa/f86ohhznTb9+qjvelJch3TJUPilFjq1o29YPGz8+q7AU3zN1ye9g/asaAXvyS
+ g7NYr4rHLk2kfsPw76r59OPhV95ITSLSStyJfvyM347TjTyvlpz613/+0XOp3l56hb3LeURK2
+ zl2rOE5wiDKsfPopCg0j5hyw/aFTZiBxxuHk0x2bqFx+Pja8m3TWv+b93+KE6BJbY3W3Wn0Y4
+ 7y+7N1V7j8iXi4Zva4o4XngJNaUdeb4yTsq7eIi6x8FRMTrDG8vla/6SUWIozEg21mIuKEwFf
+ aiADPwMAAA==
 X-Env-Sender: xuyang2018.jy@fujitsu.com
-X-Msg-Ref: server-9.tower-291.messagelabs.com!1634562603!1382503!1
+X-Msg-Ref: server-23.tower-265.messagelabs.com!1634562603!303855!1
 X-Originating-IP: [62.60.8.149]
 X-SYMC-ESS-Client-Auth: outbound-route-from=pass
 X-StarScan-Received: 
 X-StarScan-Version: 9.81.4; banners=-,-,-
 X-VirusChecked: Checked
-Received: (qmail 14136 invoked from network); 18 Oct 2021 13:10:03 -0000
+Received: (qmail 20577 invoked from network); 18 Oct 2021 13:10:04 -0000
 Received: from unknown (HELO mailhost2.uk.fujitsu.com) (62.60.8.149)
- by server-9.tower-291.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
- encrypted SMTP; 18 Oct 2021 13:10:03 -0000
+ by server-23.tower-265.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
+ encrypted SMTP; 18 Oct 2021 13:10:04 -0000
 Received: from R01UKEXCASM126.r01.fujitsu.local ([10.183.43.178])
- by mailhost2.uk.fujitsu.com (8.14.5/8.14.5) with ESMTP id 19ID9vJ0017346
+ by mailhost2.uk.fujitsu.com (8.14.5/8.14.5) with ESMTP id 19ID9vJ1017346
  (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256 verify=FAIL)
  for <ltp@lists.linux.it>; Mon, 18 Oct 2021 14:10:03 +0100
 Received: from localhost.localdomain (10.167.220.84) by
  R01UKEXCASM126.r01.fujitsu.local (10.183.43.178) with Microsoft SMTP Server
- (TLS) id 15.0.1497.23; Mon, 18 Oct 2021 14:09:59 +0100
+ (TLS) id 15.0.1497.23; Mon, 18 Oct 2021 14:10:01 +0100
 From: Yang Xu <xuyang2018.jy@fujitsu.com>
 To: <ltp@lists.linux.it>
-Date: Mon, 18 Oct 2021 21:09:43 +0800
-Message-ID: <1634562591-5830-3-git-send-email-xuyang2018.jy@fujitsu.com>
+Date: Mon, 18 Oct 2021 21:09:44 +0800
+Message-ID: <1634562591-5830-4-git-send-email-xuyang2018.jy@fujitsu.com>
 X-Mailer: git-send-email 1.8.3.1
 In-Reply-To: <1634562591-5830-1-git-send-email-xuyang2018.jy@fujitsu.com>
 References: <1634562591-5830-1-git-send-email-xuyang2018.jy@fujitsu.com>
@@ -81,14 +81,14 @@ MIME-Version: 1.0
 X-Originating-IP: [10.167.220.84]
 X-ClientProxiedBy: G08CNEXCHPEKD07.g08.fujitsu.local (10.167.33.80) To
  R01UKEXCASM126.r01.fujitsu.local (10.183.43.178)
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v1 03/11] syscalls/quotactl04: Remove useless quotactl
- mount options
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH v1 04/11] syscalls/quotactl[3, 5,
+ 7]: Add docparse formatting
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,23 +105,86 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-When use -O quota options for mkfs.ext4, quota mount option
-will be ignored[1]. So remove it.
-
-Also add docparse formatting.
-
-[1]https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=7c319d3
-
 Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
 ---
- testcases/kernel/syscalls/quotactl/quotactl04.c | 17 ++++++++++++-----
- 1 file changed, 12 insertions(+), 5 deletions(-)
+ testcases/kernel/syscalls/quotactl/quotactl03.c | 13 ++++++-------
+ testcases/kernel/syscalls/quotactl/quotactl05.c | 13 +++++++++++--
+ testcases/kernel/syscalls/quotactl/quotactl07.c |  4 ++++
+ 3 files changed, 21 insertions(+), 9 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/quotactl/quotactl04.c b/testcases/kernel/syscalls/quotactl/quotactl04.c
-index fd3afc888..ca6a94263 100644
---- a/testcases/kernel/syscalls/quotactl/quotactl04.c
-+++ b/testcases/kernel/syscalls/quotactl/quotactl04.c
-@@ -2,22 +2,33 @@
+diff --git a/testcases/kernel/syscalls/quotactl/quotactl03.c b/testcases/kernel/syscalls/quotactl/quotactl03.c
+index 3ec931727..9711b7f07 100644
+--- a/testcases/kernel/syscalls/quotactl/quotactl03.c
++++ b/testcases/kernel/syscalls/quotactl/quotactl03.c
+@@ -4,10 +4,9 @@
+  * Author: Xiao Yang <yangx.jy@cn.fujitsu.com>
+  */
+ 
+-/*
+- * Test Name: quotactl03
++/*\
++ * [Description]
+  *
+- * Description:
+  * quotactl(2) with XGETNEXTQUOTA looks for the next active quota for an user
+  * equal or higher to a given ID, in this test the ID is specified to a value
+  * close to UINT_MAX(max value of unsigned int). When reaching the upper limit
+@@ -16,11 +15,11 @@
+  *
+  * This kernel bug of xfs has been fixed in:
+  *
+- * commit 657bdfb7f5e68ca5e2ed009ab473c429b0d6af85
+- * Author: Eric Sandeen <sandeen@redhat.com>
+- * Date:   Tue Jan 17 11:43:38 2017 -0800
++ *  commit 657bdfb7f5e68ca5e2ed009ab473c429b0d6af85
++ *  Author: Eric Sandeen <sandeen@redhat.com>
++ *  Date:   Tue Jan 17 11:43:38 2017 -0800
+  *
+- *     xfs: don't wrap ID in xfs_dq_get_next_id
++ *  xfs: don't wrap ID in xfs_dq_get_next_id
+  */
+ 
+ #define _GNU_SOURCE
+diff --git a/testcases/kernel/syscalls/quotactl/quotactl05.c b/testcases/kernel/syscalls/quotactl/quotactl05.c
+index e811e47a4..fbc7f5924 100644
+--- a/testcases/kernel/syscalls/quotactl/quotactl05.c
++++ b/testcases/kernel/syscalls/quotactl/quotactl05.c
+@@ -2,19 +2,28 @@
+ /*
+  * Copyright (c) 2019 FUJITSU LIMITED. All rights reserved.
+  * Author: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
++ */
++
++/*\
++ * [Description]
++ *
++ * This testcase checks basic flags of quotactl(2) for project on an XFS filesystem:
+  *
+- * This testcase checks basic flags of quotactl(2) for project on an XFS file
+- * system:
+  * 1) quotactl(2) succeeds to turn off xfs quota and get xfs quota off status
+  *    for project.
++ *
+  * 2) quotactl(2) succeeds to turn on xfs quota and get xfs quota on status
+  *    for project.
++ *
+  * 3) quotactl(2) succeeds to set and use Q_XGETQUOTA to get xfs disk quota
+  *    limits for project.
++ *
+  * 4) quotactl(2) succeeds to set and use Q_XGETNEXTQUOTA to get xfs disk
+  *    quota limits Cgreater than or equal to ID for project.
++ *
+  * 5) quotactl(2) succeeds to turn off xfs quota and get xfs quota off statv
+  *    for project.
++ *
+  * 6) quotactl(2) succeeds to turn on xfs quota and get xfs quota on statv
+  *    for project.
+  */
+diff --git a/testcases/kernel/syscalls/quotactl/quotactl07.c b/testcases/kernel/syscalls/quotactl/quotactl07.c
+index db477589b..a55416f0e 100644
+--- a/testcases/kernel/syscalls/quotactl/quotactl07.c
++++ b/testcases/kernel/syscalls/quotactl/quotactl07.c
+@@ -2,6 +2,10 @@
  /*
   * Copyright (c) 2019 FUJITSU LIMITED. All rights reserved.
   * Author: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
@@ -130,51 +193,8 @@ index fd3afc888..ca6a94263 100644
 +/*\
 + * [Description]
   *
-  * This testcase checks the basic flag of quotactl(2) for project quota on
-  * non-XFS filesystems.
-  *
-  * 1) quotactl(2) succeeds to turn on quota with Q_QUOTAON flag for project.
-+ *
-  * 2) quotactl(2) succeeds to set disk quota limits with Q_SETQUOTA flag
-  *    for project.
-+ *
-  * 3) quotactl(2) succeeds to get disk quota limits with Q_GETQUOTA flag
-  *    for project.
-+ *
-  * 4) quotactl(2) succeeds to set information about quotafile with Q_SETINFO
-  *    flag for project.
-+ *
-  * 5) quotactl(2) succeeds to get information about quotafile with Q_GETINFO
-  *    flag for project.
-+ *
-  * 6) quotactl(2) succeeds to get quota format with Q_GETFMT flag for project.
-+ *
-  * 7) quotactl(2) succeeds to get disk quota limit greater than or equal to
-  *    ID with Q_GETNEXTQUOTA flag for project.
-+ *
-  * 8) quotactl(2) succeeds to turn off quota with Q_QUOTAOFF flag for project.
-  *
-  * Minimum e2fsprogs version required is 1.43.
-@@ -34,10 +45,6 @@
- #include "tst_safe_stdio.h"
- #include "tst_test.h"
- 
--#ifndef QFMT_VFS_V1
--# define QFMT_VFS_V1 4
--#endif
--
- #define FMTID QFMT_VFS_V1
- #define MNTPOINT	"mntpoint"
- static int32_t fmt_id = FMTID;
-@@ -141,7 +148,7 @@ static void setup(void)
- 		tst_brk(TCONF, "Test needs mkfs.ext4 >= 1.43 for quota,project option, test skipped");
- 	pclose(f);
- 	SAFE_MKFS(tst_device->dev, tst_device->fs_type, fs_opts, NULL);
--	do_mount(tst_device->dev, MNTPOINT, tst_device->fs_type, 0, "quota");
-+	do_mount(tst_device->dev, MNTPOINT, tst_device->fs_type, 0, NULL);
- }
- 
- static void cleanup(void)
+  * This is a regresstion test for kernel commit 3dd4d40b4208
+  * ("xfs: Sanity check flags of Q_XQUOTARM call").
 -- 
 2.23.0
 
