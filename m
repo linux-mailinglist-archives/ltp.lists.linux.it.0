@@ -2,74 +2,76 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABAF943233F
-	for <lists+linux-ltp@lfdr.de>; Mon, 18 Oct 2021 17:48:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23E46432348
+	for <lists+linux-ltp@lfdr.de>; Mon, 18 Oct 2021 17:48:42 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 732963C2E9F
-	for <lists+linux-ltp@lfdr.de>; Mon, 18 Oct 2021 17:48:09 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E53C73C02DA
+	for <lists+linux-ltp@lfdr.de>; Mon, 18 Oct 2021 17:48:41 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id EC86B3C2FFD
- for <ltp@lists.linux.it>; Mon, 18 Oct 2021 17:47:19 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 1F6131000D2C
+ by picard.linux.it (Postfix) with ESMTPS id 6035F3C3077
+ for <ltp@lists.linux.it>; Mon, 18 Oct 2021 17:47:21 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id BB98A1400E58
  for <ltp@lists.linux.it>; Mon, 18 Oct 2021 17:47:19 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id C06DF1FD81
- for <ltp@lists.linux.it>; Mon, 18 Oct 2021 15:47:18 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 4B90D21961
+ for <ltp@lists.linux.it>; Mon, 18 Oct 2021 15:47:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1634572038; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ t=1634572039; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=z1pvb0o0Bg+6aVBEY1BSDedou+tECVQ8PiCRG5VHRYo=;
- b=n7QzrhUkesJEyh0mvJsFlKhcnzN21t0zUr5/K+qZ0Hf1pdiEOTjCtbtwVD7QcP1f4WB9P5
- JlSljAEkNXCsM7WjVaUdMMe0SgIF1dmrilEH0RLvdVja8P/kKtJBu01wz/35cEK8CKelw4
- QJMvW9yGVBcbmUKVbt5t1cT2jDRvTL0=
+ bh=CEXx5w6fRkWKj9WgtromYQ0/XLrY8qDjmZHEhIXcsJk=;
+ b=hPyzdFKUmb8uZgvfwa+W5Qe9uDrSH5uc/KJQ3qzJoQqlisRJ/ga+pDbwEpfdFsziN4srQk
+ uMEGFmC/Y2gH7uCeDU3Fhbi6fjBWGMo5DfaKrWhQGgAqUJqH2bXlUi+l/5jDKvpjnAtKFy
+ /yyba7RgqBTjey29ZlIxxDSF0XmG2mQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1634572038;
+ s=susede2_ed25519; t=1634572039;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=z1pvb0o0Bg+6aVBEY1BSDedou+tECVQ8PiCRG5VHRYo=;
- b=70C4jSpHupS/3oXBUC/QSuOMxgzp47xT5H+PacTsC2ILxuoygUc9eed2ox3vymqaF/rMLN
- u61/OiLBRu5fA6BA==
+ bh=CEXx5w6fRkWKj9WgtromYQ0/XLrY8qDjmZHEhIXcsJk=;
+ b=lPeh92dE7gPJR6u8Q47/AYM3fTPzDOkZtcuB4/AAIey0kgsT0IUA1Pqbm6xB11EfXhmmfN
+ 9v3pPYfHkiXFf1BQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A6A50140B7
- for <ltp@lists.linux.it>; Mon, 18 Oct 2021 15:47:18 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 377A8140B7
+ for <ltp@lists.linux.it>; Mon, 18 Oct 2021 15:47:19 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id VW9bJwaXbWF8JwAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id d7s5DAeXbWGAJwAAMHmgww
  (envelope-from <chrubis@suse.cz>)
- for <ltp@lists.linux.it>; Mon, 18 Oct 2021 15:47:18 +0000
+ for <ltp@lists.linux.it>; Mon, 18 Oct 2021 15:47:19 +0000
 From: Cyril Hrubis <chrubis@suse.cz>
 To: ltp@lists.linux.it
-Date: Mon, 18 Oct 2021 17:47:58 +0200
-Message-Id: <20211018154800.11013-7-chrubis@suse.cz>
+Date: Mon, 18 Oct 2021 17:47:59 +0200
+Message-Id: <20211018154800.11013-8-chrubis@suse.cz>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20211018154800.11013-1-chrubis@suse.cz>
 References: <20211018154800.11013-1-chrubis@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH 6/7] docparse: Group data to 'testsuite' and 'defaults'
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH 7/7] docparse/Makefile: Do not abort on missing
+ generators
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,100 +88,75 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Group all data belonging to testsuite info to 'testsuite' object and
-move default timeout to 'defaults' object. This makes the JSON structure
-a bit cleaner and easier to understand.
+Since we want to use the metadata.json in the testrunner it must bte
+build unconditionally.
 
 Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
 ---
- docparse/parse.sh    | 16 ++++++++++------
- docparse/testinfo.pl | 16 ++++++++--------
- 2 files changed, 18 insertions(+), 14 deletions(-)
+ Makefile           | 5 +----
+ docparse/Makefile  | 4 ----
+ m4/ltp-docparse.m4 | 3 ---
+ 3 files changed, 1 insertion(+), 11 deletions(-)
 
-diff --git a/docparse/parse.sh b/docparse/parse.sh
-index 2ace34fa0..52d9a5cbf 100755
---- a/docparse/parse.sh
-+++ b/docparse/parse.sh
-@@ -15,12 +15,16 @@ if [ -d .git ]; then
+diff --git a/Makefile b/Makefile
+index 4e37362f9..447525e75 100644
+--- a/Makefile
++++ b/Makefile
+@@ -62,10 +62,7 @@ $(1):: | $$(abs_top_builddir)/$$(basename $$(subst -,.,$(1)))
+ endif
+ endef
+ 
+-COMMON_TARGETS		+= testcases tools
+-ifeq ($(WITH_METADATA),yes)
+-COMMON_TARGETS		+= docparse
+-endif
++COMMON_TARGETS		+= testcases tools docparse
+ 
+ # Don't want to nuke the original files if we're installing in-build-tree.
+ ifneq ($(BUILD_TREE_STATE),$(BUILD_TREE_SRCDIR_INSTALL))
+diff --git a/docparse/Makefile b/docparse/Makefile
+index e2defad38..5f2f40544 100644
+--- a/docparse/Makefile
++++ b/docparse/Makefile
+@@ -18,10 +18,6 @@ METADATA_GENERATOR_PARAMS := --xsltproc-opts "--stringparam toc.section.depth 1"
+ METADATA_GENERATOR_PARAMS_HTML := -f xhtml
+ METADATA_GENERATOR_PARAMS_PDF := -f pdf
+ METADATA_GENERATOR_PARAMS_HTML_CHUNKED := -f chunked
+-else ifeq ($(METADATA_GENERATOR),)
+-$(error 'METADATA_GENERATOR' not not configured, run ./configure in the root directory)
+-else
+-$(error '$(METADATA_GENERATOR)' not supported, only asciidoctor and asciidoc are supported)
+ endif
+ 
+ ifdef VERBOSE
+diff --git a/m4/ltp-docparse.m4 b/m4/ltp-docparse.m4
+index 88d2e08e4..4cdcfc071 100644
+--- a/m4/ltp-docparse.m4
++++ b/m4/ltp-docparse.m4
+@@ -31,7 +31,6 @@ AC_DEFUN([LTP_CHECK_METADATA_GENERATOR_ASCIIDOC], [
+ ])
+ 
+ AC_DEFUN([LTP_DOCPARSE], [
+-with_metadata=no
+ with_metadata_html=no
+ with_metadata_pdf=no
+ 
+@@ -96,7 +95,6 @@ elif test "x$ax_perl_modules_failed" = x1; then
+ elif test "x$with_metadata_html" = xno -a "x$with_metadata_pdf" = xno; then
+ 	AC_MSG_WARN([$reason, $hint])
+ else
+-	with_metadata=yes
+ 	AC_SUBST(METADATA_GENERATOR, $with_metadata_generator)
+ 	if test "x$with_metadata_html" = xno -a "x$enable_metadata_html" = xyes; then
+ 		AC_MSG_WARN([HTML $reason, $hint])
+@@ -106,7 +104,6 @@ else
+ 	fi
  fi
  
- echo '{'
--echo ' "testsuite": "Linux Test Project",'
--echo ' "testsuite_short": "LTP",'
--echo ' "url": "https://github.com/linux-test-project/ltp/",'
--echo ' "scm_url_base": "https://github.com/linux-test-project/ltp/tree/master/",'
--echo ' "timeout": 300,'
--echo " \"version\": \"$version\","
-+echo ' "testsuite": {'
-+echo '  "name": "Linux Test Project",'
-+echo '  "short_name": "LTP",'
-+echo '  "url": "https://github.com/linux-test-project/ltp/",'
-+echo '  "scm_url_base": "https://github.com/linux-test-project/ltp/tree/master/",'
-+echo "  \"version\": \"$version\""
-+echo ' },'
-+echo ' "defaults": {'
-+echo '  "timeout": 300'
-+echo ' },'
- echo ' "tests": {'
- 
- first=1
-diff --git a/docparse/testinfo.pl b/docparse/testinfo.pl
-index c11064c05..891619532 100755
---- a/docparse/testinfo.pl
-+++ b/docparse/testinfo.pl
-@@ -164,9 +164,9 @@ sub content_about
- 	my $json = shift;
- 	my $content;
- 
--	$content .= print_defined("URL", $json->{'url'});
--	$content .= print_defined("Version", $json->{'version'});
--	$content .= print_defined("Default timeout", $json->{'timeout'}, "seconds");
-+	$content .= print_defined("URL", $json->{'testsuite'}->{'url'});
-+	$content .= print_defined("Version", $json->{'testsuite'}->{'version'});
-+	$content .= print_defined("Default timeout", $json->{'defaults'}->{'timeout'}, "seconds");
- 
- 	return $content;
- }
-@@ -360,10 +360,10 @@ sub content_all_tests
- 		$content .= h3($name);
- 		$content .= $letters;
- 
--		if (defined($json->{'scm_url_base'}) &&
-+		if (defined($json->{'testsuite'}->{'scm_url_base'}) &&
- 			defined($json->{'tests'}{$name}{fname})) {
- 			$content .= paragraph(html_a(tag_url("fname", $json->{'tests'}{$name}{fname},
--					$json->{'scm_url_base'}), "source"));
-+					$json->{'testsuite'}->{'scm_url_base'}), "source"));
- 		}
- 
- 		if (defined $json->{'tests'}{$name}{doc}) {
-@@ -386,7 +386,7 @@ sub content_all_tests
- 				$content .= paragraph("Test timeout is $json->{'tests'}{$name}{timeout} seconds");
- 			}
- 		} else {
--			$content .= paragraph("Test timeout defaults to $json->{'timeout'} seconds");
-+			$content .= paragraph("Test timeout defaults to $json->{'defaults'}->{'timeout'} seconds");
- 		}
- 
- 		my $tmp2 = undef;
-@@ -463,7 +463,7 @@ my $json = decode_json(load_json($ARGV[0]));
- my $config = [
-     {
- 		file => "about.txt",
--		title => h2("About $json->{'testsuite'}"),
-+		title => h2("About $json->{'testsuite'}->{'name'}"),
- 		content => \&content_about,
-     },
-     {
-@@ -495,7 +495,7 @@ EOL
- 	for my $c (@{$config}) {
- 		$content .= "include::$c->{'file'}\[\]\n";
- 	}
--	print_asciidoc_page($fh, $json, h1($json->{'testsuite_short'} . " test catalog"), $content);
-+	print_asciidoc_page($fh, $json, h1($json->{'testsuite'}->{'short_name'} . " test catalog"), $content);
- }
- 
- for my $c (@{$config}) {
+-AC_SUBST(WITH_METADATA, $with_metadata)
+ AC_SUBST(WITH_METADATA_HTML, $with_metadata_html)
+ AC_SUBST(WITH_METADATA_PDF, $with_metadata_pdf)
+ ])
 -- 
 2.32.0
 
