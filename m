@@ -2,74 +2,79 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1123432347
-	for <lists+linux-ltp@lfdr.de>; Mon, 18 Oct 2021 17:48:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE7A14331E6
+	for <lists+linux-ltp@lfdr.de>; Tue, 19 Oct 2021 11:11:56 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 75F033C3331
-	for <lists+linux-ltp@lfdr.de>; Mon, 18 Oct 2021 17:48:30 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B56C53C3238
+	for <lists+linux-ltp@lfdr.de>; Tue, 19 Oct 2021 11:11:56 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 1249B3C304F
- for <ltp@lists.linux.it>; Mon, 18 Oct 2021 17:47:21 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id CBEBC3C02DA
+ for <ltp@lists.linux.it>; Tue, 19 Oct 2021 11:11:54 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 2FF5D1000DE1
- for <ltp@lists.linux.it>; Mon, 18 Oct 2021 17:47:20 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id CFA3F1FD6D
- for <ltp@lists.linux.it>; Mon, 18 Oct 2021 15:47:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1634572039; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 61A4E600F6D
+ for <ltp@lists.linux.it>; Tue, 19 Oct 2021 11:11:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1634634712;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=Bz4ihaNZC1YAKllRK7RVCTreknTWOTvkDqafghHcRv8=;
- b=d1YGrh3oV1eMjIzHnVCIasW2c9oSb4z4C+eWWYgPMn74tpML2WFOB0OCQcmq/mPgItquZm
- v+2XZWVcnM3xfQWgUE7tzP4p/jXf77v7vOi0MxkAzEUqMcLAQa5k6gP9Iu3JGVAIAziCAH
- c3t/yFaLI4iQQ1RWCvgD52tIN+iLY4Y=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1634572039;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Bz4ihaNZC1YAKllRK7RVCTreknTWOTvkDqafghHcRv8=;
- b=9AtASFZoflwERVbps/+/ZE0K32eC3aFpDtK0vfKT65+BwippMNcLvNBaAx4jw2G/NXYxwz
- yZ4Nlutw7u5Z3+Dw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B3002140B7
- for <ltp@lists.linux.it>; Mon, 18 Oct 2021 15:47:19 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id e9Y2KgeXbWGGJwAAMHmgww
- (envelope-from <chrubis@suse.cz>)
- for <ltp@lists.linux.it>; Mon, 18 Oct 2021 15:47:19 +0000
-From: Cyril Hrubis <chrubis@suse.cz>
-To: ltp@lists.linux.it
-Date: Mon, 18 Oct 2021 17:48:00 +0200
-Message-Id: <20211018154800.11013-9-chrubis@suse.cz>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20211018154800.11013-1-chrubis@suse.cz>
-References: <20211018154800.11013-1-chrubis@suse.cz>
+ bh=X3gHUAzbhuz8L2p2m1MA5R19nCLeslW34DGkYSjJL5A=;
+ b=WwjzjEIy7frQa3bViV95Bgf/PnrIeTYOjbsGB0dFGr5SxPL3e7VIeW06ja2FZL4Gk3yx7u
+ BQvOmFwMIa5Oc8No4a9plIzhF3MJXl2kJBS3Gi++UOSHenFnYrj6jvTm5+PyUAFAiC74cV
+ 7qVw4UnfKSet5uigQGK2m2O08XE+/C8=
+Received: from mail-yb1-f198.google.com (mail-yb1-f198.google.com
+ [209.85.219.198]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-6-yEgKR-VJO8Ocq1A7IPtNCA-1; Tue, 19 Oct 2021 05:11:14 -0400
+X-MC-Unique: yEgKR-VJO8Ocq1A7IPtNCA-1
+Received: by mail-yb1-f198.google.com with SMTP id
+ v70-20020a256149000000b005ba4d61ea0fso23668807ybb.22
+ for <ltp@lists.linux.it>; Tue, 19 Oct 2021 02:11:14 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=X3gHUAzbhuz8L2p2m1MA5R19nCLeslW34DGkYSjJL5A=;
+ b=6R/Qr2LnVXd12MGOHVIMIAEdlA0BhKenC9NnSWm7rQId0jULkb2kEbxay4Ts2Z1si4
+ Ix9Ef/wdO9V6lsybqiNjoEeeQwZcveDdQnPImCS5ZXYkH92+qaoOojlUFLokH+5Lc+E4
+ /eXBLfu37d0TBofWTo9+dvu5eWfRasPEt5XYKUi67Wi2tgOca7a2jepKeP3hCetz73Fs
+ +8GNRX8+Iyj29zfdj4ugSG+vUuV1Ucspy0VwiJobRRFQagW3mpEAGW+B9A2ee4w19osi
+ SBiItZMgIqXWPnp1nwcTB1DjCv+lfGA5MKV+6WrTFfD2NKEk3wlPMquOa6yXGrmF+owl
+ LWIg==
+X-Gm-Message-State: AOAM531QneNrdcQmujF67Qx6HMx9YZhGFWK4hzEgS/kWoaX5YDexc098
+ pWDvFyxrxZ2y2liJO0I7gLfr1m2Up87ZwFnQHU2xYiAguXve/jtvhbXwm8OR0NVyBkW/naeOxDo
+ XIdhZ+rNXHOII0vvt6Q+EnrWhd2s=
+X-Received: by 2002:a25:1c08:: with SMTP id c8mr35134156ybc.316.1634634673856; 
+ Tue, 19 Oct 2021 02:11:13 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJywFNq+e7llJ8sAlGEa6k0FP3YY7Cun6ppX3aKnMf95MB+5HB5T01Z3RftbX4LsmXggC1v9ZUp9MUk/zu/RNQM=
+X-Received: by 2002:a25:1c08:: with SMTP id c8mr35134132ybc.316.1634634673545; 
+ Tue, 19 Oct 2021 02:11:13 -0700 (PDT)
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+References: <ddffbf17d3b5fd2d7812a18435d5cc49b848de8d.1634548566.git.jstancek@redhat.com>
+In-Reply-To: <ddffbf17d3b5fd2d7812a18435d5cc49b848de8d.1634548566.git.jstancek@redhat.com>
+From: Li Wang <liwang@redhat.com>
+Date: Tue, 19 Oct 2021 17:11:01 +0800
+Message-ID: <CAEemH2dMimcGK345+83ugS0VdWCF9Q2q5DQB3JHeAw53oJU11A@mail.gmail.com>
+To: Jan Stancek <jstancek@redhat.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH 0/7] docparse improvements
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] open_posix/conformance/clock/1.1: check PASS
+ condition periodically
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,84 +86,89 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============1556657464=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Implements support for various missing bits to the docparse tool and
-enables it unconditionally so that the metadata.json file is present
-on all builds.
+--===============1556657464==
+Content-Type: multipart/alternative; boundary="0000000000000df98c05ceb10b13"
 
-This is first part of bigger effort to get the metadata useful for the
-testrunners, expecially we need the .test_variants field to be properly
-parsed in order to compute the overall test runtime.
+--0000000000000df98c05ceb10b13
+Content-Type: text/plain; charset="UTF-8"
 
-Cyril Hrubis (7):
-  docparse: Implement #define and #include
-  docparse: Add tests
-  docparse: data_storage: Add integer type node
-  docparse: Implement ARRAY_SIZE()
-  docparse: Add type normalization
-  docparse: Group data to 'testsuite' and 'defaults'
-  docparse/Makefile: Do not abort on missing generators
+On Mon, Oct 18, 2021 at 5:18 PM Jan Stancek <jstancek@redhat.com> wrote:
 
- Makefile                             |   5 +-
- docparse/Makefile                    |   4 -
- docparse/data_storage.h              |  45 +++
- docparse/docparse.c                  | 469 ++++++++++++++++++++++++++-
- docparse/parse.sh                    |  18 +-
- docparse/testinfo.pl                 |  16 +-
- docparse/tests/array_size01.c        |   5 +
- docparse/tests/array_size01.c.out    |   4 +
- docparse/tests/array_size02.c        |   5 +
- docparse/tests/array_size02.c.out    |   4 +
- docparse/tests/array_size03.c        |  10 +
- docparse/tests/array_size03.c.out    |   4 +
- docparse/tests/array_size04.c        |   5 +
- docparse/tests/array_size04.c.out    |   4 +
- docparse/tests/empty_struct.c        |   2 +
- docparse/tests/empty_struct.c.out    |   3 +
- docparse/tests/expand_flags.c        |   3 +
- docparse/tests/expand_flags.c.out    |   6 +
- docparse/tests/include.c             |   5 +
- docparse/tests/include.c.out         |   4 +
- docparse/tests/include.h             |   7 +
- docparse/tests/macro.c               |   5 +
- docparse/tests/macro.c.out           |   4 +
- docparse/tests/multiline_macro.c     |   6 +
- docparse/tests/multiline_macro.c.out |   4 +
- docparse/tests/tags.c                |   7 +
- docparse/tests/tags.c.out            |  13 +
- docparse/tests/test.sh               |  18 +
- m4/ltp-docparse.m4                   |   3 -
- 29 files changed, 647 insertions(+), 41 deletions(-)
- create mode 100644 docparse/tests/array_size01.c
- create mode 100644 docparse/tests/array_size01.c.out
- create mode 100644 docparse/tests/array_size02.c
- create mode 100644 docparse/tests/array_size02.c.out
- create mode 100644 docparse/tests/array_size03.c
- create mode 100644 docparse/tests/array_size03.c.out
- create mode 100644 docparse/tests/array_size04.c
- create mode 100644 docparse/tests/array_size04.c.out
- create mode 100644 docparse/tests/empty_struct.c
- create mode 100644 docparse/tests/empty_struct.c.out
- create mode 100644 docparse/tests/expand_flags.c
- create mode 100644 docparse/tests/expand_flags.c.out
- create mode 100644 docparse/tests/include.c
- create mode 100644 docparse/tests/include.c.out
- create mode 100644 docparse/tests/include.h
- create mode 100644 docparse/tests/macro.c
- create mode 100644 docparse/tests/macro.c.out
- create mode 100644 docparse/tests/multiline_macro.c
- create mode 100644 docparse/tests/multiline_macro.c.out
- create mode 100644 docparse/tests/tags.c
- create mode 100644 docparse/tests/tags.c.out
- create mode 100755 docparse/tests/test.sh
+> LTP commit 61312c62a392 ("open_posix/conformance/clock/1.1:
+> Deterministic timing") changed test to busy loop for 5 seconds.
+> This made the test sometimes fail in environments with high steal
+> time.
+>
+> Move PASS condition inside loop, so in ideal case test can finish
+> as soon as it has spent >1 sec of CPU time. Also drop the wrap-around
+> check, since that takes order of minutes to happen.
+>
+
+Looks like more reliable than that 5sec busy loop, let's see how it
+performs then.
+
+
+>
+> Signed-off-by: Jan Stancek <jstancek@redhat.com>
+>
+
+Reviewed-by: Li Wang <liwang@redhat.com>
+
 
 -- 
-2.32.0
+Regards,
+Li Wang
+
+--0000000000000df98c05ceb10b13
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Mon, Oct 18, 2021 at 5:18 PM Jan Stancek &lt;<a =
+href=3D"mailto:jstancek@redhat.com">jstancek@redhat.com</a>&gt; wrote:<br><=
+/div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bo=
+rder-left:1px solid rgb(204,204,204);padding-left:1ex">LTP commit 61312c62a=
+392 (&quot;open_posix/conformance/clock/1.1:<br>
+Deterministic timing&quot;) changed test to busy loop for 5 seconds.<br>
+This made the test sometimes fail in environments with high steal<br>
+time.<br>
+<br>
+Move PASS condition inside loop, so in ideal case test can finish<br>
+as soon as it has spent &gt;1 sec of CPU time. Also drop the wrap-around<br=
+>
+check, since that takes order of minutes to happen.<br></blockquote><div><b=
+r></div><div><div class=3D"gmail_default" style=3D"font-size:small">Looks l=
+ike more reliable than that 5sec busy loop, let&#39;s see how it performs t=
+hen.</div></div><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D=
+"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-le=
+ft:1ex">
+<br>
+Signed-off-by: Jan Stancek &lt;<a href=3D"mailto:jstancek@redhat.com" targe=
+t=3D"_blank">jstancek@redhat.com</a>&gt;<br></blockquote><div><br></div><di=
+v class=3D"gmail_default" style=3D"font-size:small">Reviewed-by: Li Wang &l=
+t;<a href=3D"mailto:liwang@redhat.com">liwang@redhat.com</a>&gt;</div><div =
+class=3D"gmail_default" style=3D"font-size:small"><br></div></div><div><br>=
+</div>-- <br><div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><d=
+iv>Regards,<br></div><div>Li Wang<br></div></div></div></div>
+
+--0000000000000df98c05ceb10b13--
+
+
+--===============1556657464==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============1556657464==--
+
