@@ -1,51 +1,51 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 925BD439055
-	for <lists+linux-ltp@lfdr.de>; Mon, 25 Oct 2021 09:28:16 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B29D439056
+	for <lists+linux-ltp@lfdr.de>; Mon, 25 Oct 2021 09:28:28 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 51E0F3C6383
-	for <lists+linux-ltp@lfdr.de>; Mon, 25 Oct 2021 09:28:16 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 361363C645B
+	for <lists+linux-ltp@lfdr.de>; Mon, 25 Oct 2021 09:28:28 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id D0E1D3C58B4
- for <ltp@lists.linux.it>; Fri, 22 Oct 2021 05:42:29 +0200 (CEST)
-Received: from smtpbg506.qq.com (smtpbg506.qq.com [203.205.250.33])
+ by picard.linux.it (Postfix) with ESMTPS id 2C9D63C58B4
+ for <ltp@lists.linux.it>; Fri, 22 Oct 2021 05:43:50 +0200 (CEST)
+Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id ED0B4600695
- for <ltp@lists.linux.it>; Fri, 22 Oct 2021 05:42:26 +0200 (CEST)
-X-QQ-mid: bizesmtp49t1634874141tz86snqp
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 05742602129
+ for <ltp@lists.linux.it>; Fri, 22 Oct 2021 05:43:48 +0200 (CEST)
+X-QQ-mid: bizesmtp36t1634874221t09rnvh2
 Received: from localhost.localdomain (unknown [58.240.82.166])
  by esmtp6.qq.com (ESMTP) with 
- id ; Fri, 22 Oct 2021 11:42:15 +0800 (CST)
+ id ; Fri, 22 Oct 2021 11:43:36 +0800 (CST)
 X-QQ-SSF: 0140000000200010B000000A0000000
-X-QQ-FEAT: W6nSwEQQYT9Kt1Ylx9Tj6co3ENcDfXTGklA7jzvnotg8meFs4stsFW7mURQc5
- GJ09qwxpG7cuQ6Oxh4vEj9p2vRPeQ3H1QBmtSzjyOh0TjXX7sfUpSI5tKRT9Su6oR3un94n
- UN/UAdjN9M3XfZ7In6iequd1eAI4Nu2+eO5A1mxltefC+9WgeqmyPB/bglp8s1t51AnAKrJ
- mD/p1S/t4UC3HNyyYyR5mw0SQkrLqkU1XvUIDH6j0jMF+KBGeqwB2VMLLVe8R95IiLzvPHg
- crJUP6u1Kw1SjnRuD9lzS9fF+K7ywM704Kk5dHGfEhGDP3ToQp6GbfkONSpFitM08YO5B6/
- WnSBuPVZVpOJzjgPouHRfatektW1D1/75e7ve8p
+X-QQ-FEAT: j375Cqr75uiNhW9wDQOlG0CirC7qn1oi60t8HYNFuzkNynjUA2f4JryOVdgfE
+ 5oIR2oRuRL8edRXmoqLAeXHX/dhqscrzN/Vz8tgyqhQVgFWZ2YCRuRcoC6bvYFtwm092x/S
+ 3y4d2EIE9Y1ptNJ4TP8RAxLz9HCIARRITFVZch4yM4yIdQVFjwLBA1EZ0pvMQ56UyFsiWEH
+ wYcZhfgbMmbOfortsI3falkre7hmR8Usp6ocHyDZAbiJb0zLJOOa2Ak8EBjsyX0gzP7dmUo
+ 5pyQfTHvj808KY2VXz0SZ7ZaBt3gVkSMUCjNZWUNDxYt2nnhiVeFdoauCy7HbX10KsuwxAN
+ 5U4nJv04uO4KWzVrnIFIOfQF8C+TH/6gabiAjlQ
 X-QQ-GoodBg: 2
 From: tangmeng <tangmeng@uniontech.com>
 To: ltp@lists.linux.it
-Date: Fri, 22 Oct 2021 11:42:14 +0800
-Message-Id: <20211022034214.5182-1-tangmeng@uniontech.com>
+Date: Fri, 22 Oct 2021 11:43:35 +0800
+Message-Id: <20211022034335.5608-1-tangmeng@uniontech.com>
 X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
 X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign5
+Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign1
 X-QQ-Bgrelay: 1
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
 X-Mailman-Approved-At: Mon, 25 Oct 2021 09:27:43 +0200
 Subject: [LTP] [PATCH] link/link02: Convert to new API
 X-BeenThere: ltp@lists.linux.it
@@ -59,13 +59,11 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Tang Meng <tangmeng@uniontech.com>
+Cc: tangmeng <tangmeng@uniontech.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
-
-From: Tang Meng <tangmeng@uniontech.com>
 
 Signed-off-by: Tang Meng <tangmeng@uniontech.com>
 ---
