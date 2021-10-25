@@ -2,51 +2,50 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 816C543905F
-	for <lists+linux-ltp@lfdr.de>; Mon, 25 Oct 2021 09:29:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54AEB439060
+	for <lists+linux-ltp@lfdr.de>; Mon, 25 Oct 2021 09:29:31 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 41F3D3C66E8
-	for <lists+linux-ltp@lfdr.de>; Mon, 25 Oct 2021 09:29:24 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id F2D183C65E9
+	for <lists+linux-ltp@lfdr.de>; Mon, 25 Oct 2021 09:29:30 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 2F3643C2C95
- for <ltp@lists.linux.it>; Fri, 22 Oct 2021 06:38:21 +0200 (CEST)
-Received: from smtpbg501.qq.com (smtpbg501.qq.com [203.205.250.101])
+ by picard.linux.it (Postfix) with ESMTPS id 441203C26D3
+ for <ltp@lists.linux.it>; Mon, 25 Oct 2021 04:28:02 +0200 (CEST)
+Received: from smtpbg506.qq.com (smtpbg506.qq.com [203.205.250.33])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 4D0FC601415
- for <ltp@lists.linux.it>; Fri, 22 Oct 2021 06:38:18 +0200 (CEST)
-X-QQ-mid: bizesmtp32t1634877494t671z951
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 186711000F72
+ for <ltp@lists.linux.it>; Mon, 25 Oct 2021 04:27:59 +0200 (CEST)
+X-QQ-mid: bizesmtp31t1635128872t676oeed
 Received: from localhost.localdomain (unknown [58.240.82.166])
  by esmtp6.qq.com (ESMTP) with 
- id ; Fri, 22 Oct 2021 12:38:08 +0800 (CST)
-X-QQ-SSF: 0140000000200010B000000A0000000
-X-QQ-FEAT: dpyQmELDBxHXnshwq1wCuH73LucjfuYtUSl8SiAWFFIlxy/eZD+aeMd10Av39
- IpWZTEzwuwGZ14TXtgRmczNtibtEJk+K7/2jX0iwqoRXrexeTJXGUhnI9ILVLjGlxfotPVg
- M0J32kTnRT25jEQj8PfUkBGZOKEQT8qtPoMx/p3rwBudCGB5LsxPepOKYKV5uZWChS/Cz3X
- dMayt56sVx94NAmnp5Li5MjHVaneh9tHiRXSHXDZwN/bOVUAnR8iT+DshZBWlMwcObXUJ4w
- HBMddk0V6rGplJuzjEYzBSTjtRxtF3NhV8dpHryHmncAu+8bFMofUZCBS9TKNYv2AK9P6mK
- J4CRxey13DksDpjKYcNQiSGVwxaqQ==
+ id ; Mon, 25 Oct 2021 10:27:47 +0800 (CST)
+X-QQ-SSF: 0140000000000010B000B00A0000000
+X-QQ-FEAT: nWwLie5Ka5k4Udw52s0Curu4zKfa9vgZRAyY1DmP0zYdA8k2f3ONEBEPO8eXF
+ CGw264ikgniPGfto268sz4hSrJgdInABuugKUup2MK9XQUKSy7wmtZM/tfJ/rCymIvwHljQ
+ st+KU+DNrh7DHboST2Yu70RAhYfjwwHHqzBvGXkbo8ymC1Kuc1y+aDPlagM9jm6S4pkGc1I
+ dq6kR07kJWs8EFB3PSbCv578qiN7L6pzQzqdean4Im0P6VDdmQIeZteu1+NAbM22BtXgy7c
+ MjbCx53bo5VeFrWm9TJfbQK7WzNgOChbvXUYjboHmYgLvmiufeZMsQwsxNV42wCYIx8thiv
+ lcO0KVzrU3vlGxJSAU=
 X-QQ-GoodBg: 2
 From: tangmeng <tangmeng@uniontech.com>
 To: ltp@lists.linux.it
-Date: Fri, 22 Oct 2021 12:38:06 +0800
-Message-Id: <20211022043806.19171-1-tangmeng@uniontech.com>
+Date: Mon, 25 Oct 2021 10:27:45 +0800
+Message-Id: <20211025022745.21469-1-tangmeng@uniontech.com>
 X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
 X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign1
+Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign7
 X-QQ-Bgrelay: 1
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
 X-Mailman-Approved-At: Mon, 25 Oct 2021 09:27:43 +0200
 Subject: [LTP] [PATCH] link/link02: Convert to new API
 X-BeenThere: ltp@lists.linux.it
