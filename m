@@ -1,73 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8702A43969C
-	for <lists+linux-ltp@lfdr.de>; Mon, 25 Oct 2021 14:47:00 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 26A224396A3
+	for <lists+linux-ltp@lfdr.de>; Mon, 25 Oct 2021 14:48:34 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E38DD3C65D2
-	for <lists+linux-ltp@lfdr.de>; Mon, 25 Oct 2021 14:46:59 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E32ED3C6529
+	for <lists+linux-ltp@lfdr.de>; Mon, 25 Oct 2021 14:48:33 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A100D3C647F
- for <ltp@lists.linux.it>; Mon, 25 Oct 2021 14:46:55 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 158B53C1AEB
+ for <ltp@lists.linux.it>; Mon, 25 Oct 2021 14:48:31 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id E83F614011B3
- for <ltp@lists.linux.it>; Mon, 25 Oct 2021 14:46:54 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 652E3200FEE
+ for <ltp@lists.linux.it>; Mon, 25 Oct 2021 14:48:31 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 0D7361FD3A;
- Mon, 25 Oct 2021 12:46:54 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id A7CB221956;
+ Mon, 25 Oct 2021 12:48:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1635166014; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1635166110; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=Ggkz2t7Ds9YTdVkljgCyHhqClGdWjz17TGQNCMm2+is=;
- b=JqA8CQoUKxX/f0i7hYTCX/lH6njlVy1d87eoMt1l9GEAoKVlHJHR8KDPmlE0ZW2bdlXzh5
- 6m5xXh/8YBySi+ivgl56quG4lULw27CqZxRp36zS7Lc7Mu5+fS0VZU5RYfRTEYFCpSxIOn
- jvcWiP8D9SIn9EkjKTn2JJ/u5M8gOJQ=
+ bh=jaDGGYEqHCOCGsYJwhT5q3Bgiu3jFzZj2pEiDDHUNCA=;
+ b=lSdrWdKNBRbGQ3UI+kwpRzbAhzvbkFuEWyzsgcynBQEZw/WhFDeehUUy24pCe4dqrI+FSy
+ fE24JE5/Fh/2nPjgxneEWPv2D//woZ1wPDMTr+y+phLEk1kykLWz/sJKtcsznBGXKG0XG2
+ Fjqtrreg6nZP3VXIPaKs7cGGuP3MO8s=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1635166014;
+ s=susede2_ed25519; t=1635166110;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=Ggkz2t7Ds9YTdVkljgCyHhqClGdWjz17TGQNCMm2+is=;
- b=uitN4qtOf5Xwq2TQkXpTH3KinPSF9sohWJAIcmF1G5SSPoeh0/RL0KoSSQflNQajQ1e1qL
- bgGbZBTpGxU+wnDQ==
+ bh=jaDGGYEqHCOCGsYJwhT5q3Bgiu3jFzZj2pEiDDHUNCA=;
+ b=Fys6wPgIpzIV6wvOmtueMOOc2yomOuAoWs6HNQhc+1kkSnE+ocK1i6nwi8R5pPn0ifInl3
+ leQsevQf9LGWjqDg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E30B213A86;
- Mon, 25 Oct 2021 12:46:53 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9143D13A86;
+ Mon, 25 Oct 2021 12:48:30 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id B7oVNj2ndmE+RQAAMHmgww
- (envelope-from <chrubis@suse.cz>); Mon, 25 Oct 2021 12:46:53 +0000
-Date: Mon, 25 Oct 2021 14:46:52 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id 67zJIZ6ndmFLRgAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Mon, 25 Oct 2021 12:48:30 +0000
+Date: Mon, 25 Oct 2021 14:48:29 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <YXanPBLxT9mzNjbj@rei>
+Message-ID: <YXanndP2pTMlpNsH@rei>
 References: <20211018154800.11013-1-chrubis@suse.cz>
- <20211018154800.11013-3-chrubis@suse.cz> <YXKhNNZ58S+PholE@pevik>
+ <20211018154800.11013-8-chrubis@suse.cz> <YXKgjCFoS3ykchcH@pevik>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <YXKhNNZ58S+PholE@pevik>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+In-Reply-To: <YXKgjCFoS3ykchcH@pevik>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 2/7] docparse: Add tests
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 7/7] docparse/Makefile: Do not abort on missing
+ generators
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,10 +87,27 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> Very nice, thanks! Maybe remame multiline_macro.c.out to multiline_macro.json
-> to get json syntax in editors? (multiline_macro.c.out.json would be ugly).
+> > Since we want to use the metadata.json in the testrunner it must bte
+> nit: typo s/bte/be
+> 
+> > build unconditionally.
+> According to docs:
+>   --with-metadata-generator=asciidoc|asciidoctor
+>   --disable-metadata      Disable metadata generation (both HTML and PDF,
+>                           default no)
+>   --disable-metadata-html Disable metadata HTML generation (default no)
+>   --enable-metadata-pdf   Enable metadata PDF generation (default no)
+> 
+> I'd like to have single option which does not create HTML and PDF (thus does not
+> require asciidoc|asciidoctor. I wonder if we could change build system to keep
+> --disable-metadata, build always docparse and json as we need, but with
+> ./configured --disable-metadata just not run HTML and PDF generation?
 
-What about foo.c.json then?
+I'm starting to think that the docparse.c should be moved to a
+metadata/paraser.c and that we should keep the documentation generators
+separate from the parser, that would allow us to keep all the configure
+switches while metadata.json would be build and installed
+unconditionally.
 
 -- 
 Cyril Hrubis
