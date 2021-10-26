@@ -2,74 +2,82 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C29543B51B
-	for <lists+linux-ltp@lfdr.de>; Tue, 26 Oct 2021 17:07:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 041EB43B545
+	for <lists+linux-ltp@lfdr.de>; Tue, 26 Oct 2021 17:15:50 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 85B803C68B3
-	for <lists+linux-ltp@lfdr.de>; Tue, 26 Oct 2021 17:07:17 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B31163C67F6
+	for <lists+linux-ltp@lfdr.de>; Tue, 26 Oct 2021 17:15:49 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id C93CB3C6634
- for <ltp@lists.linux.it>; Tue, 26 Oct 2021 17:07:11 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id CCF703C67D7
+ for <ltp@lists.linux.it>; Tue, 26 Oct 2021 17:15:47 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 3C6BE1400202
- for <ltp@lists.linux.it>; Tue, 26 Oct 2021 17:07:10 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 72A0C2195A;
- Tue, 26 Oct 2021 15:07:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1635260830; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 2589C601569
+ for <ltp@lists.linux.it>; Tue, 26 Oct 2021 17:15:46 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1635261345;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=JrlsUx3U/Oem/dPA8Ye2bG9x9r5BhvXcfflCR0lY1DE=;
- b=VAVy+ebpodNqShWOhC4BF8vcjH0Fz2Ag196yAXeNZNdj19ahG4N3zpGC69Sa2cZ05lNWiE
- oDDAqK37eo8ewQQd1HWukpV0ZAKNaMU8pZlMp/mLsj1gBb0flY0GiewYWe/4zKR8XX72Et
- jL/cWU8hLjf9tMfOD9rYDbn4eGw9jwU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1635260830;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=JrlsUx3U/Oem/dPA8Ye2bG9x9r5BhvXcfflCR0lY1DE=;
- b=B97vhuHmUvYYt9o6Kc/iXkeyRUjRITPSyT6ze/jDoeKN3dvLP8hR9By9DQ0GYkkyUSWGmy
- 3CXF8Vr/yKQIAEBw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5E29413FA7;
- Tue, 26 Oct 2021 15:07:10 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id iAHDFZ4ZeGGdKQAAMHmgww
- (envelope-from <chrubis@suse.cz>); Tue, 26 Oct 2021 15:07:10 +0000
-Date: Tue, 26 Oct 2021 17:08:00 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Jan Stancek <jstancek@redhat.com>
-Message-ID: <YXgZ0CK737PXTv5Y@yuki>
+ bh=rrcIx+1LzgzO+kzfujsKUFFO55BG2ORlzIih50fbvHg=;
+ b=MFYWyeMoOPBlo5W1MBS3Uruc/6Eqi4ebU/9+rPxUYLm58Thxl3PhtHDfTlbUjNlS1aDnXc
+ vjk54PYjF4GeW7lb0n2F/lx2FUsctYl5FAMdPyqizN2lf3/BIp4f6283dRgOFyV9Dwoj3R
+ Lmw/LMEFj61sWGgxb4TMvNXAdTNLF9c=
+Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com
+ [209.85.161.70]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-443-U2LoJY-4NmimFGkwsdQUMQ-1; Tue, 26 Oct 2021 11:15:44 -0400
+X-MC-Unique: U2LoJY-4NmimFGkwsdQUMQ-1
+Received: by mail-oo1-f70.google.com with SMTP id
+ f21-20020a4abb15000000b002b766ff48feso6000407oop.20
+ for <ltp@lists.linux.it>; Tue, 26 Oct 2021 08:15:44 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=rrcIx+1LzgzO+kzfujsKUFFO55BG2ORlzIih50fbvHg=;
+ b=sxPzc1jz/bcCgl9m+hJf0bEWDKIdAyX6hZwPUktCsYbHha1Q70zfhuUbxktAEG16Zf
+ N81PSuBECCieQi4i4m17T0x8qih+tXt/dkWDORpmjOg3u0nw6U2AabK8xy29zmTYiQVk
+ VKRcPNBmPxsOg8I7gLoYfyhHwKKoV2NcectXj4LO6n3KrTY8A9+eLAgs/fRsxngVR+99
+ GhKTS9o3Od6ySxtG6f60jCEr+IqBIiEsygWQZmuYKUFT+n1ZigiVVsIwRxkFhjz4nvmT
+ D6LUUKNEA9EGeCjZy7GlsgP9kP4XusgSja197syBxMdHMKcee0RZtWM+a1TPF5ITVjHw
+ r/5w==
+X-Gm-Message-State: AOAM530i/OU904FqTlWE6/OLhbpDAmso/7PLXyqPhx9Pc4K2cMEd8SyH
+ L5kXcgKxkoCyXZw/vDs/H/ioo1A8AzJzvdF8/mLFQJkkg3wUPJZL00gBJ2pX9AEAxv92bcvqDYz
+ +K+6Z6pydxpamM6Lh9rev41Svvac=
+X-Received: by 2002:a9d:53c4:: with SMTP id i4mr19418570oth.176.1635261343736; 
+ Tue, 26 Oct 2021 08:15:43 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJxQCow1tAacXwSz868Rm84SLrg1ejytXpaAkpEl+fQzb/Jm+IGiouMvmTeIqWqwVo1dHb47zTS7kX172fL93kY=
+X-Received: by 2002:a9d:53c4:: with SMTP id i4mr19418554oth.176.1635261343575; 
+ Tue, 26 Oct 2021 08:15:43 -0700 (PDT)
+MIME-Version: 1.0
 References: <04692b4000ee415add41128173e395f830ea3e56.1635168255.git.jstancek@redhat.com>
  <b987a73550937e5d5652e4a86e591d72334d8fda.1635244875.git.jstancek@redhat.com>
  <YXfeAnRORHareVtn@yuki>
  <CAASaF6wZEaQjUy8RU9TCp6GpWKN6FkQSWtOb2iLDNY_1KCmE8g@mail.gmail.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAASaF6wZEaQjUy8RU9TCp6GpWKN6FkQSWtOb2iLDNY_1KCmE8g@mail.gmail.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+ <YXgZ0CK737PXTv5Y@yuki>
+In-Reply-To: <YXgZ0CK737PXTv5Y@yuki>
+From: Jan Stancek <jstancek@redhat.com>
+Date: Tue, 26 Oct 2021 17:15:28 +0200
+Message-ID: <CAASaF6zO1KAkGmpWN7Gp6u-5NLmxZWvCa6qWtG08QkX=zTDq+A@mail.gmail.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=jstancek@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH v2] finit_module02: fix exp. errno for O_WRONLY
  testcase
 X-BeenThere: ltp@lists.linux.it
@@ -89,18 +97,27 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> > Also I'm starting to wonder if the errno from dir_setup() should be
-> > fixed in the kernel as well. I guess that EISDIR sounds much better
-> > error than EINVAL.
-> 
-> It does.
+On Tue, Oct 26, 2021 at 5:07 PM Cyril Hrubis <chrubis@suse.cz> wrote:
+>
+> Hi!
+> > > Also I'm starting to wonder if the errno from dir_setup() should be
+> > > fixed in the kernel as well. I guess that EISDIR sounds much better
+> > > error than EINVAL.
+> >
+> > It does.
+>
+> Will you send a kernel patch or should I do it?
 
-Will you send a kernel patch or should I do it?
+Since you found it, I'll leave it to you :-).
+On second thought, EBADF might be better, since it covers other fd
+types as well.
 
--- 
-Cyril Hrubis
-chrubis@suse.cz
+>
+> --
+> Cyril Hrubis
+> chrubis@suse.cz
+>
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
