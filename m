@@ -2,82 +2,82 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7ABA243C9B8
-	for <lists+linux-ltp@lfdr.de>; Wed, 27 Oct 2021 14:30:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD7D643C9B6
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 Oct 2021 14:30:01 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E110B3C6A0C
-	for <lists+linux-ltp@lfdr.de>; Wed, 27 Oct 2021 14:30:21 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 419CB3C697C
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 Oct 2021 14:30:01 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 62A123C67D8
+ by picard.linux.it (Postfix) with ESMTPS id 0BBA93C004E
  for <ltp@lists.linux.it>; Wed, 27 Oct 2021 14:29:56 +0200 (CEST)
-Received: from mail1.bemta25.messagelabs.com (mail1.bemta25.messagelabs.com
- [195.245.230.4])
+Received: from mail1.bemta26.messagelabs.com (mail1.bemta26.messagelabs.com
+ [85.158.142.3])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 6EAD31401753
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 6BD68603471
  for <ltp@lists.linux.it>; Wed, 27 Oct 2021 14:29:56 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fujitsu.com;
  s=170520fj; t=1635337795; i=@fujitsu.com;
- bh=0iSm2W7/4dwHhX3jBnWJIINwWokOyPyYHLNYq0hUdyA=;
+ bh=9EEgLG/RqpY0m44X206kM7t/FjD2zoRhrCoSyEFVDfA=;
  h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
  MIME-Version:Content-Type;
- b=woQi9MVOiWeeMHvPCK7/MC06l/JEUYi/xfmlLs3xaKfEvmE6C5ySedS/of5Ytqj0r
- N4laAv4GuvqiuehFzE+riVqMv5ONPbSwXaTaJ9opM5xPKphQ37XMpHRFMiVBx0g1Ja
- ekCSFk32EGYgRL5l1WB17m6o+GWDsyoFnXW2Teuf/F8j9xjyvGWklNxZxTxtje7t20
- 901YyCFmSQHkP0/D2RvykbgdW4A9C862cdWwdcEpdXpWoVmDsUZCUXsT9HOnXgAp6R
- EDAApiqDZqLlYtCpKCpJ7oFjh2/KY3bVX1CJgI80mDHpJFZJO3b4+RFR88JOHP/RwR
- w8onfNtb2OaEg==
-Received: from [100.112.195.149] (using TLSv1.2 with cipher
+ b=CliXUvJTDOK1jhOkETOUEO+sd/CV9PpeMzIUoG2dZYFRFAHksdrkTOX2qiF7l036+
+ tvNw9mws8Bj2kRmHMWZUlAbW+Sl7Jvzix2LawKf5uxgHUpSGav4oduh1QG7/hhKFiD
+ oEOzdqQ8kX/0e4UDJU0WJ68NHSsk4daB2Q1FsRUbLq0sq/WuV9P5V4ZaGJWWi+sQeK
+ ZGsgQWZNR4/gE5C0HBb6fPQVr8//+UVj6TT2W3Z5IEGUfsPXjUzyj56+7opcMlDR3h
+ lDYYGkhkirSB9Ou09li6QGrOscUzeVGxcJN9O402AWBWXXeYcKUUGpGGjoo2Y3Biji
+ V2kZt/Xc6is8A==
+Received: from [100.113.3.109] (using TLSv1.2 with cipher
  DHE-RSA-AES256-GCM-SHA384 (256 bits))
- by server-4.bemta.az-a.eu-west-1.aws.symcld.net id 27/5F-30013-34649716;
+ by server-3.bemta.az-a.eu-central-1.aws.symcld.net id E5/55-15394-34649716;
  Wed, 27 Oct 2021 12:29:55 +0000
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFrrIIsWRWlGSWpSXmKPExsViZ8MxSdfZrTL
- R4Fw7l8WK7zsYHRg99v1exxrAGMWamZeUX5HAmrH32CvGglNCFfOPbWRqYPzI38XIxSEkcJZR
- YuKSFvYuRk4gZyeTxKnXlhCJPYwSS9d+ZQRJsAloSjzrXMAMYosISEh0NLwFa2AWUJdYPukXE
- 4gtLOAtMatzOVg9i4CqxL0Dl4BqODh4BTwkXj/SAQlLCChITHn4HmwMp4CnRP+VU8wgJUJAJU
- 0vS0DCvAKCEidnPmGBmC4hcfDFC2aIVkWJSx3fGCHsColZs9qYIGw1iavnNjFPYBSchaR9FpL
- 2BYxMqxjNk4oy0zNKchMzc3QNDQx0DQ2NdA0tTXTNzPQSq3QT9VJLdctTi0t0DfUSy4v1iitz
- k3NS9PJSSzYxAkM3peCQ0w7G968/6B1ilORgUhLlDdCpTBTiS8pPqcxILM6ILyrNSS0+xCjDw
- aEkwZvpApQTLEpNT61Iy8wBxhFMWoKDR0mEN8cVKM1bXJCYW5yZDpE6xajLcfn6vEXMQix5+X
- mpUuK8yiBFAiBFGaV5cCNgMX2JUVZKmJeRgYFBiKcgtSg3swRV/hWjOAejkjBvFMgUnsy8Erh
- Nr4COYAI6glmpAuSIkkSElFQDk/ubcquUKce4J039l7Fw5vz0CSqvFbc3tvWkPs4zOSwjv9XX
- XqLkwKYneZ3lRfpe23lnNtx75KZesY6rvbLE8GfJO8Ul4t/m8mdr7L46dZ/4ovePfb/XuRjft
- k4/dz78hbhNUO/+2ZpRHfHi1vM/RmzUrvr2OXJiy+/NjO2H5C+k8ft3PklzCE7ctnGVovdHf7
- EuK/ul201a7yXJBLxh6lzxXllxHrtJxh6GyvPHJM4H/5Na86go0Nv2TxSLqfSXifJeewtuKct
- fnNY2pf2Q+zQpVr++g4wXL2z+XPfQrHTTvreTHeo4pj6J0Tl2W5DtufS7V+2Pn1j2fJozXcn8
- MdNjuQsq554wCzx4p6y2SYmlOCPRUIu5qDgRAMtzerxkAwAA
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFrrKIsWRWlGSWpSXmKPExsViZ8MxSdfZrTL
+ R4Mo3HosV33cwOjB67Pu9jjWAMYo1My8pvyKBNWPrjiaWgn/KFX9Wb2FpYLwp38XIxSEkcJZR
+ 4siMGcwQzk4midltV5ggnD2MEtvWHGftYuTkYBPQlHjWuYAZxBYRkJDoaHjLDmIzC6hLLJ/0i
+ wnEFhaIkNh67AJYPYuAqkTvvuVgNbwCHhKz9v5jAbElBBQkpjx8DzaHU8BTov/KKSCbA2iZh0
+ TTyxKIckGJkzOfsECMl5A4+OIFM0SrosSljm+MEHaFxKxZbUwQtprE1XObmCcwCs5C0j4LSfs
+ CRqZVjJZJRZnpGSW5iZk5uoYGBrqGhsa6BrpGpkZ6iVW6iXqppbrJqXklRYlAWb3E8mK94src
+ 5JwUvbzUkk2MwBBOKWT4s4Nx9ZsPeocYJTmYlER5A3QqE4X4kvJTKjMSizPii0pzUosPMcpwc
+ ChJ8Ga6AOUEi1LTUyvSMnOA8QSTluDgURLhzXEFSvMWFyTmFmemQ6ROMepyXL4+bxGzEEtefl
+ 6qlDivMkiRAEhRRmke3AhYbF9ilJUS5mVkYGAQ4ilILcrNLEGVf8UozsGoJMwbBTKFJzOvBG7
+ TK6AjmICOYFaqADmiJBEhJdXAZNW8c0aY04xNqVNkBaZPWmt45v6Ou0LPNI99fuT5ZLJbB+s0
+ 05zAi/GbyryCE6cJrWqfv1vlcon3C8UNmRun/Jh0NK9+PwdDwo2Z1XOXZT3WnxNpMvvln2f9C
+ 7bv/Pdk6hde/Rtb0lVXSqw59zMupTTyRFZGOLOC7R0ftsmftl5Q0spUZ5gW9mBV3/XthsvTXt
+ s/Mu+YHdg58/Jk66+cz7XS20sW5l54xMpQZFfx5NyyzWwLLi270VNbmBXbumv5dim36R9c5xz
+ ++/SQg4mZZ8p6pajDvCL3lm++weO0lrPT8Kg4f49vedexUwavDRzC0rJu/1Hx315+/1hCXt0p
+ rtuM074cVdST3c/yJEJxp4gSS3FGoqEWc1FxIgAJhl+2aAMAAA==
 X-Env-Sender: xuyang2018.jy@fujitsu.com
-X-Msg-Ref: server-10.tower-271.messagelabs.com!1635337794!2949461!1
+X-Msg-Ref: server-4.tower-232.messagelabs.com!1635337794!3306231!1
 X-Originating-IP: [62.60.8.146]
 X-SYMC-ESS-Client-Auth: outbound-route-from=pass
 X-StarScan-Received: 
 X-StarScan-Version: 9.81.4; banners=-,-,-
 X-VirusChecked: Checked
-Received: (qmail 12562 invoked from network); 27 Oct 2021 12:29:55 -0000
+Received: (qmail 7240 invoked from network); 27 Oct 2021 12:29:55 -0000
 Received: from unknown (HELO n03ukasimr02.n03.fujitsu.local) (62.60.8.146)
- by server-10.tower-271.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
+ by server-4.tower-232.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
  encrypted SMTP; 27 Oct 2021 12:29:55 -0000
 Received: from n03ukasimr02.n03.fujitsu.local (localhost [127.0.0.1])
- by n03ukasimr02.n03.fujitsu.local (Postfix) with ESMTP id 9D1F210046B
+ by n03ukasimr02.n03.fujitsu.local (Postfix) with ESMTP id 9FEEC10046D
  for <ltp@lists.linux.it>; Wed, 27 Oct 2021 13:29:54 +0100 (BST)
 Received: from R01UKEXCASM126.r01.fujitsu.local (unknown [10.183.43.178])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by n03ukasimr02.n03.fujitsu.local (Postfix) with ESMTPS id 8CF1B10044F
+ by n03ukasimr02.n03.fujitsu.local (Postfix) with ESMTPS id 907EC100459
  for <ltp@lists.linux.it>; Wed, 27 Oct 2021 13:29:54 +0100 (BST)
 Received: from localhost.localdomain (10.167.220.84) by
  R01UKEXCASM126.r01.fujitsu.local (10.183.43.178) with Microsoft SMTP Server
- (TLS) id 15.0.1497.24; Wed, 27 Oct 2021 13:29:37 +0100
+ (TLS) id 15.0.1497.24; Wed, 27 Oct 2021 13:29:40 +0100
 From: Yang Xu <xuyang2018.jy@fujitsu.com>
 To: <ltp@lists.linux.it>
-Date: Wed, 27 Oct 2021 20:29:29 +0800
-Message-ID: <1635337770-4889-3-git-send-email-xuyang2018.jy@fujitsu.com>
+Date: Wed, 27 Oct 2021 20:29:30 +0800
+Message-ID: <1635337770-4889-4-git-send-email-xuyang2018.jy@fujitsu.com>
 X-Mailer: git-send-email 1.8.3.1
 In-Reply-To: <1635337770-4889-1-git-send-email-xuyang2018.jy@fujitsu.com>
 References: <1635337770-4889-1-git-send-email-xuyang2018.jy@fujitsu.com>
@@ -85,14 +85,14 @@ MIME-Version: 1.0
 X-Originating-IP: [10.167.220.84]
 X-ClientProxiedBy: G08CNEXCHPEKD07.g08.fujitsu.local (10.167.33.80) To
  R01UKEXCASM126.r01.fujitsu.local (10.183.43.178)
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 12/13] syscalls/quotactl07: Add quotactl_fd test
- variant
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 13/13] syscalls/quotactl: Move common code into
+ quotactl_syscal_var.h
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,79 +109,136 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Also man-pages has error that Q_XQUOTARM was not introduced by kernel
-3.16. So use invalid type directly.
-
 Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
 ---
- .../kernel/syscalls/quotactl/quotactl07.c     | 24 +++++++++++--------
- 1 file changed, 14 insertions(+), 10 deletions(-)
+ testcases/kernel/syscalls/quotactl/quotactl02.h           | 5 +----
+ testcases/kernel/syscalls/quotactl/quotactl03.c           | 4 ----
+ testcases/kernel/syscalls/quotactl/quotactl04.c           | 4 +---
+ testcases/kernel/syscalls/quotactl/quotactl07.c           | 5 -----
+ testcases/kernel/syscalls/quotactl/quotactl08.c           | 5 +----
+ testcases/kernel/syscalls/quotactl/quotactl09.c           | 4 +---
+ testcases/kernel/syscalls/quotactl/quotactl_syscall_var.h | 4 ++++
+ 7 files changed, 8 insertions(+), 23 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/quotactl/quotactl07.c b/testcases/kernel/syscalls/quotactl/quotactl07.c
-index 2992a6112..d29a56ee4 100644
---- a/testcases/kernel/syscalls/quotactl/quotactl07.c
-+++ b/testcases/kernel/syscalls/quotactl/quotactl07.c
-@@ -16,21 +16,22 @@
- #include <stdio.h>
- #include <sys/quota.h>
- #include "tst_test.h"
--#include "lapi/quotactl.h"
-+#include "quotactl_syscall_var.h"
- 
+diff --git a/testcases/kernel/syscalls/quotactl/quotactl02.h b/testcases/kernel/syscalls/quotactl/quotactl02.h
+index faee5d282..145ce7039 100644
+--- a/testcases/kernel/syscalls/quotactl/quotactl02.h
++++ b/testcases/kernel/syscalls/quotactl/quotactl02.h
+@@ -17,15 +17,12 @@
  #ifdef HAVE_XFS_XQM_H
  # include <xfs/xqm.h>
  
- #define MNTPOINT    "mntpoint"
+-#define MNTPOINT "mntpoint"
+-#define TESTFILE MNTPOINT "/testfile"
+-
+ static struct fs_disk_quota set_dquota = {
+ 	.d_rtb_softlimit = 1000,
+ 	.d_fieldmask = FS_DQ_RTBSOFT
+ };
+ static uint32_t test_id;
+-static int x_getnextquota_nsup, fd = -1;
++static int x_getnextquota_nsup;
+ static int x_getstatv_nsup;
+ 
+ void check_support_cmd(int quotatype)
+diff --git a/testcases/kernel/syscalls/quotactl/quotactl03.c b/testcases/kernel/syscalls/quotactl/quotactl03.c
+index 0c4c50b42..d13bc694b 100644
+--- a/testcases/kernel/syscalls/quotactl/quotactl03.c
++++ b/testcases/kernel/syscalls/quotactl/quotactl03.c
+@@ -34,11 +34,7 @@
+ #ifdef HAVE_XFS_XQM_H
+ # include <xfs/xqm.h>
+ 
+-#define MNTPOINT	"mnt_point"
+-#define TESTFILE	MNTPOINT "/testfile"
+-
+ static uint32_t test_id = 0xfffffffc;
+-static int fd = -1;
+ 
+ static void verify_quota(void)
+ {
+diff --git a/testcases/kernel/syscalls/quotactl/quotactl04.c b/testcases/kernel/syscalls/quotactl/quotactl04.c
+index 4dc68c2ae..50ba445ca 100644
+--- a/testcases/kernel/syscalls/quotactl/quotactl04.c
++++ b/testcases/kernel/syscalls/quotactl/quotactl04.c
+@@ -32,11 +32,9 @@
+ #include "quotactl_syscall_var.h"
+ 
+ #define FMTID QFMT_VFS_V1
+-#define MNTPOINT	"mntpoint"
+-#define TESTFILE	MNTPOINT "/testfile"
+ 
+ static int32_t fmt_id = FMTID;
+-static int test_id, mount_flag, fd = -1;
++static int test_id, mount_flag;
+ static struct dqblk set_dq = {
+ 	.dqb_bsoftlimit = 100,
+ 	.dqb_valid = QIF_BLIMITS
+diff --git a/testcases/kernel/syscalls/quotactl/quotactl07.c b/testcases/kernel/syscalls/quotactl/quotactl07.c
+index d29a56ee4..6e8c3ecee 100644
+--- a/testcases/kernel/syscalls/quotactl/quotactl07.c
++++ b/testcases/kernel/syscalls/quotactl/quotactl07.c
+@@ -21,11 +21,6 @@
+ #ifdef HAVE_XFS_XQM_H
+ # include <xfs/xqm.h>
+ 
+-#define MNTPOINT    "mntpoint"
+-#define TESTFILE MNTPOINT "/testfile"
+-
+-static int fd = -1;
+-
+ /* Include a valid quota type to avoid other EINVAL error */
+ static unsigned int invalid_type = XFS_GROUP_QUOTA << 1 | XFS_USER_QUOTA;
+ 
+diff --git a/testcases/kernel/syscalls/quotactl/quotactl08.c b/testcases/kernel/syscalls/quotactl/quotactl08.c
+index 6912378f1..e37a474d2 100644
+--- a/testcases/kernel/syscalls/quotactl/quotactl08.c
++++ b/testcases/kernel/syscalls/quotactl/quotactl08.c
+@@ -40,11 +40,8 @@
+ #include "quotactl_syscall_var.h"
+ #include "tst_safe_stdio.h"
+ 
+-#define MNTPOINT	"mntpoint"
+-#define TESTFILE	MNTPOINT "/testfile"
+-
+ static int32_t fmt_id = QFMT_VFS_V1;
+-static int test_id, fd = -1;
++static int test_id;
+ static struct dqblk set_dq = {
+ 	.dqb_bsoftlimit = 100,
+ 	.dqb_valid = QIF_BLIMITS
+diff --git a/testcases/kernel/syscalls/quotactl/quotactl09.c b/testcases/kernel/syscalls/quotactl/quotactl09.c
+index 1a3a7005d..e7aad7b9b 100644
+--- a/testcases/kernel/syscalls/quotactl/quotactl09.c
++++ b/testcases/kernel/syscalls/quotactl/quotactl09.c
+@@ -27,11 +27,9 @@
+ #include "tst_safe_stdio.h"
+ 
+ #define OPTION_INVALID 999
+-#define MNTPOINT "mntpoint"
+-#define TESTFILE MNTPOINT "/testfile"
+ 
+ static int32_t fmt_id = QFMT_VFS_V1;
+-static int test_id, fd = -1;
++static int test_id;
+ static int getnextquota_nsup;
+ 
+ static struct if_nextdqblk res_ndq;
+diff --git a/testcases/kernel/syscalls/quotactl/quotactl_syscall_var.h b/testcases/kernel/syscalls/quotactl/quotactl_syscall_var.h
+index 92a7c45db..bf2b06ffe 100644
+--- a/testcases/kernel/syscalls/quotactl/quotactl_syscall_var.h
++++ b/testcases/kernel/syscalls/quotactl/quotactl_syscall_var.h
+@@ -10,6 +10,10 @@
+ #include "lapi/quotactl.h"
+ 
+ #define QUOTACTL_SYSCALL_VARIANTS 2
++#define MNTPOINT "mntpoint"
 +#define TESTFILE MNTPOINT "/testfile"
 +
 +static int fd = -1;
  
--static uint32_t qflag_acct = XFS_QUOTA_UDQ_ACCT;
--static unsigned int valid_type = XFS_USER_QUOTA;
- /* Include a valid quota type to avoid other EINVAL error */
- static unsigned int invalid_type = XFS_GROUP_QUOTA << 1 | XFS_USER_QUOTA;
- 
- static void verify_quota(void)
+ static int do_quotactl(int fd, int cmd, const char *special, int id, caddr_t addr)
  {
--	TEST(quotactl(QCMD(Q_XQUOTARM, USRQUOTA), tst_device->dev, 0, (void *)&invalid_type));
-+	TEST(do_quotactl(fd, QCMD(Q_XQUOTARM, USRQUOTA), tst_device->dev, 0, (void *)&invalid_type));
- 	if (TST_ERR == EINVAL)
- 		tst_res(TPASS, "Q_XQUOTARM has quota type check");
- 	else
-@@ -39,17 +40,19 @@ static void verify_quota(void)
- 
- static void setup(void)
- {
--	TEST(quotactl(QCMD(Q_XQUOTAOFF, USRQUOTA), tst_device->dev, 0, (void *)&qflag_acct));
--	if (TST_RET == -1)
--		tst_brk(TBROK | TTERRNO, "quotactl with Q_XQUOTAOFF failed");
-+	quotactl_info();
-+	fd = SAFE_OPEN(TESTFILE, O_RDWR | O_CREAT, 0666);
-+}
- 
--	TEST(quotactl(QCMD(Q_XQUOTARM, USRQUOTA), tst_device->dev, 0, (void *)&valid_type));
--	if (TST_ERR == EINVAL)
--		tst_brk(TCONF, "current system doesn't support Q_XQUOTARM, skip it");
-+static void cleanup(void)
-+{
-+	if (fd > -1)
-+		SAFE_CLOSE(fd);
- }
- 
- static struct tst_test test = {
- 	.setup = setup,
-+	.cleanup = cleanup,
- 	.needs_root = 1,
- 	.needs_kconfigs = (const char *[]) {
- 		"CONFIG_XFS_QUOTA",
-@@ -60,6 +63,7 @@ static struct tst_test test = {
- 	.dev_fs_type = "xfs",
- 	.mnt_data = "usrquota",
- 	.mntpoint = MNTPOINT,
-+	.test_variants = QUOTACTL_SYSCALL_VARIANTS,
- 	.tags = (const struct tst_tag[]) {
- 		{"linux-git", "3dd4d40b4208"},
- 		{}
 -- 
 2.23.0
 
