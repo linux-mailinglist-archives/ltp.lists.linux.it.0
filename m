@@ -1,82 +1,78 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC48743C998
-	for <lists+linux-ltp@lfdr.de>; Wed, 27 Oct 2021 14:26:35 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id EBF7B43C99F
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 Oct 2021 14:27:23 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7D2B43C697C
-	for <lists+linux-ltp@lfdr.de>; Wed, 27 Oct 2021 14:26:35 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id BA1223C6B5F
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 Oct 2021 14:27:23 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 067073C67D8
- for <ltp@lists.linux.it>; Wed, 27 Oct 2021 14:26:33 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id E5C9A3C6BE6
+ for <ltp@lists.linux.it>; Wed, 27 Oct 2021 14:26:44 +0200 (CEST)
 Received: from mail1.bemta26.messagelabs.com (mail1.bemta26.messagelabs.com
- [85.158.142.2])
+ [85.158.142.113])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 0D2DD60239E
- for <ltp@lists.linux.it>; Wed, 27 Oct 2021 14:26:32 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 776AC60083E
+ for <ltp@lists.linux.it>; Wed, 27 Oct 2021 14:26:43 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fujitsu.com;
- s=170520fj; t=1635337592; i=@fujitsu.com;
- bh=doO3sTDvEJTFSYMzgLN5YuTSObGOveutfq1Od4xmxWw=;
+ s=170520fj; t=1635337602; i=@fujitsu.com;
+ bh=+ugbAx3cIgORdBmzRf9qTdjAfpfT2UvToV9PIGVVgrQ=;
  h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
  MIME-Version:Content-Type;
- b=E9Ixi0m6lgVQiQB8EQPQtdtTwFbXmHtly5E9kcLcDt5yVlnm/nrjPnilyML04/aRW
- EbaJgnePnbqn+H/83NcLUqLXQGlEDPEBd3KSC4KPXeckuoiatewX+RO/QwKGAYbQwx
- ct+fhvmgTIi+brIZ6IbdUInQrt0H6jHCT9w81lyhtbhkW8qC/XvihnEnNgF5sjzBby
- p36nmYAOa1tqB3Do5ZCwRfPF92SG08cJ+eDtaaLCMhpdcW9Pu+b9LX30xFnZveKxtE
- frMW8t1K3Zjy7szUK3Ghn3uUxzYYpj7FXGQnxAqY7ecWWHK6qHulIr89aiiEamW1X2
- C3isdbl3UpaoA==
-Received: from [100.113.0.18] (using TLSv1.2 with cipher
+ b=OMuxgW3tkLfFxoO0oECeD+EOTuWyutgL1Mgb7V7zlKyQbCGLuEVwGGHU2zrk/mBOE
+ OaTsKuZVnMLAjc1JOWfh0KVSPpbmbGFpUHtBSvWqcn1acPzqfQtNA2R4Hg66TNBD2d
+ +U9audhMmd0N+9iH0FgTqQw1LsP+em4kTOo96pk7nZMubTfdQjoTUziSolYEfzWjMH
+ ebY6QPgsDV1c0aXxbLOjG4Pa1c0mGbu/YyInQiW+oa86brc4Q0ePOFfrXe4/LACJxV
+ 7AG2bhBsE392Mz2HoubTYkLJOhk/AaOczVsBH75uEas2ZaxP8jSrEhhHozTDGt+mnZ
+ 5xCm/jhSFz8Pg==
+Received: from [100.113.6.252] (using TLSv1.2 with cipher
  DHE-RSA-AES256-GCM-SHA384 (256 bits))
- by server-2.bemta.az-a.eu-central-1.aws.symcld.net id C7/91-32197-87549716;
- Wed, 27 Oct 2021 12:26:32 +0000
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFrrKIsWRWlGSWpSXmKPExsViZ8ORqFvuWpl
- o8POGpcWK7zsYHRg99v1exxrAGMWamZeUX5HAmrHr2CHWgpX2FZs3PmBsYPxh3MXIySEkcJZR
- 4ujhsC5GLiB7J5PEw62bGCGcPYwSLb+b2EGq2AQ0JZ51LmAGsUUEJCQ6Gt6CxZkF1CWWT/rFB
- GILCzhLHDn0nRXEZhFQlZj1cCKYzSvgIbFk2wSwXgkBBYkpD9+D2ZwCnhKTdi1ihbjCQ2LC9W
- fMEPWCEidnPmGBmC8hcfDFC6heRYlLHd8YIewKiVmz2pggbDWJq+c2MU9gFJyFpH0WkvYFjEy
- rGC2TijLTM0pyEzNzdA0NDHQNDY11jXUNLU30Eqt0E/VSS3WTU/NKihKBsnqJ5cV6xZW5yTkp
- enmpJZsYgSGcUsh8aAfjk9cf9A4xSnIwKYnyBuhUJgrxJeWnVGYkFmfEF5XmpBYfYpTh4FCS4
- D3jCJQTLEpNT61Iy8wBxhNMWoKDR0mE1xAkzVtckJhbnJkOkTrFqMtx+fq8RcxCLHn5ealS4r
- wcLkBFAiBFGaV5cCNgsX2JUVZKmJeRgYFBiKcgtSg3swRV/hWjOAejkjCvvTPQFJ7MvBK4Ta+
- AjmACOoJZqQLkiJJEhJRUA5Or31T/5pdB37X/v/zQVuvHlvg7ZfdFsQfbzO8VH7yb1xS4ru+7
- /Af2OQzdfhnnmZ5cKfzlsdbo3yW91GfamuLqaypyrW68uuYX3d7+5qxJmPKp/3MvJHvJKb1fN
- fV2eNaEmM7XKx+/KGypV2FXfPDkhhLj530b1sy67zTzTtX2Cc0f4y5/eeawS+XtPa6Z2jIS7k
- /bL+w5l6vX03vxuOdEn/4yg8jJyQWFovWqP57dcxRXubv5z1T1ve63n19vTRP+vOu3hpVXhva
- qD5KTy0+FTl1yak3aVfmYz45LE1iMJu9T2bl75q1Axbt3Pu5iT9n93WRZqMn/pFzuNQvFHRJm
- L7y8eK9L8ZwJoub/g2f6KrEUZyQaajEXFScCAGK22BZoAwAA
+ by server-2.bemta.az-b.eu-central-1.aws.symcld.net id B9/25-14220-28549716;
+ Wed, 27 Oct 2021 12:26:42 +0000
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFjrEIsWRWlGSWpSXmKPExsViZ8MxVbfJtTL
+ R4O9rQYsV33cwOjB67Pu9jjWAMYo1My8pvyKBNWP/fp6Cr/oV2x50sjYw3tXqYuTiEBJoYZKY
+ eGEiG4Szh1Gib+9api5GTg42AU2JZ50LmEFsEQEJiY6Gt+wgNrOAusTySb/AaoQFvCWeNv4Aq
+ 2ERUJXouLmSFcTmFfCQmPz9CAuILSGgIDHl4XuwGk4BT4lJuxaB1QgB1Uy4/owZol5Q4uTMJy
+ wQ8yUkDr54wQzRqyhxqeMbI4RdITFrVhvTBEb+WUhaZiFpWcDItIrRMqkoMz2jJDcxM0fX0MB
+ A19DQWNdU18jYQi+xSjdJL7VUNzk1r6QoESirl1herFdcmZuck6KXl1qyiREYkCmFrO92MD57
+ /UHvEKMkB5OSKG+ATmWiEF9SfkplRmJxRnxRaU5q8SFGGQ4OJQneM45AOcGi1PTUirTMHGB0w
+ KQlOHiURHgNQdK8xQWJucWZ6RCpU4zGHJevz1vEzPHu5+JFzEIsefl5qVLivBwuQKUCIKUZpX
+ lwg2BRe4lRVkqYl5GBgUGIpyC1KDezBFX+FaM4B6OSMK+9M9AUnsy8Erh9r4BOYQI6hVmpAuS
+ UkkSElFQDU/YT+7D4ij0db7V+Rgicvv7y1Wlej8wdDIlnN1W42160U3rfFeIRf1t6u7zmpqcP
+ 95kvSxPul2VfG78+7O1vwbyH2435lbcEsu76+m5Bu3lmwgmRSouzu5Pj/nE9Zn5QLXk04W/tp
+ iazxia9HUvl00yXrez42MH6fe1RloS/vs857n9OZ8gL3uO1/0zTUVU12+5m3s8uHEvWSMSrnF
+ A9YzDzZYS3TsgsyZaariuByz/MCC53va8u+W2dT7FbsOILrR6+7sNCWvOdgt/0StRsknKR+/i
+ gfVrJ11TtyyGvPszcqe+kynh4U6Wrwapzxi5Cmy0m5qh8XncoYd6STv37HXIX3xps+uoZdJpr
+ gl6+EktxRqKhFnNRcSIAHtMLhFUDAAA=
 X-Env-Sender: xuyang2018.jy@fujitsu.com
-X-Msg-Ref: server-4.tower-232.messagelabs.com!1635337591!3305824!1
-X-Originating-IP: [62.60.8.97]
+X-Msg-Ref: server-16.tower-248.messagelabs.com!1635337601!682091!1
+X-Originating-IP: [62.60.8.149]
 X-SYMC-ESS-Client-Auth: outbound-route-from=pass
 X-StarScan-Received: 
 X-StarScan-Version: 9.81.4; banners=-,-,-
 X-VirusChecked: Checked
-Received: (qmail 22770 invoked from network); 27 Oct 2021 12:26:31 -0000
-Received: from unknown (HELO n03ukasimr01.n03.fujitsu.local) (62.60.8.97)
- by server-4.tower-232.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
- encrypted SMTP; 27 Oct 2021 12:26:31 -0000
-Received: from n03ukasimr01.n03.fujitsu.local (localhost [127.0.0.1])
- by n03ukasimr01.n03.fujitsu.local (Postfix) with ESMTP id 730E510024B
- for <ltp@lists.linux.it>; Wed, 27 Oct 2021 13:26:31 +0100 (BST)
-Received: from R01UKEXCASM126.r01.fujitsu.local (unknown [10.183.43.178])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
- (No client certificate requested)
- by n03ukasimr01.n03.fujitsu.local (Postfix) with ESMTPS id 65F83100239
- for <ltp@lists.linux.it>; Wed, 27 Oct 2021 13:26:31 +0100 (BST)
+Received: (qmail 30703 invoked from network); 27 Oct 2021 12:26:42 -0000
+Received: from unknown (HELO mailhost2.uk.fujitsu.com) (62.60.8.149)
+ by server-16.tower-248.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
+ encrypted SMTP; 27 Oct 2021 12:26:42 -0000
+Received: from R01UKEXCASM126.r01.fujitsu.local ([10.183.43.178])
+ by mailhost2.uk.fujitsu.com (8.14.5/8.14.5) with ESMTP id 19RCQXUU027351
+ (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256 verify=FAIL)
+ for <ltp@lists.linux.it>; Wed, 27 Oct 2021 13:26:41 +0100
 Received: from localhost.localdomain (10.167.220.84) by
  R01UKEXCASM126.r01.fujitsu.local (10.183.43.178) with Microsoft SMTP Server
- (TLS) id 15.0.1497.24; Wed, 27 Oct 2021 13:26:29 +0100
+ (TLS) id 15.0.1497.24; Wed, 27 Oct 2021 13:26:31 +0100
 From: Yang Xu <xuyang2018.jy@fujitsu.com>
 To: <ltp@lists.linux.it>
-Date: Wed, 27 Oct 2021 20:26:00 +0800
-Message-ID: <1635337569-4634-4-git-send-email-xuyang2018.jy@fujitsu.com>
+Date: Wed, 27 Oct 2021 20:26:01 +0800
+Message-ID: <1635337569-4634-5-git-send-email-xuyang2018.jy@fujitsu.com>
 X-Mailer: git-send-email 1.8.3.1
 In-Reply-To: <1635337569-4634-1-git-send-email-xuyang2018.jy@fujitsu.com>
 References: <1635337569-4634-1-git-send-email-xuyang2018.jy@fujitsu.com>
@@ -84,13 +80,14 @@ MIME-Version: 1.0
 X-Originating-IP: [10.167.220.84]
 X-ClientProxiedBy: G08CNEXCHPEKD07.g08.fujitsu.local (10.167.33.80) To
  R01UKEXCASM126.r01.fujitsu.local (10.183.43.178)
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 04/13] syscalls/quotactl:Add docparse formatting
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 05/13] lapi/syscalls: Add syscall number for
+ quotactl_fd
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,226 +104,189 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Also remove useless header files and add linux git in test structure.
+Add syscall number for quotactl_fd, refer to glibc's submission[1].
+
+[1]https://sourceware.org/git/?p=glibc.git;a=commitdiff;h=89dc0372a9055e7ef86fe19be6201fa0b16b2f0e
 
 Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
+Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
 ---
- .../kernel/syscalls/quotactl/quotactl02.c     | 54 ++++++-------------
- .../kernel/syscalls/quotactl/quotactl02.h     |  3 +-
- .../kernel/syscalls/quotactl/quotactl03.c     | 17 +++---
- .../kernel/syscalls/quotactl/quotactl05.c     | 32 +++++------
- .../kernel/syscalls/quotactl/quotactl07.c     |  9 ++--
- 5 files changed, 49 insertions(+), 66 deletions(-)
+ include/lapi/syscalls/aarch64.in   | 1 +
+ include/lapi/syscalls/arc.in       | 1 +
+ include/lapi/syscalls/arm.in       | 1 +
+ include/lapi/syscalls/hppa.in      | 1 +
+ include/lapi/syscalls/i386.in      | 1 +
+ include/lapi/syscalls/ia64.in      | 1 +
+ include/lapi/syscalls/mips_n32.in  | 1 +
+ include/lapi/syscalls/mips_n64.in  | 1 +
+ include/lapi/syscalls/mips_o32.in  | 1 +
+ include/lapi/syscalls/powerpc.in   | 1 +
+ include/lapi/syscalls/powerpc64.in | 1 +
+ include/lapi/syscalls/s390.in      | 1 +
+ include/lapi/syscalls/s390x.in     | 1 +
+ include/lapi/syscalls/sh.in        | 1 +
+ include/lapi/syscalls/sparc.in     | 1 +
+ include/lapi/syscalls/sparc64.in   | 1 +
+ include/lapi/syscalls/x86_64.in    | 1 +
+ 17 files changed, 17 insertions(+)
 
-diff --git a/testcases/kernel/syscalls/quotactl/quotactl02.c b/testcases/kernel/syscalls/quotactl/quotactl02.c
-index ad81ee7e5..55a6a8906 100644
---- a/testcases/kernel/syscalls/quotactl/quotactl02.c
-+++ b/testcases/kernel/syscalls/quotactl/quotactl02.c
-@@ -1,50 +1,28 @@
- // SPDX-License-Identifier: GPL-2.0-or-later
- /*
-- * Copyright (c) 2013-2019 FUJITSU LIMITED. All rights reserved
-+ * Copyright (c) 2013-2021 FUJITSU LIMITED. All rights reserved
-  * Author: DAN LI <li.dan@cn.fujitsu.com>
-- * Author: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-+ * Author: Yang Xu <xuyang2018.jy@fujitsu.com>
-  */
- 
- /*\
-  * [Description]
-  *
-- * This testcase checks basic flags of quotactl(2) for an XFS file system:
-+ * This testcases checks that quotactl(2) on xfs filesystem succeeds to:
-  *
-- * 1. quotactl(2) succeeds to turn off xfs quota and get xfs quota off status
-- *    for user.
-- *
-- * 2. quotactl(2) succeeds to turn on xfs quota and get xfs quota on status
-- *    for user.
-- *
-- * 3. quotactl(2) succeeds to set and use Q_XGETQUOTA to get xfs disk quota
-- *    limits for user.
-- *
-- * 4. quotactl(2) succeeds to set and use Q_XGETNEXTQUOTA to get xfs disk
-- *    quota limits greater than or equal to ID for user.
-- *
-- * 5. quotactl(2) succeeds to turn off xfs quota and get xfs quota off statv
-- *    for user.
-- *
-- * 6. quotactl(2) succeeds to turn on xfs quota and get xfs quota on statv
-- *    for user.
-- *
-- * 7. quotactl(2) succeeds to turn off xfs quota and get xfs quota off status
-- *    for group.
-- *
-- * 8. quotactl(2) succeeds to turn on xfs quota and get xfs quota on status
-- *    for group.
-- *
-- * 9. quotactl(2) succeeds to set and use Q_XGETQUOTA to get xfs disk quota
-- *    limits for group.
-- *
-- * 10. quotactl(2) succeeds to set and use Q_XGETNEXTQUOTA to get xfs disk
-- *     quota limits for group.
-- *
-- * 11. quotactl(2) succeeds to turn off xfs quota and get xfs quota off statv
-- *     for group.
-- *
-- * 12. quotactl(2) succeeds to turn on xfs quota and get xfs quota on statv
-- *     for group.
-+ * - turn off xfs quota and get xfs quota off status for user
-+ * - turn on xfs quota and get xfs quota on status for user
-+ * - set and use Q_XGETQUOTA to get xfs disk quota limits for user
-+ * - set and use Q_XGETNEXTQUOTA to get xfs disk quota limits greater than or
-+ *   equal to ID for user
-+ * - turn off xfs quota and get xfs quota off statv for user
-+ * - turn on xfs quota and get xfs quota on statv for user
-+ * - turn off xfs quota and get xfs quota off status for group
-+ * - turn on xfs quota and get xfs quota on status for group
-+ * - set and use Q_XGETQUOTA to get xfs disk quota limits for group
-+ * - set and use Q_XGETNEXTQUOTA to get xfs disk quota limits for group
-+ * - turn off xfs quota and get xfs quota off statv for group
-+ * - turn on xfs quota and get xfs quota on statv for gorup
-  */
- 
- #include "quotactl02.h"
-diff --git a/testcases/kernel/syscalls/quotactl/quotactl02.h b/testcases/kernel/syscalls/quotactl/quotactl02.h
-index 37f3d7eb7..3351fb578 100644
---- a/testcases/kernel/syscalls/quotactl/quotactl02.h
-+++ b/testcases/kernel/syscalls/quotactl/quotactl02.h
-@@ -1,14 +1,13 @@
- // SPDX-License-Identifier: GPL-2.0-or-later
- /*
-  * Copyright (c) 2019 FUJITSU LIMITED. All rights reserved.
-- * Author: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-+ * Author: Yang Xu <xuyang2018.jy@fujitsu.com>
-  */
- 
- #ifndef QUOTACTL02_H
- #define QUOTACTL02_H
- 
- #define _GNU_SOURCE
--#include "config.h"
- #include <errno.h>
- #include <unistd.h>
- #include <stdio.h>
-diff --git a/testcases/kernel/syscalls/quotactl/quotactl03.c b/testcases/kernel/syscalls/quotactl/quotactl03.c
-index 3ec931727..e0e4bf5b2 100644
---- a/testcases/kernel/syscalls/quotactl/quotactl03.c
-+++ b/testcases/kernel/syscalls/quotactl/quotactl03.c
-@@ -4,10 +4,9 @@
-  * Author: Xiao Yang <yangx.jy@cn.fujitsu.com>
-  */
- 
--/*
-- * Test Name: quotactl03
-+/*\
-+ * [Description]
-  *
-- * Description:
-  * quotactl(2) with XGETNEXTQUOTA looks for the next active quota for an user
-  * equal or higher to a given ID, in this test the ID is specified to a value
-  * close to UINT_MAX(max value of unsigned int). When reaching the upper limit
-@@ -16,11 +15,11 @@
-  *
-  * This kernel bug of xfs has been fixed in:
-  *
-- * commit 657bdfb7f5e68ca5e2ed009ab473c429b0d6af85
-- * Author: Eric Sandeen <sandeen@redhat.com>
-- * Date:   Tue Jan 17 11:43:38 2017 -0800
-+ *  commit 657bdfb7f5e68ca5e2ed009ab473c429b0d6af85
-+ *  Author: Eric Sandeen <sandeen@redhat.com>
-+ *  Date:   Tue Jan 17 11:43:38 2017 -0800
-  *
-- *     xfs: don't wrap ID in xfs_dq_get_next_id
-+ *  xfs: don't wrap ID in xfs_dq_get_next_id
-  */
- 
- #define _GNU_SOURCE
-@@ -75,6 +74,10 @@ static struct tst_test test = {
- 	.dev_fs_type = "xfs",
- 	.mntpoint = mntpoint,
- 	.mnt_data = "usrquota",
-+	.tags = (const struct tst_tag[]) {
-+		{"linux-git", "657bdfb7f5e6"},
-+		{}
-+	}
- };
- 
- #else
-diff --git a/testcases/kernel/syscalls/quotactl/quotactl05.c b/testcases/kernel/syscalls/quotactl/quotactl05.c
-index e811e47a4..15a6c1e67 100644
---- a/testcases/kernel/syscalls/quotactl/quotactl05.c
-+++ b/testcases/kernel/syscalls/quotactl/quotactl05.c
-@@ -1,23 +1,23 @@
- // SPDX-License-Identifier: GPL-2.0-or-later
- /*
-- * Copyright (c) 2019 FUJITSU LIMITED. All rights reserved.
-- * Author: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-+ * Copyright (c) 2019-2021 FUJITSU LIMITED. All rights reserved.
-+ * Author: Yang Xu <xuyang2018.jy@.fujitsu.com>
-+ */
-+
-+/*\
-+ * [Description]
-  *
-- * This testcase checks basic flags of quotactl(2) for project on an XFS file
-- * system:
-- * 1) quotactl(2) succeeds to turn off xfs quota and get xfs quota off status
-- *    for project.
-- * 2) quotactl(2) succeeds to turn on xfs quota and get xfs quota on status
-- *    for project.
-- * 3) quotactl(2) succeeds to set and use Q_XGETQUOTA to get xfs disk quota
-- *    limits for project.
-- * 4) quotactl(2) succeeds to set and use Q_XGETNEXTQUOTA to get xfs disk
-- *    quota limits Cgreater than or equal to ID for project.
-- * 5) quotactl(2) succeeds to turn off xfs quota and get xfs quota off statv
-- *    for project.
-- * 6) quotactl(2) succeeds to turn on xfs quota and get xfs quota on statv
-- *    for project.
-+ * This testcases checks that quotactl(2) on xfs filesystem succeeds to:
-+ *
-+ * - turn off xfs quota and get xfs quota off status for project
-+ * - turn on xfs quota and get xfs quota on status for project
-+ * - set and use Q_XGETQUOTA to get xfs disk quota limits for project
-+ * - set and use Q_XGETNEXTQUOTA to get xfs disk quota limits greater than or
-+ *   equal to ID for project
-+ * - turn off xfs quota and get xfs quota off statv for project
-+ * - turn on xfs quota and get xfs quota on statvfor project
-  */
-+
- #include "quotactl02.h"
- #if defined(HAVE_XFS_XQM_H)
- 
-diff --git a/testcases/kernel/syscalls/quotactl/quotactl07.c b/testcases/kernel/syscalls/quotactl/quotactl07.c
-index db477589b..2992a6112 100644
---- a/testcases/kernel/syscalls/quotactl/quotactl07.c
-+++ b/testcases/kernel/syscalls/quotactl/quotactl07.c
-@@ -1,19 +1,22 @@
- // SPDX-License-Identifier: GPL-2.0-or-later
- /*
-  * Copyright (c) 2019 FUJITSU LIMITED. All rights reserved.
-- * Author: Yang Xu <xuyang2018.jy@cn.fujitsu.com>
-+ * Author: Yang Xu <xuyang2018.jy@fujitsu.com>
-+ */
-+
-+/*\
-+ * [Description]
-  *
-  * This is a regresstion test for kernel commit 3dd4d40b4208
-  * ("xfs: Sanity check flags of Q_XQUOTARM call").
-  */
- 
--#include "config.h"
- #include <errno.h>
- #include <unistd.h>
- #include <stdio.h>
- #include <sys/quota.h>
--#include "lapi/quotactl.h"
- #include "tst_test.h"
-+#include "lapi/quotactl.h"
- 
- #ifdef HAVE_XFS_XQM_H
- # include <xfs/xqm.h>
+diff --git a/include/lapi/syscalls/aarch64.in b/include/lapi/syscalls/aarch64.in
+index a47185954..89b63ee4b 100644
+--- a/include/lapi/syscalls/aarch64.in
++++ b/include/lapi/syscalls/aarch64.in
+@@ -294,4 +294,5 @@ close_range 436
+ openat2 437
+ pidfd_getfd 438
+ epoll_pwait2 441
++quotactl_fd 443
+ _sysctl 1078
+diff --git a/include/lapi/syscalls/arc.in b/include/lapi/syscalls/arc.in
+index 9c1654b0b..72420754a 100644
+--- a/include/lapi/syscalls/arc.in
++++ b/include/lapi/syscalls/arc.in
+@@ -314,3 +314,4 @@ close_range 436
+ openat2 437
+ pidfd_getfd 438
+ epoll_pwait2 441
++quotactl_fd 443
+diff --git a/include/lapi/syscalls/arm.in b/include/lapi/syscalls/arm.in
+index ded2f5e03..2a78d7c3c 100644
+--- a/include/lapi/syscalls/arm.in
++++ b/include/lapi/syscalls/arm.in
+@@ -392,3 +392,4 @@ close_range (__NR_SYSCALL_BASE+436)
+ openat2 (__NR_SYSCALL_BASE+437)
+ pidfd_getfd (__NR_SYSCALL_BASE+438)
+ epoll_pwait2 (__NR_SYSCALL_BASE+441)
++quotactl_fd (__NR_SYSCALL_BASE+443)
+diff --git a/include/lapi/syscalls/hppa.in b/include/lapi/syscalls/hppa.in
+index d8f142b6a..2f0fc8153 100644
+--- a/include/lapi/syscalls/hppa.in
++++ b/include/lapi/syscalls/hppa.in
+@@ -41,3 +41,4 @@ fspick 433
+ pidfd_open 434
+ close_range 436
+ epoll_pwait2 441
++quotactl_fd 443
+diff --git a/include/lapi/syscalls/i386.in b/include/lapi/syscalls/i386.in
+index f69268e10..34a8a621f 100644
+--- a/include/lapi/syscalls/i386.in
++++ b/include/lapi/syscalls/i386.in
+@@ -428,3 +428,4 @@ close_range 436
+ openat2 437
+ pidfd_getfd 438
+ epoll_pwait2 441
++quotactl_fd 443
+diff --git a/include/lapi/syscalls/ia64.in b/include/lapi/syscalls/ia64.in
+index 3ba2406c4..b729cd3f0 100644
+--- a/include/lapi/syscalls/ia64.in
++++ b/include/lapi/syscalls/ia64.in
+@@ -341,3 +341,4 @@ close_range 1460
+ openat2 1461
+ pidfd_getfd 1462
+ epoll_pwait2 1465
++quotactl_fd 1467
+diff --git a/include/lapi/syscalls/mips_n32.in b/include/lapi/syscalls/mips_n32.in
+index dad8107f4..46098a616 100644
+--- a/include/lapi/syscalls/mips_n32.in
++++ b/include/lapi/syscalls/mips_n32.in
+@@ -369,3 +369,4 @@ faccessat2 6439
+ process_madvise 6440
+ epoll_pwait2 6441
+ mount_setattr 6442
++quotactl_fd 6443
+diff --git a/include/lapi/syscalls/mips_n64.in b/include/lapi/syscalls/mips_n64.in
+index a6c0c8cdd..07f96ac5d 100644
+--- a/include/lapi/syscalls/mips_n64.in
++++ b/include/lapi/syscalls/mips_n64.in
+@@ -345,3 +345,4 @@ faccessat2 5439
+ process_madvise 5440
+ epoll_pwait2 5441
+ mount_setattr 5442
++quotactl_fd 5443
+diff --git a/include/lapi/syscalls/mips_o32.in b/include/lapi/syscalls/mips_o32.in
+index 238f77009..5e64a4a1c 100644
+--- a/include/lapi/syscalls/mips_o32.in
++++ b/include/lapi/syscalls/mips_o32.in
+@@ -415,3 +415,4 @@ faccessat2 4439
+ process_madvise 4440
+ epoll_pwait2 4441
+ mount_setattr 4442
++quotactl_fd 4443
+diff --git a/include/lapi/syscalls/powerpc.in b/include/lapi/syscalls/powerpc.in
+index a4ed2169c..f4e85940c 100644
+--- a/include/lapi/syscalls/powerpc.in
++++ b/include/lapi/syscalls/powerpc.in
+@@ -421,3 +421,4 @@ close_range 436
+ openat2 437
+ pidfd_getfd 438
+ epoll_pwait2 441
++quotactl_fd 443
+diff --git a/include/lapi/syscalls/powerpc64.in b/include/lapi/syscalls/powerpc64.in
+index a4ed2169c..f4e85940c 100644
+--- a/include/lapi/syscalls/powerpc64.in
++++ b/include/lapi/syscalls/powerpc64.in
+@@ -421,3 +421,4 @@ close_range 436
+ openat2 437
+ pidfd_getfd 438
+ epoll_pwait2 441
++quotactl_fd 443
+diff --git a/include/lapi/syscalls/s390.in b/include/lapi/syscalls/s390.in
+index d99e5fd9e..3e16d8475 100644
+--- a/include/lapi/syscalls/s390.in
++++ b/include/lapi/syscalls/s390.in
+@@ -408,3 +408,4 @@ close_range 436
+ openat2 437
+ pidfd_getfd 438
+ epoll_pwait2 441
++quotactl_fd 443
+diff --git a/include/lapi/syscalls/s390x.in b/include/lapi/syscalls/s390x.in
+index f26cdaaae..beb0819af 100644
+--- a/include/lapi/syscalls/s390x.in
++++ b/include/lapi/syscalls/s390x.in
+@@ -356,3 +356,4 @@ close_range 436
+ openat2 437
+ pidfd_getfd 438
+ epoll_pwait2 441
++quotactl_fd 443
+diff --git a/include/lapi/syscalls/sh.in b/include/lapi/syscalls/sh.in
+index 20ee61ccc..a81cf8297 100644
+--- a/include/lapi/syscalls/sh.in
++++ b/include/lapi/syscalls/sh.in
+@@ -402,3 +402,4 @@ close_range 436
+ openat2 437
+ pidfd_getfd 438
+ epoll_pwait2 441
++quotactl_fd 443
+diff --git a/include/lapi/syscalls/sparc.in b/include/lapi/syscalls/sparc.in
+index 86decdd82..6a7817ae5 100644
+--- a/include/lapi/syscalls/sparc.in
++++ b/include/lapi/syscalls/sparc.in
+@@ -407,3 +407,4 @@ close_range 436
+ openat2 437
+ pidfd_getfd 438
+ epoll_pwait2 441
++quotactl_fd 443
+diff --git a/include/lapi/syscalls/sparc64.in b/include/lapi/syscalls/sparc64.in
+index 02dfe473a..d3995181c 100644
+--- a/include/lapi/syscalls/sparc64.in
++++ b/include/lapi/syscalls/sparc64.in
+@@ -372,3 +372,4 @@ close_range 436
+ openat2 437
+ pidfd_getfd 438
+ epoll_pwait2 441
++quotactl_fd 443
+diff --git a/include/lapi/syscalls/x86_64.in b/include/lapi/syscalls/x86_64.in
+index cf6d78bf6..a5b2a24fe 100644
+--- a/include/lapi/syscalls/x86_64.in
++++ b/include/lapi/syscalls/x86_64.in
+@@ -349,6 +349,7 @@ close_range 436
+ openat2 437
+ pidfd_getfd 438
+ epoll_pwait2 441
++quotactl_fd 443
+ rt_sigaction 512
+ rt_sigreturn 513
+ ioctl 514
 -- 
 2.23.0
 
