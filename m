@@ -1,69 +1,55 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 545E943C657
-	for <lists+linux-ltp@lfdr.de>; Wed, 27 Oct 2021 11:20:34 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id B30A143C692
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 Oct 2021 11:36:55 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 131FF3C68B1
-	for <lists+linux-ltp@lfdr.de>; Wed, 27 Oct 2021 11:20:34 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 46BA23C69F5
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 Oct 2021 11:36:55 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 5C68C3C67EA
- for <ltp@lists.linux.it>; Wed, 27 Oct 2021 11:20:32 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id B3F513C0CEE
+ for <ltp@lists.linux.it>; Wed, 27 Oct 2021 11:36:50 +0200 (CEST)
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id C7C681001727
- for <ltp@lists.linux.it>; Wed, 27 Oct 2021 11:20:31 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id F3B8E1FD3B;
- Wed, 27 Oct 2021 09:20:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1635326431; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=v6V3iBcg7hf9Jn2HoWrNp4zQ4z99mAI+1V7AUXvMbX0=;
- b=lfDOsZwPk7ENRrgJRLEFIaj0r1M83CZrLdY1gGFRF0lDJrfeDqOEOCkqicDwmgBpsqWw5I
- Jm4rWcqoJLhqencHc4oKhDB825dfMPIHNNsxAtCZpfggPLeR6kfVisFDwBsohjLFqHbX4c
- 6UHkBYcfrqTbKZC222/UvRZCgonmCm8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1635326431;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=v6V3iBcg7hf9Jn2HoWrNp4zQ4z99mAI+1V7AUXvMbX0=;
- b=+EXCt/Py9iQ2nshLSqBj3hu1+9QcAP2Mz2fp2+jZ4ldFXRVenUGX/9+arYLqvWhRkvFnbz
- skubjn5vuzu3VqAg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C570413B69;
- Wed, 27 Oct 2021 09:20:30 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id DDwcLt4ZeWGIJwAAMHmgww
- (envelope-from <pvorel@suse.cz>); Wed, 27 Oct 2021 09:20:30 +0000
-From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Wed, 27 Oct 2021 11:20:27 +0200
-Message-Id: <20211027092027.7124-1-pvorel@suse.cz>
-X-Mailer: git-send-email 2.33.1
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id C0DE56022B6
+ for <ltp@lists.linux.it>; Wed, 27 Oct 2021 11:36:47 +0200 (CEST)
+Received: from dggeml763-chm.china.huawei.com (unknown [172.30.72.55])
+ by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4HfNkW5D1lzbl2s;
+ Wed, 27 Oct 2021 17:32:03 +0800 (CST)
+Received: from dggeml753-chm.china.huawei.com (10.1.199.152) by
+ dggeml763-chm.china.huawei.com (10.1.199.173) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
+ 15.1.2308.15; Wed, 27 Oct 2021 17:36:42 +0800
+Received: from dggeml753-chm.china.huawei.com ([10.1.199.152]) by
+ dggeml753-chm.china.huawei.com ([10.1.199.152]) with mapi id 15.01.2308.015;
+ Wed, 27 Oct 2021 17:36:42 +0800
+From: zhaogongyi <zhaogongyi@huawei.com>
+To: Jan Stancek <jstancek@redhat.com>
+Thread-Topic: [LTP] [PATCH] lapi/syscalls: Add epoll_create for aarch64.in
+Thread-Index: AdfLFhvwM5VVybBTTHCDLv/mQLWULw==
+Date: Wed, 27 Oct 2021 09:36:42 +0000
+Message-ID: <478982ce993a4eeb9ab3d00c8967a377@huawei.com>
+Accept-Language: en-US
+Content-Language: zh-CN
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.67.110.209]
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-CFilter-Loop: Reflected
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH 1/1] CI: Reenable Tumbleweed
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] lapi/syscalls: Add epoll_create for aarch64.in
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,56 +61,96 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-50b3bae29 had to disable Tumbleweed due glibc-2.34 using new syscall
-clone3 which is not enabled in Docker seccomp filter [1].
+Hi,
 
-Workaround is to disable Docker seccomp filtering, as we don't need this
-protection. This should help to avoid seccomp filtering in the future
-for all distros.
 
-[1] https://bugzilla.opensuse.org/show_bug.cgi?id=1190670
 
-Fixes: https://github.com/actions/virtual-environments/issues/4193
+> 
+> On Wed, Oct 27, 2021 at 5:28 AM zhaogongyi <zhaogongyi@huawei.com>
+> wrote:
+> >
+> > Hi,
+> >
+> > >
+> > > On Tue, Oct 26, 2021 at 9:49 AM Zhao Gongyi
+> <zhaogongyi@huawei.com>
+> > > wrote:
+> > > >
+> > > > Add epoll_create for aarch64.in and modify the value of epoll_ctl
+> > > > for aarch64.in. Otherwise, the testcase
+> > > > epoll_create01/epoll_create02 will fail.
+> > > >
+> > > > Signed-off-by: Zhao Gongyi <zhaogongyi@huawei.com>
+> > > > ---
+> > > >  include/lapi/syscalls/aarch64.in | 3 ++-
+> > > >  1 file changed, 2 insertions(+), 1 deletion(-)
+> > > >
+> > > > diff --git a/include/lapi/syscalls/aarch64.in
+> > > > b/include/lapi/syscalls/aarch64.in
+> > > > index a47185954..e9023a1d0 100644
+> > > > --- a/include/lapi/syscalls/aarch64.in
+> > > > +++ b/include/lapi/syscalls/aarch64.in
+> > > > @@ -19,7 +19,6 @@ getcwd 17
+> > > >  lookup_dcookie 18
+> > > >  eventfd2 19
+> > > >  epoll_create1 20
+> > > > -epoll_ctl 21
+> > > >  epoll_pwait 22
+> > > >  dup 23
+> > > >  dup3 24
+> > > > @@ -243,6 +242,8 @@ rt_tgsigqueueinfo 240  perf_event_open
+> 241
+> > > >  accept4 242
+> > > >  recvmmsg 243
+> > > > +epoll_create 250
+> > > > +epoll_ctl 251
+> > >
+> > > These values are for 32 bit only syscalls. Won't this break 64 bit?
+> >
+> > Yes, these values are for 32 bit only syscalls, the syscall epoll_create is
+> not support for 64bit arm64.
+> 
+> Right, adding epoll_create is OK, but changing epoll_ctl would break 64bit
+> if there were any users of __NR_epoll_ctl.
 
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
-Tested:
-https://github.com/pevik/iputils/runs/4020083152?check_suite_focus=true
+If we do not consider the running of 32bit program on arm64, we need to remove __NR_epoll_ctl.
 
- .github/workflows/ci.yml | 6 ++++++
- 1 file changed, 6 insertions(+)
+And the testcase using __NR_epoll_ctl will fail, is it a problem to be resolved?
 
-diff --git a/.github/workflows/ci.yml b/.github/workflows/ci.yml
-index 3ffde8c48..55d8f5eb5 100644
---- a/.github/workflows/ci.yml
-+++ b/.github/workflows/ci.yml
-@@ -76,6 +76,11 @@ jobs:
-               CC: clang
-               METADATA: asciidoc-pdf
- 
-+          - container: "opensuse/tumbleweed"
-+            env:
-+              CC: gcc
-+              METADATA: asciidoctor
-+
-           - container: "opensuse/leap"
-             env:
-               CC: gcc
-@@ -110,6 +115,7 @@ jobs:
-     container:
-       image: ${{ matrix.container }}
-       env: ${{ matrix.env }}
-+      options: --security-opt seccomp=unconfined
- 
-     steps:
-     - name: Show OS
--- 
-2.33.1
+> 
+> >
+> > Reference to man 2 epoll_create, we can see that
+> epoll_create/epoll_create1 are supported If only we include the header
+> file sys/epoll.h.
+> >
+> > Is it better that we call epoll_create replace to syscall
+> __NR_epoll_create since some plateform not support it?
+> 
+> I think so. We already use epoll_create() in other tests, so this looks like
+> simplest solution for all arches.
+> 
+> >
+> >
+> > Thanks for you review!
+> >
+> > >
+> > > >  wait4 260
+> > > >  prlimit64 261
+> > > >  fanotify_init 262
+> > > > --
+> > > > 2.17.1
+> > > >
+> > > >
+> > > > --
+> > > > Mailing list info: https://lists.linux.it/listinfo/ltp
+> > > >
+> >
 
 
 -- 
