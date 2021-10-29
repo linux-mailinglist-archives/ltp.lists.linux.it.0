@@ -1,42 +1,41 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC34743F88B
-	for <lists+linux-ltp@lfdr.de>; Fri, 29 Oct 2021 10:06:10 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id D7C1843F88C
+	for <lists+linux-ltp@lfdr.de>; Fri, 29 Oct 2021 10:06:25 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A26433C6F16
-	for <lists+linux-ltp@lfdr.de>; Fri, 29 Oct 2021 10:06:10 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 76E5A3C6423
+	for <lists+linux-ltp@lfdr.de>; Fri, 29 Oct 2021 10:06:25 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 2E4433C6F26
- for <ltp@lists.linux.it>; Fri, 29 Oct 2021 10:05:55 +0200 (CEST)
-Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
+ by picard.linux.it (Postfix) with ESMTPS id 3EFBE3C6F1D
+ for <ltp@lists.linux.it>; Fri, 29 Oct 2021 10:05:58 +0200 (CEST)
+Received: from smtpproxy21.qq.com (smtpbg704.qq.com [203.205.195.105])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 486BB140B9A5
- for <ltp@lists.linux.it>; Fri, 29 Oct 2021 10:05:53 +0200 (CEST)
-X-QQ-mid: bizesmtp31t1635494748tqfm0o37
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id C032C1000672
+ for <ltp@lists.linux.it>; Fri, 29 Oct 2021 10:05:56 +0200 (CEST)
+X-QQ-mid: bizesmtp31t1635494751tkgff3km
 Received: from localhost.localdomain (unknown [58.240.82.166])
  by esmtp6.qq.com (ESMTP) with 
- id ; Fri, 29 Oct 2021 16:05:46 +0800 (CST)
+ id ; Fri, 29 Oct 2021 16:05:49 +0800 (CST)
 X-QQ-SSF: 0140000000200020C000000A0000000
-X-QQ-FEAT: jfdGVjI73+Qj1ntqPp5GmG91TzzAmnxGwjsDOjah6CUQ8Fxa99u5erd6ZcFnO
- hW9cTRdOylz7jz78/HRWUD/lSmUUd5kdhCE5y7awTsPc+tvqX2EwkqJlVqCU76FH9eoqG0Z
- aA7c/YegAISjcN8zGTDhdP8vyCbRKheXcx7DAs88LSCFvMbhaMvlbck2n5h2Rnj3vfctuyx
- Qj7m1gma9Xy8McZeP6IX9kDhkLhXNgE//SDteFzgPBBCIC2VAY4BNp2VcbZL+UWlkwFOc1/
- FTRm5Yh15e+MBpbY2YhQy2T9YZp+Q92ri4FE3wNjL8GZgrhhcEVoVRTIbLG0WC7Y3/uJ55C
- oX58iaWgv5m1wqxz2jJqBue6UBc4hikkhDulcR5
+X-QQ-FEAT: ec8fk5hwdl7Gn6IAoV6fTr9LkRL3E4Hc+aP/bnjVsujh8xNXyAx6FFP3A/2nO
+ ru5N86tp+jaIQJ50RBAvHLb5enjjD7UB1VT0KV8gmTwWvAOq+1hykUB4RZVOjOz4lNZ4asy
+ JcxlA0v7b4DnauovPqvi3uBwkGxU1rpF/GGC6BJdn6d80rO+N41+c1FnQ+rKC4fCF33Wn/n
+ Ip45K1KFVokDIRPN1dM7gmujltEQo39psfKsxOxg+B3HU4OP5faw7R+brlekQueU7ew6+Wm
+ wa2WImIdFE9Qk8n55khvYrdcWdS8B8CO3o1RcURzeGyk+6xFK/1n+2C8rA9QbP2HQl4u2+/
+ ZwrPJdO/XQwUqKjOhw8KNsXIAsP9cB4mIHUISps
 X-QQ-GoodBg: 2
 From: tangmeng <tangmeng@uniontech.com>
 To: ltp@lists.linux.it
-Date: Fri, 29 Oct 2021 16:05:26 +0800
-Message-Id: <20211029080527.28014-3-tangmeng@uniontech.com>
+Date: Fri, 29 Oct 2021 16:05:27 +0800
+Message-Id: <20211029080527.28014-4-tangmeng@uniontech.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20211029080527.28014-1-tangmeng@uniontech.com>
 References: <20211029080527.28014-1-tangmeng@uniontech.com>
@@ -44,12 +43,12 @@ MIME-Version: 1.0
 X-QQ-SENDSIZE: 520
 Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign1
 X-QQ-Bgrelay: 1
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH 3/4] link/link06: Convert to new API
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH 4/4] link/link07: Convert to new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,19 +68,19 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Signed-off-by: tangmeng <tangmeng@uniontech.com>
 ---
- testcases/kernel/syscalls/link/link06.c | 99 +++++--------------------
- 1 file changed, 17 insertions(+), 82 deletions(-)
+ testcases/kernel/syscalls/link/link07.c | 104 +++++-------------------
+ 1 file changed, 20 insertions(+), 84 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/link/link06.c b/testcases/kernel/syscalls/link/link06.c
-index 17b38ad43..305a5417c 100644
---- a/testcases/kernel/syscalls/link/link06.c
-+++ b/testcases/kernel/syscalls/link/link06.c
-@@ -1,113 +1,48 @@
+diff --git a/testcases/kernel/syscalls/link/link07.c b/testcases/kernel/syscalls/link/link07.c
+index 09743b59c..e166fe6e8 100644
+--- a/testcases/kernel/syscalls/link/link07.c
++++ b/testcases/kernel/syscalls/link/link07.c
+@@ -1,42 +1,20 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
  /*
   * Copyright (C) Bull S.A. 2001
   * Copyright (c) International Business Machines  Corp., 2001
-  * 06/2002 Ported by Jacky Malcles
+  *  06/2002 Ported by Jacky Malcles
   * Copyright (c) 2014 Cyril Hrubis <chrubis@suse.cz>
 - *
 - * This program is free software;  you can redistribute it and/or modify
@@ -103,9 +102,8 @@ index 17b38ad43..305a5417c 100644
 +/*\
 + * [Description]
 + *
-  * Verify that, link() fails with -1 and sets errno to EACCES when Write access
-  * to the directory containing newpath is not allowed for the process's
-  * effective uid.
+  * Verify that, link() fails with -1 and sets errno to EACCES when one of the
+  * directories in oldpath or newpath did not allow search (execute) permission.
   */
  
 -#include <stdio.h>
@@ -123,18 +121,18 @@ index 17b38ad43..305a5417c 100644
 -#include "safe_macros.h"
 +#include "tst_test.h"
  
- #define NOBODY_USER	99
- #define MODE_TO S_IRUSR|S_IWUSR|S_IXUSR|S_IRGRP|S_IXGRP|S_IXOTH|S_IROTH
+ #define MODE_TO S_IRUSR|S_IWUSR|S_IXUSR|S_IRGRP|S_IWGRP|S_IXGRP|S_IXOTH|S_IROTH|S_IWOTH
+ #define MODE_TE S_IRUSR|S_IWUSR|S_IXUSR|S_IRGRP|S_IWGRP|S_IROTH|S_IWOTH
+@@ -45,74 +23,32 @@
+ #define TEST_FILE2      "testdir_1/tfile_2"
+ #define NEW_TEST_FILE2  "testdir_1/new_tfile_2"
  
 -static void setup(void);
 -static void cleanup(void);
 -
--char *TCID = "link06";
+-char *TCID = "link07";
 -int TST_TOTAL = 1;
 -
- #define OLDPATH "oldpath"
- #define NEWPATH "newpath"
- 
 -int main(int ac, char **av)
 +static void verify_link(void)
  {
@@ -147,27 +145,28 @@ index 17b38ad43..305a5417c 100644
 -	for (lc = 0; TEST_LOOPING(lc); lc++) {
 -		tst_count = 0;
 -
--		TEST(link(OLDPATH, NEWPATH));
+-		TEST(link(TEST_FILE2, NEW_TEST_FILE2));
 -
+-		/* Check return code from link(2) */
 -		if (TEST_RETURN != -1) {
--			tst_resm(TFAIL, "link() returned %ld, "
--				 "expected -1, errno=%d", TEST_RETURN,
--				 EACCES);
+-			tst_resm(TFAIL | TTERRNO, "link() returned %ld, "
+-				 "expected -1, errno=%d", TEST_RETURN, EACCES);
 -		} else {
 -			if (TEST_ERRNO == EACCES) {
--				tst_resm(TPASS, "link() fails with expected "
--					 "error EACCES errno:%d", TEST_ERRNO);
+-				tst_resm(TPASS | TTERRNO,
+-				         "link() fails with expected error");
 -			} else {
--				tst_resm(TFAIL, "link() fails with "
--					 "errno=%d, expected errno=%d",
--					 TEST_ERRNO, EACCES);
+-				tst_resm(TFAIL | TTERRNO, "link() failed"
+-				         ", expected errno=%d (EACCES)",
+-				         EACCES);
 -			}
 -		}
 -	}
 -
 -	cleanup();
 -	tst_exit();
-+	TST_EXP_FAIL(link(OLDPATH, NEWPATH), EACCES);
++	TST_EXP_FAIL(link(TEST_FILE2, NEW_TEST_FILE2), EACCES,
++			"link(%s, %s)", TEST_FILE2, NEW_TEST_FILE2);
  }
  
  static void setup(void)
@@ -186,10 +185,17 @@ index 17b38ad43..305a5417c 100644
 -	SAFE_CHMOD(cleanup, ".", MODE_TO);
 +	SAFE_CHMOD(".", MODE_TO);
  
--	SAFE_TOUCH(cleanup, OLDPATH, 0777, NULL);
+-	SAFE_MKDIR(cleanup, DIR_TEMP, MODE_RWX);
+-	SAFE_TOUCH(cleanup, TEST_FILE2, 0666, NULL);
++	SAFE_MKDIR(DIR_TEMP, MODE_RWX);
++	SAFE_TOUCH(TEST_FILE2, 0666, NULL);
+ 
+ 	/* Modify mode permissions on test directory - test conditions */
+-	SAFE_CHMOD(cleanup, DIR_TEMP, MODE_TE);
++	SAFE_CHMOD(DIR_TEMP, MODE_TE);
+ 
 -	nobody_pwd = SAFE_GETPWNAM(cleanup, "nobody");
 -	SAFE_SETEUID(cleanup, nobody_pwd->pw_uid);
-+	SAFE_TOUCH(OLDPATH, 0777, NULL);
 +	nobody_pwd = SAFE_GETPWNAM("nobody");
 +	SAFE_SETEUID(nobody_pwd->pw_uid);
  }
@@ -197,7 +203,7 @@ index 17b38ad43..305a5417c 100644
 -static void cleanup(void)
 -{
 -	if (seteuid(0))
--		tst_resm(TWARN | TERRNO, "seteuid(0) failed");
+-		tst_resm(TWARN | TERRNO, "seteuid(o) failed");
 -
 -	tst_rmdir();
 -}
