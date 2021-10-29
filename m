@@ -2,72 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A7DF43F8CB
-	for <lists+linux-ltp@lfdr.de>; Fri, 29 Oct 2021 10:26:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 850DC43F8CF
+	for <lists+linux-ltp@lfdr.de>; Fri, 29 Oct 2021 10:27:58 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0B7673C6EA3
-	for <lists+linux-ltp@lfdr.de>; Fri, 29 Oct 2021 10:26:21 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 8683B3C6F17
+	for <lists+linux-ltp@lfdr.de>; Fri, 29 Oct 2021 10:27:57 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by picard.linux.it (Postfix) with ESMTPS id 98AFB3C136D
+ for <ltp@lists.linux.it>; Fri, 29 Oct 2021 10:27:53 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 94CA03C136D
- for <ltp@lists.linux.it>; Fri, 29 Oct 2021 10:26:17 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id ECD9C61048A
- for <ltp@lists.linux.it>; Fri, 29 Oct 2021 10:26:16 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 2438D1A006B2
+ for <ltp@lists.linux.it>; Fri, 29 Oct 2021 10:27:52 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 5620D21954;
- Fri, 29 Oct 2021 08:26:16 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 5F2061FD39;
+ Fri, 29 Oct 2021 08:27:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1635495976;
+ t=1635496072;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=E+ipOosmQp3Rx1OKdk9RX9TzjQLanLxK5a7QQpPQvs8=;
- b=EeGRRYHaFuGXxOY4qN+yUyfbTERBgUu7v8yIU6YdOr2EHSIp701FRkvk5bd37+uoQG7kyZ
- EGS4UJj8M1J51PesV/ZkhtqnRsg7w7oybFnOBqiNaukk4v4u8CmlHET8kpRIeaywIjwFDZ
- bJjkTCndNgdeNzVruPw3vC0VpLwZz5Y=
+ bh=dM9n2OyhMMAKV3fSflMaRNu1T/1nAHZB0B1QAHDVMAE=;
+ b=IgX5qKwS+ZVggaY+mFfbG9+P2/44xkzHwJ+hcwr3pYmOcRD7OYNu3Nfz+ZL1uVDThtHD4z
+ PLtS+G6hfDFp0sVnZ0JGqHaohm1ZS9dA6tjli+ziCeJBuVZxTCZfoFD0U8ramKn9tj1tJx
+ nHgBFN5yi6eqlOsG0mIr1O+pEI9gGzU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1635495976;
+ s=susede2_ed25519; t=1635496072;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=E+ipOosmQp3Rx1OKdk9RX9TzjQLanLxK5a7QQpPQvs8=;
- b=f7zmkZaKJG8NFkjHPQ1lOY3s3cu5IGxUakyHoiPXdriEm6H7GFc/WwKRLBi4qTEGD+hWYG
- NmgU8J2Wb7CrLBBA==
+ bh=dM9n2OyhMMAKV3fSflMaRNu1T/1nAHZB0B1QAHDVMAE=;
+ b=pNjP6VQDVsCJTY9tMyKUaevjY1/5qvNLZXhf3a5xercStTJaxc757DlZPotbfTXD6BwxP+
+ mUuSY4xnwieMBXDg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 246F213A83;
- Fri, 29 Oct 2021 08:26:16 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 31C2713A83;
+ Fri, 29 Oct 2021 08:27:52 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 9/L0BSiwe2GzEQAAMHmgww
- (envelope-from <pvorel@suse.cz>); Fri, 29 Oct 2021 08:26:16 +0000
-Date: Fri, 29 Oct 2021 10:26:14 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id IpGDCoiwe2FiEgAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Fri, 29 Oct 2021 08:27:52 +0000
+Date: Fri, 29 Oct 2021 10:27:50 +0200
 From: Petr Vorel <pvorel@suse.cz>
 To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <YXuwJs+w1uvWc6CK@pevik>
+Message-ID: <YXuwhgCWu7i5VDgF@pevik>
 References: <20211018154800.11013-1-chrubis@suse.cz>
  <20211018154800.11013-2-chrubis@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
 In-Reply-To: <20211018154800.11013-2-chrubis@suse.cz>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH 1/7] docparse: Implement #define and #include
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -89,9 +90,8 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi Cyril,
 
-very nice improvement, thanks!
-
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
+> + Also add -v verbose mode that prints included files and defined macros
+How about propagate VERBOSE=1 from Makefile to docparse as -v ?
 
 Kind regards,
 Petr
