@@ -1,158 +1,80 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id D523143DD38
-	for <lists+linux-ltp@lfdr.de>; Thu, 28 Oct 2021 10:56:42 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 29A6343F81E
+	for <lists+linux-ltp@lfdr.de>; Fri, 29 Oct 2021 09:49:53 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 783E13C6B5F
-	for <lists+linux-ltp@lfdr.de>; Thu, 28 Oct 2021 10:56:42 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E5BFA3C6E04
+	for <lists+linux-ltp@lfdr.de>; Fri, 29 Oct 2021 09:49:52 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 17F8C3C644A
- for <ltp@lists.linux.it>; Thu, 28 Oct 2021 10:56:40 +0200 (CEST)
-Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
- [205.220.165.32])
+ by picard.linux.it (Postfix) with ESMTPS id 2DE813C0E9B
+ for <ltp@lists.linux.it>; Fri, 29 Oct 2021 09:49:50 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.205.24.124])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id A7EF71003A84
- for <ltp@lists.linux.it>; Thu, 28 Oct 2021 10:56:38 +0200 (CEST)
-Received: from pps.filterd (m0246629.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 19S7M6Df023387
- for <ltp@lists.linux.it>; Thu, 28 Oct 2021 08:56:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=from : to : cc :
- subject : date : message-id : content-transfer-encoding : content-type :
- mime-version; s=corp-2021-07-09;
- bh=j4uCuQhENa6IIJUMWmQYhOjagX67ISMDRKfrpHd9jZk=;
- b=Xg9dz1slrkYDppQAq5gSwyTeCFXSt+NTvPxjw3j7FFzbsHdeYv/S4ALvUgyWUEGjO/yD
- sbTQjMuJCwdiMopJuMBKBcIQvfIPeEM4p5cnjUQaExJwPHqOdhOdRsXpIH/Fu6UiutbP
- 68EwgNJ1RoNYg/wRNdRnVPUCCCrYu0HCkXfVp/f6I1yEFiT7RJUTqznDbu4wz7GK8ALR
- pdvE5niACvd1wPUtVb4fHnZBEyQaDI6jdk5lQBSMpWAVou/1CIqQP9gvdeprjWb9vPTL
- pJL/vpOkzv74hhAUAIQKQnK1jGBuyDxLmR+vSEJxLIRfRJ0fRWi+v1BrswuCP2mPqghU jQ== 
-Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
- by mx0b-00069f02.pphosted.com with ESMTP id 3byhqr9b52-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
- for <ltp@lists.linux.it>; Thu, 28 Oct 2021 08:56:36 +0000
-Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
- by aserp3020.oracle.com (8.16.1.2/8.16.1.2) with SMTP id 19S8paux141895
- for <ltp@lists.linux.it>; Thu, 28 Oct 2021 08:56:35 GMT
-Received: from nam12-bn8-obe.outbound.protection.outlook.com
- (mail-bn8nam12lp2176.outbound.protection.outlook.com [104.47.55.176])
- by aserp3020.oracle.com with ESMTP id 3bx4ge04uy-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
- for <ltp@lists.linux.it>; Thu, 28 Oct 2021 08:56:35 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=K9PL+XT+IkjvLKgesQ7h9driktmtSxh8Xf+FgVYdRLUJUMaiOkf1sMiBA401VKsRLS7eXrinXDCCeXygE8ysX9UdIKoxSvfV5mDnpGx547WTgqJPY9TQyN7ATJSdFBMxqaCOs0HMNSFVuYGQDk2Z3Jfg27G2B+T5vPYqd19Y/4CIus01n6R/HrVtPUPe1ieHQzyGgiWFn2RS3gFuduji7LhOb6tVSYHHtCmNeKhs7MgegnewpE/BTtgNfbQiJ7nmFSzRzq5nUy+QsPnYHVNc9y5+9YAgG44RdIHbx++gLN6zv5B0U6BihYrJVWTCAG+Szfx4T4/jCHzRlPW8vD2oxg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=j4uCuQhENa6IIJUMWmQYhOjagX67ISMDRKfrpHd9jZk=;
- b=bHa/viODBrPaO+RY0EXouut/AQaDqIBqlqnMK4c5/3ZwqKIb5jx+iQw9LpIHyS8hEnHZ29nn17WWeGwsmQBEDms3PIA1vYRuyj2Nvxfs1UF79EaWX2/XuSPCysxj2rSr+QDiGb2OIt44ng7OVgmO2gGqZ5OISIrJgFIw69VzK38qWC5WTXu/rI9QhBj2QtZuQowygE3yK5E3jmZy2xJV63lscW0/SU8Vu76BBZrnxj5BvsAr9/WA7nQPbH+puV+Aa5lRq9ECXLepo27t5a9sfTvfDIgjlSsk28nJGQbQjDbBSvzogvBKjCI6mq00QV0l8V67Lx7CaxVg3K8fzOHIDQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=j4uCuQhENa6IIJUMWmQYhOjagX67ISMDRKfrpHd9jZk=;
- b=yaHaZaV8G63t/9FV/IFVgQ7w5akkRKEJamdmOwm80Ouv/0JlgSrkQS7l8OJynBwFgUQ0URBb2dnDnMGGIb4eSfTruE6FxACO4JCMncbSxM+bQfqwPNXb9+CrSry1gCrVtGvKwAERPrS5i6KjtjpF58MHJncn3sgqq+cnQsR4AUM=
-Authentication-Results: lists.linux.it; dkim=none (message not signed)
- header.d=none;lists.linux.it; dmarc=none action=none header.from=oracle.com;
-Received: from BY5PR10MB4017.namprd10.prod.outlook.com (2603:10b6:a03:1ff::20)
- by BYAPR10MB2630.namprd10.prod.outlook.com (2603:10b6:a02:b1::24)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4649.14; Thu, 28 Oct
- 2021 08:56:33 +0000
-Received: from BY5PR10MB4017.namprd10.prod.outlook.com
- ([fe80::15e9:dafb:489a:b0d5]) by BY5PR10MB4017.namprd10.prod.outlook.com
- ([fe80::15e9:dafb:489a:b0d5%6]) with mapi id 15.20.4628.020; Thu, 28 Oct 2021
- 08:56:33 +0000
-From: Egor Petrov <egor.petrov@oracle.com>
-To: ltp@lists.linux.it
-Date: Thu, 28 Oct 2021 11:56:20 +0300
-Message-Id: <20211028085620.2499-1-egor.petrov@oracle.com>
-X-Mailer: git-send-email 2.32.0.windows.2
-X-ClientProxiedBy: LO4P123CA0093.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:191::8) To BY5PR10MB4017.namprd10.prod.outlook.com
- (2603:10b6:a03:1ff::20)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id A9F11610496
+ for <ltp@lists.linux.it>; Fri, 29 Oct 2021 09:49:49 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1635493788;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=lDLUcq1w5o4AdujHmp6KP5dD+la3Yr7gNWSp6DA+yFY=;
+ b=eLKRcSib5eTXBKNSIhPdlI/oeC5EGTkbyhD8qiis7RiV+++p1aKOp4H/Qu2/t0dkHn43uo
+ SzQbd10h8w9/u4wpSnUIrbBziwpu2D9Xtj8iHRIiT4XYxGbY3at/mvgKLxdd4DhT8rGG0/
+ CCoR0OZGWQW80vnKerTnjOZkJy3xsDc=
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com
+ [209.85.167.199]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-333-tmPUBuQXORaS8Cy-wJ36VA-1; Fri, 29 Oct 2021 03:49:44 -0400
+X-MC-Unique: tmPUBuQXORaS8Cy-wJ36VA-1
+Received: by mail-oi1-f199.google.com with SMTP id
+ w26-20020a056808019a00b00298e7b4523cso4591116oic.9
+ for <ltp@lists.linux.it>; Fri, 29 Oct 2021 00:49:44 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=lDLUcq1w5o4AdujHmp6KP5dD+la3Yr7gNWSp6DA+yFY=;
+ b=NPoAayjo7vik2HFPDCTxIBkOP67EfhPGgWzbcpUmyA8JsG131x+pYLOOeHRIsm4qq5
+ MDjHABZEoKytOQ4EC6ZxwdCfrrfXCqPkXgyvQzDA6sAlJInMd2WUFDjlIyrRDaFAWe1a
+ MWdiFqTNJThhwc2zBMn9uBh9TdmLY8waqcYGUfXCeVzFXTQsRsrsgNbznoCEs7k+Aks9
+ 9HFC8bchVZQFt+Al3iir73n95rQiCcZ0yTRyMjJji0aLRfSiCtc67YrU55S0h979l9Ff
+ uYYX6C3/4+CRsFjaDQ53abQvRJ4X/eURWuqDm4T5iIoz6yvUHMq8Zd8uAWLiazEdPxIN
+ ctjA==
+X-Gm-Message-State: AOAM5320TkrpbDIFQwsAdbfmBAXRDXeLLs21Bv3cUf7nwBtFCL6aVmDc
+ 3NFKzRs6REmtOTIg3VmEoycJoigZEZJo7ZPqoeSn9/pA0Ta5gmCpCMGxvKuTEUh3ZBir5G9wdZ1
+ loDL4ieXZBlwwgAWARVQZAM16J5I=
+X-Received: by 2002:a9d:1b31:: with SMTP id l46mr7383654otl.57.1635493783799; 
+ Fri, 29 Oct 2021 00:49:43 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJyFB1CbGqypZs1++5ghRjeKLLZy8fbENo+FfZ5cdy3RRYWgD6e3xDSDtbVGZ8UXJOjMsGKds2rRq+u0B2P6duI=
+X-Received: by 2002:a9d:1b31:: with SMTP id l46mr7383641otl.57.1635493783535; 
+ Fri, 29 Oct 2021 00:49:43 -0700 (PDT)
 MIME-Version: 1.0
-Received: from EPETROV-7310.ru.oracle.com (138.3.203.41) by
- LO4P123CA0093.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:191::8) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4649.15 via Frontend Transport; Thu, 28 Oct 2021 08:56:32 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 8ae3af39-581d-4232-5697-08d999f0d74a
-X-MS-TrafficTypeDiagnostic: BYAPR10MB2630:
-X-Microsoft-Antispam-PRVS: <BYAPR10MB263023164737D1B1E728D47598869@BYAPR10MB2630.namprd10.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2276;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: kZW9wKYIgu+ccKgZSFZEckyrW+Q1bTnVwXUf95+9z+v0QAtEIcxKcbj33xz66mZ4O8lsYjQz5IfCovQ/TbDAWZyS8mZeLYmRhpbpixGro/ZiqmK+G44c37kBxvMf/wb/52UbO3ugRNoo6to1iB7GwMS8Spp9XL1z2VhSo/YMdErnPYA0ItJHiSLqGpBpihJovnG5Zx9KhR1Rzr4049GfqCIH/3BPBaHNQto6BXuyJ6UUsUaNiE2CXIXhePCDCXg6/BrWrlii8WYCjOf9BZDr5QAfwYpBFrfYXAhX2pi1hUCcnSncW10uhkqMt9uOa11m+sM2t2FynfyUKgY3iHUAK6iS16lHjgNKtFqO3i/HsSEi8NzYN+tNDe+qknYSMB+jG8uNWSkAay0I3HAfFdWdDOKN05sHm8WRVERIyl4gLlEFcg43v2B81hyCgM2/aS1gtKhgkjGCYPSXwQCdJLTcdEaKYOwGRiYb3Y84SbMa/8nr7dK47ZsJP+/GBk8n2GxxMqMyDgcxO8BJsW1MbO4r10PatCAuOwKdR7Z2hoEFnC9mll+zbjDcso6m5JjlgbIIFCUJsitQWPkYU2OUCByL34ItJSQ79x61+S7mA0oEKS8lgKjDIo/aF+0h/GgC1RKs2q8RT19i6T4geacltXSRcXNyXlEzmsKwdEZSS6vG+3s65+x9B8f+f+lG+zhfLUxtA9MATKKA8eNy66ooHC6d5Q==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BY5PR10MB4017.namprd10.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(366004)(52116002)(6486002)(2616005)(956004)(36756003)(26005)(4326008)(66946007)(7696005)(6666004)(508600001)(8676002)(8936002)(44832011)(86362001)(107886003)(83380400001)(2906002)(186003)(6916009)(1076003)(66476007)(15650500001)(316002)(5660300002)(38350700002)(38100700002)(4744005)(66556008);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?gl2AcR/xwDIRbGgo1ShvyCHXtNZCymvIjWvPsjqY3h0jYB0aLxkEzs/ASSCq?=
- =?us-ascii?Q?VHe4HgInuhBghzU1srClX1XaisVr5+oCsBvI1H+4F/mrVM2rLYF0aU76gdTb?=
- =?us-ascii?Q?MEhnFXkqCTCZEbgN1Ce4FIo5rUxCHWgKeABCNA0Dxh+LySQz2mwbwQSs/Ffx?=
- =?us-ascii?Q?vB7+BdjYNTokZdUn6du+s5HHTr5T1Mc+prA9YYtS8mDpfi1MAAfi6BD4rlZF?=
- =?us-ascii?Q?8U4FuriL2TM17TW52WPO+2cqhAW45tWq/b79UPNHLKskGKk9yltJo++CrOER?=
- =?us-ascii?Q?ew3mMi9Dc9hWjrdzwWzuvu6Sz86kx6X+Mtd7SPCyC3fSOMQRjl8cnDYmRGj8?=
- =?us-ascii?Q?NRPAp+QigmHzfQSX+xVAU7Wbx4RsC0OQnr86aYsNxgykqHRdidVefsRdXr2Y?=
- =?us-ascii?Q?afwtn4v0OcnsrTrWKC8R1YK291MDeW2O1WviiImBxbaKufJsppg8tRZC8KvF?=
- =?us-ascii?Q?6TQ9sD/JPfjq+i9CG56KEHjvaMt5HExF4oyPg+5cBA1WcDSWcGHAejR3fH43?=
- =?us-ascii?Q?dEnGnNqp8BAmAKBYcb/14KTGP2E8FqQwR3bbd8lCZfKRYBC5Z3VhIoWrwga0?=
- =?us-ascii?Q?Ftia82rOs2ijfGhCIe5JQFnY2D5+dvvjKFvPREP2PdoxDqNKkDyMpQKw91hV?=
- =?us-ascii?Q?UgW0tm3Yc1QYfycbSVFI7fp+P/IXGEvmeA7FSdFc/hSMLXeBSPXTRT7yDbH4?=
- =?us-ascii?Q?+qSc2KzkgpFobt59JYVAKaLXl/u8/90V7jsjtyPTetlVPfyfJPl/lpq01Nws?=
- =?us-ascii?Q?TLjtZ+hw5AUEgHb6unKkETaxC/r8nv5jOwK8bhKEmIPlgg4hUid/w64yVRp4?=
- =?us-ascii?Q?jd14b10CbDMsT3m38p4QOq4/A0ytpx817rc6Vs8epUxGIHCmBzVLAwDGLvln?=
- =?us-ascii?Q?miRVAM4Ope1QlW4VTjH/R1Ix41PAjmVYt3y3W5SljSEc4XvdNa0mep4uhE+f?=
- =?us-ascii?Q?lJEi8fmOYlbDS9mwnL05mm5FliqpPQ4JxZGkd+jq/QddwB0HR0hFW1HCtA/5?=
- =?us-ascii?Q?dGjTHr8iMnCyiSMNEd6ybPVcNjVUlUCvWuRemCKuHyhHX7RboB+jEN1sJprG?=
- =?us-ascii?Q?Ps85SGV3gR134C6nWPsplTa3v274u/8oni0JdHyPW/HmWfFOnXdr6j0bxZ0q?=
- =?us-ascii?Q?3zY6mcDeLu3ouq2RP7zkBZOeh0brAGBzdmML5QrrWrdKVRStzMrEomdzdmLh?=
- =?us-ascii?Q?l7Er/a9cm8IT/fyb1QymoAFLtH4cEXc5QtrR3cMeWdNxFBV7VkvbXswnqyeI?=
- =?us-ascii?Q?h0gW+iEKvZAHY6gXrA3S3le1BCSxRqXMQufVDQi4dGQrXFyTGwdvRg9JR9Hy?=
- =?us-ascii?Q?A5v3OtZY4PSRkw4BMeDwcgmQJI5ibRu9Dp/D7XWF0UCDNRoVgwMbjfxY2yPR?=
- =?us-ascii?Q?NHp4OUCXSvAtR+JhX4PuEL9JDKsHpytL9Mjdy9sHerKr/W8z//DOlaRWFynL?=
- =?us-ascii?Q?JpFdayypNY699f/KRq6HtA9XPZc4JymJpqhrk05mxVba+36q6qtjX83YutKc?=
- =?us-ascii?Q?+RdPLEIj56aNPZZycEAoQOlRqncX4H+z7zWfaRBW4d133Ky4b/Z4q2SokLQb?=
- =?us-ascii?Q?0LR9pdt1ZlBM4KICeRF/3PLc2MCXuG+IsCNGsodA3+DMqwU+uUhxJsArGD2Q?=
- =?us-ascii?Q?09YhOcneCyEX0lsOPL0n+0k=3D?=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8ae3af39-581d-4232-5697-08d999f0d74a
-X-MS-Exchange-CrossTenant-AuthSource: BY5PR10MB4017.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2021 08:56:33.5218 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: awg5HDS8Rxx9P130Wo7+7gMRiD/7lweMVR/fReYhQi5YXWx0SmEuUoo5UY9zrYtu57KY20GIu12i3qsjAJGiPw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR10MB2630
-X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10150
- signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
- mlxlogscore=999
- bulkscore=0 phishscore=0 mlxscore=0 spamscore=0 adultscore=0
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2110150000 definitions=main-2110280046
-X-Proofpoint-GUID: ZdiqvphTKTPknwM8IBUBqJZFGGOLaKEX
-X-Proofpoint-ORIG-GUID: ZdiqvphTKTPknwM8IBUBqJZFGGOLaKEX
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+References: <20211028031422.208689-1-zhaogongyi@huawei.com>
+In-Reply-To: <20211028031422.208689-1-zhaogongyi@huawei.com>
+From: Jan Stancek <jstancek@redhat.com>
+Date: Fri, 29 Oct 2021 09:49:28 +0200
+Message-ID: <CAASaF6zDyWnkrNGdWAHqgrwQWk3n8cu0DhU3B5-ip0_ka5K5xA@mail.gmail.com>
+To: Zhao Gongyi <zhaogongyi@huawei.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=jstancek@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH] lib/tst_kvercmp.c: Update tst_parse_kver() condition
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] syscalls/epoll_create: Replace syscall to libc
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -164,36 +86,60 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: egor.petrov@oracle.com
+Cc: LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-tst_parse_kver() fails with kernel names like current
-mainline kernel "5.15-rc7". Updated condition to fit
-this template.
+On Thu, Oct 28, 2021 at 5:13 AM Zhao Gongyi <zhaogongyi@huawei.com> wrote:
+>
+> For epoll_create01.c/epoll_create02.c, we should replace syscall to libc
+> or the testcase will fail because of Syscall epoll_create is not support
+> in some arches.
+>
+> Signed-off-by: Zhao Gongyi <zhaogongyi@huawei.com>
 
-Signed-off-by: Egor Petrov <egor.petrov@oracle.com>
----
- lib/tst_kvercmp.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Acked-by: Jan Stancek <jstancek@redhat.com>
 
-diff --git a/lib/tst_kvercmp.c b/lib/tst_kvercmp.c
-index 8bf65d309..dc0daa746 100644
---- a/lib/tst_kvercmp.c
-+++ b/lib/tst_kvercmp.c
-@@ -65,7 +65,7 @@ int tst_parse_kver(const char *str_kver, int *v1, int *v2, int *v3)
- 	/*
- 	 * Check for a short version e.g '2.4'
- 	 */
--	if (*str == ' ' || *str == '\0')
-+	if (*str == ' ' || *str == '\0' || *str == '-')
- 		return 0;
- 
- 	if (*(str++) != '.')
--- 
-2.32.0.windows.2
+> ---
+>  testcases/kernel/syscalls/epoll_create/epoll_create01.c | 2 +-
+>  testcases/kernel/syscalls/epoll_create/epoll_create02.c | 2 +-
+>  2 files changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/testcases/kernel/syscalls/epoll_create/epoll_create01.c b/testcases/kernel/syscalls/epoll_create/epoll_create01.c
+> index 3ef5b5cac..b6ebe9ad7 100644
+> --- a/testcases/kernel/syscalls/epoll_create/epoll_create01.c
+> +++ b/testcases/kernel/syscalls/epoll_create/epoll_create01.c
+> @@ -24,7 +24,7 @@ static int tc[] = {1, INT_MAX};
+>
+>  static void run(unsigned int n)
+>  {
+> -       TST_EXP_FD(tst_syscall(__NR_epoll_create, tc[n]), "epoll_create(%d)", tc[n]);
+> +       TST_EXP_FD(epoll_create(tc[n]), "epoll_create(%d)", tc[n]);
+>
+>         if (!TST_PASS)
+>                 return;
+> diff --git a/testcases/kernel/syscalls/epoll_create/epoll_create02.c b/testcases/kernel/syscalls/epoll_create/epoll_create02.c
+> index c59ea7944..e96228983 100644
+> --- a/testcases/kernel/syscalls/epoll_create/epoll_create02.c
+> +++ b/testcases/kernel/syscalls/epoll_create/epoll_create02.c
+> @@ -27,7 +27,7 @@ static struct test_case_t {
+>
+>  static void run(unsigned int n)
+>  {
+> -       TST_EXP_FAIL(tst_syscall(__NR_epoll_create, tc[n].size),
+> +       TST_EXP_FAIL(epoll_create(tc[n].size),
+>                      tc[n].exp_err, "create(%d)", tc[n].size);
+>  }
+>
+> --
+> 2.17.1
+>
+>
+> --
+> Mailing list info: https://lists.linux.it/listinfo/ltp
+>
 
 
 -- 
