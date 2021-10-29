@@ -2,79 +2,74 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29A6343F81E
-	for <lists+linux-ltp@lfdr.de>; Fri, 29 Oct 2021 09:49:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4649643F828
+	for <lists+linux-ltp@lfdr.de>; Fri, 29 Oct 2021 09:51:00 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E5BFA3C6E04
-	for <lists+linux-ltp@lfdr.de>; Fri, 29 Oct 2021 09:49:52 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 03F953C6EC7
+	for <lists+linux-ltp@lfdr.de>; Fri, 29 Oct 2021 09:51:00 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by picard.linux.it (Postfix) with ESMTPS id D38ED3C6C87
+ for <ltp@lists.linux.it>; Fri, 29 Oct 2021 09:50:55 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 2DE813C0E9B
- for <ltp@lists.linux.it>; Fri, 29 Oct 2021 09:49:50 +0200 (CEST)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id AD5B31400BF8
+ for <ltp@lists.linux.it>; Fri, 29 Oct 2021 09:50:54 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id A9F11610496
- for <ltp@lists.linux.it>; Fri, 29 Oct 2021 09:49:49 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1635493788;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 6135E1FD39;
+ Fri, 29 Oct 2021 07:50:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1635493853;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=lDLUcq1w5o4AdujHmp6KP5dD+la3Yr7gNWSp6DA+yFY=;
- b=eLKRcSib5eTXBKNSIhPdlI/oeC5EGTkbyhD8qiis7RiV+++p1aKOp4H/Qu2/t0dkHn43uo
- SzQbd10h8w9/u4wpSnUIrbBziwpu2D9Xtj8iHRIiT4XYxGbY3at/mvgKLxdd4DhT8rGG0/
- CCoR0OZGWQW80vnKerTnjOZkJy3xsDc=
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com
- [209.85.167.199]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-333-tmPUBuQXORaS8Cy-wJ36VA-1; Fri, 29 Oct 2021 03:49:44 -0400
-X-MC-Unique: tmPUBuQXORaS8Cy-wJ36VA-1
-Received: by mail-oi1-f199.google.com with SMTP id
- w26-20020a056808019a00b00298e7b4523cso4591116oic.9
- for <ltp@lists.linux.it>; Fri, 29 Oct 2021 00:49:44 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=lDLUcq1w5o4AdujHmp6KP5dD+la3Yr7gNWSp6DA+yFY=;
- b=NPoAayjo7vik2HFPDCTxIBkOP67EfhPGgWzbcpUmyA8JsG131x+pYLOOeHRIsm4qq5
- MDjHABZEoKytOQ4EC6ZxwdCfrrfXCqPkXgyvQzDA6sAlJInMd2WUFDjlIyrRDaFAWe1a
- MWdiFqTNJThhwc2zBMn9uBh9TdmLY8waqcYGUfXCeVzFXTQsRsrsgNbznoCEs7k+Aks9
- 9HFC8bchVZQFt+Al3iir73n95rQiCcZ0yTRyMjJji0aLRfSiCtc67YrU55S0h979l9Ff
- uYYX6C3/4+CRsFjaDQ53abQvRJ4X/eURWuqDm4T5iIoz6yvUHMq8Zd8uAWLiazEdPxIN
- ctjA==
-X-Gm-Message-State: AOAM5320TkrpbDIFQwsAdbfmBAXRDXeLLs21Bv3cUf7nwBtFCL6aVmDc
- 3NFKzRs6REmtOTIg3VmEoycJoigZEZJo7ZPqoeSn9/pA0Ta5gmCpCMGxvKuTEUh3ZBir5G9wdZ1
- loDL4ieXZBlwwgAWARVQZAM16J5I=
-X-Received: by 2002:a9d:1b31:: with SMTP id l46mr7383654otl.57.1635493783799; 
- Fri, 29 Oct 2021 00:49:43 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJyFB1CbGqypZs1++5ghRjeKLLZy8fbENo+FfZ5cdy3RRYWgD6e3xDSDtbVGZ8UXJOjMsGKds2rRq+u0B2P6duI=
-X-Received: by 2002:a9d:1b31:: with SMTP id l46mr7383641otl.57.1635493783535; 
- Fri, 29 Oct 2021 00:49:43 -0700 (PDT)
+ bh=WQq7HTdQhkuUpyJSxNmmQLkmoXK8+W4rl3TPl20Lu5w=;
+ b=hJDixmcdMWnntuPh1xwcyJi0lc4RidJ6GKwv+/Ek+qP9sDp0AEfOxg5Gl+xn35EUMQayed
+ ikzrMBPviUJrf5r6Vzz0EocxzaUGSH2PlYwQ4dyRTq+uo0hw5AIf3IAkJlOFnf7HRtnbZv
+ 8eug1ly6XI+hPjTSI17lQIkkGTvEbnQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1635493853;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=WQq7HTdQhkuUpyJSxNmmQLkmoXK8+W4rl3TPl20Lu5w=;
+ b=WTIzw6/mNE/Rkmqa8RPPAp3RGkJTY5d7OEiLmRoouXzModlseeGUMacjhYHNo2pfoeTL2n
+ ERi4uKFr5UQpKFCg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 216A813B27;
+ Fri, 29 Oct 2021 07:50:53 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id ENG1Bd2ne2FzAQAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Fri, 29 Oct 2021 07:50:53 +0000
+Date: Fri, 29 Oct 2021 09:50:51 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Egor Petrov <egor.petrov@oracle.com>
+Message-ID: <YXun2wCKLDRiueSR@pevik>
+References: <20211028085620.2499-1-egor.petrov@oracle.com>
 MIME-Version: 1.0
-References: <20211028031422.208689-1-zhaogongyi@huawei.com>
-In-Reply-To: <20211028031422.208689-1-zhaogongyi@huawei.com>
-From: Jan Stancek <jstancek@redhat.com>
-Date: Fri, 29 Oct 2021 09:49:28 +0200
-Message-ID: <CAASaF6zDyWnkrNGdWAHqgrwQWk3n8cu0DhU3B5-ip0_ka5K5xA@mail.gmail.com>
-To: Zhao Gongyi <zhaogongyi@huawei.com>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=jstancek@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20211028085620.2499-1-egor.petrov@oracle.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/epoll_create: Replace syscall to libc
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] lib/tst_kvercmp.c: Update tst_parse_kver()
+ condition
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,61 +81,22 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Thu, Oct 28, 2021 at 5:13 AM Zhao Gongyi <zhaogongyi@huawei.com> wrote:
->
-> For epoll_create01.c/epoll_create02.c, we should replace syscall to libc
-> or the testcase will fail because of Syscall epoll_create is not support
-> in some arches.
->
-> Signed-off-by: Zhao Gongyi <zhaogongyi@huawei.com>
+Hi Egor,
 
-Acked-by: Jan Stancek <jstancek@redhat.com>
+> tst_parse_kver() fails with kernel names like current
+> mainline kernel "5.15-rc7". Updated condition to fit
+> this template.
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
 
-> ---
->  testcases/kernel/syscalls/epoll_create/epoll_create01.c | 2 +-
->  testcases/kernel/syscalls/epoll_create/epoll_create02.c | 2 +-
->  2 files changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/testcases/kernel/syscalls/epoll_create/epoll_create01.c b/testcases/kernel/syscalls/epoll_create/epoll_create01.c
-> index 3ef5b5cac..b6ebe9ad7 100644
-> --- a/testcases/kernel/syscalls/epoll_create/epoll_create01.c
-> +++ b/testcases/kernel/syscalls/epoll_create/epoll_create01.c
-> @@ -24,7 +24,7 @@ static int tc[] = {1, INT_MAX};
->
->  static void run(unsigned int n)
->  {
-> -       TST_EXP_FD(tst_syscall(__NR_epoll_create, tc[n]), "epoll_create(%d)", tc[n]);
-> +       TST_EXP_FD(epoll_create(tc[n]), "epoll_create(%d)", tc[n]);
->
->         if (!TST_PASS)
->                 return;
-> diff --git a/testcases/kernel/syscalls/epoll_create/epoll_create02.c b/testcases/kernel/syscalls/epoll_create/epoll_create02.c
-> index c59ea7944..e96228983 100644
-> --- a/testcases/kernel/syscalls/epoll_create/epoll_create02.c
-> +++ b/testcases/kernel/syscalls/epoll_create/epoll_create02.c
-> @@ -27,7 +27,7 @@ static struct test_case_t {
->
->  static void run(unsigned int n)
->  {
-> -       TST_EXP_FAIL(tst_syscall(__NR_epoll_create, tc[n].size),
-> +       TST_EXP_FAIL(epoll_create(tc[n].size),
->                      tc[n].exp_err, "create(%d)", tc[n].size);
->  }
->
-> --
-> 2.17.1
->
->
-> --
-> Mailing list info: https://lists.linux.it/listinfo/ltp
->
-
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
