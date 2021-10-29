@@ -1,74 +1,76 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF24543F945
-	for <lists+linux-ltp@lfdr.de>; Fri, 29 Oct 2021 10:53:17 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9804843FA0B
+	for <lists+linux-ltp@lfdr.de>; Fri, 29 Oct 2021 11:38:52 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4EADE3C6E9E
-	for <lists+linux-ltp@lfdr.de>; Fri, 29 Oct 2021 10:53:17 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 32A823C6E66
+	for <lists+linux-ltp@lfdr.de>; Fri, 29 Oct 2021 11:38:52 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id B29CF3C1A97
- for <ltp@lists.linux.it>; Fri, 29 Oct 2021 10:53:13 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id B066F3C5DD9
+ for <ltp@lists.linux.it>; Fri, 29 Oct 2021 11:38:49 +0200 (CEST)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id BD5E21A0025D
- for <ltp@lists.linux.it>; Fri, 29 Oct 2021 10:53:12 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id D7EFA6104AD
+ for <ltp@lists.linux.it>; Fri, 29 Oct 2021 11:38:48 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id DD96221979;
- Fri, 29 Oct 2021 08:53:11 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 0682A218A9;
+ Fri, 29 Oct 2021 09:38:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1635497591; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ t=1635500328;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=7vApW0pMaKc4jTdagGJkFSURXAJu0/XdmU/WGfj+j28=;
- b=PveAVNJ/gBNJWWhEli1kMsUleNZcXfCXBcPXMQlgFR/iY0DGrS7s7ZCBFM8clUputLlR7l
- frquwyQ0fAssw6UAxGzZXMFpjRFLyK/anXuKHzIFHmFI8FNH2pWDtFWWgwFn0HR9EzZYf3
- a5wr/KckjIaqAkGq1LwXImQqi+Fjmn0=
+ bh=IfQ9H9wIU7EcSZClGvbTo00qnFbRlR8uUH/U6HrR5GI=;
+ b=YG9at0mO337TzSM83KYYw4gBFPcCVe4iSMvx4ZLTHhVfpvsR+hfjPxASfJnUl+gaUgptSS
+ 06YMSvVa4WixA7PvSg1T7/Ul+4U12N+7DY+lW05e8waW8xYooU4SEP1nAZXRkm74fxMOnm
+ TPbHpBcqp6yWXO013TA5avY24zGUV04=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1635497591;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ s=susede2_ed25519; t=1635500328;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=7vApW0pMaKc4jTdagGJkFSURXAJu0/XdmU/WGfj+j28=;
- b=ZF5tHirC90QZzwcKqtcDmOYBKvB8mtBtieQWgAsNkEeIgPz/M1pnuXDg8w1xmGyZXxzW74
- mqPP+q/IwAGwkwAw==
+ bh=IfQ9H9wIU7EcSZClGvbTo00qnFbRlR8uUH/U6HrR5GI=;
+ b=gc+T82TbvhvS5kJuZ4vf+nj6d0ZWgTU7eFHcGh3zKc7vSEpurJ2i1q9DH/qSWTVl/pEJCZ
+ iGbMmpXMcfFXiPAg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C612E13B70;
- Fri, 29 Oct 2021 08:53:11 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D64C813B8D;
+ Fri, 29 Oct 2021 09:38:47 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id /H0uL3e2e2EAHQAAMHmgww
- (envelope-from <chrubis@suse.cz>); Fri, 29 Oct 2021 08:53:11 +0000
-Date: Fri, 29 Oct 2021 10:54:03 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Richard Palethorpe <rpalethorpe@suse.de>
-Message-ID: <YXu2q1Uj4xIJvO7G@yuki>
-References: <20211018154800.11013-1-chrubis@suse.cz> <87tuh2poue.fsf@suse.de>
- <YXlYwi7+VUIitM7H@yuki> <87pmrppj9u.fsf@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id krV5MifBe2GBMgAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Fri, 29 Oct 2021 09:38:47 +0000
+Date: Fri, 29 Oct 2021 11:38:46 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <YXvBJmtyWySs9knH@pevik>
+References: <20211027092027.7124-1-pvorel@suse.cz> <YXkfDEFLUkOO+70q@pevik>
+ <YXkhQ86Oal0KuI0K@yuki> <YXkmPU9/02Ickuso@pevik>
+ <YXuvOmU3Q+n61eSn@yuki>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <87pmrppj9u.fsf@suse.de>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+In-Reply-To: <YXuvOmU3Q+n61eSn@yuki>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 0/7] docparse improvements
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/1] CI: Reenable Tumbleweed
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,46 +82,36 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> It's incredibly fast, it has no trouble parsing the entire kernel.
-> 
-> Weggli uses tree-sitter
-> 
-> https://github.com/googleprojectzero/weggli
-> ________________________________________________________
-> Executed in   49.35 millis    fish           external
->    usr time  110.88 millis    0.00 millis  110.88 millis
->    sys time   87.44 millis    1.20 millis   86.24 millis
+Hi Cyril,
 
-This looks like it's about the speed of grep, that sounds incredible.
+> Hi!
+> > > Looking at docker documentation it looks like --privileged disables much
+> > > more than just the seccomp filtering. I do not think that this is a good
+> > > idea. Let's go with just disabling seccomp for affected distros.
+> > IMHO both are ok for just compilation (other projects use it as well for just
+> > CI doing compilation), but sure, let's use the minimum.
+> > FYI this disables seccomp for all machines. Is that ok for you?
+> > IMHO that's not a big deal + we will not have to bother when Fedora also gets
+> > new enough glibc (IMHO problem will periodically occurs on bleeding edge distros
+> > when glibc starts to use new enough syscall).
 
-> > Well I would say that this patchset is the last addition for the parser,
-> > if we ever need anything more complex we should really switch to
-> > something else. On the other hand I do not think that we will ever need
-> > more complexity in the parser than this, as long as we keep things
-> > sane.
-> 
-> This closes the door on a lot of options for no upside AFAICT. We have
-> two tools (Sparse and tree-sitter) that can be (or have been) vendored
-> and will parse a large subset of C. Sparse goes a step further allowing
-> control flow analysis. The usual reasons for reinventing the wheel are
-> not present.
+> Anyways:
 
-Still working on a prototype based on tree-sitter would take a week or
-two worth of time and I would like to get the metadata fixed now, so
-that I can finally move on with runltp-ng. So I would slightly prefer
-merging the patches for the current solution first, then we can have a
-look on tree-sitter in the next LTP release cycle. What do you think?
+> Acked-by: Cyril Hrubis <chrubis@suse.cz>
 
--- 
-Cyril Hrubis
-chrubis@suse.cz
+> For the original patch that disables seccomp.
+
+Thanks, pushed!
+
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
