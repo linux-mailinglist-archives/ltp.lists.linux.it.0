@@ -2,74 +2,74 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85CCB441CE0
-	for <lists+linux-ltp@lfdr.de>; Mon,  1 Nov 2021 15:53:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5410441CDF
+	for <lists+linux-ltp@lfdr.de>; Mon,  1 Nov 2021 15:53:13 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 14FB23C715D
-	for <lists+linux-ltp@lfdr.de>; Mon,  1 Nov 2021 15:53:26 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 21FCE3C710F
+	for <lists+linux-ltp@lfdr.de>; Mon,  1 Nov 2021 15:53:13 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 4A07B3C7046
- for <ltp@lists.linux.it>; Mon,  1 Nov 2021 15:52:51 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id 85DCA3C7046
+ for <ltp@lists.linux.it>; Mon,  1 Nov 2021 15:52:50 +0100 (CET)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 643706005C4
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id F2065200B65
  for <ltp@lists.linux.it>; Mon,  1 Nov 2021 15:52:49 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id EAE702196F
- for <ltp@lists.linux.it>; Mon,  1 Nov 2021 14:52:48 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 8655C21968
+ for <ltp@lists.linux.it>; Mon,  1 Nov 2021 14:52:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1635778368; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ t=1635778369; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=20KiXxDpZoaY7uYZQJ75DN2M/ZCNmy2lMZqx1Oddwf0=;
- b=LRHkbhf0MMLCJvUIntM+kzWuhFVIDWgjmpHoggnZnoKOJetLGQF+xlPfcSd9XkLZp8fpPB
- +3mrmP8mKXkaJ54VPT9K+V45etgwyi9z7/2v1UYCNYp9XUvM/XAh3j9cx7MyLQCfkSokeh
- 6XfIpQw/6HqWqcPU71Ic4K3pd8PKx6I=
+ bh=6yvgLmca0D+DvWZGTQScZjVCefxKztz0ThtoSpuaRSY=;
+ b=X3sj2TVhfnye4B6Kqee7W81+GRT7p9dYWX3WqKSgF3JpSM4uGtlxh3Av2iExOI52su7MeO
+ PwEh9arLgi+PJx1brZLSbz7z4HJRCIBuKGZg6vQgp2A9brON8uT6RdkxaXDbyat5p2eyOJ
+ 9qk3ECnfgR6EimKVTvdmitttPg9v8zA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1635778368;
+ s=susede2_ed25519; t=1635778369;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=20KiXxDpZoaY7uYZQJ75DN2M/ZCNmy2lMZqx1Oddwf0=;
- b=WLMNlldo4bxJbOMDva9D7Gvt8g/5MG7av0FVxSz4CTPPWkAN+qbRzAfRMVy/OkSuGgzt2B
- BC/T+OLx3inxYoCA==
+ bh=6yvgLmca0D+DvWZGTQScZjVCefxKztz0ThtoSpuaRSY=;
+ b=CuS1xs5SNWj5W5mTmqZDPamn7wCwUro+z5SU9Ie571dGPP0P3dt4Cq8PjlH8SAC8MaUUBE
+ EKDqmDzR8JKT15Dw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D734113522
- for <ltp@lists.linux.it>; Mon,  1 Nov 2021 14:52:48 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6E94913522
+ for <ltp@lists.linux.it>; Mon,  1 Nov 2021 14:52:49 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id RtBkM0D/f2G2LQAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id qLSaGUH/f2G5LQAAMHmgww
  (envelope-from <chrubis@suse.cz>)
- for <ltp@lists.linux.it>; Mon, 01 Nov 2021 14:52:48 +0000
+ for <ltp@lists.linux.it>; Mon, 01 Nov 2021 14:52:49 +0000
 From: Cyril Hrubis <chrubis@suse.cz>
 To: ltp@lists.linux.it
-Date: Mon,  1 Nov 2021 15:53:37 +0100
-Message-Id: <20211101145342.7166-3-chrubis@suse.cz>
+Date: Mon,  1 Nov 2021 15:53:38 +0100
+Message-Id: <20211101145342.7166-4-chrubis@suse.cz>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20211101145342.7166-1-chrubis@suse.cz>
 References: <20211101145342.7166-1-chrubis@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 2/7] docparse: Add tests
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 3/7] docparse: data_storage: Add integer type node
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,223 +86,92 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This add a simple tests for the docparse parser.
-
 Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
 ---
- docparse/tests/Makefile               |  4 ++++
- docparse/tests/empty_struct.c         |  2 ++
- docparse/tests/empty_struct.c.json    |  3 +++
- docparse/tests/expand_flags.c         |  3 +++
- docparse/tests/expand_flags.c.json    |  6 ++++++
- docparse/tests/include.c              |  5 +++++
- docparse/tests/include.c.json         |  4 ++++
- docparse/tests/include.h              |  1 +
- docparse/tests/macro.c                |  5 +++++
- docparse/tests/macro.c.json           |  4 ++++
- docparse/tests/multiline_macro.c      |  6 ++++++
- docparse/tests/multiline_macro.c.json |  4 ++++
- docparse/tests/tags.c                 |  7 +++++++
- docparse/tests/tags.c.json            | 13 +++++++++++++
- docparse/tests/test.sh                | 18 ++++++++++++++++++
- 15 files changed, 85 insertions(+)
- create mode 100644 docparse/tests/Makefile
- create mode 100644 docparse/tests/empty_struct.c
- create mode 100644 docparse/tests/empty_struct.c.json
- create mode 100644 docparse/tests/expand_flags.c
- create mode 100644 docparse/tests/expand_flags.c.json
- create mode 100644 docparse/tests/include.c
- create mode 100644 docparse/tests/include.c.json
- create mode 100644 docparse/tests/include.h
- create mode 100644 docparse/tests/macro.c
- create mode 100644 docparse/tests/macro.c.json
- create mode 100644 docparse/tests/multiline_macro.c
- create mode 100644 docparse/tests/multiline_macro.c.json
- create mode 100644 docparse/tests/tags.c
- create mode 100644 docparse/tests/tags.c.json
- create mode 100755 docparse/tests/test.sh
+ docparse/data_storage.h | 29 +++++++++++++++++++++++++++++
+ 1 file changed, 29 insertions(+)
 
-diff --git a/docparse/tests/Makefile b/docparse/tests/Makefile
-new file mode 100644
-index 000000000..b5c8c4668
---- /dev/null
-+++ b/docparse/tests/Makefile
-@@ -0,0 +1,4 @@
-+all:
-+
-+test:
-+	@./test.sh
-diff --git a/docparse/tests/empty_struct.c b/docparse/tests/empty_struct.c
-new file mode 100644
-index 000000000..e5d986413
---- /dev/null
-+++ b/docparse/tests/empty_struct.c
-@@ -0,0 +1,2 @@
-+static struct tst_test test = {
+diff --git a/docparse/data_storage.h b/docparse/data_storage.h
+index 339450c8b..117c1d127 100644
+--- a/docparse/data_storage.h
++++ b/docparse/data_storage.h
+@@ -15,6 +15,7 @@ enum data_type {
+ 	DATA_ARRAY,
+ 	DATA_HASH,
+ 	DATA_STRING,
++	DATA_INT,
+ };
+ 
+ struct data_node_array {
+@@ -41,12 +42,18 @@ struct data_node_string {
+ 	char val[];
+ };
+ 
++struct data_node_int {
++	enum data_type type;
++	long val;
 +};
-diff --git a/docparse/tests/empty_struct.c.json b/docparse/tests/empty_struct.c.json
-new file mode 100644
-index 000000000..9f49f5332
---- /dev/null
-+++ b/docparse/tests/empty_struct.c.json
-@@ -0,0 +1,3 @@
-+  "empty_struct": {
-+   "fname": "empty_struct.c"
-+  }
-\ No newline at end of file
-diff --git a/docparse/tests/expand_flags.c b/docparse/tests/expand_flags.c
-new file mode 100644
-index 000000000..64f6da64e
---- /dev/null
-+++ b/docparse/tests/expand_flags.c
-@@ -0,0 +1,3 @@
-+static struct tst_test test = {
-+	.all_filesystems = 1,
-+};
-diff --git a/docparse/tests/expand_flags.c.json b/docparse/tests/expand_flags.c.json
-new file mode 100644
-index 000000000..cd79dd296
---- /dev/null
-+++ b/docparse/tests/expand_flags.c.json
-@@ -0,0 +1,6 @@
-+  "expand_flags": {
-+   "all_filesystems": "1",
-+   "needs_device": "1",
-+   "needs_tmpdir": "1",
-+   "fname": "expand_flags.c"
-+  }
-\ No newline at end of file
-diff --git a/docparse/tests/include.c b/docparse/tests/include.c
-new file mode 100644
-index 000000000..15377e339
---- /dev/null
-+++ b/docparse/tests/include.c
-@@ -0,0 +1,5 @@
-+# include "include.h"
 +
-+static struct tst_test test = {
-+	.test_variants = TEST_VARIANTS,
-+};
-diff --git a/docparse/tests/include.c.json b/docparse/tests/include.c.json
-new file mode 100644
-index 000000000..b4ef1ccda
---- /dev/null
-+++ b/docparse/tests/include.c.json
-@@ -0,0 +1,4 @@
-+  "include": {
-+   "test_variants": "10",
-+   "fname": "include.c"
-+  }
-\ No newline at end of file
-diff --git a/docparse/tests/include.h b/docparse/tests/include.h
-new file mode 100644
-index 000000000..efa11d24f
---- /dev/null
-+++ b/docparse/tests/include.h
-@@ -0,0 +1 @@
-+#define TEST_VARIANTS 10
-diff --git a/docparse/tests/macro.c b/docparse/tests/macro.c
-new file mode 100644
-index 000000000..296da12f5
---- /dev/null
-+++ b/docparse/tests/macro.c
-@@ -0,0 +1,5 @@
-+#define TEST_VARIANTS 10
+ struct data_node {
+ 	union {
+ 		enum data_type type;
+ 		struct data_node_hash hash;
+ 		struct data_node_array array;
+ 		struct data_node_string string;
++		struct data_node_int i;
+ 	};
+ };
+ 
+@@ -64,6 +71,19 @@ static inline struct data_node *data_node_string(const char *string)
+ 	return node;
+ }
+ 
++static inline struct data_node *data_node_int(long i)
++{
++	struct data_node *node = malloc(sizeof(struct data_node_int));
 +
-+static struct tst_test test = {
-+	.test_variants = TEST_VARIANTS,
-+};
-diff --git a/docparse/tests/macro.c.json b/docparse/tests/macro.c.json
-new file mode 100644
-index 000000000..0dc73d8ec
---- /dev/null
-+++ b/docparse/tests/macro.c.json
-@@ -0,0 +1,4 @@
-+  "macro": {
-+   "test_variants": "10",
-+   "fname": "macro.c"
-+  }
-\ No newline at end of file
-diff --git a/docparse/tests/multiline_macro.c b/docparse/tests/multiline_macro.c
-new file mode 100644
-index 000000000..2de58112b
---- /dev/null
-+++ b/docparse/tests/multiline_macro.c
-@@ -0,0 +1,6 @@
-+#define TEST_VARIANTS \
-+	10
++	if (!node)
++		return NULL;
 +
-+static struct tst_test test = {
-+	.test_variants = TEST_VARIANTS,
-+};
-diff --git a/docparse/tests/multiline_macro.c.json b/docparse/tests/multiline_macro.c.json
-new file mode 100644
-index 000000000..bafd037da
---- /dev/null
-+++ b/docparse/tests/multiline_macro.c.json
-@@ -0,0 +1,4 @@
-+  "multiline_macro": {
-+   "test_variants": "10",
-+   "fname": "multiline_macro.c"
-+  }
-\ No newline at end of file
-diff --git a/docparse/tests/tags.c b/docparse/tests/tags.c
-new file mode 100644
-index 000000000..ade3974ff
---- /dev/null
-+++ b/docparse/tests/tags.c
-@@ -0,0 +1,7 @@
-+static struct tst_test test = {
-+	.tags = (const struct tst_tag[]) {
-+		{"tag-name-1", "tag-value-1"},
-+		{"tag-name-2", "tag-value-2"},
-+		{}
-+	}
-+};
-diff --git a/docparse/tests/tags.c.json b/docparse/tests/tags.c.json
-new file mode 100644
-index 000000000..14cc14f1c
---- /dev/null
-+++ b/docparse/tests/tags.c.json
-@@ -0,0 +1,13 @@
-+  "tags": {
-+   "tags": [
-+     [
-+      "tag-name-1",
-+      "tag-value-1"
-+     ],
-+     [
-+      "tag-name-2",
-+      "tag-value-2"
-+     ]
-+    ],
-+   "fname": "tags.c"
-+  }
-\ No newline at end of file
-diff --git a/docparse/tests/test.sh b/docparse/tests/test.sh
-new file mode 100755
-index 000000000..767cc464c
---- /dev/null
-+++ b/docparse/tests/test.sh
-@@ -0,0 +1,18 @@
-+#!/bin/sh
++	node->type = DATA_INT;
++	node->i.val = i;
 +
-+fail=0
++	return node;
++}
 +
-+for i in *.c; do
-+	../docparse $i > tmp.json
-+	if ! diff tmp.json $i.json &> /dev/null; then
-+		echo "***"
-+		echo "$i output differs!"
-+		diff -u tmp.json $i.json
-+		echo "***"
-+		fail=1
-+	fi
-+done
-+
-+rm -f tmp.json
-+
-+exit $fail
+ #define MAX_ELEMS 100
+ 
+ static inline struct data_node *data_node_hash(void)
+@@ -122,6 +142,7 @@ static inline void data_node_free(struct data_node *self)
+ 
+ 	switch (self->type) {
+ 	case DATA_STRING:
++	case DATA_INT:
+ 	break;
+ 	case DATA_HASH:
+ 		for (i = 0; i < self->hash.elems_used; i++) {
+@@ -209,6 +230,10 @@ static inline void data_node_print_(struct data_node *self, unsigned int padd)
+ 	unsigned int i;
+ 
+ 	switch (self->type) {
++	case DATA_INT:
++		data_print_padd(padd);
++		printf("%li\n", self->i.val);
++	break;
+ 	case DATA_STRING:
+ 		data_print_padd(padd);
+ 		printf("'%s'\n", self->string.val);
+@@ -295,6 +320,10 @@ static inline void data_to_json_(struct data_node *self, FILE *f, unsigned int p
+ 	unsigned int i;
+ 
+ 	switch (self->type) {
++	case DATA_INT:
++		padd = do_padd ? padd : 0;
++		data_fprintf(f, padd, "%li", self->i.val);
++	break;
+ 	case DATA_STRING:
+ 		padd = do_padd ? padd : 0;
+ 		data_fprintf_esc(f, padd, self->string.val);
 -- 
 2.32.0
 
