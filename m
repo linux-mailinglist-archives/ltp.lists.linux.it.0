@@ -1,53 +1,54 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43A7344124B
-	for <lists+linux-ltp@lfdr.de>; Mon,  1 Nov 2021 04:13:05 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2FDC344124C
+	for <lists+linux-ltp@lfdr.de>; Mon,  1 Nov 2021 04:13:12 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 290533C7046
-	for <lists+linux-ltp@lfdr.de>; Mon,  1 Nov 2021 04:13:04 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 6E6DD3C7085
+	for <lists+linux-ltp@lfdr.de>; Mon,  1 Nov 2021 04:13:11 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 764F23C1B3C
+ by picard.linux.it (Postfix) with ESMTPS id A56983C1B3C
  for <ltp@lists.linux.it>; Mon,  1 Nov 2021 04:12:59 +0100 (CET)
-Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
+Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 7F257601D54
- for <ltp@lists.linux.it>; Mon,  1 Nov 2021 04:12:52 +0100 (CET)
-X-QQ-mid: bizesmtp39t1635736366tgsk14oe
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 432332011D1
+ for <ltp@lists.linux.it>; Mon,  1 Nov 2021 04:12:55 +0100 (CET)
+X-QQ-mid: bizesmtp39t1635736369tfvcfg63
 Received: from localhost.localdomain (unknown [58.240.82.166])
  by esmtp6.qq.com (ESMTP) with 
- id ; Mon, 01 Nov 2021 11:12:41 +0800 (CST)
+ id ; Mon, 01 Nov 2021 11:12:47 +0800 (CST)
 X-QQ-SSF: 0140000000000040C000B00A0000000
-X-QQ-FEAT: XFP6IXEuxf4vbdtpz98Rx7arJZHQJxDmbw+PCrPPWSEUYAEoz4Inuho4qFHgI
- ITHOJ0Gwu+iUCHnYrctTOEvR1L2C0uTWOClLv4WvwcZnt3zqKk8q/W+oeXcRQQLMcGOCg/y
- tmQ1+WZqIsg7VbSEltFpxqW3ALg8fcarZipHo25zM1xAT0PdikZglRtBwfERSWZPgMQowAT
- JDJaA3kpYdccvc9UWpAGAy8t4Xoq6Byr2vBXTk9IgFqLpkMHrexH1HfhxxadpO0OVfk+F1m
- VXxLvkJOmWNw57ytvt6YTN9v2dhbNQDdszK5I6r3TX1IWyDBX47oVcgnFrfdI+xND1oZom0
- dii0LhQ4SqAMZdDdJorDu8Ip2tMag==
+X-QQ-FEAT: joFlDO0EfIe6/ayljxKhGjHrk8wUXJHEZZWa/4mcVAy/zNUxiPHJUMCkDyVYD
+ 0QWWphzgomdMq5n7SllB6aNkLODQZEazaee3PnxHq50oGUiZsMUTwajruazEVedkd5we4yQ
+ /Zg+65AKvo2EijWgHHWeDAykKo0s0yzLy333+j0eI5OxIzlmsZ56KZLgT6c5P9KCTDIlS+d
+ UpLOJwCqx7rqJt2+/qxkriQwhebBzCzyflpaY5ka0zSs+ZcLIfWWi1plSbaD15XSmPEFNS5
+ m1Y5gt0haBc8TCvMMjdfGWWdP1PlWF77Q6dH+bm/Jg6khlqSZUZr9RE5Wb4TlqK+E746e86
+ 9flo3K8BQdZCBXh6Pa7fk8Yp4WDL2JmpIoegruP
 X-QQ-GoodBg: 2
 From: tangmeng <tangmeng@uniontech.com>
 To: ltp@lists.linux.it
-Date: Mon,  1 Nov 2021 11:12:39 +0800
-Message-Id: <20211101031240.29791-1-tangmeng@uniontech.com>
+Date: Mon,  1 Nov 2021 11:12:40 +0800
+Message-Id: <20211101031240.29791-2-tangmeng@uniontech.com>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20211101031240.29791-1-tangmeng@uniontech.com>
+References: <20211101031240.29791-1-tangmeng@uniontech.com>
 MIME-Version: 1.0
 X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign2
+Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign6
 X-QQ-Bgrelay: 1
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH 1/2] dup/dup04: Convert to new API
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH 2/2] dup/dup05: Convert to new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,15 +68,14 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Signed-off-by: tangmeng <tangmeng@uniontech.com>
 ---
- testcases/kernel/syscalls/dup/dup04.c | 204 +++++---------------------
- 1 file changed, 34 insertions(+), 170 deletions(-)
+ testcases/kernel/syscalls/dup/dup05.c | 181 ++++----------------------
+ 1 file changed, 26 insertions(+), 155 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/dup/dup04.c b/testcases/kernel/syscalls/dup/dup04.c
-index 0b1827c68..8d45f7a9c 100644
---- a/testcases/kernel/syscalls/dup/dup04.c
-+++ b/testcases/kernel/syscalls/dup/dup04.c
-@@ -1,198 +1,62 @@
-+// SPDX-License-Identifier: GPL-2.0-only
+diff --git a/testcases/kernel/syscalls/dup/dup05.c b/testcases/kernel/syscalls/dup/dup05.c
+index fc0e1f1d4..f4f341962 100644
+--- a/testcases/kernel/syscalls/dup/dup05.c
++++ b/testcases/kernel/syscalls/dup/dup05.c
+@@ -1,183 +1,54 @@
  /*
   * Copyright (c) 2000 Silicon Graphics, Inc.  All Rights Reserved.
   *
@@ -109,20 +109,20 @@ index 0b1827c68..8d45f7a9c 100644
 - *
 + * 06/1994 AUTHOR: Richard Logan CO-PILOT: William Roske
   */
--/* $Id: dup04.c,v 1.6 2009/10/13 14:00:46 subrata_modak Exp $ */
+-/* $Id: dup05.c,v 1.6 2009/10/13 14:00:46 subrata_modak Exp $ */
 -/**********************************************************
 - *
 - *    OS Test - Silicon Graphics, Inc.
 - *
-- *    TEST IDENTIFIER	: dup04
+- *    TEST IDENTIFIER	: dup05
 - *
 - *    EXECUTED BY	: anyone
 - *
-- *    TEST TITLE	: Basic test for dup(2) of a system pipe descriptor
+- *    TEST TITLE	: Basic test for dup(2) of a named pipe descriptor
 - *
 - *    PARENT DOCUMENT	: usctpl01
 - *
-- *    TEST CASE TOTAL	: 2
+- *    TEST CASE TOTAL	: 1
 - *
 - *    WALL CLOCK TIME	: 1
 - *
@@ -185,92 +185,63 @@ index 0b1827c68..8d45f7a9c 100644
 - * 	Cleanup:
 - * 	  Print errno log and/or timing stats if options given
 - *
-+
-+/*\
-+ * [DESCRIPTION]
-  *
+- *
 - *#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#**/
-+ * Basic test for dup(2) of a system pipe descriptor.
-+ */
-
- #ifndef _GNU_SOURCE
- #define _GNU_SOURCE
- #endif
+-
 -#include <sys/types.h>
+-#include <sys/stat.h>
 -#include <fcntl.h>
 -#include <errno.h>
--#include <stdio.h>
 -#include <string.h>
 -#include <signal.h>
 -#include "test.h"
 -#include "safe_macros.h"
--
+
 -void setup();
 -void cleanup();
-
--char *TCID = "dup04";
--int TST_TOTAL = 2;
+-
+-char *TCID = "dup05";
+-int TST_TOTAL = 1;
++/*\
++ * [DESCRIPTION]
++ *
++ * Basic test for dup(2) of a named pipe descriptor
++ */
++#include <stdio.h>
 +#include "tst_test.h"
 
- int fd[2];
+ char Fname[255];
+ int fd;
 
 -int main(int ac, char **av)
 +static void run(void)
  {
 -	int lc;
--
++	TEST(dup(fd));
+
 -	tst_parse_opts(ac, av, NULL, NULL);
 -
 -	setup();
 -
 -	for (lc = 0; TEST_LOOPING(lc); lc++) {
-+	TEST(dup(fd[0]));
-
+-
 -		tst_count = 0;
-+	if (TST_RET == -1)
-+		tst_res(TFAIL | TTERRNO,
-+			 "dup of read side of pipe failed");
-+	else {
-+		tst_res(TPASS,
-+			 "dup(%d) read side of syspipe returned %ld",
-+			 fd[0], TST_RET);
-
--		TEST(dup(fd[0]));
 -
--		if (TEST_RETURN == -1)
--			tst_resm(TFAIL | TTERRNO,
--				 "dup of read side of pipe failed");
--		else {
--			tst_resm(TPASS,
--				 "dup(%d) read side of syspipe returned %ld",
--				 fd[0], TEST_RETURN);
--
--			SAFE_CLOSE(cleanup, TEST_RETURN);
--		}
--
--		TEST(dup(fd[1]));
+-		TEST(dup(fd));
 -
 -		if (TEST_RETURN == -1) {
--			tst_resm(TFAIL | TTERRNO,
--				 "dup of write side of pipe failed");
+-			tst_resm(TFAIL | TTERRNO, "dup failed");
 -		} else {
--			tst_resm(TPASS,
--				 "dup(%d) write side of syspipe returned %ld",
--				 fd[1], TEST_RETURN);
-+		SAFE_CLOSE(TST_RET);
-+	}
-
-+	TEST(dup(fd[1]));
-
+-			tst_resm(TPASS, "dup returned %ld",
+-				 TEST_RETURN);
+-
 -			SAFE_CLOSE(cleanup, TEST_RETURN);
 -		}
 +	if (TST_RET == -1) {
-+		tst_res(TFAIL | TTERRNO,
-+			 "dup of write side of pipe failed");
++		tst_res(TFAIL | TTERRNO, "dup failed");
 +	} else {
-+		tst_res(TPASS,
-+			 "dup(%d) write side of syspipe returned %ld",
-+			 fd[1], TST_RET);
++		tst_res(TPASS, "dup returned %ld",
++			 TST_RET);
 
 +		SAFE_CLOSE(TST_RET);
  	}
@@ -281,7 +252,7 @@ index 0b1827c68..8d45f7a9c 100644
 
  void setup(void)
  {
- 	fd[0] = -1;
+ 	fd = -1;
 
 -	tst_sig(FORK, DEF_HANDLER, cleanup);
 -
@@ -289,23 +260,30 @@ index 0b1827c68..8d45f7a9c 100644
 -
 -	tst_tmpdir();
 -
--	SAFE_PIPE(cleanup, fd);
-+	SAFE_PIPE(fd);
+ 	sprintf(Fname, "dupfile");
+-	SAFE_MKFIFO(cleanup, Fname, 0777);
++	SAFE_MKFIFO(Fname, 0777);
+ 	if ((fd = open(Fname, O_RDWR, 0700)) == -1)
+-		tst_brkm(TBROK, cleanup, "open failed");
++		tst_brk(TBROK, "open failed");
  }
 
--void cleanup(void)
--{
--	int i;
--
--	for (i = 0; i <= 6; i++)
--		close(i);
+ void cleanup(void)
+ {
+ 	if (fd != -1)
+ 		if (close(fd) == -1)
+-			tst_resm(TWARN | TERRNO, "close failed");
 -
 -	tst_rmdir();
--}
+-
++			tst_res(TWARN | TERRNO, "close failed");
+ }
++
 +static struct tst_test test = {
 +        .test_all = run,
 +        .setup = setup,
-+        .needs_tmpdir = 1,
++        .cleanup = cleanup,
++	.needs_tmpdir = 1,
 +};
 --
 2.20.1
