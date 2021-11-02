@@ -1,74 +1,78 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8EB4442C63
-	for <lists+linux-ltp@lfdr.de>; Tue,  2 Nov 2021 12:20:36 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 32C2F442C85
+	for <lists+linux-ltp@lfdr.de>; Tue,  2 Nov 2021 12:27:50 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4FBF13C7130
-	for <lists+linux-ltp@lfdr.de>; Tue,  2 Nov 2021 12:20:36 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id E31283C710E
+	for <lists+linux-ltp@lfdr.de>; Tue,  2 Nov 2021 12:27:49 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 9242C3C68BB
- for <ltp@lists.linux.it>; Tue,  2 Nov 2021 12:20:34 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 7C4C23C6268
+ for <ltp@lists.linux.it>; Tue,  2 Nov 2021 12:27:48 +0100 (CET)
+Received: from mail-pf1-x432.google.com (mail-pf1-x432.google.com
+ [IPv6:2607:f8b0:4864:20::432])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 0DCA1600C43
- for <ltp@lists.linux.it>; Tue,  2 Nov 2021 12:20:33 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 194D5212C0;
- Tue,  2 Nov 2021 11:20:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1635852033; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=LHPkVOzSXJSzjxj6UeGXi5DvTi2UNJC0dTDEqDW/JtM=;
- b=YeKsFsq4jBF40Tbt2SDxUd4+lpR2x2++j7JLrGjZs0RyMIm/k6kPmnaY9JOY9W8OIBG1mU
- Zl9uPhB0MU1bvuClCBcIbI6lic5FlTnev9TLoumCj/dZsO483y6X8xAbvEhe0lRSVR6QGo
- zIhUlYXkev8sbXUJ426g1o/WCJk9sOw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1635852033;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=LHPkVOzSXJSzjxj6UeGXi5DvTi2UNJC0dTDEqDW/JtM=;
- b=DOwHOEQ2Q47Vaq7erdZ43OtqPtJdsFEItrrd+nIowJw0N4ok5dNElSqalZ7gMR82+03epf
- EfRJH3gDjXxq+eDA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 018BE13C1F;
- Tue,  2 Nov 2021 11:20:32 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id IMyFOgAfgWE8QwAAMHmgww
- (envelope-from <chrubis@suse.cz>); Tue, 02 Nov 2021 11:20:32 +0000
-Date: Tue, 2 Nov 2021 12:21:26 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Richard Palethorpe <rpalethorpe@suse.de>
-Message-ID: <YYEfNvjosOzWzKRJ@yuki>
-References: <20211101145342.7166-1-chrubis@suse.cz>
- <20211101145342.7166-2-chrubis@suse.cz> <871r3yq0hm.fsf@suse.de>
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 0BAB8600A37
+ for <ltp@lists.linux.it>; Tue,  2 Nov 2021 12:27:48 +0100 (CET)
+Received: by mail-pf1-x432.google.com with SMTP id m14so19212937pfc.9
+ for <ltp@lists.linux.it>; Tue, 02 Nov 2021 04:27:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=poO7iQ5eLKf23Vik4rTBqi9mweJB4HMVhR7eOi0UAbo=;
+ b=LTaCvNxR0cU5QQZ/mGtUD1AgqG97RDQhxXF0Gegn7YTWQCHB23dO5jkzpBqUpnUqs4
+ XF9rdFlDf6WZbe6jfqR3Xv2VYtUpQ72TNmmUVfADhgVPMijGiWYY+bgJR6eUmllEA/JA
+ kUaqp1A2Bx4hEjCk5acipKIDDOszsTCeUWoj81Hv4Pfd5M5YF4MZDVPktOcHTYZ1hWNC
+ ElRVxcNN96vRxWA6cECPf982llkgbJvI3CtnMqppLEk5fxtrvQS1RBEbZRqzuVdzMeuD
+ h0t8qSzHC2zJQhc7D+8k+OEuDAEeSp85fO6+kcxPVOsfRmADpSM/jEUr1lMQmxy7WABf
+ XNEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=poO7iQ5eLKf23Vik4rTBqi9mweJB4HMVhR7eOi0UAbo=;
+ b=nTS9KGYeFMUrnu+jkQHi/Kyhwor/Touet5STT0bC9gxgpMDsoUkPwqrf1p5WpYtXTZ
+ /oumqzsavlRMV7gde99l6oYioeRkCVeiMMye5dBSMywpEz/vK4PcLfbk9KTnsVtaIIYf
+ UBArEtEbeAw7kmA4t4qgepJBEVYpUbC8ELsh+teW95eumc8ZvDPkIe+FkvDpT5Mtfmag
+ Agyz7GLi6eRotKqeB+IBDEAO/HbIKvev5CmymRj8Uya+s05+q5VTKZsAAqlNXMKNW/Q9
+ FpPx6wqYgEG0wC8Q2mjNYRP0QTBeG+bTmt+4D0QenhZp7/YFS1oJQ/yBTzyfafXF3nI5
+ 7yqQ==
+X-Gm-Message-State: AOAM530RK3lInpeTuQkz/ZyRo9hBi7gRqBrkhTwv5SjiA6wOh8NpFmLb
+ lH34DgT7+RRMeVXYJoyRL2rH4Q==
+X-Google-Smtp-Source: ABdhPJz0YyQNDNK0wS8N3wDrahP4zj5OidmDpiM08/I4V0oQSsPqOHyi94pj+2mkbJnn40ILj+Ek/w==
+X-Received: by 2002:a05:6a00:1348:b0:481:179c:ce9b with SMTP id
+ k8-20020a056a00134800b00481179cce9bmr9552491pfu.27.1635852466038; 
+ Tue, 02 Nov 2021 04:27:46 -0700 (PDT)
+Received: from google.com (64.157.240.35.bc.googleusercontent.com.
+ [35.240.157.64])
+ by smtp.gmail.com with ESMTPSA id 13sm2267614pjb.37.2021.11.02.04.27.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 02 Nov 2021 04:27:45 -0700 (PDT)
+Date: Tue, 2 Nov 2021 11:27:38 +0000
+To: Gabriel Krisman Bertazi <krisman@collabora.com>
+Message-ID: <YYEgqgFoo7oJheFr@google.com>
+References: <20211029211732.386127-1-krisman@collabora.com>
+ <20211029211732.386127-2-krisman@collabora.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <871r3yq0hm.fsf@suse.de>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+In-Reply-To: <20211029211732.386127-2-krisman@collabora.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+X-Spam-Status: No, score=-14.9 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,
+ SPF_PASS,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 1/7] docparse: Implement #define and #include
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3 1/9] syscalls: fanotify: Add macro to require
+ specific mark types
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,61 +84,46 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+From: Matthew Bobrowski via ltp <ltp@lists.linux.it>
+Reply-To: Matthew Bobrowski <repnop@google.com>
+Cc: kernel@collabora.com, khazhy@google.com, jack@suse.com,
+ linux-ext4@vger.kernel.org, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> > +static void macro_get_string(FILE *f, char *buf, char *buf_end)
-> > +{
-> > +	int c;
-> > +
-> > +	for (;;) {
-> > +		c = fgetc(f);
-> > +
-> > +		switch (c) {
-> > +		case '"':
+On Fri, Oct 29, 2021 at 06:17:24PM -0300, Gabriel Krisman Bertazi wrote:
+> Like done for init flags and event types, and a macro to require a
+> specific mark type.
 > 
-> Luckily there are no instances of '#define MACRO "...\"...\"..."' in LTP
-> AFAICT. Also there don't appear to be any '#define MACRO "..." \\n' that
-> we would care about.
-
-Well I can fix that and add a test to to be sure.
-
-> > +		case EOF:
-> > +			*buf = 0;
-> > +			return;
-> > +		default:
-> > +			if (buf < buf_end)
-> > +				*(buf++) = c;
-> > +		}
-> > +	}
-> > +}
-> > +
-> > +static void macro_get_val(FILE *f, char *buf, size_t buf_len)
-> > +{
-> > +	int c, prev = 0;
-> > +	char *buf_end = buf + buf_len - 1;
-> > +
-> > +	c = fgetc(f);
-> > +	if (c == '"') {
+> Reviewed-by: Amir Goldstein <amir73il@gmail.com>
+> Signed-off-by: Gabriel Krisman Bertazi <krisman@collabora.com>
+> ---
+>  testcases/kernel/syscalls/fanotify/fanotify.h | 5 +++++
+>  1 file changed, 5 insertions(+)
 > 
-> I guess this could be whitespace unless scanf slurps any trailing
-> whitespace?
+> diff --git a/testcases/kernel/syscalls/fanotify/fanotify.h b/testcases/kernel/syscalls/fanotify/fanotify.h
+> index a2be183385e4..c67db3117e29 100644
+> --- a/testcases/kernel/syscalls/fanotify/fanotify.h
+> +++ b/testcases/kernel/syscalls/fanotify/fanotify.h
+> @@ -373,4 +373,9 @@ static inline int fanotify_mark_supported_by_kernel(uint64_t flag)
+>  	return rval;
+>  }
+>  
+> +#define REQUIRE_MARK_TYPE_SUPPORTED_ON_KERNEL(mark_type) do { \
+> +	fanotify_init_flags_err_msg(#mark_type, __FILE__, __LINE__, tst_brk_, \
+> +				    fanotify_mark_supported_by_kernel(mark_type)); \
+> +} while (0)
+> +
+>  #endif /* __FANOTIFY_H__ */
 
-The scanf does not slurp any trainling whitespaces, so this should be
-fixed by:
+A nit, but I'm of the opinion that s/_ON_/_BY_ within the macro name. Otherwise,
+this looks OK to me.
 
-	while (isspace(c = fgetc(f)));
+Reviewed-by: Matthew Bobrowski <repnop@google.com>
 
-With that we get slightly better output, so I will add that before
-applying.
-
--- 
-Cyril Hrubis
-chrubis@suse.cz
+/M
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
