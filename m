@@ -1,74 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A3B5442D7B
-	for <lists+linux-ltp@lfdr.de>; Tue,  2 Nov 2021 13:05:10 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id E2D54442D84
+	for <lists+linux-ltp@lfdr.de>; Tue,  2 Nov 2021 13:06:44 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id ED7B23C711B
-	for <lists+linux-ltp@lfdr.de>; Tue,  2 Nov 2021 13:05:09 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 89A6F3C711B
+	for <lists+linux-ltp@lfdr.de>; Tue,  2 Nov 2021 13:06:44 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id AECE53C697C
- for <ltp@lists.linux.it>; Tue,  2 Nov 2021 13:05:08 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id EB19F3C697C
+ for <ltp@lists.linux.it>; Tue,  2 Nov 2021 13:06:42 +0100 (CET)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id C219D2013C0
- for <ltp@lists.linux.it>; Tue,  2 Nov 2021 13:05:07 +0100 (CET)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 5C667600704
+ for <ltp@lists.linux.it>; Tue,  2 Nov 2021 13:06:42 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id E22701FD75;
- Tue,  2 Nov 2021 12:05:06 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id AB7BF1FD75;
+ Tue,  2 Nov 2021 12:06:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1635854706; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1635854801; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=JsBaYj527wRAXMOsPtfBnWTFCYJVkwmoeuE/y8s0Xtc=;
- b=RMa34w45l4yupFoXj9KvFqPXaRMjq5WlmvGtn7sfEsuf3BjzisLHJ9SVAuY4QQFDzWiJxp
- D/v89CY1a8Y/cksNE7CH/Ic63itR13qEAwdeAqfz4ZQIOse75dOtXqn6Gdpz7CtEqqjzD/
- i0nJpkIIEnJFvNFPV74S5wqF3r3X+OM=
+ bh=vGKX09vg5cvV9vgPaBBH52c8ujpqPA6iYWDTL3PAU6M=;
+ b=qRlQiX+IHrsB9CH4qPAetT3t9YJZWAlq6giiII4n+4XI1kGAyqGQ+eoJRZq6uPQf11FFVO
+ QBYLc16WjbnXeTShbFuGyHtzyEZOAo/XWO+hvohAGwBYmHvRsec06vYczKzomHTX2qvTej
+ X6jPk3PRvA5FiJIO5j1LUSs+xf8BDGU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1635854706;
+ s=susede2_ed25519; t=1635854801;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=JsBaYj527wRAXMOsPtfBnWTFCYJVkwmoeuE/y8s0Xtc=;
- b=92yBDWeiIDS0bdP/58FoEI+Q9AaFjRWaeCwR0eJU/OPLbHNUno4y7uJLmwmMQgJ41HgmO1
- ykmtCz+yKn2ZTGDg==
+ bh=vGKX09vg5cvV9vgPaBBH52c8ujpqPA6iYWDTL3PAU6M=;
+ b=SSpJdupcC8MfrvzhNXjgpQzJOjL4l5hq0qu7/W6e1unb7ZOXm7TK4jt5seBQsslcoTLpQd
+ uY+Nct532ZlrTvDw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id BE0B713BF7;
- Tue,  2 Nov 2021 12:05:06 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9919513BF7;
+ Tue,  2 Nov 2021 12:06:41 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 31KcLXIpgWHIXAAAMHmgww
- (envelope-from <chrubis@suse.cz>); Tue, 02 Nov 2021 12:05:06 +0000
-Date: Tue, 2 Nov 2021 13:06:01 +0100
+ by imap2.suse-dmz.suse.de with ESMTPSA id Sb3VJNEpgWGZXQAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Tue, 02 Nov 2021 12:06:41 +0000
+Date: Tue, 2 Nov 2021 13:07:36 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Richard Palethorpe <rpalethorpe@suse.de>
-Message-ID: <YYEpqT904sn9eplM@yuki>
+Message-ID: <YYEqCApMgxUAoY7X@yuki>
 References: <20211101145342.7166-1-chrubis@suse.cz>
- <20211101145342.7166-6-chrubis@suse.cz> <87k0hqojm3.fsf@suse.de>
+ <20211101145342.7166-5-chrubis@suse.cz> <87o872ok4b.fsf@suse.de>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <87k0hqojm3.fsf@suse.de>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+In-Reply-To: <87o872ok4b.fsf@suse.de>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 5/7] docparse: Add type normalization
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 4/7] docparse: Implement ARRAY_SIZE()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,17 +87,18 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> > - This code makes sure that we get right value parsed and aborts the
-> >   compilation if the parser got confused. This part is important since
-> >   if the testrunners are going to use the metadata the data in there
-> >   must be correct.
+> > +
+> > +		if (strcmp(buf[cur_buf], "]") && strcmp(buf[cur_buf], "[")) {
 > 
-> I can't resist saying this would likely be solved by Sparse and its
-> understanding of C types. However in the present context it makes
-> perfect sense.
+> So this seems to mean we would silently ignore a variants array which
+> was declared with an explicit size. A quick grep doesn't turn up any
+> instances of that. However this would be an unexpected result. People
+> may intuitively think adding an explicity size would make parsing
+> easier.
 
-We would still have to check if we got right results, but yes, this is
-one of the places where a proper parser would make things easier.
+I would say that adding explicit size to arrays whose size is defined
+by their initialize is a mistake, at least in our case so I'm inclined
+to keep this as it is.
 
 -- 
 Cyril Hrubis
