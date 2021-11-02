@@ -1,77 +1,67 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BECA442BF3
-	for <lists+linux-ltp@lfdr.de>; Tue,  2 Nov 2021 11:58:12 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 32788442C28
+	for <lists+linux-ltp@lfdr.de>; Tue,  2 Nov 2021 12:07:58 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 8DB453C71BE
-	for <lists+linux-ltp@lfdr.de>; Tue,  2 Nov 2021 11:58:11 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 00C693C7106
+	for <lists+linux-ltp@lfdr.de>; Tue,  2 Nov 2021 12:07:58 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id C875D3C6349
- for <ltp@lists.linux.it>; Tue,  2 Nov 2021 11:58:07 +0100 (CET)
-Received: from mail-pg1-x52d.google.com (mail-pg1-x52d.google.com
- [IPv6:2607:f8b0:4864:20::52d])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 58EE43C6268
+ for <ltp@lists.linux.it>; Tue,  2 Nov 2021 12:07:56 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 717471A005E8
- for <ltp@lists.linux.it>; Tue,  2 Nov 2021 11:58:06 +0100 (CET)
-Received: by mail-pg1-x52d.google.com with SMTP id n23so9153977pgh.8
- for <ltp@lists.linux.it>; Tue, 02 Nov 2021 03:58:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=6qhnOTltiVlJpM2c/mEhWEe2pn2chPWGq2CZwlksfHc=;
- b=EPdwsQienLeZQc0YHqjzlKiLBHcTjnXJm5TLpV2gHtMJvDYuz0Hf/9vAAQXr0SRSDI
- x7ia8RF/knZn+SvBlcV1jUL2CEga6PFVYXUlPLy9NkqqEdX6K4TwFMqW4a/TV8BhuDG7
- fFb995OxjzgyYfIoV5/TqxWe0CgGYB5vadaU54mh/VCX5Jogu6Z4AE4cSCXwBl5/GGYe
- 5rVvxEoQIsY52Tq/EvT1Rwt7Xc67Z8xL0IY05iaU6xvUCn/KCBkDR36YWwPXOJyEXhGE
- zTObOOCQgVBucSpRC2LH4AVL2eopSt0Ujn9D6WE+jJAtxjRonVC8JNRoQrn60B52HZqk
- ipuA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=6qhnOTltiVlJpM2c/mEhWEe2pn2chPWGq2CZwlksfHc=;
- b=sp/dXsx65afGK88adETuuTd/VLEfQ/d6to55WfUYCh1cp0yDS3mbhrSOLi/BrS1iO2
- 1OPhAr/cmf0k5nmL7i9wUE/0SjEzRpZe5Y7CPGLv8mKMXXbmHIBe30ib4jlz2JZClRRc
- u2mPTZELY6XEwW8M5sSnAwHnwNT7MA9SMTSGjMVnw9ZZOxVu9nna4Qm5M4yB8Lj/flJ/
- KnUEwcO7KKvfAhpiAECH/L6VTRRGJ/XG09JPS90i59h9kgsioME7Q3RAsHV4ChZuyqSp
- G2q4rPbstJfkLtOqZ8WjURwo+TNwI4D6Eve0kgFZok67naOEA0BHmqjvKnvvEn3Ww71J
- epag==
-X-Gm-Message-State: AOAM531ppMJAIOxuGqrdarmrq1ZqX1mTIiy8+Rsw+oZwatEpChVMYeGE
- leOYHYCVYpIcWfEPyozUpzB1fOQ+Mj0EPw==
-X-Google-Smtp-Source: ABdhPJykxElDhy/wlKL4pcjI3p79goi36JhqoOj/ZIgLP8Noaqh0jCie+oHpD97KDxhGf5m5NkD1jA==
-X-Received: by 2002:a63:78a:: with SMTP id 132mr26791524pgh.83.1635850684416; 
- Tue, 02 Nov 2021 03:58:04 -0700 (PDT)
-Received: from google.com (64.157.240.35.bc.googleusercontent.com.
- [35.240.157.64])
- by smtp.gmail.com with ESMTPSA id x17sm18000381pfa.209.2021.11.02.03.58.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 02 Nov 2021 03:58:03 -0700 (PDT)
-Date: Tue, 2 Nov 2021 10:57:57 +0000
-To: ltp@lists.linux.it
-Message-ID: <229fb61317343cf30d481d05da272657c7572f59.1635849607.git.repnop@google.com>
-References: <cover.1635849607.git.repnop@google.com>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 6F76C20112A
+ for <ltp@lists.linux.it>; Tue,  2 Nov 2021 12:07:55 +0100 (CET)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 9C07C1FD4C
+ for <ltp@lists.linux.it>; Tue,  2 Nov 2021 11:07:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1635851272;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=ZOv0aQCiiQtIov1uGQQT5NK0nBd2v2LJyxsmTQ1CzxU=;
+ b=hy6Dny099ZBpIa2cDSZnzoPGYqO5eEBkgkBPysXa5tJ2VgCYb3oakb1ojyAcAyhy5kcQ/A
+ 8Aednco2LiiGACs2zwGaKjA8MhYU2Eu9AOhQAgKNvcPK7VoQVu3mtbT+SsPJNT7iHu7ieR
+ qHGwQj23hcwtY4k76IrfhAzzlGn7dq4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1635851272;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=ZOv0aQCiiQtIov1uGQQT5NK0nBd2v2LJyxsmTQ1CzxU=;
+ b=nJbvovPpkf86glqOyNOApSXqMGgX5NsOmQd5+/WKdESskaOTUe7rj3mkd1CRU90f5NJOof
+ 63jN3i6YtUkc9PBQ==
+Received: from g78 (rpalethorpe.udp.ovpn1.nue.suse.de [10.163.24.38])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by relay2.suse.de (Postfix) with ESMTPS id 3A4B2A3B92;
+ Tue,  2 Nov 2021 11:07:52 +0000 (UTC)
+References: <20211101145342.7166-1-chrubis@suse.cz>
+ <20211101145342.7166-2-chrubis@suse.cz>
+User-agent: mu4e 1.6.5; emacs 27.2
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Cyril Hrubis <chrubis@suse.cz>
+Date: Tue, 02 Nov 2021 10:05:51 +0000
+In-reply-to: <20211101145342.7166-2-chrubis@suse.cz>
+Message-ID: <871r3yq0hm.fsf@suse.de>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <cover.1635849607.git.repnop@google.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-14.9 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,
- SPF_PASS,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 2/2] syscalls/fanotify21: add new test checking the
- returned pidfd from fanotify in FAN_REPORT_PIDFD mode
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 1/7] docparse: Implement #define and #include
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,361 +73,392 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Matthew Bobrowski via ltp <ltp@lists.linux.it>
-Reply-To: Matthew Bobrowski <repnop@google.com>
-Cc: jack@suse.cz
+Reply-To: rpalethorpe@suse.de
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-A new test that performs verification on the values returned within
-the struct fanotify_event_info_pidfd record when the notification
-group has been intialized in FAN_REPORT_PIDFD mode.
 
-Signed-off-by: Matthew Bobrowski <repnop@google.com>
-Reviewed-by: Amir Goldstein <amir73il@gmail.com>
----
-Changes since v1:
- - Adapted do_setup() to make use of the
-   REQUIRE_FANOTIFY_INIT_FLAGS_SUPPORTED_BY_KERNEL() rather than open
-   coding it.
+Cyril Hrubis <chrubis@suse.cz> writes:
 
- - For parsing procfs information, rather than reimplementing parsing
-   utility functions, make use of the existing SAFE_FILE_LINES_SCANF()
-   library function.
+> We ignore most of the include statements and we attempt to parse only
+> header files that reside in the same directory as the test source code,
+> that is since we are not interested in any system or library headers as
+> we are only looking for constants used in the tst_test structure that
+> are always either directly in the test source or in header in the same
+> directory.
+>
+> The macro support is very simple as well, it's a single pass as we are
+> not interested in intricate macros. We just need values for constants
+> that are used in the tst_test structure intializations.
+>
+> + Also add -v verbose mode that prints included files and defined macros
+>
+> Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
 
- testcases/kernel/syscalls/fanotify/.gitignore |   1 +
- .../kernel/syscalls/fanotify/fanotify21.c     | 306 ++++++++++++++++++
- 2 files changed, 307 insertions(+)
- create mode 100644 testcases/kernel/syscalls/fanotify/fanotify21.c
+I don't see any issues that are likely to cause trouble
+immediately. However please check the comments below to ensure they are
+out-of-scope.
 
-diff --git a/testcases/kernel/syscalls/fanotify/.gitignore b/testcases/kernel/syscalls/fanotify/.gitignore
-index c99e6fff7..35e73b91e 100644
---- a/testcases/kernel/syscalls/fanotify/.gitignore
-+++ b/testcases/kernel/syscalls/fanotify/.gitignore
-@@ -18,4 +18,5 @@
- /fanotify18
- /fanotify19
- /fanotify20
-+/fanotify21
- /fanotify_child
-diff --git a/testcases/kernel/syscalls/fanotify/fanotify21.c b/testcases/kernel/syscalls/fanotify/fanotify21.c
-new file mode 100644
-index 000000000..e842dad17
---- /dev/null
-+++ b/testcases/kernel/syscalls/fanotify/fanotify21.c
-@@ -0,0 +1,306 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2021 Google. All Rights Reserved.
-+ *
-+ * Started by Matthew Bobrowski <repnop@google.com>
-+ */
-+
-+/*\
-+ * [Description]
-+ *
-+ * A test which verifies whether the returned struct
-+ * fanotify_event_info_pidfd in FAN_REPORT_PIDFD mode contains the
-+ * expected set of information.
-+ */
-+
-+#define _GNU_SOURCE
-+#include <stdio.h>
-+#include <ctype.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include "tst_test.h"
-+#include "tst_safe_stdio.h"
-+#include "lapi/pidfd_open.h"
-+
-+#ifdef HAVE_SYS_FANOTIFY_H
-+#include "fanotify.h"
-+
-+#define BUF_SZ		4096
-+#define MOUNT_PATH	"fs_mnt"
-+#define TEST_FILE	MOUNT_PATH "/testfile"
-+
-+struct pidfd_fdinfo_t {
-+	int pos;
-+	int flags;
-+	int mnt_id;
-+	int pid;
-+	int ns_pid;
-+};
-+
-+struct test_case_t {
-+	char *name;
-+	int fork;
-+	int want_pidfd_err;
-+} test_cases[] = {
-+	{
-+		"return a valid pidfd for event created by self",
-+		0,
-+		0,
-+	},
-+	{
-+		"return invalid pidfd for event created by terminated child",
-+		1,
-+		FAN_NOPIDFD,
-+	},
-+};
-+
-+static int fanotify_fd;
-+static char event_buf[BUF_SZ];
-+static struct pidfd_fdinfo_t *self_pidfd_fdinfo = NULL;
-+
-+static struct pidfd_fdinfo_t *read_pidfd_fdinfo(int pidfd)
-+{
-+	char *fdinfo_path;
-+	struct pidfd_fdinfo_t *pidfd_fdinfo;
-+
-+	pidfd_fdinfo = SAFE_MALLOC(sizeof(struct pidfd_fdinfo_t));
-+
-+	SAFE_ASPRINTF(&fdinfo_path, "/proc/self/fdinfo/%d", pidfd);
-+	SAFE_FILE_LINES_SCANF(fdinfo_path, "pos: %d", &pidfd_fdinfo->pos);
-+	SAFE_FILE_LINES_SCANF(fdinfo_path, "flags: %d", &pidfd_fdinfo->flags);
-+	SAFE_FILE_LINES_SCANF(fdinfo_path, "mnt_id: %d", &pidfd_fdinfo->mnt_id);
-+	SAFE_FILE_LINES_SCANF(fdinfo_path, "Pid: %d", &pidfd_fdinfo->pid);
-+	SAFE_FILE_LINES_SCANF(fdinfo_path, "NSpid: %d", &pidfd_fdinfo->ns_pid);
-+
-+	free(fdinfo_path);
-+
-+	return pidfd_fdinfo;
-+}
-+
-+static void generate_event(void)
-+{
-+	int fd;
-+
-+	/* Generate a single FAN_OPEN event on the watched object. */
-+	fd = SAFE_OPEN(TEST_FILE, O_RDONLY);
-+	SAFE_CLOSE(fd);
-+}
-+
-+static void do_fork(void)
-+{
-+	int status;
-+	pid_t child;
-+
-+	child = SAFE_FORK();
-+	if (child == 0) {
-+		SAFE_CLOSE(fanotify_fd);
-+		generate_event();
-+		exit(EXIT_SUCCESS);
-+	}
-+
-+	SAFE_WAITPID(child, &status, 0);
-+	if (WIFEXITED(status) && WEXITSTATUS(status) != 0)
-+		tst_brk(TBROK,
-+			"child process terminated incorrectly");
-+}
-+
-+static void do_setup(void)
-+{
-+	int pidfd;
-+
-+	SAFE_TOUCH(TEST_FILE, 0666, NULL);
-+
-+	/*
-+	 * An explicit check for FAN_REPORT_PIDFD is performed early
-+	 * on in the test initialization as it's a prerequisite for
-+	 * all test cases.
-+	 */
-+	REQUIRE_FANOTIFY_INIT_FLAGS_SUPPORTED_BY_KERNEL(FAN_REPORT_PIDFD);
-+
-+	fanotify_fd = SAFE_FANOTIFY_INIT(FAN_REPORT_PIDFD, O_RDONLY);
-+	SAFE_FANOTIFY_MARK(fanotify_fd, FAN_MARK_ADD, FAN_OPEN, AT_FDCWD,
-+			   TEST_FILE);
-+
-+	pidfd = pidfd_open(getpid(), 0);
-+	if (pidfd < 0) {
-+		tst_brk(TBROK | TERRNO,
-+			"pidfd=%d, pidfd_open(%d, 0) failed",
-+			pidfd, getpid());
-+	}
-+
-+	self_pidfd_fdinfo = read_pidfd_fdinfo(pidfd);
-+	if (self_pidfd_fdinfo == NULL) {
-+		tst_brk(TBROK,
-+			"pidfd=%d, failed to read pidfd fdinfo",
-+			pidfd);
-+	}
-+}
-+
-+static void do_test(unsigned int num)
-+{
-+	int i = 0, len;
-+	struct test_case_t *tc = &test_cases[num];
-+
-+	tst_res(TINFO, "Test #%d: %s", num, tc->name);
-+
-+	/*
-+	 * Generate the event in either self or a child process. Event
-+	 * generation in a child process is done so that the FAN_NOPIDFD case
-+	 * can be verified.
-+	 */
-+	if (tc->fork)
-+		do_fork();
-+	else
-+		generate_event();
-+
-+	/*
-+	 * Read all of the queued events into the provided event
-+	 * buffer.
-+	 */
-+	len = SAFE_READ(0, fanotify_fd, event_buf, sizeof(event_buf));
-+	while(i < len) {
-+		struct fanotify_event_metadata *event;
-+		struct fanotify_event_info_pidfd *info;
-+		struct pidfd_fdinfo_t *event_pidfd_fdinfo = NULL;
-+
-+		event = (struct fanotify_event_metadata *)&event_buf[i];
-+		info = (struct fanotify_event_info_pidfd *)(event + 1);
-+
-+		/*
-+		 * Checks ensuring that pidfd information record object header
-+		 * fields are set correctly.
-+		 */
-+		if (info->hdr.info_type != FAN_EVENT_INFO_TYPE_PIDFD) {
-+			tst_res(TFAIL,
-+				"unexpected info_type received in info "
-+				"header (expected: %d, got: %d",
-+				FAN_EVENT_INFO_TYPE_PIDFD,
-+				info->hdr.info_type);
-+			info = NULL;
-+			goto next_event;
-+		} else if (info->hdr.len !=
-+			   sizeof(struct fanotify_event_info_pidfd)) {
-+			tst_res(TFAIL,
-+				"unexpected info object length "
-+				"(expected: %lu, got: %d",
-+				sizeof(struct fanotify_event_info_pidfd),
-+				info->hdr.len);
-+			info = NULL;
-+			goto next_event;
-+		}
-+
-+		/*
-+		 * Check if pidfd information object reported any errors during
-+		 * creation and whether they're expected.
-+		 */
-+		if (info->pidfd < 0 && !tc->want_pidfd_err) {
-+			tst_res(TFAIL,
-+				"pidfd creation failed for pid: %u with pidfd error value "
-+				"set to: %d",
-+				(unsigned)event->pid,
-+				info->pidfd);
-+			goto next_event;
-+		} else if (tc->want_pidfd_err &&
-+			   info->pidfd != tc->want_pidfd_err) {
-+			tst_res(TFAIL,
-+				"pidfd set to an unexpected error: %d for pid: %u",
-+				info->pidfd,
-+				(unsigned)event->pid);
-+			goto next_event;
-+		} else if (tc->want_pidfd_err &&
-+			   info->pidfd == tc->want_pidfd_err) {
-+			tst_res(TPASS,
-+				"pid: %u terminated before pidfd was created, "
-+				"pidfd set to the value of: %d, as expected",
-+				(unsigned)event->pid,
-+				FAN_NOPIDFD);
-+			goto next_event;
-+		}
-+
-+		/*
-+		 * No pidfd errors occurred, continue with verifying pidfd
-+		 * fdinfo validity.
-+		 */
-+		event_pidfd_fdinfo = read_pidfd_fdinfo(info->pidfd);
-+		if (event_pidfd_fdinfo == NULL) {
-+			tst_brk(TBROK,
-+				"reading fdinfo for pidfd: %d "
-+				"describing pid: %u failed",
-+				info->pidfd,
-+				(unsigned)event->pid);
-+			goto next_event;
-+		} else if (event_pidfd_fdinfo->pid != event->pid) {
-+			tst_res(TFAIL,
-+				"pidfd provided for incorrect pid "
-+				"(expected pidfd for pid: %u, got pidfd for "
-+				"pid: %u)",
-+				(unsigned)event->pid,
-+				(unsigned)event_pidfd_fdinfo->pid);
-+			goto next_event;
-+		} else if (memcmp(event_pidfd_fdinfo, self_pidfd_fdinfo,
-+				  sizeof(struct pidfd_fdinfo_t))) {
-+			tst_res(TFAIL,
-+				"pidfd fdinfo values for self and event differ "
-+				"(expected pos: %d, flags: %x, mnt_id: %d, "
-+				"pid: %d, ns_pid: %d, got pos: %d, "
-+				"flags: %x, mnt_id: %d, pid: %d, ns_pid: %d",
-+				self_pidfd_fdinfo->pos,
-+				self_pidfd_fdinfo->flags,
-+				self_pidfd_fdinfo->mnt_id,
-+				self_pidfd_fdinfo->pid,
-+				self_pidfd_fdinfo->ns_pid,
-+				event_pidfd_fdinfo->pos,
-+				event_pidfd_fdinfo->flags,
-+				event_pidfd_fdinfo->mnt_id,
-+				event_pidfd_fdinfo->pid,
-+				event_pidfd_fdinfo->ns_pid);
-+			goto next_event;
-+		} else {
-+			tst_res(TPASS,
-+				"got an event with a valid pidfd info record, "
-+				"mask: %lld, pid: %u, fd: %d, "
-+				"pidfd: %d, info_type: %d, info_len: %d",
-+				(unsigned long long)event->mask,
-+				(unsigned)event->pid,
-+				event->fd,
-+				info->pidfd,
-+				info->hdr.info_type,
-+				info->hdr.len);
-+		}
-+
-+next_event:
-+		i += event->event_len;
-+		if (event->fd >= 0)
-+			SAFE_CLOSE(event->fd);
-+
-+		if (info && info->pidfd >= 0)
-+			SAFE_CLOSE(info->pidfd);
-+
-+		if (event_pidfd_fdinfo)
-+			free(event_pidfd_fdinfo);
-+	}
-+}
-+
-+static void do_cleanup(void)
-+{
-+	if (fanotify_fd >= 0)
-+		SAFE_CLOSE(fanotify_fd);
-+
-+	if (self_pidfd_fdinfo)
-+		free(self_pidfd_fdinfo);
-+}
-+
-+static struct tst_test test = {
-+	.setup = do_setup,
-+	.test = do_test,
-+	.tcnt = ARRAY_SIZE(test_cases),
-+	.cleanup = do_cleanup,
-+	.all_filesystems = 1,
-+	.needs_root = 1,
-+	.mntpoint = MOUNT_PATH,
-+	.forks_child = 1,
-+};
-+
-+#else
-+	TST_TEST_TCONF("system doesn't have required fanotify support");
-+#endif /* HAVE_SYS_FANOTIFY_H */
+Reviewed-by: rpalethorpe@suse.com
+
+> ---
+>  docparse/docparse.c | 234 ++++++++++++++++++++++++++++++++++++++++++--
+>  1 file changed, 224 insertions(+), 10 deletions(-)
+>
+> diff --git a/docparse/docparse.c b/docparse/docparse.c
+> index 8cd0d0eef..64f9d08d9 100644
+> --- a/docparse/docparse.c
+> +++ b/docparse/docparse.c
+> @@ -1,9 +1,12 @@
+>  // SPDX-License-Identifier: GPL-2.0-or-later
+>  /*
+> - * Copyright (c) 2019 Cyril Hrubis <chrubis@suse.cz>
+> + * Copyright (c) 2019-2021 Cyril Hrubis <chrubis@suse.cz>
+>   * Copyright (c) 2020 Petr Vorel <pvorel@suse.cz>
+>   */
+>  
+> +#define _GNU_SOURCE
+> +
+> +#include <search.h>
+>  #include <stdio.h>
+>  #include <string.h>
+>  #include <libgen.h>
+> @@ -12,6 +15,9 @@
+>  
+>  #include "data_storage.h"
+>  
+> +static int verbose;
+> +static char *includepath;
+> +
+>  #define WARN(str) fprintf(stderr, "WARNING: " str "\n")
+>  
+>  static void oneline_comment(FILE *f)
+> @@ -126,7 +132,7 @@ static void maybe_comment(FILE *f, struct data_node *doc)
+>  	}
+>  }
+>  
+> -const char *next_token(FILE *f, struct data_node *doc)
+> +static char *next_token(FILE *f, struct data_node *doc)
+>  {
+>  	size_t i = 0;
+>  	static char buf[4096];
+> @@ -159,6 +165,7 @@ const char *next_token(FILE *f, struct data_node *doc)
+>  		case ',':
+>  		case '[':
+>  		case ']':
+> +		case '#':
+>  			if (i) {
+>  				ungetc(c, f);
+>  				goto exit;
+> @@ -197,6 +204,46 @@ exit:
+>  	return buf;
+>  }
+>  
+> +static FILE *open_include(const char *includepath, FILE *f)
+> +{
+> +	char buf[256];
+> +	char *path;
+> +	FILE *inc;
+> +
+> +	if (!fscanf(f, "%s\n", buf))
+> +		return NULL;
+> +
+> +	if (buf[0] != '"')
+> +		return NULL;
+> +
+> +	char *filename = buf + 1;
+> +
+> +	if (!buf[0])
+> +		return NULL;
+> +
+> +	filename[strlen(filename)-1] = 0;
+> +
+> +	if (asprintf(&path, "%s/%s", includepath, filename) < 0)
+> +		return NULL;
+> +
+> +	inc = fopen(path, "r");
+> +
+> +	if (inc && verbose)
+> +		fprintf(stderr, "INCLUDE %s\n", path);
+> +
+> +	free(path);
+> +
+> +	return inc;
+> +}
+> +
+> +static void close_include(FILE *inc)
+> +{
+> +	if (verbose)
+> +		fprintf(stderr, "INCLUDE END\n");
+> +
+> +	fclose(inc);
+> +}
+> +
+>  static int parse_array(FILE *f, struct data_node *node)
+>  {
+>  	const char *token;
+> @@ -234,9 +281,28 @@ static int parse_array(FILE *f, struct data_node *node)
+>  	return 0;
+>  }
+>  
+> +static void try_apply_macro(char **res)
+> +{
+> +	ENTRY macro = {
+> +		.key = *res,
+> +	};
+> +
+> +	ENTRY *ret;
+> +
+> +	ret = hsearch(macro, FIND);
+> +
+> +	if (!ret)
+> +		return;
+> +
+> +	if (verbose)
+> +		fprintf(stderr, "APPLYING MACRO %s=%s\n", ret->key, (char*)ret->data);
+> +
+> +	*res = ret->data;
+> +}
+> +
+>  static int parse_test_struct(FILE *f, struct data_node *doc, struct data_node *node)
+>  {
+> -	const char *token;
+> +	char *token;
+>  	char *id = NULL;
+>  	int state = 0;
+>  	struct data_node *ret;
+> @@ -280,6 +346,7 @@ static int parse_test_struct(FILE *f, struct data_node *doc, struct data_node *n
+>  			ret = data_node_array();
+>  			parse_array(f, ret);
+>  		} else {
+> +			try_apply_macro(&token);
+>  			ret = data_node_string(token);
+>  		}
+>  
+> @@ -302,6 +369,114 @@ static const char *tokens[] = {
+>  	"{",
+>  };
+>  
+> +static void macro_get_string(FILE *f, char *buf, char *buf_end)
+> +{
+> +	int c;
+> +
+> +	for (;;) {
+> +		c = fgetc(f);
+> +
+> +		switch (c) {
+> +		case '"':
+
+Luckily there are no instances of '#define MACRO "...\"...\"..."' in LTP
+AFAICT. Also there don't appear to be any '#define MACRO "..." \\n' that
+we would care about.
+
+> +		case EOF:
+> +			*buf = 0;
+> +			return;
+> +		default:
+> +			if (buf < buf_end)
+> +				*(buf++) = c;
+> +		}
+> +	}
+> +}
+> +
+> +static void macro_get_val(FILE *f, char *buf, size_t buf_len)
+> +{
+> +	int c, prev = 0;
+> +	char *buf_end = buf + buf_len - 1;
+> +
+> +	c = fgetc(f);
+> +	if (c == '"') {
+
+I guess this could be whitespace unless scanf slurps any trailing
+whitespace?
+
+Again no actual instances of this AFAICT.
+
+> +		macro_get_string(f, buf, buf_end);
+> +		return;
+> +	}
+> +
+> +	for (;;) {
+> +		switch (c) {
+> +		case '\n':
+> +			if (prev == '\\') {
+> +				buf--;
+> +			} else {
+> +				*buf = 0;
+> +				return;
+> +			}
+> +		break;
+> +		case EOF:
+> +			*buf = 0;
+> +			return;
+> +		case ' ':
+> +		case '\t':
+> +		break;
+> +		default:
+> +			if (buf < buf_end)
+> +				*(buf++) = c;
+> +		}
+> +
+> +		prev = c;
+> +		c = fgetc(f);
+> +	}
+> +}
+> +
+> +static void parse_macro(FILE *f)
+> +{
+> +	char name[128];
+> +	char val[256];
+> +
+> +	if (!fscanf(f, "%s[^\n]", name))
+> +		return;
+> +
+> +	if (fgetc(f) == '\n')
+> +		return;
+> +
+> +	macro_get_val(f, val, sizeof(val));
+> +
+> +	ENTRY e = {
+> +		.key = strdup(name),
+> +		.data = strdup(val),
+> +	};
+> +
+> +	if (verbose)
+> +		fprintf(stderr, " MACRO %s=%s\n", e.key, (char*)e.data);
+> +
+> +	hsearch(e, ENTER);
+> +}
+> +
+> +static void parse_include_macros(FILE *f)
+> +{
+> +	FILE *inc;
+> +	const char *token;
+> +	int hash = 0;
+> +
+> +	inc = open_include(includepath, f);
+> +	if (!inc)
+> +		return;
+> +
+> +	while ((token = next_token(inc, NULL))) {
+> +		if (token[0] == '#') {
+> +			hash = 1;
+> +			continue;
+> +		}
+> +
+> +		if (!hash)
+> +			continue;
+> +
+> +		if (!strcmp(token, "define"))
+> +			parse_macro(inc);
+> +
+> +		hash = 0;
+> +	}
+> +
+> +	close_include(inc);
+> +}
+> +
+>  static struct data_node *parse_file(const char *fname)
+>  {
+>  	int state = 0, found = 0;
+> @@ -314,14 +489,28 @@ static struct data_node *parse_file(const char *fname)
+>  
+>  	FILE *f = fopen(fname, "r");
+>  
+> +	includepath = dirname(strdup(fname));
+> +
+>  	struct data_node *res = data_node_hash();
+>  	struct data_node *doc = data_node_array();
+>  
+>  	while ((token = next_token(f, doc))) {
+> -		if (state < 6 && !strcmp(tokens[state], token))
+> +		if (state < 6 && !strcmp(tokens[state], token)) {
+>  			state++;
+> -		else
+> +		} else {
+> +			if (token[0] == '#') {
+> +				token = next_token(f, doc);
+> +				if (token) {
+> +					if (!strcmp(token, "define"))
+> +						parse_macro(f);
+> +
+> +					if (!strcmp(token, "include"))
+> +						parse_include_macros(f);
+> +				}
+> +			}
+> +
+>  			state = 0;
+> +		}
+>  
+>  		if (state < 6)
+>  			continue;
+> @@ -386,17 +575,42 @@ const char *strip_name(char *path)
+>  	return name;
+>  }
+>  
+> +static void print_help(const char *prgname)
+> +{
+> +	printf("usage: %s [-vh] input.c\n\n", prgname);
+> +	printf("-v sets verbose mode\n");
+> +	printf("-h prints this help\n\n");
+> +	exit(0);
+> +}
+> +
+>  int main(int argc, char *argv[])
+>  {
+>  	unsigned int i, j;
+>  	struct data_node *res;
+> +	int opt;
+> +
+> +	while ((opt = getopt(argc, argv, "hv")) != -1) {
+> +		switch (opt) {
+> +		case 'h':
+> +			print_help(argv[0]);
+> +		break;
+> +		case 'v':
+> +			verbose = 1;
+> +		break;
+> +		}
+> +	}
+> +
+> +	if (optind >= argc) {
+> +		fprintf(stderr, "No input filename.c\n");
+> +		return 1;
+> +	}
+>  
+> -	if (argc != 2) {
+> -		fprintf(stderr, "Usage: docparse filename.c\n");
+> +	if (!hcreate(128)) {
+> +		fprintf(stderr, "Failed to initialize hash table\n");
+>  		return 1;
+>  	}
+>  
+> -	res = parse_file(argv[1]);
+> +	res = parse_file(argv[optind]);
+>  	if (!res)
+>  		return 0;
+>  
+> @@ -425,8 +639,8 @@ int main(int argc, char *argv[])
+>  		}
+>  	}
+>  
+> -	data_node_hash_add(res, "fname", data_node_string(argv[1]));
+> -	printf("  \"%s\": ", strip_name(argv[1]));
+> +	data_node_hash_add(res, "fname", data_node_string(argv[optind]));
+> +	printf("  \"%s\": ", strip_name(argv[optind]));
+>  	data_to_json(res, stdout, 2);
+>  	data_node_free(res);
+>  
+> -- 
+> 2.32.0
+
+
 -- 
-2.33.1.1089.g2158813163f-goog
-
-/M
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
