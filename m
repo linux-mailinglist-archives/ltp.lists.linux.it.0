@@ -1,55 +1,52 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3397444B9B
-	for <lists+linux-ltp@lfdr.de>; Thu,  4 Nov 2021 00:26:27 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 20253444BD4
+	for <lists+linux-ltp@lfdr.de>; Thu,  4 Nov 2021 00:56:56 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4CD503C72F8
-	for <lists+linux-ltp@lfdr.de>; Thu,  4 Nov 2021 00:26:27 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id B09333C7273
+	for <lists+linux-ltp@lfdr.de>; Thu,  4 Nov 2021 00:56:55 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 139703C552C
- for <ltp@lists.linux.it>; Thu,  4 Nov 2021 00:26:22 +0100 (CET)
-Received: from smtpbg516.qq.com (smtpbg516.qq.com [203.205.250.54])
+ by picard.linux.it (Postfix) with ESMTPS id 398533C552C
+ for <ltp@lists.linux.it>; Thu,  4 Nov 2021 00:56:50 +0100 (CET)
+Received: from smtpproxy21.qq.com (smtpbg704.qq.com [203.205.195.105])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id A97A01A0088B
- for <ltp@lists.linux.it>; Thu,  4 Nov 2021 00:26:20 +0100 (CET)
-X-QQ-mid: bizesmtp44t1635981974t13frbxc
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 552672003B9
+ for <ltp@lists.linux.it>; Thu,  4 Nov 2021 00:56:43 +0100 (CET)
+X-QQ-mid: bizesmtp44t1635983798t9f1u967
 Received: from localhost.localdomain (unknown [58.240.82.166])
  by esmtp6.qq.com (ESMTP) with 
- id ; Thu, 04 Nov 2021 07:26:12 +0800 (CST)
-X-QQ-SSF: 0140000000000040C000B00A0000000
-X-QQ-FEAT: YBQGNezXUizqbpHoBPfBltdQ6YyxsmUPKnxo/yvNZZk/AsSeoJ8ws08eTo/bW
- wmBWMNe9arD3fR1Pmif89YddiVWbxlXMbnY6KYEpdoHJD/wCxcwpFZO9KZW9g+pU88yGMZD
- KC265xazHBtJ2S3lGNMgUQab/41BTOjj0xK6Oq3MTdFRd91eiuACx3B0QBG5aZVV1ZQDXg/
- 5+A8szNxUGSEV0/f5wb/Ie1DVMefhgiGUNfLK7+gfyPxinahiel0XWpLfqOxfV5q1n1/PY9
- 4PedYqZRbfEzAbUESxh8Q2/JQMiPhGnXsnfHXY39E2VujzFr7I0W8+BUTdFexWAaUaf+/yq
- IKOAdHFYrh55Pf+5uepqSTqZHXkPw==
+ id ; Thu, 04 Nov 2021 07:56:32 +0800 (CST)
+X-QQ-SSF: 0140000000200040C000000A0000000
+X-QQ-FEAT: r5+m3MaUqzXGVSD6izpgZyaRW+USglE+KWRKF1JY3lv1l5XCVtbHAwBErCTvK
+ EVpxq8bvdYqU7S4iesg64EkuhS9SBlmSMcXd57iyB4QexGQjZr4XQL0X5I/sGD0MZbDk4Ir
+ GttJYIAjdiz6kfCDhFioBMDrgvEm1uudpajcNbvH7bdvmTbNBq3upAWAoWPBHeqTQ3LVB+M
+ MSTsYv5Q4MPZeeBN/3NrXsi+xeKAzkLgfQHzl4zT8VLFDRYCIPzjYjeRZNUPtZiwoljJtpp
+ +OUTocFHEsMOz4+ImfqzGIDevi6Jf+Kw4cRERcSssAGFJruq8+n1v43HSciEvtd68G0/shg
+ ghXoPf8q32FLHGCGd/2o6lEbS/fvg==
 X-QQ-GoodBg: 2
 From: tangmeng <tangmeng@uniontech.com>
 To: ltp@lists.linux.it
-Date: Thu,  4 Nov 2021 07:26:04 +0800
-Message-Id: <20211103232604.7930-2-tangmeng@uniontech.com>
+Date: Thu,  4 Nov 2021 07:56:30 +0800
+Message-Id: <20211103235631.9709-1-tangmeng@uniontech.com>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20211103232604.7930-1-tangmeng@uniontech.com>
-References: <20211103232604.7930-1-tangmeng@uniontech.com>
 MIME-Version: 1.0
 X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign5
+Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign2
 X-QQ-Bgrelay: 1
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_PASS, T_SPF_HELO_TEMPERROR
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH v4 2/2] link/link05: Convert to new API
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/2] getrlimit/getrlimit01: Convert to new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,213 +66,129 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Signed-off-by: tangmeng <tangmeng@uniontech.com>
 ---
- testcases/kernel/syscalls/link/link05.c | 159 ++++++------------------
- 1 file changed, 37 insertions(+), 122 deletions(-)
+ .../kernel/syscalls/getrlimit/getrlimit01.c   | 90 +++++--------------
+ 1 file changed, 23 insertions(+), 67 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/link/link05.c b/testcases/kernel/syscalls/link/link05.c
-index 5981ae62f..28d6079f5 100644
---- a/testcases/kernel/syscalls/link/link05.c
-+++ b/testcases/kernel/syscalls/link/link05.c
-@@ -1,161 +1,76 @@
+diff --git a/testcases/kernel/syscalls/getrlimit/getrlimit01.c b/testcases/kernel/syscalls/getrlimit/getrlimit01.c
+index 68e8bf818..0f7c2150f 100644
+--- a/testcases/kernel/syscalls/getrlimit/getrlimit01.c
++++ b/testcases/kernel/syscalls/getrlimit/getrlimit01.c
+@@ -1,41 +1,23 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
  /*
-  * Copyright (c) 2000 Silicon Graphics, Inc.  All Rights Reserved.
-  *  AUTHOR		: Richard Logan
-  *  CO-PILOT		: William Roske
-  * Copyright (c) 2014 Cyril Hrubis <chrubis@suse.cz>
 - *
-- * This program is free software; you can redistribute it and/or modify it
-- * under the terms of version 2 of the GNU General Public License as
-- * published by the Free Software Foundation.
+  *   Copyright (c) Wipro Technologies, 2002. All Rights Reserved.
+  *   Author: Suresh Babu V. <suresh.babu@wipro.com>
 - *
-- * This program is distributed in the hope that it would be useful, but
-- * WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+- *   This program is free software;  you can redistribute it and/or modify
+- *   it under the terms of the GNU General Public License as published by
+- *   the Free Software Foundation; either version 2 of the License, or
+- *   (at your option) any later version.
 - *
-- * Further, this software is distributed without any warranty that it is
-- * free of the rightful claim of any third person regarding infringement
-- * or the like.  Any license provided herein, whether implied or
-- * otherwise, applies only to this software file.  Patent licenses, if
-- * any, provided herein do not apply to combinations of this program with
-- * other software, or any other product whatsoever.
+- *   This program is distributed in the hope that it will be useful,
+- *   but WITHOUT ANY WARRANTY;  without even the implied warranty of
+- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
+- *   the GNU General Public License for more details.
 - *
-- * You should have received a copy of the GNU General Public License along
-- * with this program; if not, write the Free Software Foundation, Inc.,
-- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-- *
-- * Contact information: Silicon Graphics, Inc., 1600 Amphitheatre Pkwy,
-- * Mountain View, CA  94043, or:
-- *
-- * http://www.sgi.com
-- *
-- * For further information regarding this notice, see:
-- *
-- * http://oss.sgi.com/projects/GenInfo/NoticeExplan/
+- *   You should have received a copy of the GNU General Public License
+- *   along with this program;  if not, write to the Free Software
+- *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
   */
- 
- /*
-  * Test if link(2) fails with EMLINK.
+
+-/*
++/*\
++ * [Description]
++ *
+  * Verify that getrlimit(2) call will be successful for all possible resource
+  * types.
   */
- 
--#include <sys/types.h>
--#include <fcntl.h>
-+#include <stdio.h>
- #include <sys/stat.h>
+-#include <stdio.h>
 -#include <errno.h>
--#include <string.h>
--#include <signal.h>
+-#include <sys/time.h>
+ #include <sys/resource.h>
 -#include "test.h"
--#include "safe_macros.h"
 -
--static void setup(void);
 -static void cleanup(void);
--static void help(void);
--
--char *TCID = "link05";
--int TST_TOTAL = 1;
+-static void setup(void);
 +#include "tst_test.h"
- 
- #define BASENAME	"lkfile"
- 
- static char fname[255];
- 
--static char *links_arg;
+
+ static struct rlimit rlim;
+-static struct test_t {
++static struct tcase {
+ 	int res;
+ 	char *res_str;
+-} testcases[] = {
++} tcases[] = {
+ 	{RLIMIT_CPU, "RLIMIT_CPU"},
+ 	{RLIMIT_FSIZE, "RLIMIT_FSIZE"},
+ 	{RLIMIT_DATA, "RLIMIT_DATA"},
+@@ -60,49 +42,23 @@ static struct test_t {
+ #endif
+ };
+
+-char *TCID = "getrlimit01";
+-int TST_TOTAL = ARRAY_SIZE(testcases);
 -
--option_t options[] = {
--	{"N:", NULL, &links_arg},
--	{NULL, NULL, NULL}
--};
--
- static int nlinks = 1000;
- 
 -int main(int ac, char **av)
-+static void verify_link(void)
++static void verify_getrlimit(unsigned int i)
  {
+-	int i;
 -	int lc;
- 	struct stat fbuf, lbuf;
- 	int cnt;
- 	char lname[255];
- 
--	tst_parse_opts(ac, av, options, &help);
 -
--	if (links_arg) {
--		nlinks = atoi(links_arg);
+-	tst_parse_opts(ac, av, NULL, NULL);
 -
--		if (nlinks == 0) {
--			tst_brkm(TBROK, NULL,
--			         "nlinks is not a positive number");
--		}
-+	for (cnt = 1; cnt < nlinks; cnt++) {
-+		sprintf(lname, "%s%d", fname, cnt);
-+		TST_EXP_PASS(link(fname, lname), "link(%s, %s)", fname, lname);
- 	}
- 
 -	setup();
 -
 -	for (lc = 0; TEST_LOOPING(lc); lc++) {
 -
 -		tst_count = 0;
 -
--		for (cnt = 1; cnt < nlinks; cnt++) {
--			sprintf(lname, "%s%d", fname, cnt);
--			TEST(link(fname, lname));
+-		for (i = 0; i < TST_TOTAL; ++i) {
+-
+-			TEST(getrlimit(testcases[i].res, &rlim));
 -
 -			if (TEST_RETURN == -1) {
--				tst_resm(TFAIL,
--					 "link(%s, %s) Failed, errno=%d : %s",
--					 fname, lname, TEST_ERRNO,
--					 strerror(TEST_ERRNO));
+-				tst_resm(TFAIL | TTERRNO,
+-					 "getrlimit() test %s failed",
+-					 testcases[i].res_str);
+-			} else {
+-				tst_resm(TPASS,
+-					 "getrlimit() test %s success",
+-					 testcases[i].res_str);
 -			}
 -		}
--
--		SAFE_STAT(cleanup, fname, &fbuf);
-+	SAFE_STAT(fname, &fbuf);
- 
--		for (cnt = 1; cnt < nlinks; cnt++) {
--			sprintf(lname, "%s%d", fname, cnt);
-+	for (cnt = 1; cnt < nlinks; cnt++) {
-+		sprintf(lname, "%s%d", fname, cnt);
- 
--			SAFE_STAT(cleanup, lname, &lbuf);
--			if (fbuf.st_nlink <= 1 || lbuf.st_nlink <= 1 ||
--			    (fbuf.st_nlink != lbuf.st_nlink)) {
-+		SAFE_STAT(lname, &lbuf);
-+		if (fbuf.st_nlink <= 1 || lbuf.st_nlink <= 1 ||
-+		    (fbuf.st_nlink != lbuf.st_nlink)) {
- 
--				tst_resm(TFAIL,
--					 "link(%s, %s[1-%d]) ret %ld for %d "
--				         "files, stat values do not match %d %d",
--					 fname, fname, nlinks,
--					 TEST_RETURN, nlinks,
--					 (int)fbuf.st_nlink, (int)lbuf.st_nlink);
--				break;
--			}
--		}
--		if (cnt >= nlinks) {
--			tst_resm(TPASS,
--				 "link(%s, %s[1-%d]) ret %ld for %d files, "
--			         "stat linkcounts match %d",
--				 fname, fname, nlinks, TEST_RETURN,
--				 nlinks, (int)fbuf.st_nlink);
--		}
--
--		for (cnt = 1; cnt < nlinks; cnt++) {
--			sprintf(lname, "%s%d", fname, cnt);
--			SAFE_UNLINK(cleanup, lname);
-+			tst_res(TFAIL,
-+				 "link(%s, %s[1-%d]) ret %ld for %d "
-+			         "files, stat values do not match %d %d",
-+				 fname, fname, nlinks,
-+				 TST_RET, nlinks,
-+				 (int)fbuf.st_nlink, (int)lbuf.st_nlink);
-+			break;
- 		}
- 	}
-+	if (cnt >= nlinks) {
++	struct tcase *tc = &tcases[i];
++	TEST(getrlimit(tc->res, &rlim));
++
++	if (TST_RET == -1) {
++		tst_res(TFAIL | TTERRNO,
++			 "getrlimit() test %s failed",
++			 tc->res_str);
++	} else {
 +		tst_res(TPASS,
-+			 "link(%s, %s[1-%d]) ret %ld for %d files, "
-+		         "stat linkcounts match %d",
-+			 fname, fname, nlinks, TST_RET,
-+			 nlinks, (int)fbuf.st_nlink);
-+	}
- 
++			 "getrlimit() test %s success",
++			 tc->res_str);
+ 	}
+-
 -	cleanup();
 -	tst_exit();
--}
--
--static void help(void)
--{
--	printf("  -N #links : create #links hard links every iteration\n");
-+	for (cnt = 1; cnt < nlinks; cnt++) {
-+		sprintf(lname, "%s%d", fname, cnt);
-+		SAFE_UNLINK(lname);
-+	}
  }
- 
- static void setup(void)
- {
+
+-static void setup(void)
+-{
 -	tst_sig(NOFORK, DEF_HANDLER, cleanup);
 -
 -	TEST_PAUSE;
+-}
 -
--	tst_tmpdir();
--
- 	sprintf(fname, "%s_%d", BASENAME, getpid());
--	SAFE_TOUCH(cleanup, fname, 0700, NULL);
-+	SAFE_TOUCH(fname, 0700, NULL);
- }
- 
 -static void cleanup(void)
 -{
--	tst_rmdir();
 -}
 +static struct tst_test test = {
-+        .test_all = verify_link,
-+        .setup = setup,
-+        .needs_tmpdir = 1,
++	.tcnt = ARRAY_SIZE(tcases),
++	.test = verify_getrlimit,
 +};
--- 
+--
 2.20.1
 
 
