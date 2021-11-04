@@ -1,77 +1,72 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF3D7445392
-	for <lists+linux-ltp@lfdr.de>; Thu,  4 Nov 2021 14:09:50 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 19E5E4453A3
+	for <lists+linux-ltp@lfdr.de>; Thu,  4 Nov 2021 14:14:07 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9EF1B3C72EF
-	for <lists+linux-ltp@lfdr.de>; Thu,  4 Nov 2021 14:09:49 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 2C9FD3C7333
+	for <lists+linux-ltp@lfdr.de>; Thu,  4 Nov 2021 14:14:06 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 7FE4D3C5AEF
- for <ltp@lists.linux.it>; Thu,  4 Nov 2021 14:09:45 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id AFC281A0122B
- for <ltp@lists.linux.it>; Thu,  4 Nov 2021 14:09:44 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id B00FA3C72BC
+ for <ltp@lists.linux.it>; Thu,  4 Nov 2021 14:14:01 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 6C33F60032A
+ for <ltp@lists.linux.it>; Thu,  4 Nov 2021 14:14:00 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id BC361218B5;
- Thu,  4 Nov 2021 13:09:43 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 23DE71FD5A;
+ Thu,  4 Nov 2021 13:13:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1636031383; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1636031639; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=FuftfFGVdXB96vB2nrWzJWSAQMu398CkPaouPngEtJI=;
- b=2ynr4xJ/Wm5z1AyptIkm2GVLtUj4qOXwx3q+8yZVySpsiP5IpIDbljoTDIegDkgJLuWBis
- l2tXu0mHCcLzwrCrZpccxrNAo9sKLbD6laV8RPTOz9gj0lGp6E5yEezeV0sWcGrEplhry5
- Mw/HY/qmyKwtrsS4Wz762teM2zgEyaE=
+ bh=25hxZOS6oUmV6GVdmKptyMMVxdhCX/cBGfcJonzQNxg=;
+ b=3crsTvIRoQRsR7QXdb2msYMzMvLnE2GQgsJv3Mu4UtehRLQx7Oq3ET2Tw4YxekLQ4hf+Ye
+ TustXEl43enAKyl0kUpWaCpbn8VOYHm9Ck16ewTUHcELhnM8hTgafFqNowoo8dPFMrl5yP
+ yxb4sixzzTX/1vQ8YDNuTf11wh3JBZs=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1636031383;
+ s=susede2_ed25519; t=1636031639;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=FuftfFGVdXB96vB2nrWzJWSAQMu398CkPaouPngEtJI=;
- b=nh8LrE60ioI0f+OPMavlh9rl15ZTjkn/Re+E0i4aDstpiqUeWA6FFUW/3J21/Kr35bh/s1
- htQawJPUGkgyoUCQ==
+ bh=25hxZOS6oUmV6GVdmKptyMMVxdhCX/cBGfcJonzQNxg=;
+ b=Zi9Gl7uXP48PAsS+LU0m3RLJFr6DqhCsw4YGs4PZw2Oq/kAitUJcm/IX5V2VgcwSvRIovf
+ 9fC4/1t9qaY4TYBA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 97D4213C68;
- Thu,  4 Nov 2021 13:09:43 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0923E13C68;
+ Thu,  4 Nov 2021 13:13:59 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id A2cJI5fbg2HLIgAAMHmgww
- (envelope-from <chrubis@suse.cz>); Thu, 04 Nov 2021 13:09:43 +0000
-Date: Thu, 4 Nov 2021 14:10:40 +0100
+ by imap2.suse-dmz.suse.de with ESMTPSA id 8WPHAZfcg2HyJAAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Thu, 04 Nov 2021 13:13:59 +0000
+Date: Thu, 4 Nov 2021 14:14:56 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <YYPb0HgsJ0YEZ9PB@yuki>
-References: <20211103120233.20728-1-chrubis@suse.cz>
- <20211103120233.20728-8-chrubis@suse.cz> <YYKI9I05hEjiKNiE@pevik>
- <YYKLnxZL44ftguOx@yuki> <YYKMIuHDheI1PK8x@yuki>
- <YYKe0sdsN/qGRO8E@pevik> <YYKmqo3NCZi35DKB@pevik>
- <YYKsVYjYm0lk8cpD@yuki>
+Message-ID: <YYPc0E/IUPBu1z2k@yuki>
+References: <20211103160815.20282-1-pvorel@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <YYKsVYjYm0lk8cpD@yuki>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+In-Reply-To: <20211103160815.20282-1-pvorel@suse.cz>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3 7/7] docparse: Split into metadata and docparse
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [RFC PATCH 1/1] configure.ac: Print lib & docparse summary
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,9 +85,12 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-And I did a CI run with the correct version at:
+> Due many checks of structs, members etc are library presence and
+> docparser config results quite hidden. Print them in the end.
 
-https://github.com/metan-ucw/ltp/actions/runs/1421302973
+Another option would be adding 'make info' target to the top level
+Makefile that would print these based on config.mk, not sure if that
+would be much better than this though.
 
 -- 
 Cyril Hrubis
