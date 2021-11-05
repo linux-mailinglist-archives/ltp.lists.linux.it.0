@@ -1,49 +1,55 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68D2D445DC7
-	for <lists+linux-ltp@lfdr.de>; Fri,  5 Nov 2021 03:06:07 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 93F2F445DD1
+	for <lists+linux-ltp@lfdr.de>; Fri,  5 Nov 2021 03:10:41 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0FDAC3C7339
-	for <lists+linux-ltp@lfdr.de>; Fri,  5 Nov 2021 03:06:07 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 08F6E3C7362
+	for <lists+linux-ltp@lfdr.de>; Fri,  5 Nov 2021 03:10:41 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 58E303C559D
- for <ltp@lists.linux.it>; Fri,  5 Nov 2021 03:06:01 +0100 (CET)
-Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
+ by picard.linux.it (Postfix) with ESMTPS id 5140D3C559D
+ for <ltp@lists.linux.it>; Fri,  5 Nov 2021 03:10:36 +0100 (CET)
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id E1295601C6A
- for <ltp@lists.linux.it>; Fri,  5 Nov 2021 03:05:59 +0100 (CET)
-Received: from dggeml753-chm.china.huawei.com (unknown [172.30.72.56])
- by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4HlkPN5f8Cz90p1
- for <ltp@lists.linux.it>; Fri,  5 Nov 2021 10:05:44 +0800 (CST)
-Received: from ubuntu1804.huawei.com (10.67.174.63) by
- dggeml753-chm.china.huawei.com (10.1.199.152) with Microsoft SMTP Server
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 40BE6200FC0
+ for <ltp@lists.linux.it>; Fri,  5 Nov 2021 03:10:35 +0100 (CET)
+Received: from dggeml758-chm.china.huawei.com (unknown [172.30.72.54])
+ by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4HlkSS0s51zZcKT
+ for <ltp@lists.linux.it>; Fri,  5 Nov 2021 10:08:24 +0800 (CST)
+Received: from dggeml753-chm.china.huawei.com (10.1.199.152) by
+ dggeml758-chm.china.huawei.com (10.1.199.159) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.2308.15; Fri, 5 Nov 2021 10:05:55 +0800
-From: Zhao Gongyi <zhaogongyi@huawei.com>
-To: <ltp@lists.linux.it>
-Date: Fri, 5 Nov 2021 10:07:29 +0800
-Message-ID: <20211105020729.162391-1-zhaogongyi@huawei.com>
-X-Mailer: git-send-email 2.17.1
+ 15.1.2308.15; Fri, 5 Nov 2021 10:10:31 +0800
+Received: from dggeml753-chm.china.huawei.com ([10.1.199.152]) by
+ dggeml753-chm.china.huawei.com ([10.1.199.152]) with mapi id 15.01.2308.015;
+ Fri, 5 Nov 2021 10:10:30 +0800
+From: zhaogongyi <zhaogongyi@huawei.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+Thread-Topic: [LTP] [PATCH] syscalls/epoll_create: Replace syscall to libc
+Thread-Index: AdfR6i69w5TMtS/JRUe/AlEWhtx3gg==
+Date: Fri, 5 Nov 2021 02:10:30 +0000
+Message-ID: <9e996006298545a5b71fda3ebbd01fbd@huawei.com>
+Accept-Language: en-US
+Content-Language: zh-CN
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.67.110.209]
 MIME-Version: 1.0
-X-Originating-IP: [10.67.174.63]
-X-ClientProxiedBy: dggems703-chm.china.huawei.com (10.3.19.180) To
- dggeml753-chm.china.huawei.com (10.1.199.152)
 X-CFilter-Loop: Reflected
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v2] syscalls/epoll_create: add libc test for
- epoll_create
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] syscalls/epoll_create: Replace syscall to libc
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,128 +61,119 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-For epoll_create01.c/epoll_create02.c, we add libc epoll_create()
-test because Syscall __NR_epoll_create is not support in some arches.
+Hi Cyril,
 
-Signed-off-by: Zhao Gongyi <zhaogongyi@huawei.com>
----
-v1->v2: remain syscall test
+It looks good for me and I have resubmit the patch, please see: https://patchwork.ozlabs.org/project/ltp/patch/20211105020729.162391-1-zhaogongyi@huawei.com/
 
- .../syscalls/epoll_create/epoll_create01.c    | 30 ++++++++++++++++--
- .../syscalls/epoll_create/epoll_create02.c    | 31 +++++++++++++++++--
- 2 files changed, 57 insertions(+), 4 deletions(-)
+Thanks so much!
 
-diff --git a/testcases/kernel/syscalls/epoll_create/epoll_create01.c b/testcases/kernel/syscalls/epoll_create/epoll_create01.c
-index 3ef5b5cac..5b9b48e73 100644
---- a/testcases/kernel/syscalls/epoll_create/epoll_create01.c
-+++ b/testcases/kernel/syscalls/epoll_create/epoll_create01.c
-@@ -15,23 +15,49 @@
-  */
+Best Regards,
+Gongyi
 
- #include <sys/epoll.h>
--
- #include "tst_test.h"
- #include "lapi/epoll.h"
- #include "lapi/syscalls.h"
-
- static int tc[] = {1, INT_MAX};
-
-+static int do_epoll_create(int size)
-+{
-+	switch (tst_variant) {
-+	case 0:
-+		return tst_syscall(__NR_epoll_create, size);
-+	break;
-+	case 1:
-+		return epoll_create(size);
-+	break;
-+	}
-+}
-+
-+
- static void run(unsigned int n)
- {
--	TST_EXP_FD(tst_syscall(__NR_epoll_create, tc[n]), "epoll_create(%d)", tc[n]);
-+	TST_EXP_FD(do_epoll_create(tc[n]), "epoll_create(%d)", tc[n]);
-
- 	if (!TST_PASS)
- 		return;
- 	SAFE_CLOSE(TST_RET);
- }
-
-+static void setup(void)
-+{
-+	switch (tst_variant) {
-+	case 0:
-+		tst_res(TINFO, "Testing variant: syscall __NR_epoll_create");
-+	break;
-+	case 1:
-+		tst_res(TINFO, "Testing variant: libc epoll_create()");
-+	break;
-+	}
-+}
-+
- static struct tst_test test = {
-+	.test_variants = 2,
- 	.tcnt = ARRAY_SIZE(tc),
-+	.setup = setup,
- 	.test = run,
- };
-diff --git a/testcases/kernel/syscalls/epoll_create/epoll_create02.c b/testcases/kernel/syscalls/epoll_create/epoll_create02.c
-index c59ea7944..f19d58882 100644
---- a/testcases/kernel/syscalls/epoll_create/epoll_create02.c
-+++ b/testcases/kernel/syscalls/epoll_create/epoll_create02.c
-@@ -25,13 +25,40 @@ static struct test_case_t {
- 	{-1, EINVAL}
- };
-
-+static int do_epoll_create(int size)
-+{
-+	switch (tst_variant) {
-+	case 0:
-+		return tst_syscall(__NR_epoll_create, size);
-+	break;
-+	case 1:
-+		return epoll_create(size);
-+	break;
-+	}
-+}
-+
- static void run(unsigned int n)
- {
--	TST_EXP_FAIL(tst_syscall(__NR_epoll_create, tc[n].size),
--		     tc[n].exp_err, "create(%d)", tc[n].size);
-+	TST_EXP_FAIL(do_epoll_create(tc[n].size),
-+		     tc[n].exp_err, "epoll_create(%d)", tc[n].size);
- }
-
-+static void setup(void)
-+{
-+	switch (tst_variant) {
-+	case 0:
-+		tst_res(TINFO, "Testing variant: syscall __NR_epoll_create");
-+	break;
-+	case 1:
-+		tst_res(TINFO, "Testing variant: libc epoll_create()");
-+	break;
-+	}
-+}
-+
-+
- static struct tst_test test = {
-+	.test_variants = 2,
- 	.tcnt = ARRAY_SIZE(tc),
-+	.setup = setup,
- 	.test = run,
- };
---
-2.17.1
-
+> Hi!
+> > For epoll_create01.c/epoll_create02.c, we should replace syscall to
+> > libc or the testcase will fail because of Syscall epoll_create is not
+> > support in some arches.
+> 
+> I guess that epoll_create() is emulated via epoll_create1() in these cases
+> right?
+> 
+> Does these testcases fail in these cases though? The __NR_epoll_create
+> should be set to -1 when the syscall is not supported and the test should
+> be skipped with TCONF.
+> 
+> The patch looks good, however it would be slightly better to add test
+> variants so that we call both the raw syscall, if available, and the glibc
+> wrapper, with something as:
+> 
+> 
+> static int do_epoll_create(int size)
+> {
+> 	switch (tst_variant) {
+> 	case 0:
+> 		return tst_syscall(__NR_epoll_create, size);
+> 	break;
+> 	case 1:
+> 		return epoll_create(size);
+> 	break;
+> }
+> 
+> static void run(unsigned int n)
+> {
+> 	TST_EXP_FD(do_epoll_create(tc[n]) ...);
+> 
+> 	...
+> }
+> 
+> static void setup(void)
+> {
+> 	switch (tst_variant) {
+> 	case 0:
+> 		tst_res(TINFO, "Testing variant: syscall __NR_epoll_create");
+> 	break;
+> 	case 1:
+> 		tst_res(TINFO, "Testing variant: libc epoll_create()");
+> 	break;
+> 	}
+> }
+> 
+> static struct tst_test test = {
+> 	...
+> 	.test_variants = 2,
+> 	...
+> };
+> 
+> 
+> > Signed-off-by: Zhao Gongyi <zhaogongyi@huawei.com>
+> > ---
+> >  testcases/kernel/syscalls/epoll_create/epoll_create01.c | 2 +-
+> > testcases/kernel/syscalls/epoll_create/epoll_create02.c | 2 +-
+> >  2 files changed, 2 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/testcases/kernel/syscalls/epoll_create/epoll_create01.c
+> > b/testcases/kernel/syscalls/epoll_create/epoll_create01.c
+> > index 3ef5b5cac..b6ebe9ad7 100644
+> > --- a/testcases/kernel/syscalls/epoll_create/epoll_create01.c
+> > +++ b/testcases/kernel/syscalls/epoll_create/epoll_create01.c
+> > @@ -24,7 +24,7 @@ static int tc[] = {1, INT_MAX};
+> >
+> >  static void run(unsigned int n)
+> >  {
+> > -	TST_EXP_FD(tst_syscall(__NR_epoll_create, tc[n]), "epoll_create(%d)",
+> tc[n]);
+> > +	TST_EXP_FD(epoll_create(tc[n]), "epoll_create(%d)", tc[n]);
+> >
+> >  	if (!TST_PASS)
+> >  		return;
+> > diff --git a/testcases/kernel/syscalls/epoll_create/epoll_create02.c
+> > b/testcases/kernel/syscalls/epoll_create/epoll_create02.c
+> > index c59ea7944..e96228983 100644
+> > --- a/testcases/kernel/syscalls/epoll_create/epoll_create02.c
+> > +++ b/testcases/kernel/syscalls/epoll_create/epoll_create02.c
+> > @@ -27,7 +27,7 @@ static struct test_case_t {
+> >
+> >  static void run(unsigned int n)
+> >  {
+> > -	TST_EXP_FAIL(tst_syscall(__NR_epoll_create, tc[n].size),
+> > +	TST_EXP_FAIL(epoll_create(tc[n].size),
+> >  		     tc[n].exp_err, "create(%d)", tc[n].size);  }
+> >
+> > --
+> > 2.17.1
+> >
+> >
+> > --
+> > Mailing list info: https://lists.linux.it/listinfo/ltp
+> 
+> --
+> Cyril Hrubis
+> chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
