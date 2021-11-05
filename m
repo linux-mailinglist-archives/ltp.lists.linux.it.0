@@ -2,64 +2,71 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 721674464D4
-	for <lists+linux-ltp@lfdr.de>; Fri,  5 Nov 2021 15:24:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26A714464EA
+	for <lists+linux-ltp@lfdr.de>; Fri,  5 Nov 2021 15:28:06 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id CBBE03C7649
-	for <lists+linux-ltp@lfdr.de>; Fri,  5 Nov 2021 15:24:45 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 942DD3C763D
+	for <lists+linux-ltp@lfdr.de>; Fri,  5 Nov 2021 15:28:05 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 9593E3C559D
- for <ltp@lists.linux.it>; Fri,  5 Nov 2021 15:24:42 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id C4B6D3C737B
+ for <ltp@lists.linux.it>; Fri,  5 Nov 2021 15:28:01 +0100 (CET)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 00012201103
- for <ltp@lists.linux.it>; Fri,  5 Nov 2021 15:24:41 +0100 (CET)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 4221F218A4
- for <ltp@lists.linux.it>; Fri,  5 Nov 2021 14:24:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1636122281;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=UOTat3JUXo9U4rPJSxhIyDNYlkVn1/IBpTHrl3RQpmg=;
- b=JJ/iUVVjFfs3o18f1ftDQjImujsvLZE3AO3d85Vo03/spQ0wWmh7eiY1ZzDG3F8KOdWWHS
- a493F1ZE84LQiLmIZWEIfxhFdBZ8mLTWaRXj1SnXwp6FKT9W/B1y50tRcsTotXmWCcyLIg
- lhxtPIms4wTaXyu7tUEOggvsaBn2pS8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1636122281;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=UOTat3JUXo9U4rPJSxhIyDNYlkVn1/IBpTHrl3RQpmg=;
- b=bxXuKLmz5kY9zug6dYtBiBoLMzg7rYyvw9HxpE68VnbHTZO5syW1FZexS1W7MERHhtAWBJ
- y1YDMfOca53/SDAw==
-Received: from g78 (unknown [10.163.24.38])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 0908A1400C59
+ for <ltp@lists.linux.it>; Fri,  5 Nov 2021 15:28:00 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id 127B62C150;
- Fri,  5 Nov 2021 14:24:41 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 4BD5F21972;
+ Fri,  5 Nov 2021 14:28:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1636122480; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=g4cI+9YHdwG6MsOALS//LTGcr/HuvGU0OmBrRgk1/18=;
+ b=1DzJeKsKn2SM3K0vdDI6op6OczoUyIeFoPfXXw5wtFnmSGv2uouutdt6D6H+9wQxN22JyK
+ owCyzYW8Kbcg99rNvIj9Q69uJl0QTZF3x3xZedkWf7wFh1ZeK0nPywoFse/VXDj5IeenGD
+ nDkUCumgvvlLFCZvAeeqCTrVVNdFtaQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1636122480;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=g4cI+9YHdwG6MsOALS//LTGcr/HuvGU0OmBrRgk1/18=;
+ b=eNYXPE6Qw97TeaGBTjPqdbg5lyTarMUTRK9AkHHL+DnfC6KyT7kzkHRAobbkzkvXWUARpM
+ 5pMjKQDOaD4h/pCA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2CC241400B;
+ Fri,  5 Nov 2021 14:28:00 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id wI0DCnA/hWEoCAAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Fri, 05 Nov 2021 14:28:00 +0000
+Date: Fri, 5 Nov 2021 15:28:57 +0100
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Petr Vorel <pvorel@suse.cz>
+Message-ID: <YYU/qcFJgc2CQOtF@yuki>
 References: <20211105140425.8272-1-chrubis@suse.cz>
-User-agent: mu4e 1.6.5; emacs 27.2
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Cyril Hrubis <chrubis@suse.cz>
-Date: Fri, 05 Nov 2021 14:24:01 +0000
-In-reply-to: <20211105140425.8272-1-chrubis@suse.cz>
-Message-ID: <87wnlm7k9j.fsf@suse.de>
+ <YYU7oSqIfM7BRgmW@pevik>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <YYU7oSqIfM7BRgmW@pevik>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH] metadata: Ignore system macros
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -72,49 +79,18 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
 Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello,
-
-Cyril Hrubis <chrubis@suse.cz> writes:
-
-> Ingore all macros that start with underscore. Unless we do that we get
-> several thousands of __NR_foo macros and the hash table cannot keep up.
->
-> Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
-
-Reviewed-by: Richard Palethorpe <rpalethorpe@suse.com>
-
-> ---
->  metadata/metaparse.c | 3 +++
->  1 file changed, 3 insertions(+)
->
-> diff --git a/metadata/metaparse.c b/metadata/metaparse.c
-> index b38550550..f71d8628d 100644
-> --- a/metadata/metaparse.c
-> +++ b/metadata/metaparse.c
-> @@ -624,6 +624,9 @@ static void parse_macro(FILE *f)
->  
->  	macro_get_val(f, val, sizeof(val));
->  
-> +	if (name[0] == '_')
-> +		return;
-> +
->  	ENTRY e = {
->  		.key = strdup(name),
->  		.data = strdup(val),
-> -- 
-> 2.32.0
-
+Hi!
+Thank you both for the quick review, pushed.
 
 -- 
-Thank you,
-Richard.
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
