@@ -2,73 +2,74 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47854447D54
-	for <lists+linux-ltp@lfdr.de>; Mon,  8 Nov 2021 11:10:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD207447DB4
+	for <lists+linux-ltp@lfdr.de>; Mon,  8 Nov 2021 11:17:45 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4CE4E3C77D1
-	for <lists+linux-ltp@lfdr.de>; Mon,  8 Nov 2021 11:10:54 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 0742E3C763B
+	for <lists+linux-ltp@lfdr.de>; Mon,  8 Nov 2021 11:17:45 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id B74903C2435
- for <ltp@lists.linux.it>; Mon,  8 Nov 2021 11:10:48 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id 194123C2435
+ for <ltp@lists.linux.it>; Mon,  8 Nov 2021 11:17:40 +0100 (CET)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id BB13514012A6
- for <ltp@lists.linux.it>; Mon,  8 Nov 2021 11:10:47 +0100 (CET)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 6980A600940
+ for <ltp@lists.linux.it>; Mon,  8 Nov 2021 11:17:40 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 12B0221AFC;
- Mon,  8 Nov 2021 10:10:47 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id AEC2921AFC;
+ Mon,  8 Nov 2021 10:17:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1636366247;
+ t=1636366659;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=FlDVkfUrclmUdojKog6aPIYRdtIIHNY0NNTAKYkMi00=;
- b=Z1SpJqGiuqisPT5gjnp84T4XdhLWytJzuH7nmiQfPk2rZGxkCO/8Y9S8R1CykLkO05f4Rb
- IsVydV7hf3dIdDhQBtQZHsqCZaM/F7XrhSPeMKJJSlXXooYDAkpbUQUW3v/O/nPAKPkgtf
- ogTUfcTZ1j/K3kAH5uCrYTf1ELjchNU=
+ bh=Bksp4xWDnTXuzCuajPvYy5hewiTI2Kata6YGDSpxHEI=;
+ b=FrWdd0AgEaEXKtuJAaYRd/Yh8ndsMcidWpjzYJTAJpCZw/hSLs3Jno6+NuWwAmJHtXoOUU
+ khycIk2MQ2kZFML/UNCHniDVi9WQo3BuYiv4SRjGr5jIhK05IomCS7AQFIpfE+u9u41aZK
+ Htg3ec2V9I6BYdLlEh3YQ/GWLXM6cM4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1636366247;
+ s=susede2_ed25519; t=1636366659;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=FlDVkfUrclmUdojKog6aPIYRdtIIHNY0NNTAKYkMi00=;
- b=xhzUYWyDCSsmJkx9PXnEb3y42DXGJaPPQJroJ7cmXv5bkb0gNiHiCSy2d+JP1NiQ2dCpYV
- wPyNtMtvUPHYTABA==
+ bh=Bksp4xWDnTXuzCuajPvYy5hewiTI2Kata6YGDSpxHEI=;
+ b=PLgx22NuhLIdTXwZjWnZFZgH5CeCPhuHTk+RhA5dum+mXIHNK/3VKyDWN6Bfv/3+oec7/c
+ XFvyXX5JuTN7OtBQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D810A13B2C;
- Mon,  8 Nov 2021 10:10:46 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7DA6613B2C;
+ Mon,  8 Nov 2021 10:17:39 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id YVkWM6b3iGHoEgAAMHmgww
- (envelope-from <pvorel@suse.cz>); Mon, 08 Nov 2021 10:10:46 +0000
-Date: Mon, 8 Nov 2021 11:10:45 +0100
+ by imap2.suse-dmz.suse.de with ESMTPSA id QNcqHEP5iGEQFwAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Mon, 08 Nov 2021 10:17:39 +0000
+Date: Mon, 8 Nov 2021 11:17:37 +0100
 From: Petr Vorel <pvorel@suse.cz>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <YYj3pdugWJExKOt+@pevik>
-References: <20211105143125.7858-1-pvorel@suse.cz>
- <YYjmO4H3Dsa3oDt/@yuki>
+To: Li Wang <liwang@redhat.com>
+Message-ID: <YYj5QSB2pCzgxZtJ@pevik>
+References: <20211104164528.29936-1-pvorel@suse.cz>
+ <CAEemH2c4rfko1a=V-W04N0QXs9GKhJkc60_WjWFBe+BqbLQ3tA@mail.gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <YYjmO4H3Dsa3oDt/@yuki>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+In-Reply-To: <CAEemH2c4rfko1a=V-W04N0QXs9GKhJkc60_WjWFBe+BqbLQ3tA@mail.gmail.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/1] CI: Remove Tumbleweed
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/1] test_zero_hugepage.sh: Detect errors write to
+ /proc/sys/vm/nr_hugepages
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,35 +82,39 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
+Cc: LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-> Hi!
-> > Tumbleweed suffers with common timeouts during installing packages.
+Hi Li,
 
-> > https://github.com/linux-test-project/ltp/runs/4102121237?check_suite_focus=true
-> > 2021-11-04T07:12:04.5788989Z (110/114) Installing: pcre2-devel-10.38-1.1.x86_64 [.........done]
-> > 2021-11-04T13:10:22.9205133Z (111/114) Installing: clang13-13.0.0-1.2.x86_64 [.
-> > 2021-11-04T13:10:22.9326559Z ##[error]The operation was canceled.
-> > 2021-11-04T13:10:22.9383287Z Stop and remove container: 3dab012d9d14480da05fc921cd0c0124_opensusetumbleweed_b0089d
+> On Fri, Nov 5, 2021 at 12:45 AM Petr Vorel <pvorel@suse.cz> wrote:
 
-> > While keeping restarting after some time usually helps, it's not useful
-> > to have CI with false positives thus removed until problem gets
-> > permanently fixed. But keep seccomp workaround introduced in 0aa9ebd30
-> > for other distros with newest glibc.
+> > Fix running make test-c as non-root.
 
-> Thinking about it it tumbleweed may not be suited for CI, quite possibly
-> new packages gets uploaded to the repository during our CI build which
-> would explain these kind of failures.
-I reverted Tumbleweed. Yes, probably some kind of out-of-sync repositories. I'm
-investigating the issue. I'd have to be convinced it's working (+ testing in my
-repo for some time) to try to investigate it again.
+> > Fixes: 057d6b046 ("lib/tst_hugepage: Fix .request_hugepages = 0 bug")
 
-There was also problem with Leap repositories, but that's being fixed,
-thus I restart jobs.
+> > Signed-off-by: Petr Vorel <pvorel@suse.cz>
+> > ---
+> > Hi,
+
+> > maybe echo "128" would not have to be checked.
+
+
+> Agreed, If the system memory is too fragmental to keep
+> enough hpages, there won't be an error returned.
+OK, wait little longer and then merge with keeping
+echo "128" > /proc/sys/vm/nr_hugepages
+
+...
+> > -echo "128" > /proc/sys/vm/nr_hugepages
+> > +if ! echo "128" > /proc/sys/vm/nr_hugepages; then
+> > +       tconf "Failed to write /proc/sys/vm/nr_hugepages"
+> > +fi
+
+Thanks for your review!
 
 Kind regards,
 Petr
