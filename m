@@ -1,76 +1,73 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E7524481D6
-	for <lists+linux-ltp@lfdr.de>; Mon,  8 Nov 2021 15:34:01 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 42F7044981B
+	for <lists+linux-ltp@lfdr.de>; Mon,  8 Nov 2021 16:24:45 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DB8223C773C
-	for <lists+linux-ltp@lfdr.de>; Mon,  8 Nov 2021 15:34:00 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id E94033C04B0
+	for <lists+linux-ltp@lfdr.de>; Mon,  8 Nov 2021 16:24:44 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 073E83C702E
- for <ltp@lists.linux.it>; Mon,  8 Nov 2021 15:33:58 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 334EC3C004E
+ for <ltp@lists.linux.it>; Mon,  8 Nov 2021 16:24:44 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 0BCDC600B15
- for <ltp@lists.linux.it>; Mon,  8 Nov 2021 15:33:57 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id AD915100037C
+ for <ltp@lists.linux.it>; Mon,  8 Nov 2021 16:24:43 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 430F71FD52;
- Mon,  8 Nov 2021 14:33:57 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id CDFCA21941;
+ Mon,  8 Nov 2021 15:24:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1636382037; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1636385082; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=7CHe6bJSG0IuWCiQjL8r4+CpXwFMHwaZ06TDo4HpBkk=;
- b=Erap0bVgAaGt8KaCij8zILo2rjhCaYB9H0Dle1v9pYuPdHtNW1rOSxDh0cKW58S7Jg6tuu
- X+NnD40vNAkplcXpckHdFVW+ydvOB+XCR2VKGq0hDwS0ngPmiuoXachzGhs9FoE4uX0ZYE
- wLWPXcveyqM0MwHE2p6OuZ07bdHvHuM=
+ bh=6nvZ3RsaAxd38eS4NA18IAKw80cmRPoKFC+sThXRQc8=;
+ b=l0/YcHmmV90dpqjQbIVPcB84ZYrh+2aHIQAc44XD4t/ArALozKsbzvPBVG6IJNpiiC8Gg+
+ J4iDmsaMH1uonf4YX3zeza5wYoGpMDCYHZlUvIp+041znGvwoMRZfvkmTwd0AQij13me3a
+ a+CnL7rEtV0HFFfieUKr0zDVVyDomWs=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1636382037;
+ s=susede2_ed25519; t=1636385082;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=7CHe6bJSG0IuWCiQjL8r4+CpXwFMHwaZ06TDo4HpBkk=;
- b=Lk4XymYu8KkiLLGHAClmAWy59fMd3Eb+ctOJVzYxHJvsYCEgIN0axeCHiJNrPkuFIMKPT+
- /du6KVsx9qjg4VBA==
+ bh=6nvZ3RsaAxd38eS4NA18IAKw80cmRPoKFC+sThXRQc8=;
+ b=Mryx7SwLDv8GbVrUHgRmJKIpp8bpmPupwfvFD4CCMojXGzdmqY9Ytkg6cxV3bOyAyJk6fb
+ lV78vatwDsAaJoAw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2E92613BA0;
- Mon,  8 Nov 2021 14:33:57 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A7E9613BA7;
+ Mon,  8 Nov 2021 15:24:42 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id NnJTC1U1iWHOKQAAMHmgww
- (envelope-from <chrubis@suse.cz>); Mon, 08 Nov 2021 14:33:57 +0000
-Date: Mon, 8 Nov 2021 15:34:57 +0100
+ by imap2.suse-dmz.suse.de with ESMTPSA id +W+rJTpBiWGLRQAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Mon, 08 Nov 2021 15:24:42 +0000
+Date: Mon, 8 Nov 2021 16:25:42 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <YYk1kWh/yKY31YZB@yuki>
-References: <20211104164528.29936-1-pvorel@suse.cz>
- <CAEemH2c4rfko1a=V-W04N0QXs9GKhJkc60_WjWFBe+BqbLQ3tA@mail.gmail.com>
- <YYj5QSB2pCzgxZtJ@pevik>
+To: Yang Xu <xuyang2018.jy@fujitsu.com>
+Message-ID: <YYlBdhQEasTYSsSV@yuki>
+References: <1635337569-4634-1-git-send-email-xuyang2018.jy@fujitsu.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <YYj5QSB2pCzgxZtJ@pevik>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+In-Reply-To: <1635337569-4634-1-git-send-email-xuyang2018.jy@fujitsu.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/1] test_zero_hugepage.sh: Detect errors write to
- /proc/sys/vm/nr_hugepages
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 01/13] syscalls/quotactl01: Also test with
+ vfsv1 format
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,22 +79,26 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> > Agreed, If the system memory is too fragmental to keep
-> > enough hpages, there won't be an error returned.
-> OK, wait little longer and then merge with keeping
-> echo "128" > /proc/sys/vm/nr_hugepages
+>  static void setup(void)
+>  {
+> -	const char *const cmd[] = {"quotacheck", "-ugF", "vfsv0", MNTPOINT, NULL};
+> +	const char *const cmd[] = {"quotacheck", "-ugF", fmt_variants[tst_variant].fmt_name, MNTPOINT, NULL};
 
-Also I wonder why do we request 128? I guess that 4 would be more than
-enough.
+I would be inclined to store the variants pointer on a first line in the
+setup so that the code gets slightly easier to read as:
 
-Other than that:
+	const struct quotactl_fmt_variant *var = &fmt_variants[tst_variant];
+
+Then we can do var->fmt_name and var->fmt_id in the rest of the setup code...
+
+Anyways the code looks good:
 
 Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
 
