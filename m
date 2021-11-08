@@ -1,53 +1,54 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id F332E447A2C
-	for <lists+linux-ltp@lfdr.de>; Mon,  8 Nov 2021 06:32:46 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D7BE447A2D
+	for <lists+linux-ltp@lfdr.de>; Mon,  8 Nov 2021 06:32:56 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DA2943C76A2
-	for <lists+linux-ltp@lfdr.de>; Mon,  8 Nov 2021 06:32:45 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id E4FD73C185C
+	for <lists+linux-ltp@lfdr.de>; Mon,  8 Nov 2021 06:32:55 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id C0D473C185C
- for <ltp@lists.linux.it>; Mon,  8 Nov 2021 06:32:41 +0100 (CET)
-Received: from smtpbgeu2.qq.com (smtpbgeu2.qq.com [18.194.254.142])
+ by picard.linux.it (Postfix) with ESMTPS id 763A23C77B9
+ for <ltp@lists.linux.it>; Mon,  8 Nov 2021 06:32:44 +0100 (CET)
+Received: from smtpproxy21.qq.com (smtpbg702.qq.com [203.205.195.102])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 4EEB4601115
- for <ltp@lists.linux.it>; Mon,  8 Nov 2021 06:32:37 +0100 (CET)
-X-QQ-mid: bizesmtp52t1636349552t0qs805g
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 775F810005F1
+ for <ltp@lists.linux.it>; Mon,  8 Nov 2021 06:32:43 +0100 (CET)
+X-QQ-mid: bizesmtp52t1636349557twk6x3d5
 Received: from localhost.localdomain (unknown [58.240.82.166])
  by esmtp6.qq.com (ESMTP) with 
- id ; Mon, 08 Nov 2021 13:32:26 +0800 (CST)
+ id ; Mon, 08 Nov 2021 13:32:34 +0800 (CST)
 X-QQ-SSF: 0140000000200040C000000A0000000
-X-QQ-FEAT: dpyQmELDBxFHDAEsxdJYgkjuk9h71TN8o1NCd6NL8VXp8F52UFChn8RlsjBGb
- SfkNp648pmhRm99hrovEj2hREvUSkqLUVC8h4Go7nSY4hsNXxmQjoRrHADEKRmoBmErfYbN
- eQuNJCvP7FYSP+djeRjiCf9CTDHg2PY+5GlsZGzWTLHcXP59dgxjbTEMCyKzkT6s6tWCTsM
- jVurfbGvKrw+IwlFOBNNiSXlUCwLMKn5sj+7VS26lDv3n3i10lotaeVOl/fR9jKfx/oMmLF
- 4duorI0XCJZfht4zapt3CxXmTgpZGlGDxBfwnSveNfSmi2WutnKZtLatKSA2+vcSXP/dbKR
- rwgx5Tto7HSgld2Bx3r71nsI5datg==
+X-QQ-FEAT: B0D4DPF8NcRTlO3UBxzNqNljYOg7jGyCcZhkTefQjSwz0ykQF+yX2oaL6Fj23
+ G2zPou0V/GMM5Y4NGehPHNHURg10vpuPoBrO7801UH5pJukjCsnZTV0goZahmULL2kylMuO
+ jWaq1VzR+9nTvV/oCZiregB0Ayhd49m4U2vaOSf3mYFdnnJ+PykMs8wl2j2SGqhgqMppRge
+ LsQb3Ifq6tRDwhVzuGc3/0ELzIHNCJ+b9xKIPKC03tB853FwK9Nmhsia0gPAb0PXSUWyIoO
+ Q1H9Tzn6gRrsPS4EtPY5d+bkHjEtKzw4PxO0Wl4ll1+Dv4JLGBgEzhr3cJvzBov/O4BtqYL
+ kpiqJdBC5+F1++Xr1Dgz8NxEzo6gg==
 X-QQ-GoodBg: 2
 From: tangmeng <tangmeng@uniontech.com>
 To: ltp@lists.linux.it
-Date: Mon,  8 Nov 2021 13:32:24 +0800
-Message-Id: <20211108053225.23442-1-tangmeng@uniontech.com>
+Date: Mon,  8 Nov 2021 13:32:25 +0800
+Message-Id: <20211108053225.23442-2-tangmeng@uniontech.com>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20211108053225.23442-1-tangmeng@uniontech.com>
+References: <20211108053225.23442-1-tangmeng@uniontech.com>
 MIME-Version: 1.0
 X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign5
+Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign6
 X-QQ-Bgrelay: 1
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH 1/2] fchdir/fchdir01: Convert to new API
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH 2/2] fchdir/fchdir02: Convert to new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,14 +68,14 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Signed-off-by: tangmeng <tangmeng@uniontech.com>
 ---
- testcases/kernel/syscalls/fchdir/fchdir01.c | 166 ++------------------
- 1 file changed, 15 insertions(+), 151 deletions(-)
+ testcases/kernel/syscalls/fchdir/fchdir02.c | 103 ++------------------
+ 1 file changed, 8 insertions(+), 95 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/fchdir/fchdir01.c b/testcases/kernel/syscalls/fchdir/fchdir01.c
-index 526dfcaa2..4d07dd603 100644
---- a/testcases/kernel/syscalls/fchdir/fchdir01.c
-+++ b/testcases/kernel/syscalls/fchdir/fchdir01.c
-@@ -1,171 +1,35 @@
+diff --git a/testcases/kernel/syscalls/fchdir/fchdir02.c b/testcases/kernel/syscalls/fchdir/fchdir02.c
+index cf11bf6b9..b0ba9ad58 100644
+--- a/testcases/kernel/syscalls/fchdir/fchdir02.c
++++ b/testcases/kernel/syscalls/fchdir/fchdir02.c
+@@ -1,110 +1,23 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
  /*
 - *
@@ -97,30 +98,28 @@ index 526dfcaa2..4d07dd603 100644
 
  /*
 - * NAME
-- *	fchdir01.c
+- *	fchdir02.c
 - *
   * DESCRIPTION
-  *	fchdir01 - create a directory and cd into it.
+  *	fchdir02 - try to cd into a bad directory (bad fd).
+- *
+- * CALLS
+- *	fchdir()
 - *
 - * ALGORITHM
-- *	create a new directory
-- *	open the directory and get a file descriptor
 - *	loop if that option was specified
-- *	fchdir() into the directory
-- *	check the return code
-- *	  if failure, issue a FAIL message.
-- *	otherwise,
-- *	  if doing functionality testing, call check_functionality()
-- *	  	if correct,
-- *			issue a PASS message
-- *		otherwise
-- *			issue a FAIL message
-- *	call cleanup
+- *	call fchdir() with an invalid file descriptor
+- *	check the errno value
+- *	  issue a PASS message if we get EBADF - errno 9
+- *	otherwise, the tests fails
+- *	  issue a FAIL message
+- *	  break any remaining tests
+- *	  call cleanup
 - *
 - * USAGE:  <for command-line>
-- *  fchdir01 [-c n] [-f] [-i n] [-I x] [-P x] [-t]
+- *  fchdir02 [-c n] [-e] [-i n] [-I x] [-P x] [-t]
 - *     where,  -c n : Run n copies concurrently.
-- *             -f   : Turn off functionality Testing.
+- *             -e   : Turn on errno logging.
 - *	       -i n : Execute test n times.
 - *	       -I x : Execute test for x seconds.
 - *	       -P x : Pause for x seconds between iterations.
@@ -136,31 +135,21 @@ index 526dfcaa2..4d07dd603 100644
 -#include "test.h"
 +#include "tst_test.h"
 
--#include <sys/stat.h>
 -#include <errno.h>
+-#include <sys/stat.h>
 -#include <fcntl.h>
--#include <libgen.h>
--#include <string.h>
 -
 -void cleanup(void);
 -void setup(void);
 -
--char *TCID = "fchdir01";
+-char *TCID = "fchdir02";
 -int TST_TOTAL = 1;
 -
--int fd;
--char *temp_dir;
--const char *TEST_DIR = "alpha";
-+static int fd;
-+static const char *TEST_DIR = "alpha";
-
- #define MODES	S_IRWXU
-
 -int main(int ac, char **av)
--{
++static void verify_fchdir(void)
+ {
+ 	const int bad_fd = -5;
 -	int lc;
--	void check_functionality(void);
--	int r_val;
 -
 -	tst_parse_opts(ac, av, NULL, NULL);
 -
@@ -169,96 +158,40 @@ index 526dfcaa2..4d07dd603 100644
 -	for (lc = 0; TEST_LOOPING(lc); lc++) {
 -		tst_count = 0;
 -
--		/* get the name of the test dirctory */
--		if ((temp_dir = (getcwd(temp_dir, 0))) == NULL)
--			tst_brkm(TBROK, cleanup, "getcwd failed");
+-		TEST(fchdir(bad_fd));
 -
--		/*
--		 * create a new directory and open it
--		 */
+-		if (TEST_RETURN != -1)
+-			tst_brkm(TFAIL, cleanup, "call succeeded unexpectedly");
 -
--		if ((r_val = mkdir(TEST_DIR, MODES)) == -1)
--			tst_brkm(TBROK, cleanup, "mkdir failed");
--
--		if ((fd = open(TEST_DIR, O_RDONLY)) == -1)
--			tst_brkm(TBROK, cleanup, "open of directory failed");
--
--		TEST(fchdir(fd));
--
--		if (TEST_RETURN == -1) {
+-		if (TEST_ERRNO == EBADF)
+-			tst_resm(TPASS, "failed as expected with EBADF");
+-		else
 -			tst_brkm(TFAIL | TTERRNO, cleanup,
--				 "fchdir call failed");
--		} else {
--				check_functionality();
--		}
--
--		/*
--		 * clean up things in case we are looping
--		 */
--
--		/*
--		 * NOTE: in case of failure here, we need to use "tst_resm()"
--		 * and not "tst_brkm()".  This is because if we get to this
--		 * point, we have already set a PASS or FAIL for the test
--		 * and "tst_brkm()" won't report as we might expect.
--		 */
--
--		/* chdir back to our temporary work directory */
--		if ((r_val = chdir("..")) == -1)
--			tst_resm(TBROK | TERRNO, "chdir failed");
--
--		if ((r_val = rmdir(TEST_DIR)) == -1)
--			tst_resm(TBROK | TERRNO, "rmdir failed");
--
--		free(temp_dir);
--		temp_dir = NULL;
+-				 "call failed unexpectedly");
 -	}
--
--	cleanup();
--	tst_exit();
--}
--
--void check_functionality(void)
-+static void verify_fchdir(void)
- {
--	char *buf = NULL;
--	char *dir;
-+	if ((fd = open(TEST_DIR, O_RDONLY)) == -1)
-+		tst_brk(TBROK, "open of directory failed");
 
--	if ((buf = (getcwd(buf, 0))) == NULL) {
--		tst_brkm(TBROK, cleanup, "getcwd failed");
--	}
+-	cleanup();
 -
--	if ((dir = basename(buf)) == NULL)
--		tst_brkm(TBROK, cleanup, "basename failed");
--
--	if (strcmp(TEST_DIR, dir) == 0)
--		tst_resm(TPASS, "fchdir call succeeded");
--	else
--		tst_resm(TFAIL, "fchdir call failed");
-+	TST_EXP_PASS(fchdir(fd));
+-	tst_exit();
++	TST_EXP_FAIL(fchdir(bad_fd), EBADF);
  }
 
 -void setup(void)
-+static void setup(void)
- {
+-{
 -
 -	tst_sig(NOFORK, DEF_HANDLER, cleanup);
 -
 -	TEST_PAUSE;
 -
 -	tst_tmpdir();
-+	SAFE_MKDIR(TEST_DIR, MODES);
- }
-
+-}
+-
 -void cleanup(void)
 -{
 -	tst_rmdir();
 -}
 +static struct tst_test test = {
 +	.test_all = verify_fchdir,
-+	.setup = setup,
 +	.needs_tmpdir = 1,
 +};
 --
