@@ -1,77 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC9F944AABC
-	for <lists+linux-ltp@lfdr.de>; Tue,  9 Nov 2021 10:43:08 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id EBE6144AB30
+	for <lists+linux-ltp@lfdr.de>; Tue,  9 Nov 2021 11:04:54 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 12FA33C0889
-	for <lists+linux-ltp@lfdr.de>; Tue,  9 Nov 2021 10:43:08 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 5791C3C08CE
+	for <lists+linux-ltp@lfdr.de>; Tue,  9 Nov 2021 11:04:54 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id BC53F3C0781
- for <ltp@lists.linux.it>; Tue,  9 Nov 2021 10:43:04 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ by picard.linux.it (Postfix) with ESMTPS id C152F3C01FC
+ for <ltp@lists.linux.it>; Tue,  9 Nov 2021 11:04:49 +0100 (CET)
+Received: from mail-pg1-x52d.google.com (mail-pg1-x52d.google.com
+ [IPv6:2607:f8b0:4864:20::52d])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id E27DF140EC5C
- for <ltp@lists.linux.it>; Tue,  9 Nov 2021 10:43:03 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 8FA0621B04;
- Tue,  9 Nov 2021 09:43:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1636450982;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=iJAX0lfCHJdFSJhsU/VU1qvaKp3ugSIlfd0VExsOQbU=;
- b=uZb6rjyFOCVVIL6lrV28BiHyvq1oyxb3j9bh6+pzMHizbw+tbupiKahIIof7/EPc9qcEez
- N+c4vOZRXx1vKUENiwA19Hu73e4GJ3Oe2U+QH0sH6uQQ/vLeI/LHVYGlDjCk7CM4kwtGrb
- tW5aEdtoIaWJeU8iEy8X+AtdWsQ0Ymw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1636450982;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=iJAX0lfCHJdFSJhsU/VU1qvaKp3ugSIlfd0VExsOQbU=;
- b=wSGlLutMh2MjLjHY0aXcnB0kJw0K37QoZv49mBsxT9GBFsqYxvGQNqDP198yeJz7sekjgv
- QIJ5cbP+3ik9VWDA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6603A133D1;
- Tue,  9 Nov 2021 09:43:02 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id Bu5EF6ZCimH4WwAAMHmgww
- (envelope-from <pvorel@suse.cz>); Tue, 09 Nov 2021 09:43:02 +0000
-Date: Tue, 9 Nov 2021 10:43:00 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: "xuyang2018.jy@fujitsu.com" <xuyang2018.jy@fujitsu.com>
-Message-ID: <YYpCpKYBbIoxmlBO@pevik>
-References: <20211104164528.29936-1-pvorel@suse.cz>
- <CAEemH2c4rfko1a=V-W04N0QXs9GKhJkc60_WjWFBe+BqbLQ3tA@mail.gmail.com>
- <YYj5QSB2pCzgxZtJ@pevik> <YYk1kWh/yKY31YZB@yuki>
- <6189C62B.2060702@fujitsu.com>
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id D3D3E60120A
+ for <ltp@lists.linux.it>; Tue,  9 Nov 2021 11:04:48 +0100 (CET)
+Received: by mail-pg1-x52d.google.com with SMTP id g28so9377448pgg.3
+ for <ltp@lists.linux.it>; Tue, 09 Nov 2021 02:04:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
+ h=date:from:to:cc:subject:message-id:mime-version:content-disposition;
+ bh=5F9J9uhvf1+waHsrC5XAdQS7J/i30GS74vATxdRvesg=;
+ b=tQTYtGkme3rwGB1oWIwMlpXrwRFsQbKiKxAyerl+ILOW4yt/LB5uDRHgrrbdiL5GwU
+ 42nYUP8T0K4A+0WDEWoWkGST/QBDUgM8q47Yl1hYDCBfPWz+SkGII6pGQcjpFRwNP8a4
+ O/qgIq5cd7vonnBnidWtbGQXLMOWduFTXznZrh13rsfrfw3gLNVrzv+/McxEBeSkIiQ9
+ aAmydT1HQuoJ5iFJB5HJ5MrHaUp1Qpmy4UThgLUY+XUtPBIKG9WzbT5Z4VKeCQr5QjdH
+ S9fkvSRvcUnAldn19vNAwhmdyLASY+WDNyNW3vyi2Xj7r4p81Syfxw7YG2+X/KoOFEsL
+ zoXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
+ :content-disposition;
+ bh=5F9J9uhvf1+waHsrC5XAdQS7J/i30GS74vATxdRvesg=;
+ b=ZPEzuBKmzDHEyCsVODu0x4zMPtIaxkRlHwEJ2uYQba+29tP/jm10HRs4P02wvj+ZXa
+ /B5cXs+DZ5giFhlA72U9BaWA8cASG65S2k153ZHqr7MOnOIHak3n6tZnieVflOttE97w
+ N8WWRujZprQmY5gDckTitKB288dUtmWe9FY22NQi5DmBYHUvAzA6eoPfpzMXlrHQJFlQ
+ IYItwua+4I+gRGUL2+5eTixrToA8JlyJazvVndTmRjI4rW9CCr7O0lxvtxBIhNWgQJc9
+ JDR+jHazQrm7K550RDHXSiAN38FgcK+IXP6L9sf9RxFp0n8gHhqthIaWND9Br2HTljsy
+ fQKQ==
+X-Gm-Message-State: AOAM5330Z3bift38AHXR8VkZkmspFsHPj9opIftyv6qIXh5aRHE6q1+1
+ chKG/y3FvPRcJY+UUMCAU8cmttqQxwTvZw==
+X-Google-Smtp-Source: ABdhPJxWs1nRIJM6BcxYaYpCdHa1vZXrsbbhtcGD2Yi9kFNzyXTAqtkvqIP+K6D2wfcvAa9hOf4Sng==
+X-Received: by 2002:aa7:9d81:0:b0:49f:e072:bfc7 with SMTP id
+ f1-20020aa79d81000000b0049fe072bfc7mr6628453pfq.48.1636452286910; 
+ Tue, 09 Nov 2021 02:04:46 -0800 (PST)
+Received: from google.com ([2401:fa00:9:211:49d1:39e8:a7a5:de38])
+ by smtp.gmail.com with ESMTPSA id k1sm10961895pfu.31.2021.11.09.02.04.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 09 Nov 2021 02:04:46 -0800 (PST)
+Date: Tue, 9 Nov 2021 21:04:35 +1100
+To: ltp@lists.linux.it
+Message-ID: <cover.1636451496.git.repnop@google.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <6189C62B.2060702@fujitsu.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+X-Spam-Status: No, score=-14.9 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,
+ SPF_PASS,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/1] test_zero_hugepage.sh: Detect errors write to
- /proc/sys/vm/nr_hugepages
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH v3 0/3] Add test support for the new fanotify
+ FAN_REPORT_PIDFD feature
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,34 +80,41 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: LTP List <ltp@lists.linux.it>
+From: Matthew Bobrowski via ltp <ltp@lists.linux.it>
+Reply-To: Matthew Bobrowski <repnop@google.com>
+Cc: jack@suse.cz
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi all,
+This is a follow up series of the previous series [0] that I had
+posted through which factors in Amir's recommendation around the
+splitting of the new macro helper into a separate patch.
 
-> Hi Cyril
-> > Hi!
-> >>> Agreed, If the system memory is too fragmental to keep
-> >>> enough hpages, there won't be an error returned.
-> >> OK, wait little longer and then merge with keeping
-> >> echo "128">  /proc/sys/vm/nr_hugepages
+Apart from that, there's no difference.
 
-> > Also I wonder why do we request 128? I guess that 4 would be more than
-> > enough.
-> I don't think about so much when I wrote this script. Using a small 
-> number is also ok for me.
+[0] https://lore.kernel.org/ltp/cover.1635849607.git.repnop@google.com/
 
-Good point! I thought it's needed to have that high value.
-I'll send a separate patch for this.
+Matthew Bobrowski (3):
+  syscalls/fanotify: Add a helper macro which checks for the presence of
+    specific fanotify initialization flag(s)
+  syscalls/fanotify20: add new test for FAN_REPORT_PIDFD
+  syscalls/fanotify21: test returned pidfd from fanotify in
+    FAN_REPORT_PIDFD mode
 
-Merged this one.
+ testcases/kernel/syscalls/fanotify/.gitignore |   2 +
+ testcases/kernel/syscalls/fanotify/fanotify.h |  26 ++
+ .../kernel/syscalls/fanotify/fanotify20.c     | 128 ++++++++
+ .../kernel/syscalls/fanotify/fanotify21.c     | 306 ++++++++++++++++++
+ 4 files changed, 462 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/fanotify/fanotify20.c
+ create mode 100644 testcases/kernel/syscalls/fanotify/fanotify21.c
 
-Kind regards,
-Petr
+-- 
+2.34.0.rc0.344.g81b53c2807-goog
+
+/M
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
