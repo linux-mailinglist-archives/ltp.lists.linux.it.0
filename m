@@ -1,67 +1,60 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F70345023B
-	for <lists+linux-ltp@lfdr.de>; Mon, 15 Nov 2021 11:19:28 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 05F26450288
+	for <lists+linux-ltp@lfdr.de>; Mon, 15 Nov 2021 11:27:07 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 591283C8254
-	for <lists+linux-ltp@lfdr.de>; Mon, 15 Nov 2021 11:19:27 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 5DE093C821D
+	for <lists+linux-ltp@lfdr.de>; Mon, 15 Nov 2021 11:27:06 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 173D63C7FC2
- for <ltp@lists.linux.it>; Mon, 15 Nov 2021 11:19:22 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id E98FB3C7FC2
+ for <ltp@lists.linux.it>; Mon, 15 Nov 2021 11:26:59 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id A1B45140164E
- for <ltp@lists.linux.it>; Mon, 15 Nov 2021 11:19:21 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id C1D051FD66;
- Mon, 15 Nov 2021 10:19:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1636971560; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 453781400F4F
+ for <ltp@lists.linux.it>; Mon, 15 Nov 2021 11:26:57 +0100 (CET)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 78CD421923;
+ Mon, 15 Nov 2021 10:26:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1636972017;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=LbNNxkWkRG16C9jK/969rJDXKyJKelsvcNuFbFrAAck=;
- b=BLD6vOnmjLOCeNBW0a22AUmvSagU3hmGuH0Dnp1UjJsIb2MO/3xK2puS12iUNUS+rcjj1U
- 8RZxWR3yKdbynjFxTCN5o6gi5aVr6paEbjpca1ZYrVCu4ZXFTxwnJIwf02b1f2QBma3RHD
- gNb7i+9q1S3CRY1h8eN5GgSCTABzAso=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1636971560;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ bh=ZQFR/YqQEa5i1HI+2ocMAtRdPhQdNFKVvuSTWjn5CYI=;
+ b=E/vKvjwIJDlO5oPVH7ddOywqPMJyo/OE1KN7e7ilDNSsnb67VaPrc28ktfRqGAQMRar/Hq
+ /xpP2pkzYYKRDvbwqwVgtzPy2RqbXIfMGLP7b1YOSLQ+SyhzBujICUHEnHwDK9HNQ8mpcF
+ SXxBw246xYM83VbNlVPt43uS4Qwg6Jw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1636972017;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=LbNNxkWkRG16C9jK/969rJDXKyJKelsvcNuFbFrAAck=;
- b=dvGpFydlVy5hgr1eU9utL5/NPi3DRDZSVysexxrEc9FHUJhBTGA3MIJjuDdimQwtXJEGME
- lyWDRJbt/1vRspAw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ bh=ZQFR/YqQEa5i1HI+2ocMAtRdPhQdNFKVvuSTWjn5CYI=;
+ b=sJxYdHt2pZrqBifeIbqZVcefECDKPxP0fOj+YgzM+Io+tit2llKBcKGRBqC0IYjt0IK09/
+ Dot2bJHBHZj7C3Dw==
+Received: from g78 (unknown [10.163.24.38])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id AE5AF13D58;
- Mon, 15 Nov 2021 10:19:20 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id HDsWKSg0kmFWIQAAMHmgww
- (envelope-from <chrubis@suse.cz>); Mon, 15 Nov 2021 10:19:20 +0000
-Date: Mon, 15 Nov 2021 11:20:24 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Richard Palethorpe <rpalethorpe@suse.de>
-Message-ID: <YZI0aEoJt5c9bqTz@yuki>
+ by relay2.suse.de (Postfix) with ESMTPS id 37BB4A3B87;
+ Mon, 15 Nov 2021 10:26:57 +0000 (UTC)
 References: <1636619544-2369-1-git-send-email-xuyang2018.jy@fujitsu.com>
- <87a6i9ejdy.fsf@suse.de>
+ <87a6i9ejdy.fsf@suse.de> <YZI0aEoJt5c9bqTz@yuki>
+User-agent: mu4e 1.6.9; emacs 27.2
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Cyril Hrubis <chrubis@suse.cz>
+Date: Mon, 15 Nov 2021 10:21:30 +0000
+In-reply-to: <YZI0aEoJt5c9bqTz@yuki>
+Message-ID: <87bl2ld89b.fsf@suse.de>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <87a6i9ejdy.fsf@suse.de>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -81,33 +74,41 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: rpalethorpe@suse.de
 Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> Note that even if you move setting the flags to the top. This will still
-> result in all unset flags becoming TCONF instead of TFAIL.
-> 
-> IMO statx is broken on older kernels except for ext4. It can be fixed by
-> backporting patches. One of the main use cases for LTP is to find
-> missing backports.
+Hello,
 
-That was my point as well.
+Cyril Hrubis <chrubis@suse.cz> writes:
 
-I guess that the last time I've proposed to create a separate test that
-just tests that these flags are set as expected for a all filesystems
-and that test would have the patches that fixed that as a tags set. That
-would make it clearer what is wrong and what should be backported.
+> Hi!
+>> Note that even if you move setting the flags to the top. This will still
+>> result in all unset flags becoming TCONF instead of TFAIL.
+>> 
+>> IMO statx is broken on older kernels except for ext4. It can be fixed by
+>> backporting patches. One of the main use cases for LTP is to find
+>> missing backports.
+>
+> That was my point as well.
+>
+> I guess that the last time I've proposed to create a separate test that
+> just tests that these flags are set as expected for a all filesystems
+> and that test would have the patches that fixed that as a tags set. That
+> would make it clearer what is wrong and what should be backported.
+>
+> Once we have that test implemented we can change this test as this patch
+> does.
 
-Once we have that test implemented we can change this test as this patch
-does.
+Or perhaps we could pass a flag to this test to ignore kernel versions
+which are known not to work?
 
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
