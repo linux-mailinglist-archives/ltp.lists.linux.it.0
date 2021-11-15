@@ -1,68 +1,67 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21A7C450590
-	for <lists+linux-ltp@lfdr.de>; Mon, 15 Nov 2021 14:34:22 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 826BF4505BC
+	for <lists+linux-ltp@lfdr.de>; Mon, 15 Nov 2021 14:41:39 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7614A3C85FB
-	for <lists+linux-ltp@lfdr.de>; Mon, 15 Nov 2021 14:34:21 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id D36143C8208
+	for <lists+linux-ltp@lfdr.de>; Mon, 15 Nov 2021 14:41:38 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 9ADE23C8113
- for <ltp@lists.linux.it>; Mon, 15 Nov 2021 14:34:17 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 45A9C3C815E
+ for <ltp@lists.linux.it>; Mon, 15 Nov 2021 14:41:35 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 3A0FA6005C1
- for <ltp@lists.linux.it>; Mon, 15 Nov 2021 14:34:15 +0100 (CET)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 54FFA14011A8
+ for <ltp@lists.linux.it>; Mon, 15 Nov 2021 14:41:33 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 36EB2217BA;
- Mon, 15 Nov 2021 13:34:15 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 854D61FD67;
+ Mon, 15 Nov 2021 13:41:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1636983255; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1636983693; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=GEg8FYqpZsVg9w15Kz2P6kIk1B9y4ITtWgfEm8Tz9Uo=;
- b=i0PR5OrfOuOcCLjAL6Pkd+V7KNyj38o3mO1ay4gUOy8jUf/o7QUcijcudvMHMseHUdUOuD
- mRY6kCC+VFMm6CP44/TfMvgYGiRv4SavIe1gPBDYgXoOTFAiJU+uz/mKpfl7rGRhA1JSlT
- ICAZHyUbwcZJ0NeDIb+gK4NgZL3mAMA=
+ bh=k6epsb6zG7G7mdnBbEIu0PBYedDQaRNdxKrDPWKRGQc=;
+ b=KlF6JNoLZ+/0o5uVraPy+GSNpbH6WVtHOCGXG4TUcIbo+nm52KVAT/OLEhAlRB3JVhLUm7
+ /0hmifkjZRjTwjCMBleEEymwfGVYPoTOMdi1eqNT5HxhQWV4+bRF2Olsrqh9HoLg9ziMzo
+ bO5SE36R9jZsossCvZ+BHJKTlyoEFRg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1636983255;
+ s=susede2_ed25519; t=1636983693;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=GEg8FYqpZsVg9w15Kz2P6kIk1B9y4ITtWgfEm8Tz9Uo=;
- b=ULAucoUzsMJaydTM3QZyek6XnrrQ64DwU2e90owtwSTub3pKsEgKIniQ2vnlf+CZGTZF0e
- cMdYi56VotUZhNAw==
+ bh=k6epsb6zG7G7mdnBbEIu0PBYedDQaRNdxKrDPWKRGQc=;
+ b=4mYPsKMJCMAUDg0x4mbYh/QuJEdyb0TXrbL6KLaQbLorVwaRAe8smxYx66vJHKKXCAagzn
+ age1ExLnjoBSzEBA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0A90413DAB;
- Mon, 15 Nov 2021 13:34:15 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5A92D13DAB;
+ Mon, 15 Nov 2021 13:41:33 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id dD4JANdhkmFLCQAAMHmgww
- (envelope-from <acervesato@suse.de>); Mon, 15 Nov 2021 13:34:14 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id 4fbUE41jkmEIDQAAMHmgww
+ (envelope-from <acervesato@suse.de>); Mon, 15 Nov 2021 13:41:33 +0000
 From: Andrea Cervesato <acervesato@suse.de>
 To: ltp@lists.linux.it
-Date: Mon, 15 Nov 2021 14:34:12 +0100
-Message-Id: <20211115133412.25194-1-acervesato@suse.de>
+Date: Mon, 15 Nov 2021 14:41:31 +0100
+Message-Id: <20211115134131.27939-1-acervesato@suse.de>
 X-Mailer: git-send-email 2.33.1
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
 Subject: [LTP] [PATCH v2] dio_truncate.c test refactory with LTP API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -83,26 +82,36 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 From: Andrea Cervesato <andrea.cervesato@suse.com>
 
 ---
- testcases/kernel/io/ltp-aiodio/dio_truncate.c | 206 +++++++-----------
- 1 file changed, 79 insertions(+), 127 deletions(-)
+ testcases/kernel/io/ltp-aiodio/dio_truncate.c | 231 +++++++-----------
+ 1 file changed, 91 insertions(+), 140 deletions(-)
 
 diff --git a/testcases/kernel/io/ltp-aiodio/dio_truncate.c b/testcases/kernel/io/ltp-aiodio/dio_truncate.c
-index 27cf01525..9c8da539e 100644
+index 27cf01525..10bad9454 100644
 --- a/testcases/kernel/io/ltp-aiodio/dio_truncate.c
 +++ b/testcases/kernel/io/ltp-aiodio/dio_truncate.c
-@@ -1,7 +1,7 @@
+@@ -1,177 +1,128 @@
 -
 +// SPDX-License-Identifier: GPL-2.0-or-later
  /*
-- * Copyright (c) 2004 Daniel McNeil <daniel@osdl.org>
+  * Copyright (c) 2004 Daniel McNeil <daniel@osdl.org>
 - *               2004 Open Source Development Lab
-+ * Copyright (c) 2021 Andrea Cervesato <andrea.cervesato@suse.com>
-+ *			   2021 SUSE Enterprise Linux
-  *   This program is free software;  you can redistribute it and/or modify
-  *   it under the terms of the GNU General Public License as published by
-  *   the Free Software Foundation; either version 2 of the License, or
-@@ -19,159 +19,111 @@
-  * Module: .c
+- *   This program is free software;  you can redistribute it and/or modify
+- *   it under the terms of the GNU General Public License as published by
+- *   the Free Software Foundation; either version 2 of the License, or
+- *   (at your option) any later version.
+- *
+- *   This program is distributed in the hope that it will be useful,
+- *   but WITHOUT ANY WARRANTY;  without even the implied warranty of
+- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
+- *   the GNU General Public License for more details.
+- *
+- *   You should have received a copy of the GNU General Public License
+- *   along with this program;  if not, write to the Free Software
+- *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+- *
+- * Module: .c
++ *			    2004 Open Source Development Lab
++ *	Copyright (C) 2021 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
   */
  
 -/*
@@ -125,17 +134,18 @@ index 27cf01525..9c8da539e 100644
 -#include <memory.h>
 -#include <string.h>
 -#include <limits.h>
--
--#include "test.h"
 +#include "tst_test.h"
  
--#define NUM_CHILDREN 8
+-#include "test.h"
 +static char *FILENAME = "file.bin";
 +static long FILESIZE = 64 * 1024;
 +static int STARTING_CHARS = 10;
  
+-#define NUM_CHILDREN 8
+-
 -char *check_zero(unsigned char *buf, int size)
--{
++int dio_append(const char *path, char pattern, size_t bs, size_t bcount)
+ {
 -	unsigned char *p;
 -
 -	p = buf;
@@ -156,20 +166,22 @@ index 27cf01525..9c8da539e 100644
 -	}
 -	return 0;		/* all zeros */
 -}
--
++	int fd = 0;
++	size_t i = 0;
++	char *buf = NULL;
+ 
 -int dio_read(char *filename)
-+int dio_append(const char *path, char pattern, size_t bs, size_t bcount)
- {
- 	int fd;
+-{
+-	int fd;
 -	int r;
 -	void *bufptr = NULL;
++	fd = SAFE_OPEN(path, O_CREAT|O_WRONLY|O_DIRECT, 0666);
  
 -	TEST(posix_memalign(&bufptr, 4096, 64 * 1024));
 -	if (TEST_RETURN) {
 -		tst_resm(TBROK | TRERRNO, "cannot malloc aligned memory");
-+	fd = SAFE_OPEN(path, O_CREAT|O_WRONLY|O_DIRECT, 0666);
-+
-+	if (tst_fill_fd(fd, pattern, bs, bcount)) {
++	buf = (char *)SAFE_MEMALIGN(getpagesize(), bs);
++	if (buf == 0) {
 +		SAFE_CLOSE(fd);
  		return -1;
  	}
@@ -195,7 +207,16 @@ index 27cf01525..9c8da539e 100644
 -				offset += r;
 -			}
 -		} while (r > 0);
--	}
++	for (i = 0; i < bs; i++)
++		buf[i] = pattern;
++
++	for (i = 0; i < bcount; i++) {
++		if (write(fd, buf, bs) != (ssize_t)bs) {
++			free(buf);
++			return -1;
++		}
+ 	}
++
 +	SAFE_CLOSE(fd);
 +
  	return 0;
