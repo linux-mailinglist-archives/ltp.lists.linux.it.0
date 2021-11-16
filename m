@@ -1,97 +1,156 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09D3C452C41
-	for <lists+linux-ltp@lfdr.de>; Tue, 16 Nov 2021 08:56:00 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 80870452C61
+	for <lists+linux-ltp@lfdr.de>; Tue, 16 Nov 2021 09:05:12 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id ABAF73C87B4
-	for <lists+linux-ltp@lfdr.de>; Tue, 16 Nov 2021 08:55:59 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 2387F3C8763
+	for <lists+linux-ltp@lfdr.de>; Tue, 16 Nov 2021 09:05:12 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 445963C12D4
- for <ltp@lists.linux.it>; Tue, 16 Nov 2021 08:55:46 +0100 (CET)
-Received: from mail1.bemta34.messagelabs.com (mail1.bemta34.messagelabs.com
- [195.245.231.2])
+ by picard.linux.it (Postfix) with ESMTPS id 64A2C3C093B
+ for <ltp@lists.linux.it>; Tue, 16 Nov 2021 09:05:07 +0100 (CET)
+Received: from esa2.fujitsucc.c3s2.iphmx.com (esa2.fujitsucc.c3s2.iphmx.com
+ [68.232.152.246])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id A398120097B
- for <ltp@lists.linux.it>; Tue, 16 Nov 2021 08:55:44 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fujitsu.com;
- s=170520fj; t=1637049343; i=@fujitsu.com;
- bh=CX6AWI6/71f+SHBgO1k7ySnRUbJwgI7QDRDiyAThwxo=;
- h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
- MIME-Version:Content-Type;
- b=mCz9+ue4qYRZHALhT7ivyO4kSAWxzJSH19XDoqK/JUfnJtGGQHFhK1UxNnerX7Beh
- MPjJ4LNIuLYvwki+6a/b3F346v/zkQfUEaLZRKR6DkAV18U6xRm0G5ORxDnkhtDCE+
- GdMWCEKGbW2eirNvUaebsLQTKJ7W0QPRj5W4eBt2W8rYNd6DBqaAY9Il4fvBibt/97
- WS9x0NevCY/t8430FcpDn44HUpDLF/sclTcMtDDh6e2YD8O3aLIMLHS2eJfWWPwjz1
- t7kHQwEndBsblaYjX6OmuOI/UhJ53w9r4kz2g3IJCSDBPnm7PRzJ0xsnyxz7rpY9U3
- Pldw2/gnWxyAg==
-Received: from [100.115.36.91] (using TLSv1.2 with cipher
- DHE-RSA-AES256-GCM-SHA384 (256 bits))
- by server-2.bemta.az-a.eu-west-2.aws.ess.symcld.net id BA/29-16121-FF363916;
- Tue, 16 Nov 2021 07:55:43 +0000
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFrrBIsWRWlGSWpSXmKPExsViZ8MxSfd/8uR
- Egxk7OCxWfN/B6MDose/3OtYAxijWzLyk/IoE1ozdH0+zFTwxqrjz/hdrA+MKrS5GLg4hgbOM
- EruPLWOBcHYySWz6vIkZwtnDKPHowlvGLkZODjYBTYlnnQuYQWwRAQmJjoa37CA2s4C6xPJJv
- 5hAbGEBM4nPx/aAxVkEVCXOfWxkBbF5BTwllk7ZDlYjIaAgMeXhe7A5nAJeEgf3fgGbLwRU03
- PoCjtEvaDEyZlPWCDmS0gcfPGCGaJXUeJSxzdGCLtCYtasNqiZahJXz21insAoOAtJ+ywk7Qs
- YmVYxWicVZaZnlOQmZuboGhoY6BoamuoaW+oaWprqJVbpJuqlluqWpxaX6BrpJZYX66UWF+sV
- V+Ym56To5aWWbGIEBnJKsfrhHYxvLn3TO8QoycGkJMp7TXtyohBfUn5KZUZicUZ8UWlOavEhR
- hkODiUJ3txAoJxgUWp6akVaZg4wqmDSEhw8SiK8S5OA0rzFBYm5xZnpEKlTjLoczZOWb2cWYs
- nLz0uVEufNBCkSACnKKM2DGwGL8EuMslLCvIwMDAxCPAWpRbmZJajyrxjFORiVhHlDEoGm8GT
- mlcBtegV0BBPQEfb3+kGOKElESEk1MGWXzLXoSJik4HRk292OP0o9HFLW6ueDFh4Pa3/V+CXj
- i9y5ORkLslh33e5Z434yKm516HHt7+dunz8h55jF/kLWsiVN841U2JJXP8/5iJ3Pe79FbV7JV
- RU+oYuqV195283a8Z75drPcJEnXyc69SxZv73iw6JhyYSkPF++2kEyW1o9fi+tSvBfNfBtgPe
- OJHN/DsLN+v0UXRC8V/G7F0b9g2XHpo82PFe8VcxbuEY8wvL6+NEP1kN+ZvxOPqej6yqV5xLJ
- LGLFy7Ds0oT74KY9jgLn6y9MbD/tnLl26kKt5TvhzU/EbTif7GPgCpBOqAsVmNFxQecAj5ZSZ
- LmiUYr5Jb2rsr/07Xose6I0NVWIpzkg01GIuKk4EAIg1aOBrAwAA
-X-Env-Sender: xuyang2018.jy@fujitsu.com
-X-Msg-Ref: server-21.tower-565.messagelabs.com!1637049342!914869!1
-X-Originating-IP: [62.60.8.146]
-X-SYMC-ESS-Client-Auth: outbound-route-from=pass
-X-StarScan-Received: 
-X-StarScan-Version: 9.81.5; banners=-,-,-
-X-VirusChecked: Checked
-Received: (qmail 2293 invoked from network); 16 Nov 2021 07:55:43 -0000
-Received: from unknown (HELO n03ukasimr02.n03.fujitsu.local) (62.60.8.146)
- by server-21.tower-565.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
- encrypted SMTP; 16 Nov 2021 07:55:43 -0000
-Received: from n03ukasimr02.n03.fujitsu.local (localhost [127.0.0.1])
- by n03ukasimr02.n03.fujitsu.local (Postfix) with ESMTP id B031D100471
- for <ltp@lists.linux.it>; Tue, 16 Nov 2021 07:55:42 +0000 (GMT)
-Received: from R01UKEXCASM126.r01.fujitsu.local (unknown [10.183.43.178])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
- (No client certificate requested)
- by n03ukasimr02.n03.fujitsu.local (Postfix) with ESMTPS id A397C100467
- for <ltp@lists.linux.it>; Tue, 16 Nov 2021 07:55:42 +0000 (GMT)
-Received: from localhost.localdomain (10.167.220.84) by
- R01UKEXCASM126.r01.fujitsu.local (10.183.43.178) with Microsoft SMTP Server
- (TLS) id 15.0.1497.24; Tue, 16 Nov 2021 07:55:26 +0000
-From: Yang Xu <xuyang2018.jy@fujitsu.com>
-To: <ltp@lists.linux.it>
-Date: Tue, 16 Nov 2021 15:55:52 +0800
-Message-ID: <1637049352-25731-3-git-send-email-xuyang2018.jy@fujitsu.com>
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <1637049352-25731-1-git-send-email-xuyang2018.jy@fujitsu.com>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 216BB200FE3
+ for <ltp@lists.linux.it>; Tue, 16 Nov 2021 09:05:05 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj1;
+ t=1637049906; x=1668585906;
+ h=from:to:subject:date:message-id:references:in-reply-to:
+ content-id:content-transfer-encoding:mime-version;
+ bh=p80a2kS+M6XS0fFA4TpynmHEO7u0CkYohgQbgTD/6Cw=;
+ b=uDvNK9ujcalg1QEzxTUg9Hi5bvRedwBaJ5/Q2TDBruh8GNzynlRfD7Pw
+ ZZcU5D52OWI48m3RnZPachgef9MA77qITbH8FnSxeO9KWE89auWiR4OPj
+ 1aWSoliwGDelbZGcuNeqTUKf9Gt7yNw0hiLClVmxDyJ50/JPjDdKSwALX
+ DwcmfWpcNSXGzxqoPqZAsZtj60gbvB9Ml3+4K4MzCYWLbqEF0zAvR/jNT
+ lS2veuVucSXws9kDfBaLn35sCB32zzY+g+mkjNx07gV4I+QvHCNMCbAgO
+ yg9Ww0b3MKA5R28PCGm9wMSLoi8uFlsMcqXOr4Ak5rRwH/BGcUk0jK3hX w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10169"; a="51886620"
+X-IronPort-AV: E=Sophos;i="5.87,238,1631545200"; d="scan'208";a="51886620"
+Received: from mail-os0jpn01lp2110.outbound.protection.outlook.com (HELO
+ JPN01-OS0-obe.outbound.protection.outlook.com) ([104.47.23.110])
+ by ob1.fujitsucc.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Nov 2021 17:05:04 +0900
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=E5BdGlu/+nmi+hjVUMYwB8G71+2mGeSMTYC26164EGGaqKAxAG5JSjDO79ki4eHBAJYaGIFGanbFUPYmjX0i1beozkXN9Xn17vUU5E137E6EWIcxVkgFGWeRI/JaCbGWt+vBC7+lAuN2a9XWlPyTdt5RHrTWzM90n9NuW0o1jAvdrugmTvLmKQKNZUgLR4V8uFhSKnfbYzeXEc5W2FtPEzQxeG5s1HCQ6iPEtsQVonQtlXzIGKMkKB/RsJbFCh3qqIYjY+uOieYRzOx3kVPXHnTlgorfnIj+JzTsVLWrzmGDh161I8a+lhLeU7IEEO/ZL0FQFueZ+Fy4Ip7o8BQSSw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=p80a2kS+M6XS0fFA4TpynmHEO7u0CkYohgQbgTD/6Cw=;
+ b=m9IebHX2SNy5MjKdXV1wgAh9cpOetoU4CS59TPKdkr152BBaNrEZm6GX5/AbPyz52DvPZq+miAtG0nhgoExIsHTrSb78UOykJNV6snpn4l+BuDrsGsGjUawzFK2dtDortE3tI3+N7rjk6R3KTT8wjv0qpp5vnzH/t68sWCyzmAXwtsko4Qpg1tzLu52ayHqZOi7MXg3HlV0V5RoHwnwmlBBoRYN+AsyG1VcP74kH4KneetWfnuC9UVbXBbF5HvMmGfPg/PXxwz903w+LKMXwrRY7KHnBopobpoMTOrV+d3hfMg9qN1crE+4hvt4PdHAdLRWnyDz6yeRciX81dhpUxw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=fujitsu.com; dmarc=pass action=none header.from=fujitsu.com;
+ dkim=pass header.d=fujitsu.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=fujitsu.onmicrosoft.com; s=selector2-fujitsu-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=p80a2kS+M6XS0fFA4TpynmHEO7u0CkYohgQbgTD/6Cw=;
+ b=bWxC0qmSh1XoC/bxnYacs0TXwoodlDoi/iKOzZl7LNnvG9Pbeh/GrxnaZU99B4dltfzChg89GhaXXHxJaiQ+UWjRBrju2s2FHvccD+ifDs3sI9YtknQhsKSv/csH2/o1y7igPUrOp/75mXHV2qDdFxz1rFLdxbjfzUC8Z2CLqHk=
+Received: from TYCPR01MB6544.jpnprd01.prod.outlook.com (2603:1096:400:98::6)
+ by TY2PR01MB5196.jpnprd01.prod.outlook.com (2603:1096:404:10f::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.18; Tue, 16 Nov
+ 2021 08:05:00 +0000
+Received: from TYCPR01MB6544.jpnprd01.prod.outlook.com
+ ([fe80::4997:e3e6:6502:9100]) by TYCPR01MB6544.jpnprd01.prod.outlook.com
+ ([fe80::4997:e3e6:6502:9100%7]) with mapi id 15.20.4690.027; Tue, 16 Nov 2021
+ 08:05:00 +0000
+From: "xuyang2018.jy@fujitsu.com" <xuyang2018.jy@fujitsu.com>
+To: "ltp@lists.linux.it" <ltp@lists.linux.it>
+Thread-Topic: [PATCH v5 2/3] syscalls/statx04: remove btrfs kernel version and
+ add linux tags
+Thread-Index: AQHX2r9bHpoQSjK6R0OPcO1YR8WzM6wFy96A
+Date: Tue, 16 Nov 2021 08:05:00 +0000
+Message-ID: <61936639.2080801@fujitsu.com>
 References: <1637049352-25731-1-git-send-email-xuyang2018.jy@fujitsu.com>
+ <1637049352-25731-2-git-send-email-xuyang2018.jy@fujitsu.com>
+In-Reply-To: <1637049352-25731-2-git-send-email-xuyang2018.jy@fujitsu.com>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=fujitsu.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 8232ad87-98db-4da2-18e4-08d9a8d7c9bf
+x-ms-traffictypediagnostic: TY2PR01MB5196:
+x-microsoft-antispam-prvs: <TY2PR01MB51962EEDC1B787AF82F4A218FD999@TY2PR01MB5196.jpnprd01.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:1850;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: iGQwMUgPZ+TtqZkALDDgOVDmpj6f7bTLNc0w7cmmse4Z4eE12WfIdvPY91E1dqvg0yWsttZSJur3U9PIKU4eKjE0RVOL2WKbgn5AvVHbhgNn0yhT906MzDXgjoyO16piTacT/OcJe9pvMv8MFWQ2gpEtp6RC8+Ei9YAsU3PAAvdEvEyvylBMLRKyP+dCXG6+R1WmjnYBVnYrLW/+gppaY/mjRnYtU7aM1cXxcFxdvMJxhm7kaKeSMHt+yynghOww+GZhJHSH9kuD+6zR6dpaDuPACfdmf9b1Z7DzNpLWL3Mg5X9xog/3Xt6ZdI5DQ1l73QzF1QURiZUCPL1R8tTaVsnC60VKYGd7Dx/kXAozH2yzEvxX4FcTxGcvkwOp9/8sHFl9Y3jxnVMbYTINX3l9nWprp6RdCrk+q5Yyq1FqrgWmV+Cmt01hyeb6+GFTEWlzoWGU5RBw6HJMOCoXHWdIVYHpPYopxOmyge4/n0k6Uy1VSD+AgGjkZLm5/XLZOMCNEVMqVYFJpITP4HxhAgA9MewVyYdNKX1if0pJYeZR5XGgNvr1qOM4fXnWJLKtoSQKlod0xcjnUH6tEqePzSIRGIpKWuuCRrS2hPboxDNbRxzj8XS3cLTDQ+nzLUl85Rwdvf2nLTomnrTAM9+cMrnZ8KwrJfsnwzwJO1z3EJWNo7CSLsOWEen5cIEn7rbcUjQNi2DZAPuGQn8OTdrIWhYYIyTO6XLLzCeUsWQ0u8t7w6E=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TYCPR01MB6544.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(71200400001)(36756003)(6512007)(122000001)(316002)(82960400001)(2616005)(38100700002)(38070700005)(6506007)(86362001)(87266011)(83380400001)(2906002)(6486002)(508600001)(186003)(26005)(8936002)(8676002)(5660300002)(6916009)(91956017)(76116006)(66946007)(66446008)(64756008)(66556008)(66476007)(85182001)(62816006);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?gb2312?B?eWFIZGNSb0NmMUVBMmRsdjdUdlNsb29BRVBXSi95VTBhcDNFTkxHSkxGd3FO?=
+ =?gb2312?B?V3dDZUkrTjF5QnRIVnB5d3Q5VVBqaFpHNlZVYWhlNHE5eHFFZ1NCcWVySUJE?=
+ =?gb2312?B?bjJEeURaZk5XWUExU3lhZTBCNTBQeUNoMXE0ZWpTc3NzbjFCT2Y3QTNaNWlt?=
+ =?gb2312?B?Tmtwenp0UUJFNGhodWd2eHRrSklHN3JUU3FuUnlmTWVYUGdjMUNMTXpVQ3BN?=
+ =?gb2312?B?cFQ2Y1BVT3JEa0pkMFE4OUI1dmVLRldxcTd2Z1FXRjlyQ1JXc0h0SEh2L1hv?=
+ =?gb2312?B?NkR2R2M1b2Z2amtacThoVVZxL3laSllDczE2R0pCdlcvMTljTkJ2eEdpdHM3?=
+ =?gb2312?B?Um93c3RSYXE2UllIcVlGZFNodW0yaW1rTExuZzU3RzRsODNoTGRJcElWT0dL?=
+ =?gb2312?B?dW1kajYzTVFabmJwNGtMdDNCSFNqdytWNjYyWEprQmRvWllSKzJoVndvZ1BD?=
+ =?gb2312?B?RnI0UHNDQUNiMnZFRnFSZVErWFNjMUxWTUYyanFQZ0VBSCtNQ2JwV0JSNEdC?=
+ =?gb2312?B?ajl6S0hIenJ2TlMzalkxRTZMQnA2amU2S1Z5SVVTaUY0R0JxUTZTelpUbGwr?=
+ =?gb2312?B?NXZsRkVQNUJ4cWxzRXk1N2JFUHp6bGZtdHBueWpvYTFXMTJzK0Q5a21nN2Vu?=
+ =?gb2312?B?dHZYc2lkRXppeFRHN24ydTEvclV0VWVKM0NCcUVyQmlGRHoxdDNwcmc3emkv?=
+ =?gb2312?B?MW5uL0VJY2xPZzU1eXBqZ24zOE1JbDVud001WUtmQ3Jwc3lnUDNiTE52eVJh?=
+ =?gb2312?B?bC93ZGhGRUN1YTFTOVBMdm1LR3hETjJKenFobTllUys4dXRoSFlnT2hnTmhi?=
+ =?gb2312?B?UVV5bHYwV0gxM2VOSnAxSFNYZUkyMHpMdWRYOEp1NmlkSjZ1TCtodmwremFJ?=
+ =?gb2312?B?YUlxV0VZbm5nd1htcTdsSFZIMEhmMTh0S3c0SEd6a09JRUUyMktmS1pkbVgy?=
+ =?gb2312?B?Tmx3L05tRkxxNEhEVGZmRGVGK04ydFp4ZkkwczBsQUNKVXg3OGxYOHIyMkk1?=
+ =?gb2312?B?a0I1dnhUUzFNdXFMTThXclNIbmZVcGc5UW1lWWtmMGpIN3ZLa3dJZlFWanRB?=
+ =?gb2312?B?STdhRzlOMFJ1dSthT2p1OFB4N3lJdWJOejFCQm5mR3BUUjR5dWVsSllzQXRn?=
+ =?gb2312?B?VmE4VU1LSUJUejhMb3Jta1JtSWd2cEZZU3BOQm1QU1VlUEVaVndPWHlkZEtI?=
+ =?gb2312?B?WnFmbndKSFE1bFNoVm52UXdGQ3VtQ0Z5WXlCMTh1R0I1RkpVRGdnYWVUQW5n?=
+ =?gb2312?B?UEprWVpoYkJSZmhzRGoxeC9BcDlJTVhObU1iWkZQOUc5dFBUVElQb1Ztdytj?=
+ =?gb2312?B?ayt1TzNTN0ptcFBwQ1N0Q0VFRXRqUVUvRytFcHpVdDNhWUhPWWRwcUZHUDl5?=
+ =?gb2312?B?VjNOWFhaYnBjRWFRMWlGdFZFTzRNVEU0d2xMdUR3RTVGZnU0cU1TQ25ldlFa?=
+ =?gb2312?B?L094dzVxTThPWWpuTWZ6KzZGRnhnc05mMUlYRHVjbkdKUnZaY2xSbjR2OFk3?=
+ =?gb2312?B?ZlZPVmNTMGZNald5bUp0QmlydDM1OWlFWnpHMEZqMTkxb2JQOERVSmdISmNx?=
+ =?gb2312?B?MG1lRTBvM3VyR1RETkJPWVFEU1c3dms2SG5ITnk3d0xxNTdqam5Ndm5wd2hx?=
+ =?gb2312?B?ZWVYT3pmTi9FYlc4OFM1WVhhcDREcFc5SUFkaG1SM2gvRGdoTTdQYnJiQSt4?=
+ =?gb2312?B?Q3g5S0wzODRHamlKR21rdTVidUhtN3FCMlFZR2JaWmx2Y1gvWU9DblR1ZVY5?=
+ =?gb2312?B?Tkx0NjBQSzJSRzJUZFZyQjFFbllubXREMEcyaCs4emJGcGxKQzF1MW11VUla?=
+ =?gb2312?B?ZTRqcWg4ckhwQlNzSk93Yk5MNE1hbFZmVUsxT05RUCs1b092MFFqd0NaeDdQ?=
+ =?gb2312?B?OFQ1RUZEZTNXampMdlA0ZkFVV2hmbHRrWjJKK3pPVVh3ZGh4VjFiWWJFOXlV?=
+ =?gb2312?B?eHVYNFhPWjM1b3JCeGN0bUl1TzVGUWtod2duSnk0bEh1SlhFeFV5aHhpVWtC?=
+ =?gb2312?B?MGRzNGhNN3o2NEo0enpBUkd4R1ZPc2kwSzA3TEdzaUYySmZlN3BTVXdYMVd3?=
+ =?gb2312?B?NFA1V2hWRUNsTlg5b1VicmJXMzBGY1NLOGF3Sm1ENCtMcVAxaVVMU3haOW8x?=
+ =?gb2312?B?anlHbHllZTdLS0tySmxiZ3ErSnh3L0s3MHl4WWFzcEtkQVkvRnNQZTMzNTZn?=
+ =?gb2312?B?Z0NKU2EyVmFXL1hIWGxpQmRrdWJFZXFzSGNsQUJjRFdPMHhQYzJjT0dXVm5Q?=
+ =?gb2312?Q?ceQosEGlWR8gBaHqaJttvqwJIGxtblCkwTeX/RCSYY=3D?=
+Content-ID: <CEF4321E983341479737BDB0EE638BCB@jpnprd01.prod.outlook.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD07.g08.fujitsu.local (10.167.33.80) To
- R01UKEXCASM126.r01.fujitsu.local (10.183.43.178)
+X-OriginatorOrg: fujitsu.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB6544.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8232ad87-98db-4da2-18e4-08d9a8d7c9bf
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Nov 2021 08:05:00.4849 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: a19f121d-81e1-4858-a9d8-736e267fd4c7
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: gpj2jkNAj/vaOPJTUcVp9r5bhPrB2DbYFjoZ7WNoTz0Izro8Jied+zLQpvFKl6dgPBt5a/G4GkOWfj4Ip68maZVUaeCFpy64ASGIz1pBu5s=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY2PR01MB5196
 X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS autolearn=disabled
  version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH v5 3/3] syscalls/statx08: Add new test
+Subject: Re: [LTP] [PATCH v5 2/3] syscalls/statx04: remove btrfs kernel
+ version and add linux tags
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,243 +167,101 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Like statx04.c, but use stx_attributes_mask before test so we only test
-flag which has been implemented by the underlying filesystem.
-
-Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
----
- runtest/syscalls                           |   1 +
- testcases/kernel/syscalls/statx/.gitignore |   1 +
- testcases/kernel/syscalls/statx/statx08.c  | 196 +++++++++++++++++++++
- 3 files changed, 198 insertions(+)
- create mode 100644 testcases/kernel/syscalls/statx/statx08.c
-
-diff --git a/runtest/syscalls b/runtest/syscalls
-index d57c73e39..bcd6ac1ab 100644
---- a/runtest/syscalls
-+++ b/runtest/syscalls
-@@ -1741,6 +1741,7 @@ statx04 statx04
- statx05 statx05
- statx06 statx06
- statx07 statx07
-+statx08 statx08
- 
- membarrier01 membarrier01
- 
-diff --git a/testcases/kernel/syscalls/statx/.gitignore b/testcases/kernel/syscalls/statx/.gitignore
-index 2f5457e48..4db060dbb 100644
---- a/testcases/kernel/syscalls/statx/.gitignore
-+++ b/testcases/kernel/syscalls/statx/.gitignore
-@@ -5,3 +5,4 @@
- /statx05
- /statx06
- /statx07
-+/statx08
-diff --git a/testcases/kernel/syscalls/statx/statx08.c b/testcases/kernel/syscalls/statx/statx08.c
-new file mode 100644
-index 000000000..dc869d6b6
---- /dev/null
-+++ b/testcases/kernel/syscalls/statx/statx08.c
-@@ -0,0 +1,196 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2021 FUJITSU LIMITED. All rights reserved.
-+ * Author: Yang Xu <xuyang2018.jy@fujitsu.com>
-+ */
-+
-+/*\
-+ * [Description]
-+ *
-+ * This case tests whether the attributes field of statx received expected value
-+ * by using flags in the stx_attributes_mask field of statx.
-+ * File set with following flags by using SAFE_IOCTL:
-+ *
-+ * - STATX_ATTR_COMPRESSED: The file is compressed by the filesystem.
-+ * - STATX_ATTR_IMMUTABLE: The file cannot be modified.
-+ * - STATX_ATTR_APPEND: The file can only be opened in append mode for writing.
-+ * - STATX_ATTR_NODUMP: File is not a candidate for backup when a backup
-+ *                        program such as dump(8) is run.
-+ *
-+ * Two directories are tested.
-+ * First directory has all flags set. Second directory has no flags set.
-+ *
-+ * Minimum kernel version required is 4.11.
-+ */
-+
-+#define _GNU_SOURCE
-+#include "tst_test.h"
-+#include "lapi/fs.h"
-+#include <stdlib.h>
-+#include "lapi/stat.h"
-+
-+#define MOUNT_POINT "mntpoint"
-+#define TESTDIR_FLAGGED MOUNT_POINT"/test_dir1"
-+#define TESTDIR_UNFLAGGED MOUNT_POINT"/test_dir2"
-+
-+static int fd, clear_flags;
-+static int supp_compr = 1, supp_append = 1, supp_immutable = 1, supp_nodump = 1;
-+
-+static void test_flag(int flag)
-+{
-+	struct statx buf;
-+
-+	TEST(statx(AT_FDCWD, flag ? TESTDIR_FLAGGED : TESTDIR_UNFLAGGED, 0, 0, &buf));
-+	if (TST_RET == 0)
-+		tst_res(TPASS,
-+			"sys_statx(AT_FDCWD, %s, 0, 0, &buf)",
-+			flag ? TESTDIR_FLAGGED : TESTDIR_UNFLAGGED);
-+	else
-+		tst_brk(TFAIL | TTERRNO,
-+			"sys_statx(AT_FDCWD, %s, 0, 0, &buf)",
-+			flag ? TESTDIR_FLAGGED : TESTDIR_UNFLAGGED);
-+
-+	if (supp_compr) {
-+		if (buf.stx_attributes & STATX_ATTR_COMPRESSED)
-+			tst_res(flag ? TPASS : TFAIL,
-+				"STATX_ATTR_COMPRESSED flag is set");
-+		else
-+			tst_res(flag ? TFAIL : TPASS,
-+				"STATX_ATTR_COMPRESSED flag is not set");
-+	}
-+	if (supp_append) {
-+		if (buf.stx_attributes & STATX_ATTR_APPEND)
-+			tst_res(flag ? TPASS : TFAIL,
-+				"STATX_ATTR_APPEND flag is set");
-+		else
-+			tst_res(flag ? TFAIL : TPASS,
-+				"STATX_ATTR_APPEND flag is not set");
-+	}
-+	if (supp_immutable) {
-+		if (buf.stx_attributes & STATX_ATTR_IMMUTABLE)
-+			tst_res(flag ? TPASS : TFAIL,
-+				"STATX_ATTR_IMMUTABLE flag is set");
-+		else
-+			tst_res(flag ? TFAIL : TPASS,
-+				"STATX_ATTR_IMMUTABLE flag is not set");
-+	}
-+	if (supp_nodump) {
-+		if (buf.stx_attributes & STATX_ATTR_NODUMP)
-+			tst_res(flag ? TPASS : TFAIL,
-+				"STATX_ATTR_NODUMP flag is set");
-+		else
-+			tst_res(flag ? TFAIL : TPASS,
-+				"STATX_ATTR_NODUMP flag is not set");
-+	}
-+}
-+
-+struct test_cases {
-+	void (*tfunc)(int);
-+	int set_flag;
-+} tcases[] = {
-+	{&test_flag, 1},
-+	{&test_flag, 0},
-+};
-+
-+static void run(unsigned int i)
-+{
-+	tcases[i].tfunc(tcases[i].set_flag);
-+}
-+
-+static void caid_flags_setup(void)
-+{
-+	int attr, ret;
-+
-+	fd = SAFE_OPEN(TESTDIR_FLAGGED, O_RDONLY | O_DIRECTORY);
-+
-+	ret = ioctl(fd, FS_IOC_GETFLAGS, &attr);
-+	if (ret < 0) {
-+		if (errno == ENOTTY)
-+			tst_brk(TCONF | TERRNO, "FS_IOC_GETFLAGS not supported");
-+
-+		/* ntfs3g fuse fs returns wrong errno for unimplemented ioctls */
-+		if (!strcmp(tst_device->fs_type, "ntfs")) {
-+			tst_brk(TCONF | TERRNO,
-+				"ntfs3g does not support FS_IOC_GETFLAGS");
-+		}
-+
-+		tst_brk(TBROK | TERRNO, "ioctl(%i, FS_IOC_GETFLAGS, ...)", fd);
-+	}
-+
-+	if (supp_compr)
-+		attr |= FS_COMPR_FL;
-+	if (supp_append)
-+		attr |= FS_APPEND_FL;
-+	if (supp_immutable)
-+		attr |= FS_IMMUTABLE_FL;
-+	if (supp_nodump)
-+		attr |= FS_NODUMP_FL;
-+
-+	ret = ioctl(fd, FS_IOC_SETFLAGS, &attr);
-+	if (ret < 0) {
-+		tst_brk(TBROK | TERRNO, "ioctl(%i, FS_IOC_SETFLAGS, %i)", fd, attr);
-+	}
-+
-+	clear_flags = 1;
-+}
-+
-+static void setup(void)
-+{
-+	struct statx buf;
-+
-+	SAFE_MKDIR(TESTDIR_FLAGGED, 0777);
-+	SAFE_MKDIR(TESTDIR_UNFLAGGED, 0777);
-+
-+	TEST(statx(AT_FDCWD, TESTDIR_FLAGGED, 0, 0, &buf));
-+	if (TST_RET == -1)
-+		tst_brk(TFAIL | TTERRNO,
-+			"sys_statx(AT_FDCWD, %s, 0, 0, &buf)", TESTDIR_FLAGGED);
-+
-+	if ((buf.stx_attributes_mask & FS_COMPR_FL) == 0) {
-+		supp_compr = 0;
-+		tst_res(TCONF, "filesystem doesn't support FS_COMPR_FL");
-+	}
-+	if ((buf.stx_attributes_mask & FS_APPEND_FL) == 0) {
-+		supp_append = 0;
-+		tst_res(TCONF, "filesystem doesn't support FS_APPEND_FL");
-+	}
-+	if ((buf.stx_attributes_mask & FS_IMMUTABLE_FL) == 0) {
-+		supp_immutable = 0;
-+		tst_res(TCONF, "filesystem doesn't support FS_IMMUTABLE_FL");
-+	}
-+	if ((buf.stx_attributes_mask & FS_NODUMP_FL) == 0) {
-+		supp_nodump = 0;
-+		tst_res(TCONF, "filesystem doesn't support FS_NODUMP_FL");
-+	}
-+	if (!(supp_compr || supp_append || supp_immutable || supp_nodump))
-+		tst_brk(TCONF,
-+			"filesystem doesn't support the above any attr, skip it");
-+
-+	caid_flags_setup();
-+}
-+
-+static void cleanup(void)
-+{
-+	int attr;
-+
-+	if (clear_flags) {
-+		SAFE_IOCTL(fd, FS_IOC_GETFLAGS, &attr);
-+		attr &= ~(FS_COMPR_FL | FS_APPEND_FL | FS_IMMUTABLE_FL | FS_NODUMP_FL);
-+		SAFE_IOCTL(fd, FS_IOC_SETFLAGS, &attr);
-+	}
-+
-+	if (fd > 0)
-+		SAFE_CLOSE(fd);
-+}
-+
-+static struct tst_test test = {
-+	.test = run,
-+	.tcnt = ARRAY_SIZE(tcases),
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.needs_root = 1,
-+	.all_filesystems = 1,
-+	.mount_device = 1,
-+	.mntpoint = MOUNT_POINT,
-+	.min_kver = "4.11",
-+};
--- 
-2.23.0
-
+Hi All
+> Also add docparse formatting.
+> 
+> Signed-off-by: Yang Xu<xuyang2018.jy@fujitsu.com>
+> ---
+>   testcases/kernel/syscalls/statx/statx04.c | 54 +++++++++++++++++------
+>   1 file changed, 41 insertions(+), 13 deletions(-)
+> 
+> diff --git a/testcases/kernel/syscalls/statx/statx04.c b/testcases/kernel/syscalls/statx/statx04.c
+> index 6881ce261..a51891311 100644
+> --- a/testcases/kernel/syscalls/statx/statx04.c
+> +++ b/testcases/kernel/syscalls/statx/statx04.c
+> @@ -4,25 +4,50 @@
+>    * Email: code@zilogic.com
+>    */
+> 
+> -/*
+> - * Test statx
+> +/*\
+> + * [Description]
+>    *
+>    * This code tests if the attributes field of statx received expected value.
+>    * File set with following flags by using SAFE_IOCTL:
+> - * 1) STATX_ATTR_COMPRESSED - The file is compressed by the filesystem.
+> - * 2) STATX_ATTR_IMMUTABLE - The file cannot be modified.
+> - * 3) STATX_ATTR_APPEND - The file can only be opened in append mode for
+> - *                        writing.
+> - * 4) STATX_ATTR_NODUMP - File is not a candidate for backup when a backup
+> + *
+> + * - STATX_ATTR_COMPRESSED: The file is compressed by the filesystem.
+> + * - STATX_ATTR_IMMUTABLE: The file cannot be modified.
+> + * - STATX_ATTR_APPEND: The file can only be opened in append mode for writing.
+> + * - STATX_ATTR_NODUMP: File is not a candidate for backup when a backup
+>    *                        program such as dump(8) is run.
+>    *
+>    * Two directories are tested.
+> - * First directory has all flags set.
+> - * Second directory has no flags set.
+> + * First directory has all flags set. Second directory has no flags set.
+>    *
+> - * xfs filesystem doesn't support STATX_ATTR_COMPRESSED flags, so we only test
+> + * xfs filesystem doesn't support STATX_ATTR_COMPRESSED flag, so we only test
+>    * three other flags.
+>    *
+> + * ext2, ext4, btrfs and xfs support statx syscall since the following commit
+> + *
+> + *  commit 93bc420ed41df63a18ae794101f7cbf45226a6ef
+> + *  Author: yangerkun<yangerkun@huawei.com>
+> + *  Date:   Mon Feb 18 09:07:02 2019 +0800
+> + *
+> + *  ext2: support statx syscall
+> + *
+> + *  commit 99652ea56a4186bc5bf8a3721c5353f41b35ebcb
+> + *  Author: David Howells<dhowells@redhat.com>
+> + *  Date:   Fri Mar 31 18:31:56 2017 +0100
+> + *
+> + *  ext4: Add statx support
+> + *
+> + *  commit 04a87e3472828f769a93655d7c64a27573bdbc2c
+> + *  Author: Yonghong Song<yhs@fb.com>
+> + *  Date:   Fri May 12 15:07:43 2017 -0700
+> + *
+> + *  Btrfs: add statx support
+> + *
+> + *  commit 5f955f26f3d42d04aba65590a32eb70eedb7f37d
+> + *  Author: Darrick J. Wong<darrick.wong@oracle.com>
+> + *  Date:   Fri Mar 31 18:32:03 2017 +0100
+> + *
+> + *  xfs: report crtime and attribute flags to statx
+> + *
+>    * Minimum kernel version required is 4.11.
+>    */
+> 
+> @@ -160,9 +185,6 @@ static void setup(void)
+>   	SAFE_MKDIR(TESTDIR_FLAGGED, 0777);
+>   	SAFE_MKDIR(TESTDIR_UNFLAGGED, 0777);
+> 
+> -	if (!strcmp(tst_device->fs_type, "btrfs")&&  tst_kvercmp(4, 13, 0)<  0)
+> -		tst_brk(TCONF, "Btrfs statx() supported since 4.13");
+> -
+>   	caid_flags_setup();
+>   }
+> 
+> @@ -190,4 +212,10 @@ static struct tst_test test = {
+>   	.mount_device = 1,
+>   	.mntpoint = MOUNT_POINT,
+>   	.min_kver = "4.11",
+> +	.tags = (const struct tst_tag[]) {
+> +		{"linux-git", "93bc420ed41d"},
+> +		{"linux-git", "99652ea56a41"},
+> +		{"linux-git", "04a87e347282"},
+> +		{"linux-git", "5f955f26f3d4"},
+Sorry, here missed {NULL, NULL} terminated array of tags.
+> +	},
+>   };
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
