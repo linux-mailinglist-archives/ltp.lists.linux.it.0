@@ -2,54 +2,75 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id E84214527E9
-	for <lists+linux-ltp@lfdr.de>; Tue, 16 Nov 2021 03:47:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBAD6452821
+	for <lists+linux-ltp@lfdr.de>; Tue, 16 Nov 2021 03:54:19 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7D1193C875F
-	for <lists+linux-ltp@lfdr.de>; Tue, 16 Nov 2021 03:47:32 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 2A0453C87B5
+	for <lists+linux-ltp@lfdr.de>; Tue, 16 Nov 2021 03:54:19 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by picard.linux.it (Postfix) with ESMTPS id BF4C53C6268
+ for <ltp@lists.linux.it>; Tue, 16 Nov 2021 03:54:14 +0100 (CET)
+Received: from mail-pl1-x629.google.com (mail-pl1-x629.google.com
+ [IPv6:2607:f8b0:4864:20::629])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 0539D3C6268
- for <ltp@lists.linux.it>; Tue, 16 Nov 2021 03:47:27 +0100 (CET)
-Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 2EC1110009F6
- for <ltp@lists.linux.it>; Tue, 16 Nov 2021 03:47:22 +0100 (CET)
-X-QQ-mid: bizesmtp49t1637030837tdz9g92y
-Received: from localhost.localdomain (unknown [58.240.82.166])
- by esmtp6.qq.com (ESMTP) with 
- id ; Tue, 16 Nov 2021 10:47:16 +0800 (CST)
-X-QQ-SSF: 0140000000200050C000B00A0000000
-X-QQ-FEAT: NtgDvgqFC3NIelta8vNxcWNsZmkJusQNYSWK7kFA7S7+lNHyvhcG5J7CzLZ9j
- jf4va/RmDm/kDTyNHiSmGOV3UOexv7+HxN4MVeEFJEPprk7Yt+KsOsBrwztZcB5owPuYBbw
- SIs5xkH1/RxxZM9o3bylDYeZvY83zGtgxp3Z1KRiAjXgnZ6KOloBCqIRk0rI3dbs8ObHrBR
- MkZ+1jZwkrrooqp5G1gYvQEgyPDgIkP+NXP8AKNAFuI/59QvNr2fkWqIK5vSrF3F61wnrov
- 1364wMxICuwVAM8L11cIl2M0zU/jWirDcKy1HL0ANDXSUjWasJH8SHzuOlG/IOkZiWuYmHh
- Pgg+6HBF+Un7VdwMZ86+blo7cMy98wdt1gK9nfw
-X-QQ-GoodBg: 2
-From: tangmeng <tangmeng@uniontech.com>
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 09CAE1000DD7
+ for <ltp@lists.linux.it>; Tue, 16 Nov 2021 03:54:14 +0100 (CET)
+Received: by mail-pl1-x629.google.com with SMTP id y8so10668389plg.1
+ for <ltp@lists.linux.it>; Mon, 15 Nov 2021 18:54:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=qQ41mcTQFXP5DjqW569tHmKorBCmZYdPg2gt5VnR27Y=;
+ b=iXQUMkE7XtNm3TScb6nnOyVDCmaQH0/ygfABKK5cm9q6qEWHMsHha/BjiqRpPWobVc
+ 8LXe2ukNg44K2aMYcEBI3d98oOUgFDuVox7r6sNr4DQ1L61/Str4MzHSg+yV6+TwKag8
+ RiGR4JjOPE8Hkt6z4MXRPeoAn6YnRnLYAMYo2xQkhD3ZSE0rxS9hz3RWHykTZ5oLNabn
+ vNQLap+7e7iKIALr33qaks7fcrXPcSQ2aArLCHxdx6RXNWaD5qRTMTKDGkUXM827r5in
+ Z4ZiP9jm/1px/uV0LyuWtJjccCUn7POQ+7C/PCfEbxa3YEgHeKbe6PgXszO9+AvmrLUb
+ DKyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=qQ41mcTQFXP5DjqW569tHmKorBCmZYdPg2gt5VnR27Y=;
+ b=zwiRBybCPV13pkSTh9YRtX8wCKyNXPUyq3Pcjv0zZg62GOQ6EnyiRlV5IB/NemqXU4
+ GlAWk6SgHFVZetHbmhxaYliHcO1XPmwLAAb9uXXr79H6VbG7E/0R9m/OIRxQk0TarmHp
+ 3AwHp37nRe5dGBJUU+OxPvC9rX1OTGjkv7GpmRRLHMMTLdWLhCqmn5H6FAkGX82Mdhsy
+ qi4ja6QQK93QgrkvAZmnka/1v9vqdRGsoqNtVEDPGG1p4yUteaalIa/8yoB+uO3Y46sL
+ 6liFfJnc5rvncf7cyx5e+nfmKiC6Y9gAPBNERq4zyN0MpXXxXIVcAddn68bTLJcz4NZ8
+ fLZA==
+X-Gm-Message-State: AOAM530Fd8bnWpnsICubVxw9A2D6FqR4QV3MAL0h/Ft3SLP6yID2e5tM
+ X1sIXMJWm+daL78FivgtouTH79KB7L1wgg==
+X-Google-Smtp-Source: ABdhPJx6C6gYfO2/4ipCIVhcDiJn/aOATylAe5evoRa3TNX3ucxvhqBS7CBQL0r0rbHZyKcayeeFJQ==
+X-Received: by 2002:a17:90a:ce02:: with SMTP id
+ f2mr4361653pju.77.1637031252575; 
+ Mon, 15 Nov 2021 18:54:12 -0800 (PST)
+Received: from fedora34.. (125x103x255x1.ap125.ftth.ucom.ne.jp.
+ [125.103.255.1])
+ by smtp.gmail.com with ESMTPSA id e2sm13000922pgm.48.2021.11.15.18.54.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 15 Nov 2021 18:54:12 -0800 (PST)
+From: QI Fuli <fukuri.sai@gmail.com>
+X-Google-Original-From: QI Fuli <qi.fuli@fujitsu.com>
 To: ltp@lists.linux.it
-Date: Tue, 16 Nov 2021 10:47:06 +0800
-Message-Id: <20211116024706.30853-2-tangmeng@uniontech.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20211116024706.30853-1-tangmeng@uniontech.com>
-References: <20211116024706.30853-1-tangmeng@uniontech.com>
+Date: Tue, 16 Nov 2021 11:53:52 +0900
+Message-Id: <20211116025354.2566-1-qi.fuli@fujitsu.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign7
-X-QQ-Bgrelay: 1
 X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 2/2] getuid/getuid03: Convert to new API
+Subject: [LTP] [PATCH v3 0/2] Convert syscalls/dup3_{01,02} to new API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,137 +82,26 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: tangmeng <tangmeng@uniontech.com>
+Cc: QI Fuli <qi.fuli@fujitsu.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: tangmeng <tangmeng@uniontech.com>
----
- testcases/kernel/syscalls/getuid/getuid03.c | 96 +++++----------------
- 1 file changed, 23 insertions(+), 73 deletions(-)
+From: QI Fuli <qi.fuli@fujitsu.com>
 
-diff --git a/testcases/kernel/syscalls/getuid/getuid03.c b/testcases/kernel/syscalls/getuid/getuid03.c
-index 7c81c628e..fa1fa52cc 100644
---- a/testcases/kernel/syscalls/getuid/getuid03.c
-+++ b/testcases/kernel/syscalls/getuid/getuid03.c
-@@ -1,88 +1,38 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
- /*
-  * Copyright (c) International Business Machines  Corp., 2001
-  *  Ported by Wayne Boyer
-- *
-- * This program is free software;  you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License as published by
-- * the Free Software Foundation; either version 2 of the License, or
-- * (at your option) any later version.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY;  without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
-- * the GNU General Public License for more details.
-- *
-- * You should have received a copy of the GNU General Public License
-- * along with this program;  if not, write to the Free Software
-- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
-  */
+Convert syscalls/dup3_{01,02} to new API
 
--/*
-- * Testcase to check the basic functionality of the getuid() system call.
-+/*\
-+ * [Description]
-  *
-- * For functionality test the return value from getgid() is compared to passwd
-- * entry.
-+ * Check the basic functionality of the getuid() system call
-+ * return value against the /proc/self/status where all the
-+ * UIDs are listed.
-  */
+QI Fuli (2):
+  syscalls/dup3_01: Rewrite dup3_01 and convert it to new API
+  syscalls/dup3_02: Convert to new API
 
--#include <pwd.h>
--#include <errno.h>
--
--#include "test.h"
--#include "compat_16.h"
-+#include "tst_test.h"
-+#include "compat_tst_16.h"
+ testcases/kernel/syscalls/dup3/dup3_01.c | 163 ++++++++---------------
+ testcases/kernel/syscalls/dup3/dup3_02.c | 119 +++++------------
+ 2 files changed, 87 insertions(+), 195 deletions(-)
 
--TCID_DEFINE(getuid03);
--int TST_TOTAL = 1;
--
--static void setup(void);
--static void cleanup(void);
--
--int main(int ac, char **av)
-+static void verify_getuid(void)
- {
--	struct passwd *pwent;
--	int lc;
--	uid_t uid;
--
--	tst_parse_opts(ac, av, NULL, NULL);
--
--	setup();
--
--	for (lc = 0; TEST_LOOPING(lc); lc++) {
-+	long int uid;
-
--		tst_count = 0;
-+	TST_EXP_POSITIVE(GETUID(), "getuid()");
-
--		TEST(GETUID(cleanup));
-+	SAFE_FILE_LINES_SCANF("/proc/self/status", "Uid: %ld", &uid);
-
--		if (TEST_RETURN == -1)
--			tst_brkm(TBROK | TTERRNO, cleanup, "getuid failed");
--
--		uid = getuid();
--		pwent = getpwuid(uid);
--
--		if (pwent == NULL)
--			tst_resm(TFAIL | TERRNO, "getpwuid failed");
--
--		UID16_CHECK(pwent->pw_uid, getuid, cleanup);
--
--		if (pwent->pw_uid != TEST_RETURN)
--			tst_resm(TFAIL, "getpwuid value, %d, "
--				 "does not match getuid "
--				 "value, %ld", pwent->pw_uid,
--				 TEST_RETURN);
--		else
--			tst_resm(TPASS, "values from getuid "
--				 "and getpwuid match");
--	}
--	cleanup();
--	tst_exit();
--}
--
--static void setup(void)
--{
--	tst_sig(NOFORK, DEF_HANDLER, cleanup);
--
--	TEST_PAUSE;
-+	if (TST_RET != uid)
-+		tst_res(TFAIL, "Uid value list in /pro/self/status, %ld, "
-+			 "does not match getuid "
-+			 "value, %ld", uid,
-+			 TST_RET);
-+	else
-+		tst_res(TPASS, "values from getuid "
-+			 "and /proc/self/status match");
- }
-
--static void cleanup(void)
--{
--}
-+static struct tst_test test = {
-+        .test_all = verify_getuid,
-+};
---
-2.20.1
-
-
+-- 
+2.31.1
 
 
 -- 
