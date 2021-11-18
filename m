@@ -2,74 +2,51 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2270456162
-	for <lists+linux-ltp@lfdr.de>; Thu, 18 Nov 2021 18:23:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CF7B4566B6
+	for <lists+linux-ltp@lfdr.de>; Fri, 19 Nov 2021 00:58:11 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 18FC93C896C
-	for <lists+linux-ltp@lfdr.de>; Thu, 18 Nov 2021 18:23:30 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id C33A23C897C
+	for <lists+linux-ltp@lfdr.de>; Fri, 19 Nov 2021 00:58:10 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 387443C5AEF
- for <ltp@lists.linux.it>; Thu, 18 Nov 2021 18:23:16 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 9BA1D1400DAB
- for <ltp@lists.linux.it>; Thu, 18 Nov 2021 18:23:15 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id C4229218B8
- for <ltp@lists.linux.it>; Thu, 18 Nov 2021 17:23:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1637256194; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ikd4Fvv1akD7xMRPGN4MgPVz+RCPF+DhmVgI9358ZFo=;
- b=Bzf26dWMe4j1p/J/dCQLhOx6cBuT+y8I92Ol+ERMFBdK2I+90dbQLnJ3Ub2cvUb1/WncZr
- w926fQsplZnmJGGAH4BTUGcQV3PL5rAn+WDG9TkLPduaY0YqVIRBDr9vn9QYDmf3vtNJp0
- V0dWmo/ZjgvlcChBbKyigO51uxdZh3o=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1637256194;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ikd4Fvv1akD7xMRPGN4MgPVz+RCPF+DhmVgI9358ZFo=;
- b=ktmvSAMHysGGwVTEozzY4m/HGCa1r9RrFaJe+kInfSmNkAsFdOzEja1F41U2tkiKODZ9kU
- IbsU6A9+zEhDJLBQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id AF94713D8C
- for <ltp@lists.linux.it>; Thu, 18 Nov 2021 17:23:14 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id gIfdKQKMlmEgVAAAMHmgww
- (envelope-from <mdoucha@suse.cz>)
- for <ltp@lists.linux.it>; Thu, 18 Nov 2021 17:23:14 +0000
-From: Martin Doucha <mdoucha@suse.cz>
-To: ltp@lists.linux.it
-Date: Thu, 18 Nov 2021 18:23:13 +0100
-Message-Id: <20211118172313.20159-3-mdoucha@suse.cz>
+ by picard.linux.it (Postfix) with ESMTPS id 1F2F83C0930
+ for <ltp@lists.linux.it>; Fri, 19 Nov 2021 00:57:58 +0100 (CET)
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 7C709600C22
+ for <ltp@lists.linux.it>; Fri, 19 Nov 2021 00:57:54 +0100 (CET)
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ (Authenticated sender: krisman) with ESMTPSA id A9F981F47098
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=collabora.com; s=mail;
+ t=1637279872; bh=PxhtOZi8FpecU5v9kfXKItkwreg65Wwi4desFZ3Y+10=;
+ h=From:To:Cc:Subject:Date:From;
+ b=M4ALlR2cuYk6zx0KDFSifzBYMHFKPlSLS0kB/nhfYjjpgCu//emofUTVvejjv7KeQ
+ 61Ybj6YZgJpyq7ut1hbQz1SABNcJC89FNleK94aSlKT2+R8it37wNA1nXIiToNOLxB
+ 9fWlb1+yLri+5gfsIUb3do2sw+6zkyvhSz3GMsrkym7XUbQhEayOAAH84ZLhJs6k30
+ Qw/MCWrZ7epo/dxQm5lJ9iyC9s0CzFN+wqmvf/lYBKvbs6H/6OKxGVNGjOGILUCeLq
+ U/zdRIlkd/PGVvgzSTa02x/RX5vJ0zOnCFQX/DgOVtLk7ToMbAc6l6u7CX2daGIvjV
+ Q+iOHspbUjjrg==
+From: Gabriel Krisman Bertazi <krisman@collabora.com>
+To: pvorel@suse.cz,
+	jack@suse.com,
+	amir73il@gmail.com,
+	repnop@google.com
+Date: Thu, 18 Nov 2021 18:57:35 -0500
+Message-Id: <20211118235744.802584-1-krisman@collabora.com>
 X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20211118172313.20159-1-mdoucha@suse.cz>
-References: <20211118172313.20159-1-mdoucha@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH 3/3] Add test for NFS directory listing regression
+X-Spam-Status: No, score=0.2 required=7.0 tests=DKIM_INVALID,DKIM_SIGNED,
+ SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH v4 0/9] Test the new fanotify FAN_FS_ERROR event
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,115 +58,71 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: Gabriel Krisman Bertazi <krisman@collabora.com>, linux-ext4@vger.kernel.org,
+ kernel@collabora.com, ltp@lists.linux.it, khazhy@google.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
----
- runtest/net.nfs                           | 11 +++++
- testcases/network/nfs/nfs_stress/Makefile |  3 +-
- testcases/network/nfs/nfs_stress/nfs07.sh | 56 +++++++++++++++++++++++
- 3 files changed, 69 insertions(+), 1 deletion(-)
- create mode 100755 testcases/network/nfs/nfs_stress/nfs07.sh
+Hi,
 
-diff --git a/runtest/net.nfs b/runtest/net.nfs
-index 3df35809a..042c14ce4 100644
---- a/runtest/net.nfs
-+++ b/runtest/net.nfs
-@@ -61,6 +61,17 @@ nfs01_06  nfs06 -v "3,3,3,4,4,4" -t "udp,udp,tcp,tcp,tcp,tcp"
- nfs02_06 nfs06 -v "3,4,4.1,4.2,4.2,4.2" -t "udp,tcp,tcp,tcp,tcp,tcp"
- nfs03_ipv6_06 nfs06 -6 -v "4,4.1,4.1,4.2,4.2,4.2" -t "tcp,tcp,tcp,tcp,tcp,tcp"
- 
-+nfs3_07 nfs07.sh -v 3 -t udp
-+nfs3t_07 nfs07.sh -v 3 -t tcp
-+nfs4_07 nfs07.sh -v 4 -t tcp
-+nfs41_07 nfs07.sh -v 4.1 -t tcp
-+nfs42_07 nfs07.sh -v 4.2 -t tcp
-+nfs3_ipv6_07 nfs07.sh -6 -v 3 -t udp
-+nfs3t_ipv6_07 nfs07.sh -6 -v 3 -t tcp
-+nfs4_ipv6_07 nfs07.sh -6 -v 4 -t tcp
-+nfs41_ipv6_07 nfs07.sh -6 -v 4.1 -t tcp
-+nfs42_ipv6_07 nfs07.sh -6 -v 4.2 -t tcp
-+
- nfslock3_01 nfslock01 -v 3 -t udp
- nfslock3t_01 nfslock01 -v 3 -t tcp
- nfslock4_01 nfslock01 -v 4 -t tcp
-diff --git a/testcases/network/nfs/nfs_stress/Makefile b/testcases/network/nfs/nfs_stress/Makefile
-index 856008ce2..0b7408e29 100644
---- a/testcases/network/nfs/nfs_stress/Makefile
-+++ b/testcases/network/nfs/nfs_stress/Makefile
-@@ -15,6 +15,7 @@ INSTALL_TARGETS		:= nfs_lib.sh \
- 			   nfs03 \
- 			   nfs04 \
- 			   nfs05 \
--			   nfs06
-+			   nfs06 \
-+			   nfs07.sh
- 
- include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/network/nfs/nfs_stress/nfs07.sh b/testcases/network/nfs/nfs_stress/nfs07.sh
-new file mode 100755
-index 000000000..d8e482751
---- /dev/null
-+++ b/testcases/network/nfs/nfs_stress/nfs07.sh
-@@ -0,0 +1,56 @@
-+#!/bin/sh
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+# Copyright (c) 2021 SUSE LLC <mdoucha@suse.cz>
-+#
-+#  DESCRIPTION: Create a large number of files and directories on NFS volume.
-+#  Then check whether they can be listed via NFS.
-+
-+FILE_COUNT=5000
-+
-+TST_OPTS="n:"
-+TST_PARSE_ARGS=do_parse_args
-+TST_TESTFUNC="do_test"
-+TST_SETUP="do_setup"
-+
-+do_parse_args()
-+{
-+	case "$1" in
-+	n) FILE_COUNT="$2";;
-+	esac
-+}
-+
-+. nfs_lib.sh
-+
-+do_setup()
-+{
-+	nfs_setup
-+
-+	local rpath=$(nfs_get_remote_path)
-+	tst_rhost_run -s -c "touch $rpath/file{1..$FILE_COUNT}"
-+	tst_rhost_run -s -c "mkdir $rpath/dir{1..$FILE_COUNT}"
-+}
-+
-+do_test()
-+{
-+	local count
-+
-+	# Pass the list of files through `sort -u` in case `ls` doesn't fitler
-+	# out potential duplicate filenames returned by buggy NFS
-+	count=`ls | grep '^file' | sort -u | wc -l`
-+
-+	if [ $count -ne $FILE_COUNT ]; then
-+		tst_res TFAIL "Listing files failed: $count != $FILE_COUNT"
-+		return
-+	fi
-+
-+	count=`ls | grep '^dir' | sort -u | wc -l`
-+
-+	if [ $count -ne $FILE_COUNT ]; then
-+		tst_res TFAIL "Listing dirs failed: $count != $FILE_COUNT"
-+		return
-+	fi
-+
-+	tst_res TPASS "All files and directories were correctly listed"
-+}
-+
-+tst_run
+FAN_FS_ERROR was merged into Linus tree, and the PIDFD testcases reached
+LTP.  Therefore, I'm sending a new version of the FAN_FS_ERROR LTP
+tests.  This is the v4 of this patchset, and it applies the feedback of
+the previous version.
+
+Thanks,
+
+---
+
+Original cover letter:
+
+FAN_FS_ERROR is a new (still unmerged) fanotify event to monitor
+fileystem errors.  This patchset introduces a new LTP test for this
+feature.
+
+Testing file system errors is slightly tricky, in particular because
+they are mostly file system dependent.  Since there are only patches for
+ext4, I choose to make the test around it, since there wouldn't be much
+to do with other file systems.  The second challenge is how we cause the
+file system errors, since there is no error injection for ext4 in Linux.
+In this series, this is done by corrupting specific data in the
+test device with the help of debugfs.
+
+The FAN_FS_ERROR feature is flying around linux-ext4 and fsdevel, and
+the latest version is available on the branch below:
+
+    https://gitlab.collabora.com/krisman/linux -b fanotify-notifications-v9
+
+A proper manpage description is also available on the respective mailing
+list, or in the branch below:
+
+    https://gitlab.collabora.com/krisman/man-pages.git -b fan-fs-error
+
+Please, let me know your thoughts.
+
+Gabriel Krisman Bertazi (9):
+  syscalls: fanotify: Add macro to require specific mark types
+  syscalls: fanotify: Add macro to require specific events
+  syscalls/fanotify22: Introduce FAN_FS_ERROR test
+  syscalls/fanotify22: Validate the generic error info
+  syscalls/fanotify22: Validate incoming FID in FAN_FS_ERROR
+  syscalls/fanotify22: Support submission of debugfs commands
+  syscalls/fanotify22: Create a corrupted file
+  syscalls/fanotify22: Test file event with broken inode
+  syscalls/fanotify22: Test capture of multiple errors
+
+ configure.ac                                  |   3 +-
+ testcases/kernel/syscalls/fanotify/.gitignore |   1 +
+ testcases/kernel/syscalls/fanotify/fanotify.h |  65 +++-
+ .../kernel/syscalls/fanotify/fanotify03.c     |   4 +-
+ .../kernel/syscalls/fanotify/fanotify10.c     |   3 +-
+ .../kernel/syscalls/fanotify/fanotify12.c     |   3 +-
+ .../kernel/syscalls/fanotify/fanotify22.c     | 314 ++++++++++++++++++
+ 7 files changed, 385 insertions(+), 8 deletions(-)
+ create mode 100644 testcases/kernel/syscalls/fanotify/fanotify22.c
+
 -- 
 2.33.0
 
