@@ -1,52 +1,54 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CF7B4566B6
-	for <lists+linux-ltp@lfdr.de>; Fri, 19 Nov 2021 00:58:11 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id CA6324566B0
+	for <lists+linux-ltp@lfdr.de>; Fri, 19 Nov 2021 00:57:59 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C33A23C897C
-	for <lists+linux-ltp@lfdr.de>; Fri, 19 Nov 2021 00:58:10 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 90E9B3C891C
+	for <lists+linux-ltp@lfdr.de>; Fri, 19 Nov 2021 00:57:59 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 1F2F83C0930
- for <ltp@lists.linux.it>; Fri, 19 Nov 2021 00:57:58 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id D18693C0930
+ for <ltp@lists.linux.it>; Fri, 19 Nov 2021 00:57:57 +0100 (CET)
 Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 7C709600C22
- for <ltp@lists.linux.it>; Fri, 19 Nov 2021 00:57:54 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 4753B1000D3D
+ for <ltp@lists.linux.it>; Fri, 19 Nov 2021 00:57:56 +0100 (CET)
 Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: krisman) with ESMTPSA id A9F981F47098
+ (Authenticated sender: krisman) with ESMTPSA id 40C031F4709C
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=collabora.com; s=mail;
- t=1637279872; bh=PxhtOZi8FpecU5v9kfXKItkwreg65Wwi4desFZ3Y+10=;
- h=From:To:Cc:Subject:Date:From;
- b=M4ALlR2cuYk6zx0KDFSifzBYMHFKPlSLS0kB/nhfYjjpgCu//emofUTVvejjv7KeQ
- 61Ybj6YZgJpyq7ut1hbQz1SABNcJC89FNleK94aSlKT2+R8it37wNA1nXIiToNOLxB
- 9fWlb1+yLri+5gfsIUb3do2sw+6zkyvhSz3GMsrkym7XUbQhEayOAAH84ZLhJs6k30
- Qw/MCWrZ7epo/dxQm5lJ9iyC9s0CzFN+wqmvf/lYBKvbs6H/6OKxGVNGjOGILUCeLq
- U/zdRIlkd/PGVvgzSTa02x/RX5vJ0zOnCFQX/DgOVtLk7ToMbAc6l6u7CX2daGIvjV
- Q+iOHspbUjjrg==
+ t=1637279876; bh=NcVyMlBPKgXYpOVhQDPfsPDkKy9i3A0eWmNha6N06ig=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=QZNaO+bKd35Q5w0KbNyDPh2TvukDLxZrrGWMq1S37lT71mhCeiKwONECH0u7/srdn
+ 6RdirCmTD4VNg47Z486ATCPZlmQy45Q0TeUZy3TQG6f/s6fMUoySY+4o7amINIyN1E
+ 1r7IcAZBGVN5NqIXr7trgObPNoN07mfhHG4FWGg5pnF1uPZkIW2IE32mTNBwQhShwj
+ 8yC5QjY6drgVV1pUmlwfgdvmzV3uGBLyr2W+W3jrhQ3WtRq64SWZKpx/vNImAFvdA4
+ lK4nufJnKO5B8o159CzsvYExO9Ga9IqtX34EZKf6S6p5L87luntIc+dacYMD06OVh1
+ 4wdFpQOLTfb+A==
 From: Gabriel Krisman Bertazi <krisman@collabora.com>
 To: pvorel@suse.cz,
 	jack@suse.com,
 	amir73il@gmail.com,
 	repnop@google.com
-Date: Thu, 18 Nov 2021 18:57:35 -0500
-Message-Id: <20211118235744.802584-1-krisman@collabora.com>
+Date: Thu, 18 Nov 2021 18:57:36 -0500
+Message-Id: <20211118235744.802584-2-krisman@collabora.com>
 X-Mailer: git-send-email 2.33.0
+In-Reply-To: <20211118235744.802584-1-krisman@collabora.com>
+References: <20211118235744.802584-1-krisman@collabora.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.2 required=7.0 tests=DKIM_INVALID,DKIM_SIGNED,
  SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH v4 0/9] Test the new fanotify FAN_FS_ERROR event
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH v4 1/9] syscalls: fanotify: Add macro to require
+ specific mark types
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,64 +67,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
+Like done for init flags and event types, and a macro to require a
+specific mark type.
 
-FAN_FS_ERROR was merged into Linus tree, and the PIDFD testcases reached
-LTP.  Therefore, I'm sending a new version of the FAN_FS_ERROR LTP
-tests.  This is the v4 of this patchset, and it applies the feedback of
-the previous version.
-
-Thanks,
-
+Reviewed-by: Matthew Bobrowski <repnop@google.com>
+Reviewed-by: Amir Goldstein <amir73il@gmail.com>
+Signed-off-by: Gabriel Krisman Bertazi <krisman@collabora.com>
 ---
+ testcases/kernel/syscalls/fanotify/fanotify.h | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-Original cover letter:
-
-FAN_FS_ERROR is a new (still unmerged) fanotify event to monitor
-fileystem errors.  This patchset introduces a new LTP test for this
-feature.
-
-Testing file system errors is slightly tricky, in particular because
-they are mostly file system dependent.  Since there are only patches for
-ext4, I choose to make the test around it, since there wouldn't be much
-to do with other file systems.  The second challenge is how we cause the
-file system errors, since there is no error injection for ext4 in Linux.
-In this series, this is done by corrupting specific data in the
-test device with the help of debugfs.
-
-The FAN_FS_ERROR feature is flying around linux-ext4 and fsdevel, and
-the latest version is available on the branch below:
-
-    https://gitlab.collabora.com/krisman/linux -b fanotify-notifications-v9
-
-A proper manpage description is also available on the respective mailing
-list, or in the branch below:
-
-    https://gitlab.collabora.com/krisman/man-pages.git -b fan-fs-error
-
-Please, let me know your thoughts.
-
-Gabriel Krisman Bertazi (9):
-  syscalls: fanotify: Add macro to require specific mark types
-  syscalls: fanotify: Add macro to require specific events
-  syscalls/fanotify22: Introduce FAN_FS_ERROR test
-  syscalls/fanotify22: Validate the generic error info
-  syscalls/fanotify22: Validate incoming FID in FAN_FS_ERROR
-  syscalls/fanotify22: Support submission of debugfs commands
-  syscalls/fanotify22: Create a corrupted file
-  syscalls/fanotify22: Test file event with broken inode
-  syscalls/fanotify22: Test capture of multiple errors
-
- configure.ac                                  |   3 +-
- testcases/kernel/syscalls/fanotify/.gitignore |   1 +
- testcases/kernel/syscalls/fanotify/fanotify.h |  65 +++-
- .../kernel/syscalls/fanotify/fanotify03.c     |   4 +-
- .../kernel/syscalls/fanotify/fanotify10.c     |   3 +-
- .../kernel/syscalls/fanotify/fanotify12.c     |   3 +-
- .../kernel/syscalls/fanotify/fanotify22.c     | 314 ++++++++++++++++++
- 7 files changed, 385 insertions(+), 8 deletions(-)
- create mode 100644 testcases/kernel/syscalls/fanotify/fanotify22.c
-
+diff --git a/testcases/kernel/syscalls/fanotify/fanotify.h b/testcases/kernel/syscalls/fanotify/fanotify.h
+index c91162d97a89..b9f430fe0c35 100644
+--- a/testcases/kernel/syscalls/fanotify/fanotify.h
++++ b/testcases/kernel/syscalls/fanotify/fanotify.h
+@@ -399,4 +399,9 @@ static inline int fanotify_mark_supported_by_kernel(uint64_t flag)
+ 	return rval;
+ }
+ 
++#define REQUIRE_MARK_TYPE_SUPPORTED_BY_KERNEL(mark_type) do { \
++	fanotify_init_flags_err_msg(#mark_type, __FILE__, __LINE__, tst_brk_, \
++				    fanotify_mark_supported_by_kernel(mark_type)); \
++} while (0)
++
+ #endif /* __FANOTIFY_H__ */
 -- 
 2.33.0
 
