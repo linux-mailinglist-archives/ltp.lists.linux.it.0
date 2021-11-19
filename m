@@ -1,40 +1,40 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2E06456B13
-	for <lists+linux-ltp@lfdr.de>; Fri, 19 Nov 2021 08:46:49 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BAEF456B18
+	for <lists+linux-ltp@lfdr.de>; Fri, 19 Nov 2021 08:47:16 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7A4723C89B5
-	for <lists+linux-ltp@lfdr.de>; Fri, 19 Nov 2021 08:46:49 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id A469F3C89A9
+	for <lists+linux-ltp@lfdr.de>; Fri, 19 Nov 2021 08:47:15 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id EE7123C8982
- for <ltp@lists.linux.it>; Fri, 19 Nov 2021 08:46:15 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id 40BCD3C89AF
+ for <ltp@lists.linux.it>; Fri, 19 Nov 2021 08:46:16 +0100 (CET)
 Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 24EB4601404
- for <ltp@lists.linux.it>; Fri, 19 Nov 2021 08:46:15 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 0D9671000A48
+ for <ltp@lists.linux.it>; Fri, 19 Nov 2021 08:46:16 +0100 (CET)
 Received: from ubuntu.localdomain (unknown [188.195.115.12])
- by mail.jv-coder.de (Postfix) with ESMTPSA id 4D6479FE97;
+ by mail.jv-coder.de (Postfix) with ESMTPSA id E14DB9F6A0;
  Fri, 19 Nov 2021 07:46:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
- t=1637307974; bh=XmdKdKn+DTHy75XptMZC+yNE1ctIhBSsje2bwjJGuXM=;
+ t=1637307975; bh=J8HKqnhcOeTWBhrLbPDBMrW4UZrYs9xG6Hdx+yxQmDc=;
  h=From:To:Subject:Date:Message-Id:MIME-Version;
- b=RPomEiIGT7g/dybEMLygXEn7I8m42SdH0jr6Pv/Aaijbzmch0+anxzgCDqJZ2if1m
- 0sme2E87xI5kYEgcMuoqhUOF7X2aigVuy/NR4BEOdIXQ3rRlJGu7yVsxJqHR8as7Fv
- JBo559hl/u2OaIq08CnS8PXTKDImfYb+7N4cQLvg=
+ b=jN1y0DwLRFhj9/DhfmtOK5CUBcqT1thg8pCrH3ciJ5tubOUo5n/D06oLT4s4rzvsx
+ v2T5gzvfAa0VyfsPqbJfGSRVYCLV+D+85CwgrAiNogFqnQwaNTZE4gFwumMQKaYpjd
+ ptA5+lfJd4YtmFTg3uob4LtVDKQ9dMKXZs11fFUI=
 From: Joerg Vehlow <lkml@jv-coder.de>
 To: ltp@lists.linux.it
-Date: Fri, 19 Nov 2021 08:45:54 +0100
-Message-Id: <20211119074602.857595-5-lkml@jv-coder.de>
+Date: Fri, 19 Nov 2021 08:45:55 +0100
+Message-Id: <20211119074602.857595-6-lkml@jv-coder.de>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20211119074602.857595-1-lkml@jv-coder.de>
 References: <20211119074602.857595-1-lkml@jv-coder.de>
@@ -42,11 +42,11 @@ MIME-Version: 1.0
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 04/12] posix/conformance/interfaces: Fix
- unsued-variable for testfrmw
+Subject: [LTP] [PATCH 05/12] posix/conformance/interfaces: Fix all unused
+ variable warnings
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,155 +66,260 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 From: Joerg Vehlow <joerg.vehlow@aox-tech.de>
 
-Thre is a global variable sc in testfrmw/threads_scenarii, that is used,
-if the integrated main function (STD_MAIN) is used. However some tests
-did not use this integrated main, but still used the variable. To be able to
-get rid of all warnings, the variable is duplicated into these tests and only
-defined by threads_scenarii, if STD_MAIN is defined
+Either by marking them as unused or by removing them, if there is no sideffect.
 
 Signed-off-by: Joerg Vehlow <joerg.vehlow@aox-tech.de>
 ---
- .../conformance/interfaces/pthread_create/14-1.c              | 2 ++
- .../conformance/interfaces/pthread_create/3-2.c               | 2 ++
- .../conformance/interfaces/pthread_detach/1-2.c               | 2 ++
- .../conformance/interfaces/pthread_detach/2-2.c               | 1 +
- .../conformance/interfaces/pthread_detach/4-3.c               | 1 +
- .../conformance/interfaces/pthread_exit/6-1.c                 | 1 +
- .../conformance/interfaces/pthread_join/1-2.c                 | 2 ++
- .../conformance/interfaces/pthread_join/4-1.c                 | 1 +
- .../conformance/interfaces/pthread_join/6-3.c                 | 1 +
- .../conformance/interfaces/testfrmw/threads_scenarii.c        | 4 ++--
- 10 files changed, 15 insertions(+), 2 deletions(-)
+ .../conformance/interfaces/aio_read/9-1.c                     | 3 +--
+ .../conformance/interfaces/aio_write/7-1.c                    | 3 +--
+ .../open_posix_testsuite/conformance/interfaces/fork/7-1.c    | 2 +-
+ .../conformance/interfaces/pthread_cond_init/2-1.c            | 2 +-
+ .../conformance/interfaces/pthread_exit/2-2.c                 | 2 +-
+ .../conformance/interfaces/pthread_exit/3-2.c                 | 2 +-
+ .../conformance/interfaces/pthread_mutex_init/3-1.c           | 4 ++--
+ .../conformance/interfaces/pthread_mutex_timedlock/4-1.c      | 4 +---
+ .../conformance/interfaces/pthread_mutex_timedlock/5-1.c      | 4 +---
+ .../conformance/interfaces/pthread_mutex_timedlock/5-2.c      | 4 +---
+ .../conformance/interfaces/pthread_mutex_timedlock/5-3.c      | 4 +---
+ .../conformance/interfaces/pthread_mutex_trylock/4-3.c        | 1 -
+ .../conformance/interfaces/pthread_mutex_unlock/2-1.c         | 4 ++--
+ .../conformance/interfaces/pthread_mutexattr_setpshared/1-1.c | 2 --
+ .../conformance/interfaces/pthread_once/4-1-buildonly.c       | 3 ++-
+ 15 files changed, 16 insertions(+), 28 deletions(-)
 
-diff --git a/testcases/open_posix_testsuite/conformance/interfaces/pthread_create/14-1.c b/testcases/open_posix_testsuite/conformance/interfaces/pthread_create/14-1.c
-index c21860ba8..84d229afc 100644
---- a/testcases/open_posix_testsuite/conformance/interfaces/pthread_create/14-1.c
-+++ b/testcases/open_posix_testsuite/conformance/interfaces/pthread_create/14-1.c
-@@ -47,6 +47,8 @@ static volatile long sleep_time;
- /* number of pthread_create scenarios tested */
- static unsigned long count_ope;
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/aio_read/9-1.c b/testcases/open_posix_testsuite/conformance/interfaces/aio_read/9-1.c
+index e1ae59e3b..cd1aa0318 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/aio_read/9-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/aio_read/9-1.c
+@@ -48,7 +48,6 @@ int main(void)
+ 	int i;
+ 	struct aiocb aiocbs[NUM_AIOCBS];
+ 	int last_req;
+-	int err;
+ 	int ret;
  
-+static unsigned int sc;
-+
- static unsigned long long current_time_usec(void)
- {
- 	struct timeval now;
-diff --git a/testcases/open_posix_testsuite/conformance/interfaces/pthread_create/3-2.c b/testcases/open_posix_testsuite/conformance/interfaces/pthread_create/3-2.c
-index 433ccd8fe..3197bdf67 100644
---- a/testcases/open_posix_testsuite/conformance/interfaces/pthread_create/3-2.c
-+++ b/testcases/open_posix_testsuite/conformance/interfaces/pthread_create/3-2.c
-@@ -104,6 +104,8 @@
- 
- static sem_t semsync[2];		/* These semaphores will only be used in child process! */
- 
-+static unsigned int sc;
-+
- /* The overflow function is used to test the stack overflow */
- static void *overflow(void *arg)
- {
-diff --git a/testcases/open_posix_testsuite/conformance/interfaces/pthread_detach/1-2.c b/testcases/open_posix_testsuite/conformance/interfaces/pthread_detach/1-2.c
-index a6eb391ef..28a7e9ea9 100644
---- a/testcases/open_posix_testsuite/conformance/interfaces/pthread_detach/1-2.c
-+++ b/testcases/open_posix_testsuite/conformance/interfaces/pthread_detach/1-2.c
-@@ -91,6 +91,8 @@
- /***********************************    Real Test   *****************************************/
- /********************************************************************************************/
- 
-+static unsigned int sc;
-+
- static void *threaded(void *arg)
- {
- 	int ret = 0;
-diff --git a/testcases/open_posix_testsuite/conformance/interfaces/pthread_detach/2-2.c b/testcases/open_posix_testsuite/conformance/interfaces/pthread_detach/2-2.c
-index 8a406fe44..a2c5cc657 100644
---- a/testcases/open_posix_testsuite/conformance/interfaces/pthread_detach/2-2.c
-+++ b/testcases/open_posix_testsuite/conformance/interfaces/pthread_detach/2-2.c
-@@ -93,6 +93,7 @@
- /********************************************************************************************/
- 
- static sem_t sem_sync;
-+static unsigned int sc;
- 
- static void *threaded(void *arg)
- {
-diff --git a/testcases/open_posix_testsuite/conformance/interfaces/pthread_detach/4-3.c b/testcases/open_posix_testsuite/conformance/interfaces/pthread_detach/4-3.c
-index fc3a50bef..126f5aa82 100644
---- a/testcases/open_posix_testsuite/conformance/interfaces/pthread_detach/4-3.c
-+++ b/testcases/open_posix_testsuite/conformance/interfaces/pthread_detach/4-3.c
-@@ -61,6 +61,7 @@ static sem_t semsig1;
- static unsigned long count_sig;
- static long sleep_time;
- static sigset_t usersigs;
-+static unsigned int sc;
- 
- struct thestruct {
- 	int sig;
-diff --git a/testcases/open_posix_testsuite/conformance/interfaces/pthread_exit/6-1.c b/testcases/open_posix_testsuite/conformance/interfaces/pthread_exit/6-1.c
-index b21e43d7b..639e508c2 100644
---- a/testcases/open_posix_testsuite/conformance/interfaces/pthread_exit/6-1.c
-+++ b/testcases/open_posix_testsuite/conformance/interfaces/pthread_exit/6-1.c
-@@ -98,6 +98,7 @@
- /* This will be used to control that atexit() has been called */
- static int *ctl;
- static long mf;
-+static unsigned int sc;
- 
- static void clnp(void)
- {
-diff --git a/testcases/open_posix_testsuite/conformance/interfaces/pthread_join/1-2.c b/testcases/open_posix_testsuite/conformance/interfaces/pthread_join/1-2.c
-index 34c410967..25e623fdb 100644
---- a/testcases/open_posix_testsuite/conformance/interfaces/pthread_join/1-2.c
-+++ b/testcases/open_posix_testsuite/conformance/interfaces/pthread_join/1-2.c
-@@ -48,6 +48,8 @@
- 
- #include "../testfrmw/threads_scenarii.c"
- 
-+static unsigned int sc;
-+
- static void *threaded(void *arg)
- {
- 	int ret = 0;
-diff --git a/testcases/open_posix_testsuite/conformance/interfaces/pthread_join/4-1.c b/testcases/open_posix_testsuite/conformance/interfaces/pthread_join/4-1.c
-index b7bc56eac..6b19992ba 100644
---- a/testcases/open_posix_testsuite/conformance/interfaces/pthread_join/4-1.c
-+++ b/testcases/open_posix_testsuite/conformance/interfaces/pthread_join/4-1.c
-@@ -46,6 +46,7 @@
- #include "../testfrmw/threads_scenarii.c"
- 
- static pthread_mutex_t mtx = PTHREAD_MUTEX_INITIALIZER;
-+static unsigned int sc;
- 
- /* 1st thread function */
- static void *threaded(void *arg PTS_ATTRIBUTE_UNUSED)
-diff --git a/testcases/open_posix_testsuite/conformance/interfaces/pthread_join/6-3.c b/testcases/open_posix_testsuite/conformance/interfaces/pthread_join/6-3.c
-index 7325defc3..ecf0498fa 100644
---- a/testcases/open_posix_testsuite/conformance/interfaces/pthread_join/6-3.c
-+++ b/testcases/open_posix_testsuite/conformance/interfaces/pthread_join/6-3.c
-@@ -56,6 +56,7 @@ static unsigned long count_sig;
- #endif
- 
- static sigset_t usersigs;
-+static unsigned int sc;
- 
- struct thestruct {
- 	int sig;
-diff --git a/testcases/open_posix_testsuite/conformance/interfaces/testfrmw/threads_scenarii.c b/testcases/open_posix_testsuite/conformance/interfaces/testfrmw/threads_scenarii.c
-index baf30a87c..645aff604 100644
---- a/testcases/open_posix_testsuite/conformance/interfaces/testfrmw/threads_scenarii.c
-+++ b/testcases/open_posix_testsuite/conformance/interfaces/testfrmw/threads_scenarii.c
-@@ -482,10 +482,10 @@ static void scenar_fini(void)
+ 	if (sysconf(_SC_ASYNCHRONOUS_IO) < 200112L
+@@ -85,7 +84,7 @@ int main(void)
  	}
- }
  
--static unsigned int sc;
--
- #ifdef STD_MAIN
+ 	for (i = 0; i < last_req - 1; i++) {
+-		err = aio_error(&aiocbs[i]);
++		aio_error(&aiocbs[i]);
+ 		ret = aio_return(&aiocbs[i]);
  
-+static unsigned int sc;
-+
- static void *threaded(void *arg);
+ 	}
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/aio_write/7-1.c b/testcases/open_posix_testsuite/conformance/interfaces/aio_write/7-1.c
+index 277573a38..52c8d7004 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/aio_write/7-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/aio_write/7-1.c
+@@ -48,7 +48,6 @@ int main(void)
+ 	int i;
+ 	struct aiocb aiocbs[NUM_AIOCBS];
+ 	int last_req;
+-	int err;
+ 	int ret;
+ 
+ 	if (sysconf(_SC_ASYNCHRONOUS_IO) < 200112L
+@@ -79,7 +78,7 @@ int main(void)
+ 	}
+ 
+ 	for (i = 0; i < last_req - 1; i++) {
+-		err = aio_error(&aiocbs[i]);
++		aio_error(&aiocbs[i]);
+ 		ret = aio_return(&aiocbs[i]);
+ 
+ 	}
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/fork/7-1.c b/testcases/open_posix_testsuite/conformance/interfaces/fork/7-1.c
+index aaf1403f9..9a0b148d9 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/fork/7-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/fork/7-1.c
+@@ -51,7 +51,7 @@
+ 
+ static void read_catalog(nl_catd cat, char *who)
+ {
+-	char *msg = NULL;
++	char *msg PTS_ATTRIBUTE_UNUSED = NULL;
+ 	int i, j;
+ 
+ #if VERBOSE > 0
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/pthread_cond_init/2-1.c b/testcases/open_posix_testsuite/conformance/interfaces/pthread_cond_init/2-1.c
+index 4a60f7098..fbb7c68ff 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/pthread_cond_init/2-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/pthread_cond_init/2-1.c
+@@ -14,7 +14,7 @@
+ #include <stdio.h>
+ #include "posixtest.h"
+ 
+-static pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
++static pthread_cond_t cond PTS_ATTRIBUTE_UNUSED = PTHREAD_COND_INITIALIZER;
  
  int main(void)
+ {
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/pthread_exit/2-2.c b/testcases/open_posix_testsuite/conformance/interfaces/pthread_exit/2-2.c
+index 2fc3ff700..16c658f73 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/pthread_exit/2-2.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/pthread_exit/2-2.c
+@@ -92,7 +92,7 @@
+ static int global = 0;
+ static int tab[3];
+ 
+-#define CLEANUP(n) static void clnp##n(void * arg)\
++#define CLEANUP(n) static void clnp##n(void * arg PTS_ATTRIBUTE_UNUSED)\
+ {\
+ 	tab[global]=n; \
+ 	global++; \
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/pthread_exit/3-2.c b/testcases/open_posix_testsuite/conformance/interfaces/pthread_exit/3-2.c
+index 5fa6c8b50..4437ffc77 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/pthread_exit/3-2.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/pthread_exit/3-2.c
+@@ -94,7 +94,7 @@ static int global = 0;
+ static int tab[4];
+ static pthread_key_t tld[3];
+ 
+-#define CLEANUP(n) static void clnp##n(void * arg)\
++#define CLEANUP(n) static void clnp##n(void * arg PTS_ATTRIBUTE_UNUSED)\
+ {\
+ 	tab[global]=n; \
+ 	global++; \
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/pthread_mutex_init/3-1.c b/testcases/open_posix_testsuite/conformance/interfaces/pthread_mutex_init/3-1.c
+index 9ee86a5db..8a9b989f1 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/pthread_mutex_init/3-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/pthread_mutex_init/3-1.c
+@@ -5,7 +5,7 @@
+  * of this license, see the COPYING file at the top level of this
+  * source tree.
+ 
+- * Test that the macro PTHREAD_MUTEX_INITIALIZER can be sued to intiailize
++ * Test that the macro PTHREAD_MUTEX_INITIALIZER can be used to initialize
+  * mutexes that are statically allocated.
+  *
+  */
+@@ -20,7 +20,7 @@ typedef struct my_data {
+ 	int value;		/* Access protected by mutex */
+ } my_data_t;
+ 
+-static my_data_t data = { PTHREAD_MUTEX_INITIALIZER, 0 };
++static my_data_t data PTS_ATTRIBUTE_UNUSED = { PTHREAD_MUTEX_INITIALIZER, 0 };
+ 
+ int main(void)
+ {
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/pthread_mutex_timedlock/4-1.c b/testcases/open_posix_testsuite/conformance/interfaces/pthread_mutex_timedlock/4-1.c
+index a7099688b..d3c0bdae9 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/pthread_mutex_timedlock/4-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/pthread_mutex_timedlock/4-1.c
+@@ -32,9 +32,7 @@ static void *f1(void *parm);
+ static int ret;			/* Save return value of
+ 				   pthread_mutex_timedlock(). */
+ static pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;	/* The mutex */
+-static time_t currsec1, currsec2;	/* Variables for saving time before
+-				   and afer locking the mutex using
+-				   pthread_mutex_timedlock(). */
++
+ /****************************
+  *
+  * MAIN()
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/pthread_mutex_timedlock/5-1.c b/testcases/open_posix_testsuite/conformance/interfaces/pthread_mutex_timedlock/5-1.c
+index 077bfe76d..f51106bdf 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/pthread_mutex_timedlock/5-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/pthread_mutex_timedlock/5-1.c
+@@ -40,9 +40,7 @@ static void *f1(void *parm);
+ static int ret;			/* Save return value of
+ 				   pthread_mutex_timedlock(). */
+ static pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;	/* The mutex */
+-static time_t currsec1, currsec2;	/* Variables for saving time before
+-				   and afer locking the mutex using
+-				   pthread_mutex_timedlock(). */
++
+ /****************************
+  *
+  * MAIN()
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/pthread_mutex_timedlock/5-2.c b/testcases/open_posix_testsuite/conformance/interfaces/pthread_mutex_timedlock/5-2.c
+index 0eda6e58f..afca84eed 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/pthread_mutex_timedlock/5-2.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/pthread_mutex_timedlock/5-2.c
+@@ -40,9 +40,7 @@ static void *f1(void *parm);
+ static int ret;			/* Save return value of
+ 				   pthread_mutex_timedlock(). */
+ static pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;	/* The mutex */
+-static time_t currsec1, currsec2;	/* Variables for saving time before
+-				   and afer locking the mutex using
+-				   pthread_mutex_timedlock(). */
++
+ /****************************
+  *
+  * MAIN()
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/pthread_mutex_timedlock/5-3.c b/testcases/open_posix_testsuite/conformance/interfaces/pthread_mutex_timedlock/5-3.c
+index baf429503..a5f8b3383 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/pthread_mutex_timedlock/5-3.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/pthread_mutex_timedlock/5-3.c
+@@ -36,9 +36,7 @@ static void *f1(void *parm);
+ static int ret;			/* Save return value of
+ 				   pthread_mutex_timedlock(). */
+ static pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;	/* The mutex */
+-static time_t currsec1, currsec2;	/* Variables for saving time before
+-				   and afer locking the mutex using
+-				   pthread_mutex_timedlock(). */
++
+ /****************************
+  *
+  * MAIN()
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/pthread_mutex_trylock/4-3.c b/testcases/open_posix_testsuite/conformance/interfaces/pthread_mutex_trylock/4-3.c
+index e7e86bfa8..2145bde8a 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/pthread_mutex_trylock/4-3.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/pthread_mutex_trylock/4-3.c
+@@ -103,7 +103,6 @@ static struct _scenar {
+ #define NSCENAR (sizeof(scenarii)/sizeof(scenarii[0]))
+ 
+ static char do_it = 1;
+-static char woken = 0;
+ static unsigned long count_ope = 0;
+ #ifdef WITH_SYNCHRO
+ static sem_t semsig1;
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/pthread_mutex_unlock/2-1.c b/testcases/open_posix_testsuite/conformance/interfaces/pthread_mutex_unlock/2-1.c
+index 27f0ee3d7..39dacb73e 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/pthread_mutex_unlock/2-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/pthread_mutex_unlock/2-1.c
+@@ -39,13 +39,13 @@ static int value;			/* value protected by mutex */
+ 
+ int main(void)
+ {
+-	int i, rc;
++	int i;
+ 	pthread_t threads[THREAD_NUM];
+ 
+ 	/* Create threads */
+ 	fprintf(stderr, "Creating %d threads\n", THREAD_NUM);
+ 	for (i = 0; i < THREAD_NUM; ++i)
+-		rc = pthread_create(&threads[i], NULL, func, NULL);
++		pthread_create(&threads[i], NULL, func, NULL);
+ 
+ 	/* Wait to join all threads */
+ 	for (i = 0; i < THREAD_NUM; ++i)
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/pthread_mutexattr_setpshared/1-1.c b/testcases/open_posix_testsuite/conformance/interfaces/pthread_mutexattr_setpshared/1-1.c
+index 909b53bf4..8e8617bbd 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/pthread_mutexattr_setpshared/1-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/pthread_mutexattr_setpshared/1-1.c
+@@ -37,8 +37,6 @@
+ #include <stdio.h>
+ #include "posixtest.h"
+ 
+-static pthread_mutex_t new_mutex;	/* The mutex. */
+-
+ int main(void)
+ {
+ 	pthread_mutexattr_t mta;
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/pthread_once/4-1-buildonly.c b/testcases/open_posix_testsuite/conformance/interfaces/pthread_once/4-1-buildonly.c
+index 6e519962b..d3392f908 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/pthread_once/4-1-buildonly.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/pthread_once/4-1-buildonly.c
+@@ -11,5 +11,6 @@
+    */
+ 
+ #include <pthread.h>
++#include "posixtest.h"
+ 
+-static pthread_once_t dummy = PTHREAD_ONCE_INIT;
++static pthread_once_t dummy PTS_ATTRIBUTE_UNUSED = PTHREAD_ONCE_INIT;
 -- 
 2.25.1
 
