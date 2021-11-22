@@ -1,74 +1,50 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FE34458F62
-	for <lists+linux-ltp@lfdr.de>; Mon, 22 Nov 2021 14:29:31 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 68302459003
+	for <lists+linux-ltp@lfdr.de>; Mon, 22 Nov 2021 15:14:07 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 31D143C8D7C
-	for <lists+linux-ltp@lfdr.de>; Mon, 22 Nov 2021 14:29:30 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 24FB33C8CE5
+	for <lists+linux-ltp@lfdr.de>; Mon, 22 Nov 2021 15:14:07 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id D5D3B3C25EC
- for <ltp@lists.linux.it>; Mon, 22 Nov 2021 14:29:26 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id E10DB3C0D0B
+ for <ltp@lists.linux.it>; Mon, 22 Nov 2021 15:14:04 +0100 (CET)
+Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 5389D1A00A44
- for <ltp@lists.linux.it>; Mon, 22 Nov 2021 14:29:25 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 38F481FD39;
- Mon, 22 Nov 2021 13:29:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1637587765; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=tBcRk0uKyn4Zh1Cyv0zVCwydH4eapYMxaeUBcsUWtJ0=;
- b=axO/D1cMqGYJcw/tgQY3JPmz1NzQpC377+uPEFNP9UMouzk4cb0mgPGHItFIMZaajHJsyM
- 7DFX0H5Iqmlx7o5ymAjJhUxiZoAUBrv6e8I/aWmEsMzzuAZXhu3x2Hnh9KQJM+ZEgwPOUA
- 5EMuprN2H4nuF1AKYnkGN1O8BLRgZUc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1637587765;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=tBcRk0uKyn4Zh1Cyv0zVCwydH4eapYMxaeUBcsUWtJ0=;
- b=dSr5RphgAFAI0z547/FsSq4oGB0X5hiAPh7O2GwgyyuiTG7QH5eKhW3qLymtwHfy7fS9WN
- ZW6PvS818AuuUVCA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 23AFD13CB0;
- Mon, 22 Nov 2021 13:29:25 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id MhEtBzWbm2EnVgAAMHmgww
- (envelope-from <chrubis@suse.cz>); Mon, 22 Nov 2021 13:29:25 +0000
-Date: Mon, 22 Nov 2021 14:30:30 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: "xuyang2018.jy@fujitsu.com" <xuyang2018.jy@fujitsu.com>
-Message-ID: <YZubdhIyP19rhEVD@yuki>
-References: <20211118112900.15757-1-rpalethorpe@suse.com>
- <619708EC.6090305@fujitsu.com>
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id E12FC1400778
+ for <ltp@lists.linux.it>; Mon, 22 Nov 2021 15:14:03 +0100 (CET)
+Received: from ubuntu.localdomain (unknown [188.195.115.12])
+ by mail.jv-coder.de (Postfix) with ESMTPSA id 4DED09F6A0;
+ Mon, 22 Nov 2021 14:14:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
+ t=1637590442; bh=/W36/tIwVaAXhMf2OiberCsEVv8b/Z/iim8mbiZbAtA=;
+ h=From:To:Subject:Date:Message-Id:MIME-Version;
+ b=tTXHUAM+6kXbCg0zC1Sm6qlqPOtE4n3n04g7SxhWtxNzA/P8BrnwUtSMgpIvQmyr0
+ /bKa9iswkGCdmMMgUoNVwaMWryllxuu8wStFEoHWh88RgZ5il3Csg499tbKqnSf08W
+ nstuCN7j7XJBYhP7arVxRbiyvsMH7vAeB6ICo82E=
+From: Joerg Vehlow <lkml@jv-coder.de>
+To: ltp@lists.linux.it,
+	rpalethorpe@suse.de
+Date: Mon, 22 Nov 2021 15:13:55 +0100
+Message-Id: <20211122141355.299621-1-lkml@jv-coder.de>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <619708EC.6090305@fujitsu.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
-X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] statx04: Re-add BTRFS version check
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Status: Clean
+Subject: [LTP] [PATCH] cpuset_regression_test: Fix test,
+ if cpuset groups exist already
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,60 +56,166 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Richard Palethorpe <rpalethorpe@suse.com>,
- "ltp@lists.linux.it" <ltp@lists.linux.it>
+Cc: Joerg Vehlow <joerg.vehlow@aox-tech.de>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> Do you mean that your distribution based on older kernel ie 4.11
-> supports statx syscall but btrfs missed the btrfs patch? Also this
-> distribution doesn't update and so have no choice to backport.
-> > This is different from the
-> > other version checks which are for much newer kernels. 
-> IMO, distribution based on older kernel 4.11 still can make ext2 ext4
-> xfs supports statx because the backport looks not diffcult. So, I don't
-> think this is a difference. It depends on kernel users worked on this
-> distirbution whether have this requirement.
-> Also there could be differences in the difficulty of a backport.
-> I see xfs/btrfs code, it only fills the attributes field of stat
-> struture by parsing inode flags.
-> 
-> If you must add this check on suse distribution, I guess you just add
-> this version check for suse distribution. For centos7,8, neither of them
-> supports btrfs, but I don't know other distribution situation ie unbuntu.
+From: Joerg Vehlow <joerg.vehlow@aox-tech.de>
 
-I just checked debian, both oldstable (4.16) and stable (5.10) have new
-enough kernels for this not to matter.
+Fix three errors:
+ 1. read -d is not posix, but not even required,
+    because find and read work  line-based
+ 2. Setting cpuset.cpus to an empty string is not allowed.
+    -> If there are cpuset groups defined already, we need at least to cpus.
+    One is used for the test, the other one is used for existing groups.
+ 3. Existing cgroup hierarchies were not handled correctly.
+    When setting  the cpuset.cpus, it must be done breadth-first, otherwise
+    cpu constraints for parent groups can be violated.
 
-> Maybe you can just add suse detection in lib/tst_kvercmp.c.
+Fixes: 6950e96eabb2 ("cpuset_regression_test: Allow running, if groups exist")
+Signed-off-by: Joerg Vehlow <joerg.vehlow@aox-tech.de>
+---
 
-I guess that this would be the cleanest solution.
-
-Actually SUSE should be detected just fine, since we parse
-/etc/os-release for ID='foo' in the test library.
-
-So this could be solved just by defining:
-
-static struct tst_kern_exv kvers[] = {
-	{"sles", "4.13.0"}
-	{}
-};
-
-and then doing:
-
-	if (tst_kvercmp2(0, 0, 0, kvers) < 0)
-		tst_brk(TCONF, "Btrfs statx() supported since 4.13");
+@Richard Sorry for so many bugs in the patch... I guess I way a bit tired
 
 
-Also it would be a bit cleaner to add this to the tst_test structure as
-.min_kver_ex as well, but that's a different story...
+ .../cpuset/cpuset_regression_test.sh          | 84 ++++++++++++++++---
+ 1 file changed, 72 insertions(+), 12 deletions(-)
 
+diff --git a/testcases/kernel/controllers/cpuset/cpuset_regression_test.sh b/testcases/kernel/controllers/cpuset/cpuset_regression_test.sh
+index cc6bfdc64..f6447a656 100755
+--- a/testcases/kernel/controllers/cpuset/cpuset_regression_test.sh
++++ b/testcases/kernel/controllers/cpuset/cpuset_regression_test.sh
+@@ -21,32 +21,80 @@ TST_MIN_KVER="3.18"
+ LOCAL_MOUNTPOINT="cpuset_test"
+ BACKUP_DIRECTORY="cpuset_backup"
+ 
++cpu_num=
+ root_cpuset_dir=
+ cpu_exclusive="cpuset.cpu_exclusive"
+ cpus="cpuset.cpus"
+ old_cpu_exclusive_value=1
+ 
+-# cpuset_backup_and_update <backup_dir> <what> <value>
++# Check if there are cpuset groups
++cpuset_has_groups()
++{
++	local old_dir=$PWD
++	local result=0
++
++	find ${root_cpuset_dir} -mindepth 1 -type d -exec echo 1 \; -quit
++}
++
++# cpuset_find_breadth_first <what>
++# Do a breath first find of <what>
++cpuset_find_breadth_first()
++{
++	local what=$1
++
++	# Breath first find implementation:
++	# Use awk to prepend the length of the path, sort it
++	# and remove the length again.
++	# Since all commands work line-based,
++	# this works with meta characters and spaces.
++	find . -mindepth 2 -name ${what} | 
++	    awk '{print length($0) " " $0}' | 
++	    sort -n | cut -d " " -f 2-
++}
++
++# cpuset_backup_and_update <backup_dir> <what>
+ # Create backup of the values of a specific file (<what>)
+-# in all cpuset groups and set the value to <value>
++# in all cpuset groups and set the value to 1
+ # The backup is written to <backup_dir> in the same structure
+ # as in the cpuset filesystem
+ cpuset_backup_and_update()
+ {
+ 	local backup_dir=$1
+ 	local what=$2
+-	local value=$3
+ 	local old_dir=$PWD
++	local cpu_max=$((cpu_num - 1))
++	local res
+ 
+ 	cd ${root_cpuset_dir}
+-	find . -mindepth 2 -name ${what} -print0 |
+-	while IFS= read -r -d '' file; do
++
++	# First do breath-first search and set all groups to use all cpus.
++	# Breath-first is important, because the parent groups
++	# must have all cpus assigned to a child group first
++	cpuset_find_breadth_first ${what} |
++	while read -r file; do
++		# Skip cgroups with no set cpuset
++		[ "$(cat "${file}")" = "" ] && continue
++
+ 		mkdir -p "$(dirname "${backup_dir}/${file}")"
+ 		cat "${file}" > "${backup_dir}/${file}"
+-		echo "${value}" > "${file}"
++		echo "0-${cpu_max}" > "${file}" || exit 1
+ 	done
++	if [ $? -ne 0 ]; then
++		cd $old_dir
++	 	return 1
++	fi
++
++	# Now do depth first and limit the cpus to cpu 1
++	find . -depth -mindepth 2 -name ${what} |
++	while read -r file; do
++		[ "$(cat "${file}")" = "" ] && continue
++		echo "1" > "${file}"
++	done
++	res=$?
+ 
+ 	cd $old_dir
++
++	return $res
+ }
+ 
+ # cpuset_restore <backup_dir> <what>
+@@ -59,8 +107,12 @@ cpuset_restore()
+ 	local old_dir=$PWD
+ 
+ 	cd ${backup_dir}
+-	find . -mindepth 2 -name ${what} -print0 |
+-	while IFS= read -r -d '' file; do
++
++	# Do a breath-first restore.
++	# This works, because cpusets set on parents, automatically
++	# limit the set for the child.
++	cpuset_find_breadth_first ${what} |
++	while read -r file; do
+ 		cat "${file}" > "${root_cpuset_dir}/${file}"
+ 	done
+ 
+@@ -91,10 +143,18 @@ setup()
+ 		tst_brk TBROK "Both cpuset.cpu_exclusive and cpu_exclusive do not exist"
+ 	fi
+ 
+-	# Ensure that no group explicitely uses a cpu,
+-	# otherwise setting cpuset.cpus for the testgroup will fail
+-	mkdir ${BACKUP_DIRECTORY}
+-	cpuset_backup_and_update "${PWD}/${BACKUP_DIRECTORY}" ${cpus} ""
++	# Ensure that we can use cpu 0 exclusively
++	if [ "$(cpuset_has_groups)" = "1" ]; then
++		cpu_num=$(tst_getconf _NPROCESSORS_ONLN)
++		if [ $cpu_num -lt 2 ]; then
++			tst_brk TCONF "There are already cpuset groups, so at least two cpus are required."
++		fi
++
++		# Use cpu 1 for all existing cpuset cgroups
++		mkdir ${BACKUP_DIRECTORY}
++		cpuset_backup_and_update "${PWD}/${BACKUP_DIRECTORY}" ${cpus}
++		[ $? -ne 0 ] && tst_brk TBROK "Unable to prepare existing cpuset cgroups"
++	fi
+ 
+ 	old_cpu_exclusive_value=$(cat ${root_cpuset_dir}/${cpu_exclusive})
+ 	if [ "${old_cpu_exclusive_value}" != "1" ];then
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+2.25.1
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
