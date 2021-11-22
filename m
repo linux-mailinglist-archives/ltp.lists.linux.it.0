@@ -2,59 +2,87 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0AEFF4637A0
-	for <lists+linux-ltp@lfdr.de>; Tue, 30 Nov 2021 15:52:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16FAC463ACA
+	for <lists+linux-ltp@lfdr.de>; Tue, 30 Nov 2021 16:58:45 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3D6643C7FC0
-	for <lists+linux-ltp@lfdr.de>; Tue, 30 Nov 2021 15:52:15 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 2CD873C697C
+	for <lists+linux-ltp@lfdr.de>; Tue, 30 Nov 2021 16:58:44 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id B5C083C60CA
- for <ltp@lists.linux.it>; Tue, 30 Nov 2021 15:52:10 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id D9ABA3C8982
+ for <ltp@lists.linux.it>; Mon, 22 Nov 2021 23:20:56 +0100 (CET)
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id E58DD140055B
- for <ltp@lists.linux.it>; Tue, 30 Nov 2021 15:52:09 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 29F8F1FD59;
- Tue, 30 Nov 2021 14:52:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1638283929; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=L1rjR5DNCPTOx1LdW8wRb8WpytGKgoOstgnXxtelv2A=;
- b=htlSbDlxRSniHx8GlsyUhpgACFD7jfy33O5OEDNQpusEDZOVMYhIcy5MmCHPqUOTHVIj2G
- e11rEji0jl387avhtDLi+c4INyYOAUyIh9tVfMcx6BGtdJaWsnN5+PYcMYmhGtfbTUbnnf
- q6H3NE2V1iciT1p7OZuY7p//+J88XhA=
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CE41113D4E;
- Tue, 30 Nov 2021 14:52:08 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 7iqKLJg6pmGoRAAAMHmgww
- (envelope-from <andrea.cervesato@suse.com>); Tue, 30 Nov 2021 14:52:08 +0000
-To: ltp@lists.linux.it
-Date: Tue, 30 Nov 2021 15:52:06 +0100
-Message-Id: <20211130145206.32124-1-andrea.cervesato@suse.com>
-X-Mailer: git-send-email 2.34.0
-MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id EA9EE1A00667
+ for <ltp@lists.linux.it>; Mon, 22 Nov 2021 23:20:52 +0100 (CET)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailout.nyi.internal (Postfix) with ESMTP id F04595C0216;
+ Mon, 22 Nov 2021 17:20:49 -0500 (EST)
+Received: from imap45 ([10.202.2.95])
+ by compute5.internal (MEProxy); Mon, 22 Nov 2021 17:20:49 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=owlfolio.org; h=
+ mime-version:message-id:in-reply-to:references:date:from:to:cc
+ :subject:content-type; s=fm1; bh=FCiOZI9Dv20tAQ/7weQX2U+Lw8g5MWM
+ QEAl+y42pkKY=; b=QeNEi/AvK+hUIh19j4A+w35hKQD6AvtNdPGl90BKWAdJZbi
+ X0dlB5XmiTonKKlE3TfNxWUA8CnP8C4D3Koui8OWgTNn6cgpFdmjmxPVqWvXY02x
+ eUv5KaGaRNAiDXPnZlqP5GV6z5t64Op5ijxfokgiWt+prR/83JcgUu1KmW4p6u4p
+ JWrYxfBvURPXEk9/RcT3Wf4G5HJcfA4NmjpabgA2+JAD9CwuOe2LTy+LKjjO84Hf
+ 6dgD0noO2GJRdKgwZlxuBSIBEnp8ChH+YV1go5nPw1qeqQOiqOnk2m7OB//nGa+r
+ i5Wy9GudkLvgQ858Yy1KHtLuJw6dgrELjCE7RlA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=FCiOZI
+ 9Dv20tAQ/7weQX2U+Lw8g5MWMQEAl+y42pkKY=; b=ewXBhaKwZLdmIj+sVkHsf9
+ a0YSi9sP0qm9FmmmKZiGKfjGEJqBOI0PwYjRT/tm8wPlVyMQpaHenat9tthmfJNp
+ hvhhMkVPyq9aBgnxPz7vG+NaGRlLAooKioTubxNhyzraHFL6zN0O0DAfN1GZWG3u
+ oNc2JXxb4rwNDCXYigmtGzeO8OZZsWGUoR1PXsSygAO/6RVqSRZXMkhjAzPmOR4o
+ AoWnsRjtL5HXh4BSry0m48O5ZyiUxmlQvE3YrzNCIQy3zKIE7blR9Ue/2e6bWgJd
+ mWBHpKCQyrbMfufQXgNpdfSqdFgJTBs564Da0Xhkrhd6YyKbSUpNw9cdAoAvzxtg
+ ==
+X-ME-Sender: <xms:wRecYZdfCh09993z-RORgZjn0BOI_8kLoYaGF3jMOdIUfnPfmvsI8g>
+ <xme:wRecYXN5dggdlACAyRkvZsUt6oqUnQoyl00nJRjjEt5w9bYXw5dkjLf34AjrdJpZR
+ YmCfMH1KLoUNkLkxxg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvuddrgeeggdduiedtucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepofgfggfkjghffffhvffutgesthdtredtreertdenucfhrhhomhepfdgkrggt
+ khcuhggvihhnsggvrhhgfdcuoeiirggtkhesohiflhhfohhlihhordhorhhgqeenucggtf
+ frrghtthgvrhhnpefhuefhveeuffetfffgjeetgfekkeehfedtfeelgfehffffveehkeel
+ fefgheffudenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhroh
+ hmpeiirggtkhesohiflhhfohhlihhordhorhhg
+X-ME-Proxy: <xmx:wRecYShg87In53jYFl4bkLTO_d4fVgJeFcvgzaVd7xtXrC2El82iwg>
+ <xmx:wRecYS9Nx3NXMazQy4eNpUK3utqVVP3bE3-db4qGrhIhD0g_oDntPg>
+ <xmx:wRecYVvby4ByQWrYB4nSaXRaL2-thVvNo16RHugYiavRR9uod8TCFQ>
+ <xmx:wRecYdI655DXx77lkf7cprqbo_ioS7XxEV5dg57HePNcF6rLB4g8Og>
+Received: by mailuser.nyi.internal (Postfix, from userid 501)
+ id 5B74024A0079; Mon, 22 Nov 2021 17:20:49 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
+User-Agent: Cyrus-JMAP/3.5.0-alpha0-1371-g2296cc3491-fm-20211109.003-g2296cc34
+Mime-Version: 1.0
+Message-Id: <c5993ee9-1b5d-4469-9c0e-8d4e0fbd575a@www.fastmail.com>
+In-Reply-To: <YZvIlz7J6vOEY+Xu@yuki>
+References: <YZvIlz7J6vOEY+Xu@yuki>
+Date: Mon, 22 Nov 2021 22:19:59 +0000
+From: "Zack Weinberg" <zack@owlfolio.org>
+To: "Cyril Hrubis" <chrubis@suse.cz>, linux-kernel@vger.kernel.org
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH v1] Refactoring dio_append.c test using LTP API
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+X-Mailman-Approved-At: Tue, 30 Nov 2021 16:58:40 +0100
+Subject: Re: [LTP] [PATCH] uapi: Make __{u, s}64 match {u,
+ }int64_t in userspace
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,240 +94,66 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Andrea Cervesato via ltp <ltp@lists.linux.it>
-Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
+Cc: linux-arch@vger.kernel.org, linux-api@vger.kernel.org,
+ libc-alpha@sourceware.org, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
----
- testcases/kernel/io/ltp-aiodio/dio_append.c | 174 ++++++++------------
- 1 file changed, 71 insertions(+), 103 deletions(-)
+On Mon, Nov 22, 2021, at 4:43 PM, Cyril Hrubis wrote:
+> This changes the __u64 and __s64 in userspace on 64bit platforms from
+> long long (unsigned) int to just long (unsigned) int in order to match
+> the uint64_t and int64_t size in userspace.
+...
+> +
+> +#include <asm/bitsperlong.h>
+> +
+>  /*
+> - * int-ll64 is used everywhere now.
+> + * int-ll64 is used everywhere in kernel now.
+>   */
+> -#include <asm-generic/int-ll64.h>
+> +#if __BITS_PER_LONG == 64 && !defined(__KERNEL__)
+> +# include <asm-generic/int-l64.h>
+> +#else
+> +# include <asm-generic/int-ll64.h>
+> +#endif
 
-diff --git a/testcases/kernel/io/ltp-aiodio/dio_append.c b/testcases/kernel/io/ltp-aiodio/dio_append.c
-index b1b4dc039..d6999064d 100644
---- a/testcases/kernel/io/ltp-aiodio/dio_append.c
-+++ b/testcases/kernel/io/ltp-aiodio/dio_append.c
-@@ -1,143 +1,111 @@
--
-+// SPDX-License-Identifier: GPL-2.0-or-later
+I am all for matching __uN / __sN to uintN_t / intN_t in userspace, but may I suggest the technically simpler and guaranteed-to-be-accurate
+
  /*
-  * Copyright (c) 2004 Daniel McNeil <daniel@osdl.org>
-- *               2004 Open Source Development Lab
-- *   This program is free software;  you can redistribute it and/or modify
-- *   it under the terms of the GNU General Public License as published by
-- *   the Free Software Foundation; either version 2 of the License, or
-- *   (at your option) any later version.
-- *
-- *   This program is distributed in the hope that it will be useful,
-- *   but WITHOUT ANY WARRANTY;  without even the implied warranty of
-- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
-- *   the GNU General Public License for more details.
-- *
-- *   You should have received a copy of the GNU General Public License
-- *   along with this program;  if not, write to the Free Software
-- *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
-- *
-- * Module: .c
-+ *				 2004 Open Source Development Lab
-+ *				 2004  Marty Ridgeway <mridge@us.ibm.com>
-+ * Copyright (C) 2021 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
+- * int-ll64 is used everywhere now.
++ * int-ll64 is used everywhere in kernel now.
++ * In user space match <stdint.h>.
   */
- 
--/*
-- * Change History:
-- *
-- * 2/2004  Marty Ridgeway (mridge@us.ibm.com) Changes to adapt to LTP
-+/*\
-+ * [Description]
-  *
-+ * Append zeroed data to a file using O_DIRECT while other processes are doing
-+ * buffered reads and check if the buffer reads always see zero.
-  */
--/*
-- * dio_append - append zeroed data to a file using O_DIRECT while
-- *	a 2nd process is doing buffered reads and check if the buffer
-- *	reads always see zero.
-- */
-+
- #define _GNU_SOURCE
- 
- #include <stdlib.h>
--#include <sys/types.h>
--#include <signal.h>
--#include <errno.h>
--#include <fcntl.h>
--#include <stdio.h>
- #include <unistd.h>
--#include <memory.h>
--#include <limits.h>
-+#include <fcntl.h>
-+#include "tst_test.h"
-+#include "common.h"
- 
--#include "test.h"
--#define NUM_CHILDREN 8
-+#define NUM_CHILDREN 16
-+#define FILE_SIZE (64 * 1024)
- 
--#include "common_checkzero.h"
-+static int *run_child;
- 
--int read_eof(char *filename)
-+static void read_eof(const char *filename, size_t bs)
- {
- 	int fd;
--	int i;
- 	int r;
--	char buf[4096];
-+	char *bufptr;
- 
--	while ((fd = open(filename, O_RDONLY)) < 0) {
--		sleep(1);	/* wait for file to be created */
--	}
-+	bufptr = SAFE_MEMALIGN(getpagesize(), bs);
-+
-+	while ((fd = open(filename, O_RDONLY, 0666)) < 0)
-+		usleep(100);
- 
--	for (i = 0; i < 1000000; i++) {
-+	tst_res(TINFO, "child %i reading file", getpid());
-+	while (*run_child) {
- 		off_t offset;
- 		char *bufoff;
- 
--		offset = lseek(fd, SEEK_END, 0);
--		r = read(fd, buf, 4096);
--		if (r > 0) {
--			if ((bufoff = check_zero(buf, r))) {
--				fprintf(stderr, "non-zero read at offset %p\n",
--					offset + bufoff);
--				exit(1);
-+		offset = SAFE_LSEEK(fd, 0, SEEK_SET);
-+		do {
-+			r = read(fd, bufptr, bs);
-+			if (r > 0) {
-+				bufoff = check_zero(bufptr, r);
-+				if (bufoff) {
-+					tst_res(TINFO, "non-zero read at offset %zu",
-+						offset + (bufoff - bufptr));
-+					free(bufptr);
-+					SAFE_CLOSE(fd);
-+					return;
-+				}
-+				offset += r;
- 			}
--		}
-+		} while (r > 0);
- 	}
--	return 0;
-+
-+	free(bufptr);
-+	SAFE_CLOSE(fd);
- }
- 
--void dio_append(char *filename)
-+static void setup(void)
- {
--	int fd;
--	void *bufptr = NULL;
--	int i;
--	int w;
--
--	fd = open(filename, O_DIRECT | O_WRONLY | O_CREAT, 0666);
--
--	if (fd < 0) {
--		perror("cannot create file");
--		return;
--	}
--
--	TEST(posix_memalign(&bufptr, 4096, 64 * 1024));
--	if (TEST_RETURN) {
--		tst_resm(TBROK | TRERRNO, "cannot malloc aligned memory");
--		close(fd);
--		return;
--	}
-+	run_child = SAFE_MMAP(NULL, sizeof(int), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
-+}
- 
--	memset(bufptr, 0, 64 * 1024);
--	for (i = 0; i < 1000; i++) {
--		if ((w = write(fd, bufptr, 64 * 1024)) != 64 * 1024) {
--			fprintf(stderr, "write %d returned %d\n", i, w);
--		}
--	}
-+static void cleanup(void)
-+{
-+	SAFE_MUNMAP(run_child, sizeof(int));
- }
- 
--int main(void)
-+static void run(void)
- {
--	char filename[PATH_MAX];
--	int pid[NUM_CHILDREN];
--	int num_children = 1;
-+	char *filename = "file";
-+	int filesize = FILE_SIZE;
-+	int num_children = NUM_CHILDREN;
-+	int status;
- 	int i;
- 
--	snprintf(filename, sizeof(filename), "%s/aiodio/file",
--		 getenv("TMP") ? getenv("TMP") : "/tmp");
--
--	printf("Begin dio_append test...\n");
-+	*run_child = 1;
- 
- 	for (i = 0; i < num_children; i++) {
--		if ((pid[i] = fork()) == 0) {
--			/* child */
--			return read_eof(filename);
--		} else if (pid[i] < 0) {
--			/* error */
--			perror("fork error");
--			break;
--		} else {
--			/* Parent */
--			continue;
-+		if (!SAFE_FORK()) {
-+			read_eof(filename, filesize);
-+			return;
- 		}
- 	}
- 
--	/*
--	 * Parent appends to end of file using direct i/o
--	 */
-+	tst_res(TINFO, "parent append to file");
- 
--	dio_append(filename);
-+	io_append(filename, 0, O_DIRECT | O_WRONLY | O_CREAT, filesize, 1000);
- 
--	for (i = 0; i < num_children; i++) {
--		kill(pid[i], SIGTERM);
--	}
--	return 0;
-+	if (SAFE_WAITPID(-1, &status, WNOHANG))
-+		tst_res(TFAIL, "Non zero bytes read");
-+	else
-+		tst_res(TPASS, "All bytes read were zeroed");
-+
-+	*run_child = 0;
- }
-+
-+static struct tst_test test = {
-+	.test_all = run,
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.needs_tmpdir = 1,
-+	.forks_child = 1,
-+};
--- 
-2.34.0
++#ifdef __KERNEL__
+ # include <asm-generic/int-ll64.h>
++#elif __has_include (<bits/types.h>)
++# include <bits/types.h>
++typedef __int8_t __s8;
++typedef __uint8_t __u8;
++typedef __int16_t __s16;
++typedef __uint16_t __u16;
++typedef __int32_t __s32;
++typedef __uint32_t __u32;
++typedef __int64_t __s64;
++typedef __uint64_t __u64;
++#else
++# include <stdint.h>
++typedef int8_t __s8;
++typedef uint8_t __u8;
++typedef int16_t __s16;
++typedef uint16_t __u16;
++typedef int32_t __s32;
++typedef uint32_t __u32;
++typedef int64_t __s64;
++typedef uint64_t __u64;
++#endif
 
+The middle clause could be dropped if we are okay with all uapi headers potentially exposing the non-implementation-namespace names defined by <stdint.h>.  I do not know what the musl libc equivalent of <bits/types.h> is.
+
+zw
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
