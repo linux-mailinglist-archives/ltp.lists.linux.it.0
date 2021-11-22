@@ -2,48 +2,48 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id A70A0458A42
-	for <lists+linux-ltp@lfdr.de>; Mon, 22 Nov 2021 09:00:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F0E9458A6A
+	for <lists+linux-ltp@lfdr.de>; Mon, 22 Nov 2021 09:20:36 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 769A23C8C4D
-	for <lists+linux-ltp@lfdr.de>; Mon, 22 Nov 2021 09:00:35 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 384B43C8C68
+	for <lists+linux-ltp@lfdr.de>; Mon, 22 Nov 2021 09:20:36 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id D84D73C08C7
- for <ltp@lists.linux.it>; Mon, 22 Nov 2021 09:00:33 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id 7B36A3C8C57
+ for <ltp@lists.linux.it>; Mon, 22 Nov 2021 09:20:34 +0100 (CET)
 Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 5ED2C600C7F
- for <ltp@lists.linux.it>; Mon, 22 Nov 2021 09:00:30 +0100 (CET)
-Received: from dggeml753-chm.china.huawei.com (unknown [172.30.72.53])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4HyKM35RHbzcbM4
- for <ltp@lists.linux.it>; Mon, 22 Nov 2021 15:55:27 +0800 (CST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 286A0140115B
+ for <ltp@lists.linux.it>; Mon, 22 Nov 2021 09:20:32 +0100 (CET)
+Received: from dggeml753-chm.china.huawei.com (unknown [172.30.72.55])
+ by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4HyKp956nLzcbQg
+ for <ltp@lists.linux.it>; Mon, 22 Nov 2021 16:15:29 +0800 (CST)
 Received: from ubuntu1804.huawei.com (10.67.174.63) by
  dggeml753-chm.china.huawei.com (10.1.199.152) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.2308.20; Mon, 22 Nov 2021 16:00:26 +0800
+ 15.1.2308.20; Mon, 22 Nov 2021 16:20:28 +0800
 To: <ltp@lists.linux.it>
-Date: Mon, 22 Nov 2021 16:01:38 +0800
-Message-ID: <20211122080138.55815-1-zhaogongyi@huawei.com>
+Date: Mon, 22 Nov 2021 16:21:46 +0800
+Message-ID: <20211122082146.59895-1-zhaogongyi@huawei.com>
 X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
 X-Originating-IP: [10.67.174.63]
-X-ClientProxiedBy: dggems701-chm.china.huawei.com (10.3.19.178) To
+X-ClientProxiedBy: dggems703-chm.china.huawei.com (10.3.19.180) To
  dggeml753-chm.china.huawei.com (10.1.199.152)
 X-CFilter-Loop: Reflected
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH v2] lib/tst_tmpdir: Add tst_default_rmdir() for old
- testcases
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH v3] syscalls/fanotify07: Add stop_children() to
+ cleanup()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,40 +62,51 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-In some old testcases, cleanup() will not run since it exit
-form tst_brk. For example, because of the calling of ltp_syscall
-have no real cleanup when syscall not support, testcase ssetmask01
-will leave tmp file.
+When we run the testcase simultaneously, and the ulimit of open
+files is small, the testcase will fail and remain many while(1)
+tasks in system, it makes the system very stuck.
 
 Signed-off-by: Zhao Gongyi <zhaogongyi@huawei.com>
 ---
-v1->v2: add tst_default_rmdir() in tst_tmpdir.c
+v2->v3: replace memset() with assignment statement in loop
 
- lib/tst_tmpdir.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ testcases/kernel/syscalls/fanotify/fanotify07.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/lib/tst_tmpdir.c b/lib/tst_tmpdir.c
-index 6e38ae977..0045c7bb6 100644
---- a/lib/tst_tmpdir.c
-+++ b/lib/tst_tmpdir.c
-@@ -342,6 +342,8 @@ void tst_rmdir(void)
- 		tst_resm(TWARN, "%s: rmobj(%s) failed: %s",
- 			 __func__, TESTDIR, errmsg);
+diff --git a/testcases/kernel/syscalls/fanotify/fanotify07.c b/testcases/kernel/syscalls/fanotify/fanotify07.c
+index cc56d9019..8220213b1 100644
+--- a/testcases/kernel/syscalls/fanotify/fanotify07.c
++++ b/testcases/kernel/syscalls/fanotify/fanotify07.c
+@@ -86,13 +86,19 @@ static int stop_children(void)
+ 	int child_ret;
+ 	int i, ret = 0;
+
+-	for (i = 0; i < MAX_CHILDREN; i++)
++	for (i = 0; i < MAX_CHILDREN; i++) {
++		if (!child_pid[i])
++			continue;
+ 		SAFE_KILL(child_pid[i], SIGKILL);
++	}
+
+ 	for (i = 0; i < MAX_CHILDREN; i++) {
++		if (!child_pid[i])
++			continue;
+ 		SAFE_WAITPID(child_pid[i], &child_ret, 0);
+ 		if (!WIFSIGNALED(child_ret))
+ 			ret = 1;
++		child_pid[i] = 0;
  	}
-+
-+	TESTDIR == NULL;
- }
 
- void tst_purge_dir(const char *path)
-@@ -351,3 +353,8 @@ void tst_purge_dir(const char *path)
- 	if (purge_dir(path, &err))
- 		tst_brkm(TBROK, NULL, "%s: %s", __func__, err);
- }
+ 	return ret;
+@@ -190,6 +196,8 @@ static void setup(void)
+
+ static void cleanup(void)
+ {
++	stop_children();
 +
-+void __attribute__((destructor)) tst_default_rmdir(void)
-+{
-+	tst_rmdir();
-+}
+ 	if (fd_notify > 0)
+ 		SAFE_CLOSE(fd_notify);
+ }
 --
 2.17.1
 
