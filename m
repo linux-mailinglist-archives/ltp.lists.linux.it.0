@@ -2,74 +2,48 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BEE0458A15
-	for <lists+linux-ltp@lfdr.de>; Mon, 22 Nov 2021 08:47:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A70A0458A42
+	for <lists+linux-ltp@lfdr.de>; Mon, 22 Nov 2021 09:00:35 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4A6D13C8D6D
-	for <lists+linux-ltp@lfdr.de>; Mon, 22 Nov 2021 08:47:52 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 769A23C8C4D
+	for <lists+linux-ltp@lfdr.de>; Mon, 22 Nov 2021 09:00:35 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 688093C4B8F
- for <ltp@lists.linux.it>; Mon, 22 Nov 2021 08:47:49 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id D84D73C08C7
+ for <ltp@lists.linux.it>; Mon, 22 Nov 2021 09:00:33 +0100 (CET)
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id B5F1C1A001D8
- for <ltp@lists.linux.it>; Mon, 22 Nov 2021 08:47:44 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 928071FD58;
- Mon, 22 Nov 2021 07:47:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1637567263;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=3gUeHfZeYpJwk8vTvMN+6s+MYAIG0/bmYj9D7Qf+YZY=;
- b=hMuNjDdL49MgSGBD0toy/QtjCq22tq122JvrlrS/2rpRcvbM1RBwpjFVf2flPQAMLd4lOX
- h3o18m8TlOdQLkNjlOzvVn/4GDCbqSYs13XIi6YRpbdT3kGtF65FcaXbSj4axU1aRFBky9
- ZbVwWVwneOYfCTUZ3hRm3xhQ8BAj7GQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1637567263;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=3gUeHfZeYpJwk8vTvMN+6s+MYAIG0/bmYj9D7Qf+YZY=;
- b=OGpan03wXeu5Pkyx97/2Vt4LfDF0iOGcoMFHvTtd+qDr1z2tuRCUD39j2SDLsEAS3XErLn
- JFTvexderpK+HoBQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4801113466;
- Mon, 22 Nov 2021 07:47:43 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id QJUJEB9Lm2FCJAAAMHmgww
- (envelope-from <pvorel@suse.cz>); Mon, 22 Nov 2021 07:47:43 +0000
-Date: Mon, 22 Nov 2021 08:47:41 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Gabriel Krisman Bertazi <krisman@collabora.com>
-Message-ID: <YZtLDXW01Cz0BfPU@pevik>
-References: <20211118235744.802584-1-krisman@collabora.com>
- <CAOQ4uxhbDgdZZ0qphWg1vnW4ZoAkUxcQp631yZO8W49AE18W9g@mail.gmail.com>
- <8735nsuepi.fsf@collabora.com>
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 5ED2C600C7F
+ for <ltp@lists.linux.it>; Mon, 22 Nov 2021 09:00:30 +0100 (CET)
+Received: from dggeml753-chm.china.huawei.com (unknown [172.30.72.53])
+ by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4HyKM35RHbzcbM4
+ for <ltp@lists.linux.it>; Mon, 22 Nov 2021 15:55:27 +0800 (CST)
+Received: from ubuntu1804.huawei.com (10.67.174.63) by
+ dggeml753-chm.china.huawei.com (10.1.199.152) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
+ 15.1.2308.20; Mon, 22 Nov 2021 16:00:26 +0800
+To: <ltp@lists.linux.it>
+Date: Mon, 22 Nov 2021 16:01:38 +0800
+Message-ID: <20211122080138.55815-1-zhaogongyi@huawei.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <8735nsuepi.fsf@collabora.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Originating-IP: [10.67.174.63]
+X-ClientProxiedBy: dggems701-chm.china.huawei.com (10.3.19.178) To
+ dggeml753-chm.china.huawei.com (10.1.199.152)
+X-CFilter-Loop: Reflected
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v4 0/9] Test the new fanotify FAN_FS_ERROR event
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH v2] lib/tst_tmpdir: Add tst_default_rmdir() for old
+ testcases
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,49 +55,50 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: kernel@collabora.com, Khazhismel Kumykov <khazhy@google.com>,
- Matthew Bobrowski <repnop@google.com>, Jan Kara <jack@suse.com>,
- Ext4 <linux-ext4@vger.kernel.org>, LTP List <ltp@lists.linux.it>
+From: Zhao Gongyi via ltp <ltp@lists.linux.it>
+Reply-To: Zhao Gongyi <zhaogongyi@huawei.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi all,
+In some old testcases, cleanup() will not run since it exit
+form tst_brk. For example, because of the calling of ltp_syscall
+have no real cleanup when syscall not support, testcase ssetmask01
+will leave tmp file.
 
-<snip>
-> Hi Amir,
+Signed-off-by: Zhao Gongyi <zhaogongyi@huawei.com>
+---
+v1->v2: add tst_default_rmdir() in tst_tmpdir.c
 
-> I have pushed v4 to :
+ lib/tst_tmpdir.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-> https://gitlab.collabora.com/krisman/ltp.git -b fan-fs-error_v4
+diff --git a/lib/tst_tmpdir.c b/lib/tst_tmpdir.c
+index 6e38ae977..0045c7bb6 100644
+--- a/lib/tst_tmpdir.c
++++ b/lib/tst_tmpdir.c
+@@ -342,6 +342,8 @@ void tst_rmdir(void)
+ 		tst_resm(TWARN, "%s: rmobj(%s) failed: %s",
+ 			 __func__, TESTDIR, errmsg);
+ 	}
++
++	TESTDIR == NULL;
+ }
 
-FYI I've rebased it on my fix 3b2ea2e00 ("configure.ac: Add struct
-fanotify_event_info_pidfd check")
+ void tst_purge_dir(const char *path)
+@@ -351,3 +353,8 @@ void tst_purge_dir(const char *path)
+ 	if (purge_dir(path, &err))
+ 		tst_brkm(TBROK, NULL, "%s: %s", __func__, err);
+ }
++
++void __attribute__((destructor)) tst_default_rmdir(void)
++{
++	tst_rmdir();
++}
+--
+2.17.1
 
-https://github.com/linux-test-project/ltp.git -b gertazi/fanotify21.v4.fixes
-
-diff to krisman/fan-fs-error_v4:
-
-diff --git configure.ac configure.ac
-index a9dc25249..d25183368 100644
---- configure.ac
-+++ configure.ac
-@@ -160,8 +160,8 @@ AC_CHECK_MEMBERS([struct utsname.domainname],,,[
- AC_CHECK_TYPES([enum kcmp_type],,,[#include <linux/kcmp.h>])
- AC_CHECK_TYPES([struct acct_v3],,,[#include <sys/acct.h>])
- AC_CHECK_TYPES([struct af_alg_iv, struct sockaddr_alg],,,[# include <linux/if_alg.h>])
--AC_CHECK_TYPES([struct fanotify_event_info_fid, struct fanotify_event_info_header,
--		struct fanotify_event_info_error],[],[],[#include <sys/fanotify.h>])
-+AC_CHECK_TYPES([struct fanotify_event_info_fid, struct fanotify_event_info_error,
-+		struct fanotify_event_info_header, struct fanotify_event_info_pidfd],,,[#include <sys/fanotify.h>])
- AC_CHECK_TYPES([struct file_dedupe_range],,,[#include <linux/fs.h>])
- 
- AC_CHECK_TYPES([struct file_handle],,,[
-
-Kind regards,
-Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
