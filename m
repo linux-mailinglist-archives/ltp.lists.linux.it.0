@@ -2,69 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0205458F8D
-	for <lists+linux-ltp@lfdr.de>; Mon, 22 Nov 2021 14:37:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FE34458F62
+	for <lists+linux-ltp@lfdr.de>; Mon, 22 Nov 2021 14:29:31 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 530843C8D6D
-	for <lists+linux-ltp@lfdr.de>; Mon, 22 Nov 2021 14:37:33 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 31D143C8D7C
+	for <lists+linux-ltp@lfdr.de>; Mon, 22 Nov 2021 14:29:30 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 334DB3C25EC
- for <ltp@lists.linux.it>; Mon, 22 Nov 2021 14:37:29 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id D5D3B3C25EC
+ for <ltp@lists.linux.it>; Mon, 22 Nov 2021 14:29:26 +0100 (CET)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 965E360070E
- for <ltp@lists.linux.it>; Mon, 22 Nov 2021 14:37:28 +0100 (CET)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id DF50B1FD39;
- Mon, 22 Nov 2021 13:37:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1637588247;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=o7LOOToo7y1kdafhDLNvXfa9ykqRCEfbv5dMSGi1PqI=;
- b=cwDOsrn5U4REVKYg2tHu8moFg03rrK+G3O1SmxWcLhAg4EjsDFRtAy64owqAHApzKDCcb1
- mOPgLzCgZti0FxJVSl7g3sw3OkOBBFZE7ott8BLr1aiAbKNNq0pqKcMwqAIAFJAuFeSJ+n
- a7z26xFzl8X0eD/YQR1uSfYWC9JBUh0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1637588247;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=o7LOOToo7y1kdafhDLNvXfa9ykqRCEfbv5dMSGi1PqI=;
- b=xdY9wq1cicZ4No7gnFsEXFhexFec+HOu+fWIoAIxplQJiUDNYsm9lk5kZHGxZNG+4b075F
- Z+p8mgl6YvVep2Ag==
-Received: from g78 (unknown [10.163.24.38])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 5389D1A00A44
+ for <ltp@lists.linux.it>; Mon, 22 Nov 2021 14:29:25 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id A6840A3B8B;
- Mon, 22 Nov 2021 13:37:27 +0000 (UTC)
-References: <20211117070708.2174932-1-liwang@redhat.com>
- <77e0b8b9-5de6-73ab-0f73-e3d95bad0935@jv-coder.de> <YZZCAXWRcrsYJo9+@yuki>
- <CAEemH2ehTUoDTqa21vKDvC4vQuTPBM1j23Dqa=FFEJjcPLsvvQ@mail.gmail.com>
-User-agent: mu4e 1.6.9; emacs 27.2
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Li Wang <liwang@redhat.com>
-Date: Mon, 22 Nov 2021 13:27:00 +0000
-In-reply-to: <CAEemH2ehTUoDTqa21vKDvC4vQuTPBM1j23Dqa=FFEJjcPLsvvQ@mail.gmail.com>
-Message-ID: <87bl2cmhuw.fsf@suse.de>
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 38F481FD39;
+ Mon, 22 Nov 2021 13:29:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1637587765; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=tBcRk0uKyn4Zh1Cyv0zVCwydH4eapYMxaeUBcsUWtJ0=;
+ b=axO/D1cMqGYJcw/tgQY3JPmz1NzQpC377+uPEFNP9UMouzk4cb0mgPGHItFIMZaajHJsyM
+ 7DFX0H5Iqmlx7o5ymAjJhUxiZoAUBrv6e8I/aWmEsMzzuAZXhu3x2Hnh9KQJM+ZEgwPOUA
+ 5EMuprN2H4nuF1AKYnkGN1O8BLRgZUc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1637587765;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=tBcRk0uKyn4Zh1Cyv0zVCwydH4eapYMxaeUBcsUWtJ0=;
+ b=dSr5RphgAFAI0z547/FsSq4oGB0X5hiAPh7O2GwgyyuiTG7QH5eKhW3qLymtwHfy7fS9WN
+ ZW6PvS818AuuUVCA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 23AFD13CB0;
+ Mon, 22 Nov 2021 13:29:25 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id MhEtBzWbm2EnVgAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Mon, 22 Nov 2021 13:29:25 +0000
+Date: Mon, 22 Nov 2021 14:30:30 +0100
+From: Cyril Hrubis <chrubis@suse.cz>
+To: "xuyang2018.jy@fujitsu.com" <xuyang2018.jy@fujitsu.com>
+Message-ID: <YZubdhIyP19rhEVD@yuki>
+References: <20211118112900.15757-1-rpalethorpe@suse.com>
+ <619708EC.6090305@fujitsu.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <619708EC.6090305@fujitsu.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v5 1/3] lib: adding .supported_archs field in
- tst_test structure
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] statx04: Re-add BTRFS version check
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,42 +80,60 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
-Cc: ltp@lists.linux.it
+Cc: Richard Palethorpe <rpalethorpe@suse.com>,
+ "ltp@lists.linux.it" <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello Li,
+Hi!
+> Do you mean that your distribution based on older kernel ie 4.11
+> supports statx syscall but btrfs missed the btrfs patch? Also this
+> distribution doesn't update and so have no choice to backport.
+> > This is different from the
+> > other version checks which are for much newer kernels. 
+> IMO, distribution based on older kernel 4.11 still can make ext2 ext4
+> xfs supports statx because the backport looks not diffcult. So, I don't
+> think this is a difference. It depends on kernel users worked on this
+> distirbution whether have this requirement.
+> Also there could be differences in the difficulty of a backport.
+> I see xfs/btrfs code, it only fills the attributes field of stat
+> struture by parsing inode flags.
+> 
+> If you must add this check on suse distribution, I guess you just add
+> this version check for suse distribution. For centos7,8, neither of them
+> supports btrfs, but I don't know other distribution situation ie unbuntu.
 
-Li Wang <liwang@redhat.com> writes:
+I just checked debian, both oldstable (4.16) and stable (5.10) have new
+enough kernels for this not to matter.
 
-> Hi All,
->
-> By now, should I push this patch v5, or is any else change needed?
+> Maybe you can just add suse detection in lib/tst_kvercmp.c.
 
-I still don't understand how tst_arch.name is mapped to i386, i586 or
-i686?
+I guess that this would be the cleanest solution.
 
-It appears that we will always get TCONF on any of these architectures
-because tst_arch.name will be set to x86 and the required arch will be
-i386, i586 or i686.
+Actually SUSE should be detected just fine, since we parse
+/etc/os-release for ID='foo' in the test library.
 
-> (From the above discussion I feel v5 is satisfied almost all of our
-> requirements.)
+So this could be solved just by defining:
 
-Otherwise, yes, I agree.
+static struct tst_kern_exv kvers[] = {
+	{"sles", "4.13.0"}
+	{}
+};
 
->
-> -- 
-> Regards,
-> Li Wang
+and then doing:
 
+	if (tst_kvercmp2(0, 0, 0, kvers) < 0)
+		tst_brk(TCONF, "Btrfs statx() supported since 4.13");
+
+
+Also it would be a bit cleaner to add this to the tst_test structure as
+.min_kver_ex as well, but that's a different story...
 
 -- 
-Thank you,
-Richard.
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
