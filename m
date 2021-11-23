@@ -1,57 +1,56 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22A8945A2FF
-	for <lists+linux-ltp@lfdr.de>; Tue, 23 Nov 2021 13:44:13 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B07345A304
+	for <lists+linux-ltp@lfdr.de>; Tue, 23 Nov 2021 13:44:33 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DEEEA3C8EB3
-	for <lists+linux-ltp@lfdr.de>; Tue, 23 Nov 2021 13:44:11 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 2F2373C8E51
+	for <lists+linux-ltp@lfdr.de>; Tue, 23 Nov 2021 13:44:33 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 28CCF3C25EC
+ by picard.linux.it (Postfix) with ESMTPS id 31C163C8DCB
  for <ltp@lists.linux.it>; Tue, 23 Nov 2021 13:43:58 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 888A1201035
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id A91F1601C59
  for <ltp@lists.linux.it>; Tue, 23 Nov 2021 13:43:57 +0100 (CET)
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 19E3521941;
+ by smtp-out2.suse.de (Postfix) with ESMTP id 5B0A41FD63;
  Tue, 23 Nov 2021 12:43:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
  t=1637671437; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=JkHiavZHfrfT9GLkF9HNW67pPaee44KSsm2PInGMSN8=;
- b=Nvp4UDwvpwBmKN3T8EvxBBr1u73KpaxpvtEieldMr2yV+MQcgxaKMRxjCd5uiBdhdYXfaw
- 6qIuGIlqU8EPj9lpyBgjztAfwYXcl+bH/GcXACyuWyD02o9z+K8kfuBOamvEj/sBjcYRMP
- qrf1+7bSTouBfWmOUpJBH7mYEfheG2w=
+ bh=YU7+mR5X1h8DzMu2UlECBsvdY1AQ4SyXWzAt8GKOyxE=;
+ b=gktZAe3frCEbg51+2W7Eyeow9EeF+n8CuNEKzU4HFs/jPkuJB84ZHxP2yZH2p66KVtwvx0
+ 9CauH07X3gJdyp4iZzC8t4DvDnOtsrtICO2xCyF5qqFaCPDJdpzCvFbjA/eFmPu6dhLKRc
+ Pu9HWPGdwj75HTk9lyQzJKUN4/YT78c=
 Received: from g78.suse.de (unknown [10.163.24.38])
- by relay2.suse.de (Postfix) with ESMTP id DF97FA3B88;
- Tue, 23 Nov 2021 12:43:56 +0000 (UTC)
+ by relay2.suse.de (Postfix) with ESMTP id 2D939A3B88;
+ Tue, 23 Nov 2021 12:43:57 +0000 (UTC)
 To: ltp@lists.linux.it
-Date: Tue, 23 Nov 2021 12:43:47 +0000
-Message-Id: <20211123124348.31073-3-rpalethorpe@suse.com>
+Date: Tue, 23 Nov 2021 12:43:48 +0000
+Message-Id: <20211123124348.31073-4-rpalethorpe@suse.com>
 X-Mailer: git-send-email 2.33.1
 In-Reply-To: <20211123124348.31073-1-rpalethorpe@suse.com>
 References: <20211123124348.31073-1-rpalethorpe@suse.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/3] doc: Add LTP-003 and LTP-004 static and tst API
- prefix rules
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH 3/3] statx: Add missing static keyword to tcase
+ variable
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,63 +70,82 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+This shows how easy it is to miss the static keyword.
+
 Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
 ---
- doc/library-api-writing-guidelines.txt | 10 ++++++++++
- doc/rules.tsv                          |  2 ++
- doc/test-writing-guidelines.txt        |  8 ++++++++
- 3 files changed, 20 insertions(+)
+ testcases/kernel/syscalls/statx/statx01.c | 2 +-
+ testcases/kernel/syscalls/statx/statx02.c | 2 +-
+ testcases/kernel/syscalls/statx/statx04.c | 2 +-
+ testcases/kernel/syscalls/statx/statx05.c | 2 +-
+ testcases/kernel/syscalls/statx/statx07.c | 2 +-
+ 5 files changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/doc/library-api-writing-guidelines.txt b/doc/library-api-writing-guidelines.txt
-index 2819d4177..c82053681 100644
---- a/doc/library-api-writing-guidelines.txt
-+++ b/doc/library-api-writing-guidelines.txt
-@@ -39,6 +39,16 @@ The macros which are clearly intended to update these variables. That
- is +TEST+ and those in 'tst_test_macros.h'. Are of course allowed to
- update these variables.
+diff --git a/testcases/kernel/syscalls/statx/statx01.c b/testcases/kernel/syscalls/statx/statx01.c
+index 2358dd7bc..11e188e8f 100644
+--- a/testcases/kernel/syscalls/statx/statx01.c
++++ b/testcases/kernel/syscalls/statx/statx01.c
+@@ -131,7 +131,7 @@ static void test_device_file(void)
+ }
  
-+2.3 LTP-003: Externally visible library symbols have the tst_ prefix
-+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-+
-+Functions, types and variables in the public test API should have the
-+tst_ prefix. With some exceptions for symbols already prefixed with
-+safe_ or ltp_.
-+
-+Static (private) symbols should not have the prefix.
-+
-+
- 3. Shell API
- ------------
  
-diff --git a/doc/rules.tsv b/doc/rules.tsv
-index d4081ce0f..2dfeca9f9 100644
---- a/doc/rules.tsv
-+++ b/doc/rules.tsv
-@@ -1,3 +1,5 @@
- ID	DESCRIPTION
- LTP-001	Library source files have tst_ prefix
- LTP-002	TST_RET and TST_ERR are never modified by test library functions
-+LTP-003 Externally visible library symbols have the tst_ prefix
-+LTP-004 Test executable symbols are marked static
-diff --git a/doc/test-writing-guidelines.txt b/doc/test-writing-guidelines.txt
-index b87446d1b..98fdb4d8d 100644
---- a/doc/test-writing-guidelines.txt
-+++ b/doc/test-writing-guidelines.txt
-@@ -133,6 +133,14 @@ script from kernel git tree.
- NOTE: If `make check` does not report any problems, the code still may be wrong
-       as all tools used for checking only look for common mistakes.
+-struct tcase {
++static struct tcase {
+ 	void (*tfunc)(void);
+ } tcases[] = {
+ 	{&test_normal_file},
+diff --git a/testcases/kernel/syscalls/statx/statx02.c b/testcases/kernel/syscalls/statx/statx02.c
+index 08ea940cb..15f5562b2 100644
+--- a/testcases/kernel/syscalls/statx/statx02.c
++++ b/testcases/kernel/syscalls/statx/statx02.c
+@@ -90,7 +90,7 @@ static void test_sym_link(void)
+ 			"Statx symlink flag failed to work as expected");
+ }
  
-+2.1.1 LTP-004: Test executable symbols are marked static
-+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-+
-+Test executables should not export symbols unecessarily. This means
-+that all top-level variables and functions should be marked with the
-+static keyword. The only visible symbols should be those included from
-+shared object files.
-+
- 2.2 Shell coding style
- ^^^^^^^^^^^^^^^^^^^^^^
+-struct tcase {
++static struct tcase {
+ 	void (*tfunc)(void);
+ } tcases[] = {
+ 	{&test_empty_path},
+diff --git a/testcases/kernel/syscalls/statx/statx04.c b/testcases/kernel/syscalls/statx/statx04.c
+index 180c61bf9..f66b04f70 100644
+--- a/testcases/kernel/syscalls/statx/statx04.c
++++ b/testcases/kernel/syscalls/statx/statx04.c
+@@ -133,7 +133,7 @@ static void test_unflagged(void)
+ 		tst_res(TFAIL, "STATX_ATTR_NODUMP flag is set");
+ }
  
+-struct test_cases {
++static struct test_cases {
+ 	void (*tfunc)(void);
+ } tcases[] = {
+ 	{&test_flagged},
+diff --git a/testcases/kernel/syscalls/statx/statx05.c b/testcases/kernel/syscalls/statx/statx05.c
+index 81a5bcbf2..47a1f8ad1 100644
+--- a/testcases/kernel/syscalls/statx/statx05.c
++++ b/testcases/kernel/syscalls/statx/statx05.c
+@@ -74,7 +74,7 @@ static void test_unflagged(void)
+ 		tst_res(TFAIL, "STATX_ATTR_ENCRYPTED flag is set");
+ }
+ 
+-struct test_cases {
++static struct test_cases {
+ 	void (*tfunc)(void);
+ } tcases[] = {
+ 	{&test_flagged},
+diff --git a/testcases/kernel/syscalls/statx/statx07.c b/testcases/kernel/syscalls/statx/statx07.c
+index ec1cdd190..9aa160d31 100644
+--- a/testcases/kernel/syscalls/statx/statx07.c
++++ b/testcases/kernel/syscalls/statx/statx07.c
+@@ -84,7 +84,7 @@ static int get_mode(char *file_name, int flag_type, char *flag_name)
+ 	return buf.stx_mode;
+ }
+ 
+-const struct test_cases {
++static const struct test_cases {
+ 	int flag;
+ 	char *flag_name;
+ 	char *server_file;
 -- 
 2.33.1
 
