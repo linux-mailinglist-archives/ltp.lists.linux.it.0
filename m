@@ -2,54 +2,56 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id D035345A301
-	for <lists+linux-ltp@lfdr.de>; Tue, 23 Nov 2021 13:44:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22A8945A2FF
+	for <lists+linux-ltp@lfdr.de>; Tue, 23 Nov 2021 13:44:13 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9B5D93C8E80
-	for <lists+linux-ltp@lfdr.de>; Tue, 23 Nov 2021 13:44:19 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id DEEEA3C8EB3
+	for <lists+linux-ltp@lfdr.de>; Tue, 23 Nov 2021 13:44:11 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 2A5673C8DC5
- for <ltp@lists.linux.it>; Tue, 23 Nov 2021 13:43:57 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id 28CCF3C25EC
+ for <ltp@lists.linux.it>; Tue, 23 Nov 2021 13:43:58 +0100 (CET)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 7E30810009AB
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 888A1201035
  for <ltp@lists.linux.it>; Tue, 23 Nov 2021 13:43:57 +0100 (CET)
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id CC35A2191A;
- Tue, 23 Nov 2021 12:43:56 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 19E3521941;
+ Tue, 23 Nov 2021 12:43:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1637671436; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1637671437; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Jlo8nxCi1O+BImzOi0WxkMrAHq4EZ2aEXRQ6f3bRW+Y=;
- b=UNO1t8lulLeJOUyYCx8YpkLkMeCMYRJsVq37S7XX1Zotse188EG+tToAv3wfwmREJjL6sw
- CH8wPWFSv26Q5bClHubKipHBjNLNFHpCuPIShX6WtE8Wnh43weepyJD4RwQWWO6VG+03Yp
- YDFg6es5jybhhjJPnzNyrI4KoxLVg58=
+ bh=JkHiavZHfrfT9GLkF9HNW67pPaee44KSsm2PInGMSN8=;
+ b=Nvp4UDwvpwBmKN3T8EvxBBr1u73KpaxpvtEieldMr2yV+MQcgxaKMRxjCd5uiBdhdYXfaw
+ 6qIuGIlqU8EPj9lpyBgjztAfwYXcl+bH/GcXACyuWyD02o9z+K8kfuBOamvEj/sBjcYRMP
+ qrf1+7bSTouBfWmOUpJBH7mYEfheG2w=
 Received: from g78.suse.de (unknown [10.163.24.38])
- by relay2.suse.de (Postfix) with ESMTP id 9E2E1A3B88;
+ by relay2.suse.de (Postfix) with ESMTP id DF97FA3B88;
  Tue, 23 Nov 2021 12:43:56 +0000 (UTC)
 To: ltp@lists.linux.it
-Date: Tue, 23 Nov 2021 12:43:46 +0000
-Message-Id: <20211123124348.31073-2-rpalethorpe@suse.com>
+Date: Tue, 23 Nov 2021 12:43:47 +0000
+Message-Id: <20211123124348.31073-3-rpalethorpe@suse.com>
 X-Mailer: git-send-email 2.33.1
 In-Reply-To: <20211123124348.31073-1-rpalethorpe@suse.com>
 References: <20211123124348.31073-1-rpalethorpe@suse.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH 1/3] tools/sparse: Add static check
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH 2/3] doc: Add LTP-003 and LTP-004 static and tst API
+ prefix rules
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,91 +71,63 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This was adapted from Sparse's inbuilt check_duplicates (-Wdecl). The
-original check appears to print a warning whenever a symbol is
-non-static, but has no prototype. It appears to work because library
-symbols are usually declared first in a header file and then again
-with their definition in a source file.
-
-The LTP version also checks for the various library prefixes, but
-should otherwise be the same.
-
 Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
 ---
- tools/sparse/sparse-ltp.c | 53 +++++++++++++++++++++++++++++++++++++++
- 1 file changed, 53 insertions(+)
+ doc/library-api-writing-guidelines.txt | 10 ++++++++++
+ doc/rules.tsv                          |  2 ++
+ doc/test-writing-guidelines.txt        |  8 ++++++++
+ 3 files changed, 20 insertions(+)
 
-diff --git a/tools/sparse/sparse-ltp.c b/tools/sparse/sparse-ltp.c
-index 45874e8eb..73725d191 100644
---- a/tools/sparse/sparse-ltp.c
-+++ b/tools/sparse/sparse-ltp.c
-@@ -82,6 +82,57 @@ static void do_entrypoint_checks(struct entrypoint *ep)
- 	} END_FOR_EACH_PTR(bb);
- }
+diff --git a/doc/library-api-writing-guidelines.txt b/doc/library-api-writing-guidelines.txt
+index 2819d4177..c82053681 100644
+--- a/doc/library-api-writing-guidelines.txt
++++ b/doc/library-api-writing-guidelines.txt
+@@ -39,6 +39,16 @@ The macros which are clearly intended to update these variables. That
+ is +TEST+ and those in 'tst_test_macros.h'. Are of course allowed to
+ update these variables.
  
-+/* Check for LTP-003 and LTP-004
-+ *
-+ * Try to find cases where the static keyword was forgotten.
-+ */
-+static void check_symbol_visibility(struct symbol *sym)
-+{
-+	struct symbol *next = sym;
-+	unsigned long mod = sym->ctype.modifiers;
-+	const char *name = show_ident(sym->ident);
-+	int has_lib_prefix = !strncmp("tst_", name, 4) ||
-+		!strncmp("TST_", name, 4) ||
-+		!strncmp("ltp_", name, 4) ||
-+		!strncmp("safe_", name, 5);
++2.3 LTP-003: Externally visible library symbols have the tst_ prefix
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 +
-+	if (!(mod & MOD_TOPLEVEL))
-+		return;
++Functions, types and variables in the public test API should have the
++tst_ prefix. With some exceptions for symbols already prefixed with
++safe_ or ltp_.
 +
-+	if (has_lib_prefix && (mod & MOD_STATIC)) {
-+		warning(sym->pos,
-+			"LTP-003: Symbol '%s' has the LTP public library prefix, but is static (private).",
-+			name);
-+		return;
-+	}
++Static (private) symbols should not have the prefix.
 +
-+	if ((mod & MOD_STATIC))
-+		return;
 +
-+	if (tu_kind == LTP_LIB && !has_lib_prefix) {
-+		warning(sym->pos,
-+			"LTP-003: Symbol '%s' is a public library function, but is missing the 'tst_' prefix",
-+			name);
-+		return;
-+	}
-+
-+	if (next->same_symbol)
-+		return;
-+
-+	if (sym->ident == &main_ident)
-+		return;
-+
-+	warning(sym->pos,
-+		"Symbol '%s' has no prototype or library ('tst_') prefix. Should it be static?",
-+		name);
-+}
-+
-+/* AST level checks */
-+static void do_symbol_checks(struct symbol *sym)
-+{
-+	check_symbol_visibility(sym);
-+}
-+
- /* Compile the AST into a graph of basicblocks */
- static void process_symbols(struct symbol_list *list)
- {
-@@ -90,6 +141,8 @@ static void process_symbols(struct symbol_list *list)
- 	FOR_EACH_PTR(list, sym) {
- 		struct entrypoint *ep;
+ 3. Shell API
+ ------------
  
-+		do_symbol_checks(sym);
+diff --git a/doc/rules.tsv b/doc/rules.tsv
+index d4081ce0f..2dfeca9f9 100644
+--- a/doc/rules.tsv
++++ b/doc/rules.tsv
+@@ -1,3 +1,5 @@
+ ID	DESCRIPTION
+ LTP-001	Library source files have tst_ prefix
+ LTP-002	TST_RET and TST_ERR are never modified by test library functions
++LTP-003 Externally visible library symbols have the tst_ prefix
++LTP-004 Test executable symbols are marked static
+diff --git a/doc/test-writing-guidelines.txt b/doc/test-writing-guidelines.txt
+index b87446d1b..98fdb4d8d 100644
+--- a/doc/test-writing-guidelines.txt
++++ b/doc/test-writing-guidelines.txt
+@@ -133,6 +133,14 @@ script from kernel git tree.
+ NOTE: If `make check` does not report any problems, the code still may be wrong
+       as all tools used for checking only look for common mistakes.
+ 
++2.1.1 LTP-004: Test executable symbols are marked static
++^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 +
- 		expand_symbol(sym);
- 		ep = linearize_symbol(sym);
- 		if (!ep || !ep->entry)
++Test executables should not export symbols unecessarily. This means
++that all top-level variables and functions should be marked with the
++static keyword. The only visible symbols should be those included from
++shared object files.
++
+ 2.2 Shell coding style
+ ^^^^^^^^^^^^^^^^^^^^^^
+ 
 -- 
 2.33.1
 
