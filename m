@@ -2,85 +2,62 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16FAC463ACA
-	for <lists+linux-ltp@lfdr.de>; Tue, 30 Nov 2021 16:58:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0A2A463AD0
+	for <lists+linux-ltp@lfdr.de>; Tue, 30 Nov 2021 16:59:25 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2CD873C697C
-	for <lists+linux-ltp@lfdr.de>; Tue, 30 Nov 2021 16:58:44 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 4A6703C6F3E
+	for <lists+linux-ltp@lfdr.de>; Tue, 30 Nov 2021 16:59:24 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id D9ABA3C8982
- for <ltp@lists.linux.it>; Mon, 22 Nov 2021 23:20:56 +0100 (CET)
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id 8ED613C093A
+ for <ltp@lists.linux.it>; Tue, 23 Nov 2021 17:58:34 +0100 (CET)
+Received: from eu-smtp-delivery-151.mimecast.com
+ (eu-smtp-delivery-151.mimecast.com [207.82.80.151])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id EA9EE1A00667
- for <ltp@lists.linux.it>; Mon, 22 Nov 2021 23:20:52 +0100 (CET)
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailout.nyi.internal (Postfix) with ESMTP id F04595C0216;
- Mon, 22 Nov 2021 17:20:49 -0500 (EST)
-Received: from imap45 ([10.202.2.95])
- by compute5.internal (MEProxy); Mon, 22 Nov 2021 17:20:49 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=owlfolio.org; h=
- mime-version:message-id:in-reply-to:references:date:from:to:cc
- :subject:content-type; s=fm1; bh=FCiOZI9Dv20tAQ/7weQX2U+Lw8g5MWM
- QEAl+y42pkKY=; b=QeNEi/AvK+hUIh19j4A+w35hKQD6AvtNdPGl90BKWAdJZbi
- X0dlB5XmiTonKKlE3TfNxWUA8CnP8C4D3Koui8OWgTNn6cgpFdmjmxPVqWvXY02x
- eUv5KaGaRNAiDXPnZlqP5GV6z5t64Op5ijxfokgiWt+prR/83JcgUu1KmW4p6u4p
- JWrYxfBvURPXEk9/RcT3Wf4G5HJcfA4NmjpabgA2+JAD9CwuOe2LTy+LKjjO84Hf
- 6dgD0noO2GJRdKgwZlxuBSIBEnp8ChH+YV1go5nPw1qeqQOiqOnk2m7OB//nGa+r
- i5Wy9GudkLvgQ858Yy1KHtLuJw6dgrELjCE7RlA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=FCiOZI
- 9Dv20tAQ/7weQX2U+Lw8g5MWMQEAl+y42pkKY=; b=ewXBhaKwZLdmIj+sVkHsf9
- a0YSi9sP0qm9FmmmKZiGKfjGEJqBOI0PwYjRT/tm8wPlVyMQpaHenat9tthmfJNp
- hvhhMkVPyq9aBgnxPz7vG+NaGRlLAooKioTubxNhyzraHFL6zN0O0DAfN1GZWG3u
- oNc2JXxb4rwNDCXYigmtGzeO8OZZsWGUoR1PXsSygAO/6RVqSRZXMkhjAzPmOR4o
- AoWnsRjtL5HXh4BSry0m48O5ZyiUxmlQvE3YrzNCIQy3zKIE7blR9Ue/2e6bWgJd
- mWBHpKCQyrbMfufQXgNpdfSqdFgJTBs564Da0Xhkrhd6YyKbSUpNw9cdAoAvzxtg
- ==
-X-ME-Sender: <xms:wRecYZdfCh09993z-RORgZjn0BOI_8kLoYaGF3jMOdIUfnPfmvsI8g>
- <xme:wRecYXN5dggdlACAyRkvZsUt6oqUnQoyl00nJRjjEt5w9bYXw5dkjLf34AjrdJpZR
- YmCfMH1KLoUNkLkxxg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvuddrgeeggdduiedtucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepofgfggfkjghffffhvffutgesthdtredtreertdenucfhrhhomhepfdgkrggt
- khcuhggvihhnsggvrhhgfdcuoeiirggtkhesohiflhhfohhlihhordhorhhgqeenucggtf
- frrghtthgvrhhnpefhuefhveeuffetfffgjeetgfekkeehfedtfeelgfehffffveehkeel
- fefgheffudenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhroh
- hmpeiirggtkhesohiflhhfohhlihhordhorhhg
-X-ME-Proxy: <xmx:wRecYShg87In53jYFl4bkLTO_d4fVgJeFcvgzaVd7xtXrC2El82iwg>
- <xmx:wRecYS9Nx3NXMazQy4eNpUK3utqVVP3bE3-db4qGrhIhD0g_oDntPg>
- <xmx:wRecYVvby4ByQWrYB4nSaXRaL2-thVvNo16RHugYiavRR9uod8TCFQ>
- <xmx:wRecYdI655DXx77lkf7cprqbo_ioS7XxEV5dg57HePNcF6rLB4g8Og>
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id 5B74024A0079; Mon, 22 Nov 2021 17:20:49 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.5.0-alpha0-1371-g2296cc3491-fm-20211109.003-g2296cc34
-Mime-Version: 1.0
-Message-Id: <c5993ee9-1b5d-4469-9c0e-8d4e0fbd575a@www.fastmail.com>
-In-Reply-To: <YZvIlz7J6vOEY+Xu@yuki>
-References: <YZvIlz7J6vOEY+Xu@yuki>
-Date: Mon, 22 Nov 2021 22:19:59 +0000
-From: "Zack Weinberg" <zack@owlfolio.org>
-To: "Cyril Hrubis" <chrubis@suse.cz>, linux-kernel@vger.kernel.org
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id C7AF01000740
+ for <ltp@lists.linux.it>; Tue, 23 Nov 2021 17:58:33 +0100 (CET)
+Received: from AcuMS.aculab.com (156.67.243.121 [156.67.243.121]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ uk-mtapsc-8-dyIDGajdPWOdiVq8f9AjNQ-1; Tue, 23 Nov 2021 16:58:31 +0000
+X-MC-Unique: dyIDGajdPWOdiVq8f9AjNQ-1
+Received: from AcuMS.Aculab.com (fd9f:af1c:a25b:0:994c:f5c2:35d6:9b65) by
+ AcuMS.aculab.com (fd9f:af1c:a25b:0:994c:f5c2:35d6:9b65) with Microsoft SMTP
+ Server (TLS) id 15.0.1497.26; Tue, 23 Nov 2021 16:58:31 +0000
+Received: from AcuMS.Aculab.com ([fe80::994c:f5c2:35d6:9b65]) by
+ AcuMS.aculab.com ([fe80::994c:f5c2:35d6:9b65%12]) with mapi id
+ 15.00.1497.026; Tue, 23 Nov 2021 16:58:30 +0000
+From: David Laight <David.Laight@ACULAB.COM>
+To: 'David Howells' <dhowells@redhat.com>, Cyril Hrubis <chrubis@suse.cz>
+Thread-Topic: [PATCH] uapi: Make __{u,s}64 match {u,}int64_t in userspace
+Thread-Index: AQHX4InVzhztkrNZME2rQ+mb6OtfjawRUyrg
+Date: Tue, 23 Nov 2021 16:58:30 +0000
+Message-ID: <ff8fc4470c8f45678e546cafe9980eff@AcuMS.aculab.com>
+References: <YZvIlz7J6vOEY+Xu@yuki> <1618289.1637686052@warthog.procyon.org.uk>
+In-Reply-To: <1618289.1637686052@warthog.procyon.org.uk>
+Accept-Language: en-GB, en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.202.205.107]
+MIME-Version: 1.0
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=C51A453 smtp.mailfrom=david.laight@aculab.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: aculab.com
+Content-Language: en-US
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-X-Mailman-Approved-At: Tue, 30 Nov 2021 16:58:40 +0100
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+X-Mailman-Approved-At: Tue, 30 Nov 2021 16:58:59 +0100
 Subject: Re: [LTP] [PATCH] uapi: Make __{u, s}64 match {u,
  }int64_t in userspace
 X-BeenThere: ltp@lists.linux.it
@@ -94,66 +71,63 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: linux-arch@vger.kernel.org, linux-api@vger.kernel.org,
- libc-alpha@sourceware.org, ltp@lists.linux.it
+Cc: "linux-arch@vger.kernel.org" <linux-arch@vger.kernel.org>,
+ "libc-alpha@sourceware.org" <libc-alpha@sourceware.org>,
+ "arnd@arndb.de" <arnd@arndb.de>,
+ "linux-api@vger.kernel.org" <linux-api@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "ltp@lists.linux.it" <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Mon, Nov 22, 2021, at 4:43 PM, Cyril Hrubis wrote:
-> This changes the __u64 and __s64 in userspace on 64bit platforms from
-> long long (unsigned) int to just long (unsigned) int in order to match
-> the uint64_t and int64_t size in userspace.
-...
-> +
-> +#include <asm/bitsperlong.h>
-> +
->  /*
-> - * int-ll64 is used everywhere now.
-> + * int-ll64 is used everywhere in kernel now.
->   */
-> -#include <asm-generic/int-ll64.h>
-> +#if __BITS_PER_LONG == 64 && !defined(__KERNEL__)
-> +# include <asm-generic/int-l64.h>
-> +#else
-> +# include <asm-generic/int-ll64.h>
-> +#endif
+From: David Howells
+> Sent: 23 November 2021 16:48
+> 
+> Cyril Hrubis <chrubis@suse.cz> wrote:
+> 
+> > This changes the __u64 and __s64 in userspace on 64bit platforms from
+> > long long (unsigned) int to just long (unsigned) int in order to match
+> > the uint64_t and int64_t size in userspace.
 
-I am all for matching __uN / __sN to uintN_t / intN_t in userspace, but may I suggest the technically simpler and guaranteed-to-be-accurate
+That is a massive UAPI change you can't do.
 
- /*
-- * int-ll64 is used everywhere now.
-+ * int-ll64 is used everywhere in kernel now.
-+ * In user space match <stdint.h>.
-  */
-+#ifdef __KERNEL__
- # include <asm-generic/int-ll64.h>
-+#elif __has_include (<bits/types.h>)
-+# include <bits/types.h>
-+typedef __int8_t __s8;
-+typedef __uint8_t __u8;
-+typedef __int16_t __s16;
-+typedef __uint16_t __u16;
-+typedef __int32_t __s32;
-+typedef __uint32_t __u32;
-+typedef __int64_t __s64;
-+typedef __uint64_t __u64;
-+#else
-+# include <stdint.h>
-+typedef int8_t __s8;
-+typedef uint8_t __u8;
-+typedef int16_t __s16;
-+typedef uint16_t __u16;
-+typedef int32_t __s32;
-+typedef uint32_t __u32;
-+typedef int64_t __s64;
-+typedef uint64_t __u64;
-+#endif
+> Can you guarantee this won't break anything in userspace?  Granted the types
+> *ought* to be the same size, but anyone who's written code on the basis that
+> these are "(unsigned) long long int" may suddenly get a bunch of warnings
+> where they didn't before from the C compiler.  Anyone using C++, say, may find
+> their code no longer compiles because overloaded function matching no longer
+> finds a correct match.
 
-The middle clause could be dropped if we are okay with all uapi headers potentially exposing the non-implementation-namespace names defined by <stdint.h>.  I do not know what the musl libc equivalent of <bits/types.h> is.
+Indeed
 
-zw
+> Also, whilst your point about PRIu64 and PRId64 modifiers in printf() is a
+> good one, it doesn't help someone whose compiler doesn't support that (I don't
+> know if anyone's likely to encounter such these days).  At the moment, I think
+> a user can assume that %llu will work correctly both on 32-bit and 64-bit on
+> all arches, but you're definitely breaking that assumption.
+
+PRIu64 (etc) don't require compiler support, just the correct header file.
+
+I'm pretty sure that portable user code needs to allow for int64_t being
+either 'long' or 'long long' on 64bit architectures.
+(Indeed 'long' may not even be 64bit.)
+
+On 32bit int32_t can definitely be either 'int' of 'long' at whim.
+
+I'm not sure anyone has tried a 64bit long with a 128bit long-long.
+But the C language might lead you to do that.
+
+Of course, fully portable code has to allow for char, short, int and long
+all being the same size!
+
+	David
+
+-
+Registered Address Lakeside, Bramley Road, Mount Farm, Milton Keynes, MK1 1PT, UK
+Registration No: 1397386 (Wales)
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
