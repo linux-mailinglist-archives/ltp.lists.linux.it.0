@@ -1,75 +1,68 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1F40459F81
-	for <lists+linux-ltp@lfdr.de>; Tue, 23 Nov 2021 10:49:24 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id A2AB545A14D
+	for <lists+linux-ltp@lfdr.de>; Tue, 23 Nov 2021 12:21:54 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 239F73C8E71
-	for <lists+linux-ltp@lfdr.de>; Tue, 23 Nov 2021 10:49:24 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 1C1483C8DFA
+	for <lists+linux-ltp@lfdr.de>; Tue, 23 Nov 2021 12:21:54 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id B89513C24E3
- for <ltp@lists.linux.it>; Tue, 23 Nov 2021 10:49:20 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id BEDA93C3189
+ for <ltp@lists.linux.it>; Tue, 23 Nov 2021 12:21:52 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 222AC201036
- for <ltp@lists.linux.it>; Tue, 23 Nov 2021 10:49:19 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 6C0CC2171F;
- Tue, 23 Nov 2021 09:49:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1637660959;
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id ADFC5601321
+ for <ltp@lists.linux.it>; Tue, 23 Nov 2021 12:21:51 +0100 (CET)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id C178E1FD58;
+ Tue, 23 Nov 2021 11:21:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1637666510;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=GRnD2Q5lezmjEBQ4oXEAejxTxt3u2qXapMVh0IOWrx8=;
- b=YopuYlCgH7X5xQp4qqP577qaxSU0PIgXNdapnrTabmwPiNhlfVRb6juydUoH99tntmw3vZ
- 2fa2ML1xDNXbr1v1TEpithoGiR2dPyrBYJaiznwLsD3O1Zg08F3/CVKwMNMwZVxxC3OwCB
- AO9rXv2b44oZE2pl7jq2FJQMTZlOBvk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1637660959;
+ bh=k1lrD6ZQCy9P2NqIHNw82pO+EcaqONOtHUcP36X7fqY=;
+ b=hCYDhJPRVjZ31I1nIpcpoucED5GCH/AUbKR49f0j7I7925pnaY4jjpN7fqjaMj0eqdrnxk
+ sHh60P8m76we69fxqNvY5jQI2Psx/XRZe7q5A6q5DKLL6yOx8f8UZ05YQP8EZ90h3eOnZY
+ RCG6tY3S9GIEyE4fAXNP1stSPjAnZys=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1637666510;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=GRnD2Q5lezmjEBQ4oXEAejxTxt3u2qXapMVh0IOWrx8=;
- b=I8aVW9jfEfTl3cXd/6435WApTyT7XpR3A19EoqqyggvqczcQYxeKouUkVMkFVa30l+1Jg6
- kwvQVASbzWhVMDAA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ bh=k1lrD6ZQCy9P2NqIHNw82pO+EcaqONOtHUcP36X7fqY=;
+ b=LqYwxKhxEqL/tUjAr5sd3Sqof0rDvv0pKxZDb3zBeOlQN0HNPg2Bhjwac0BHBiGbHGtcK7
+ ZfkrnWTTsQ2RHvAg==
+Received: from g78 (unknown [10.163.24.38])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 05F3B13D8E;
- Tue, 23 Nov 2021 09:49:18 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id CF52Oh65nGG6IAAAMHmgww
- (envelope-from <pvorel@suse.cz>); Tue, 23 Nov 2021 09:49:18 +0000
-Date: Tue, 23 Nov 2021 10:49:16 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <YZy5HNteJmoicTtJ@pevik>
-References: <20211118172313.20159-1-mdoucha@suse.cz>
- <20211118172313.20159-3-mdoucha@suse.cz>
+ by relay2.suse.de (Postfix) with ESMTPS id 8434BA3B81;
+ Tue, 23 Nov 2021 11:21:50 +0000 (UTC)
+References: <20211118112900.15757-1-rpalethorpe@suse.com>
+ <619708EC.6090305@fujitsu.com> <YZubdhIyP19rhEVD@yuki>
+User-agent: mu4e 1.6.9; emacs 27.2
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Cyril Hrubis <chrubis@suse.cz>
+Date: Tue, 23 Nov 2021 11:16:09 +0000
+In-reply-to: <YZubdhIyP19rhEVD@yuki>
+Message-ID: <87y25fktgx.fsf@suse.de>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20211118172313.20159-3-mdoucha@suse.cz>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 3/3] Add test for NFS directory listing regression
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] statx04: Re-add BTRFS version check
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,101 +74,69 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
+Reply-To: rpalethorpe@suse.de
+Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Martin,
+Hello,
 
-Cc: Alexey
-...
-> +++ b/testcases/network/nfs/nfs_stress/Makefile
-> @@ -15,6 +15,7 @@ INSTALL_TARGETS		:= nfs_lib.sh \
->  			   nfs03 \
->  			   nfs04 \
->  			   nfs05 \
-> -			   nfs06
-> +			   nfs06 \
-> +			   nfs07.sh
-+ 1 for .sh name, we should later add it to the rest of NFS shell scripts.
+Cyril Hrubis <chrubis@suse.cz> writes:
 
->  include $(top_srcdir)/include/mk/generic_leaf_target.mk
-> diff --git a/testcases/network/nfs/nfs_stress/nfs07.sh b/testcases/network/nfs/nfs_stress/nfs07.sh
-> new file mode 100755
-> index 000000000..d8e482751
-> --- /dev/null
-> +++ b/testcases/network/nfs/nfs_stress/nfs07.sh
-> @@ -0,0 +1,56 @@
-> +#!/bin/sh
-> +# SPDX-License-Identifier: GPL-2.0-or-later
-> +# Copyright (c) 2021 SUSE LLC <mdoucha@suse.cz>
-> +#
-> +#  DESCRIPTION: Create a large number of files and directories on NFS volume.
-> +#  Then check whether they can be listed via NFS.
-> +
-> +FILE_COUNT=5000
-> +
-> +TST_OPTS="n:"
-> +TST_PARSE_ARGS=do_parse_args
-> +TST_TESTFUNC="do_test"
-> +TST_SETUP="do_setup"
-> +
-> +do_parse_args()
-> +{
-> +	case "$1" in
-> +	n) FILE_COUNT="$2";;
-> +	esac
-nit: nfs07.sh -h does not list this, would you care to add TST_USAGE?
+> Hi!
+>> Do you mean that your distribution based on older kernel ie 4.11
+>> supports statx syscall but btrfs missed the btrfs patch? Also this
+>> distribution doesn't update and so have no choice to backport.
+>> > This is different from the
+>> > other version checks which are for much newer kernels. 
+>> IMO, distribution based on older kernel 4.11 still can make ext2 ext4
+>> xfs supports statx because the backport looks not diffcult. So, I don't
+>> think this is a difference. It depends on kernel users worked on this
+>> distirbution whether have this requirement.
+>> Also there could be differences in the difficulty of a backport.
+>> I see xfs/btrfs code, it only fills the attributes field of stat
+>> struture by parsing inode flags.
+>> 
+>> If you must add this check on suse distribution, I guess you just add
+>> this version check for suse distribution. For centos7,8, neither of them
+>> supports btrfs, but I don't know other distribution situation ie unbuntu.
+>
+> I just checked debian, both oldstable (4.16) and stable (5.10) have new
+> enough kernels for this not to matter.
+>
+>> Maybe you can just add suse detection in lib/tst_kvercmp.c.
+>
+> I guess that this would be the cleanest solution.
+>
+> Actually SUSE should be detected just fine, since we parse
+> /etc/os-release for ID='foo' in the test library.
+>
+> So this could be solved just by defining:
+>
+> static struct tst_kern_exv kvers[] = {
+> 	{"sles", "4.13.0"}
+> 	{}
+> };
+>
+> and then doing:
+>
+> 	if (tst_kvercmp2(0, 0, 0, kvers) < 0)
+> 		tst_brk(TCONF, "Btrfs statx() supported since 4.13");
+>
+>
+> Also it would be a bit cleaner to add this to the tst_test structure as
+> .min_kver_ex as well, but that's a different story...
 
-> +}
-> +
-> +. nfs_lib.sh
-> +
-> +do_setup()
-> +{
-> +	nfs_setup
-> +
-> +	local rpath=$(nfs_get_remote_path)
-> +	tst_rhost_run -s -c "touch $rpath/file{1..$FILE_COUNT}"
-> +	tst_rhost_run -s -c "mkdir $rpath/dir{1..$FILE_COUNT}"
-Unfortunately {1..$FILE_COUNT} is bashism (not work at least on dash).
-Could you please rewrite it to using for cycle and seq?
-It might be reasonably slower on bash, but working everywhere.
+After some more internal discussions. We can just filter statx04 and use
+the new test which performs the feature checks. I think it would have
+been better to add the checks to statx04 and add a new test without any
+checks. However it is done now.
 
-The rest LGTM, good idea to add this test.
-
-Kind regards,
-Petr
-
-> +}
-> +
-> +do_test()
-> +{
-> +	local count
-> +
-> +	# Pass the list of files through `sort -u` in case `ls` doesn't fitler
-> +	# out potential duplicate filenames returned by buggy NFS
-> +	count=`ls | grep '^file' | sort -u | wc -l`
-> +
-> +	if [ $count -ne $FILE_COUNT ]; then
-> +		tst_res TFAIL "Listing files failed: $count != $FILE_COUNT"
-> +		return
-> +	fi
-> +
-> +	count=`ls | grep '^dir' | sort -u | wc -l`
-> +
-> +	if [ $count -ne $FILE_COUNT ]; then
-> +		tst_res TFAIL "Listing dirs failed: $count != $FILE_COUNT"
-> +		return
-> +	fi
-> +
-> +	tst_res TPASS "All files and directories were correctly listed"
-> +}
-> +
-> +tst_run
+-- 
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
