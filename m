@@ -1,79 +1,80 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id A49F345F753
-	for <lists+linux-ltp@lfdr.de>; Sat, 27 Nov 2021 01:04:36 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 47C6D45F757
+	for <lists+linux-ltp@lfdr.de>; Sat, 27 Nov 2021 01:05:17 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E87A33C887F
-	for <lists+linux-ltp@lfdr.de>; Sat, 27 Nov 2021 01:04:35 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id EE9A93C8828
+	for <lists+linux-ltp@lfdr.de>; Sat, 27 Nov 2021 01:05:16 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 8D0923C6B60
- for <ltp@lists.linux.it>; Sat, 27 Nov 2021 01:04:31 +0100 (CET)
-Received: from smtp-relay-internal-1.canonical.com
- (smtp-relay-internal-1.canonical.com [185.125.188.123])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id F1A961400747
- for <ltp@lists.linux.it>; Sat, 27 Nov 2021 01:04:30 +0100 (CET)
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com
- [209.85.215.197])
+ by picard.linux.it (Postfix) with ESMTPS id 4586E3C8DF8
+ for <ltp@lists.linux.it>; Sat, 27 Nov 2021 01:04:34 +0100 (CET)
+Received: from smtp-relay-internal-0.canonical.com
+ (smtp-relay-internal-0.canonical.com [185.125.188.122])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 71A1C40019
- for <ltp@lists.linux.it>; Sat, 27 Nov 2021 00:04:30 +0000 (UTC)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 62A491400740
+ for <ltp@lists.linux.it>; Sat, 27 Nov 2021 01:04:33 +0100 (CET)
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
+ [209.85.214.198])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 20A3D3F1BF
+ for <ltp@lists.linux.it>; Sat, 27 Nov 2021 00:04:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1637971470;
- bh=G8WGQsTaSLW66PLXfpnrhz5YeS0Bli2ura2ggYV6H5U=;
+ s=20210705; t=1637971472;
+ bh=bHcQOdTVZ2msN+QH4AbSWlNlYHYhCXa3hLFjMzUx9Bw=;
  h=From:To:Subject:Date:Message-Id:In-Reply-To:References:
  MIME-Version;
- b=KZ/Y031sgxjMGbt4nC6iVZ5sBNF+pgeK7pnfcuiP0M+/vcR6Bd7PhEdh4Wy8ZRH/p
- iaf5uTxo0YnCkfDBInxT+gnH0hguL+8Nq7JtcsP+rdXS0P/czBeg/IwceqNt4TFWPX
- BSFy0N0p8ym9ChfvfGQ5A02cQba926ixNi1UTBXCSGHaBcg7+BQ2ctU1ErouIzTdg8
- j9l5iQMtwtYwG49ZjD8qzpGLaZ+53E8Z0QK6w9Uy0vm5ryYj21QizuCHyHLiGsSAU+
- WLsTIJ47pY+O1mo/2TA7OY+Bc032dTjWA/HojfQWV+cYZjTCkS1Yymfhp01BHULuaZ
- DOw8zAvZn2MrA==
-Received: by mail-pg1-f197.google.com with SMTP id
- r35-20020a635163000000b0032513121db6so1245921pgl.10
- for <ltp@lists.linux.it>; Fri, 26 Nov 2021 16:04:30 -0800 (PST)
+ b=UKXPotClK3nLwML8/+gxlhY90jD8Klwf60D19AuvwZi35kUqROVcsAcFCkQKPE3mz
+ uNB5pRS4FOu+G4D3LnsQRGeau8TAIRYLRLTq9E3B69trX6KFmBLrDamoEPRqAdvTTZ
+ OJqIZbJIjRjqDXovD7u7G8cK5eElJmYGaA0BPKLtg2R9EFeGnC7zZnp0pHDYpdXGuM
+ 1IY6/YQQjbFjrxl2sGLCmUq6HfKUkYiOlo6D9Gaey16oPV0xVYv6JsM0b/O2YcPbji
+ XPJ4TOXIGqg/SHU/hqzbP+GVwCUAqYUl/OPyYq4soNs7a62FyNVnpuTfLjLosbt2bc
+ PPSgCKWngJsvg==
+Received: by mail-pl1-f198.google.com with SMTP id
+ k9-20020a170902c40900b001421e921ccaso4664051plk.22
+ for <ltp@lists.linux.it>; Fri, 26 Nov 2021 16:04:32 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=G8WGQsTaSLW66PLXfpnrhz5YeS0Bli2ura2ggYV6H5U=;
- b=XrQijRqolc+x0Sqnf4H/QQWgT3xRjo1oHuidMZ7D1XCJFKmTszWMiVOc7Nbe5LYFtz
- Qx90INudTz/AHiG2HlCDhytqSvDNIvzy7BtusOBEEOcRQSlILFsuT0K5QO/pFLgU2YNS
- y9wkRlUGW8gGkY0nqsuPNri4zdxCkZ1gZdMr7NtWLvhMn9skav2adWO3Xq7ORQRDRVHl
- W/erLJs09kJEZyOKS+RocbxuLwB+4Y4Gr6sqLhYivUJNDDE9x9+B+79Qeue+cVMWU7rl
- kNvg+e+Lk9cUFb1BESMm/Q3B213npLIo1zPdZUw0+qnkxgOX1OqlKYZQzC25JBF4Pybf
- 3vsg==
-X-Gm-Message-State: AOAM532aHjzd/Ywk9ZZDFV0BNz9obuTLbXcC6NdyoXixiWYotWzyFAdT
- 2H7zowbS+r9tJmAaotYX8SiUrOff0Qszo19rxBceX+LePRLq0Q3hBlRCgbSl0Zfc3h4PYAshJe3
- yZt5SPG+u5QD8Kt/nhsPd82Byt0pr
-X-Received: by 2002:a17:903:1c5:b0:141:fbe2:56c1 with SMTP id
- e5-20020a17090301c500b00141fbe256c1mr40701339plh.52.1637971468799; 
- Fri, 26 Nov 2021 16:04:28 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJyIvUIuXmqyIZrmkFQSk1bEBMsbCJfdSthzV+OL/8MskdXP6B2SQeJdE6Ar+ym6hpBx76+0yQ==
-X-Received: by 2002:a17:903:1c5:b0:141:fbe2:56c1 with SMTP id
- e5-20020a17090301c500b00141fbe256c1mr40701304plh.52.1637971468450; 
- Fri, 26 Nov 2021 16:04:28 -0800 (PST)
+ bh=bHcQOdTVZ2msN+QH4AbSWlNlYHYhCXa3hLFjMzUx9Bw=;
+ b=VNm9NPZp8Jvk73HXaa3FkI6VfX4y0XBB5xrmUQAxY3WkGF2r7FI3ImaI9VNu2Fp6du
+ hkYW5rlZ/MgoB4k1oeOGJNruSouYejDbRGVWaqD9ePXUgZm8N5HUFG0LSnto075ZCAUe
+ UzLFeZxtvVffDmCyybho/jBOmkOvoaz/NdKZxP7vt0F1V33+s4F2nZFZlTtE2nInj5K2
+ YalPNHV7oH+LDl9fhCh6joOlhmTmJYJfLx1A6kCuswrVS09hJUsqau17IB7UOV1o8Upi
+ rMvwJw0VfaBzk419VOYf6JCMDLjVqvtFbRCVyCGUVtTT0b0Jmxizh9Mp5uiOYCwEBb+C
+ NLrw==
+X-Gm-Message-State: AOAM530mb2p352YZLifGjsuAgD7MUx3PWV3fOrKsJM6ksetp3ZkJPzHt
+ lFK8EVsCpo718P0f6KAx7KMFHbEOmPI1Ivm3/qi331ZUnyRiiG39q/WxnNZ3lCZDd3YDz3ixlBe
+ rX59VanBjVOLHJdp1PmYWLkjrxjVQ
+X-Received: by 2002:a05:6a00:2ab:b0:49f:997e:23e2 with SMTP id
+ q11-20020a056a0002ab00b0049f997e23e2mr24415433pfs.22.1637971470301; 
+ Fri, 26 Nov 2021 16:04:30 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJx/nSHeJljmc3ESPdzUEGTDKKGI/B/xGsgpvLCB3yHjdbbKL/6Byqav1glkkkFf42png/sp3A==
+X-Received: by 2002:a05:6a00:2ab:b0:49f:997e:23e2 with SMTP id
+ q11-20020a056a0002ab00b0049f997e23e2mr24415347pfs.22.1637971469469; 
+ Fri, 26 Nov 2021 16:04:29 -0800 (PST)
 Received: from luke-ubuntu.. (cpe-66-27-118-101.san.res.rr.com.
  [66.27.118.101])
- by smtp.gmail.com with ESMTPSA id d3sm8598125pfv.57.2021.11.26.16.04.27
+ by smtp.gmail.com with ESMTPSA id d3sm8598125pfv.57.2021.11.26.16.04.28
  for <ltp@lists.linux.it>
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 26 Nov 2021 16:04:28 -0800 (PST)
+ Fri, 26 Nov 2021 16:04:29 -0800 (PST)
 From: Luke Nowakowski-Krijger <luke.nowakowskikrijger@canonical.com>
 To: ltp@lists.linux.it
-Date: Fri, 26 Nov 2021 16:04:23 -0800
-Message-Id: <519f3399ef3071fff4abe3f36b725cb4869fa955.1637970912.git.luke.nowakowskikrijger@canonical.com>
+Date: Fri, 26 Nov 2021 16:04:24 -0800
+Message-Id: <58ed0c37c2b3542758fbfa8af909c4ac203bf07f.1637970912.git.luke.nowakowskikrijger@canonical.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <cover.1637970912.git.luke.nowakowskikrijger@canonical.com>
 References: <cover.1637970912.git.luke.nowakowskikrijger@canonical.com>
@@ -84,8 +85,8 @@ X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/4] controllers/memcg: Skip functional tests when
- mounted under cgroup2 hierarchy
+Subject: [LTP] [PATCH 3/4] controllers/cgroup_fj: Update cgroup_fj_common to
+ work under cgroup2
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,34 +103,130 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Skip all of the tests when the memory controller is mounted under the
-cgroup2 hierarchy due to the tests mainly testing features related to
-the cgroup1 memory controller interface.
+Check under which hierachy a controller is mounted on and set
+the appropriate paths and variables to be able to access it.
 
 Signed-off-by: Luke Nowakowski-Krijger <luke.nowakowskikrijger@canonical.com>
 ---
- .../kernel/controllers/memcg/functional/memcg_lib.sh      | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ .../controllers/cgroup_fj/cgroup_fj_common.sh | 73 +++++++++++++------
+ 1 file changed, 50 insertions(+), 23 deletions(-)
 
-diff --git a/testcases/kernel/controllers/memcg/functional/memcg_lib.sh b/testcases/kernel/controllers/memcg/functional/memcg_lib.sh
-index 1b76b6597..38e494ea6 100755
---- a/testcases/kernel/controllers/memcg/functional/memcg_lib.sh
-+++ b/testcases/kernel/controllers/memcg/functional/memcg_lib.sh
-@@ -104,6 +104,14 @@ memcg_setup()
- 		tst_brk TCONF "Either kernel does not support Memory Resource Controller or feature not enabled"
- 	fi
+diff --git a/testcases/kernel/controllers/cgroup_fj/cgroup_fj_common.sh b/testcases/kernel/controllers/cgroup_fj/cgroup_fj_common.sh
+index 53ab637e8..6c7cb1fa5 100755
+--- a/testcases/kernel/controllers/cgroup_fj/cgroup_fj_common.sh
++++ b/testcases/kernel/controllers/cgroup_fj/cgroup_fj_common.sh
+@@ -48,11 +48,11 @@ attach_and_check()
  
-+	# Most of the tests here are testing specific parts of the cgroup v1 memory interface that is
-+	# not present for cgroup2, so if it is already mounted on a cgroup2 hierarchy we should skip
-+	# the test.
-+	cgroup_mount_point=$(grep -w cgroup2 /proc/mounts | cut -f 2 | cut -d " " -f2)
-+	if grep -q memory "$cgroup_mount_point"/cgroup.controllers; then
-+		tst_brk TCONF "memory controller mounted on cgroup v2 hierarchy, skipping test."
-+	fi
+     tst_resm TINFO "Attaching task $pid to $path"
+ 
+-    ROD echo "$pid" \> "$path/tasks"
++    ROD echo "$pid" \> "$path/$task_list"
+ 
+-    for task in $(cat "$path/tasks"); do
++    for task in $(cat "$path/$task_list"); do
+         if [ "$task" -ne "$pid" ]; then
+-            tst_resm TINFO "Unexpected pid $task in $path/tasks, expected $pid"
++            tst_resm TINFO "Unexpected pid $task in $path/$task_list, expected $pid"
+             return 1
+         fi
+     done
+@@ -68,7 +68,9 @@ create_subgroup()
+ 
+     # cpuset.cpus and cpuset.mems must be initialized with suitable value
+     # before any pids are attached
+-    if [ "$subsystem" = "cpuset" ]; then
++    # Only needs to be done for cgroup v1 as sets are inherited from parents
++    # by default in cgroup v2
++    if [ "$cgroup_v" = "v1" ] && [ "$subsystem" = "cpuset" ]; then
+         if [ -e "$mount_point/cpus" ]; then
+             ROD cat "$mount_point/cpus" \> "$path/cpus"
+             ROD cat "$mount_point/mems" \> "$path/mems"
+@@ -79,6 +81,39 @@ create_subgroup()
+     fi
+ }
+ 
++setup_cgroupv2()
++{
++    mount_point=$(grep -w cgroup2 /proc/mounts | cut -f 2 | cut -d " " -f2)
++    if ! grep -q "$subsystem" "$mount_point"/cgroup.controllers; then
++        tst_resm TINFO "$subsystem controller not supported on cgroup v2."
++        return
++    fi
 +
- 	ROD mkdir /dev/memcg
- 	ROD mount -t cgroup -omemory memcg /dev/memcg
++    task_list="cgroup.procs"
++    cgroup_v="v2"
++}
++
++setup_cgroupv1()
++{
++    exist=$(grep -w "$subsystem" /proc/cgroups | cut -f1);
++    if [ "$exist" = "" ]; then
++        tst_brk TCONF NULL "$subsystem controller not supported"
++    fi
++
++    mount_point=$(grep -w "$subsystem" /proc/mounts | cut -f 2 | cut -d " " -f2)
++    if [ "$mount_point" = "" ]; then
++        cgroup_mounted=0
++	mount_point="/dev/cgroup"
++    fi
++
++    if [ "$cgroup_mounted" -eq "0" ]; then
++	ROD mkdir -p $mount_point
++	ROD mount -t cgroup -o "$subsystem" none $mount_point
++    fi
++
++    task_list="tasks"
++    cgroup_v="v1"
++}
  
+ setup()
+ {
+@@ -94,18 +129,17 @@ setup()
+     tst_tmpdir
+     TST_CLEANUP=cleanup
+ 
+-    mount_point=`grep -w $subsystem /proc/mounts | grep -w "cgroup" | \
+-	cut -f 2 | cut -d " " -f2`
+-
+-    if [ -z "$mount_point" ]; then
+-        try_umount=1
+-        mount_point="/dev/cgroup"
+-	tst_resm TINFO "Subsystem $subsystem is not mounted, mounting it at $mount_point"
+-        ROD mkdir $mount_point
+-        ROD mount -t cgroup -o "$subsystem" "ltp_cgroup" "$mount_point"
+-    else
+-	tst_resm TINFO "Subsystem $subsystem is mounted at $mount_point"
++    cgroup_mounted=1
++
++    if grep -q cgroup2 /proc/mounts; then
++        setup_cgroupv2
++    fi
++
++    if [ -z "$cgroup_v" ]; then
++        setup_cgroupv1
+     fi
++
++    tst_resm TINFO "test starts with cgroup $cgroup_v"
+ }
+ 
+ cleanup()
+@@ -118,15 +152,8 @@ cleanup()
+ 
+     find "$mount_point/ltp/" -depth -type d -exec rmdir '{}' \;
+ 
+-    if [ -z "$try_umount" ]; then
+-	return
+-    fi
+-
+-    if grep -q "$mount_point" /proc/mounts; then
++    if [ "$cgroup_mounted" -eq "0" ]; then
+         EXPECT_PASS umount "$mount_point"
+-    fi
+-
+-    if [ -e "$mount_point" ]; then
+         EXPECT_PASS rmdir "$mount_point"
+     fi
+ }
 -- 
 2.32.0
 
