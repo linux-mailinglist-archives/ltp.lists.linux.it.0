@@ -2,60 +2,63 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6D604633E4
-	for <lists+linux-ltp@lfdr.de>; Tue, 30 Nov 2021 13:10:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C6B94633E5
+	for <lists+linux-ltp@lfdr.de>; Tue, 30 Nov 2021 13:10:57 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id AE0033C6D39
-	for <lists+linux-ltp@lfdr.de>; Tue, 30 Nov 2021 13:10:45 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 9D2453C6AAC
+	for <lists+linux-ltp@lfdr.de>; Tue, 30 Nov 2021 13:10:55 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 33FDC3C13DE
- for <ltp@lists.linux.it>; Tue, 30 Nov 2021 13:10:41 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id E903A3C65C5
+ for <ltp@lists.linux.it>; Tue, 30 Nov 2021 13:10:44 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id A600320005C
- for <ltp@lists.linux.it>; Tue, 30 Nov 2021 13:10:40 +0100 (CET)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 427C1600A4C
+ for <ltp@lists.linux.it>; Tue, 30 Nov 2021 13:10:43 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id DB451212C0;
- Tue, 30 Nov 2021 12:10:39 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 7654D1FD58;
+ Tue, 30 Nov 2021 12:10:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1638274239; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=IDzMjJ8lJ80BC4IwSlL+ylJ9QmrXfY7txNj42LU6f6o=;
- b=X1J2Kb1kYwV1pc+fHCEvOr3ggLl4kaIhcaWSnFhUy/ID5MfFPpFJsZMrvmTXfq4f4P9srA
- QA/iVqTKCsBoybE93Z+6/oY9CMRVidp3nhiJUnMfSnEWkUr6MqxIth9UcWd+eyzy4ATqp6
- VrvYz7k6YEWoz5wz4W5CQmcz4Vukixo=
+ t=1638274243; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=AxkkLgWPGXaYHRFVmdhYnLkTwv8LdNBqI6Id4EPJjWM=;
+ b=pON2tEBwJy09vQYVem6cjUimRbIOMf8RJBMOEYA7PUr3HL4yT1aPURwYaGejL/JvGifw6e
+ ZfI5dIEFvg5V8qNWQgxVESVLuJP1V27sR4enlZkPhp4iOL70gKApwO0ow8nSqsfX80GPsQ
+ sCyadS+60CdCigk/xMQ3GVLOwotUKJM=
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8A07213C98;
- Tue, 30 Nov 2021 12:10:39 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 23F2313C98;
+ Tue, 30 Nov 2021 12:10:43 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id SaQaHL8UpmGTbAAAMHmgww
- (envelope-from <andrea.cervesato@suse.com>); Tue, 30 Nov 2021 12:10:39 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id ADDmAsMUpmGTbAAAMHmgww
+ (envelope-from <andrea.cervesato@suse.com>); Tue, 30 Nov 2021 12:10:43 +0000
 To: ltp@lists.linux.it
-Date: Tue, 30 Nov 2021 13:10:20 +0100
-Message-Id: <20211130121022.14296-1-andrea.cervesato@suse.com>
+Date: Tue, 30 Nov 2021 13:10:21 +0100
+Message-Id: <20211130121022.14296-2-andrea.cervesato@suse.com>
 X-Mailer: git-send-email 2.34.0
+In-Reply-To: <20211130121022.14296-1-andrea.cervesato@suse.com>
+References: <20211130121022.14296-1-andrea.cervesato@suse.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH 0/2] Create common.h utilities for aiodio testsuite
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/2] Add common.h utilities for aiodio tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,19 +77,72 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-aiodio testsuite has multiple copy/paste inside the source code. For
-this reason, common.h has been created for all aiodio tests.
-dio_truncate is the first test based on LTP API and now it's using it.
-
-Andrea Cervesato (2):
-  Add common.h utilities for aiodio tests
-  Use common.h in dio_truncate test
-
- testcases/kernel/io/ltp-aiodio/common.h       | 54 +++++++++++++++++++
- testcases/kernel/io/ltp-aiodio/dio_truncate.c | 48 ++---------------
- 2 files changed, 58 insertions(+), 44 deletions(-)
+Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
+---
+ testcases/kernel/io/ltp-aiodio/common.h | 54 +++++++++++++++++++++++++
+ 1 file changed, 54 insertions(+)
  create mode 100644 testcases/kernel/io/ltp-aiodio/common.h
 
+diff --git a/testcases/kernel/io/ltp-aiodio/common.h b/testcases/kernel/io/ltp-aiodio/common.h
+new file mode 100644
+index 000000000..fefeed2cf
+--- /dev/null
++++ b/testcases/kernel/io/ltp-aiodio/common.h
+@@ -0,0 +1,54 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (C) 2021 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
++ */
++
++#ifndef AIODIO_COMMON_H__
++#define AIODIO_COMMON_H__
++
++#include <stdlib.h>
++#include "tst_test.h"
++
++static inline char *check_zero(char *buf, int size)
++{
++	char *p;
++
++	p = buf;
++
++	while (size > 0) {
++		if (*buf != 0) {
++			tst_res(TINFO,
++				"non zero buffer at buf[%lu] => 0x%02x,%02x,%02x,%02x",
++				buf - p, (unsigned int)buf[0],
++				size > 1 ? (unsigned int)buf[1] : 0,
++				size > 2 ? (unsigned int)buf[2] : 0,
++				size > 3 ? (unsigned int)buf[3] : 0);
++			tst_res(TINFO, "buf %p, p %p", buf, p);
++			return buf;
++		}
++		buf++;
++		size--;
++	}
++
++	return 0;
++}
++
++static inline void io_append(const char *path, char pattern, int flags, size_t bs, size_t bcount)
++{
++	int fd;
++	size_t i;
++	char *bufptr;
++
++	bufptr = SAFE_MEMALIGN(getpagesize(), bs);
++	memset(bufptr, pattern, bs);
++
++	fd = SAFE_OPEN(path, flags, 0666);
++
++	for (i = 0; i < bcount; i++)
++		SAFE_WRITE(1, fd, bufptr, bs);
++
++	free(bufptr);
++	SAFE_CLOSE(fd);
++}
++
++#endif /* AIODIO_COMMON_H__ */
 -- 
 2.34.0
 
