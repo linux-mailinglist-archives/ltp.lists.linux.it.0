@@ -2,72 +2,68 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31EC8463176
-	for <lists+linux-ltp@lfdr.de>; Tue, 30 Nov 2021 11:44:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3752463187
+	for <lists+linux-ltp@lfdr.de>; Tue, 30 Nov 2021 11:49:31 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D7C953C60CA
-	for <lists+linux-ltp@lfdr.de>; Tue, 30 Nov 2021 11:44:56 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 42F1A3C6B60
+	for <lists+linux-ltp@lfdr.de>; Tue, 30 Nov 2021 11:49:31 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 35EF83C4E59
- for <ltp@lists.linux.it>; Tue, 30 Nov 2021 11:44:55 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id BD0CA3C5A83
+ for <ltp@lists.linux.it>; Tue, 30 Nov 2021 11:49:17 +0100 (CET)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id C995A601095
- for <ltp@lists.linux.it>; Tue, 30 Nov 2021 11:44:54 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 2961E1000A43
+ for <ltp@lists.linux.it>; Tue, 30 Nov 2021 11:49:16 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 1403B212B5;
- Tue, 30 Nov 2021 10:44:54 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 6169C21709
+ for <ltp@lists.linux.it>; Tue, 30 Nov 2021 10:49:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1638269094; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Eo32JDZ2Wvwy4dkvUdYruRe+dmZ2QO2PqUGZZRi+XLc=;
- b=BCoQfbeu0+zp1EwIeFi4avVRiov1QpC6mFlbvsTUWFnVPySmUYjyVhP7FXzKMF+LDJRSR7
- LDLYDfTBcL+W0uSOGY1gB/YcbC5ejhRPoSHOBE4nIjwBZXf4HSKQlqEElIB7jpK/7vAihu
- i8cigIHefff+TySn0EZupq+GK97cMBA=
+ t=1638269356; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=ANEQleHS81hE+PVPgdl4NDFyuPPwQfNLjjRuETQZaNE=;
+ b=H4RJLS6uCIEQJW//zHvMbId2DEL0J8WVwZEWuk3ggbAFGWpVuf1VuF+u05RANIWEljc4HQ
+ 9+9QgLlM+DtOGUHHTWOfTNgenNnRaFI43db6ma1Vo2KBuhZrKQw/lJ2sfkDGQofbvj05Hc
+ 0mimqUf9UitTK4BdXXZNWYBBRRB7fkc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1638269094;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Eo32JDZ2Wvwy4dkvUdYruRe+dmZ2QO2PqUGZZRi+XLc=;
- b=8CFgS7vwrC8v+mnmTFl3vt7LUtaG8OTrK4LtmP3h72CLnDVQO6qDB43Nz5ttCQNKNv3g7F
- bNR3CakXA2VByYDA==
+ s=susede2_ed25519; t=1638269356;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=ANEQleHS81hE+PVPgdl4NDFyuPPwQfNLjjRuETQZaNE=;
+ b=clm4ZfzwE5/r5Ry/bbRmztZ1YUFjxgmrm8ByuWbcoNIhR9DW9VdUhhUuNEoZDOGVKzMpmz
+ WQmA3Z0r/pPbiSDQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id F3A9813C44;
- Tue, 30 Nov 2021 10:44:53 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4960013C44
+ for <ltp@lists.linux.it>; Tue, 30 Nov 2021 10:49:16 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 7xFCOqUApmGmPgAAMHmgww
- (envelope-from <chrubis@suse.cz>); Tue, 30 Nov 2021 10:44:53 +0000
-Date: Tue, 30 Nov 2021 11:46:05 +0100
+ by imap2.suse-dmz.suse.de with ESMTPSA id 8k9tEawBpmG2QAAAMHmgww
+ (envelope-from <chrubis@suse.cz>)
+ for <ltp@lists.linux.it>; Tue, 30 Nov 2021 10:49:16 +0000
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Andrea Cervesato <andrea.cervesato@suse.com>
-Message-ID: <YaYA7T+HrErmmJMf@yuki>
-References: <20211130100934.1674-1-andrea.cervesato@suse.com>
+To: ltp@lists.linux.it
+Date: Tue, 30 Nov 2021 11:50:25 +0100
+Message-Id: <20211130105027.1071-1-chrubis@suse.cz>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20211130100934.1674-1-andrea.cervesato@suse.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v1] Add common.h utilities for aiodio tests
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH 0/2] Two small fixes for LTP-003
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,84 +75,24 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * Copyright (C) 2021 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
-> + */
-> +
-> +/*\
-> + * [Description]
-> + *
-> + * Common utilities for aiodio tests.
-> + */
+This fixes false possitives for tst_fuzzy_sync.h
 
-There is no point in using the docparse comments in headers, these are
-only parsed in tests.
+Cyril Hrubis (2):
+  include/tst_fuzzy_sync.h: Add inline to static fucntions
+  sparse: Do not report static inline functions
 
-Also the header should include guards here:
-
-#ifndef AIODIO_COMMON_H__
-#define AIODIO_COMMON_H__
-
-> +#include <stdlib.h>
-> +#include "tst_test.h"
-> +
-> +static char *check_zero(char *buf, int size)
-> +{
-> +	char *p;
-> +
-> +	p = buf;
-> +
-> +	while (size > 0) {
-> +		if (*buf != 0) {
-> +			tst_res(TINFO,
-> +				"non zero buffer at buf[%lu] => 0x%02x,%02x,%02x,%02x",
-> +				buf - p, (unsigned int)buf[0],
-> +				size > 1 ? (unsigned int)buf[1] : 0,
-> +				size > 2 ? (unsigned int)buf[2] : 0,
-> +				size > 3 ? (unsigned int)buf[3] : 0);
-> +			tst_res(TINFO, "buf %p, p %p", buf, p);
-> +			return buf;
-> +		}
-> +		buf++;
-> +		size--;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static void io_append(const char *path, char pattern, int flags, size_t bs, size_t bcount)
-> +{
-> +	int fd;
-> +	size_t i;
-> +	char *bufptr;
-> +
-> +	bufptr = SAFE_MEMALIGN(getpagesize(), bs);
-> +	memset(bufptr, pattern, bs);
-> +
-> +	fd = SAFE_OPEN(path, flags, 0666);
-> +
-> +	for (i = 0; i < bcount; i++)
-> +		SAFE_WRITE(1, fd, bufptr, bs);
-> +
-> +	free(bufptr);
-> +	SAFE_CLOSE(fd);
-> +}
-
-And the guards should end here with:
-
-#endif /* AIODIO_COMMON_H__ */
+ include/tst_fuzzy_sync.h  | 14 +++++++-------
+ tools/sparse/sparse-ltp.c |  2 +-
+ 2 files changed, 8 insertions(+), 8 deletions(-)
 
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+2.32.0
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
