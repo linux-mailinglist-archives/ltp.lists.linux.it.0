@@ -2,81 +2,66 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDEC24647A2
-	for <lists+linux-ltp@lfdr.de>; Wed,  1 Dec 2021 08:11:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49BA1464936
+	for <lists+linux-ltp@lfdr.de>; Wed,  1 Dec 2021 08:55:36 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 88E0B3C8E64
-	for <lists+linux-ltp@lfdr.de>; Wed,  1 Dec 2021 08:11:12 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id D7E463C8E51
+	for <lists+linux-ltp@lfdr.de>; Wed,  1 Dec 2021 08:55:35 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by picard.linux.it (Postfix) with ESMTPS id 41E343C02F7
+ for <ltp@lists.linux.it>; Wed,  1 Dec 2021 08:55:34 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 95CE83C8D11
- for <ltp@lists.linux.it>; Wed,  1 Dec 2021 08:11:04 +0100 (CET)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id A34482010E3
+ for <ltp@lists.linux.it>; Wed,  1 Dec 2021 08:55:33 +0100 (CET)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 94C26212CB
+ for <ltp@lists.linux.it>; Wed,  1 Dec 2021 07:55:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1638345332;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=60HHRTlKipyplTpfvUpIgE3xXu4o+tcppCfhiXR0W9Y=;
+ b=lpdowZK6RQzBd70sV3zEjGfSwYWiyFCgPz5593gocCI81irtWK7pPArDdlWZSzeJxVr4qy
+ JbF1QMBA/BA1aDTWqxwwhadYxA1iq88qkPe2fqSM4SLstR+JhJjbmTte+CeXGw4CUgzu4S
+ uyGpgqNQOYTneHMGa+Zu6/pV0NMwzbc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1638345332;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=60HHRTlKipyplTpfvUpIgE3xXu4o+tcppCfhiXR0W9Y=;
+ b=u2305fvQBiO7bBOohTsb+Kk+y4SjfWMm3iHW5sjQOBwQCAVTugw7y+fESeHHAq/JnAbHLg
+ aoGnJp2ttesP9xBA==
+Received: from g78 (unknown [10.163.24.38])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id B11081001276
- for <ltp@lists.linux.it>; Wed,  1 Dec 2021 08:11:03 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1638342662;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=XXyMFOUBqDu/SH01DNJZpqWM/pZ+KwoE9orj0gYD0og=;
- b=Lj+l3I9BTwaCAGHx896XMtNiOzU8DOYxf9efW2RyfRGK/lszNP7wa6C+h1A6lZMNZyzi+m
- xTBtqKvYFSVVSaxjNEY5OJddP1Ty0RI8diwqqBgV13/NVr2wapFjBt5oxFbDlXRRmBe8oF
- noTbyy+rUY7ngoMsJY/zSIfpyeEU5qE=
-Received: from mail-yb1-f198.google.com (mail-yb1-f198.google.com
- [209.85.219.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-68-CXAUrDE3OO-UfFJUSMFgIQ-1; Wed, 01 Dec 2021 02:11:01 -0500
-X-MC-Unique: CXAUrDE3OO-UfFJUSMFgIQ-1
-Received: by mail-yb1-f198.google.com with SMTP id
- l145-20020a25cc97000000b005c5d04a1d52so34224401ybf.23
- for <ltp@lists.linux.it>; Tue, 30 Nov 2021 23:11:00 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=XXyMFOUBqDu/SH01DNJZpqWM/pZ+KwoE9orj0gYD0og=;
- b=eqAKNHcqHS+jF0gw7ozji+GshG5aNFy36sd/g6zqnuGmfByusOFo+lWkpwj8SmQW5t
- 7CluORyvIHIyQ4OkhSQF/6HKglI9JB7vPHXXFAVh8NOst9a2yrBJLCTm236yjzMWfCIx
- 9XEQvT/d50ThOsmxzu2AzE04ltMWmzBvc1cdYnxtE1bK/H4nW3CQbk3Xebp8s8eO9xN3
- 42LyAjUlcKG1vtSKLnNmbdkR5ybXr5xWc3WSGytCMsgfAIS18TPImRsKQFIE52Y5yes5
- xGWixwFa9EDo+rfBhUu3B2OuApvJdRDoMyyVypB+nXqlEngj26ugvRtjZOmqpE5nfnIO
- VBhQ==
-X-Gm-Message-State: AOAM5306GpxxKEkpAH/oZQnTafjLW8v0t9cdVlaRDtmo48KJenghiN4z
- CxNhzNykE8XhOl0NfzvW81am+VBSpvsZEy+J+A4MBcUcmTXgrgkqcnTPvm1zlsnFemqTvKqhBie
- jtYMHN5aNwVzCXxrj0zo2+4CuEKs=
-X-Received: by 2002:a25:f621:: with SMTP id t33mr5199152ybd.576.1638342660545; 
- Tue, 30 Nov 2021 23:11:00 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJy5cQ7n1JKND1j7Z2IDxFP1AW1zl8XcXC2D/aFSyTtxfHXojwJFkMbPbkub3Nt9nl6K+Vb9iygODbanRReSH6M=
-X-Received: by 2002:a25:f621:: with SMTP id t33mr5199134ybd.576.1638342660361; 
- Tue, 30 Nov 2021 23:11:00 -0800 (PST)
-MIME-Version: 1.0
-References: <20211130104330.32679-1-chrubis@suse.cz>
-In-Reply-To: <20211130104330.32679-1-chrubis@suse.cz>
-From: Li Wang <liwang@redhat.com>
-Date: Wed, 1 Dec 2021 15:10:46 +0800
-Message-ID: <CAEemH2cJ-UOFAy0hzZad8uj1PCJA4VVt7SyQRwYPEUtYFGZgJA@mail.gmail.com>
+ by relay2.suse.de (Postfix) with ESMTPS id 665A4A3B81;
+ Wed,  1 Dec 2021 07:55:32 +0000 (UTC)
+References: <20211130114527.5942-1-chrubis@suse.cz> <87ilw9lour.fsf@suse.de>
+ <YaY0wB2ABtq7ypBW@yuki>
+User-agent: mu4e 1.6.9; emacs 27.2
+From: Richard Palethorpe <rpalethorpe@suse.de>
 To: Cyril Hrubis <chrubis@suse.cz>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+Date: Wed, 01 Dec 2021 07:21:37 +0000
+In-reply-to: <YaY0wB2ABtq7ypBW@yuki>
+Message-ID: <87y254daj0.fsf@suse.de>
+MIME-Version: 1.0
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] scripts/checkpatch.pl: Replace kstrto with
- tst_parse_
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] sparse: Skip TCID and TST_TOTAL
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,64 +73,56 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============2023695802=="
+Reply-To: rpalethorpe@suse.de
+Cc: ltp@lists.linux.it
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============2023695802==
-Content-Type: multipart/alternative; boundary="0000000000004aa89205d210601b"
+Hello,
 
---0000000000004aa89205d210601b
-Content-Type: text/plain; charset="UTF-8"
+Cyril Hrubis <chrubis@suse.cz> writes:
 
-On Tue, Nov 30, 2021 at 6:42 PM Cyril Hrubis <chrubis@suse.cz> wrote:
-
-> Since there is no kstrto*() family of functions in LTP we do have
-> tst_parse_*() instead.
+> Hi!
+>> > Since these are part of the old library API.
+>> >
+>> > Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
+>> > ---
+>> >  tools/sparse/sparse-ltp.c | 3 +++
+>> >  1 file changed, 3 insertions(+)
+>> >
+>> > diff --git a/tools/sparse/sparse-ltp.c b/tools/sparse/sparse-ltp.c
+>> > index b1677d336..1a3b4089a 100644
+>> > --- a/tools/sparse/sparse-ltp.c
+>> > +++ b/tools/sparse/sparse-ltp.c
+>> > @@ -98,6 +98,9 @@ static void check_symbol_visibility(const struct symbol *const sym)
+>> >  	if (!(mod & MOD_TOPLEVEL))
+>> >  		return;
+>> >  
+>> > +	if (!strcmp(name, "TCID") || !strcmp(name, "TST_TOTAL"))
+>> > +		return;
+>> 
+>> Would it be better to print a warning that old library crap has been
+>> detected?
 >
-> Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
+> I guess so.
 >
+>> My expectation is that 'make check' will produce a lot of noise if ran
+>> on tests which haven't even been converted to the new library. Also it's
+>> possible someone may forget to remove TCID etc.
+>
+> Well we may as well print the warnings only if new library test is
+> detected. But I guess that is not an easy task since we would have to
+> look at the include directives even before we attempt to parse the
+> file..
 
-Reviewed-by: Li Wang <liwang@redhat.com>
+Some checks may require detecting the type of translation unit in an
+initial pass. At which point we will probably get this for free.
 
 -- 
-Regards,
-Li Wang
-
---0000000000004aa89205d210601b
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Tue, Nov 30, 2021 at 6:42 PM Cyril Hrubis &lt;<a=
- href=3D"mailto:chrubis@suse.cz">chrubis@suse.cz</a>&gt; wrote:<br></div><b=
-lockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-le=
-ft:1px solid rgb(204,204,204);padding-left:1ex">Since there is no kstrto*()=
- family of functions in LTP we do have<br>
-tst_parse_*() instead.<br>
-<br>
-Signed-off-by: Cyril Hrubis &lt;<a href=3D"mailto:chrubis@suse.cz" target=
-=3D"_blank">chrubis@suse.cz</a>&gt;<br></blockquote><div>=C2=A0</div><div><=
-span class=3D"gmail_default" style=3D"font-size:small"></span>Reviewed-by: =
-Li Wang &lt;<a href=3D"mailto:liwang@redhat.com" target=3D"_blank">liwang@r=
-edhat.com</a>&gt;</div><div><span class=3D"gmail_default"></span>=C2=A0</di=
-v></div>-- <br><div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr">=
-<div>Regards,<br></div><div>Li Wang<br></div></div></div></div>
-
---0000000000004aa89205d210601b--
-
-
---===============2023695802==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============2023695802==--
-
