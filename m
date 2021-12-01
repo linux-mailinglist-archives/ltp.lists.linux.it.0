@@ -1,93 +1,83 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24B93464932
-	for <lists+linux-ltp@lfdr.de>; Wed,  1 Dec 2021 08:53:40 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id CA47D464A66
+	for <lists+linux-ltp@lfdr.de>; Wed,  1 Dec 2021 10:13:37 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 96D4B3C8E53
-	for <lists+linux-ltp@lfdr.de>; Wed,  1 Dec 2021 08:53:39 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id D970F3C8F47
+	for <lists+linux-ltp@lfdr.de>; Wed,  1 Dec 2021 10:13:36 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 00A6D3C8C4D
- for <ltp@lists.linux.it>; Wed,  1 Dec 2021 08:53:37 +0100 (CET)
-Received: from mail1.bemta32.messagelabs.com (mail1.bemta32.messagelabs.com
- [195.245.230.1])
+ by picard.linux.it (Postfix) with ESMTPS id A48343C21FF
+ for <ltp@lists.linux.it>; Wed,  1 Dec 2021 10:13:33 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 5AF7A1001291
- for <ltp@lists.linux.it>; Wed,  1 Dec 2021 08:53:36 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fujitsu.com;
- s=170520fj; t=1638345215; i=@fujitsu.com;
- bh=ZQMfhEQkGwLqYcvMg969uUEn4U2FPphpdMA6KtK3lm0=;
- h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
- MIME-Version:Content-Type;
- b=XxzHB/oL1lSdBKmeLLB75ld/u2VTvCq0HUz0SP3rcFQrE7bKkJG4qDtsXghVzRyYH
- cPsfSajLY/ctcGPlSpKq390A8ltgtBBZmdHUgVJJRdh3tjzqxHc8rQFBPLWZDfgejx
- 6ZxrpXnc5XsGOe+gpRc1maFLMgd1LPjZeSiDluqBar/ZCmgp2B6geMyBaLpwau5ScL
- UIORK6+H4OdTmbIk4gcpWCD8zSJzmvrYruAP7txudCBw1BmECOjl4Wbx6L5SKW6+Fn
- +Ejdq37aXc0YTv9Jl41j/R+vrucgQB63htBfMtQeWN+YJjMNiYQQvoRiNd1Xq5+HZL
- P/jQzPT97yOCA==
-Received: from [100.115.0.49] (using TLSv1.2 with cipher
- DHE-RSA-AES256-GCM-SHA384 (256 bits))
- by server-1.bemta.az-a.eu-west-1.aws.ess.symcld.net id 0A/5F-12056-FF927A16;
- Wed, 01 Dec 2021 07:53:35 +0000
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFtrAIsWRWlGSWpSXmKPExsViZ8MRovtPc3m
- iwbaZFhYrvu9gdGD02Pd7HWsAYxRrZl5SfkUCa8bhwxMZC5YJV5z78Z2pgXGFQBcjF4eQQCOT
- xPz+L+wQzm5GiaeXvjJ2MXJysAloSjzrXMAMYosISEh0NLxlB7GZBdQllk/6xQRiCws4S/x8c
- 4wFxGYRUJHYOWcPWJxXwENi8okFbCC2hICCxJSH74HmcHBwCnhKnL5dCWIKAZU0vZKFqBaUOD
- nzCQvEdAmJgy9eMEN0Kkpc6vjGCGFXSMya1cY0gZF/FpKWWUhaFjAyrWK0SirKTM8oyU3MzNE
- 1NDDQNTQ01TXQNTIx1kus0k3USy3VLU8tLtE11EssL9ZLLS7WK67MTc5J0ctLLdnECAzIlGKG
- zzsYF/T91DvEKMnBpCTK+4h5eaIQX1J+SmVGYnFGfFFpTmrxIUYZDg4lCV4HNaCcYFFqempFW
- mYOMDpg0hIcPEoivHzACBHiLS5IzC3OTIdInWJUlBLnlQVJCIAkMkrz4NpgEXmJUVZKmJeRgY
- FBiKcgtSg3swRV/hWjOAejkjCvLcgUnsy8Erjpr4AWMwEtfrt0McjikkSElFQDk39AKX918I1
- 5anJPQnbf3CWfnLXAi680L+NOzIf3JsoLd725/OVMz1+mllXWGz//u5ltKtJxTa9Cl+2CZcar
- v5NaXpR9/P1n6oby3TyvG9zXbaq9eE5Q8L3Wi+Yl14RuLmh+nnX+YNgivwnP3sx8dutM7C8T7
- 42Zm2btFjjU6nuFsfmr/4SizF3z5Luilkv5G+yrD5kZufWst2/T9M45PJ8WFWU3hlyM0BeVrT
- YxfRyb1VuYmn2/PFs/Z4qyxntNIbO8RzplEaHeCa6hyxqlH535dZ8z6mVv99FbchySGV8aetq
- N+KbkrZgjqcP3J36BtWuplfATWafHaolnznI+qImv3vbv2+LS1Od3p+r2KbEUZyQaajEXFScC
- AOEP3NxDAwAA
-X-Env-Sender: xuyang2018.jy@fujitsu.com
-X-Msg-Ref: server-15.tower-587.messagelabs.com!1638345214!63624!1
-X-Originating-IP: [62.60.8.84]
-X-SYMC-ESS-Client-Auth: outbound-route-from=pass
-X-StarScan-Received: 
-X-StarScan-Version: 9.81.7; banners=-,-,-
-X-VirusChecked: Checked
-Received: (qmail 6739 invoked from network); 1 Dec 2021 07:53:34 -0000
-Received: from unknown (HELO mailhost3.uk.fujitsu.com) (62.60.8.84)
- by server-15.tower-587.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
- encrypted SMTP; 1 Dec 2021 07:53:34 -0000
-Received: from R01UKEXCASM126.r01.fujitsu.local ([10.183.43.178])
- by mailhost3.uk.fujitsu.com (8.14.5/8.14.5) with ESMTP id 1B17rLbU024965
- (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256 verify=FAIL)
- for <ltp@lists.linux.it>; Wed, 1 Dec 2021 07:53:34 GMT
-Received: from localhost.localdomain (10.167.220.84) by
- R01UKEXCASM126.r01.fujitsu.local (10.183.43.178) with Microsoft SMTP Server
- (TLS) id 15.0.1497.26; Wed, 1 Dec 2021 07:53:26 +0000
-From: Yang Xu <xuyang2018.jy@fujitsu.com>
-To: <ltp@lists.linux.it>
-Date: Wed, 1 Dec 2021 15:53:28 +0800
-Message-ID: <1638345208-2186-2-git-send-email-xuyang2018.jy@fujitsu.com>
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <1638345208-2186-1-git-send-email-xuyang2018.jy@fujitsu.com>
-References: <1638345208-2186-1-git-send-email-xuyang2018.jy@fujitsu.com>
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 5A885140121A
+ for <ltp@lists.linux.it>; Wed,  1 Dec 2021 10:13:31 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1638350010;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=ZD6Jxpbx1iXwgdTfg+g0MkawNHwTIsNtbcyVsWF83vE=;
+ b=IjttTg+2rPxX5IkPbIl5FOsHJsd9j7tWpi4jHyti0z8+TUcgvBUiZJxCESTrwvxJ7V4HeB
+ HlTM5rxRHotG7nBcgeVe44wnGY6TVHRfhv5lMjGJRWsfshz8XbG9VVJ0o5GBiWecDVEI0w
+ SI6LCyFErygxMYehPkTvSmD6cl4WCm8=
+Received: from mail-yb1-f200.google.com (mail-yb1-f200.google.com
+ [209.85.219.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-595-h-Iug9sxNl-EDPoKkRdigA-1; Wed, 01 Dec 2021 04:13:28 -0500
+X-MC-Unique: h-Iug9sxNl-EDPoKkRdigA-1
+Received: by mail-yb1-f200.google.com with SMTP id
+ g25-20020a25b119000000b005c5e52a0574so34968200ybj.5
+ for <ltp@lists.linux.it>; Wed, 01 Dec 2021 01:13:28 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=ZD6Jxpbx1iXwgdTfg+g0MkawNHwTIsNtbcyVsWF83vE=;
+ b=tMkjtZOHjzSt/7STbsglS5vFguUyf0GE6P3rWzEY40juwN1H7+kyQlQTvPT1KaaNhS
+ rMhfUErPr/3K/aTH0KFOJueD3/qLMNVT+HQOokuyNTVW/UPXxW0Y54igNlTiNDorNLEp
+ Xl+3ZQwFuLZXLD9mEl6YyXn/+hMmfKbaGno5kWryb01nWUnc7cqjLw5NXEM8TxE3OPE5
+ zkDz0fezaryKltNeXEUKcTdbeCg5J6LesyNVWVLPtZWoriwnuKw2HhG7FnZxk2hxs/Sr
+ RKhA2pPsuX3Ul1PAwWynQE+nK1mAf4Jb+Rmd9cMxhn0Y7v4qMQ2frHhu8lx9jakPerlE
+ ZBMg==
+X-Gm-Message-State: AOAM530TBlaaMhV6WGmltzR9wEX3NcKhEgsPd6w0kBvPdrvljWebMZA2
+ SEm8QtvJizc6ePUsSfipp09m3C8xPESpXnni6pzdiDKzoIpL0E5bmlOEWdJASXNdqQJWzvwHOD2
+ MevbbDUvckWLTV3Vv91swO3xotnc=
+X-Received: by 2002:a25:da06:: with SMTP id n6mr5747225ybf.763.1638350007624; 
+ Wed, 01 Dec 2021 01:13:27 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJwoW0ERSwRgAJrJJ4JLePtike3WiVdMat8YJpsA8cnzAS1GrKnPud5r+nbqC7FymiWfqfxGwi8vlewVemLaGV4=
+X-Received: by 2002:a25:da06:: with SMTP id n6mr5747205ybf.763.1638350007427; 
+ Wed, 01 Dec 2021 01:13:27 -0800 (PST)
 MIME-Version: 1.0
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD07.g08.fujitsu.local (10.167.33.80) To
- R01UKEXCASM126.r01.fujitsu.local (10.183.43.178)
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+References: <cover.1637970912.git.luke.nowakowskikrijger@canonical.com>
+ <bbf87d62e2e8274fddc160813e64aedb0a01ffe1.1637970912.git.luke.nowakowskikrijger@canonical.com>
+In-Reply-To: <bbf87d62e2e8274fddc160813e64aedb0a01ffe1.1637970912.git.luke.nowakowskikrijger@canonical.com>
+From: Li Wang <liwang@redhat.com>
+Date: Wed, 1 Dec 2021 17:13:13 +0800
+Message-ID: <CAEemH2ed6DqKw80Xa_BTjUweT0HrhrUN2-7X+sS05K9gCr2F5A@mail.gmail.com>
+To: Luke Nowakowski-Krijger <luke.nowakowskikrijger@canonical.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/2] testcase: make use of needs_cmd version parser
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/4] controllers/memcg: update stress test to work
+ under cgroup2
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,85 +89,120 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============0518549025=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
----
- testcases/kernel/syscalls/quotactl/quotactl04.c | 11 +----------
- testcases/kernel/syscalls/statx/statx05.c       | 13 ++-----------
- 2 files changed, 3 insertions(+), 21 deletions(-)
+--===============0518549025==
+Content-Type: multipart/alternative; boundary="00000000000036012405d2121606"
 
-diff --git a/testcases/kernel/syscalls/quotactl/quotactl04.c b/testcases/kernel/syscalls/quotactl/quotactl04.c
-index dab61cf4d..62c94d596 100644
---- a/testcases/kernel/syscalls/quotactl/quotactl04.c
-+++ b/testcases/kernel/syscalls/quotactl/quotactl04.c
-@@ -121,18 +121,9 @@ static void do_mount(const char *source, const char *target,
- 
- static void setup(void)
- {
--	FILE *f;
- 	const char *const fs_opts[] = {"-I 256", "-O quota,project", NULL};
--	int rc, major, minor, patch;
- 
- 	test_id = geteuid();
--	f = SAFE_POPEN("mkfs.ext4 -V 2>&1", "r");
--	rc = fscanf(f, "mke2fs %d.%d.%d", &major, &minor, &patch);
--	if (rc != 3)
--		tst_res(TWARN, "Unable parse version number");
--	else if (major * 10000 + minor * 100 + patch < 14300)
--		tst_brk(TCONF, "Test needs mkfs.ext4 >= 1.43 for quota,project option, test skipped");
--	pclose(f);
- 	SAFE_MKFS(tst_device->dev, tst_device->fs_type, fs_opts, NULL);
- 	do_mount(tst_device->dev, MNTPOINT, tst_device->fs_type, 0, NULL);
- }
-@@ -184,7 +175,7 @@ static struct tst_test test = {
- 	.dev_fs_type = "ext4",
- 	.mntpoint = MNTPOINT,
- 	.needs_cmds = (const char *[]) {
--		"mkfs.ext4",
-+		"mkfs.ext4 >= 1.43.0",
- 		NULL
- 	}
- };
-diff --git a/testcases/kernel/syscalls/statx/statx05.c b/testcases/kernel/syscalls/statx/statx05.c
-index a948a30b0..6b9a1db59 100644
---- a/testcases/kernel/syscalls/statx/statx05.c
-+++ b/testcases/kernel/syscalls/statx/statx05.c
-@@ -85,18 +85,9 @@ static void run(unsigned int i)
- 
- static void setup(void)
- {
--	FILE *f;
- 	char opt_bsize[32];
- 	const char *const fs_opts[] = {"-O encrypt", opt_bsize, NULL};
--	int ret, rc, major, minor, patch;
--
--	f = SAFE_POPEN("mkfs.ext4 -V 2>&1", "r");
--	rc = fscanf(f, "mke2fs %d.%d.%d", &major, &minor, &patch);
--	if (rc != 3)
--		tst_res(TWARN, "Unable parse version number");
--	else if (major * 10000 + minor * 100 + patch < 14300)
--		tst_brk(TCONF, "Test needs mkfs.ext4 >= 1.43 for encrypt option, test skipped");
--	pclose(f);
-+	int ret;
- 
- 	snprintf(opt_bsize, sizeof(opt_bsize), "-b %i", getpagesize());
- 
-@@ -129,7 +120,7 @@ static struct tst_test test = {
- 	.mntpoint = MNTPOINT,
- 	.dev_fs_type = "ext4",
- 	.needs_cmds = (const char *[]) {
--		"mkfs.ext4",
-+		"mkfs.ext4 >= 1.43.0",
- 		"e4crypt",
- 		NULL
- 	}
+--00000000000036012405d2121606
+Content-Type: text/plain; charset="UTF-8"
+
+Hi Luke,
+
+Thanks for looking into this.
+
+On Sat, Nov 27, 2021 at 8:05 AM Luke Nowakowski-Krijger <
+luke.nowakowskikrijger@canonical.com> wrote:
+
+> Update tests to be able to work when memory controller is mounted under
+> cgroup2 hierarchy.
+>
+
+I'm thinking whether we could achieve these setup functions
+more generic in cgroup_lib.sh, which to avoid the redundancy
+behavior over and over again in each cgroup sub-test.
+
+About the compatibility of cgroup V1 and V2 in test, I'd suggest
+following what the LTP C library did in include/tst_cgroup.h.
+https://github.com/linux-test-project/ltp/blob/master/doc/c-test-api.txt#L2024
+
+The solution may be briefly as:
+
+  1. scan system mounted CGroup path, and judge the situation as one of
+below:
+     * only CGroup V2 mounted
+     * only CGroup V1 mounted
+     * both CGroup V2 and V1 mounted
+     * no CGroup mounted
+  2. make use of the system mounted CGroup V2 or TSKIP
+      * goto step 5
+  3. make use of the system mounted CGroup V1
+      * goto step 5
+  4. do mount Cgroup as what we needed (V1 or V2) in test
+      * goto step 5
+  5. do cleanup
+
+What do you think?
+
 -- 
-2.23.0
+Regards,
+Li Wang
+
+--00000000000036012405d2121606
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small">Hi Luke,</div></div><div><br></div><div><div class=3D"gmail_d=
+efault" style=3D"font-size:small">Thanks for looking into this.</div></div>=
+<br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Sat=
+, Nov 27, 2021 at 8:05 AM Luke Nowakowski-Krijger &lt;<a href=3D"mailto:luk=
+e.nowakowskikrijger@canonical.com">luke.nowakowskikrijger@canonical.com</a>=
+&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px =
+0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Upda=
+te tests to be able to work when memory controller is mounted under<br>
+cgroup2 hierarchy.<br></blockquote><div><br></div><div><div class=3D"gmail_=
+default" style=3D"font-size:small">I&#39;m thinking whether we could achiev=
+e=C2=A0these setup functions</div><div class=3D"gmail_default" style=3D"fon=
+t-size:small">more generic in cgroup_lib.sh, which to avoid=C2=A0the redund=
+ancy</div><div class=3D"gmail_default" style=3D"font-size:small">behavior o=
+ver and over again in each cgroup sub-test.</div><br></div><div><div class=
+=3D"gmail_default" style=3D"font-size:small">About the compatibility=C2=A0o=
+f cgroup V1 and V2 in test, I&#39;d suggest</div><div class=3D"gmail_defaul=
+t" style=3D"font-size:small">following what the LTP C library did in includ=
+e/tst_cgroup.h.</div><div class=3D"gmail_default" style=3D"font-size:small"=
+><a href=3D"https://github.com/linux-test-project/ltp/blob/master/doc/c-tes=
+t-api.txt#L2024">https://github.com/linux-test-project/ltp/blob/master/doc/=
+c-test-api.txt#L2024</a></div><br></div><div><div class=3D"gmail_default" s=
+tyle=3D"font-size:small">The solution may be briefly as:</div></div><div cl=
+ass=3D"gmail_default" style=3D"font-size:small"><br></div><div><div class=
+=3D"gmail_default" style=3D"font-size:small">=C2=A0 1. scan system mounted =
+CGroup path, and judge the situation as one of below:</div><div class=3D"gm=
+ail_default" style=3D"font-size:small">=C2=A0 =C2=A0 =C2=A0* only CGroup V2=
+ mounted</div><div class=3D"gmail_default" style=3D"font-size:small">=C2=A0=
+ =C2=A0 =C2=A0* only CGroup V1 mounted</div><div class=3D"gmail_default" st=
+yle=3D"font-size:small">=C2=A0 =C2=A0 =C2=A0* both CGroup V2 and V1 mounted=
+</div><div class=3D"gmail_default" style=3D"font-size:small">=C2=A0 =C2=A0 =
+=C2=A0* no CGroup mounted</div><div class=3D"gmail_default" style=3D"font-s=
+ize:small">=C2=A0 2. make use of the system mounted CGroup V2 or TSKIP</div=
+><div class=3D"gmail_default" style=3D"font-size:small">=C2=A0 =C2=A0 =C2=
+=A0 * goto step 5</div><div class=3D"gmail_default" style=3D"font-size:smal=
+l">=C2=A0 3. make use of the system mounted CGroup V1=C2=A0</div><div class=
+=3D"gmail_default" style=3D"font-size:small">=C2=A0 =C2=A0 =C2=A0 * goto st=
+ep 5</div><div class=3D"gmail_default" style=3D"font-size:small">=C2=A0 4. =
+do mount Cgroup as what we needed (V1 or V2) in test</div></div><div class=
+=3D"gmail_default" style=3D"font-size:small">=C2=A0 =C2=A0 =C2=A0 * goto st=
+ep 5<br></div><div class=3D"gmail_default" style=3D"font-size:small">=C2=A0=
+ 5. do cleanup=C2=A0</div><div><br></div><div><div class=3D"gmail_default" =
+style=3D"font-size:small">What do you think?</div></div></div><div><br></di=
+v>-- <br><div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><div>R=
+egards,<br></div><div>Li Wang<br></div></div></div></div>
+
+--00000000000036012405d2121606--
+
+
+--===============0518549025==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============0518549025==--
+
