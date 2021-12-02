@@ -1,74 +1,44 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFCE74693AA
-	for <lists+linux-ltp@lfdr.de>; Mon,  6 Dec 2021 11:27:08 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 55A0D4695E9
+	for <lists+linux-ltp@lfdr.de>; Mon,  6 Dec 2021 13:44:14 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E4D8A3C21AD
-	for <lists+linux-ltp@lfdr.de>; Mon,  6 Dec 2021 11:27:07 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id EF0FB3C202C
+	for <lists+linux-ltp@lfdr.de>; Mon,  6 Dec 2021 13:44:13 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A40943C061B
- for <ltp@lists.linux.it>; Mon,  6 Dec 2021 11:27:02 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id 9A17E3C7047
+ for <ltp@lists.linux.it>; Thu,  2 Dec 2021 16:34:27 +0100 (CET)
+Received: from brightrain.aerifal.cx (brightrain.aerifal.cx [216.12.86.13])
+ (using TLSv1.2 with cipher ECDHE-RSA-CHACHA20-POLY1305 (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 4EE47600057
- for <ltp@lists.linux.it>; Mon,  6 Dec 2021 11:27:01 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 484C91FD54;
- Mon,  6 Dec 2021 10:27:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1638786421;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=2D98uAqas+GlFdYGElZxSJirRNvck9KOX/NBPaUfkg4=;
- b=tSSrH2pRxorpZAJQB4Vq0NTSn3wUEVQdZbFJuR+VVIr0iivSFQ9KC1f99FTBlh5/6gYamM
- fIHzLe1kcHIM1WHBzn7ItWP07k0K5Ez96HkwCd96FCx6vouxVQkYW2Lk59mWaypr68RvNR
- DPlTO4Izze7jQMZpHfJ0wGBsc7Tyoxs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1638786421;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=2D98uAqas+GlFdYGElZxSJirRNvck9KOX/NBPaUfkg4=;
- b=2rqqF9uFTw0yqQZlxJpGd1TkAmOyut0T8wje3XVJCYcwj1smrf3PZl6PII/Vb4BQ69uOBl
- pGL9QbLmkuYvXuBA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1941813AED;
- Mon,  6 Dec 2021 10:27:01 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id gkaoA3XlrWF8QwAAMHmgww
- (envelope-from <pvorel@suse.cz>); Mon, 06 Dec 2021 10:27:01 +0000
-Date: Mon, 6 Dec 2021 11:26:59 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Jan Stancek <jstancek@redhat.com>
-Message-ID: <Ya3lc9jWR5UZXB3T@pevik>
-References: <20211202203006.32259-1-pvorel@suse.cz>
- <CAASaF6we7wki=+4Rt_8NGg848735VdAUeaMSGNUMBcL-cOX5pg@mail.gmail.com>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 1C2EA2011BC
+ for <ltp@lists.linux.it>; Thu,  2 Dec 2021 16:34:25 +0100 (CET)
+Date: Thu, 2 Dec 2021 10:34:23 -0500
+From: Rich Felker <dalias@libc.org>
+To: Zack Weinberg <zack@owlfolio.org>
+Message-ID: <20211202153422.GH7074@brightrain.aerifal.cx>
+References: <YZvIlz7J6vOEY+Xu@yuki>
+ <c5993ee9-1b5d-4469-9c0e-8d4e0fbd575a@www.fastmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CAASaF6we7wki=+4Rt_8NGg848735VdAUeaMSGNUMBcL-cOX5pg@mail.gmail.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+In-Reply-To: <c5993ee9-1b5d-4469-9c0e-8d4e0fbd575a@www.fastmail.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 1/1] configure.ac: Print summary
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+X-Mailman-Approved-At: Mon, 06 Dec 2021 13:44:12 +0100
+Subject: Re: [LTP] [PATCH] uapi: Make __{u, s}64 match {u,
+ }int64_t in userspace
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,30 +50,76 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: LTP List <ltp@lists.linux.it>
+Cc: linux-arch@vger.kernel.org, libc-alpha@sourceware.org,
+ linux-api@vger.kernel.org, linux-kernel@vger.kernel.org, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Jan,
+On Mon, Nov 22, 2021 at 10:19:59PM +0000, Zack Weinberg via Libc-alpha wrote:
+> On Mon, Nov 22, 2021, at 4:43 PM, Cyril Hrubis wrote:
+> > This changes the __u64 and __s64 in userspace on 64bit platforms from
+> > long long (unsigned) int to just long (unsigned) int in order to match
+> > the uint64_t and int64_t size in userspace.
+> ....
+> > +
+> > +#include <asm/bitsperlong.h>
+> > +
+> >  /*
+> > - * int-ll64 is used everywhere now.
+> > + * int-ll64 is used everywhere in kernel now.
+> >   */
+> > -#include <asm-generic/int-ll64.h>
+> > +#if __BITS_PER_LONG == 64 && !defined(__KERNEL__)
+> > +# include <asm-generic/int-l64.h>
+> > +#else
+> > +# include <asm-generic/int-ll64.h>
+> > +#endif
+> 
+> I am all for matching __uN / __sN to uintN_t / intN_t in userspace, but may I suggest the technically simpler and guaranteed-to-be-accurate
+> 
+>  /*
+> - * int-ll64 is used everywhere now.
+> + * int-ll64 is used everywhere in kernel now.
+> + * In user space match <stdint.h>.
+>   */
+> +#ifdef __KERNEL__
+>  # include <asm-generic/int-ll64.h>
+> +#elif __has_include (<bits/types.h>)
+> +# include <bits/types.h>
+> +typedef __int8_t __s8;
+> +typedef __uint8_t __u8;
+> +typedef __int16_t __s16;
+> +typedef __uint16_t __u16;
+> +typedef __int32_t __s32;
+> +typedef __uint32_t __u32;
+> +typedef __int64_t __s64;
+> +typedef __uint64_t __u64;
+> +#else
+> +# include <stdint.h>
+> +typedef int8_t __s8;
+> +typedef uint8_t __u8;
+> +typedef int16_t __s16;
+> +typedef uint16_t __u16;
+> +typedef int32_t __s32;
+> +typedef uint32_t __u32;
+> +typedef int64_t __s64;
+> +typedef uint64_t __u64;
+> +#endif
+> 
+> The middle clause could be dropped if we are okay with all uapi
+> headers potentially exposing the non-implementation-namespace names
+> defined by <stdint.h>. I do not know what the musl libc equivalent
+> of <bits/types.h> is.
 
-> On Thu, Dec 2, 2021 at 9:30 PM Petr Vorel <pvorel@suse.cz> wrote:
+We (musl) don't have an equivalent header or __-prefixed versions of
+these types.
 
-> > Due many checks of structs, members etc are chosen testsuites,
-> > presence of used libraries and docparser config results quite hidden.
-> > Print them as summary in the end.
+FWIW I don't think stdint.h exposes anything that would be problematic
+alongside arbitrary use of kernel headers.
 
-> Color output would be nice too. But I find this output useful in plain
-> text as well:
-> Acked-by: Jan Stancek <jstancek@redhat.com>
-
-Thanks! I can have look on colors later on, but I'd prefer to do it as a
-separate approach.
-
-Kind regards,
-Petr
+Rich
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
