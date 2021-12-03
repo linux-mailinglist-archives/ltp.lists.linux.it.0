@@ -2,41 +2,42 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBD684671C3
-	for <lists+linux-ltp@lfdr.de>; Fri,  3 Dec 2021 06:57:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DFBA34671C2
+	for <lists+linux-ltp@lfdr.de>; Fri,  3 Dec 2021 06:57:24 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 28C993C907A
-	for <lists+linux-ltp@lfdr.de>; Fri,  3 Dec 2021 06:57:34 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 9B28B3C9037
+	for <lists+linux-ltp@lfdr.de>; Fri,  3 Dec 2021 06:57:24 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id D56ED3C9073
- for <ltp@lists.linux.it>; Fri,  3 Dec 2021 06:57:21 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id CFAAA3C714C
+ for <ltp@lists.linux.it>; Fri,  3 Dec 2021 06:57:22 +0100 (CET)
 Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 2D0C9600D71
- for <ltp@lists.linux.it>; Fri,  3 Dec 2021 06:57:19 +0100 (CET)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 62A4B600F92
+ for <ltp@lists.linux.it>; Fri,  3 Dec 2021 06:57:22 +0100 (CET)
 Received: from ubuntu.localdomain (unknown [188.192.100.83])
- by mail.jv-coder.de (Postfix) with ESMTPSA id 840279F651;
- Fri,  3 Dec 2021 05:57:11 +0000 (UTC)
+ by mail.jv-coder.de (Postfix) with ESMTPSA id 31BFA9F651;
+ Fri,  3 Dec 2021 05:57:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
- t=1638511031; bh=snThretmxVkQt+RpKTRno8AwQTj5RhmBuc1jgBEW2gQ=;
+ t=1638511041; bh=NdZo+DO01FO+I+X+3oGsdR5EajfmLvFHd7oZqfS1Opk=;
  h=From:To:Subject:Date:Message-Id:MIME-Version;
- b=giHImc/0+Invf8WJ/nk1K6CnfG6luhAn5bjZ8j1VUN57yUdMCMff42Ib3Ltyh7wZR
- G0MhzjTsj0sD7elA7DghYro7Bc5qGlX0M4L4J7jxd9T6DGU2oYkTTvTjZrXJJnlQAe
- cCzSA3OtzBANytppzbsFGVE8X25eb/n8hFBLtv0M=
+ b=UMea5Xz2FTBnSJ5R41lGREXAvUxG/4ikJvgAJM7Ac7yGrZbtowkV6vltF1JJQmT9P
+ /ZzChTlHplposMlAm9jFgMP2SBscMWIuzX5b/K1HvtZD0751E9H+oNZednhcp6Z0ue
+ 7ax/TxLP+vAo4rO3dzBXh8DgB/feMMMPeyZyWz20=
 From: Joerg Vehlow <lkml@jv-coder.de>
 To: ltp@lists.linux.it,
 	chrubis@suse.cz
-Date: Fri,  3 Dec 2021 06:57:06 +0100
-Message-Id: <20211203055707.2271191-1-lkml@jv-coder.de>
+Date: Fri,  3 Dec 2021 06:57:07 +0100
+Message-Id: <20211203055707.2271191-2-lkml@jv-coder.de>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20211203055707.2271191-1-lkml@jv-coder.de>
+References: <20211203055707.2271191-1-lkml@jv-coder.de>
 MIME-Version: 1.0
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
@@ -44,7 +45,7 @@ X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
 X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH 1/2] metadata/test: Remove bashism
+Subject: [LTP] [PATCH 2/2] make: Build metaparse before running tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,24 +65,27 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 From: Joerg Vehlow <joerg.vehlow@aox-tech.de>
 
+Running make test(-metadata) without make all did not
+build metaparse and so the metadata tests failed.
+
 Signed-off-by: Joerg Vehlow <joerg.vehlow@aox-tech.de>
 ---
- metadata/tests/test.sh | 2 +-
+ Makefile | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/metadata/tests/test.sh b/metadata/tests/test.sh
-index c11f0e496..475d721df 100755
---- a/metadata/tests/test.sh
-+++ b/metadata/tests/test.sh
-@@ -4,7 +4,7 @@ fail=0
+diff --git a/Makefile b/Makefile
+index a94e0da9a..d4399bae6 100644
+--- a/Makefile
++++ b/Makefile
+@@ -221,7 +221,7 @@ ifneq ($(build),$(host))
+ endif
+ 	$(call _test,-s)
  
- for i in *.c; do
- 	../metaparse $i > tmp.json
--	if ! diff tmp.json $i.json &> /dev/null; then
-+	if ! diff tmp.json $i.json >/dev/null 2>&1; then
- 		echo "***"
- 		echo "$i output differs!"
- 		diff -u tmp.json $i.json
+-test-metadata:
++test-metadata: metadata-all
+ 	$(MAKE) -C $(abs_srcdir)/metadata/ test
+ 
+ ## Help
 -- 
 2.25.1
 
