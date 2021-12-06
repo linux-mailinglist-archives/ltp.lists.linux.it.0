@@ -1,86 +1,72 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DB174695EC
-	for <lists+linux-ltp@lfdr.de>; Mon,  6 Dec 2021 13:44:49 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id B08AB4695C2
+	for <lists+linux-ltp@lfdr.de>; Mon,  6 Dec 2021 13:33:54 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7B0F23C207C
-	for <lists+linux-ltp@lfdr.de>; Mon,  6 Dec 2021 13:44:48 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 5C0423C1E16
+	for <lists+linux-ltp@lfdr.de>; Mon,  6 Dec 2021 13:33:54 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 7E0453C6F5D
- for <ltp@lists.linux.it>; Fri,  3 Dec 2021 13:32:40 +0100 (CET)
-Received: from mail-qv1-xf32.google.com (mail-qv1-xf32.google.com
- [IPv6:2607:f8b0:4864:20::f32])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 053E03C0551
+ for <ltp@lists.linux.it>; Mon,  6 Dec 2021 13:33:52 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id A191A200FE9
- for <ltp@lists.linux.it>; Fri,  3 Dec 2021 13:32:39 +0100 (CET)
-Received: by mail-qv1-xf32.google.com with SMTP id gu12so2556051qvb.6
- for <ltp@lists.linux.it>; Fri, 03 Dec 2021 04:32:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=message-id:date:mime-version:user-agent:subject:content-language:to
- :cc:references:from:in-reply-to:content-transfer-encoding;
- bh=tpGZcD4nIKwqnuNHKHO0TBkz7hc0UrH6GNojNQbNLKw=;
- b=CEcz3jokK+2gamU86FUd732G6aGQSldWSgIYDAb1++eUEokprXH6vVcds+LEIFOvpw
- CGcL58iMsLJPtV1sYdGQNrjx76UbdkL8wS6Nr8TKdrBLSU3WmoH4r7TEhESoXa3cjl8I
- kl6yD/ihDzek+MCP6SP2DDP1Y2qbPZEIMFvEVe2a7KTHLELSuZr7ex+owANFJdyUNTj3
- XUPwdZZNgBlEk/tE3YhZQQM8vyJMQPV7Cewrx4SQ89iL7flVKLssOKgLB0rEeGv+A17u
- nsZueDRq8rbCD9tdeBuIThzS5LD3OWlinDAWsIjJIFkYFOB8NKl/Dh2MbBe41kfsYLrT
- DOKw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=tpGZcD4nIKwqnuNHKHO0TBkz7hc0UrH6GNojNQbNLKw=;
- b=722X4m+0PtN87w7DqBo5Pc3FlGt8J0z/Xfs2l6rQ5m5QqNPUO4Zx03Vi6BpHu7EIKN
- iKh/mhXAG/aFoBmTF90m9bpyDqJv2yFWGaHaHgN4UyCDsZa3Y6MiCgHTFBXRKxITqyn6
- 3jMJ12qwFs5gz+8cWsR9BcURn77Jheh2xmzx0SWzoF8sXS5agwSCWmFAIcwMHat6F1ub
- NU1BCklJ0jqoCnrMQ6iZJ1HooiWiGb5bpFJbQnJSh6jbRxfJmVkUgVusiUtmxl9Je/wW
- NIkkJZDa4CGe0FnZRHEQcdAtdwb2KrofNfpqtR/a4bzzmP1rUQZfJKXgm5xGtrAg5g11
- V0rA==
-X-Gm-Message-State: AOAM531RcM5cT6Do5yznNLJCy2CLLfX30gMLROWWeTgLSmvf/J6wchR+
- 1xM5jDjkUcyDdDf+fCgLqS3Aig==
-X-Google-Smtp-Source: ABdhPJzaCgHrIbHSQbI0Sq3nOtRXTwg7hBaKyrlCC9ErC+zf+wgn72iYAl0CHvgkGMkfZn4Bi4B5jQ==
-X-Received: by 2002:a05:6214:4007:: with SMTP id
- kd7mr18672354qvb.52.1638534758304; 
- Fri, 03 Dec 2021 04:32:38 -0800 (PST)
-Received: from ?IPV6:2804:431:c7cb:30f8:f5d6:4b6d:fe6a:d565?
- ([2804:431:c7cb:30f8:f5d6:4b6d:fe6a:d565])
- by smtp.gmail.com with ESMTPSA id h22sm2258645qtb.86.2021.12.03.04.32.36
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 03 Dec 2021 04:32:37 -0800 (PST)
-Message-ID: <0864bd62-7a93-106d-8a36-23dd72a7ab58@linaro.org>
-Date: Fri, 3 Dec 2021 09:32:34 -0300
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 98D99200918
+ for <ltp@lists.linux.it>; Mon,  6 Dec 2021 13:33:51 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 78C17212B9;
+ Mon,  6 Dec 2021 12:33:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1638794030; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=a8oE2up4YDS/12Barbna2SqRG48VY+L1dTKK5ha0QdQ=;
+ b=rYNddFONX/3mJVhkwV8DDNpl5c2Dor7pnbTRqvr0waqKEJrBNiDt3eDcsu6vjTZhSEN6yV
+ ++/gPBK2Hh7SsCz9ChKCN+q7KZRN/SgCf4fm1IwK3/dAnekXZeFlNtqrDfvmVTB8VMQKOx
+ qGkQfr35Kly8ZSO6ENZ9rMLw7MkgAjw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1638794030;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=a8oE2up4YDS/12Barbna2SqRG48VY+L1dTKK5ha0QdQ=;
+ b=bhcipwwUCpVXO9eJ4A0iypBrZ1uJsw8y0Uw71DJ0gO8Q1xlXJ3eSzjKyoOierULhYD9YMh
+ BDFH9jLCYeOxchCg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5174513C18;
+ Mon,  6 Dec 2021 12:33:50 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 0OR0Ei4DrmEFAwAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Mon, 06 Dec 2021 12:33:50 +0000
+Date: Mon, 6 Dec 2021 13:35:05 +0100
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Yang Xu <xuyang2018.jy@fujitsu.com>
+Message-ID: <Ya4DeVrCa1X8IFjk@yuki>
+References: <1638345208-2186-1-git-send-email-xuyang2018.jy@fujitsu.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.2
-Content-Language: en-US
-To: Zack Weinberg <zack@owlfolio.org>, Rich Felker <dalias@libc.org>
-References: <YZvIlz7J6vOEY+Xu@yuki>
- <c5993ee9-1b5d-4469-9c0e-8d4e0fbd575a@www.fastmail.com>
- <20211202153422.GH7074@brightrain.aerifal.cx>
- <20211202232954.GI7074@brightrain.aerifal.cx>
- <855a47d1-a89c-bbc8-7ddd-b89104c6138a@linaro.org>
- <9d24f699-386a-4881-b09a-ebd747310187@www.fastmail.com>
-From: Adhemerval Zanella <adhemerval.zanella@linaro.org>
-In-Reply-To: <9d24f699-386a-4881-b09a-ebd747310187@www.fastmail.com>
+Content-Disposition: inline
+In-Reply-To: <1638345208-2186-1-git-send-email-xuyang2018.jy@fujitsu.com>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.8 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-X-Mailman-Approved-At: Mon, 06 Dec 2021 13:44:12 +0100
-Subject: Re: [LTP] [PATCH] uapi: Make __{u, s}64 match {u,
- }int64_t in userspace
+Subject: Re: [LTP] [PATCH 1/2] lib: add cmd parse handler in needs_cmd
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,100 +78,548 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: linux-arch@vger.kernel.org, linux-api@vger.kernel.org,
- libc-alpha@sourceware.org, linux-kernel@vger.kernel.org, ltp@lists.linux.it
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-
-
-On 02/12/2021 21:10, Zack Weinberg wrote:
-> On Thu, Dec 2, 2021, at 6:43 PM, Adhemerval Zanella via Libc-alpha wrote:
->> On 02/12/2021 20:29, Rich Felker wrote:
->>> On Thu, Dec 02, 2021 at 10:34:23AM -0500, Rich Felker wrote:
->>>> On Mon, Nov 22, 2021 at 10:19:59PM +0000, Zack Weinberg via Libc-alpha wrote:
->>>>> On Mon, Nov 22, 2021, at 4:43 PM, Cyril Hrubis wrote:
->>>>>> This changes the __u64 and __s64 in userspace on 64bit platforms from
->>>>>> long long (unsigned) int to just long (unsigned) int in order to match
->>>>>> the uint64_t and int64_t size in userspace.
->>>>> ....
->>>>>> +
->>>>>> +#include <asm/bitsperlong.h>
->>>>>> +
->>>>>>  /*
->>>>>> - * int-ll64 is used everywhere now.
->>>>>> + * int-ll64 is used everywhere in kernel now.
->>>>>>   */
->>>>>> -#include <asm-generic/int-ll64.h>
->>>>>> +#if __BITS_PER_LONG == 64 && !defined(__KERNEL__)
->>>>>> +# include <asm-generic/int-l64.h>
->>>>>> +#else
->>>>>> +# include <asm-generic/int-ll64.h>
->>>>>> +#endif
->>>>>
->>>>> I am all for matching __uN / __sN to uintN_t / intN_t in userspace, but may I suggest the technically simpler and guaranteed-to-be-accurate
->>>>>
->>>>>  /*
->>>>> - * int-ll64 is used everywhere now.
->>>>> + * int-ll64 is used everywhere in kernel now.
->>>>> + * In user space match <stdint.h>.
->>>>>   */
->>>>> +#ifdef __KERNEL__
->>>>>  # include <asm-generic/int-ll64.h>
->>>>> +#elif __has_include (<bits/types.h>)
->>>>> +# include <bits/types.h>
->>>>> +typedef __int8_t __s8;
->>>>> +typedef __uint8_t __u8;
->>>>> +typedef __int16_t __s16;
->>>>> +typedef __uint16_t __u16;
->>>>> +typedef __int32_t __s32;
->>>>> +typedef __uint32_t __u32;
->>>>> +typedef __int64_t __s64;
->>>>> +typedef __uint64_t __u64;
->>>>> +#else
->>>>> +# include <stdint.h>
->>>>> +typedef int8_t __s8;
->>>>> +typedef uint8_t __u8;
->>>>> +typedef int16_t __s16;
->>>>> +typedef uint16_t __u16;
->>>>> +typedef int32_t __s32;
->>>>> +typedef uint32_t __u32;
->>>>> +typedef int64_t __s64;
->>>>> +typedef uint64_t __u64;
->>>>> +#endif
->>>>>
->>>>> The middle clause could be dropped if we are okay with all uapi
->>>>> headers potentially exposing the non-implementation-namespace names
->>>>> defined by <stdint.h>. I do not know what the musl libc equivalent
->>>>> of <bits/types.h> is.
->>>>
->>>> We (musl) don't have an equivalent header or __-prefixed versions of
->>>> these types.
->>>>
->>>> FWIW I don't think stdint.h exposes anything that would be problematic
->>>> alongside arbitrary use of kernel headers.
->>>
->>> Also, per glibc's bits/types.h:
->>>
->>> /*
->>>  * Never include this file directly; use <sys/types.h> instead.
->>>  */
->>>
->>> it's not permitted (not supported usage) to #include <bits/types.h>.
->>> So I think the above patch is wrong for glibc too. As I understand it,
->>> this is general policy for bits/* -- they're only intended to work as
->>> included by the libc system headers, not directly by something else.
->>
->> You are right, the idea is to allow glibc to create and remove internal headers.
+Hi!
+> Testcase ie statx05 needs mkfs.ext4 >= 1.43.0 because of encrypt feature.
 > 
-> As a general rule yes, but we could make a deal that some specific bits headers are permanent API for use by things like this. They probably should be less of a dumping ground than bits/types.h though.
+> As Cyril suggested, add cmd parser handler in needs_cmd.
+> 
+> The difference logic about from before, we don't report not-found error and think it is
+> cmd version string(need to use tst_version_parser) if tst_get_path fails in tst_test.c.
+> 
+> In tst_version_parser function, use strtok_r to split cmd_token,op_token,version_token.
+> It only supports six operations '>=' '<=' '>' '<' '==' '!='.
+> 
+> Currently, this tst_version_parser only supports mkfs.ext4 command. If you want to support
+> more commands, just add your own .parser and .table_get methond in version_parsers structure.
+> 
+> Suggested-by: Cyril Hrubis <chrubis@suse.cz>
+> Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
+> ---
+>  doc/c-test-api.txt                       |  14 +++
+>  include/tst_test.h                       |   1 +
+>  include/tst_version_parser.h             |  15 +++
+>  lib/newlib_tests/.gitignore              |   5 +
+>  lib/newlib_tests/test_version_parser01.c |  25 ++++
+>  lib/newlib_tests/test_version_parser02.c |  24 ++++
+>  lib/newlib_tests/test_version_parser03.c |  24 ++++
+>  lib/newlib_tests/test_version_parser04.c |  24 ++++
+>  lib/newlib_tests/test_version_parser05.c |  24 ++++
+>  lib/tst_test.c                           |   2 +-
+>  lib/tst_version_parser.c                 | 148 +++++++++++++++++++++++
+>  11 files changed, 305 insertions(+), 1 deletion(-)
+>  create mode 100644 include/tst_version_parser.h
+>  create mode 100644 lib/newlib_tests/test_version_parser01.c
+>  create mode 100644 lib/newlib_tests/test_version_parser02.c
+>  create mode 100644 lib/newlib_tests/test_version_parser03.c
+>  create mode 100644 lib/newlib_tests/test_version_parser04.c
+>  create mode 100644 lib/newlib_tests/test_version_parser05.c
+>  create mode 100644 lib/tst_version_parser.c
+> 
+> diff --git a/doc/c-test-api.txt b/doc/c-test-api.txt
+> index 64d0630ce..fde6dce0c 100644
+> --- a/doc/c-test-api.txt
+> +++ b/doc/c-test-api.txt
+> @@ -2013,6 +2013,20 @@ terminated array of strings such as:
+>  },
+>  -------------------------------------------------------------------------------
+>  
+> +Also can check required commands version whether is satisfied by using 'needs_cmds',
+> +
+> +[source,c]
+> +-------------------------------------------------------------------------------
+> +.needs_cmds = (const char *const []) {
+> +	"mkfs.ext4 >= 1.43.0",
+> +	NULL
+> +},
+> ++-------------------------------------------------------------------------------
+> +
+> +Currently, we only support mkfs.ext4 command. If you want to support more commands,
+> +please fill your own .parser and .table_get method in the version_parsers structure
+> +of lib/tst_version_parser.c.
+> +
+>  1.36 Assert sys or proc file value
+>  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>  Using TST_ASSERT_INT/STR(path, val) to assert that integer value or string stored in
+> diff --git a/include/tst_test.h b/include/tst_test.h
+> index c06a4729b..fd3d4cfee 100644
+> --- a/include/tst_test.h
+> +++ b/include/tst_test.h
+> @@ -44,6 +44,7 @@
+>  #include "tst_taint.h"
+>  #include "tst_memutils.h"
+>  #include "tst_arch.h"
+> +#include "tst_version_parser.h"
 
-I really don't think adding such constraints really would improve the project
-in long term, we already have issues about the need to support some internal
-symbols that were exported by accident.
+Since this is internal functionality that does not make sense to be
+exposed to the tests there is no point in exposing this here, we should
+include it in the tst_test.c instead.
 
+>  /*
+>   * Reports testcase result.
+> diff --git a/include/tst_version_parser.h b/include/tst_version_parser.h
+> new file mode 100644
+> index 000000000..145043929
+> --- /dev/null
+> +++ b/include/tst_version_parser.h
+> @@ -0,0 +1,15 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Copyright (c) 2021 Yang Xu <xuyang2018.jy@fujitsu.com>
+> + */
+> +
+> +#ifndef TST_VERSION_PARSER_H__
+> +#define TST_VERSION_PARSER_H__
+> +
+> +/*
+> + * Parse the cmd version requirement in needs_cmds member of tst_test
+> + * structure whether is satisfied.
+> + */
+> +void tst_version_parser(const char *cmd);
+
+This should probably be called tst_cmd_check() or something similar.
+
+> +#endif /* TST_VERSION_PARSER_H__ */
+> diff --git a/lib/newlib_tests/.gitignore b/lib/newlib_tests/.gitignore
+> index cf467b5a0..ef8694d08 100644
+> --- a/lib/newlib_tests/.gitignore
+> +++ b/lib/newlib_tests/.gitignore
+> @@ -46,4 +46,9 @@ test_macros06
+>  tst_fuzzy_sync01
+>  tst_fuzzy_sync02
+>  tst_fuzzy_sync03
+> +test_version_parser01
+> +test_version_parser02
+> +test_version_parser03
+> +test_version_parser04
+> +test_version_parser05
+>  test_zero_hugepage
+> diff --git a/lib/newlib_tests/test_version_parser01.c b/lib/newlib_tests/test_version_parser01.c
+> new file mode 100644
+> index 000000000..9e1bd3962
+> --- /dev/null
+> +++ b/lib/newlib_tests/test_version_parser01.c
+> @@ -0,0 +1,25 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Copyright (c) 2021 Yang Xu <xuyang2018.jy@fujitsu.com>
+> + */
+> +
+> +#include <stdio.h>
+> +#include "tst_test.h"
+> +
+> +static void do_test(void)
+> +{
+> +	tst_res(TPASS, "Tesing tst_version_parser() functionality OK.");
+> +}
+> +
+> +static struct tst_test test = {
+> +	.test_all = do_test,
+> +	.needs_cmds = (const char *[]) {
+> +		"mkfs.ext4",
+> +		"mkfs.ext4 >= 1.43.0",
+> +		"mkfs.ext4 <= 2.0.0",
+> +		"mkfs.ext4 != 2.0.0",
+> +		"mkfs.ext4 > 1.43.0",
+> +		"mkfs.ext4 < 2.0.0",
+> +		NULL
+> +	}
+> +};
+> diff --git a/lib/newlib_tests/test_version_parser02.c b/lib/newlib_tests/test_version_parser02.c
+> new file mode 100644
+> index 000000000..5aedaa28f
+> --- /dev/null
+> +++ b/lib/newlib_tests/test_version_parser02.c
+> @@ -0,0 +1,24 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Copyright (c) 2021 Yang Xu <xuyang2018.jy@fujitsu.com>
+> + */
+> +
+> +/*
+> + * Test Illegal format by using Illegal cmd.
+> + */
+> +
+> +#include <stdio.h>
+> +#include "tst_test.h"
+> +
+> +static void do_test(void)
+> +{
+> +	tst_res(TFAIL, "Tesing tst_version_parser() functionality bad.");
+                        ^
+			"Nonexisting command is present!"
+
+
+Or something along these line.
+
+> +}
+> +
+> +static struct tst_test test = {
+> +	.test_all = do_test,
+> +	.needs_cmds = (const char *[]) {
+> +		"mkfs.ext45 >= 1.43.0",
+> +		NULL
+> +	}
+> +};
+> diff --git a/lib/newlib_tests/test_version_parser03.c b/lib/newlib_tests/test_version_parser03.c
+> new file mode 100644
+> index 000000000..8f96e68d2
+> --- /dev/null
+> +++ b/lib/newlib_tests/test_version_parser03.c
+> @@ -0,0 +1,24 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Copyright (c) 2021 Yang Xu <xuyang2018.jy@fujitsu.com>
+> + */
+> +
+> +/*
+> + * Test Illegal format by using Illegal operation.
+> + */
+> +
+> +#include <stdio.h>
+> +#include "tst_test.h"
+> +
+> +static void do_test(void)
+> +{
+> +	tst_res(TFAIL, "Tesing tst_version_parser() functionality bad.");
+                          ^
+			  "Wrong operator was evaluated!"
+
+> +}
+> +
+> +static struct tst_test test = {
+> +	.test_all = do_test,
+> +	.needs_cmds = (const char *[]) {
+> +		"mkfs.ext4 ! 1.43.0",
+> +		NULL
+> +	}
+> +};
+> diff --git a/lib/newlib_tests/test_version_parser04.c b/lib/newlib_tests/test_version_parser04.c
+> new file mode 100644
+> index 000000000..461f673df
+> --- /dev/null
+> +++ b/lib/newlib_tests/test_version_parser04.c
+> @@ -0,0 +1,24 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Copyright (c) 2021 Yang Xu <xuyang2018.jy@fujitsu.com>
+> + */
+> +
+> +/*
+> + * Test Illegal format by using Illegal version.
+> + */
+> +
+> +#include <stdio.h>
+> +#include "tst_test.h"
+> +
+> +static void do_test(void)
+> +{
+> +	tst_res(TFAIL, "Tesing tst_version_parser() functionality bad.");
+                          ^
+			  "Incomplete version was parsed!"
+> +}
+> +
+> +static struct tst_test test = {
+> +	.test_all = do_test,
+> +	.needs_cmds = (const char *[]) {
+> +		"mkfs.ext4 > 1.43",
+> +		NULL
+> +	}
+> +};
+> diff --git a/lib/newlib_tests/test_version_parser05.c b/lib/newlib_tests/test_version_parser05.c
+> new file mode 100644
+> index 000000000..1bfe24f73
+> --- /dev/null
+> +++ b/lib/newlib_tests/test_version_parser05.c
+> @@ -0,0 +1,24 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Copyright (c) 2021 Yang Xu <xuyang2018.jy@fujitsu.com>
+> + */
+> +
+> +/*
+> + * Test non-existed cmd whether still can be detected.
+> + */
+> +
+> +#include <stdio.h>
+> +#include "tst_test.h"
+> +
+> +static void do_test(void)
+> +{
+> +	tst_res(TFAIL, "Tesing tst_version_parser() functionality bad.");
+                        ^
+			"Nonexisting command is present!"
+> +}
+> +
+> +static struct tst_test test = {
+> +	.test_all = do_test,
+> +	.needs_cmds = (const char *[]) {
+> +		"mkfs.ext45",
+> +		NULL
+> +	}
+> +};
+> diff --git a/lib/tst_test.c b/lib/tst_test.c
+> index a79275722..a9e95a3d7 100644
+> --- a/lib/tst_test.c
+> +++ b/lib/tst_test.c
+> @@ -992,7 +992,7 @@ static void do_setup(int argc, char *argv[])
+>  
+>  		for (i = 0; (cmd = tst_test->needs_cmds[i]); ++i)
+>  			if (tst_get_path(cmd, path, sizeof(path)))
+> -				tst_brk(TCONF, "Couldn't find '%s' in $PATH", cmd);
+> +				tst_version_parser(cmd);
+
+Why do we keep the tst_get_path() here? We can as well get rid of that
+and just call the function and handle the case without the version
+there.
+
+>  	}
+>  
+>  	if (tst_test->needs_drivers) {
+> diff --git a/lib/tst_version_parser.c b/lib/tst_version_parser.c
+> new file mode 100644
+> index 000000000..296e25ea2
+> --- /dev/null
+> +++ b/lib/tst_version_parser.c
+> @@ -0,0 +1,148 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Copyright (c) 2021 Yang Xu <xuyang2018.jy@fujitsu.com>
+> + */
+> +
+> +#include <stdio.h>
+> +#include <string.h>
+> +#include <stdlib.h>
+> +
+> +#define TST_NO_DEFAULT_MAIN
+> +#include "tst_version_parser.h"
+> +#include "tst_test.h"
+> +
+> +static int mkfs_ext4_version_parser(void)
+> +{
+> +	FILE *f;
+> +	int rc, major, minor, patch;
+> +
+> +	f = popen("mkfs.ext4 -V 2>&1", "r");
+> +	if (!f) {
+> +		tst_res(TWARN, "Could not run mkfs.ext4 -V 2>&1 cmd");
+> +		return -1;
+> +	}
+> +	rc = fscanf(f, "mke2fs %d.%d.%d", &major, &minor, &patch);
+> +	pclose(f);
+> +	if (rc != 3) {
+> +		tst_res(TWARN, "Unable to parse mkfs.ext4 version");
+> +		return -1;
+> +	}
+> +
+> +	return major * 10000 +  minor * 100 + patch;
+> +}
+> +
+> +static int mkfs_ext4_version_table_get(char *version)
+> +{
+> +	char *major, *minor, *patch, *next, *str;
+> +	char table_version[100];
+> +
+> +	strcpy(table_version, version);
+> +
+> +	major = strtok_r(table_version, ".", &next);
+> +	minor = strtok_r(NULL, ".", &next);
+> +	patch = strtok_r(NULL, ".", &next);
+> +	str = strtok_r(NULL, ".", &next);
+
+I wonder if we should do a sscanf() here. Note that with the atoi() we
+will pass on strings that have garbage after the numbers such as:
+
+	"1ab.2c.3dd"
+
+What about:
+
+	unsigned int maj, min, patch;
+	int len;
+
+	if (sscanf(version, "%u.%u.%u %n", &maj, &min, &patch, len) != 3) {
+		tst_res(TWARN, "Illegal version ...");
+		return -1;
+	}
+
+	if (len != strlen(version)) {
+		tst_res(TWARN, "Garbage after version");
+		return -1;
+	}
+
+	return maj * 10000 + min * 100 + patch;
+
+> +	if (!major || !minor || !patch || str) {
+> +		tst_res(TWARN, "Illegal version(%s), should use format like 1.43.0", version);
+> +		return -1;
+> +	}
+> +
+> +	return atoi(major) * 10000 + atoi(minor) * 100 + atoi(patch);
+> +}
+> +
+> +static struct version_parser {
+> +	const char *cmd;
+> +	int (*parser)(void);
+> +	int (*table_get)(char *version);
+> +} version_parsers[] = {
+> +	{.cmd = "mkfs.ext4", .parser = mkfs_ext4_version_parser, .table_get = mkfs_ext4_version_table_get},
+> +	{},
+> +};
+> +
+> +void tst_version_parser(const char *cmd)
+> +{
+> +	struct version_parser *p;
+> +	char *cmd_token, *op, *version, *next, *str;
+> +	char path[PATH_MAX];
+> +	char parser_cmd[100];
+> +	int ver_parser, ver_get;
+> +	int op_flag = 0;
+> +
+> +	strcpy(parser_cmd, cmd);
+> +
+> +	cmd_token = strtok_r(parser_cmd, " ", &next);
+> +	op = strtok_r(NULL, " ", &next);
+
+Shouldn't we just handle the case where op == NULL as a single command
+here? That would make the code much cleaner.
+
+I.e.:
+	if (tst_get_path(cmd_token, path, sizeof(path)))
+		tst_brk(TCONF, "Couldn't find '%s' in $PATH", cmd_token);
+
+	if (!op)
+		return;
+
+> +	version = strtok_r(NULL, " ", &next);
+> +	str = strtok_r(NULL, " ", &next);
+
+
+
+> +	if (!cmd_token || !op || !version || str)
+> +		tst_brk(TCONF,
+> +			"Illegal fomart(%s), should use format like mkfs.ext4 >= 1.43.0", cmd);
+
+Then we can just check the version and str here as:
+
+	if (!version || str)
+		tst_brk(TCONF, "Illegal format ...");
+
+> +	if (tst_get_path(cmd_token, path, sizeof(path)))
+> +		tst_brk(TCONF, "Couldn't find '%s' in $PATH", cmd_token);
+> +
+> +	if (!strcmp(op, ">="))
+> +		op_flag = 1;
+> +
+> +	if (!strcmp(op, ">"))
+> +		op_flag = 2;
+> +
+> +	if (!strcmp(op, "<="))
+> +		op_flag = 3;
+> +
+> +	if (!strcmp(op, "<"))
+> +		op_flag = 4;
+> +
+> +	if (!strcmp(op, "=="))
+> +		op_flag = 5;
+> +
+> +	if (!strcmp(op, "!="))
+> +		op_flag = 6;
+> +
+> +	if (!op_flag)
+> +		tst_brk(TCONF, "Invalid op(%s)", op);
+
+This is usually structured as else if (..) in C as:
+
+	if (!strcmp(op, ">="))
+		op_flag = ...
+	else if (!strcmp(op, ">")
+		op_flag = ...
+	else ....
+
+Also maybe an enum would make the code easier to read as:
+
+enum op {
+	OP_GE, /* >= */
+	OP_GT, /* >  */
+	OP_LE, /* <= */
+	OP_LT, /* <  */
+	OP_EQ, /* == */
+	OP_NE, /* != */
+};
+
+Then we would do:
+
+	if (!strcmp(op, ">="))
+		op_flag = OP_GE;
+	else ...
+
+> +	for (p = &version_parsers[0]; p; p++) {
+> +		if (!strcmp(p->cmd, cmd_token))
+> +			tst_res(TINFO, "Parsing %s version", p->cmd);
+> +			break;
+
+This does not work without curly braces around the blok, right?
+
+> +	}
+> +
+> +	if (!p->cmd)
+> +		tst_brk(TBROK, "No version parser for %s implemented!", cmd_token);
+> +
+> +	ver_parser = p->parser();
+> +	if (ver_parser < 0)
+> +		tst_brk(TBROK, "Failed to parse %s version", p->cmd);
+> +
+> +	ver_get = p->table_get(version);
+> +	if (ver_get < 0)
+> +		tst_brk(TBROK, "Failed to get %s version", p->cmd);
+> +
+> +	switch (op_flag) {
+> +	case 1:
+> +		if (ver_parser < ver_get)
+> +			tst_brk(TCONF, "cmd(%s) expected >= %d, but got %d", cmd, ver_get, ver_parser);
+                                                 ^
+					"%s required >= %d, but got %d", ...
+
+The version is required in order run the test.
+
+> +		break;
+> +	case 2:
+> +		if (ver_parser <= ver_get)
+> +			tst_brk(TCONF, "cmd(%s) expected > %d, but got %d", cmd, ver_get, ver_parser);
+> +		break;
+> +	case 3:
+> +		if (ver_parser > ver_get)
+> +			tst_brk(TCONF, "cmd(%s) expected <= %d, but got %d", cmd, ver_get, ver_parser);
+> +		break;
+> +	case 4:
+> +		if (ver_parser >= ver_get)
+> +			tst_brk(TCONF, "cmd(%s) expected < %d, but got %d", cmd, ver_get, ver_parser);
+> +		break;
+> +	case 5:
+> +		if (ver_parser != ver_get)
+> +			tst_brk(TCONF, "cmd(%s) expected == %d, but got %d", cmd, ver_get, ver_parser);
+> +		break;
+> +	case 6:
+> +		if (ver_parser == ver_get)
+> +			tst_brk(TCONF, "cmd(%s) expected != %d, but got %d", cmd, ver_get, ver_parser);
+> +		break;
+> +	}
+
+
+And the same for the rest of the messages.
+
+> +}
+
+Looks mostly good, minus the minor things I've pointed out.
+
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
