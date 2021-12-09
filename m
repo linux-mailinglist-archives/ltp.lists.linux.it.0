@@ -2,82 +2,81 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93CC746E36B
-	for <lists+linux-ltp@lfdr.de>; Thu,  9 Dec 2021 08:43:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C6C846E371
+	for <lists+linux-ltp@lfdr.de>; Thu,  9 Dec 2021 08:44:04 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 003993C7D94
-	for <lists+linux-ltp@lfdr.de>; Thu,  9 Dec 2021 08:43:43 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id C1F403C7205
+	for <lists+linux-ltp@lfdr.de>; Thu,  9 Dec 2021 08:44:03 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id B065C3C585E
- for <ltp@lists.linux.it>; Thu,  9 Dec 2021 08:43:40 +0100 (CET)
-Received: from mail1.bemta32.messagelabs.com (mail1.bemta32.messagelabs.com
- [195.245.230.66])
+ by picard.linux.it (Postfix) with ESMTPS id 96FBC3C7883
+ for <ltp@lists.linux.it>; Thu,  9 Dec 2021 08:43:41 +0100 (CET)
+Received: from mail1.bemta34.messagelabs.com (mail1.bemta34.messagelabs.com
+ [195.245.231.2])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 2D975200DF3
- for <ltp@lists.linux.it>; Thu,  9 Dec 2021 08:43:38 +0100 (CET)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id C909D201026
+ for <ltp@lists.linux.it>; Thu,  9 Dec 2021 08:43:40 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fujitsu.com;
- s=170520fj; t=1639035818; i=@fujitsu.com;
- bh=6/Ab0AIDjOphUpXxMdVwVTEdjNTt7ZSWCfdTMKhkf4E=;
+ s=170520fj; t=1639035820; i=@fujitsu.com;
+ bh=w/1GYJC8P49G60e0CfINlPkqCPbIeWfgzPBVkOfubfE=;
  h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
  MIME-Version:Content-Type;
- b=a5Tc7TS9m4HHwVtbjNwEeL8jBT4tcUWEN+jc46YKb53x7a1gqwQLNeDaXfJCjk+yV
- +FScYwURPcFx+C/WLXcU5yig0aQp9VRzz63fLAKAmYHb7S6YOvYtZ/5MTGsfBom2O1
- mm6L8D86KTuWRJsKQTxO44z2iLItGxY5t+SITKc3vb9lyraR9I+xxoxExTRyPwCOCx
- YE6JTq+wL/ptyNCEPUdZ1kgDf4HXSH3Lk7cTdT+kQFXx95GcelwLsBX64/jEBFBxcP
- x01992UW368IHruQf6+q7xWYgWAsBKvK07HTp19rfyWCliqal6Y6JiP0GQf54MVKzO
- 9bur+aUprtGeA==
-Received: from [100.115.0.27] (using TLSv1.2 with cipher
+ b=CKo46DUPqcdejkSN0cmMusAyWw/EwYr3ugteKOCay59ZZxH2bX0Jz9kYh031BI6HG
+ 5V0LHOCTUcv8TBqrlLOUwurZ9Y9f9D0dfIQy/xOpdLz/Q6tbjcgnGiyCvHkASEgpkT
+ 1zMOUPdkKsAvMcBlFwziOOc5TX5WCEMEWK0qQgdupJr/iXNIakwf7HbI7Yns4ouRIi
+ N456qcJ+xHhV5EvfvyDt5xCVYWH1cbhmFZ5fnTmG5F7rZAaPTapsImgu4HOLgmCGMu
+ P+Af4BncRi1HE2IrBlb6M1Cg8u2sATYaAG9VGT01JcaeOe1B7NgYa1tVtAWlJOQZrw
+ j7D0S2VrVKAjw==
+Received: from [100.115.34.229] (using TLSv1.2 with cipher
  DHE-RSA-AES256-GCM-SHA384 (256 bits))
- by server-4.bemta.az-a.eu-west-1.aws.ess.symcld.net id 54/B3-30341-AA3B1B16;
- Thu, 09 Dec 2021 07:43:38 +0000
+ by server-2.bemta.az-a.eu-west-2.aws.ess.symcld.net id 21/2D-16537-BA3B1B16;
+ Thu, 09 Dec 2021 07:43:39 +0000
 X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFjrNIsWRWlGSWpSXmKPExsViZ8MxSXfl5o2
- JBlf/aFus+L6D0YHRY9/vdawBjFGsmXlJ+RUJrBk//81jKbjOVfHszyKWBsY+zi5GLg4hgbOM
- Ej87bzNDODuZJN6/mscK4exmlPg/YR5TFyMnB5uApsSzzgXMILaIgIRER8NbdhCbWUBdYvmkX
- 2A1wgJBEoevHwerYRFQkdjTfQashlfAQ6J/4l5GEFtCQEFiysP3YDWcAp4STSvOgvUKAdUsWr
- eHEaJeUOLkzCcsEPMlJA6+eMEM0asocanjG9ScColZs9qYIGw1iavnNjFPYBSchaR9FpL2BYx
- Mqxitkooy0zNKchMzc3QNDQx0DQ1NdQ11jQyM9RKrdBP1Ukt1y1OLS3QN9RLLi/VSi4v1iitz
- k3NS9PJSSzYxAsM4pZjx9A7GTX0/9Q4xSnIwKYny3li8MVGILyk/pTIjsTgjvqg0J7X4EKMMB
- 4eSBG//RqCcYFFqempFWmYOMKZg0hIcPEoivJKbgNK8xQWJucWZ6RCpU4yKUuK8LiAJAZBERm
- keXBssji8xykoJ8zIyMDAI8RSkFuVmlqDKv2IU52BUEuZ1AJnCk5lXAjf9FdBiJqDFzi3rQRa
- XJCKkpBqYku91KFdM4HN67cWestgnXmbVog3xNWUxKrcu3nFy51L9biUeudxeZMHm6r/PV7Bn
- LitaHf7lgLnub52ACdfi+d7s7w9kffd8gvmH957xyS/mflrqGm3x79CCJL8TaS23t1dF3m25a
- We2asIfs2+XXxaHX22UeCixvvv9jkXlx1paMrwE3p+xspxzTfdRiXbqru932zjXWnX+3G1/Xe
- WoSGtdhR/rZlEXxT/rvIsTK/Yy5vlXya3YuPZQ0sv1Yfsq5k34GT/FfZp05ym1/UvsuoK+Pg7
- wTjHSmlykdlfY2S3BSih21tmkNVc3FAXYLrz7XPjqHh7lAC2FCoOX7x+KsU7gMZS5cGnjngWi
- t4/tVGIpzkg01GIuKk4EAP0oB0ReAwAA
+ JBpvXaFqs+L6D0YHRY9/vdawBjFGsmXlJ+RUJrBlHd25gLtjjXrF26SW2BsYl1l2MXBxCAmcZ
+ JSa/mM8M4exkkljx9gwjhLObUeL9oVNsXYycHGwCmhLPOhcwg9giAhISHQ1v2UFsZgF1ieWTf
+ jF1MXJwCAuYSZw/rgoSZhFQkdi28x8jiM0r4CGx6tRKMFtCQEFiysP3YGM4BTwlmlacZQKxhY
+ BqFq3bA1UvKHFy5hMWiPESEgdfvGCG6FWUuNTxDWpOhcSsWW1MELaaxNVzm5gnMArOQtI+C0n
+ 7AkamVYzWSUWZ6RkluYmZObqGBga6hoamusZGukYGhnqJVbqJeqmluuWpxSW6RnqJ5cV6qcXF
+ esWVuck5KXp5qSWbGIFhnFKscHIH4+9L3/QOMUpyMCmJ8t5YvDFRiC8pP6UyI7E4I76oNCe1+
+ BCjDAeHkgRv/0agnGBRanpqRVpmDjCmYNISHDxKIrySm4DSvMUFibnFmekQqVOMilLivC4gCQ
+ GQREZpHlwbLI4vMcpKCfMyMjAwCPEUpBblZpagyr9iFOdgVBLmdQCZwpOZVwI3/RXQYiagxc4
+ t60EWlyQipKQamCbueNT+IHgW/yMnn6dWeseX5D0SsBA9K+bvG5WwsCa297KHR/I5zwlOqwR+
+ L/j9jlsyeVnOwtelM2oXT7hyQu9GwvWYDVK556PquvZF+ZZHRPHPX/jUWWelzE6OufrZWxaJ8
+ 864ay8l7ZrKdX1Ns3Sz9podUjvl7U+Xsl/YvedgxvIZMmdapn3UnsXGFJmqd7V9ufneJwau11
+ gm5QUp2SXfmfix4KGkQO3d+JoDBy+FrGaZZVsq/+dDkuZ6LTPXN9d5xZp291TOmvnx5af/dW9
+ 6S2UmqOxIfujlmxZ5prHL8/ulmFUGvInpwULJ/YX3Vm9pMeiZJ7jhWLhR4cxi/jPn+z3Lz6+7
+ ceV2r3bSCiWW4oxEQy3mouJEAL0wzmheAwAA
 X-Env-Sender: xuyang2018.jy@fujitsu.com
-X-Msg-Ref: server-11.tower-591.messagelabs.com!1639035817!45762!1
+X-Msg-Ref: server-21.tower-548.messagelabs.com!1639035817!72855!1
 X-Originating-IP: [62.60.8.146]
 X-SYMC-ESS-Client-Auth: outbound-route-from=pass
 X-StarScan-Received: 
 X-StarScan-Version: 9.81.7; banners=-,-,-
 X-VirusChecked: Checked
-Received: (qmail 13766 invoked from network); 9 Dec 2021 07:43:37 -0000
+Received: (qmail 29546 invoked from network); 9 Dec 2021 07:43:37 -0000
 Received: from unknown (HELO n03ukasimr02.n03.fujitsu.local) (62.60.8.146)
- by server-11.tower-591.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
+ by server-21.tower-548.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
  encrypted SMTP; 9 Dec 2021 07:43:37 -0000
 Received: from n03ukasimr02.n03.fujitsu.local (localhost [127.0.0.1])
- by n03ukasimr02.n03.fujitsu.local (Postfix) with ESMTP id 4E4F810045F
+ by n03ukasimr02.n03.fujitsu.local (Postfix) with ESMTP id 55AC410033A
  for <ltp@lists.linux.it>; Thu,  9 Dec 2021 07:43:37 +0000 (GMT)
 Received: from R01UKEXCASM126.r01.fujitsu.local (unknown [10.183.43.178])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by n03ukasimr02.n03.fujitsu.local (Postfix) with ESMTPS id 4133B100359
+ by n03ukasimr02.n03.fujitsu.local (Postfix) with ESMTPS id 44DBE100457
  for <ltp@lists.linux.it>; Thu,  9 Dec 2021 07:43:37 +0000 (GMT)
 Received: from localhost.localdomain (10.167.220.84) by
  R01UKEXCASM126.r01.fujitsu.local (10.183.43.178) with Microsoft SMTP Server
- (TLS) id 15.0.1497.26; Thu, 9 Dec 2021 07:43:22 +0000
+ (TLS) id 15.0.1497.26; Thu, 9 Dec 2021 07:43:25 +0000
 From: Yang Xu <xuyang2018.jy@fujitsu.com>
 To: <ltp@lists.linux.it>
-Date: Thu, 9 Dec 2021 15:43:42 +0800
-Message-ID: <1639035823-5786-2-git-send-email-xuyang2018.jy@fujitsu.com>
+Date: Thu, 9 Dec 2021 15:43:43 +0800
+Message-ID: <1639035823-5786-3-git-send-email-xuyang2018.jy@fujitsu.com>
 X-Mailer: git-send-email 1.8.3.1
 In-Reply-To: <1639035823-5786-1-git-send-email-xuyang2018.jy@fujitsu.com>
 References: <1639035823-5786-1-git-send-email-xuyang2018.jy@fujitsu.com>
@@ -91,8 +90,7 @@ X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/3] zram/zram_lib.sh: Skip test if zram module can
- not be removed
+Subject: [LTP] [PATCH 3/3] zram/zram03: Convert into new api
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,42 +107,327 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-If zram-generator package is installed and works, then we can not
-remove zram module because zram swap is being used. We can also use zramstart
-command or similar shell script(use zramctl,mkswap,swapon) to do this.
-
-Since zram01.sh and zram02.sh needs to rmmod and modprobe, they can't work well
-if zram module can't be removed. So skip it.
+Also add removing zram module step in setup, so we can avoid the situation that
+zram module is being used by zram-generator.
 
 Fixes: #888
 Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
 ---
- testcases/kernel/device-drivers/zram/zram_lib.sh | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ testcases/kernel/device-drivers/zram/zram03.c | 221 +++++++-----------
+ 1 file changed, 90 insertions(+), 131 deletions(-)
 
-diff --git a/testcases/kernel/device-drivers/zram/zram_lib.sh b/testcases/kernel/device-drivers/zram/zram_lib.sh
-index fe9c915c3..ad5b6e216 100755
---- a/testcases/kernel/device-drivers/zram/zram_lib.sh
-+++ b/testcases/kernel/device-drivers/zram/zram_lib.sh
-@@ -49,6 +49,8 @@ zram_load()
- 
- 	tst_set_timeout $((dev_num*450))
- 
-+	rmmod zram > /dev/null 2>&1 || tst_brk TCONF "zram module is being used"
+diff --git a/testcases/kernel/device-drivers/zram/zram03.c b/testcases/kernel/device-drivers/zram/zram03.c
+index 06995fd56..0cc6200a1 100644
+--- a/testcases/kernel/device-drivers/zram/zram03.c
++++ b/testcases/kernel/device-drivers/zram/zram03.c
+@@ -1,29 +1,19 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
+ /*
++ * Copyright (C) 2010  Red Hat, Inc.
++ */
 +
- 	tst_res TINFO "create '$dev_num' zram device(s)"
++/*\
++ * [Description]
++ * 
+  * zram: generic RAM based compressed R/W block devices
+  * http://lkml.org/lkml/2010/8/9/227
+- *
+- * Copyright (C) 2010  Red Hat, Inc.
+- * This program is free software; you can redistribute it and/or
+- * modify it under the terms of version 2 of the GNU General Public
+- * License as published by the Free Software Foundation.
+- *
+- * This program is distributed in the hope that it would be useful,
+- * but WITHOUT ANY WARRANTY; without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+- *
+- * Further, this software is distributed without any warranty that it
+- * is free of the rightful claim of any third person regarding
+- * infringement or the like.  Any license provided herein, whether
+- * implied or otherwise, applies only to this software file.  Patent
+- * licenses, if any, provided herein do not apply to combinations of
+- * this program with other software, or any other product whatsoever.
+- *
+- * You should have received a copy of the GNU General Public License
+- * along with this program; if not, write the Free Software
+- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+- * 02110-1301, USA.
++ * 
++ * This case check whether data read from zram device is consistent with 
++ * thoese are written.
+  */
  
- 	modprobe zram num_devices=$dev_num || \
-@@ -57,7 +59,8 @@ zram_load()
- 	dev_num_created=$(ls /dev/zram* | wc -w)
++
+ #include <sys/types.h>
+ #include <sys/stat.h>
+ #include <sys/mman.h>
+@@ -32,12 +22,7 @@
+ #include <stdio.h>
+ #include <string.h>
+ #include <unistd.h>
+-
+-#include "test.h"
+-#include "safe_macros.h"
+-
+-char *TCID = "zram03";
+-int TST_TOTAL = 1;
++#include "tst_test.h"
  
- 	if [ "$dev_num_created" -ne "$dev_num" ]; then
--		tst_brk TFAIL "unexpected num of devices: $dev_num_created"
-+		tst_brk FAIL "num of devices expected $dev_num, but created"\
-+				"$dev_num_created"
- 	fi
+ #define PATH_ZRAM	"/sys/block/zram0"
+ #define OBSOLETE_ZRAM_FILE	"/sys/block/zram0/num_reads"
+@@ -47,44 +32,12 @@ int TST_TOTAL = 1;
+ #define DEVICE		"/dev/zram0"
  
- 	tst_res TPASS "all zram devices successfully created"
+ static int modprobe;
+-
+-static void set_disksize(void);
+-static void write_device(void);
+-static void verify_device(void);
+-static void reset(void);
+-static void setup(void);
+-static void cleanup(void);
+-static void print(char *string);
+-static void dump_info(void);
+-
+-int main(int argc, char *argv[])
+-{
+-	int lc;
+-
+-	tst_parse_opts(argc, argv, NULL, NULL);
+-
+-	setup();
+-
+-	for (lc = 0; TEST_LOOPING(lc); lc++) {
+-		tst_count = 0;
+-
+-		set_disksize();
+-
+-		write_device();
+-		dump_info();
+-		verify_device();
+-
+-		reset();
+-		dump_info();
+-	}
+-	cleanup();
+-	tst_exit();
+-}
++static const char *const cmd_rmmod[] = {"rmmod", "zram", NULL};
+ 
+ static void set_disksize(void)
+ {
+-	tst_resm(TINFO, "create a zram device with %ld bytes in size.", SIZE);
+-	SAFE_FILE_PRINTF(cleanup, PATH_ZRAM "/disksize", "%ld", SIZE);
++	tst_res(TINFO, "create a zram device with %ld bytes in size.", SIZE);
++	SAFE_FILE_PRINTF(PATH_ZRAM "/disksize", "%ld", SIZE);
+ }
+ 
+ static void write_device(void)
+@@ -92,17 +45,16 @@ static void write_device(void)
+ 	int fd;
+ 	char *s;
+ 
+-	tst_resm(TINFO, "map this zram device into memory.");
+-	fd = SAFE_OPEN(cleanup, DEVICE, O_RDWR);
+-	s = SAFE_MMAP(cleanup, NULL, SIZE, PROT_READ | PROT_WRITE,
+-		      MAP_SHARED, fd, 0);
++	tst_res(TINFO, "map this zram device into memory.");
++	fd = SAFE_OPEN(DEVICE, O_RDWR);
++	s = SAFE_MMAP(NULL, SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+ 
+-	tst_resm(TINFO, "write all the memory.");
++	tst_res(TINFO, "write all the memory.");
+ 	memset(s, 'a', SIZE - 1);
+ 	s[SIZE - 1] = '\0';
+ 
+-	SAFE_MUNMAP(cleanup, s, SIZE);
+-	SAFE_CLOSE(cleanup, fd);
++	SAFE_MUNMAP(s, SIZE);
++	SAFE_CLOSE(fd);
+ }
+ 
+ static void verify_device(void)
+@@ -111,9 +63,9 @@ static void verify_device(void)
+ 	long i = 0, fail = 0;
+ 	char *s;
+ 
+-	tst_resm(TINFO, "verify contents from device.");
+-	fd = SAFE_OPEN(cleanup, DEVICE, O_RDONLY);
+-	s = SAFE_MMAP(cleanup, NULL, SIZE, PROT_READ, MAP_PRIVATE, fd, 0);
++	tst_res(TINFO, "verify contents from device.");
++	fd = SAFE_OPEN(DEVICE, O_RDONLY);
++	s = SAFE_MMAP(NULL, SIZE, PROT_READ, MAP_PRIVATE, fd, 0);
+ 
+ 	while (s[i] && i < SIZE - 1) {
+ 		if (s[i] != 'a')
+@@ -121,59 +73,25 @@ static void verify_device(void)
+ 		i++;
+ 	}
+ 	if (i != SIZE - 1) {
+-		tst_resm(TFAIL, "expect size: %ld, actual size: %ld.",
++		tst_res(TFAIL, "expect size: %ld, actual size: %ld.",
+ 			 SIZE - 1, i);
+ 	} else if (s[i] != '\0') {
+-		tst_resm(TFAIL, "zram device seems not null terminated");
++		tst_res(TFAIL, "zram device seems not null terminated");
+ 	} else if (fail) {
+-		tst_resm(TFAIL, "%ld failed bytes found.", fail);
++		tst_res(TFAIL, "%ld failed bytes found.", fail);
+ 	} else {
+-		tst_resm(TPASS, "data read from zram device is consistent "
++		tst_res(TPASS, "data read from zram device is consistent "
+ 			 "with those are written");
+ 	}
+ 
+-	SAFE_MUNMAP(cleanup, s, SIZE);
+-	SAFE_CLOSE(cleanup, fd);
++	SAFE_MUNMAP(s, SIZE);
++	SAFE_CLOSE(fd);
+ }
+ 
+ static void reset(void)
+ {
+-	tst_resm(TINFO, "reset it.");
+-	SAFE_FILE_PRINTF(cleanup, PATH_ZRAM "/reset", "1");
+-}
+-
+-static void setup(void)
+-{
+-	int retried = 0;
+-
+-	tst_require_root();
+-
+-retry:
+-	if (access(PATH_ZRAM, F_OK) == -1) {
+-		if (errno == ENOENT) {
+-			if (retried) {
+-				tst_brkm(TCONF, NULL,
+-					 "system has no zram device.");
+-			}
+-			if (system("modprobe zram") == -1) {
+-				tst_brkm(TBROK | TERRNO, cleanup,
+-					 "system(modprobe zram) failed");
+-			}
+-			modprobe = 1;
+-			retried = 1;
+-			goto retry;
+-		} else
+-			tst_brkm(TBROK | TERRNO, NULL, "access");
+-	}
+-
+-	tst_sig(FORK, DEF_HANDLER, cleanup);
+-	TEST_PAUSE;
+-}
+-
+-static void cleanup(void)
+-{
+-	if (modprobe == 1 && system("rmmod zram") == -1)
+-		tst_resm(TWARN | TERRNO, "system(rmmod zram) failed");
++	tst_res(TINFO, "%s...", __func__);
++	SAFE_FILE_PRINTF(PATH_ZRAM "/reset", "1");
+ }
+ 
+ static void print(char *string)
+@@ -181,20 +99,17 @@ static void print(char *string)
+ 	char filename[BUFSIZ], value[BUFSIZ];
+ 
+ 	sprintf(filename, "%s/%s", PATH_ZRAM, string);
+-	SAFE_FILE_SCANF(cleanup, filename, "%s", value);
+-	tst_resm(TINFO, "%s is %s", filename, value);
++	SAFE_FILE_SCANF(filename, "%s", value);
++	tst_res(TINFO, "%s is %s", filename, value);
+ }
+ 
+ static void print_stat(char *nread, char *nwrite)
+ {
+ 	char nread_val[BUFSIZ], nwrite_val[BUFSIZ];
+ 
+-	SAFE_FILE_SCANF(cleanup, PATH_ZRAM_STAT, "%s %*s %*s %*s %s",
+-			nread_val, nwrite_val);
+-	tst_resm(TINFO, "%s from %s is %s", nread, PATH_ZRAM_STAT,
+-		 nread_val);
+-	tst_resm(TINFO, "%s from %s is %s", nwrite, PATH_ZRAM_STAT,
+-		 nwrite_val);
++	SAFE_FILE_SCANF(PATH_ZRAM_STAT, "%s %*s %*s %*s %s", nread_val, nwrite_val);
++	tst_res(TINFO, "%s from %s is %s", nread, PATH_ZRAM_STAT, nread_val);
++	tst_res(TINFO, "%s from %s is %s", nwrite, PATH_ZRAM_STAT, nwrite_val);
+ }
+ 
+ static void print_mm_stat(char *orig, char *compr, char *mem, char *zero)
+@@ -202,16 +117,12 @@ static void print_mm_stat(char *orig, char *compr, char *mem, char *zero)
+ 	char orig_val[BUFSIZ], compr_val[BUFSIZ];
+ 	char mem_val[BUFSIZ], zero_val[BUFSIZ];
+ 
+-	SAFE_FILE_SCANF(cleanup, PATH_ZRAM_MM_STAT, "%s %s %s %*s %*s %s",
++	SAFE_FILE_SCANF(PATH_ZRAM_MM_STAT, "%s %s %s %*s %*s %s",
+ 			orig_val, compr_val, mem_val, zero_val);
+-	tst_resm(TINFO, "%s from %s is %s", orig, PATH_ZRAM_MM_STAT,
+-		 orig_val);
+-	tst_resm(TINFO, "%s from %s is %s", compr, PATH_ZRAM_MM_STAT,
+-		compr_val);
+-	tst_resm(TINFO, "%s from %s is %s", mem, PATH_ZRAM_MM_STAT,
+-		 mem_val);
+-	tst_resm(TINFO, "%s from %s is %s", zero, PATH_ZRAM_MM_STAT,
+-		 zero_val);
++	tst_res(TINFO, "%s from %s is %s", orig, PATH_ZRAM_MM_STAT, orig_val);
++	tst_res(TINFO, "%s from %s is %s", compr, PATH_ZRAM_MM_STAT, compr_val);
++	tst_res(TINFO, "%s from %s is %s", mem, PATH_ZRAM_MM_STAT, mem_val);
++	tst_res(TINFO, "%s from %s is %s", zero, PATH_ZRAM_MM_STAT, zero_val);
+ }
+ 
+ static void dump_info(void)
+@@ -231,3 +142,51 @@ static void dump_info(void)
+ 		print_stat("num_reads", "num_writes");
+ 	}
+ }
++
++static void run(void)
++{
++	set_disksize();
++
++	write_device();
++	dump_info();
++	verify_device();
++
++	reset();
++	dump_info();
++}
++
++static void setup(void)
++{
++	const char *const cmd_modprobe[] = {"modprobe", "zram", NULL};
++
++	if (tst_cmd(cmd_rmmod, NULL, NULL, TST_CMD_PASS_RETVAL)) {
++		if (errno == EBUSY)
++			tst_brk(TCONF, "zram module may being used!");
++	}
++	if (errno == ENOENT)
++		SAFE_CMD(cmd_modprobe, NULL, NULL);
++
++	modprobe = 1;
++}
++
++static void cleanup(void)
++{
++	if (modprobe == 1)
++		SAFE_CMD(cmd_rmmod, NULL, NULL);
++}
++
++static struct tst_test test = {
++	.test_all = run,
++	.setup = setup,
++	.cleanup = cleanup,
++	.needs_root = 1,
++	.needs_drivers = (const char *const []) {
++		"zram",
++		NULL
++	},
++	.needs_cmds = (const char *[]) {
++		"modprobe",
++		"rmmod",
++		NULL
++	}
++};
 -- 
 2.23.0
 
