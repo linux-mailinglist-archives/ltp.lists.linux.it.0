@@ -1,12 +1,12 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0B314721B6
-	for <lists+linux-ltp@lfdr.de>; Mon, 13 Dec 2021 08:26:38 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DFB54721B9
+	for <lists+linux-ltp@lfdr.de>; Mon, 13 Dec 2021 08:26:59 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7AFB03C886A
-	for <lists+linux-ltp@lfdr.de>; Mon, 13 Dec 2021 08:26:38 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id B21C13C8B0A
+	for <lists+linux-ltp@lfdr.de>; Mon, 13 Dec 2021 08:26:58 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
@@ -14,70 +14,66 @@ Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 611193C2242
- for <ltp@lists.linux.it>; Mon, 13 Dec 2021 08:26:36 +0100 (CET)
-Received: from mail1.bemta36.messagelabs.com (mail1.bemta36.messagelabs.com
- [85.158.142.112])
+ by picard.linux.it (Postfix) with ESMTPS id 940663C8C37
+ for <ltp@lists.linux.it>; Mon, 13 Dec 2021 08:26:47 +0100 (CET)
+Received: from mail1.bemta34.messagelabs.com (mail1.bemta34.messagelabs.com
+ [195.245.231.2])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 437A01000D0B
- for <ltp@lists.linux.it>; Mon, 13 Dec 2021 08:26:34 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 8764E1000A12
+ for <ltp@lists.linux.it>; Mon, 13 Dec 2021 08:26:46 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fujitsu.com;
- s=170520fj; t=1639380394; i=@fujitsu.com;
- bh=nrkO/izFIfKtTaNwDLYLEojUpaQ1f7umLu7TMgN8rhQ=;
+ s=170520fj; t=1639380405; i=@fujitsu.com;
+ bh=yaHU5Y+z6tuguFfJNAPUvA5YK4UBE2aOgVuTE58SOIY=;
  h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
  MIME-Version:Content-Type;
- b=XyEBTzD2W6RcJCewmGKwVdkQJBktqSy1p4OXof8w4uOte8WG+k4t8AHiayPAj4qRI
- NScTYwi+rlIjhFXowvDpeG/WM9r6vsQO+JMkWmpZQtMZuD25jW2DK/U178OqD7NMxk
- MugLMAR14fjuhtLzUjF5uso9VxtnbxaCkYmntaxmTiTjnryMwpl1+ZRsE6A0tRNFCi
- i0c3kBYaP8T5DBzhzO2b/k+HPoGlvETeTJeOwwrK+178akEiG2GqjpcCY1M3INzPxW
- NL6CdODbw+aB4lBegTzTvXZXkTX4slSOwc6GxoANFXYY8ehYvjN4FHLffQ+O1J0R+i
- cm1C22smr64UQ==
-Received: from [100.115.71.165] (using TLSv1.2 with cipher
+ b=fk+BmmdzJ3z+Pv85jSmW8of8oFB4g7FjXWGSvImKOYDJq37Ya7v9AwH2RpK37KjM9
+ DKKGO8fccJKZRhzFsHdPf/GTnnY3Cuy0BjjlWz7DtBxoWnYXi4RyZ7lt0VohPvjKDY
+ LY1v07GCJIaF17IO+QU2XG2dJ5MYr/ENtNpw9uRuTSF2s3Kh9gk595p23mclR4x9O0
+ UJtmXg180IX9PZx0QemHXJ0wHq+lFquqeXlogTlUOzQVooHdhPNU3Hbsvn5i4HMBcs
+ Qqx1Xe8Qzuw1PwMRgqb7kPdpBS41a08Gs361pue37ye7pXBCGWhfEGVkaepS+WqcaA
+ s7+qsKFMrDvEA==
+Received: from [100.115.39.64] (using TLSv1.2 with cipher
  DHE-RSA-AES256-GCM-SHA384 (256 bits))
- by server-3.bemta.az-a.eu-central-1.aws.ess.symcld.net id 57/AC-06990-AA5F6B16;
- Mon, 13 Dec 2021 07:26:34 +0000
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFnrAIsWRWlGSWpSXmKPExsViZ8MxSXfl122
- JBicOm1qs+L6D0YHRY9/vdawBjFGsmXlJ+RUJrBltiyYzFdwxq2haPYG5gXGaXhcjJ4eQwFlG
- iWM3o7sYuYDsnUwSf/7+YYZw9jBKrOjrYgGpYhPQlHjWuYAZxBYRkJDoaHjLDmIzC6hLLJ/0i
- wnEFhbwkfjS/R2shkVAVeLI7NWsIDavgKfEyY0zwGokBBQkpjx8D1bDKeAl8e7CfUaIK5IkJr
- TOZoKoF5Q4OfMJC8R8CYmDL14wQ/QqSlzq+MYIYVdIzJrVBjVTTeLquU3MExgFZyFpn4WkfQE
- j0ypGu6SizPSMktzEzBxdQwMDXUNDU11zQ11DY2O9xCrdRL3UUt3k1LySokSgtF5iebFeanGx
- XnFlbnJOil5easkmRmAwpxS7t+5gvNz3U+8QoyQHk5Io7zfGrYlCfEn5KZUZicUZ8UWlOanFh
- xhlODiUJHi9vmxLFBIsSk1PrUjLzAFGFkxagoNHSYTXFSTNW1yQmFucmQ6ROsVozHH5+rxFzB
- x/NixZxCzEkpeflyolzpsFUioAUppRmgc3CBbxlxhlpYR5GRkYGIR4ClKLcjNLUOVfMYpzMCo
- J8waATOHJzCuB2/cK6BQmoFMYKzeDnFKSiJCSamA6wyrocnfKPzMr5e2r5Q99FXb6s/uT5Zss
- 7S1n3r49Mas2jXf3luryR433Tvfw2a/easX5yXv79po5E10FlLVvVejfdS021Ht/aspEDo+Pj
- Xym8g37r8QEvY5eosFtcjHEP8Gz6Z7jnN8zk177qyXkKjx4cU8wrrhF+1rf5Fyjkqh1CxiqVe
- wjPT9cztowLfRcZW6WWGH1hYA3fxvm7N/BohoWvFQ8QXlSsM6iD4v6HZINT8s0CYdL+jprplV
- 9EFlTdWJzCvuB4CPh0dVaNqkS14slc0tUJl/5GnJ5U0LTI8taU7WkIgYH0VelSR8Db7/cPU0x
- cXcUr/jV1f0pDavF1lq4pdx4ZXsxOHuukBJLcUaioRZzUXEiAJxwpw5zAwAA
+ by server-2.bemta.az-a.eu-west-2.aws.ess.symcld.net id DE/37-16537-5B5F6B16;
+ Mon, 13 Dec 2021 07:26:45 +0000
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFtrHIsWRWlGSWpSXmKPExsViZ8MRorv167Z
+ Eg/XL2C1WfN/B6MDose/3OtYAxijWzLyk/IoE1oxDK6azFxzlr7i9p52xgXEObxcjF4eQQBOT
+ xPO3h1khnD2MEu0T17B3MXJysAloSjzrXMAMYosISEh0NLwFizMLqEssn/SLqYuRg0NYwFPiy
+ i9hkDCLgKrE3deXWUBsXqDwr1fdYOUSAgoSUx6+BxvDKeAl8e7CfUYQW0ggSWJC62wmiHpBiZ
+ Mzn7BAjJeQOPjiBTNEr6LEpY5vjBB2hcSsWW1MExj5ZyFpmYWkZQEj0ypG66SizPSMktzEzBx
+ dQwMDXUNDU11jU11DE0u9xCrdRL3UUt3y1OISXSO9xPJivdTiYr3iytzknBS9vNSSTYzAoEwp
+ Vp66g/H0qp96hxglOZiURHm/MW5NFOJLyk+pzEgszogvKs1JLT7EKMPBoSTB6/VlW6KQYFFqe
+ mpFWmYOMEJg0hIcPEoivK4gad7igsTc4sx0iNQpRl2Oy9fnLWIWYsnLz0uVEufNAikSACnKKM
+ 2DGwGL1kuMslLCvIwMDAxCPAWpRbmZJajyrxjFORiVhHkDQKbwZOaVwG16BXQEE9ARjJWbQY4
+ oSURISTUwTax632uXcXFSzuHH17M+rjTbO3n5tPsrO6Xjb3xekcirFHKeoejGlthYC/+wHa6f
+ TvQcCppZflrS5sYB675P8ee+6YSU/f73dpqH8K7D0X9SC3ZtfXQ7Ru4b2+3KzbGLbrxO+Z5pa
+ qSjaro3bFoMR9hizmn26u/vmt3uFzN55po0QcVjZ/qD2Babm9mdc9XzT2+zquh9scvy7ZmOTU
+ UdG7aG+T8+uM2ib2Xk+403Tk278GLztrblBXOnf1EqXfCg5JV5gNDeXzNStkunxIVX/RJV/yp
+ j5jytlFO15/MSH0NTs2X1oh+ddF4oT/i9aGr16uImt4sSAQtDlHezt6841HQ50lMs9t3D6MNP
+ 2bY+11diKc5INNRiLipOBACBT/+jUQMAAA==
 X-Env-Sender: xuyang2018.jy@fujitsu.com
-X-Msg-Ref: server-19.tower-545.messagelabs.com!1639380393!179926!1
-X-Originating-IP: [62.60.8.146]
+X-Msg-Ref: server-5.tower-571.messagelabs.com!1639380404!199462!1
+X-Originating-IP: [62.60.8.84]
 X-SYMC-ESS-Client-Auth: outbound-route-from=pass
 X-StarScan-Received: 
 X-StarScan-Version: 9.81.7; banners=-,-,-
 X-VirusChecked: Checked
-Received: (qmail 28842 invoked from network); 13 Dec 2021 07:26:33 -0000
-Received: from unknown (HELO n03ukasimr02.n03.fujitsu.local) (62.60.8.146)
- by server-19.tower-545.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
- encrypted SMTP; 13 Dec 2021 07:26:33 -0000
-Received: from n03ukasimr02.n03.fujitsu.local (localhost [127.0.0.1])
- by n03ukasimr02.n03.fujitsu.local (Postfix) with ESMTP id 607F4100353
- for <ltp@lists.linux.it>; Mon, 13 Dec 2021 07:26:33 +0000 (GMT)
-Received: from R01UKEXCASM126.r01.fujitsu.local (unknown [10.183.43.178])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
- (No client certificate requested)
- by n03ukasimr02.n03.fujitsu.local (Postfix) with ESMTPS id 533171000FC
- for <ltp@lists.linux.it>; Mon, 13 Dec 2021 07:26:33 +0000 (GMT)
+Received: (qmail 19640 invoked from network); 13 Dec 2021 07:26:45 -0000
+Received: from unknown (HELO mailhost3.uk.fujitsu.com) (62.60.8.84)
+ by server-5.tower-571.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
+ encrypted SMTP; 13 Dec 2021 07:26:45 -0000
+Received: from R01UKEXCASM126.r01.fujitsu.local ([10.183.43.178])
+ by mailhost3.uk.fujitsu.com (8.14.5/8.14.5) with ESMTP id 1BD7QbIZ029294
+ (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256 verify=FAIL)
+ for <ltp@lists.linux.it>; Mon, 13 Dec 2021 07:26:44 GMT
 Received: from localhost.localdomain (10.167.220.84) by
  R01UKEXCASM126.r01.fujitsu.local (10.183.43.178) with Microsoft SMTP Server
- (TLS) id 15.0.1497.26; Mon, 13 Dec 2021 07:26:25 +0000
+ (TLS) id 15.0.1497.26; Mon, 13 Dec 2021 07:26:35 +0000
 From: Yang Xu <xuyang2018.jy@fujitsu.com>
 To: <ltp@lists.linux.it>
-Date: Mon, 13 Dec 2021 15:26:50 +0800
-Message-ID: <1639380414-24390-2-git-send-email-xuyang2018.jy@fujitsu.com>
+Date: Mon, 13 Dec 2021 15:26:51 +0800
+Message-ID: <1639380414-24390-3-git-send-email-xuyang2018.jy@fujitsu.com>
 X-Mailer: git-send-email 1.8.3.1
 In-Reply-To: <1639380414-24390-1-git-send-email-xuyang2018.jy@fujitsu.com>
 References: <YY0o7jAxgIHvmczq@yuki>
@@ -92,8 +88,8 @@ X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH v4 2/6] syscalls/quotactl02,
- 5: Add quotactl_fd test variant
+Subject: [LTP] [PATCH v4 3/6] syscalls/quotactl03: Add quotactl_fd test
+ variant
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,225 +106,80 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Also remove useless geteuid and add static prefix.
+Also remove dupcliated header file.
 
 Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
 ---
- .../kernel/syscalls/quotactl/quotactl02.c     | 15 ++++++++--
- .../kernel/syscalls/quotactl/quotactl02.h     | 30 +++++++++----------
- .../kernel/syscalls/quotactl/quotactl05.c     | 15 ++++++++--
- 3 files changed, 39 insertions(+), 21 deletions(-)
+ .../kernel/syscalls/quotactl/quotactl03.c     | 23 +++++++++++++++----
+ 1 file changed, 18 insertions(+), 5 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/quotactl/quotactl02.c b/testcases/kernel/syscalls/quotactl/quotactl02.c
-index 55a6a8906..56fa23b9d 100644
---- a/testcases/kernel/syscalls/quotactl/quotactl02.c
-+++ b/testcases/kernel/syscalls/quotactl/quotactl02.c
-@@ -99,11 +99,18 @@ static struct t_case {
+diff --git a/testcases/kernel/syscalls/quotactl/quotactl03.c b/testcases/kernel/syscalls/quotactl/quotactl03.c
+index e0e4bf5b2..22f5496b6 100644
+--- a/testcases/kernel/syscalls/quotactl/quotactl03.c
++++ b/testcases/kernel/syscalls/quotactl/quotactl03.c
+@@ -23,19 +23,17 @@
+  */
  
- static void setup(void)
- {
--	test_id = geteuid();
-+	quotactl_info();
-+	fd = SAFE_OPEN(MNTPOINT, O_RDONLY);
- 	check_support_cmd(USRQUOTA);
- 	check_support_cmd(GRPQUOTA);
- }
- 
-+static void cleanup(void)
-+{
-+	if (fd > -1)
-+		SAFE_CLOSE(fd);
-+}
-+
- static void verify_quota(unsigned int n)
- {
- 	struct t_case *tc = &tcases[n];
-@@ -122,7 +129,7 @@ static void verify_quota(unsigned int n)
- 		return;
- 	}
- 
--	TEST(quotactl(tc->cmd, tst_device->dev, test_id, tc->addr));
-+	TEST(do_quotactl(fd, tc->cmd, tst_device->dev, test_id, tc->addr));
- 	if (TST_RET == -1) {
- 		tst_res(TFAIL | TTERRNO, "quotactl() failed to %s", tc->des);
- 		return;
-@@ -144,9 +151,11 @@ static struct tst_test test = {
- 	.tcnt = ARRAY_SIZE(tcases),
- 	.mount_device = 1,
- 	.dev_fs_type = "xfs",
--	.mntpoint = mntpoint,
-+	.mntpoint = MNTPOINT,
- 	.mnt_data = "usrquota,grpquota",
- 	.setup = setup,
-+	.cleanup = cleanup,
-+	.test_variants = QUOTACTL_SYSCALL_VARIANTS,
- };
- #else
- 	TST_TEST_TCONF("System doesn't have <xfs/xqm.h>");
-diff --git a/testcases/kernel/syscalls/quotactl/quotactl02.h b/testcases/kernel/syscalls/quotactl/quotactl02.h
-index 3351fb578..28b632646 100644
---- a/testcases/kernel/syscalls/quotactl/quotactl02.h
-+++ b/testcases/kernel/syscalls/quotactl/quotactl02.h
-@@ -12,7 +12,7 @@
+ #define _GNU_SOURCE
+-#include "config.h"
+ #include <errno.h>
  #include <unistd.h>
  #include <stdio.h>
+ #include <sys/quota.h>
+ 
  #include "tst_test.h"
 -#include "lapi/quotactl.h"
 +#include "quotactl_syscall_var.h"
  
  #ifdef HAVE_XFS_XQM_H
  # include <xfs/xqm.h>
-@@ -24,9 +24,8 @@ static struct fs_disk_quota set_dquota = {
- static uint32_t test_id;
- static int x_getnextquota_nsup;
- static int x_getstatv_nsup;
+ 
 -static const char mntpoint[] = "mnt_point";
+ static uint32_t test_id = 0xfffffffc;
  
--void check_support_cmd(int quotatype)
-+static void check_support_cmd(int quotatype)
- {
- 	struct fs_disk_quota resfs_dquota;
- 	struct fs_quota_statv resfs_qstatv = {
-@@ -36,23 +35,24 @@ void check_support_cmd(int quotatype)
- 	x_getnextquota_nsup = 0;
- 	x_getstatv_nsup = 0;
+ static void verify_quota(void)
+@@ -44,7 +42,7 @@ static void verify_quota(void)
  
--	TEST(quotactl(QCMD(Q_XGETNEXTQUOTA, quotatype), tst_device->dev,
-+	TEST(do_quotactl(fd, QCMD(Q_XGETNEXTQUOTA, quotatype), tst_device->dev,
- 		      test_id, (void *) &resfs_dquota));
- 	if (TST_ERR == EINVAL || TST_ERR == ENOSYS)
- 		x_getnextquota_nsup = 1;
+ 	res_dquota.d_id = 1;
  
--	TEST(quotactl(QCMD(Q_XGETQSTATV, quotatype), tst_device->dev, test_id,
-+	TEST(do_quotactl(fd, QCMD(Q_XGETQSTATV, quotatype), tst_device->dev, test_id,
- 		      (void *) &resfs_qstatv));
- 	if (TST_ERR == EINVAL || TST_ERR == ENOSYS)
- 		x_getstatv_nsup = 1;
- 
- }
--void check_qoff(int subcmd, char *desp, int flag)
-+
-+static void check_qoff(int subcmd, char *desp, int flag)
- {
- 	int res;
- 	struct fs_quota_stat res_qstat;
- 
--	res = quotactl(subcmd, tst_device->dev, test_id, (void *) &res_qstat);
-+	res = do_quotactl(fd, subcmd, tst_device->dev, test_id, (void *) &res_qstat);
- 	if (res == -1) {
- 		tst_res(TFAIL | TERRNO,
- 			"quotactl() failed to get xfs quota off status");
-@@ -67,12 +67,12 @@ void check_qoff(int subcmd, char *desp, int flag)
- 	tst_res(TPASS, "quotactl() succeeded to %s", desp);
+-	TEST(quotactl(QCMD(Q_XGETNEXTQUOTA, USRQUOTA), tst_device->dev,
++	TEST(do_quotactl(fd, QCMD(Q_XGETNEXTQUOTA, USRQUOTA), tst_device->dev,
+ 		test_id, (void *)&res_dquota));
+ 	if (TST_RET != -1) {
+ 		tst_res(TFAIL, "quotactl() found the next active ID: %u unexpectedly",
+@@ -63,7 +61,21 @@ static void verify_quota(void)
+ 		tst_res(TPASS, "quotactl() failed with ENOENT as expected");
  }
  
--void check_qon(int subcmd, char *desp, int flag)
-+static void check_qon(int subcmd, char *desp, int flag)
- {
- 	int res;
- 	struct fs_quota_stat res_qstat;
- 
--	res = quotactl(subcmd, tst_device->dev, test_id, (void *) &res_qstat);
-+	res = do_quotactl(fd, subcmd, tst_device->dev, test_id, (void *) &res_qstat);
- 	if (res == -1) {
- 		tst_res(TFAIL | TERRNO,
- 			"quotactl() failed to get xfs quota on status");
-@@ -87,14 +87,14 @@ void check_qon(int subcmd, char *desp, int flag)
- 	tst_res(TPASS, "quotactl() succeeded to %s", desp);
- }
- 
--void check_qoffv(int subcmd, char *desp, int flag)
-+static void check_qoffv(int subcmd, char *desp, int flag)
- {
- 	int res;
- 	struct fs_quota_statv res_qstatv = {
- 		.qs_version = FS_QSTATV_VERSION1,
- 	};
- 
--	res = quotactl(subcmd, tst_device->dev, test_id, (void *) &res_qstatv);
-+	res = do_quotactl(fd, subcmd, tst_device->dev, test_id, (void *) &res_qstatv);
- 	if (res == -1) {
- 		tst_res(TFAIL | TERRNO,
- 			"quotactl() failed to get xfs quota off stav");
-@@ -109,14 +109,14 @@ void check_qoffv(int subcmd, char *desp, int flag)
- 	tst_res(TPASS, "quotactl() succeeded to %s", desp);
- }
- 
--void check_qonv(int subcmd, char *desp, int flag)
-+static void check_qonv(int subcmd, char *desp, int flag)
- {
- 	int res;
- 	struct fs_quota_statv res_qstatv = {
- 		.qs_version = FS_QSTATV_VERSION1
- 	};
- 
--	res = quotactl(subcmd, tst_device->dev, test_id, (void *) &res_qstatv);
-+	res = do_quotactl(fd, subcmd, tst_device->dev, test_id, (void *) &res_qstatv);
- 	if (res == -1) {
- 		tst_res(TFAIL | TERRNO,
- 			"quotactl() failed to get xfs quota on statv");
-@@ -131,14 +131,14 @@ void check_qonv(int subcmd, char *desp, int flag)
- 	tst_res(TPASS, "quotactl() succeeded to %s", desp);
- }
- 
--void check_qlim(int subcmd, char *desp)
-+static void check_qlim(int subcmd, char *desp)
- {
- 	int res;
- 	static struct fs_disk_quota res_dquota;
- 
- 	res_dquota.d_rtb_softlimit = 0;
- 
--	res = quotactl(subcmd, tst_device->dev, test_id, (void *) &res_dquota);
-+	res = do_quotactl(fd, subcmd, tst_device->dev, test_id, (void *) &res_dquota);
- 	if (res == -1) {
- 		tst_res(TFAIL | TERRNO,
- 			"quotactl() failed to get xfs disk quota limits");
-diff --git a/testcases/kernel/syscalls/quotactl/quotactl05.c b/testcases/kernel/syscalls/quotactl/quotactl05.c
-index 15a6c1e67..e56e191df 100644
---- a/testcases/kernel/syscalls/quotactl/quotactl05.c
-+++ b/testcases/kernel/syscalls/quotactl/quotactl05.c
-@@ -62,10 +62,17 @@ static struct t_case {
- 
- static void setup(void)
- {
--	test_id = geteuid();
++static void setup(void)
++{
 +	quotactl_info();
 +	fd = SAFE_OPEN(MNTPOINT, O_RDONLY);
- 	check_support_cmd(PRJQUOTA);
- }
- 
++}
++
 +static void cleanup(void)
 +{
 +	if (fd > -1)
 +		SAFE_CLOSE(fd);
 +}
 +
- static void verify_quota(unsigned int n)
- {
- 	struct t_case *tc = &tcases[n];
-@@ -85,7 +92,7 @@ static void verify_quota(unsigned int n)
- 		return;
- 	}
- 
--	TEST(quotactl(tc->cmd, tst_device->dev, test_id, tc->addr));
-+	TEST(do_quotactl(fd, tc->cmd, tst_device->dev, test_id, tc->addr));
- 	if (TST_RET == -1) {
- 		tst_res(TFAIL | TTERRNO, "quotactl() failed to %s", tc->des);
- 		return;
-@@ -107,9 +114,11 @@ static struct tst_test test = {
- 	.tcnt = ARRAY_SIZE(tcases),
+ static struct tst_test test = {
++	.setup = setup,
++	.cleanup = cleanup,
+ 	.needs_root = 1,
+ 	.needs_kconfigs = (const char *[]) {
+ 		"CONFIG_XFS_QUOTA",
+@@ -72,8 +84,9 @@ static struct tst_test test = {
+ 	.test_all = verify_quota,
  	.mount_device = 1,
  	.dev_fs_type = "xfs",
 -	.mntpoint = mntpoint,
 +	.mntpoint = MNTPOINT,
- 	.mnt_data = "prjquota",
- 	.setup = setup,
-+	.cleanup = cleanup,
+ 	.mnt_data = "usrquota",
 +	.test_variants = QUOTACTL_SYSCALL_VARIANTS,
- };
- 
- #else
+ 	.tags = (const struct tst_tag[]) {
+ 		{"linux-git", "657bdfb7f5e6"},
+ 		{}
 -- 
 2.23.0
 
