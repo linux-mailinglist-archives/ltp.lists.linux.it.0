@@ -1,75 +1,69 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E79F472C0E
-	for <lists+linux-ltp@lfdr.de>; Mon, 13 Dec 2021 13:13:39 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id A7074472D24
+	for <lists+linux-ltp@lfdr.de>; Mon, 13 Dec 2021 14:24:08 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 825303C899B
-	for <lists+linux-ltp@lfdr.de>; Mon, 13 Dec 2021 13:13:38 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id C0FF23C89B1
+	for <lists+linux-ltp@lfdr.de>; Mon, 13 Dec 2021 14:24:07 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 3516B3C892B
- for <ltp@lists.linux.it>; Mon, 13 Dec 2021 13:13:34 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 067473C8AFF
+ for <ltp@lists.linux.it>; Mon, 13 Dec 2021 14:23:52 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 8DF7D1A01111
- for <ltp@lists.linux.it>; Mon, 13 Dec 2021 13:13:32 +0100 (CET)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 03FED600292
+ for <ltp@lists.linux.it>; Mon, 13 Dec 2021 14:23:51 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 62564210F9;
- Mon, 13 Dec 2021 12:13:32 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id F297D1F3BE;
+ Mon, 13 Dec 2021 13:23:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1639397612; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=gPavZQz/BheAH3RUu9eBSAg3WRDv/2obqJuf1wzxlaM=;
- b=mCYt4/iP7aPMLEJz2CGs9AG3kmRcHv9jNZMMZyx6nC7eLAsO4GxJjSxaG0w9rNuVKCNj5E
- 8M1nsDHkmKwzhZFALIkpjBRSZtuzN3rAjpVMl9fRnsR+o5MVNMXexXheh8WSpMQ1D8zt2p
- N/3loyZhaX9l2ZG5WlNIpMRf6l5UPjY=
+ t=1639401830; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=2D/01UJbk+D3t2qjZApB6fOpbUQBZ8bzaTyBVahbNQc=;
+ b=w46mr8EZou74yLvhCKMYstugwDqDoFeL5mzYor20Jg6Ce7hb1BQ6OCP4SIX+2gtd7gVw9p
+ 1TG9upgMHzGzPwXEJXaWJozU9rUIDO3uGqkAHjqHDaJACwnzZLYIrbzQzBj2ZU3zOQ8/T5
+ iZrjEO6v3U/kfhAHzW9CvgCAxoap78Y=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1639397612;
+ s=susede2_ed25519; t=1639401830;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=gPavZQz/BheAH3RUu9eBSAg3WRDv/2obqJuf1wzxlaM=;
- b=4I5S2QzYRmejX5D94BXR46YnePRwkWJwBgKNwNrmp9COgjnXH9htBuNxW9wlHi30jYDSnM
- cztDtBsWUPW7tNDw==
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=2D/01UJbk+D3t2qjZApB6fOpbUQBZ8bzaTyBVahbNQc=;
+ b=UgNnuSVHCUg1EUclKXnscXrusbn6IJUk601RavhTLU7NejN4rObgim+8x3ph141TTJO2io
+ M3jCT9t7ZryiYEBg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 411E613AFF;
- Mon, 13 Dec 2021 12:13:32 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B6A5613AFF;
+ Mon, 13 Dec 2021 13:23:50 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id lUztDew4t2HdbQAAMHmgww
- (envelope-from <chrubis@suse.cz>); Mon, 13 Dec 2021 12:13:32 +0000
-Date: Mon, 13 Dec 2021 13:14:56 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Richard Palethorpe <rpalethorpe@suse.de>
-Message-ID: <Ybc5QJSZM3YIji70@yuki>
-References: <20211210134556.26091-1-pvorel@suse.cz> <87tufcao8l.fsf@suse.de>
- <YbcM8xKx7G0KQxWU@yuki> <61B70DE2.4040402@fujitsu.com>
- <87lf0oaeui.fsf@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id hbNGKmZJt2GLDQAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Mon, 13 Dec 2021 13:23:50 +0000
+From: Petr Vorel <pvorel@suse.cz>
+To: ltp@lists.linux.it
+Date: Mon, 13 Dec 2021 14:23:38 +0100
+Message-Id: <20211213132339.22770-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <87lf0oaeui.fsf@suse.de>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/1] doc/maintainer: Add policy for new
- functionality
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/2] chdir01.c: Fix on enabled FIPS
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,52 +75,63 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: pvorel@suze.cz, "ltp@lists.linux.it" <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> >>> The issue is we may forget to merge patch sets for features which are
-> >>> included (a far worse result). It's more stuff waiting around in the
-> >>> queue. At the least we should have a procedure for tracking them (like
-> >>> tagging github issues for review at each mainline release).
-> >>>
-> >>> If a test requires a kernel config which doesn't exist in mainline we
-> >>> could also look for that automatically.
-> >>
-> >> The main issue is that if we happen to release LTP meanwhile with a test
-> >> for a syscall that didn't get included in the mainline in the end we
-> >> have released LTP that is supposed to be stable and the test will start
-> >> to fail when the syscall number is allocated for something else which
-> >> will happen sooner or later.
-> > I know a example that is quotactl_path syscall.
-> >>
-> 
-> If the real issue is LTP releases, then why not exclude tests for new
-> features from them? I assume it's only a small number of commits which
-> would need to be removed. Possibly we could tag them in git when merging
-> so it is not a lot more work for whoever does the release (namely
-> Cyril) to create a branch without them.
+which causes 0 permission for user and group.
 
-That sounds too complex for a test or two we are usually getting during
-the release cycle.
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+---
+ testcases/kernel/syscalls/chdir/chdir01.c | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
 
-Note that people who contribute the functionality to the kernel are used
-to wait for next release window, kernel releases are aprox. twice as
-fast as LTP.
-
-> My main concern is this will throw up a barrier to motivated
-> contributors working on the cutting edge.
-
-So far really nobody complained, which may not be a good metric. But
-still unless there is a evidence that this happens I wouldn't consider
-spending effort on this.
-
+diff --git a/testcases/kernel/syscalls/chdir/chdir01.c b/testcases/kernel/syscalls/chdir/chdir01.c
+index aa25adf6aa..5819998484 100644
+--- a/testcases/kernel/syscalls/chdir/chdir01.c
++++ b/testcases/kernel/syscalls/chdir/chdir01.c
+@@ -27,7 +27,7 @@
+ #define LINK_NAME2 "symloop2"
+ 
+ static char *workdir;
+-static int skip_symlinks, skip_blocked;
++static int skip_symlinks, blocked_perm;
+ static struct passwd *ltpuser;
+ 
+ static struct test_case {
+@@ -61,9 +61,9 @@ static void setup(void)
+ 	SAFE_MKDIR(BLOCKED_NAME, 0644);
+ 	umask(sys_umask);
+ 
+-	/* FAT and NTFS override file and directory permissions */
+ 	SAFE_STAT(BLOCKED_NAME, &statbuf);
+-	skip_blocked = statbuf.st_mode & 0111;
++	blocked_perm = statbuf.st_mode;
++
+ 	skip_symlinks = 0;
+ 	TEST(symlink(LINK_NAME1, LINK_NAME2));
+ 
+@@ -117,7 +117,15 @@ static void run(unsigned int n)
+ 	TEST(chdir(tc->name));
+ 	check_result("root", tc->name, tc->root_ret, tc->root_err);
+ 
+-	if (tc->nobody_err == EACCES && skip_blocked) {
++	/* FIPS mode disables umask efect for group or other */
++	if (!(blocked_perm & S_IRGRP) && strcmp(tc->name, "/") != 0) {
++		tst_res(TCONF, "Skipping unprivileged permission test, "
++			"no read permission for \"%s\"", tc->name);
++		return;
++	}
++
++	/* FAT and NTFS override file and directory permissions */
++	if (blocked_perm & 0111 && tc->nobody_err == EACCES) {
+ 		tst_res(TCONF, "Skipping unprivileged permission test, "
+ 			"FS mangles dir mode");
+ 		return;
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+2.34.1
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
