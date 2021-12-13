@@ -1,75 +1,69 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5BEBB472D1F
-	for <lists+linux-ltp@lfdr.de>; Mon, 13 Dec 2021 14:23:58 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id BB8E8472F78
+	for <lists+linux-ltp@lfdr.de>; Mon, 13 Dec 2021 15:37:18 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E98FA3C897A
-	for <lists+linux-ltp@lfdr.de>; Mon, 13 Dec 2021 14:23:56 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id D968C3C8B60
+	for <lists+linux-ltp@lfdr.de>; Mon, 13 Dec 2021 15:37:17 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 9F7E43C88E7
- for <ltp@lists.linux.it>; Mon, 13 Dec 2021 14:23:52 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id E16D23C825E
+ for <ltp@lists.linux.it>; Mon, 13 Dec 2021 15:37:14 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 04A011000F25
- for <ltp@lists.linux.it>; Mon, 13 Dec 2021 14:23:51 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 40EBA212B6;
- Mon, 13 Dec 2021 13:23:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1639401831; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 91210600C54
+ for <ltp@lists.linux.it>; Mon, 13 Dec 2021 15:37:13 +0100 (CET)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 3B08B1F3BB;
+ Mon, 13 Dec 2021 14:37:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1639406230;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=R0ixrMPTmSGUJ/7ziNaEypkXN6aZVxcg32lZusTeWy8=;
- b=HuNKbUwL4UR80hrxao7UgI/gBk1a//T2mKQQyMgCBSxMNunbY31bJbzwDJDo03vl8eSuZq
- HUgwwn1AF+aZ2yfSCiuqPT7TvvoGNsbBBp90ZBAwFKu/WmOBd/sVa/avuW7xYPSWLOLX9y
- 8LQFc9kukITdg/Rk+eTsvhWs6rwZ1gk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1639401831;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ bh=Of7Ufw3HLdc4fJzx3kpvfBc0d4KOfkRh5ll27j/lnQ4=;
+ b=bA/mhaQfP/pANW1Hq1UpV215JTButhSW9yZp2yFkbf8e0PH2gtFM/XjMJgPZjWNZOh1q5T
+ Fr0dxv96SxYoT6fs2RDmxyfQYulOia86XKSrWIb8Q2uven/FDvXV2mTbcFPNHEzwskRugD
+ 4y1fwAubnTCGs2V2Tbro/BL7RdLdt8M=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1639406230;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=R0ixrMPTmSGUJ/7ziNaEypkXN6aZVxcg32lZusTeWy8=;
- b=FCL5vg8xe/yJtXyrpOEHdDGow/ZKSH9HtzR+YRlYZn7d/tqRwfTCYvAcjrh8a3jDemT3XM
- WUfJSdVx3cKdmEDA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ bh=Of7Ufw3HLdc4fJzx3kpvfBc0d4KOfkRh5ll27j/lnQ4=;
+ b=S6x593kvq3IYpM3f1nu2U2SU6lSK6iGOz9JS594QgVAQXsYmCBu5FEN7kzePRV2hPAZPtz
+ qr4rHRY0Sg7iqnDw==
+Received: from g78 (unknown [10.163.24.42])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0457513AFF;
- Mon, 13 Dec 2021 13:23:50 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id gLyDOmZJt2GLDQAAMHmgww
- (envelope-from <pvorel@suse.cz>); Mon, 13 Dec 2021 13:23:50 +0000
-From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Mon, 13 Dec 2021 14:23:39 +0100
-Message-Id: <20211213132339.22770-2-pvorel@suse.cz>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20211213132339.22770-1-pvorel@suse.cz>
-References: <20211213132339.22770-1-pvorel@suse.cz>
+ by relay2.suse.de (Postfix) with ESMTPS id EA9C9A3B85;
+ Mon, 13 Dec 2021 14:37:09 +0000 (UTC)
+References: <20211210134556.26091-1-pvorel@suse.cz> <87tufcao8l.fsf@suse.de>
+ <YbcM8xKx7G0KQxWU@yuki> <61B70DE2.4040402@fujitsu.com>
+ <87lf0oaeui.fsf@suse.de> <Ybc5QJSZM3YIji70@yuki>
+User-agent: mu4e 1.6.9; emacs 27.2
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Cyril Hrubis <chrubis@suse.cz>
+Date: Mon, 13 Dec 2021 14:17:47 +0000
+In-reply-to: <Ybc5QJSZM3YIji70@yuki>
+Message-ID: <87h7bca7vu.fsf@suse.de>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/2] chdir01.c: Minor cleanup
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/1] doc/maintainer: Add policy for new
+ functionality
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,61 +75,66 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: rpalethorpe@suse.de
+Cc: pvorel@suze.cz, "ltp@lists.linux.it" <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-1) print tested item (readability)
-2) define TESTUSER (DRY)
+Hello,
 
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
- testcases/kernel/syscalls/chdir/chdir01.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+Cyril Hrubis <chrubis@suse.cz> writes:
 
-diff --git a/testcases/kernel/syscalls/chdir/chdir01.c b/testcases/kernel/syscalls/chdir/chdir01.c
-index 5819998484..228f6daf44 100644
---- a/testcases/kernel/syscalls/chdir/chdir01.c
-+++ b/testcases/kernel/syscalls/chdir/chdir01.c
-@@ -25,6 +25,7 @@
- #define BLOCKED_NAME "keep_out"
- #define LINK_NAME1 "symloop"
- #define LINK_NAME2 "symloop2"
-+#define TESTUSER  "nobody"
- 
- static char *workdir;
- static int skip_symlinks, blocked_perm;
-@@ -78,7 +79,7 @@ static void setup(void)
- 	SAFE_CLOSE(fd);
- 
- 	if (!ltpuser)
--		ltpuser = SAFE_GETPWNAM("nobody");
-+		ltpuser = SAFE_GETPWNAM(TESTUSER);
- }
- 
- static void check_result(const char *user, const char *name, int retval,
-@@ -106,6 +107,8 @@ static void run(unsigned int n)
- {
- 	struct test_case *tc = testcase_list + n;
- 
-+	tst_res(TINFO, "Testing '%s'", tc->name);
-+
- 	if (tc->root_err == ELOOP && skip_symlinks) {
- 		tst_res(TCONF, "Skipping symlink loop test, not supported");
- 		return;
-@@ -135,7 +138,7 @@ static void run(unsigned int n)
- 	SAFE_SETEUID(ltpuser->pw_uid);
- 	TEST(chdir(tc->name));
- 	SAFE_SETEUID(0);
--	check_result("nobody", tc->name, tc->nobody_ret, tc->nobody_err);
-+	check_result(TESTUSER, tc->name, tc->nobody_ret, tc->nobody_err);
- }
- 
- static void cleanup(void)
+> Hi!
+>> >>> The issue is we may forget to merge patch sets for features which are
+>> >>> included (a far worse result). It's more stuff waiting around in the
+>> >>> queue. At the least we should have a procedure for tracking them (like
+>> >>> tagging github issues for review at each mainline release).
+>> >>>
+>> >>> If a test requires a kernel config which doesn't exist in mainline we
+>> >>> could also look for that automatically.
+>> >>
+>> >> The main issue is that if we happen to release LTP meanwhile with a test
+>> >> for a syscall that didn't get included in the mainline in the end we
+>> >> have released LTP that is supposed to be stable and the test will start
+>> >> to fail when the syscall number is allocated for something else which
+>> >> will happen sooner or later.
+>> > I know a example that is quotactl_path syscall.
+>> >>
+>> 
+>> If the real issue is LTP releases, then why not exclude tests for new
+>> features from them? I assume it's only a small number of commits which
+>> would need to be removed. Possibly we could tag them in git when merging
+>> so it is not a lot more work for whoever does the release (namely
+>> Cyril) to create a branch without them.
+>
+> That sounds too complex for a test or two we are usually getting during
+> the release cycle.
+>
+> Note that people who contribute the functionality to the kernel are used
+> to wait for next release window, kernel releases are aprox. twice as
+> fast as LTP.
+>
+>> My main concern is this will throw up a barrier to motivated
+>> contributors working on the cutting edge.
+>
+> So far really nobody complained, which may not be a good metric. But
+> still unless there is a evidence that this happens I wouldn't consider
+> spending effort on this.
+
+OK, well if it comes up again we can revisit it. However Petr please
+could you add the reasoning about not adding unstable tests into
+releases.
+
+With that you can add
+
+Acked-by: Richard Palethorpe <rpalethorpe@suse.com>
+
+
 -- 
-2.34.1
-
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
