@@ -1,55 +1,56 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43FD5474088
-	for <lists+linux-ltp@lfdr.de>; Tue, 14 Dec 2021 11:37:04 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5088A47408B
+	for <lists+linux-ltp@lfdr.de>; Tue, 14 Dec 2021 11:37:32 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DC7EC3C8CF4
-	for <lists+linux-ltp@lfdr.de>; Tue, 14 Dec 2021 11:37:03 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id EDC9D3C8D0D
+	for <lists+linux-ltp@lfdr.de>; Tue, 14 Dec 2021 11:37:31 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A42023C1351
+ by picard.linux.it (Postfix) with ESMTPS id 9413B3C1351
  for <ltp@lists.linux.it>; Tue, 14 Dec 2021 11:36:59 +0100 (CET)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id A819B600747
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id D65CA1A00F64
  for <ltp@lists.linux.it>; Tue, 14 Dec 2021 11:36:58 +0100 (CET)
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 169FD212B5;
+ by smtp-out1.suse.de (Postfix) with ESMTP id 5A5FB2111A;
  Tue, 14 Dec 2021 10:36:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
  t=1639478218; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=shAg4pHd9bj0Jg9EiTn6M8Xj03sM3sbpCyFv2gVX90I=;
- b=u/G6m+eLdtO+clbXdG8mKaQ1A0JgV/PRD5sjsyL3S+H0ufnfwumxL1rxk1MZvD0Rh7Wc9V
- ibAr/r5zEcFUZXUSG6p4WKQIvvHqdo6FdUwJGtfOzVlucqx15nwXvMudxlxlW/dz50v6oO
- rUgh7Bwosn5d6jRSLfQtb6ZHbxhAnpk=
+ bh=R6o4nFx3ev7FpJ1ICm5MByu/71+kpQjPMOQynpgQkPA=;
+ b=HGjsKmN9UPAseTMSLlzCklvMO2bzbQenoIn/6wwv51Z7ygtRfspJTwydrZyt/9ubORNvob
+ Q6PP5rvHSlKLxuLLsXBD6bLT9il9jlANFPXnpGgv4eep+vxKAUGlRZJHMhtbZJ3t1BISI0
+ wdQIDI8uJq+xqavsraPecACykPKfdwE=
 Received: from g78.suse.de (unknown [10.163.24.42])
- by relay2.suse.de (Postfix) with ESMTP id D6C47A3B83;
- Tue, 14 Dec 2021 10:36:57 +0000 (UTC)
+ by relay2.suse.de (Postfix) with ESMTP id 27350A3B83;
+ Tue, 14 Dec 2021 10:36:58 +0000 (UTC)
 To: ltp@lists.linux.it
-Date: Tue, 14 Dec 2021 10:36:42 +0000
-Message-Id: <20211214103645.16148-2-rpalethorpe@suse.com>
+Date: Tue, 14 Dec 2021 10:36:43 +0000
+Message-Id: <20211214103645.16148-3-rpalethorpe@suse.com>
 X-Mailer: git-send-email 2.34.0
 In-Reply-To: <20211214103645.16148-1-rpalethorpe@suse.com>
 References: <20211214103645.16148-1-rpalethorpe@suse.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/5] API/cgroup: Remove typedef
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH 3/5] API/cgroup: Lift out assignments in if statements
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,63 +70,121 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Angers make check and is not helpful anymore.
+checkpatch.pl forbids this; for good reason because it can mask
+accidental use of '=' instead of '=='. Also included is a script to
+automatically fix occurrences of this.
 
 Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
 ---
- lib/tst_cgroup.c | 12 +++++-------
- 1 file changed, 5 insertions(+), 7 deletions(-)
+ lib/tst_cgroup.c                           | 22 ++++++++++------
+ scripts/coccinelle/fix-if-assignment.cocci | 30 ++++++++++++++++++++++
+ 2 files changed, 44 insertions(+), 8 deletions(-)
+ create mode 100644 scripts/coccinelle/fix-if-assignment.cocci
 
 diff --git a/lib/tst_cgroup.c b/lib/tst_cgroup.c
-index 2dcfbc8ff..d9d74faa8 100644
+index d9d74faa8..8eeb98a26 100644
 --- a/lib/tst_cgroup.c
 +++ b/lib/tst_cgroup.c
-@@ -141,10 +141,7 @@ struct tst_cgroup_group {
- /* Always use first item for unified hierarchy */
- static struct cgroup_root roots[ROOTS_MAX + 1];
+@@ -370,7 +370,8 @@ static void cgroup_root_scan(const char *const mnt_type,
+ 	SAFE_FILE_READAT(mnt_dfd, "cgroup.controllers", buf, sizeof(buf));
  
--/* Lookup tree for item names. */
--typedef struct cgroup_file files_t[];
--
--static const files_t cgroup_ctrl_files = {
-+static const struct cgroup_file cgroup_ctrl_files[] = {
- 	/* procs exists on V1, however it was read-only until kernel v3.0. */
- 	{ "cgroup.procs", "tasks", 0 },
- 	{ "cgroup.subtree_control", NULL, 0 },
-@@ -152,7 +149,7 @@ static const files_t cgroup_ctrl_files = {
- 	{ }
- };
+ 	for (tok = strtok(buf, " "); tok; tok = strtok(NULL, " ")) {
+-		if ((const_ctrl = cgroup_find_ctrl(tok)))
++		const_ctrl = cgroup_find_ctrl(tok);
++		if (const_ctrl)
+ 			add_ctrl(&ctrl_field, const_ctrl);
+ 	}
  
--static const files_t memory_ctrl_files = {
-+static const struct cgroup_file memory_ctrl_files[] = {
- 	{ "memory.current", "memory.usage_in_bytes", CTRL_MEMORY },
- 	{ "memory.max", "memory.limit_in_bytes", CTRL_MEMORY },
- 	{ "memory.swappiness", "memory.swappiness", CTRL_MEMORY },
-@@ -163,7 +160,7 @@ static const files_t memory_ctrl_files = {
- 	{ }
- };
+@@ -386,7 +387,8 @@ static void cgroup_root_scan(const char *const mnt_type,
  
--static const files_t cpu_ctrl_files = {
-+static const struct cgroup_file cpu_ctrl_files[] = {
- 	/* The V1 quota and period files were combined in the V2 max
- 	 * file. The quota is in the first column and if we just print
- 	 * a single value to the file, it will be treated as the
-@@ -175,13 +172,14 @@ static const files_t cpu_ctrl_files = {
- 	{ }
- };
+ v1:
+ 	for (tok = strtok(mnt_opts, ","); tok; tok = strtok(NULL, ",")) {
+-		if ((const_ctrl = cgroup_find_ctrl(tok)))
++		const_ctrl = cgroup_find_ctrl(tok);
++		if (const_ctrl)
+ 			add_ctrl(&ctrl_field, const_ctrl);
  
--static const files_t cpuset_ctrl_files = {
-+static const struct cgroup_file cpuset_ctrl_files[] = {
- 	{ "cpuset.cpus", "cpuset.cpus", CTRL_CPUSET },
- 	{ "cpuset.mems", "cpuset.mems", CTRL_CPUSET },
- 	{ "cpuset.memory_migrate", "cpuset.memory_migrate", CTRL_CPUSET },
- 	{ }
- };
+ 		no_prefix |= !strcmp("noprefix", tok);
+@@ -1008,8 +1010,9 @@ int safe_cgroup_has(const char *const file, const int lineno,
+ 		return 0;
  
-+/* Lookup tree for item names. */
- static struct cgroup_ctrl controllers[] = {
- 	[0] = { "cgroup", cgroup_ctrl_files, 0, NULL, 0 },
- 	[CTRL_MEMORY] = {
+ 	for_each_dir(cg, cfile->ctrl_indx, dir) {
+-		if (!(alias = cgroup_file_alias(cfile, *dir)))
+-		    continue;
++		alias = cgroup_file_alias(cfile, *dir);
++		if (!alias)
++			continue;
+ 
+ 		if (!faccessat((*dir)->dir_fd, alias, F_OK, 0))
+ 			return 1;
+@@ -1077,7 +1080,8 @@ ssize_t safe_cgroup_read(const char *const file, const int lineno,
+ 	ssize_t read_ret = 0;
+ 
+ 	for_each_dir(cg, cfile->ctrl_indx, dir) {
+-		if (!(alias = cgroup_file_alias(cfile, *dir)))
++		alias = cgroup_file_alias(cfile, *dir);
++		if (!alias)
+ 			continue;
+ 
+ 		if (prev_len)
+@@ -1115,8 +1119,9 @@ void safe_cgroup_printf(const char *const file, const int lineno,
+ 	va_list va;
+ 
+ 	for_each_dir(cg, cfile->ctrl_indx, dir) {
+-		if (!(alias = cgroup_file_alias(cfile, *dir)))
+-		    continue;
++		alias = cgroup_file_alias(cfile, *dir);
++		if (!alias)
++			continue;
+ 
+ 		va_start(va, fmt);
+ 		safe_file_vprintfat(file, lineno,
+@@ -1141,7 +1146,8 @@ void safe_cgroup_scanf(const char *const file, const int lineno,
+ 		return;
+ 
+ 	va_start(va, fmt);
+-	if ((ret = vsscanf(buf, fmt, va)) < 1) {
++	ret = vsscanf(buf, fmt, va);
++	if (ret < 1) {
+ 		tst_brk_(file, lineno, TBROK | TERRNO,
+ 			 "'%s': vsscanf('%s', '%s', ...)", file_name, buf, fmt);
+ 	}
+diff --git a/scripts/coccinelle/fix-if-assignment.cocci b/scripts/coccinelle/fix-if-assignment.cocci
+new file mode 100644
+index 000000000..4dad22fe0
+--- /dev/null
++++ b/scripts/coccinelle/fix-if-assignment.cocci
+@@ -0,0 +1,30 @@
++@@
++expression V, E;
++@@
++
+++ V = E;
++  if (
++-	(V = E)
+++ 	V
++  ) { ... }
++
++@@
++expression V, E;
++@@
++
+++ V = E;
++  if (!
++-	(V = E)
+++ 	V
++  ) { ... }
++
++@@
++expression V, E;
++binary operator B; 
++@@
++
+++ V = E;
++  if (
++-	(V = E)
+++ 	V
++  B ...) { ... }
 -- 
 2.34.0
 
