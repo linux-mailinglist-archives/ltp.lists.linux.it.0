@@ -1,55 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09B32474089
-	for <lists+linux-ltp@lfdr.de>; Tue, 14 Dec 2021 11:37:15 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 33D6A474091
+	for <lists+linux-ltp@lfdr.de>; Tue, 14 Dec 2021 11:39:07 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 928A13C8D54
-	for <lists+linux-ltp@lfdr.de>; Tue, 14 Dec 2021 11:37:14 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id DBA383C8C07
+	for <lists+linux-ltp@lfdr.de>; Tue, 14 Dec 2021 11:39:06 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 0F3FD3C1351
- for <ltp@lists.linux.it>; Tue, 14 Dec 2021 11:36:59 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id 5B86A3C1351
+ for <ltp@lists.linux.it>; Tue, 14 Dec 2021 11:39:03 +0100 (CET)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 6E35C1401211
- for <ltp@lists.linux.it>; Tue, 14 Dec 2021 11:36:59 +0100 (CET)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id F32CC212B6;
- Tue, 14 Dec 2021 10:36:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1639478219; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id D95181401240
+ for <ltp@lists.linux.it>; Tue, 14 Dec 2021 11:39:02 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 079AB212B6;
+ Tue, 14 Dec 2021 10:39:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1639478342; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=ZN82T4PUnYJak2ZAAli54dMySqS4v8moyUI0CDPjAoA=;
- b=FPKGAU+l/kxB3FxHAXCdiqWYGhqoKb/FpNZ6Auhau8VE96UTJWqICEKOeaDlzItmZkZzna
- SnRsdVHcnQUmXRueHhRRuUIg0edkcXaegUhW1r6RYfnmSXGoO3JtTYqAMLxphGcEHKRAyb
- +pzKr5Ax99rJ2Gs1RBnfhYMP379Nhqo=
-Received: from g78.suse.de (unknown [10.163.24.42])
- by relay2.suse.de (Postfix) with ESMTP id B7CD4A3B85;
- Tue, 14 Dec 2021 10:36:58 +0000 (UTC)
-To: ltp@lists.linux.it
-Date: Tue, 14 Dec 2021 10:36:45 +0000
-Message-Id: <20211214103645.16148-5-rpalethorpe@suse.com>
-X-Mailer: git-send-email 2.34.0
-In-Reply-To: <20211214103645.16148-1-rpalethorpe@suse.com>
-References: <20211214103645.16148-1-rpalethorpe@suse.com>
+ bh=+qEjuQevZqyO6CweEJ3yMgcImI5q9b4HueNFxukrWBY=;
+ b=AVGZAmAdIGvnmJAu9PZPSdR3thKJoM79GDv1AKv5ZD65FxAwGelV9HXgcPXagPGeJ3bCna
+ O2+NWw6EUAHR/0ydx7BpOX5WDYEx0hRMcaQGpHQNp31N+UtbMuBnbK6cB2rvcKET91ps58
+ UtMg2ibua1Lc2ZhEBZJUKLvUnI9AHY8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1639478342;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=+qEjuQevZqyO6CweEJ3yMgcImI5q9b4HueNFxukrWBY=;
+ b=bnMeXcJeGXaomqUiCMbAEfAXcv9midZGKlUikZ/I5I1f7lMtwRnyc5D9iOV0QXAUmqLt+i
+ BBj1GJkMnNjHAOBg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D8D8013C31;
+ Tue, 14 Dec 2021 10:39:01 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id yqZVM0V0uGHYUwAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Tue, 14 Dec 2021 10:39:01 +0000
+Date: Tue, 14 Dec 2021 11:40:25 +0100
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Richard Palethorpe <rpalethorpe@suse.com>
+Message-ID: <Ybh0mcpJG5XmrJ7T@yuki>
+References: <20211214090648.14292-1-rpalethorpe@suse.com>
+ <20211214090648.14292-2-rpalethorpe@suse.com>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20211214090648.14292-2-rpalethorpe@suse.com>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH 5/5] API/cgroup: Use __func__ in tst_cgroup_require
+Subject: Re: [LTP] [PATCH 1/4] API: cgroup: Add safe_cgroup_occursin
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,42 +80,18 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Richard Palethorpe via ltp <ltp@lists.linux.it>
-Reply-To: Richard Palethorpe <rpalethorpe@suse.com>
-Cc: Richard Palethorpe <rpalethorpe@suse.com>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Required by checkpatch.pl.
+Hi!
+Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
 
-Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
----
- lib/tst_cgroup.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
-
-diff --git a/lib/tst_cgroup.c b/lib/tst_cgroup.c
-index c22f5b32c..7c4de34c6 100644
---- a/lib/tst_cgroup.c
-+++ b/lib/tst_cgroup.c
-@@ -609,10 +609,9 @@ void tst_cgroup_require(const char *const ctrl_name,
- 	if (!options)
- 		options = &default_opts;
- 
--	if (ctrl->we_require_it) {
--		tst_res(TWARN, "Duplicate tst_cgroup_require(%s, )",
--			ctrl->ctrl_name);
--	}
-+	if (ctrl->we_require_it)
-+		tst_res(TWARN, "Duplicate %s(%s, )", __func__, ctrl->ctrl_name);
-+
- 	ctrl->we_require_it = 1;
- 
- 	if (ctrl->ctrl_root)
 -- 
-2.34.0
-
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
