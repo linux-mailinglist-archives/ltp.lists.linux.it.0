@@ -2,75 +2,51 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC27B47407D
-	for <lists+linux-ltp@lfdr.de>; Tue, 14 Dec 2021 11:34:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73D9147408A
+	for <lists+linux-ltp@lfdr.de>; Tue, 14 Dec 2021 11:37:21 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1B6DB3C8D01
-	for <lists+linux-ltp@lfdr.de>; Tue, 14 Dec 2021 11:34:21 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id D8F8B3C8C62
+	for <lists+linux-ltp@lfdr.de>; Tue, 14 Dec 2021 11:37:20 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 51B113C04BA
- for <ltp@lists.linux.it>; Tue, 14 Dec 2021 11:34:16 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 5C9C83C1351
+ for <ltp@lists.linux.it>; Tue, 14 Dec 2021 11:36:59 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 62F67601AF9
- for <ltp@lists.linux.it>; Tue, 14 Dec 2021 11:34:15 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 41BA71F3C3;
- Tue, 14 Dec 2021 10:34:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1639478055; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Y/Ujqb88TiAPFOtBIteV/7hEjjComcCg13j5JLiZlgc=;
- b=o+CA1/NFgIufoUFC8zMunYdCWUsdfbIEDtbxQWZISZyVI1b8j+zp4zThqAD4gie8Y2IaAD
- Fc+19LSt3XdMaps5hQSOHb0IRGf1ARs9s5J/oKO6eoVDqIApiGEFg8BS7Ndvsm9rRvBL7y
- VXCsVbm4R2cKEJMMA3zUTvl040WZwh8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1639478055;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Y/Ujqb88TiAPFOtBIteV/7hEjjComcCg13j5JLiZlgc=;
- b=sh6avoCiSxYPoYDMX3NBKaIx1roFNtlV0urrQ5IA5F2+WK/rSOsFlKa6I3mRijsD8335xk
- s1Q1NKdGi1oE3XCA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2F1D913C31;
- Tue, 14 Dec 2021 10:34:15 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id OIORCidzuGGyUQAAMHmgww
- (envelope-from <chrubis@suse.cz>); Tue, 14 Dec 2021 10:34:15 +0000
-Date: Tue, 14 Dec 2021 11:35:39 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <YbhzexvHiyLKSAu6@yuki>
-References: <20211213193419.13414-1-pvorel@suse.cz>
- <CAEemH2dp55yFvaXhq_5e77k6QBnY0aFU5fhz4TjW82bkbwwDiA@mail.gmail.com>
- <YbhV9VIv/8o97O6r@pevik>
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id A483E60067B
+ for <ltp@lists.linux.it>; Tue, 14 Dec 2021 11:36:58 +0100 (CET)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id C8D6F2114E;
+ Tue, 14 Dec 2021 10:36:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1639478217; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=F1l4+eQwdif6bRyHeqLP4Z/vlLmnGPWCQ6JS6LrqC4M=;
+ b=P9EkpcqOaYK469IBrQQrA544uNAzrpXPAQzqyrx3zbkCfLsZS+Nob+SQbIsA5Z6gRn3hdF
+ 7cHuz1yGweH7Aitw+KbPws8CjaMXQiQ+3CKSHYXgEILB1BFqdmflOqhTOjbYpDZ2Twbv24
+ XzAXyT0A14af57iQTZLwJia/pn8x48I=
+Received: from g78.suse.de (unknown [10.163.24.42])
+ by relay2.suse.de (Postfix) with ESMTP id 9552CA3B83;
+ Tue, 14 Dec 2021 10:36:57 +0000 (UTC)
+To: ltp@lists.linux.it
+Date: Tue, 14 Dec 2021 10:36:41 +0000
+Message-Id: <20211214103645.16148-1-rpalethorpe@suse.com>
+X-Mailer: git-send-email 2.34.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <YbhV9VIv/8o97O6r@pevik>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/1] lib: Add support for debugging
- .all_filesystems
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/5] API/cgroup: Whitespace fixes
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,33 +58,85 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
+From: Richard Palethorpe via ltp <ltp@lists.linux.it>
+Reply-To: Richard Palethorpe <rpalethorpe@suse.com>
+Cc: Richard Palethorpe <rpalethorpe@suse.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> > My only concern is that the variable name is too long and not easy
-> > to remember/understand usage. Can we find a better name?
-> >     LTP_ONE_FS_TYPE
-> >     LTP_ASGD_FD_TYPE
-> >     LTP_FS_TYPE_DEBUG
-> Yes, it's too long. LTP_FS_TYPE_DEBUG sounds best to me, but no strong opinion
-> about it.
+Reduce make check noise
 
-Not sure about the "DEBUG" in the name. I would go for a variation of
-the first name "LTP_SINGLE_FS_TYPE" or "LTP_LIMIT_FS_TYPE"
+Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
+---
+ lib/tst_cgroup.c | 15 +++++++++------
+ 1 file changed, 9 insertions(+), 6 deletions(-)
 
-> If we agree we want this, we can consider to use some switch instead or print
-> this variable in help output (-h), with other variables from
-> https://github.com/linux-test-project/ltp/wiki/User-Guidelines.
-
-Printing the variables on -h does sounds reasonabe.
-
+diff --git a/lib/tst_cgroup.c b/lib/tst_cgroup.c
+index 61cc02fa7..2dcfbc8ff 100644
+--- a/lib/tst_cgroup.c
++++ b/lib/tst_cgroup.c
+@@ -199,7 +199,8 @@ static struct cgroup_ctrl controllers[] = {
+ static const struct tst_cgroup_opts default_opts = { 0 };
+ 
+ /* We should probably allow these to be set in environment
+- * variables */
++ * variables
++ */
+ static const char *ltp_cgroup_dir = "ltp";
+ static const char *ltp_cgroup_drain_dir = "drain";
+ static char test_cgroup_dir[NAME_MAX + 1];
+@@ -798,7 +799,8 @@ void tst_cgroup_cleanup(void)
+ 			continue;
+ 
+ 		/* This probably does not result in the CGroup root
+-		 * being destroyed */
++		 * being destroyed
++		 */
+ 		if (umount2(root->mnt_path, MNT_DETACH))
+ 			continue;
+ 
+@@ -817,7 +819,7 @@ clear_data:
+ 	memset(roots, 0, sizeof(roots));
+ }
+ 
+-__attribute__ ((nonnull (1)))
++__attribute__((nonnull(1)))
+ static void cgroup_group_init(struct tst_cgroup_group *const cg,
+ 			      const char *const group_name)
+ {
+@@ -832,7 +834,7 @@ static void cgroup_group_init(struct tst_cgroup_group *const cg,
+ 	strcpy(cg->group_name, group_name);
+ }
+ 
+-__attribute__((nonnull (2, 3)))
++__attribute__((nonnull(2, 3)))
+ static void cgroup_group_add_dir(const struct tst_cgroup_group *const parent,
+ 				 struct tst_cgroup_group *const cg,
+ 				 struct cgroup_dir *const dir)
+@@ -856,7 +858,8 @@ static void cgroup_group_add_dir(const struct tst_cgroup_group *const parent,
+ 				   "+%s", ctrl->ctrl_name);
+ 	}
+ 
+-	for (i = 0; cg->dirs[i]; i++);
++	for (i = 0; cg->dirs[i]; i++)
++		;
+ 	cg->dirs[i] = dir;
+ }
+ 
+@@ -923,7 +926,7 @@ static const struct cgroup_file *cgroup_file_find(const char *const file,
+ 	memcpy(ctrl_name, file_name, len);
+ 	ctrl_name[len] = '\0';
+ 
+-        ctrl = cgroup_find_ctrl(ctrl_name);
++	ctrl = cgroup_find_ctrl(ctrl_name);
+ 
+ 	if (!ctrl) {
+ 		tst_brk_(file, lineno, TBROK,
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+2.34.0
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
