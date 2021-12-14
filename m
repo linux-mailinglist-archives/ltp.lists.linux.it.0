@@ -2,67 +2,76 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD82B474170
-	for <lists+linux-ltp@lfdr.de>; Tue, 14 Dec 2021 12:25:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04A29474173
+	for <lists+linux-ltp@lfdr.de>; Tue, 14 Dec 2021 12:27:13 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 60D703C8C40
-	for <lists+linux-ltp@lfdr.de>; Tue, 14 Dec 2021 12:25:50 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id A3DC03C8C40
+	for <lists+linux-ltp@lfdr.de>; Tue, 14 Dec 2021 12:27:12 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 67CFD3C7621
- for <ltp@lists.linux.it>; Tue, 14 Dec 2021 12:25:48 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id C4E953C7621
+ for <ltp@lists.linux.it>; Tue, 14 Dec 2021 12:27:10 +0100 (CET)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id A042220101B
- for <ltp@lists.linux.it>; Tue, 14 Dec 2021 12:25:47 +0100 (CET)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id D01732112A
- for <ltp@lists.linux.it>; Tue, 14 Dec 2021 11:25:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1639481146;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=6QOIi4CL0hYohfhbmGzjiYnKKOA6hmTk741/F/4D0z0=;
- b=u0unK6HmhfXXfOxC6brTJdNRI7lqgo/BRH0j/uBKQOh99eaVai2Sc9frMGtJ0XOHHfVjZY
- kkCGw/3cgFmUjBrWsIzEkZLua6WpRtKsX+Gta9KK9necPq5ru53E3ZWF+kompEAavvhXoH
- 7IRgxHSJaosH2f4BtQXxrGaPM5sF8uQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1639481146;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=6QOIi4CL0hYohfhbmGzjiYnKKOA6hmTk741/F/4D0z0=;
- b=JKpYLEBe/Yw42G+UaMiLgb01mwEiSeHd+qmrmPTmas3nmeltItTq2Tl/gyOfI5EigHhNry
- csMeTaZt0undHOBg==
-Received: from g78 (unknown [10.163.24.42])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id DEE43600807
+ for <ltp@lists.linux.it>; Tue, 14 Dec 2021 12:27:09 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id 9E2AAA3B84;
- Tue, 14 Dec 2021 11:25:46 +0000 (UTC)
-References: <20211214090648.14292-1-rpalethorpe@suse.com>
- <20211214090648.14292-5-rpalethorpe@suse.com> <Ybh8vUPDA8a0oBOC@yuki>
-User-agent: mu4e 1.6.9; emacs 27.2
-From: Richard Palethorpe <rpalethorpe@suse.de>
+ by smtp-out1.suse.de (Postfix) with ESMTPS id E9B092112A;
+ Tue, 14 Dec 2021 11:27:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1639481228;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=kOYTpWZvgTmjkqXS/kImWfQ5Yao6Psvpw0iGVJq50fM=;
+ b=Bur7/qlAqhB6Q3lB/05lpjubzXkg7Po6xX12Ke7SbmpNK3Fld8xTvvPQWupB9Uioo9lSgK
+ WPnq1VpLcyK+WnTEwFLYr0Pd7xD/AhgZKOT7C9vDTsIFX0BYQ6IUCuIz4JuLTQmsDbAUEs
+ KbAEu24I3PUX4fahmHb0knOooqpbDDU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1639481228;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=kOYTpWZvgTmjkqXS/kImWfQ5Yao6Psvpw0iGVJq50fM=;
+ b=qXaBNlJIcFRTz07ubMZbX/WM5+1Mub05qukeyJjmLBDWHMTfT9j3AhlFv24fTZ2C4LjWPP
+ x4Otqf/c3F3+UEAA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B9D2513BA4;
+ Tue, 14 Dec 2021 11:27:08 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 8Dp4Kox/uGF3agAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Tue, 14 Dec 2021 11:27:08 +0000
+Date: Tue, 14 Dec 2021 12:27:06 +0100
+From: Petr Vorel <pvorel@suse.cz>
 To: Cyril Hrubis <chrubis@suse.cz>
-Date: Tue, 14 Dec 2021 11:22:30 +0000
-In-reply-to: <Ybh8vUPDA8a0oBOC@yuki>
-Message-ID: <87czlza0n9.fsf@suse.de>
+Message-ID: <Ybh/isQcQltJFlyb@pevik>
+References: <20211213193419.13414-1-pvorel@suse.cz>
+ <CAEemH2dp55yFvaXhq_5e77k6QBnY0aFU5fhz4TjW82bkbwwDiA@mail.gmail.com>
+ <YbhV9VIv/8o97O6r@pevik> <YbhzexvHiyLKSAu6@yuki>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <YbhzexvHiyLKSAu6@yuki>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 4/4] scripts/coccinelle: Helper for converting
- CGroup selftests
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/1] lib: Add support for debugging
+ .all_filesystems
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,44 +83,38 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
-Cc: ltp@lists.linux.it
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello,
-
-Cyril Hrubis <chrubis@suse.cz> writes:
+Hi all,
 
 > Hi!
->> +@@
->> +expression cg;
->> +@@
->> +
->> +... when != TST_CGROUP_VER(...)
->> +
->> +- SAFE_CGROUP_PRINT(cg, "cgroup.subtree_control", "+memory");
->> ++ if (TST_CGROUP_VER(cg, "memory") != TST_CGROUP_V1)
->> ++    SAFE_CGROUP_PRINT(cg, "cgroup.subtree_control", "+memory");
->
-> I guess that here we operat on already partially converted code right?
+> > > My only concern is that the variable name is too long and not easy
+> > > to remember/understand usage. Can we find a better name?
+> > >     LTP_ONE_FS_TYPE
+> > >     LTP_ASGD_FD_TYPE
+> > >     LTP_FS_TYPE_DEBUG
+> > Yes, it's too long. LTP_FS_TYPE_DEBUG sounds best to me, but no strong opinion
+> > about it.
 
-Correct, in general cg_write is converted to safe_cgroup_print. Then we
-have this special rule for subtree_control to introduce the version
-check (if there isn't one already present).
+> Not sure about the "DEBUG" in the name. I would go for a variation of
+> the first name "LTP_SINGLE_FS_TYPE" or "LTP_LIMIT_FS_TYPE"
+LTP_SINGLE_FS_TYPE looks better for me, because I'd understand LIMIT to run
+fewer filesystems but possibly more than one.
 
->
->
-> Other than this the rest is really straightforward:
->
-> Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
+> > If we agree we want this, we can consider to use some switch instead or print
+> > this variable in help output (-h), with other variables from
+> > https://github.com/linux-test-project/ltp/wiki/User-Guidelines.
 
+> Printing the variables on -h does sounds reasonabe.
++1 (post v2).
 
--- 
-Thank you,
-Richard.
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
