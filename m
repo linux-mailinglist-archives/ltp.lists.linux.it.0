@@ -1,56 +1,57 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id C745F473EF2
-	for <lists+linux-ltp@lfdr.de>; Tue, 14 Dec 2021 10:08:13 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 26056473EF1
+	for <lists+linux-ltp@lfdr.de>; Tue, 14 Dec 2021 10:08:07 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 492363C8C74
-	for <lists+linux-ltp@lfdr.de>; Tue, 14 Dec 2021 10:08:13 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 697B33C8CB3
+	for <lists+linux-ltp@lfdr.de>; Tue, 14 Dec 2021 10:08:06 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 9016E3C7616
+ by picard.linux.it (Postfix) with ESMTPS id 8B6693C2FF6
  for <ltp@lists.linux.it>; Tue, 14 Dec 2021 10:07:34 +0100 (CET)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 7DEA11001447
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id C28F11401391
  for <ltp@lists.linux.it>; Tue, 14 Dec 2021 10:07:33 +0100 (CET)
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id D6BEA1F3C4;
- Tue, 14 Dec 2021 09:07:32 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 2DDF61F3C5;
+ Tue, 14 Dec 2021 09:07:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1639472852; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1639472853; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=guU6ZkVHfPw2mroxfiCghi8Q20dMQFo1exH4uIx8mUA=;
- b=Szhpd3SLIn8ldDKpxVOtIvdxjvTfgJ+5BIet3qt31cGEPYZhShNU4hqXS2MdGnDFy0uupj
- QbQt7LBfbo7gyq/tuNWtM0APWrFZsAghApcCH4xB6nY/ARa+5WOzbOR9L8s6kcNRT4ZCNr
- eLvAd6pbQ4KhpGdvR5E5xFfGKifLa88=
+ bh=wShGmfe40mU3FCM486AfxSK+p+TS4vW9Vi9BDC+rGiA=;
+ b=SyvWneNL+Ht4ebyAbk/SmDJELWjKg45DjMc0a+g5l36a5AMu4aWB6GD6du/N1I1qdJSTkP
+ oJjK5L5fXJqot+QuKGWs2JDCJtAjJnh5UV92Ps14QIGWuVke1Tbjh5TbCJWGISbXbndh/i
+ Cx0gEUoBbloV43sKzQfo4TYdspq3eNg=
 Received: from g78.suse.de (unknown [10.163.24.42])
- by relay2.suse.de (Postfix) with ESMTP id A2F03A3B81;
+ by relay2.suse.de (Postfix) with ESMTP id E74F7A3B81;
  Tue, 14 Dec 2021 09:07:32 +0000 (UTC)
 To: ltp@lists.linux.it
-Date: Tue, 14 Dec 2021 09:06:47 +0000
-Message-Id: <20211214090648.14292-4-rpalethorpe@suse.com>
+Date: Tue, 14 Dec 2021 09:06:48 +0000
+Message-Id: <20211214090648.14292-5-rpalethorpe@suse.com>
 X-Mailer: git-send-email 2.34.0
 In-Reply-To: <20211214090648.14292-1-rpalethorpe@suse.com>
 References: <20211214090648.14292-1-rpalethorpe@suse.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH 3/4] memcontrol01: Import first memcg kselftest
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH 4/4] scripts/coccinelle: Helper for converting CGroup
+ selftests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,124 +71,60 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This is a conversion of the first test in the memory cgroup
-kselftest. There will be a number of (more important) tests to follow;
-i.e. memcontrol02...
+Helps with bulk rewriting.
 
 Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
 ---
- runtest/controllers                           |  3 +
- testcases/kernel/controllers/memcg/.gitignore |  1 +
- .../kernel/controllers/memcg/memcontrol01.c   | 77 +++++++++++++++++++
- 3 files changed, 81 insertions(+)
- create mode 100644 testcases/kernel/controllers/memcg/memcontrol01.c
+ .../coccinelle/kselftest-cgroup-to-ltp.cocci  | 40 +++++++++++++++++++
+ 1 file changed, 40 insertions(+)
+ create mode 100644 scripts/coccinelle/kselftest-cgroup-to-ltp.cocci
 
-diff --git a/runtest/controllers b/runtest/controllers
-index e3d0243f1..2b41a94d3 100644
---- a/runtest/controllers
-+++ b/runtest/controllers
-@@ -16,6 +16,9 @@ memcg_usage_in_bytes	memcg_usage_in_bytes_test.sh
- memcg_stress		memcg_stress_test.sh
- memcg_control		memcg_control_test.sh
- 
-+# kselftest ports
-+memcontrol01 memcontrol01
-+
- cgroup_fj_function_debug cgroup_fj_function.sh debug
- cgroup_fj_function_cpuset cgroup_fj_function.sh cpuset
- cgroup_fj_function_cpu cgroup_fj_function.sh cpu
-diff --git a/testcases/kernel/controllers/memcg/.gitignore b/testcases/kernel/controllers/memcg/.gitignore
-index c0b6d0714..c3565f85c 100644
---- a/testcases/kernel/controllers/memcg/.gitignore
-+++ b/testcases/kernel/controllers/memcg/.gitignore
-@@ -5,3 +5,4 @@
- /regression/memcg_test_3
- /regression/memcg_test_4
- /stress/memcg_process_stress
-+memcontrol01
-diff --git a/testcases/kernel/controllers/memcg/memcontrol01.c b/testcases/kernel/controllers/memcg/memcontrol01.c
+diff --git a/scripts/coccinelle/kselftest-cgroup-to-ltp.cocci b/scripts/coccinelle/kselftest-cgroup-to-ltp.cocci
 new file mode 100644
-index 000000000..6ef8e04d9
+index 000000000..f91c2c467
 --- /dev/null
-+++ b/testcases/kernel/controllers/memcg/memcontrol01.c
-@@ -0,0 +1,77 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*\
-+ *
-+ * [Description]
-+ *
-+ * Conversion of first kselftest in cgroup/test_memcontrol.c.
-+ *
-+ */
-+#define _GNU_SOURCE
++++ b/scripts/coccinelle/kselftest-cgroup-to-ltp.cocci
+@@ -0,0 +1,40 @@
++@@
++expression cgn, cgns;
++@@
 +
-+#include <stdio.h>
++- cgn = cg_name(..., cgns);
+++ cgn = tst_cgroup_group_mk(cg_test, cgns);
 +
-+#include "tst_test.h"
-+#include "tst_cgroup.h"
++@@
++expression cg, fname, data;
++@@
 +
-+static const struct tst_cgroup_group *cg_test;
-+static struct tst_cgroup_group *parent, *child;
-+static struct tst_cgroup_group *parent2, *child2;
++- if (cg_write(cg, fname, data)) {
++-    ...
++- }
+++ SAFE_CGROUP_PRINT(cg, fname, data);
 +
-+/*
-+ * This test creates two nested cgroups with and without enabling
-+ * the memory controller.
-+ *
-+ * The LTP API automatically adds controllers to subtree_control when
-+ * a child cgroup is added. So unlike the kselftest we remove the
-+ * controller again.
-+ */
-+static void test_memcg_subtree_control(void)
-+{
-+	parent = tst_cgroup_group_mk(cg_test, "memcg_test_0");
-+	child = tst_cgroup_group_mk(parent, "memcg_test_1");
-+	parent2 = tst_cgroup_group_mk(cg_test, "memcg_test_2");
-+	child2 = tst_cgroup_group_mk(parent2, "memcg_test_3");
++@@
++expression cg;
++@@
 +
-+	SAFE_CGROUP_PRINT(parent2, "cgroup.subtree_control", "-memory");
++... when != TST_CGROUP_VER(...)
 +
-+	TST_EXP_POSITIVE(
-+		SAFE_CGROUP_OCCURSIN(child, "cgroup.controllers", "memory"),
-+		"child should have memory controller");
-+	TST_EXP_POSITIVE(
-+		!SAFE_CGROUP_OCCURSIN(child2, "cgroup.controllers", "memory"),
-+		"child2 should not have memory controller");
++- SAFE_CGROUP_PRINT(cg, "cgroup.subtree_control", "+memory");
+++ if (TST_CGROUP_VER(cg, "memory") != TST_CGROUP_V1)
+++    SAFE_CGROUP_PRINT(cg, "cgroup.subtree_control", "+memory");
 +
-+	child2 = tst_cgroup_group_rm(child2);
-+	parent2 = tst_cgroup_group_rm(parent2);
-+	child = tst_cgroup_group_rm(child);
-+	parent = tst_cgroup_group_rm(parent);
-+}
++@@
++expression cg, fname, needle;
++@@
 +
-+static void setup(void)
-+{
-+	tst_cgroup_require("memory", NULL);
-+	cg_test = tst_cgroup_get_test_group();
++- cg_read_strstr(cg, fname, needle)
+++ !SAFE_CGROUP_OCCURSIN(cg, fname, needle)
 +
-+	if (TST_CGROUP_VER(cg_test, "memory") == TST_CGROUP_V1)
-+		tst_brk(TCONF, "V1 controllers do not have subtree control");
-+}
++@@
++identifier l;
++expression cg, fname;
++@@
 +
-+static void cleanup(void)
-+{
-+	if (child2)
-+		child2 = tst_cgroup_group_rm(child2);
-+	if (parent2)
-+		parent2 = tst_cgroup_group_rm(parent2);
-+	if (child)
-+		child = tst_cgroup_group_rm(child);
-+	if (parent)
-+		parent = tst_cgroup_group_rm(parent);
-+
-+	tst_cgroup_cleanup();
-+}
-+
-+static struct tst_test test = {
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.test_all = test_memcg_subtree_control,
-+};
++- l = cg_read_long(cg, fname);
+++ SAFE_CGROUP_SCANF(cg, fname, "%ld", &l);
 -- 
 2.34.0
 
