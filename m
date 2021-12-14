@@ -2,43 +2,46 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73D9147408A
-	for <lists+linux-ltp@lfdr.de>; Tue, 14 Dec 2021 11:37:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43FD5474088
+	for <lists+linux-ltp@lfdr.de>; Tue, 14 Dec 2021 11:37:04 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D8F8B3C8C62
-	for <lists+linux-ltp@lfdr.de>; Tue, 14 Dec 2021 11:37:20 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id DC7EC3C8CF4
+	for <lists+linux-ltp@lfdr.de>; Tue, 14 Dec 2021 11:37:03 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 5C9C83C1351
+ by picard.linux.it (Postfix) with ESMTPS id A42023C1351
  for <ltp@lists.linux.it>; Tue, 14 Dec 2021 11:36:59 +0100 (CET)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id A483E60067B
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id A819B600747
  for <ltp@lists.linux.it>; Tue, 14 Dec 2021 11:36:58 +0100 (CET)
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id C8D6F2114E;
- Tue, 14 Dec 2021 10:36:57 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 169FD212B5;
+ Tue, 14 Dec 2021 10:36:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1639478217; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=F1l4+eQwdif6bRyHeqLP4Z/vlLmnGPWCQ6JS6LrqC4M=;
- b=P9EkpcqOaYK469IBrQQrA544uNAzrpXPAQzqyrx3zbkCfLsZS+Nob+SQbIsA5Z6gRn3hdF
- 7cHuz1yGweH7Aitw+KbPws8CjaMXQiQ+3CKSHYXgEILB1BFqdmflOqhTOjbYpDZ2Twbv24
- XzAXyT0A14af57iQTZLwJia/pn8x48I=
+ t=1639478218; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=shAg4pHd9bj0Jg9EiTn6M8Xj03sM3sbpCyFv2gVX90I=;
+ b=u/G6m+eLdtO+clbXdG8mKaQ1A0JgV/PRD5sjsyL3S+H0ufnfwumxL1rxk1MZvD0Rh7Wc9V
+ ibAr/r5zEcFUZXUSG6p4WKQIvvHqdo6FdUwJGtfOzVlucqx15nwXvMudxlxlW/dz50v6oO
+ rUgh7Bwosn5d6jRSLfQtb6ZHbxhAnpk=
 Received: from g78.suse.de (unknown [10.163.24.42])
- by relay2.suse.de (Postfix) with ESMTP id 9552CA3B83;
+ by relay2.suse.de (Postfix) with ESMTP id D6C47A3B83;
  Tue, 14 Dec 2021 10:36:57 +0000 (UTC)
 To: ltp@lists.linux.it
-Date: Tue, 14 Dec 2021 10:36:41 +0000
-Message-Id: <20211214103645.16148-1-rpalethorpe@suse.com>
+Date: Tue, 14 Dec 2021 10:36:42 +0000
+Message-Id: <20211214103645.16148-2-rpalethorpe@suse.com>
 X-Mailer: git-send-email 2.34.0
+In-Reply-To: <20211214103645.16148-1-rpalethorpe@suse.com>
+References: <20211214103645.16148-1-rpalethorpe@suse.com>
 MIME-Version: 1.0
 X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
@@ -46,7 +49,7 @@ X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH 1/5] API/cgroup: Whitespace fixes
+Subject: [LTP] [PATCH 2/5] API/cgroup: Remove typedef
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,74 +69,63 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Reduce make check noise
+Angers make check and is not helpful anymore.
 
 Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
 ---
- lib/tst_cgroup.c | 15 +++++++++------
- 1 file changed, 9 insertions(+), 6 deletions(-)
+ lib/tst_cgroup.c | 12 +++++-------
+ 1 file changed, 5 insertions(+), 7 deletions(-)
 
 diff --git a/lib/tst_cgroup.c b/lib/tst_cgroup.c
-index 61cc02fa7..2dcfbc8ff 100644
+index 2dcfbc8ff..d9d74faa8 100644
 --- a/lib/tst_cgroup.c
 +++ b/lib/tst_cgroup.c
-@@ -199,7 +199,8 @@ static struct cgroup_ctrl controllers[] = {
- static const struct tst_cgroup_opts default_opts = { 0 };
+@@ -141,10 +141,7 @@ struct tst_cgroup_group {
+ /* Always use first item for unified hierarchy */
+ static struct cgroup_root roots[ROOTS_MAX + 1];
  
- /* We should probably allow these to be set in environment
-- * variables */
-+ * variables
-+ */
- static const char *ltp_cgroup_dir = "ltp";
- static const char *ltp_cgroup_drain_dir = "drain";
- static char test_cgroup_dir[NAME_MAX + 1];
-@@ -798,7 +799,8 @@ void tst_cgroup_cleanup(void)
- 			continue;
+-/* Lookup tree for item names. */
+-typedef struct cgroup_file files_t[];
+-
+-static const files_t cgroup_ctrl_files = {
++static const struct cgroup_file cgroup_ctrl_files[] = {
+ 	/* procs exists on V1, however it was read-only until kernel v3.0. */
+ 	{ "cgroup.procs", "tasks", 0 },
+ 	{ "cgroup.subtree_control", NULL, 0 },
+@@ -152,7 +149,7 @@ static const files_t cgroup_ctrl_files = {
+ 	{ }
+ };
  
- 		/* This probably does not result in the CGroup root
--		 * being destroyed */
-+		 * being destroyed
-+		 */
- 		if (umount2(root->mnt_path, MNT_DETACH))
- 			continue;
+-static const files_t memory_ctrl_files = {
++static const struct cgroup_file memory_ctrl_files[] = {
+ 	{ "memory.current", "memory.usage_in_bytes", CTRL_MEMORY },
+ 	{ "memory.max", "memory.limit_in_bytes", CTRL_MEMORY },
+ 	{ "memory.swappiness", "memory.swappiness", CTRL_MEMORY },
+@@ -163,7 +160,7 @@ static const files_t memory_ctrl_files = {
+ 	{ }
+ };
  
-@@ -817,7 +819,7 @@ clear_data:
- 	memset(roots, 0, sizeof(roots));
- }
+-static const files_t cpu_ctrl_files = {
++static const struct cgroup_file cpu_ctrl_files[] = {
+ 	/* The V1 quota and period files were combined in the V2 max
+ 	 * file. The quota is in the first column and if we just print
+ 	 * a single value to the file, it will be treated as the
+@@ -175,13 +172,14 @@ static const files_t cpu_ctrl_files = {
+ 	{ }
+ };
  
--__attribute__ ((nonnull (1)))
-+__attribute__((nonnull(1)))
- static void cgroup_group_init(struct tst_cgroup_group *const cg,
- 			      const char *const group_name)
- {
-@@ -832,7 +834,7 @@ static void cgroup_group_init(struct tst_cgroup_group *const cg,
- 	strcpy(cg->group_name, group_name);
- }
+-static const files_t cpuset_ctrl_files = {
++static const struct cgroup_file cpuset_ctrl_files[] = {
+ 	{ "cpuset.cpus", "cpuset.cpus", CTRL_CPUSET },
+ 	{ "cpuset.mems", "cpuset.mems", CTRL_CPUSET },
+ 	{ "cpuset.memory_migrate", "cpuset.memory_migrate", CTRL_CPUSET },
+ 	{ }
+ };
  
--__attribute__((nonnull (2, 3)))
-+__attribute__((nonnull(2, 3)))
- static void cgroup_group_add_dir(const struct tst_cgroup_group *const parent,
- 				 struct tst_cgroup_group *const cg,
- 				 struct cgroup_dir *const dir)
-@@ -856,7 +858,8 @@ static void cgroup_group_add_dir(const struct tst_cgroup_group *const parent,
- 				   "+%s", ctrl->ctrl_name);
- 	}
- 
--	for (i = 0; cg->dirs[i]; i++);
-+	for (i = 0; cg->dirs[i]; i++)
-+		;
- 	cg->dirs[i] = dir;
- }
- 
-@@ -923,7 +926,7 @@ static const struct cgroup_file *cgroup_file_find(const char *const file,
- 	memcpy(ctrl_name, file_name, len);
- 	ctrl_name[len] = '\0';
- 
--        ctrl = cgroup_find_ctrl(ctrl_name);
-+	ctrl = cgroup_find_ctrl(ctrl_name);
- 
- 	if (!ctrl) {
- 		tst_brk_(file, lineno, TBROK,
++/* Lookup tree for item names. */
+ static struct cgroup_ctrl controllers[] = {
+ 	[0] = { "cgroup", cgroup_ctrl_files, 0, NULL, 0 },
+ 	[CTRL_MEMORY] = {
 -- 
 2.34.0
 
