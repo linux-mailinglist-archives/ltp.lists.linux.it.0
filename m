@@ -2,73 +2,70 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C08747572C
-	for <lists+linux-ltp@lfdr.de>; Wed, 15 Dec 2021 12:01:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1B8E47583A
+	for <lists+linux-ltp@lfdr.de>; Wed, 15 Dec 2021 12:55:49 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id CAFF93C8E31
-	for <lists+linux-ltp@lfdr.de>; Wed, 15 Dec 2021 12:01:40 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id A5E6E3C8E31
+	for <lists+linux-ltp@lfdr.de>; Wed, 15 Dec 2021 12:55:49 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A3C5D3C8C41
- for <ltp@lists.linux.it>; Wed, 15 Dec 2021 12:01:38 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id 95A613C042D
+ for <ltp@lists.linux.it>; Wed, 15 Dec 2021 12:55:48 +0100 (CET)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 162D31A017D3
- for <ltp@lists.linux.it>; Wed, 15 Dec 2021 12:01:37 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 1D1FF21100;
- Wed, 15 Dec 2021 11:01:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1639566097;
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id A511414011AF
+ for <ltp@lists.linux.it>; Wed, 15 Dec 2021 12:55:47 +0100 (CET)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id DD9C221135;
+ Wed, 15 Dec 2021 11:55:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1639569346;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=ZdvpGVSvYGEO1xvXEdQYrdiADxnpF0KotU48wvq+e6c=;
- b=Jh/Qcx+fQrCTkav2DuJ3XM/+rxFTqi9Drjl6MhlrMmQldBOqPEp9LdwNct4w3MQpQ2bkB6
- V7pNTPFd4svrvztI+juBes5wroVJyexp/7Y6odk6nB8iAokflu4JiFZBssoPXRi7GWyaC7
- Izch8m8gxfD9Xo4887Rs1UL4MvH0/9c=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1639566097;
+ bh=PIEWzjdlwNeiRyXyzRyGVXt2OaYBR6Aqs4msENmx1/Y=;
+ b=a3cQjGTwOaSTuH4uLjF+LcUFMRRp7Eu5y0LDpNWYJx40btJMZ8t3cqEJEImE1iciXh3rmb
+ N60D09mREt+Ui12rXLBDnCMgBRDLPVKV0/7lZZxK2YoImxWzDGwtFKfh8m/ks4/Zw5mHig
+ XNSzvrF7SrynuieponcZGQJHUiWCcpU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1639569346;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=ZdvpGVSvYGEO1xvXEdQYrdiADxnpF0KotU48wvq+e6c=;
- b=X90ctHgD2Aw4tn8mPOxld6zV4LFabwUIfh4tNyLuwT7u9VSeMISrPMuhbI2CKFOesUrRPQ
- OWujvC338zGCalAA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ bh=PIEWzjdlwNeiRyXyzRyGVXt2OaYBR6Aqs4msENmx1/Y=;
+ b=vYUq3orgcinMWBmImfO0Ncb3r1Ol3AWGISFeDerSrYGU7GaIsM9A6VCr/fOoblzX9/IXpC
+ AlxjgvfvkkE/beBw==
+Received: from g78 (unknown [10.163.24.42])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D704313B1C;
- Wed, 15 Dec 2021 11:01:36 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id Uv16MRDLuWEpBAAAMHmgww
- (envelope-from <pvorel@suse.cz>); Wed, 15 Dec 2021 11:01:36 +0000
-Date: Wed, 15 Dec 2021 12:01:34 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <YbnLDlV4kL2uOGBH@pevik>
-References: <20211210143536.31429-1-pvorel@suse.cz>
- <YbN33UYOL22hf9yv@yuki>
+ by relay2.suse.de (Postfix) with ESMTPS id 8EAD1A3B85;
+ Wed, 15 Dec 2021 11:55:46 +0000 (UTC)
+References: <20211210134556.26091-1-pvorel@suse.cz> <87tufcao8l.fsf@suse.de>
+ <YbcM8xKx7G0KQxWU@yuki> <61B70DE2.4040402@fujitsu.com>
+ <87lf0oaeui.fsf@suse.de> <Ybc5QJSZM3YIji70@yuki> <87h7bca7vu.fsf@suse.de>
+ <YbnI83sr26q+naFd@pevik>
+User-agent: mu4e 1.6.9; emacs 27.2
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Petr Vorel <pvorel@suse.cz>
+Date: Wed, 15 Dec 2021 11:32:19 +0000
+In-reply-to: <YbnI83sr26q+naFd@pevik>
+Message-ID: <874k7a9j5p.fsf@suse.de>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <YbN33UYOL22hf9yv@yuki>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/1] lib/safe_net: TCONF SAFE_LISTEN() on ENOSYS
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/1] doc/maintainer: Add policy for new
+ functionality
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,27 +77,98 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
+Reply-To: rpalethorpe@suse.de
+Cc: pvorel@suze.cz, "ltp@lists.linux.it" <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Cyril,
+Hello Petr,
 
-> Hi!
-> > bind04.c:138: TBROK: listen(3, 1) failed: ENOSYS (38)
-> > sctp: failed to load transform for md5: -2
+Petr Vorel <pvorel@suse.cz> writes:
 
-> Looks reasonable.
+> Hi Richie, all,
+>
+>> Hello,
+>
+>> Cyril Hrubis <chrubis@suse.cz> writes:
+>
+>> > Hi!
+>> >> >>> The issue is we may forget to merge patch sets for features which are
+>> >> >>> included (a far worse result). It's more stuff waiting around in the
+>> >> >>> queue. At the least we should have a procedure for tracking them (like
+>> >> >>> tagging github issues for review at each mainline release).
+>
+>> >> >>> If a test requires a kernel config which doesn't exist in mainline we
+>> >> >>> could also look for that automatically.
+>
+>> >> >> The main issue is that if we happen to release LTP meanwhile with a test
+>> >> >> for a syscall that didn't get included in the mainline in the end we
+>> >> >> have released LTP that is supposed to be stable and the test will start
+>> >> >> to fail when the syscall number is allocated for something else which
+>> >> >> will happen sooner or later.
+>> >> > I know a example that is quotactl_path syscall.
+>
+>
+>> >> If the real issue is LTP releases, then why not exclude tests for new
+>> >> features from them? I assume it's only a small number of commits which
+>> >> would need to be removed. Possibly we could tag them in git when merging
+>> >> so it is not a lot more work for whoever does the release (namely
+>> >> Cyril) to create a branch without them.
+>
+>> > That sounds too complex for a test or two we are usually getting during
+>> > the release cycle.
+>
+>> > Note that people who contribute the functionality to the kernel are used
+>> > to wait for next release window, kernel releases are aprox. twice as
+>> > fast as LTP.
+>
+>> >> My main concern is this will throw up a barrier to motivated
+>> >> contributors working on the cutting edge.
+>
+>> > So far really nobody complained, which may not be a good metric. But
+>> > still unless there is a evidence that this happens I wouldn't consider
+>> > spending effort on this.
+>
+>> OK, well if it comes up again we can revisit it. However Petr please
+>> could you add the reasoning about not adding unstable tests into
+>> releases.
+> Isn't "... because it can be reverted in later rc if problematic" enough?
+> If not what would you add? Cyril posted test getting released in LTP and later
+> unstable. I could be more verbose, but not sure if that's better:
+>
+> * Tests for new functionality in mainline kernel should be merged after final
+>   release of kernel which contains that functionality. It's not enough when the
+>   feature gets into rc1, because in later rc the functionality can be changed or
+>   even reverted if problematic. And this could lead to broken test.
 
-> Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
+It's only a problem because of LTP releases. We can just fix or revert
+tests otherwise. Especially if the test author is also developing the
+kernel feature and updating the test in lockstep.
 
-Merged. Thanks!
+Without LTP releases then a test can be added for a feature only in RC
+and removed again. Only people who test the RC will get a result other
+than TCONF from the test before it disappears again or is updated to
+support the final feature.
 
-Kind regards,
-Petr
+Assuming of course people update LTP from HEAD on a regular basis. Which
+of course they won't or can't, so we have releases. We don't have a
+separate unstable branch because no one has volunteered to create and
+maintain it. If we did we could just add such tests to that.
+
+>
+>> With that you can add
+>
+>> Acked-by: Richard Palethorpe <rpalethorpe@suse.com>
+>
+> Kind regards,
+> Petr
+
+
+-- 
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
