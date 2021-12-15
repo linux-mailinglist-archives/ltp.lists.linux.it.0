@@ -2,77 +2,81 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2938475399
-	for <lists+linux-ltp@lfdr.de>; Wed, 15 Dec 2021 08:20:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E18447539B
+	for <lists+linux-ltp@lfdr.de>; Wed, 15 Dec 2021 08:21:06 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 962193C8F30
-	for <lists+linux-ltp@lfdr.de>; Wed, 15 Dec 2021 08:20:40 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 9ED743C8F51
+	for <lists+linux-ltp@lfdr.de>; Wed, 15 Dec 2021 08:21:05 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 6FA1C3C091D
- for <ltp@lists.linux.it>; Wed, 15 Dec 2021 08:20:27 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id 8CE8A3C7FC9
+ for <ltp@lists.linux.it>; Wed, 15 Dec 2021 08:20:52 +0100 (CET)
 Received: from mail1.bemta36.messagelabs.com (mail1.bemta36.messagelabs.com
- [85.158.142.1])
+ [85.158.142.2])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id A1E1C100152F
- for <ltp@lists.linux.it>; Wed, 15 Dec 2021 08:20:26 +0100 (CET)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id D40916011EC
+ for <ltp@lists.linux.it>; Wed, 15 Dec 2021 08:20:51 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fujitsu.com;
- s=170520fj; t=1639552825; i=@fujitsu.com;
- bh=JBmUAe3F5YnPEQD+3assGHIuxnw3qiToeq8pc2EjHNI=;
+ s=170520fj; t=1639552851; i=@fujitsu.com;
+ bh=Wq61mqRh3Q2+9yqOtZ16/FsOdccLxWJdzmD7BTmFWfI=;
  h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
  MIME-Version:Content-Type;
- b=dq5+f14OR1ng6UHth7c22NGDHdFnUSpr3NKheTJTX5msA1uUr9Olqw5RyrGAcRefR
- Y74K+H8OQ2I8+5GSnjFm+Whj4TF3c6WGXWgAhb4VetH04W32+opvlo4cfOaS+Vy9Ab
- vcOi19FRIQ+N9pAV+gAV30rpMuAKDEzH0jhK0F6aB3u+NeBwquUyvSJ54OWw7w+fXT
- 8Lg/9zbP/O7EPSnHXdTni2Yh/6cthA11as/3EhiM9Im/7w99ZhYZnESTN0nZcKdTEs
- UlZpYYjZCY1mDK39k214tvkdtBfzQ+5lzGi4xSfQh4F1Nm9BXsJWtKgjs5GUceyuHs
- DKSDkBYUdxLHw==
+ b=yNOmsZEY1Q2NB65gND/IM5Z0xqFwRYQB3tHucmMD/mVlr2eio6pxGWbUr2XGx2qQI
+ BDap+b4/VMg9L9MDBzB9aea86KTAaUuH0c7N3ZRUqkuhzLOFa7OLD2ZxbtSlXnSiVm
+ mWplhoKy3GjSI8CnzNMDn7DQ8tXYKX2T4OXfhytOjmpQ8Ta99ieiOIE81Wtg7pfeoM
+ TQzff4R8XXDwFfrVCj2MDQj4zcHeSOos+xAD/GKh05jbgVoeWumua/6orTMi3Ql64V
+ HU0TwwymyZ5x5RYVKpWCPDQGpj0Q3n0PO940sxA1DpwH3uXpvAX3zfSzEe/FVyL83C
+ niE206dZ6CS7A==
 Received: from [100.115.68.153] (using TLSv1.2 with cipher
  DHE-RSA-AES256-GCM-SHA384 (256 bits))
- by server-1.bemta.az-a.eu-central-1.aws.ess.symcld.net id 1D/E0-31213-93799B16;
- Wed, 15 Dec 2021 07:20:25 +0000
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFjrOIsWRWlGSWpSXmKPExsViZ8MxRddy+s5
- Eg64H4hYrvu9gdGD02Pd7HWsAYxRrZl5SfkUCa0bbdfuC2YYV6zqPsTcw3tHoYuTiEBJoYpI4
- 8/0cO4Szh1FixtnPLF2MnBxsApoSzzoXMIPYIgISEh0Nb9lBbGYBdYnlk34xgdjCAjES/xcfA
- 4uzCKhKTF/bAWbzCnhI7PiyixXElhBQkJjy8D3YHE4BT4kLULYQUM2PaWvZIOoFJU7OfMICMV
- 9C4uCLF8wQvYoSlzq+MULYFRKzZrUxTWDkn4WkZRaSlgWMTKsY7ZKKMtMzSnITM3N0DQ0MdA0
- NTXXNDXUNLQ30Eqt0E/VSS3WTU/NKihKB0nqJ5cV6qcXFesWVuck5KXp5qSWbGIGhmVLsvm8H
- 44u+n3qHGCU5mJREed+W70wU4kvKT6nMSCzOiC8qzUktPsQow8GhJMH7ciJQTrAoNT21Ii0zB
- xgnMGkJDh4lEd5jU4HSvMUFibnFmekQqVOMxhw7j85bxMzxuuXnDmYhlrz8vFQpcd6tIKUCIK
- UZpXlwg2Dxe4lRVkqYl5GBgUGIpyC1KDezBFX+FaM4B6OSMK/NJKApPJl5JXD7XgGdwgRySu5
- 2kFNKEhFSUg1MPMbtEv+UH3MXH1ALaYwJLWnWTnDm+sMQJbqs+tzLmDzJqRu9N31lqz3Id61l
- h9i86ZYOzQKnp6wvOHtENODsQ7eNS7XDmm3u32lIy3hZVWIqJHrnw95JyXp/9P5p6S07nlDFt
- 23xpOL9hv29023j+77VVs+Xmbgkj2eu/G+/b1d+LQgo8Dh7tjhq6RGhxKVaRy7+31TY5f9jZ6
- ZW/oVzc6zkCo4utLjoUOdl8vr7l2MJ99oXGDOe2HLX6fYCpZ3L1u4UNb8SXP/+e+Bxj5mXq+a
- 9e35k1/+qg1VJekXBTDtOl7k2LQkTO7V4acWFay7J8+5WzfSMnGe1cX9HpAijlmxHyK2U3HVr
- Jny37mBuUGIpzkg01GIuKk4EAEs3kOpaAwAA
+ by server-2.bemta.az-a.eu-central-1.aws.ess.symcld.net id 12/38-24146-35799B16;
+ Wed, 15 Dec 2021 07:20:51 +0000
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFjrHIsWRWlGSWpSXmKPExsViZ8MxSTdo+s5
+ EgycbdCxWfN/B6MDose/3OtYAxijWzLyk/IoE1owZL++zFNwKrjh3aR5LA+NCty5GLg4hgbOM
+ Eiv77rJCODuZJC7cu8bexcgJ5OxhlHhwNwnEZhPQlHjWuYAZxBYRkJDoaHgLVsMsoC6xfNIvJ
+ hBbWMBSYvrqj2A1LAKqEmvf3WUEsXkFPCSObXnGAmJLCChITHn4HqyGU8BT4gKULQRU82PaWj
+ aIekGJkzOfsEDMl5A4+OIFM0SvosSljm+MEHaFxKxZbUwQtprE1XObmCcwCs5C0j4LSfsCRqZ
+ VjHZJRZnpGSW5iZk5uoYGBrqGhqa6Zqa6hhZGeolVuol6qaW6yal5JUWJQGm9xPJivdTiYr3i
+ ytzknBS9vNSSTYzAYE4pdty2g/FU30+9Q4ySHExKorxvy3cmCvEl5adUZiQWZ8QXleakFh9il
+ OHgUJLgfTkRKCdYlJqeWpGWmQOMLJi0BAePkgjvsalAad7igsTc4sx0iNQpRkUpcd6tIAkBkE
+ RGaR5cGyyaLzHKSgnzMjIwMAjxFKQW5WaWoMq/YhTnYFQS5rWZBDSFJzOvBG76K6DFTCCLc7e
+ DLC5JREhJNTAJX9r3jnObYtxq6/tvTdPKcqWebMh/9K7/eEKr/YbPu8zmev0Nv5DU2HLe+IN8
+ bPAjzuibnp0sfkVOzU8Mt3PtqQgRSzLXVWeT1k44s8hw+c8W38PmJ5rWb3wR6WrT/cezTSTST
+ Z+xsfDI+XNqP7oa/RJ3NVeHlLIFPlFaed6oeEKX+q+UtkVud6atDT6gfywqdMUaLW4PCyOu1e
+ rtK4WPCT95wlTHZp3wskpAUqj2/P4Z+9k9Wh16lc8nbnpuZ+l659XxJRNfrGPpbBLK4+s+GXJ
+ syfOFz5fmLpff4Gl4YeH7Gxs610SINVjfFRflCFr68WPWV0FZFX3msiBZnpKXrL4crCEMhs8a
+ SktmKLEUZyQaajEXFScCAFfFi2RhAwAA
 X-Env-Sender: xuyang2018.jy@fujitsu.com
-X-Msg-Ref: server-9.tower-532.messagelabs.com!1639552825!1006!1
-X-Originating-IP: [62.60.8.148]
+X-Msg-Ref: server-9.tower-532.messagelabs.com!1639552850!1038!1
+X-Originating-IP: [62.60.8.146]
 X-SYMC-ESS-Client-Auth: outbound-route-from=pass
 X-StarScan-Received: 
 X-StarScan-Version: 9.81.7; banners=-,-,-
 X-VirusChecked: Checked
-Received: (qmail 13382 invoked from network); 15 Dec 2021 07:20:25 -0000
-Received: from unknown (HELO mailhost1.uk.fujitsu.com) (62.60.8.148)
+Received: (qmail 14463 invoked from network); 15 Dec 2021 07:20:50 -0000
+Received: from unknown (HELO n03ukasimr02.n03.fujitsu.local) (62.60.8.146)
  by server-9.tower-532.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
- encrypted SMTP; 15 Dec 2021 07:20:25 -0000
-Received: from R01UKEXCASM126.r01.fujitsu.local ([10.183.43.178])
- by mailhost1.uk.fujitsu.com (8.14.5/8.14.5) with ESMTP id 1BF7KJT5006429
- (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256 verify=FAIL)
- for <ltp@lists.linux.it>; Wed, 15 Dec 2021 07:20:24 GMT
+ encrypted SMTP; 15 Dec 2021 07:20:50 -0000
+Received: from n03ukasimr02.n03.fujitsu.local (localhost [127.0.0.1])
+ by n03ukasimr02.n03.fujitsu.local (Postfix) with ESMTP id 3E80910032A
+ for <ltp@lists.linux.it>; Wed, 15 Dec 2021 07:20:50 +0000 (GMT)
+Received: from R01UKEXCASM126.r01.fujitsu.local (unknown [10.183.43.178])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by n03ukasimr02.n03.fujitsu.local (Postfix) with ESMTPS id 3195C1000F6
+ for <ltp@lists.linux.it>; Wed, 15 Dec 2021 07:20:50 +0000 (GMT)
 Received: from localhost.localdomain (10.167.220.84) by
  R01UKEXCASM126.r01.fujitsu.local (10.183.43.178) with Microsoft SMTP Server
- (TLS) id 15.0.1497.26; Wed, 15 Dec 2021 07:20:22 +0000
+ (TLS) id 15.0.1497.26; Wed, 15 Dec 2021 07:20:27 +0000
 From: Yang Xu <xuyang2018.jy@fujitsu.com>
 To: <ltp@lists.linux.it>
-Date: Wed, 15 Dec 2021 15:20:47 +0800
-Message-ID: <1639552849-2251-2-git-send-email-xuyang2018.jy@fujitsu.com>
+Date: Wed, 15 Dec 2021 15:20:48 +0800
+Message-ID: <1639552849-2251-3-git-send-email-xuyang2018.jy@fujitsu.com>
 X-Mailer: git-send-email 1.8.3.1
 In-Reply-To: <1639552849-2251-1-git-send-email-xuyang2018.jy@fujitsu.com>
 References: <1639552849-2251-1-git-send-email-xuyang2018.jy@fujitsu.com>
@@ -80,14 +84,13 @@ MIME-Version: 1.0
 X-Originating-IP: [10.167.220.84]
 X-ClientProxiedBy: G08CNEXCHPEKD07.g08.fujitsu.local (10.167.33.80) To
  R01UKEXCASM126.r01.fujitsu.local (10.183.43.178)
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH v4 2/4] zram/zram_lib.sh: adapt the situation that
- zram device is being used
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH v4 3/4] zram/zram03: Convert into new api
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,230 +107,372 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-If zram-generator package is installed and works, then we can not remove zram module
-because zram swap is being used. This case needs a clean zram environment, change this
-test by using hot_add/hot_remove interface[1]. So even zram device is being used, we
-still can add zram device and remove them in cleanup.
-
-Also, zram01,02 case are adjuested to adapt the situation that CONFIG_ZRAM=y.
-
-1]https://www.kernel.org/doc/html/latest/admin-guide/blockdev/zram.html#add-remove-zram-devices
+Also add hot_add/hot_remove in setup/cleanup, so this case can adapt the situation that
+zram module is being used by zram-generator or zram module is builtin.
 
 Fixes: #888
 Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
 ---
- .../kernel/device-drivers/zram/zram01.sh      |  6 +-
- .../kernel/device-drivers/zram/zram02.sh      |  4 +-
- .../kernel/device-drivers/zram/zram_lib.sh    | 60 ++++++++++++-------
- 3 files changed, 42 insertions(+), 28 deletions(-)
+ testcases/kernel/device-drivers/zram/zram03.c | 265 +++++++++---------
+ 1 file changed, 125 insertions(+), 140 deletions(-)
 
-diff --git a/testcases/kernel/device-drivers/zram/zram01.sh b/testcases/kernel/device-drivers/zram/zram01.sh
-index ad9a9a2be..5e13f387c 100755
---- a/testcases/kernel/device-drivers/zram/zram01.sh
-+++ b/testcases/kernel/device-drivers/zram/zram01.sh
-@@ -69,7 +69,7 @@ setup()
- 
- zram_makefs()
- {
--	local i=0
-+	local i=$dev_start
- 	local fs
- 
- 	for fs in $zram_filesystems; do
-@@ -90,7 +90,7 @@ zram_mount()
- {
- 	local i=0
- 
--	for i in $(seq 0 $(($dev_num - 1))); do
-+	for i in $(seq $dev_start $dev_end); do
- 		tst_res TINFO "mount /dev/zram$i"
- 		mkdir zram$i
- 		ROD mount /dev/zram$i zram$i
-@@ -102,7 +102,7 @@ zram_mount()
- 
- zram_fill_fs()
- {
--	for i in $(seq 0 $(($dev_num - 1))); do
-+	for i in $(seq $dev_start $dev_end); do
- 		tst_res TINFO "filling zram$i (it can take long time)"
- 		local b=0
- 		while true; do
-diff --git a/testcases/kernel/device-drivers/zram/zram02.sh b/testcases/kernel/device-drivers/zram/zram02.sh
-index f0421ce7f..c980fce76 100755
---- a/testcases/kernel/device-drivers/zram/zram02.sh
-+++ b/testcases/kernel/device-drivers/zram/zram02.sh
-@@ -29,7 +29,7 @@ zram_makeswap()
- 	tst_require_cmds mkswap swapon swapoff
- 	local i=0
- 
--	for i in $(seq 0 $(($dev_num - 1))); do
-+	for i in $(seq $dev_start $dev_end); do
- 		ROD mkswap /dev/zram$i
- 		ROD swapon /dev/zram$i
- 		tst_res TINFO "done with /dev/zram$i"
-@@ -44,7 +44,7 @@ zram_swapoff()
- 	tst_require_cmds swapoff
- 	local i
- 
--	for i in $(seq 0 $dev_makeswap); do
-+	for i in $(seq $dev_start $dev_end); do
- 		ROD swapoff /dev/zram$i
- 	done
- 	dev_makeswap=-1
-diff --git a/testcases/kernel/device-drivers/zram/zram_lib.sh b/testcases/kernel/device-drivers/zram/zram_lib.sh
-index fe9c915c3..db9552501 100755
---- a/testcases/kernel/device-drivers/zram/zram_lib.sh
-+++ b/testcases/kernel/device-drivers/zram/zram_lib.sh
-@@ -5,6 +5,9 @@
- 
- dev_makeswap=-1
- dev_mounted=-1
-+dev_start=-1
-+dev_end=-1
-+module_load=-1
- 
- TST_NEEDS_TMPDIR=1
- TST_NEEDS_ROOT=1
-@@ -17,19 +20,25 @@ zram_cleanup()
- {
- 	local i
- 
--	for i in $(seq 0 $dev_makeswap); do
-+	for i in $(seq $dev_start $dev_makeswap); do
- 		swapoff /dev/zram$i
- 	done
- 
--	for i in $(seq 0 $dev_mounted); do
-+	for i in $(seq $dev_start $dev_mounted); do
- 		umount /dev/zram$i
- 	done
- 
--	for i in $(seq 0 $(($dev_num - 1))); do
-+	for i in $(seq $dev_start $dev_end); do
- 		echo 1 > /sys/block/zram${i}/reset
- 	done
- 
--	rmmod zram > /dev/null 2>&1
-+	for i in $(seq $dev_start $dev_end); do
-+		echo $i > /sys/class/zram-control/hot_remove
-+	done
+diff --git a/testcases/kernel/device-drivers/zram/zram03.c b/testcases/kernel/device-drivers/zram/zram03.c
+index 06995fd56..6f6f1db77 100644
+--- a/testcases/kernel/device-drivers/zram/zram03.c
++++ b/testcases/kernel/device-drivers/zram/zram03.c
+@@ -1,90 +1,45 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+- * zram: generic RAM based compressed R/W block devices
+- * http://lkml.org/lkml/2010/8/9/227
+- *
+  * Copyright (C) 2010  Red Hat, Inc.
+- * This program is free software; you can redistribute it and/or
+- * modify it under the terms of version 2 of the GNU General Public
+- * License as published by the Free Software Foundation.
+- *
+- * This program is distributed in the hope that it would be useful,
+- * but WITHOUT ANY WARRANTY; without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
++ */
 +
-+	if [ $module_load -eq 1 ]; then
-+		rmmod zram > /dev/null 2>&1
-+	fi
- }
++/*\
++ * [Description]
+  *
+- * Further, this software is distributed without any warranty that it
+- * is free of the rightful claim of any third person regarding
+- * infringement or the like.  Any license provided herein, whether
+- * implied or otherwise, applies only to this software file.  Patent
+- * licenses, if any, provided herein do not apply to combinations of
+- * this program with other software, or any other product whatsoever.
++ * zram: generic RAM based compressed R/W block devices
++ * http://lkml.org/lkml/2010/8/9/227
+  *
+- * You should have received a copy of the GNU General Public License
+- * along with this program; if not, write the Free Software
+- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+- * 02110-1301, USA.
++ * This case check whether data read from zram device is consistent with
++ * thoese are written.
+  */
  
- zram_load()
-@@ -51,16 +60,23 @@ zram_load()
++
+ #include <sys/types.h>
+ #include <sys/stat.h>
+ #include <sys/mman.h>
+ #include <errno.h>
+ #include <fcntl.h>
+-#include <stdio.h>
+ #include <string.h>
+ #include <unistd.h>
++#include <stdlib.h>
++#include "tst_safe_stdio.h"
++#include "tst_test.h"
  
- 	tst_res TINFO "create '$dev_num' zram device(s)"
- 
--	modprobe zram num_devices=$dev_num || \
--		tst_brk TBROK "failed to insert zram module"
-+	if [ ! -d "/sys/class/zram-control" ]; then
-+		modprobe zram num_devices=$dev_num
-+		module_load=1
-+		dev_start=0
-+		dev_end=$(($dev_num - 1))
-+		tst_res TPASS "all zram devices(/dev/zram0~$dev_end) successfully created"
-+		return
-+	fi
- 
--	dev_num_created=$(ls /dev/zram* | wc -w)
-+	dev_start=$(ls /dev/zram* | wc -w)
-+	dev_end=$(($dev_start + $dev_num - 1))
- 
--	if [ "$dev_num_created" -ne "$dev_num" ]; then
--		tst_brk TFAIL "unexpected num of devices: $dev_num_created"
--	fi
-+	for i in $(seq  $dev_start $dev_end); do
-+		cat /sys/class/zram-control/hot_add > /dev/null
-+	done
- 
--	tst_res TPASS "all zram devices successfully created"
-+	tst_res TPASS "all zram devices(/dev/zram$dev_start~$dev_end) successfully created"
- }
- 
- zram_max_streams()
-@@ -73,7 +89,7 @@ zram_max_streams()
- 
- 	tst_res TINFO "set max_comp_streams to zram device(s)"
- 
--	local i=0
-+	local i=$dev_start
- 
- 	for max_s in $zram_max_streams; do
- 		local sys_path="/sys/block/zram${i}/max_comp_streams"
-@@ -85,7 +101,7 @@ zram_max_streams()
- 			tst_brk TFAIL "can't set max_streams '$max_s', get $max_stream"
- 
- 		i=$(($i + 1))
--		tst_res TINFO "$sys_path = '$max_streams' ($i/$dev_num)"
-+		tst_res TINFO "$sys_path = '$max_streams'"
- 	done
- 
- 	tst_res TPASS "test succeeded"
-@@ -100,20 +116,18 @@ zram_compress_alg()
- 		return
- 	fi
- 
--	local i=0
-+	local i=$dev_start
- 
- 	tst_res TINFO "test that we can set compression algorithm"
--	local algs="$(sed 's/[][]//g' /sys/block/zram0/comp_algorithm)"
-+	local algs="$(sed 's/[][]//g' /sys/block/zram${i}/comp_algorithm)"
- 	tst_res TINFO "supported algs: $algs"
- 
--	local dev_max=$(($dev_num - 1))
+-#include "test.h"
+-#include "safe_macros.h"
 -
--	for i in $(seq 0 $dev_max); do
-+	for i in $(seq $dev_start $dev_end); do
- 		for alg in $algs; do
- 			local sys_path="/sys/block/zram${i}/comp_algorithm"
- 			echo "$alg" >  $sys_path || \
- 				tst_brk TFAIL "can't set '$alg' to $sys_path"
--			tst_res TINFO "$sys_path = '$alg' ($i/$dev_max)"
-+			tst_res TINFO "$sys_path = '$alg'"
- 		done
- 	done
+-char *TCID = "zram03";
+-int TST_TOTAL = 1;
+-
+-#define PATH_ZRAM	"/sys/block/zram0"
+-#define OBSOLETE_ZRAM_FILE	"/sys/block/zram0/num_reads"
+-#define PATH_ZRAM_STAT	"/sys/block/zram0/stat"
+-#define PATH_ZRAM_MM_STAT	"/sys/block/zram0/mm_stat"
+-#define SIZE		(512 * 1024 * 1024L)
+-#define DEVICE		"/dev/zram0"
++#define ZRAM_CONTROL_PATH 	"/sys/class/zram-control"
++#define HOT_ADD_PATH      	ZRAM_CONTROL_PATH"/hot_add"
++#define HOT_REMOVE_PATH   	ZRAM_CONTROL_PATH"/hot_remove"
++#define SIZE                    (512 * 1024 * 1024L)
  
-@@ -122,7 +136,7 @@ zram_compress_alg()
+-static int modprobe;
+-
+-static void set_disksize(void);
+-static void write_device(void);
+-static void verify_device(void);
+-static void reset(void);
+-static void setup(void);
+-static void cleanup(void);
+-static void print(char *string);
+-static void dump_info(void);
+-
+-int main(int argc, char *argv[])
+-{
+-	int lc;
+-
+-	tst_parse_opts(argc, argv, NULL, NULL);
+-
+-	setup();
+-
+-	for (lc = 0; TEST_LOOPING(lc); lc++) {
+-		tst_count = 0;
+-
+-		set_disksize();
+-
+-		write_device();
+-		dump_info();
+-		verify_device();
+-
+-		reset();
+-		dump_info();
+-	}
+-	cleanup();
+-	tst_exit();
+-}
++static char zram_block_path[100], zram_dev_path[100], buf[20];
++static int modprobe, dev_num, hot_add_flag;
  
- zram_set_disksizes()
+ static void set_disksize(void)
  {
--	local i=0
-+	local i=$dev_start
- 	local ds
+-	tst_resm(TINFO, "create a zram device with %ld bytes in size.", SIZE);
+-	SAFE_FILE_PRINTF(cleanup, PATH_ZRAM "/disksize", "%ld", SIZE);
++	char disksize_path[200];
++	tst_res(TINFO, "create a zram device with %ld bytes in size", SIZE);
++
++	sprintf(disksize_path, "%s/disksize", zram_block_path);
++	SAFE_FILE_PRINTF(disksize_path, "%ld", SIZE);
+ }
  
- 	tst_res TINFO "set disk size to zram device(s)"
-@@ -132,7 +146,7 @@ zram_set_disksizes()
- 			tst_brk TFAIL "can't set '$ds' to $sys_path"
+ static void write_device(void)
+@@ -92,17 +47,16 @@ static void write_device(void)
+ 	int fd;
+ 	char *s;
  
- 		i=$(($i + 1))
--		tst_res TINFO "$sys_path = '$ds' ($i/$dev_num)"
-+		tst_res TINFO "$sys_path = '$ds'"
- 	done
+-	tst_resm(TINFO, "map this zram device into memory.");
+-	fd = SAFE_OPEN(cleanup, DEVICE, O_RDWR);
+-	s = SAFE_MMAP(cleanup, NULL, SIZE, PROT_READ | PROT_WRITE,
+-		      MAP_SHARED, fd, 0);
++	tst_res(TINFO, "map this zram device into memory");
++	fd = SAFE_OPEN(zram_dev_path, O_RDWR);
++	s = SAFE_MMAP(NULL, SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
  
- 	tst_res TPASS "test succeeded"
-@@ -147,7 +161,7 @@ zram_set_memlimit()
- 		return
- 	fi
+-	tst_resm(TINFO, "write all the memory.");
++	tst_res(TINFO, "write all the memory");
+ 	memset(s, 'a', SIZE - 1);
+ 	s[SIZE - 1] = '\0';
  
--	local i=0
-+	local i=$dev_start
- 	local ds
+-	SAFE_MUNMAP(cleanup, s, SIZE);
+-	SAFE_CLOSE(cleanup, fd);
++	SAFE_MUNMAP(s, SIZE);
++	SAFE_CLOSE(fd);
+ }
  
- 	tst_res TINFO "set memory limit to zram device(s)"
-@@ -158,7 +172,7 @@ zram_set_memlimit()
- 			tst_brk TFAIL "can't set '$ds' to $sys_path"
+ static void verify_device(void)
+@@ -111,9 +65,9 @@ static void verify_device(void)
+ 	long i = 0, fail = 0;
+ 	char *s;
  
- 		i=$(($i + 1))
--		tst_res TINFO "$sys_path = '$ds' ($i/$dev_num)"
-+		tst_res TINFO "$sys_path = '$ds'"
- 	done
+-	tst_resm(TINFO, "verify contents from device.");
+-	fd = SAFE_OPEN(cleanup, DEVICE, O_RDONLY);
+-	s = SAFE_MMAP(cleanup, NULL, SIZE, PROT_READ, MAP_PRIVATE, fd, 0);
++	tst_res(TINFO, "verify contents from device");
++	fd = SAFE_OPEN(zram_dev_path, O_RDONLY);
++	s = SAFE_MMAP(NULL, SIZE, PROT_READ, MAP_PRIVATE, fd, 0);
  
- 	tst_res TPASS "test succeeded"
+ 	while (s[i] && i < SIZE - 1) {
+ 		if (s[i] != 'a')
+@@ -121,104 +75,73 @@ static void verify_device(void)
+ 		i++;
+ 	}
+ 	if (i != SIZE - 1) {
+-		tst_resm(TFAIL, "expect size: %ld, actual size: %ld.",
++		tst_res(TFAIL, "expect size: %ld, actual size: %ld.",
+ 			 SIZE - 1, i);
+ 	} else if (s[i] != '\0') {
+-		tst_resm(TFAIL, "zram device seems not null terminated");
++		tst_res(TFAIL, "zram device seems not null terminated");
+ 	} else if (fail) {
+-		tst_resm(TFAIL, "%ld failed bytes found.", fail);
++		tst_res(TFAIL, "%ld failed bytes found", fail);
+ 	} else {
+-		tst_resm(TPASS, "data read from zram device is consistent "
++		tst_res(TPASS, "data read from zram device is consistent "
+ 			 "with those are written");
+ 	}
+ 
+-	SAFE_MUNMAP(cleanup, s, SIZE);
+-	SAFE_CLOSE(cleanup, fd);
++	SAFE_MUNMAP(s, SIZE);
++	SAFE_CLOSE(fd);
+ }
+ 
+ static void reset(void)
+ {
+-	tst_resm(TINFO, "reset it.");
+-	SAFE_FILE_PRINTF(cleanup, PATH_ZRAM "/reset", "1");
+-}
+-
+-static void setup(void)
+-{
+-	int retried = 0;
+-
+-	tst_require_root();
+-
+-retry:
+-	if (access(PATH_ZRAM, F_OK) == -1) {
+-		if (errno == ENOENT) {
+-			if (retried) {
+-				tst_brkm(TCONF, NULL,
+-					 "system has no zram device.");
+-			}
+-			if (system("modprobe zram") == -1) {
+-				tst_brkm(TBROK | TERRNO, cleanup,
+-					 "system(modprobe zram) failed");
+-			}
+-			modprobe = 1;
+-			retried = 1;
+-			goto retry;
+-		} else
+-			tst_brkm(TBROK | TERRNO, NULL, "access");
+-	}
++	char reset_path[200];
+ 
+-	tst_sig(FORK, DEF_HANDLER, cleanup);
+-	TEST_PAUSE;
+-}
+-
+-static void cleanup(void)
+-{
+-	if (modprobe == 1 && system("rmmod zram") == -1)
+-		tst_resm(TWARN | TERRNO, "system(rmmod zram) failed");
++	tst_res(TINFO, "Reset zram");
++	sprintf(reset_path, "%s/reset", zram_block_path);
++	SAFE_FILE_PRINTF(reset_path, "1");
+ }
+ 
+ static void print(char *string)
+ {
+ 	char filename[BUFSIZ], value[BUFSIZ];
+-
+-	sprintf(filename, "%s/%s", PATH_ZRAM, string);
+-	SAFE_FILE_SCANF(cleanup, filename, "%s", value);
+-	tst_resm(TINFO, "%s is %s", filename, value);
++	tst_res(TINFO, "%s",  zram_block_path);
++	sprintf(filename, "%s/%s", zram_block_path, string);
++	SAFE_FILE_SCANF(filename, "%s", value);
++	tst_res(TINFO, "%s is %s", filename, value);
+ }
+ 
+ static void print_stat(char *nread, char *nwrite)
+ {
+ 	char nread_val[BUFSIZ], nwrite_val[BUFSIZ];
++	char zram_stat_path[100];
+ 
+-	SAFE_FILE_SCANF(cleanup, PATH_ZRAM_STAT, "%s %*s %*s %*s %s",
+-			nread_val, nwrite_val);
+-	tst_resm(TINFO, "%s from %s is %s", nread, PATH_ZRAM_STAT,
+-		 nread_val);
+-	tst_resm(TINFO, "%s from %s is %s", nwrite, PATH_ZRAM_STAT,
+-		 nwrite_val);
++	sprintf(zram_stat_path, "/sys/block/zram%d/stat", dev_num);
++	SAFE_FILE_SCANF(zram_stat_path, "%s %*s %*s %*s %s", nread_val, nwrite_val);
++	tst_res(TINFO, "%s from %s is %s", nread, zram_stat_path, nread_val);
++	tst_res(TINFO, "%s from %s is %s", nwrite, zram_stat_path, nwrite_val);
+ }
+ 
+ static void print_mm_stat(char *orig, char *compr, char *mem, char *zero)
+ {
+ 	char orig_val[BUFSIZ], compr_val[BUFSIZ];
+ 	char mem_val[BUFSIZ], zero_val[BUFSIZ];
++	char zram_mm_stat_path[100];
+ 
+-	SAFE_FILE_SCANF(cleanup, PATH_ZRAM_MM_STAT, "%s %s %s %*s %*s %s",
++	sprintf(zram_mm_stat_path, "/sys/block/zram%d/mm_stat", dev_num);
++	SAFE_FILE_SCANF(zram_mm_stat_path, "%s %s %s %*s %*s %s",
+ 			orig_val, compr_val, mem_val, zero_val);
+-	tst_resm(TINFO, "%s from %s is %s", orig, PATH_ZRAM_MM_STAT,
+-		 orig_val);
+-	tst_resm(TINFO, "%s from %s is %s", compr, PATH_ZRAM_MM_STAT,
+-		compr_val);
+-	tst_resm(TINFO, "%s from %s is %s", mem, PATH_ZRAM_MM_STAT,
+-		 mem_val);
+-	tst_resm(TINFO, "%s from %s is %s", zero, PATH_ZRAM_MM_STAT,
+-		 zero_val);
++	tst_res(TINFO, "%s from %s is %s", orig, zram_mm_stat_path, orig_val);
++	tst_res(TINFO, "%s from %s is %s", compr, zram_mm_stat_path, compr_val);
++	tst_res(TINFO, "%s from %s is %s", mem, zram_mm_stat_path, mem_val);
++	tst_res(TINFO, "%s from %s is %s", zero, zram_mm_stat_path, zero_val);
+ }
+ 
+ static void dump_info(void)
+ {
++	char zram_obsolete_file_path[100];
++
++	sprintf(zram_obsolete_file_path, "/sys/block/zram%d/num_reads", dev_num);
+ 	print("initstate");
+ 	print("disksize");
+-	if (!access(OBSOLETE_ZRAM_FILE, F_OK)) {
++	if (!access(zram_obsolete_file_path, F_OK)) {
+ 		print("orig_data_size");
+ 		print("compr_data_size");
+ 		print("mem_used_total");
+@@ -231,3 +154,65 @@ static void dump_info(void)
+ 		print_stat("num_reads", "num_writes");
+ 	}
+ }
++
++static void run(void)
++{
++	set_disksize();
++
++	write_device();
++	dump_info();
++	verify_device();
++
++	reset();
++	dump_info();
++}
++
++static void setup(void)
++{
++	const char *const cmd_modprobe[] = {"modprobe", "zram", NULL};
++	int hot_add_fd;
++
++	if (!access(ZRAM_CONTROL_PATH, F_OK)) {
++		hot_add_fd = SAFE_OPEN(HOT_ADD_PATH, O_RDONLY);
++		SAFE_READ(0, hot_add_fd, &buf, 20);
++		dev_num = atoi(buf);
++		SAFE_CLOSE(hot_add_fd);
++		hot_add_flag = 1;
++	} else {
++		SAFE_CMD(cmd_modprobe, NULL, NULL);
++		modprobe = 1;
++	}
++	sprintf(zram_block_path, "/sys/block/zram%d", dev_num);
++	sprintf(zram_dev_path, "/dev/zram%d", dev_num);
++}
++
++static void cleanup(void)
++{
++	const char *const cmd_rmmod[] = {"rmmod", "zram", NULL};
++	int hot_remove_fd;
++
++	if (hot_add_flag) {
++		hot_remove_fd = SAFE_OPEN(HOT_REMOVE_PATH, O_WRONLY);
++		SAFE_WRITE(0, hot_remove_fd, buf, 20);
++		SAFE_CLOSE(hot_remove_fd);
++	}
++
++	if (modprobe)
++		SAFE_CMD(cmd_rmmod, NULL, NULL);
++}
++
++static struct tst_test test = {
++	.test_all = run,
++	.setup = setup,
++	.cleanup = cleanup,
++	.needs_root = 1,
++	.needs_drivers = (const char *const []) {
++		"zram",
++		NULL
++	},
++	.needs_cmds = (const char *[]) {
++		"modprobe",
++		"rmmod",
++		NULL
++	}
++};
 -- 
 2.23.0
 
