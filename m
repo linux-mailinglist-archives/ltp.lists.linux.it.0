@@ -2,66 +2,69 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CCE4478A1D
-	for <lists+linux-ltp@lfdr.de>; Fri, 17 Dec 2021 12:38:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62CF2478A20
+	for <lists+linux-ltp@lfdr.de>; Fri, 17 Dec 2021 12:38:26 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3E95F3C9046
-	for <lists+linux-ltp@lfdr.de>; Fri, 17 Dec 2021 12:38:05 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id E81413C8FFB
+	for <lists+linux-ltp@lfdr.de>; Fri, 17 Dec 2021 12:38:25 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id AC5943C873F
- for <ltp@lists.linux.it>; Fri, 17 Dec 2021 12:38:00 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id 2CAD83C8FAC
+ for <ltp@lists.linux.it>; Fri, 17 Dec 2021 12:38:02 +0100 (CET)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id B6EB2200933
- for <ltp@lists.linux.it>; Fri, 17 Dec 2021 12:37:59 +0100 (CET)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 719EA14060D8
+ for <ltp@lists.linux.it>; Fri, 17 Dec 2021 12:38:01 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1639741078;
+ s=mimecast20190719; t=1639741080;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=+VZ89TWrZoEIkZzXkcoRBeDTOlf9QXIcPitPw8dGYH0=;
- b=Ba+RfX4LulQZAkid73+mNNz+D4bKEAywV0DDZHEqWpowPu4nwYF6sypdnzb2Lfi3W6QnsF
- yoar9LYV3Bfz/EZkKqFlqscx1WlIxItt6qaivhTFHZYjCJEdJOkdYoBXUCi7XOLy8bnCwb
- oDImQdI/H6Q23YFAnlesyJ9fZozvaDw=
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Rp890V1p0Nb5eIXZVDNlpSQJdf0DMAG7VEs7llaCFR8=;
+ b=XfiiMAY3LGiDzLu4+5otRk01Bn0RDXbwaPMIGnh58SaX6kuVkT7WtMgr8VyKWXv7TSwAtA
+ SyVgQt2WTHK8hQd07n2zMSWteoxY7fcQHf1OcXDsiMbPYPib9r51RrX+r/5M54NCFnF4g0
+ 0ZjAZtfUcXeKbAlJ5uG/qA4g+lzlQIQ=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-161-C4aOT2W6OjuHjHdkxOexYA-1; Fri, 17 Dec 2021 06:37:55 -0500
-X-MC-Unique: C4aOT2W6OjuHjHdkxOexYA-1
+ us-mta-651-QsZpnNnFN9yWf9hVZNS0Rg-1; Fri, 17 Dec 2021 06:37:57 -0500
+X-MC-Unique: QsZpnNnFN9yWf9hVZNS0Rg-1
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
  [10.5.11.13])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0D43064083;
- Fri, 17 Dec 2021 11:37:54 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DDD2B801B31;
+ Fri, 17 Dec 2021 11:37:55 +0000 (UTC)
 Received: from liwang-workstation.nay.redhat.com (unknown [10.66.81.187])
- by smtp.corp.redhat.com (Postfix) with ESMTP id AF5C38D5B6;
- Fri, 17 Dec 2021 11:37:52 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 8995B8D5BA;
+ Fri, 17 Dec 2021 11:37:54 +0000 (UTC)
 From: Li Wang <liwang@redhat.com>
 To: ltp@lists.linux.it
-Date: Fri, 17 Dec 2021 19:37:48 +0800
-Message-Id: <20211217113751.359613-1-liwang@redhat.com>
+Date: Fri, 17 Dec 2021 19:37:49 +0800
+Message-Id: <20211217113751.359613-2-liwang@redhat.com>
+In-Reply-To: <20211217113751.359613-1-liwang@redhat.com>
+References: <20211217113751.359613-1-liwang@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
  auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwang@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 1/3] lib: add functions to adjust oom score
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 2/3] lib: enable OOM protection for the main process
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,15 +81,17 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This introduces function to LTP for adjusting the oom_score_adj of
-target process, which may be helpful in OOM tests to prevent kernel
-killing the main or lib process during test running.
+Here invoke OOM protection in fork_testrun, since it is the key point
+to distiguish many process branches. We do protect main ($PID) process
+from killing by OOM Killer, hope this can help to get the completed
+correct report for all of LTP tests.
 
-The exported global tst_enable_oom_protection function can be used
-at anywhere you want to protect, but please remember that if you
-do enable protection on a process($PID) that all the children will
-inherit its score and be ignored by OOM Killer as well. So that's
-why tst_cancel_oom_protection is recommended to combination in use.
+Fundamental principle:
+
+                   ltp test harness --> library process
+  (oom protection)   main --> tst_run_tcases --> ... --> fork_testrun
+  (cancel protection)  testrun --> run_tests --> ... --> testname
+                         child_test --> ... --> end
 
 Signed-off-by: Li Wang <liwang@redhat.com>
 Reviewed-by: Petr Vorel <pvorel@suse.cz>
@@ -94,85 +99,30 @@ Reviewed-by: Petr Vorel <pvorel@suse.cz>
 
 Notes:
     Changes v1->v2:
-        * Move commit messages to source code comment
-        * correct typos
+        * remove the protection for parent process as suggested by Martin
 
- include/tst_memutils.h | 19 +++++++++++++++++++
- lib/tst_memutils.c     | 29 +++++++++++++++++++++++++++++
- 2 files changed, 48 insertions(+)
+ lib/tst_test.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/include/tst_memutils.h b/include/tst_memutils.h
-index f605f544e..dc18df6d2 100644
---- a/include/tst_memutils.h
-+++ b/include/tst_memutils.h
-@@ -25,4 +25,23 @@ void tst_pollute_memory(size_t maxsize, int fillchar);
-  */
- long long tst_available_mem(void);
+diff --git a/lib/tst_test.c b/lib/tst_test.c
+index ce2b8239d..0b370e691 100644
+--- a/lib/tst_test.c
++++ b/lib/tst_test.c
+@@ -1441,11 +1441,14 @@ static int fork_testrun(void)
  
-+/*
-+ * Enable OOM protection to prevent process($PID) being killed by OOM Killer.
-+ *   echo -1000 >/proc/$PID/oom_score_adj
-+ *
-+ * Note:
-+ *  This exported tst_enable_oom_protection function can be used at anywhere
-+ *  you want to protect, but please remember that if you do enable protection
-+ *  on a process($PID) that all the children will inherit its score and be
-+ *  ignored by OOM Killer as well. So that's why tst_cancel_oom_protection is
-+ *  recommended to combination in use.
-+ */
-+void tst_enable_oom_protection(pid_t pid);
-+
-+/*
-+ * Cancel the OOM protection for the process($PID).
-+ *   echo 0 >/proc/$PID/oom_score_adj
-+ */
-+void tst_cancel_oom_protection(pid_t pid);
-+
- #endif /* TST_MEMUTILS_H__ */
-diff --git a/lib/tst_memutils.c b/lib/tst_memutils.c
-index bd09cf6fa..d97b35007 100644
---- a/lib/tst_memutils.c
-+++ b/lib/tst_memutils.c
-@@ -3,6 +3,7 @@
-  * Copyright (c) 2020 SUSE LLC <mdoucha@suse.cz>
-  */
+ 	SAFE_SIGNAL(SIGINT, sigint_handler);
  
-+#include <stdio.h>
- #include <unistd.h>
- #include <limits.h>
- #include <sys/sysinfo.h>
-@@ -91,3 +92,31 @@ long long tst_available_mem(void)
++	tst_enable_oom_protection(getpid());
++
+ 	test_pid = fork();
+ 	if (test_pid < 0)
+ 		tst_brk(TBROK | TERRNO, "fork()");
  
- 	return mem_available;
- }
-+
-+static void set_oom_score_adj(pid_t pid, int value)
-+{
-+	int val;
-+	char score_path[64];
-+
-+	if (access("/proc/self/oom_score_adj", F_OK) == -1) {
-+		tst_res(TINFO, "Warning: oom_score_adj does not exist");
-+		return;
-+	}
-+
-+	sprintf(score_path, "/proc/%d/oom_score_adj", pid);
-+	SAFE_FILE_PRINTF(score_path, "%d", value);
-+
-+	SAFE_FILE_SCANF(score_path, "%d", &val);
-+	if (val != value)
-+		tst_brk(TBROK, "oom_score_adj = %d, but expect %d.", val, value);
-+}
-+
-+void tst_enable_oom_protection(pid_t pid)
-+{
-+	set_oom_score_adj(pid, -1000);
-+}
-+
-+void tst_cancel_oom_protection(pid_t pid)
-+{
-+	set_oom_score_adj(pid, 0);
-+}
+ 	if (!test_pid) {
++		tst_cancel_oom_protection(getpid());
+ 		SAFE_SIGNAL(SIGALRM, SIG_DFL);
+ 		SAFE_SIGNAL(SIGUSR1, SIG_DFL);
+ 		SAFE_SIGNAL(SIGINT, SIG_DFL);
 -- 
 2.31.1
 
