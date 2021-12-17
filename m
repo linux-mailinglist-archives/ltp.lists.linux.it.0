@@ -2,54 +2,54 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62CF2478A20
-	for <lists+linux-ltp@lfdr.de>; Fri, 17 Dec 2021 12:38:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CDDE478A1F
+	for <lists+linux-ltp@lfdr.de>; Fri, 17 Dec 2021 12:38:15 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E81413C8FFB
-	for <lists+linux-ltp@lfdr.de>; Fri, 17 Dec 2021 12:38:25 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 2921B3C90A1
+	for <lists+linux-ltp@lfdr.de>; Fri, 17 Dec 2021 12:38:12 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 2CAD83C8FAC
- for <ltp@lists.linux.it>; Fri, 17 Dec 2021 12:38:02 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id 8626E3C873F
+ for <ltp@lists.linux.it>; Fri, 17 Dec 2021 12:38:01 +0100 (CET)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 719EA14060D8
- for <ltp@lists.linux.it>; Fri, 17 Dec 2021 12:38:01 +0100 (CET)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id F30D620173B
+ for <ltp@lists.linux.it>; Fri, 17 Dec 2021 12:38:00 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1639741080;
+ s=mimecast20190719; t=1639741079;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Rp890V1p0Nb5eIXZVDNlpSQJdf0DMAG7VEs7llaCFR8=;
- b=XfiiMAY3LGiDzLu4+5otRk01Bn0RDXbwaPMIGnh58SaX6kuVkT7WtMgr8VyKWXv7TSwAtA
- SyVgQt2WTHK8hQd07n2zMSWteoxY7fcQHf1OcXDsiMbPYPib9r51RrX+r/5M54NCFnF4g0
- 0ZjAZtfUcXeKbAlJ5uG/qA4g+lzlQIQ=
+ bh=i+QX/gRhJVc8UMKhMJHPLik4t83Vlcj/gqY/ypSk514=;
+ b=A0zps3U2d3lldsR1tKKpMpzvPcAvsScaRlQSAdPgkad8Fkzw48rBlRj6y437XgWFcHn83v
+ Y0gFKWWE0CeUl8tBHPVS2uG6As/f1dsLI1J3aJ5Z+31gYOR8i6ChUGa5E2pS/cjQJAfX7C
+ dgJwRE8IsbdwX5cP4Emleyv83GxcqiM=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-651-QsZpnNnFN9yWf9hVZNS0Rg-1; Fri, 17 Dec 2021 06:37:57 -0500
-X-MC-Unique: QsZpnNnFN9yWf9hVZNS0Rg-1
+ us-mta-329-GlTBj8B2MRuJzi_u6MrOYg-1; Fri, 17 Dec 2021 06:37:58 -0500
+X-MC-Unique: GlTBj8B2MRuJzi_u6MrOYg-1
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
  [10.5.11.13])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DDD2B801B31;
- Fri, 17 Dec 2021 11:37:55 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B79AE1015DA2;
+ Fri, 17 Dec 2021 11:37:57 +0000 (UTC)
 Received: from liwang-workstation.nay.redhat.com (unknown [10.66.81.187])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 8995B8D5BA;
- Fri, 17 Dec 2021 11:37:54 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 6617B8D5BC;
+ Fri, 17 Dec 2021 11:37:56 +0000 (UTC)
 From: Li Wang <liwang@redhat.com>
 To: ltp@lists.linux.it
-Date: Fri, 17 Dec 2021 19:37:49 +0800
-Message-Id: <20211217113751.359613-2-liwang@redhat.com>
+Date: Fri, 17 Dec 2021 19:37:50 +0800
+Message-Id: <20211217113751.359613-3-liwang@redhat.com>
 In-Reply-To: <20211217113751.359613-1-liwang@redhat.com>
 References: <20211217113751.359613-1-liwang@redhat.com>
 MIME-Version: 1.0
@@ -58,13 +58,13 @@ Authentication-Results: relay.mimecast.com;
  auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwang@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 2/3] lib: enable OOM protection for the main process
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 3/3] oom: enable OOM protection for mem lib process
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,48 +81,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Here invoke OOM protection in fork_testrun, since it is the key point
-to distiguish many process branches. We do protect main ($PID) process
-from killing by OOM Killer, hope this can help to get the completed
-correct report for all of LTP tests.
-
-Fundamental principle:
-
-                   ltp test harness --> library process
-  (oom protection)   main --> tst_run_tcases --> ... --> fork_testrun
-  (cancel protection)  testrun --> run_tests --> ... --> testname
-                         child_test --> ... --> end
+Just simply invoke oom protection on mem library to make
+it can collect full state of children.
 
 Signed-off-by: Li Wang <liwang@redhat.com>
 Reviewed-by: Petr Vorel <pvorel@suse.cz>
 ---
-
-Notes:
-    Changes v1->v2:
-        * remove the protection for parent process as suggested by Martin
-
- lib/tst_test.c | 3 +++
+ testcases/kernel/mem/lib/mem.c | 3 +++
  1 file changed, 3 insertions(+)
 
-diff --git a/lib/tst_test.c b/lib/tst_test.c
-index ce2b8239d..0b370e691 100644
---- a/lib/tst_test.c
-+++ b/lib/tst_test.c
-@@ -1441,11 +1441,14 @@ static int fork_testrun(void)
- 
- 	SAFE_SIGNAL(SIGINT, sigint_handler);
+diff --git a/testcases/kernel/mem/lib/mem.c b/testcases/kernel/mem/lib/mem.c
+index ac890491c..566e29055 100644
+--- a/testcases/kernel/mem/lib/mem.c
++++ b/testcases/kernel/mem/lib/mem.c
+@@ -129,8 +129,11 @@ void oom(int testcase, int lite, int retcode, int allow_sigkill)
+ 	pid_t pid;
+ 	int status, threads;
  
 +	tst_enable_oom_protection(getpid());
 +
- 	test_pid = fork();
- 	if (test_pid < 0)
- 		tst_brk(TBROK | TERRNO, "fork()");
- 
- 	if (!test_pid) {
+ 	switch (pid = SAFE_FORK()) {
+ 	case 0:
 +		tst_cancel_oom_protection(getpid());
- 		SAFE_SIGNAL(SIGALRM, SIG_DFL);
- 		SAFE_SIGNAL(SIGUSR1, SIG_DFL);
- 		SAFE_SIGNAL(SIGINT, SIG_DFL);
+ 		threads = MAX(1, tst_ncpus() - 1);
+ 		child_alloc(testcase, lite, threads);
+ 	default:
 -- 
 2.31.1
 
