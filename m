@@ -1,76 +1,72 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6937E478676
-	for <lists+linux-ltp@lfdr.de>; Fri, 17 Dec 2021 09:47:59 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id C4A2C4787E7
+	for <lists+linux-ltp@lfdr.de>; Fri, 17 Dec 2021 10:40:29 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D2A5B3C8FC9
-	for <lists+linux-ltp@lfdr.de>; Fri, 17 Dec 2021 09:47:58 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 251EB3C9042
+	for <lists+linux-ltp@lfdr.de>; Fri, 17 Dec 2021 10:40:29 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 4EB953C0E12
- for <ltp@lists.linux.it>; Fri, 17 Dec 2021 09:47:54 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 3706F3C2FA4
+ for <ltp@lists.linux.it>; Fri, 17 Dec 2021 03:18:20 +0100 (CET)
+Received: from mail-yb1-xb4a.google.com (mail-yb1-xb4a.google.com
+ [IPv6:2607:f8b0:4864:20::b4a])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 62CF61001F43
- for <ltp@lists.linux.it>; Fri, 17 Dec 2021 09:47:53 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 772162111A;
- Fri, 17 Dec 2021 08:47:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1639730873;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=4gvZnFC8y5IC2wXm1UuVMvVbiL1iriiCtETeOuCgMhc=;
- b=diTmHx4MW1zYzWgIzPZzeFgB1fqKtlcSehNs7JUsbpiElL3SSywKVFr7A89L0fkWHWtH88
- YtCugQ8+PCTJmi8ncTHHU0z8X7ilBChyR7j5l4BYcQUh/xBS9DkrNjW6fpNQ8kBQOHGHRy
- 6i9dJs151y76bkLOPQ7C9+RoNA0yVDw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1639730873;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=4gvZnFC8y5IC2wXm1UuVMvVbiL1iriiCtETeOuCgMhc=;
- b=2fN6ich7+6Ivw/wHT3oopOi0A9sgafuWax26BIy64eSJa1CJTl9WL9KyE3F06MYMpasWeM
- Cj2AYNNlqs5rKQAg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4BDA313C6D;
- Fri, 17 Dec 2021 08:47:53 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 2xu+ELlOvGGnfQAAMHmgww
- (envelope-from <pvorel@suse.cz>); Fri, 17 Dec 2021 08:47:53 +0000
-Date: Fri, 17 Dec 2021 09:47:51 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Yang Xu <xuyang2018.jy@fujitsu.com>
-Message-ID: <YbxOtyzYsbgZ578D@pevik>
-References: <1639552849-2251-1-git-send-email-xuyang2018.jy@fujitsu.com>
- <1639552849-2251-4-git-send-email-xuyang2018.jy@fujitsu.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1639552849-2251-4-git-send-email-xuyang2018.jy@fujitsu.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 47614201DD0
+ for <ltp@lists.linux.it>; Fri, 17 Dec 2021 03:18:20 +0100 (CET)
+Received: by mail-yb1-xb4a.google.com with SMTP id
+ y125-20020a25dc83000000b005c2326bf744so1852223ybe.21
+ for <ltp@lists.linux.it>; Thu, 16 Dec 2021 18:18:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
+ h=date:message-id:mime-version:subject:from:to:cc;
+ bh=pR+fjBVeHG+Dz5BWpaT9e03Wce0EIRy1MQ2NNyLJbHA=;
+ b=fbBiF4or7qS7Z6ZEnhelyPWq7ciS54XuEki/bsr1s3zu7JSoMHwX2dJMNwdRwKPcy+
+ D+cgumSnvyI6bJ3dOo12zLL+oNZP6OkPTLBRP4ruzO0mO93t2KhocL3ha4GX13CrKAOL
+ hHbELr2ac/wWSCywQYE6xkiEyb6ECrL6k6oS0OQ8BxtR9f0pryKfSo3O0F3rRggafAiP
+ 2sSUsj7kO5+UJRokE4w8ydsWNn23hax4FCVMEcdc/tTr7iLsrq93DRX+FpMWnZOUD3tb
+ OoX8kVnQ+w8b1H7I5Y/MAlHu53y/6Nu3MHUZHtavnBxtpCVjsOXHjlDQAk/i/ARDBUJk
+ nUvg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:message-id:mime-version:subject:from:to:cc;
+ bh=pR+fjBVeHG+Dz5BWpaT9e03Wce0EIRy1MQ2NNyLJbHA=;
+ b=zdedmL5Unmm1NrWpc+IT2QPnTFsK8IkJFn2z2tnczYJcV0sXHYTp6s7k4p/nO35EON
+ IX5fAZGQSrl5zPDLid2wC/ynldR8l0LEtVbX9LneZO0fCR2tIAZYbpcFf9gU6zDExqW3
+ PpUMrxzb/s2yYaqcVg8qU1q0jsHSHGAqFpSEcq1DiGsV1G0nSCliziDf4RQyDWsI9YNs
+ kHwY8ZfEcQMhGMBXU90SK0C+OR9hDjlZYz0uRXv3xqnTjmuKiLvWEeMBgCoqhe1Y2Fm8
+ vBwmOzsne2KRMzRbaIBs3F3GXpJGgEDMgM8UXCzmT/c0Rb86SWLPkCJ73rpyqOg+K+Jc
+ OGKA==
+X-Gm-Message-State: AOAM533XluZKOo6u36DKYvyLZkO6n+2QyFpPAYMR7Q3L3x6wh9+0SwAG
+ 7CaOFDEiJxgF/7G/TIu5TRO13AfCwxVjHSROMiFDJy9FN3fgHMlF0t0cJ1KSS9JqjIaPRDdEYpU
+ 0J4li/UAxNXfUFcxfERBph6TxMx4H5H7ju+g5SFbCbYc0ZAT0t33giA==
+X-Google-Smtp-Source: ABdhPJyI65wYsFsZsazdtJWtk2ZwdrYbfZjCAODHe/2Qn4zJDVaFqUkU/WCE8Sq/+Dorh6R073GRNX5QZw==
+X-Received: from yaelt.nyc.corp.google.com
+ ([2620:0:1003:415:7c73:1d86:25c1:77e5])
+ (user=yaelt job=sendgmr) by 2002:a25:9849:: with SMTP id
+ k9mr1414250ybo.728.1639707498968; 
+ Thu, 16 Dec 2021 18:18:18 -0800 (PST)
+Date: Thu, 16 Dec 2021 21:17:26 -0500
+Message-Id: <20211217021726.2487455-1-yaelt@google.com>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.34.1.173.g76aa8bc2d0-goog
+To: ltp@lists.linux.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v4 4/4] zram/zram01.sh: Use mem_used_total field
- instead of compr_data_size field
+X-Spam-Status: No, score=-7.4 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+X-Mailman-Approved-At: Fri, 17 Dec 2021 10:40:25 +0100
+Subject: [LTP] [PATCH] syscalls/keyctl09: test encrypted keys.
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,41 +78,84 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: Martin Doucha <martin.doucha@suse.com>, ltp@lists.linux.it
+From: Yael Tiomkin via ltp <ltp@lists.linux.it>
+Reply-To: Yael Tiomkin <yaelt@google.com>
+Cc: linux-integrity@vger.kernel.org, Yael Tiomkin <yaelt@google.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
+Test that encrypted keys can be instantiated using
+both user-provided decrypted data
+(https://lore.kernel.org/linux-integrity/20211213192030.125091-1-yaelt@google.com/),
+or kernel-generated numbers.
 
-[ Cc Martin ]
+Signed-off-by: Yael Tiomkin <yaelt@google.com>
+---
+ testcases/kernel/syscalls/keyctl/keyctl09.c | 50 +++++++++++++++++++++
+ 1 file changed, 50 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/keyctl/keyctl09.c
 
-> Before ltp commit 4372f7a2156 ("Fix compression ratio calculation in zram01")[1], we
-> used free -m changes to calculate the compression ratio.
+diff --git a/testcases/kernel/syscalls/keyctl/keyctl09.c b/testcases/kernel/syscalls/keyctl/keyctl09.c
+new file mode 100644
+index 000000000..4589ef367
+--- /dev/null
++++ b/testcases/kernel/syscalls/keyctl/keyctl09.c
+@@ -0,0 +1,50 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2021 Google, Inc.
++ */
++
++/*
++ * Description: This tests that encrypted keys can be instantiated using
++ * user-provided decrypted data (plaintext), and separately, using
++ * kernel-generated key material.
++ */
++
++#include <errno.h>
++#include <stdint.h>
++
++#include "tst_test.h"
++#include "lapi/keyctl.h"
++
++static void do_test(void)
++{
++	key_serial_t masterkey;
++	key_serial_t encryptedkey1;
++	key_serial_t encryptedkey2;
++	char buffer[128];
++
++	masterkey = add_key("user", "user:masterkey", "foo", 3, KEY_SPEC_PROCESS_KEYRING);
++	if (masterkey == -1)
++		tst_brk(TBROK | TERRNO, "Failed to add user key");
++
++	encryptedkey1 = add_key("encrypted", "ltptestkey1", "new enc32 user:masterkey 32 plaintext12345678901234567890123", 60, KEY_SPEC_PROCESS_KEYRING);
++	if (encryptedkey1 == -1)
++		tst_brk(TBROK | TERRNO, "Failed to instantiate encrypted key using payload decrypted data");
++
++	TEST(keyctl(KEYCTL_READ, encryptedkey1, buffer, sizeof(buffer)));
++	if (TST_RET < 0)
++		tst_brk(TBROK | TTERRNO, "KEYCTL_READ failed for encryptedkey1");
++
++	encryptedkey2 = add_key("encrypted", "ltptestkey2", "new enc32 user:masterkey 32", 27, KEY_SPEC_PROCESS_KEYRING);
++	if (encryptedkey2 == -1)
++		tst_brk(TBROK | TERRNO, "Failed to instantiate encrypted key using kernel-generated key material");
++
++	TEST(keyctl(KEYCTL_READ, encryptedkey2, buffer, sizeof(buffer)));
++	if (TST_RET < 0)
++		tst_brk(TBROK | TTERRNO, "KEYCTL_READ failed for encryptedkey2");
++
++	tst_res(TPASS, "Encrypted keys were successfully instantiated and read");
++}
++
++static struct tst_test test = {
++	.test_all = do_test,
++};
+-- 
+2.34.1.173.g76aa8bc2d0-goog
 
-> After the above patch, we used compr_data_size to calculate. kernel documentation[2] has
-> the following info:
-> orig_data_size: uncompressed size of data stored in this disk.
-> compr_data_size: compressed size of data stored in this disk
-> mem_used_total: the amount of memory allocated for this disk
-
-> We should calculate the compression ratio by used disk size divided into used mem size.
-> It can also avoid the situation that division by 0 as below:
-> zram01 7 TINFO: filling zram4 (it can take long time)
-> zram01 7 TPASS: zram4 was filled with '25568' KB
-> zram01 7 TINFO: compr_size 0
->  /opt/ltp/testcases/bin/zram01.sh: line 131: 100 * 1024 * 25568 / 0: division by 0 (error token is "0")
-
-Thank you for addressing this issue. replacing "data *stored* in this disk" with
-"*allocated* for this disk" could help (although looking at kernel code
-mm_stat_show(), I would not be sure).
-
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
-
-Kind regards,
-Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
