@@ -1,77 +1,71 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 024F247A645
-	for <lists+linux-ltp@lfdr.de>; Mon, 20 Dec 2021 09:52:52 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1683E47A763
+	for <lists+linux-ltp@lfdr.de>; Mon, 20 Dec 2021 10:46:44 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9FBD23C9100
-	for <lists+linux-ltp@lfdr.de>; Mon, 20 Dec 2021 09:52:51 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id AD3F03C9106
+	for <lists+linux-ltp@lfdr.de>; Mon, 20 Dec 2021 10:46:43 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 953383C90E7
- for <ltp@lists.linux.it>; Mon, 20 Dec 2021 09:52:49 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id 2C4D63C0B99
+ for <ltp@lists.linux.it>; Mon, 20 Dec 2021 10:46:42 +0100 (CET)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id E60EF600CFA
- for <ltp@lists.linux.it>; Mon, 20 Dec 2021 09:52:48 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id EE5A7212BF;
- Mon, 20 Dec 2021 08:52:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1639990367;
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 1A265200DAF
+ for <ltp@lists.linux.it>; Mon, 20 Dec 2021 10:46:40 +0100 (CET)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 4D35D212B8;
+ Mon, 20 Dec 2021 09:46:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1639993600;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=YVWUK8B4cv2NIHZGVsm45Bbc8Knpqg/4V2ABEipHZmE=;
- b=WB+td85iGfTrpy6S6LCBZDOXkxCdEcxJapKniU7IFruZlRLJnKuziNbKf2Trp2GqCBTb/5
- WcmiC54UYMCVJ3Cd38M716+iFP1b7m+NbblrBzOqoM12iteWyP4B7bidkt4Vm6SlaruVqx
- SeozmkuGnAFk8ULXe3bQiowvC/nIzVo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1639990367;
+ bh=6ygMvFCVwroEZLqIAtNHCYGf12Ie6ONQ/EXJimr9rjQ=;
+ b=dglbw/QZeNxsqGvA2Rq+VwTdo73eH0AuVJ3HvHi0CpaMhvh7Jj18GjX1SUB9IqBccmFVLz
+ 0sP+x/w7m1HvKYNCoXnJGHJAtWxHXL6ZoCvxAOPyDt7HSxLCZ7xL54FHlpgIqN6XvsJ+su
+ 1EzVwMHLERIjP28rFDuJibGchJcA1fw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1639993600;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=YVWUK8B4cv2NIHZGVsm45Bbc8Knpqg/4V2ABEipHZmE=;
- b=7gPS5bW9bLA5n7pkL/bYpJXRzl2gxvciCBbRDtfA78Jg8h9n8OfKZkl2UKg5Q2on8sm7W5
- RmOdtPggmc6bm6Bg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ bh=6ygMvFCVwroEZLqIAtNHCYGf12Ie6ONQ/EXJimr9rjQ=;
+ b=3SXlpJh0UeFmZlBYwSts/iUSGMJZ2rlpYfEC4vbNy8ZDai8VYJ0Bfow7reBhd+qtCL7Znm
+ WGamtiv6qc1tMmBg==
+Received: from g78 (unknown [10.163.24.42])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CB5E313B6F;
- Mon, 20 Dec 2021 08:52:47 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 9ofCL19EwGGZfwAAMHmgww
- (envelope-from <pvorel@suse.cz>); Mon, 20 Dec 2021 08:52:47 +0000
-Date: Mon, 20 Dec 2021 09:52:46 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: "xuyang2018.jy@fujitsu.com" <xuyang2018.jy@fujitsu.com>
-Message-ID: <YcBEXr/jD5haFLLU@pevik>
-References: <1639552849-2251-1-git-send-email-xuyang2018.jy@fujitsu.com>
- <1639552849-2251-2-git-send-email-xuyang2018.jy@fujitsu.com>
- <YbxAuBpxXtPXIwYO@pevik> <61BC59C5.9090708@fujitsu.com>
- <Ybxnxs5t5lDpNS4U@pevik> <61BFF174.4060403@fujitsu.com>
+ by relay2.suse.de (Postfix) with ESMTPS id E8510A3B85;
+ Mon, 20 Dec 2021 09:46:39 +0000 (UTC)
+References: <20211210134556.26091-1-pvorel@suse.cz> <87tufcao8l.fsf@suse.de>
+ <YbcM8xKx7G0KQxWU@yuki> <61B70DE2.4040402@fujitsu.com>
+ <87lf0oaeui.fsf@suse.de> <Ybc5QJSZM3YIji70@yuki> <87h7bca7vu.fsf@suse.de>
+ <YbnI83sr26q+naFd@pevik> <874k7a9j5p.fsf@suse.de> <YboX0x4X05tMmUkE@pevik>
+User-agent: mu4e 1.6.9; emacs 27.2
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Petr Vorel <pvorel@suse.cz>
+Date: Mon, 20 Dec 2021 08:58:23 +0000
+In-reply-to: <YboX0x4X05tMmUkE@pevik>
+Message-ID: <87lf0ffw1y.fsf@suse.de>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <61BFF174.4060403@fujitsu.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v4 2/4] zram/zram_lib.sh: adapt the situation that
- zram device is being used
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/1] doc/maintainer: Add policy for new
+ functionality
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,46 +77,150 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
+Reply-To: rpalethorpe@suse.de
+Cc: pvorel@suze.cz, "ltp@lists.linux.it" <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-> Hi Petr
-> > Hi Xu,
+Hello Petr,
 
-> >>>> If zram-generator package is installed and works, then we can not remove zram module
-> >>>> because zram swap is being used. This case needs a clean zram environment, change this
-> >>>> test by using hot_add/hot_remove interface[1]. So even zram device is being used, we
-> >>>> still can add zram device and remove them in cleanup.
+Petr Vorel <pvorel@suse.cz> writes:
 
-> >>> BTW this was added in v4.2-rc1 (6 years ago, 6566d1a32bf7 ("zram: add dynamic
-> >>> device add/remove functionality")). Hopefully anybody still supporting older
-> >>> kernels is using old LTP for it.
-> >> Oh, I don't realize it before. I tested it on centos7 then I think this
-> >> control interface maybe introduced long time ago.
+> Hi Richie, Cyril,
+>
+>> Hello Petr,
+>
+>> Petr Vorel <pvorel@suse.cz> writes:
+>
+>> > Hi Richie, all,
+>
+>> >> Hello,
+>
+>> >> Cyril Hrubis <chrubis@suse.cz> writes:
+>
+>> >> > Hi!
+>> >> >> >>> The issue is we may forget to merge patch sets for features which are
+>> >> >> >>> included (a far worse result). It's more stuff waiting around in the
+>> >> >> >>> queue. At the least we should have a procedure for tracking them (like
+>> >> >> >>> tagging github issues for review at each mainline release).
+>
+>> >> >> >>> If a test requires a kernel config which doesn't exist in mainline we
+>> >> >> >>> could also look for that automatically.
+>
+>> >> >> >> The main issue is that if we happen to release LTP meanwhile with a test
+>> >> >> >> for a syscall that didn't get included in the mainline in the end we
+>> >> >> >> have released LTP that is supposed to be stable and the test will start
+>> >> >> >> to fail when the syscall number is allocated for something else which
+>> >> >> >> will happen sooner or later.
+>> >> >> > I know a example that is quotactl_path syscall.
+>
+>
+>> >> >> If the real issue is LTP releases, then why not exclude tests for new
+>> >> >> features from them? I assume it's only a small number of commits which
+>> >> >> would need to be removed. Possibly we could tag them in git when merging
+>> >> >> so it is not a lot more work for whoever does the release (namely
+>> >> >> Cyril) to create a branch without them.
+>
+>> >> > That sounds too complex for a test or two we are usually getting during
+>> >> > the release cycle.
+>
+>> >> > Note that people who contribute the functionality to the kernel are used
+>> >> > to wait for next release window, kernel releases are aprox. twice as
+>> >> > fast as LTP.
+>
+>> >> >> My main concern is this will throw up a barrier to motivated
+>> >> >> contributors working on the cutting edge.
+>
+>> >> > So far really nobody complained, which may not be a good metric. But
+>> >> > still unless there is a evidence that this happens I wouldn't consider
+>> >> > spending effort on this.
+>
+>> >> OK, well if it comes up again we can revisit it. However Petr please
+>> >> could you add the reasoning about not adding unstable tests into
+>> >> releases.
+>> > Isn't "... because it can be reverted in later rc if problematic" enough?
+>> > If not what would you add? Cyril posted test getting released in LTP and later
+>> > unstable. I could be more verbose, but not sure if that's better:
+>
+>> > * Tests for new functionality in mainline kernel should be merged after final
+>> >   release of kernel which contains that functionality. It's not enough when the
+>> >   feature gets into rc1, because in later rc the functionality can be changed or
+>> >   even reverted if problematic. And this could lead to broken test.
+>
+>> It's only a problem because of LTP releases. We can just fix or revert
+>> tests otherwise. Especially if the test author is also developing the
+>> kernel feature and updating the test in lockstep.
+>
+>> Without LTP releases then a test can be added for a feature only in RC
+>> and removed again. Only people who test the RC will get a result other
+>> than TCONF from the test before it disappears again or is updated to
+>> support the final feature.
+>
+>> Assuming of course people update LTP from HEAD on a regular basis. Which
+>> of course they won't or can't, so we have releases. We don't have a
+>> separate unstable branch because no one has volunteered to create and
+>> maintain it. If we did we could just add such tests to that.
+>
+> Agree, but we *do* have releases and do *not* have unstable branch.
+>
+> Thus, first, do you agree with current policy?
 
-> >> To be honst, I don't want to make this case more complex. How about
-> >> adding  /sys/class/zram-control check after load zram module. If not,
-> >> just report  case needs to use hot_add/hot_remove interface .
+Yes. Although we could add "next" and "rc" flags to tst_test (or
+similar). Then require an environment variable to be set (or check the
+kernel version) otherwise the test will return TCONF.
 
-> > Would it work something like this?
-> I don't want to use kernel version check because the hot_add/hot_remove 
-> interface is easy to backport. I will send a v5
-> 1) new kernel and not load zram kernel module, then modprobe and rmmod 
-> is enough, doesn't need to use hot_add/hot_remove
-> 2) new kernel and load zram kernel module or built in kernel, use 
-> hot_add/hot_remove
-> 3) old kernel and can be modprobe and rmmod, work as 1)
-> 4)old kernel but is being used or built in kernel, then skip this case 
-> like patch v3 does
-Sure, make sense (although you didn't avoid more complexity).
-Thanks working on this!
+For LTP releases we just need to check if the flags are still needed or
+if the feature has been merged. The metadata parser can generate a list
+of tests to check.
 
-Kind regards,
-Petr
+This seems like quite little work to me. In fact we don't even have to
+implement it until someone wants it. We can just add it to the policy.
+
+> If yes, how would you phrase it (do you want to add / change
+> anything)?
+
+Something like:
+
+"Tests for new functionality should only be added to the LTP once they
+are part of the stable kernel ABI. This happens when a feature is
+included in a final kernel release. Not during the RC phase where they
+can still be removed and, for example, the syscall numbers reused.
+
+This allows stable LTP releases to be taken directly from Git HEAD at
+any time we are ready. Without needing to remove commits for unstable
+feature tests or synchronise with the kernel releases.
+
+Alternatively if someone is very motivated to add tests for linux-next
+or the RC phase. We can add flags to tst_test which will prevent these
+tests being run under normal circumstances. Meaning the releases are
+unaffected."
+
+>
+> Or do you suggest to have policy when merged to rc1?
+> It would work for me, but we'd have to ask all maintainers
+> (I suggested that before, Cyril preferred kernel release).
+
+I'd happily accept tests for things going into linux-next if there are
+people willing to write them and they do not "throw them over the
+wall and run".
+
+>
+> Kind regards,
+> Petr
+>
+>> >> With that you can add
+>
+>> >> Acked-by: Richard Palethorpe <rpalethorpe@suse.com>
+>
+>> > Kind regards,
+>> > Petr
+
+
+-- 
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
