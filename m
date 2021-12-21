@@ -1,79 +1,93 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18AC347BBFF
-	for <lists+linux-ltp@lfdr.de>; Tue, 21 Dec 2021 09:42:46 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id A399F47BA67
+	for <lists+linux-ltp@lfdr.de>; Tue, 21 Dec 2021 08:03:04 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 951833C921B
-	for <lists+linux-ltp@lfdr.de>; Tue, 21 Dec 2021 09:42:45 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 7F8143C922B
+	for <lists+linux-ltp@lfdr.de>; Tue, 21 Dec 2021 08:03:03 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 4FAFF3C9168
- for <ltp@lists.linux.it>; Tue, 21 Dec 2021 09:42:40 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id 8F60F3C4DBB
+ for <ltp@lists.linux.it>; Tue, 21 Dec 2021 08:02:59 +0100 (CET)
+Received: from mail3.bemta32.messagelabs.com (mail3.bemta32.messagelabs.com
+ [195.245.230.17])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 8D963200E1C
- for <ltp@lists.linux.it>; Tue, 21 Dec 2021 09:42:40 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id C0FC61F388;
- Tue, 21 Dec 2021 08:42:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1640076159;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=VWTXnKk7V9u00g1tv2NwYV8crtCbuNhH/FuAKk2tLoY=;
- b=oGarhh7SFw3b3BG7KpIWgmU4OcBvhYV5dPkaHMSusZARTduUugMynde2Jeeqe55te7TJUc
- 6/Y/w03W1yEqrpGJVqCPDqkUlEzPdWvQFdAaERPNWq2V1w2lIoimZHwAA98SDmXCS51mxp
- gMpCJG7RicSDo+KipaSDB5nvl+eYbsM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1640076159;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=VWTXnKk7V9u00g1tv2NwYV8crtCbuNhH/FuAKk2tLoY=;
- b=IKwzVnC03JI02cD8RPru+FhtzRoHv2JMRC+I+F70gGIL55OjNMkhL0KA2//ftpM2KUlubK
- 3/auk4tg5gGz+9DQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 91EE013BEC;
- Tue, 21 Dec 2021 08:42:39 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id PPPqIH+TwWETLgAAMHmgww
- (envelope-from <pvorel@suse.cz>); Tue, 21 Dec 2021 08:42:39 +0000
-Date: Tue, 21 Dec 2021 09:42:37 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: sujiaxun <sujiaxun@uniontech.com>
-Message-ID: <YcGTfdiyejLZUnzG@pevik>
-References: <20211217062637.29720-1-sujiaxun@uniontech.com>
- <YbxUx8mz7ejCjp7W@pevik> <YcDffj8+zqY3SNCz@pevik>
- <0bb516ab-5e9f-71f2-3e55-5e46c41aaee2@uniontech.com>
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id C08427F734B
+ for <ltp@lists.linux.it>; Tue, 21 Dec 2021 08:02:58 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fujitsu.com;
+ s=170520fj; t=1640070177; i=@fujitsu.com;
+ bh=K6E1TFOHhhz4FxNC87FgTKfC9C2yP1vMojDMk/D/4qw=;
+ h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+ MIME-Version:Content-Type;
+ b=Uk8oHpnb8sp2Ck3CyE7vHw/lmbUlK05ABpaF6D3oxRsQR1KDlyGZHnnWXhwn/72TU
+ UUTPDbDiUXbHpgZtMEbUZ8icSVnkdQuSOuHXDoATKyTohaUkPiColsusOOq2JgeWYU
+ 04hZsPj/NWFSbcsTAvl0pQo0khrj+vre12xZmHvUGHzcA0kjGfqCotcLJdtcE1dZJ8
+ mJntViee+FUU8NqRqxJ1YQBzLsODcCrYKbDIT3IqbAlfw1p9Y/eIxg83b4bdHfhekr
+ 8nXfw75zMMOSoByp04BdUtyB8WJ3T2GhirMK2ZLmL/abRlvGbsXd/JycSNuA5cF14W
+ EFESif117JeUg==
+Received: from [100.115.7.142] (using TLSv1.2 with cipher
+ DHE-RSA-AES256-GCM-SHA384 (256 bits))
+ by server-1.bemta.az-a.eu-west-1.aws.ess.symcld.net id 1B/2C-14524-12C71C16;
+ Tue, 21 Dec 2021 07:02:57 +0000
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFjrPIsWRWlGSWpSXmKPExsViZ8MxRVex5mC
+ iwbPFEhbTXxxls1jxfQejxY9bN1gcmD32/V7H6nFmwRH2AKYo1sy8pPyKBNaMExtusRQ8ka64
+ OMmrgbFdvIuRi0NI4CWjxOJl71kgnP2MEhsW72DsYuTkYBPQkLj2uJ0ZxBYREJF40f8BqIiDg
+ 1kgQuLPqTIQU1jASOJGhzRIBYuAqsS5v43MIGFeAReJt98jQMISAgoSUx6+BxvCCVRyaMYWVh
+ BbSEBF4tftaUwgNq+AoMTJmU9YQGxmAQmJgy9eMEP0Kkrs37uREcKukJgxYxvbBEb+WUhaZiF
+ pWcDItIrRKqkoMz2jJDcxM0fX0MBA19DQVNdU18jUVC+xSjdRL7VUtzy1uETXUC+xvFgvtbhY
+ r7gyNzknRS8vtWQTIzBUU4pZ/+9g7O77qXeIUZKDSUmU93XpwUQhvqT8lMqMxOKM+KLSnNTiQ
+ 4wyHBxKErw2VUA5waLU9NSKtMwcYNzApCU4eJREeOeBpHmLCxJzizPTIVKnGI05PjyZu4iZo3
+ nS8u3MQix5+XmpUuK8s0BKBUBKM0rz4AbB4vkSo6yUMC8jAwODEE9BalFuZgmq/CtGcQ5GJWH
+ eCyBTeDLzSuD2vQI6hQnoFKXw/SCnlCQipKQamGz6r+QlC0hv0W50+ubSrGop86BQpNKnWdul
+ RGtx97n1G8qETk8XepXoeNNmx0Lrc8s+/+n8fT/F97pnMQf7q9ViJTqtip3m0mrXSli95Uxff
+ 9hwvOq35qMJt+af2ul0OW+Vz++MeN9Ud77F63/9zdLeVRLZK/QpvoS97sKpBJE5SqZtIurClb
+ 4N29oOzlmwfZtl/rN31zXCPfinKFdN+sR+9ZqJssdRm1c3LGMDHlyL0/RbZ2ijFOMeqZ/V7bG
+ Prbhp7TyJh54z3/P+8eRNbV57yqqNcx3Pcs1Qie71jBziT7b6Cc04YaoalqP0K+nkj+qSxiKm
+ aX/W7t/B1zOnS8IwPfKJoFhkTZ3ljWIlluKMREMt5qLiRABBJw2lYgMAAA==
+X-Env-Sender: daisl.fnst@fujitsu.com
+X-Msg-Ref: server-3.tower-585.messagelabs.com!1640070177!4228!1
+X-Originating-IP: [62.60.8.148]
+X-SYMC-ESS-Client-Auth: outbound-route-from=pass
+X-StarScan-Received: 
+X-StarScan-Version: 9.81.7; banners=-,-,-
+X-VirusChecked: Checked
+Received: (qmail 20838 invoked from network); 21 Dec 2021 07:02:57 -0000
+Received: from unknown (HELO mailhost1.uk.fujitsu.com) (62.60.8.148)
+ by server-3.tower-585.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
+ encrypted SMTP; 21 Dec 2021 07:02:57 -0000
+Received: from R01UKEXCASM126.r01.fujitsu.local ([10.183.43.178])
+ by mailhost1.uk.fujitsu.com (8.14.5/8.14.5) with ESMTP id 1BL72gAx029415
+ (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256 verify=FAIL);
+ Tue, 21 Dec 2021 07:02:49 GMT
+Received: from rhel79.g08.fujitsu.local (10.167.225.51) by
+ R01UKEXCASM126.r01.fujitsu.local (10.183.43.178) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.26; Tue, 21 Dec 2021 07:02:40 +0000
+From: Dai Shili <daisl.fnst@fujitsu.com>
+To: <pvorel@suse.cz>
+Date: Tue, 21 Dec 2021 15:03:23 -0500
+Message-ID: <1640117003-627-1-git-send-email-daisl.fnst@fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
+In-Reply-To: <YcBSmpdWBnx/L/XY@pevik>
+References: <YcBSmpdWBnx/L/XY@pevik>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <0bb516ab-5e9f-71f2-3e55-5e46c41aaee2@uniontech.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Originating-IP: [10.167.225.51]
+X-ClientProxiedBy: G08CNEXCHPEKD09.g08.fujitsu.local (10.167.33.85) To
+ R01UKEXCASM126.r01.fujitsu.local (10.183.43.178)
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] [v2,
- 1/2] syscalls/sched_get_priority_max01: Convert to new
+X-Spam-Status: No, score=2.6 required=7.0 tests=DATE_IN_FUTURE_12_24,
+ DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Level: **
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH v3] syscalls/write06: Add new test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,17 +99,146 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-PiDlnKggMjAyMS8xMi8yMSDkuIrljYgzOjU0LCBQZXRyIFZvcmVsIOWGmemBkzoKPiA+IEhpIHN1
-amlheHVuLAoKPiA+IG1lcmdlZC4gVGhhbmtzIQoKPiA+IEtpbmQgcmVnYXJkcywKPiA+IFBldHIK
-Cj4gSSdtIHNvcnJ5LCBidXQgSSBoYXZlIGJlZW4gZGVhbGluZyB3aXRoIG90aGVyIHRoaW5ncyBz
-b21lIHRpbWUgYWdvIGFuZCBoYXZlCj4gbm90IGJlZW4gYWJsZSB0byByZXBseSBpbiB0aW1lLiBU
-aGFuayB5b3UgZm9yIGhlbHBpbmcgbW9kaWZ5IGFuZCBtZXJnZS4KCllvdSdyZSB3ZWxjb21lLiBU
-aGFua3MgZm9yIHdvcmtpbmcgb24gTFRQLgoKS2luZCByZWdhcmRzLApQZXRyCgotLSAKTWFpbGlu
-ZyBsaXN0IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
+Like pwrite04.c, test the write() system call with O_APPEND.
+
+Signed-off-by: Dai Shili <daisl.fnst@fujitsu.com>
+---
+ runtest/syscalls                           |  1 +
+ testcases/kernel/syscalls/write/.gitignore |  1 +
+ testcases/kernel/syscalls/write/write06.c  | 94 ++++++++++++++++++++++++++++++
+ 3 files changed, 96 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/write/write06.c
+
+diff --git a/runtest/syscalls b/runtest/syscalls
+index bcf3d56..32fcda4 100644
+--- a/runtest/syscalls
++++ b/runtest/syscalls
+@@ -1699,6 +1699,7 @@ write02 write02
+ write03 write03
+ write04 write04
+ write05 write05
++write06 write06
+ 
+ writev01 writev01
+ writev02 writev02
+diff --git a/testcases/kernel/syscalls/write/.gitignore b/testcases/kernel/syscalls/write/.gitignore
+index 7f36194..8529aae 100644
+--- a/testcases/kernel/syscalls/write/.gitignore
++++ b/testcases/kernel/syscalls/write/.gitignore
+@@ -3,3 +3,4 @@
+ /write03
+ /write04
+ /write05
++/write06
+diff --git a/testcases/kernel/syscalls/write/write06.c b/testcases/kernel/syscalls/write/write06.c
+new file mode 100644
+index 0000000..c175548
+--- /dev/null
++++ b/testcases/kernel/syscalls/write/write06.c
+@@ -0,0 +1,94 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2021 FUJITSU LIMITED. All rights reserved.
++ * Author: Dai Shili <daisl.fnst@fujitsu.com>
++ */
++
++/*\
++ * [Description]
++ *
++ * Test the write() system call with O_APPEND.
++ *
++ * The full description of O_APPEND is in open(2) man-pages:
++ * The file is opened in append mode.  Before each write(2), the
++ * file offset is positioned at the end of the file, as if with lseek(2).
++ * The modification of the file offset and the write operation are
++ * performed as a single atomic step.
++ *
++ * Writing 2k data to the file, close it and reopen it with O_APPEND.
++ * Verify that the file size is 3k and offset is moved to the end of the file.
++ */
++
++#include <stdlib.h>
++#include <inttypes.h>
++#include "tst_test.h"
++#include "tst_safe_prw.h"
++
++#define K1              1024
++#define K2              (K1 * 2)
++#define K3              (K1 * 3)
++#define DATA_FILE       "write06_file"
++
++static int fd = -1;
++static char *write_buf[2];
++
++static void verify_write(void)
++{
++	off_t off;
++	struct stat statbuf;
++
++	fd = SAFE_OPEN(DATA_FILE, O_RDWR | O_CREAT | O_TRUNC, 0666);
++	SAFE_WRITE(1, fd, write_buf[0], K2);
++	SAFE_CLOSE(fd);
++
++	fd = SAFE_OPEN(DATA_FILE, O_RDWR | O_APPEND);
++	SAFE_FSTAT(fd, &statbuf);
++	if (statbuf.st_size != K2)
++		tst_res(TFAIL, "file size is %ld != K2", statbuf.st_size);
++
++	off = SAFE_LSEEK(fd, K1, SEEK_SET);
++	if (off != K1)
++		tst_brk(TBROK, "Failed to seek to K1");
++
++	SAFE_WRITE(1, fd, write_buf[1], K1);
++
++	off = SAFE_LSEEK(fd, 0, SEEK_CUR);
++	if (off != K3)
++		tst_res(TFAIL, "Wrong offset after write %zu expected %u", off, K3);
++	else
++		tst_res(TPASS, "Offset is correct after write %zu", off);
++
++	SAFE_FSTAT(fd, &statbuf);
++	if (statbuf.st_size != K3)
++		tst_res(TFAIL, "Wrong file size after append %zu expected %u", statbuf.st_size, K3);
++	else
++		tst_res(TPASS, "Correct file size after append %u", K3);
++
++	SAFE_CLOSE(fd);
++}
++
++static void setup(void)
++{
++	memset(write_buf[0], 0, K2);
++	memset(write_buf[1], 1, K1);
++}
++
++static void cleanup(void)
++{
++	if (fd != -1)
++		SAFE_CLOSE(fd);
++
++	SAFE_UNLINK(DATA_FILE);
++}
++
++static struct tst_test test = {
++	.needs_tmpdir = 1,
++	.setup = setup,
++	.cleanup = cleanup,
++	.test_all = verify_write,
++	.bufs = (struct tst_buffers[]) {
++		{&write_buf[0], .size = K2},
++		{&write_buf[1], .size = K1},
++		{}
++	}
++};
+-- 
+1.8.3.1
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
