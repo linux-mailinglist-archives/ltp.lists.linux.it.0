@@ -1,68 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A3EC47BE52
-	for <lists+linux-ltp@lfdr.de>; Tue, 21 Dec 2021 11:46:13 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 50A1047BC58
+	for <lists+linux-ltp@lfdr.de>; Tue, 21 Dec 2021 10:02:03 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B94AC3C921E
-	for <lists+linux-ltp@lfdr.de>; Tue, 21 Dec 2021 11:46:12 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 862C03C9215
+	for <lists+linux-ltp@lfdr.de>; Tue, 21 Dec 2021 10:02:02 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 8860E3C104E
- for <ltp@lists.linux.it>; Tue, 21 Dec 2021 11:46:06 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 8B9413C06C4
+ for <ltp@lists.linux.it>; Tue, 21 Dec 2021 10:01:59 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id D189C600D78
- for <ltp@lists.linux.it>; Tue, 21 Dec 2021 11:46:05 +0100 (CET)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 1E91B1F388
- for <ltp@lists.linux.it>; Tue, 21 Dec 2021 10:46:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1640083565;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=QhZb4e/D0IM+tUSFTWluTbeenmW3aBJhjRUxakp7XM4=;
- b=u/+aQOTs9vNQjOpqiRe2l/bIuxgM2ILn8Jy9oU8+D9+UkdxjGQNWclGtH0stuumD1mV75h
- k2daHJdTHAgWNPSp07sLnCHC96e6avqqsDXMKZz03rDMO0Rg7DRywJ3nE6wB6UokIWdepx
- gLDxLc8zheU5BWKPDpOdOMmrkezxf7I=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1640083565;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=QhZb4e/D0IM+tUSFTWluTbeenmW3aBJhjRUxakp7XM4=;
- b=Vvu7YkfcodQ4B5QqLlrthWSu0ugdeI5AccDzDJrEiZBeY6lM0Bt6gh9F3LqJLeyBkZPgUq
- s+iiL/WbdTfuaRCg==
-Received: from g78 (unknown [10.163.24.42])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 2373D1A014A5
+ for <ltp@lists.linux.it>; Tue, 21 Dec 2021 10:01:57 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id E0FEEA3B81;
- Tue, 21 Dec 2021 10:46:04 +0000 (UTC)
-References: <20211220131043.18894-1-rpalethorpe@suse.com>
- <20211220131043.18894-3-rpalethorpe@suse.com> <YcCk13sQIpG+E0jR@yuki>
-User-agent: mu4e 1.6.9; emacs 27.2
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Cyril Hrubis <chrubis@suse.cz>
-Date: Tue, 21 Dec 2021 08:38:03 +0000
-In-reply-to: <YcCk13sQIpG+E0jR@yuki>
-Message-ID: <87a6gufd77.fsf@suse.de>
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 065F721117;
+ Tue, 21 Dec 2021 09:01:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1640077317;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=hNkASE91271N7CeDuT3M7bBED42kg/o4zLewajWHevA=;
+ b=uRhZTgQ64ZFNw2Z4Ssd10/Z3BaoLEbGFwI/Lv6Hf36as/NGskXHbUuGCu72cpe+VTF2oZW
+ bHUO6aFcoFKCoAZEIEuGg3NWssir1xBL/y5Flm3bBAf1HrO0C0QK1ci1mSbXGSm/DHzaZ3
+ uMXwmEACw0ue7HHidn60xxEzm/rLIVA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1640077317;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=hNkASE91271N7CeDuT3M7bBED42kg/o4zLewajWHevA=;
+ b=ptnMdv2SSM4byjCiteTUVulmOekX56lDgC+PtvQhR2v3al9urJRLBRqQfWl5kQ23nNmRSv
+ cEN2SIqERwlZJWBQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A6BE413C26;
+ Tue, 21 Dec 2021 09:01:56 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id frlTJgSYwWFLNwAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Tue, 21 Dec 2021 09:01:56 +0000
+Date: Tue, 21 Dec 2021 10:01:54 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: Yael Tiomkin <yaelt@google.com>
+Message-ID: <YcGYAhskkG1r+5Qs@pevik>
+References: <20211221023721.129689-1-yaelt@google.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20211221023721.129689-1-yaelt@google.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 3/3] cgroup: Add memcontrol02
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] syscalls/keyctl09: test encrypted keys.
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,77 +80,58 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
-Cc: ltp@lists.linux.it
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: linux-integrity@vger.kernel.org, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello,
+Hi Yael,
 
-Cyril Hrubis <chrubis@suse.cz> writes:
+you still have some problem when running more iterations:
 
->> +
->> +static void test_memcg_current(unsigned int n)
->> +{
->> +	size_t current;
->> +
->> +	cg_child = tst_cgroup_group_mk(cg_test, "child");
->> +	SAFE_CGROUP_SCANF(cg_child, "memory.current", "%zu", &current);
->> +	TST_EXP_POSITIVE(current == 0, "(current=%zu) == 0", current);
->
-> I find these TST_EXP_POSITIVE() macros slightly confusing.
->
-> Note that we do have TST_EXP_VAL(), so this can be better defined as
-> TST_EXP_VAL(current, 0);
->
-> But even then all the macros all written in a way that they do expect
-> a syscall as a first parameter and the messages are not clear.
+./keyctl09 -i500
+keyctl09.c:49: TPASS: Encrypted keys were successfully instantiated and read
+keyctl09.c:49: TPASS: Encrypted keys were successfully instantiated and read
+...
+keyctl09.c:33: TFAIL: Failed to instantiate encrypted key using payload decrypted data
 
-Possibly it should just be TST_EXP(bool_expr, fmt, ...). That would be like
-practically every other testing framework. OTOH LTP is somewhat special
-as we usually are checking the return value of a syscall. So I should
-probably leave these macros alone in this case.
+(some people really try high number of iterations.)
+Could you please have a look?
 
->
-> Maybe we need a different solution. We already have tst_assert_foo()
-> functions for sysfs/proc files so maybe we need something as compare
-> function for the cgroup file attributes:
+> Test that encrypted keys can be instantiated using
+> both user-provided decrypted data
+> (https://lore.kernel.org/linux-integrity/20211213192030.125091-1-yaelt@google.com/),
+> or kernel-generated numbers.
++1 for doc!
 
-Frankly that is poor naming. One would expect tst_assert to be similar
-to assert from assert.h.
+...
+> +static void do_test(void)
+> +{
+> +	key_serial_t masterkey;
+> +	key_serial_t encryptedkey1;
+> +	key_serial_t encryptedkey2;
+> +	char buffer[128];
+> +
+> +	masterkey = add_key("user", "user:masterkey", "foo", 3,
+> +			    KEY_SPEC_PROCESS_KEYRING);
+> +	if (masterkey == -1)
+> +		tst_brk(TBROK | TERRNO, "Failed to add user key");
+> +
+> +	encryptedkey1 = add_key("encrypted", "ltptestkey1", ENCRYPTED_KEY_1_PAYLOAD,
+> +				60, KEY_SPEC_PROCESS_KEYRING);
+> +	if (encryptedkey1 == -1)
+> +		tst_brk(TFAIL, "Failed to instantiate encrypted key using payload decrypted data");
+nit: this might be TBROK (test preparation phase), not sure
+(and not that important).
 
->
-> 	enum cmp {
-> 		CMP_EQ,
-> 		CMP_NE,
-> 		CMP_LT,
-> 		CMP_GT,
-> 		CMP_LE,
-> 		CMP_GE,
-> 		CMP_EPS,
-> 	};
->
-> 	CGROUP_ASSERT_CMP_SIZE(cg_child, "memory.current", CMP_EQ, 0);
->
-> 	CGROUP_ASSERT_CMP_SIZE(cg_child, "memory.current", CMP_EPS, file, 10);
->
->
-> 	or even simple macro that would compare two values accordingly
-> 	to the OP and print PASS/FAIL would be better than this.
->
+The rest LGTM.
 
-I think it would be simpler to just create a general assert_expr
-macro. The above function won't neatly handle loading multiple values
-from multiple files. Nor will it handle transforming values.
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
 
-We could implement SQL queries for sys files, like osquery, that would
-be neat!
-
--- 
-Thank you,
-Richard.
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
