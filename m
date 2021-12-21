@@ -2,80 +2,74 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 717C747BE43
-	for <lists+linux-ltp@lfdr.de>; Tue, 21 Dec 2021 11:44:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8EB847BE66
+	for <lists+linux-ltp@lfdr.de>; Tue, 21 Dec 2021 11:48:12 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id AFDE83C9255
-	for <lists+linux-ltp@lfdr.de>; Tue, 21 Dec 2021 11:44:35 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 324FC3C921B
+	for <lists+linux-ltp@lfdr.de>; Tue, 21 Dec 2021 11:48:12 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 1A1103C104E
- for <ltp@lists.linux.it>; Tue, 21 Dec 2021 11:44:31 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id 28B0A3C4DBB
+ for <ltp@lists.linux.it>; Tue, 21 Dec 2021 11:48:07 +0100 (CET)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id ECBDA1401261
- for <ltp@lists.linux.it>; Tue, 21 Dec 2021 11:44:30 +0100 (CET)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 734191A00346
+ for <ltp@lists.linux.it>; Tue, 21 Dec 2021 11:48:07 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 40C051F3A6;
- Tue, 21 Dec 2021 10:44:30 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 9DCE41F388;
+ Tue, 21 Dec 2021 10:48:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1640083470;
+ t=1640083686;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=DPTqCE1PtD00oVFnbmbRxB6QQn+CQttP/1Ju/jfijW4=;
- b=uENf03XjWbW3SXPoFt7wA0HYtl3fQ2ebEd6dTH50BFvErtpcsgzN4idbC0gDrLw/pSD4Qz
- LlF94Jd0Pqnq2ucP2x+Bzqo3bN8QKsuewsPYag14xktx2ngjI92NvIec02JLl+yKCPqpI3
- 2yO4T5hMTOz2gRU8XOlVbyKeINSpRWg=
+ bh=AbfCrwTcgXJNYxMWN99H4eXJ0A9mLBjD7Y9Uzue0Z+g=;
+ b=pgxemyO4pXQGI6M4S5jNS8B5Ok4JZwefgkFlEyYw82QUuc+fFH1g/1/LbgAKCr7t+Q1Ypx
+ RCaVDvS2ZlLgBNkVmQHjP1glK0nm80V1pzJqGUJ3pzedk2UjSqUe4dQaoS5j8HS4DfHtqQ
+ P+nEDUTefVU0tcrLR+jjfiP7AZkMQnA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1640083470;
+ s=susede2_ed25519; t=1640083686;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=DPTqCE1PtD00oVFnbmbRxB6QQn+CQttP/1Ju/jfijW4=;
- b=hP8wLoNuyqPqo3P4NqpY9qvc6SvoQ1bXtqjB11C0t7xNQG/xjFxT3ullaaDszMtYw/G+RG
- IzqSKfhkyaMymCCw==
+ bh=AbfCrwTcgXJNYxMWN99H4eXJ0A9mLBjD7Y9Uzue0Z+g=;
+ b=DAr4EQNXoVKhGC1jQ9S3x94eg8Kb9hN+ciGFo2370AgAgutUzfrRVc4le4GZaxBgfAwl5i
+ EUadzfpipKdZiGCA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 186C813C26;
- Tue, 21 Dec 2021 10:44:30 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6142213C26;
+ Tue, 21 Dec 2021 10:48:06 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id w8WSBA6wwWEjZgAAMHmgww
- (envelope-from <pvorel@suse.cz>); Tue, 21 Dec 2021 10:44:30 +0000
-Date: Tue, 21 Dec 2021 11:44:28 +0100
+ by imap2.suse-dmz.suse.de with ESMTPSA id +lGEFOawwWHmZwAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Tue, 21 Dec 2021 10:48:06 +0000
+Date: Tue, 21 Dec 2021 11:48:04 +0100
 From: Petr Vorel <pvorel@suse.cz>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <YcGwDKmi+iQuw3fS@pevik>
-References: <20211220095416.583323-1-liwang@redhat.com>
- <YcDMnDRgsac/q8D9@pevik>
- <CAEemH2d6PPi94q3PhMyR1Js_Rqr1dpfvch=ex3HpuHfQKJYTnw@mail.gmail.com>
- <YcGb5abUqe8PNKoM@yuki>
- <CAEemH2dDEM30-fM89LDZq1E7YN8rf44doGgnkPXuce0ttP67OA@mail.gmail.com>
- <YcGlb4NoDGSP4ZkU@yuki>
- <CAEemH2fFY_TuCEqoR9ogqUBA5mFjY-FX+tDufYs39uN0JJ9gvQ@mail.gmail.com>
- <YcGuIJql99Row3o9@yuki>
+To: Nageswara Sastry <rnsastry@linux.ibm.com>
+Message-ID: <YcGw5Lyo+hBEnlFD@pevik>
+References: <20211221023721.129689-1-yaelt@google.com>
+ <aafb5351-a73a-dac3-b0fa-3faad707bafa@linux.ibm.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <YcGuIJql99Row3o9@yuki>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+In-Reply-To: <aafb5351-a73a-dac3-b0fa-3faad707bafa@linux.ibm.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3 1/3] lib: add functions to adjust oom score
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] syscalls/keyctl09: test encrypted keys.
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,34 +82,36 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: LTP List <ltp@lists.linux.it>
+Cc: linux-integrity@vger.kernel.org, Yael Tiomkin <yaelt@google.com>,
+ ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-> Hi!
-> > So, I will push (the improved) code like below, after getting
-> > Petr and you ack again:
+Hi Nageswara,
 
-> > +static void set_oom_score_adj(pid_t pid, int value)
-> > +{
-> > +       int val;
-> > +       char score_path[64];
-> > +
-> > +       if (access("/proc/self/oom_score_adj", F_OK) == -1) {
-> > +               tst_res(TINFO, "Warning: oom_score_adj does not exist,
-> > +                               skipping the adjustement");
+> On 21/12/21 8:07 am, Yael Tiomkin wrote:
+> > Test that encrypted keys can be instantiated using
+> > both user-provided decrypted data
+> > (https://lore.kernel.org/linux-integrity/20211213192030.125091-1-yaelt@google.com/),
+> > or kernel-generated numbers.
 
-> I'm not sure about the "Warning:" in this message, I would just dully
-> informed the user that the interface is not available.
+> > Signed-off-by: Yael Tiomkin <yaelt@google.com>
 
-I'd also prefer not having to print "Warning:" in TINFO message
-(I know TWARN exit non-zero).
+> Tested on ppc64le platform
+
+I suppose it also fails on ppc64le when run more iterations.
+./keyctl09 -i500
+keyctl09.c:49: TPASS: Encrypted keys were successfully instantiated and read
+keyctl09.c:49: TPASS: Encrypted keys were successfully instantiated and read
+...
+keyctl09.c:33: TFAIL: Failed to instantiate encrypted key using payload decrypted data
+
+(It's always good to put higher number iterations.)
 
 Kind regards,
 Petr
-
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
