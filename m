@@ -2,78 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9A2347B884
-	for <lists+linux-ltp@lfdr.de>; Tue, 21 Dec 2021 03:50:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40DD847BBEB
+	for <lists+linux-ltp@lfdr.de>; Tue, 21 Dec 2021 09:33:22 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 8EAA63C91F1
-	for <lists+linux-ltp@lfdr.de>; Tue, 21 Dec 2021 03:50:49 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 9E0CF3C9235
+	for <lists+linux-ltp@lfdr.de>; Tue, 21 Dec 2021 09:33:21 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 263563C0BA7
- for <ltp@lists.linux.it>; Tue, 21 Dec 2021 03:50:46 +0100 (CET)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 109A03C9168
+ for <ltp@lists.linux.it>; Tue, 21 Dec 2021 09:33:16 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id B1C3C2001CE
- for <ltp@lists.linux.it>; Tue, 21 Dec 2021 03:50:45 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1640055044;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 43261200C9B
+ for <ltp@lists.linux.it>; Tue, 21 Dec 2021 09:33:15 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 0DF59210EF;
+ Tue, 21 Dec 2021 08:33:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1640075595;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=Dzf9NLbr0CdLdY5JD2+yri3UmvTtQeutMY3mfvqcqOQ=;
- b=BoQ6Zb9x30oVfzDeAVkX4dLAi4FYyyVM8wBPjfxcqHEFsbp3zho9Pu36IGZ2SIglamowB8
- RrlodyO+4azgA7ODBsdYbUHHQGss/NI7QP/V1T8Fz7/IX6/+6GvzEv5ua5F5+zrFmBsuPo
- Y/Jle94R2gngToKaLJHV3KxV6tttog8=
-Received: from mail-yb1-f200.google.com (mail-yb1-f200.google.com
- [209.85.219.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-638-sstSKHsmNAyZ9TUgp1oE5A-1; Mon, 20 Dec 2021 21:50:39 -0500
-X-MC-Unique: sstSKHsmNAyZ9TUgp1oE5A-1
-Received: by mail-yb1-f200.google.com with SMTP id
- l145-20020a25cc97000000b005c5d04a1d52so23175878ybf.23
- for <ltp@lists.linux.it>; Mon, 20 Dec 2021 18:50:39 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=OBJhwBzkVP1RY7eBZCVlKuAnrDfG0bWQQX1bvJgDZvg=;
- b=2EfG6yM6vHlRp9+yqV8A4mkXjQwH06Jb19OYfXn5rL7CA6Yf6fs8GU2KrDb3xQkVvw
- +Vbp2kZZNmzO4JVywg1empF2r+t+d5kXxuntG9A/GBAWNoxOHqd5fh/qZJdwe8gfe5y4
- xzNoNCttTEQQV5nr3lbJsTqwPG6Ggxk5G6i8X0BZOH53sGMXAG7YnBtM2xLww6TkQ0Gc
- ZiSlv8NZ5VjUl4+dBCdyWosYwPZDJRAVHJsdeldA38hfnvU9nIMpfFOqJoPAZsMCCqD1
- 4FVoVfR05i9cKe3vhSGjiwWvN/Zt7TSrj06ujqdBQikpxX+v3+z2OIO9SbnBvgFyxAN6
- VPfA==
-X-Gm-Message-State: AOAM532myA3sfXGSmLROThVfeuI1iRezejqy5sM+7UvT8WKRgbLb29Qw
- b7RDC88vkculDbBrqNAkDrkNqCG3wyJLPzDerSxSo7z26AmbV3amDhPK0np1KP6OJSaRePSGFqJ
- LO+/JnNT0p8PjSlTyZM3IJ7HkuAQ=
-X-Received: by 2002:a25:b13:: with SMTP id 19mr1759966ybl.71.1640055039272;
- Mon, 20 Dec 2021 18:50:39 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJxe0IqoQ2EsEU0662T7N8RE4J2vzYKVcjigQH92bKpcTm+0B6osj4DRnz12z/ylE92XG7gx8cnAXWk+PKxtsh4=
-X-Received: by 2002:a25:b13:: with SMTP id 19mr1759944ybl.71.1640055039053;
- Mon, 20 Dec 2021 18:50:39 -0800 (PST)
-MIME-Version: 1.0
+ bh=w3k7cB1jZ3gSQ6MEmZxtmPmGO/ZHWiKdJWhgmr+9T7M=;
+ b=KAK1ozXgadZ9wkH4uTukUOV2geZRT8fGS9fbcvrYjUFN0CvgLOqOEtgGxHum7NxMARCqwu
+ Qx3oWY1N6Q6gTlr7/ldmCRQxxLZrNboY4rNCGG0Pm9IlB175rQvxmtJg+KvoHV9UpgvqrS
+ qrfC7ZweMJ3qOi+LP8D15LmjTqK8tew=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1640075595;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=w3k7cB1jZ3gSQ6MEmZxtmPmGO/ZHWiKdJWhgmr+9T7M=;
+ b=KoB9W64DJ7QPn54Kbzj1ttlnvf0a/GENXMcpkQFY7jdLnkp1RIWwQXjYYB6xFQ2ca0u/1P
+ T1pMMHtvtFDv27Bg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DAF2013BEC;
+ Tue, 21 Dec 2021 08:33:14 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id rZTqM0qRwWFAKQAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Tue, 21 Dec 2021 08:33:14 +0000
+Date: Tue, 21 Dec 2021 09:33:13 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: Li Wang <liwang@redhat.com>
+Message-ID: <YcGRST7vAycVk0AA@pevik>
 References: <20211220095416.583323-1-liwang@redhat.com>
  <YcDMnDRgsac/q8D9@pevik>
-In-Reply-To: <YcDMnDRgsac/q8D9@pevik>
-From: Li Wang <liwang@redhat.com>
-Date: Tue, 21 Dec 2021 10:50:26 +0800
-Message-ID: <CAEemH2d6PPi94q3PhMyR1Js_Rqr1dpfvch=ex3HpuHfQKJYTnw@mail.gmail.com>
-To: Petr Vorel <pvorel@suse.cz>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+ <CAEemH2d6PPi94q3PhMyR1Js_Rqr1dpfvch=ex3HpuHfQKJYTnw@mail.gmail.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <CAEemH2d6PPi94q3PhMyR1Js_Rqr1dpfvch=ex3HpuHfQKJYTnw@mail.gmail.com>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH v3 1/3] lib: add functions to adjust oom score
 X-BeenThere: ltp@lists.linux.it
@@ -87,106 +82,36 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============1517942570=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1517942570==
-Content-Type: multipart/alternative; boundary="00000000000003e99105d39f12a4"
+Hi Li,
 
---00000000000003e99105d39f12a4
-Content-Type: text/plain; charset="UTF-8"
-
-On Tue, Dec 21, 2021 at 2:34 AM Petr Vorel <pvorel@suse.cz> wrote:
-
-> Hi Li,
->
-> >     v2 --> v3
-> >       * rename to tst_disable_oom_protection
-> >       * support set PID as 0 to protect current process
->
-> > +static void set_oom_score_adj(pid_t pid, int value)
-> > +{
-> > +     int val;
-> > +     char score_path[64];
-> > +
-> > +     if (access("/proc/self/oom_score_adj", F_OK) == -1) {
-> We need to check here also /proc/PID/oom_score_adj, i.e. score_path.
->
-
-Good catch, I would add a 'W_OK' checking and skip the setting with
-a reminder message if run without root.
-
-how about this?
-
-if (access(score_path, W_OK) == -1) {
-        tst_res(TINFO, "Warning: %s cannot be accessed for writing,
-                please check if test run with root user.",
-                score_path);
-        return
-}
+> > > +     if (access("/proc/self/oom_score_adj", F_OK) == -1) {
+> > We need to check here also /proc/PID/oom_score_adj, i.e. score_path.
 
 
--- 
-Regards,
-Li Wang
+> Good catch, I would add a 'W_OK' checking and skip the setting with
+> a reminder message if run without root.
 
---00000000000003e99105d39f12a4
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+> how about this?
 
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Tue, Dec 21, 2021 at 2:34 AM Petr Vorel &lt;<a h=
-ref=3D"mailto:pvorel@suse.cz">pvorel@suse.cz</a>&gt; wrote:<br></div><block=
-quote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1=
-px solid rgb(204,204,204);padding-left:1ex">Hi Li,<br>
-<br>
-&gt;=C2=A0 =C2=A0 =C2=A0v2 --&gt; v3<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0* rename to tst_disable_oom_protection<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0* support set PID as 0 to protect current pr=
-ocess<br>
-<br>
-&gt; +static void set_oom_score_adj(pid_t pid, int value)<br>
-&gt; +{<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0int val;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0char score_path[64];<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (access(&quot;/proc/self/oom_score_adj&quot;, =
-F_OK) =3D=3D -1) {<br>
-We need to check here also /proc/PID/oom_score_adj, i.e. score_path.<br></b=
-lockquote><div><br></div><div><div class=3D"gmail_default" style=3D"font-si=
-ze:small">Good catch, I would add a &#39;W_OK&#39; checking and skip the se=
-tting with</div><div class=3D"gmail_default" style=3D"font-size:small">a re=
-minder message if run without root.</div><br></div><div><div class=3D"gmail=
-_default" style=3D"font-size:small">how about this?</div><br></div><div cla=
-ss=3D"gmail_default" style=3D"font-size:small">if (access(score_path, W_OK)=
- =3D=3D -1) {</div>=09=09<span class=3D"gmail_default" style=3D"font-size:s=
-mall">=C2=A0 =C2=A0 =C2=A0 =C2=A0 </span>tst_res(TINFO, &quot;Warning: %s c=
-annot be accessed for writing,<br>=09=09=09<span class=3D"gmail_default" st=
-yle=3D"font-size:small">=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 </span>please check if test run with root user.&quot;,<br>=09=09=09<=
-span class=3D"gmail_default" style=3D"font-size:small">=C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 </span>score_path);<br>=09=09<span clas=
-s=3D"gmail_default" style=3D"font-size:small">=C2=A0 =C2=A0 =C2=A0 =C2=A0 <=
-/span>return<br>=09}<br><div class=3D"gmail_default" style=3D"font-size:sma=
-ll"><br></div></div><div><br></div>-- <br><div dir=3D"ltr" class=3D"gmail_s=
-ignature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div></d=
-iv></div></div>
+> if (access(score_path, W_OK) == -1) {
+>         tst_res(TINFO, "Warning: %s cannot be accessed for writing,
+>                 please check if test run with root user.",
+>                 score_path);
+>         return
+> }
 
---00000000000003e99105d39f12a4--
+No, value < 0 obviously requires root, thus access() check is not enough.
+Try  echo -1 > /proc/$$/oom_score_adj
 
-
---===============1517942570==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============1517942570==--
-
