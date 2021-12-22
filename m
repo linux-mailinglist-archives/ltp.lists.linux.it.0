@@ -1,158 +1,86 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id DEED247CF51
-	for <lists+linux-ltp@lfdr.de>; Wed, 22 Dec 2021 10:34:03 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 68C1747CF88
+	for <lists+linux-ltp@lfdr.de>; Wed, 22 Dec 2021 10:49:04 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 927303C925B
-	for <lists+linux-ltp@lfdr.de>; Wed, 22 Dec 2021 10:34:03 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 7C3503C9220
+	for <lists+linux-ltp@lfdr.de>; Wed, 22 Dec 2021 10:49:03 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 054923C0B90
- for <ltp@lists.linux.it>; Wed, 22 Dec 2021 10:33:58 +0100 (CET)
-Received: from esa12.fujitsucc.c3s2.iphmx.com (esa12.fujitsucc.c3s2.iphmx.com
- [216.71.156.125])
+ by picard.linux.it (Postfix) with ESMTPS id 2F7D93C042E
+ for <ltp@lists.linux.it>; Wed, 22 Dec 2021 10:48:59 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 5389F100136F
- for <ltp@lists.linux.it>; Wed, 22 Dec 2021 10:33:56 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj1;
- t=1640165638; x=1671701638;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-id:content-transfer-encoding: mime-version;
- bh=FGgimT82v3/7REb8qAw5y7fBaKiAB8G8IYJwu24pBaA=;
- b=MWbIiYIRgaMqOoKsvs5hyo04fTnl52AnP0cufsILDDJMIBqbmHDegCti
- olluqToTEVOUHLM6rNc/F6OYc2Wgmi2fkthkxdxxe5uea0ZUPUy6H63nT
- lYGsaSlWL0d/gCsMBbr5cH9eiGGWpsip1FLC95B8NMlA5zSOLi8LLrQmW
- VwU7j1bOKx/OUqxivGBNqiVFzbfs6VM/GVJ/dMwfOSPJPtzCjxGSKIypO
- h/hsmLH+N51kBDLBLOsy9MhDd+BN4EO+Up4tc1M5nRoUv3yLQwKcl6hmb
- WvFEy2qtg8/2htw0j+DANiM/idhusJJ3S7NWyIfIAVUCTsnTHjTQ20LCS w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10205"; a="46586276"
-X-IronPort-AV: E=Sophos;i="5.88,226,1635174000"; d="scan'208";a="46586276"
-Received: from mail-os0jpn01lp2105.outbound.protection.outlook.com (HELO
- JPN01-OS0-obe.outbound.protection.outlook.com) ([104.47.23.105])
- by ob1.fujitsucc.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Dec 2021 18:33:55 +0900
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ez85T+UrE+ePu3Vsd9B8qTVTjMGW2DY7JcImY1PwoxEs+JF0jSu/7bdV6tZSEQVwO5E8ZUSOxZ01jYoKSOzh8ZJe8lOv2RxeSgmlblcKdLS8zbdjufg/wNHvY/hM/dkpMaIgHMhe8rNFFkEDNupHSx9QGwXdw6/A/5PUPj96yIWcMEpfkZrgdv9lBrlu/9qFLqj8dZM1eT9Y1e/AaGjlY7i9UIgO5Qn/FotL+F6eH4TU0pxdbh4aH9d2AfXKoLPw+0dNzNmgke0SlsGBHGQqnSbusaG4gXyHRIRNBr05WCaTKSECIDFAbYzMJbYNQexqCHXhKdEy++OZ6J30ulKZ4A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FGgimT82v3/7REb8qAw5y7fBaKiAB8G8IYJwu24pBaA=;
- b=H0E3TsLQfOl+AARZm4zvfN1BhhI03/qdstfTa9qfwc8Ah1BJywJkyV9Pt9VN0KSTig0wFPTnHgITPQPbc5VodVQSTA4FtiKVWJLw4J+M6uhkqjhyUc+LaFoPo0vYAENrHPR2fqWMttVbWcjbqKCMIyxWHJHrxkskdZa5Akl7Nrk/v6nudjACfLk6IA/Ifb3RJKUUddx4q5IebvAeqdYPYsO64exu3MAec2rsKBYNCuJBmBsKQ24ohHr30V0eGrKu0mH0XH8u2AS2fsDc1Pgm6VyhovkRrGY5Rl6cKvnERRSFZd7PId6ws8qfJAIsweIqUZgbcedb1cq3mdBdAkaCLA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=fujitsu.com; dmarc=pass action=none header.from=fujitsu.com;
- dkim=pass header.d=fujitsu.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fujitsu.onmicrosoft.com; s=selector2-fujitsu-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FGgimT82v3/7REb8qAw5y7fBaKiAB8G8IYJwu24pBaA=;
- b=Dn6QW7iAHJs10TzZK+OXKop6A684/qDRuUpB75tLvT4KLHmXGJDf9Xh/Vd0huVciFD0UtCIU8v7krc5EEhEHNFhtkaz0qYW/YgVbpDIy3rzrhm8ZSdMWm8P1sXbaQJlopdDZVk+lxs1+kOPmxK1yoMJxRYsNFDhpbUhErxHNfXg=
-Received: from TYCPR01MB6544.jpnprd01.prod.outlook.com (2603:1096:400:98::6)
- by TY1PR01MB1770.jpnprd01.prod.outlook.com (2603:1096:403:6::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4823.17; Wed, 22 Dec
- 2021 09:33:52 +0000
-Received: from TYCPR01MB6544.jpnprd01.prod.outlook.com
- ([fe80::4997:e3e6:6502:9100]) by TYCPR01MB6544.jpnprd01.prod.outlook.com
- ([fe80::4997:e3e6:6502:9100%8]) with mapi id 15.20.4801.020; Wed, 22 Dec 2021
- 09:33:52 +0000
-From: "xuyang2018.jy@fujitsu.com" <xuyang2018.jy@fujitsu.com>
-To: Petr Vorel <pvorel@suse.cz>
-Thread-Topic: [LTP] [PATCH v5 4/4] zram/zram01.sh: replacing data stored in
- this disk with allocated for this disk
-Thread-Index: AQHX9W40nQa467DKIkaQve8+nb3fJaw7M6kAgAEDlgCAAGrzgIABoROA
-Date: Wed, 22 Dec 2021 09:33:52 +0000
-Message-ID: <61C2F10F.9000901@fujitsu.com>
-References: <1639983142-2247-1-git-send-email-xuyang2018.jy@fujitsu.com>
- <1639983142-2247-4-git-send-email-xuyang2018.jy@fujitsu.com>
- <YcBfuCPg1ENZHvud@pevik> <61C1397A.1070904@fujitsu.com>
- <YcGTMcan0r2NOcR9@pevik>
-In-Reply-To: <YcGTMcan0r2NOcR9@pevik>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=fujitsu.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 798535ab-d099-4352-239c-08d9c52e2a8f
-x-ms-traffictypediagnostic: TY1PR01MB1770:EE_
-x-microsoft-antispam-prvs: <TY1PR01MB17703CF0C0AB98C863AF2CDAFD7D9@TY1PR01MB1770.jpnprd01.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:9508;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: tyYmQfiCnYqIMgUh+DLLXrcustN+lEUEn14pofSpJFjxzmyce5AIq6NL5HRLX7WRrbQQOImkWFtftjhaOWPoez0k+wexmDNSkAxZ9ppYXHP6IuW/Q7SEgDC7c/DNs5OnIvr1QlU6JnmSPHlxvORRbLBKF2MlyMA37gCiFJNrwuoI6lBeyfndxWnFwX0ntJTq6ulPdj7ZNyepaJGx6CSHFgQGqt6aYL9LEYiCZ2r2anlyBMpOoG4xEhaCb7cSBpdctoawaiNb5tDMOMj6TSlRp5jAX8YNoeEiV/nCHKiVQ8dnsCzAR/GWrYxRV5VlgDIest6fSqo5EfvcVqvfmgSuMGoeo1nhOsIKecyfOyZffH6Ou4U2qxAcf8uKxd5kjRJyKtZC07Oh0q1OvjRokKYe8VPw7L6H81XaiQchd/fbXVaRcxd2qa2/+13U6ie4zKHv8P9k8KhUZO5RiKAfLlxiC7YnloMX4KlojnBdJbc3eXm2D+R9fLnyDcpU4fO3zXK/8LaORw5p0coEr/Uzt9VxdNKNFV5UKmuivZcx12U8FKAQVTKRJZUzCx7zbvdpMsTo/62sWocNsBvaa1USyAKGu02X7Y2J5qm0Ivjr0Hv+rl/0IszW1sjgVgCOyY9IJ/KFLkPJBLu/fRCG4U+DN38QQ4g0MyOYGGPlAjSgne8tQTV7+W1g1M+oGN8bvOSeNu8uYD9wQsQu21EZhekFZQWMhApZcAKwvGVatFS48L+s8tQUUCP2DfBqce3cH9PHKfgnZUtxaqPt2/wpfOS2tjoIOzxNALtdmSDzM8zSOXvdDtY=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TYCPR01MB6544.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(86362001)(66446008)(64756008)(8936002)(87266011)(6486002)(83380400001)(2906002)(38070700005)(85182001)(33656002)(4326008)(91956017)(6916009)(66946007)(76116006)(66476007)(5660300002)(66556008)(316002)(6506007)(6512007)(38100700002)(71200400001)(508600001)(8676002)(82960400001)(2616005)(26005)(966005)(36756003)(186003)(122000001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?gb2312?B?bGE3a1lvcFlMOVlFZW5RdW9teDBaSkx1bHpoQS9lRHhSalNwOFMzWEM4cWxK?=
- =?gb2312?B?dVZibDZPY1ZOb1gyT1k5QTlVWUdsdlFSTFkwUFFRS05FSC8yYkdpdkFMeUtW?=
- =?gb2312?B?UkwzTjNJRU1UYjVXYzYzYXVzVGc2allvKzVtQnA5Y3ZUb2JOVkYwZTNiLzR2?=
- =?gb2312?B?SXVaYnZBRUJzY3kyTmNzZ0Y1eU9nTEk5eFAraEE5ZFFXd01DTmxucUMxUC9B?=
- =?gb2312?B?ZVNBS09JWDVIT284ZjkwekJvdUVFbU5sUlZkcC9jUEZaWXM0dVl0Y1JXOGsx?=
- =?gb2312?B?YUtCRklQU2Z5UHZQME9lRjVWUXZUVUJGejY2N3ZaRTdYZFVWUDZmaVJHYmFh?=
- =?gb2312?B?STZZbk5XZUd5TVBhcTRPZmI5bmUwMjZDbkxKQWp4UnozMDhBaDNodjJZcDZ3?=
- =?gb2312?B?M0QycHVZTkhQM1BIZnF6dWkwZU8zYzdXeWlvN3hwMkJRNC90dWVvRWNXR243?=
- =?gb2312?B?a0tLblFvOFdvYXFjSG55YjVRRjZnenNDNzBNS0I3TXhPNitMbEh6WWJCNEZB?=
- =?gb2312?B?QmNKMXFHRnIvRDhxUHExR2puOWgyeklXd3Q5TVJYLzU2eE42Tk0rVlh0NUIx?=
- =?gb2312?B?Y0JlR1ExQkdoM0pIZGQzK3dNWTBLcEdXb0ttbTA1NnFXZHRBRkxqc2dWWGV2?=
- =?gb2312?B?TmpwTnU0aTJsVVdzN29lTGxiNkFVU01tbWR0WTRueUg1ODN4YnlTME13QklJ?=
- =?gb2312?B?aTEwbkhXNnRRUDZsWlJPNWlNNVlIeHl1TE5EQjhvZmNHY0ZLMzZ0RFQ4SUxq?=
- =?gb2312?B?Y2UwVGs2M0NYK2FGS0hmMXR5N1U0TCtqS0lxNzhYRUJKOGhMdDhHSXBiYW82?=
- =?gb2312?B?Tnd2WlJsc0FQUjZDbFBnaGlrdjRjdTdaT3RwMGYvaFNZRExWanFSM3ZNSkNs?=
- =?gb2312?B?SE10T1B4TllIdnBZYUo0TENIa0E3bGFVdUlvNnFqU0k2alVxa1JyZEgrektp?=
- =?gb2312?B?Z2VnM3RBUG50YkdEK0FkSFZLdkxPU3RrY09ST1dwVXJsbjYwU1MyQ0pIMUd4?=
- =?gb2312?B?ZE5RbEx2SVhWY2dQN1BzdDR3V0gzcXJjZ0VvS3lpcnpsUDdxeVpvUDlkRDd3?=
- =?gb2312?B?cFFua2M3SGx4ZDFtbE5zQW14cU4wSDlIT09semRpeEJGelVyb3FrbzY3M0dm?=
- =?gb2312?B?SWdxWUYwdHJhRmgzR2w5ci9iN2tjNEVCUm9xN3J1ZFVDa0Q0VTNicHVESERm?=
- =?gb2312?B?cyszTU1NSXlKeWVBUUpERmlqNjcyT0czUVJ4eEVTY0syWTRnV1ZFUW1hV05r?=
- =?gb2312?B?QkxGejdlNnlibnF1TTlPT1N1Q0tGUzBHTEJTTm9MNTQ1N3hRdWF1dTRtUmMy?=
- =?gb2312?B?VUxmMzBDdkhPaU1kMHd1cWxpRkxOOHlNVlBDRnQ4S0JQWmFOMWNNY2xpRG9C?=
- =?gb2312?B?Y05EMGpZZ2dWa3NLK0NtNTBSb0hIaldJUHUvc0YwUzNmajlzdGhuaktCdU52?=
- =?gb2312?B?M3VOYTJhTkRIUTVNUElUTWpyVlRFVzlpenhYcEZCOUhMMzNrRFNzb0pJRC9a?=
- =?gb2312?B?N1RBRlBEQ3drSThLVjBxek9RVmt2UmNZbE9TRnk4cDVEVXIzK3hRcVE0bVhE?=
- =?gb2312?B?c2xKWVVCRE5JSWxmeXBnL2JBZjJPSmtmMkk4Vkg3ZTBLaUFaZW9QT3d1UC82?=
- =?gb2312?B?VDhXbVdqQVlqbjNEL1hPUWxlT3RvN2hoS3RVQVl1YTY5MzdxcEFKc21GdDVS?=
- =?gb2312?B?Rll4NnRaL0lPaGdYTDJqVlM2Wm9MM2R1NkZMZXdzc2Z6b1lhMFF5alk5V1ZH?=
- =?gb2312?B?MEEwc0p0MjR3dmk5NWZMcGJMMWRoaFMzVVlJSDNWT3N4YnRoak52Q3R6NHhU?=
- =?gb2312?B?UWEvVlBGQWFVaW5VdWlTME84L2VWQlQwN215bUxDT2JJS1BEOHVzbVRtQXV5?=
- =?gb2312?B?Ry9kUG44cWZPRXdGV3JEb0Z2Y2tsSERoZEpyU0JKblFPOTVSUmNTcXZtUmRa?=
- =?gb2312?B?TnRuN2VjZ3hBSVZxNXBkMmxCV3FKV1RaMDZIaVlFUWdaYVhES0RZUlpIMFpH?=
- =?gb2312?B?NGJJQWMzMTQ1d0RmZ1ZVRy9qb21wYnBpNDg2cmNVbER5eFMyVWVzNVQ3L1pO?=
- =?gb2312?B?UkF4VDY3YU5IL3loSDJXRmUvM3VjMHR3TytpaE1pSjBlc0VMeVJ2c05NRVdP?=
- =?gb2312?B?ZXBtZnlDcW5UNEQ0L2wveExrNGJzbllBY0V4TWp4aGtLNXVQSHFrYVFDNVVF?=
- =?gb2312?B?eFExVWl4TFBUN2pGR3NtWEpiamZ3dEZ2K1ZiclhmUHV6OTBISUJiaStnanBl?=
- =?gb2312?Q?4eDlY2iD//0wEbTzKg3y5Se5B73Xn9vllZ7GeK+WOI=3D?=
-Content-ID: <360857A17451CC45AB35CAED30BDB5A4@jpnprd01.prod.outlook.com>
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 2A7B314013B4
+ for <ltp@lists.linux.it>; Wed, 22 Dec 2021 10:48:57 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1640166536;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=e0Jb5Wx14nujM2wwBKCB1bMM5LgMfa4FH5IxJ9Pa/y8=;
+ b=YxtVxS9Za27ZXpjVmoGjWIu+29CZmwNqkzS521fgaAQZE+/vi8Ix9awbcMOoD7LZJLyTrt
+ 3dc/C4u4+QZKzTtGgt1REjsDv5oU6LZ3x/J7QdLnsanku/faKOyGYaPxYV5lVGKFUOIFsI
+ n7dZTHFUNKoLHCBJlwMoIgf1cD3tZ/0=
+Received: from mail-yb1-f197.google.com (mail-yb1-f197.google.com
+ [209.85.219.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-507--Wen5tHKNGuk2uolXfSLkw-1; Wed, 22 Dec 2021 04:48:53 -0500
+X-MC-Unique: -Wen5tHKNGuk2uolXfSLkw-1
+Received: by mail-yb1-f197.google.com with SMTP id
+ d205-20020a251dd6000000b0060977416ad4so3011338ybd.16
+ for <ltp@lists.linux.it>; Wed, 22 Dec 2021 01:48:53 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=e0Jb5Wx14nujM2wwBKCB1bMM5LgMfa4FH5IxJ9Pa/y8=;
+ b=wYSA/uabLzinrPYELZDn0Eep966A3ftMFWcmrppGSIg1F0kJLFAsKO/C3Pn44t4YO8
+ J+3zRD6qanytyNy5+MUSnqBxQNvGj5sNfboJLmgIpBk/rvnGF1X/BFNlR6q34POOXMcN
+ hMl6BlRcC1Qbu9xPnMDNUZ7ivHL9/wU75r7+Vuicc6XFGXVYOEnH4mgvB7UimXSNG8lx
+ FVF4l5uTXas6igQ8c4H1g7AYieRvj89yUL1nTxdGPnAOx03dvh29wGkdW9Uzzr5PylFY
+ MP00gKqTplXUfoDMctE5xne2jrsF5iSvqeg6uMo0zvcOsL3oWGfl6qMCc0EHqpWAuU3m
+ zLPA==
+X-Gm-Message-State: AOAM530uB3Y9W6RD7Pa51KSFN1m1kN9Zcv39IbPDO1Plb8CIbD//szU8
+ 4NyiXYGRI3aSiXdIp67B7+OSO+f/ZgvsjcTSf0YWjA3CNTRWWbTbUzGniSMipSvKprnxOFVViAl
+ VssY7/FVU+9N/+LdhAnafe8+GnEU=
+X-Received: by 2002:a25:b13:: with SMTP id 19mr3389633ybl.71.1640166532455;
+ Wed, 22 Dec 2021 01:48:52 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJzHa4x09J/B3N2DTl83NINrqBRbU/AdV9jShSJsvbRWNB/Ie+b2/5KFBDQ4mrQ4+haoXvdZjRptmku0PbvuCbg=
+X-Received: by 2002:a25:b13:: with SMTP id 19mr3389611ybl.71.1640166532187;
+ Wed, 22 Dec 2021 01:48:52 -0800 (PST)
 MIME-Version: 1.0
-X-OriginatorOrg: fujitsu.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB6544.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 798535ab-d099-4352-239c-08d9c52e2a8f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Dec 2021 09:33:52.1980 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a19f121d-81e1-4858-a9d8-736e267fd4c7
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: HADNS77N0QDpeLanLt3Y8nG3WRapvKYXgrA+I8su6/sUiw5MXUwJt4BhUsT2WCJLdxoTbxO/MivyUzz0weX/SBZ+JSsK7/1A/AhKsJJP/AQ=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY1PR01MB1770
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+References: <20211221193500.31950-1-pvorel@suse.cz>
+ <61C28CB8.3050209@fujitsu.com>
+ <CAEemH2cqTErtNZka8X3L3AgOhy-a2x8fqy1k-QKJWiXc7wA2fA@mail.gmail.com>
+ <61C2C02A.90104@fujitsu.com> <YcLeaPJmSvmUJwJO@pevik>
+ <61C2E3DB.9070004@fujitsu.com>
+In-Reply-To: <61C2E3DB.9070004@fujitsu.com>
+From: Li Wang <liwang@redhat.com>
+Date: Wed, 22 Dec 2021 17:48:36 +0800
+Message-ID: <CAEemH2dpLJ9N57TpMhW3wMkd-V0cZMPWyH_sXn6KjXoWJWUC4g@mail.gmail.com>
+To: "xuyang2018.jy@fujitsu.com" <xuyang2018.jy@fujitsu.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v5 4/4] zram/zram01.sh: replacing data stored in
- this disk with allocated for this disk
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/1] lib: Skip tst_{disable,
+ enable}_oom_protection() for non-root
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -164,52 +92,99 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Richard Palethorpe <rpalethorpe@suse.com>,
+ "ltp@lists.linux.it" <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============0760451186=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Petr
+--===============0760451186==
+Content-Type: multipart/alternative; boundary="00000000000086280d05d3b907d7"
 
-Thanks for your review, I have pushed this patchset.
-Also adding some debuginfo in zram03.c like you do in zram_lib.sh.
+--00000000000086280d05d3b907d7
+Content-Type: text/plain; charset="UTF-8"
 
-ps: I have sent a patchset in kernel selftest to update zram case a week 
-ago, but doesn't get any reponse...
-https://patchwork.kernel.org/project/linux-kselftest/list/?series=595877
+Hi Xu, Petr,
 
-Best Regards
-Yang Xu
-> Hi Xu,
->
->> Hi Petr
->>>> Before ltp commit 4372f7a2156 ("Fix compression ratio calculation in zram01")[1], we
->>> nit: we can drop [1]
->>>> used free -m changes to calculate the compression ratio.
->
->>>> After the above patch, we used compr_data_size to calculate. kernel documentation[2] has
->>> nit: I'd add link to the doc also in this commit message.
->> I don't see the link on your ltp fork:
->> https://github.com/pevik/ltp/tree/yang_xu/zram-swap.v5.fixes
-> I haven't fixed it there, I pushed it to verify there is no build failure.
->
->> I have tried this branch and these change seems fine.
-> Yes, code should have my suggestions.
->
->> I guess I don't need to send a v6 patch and you can merge it directly(by
->> removing [1][2] linke and adding fixes tag ). Is it right?
-> Ah, sure, go ahead and merge. I'm sorry to pick on details.
->
->> ps: I want to add a fixes tag for pointing to commit 4372f7a2156 ("Fix
->> compression ratio calculation in zram01").
-> +1, thanks!
->
-> Kind regards,
-> Petr
->
->> Best Regards
->> Yang Xu
+On Wed, Dec 22, 2021 at 4:37 PM xuyang2018.jy@fujitsu.com <
+xuyang2018.jy@fujitsu.com> wrote:
+
+> Hi Petr
+> > Hi Xu,
+> >
+> >>> This is not working as expected in Github CI. I'm still looking at the
+> >>> problem.
+> >>>
+> https://github.com/wangli5665/ltp/runs/4602025797?check_suite_focus=true
+> >> I tested local but it works well. I guess ci fails because of linux user
+> >> namespace. Maybe we should require CAP_SYS_RESOURCE cap instead of using
+> >> geteuid.
+> > Good catch, verifying.
+> You can refer to my ltp fork
+> https://github.com/xuyang0410/ltp/commits/oom_kill_ci_fixes
+
+
++1
+
+I was thinking of adding the permission but that's
+might not be a good way for the namespace. Like your
+method which only does check and return is better.
+
+-- 
+Regards,
+Li Wang
+
+--00000000000086280d05d3b907d7
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small">Hi Xu, Petr,</div></div><br><div class=3D"gmail_quote"><div d=
+ir=3D"ltr" class=3D"gmail_attr">On Wed, Dec 22, 2021 at 4:37 PM <a href=3D"=
+mailto:xuyang2018.jy@fujitsu.com">xuyang2018.jy@fujitsu.com</a> &lt;<a href=
+=3D"mailto:xuyang2018.jy@fujitsu.com">xuyang2018.jy@fujitsu.com</a>&gt; wro=
+te:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px =
+0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Hi Petr<br>
+&gt; Hi Xu,<br>
+&gt;<br>
+&gt;&gt;&gt; This is not working as expected in Github CI. I&#39;m still lo=
+oking at the<br>
+&gt;&gt;&gt; problem.<br>
+&gt;&gt;&gt; <a href=3D"https://github.com/wangli5665/ltp/runs/4602025797?c=
+heck_suite_focus=3Dtrue" rel=3D"noreferrer" target=3D"_blank">https://githu=
+b.com/wangli5665/ltp/runs/4602025797?check_suite_focus=3Dtrue</a><br>
+&gt;&gt; I tested local but it works well. I guess ci fails because of linu=
+x user<br>
+&gt;&gt; namespace. Maybe we should require CAP_SYS_RESOURCE cap instead of=
+ using<br>
+&gt;&gt; geteuid.<br>
+&gt; Good catch, verifying.<br>
+You can refer to my ltp fork<br>
+<a href=3D"https://github.com/xuyang0410/ltp/commits/oom_kill_ci_fixes" rel=
+=3D"noreferrer" target=3D"_blank">https://github.com/xuyang0410/ltp/commits=
+/oom_kill_ci_fixes</a></blockquote><div><br></div><div class=3D"gmail_defau=
+lt" style=3D"font-size:small">+1=C2=A0</div><div class=3D"gmail_default" st=
+yle=3D"font-size:small"><br></div><div class=3D"gmail_default" style=3D"fon=
+t-size:small">I was thinking of adding the permission but that&#39;s</div><=
+div class=3D"gmail_default" style=3D"font-size:small">might not be a good w=
+ay for the namespace. Like your</div><div class=3D"gmail_default" style=3D"=
+font-size:small">method which only does check and return=C2=A0is better.</d=
+iv></div><div><br></div>-- <br><div dir=3D"ltr" class=3D"gmail_signature"><=
+div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div></div></div></=
+div>
+
+--00000000000086280d05d3b907d7--
+
+
+--===============0760451186==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============0760451186==--
+
