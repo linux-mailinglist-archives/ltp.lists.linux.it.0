@@ -1,76 +1,69 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id C15ED47D78F
-	for <lists+linux-ltp@lfdr.de>; Wed, 22 Dec 2021 20:18:04 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id C631B47D7A6
+	for <lists+linux-ltp@lfdr.de>; Wed, 22 Dec 2021 20:26:26 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 8103C3C927F
-	for <lists+linux-ltp@lfdr.de>; Wed, 22 Dec 2021 20:18:03 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id BFA2E3C927F
+	for <lists+linux-ltp@lfdr.de>; Wed, 22 Dec 2021 20:26:25 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 8E1D73C08F2
- for <ltp@lists.linux.it>; Wed, 22 Dec 2021 20:15:43 +0100 (CET)
-Received: from mail-pj1-x1034.google.com (mail-pj1-x1034.google.com
- [IPv6:2607:f8b0:4864:20::1034])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 0773D3C08F2
+ for <ltp@lists.linux.it>; Wed, 22 Dec 2021 20:26:10 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 02CC46010A9
- for <ltp@lists.linux.it>; Wed, 22 Dec 2021 20:15:43 +0100 (CET)
-Received: by mail-pj1-x1034.google.com with SMTP id
- n15-20020a17090a160f00b001a75089daa3so6759294pja.1
- for <ltp@lists.linux.it>; Wed, 22 Dec 2021 11:15:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:from:mime-version:date:subject:message-id
- :to; bh=+k+LTi04QmYCFhmjn6H9x4rxeuQWQNuCN3uMOR1vHhY=;
- b=nQGR3Jxll542UXZG8NGPfQS/PXbPio2Gzv7UfKEpuQAL0cN4SL7q1GLqqOq123tFDK
- KUrHhXMFgyyz+7aFIWZ+UaVnLzZ2y3paNSw+HWI2q6i/CBVGbDZZg8vcyhrJnHbJiyj6
- cUF+jZ8Rf8GMjMDwfrT/k4DD+DthvJrLm4E9EJTfX2kq2JuMFrcEeY4yQgx6NA9cGbEa
- xJ+qXFHd8HvV1z9oBjOjDjk+k5CdCI7jQe8SdoFuJs+5IyUeOZEefUbUEDCytQbbbXbb
- kJ7pZ1z50erYa11G0WbkFEzuG4F3C5UmbzgQg/mGDvWaaDlfCeTQC/39jTWXODX/It5d
- yFjg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:content-transfer-encoding:from:mime-version:date
- :subject:message-id:to;
- bh=+k+LTi04QmYCFhmjn6H9x4rxeuQWQNuCN3uMOR1vHhY=;
- b=wdFJN4W9cX5N67HSw0aVvpzof5CJVR59wkWjCS68T6Uh0EvaXuosd43PU8YFO6IyxT
- XDOVfPlDUiuAtRwy99Mu4xUjXvNjX58sSKN6oFh8mlTgRAXREq7RMK3D4haHvmnn4X4z
- LBHemueZk9/2Lwk9lcbekbJqMMNY70dM2J1wQfnx863QeoNvuZqAETyEUBCcw1EeQXYP
- IcAXnapkERbliFMWxj6yevogyw2MjmGKaerd8x8tx/44cwTtim576aW+QLBWWBuUuFuo
- T7PIMSx1NjLv1aWcRkfdRraEQhbUy+riXZioVSWLxBFWxymebs1luUaEAwn38iglskBI
- +8ZQ==
-X-Gm-Message-State: AOAM5336ibwCt71XPLPuxjvQYFpmxYQBBZMXlQgtnJjtnvBu27RReJet
- JXExCfBq7bvuW8m3ob3KsfRxXFp3HF8=
-X-Google-Smtp-Source: ABdhPJy/ziuLkpGciLca58kxIMok7hBoQ70eFRsNDhHu5XBhSDRvXDgxHSs7KUK1KFEgZqMdR8/9vg==
-X-Received: by 2002:a17:902:b189:b0:143:8079:3d3b with SMTP id
- s9-20020a170902b18900b0014380793d3bmr3928772plr.71.1640200541259; 
- Wed, 22 Dec 2021 11:15:41 -0800 (PST)
-Received: from smtpclient.apple (c-76-115-88-232.hsd1.or.comcast.net.
- [76.115.88.232])
- by smtp.gmail.com with ESMTPSA id u71sm2789775pgd.68.2021.12.22.11.15.40
- for <ltp@lists.linux.it>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 22 Dec 2021 11:15:41 -0800 (PST)
-From: Brent Yardley <brent.yardley@gmail.com>
-Mime-Version: 1.0 (1.0)
-Date: Wed, 22 Dec 2021 11:15:40 -0800
-Message-Id: <DFDF839E-90B4-4020-B78D-88FC174B6B6D@gmail.com>
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 23C8C140145A
+ for <ltp@lists.linux.it>; Wed, 22 Dec 2021 20:26:09 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 68A271F389;
+ Wed, 22 Dec 2021 19:26:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1640201169; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=CjGaDA9B4fzPIY0jsU1Js4npD0arMfP3qP9qFtB1C54=;
+ b=yDjvg+E2e4sOovtBhcNzQcWqN54byiDUWhwNbjGU5bLd+KYboHVLjWDsbHnCLyvZRxj0IM
+ iPNmQ2Smk9tX8f5bSxPfKrmGve9NGzbv8tfwws9dKj5ut8TjxaJmpFBsQy7CUA8A3YnI/1
+ iMFkNqE3QcOlvFwxFjfWCzVxG21vejo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1640201169;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=CjGaDA9B4fzPIY0jsU1Js4npD0arMfP3qP9qFtB1C54=;
+ b=DYCkzqaP0e7v5MtvU5rnqDJq0qscapUtk4oSRf/ZGVooQujaQsrSGi4gnJ+c/sWXeG0F9k
+ dQCk++f38rHSC3CQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CEE3413D75;
+ Wed, 22 Dec 2021 19:26:08 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id BpnJL9B7w2FZXQAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Wed, 22 Dec 2021 19:26:08 +0000
+From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-X-Mailer: iPhone Mail (19B74)
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+Date: Wed, 22 Dec 2021 20:26:03 +0100
+Message-Id: <20211222192604.16839-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-X-Mailman-Approved-At: Wed, 22 Dec 2021 20:18:00 +0100
-Subject: [LTP] Disktest Removed from LTP?
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH v3 1/2] tst_af_alg: Moving tst_res(TCONF) to
+ tst_have_alg()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,18 +75,219 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Eric Biggers <ebiggers@kernel.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGVsbG8sCgpJIHdhcyBqdXN0IHRvbGQgdGhhdCBkaXNrdGVzdCwgdGhlIHRvb2wgdGhhdCBJIHdy
-b3RlIGZvciB0ZXN0aW5nIGRpc2sgc3Vic3lzdGVtcywgaGFzIGJlZW4gcmVtb3ZlZCBmcm9tIHRo
-ZSBMVFAuIEkgd2FzIG5vdCBhc2tlZCBhYm91dCB0aGlzIGFuZCB3YXMgc3VycHJpc2VkIHRvIHNl
-ZSB0aGF0IGl0IGlzIGNvbnNpZGVyZWQgbm90IG1haW50YWluZWQuIEkga25vdyB0aGF0IEnigJl2
-ZSBub3QgYWRkZWQgYW55dGhpbmcgbmV3IHRvIGl0IGZvciBtYW55IHllYXIsIGJ1dCBJIGtub3cg
-dGhhdCBpdCBpcyB1c2VkIGFzIEkgZ2V0IHF1ZXN0aW9ucyBhYm91dCBpdCBmcm9tIHRpbWUgdG8g
-dGltZS4KCkNhbiBJIGFzayBzb21lb25lIGFib3V0IHRoaXMgb3IgY2FuIEkgYmUgZGlyZWN0ZWQg
-dG8gc29tZW9uZSB0byBiZXR0ZXIgdW5kZXJzdGFuZCB3aHkgaXQgaXMgY29uc2lkZXJlZCBub3Qg
-dXNlZD8KClRoYW5rcywKLSBCcmVudAoKVGhhbmtzLAotIEJyZW50CgotLSAKTWFpbGluZyBsaXN0
-IGluZm86IGh0dHBzOi8vbGlzdHMubGludXguaXQvbGlzdGluZm8vbHRwCg==
++ introduce tst_try_alg() for cases where tst_res(TCONF) cannot be used.
+
+It reduces duplicity for tst_have_alg() use.
+
+Suggested-by: Cyril Hrubis <chrubis@suse.cz>
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+---
+New in v3.
+
+ include/tst_af_alg.h               | 16 ++++++++++--
+ lib/tst_af_alg.c                   | 41 ++++++++++++++++++++++--------
+ testcases/kernel/crypto/af_alg01.c | 14 ++++------
+ testcases/kernel/crypto/af_alg03.c |  3 ++-
+ testcases/kernel/crypto/af_alg04.c |  6 ++---
+ 5 files changed, 53 insertions(+), 27 deletions(-)
+
+diff --git a/include/tst_af_alg.h b/include/tst_af_alg.h
+index fd2ff06478..93ff5715b7 100644
+--- a/include/tst_af_alg.h
++++ b/include/tst_af_alg.h
+@@ -1,6 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+  * Copyright 2019 Google LLC
++ * Copyright (c) Linux Test Project, 2021
+  */
+ /**
+  * @file tst_af_alg.h
+@@ -60,8 +61,19 @@ void tst_alg_bind(int algfd, const char *algtype, const char *algname);
+  * @param algtype The type of algorithm, such as "hash" or "skcipher"
+  * @param algname The name of the algorithm, such as "sha256" or "xts(aes)"
+  *
+- * Return true if the algorithm is available, or false if unavailable.
+- * If another error occurs, tst_brk() is called with TBROK.
++ * Return 0 if the algorithm is available, or errno if unavailable.
++ */
++int tst_try_alg(const char *algtype, const char *algname);
++
++/**
++ * Check for the availability of an algorithm.
++ *
++ * @param algtype The type of algorithm, such as "hash" or "skcipher"
++ * @param algname The name of the algorithm, such as "sha256" or "xts(aes)"
++ *
++ * Return true if the algorithm is available, or false if unavailable
++ * and call tst_res() with TCONF. If another error occurs, tst_brk() is called
++ * with TBROK.
+  */
+ bool tst_have_alg(const char *algtype, const char *algname);
+ 
+diff --git a/lib/tst_af_alg.c b/lib/tst_af_alg.c
+index 05caa63016..d99a9ee2ef 100644
+--- a/lib/tst_af_alg.c
++++ b/lib/tst_af_alg.c
+@@ -1,6 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+  * Copyright 2019 Google LLC
++ * Copyright (c) Linux Test Project, 2019-2021
+  */
+ 
+ #include <errno.h>
+@@ -64,29 +65,47 @@ void tst_alg_bind(int algfd, const char *algtype, const char *algname)
+ 	tst_alg_bind_addr(algfd, &addr);
+ }
+ 
+-bool tst_have_alg(const char *algtype, const char *algname)
++int tst_try_alg(const char *algtype, const char *algname)
+ {
+ 	long ret;
++	int retval = 0;
+ 	int algfd;
+ 	struct sockaddr_alg addr;
+-	bool have_alg = true;
+ 
+ 	algfd = tst_alg_create();
+ 
+ 	init_sockaddr_alg(&addr, algtype, algname);
+ 
+ 	ret = bind(algfd, (const struct sockaddr *)&addr, sizeof(addr));
+-	if (ret != 0) {
+-		if (errno != ENOENT) {
+-			tst_brk(TBROK | TERRNO,
+-				"unexpected error binding AF_ALG socket to %s algorithm '%s'",
+-				algtype, algname);
+-		}
+-		have_alg = false;
+-	}
++
++	if (ret != 0)
++		retval = errno;
+ 
+ 	close(algfd);
+-	return have_alg;
++	return retval;
++}
++
++bool tst_have_alg(const char *algtype, const char *algname)
++{
++	int ret;
++
++	ret = tst_try_alg(algtype, algname);
++
++	switch (ret) {
++	case 0:
++		return true;
++	case ENOENT:
++		tst_res(TCONF, "kernel doesn't have %s algorithm '%s'",
++			algtype, algname);
++		return false;
++	default:
++		errno = ret;
++		tst_brk(TBROK | TERRNO,
++			"unexpected error binding AF_ALG socket to %s algorithm '%s'",
++			algtype, algname);
++		return false;
++	break;
++	}
+ }
+ 
+ void tst_require_alg(const char *algtype, const char *algname)
+diff --git a/testcases/kernel/crypto/af_alg01.c b/testcases/kernel/crypto/af_alg01.c
+index 47292ee328..7cefe59461 100644
+--- a/testcases/kernel/crypto/af_alg01.c
++++ b/testcases/kernel/crypto/af_alg01.c
+@@ -1,6 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+  * Copyright 2019 Google LLC
++ * Copyright (c) Linux Test Project, 2019-2021
+  */
+ 
+ /*
+@@ -21,20 +22,15 @@ static void test_with_hash_alg(const char *hash_algname)
+ 	char hmac_algname[64];
+ 	char key[4096] = { 0 };
+ 
+-	if (!tst_have_alg("hash", hash_algname)) {
+-		tst_res(TCONF, "kernel doesn't have hash algorithm '%s'",
+-			hash_algname);
++	if (!tst_have_alg("hash", hash_algname))
+ 		return;
+-	}
++
+ 	sprintf(hmac_algname, "hmac(%s)", hash_algname);
+-	if (!tst_have_alg("hash", hmac_algname)) {
+-		tst_res(TCONF, "kernel doesn't have hash algorithm '%s'",
+-			hmac_algname);
++	if (!tst_have_alg("hash", hmac_algname))
+ 		return;
+-	}
+ 
+ 	sprintf(hmac_algname, "hmac(hmac(%s))", hash_algname);
+-	if (tst_have_alg("hash", hmac_algname)) {
++	if (tst_try_alg("hash", hmac_algname) != ENOENT) {
+ 		int algfd;
+ 
+ 		tst_res(TFAIL, "instantiated nested hmac algorithm ('%s')!",
+diff --git a/testcases/kernel/crypto/af_alg03.c b/testcases/kernel/crypto/af_alg03.c
+index 5f214e48ba..bb8d480e28 100644
+--- a/testcases/kernel/crypto/af_alg03.c
++++ b/testcases/kernel/crypto/af_alg03.c
+@@ -1,6 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+  * Copyright 2019 Google LLC
++ * Copyright (c) Linux Test Project, 2019-2021
+  */
+ 
+ /*
+@@ -17,7 +18,7 @@ static void run(void)
+ 	tst_require_alg("aead", "rfc7539(chacha20,poly1305)");
+ 	tst_require_alg("hash", "sha256");
+ 
+-	if (tst_have_alg("aead", "rfc7539(chacha20,sha256)")) {
++	if (tst_try_alg("aead", "rfc7539(chacha20,sha256)") != ENOENT) {
+ 		tst_res(TFAIL,
+ 			"instantiated rfc7539 template with wrong digest size");
+ 	} else {
+diff --git a/testcases/kernel/crypto/af_alg04.c b/testcases/kernel/crypto/af_alg04.c
+index 112afcd527..7b665f89a3 100644
+--- a/testcases/kernel/crypto/af_alg04.c
++++ b/testcases/kernel/crypto/af_alg04.c
+@@ -1,6 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+  * Copyright 2019 Google LLC
++ * Copyright (c) Linux Test Project, 2019-2021
+  */
+ 
+ /*
+@@ -28,11 +29,8 @@ static void test_with_symm_enc_algs(const char *symm_enc_algname)
+ 	sprintf(vmac_algname, "vmac64(%s)", symm_enc_algname);
+ 	if (!tst_have_alg("hash", vmac_algname)) {
+ 		sprintf(vmac_algname, "vmac(%s)", symm_enc_algname);
+-		if (!tst_have_alg("hash", vmac_algname)) {
+-			tst_res(TCONF, "kernel doesn't have hash algorithm '%s'",
+-				vmac_algname);
++		if (!tst_have_alg("hash", vmac_algname))
+ 			return;
+-		}
+ 	}
+ 	algfd = tst_alg_setup("hash", vmac_algname, NULL, 16);
+ 
+-- 
+2.34.1
+
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
