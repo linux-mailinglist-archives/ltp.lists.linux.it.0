@@ -1,70 +1,76 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id E40AE47CF5E
-	for <lists+linux-ltp@lfdr.de>; Wed, 22 Dec 2021 10:36:20 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F88147CEDD
+	for <lists+linux-ltp@lfdr.de>; Wed, 22 Dec 2021 10:10:38 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id F2E2C3C9267
-	for <lists+linux-ltp@lfdr.de>; Wed, 22 Dec 2021 10:36:19 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 41A713C927A
+	for <lists+linux-ltp@lfdr.de>; Wed, 22 Dec 2021 10:10:37 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 0D2D03C0B90
- for <ltp@lists.linux.it>; Wed, 22 Dec 2021 10:36:15 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 03D623C620F
+ for <ltp@lists.linux.it>; Wed, 22 Dec 2021 10:10:31 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id CEF91600BFA
- for <ltp@lists.linux.it>; Wed, 22 Dec 2021 10:36:14 +0100 (CET)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 10AD11F37E;
- Wed, 22 Dec 2021 09:36:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1640165774;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=LrSP90quGi+aM3eJmxr9GhdOEOiG4p/AfdD2bh0lN6k=;
- b=E79EUEqNxnM5jPbmtDTHhkJGVTG11sbpCcioJ8PmV6sMzBDQh7v6Bx2E1Py9/HF/3Z6O0q
- FM63PUxdWoMrxGaGsRY+m0Xdb2sAy0DpMD47cglzkV6UGtEC1mYvVJptFdyUmhHDoYbPjJ
- ULLZzZ23smWPNGeuR+x8tWFhvq+Hfjs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1640165774;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=LrSP90quGi+aM3eJmxr9GhdOEOiG4p/AfdD2bh0lN6k=;
- b=l7Cxg+lXD3regUnovpmeUeCaZ0WNtHqcMNkiOXzs5htLBqMVLs4IekLIG3VRCTjZu3d72j
- x1HriQCz1qFvUBCw==
-Received: from g78 (unknown [10.163.24.42])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 67FAC10007AE
+ for <ltp@lists.linux.it>; Wed, 22 Dec 2021 10:10:31 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id BC625A3B81;
- Wed, 22 Dec 2021 09:36:13 +0000 (UTC)
-References: <20211220180748.36A90A3B8E@relay2.suse.de>
- <20211221113042.21357-1-rpalethorpe@suse.com> <YcIVPdcjt8javBGv@pevik>
- <CAASaF6zQK=w5+QzUGM8wfOLJNUHFKPJP5dE_XnQUaya5if3VMQ@mail.gmail.com>
-User-agent: mu4e 1.6.9; emacs 27.2
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Jan Stancek <jstancek@redhat.com>
-Date: Wed, 22 Dec 2021 08:44:43 +0000
-In-reply-to: <CAASaF6zQK=w5+QzUGM8wfOLJNUHFKPJP5dE_XnQUaya5if3VMQ@mail.gmail.com>
-Message-ID: <87wnjxdlrm.fsf@suse.de>
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 6FEB9210F6;
+ Wed, 22 Dec 2021 09:10:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1640164230;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=EsLHxbYaydSzdgFM3yIoRgE2DfHG6G1yyZn0m/XXz3Q=;
+ b=FSHKRqru3nWWsatD3DA05l4BnoLap6HOU/g84iz0bkoDHpiDvOaCZpnqgL/WPWZ8Y/bejr
+ Rez3lh9QLSJJgYLK5P7Q2H148NIwTbblYJx0wUWxHi3LmmYr/paIO4F/li2+st0vRc7YSA
+ HjAn7DwzZ6rmFtpjDxKmJI70R6g0knM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1640164230;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=EsLHxbYaydSzdgFM3yIoRgE2DfHG6G1yyZn0m/XXz3Q=;
+ b=ePKObNGFEHjMarsnxuUL0udXQ+fPTz1PK0sTeStk7rIF35rNzSoIOnCD+wFEAfqbQY1j73
+ mCJBt39x1IAPxDAA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3DCFF13CE7;
+ Wed, 22 Dec 2021 09:10:30 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id d7FMDYbrwmGSVAAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Wed, 22 Dec 2021 09:10:30 +0000
+Date: Wed, 22 Dec 2021 10:10:28 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: Nageswara Sastry <rnsastry@linux.ibm.com>
+Message-ID: <YcLrhP62jewzFgqn@pevik>
+References: <20211221023721.129689-1-yaelt@google.com>
+ <aafb5351-a73a-dac3-b0fa-3faad707bafa@linux.ibm.com>
+ <YcGw5Lyo+hBEnlFD@pevik>
+ <8c785afa-4564-d7ca-0bb8-34d5b5ca89bd@linux.ibm.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <8c785afa-4564-d7ca-0bb8-34d5b5ca89bd@linux.ibm.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [RFC PATCH] API: Allow testing of kernel features in
- development
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] syscalls/keyctl09: test encrypted keys.
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,97 +82,60 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
-Cc: LTP List <ltp@lists.linux.it>, automated-testing@lists.yoctoproject.org
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: linux-integrity@vger.kernel.org, Yael Tiomkin <yaelt@google.com>,
+ ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello,
+Hi all,
 
-Jan Stancek <jstancek@redhat.com> writes:
+> On 21/12/21 4:18 pm, Petr Vorel wrote:
+> > Hi Nageswara,
 
-> On Tue, Dec 21, 2021 at 6:56 PM Petr Vorel <pvorel@suse.cz> wrote:
->>
->> i all,
->>
->> [ Cc automated-testing and people who might be interested ]
->>
->> > Add an unstable kernel ABI flag and a runtest file for unstable
->> > tests. This means we can add tests which are likely to be broken by
->> > changes in the kernel ABI. Without disrupting LTP releases which are
->> > required to be stable.
->>
->> > Users who require stability can filter the tests with this flag
->> > or not schedule the unstable runtest file(s).
->>
->> I'm ok for this from a long term perspective, because agree Richie it can help
->> people to run tests on kernel from next tree or mainline rc kernel).
->>
->> It's not much work to maintain this.
->>
->> It'd also help people writing tests for  fanotify and IMA not having wait
->> several weeks.
->>
->> Yes, we could add it to fanotify22 [1], but not to ima_conditionals.sh [2],
->> which is shell. But adding support to shell is trivial.
->>
->> Acked-by: Petr Vorel <petr.vorel@gmail.com>
->>
->> ....
->> > +++ b/runtest/syscalls-unstable
->> How about having name syscalls-next? Although there can be tests which are from
->> some kernel maintainer tree (it does not have to be limited to next tree),
->> unstable can mean "tests which aren't fixed yet and thus buggy".
->
-> staging?
+> > > On 21/12/21 8:07 am, Yael Tiomkin wrote:
+> > > > Test that encrypted keys can be instantiated using
+> > > > both user-provided decrypted data
+> > > > (https://lore.kernel.org/linux-integrity/20211213192030.125091-1-yaelt@google.com/),
+> > > > or kernel-generated numbers.
 
-Staging and unstable could equally mean the test itself is not fininshed
-IMO. I didn't suggest next for exactly the reason mentioned, but it
-might be the better choice.
+> > > > Signed-off-by: Yael Tiomkin <yaelt@google.com>
 
->
-> IMO separate runtest would be enough, any notes why and how test was developed
-> could be in comments in code, where people can find it (less metadata
-> to maintain),
-> and those comments could stay there after feature is accepted to
-> mainline, we just
-> move test between runtest files.
+> > > Tested on ppc64le platform
 
-Then the test has a useless or misleading comment saying it was
-developed against a feature still in development. It's trivial to remove
-such comments or meta-data. I expect test authors will do it themselves
-and if they don't we can rethink accepting such tests.
-
-Also the patch uses the meta-data to print a hint. That way we do not
-need to look at the source code, runtest file and LTP version before
-deciding on the severity of a problem. Doing extra work upstream saves a
-lot of work downstream.
-
-Finally note that the plan is to schedule tests without runtest files
-for parallel execution. That requires meta-data.
-
->
->> > @@ -0,0 +1,3 @@
->> > +# Tests for kernel features which are not finalized
->> > +
->> > +fanotify22 fanotify22
->>
->> Kind regards,
->> Petr
->>
->> [1] https://patchwork.ozlabs.org/project/ltp/list/?series=272782
->> [2] https://patchwork.ozlabs.org/project/ltp/list/?series=265664
->>
->> --
->> Mailing list info: https://lists.linux.it/listinfo/ltp
->>
+> > I suppose it also fails on ppc64le when run more iterations.
 
 
--- 
-Thank you,
-Richard.
+> Tried with -i500, -i5000 and -i50000 also ... no failures were seen on
+> ppc64le architecture.
+
+> Summary:
+> passed   500
+> failed   0
+
+> Summary:
+> passed   5000
+> failed   0
+
+> Summary:
+> passed   50000
+> failed   0
+
+Interesting, thx for info. It's either arch specific or specific to openSUSE
+kernel on my laptop (~ 5.16.0-rc5) where I tested it. Testing on
+various VM it works well (including openSUSE with latest kernel stable). It also
+works on RPI 4 with openSUSE kernel.
+
+Also it fails on 2 VMs with fips enabled: Debian testing (immediately) and SLES
+15-SP4 (after 63 iterations - the same number as 5.16.0-rc5 on my laptop):
+keyctl09.c:33: TBROK: Failed to instantiate encrypted key using payload decrypted data
+
+but on my laptop I don't use fips.
+
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
