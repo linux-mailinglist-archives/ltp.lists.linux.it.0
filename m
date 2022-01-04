@@ -2,67 +2,74 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DB4E484141
-	for <lists+linux-ltp@lfdr.de>; Tue,  4 Jan 2022 12:59:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5704348413A
+	for <lists+linux-ltp@lfdr.de>; Tue,  4 Jan 2022 12:54:55 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 914B83C908E
-	for <lists+linux-ltp@lfdr.de>; Tue,  4 Jan 2022 12:59:06 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id B449A3C910D
+	for <lists+linux-ltp@lfdr.de>; Tue,  4 Jan 2022 12:54:54 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id B5A003C21C8
- for <ltp@lists.linux.it>; Tue,  4 Jan 2022 12:59:01 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id 49A1A3C21C8
+ for <ltp@lists.linux.it>; Tue,  4 Jan 2022 12:54:49 +0100 (CET)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 574856002EA
- for <ltp@lists.linux.it>; Tue,  4 Jan 2022 12:59:00 +0100 (CET)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 745CA212B9;
- Tue,  4 Jan 2022 11:59:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1641297540;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Gg61oQseSzP5nKtUD3IDTzoI3KQJhT7++9t4PwD5Nfs=;
- b=nssghujdSyw+r4xel11F+Hv5+sQDL59a8zj3HuOkm3/BBHsORhyCZCxJeFfgQbg9TK1yes
- 6UjoCbzEgyCmcEfpQxTdL9/HxF8gtncmhi38nl7h76A4TaDpb284bF5tjobm3Fhw4/57JM
- LI3aWk4Yf+PYIZKrQ2nPSnvv1ztzZeQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1641297540;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Gg61oQseSzP5nKtUD3IDTzoI3KQJhT7++9t4PwD5Nfs=;
- b=5K9sy/LHmym3RNB9cR85pcTEbwoZuOR+vAz1g+O98s3A5NkBRqYrcJ9h0h6naGl4Vw3s60
- F/ta4a+AmDZXi0Bw==
-Received: from g78 (unknown [10.163.24.42])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 54F74140004E
+ for <ltp@lists.linux.it>; Tue,  4 Jan 2022 12:54:48 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id 2F817A3B81;
- Tue,  4 Jan 2022 11:59:00 +0000 (UTC)
-References: <20220104073754.721-1-andrea.cervesato@suse.com>
- <20220104073754.721-2-andrea.cervesato@suse.com> <YdQGplLdFnsmhlSO@pevik>
-User-agent: mu4e 1.6.9; emacs 27.2
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Petr Vorel <pvorel@suse.cz>
-Date: Tue, 04 Jan 2022 11:49:00 +0000
-In-reply-to: <YdQGplLdFnsmhlSO@pevik>
-Message-ID: <87a6gbogos.fsf@suse.de>
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 5AB022113D;
+ Tue,  4 Jan 2022 11:54:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1641297288;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=MqMMWDhGB1GkGGIvhdFPFBCcXoFiapVEYfpaxD1M9jc=;
+ b=E1yK0/g3GII809SxE+6H8fl2vVObg0pmT0mC60VOh6tRdRDiRcc6eOcWmjQwgN0ikyZoqf
+ KVHdD/D0wAOLGBi7usW2Klt7JUlw8FhVrwTRtpoOLR+m+SzSPHtdAWFes75WgpbDV7mV/v
+ jr3H02M24lAU3altnKJ1bp8sQlX7A28=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1641297288;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=MqMMWDhGB1GkGGIvhdFPFBCcXoFiapVEYfpaxD1M9jc=;
+ b=TyKFJzvaDVf+M1JIQfkExOBZtGttBSGY0kbP+EV7TrC0IjGeaCttddoAUlKJVpsy92G3uo
+ mIBqDWVshwg+sADA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2089D13AF4;
+ Tue,  4 Jan 2022 11:54:48 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id QSn3BYg11GFVRgAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Tue, 04 Jan 2022 11:54:48 +0000
+Date: Tue, 4 Jan 2022 12:54:46 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: ltp@lists.linux.it
+Message-ID: <YdQ1hg+12qGbzfr6@pevik>
+References: <20211220212756.13510-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20211220212756.13510-1-pvorel@suse.cz>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 1/2] Refactoring aio-stress.c using LTP API
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 1/1] tst_af_alg: Another fix for disabled weak
+ cipher
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,51 +81,33 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
-Cc: ltp@lists.linux.it
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: Herbert Xu <herbert@gondor.apana.org.au>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello Petr,
+Hi all,
 
-Petr Vorel <pvorel@suse.cz> writes:
+[Cc Herbert and Eric ]
 
-> Hi Andrea,
->
-> ...
->>  			for (i = 0; i < io->io_oper->reclen; i++) {
->>  				if (io->buf[i] != verify_buf[i]) {
->> -					fprintf(stderr, "%d:%c:%c ", i,
->> -						io->buf[i], verify_buf[i]);
->> +					ret = asprintf(&msg, "%d:%c:%c ", i, io->buf[i], verify_buf[i]);
->> +					if (ret < 0)
->> +						tst_brk(TBROK, "asprintf memory allocation error");
->> +					ptr += sprintf(ptr, msg);
-> Actually, this is problematic for -Werror=format-security which we use in CI.
-> Simple "%s" fixes that. It can be done before merge.
->
-> ptr += sprintf(ptr, "%s", msg); 
->
-> @Richie: I wonder if make check could also actually compile the code with
-> extra CFLAGS from build.sh.
+FYI Herbert's view for using ELIBBAD instead of ENOENT (reply to Eric's question
+whether using ELIBBAD in kernel is a good approach or bug) [1]:
 
-Compiling during make-check may confuse things; we don't want make-check
-to produce build artifacts. Although I guess you could skip the later
-compilation steps. Also then we could add -fanalyzer on gcc which I have
-done in a test project[1]. Possibly Clang has something similar,
-hhmmmm...
+"For the purpose of identifying FIPS-disabled algorithm (as opposed
+to an algorithm that's not enabled in the kernel at all), I think
+it is perfectly safe to use ELIBBAD instead of ENOENT in user-space."
 
-Probably this would require different flags on GCC and Clang. We could
-also run both GCC and Clang if they are present. It's probably worth
-experimenting with.
+I suppose that's justify my proposed changes (i.e. testing also ELIBBAD when
+fips enabled).
 
-[1]: https://richiejp.com/zc-data#meson
+@Herbert if you care, you can post your Acked-by: tag.
 
--- 
-Thank you,
-Richard.
+Kind regards,
+Petr
+
+[1] https://lore.kernel.org/linux-crypto/YclURQzYKqCMHWx6@gondor.apana.org.au/
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
