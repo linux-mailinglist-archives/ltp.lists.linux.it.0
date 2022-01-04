@@ -2,51 +2,59 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 035B8483EF0
-	for <lists+linux-ltp@lfdr.de>; Tue,  4 Jan 2022 10:15:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2F0F483F0E
+	for <lists+linux-ltp@lfdr.de>; Tue,  4 Jan 2022 10:20:55 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 8FE443C8FEA
-	for <lists+linux-ltp@lfdr.de>; Tue,  4 Jan 2022 10:15:00 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 65B573C8FF0
+	for <lists+linux-ltp@lfdr.de>; Tue,  4 Jan 2022 10:20:55 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A660B3C586C
- for <ltp@lists.linux.it>; Tue,  4 Jan 2022 10:14:58 +0100 (CET)
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id EF3273C586C
+ for <ltp@lists.linux.it>; Tue,  4 Jan 2022 10:20:53 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 82867600648
- for <ltp@lists.linux.it>; Tue,  4 Jan 2022 10:14:55 +0100 (CET)
-Received: from kwepemi500008.china.huawei.com (unknown [172.30.72.55])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4JSn4B18s8zcc5R
- for <ltp@lists.linux.it>; Tue,  4 Jan 2022 17:14:18 +0800 (CST)
-Received: from kwepemm600017.china.huawei.com (7.193.23.234) by
- kwepemi500008.china.huawei.com (7.221.188.139) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.20; Tue, 4 Jan 2022 17:14:51 +0800
-Received: from ubuntu1604.huawei.com (10.67.174.57) by
- kwepemm600017.china.huawei.com (7.193.23.234) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.20; Tue, 4 Jan 2022 17:14:50 +0800
-To: <ltp@lists.linux.it>
-Date: Tue, 4 Jan 2022 17:15:29 +0800
-Message-ID: <1641287729-194863-1-git-send-email-wenyehai@huawei.com>
-X-Mailer: git-send-email 2.7.4
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 7A0A360020A
+ for <ltp@lists.linux.it>; Tue,  4 Jan 2022 10:20:53 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id B8FB9212B5;
+ Tue,  4 Jan 2022 09:20:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1641288052; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Q2ZrWZ4fU2hi8fR34kqdpc4R3YT+fLFnS0SSa0CyEL0=;
+ b=fc22PJLrYFRVAbEJWvrqdCnGzrVbLhNOHQjJ266kT64UbMAcrrBNwEIlt6Vbvq8duKC3yM
+ BI3V1N69eU/jWJomrBVEBmv2fBeTNThbAoAmxEC43i+igwBbZbpjluvUX6BJ2r6v0ShnY5
+ CyeQidPwhnz5yOy2Gua7dxhagvV1lzU=
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5288513AD5;
+ Tue,  4 Jan 2022 09:20:52 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id j6PCDnQR1GFaAgAAMHmgww
+ (envelope-from <andrea.cervesato@suse.com>); Tue, 04 Jan 2022 09:20:52 +0000
+To: ltp@lists.linux.it
+Date: Tue,  4 Jan 2022 10:20:47 +0100
+Message-Id: <20220104092049.13033-1-andrea.cervesato@suse.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-Originating-IP: [10.67.174.57]
-X-ClientProxiedBy: dggems705-chm.china.huawei.com (10.3.19.182) To
- kwepemm600017.china.huawei.com (7.193.23.234)
-X-CFilter-Loop: Reflected
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH] add several hash algorithms for crypto/crypto_user02.c
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH v3 0/2] aio-stress.c refactoring
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,45 +66,27 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: wenyehai via ltp <ltp@lists.linux.it>
-Reply-To: wenyehai <wenyehai@huawei.com>
-Cc: wenyehai <wenyehai@huawei.com>
+From: Andrea Cervesato via ltp <ltp@lists.linux.it>
+Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-kernel/crypto/crypto_user02.c: add several hash algorithms according to
-the latest linux kernel encryption module
+- aio-stress.c using LTP API
+- ltp-aio-stress.X test suites update using new aio-stress options
 
-Signed-off-by: Yehai Wen <wenyehai@huawei.com>
----
- testcases/kernel/crypto/crypto_user02.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+Andrea Cervesato (2):
+  Refactoring aio-stress.c using LTP API
+  Update ltp-aio-stress suites using new options
 
-diff --git a/testcases/kernel/crypto/crypto_user02.c b/testcases/kernel/crypto/crypto_user02.c
-index 717b297..afaff5d 100644
---- a/testcases/kernel/crypto/crypto_user02.c
-+++ b/testcases/kernel/crypto/crypto_user02.c
-@@ -40,7 +40,15 @@ static const char * const ALGORITHM_CANDIDATES[] = {
- 	"hmac(sha256-generic)",
- 	"hmac(sha384-generic)",
- 	"hmac(md5-generic)",
--	"hmac(sm3-generic)"
-+	"hmac(sm3-generic)",
-+	"hmac(sha512-generic)",
-+	"hmac(rmd160-generic)",
-+	"hmac(sha3-224-generic)",
-+	"hmac(sha3-256-generic)",
-+	"hmac(sha3-384-generic)",
-+	"hmac(sha3-512-generic)",
-+	"hmac(streebog256-generic)",
-+	"hmac(streebog512-generic)"
- };
+ runtest/ltp-aio-stress.part1                | 147 ++--
+ runtest/ltp-aio-stress.part2                |  65 +-
+ testcases/kernel/io/ltp-aiodio/aio-stress.c | 839 ++++++++++----------
+ 3 files changed, 503 insertions(+), 548 deletions(-)
 
- static const char* algorithm = NULL;
---
-2.7.4
+-- 
+2.34.1
 
 
 -- 
