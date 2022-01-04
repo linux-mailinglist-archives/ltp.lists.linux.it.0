@@ -2,68 +2,93 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 801BD483437
-	for <lists+linux-ltp@lfdr.de>; Mon,  3 Jan 2022 16:31:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F92E483C15
+	for <lists+linux-ltp@lfdr.de>; Tue,  4 Jan 2022 07:57:30 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A9FA13C813C
-	for <lists+linux-ltp@lfdr.de>; Mon,  3 Jan 2022 16:31:05 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 76C643C8DDE
+	for <lists+linux-ltp@lfdr.de>; Tue,  4 Jan 2022 07:57:29 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 213823C292E
- for <ltp@lists.linux.it>; Mon,  3 Jan 2022 16:31:01 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id 60AFF3C21F9
+ for <ltp@lists.linux.it>; Tue,  4 Jan 2022 07:57:19 +0100 (CET)
+Received: from mail1.bemta34.messagelabs.com (mail1.bemta34.messagelabs.com
+ [195.245.231.2])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id B098960087A
- for <ltp@lists.linux.it>; Mon,  3 Jan 2022 16:31:00 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id C0D7E1000970
+ for <ltp@lists.linux.it>; Tue,  4 Jan 2022 07:57:18 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fujitsu.com;
+ s=170520fj; t=1641279437; i=@fujitsu.com;
+ bh=3Fg8mY39HkZi5vsItE5wYTUIYeL3ji8hwBiLbfCiQMk=;
+ h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type;
+ b=QHlEG+ViwePNoaX/+lCXbzQuK28gqDg2SWTAOXW5n/LfAIUE6FbQLBnLOEc1A2W+W
+ kfxPq3GKICCU6mUCAOHyyl3s9imWcwYOjYYmPSKD8308YHede60RruuDs8nLW8VGwZ
+ rYahO41OnRApMYAC+WpcXz2qgwn2m0ZJ56/LdtpqC2DM5SpGAALx6vtVIcfuUTN0vI
+ tHP/SIfNviFF8sGcPn4GO3S8N8kK6Mu54ZS8JhuJEYOcP8ft9dGdrrMlFhf7F5bHRs
+ pdDB967Qb4Ihes9dwFXtp3OPBewvOQllPdYbTWddzrHiMlusaNAn4N+YM6LJHYSWOm
+ ThUWfCSxLPKCQ==
+Received: from [100.115.32.243] (using TLSv1.2 with cipher
+ DHE-RSA-AES256-GCM-SHA384 (256 bits))
+ by server-2.bemta.az-a.eu-west-2.aws.ess.symcld.net id EA/DD-27579-DCFE3D16;
+ Tue, 04 Jan 2022 06:57:17 +0000
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFtrCIsWRWlGSWpSXmKPExsViZ8MxSffs+8u
+ JBo1bRC1WfN/B6MDose/3OtYAxijWzLyk/IoE1oz9+9eyFawUq2jb0MzewPhEqIuRi0NI4Cyj
+ xPP+BnYIZyeTxLtV85ggnN2MEk/WbWPuYuTkYBPQlHjWuQDMFhGQkOhoeMsOYjMLqEssn/SLC
+ cQWFoiVmDZrFQuIzSKgInHh2QGwel4BD4mNi/rBaiQEFCSmPHwPFReUODnzCQvEHAmJgy9eME
+ PUKEpc6vjGCGFXSMya1QbVqyZx9dwm5gmM/LOQtM9C0r6AkWkVo3VSUWZ6RkluYmaOrqGBga6
+ hoamusamuoYmlXmKVbqJeaqlueWpxia6RXmJ5sV5qcbFecWVuck6KXl5qySZGYGCmFCtP3cF4
+ etVPvUOMkhxMSqK8GScvJwrxJeWnVGYkFmfEF5XmpBYfYpTh4FCS4K14DZQTLEpNT61Iy8wBR
+ glMWoKDR0mE9+c7oDRvcUFibnFmOkTqFKOilDhvHUhCACSRUZoH1waLzEuMslLCvIwMDAxCPA
+ WpRbmZJajyrxjFORiVhHn7QabwZOaVwE1/BbSYCWjxOTmwxSWJCCmpBqYa8cfBfb83thlr7n1
+ pXz+3etaS1IpZ+lE/wnonrZOY7er9YSbD4xtWGWfyZRWlZ887tNal8/7T3fbTy5bZ6KyPKYvd
+ aXb461nNFK+SXzprk8rORrze8C5hQkKg7gx3e436D5oiVceMxBdP/jvP3DDtR9DlyJvq3OmP9
+ 3VxXT0xS+L0KR9eg2Lpd2a/nBzSDCQltrI9NM37Mrn3xYdfxx+93BB8YqlUk/KJm+USQrfVKv
+ cvO3fgzGmJ8wkaLpw99xhjrLIK41y+clrHKvs55hcXdLdeettxQnzqo7kze9N0Pkd+amS6Ofd
+ XTsMrvvWp833V/F9NvHikXiy+4sVU99npHZmTrZR+2STabi9+9kOJpTgj0VCLuag4EQAqeJma
+ RwMAAA==
+X-Env-Sender: xuyang2018.jy@fujitsu.com
+X-Msg-Ref: server-11.tower-548.messagelabs.com!1641279437!336020!1
+X-Originating-IP: [62.60.8.146]
+X-SYMC-ESS-Client-Auth: outbound-route-from=pass
+X-StarScan-Received: 
+X-StarScan-Version: 9.81.7; banners=-,-,-
+X-VirusChecked: Checked
+Received: (qmail 15491 invoked from network); 4 Jan 2022 06:57:17 -0000
+Received: from unknown (HELO n03ukasimr02.n03.fujitsu.local) (62.60.8.146)
+ by server-11.tower-548.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
+ encrypted SMTP; 4 Jan 2022 06:57:17 -0000
+Received: from n03ukasimr02.n03.fujitsu.local (localhost [127.0.0.1])
+ by n03ukasimr02.n03.fujitsu.local (Postfix) with ESMTP id 016AD10034F
+ for <ltp@lists.linux.it>; Tue,  4 Jan 2022 06:57:17 +0000 (GMT)
+Received: from R01UKEXCASM126.r01.fujitsu.local (unknown [10.183.43.178])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id DCD99210FD;
- Mon,  3 Jan 2022 15:30:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1641223859; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=tHJyvaHiGN/HayqNWy5U8+8PMTJxOigsYkcVUmiq1Po=;
- b=ENb6f7yUtiUgUreyWcMa842P3aP8vtx3FX6CvdWChjf9Ul4WAJjv1U0bC0Pi3vrltwKCC6
- RIfRzD/v6jq3PXERcSCyiYJGIEumBRhEKdXsPaNAljzmD8cqBuEobtgqxiP8Phg0wZt1fk
- s9bPpGLdr66PnFxH7Xke1lSzZCRhTpk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1641223859;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=tHJyvaHiGN/HayqNWy5U8+8PMTJxOigsYkcVUmiq1Po=;
- b=UvF/QrK09RkaBiVj5e4LvTDic4dRNBH3MGkv4soRaIOPywVmWfIrArip3C0CjFgFNujXwW
- l2HDQMXPmXMmBqDA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 93AAF13AED;
- Mon,  3 Jan 2022 15:30:59 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id MO5AIrMW02HcdAAAMHmgww
- (envelope-from <pvorel@suse.cz>); Mon, 03 Jan 2022 15:30:59 +0000
-From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Mon,  3 Jan 2022 16:30:53 +0100
-Message-Id: <20220103153053.20935-1-pvorel@suse.cz>
-X-Mailer: git-send-email 2.34.1
+ by n03ukasimr02.n03.fujitsu.local (Postfix) with ESMTPS id E86A11000FE
+ for <ltp@lists.linux.it>; Tue,  4 Jan 2022 06:57:16 +0000 (GMT)
+Received: from localhost.localdomain (10.167.220.84) by
+ R01UKEXCASM126.r01.fujitsu.local (10.183.43.178) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.26; Tue, 4 Jan 2022 06:56:54 +0000
+From: Yang Xu <xuyang2018.jy@fujitsu.com>
+To: <ltp@lists.linux.it>
+Date: Tue, 4 Jan 2022 14:57:17 +0800
+Message-ID: <1641279439-2421-1-git-send-email-xuyang2018.jy@fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Originating-IP: [10.167.220.84]
+X-ClientProxiedBy: G08CNEXCHPEKD07.g08.fujitsu.local (10.167.33.80) To
+ R01UKEXCASM126.r01.fujitsu.local (10.183.43.178)
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 1/2] lib: Add known-fail test tag
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH v1 1/3] lib/tst_kconfig: Modify the return type of
+ tst_kconfig_check function
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,97 +105,101 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-to save test reviewers time.
+So this function can be used to detect whether the function succeeded in shell
+api by its return value.
 
-Suggested-by: Cyril Hrubis <chrubis@suse.cz>
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
+Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
 ---
-changes v1->v2:
-* fix docparse/testinfo.pl
+ include/tst_kconfig.h |  2 +-
+ lib/tst_kconfig.c     | 21 ++++++++++++---------
+ lib/tst_test.c        |  4 ++--
+ 3 files changed, 15 insertions(+), 12 deletions(-)
 
- doc/c-test-api.txt   |  1 +
- docparse/testinfo.pl | 11 ++++++++++-
- lib/tst_test.c       |  8 ++++++--
- 3 files changed, 17 insertions(+), 3 deletions(-)
-
-diff --git a/doc/c-test-api.txt b/doc/c-test-api.txt
-index 6481531cf2..f8ee4de0d1 100644
---- a/doc/c-test-api.txt
-+++ b/doc/c-test-api.txt
-@@ -2259,6 +2259,7 @@ struct tst_test test = {
- 	.tags = (const struct tst_tag[]) {
- 		{"linux-git", "9392a27d88b9"},
- 		{"linux-git", "ff002b30181d"},
-+		{"known-fail", "ustat() is known to fail with EINVAL on Btrfs"},
- 		{"linux-stable-git", "c4a23c852e80"},
- 		{"CVE", "2020-29373"},
- 		{}
-diff --git a/docparse/testinfo.pl b/docparse/testinfo.pl
-index 891619532f..8712a530f8 100755
---- a/docparse/testinfo.pl
-+++ b/docparse/testinfo.pl
-@@ -74,6 +74,10 @@ sub tag_url {
- 		return eval("main::$key") . $value;
- 	}
+diff --git a/include/tst_kconfig.h b/include/tst_kconfig.h
+index 1bb21fea8..050687c69 100644
+--- a/include/tst_kconfig.h
++++ b/include/tst_kconfig.h
+@@ -53,6 +53,6 @@ void tst_kconfig_read(struct tst_kconfig_var vars[], size_t vars_len);
+  *
+  * @param kconfigs NULL-terminated array of config strings needed for the testrun.
+  */
+-void tst_kconfig_check(const char *const kconfigs[]);
++int tst_kconfig_check(const char *const kconfigs[]);
  
-+	if ('known-fail') {
-+		return '';
-+	}
-+
- 	die("unknown constant '$key' for tag $tag, define it!");
+ #endif	/* TST_KCONFIG_H__ */
+diff --git a/lib/tst_kconfig.c b/lib/tst_kconfig.c
+index d433b8cf6..dc7decff9 100644
+--- a/lib/tst_kconfig.c
++++ b/lib/tst_kconfig.c
+@@ -478,22 +478,26 @@ static void dump_vars(const struct tst_expr *expr)
+ 	}
  }
  
-@@ -432,6 +436,7 @@ sub content_all_tests
- 			}
- 			my $k = @$tag[0];
- 			my $v = @$tag[1];
-+			my $url;
+-void tst_kconfig_check(const char *const kconfigs[])
++int tst_kconfig_check(const char *const kconfigs[])
+ {
+ 	size_t expr_cnt = array_len(kconfigs);
+ 	struct tst_expr *exprs[expr_cnt];
+ 	unsigned int i, var_cnt;
+-	int abort_test = 0;
++	int ret = 0;
  
- 			if (defined($$git_url{$k})) {
- 				$commits{$k} = () unless (defined($commits{$k}));
-@@ -443,7 +448,11 @@ sub content_all_tests
- 				$v .= ' ("' . $commits{$k}{$v} . '")';
- 			}
+ 	for (i = 0; i < expr_cnt; i++) {
+ 		exprs[i] = tst_bool_expr_parse(kconfigs[i]);
  
--			$v = html_a(tag_url($k, @$tag[1]), $v);
-+			$url = tag_url($k, @$tag[1]);
-+			if ($url) {
-+				$v = html_a($url, $v);
-+			}
-+
- 			$content .= "\n|" . reference($k) . "\n|$v\n";
- 			$tmp2 = 1;
+-		if (!exprs[i])
+-			tst_brk(TBROK, "Invalid kconfig expression!");
++		if (!exprs[i]) {
++			tst_res(TWARN, "Invalid kconfig expression!");
++			return 1;
++		}
+ 	}
+ 
+-	if (validate_vars(exprs, expr_cnt))
+-		tst_brk(TBROK, "Invalid kconfig variables!");
++	if (validate_vars(exprs, expr_cnt)) {
++		tst_res(TWARN, "Invalid kconfig variables!");
++		return 1;
++	}
+ 
+ 	var_cnt = get_var_cnt(exprs, expr_cnt);
+ 	struct tst_kconfig_var vars[var_cnt];
+@@ -506,7 +510,7 @@ void tst_kconfig_check(const char *const kconfigs[])
+ 		int val = tst_bool_expr_eval(exprs[i], map);
+ 
+ 		if (val != 1) {
+-			abort_test = 1;
++			ret = 1;
+ 			tst_res(TINFO, "Constraint '%s' not satisfied!", kconfigs[i]);
+ 			dump_vars(exprs[i]);
  		}
+@@ -519,8 +523,7 @@ void tst_kconfig_check(const char *const kconfigs[])
+ 			free(vars[i].val);
+ 	}
+ 
+-	if (abort_test)
+-		tst_brk(TCONF, "Aborting due to unsuitable kernel config, see above!");
++	return ret;
+ }
+ 
+ char tst_kconfig_get(const char *confname)
 diff --git a/lib/tst_test.c b/lib/tst_test.c
-index 23fc0ebf48..901b363704 100644
+index 23fc0ebf4..f0bf97743 100644
 --- a/lib/tst_test.c
 +++ b/lib/tst_test.c
-@@ -762,10 +762,13 @@ static void print_failure_hint(const char *tag, const char *hint,
- 				hint_printed = 1;
- 				fprintf(stderr, "\n");
- 				print_colored("HINT: ");
--				fprintf(stderr, "You _MAY_ be %s, see:\n\n", hint);
-+				fprintf(stderr, "You _MAY_ be %s:\n\n", hint);
- 			}
+@@ -1016,8 +1016,8 @@ static void do_setup(int argc, char *argv[])
+ 	if (tst_test->tconf_msg)
+ 		tst_brk(TCONF, "%s", tst_test->tconf_msg);
  
--			fprintf(stderr, "%s%s\n", url, tags[i].value);
-+			if (url)
-+				fprintf(stderr, "%s%s\n", url, tags[i].value);
-+			else
-+				fprintf(stderr, "%s\n", tags[i].value);
- 		}
- 	}
- }
-@@ -778,6 +781,7 @@ static void print_failure_hints(void)
- 					   LINUX_STABLE_GIT_URL);
- 	print_failure_hint("glibc-git", "missing glibc fixes", GLIBC_GIT_URL);
- 	print_failure_hint("CVE", "vulnerable to CVE(s)", CVE_DB_URL);
-+	print_failure_hint("known-fail", "hit by known kernel failures", NULL);
- }
+-	if (tst_test->needs_kconfigs)
+-		tst_kconfig_check(tst_test->needs_kconfigs);
++	if (tst_test->needs_kconfigs && tst_kconfig_check(tst_test->needs_kconfigs))
++		tst_brk(TCONF, "Aborting due to unsuitable kernel config, see above!");
  
- static void do_exit(int ret)
+ 	assert_test_fn();
+ 
 -- 
-2.34.1
+2.23.0
 
 
 -- 
