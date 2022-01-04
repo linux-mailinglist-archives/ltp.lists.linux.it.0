@@ -1,74 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id C77C0483FA5
-	for <lists+linux-ltp@lfdr.de>; Tue,  4 Jan 2022 11:09:27 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B28A484066
+	for <lists+linux-ltp@lfdr.de>; Tue,  4 Jan 2022 12:01:13 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1D53A3C8FD1
-	for <lists+linux-ltp@lfdr.de>; Tue,  4 Jan 2022 11:09:27 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 110A23C8FF0
+	for <lists+linux-ltp@lfdr.de>; Tue,  4 Jan 2022 12:01:12 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 623BD3C302A
- for <ltp@lists.linux.it>; Tue,  4 Jan 2022 11:09:25 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 01FE53C1D3C
+ for <ltp@lists.linux.it>; Tue,  4 Jan 2022 12:01:07 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id D207C140019D
- for <ltp@lists.linux.it>; Tue,  4 Jan 2022 11:09:24 +0100 (CET)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 353441A0099C
+ for <ltp@lists.linux.it>; Tue,  4 Jan 2022 12:01:06 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id A40EC2110B;
- Tue,  4 Jan 2022 10:09:23 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 5CA811F397;
+ Tue,  4 Jan 2022 11:01:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1641290963;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
+ t=1641294066; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=g2TUmXb0D0Pxr2b06AXSjkinPPCUnmcyzxkG/Sgyycw=;
- b=dlzbvnQix/jiuo7A5g4Z/Y0OTriz5WQ7cx/Ior5kIR5h/+NyhlhM54LJtd2vFpEoRssPmE
- AtbjKWXCS9nUlrBxyRpRbmaLQVgJ93HRDeZd6Fkn3qxGB6GiHtwrumgA/rYLgQdARPOW9R
- A7nOwfga6AMipdZ283qnATEWQq1T5HY=
+ bh=fw8ID2NpvGAkg+5ursUna7aFqyDMifxJjSBIF0OcWRw=;
+ b=N40HeB2v8jMP0/XCLg/T0MspNMff7KTDSx9nIOPoPDNeO2GDx4Al+s/77kd4TO9qzmFDNV
+ CWV1WwQMozVL+CqTk8cFS6KFeTEWXICa/d49vRSsXRkl9Vgeh4UwrtcLShGEDafGL0nx/+
+ 7NyD7fdfN81rALQpLSrH5sZJjhwm5yc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1641290963;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
+ s=susede2_ed25519; t=1641294066;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=g2TUmXb0D0Pxr2b06AXSjkinPPCUnmcyzxkG/Sgyycw=;
- b=JccBCyawko4M65taAOFsCgEFfT6orZFuypnM1jxbcnFBDRxVbUtf2XIkUN5OmSzJSFLfJK
- l+QKAnboDHMGv7Dg==
+ bh=fw8ID2NpvGAkg+5ursUna7aFqyDMifxJjSBIF0OcWRw=;
+ b=2tySdFg4nNb683Jf/vJ6EwXcZF4fcgc5c8ZrvOZGBRR3w/uuVLsLu4nkD0ekdSNZL6Owtu
+ ZuwUomjxXNI4fSBA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 806B413ADB;
- Tue,  4 Jan 2022 10:09:23 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3DC4313ADF;
+ Tue,  4 Jan 2022 11:01:06 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 68RgHdMc1GEkGAAAMHmgww
- (envelope-from <pvorel@suse.cz>); Tue, 04 Jan 2022 10:09:23 +0000
-Date: Tue, 4 Jan 2022 11:09:21 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Andrea Cervesato <andrea.cervesato@suse.com>
-Message-ID: <YdQc0bKswgMze2IA@pevik>
-References: <20220104092049.13033-1-andrea.cervesato@suse.com>
- <20220104092049.13033-2-andrea.cervesato@suse.com>
+ by imap2.suse-dmz.suse.de with ESMTPSA id rzPxDvIo1GEELgAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Tue, 04 Jan 2022 11:01:06 +0000
+Date: Tue, 4 Jan 2022 12:02:35 +0100
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Petr Vorel <pvorel@suse.cz>
+Message-ID: <YdQpS0WPRvz4vZup@yuki>
+References: <20220103151332.1989-1-pvorel@suse.cz>
+ <20220103151332.1989-2-pvorel@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20220104092049.13033-2-andrea.cervesato@suse.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+In-Reply-To: <20220103151332.1989-2-pvorel@suse.cz>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3 1/2] Refactoring aio-stress.c using LTP API
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 2/2] ustat0{1,
+ 2}: Mark failure on Btrfs with known-fail tag
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,30 +80,58 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Andrea,
+Hi!
+> --- a/testcases/kernel/syscalls/ustat/ustat01.c
+> +++ b/testcases/kernel/syscalls/ustat/ustat01.c
+> @@ -44,6 +44,10 @@ static void setup(void)
+>  static struct tst_test test = {
+>  	.test_all = run,
+>  	.setup = setup,
+> +	.tags = (const struct tst_tag[]) {
+> +		{"known-fail", "ustat() is known to fail with EINVAL on Btrfs"},
+                                   ^
+				   Maybe we should just remove the
+				   "known to fail" from these messages.
 
-> +		ret = asprintf(&msg, " %.0f < %d", lat->deviations[i], deviations[i]);
-> +		if (ret < 0)
-> +			tst_brk(TBROK, "asprintf memory allocation error");
-> +		ptr += sprintf(ptr,"%s", msg);
-ptr += sprintf(ptr,"%s", msg);
+Since the code in the library will print:
 
-make check-aio-stress warns: ERROR: space required after that ',' (ctx:VxV)
+---
+You _MAY_ be hit by known kernel failures:
 
-Otherwise obviously ok, waiting if anybody wants to have a look before I merge
-it.
+ustat() is known to fail with EINVAL on Btrfs
+---
 
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
+so the 'known to fail' part is redundant here.
 
-Kind regards,
-Petr
+What about:
+
+---
+You _MAY_ be hit by known kernel failures:
+
+ustat() fails with EINVAL on Btrfs
+---
+
+Other than this I think that this is a good way how to put these kind of
+hints into the testcases.
+
+
+Also I do wonder if there is a good URL that would contain more verbose
+description of the problem but I guess there isn't. Well maybe this one:
+
+https://www.mail-archive.com/linux-btrfs@vger.kernel.org/msg95697.html
+
+Not sure how to encode that, maybe just add it to the test top level
+comment?
+
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
