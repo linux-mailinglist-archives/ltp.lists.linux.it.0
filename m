@@ -1,74 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 279D1484075
-	for <lists+linux-ltp@lfdr.de>; Tue,  4 Jan 2022 12:04:14 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 52F414840B3
+	for <lists+linux-ltp@lfdr.de>; Tue,  4 Jan 2022 12:21:12 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 662B93C9037
-	for <lists+linux-ltp@lfdr.de>; Tue,  4 Jan 2022 12:04:13 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 895943C9055
+	for <lists+linux-ltp@lfdr.de>; Tue,  4 Jan 2022 12:21:11 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 8ECA93C1D3C
- for <ltp@lists.linux.it>; Tue,  4 Jan 2022 12:04:09 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 1B4C51A00617
- for <ltp@lists.linux.it>; Tue,  4 Jan 2022 12:04:08 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id 1AB2D3C051B
+ for <ltp@lists.linux.it>; Tue,  4 Jan 2022 12:21:04 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 5D7F860057A
+ for <ltp@lists.linux.it>; Tue,  4 Jan 2022 12:21:02 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 545691F398;
- Tue,  4 Jan 2022 11:04:08 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 24AF321107;
+ Tue,  4 Jan 2022 11:21:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1641294248; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1641295262; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=TDYsTHp2dJh3e1hZLC7BQj3eBP7S+8OGb0a99TU9cgk=;
- b=D2FS9Qd2ICGJJqrmFqSrpPQ16tUK/cD6JD9GkDq+H3XkIW49DePzIBhc/x6j0g+5XExUmE
- YqTLczOo26+ALrrtKBM/4GU1HruE/0PeR847fNna3M+j1Mx8dbDZml4TkDvx5ne3n7pZ9/
- JBte1oIHDXmlqvsi5OPmgAZXTNIh2HI=
+ bh=HtZKfVDNwwUVI356NkBNVvqDtitc0obI4GSBuYuGDZI=;
+ b=OmLc/py/QVgOd8FxiWXkPIR5P7ijTa7FYBEJaDsgWZqVdrdOY3fvyiNZ32AL/w2LZCkAUQ
+ wbHWYEIDPZeyrTseevBFz9R9wW/dm/sDiPtfSBG/eZG/AjA/0dMzabmuWbulFWbdtgAHLM
+ 04ufaZftUokXsXZU6kaVzpMnFYd6SsU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1641294248;
+ s=susede2_ed25519; t=1641295262;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=TDYsTHp2dJh3e1hZLC7BQj3eBP7S+8OGb0a99TU9cgk=;
- b=EbgkmMuVFvImz4DsDy2vhrLKkSuxUT5PkNqdAMoVrmJ2ULs60dY3gNxNQ3msH1wormxl9T
- gou34BD1X0bVHFDw==
+ bh=HtZKfVDNwwUVI356NkBNVvqDtitc0obI4GSBuYuGDZI=;
+ b=yamSdvG68Ym0AADJ1545NpPJ2yf2/tTg+YztorW/hZmh6HHb2ZqlmTmR1d0v6CZdGkEEld
+ ci3n5qc5OtUUdYAQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3EA7413ADF;
- Tue,  4 Jan 2022 11:04:08 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 105FC13AE7;
+ Tue,  4 Jan 2022 11:21:02 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id RsZCDqgp1GEwLwAAMHmgww
- (envelope-from <chrubis@suse.cz>); Tue, 04 Jan 2022 11:04:08 +0000
-Date: Tue, 4 Jan 2022 12:05:37 +0100
+ by imap2.suse-dmz.suse.de with ESMTPSA id DPdlA54t1GGrNgAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Tue, 04 Jan 2022 11:21:02 +0000
+Date: Tue, 4 Jan 2022 12:22:30 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Andrea Cervesato <andrea.cervesato@suse.com>
-Message-ID: <YdQqAcvN/X+2PUom@yuki>
+Message-ID: <YdQt9isU3u5CFRcZ@yuki>
 References: <20220104081836.22827-1-andrea.cervesato@suse.com>
- <20220104081836.22827-2-andrea.cervesato@suse.com>
+ <20220104081836.22827-3-andrea.cervesato@suse.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20220104081836.22827-2-andrea.cervesato@suse.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+In-Reply-To: <20220104081836.22827-3-andrea.cervesato@suse.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v1 01/10] Prepare watchqueue testing suite build
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v1 02/10] Add wqueue01 new test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,63 +87,271 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
+> This test checks if KEYCTL_UPDATE event is recognized by watch queue
+> 
 > Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
 > ---
->  testcases/kernel/Makefile              |  1 +
->  testcases/kernel/watchqueue/.gitignore | 10 ++++++++++
->  testcases/kernel/watchqueue/Makefile   |  8 ++++++++
->  3 files changed, 19 insertions(+)
->  create mode 100644 testcases/kernel/watchqueue/.gitignore
->  create mode 100644 testcases/kernel/watchqueue/Makefile
+>  testcases/kernel/watchqueue/common.h   | 153 +++++++++++++++++++++++++
+>  testcases/kernel/watchqueue/wqueue01.c |  68 +++++++++++
+>  2 files changed, 221 insertions(+)
+>  create mode 100644 testcases/kernel/watchqueue/common.h
+>  create mode 100644 testcases/kernel/watchqueue/wqueue01.c
 > 
-> diff --git a/testcases/kernel/Makefile b/testcases/kernel/Makefile
-> index 4604f1f38..d44856c57 100644
-> --- a/testcases/kernel/Makefile
-> +++ b/testcases/kernel/Makefile
-> @@ -38,6 +38,7 @@ SUBDIRS			+= connectors \
->  			   sound \
->  			   tracing \
->  			   uevents \
-> +			   watchqueue \
->  
->  ifeq ($(WITH_POWER_MANAGEMENT_TESTSUITE),yes)
->  SUBDIRS			+= power_management
-> diff --git a/testcases/kernel/watchqueue/.gitignore b/testcases/kernel/watchqueue/.gitignore
+> diff --git a/testcases/kernel/watchqueue/common.h b/testcases/kernel/watchqueue/common.h
 > new file mode 100644
-> index 000000000..797ccc243
+> index 000000000..6a7ae213e
 > --- /dev/null
-> +++ b/testcases/kernel/watchqueue/.gitignore
-> @@ -0,0 +1,10 @@
-> +wqueue01
-> +wqueue02
-> +wqueue03
-> +wqueue04
-> +wqueue05
-> +wqueue06
-> +wqueue07
-> +wqueue08
-> +watch_test.c
-> +watch_test
+> +++ b/testcases/kernel/watchqueue/common.h
+> @@ -0,0 +1,153 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Copyright (C) 2021 Andrea Cervesato <andrea.cervesato@suse.com>
+> + */
+> +
+> +#ifndef WQUEUE_COMMON_H__
+> +#define WQUEUE_COMMON_H__
+> +
+> +#define _FCNTL_H
 
-The two last entries does not seem to be right.
+This is certainly wrong a hack that will break sooner or later.
 
-Also I guess that it's more common to add entries like that
-incrementally each with the corresponding test.
+What is this needed for?
 
-> diff --git a/testcases/kernel/watchqueue/Makefile b/testcases/kernel/watchqueue/Makefile
+> +#include <linux/watch_queue.h>
+
+We will need a configure check for this one and either add fallback
+structures and constants in lapi/ or skip the test build when this file
+is not present.
+
+> +#include "tst_test.h"
+> +#include "lapi/keyctl.h"
+> +
+> +static struct watch_notification_filter wqueue_key_filter = {
+> +	.nr_filters	= 1,
+> +	.__reserved	= 0,
+
+This is a global no need to zero out any members like that.
+
+> +	.filters = {
+> +		[0]	= {
+> +			.type = WATCH_TYPE_KEY_NOTIFY,
+> +			.subtype_filter[0] = UINT_MAX,
+> +		},
+> +	},
+> +};
+> +
+> +static const char *key_subtypes[256] = {
+> +	[NOTIFY_KEY_INSTANTIATED]	= "instantiated",
+> +	[NOTIFY_KEY_UPDATED]		= "updated",
+> +	[NOTIFY_KEY_LINKED]		= "linked",
+> +	[NOTIFY_KEY_UNLINKED]		= "unlinked",
+> +	[NOTIFY_KEY_CLEARED]		= "cleared",
+> +	[NOTIFY_KEY_REVOKED]		= "revoked",
+> +	[NOTIFY_KEY_INVALIDATED]	= "invalidated",
+> +	[NOTIFY_KEY_SETATTR]		= "setattr",
+> +};
+> +
+> +static inline long safe_keyctl(int cmd, ...)
+> +{
+> +	long ret;
+> +	va_list va;
+> +	unsigned long arg2, arg3, arg4, arg5;
+> +
+> +	va_start(va, cmd);
+> +	arg2 = va_arg(va, unsigned long);
+> +	arg3 = va_arg(va, unsigned long);
+> +	arg4 = va_arg(va, unsigned long);
+> +	arg5 = va_arg(va, unsigned long);
+> +	va_end(va);
+> +
+> +	ret = tst_syscall(__NR_keyctl, cmd, arg2, arg3, arg4, arg5);
+> +	if (ret == -1)
+> +		tst_brk(TBROK, "keyctl error: %s", tst_strerrno(errno));
+
+We do have lapi/keyctl.h that defines keyctl() you should use that
+instead.
+
+> +	return ret;
+> +}
+>
+> +static int wqueue_key_event(struct watch_notification *n, size_t len, unsigned int wtype, int type)
+> +{
+> +	struct key_notification *k;
+> +	const char* msg;
+> +
+> +	if (wtype != WATCH_TYPE_KEY_NOTIFY)
+> +		return 0;
+> +
+> +	if (len != sizeof(struct key_notification))
+> +		tst_brk(TBROK, "Incorrect key message length");
+> +
+> +	k = (struct key_notification *)n;
+> +	msg = key_subtypes[n->subtype];
+> +
+> +	tst_res(TINFO, "KEY %08x change=%u[%s] aux=%u",
+> +	    k->key_id, n->subtype, msg, k->aux);
+> +
+> +	if (n->subtype == type)
+> +        return 1;
+
+Wrong indentation here, do not forget to run make check before
+posting...
+
+> +    return 0;
+> +}
+> +
+> +static key_serial_t wqueue_add_key(int fd)
+> +{
+> +	key_serial_t key;
+> +
+> +	key = add_key("user", "ltptestkey", "a", 1, KEY_SPEC_SESSION_KEYRING);
+> +	if (key == -1)
+> +		tst_brk(TBROK, "add_key error: %s", tst_strerrno(errno));
+> +
+> +	safe_keyctl(KEYCTL_WATCH_KEY, key, fd, 0x01);
+> +	safe_keyctl(KEYCTL_WATCH_KEY, KEY_SPEC_SESSION_KEYRING, fd, 0x02);
+> +
+> +	return key;
+> +}
+> +
+> +static int wqueue_watch(int buf_size, struct watch_notification_filter *filter)
+> +{
+> +	int pipefd[2];
+> +	int fd;
+> +
+> +	SAFE_PIPE2(pipefd, O_NOTIFICATION_PIPE);
+> +
+> +	fd = pipefd[0];
+> +
+> +	SAFE_IOCTL(fd, IOC_WATCH_QUEUE_SET_SIZE, buf_size);
+> +	SAFE_IOCTL(fd, IOC_WATCH_QUEUE_SET_FILTER, filter);
+> +
+> +	return fd;
+> +}
+> +
+> +typedef void (*wqueue_callback) (struct watch_notification *n, size_t len, unsigned int wtype);
+> +
+> +static void wqueue_consumer(int fd, volatile int *keep_polling, wqueue_callback cb)
+> +{
+> +	unsigned char buffer[433], *p, *end;
+> +	union {
+> +		struct watch_notification n;
+> +		unsigned char buf1[128];
+> +	} n;
+> +	ssize_t buf_len;
+> +
+> +	tst_res(TINFO, "Waiting for watch queue events");
+> +
+> +	while (*keep_polling) {
+> +		buf_len = SAFE_READ(0, fd, buffer, sizeof(buffer));
+> +
+> +		p = buffer;
+> +		end = buffer + buf_len;
+> +		while (p < end) {
+> +			size_t largest, len;
+> +
+> +			largest = end - p;
+> +			if (largest > 128)
+> +				largest = 128;
+> +
+> +			if (largest < sizeof(struct watch_notification))
+> +				tst_brk(TBROK, "Short message header: %zu", largest);
+> +
+> +			memcpy(&n, p, largest);
+> +
+> +			tst_res(TINFO, "NOTIFY[%03zx]: ty=%06x sy=%02x i=%08x",
+> +			       p - buffer, n.n.type, n.n.subtype, n.n.info);
+> +
+> +			len = n.n.info & WATCH_INFO_LENGTH;
+> +			if (len < sizeof(n.n) || len > largest)
+> +				tst_brk(TBROK, "Bad message length: %zu/%zu", len, largest);
+> +
+> +			cb(&n.n, len, n.n.type);
+> +
+> +			p += len;
+> +		}
+> +	}
+> +}
+> +
+> +#endif
+> diff --git a/testcases/kernel/watchqueue/wqueue01.c b/testcases/kernel/watchqueue/wqueue01.c
 > new file mode 100644
-> index 000000000..0008b8cc4
+> index 000000000..f22682eed
 > --- /dev/null
-> +++ b/testcases/kernel/watchqueue/Makefile
-> @@ -0,0 +1,8 @@
-> +# SPDX-License-Identifier: GPL-2.0-or-later
+> +++ b/testcases/kernel/watchqueue/wqueue01.c
+> @@ -0,0 +1,68 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Copyright (C) 2021 Andrea Cervesato <andrea.cervesato@suse.com>
+> + */
 > +
-> +top_srcdir			?= ../../..
+> +/*\
+> + * [Description]
+> + *
+> + * Test if keyctl update is correctly recognized by watch queue.
+> + */
 > +
-> +LDLIBS += $(KEYUTILS_LIBS)
+> +#define _FCNTL_H
 > +
-> +include $(top_srcdir)/include/mk/testcases.mk
-> +include $(top_srcdir)/include/mk/generic_leaf_target.mk
+> +#include "tst_test.h"
+> +#include "lapi/keyctl.h"
+> +#include "common.h"
+> +
+> +static int *keep_polling;
+> +
+> +static void saw_key_updated(struct watch_notification *n, size_t len, unsigned int wtype)
+> +{
+> +	if (wqueue_key_event(n, len, wtype, NOTIFY_KEY_UPDATED))
+> +		tst_res(TPASS, "keyctl update has been recognized");
+> +	else
+> +		tst_res(TFAIL, "keyctl update has not been recognized");
+> +}
+> +
+> +static void setup(void)
+> +{
+> +	keep_polling = SAFE_MMAP(NULL, sizeof(int), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+> +}
+> +
+> +static void cleanup(void)
+> +{
+> +	*keep_polling = 0;
+> +	SAFE_MUNMAP(keep_polling, sizeof(int));
+> +}
+> +
+> +static void run(void)
+> +{
+> +	int fd;
+> +	int pid;
+> +	key_serial_t key;
+> +
+> +	fd = wqueue_watch(256, &wqueue_key_filter);
+> +	key = wqueue_add_key(fd);
+> +
+> +	*keep_polling = 1;
+> +
+> +	pid = SAFE_FORK();
+> +	if (pid > 0) {
+> +		wqueue_consumer(fd, keep_polling, saw_key_updated);
+> +		return;
+> +	}
+
+Do we really need to run the part that reads the notification in a
+separate process? For these single cases we can just do the keyctl and
+then read from the pipe and check if there is anything in there.
+
+> +	safe_keyctl(KEYCTL_UPDATE, key, "b", 1);
+> +
+> +	*keep_polling = 0;
+> +
+> +	SAFE_CLOSE(fd);
+> +}
+> +
+> +static struct tst_test test = {
+> +	.setup = setup,
+> +	.cleanup = cleanup,
+> +	.test_all = run,
+> +	.forks_child = 1
+> +};
 > -- 
 > 2.34.1
 > 
