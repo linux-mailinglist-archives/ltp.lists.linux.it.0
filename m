@@ -2,59 +2,57 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12459485551
-	for <lists+linux-ltp@lfdr.de>; Wed,  5 Jan 2022 16:04:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE4F448558A
+	for <lists+linux-ltp@lfdr.de>; Wed,  5 Jan 2022 16:13:40 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7A2803C9267
-	for <lists+linux-ltp@lfdr.de>; Wed,  5 Jan 2022 16:04:16 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 25F6C3C90EE
+	for <lists+linux-ltp@lfdr.de>; Wed,  5 Jan 2022 16:13:40 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 3DCDE3C58DA
- for <ltp@lists.linux.it>; Wed,  5 Jan 2022 16:04:13 +0100 (CET)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+ by picard.linux.it (Postfix) with ESMTPS id 840123C903B
+ for <ltp@lists.linux.it>; Wed,  5 Jan 2022 16:13:35 +0100 (CET)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 90E181A00914
- for <ltp@lists.linux.it>; Wed,  5 Jan 2022 16:04:11 +0100 (CET)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id C3DE31400521
+ for <ltp@lists.linux.it>; Wed,  5 Jan 2022 16:13:34 +0100 (CET)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 8828361760;
- Wed,  5 Jan 2022 15:04:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D92FAC36AE0;
- Wed,  5 Jan 2022 15:04:08 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id CCB1DB81BB6;
+ Wed,  5 Jan 2022 15:13:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91D32C36AE0;
+ Wed,  5 Jan 2022 15:13:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1641395049;
- bh=XiMH38rA3kPJxyJmsHYUVOqRMb5aKgbJThm8oUTAopk=;
+ s=k20201202; t=1641395612;
+ bh=v8UcAp+b0yzo85bWoy7yVTdK0zThpL9ZeXAdFLOtMh4=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=HVE103dyABhXd79MOkaD5DjKDi2wLo0nG3GLNrdcZRuOJzgxz1vCsCzUJfwHSIzOc
- plk3IrjiTTYN0gvkupWVxg12K+fJ1XfyimP/PdsWy8bhI8EaoUZi127GoNdhFU/u48
- g9+SSVGgqaGizyq8IKdFHYrl33hWkkm5NXNtyu3LUV2VDuo4BvG2h0595uC8Pb5jB5
- YZSxdp6CXtICdhTE8vfXOu4DX3YzjQdglDdezZiYxfDfv8p+Ds7EFhtoAYjpJDHTVe
- /Uip9fNWQAkfuc70Pt2QXxmYycWbCuIGQfXlb8OpsixWktWkYy2roCxCoZhSwz73qF
- 9UJHCskh86t3A==
-Date: Wed, 5 Jan 2022 07:04:07 -0800
+ b=IE7xPWmSa3DeBnQfV3ZKG03/4kei2bQ+R9IaZLwz7ixH1sqwpWW5deoTjO+zc/oll
+ x0hQiojggmQTFR923a6qzK1QaAOe3gD1iocDabTT/sq/RgGXR8UfJn/ZjbulUE7Rru
+ 7uKtm0gjf8PnRjK3ncdP3uwipfMFBnZxl6QFZ8kIxSwRDKYrG+RNaNwFBqi1lYCt/N
+ JGjG52X19cnTStsmo9whgm5TN2bOCFfZtHT5iIdLIh47zSqOdCHttNgaz7yml7nbpr
+ ++z3gl3j4qvfUvFv2TrJdXA/2pBmidfnvkZ61Vd2K43uli3+QWWlr0kknnZ6x5UGkh
+ L3JUIeRCCAm7g==
+Date: Wed, 5 Jan 2022 07:13:31 -0800
 From: Eric Biggers <ebiggers@kernel.org>
-To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <YdWzZzzOqpS2pN+3@sol.localdomain>
-References: <20211222192604.16839-1-pvorel@suse.cz>
- <20211222192604.16839-2-pvorel@suse.cz>
+To: wenyehai <wenyehai@huawei.com>
+Message-ID: <YdW1m4D2wLYQm1v/@sol.localdomain>
+References: <1641287729-194863-1-git-send-email-wenyehai@huawei.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20211222192604.16839-2-pvorel@suse.cz>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+In-Reply-To: <1641287729-194863-1-git-send-email-wenyehai@huawei.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3 2/2] tst_af_alg: TCONF on ciphers disabled by
- FIPS
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] add several hash algorithms for
+ crypto/crypto_user02.c
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,40 +70,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Wed, Dec 22, 2021 at 08:26:04PM +0100, Petr Vorel wrote:
-> Similar fix to 4fa302ef9d. It fixes:
+On Tue, Jan 04, 2022 at 05:15:29PM +0800, wenyehai via ltp wrote:
+> kernel/crypto/crypto_user02.c: add several hash algorithms according to
+> the latest linux kernel encryption module
 > 
-> ./af_alg01
-> tst_af_alg.c:84: TBROK: unexpected error binding AF_ALG socket to hash algorithm 'md5': ELIBBAD (80)
-> become
-> tst_fips.c:22: TINFO: FIPS: on
-> tst_af_alg.c:111: TCONF: FIPS enabled => hash algorithm 'md5' disabled
-> tst_fips.c:22: TINFO: FIPS: on
-> tst_af_alg.c:111: TCONF: FIPS enabled => hash algorithm 'md5-generic' disabled
-> 
-> ./af_alg02
-> tst_af_alg.c:37: TBROK: unexpected error binding AF_ALG socket to skcipher algorithm 'salsa20': ELIBBAD (80)
-> become
-> tst_fips.c:22: TINFO: FIPS: on
-> tst_af_alg.c:36: TCONF: FIPS enabled => skcipher algorithm 'salsa20' disabled
-> 
-> ./af_alg04
-> tst_af_alg.c:81: TBROK: unexpected error binding AF_ALG socket to hash algorithm 'vmac64(aes)': ELIBBAD (80)
-> become
-> tst_fips.c:22: TINFO: FIPS: on
-> tst_af_alg.c:111: TCONF: FIPS enabled => hash algorithm 'vmac64(aes)' disabled
-> 
-> Tested on Debian stable bullseye and SLES 15-SP4.
-> 
-> Signed-off-by: Petr Vorel <pvorel@suse.cz>
+> Signed-off-by: Yehai Wen <wenyehai@huawei.com>
 > ---
-> NOTE: I asked Herbert Xu for confirmation that my code understanding is
-> correct and ELIBBAD is expected for ciphers disabled by FIPS.
+>  testcases/kernel/crypto/crypto_user02.c | 10 +++++++++-
+>  1 file changed, 9 insertions(+), 1 deletion(-)
+> 
+> diff --git a/testcases/kernel/crypto/crypto_user02.c b/testcases/kernel/crypto/crypto_user02.c
+> index 717b297..afaff5d 100644
+> --- a/testcases/kernel/crypto/crypto_user02.c
+> +++ b/testcases/kernel/crypto/crypto_user02.c
+> @@ -40,7 +40,15 @@ static const char * const ALGORITHM_CANDIDATES[] = {
+>  	"hmac(sha256-generic)",
+>  	"hmac(sha384-generic)",
+>  	"hmac(md5-generic)",
+> -	"hmac(sm3-generic)"
+> +	"hmac(sm3-generic)",
+> +	"hmac(sha512-generic)",
+> +	"hmac(rmd160-generic)",
+> +	"hmac(sha3-224-generic)",
+> +	"hmac(sha3-256-generic)",
+> +	"hmac(sha3-384-generic)",
+> +	"hmac(sha3-512-generic)",
+> +	"hmac(streebog256-generic)",
+> +	"hmac(streebog512-generic)"
+>  };
 
-Can you link to the mailing list thread where it was established that ELIBBAD is
-the "expected" behavior?  Otherwise I guess this is fine.
-
-Reviewed-by: Eric Biggers <ebiggers@google.com>
+There's no harm in listing more algorithms here.  Just to avoid any
+misunderstanding though, are you expecting this test to test those algorithms?
+This test just uses the first available algorithm listed; it's a regression test
+for a bug in the crypto_user API, and not a test for the algorithms themselves.
+So, listing more algorithms here doesn't magically provide test coverage for
+them.  If what you're looking for is an LTP test that tests that certain
+algorithms are working correctly, then such a test would need to be written.
 
 - Eric
 
