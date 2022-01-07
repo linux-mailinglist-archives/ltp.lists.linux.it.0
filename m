@@ -2,74 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83BAF487E20
-	for <lists+linux-ltp@lfdr.de>; Fri,  7 Jan 2022 22:21:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65241487E23
+	for <lists+linux-ltp@lfdr.de>; Fri,  7 Jan 2022 22:21:45 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D917D3C8DB2
-	for <lists+linux-ltp@lfdr.de>; Fri,  7 Jan 2022 22:21:22 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id EFF5B3C8850
+	for <lists+linux-ltp@lfdr.de>; Fri,  7 Jan 2022 22:21:44 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id D2EE23C04A0
+ by picard.linux.it (Postfix) with ESMTPS id F0B5F3C6D68
  for <ltp@lists.linux.it>; Fri,  7 Jan 2022 22:21:20 +0100 (CET)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 33C0F1400740
- for <ltp@lists.linux.it>; Fri,  7 Jan 2022 22:21:19 +0100 (CET)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 2FAEC200069
+ for <ltp@lists.linux.it>; Fri,  7 Jan 2022 22:21:20 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 877E921126;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id BC526212BD;
  Fri,  7 Jan 2022 21:21:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1641590479; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=rDnEcRTxCwcw5mcoLEoNn5vzo1MZeFszFpaoL1KmIbM=;
- b=x5mEOsMbuPfXxynaKJY8747RwEfJSqScgOfg+92c96j7rA8taTJlL/98MAgvxWvjxx2gax
- 0mytqEWkN8YLNx89MKl/+eH/2ixfzvcmFYmDE+s5XBBNABWHEM2deJsRB1MDi6TAG/z05i
- 90nMAZcZgPkVZwBI8a5tp4t/7UZX7xo=
+ bh=shXJDB7nYhSVmxuTPD9OwEko33OuSU7rlaTCVfPUBU0=;
+ b=l5USZXrUni7+reROVNyPcHC086UJ9OPNDzuW0cQed2NjwiNUfyouC4v1Jk0o2ySBXhIdE3
+ /phdsmbXe+xnOdtYKpLXgRLsNO0roQZca4SMh8MkLDOxdgYx9qfNn+yCAIKL/cckL4YgfX
+ y1ozmrSVBswgr4dE1go/MGCk+KD7wig=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1641590479;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=rDnEcRTxCwcw5mcoLEoNn5vzo1MZeFszFpaoL1KmIbM=;
- b=abHqWdf77/h2NX88/mrjM7WZqJaYnWAihhwsLYsyHxMX1lHpyUNODpkOOOqDBlv7zci+m+
- aYeL8iBcDApNxTBg==
+ bh=shXJDB7nYhSVmxuTPD9OwEko33OuSU7rlaTCVfPUBU0=;
+ b=R6mpVE4POi/IgVLDPbFdzT3OYUU94RLRWek33dIGtHFAw96X946uz3HpMkJECHKMZ5JKhg
+ kRg2AvaBzusnITCw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 609AA13D44;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 94E5613D44;
  Fri,  7 Jan 2022 21:21:19 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id wIJhFc+u2GEHFwAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id wK9KIs+u2GEHFwAAMHmgww
  (envelope-from <andrea.cervesato@suse.de>); Fri, 07 Jan 2022 21:21:19 +0000
 From: Andrea Cervesato <andrea.cervesato@suse.de>
 To: ltp@lists.linux.it
-Date: Fri,  7 Jan 2022 22:20:49 +0100
-Message-Id: <20220107212058.19768-3-andrea.cervesato@suse.de>
+Date: Fri,  7 Jan 2022 22:20:50 +0100
+Message-Id: <20220107212058.19768-4-andrea.cervesato@suse.de>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220107212058.19768-1-andrea.cervesato@suse.de>
 References: <20220107212058.19768-1-andrea.cervesato@suse.de>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH v4 02/11] Add lapi/watch_queue.h header fallback
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH v4 03/11] Add wqueue01 test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,130 +85,290 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+This test is testing NOTIFY_KEY_UPDATED event
+
 Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.de>
 ---
- include/lapi/watch_queue.h | 112 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 112 insertions(+)
- create mode 100644 include/lapi/watch_queue.h
+ runtest/watchqueue                     |   9 ++
+ scenario_groups/default                |   1 +
+ testcases/kernel/Makefile              |   1 +
+ testcases/kernel/watchqueue/.gitignore |   9 ++
+ testcases/kernel/watchqueue/Makefile   |   8 ++
+ testcases/kernel/watchqueue/common.h   | 149 +++++++++++++++++++++++++
+ testcases/kernel/watchqueue/wqueue01.c |  40 +++++++
+ 7 files changed, 217 insertions(+)
+ create mode 100644 runtest/watchqueue
+ create mode 100644 testcases/kernel/watchqueue/.gitignore
+ create mode 100644 testcases/kernel/watchqueue/Makefile
+ create mode 100644 testcases/kernel/watchqueue/common.h
+ create mode 100644 testcases/kernel/watchqueue/wqueue01.c
 
-diff --git a/include/lapi/watch_queue.h b/include/lapi/watch_queue.h
+diff --git a/runtest/watchqueue b/runtest/watchqueue
 new file mode 100644
-index 000000000..438e62239
+index 000000000..bd6b0a423
 --- /dev/null
-+++ b/include/lapi/watch_queue.h
-@@ -0,0 +1,112 @@
++++ b/runtest/watchqueue
+@@ -0,0 +1,9 @@
++wqueue01 wqueue01
++wqueue02 wqueue02
++wqueue03 wqueue03
++wqueue04 wqueue04
++wqueue05 wqueue05
++wqueue06 wqueue06
++wqueue07 wqueue07
++wqueue08 wqueue08
++wqueue09 wqueue09
+diff --git a/scenario_groups/default b/scenario_groups/default
+index 1dc2987d5..68bd5300d 100644
+--- a/scenario_groups/default
++++ b/scenario_groups/default
+@@ -30,3 +30,4 @@ cve
+ crypto
+ kernel_misc
+ uevent
++watchqueue
+diff --git a/testcases/kernel/Makefile b/testcases/kernel/Makefile
+index 4604f1f38..d44856c57 100644
+--- a/testcases/kernel/Makefile
++++ b/testcases/kernel/Makefile
+@@ -38,6 +38,7 @@ SUBDIRS			+= connectors \
+ 			   sound \
+ 			   tracing \
+ 			   uevents \
++			   watchqueue \
+ 
+ ifeq ($(WITH_POWER_MANAGEMENT_TESTSUITE),yes)
+ SUBDIRS			+= power_management
+diff --git a/testcases/kernel/watchqueue/.gitignore b/testcases/kernel/watchqueue/.gitignore
+new file mode 100644
+index 000000000..dcfcd8272
+--- /dev/null
++++ b/testcases/kernel/watchqueue/.gitignore
+@@ -0,0 +1,9 @@
++wqueue01
++wqueue02
++wqueue03
++wqueue04
++wqueue05
++wqueue06
++wqueue07
++wqueue08
++wqueue09
+diff --git a/testcases/kernel/watchqueue/Makefile b/testcases/kernel/watchqueue/Makefile
+new file mode 100644
+index 000000000..896d66d42
+--- /dev/null
++++ b/testcases/kernel/watchqueue/Makefile
+@@ -0,0 +1,8 @@
++# SPDX-License-Identifier: GPL-2.0-or-later
++
++top_srcdir			?= ../../..
++
++include $(top_srcdir)/include/mk/testcases.mk
++include $(top_srcdir)/include/mk/generic_leaf_target.mk
++
++LDLIBS += $(KEYUTILS_LIBS)
+diff --git a/testcases/kernel/watchqueue/common.h b/testcases/kernel/watchqueue/common.h
+new file mode 100644
+index 000000000..00d19b5bc
+--- /dev/null
++++ b/testcases/kernel/watchqueue/common.h
+@@ -0,0 +1,149 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
 +/*
 + * Copyright (C) 2021 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
++ */
++
++#ifndef WQUEUE_COMMON_H__
++#define WQUEUE_COMMON_H__
++
++#include "tst_test.h"
++#include "lapi/watch_queue.h"
++#include "lapi/keyctl.h"
++
++static struct watch_notification_filter wqueue_filter = {
++	.nr_filters	= 2,
++	.filters = {
++		[0]	= {
++			.type			= WATCH_TYPE_META,
++			.subtype_filter[0]	= UINT_MAX,
++		},
++		[1]	= {
++			.type			= WATCH_TYPE_KEY_NOTIFY,
++			.subtype_filter[0]	= UINT_MAX,
++		},
++	},
++};
++
++static inline int wqueue_key_event(struct watch_notification *n, size_t len, unsigned int wtype, int type)
++{
++	struct key_notification *k;
++	const char* msg;
++
++	if (wtype != WATCH_TYPE_KEY_NOTIFY)
++		return 0;
++
++	if (len != sizeof(struct key_notification))
++		tst_brk(TBROK, "Incorrect key message length");
++
++	switch (n->subtype) {
++		case NOTIFY_KEY_INSTANTIATED:
++			msg = "instantiated";
++			break;
++		case NOTIFY_KEY_UPDATED:
++			msg = "updated";
++			break;
++		case NOTIFY_KEY_LINKED:
++			msg = "linked";
++			break;
++		case NOTIFY_KEY_UNLINKED:
++			msg = "unlinked";
++			break;
++		case NOTIFY_KEY_CLEARED:
++			msg = "cleared";
++			break;
++		case NOTIFY_KEY_REVOKED:
++			msg = "revoked";
++			break;
++		case NOTIFY_KEY_INVALIDATED:
++			msg = "invalidated";
++			break;
++		case NOTIFY_KEY_SETATTR:
++			msg = "setattr";
++			break;
++		default:
++			msg = "Invalid notification";
++			break;
++	};
++
++	k = (struct key_notification *)n;
++	tst_res(TINFO, "KEY %08x change=%u[%s] aux=%u",
++		k->key_id, n->subtype, msg, k->aux);
++
++	if (n->subtype == type)
++		return 1;
++
++	return 0;
++}
++
++static inline key_serial_t wqueue_add_key(int fd)
++{
++	key_serial_t key;
++
++	key = add_key("user", "ltptestkey", "a", 1, KEY_SPEC_SESSION_KEYRING);
++	if (key == -1)
++		tst_brk(TBROK, "add_key error: %s", tst_strerrno(errno));
++
++	keyctl(KEYCTL_WATCH_KEY, key, fd, 0x01);
++	keyctl(KEYCTL_WATCH_KEY, KEY_SPEC_SESSION_KEYRING, fd, 0x02);
++
++	return key;
++}
++
++static inline int wqueue_watch(int buf_size, struct watch_notification_filter *filter)
++{
++	int pipefd[2];
++	int fd;
++
++	SAFE_PIPE2(pipefd, O_NOTIFICATION_PIPE);
++
++	fd = pipefd[0];
++
++	SAFE_IOCTL(fd, IOC_WATCH_QUEUE_SET_SIZE, buf_size);
++	SAFE_IOCTL(fd, IOC_WATCH_QUEUE_SET_FILTER, filter);
++
++	return fd;
++}
++
++typedef void (*wqueue_callback) (struct watch_notification *n, size_t len, unsigned int wtype);
++
++static void wqueue_consumer(int fd, wqueue_callback cb)
++{
++	unsigned char buffer[433], *p, *end;
++	union {
++		struct watch_notification n;
++		unsigned char buf1[128];
++	} n;
++	ssize_t buf_len;
++
++	tst_res(TINFO, "Reading watch queue events");
++
++	buf_len = SAFE_READ(0, fd, buffer, sizeof(buffer));
++
++	p = buffer;
++	end = buffer + buf_len;
++	while (p < end) {
++		size_t largest, len;
++
++		largest = end - p;
++		if (largest > 128)
++			largest = 128;
++
++		if (largest < sizeof(struct watch_notification))
++			tst_brk(TBROK, "Short message header: %zu", largest);
++
++		memcpy(&n, p, largest);
++
++		tst_res(TINFO, "NOTIFY[%03zx]: ty=%06x sy=%02x i=%08x",
++				p - buffer, n.n.type, n.n.subtype, n.n.info);
++
++		len = n.n.info & WATCH_INFO_LENGTH;
++		if (len < sizeof(n.n) || len > largest)
++			tst_brk(TBROK, "Bad message length: %zu/%zu", len, largest);
++
++		cb(&n.n, len, n.n.type);
++
++		p += len;
++	}
++}
++
++#endif
+diff --git a/testcases/kernel/watchqueue/wqueue01.c b/testcases/kernel/watchqueue/wqueue01.c
+new file mode 100644
+index 000000000..24c3908ce
+--- /dev/null
++++ b/testcases/kernel/watchqueue/wqueue01.c
+@@ -0,0 +1,40 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (C) 2021 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
++ */
++
++/*\
++ * [Description]
 + *
-+ * This file is created to resolve conflicts between user space and kernel
-+ * space fctnl.h declaration. linux/watch_queue.h is not handled, since
-+ * user space fcntl.h redefines kernel space structures.
++ * Test if keyctl update is correctly recognized by watch queue.
 + */
 +
-+#ifndef LAPI_WATCH_QUEUE_H__
-+#define LAPI_WATCH_QUEUE_H__
++#include "tst_test.h"
++#include "lapi/keyctl.h"
++#include "common.h"
 +
-+#include <stdint.h>
-+#include "lapi/ioctl.h"
-+#include "lapi/fcntl.h"
++static void saw_key_updated(struct watch_notification *n, size_t len, unsigned int wtype)
++{
++	if (wqueue_key_event(n, len, wtype, NOTIFY_KEY_UPDATED))
++		tst_res(TPASS, "keyctl update has been recognized");
++	else
++		tst_res(TFAIL, "keyctl update has not been recognized");
++}
 +
-+#define O_NOTIFICATION_PIPE	O_EXCL	/* Parameter to pipe2() selecting notification pipe */
++static void run(void)
++{
++	int fd;
++	key_serial_t key;
 +
-+#define IOC_WATCH_QUEUE_SET_SIZE	_IO('W', 0x60)	/* Set the size in pages */
-+#define IOC_WATCH_QUEUE_SET_FILTER	_IO('W', 0x61)	/* Set the filter */
++	fd = wqueue_watch(256, &wqueue_filter);
++	key = wqueue_add_key(fd);
 +
-+enum watch_notification_type {
-+	WATCH_TYPE_META		= 0,	/* Special record */
-+	WATCH_TYPE_KEY_NOTIFY	= 1,	/* Key change event notification */
-+	WATCH_TYPE__NR		= 2
++	keyctl(KEYCTL_UPDATE, key, "b", 1);
++	wqueue_consumer(fd, saw_key_updated);
++
++	SAFE_CLOSE(fd);
++}
++
++static struct tst_test test = {
++	.test_all = run,
 +};
-+
-+enum watch_meta_notification_subtype {
-+	WATCH_META_REMOVAL_NOTIFICATION	= 0,	/* Watched object was removed */
-+	WATCH_META_LOSS_NOTIFICATION	= 1,	/* Data loss occurred */
-+};
-+
-+/*
-+ * Notification record header.  This is aligned to 64-bits so that subclasses
-+ * can contain __u64 fields.
-+ */
-+struct watch_notification {
-+	uint32_t			type:24;	/* enum watch_notification_type */
-+	uint32_t			subtype:8;	/* Type-specific subtype (filterable) */
-+	uint32_t			info;
-+#define WATCH_INFO_LENGTH	0x0000007f	/* Length of record */
-+#define WATCH_INFO_LENGTH__SHIFT 0
-+#define WATCH_INFO_ID		0x0000ff00	/* ID of watchpoint */
-+#define WATCH_INFO_ID__SHIFT	8
-+#define WATCH_INFO_TYPE_INFO	0xffff0000	/* Type-specific info */
-+#define WATCH_INFO_TYPE_INFO__SHIFT 16
-+#define WATCH_INFO_FLAG_0	0x00010000	/* Type-specific info, flag bit 0 */
-+#define WATCH_INFO_FLAG_1	0x00020000	/* ... */
-+#define WATCH_INFO_FLAG_2	0x00040000
-+#define WATCH_INFO_FLAG_3	0x00080000
-+#define WATCH_INFO_FLAG_4	0x00100000
-+#define WATCH_INFO_FLAG_5	0x00200000
-+#define WATCH_INFO_FLAG_6	0x00400000
-+#define WATCH_INFO_FLAG_7	0x00800000
-+};
-+
-+/*
-+ * Notification filtering rules (IOC_WATCH_QUEUE_SET_FILTER).
-+ */
-+struct watch_notification_type_filter {
-+	uint32_t	type;			/* Type to apply filter to */
-+	uint32_t	info_filter;		/* Filter on watch_notification::info */
-+	uint32_t	info_mask;		/* Mask of relevant bits in info_filter */
-+	uint32_t	subtype_filter[8];	/* Bitmask of subtypes to filter on */
-+};
-+
-+struct watch_notification_filter {
-+	uint32_t	nr_filters;		/* Number of filters */
-+	uint32_t	__reserved;		/* Must be 0 */
-+	struct watch_notification_type_filter filters[];
-+};
-+
-+
-+/*
-+ * Extended watch removal notification.  This is used optionally if the type
-+ * wants to indicate an identifier for the object being watched, if there is
-+ * such.  This can be distinguished by the length.
-+ *
-+ * type -> WATCH_TYPE_META
-+ * subtype -> WATCH_META_REMOVAL_NOTIFICATION
-+ */
-+struct watch_notification_removal {
-+	struct watch_notification watch;
-+	uint64_t	id;		/* Type-dependent identifier */
-+};
-+
-+/*
-+ * Type of key/keyring change notification.
-+ */
-+enum key_notification_subtype {
-+	NOTIFY_KEY_INSTANTIATED	= 0, /* Key was instantiated (aux is error code) */
-+	NOTIFY_KEY_UPDATED	= 1, /* Key was updated */
-+	NOTIFY_KEY_LINKED	= 2, /* Key (aux) was added to watched keyring */
-+	NOTIFY_KEY_UNLINKED	= 3, /* Key (aux) was removed from watched keyring */
-+	NOTIFY_KEY_CLEARED	= 4, /* Keyring was cleared */
-+	NOTIFY_KEY_REVOKED	= 5, /* Key was revoked */
-+	NOTIFY_KEY_INVALIDATED	= 6, /* Key was invalidated */
-+	NOTIFY_KEY_SETATTR	= 7, /* Key's attributes got changed */
-+};
-+
-+/*
-+ * Key/keyring notification record.
-+ * - watch.type = WATCH_TYPE_KEY_NOTIFY
-+ * - watch.subtype = enum key_notification_type
-+ */
-+struct key_notification {
-+	struct watch_notification watch;
-+	uint32_t	key_id;		/* The key/keyring affected */
-+	uint32_t	aux;		/* Per-type auxiliary data */
-+};
-+
-+#endif /* LAPI_WATCH_QUEUE_H__ */
 -- 
 2.34.1
 
