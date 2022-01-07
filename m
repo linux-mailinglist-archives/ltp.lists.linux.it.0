@@ -1,64 +1,65 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id D56CD487610
-	for <lists+linux-ltp@lfdr.de>; Fri,  7 Jan 2022 12:00:26 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DA70487612
+	for <lists+linux-ltp@lfdr.de>; Fri,  7 Jan 2022 12:00:47 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id BDFED3C8E78
-	for <lists+linux-ltp@lfdr.de>; Fri,  7 Jan 2022 12:00:25 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id BA1DD3C81A3
+	for <lists+linux-ltp@lfdr.de>; Fri,  7 Jan 2022 12:00:46 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id CB69F3C12CF
+ by picard.linux.it (Postfix) with ESMTPS id 48C453C7730
  for <ltp@lists.linux.it>; Fri,  7 Jan 2022 11:59:18 +0100 (CET)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 3D38A2009FB
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 8049F60071F
  for <ltp@lists.linux.it>; Fri,  7 Jan 2022 11:59:18 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id E0DEB212BE;
- Fri,  7 Jan 2022 10:59:17 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 20AEA212BF;
+ Fri,  7 Jan 2022 10:59:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1641553157; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1641553158; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=ixlDRTX+YI9pZi4ltSNc4zVHRnaf/GTTytcAjtVcCMQ=;
- b=rlRaccaDa5fU+ax3/7jwoHQXXHbgWgx+EB7deycZ935QhlnjTA0dVo1fgt8CYvntKOhTqO
- Phv6P+3fNopHh+d58bGsbOBCCPthxWeF7v7AEl4QxWqHsOkPL9fb/G/d4VKQaDGPQRrOIh
- TDC0I4dRB3ypxQufWf7jVoUA4bmH0hs=
+ bh=sOZHvp1mpmRdFrYYtmJ92o5oBKfx5jRS9VwWniof5TM=;
+ b=QVq+SRoruyU2Qo0V6bjziy3LHrcvOi8aPzwJI1lANSVMsxFN5jjl4WFMAP052WOg6mjNT2
+ luHdvUd/7pLpQwIu8Mpba8dZzlGHY0cIcCfAdaJ+38Tj/R+KWNxZ/MN8ZKfEngf840zoRj
+ rpXq+hX4mdsiZo8+x16rnI8+2wC74go=
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id BB54013CCC;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id EDA1D13CCC;
  Fri,  7 Jan 2022 10:59:17 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id GC7AKwUd2GExFwAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id 4N31NwUd2GExFwAAMHmgww
  (envelope-from <andrea.cervesato@suse.com>); Fri, 07 Jan 2022 10:59:17 +0000
 To: ltp@lists.linux.it
-Date: Fri,  7 Jan 2022 11:59:09 +0100
-Message-Id: <20220107105913.29036-7-andrea.cervesato@suse.com>
+Date: Fri,  7 Jan 2022 11:59:10 +0100
+Message-Id: <20220107105913.29036-8-andrea.cervesato@suse.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220107105913.29036-1-andrea.cervesato@suse.com>
 References: <20220107105913.29036-1-andrea.cervesato@suse.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 06/10] Add wqueue05 test
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 07/10] Add wqueue06 test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,44 +78,44 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This test is testing NOTIFY_KEY_INVALIDATED event
+This test is testing NOTIFY_KEY_CLEARED event
 
 Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
 ---
  runtest/watchqueue                     |  1 +
  testcases/kernel/watchqueue/.gitignore |  3 +-
- testcases/kernel/watchqueue/wqueue05.c | 41 ++++++++++++++++++++++++++
- 3 files changed, 44 insertions(+), 1 deletion(-)
- create mode 100644 testcases/kernel/watchqueue/wqueue05.c
+ testcases/kernel/watchqueue/wqueue06.c | 40 ++++++++++++++++++++++++++
+ 3 files changed, 43 insertions(+), 1 deletion(-)
+ create mode 100644 testcases/kernel/watchqueue/wqueue06.c
 
 diff --git a/runtest/watchqueue b/runtest/watchqueue
-index cd897f4b4..596d45154 100644
+index 596d45154..de086b6a7 100644
 --- a/runtest/watchqueue
 +++ b/runtest/watchqueue
-@@ -2,3 +2,4 @@ wqueue01 wqueue01
- wqueue02 wqueue02
+@@ -3,3 +3,4 @@ wqueue02 wqueue02
  wqueue03 wqueue03
  wqueue04 wqueue04
-+wqueue05 wqueue05
+ wqueue05 wqueue05
++wqueue06 wqueue06
 diff --git a/testcases/kernel/watchqueue/.gitignore b/testcases/kernel/watchqueue/.gitignore
-index 469efd595..d3e563a04 100644
+index d3e563a04..c3253f684 100644
 --- a/testcases/kernel/watchqueue/.gitignore
 +++ b/testcases/kernel/watchqueue/.gitignore
-@@ -1,4 +1,5 @@
- wqueue01
+@@ -2,4 +2,5 @@ wqueue01
  wqueue02
  wqueue03
--wqueue04
+ wqueue04
+-wqueue05
 \ No newline at end of file
-+wqueue04
 +wqueue05
++wqueue06
 \ No newline at end of file
-diff --git a/testcases/kernel/watchqueue/wqueue05.c b/testcases/kernel/watchqueue/wqueue05.c
+diff --git a/testcases/kernel/watchqueue/wqueue06.c b/testcases/kernel/watchqueue/wqueue06.c
 new file mode 100644
-index 000000000..561778891
+index 000000000..5b3a72b87
 --- /dev/null
-+++ b/testcases/kernel/watchqueue/wqueue05.c
-@@ -0,0 +1,41 @@
++++ b/testcases/kernel/watchqueue/wqueue06.c
+@@ -0,0 +1,40 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
 +/*
 + * Copyright (C) 2021 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
@@ -123,31 +124,30 @@ index 000000000..561778891
 +/*\
 + * [Description]
 + *
-+ * Test if keyctl invalidate is correctly recognized by watch queue.
++ * Test if keyctl clear is correctly recognized by watch queue.
 + */
 +
 +#include "tst_test.h"
 +#include "lapi/keyctl.h"
 +#include "common.h"
 +
-+static void saw_key_invalidated(struct watch_notification *n, size_t len, unsigned int wtype)
++static void saw_key_cleared(struct watch_notification *n, size_t len, unsigned int wtype)
 +{
-+	if (wqueue_key_event(n, len, wtype, NOTIFY_KEY_INVALIDATED))
-+		tst_res(TPASS, "keyctl invalidate has been recognized");
++	if (wqueue_key_event(n, len, wtype, NOTIFY_KEY_CLEARED))
++		tst_res(TPASS, "keyctl clear has been recognized");
 +	else
-+		tst_res(TFAIL, "keyctl invalidate has not been recognized");
++		tst_res(TFAIL, "keyctl clear has not been recognized");
 +}
 +
 +static void run(void)
 +{
 +	int fd;
-+	key_serial_t key;
 +
 +	fd = wqueue_watch(256, &wqueue_filter);
-+	key = wqueue_add_key(fd);
++	wqueue_add_key(fd);
 +
-+	keyctl(KEYCTL_INVALIDATE, key);
-+	wqueue_consumer(fd, saw_key_invalidated);
++	keyctl(KEYCTL_CLEAR, KEY_SPEC_SESSION_KEYRING);
++	wqueue_consumer(fd, saw_key_cleared);
 +
 +	SAFE_CLOSE(fd);
 +}
