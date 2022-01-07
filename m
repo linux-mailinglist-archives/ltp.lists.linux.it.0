@@ -2,73 +2,56 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 770AD487E30
-	for <lists+linux-ltp@lfdr.de>; Fri,  7 Jan 2022 22:23:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73C30487F12
+	for <lists+linux-ltp@lfdr.de>; Fri,  7 Jan 2022 23:49:11 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0BC9B3C2116
-	for <lists+linux-ltp@lfdr.de>; Fri,  7 Jan 2022 22:23:08 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id F41A13C8FD0
+	for <lists+linux-ltp@lfdr.de>; Fri,  7 Jan 2022 23:49:10 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 31FF33C8850
- for <ltp@lists.linux.it>; Fri,  7 Jan 2022 22:21:22 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id 36FFB3C73DA
+ for <ltp@lists.linux.it>; Fri,  7 Jan 2022 23:49:08 +0100 (CET)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id CA8466005DB
- for <ltp@lists.linux.it>; Fri,  7 Jan 2022 22:21:21 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id C8BF5100096E
+ for <ltp@lists.linux.it>; Fri,  7 Jan 2022 23:49:07 +0100 (CET)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 6ED38212BE;
- Fri,  7 Jan 2022 21:21:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1641590481; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=r8dbMHZqI08WJBAgemzVhkLhZ3EWRPCFMhmTDwRu2Bc=;
- b=UAq0FKgapB07PToMUMbcNAyhMsxefHOu+HE38l8xP21ppIkXhCPwSx9T6rkjuvOMkaWyMP
- 7/opQ1XxtEJVuSe5J43OGhM7+qOPu24oNrV7dR1ps7j87WUJA1bGI8WlQjTAPUn47vucpq
- 13+AX2KQc7o8SGwkr3Dl/bZ+u3ZaA4o=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1641590481;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=r8dbMHZqI08WJBAgemzVhkLhZ3EWRPCFMhmTDwRu2Bc=;
- b=DDw3Abmudvf5ka4Pk0BO3/5v4gDj0c8KfwzP2SwNFranUQlGmtNonn16LEHfxqKfKpjCVP
- HEIZ9kFER+w2+TDA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4790B13D44;
- Fri,  7 Jan 2022 21:21:21 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id ADhtD9Gu2GEHFwAAMHmgww
- (envelope-from <andrea.cervesato@suse.de>); Fri, 07 Jan 2022 21:21:21 +0000
-From: Andrea Cervesato <andrea.cervesato@suse.de>
-To: ltp@lists.linux.it
-Date: Fri,  7 Jan 2022 22:20:58 +0100
-Message-Id: <20220107212058.19768-12-andrea.cervesato@suse.de>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220107212058.19768-1-andrea.cervesato@suse.de>
-References: <20220107212058.19768-1-andrea.cervesato@suse.de>
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 1AB4161F84;
+ Fri,  7 Jan 2022 22:49:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A920C36AE5;
+ Fri,  7 Jan 2022 22:49:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1641595744;
+ bh=ViSqgQgJuvP+htaIPnhi8An9uFQEuN9qNJ/GiLYWh+8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=X1oCrg9LFE1Jvd6RAH9k2xELL+kLGarb8CZsayVgHdtMIvEHSd954rjT0/h/vgDkJ
+ MpYyr7hl6H4CWPGTx3439RkplHvCY55qpaVJGndfucNbQvIn9Iymj+K7GLh5rKCoks
+ d69kq4uXX0gwXguQeQwuZZi9TBwkdprAMFqRI+VRr2pZ7cDz36FN2y8wgYijT3hrBd
+ rB6bCFVMEQD+XgWq4ccMp2s2ysLS/5o77YvCIFS6hR2MRwFL8gefSwCApG83MM8NYS
+ dVCkXbrZKfnNSsUpWsFw414UvdLkMmk72imthqc/e5G+iz3NR6iPW9GkuY5dfulAMf
+ Z6pGm4B+hGWhA==
+Date: Fri, 7 Jan 2022 14:49:02 -0800
+From: Eric Biggers <ebiggers@kernel.org>
+To: kernel test robot <oliver.sang@intel.com>
+Message-ID: <YdjDXiXYjQMJnr/c@sol.localdomain>
+References: <20211226132851.GC34518@xsang-OptiPlex-9020>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20211226132851.GC34518@xsang-OptiPlex-9020>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH v4 11/11] Add wqueue09 test
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [f2fs]  a1e09b03e6: ltp.ADSP024.fail
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,80 +63,43 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: lkp@intel.com, lkp@lists.01.org, LKML <linux-kernel@vger.kernel.org>,
+ Linux Memory Management List <linux-mm@kvack.org>,
+ Jaegeuk Kim <jaegeuk@kernel.org>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This test is testing WATCH_META_LOSS_NOTIFICATION event
+On Sun, Dec 26, 2021 at 09:28:52PM +0800, kernel test robot wrote:
+> 
+> 
+> Greeting,
+> 
+> FYI, we noticed the following commit (built with gcc-9):
+> 
+> commit: a1e09b03e6f5c1d713c88259909137c0fd264ede ("f2fs: use iomap for direct I/O")
+> https://git.kernel.org/cgit/linux/kernel/git/next/linux-next.git master
+> 
+> in testcase: ltp
+> version: ltp-x86_64-14c1f76-1_20211221
+> with following parameters:
+> 
+> 	disk: 1HDD
+> 	fs: f2fs
+> 	test: ltp-aiodio.part2
+> 	ucode: 0x21
+> 
 
-Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.de>
----
- testcases/kernel/watchqueue/wqueue09.c | 52 ++++++++++++++++++++++++++
- 1 file changed, 52 insertions(+)
- create mode 100644 testcases/kernel/watchqueue/wqueue09.c
+This is caused by an f2fs bug where it exposes DIO-allocated blocks to users
+before they have been initialized.  This test actually fails both before and
+after my commit "f2fs: use iomap for direct I/O".  It is nondeterministic, which
+is why it may have appeared to be a regression.
 
-diff --git a/testcases/kernel/watchqueue/wqueue09.c b/testcases/kernel/watchqueue/wqueue09.c
-new file mode 100644
-index 000000000..ac49bb8a0
---- /dev/null
-+++ b/testcases/kernel/watchqueue/wqueue09.c
-@@ -0,0 +1,52 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (C) 2021 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
-+ */
-+
-+/*\
-+ * [Description]
-+ *
-+ * Fill the watch queue and wait for a notification loss.
-+ */
-+
-+#include "tst_test.h"
-+#include "lapi/keyctl.h"
-+#include "common.h"
-+
-+static int data_lost;
-+
-+static void saw_data_loss(struct watch_notification *n, LTP_ATTRIBUTE_UNUSED size_t len, unsigned int wtype)
-+{
-+	if (wtype != WATCH_TYPE_META)
-+		return;
-+
-+	if (n->subtype == WATCH_META_LOSS_NOTIFICATION)
-+		data_lost = 1;
-+}
-+
-+static void run(void)
-+{
-+	int fd;
-+	key_serial_t key;
-+
-+	fd = wqueue_watch(1, &wqueue_filter);
-+
-+	key = wqueue_add_key(fd);
-+	keyctl(KEYCTL_UPDATE, key, "b", 1);
-+	keyctl(KEYCTL_REVOKE, key);
-+
-+	data_lost = 0;
-+	while (!data_lost)
-+		wqueue_consumer(fd, saw_data_loss);
-+
-+	SAFE_CLOSE(fd);
-+
-+	if (data_lost)
-+		tst_res(TPASS, "Meta loss notification received");
-+	else
-+		tst_res(TFAIL, "Event not recognized");
-+}
-+
-+static struct tst_test test = {
-+	.test_all = run,
-+};
--- 
-2.34.1
+I'll start a separate discussion on linux-f2fs-devel about this, since this
+thread has too many irrelevant mailing lists and this has been discussed before.
 
+- Eric
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
