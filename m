@@ -1,98 +1,100 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E7F3489029
-	for <lists+linux-ltp@lfdr.de>; Mon, 10 Jan 2022 07:25:24 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E52848902B
+	for <lists+linux-ltp@lfdr.de>; Mon, 10 Jan 2022 07:25:45 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id EF61F3C9390
-	for <lists+linux-ltp@lfdr.de>; Mon, 10 Jan 2022 07:25:23 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 6AE003C936C
+	for <lists+linux-ltp@lfdr.de>; Mon, 10 Jan 2022 07:25:44 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id AB8283C6AAF
+ by picard.linux.it (Postfix) with ESMTPS id 0C2813C6AAF
  for <ltp@lists.linux.it>; Mon, 10 Jan 2022 07:25:18 +0100 (CET)
 Received: from mail3.bemta32.messagelabs.com (mail3.bemta32.messagelabs.com
- [195.245.230.81])
+ [195.245.230.18])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 94E5D2002D8
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id A61F8600A35
  for <ltp@lists.linux.it>; Mon, 10 Jan 2022 07:25:17 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fujitsu.com;
  s=170520fj; t=1641795916; i=@fujitsu.com;
- bh=H7h9hyVQ5xHHBPijxfY5wnBIqYlAfwrRHD5jrSsM5SY=;
+ bh=bodRrEzzud5z/JeZEdyMJOM2Zk3A8rBgFoShFUWnA2Y=;
  h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
  MIME-Version:Content-Type;
- b=KRORsuOB8z3eR9/08LSp4Zd4HpedhDRhDOXc4/YXlwhWyptZcVh09q1jjmKC8r/n0
- 5WlZ8tlB4pJgtGw+CMriJt+z1vdjfnuKNa7GtAOvmE1Vitw7rI9MDEm/2vJj1HbJZo
- 2gU84BqQZQFI0ESt8ua0naJQtSF4wW9zhXlP5OOc7VjfxBb0UqTGdECCJZKeNbWtgN
- NgsWBLyK+aF65BXEsuK9zJZT4Szo1NS5CYVBtOnwXubLTcgxKHLTlSoQ2Rcpw2ygRe
- v6uzKeRLDgGElNW+74T52PZIXIe6SvwPo8ImNjT2DZ3K9hZeI17URgU+2GNRtwCkyH
- mLggDi7NaBwOQ==
+ b=eM3d7NEgjLRE1cOGEaIp/1mNDm8Iwddf8J1rYJKsiy/ZUz3FAhBDJVLxdm6obpeNR
+ L/U/Uvd00U3NkeLOIBqjVEwJ5OUEwcj0CsR9CgSK1gA5KTNGnJwYLVHD7bikyIjGZ/
+ 8eSamM8osW96Axknfk5nbXlEXluN5xqy7/b61J0iQHyC/zUw8C7Vd2i732UPHsZlHJ
+ ydFrC4qVS94rdhNOmYpgJqQPWVQ19jjM8XIwxYLybJeDhhpuYTgNjiBTUr+wrhck5z
+ /FG0zu9EYTurn83r05xNo3LiMZsZek2FIqgR2jdQ1ddM630WZd8xftDOVVIpXNXFdW
+ UVPraaEM02cIA==
 Received: from [100.115.5.195] (using TLSv1.2 with cipher
  DHE-RSA-AES256-GCM-SHA384 (256 bits))
- by server-3.bemta.az-a.eu-west-1.aws.ess.symcld.net id 0A/C7-13695-C41DBD16;
+ by server-2.bemta.az-a.eu-west-1.aws.ess.symcld.net id E5/BF-10124-C41DBD16;
  Mon, 10 Jan 2022 06:25:16 +0000
 X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFjrFIsWRWlGSWpSXmKPExsViZ8ORqOtz8Xa
- iwfWNwhYrvu9gdGD02Pd7HWsAYxRrZl5SfkUCa8akKTPYCqaKV0x+W9zAuF64i5GLQ0jgLKPE
- wtULmSCcnUwSyy9chnL2MEpM6DrF1sXIycEmoCnxrHMBM4gtIiAh0dHwlh3EZhZQl1g+6RcTi
- C0sECuxpWU3I4jNIqAqseVSF1gNr4CHxKHZE8BsCQEFiSkP34PN4RRQkfjRvwSsV0hAWeLQq5
- 1Q9YISJ2c+YYGYLyFx8MULZoheRYlLHd8YIewKiVmz2pggbDWJq+c2MU9gFJyFpH0WkvYFjEy
- rGK2SijLTM0pyEzNzdA0NDHQNDU11TXWNjI31Eqt0E/VSS3XLU4tLdA31EsuL9VKLi/WKK3OT
- c1L08lJLNjECgzilmPXlDsbpfT/1DjFKcjApifLuO387UYgvKT+lMiOxOCO+qDQntfgQowwHh
- 5IEr94BoJxgUWp6akVaZg4womDSEhw8SiK8EeeA0rzFBYm5xZnpEKlTjIpS4rzHQWYKgCQySv
- Pg2mBRfIlRVkqYl5GBgUGIpyC1KDezBFX+FaM4B6OSMO9hkCk8mXklcNNfAS1mAlqczAG2uCQ
- RISXVwMS6Z6PmxeCd2msXGRmmvpZ+nJEkMfXI02+X/reV7X7/0Cvg1e6+t+tt1+YHues9+1hw
- 991Dnktx3G7p886mOW4r3XJiZ6VaTGKY10uOt3OMdk84a7C++HnP3xXxBc/in2g8EVT/rxR6Y
- foZ99+lEqt/MBvNOup0Ueh7isD1rBdFdZXneHIC5p/Yu/L4j0tSFS2PkvIOGn5bvCi1vuyKSd
- 1z79Opsyxec7B213D9K3hQNGXG6qsyhhOUglrVN/lXJxj0z948KUS18r6a0bcrWid7vE68Xfl
- DQIfjeU9cvfijoGPt19sSGlVOOZx+J7vCZtlq1z2neCT3/V+3hG3bmb3CxyfKsYlPeeD9MHL2
- oc7/SizFGYmGWsxFxYkAyErRWV0DAAA=
+ iwc23QhYrvu9gdGD02Pd7HWsAYxRrZl5SfkUCa8aa/zPYC06IV5yftIi9gXGLcBcjF4eQwFlG
+ idOvFrJDODuZJBqPNrBBOHsYJf4+PgyU4eRgE9CUeNa5gBnEFhGQkOhoeAsWZxZQl1g+6RdTF
+ yMHh7CAn8S2abogYRYBVYnPa5azgdi8Ah4S6+9dZwKxJQQUJKY8fA82hlPAU+L2vOksILaQQK
+ LE2x+9zBD1ghInZz5hgRgvIXHwxQtmiF5FiUsd3xgh7AqJWbPaoGaqSVw9t4l5AqPgLCTts5C
+ 0L2BkWsVolVSUmZ5RkpuYmaNraGCga2hoqmuqa2RkrpdYpZuol1qqW55aXKJrqJdYXqyXWlys
+ V1yZm5yTopeXWrKJERjEKcWsj3cwrun7qXeIUZKDSUmUd9/524lCfEn5KZUZicUZ8UWlOanFh
+ xhlODiUJHj1DgDlBItS01Mr0jJzgBEFk5bg4FES4Y04B5TmLS5IzC3OTIdInWJUlBLnPQ4yUw
+ AkkVGaB9cGi+JLjLJSwryMDAwMQjwFqUW5mSWo8q8YxTkYlYR5D4NM4cnMK4Gb/gpoMRPQ4mQ
+ OsMUliQgpqQam+MnbYv7d1Zypv1DZfHq6iYnefEdJEd5ZT7pc2zfMf3SuQFGwds7WV1vD7Q59
+ CNdv/fbp6+WguuenrjbNr2G2FLA/kLnkw8M3Lz71HD81dQHXr1f1R7Luq8QwXnwSnFNR9VZ7m
+ /x8t5K0v6cr3qhUH/rnJcW+x22f7uwta8/PrEsNOS6zmf3nn4y+17se90t9P8s8jXVRe7mPdG
+ OJqmH6HQbjPynHlii8vCkZW3InLi5u4uy5R49Y8jXUpD7dpZX8Kqfy4z+9/q65q75xzXCUiLD
+ keiVhvdW+ad6czX8Ylnx9dYll/uwSprW5DtfzozvSw9YFPH8vru7SH7fhTt+7p7ueWfqLXBGO
+ MbtV49ctp8RSnJFoqMVcVJwIAJDD6rldAwAA
 X-Env-Sender: xuyang2018.jy@fujitsu.com
-X-Msg-Ref: server-16.tower-585.messagelabs.com!1641795916!211381!1
+X-Msg-Ref: server-4.tower-585.messagelabs.com!1641795916!228777!1
 X-Originating-IP: [62.60.8.97]
 X-SYMC-ESS-Client-Auth: outbound-route-from=pass
 X-StarScan-Received: 
 X-StarScan-Version: 9.81.7; banners=-,-,-
 X-VirusChecked: Checked
-Received: (qmail 6773 invoked from network); 10 Jan 2022 06:25:16 -0000
+Received: (qmail 28286 invoked from network); 10 Jan 2022 06:25:16 -0000
 Received: from unknown (HELO n03ukasimr01.n03.fujitsu.local) (62.60.8.97)
- by server-16.tower-585.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
+ by server-4.tower-585.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
  encrypted SMTP; 10 Jan 2022 06:25:16 -0000
 Received: from n03ukasimr01.n03.fujitsu.local (localhost [127.0.0.1])
- by n03ukasimr01.n03.fujitsu.local (Postfix) with ESMTP id CA5531001A7
+ by n03ukasimr01.n03.fujitsu.local (Postfix) with ESMTP id C0EFB100188
  for <ltp@lists.linux.it>; Mon, 10 Jan 2022 06:25:15 +0000 (GMT)
 Received: from R01UKEXCASM126.r01.fujitsu.local (unknown [10.183.43.178])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by n03ukasimr01.n03.fujitsu.local (Postfix) with ESMTPS id B611E10019A
+ by n03ukasimr01.n03.fujitsu.local (Postfix) with ESMTPS id B48F8100199
  for <ltp@lists.linux.it>; Mon, 10 Jan 2022 06:25:15 +0000 (GMT)
 Received: from localhost.localdomain (10.167.220.84) by
  R01UKEXCASM126.r01.fujitsu.local (10.183.43.178) with Microsoft SMTP Server
- (TLS) id 15.0.1497.26; Mon, 10 Jan 2022 06:09:36 +0000
+ (TLS) id 15.0.1497.26; Mon, 10 Jan 2022 06:09:39 +0000
 From: Yang Xu <xuyang2018.jy@fujitsu.com>
 To: <ltp@lists.linux.it>
-Date: Mon, 10 Jan 2022 09:49:06 +0800
-Message-ID: <1641779349-8424-1-git-send-email-xuyang2018.jy@fujitsu.com>
+Date: Mon, 10 Jan 2022 09:49:07 +0800
+Message-ID: <1641779349-8424-2-git-send-email-xuyang2018.jy@fujitsu.com>
 X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <YdbQmTJK73804UYT@yuki>
+In-Reply-To: <1641779349-8424-1-git-send-email-xuyang2018.jy@fujitsu.com>
 References: <YdbQmTJK73804UYT@yuki>
+ <1641779349-8424-1-git-send-email-xuyang2018.jy@fujitsu.com>
 MIME-Version: 1.0
 X-Originating-IP: [10.167.220.84]
 X-ClientProxiedBy: G08CNEXCHPEKD07.g08.fujitsu.local (10.167.33.80) To
  R01UKEXCASM126.r01.fujitsu.local (10.183.43.178)
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=1.2 required=7.0 tests=DATE_IN_PAST_03_06, DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
 X-Spam-Level: *
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH v3 1/4] lib/tst_kconfig: Modify the return type of
- tst_kconfig_check function
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH v3 2/4] lib: Introduce KCONFIG_SKIP_CHECK environment
+ variable
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,92 +111,86 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-So this function can be used to detect whether the function succeeded in shell
-api by its return value.
+This environment variable is designed to add kernel config check functionality
+switch. So we can skip kconfig check completely and it is useful especially
+for the embedded platforms that they don't have kernel config.
 
-Reviewed-by: Petr Vorel <petr.vorel@gmail.com>
 Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
 ---
- include/tst_kconfig.h | 5 +++--
- lib/tst_kconfig.c     | 9 ++++-----
- lib/tst_test.c        | 4 ++--
- 3 files changed, 9 insertions(+), 9 deletions(-)
+ doc/user-guide.txt |  1 +
+ lib/tst_kconfig.c  | 20 ++++++++++++++++++++
+ lib/tst_test.c     |  1 +
+ 3 files changed, 22 insertions(+)
 
-diff --git a/include/tst_kconfig.h b/include/tst_kconfig.h
-index 1bb21fea8..cc0908ea8 100644
---- a/include/tst_kconfig.h
-+++ b/include/tst_kconfig.h
-@@ -44,7 +44,8 @@ void tst_kconfig_read(struct tst_kconfig_var vars[], size_t vars_len);
- 
- /**
-  * Checks if required kernel configuration options are set in the kernel
-- * config and exits the test with TCONF if at least one is missing.
-+ * config. Return 0 if every config is satisfied and return 1 if at least
-+ * one is missing.
-  *
-  * The config options can be passed in two different formats, either
-  * "CONFIG_FOO" in which case the option has to be set in order to continue the
-@@ -53,6 +54,6 @@ void tst_kconfig_read(struct tst_kconfig_var vars[], size_t vars_len);
-  *
-  * @param kconfigs NULL-terminated array of config strings needed for the testrun.
-  */
--void tst_kconfig_check(const char *const kconfigs[]);
-+int tst_kconfig_check(const char *const kconfigs[]);
- 
- #endif	/* TST_KCONFIG_H__ */
+diff --git a/doc/user-guide.txt b/doc/user-guide.txt
+index 494652618..864467f60 100644
+--- a/doc/user-guide.txt
++++ b/doc/user-guide.txt
+@@ -10,6 +10,7 @@ For running LTP network tests see `testcases/network/README.md`.
+ |==============================================================================
+ | 'KCONFIG_PATH'        | The path to the kernel config file, (if not set, it tries
+                           the usual paths '/boot/config-RELEASE' or '/proc/config.gz').
++| 'KCONFIG_SKIP_CHECK'  | Skip kernel config check, the default is empty(don't skip).
+ | 'LTPROOT'             | Prefix for installed LTP, the default is '/opt/ltp'.
+ | 'LTP_COLORIZE_OUTPUT' | Force colorized output behaviour. 'y' or '1': always colorize
+                           'n' or '0': never colorize.
 diff --git a/lib/tst_kconfig.c b/lib/tst_kconfig.c
-index d433b8cf6..7d7aecfc1 100644
+index 7d7aecfc1..e4264101d 100644
 --- a/lib/tst_kconfig.c
 +++ b/lib/tst_kconfig.c
-@@ -478,12 +478,12 @@ static void dump_vars(const struct tst_expr *expr)
- 	}
- }
+@@ -15,6 +15,16 @@
+ #include "tst_kconfig.h"
+ #include "tst_bool_expr.h"
  
--void tst_kconfig_check(const char *const kconfigs[])
-+int tst_kconfig_check(const char *const kconfigs[])
++static int kconfig_check_skipped(void)
++{
++	char *skipped = getenv("KCONFIG_SKIP_CHECK");
++
++	if (skipped)
++		return 1;
++
++	return 0;
++}
++
+ static const char *kconfig_path(char *path_buf, size_t path_buf_len)
  {
- 	size_t expr_cnt = array_len(kconfigs);
- 	struct tst_expr *exprs[expr_cnt];
+ 	const char *path = getenv("KCONFIG_PATH");
+@@ -485,6 +495,11 @@ int tst_kconfig_check(const char *const kconfigs[])
  	unsigned int i, var_cnt;
--	int abort_test = 0;
-+	int ret = 0;
+ 	int ret = 0;
  
++	if (kconfig_check_skipped()) {
++		tst_res(TINFO, "Skipping kernel config check as requested");
++		return 0;
++	}
++
  	for (i = 0; i < expr_cnt; i++) {
  		exprs[i] = tst_bool_expr_parse(kconfigs[i]);
-@@ -506,7 +506,7 @@ void tst_kconfig_check(const char *const kconfigs[])
- 		int val = tst_bool_expr_eval(exprs[i], map);
  
- 		if (val != 1) {
--			abort_test = 1;
-+			ret = 1;
- 			tst_res(TINFO, "Constraint '%s' not satisfied!", kconfigs[i]);
- 			dump_vars(exprs[i]);
- 		}
-@@ -519,8 +519,7 @@ void tst_kconfig_check(const char *const kconfigs[])
- 			free(vars[i].val);
- 	}
+@@ -526,6 +541,11 @@ char tst_kconfig_get(const char *confname)
+ {
+ 	struct tst_kconfig_var var;
  
--	if (abort_test)
--		tst_brk(TCONF, "Aborting due to unsuitable kernel config, see above!");
-+	return ret;
- }
++	if (kconfig_check_skipped()) {
++		tst_res(TINFO, "Skipping kernel config check as requested");
++		return 0;
++	}
++
+ 	var.id_len = strlen(confname);
  
- char tst_kconfig_get(const char *confname)
+ 	if (var.id_len >= sizeof(var.id))
 diff --git a/lib/tst_test.c b/lib/tst_test.c
-index 9fea7263a..d5cefadaa 100644
+index d5cefadaa..8ac3cdc5c 100644
 --- a/lib/tst_test.c
 +++ b/lib/tst_test.c
-@@ -1025,8 +1025,8 @@ static void do_setup(int argc, char *argv[])
- 
- 	parse_opts(argc, argv);
- 
--	if (tst_test->needs_kconfigs)
--		tst_kconfig_check(tst_test->needs_kconfigs);
-+	if (tst_test->needs_kconfigs && tst_kconfig_check(tst_test->needs_kconfigs))
-+		tst_brk(TCONF, "Aborting due to unsuitable kernel config, see above!");
- 
- 	if (tst_test->needs_root && geteuid() != 0)
- 		tst_brk(TCONF, "Test needs to be run as root");
+@@ -479,6 +479,7 @@ static void print_help(void)
+ 	fprintf(stderr, "Environment Variables\n");
+ 	fprintf(stderr, "---------------------\n");
+ 	fprintf(stderr, "KCONFIG_PATH         Specify kernel config file\n");
++	fprintf(stderr, "KCONFIG_SKIP_CHECK   Skip kernel config check (the default is empty means don't skip)\n");
+ 	fprintf(stderr, "LTPROOT              Prefix for installed LTP (default: /opt/ltp)\n");
+ 	fprintf(stderr, "LTP_COLORIZE_OUTPUT  Force colorized output behaviour (y/1 always, n/0: never)\n");
+ 	fprintf(stderr, "LTP_DEV              Path to the block device to be used (for .needs_device)\n");
 -- 
 2.23.0
 
