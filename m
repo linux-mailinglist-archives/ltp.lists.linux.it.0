@@ -1,67 +1,62 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 114BC48D80A
-	for <lists+linux-ltp@lfdr.de>; Thu, 13 Jan 2022 13:34:31 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 048A148D8C6
+	for <lists+linux-ltp@lfdr.de>; Thu, 13 Jan 2022 14:23:25 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 25C203C9535
-	for <lists+linux-ltp@lfdr.de>; Thu, 13 Jan 2022 13:34:30 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 7D8B63C9538
+	for <lists+linux-ltp@lfdr.de>; Thu, 13 Jan 2022 14:23:24 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id F153B3C821C
- for <ltp@lists.linux.it>; Thu, 13 Jan 2022 13:34:25 +0100 (CET)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id DABD32009AF
- for <ltp@lists.linux.it>; Thu, 13 Jan 2022 13:34:24 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1642077263;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=UgjUgSlqyxFpDxesBLoJx8vGSeahZyH83rklSd/qxlo=;
- b=bZSptKSQSK5SF8mYVkgAhbae3ZBPGYVSJnkAQmga9WUZB8HkOkt0dPu82dq+CUIQVeMEsu
- SagqDAsz96y8z9Ovhw+o1WpI0f67B3JfxT4ybuzrA3LQ+b6NOVooWSsnGqyCrfNTVp52ax
- /ZLFmglDWX0+RtLa1vz3dqfDg0qIESM=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-210-axcFmUaYPdqLVFOSPgeyuw-1; Thu, 13 Jan 2022 07:34:22 -0500
-X-MC-Unique: axcFmUaYPdqLVFOSPgeyuw-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
- [10.5.11.11])
+ by picard.linux.it (Postfix) with ESMTPS id 3A0223C88E6
+ for <ltp@lists.linux.it>; Wed, 12 Jan 2022 15:14:55 +0100 (CET)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1EFA81006AAC;
- Thu, 13 Jan 2022 12:34:21 +0000 (UTC)
-Received: from liwang-workstation.nay.redhat.com (unknown [10.66.81.187])
- by smtp.corp.redhat.com (Postfix) with ESMTP id C897272FA4;
- Thu, 13 Jan 2022 12:34:19 +0000 (UTC)
-From: Li Wang <liwang@redhat.com>
-To: ltp@lists.linux.it
-Date: Thu, 13 Jan 2022 20:34:18 +0800
-Message-Id: <20220113123418.1911231-1-liwang@redhat.com>
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 108B91000A20
+ for <ltp@lists.linux.it>; Wed, 12 Jan 2022 15:14:53 +0100 (CET)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 6191061418;
+ Wed, 12 Jan 2022 14:14:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0866DC36AEA;
+ Wed, 12 Jan 2022 14:14:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1641996891;
+ bh=MJWG4PTjYE1YSqTh+RXeyE3FCgIA4K3gXGEhnm3hU/s=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=D9lqJTIx4MHbnb34dH5zrpGC9BU7W2xrgNdsl7DWzzva8B8lHvA6r2TyD087YCXCs
+ YKITyeKIUgmcUio72kjx0V0x0kjRyrmNPSZdtQNHkzceLPURTJ/hVMSPGq1Pf0Nvy8
+ Lry8SDge9Z3sXtBqZB1971Eq/hj6pOpWcfg2wY/mKGuBZQ+DpRBvc5/z1d2oGuXGG3
+ D1Y1ey2DMg7qXK7GDPH/8OKKNEfipCrbj/vFF/f6LxL3vnMXTi/8UYqOhjvnLtsPn5
+ rjppL0Y7KPBWfX/LYjMm0L0IGKpX2kh4OSWXQ9PAu4E13/8RafHElu6MGD8RWnROn5
+ Jv1bVCx/vXyoQ==
+Date: Wed, 12 Jan 2022 15:14:45 +0100
+From: Alexey Gladkov <legion@kernel.org>
+To: Christian Brauner <christian.brauner@ubuntu.com>
+Message-ID: <20220112141445.txgrdlycvfkiwsv5@example.org>
+References: <CA+G9fYsMHhXJCgO-ykR0oO1kVdusGnthgj6ifxEKaGPHZJ-ZCw@mail.gmail.com>
+ <20220112131837.igsjkkttqskw4eix@wittgenstein>
+ <CADYN=9Lvm-1etZS817eZK91NUyxkFBmsu=5-q_8Ei-1eV8DuZQ@mail.gmail.com>
+ <20220112140254.cvngcwggeevwaazw@wittgenstein>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwang@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20220112140254.cvngcwggeevwaazw@wittgenstein>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH] lib: rewrite cgroup_find_ctrl with using for_each_ctrl
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+X-Mailman-Approved-At: Thu, 13 Jan 2022 14:23:20 +0100
+Subject: Re: [LTP] [next]: LTP: getxattr05.c:97: TFAIL:
+ unshare(CLONE_NEWUSER) failed: ENOSPC (28)
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,58 +68,138 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: rpalethorpe@suse.com, luke.nowakowskikrijger@canonical.com
+Cc: regressions@lists.linux.dev, Arnd Bergmann <arnd@arndb.de>,
+ open list <linux-kernel@vger.kernel.org>, lkft-triage@lists.linaro.org,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Linux-Next Mailing List <linux-next@vger.kernel.org>,
+ Sven Schnelle <svens@linux.ibm.com>, containers@lists.linux.dev,
+ linux-fsdevel@vger.kernel.org, LTP List <ltp@lists.linux.it>,
+ "Eric W. Biederman" <ebiederm@xmission.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-It is safe to start from controllers[0] to traverse each of
-the controller whatever V2 or V1, then we can make use of it
-in the cgroup_find_ctrl() function.
+On Wed, Jan 12, 2022 at 03:02:54PM +0100, Christian Brauner wrote:
+> On Wed, Jan 12, 2022 at 02:22:42PM +0100, Anders Roxell wrote:
+> > On Wed, 12 Jan 2022 at 14:18, Christian Brauner
+> > <christian.brauner@ubuntu.com> wrote:
+> > >
+> > > On Wed, Jan 12, 2022 at 05:15:37PM +0530, Naresh Kamboju wrote:
+> > > > While testing LTP syscalls with Linux next 20220110 (and till date 20220112)
+> > > > on x86_64, i386, arm and arm64 the following tests failed.
+> > > >
+> > > > tst_test.c:1365: TINFO: Timeout per run is 0h 15m 00s
+> > > > getxattr05.c:87: TPASS: Got same data when acquiring the value of
+> > > > system.posix_acl_access twice
+> > > > getxattr05.c:97: TFAIL: unshare(CLONE_NEWUSER) failed: ENOSPC (28)
+> > > > tst_test.c:391: TBROK: Invalid child (13545) exit value 1
+> > > >
+> > > > fanotify17.c:176: TINFO: Test #1: Global groups limit in privileged user ns
+> > > > fanotify17.c:155: TFAIL: unshare(CLONE_NEWUSER) failed: ENOSPC (28)
+> > > > tst_test.c:391: TBROK: Invalid child (14739) exit value 1
+> > > >
+> > > > sendto03.c:48: TBROK: unshare(268435456) failed: ENOSPC (28)
+> > > >
+> > > > setsockopt05.c:45: TBROK: unshare(268435456) failed: ENOSPC (28)
+> > > >
+> > > > strace output:
+> > > > --------------
+> > > > [pid   481] wait4(-1, 0x7fff52f5ae8c, 0, NULL) = -1 ECHILD (No child processes)
+> > > > [pid   481] clone(child_stack=NULL,
+> > > > flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD,
+> > > > child_tidptr=0x7f3af0fa7a10) = 483
+> > > > strace: Process 483 attached
+> > > > [pid   481] wait4(-1,  <unfinished ...>
+> > > > [pid   483] unshare(CLONE_NEWUSER)      = -1 ENOSPC (No space left on device)
+> > >
+> > > This looks like another regression in the ucount code. Reverting the
+> > > following commit fixes it and makes the getxattr05 test work again:
+> > >
+> > > commit 0315b634f933b0f12cfa82660322f6186c1aa0f4
+> > > Author: Alexey Gladkov <legion@kernel.org>
+> > > Date:   Fri Dec 17 15:48:23 2021 +0100
+> > >
+> > >     ucounts: Split rlimit and ucount values and max values
+> > >
+> > >     Since the semantics of maximum rlimit values are different, it would be
+> > >     better not to mix ucount and rlimit values. This will prevent the error
+> > >     of using inc_count/dec_ucount for rlimit parameters.
+> > >
+> > >     This patch also renames the functions to emphasize the lack of
+> > >     connection between rlimit and ucount.
+> > >
+> > >     v2:
+> > >     - Fix the array-index-out-of-bounds that was found by the lkp project.
+> > >
+> > >     Reported-by: kernel test robot <oliver.sang@intel.com>
+> > >     Signed-off-by: Alexey Gladkov <legion@kernel.org>
+> > >     Link: https://lkml.kernel.org/r/73ea569042babda5cee2092423da85027ceb471f.1639752364.git.legion@kernel.org
+> > >     Signed-off-by: Eric W. Biederman <ebiederm@xmission.com>
+> > >
+> > > The issue only surfaces if /proc/sys/user/max_user_namespaces is
+> > > actually written to.
+> > 
+> > I did a git bisect and that pointed me to this patch too.
+> 
+> Uhm, doesn't this want to be:
 
-Signed-off-by: Li Wang <liwang@redhat.com>
----
- lib/tst_cgroup.c | 15 +++++++--------
- 1 file changed, 7 insertions(+), 8 deletions(-)
+Yes. I miss it. I tried not to mix the logic, but I myself stepped on this
+problem.
 
-diff --git a/lib/tst_cgroup.c b/lib/tst_cgroup.c
-index 2ef599d9e..10b65364b 100644
---- a/lib/tst_cgroup.c
-+++ b/lib/tst_cgroup.c
-@@ -214,7 +214,7 @@ static const char *cgroup_v2_ltp_mount = "unified";
- #define for_each_v1_root(r)			\
- 	for ((r) = roots + 1; (r)->ver; (r)++)
- #define for_each_ctrl(ctrl)			\
--	for ((ctrl) = controllers + 1; (ctrl)->ctrl_name; (ctrl)++)
-+	for ((ctrl) = controllers; (ctrl)->ctrl_name; (ctrl)++)
- 
- /* In all cases except one, this only loops once.
-  *
-@@ -325,15 +325,14 @@ void tst_cgroup_print_config(void)
- __attribute__ ((nonnull, warn_unused_result))
- static struct cgroup_ctrl *cgroup_find_ctrl(const char *const ctrl_name)
- {
--	struct cgroup_ctrl *ctrl = controllers;
--
--	while (ctrl->ctrl_name && strcmp(ctrl_name, ctrl->ctrl_name))
--		ctrl++;
-+	struct cgroup_ctrl *ctrl;
- 
--	if (!ctrl->ctrl_name)
--		ctrl = NULL;
-+	for_each_ctrl(ctrl) {
-+		if (!strcmp(ctrl_name, ctrl->ctrl_name))
-+			return ctrl;
-+	}
- 
--	return ctrl;
-+	return NULL;
- }
- 
- /* Determine if a mounted cgroup hierarchy is unique and record it if so.
+> 
+> diff --git a/kernel/ucount.c b/kernel/ucount.c
+> index 22070f004e97..108c6a879cd8 100644
+> --- a/kernel/ucount.c
+> +++ b/kernel/ucount.c
+> @@ -264,7 +264,7 @@ long inc_rlimit_ucounts(struct ucounts *ucounts, enum rlimit_type type, long v)
+>         long ret = 0;
+> 
+>         for (iter = ucounts; iter; iter = iter->ns->ucounts) {
+> -               long new = atomic_long_add_return(v, &iter->ucount[type]);
+> +               long new = atomic_long_add_return(v, &iter->rlimit[type]);
+>                 if (new < 0 || new > max)
+>                         ret = LONG_MAX;
+>                 else if (iter == ucounts)
+> @@ -279,7 +279,7 @@ bool dec_rlimit_ucounts(struct ucounts *ucounts, enum rlimit_type type, long v)
+>         struct ucounts *iter;
+>         long new = -1; /* Silence compiler warning */
+>         for (iter = ucounts; iter; iter = iter->ns->ucounts) {
+> -               long dec = atomic_long_sub_return(v, &iter->ucount[type]);
+> +               long dec = atomic_long_sub_return(v, &iter->rlimit[type]);
+>                 WARN_ON_ONCE(dec < 0);
+>                 if (iter == ucounts)
+>                         new = dec;
+> 
+> 
+> otherwise,
+> 
+> inc_rlimit_ucounts(ucounts, UCOUNT_RLIMIT_NPROC, 1)
+> 
+> means
+> 
+> long inc_rlimit_ucounts(struct ucounts *ucounts, UCOUNT_RLIMIT_NPROC, long v)
+> {
+> 	struct ucounts *iter;
+> 	long max = LONG_MAX;
+> 	long ret = 0;
+> 
+> 	for (iter = ucounts; iter; iter = iter->ns->ucounts) {
+> 		long new = atomic_long_add_return(v, &iter->ucount[UCOUNT_RLIMIT_NPROC]);
+> 		if (new < 0 || new > max)
+> 			ret = LONG_MAX;
+> 		else if (iter == ucounts)
+> 			ret = new;
+> 		max = get_userns_rlimit_max(iter->ns, UCOUNT_RLIMIT_NPROC);
+> 	}
+> 	return ret;
+> }
+> 
+> which means that UCOUNT_RLIMIT_NPROC overwrites ucount[UCOUNT_RLIMIT_NPROC]?
+> 
+
 -- 
-2.31.1
+Rgrds, legion
 
 
 -- 
