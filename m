@@ -2,72 +2,72 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE8E548D8C2
-	for <lists+linux-ltp@lfdr.de>; Thu, 13 Jan 2022 14:21:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73B8B48D95D
+	for <lists+linux-ltp@lfdr.de>; Thu, 13 Jan 2022 15:01:49 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1A69B3C9538
-	for <lists+linux-ltp@lfdr.de>; Thu, 13 Jan 2022 14:21:14 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id A90FB3C950D
+	for <lists+linux-ltp@lfdr.de>; Thu, 13 Jan 2022 15:01:48 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 400E13C942C
- for <ltp@lists.linux.it>; Thu, 13 Jan 2022 14:21:08 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 1B54E3C2CF4
+ for <ltp@lists.linux.it>; Thu, 13 Jan 2022 15:01:46 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id F03C610006AE
- for <ltp@lists.linux.it>; Thu, 13 Jan 2022 14:21:07 +0100 (CET)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 2787B6000FD
+ for <ltp@lists.linux.it>; Thu, 13 Jan 2022 15:01:45 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id EFD5C210E9;
- Thu, 13 Jan 2022 13:21:06 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 46A241F387;
+ Thu, 13 Jan 2022 14:01:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1642080066; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1642082505; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=r8gGvPnaX3dcGYt3cqMucxj/+gZVbvAdSTvuMBIv530=;
- b=ZA2yASxfTQbzUYX6oLBwo0QG1WW+4Rjof1rEKF/XFpHSSwTKmGdymup6/sqX55CyH2L4tB
- BMWvtMdp/84PJiGCcEKfsovF8hAS1HouT7/13OZ8vHfuKTeXHs1rjkyDr5OegRMt5euf8d
- 322NwZ6Qjp8mDILau0+OF85dkYWNExI=
+ bh=4bZLflv9z9YotKP2EaRFyagfseE5L3cKh775nOwjpa4=;
+ b=AsDPgduFw1ZOL/+VbhuCYVNbfCZ8FsXpLZBqFnLoGptEORneP8681yGR8bY8NDcfKigl7I
+ 4Qz9RHnI5ki24FVgDnXwNllSw/mtj5NlEvFda9dcKEc+kf00cYZYSmioh3SG9UpdTCU/UQ
+ Wed3oGRb0ZDDz7xKRurIA+ThmOAokA8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1642080066;
+ s=susede2_ed25519; t=1642082505;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=r8gGvPnaX3dcGYt3cqMucxj/+gZVbvAdSTvuMBIv530=;
- b=R/+ZTB9+FxjhEYr5LBola3AhVrwxD7jBAmI2ZivUhtWTrSOnL2WD8fFlg8tkHpRdDf1JtY
- 6NA24VQT6Z8hGJCQ==
+ bh=4bZLflv9z9YotKP2EaRFyagfseE5L3cKh775nOwjpa4=;
+ b=bjJoh4lG76FWXhvTvncf2ua4WnciRngtgoqfynGDedKfSzxeiLs4Y7GOv1CtMQEq/JeD3U
+ +fCygnKrzI+v6qCw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D9AA81330C;
- Thu, 13 Jan 2022 13:21:06 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2DE2F1330C;
+ Thu, 13 Jan 2022 14:01:45 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id HaSSM0In4GEyXAAAMHmgww
- (envelope-from <chrubis@suse.cz>); Thu, 13 Jan 2022 13:21:06 +0000
-Date: Thu, 13 Jan 2022 14:22:44 +0100
+ by imap2.suse-dmz.suse.de with ESMTPSA id Sa2oCckw4GF0bgAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Thu, 13 Jan 2022 14:01:45 +0000
+Date: Thu, 13 Jan 2022 15:03:23 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Andrea Cervesato <andrea.cervesato@suse.de>
-Message-ID: <YeAnpM6QdQ97EmrW@yuki>
-References: <20220112085812.13018-1-andrea.cervesato@suse.de>
+To: Yang Xu <xuyang2018.jy@fujitsu.com>
+Message-ID: <YeAxK/IMvCIb0Sp7@yuki>
+References: <1641973691-22981-1-git-send-email-xuyang2018.jy@fujitsu.com>
+ <1641973691-22981-2-git-send-email-xuyang2018.jy@fujitsu.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20220112085812.13018-1-andrea.cervesato@suse.de>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+In-Reply-To: <1641973691-22981-2-git-send-email-xuyang2018.jy@fujitsu.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] Create dio_read.c test
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v6 2/3] syscalls/quotactl07: Refactor this case
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,439 +86,86 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-Pushed with some changes, thanks.
-
-> diff --git a/runtest/ltp-aiodio.part4 b/runtest/ltp-aiodio.part4
-> index ef1cfdac6..88a1b492b 100644
-> --- a/runtest/ltp-aiodio.part4
-> +++ b/runtest/ltp-aiodio.part4
-> @@ -61,8 +61,8 @@ DIT001 dio_truncate
->  DIT002 dio_truncate
->  #Running read_checkzero
->  #gread_checkzero
-> -#Running ltp-diorh
-> -DOR000 ltp-diorh $TMPDIR/aiodio.$$/file2
-> -DOR001 ltp-diorh $TMPDIR/aiodio.$$/file3
-> -DOR002 ltp-diorh $TMPDIR/aiodio.$$/file4
-> -DOR003 ltp-diorh $TMPDIR/aiodio.$$/file5
-> +#Running dio_read
-> +DOR000 dio_read
-> +DOR001 dio_read
-> +DOR002 dio_read
-> +DOR003 dio_read
-
-I've adjusted these to run with different number of writers and numbers
-of iterations so that the runtime more or less matches the original test
-runtime.
-
-> diff --git a/testcases/kernel/io/ltp-aiodio/.gitignore b/testcases/kernel/io/ltp-aiodio/.gitignore
-> index 8da8e946b..f5f20d57e 100644
-> --- a/testcases/kernel/io/ltp-aiodio/.gitignore
-> +++ b/testcases/kernel/io/ltp-aiodio/.gitignore
-> @@ -5,6 +5,6 @@
->  /dio_append
->  /dio_sparse
->  /dio_truncate
-> +/dio_read
->  /dirty
-> -/ltp-diorh
->  /read_checkzero
-> diff --git a/testcases/kernel/io/ltp-aiodio/dio_read.c b/testcases/kernel/io/ltp-aiodio/dio_read.c
-> new file mode 100644
-> index 000000000..900f1e70d
-> --- /dev/null
-> +++ b/testcases/kernel/io/ltp-aiodio/dio_read.c
-> @@ -0,0 +1,176 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + *   Copyright (C) 2021 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
-> + */
-> +
-> +/*\
-> + * [Description]
+> diff --git a/testcases/kernel/syscalls/quotactl/quotactl07.c b/testcases/kernel/syscalls/quotactl/quotactl07.c
+> index 2992a6112..2427ef682 100644
+> --- a/testcases/kernel/syscalls/quotactl/quotactl07.c
+> +++ b/testcases/kernel/syscalls/quotactl/quotactl07.c
+> @@ -7,7 +7,9 @@
+>  /*\
+>   * [Description]
+>   *
+> - * This is a regresstion test for kernel commit 3dd4d40b4208
+> + * This is not only a functional test but also a error test for Q_XQUOTARM.
 > + *
-> + * Create a file using buffered writes while other processes are doing
-> + * O_DIRECT reads and check if the buffer reads always see zero.
-> + */
+> + * It is a regresstion test for kernel commit 3dd4d40b4208
+>   * ("xfs: Sanity check flags of Q_XQUOTARM call").
+>   */
+>  
+> @@ -15,51 +17,71 @@
+>  #include <unistd.h>
+>  #include <stdio.h>
+>  #include <sys/quota.h>
+> +#include <sys/statvfs.h>
+>  #include "tst_test.h"
+> -#include "lapi/quotactl.h"
+> +#include "quotactl_syscall_var.h"
+>  
+>  #ifdef HAVE_XFS_XQM_H
+>  # include <xfs/xqm.h>
+>  
+> -#define MNTPOINT    "mntpoint"
+> -
+> -static uint32_t qflag_acct = XFS_QUOTA_UDQ_ACCT;
+> -static unsigned int valid_type = XFS_USER_QUOTA;
+>  /* Include a valid quota type to avoid other EINVAL error */
+>  static unsigned int invalid_type = XFS_GROUP_QUOTA << 1 | XFS_USER_QUOTA;
+> +static unsigned int valid_type = XFS_USER_QUOTA;
+> +static int mount_flag;
+>  
+>  static void verify_quota(void)
+>  {
+> -	TEST(quotactl(QCMD(Q_XQUOTARM, USRQUOTA), tst_device->dev, 0, (void *)&invalid_type));
+> -	if (TST_ERR == EINVAL)
+> -		tst_res(TPASS, "Q_XQUOTARM has quota type check");
+> +	struct statfs before, after;
 > +
-> +#define _GNU_SOURCE
+> +	SAFE_STATFS(MNTPOINT, &before);
+> +	TST_EXP_PASS(do_quotactl(fd, QCMD(Q_XQUOTARM, USRQUOTA), tst_device->dev, 0,
+> +			(void *)&valid_type), "do_quotactl(Q_XQUOTARM,valid_type)");
+> +	SAFE_STATFS(MNTPOINT, &after);
+> +	if (before.f_bavail <= after.f_bavail)
+> +		tst_res(TPASS, "Q_XQUOTARM to free space, delta(%lu)", after.f_bavail - before.f_bavail);
+>  	else
+> -		tst_res(TFAIL, "Q_XQUOTARM doesn't have quota type check");
+> +		tst_res(TFAIL, "Q_XQUOTARM to free space, delta(-%lu)", before.f_bavail - after.f_bavail);
 > +
-> +#include <unistd.h>
-> +#include <limits.h>
-> +#include <string.h>
-> +#include <fcntl.h>
-> +#include <sys/mman.h>
-> +#include "tst_test.h"
-> +#include "common.h"
+> +	TST_EXP_FAIL(do_quotactl(fd, QCMD(Q_XQUOTARM, USRQUOTA), tst_device->dev, 0,
+> +			(void *)&invalid_type), EINVAL, "do_quotactl(Q_XQUOTARM, invalid_type)");
+>  }
+>  
+>  static void setup(void)
+>  {
+> -	TEST(quotactl(QCMD(Q_XQUOTAOFF, USRQUOTA), tst_device->dev, 0, (void *)&qflag_acct));
+> -	if (TST_RET == -1)
+> -		tst_brk(TBROK | TTERRNO, "quotactl with Q_XQUOTAOFF failed");
+> +	quotactl_info();
 > +
-> +static char *str_numchildren;
-> +static char *str_writesize;
-> +static char *str_readsize;
-> +static char *str_filesize;
-> +
-> +static char *filename = "file.bin";
-> +static int numchildren = 100;
-> +static long long writesize = 32 * 1024 * 1024;
-> +static long long readsize = 32 * 1024 * 1024;
-> +static long long filesize = 128 * 1024 * 1024;
-> +static int *children_completed;
-> +static char *iobuf;
-> +static int filedesc;
+> +	/* ensure superblock has quota data, but not running */
+> +	SAFE_MOUNT(tst_device->dev, MNTPOINT, tst_device->fs_type, 0, "usrquota");
+> +	mount_flag = 1;
+> +	SAFE_UMOUNT(MNTPOINT);
+> +	mount_flag = 0;
+> +	SAFE_MOUNT(tst_device->dev, MNTPOINT, tst_device->fs_type, 0, "noquota");
+> +	mount_flag = 1;
 
-Renamed this just to fd as that is more idiomatic in C code.
+Maybe just SAFE_MOUNT(tst_device->dev, MNTPOINT, tst_device->fs_type, 0, "remount, noquota") ?
 
-> +static void do_buffered_writes(int fd, char *bufptr, long long fsize, long long wsize, int pattern)
-> +{
-> +	long long offset;
-> +	long long w;
-> +
-> +	memset(bufptr, pattern, wsize);
-> +
-> +	tst_res(TINFO, "child %i writing file", getpid());
-> +
-> +	for (offset = 0; offset + wsize <= fsize; offset += wsize) {
-> +		w = pwrite(fd, bufptr, wsize, offset);
-> +		if (w < 0)
-> +			tst_brk(TBROK, "pwrite: %s", tst_strerrno(-w));
-> +		if (w != wsize)
-> +			tst_brk(TBROK, "pwrite: wrote %lld bytes out of %lld", w, wsize);
-> +
-> +		SAFE_FSYNC(fd);
-> +	}
-> +}
-> +
-> +static int do_direct_reads(char *filename, char *bufptr, long long fsize, long long rsize)
-> +{
-> +	int fd;
-> +	long long offset;
-> +	long long w;
-> +	int fail = 0;
-> +
-> +	while ((fd = open(filename, O_RDONLY | O_DIRECT, 0666)) < 0)
-> +		usleep(100);
+If we can remount the device without umounting it the code would be a
+bit shorter.
 
-As the file is created in the test setup now there is no need to loop
-here, so I've changed it to SAFE_OPEN()
+Anyways looks good to me:
 
-> +	while (1) {
-> +		for (offset = 0; offset + rsize < fsize; offset += rsize) {
-> +			char *bufoff;
-> +
-> +			if (*children_completed >= numchildren)
-
-I've added a counter and message here that prints how many iterations
-the readed did and it's about 10 for me in most cases, which only shows
-that the synchronization is really important since we would have been
-wasting most of the time the other way.
-
-> +				goto exit;
-> +
-> +			w = pread(fd, bufptr, rsize, offset);
-> +			if (w < 0)
-> +				tst_brk(TBROK, "pread: %s", tst_strerrno(-w));
-> +			if (w != rsize)
-> +				tst_brk(TBROK, "pread: read %lld bytes out of %lld", w, rsize);
-> +
-> +			bufoff = check_zero(bufptr, rsize);
-> +			if (bufoff) {
-> +				fail = 1;
-> +				goto exit;
-> +			}
-> +		}
-> +	}
-> +
-> +exit:
-> +	SAFE_CLOSE(fd);
-> +
-> +	return fail;
-> +}
-> +
-> +static void setup(void)
-> +{
-> +	struct stat sb;
-> +	long long buffsize;
-> +	long long alignment;
-> +
-> +	if (tst_parse_int(str_numchildren, &numchildren, 1, INT_MAX))
-> +		tst_brk(TBROK, "Invalid number of children '%s'", str_numchildren);
-> +
-> +	if (tst_parse_filesize(str_filesize, &filesize, 1, LLONG_MAX))
-> +		tst_brk(TBROK, "Invalid file size '%s'", str_filesize);
-> +
-> +	if (tst_parse_filesize(str_writesize, &writesize, 1, filesize))
-> +		tst_brk(TBROK, "Invalid write blocks size '%s'", str_writesize);
-> +
-> +	if (tst_parse_filesize(str_readsize, &readsize, 1, filesize))
-> +		tst_brk(TBROK, "Invalid read blocks size '%s'", str_readsize);
-> +
-> +	SAFE_STAT(".", &sb);
-> +	alignment = sb.st_blksize;
-> +
-> +	buffsize = readsize;
-> +	if (writesize > readsize)
-> +		buffsize = writesize;
-> +
-> +	iobuf = SAFE_MEMALIGN(alignment, buffsize);
-> +
-> +	children_completed = SAFE_MMAP(NULL, sizeof(int), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
-> +
-> +	filedesc = SAFE_OPEN(filename, O_CREAT | O_TRUNC | O_RDWR, 0666);
-> +}
-> +
-> +static void cleanup(void)
-> +{
-> +	SAFE_CLOSE(filedesc);
-> +}
-> +
-> +static void run(void)
-> +{
-> +	int i;
-> +	int fail;
-> +
-> +	// Fill the file with a known pattern so that the blocks
-> +	// on disk can be detected if they become exposed
-> +	do_buffered_writes(filedesc, iobuf, filesize, writesize, 1);
-> +	SAFE_FSYNC(filedesc);
-> +	SAFE_FTRUNCATE(filedesc, 0);
-> +	SAFE_FSYNC(filedesc);
-> +
-> +	SAFE_FTRUNCATE(filedesc, filesize);
-> +
-> +	*children_completed = 0;
-> +
-> +	for (i = 0; i < numchildren; i++) {
-> +		if (!SAFE_FORK()) {
-> +			do_buffered_writes(filedesc, iobuf, filesize, writesize, 0);
-> +			(*children_completed)++;
-
-This actually caused a rare timeouts. The problem is that we do run this
-increment concurenlty from numchildren processes and if it happens that
-two of them finish at the exactly same time they would both fetch value
-N and store N+1, which means that the sum would be one less than
-expected and the reader will spin forever.
-
-WHat we do have to do here is to use memory barriers so that the fetch
-and store are atomic. Happily we do have atomic operations in the test
-library exactly for this purpose so I've changed this line to:
-
-			tst_atomic_add_return(1, children_completed);
-
-With that the lockups and timeouts are no longer happening.
-
-> +			return;
-> +		}
-> +	}
-> +
-> +	fail = do_direct_reads(filename, iobuf, filesize, readsize);
-> +
-> +	if (fail)
-> +		tst_res(TFAIL, "Non zero bytes read");
-> +	else
-> +		tst_res(TPASS, "All bytes read were zeroed");
-> +}
-> +
-> +static struct tst_test test = {
-> +	.test_all = run,
-> +	.setup = setup,
-> +	.cleanup = cleanup,
-> +	.needs_tmpdir = 1,
-> +	.forks_child = 1,
-> +	.options = (struct tst_option[]) {
-> +		{"n:", &str_numchildren, "Number of threads (default 100)"},
-> +		{"w:", &str_writesize, "Size of writing blocks (default 32M)"},
-> +		{"r:", &str_readsize, "Size of reading blocks (default 32M)"},
-> +		{"s:", &str_filesize, "File size (default 128M)"},
-> +		{}
-> +	},
-> +};
-> diff --git a/testcases/kernel/io/ltp-aiodio/ltp-diorh.c b/testcases/kernel/io/ltp-aiodio/ltp-diorh.c
-> deleted file mode 100644
-> index 3bdf62388..000000000
-> --- a/testcases/kernel/io/ltp-aiodio/ltp-diorh.c
-> +++ /dev/null
-> @@ -1,176 +0,0 @@
-> -/*
-> - *   Copyright (C) 2003,2004 Red Hat, Inc.  All rights reserved.
-> - *
-> - *   The contents of this file may be used under the terms of the GNU
-> - *   General Public License version 2 (the "GPL")
-> - *
-> - *   Author: Stephen C. Tweedie <sct@redhat.com>
-> - *   This program is free software;  you can redistribute it and/or modify
-> - *   it under the terms of the GNU General Public License as published by
-> - *   the Free Software Foundation; either version 2 of the License, or
-> - *   (at your option) any later version.
-> - *
-> - *   This program is distributed in the hope that it will be useful,
-> - *   but WITHOUT ANY WARRANTY;  without even the implied warranty of
-> - *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
-> - *   the GNU General Public License for more details.
-> - *
-> - *   You should have received a copy of the GNU General Public License
-> - *   along with this program;  if not, write to the Free Software
-> - *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
-> - *
-> - * Module: .c
-> - */
-> -
-> -/*
-> - * Change History:
-> - *
-> - * 2/2004  Marty Ridgeway (mridge@us.ibm.com) Changes to adapt to LTP
-> - *
-> - */
-> -
-> -#define _XOPEN_SOURCE 600
-> -#define _GNU_SOURCE
-> -#define MAX_ITERATIONS 250
-> -
-> -#include <unistd.h>
-> -#include <stdlib.h>
-> -#include <stdio.h>
-> -#include <string.h>
-> -#include <errno.h>
-> -#include <fcntl.h>
-> -#include <sys/mman.h>
-> -#include <sys/wait.h>
-> -
-> -#define BIGSIZE 128*1024*1024
-> -#define READSIZE 32*1024*1024
-> -#define WRITESIZE 32*1024*1024
-> -
-> -int pagesize;
-> -char *iobuf;
-> -int pass = 0;
-> -
-> -void assert(const char *what, int assertion)
-> -{
-> -	if (assertion)
-> -		return;
-> -	perror(what);
-> -	exit(1);
-> -}
-> -
-> -void do_buffered_writes(int fd, int pattern)
-> -{
-> -	int rc;
-> -	int offset;
-> -
-> -	memset(iobuf, pattern, WRITESIZE);
-> -	for (offset = 0; offset + WRITESIZE <= BIGSIZE; offset += WRITESIZE) {
-> -		rc = pwrite(fd, iobuf, WRITESIZE, offset);
-> -		assert("pwrite", rc >= 0);
-> -		if (rc != WRITESIZE) {
-> -			fprintf(stderr, "Pass %d: short write (%d out of %d)\n",
-> -				pass, rc, WRITESIZE);
-> -			exit(1);
-> -		}
-> -		fsync(fd);
-> -	}
-> -}
-> -
-> -int do_direct_reads(char *filename)
-> -{
-> -	int fd;
-> -	int offset;
-> -	int rc, i;
-> -	int *p;
-> -
-> -	fd = open(filename, O_DIRECT | O_RDONLY, 0);
-> -	assert("open", fd >= 0);
-> -
-> -	for (offset = 0; offset + READSIZE <= BIGSIZE; offset += READSIZE) {
-> -		rc = pread(fd, iobuf, READSIZE, offset);
-> -		assert("pread", rc >= 0);
-> -		if (rc != READSIZE) {
-> -			fprintf(stderr, "Pass: %d short read (%d out of %d)\n",
-> -				pass, rc, READSIZE);
-> -			exit(1);
-> -		}
-> -		for (i = 0, p = (int *)iobuf; i < READSIZE; i += 4) {
-> -			if (*p) {
-> -				fprintf(stderr,
-> -					"Pass: %d Found data (%08x) at offset %d+%d\n",
-> -					pass, *p, offset, i);
-> -				close(fd);
-> -				return 1;
-> -			}
-> -			p++;
-> -		}
-> -	}
-> -	close(fd);
-> -	return 0;
-> -}
-> -
-> -int main(int argc, char *argv[])
-> -{
-> -	char *filename;
-> -	int fd;
-> -	int pid;
-> -	int err;
-> -	int bufsize;
-> -
-> -	if (argc != 2) {
-> -		fprintf(stderr, "Needs a filename as an argument.\n");
-> -		exit(1);
-> -	}
-> -
-> -	filename = argv[1];
-> -
-> -	pagesize = getpagesize();
-> -	bufsize = READSIZE;
-> -	if (WRITESIZE > READSIZE)
-> -		bufsize = WRITESIZE;
-> -	err = posix_memalign((void **)&iobuf, pagesize, bufsize);
-> -	if (err) {
-> -		fprintf(stderr, "Error allocating %d aligned bytes.\n",
-> -			bufsize);
-> -		exit(1);
-> -	}
-> -
-> -	fd = open(filename, O_CREAT | O_TRUNC | O_RDWR, 0666);
-> -	assert("open", fd >= 0);
-> -
-> -	do {
-> -
-> -		assert("ftruncate", ftruncate(fd, BIGSIZE) == 0);
-> -		fsync(fd);
-> -
-> -		pid = fork();
-> -		assert("fork", pid >= 0);
-> -
-> -		if (!pid) {
-> -			do_buffered_writes(fd, 0);
-> -			exit(0);
-> -		}
-> -
-> -		err = do_direct_reads(filename);
-> -
-> -		wait4(pid, NULL, WNOHANG, 0);
-> -
-> -		if (err)
-> -			break;
-> -
-> -		/* Fill the file with a known pattern so that the blocks
-> -		 * on disk can be detected if they become exposed. */
-> -		do_buffered_writes(fd, 1);
-> -		fsync(fd);
-> -
-> -		assert("ftruncate", ftruncate(fd, 0) == 0);
-> -		fsync(fd);
-> -	} while (pass++ < MAX_ITERATIONS);
-> -
-> -	if (!err) {
-> -		fprintf(stdout, "ltp-diorh: Completed %d iterations OK \n",
-> -			pass);
-> -	}
-> -
-> -	return err;
-> -}
-> -- 
-> 2.34.1
-> 
-> 
-> -- 
-> Mailing list info: https://lists.linux.it/listinfo/ltp
+Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
 
 -- 
 Cyril Hrubis
