@@ -1,72 +1,54 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id B26ED48EBA1
-	for <lists+linux-ltp@lfdr.de>; Fri, 14 Jan 2022 15:25:26 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 424BE48EBA9
+	for <lists+linux-ltp@lfdr.de>; Fri, 14 Jan 2022 15:27:44 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5063D3C952B
-	for <lists+linux-ltp@lfdr.de>; Fri, 14 Jan 2022 15:25:26 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id E3A9C3C952C
+	for <lists+linux-ltp@lfdr.de>; Fri, 14 Jan 2022 15:27:43 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 620293C8849
- for <ltp@lists.linux.it>; Fri, 14 Jan 2022 15:25:24 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 940F23C8DA0
+ for <ltp@lists.linux.it>; Fri, 14 Jan 2022 15:27:41 +0100 (CET)
+Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id C28F514002C8
- for <ltp@lists.linux.it>; Fri, 14 Jan 2022 15:25:23 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id E64E91F3D2;
- Fri, 14 Jan 2022 14:25:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1642170322; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=zKFh9Ra0avDnIK91hTMKevJE9Kxjbem4KbEn01CEzNo=;
- b=h6p+FTbJS3KcKd/9oyuBUkxDikcUjTIGJ1HdS7a2qfDIXEtobz3UxtppRBe+3IJ61yE1oB
- eHB0PYURhhEOlVZC3CM0Z0zb4sumIiEG4vC1y7jE3Saz2k9ihYBN1iJMwfE1mF9Qr4vo8N
- DYibo4Fo+w3k3O3imApZJ7zSg2o2KhE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1642170322;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=zKFh9Ra0avDnIK91hTMKevJE9Kxjbem4KbEn01CEzNo=;
- b=IBqApp7zkMI/xbzAghaF5tN5K5dB5MX88x5OEFgjYnNabOLgU9qFUSpZor7ueIJvGdMjYZ
- gI7oh8vYNhjDkFDQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C750313B7F;
- Fri, 14 Jan 2022 14:25:22 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id LfrgL9KH4WFXMAAAMHmgww
- (envelope-from <chrubis@suse.cz>); Fri, 14 Jan 2022 14:25:22 +0000
-Date: Fri, 14 Jan 2022 15:27:01 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <YeGINd/M/Vgf+OET@yuki>
-References: <20220114104231.28338-1-pvorel@suse.cz>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id F30C3200340
+ for <ltp@lists.linux.it>; Fri, 14 Jan 2022 15:27:40 +0100 (CET)
+Received: from [192.168.178.40] (unknown [188.192.100.83])
+ by mail.jv-coder.de (Postfix) with ESMTPSA id 95D339F7EC;
+ Fri, 14 Jan 2022 14:27:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
+ t=1642170459; bh=jHBAUIs0RjPwXeHkmbPxgQD4kcjXW69WjhxLK3tMdlU=;
+ h=Message-ID:Date:MIME-Version:Subject:To:From;
+ b=XUya58LkNq3iY/ct/2Wf+qVf9MHhGE9nFC+ZQlvKrJhtTe5dr+PkPeXDaKfjPS/k4
+ vvQB0gdbXMeyaaP0qQzbkdpBBJ+WBZ9ySQqElMCyupwo//54cTn7TKONO8Ez+BUJid
+ N6h6fC4xed91yCtjXDYOKAmJBiNJuyIMnNouaTmU=
+Message-ID: <f516568b-fa33-091c-3442-0316a78d96b1@jv-coder.de>
+Date: Fri, 14 Jan 2022 15:27:38 +0100
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20220114104231.28338-1-pvorel@suse.cz>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
-X-Virus-Status: Clean
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Content-Language: en-US
+To: Cyril Hrubis <chrubis@suse.cz>
+References: <20220114125513.895-1-pvorel@suse.cz> <YeGEunEuwPvNFxyS@yuki>
+ <95394feb-6474-d1ca-13d8-3d1c35e781b9@jv-coder.de> <YeGHV+Gnmo59SXeL@yuki>
+From: Joerg Vehlow <lkml@jv-coder.de>
+In-Reply-To: <YeGHV+Gnmo59SXeL@yuki>
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/1] ci/wiki-mirror: Don't check path
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Status: Clean
+Subject: Re: [LTP] [PATCH 1/1] configure.ac: Fix summary for disabled
+ metadata
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,22 +66,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> Because it's checked only from latest commit,
-> thus wiki does not get updated when doc change is in the latest commit
-> of the patchset.
+Hi
 
-Looking at the file we will only do a commit when there is a diff, so
-this only runs a few more commands in the CI in the case that there are
-no changes and the end result is same.
+Am 1/14/2022 um 3:23 PM schrieb Cyril Hrubis:
+> The JSON metadata file is going to replace the runtest files some day,
+> at least that is the longterm plan. Also the parser that extracts the
+> metadata from the sources is rather fast, compared to the LTP build and
+> it's self contained. There is really no reason to have a switch to
+> disable the metadat extraction step.
+> 
+> The documentation build, on the other hand, is rather slow and requires
+> asciidoc, which is the reason why there is a switch that can be used to
+> disable that. The only problem here is that the name is a bit confusing
+> now.
+> 
+Actually there is, that is where my interest in this flag comes from. We
+don't use runtest files (at least not for execution), so we don't need
+it and we had problems in out cross build environment, that were not
+easily fixed. From looking at the source I am not sure what the problem
+was and cannot spot it from looking at the source. But I know, that it
+wasn't just fixed by setting the correct HOSTCC and HOST_CFLAGS. I have
+a missing library in my head, but I can't see any.
+All I know is that I gave up fixing the build and I don't give up easily
+normally (a little easier if the functionality is not needed at all) :)
 
-Looks good:
-
-Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
-
--- 
-Cyril Hrubis
-chrubis@suse.cz
+Joerg
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
