@@ -2,74 +2,68 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 859CC48EB96
-	for <lists+linux-ltp@lfdr.de>; Fri, 14 Jan 2022 15:21:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C204148EBA3
+	for <lists+linux-ltp@lfdr.de>; Fri, 14 Jan 2022 15:25:36 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 178EF3C9525
-	for <lists+linux-ltp@lfdr.de>; Fri, 14 Jan 2022 15:21:44 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 65B663C952B
+	for <lists+linux-ltp@lfdr.de>; Fri, 14 Jan 2022 15:25:36 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id BD76B3C58A8
- for <ltp@lists.linux.it>; Fri, 14 Jan 2022 15:21:41 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id A27293C954A
+ for <ltp@lists.linux.it>; Fri, 14 Jan 2022 15:25:31 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 63D6A600E2E
- for <ltp@lists.linux.it>; Fri, 14 Jan 2022 15:21:41 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 7CE721001394
+ for <ltp@lists.linux.it>; Fri, 14 Jan 2022 15:25:30 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 69693219A6;
- Fri, 14 Jan 2022 14:21:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1642170100; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=2zt1vFHsK2F8eKVO1QcxDYlb6fTT15iGQuZmLpGoPeE=;
- b=lWE1NWTjNCPcxSytoh/VOewXhsFSYBEP6TOYREFZTWczOUP5cMlJLBFKIe9VC9Uz26AsrL
- y3p8TYt2V+5qnKPQxG2/u9y8ZUIlcJvzT1+SqlFCnjj5JOJRfwsGqr6WsGobX93Qqm4A/N
- 60mTMHMfDQv7RCSK8pja1o3tE4isiBA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1642170100;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id BFC361F3CE;
+ Fri, 14 Jan 2022 14:25:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1642170329; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=t2fnuk40zsTHpxnw+qwcxPImGs6izEk6kj+fdZDvc6g=;
+ b=mZwpvpi99+jmhr/dXk+lprksdm5mCnEuViDMBlZ/qKvdF5CROH2e8K4nxl9iKlb54q2mXd
+ MbmF0tYcsw5pjwdzB3MPk/wIplC5c08mlfDv+E9fyBur9Zpy/GHhv2Y+NmH3bej0Fo//7n
+ OnDeHGlCZUcjP50QvhWnn1VIVEVhFVM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1642170329;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=2zt1vFHsK2F8eKVO1QcxDYlb6fTT15iGQuZmLpGoPeE=;
- b=uL6xeOMX9+AVmWt0HSUjd12wXB7nu/tYZFdENAMCOMQv0sqKZ7Aar9mzsrWNwaRwAK6Pot
- GsLwgjH3FEAIv7DQ==
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=t2fnuk40zsTHpxnw+qwcxPImGs6izEk6kj+fdZDvc6g=;
+ b=h+xxXXh5fqirIbIR1B4/TJ9D7K51/UuzMo58SznlHBhOFkOAf/+GEqkb+dLBfPj91zg5Qt
+ wRywS5+J0X/xsxBw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5636E13B7F;
- Fri, 14 Jan 2022 14:21:40 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8CCE213B7F;
+ Fri, 14 Jan 2022 14:25:29 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 2q22E/SG4WE1LgAAMHmgww
- (envelope-from <chrubis@suse.cz>); Fri, 14 Jan 2022 14:21:40 +0000
-Date: Fri, 14 Jan 2022 15:23:19 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Joerg Vehlow <lkml@jv-coder.de>
-Message-ID: <YeGHV+Gnmo59SXeL@yuki>
-References: <20220114125513.895-1-pvorel@suse.cz> <YeGEunEuwPvNFxyS@yuki>
- <95394feb-6474-d1ca-13d8-3d1c35e781b9@jv-coder.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id j8t3H9mH4WFlMAAAMHmgww
+ (envelope-from <andrea.cervesato@suse.de>); Fri, 14 Jan 2022 14:25:29 +0000
+From: Andrea Cervesato <andrea.cervesato@suse.de>
+To: ltp@lists.linux.it
+Date: Fri, 14 Jan 2022 15:25:27 +0100
+Message-Id: <20220114142527.2759-1-andrea.cervesato@suse.de>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <95394feb-6474-d1ca-13d8-3d1c35e781b9@jv-coder.de>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/1] configure.ac: Fix summary for disabled
- metadata
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH v1] Add tst_dev_block_size utility
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,43 +75,213 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> >> Previously with --disable-metadata output didn't mention that metadata
-> >> are disabled and printed config which was not used. Now:
-> >>
-> >> $ ./configure --disable-metadata
-> > 
-> > Slightly off topic, should we rename this to --disable-docparse or
-> > --disable-autodoc?
-> > 
-> > Since we split the metadata generator from the documentation and the
-> > metadata are now genereated unconditionally...
-> > 
-> 
-> I would love that and I would reintroduce disable-metadata in that case,
-> to completely disable it.
-> The question is: Will this break some builds because of semantic changes?
+Added tst_dev_block_size function in tst_device.c and updated
+c-test-api.txt documentation.
 
-The JSON metadata file is going to replace the runtest files some day,
-at least that is the longterm plan. Also the parser that extracts the
-metadata from the sources is rather fast, compared to the LTP build and
-it's self contained. There is really no reason to have a switch to
-disable the metadat extraction step.
+Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.de>
+---
+ doc/c-test-api.txt            | 11 ++++
+ include/tst_device.h          |  7 +++
+ lib/newlib_tests/tst_device.c | 95 +++++++++++++++++++++++++++--------
+ lib/tst_device.c              | 15 ++++++
+ 4 files changed, 108 insertions(+), 20 deletions(-)
 
-The documentation build, on the other hand, is rather slow and requires
-asciidoc, which is the reason why there is a switch that can be used to
-disable that. The only problem here is that the name is a bit confusing
-now.
-
+diff --git a/doc/c-test-api.txt b/doc/c-test-api.txt
+index 123d3f1fc..0cb391a0a 100644
+--- a/doc/c-test-api.txt
++++ b/doc/c-test-api.txt
+@@ -1034,6 +1034,17 @@ uint64_t tst_get_device_size(const char *dev_path);
+ This function gets size of the given block device, it checks the 'dev_path' is
+ valid first, if yes, return the size in MB, otherwise return -1.
+ 
++[source,c]
++-------------------------------------------------------------------------------
++#include "tst_test.h"
++
++int tst_dev_block_size(const char *path);
++-------------------------------------------------------------------------------
++
++This function returns the size of a single IO block for the specific `path`.
++It finds the device where `path` is located and then uses `ioctl` to get a
++single device block size.
++
+ 1.16 Formatting a device with a filesystem
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+diff --git a/include/tst_device.h b/include/tst_device.h
+index 72c560c02..bf0fb5320 100644
+--- a/include/tst_device.h
++++ b/include/tst_device.h
+@@ -112,4 +112,11 @@ void tst_purge_dir(const char *path);
+  */
+ void tst_find_backing_dev(const char *path, char *dev);
+ 
++/*
++ * Returns the size of a single IO block for the specific path
++ * @path   Path to find the block size
++ * @return Size of the block size
++ */
++int tst_dev_block_size(const char *path);
++
+ #endif	/* TST_DEVICE_H__ */
+diff --git a/lib/newlib_tests/tst_device.c b/lib/newlib_tests/tst_device.c
+index 0bee0a939..1f754e63d 100644
+--- a/lib/newlib_tests/tst_device.c
++++ b/lib/newlib_tests/tst_device.c
+@@ -1,47 +1,102 @@
+ // SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+  * Copyright (c) 2016 Linux Test Project
++ * Copyright (C) 2021 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
+  */
++#define _GNU_SOURCE
+ 
+ #include <stdlib.h>
+ #include <sys/mount.h>
+ #include <stdint.h>
++#include <stdio.h>
++#include <linux/loop.h>
++#include <time.h>
+ 
+ #include "tst_test.h"
+ 
+-static void do_test(void)
++#define PAGESIZE 2048
++#define DEV_MIN_SIZE 300
++
++static char *mntpoint;
++static uint64_t ltp_dev_size;
++
++static void setup(void)
+ {
+ 	int fd;
+-	const char *dev;
+-	char block_dev[100];
+-	uint64_t ltp_dev_size;
++	int ret;
+ 
+-	dev = tst_device->dev;
+-	if (!dev)
+-		tst_brk(TCONF, "Failed to acquire test device");
++	ret = asprintf(&mntpoint, "%s/mnt", tst_get_tmpdir());
++	if (ret < 0)
++		tst_brk(TBROK, "asprintf failure");
+ 
+-	SAFE_MKFS(dev, "ext2", NULL, NULL);
++	while ((fd = SAFE_OPEN(tst_device->dev, O_RDONLY, 0666)) < 0)
++		usleep(100);
+ 
+-	fd = SAFE_OPEN(dev, O_RDONLY);
+ 	SAFE_IOCTL(fd, BLKGETSIZE64, &ltp_dev_size);
++	SAFE_IOCTL(fd, LOOP_SET_BLOCK_SIZE, PAGESIZE);
+ 	SAFE_CLOSE(fd);
+ 
+-	if (ltp_dev_size/1024/1024 == 300)
+-		tst_res(TPASS, "Got expected device size");
++	SAFE_MKFS(tst_device->dev, tst_device->fs_type, NULL, NULL);
++
++	SAFE_MKDIR(mntpoint, 0777);
++	SAFE_MOUNT(tst_device->dev, mntpoint, tst_device->fs_type, 0, 0);
++}
++
++static void cleanup(void)
++{
++	if (tst_is_mounted(mntpoint))
++		SAFE_UMOUNT(mntpoint);
++}
++
++static void test_dev_min_size(void)
++{
++	uint64_t size;
++
++	size = ltp_dev_size / 1024 / 1024;
++
++	if (size == DEV_MIN_SIZE)
++		tst_res(TPASS, "Got expected device size %lu", size);
++	else
++		tst_res(TFAIL, "Expected device size is %d but got %lu", DEV_MIN_SIZE, size);
++}
++
++static void test_tst_find_backing_dev(void)
++{
++	char block_dev[100];
++
++	tst_find_backing_dev(mntpoint, block_dev);
++
++	if (!strcmp(tst_device->dev, block_dev))
++		tst_res(TPASS, "%s belongs to %s block dev", mntpoint, block_dev);
+ 	else
+-		tst_res(TFAIL, "Got unexpected device size");
+-
+-	tst_find_backing_dev("/boot", block_dev);
+-	tst_res(TPASS, "/boot belongs to %s block dev", block_dev);
+-	tst_find_backing_dev("/", block_dev);
+-	tst_res(TPASS, "/ belongs to %s block dev", block_dev);
+-	tst_find_backing_dev("/tmp", block_dev);
+-	tst_find_backing_dev("/boot/xuyang", block_dev);
++		tst_res(TFAIL, "%s should belong to %s, but %s is returned", mntpoint, tst_device->dev, block_dev);
++}
++
++static void test_tst_dev_block_size(void)
++{
++	int block_size;
++
++	block_size = tst_dev_block_size(mntpoint);
++
++	if (block_size == PAGESIZE)
++		tst_res(TPASS, "%s has %d block size", mntpoint, block_size);
++	else
++		tst_res(TFAIL, "%s has %d block size, but expected is %i", mntpoint, block_size, PAGESIZE);
++}
++
++static void do_test(void)
++{
++	test_dev_min_size();
++	test_tst_find_backing_dev();
++	test_tst_dev_block_size();
+ }
+ 
+ static struct tst_test test = {
+ 	.needs_root = 1,
+ 	.needs_device = 1,
+-	.dev_min_size = 300,
++	.needs_tmpdir = 1,
++	.dev_min_size = DEV_MIN_SIZE,
+ 	.test_all = do_test,
++	.setup = setup,
++	.cleanup = cleanup,
+ };
+diff --git a/lib/tst_device.c b/lib/tst_device.c
+index 73e70d26e..1ef667fa0 100644
+--- a/lib/tst_device.c
++++ b/lib/tst_device.c
+@@ -547,3 +547,18 @@ void tst_find_backing_dev(const char *path, char *dev)
+ 	if (S_ISBLK(buf.st_mode) != 1)
+ 		tst_brkm(TCONF, NULL, "dev(%s) isn't a block dev", dev);
+ }
++
++int tst_dev_block_size(const char *path)
++{
++	int fd;
++	int size;
++	char dev_name[1024];
++
++	tst_find_backing_dev(path, dev_name);
++
++	fd = SAFE_OPEN(NULL, dev_name, O_RDONLY);
++	SAFE_IOCTL(NULL, fd, BLKSSZGET, &size);
++	SAFE_CLOSE(NULL, fd);
++
++	return size;
++}
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+2.34.1
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
