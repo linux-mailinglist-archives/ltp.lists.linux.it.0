@@ -1,74 +1,144 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19CFE4910ED
-	for <lists+linux-ltp@lfdr.de>; Mon, 17 Jan 2022 21:24:00 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id A2CD5491158
+	for <lists+linux-ltp@lfdr.de>; Mon, 17 Jan 2022 22:39:32 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B15FB3C9612
-	for <lists+linux-ltp@lfdr.de>; Mon, 17 Jan 2022 21:23:59 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 384393C9613
+	for <lists+linux-ltp@lfdr.de>; Mon, 17 Jan 2022 22:39:32 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E905E3C3344
- for <ltp@lists.linux.it>; Mon, 17 Jan 2022 21:23:57 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id CB2333C2DD2
+ for <ltp@lists.linux.it>; Mon, 17 Jan 2022 22:39:29 +0100 (CET)
+Received: from de-smtp-delivery-102.mimecast.com
+ (de-smtp-delivery-102.mimecast.com [194.104.111.102])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 40A9D653A6B
- for <ltp@lists.linux.it>; Mon, 17 Jan 2022 21:23:57 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id CF97F1F3C0;
- Mon, 17 Jan 2022 20:23:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1642451036; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id DDFCE10005F9
+ for <ltp@lists.linux.it>; Mon, 17 Jan 2022 22:39:24 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com;
+ s=mimecast20200619; t=1642455564;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=UiaqTrOBzgnmNtRWJH/Cxi0pUSB9+D56h/T/IAZJMec=;
- b=LGkkhJYjzGGfKI1b6FORzKhwH4hUs6kQKzJJd1RWMAsM6t6g3rUQXbmpQtY3ybr/YCSNP5
- tfzUHXVyvwZP+tQ2Fw/kGYi/MDe9MZhKatT1n5GnZyOJRfxADBsDwrGwZkJLU0RGLKCGZ+
- TcjnN9g9hpJOKxkkEgmeE3aXZ4dyKu0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1642451036;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=UiaqTrOBzgnmNtRWJH/Cxi0pUSB9+D56h/T/IAZJMec=;
- b=cWOghjlHs2ZlSUY4vSMvVxeg5X5XSEhVJwwNS8fyHysEz57//0ztiAeiUu8n/91fmAl0d4
- 6hhqZFs/cmP/BNDg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9CEC413E9C;
- Mon, 17 Jan 2022 20:23:56 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id GGN/I1zQ5WHSUAAAMHmgww
- (envelope-from <andrea.cervesato@suse.de>); Mon, 17 Jan 2022 20:23:56 +0000
-From: Andrea Cervesato <andrea.cervesato@suse.de>
-To: ltp@lists.linux.it
-Date: Mon, 17 Jan 2022 21:23:54 +0100
-Message-Id: <20220117202354.20785-3-andrea.cervesato@suse.de>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220117202354.20785-1-andrea.cervesato@suse.de>
+ bh=53R4dVWB6BBJsJVGVxliGbF8XOCwblCRGhbGft5EjFQ=;
+ b=NO2pRlqdHq+fltx1vCySKeH+BmyCPV4GoYNChbSEB+Lsphh1I9Uk5WDWyIIvwof7YYouqW
+ aoboAtAj/TqcoyhREg39spFRmm7QDo9Do1HP5F7Mws8SHPhYv/Q9DwM/doxHhVsi07OaIu
+ fsSvV/fPTv71w/aW1fMK7t+r4/pcsjc=
+Received: from EUR01-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur01lp2055.outbound.protection.outlook.com [104.47.0.55]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ de-mta-16-iJOmQxGxPVSzdgn2URSSzQ-2; Mon, 17 Jan 2022 22:39:22 +0100
+X-MC-Unique: iJOmQxGxPVSzdgn2URSSzQ-2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=StZxcI0xNsqbG3xTddo49ZrPPG69DaojuNYw1b9HAM/tAS94VPPGBvy8+RQtDpA6QNfDChEsIbRHk2JCSut88+pYWzl3zQpKFDAtVhYwxhVSB8DOfQptRILPF7eSjkEH3zunSsO9DTeViv5d3I7f4rQtplkDzFULnS38LWPnG5n1oIBuXlCnI9Snf/ZCSDAxwFgfhHrmohsILZK4m0UrxURatNXRYdSY6X+fQOWDrSvv36Ou8mr9obQiUVVD2haK6cVLqtt/TlCxCYbuWlcLFTfHRMfZ97YBXMjcI35VPqBzFnGDxMxYXzRV4Hfc9OORLy7Cabyv6eZOprE0wzqAlQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=53R4dVWB6BBJsJVGVxliGbF8XOCwblCRGhbGft5EjFQ=;
+ b=aetZ/QtfB+vEIjnDEYVLnLaY9DzFkCpghqqhJDmC+0/TzCHJHcvcxCFnDElay5KcO9BoscnL3n3arA2kWUtALOBUfq18jrsJQ7ilykwuZ7UzqRCHFt1E1ORxU5vgBAjvCDWE5h3rqPe3zVt9+39T6HnI9Wv4L0RG9KeX/9qU7uOGS1Xin5tX6L42USzLSQ0y+4wLN0PlXky2YbZkGFKYcy1j+9la5mfa0ZaUoarmYRTU+9HFAOlMi0pHW2OKTFfN9c4RdVDpkvH2TfA3DkHe4Xcb6HdNo5Y3J2arkag9cZlsVov4YBz1iwyevOcodw+oJ7HlGu+a9nUjQb8IX6jy/w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Received: from VI1PR04MB6797.eurprd04.prod.outlook.com (2603:10a6:803:13e::13)
+ by AM9PR04MB8322.eurprd04.prod.outlook.com (2603:10a6:20b:3e3::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4888.9; Mon, 17 Jan
+ 2022 21:39:21 +0000
+Received: from VI1PR04MB6797.eurprd04.prod.outlook.com
+ ([fe80::5881:fa38:8459:b97d]) by VI1PR04MB6797.eurprd04.prod.outlook.com
+ ([fe80::5881:fa38:8459:b97d%3]) with mapi id 15.20.4888.014; Mon, 17 Jan 2022
+ 21:39:21 +0000
+Message-ID: <9934fdcb-57ed-c73b-9007-c20ecb3453af@suse.com>
+Date: Mon, 17 Jan 2022 22:39:14 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Content-Language: en-US
+To: Andrea Cervesato <andrea.cervesato@suse.de>, ltp@lists.linux.it
 References: <20220117202354.20785-1-andrea.cervesato@suse.de>
+In-Reply-To: <20220117202354.20785-1-andrea.cervesato@suse.de>
+X-ClientProxiedBy: FRYP281CA0013.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10::23)
+ To VI1PR04MB6797.eurprd04.prod.outlook.com
+ (2603:10a6:803:13e::13)
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 16ca9327-de02-4cdc-4329-08d9da01d235
+X-MS-TrafficTypeDiagnostic: AM9PR04MB8322:EE_
+X-Microsoft-Antispam-PRVS: <AM9PR04MB83229F5611F7F139A77DE1B9F8579@AM9PR04MB8322.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: q+cSAoiaBpin3r4Bm95yVqCDIgmWXh0uM0jF6S0r/bjASct9Rcskb9DrOPWShCgCBhLUMuDxLtn6g0Jh3Owe5216Nn0uX+fQ6Z5VRkhrULiTc75PMkgAkIm37HE09TssKdx0LW1aki6jedUweXIp+hUOVhPomYv3Jy1iEFnhNIQXtTpUQMM40PDtJLFyi0TV+DALqSnyUD1j3uwMb5n6cUvUsVdVl71vbeWl6w4WzElGQlUY4NaxobDr0h9GuTkwPcJEIpQ/jo5yD2ojjE7SIhvI1pAU+w/rTUSe3KODAU4XGm+J2QkPSLmo6OvdBrHxZYZbIRQCziUuGfsQCNXnfRnxBUTvs0AQXZx8MP1QHepf68XbQeIITrjsRTrRfZcYTrcbJ5Npl8E57hKU4MWbp1E4cueWPWN2Kek/OyfenpM+fBZN7MJmuZQI8ZjwY56uHyZqOpBy4PbinBbIS3sjn59TLvShQyJq82OybLeSRsrvuEvKgz7aNMtKjkhQZgt37Hph/fyj+PORSTAUwpX7Cl20mKCzcGn1PvizjYGXMols6kNh4VY6wpo+UDTAgTR4Cu7d30AsZw7E/BkGzc0N56E5L7iWnh7cETjZxQ8Fl9XU5KDIbFwgzS26j7vkyke5H0WNglmaBOA141F44RFEp9W0Jfj7jhg38bc72CMwJfCspMsHUrOwaT6o8nG42SHKNQwNdGCuVP+GyEaKsqtWTwGTmvcPgTJHoPQR65B+9cY=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:VI1PR04MB6797.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(366004)(38100700002)(6512007)(5660300002)(83380400001)(6666004)(6486002)(8936002)(44832011)(2906002)(2616005)(26005)(186003)(31696002)(53546011)(31686004)(508600001)(66556008)(66946007)(6506007)(66476007)(36756003)(316002)(8676002)(86362001)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aklQT1FPeWVSNlc0NVptSGFTT1U3ZXQ5dmVheUpGZ1NVUURnK0doamxHMlFN?=
+ =?utf-8?B?YkZmWUJxNHNtdWFJS2FzdHpOeFdOMk1ncDlLWlk4WlpTSlhuVHNPRllHNlJ4?=
+ =?utf-8?B?Wi9EeGZCVU1OcUUwVHNwTEVOTDlrbkRHZnpTVzE5elhocVNJK1NJZTdhYVVt?=
+ =?utf-8?B?dERrN2FaTUlHVVBDTGlPckJDZjR6aWRXMjZyRkpNdExxMG1ETkFDMTdnQjVF?=
+ =?utf-8?B?czlBRS9nNUtwUmxHL2VtcWhQZENFallBRUpXZlJkaS9tbXBsNjRIOTkrVUVs?=
+ =?utf-8?B?RWd6Zm9zenVGZ2lES0svMjMxQ1AwVytSUVBydWtETUpQMEtQNUlyV0tlekJi?=
+ =?utf-8?B?em5rNnhUV1hKbWpwblBEVW5YcmVuakNDYXhocVhlZ3ZTaGd4bGQ1dFhqdTU4?=
+ =?utf-8?B?SG5mZktJTmJ1V3liMTYrenBSUENLaTNiek9BZzRQTWFDSlE0OU9FZjhOS3F5?=
+ =?utf-8?B?K2gwTXNjdEcxVGZ5dFdCcnNERVRCSmsrd3pob0laSkFrT014VTJUVGRrVTFB?=
+ =?utf-8?B?VFRUTnB0akVoOHByYU9ZZm83dWlwVFkxeGMwaFJueUZ5ZnI3YmRUeUpZeVIx?=
+ =?utf-8?B?a0VLRlRLQWJuSnhnU08rVzBwNkxoNjNIK3NGb1VybGxEeW1CaEdaR09hMmtD?=
+ =?utf-8?B?WVlQSVRjajJBbXBZQ1pLa0tDZE1NRnFEcVViSjgwLzVGTmF1elNIR0w3Z3RJ?=
+ =?utf-8?B?UVBHbWoweDh4UjBCQ242bE5lV3FiTnVMMnFIWVJncHBkQmJ4alFYUG5iZ2xZ?=
+ =?utf-8?B?NEMwTXp2SHdoTjZhcldYcXFMY3dHekVsZEYxVDdTMFQrWUN2YS9yZ2VPWk5U?=
+ =?utf-8?B?RHUvTGpyeElacmtiVlQ1VERjL25aR01kWVRDVkxNZm5HR01oc1MrYW1hTWZT?=
+ =?utf-8?B?T3RlQlRPekFocmVzS0hWWFNmTUNuVzVqWE41T1V6NWJhRnZWakhlKzBiN1Nw?=
+ =?utf-8?B?WVpJOGt4RHQ4TlgyNHVwbVNlV0NheTJkYzkxQzk5OEZPdCtiUVB4dkhEK1FD?=
+ =?utf-8?B?dERHOHRHVlVySFZGdlNrYjdCZ25lSnREdzcvS0lvbVJCL3dJazN5Zy9YSFhX?=
+ =?utf-8?B?QWFra21YdG42OC9rWDF4VlBqblJnT3g2bWFwbzZlOW1BdjMvZ0JNOEV0S1lW?=
+ =?utf-8?B?Mi9sK1FyRXFRVnJYaXhrMW9qK21wdVh4aGcwNzVuS3I0UlZWZmU2RjB6YzIv?=
+ =?utf-8?B?UUFYYXJQSG94Q2d5ai9SUThYL1R4anZJNU1iTFlYRTU1UVp5NitYb05nN0Vi?=
+ =?utf-8?B?Y0tvL3d1QWtDYks2WGNHeUxCeVBqRnVlYUtDdDBRcTBDS3ZLbWNGdE4wRDJR?=
+ =?utf-8?B?MUJjYTJCWkxTd3dHMklGa2c2dGJYMlI1dlRXWWNMTHNzYXpLYUNyZE5oN083?=
+ =?utf-8?B?NXg5c2JvdUVnYy94S2NkUkZkZ3kwZ3RoUVpzbVd5ODcrWWozNW8wN1VlUkc3?=
+ =?utf-8?B?a2gvZityamFsakRXaGN0ODhZZFcwTmVIdVUyZzROdjVSYjA5dk1FaXgyNE5I?=
+ =?utf-8?B?YVp2RkwvbnR6bVNVZEowTTVTOHF2YTNVQkZDWnFUWGlDcWt6QUs3djlyM29p?=
+ =?utf-8?B?bThUa1JTcS9qUlFFTVV3UExkWUJDOTVIWmhzMlI5RjB1OGpYUlg5Q2lsTnZW?=
+ =?utf-8?B?SklwK2wzbW45ZGZEamkrYXdjbUhzT1AraW9QeGFXbjJjMW9WMFRMcTA0RUxr?=
+ =?utf-8?B?QW1QRFNmN1FqcGc4MkJaVGN6Y3ZrOEtIMmdONkJEcDlDckNqVDhveHE4K202?=
+ =?utf-8?B?anNNeEE0U0JYZjNnUit0bm9LeGJpRzE5ajcvbE1TdStYc3BjYm1ZTEduQ2F2?=
+ =?utf-8?B?UEpUaEx5Q29yN1BnenI0SHdIYlJvKzFOcWVxZmVsNTVrRDBRcmh1bXYzRUhU?=
+ =?utf-8?B?N2o0NU12V0JNSVhBWDZ2RkEvQmVOY1poZzVQOUd6L20xNE5JQS9sNDZ0K21h?=
+ =?utf-8?B?UGV2NlUwc1dBNmY3RVpFb3BsNE1IaDJuSG5zVEZLanJaQ3lWTFdxYWRyYS9N?=
+ =?utf-8?B?enlFNm5XQnBWSU5icXZ1eUFmWnFBanpPWjJ5THFZNUkvTCs3RTV4UjYvZ3E3?=
+ =?utf-8?B?S2F6NDZqR1NGZk0zYmtaaUlaNjNyMTc4R2dNbXZ3azB3bFFJQ2ozcklIMVp2?=
+ =?utf-8?B?Z1JpRlU4S2x4RjNPNzBGZmdnVUZTZzVwS3Btekp0WU9TdEtJK3M1ZVNMRUdN?=
+ =?utf-8?B?TkRqM3FsTXJ0NVVScjREdWNHaVB2c0t2Ykgwd2FnQy9SZTF6T3I5MFVpNm5V?=
+ =?utf-8?B?STJ6eTZ2TTZNOEhKQm5hQXVKc1FnPT0=?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 16ca9327-de02-4cdc-4329-08d9da01d235
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB6797.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jan 2022 21:39:20.8976 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: NppPqCGRHETeQmufkliOF0m1tUR/x2Gsw+eA+I1orRBPonKf0mvH0YMaW6SawdAnXZ25qEDw+Q28s3ITCqyjsclnHoqgs4ixJxuNusRR1NE=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8322
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v1 2/2] Add futex_waitv tests suite
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v1 0/2] Add futex_wait testing suite
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,427 +150,46 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
+From: Andrea Cervesato via ltp <ltp@lists.linux.it>
+Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.de>
----
- testcases/kernel/syscalls/futex/.gitignore    |   3 +
- testcases/kernel/syscalls/futex/futex2test.h  |  23 ++++
- .../kernel/syscalls/futex/futex_waitv01.c     | 129 ++++++++++++++++++
- .../kernel/syscalls/futex/futex_waitv02.c     | 103 ++++++++++++++
- .../kernel/syscalls/futex/futex_waitv03.c     | 111 +++++++++++++++
- 5 files changed, 369 insertions(+)
- create mode 100644 testcases/kernel/syscalls/futex/futex2test.h
- create mode 100644 testcases/kernel/syscalls/futex/futex_waitv01.c
- create mode 100644 testcases/kernel/syscalls/futex/futex_waitv02.c
- create mode 100644 testcases/kernel/syscalls/futex/futex_waitv03.c
+Hi!
 
-diff --git a/testcases/kernel/syscalls/futex/.gitignore b/testcases/kernel/syscalls/futex/.gitignore
-index 54cd02b02..9d08ba7d3 100644
---- a/testcases/kernel/syscalls/futex/.gitignore
-+++ b/testcases/kernel/syscalls/futex/.gitignore
-@@ -10,3 +10,6 @@
- /futex_wake02
- /futex_wake03
- /futex_wake04
-+/futex_waitv01
-+/futex_waitv02
-+/futex_waitv03
-diff --git a/testcases/kernel/syscalls/futex/futex2test.h b/testcases/kernel/syscalls/futex/futex2test.h
-new file mode 100644
-index 000000000..634efae3b
---- /dev/null
-+++ b/testcases/kernel/syscalls/futex/futex2test.h
-@@ -0,0 +1,23 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
-+/*
-+ * Futex2 library addons for futex tests
-+ *
-+ * Copyright 2021 Collabora Ltd.
-+ * Copyright (C) 2021 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
-+ */
-+#include <stdint.h>
-+#include "lapi/syscalls.h"
-+#include "futextest.h"
-+
-+/**
-+ * futex_waitv - Wait at multiple futexes, wake on any
-+ * @waiters:    Array of waiters
-+ * @nr_waiters: Length of waiters array
-+ * @flags: Operation flags
-+ * @timo:  Optional timeout for operation
-+ */
-+static inline int futex_waitv(volatile struct futex_waitv *waiters, unsigned long nr_waiters,
-+			      unsigned long flags, struct timespec *timo, clockid_t clockid)
-+{
-+	return tst_syscall(__NR_futex_waitv, waiters, nr_waiters, flags, timo, clockid);
-+}
-diff --git a/testcases/kernel/syscalls/futex/futex_waitv01.c b/testcases/kernel/syscalls/futex/futex_waitv01.c
-new file mode 100644
-index 000000000..807aaaa27
---- /dev/null
-+++ b/testcases/kernel/syscalls/futex/futex_waitv01.c
-@@ -0,0 +1,129 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (C) 2021 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
-+ */
-+
-+/*\
-+ * [Description]
-+ *
-+ * This test verifies EINVAL for futex_waitv syscall.
-+ */
-+
-+#include <stdlib.h>
-+#include <time.h>
-+#include <lapi/futex.h>
-+#include "futex2test.h"
-+#include "tst_test.h"
-+
-+static char *str_numfutex;
-+static int numfutex = 30;
-+
-+static uint32_t *futexes;
-+static struct futex_waitv *waitv;
-+
-+static void setup(void)
-+{
-+	struct futex_test_variants tv;
-+	int i;
-+
-+	tv = futex_variants();
-+
-+	tst_res(TINFO, "Testing variant: %s", tv.desc);
-+	futex_supported_by_kernel(tv.fntype);
-+
-+	if (tst_parse_int(str_numfutex, &numfutex, 1, FUTEX_WAITV_MAX))
-+		tst_brk(TBROK, "Invalid number of futexes '%s'", str_numfutex);
-+
-+	futexes = SAFE_MALLOC(sizeof(uint32_t) * numfutex);
-+	memset(futexes, 0, numfutex);
-+
-+	waitv = SAFE_MALLOC(sizeof(struct futex_waitv) * numfutex);
-+	for (i = 0; i < numfutex; i++) {
-+		waitv[i].uaddr = (uintptr_t)&futexes[i];
-+		waitv[i].flags = FUTEX_32 | FUTEX_PRIVATE_FLAG;
-+		waitv[i].val = 0;
-+	}
-+}
-+
-+static void cleanup(void)
-+{
-+	free(futexes);
-+	free(waitv);
-+}
-+
-+static void init_timeout(struct timespec *to)
-+{
-+	if (clock_gettime(CLOCK_MONOTONIC, to))
-+		tst_brk(TBROK, "gettime64 failed");
-+
-+	to->tv_sec++;
-+}
-+
-+static void run(void)
-+{
-+	struct timespec to;
-+	int res;
-+
-+	/* Testing a waiter without FUTEX_32 flag */
-+	waitv[0].flags = FUTEX_PRIVATE_FLAG;
-+
-+	init_timeout(&to);
-+
-+	res = futex_waitv(waitv, numfutex, 0, &to, CLOCK_MONOTONIC);
-+	if (res == EINVAL)
-+		tst_res(TFAIL, "futex_waitv private returned: %d %s", res, tst_strerrno(res));
-+	else
-+		tst_res(TPASS, "futex_waitv without FUTEX_32");
-+
-+	/* Testing a waiter with an unaligned address */
-+	waitv[0].flags = FUTEX_PRIVATE_FLAG | FUTEX_32;
-+	waitv[0].uaddr = 1;
-+
-+	init_timeout(&to);
-+
-+	res = futex_waitv(waitv, numfutex, 0, &to, CLOCK_MONOTONIC);
-+	if (res == EINVAL)
-+		tst_res(TFAIL, "futex_waitv private returned: %d %s", res, tst_strerrno(res));
-+	else
-+		tst_res(TPASS, "futex_waitv with an unaligned address");
-+
-+	/* Testing a NULL address for waiters.uaddr */
-+	waitv[0].uaddr = 0x00000000;
-+
-+	init_timeout(&to);
-+
-+	res = futex_waitv(waitv, numfutex, 0, &to, CLOCK_MONOTONIC);
-+	if (res == EINVAL)
-+		tst_res(TFAIL, "futex_waitv private returned: %d %s", res, tst_strerrno(res));
-+	else
-+		tst_res(TPASS, "futex_waitv NULL address in waitv.uaddr");
-+
-+	/* Testing a NULL address for *waiters */
-+	init_timeout(&to);
-+
-+	res = futex_waitv(NULL, numfutex, 0, &to, CLOCK_MONOTONIC);
-+	if (res == EINVAL)
-+		tst_res(TFAIL, "futex_waitv private returned: %d %s", res, tst_strerrno(res));
-+	else
-+		tst_res(TPASS, "futex_waitv NULL address in *waiters");
-+
-+	/* Testing an invalid clockid */
-+	init_timeout(&to);
-+
-+	res = futex_waitv(NULL, numfutex, 0, &to, CLOCK_TAI);
-+	if (res == EINVAL)
-+		tst_res(TFAIL, "futex_waitv private returned: %d %s", res, tst_strerrno(res));
-+	else
-+		tst_res(TPASS, "futex_waitv invalid clockid");
-+}
-+
-+static struct tst_test test = {
-+	.test_all = run,
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.min_kver = "5.16",
-+	.options = (struct tst_option[]){
-+		{"n:", &str_numfutex, "Number of futex (default 30)"},
-+		{},
-+	},
-+};
-diff --git a/testcases/kernel/syscalls/futex/futex_waitv02.c b/testcases/kernel/syscalls/futex/futex_waitv02.c
-new file mode 100644
-index 000000000..9868ddd4e
---- /dev/null
-+++ b/testcases/kernel/syscalls/futex/futex_waitv02.c
-@@ -0,0 +1,103 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (C) 2021 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
-+ */
-+
-+/*\
-+ * [Description]
-+ *
-+ * This test verifies futex_waitv syscall using private data.
-+ */
-+
-+#include <stdlib.h>
-+#include <time.h>
-+#include <lapi/futex.h>
-+#include "futex2test.h"
-+#include "tst_test.h"
-+#include "tst_safe_pthread.h"
-+
-+static char *str_numfutex;
-+static int numfutex = 30;
-+
-+static uint32_t *futexes;
-+static struct futex_waitv *waitv;
-+
-+static void setup(void)
-+{
-+	struct futex_test_variants tv;
-+	int i;
-+
-+	tv = futex_variants();
-+
-+	tst_res(TINFO, "Testing variant: %s", tv.desc);
-+	futex_supported_by_kernel(tv.fntype);
-+
-+	if (tst_parse_int(str_numfutex, &numfutex, 1, FUTEX_WAITV_MAX))
-+		tst_brk(TBROK, "Invalid number of futexes '%s'", str_numfutex);
-+
-+	futexes = SAFE_MALLOC(sizeof(uint32_t) * numfutex);
-+	memset(futexes, 0, numfutex);
-+
-+	waitv = SAFE_MALLOC(sizeof(struct futex_waitv) * numfutex);
-+	for (i = 0; i < numfutex; i++) {
-+		waitv[i].uaddr = (uintptr_t)&futexes[i];
-+		waitv[i].flags = FUTEX_32 | FUTEX_PRIVATE_FLAG;
-+		waitv[i].val = 0;
-+	}
-+}
-+
-+static void cleanup(void)
-+{
-+	free(futexes);
-+	free(waitv);
-+}
-+
-+static void *threaded(void *arg)
-+{
-+	struct futex_test_variants tv;
-+	int ret, pid = *(int *)arg;
-+
-+	tv = futex_variants();
-+	TST_PROCESS_STATE_WAIT(pid, 'S', 0);
-+
-+	ret = futex_wake(tv.fntype, (void *)(uintptr_t)waitv[numfutex - 1].uaddr, 1, FUTEX_PRIVATE_FLAG);
-+	if (ret < 0)
-+		tst_brk(TBROK, "futex_wake private returned: %d %s", ret, tst_strerrno(-ret));
-+
-+	return NULL;
-+}
-+
-+static void run(void)
-+{
-+	struct timespec to;
-+	int ret, pid = getpid();
-+	pthread_t t;
-+
-+	SAFE_PTHREAD_CREATE(&t, NULL, threaded, (void *)&pid);
-+
-+	/* setting absolute timeout for futex2 */
-+	if (clock_gettime(CLOCK_MONOTONIC, &to))
-+		tst_brk(TBROK, "gettime64 failed");
-+
-+	to.tv_sec++;
-+
-+	ret = futex_waitv(waitv, numfutex, 0, &to, CLOCK_MONOTONIC);
-+	if (ret < 0)
-+		tst_brk(TBROK, "futex_waitv returned: %d %s", ret, tst_strerrno(-ret));
-+	else if (ret != numfutex - 1)
-+		tst_res(TFAIL, "futex_waitv returned: %d, expecting %d", ret, numfutex - 1);
-+
-+	SAFE_PTHREAD_JOIN(t, NULL);
-+	tst_res(TPASS, "futex_waitv returned correctly");
-+}
-+
-+static struct tst_test test = {
-+	.test_all = run,
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.min_kver = "5.16",
-+	.options = (struct tst_option[]){
-+		{"n:", &str_numfutex, "Number of futex (default 30)"},
-+		{},
-+	},
-+};
-diff --git a/testcases/kernel/syscalls/futex/futex_waitv03.c b/testcases/kernel/syscalls/futex/futex_waitv03.c
-new file mode 100644
-index 000000000..bc0b4c192
---- /dev/null
-+++ b/testcases/kernel/syscalls/futex/futex_waitv03.c
-@@ -0,0 +1,111 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (C) 2021 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
-+ */
-+
-+/*\
-+ * [Description]
-+ *
-+ * This test verifies futex_waitv syscall using shared data.
-+ */
-+
-+#include <stdlib.h>
-+#include <time.h>
-+#include <lapi/futex.h>
-+#include <sys/shm.h>
-+#include "futex2test.h"
-+#include "tst_test.h"
-+#include "tst_safe_pthread.h"
-+
-+static char *str_numfutex;
-+static int numfutex = 30;
-+
-+static struct futex_waitv *waitv;
-+
-+static void setup(void)
-+{
-+	struct futex_test_variants tv;
-+	int shm_id;
-+	int i;
-+
-+	tv = futex_variants();
-+
-+	tst_res(TINFO, "Testing variant: %s", tv.desc);
-+	futex_supported_by_kernel(tv.fntype);
-+
-+	if (tst_parse_int(str_numfutex, &numfutex, 1, FUTEX_WAITV_MAX))
-+		tst_brk(TBROK, "Invalid number of futexes '%s'", str_numfutex);
-+
-+	waitv = SAFE_MALLOC(sizeof(struct futex_waitv) * numfutex);
-+	for (i = 0; i < numfutex; i++) {
-+		shm_id = shmget(IPC_PRIVATE, 4096, IPC_CREAT | 0666);
-+		if (shm_id < 0)
-+			tst_brk(TBROK, "shmget");
-+
-+		unsigned int *shared_data = shmat(shm_id, NULL, 0);
-+
-+		waitv[i].uaddr = (uintptr_t)shared_data;
-+		waitv[i].flags = FUTEX_32;
-+		waitv[i].val = 0;
-+	}
-+}
-+
-+static void cleanup(void)
-+{
-+	int i;
-+
-+	for (i = 0; i < numfutex; i++)
-+		shmdt((void *)(uintptr_t)waitv[i].uaddr);
-+
-+	free(waitv);
-+}
-+
-+static void *threaded(void *arg)
-+{
-+	struct futex_test_variants tv;
-+	int ret, pid = *(int *)arg;
-+
-+	tv = futex_variants();
-+	TST_PROCESS_STATE_WAIT(pid, 'S', 0);
-+
-+	ret = futex_wake(tv.fntype, (void *)(uintptr_t)waitv[numfutex - 1].uaddr, 1, 0);
-+	if (ret < 0)
-+		tst_brk(TBROK, "futex_wake private returned: %d %s", ret, tst_strerrno(-ret));
-+
-+	return NULL;
-+}
-+
-+static void run(void)
-+{
-+	struct timespec to;
-+	int ret, pid = getpid();
-+	pthread_t t;
-+
-+	SAFE_PTHREAD_CREATE(&t, NULL, threaded, (void *)&pid);
-+
-+	/* setting absolute timeout for futex2 */
-+	if (clock_gettime(CLOCK_MONOTONIC, &to))
-+		tst_brk(TBROK, "gettime64 failed");
-+
-+	to.tv_sec++;
-+
-+	ret = futex_waitv(waitv, numfutex, 0, &to, CLOCK_MONOTONIC);
-+	if (ret < 0)
-+		tst_brk(TBROK, "futex_waitv returned: %d %s", ret, tst_strerrno(-ret));
-+	else if (ret != numfutex - 1)
-+		tst_res(TFAIL, "futex_waitv returned: %d, expecting %d", ret, numfutex - 1);
-+
-+	SAFE_PTHREAD_JOIN(t, NULL);
-+	tst_res(TPASS, "futex_waitv returned correctly");
-+}
-+
-+static struct tst_test test = {
-+	.test_all = run,
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.min_kver = "5.16",
-+	.options = (struct tst_option[]){
-+		{"n:", &str_numfutex, "Number of futex (default 30)"},
-+		{},
-+	},
-+};
--- 
-2.34.1
+there's an issue with this patch, since it's not including 
+__NR_futex_waitv in LTP just in case futex2 is not supported. Please 
+consider the next version instead.
+
+On 1/17/22 21:23, Andrea Cervesato wrote:
+> futex_waitv tests have been inspired by
+> tools/testing/selftests/futex/functional/futex_waitv.c that can be found
+> in the Linux kernel official repository.
+>
+> Andrea Cervesato (2):
+>    Update lapi/futex.h fallback
+>    Add futex_waitv tests suite
+>
+>   configure.ac                                  |   1 +
+>   include/lapi/futex.h                          | 178 ++++++++++++++++++
+>   lib/tst_checkpoint.c                          |   2 +-
+>   testcases/kernel/syscalls/clone/clone08.c     |   3 +-
+>   testcases/kernel/syscalls/futex/.gitignore    |   3 +
+>   testcases/kernel/syscalls/futex/futex2test.h  |  23 +++
+>   .../syscalls/futex/futex_cmp_requeue01.c      |   2 +-
+>   .../syscalls/futex/futex_cmp_requeue02.c      |   2 +-
+>   .../kernel/syscalls/futex/futex_waitv01.c     | 129 +++++++++++++
+>   .../kernel/syscalls/futex/futex_waitv02.c     | 103 ++++++++++
+>   .../kernel/syscalls/futex/futex_waitv03.c     | 111 +++++++++++
+>   testcases/kernel/syscalls/futex/futextest.h   |  56 ++----
+>   12 files changed, 567 insertions(+), 46 deletions(-)
+>   create mode 100644 testcases/kernel/syscalls/futex/futex2test.h
+>   create mode 100644 testcases/kernel/syscalls/futex/futex_waitv01.c
+>   create mode 100644 testcases/kernel/syscalls/futex/futex_waitv02.c
+>   create mode 100644 testcases/kernel/syscalls/futex/futex_waitv03.c
+>
 
 
 -- 
