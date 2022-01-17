@@ -2,83 +2,82 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A49A490080
-	for <lists+linux-ltp@lfdr.de>; Mon, 17 Jan 2022 04:14:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4632C4900A5
+	for <lists+linux-ltp@lfdr.de>; Mon, 17 Jan 2022 04:58:43 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2BC8A3C9596
-	for <lists+linux-ltp@lfdr.de>; Mon, 17 Jan 2022 04:14:24 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id A5E903C960D
+	for <lists+linux-ltp@lfdr.de>; Mon, 17 Jan 2022 04:58:42 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id C481A3C9554
- for <ltp@lists.linux.it>; Mon, 17 Jan 2022 04:14:20 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id D539B3C821C
+ for <ltp@lists.linux.it>; Mon, 17 Jan 2022 04:58:35 +0100 (CET)
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id A4C22600696
- for <ltp@lists.linux.it>; Mon, 17 Jan 2022 04:14:19 +0100 (CET)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 231CB140005A
+ for <ltp@lists.linux.it>; Mon, 17 Jan 2022 04:58:34 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1642389258;
+ s=mimecast20190719; t=1642391913;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=VuITJoWFlFXS9VwpQnodim5zOvfeabc93VrF/z1rkpw=;
- b=GLplml8cxrm6/7ZWqkwvqeKiduw0v+YbHtv1QpaQJRINA72mE19HAr4Vkmv/alrj3PD065
- fFPq7AYt3NcC6N4wDUCpBLqKU8FQnoErwMnOoyGtJ182XpOhuTQUCl8Io5osmvtj19XN4E
- plhUcypn8NCFr4Dv0TtngAf5s9McTQc=
+ bh=419U3XqPDR5HNVPXGjJbNi7dFv7K9mpEoNO0KTpVBQE=;
+ b=GvTTXGOGECaj90EzU4LrqJJFzCK93tuidBIDWkt/I15FyD2Zl3nc27PrQWxMvyT57L3d3q
+ aJ//qJIRv9MMGV2LAhOHPs22Fd6zsM4+IJFQJTBA1llJIk0OInWsE13y07ejhD5Ueco14V
+ QfjrfvWTmADlvyP3sBFiTcpvP6XcNlQ=
 Received: from mail-yb1-f198.google.com (mail-yb1-f198.google.com
  [209.85.219.198]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-216-p-vWpX4BN1iV7mGRg2uYKA-1; Sun, 16 Jan 2022 22:14:11 -0500
-X-MC-Unique: p-vWpX4BN1iV7mGRg2uYKA-1
+ us-mta-433-NLxX5V5HNAKwuWRFdTrtjA-1; Sun, 16 Jan 2022 22:58:32 -0500
+X-MC-Unique: NLxX5V5HNAKwuWRFdTrtjA-1
 Received: by mail-yb1-f198.google.com with SMTP id
- y4-20020a5b0f44000000b00611862e546dso30595254ybr.7
- for <ltp@lists.linux.it>; Sun, 16 Jan 2022 19:14:11 -0800 (PST)
+ s7-20020a5b0447000000b005fb83901511so30698658ybp.11
+ for <ltp@lists.linux.it>; Sun, 16 Jan 2022 19:58:32 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=VuITJoWFlFXS9VwpQnodim5zOvfeabc93VrF/z1rkpw=;
- b=jzK6NGkDE8fPoETdiMlQIskBesQ+uDuG9ccfrTJJRj9BoMLGdWMmCj//iCsEtvZSI/
- 4wtyoLDMiQXo5yewDW9dlnDQoVHMKpDf+r6pVIKA6xhCHtMOJJYRbAGUlcWPQRGIAmv4
- G64zwmI2U9plgqH7l1t+jeuyvhcV+E3Ae3UrS5G6oKfTZRQrVnMzQyXzuujLymz/VJwE
- QedSfLD5bbVOJ1HzdIOY3CfiKIX/o5ly6Bg5b1EbP+6MxBu0i2tIdDCvpbs26uHIZsMG
- ny4LLAOughL5S75/aJgX0q3+Ya29appCW2JcY8yuqXqLvv9rJU6MfIzFftMe7NjGv7FD
- CBMQ==
-X-Gm-Message-State: AOAM532PvU++KJJqoOSzlHbN1Cvq6vSIu1BdqFs71HU/jgWAQQ7Mx4m/
- Nmt96Xm6lb1zI8iOMHI/Ou0sxfkp+76+S9nm8vEH+DceJfwkKJgqy6dN3yZCtbia0K3L4IMgNui
- Sgbn2CEUM1uQJYgteA++5tjfk66E=
-X-Received: by 2002:a25:4cc5:: with SMTP id
- z188mr24092993yba.248.1642389251412; 
- Sun, 16 Jan 2022 19:14:11 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJxXmUKmmbXuOD95eK2HxK5Gn475p1/FzCEnHyBzDB+vTx4o2B5k/5RSo78+rRS4YBVIc1wO52gn/cxrBNShy1M=
-X-Received: by 2002:a25:4cc5:: with SMTP id
- z188mr24092984yba.248.1642389251208; 
- Sun, 16 Jan 2022 19:14:11 -0800 (PST)
+ bh=419U3XqPDR5HNVPXGjJbNi7dFv7K9mpEoNO0KTpVBQE=;
+ b=oYaFKtzuiMtvbzNyzaAK/VPf3XG9ohssZ00bEl5wlAZyR1SVs2Vr09vV8thcpxqNm5
+ WbA3RWuGzfNlCNY3dvgpkdIwzY0IpIKY7yvCiiY//XQXOuN9ktjH2psPxwgZ2VfJWe0l
+ R+4rcDCYxTEwgM4/1soi7Fc37tY8BvVNNqFeX2gft8ndG1ThjxmCxK1/6kRSEf6csyz5
+ U9cwvGEc7+Qa8w/K+qYDI+lMamzqxA0jagvbHHQat5CciIdCC+SVyk6hwXpMs0DinqqJ
+ VtkMCN51rnDC5D5iUJJfj6uRUKQfNX018PABV6ATeHHdJWVDs6vvN5T55bJ+kBLcW7K8
+ b6DA==
+X-Gm-Message-State: AOAM532uZ1+emG/okoLrihQt4gQyx3V/XempMZiar6+qTJ1Gvajj5z/N
+ HIaJlytyK7QteDWmgCTcAX3/ZX5mnF/GYK65HqAKVgOIo8ynEg+eH2Yrgk0993YSiVJVoMlIU8+
+ IKM027Hm0cipZfbhviWN3U1LmIYw=
+X-Received: by 2002:a25:bf84:: with SMTP id l4mr9735714ybk.398.1642391911903; 
+ Sun, 16 Jan 2022 19:58:31 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJxSLdXXwqqrEO6t9u+S4MYwGY/MARwrxDqcLPoiTkCJp+HAz7cAifGGfTh99AurLWTvJywp+jGtipEgEapp6iY=
+X-Received: by 2002:a25:bf84:: with SMTP id l4mr9735711ybk.398.1642391911726; 
+ Sun, 16 Jan 2022 19:58:31 -0800 (PST)
 MIME-Version: 1.0
-References: <20220114210034.16177-1-pvorel@suse.cz>
- <CAEemH2ddzfJ48prJTejCBq-=u4O-w0ENR27A_DjUo_OsqShCow@mail.gmail.com>
-In-Reply-To: <CAEemH2ddzfJ48prJTejCBq-=u4O-w0ENR27A_DjUo_OsqShCow@mail.gmail.com>
+References: <20220114194444.16949-1-pvorel@suse.cz>
+ <20220114194444.16949-3-pvorel@suse.cz>
+In-Reply-To: <20220114194444.16949-3-pvorel@suse.cz>
 From: Li Wang <liwang@redhat.com>
-Date: Mon, 17 Jan 2022 11:13:58 +0800
-Message-ID: <CAEemH2cMpFUz1nzq6DDfe+S-bYam3fYvb8ci=hfXHkjbfxbkeQ@mail.gmail.com>
+Date: Mon, 17 Jan 2022 11:58:18 +0800
+Message-ID: <CAEemH2dWsywQ=cQQqMxeL12xeOtVMuFoZDxRbkhi+0kCbdRyxg@mail.gmail.com>
 To: Petr Vorel <pvorel@suse.cz>
 Authentication-Results: relay.mimecast.com;
  auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/1] utime03.c: Fix filesystem name
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 2/2] doc/user-guide: Remove "2. Colorized output"
+ section
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,25 +89,14 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-> > +++ b/testcases/kernel/syscalls/utime/utime03.c
-> > @@ -93,7 +93,7 @@ static struct tst_test test = {
-> >         .mntpoint = MNTPOINT,
-> >         .all_filesystems = 1,
-> >         .skip_filesystems = (const char *const[]) {
-> > -               "v9",
-> > +               "9p",
->
-> I'm wondering does it really take effect with whatever "v9" or "9p"?
-> Because the fs_type_whitelist[] does not include any of them.
-
-Unless removing the .all_filesystems as well otherwise, it is impossible
-has a chance to test on 9p.
+For patchset:
+Reviewed-by: Li Wang <liwang@redhat.com>
 
 -- 
 Regards,
