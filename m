@@ -1,12 +1,12 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB5A349263F
-	for <lists+linux-ltp@lfdr.de>; Tue, 18 Jan 2022 14:00:27 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 46FC049296A
+	for <lists+linux-ltp@lfdr.de>; Tue, 18 Jan 2022 16:11:09 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6F0A33C965C
-	for <lists+linux-ltp@lfdr.de>; Tue, 18 Jan 2022 14:00:27 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id EAA833C9658
+	for <lists+linux-ltp@lfdr.de>; Tue, 18 Jan 2022 16:11:08 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
@@ -14,61 +14,61 @@ Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 9EAD63C94A9
- for <ltp@lists.linux.it>; Tue, 18 Jan 2022 14:00:25 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id AB93A3C8AD5
+ for <ltp@lists.linux.it>; Tue, 18 Jan 2022 16:11:07 +0100 (CET)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 931E8200773
- for <ltp@lists.linux.it>; Tue, 18 Jan 2022 14:00:24 +0100 (CET)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id CFA3C200756
+ for <ltp@lists.linux.it>; Tue, 18 Jan 2022 16:11:04 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id CE50E21138;
- Tue, 18 Jan 2022 13:00:23 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 0866F218E0;
+ Tue, 18 Jan 2022 15:11:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1642510823; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1642518664; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=qkoHCRK+5btYMnPWkCeOyJTgVkabVOknJgAIhKXxBWY=;
- b=dSGuLscrMLDWwlJmGPgfQQD9OTK6pGEFu30ZTB65+kBFn0yxMUpfOBUPAq3f0JgZjMf4zC
- iKahjDCD8v/9rCfaUtu2pH47O4GlsWOjeHJj179WVO6h5i3kITBcfOoei0bGEsbK7H+RNA
- IKVq5rrfZ5gSSnyu6l2flckw5x+vp9U=
+ bh=SbeuwcJiDQI+V5I7CKX+8Q2xQ3a0aBRDeOBRTrUdITQ=;
+ b=xOc5NqXDWLrqKoKYF1S6sjwPxr3vPeIjLjNeIQmlM8jDKidJm6gIU3r3cNi6e8fTzu6h1J
+ LX73ea9Cswmhbmw2jlW6/LIgnNTbe4jpRpXo6DrMdkA9nCwmip1teUNeQsJEy9uJHsXG96
+ 9rSINLNbOmQHSsFHJHAgK22B+CpbSQQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1642510823;
+ s=susede2_ed25519; t=1642518664;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=qkoHCRK+5btYMnPWkCeOyJTgVkabVOknJgAIhKXxBWY=;
- b=G9Kc9pP0ST5USpwbzhKTChLw+oJPK7z5Vp6ac4umpv1KcNmLepP9jLd4jp6j0n40x4HXZM
- V9TaT31ZGLGmnsCA==
+ bh=SbeuwcJiDQI+V5I7CKX+8Q2xQ3a0aBRDeOBRTrUdITQ=;
+ b=OZhNx+AOnX/awp6r/J5K245wbahTCLTXeS52x1efSCNJQs0T77DzTtq3HPRI3zfbNacP1E
+ GaeHFoCHPDU47/BA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B8E6413A96;
- Tue, 18 Jan 2022 13:00:23 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E354E13AC3;
+ Tue, 18 Jan 2022 15:11:03 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id FqMWLee55mFaBQAAMHmgww
- (envelope-from <chrubis@suse.cz>); Tue, 18 Jan 2022 13:00:23 +0000
-Date: Tue, 18 Jan 2022 14:02:06 +0100
+ by imap2.suse-dmz.suse.de with ESMTPSA id by64NofY5mHlVwAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Tue, 18 Jan 2022 15:11:03 +0000
+Date: Tue, 18 Jan 2022 16:12:46 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Andrea Cervesato <andrea.cervesato@suse.de>
-Message-ID: <Yea6TuVuOlceWN0y@yuki>
-References: <20220118105044.547-1-andrea.cervesato@suse.de>
+To: Petr Vorel <pvorel@suse.cz>
+Message-ID: <YebY7ut/d0sT80HQ@yuki>
+References: <20220114125513.895-1-pvorel@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20220118105044.547-1-andrea.cervesato@suse.de>
+In-Reply-To: <20220114125513.895-1-pvorel@suse.cz>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v1] Reduce default number of threads in
- dio_sparse.c
+Subject: Re: [LTP] [PATCH 1/1] configure.ac: Fix summary for disabled
+ metadata
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,69 +87,53 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> Initialized options out of setup and reduced default number of
-> threads from 1000 to 16
-
-I've added a bit more verbose descriptioin here about how the default
-has changed and pushed, thanks.
-
-> Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.de>
+> Previously with --disable-metadata output didn't mention that metadata
+> are disabled and printed config which was not used. Now:
+> 
+> $ ./configure --disable-metadata
+> ...
+> METADATA
+> metadata disabled
+> 
+> $ ./configure
+> ...
+> METADATA
+> metadata generator: asciidoctor
+> HTML metadata: yes
+> PDF metadata: no
+> 
+> Signed-off-by: Petr Vorel <pvorel@suse.cz>
 > ---
->  testcases/kernel/io/ltp-aiodio/dio_sparse.c | 18 ++++++------------
->  1 file changed, 6 insertions(+), 12 deletions(-)
+>  configure.ac | 7 +++++++
+>  1 file changed, 7 insertions(+)
 > 
-> diff --git a/testcases/kernel/io/ltp-aiodio/dio_sparse.c b/testcases/kernel/io/ltp-aiodio/dio_sparse.c
-> index 929adbfba..8635df82f 100644
-> --- a/testcases/kernel/io/ltp-aiodio/dio_sparse.c
-> +++ b/testcases/kernel/io/ltp-aiodio/dio_sparse.c
-> @@ -33,11 +33,11 @@ static char *str_writesize;
->  static char *str_filesize;
->  static char *str_offset;
+> diff --git a/configure.ac b/configure.ac
+> index 3c56d19224..5b9e3c1781 100644
+> --- a/configure.ac
+> +++ b/configure.ac
+> @@ -404,7 +404,14 @@ libtirpc: ${have_libtirpc:-no}
+>  glibc SUN-RPC: ${have_rpc_glibc:-no}
 >  
-> -static int numchildren;
-> -static long long writesize;
-> -static long long filesize;
-> -static long long offset;
-> -static long long alignment;
-> +static int numchildren = 16;
-> +static long long writesize = 1024;
-> +static long long filesize = 100 * 1024 * 1024;
-> +static long long offset = 0;
-> +static long long alignment = 512;
+>  METADATA
+> +EOF
+> +
+> +if test "x$enable_metadata" = xyes; then
+> +cat << EOF
+>  metadata generator: $with_metadata_generator
+>  HTML metadata: $with_metadata_html
+>  PDF metadata: $with_metadata_pdf
 
-I've also removed this assignment since alignment is initialized
-unconditionally.
+Don't we stil have the same problem with "$enable_metadata_html" and
+"$enable_metadata_pdf" ?
 
->  static void dio_sparse(int fd, int align, long long fs, int ws, long long off)
->  {
-> @@ -60,12 +60,6 @@ static void setup(void)
->  {
->  	struct stat sb;
->  
-> -	numchildren = 1000;
-> -	writesize = 1024;
-> -	filesize = 100 * 1024 * 1024;
-> -	offset = 0;
-> -	alignment = 512;
-> -
->  	if (tst_parse_int(str_numchildren, &numchildren, 1, INT_MAX))
->  		tst_brk(TBROK, "Invalid number of children '%s'", str_numchildren);
->  
-> @@ -129,7 +123,7 @@ static struct tst_test test = {
->  	.needs_tmpdir = 1,
->  	.forks_child = 1,
->  	.options = (struct tst_option[]) {
-> -		{"n:", &str_numchildren, "Number of threads (default 1000)"},
-> +		{"n:", &str_numchildren, "Number of threads (default 16)"},
->  		{"w:", &str_writesize, "Size of writing blocks (default 1K)"},
->  		{"s:", &str_filesize, "Size of file (default 100M)"},
->  		{"o:", &str_offset, "File offset (default 0)"},
-> -- 
-> 2.34.1
-> 
-> 
-> -- 
-> Mailing list info: https://lists.linux.it/listinfo/ltp
+Also looking at m4/ltp-docparse.m4 shouldn't we just skip the
+autodetection if metadata are disabled and exit with all three wariables
+set to no?
+
+I think that we should rethink what the flags really do, I guess that
+for instance it would make sense for the $enable_metadata=no to just set
+both $enable_metadata_html and $enable_metadata_pdf to no and the rest
+of the m4/ltp-docparse.m4 should just check the later two.
 
 -- 
 Cyril Hrubis
