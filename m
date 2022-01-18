@@ -1,68 +1,76 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F98A493596
-	for <lists+linux-ltp@lfdr.de>; Wed, 19 Jan 2022 08:39:50 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 965DC49376A
+	for <lists+linux-ltp@lfdr.de>; Wed, 19 Jan 2022 10:36:32 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2E5273C96AE
-	for <lists+linux-ltp@lfdr.de>; Wed, 19 Jan 2022 08:39:49 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 176783C9683
+	for <lists+linux-ltp@lfdr.de>; Wed, 19 Jan 2022 10:36:32 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id EA68D3C732F
- for <ltp@lists.linux.it>; Wed, 19 Jan 2022 08:39:44 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id B70D23C9617
+ for <ltp@lists.linux.it>; Tue, 18 Jan 2022 23:12:04 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 47E5814002A7
- for <ltp@lists.linux.it>; Wed, 19 Jan 2022 08:39:43 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 0A76810004A4
+ for <ltp@lists.linux.it>; Tue, 18 Jan 2022 23:12:03 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 5A97B1F384;
- Wed, 19 Jan 2022 07:39:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1642577983; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=l/2+RGwqT3bN8yh1Wbr35JU2GCsGVg51fHuS4isAtOg=;
- b=Dvna4wm4rx9WWFmbPdRag2q/9OzCWNAOfKGsNpaAn9yKCoTMfB/iymroMIcTB3b2HKPGgg
- hUxHjD2/2J3vWT/ss+iH7CGViGCtkLXMpZq95MERstiEIDQOKjb8QdJhUZg30RcuI5+qgP
- haGLRs+c4t8t6vV2Z81NpfJUmAM8Ka0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1642577983;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 23425212B8;
+ Tue, 18 Jan 2022 22:12:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1642543923; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=fIjGoioz1ktw+V2nDlWEmosZi3TFcipP21grgpN+1V0=;
+ b=gaY5uJ1oI+p1+NKVysvm/SE7c0eXXqunxjC+rxHTQHojHvA7zr2W7gHvJOoZS9/2xHSCnR
+ rMaR2UlYk8nfdUOWbFbmwKFgK4Rm6H4bRj3KE4SqhEAx77obgtmv5rmtTQStTD9xRRMjgR
+ wNsNY2TaJN8wgqvvDz2LjErHKNiYXZg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1642543923;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=l/2+RGwqT3bN8yh1Wbr35JU2GCsGVg51fHuS4isAtOg=;
- b=0hBUbd8wHnCjujXAXybmcjd7PcRqk4pHICfEf18DzIz4+toBWF0MU6Wwg4RLGc20O9qmm5
- l1rLmaRpkj3q2UBg==
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=fIjGoioz1ktw+V2nDlWEmosZi3TFcipP21grgpN+1V0=;
+ b=p9rAbPEHAH/GkzjdVt4UYmnDTTwJxkP7+H4//IGoW754UKGW8MHbFx8xPdRTBSnNxqzIn5
+ w5+6i52UNNI6iLBA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 270AD13B2A;
- Wed, 19 Jan 2022 07:39:43 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 64CC713AD9;
+ Tue, 18 Jan 2022 22:12:00 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 9atcBz/A52HPaQAAMHmgww
- (envelope-from <pvorel@suse.cz>); Wed, 19 Jan 2022 07:39:43 +0000
-From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Wed, 19 Jan 2022 08:39:39 +0100
-Message-Id: <20220119073939.8543-1-pvorel@suse.cz>
-X-Mailer: git-send-email 2.34.1
+ by imap2.suse-dmz.suse.de with ESMTPSA id xZtaCDA752EeGQAAMHmgww
+ (envelope-from <neilb@suse.de>); Tue, 18 Jan 2022 22:12:00 +0000
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+From: "NeilBrown" <neilb@suse.de>
+To: "Petr Vorel" <pvorel@suse.cz>
+In-reply-to: <YebcNQg0u5cU1QyQ@pevik>
+References: <YebcNQg0u5cU1QyQ@pevik>
+Date: Wed, 19 Jan 2022 09:11:57 +1100
+Message-id: <164254391708.24166.6930987548904227011@noble.neil.brown.name>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 1/1] ci: Replace groovy -> impish
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+X-Mailman-Approved-At: Wed, 19 Jan 2022 10:36:30 +0100
+Subject: Re: [LTP] LTP nfslock01 test failing on NFS v3 (lockd: cannot
+ monitor 10.0.0.2)
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,90 +82,37 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: linux-integrity@vger.kernel.org
+Cc: linux-nfs@vger.kernel.org, Steve Dickson <SteveD@redhat.com>,
+ Anna Schumaker <anna.schumaker@netapp.com>,
+ "J. Bruce Fields" <bfields@fieldses.org>, Chuck Lever <chuck.lever@oracle.com>,
+ Trond Myklebust <trond.myklebust@hammerspace.com>, ltp@lists.linux.it,
+ Nikita Yushchenko <nikita.yushchenko@virtuozzo.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-From: Petr Vorel <petr.vorel@gmail.com>
+On Wed, 19 Jan 2022, Petr Vorel wrote:
+> Hi all,
+> 
+> this is a test failure posted by Nikita Yushchenko [1]. LTP NFS test nfslock01
+> looks to be failing on NFS v3:
+> 
+> "not unsharing /var makes AF_UNIX socket for host's rpcbind to become available
+> inside ltpns. Then, at nfs3 mount time, kernel creates an instance of lockd for
+> ltpns, and ports for that instance leak to host's rpcbind and overwrite ports
+> for lockd already active for root namespace. This breaks nfs3 file locking."
 
-in both GitHub Actions and Travis.
+"not unsharing /var" ....  can this be fixed by simply unsharing /var?
+Or is that not simple?
 
-groovy is EOL, which is probably the reason why it's archives has been
-removed:
+On could easily argue that RPCBIND_SOCK_PATHNAME in the kernel should be
+changed to "/run/rpcbind.sock".  Does this test suite unshare /run ??
 
-Ign:1 http://security.ubuntu.com/ubuntu groovy-security InRelease
-Ign:2 http://archive.ubuntu.com/ubuntu groovy InRelease
-Err:3 http://security.ubuntu.com/ubuntu groovy-security Release
-  404  Not Found [IP: 91.189.91.39 80]
-Ign:4 http://archive.ubuntu.com/ubuntu groovy-updates InRelease
-Ign:5 http://archive.ubuntu.com/ubuntu groovy-backports InRelease
-Err:6 http://archive.ubuntu.com/ubuntu groovy Release
-  404  Not Found [IP: 91.189.88.142 80]
-Err:7 http://archive.ubuntu.com/ubuntu groovy-updates Release
-  404  Not Found [IP: 91.189.88.142 80]
-Err:8 http://archive.ubuntu.com/ubuntu groovy-backports Release
-  404  Not Found [IP: 91.189.88.142 80]
-Reading package lists...
-E: The repository 'http://security.ubuntu.com/ubuntu groovy-security Release' does not have a Release file.
-E: The repository 'http://archive.ubuntu.com/ubuntu groovy Release' does not have a Release file.
-E: The repository 'http://archive.ubuntu.com/ubuntu groovy-updates Release' does not have a Release file.
-E: The repository 'http://archive.ubuntu.com/ubuntu groovy-backports Release' does not have a Release file.
+BTW, your email contains [1], [2], etc which suggests there are links
+somewhere - but there aren't.
 
-Using impish requires to use workaround to avoid apt asking to
-interactively configure tzdata.
-
-Signed-off-by: Petr Vorel <petr.vorel@gmail.com>
----
- .github/workflows/ci.yml | 2 +-
- .travis.yml              | 2 +-
- ci/debian.sh             | 3 +++
- 3 files changed, 5 insertions(+), 2 deletions(-)
-
-diff --git a/.github/workflows/ci.yml b/.github/workflows/ci.yml
-index ad611ad..4316ede 100644
---- a/.github/workflows/ci.yml
-+++ b/.github/workflows/ci.yml
-@@ -59,7 +59,7 @@ jobs:
-               CC: gcc
-               TSS: tpm2-tss
- 
--          - container: "ubuntu:groovy"
-+          - container: "ubuntu:impish"
-             env:
-               CC: gcc
-               TSS: ibmtss
-diff --git a/.travis.yml b/.travis.yml
-index 534c41d..bdf78a1 100644
---- a/.travis.yml
-+++ b/.travis.yml
-@@ -40,7 +40,7 @@ matrix:
-           compiler: gcc
- 
-         - os: linux
--          env: DISTRO=ubuntu:groovy TSS=ibmtss COMPILE_SSL=openssl-3.0.0-beta1
-+          env: DISTRO=ubuntu:impish TSS=ibmtss COMPILE_SSL=openssl-3.0.0-beta1
-           compiler: gcc
- 
-         - os: linux
-diff --git a/ci/debian.sh b/ci/debian.sh
-index ae5c9c1..005b1f6 100755
---- a/ci/debian.sh
-+++ b/ci/debian.sh
-@@ -2,6 +2,9 @@
- # Copyright (c) 2020 Petr Vorel <pvorel@suse.cz>
- set -ex
- 
-+# workaround for Ubuntu impish asking to interactively configure tzdata
-+export DEBIAN_FRONTEND="noninteractive"
-+
- if [ -z "$CC" ]; then
- 	echo "missing \$CC!" >&2
- 	exit 1
--- 
-2.34.1
-
+NeilBrown
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
