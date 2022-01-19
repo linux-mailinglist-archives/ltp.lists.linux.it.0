@@ -2,73 +2,85 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id B17914939D5
-	for <lists+linux-ltp@lfdr.de>; Wed, 19 Jan 2022 12:45:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 654A8493C17
+	for <lists+linux-ltp@lfdr.de>; Wed, 19 Jan 2022 15:45:02 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 399023C968F
-	for <lists+linux-ltp@lfdr.de>; Wed, 19 Jan 2022 12:45:53 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 092543C96A6
+	for <lists+linux-ltp@lfdr.de>; Wed, 19 Jan 2022 15:45:02 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E237C3C966A
- for <ltp@lists.linux.it>; Wed, 19 Jan 2022 12:45:50 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 209F23C90E7
+ for <ltp@lists.linux.it>; Wed, 19 Jan 2022 15:44:26 +0100 (CET)
+Received: from smtp-relay-internal-0.canonical.com
+ (smtp-relay-internal-0.canonical.com [185.125.188.122])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 4238B1400059
- for <ltp@lists.linux.it>; Wed, 19 Jan 2022 12:45:49 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 3D217600078
+ for <ltp@lists.linux.it>; Wed, 19 Jan 2022 15:44:25 +0100 (CET)
+Received: from mail-lf1-f72.google.com (mail-lf1-f72.google.com
+ [209.85.167.72])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 6A199218E6;
- Wed, 19 Jan 2022 11:45:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1642592749;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=rjKgredrINuI3+GNHJs+bSUqVUnDDT2LS4N6gR1sie4=;
- b=NkGBbp1FazENKF4XiCZFPdLVmO71ukpSW64csYLRusUpGN7LPR1wP8LVUmweEYg5F332g5
- PW5cE0nX7H8XqtlwQcVOmzQZr31NvKrsvMqFzmGZ7aarfV0xIdmIT5qlvk+T7kO1IchhJP
- qLUq8BrdSMjok9CtjfHGoilAMewZlac=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1642592749;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=rjKgredrINuI3+GNHJs+bSUqVUnDDT2LS4N6gR1sie4=;
- b=7JhzBUVCznMDYzp8pWiJUBFbqXqNpCc5jZw4J1G5bYeEuRvlN/OVZeR1AUN3Gp4xr6KAFH
- a2xlMAt97x9OcZDA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3F7B913B31;
- Wed, 19 Jan 2022 11:45:49 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id jOP+DO3552E3eAAAMHmgww
- (envelope-from <pvorel@suse.cz>); Wed, 19 Jan 2022 11:45:49 +0000
-Date: Wed, 19 Jan 2022 12:45:47 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <Yef56y6oyGepGfpO@pevik>
-References: <20220119111533.8356-1-mdoucha@suse.cz> <Yef0lBQ5aryeC5ew@pevik>
- <0bd9af6b-9750-134a-8740-8017103ca4ee@suse.cz>
+ by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id C08A73F306
+ for <ltp@lists.linux.it>; Wed, 19 Jan 2022 14:44:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1642603461;
+ bh=oqPtAn++7R40KRPpI2IMvsA661HDZ3iHKPn6coM3Lh4=;
+ h=From:To:Subject:Date:Message-Id:MIME-Version;
+ b=E+lS8habGQiIBK65tPYbz0zCDcE7L17A+U4fc0nVjKXdsaG3mEiGrajCTxn6vqgRe
+ CwAl3Hl45HpiSMy9+5JpuhPONMb6lUOrV4QSE+ZhkkA43rM/6xi5olBPIysW0z2Xds
+ a4pHhOnPvmE9oayx/B2e0n6mbvJftCQI47BxtUdeYnxXqC+rVI8CaTaTJxU9AN2bDD
+ kxG5EjqWX1pw/xTOM0atcIpiJoNMpq4qUy0XHjJcvV7LltSJIntzsXtyH1GKYyk9mD
+ aEmM0s4cx4E8N3SYeCwTNlKxe5OoQjY8Dgs4S1/BIc12z09KxWAmKLi8ts0GbyhPYM
+ jK0ittK/RrYZw==
+Received: by mail-lf1-f72.google.com with SMTP id
+ u1-20020ac258c1000000b004304234f41aso1754741lfo.8
+ for <ltp@lists.linux.it>; Wed, 19 Jan 2022 06:44:21 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=oqPtAn++7R40KRPpI2IMvsA661HDZ3iHKPn6coM3Lh4=;
+ b=yBAK4UF+8JCmu2TkpUcWfKVqBOcrHLH4sHfphaXZVCpcT4m32N5rfPfw9Od9JWFnt9
+ E37AW+rr9fwv/bN10tOaHEwj08PGlqOuHiZY98T+dOVVfbYUPh1UNZY9Iy1qD4FVu19g
+ jXIsa1FohegysVQtPBXs02D8Lvs3fQ04DraCDAPcKrhHw7wPLaDQ8YU6guthhJUtRazV
+ NdFn2DqMZZ1bINtXe9CrsoZUuLD9/FWfDEmaUALQbemzUQdHkmm3vYGJ65pF6KzWrcSR
+ r0+qvYvQ/Gi5i7+768kJ/cB8Vm2YxsWq1jQH/p+4oreA6c1RmiCw7wWzSbStgUOPzkUs
+ +QQw==
+X-Gm-Message-State: AOAM533cu8pkq0yMQXWthr+t0I81hidSNruBTcnxMlK7JNo4n1N4Jw03
+ WwXGJyClZ+6bAoNg+rjoKGvAqvMy9ipZOV0Jy4A3x8EaqYQ6R34Y8l9wznswL5hDub52fikMrKO
+ cx5H1zhvcR7R5HN3wes9uVuQciw7m
+X-Received: by 2002:ac2:4d24:: with SMTP id h4mr28456650lfk.186.1642603461038; 
+ Wed, 19 Jan 2022 06:44:21 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJw1K1E7ihtc+F7wimj3vouoA7P7lmcrmRtKVJyMshdljmcIx6JptZht6J2xfAdceGmd3Hz7QQ==
+X-Received: by 2002:ac2:4d24:: with SMTP id h4mr28456628lfk.186.1642603460797; 
+ Wed, 19 Jan 2022 06:44:20 -0800 (PST)
+Received: from lukenow-XPS-13-9380.. (d83-110.icpnet.pl. [77.65.83.110])
+ by smtp.gmail.com with ESMTPSA id bt18sm2036843lfb.50.2022.01.19.06.44.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 19 Jan 2022 06:44:20 -0800 (PST)
+From: Luke Nowakowski-Krijger <luke.nowakowskikrijger@canonical.com>
+To: ltp@lists.linux.it,
+	rpalethorpe@suse.de,
+	liwang@redhat.com
+Date: Wed, 19 Jan 2022 06:44:02 -0800
+Message-Id: <cover.1642601554.git.luke.nowakowskikrijger@canonical.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <0bd9af6b-9750-134a-8740-8017103ca4ee@suse.cz>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] Rewrite statx04 test
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH 00/16] Expand Cgroup lib and modify controller tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,37 +92,74 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-> On 19. 01. 22 12:23, Petr Vorel wrote:
-> > Hi Martin,
+This patchset aims to expand the cgroup_lib shell library to simplify
+and centralize the whole mounting and cleanup process that can get
+rather confusing and redundant when writing cgroup controller tests from
+a shell environment. This is done by having the shell library make calls
+to the C cgroup API from a binary utility. 
 
-> >> ...
+In this patch set there are a few tests that have been extensively
+rewritten to work with the new test API and to use the new functionality
+from the cgroup lib. Because the test Cgroup lib handles mounting for v1
+and v2 controllers, some tests were modified to also work under cgroup
+v2. Some tests that were written for v1 controller also effictively test
+v2 controllers, while others were written to test v2 controllers in the
+spirit of the test or skipped outright. 
 
-> > I'd put this into commit message (can be done during merge).
+Luke Nowakowski-Krijger (16):
+  API/cgroup: Modify tst_cgroup_print_config for easier parsing and
+    consumption
+  API/cgroup: Add option for specific pid to tst_cgroup_opts
+  API/cgroup: Add cgroup_find_root helper function
+  API/cgroup: Implement tst_cgroup_load_config()
+  API/cgroup: Add more controllers to tst_cgroup
+  API/cgroup: Change to TWARN when v2 controllers change
+  testcases/lib: Implement tst_cgctl binary
+  controllers: Expand cgroup_lib shell library
+  controllers: Update cgroup_fj_* to use newer cgroup lib and test lib
+  controllers: Update memcg_control_test to newer test lib and cgroup
+    lib
+  controllers: Update memcg/regression/* to new test and cgroup lib
+  controllers: Update memcg_stress_test to use newer cgroup lib
+  controllers: update memcg/functional to use newer cgroup lib
+  controllers: Update pids.sh to use newer cgroup lib
+  controllers: update cpuset_regression_test.sh to use newer cgroup lib
+  controllers: update cgroup_regression_test to use newer cgroup lib
 
-> Sure.
+ include/tst_cgroup.h                          |   7 +-
+ lib/tst_cgroup.c                              | 314 +++++++++++++++++-
+ .../cgroup/cgroup_regression_test.sh          |  17 +-
+ .../controllers/cgroup_fj/cgroup_fj_common.sh | 105 ++----
+ .../cgroup_fj/cgroup_fj_function.sh           | 169 ++++++----
+ .../controllers/cgroup_fj/cgroup_fj_proc.c    |  24 +-
+ .../controllers/cgroup_fj/cgroup_fj_stress.sh | 168 +++++-----
+ testcases/kernel/controllers/cgroup_lib.sh    | 128 +++++--
+ .../cpuset/cpuset_regression_test.sh          |  26 +-
+ .../controllers/memcg/control/mem_process.c   |  28 +-
+ .../memcg/control/memcg_control_test.sh       | 150 +++------
+ .../memcg/functional/memcg_force_empty.sh     |   2 +-
+ .../controllers/memcg/functional/memcg_lib.sh |  54 +--
+ .../memcg/regression/memcg_regression_test.sh | 202 +++++------
+ .../memcg/regression/memcg_test_1.c           |  40 +--
+ .../memcg/regression/memcg_test_2.c           |  24 +-
+ .../memcg/regression/memcg_test_3.c           |  35 +-
+ .../memcg/regression/memcg_test_4.c           |  24 +-
+ .../memcg/regression/memcg_test_4.sh          |  50 ++-
+ .../memcg/stress/memcg_stress_test.sh         |  32 +-
+ testcases/kernel/controllers/pids/pids.sh     |  65 +---
+ testcases/lib/Makefile                        |   2 +-
+ testcases/lib/tst_cgctl.c                     |  69 ++++
+ 23 files changed, 966 insertions(+), 769 deletions(-)
+ create mode 100644 testcases/lib/tst_cgctl.c
 
-> >> +	for (i = 0, expected_mask = 0; i < ARRAY_SIZE(attr_list); i++)
-> > Before merge we should cast to prevent "comparison of integer expressions of
-> > different signedness" warning:
-> > for (i = 0, expected_mask = 0; i < (int)ARRAY_SIZE(attr_list); i++)
+-- 
+2.32.0
 
-> It's better to fix that by changing the type of "i" to size_t or
-+1
-
-> unsigned int. But GCC could easily deduce that one of the values is a
-> constant well within the range of signed int and not bother us with the
-> warning...
-Agree :).
-
-Kind regards,
-Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
