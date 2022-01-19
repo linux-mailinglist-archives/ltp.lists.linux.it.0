@@ -1,77 +1,69 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FEC349376B
-	for <lists+linux-ltp@lfdr.de>; Wed, 19 Jan 2022 10:36:45 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 843BA4936F3
+	for <lists+linux-ltp@lfdr.de>; Wed, 19 Jan 2022 10:13:29 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 090503C968E
-	for <lists+linux-ltp@lfdr.de>; Wed, 19 Jan 2022 10:36:45 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 06CA63C96CB
+	for <lists+linux-ltp@lfdr.de>; Wed, 19 Jan 2022 10:13:28 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 2FA463C9617
- for <ltp@lists.linux.it>; Tue, 18 Jan 2022 23:13:45 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id E66343C9690
+ for <ltp@lists.linux.it>; Wed, 19 Jan 2022 10:13:17 +0100 (CET)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 6B2F820097D
- for <ltp@lists.linux.it>; Tue, 18 Jan 2022 23:13:44 +0100 (CET)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 44A30600209
+ for <ltp@lists.linux.it>; Wed, 19 Jan 2022 10:13:14 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 79C5A1F37E;
- Tue, 18 Jan 2022 22:13:44 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 81F721F38C;
+ Wed, 19 Jan 2022 09:13:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1642544024; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=AAHvca2bpoYeHXHo+BMAx7zj5Lkev8D5VT+5PlIT8ec=;
- b=OT4sSt4GojfmivoxgbSzf3kcx6BhT9Wz2GnqgxB5rHsSgMVnm709x6CX+f1f2/1JNNI7ge
- wcQpayQRI7np0jcvd5N1znxArTQPEq1aebZRoE6hmMHE4FXEgDU6utOkmEErOtmE3C8jN6
- p4IHVPqvH1enkMxyGjjlJa68Ww8alDw=
+ t=1642583593; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Fk1mp6RfKjyEuQZPXN6qYdt9CLti2lYktOHyPQd60jU=;
+ b=la130rOjD3eyq5yJX9aJYt5xPg1NJ4nGWtPz4Sd7CbLlIV/nF8YOVGvnYTjgwn6K6n3ISa
+ wm0kH7OU5mbeqJ94oD9t+G5JypHiN7AFNzN8mocJxPn29DQUrVW+04pfO4OaTLAjQW2WdV
+ hPP8dQCytzuyaEaOUcuzHUsNUDgTF7U=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1642544024;
+ s=susede2_ed25519; t=1642583593;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=AAHvca2bpoYeHXHo+BMAx7zj5Lkev8D5VT+5PlIT8ec=;
- b=4r/8QtGnoQrcptONNaqaCvzG/YBhIRAQhKGym1kxw0LQ0vRdSv6bliofXkqQt1N9mpWOvm
- brZbD4LXD9rdcuDQ==
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Fk1mp6RfKjyEuQZPXN6qYdt9CLti2lYktOHyPQd60jU=;
+ b=HSYGt3WERPPTnI0WUVS1GLFl/PklsYvKiBJY3Ll9L1hSMhF0bV+FAuU6wRPWfT4iE2zWtN
+ FS54KsrcOtkUMDDg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5E83E13AD9;
- Tue, 18 Jan 2022 22:13:41 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5B79C13B2D;
+ Wed, 19 Jan 2022 09:13:13 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id y6sfB5U752HnGQAAMHmgww
- (envelope-from <neilb@suse.de>); Tue, 18 Jan 2022 22:13:41 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id 6glLFCnW52HfHQAAMHmgww
+ (envelope-from <andrea.cervesato@suse.de>); Wed, 19 Jan 2022 09:13:13 +0000
+From: Andrea Cervesato <andrea.cervesato@suse.de>
+To: ltp@lists.linux.it
+Date: Wed, 19 Jan 2022 10:13:09 +0100
+Message-Id: <20220119091311.22150-1-andrea.cervesato@suse.de>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-From: "NeilBrown" <neilb@suse.de>
-To: "Nikita Yushchenko" <nikita.yushchenko@virtuozzo.com>
-In-reply-to: <a35ebb8b-6e61-8445-cf19-285bf2f875ad@virtuozzo.com>
-References: <YebcNQg0u5cU1QyQ@pevik>,
- <a35ebb8b-6e61-8445-cf19-285bf2f875ad@virtuozzo.com>
-Date: Wed, 19 Jan 2022 09:13:35 +1100
-Message-id: <164254401568.24166.883582030601071761@noble.neil.brown.name>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-X-Mailman-Approved-At: Wed, 19 Jan 2022 10:36:30 +0100
-Subject: Re: [LTP] LTP nfslock01 test failing on NFS v3 (lockd: cannot
- monitor 10.0.0.2)
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 0/2] Add futex_wait testing suite
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,64 +75,56 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: linux-nfs@vger.kernel.org, Steve Dickson <SteveD@redhat.com>,
- Anna Schumaker <anna.schumaker@netapp.com>,
- "J. Bruce Fields" <bfields@fieldses.org>, Chuck Lever <chuck.lever@oracle.com>,
- kernel@openvz.org, Trond Myklebust <trond.myklebust@hammerspace.com>,
- ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Wed, 19 Jan 2022, Nikita Yushchenko wrote:
-> 18.01.2022 18:26, Petr Vorel wrote:
-> > Hi all,
-> > 
-> > this is a test failure posted by Nikita Yushchenko [1]. LTP NFS test nfslock01
-> > looks to be failing on NFS v3:
-> > 
-> > "not unsharing /var makes AF_UNIX socket for host's rpcbind to become available
-> > inside ltpns. Then, at nfs3 mount time, kernel creates an instance of lockd for
-> > ltpns, and ports for that instance leak to host's rpcbind and overwrite ports
-> > for lockd already active for root namespace. This breaks nfs3 file locking."
-> 
-> What exactly happens is:
-> 
-> Test runs 'mount' in non-root netns, trying to mount a directory from root netns of the same host via nfsv3
-> 
-> (Part of) call chain inside the kernel
-> 
-> nfs_try_get_tree()
->   nfs3_create_server()
->    nfs_create_server()
->     nfs_init_server()
->      nfs_start_lockd()
->       nlmclnt_init()
->        lockd_up()
->         svc_bind()
->          svc_rpcb_setup()
->           rpcb_create_local()
-> 
-> ... and at this point it tries AF_UNIX connection to /var/run/rpcbind.sock
-> 
-> AF_UNIX is not netns-aware.
-> So it connects to host's rpcbind.
-> And overwrites ports registered in host's rpcbind by lockd instance for root namespace. Since this 
-> point, lockd instance for root namespace becomes no longer accessible (it still listens but nobody can 
-> learn the ports). Thus nfs locks don't work.
-> 
-> I'm not sure what is the correct behavior here.
-> 
-> Maybe rpcb_create_local() shall detect that it is not in root netns, and only try AF_INET connection to 
-> localhost in that case.
+futex_waitv tests have been inspired by
+tools/testing/selftests/futex/functional/futex_waitv.c that can be found
+in the Linux kernel official repository.
 
-That would be simple and might be sensible.  IF changing the AF_UNIX
-path to "/run/rpcbind.sock" isn't sufficient, then testing for the
-root_ns is probably the best second option.
+Andrea Cervesato (2):
+  Update lapi/futex.h fallback
+  Add futex_waitv testing suite
 
-Thanks,
-NeilBrown
+ configure.ac                                  |   3 +
+ include/lapi/futex.h                          | 180 ++++++++++++++++++
+ include/lapi/syscalls/aarch64.in              |   1 +
+ include/lapi/syscalls/arc.in                  |   1 +
+ include/lapi/syscalls/arm.in                  |   1 +
+ include/lapi/syscalls/hppa.in                 |   1 +
+ include/lapi/syscalls/i386.in                 |   1 +
+ include/lapi/syscalls/ia64.in                 |   1 +
+ include/lapi/syscalls/mips_n32.in             |   1 +
+ include/lapi/syscalls/mips_n64.in             |   1 +
+ include/lapi/syscalls/mips_o32.in             |   1 +
+ include/lapi/syscalls/powerpc.in              |   1 +
+ include/lapi/syscalls/powerpc64.in            |   1 +
+ include/lapi/syscalls/s390.in                 |   1 +
+ include/lapi/syscalls/s390x.in                |   1 +
+ include/lapi/syscalls/sh.in                   |   1 +
+ include/lapi/syscalls/sparc.in                |   1 +
+ include/lapi/syscalls/sparc64.in              |   1 +
+ include/lapi/syscalls/x86_64.in               |   1 +
+ lib/tst_checkpoint.c                          |   1 -
+ testcases/kernel/syscalls/clone/clone08.c     |   1 -
+ testcases/kernel/syscalls/futex/.gitignore    |   3 +
+ testcases/kernel/syscalls/futex/Makefile      |  14 +-
+ .../syscalls/futex/futex_cmp_requeue01.c      |   2 +-
+ .../syscalls/futex/futex_cmp_requeue02.c      |   2 +-
+ .../kernel/syscalls/futex/futex_waitv01.c     | 129 +++++++++++++
+ .../kernel/syscalls/futex/futex_waitv02.c     | 104 ++++++++++
+ .../kernel/syscalls/futex/futex_waitv03.c     | 112 +++++++++++
+ testcases/kernel/syscalls/futex/futextest.h   |  72 +++----
+ 29 files changed, 591 insertions(+), 49 deletions(-)
+ create mode 100644 testcases/kernel/syscalls/futex/futex_waitv01.c
+ create mode 100644 testcases/kernel/syscalls/futex/futex_waitv02.c
+ create mode 100644 testcases/kernel/syscalls/futex/futex_waitv03.c
+
+-- 
+2.34.1
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
