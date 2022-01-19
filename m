@@ -2,65 +2,65 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2E514938F7
-	for <lists+linux-ltp@lfdr.de>; Wed, 19 Jan 2022 11:55:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 934E649392C
+	for <lists+linux-ltp@lfdr.de>; Wed, 19 Jan 2022 12:04:53 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B729A3C96BC
-	for <lists+linux-ltp@lfdr.de>; Wed, 19 Jan 2022 11:55:40 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 098813C968F
+	for <lists+linux-ltp@lfdr.de>; Wed, 19 Jan 2022 12:04:53 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 0E9DD3C950B
- for <ltp@lists.linux.it>; Wed, 19 Jan 2022 11:55:36 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id A19C13C967B
+ for <ltp@lists.linux.it>; Wed, 19 Jan 2022 12:04:49 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 77B736000FC
- for <ltp@lists.linux.it>; Wed, 19 Jan 2022 11:55:36 +0100 (CET)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 10A2F6009E6
+ for <ltp@lists.linux.it>; Wed, 19 Jan 2022 12:04:48 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 554C41F37E;
- Wed, 19 Jan 2022 10:55:35 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 2A2742170E;
+ Wed, 19 Jan 2022 11:04:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1642589735;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
+ t=1642590288;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=FeGGlNViijQEZE9tYqeTmGyYIBI2fe3ZclferngjlJg=;
- b=zicmOUbV8k/z+lDmi54FoMI/KUYXHkkryFvHv6OjINPobBotmVi4SY6IVJGKvpJerhwE/H
- wyCmTj2m1xZyXk+rwH24syKk38ma/oRnIhoekAsGodqW1P2LoQPLdv9OpkjpOJCnPl7J2+
- iEuGgoEO0nWaBwfz6HogrxuVlH56y40=
+ bh=N2oaGslFk77vLf4O1jYCc4e18QrxbE5/SwD8SXzaUR8=;
+ b=Ht8/muSPlxurrRpx6eNCCCQnHQoV9xfsd9XgGnQYUizbrMvqAp/Luzy7H9/QHRPtHp8tJk
+ kBMJoAIgeJknaPVAR3dQIadMQEIOseNcyUH+oexPrEE2cDGubEXVlsfddHQ9rf0AmwwbJB
+ xTDEsLheXZbiPZpM2levsfiUm6of3xQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1642589735;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
+ s=susede2_ed25519; t=1642590288;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=FeGGlNViijQEZE9tYqeTmGyYIBI2fe3ZclferngjlJg=;
- b=N8N50UXJlYdyZ2z03uLf/unhgO1sLJWawfVBth8VJiLIASlxziBi5KZz7bvyDQzBoAkmxX
- A9aZutzx0Eod8JAQ==
+ bh=N2oaGslFk77vLf4O1jYCc4e18QrxbE5/SwD8SXzaUR8=;
+ b=6xQfbHvBXmoPliHwQB2PFDu+uYV6TwrJNALrRNbdYGtmgy4EiJGlDPfiPlbCIHudj0XIfe
+ 07Axub1er/21tPAA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2D6EA13B3D;
- Wed, 19 Jan 2022 10:55:35 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id EC9C913B3D;
+ Wed, 19 Jan 2022 11:04:47 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id AIilCSfu52GYVwAAMHmgww
- (envelope-from <pvorel@suse.cz>); Wed, 19 Jan 2022 10:55:35 +0000
-Date: Wed, 19 Jan 2022 11:55:33 +0100
+ by imap2.suse-dmz.suse.de with ESMTPSA id OwmMN0/w52HJXAAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Wed, 19 Jan 2022 11:04:47 +0000
+Date: Wed, 19 Jan 2022 12:04:46 +0100
 From: Petr Vorel <pvorel@suse.cz>
-To: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <YefuJcfsDpuYeQ3X@pevik>
-References: <20220118170243.22496-1-mdoucha@suse.cz>
+To: Martin Doucha <mdoucha@suse.cz>, ltp@lists.linux.it
+Message-ID: <YefwTuQecjXl1T0B@pevik>
+References: <20220118170243.22496-1-mdoucha@suse.cz> <YefuJcfsDpuYeQ3X@pevik>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20220118170243.22496-1-mdoucha@suse.cz>
+In-Reply-To: <YefuJcfsDpuYeQ3X@pevik>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -80,31 +80,17 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Martin,
+> >   * xfs filesystem doesn't support STATX_ATTR_COMPRESSED flag, so we only test
+> >   * three other flags.
 
-> statx04 is supposed verify that inode attribute support in statx() matches
-> what should actually be implemented. However, we already have functional tests
-> for this in statx08 and lack a test of the stx_attribute_mask field which
-> reports inode attribute support to userspace.
-
-> Rewrite the test to drop the duplicate code and add the missing coverage.
-
-LGTM, thanks! BTW you'd deserve your (or SUSE) copyright for this change :).
-
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
-
-...
->   * xfs filesystem doesn't support STATX_ATTR_COMPRESSED flag, so we only test
->   * three other flags.
-
-I'd maybe add "known-fail" for xfs, as user hit this when running -s.
-Maybe document like this also btrfs.
+> I'd maybe add "known-fail" for xfs, as user hit this when running -s.
+> Maybe document like this also btrfs.
+btrfs is mentioned in tags (04a87e347282), thus only xfs.
 
 Kind regards,
 Petr
