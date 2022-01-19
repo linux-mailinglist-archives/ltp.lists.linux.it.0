@@ -1,90 +1,90 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6A75493C19
-	for <lists+linux-ltp@lfdr.de>; Wed, 19 Jan 2022 15:45:21 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id D4E6D493C1D
+	for <lists+linux-ltp@lfdr.de>; Wed, 19 Jan 2022 15:45:44 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 763473C96B0
-	for <lists+linux-ltp@lfdr.de>; Wed, 19 Jan 2022 15:45:21 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 7FCA03C96A5
+	for <lists+linux-ltp@lfdr.de>; Wed, 19 Jan 2022 15:45:44 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 1A6383C968A
- for <ltp@lists.linux.it>; Wed, 19 Jan 2022 15:44:28 +0100 (CET)
-Received: from smtp-relay-internal-0.canonical.com
- (smtp-relay-internal-0.canonical.com [185.125.188.122])
+ by picard.linux.it (Postfix) with ESMTPS id 5392F3C96B9
+ for <ltp@lists.linux.it>; Wed, 19 Jan 2022 15:44:32 +0100 (CET)
+Received: from smtp-relay-internal-1.canonical.com
+ (smtp-relay-internal-1.canonical.com [185.125.188.123])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 59D9B1000A34
- for <ltp@lists.linux.it>; Wed, 19 Jan 2022 15:44:28 +0100 (CET)
-Received: from mail-lf1-f71.google.com (mail-lf1-f71.google.com
- [209.85.167.71])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id C45B9600944
+ for <ltp@lists.linux.it>; Wed, 19 Jan 2022 15:44:31 +0100 (CET)
+Received: from mail-lf1-f72.google.com (mail-lf1-f72.google.com
+ [209.85.167.72])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id B212B40052
- for <ltp@lists.linux.it>; Wed, 19 Jan 2022 14:44:27 +0000 (UTC)
+ by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 48347407FC
+ for <ltp@lists.linux.it>; Wed, 19 Jan 2022 14:44:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1642603467;
- bh=/Vw4FtZv7rZdel8McqPYt01snLmMy2g7BPQQr0k8upY=;
+ s=20210705; t=1642603471;
+ bh=1AT44c14OCUtqPnKhq+49Xdqvl0KLglsyDavTB0JApE=;
  h=From:To:Subject:Date:Message-Id:In-Reply-To:References:
  MIME-Version;
- b=m1PaeFcY9frqoNzbEOMnQ9hnYsYGBMzfIH6Rswyio/UAufSh/+WLmpitgVtgbb9Ig
- tUwWLo5zyQBTrfuiwq5c6SF+NppqXPuTY5LHb6Ya8sdhZki1BIb9y9vu9gIw7bgmPq
- ywUMM1N+gtIssQ3QjBxhvzHh3VickyltHGT/x77U/U4caeyTWoIlBidRlfCWSK5oHp
- pViG8BkNTlHP/aIuAsusB60UGbMlhJnL8Rj6erphQQjCxTwEnRkqFz2W/gUmC3Iocl
- fRejB4sjPeBtUSyohQVIzO5NtiYC4/gPqKuluYocK/0xx9pmd4oBh+4MBiKyHmMVYZ
- ILs7Lu57nQlvg==
-Received: by mail-lf1-f71.google.com with SMTP id
- r15-20020ac24d0f000000b00433881e147dso454066lfi.18
- for <ltp@lists.linux.it>; Wed, 19 Jan 2022 06:44:27 -0800 (PST)
+ b=K10uKCQyu0lomMGRLiteUww/jQEPqpeMfE3oKjGT/cUQ03SyIiUPUQujwAxZjwE3m
+ PwXu71BH9vNLO41y/D705wXKqAYNwmoaaET7/QRw79i4JcY8GXTScIYInJlMMQJO6W
+ f7Un4pDulMWlVrlKVr7uVN6+xe2ADv3LYTva4AVvARWNsw9BFSoqk7P3FvipZE2Q7r
+ ybnxKGl89iPIWOAT5X1xDbX9qcpsd9YMgVwhjhZmRMpu+psJlSmKXzg1dWyrQQlq4V
+ ctWsgBGfXOqrCG/F3GbV2zcWZ5m8Gu1eNe5i1Zf7xMCTmv0p5CYzpPwPmO+R3kHcqy
+ gSeZ6HetpjRLw==
+Received: by mail-lf1-f72.google.com with SMTP id
+ d12-20020a196b0c000000b0042afa90ae9bso1742343lfa.12
+ for <ltp@lists.linux.it>; Wed, 19 Jan 2022 06:44:30 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=/Vw4FtZv7rZdel8McqPYt01snLmMy2g7BPQQr0k8upY=;
- b=CWisyCkixZs734X+B7vj8vAHeo1IG3S/nFGIqRTu2eLrGttu+WahLEv9RLSB0145Y0
- mJAWwdG7rF2JtMhH7Iz/glACzm83dbc1VOF0M7+CI0mxHF+qTMF+gWbsucGr3ORJ2UuZ
- eLHIpubFVhfdHo2p9RdSKBnP/0FwkPXdx/VZr1nKMlAby4W4urm0vroFaBUHZYj5VLlq
- ARU5ZQzg2NH4EV9cuurawXZx4+44FJXIG0ma9eHNolfHxAk/c8RzntFfs7et+oPMDwAe
- YVMVUQF1xodfj/j3vTsE5H/VnhuYTEAU7ieZDIkxzYpiAjnow9f3mJlDCN0JypksQoxI
- fCmg==
-X-Gm-Message-State: AOAM531R+5QuFSYKO+9V/9H+oVL98Vj5ThZPhA/TIUkel7zlGl/vphYM
- Ot3du9+QnKp0ji3O0fRaNWZmiDu8Fta5bJMRhYnRM+Z2tl7BzcMPDS7U+LWchL2w74qPEBVh/+N
- wojwn6bn2cu1sKM9R5TiyLzzBQuMu
-X-Received: by 2002:a19:6555:: with SMTP id c21mr28880090lfj.206.1642603466870; 
- Wed, 19 Jan 2022 06:44:26 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJy9xplJ8OzAXEh/bj3FKIbNUTXBos38Au1cXIZVLIjqKd4iH5vIZ8hhigWmrbsak+D0+LdE6g==
-X-Received: by 2002:a19:6555:: with SMTP id c21mr28880074lfj.206.1642603466716; 
- Wed, 19 Jan 2022 06:44:26 -0800 (PST)
+ bh=1AT44c14OCUtqPnKhq+49Xdqvl0KLglsyDavTB0JApE=;
+ b=Cg3mAL02Zb4Fi6VjquYzqUM6z9kXWSb3/B0yxAmnb5Iw64cK32nbL3yxGGC5rRqouP
+ wZ6BV4Y/zKs37x3xdsigKQbJ+2ppzzBGcF5BwdrK4fCx5MaDg/KHp1bX24tBHl0FbJFM
+ KKVU3kyEYGHrGHeBcSaWeqPBPVuF9R44jbcm2dqn7XuMnyqlU9uZ3DdcSAJ01nqGJYNg
+ wQpllmw8/CRHYEGI11qN6fPRNdr0z5CJVJBjVhrGcnGOmcc9v+L8TeA9ah7s+E6NCHTr
+ vyYdguwLL2/YrehlkuED7V35dw64UA8g0SDBfW3Yv+hDLCn38hs+B+phDDpKFCxvL1Pm
+ KdCQ==
+X-Gm-Message-State: AOAM532c56Xh7Z2iBzfm27j0BGt2fFQWtzaBcMN6iaXSYkef1vmZVobe
+ WXxl2Uwrf8KVKzFB8vUYGn9aKk+vN4UK2guDrsjYT+ISq1TgXcM+PZ84gZayRI+Vhaj07up9cox
+ 1K/YW+wYWNEVVXsgnOgHctnHmlq57
+X-Received: by 2002:a05:6512:32c5:: with SMTP id
+ f5mr4456614lfg.564.1642603467930; 
+ Wed, 19 Jan 2022 06:44:27 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJyvsAD0rcJ3ZGWU/9xpDIeN97n5hfHezeu8uwDdlccB4sonX+11fc41rZ1beDiYX9R1cWwKiw==
+X-Received: by 2002:a05:6512:32c5:: with SMTP id
+ f5mr4456591lfg.564.1642603467728; 
+ Wed, 19 Jan 2022 06:44:27 -0800 (PST)
 Received: from lukenow-XPS-13-9380.. (d83-110.icpnet.pl. [77.65.83.110])
- by smtp.gmail.com with ESMTPSA id bt18sm2036843lfb.50.2022.01.19.06.44.25
+ by smtp.gmail.com with ESMTPSA id bt18sm2036843lfb.50.2022.01.19.06.44.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 19 Jan 2022 06:44:26 -0800 (PST)
+ Wed, 19 Jan 2022 06:44:27 -0800 (PST)
 From: Luke Nowakowski-Krijger <luke.nowakowskikrijger@canonical.com>
 To: ltp@lists.linux.it,
 	rpalethorpe@suse.de,
 	liwang@redhat.com
-Date: Wed, 19 Jan 2022 06:44:08 -0800
-Message-Id: <2a49929d166ac88d4c7900c5961be77cbd601fa4.1642601554.git.luke.nowakowskikrijger@canonical.com>
+Date: Wed, 19 Jan 2022 06:44:09 -0800
+Message-Id: <631e84014f8c9ad23cc634f6de8770998833286a.1642601554.git.luke.nowakowskikrijger@canonical.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <cover.1642601554.git.luke.nowakowskikrijger@canonical.com>
 References: <cover.1642601554.git.luke.nowakowskikrijger@canonical.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH 06/16] API/cgroup: Change to TWARN when v2 controllers
- change
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH 07/16] testcases/lib: Implement tst_cgctl binary
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,30 +101,106 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-When the v1 blkio controller is mounted it unmounts the v2 io controller
-effectively bringing the amount of cgroupv2 controllers down and
-triggering the tst_brk. Because this is exected behaivor it should be
-changed to TWARN in case there is something funny still going on and
-should be logged.
+Implement a binary utility that creates an interface to make calls to
+the cgroup C API.
+
+This will effectively allow shell scripts to make calls to the cgroup C
+api.
 
 Signed-off-by: Luke Nowakowski-Krijger <luke.nowakowskikrijger@canonical.com>
 ---
- lib/tst_cgroup.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ testcases/lib/Makefile    |  2 +-
+ testcases/lib/tst_cgctl.c | 69 +++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 70 insertions(+), 1 deletion(-)
+ create mode 100644 testcases/lib/tst_cgctl.c
 
-diff --git a/lib/tst_cgroup.c b/lib/tst_cgroup.c
-index 3d56a3364..c53b88ed2 100644
---- a/lib/tst_cgroup.c
-+++ b/lib/tst_cgroup.c
-@@ -677,7 +677,7 @@ static void cgroup_root_scan(const char *const mnt_type,
- 		goto discard;
+diff --git a/testcases/lib/Makefile b/testcases/lib/Makefile
+index f2de0c832..f4f8c8524 100644
+--- a/testcases/lib/Makefile
++++ b/testcases/lib/Makefile
+@@ -12,6 +12,6 @@ MAKE_TARGETS		:= tst_sleep tst_random tst_checkpoint tst_rod tst_kvcmp\
+ 			   tst_device tst_net_iface_prefix tst_net_ip_prefix tst_net_vars\
+ 			   tst_getconf tst_supported_fs tst_check_drivers tst_get_unused_port\
+ 			   tst_get_median tst_hexdump tst_get_free_pids tst_timeout_kill\
+-			   tst_check_kconfigs
++			   tst_check_kconfigs tst_cgctl
  
- 	if (root->ctrl_field)
--		tst_brk(TBROK, "Available V2 controllers are changing between scans?");
-+		tst_res(TWARN, "Available V2 controllers are changing between scans?");
- 
- 	root->ver = TST_CGROUP_V2;
- 
+ include $(top_srcdir)/include/mk/generic_leaf_target.mk
+diff --git a/testcases/lib/tst_cgctl.c b/testcases/lib/tst_cgctl.c
+new file mode 100644
+index 000000000..a6cf88f41
+--- /dev/null
++++ b/testcases/lib/tst_cgctl.c
+@@ -0,0 +1,69 @@
++#include <stdio.h>
++#include <string.h>
++#include <stdlib.h>
++#include <stdint.h>
++#include <unistd.h>
++#include "tst_cgroup.h"
++
++static int cgctl_require(const char *ctrl, int test_pid)
++{
++    struct tst_cgroup_opts opts;
++
++    memset(&opts, 0, sizeof(opts));
++    opts.test_pid = test_pid;
++
++    tst_cgroup_require(ctrl, &opts);
++    tst_cgroup_print_config();
++
++    return 0;
++}
++
++static int cgctl_cleanup(const char *config)
++{
++    tst_cgroup_scan();
++    tst_cgroup_load_config(config);
++    tst_cgroup_cleanup();
++
++    return 0;
++}
++
++static int cgctl_print(void)
++{
++    tst_cgroup_scan();
++    tst_cgroup_print_config();
++
++    return 0;
++}
++
++static int cgctl_process_cmd(int argc, char *argv[])
++{
++    int test_pid;
++    const char *cmd_name = argv[1];
++
++    if (!strcmp(cmd_name, "require")) {
++        test_pid = atoi(argv[3]);
++        if (!test_pid) {
++            fprintf(stderr, "tst_cgctl: Invalid test_pid '%s' given\n",
++                    argv[3]);
++            return 1;
++        }
++        return cgctl_require(argv[2], test_pid);
++    } else if (!strcmp(cmd_name, "cleanup")) {
++        return cgctl_cleanup(argv[2]);
++    } else if (!strcmp(cmd_name, "print")) {
++        return cgctl_print();
++    }
++
++    fprintf(stderr, "tst_cgctl: Unknown command '%s' given\n", cmd_name);
++    return 1;
++}
++
++int main(int argc, char *argv[])
++{
++    if (argc < 2 || argc > 4) {
++        fprintf(stderr, "tst_cgctl: Invalid number of arguements given");
++        return 1;
++    }
++
++    return cgctl_process_cmd(argc, argv);
++}
 -- 
 2.32.0
 
