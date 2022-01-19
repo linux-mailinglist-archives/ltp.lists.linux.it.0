@@ -1,92 +1,91 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77D9E493C12
-	for <lists+linux-ltp@lfdr.de>; Wed, 19 Jan 2022 15:44:51 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 99213493C10
+	for <lists+linux-ltp@lfdr.de>; Wed, 19 Jan 2022 15:44:29 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 165473C950B
-	for <lists+linux-ltp@lfdr.de>; Wed, 19 Jan 2022 15:44:51 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 1CD823C968D
+	for <lists+linux-ltp@lfdr.de>; Wed, 19 Jan 2022 15:44:29 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 715143C90E7
+ by picard.linux.it (Postfix) with ESMTPS id F35863C90E7
  for <ltp@lists.linux.it>; Wed, 19 Jan 2022 15:44:26 +0100 (CET)
-Received: from smtp-relay-internal-0.canonical.com
- (smtp-relay-internal-0.canonical.com [185.125.188.122])
+Received: from smtp-relay-internal-1.canonical.com
+ (smtp-relay-internal-1.canonical.com [185.125.188.123])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 40B18200AE3
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 3467A600657
  for <ltp@lists.linux.it>; Wed, 19 Jan 2022 15:44:25 +0100 (CET)
 Received: from mail-lf1-f72.google.com (mail-lf1-f72.google.com
  [209.85.167.72])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 4449E3F323
+ by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id C180A3FFD0
  for <ltp@lists.linux.it>; Wed, 19 Jan 2022 14:44:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
  s=20210705; t=1642603463;
- bh=zb6FHBlfcWZAMAhKimzjlwpIxTPTnlx9/44TqoJ7xYg=;
+ bh=uzsgK/nBWpjLp4bZpaf2ck5HQw5gRGEi1KwLNDsqFPg=;
  h=From:To:Subject:Date:Message-Id:In-Reply-To:References:
  MIME-Version;
- b=brJev8rqzW+dfmZyZjxXnK/3+Iks+PNon6M/7rfK5RBR8vROO+3Au8EawQOEPlv2c
- UjvbJuYUSt4MTYrFAS//rWMF25hq3ujvbugVHVvrUeSiw+GrZocWYALEYEn1jNwaha
- PImdFw0JEtwb9TfKl7WZWX+p6I6Z/4XGWyn4aF8UIrjcQb7j0mAVCcGPReatczHkcZ
- 8K622Vp91+JVXsDw0SyH9xDXvIw3L8KoNRArkHPiD2fWcPB0V+CdiPoURrg06koxP7
- nzMC8C+LhuMOjLamQDb+1trf6107insThrk1Ef2/SzW7V8rOtu2j+xav+EhaKCIh48
- 5b3KlzD8Zoo+g==
+ b=M8h5hwgC3YTvR3sfrBH+67QRRAH2mY3bNVHh054RQM0WCz249wGX4Eqtem0TjwYVR
+ rN3bZR27XvZU6TUh1UmozZXsC+7zKLwop/4LmHFK8mKXcgPR+/f/Zon4ITUjcxLNJj
+ jmUMxy4u77tAU658U2LoSum7sDEo/npiP7EVOmkPKmEKPBuHIwNi1PFzFKA8obIR/s
+ 922gxi5jK3mDOh9DMW2ZHU8KRrxjwhE1d940VvT0WV4niuP2cNWKyLpnyiajHUQjqB
+ pwhS4IxEu2HdSCzVIEFZ62C0cT8ERK9w5EoTvLfhIexnNjmGJ9JJCcjjpTkg1SI4/R
+ r1tqlucj7QWFA==
 Received: by mail-lf1-f72.google.com with SMTP id
- u1-20020ac258c1000000b004304234f41aso1754778lfo.8
+ x14-20020ac259ce000000b0042ca28e7200so1741575lfn.9
  for <ltp@lists.linux.it>; Wed, 19 Jan 2022 06:44:23 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=zb6FHBlfcWZAMAhKimzjlwpIxTPTnlx9/44TqoJ7xYg=;
- b=aaGs81yHsM0Pv/glqqc0rhlcXnZU60EGuSplC8fNm0ZDXdsU45tblXjLjcKWfJXe1y
- cpCO7a/1Xdnj46dI7bRkkM/2SCwU+pQ/7UihskRGWjnuAMVMzSA+4ESejDmp3s6rhUd8
- 15lvE7bnT8q4H0aHg7LWd8mosJ2+WukMdxdDg5xfw8F+OKNmq9+cFiwSQy8FhgsjvoM9
- Ct2k/a4J3wPiYK58uWF4hP3sXftA5P++3UBWnpaTmBBXXPTzzxVo+3MF0IvmcUtATDGn
- aCvzYHQcqHevQgn/rxv0ekugdgjUdThTPHNo+jOBFz/O8fgzNio/398F6uu7UY2Q1uB3
- r9LA==
-X-Gm-Message-State: AOAM532lcK5P4srPk8Id9gzPOLmKXbQ92wP/QnpnalNq8VVu7/+kitX7
- 84S0f3KHWr8MgLTc+s3RC8lwnlZXPZUZ3EoUqUncpF5QLi4XcY+PLFMpjqF6U9NaqRCvuis9udl
- PrUAXqdsLIp/lp8E5A0xfP26iwcXC
-X-Received: by 2002:a05:6512:2039:: with SMTP id
- s25mr27472208lfs.41.1642603462040; 
+ bh=uzsgK/nBWpjLp4bZpaf2ck5HQw5gRGEi1KwLNDsqFPg=;
+ b=HFvmVp0A5TdMWnrpctOVJoVLWVqiUHWtPiitkWQu1uHnJa3PaKvxLeQzwMffKA/RWz
+ 03K9G7WZni4vwQudyhRROfW4NytfaqrpwConEhCU6yCrB62O+cu2jtB3qti3EO+UpCqH
+ QBeKfvrkrdfuShvlp2j4/uxl6JF04Uhp27qHpscQgqi4XL0vShOzdTO07gAcbdOQFfeP
+ dghxSITxDNAF8dZAEGjf5TwHd5bd4PlCesWsSaIu4uAhRugdY8Z/KCyVR6M3xfA/iE3R
+ UkrR1j9huMcgiscutJyTJxYgV0J1SyjixBDFmSLSytheZ2u5zVCDfPWbNT32QpEsN6JN
+ I0PQ==
+X-Gm-Message-State: AOAM5315QWaOTpUg4QRW9Q8MXkuMhtcYu80VPW2cDbLvq3AoA9dlwBk4
+ dTeUKCQsQygyl4DQkssyZJusxfuFuvcw2vxK2Rtq68gJxLpLmINbncegHsE2X2e8IW5G+ESMT14
+ Pyc7yeCLPv37h1GsthoN/Px4SzZRs
+X-Received: by 2002:a05:6512:3f1b:: with SMTP id
+ y27mr26418920lfa.237.1642603463104; 
+ Wed, 19 Jan 2022 06:44:23 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJxexZZVoR38vteVnnDXwdoGfNdOkLyYnTger96ySZ2P+APVYsMPDgOZbMmOnpJTYH2wTVF9JQ==
+X-Received: by 2002:a05:6512:3f1b:: with SMTP id
+ y27mr26418908lfa.237.1642603462933; 
  Wed, 19 Jan 2022 06:44:22 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJzEF6VXoklk2mIfqFps1DvOuheF5OR6AExLEauDQXKSqB1J5uoUp8bPof8mTFss8jTaadOe+A==
-X-Received: by 2002:a05:6512:2039:: with SMTP id
- s25mr27472191lfs.41.1642603461834; 
- Wed, 19 Jan 2022 06:44:21 -0800 (PST)
 Received: from lukenow-XPS-13-9380.. (d83-110.icpnet.pl. [77.65.83.110])
- by smtp.gmail.com with ESMTPSA id bt18sm2036843lfb.50.2022.01.19.06.44.20
+ by smtp.gmail.com with ESMTPSA id bt18sm2036843lfb.50.2022.01.19.06.44.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 19 Jan 2022 06:44:21 -0800 (PST)
+ Wed, 19 Jan 2022 06:44:22 -0800 (PST)
 From: Luke Nowakowski-Krijger <luke.nowakowskikrijger@canonical.com>
 To: ltp@lists.linux.it,
 	rpalethorpe@suse.de,
 	liwang@redhat.com
-Date: Wed, 19 Jan 2022 06:44:03 -0800
-Message-Id: <3e412686c9cd82cd58697b8200b6d961d7fe4af9.1642601554.git.luke.nowakowskikrijger@canonical.com>
+Date: Wed, 19 Jan 2022 06:44:04 -0800
+Message-Id: <1658144ea5bf1ee0c6373b5470f611a6f0fb41af.1642601554.git.luke.nowakowskikrijger@canonical.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <cover.1642601554.git.luke.nowakowskikrijger@canonical.com>
 References: <cover.1642601554.git.luke.nowakowskikrijger@canonical.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 01/16] API/cgroup: Modify tst_cgroup_print_config
- for easier parsing and consumption
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH 02/16] API/cgroup: Add option for specific pid to
+ tst_cgroup_opts
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,79 +102,44 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Prepare tst_cgroup_print_config to be more easily parsed and consumed by
-shell scripts and other programs.
-
-Also add any detected root information as well as the relevant state
-associated with the roots that would be needed by the test to properly
-cleanup.
+Add an option that would allow to create a test directory with a
+specified pid, as opposed to the calling processes pid.
 
 Signed-off-by: Luke Nowakowski-Krijger <luke.nowakowskikrijger@canonical.com>
 ---
-v2: Remove "mounted_drain_dir" as mounting ltp dir and drain dir happen
-at the same time
+ include/tst_cgroup.h | 3 +++
+ lib/tst_cgroup.c     | 6 +++++-
+ 2 files changed, 8 insertions(+), 1 deletion(-)
 
- lib/tst_cgroup.c | 35 +++++++++++++++++++++++++++++++----
- 1 file changed, 31 insertions(+), 4 deletions(-)
-
+diff --git a/include/tst_cgroup.h b/include/tst_cgroup.h
+index 5190d8794..7c309edbd 100644
+--- a/include/tst_cgroup.h
++++ b/include/tst_cgroup.h
+@@ -98,6 +98,9 @@ struct tst_cgroup_opts {
+ 	 * only indicates that we should mount V1 controllers if
+ 	 * nothing is present. By default we try to mount V2 first. */
+ 	int only_mount_v1:1;
++	/* Pass in a specific pid to create and identify the test
++	 * directory as opposed to the default pid of the calling process. */
++	int test_pid;
+ };
+ 
+ /* A Control Group in LTP's aggregated hierarchy */
 diff --git a/lib/tst_cgroup.c b/lib/tst_cgroup.c
-index 2ef599d9e..704e64030 100644
+index 704e64030..8b8619b36 100644
 --- a/lib/tst_cgroup.c
 +++ b/lib/tst_cgroup.c
-@@ -301,12 +301,26 @@ opendir:
- 				  O_PATH | O_DIRECTORY);
- }
+@@ -698,7 +698,11 @@ mkdirs:
  
-+#define CONFIG_LTPDIR_KEY "Created_Ltp_Dir"
-+#define CONFIG_MOUNTROOT_KEY "Mounted_Root"
-+#define CONFIG_TESTID_KEY "Test_Id"
-+#define CONFIG_CTRL_REQUIRED "Required"
-+#define CONFIG_CTRL_HEADER "Detected Controllers:"
-+#define CONFIG_ROOT_HEADER "Detected Roots:"
+ 	cgroup_dir_mk(&root->ltp_dir, cgroup_ltp_drain_dir, &root->drain_dir);
+ 
+-	sprintf(cgroup_test_dir, "test-%d", getpid());
++	if (options->test_pid)
++		sprintf(cgroup_test_dir, "test-%d", options->test_pid);
++	else
++		sprintf(cgroup_test_dir, "test-%d", getpid());
 +
-+/* Prints out the minimal internal state of the test to be consumed
-+ * by tst_cgroup_load_config().
-+ *
-+ * The config keeps track of the minimal state needed for tst_cgroup_cleanup
-+ * to cleanup after a test and does not keep track of the creation of
-+ * test cgroups that might be created through tst_cgroup_group_mk().
-+ */
- void tst_cgroup_print_config(void)
- {
- 	struct cgroup_root *root;
- 	const struct cgroup_ctrl *ctrl;
- 
--	tst_res(TINFO, "Detected Controllers:");
-+	printf("%s\n", CONFIG_CTRL_HEADER);
- 
- 	for_each_ctrl(ctrl) {
- 		root = ctrl->ctrl_root;
-@@ -314,11 +328,24 @@ void tst_cgroup_print_config(void)
- 		if (!root)
- 			continue;
- 
--		tst_res(TINFO, "\t%.10s %s @ %s:%s",
-+		printf("%s %s @ %s %s\n",
- 			ctrl->ctrl_name,
--			root->no_cpuset_prefix ? "[noprefix]" : "",
- 			root->ver == TST_CGROUP_V1 ? "V1" : "V2",
--			root->mnt_path);
-+			root->mnt_path,
-+			ctrl->we_require_it ? CONFIG_CTRL_REQUIRED : "");
-+	}
-+
-+	printf("%s\n", CONFIG_ROOT_HEADER);
-+
-+	for_each_root(root) {
-+		printf("%s %s=%s %s=%s %s=%s\n",
-+			root->mnt_path,
-+			CONFIG_MOUNTROOT_KEY,
-+			root->we_mounted_it ? "yes" : "no",
-+			CONFIG_LTPDIR_KEY,
-+			root->ltp_dir.we_created_it ? "yes" : "no",
-+			CONFIG_TESTID_KEY,
-+			root->test_dir.dir_name ? root->test_dir.dir_name : "NULL");
- 	}
+ 	cgroup_dir_mk(&root->ltp_dir, cgroup_test_dir, &root->test_dir);
  }
  
 -- 
