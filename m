@@ -2,74 +2,80 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B8C0494159
-	for <lists+linux-ltp@lfdr.de>; Wed, 19 Jan 2022 20:55:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6997849482F
+	for <lists+linux-ltp@lfdr.de>; Thu, 20 Jan 2022 08:19:06 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 960B13C96B0
-	for <lists+linux-ltp@lfdr.de>; Wed, 19 Jan 2022 20:55:39 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id CE6633C964E
+	for <lists+linux-ltp@lfdr.de>; Thu, 20 Jan 2022 08:19:05 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 4D2F13C95D8
- for <ltp@lists.linux.it>; Wed, 19 Jan 2022 20:55:25 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id 776653C2AE3
+ for <ltp@lists.linux.it>; Thu, 20 Jan 2022 08:19:04 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id C393060064A
- for <ltp@lists.linux.it>; Wed, 19 Jan 2022 20:55:24 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 641EF1F3BA;
- Wed, 19 Jan 2022 19:55:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1642622124; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 2C0D810005BF
+ for <ltp@lists.linux.it>; Thu, 20 Jan 2022 08:19:02 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1642663141;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=NLl4ebsW/AsRD3vRJlXxvseXyloLXDQOVk0IX98Aj3g=;
- b=hAN80xY7KFM+AsmrXu9fYpGEJ+W5j20orgp+mGFtZZtrMeoeTWVsBPbcI4YkS0LEi/PNXd
- vbAWTG7mRCR9BJTe0ZTPz5S5qKYbhwLOIRBbAqYiVxkYKJzjeWyJte3XMipXwr+ZPkNtvN
- AT9KeTzQDfCvMZrHXuNU5qGXCtCaQX8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1642622124;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=NLl4ebsW/AsRD3vRJlXxvseXyloLXDQOVk0IX98Aj3g=;
- b=zYHWGsjJ23jcX6MhEAe0eYs4kAksGjMwm4ncPyyJc92ECPKVRgZgzCwvUziH+o1PMmznNg
- i5eW26+PhX+K+/Cg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0722913BA3;
- Wed, 19 Jan 2022 19:55:23 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id EOH2Oqts6GH2fAAAMHmgww
- (envelope-from <pvorel@suse.cz>); Wed, 19 Jan 2022 19:55:23 +0000
-From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Wed, 19 Jan 2022 20:55:19 +0100
-Message-Id: <20220119195519.3117-3-pvorel@suse.cz>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220119195519.3117-1-pvorel@suse.cz>
-References: <20220119195519.3117-1-pvorel@suse.cz>
+ bh=vwwMGgT0n2qanZZLYGRjWyI7V7GiVpX4KnqUKVMxsVU=;
+ b=aAY1NTV0fpiELSCk4be1vJykTBtqUFSAY4pF1fJKEHQLPvzgcbBnO3SQ0hK5kSEIx6K5+9
+ iaUO4cLBS1ZGJCd8ZLtANFXT/8U0FvP+bQD4lAD4CNzMCbCtmUgBX6jMhfLN4P+ajpT5GX
+ 2GsfT+gm1Z+vUWO0XEb0PCots46dPNY=
+Received: from mail-yb1-f197.google.com (mail-yb1-f197.google.com
+ [209.85.219.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-668-pxAgxUxUPpCUnuZvv1Cv-Q-1; Thu, 20 Jan 2022 02:18:59 -0500
+X-MC-Unique: pxAgxUxUPpCUnuZvv1Cv-Q-1
+Received: by mail-yb1-f197.google.com with SMTP id
+ y4-20020a5b0f44000000b00611862e546dso10014948ybr.7
+ for <ltp@lists.linux.it>; Wed, 19 Jan 2022 23:18:59 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=vwwMGgT0n2qanZZLYGRjWyI7V7GiVpX4KnqUKVMxsVU=;
+ b=b1LHPMJj1kxVRbTze/gxaatQ+4O3cBkH5DvPyrIBUw+ltIoUP7ZR9cUZ/47y3wmc1O
+ vhou0Ys600/TIK/+KLNnzmkJGPtVRISeSdTxT9/2Adw+YD3/fop1knTSFHGiAxNRdcOQ
+ T1M9EMRGoOu2zcvUBtM4x7eb6bcL7ovSP7f/qJ+Ci59fA/ZKxlhn19dpgD04u24jKnWi
+ 9R/zM8yjswpPwmpoks4ZMAEcRa3qBqNUXzctyyrmVt9YIP2YPbsuGnWMXEve1nO8UDiQ
+ j4pw8tlIB2pD/rOwj78tdIwltMsVMrNML0N5w8L8JfrscTcEVVU07Rc/N72sjikTOrKC
+ ujGg==
+X-Gm-Message-State: AOAM532rpRwbqtU/LPK02hhqEnW09zjYvQL/yDJNprlr2u3kLLRAHRwW
+ Mn/82qW0x5qZ+7VhQDfWTR7w7QueYau1ohft7xGA9N/WnN/Z98U36shqM0Fy/zqiV/1LnO4hYDK
+ gyO9tnhHC5XdlR4ehSCux2QACSY8=
+X-Received: by 2002:a25:f90d:: with SMTP id q13mr45767785ybe.32.1642663139280; 
+ Wed, 19 Jan 2022 23:18:59 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJzdAjhhUXY0HVWjhRmAIYeaV+zx0aGFZmvnQfHS6vDdFzxJcWHLKEGjhXeIpEtawzUQfUVSzvvdQivj/0gzJm8=
+X-Received: by 2002:a25:f90d:: with SMTP id q13mr45767759ybe.32.1642663138980; 
+ Wed, 19 Jan 2022 23:18:58 -0800 (PST)
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+References: <20220119111533.8356-1-mdoucha@suse.cz> <YegzzrFYKI+0DIis@yuki>
+In-Reply-To: <YegzzrFYKI+0DIis@yuki>
+From: Li Wang <liwang@redhat.com>
+Date: Thu, 20 Jan 2022 15:18:44 +0800
+Message-ID: <CAEemH2cfr9rcrmqXbS+M+ohyP1rU1BNzZX-H=st8Z3P_WL=A+w@mail.gmail.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [RFC PATCH 2/2] broken_ip-nexthdr.sh: Check IPv6 support
- before forcing it
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] Rewrite statx04 test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,30 +87,46 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
- testcases/network/stress/broken_ip/broken_ip-nexthdr.sh | 1 +
- 1 file changed, 1 insertion(+)
+Cyril Hrubis <chrubis@suse.cz> wrote:
 
-diff --git a/testcases/network/stress/broken_ip/broken_ip-nexthdr.sh b/testcases/network/stress/broken_ip/broken_ip-nexthdr.sh
-index ec6643af66..cb4a3dd399 100755
---- a/testcases/network/stress/broken_ip/broken_ip-nexthdr.sh
-+++ b/testcases/network/stress/broken_ip/broken_ip-nexthdr.sh
-@@ -11,6 +11,7 @@ TST_TESTFUNC="do_test"
- do_test()
- {
- 	# not supported on IPv4
-+	tst_net_require_ipv6
- 	TST_IPV6=6
- 	TST_IPVER=6
- 
+> > +     /* STATX_ATTR_COMPRESSED not supported on XFS */
+> > +     if (!strcmp(tst_device->fs_type, "xfs"))
+> > +             expected_mask &= ~STATX_ATTR_COMPRESSED;
+
+...
+> > +     .skip_filesystems = (const char *const[]) {
+> > +             "fuse",
+> > +             NULL
+> > +     },
+> >       .tags = (const struct tst_tag[]) {
+> >               {"linux-git", "93bc420ed41d"},
+> >               {"linux-git", "99652ea56a41"},
+> >               {"linux-git", "04a87e347282"},
+> >               {"linux-git", "5f955f26f3d4"},
+> > +             {"known-fail", "STATX_ATTR_COMPRESSED is not implemented on XFS (strict mode)"},
+
+I'm wondering if it has necessary to add the known-fail tags here
+since we have already done XFS filtering in setup().
+
+> Otherwise I like the direction where this is going.
+>
+> I vote for merging this before the release with the TEST() and if()s
+
++1 fine to me, the rewrite looks pretty good if refine with reviewer's comments.
+
+> replaced byt the TST_EXP_PASS() macro and we can decide where and how to
+> put the strict knob later on.
+
+
 -- 
-2.34.1
+Regards,
+Li Wang
 
 
 -- 
