@@ -1,68 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAB07495C96
-	for <lists+linux-ltp@lfdr.de>; Fri, 21 Jan 2022 10:15:07 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 32B28495CB7
+	for <lists+linux-ltp@lfdr.de>; Fri, 21 Jan 2022 10:20:03 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0DF843C96F1
-	for <lists+linux-ltp@lfdr.de>; Fri, 21 Jan 2022 10:15:07 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 914983C9700
+	for <lists+linux-ltp@lfdr.de>; Fri, 21 Jan 2022 10:20:02 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id F0A693C9232
- for <ltp@lists.linux.it>; Fri, 21 Jan 2022 10:15:03 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 44C801A01126
- for <ltp@lists.linux.it>; Fri, 21 Jan 2022 10:15:02 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id C5A363C9232
+ for <ltp@lists.linux.it>; Fri, 21 Jan 2022 10:19:58 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 497F36002DE
+ for <ltp@lists.linux.it>; Fri, 21 Jan 2022 10:19:57 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 7F60B1F3C0;
- Fri, 21 Jan 2022 09:15:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1642756502; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=X1uqoI4enFOEueYnMRf5AmgchDF2KdKhtDV8DUF0FQE=;
- b=KwjTvPmS5SIQkz3/2aporKHeMoZjS3bXgUvAT+M2nT0Jjaw9lvDN3ikeOc5D86NmD2sqGd
- EOBRFnUUX7+9+lJU2Yk8wNgCScoYnTqu6QZH7gZLe944SGRUb+5soxFRq7hz9JmLCKB+40
- kVT+/u6Z1qhz3qT8KAi67czQgaIswYE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1642756502;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=X1uqoI4enFOEueYnMRf5AmgchDF2KdKhtDV8DUF0FQE=;
- b=G3hNjtNtCEoM3PquH5fG//rOEHkg5VKXlz6JteND97D6RUmx7mCO13MTWV8zbNoNaVim1z
- Qvii/2T6E12kqIDA==
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 4577E21903;
+ Fri, 21 Jan 2022 09:19:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1642756797;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=/SdE2BP9EoXrSaSchtg6y/5KVik3O1xfIOVhz4P7Mmo=;
+ b=RGeeVTVJlfulauqWp8MPyj342NSFzWYnsnvXXGJhObudJqVJGk01UihtViBJdfA1ge/mxn
+ 4ZrNoXmt4D88mqq5bWTrMCD7SjnYE+IWl8r9am8s7OH+Ql+txQwFtf/jmEamNqfMNZLf1r
+ XfbbTx2IKYcccAE2DqAJFq0XErLZ3ec=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1642756797;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=/SdE2BP9EoXrSaSchtg6y/5KVik3O1xfIOVhz4P7Mmo=;
+ b=HEvNi9xezxrhqdP78yVh8zz98uwY0SpD4q8EtLR00MEex58iakUeNiPGCm5LeAV/k7dVWg
+ 82N5klAtgzcC+3AA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4DB6813C1A;
- Fri, 21 Jan 2022 09:15:02 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 22A1713C1A;
+ Fri, 21 Jan 2022 09:19:57 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id gwnTEJZ56mFETAAAMHmgww
- (envelope-from <andrea.cervesato@suse.de>); Fri, 21 Jan 2022 09:15:02 +0000
-From: Andrea Cervesato <andrea.cervesato@suse.de>
-To: ltp@lists.linux.it
-Date: Fri, 21 Jan 2022 10:15:00 +0100
-Message-Id: <20220121091500.8264-1-andrea.cervesato@suse.de>
-X-Mailer: git-send-email 2.34.1
+ by imap2.suse-dmz.suse.de with ESMTPSA id QnnSBr166mFoTgAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Fri, 21 Jan 2022 09:19:57 +0000
+Date: Fri, 21 Jan 2022 10:19:55 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: Cyril Hrubis <chrubis@suse.cz>, ltp@lists.linux.it
+Message-ID: <Yep6u4N+phjB32Xd@pevik>
+References: <20220120150421.26639-1-andrea.cervesato@suse.de>
+ <YemAQcXuJMGLh/kc@yuki> <Yep1Wm84sKzl3iB6@pevik>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <Yep1Wm84sKzl3iB6@pevik>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH v2] Reduce needed memory by the dio_read test
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v1] Reduce needed memory by the dio_read test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,43 +80,39 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-The previous runtest file was requiring half an hour to complete using
-quite amount of RAM. For 100 threads, the test would easily use ~3.5GB
-of memory making really difficult to test on system with few resources.
+Hi all,
 
-With this modification we reduce both read and write buffer size, as
-well as the file size, so test will take few minutes to complete and
-we will reduce memory allocation.
+...
+> > But I'm not sure about the -s 5M part, the file size was always 128MB
+> > before and reducing it to 5M sounds like too much. On my machine that
+> > reduces the testing time from about one minute to a few seconds, that sounds
+> > like change that is too radical without further explanation. If we want
+> > to run the test with smaller file size I would go for 64M, that reduces
+> > the runtime to half without reducing the changes for triggering a bug
+> > too much.
+> Good catch.
 
-Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.de>
----
- runtest/ltp-aiodio.part4 | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+> I'm also going to verify ADSP075 dio_sparse  -w 518192k -s 518192k -n 1000
+> from ltp-aiodio.part2. Cyril's suggestion is to use '-n 1' to emulate
+> only single children in previous implementation.
+No, this is wrong. Also the issue can be just a timeout.
+ADSP074 (uses -n 512) runs framework ~3.5 min, ADSP075 (uses -n 1000) gets killed
+by LTP timeout. Do we want to increase tst_test.timeout for test?
 
-diff --git a/runtest/ltp-aiodio.part4 b/runtest/ltp-aiodio.part4
-index fc1e1d479..54019d47b 100644
---- a/runtest/ltp-aiodio.part4
-+++ b/runtest/ltp-aiodio.part4
-@@ -62,7 +62,7 @@ DIT002 dio_truncate
- #Running read_checkzero
- #gread_checkzero
- #Running dio_read
--DOR000 dio_read -n 1 -i 100
--DOR001 dio_read -n 10 -i 30
--DOR002 dio_read -n 20 -i 15
--DOR003 dio_read -n 100 -i 4
-+DOR000 dio_read -n 1 -i 100 -r 512k -w 512k -s 32M
-+DOR001 dio_read -n 10 -i 30 -r 512k -w 512k -s 32M
-+DOR002 dio_read -n 20 -i 15 -r 512k -w 512k -s 32M
-+DOR003 dio_read -n 100 -i 4 -r 512k -w 512k -s 32M
--- 
-2.34.1
+Am I correct that we cannot increase based on particular input (for particular
+getopt value) as we cannot later update results.timeout during run?
 
+Kind regards,
+Petr
+
+> Kind regards,
+> Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
