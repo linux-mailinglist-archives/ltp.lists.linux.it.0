@@ -2,75 +2,71 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A271495DD7
-	for <lists+linux-ltp@lfdr.de>; Fri, 21 Jan 2022 11:38:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1048F495DD2
+	for <lists+linux-ltp@lfdr.de>; Fri, 21 Jan 2022 11:37:01 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7A2113C9705
-	for <lists+linux-ltp@lfdr.de>; Fri, 21 Jan 2022 11:38:39 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 730D83C9711
+	for <lists+linux-ltp@lfdr.de>; Fri, 21 Jan 2022 11:37:00 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 188183C922E
- for <ltp@lists.linux.it>; Fri, 21 Jan 2022 11:38:36 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id D31BD3C9232
+ for <ltp@lists.linux.it>; Fri, 21 Jan 2022 11:36:56 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id AAAA0600D52
- for <ltp@lists.linux.it>; Fri, 21 Jan 2022 11:38:35 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 5F5621000F2B
+ for <ltp@lists.linux.it>; Fri, 21 Jan 2022 11:36:56 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id F014D218E3;
- Fri, 21 Jan 2022 10:38:34 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id BB4131F3C0;
+ Fri, 21 Jan 2022 10:36:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1642761514;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
+ t=1642761415; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=75uzvvOI/8+yl9f+TQ4s9qbHJn9e2SYsY5c+lYLcVw8=;
- b=1PYkvpdIkzGfsTivCTJslANQryo2Fv+6tbMe78aiLUtAfrUWBzJHan3PjSfgLl1rZ0U910
- Vb8P2OtTcMzM3hle4/dZXQNG8bRzZL5uPO3+p96vrAcxMfSgRIre3oAGaG38efbqaensg2
- mg7YOPS3NEkOzbhmfY5t1Ubo9uuyYjU=
+ bh=LZPFJJQOkIi914F875OZaYdW8SAPgLzPxwAFipazVnM=;
+ b=MyQkEpISbeTh/6nZgyd6yHz/Xy8Gw0LMagVIoHCgCRtSi2QHzuJ/9LFFZObzXVFYi2ivzB
+ c8vMBLPhFKmxLWTwH0XkyCSVGTTQ4V/zgkVr9T1h+UD8jTmeKG8GXUgK0ITPs70A4ePXei
+ EoTfUPbL8ccixv1hE7MuJa83sS705Sk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1642761514;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
+ s=susede2_ed25519; t=1642761415;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=75uzvvOI/8+yl9f+TQ4s9qbHJn9e2SYsY5c+lYLcVw8=;
- b=YRzaE9dyu4iriuPFM93tlaMtXICwNPHi1bvCDAH8qOpDViiFe6ShAnmzRuS27Ot8A4gbTb
- NZ0L48IIcTlXVaAA==
+ bh=LZPFJJQOkIi914F875OZaYdW8SAPgLzPxwAFipazVnM=;
+ b=gMmXBmEe9AB3hEw88oPigCuxZ7U8hnUCAw10oHvZCmMxu0uxZOfOgQ9cFTDNV6rFxbQ27f
+ gpfgy9k3wu2RVnAw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id BFB8313CFE;
- Fri, 21 Jan 2022 10:38:34 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 95BFD13CFE;
+ Fri, 21 Jan 2022 10:36:55 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id /Ag9LSqN6mFhcwAAMHmgww
- (envelope-from <pvorel@suse.cz>); Fri, 21 Jan 2022 10:38:34 +0000
-Date: Fri, 21 Jan 2022 11:38:33 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <YeqNKQghWJgna70b@pevik>
-References: <20220121100604.1072-1-pvorel@suse.cz>
- <07fa4901-8384-bfb3-fcc8-eb408b120f5c@suse.com>
- <YeqMqtK0BziwRuNm@yuki>
+ by imap2.suse-dmz.suse.de with ESMTPSA id BGgPIseM6mGrcgAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Fri, 21 Jan 2022 10:36:55 +0000
+Date: Fri, 21 Jan 2022 11:38:39 +0100
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Petr Vorel <pvorel@suse.cz>
+Message-ID: <YeqNL0I/l8sVoRVH@yuki>
+References: <20220121103011.6266-1-pvorel@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <YeqMqtK0BziwRuNm@yuki>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+In-Reply-To: <20220121103011.6266-1-pvorel@suse.cz>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/1] aiodio: Skip tests on tmpfs
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 2/2] aiodio: Set timeout 30 min
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,23 +78,21 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-> Hi!
-> > SAFE_MUNMAP should be called always, even if *run_child == 0 (which happens if run() completed successfully).
+Hi!
+> Originally only ADSP075 failed (dio_sparse  -w 518192k -s 518192k -n 1000)
+> but just in case increase timeout for all newly rewritten tests.
 
-> This is actually if (run_child) not if (*run_child) and it fixes the
-> case where the test is skipped even before the run_child has been
-> mmaped.
-Yes, that's needed for tmpfs.
+Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
 
-Kind regards,
-Petr
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
