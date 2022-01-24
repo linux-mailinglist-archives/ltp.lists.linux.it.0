@@ -2,71 +2,74 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 278F44982A3
-	for <lists+linux-ltp@lfdr.de>; Mon, 24 Jan 2022 15:43:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 736154982CA
+	for <lists+linux-ltp@lfdr.de>; Mon, 24 Jan 2022 16:00:47 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7E90F3C926E
-	for <lists+linux-ltp@lfdr.de>; Mon, 24 Jan 2022 15:43:07 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id E558E3C926E
+	for <lists+linux-ltp@lfdr.de>; Mon, 24 Jan 2022 16:00:46 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 29B9E3C7E58
- for <ltp@lists.linux.it>; Mon, 24 Jan 2022 15:43:02 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 6E34010009F5
- for <ltp@lists.linux.it>; Mon, 24 Jan 2022 15:43:02 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id 620603C21D9
+ for <ltp@lists.linux.it>; Mon, 24 Jan 2022 16:00:42 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 8797E600040
+ for <ltp@lists.linux.it>; Mon, 24 Jan 2022 16:00:41 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 7068D1F38B;
- Mon, 24 Jan 2022 14:43:01 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 8C788212BA;
+ Mon, 24 Jan 2022 15:00:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1643035381; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1643036440; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=20iTS7b1EqcePa0So8//Nn/9q29HpEhiWHs/kMtYt7I=;
- b=LNcSXEVMstKfzwIgwV3HC2+fAZywWYzapbRyXOJjvJPjRTLQ3Wt++NWRT6txWz3ukmpVvM
- GcJ37YfutL8JdZQXrCG90zsb7OsOd2VSQI2sIJl4gzIgnAf3X5PlLs7VNTQiYU5XkAq5HP
- KZmM+31ZhLg9H2lF5gLj9/80P815ozE=
+ bh=fWL7udvW4I5Czg6kJAFAP5rBRKL5xSWnkjSkXXcwRSc=;
+ b=ivPqJLpbhU12210sWuDYlKiF7y7MhN25BwzGBVmx3BlelO7932O+xxQd2fyG2OIBjSQWRW
+ UKUsz0KIFNkcsauQ4r2kpJp4N8kQCG3WB9EFU0aRzi8eprVGQlg7C+T2iLEZoerW3oblTs
+ FAlknQyRLrgwva0BB9k0apTnWlNNmBg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1643035381;
+ s=susede2_ed25519; t=1643036440;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=20iTS7b1EqcePa0So8//Nn/9q29HpEhiWHs/kMtYt7I=;
- b=2U6mXfGK/08iJL1EeP1yX+oGAKsFVkcgb0+8yeEWu0j+UEcEOwr5X5pEgi5EoyalNHmzxF
- Wj3fK1g1sU6f/KAg==
+ bh=fWL7udvW4I5Czg6kJAFAP5rBRKL5xSWnkjSkXXcwRSc=;
+ b=pRpNCw53Y7ww7QV0qM5BvSUYgunwCz7ct9SZr9AWmTzem84F/pzLiIyEzWiUk1FYrfjrp7
+ CdwkktUAlmxHuBBw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 574C513BA5;
- Mon, 24 Jan 2022 14:43:01 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 69E0913C1B;
+ Mon, 24 Jan 2022 15:00:40 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id W+FDFfW67mHufwAAMHmgww
- (envelope-from <chrubis@suse.cz>); Mon, 24 Jan 2022 14:43:01 +0000
-Date: Mon, 24 Jan 2022 15:44:47 +0100
+ by imap2.suse-dmz.suse.de with ESMTPSA id YsnRGRi/7mF4DAAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Mon, 24 Jan 2022 15:00:40 +0000
+Date: Mon, 24 Jan 2022 16:02:27 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Andrea Cervesato <andrea.cervesato@suse.de>
-Message-ID: <Ye67X6D1TprHrHcF@yuki>
-References: <20220119152732.21189-1-andrea.cervesato@suse.de>
+To: Petr Vorel <pvorel@suse.cz>
+Message-ID: <Ye6/g0InSIT4J3kV@yuki>
+References: <20220114194444.16949-1-pvorel@suse.cz>
+ <20220114194444.16949-3-pvorel@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20220119152732.21189-1-andrea.cervesato@suse.de>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+In-Reply-To: <20220114194444.16949-3-pvorel@suse.cz>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v1] Replace ltp_syscall with tst_syscall
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 2/2] doc/user-guide: Remove "2. Colorized output"
+ section
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,77 +88,16 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> diff --git a/include/lapi/syscalls/regen.sh b/include/lapi/syscalls/regen.sh
-> index d7daf8ad0..8fa381c97 100755
-> --- a/include/lapi/syscalls/regen.sh
-> +++ b/include/lapi/syscalls/regen.sh
-> @@ -35,34 +35,30 @@ cat << EOF > "${output_pid}"
->  #include <asm/unistd.h>
->  #include "cleanup.c"
->  
-> -#define ltp_syscall(NR, ...) ({ \\
-> -	int __ret; \\
-> -	if (NR == __LTP__NR_INVALID_SYSCALL) { \\
-> -		errno = ENOSYS; \\
-> -		__ret = -1; \\
-> -	} else { \\
-> -		__ret = syscall(NR, ##__VA_ARGS__); \\
-> -	} \\
-> -	if (__ret == -1 && errno == ENOSYS) { \\
-> -		tst_brkm(TCONF, CLEANUP, \\
-> -			"syscall(%d) " #NR " not supported on your arch", \\
-> -			NR); \\
-> -	} \\
-> -	__ret; \\
-> +#ifdef TST_TEST_H__
-> +#define TST_SYSCALL_BRK__(NR) ({ \
-> +	tst_brk(TCONF, \
-> +		"syscall(%d) " #NR " not supported on your arch", NR); \
->  })
-> -
-> -#define tst_syscall(NR, ...) ({ \\
-> -	int tst_ret; \\
-> -	if (NR == __LTP__NR_INVALID_SYSCALL) { \\
-> -		errno = ENOSYS; \\
-> -		tst_ret = -1; \\
-> -	} else { \\
-> -		tst_ret = syscall(NR, ##__VA_ARGS__); \\
-> -	} \\
-> -	if (tst_ret == -1 && errno == ENOSYS) { \\
-> -		tst_brk(TCONF, "syscall(%d) " #NR " not supported", NR); \\
-> -	} \\
-> -	tst_ret; \\
-> +#else
-> +#define TST_SYSCALL_BRK__(NR) ({ \
-> +	tst_brkm(TCONF, CLEANUP, \
-> +		"syscall(%d) " #NR " not supported on your arch", NR); \
-> +})
-> +#endif
-> +
-> +#define tst_syscall(NR, ...) ({ \
-> +	int tst_ret; \
-> +	if (NR == __LTP__NR_INVALID_SYSCALL) { \
-> +		errno = ENOSYS; \
-> +		tst_ret = -1; \
-> +	} else { \
-> +		tst_ret = syscall(NR, ##__VA_ARGS__); \
-> +	} \
-> +	if (tst_ret == -1 && errno == ENOSYS) { \
-> +		TST_SYSCALL_BRK__(NR); \
-> +	} \
-> +	tst_ret; \
->  })
+> @@ -14,8 +14,9 @@ For running LTP network tests see `testcases/network/README.md`.
+>  | 'LTPROOT'             | Prefix for installed LTP.  **Should be always set**
+>                            as some tests need it for path to test data files
+>                            ('LTP_DATAROOT'). LTP is by default installed into '/opt/ltp'.
+> -| 'LTP_COLORIZE_OUTPUT' | Force colorized output behaviour. 'y' or '1': always colorize
+> -                          'n' or '0': never colorize.
+> +| 'LTP_COLORIZE_OUTPUT' | By default LTP colorizes it's output unless using
+> +                          pipe or redirect to file.  Force colorized output behaviour:
 
-Can we please keep the double backslashes here?
-
-Both of them works, but if you put single backslash here into the script
-the macro is put into one long line into the generated header, which is
-really hard to decipher. With two the macro is split into lines as it
-should be.
-
-Other than that it looks good and simplifies a some of the places.
-
-With the backslashes fixed:
+Slightly better: "unless it's redirected to a pipe or file"
 
 Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
 
