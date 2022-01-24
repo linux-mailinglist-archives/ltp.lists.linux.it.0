@@ -2,82 +2,67 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A161497C42
-	for <lists+linux-ltp@lfdr.de>; Mon, 24 Jan 2022 10:44:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D5A8497DA3
+	for <lists+linux-ltp@lfdr.de>; Mon, 24 Jan 2022 12:12:55 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id ABAE93C7F1C
-	for <lists+linux-ltp@lfdr.de>; Mon, 24 Jan 2022 10:44:03 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 8213C3C8B9B
+	for <lists+linux-ltp@lfdr.de>; Mon, 24 Jan 2022 12:12:53 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id D3C3D3C0F5D
- for <ltp@lists.linux.it>; Mon, 24 Jan 2022 10:44:02 +0100 (CET)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by picard.linux.it (Postfix) with ESMTPS id 676E33C2AE3
+ for <ltp@lists.linux.it>; Mon, 24 Jan 2022 12:12:49 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id D605C600640
+ for <ltp@lists.linux.it>; Mon, 24 Jan 2022 12:12:48 +0100 (CET)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 1686821122;
+ Mon, 24 Jan 2022 11:12:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1643022768;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=MWSMnAo5cK/gOUnbd+JOur/e9HgMpt/aTIRgRdSL1s0=;
+ b=oNHec/wSMhuULQeGtpaseJypALXP8dgX2tfcHeBfpYddtY820U4fhXvPe9ld14m8AMCNFQ
+ p/9FLWV9DAQFOXDu1+OK2z2JJW1Tw9DOQLRi4OtHuZNx11MOisFaE1RBrr9Y9VsJl1HeNO
+ qr9KrpJwn1FxV4VPombAlQT/0rWCYE4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1643022768;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=MWSMnAo5cK/gOUnbd+JOur/e9HgMpt/aTIRgRdSL1s0=;
+ b=fJ3n4kMZvrB9Q5YVD/eErIy633terIGVaEvH72pS+qJoDpRKzMkjEtoDi71i9K58m/s/8Y
+ ept9UQvPdgCl2wAw==
+Received: from g78 (unknown [10.163.24.90])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id C0638600629
- for <ltp@lists.linux.it>; Mon, 24 Jan 2022 10:44:01 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1643017440;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=YuGS+FnY/0pbaiC1fZibeFy5vDKwz8olhItmTU3QNkk=;
- b=P9DArUrjCYaH9qhbJUu61Zn8OLwAu0TKD1ZcFVISMi9fKke5YLGluTEb1NaYTiZ1jU0MIf
- q1/a7slGnLmtZbVmWmCWN5hOHK8cSA4K7RcKF5G4w37SiH9XkYdqbvP5peIeYD8FAG2pJh
- qqSwpA0Era2yFMk8W+fdzdEEESXiuAQ=
-Received: from mail-yb1-f199.google.com (mail-yb1-f199.google.com
- [209.85.219.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-212-cU9W-TkdNV2LahFPrMSphA-1; Mon, 24 Jan 2022 04:43:59 -0500
-X-MC-Unique: cU9W-TkdNV2LahFPrMSphA-1
-Received: by mail-yb1-f199.google.com with SMTP id
- i10-20020a25540a000000b0061391789216so32754579ybb.2
- for <ltp@lists.linux.it>; Mon, 24 Jan 2022 01:43:58 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=YuGS+FnY/0pbaiC1fZibeFy5vDKwz8olhItmTU3QNkk=;
- b=wN3tBUIZfhm3g0DFy9GHq5sQWNKSKsrGJZtcpH3AjBGANtzaGufQQ32f7UNUB0eYTN
- JF9jhKY0ODY2Jg2Mct+Ar0DgJn3XAedX7WhGwsQoUxghZtvnF5MntuYD0k/flUxerNvw
- qr26aD7IEmKY8MCfvXiadUma4zYNWpFoCwuL8Xdj7RGDappeqA4YP597F9iKwNMN81gz
- /dp/ziJMxkOlzqa3EmPJksmtCG0A93LRgSSEsJgyKB8wIyvdJZ98FSYrspJQwDU94m7S
- xUFUmE7PuZwsiTxihbXXYu64kfiAc8TlUnOHcQrmP4RLfVbQSn5s3XgauPyAnLJqo3yt
- askw==
-X-Gm-Message-State: AOAM531di0wLCoogTK9GgSc42U2Dmrva7WOqzUIZWvqWy3FVf3XoRY3E
- qPJZp7gnEAZ8DQdVvB3Za/4eruh3hkHgvHAcTdlXnszFTYkFZOq1GEMqcKQLrqggEp3G6Xedziv
- 8YTLkv8iVEwWUU5/OwBa3GeVzgKE=
-X-Received: by 2002:a25:15c3:: with SMTP id 186mr23171161ybv.71.1643017438551; 
- Mon, 24 Jan 2022 01:43:58 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJxrInwfbVNEHYJkXGtyB073U/cs9A7czqe+xPs5l1TBW8E7l76TplR84jd8sZVIi/1pB6SIIaWJWnDry93vziI=
-X-Received: by 2002:a25:15c3:: with SMTP id 186mr23171142ybv.71.1643017438306; 
- Mon, 24 Jan 2022 01:43:58 -0800 (PST)
-MIME-Version: 1.0
+ by relay2.suse.de (Postfix) with ESMTPS id C8770A3B84;
+ Mon, 24 Jan 2022 11:12:47 +0000 (UTC)
 References: <cover.1642601554.git.luke.nowakowskikrijger@canonical.com>
- <3b78e25c8eba247d0ce2d99cbbdcaeba7994e26c.1642601554.git.luke.nowakowskikrijger@canonical.com>
-In-Reply-To: <3b78e25c8eba247d0ce2d99cbbdcaeba7994e26c.1642601554.git.luke.nowakowskikrijger@canonical.com>
-From: Li Wang <liwang@redhat.com>
-Date: Mon, 24 Jan 2022 17:43:44 +0800
-Message-ID: <CAEemH2fDx-KejrtrmY_N9c+7Fbe1Btvpxe65rUPyC8Atw_=+nA@mail.gmail.com>
+ <2a49929d166ac88d4c7900c5961be77cbd601fa4.1642601554.git.luke.nowakowskikrijger@canonical.com>
+User-agent: mu4e 1.6.10; emacs 27.2
+From: Richard Palethorpe <rpalethorpe@suse.de>
 To: Luke Nowakowski-Krijger <luke.nowakowskikrijger@canonical.com>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+Date: Mon, 24 Jan 2022 10:44:17 +0000
+In-reply-to: <2a49929d166ac88d4c7900c5961be77cbd601fa4.1642601554.git.luke.nowakowskikrijger@canonical.com>
+Message-ID: <87o841z8sx.fsf@suse.de>
+MIME-Version: 1.0
 X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 10/16] controllers: Update memcg_control_test to
- newer test lib and cgroup lib
+Subject: Re: [LTP] [PATCH 06/16] API/cgroup: Change to TWARN when v2
+ controllers change
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,75 +74,73 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
+Reply-To: rpalethorpe@suse.de
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Luke Nowakowski-Krijger <luke.nowakowskikrijger@canonical.com> wrote:
+Hello Luke,
 
-> +test1()
->  {
-> -       TST_COUNT=1
-> -       tst_resm TINFO "Test #1: Checking if the memory usage limit imposed by the topmost group is enforced"
-> +       cd $TST_TMPDIR
-> +
-> +       tst_res TINFO "Test #1: Checking if the memory usage limit imposed by the topmost group is enforced"
+Luke Nowakowski-Krijger <luke.nowakowskikrijger@canonical.com> writes:
+
+> When the v1 blkio controller is mounted it unmounts the v2 io controller
+> effectively bringing the amount of cgroupv2 controllers down and
+> triggering the tst_brk. Because this is exected behaivor it should be
+> changed to TWARN in case there is something funny still going on and
+> should be logged.
+
+Ah, we are in new territory here, the library assumes this won't happen.
+
+What happens if a test author requires the V2 io controller then
+requires the blkio controller?
+
+At best I think we will get TBROK saying some file doesn't exist. Not
+too bad, but nothing helpful either.
+
+Also what happens if the io controller was in use, disappears then
+returns? (that is, if it returns, because unmounting V1 controllers
+doesn't guarantee the V1 root is destroyed and it can block V2 from
+being used afterwards).
+
+The basic assumption we originally made was that we can't mess with the
+current CGroup setup beyond adding to it. LTP doesn't guarantee it won't
+mess up your system, but it at least tries not to. Pulling controllers
+out from underneath the system manager seems likely to cause wierd
+errors for people.
+
+Why not treat the blkio controller and io controller as the same thing?
+Or if they are not remotely compatible, then do tst_brk(TCONF... when we
+need blkio, but io is on V2.
+
+BTW, this is a moot point, but TWARN is really only used when we think
+an error was just caused by previous errors. Otherwise, if something is
+expected, then it should be TINFO.
+
 >
-> -       echo "$ACTIVE_MEM_LIMIT" > $TST_PATH/mnt/$TST_NUM/memory.limit_in_bytes
-> -       echo "$TOT_MEM_LIMIT" > $TST_PATH/mnt/$TST_NUM/memory.memsw.limit_in_bytes
-> +       ROD echo "$ACTIVE_MEM_LIMIT" > "$test_dir/$memory_limit"
-> +       ROD echo "$TOT_MEM_LIMIT" > "$test_dir/$memsw_memory_limit"
-...
->  }
-
-> +setup()
->  {
-> -       RES=$1
-> -       INFO=$2
-> -
-> -       if [ $RES -eq $PASS ]; then
-> -               tst_resm TPASS "$INFO"
-> +       cgroup_require "memory"
-> +       cgroup_v=$(cgroup_get_version "memory")
-> +       test_dir=$(cgroup_get_test_path "memory")
-> +       task_list=$(cgroup_get_task_list "memory")
-> +
-> +       if [ "$cgroup_v" = "V2" ]; then
-> +               memory_limit="memory.max"
-> +               memsw_memory_limit="memory.swap.max"
-
-As we already built the controller files mapping from V2 to V1
-in C library and you actually add many new (in patch 5/16).
-
-I'm thinking maybe we could make use of it in tst_cgctl.c to
-avoid handling these (in shell) separately.
-
-Something like:
-
-    # ./tst_cgctl  set  "$pid"  "cgroup.procs"  "$target_pid"
-    # ./tst_cgctl  set  "$pid"  "memory.max"  "$ACTIVE_MEM_LIMIT"
-
-Otherwise, it seems to make no sense to add so many new
-files mapping (like that patch 5/16) at this moment.
-
-What do you think?
-
-
->         else
-> -               : $((FAILED_CNT += 1))
-> -               tst_resm TFAIL "$INFO"
-> +               memory_limit="memory.limit_in_bytes"
-> +               memsw_memory_limit="memory.memsw.limit_in_bytes"
->         fi
-> -}
+> Signed-off-by: Luke Nowakowski-Krijger <luke.nowakowskikrijger@canonical.com>
+> ---
+>  lib/tst_cgroup.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/lib/tst_cgroup.c b/lib/tst_cgroup.c
+> index 3d56a3364..c53b88ed2 100644
+> --- a/lib/tst_cgroup.c
+> +++ b/lib/tst_cgroup.c
+> @@ -677,7 +677,7 @@ static void cgroup_root_scan(const char *const mnt_type,
+>  		goto discard;
+>  
+>  	if (root->ctrl_field)
+> -		tst_brk(TBROK, "Available V2 controllers are changing between scans?");
+> +		tst_res(TWARN, "Available V2 controllers are changing between scans?");
+>  
+>  	root->ver = TST_CGROUP_V2;
 
 
 -- 
-Regards,
-Li Wang
-
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
