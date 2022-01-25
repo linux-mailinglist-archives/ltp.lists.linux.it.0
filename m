@@ -1,74 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4EB749B753
-	for <lists+linux-ltp@lfdr.de>; Tue, 25 Jan 2022 16:13:40 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id A656849B785
+	for <lists+linux-ltp@lfdr.de>; Tue, 25 Jan 2022 16:24:30 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 94F493C93EC
-	for <lists+linux-ltp@lfdr.de>; Tue, 25 Jan 2022 16:13:40 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 3DB4A3C942C
+	for <lists+linux-ltp@lfdr.de>; Tue, 25 Jan 2022 16:24:30 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E407D3C14B2
- for <ltp@lists.linux.it>; Tue, 25 Jan 2022 16:13:38 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id BAD9F3C93B7
+ for <ltp@lists.linux.it>; Tue, 25 Jan 2022 16:24:28 +0100 (CET)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 068891000DD3
- for <ltp@lists.linux.it>; Tue, 25 Jan 2022 16:13:37 +0100 (CET)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 48608601142
+ for <ltp@lists.linux.it>; Tue, 25 Jan 2022 16:24:27 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 1C0D61F380;
- Tue, 25 Jan 2022 15:13:37 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 72E501F380;
+ Tue, 25 Jan 2022 15:24:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1643123617; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1643124267; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=MABju9i2qIqLkeWGW6ZoopBfLZuCQlfpzrqw70BLAMI=;
- b=yHiKKpTLyEEvzpUm+cyE7QNuL2VHAme52yOAF18YMb06zRyNN5Xayrc55M/qfy1NBFegLD
- bhGKu+dGQ8yQdly+HnGJpgG4HUYA2+TOCU54nS086//85GXzjIOSnTYw8pzy31S00QS97m
- iXOT3NMOPWc5MPjjx24dzrh9T/PqgmE=
+ bh=+qEjuQevZqyO6CweEJ3yMgcImI5q9b4HueNFxukrWBY=;
+ b=xJfuPyFFyruQZBLg5sk1FaeZRy9tfu+8ULn+6ftVeenjDhsyxgQxjFmkipSr/RkwQ5GZ2W
+ uBQu8unDwdmLCKQpfo4rDgKVKaLruevq2fSfHJTCVQL6hpwCnpiZ4ApoUES/B92KJoApTB
+ k/ZxiU5KL94aLbadVGa7OmrPK8fG/cs=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1643123617;
+ s=susede2_ed25519; t=1643124267;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=MABju9i2qIqLkeWGW6ZoopBfLZuCQlfpzrqw70BLAMI=;
- b=td8veuXX3nHubiThtqhZ7Oh716+FyYgFRIsAtNVpLYzTbJ4EbMml6gyHmIhJGBjLNTmHQh
- ppGJpKlYNliCZhBg==
+ bh=+qEjuQevZqyO6CweEJ3yMgcImI5q9b4HueNFxukrWBY=;
+ b=k3xCR5h0KbNBL+taY7k7rGG6raRQrgm4ebx3CfREZ+mvBUDZbZ/aG7Uc2ywZXj5WUTaCyV
+ JpUlLMeq5uYenLAA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C611413E05;
- Tue, 25 Jan 2022 15:13:36 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E822D13E05;
+ Tue, 25 Jan 2022 15:24:26 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id MbCmLqAT8GHABwAAMHmgww
- (envelope-from <chrubis@suse.cz>); Tue, 25 Jan 2022 15:13:36 +0000
-Date: Tue, 25 Jan 2022 16:15:25 +0100
+ by imap2.suse-dmz.suse.de with ESMTPSA id AQbINioW8GEdDgAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Tue, 25 Jan 2022 15:24:26 +0000
+Date: Tue, 25 Jan 2022 16:26:15 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <YfAUDbuaR+qXuuBX@yuki>
+Message-ID: <YfAWlxlLDi/YUGUv@yuki>
 References: <20220125144043.31798-1-pvorel@suse.cz>
- <20220125144043.31798-4-pvorel@suse.cz>
+ <20220125144043.31798-5-pvorel@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20220125144043.31798-4-pvorel@suse.cz>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+In-Reply-To: <20220125144043.31798-5-pvorel@suse.cz>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 3/4] sched_get_priority_min01: Add missing
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 4/4] sched_get_priority_max01: Add missing
  policies
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -88,8 +88,6 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-Looks good.
-
 Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
 
 -- 
