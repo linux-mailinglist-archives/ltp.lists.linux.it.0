@@ -2,68 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id E836549B689
-	for <lists+linux-ltp@lfdr.de>; Tue, 25 Jan 2022 15:41:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6ADBA49B687
+	for <lists+linux-ltp@lfdr.de>; Tue, 25 Jan 2022 15:41:05 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 67E3B3C9536
-	for <lists+linux-ltp@lfdr.de>; Tue, 25 Jan 2022 15:41:26 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 011B13C14B2
+	for <lists+linux-ltp@lfdr.de>; Tue, 25 Jan 2022 15:41:05 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id BDBCE3C14B2
+ by picard.linux.it (Postfix) with ESMTPS id 8790B3C92B9
  for <ltp@lists.linux.it>; Tue, 25 Jan 2022 15:40:50 +0100 (CET)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id E68DF140013A
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id F3A61600C75
  for <ltp@lists.linux.it>; Tue, 25 Jan 2022 15:40:49 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 18F1E218E6;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 4CD7F218E9;
  Tue, 25 Jan 2022 14:40:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1643121649; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=8kRLYijuPY19Mf2QdCWIJRUO6bh/Nz0ACiJcsOT3ElU=;
- b=R5mI5r1ahEzl9HTxuZUM6Te1QjmnwVJZlRWi4lAHJB8M80wON4dqQ88CItTZ7KZTdrgbmZ
- 8+P/J5rAtBP+uJ5La05JM+hUKBXp/ArboocZAZOPP01MChbIGB24o7WS4X+BtAeA+sSFb1
- NYxwBuh5dfyEBKP121pbEqhWeoUWZkI=
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=UwRzttwLtE7SXKeIiKh3b5zZlAb3l6Q8zdFx7Cmi5dI=;
+ b=ngL+frDlHmJCWn+t9tkrbtinG2bJKFIzJmhaa1gjSlA7mscCte8sZmbezbagg+6W8WANJH
+ dyHC3AcVc+XZN3Y7q2P+j6SBrEHO8oadhSlEMlBAZYXwOthd1zmxd9BYLPiovZP4stFixm
+ suGS7jS71i5p60WPO8Kymd8ABcQeEDo=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1643121649;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=8kRLYijuPY19Mf2QdCWIJRUO6bh/Nz0ACiJcsOT3ElU=;
- b=lbP2Xtv9q838khvyk7XGMD3flgJTMeLIaN54wpXB96x3Q60zIpZRifIuWlbK0zRF58cNHp
- 4gZyMy1byHaATmAw==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=UwRzttwLtE7SXKeIiKh3b5zZlAb3l6Q8zdFx7Cmi5dI=;
+ b=vosgweALzer47O+BDusmbVdPoT8vTJ271BBMgChyDfEPXbMPbdh9ZVtaMYG4817rV7Haq8
+ xJnLl64dUX7ISrDw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E4C6813DEB;
- Tue, 25 Jan 2022 14:40:48 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 220D713DEB;
+ Tue, 25 Jan 2022 14:40:49 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id nLYBNvAL8GGFdAAAMHmgww
- (envelope-from <pvorel@suse.cz>); Tue, 25 Jan 2022 14:40:48 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id 8J+gBvEL8GGFdAAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Tue, 25 Jan 2022 14:40:49 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Tue, 25 Jan 2022 15:40:39 +0100
-Message-Id: <20220125144043.31798-1-pvorel@suse.cz>
+Date: Tue, 25 Jan 2022 15:40:40 +0100
+Message-Id: <20220125144043.31798-2-pvorel@suse.cz>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20220125144043.31798-1-pvorel@suse.cz>
+References: <20220125144043.31798-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 0/4] sched_{g,s}etattr01: Add missing policies
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 1/4] lapi/sched.h: Add include <sched.h>
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,43 +85,95 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
+We including headers in lapi headers instead of depending headers are
+included in tests which use lapi headers.
 
-changes v1->v2:
-3 new commits
+Also remove redundant include lapi/syscalls.h from tests which use
+lapi/sched.h (included in lapi/sched.h).
 
-sched_getattr and sched_setattr are 99% identical (2 values are
-different). I was thinking to use the same approach from e197796f22
-("sethostname: Convert to new API"), but not sure if it's a good
-approach.
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+---
+New in v2
 
-Do we want to reduce files needed to be updated after new policy is
-added? If yes, shouldn't there be just a single directory?
-(what name should be using to show 2 syscalls are in sources in this
-directory?)
+ include/lapi/sched.h                                      | 3 ++-
+ testcases/kernel/syscalls/kcmp/kcmp03.c                   | 1 -
+ testcases/kernel/syscalls/sched_getattr/sched_getattr01.c | 2 --
+ testcases/kernel/syscalls/sched_getattr/sched_getattr02.c | 2 --
+ testcases/kernel/syscalls/sched_setattr/sched_setattr01.c | 1 -
+ 5 files changed, 2 insertions(+), 7 deletions(-)
 
-Also docparse expect source file to be just for one binary, thus not
-sure whether it should just document both binaries (and thus also
-rename source file to show 2 syscalls are for this source?)
-
-Kind regards,
-Petr
-
-Petr Vorel (4):
-  lapi/sched.h: Add include <sched.h>
-  lapi: Move SCHED_DEADLINE definition from tests
-  sched_get_priority_min01: Add missing policies
-  sched_get_priority_max01: Add missing policies
-
- include/lapi/sched.h                             | 16 +++++++++++-----
- testcases/kernel/syscalls/kcmp/kcmp03.c          |  1 -
- .../sched_get_priority_max01.c                   | 13 +++++++++----
- .../sched_get_priority_min01.c                   | 13 +++++++++----
- .../syscalls/sched_getattr/sched_getattr01.c     |  3 ---
- .../syscalls/sched_getattr/sched_getattr02.c     |  2 --
- .../syscalls/sched_setattr/sched_setattr01.c     |  2 --
- 7 files changed, 29 insertions(+), 21 deletions(-)
-
+diff --git a/include/lapi/sched.h b/include/lapi/sched.h
+index 036edd51d1..2fc32a38ca 100644
+--- a/include/lapi/sched.h
++++ b/include/lapi/sched.h
+@@ -6,9 +6,10 @@
+ #ifndef LAPI_SCHED_H__
+ #define LAPI_SCHED_H__
+ 
+-#include "lapi/syscalls.h"
++#include <sched.h>
+ #include <stdint.h>
+ #include <inttypes.h>
++#include "lapi/syscalls.h"
+ 
+ struct sched_attr {
+ 	uint32_t size;
+diff --git a/testcases/kernel/syscalls/kcmp/kcmp03.c b/testcases/kernel/syscalls/kcmp/kcmp03.c
+index 30ac3ec9db..df8633c5fc 100644
+--- a/testcases/kernel/syscalls/kcmp/kcmp03.c
++++ b/testcases/kernel/syscalls/kcmp/kcmp03.c
+@@ -18,7 +18,6 @@
+ 
+ #include <errno.h>
+ #include <stdlib.h>
+-#include <sched.h>
+ #include <sys/wait.h>
+ #include "tst_test.h"
+ #include "kcmp.h"
+diff --git a/testcases/kernel/syscalls/sched_getattr/sched_getattr01.c b/testcases/kernel/syscalls/sched_getattr/sched_getattr01.c
+index 2a2c13a40f..0ffbce9c8d 100644
+--- a/testcases/kernel/syscalls/sched_getattr/sched_getattr01.c
++++ b/testcases/kernel/syscalls/sched_getattr/sched_getattr01.c
+@@ -22,11 +22,9 @@
+ #include <linux/types.h>
+ #include <sys/syscall.h>
+ #include <pthread.h>
+-#include <sched.h>
+ #include <errno.h>
+ 
+ #include "test.h"
+-#include "lapi/syscalls.h"
+ #include "lapi/sched.h"
+ 
+ char *TCID = "sched_getattr01";
+diff --git a/testcases/kernel/syscalls/sched_getattr/sched_getattr02.c b/testcases/kernel/syscalls/sched_getattr/sched_getattr02.c
+index 2d7e15a470..9f4a09f88f 100644
+--- a/testcases/kernel/syscalls/sched_getattr/sched_getattr02.c
++++ b/testcases/kernel/syscalls/sched_getattr/sched_getattr02.c
+@@ -31,11 +31,9 @@
+ #include <linux/types.h>
+ #include <sys/syscall.h>
+ #include <pthread.h>
+-#include <sched.h>
+ #include <errno.h>
+ 
+ #include "test.h"
+-#include "lapi/syscalls.h"
+ #include "lapi/sched.h"
+ 
+ char *TCID = "sched_getattr02";
+diff --git a/testcases/kernel/syscalls/sched_setattr/sched_setattr01.c b/testcases/kernel/syscalls/sched_setattr/sched_setattr01.c
+index 37ca56a0aa..82156b95cb 100644
+--- a/testcases/kernel/syscalls/sched_setattr/sched_setattr01.c
++++ b/testcases/kernel/syscalls/sched_setattr/sched_setattr01.c
+@@ -29,7 +29,6 @@
+ #include <linux/types.h>
+ #include <sys/syscall.h>
+ #include <pthread.h>
+-#include <sched.h>
+ #include <errno.h>
+ 
+ #include "test.h"
 -- 
 2.34.1
 
