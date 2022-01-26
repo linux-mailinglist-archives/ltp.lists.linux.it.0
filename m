@@ -2,75 +2,74 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 017A549D17F
-	for <lists+linux-ltp@lfdr.de>; Wed, 26 Jan 2022 19:12:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3C8449D17C
+	for <lists+linux-ltp@lfdr.de>; Wed, 26 Jan 2022 19:12:22 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4A2253C972C
-	for <lists+linux-ltp@lfdr.de>; Wed, 26 Jan 2022 19:12:42 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 1B4593C972E
+	for <lists+linux-ltp@lfdr.de>; Wed, 26 Jan 2022 19:12:22 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id F0CEA3C96C0
+ by picard.linux.it (Postfix) with ESMTPS id B4DC73C54C9
  for <ltp@lists.linux.it>; Wed, 26 Jan 2022 19:12:17 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id D211A1400218
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id E06171A00215
  for <ltp@lists.linux.it>; Wed, 26 Jan 2022 19:12:16 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 3C8661F3BA;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 75309218FA;
  Wed, 26 Jan 2022 18:12:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1643220736; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=5XuqF4ewwiUyjmDGw4eVkacLyMRMP1nYHG1NnCP0Zp8=;
- b=dPKju7+kAudnxmxx/bnxAA/Xhm1PnE1/aicGPrGjJzijsCVupkXnUiIpNTdEmwIORB4eBe
- 4wHcoJiI8SLjnzNnHo+Fm25qXhRZTzaWZzXAPLcpIEk4JchFmUccT9GmQkjC9Tx/bieE05
- hb3MIwWTVro+19Pnjt97aNMUdcOTD9I=
+ bh=RwNShP9nBBnuoxIX5HfEXsR3kiGmg5xtL8H7Au6lrvo=;
+ b=HPM4HPBV03VIxmVi7DKzZo3LlLISs68Sz4YbkT/RaZnr1spJbByYOdnQvca0MvG7HadGrq
+ /4J2BxcNLfo+OsYKHD1qaaUJPGlcEjlYUMPm4eghnt3ETNoHXXBmDQhkYxy2NOMiu5KQaG
+ hnUXZgVOOSTwK89iTznYmJoK9iwUNPw=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1643220736;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=5XuqF4ewwiUyjmDGw4eVkacLyMRMP1nYHG1NnCP0Zp8=;
- b=VSDsgOZ1AkQYdEL+NFLmGML/ag5L8m93zN6YtP+h0PXJyraqC38y9m5Xf6JgcTdqfrDzN3
- n9grlkaH/ijVZICg==
+ bh=RwNShP9nBBnuoxIX5HfEXsR3kiGmg5xtL8H7Au6lrvo=;
+ b=FGCg/zAjxru9EsfHZxEYikgn43CwEHc1U6aD3H0A2+MjeLe7+WPGiGUre50paGaDeNhoUa
+ x4dYEkMbARFkbJBw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1511413E30;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4B2F213E30;
  Wed, 26 Jan 2022 18:12:16 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id sNFmAwCP8WGbcQAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id WNg8EACP8WGbcQAAMHmgww
  (envelope-from <pvorel@suse.cz>); Wed, 26 Jan 2022 18:12:16 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Wed, 26 Jan 2022 19:12:07 +0100
-Message-Id: <20220126181210.24897-3-pvorel@suse.cz>
+Date: Wed, 26 Jan 2022 19:12:08 +0100
+Message-Id: <20220126181210.24897-4-pvorel@suse.cz>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220126181210.24897-1-pvorel@suse.cz>
 References: <20220126181210.24897-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/5] tst_test.sh: tst_mkfs(): Add support for extra
- opts
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH 3/5] tst_test.sh: Add $TST_FORMAT_DEVICE and related
+ vars
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,44 +86,74 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Allow to pass options after device name
+i.e.: TST_DEV_EXTRA_OPTS, TST_DEV_FS_OPTS, TST_FS_TYPE
 (to sync with C API).
 
-NOTE: not adding it to legacy shell API (thus no need to change
-test_robind.sh).
+Also stop using pattern 'TST_NEEDS_FOO', sometimes 'NEEDS' just does not
+fit to variable name.
 
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- testcases/lib/tst_test.sh | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
+ doc/shell-test-api.txt    | 9 ++++++++-
+ testcases/lib/tst_test.sh | 7 ++++++-
+ 2 files changed, 14 insertions(+), 2 deletions(-)
 
+diff --git a/doc/shell-test-api.txt b/doc/shell-test-api.txt
+index e082808f7e..6605c65b47 100644
+--- a/doc/shell-test-api.txt
++++ b/doc/shell-test-api.txt
+@@ -189,11 +189,18 @@ space as default value is used. Of course, it's possible to use separate functio
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+ Similarily to the C library various checks and preparations can be requested
+-simply by setting right '$TST_NEEDS_FOO'.
++simply by setting right '$TST_FOO'.
+ 
+ [options="header"]
+ |=============================================================================
+ | Variable name            | Action done
++| 'TST_DEV_EXTRA_OPTS'     | Pass additional 'mkfs' options when use 'TST_FORMAT_DEVICE'.
++| 'TST_DEV_FS_OPTS'        | Pass extra 'mkfs' options after the device name
++|                          | when use 'TST_FORMAT_DEVICE'.
++| 'TST_FORMAT_DEVICE'      | Format a block device with a filesystem. See also
++|                          | 'TST_DEV_EXTRA_OPTS', 'TST_DEV_FS_OPTS', 'TST_FS_TYPE'.
++| 'TST_FS_TYPE'            | Overwrite the default filesystem to be used.
++|                          | Implies 'TST_NEEDS_DEVICE=1' (no need to set it).
+ | 'TST_NEEDS_ROOT'         | Exit the test with 'TCONF' unless executed under root.
+ |                          | Alternatively the 'tst_require_root' command can be used.
+ | 'TST_NEEDS_TMPDIR'       | Create test temporary directory and cd into it.
 diff --git a/testcases/lib/tst_test.sh b/testcases/lib/tst_test.sh
-index eb3bf0df12..4707613158 100644
+index 4707613158..49eee8d00f 100644
 --- a/testcases/lib/tst_test.sh
 +++ b/testcases/lib/tst_test.sh
-@@ -343,9 +343,8 @@ tst_mkfs()
- 	[ -z "$fs_type" ] && fs_type="$TST_DEFAULT_FS_TYPE"
+@@ -613,7 +613,7 @@ tst_run()
+ 			NET_SKIP_VARIABLE_INIT|NEEDS_CHECKPOINTS);;
+ 			CHECKPOINT_WAIT|CHECKPOINT_WAKE);;
+ 			CHECKPOINT_WAKE2|CHECKPOINT_WAKE_AND_WAIT);;
+-			DEFAULT_FS_TYPE);;
++			DEFAULT_FS_TYPE|DEV_EXTRA_OPTS|DEV_FS_OPTS|FORMAT_DEVICE);;
+ 			*) tst_res TWARN "Reserved variable TST_$_tst_i used!";;
+ 			esac
+ 		done
+@@ -658,6 +658,7 @@ tst_run()
  
- 	local device=${2:-$TST_DEVICE}
--	[ $# -ge 1 ] && shift
--	[ $# -ge 1 ] && shift
--	local fs_opts="$@"
-+	local fs_opts="$3"
-+	local extra_opts="$4"
+ 	_tst_setup_timer
  
- 	if [ -z "$device" ]; then
- 		tst_brk TBROK "No device specified"
-@@ -353,8 +352,8 @@ tst_mkfs()
++	[ "$TST_FORMAT_DEVICE" = 1 ] && TST_NEEDS_DEVICE=1
+ 	[ "$TST_NEEDS_DEVICE" = 1 ] && TST_NEEDS_TMPDIR=1
  
- 	tst_require_cmds mkfs.$fs_type
+ 	if [ "$TST_NEEDS_TMPDIR" = 1 ]; then
+@@ -689,6 +690,10 @@ tst_run()
  
--	tst_res TINFO "Formatting $device with $fs_type extra opts='$fs_opts'"
--	ROD_SILENT mkfs.$fs_type $fs_opts $device
-+	tst_res TINFO "Formatting $device with $fs_type opts='$fs_opts' extra opts='$extra_opts'"
-+	ROD_SILENT mkfs.$fs_type $fs_opts $device $extra_opts
- }
+ 	[ -n "$TST_NEEDS_MODULE" ] && tst_require_module "$TST_NEEDS_MODULE"
  
- # Detect whether running under hypervisor: Microsoft Hyper-V
++	if [ "$TST_FORMAT_DEVICE" = 1 ]; then
++		tst_mkfs "$TST_FS_TYPE" "$TST_DEVICE" "$TST_DEV_FS_OPTS" "$TST_DEV_EXTRA_OPTS"
++	fi
++
+ 	[ -n "$TST_NEEDS_CHECKPOINTS" ] && _tst_init_checkpoints
+ 
+ 	if [ -n "$TST_SETUP" ]; then
 -- 
 2.34.1
 
