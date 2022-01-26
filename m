@@ -1,74 +1,69 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id D995349C9CB
-	for <lists+linux-ltp@lfdr.de>; Wed, 26 Jan 2022 13:36:32 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A61749CBCA
+	for <lists+linux-ltp@lfdr.de>; Wed, 26 Jan 2022 15:05:32 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 69E443C9683
-	for <lists+linux-ltp@lfdr.de>; Wed, 26 Jan 2022 13:36:32 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id E243A3C96BE
+	for <lists+linux-ltp@lfdr.de>; Wed, 26 Jan 2022 15:05:30 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 3648B3C9602
- for <ltp@lists.linux.it>; Wed, 26 Jan 2022 13:35:58 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id A557C10001B6
- for <ltp@lists.linux.it>; Wed, 26 Jan 2022 13:35:57 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id B9E763C9536
+ for <ltp@lists.linux.it>; Wed, 26 Jan 2022 15:05:24 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 6908C6007B2
+ for <ltp@lists.linux.it>; Wed, 26 Jan 2022 15:05:23 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 430D01F3B9;
- Wed, 26 Jan 2022 12:35:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1643200557; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=R5QNaNhZZAW7kyqQFM19dbkSJZ+yv9Y51uJgbz/mWJs=;
- b=LiRwV+JqrUBE02PjkZ29qcZyu400+aU6WkHZKFhQliCesCMuRyPduA6gT9YBd+P/YOf5qB
- ieqinAZepBjP8FnxT+XEfvsYJqmLTbKPDhF4oPWkIYGjcZ3ibwLT5qsP+FYN22+uJu4sBH
- wvEB9na00GxoBjQ1YQvXXAnwSGO8iag=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1643200557;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 85E83212BF;
+ Wed, 26 Jan 2022 14:05:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1643205922; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=7pUsRDnSQF6IC/abGtYsTKQLup87xBBNtb8g82rft9U=;
+ b=ql68aM6PkoldoR47fnRgWW+5jHAEJjHbZxcr8Li5RkW3gUz+4AHLVgOiDDS0pw6NZoH/2V
+ zC8Ov8ohlZs4z2jTqpz4EIkdaxHnFRLT2D5eWeNvVo/PVstW0AVSOdD2nuWit84zmuQIry
+ JZoutXrY91bnkml7meSNX0KtyTWQIjM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1643205922;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=R5QNaNhZZAW7kyqQFM19dbkSJZ+yv9Y51uJgbz/mWJs=;
- b=uiuuZA1i4+lw9SjWk2VRlJYT5QfisG69QSUhS7yixliDmeSsZzvZ875+Nwbnd/HX8or7xN
- bNchSKGp0OPEcGBQ==
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=7pUsRDnSQF6IC/abGtYsTKQLup87xBBNtb8g82rft9U=;
+ b=FPkF+n4XKQvoYK0iLc72xo3475X+CIp3jjJ3gfK0GfR+2xxt78H6rgQVkC7oXVyGMrZlGG
+ cITEbhyapCRCtfAQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1861713F30;
- Wed, 26 Jan 2022 12:35:57 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5230A13E1A;
+ Wed, 26 Jan 2022 14:05:22 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 8DSpBC1A8WGkOQAAMHmgww
- (envelope-from <pvorel@suse.cz>); Wed, 26 Jan 2022 12:35:57 +0000
-From: Petr Vorel <pvorel@suse.cz>
+ by imap2.suse-dmz.suse.de with ESMTPSA id HKf4ESJV8WFVbwAAMHmgww
+ (envelope-from <andrea.cervesato@suse.de>); Wed, 26 Jan 2022 14:05:22 +0000
+From: Andrea Cervesato <andrea.cervesato@suse.de>
 To: ltp@lists.linux.it
-Date: Wed, 26 Jan 2022 13:35:47 +0100
-Message-Id: <20220126123547.13298-8-pvorel@suse.cz>
+Date: Wed, 26 Jan 2022 15:05:20 +0100
+Message-Id: <20220126140520.15904-1-andrea.cervesato@suse.de>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220126123547.13298-1-pvorel@suse.cz>
-References: <20220126123547.13298-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [RFC PATCH v2 7/7] m4: Fix warnings
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH v1] Rewrite process_vm_readv03.c test with new LTP API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,192 +75,432 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: automated-testing@yoctoproject.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-from autoconf 2.71:
+Removed pipe and replaced it with shared memory.
+Replaced TST_CHECKPOINT_INIT usage with .needs_checkpoints from the new
+LTP API.
 
-* s/AC_HELP_STRING/AS_HELP_STRING/
-
-Similar replace was done in autoconf commit 5958ce17 ("*
-doc/autoconf.texi: Replace AC_HELP_STRING AS_HELP_STRING.")
-from 2.58.
-
-* s/AC_TRY_LINK/AC_COMPILE_IFELSE([AC_LANG_PROGRAM/
-
-Similar replace was done in autoconf commit ede91cff ("Modernize
-AC_EXEEXT and AC_OBJEXT. Now work with other languages than C and C++.")
-from 2.50.
-
-Due previous keep requiring 2.61. Tested on 2.63 (SLES 11 and CentOS 6
-both don't even compile as unsupported, thus we could bump version to 2.63).
-
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
+Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.de>
 ---
-New in v2
+ .../kernel/syscalls/cma/process_vm_readv03.c  | 311 ++++++++----------
+ 1 file changed, 133 insertions(+), 178 deletions(-)
 
- configure.ac                   | 24 ++++++++++++------------
- m4/ltp-kernel_devel.m4         |  6 +++---
- testcases/realtime/m4/check.m4 |  6 +++---
- 3 files changed, 18 insertions(+), 18 deletions(-)
-
-diff --git a/configure.ac b/configure.ac
-index f83bbe950b..03184e13e3 100644
---- a/configure.ac
-+++ b/configure.ac
-@@ -219,7 +219,7 @@ AC_CHECK_TYPES([struct __kernel_old_timeval, struct __kernel_old_timespec, struc
+diff --git a/testcases/kernel/syscalls/cma/process_vm_readv03.c b/testcases/kernel/syscalls/cma/process_vm_readv03.c
+index 2333f7fd6..d46914356 100644
+--- a/testcases/kernel/syscalls/cma/process_vm_readv03.c
++++ b/testcases/kernel/syscalls/cma/process_vm_readv03.c
+@@ -1,274 +1,229 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+  * Copyright (c) International Business Machines  Corp., 2012
+  * Copyright (c) Linux Test Project, 2012
++ * Copyright (C) 2021 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
++ */
++
++/* \
++ * [Description]
+  *
+- * This program is free software;  you can redistribute it and/or modify
+- * it under the terms of the GNU General Public License as published by
+- * the Free Software Foundation; either version 2 of the License, or
+- * (at your option) any later version.
+- *
+- * This program is distributed in the hope that it will be useful,
+- * but WITHOUT ANY WARRANTY;  without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
+- * the GNU General Public License for more details.
+- *
+- * You should have received a copy of the GNU General Public License
+- * along with this program;  if not, write to the Free Software
+- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
++ * Fork two children, one child mallocs randomly sized trunks of memory
++ * and initializes them; the other child calls process_vm_readv with
++ * the remote iovecs initialized to the original process memory
++ * locations and the local iovecs initialized to randomly sized and
++ * allocated local memory locations. The second child then verifies
++ * that the data copied is correct.
+  */
  
- # Bash
- AC_ARG_WITH([bash],
--  [AC_HELP_STRING([--with-bash],
-+  [AS_HELP_STRING([--with-bash],
-     [have the Bourne Again Shell interpreter])],
-   [with_bash=$withval],
-   [with_bash=no]
-@@ -232,24 +232,24 @@ fi
+-#define _GNU_SOURCE
+-#include <sys/types.h>
+-#include <sys/uio.h>
+-#include <sys/wait.h>
+-#include <errno.h>
+-#include <limits.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+-#include <string.h>
+-#include <time.h>
+-#include <unistd.h>
++#include <sys/types.h>
++#include <sys/wait.h>
+ #include <limits.h>
+-
+-#include "test.h"
+-#include "safe_macros.h"
++#include "tst_test.h"
+ #include "lapi/syscalls.h"
  
- # metadata
- AC_ARG_ENABLE([metadata],
--  [AC_HELP_STRING([--disable-metadata],
-+  [AS_HELP_STRING([--disable-metadata],
- 	[Disable metadata generation (both HTML and PDF, default no)])],
-   [], [enable_metadata=yes]
- )
- AC_ARG_ENABLE([metadata_html],
--  [AC_HELP_STRING([--disable-metadata-html],
-+  [AS_HELP_STRING([--disable-metadata-html],
- 	[Disable metadata HTML generation (default no)])],
-   [], [enable_metadata_html=yes]
- )
+-char *TCID = "process_vm_readv03";
+-int TST_TOTAL = 1;
+-
+-#define NUM_LOCAL_VECS 4
+-
+-static int nflag, sflag;
+-static char *nr_opt, *sz_opt;
+-static option_t options[] = {
+-	{"n:", &nflag, &nr_opt},
+-	{"s:", &sflag, &sz_opt},
+-	{NULL, NULL, NULL}
+-};
+-
+-static int nr_iovecs;
+-static long bufsz;
+-static int pipe_fd[2];
+-static pid_t pids[2];
+-
+-static void gen_random_arr(int *arr, int arr_sz);
+-static void child_alloc(int *bufsz_arr);
+-static void child_invoke(int *bufsz_arr);
+-static long *fetch_remote_addrs(void);
+-static void setup(void);
+-static void cleanup(void);
+-static void help(void);
+-
+-int main(int argc, char **argv)
+-{
+-	int lc, status;
+-	int *bufsz_arr;
+-
+-	tst_parse_opts(argc, argv, options, &help);
+-
+-	setup();
+-	for (lc = 0; TEST_LOOPING(lc); lc++) {
+-		tst_count = 0;
+-
+-		SAFE_PIPE(cleanup, pipe_fd);
+-
+-		bufsz_arr = SAFE_MALLOC(cleanup, nr_iovecs * sizeof(int));
+-		gen_random_arr(bufsz_arr, nr_iovecs);
+-
+-		/* the start of child_alloc and child_invoke is already
+-		 * synchronized via pipe */
+-		pids[0] = fork();
+-		switch (pids[0]) {
+-		case -1:
+-			tst_brkm(TBROK | TERRNO, cleanup, "fork #0");
+-		case 0:
+-			child_alloc(bufsz_arr);
+-			exit(0);
+-		}
+-
+-		pids[1] = fork();
+-		switch (pids[1]) {
+-		case -1:
+-			tst_brkm(TBROK | TERRNO, cleanup, "fork #1");
+-		case 0:
+-			child_invoke(bufsz_arr);
+-			exit(0);
+-		}
+-
+-		/* wait until child_invoke reads from child_alloc's VM */
+-		SAFE_WAITPID(cleanup, pids[1], &status, 0);
+-		if (!WIFEXITED(status) || WEXITSTATUS(status) != 0)
+-			tst_resm(TFAIL, "child 1 returns %d", status);
+-
+-		/* child_alloc is free to exit now */
+-		TST_SAFE_CHECKPOINT_WAKE(cleanup, 0);
++static uintptr_t *data_ptr;
  
- AC_ARG_ENABLE([metadata_pdf],
--  [AC_HELP_STRING([--enable-metadata-pdf],
-+  [AS_HELP_STRING([--enable-metadata-pdf],
- 	[Enable metadata PDF generation (default no)])],
-   [], [enable_metadata_pdf=no]
- )
+-		SAFE_WAITPID(cleanup, pids[0], &status, 0);
+-		if (!WIFEXITED(status) || WEXITSTATUS(status) != 0)
+-			tst_resm(TFAIL, "child 0 returns %d", status);
++static char *str_buffsize;
++static char *str_nr_iovecs;
  
- AC_ARG_WITH([metadata_generator],
--  [AC_HELP_STRING([--with-metadata-generator=asciidoc|asciidoctor],
-+  [AS_HELP_STRING([--with-metadata-generator=asciidoc|asciidoctor],
- 	[Specify metadata generator to use (default autodetect)])],
-   [with_metadata_generator=$withval],
-   [with_metadata_generator=detect]
-@@ -259,7 +259,7 @@ LTP_DOCPARSE
+-		free(bufsz_arr);
+-	}
+-
+-	cleanup();
+-	tst_exit();
+-}
++static int bufsize = 100000;
++static int nriovecs = 10;
  
- # Expect
- AC_ARG_WITH([expect],
--  [AC_HELP_STRING([--with-expect],
-+  [AS_HELP_STRING([--with-expect],
-     [have the Tcl/expect library])],
-   [with_expect=$withval],
-   [with_expect=no]
-@@ -272,7 +272,7 @@ fi
+-static void gen_random_arr(int *arr, int arr_sz)
++static void create_data_size(int *arr, int arr_sz, int buffsize)
+ {
+ 	long bufsz_left, bufsz_single;
+ 	int i;
  
- # Numa
- AC_ARG_WITH([numa],
--  AC_HELP_STRING([--without-numa],
-+  AS_HELP_STRING([--without-numa],
-     [without numa support]),
-   [with_numa=$withval],
-   [with_numa=yes]
-@@ -280,7 +280,7 @@ AC_ARG_WITH([numa],
+-	bufsz_left = bufsz;
++	bufsz_left = buffsize;
+ 	for (i = 0; i < arr_sz - 1; i++) {
+-		bufsz_single = rand() % (bufsz_left / 2) + 1;
++		bufsz_single = rand() % ((bufsz_left / 2) + 1);
+ 		arr[i] = bufsz_single;
+ 		bufsz_left -= bufsz_single;
+ 	}
++
+ 	arr[arr_sz - 1] = bufsz_left;
+ }
  
- # Perl
- AC_ARG_WITH([perl],
--  [AC_HELP_STRING([--with-perl],
-+  [AS_HELP_STRING([--with-perl],
-     [have a perl interpreter])],
-   [with_perl=$withval],
-   [with_perl=no]
-@@ -293,7 +293,7 @@ fi
+-static void child_alloc(int *bufsz_arr)
++static void child_alloc(const int *sizes, int nr_iovecs)
+ {
+ 	char **foo;
+ 	int i, j;
+-	char buf[BUFSIZ];
+ 	long count;
  
- # Python
- AC_ARG_WITH([python],
--  [AC_HELP_STRING([--with-python],
-+  [AS_HELP_STRING([--with-python],
-     [have a python interpreter])],
-   [with_python=$withval],
-   [with_python=no]
-@@ -306,7 +306,7 @@ fi
+-	foo = SAFE_MALLOC(tst_exit, nr_iovecs * sizeof(char *));
++	foo = SAFE_MALLOC(nr_iovecs * sizeof(int *));
  
- # TI RPC
- AC_ARG_WITH([tirpc],
--  AC_HELP_STRING([--without-tirpc],
-+  AS_HELP_STRING([--without-tirpc],
-     [without libtirpc support]),
-   [with_tirpc=$withval],
-   [with_tirpc=yes]
-@@ -316,7 +316,7 @@ AC_ARG_WITH([tirpc],
- # Testsuites knobs
+ 	count = 0;
+ 	for (i = 0; i < nr_iovecs; i++) {
+-		foo[i] = SAFE_MALLOC(tst_exit, bufsz_arr[i]);
+-		for (j = 0; j < bufsz_arr[i]; j++) {
++		foo[i] = SAFE_MALLOC(sizes[i]);
++		for (j = 0; j < sizes[i]; j++) {
+ 			foo[i][j] = count % 256;
+ 			count++;
+ 		}
+ 	}
+-	tst_resm(TINFO, "child 0: %d iovecs allocated and initialized.",
+-		 nr_iovecs);
  
- AC_ARG_WITH([open-posix-testsuite],
--  [AC_HELP_STRING([--with-open-posix-testsuite],
-+  [AS_HELP_STRING([--with-open-posix-testsuite],
-     [compile and install the open posix testsuite])],
-   [with_open_posix_testsuite=$withval],
-   [with_open_posix_testsuite=no]
-@@ -329,7 +329,7 @@ fi
+-	/* passing addr via pipe */
+-	SAFE_CLOSE(tst_exit, pipe_fd[0]);
+-	snprintf(buf, BUFSIZ, "%p", (void *)foo);
+-	SAFE_WRITE(tst_exit, 1, pipe_fd[1], buf, strlen(buf) + 1);
+-	SAFE_CLOSE(tst_exit, pipe_fd[1]);
++	*data_ptr = (uintptr_t)foo;
++
++	tst_res(TINFO, "child 0: memory allocated and initialized");
  
- # TODO: testcases/realtime requires bash and python.
- AC_ARG_WITH([realtime-testsuite],
--  [AC_HELP_STRING([--with-realtime-testsuite],
-+  [AS_HELP_STRING([--with-realtime-testsuite],
-     [compile and install the realtime testsuite])],
-   [with_realtime_testsuite=$withval],
-   [with_realtime_testsuite=no]
-diff --git a/m4/ltp-kernel_devel.m4 b/m4/ltp-kernel_devel.m4
-index 8a0598e5a3..d46d54775a 100644
---- a/m4/ltp-kernel_devel.m4
-+++ b/m4/ltp-kernel_devel.m4
-@@ -9,7 +9,7 @@ AC_DEFUN([LTP_CHECK_KERNEL_DEVEL],[
- AC_MSG_CHECKING([for kernel-devel])
- AC_ARG_WITH(
- 	[linux-version],
--	[AC_HELP_STRING([--with-linux-version=VERSION],
-+	[AS_HELP_STRING([--with-linux-version=VERSION],
- 			[specify the Linux version to build modules for])],
- 	[LINUX_VERSION="${withval}"],
- 	AS_IF([test "$cross_compiling" = "no"],
-@@ -18,7 +18,7 @@ AC_ARG_WITH(
- AC_SUBST(LINUX_VERSION)
+-	/* wait until child_invoke is done reading from our VM */
+-	TST_SAFE_CHECKPOINT_WAIT(cleanup, 0);
++	/* wake and wait until child_invoke is done reading from our VM */
++	TST_CHECKPOINT_WAKE_AND_WAIT(0);
+ }
  
- AC_ARG_WITH([linux-dir],
--	[AC_HELP_STRING([--with-linux-dir=DIR],
-+	[AS_HELP_STRING([--with-linux-dir=DIR],
- 			[specify path to kernel-devel directory])],
- 	[LINUX_DIR="${withval}"],
- 	AS_IF([test -n "$LINUX_VERSION"],
-@@ -44,7 +44,7 @@ AC_MSG_RESULT([$WITH_MODULES])
+-static long *fetch_remote_addrs(void)
++static long *fetch_remote_addrs(int nr_iovecs, pid_t pid_alloc)
+ {
+-	long *foo, *bar;
+-	char buf[BUFSIZ];
++	long *bar;
+ 	long len;
+ 	struct iovec local, remote;
  
- AC_ARG_WITH(
- 	[modules],
--	[AC_HELP_STRING([--without-modules],
-+	[AS_HELP_STRING([--without-modules],
- 			[disable auto-building kernel modules])],
- 			[WITH_MODULES="no"],
- 			[])
-diff --git a/testcases/realtime/m4/check.m4 b/testcases/realtime/m4/check.m4
-index e60ae19289..d04a2cc73a 100644
---- a/testcases/realtime/m4/check.m4
-+++ b/testcases/realtime/m4/check.m4
-@@ -1,10 +1,10 @@
- AC_DEFUN([REALTIME_CHECK_PRIO_INHERIT],[
- AC_MSG_CHECKING([for PTHREAD_PRIO_INHERIT])
--AC_TRY_COMPILE([
--#include <pthread.h>],[int main(void) {
-+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
-+#include <pthread.h>]], [[int main(void) {
- 	pthread_mutexattr_t attr;
- 	return pthread_mutexattr_setprotocol(&attr, PTHREAD_PRIO_INHERIT);
--}],[has_priority_inherit="yes"],[])
-+}]])],[has_priority_inherit="yes"],[])
- if test "x$has_priority_inherit" = "xyes" ; then
- 	AC_DEFINE(HAS_PRIORITY_INHERIT,1,[Define to 1 if you have PTHREAD_PRIO_INHERIT])
- 	AC_MSG_RESULT(yes)
+-	/* get addr from pipe */
+-	SAFE_CLOSE(tst_exit, pipe_fd[1]);
+-	SAFE_READ(tst_exit, 0, pipe_fd[0], buf, BUFSIZ);
+-	SAFE_CLOSE(tst_exit, pipe_fd[0]);
+-	if (sscanf(buf, "%p", &foo) != 1)
+-		tst_brkm(TBROK | TERRNO, tst_exit, "sscanf");
+-
+ 	len = nr_iovecs * sizeof(long);
+-	bar = SAFE_MALLOC(tst_exit, len);
++	bar = SAFE_MALLOC(len);
+ 	local.iov_base = bar;
+ 	local.iov_len = len;
+-	remote.iov_base = foo;
++	remote.iov_base = (void *)*data_ptr;
+ 	remote.iov_len = len;
+ 
+-	TEST(tst_syscall(__NR_process_vm_readv, pids[0], &local,
+-			 1UL, &remote, 1UL, 0UL));
+-	if (TEST_RETURN != len)
+-		tst_brkm(TFAIL | TTERRNO, tst_exit, "process_vm_readv");
++	TEST(tst_syscall(__NR_process_vm_readv, pid_alloc, &local, 1UL, &remote,
++					 1UL, 0UL));
++	if (TST_RET != len)
++		tst_brk(TBROK, "process_vm_readv");
+ 
+ 	return local.iov_base;
+ }
+ 
+-static void child_invoke(int *bufsz_arr)
++static void child_invoke(const int *sizes, int nr_iovecs, pid_t pid_alloc,
++						 int buffsize)
+ {
+-	int i, j, count, nr_error;
++	const int num_local_vecs = 4;
++	struct iovec local[num_local_vecs];
++	struct iovec remote[nr_iovecs];
++	int i, j;
++	int count;
++	int nr_error;
++	int *local_sizes;
+ 	unsigned char expect, actual;
+ 	long *addrs;
+-	struct iovec local[NUM_LOCAL_VECS], *remote;
+-	int rcv_arr[NUM_LOCAL_VECS];
+ 
+-	addrs = fetch_remote_addrs();
++	addrs = fetch_remote_addrs(nr_iovecs, pid_alloc);
+ 
+-	remote = SAFE_MALLOC(tst_exit, nr_iovecs * sizeof(struct iovec));
+ 	for (i = 0; i < nr_iovecs; i++) {
+ 		remote[i].iov_base = (void *)addrs[i];
+-		remote[i].iov_len = bufsz_arr[i];
++		remote[i].iov_len = sizes[i];
+ 	}
+-	tst_resm(TINFO, "child 1: %d remote iovecs received.", nr_iovecs);
+ 
+-	gen_random_arr(rcv_arr, NUM_LOCAL_VECS);
+-	for (i = 0; i < NUM_LOCAL_VECS; i++) {
+-		local[i].iov_base = SAFE_MALLOC(tst_exit, rcv_arr[i]);
+-		local[i].iov_len = rcv_arr[i];
++	/* use different buffer sizes for local memory */
++	local_sizes = SAFE_MALLOC(num_local_vecs * sizeof(int));
++	create_data_size(local_sizes, num_local_vecs, buffsize);
++	for (i = 0; i < num_local_vecs; i++) {
++		local[i].iov_base = SAFE_MALLOC(local_sizes[i]);
++		local[i].iov_len = local_sizes[i];
+ 	}
+-	tst_resm(TINFO, "child 1: %d local iovecs initialized.",
+-		 NUM_LOCAL_VECS);
+ 
+-	TEST(tst_syscall(__NR_process_vm_readv, pids[0], local,
+-			    (unsigned long)NUM_LOCAL_VECS, remote,
+-			    (unsigned long)nr_iovecs, 0UL));
+-	if (TEST_RETURN != bufsz)
+-		tst_brkm(TBROK | TTERRNO, tst_exit, "process_vm_readv");
++	tst_res(TINFO, "child 1: reading string from same memory location");
++
++	TEST(tst_syscall(__NR_process_vm_readv, pid_alloc, local, num_local_vecs,
++					 remote, nr_iovecs, 0UL));
++
++	if (TST_RET < 0)
++		tst_brk(TBROK, "process_vm_readv: %s", tst_strerrno(-TST_RET));
++
++	if (TST_RET != buffsize)
++		tst_brk(TBROK, "process_vm_readv: expected %d bytes but got %ld",
++				buffsize, TST_RET);
+ 
+ 	/* verify every byte */
+ 	count = 0;
+ 	nr_error = 0;
+-	for (i = 0; i < NUM_LOCAL_VECS; i++) {
++	for (i = 0; i < num_local_vecs; i++) {
+ 		for (j = 0; j < (int)local[i].iov_len; j++) {
+ 			expect = count % 256;
+ 			actual = ((unsigned char *)local[i].iov_base)[j];
+-			if (expect != actual) {
+-#if DEBUG
+-				tst_resm(TFAIL, "child 1: expected %i, got %i "
+-					 "for byte seq %d",
+-					 expect, actual, count);
+-#endif
++			if (expect != actual)
+ 				nr_error++;
+-			}
++
+ 			count++;
+ 		}
+ 	}
++
+ 	if (nr_error)
+-		tst_brkm(TFAIL, tst_exit, "child 1: %d incorrect bytes "
+-			 "received.", nr_error);
++		tst_brk(TFAIL, "child 1: %d incorrect bytes received", nr_error);
+ 	else
+-		tst_resm(TPASS, "child 1: all bytes are correctly received.");
++		tst_res(TPASS, "child 1: all bytes are correctly received");
+ }
+ 
+ static void setup(void)
+ {
+-	tst_require_root();
++	int iov_max;
+ 
+ 	/* Just a sanity check of the existence of syscall */
+ 	tst_syscall(__NR_process_vm_readv, getpid(), NULL, 0UL, NULL, 0UL, 0UL);
+ 
+-	nr_iovecs = nflag ? SAFE_STRTOL(NULL, nr_opt, 1, IOV_MAX) : 10;
+-	bufsz = sflag ? SAFE_STRTOL(NULL, sz_opt, NUM_LOCAL_VECS, LONG_MAX)
+-	    : 100000;
++	if (tst_parse_int(str_buffsize, &bufsize, 4, INT_MAX))
++		tst_brk(TBROK, "Invalid buffer size '%s'", str_buffsize);
+ 
+-	tst_tmpdir();
+-	TST_CHECKPOINT_INIT(cleanup);
+-	srand(time(NULL));
++	iov_max = SAFE_SYSCONF(_SC_IOV_MAX);
++	if (tst_parse_int(str_nr_iovecs, &nriovecs, 1, iov_max))
++		tst_brk(TBROK, "Invalid IO vectors '%s'", str_nr_iovecs);
+ 
+-	TEST_PAUSE;
++	data_ptr = SAFE_MMAP(NULL, sizeof(uintptr_t), PROT_READ | PROT_WRITE,
++						 MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+ }
+ 
+ static void cleanup(void)
+ {
+-	tst_rmdir();
++	if (data_ptr)
++		SAFE_MUNMAP(data_ptr, sizeof(uintptr_t));
+ }
+ 
+-static void help(void)
++static void run(void)
+ {
+-	printf("    -n NUM  Set the number of iovecs to be allocated.\n");
+-	printf("    -s NUM  Set the size of total buffer size.\n");
++	pid_t pid_alloc;
++	pid_t pid_invoke;
++	int status;
++	int *sizes;
++
++	/* create random iovec data size */
++	sizes = SAFE_MALLOC(nriovecs * sizeof(int));
++	create_data_size(sizes, nriovecs, bufsize);
++
++	pid_alloc = SAFE_FORK();
++	if (!pid_alloc) {
++		child_alloc(sizes, nriovecs);
++		return;
++	}
++
++	TST_CHECKPOINT_WAIT(0);
++
++	pid_invoke = SAFE_FORK();
++	if (!pid_invoke) {
++		child_invoke(sizes, nriovecs, pid_alloc, bufsize);
++		return;
++	}
++
++	/* wait until child_invoke reads from child_alloc's VM */
++	SAFE_WAITPID(pid_invoke, &status, 0);
++	if (!WIFEXITED(status) || WEXITSTATUS(status) != 0)
++		tst_res(TFAIL, "child 1: returns %d", status);
++
++	/* child_alloc is free to exit now */
++	TST_CHECKPOINT_WAKE(0);
++
++	SAFE_WAITPID(pid_alloc, &status, 0);
++	if (!WIFEXITED(status) || WEXITSTATUS(status) != 0)
++		tst_res(TFAIL, "child 0: returns %d", status);
+ }
++
++static struct tst_test test = {
++	.test_all = run,
++	.setup = setup,
++	.cleanup = cleanup,
++	.forks_child = 1,
++	.needs_checkpoints = 1,
++	.options = (struct tst_option[]) {
++		{"s:", &str_buffsize, "Total buffer size (default 100000)"},
++		{"n:", &str_nr_iovecs, "Number of iovecs to be allocated (default 10)"},
++		{},
++	},
++};
 -- 
 2.34.1
 
