@@ -1,73 +1,75 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5042C49CC7E
-	for <lists+linux-ltp@lfdr.de>; Wed, 26 Jan 2022 15:38:42 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id B7ABE49CC9A
+	for <lists+linux-ltp@lfdr.de>; Wed, 26 Jan 2022 15:44:54 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A6B9D3C970E
-	for <lists+linux-ltp@lfdr.de>; Wed, 26 Jan 2022 15:38:41 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id E22563C970D
+	for <lists+linux-ltp@lfdr.de>; Wed, 26 Jan 2022 15:44:53 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 6A6CA3C8D84
- for <ltp@lists.linux.it>; Wed, 26 Jan 2022 15:38:37 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id 7A3ED3C8D84
+ for <ltp@lists.linux.it>; Wed, 26 Jan 2022 15:44:50 +0100 (CET)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id B2DD91A0112A
- for <ltp@lists.linux.it>; Wed, 26 Jan 2022 15:38:36 +0100 (CET)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 918401A00FBC
+ for <ltp@lists.linux.it>; Wed, 26 Jan 2022 15:44:49 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id DD434218E9;
- Wed, 26 Jan 2022 14:38:35 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id C00AD21128;
+ Wed, 26 Jan 2022 14:44:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1643207915; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ t=1643208288;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=tJGRc8+3tI/VjdJ86vfkyTIhzX2R11iyFI3JCd694iE=;
- b=oNKgGlzozn6UsBApkeM4QBptMPczHfBcNfEipT0XuUE2aKiV5k061qy1FYwvGp91yHOTAx
- UjmAUxjFqrjWLnddKiH/sprEO7IpkT6TAFZlgY+DeblCpkrvadfbS7rxea2WR8PCiYRCUQ
- PZTkZXGqN5pce1NVEzXa1AZbF9PMLCI=
+ bh=2bHF1yWz6hbNV9/KEf3kP9Xp4iPmWXuuxesCg71lMAQ=;
+ b=L4p5H4W0iLw8mJN9miBzBRCp0SS67V8VOLFBLsUN+z6QVs0BB9jNrYJ9Wdb37TkKPS2grk
+ DCQjcf6PuORiCGACNA1kWhf/LpQZL7J6BFDCxScRlSUFZPE1qDzvP5uAP8z6JPFcS/qEqy
+ Lbo048mUw7Z5/dIfnTS7TV7sqlu5FUk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1643207915;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ s=susede2_ed25519; t=1643208288;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=tJGRc8+3tI/VjdJ86vfkyTIhzX2R11iyFI3JCd694iE=;
- b=pCUV/7N4sRm98/fwle0yXGoWtDk4P/3aDkD/ff9/gx6JY7Dq9U9arIT+smEoMo9L76bezX
- Lr5azXt5iIXy8eAA==
+ bh=2bHF1yWz6hbNV9/KEf3kP9Xp4iPmWXuuxesCg71lMAQ=;
+ b=C0lpoTK+cMcgSDng0RiBh7aXbVfnpecFp7d/1eGeueU48O9XPaICTPQ9vX/aL6ST1lmfHx
+ twL1fvqWUdlIERDQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B128F13E1A;
- Wed, 26 Jan 2022 14:38:35 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8ED9B13E1E;
+ Wed, 26 Jan 2022 14:44:48 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id v6X6JOtc8WFVAwAAMHmgww
- (envelope-from <chrubis@suse.cz>); Wed, 26 Jan 2022 14:38:35 +0000
-Date: Wed, 26 Jan 2022 15:40:25 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Andrea Cervesato <andrea.cervesato@suse.de>
-Message-ID: <YfFdWaqX1kWGmGyz@yuki>
-References: <20220126091435.16022-1-andrea.cervesato@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id F6AbIGBe8WEaBwAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Wed, 26 Jan 2022 14:44:48 +0000
+Date: Wed, 26 Jan 2022 15:44:46 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: ltp@lists.linux.it
+Message-ID: <YfFeXoHL5iTx4QNh@pevik>
+References: <20220126141152.6428-1-pvorel@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20220126091435.16022-1-andrea.cervesato@suse.de>
+In-Reply-To: <20220126141152.6428-1-pvorel@suse.cz>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3] Rewrite process_vm_readv02.c test with new LTP
- API
+Subject: Re: [LTP] [PATCH 1/1] lib: Rename array used for .all_filesystems
+ flag
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,63 +81,26 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Reply-To: Petr Vorel <pvorel@suse.cz>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-Pushed with three minor fixes, thanks.
+Hi all,
 
-* Fixed the munmap() size
-* Fixed the documentation comment header
-* Made use of tst_strstatus()
+> Although fs_type_whitelist[] is also used for whitelisting with
+> .skip_filesystems, the main purpose is to be used for .all_filesystems.
 
-Full diff:
+> Thus rename it to all_filesystems[].
 
-diff --git a/testcases/kernel/syscalls/cma/process_vm_readv02.c b/testcases/kernel/syscalls/cma/process_vm_readv02.c
-index ed905a735..2bd66a49f 100644
---- a/testcases/kernel/syscalls/cma/process_vm_readv02.c
-+++ b/testcases/kernel/syscalls/cma/process_vm_readv02.c
-@@ -5,7 +5,7 @@
-  * Copyright (C) 2021 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
-  */
+NOTE: the main purpose of this change is to increase code readability.
+https://lore.kernel.org/ltp/CAEemH2fNfFes-eUtiQKX9JJxqEQUQ+O5nWQM8G-yNyTo8sxviw@mail.gmail.com/
 
--/* \
-+/*\
-  * [Description]
-  *
-  * Fork two children, one child allocates memory and initializes it;
-@@ -73,7 +73,7 @@ static void setup(void)
- static void cleanup(void)
- {
-        if (data_ptr)
--               SAFE_MUNMAP(data_ptr, BUFSIZ);
-+               SAFE_MUNMAP(data_ptr, sizeof(uintptr_t));
- }
+That's why I added doc.
 
- static void run(void)
-@@ -104,14 +104,14 @@ static void run(void)
-        /* wait until child_invoke reads from child_alloc's VM */
-        SAFE_WAITPID(pid_invoke, &status, 0);
-        if (!WIFEXITED(status) || WEXITSTATUS(status) != 0)
--               tst_res(TFAIL, "child 1: returns %d", status);
-+               tst_res(TFAIL, "child 1: %s", tst_strstatus(status));
-
-        /* child_alloc is free to exit now */
-        TST_CHECKPOINT_WAKE(0);
-
-        SAFE_WAITPID(pid_alloc, &status, 0);
-        if (!WIFEXITED(status) || WEXITSTATUS(status) != 0)
--               tst_res(TFAIL, "child 0: returns %d", status);
-+               tst_res(TFAIL, "child 0: %s", tst_strstatus(status));
- }
-
-
--- 
-Cyril Hrubis
-chrubis@suse.cz
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
