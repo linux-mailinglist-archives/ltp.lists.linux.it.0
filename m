@@ -1,69 +1,68 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id C159349CFF1
-	for <lists+linux-ltp@lfdr.de>; Wed, 26 Jan 2022 17:47:14 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 72CF949D183
+	for <lists+linux-ltp@lfdr.de>; Wed, 26 Jan 2022 19:13:16 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 51F5E3C972B
-	for <lists+linux-ltp@lfdr.de>; Wed, 26 Jan 2022 17:47:14 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id D81D83C9722
+	for <lists+linux-ltp@lfdr.de>; Wed, 26 Jan 2022 19:13:15 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id EAA683C93DA
- for <ltp@lists.linux.it>; Wed, 26 Jan 2022 17:47:09 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id 03A8A3C9714
+ for <ltp@lists.linux.it>; Wed, 26 Jan 2022 19:12:17 +0100 (CET)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 61F0D2000D9
- for <ltp@lists.linux.it>; Wed, 26 Jan 2022 17:47:08 +0100 (CET)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id D995E140009D
+ for <ltp@lists.linux.it>; Wed, 26 Jan 2022 19:12:16 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 4C16521116;
- Wed, 26 Jan 2022 16:47:08 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id C5C4C218F3;
+ Wed, 26 Jan 2022 18:12:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1643215628; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1643220735; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=DOnOE2l/YBzQQ9/nQWo6CVh0K25jYP2ECnOTX316dKs=;
- b=H0oiVi3FgFzjT++Gqllks4ssH2mguwkmR/Aw8Nz95GfAdwWX8EWsbuRtGcBzApG6dtymYg
- o/3dBACmlOfkd9YUdbMm3cnP7aC5uyWzm6FCpPGWj7Ojxgzguju4xBNVblXwtTESQoe7bY
- YPET3XyBLIaOsZ7yXnb74Av7uGdatWI=
+ bh=pMJJHWFTKC7tKn3xchFnB//WUiScnWWc4fhw8PXBJm4=;
+ b=QOVKQkK4qKCNBvEjyFoq3sNMUy9XZD8qbtT2T2Sf7AUNToroSJ17jHUFMMOuxU/CQ/Hoc1
+ e1+nLi/eS7viQx6Wr+pmiJlXoVQsu2S11AAnizAFJIk1Ff2JvScae+QVSnzN5hh27JvFHg
+ 5PnNQvGbVtBF0fLhC+KNVz8rttxJ8dw=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1643215628;
+ s=susede2_ed25519; t=1643220735;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=DOnOE2l/YBzQQ9/nQWo6CVh0K25jYP2ECnOTX316dKs=;
- b=KmoLOwWQpyTTYnBSNdDdE+NIaGnjUWbUWVDGjNnwjNsOJ0eLVvM0grmTme7AHBAjODipfD
- ggXL1J+3jD2yD3BA==
+ bh=pMJJHWFTKC7tKn3xchFnB//WUiScnWWc4fhw8PXBJm4=;
+ b=pyq/Y0kUp2y6osrmXLyaybxPdgqShItRYbydPYff0ITxJjl1iL6MQmK5wxG2an8X0JJ9+x
+ aOfMC06I3KBw2EDA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1BD4813E2B;
- Wed, 26 Jan 2022 16:47:08 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9BA6D13E30;
+ Wed, 26 Jan 2022 18:12:15 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id rlp9Awx78WE5SwAAMHmgww
- (envelope-from <pvorel@suse.cz>); Wed, 26 Jan 2022 16:47:08 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id LREWI/+O8WGbcQAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Wed, 26 Jan 2022 18:12:15 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Wed, 26 Jan 2022 17:47:03 +0100
-Message-Id: <20220126164703.7177-1-pvorel@suse.cz>
+Date: Wed, 26 Jan 2022 19:12:05 +0100
+Message-Id: <20220126181210.24897-1-pvorel@suse.cz>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH 1/1] Fix tst_mkfs_ doc
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH 0/5] shell: Add TST_FORMAT_DEVICE support
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,40 +79,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
- include/old/test.h | 3 ++-
- include/tst_mkfs.h | 3 ++-
- 2 files changed, 4 insertions(+), 2 deletions(-)
+Hi,
 
-diff --git a/include/old/test.h b/include/old/test.h
-index 2ae7dba71f..87287a8e7e 100644
---- a/include/old/test.h
-+++ b/include/old/test.h
-@@ -193,7 +193,8 @@ int self_exec(const char *argv0, const char *fmt, ...);
-  * @dev: path to a device
-  * @fs_type: filesystem type
-  * @fs_opts: NULL or NULL terminated array of mkfs options
-- * @extra_opt: extra mkfs option which is passed after the device name
-+ * @extra_opts: NULL or NULL terminated array of extra mkfs options which is
-+ * passed after the device name.
-  */
- #define tst_mkfs(cleanup, dev, fs_type, fs_opts, extra_opts) \
- 	tst_mkfs_(__FILE__, __LINE__, cleanup, dev, fs_type, \
-diff --git a/include/tst_mkfs.h b/include/tst_mkfs.h
-index b89bf812f6..c2d777facd 100644
---- a/include/tst_mkfs.h
-+++ b/include/tst_mkfs.h
-@@ -9,7 +9,8 @@
-  * @dev: path to a device
-  * @fs_type: filesystem type
-  * @fs_opts: NULL or NULL terminated array of extra mkfs options
-- * @extra_opts: NULL or NULL terminated array of extra mkfs options
-+ * @extra_opts: NULL or NULL terminated array of extra mkfs options which is
-+ * passed after the device name.
-  */
- void tst_mkfs_(const char *file, const int lineno, void (cleanup_fn)(void),
- 	       const char *dev, const char *fs_type,
+it's nice to sync with C API, but I don't expect that many tests would
+need formatting device.  The main reason is to preparation for
+TST_ALL_FILESYSTEMS support (useful for NFS tests).
+
+Kind regards,
+Petr
+
+Petr Vorel (5):
+  tst_test.sh: Add $TST_DEFAULT_FS_TYPE
+  tst_test.sh: tst_mkfs(): Add support for extra opts
+  tst_test.sh: Add $TST_FORMAT_DEVICE and related vars
+  df01.sh: Use TST_FORMAT_DEVICE=1
+  shell: Add test for TST_FORMAT_DEVICE=1
+
+ doc/shell-test-api.txt                      |  9 +++++++-
+ lib/newlib_tests/shell/tst_format_device.sh | 24 ++++++++++++++++++++
+ testcases/commands/df/df01.sh               |  7 ++----
+ testcases/commands/mkfs/mkfs01.sh           |  4 ++--
+ testcases/lib/tst_test.sh                   | 25 ++++++++++++---------
+ 5 files changed, 51 insertions(+), 18 deletions(-)
+ create mode 100755 lib/newlib_tests/shell/tst_format_device.sh
+
 -- 
 2.34.1
 
