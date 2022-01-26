@@ -2,72 +2,68 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id CEDC349CD3A
-	for <lists+linux-ltp@lfdr.de>; Wed, 26 Jan 2022 16:03:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4A2949CD54
+	for <lists+linux-ltp@lfdr.de>; Wed, 26 Jan 2022 16:08:34 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6AED53C96E7
-	for <lists+linux-ltp@lfdr.de>; Wed, 26 Jan 2022 16:03:02 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 3452A3C9728
+	for <lists+linux-ltp@lfdr.de>; Wed, 26 Jan 2022 16:08:34 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id D32FE3C2A5C
- for <ltp@lists.linux.it>; Wed, 26 Jan 2022 16:02:58 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 5319F3C960F
+ for <ltp@lists.linux.it>; Wed, 26 Jan 2022 16:08:29 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 6AF2D140032B
- for <ltp@lists.linux.it>; Wed, 26 Jan 2022 16:02:57 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 3D7261000479
+ for <ltp@lists.linux.it>; Wed, 26 Jan 2022 16:08:28 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 6E4871F3B3;
- Wed, 26 Jan 2022 15:02:57 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 20FE121900;
+ Wed, 26 Jan 2022 15:08:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1643209377; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=SYOjxX63/2/eWLxKS1HtzlJPuBFJNTTo0IQHf7Qg7xk=;
- b=SCgilPCWECBtZ/bVAxtUNieX0mhCPTtSPKfa2dh3r+J7Zf44dzPnFNglFQmRqsv+V2SpZb
- G1cptbH+TLITMcE8if+ByeCuf+S596qxgEvV+ZkMgu7KxdY/0BbIEATKwHHBiSEWMROE8/
- udGtH9i99z1ElehCFjOpQryk5yeDlFs=
+ t=1643209708; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=+yceicfLclrW0iqUNQ32Mz5b3CTDRfBzV9kkTaWm+zc=;
+ b=ldd2ZUWh6RXWh7X5FTDKtqEdk9TE47zctbUFR3iVaF5mSFtZwAITZEI9fOKwdRAcp9Isi5
+ fT1mtzTQORsDECrM3ZSe2vikSOzMwBzPA1MM9PW4whAuDYV3vwl2ne9h+PW5lmeYWO8Gp9
+ WG2mhx8AehzMm0QPb2jcNZuhnx4P6VA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1643209377;
+ s=susede2_ed25519; t=1643209708;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=SYOjxX63/2/eWLxKS1HtzlJPuBFJNTTo0IQHf7Qg7xk=;
- b=9xi1wVOfEgksN7cAjSnpMii/IzKGl4t6nVjJHQVTkaxnXR3k70T6HgJrjLmXRRt2lT/niX
- BKQ+CIW8OujWO9Bw==
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=+yceicfLclrW0iqUNQ32Mz5b3CTDRfBzV9kkTaWm+zc=;
+ b=h53494Krpz6M++XcNNm+2Evero0e3zM1z0QM+GvNXnUK4gdtjSZ1RzX+XkswgfcNtmGIjl
+ uKYuq1WoUWH9Z7Bg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4533013A67;
- Wed, 26 Jan 2022 15:02:57 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E789413C53;
+ Wed, 26 Jan 2022 15:08:27 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id rofJEKFi8WFbEgAAMHmgww
- (envelope-from <chrubis@suse.cz>); Wed, 26 Jan 2022 15:02:57 +0000
-Date: Wed, 26 Jan 2022 16:04:47 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <YfFjD8nsRQC9SJtS@yuki>
-References: <20220126123547.13298-1-pvorel@suse.cz>
- <20220126123547.13298-5-pvorel@suse.cz>
+ by imap2.suse-dmz.suse.de with ESMTPSA id m2KiNutj8WGGFQAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Wed, 26 Jan 2022 15:08:27 +0000
+From: Petr Vorel <pvorel@suse.cz>
+To: ltp@lists.linux.it
+Date: Wed, 26 Jan 2022 16:08:24 +0100
+Message-Id: <20220126150824.19331-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20220126123547.13298-5-pvorel@suse.cz>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [RFC PATCH v2 4/7] realtime/m4: Simplify exp10 check
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/1] tst_net.sh: Print help ASAP
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,20 +75,66 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: automated-testing@yoctoproject.org, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-Looks good as well.
+This also allows not requiring printing help with root when using
+TST_USE_NETNS:
 
-Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
+    $ PATH="/opt/ltp/testcases/bin:$PATH" gre02.sh -h
+    gre02 1 TCONF: Must be super/root for this test!
 
+And with root setup was unnecessary things done just to print help:
+
+    # PATH="/opt/ltp/testcases/bin:$PATH" gre02.sh -h
+    gre02 1 TINFO: initialize 'lhost' 'ltp_ns_veth2' interface
+    gre02 1 TINFO: add local addr 10.0.0.2/24
+    gre02 1 TINFO: add local addr fd00:1:1:1::2/64
+    gre02 1 TINFO: initialize 'rhost' 'ltp_ns_veth1' interface
+    gre02 1 TINFO: add remote addr 10.0.0.1/24
+    gre02 1 TINFO: add remote addr fd00:1:1:1::1/64
+    gre02 1 TINFO: Network config (local -- remote):
+    gre02 1 TINFO: ltp_ns_veth2 -- ltp_ns_veth1
+    gre02 1 TINFO: 10.0.0.2/24 -- 10.0.0.1/24
+    gre02 1 TINFO: fd00:1:1:1::2/64 -- fd00:1:1:1::1/64
+    Usage: /opt/ltp/testcases/bin/gre02.sh [-6]
+    OPTIONS
+    -6      IPv6 tests
+    -h      Prints this help
+    -i n    Execute test n times
+
+Now just help is printed, work for unprivileged user:
+
+    $ PATH="/opt/ltp/testcases/bin:$PATH" gre02.sh -h
+    Usage: /opt/ltp/testcases/bin/gre02.sh [-6]
+    OPTIONS
+    -6      IPv6 tests
+    -h      Prints this help
+    -i n    Execute test n times
+
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+---
+ testcases/lib/tst_net.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/testcases/lib/tst_net.sh b/testcases/lib/tst_net.sh
+index 4dc0fca926..047686dc39 100644
+--- a/testcases/lib/tst_net.sh
++++ b/testcases/lib/tst_net.sh
+@@ -937,7 +937,7 @@ tst_default_max_pkt()
+ 	echo "$((mtu + mtu / 10))"
+ }
+ 
+-[ -n "$TST_NET_SKIP_VARIABLE_INIT" ] && return 0
++[ -n "$TST_PRINT_HELP" -o -n "$TST_NET_SKIP_VARIABLE_INIT" ] && return 0
+ 
+ # Management Link
+ [ -z "$RHOST" ] && TST_USE_NETNS="yes"
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+2.34.1
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
