@@ -2,74 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5091749DDDB
-	for <lists+linux-ltp@lfdr.de>; Thu, 27 Jan 2022 10:25:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1889A49DDDD
+	for <lists+linux-ltp@lfdr.de>; Thu, 27 Jan 2022 10:25:33 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A82253C972D
-	for <lists+linux-ltp@lfdr.de>; Thu, 27 Jan 2022 10:25:13 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id A3AD63C9739
+	for <lists+linux-ltp@lfdr.de>; Thu, 27 Jan 2022 10:25:32 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 9071B3C970E
+ by picard.linux.it (Postfix) with ESMTPS id E56B83C8CF5
  for <ltp@lists.linux.it>; Thu, 27 Jan 2022 10:24:35 +0100 (CET)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id EED4E1400B6B
- for <ltp@lists.linux.it>; Thu, 27 Jan 2022 10:24:34 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 846F51000553
+ for <ltp@lists.linux.it>; Thu, 27 Jan 2022 10:24:35 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 8FD1D21100;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id C247F218FA;
  Thu, 27 Jan 2022 09:24:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1643275474; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=x8cs6HjFZcdDJkXZhVE5SWD6Sko92lZHA6VmtYdQJNk=;
- b=2aJUCRwmF65YwNs83ChYhXxUrWIkElQlSjis3cM+33vtRDWmT1JE8Ol+KAwMhxW/lI9A35
- SckrT76JNPlXXEjqpI2sZB9IzVkREMpBbmDswT9el9s5s0Md8MJZuLf6tiM2MOpdAXOPO/
- vKz10W2RrMOLReKrHiCumVcJnisaIC8=
+ bh=11RNKui0qfBK4ULXVRKnHNtwsQqTwEWZM+b83fBAfcM=;
+ b=pu9LtK+5TK7+tj5Nqnuwd+d59XVK5R/NiCsBXs/tugGqtKxYa6URDXwWK8AYJXzgwwIyRa
+ IXl3xyLyAtQOckBs5cJ6qENoBvB8IRV3jOQz3NJgslIzzxAerpRa+HTonzm1YxUaTop+//
+ 9czS8Z3p9cOFQlccnwJeNMURQb+uquw=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1643275474;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=x8cs6HjFZcdDJkXZhVE5SWD6Sko92lZHA6VmtYdQJNk=;
- b=pMY/EZW+ydlDr9aL3vYDvy3Zjatqurv7vtjJSrnQbEKLmvR3bMRV9ZyPu+BDBH7bctihsh
- fmLNBXpFidoJArCA==
+ bh=11RNKui0qfBK4ULXVRKnHNtwsQqTwEWZM+b83fBAfcM=;
+ b=j6zzwR3OSWT1PYc2X6jxlYUClcXSkepIKJ/QVUc0qrlhN2oL+AjgbNDmtIfKR7R8CdvJmj
+ VEXdZC04zCGjOPCw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6616D13CFB;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9C57E13CFB;
  Thu, 27 Jan 2022 09:24:34 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 4BHjFtJk8mHLHwAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id GKgvJNJk8mHLHwAAMHmgww
  (envelope-from <andrea.cervesato@suse.de>); Thu, 27 Jan 2022 09:24:34 +0000
 From: Andrea Cervesato <andrea.cervesato@suse.de>
 To: ltp@lists.linux.it
-Date: Thu, 27 Jan 2022 10:24:24 +0100
-Message-Id: <20220127092431.25996-5-andrea.cervesato@suse.de>
+Date: Thu, 27 Jan 2022 10:24:25 +0100
+Message-Id: <20220127092431.25996-6-andrea.cervesato@suse.de>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220127092431.25996-1-andrea.cervesato@suse.de>
 References: <20220127092431.25996-1-andrea.cervesato@suse.de>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH v5 04/11] Add wqueue02 test
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH v5 05/11] Add wqueue03 test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,35 +85,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This test is testing NOTIFY_KEY_UNLINKED event
+This test is testing NOTIFY_KEY_REVOKED event
 
 Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.de>
 ---
  runtest/watchqueue                     |  1 +
  testcases/kernel/watchqueue/.gitignore |  1 +
- testcases/kernel/watchqueue/wqueue02.c | 43 ++++++++++++++++++++++++++
+ testcases/kernel/watchqueue/wqueue03.c | 43 ++++++++++++++++++++++++++
  3 files changed, 45 insertions(+)
- create mode 100644 testcases/kernel/watchqueue/wqueue02.c
+ create mode 100644 testcases/kernel/watchqueue/wqueue03.c
 
 diff --git a/runtest/watchqueue b/runtest/watchqueue
-index 782577d6d..0d442ff01 100644
+index 0d442ff01..0606db1e0 100644
 --- a/runtest/watchqueue
 +++ b/runtest/watchqueue
-@@ -1 +1,2 @@
+@@ -1,2 +1,3 @@
  wqueue01 wqueue01
-+wqueue02 wqueue02
+ wqueue02 wqueue02
++wqueue03 wqueue03
 diff --git a/testcases/kernel/watchqueue/.gitignore b/testcases/kernel/watchqueue/.gitignore
-index c61ac6165..4f8695201 100644
+index 4f8695201..36a7473d8 100644
 --- a/testcases/kernel/watchqueue/.gitignore
 +++ b/testcases/kernel/watchqueue/.gitignore
-@@ -1 +1,2 @@
+@@ -1,2 +1,3 @@
  wqueue01
-+wqueue02
-diff --git a/testcases/kernel/watchqueue/wqueue02.c b/testcases/kernel/watchqueue/wqueue02.c
+ wqueue02
++wqueue03
+diff --git a/testcases/kernel/watchqueue/wqueue03.c b/testcases/kernel/watchqueue/wqueue03.c
 new file mode 100644
-index 000000000..72df32b69
+index 000000000..e6e4c2091
 --- /dev/null
-+++ b/testcases/kernel/watchqueue/wqueue02.c
++++ b/testcases/kernel/watchqueue/wqueue03.c
 @@ -0,0 +1,43 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
 +/*
@@ -124,7 +125,7 @@ index 000000000..72df32b69
 +/*\
 + * [Description]
 + *
-+ * Test if keyctl unlink is correctly recognized by watch queue.
++ * Test if keyctl revoke is correctly recognized by watch queue.
 + */
 +
 +#define _GNU_SOURCE
@@ -133,13 +134,13 @@ index 000000000..72df32b69
 +#include "lapi/keyctl.h"
 +#include "common.h"
 +
-+static void saw_key_unlinked(struct watch_notification *n, size_t len,
-+							 unsigned int wtype)
++static void saw_key_revoked(struct watch_notification *n, size_t len,
++							unsigned int wtype)
 +{
-+	if (wqueue_key_event(n, len, wtype, NOTIFY_KEY_UNLINKED))
-+		tst_res(TPASS, "keyctl unlink has been recognized");
++	if (wqueue_key_event(n, len, wtype, NOTIFY_KEY_REVOKED))
++		tst_res(TPASS, "keyctl revoke has been recognized");
 +	else
-+		tst_res(TFAIL, "keyctl unlink has not been recognized");
++		tst_res(TFAIL, "keyctl revoke has not been recognized");
 +}
 +
 +static void run(void)
@@ -150,8 +151,8 @@ index 000000000..72df32b69
 +	fd = wqueue_watch(256, &wqueue_filter);
 +	key = wqueue_add_key(fd);
 +
-+	keyctl(KEYCTL_UNLINK, key, KEY_SPEC_SESSION_KEYRING);
-+	wqueue_consumer(fd, saw_key_unlinked);
++	keyctl(KEYCTL_REVOKE, key);
++	wqueue_consumer(fd, saw_key_revoked);
 +
 +	SAFE_CLOSE(fd);
 +}
