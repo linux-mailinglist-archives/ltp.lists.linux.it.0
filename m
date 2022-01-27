@@ -2,54 +2,55 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7FEE49DA75
-	for <lists+linux-ltp@lfdr.de>; Thu, 27 Jan 2022 07:13:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E4F649DA79
+	for <lists+linux-ltp@lfdr.de>; Thu, 27 Jan 2022 07:13:54 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0C6453C973C
-	for <lists+linux-ltp@lfdr.de>; Thu, 27 Jan 2022 07:13:13 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 22BBD3C970F
+	for <lists+linux-ltp@lfdr.de>; Thu, 27 Jan 2022 07:13:54 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id C18703C0DEA
- for <ltp@lists.linux.it>; Thu, 27 Jan 2022 07:13:08 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id 5BCDB3C96C0
+ for <ltp@lists.linux.it>; Thu, 27 Jan 2022 07:13:09 +0100 (CET)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 4310010006A5
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 308D020015B
  for <ltp@lists.linux.it>; Thu, 27 Jan 2022 07:13:07 +0100 (CET)
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 2F65A212B5;
+ by smtp-out1.suse.de (Postfix) with ESMTP id 6D2EE2190B;
  Thu, 27 Jan 2022 06:13:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
  t=1643263987; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=8dzIbdZkaDEqoyA15H/Q2LQD/UhJMhLW6ZX+OmfATMM=;
- b=fAh24NDEirIzPtbgATHEbkKaCjBx3G48lAS556Auz+4nYQ4UKWMnI4FI3gUi2JTwxRpSPP
- 8f9DmWibHKiyOaAlCX8iB20jQc3UnI3dwMaiTVHcPN2cpPbM9ddR3oNy5dXLxsOkMUaDl5
- f8c4b/cebvAcHDGtHPLdHU1OJo1mqXk=
+ bh=Em7u5q4Ek3BfNbo2rYhS8/QrS1/B0XyCjc/uHKk4NIk=;
+ b=uHWNro7jjYnBdHSXF+V0reqPNWze9adFUkS8sSdRrJ1kdPBxVeMerZlD1OvnVHLRxvAJFS
+ NiLatnbZ85ywQ5/2bNiavbpQ67/ejP0o+DFLY2B8nzTfIEig8vtdIDCBCF5+RuGRhCs3/n
+ V9YlXlk8CpHfEM4fDyI2DEOwjPARHXY=
 Received: from g78.suse.de (unknown [10.163.24.90])
- by relay2.suse.de (Postfix) with ESMTP id E6DC7A3B81;
- Thu, 27 Jan 2022 06:13:06 +0000 (UTC)
+ by relay2.suse.de (Postfix) with ESMTP id 3EE50A3B81;
+ Thu, 27 Jan 2022 06:13:07 +0000 (UTC)
 To: ltp@lists.linux.it
-Date: Thu, 27 Jan 2022 06:12:20 +0000
-Message-Id: <20220127061225.23368-2-rpalethorpe@suse.com>
+Date: Thu, 27 Jan 2022 06:12:21 +0000
+Message-Id: <20220127061225.23368-3-rpalethorpe@suse.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220127061225.23368-1-rpalethorpe@suse.com>
 References: <20220127061225.23368-1-rpalethorpe@suse.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH 1/6] memcontrol02: Remove O_TMPFILE TCONF check
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH 2/6] API: Add tst_reap_child
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,35 +70,66 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-We don't use O_TMPFILE anymore because the whole FS is temporary.
+Add a simple way to wait for a specific child process. This makes
+sense when you want to wait for a child while others continue to run
+in the background.
 
 Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
 ---
- testcases/kernel/controllers/memcg/memcontrol02.c | 11 +----------
- 1 file changed, 1 insertion(+), 10 deletions(-)
+ include/tst_test.h |  6 ++++++
+ lib/tst_test.c     | 22 ++++++++++++++++++++++
+ 2 files changed, 28 insertions(+)
 
-diff --git a/testcases/kernel/controllers/memcg/memcontrol02.c b/testcases/kernel/controllers/memcg/memcontrol02.c
-index 9fa4ff811..548f36829 100644
---- a/testcases/kernel/controllers/memcg/memcontrol02.c
-+++ b/testcases/kernel/controllers/memcg/memcontrol02.c
-@@ -94,16 +94,7 @@ static void alloc_pagecache_50M_check(void)
- 	const char *const file_key_fmt =
- 		TST_CGROUP_VER_IS_V1(cg_test, "memory") ? "cache %zd" : "file %zd";
+diff --git a/include/tst_test.h b/include/tst_test.h
+index 450ddf086..8faf19141 100644
+--- a/include/tst_test.h
++++ b/include/tst_test.h
+@@ -106,6 +106,12 @@ pid_t safe_fork(const char *filename, unsigned int lineno);
+  */
+ void tst_reap_children(void);
  
--	TEST(open(TMPDIR"/tmpfile", O_RDWR | O_CREAT, 0600));
--
--	if (TST_RET < 0) {
--		if (TST_ERR == EOPNOTSUPP)
--			tst_brk(TCONF, "O_TMPFILE not supported by FS");
--
--		tst_brk(TBROK | TTERRNO,
--			"open(%s, O_TMPFILE | O_RDWR | O_EXCL", TMPDIR"/.");
--	}
--	fd = TST_RET;
-+	fd = SAFE_OPEN(TMPDIR"/tmpfile", O_RDWR | O_CREAT, 0600);
++/*
++ * Wait for one child and exit with TBROK if it returns a non-zero
++ * exit status
++ */
++void tst_reap_child(pid_t child);
++
+ struct tst_option {
+ 	char *optstr;
+ 	char **arg;
+diff --git a/lib/tst_test.c b/lib/tst_test.c
+index 844756fbd..156a1e4b3 100644
+--- a/lib/tst_test.c
++++ b/lib/tst_test.c
+@@ -416,6 +416,28 @@ void tst_reap_children(void)
+ 	}
+ }
  
- 	SAFE_CGROUP_SCANF(cg_child, "memory.current", "%zu", &current);
- 	tst_res(TINFO, "Created temp file: memory.current=%zu", current);
++void tst_reap_child(const pid_t pid)
++{
++	int status;
++
++	for (;;) {
++		const pid_t ret_pid = waitpid(pid, &status, 0);
++
++		if (ret_pid > 0) {
++			check_child_status(ret_pid, status);
++			continue;
++		}
++
++		if (errno == ECHILD)
++			break;
++
++		if (errno == EINTR)
++			continue;
++
++		tst_brk(TBROK | TERRNO, "waitpid(%d, ...) failed", pid);
++	}
++}
++
+ 
+ pid_t safe_fork(const char *filename, unsigned int lineno)
+ {
 -- 
 2.34.1
 
