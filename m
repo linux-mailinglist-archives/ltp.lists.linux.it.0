@@ -1,52 +1,55 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EDE349DA77
-	for <lists+linux-ltp@lfdr.de>; Thu, 27 Jan 2022 07:13:35 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id C7FEE49DA75
+	for <lists+linux-ltp@lfdr.de>; Thu, 27 Jan 2022 07:13:14 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B09203C9718
-	for <lists+linux-ltp@lfdr.de>; Thu, 27 Jan 2022 07:13:34 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 0C6453C973C
+	for <lists+linux-ltp@lfdr.de>; Thu, 27 Jan 2022 07:13:13 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E09B43C9704
+ by picard.linux.it (Postfix) with ESMTPS id C18703C0DEA
  for <ltp@lists.linux.it>; Thu, 27 Jan 2022 07:13:08 +0100 (CET)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 37AF91A006EA
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 4310010006A5
  for <ltp@lists.linux.it>; Thu, 27 Jan 2022 07:13:07 +0100 (CET)
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id D5FB4210FD;
- Thu, 27 Jan 2022 06:13:06 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 2F65A212B5;
+ Thu, 27 Jan 2022 06:13:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1643263986; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=PiP9DtNX6dqUwo3sQ/DiEXnnSd7wYN2r2OfYS1/z17g=;
- b=STybR8AwuF3HtEAbaLNwaEH8xzNaDy6wqyPs+CRmdg2i6PUAH2zl3mzIJMaYSaQ7jg0eO0
- Z9gUNerR3ONcCQ3xuSjEZp8LZrKMQ6MyDYptKUTTYkojl0olts7OAAQ7d2k39Nb0bv1/X2
- oFzHLGca+e43IlYBVYaBG8GxS4tVLpw=
+ t=1643263987; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=8dzIbdZkaDEqoyA15H/Q2LQD/UhJMhLW6ZX+OmfATMM=;
+ b=fAh24NDEirIzPtbgATHEbkKaCjBx3G48lAS556Auz+4nYQ4UKWMnI4FI3gUi2JTwxRpSPP
+ 8f9DmWibHKiyOaAlCX8iB20jQc3UnI3dwMaiTVHcPN2cpPbM9ddR3oNy5dXLxsOkMUaDl5
+ f8c4b/cebvAcHDGtHPLdHU1OJo1mqXk=
 Received: from g78.suse.de (unknown [10.163.24.90])
- by relay2.suse.de (Postfix) with ESMTP id A467CA3B81;
+ by relay2.suse.de (Postfix) with ESMTP id E6DC7A3B81;
  Thu, 27 Jan 2022 06:13:06 +0000 (UTC)
 To: ltp@lists.linux.it
-Date: Thu, 27 Jan 2022 06:12:19 +0000
-Message-Id: <20220127061225.23368-1-rpalethorpe@suse.com>
+Date: Thu, 27 Jan 2022 06:12:20 +0000
+Message-Id: <20220127061225.23368-2-rpalethorpe@suse.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20220127061225.23368-1-rpalethorpe@suse.com>
+References: <20220127061225.23368-1-rpalethorpe@suse.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH 0/6] Add memcontrol03 and declarative CG API
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/6] memcontrol02: Remove O_TMPFILE TCONF check
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,42 +69,35 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello,
+We don't use O_TMPFILE anymore because the whole FS is temporary.
 
-This adds a third test from the kselftests. Also I have finally taken
-the step of moving the CGroup configuration to tst_test. This doesn't
-save a huge amount of typing, but is good for the meta-data.
+Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
+---
+ testcases/kernel/controllers/memcg/memcontrol02.c | 11 +----------
+ 1 file changed, 1 insertion(+), 10 deletions(-)
 
-Richard Palethorpe (6):
-  memcontrol02: Remove O_TMPFILE TCONF check
-  API: Add tst_reap_child
-  memcontrol: Lift out some common definitions into a shared header
-  API/cgroup: Declare required controllers and version in test struct
-  API/cgroup: Add memory.min
-  memcontrol03: Copy from kselftest
-
- include/tst_cgroup.h                          |  15 +-
- include/tst_test.h                            |  23 ++
- lib/newlib_tests/tst_cgroup01.c               |   2 +-
- lib/newlib_tests/tst_cgroup02.c               |   2 +-
- lib/tst_cgroup.c                              |  21 +-
- lib/tst_test.c                                |  47 ++++
- .../kernel/controllers/memcg/memcontrol01.c   |  13 +-
- .../kernel/controllers/memcg/memcontrol02.c   |  50 +---
- .../kernel/controllers/memcg/memcontrol03.c   | 231 ++++++++++++++++++
- .../controllers/memcg/memcontrol_common.h     |  48 ++++
- testcases/kernel/mem/cpuset/cpuset01.c        |   4 +-
- testcases/kernel/mem/ksm/ksm02.c              |   4 +-
- testcases/kernel/mem/ksm/ksm03.c              |   4 +-
- testcases/kernel/mem/ksm/ksm04.c              |   7 +-
- testcases/kernel/mem/oom/oom03.c              |   4 +-
- testcases/kernel/mem/oom/oom05.c              |   8 +-
- .../sched/cfs-scheduler/cfs_bandwidth01.c     |   6 +-
- testcases/kernel/syscalls/madvise/madvise06.c |   5 +-
- 18 files changed, 399 insertions(+), 95 deletions(-)
- create mode 100644 testcases/kernel/controllers/memcg/memcontrol03.c
- create mode 100644 testcases/kernel/controllers/memcg/memcontrol_common.h
-
+diff --git a/testcases/kernel/controllers/memcg/memcontrol02.c b/testcases/kernel/controllers/memcg/memcontrol02.c
+index 9fa4ff811..548f36829 100644
+--- a/testcases/kernel/controllers/memcg/memcontrol02.c
++++ b/testcases/kernel/controllers/memcg/memcontrol02.c
+@@ -94,16 +94,7 @@ static void alloc_pagecache_50M_check(void)
+ 	const char *const file_key_fmt =
+ 		TST_CGROUP_VER_IS_V1(cg_test, "memory") ? "cache %zd" : "file %zd";
+ 
+-	TEST(open(TMPDIR"/tmpfile", O_RDWR | O_CREAT, 0600));
+-
+-	if (TST_RET < 0) {
+-		if (TST_ERR == EOPNOTSUPP)
+-			tst_brk(TCONF, "O_TMPFILE not supported by FS");
+-
+-		tst_brk(TBROK | TTERRNO,
+-			"open(%s, O_TMPFILE | O_RDWR | O_EXCL", TMPDIR"/.");
+-	}
+-	fd = TST_RET;
++	fd = SAFE_OPEN(TMPDIR"/tmpfile", O_RDWR | O_CREAT, 0600);
+ 
+ 	SAFE_CGROUP_SCANF(cg_child, "memory.current", "%zu", &current);
+ 	tst_res(TINFO, "Created temp file: memory.current=%zu", current);
 -- 
 2.34.1
 
