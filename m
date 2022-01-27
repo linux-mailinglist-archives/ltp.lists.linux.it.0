@@ -1,74 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 780B849E3F0
-	for <lists+linux-ltp@lfdr.de>; Thu, 27 Jan 2022 14:58:05 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 657A149E420
+	for <lists+linux-ltp@lfdr.de>; Thu, 27 Jan 2022 15:04:17 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id BC4293C974B
-	for <lists+linux-ltp@lfdr.de>; Thu, 27 Jan 2022 14:58:04 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id BAC843C972A
+	for <lists+linux-ltp@lfdr.de>; Thu, 27 Jan 2022 15:04:16 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 8E4213C96EC
- for <ltp@lists.linux.it>; Thu, 27 Jan 2022 14:58:00 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id 3D1393C2AE9
+ for <ltp@lists.linux.it>; Thu, 27 Jan 2022 15:04:12 +0100 (CET)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 1BB6E100047A
- for <ltp@lists.linux.it>; Thu, 27 Jan 2022 14:57:59 +0100 (CET)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 6F7392009A6
+ for <ltp@lists.linux.it>; Thu, 27 Jan 2022 15:04:12 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 32B38218B8;
- Thu, 27 Jan 2022 13:57:59 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id AE4C3218B8;
+ Thu, 27 Jan 2022 14:04:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1643291879;
+ t=1643292251;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=UX7N3W2Onft+qWb7wGZCSLK2ukLeae/Pa70RD+k/hAU=;
- b=cHCtxpaDgHsaxl7VM1mYUZwj5gW8H+6GFwNXO2EgecBratGgaMzSj8hSOsKyLwhDG1F+0L
- tXFBhOyS2HGcucStGMI4bvrI1bLqdX2UJG0zPwQnqrMJzWIt4jCReurcWzphaCHBTqT96J
- caM1BL7sDfGkCTGH7v/oW0/WDjFYNyY=
+ bh=/ykiwOKoV12pVsVsGBCsxlCEM18Y1Y2sHQoAMM3IzCc=;
+ b=q3ybRmZGf+2+2ei8KEcXNiZA8WTekHh51qHfzlGqvD+GL9wjyAd7HtWkUZtNDSq+MTplAW
+ V31Vzw1eQmXEtu/bzg1F00bcKRWP/iYj34cacZ0pQVjyY/aKhbWv7DGJuSU9lFYqidxAHu
+ dOBp+Vn930Uy79DpHwCLTcAvTOIVhnc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1643291879;
+ s=susede2_ed25519; t=1643292251;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=UX7N3W2Onft+qWb7wGZCSLK2ukLeae/Pa70RD+k/hAU=;
- b=XxKN3pkXMvc3/Q3Xsco5MAS+VW3C4rJ1WEHr9IetkXxIweWHIJcF//1zQh++FsBpppzzHa
- eI86HV++yGh97nBw==
+ bh=/ykiwOKoV12pVsVsGBCsxlCEM18Y1Y2sHQoAMM3IzCc=;
+ b=9UKLAaTTJIKUqZT0xlqTYpMgJh2gPF3PtVVGodomftRSpDi57FvunP3/Gm8Dn4C2ER9hir
+ 5JL+U6GW5WjFsoDA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 026C913BE5;
- Thu, 27 Jan 2022 13:57:58 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8526B13BE5;
+ Thu, 27 Jan 2022 14:04:11 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id YfiEOuak8mH1LwAAMHmgww
- (envelope-from <pvorel@suse.cz>); Thu, 27 Jan 2022 13:57:58 +0000
-Date: Thu, 27 Jan 2022 14:57:57 +0100
+ by imap2.suse-dmz.suse.de with ESMTPSA id b1qvHlum8mGaMwAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Thu, 27 Jan 2022 14:04:11 +0000
+Date: Thu, 27 Jan 2022 15:04:09 +0100
 From: Petr Vorel <pvorel@suse.cz>
-To: Alexey Kodanev <aleksei.kodanev@bell-sw.com>
-Message-ID: <YfKk5fcxJkDY+5Zt@pevik>
-References: <20220126150824.19331-1-pvorel@suse.cz>
- <7e0628fd-0815-ac51-79e3-9c544da55cb0@bell-sw.com>
+To: Jan Stancek <jstancek@redhat.com>
+Message-ID: <YfKmWdNN+G/hjphN@pevik>
+References: <a0733b841c7867ca6af1feb033b691c9f72ce0ec.1643291588.git.jstancek@redhat.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <7e0628fd-0815-ac51-79e3-9c544da55cb0@bell-sw.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+In-Reply-To: <a0733b841c7867ca6af1feb033b691c9f72ce0ec.1643291588.git.jstancek@redhat.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/1] tst_net.sh: Print help ASAP
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] syscalls/mkdir09: rewrite in new LTP API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,12 +87,52 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Alexey,
+Hi Jan,
 
-thanks for you review, merged.
+> 'jump' variable is not initialized, which I suspect is behind
+> rare failures of this test. The original test is using longjmp,
+> processes and signals to sychronize couple processes that
+> exercise mkdir/rmdir calls.
+
+> Rewrite it using threads and new LTP API, drop all parameters,
+> because no runtest is using them, and make new default test time
+> just 1 second.
+
+> Signed-off-by: Jan Stancek <jstancek@redhat.com>
+> ---
+> It's based on original test, but I question its usefulness,
+> since it's just mkdir/rmdir in loop over same directory.
+> So, I decided to port it with just 1 second test time, but
+> I'm not opposed to dropping this test entirely. Thoughts?
+
+Not sure about usefulness. Also how about use .all_filesystems to have smoke
+test for all supported filesystems?
 
 Kind regards,
 Petr
+
++++ testcases/kernel/syscalls/mkdir/mkdir09.c
+@@ -14,9 +14,10 @@
+ #include "tst_test.h"
+ #include "tst_safe_pthread.h"
+ 
++#define MNTPOINT "mntpoint"
+ #define MODE_RWX	07770
+-#define DIR_NAME	"./X.%d"
+-#define DIR_NAME_GROUP	"./X.%d.%d"
++#define DIR_NAME	MNTPOINT "/X.%d"
++#define DIR_NAME_GROUP	MNTPOINT "/X.%d.%d"
+ #define NCHILD		3
+ 
+ static int child_groups = 2;
+@@ -166,4 +167,7 @@ static struct tst_test test = {
+ 	.test_all = verify_mkdir,
+ 	.needs_tmpdir = 1,
+ 	.setup = setup,
++	.mount_device = 1,
++	.mntpoint = MNTPOINT,
++	.all_filesystems = 1,
+ };
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
