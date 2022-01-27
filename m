@@ -1,56 +1,56 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E4F649DA79
-	for <lists+linux-ltp@lfdr.de>; Thu, 27 Jan 2022 07:13:54 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id B6E2749DA76
+	for <lists+linux-ltp@lfdr.de>; Thu, 27 Jan 2022 07:13:22 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 22BBD3C970F
-	for <lists+linux-ltp@lfdr.de>; Thu, 27 Jan 2022 07:13:54 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id B59D63C971F
+	for <lists+linux-ltp@lfdr.de>; Thu, 27 Jan 2022 07:13:20 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 5BCDB3C96C0
- for <ltp@lists.linux.it>; Thu, 27 Jan 2022 07:13:09 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id D793C3C96C0
+ for <ltp@lists.linux.it>; Thu, 27 Jan 2022 07:13:08 +0100 (CET)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 308D020015B
- for <ltp@lists.linux.it>; Thu, 27 Jan 2022 07:13:07 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 3D57110006A1
+ for <ltp@lists.linux.it>; Thu, 27 Jan 2022 07:13:08 +0100 (CET)
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 6D2EE2190B;
+ by smtp-out1.suse.de (Postfix) with ESMTP id B1AA021921;
  Thu, 27 Jan 2022 06:13:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
  t=1643263987; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Em7u5q4Ek3BfNbo2rYhS8/QrS1/B0XyCjc/uHKk4NIk=;
- b=uHWNro7jjYnBdHSXF+V0reqPNWze9adFUkS8sSdRrJ1kdPBxVeMerZlD1OvnVHLRxvAJFS
- NiLatnbZ85ywQ5/2bNiavbpQ67/ejP0o+DFLY2B8nzTfIEig8vtdIDCBCF5+RuGRhCs3/n
- V9YlXlk8CpHfEM4fDyI2DEOwjPARHXY=
+ bh=CU37hbo2o5J4fj6vIv/MqGp+YElKsr4wEuMIDGj4Lu4=;
+ b=KZgcYaXOeK7m5YMAzIvR7Cl2kObjb1kEttluTZkqZMRySdif/1I2K4SRn3Dc6iLFLjFqi9
+ 7Y2DznlHYeFrj+wJCzUCGweBPwk55eabR9JBn4T4uJwnFnmlpHAdQESp59ICEQYS2UGDai
+ 1nvlNdwbfFMGDjUYStjZDAPV4M57+z0=
 Received: from g78.suse.de (unknown [10.163.24.90])
- by relay2.suse.de (Postfix) with ESMTP id 3EE50A3B81;
+ by relay2.suse.de (Postfix) with ESMTP id 801A2A3B81;
  Thu, 27 Jan 2022 06:13:07 +0000 (UTC)
 To: ltp@lists.linux.it
-Date: Thu, 27 Jan 2022 06:12:21 +0000
-Message-Id: <20220127061225.23368-3-rpalethorpe@suse.com>
+Date: Thu, 27 Jan 2022 06:12:22 +0000
+Message-Id: <20220127061225.23368-4-rpalethorpe@suse.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220127061225.23368-1-rpalethorpe@suse.com>
 References: <20220127061225.23368-1-rpalethorpe@suse.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/6] API: Add tst_reap_child
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH 3/6] memcontrol: Lift out some common definitions into
+ a shared header
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,66 +70,128 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Add a simple way to wait for a specific child process. This makes
-sense when you want to wait for a child while others continue to run
-in the background.
+Some simple functions can be shared between tests. The original
+selftests share a bit more. However this doesn't make as much sense in
+LTP due to library differences.
 
 Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
 ---
- include/tst_test.h |  6 ++++++
- lib/tst_test.c     | 22 ++++++++++++++++++++++
- 2 files changed, 28 insertions(+)
+ .../kernel/controllers/memcg/memcontrol02.c   | 32 +------------
+ .../controllers/memcg/memcontrol_common.h     | 48 +++++++++++++++++++
+ 2 files changed, 49 insertions(+), 31 deletions(-)
+ create mode 100644 testcases/kernel/controllers/memcg/memcontrol_common.h
 
-diff --git a/include/tst_test.h b/include/tst_test.h
-index 450ddf086..8faf19141 100644
---- a/include/tst_test.h
-+++ b/include/tst_test.h
-@@ -106,6 +106,12 @@ pid_t safe_fork(const char *filename, unsigned int lineno);
+diff --git a/testcases/kernel/controllers/memcg/memcontrol02.c b/testcases/kernel/controllers/memcg/memcontrol02.c
+index 548f36829..d5a24cc0a 100644
+--- a/testcases/kernel/controllers/memcg/memcontrol02.c
++++ b/testcases/kernel/controllers/memcg/memcontrol02.c
+@@ -23,14 +23,7 @@
   */
- void tst_reap_children(void);
+ #define _GNU_SOURCE
  
-+/*
-+ * Wait for one child and exit with TBROK if it returns a non-zero
-+ * exit status
-+ */
-+void tst_reap_child(pid_t child);
-+
- struct tst_option {
- 	char *optstr;
- 	char **arg;
-diff --git a/lib/tst_test.c b/lib/tst_test.c
-index 844756fbd..156a1e4b3 100644
---- a/lib/tst_test.c
-+++ b/lib/tst_test.c
-@@ -416,6 +416,28 @@ void tst_reap_children(void)
- 	}
+-#include <stdlib.h>
+-#include <stdio.h>
+-
+-#include "tst_test.h"
+-#include "tst_cgroup.h"
+-
+-#define TMPDIR "mntdir"
+-#define MB(x) (x << 20)
++#include "memcontrol_common.h"
+ 
+ static size_t page_size;
+ static const struct tst_cgroup_group *cg_test;
+@@ -38,20 +31,6 @@ static struct tst_cgroup_group *cg_child;
+ static int fd;
+ static int file_to_all_error = 10;
+ 
+-/*
+- * Checks if two given values differ by less than err% of their
+- * sum. An extra percent is added for every doubling of the page size
+- * to compensate for wastage in page sized allocations.
+- */
+-static inline int values_close(const ssize_t a,
+-			       const ssize_t b,
+-			       const ssize_t err)
+-{
+-	const ssize_t page_adjusted_err = ffs(page_size >> 13) + err;
+-
+-	return 100 * labs(a - b) <= (a + b) * page_adjusted_err;
+-}
+-
+ static void alloc_anon_50M_check(void)
+ {
+ 	const ssize_t size = MB(50);
+@@ -78,15 +57,6 @@ static void alloc_anon_50M_check(void)
+ 		     current, anon);
  }
  
-+void tst_reap_child(const pid_t pid)
+-static void alloc_pagecache(const int fd, size_t size)
+-{
+-	char buf[BUFSIZ];
+-	size_t i;
+-
+-	for (i = 0; i < size; i += sizeof(buf))
+-		SAFE_WRITE(1, fd, buf, sizeof(buf));
+-}
+-
+ static void alloc_pagecache_50M_check(void)
+ {
+ 	const size_t size = MB(50);
+diff --git a/testcases/kernel/controllers/memcg/memcontrol_common.h b/testcases/kernel/controllers/memcg/memcontrol_common.h
+new file mode 100644
+index 000000000..67f3ca318
+--- /dev/null
++++ b/testcases/kernel/controllers/memcg/memcontrol_common.h
+@@ -0,0 +1,48 @@
++// SPDX-License-Identifier: GPL-2.0
++
++#include <stdlib.h>
++#include <stdio.h>
++
++#include "tst_test.h"
++#include "tst_cgroup.h"
++
++#define TMPDIR "mntdir"
++#define MB(x) (x << 20)
++
++/*
++ * Checks if two given values differ by less than err% of their
++ * sum. An extra percent is added for every doubling of the page size
++ * to compensate for wastage in page sized allocations.
++ */
++static inline int values_close(const ssize_t a,
++			       const ssize_t b,
++			       const ssize_t err)
 +{
-+	int status;
++	const size_t page_size = SAFE_SYSCONF(_SC_PAGESIZE);
++	const ssize_t page_adjusted_err = ffs(page_size >> 13) + err;
 +
-+	for (;;) {
-+		const pid_t ret_pid = waitpid(pid, &status, 0);
-+
-+		if (ret_pid > 0) {
-+			check_child_status(ret_pid, status);
-+			continue;
-+		}
-+
-+		if (errno == ECHILD)
-+			break;
-+
-+		if (errno == EINTR)
-+			continue;
-+
-+		tst_brk(TBROK | TERRNO, "waitpid(%d, ...) failed", pid);
-+	}
++	return 100 * labs(a - b) <= (a + b) * page_adjusted_err;
 +}
 +
- 
- pid_t safe_fork(const char *filename, unsigned int lineno)
- {
++static inline void alloc_pagecache(const int fd, size_t size)
++{
++	char buf[BUFSIZ];
++	size_t i;
++
++	SAFE_LSEEK(fd, 0, SEEK_END);
++
++	for (i = 0; i < size; i += sizeof(buf))
++		SAFE_WRITE(1, fd, buf, sizeof(buf));
++}
++
++static inline void alloc_anon(const size_t size)
++{
++	const size_t page_size = SAFE_SYSCONF(_SC_PAGESIZE);
++	char *const buf = SAFE_MALLOC(size);
++	size_t i;
++
++	for (i = 0; i < size; i += page_size)
++		buf[i] = 0;
++
++	free(buf);
++}
 -- 
 2.34.1
 
