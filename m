@@ -1,82 +1,76 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF1AB4A3507
-	for <lists+linux-ltp@lfdr.de>; Sun, 30 Jan 2022 08:59:29 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 07DD54A3E26
+	for <lists+linux-ltp@lfdr.de>; Mon, 31 Jan 2022 08:21:20 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 59C743C9776
-	for <lists+linux-ltp@lfdr.de>; Sun, 30 Jan 2022 08:59:29 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 4F28E3C979F
+	for <lists+linux-ltp@lfdr.de>; Mon, 31 Jan 2022 08:21:19 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 649F93C9762
- for <ltp@lists.linux.it>; Sun, 30 Jan 2022 08:59:27 +0100 (CET)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id DAFFF3C2159
+ for <ltp@lists.linux.it>; Mon, 31 Jan 2022 08:21:17 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 57F02600849
- for <ltp@lists.linux.it>; Sun, 30 Jan 2022 08:59:25 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1643529564;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 880EE140098F
+ for <ltp@lists.linux.it>; Mon, 31 Jan 2022 08:21:16 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 5D00121100;
+ Mon, 31 Jan 2022 07:21:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1643613675;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=Fg8qKiCqaAVQV7tzTa84QFxYdd5m0MswH5oGSteuI4s=;
- b=JkD9G1G2HcsC9Kmbo4aLAZfTtAxHmjopr/JRbVjWhvuXRnCOpgxeBxNfXJN0IeCS1lpl5f
- Lpm3GnSQyTjajOMqFA7kxkGeujjXN3CXI31yWvLG3sfzawo0nDS5Hm8+eJBsNFT6wWqLYE
- KQFBLRMN0QVfR84Pftb4wmBlD5KL7Ig=
-Received: from mail-yb1-f199.google.com (mail-yb1-f199.google.com
- [209.85.219.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-452-mN-g_ICSPWWtQBQP4XA_Eg-1; Sun, 30 Jan 2022 02:59:22 -0500
-X-MC-Unique: mN-g_ICSPWWtQBQP4XA_Eg-1
-Received: by mail-yb1-f199.google.com with SMTP id
- i10-20020a25540a000000b0061391789216so21249875ybb.2
- for <ltp@lists.linux.it>; Sat, 29 Jan 2022 23:59:22 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Fg8qKiCqaAVQV7tzTa84QFxYdd5m0MswH5oGSteuI4s=;
- b=j5AoSXCD/HkSg0QgFxGzD9qJ8xy6ypiEhgMW0ixnni+Q3zNfIs5ihMSheuCPMpK2dW
- W5oM+uaTznCcSiDo2JTA3yuVV9s2vu5W8KOoKmJl8odi6b17rejOPygBXwI3T1gI52kI
- tasgE59628iOXqp3nBsm2Ux2zJiSeU3LsAfyvQ5cOLqw0RtCDJnhMcj+9cRVdlKOu2TV
- 6QiUGxvuej7E0fY6fENANw97kc6VqkKlC6nFmGmP7cTVGelmbYjYBOAzbhA+DIbjj0ai
- jAlBTjnt7vJTayWXewCkk2uEFhaBmU5R29CEVjYrZZWEgTe6kPHPkAwYGSF9twmJ6JXN
- V4Sw==
-X-Gm-Message-State: AOAM532QezUwZUWxOHJ69AiC+aOAu36nqdScjHufzNTm7JQr4juFb1TR
- 3SGIuSXrvDOO+tqU3UV+CrCY/KlfKJx2beAK1WX0Rulrr9UHywe94Obj5fCA/5kH6jQ+xwBDSpS
- ZSbr/lbVkF6aNwaMDyxyg70k3zKk=
-X-Received: by 2002:a25:c70f:: with SMTP id w15mr23911845ybe.32.1643529561921; 
- Sat, 29 Jan 2022 23:59:21 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJy3Zokaqg7EqsuhtlEqzMPU38ew3O2IKWBh1iAk176+oALZLpB6jqxlaVVlHAGpP+KnWl3X+X50Jg1/OoPxRbQ=
-X-Received: by 2002:a25:c70f:: with SMTP id w15mr23911837ybe.32.1643529561743; 
- Sat, 29 Jan 2022 23:59:21 -0800 (PST)
+ bh=kSCTMZFRSTKsTRgaIXrWuXrHrwfHq/Hn567W+OTnU/0=;
+ b=pzZkzEa113Us/0d8PbXRq9ELS6cTPdGNdo9EB68JKoRR3iiTJtMhzSQ8NNasT9/kXlOlPL
+ /3D2Jxbm5/w+/oAOh/i6mW7lXfvbDIqJtYOeEQXCSStXI8N07pduXy826RTUYVFoGd+Oxi
+ 5RLcMuGJkmBRzhLzUjOnRROiPxFDwxo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1643613675;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=kSCTMZFRSTKsTRgaIXrWuXrHrwfHq/Hn567W+OTnU/0=;
+ b=FckHMtJlTK3u/4ATzM31iBKCkZn8gnCAZ5LHU4DcZ3oVEs7779vzBDw1XNoZDmtIHa6bCe
+ IKsj5MmgNJRs9eBw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3F84013638;
+ Mon, 31 Jan 2022 07:21:15 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id zhQeDuuN92ESRAAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Mon, 31 Jan 2022 07:21:15 +0000
+Date: Mon, 31 Jan 2022 08:21:13 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: "xuyang2018.jy@fujitsu.com" <xuyang2018.jy@fujitsu.com>
+Message-ID: <YfeN6fG28AVNC44n@pevik>
+References: <20220127171455.9809-1-pvorel@suse.cz>
+ <61F609C7.1080803@fujitsu.com>
 MIME-Version: 1.0
-References: <20220126145141.13825-1-pvorel@suse.cz>
- <20220126145141.13825-2-pvorel@suse.cz>
-In-Reply-To: <20220126145141.13825-2-pvorel@suse.cz>
-From: Li Wang <liwang@redhat.com>
-Date: Sun, 30 Jan 2022 15:59:07 +0800
-Message-ID: <CAEemH2f+oNKsFc4+wG50tn6_FRTh_Vy060_WB8g4hPHvcCPuoA@mail.gmail.com>
-To: Petr Vorel <pvorel@suse.cz>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <61F609C7.1080803@fujitsu.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/2] tst_test.sh: Print environment variables in
- help
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [RFC PATCH 1/1] lib: Print in summary also tests not run
+ at all
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,19 +82,42 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-For series:
-Reviewed-by: Li Wang <liwang@redhat.com>
+...
+> > +++ b/lib/tst_test.c
+> > @@ -811,6 +811,9 @@ static void do_exit(int ret)
+> >   		fprintf(stderr, "broken   %d\n", results->broken);
+> >   		fprintf(stderr, "skipped  %d\n", results->skipped);
+> >   		fprintf(stderr, "warnings %d\n", results->warnings);
+> > +		fprintf(stderr, "not run  %d\n", tst_test->tcnt -
+> > +				results->passed - results->failed - results->broken -
+> > +				results->skipped - results->warnings);
+> IMO, these values are not necessary related. Refer to quotactl01.c( 
+> tst_test->tcnt is less than results->passed)
+Ah, correct. Also .test_all means tst_test->tcnt to be 0.
+So my patch is utterly wrong.
 
--- 
-Regards,
-Li Wang
+> Also, if you want to add a new tag, you should define the situation for it.
 
+What is my point: number of the defined tests does not mean they are all run.
+
+Maybe printing number of the tests in the test (tst_test->tcnt or 1 when
+tst_test->test_all)?
+
+My point is to have an idea without looking into the code know how many tests
+have been skipped on certain setup.
+
+Kind regards,
+Petr
+
+> Best Regards
+> Yang Xu
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
