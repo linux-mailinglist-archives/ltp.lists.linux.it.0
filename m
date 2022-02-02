@@ -1,73 +1,75 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 182EE4A7568
-	for <lists+linux-ltp@lfdr.de>; Wed,  2 Feb 2022 17:06:05 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id A9E414A758A
+	for <lists+linux-ltp@lfdr.de>; Wed,  2 Feb 2022 17:11:46 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id AC5033C98CE
-	for <lists+linux-ltp@lfdr.de>; Wed,  2 Feb 2022 17:06:04 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 61A2B3C98D0
+	for <lists+linux-ltp@lfdr.de>; Wed,  2 Feb 2022 17:11:46 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 39B033C67FA
- for <ltp@lists.linux.it>; Wed,  2 Feb 2022 17:06:02 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id E83733C98AB
+ for <ltp@lists.linux.it>; Wed,  2 Feb 2022 17:11:44 +0100 (CET)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 7AB3A200AF0
- for <ltp@lists.linux.it>; Wed,  2 Feb 2022 17:06:02 +0100 (CET)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 11B471A010F3
+ for <ltp@lists.linux.it>; Wed,  2 Feb 2022 17:11:43 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id A8A4421108;
- Wed,  2 Feb 2022 16:06:01 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 1EF4421118;
+ Wed,  2 Feb 2022 16:11:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1643817961; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1643818303; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=LK5OzTyc82UNTRa8rf8jIoZ83St36JRrv5zfsNiXVAw=;
- b=mSfGd3xJJRbgKO7w1w9SWQFYzLUpzk7cta8oTgRRhhI1vlMQxqu0w47eALDejc+I1drv7T
- je4Zsjcm33kA8HGI8RNWy3twMcHP/uJYeqmBL/3cFOJhZM4bcSY8X5efUdrKIES9TvMgsN
- ZuT8p1FyPFdBO4Prhnzj+RE9Z5jWMqw=
+ bh=HlukEsLtcc5qax3q7IddFsI3k4ywGkJcaOWt2ZnGRJU=;
+ b=kSf8r7ek39NU69nA2gEJIpsyFn19VvjxoAaRxhxQbyEwfgUL52wvzVjwqKksdWtBJ9/lGW
+ YV1/1OiOVr2zg9wIvAwEdLLjyBIIJMOi3RWnHIvAdAEUynBqaO0YHLSGACBPD3ePszRlgv
+ Lj4qBn6pj9dc0NLPzudFVeZ+potylLQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1643817961;
+ s=susede2_ed25519; t=1643818303;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=LK5OzTyc82UNTRa8rf8jIoZ83St36JRrv5zfsNiXVAw=;
- b=7ZblyjPK9c777e9K1eQUb2CxH7UWn214jAO5Wd+QvepdSCoufiG93nZ35W2jPgbcQx8zg3
- jS818zr6lX+IZFCg==
+ bh=HlukEsLtcc5qax3q7IddFsI3k4ywGkJcaOWt2ZnGRJU=;
+ b=R/CzyvP7YpBApVba8B65BS3i9gQBRdY3BQa4VYc2MY1X6MT2Ysfax6nzEvTL7rZ6l2zwwr
+ Mk9mSg4IX3bzsUDQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8BACF13E6F;
- Wed,  2 Feb 2022 16:06:01 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id F389F13E99;
+ Wed,  2 Feb 2022 16:11:42 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id P1FcIOmr+mH8JgAAMHmgww
- (envelope-from <chrubis@suse.cz>); Wed, 02 Feb 2022 16:06:01 +0000
-Date: Wed, 2 Feb 2022 17:07:57 +0100
+ by imap2.suse-dmz.suse.de with ESMTPSA id 1fi4OT6t+mFBKgAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Wed, 02 Feb 2022 16:11:42 +0000
+Date: Wed, 2 Feb 2022 17:13:38 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Zhao Gongyi <zhaogongyi@huawei.com>
-Message-ID: <YfqsXZFKZjlf3BWh@yuki>
-References: <20211122080138.55815-1-zhaogongyi@huawei.com>
+To: Petr Vorel <pvorel@suse.cz>
+Message-ID: <Yfqtsi5Y0u8Sv2P8@yuki>
+References: <20211118235744.802584-1-krisman@collabora.com>
+ <YdxN6HBJF+ATgZxP@pevik>
+ <CAOQ4uxia2NNMPUCQzjo6Gsnz8xr_9YKTeTqzOu-hgdsjfHHx0w@mail.gmail.com>
+ <YfqTqAjEPalXzOK7@pevik>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20211122080138.55815-1-zhaogongyi@huawei.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+In-Reply-To: <YfqTqAjEPalXzOK7@pevik>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] lib/tst_tmpdir: Add tst_default_rmdir() for
- old testcases
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v4 0/9] Test the new fanotify FAN_FS_ERROR event
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,65 +81,26 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Cc: kernel@collabora.com, Khazhismel Kumykov <khazhy@google.com>,
+ Matthew Bobrowski <repnop@google.com>, Jan Kara <jack@suse.com>,
+ Ext4 <linux-ext4@vger.kernel.org>,
+ Gabriel Krisman Bertazi <krisman@collabora.com>, LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> In some old testcases, cleanup() will not run since it exit
-> form tst_brk. For example, because of the calling of ltp_syscall
-> have no real cleanup when syscall not support, testcase ssetmask01
-> will leave tmp file.
+> > In any case, Petr, I suggest adding a short timeout to the test
+> > instead of the default 5min.
+> > Test takes less than 1 second on my VM on v5.16, so...
+> We usually don't lower the default timeout, but here it's a good idea since here
+> it blocks. It's similar speed on my machine, but I'd be conservative and put
+> timeout 10 sec. Sending patch.
 
-Actually you can pass cleanup to ltp_syscall(), all you need to do is
-ti define CLEANUP before including LTP headers as:
-
-#define CLEANUP cleanup
-
-#include "test.h"
-...
-...
-
-See the include/old/cleanup.c for details.
-
-> Signed-off-by: Zhao Gongyi <zhaogongyi@huawei.com>
-> ---
-> v1->v2: add tst_default_rmdir() in tst_tmpdir.c
-> 
->  lib/tst_tmpdir.c | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
-> diff --git a/lib/tst_tmpdir.c b/lib/tst_tmpdir.c
-> index 6e38ae977..0045c7bb6 100644
-> --- a/lib/tst_tmpdir.c
-> +++ b/lib/tst_tmpdir.c
-> @@ -342,6 +342,8 @@ void tst_rmdir(void)
->  		tst_resm(TWARN, "%s: rmobj(%s) failed: %s",
->  			 __func__, TESTDIR, errmsg);
->  	}
-> +
-> +	TESTDIR == NULL;
-
-This is useless statement, it does literaly nothing.
-
->  }
-> 
->  void tst_purge_dir(const char *path)
-> @@ -351,3 +353,8 @@ void tst_purge_dir(const char *path)
->  	if (purge_dir(path, &err))
->  		tst_brkm(TBROK, NULL, "%s: %s", __func__, err);
->  }
-> +
-> +void __attribute__((destructor)) tst_default_rmdir(void)
-> +{
-> +	tst_rmdir();
-> +}
-
-I do not think that we should run the tst_rmdir() for all tests like
-this.
-
+Actually I hope to change the default timeout once I finish my runtime
+patchset to something more reasonable as majority of LTP tests finish
+under one second.
 
 -- 
 Cyril Hrubis
