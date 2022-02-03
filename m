@@ -1,73 +1,69 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id D00264A82F5
-	for <lists+linux-ltp@lfdr.de>; Thu,  3 Feb 2022 12:11:06 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B66A4A83EA
+	for <lists+linux-ltp@lfdr.de>; Thu,  3 Feb 2022 13:36:04 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B872C3C9AA6
-	for <lists+linux-ltp@lfdr.de>; Thu,  3 Feb 2022 12:11:05 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id D08313C9ABE
+	for <lists+linux-ltp@lfdr.de>; Thu,  3 Feb 2022 13:36:03 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 3E0EA3C9A44
- for <ltp@lists.linux.it>; Thu,  3 Feb 2022 12:11:01 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id 799D83C9A59
+ for <ltp@lists.linux.it>; Thu,  3 Feb 2022 13:35:26 +0100 (CET)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id B259F200991
- for <ltp@lists.linux.it>; Thu,  3 Feb 2022 12:11:00 +0100 (CET)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id A75891A00668
+ for <ltp@lists.linux.it>; Thu,  3 Feb 2022 13:35:25 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id DE18A1F443;
- Thu,  3 Feb 2022 11:10:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1643886659; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=CfNXJJ/k3rW6x39C4BI6vvuxKwP1+8Jph9GSsSDDHgY=;
- b=NiUBYLYd4Cuy+5WTzmsRacTRRcfW0cI/qiP/mKtTFx6z/Y7yuzpwkO6aOpfc638NIrxBw4
- pKSzSqL8dWkzGU6AhN5YUDtwdqtl1hqsK7rMLQipbEIZgABqs3V3fbOMLMtAoyCiJuJVHW
- bkeoK1uVPgy/ZLUn56M7BKijo0biD2E=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1643886659;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id D2D301F446;
+ Thu,  3 Feb 2022 12:35:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1643891724; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=E220/OCwECjgekxckzHEX7e5xLyc034WvDRepvRtaMU=;
+ b=KYmTsmmQrsCiTepONgV/bb1RApcxiw9zl9Yp7TdbRwx7KY6XovHemXPoC5ekAOqZEvunkH
+ BAEAKrMv36hnKDtyYV6fk3zRz0HQ2s9R9OgOdz1e8VnsYP/t60wXmTjgKCD3CS47XpvpHd
+ lDmweSfrjWNarx5j/YBnN11FTqtrECw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1643891724;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=CfNXJJ/k3rW6x39C4BI6vvuxKwP1+8Jph9GSsSDDHgY=;
- b=GeL+NDUzg8QKXoh6sSQzLvELlQE7pjN9tm9K2OM2eTtflDy9Ime6aCY5AoxQz4kV5Zl04H
- bfiN/+kUTTmyVJBQ==
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=E220/OCwECjgekxckzHEX7e5xLyc034WvDRepvRtaMU=;
+ b=j4NF7sfAQEvX13V0jphKeM+6DW+LqEWbfIBqr0nWiter/t/mz9tbk+/ANk1M4qHeFxi70l
+ 0iwP1S38Ogd1btCg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C559A1348D;
- Thu,  3 Feb 2022 11:10:59 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id AB59E1348D;
+ Thu,  3 Feb 2022 12:35:24 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id YvYlMEO4+2HabQAAMHmgww
- (envelope-from <chrubis@suse.cz>); Thu, 03 Feb 2022 11:10:59 +0000
-Date: Thu, 3 Feb 2022 12:12:57 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>
-Message-ID: <Yfu4ucYOvXbOqXYt@yuki>
-References: <YfpnVfrto4Elshy5@pevik>
- <Yfp49PCW9Res5gXG@t14s.localdomain>
+ by imap2.suse-dmz.suse.de with ESMTPSA id mdKkJwzM+2GkGwAAMHmgww
+ (envelope-from <andrea.cervesato@suse.de>); Thu, 03 Feb 2022 12:35:24 +0000
+From: Andrea Cervesato <andrea.cervesato@suse.de>
+To: ltp@lists.linux.it
+Date: Thu,  3 Feb 2022 13:35:17 +0100
+Message-Id: <20220203123522.28604-1-andrea.cervesato@suse.de>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <Yfp49PCW9Res5gXG@t14s.localdomain>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [RFC] SCTP tests in LTP vs. on github.com/sctp
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH v1 0/5] Rewrite mountns testing suite
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,34 +75,35 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Xin Long <lucien.xin@gmail.com>, Neil Horman <nhorman@tuxdriver.com>,
- Vlad Yasevich <vyasevich@gmail.com>, linux-sctp@vger.kernel.org,
- Martin Doucha <martin.doucha@suse.com>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> > SCTP tests lksctp-tools [1] are also in LTP [2].
-> > IMHO it's not worth to have it on both places.
-> 
-> Agree. I wasn't aware of the copy in LTP, btw.
-> 
-> A question I have now is, is getting more exposure because it is in
-> LTP? As in, does it get executed periodically by bots somewhere?
+mountns testing suite has been rewritten using new LTP API and libclone
+has been removed from dependences.
 
-Generally I think that not many run the LTP network tests, but it seems
-that the intel 0-day has at least a job definition for the LTP sctp
-tests:
+Andrea Cervesato (5):
+  Rewrite mountns01 test using new LTP API
+  Rewrite mountns02 test using new LTP API
+  Rewrite mountns03 test using new LTP API
+  Rewrite mountns04 test using new LTP API
+  Remove obsolete mountns_helper.h
 
-https://github.com/intel/lkp-tests/blob/3fece75132266f680047f4e1740b39c5b3faabbf/jobs/ltp-stress.yaml
-
-Not sure how often of if they even run it though.
+ testcases/kernel/containers/mountns/Makefile  |  21 +--
+ testcases/kernel/containers/mountns/common.h  |  53 ++++++
+ .../kernel/containers/mountns/mountns01.c     | 148 ++++++++--------
+ .../kernel/containers/mountns/mountns02.c     | 145 +++++++---------
+ .../kernel/containers/mountns/mountns03.c     | 161 ++++++++----------
+ .../kernel/containers/mountns/mountns04.c     |  98 +++++------
+ .../containers/mountns/mountns_helper.h       |  61 -------
+ 7 files changed, 308 insertions(+), 379 deletions(-)
+ create mode 100644 testcases/kernel/containers/mountns/common.h
+ delete mode 100644 testcases/kernel/containers/mountns/mountns_helper.h
 
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+2.34.1
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
