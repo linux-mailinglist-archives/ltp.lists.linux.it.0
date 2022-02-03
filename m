@@ -1,74 +1,52 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4A1A4A800D
-	for <lists+linux-ltp@lfdr.de>; Thu,  3 Feb 2022 08:59:43 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id B75054A8036
+	for <lists+linux-ltp@lfdr.de>; Thu,  3 Feb 2022 09:19:28 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0514B3C9906
-	for <lists+linux-ltp@lfdr.de>; Thu,  3 Feb 2022 08:59:43 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 31F813C98E9
+	for <lists+linux-ltp@lfdr.de>; Thu,  3 Feb 2022 09:19:28 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E07CA3C6AF8
- for <ltp@lists.linux.it>; Thu,  3 Feb 2022 08:59:39 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id B1BDC3C8F8A
+ for <ltp@lists.linux.it>; Thu,  3 Feb 2022 09:19:14 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 0BC731A00784
- for <ltp@lists.linux.it>; Thu,  3 Feb 2022 08:59:38 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id EEF081F3A5;
- Thu,  3 Feb 2022 07:59:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1643875177;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=3gnhRGlZjo3NseJTm9jfeY3YKsqDlK4PKkAAsHQc2K8=;
- b=UJNqQU2aV61/gi9j4Hz7KsKTfOpU5W5zSJSXXGw+6Fy+knwopJxxJt5bVMEzHnGsynw53d
- 1CBdSSRqKc47zXedIcoeFH6anfD2jPbhOoi8/wFs+yus9U30I+IA8wf8iH4Ug3aHjAm8AT
- MGelURZSNJZdpZcidJrWwd+rWeUkGd4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1643875177;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=3gnhRGlZjo3NseJTm9jfeY3YKsqDlK4PKkAAsHQc2K8=;
- b=wvxO/r4YfQXzaOZAxPytnKqG63VKHjQ3Cou6sz137sxiGCSV5jwzpCaVV4pyyU4As8hnfT
- CuQnQTrXlk9CIGCw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B4EAD13BA0;
- Thu,  3 Feb 2022 07:59:37 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id +8GpKmmL+2GNDQAAMHmgww
- (envelope-from <pvorel@suse.cz>); Thu, 03 Feb 2022 07:59:37 +0000
-Date: Thu, 3 Feb 2022 08:59:35 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Amir Goldstein <amir73il@gmail.com>
-Message-ID: <YfuLZxav/jI35QQF@pevik>
-References: <20220203061222.625948-1-amir73il@gmail.com>
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id BB2F960091B
+ for <ltp@lists.linux.it>; Thu,  3 Feb 2022 09:19:13 +0100 (CET)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id D6A8621110;
+ Thu,  3 Feb 2022 08:19:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1643876352; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=JZD726lza85ctTinbuYJQHYRjjGfP1jwtnR8yULqvSo=;
+ b=tkXOz9j2CQs2/uWJ/rCSJv+lGmfxU/hR9QxrnB1GggoAymtN38lXjbaWkwgR2EJXBF0+tN
+ x3ae+VKkCJsOauXWH3beNP+cgvIQ8Uv5lLMKwZWsgwtTVwW+ZnbxplK81ikOwnlyFcTUxe
+ onXbT2G8Jk9j0u7sk62q1gFaL3LtcN4=
+Received: from g78.suse.de (unknown [10.163.24.138])
+ by relay2.suse.de (Postfix) with ESMTP id A6F11A3B81;
+ Thu,  3 Feb 2022 08:19:12 +0000 (UTC)
+To: ltp@lists.linux.it
+Date: Thu,  3 Feb 2022 08:18:14 +0000
+Message-Id: <20220203081820.29521-1-rpalethorpe@suse.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20220203061222.625948-1-amir73il@gmail.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/inotify: New test for IN_DELETE
- regression
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 0/5] Add memcontrol03 and declarative CG API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,54 +58,74 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: Ivan Delalande <colona@arista.com>, Jan Kara <jack@suse.cz>,
- ltp@lists.linux.it
+From: Richard Palethorpe via ltp <ltp@lists.linux.it>
+Reply-To: Richard Palethorpe <rpalethorpe@suse.com>
+Cc: Richard Palethorpe <rpalethorpe@suse.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Amir,
+This adds a third test from the kselftests. Also I have finally taken
+the step of moving the CGroup configuration to tst_test and making it
+declarative. Since V2 of the patch this does save a lot of typing and
+removes the need to remember to call cleanup. It also puts the CGroup
+info into the metadata.
 
-thanks for this test.
+V2:
+* Updated docs
+* Updated library tests
+* Moved the test/drain cg ptr out of the test struct and allocate
+  it statically. This resulted in some overly clever init code
+  being removed as well.
+* Renamed parent cgs to trunk and child to leaf as technically trunk
+  nodes can be both parents and children.
+* Matched the cg names in the comments with the variable names
+  using enums. So it's easier to see that the description matches
+  the code.
+* Use waitpid as suggested by Cyril and remove the patch adding
+  tst_reap_child.
+* unlink the tmpfile to hopefully prevent random storage full errors
+  when using -i. We already seek to 0.
+* init the fd to -1
+* Make tst_cgroup_group_mk sprintf like as suggested by Cyril.
 
-> Check that files cannot be opened after IN_DELETE was reported
-> on them.
+Richard Palethorpe (5):
+  memcontrol: Lift out some common definitions into a shared header
+  API/cgroup: Declare required controllers and version in test struct
+  API/cgroup: Add memory.min
+  API/cgroup: Make tst_cgroup_group_mk sprintf like
+  memcontrol03: Copy from kselftest
 
-> This test is based on the reproducer provided by Ivan Delalande
-> for a regression reported in kernel v5.13:
-> https://lore.kernel.org/linux-fsdevel/YeNyzoDM5hP5LtGW@visor/
+ doc/c-test-api.txt                            | 101 ++++---
+ include/tst_cgroup.h                          |  38 ++-
+ include/tst_test.h                            |  14 +
+ lib/newlib_tests/tst_cgroup01.c               |   2 +-
+ lib/newlib_tests/tst_cgroup02.c               |  26 +-
+ lib/tst_cgroup.c                              |  87 +++---
+ lib/tst_test.c                                |  22 ++
+ runtest/controllers                           |   1 +
+ testcases/kernel/controllers/memcg/.gitignore |   1 +
+ .../kernel/controllers/memcg/memcontrol01.c   |  19 +-
+ .../kernel/controllers/memcg/memcontrol02.c   |  45 +---
+ .../kernel/controllers/memcg/memcontrol03.c   | 255 ++++++++++++++++++
+ .../controllers/memcg/memcontrol_common.h     |  48 ++++
+ testcases/kernel/mem/cpuset/cpuset01.c        |  25 +-
+ testcases/kernel/mem/ksm/ksm02.c              |  19 +-
+ testcases/kernel/mem/ksm/ksm03.c              |  13 +-
+ testcases/kernel/mem/ksm/ksm04.c              |  16 +-
+ testcases/kernel/mem/oom/oom03.c              |  24 +-
+ testcases/kernel/mem/oom/oom04.c              |  15 +-
+ testcases/kernel/mem/oom/oom05.c              |  34 ++-
+ .../sched/cfs-scheduler/cfs_bandwidth01.c     |  10 +-
+ testcases/kernel/syscalls/madvise/madvise06.c |  28 +-
+ 22 files changed, 540 insertions(+), 303 deletions(-)
+ create mode 100644 testcases/kernel/controllers/memcg/memcontrol03.c
+ create mode 100644 testcases/kernel/controllers/memcg/memcontrol_common.h
 
-> Reported-by: Ivan Delalande <colona@arista.com>
-> Signed-off-by: Amir Goldstein <amir73il@gmail.com>
-> ---
+-- 
+2.34.1
 
-> Hi Petr,
-
-> The fix for this regression was applied to stable kernels
-> 5.4.y, 5.10.y, 5.15.y, 5.16.y.
-> The mentioned git tag is only the upstream commit.
-> Feel free to add the stable git tags if you think they are needed.
-FYI we don't track stable git commits which are normally backported
-(vast majority of commits), we track only stable git specific fixes,
-i.e.:
-
-* c4a23c852e80 ("io_uring: Fix current->fs handling in io_sq_wq_submit_work()")
-
-"No upstream commit, this is a fix to a stable 5.4 specific backport."
-
-* cac68d12c531 ("io_uring: grab ->fs as part of async offload")
-
-[ Upstream commits 9392a27d88b9 and ff002b30181d ]
-
-Mentioned at note:
-https://github.com/linux-test-project/ltp/wiki/C-Test-API#138-test-tags
-
-The reason is that user can search simple backports himself.
-
-Kind regards,
-Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
