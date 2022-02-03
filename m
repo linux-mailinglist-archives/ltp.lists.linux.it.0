@@ -2,73 +2,74 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id B630B4A83E9
-	for <lists+linux-ltp@lfdr.de>; Thu,  3 Feb 2022 13:35:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 685BF4A83EB
+	for <lists+linux-ltp@lfdr.de>; Thu,  3 Feb 2022 13:36:11 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 57A183C9A68
-	for <lists+linux-ltp@lfdr.de>; Thu,  3 Feb 2022 13:35:50 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id BF8763C9A80
+	for <lists+linux-ltp@lfdr.de>; Thu,  3 Feb 2022 13:36:10 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 77B243C70EC
+ by picard.linux.it (Postfix) with ESMTPS id 774613C70EC
  for <ltp@lists.linux.it>; Thu,  3 Feb 2022 13:35:26 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id BE7E7600973
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id BBC50200BA5
  for <ltp@lists.linux.it>; Thu,  3 Feb 2022 13:35:25 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 1EEF8210F8;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 5123C1F447;
  Thu,  3 Feb 2022 12:35:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1643891725; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=FWvWC4jS9cSfokC6IgTJ5RRGGxvoD4r29H1q/TroEXE=;
- b=kKhoc637cu28grAjjJa5wsNSr3HdPYcy/p3HBDySilxFe4/jDexCgyD0XThBuFj+36w8V2
- 2ddVELeb13Q68PKuAYOvTM0cwmNbQGwLJmdkr1M3VvLTcIyeBnsr6wj7BA9ABMNZQBVYE5
- r0wqBVNF7NGJgu/vStvbW8cin8qDZmU=
+ bh=3oEPi78m3LF4VyNeyJidW58szFj6ZYmk8T7EfzlCmPU=;
+ b=v2TyHUkfiwKw1jnYk7Fy+aulqeBCIe14zteM928BGGZ5Qdcin81dYPFVbXgVxnGwpnMepk
+ gKxC8s9MK2V6/SWjLkl4GPf0rmtnX0cHvFBc4BeuE0mTUXZf2jGzj7XLt8m6D1Oa+qsUN1
+ GDcph1MFgW58WuRF+LRgNm2CTMncP4s=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1643891725;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=FWvWC4jS9cSfokC6IgTJ5RRGGxvoD4r29H1q/TroEXE=;
- b=kY49P2UYjobVAQ0581hcdIqbUX+185EAiNAQb4fTqxEUytgwgQeNxWjBNNoVydlk1RlQ08
- VSTPrtQc0y5Jn0CA==
+ bh=3oEPi78m3LF4VyNeyJidW58szFj6ZYmk8T7EfzlCmPU=;
+ b=rtCn5QJDz4Sf87QQXp3HrJ0l9dU9bhzvHAiOhczUFCQZ4efqX7HEli4U/jzaSgrNOOiCU2
+ TwDvP/oUQyPzivBg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DE94D1348D;
- Thu,  3 Feb 2022 12:35:24 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1E8AB13C0A;
+ Thu,  3 Feb 2022 12:35:25 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id gMZSNAzM+2GkGwAAMHmgww
- (envelope-from <andrea.cervesato@suse.de>); Thu, 03 Feb 2022 12:35:24 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id mM5wBQ3M+2GkGwAAMHmgww
+ (envelope-from <andrea.cervesato@suse.de>); Thu, 03 Feb 2022 12:35:25 +0000
 From: Andrea Cervesato <andrea.cervesato@suse.de>
 To: ltp@lists.linux.it
-Date: Thu,  3 Feb 2022 13:35:18 +0100
-Message-Id: <20220203123522.28604-2-andrea.cervesato@suse.de>
+Date: Thu,  3 Feb 2022 13:35:19 +0100
+Message-Id: <20220203123522.28604-3-andrea.cervesato@suse.de>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220203123522.28604-1-andrea.cervesato@suse.de>
 References: <20220203123522.28604-1-andrea.cervesato@suse.de>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v1 1/5] Rewrite mountns01 test using new LTP API
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH v1 2/5] Rewrite mountns02 test using new LTP API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,111 +86,15 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Removed libclone from Makefile and used LTP API to replace it.
-mountns01 has been adapted to use the new LTP API.
-
 Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.de>
 ---
- testcases/kernel/containers/mountns/Makefile  |  21 +--
- testcases/kernel/containers/mountns/common.h  |  53 +++++++
- .../kernel/containers/mountns/mountns01.c     | 148 ++++++++----------
- 3 files changed, 124 insertions(+), 98 deletions(-)
- create mode 100644 testcases/kernel/containers/mountns/common.h
+ .../kernel/containers/mountns/mountns02.c     | 145 ++++++++----------
+ 1 file changed, 66 insertions(+), 79 deletions(-)
 
-diff --git a/testcases/kernel/containers/mountns/Makefile b/testcases/kernel/containers/mountns/Makefile
-index bd42bf41b..16284f4d5 100644
---- a/testcases/kernel/containers/mountns/Makefile
-+++ b/testcases/kernel/containers/mountns/Makefile
-@@ -1,23 +1,8 @@
-+# SPDX-License-Identifier: GPL-2.0-or-later
- # Copyright (c) 2014 Red Hat, Inc.
--#
--# This program is free software: you can redistribute it and/or modify
--# it under the terms of version 2 the GNU General Public License as
--# published by the Free Software Foundation.
--#
--# This program is distributed in the hope that it will be useful,
--# but WITHOUT ANY WARRANTY; without even the implied warranty of
--# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
--# GNU General Public License for more details.
--#
--# You should have received a copy of the GNU General Public License
--# along with this program.  If not, see <http://www.gnu.org/licenses/>.
--##############################################################################
-+# Copyright (C) 2021 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
- 
--top_srcdir              ?= ../../../..
-+top_srcdir		?= ../../../..
- 
- include $(top_srcdir)/include/mk/testcases.mk
--include $(abs_srcdir)/../Makefile.inc
--
--LDLIBS                  := -lclone $(LDLIBS)
--
- include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/kernel/containers/mountns/common.h b/testcases/kernel/containers/mountns/common.h
-new file mode 100644
-index 000000000..971f2381a
---- /dev/null
-+++ b/testcases/kernel/containers/mountns/common.h
-@@ -0,0 +1,53 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2014 Red Hat, Inc.
-+ * Copyright (C) 2021 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
-+ */
-+
-+#ifndef COMMON_H
-+#define COMMON_H
-+
-+#include "tst_test.h"
-+#include "lapi/namespaces_constants.h"
-+
-+#define DIRA "A"
-+#define DIRB "B"
-+
-+static int dummy_child(void *v)
-+{
-+	(void)v;
-+	return 0;
-+}
-+
-+static void check_newns(void)
-+{
-+	int pid, status;
-+
-+	if (tst_kvercmp(2, 4, 19) < 0)
-+		tst_brk(TCONF, "CLONE_NEWNS not supported");
-+
-+	pid = ltp_clone_quick(CLONE_NEWNS | SIGCHLD, dummy_child, NULL);
-+	if (pid < 0)
-+		tst_brk(TCONF, "CLONE_NEWNS not supported");
-+
-+	SAFE_WAIT(&status);
-+}
-+
-+static void umount_folders(void)
-+{
-+	if (tst_is_mounted(DIRA))
-+		SAFE_UMOUNT(DIRA);
-+
-+	if (tst_is_mounted(DIRB))
-+		SAFE_UMOUNT(DIRB);
-+}
-+
-+static void create_folders(void)
-+{
-+	SAFE_MKDIR(DIRA, 0777);
-+	SAFE_MKDIR(DIRB, 0777);
-+	SAFE_TOUCH(DIRA "/A", 0, NULL);
-+	SAFE_TOUCH(DIRB "/B", 0, NULL);
-+}
-+
-+#endif
-diff --git a/testcases/kernel/containers/mountns/mountns01.c b/testcases/kernel/containers/mountns/mountns01.c
-index 0bd0c592c..57f419271 100644
---- a/testcases/kernel/containers/mountns/mountns01.c
-+++ b/testcases/kernel/containers/mountns/mountns01.c
+diff --git a/testcases/kernel/containers/mountns/mountns02.c b/testcases/kernel/containers/mountns/mountns02.c
+index 0e0e03e4d..3cb83b355 100644
+--- a/testcases/kernel/containers/mountns/mountns02.c
++++ b/testcases/kernel/containers/mountns/mountns02.c
 @@ -1,22 +1,17 @@
 -/* Copyright (c) 2014 Red Hat, Inc.
 - *
@@ -205,7 +110,7 @@ index 0bd0c592c..57f419271 100644
 - * You should have received a copy of the GNU General Public License
 - * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 - ***********************************************************************
-- * File: mountns01.c
+- * File: mountns02.c
 +// SPDX-License-Identifier: GPL-2.0-or-later
 +/*
 + * Copyright (c) 2014 Red Hat, Inc.
@@ -215,8 +120,8 @@ index 0bd0c592c..57f419271 100644
 +/*\
 + * [Description]
   *
-  * Tests a shared mount: shared mount can be replicated to as many
-  * mountpoints and all the replicas continue to be exactly same.
+  * Tests a private mount: private mount does not forward or receive
+  * propagation.
 - * Description:
 + *
 + * [Algorithm]
@@ -224,20 +129,10 @@ index 0bd0c592c..57f419271 100644
   * 1. Creates directories "A", "B" and files "A/A", "B/B"
   * 2. Unshares mount namespace and makes it private (so mounts/umounts
   *    have no effect on a real system)
-@@ -25,125 +20,118 @@
-  * 5. Clones a new child process with CLONE_NEWNS flag
-  * 6. There are two test cases (where X is parent namespace and Y child
-  *    namespace):
-- *    1)
-+ * 1)
-  *	X: bind mounts "B" to "A"
-  *	Y: must see "A/B"
-  *	X: umounts "A"
-- *    2)
-+ * 2)
+@@ -33,117 +28,109 @@
   *	Y: bind mounts "B" to "A"
-  *	X: must see "A/B"
-  *	Y: umounts "A"
+  *	X: must see "A/A" and must not see "A/B"
+  *	Y: umounts A
 - ***********************************************************************/
 + */
  
@@ -251,7 +146,7 @@ index 0bd0c592c..57f419271 100644
 -#include "test.h"
 -#include "safe_macros.h"
 -
--char *TCID	= "mountns01";
+-char *TCID	= "mountns02";
 -int TST_TOTAL	= 2;
 +#include "common.h"
 +#include "tst_test.h"
@@ -266,8 +161,8 @@ index 0bd0c592c..57f419271 100644
 -	TST_SAFE_CHECKPOINT_WAIT(NULL, 0);
 +	TST_CHECKPOINT_WAIT(0);
  
--	if (access(DIRA"/B", F_OK) == -1)
-+	if (access(DIRA "/B", F_OK) < 0)
+-	if ((access(DIRA"/A", F_OK) != 0) || (access(DIRA"/B", F_OK) == 0))
++	if ((access(DIRA "/A", F_OK) != 0) || (access(DIRA "/B", F_OK) == 0))
  		ret = 2;
  
 -	TST_SAFE_CHECKPOINT_WAKE_AND_WAIT(NULL, 0);
@@ -310,9 +205,9 @@ index 0bd0c592c..57f419271 100644
 -	SAFE_MOUNT(cleanup, DIRA, DIRA, "none", MS_BIND, NULL);
 +	SAFE_MOUNT(DIRA, DIRA, "none", MS_BIND, NULL);
  
- 	/* makes mount DIRA shared */
--	SAFE_MOUNT(cleanup, "none", DIRA, "none", MS_SHARED, NULL);
-+	SAFE_MOUNT("none", DIRA, "none", MS_SHARED, NULL);
+ 	/* makes mount DIRA private */
+-	SAFE_MOUNT(cleanup, "none", DIRA, "none", MS_PRIVATE, NULL);
++	SAFE_MOUNT("none", DIRA, "none", MS_PRIVATE, NULL);
  
 -	if (do_clone_tests(CLONE_NEWNS, child_func, NULL, NULL, NULL) == -1)
 -		tst_brkm(TBROK | TERRNO, cleanup, "clone failed");
@@ -335,27 +230,27 @@ index 0bd0c592c..57f419271 100644
 -	TST_SAFE_CHECKPOINT_WAKE_AND_WAIT(cleanup, 0);
 +	TST_CHECKPOINT_WAKE_AND_WAIT(0);
  
--	if (access(DIRA"/B", F_OK) == 0)
--		tst_resm(TPASS, "shared mount in child passed");
-+	if (access(DIRA "/B", F_OK) == 0)
-+		tst_res(TPASS, "shared mount in child passed");
+-	if ((access(DIRA"/A", F_OK) != 0) || (access(DIRA"/B", F_OK) == 0))
+-		tst_resm(TFAIL, "private mount in child failed");
++	if ((access(DIRA "/A", F_OK) != 0) || (access(DIRA "/B", F_OK) == 0))
++		tst_res(TFAIL, "private mount in child failed");
  	else
--		tst_resm(TFAIL, "shared mount in child failed");
-+		tst_res(TFAIL, "shared mount in child failed");
+-		tst_resm(TPASS, "private mount in child passed");
++		tst_res(TPASS, "private mount in child passed");
  
 -	TST_SAFE_CHECKPOINT_WAKE(cleanup, 0);
 +	TST_CHECKPOINT_WAKE(0);
  
-+	SAFE_WAIT(&status);
- 
+-
 -	SAFE_WAIT(cleanup, &status);
++	SAFE_WAIT(&status);
  	if (WIFEXITED(status)) {
  		if ((WEXITSTATUS(status) == 0))
--			tst_resm(TPASS, "shared mount in parent passed");
-+			tst_res(TPASS, "shared mount in parent passed");
+-			tst_resm(TPASS, "private mount in parent passed");
++			tst_res(TPASS, "private mount in parent passed");
  		else
--			tst_resm(TFAIL, "shared mount in parent failed");
-+			tst_res(TFAIL, "shared mount in parent failed");
+-			tst_resm(TFAIL, "private mount in parent failed");
++			tst_res(TFAIL, "private mount in parent failed");
  	}
 +
  	if (WIFSIGNALED(status)) {
