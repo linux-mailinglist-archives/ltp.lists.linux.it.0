@@ -1,75 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 153DA4A83E8
-	for <lists+linux-ltp@lfdr.de>; Thu,  3 Feb 2022 13:35:39 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B7504A8460
+	for <lists+linux-ltp@lfdr.de>; Thu,  3 Feb 2022 14:01:33 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 554B13C9ACC
-	for <lists+linux-ltp@lfdr.de>; Thu,  3 Feb 2022 13:35:38 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id B37CB3C9A98
+	for <lists+linux-ltp@lfdr.de>; Thu,  3 Feb 2022 14:01:32 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 10C1C3C70EC
- for <ltp@lists.linux.it>; Thu,  3 Feb 2022 13:35:26 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id C885E3C094F
+ for <ltp@lists.linux.it>; Thu,  3 Feb 2022 14:01:28 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 53CCE600D94
- for <ltp@lists.linux.it>; Thu,  3 Feb 2022 13:35:26 +0100 (CET)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 0B37B14010CA
+ for <ltp@lists.linux.it>; Thu,  3 Feb 2022 14:01:27 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id E153321128;
- Thu,  3 Feb 2022 12:35:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1643891725; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 4C5E91F440;
+ Thu,  3 Feb 2022 13:01:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1643893287; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=nbYf7sfvqC44j8PzDD0h3zfnekqaGQw4d1jmf11y9j4=;
- b=s1wOw0TSISXHHxh6BXE6KcmhrUU43+/7EGHzKZCE68IQIo6OS6PKn4/ea8/dhVCvKL+EpM
- 3NG5giJndOzQURjXOIv3owy1VigtXTFAT/2btPsDxH7EvSpCg6CYL+AAaWsctP25MOJOeW
- lLghvQyXclwW5q0+qlixqhTDPm1RBDs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1643891725;
+ bh=t7GWI79ZWMoRhfQFj8r2ar4c17yS0Hj9sx/QrN7jnbU=;
+ b=f5HBv1RX7ehHKnPTkE5f+SAsMECyQeOEwau4w1++fnJmmwo+PIpzYox0jNqDvG1r0aGejr
+ rLsIQJRUmOkPyt4nmUk1uNiZSOS+YDcGHRoYFBHL37+mBjgHUBWAtFboUy+FAL4fUjccub
+ LkkkX7AOSWtWzBH05xbidMNKq6KoCCk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1643893287;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=nbYf7sfvqC44j8PzDD0h3zfnekqaGQw4d1jmf11y9j4=;
- b=/Ufs8IsGGZNIQ1sxgh1ECpAJg2jdtEM0czSnlVQ/dTyo0IAeC2874OTviHd9P/fD71DZsK
- joYQ5u8vrh/8YsDQ==
+ bh=t7GWI79ZWMoRhfQFj8r2ar4c17yS0Hj9sx/QrN7jnbU=;
+ b=+Klx+AJ4w0IlJaoeFDXH91ehLSMzuHdozporoaYnBo5q0lj90BS5GdwD7V1/7FIg7j+hU4
+ GsaBCn/FTLNHSQDg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id BAEA31348D;
- Thu,  3 Feb 2022 12:35:25 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 358D413BC0;
+ Thu,  3 Feb 2022 13:01:27 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id SGi1Kw3M+2GkGwAAMHmgww
- (envelope-from <andrea.cervesato@suse.de>); Thu, 03 Feb 2022 12:35:25 +0000
-From: Andrea Cervesato <andrea.cervesato@suse.de>
-To: ltp@lists.linux.it
-Date: Thu,  3 Feb 2022 13:35:22 +0100
-Message-Id: <20220203123522.28604-6-andrea.cervesato@suse.de>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220203123522.28604-1-andrea.cervesato@suse.de>
-References: <20220203123522.28604-1-andrea.cervesato@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id TQbICyfS+2FVKwAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Thu, 03 Feb 2022 13:01:27 +0000
+Date: Thu, 3 Feb 2022 14:03:24 +0100
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Richard Palethorpe <rpalethorpe@suse.com>
+Message-ID: <YfvSnMMWf/T3siZl@yuki>
+References: <20220203081820.29521-1-rpalethorpe@suse.com>
+ <20220203081820.29521-3-rpalethorpe@suse.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20220203081820.29521-3-rpalethorpe@suse.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v1 5/5] Remove obsolete mountns_helper.h
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 2/5] API/cgroup: Declare required controllers
+ and version in test struct
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,89 +80,36 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-mountns_helper.h has been replaced by common.h file.
+Hi!
+> --- a/include/tst_test.h
+> +++ b/include/tst_test.h
+> @@ -133,6 +133,14 @@ extern unsigned int tst_variant;
+>  
+>  #define TST_NO_HUGEPAGES ((unsigned long)-1)
+>  
+> +/* CGroups Kernel API version */
+> +enum tst_cgroup_ver {
+> +	TST_CGROUP_V1 = 1,
+> +	TST_CGROUP_V2 = 2,
+> +};
+> +
+> +struct tst_cgroup_group;
 
-Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.de>
----
- .../containers/mountns/mountns_helper.h       | 61 -------------------
- 1 file changed, 61 deletions(-)
- delete mode 100644 testcases/kernel/containers/mountns/mountns_helper.h
+This is no longer needed here.
 
-diff --git a/testcases/kernel/containers/mountns/mountns_helper.h b/testcases/kernel/containers/mountns/mountns_helper.h
-deleted file mode 100644
-index 4b4538eb8..000000000
---- a/testcases/kernel/containers/mountns/mountns_helper.h
-+++ /dev/null
-@@ -1,61 +0,0 @@
--/* Copyright (c) 2014 Red Hat, Inc.
-- *
-- * This program is free software: you can redistribute it and/or modify
-- * it under the terms of version 2 the GNU General Public License as
-- * published by the Free Software Foundation.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-- * GNU General Public License for more details.
-- *
-- * You should have received a copy of the GNU General Public License
-- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
-- */
--
--#include "libclone.h"
--#include "test.h"
--#include "safe_macros.h"
--
--#define DIRA "A"
--#define DIRB "B"
--
--static int dummy_child(void *v)
--{
--	(void) v;
--	return 0;
--}
--
--static int check_newns(void)
--{
--	int pid, status;
--
--	if (tst_kvercmp(2, 4, 19) < 0)
--		tst_brkm(TCONF, NULL, "CLONE_NEWNS not supported");
--
--	pid = do_clone_unshare_test(T_CLONE, CLONE_NEWNS, dummy_child, NULL);
--	if (pid == -1)
--		tst_brkm(TCONF | TERRNO, NULL, "CLONE_NEWNS not supported");
--	SAFE_WAIT(NULL, &status);
--
--	return 0;
--}
--
--static void cleanup(void)
--{
--	umount(DIRA);
--	umount(DIRB);
--	tst_rmdir();
--}
--
--static void setup(void)
--{
--	tst_require_root();
--	check_newns();
--	tst_tmpdir();
--	TST_CHECKPOINT_INIT(tst_rmdir);
--	SAFE_MKDIR(cleanup, DIRA, 0777);
--	SAFE_MKDIR(cleanup, DIRB, 0777);
--	SAFE_TOUCH(cleanup, DIRA"/A", 0, NULL);
--	SAFE_TOUCH(cleanup, DIRB"/B", 0, NULL);
--}
+The rest looks good:
+
+Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
+
 -- 
-2.34.1
-
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
