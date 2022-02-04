@@ -1,70 +1,53 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 617AE4A8A9E
-	for <lists+linux-ltp@lfdr.de>; Thu,  3 Feb 2022 18:48:43 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 909564A9412
+	for <lists+linux-ltp@lfdr.de>; Fri,  4 Feb 2022 07:37:22 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 8F6793C9AD9
-	for <lists+linux-ltp@lfdr.de>; Thu,  3 Feb 2022 18:48:42 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id A87103C9ACC
+	for <lists+linux-ltp@lfdr.de>; Fri,  4 Feb 2022 07:37:21 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by picard.linux.it (Postfix) with ESMTPS id 92A5E3C9736
+ for <ltp@lists.linux.it>; Fri,  4 Feb 2022 07:37:17 +0100 (CET)
+Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id C44473C6912
- for <ltp@lists.linux.it>; Thu,  3 Feb 2022 18:48:39 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id CEB24600C77
- for <ltp@lists.linux.it>; Thu,  3 Feb 2022 18:48:38 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id E68CB21123;
- Thu,  3 Feb 2022 17:48:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1643910517;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type;
- bh=4evBO+POjQzamNc4DHb8Bx/EMzfDWMdsaLbNmOWVCa0=;
- b=sS5h+fqayr9QJBnAV9sYn/AtXlxnjyEy2lVAShVgNmoPDPeLECJa9QcDjd2aKnsW7hGX1O
- 8VokbGeSjNX8FeitrahWGjzplq6rB8emKl9pMpxD+5OfBVsdDbDn5N+vBjH9pqkUt5+n+X
- FJ6inRnHaALIP9dxoCndYZ/GwaDU3SY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1643910517;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type;
- bh=4evBO+POjQzamNc4DHb8Bx/EMzfDWMdsaLbNmOWVCa0=;
- b=DJHNapkDoLtoeSVafMudNSqU3g8JEDtx4aacYoHeQgNDswhxFxqi0gN9xI5ugY2b3EoBP8
- bVP3Syxe73c4AiBw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0568513671;
- Thu,  3 Feb 2022 17:48:36 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id nSj0OnQV/GEbTAAAMHmgww
- (envelope-from <pvorel@suse.cz>); Thu, 03 Feb 2022 17:48:36 +0000
-Date: Thu, 3 Feb 2022 18:48:35 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: automated-testing@lists.yoctoproject.org
-Message-ID: <YfwVcwpZU/lusVlC@pevik>
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id C186A1000650
+ for <ltp@lists.linux.it>; Fri,  4 Feb 2022 07:37:16 +0100 (CET)
+Received: from [192.168.178.40] (unknown [188.192.100.83])
+ by mail.jv-coder.de (Postfix) with ESMTPSA id 26D8A9F75F;
+ Fri,  4 Feb 2022 06:37:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
+ t=1643956635; bh=4JDo494rBv/HPB2Bv2uFDsmK7U6MvvQ8Jm7J04bZKtE=;
+ h=Message-ID:Date:MIME-Version:Subject:To:From;
+ b=YxYvaO5s1ajAIYzBmIVv0uWdI9HEo3IgrL584YTPakYuw/YFnK/KUK7N30OqEXfuM
+ XDSBwmbc8rkAFfJ9wlqIgYCdNKxyV/V3K2FP3/CZtUFKidlkK/KIlHffv0HzwSpfkQ
+ s5cKJMCv+vp9EAyoIHcpVGZqm616dlROyIY2O90c=
+Message-ID: <98b74837-379b-4fe5-e457-be9e8dcd35b2@jv-coder.de>
+Date: Fri, 4 Feb 2022 07:37:14 +0100
 MIME-Version: 1.0
-Content-Disposition: inline
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
-X-Virus-Status: Clean
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.1
+Content-Language: en-US
+To: Petr Vorel <pvorel@suse.cz>
+References: <YfwVcwpZU/lusVlC@pevik>
+From: Joerg Vehlow <lkml@jv-coder.de>
+In-Reply-To: <YfwVcwpZU/lusVlC@pevik>
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] SCTP testing
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Status: Clean
+Subject: Re: [LTP] SCTP testing
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,35 +59,31 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
- Xin Long <lucien.xin@gmail.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- Neil Horman <nhorman@tuxdriver.com>, Vlad Yasevich <vyasevich@gmail.com>,
- Baruch Siach <baruch@tkos.co.il>, Philip Li <philip.li@intel.com>,
- linux-sctp@vger.kernel.org, Joerg Vehlow <joerg.vehlow@aox-tech.de>,
- ltp@lists.linux.it, Erico Nunes <nunes.erico@gmail.com>
+Cc: ltp@lists.linux.it, Joerg Vehlow <joerg.vehlow@aox-tech.de>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi all,
+Hi Petr,
 
-we've been just discussing, which repository should be hosting SCTP tests [1].
+Am 2/3/2022 um 6:48 PM schrieb Petr Vorel:
+> Hi all,
+> 
+> we've been just discussing, which repository should be hosting SCTP tests [1].
+> 
+> Do you use these SCTP tests? If yes, do you use it from LTP [2] or the official
+> SCTP kernel developers repository [3] ? If you use integrated to some testing
+> framework, would it be a problem if repository changes?
+We would run these tests, if our kernels would have SCTP enabled. I
+don't think this will happen any time soon and I don't really see a
+problem pulling sctp tests from another repo.
 
-Do you use these SCTP tests? If yes, do you use it from LTP [2] or the official
-SCTP kernel developers repository [3] ? If you use integrated to some testing
-framework, would it be a problem if repository changes?
+> 
+> Also, do you use LTP network tests at all?
+Yes we are trying to run as many ltp tests as possible.
 
-Also, do you use LTP network tests at all?
-
-Kind regards,
-Petr
-
-[1] https://lore.kernel.org/linux-sctp/YfpnVfrto4Elshy5@pevik/
-[2] https://github.com/linux-test-project/ltp/tree/master/utils/sctp
-[3] https://github.com/sctp/lksctp-tools
+Joerg
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
