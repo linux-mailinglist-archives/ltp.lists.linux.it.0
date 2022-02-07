@@ -2,72 +2,72 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id B25BE4ABEAA
-	for <lists+linux-ltp@lfdr.de>; Mon,  7 Feb 2022 13:53:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 600A04ABECD
+	for <lists+linux-ltp@lfdr.de>; Mon,  7 Feb 2022 14:14:25 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 55D363C9AA6
-	for <lists+linux-ltp@lfdr.de>; Mon,  7 Feb 2022 13:53:49 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 0D98C3C9AA6
+	for <lists+linux-ltp@lfdr.de>; Mon,  7 Feb 2022 14:14:25 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 37A1E3C0720
- for <ltp@lists.linux.it>; Mon,  7 Feb 2022 13:53:47 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id C123E60076F
- for <ltp@lists.linux.it>; Mon,  7 Feb 2022 13:53:46 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id D30993C0720
+ for <ltp@lists.linux.it>; Mon,  7 Feb 2022 14:14:20 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 35F206000E6
+ for <ltp@lists.linux.it>; Mon,  7 Feb 2022 14:14:19 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 05098210E9;
- Mon,  7 Feb 2022 12:53:46 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 05CFB1F37F;
+ Mon,  7 Feb 2022 13:14:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1644238426; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1644239659; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=aNGoO7QhCFxG+ZgebljzoBJROUbObdcMaqsvlg9NqZc=;
- b=Mp7eMAyW9Sb8PHy3UtV2E6vHduDoDBBCYpfStWS8HpQJSILn4pa34iU9g4a7bAq0vFC9B2
- 8a8tp8etiFTyVANwrvQG3VCuqAaAIzpUHaEZy2mUbo5ByaLWThYMxL3IlGN01Mx0kjv/W+
- aE3IPnaGb0WbJk2ZDXTIy2NCxnl0F14=
+ bh=s4n1q/5d3xPdPvF13h9Z3fbLtpys/vhUzaeEz/rbhnU=;
+ b=QfSYhbSa8pci385pjtIhdsY5pxuGBN/MQ7JNdibYhYQZcdYj9P2O+9hijLjhOFP0ftZa1Y
+ LpHj5UA1rUyhe4BoXHiRSOxWGqXuP0+QglL66zTYDA63SbrranZxVyy5q+MslS/Jh8viqo
+ ZXKj9BZ/w1nkVrnjtROvQceHufSs3Wc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1644238426;
+ s=susede2_ed25519; t=1644239659;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=aNGoO7QhCFxG+ZgebljzoBJROUbObdcMaqsvlg9NqZc=;
- b=/jl/c40FvlgI2OvsXE3YHTScs8SAuQ6b3tyqyWVYE461beER1gccABvoGhZg2xZAXv0LIy
- C1xdoW8MMNC+UmDA==
+ bh=s4n1q/5d3xPdPvF13h9Z3fbLtpys/vhUzaeEz/rbhnU=;
+ b=0sjTZwQcCKq3iiFuDFC64YTlo6YZqZWUo83/lAEgkpHC0LUUE/nSWHe8FPYP1zrviYRFJc
+ Zrrow+B5cqrDqeAw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DA9D913BF5;
- Mon,  7 Feb 2022 12:53:45 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DE58713C00;
+ Mon,  7 Feb 2022 13:14:18 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id LJ7EL1kWAWLbDwAAMHmgww
- (envelope-from <chrubis@suse.cz>); Mon, 07 Feb 2022 12:53:45 +0000
-Date: Mon, 7 Feb 2022 13:55:47 +0100
+ by imap2.suse-dmz.suse.de with ESMTPSA id ElfjLyobAWIBGwAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Mon, 07 Feb 2022 13:14:18 +0000
+Date: Mon, 7 Feb 2022 14:16:21 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Jan Stancek <jstancek@redhat.com>
-Message-ID: <YgEW0xQU46sy30uU@yuki>
-References: <cover.1643980361.git.jstancek@redhat.com>
- <c59ce5a253c3c8022fe465027c9310c29827ffa6.1643980361.git.jstancek@redhat.com>
+Message-ID: <YgEbpTni5ID6d/bs@yuki>
+References: <20220207040447.2803113-1-liwang@redhat.com>
+ <CAASaF6ytd7ROq_S48NnYWY4-VU+nGjX7NTcgM5aGQG6G0rh_OQ@mail.gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <c59ce5a253c3c8022fe465027c9310c29827ffa6.1643980361.git.jstancek@redhat.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+In-Reply-To: <CAASaF6ytd7ROq_S48NnYWY4-VU+nGjX7NTcgM5aGQG6G0rh_OQ@mail.gmail.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 2/2] syscalls/mkdir09: rewrite in new LTP API
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] getrusage03: skip on small RAM system
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,31 +79,26 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Cc: LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> +/*
-> + * Child routine which attempts to remove directories from the
-> + * test directory which do not exist.
-> + */
-> +static void test2(int child_num)
->  {
-> -	/* Child routine which attempts to remove directories from the
-> -	 * test directory which do not exist. Runs until a SIGTERM
-> -	 * signal is received. Exits with an error if the proper
-> -	 * error is not detected or if the remove operation is
-> -	 * successful.
-> -	 */
->  
+> > Signed-off-by: Li Wang <liwang@redhat.com>
+> 
+> Acked-by: Jan Stancek <jstancek@redhat.com>
+> 
+> This should fix the immediate failure, just wondering,
+> would there be any downside of replacing that TBROK with TCONF?
 
-This empty line here looks a bit strange and the same for the test3().
-Other than that and the suggestion from Li it looks good.
+I guess that we may end up in a state where the test would TCONF on
+every run and it would end up being ingnored.
 
-Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
+Can't we just change the consume_mb to lock the memory with mlock() in
+the consume_mb() instead? As long as we add the check for a free memory
+it should be fine I guess.
 
 -- 
 Cyril Hrubis
