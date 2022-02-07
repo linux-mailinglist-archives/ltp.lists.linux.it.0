@@ -1,75 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CC0E4AB93F
-	for <lists+linux-ltp@lfdr.de>; Mon,  7 Feb 2022 12:12:55 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id DAD2C4ABA10
+	for <lists+linux-ltp@lfdr.de>; Mon,  7 Feb 2022 12:26:52 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C32DE3C98C4
-	for <lists+linux-ltp@lfdr.de>; Mon,  7 Feb 2022 12:12:54 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 3D5863C98D4
+	for <lists+linux-ltp@lfdr.de>; Mon,  7 Feb 2022 12:26:52 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 605803C06E5
- for <ltp@lists.linux.it>; Mon,  7 Feb 2022 12:12:53 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id CC4473C06E5
+ for <ltp@lists.linux.it>; Mon,  7 Feb 2022 12:26:50 +0100 (CET)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id AD5C11A0090E
- for <ltp@lists.linux.it>; Mon,  7 Feb 2022 12:12:52 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 4F8DB10009A1
+ for <ltp@lists.linux.it>; Mon,  7 Feb 2022 12:26:49 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id EBC5F210FB;
- Mon,  7 Feb 2022 11:12:51 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 851F6210F9;
+ Mon,  7 Feb 2022 11:26:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1644232371;
+ t=1644233209;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=gZ7mHoIKsUl+h3vl4LtMSmI2YPAUIQorie+uv59ISyI=;
- b=r6KqYImuTn9RyJQ/KlE4xCRiY7rz4lU1tjkKZcxuBqqDwwwL4E20WiJm5j9273h9eIpHVC
- WGHL0Dz85R6eMNrKTMcFqrlxSynknoaybP3+jbMufw/CnOhhIGKD5NBGwwaycP5FNegNTx
- 3tPe1fBTaLLjwYOFGHknTj9kV4MJINM=
+ bh=ysBUw4nZ8LZ6mnF1Jn8n+3Zu5y2xokJzYc4UPbcKtLU=;
+ b=FRrBv36qhFKYX138S7lDYR/n5+L44NFgTNJ7174Hl3+F3nk5BxM1HKBZC30sagCxMFWiGC
+ Fmq5RCkVtEuBzMnS4lztOYRc8Bb+0DJYqUSOJRMD3MPeg/hYxwzM0nf9j0uSYdkXQTBk6h
+ QcaIgbnlDkfsjhG2GVrD2CBcW1EE1xI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1644232371;
+ s=susede2_ed25519; t=1644233209;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=gZ7mHoIKsUl+h3vl4LtMSmI2YPAUIQorie+uv59ISyI=;
- b=Oh8MhvD0zVmSfSP6Scb2oB7k15UFTtiLsSR2h1VHZocr6pbkMLcafzmRtQI6mIni8SfEUK
- LeQVz7S5lSpsjjAA==
+ bh=ysBUw4nZ8LZ6mnF1Jn8n+3Zu5y2xokJzYc4UPbcKtLU=;
+ b=77WJyUo48jKhPjdOD6rwVhmv7mVNxHScp7rgIdDhB23qGwSfm0JZMNCBaUS9cEwmdNNaee
+ VrPYYjI4c8dSqTCQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C2AA213B9F;
- Mon,  7 Feb 2022 11:12:51 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 540BD13B9F;
+ Mon,  7 Feb 2022 11:26:49 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id Yh4ULrP+AGLuVQAAMHmgww
- (envelope-from <pvorel@suse.cz>); Mon, 07 Feb 2022 11:12:51 +0000
-Date: Mon, 7 Feb 2022 12:12:50 +0100
+ by imap2.suse-dmz.suse.de with ESMTPSA id 91ChEvkBAWIMXgAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Mon, 07 Feb 2022 11:26:49 +0000
+Date: Mon, 7 Feb 2022 12:26:47 +0100
 From: Petr Vorel <pvorel@suse.cz>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <YgD+sty3ymNNkPGq@pevik>
-References: <20220207040447.2803113-1-liwang@redhat.com>
- <YgDNB9v0x82mExVE@pevik>
- <CAEemH2fY-Om6z3WJzJ2X80x1H6DUG4Ec6sbWych1gfnT1C81EA@mail.gmail.com>
+To: Dai Shili <daisl.fnst@fujitsu.com>
+Message-ID: <YgEB9/BvNhgIAl2n@pevik>
+References: <61F36C39.9030806@fujitsu.com>
+ <1643365754-5366-1-git-send-email-daisl.fnst@fujitsu.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CAEemH2fY-Om6z3WJzJ2X80x1H6DUG4Ec6sbWych1gfnT1C81EA@mail.gmail.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+In-Reply-To: <1643365754-5366-1-git-send-email-daisl.fnst@fujitsu.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] getrusage03: skip on small RAM system
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v4] syscalls/statx09: Add new test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,38 +81,55 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
+Cc: xuyang2018.jy@cn.fujitsu.com, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Li,
+Hi all,
 
-> On Mon, Feb 7, 2022 at 3:41 PM Petr Vorel <pvorel@suse.cz> wrote:
+> +++ b/testcases/kernel/syscalls/statx/statx09.c
+> @@ -0,0 +1,160 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Copyright (c) 2022 FUJITSU LIMITED. All rights reserved.
+> + * Author: Dai Shili <daisl.fnst@fujitsu.com>
+> + */
+> +
+> +/*\
+> + * [Description]
+> + *
+> + * This code tests if the attributes field of statx received expected value.
+> + * File set with following flags by using SAFE_IOCTL:
+> + *
+> + * - STATX_ATTR_VERITY: statx() system call sets STATX_ATTR_VERITY if the file
+> + * has fs-verity enabled. This can perform better than FS_IOC_GETFLAGS and
+> + * FS_IOC_MEASURE_VERITY because it doesn't require opening the file,
+> + * and opening verity files can be expensive.
+> + *
+> + * Minimum Linux version required is v5.5.
+I know this has been merged, this probably not worth of fixing it,
+but the "required" is misleading when we detect via EOPNOTSUPP and EINVAL
+and thus not use .min_kver. If it was due possible backport,
+thus it should have been e.g. "functionality has been merged in kernel v5.5".
 
-> > Hi Li,
-
-> > > Notes:
-> > >     Ps. I also think we might need .min_mem_[avai|total] field but
-> > >         not sure if it is really necessary to add that.
-> > Is it just a single test? Than maybe not worth of it, but generally I'm for
-
-
-> By now I only see sporadic tests have this requirement.
-> (hugeshmat04.c, swapping01.c, getrusage03.c)
-
-> > adding tags like this into the library - it encapsulates code and gives us
-> > a
-> > documentation in docparse.
-
-
-> Agree, maybe just holding as a future plan for adding that.
-
-IMHO more than two are enough to put it into library, but others might think
-differently.
-Also sure, feel free to merge this fix, library support can be done any time
-later.
+> + */
+> +
+...
+> +static struct test_cases {
+> +	void (*tfunc)(void);
+> +} tcases[] = {
+> +	{&test_flagged},
+> +	{&test_unflagged},
+> +};
+> +
+> +static void run(unsigned int i)
+> +{
+> +	tcases[i].tfunc();
+> +}
+OT: we may lack something in the API, when function like this need to be
+defined.
 
 Kind regards,
 Petr
