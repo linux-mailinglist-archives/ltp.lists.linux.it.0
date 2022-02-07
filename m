@@ -2,81 +2,67 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66CA94AB845
-	for <lists+linux-ltp@lfdr.de>; Mon,  7 Feb 2022 11:09:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 182364AB941
+	for <lists+linux-ltp@lfdr.de>; Mon,  7 Feb 2022 12:14:41 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C39683C9B1F
-	for <lists+linux-ltp@lfdr.de>; Mon,  7 Feb 2022 11:09:11 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id AE2B53C98C4
+	for <lists+linux-ltp@lfdr.de>; Mon,  7 Feb 2022 12:14:40 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id C0BA63C094C
- for <ltp@lists.linux.it>; Mon,  7 Feb 2022 11:09:07 +0100 (CET)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by picard.linux.it (Postfix) with ESMTPS id 4A08A3C06E5
+ for <ltp@lists.linux.it>; Mon,  7 Feb 2022 12:14:38 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 6B96520032C
+ for <ltp@lists.linux.it>; Mon,  7 Feb 2022 12:14:37 +0100 (CET)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id B860F210F6
+ for <ltp@lists.linux.it>; Mon,  7 Feb 2022 11:14:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1644232476;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=IcpiQBaQBsKoWDnLrzmQnKzrmG4EToI8016r/5zJdz8=;
+ b=WokjVC8wAZsV6857ojqrWwAYo7rGXF7KVWm9b3RwjHZ1hRGHGAvOOYELsJ9PwvyNswdgJn
+ TBHhvIyIHk0kyIYFeLcTob/50koc8OP0hpHlerP/PWNwMI3ZXPlkquMBiajr2Z+4TQLyPB
+ B1DzjIMpW8+QcPLg66MQBiHhbsYRe7U=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1644232476;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=IcpiQBaQBsKoWDnLrzmQnKzrmG4EToI8016r/5zJdz8=;
+ b=e0Ms4ceIrTWHHPBDFTJSqKq/kXfMBOM+I9XFVz5ZGWF2zdrl3eMBSGzzLYXSINDsp6W88i
+ Ig4G/TzzGM1ujNBw==
+Received: from g78 (rpalethorpe.udp.ovpn1.nue.suse.de [10.163.24.138])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 654D7600769
- for <ltp@lists.linux.it>; Mon,  7 Feb 2022 11:09:05 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1644228544;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=sU0yP19DV4BX1n/n8tg6h0p9u9wOnq8gTtisxVq1jd0=;
- b=GxZm79uOMDGccr9mEEqoEiQf9GPlfvbNziZGtS7tTRNo7JgG6rO8+i4gkKjM7PBnhuOUaN
- x5hRStzFsZVm+52EkEEECNWYtsg9tn9bX3vHi8xqLUcKahbpOvCwTCxY5RkQCoXdIc5MEm
- oEcJKmeMp2ZnxEUaQX7ItXoDEs5Q/yU=
-Received: from mail-yb1-f198.google.com (mail-yb1-f198.google.com
- [209.85.219.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-669-k6g5YpJMPMOeufaIDgSAkQ-1; Mon, 07 Feb 2022 05:09:01 -0500
-X-MC-Unique: k6g5YpJMPMOeufaIDgSAkQ-1
-Received: by mail-yb1-f198.google.com with SMTP id
- u185-20020a2560c2000000b0060fd98540f7so27523615ybb.0
- for <ltp@lists.linux.it>; Mon, 07 Feb 2022 02:09:01 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=sU0yP19DV4BX1n/n8tg6h0p9u9wOnq8gTtisxVq1jd0=;
- b=747EcupOpnlZ3IFvhCiErr4Zt6nh5MZ0l1Bm7fNyVyyCefuHMbDMteFfLkZ8L1pTzw
- zQzLsfyDJuXB30z2/mjK4ltyDz5kwWeg0Z/21bZ6HwrJIxKrxLFjBmXSE7eFTwJDRVkW
- NxjvqXTiO+cpGDvlkOINLnaafLhaYqGKfTgI6x10L3qASwbb9/M1u+cyMVFFKdtO0f+y
- sGZLEwQNWH9/edveFDfJl3v5DRq7BF76jhe2MA+SYF8YXs7YYujbLfJRtxzTmVKvlqqI
- iM+w8OcBHCzdw1HNcBOJUsdP1x4DAh1OJ+EUU5ExWACwvwSw07lQsE3b1b+ajZ84dk+C
- rRkg==
-X-Gm-Message-State: AOAM533oYhG4ymW2kaxRzW+q4k7F3yEitxnQmdJn7igypexUi88Mqj+q
- aUPoIexeeOlDVQhYT2O3oFvGQi0hEpioFZFFR2D3HT2D8ivPy2qQZ6Pk6YHwjTcYOMbum8egE1a
- mXOQw1xI1zGSBbYOLTTckvUYNEIw=
-X-Received: by 2002:a81:ae0c:: with SMTP id m12mr3974524ywh.19.1644228540984; 
- Mon, 07 Feb 2022 02:09:00 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJy4MkGv3XQ1z8efcReHagLdz/MDol60m0Klh6gXsarXwN3LFKNt1wK/dfL12DPHZHOBihXbVtgZ3jf+qBmLyVo=
-X-Received: by 2002:a81:ae0c:: with SMTP id m12mr3974509ywh.19.1644228540734; 
- Mon, 07 Feb 2022 02:09:00 -0800 (PST)
+ by relay2.suse.de (Postfix) with ESMTPS id 7368BA3B8C;
+ Mon,  7 Feb 2022 11:14:36 +0000 (UTC)
+References: <20220203081820.29521-1-rpalethorpe@suse.com>
+ <20220203081820.29521-7-rpalethorpe@suse.com> <YfveE3QtrfAQvTac@yuki>
+User-agent: mu4e 1.6.10; emacs 27.2
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Cyril Hrubis <chrubis@suse.cz>
+Date: Mon, 07 Feb 2022 09:46:52 +0000
+In-reply-to: <YfveE3QtrfAQvTac@yuki>
+Message-ID: <87tudbvsh2.fsf@suse.de>
 MIME-Version: 1.0
-References: <20220207040447.2803113-1-liwang@redhat.com>
- <YgDNB9v0x82mExVE@pevik>
-In-Reply-To: <YgDNB9v0x82mExVE@pevik>
-From: Li Wang <liwang@redhat.com>
-Date: Mon, 7 Feb 2022 18:08:47 +0800
-Message-ID: <CAEemH2fY-Om6z3WJzJ2X80x1H6DUG4Ec6sbWych1gfnT1C81EA@mail.gmail.com>
-To: Petr Vorel <pvorel@suse.cz>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] getrusage03: skip on small RAM system
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 5/5] memcontrol03: Copy from kselftest
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,137 +74,131 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: rpalethorpe@suse.de
 Cc: ltp@lists.linux.it
-Content-Type: multipart/mixed; boundary="===============1192518821=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1192518821==
-Content-Type: multipart/alternative; boundary="00000000000019b3a105d76acaff"
+Hello,
 
---00000000000019b3a105d76acaff
-Content-Type: text/plain; charset="UTF-8"
+Cyril Hrubis <chrubis@suse.cz> writes:
 
-On Mon, Feb 7, 2022 at 3:41 PM Petr Vorel <pvorel@suse.cz> wrote:
-
-> Hi Li,
+>> +
+>> +static void alloc_anon_in_child(const struct tst_cgroup_group *const cg,
+>> +				const size_t size, const int expect_oom)
+>> +{
+>> +	int status;
+>> +	const pid_t pid = SAFE_FORK();
+>> +
+>> +	if (!pid) {
+>> +		SAFE_CGROUP_PRINTF(cg, "cgroup.procs", "%d", getpid());
+>> +
+>> +		tst_res(TINFO, "%d in %s: Allocating anon: %"PRIdPTR,
+>> +		getpid(), tst_cgroup_group_name(cg), size);
+>> +		alloc_anon(size);
+>> +		exit(0);
+>> +	}
+>> +
+>> +	SAFE_WAITPID(pid, &status, 0);
+>> +
+>> +	if (!expect_oom) {
+>> +		if (WIFEXITED(status) && WEXITSTATUS(status) == 0)
+>> +			return;
+>> +	} else {
+>> +		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGKILL)
+>> +			return;
+>> +	}
 >
-> > Notes:
-> >     Ps. I also think we might need .min_mem_[avai|total] field but
-> >         not sure if it is really necessary to add that.
-> Is it just a single test? Than maybe not worth of it, but generally I'm for
->
+> Maybe we should print TPASS in these as well to complement the TFAIL
+> below. Also the negation in !expect_oom is kind of useless since we
+> handle both cases anyways.
 
-By now I only see sporadic tests have this requirement.
-(hugeshmat04.c, swapping01.c, getrusage03.c)
-
-> adding tags like this into the library - it encapsulates code and gives us
-> a
-> documentation in docparse.
->
-
-Agree, maybe just holding as a future plan for adding that.
-
-
-
-> ...
-> > +static void setup(void)
-> > +{
-> > +     long long mem_avail = tst_available_mem();
-> > +
-> > +     if (mem_avail < 512L*1024)
-> > +             tst_brk(TCONF, "Needed > 512MB availabe, only have: %ld
-> kB", mem_avail);
-> typo: s/availabe/available/
->
-
-Thanks.
-
-
+Can't hurt I guess.
 
 >
-> Reviewed-by: Petr Vorel <pvorel@suse.cz>
+>> +	tst_res(TFAIL,
+>> +		"Expected child %d to %s, but instead %s",
+>> +		pid,
+>> +		expect_oom ? "be killed" : "exit(0)",
+>> +		tst_strstatus(status));
+>> +}
+>> +
+>> +static void alloc_pagecache_in_child(const struct tst_cgroup_group *const cg,
+>> +				     const size_t size)
+>> +{
+>> +	const pid_t pid = SAFE_FORK();
+>> +
+>> +	if (pid) {
+>> +		TST_CHECKPOINT_WAIT(CHILD_IDLE);
+>> +		return;
+>> +	}
+>> +
+>> +	SAFE_CGROUP_PRINTF(cg, "cgroup.procs", "%d", getpid());
+>> +
+>> +	tst_res(TINFO, "PID %d in %s: Allocating pagecache: %"PRIdPTR,
+>> +		getpid(), tst_cgroup_group_name(cg), size);
+>> +	alloc_pagecache(fd, size);
+>> +
+>> +	TST_CHECKPOINT_WAKE(CHILD_IDLE);
+>> +	TST_CHECKPOINT_WAIT(TEST_DONE);
+>> +	exit(0);
+>> +}
+>> +
+>> +static void test_memcg_min(void)
+>> +{
+>> +	long c[4];
+>> +	unsigned int i;
+>> +	size_t attempts;
+>> +
+>> +	fd = SAFE_OPEN(TMPDIR"/tmpfile", O_RDWR | O_CREAT, 0600);
+>> +	trunk_cg[A] = tst_cgroup_group_mk(tst_cgroup, "trunk_A");
+>> +
+>> +	SAFE_CGROUP_SCANF(trunk_cg[A], "memory.min", "%ld", c);
+>> +	if (c[0]) {
+>> +		tst_brk(TCONF,
+>> +			"memory.min already set to %ld on parent group", c[0]);
+>> +	}
+>> +
+>> +	if (!TST_CGROUP_VER_IS_V1(trunk_cg[A], "memory")) {
+>> +		SAFE_CGROUP_PRINT(trunk_cg[A], "cgroup.subtree_control",
+>> +				  "+memory");
+>> +	}
+>> +	SAFE_CGROUP_PRINT(trunk_cg[A], "memory.max", "200M");
+>> +	SAFE_CGROUP_PRINT(trunk_cg[A], "memory.swap.max", "0");
+>> +
+>> +	trunk_cg[B] = tst_cgroup_group_mk(trunk_cg[A], "trunk_B");
+>> +	if (!TST_CGROUP_VER_IS_V1(trunk_cg[A], "memory")) {
+>> +		SAFE_CGROUP_PRINT(trunk_cg[B], "cgroup.subtree_control",
+>> +				  "+memory");
+>> +	}
 >
-> Thanks!
+> Don't we require V2 for the whole test anyways?
+
++1
+
 >
-> Kind regards,
-> Petr
->
->
+> Also I think I asked if this si really needed in v1, don't we enable the
+> required subgroups in group_mk() anyways?
+
+No, we only automatically add the controllers to subtree_control in the
+test's group. Note that this is not the same as enabling the
+controller. The controller becomes active as soon as it is added to the
+root node's subtree control. Adding it to subtree_control means that the
+direct children get their own allotments in addition to sharing the
+parent's. I assume that for some tests we don't want that, we want the
+children to fully compete over the parent's resources.
+
+Also subtree_control can effect whether a group is a threaded
+domain... We could perhaps add a variant of `tst_cgroup_group_mk` which
+enables subtrees by default. I just don't want it to be hidden that we
+are enabling it.
+
 
 -- 
-Regards,
-Li Wang
-
---00000000000019b3a105d76acaff
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Mon, Feb 7, 2022 at 3:41 PM Petr Vorel &lt;<a hr=
-ef=3D"mailto:pvorel@suse.cz">pvorel@suse.cz</a>&gt; wrote:<br></div><blockq=
-uote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1p=
-x solid rgb(204,204,204);padding-left:1ex">Hi Li,<br>
-<br>
-&gt; Notes:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0Ps. I also think we might need .min_mem_[avai|total=
-] field but<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0not sure if it is really necessary to=
- add that.<br>
-Is it just a single test? Than maybe not worth of it, but generally I&#39;m=
- for<br></blockquote><div><br></div><div class=3D"gmail_default" style=3D"f=
-ont-size:small">By now I only see=C2=A0sporadic tests have this requirement=
-.</div><div class=3D"gmail_default" style=3D"font-size:small">(hugeshmat04.=
-c, swapping01.c, getrusage03.c)</div><div class=3D"gmail_default" style=3D"=
-font-size:small"></div><blockquote class=3D"gmail_quote" style=3D"margin:0p=
-x 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-adding tags like this into the library - it encapsulates code and gives us =
-a<br>
-documentation in docparse.<br></blockquote><div><br></div><div class=3D"gma=
-il_default" style=3D"font-size:small">Agree, maybe just holding as a future=
- plan for adding that.</div><div class=3D"gmail_default" style=3D"font-size=
-:small"><br></div><div class=3D"gmail_default" style=3D"font-size:small"><b=
-r></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex=
-;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-<br>
-...<br>
-&gt; +static void setup(void)<br>
-&gt; +{<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0long long mem_avail =3D tst_available_mem();<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (mem_avail &lt; 512L*1024)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst_brk(TCONF, &quot;=
-Needed &gt; 512MB availabe, only have: %ld kB&quot;, mem_avail);<br>
-typo: s/availabe/available/<br></blockquote><div><br></div><div><div class=
-=3D"gmail_default" style=3D"font-size:small">Thanks.</div><br></div><div>=
-=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0=
-.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-<br>
-Reviewed-by: Petr Vorel &lt;<a href=3D"mailto:pvorel@suse.cz" target=3D"_bl=
-ank">pvorel@suse.cz</a>&gt;<br>
-<br>
-Thanks!<br>
-<br>
-Kind regards,<br>
-Petr<br>
-<br>
-</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
- class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li =
-Wang<br></div></div></div></div>
-
---00000000000019b3a105d76acaff--
-
-
---===============1192518821==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============1192518821==--
-
