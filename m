@@ -1,73 +1,70 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 319DF4AB5EE
-	for <lists+linux-ltp@lfdr.de>; Mon,  7 Feb 2022 08:41:02 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 54CB14AB7EB
+	for <lists+linux-ltp@lfdr.de>; Mon,  7 Feb 2022 10:44:35 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A70323C9805
-	for <lists+linux-ltp@lfdr.de>; Mon,  7 Feb 2022 08:41:01 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id D81463C9AC7
+	for <lists+linux-ltp@lfdr.de>; Mon,  7 Feb 2022 10:44:34 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 8A2D33C07BB
- for <ltp@lists.linux.it>; Mon,  7 Feb 2022 08:40:59 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 15ECC3C074D
+ for <ltp@lists.linux.it>; Mon,  7 Feb 2022 10:44:30 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 12EF420015B
- for <ltp@lists.linux.it>; Mon,  7 Feb 2022 08:40:58 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id D60BC210F4;
- Mon,  7 Feb 2022 07:40:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1644219657;
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 84592600691
+ for <ltp@lists.linux.it>; Mon,  7 Feb 2022 10:44:30 +0100 (CET)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id B64EF1F37E;
+ Mon,  7 Feb 2022 09:44:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1644227069;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=ejtf5S7+1Uq0qEn8KkMZjJLpigdVRtvxbfSileMTtok=;
- b=r/x9JYy3UUMLPl4IKFDQcqVv7w413XFS0s/nDnx2Dg9nl7R77/PazlW2rBAxLDN60f+Ju9
- EZpZ0AJi02tY78Dp74aqLDqkEL6Kib4kIxNp7ZXFNVXs5OISIW6MEO8R5cyexcjrsfScGj
- UM9Ffoy+YKjff5T8BqX4VAF5qwHZEtA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1644219657;
+ bh=r1W7OzTNzWrNEQo3zvFXEUOB6ADZqt9AETzbUldKvaI=;
+ b=Pe5HDDgZEZFCbF/H89Y4azPxAPpIp53d0e8n4qIQWRnnPBgL1GHw3yZ87n2luv0+EXvZhg
+ x9KSca256nFN1PY7YnNKUdWDyMAi9j+kr14JiuWtYojHrfc6oFZKz4GP7SsfMKUkoUJccT
+ /8kzEwM21yZuY1/ySd6IaBmQasNOjBQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1644227069;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=ejtf5S7+1Uq0qEn8KkMZjJLpigdVRtvxbfSileMTtok=;
- b=qXn7hGXdx6SKKrAdyaGGPBW6zzqMow3UUpJ6kjvtZTHfow5kqmjjdqRmdqoDzncp90Fy0k
- fEkTiaPyd2+FxOCg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ bh=r1W7OzTNzWrNEQo3zvFXEUOB6ADZqt9AETzbUldKvaI=;
+ b=9Ps9RnRqstChnVJa6CBBEeydqT4pE1o+xqt1gnrhGHceHv/PrLAC/SWmlxYiUSTqAYutGp
+ IdxZIT3jpkkcXfCw==
+Received: from g78 (unknown [10.163.24.138])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A839113ABC;
- Mon,  7 Feb 2022 07:40:57 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id tFsyJgnNAGITZQAAMHmgww
- (envelope-from <pvorel@suse.cz>); Mon, 07 Feb 2022 07:40:57 +0000
-Date: Mon, 7 Feb 2022 08:40:55 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <YgDNB9v0x82mExVE@pevik>
-References: <20220207040447.2803113-1-liwang@redhat.com>
+ by relay2.suse.de (Postfix) with ESMTPS id 7A353A3B83;
+ Mon,  7 Feb 2022 09:44:29 +0000 (UTC)
+References: <20220203081820.29521-1-rpalethorpe@suse.com>
+ <20220203081820.29521-6-rpalethorpe@suse.com>
+ <CAEemH2f6PYXGEDrARM7JKCr08K-GEfRa9xJKPLChSG6bnvVpoA@mail.gmail.com>
+ <Yfz5lF4SR0s7bv/N@yuki>
+User-agent: mu4e 1.6.10; emacs 27.2
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Cyril Hrubis <chrubis@suse.cz>
+Date: Mon, 07 Feb 2022 08:44:33 +0000
+In-reply-to: <Yfz5lF4SR0s7bv/N@yuki>
+Message-ID: <87y22nvwn7.fsf@suse.de>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20220207040447.2803113-1-liwang@redhat.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] getrusage03: skip on small RAM system
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 4/5] API/cgroup: Make tst_cgroup_group_mk
+ sprintf like
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,37 +76,50 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
+Reply-To: rpalethorpe@suse.de
+Cc: LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Li,
+Hello,
 
-> Notes:
->     Ps. I also think we might need .min_mem_[avai|total] field but
->         not sure if it is really necessary to add that.
-Is it just a single test? Than maybe not worth of it, but generally I'm for
-adding tags like this into the library - it encapsulates code and gives us a
-documentation in docparse.
+Cyril Hrubis <chrubis@suse.cz> writes:
 
-...
-> +static void setup(void)
-> +{
-> +	long long mem_avail = tst_available_mem();
-> +
-> +	if (mem_avail < 512L*1024)
-> +		tst_brk(TCONF, "Needed > 512MB availabe, only have: %ld kB", mem_avail);
-typo: s/availabe/available/
+> Hi!
+>> Seems this is too strict for some compiling.  e.g.
+>> 
+>> cfs_bandwidth01.c: In function ???mk_cpu_cgroup???:
+>> cfs_bandwidth01.c:64:9: error: format not a string literal and no format
+>> arguments [-Werror=format-security]
+>>    64 |         *cg = tst_cgroup_group_mk(cg_parent, cg_child_name);
+>>       |         ^
+>> cc1: some warnings being treated as errors
+>> make: *** [../../../../include/mk/rules.mk:37: cfs_bandwidth01] Error 1
+>> 
+>> gcc version 11.2.1 20211203 (Red Hat 11.2.1-7) (GCC)
 
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
+Sorry I should have done a full rebuild.
 
-Thanks!
+>
+> Ah, right, that's the __attribute__ format printf. I guess that we would
+> have to live with changing all the calls to
+> tst_cgroup_group_mk(foo, "%s", child_name)
 
-Kind regards,
-Petr
+Actually it's just calls where the compiler can't tell if child_name is
+a string literal. Looking at vsnprintf in stdio.h it seems like we
+should be able to add `__attribute__((format(printf,3,0)))` to
+mk_cpu_cgroup and then cg_child_name should be guaranteed to be a string
+literal. Alas it doesn't work, niether does the format_arg attribute in
+this case.
+
+I guess if I made a va arg version of tst_cgroup_group_mk then it would
+work, but this is starting to get silly. So I'll just do "%s".
+
+-- 
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
