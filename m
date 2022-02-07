@@ -2,84 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 584BA4AB770
-	for <lists+linux-ltp@lfdr.de>; Mon,  7 Feb 2022 10:18:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 283AE4AB7F8
+	for <lists+linux-ltp@lfdr.de>; Mon,  7 Feb 2022 10:53:45 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9A42D3C9B10
-	for <lists+linux-ltp@lfdr.de>; Mon,  7 Feb 2022 10:18:02 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id CEE363C98D4
+	for <lists+linux-ltp@lfdr.de>; Mon,  7 Feb 2022 10:53:44 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 630403C9820
- for <ltp@lists.linux.it>; Mon,  7 Feb 2022 10:17:59 +0100 (CET)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id A794E3C074D
+ for <ltp@lists.linux.it>; Mon,  7 Feb 2022 10:53:40 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id CC69D1000993
- for <ltp@lists.linux.it>; Mon,  7 Feb 2022 10:17:58 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1644225477;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id E23431A006FA
+ for <ltp@lists.linux.it>; Mon,  7 Feb 2022 10:53:39 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 05078210E9;
+ Mon,  7 Feb 2022 09:53:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1644227619;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=OVTv7cv9JQ1/afqLs27NkwqMrowWgZ+7Sc4P1NdbIsY=;
- b=LCKF+umyUP6R1ST6EnrnNxaTTPPTPs4DRArc3a6VqTpTcDL32M3z2RN0krjOXZFr9uZ+dn
- NkpnRnBU4M6Oxg1Bo0l/NI9HaBFPWklR7kOiwn550LmjwCBqKpYfcmDI2njwXoBGE2ionl
- VWF3+OnrdYgZ3939pyVuLxMYpLGZ2GU=
-Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com
- [209.85.161.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-284-HvXNsjk0PBezYcGqczObBw-1; Mon, 07 Feb 2022 04:17:56 -0500
-X-MC-Unique: HvXNsjk0PBezYcGqczObBw-1
-Received: by mail-oo1-f72.google.com with SMTP id
- h7-20020a4aa287000000b002eb15de5797so8561844ool.23
- for <ltp@lists.linux.it>; Mon, 07 Feb 2022 01:17:56 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=OVTv7cv9JQ1/afqLs27NkwqMrowWgZ+7Sc4P1NdbIsY=;
- b=TEBSz+QtJ5NdWyNmEq9BEm781IjgHZgirXnr3KlbUtMJLPiEevfVSHNvPpuRqsCMNN
- DaTNBT3lZVgxvrTvQIdsJZ/Xbg5E/E/VyZAs/cEjELN19lsQ90KZjDDgK8m6d+QcpeLZ
- /Ewf7AVHLomlpHptbH73kbsEmG0f4acTdSvnyjOf4oKgQ3NqMQQI4HYdmaKsjZgtrhcf
- DRPGRIIECDtB5RZs1SjkXA+7b8TI+Xd466GETXWn3wdxRup57wCZfBhxIVtx7zpie0Lf
- l3ReT3dbkwlI+n0OQOv0xHoVF5h42PAF7Ig4uKX6IPeW0TAsnwvw8J9LsdXf8DMwBXvW
- YTBg==
-X-Gm-Message-State: AOAM532Tkhc+XNAzJLM4QBhJWO3hA9vdylQONWG1Y5Kqn0YEG56d8g3n
- HtRwhXs1Oezpj+dzynPdQB8mXGPDrNbJiGLCH/6E8eHjDt7tms6jSRU1ru7ftJmzltoglv3iMtE
- 0RkGfSWERJn6BvZhI6cvWTfuEKEY=
-X-Received: by 2002:a05:6870:822a:: with SMTP id
- n42mr3883714oae.175.1644225475489; 
- Mon, 07 Feb 2022 01:17:55 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJxaQo/6H6IMu7FwTdZxxRYeaOpWveirKZZpbb+ZI6nVt8+dIg0CglX2OKxcUOLNY0aeu5ftnCfdhvVmaCdtEuY=
-X-Received: by 2002:a05:6870:822a:: with SMTP id
- n42mr3883709oae.175.1644225475346; 
- Mon, 07 Feb 2022 01:17:55 -0800 (PST)
+ bh=E3HxGmeLp5qOKBkMxpS9CJQz5VSRg+qZPsMFsnLRLUI=;
+ b=so3hSNMDjtdLZw0q2wypYiuayPMmOPTRQFNATCeWqZDFopZsxJwv//sC44dEyAg9lMmjAZ
+ G6SuwEeAOLkfekJPcTUK9YfFB7Mcw5XfQUUuzfnB07V3JqqH1YQCnzEXp4hqbGbCslB5ly
+ SslPLf4gPX7t9wCDtUG2vraxOHXIrPA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1644227619;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=E3HxGmeLp5qOKBkMxpS9CJQz5VSRg+qZPsMFsnLRLUI=;
+ b=AMx4ZO4ZIHoigbGVUFR9bckMQrkDszdQ/2PyHQ4dIV7enMKmpdJXq4fkNEm31YhnkqFL1H
+ 6um6+nU990E6GHBg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id BC29413B68;
+ Mon,  7 Feb 2022 09:53:38 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 4YZ4LCLsAGK8KQAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Mon, 07 Feb 2022 09:53:38 +0000
+Date: Mon, 7 Feb 2022 10:53:37 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: Amir Goldstein <amir73il@gmail.com>
+Message-ID: <YgDsIaf5z2rg5tCH@pevik>
+References: <20220203061222.625948-1-amir73il@gmail.com>
 MIME-Version: 1.0
-References: <cover.1643980361.git.jstancek@redhat.com>
- <b10d44db50b76cf5332cff491b5f22500b2b88c6.1643980361.git.jstancek@redhat.com>
- <CAEemH2f7=baDouBjo_VwBgVw0a_oT5YSFuOcF=CcWRZGFNi+bQ@mail.gmail.com>
-In-Reply-To: <CAEemH2f7=baDouBjo_VwBgVw0a_oT5YSFuOcF=CcWRZGFNi+bQ@mail.gmail.com>
-From: Jan Stancek <jstancek@redhat.com>
-Date: Mon, 7 Feb 2022 10:17:36 +0100
-Message-ID: <CAASaF6w1C9WWHXY36RjdWdUk7pCf=uPzr_x=8CR38nfCA+yBVw@mail.gmail.com>
-To: Li Wang <liwang@redhat.com>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=jstancek@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20220203061222.625948-1-amir73il@gmail.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 1/2] tst_test_macros: add TST_EXP_FAIL_SILENT
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] syscalls/inotify: New test for IN_DELETE
+ regression
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,60 +80,277 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: Ivan Delalande <colona@arista.com>, Jan Kara <jack@suse.cz>,
+ ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Sat, Feb 5, 2022 at 4:07 AM Li Wang <liwang@redhat.com> wrote:
->
->
->
-> On Fri, Feb 4, 2022 at 9:14 PM Jan Stancek <jstancek@redhat.com> wrote:
->>
->> This variant does not print TPASS messages when
->> SCALL fails as expected.
->>
->> Signed-off-by: Jan Stancek <jstancek@redhat.com>
->> ---
->>  doc/c-test-api.txt        |  3 +++
->>  include/tst_test_macros.h | 15 ++++++++++-----
->>  2 files changed, 13 insertions(+), 5 deletions(-)
->>
->> diff --git a/doc/c-test-api.txt b/doc/c-test-api.txt
->> index 6f4de3f80f95..9119e094dbfd 100644
->> --- a/doc/c-test-api.txt
->> +++ b/doc/c-test-api.txt
->> @@ -298,6 +298,9 @@ The 'TST_EXP_FAIL2()' is the same as 'TST_EXP_FAIL()' except the return value is
->>  expected to be non-negative integer if call passes. These macros build upon the
->>  +TEST()+ macro and associated variables.
->>
->> +'TST_EXP_FAIL_SILENT()' and 'TST_EXP_FAIL2_SILENT()' variants are less verbose
->> +and do not print TPASS messages when SCALL fails as expected.
->> +
->>  [source,c]
->>  -------------------------------------------------------------------------------
->>  TEST(socket(AF_INET, SOCK_RAW, 1));
->> diff --git a/include/tst_test_macros.h b/include/tst_test_macros.h
->> index ec8c38523344..f7de8d00a666 100644
->> --- a/include/tst_test_macros.h
->> +++ b/include/tst_test_macros.h
->> @@ -163,7 +163,7 @@ extern void *TST_RET_PTR;
->>                         TST_MSG_(TPASS, " passed", #SCALL, ##__VA_ARGS__);     \
->>         } while (0)                                                            \
->>
->> -#define TST_EXP_FAIL_(PASS_COND, SCALL, SSCALL, ERRNO, ...)                    \
->> +#define TST_EXP_FAIL_(SILENT, PASS_COND, SCALL, SSCALL, ERRNO, ...)            \
->
->
-> I think maybe the better way is to define TST_EXP_FAIL_SILENT_
-> but not add a new SILENT parameter. So that it keeps consistent with
-> the existing TST_EXP_PASS_SILENT_ macros.
+Hi Amir,
 
-It looked like smaller change, but I can update it (Along with the
-suggestion to create/delete more directories)
+Thanks for this test.
 
+> Check that files cannot be opened after IN_DELETE was reported
+> on them.
+
+> This test is based on the reproducer provided by Ivan Delalande
+> for a regression reported in kernel v5.13:
+> https://lore.kernel.org/linux-fsdevel/YeNyzoDM5hP5LtGW@visor/
+Cc in the commit mentions v5.3+, thus we don't need to mention it in the commit
+message or in docs.
+
+...
+> diff --git a/testcases/kernel/syscalls/inotify/inotify11.c b/testcases/kernel/syscalls/inotify/inotify11.c
+> new file mode 100644
+> index 000000000..88ac4d2d7
+> --- /dev/null
+> +++ b/testcases/kernel/syscalls/inotify/inotify11.c
+> @@ -0,0 +1,137 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Copyright (c) 2022 CTERA Networks. All Rights Reserved.
+> + *
+> + * Started by Amir Goldstein <amir73il@gmail.com>
+> + * based on reproducer from Ivan Delalande <colona@arista.com>
+> + *
+> + * DESCRIPTION
+This should use docparse description header
+/*\
+ * [Description]
+ * Test opening files after receiving IN_DELETE.
+ ...
+
+FYI we produce doc about test metadata:
+https://github.com/linux-test-project/ltp/releases/download/20220121/metadata.20220121.html
+https://github.com/linux-test-project/ltp/releases/download/20220121/metadata.20220121.pdf
+
+> + * Test opening files after receiving IN_DELETE.
+> + *
+> + * Kernel v5.13 has a regression allowing files to be open after IN_DELETE.
+> + *
+> + * The problem has been fixed by commit:
+> + *  a37d9a17f099 "fsnotify: invalidate dcache before IN_DELETE event".
+> + */
+> +
+> +#include "config.h"
+> +
+> +#include <stdio.h>
+> +#include <unistd.h>
+> +#include <stdlib.h>
+> +#include <fcntl.h>
+> +#include <poll.h>
+> +#include <time.h>
+> +#include <signal.h>
+> +#include <sys/time.h>
+> +#include <sys/wait.h>
+> +#include <sys/syscall.h>
+
+nit: I'd cleanup some of clearly unused headers:
+<poll.h> (used in reproducer, but not in LTP code, <sys/syscall.h>, <stdlib.h>,
+<time.h>, <sys/time.h> (maybe copy paste from previous tests?).
+
+I might do a cleanup of the headers in other inotify tests.
+
+> +
+> +#include "tst_test.h"
+> +#include "inotify.h"
+> +
+> +#if defined(HAVE_SYS_INOTIFY_H)
+> +#include <sys/inotify.h>
+> +
+> +/* Number of files to test */
+> +#define CHURN_FILES 9999
+> +
+> +#define EVENT_MAX 32
+> +/* Size of the event structure, not including the name */
+> +#define EVENT_SIZE	(sizeof(struct inotify_event))
+> +#define EVENT_BUF_LEN	(EVENT_MAX * (EVENT_SIZE + 16))
+> +
+> +static pid_t pid;
+> +
+> +char event_buf[EVENT_BUF_LEN];
+nit: use static
+
+> +
+> +void churn(void)
+here as well.
+
+FYI one of the reasons we're passion about using static is that some people
+link all tests into single binary to save space (similar way busybox use it).
+
+> +{
+> +	char path[10];
+> +	int i;
+> +
+> +	for (i = 0; i <= CHURN_FILES; ++i) {
+> +		snprintf(path, sizeof(path), "%d", i);
+> +		SAFE_FILE_PRINTF(path, "1");
+> +		SAFE_UNLINK(path);
+> +	}
+> +}
+> +
+> +static void verify_inotify(void)
+> +{
+> +	int nevents = 0, opened = 0;
+> +	struct inotify_event *event;
+> +	int inotify_fd;
+> +
+> +	pid = SAFE_FORK();
+> +	if (pid == 0) {
+> +		churn();
+> +		return;
+> +	}
+> +
+> +	inotify_fd = SAFE_MYINOTIFY_INIT();
+> +	SAFE_MYINOTIFY_ADD_WATCH(inotify_fd, ".", IN_DELETE);
+> +
+> +	while (!opened && nevents < CHURN_FILES) {
+> +		int i, fd, len;
+> +
+> +		len = read(inotify_fd, event_buf, EVENT_BUF_LEN);
+> +		if (len == -1)
+> +			tst_brk(TBROK | TERRNO, "read failed");
+Just:
+len = SAFE_READ(0, inotify_fd, event_buf, EVENT_BUF_LEN);
+
+> +
+> +		for (i = 0; i < len; i += EVENT_SIZE + event->len) {
+> +			event = (struct inotify_event *)&event_buf[i];
+> +
+> +			if (!(event->mask & IN_DELETE))
+> +				continue;
+> +
+> +			nevents++;
+> +
+> +			/* Open file after IN_DELETE should fail */
+> +			fd = open(event->name, O_RDONLY);
+> +			if (fd < 0)
+> +				continue;
+> +
+> +			tst_res(TFAIL, "File %s opened after IN_DELETE", event->name);
+> +			SAFE_CLOSE(fd);
+> +			opened = 1;
+> +			break;
+> +		}
+> +	}
+> +
+> +	SAFE_CLOSE(inotify_fd);
+> +
+> +	if (!nevents)
+> +		tst_res(TFAIL, "Didn't get any IN_DELETE events");
+> +	else if (!opened)
+> +		tst_res(TPASS, "Got %d IN_DELETE events", nevents);
+Shouldn't we compare nevents == CHURN_FILES instead of just printing the number?
+> +
+> +	/* Kill the child creating / deleting files and wait for it */
+> +	SAFE_KILL(pid, SIGKILL);
+> +	pid = 0;
+> +	SAFE_WAIT(NULL);
+Interesting. I didn't figure out why kill and wait cannot be done just in
+cleanup.
+
+> +}
+> +
+> +static void cleanup(void)
+> +{
+> +	if (pid) {
+> +		SAFE_KILL(pid, SIGKILL);
+> +		SAFE_WAIT(NULL);
+> +	}
+> +}
+> +
+> +static struct tst_test test = {
+> +	.timeout = 10,
+I guess you fear of similar problems of fanotify22.
+Sure, why not (we remove this once we set the default much lower).
+
+> +	.needs_tmpdir = 1,
+> +	.forks_child = 1,
+> +	.cleanup = cleanup,
+> +	.test_all = verify_inotify,
+> +	.tags = (const struct tst_tag[]) {
+> +		{"linux-git", "a37d9a17f099"},
+> +		{}
+> +	}
+> +};
+> +
+> +#else
+> +	TST_TEST_TCONF("system doesn't have required inotify support");
+> +#endif
+
+Tested-by: Petr Vorel <pvorel@suse.cz>
+On various systems. Interesting enough on it does not reproduce on affected
+system with enabled FIPS (at least FIPS on SLES) when run as ordinary user
+(reproduces when run as root). But that's nothing we should worry about.
+
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
+
+Suggest to apply with this changes (unless if worth to compare nevents ==
+CHURN_FILES).
+
+Kind regards,
+Petr
+
+diff --git testcases/kernel/syscalls/inotify/inotify11.c testcases/kernel/syscalls/inotify/inotify11.c
+index 88ac4d2d7d..062b92409f 100644
+--- testcases/kernel/syscalls/inotify/inotify11.c
++++ testcases/kernel/syscalls/inotify/inotify11.c
+@@ -4,8 +4,10 @@
+  *
+  * Started by Amir Goldstein <amir73il@gmail.com>
+  * based on reproducer from Ivan Delalande <colona@arista.com>
+- *
+- * DESCRIPTION
++ */
++
++/*\
++ * [Description]
+  * Test opening files after receiving IN_DELETE.
+  *
+  * Kernel v5.13 has a regression allowing files to be open after IN_DELETE.
+@@ -18,16 +20,12 @@
+ 
+ #include <stdio.h>
+ #include <unistd.h>
+-#include <stdlib.h>
+ #include <fcntl.h>
+-#include <poll.h>
+-#include <time.h>
+ #include <signal.h>
+-#include <sys/time.h>
+ #include <sys/wait.h>
+-#include <sys/syscall.h>
+ 
+ #include "tst_test.h"
++#include "tst_safe_macros.h"
+ #include "inotify.h"
+ 
+ #if defined(HAVE_SYS_INOTIFY_H)
+@@ -43,9 +41,9 @@
+ 
+ static pid_t pid;
+ 
+-char event_buf[EVENT_BUF_LEN];
++static char event_buf[EVENT_BUF_LEN];
+ 
+-void churn(void)
++static void churn(void)
+ {
+ 	char path[10];
+ 	int i;
+@@ -75,9 +73,7 @@ static void verify_inotify(void)
+ 	while (!opened && nevents < CHURN_FILES) {
+ 		int i, fd, len;
+ 
+-		len = read(inotify_fd, event_buf, EVENT_BUF_LEN);
+-		if (len == -1)
+-			tst_brk(TBROK | TERRNO, "read failed");
++		len = SAFE_READ(0, inotify_fd, event_buf, EVENT_BUF_LEN);
+ 
+ 		for (i = 0; i < len; i += EVENT_SIZE + event->len) {
+ 			event = (struct inotify_event *)&event_buf[i];
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
