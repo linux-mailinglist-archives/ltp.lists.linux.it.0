@@ -2,54 +2,74 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75E054ADAB4
-	for <lists+linux-ltp@lfdr.de>; Tue,  8 Feb 2022 15:04:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55D0B4ADAB7
+	for <lists+linux-ltp@lfdr.de>; Tue,  8 Feb 2022 15:04:37 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 03B1E3C9B50
-	for <lists+linux-ltp@lfdr.de>; Tue,  8 Feb 2022 15:04:08 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id C21DE3C9B7B
+	for <lists+linux-ltp@lfdr.de>; Tue,  8 Feb 2022 15:04:36 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 7E3BF3C9B4C
- for <ltp@lists.linux.it>; Tue,  8 Feb 2022 15:03:46 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id B19A13C24D6
+ for <ltp@lists.linux.it>; Tue,  8 Feb 2022 15:04:33 +0100 (CET)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id E67CE601115
- for <ltp@lists.linux.it>; Tue,  8 Feb 2022 15:03:45 +0100 (CET)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 86A59210F6;
- Tue,  8 Feb 2022 14:03:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1644329025; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 389A860019B
+ for <ltp@lists.linux.it>; Tue,  8 Feb 2022 15:04:32 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 7FEAA210F6;
+ Tue,  8 Feb 2022 14:04:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1644329072; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=SPr/3WQy7zVUXe6nW8IpQebA0Cbs1gASWEvwzcPPNdo=;
- b=FKtNmgLVQQVmfmLlgAEXLUSmhhKLEuGFCM5YBIuPU3nPQAzEEZAE2VaVk9FoLzg9MglNfM
- qkA02lqfdtaIUj4AqEwkZvG0OOPZ3g8TELp8o6+TBAYQA29ngI3h8+W3dvnxJwmCzB75Wx
- XsOFL6q6NiZZjCy2FvvxfByBBmIdhRA=
-Received: from g78.suse.de (unknown [10.163.24.138])
- by relay2.suse.de (Postfix) with ESMTP id 55073A3B90;
- Tue,  8 Feb 2022 14:03:45 +0000 (UTC)
-To: ltp@lists.linux.it
-Date: Tue,  8 Feb 2022 14:03:22 +0000
-Message-Id: <20220208140322.6842-4-rpalethorpe@suse.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220208140322.6842-1-rpalethorpe@suse.com>
-References: <20220208140322.6842-1-rpalethorpe@suse.com>
+ bh=lu7JsNbcP8B+ittO31k03BN/1nuN1Q5GebqpSxs7D6U=;
+ b=WSX3vFpjbEIhffCBIIDHV1CUDokZdbGsZzrTY2kLc1/Vo2EiUkZAnnhMoOz1luK0lje1CO
+ 0gVsfC+PvAVMGXMhRJLIVcxwqXI7gsTHCYOUHx6GscRa24bdSmQ+UUKc50cKwaZ0qeMSnU
+ ZKY3XK4p7xjvNIxiah3HPRaX690IToc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1644329072;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=lu7JsNbcP8B+ittO31k03BN/1nuN1Q5GebqpSxs7D6U=;
+ b=8EnC+ULHl72hDbrGPGY+XTy4m/e/9kUMspzsyIXH3eVcMcfQyAAahh0G3zYMomE22t0WLS
+ +8c7XmGBw71TOSCQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6AFFF13C99;
+ Tue,  8 Feb 2022 14:04:32 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id lwO4GHB4AmIidgAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Tue, 08 Feb 2022 14:04:32 +0000
+Date: Tue, 8 Feb 2022 15:06:36 +0100
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Petr Vorel <pvorel@suse.cz>
+Message-ID: <YgJ47NfU3vP3XcyE@yuki>
+References: <20220126181210.24897-1-pvorel@suse.cz>
+ <20220126181210.24897-3-pvorel@suse.cz>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20220126181210.24897-3-pvorel@suse.cz>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH 3/3] memcontrol04: Copy from kselftest
+Subject: Re: [LTP] [PATCH 2/5] tst_test.sh: tst_mkfs(): Add support for
+ extra opts
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,283 +81,77 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Richard Palethorpe via ltp <ltp@lists.linux.it>
-Reply-To: Richard Palethorpe <rpalethorpe@suse.com>
-Cc: Richard Palethorpe <rpalethorpe@suse.com>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-At first glance this test looks the same as memcontrol03. However
-there are some significant changes which complicate combining the two.
+Hi!
+> Allow to pass options after device name
+> (to sync with C API).
+> 
+> NOTE: not adding it to legacy shell API (thus no need to change
+> test_robind.sh).
+> 
+> Signed-off-by: Petr Vorel <pvorel@suse.cz>
+> ---
+>  testcases/lib/tst_test.sh | 9 ++++-----
+>  1 file changed, 4 insertions(+), 5 deletions(-)
+> 
+> diff --git a/testcases/lib/tst_test.sh b/testcases/lib/tst_test.sh
+> index eb3bf0df12..4707613158 100644
+> --- a/testcases/lib/tst_test.sh
+> +++ b/testcases/lib/tst_test.sh
+> @@ -343,9 +343,8 @@ tst_mkfs()
+>  	[ -z "$fs_type" ] && fs_type="$TST_DEFAULT_FS_TYPE"
+>  
+>  	local device=${2:-$TST_DEVICE}
+> -	[ $# -ge 1 ] && shift
+> -	[ $# -ge 1 ] && shift
+> -	local fs_opts="$@"
+> +	local fs_opts="$3"
+> +	local extra_opts="$4"
 
-Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
----
- runtest/controllers                           |   1 +
- testcases/kernel/controllers/memcg/.gitignore |   1 +
- .../kernel/controllers/memcg/memcontrol04.c   | 228 ++++++++++++++++++
- 3 files changed, 230 insertions(+)
- create mode 100644 testcases/kernel/controllers/memcg/memcontrol04.c
+Doesn't this actually break the examples described in the
+doc/shell-test-api.txt?
 
-diff --git a/runtest/controllers b/runtest/controllers
-index 4a6f919af..3108a2561 100644
---- a/runtest/controllers
-+++ b/runtest/controllers
-@@ -20,6 +20,7 @@ memcg_control		memcg_control_test.sh
- memcontrol01 memcontrol01
- memcontrol02 memcontrol02
- memcontrol03 memcontrol03
-+memcontrol04 memcontrol04
- 
- cgroup_fj_function_debug cgroup_fj_function.sh debug
- cgroup_fj_function_cpuset cgroup_fj_function.sh cpuset
-diff --git a/testcases/kernel/controllers/memcg/.gitignore b/testcases/kernel/controllers/memcg/.gitignore
-index 49df1582c..3883cede6 100644
---- a/testcases/kernel/controllers/memcg/.gitignore
-+++ b/testcases/kernel/controllers/memcg/.gitignore
-@@ -8,3 +8,4 @@
- memcontrol01
- memcontrol02
- memcontrol03
-+memcontrol04
-diff --git a/testcases/kernel/controllers/memcg/memcontrol04.c b/testcases/kernel/controllers/memcg/memcontrol04.c
-new file mode 100644
-index 000000000..cdfeff4a4
---- /dev/null
-+++ b/testcases/kernel/controllers/memcg/memcontrol04.c
-@@ -0,0 +1,228 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*\
-+ *
-+ * [Description]
-+ *
-+ * Conversion of the forth kself test in cgroup/test_memcontrol.c.
-+ *
-+ * Original description:
-+ * "First, this test creates the following hierarchy:
-+ * A       memory.low = 50M,  memory.max = 200M
-+ * A/B     memory.low = 50M,  memory.current = 50M
-+ * A/B/C   memory.low = 75M,  memory.current = 50M
-+ * A/B/D   memory.low = 25M,  memory.current = 50M
-+ * A/B/E   memory.low = 500M, memory.current = 0
-+ * A/B/F   memory.low = 0,    memory.current = 50M
-+ *
-+ * Usages are pagecache
-+ * Then it creates A/G and creates a significant
-+ * memory pressure in it.
-+ *
-+ * A/B    memory.current ~= 50M
-+ * A/B/C  memory.current ~= 33M
-+ * A/B/D  memory.current ~= 17M
-+ * A/B/E  memory.current ~= 0
-+ *
-+ * After that it tries to allocate more than there is unprotected
-+ * memory in A available, and checks that memory.low protects
-+ * pagecache even in this case."
-+ *
-+ * The closest thing to memory.low on V1 is soft_limit_in_bytes which
-+ * uses a different mechanism and has different semantics. So we only
-+ * test on V2 like the selftest. We do test on more file systems, but
-+ * not tempfs becaue it can't evict the page cache without swap. Also
-+ * we avoid filesystems which allocate extra memory for buffer heads.
-+ *
-+ * The tolerances have been increased from the self tests.
-+ */
-+
-+#define _GNU_SOURCE
-+
-+#include <inttypes.h>
-+
-+#include "memcontrol_common.h"
-+
-+#define TMPDIR "mntdir"
-+
-+static struct tst_cg_group *trunk_cg[3];
-+static struct tst_cg_group *leaf_cg[4];
-+static int fd = -1;
-+
-+enum checkpoints {
-+	CHILD_IDLE
-+};
-+
-+enum trunk_cg {
-+	A,
-+	B,
-+	G
-+};
-+
-+enum leaf_cg {
-+	C,
-+	D,
-+	E,
-+	F
-+};
-+
-+static void cleanup_sub_groups(void)
-+{
-+	size_t i;
-+
-+	for (i = ARRAY_SIZE(leaf_cg); i > 0; i--) {
-+		if (!leaf_cg[i - 1])
-+			continue;
-+
-+		leaf_cg[i - 1] = tst_cg_group_rm(leaf_cg[i - 1]);
-+	}
-+
-+	for (i = ARRAY_SIZE(trunk_cg); i > 0; i--) {
-+		if (!trunk_cg[i - 1])
-+			continue;
-+
-+		trunk_cg[i - 1] = tst_cg_group_rm(trunk_cg[i - 1]);
-+	}
-+}
-+
-+static void alloc_anon_in_child(const struct tst_cg_group *const cg,
-+				const size_t size)
-+{
-+	const pid_t pid = SAFE_FORK();
-+
-+	if (pid) {
-+		tst_reap_children();
-+		return;
-+	}
-+
-+	SAFE_CG_PRINTF(cg, "cgroup.procs", "%d", getpid());
-+
-+	tst_res(TINFO, "Child %d in %s: Allocating anon: %"PRIdPTR,
-+		getpid(), tst_cg_group_name(cg), size);
-+	alloc_anon(size);
-+
-+	exit(0);
-+}
-+
-+static void alloc_pagecache_in_child(const struct tst_cg_group *const cg,
-+				     const size_t size)
-+{
-+	const pid_t pid = SAFE_FORK();
-+
-+	if (pid) {
-+		tst_reap_children();
-+		return;
-+	}
-+
-+	SAFE_CG_PRINTF(cg, "cgroup.procs", "%d", getpid());
-+
-+	tst_res(TINFO, "Child %d in %s: Allocating pagecache: %"PRIdPTR,
-+		getpid(), tst_cg_group_name(cg), size);
-+	alloc_pagecache(fd, size);
-+
-+	exit(0);
-+}
-+
-+static void test_memcg_min(void)
-+{
-+	long c[4];
-+	unsigned int i;
-+
-+	fd = SAFE_OPEN(TMPDIR"/tmpfile", O_RDWR | O_CREAT, 0600);
-+	trunk_cg[A] = tst_cg_group_mk(tst_cg, "trunk_A");
-+
-+	SAFE_CG_SCANF(trunk_cg[A], "memory.low", "%ld", c);
-+	if (c[0]) {
-+		tst_brk(TCONF,
-+			"memory.low already set to %ld on parent group", c[0]);
-+	}
-+
-+	SAFE_CG_PRINT(trunk_cg[A], "cgroup.subtree_control", "+memory");
-+
-+	SAFE_CG_PRINT(trunk_cg[A], "memory.max", "200M");
-+	SAFE_CG_PRINT(trunk_cg[A], "memory.swap.max", "0");
-+
-+	trunk_cg[B] = tst_cg_group_mk(trunk_cg[A], "trunk_B");
-+
-+	SAFE_CG_PRINT(trunk_cg[B], "cgroup.subtree_control", "+memory");
-+
-+	trunk_cg[G] = tst_cg_group_mk(trunk_cg[A], "trunk_G");
-+
-+	for (i = 0; i < ARRAY_SIZE(leaf_cg); i++) {
-+		leaf_cg[i] = tst_cg_group_mk(trunk_cg[B],
-+						 "leaf_%c", 'C' + i);
-+
-+		if (i == E)
-+			continue;
-+
-+		alloc_pagecache_in_child(leaf_cg[i], MB(50));
-+	}
-+
-+	SAFE_CG_PRINT(trunk_cg[A], "memory.low", "50M");
-+	SAFE_CG_PRINT(trunk_cg[B], "memory.low", "50M");
-+	SAFE_CG_PRINT(leaf_cg[C], "memory.low", "75M");
-+	SAFE_CG_PRINT(leaf_cg[D], "memory.low", "25M");
-+	SAFE_CG_PRINT(leaf_cg[E], "memory.low", "500M");
-+	SAFE_CG_PRINT(leaf_cg[F], "memory.low", "0");
-+
-+	alloc_anon_in_child(trunk_cg[G], MB(148));
-+
-+	SAFE_CG_SCANF(trunk_cg[B], "memory.current", "%ld", c);
-+	TST_EXP_EXPR(values_close(c[0], MB(50), 5),
-+		     "(A/B memory.current=%ld) ~= %d", c[0], MB(50));
-+
-+	for (i = 0; i < ARRAY_SIZE(leaf_cg); i++)
-+		SAFE_CG_SCANF(leaf_cg[i], "memory.current", "%ld", c + i);
-+
-+	TST_EXP_EXPR(values_close(c[0], MB(33), 20),
-+		     "(A/B/C memory.current=%ld) ~= %d", c[0], MB(33));
-+	TST_EXP_EXPR(values_close(c[1], MB(17), 20),
-+		     "(A/B/D memory.current=%ld) ~= %d", c[1], MB(17));
-+	TST_EXP_EXPR(values_close(c[2], 0, 1),
-+		     "(A/B/E memory.current=%ld) ~= 0", c[2]);
-+
-+	alloc_anon_in_child(trunk_cg[G], MB(166));
-+
-+	for (i = 0; i < ARRAY_SIZE(leaf_cg); i++) {
-+		long low, oom;
-+
-+		SAFE_CG_LINES_SCANF(leaf_cg[i], "memory.events",
-+					"low %ld", &low);
-+		SAFE_CG_LINES_SCANF(leaf_cg[i], "memory.events",
-+					"oom %ld", &oom);
-+
-+		TST_EXP_EXPR(oom == 0, "(oom events=%ld) == 0", oom);
-+
-+		if (i < E)
-+			TST_EXP_EXPR(low > 0, "(low events=%ld) > 0", low)
-+		else
-+			TST_EXP_EXPR(low == 0, "(low events=%ld) == 0", low);
-+	}
-+
-+	cleanup_sub_groups();
-+	SAFE_CLOSE(fd);
-+	SAFE_UNLINK(TMPDIR"/tmpfile");
-+}
-+
-+static void cleanup(void)
-+{
-+	cleanup_sub_groups();
-+	if (fd > -1)
-+		SAFE_CLOSE(fd);
-+}
-+
-+static struct tst_test test = {
-+	.cleanup = cleanup,
-+	.test_all = test_memcg_min,
-+	.mount_device = 1,
-+	.dev_min_size = 256,
-+	.mntpoint = TMPDIR,
-+	.all_filesystems = 1,
-+	.skip_filesystems = (const char *const[]){
-+		"exfat", "vfat", "fuse", "ntfs", "tmpfs", NULL
-+	},
-+	.forks_child = 1,
-+	.needs_root = 1,
-+	.needs_checkpoints = 1,
-+	.needs_cgroup_ver = TST_CG_V2,
-+	.needs_cgroup_ctrls = (const char *const[]){ "memory", NULL },
-+};
+There we do have:
+
+tst_mkfs ext4 /dev/device -T largefile
+
+Which obviously parses as "-T" in the fs_opts and "largefile" in the
+extra_opts.
+
+I do not think that the support for extra opts can be added this way
+without redesigning the tst_mkfs API. Maybe it would make more sense to
+just pass the parameters in the same way we end up passing them on a
+command line, i.e. we would only interpret the first parameter passed to
+tst_mkfs as a filesystem type and pass the rest as $@.
+
+>  	if [ -z "$device" ]; then
+>  		tst_brk TBROK "No device specified"
+> @@ -353,8 +352,8 @@ tst_mkfs()
+>  
+>  	tst_require_cmds mkfs.$fs_type
+>  
+> -	tst_res TINFO "Formatting $device with $fs_type extra opts='$fs_opts'"
+> -	ROD_SILENT mkfs.$fs_type $fs_opts $device
+> +	tst_res TINFO "Formatting $device with $fs_type opts='$fs_opts' extra opts='$extra_opts'"
+> +	ROD_SILENT mkfs.$fs_type $fs_opts $device $extra_opts
+>  }
+>  
+>  # Detect whether running under hypervisor: Microsoft Hyper-V
+> -- 
+> 2.34.1
+> 
+> 
+> -- 
+> Mailing list info: https://lists.linux.it/listinfo/ltp
+
 -- 
-2.34.1
-
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
