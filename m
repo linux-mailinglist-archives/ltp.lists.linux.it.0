@@ -2,73 +2,72 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id AEA5D4AD555
-	for <lists+linux-ltp@lfdr.de>; Tue,  8 Feb 2022 11:11:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5F434AD590
+	for <lists+linux-ltp@lfdr.de>; Tue,  8 Feb 2022 11:40:33 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1BA193C9B61
-	for <lists+linux-ltp@lfdr.de>; Tue,  8 Feb 2022 11:11:10 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id D18C73C9B61
+	for <lists+linux-ltp@lfdr.de>; Tue,  8 Feb 2022 11:40:32 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id C8EE93C9B3D
- for <ltp@lists.linux.it>; Tue,  8 Feb 2022 11:09:54 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id EBB723C5795
+ for <ltp@lists.linux.it>; Tue,  8 Feb 2022 11:40:28 +0100 (CET)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 3AF461001182
- for <ltp@lists.linux.it>; Tue,  8 Feb 2022 11:09:54 +0100 (CET)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 4C53F600736
+ for <ltp@lists.linux.it>; Tue,  8 Feb 2022 11:40:27 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id E19DA21102;
- Tue,  8 Feb 2022 10:09:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1644314993; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 623DF210FB;
+ Tue,  8 Feb 2022 10:40:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1644316827; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=0rwivpPMl3kPVQhrIIR3Zr3PLD9XqSKRcODdSNTDkqQ=;
- b=s0ljzQHYTOBcJQQyg83k9y2UkM6GsqM8BdKzf7bMbh0GC0iqSEEfdWvkEHz6i4Aaw5mzIz
- CQ5m1Y55MZZvz9dsZmeFN9C1HDWi2/z214M0/OndlZjOAcDcgpoqvioXDXUMptg+HR7iM7
- ijAScUIgLdAKpRQU8drEM1lCYUP5Dko=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1644314993;
+ bh=eHoHmRbtotvmkdwCWe8N6GDMgG94ZTOVL+nvKtzn5bk=;
+ b=q4iTUqrO+ww+P/kZ0+zGA8VEGY5qCCFNnG62qQBH0NWCox3qBi7ZnoSON1tQWI5bKiF6ic
+ a20pWohduxOp/H3KtJv+Xe+NBqaNKikLdWT3bByiQ9vPJvyYBiIRBqeygl+4VcTq1lHGAw
+ c8dcSoFHycZNDeJW6AdvdTnQU0cD3V4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1644316827;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=0rwivpPMl3kPVQhrIIR3Zr3PLD9XqSKRcODdSNTDkqQ=;
- b=tzeF5usIXUIBwT1PoPcZRyVMs2q8Err0UZJ+bfNfL2extQATmq9TmNwF6/bbTTFCbQDJAk
- NwxFx3BRVRH0rAAg==
+ bh=eHoHmRbtotvmkdwCWe8N6GDMgG94ZTOVL+nvKtzn5bk=;
+ b=qHS7qP2hD8epFW/l5i68Gy+L3PdCOsTOYQhkxNAj7YeCZSCcnrqXR3EduTVNY1bQ6SWRi8
+ e6EKvWmyvONIeNCg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id BBAF913BF9;
- Tue,  8 Feb 2022 10:09:53 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4621D13C08;
+ Tue,  8 Feb 2022 10:40:27 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id EO3RK3FBAmIwcQAAMHmgww
- (envelope-from <andrea.cervesato@suse.de>); Tue, 08 Feb 2022 10:09:53 +0000
-From: Andrea Cervesato <andrea.cervesato@suse.de>
-To: ltp@lists.linux.it
-Date: Tue,  8 Feb 2022 11:09:48 +0100
-Message-Id: <20220208100948.22913-10-andrea.cervesato@suse.de>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220208100948.22913-1-andrea.cervesato@suse.de>
-References: <20220208100948.22913-1-andrea.cervesato@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id 5vDpD5tIAmJxAgAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Tue, 08 Feb 2022 10:40:27 +0000
+Date: Tue, 8 Feb 2022 11:42:31 +0100
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Kushal Chand <kushalkataria5@gmail.com>
+Message-ID: <YgJJF5dtbW48JKMv@yuki>
+References: <20220208100302.44347-1-kushalkataria5@gmail.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20220208100302.44347-1-kushalkataria5@gmail.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH v1 9/9] Rewrite shmnstest.c using new LTP API
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v1] fstat_02: Increase test coverage by creating
+ hard links to file and validate using fstat
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,251 +79,57 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.de>
----
- .../kernel/containers/sysvipc/shmnstest.c     | 185 ++++++++----------
- 1 file changed, 83 insertions(+), 102 deletions(-)
+Hi!
+>  #define TESTFILE        "test_file"
+> +#define LINK_TESTFILE   "link_test_file"
+>  #define FILE_SIZE       1024
+>  #define FILE_MODE	0644
+> +#define NLINK	        2
+>  
+>  static struct stat stat_buf;
+>  static uid_t user_id;
+> @@ -61,6 +63,12 @@ static void run(void)
+>  		fail++;
+>  	}
+>  
+> +	if (stat_buf.st_nlink != NLINK) {
+> +		tst_res(TFAIL, "stat_buf.st_nlink = %lu expected %o",
+                                                                  ^
+								  Why %o?
+> +			(stat_buf.st_nlink), NLINK);
+                      ^
+		      this should be casted properly
+> +		fail++;
+> +	}
+> +
+>  	if (fail)
+>  		return;
+>  
+> @@ -78,6 +86,8 @@ static void setup(void)
+>  
+>  	if (tst_fill_file(TESTFILE, 'a', FILE_SIZE, 1))
+>  		tst_brk(TBROK, "Could not fill Testfile!");
+> +
+> +	SAFE_LINK(TESTFILE, LINK_TESTFILE);
+>  }
+>  
+>  static void cleanup(void)
+> -- 
+> 2.25.1
+> 
+> 
+> -- 
+> Mailing list info: https://lists.linux.it/listinfo/ltp
 
-diff --git a/testcases/kernel/containers/sysvipc/shmnstest.c b/testcases/kernel/containers/sysvipc/shmnstest.c
-index cf69cab21..55f76a0be 100644
---- a/testcases/kernel/containers/sysvipc/shmnstest.c
-+++ b/testcases/kernel/containers/sysvipc/shmnstest.c
-@@ -1,144 +1,125 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
- /*
--* Copyright (c) International Business Machines Corp., 2007
--* This program is free software; you can redistribute it and/or modify
--* it under the terms of the GNU General Public License as published by
--* the Free Software Foundation; either version 2 of the License, or
--* (at your option) any later version.
--*
--* This program is distributed in the hope that it will be useful,
--* but WITHOUT ANY WARRANTY; without even the implied warranty of
--* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
--* the GNU General Public License for more details.
--* You should have received a copy of the GNU General Public License
--* along with this program; if not, write to the Free Software
--* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
--*
--* Author: Serge Hallyn <serue@us.ibm.com>
--*
--* Create shm with key 0xEAEAEA
--* clone, clone(CLONE_NEWIPC), or unshare(CLONE_NEWIPC)
--* In cloned process, try to get the created shm
--
--***************************************************************************/
--
--#define _GNU_SOURCE 1
--#include <sys/wait.h>
--#include <assert.h>
--#include <stdio.h>
--#include <stdlib.h>
--#include <unistd.h>
--#include <string.h>
--#include <errno.h>
-+ * Copyright (c) International Business Machines Corp., 2007
-+ *				Serge Hallyn <serue@us.ibm.com>
-+ * Copyright (C) 2021 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
-+ */
-+
-+/*\
-+ * [Description]
-+ *
-+ * Create shm with key 0xEAEAEA and in cloned process try to get the shm.
-+ */
-+
-+#define _GNU_SOURCE
-+
- #include <sys/ipc.h>
- #include <sys/shm.h>
--#include "ipcns_helper.h"
--#include "test.h"
-+#include <sys/wait.h>
-+#include <sys/msg.h>
-+#include <sys/types.h>
-+#include "tst_test.h"
-+#include "common.h"
- 
--char *TCID = "sysvipc_namespace";
--int TST_TOTAL = 1;
- #define TESTKEY 0xEAEAEA
- 
--int p1[2];
--int p2[2];
-+static char *str_op = "clone";
-+
-+static int p1[2];
-+static int p2[2];
- 
--int check_shmid(void *vtest)
-+static int check_shmid(LTP_ATTRIBUTE_UNUSED void *vtest)
- {
- 	char buf[3];
- 	int id;
- 
--	(void) vtest;
-+	SAFE_CLOSE(p1[1]);
-+	SAFE_CLOSE(p2[0]);
- 
--	close(p1[1]);
--	close(p2[0]);
-+	SAFE_READ(1, p1[0], buf, 3);
- 
--	read(p1[0], buf, 3);
- 	id = shmget(TESTKEY, 100, 0);
--	if (id == -1) {
--		write(p2[1], "notfnd", 7);
-+	if (id < 0) {
-+		SAFE_WRITE(1, p2[1], "notfnd", 7);
- 	} else {
--		write(p2[1], "exists", 7);
-+		SAFE_WRITE(1, p2[1], "exists", 7);
- 		shmctl(id, IPC_RMID, NULL);
- 	}
- 
--	tst_exit();
-+	return 0;
- }
- 
--static void setup(void)
-+static void run(void)
- {
--	tst_require_root();
--	check_newipc();
--}
--
--#define UNSHARESTR "unshare"
--#define CLONESTR "clone"
--#define NONESTR "none"
--int main(int argc, char *argv[])
--{
--	int r, use_clone = T_NONE;
-+	int use_clone = T_NONE;
- 	int id;
--	char *tsttype = NONESTR;
- 	char buf[7];
- 
--	setup();
-+	/* Using PIPE's to sync between container and Parent */
-+	SAFE_PIPE(p1);
-+	SAFE_PIPE(p2);
- 
--	if (argc != 2) {
--		tst_resm(TFAIL, "Usage: %s <clone|unshare|none>", argv[0]);
--		tst_brkm(TFAIL,
--			 NULL,
--			 " where clone, unshare, or fork specifies unshare method.");
--	}
--	if (pipe(p1) == -1) {
--		perror("pipe");
--		exit(EXIT_FAILURE);
--	}
--	if (pipe(p2) == -1) {
--		perror("pipe");
--		exit(EXIT_FAILURE);
--	}
--	tsttype = NONESTR;
--	if (strcmp(argv[1], "clone") == 0) {
-+	if (!strcmp(str_op, "clone"))
- 		use_clone = T_CLONE;
--		tsttype = CLONESTR;
--	} else if (strcmp(argv[1], "unshare") == 0) {
-+	else if (!strcmp(str_op, "unshare"))
- 		use_clone = T_UNSHARE;
--		tsttype = UNSHARESTR;
--	}
- 
- 	/* first create the key */
--	id = shmget(TESTKEY, 100, IPC_CREAT);
--	if (id == -1) {
--		perror("shmget");
--		tst_brkm(TFAIL, NULL, "shmget failed");
--	}
-+	TEST(shmget(TESTKEY, 100, IPC_CREAT));
-+	if (TST_RET < 0)
-+		tst_brk(TBROK, "shmget: %s", tst_strerrno(-TST_ERR));
-+
-+	id = (int)TST_RET;
-+
-+	tst_res(TINFO, "shmid namespaces test : %s", str_op);
- 
--	tst_resm(TINFO, "shmid namespaces test : %s", tsttype);
- 	/* fire off the test */
--	r = do_clone_unshare_test(use_clone, CLONE_NEWIPC, check_shmid, NULL);
--	if (r < 0) {
--		tst_brkm(TFAIL, NULL, "%s failed", tsttype);
--	}
-+	clone_unshare_test(use_clone, CLONE_NEWIPC, check_shmid, NULL);
-+
-+	SAFE_CLOSE(p1[0]);
-+	SAFE_CLOSE(p2[1]);
-+
-+	SAFE_WRITE(1, p1[1], "go", 3);
-+	SAFE_READ(1, p2[0], buf, 7);
- 
--	close(p1[0]);
--	close(p2[1]);
--	write(p1[1], "go", 3);
--	read(p2[0], buf, 7);
- 	if (strcmp(buf, "exists") == 0) {
- 		if (use_clone == T_NONE)
--			tst_resm(TPASS, "plain cloned process found shmid");
-+			tst_res(TPASS, "plain cloned process found shmid");
- 		else
--			tst_resm(TFAIL, "%s: child process found shmid",
--				 tsttype);
-+			tst_res(TFAIL, "%s: child process found shmid", str_op);
- 	} else {
--		if (use_clone == T_NONE)
--			tst_resm(TFAIL,
--				 "plain cloned process didn't find shmid");
--		else
--			tst_resm(TPASS, "%s: child process didn't find shmid",
--				 tsttype);
-+		if (use_clone == T_NONE) {
-+			tst_res(TFAIL,
-+				"plain cloned process didn't find shmid");
-+		} else {
-+			tst_res(TPASS, "%s: child process didn't find shmid",
-+				str_op);
-+		}
- 	}
- 
- 	/* destroy the key */
- 	shmctl(id, IPC_RMID, NULL);
-+}
- 
--	tst_exit();
-+static void setup(void)
-+{
-+	check_newipc();
-+
-+	if (strcmp(str_op, "clone") && strcmp(str_op, "unshare") &&
-+	    strcmp(str_op, "none"))
-+		tst_brk(TBROK, "Test execution mode <clone|unshare|none>");
- }
-+
-+static struct tst_test test = {
-+	.test_all = run,
-+	.setup = setup,
-+	.forks_child = 1,
-+	.needs_root = 1,
-+	.needs_checkpoints = 1,
-+	.options =
-+		(struct tst_option[]){
-+			{ "m:", &str_op,
-+			  "Test execution mode <clone|unshare|none>" },
-+			{},
-+		},
-+};
 -- 
-2.35.1
-
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
