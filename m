@@ -2,74 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 472794AD9B9
-	for <lists+linux-ltp@lfdr.de>; Tue,  8 Feb 2022 14:25:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD8774AD9DF
+	for <lists+linux-ltp@lfdr.de>; Tue,  8 Feb 2022 14:29:59 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E17DE3C9B49
-	for <lists+linux-ltp@lfdr.de>; Tue,  8 Feb 2022 14:25:53 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 506F93C9B49
+	for <lists+linux-ltp@lfdr.de>; Tue,  8 Feb 2022 14:29:59 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 2641A3C9B28
- for <ltp@lists.linux.it>; Tue,  8 Feb 2022 14:25:52 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 4A1333C26B4
+ for <ltp@lists.linux.it>; Tue,  8 Feb 2022 14:29:58 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 46F7160015C
- for <ltp@lists.linux.it>; Tue,  8 Feb 2022 14:25:51 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id D8B991000415
+ for <ltp@lists.linux.it>; Tue,  8 Feb 2022 14:29:57 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 38FD7210E8;
- Tue,  8 Feb 2022 13:25:51 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 195231F383;
+ Tue,  8 Feb 2022 13:29:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1644326751; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1644326997; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=VriNBvKmqU+/+po9JYBfOrEVzD+Hga4aBOkAVHm1HJ8=;
- b=q8xQetLkjbnOl3a0ov6yF+SjQrTIIdJFVdi+LCenLgMwYlz4l8L/5K2nj3sLhTjCX75tnD
- PtsRD7p/Y5Ch28282iynLdb7c7gPwMuHAlO8tY6T1MFvNQT0bswrQnrB294B5zyZavEKrV
- SxqeCsFg2cfB0NE2ekjzWoaDZf0iBe4=
+ bh=+qEjuQevZqyO6CweEJ3yMgcImI5q9b4HueNFxukrWBY=;
+ b=NF8qOfqDFJ8YEa73P71fVeNvzWXVW9bxYGCNCBR+BnpJ06Q4ch61V6eoQ3e8THr2Ir+9lz
+ P/N1UMBJM+P1e8Y97krmoBd8cDLsPrPFbFf77qGF6N9rODEqZNw+FOtRrkY5r7/lwIZpkm
+ Lw+9ZRyTGHV/7fNaJ+kajPX/Rs6Nt2Y=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1644326751;
+ s=susede2_ed25519; t=1644326997;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=VriNBvKmqU+/+po9JYBfOrEVzD+Hga4aBOkAVHm1HJ8=;
- b=5ted5pZENM3R6FboBugtt2WHN9EKfFLINK9C7cUfvkHH8t1aYeV8QnY9HmmLup0yaAGaOG
- bzZVDJGJbtA3kYBA==
+ bh=+qEjuQevZqyO6CweEJ3yMgcImI5q9b4HueNFxukrWBY=;
+ b=0zpg6Ssj/E+YU1Dr9DV7uxtuEURytzvBKf/+sMPa1eFh/8pf9cRbAcfSjU6EbVCroMXjR7
+ cnyNsbpEB6f5CLDg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1D75313C99;
- Tue,  8 Feb 2022 13:25:51 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id EA72E13C99;
+ Tue,  8 Feb 2022 13:29:56 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id /p+FBV9vAmI2YAAAMHmgww
- (envelope-from <chrubis@suse.cz>); Tue, 08 Feb 2022 13:25:51 +0000
-Date: Tue, 8 Feb 2022 14:27:55 +0100
+ by imap2.suse-dmz.suse.de with ESMTPSA id Bwu6NVRwAmJ2YgAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Tue, 08 Feb 2022 13:29:56 +0000
+Date: Tue, 8 Feb 2022 14:32:00 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <YgJv2+y6v/+Tpb1N@yuki>
+Message-ID: <YgJw0H/oU2DirgC7@yuki>
 References: <20220126145141.13825-1-pvorel@suse.cz>
- <20220126145141.13825-2-pvorel@suse.cz>
+ <20220126145141.13825-3-pvorel@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20220126145141.13825-2-pvorel@suse.cz>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+In-Reply-To: <20220126145141.13825-3-pvorel@suse.cz>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/2] tst_test.sh: Print environment variables in
- help
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 2/2] doc: Mention places for environment variables
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,29 +87,6 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> diff --git a/testcases/lib/tst_test.sh b/testcases/lib/tst_test.sh
-> index 30614974c3..a7fd7b19c6 100644
-> --- a/testcases/lib/tst_test.sh
-> +++ b/testcases/lib/tst_test.sh
-> @@ -448,12 +448,30 @@ tst_usage()
->  	if [ -n "$TST_USAGE" ]; then
->  		$TST_USAGE
->  	else
-> -		echo "usage: $0"
-> -		echo "OPTIONS"
-> +		cat << EOF
-> +usage: $0
-> +
-> +Options
-> +-------
-> +EOF
-
-I think that the cat EOF syntax inside of else branch is a bit
-confusing, especially sice it prints just three lines of text...
-
-
-But other than that:
-
 Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
 
 -- 
