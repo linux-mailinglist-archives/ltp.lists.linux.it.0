@@ -2,73 +2,74 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 203B04AD54E
-	for <lists+linux-ltp@lfdr.de>; Tue,  8 Feb 2022 11:10:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF8BF4AD551
+	for <lists+linux-ltp@lfdr.de>; Tue,  8 Feb 2022 11:10:36 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B0AB93C9AE6
-	for <lists+linux-ltp@lfdr.de>; Tue,  8 Feb 2022 11:10:04 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 83AB23C9B4A
+	for <lists+linux-ltp@lfdr.de>; Tue,  8 Feb 2022 11:10:36 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A59AA3C9AE6
+ by picard.linux.it (Postfix) with ESMTPS id 1BE813C071A
  for <ltp@lists.linux.it>; Tue,  8 Feb 2022 11:09:53 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id C2D51200AE9
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 1C0A6601142
  for <ltp@lists.linux.it>; Tue,  8 Feb 2022 11:09:52 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 46A30210FE;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 6ED6B1F383;
  Tue,  8 Feb 2022 10:09:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1644314992; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Zo29cX0puVwrGRNrKlpY5k7SvnX5IizJX3ExFBtGlQ4=;
- b=HehuQOx18sytNngqXeKWlQWvVqxtPN/TdBn+ZaMxNeNWSTEgly32P7uDRtXfhzrM9dsx0d
- GFUH2uaX3L/a+8hgx8N2JyX/m3Crw2l47Uw6U62himlkOoEQCZg1bxfmsJ80QlHgEIzin8
- wNM3kkZ4IrxK4tDeV18MW3Fir5fufkI=
+ bh=i92FbxeVcq5p5EGllYiu9/KmlzDt7AHiVS+Ao7XBlD0=;
+ b=swYoeqATWvbNnTVUBcLgrb/4upYKjGV8opk7n6wEYzhWQDHuM/za5Pa2Sq9XK1hOMPPOBE
+ NMzGSj6jIDlTTiWWe2q0G9t7IEJ0rQBjrX72plg4nC1rIAylp/YHFGDd1nLpzRZtR8+jl7
+ dzeyd9VheQXTzr3W5IbdDzp8aX4haz4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1644314992;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Zo29cX0puVwrGRNrKlpY5k7SvnX5IizJX3ExFBtGlQ4=;
- b=zb+vNbd+3XINxqqZ2hyt6Pwv9D0Yxj/zbhWK2pxpqHr8awWEzPC3oM8lzMsLQmc313oGUV
- B4mdobK/ijjhH/Dw==
+ bh=i92FbxeVcq5p5EGllYiu9/KmlzDt7AHiVS+Ao7XBlD0=;
+ b=C+9lXRE9BlW6jHkCIoeDHE74/GBXwi0GYtjmZLmLeEw9mjL/6YeeJhzLI23Cn0qmJSnvRP
+ Jg7ILIH5furrH3Ag==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 144AE13BF9;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 47AB213C06;
  Tue,  8 Feb 2022 10:09:52 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id +AzzAnBBAmIwcQAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id 6EFsD3BBAmIwcQAAMHmgww
  (envelope-from <andrea.cervesato@suse.de>); Tue, 08 Feb 2022 10:09:52 +0000
 From: Andrea Cervesato <andrea.cervesato@suse.de>
 To: ltp@lists.linux.it
-Date: Tue,  8 Feb 2022 11:09:40 +0100
-Message-Id: <20220208100948.22913-2-andrea.cervesato@suse.de>
+Date: Tue,  8 Feb 2022 11:09:41 +0100
+Message-Id: <20220208100948.22913-3-andrea.cervesato@suse.de>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220208100948.22913-1-andrea.cervesato@suse.de>
 References: <20220208100948.22913-1-andrea.cervesato@suse.de>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH v1 1/9] Remove libclone dependency from sysvipc
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH v1 2/9] Rewrite mesgq_nstest.c using new LTP API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,208 +86,18 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This is the step 1 before rewriting all sysvipc tests using new
-LTP API. Substituted ipcns_helper.h with a common.h header for all
-tests. The new common.h file includes some helpers functions, as
-well as specific clone functionalities.
-
 Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.de>
 ---
- testcases/kernel/containers/sysvipc/Makefile  |  26 +---
- testcases/kernel/containers/sysvipc/common.h  | 138 ++++++++++++++++++
- .../kernel/containers/sysvipc/ipcns_helper.h  |  41 ------
- 3 files changed, 141 insertions(+), 64 deletions(-)
- create mode 100644 testcases/kernel/containers/sysvipc/common.h
- delete mode 100644 testcases/kernel/containers/sysvipc/ipcns_helper.h
+ .../kernel/containers/sysvipc/mesgq_nstest.c  | 234 ++++++++----------
+ 1 file changed, 108 insertions(+), 126 deletions(-)
 
-diff --git a/testcases/kernel/containers/sysvipc/Makefile b/testcases/kernel/containers/sysvipc/Makefile
-index 00b537f6a..426fe5292 100644
---- a/testcases/kernel/containers/sysvipc/Makefile
-+++ b/testcases/kernel/containers/sysvipc/Makefile
-@@ -1,28 +1,8 @@
--################################################################################
--##                                                                            ##
--## Copyright (c) International Business Machines  Corp., 2007                 ##
--##                                                                            ##
--## This program is free software;  you can redistribute it and#or modify      ##
--## it under the terms of the GNU General Public License as published by       ##
--## the Free Software Foundation; either version 2 of the License, or          ##
--## (at your option) any later version.                                        ##
--##                                                                            ##
--## This program is distributed in the hope that it will be useful, but        ##
--## WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY ##
--## or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License   ##
--## for more details.                                                          ##
--##                                                                            ##
--## You should have received a copy of the GNU General Public License          ##
--## along with this program;  if not, write to the Free Software               ##
--## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA    ##
--##                                                                            ##
--################################################################################
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+# Copyright (c) International Business Machines  Corp., 2007
-+# Copyright (C) 2021 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
- 
- top_srcdir		?= ../../../..
- 
- include $(top_srcdir)/include/mk/testcases.mk
--include $(abs_srcdir)/../Makefile.inc
--
--LDLIBS			:= -lclone $(LDLIBS)
--
- include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/kernel/containers/sysvipc/common.h b/testcases/kernel/containers/sysvipc/common.h
-new file mode 100644
-index 000000000..019716781
---- /dev/null
-+++ b/testcases/kernel/containers/sysvipc/common.h
-@@ -0,0 +1,138 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) International Business Machines Corp., 2007
-+ *               Rishikesh K Rajak <risrajak@in.ibm.com>
-+ * Copyright (C) 2022 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
-+ */
-+
-+#ifndef COMMON_H
-+#define COMMON_H
-+
-+#include <stdlib.h>
-+#include "tst_test.h"
-+#include "lapi/syscalls.h"
-+#include "lapi/namespaces_constants.h"
-+
-+enum {
-+	T_CLONE,
-+	T_UNSHARE,
-+	T_NONE,
-+};
-+
-+static int dummy_child(void *v)
-+{
-+	(void)v;
-+	return 0;
-+}
-+
-+static void check_newipc(void)
-+{
-+	int pid, status;
-+
-+	if (tst_kvercmp(2, 6, 19) < 0)
-+		tst_brk(TCONF, "CLONE_NEWIPC not supported");
-+
-+	pid = ltp_clone_quick(CLONE_NEWIPC | SIGCHLD, dummy_child, NULL);
-+	if (pid < 0)
-+		tst_brk(TCONF | TERRNO, "CLONE_NEWIPC not supported");
-+
-+	SAFE_WAITPID(pid, &status, 0);
-+}
-+
-+static int clone_test(unsigned long clone_flags, int (*fn1)(void *arg),
-+		      void *arg1)
-+{
-+	int ret;
-+
-+	ret = ltp_clone_quick(clone_flags | SIGCHLD, fn1, arg1);
-+
-+	if (ret != -1) {
-+		/* no errors: we'll get the PID id that means success */
-+		ret = 0;
-+	}
-+
-+	return ret;
-+}
-+
-+static int unshare_test(unsigned long clone_flags, int (*fn1)(void *arg),
-+			void *arg1)
-+{
-+	int pid, ret = 0;
-+	int retpipe[2];
-+	char buf[2];
-+
-+	SAFE_PIPE(retpipe);
-+
-+	pid = fork();
-+	if (pid < 0) {
-+		SAFE_CLOSE(retpipe[0]);
-+		SAFE_CLOSE(retpipe[1]);
-+		tst_brk(TBROK, "fork");
-+	}
-+
-+	if (!pid) {
-+		SAFE_CLOSE(retpipe[0]);
-+
-+		ret = tst_syscall(SYS_unshare, clone_flags);
-+		if (ret == -1) {
-+			SAFE_WRITE(1, retpipe[1], "0", 2);
-+			SAFE_CLOSE(retpipe[1]);
-+			exit(1);
-+		} else {
-+			SAFE_WRITE(1, retpipe[1], "1", 2);
-+		}
-+
-+		SAFE_CLOSE(retpipe[1]);
-+
-+		ret = fn1(arg1);
-+		exit(ret);
-+	}
-+
-+	SAFE_CLOSE(retpipe[1]);
-+	SAFE_READ(1, retpipe[0], &buf, 2);
-+	SAFE_CLOSE(retpipe[0]);
-+
-+	if (*buf == '0')
-+		return -1;
-+
-+	return ret;
-+}
-+
-+static int plain_test(int (*fn1)(void *arg), void *arg1)
-+{
-+	int ret = 0, pid;
-+
-+	pid = SAFE_FORK();
-+	if (!pid)
-+		exit(fn1(arg1));
-+
-+	return ret;
-+}
-+
-+static void clone_unshare_test(int use_clone, unsigned long clone_flags,
-+			       int (*fn1)(void *arg), void *arg1)
-+{
-+	int ret = 0;
-+
-+	switch (use_clone) {
-+	case T_NONE:
-+		ret = plain_test(fn1, arg1);
-+		break;
-+	case T_CLONE:
-+		ret = clone_test(clone_flags, fn1, arg1);
-+		break;
-+	case T_UNSHARE:
-+		ret = unshare_test(clone_flags, fn1, arg1);
-+		break;
-+	default:
-+		ret = -1;
-+		tst_brk(TBROK, "%s: bad use_clone option: %d", __FUNCTION__,
-+			use_clone);
-+		break;
-+	}
-+
-+	if (ret == -1)
-+		tst_brk(TBROK, "child2 clone failed");
-+}
-+
-+#endif
-diff --git a/testcases/kernel/containers/sysvipc/ipcns_helper.h b/testcases/kernel/containers/sysvipc/ipcns_helper.h
-deleted file mode 100644
-index 01ad0fff6..000000000
---- a/testcases/kernel/containers/sysvipc/ipcns_helper.h
-+++ /dev/null
-@@ -1,41 +0,0 @@
--/*
--* Copyright (c) International Business Machines Corp., 2007
+diff --git a/testcases/kernel/containers/sysvipc/mesgq_nstest.c b/testcases/kernel/containers/sysvipc/mesgq_nstest.c
+index dbf311dc8..d0fc5ff34 100644
+--- a/testcases/kernel/containers/sysvipc/mesgq_nstest.c
++++ b/testcases/kernel/containers/sysvipc/mesgq_nstest.c
+@@ -1,175 +1,157 @@
+-/* *************************************************************************
+-* Copyright (c) International Business Machines Corp., 2009
 -* This program is free software; you can redistribute it and/or modify
 -* it under the terms of the GNU General Public License as published by
 -* the Free Software Foundation; either version 2 of the License, or
@@ -300,32 +111,274 @@ index 01ad0fff6..000000000
 -* along with this program; if not, write to the Free Software
 -* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
 -*
--* Author: Rishikesh K Rajak <risrajak@in.ibm.com>
+-* Author: Veerendra C <vechandr@in.ibm.com>
+-*
+-* In Parent Process , create mesgq with key 154326L
+-* Now create container by passing 1 of the flag values..
+-*	Flag = clone, clone(CLONE_NEWIPC), or unshare(CLONE_NEWIPC)
+-* In cloned process, try to access the created mesgq
+-* Test PASS: If the mesgq is readable when flag is None.
+-* Test FAIL: If the mesgq is readable when flag is Unshare or Clone.
 -***************************************************************************/
--#include <sched.h>
--#include "../libclone/libclone.h"
+-
+-#define _GNU_SOURCE 1
+-#include <stdio.h>
+-#include <stdlib.h>
+-#include <unistd.h>
+-#include <string.h>
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) International Business Machines Corp., 2009
++ *				Veerendra C <vechandr@in.ibm.com>
++ * Copyright (C) 2021 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
++ */
++
++/*\
++ * [Description]
++ *
++ * In Parent Process , create mesgq with key 154326L
++ * Now create container by passing 1 of the flag values..
++ *	Flag = clone, clone(CLONE_NEWIPC), or unshare(CLONE_NEWIPC)
++ * In cloned process, try to access the created mesgq
++ * Test PASS: If the mesgq is readable when flag is None.
++ * Test FAIL: If the mesgq is readable when flag is Unshare or Clone.
++ */
++
++#define _GNU_SOURCE
++
+ #include <sys/ipc.h>
++#include <sys/wait.h>
+ #include <sys/msg.h>
+-#include <libclone.h>
 -#include "test.h"
--#include "safe_macros.h"
+-#include "ipcns_helper.h"
 -
--static int dummy_child(void *v)
--{
--	(void) v;
--	return 0;
+-#define KEY_VAL		154326L
+-#define UNSHARESTR	"unshare"
+-#define CLONESTR	"clone"
+-#define NONESTR		"none"
+-
+-char *TCID = "mesgq_nstest";
+-int TST_TOTAL = 1;
+-int p1[2];
+-int p2[2];
+-struct msg_buf {
+-	long int mtype;		/* type of received/sent message */
+-	char mtext[80];		/* text of the message */
++#include <sys/types.h>
++#include "tst_test.h"
++#include "common.h"
++
++#define KEY_VAL 154326L
++
++static char *str_op = "clone";
++
++static int p1[2];
++static int p2[2];
++
++static struct msg_buf {
++	int mtype; /* type of received/sent message */
++	char mtext[80]; /* text of the message */
+ } msg;
+ 
+-void mesgq_read(int id)
++static void mesgq_read(int id)
+ {
+-	int READMAX = 80;
+ 	int n;
+-	/* read msg type 5 on the Q; msgtype, flags are last 2 params.. */
+ 
+-	n = msgrcv(id, &msg, READMAX, 5, 0);
+-	if (n == -1)
+-		perror("msgrcv"), tst_exit();
++	/* read msg type 5 on the Q; msgtype, flags are last 2 params.. */
++	n = msgrcv(id, &msg, sizeof(struct msg_buf) - sizeof(long), 5, 0);
++	if (n < 0)
++		tst_brk(TBROK, "msgrcv: %s", tst_strerrno(-n));
+ 
+-	tst_resm(TINFO, "Mesg read of %d bytes; Type %ld: Msg: %.*s",
+-		 n, msg.mtype, n, msg.mtext);
++	tst_res(TINFO, "Mesg read of %d bytes; Type %ld: Msg: %.*s", n,
++		msg.mtype, n, msg.mtext);
+ }
+ 
+-int check_mesgq(void *vtest)
++static int check_mesgq(LTP_ATTRIBUTE_UNUSED void *vtest)
+ {
+ 	char buf[3];
+ 	int id;
+ 
+-	(void) vtest;
++	SAFE_CLOSE(p1[1]);
++	SAFE_CLOSE(p2[0]);
+ 
+-	close(p1[1]);
+-	close(p2[0]);
++	SAFE_READ(1, p1[0], buf, 3);
+ 
+-	read(p1[0], buf, 3);
+ 	id = msgget(KEY_VAL, 0);
+-	if (id == -1)
+-		write(p2[1], "notfnd", 7);
++	if (id < 0)
++		SAFE_WRITE(1, p2[1], "notfnd", 7);
+ 	else {
+-		write(p2[1], "exists", 7);
++		SAFE_WRITE(1, p2[1], "exists", 7);
+ 		mesgq_read(id);
+ 	}
+-	tst_exit();
 -}
--
--static void check_newipc(void)
+ 
+-static void setup(void)
 -{
--	int pid, status;
+-	tst_require_root();
+-	check_newipc();
++	return 0;
+ }
+ 
+-int main(int argc, char *argv[])
++static void run(void)
+ {
+-	int ret, use_clone = T_NONE, id, n;
+-	char *tsttype = NONESTR;
++	int use_clone = T_NONE, id, n;
+ 	char buf[7];
+ 
+-	setup();
 -
--	if (tst_kvercmp(2, 6, 19) < 0)
--		tst_brkm(TCONF, NULL, "CLONE_NEWIPC not supported");
+-	if (argc != 2) {
+-		tst_resm(TFAIL, "Usage: %s <clone|unshare|none>", argv[0]);
+-		tst_brkm(TFAIL, NULL, " where clone, unshare, or fork specifies"
+-			 " unshare method.");
+-	}
 -
--	pid = do_clone_unshare_test(T_CLONE, CLONE_NEWIPC, dummy_child, NULL);
--	if (pid == -1)
--		tst_brkm(TCONF | TERRNO, NULL, "CLONE_NEWIPC not supported");
+ 	/* Using PIPE's to sync between container and Parent */
+-	if (pipe(p1) == -1) {
+-		perror("pipe");
+-		exit(EXIT_FAILURE);
+-	}
+-	if (pipe(p2) == -1) {
+-		perror("pipe");
+-		exit(EXIT_FAILURE);
+-	}
++	SAFE_PIPE(p1);
++	SAFE_PIPE(p2);
+ 
+-	tsttype = NONESTR;
 -
--	SAFE_WAIT(NULL, &status);
--}
+-	if (strcmp(argv[1], "clone") == 0) {
++	if (!strcmp(str_op, "clone"))
+ 		use_clone = T_CLONE;
+-		tsttype = CLONESTR;
+-	} else if (strcmp(argv[1], "unshare") == 0) {
++	else if (!strcmp(str_op, "unshare"))
+ 		use_clone = T_UNSHARE;
+-		tsttype = UNSHARESTR;
+-	}
+ 
+ 	id = msgget(KEY_VAL, IPC_CREAT | IPC_EXCL | 0600);
+-	if (id == -1) {
+-		perror("msgget");
++	if (id < 0) {
+ 		/* Retry without attempting to create the MQ */
+ 		id = msgget(KEY_VAL, 0);
+-		if (id == -1)
+-			perror("msgget failure"), exit(1);
++		if (id < 0)
++			tst_brk(TBROK, "msgget: %s", tst_strerrno(-id));
+ 	}
+ 
+ 	msg.mtype = 5;
+ 	strcpy(msg.mtext, "Message of type 5!");
++
+ 	n = msgsnd(id, &msg, strlen(msg.mtext), 0);
+-	if (n == -1)
+-		perror("msgsnd"), tst_exit();
++	if (n < 0)
++		tst_brk(TBROK, "msgsnd: %s", tst_strerrno(-n));
+ 
+-	tst_resm(TINFO, "mesgq namespaces test : %s", tsttype);
+-	/* fire off the test */
+-	ret = do_clone_unshare_test(use_clone, CLONE_NEWIPC, check_mesgq, NULL);
+-	if (ret < 0) {
+-		tst_brkm(TFAIL, NULL, "%s failed", tsttype);
+-	}
++	tst_res(TINFO, "mesgq namespaces test : %s", str_op);
+ 
+-	close(p1[0]);
+-	close(p2[1]);
+-	write(p1[1], "go", 3);
+-
+-	read(p2[0], buf, 7);
+-	if (strcmp(buf, "exists") == 0) {
+-		if (use_clone == T_NONE)
+-			tst_resm(TPASS, "Plain cloned process found mesgq "
+-				 "inside container");
+-		else
+-			tst_resm(TFAIL,
+-				 "%s: Container init process found mesgq",
+-				 tsttype);
++	/* fire off the test */
++	clone_unshare_test(use_clone, CLONE_NEWIPC, check_mesgq, NULL);
++
++	SAFE_CLOSE(p1[0]);
++	SAFE_CLOSE(p2[1]);
++
++	SAFE_WRITE(1, p1[1], "go", 3);
++	SAFE_READ(1, p2[0], buf, 7);
++
++	if (!strcmp(buf, "exists")) {
++		if (use_clone == T_NONE) {
++			tst_res(TPASS, "Plain cloned process found mesgq "
++				       "inside container");
++		} else {
++			tst_res(TFAIL, "%s: Container init process found mesgq",
++				str_op);
++		}
+ 	} else {
+-		if (use_clone == T_NONE)
+-			tst_resm(TFAIL,
+-				 "Plain cloned process didn't find mesgq");
+-		else
+-			tst_resm(TPASS, "%s: Container didn't find mesgq",
+-				 tsttype);
++		if (use_clone == T_NONE) {
++			tst_res(TFAIL,
++				"Plain cloned process didn't find mesgq");
++		} else {
++			tst_res(TPASS, "%s: Container didn't find mesgq",
++				str_op);
++		}
+ 	}
+ 
+ 	/* Delete the mesgQ */
+ 	id = msgget(KEY_VAL, 0);
+ 	msgctl(id, IPC_RMID, NULL);
++}
+ 
+-	tst_exit();
++static void setup(void)
++{
++	check_newipc();
++
++	if (strcmp(str_op, "clone") && strcmp(str_op, "unshare") &&
++	    strcmp(str_op, "none"))
++		tst_brk(TBROK, "Test execution mode <clone|unshare|none>");
+ }
++
++static struct tst_test test = {
++	.test_all = run,
++	.setup = setup,
++	.needs_root = 1,
++	.forks_child = 1,
++	.options =
++		(struct tst_option[]){
++			{ "m:", &str_op,
++			  "Test execution mode <clone|unshare|none>" },
++			{},
++		},
++};
 -- 
 2.35.1
 
