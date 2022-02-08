@@ -2,65 +2,67 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 070774ADBF9
-	for <lists+linux-ltp@lfdr.de>; Tue,  8 Feb 2022 16:07:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A8914ADF6F
+	for <lists+linux-ltp@lfdr.de>; Tue,  8 Feb 2022 18:24:04 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 29B0B3C9B74
-	for <lists+linux-ltp@lfdr.de>; Tue,  8 Feb 2022 16:07:01 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 8CD733C9B58
+	for <lists+linux-ltp@lfdr.de>; Tue,  8 Feb 2022 18:24:03 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 26DCD3C5795
- for <ltp@lists.linux.it>; Tue,  8 Feb 2022 16:06:56 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 406D93C071A
+ for <ltp@lists.linux.it>; Tue,  8 Feb 2022 18:24:00 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 81DC6200B36
- for <ltp@lists.linux.it>; Tue,  8 Feb 2022 16:06:56 +0100 (CET)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 9D860200BCA
+ for <ltp@lists.linux.it>; Tue,  8 Feb 2022 18:23:59 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id B2D09210EA;
- Tue,  8 Feb 2022 15:06:55 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 996AD1F383;
+ Tue,  8 Feb 2022 17:23:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1644332815; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ t=1644341038;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=hqbMtegd71e4RlQibkwSnuDmMzFpKG9fpuxzNuOpafE=;
- b=2xeXlaLuqGhflinTP/5kNXy7xif7s1LMS6HhNZioGqcGczt4SQTIFd6EhOXh6bLeu18RON
- Ak/+mOZU0P9xJj6m/0WjjnRhipMskHwv2GXrG8S1iwFfUxaNDv+muInaZs+fBXNRYgOeyu
- deOgDzgvFR3pm8h5mdNw/QAguf8+qDI=
+ bh=1u+6z6yrgdIdIDBu9RT5X7g6VnS+DxeSfcG4TAkX0rw=;
+ b=juNAhcagWXee0uANF+nrNt7Ci3EPNwVFT9QUFe6+kUfwhzMAidXgvlnhCZ9xBiQU3iJsA5
+ VDcVAUhE/khhBOkHt1Y5vgiICUUlHUWGzHZ7z/UsufoEYhH7CYijOzTbppdLMwrp/s/RmT
+ YrTY7cm0PObs/u1xT92a4O8ssHdGwo8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1644332815;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ s=susede2_ed25519; t=1644341038;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=hqbMtegd71e4RlQibkwSnuDmMzFpKG9fpuxzNuOpafE=;
- b=CWys14VIsn+HKCvUgbsx6V45BzudL94VPgKfeCA1n08tqOwMdskla0aKgpeIDiNyH2LKJK
- z5R6p1F0AsCev0Dg==
+ bh=1u+6z6yrgdIdIDBu9RT5X7g6VnS+DxeSfcG4TAkX0rw=;
+ b=P67ZxltmaERF+GTwk1JIITMcVe/pz99wnN/hZxZ/iYmbx9HtEaMRKte1BXXs5mWzt0rGhw
+ RGYvjoblNuSqUhCg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9DBFC13CBF;
- Tue,  8 Feb 2022 15:06:55 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6436D13CF5;
+ Tue,  8 Feb 2022 17:23:58 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id ZzwwJQ+HAmL+GQAAMHmgww
- (envelope-from <chrubis@suse.cz>); Tue, 08 Feb 2022 15:06:55 +0000
-Date: Tue, 8 Feb 2022 16:08:59 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <YgKHi9eYqd35Li71@yuki>
+ by imap2.suse-dmz.suse.de with ESMTPSA id BiSGFi6nAmKrYgAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Tue, 08 Feb 2022 17:23:58 +0000
+Date: Tue, 8 Feb 2022 18:23:56 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <YgKnLPyjwf3netv8@pevik>
 References: <20220126141152.6428-1-pvorel@suse.cz> <YfFeXoHL5iTx4QNh@pevik>
  <YgJtJeKJz9Ne+BBu@yuki> <YgKFkOUo6MXF4CX7@pevik>
+ <YgKHi9eYqd35Li71@yuki>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <YgKFkOUo6MXF4CX7@pevik>
+In-Reply-To: <YgKHi9eYqd35Li71@yuki>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -80,32 +82,38 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> > I guess that fs_type_whitelist[] may be confusing but all_filesystems[]
-> > is IMHO not that much better since we use that a as base for the
-> > all_filesystem before we filter out these that are not supported. Maybe
-> > we should call it try_filesystems[] instead?
-> Well, how I understand it the main feature is to be for .all_filesystems. And
-> items of this array can be whitelisted. Thus try_filesystems does not evoke much
-> to me that it's for all_filesystems.
-> 
-> I considered to have array all_filesystems[] and .fs_type_whitelist pointer to
-> that array, but having pointer just to document things is bad idea.
+> Hi!
+> > > I guess that fs_type_whitelist[] may be confusing but all_filesystems[]
+> > > is IMHO not that much better since we use that a as base for the
+> > > all_filesystem before we filter out these that are not supported. Maybe
+> > > we should call it try_filesystems[] instead?
+> > Well, how I understand it the main feature is to be for .all_filesystems. And
+> > items of this array can be whitelisted. Thus try_filesystems does not evoke much
+> > to me that it's for all_filesystems.
 
-The reason why I do not think it's reasonable to name the array
-all_filesystems is that setting the .all_filesystems flag does not mean
-that the test would be run over all these filesytems. We just silently
-skip these that are not supported...
+> > I considered to have array all_filesystems[] and .fs_type_whitelist pointer to
+> > that array, but having pointer just to document things is bad idea.
 
--- 
-Cyril Hrubis
-chrubis@suse.cz
+> The reason why I do not think it's reasonable to name the array
+> all_filesystems is that setting the .all_filesystems flag does not mean
+> that the test would be run over all these filesytems. We just silently
+> skip these that are not supported...
+
+Understand. Also try_filesystems is certainly better than fs_type_whitelist.
+How about default_all_filesystems or just default_filesystems?
+
+Regardless we rename it or not, at least the comment I put in the patchset would
+improve things (although you may phrase it better).
+
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
