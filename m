@@ -2,50 +2,54 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAFA04ADAB1
-	for <lists+linux-ltp@lfdr.de>; Tue,  8 Feb 2022 15:03:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E97C54ADAB3
+	for <lists+linux-ltp@lfdr.de>; Tue,  8 Feb 2022 15:03:59 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5FD523C9B48
-	for <lists+linux-ltp@lfdr.de>; Tue,  8 Feb 2022 15:03:46 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 67EC53C9B6A
+	for <lists+linux-ltp@lfdr.de>; Tue,  8 Feb 2022 15:03:59 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 713903C24D6
+ by picard.linux.it (Postfix) with ESMTPS id 93F6E3C9880
  for <ltp@lists.linux.it>; Tue,  8 Feb 2022 15:03:45 +0100 (CET)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id E5F9F600A6D
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id EC4AB1400978
  for <ltp@lists.linux.it>; Tue,  8 Feb 2022 15:03:44 +0100 (CET)
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 1148F210F9;
+ by smtp-out1.suse.de (Postfix) with ESMTP id 5B4AB210FB;
  Tue,  8 Feb 2022 14:03:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
  t=1644329024; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=9ez1e0j5hVS7T8kS7EixQ25zV0lLwmU4SYsOp7JfXKk=;
- b=IKJyVu+9kBOSu7JXe1ugTR92l78He44QfjH2k02lPvAJh9ULPCgEN4f0KQQtm+99OECZKx
- IAQge6VuOCpOQ3jaDXVPrZk5MWVBR4Qf2UXaYvOT5u9NTGtPYEm2Qb3Ed6qyXStAuDgZ3L
- kuAl0aMQS7aLTu4loU/ZcvdUvQ7RzqI=
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=B4BA2QvozvsR/j53K2ibkFO7Z/Cb8rK2G9cIIk9kfiA=;
+ b=mBs7y3jWsJzpk6x0s3W35Vw+Y3qm7EZtCuwteD8tRMuB54cGdkolVD5oev6a+FDAhWfPx6
+ IZyjsNfzjh/1N4sM5Ly9pqFLufAWgQz54+GdjHmBys6UVBAcuUhDF0HZxOPlb0UA50ypWJ
+ aPZfkw0fcB3yex//GpB7O7u8lMYZ4RQ=
 Received: from g78.suse.de (unknown [10.163.24.138])
- by relay2.suse.de (Postfix) with ESMTP id D1A46A3B90;
- Tue,  8 Feb 2022 14:03:43 +0000 (UTC)
+ by relay2.suse.de (Postfix) with ESMTP id 224ABA3B98;
+ Tue,  8 Feb 2022 14:03:44 +0000 (UTC)
 To: ltp@lists.linux.it
-Date: Tue,  8 Feb 2022 14:03:19 +0000
-Message-Id: <20220208140322.6842-1-rpalethorpe@suse.com>
+Date: Tue,  8 Feb 2022 14:03:20 +0000
+Message-Id: <20220208140322.6842-2-rpalethorpe@suse.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20220208140322.6842-1-rpalethorpe@suse.com>
+References: <20220208140322.6842-1-rpalethorpe@suse.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH 0/3] memcontrol04 and s/cgroup/cg/
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/3] API/cgroup: Add memory.{events, low}
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,49 +69,24 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello,
+Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
+---
+ lib/tst_cgroup.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-This adds another test from kselftest and tries to improve the
-readability of the cgroup API.
-
-This is probably the last test I will copy for now. However I may
-rewrite the tests to clone child processes into a CGroup when the
-feature is available.
-
-Richard Palethorpe (3):
-  API/cgroup: Add memory.{events, low}
-  API/cgroup: Shorten cgroup to cg in most symbols
-  memcontrol04: Copy from kselftest
-
- doc/c-test-api.txt                            |  52 ++--
- include/tst_cgroup.h                          | 112 ++++-----
- include/tst_test.h                            |   2 +-
- lib/newlib_tests/tst_cgroup01.c               |  18 +-
- lib/newlib_tests/tst_cgroup02.c               |  54 ++---
- lib/tst_cgroup.c                              | 112 ++++-----
- lib/tst_test.c                                |   8 +-
- runtest/controllers                           |   1 +
- scripts/coccinelle/cgroup-ver.cocci           |  16 +-
- .../coccinelle/kselftest-cgroup-to-ltp.cocci  |  16 +-
- testcases/kernel/controllers/memcg/.gitignore |   1 +
- .../kernel/controllers/memcg/memcontrol01.c   |  36 +--
- .../kernel/controllers/memcg/memcontrol02.c   |  28 +--
- .../kernel/controllers/memcg/memcontrol03.c   |  60 ++---
- .../kernel/controllers/memcg/memcontrol04.c   | 228 ++++++++++++++++++
- testcases/kernel/mem/cpuset/cpuset01.c        |  14 +-
- testcases/kernel/mem/include/mem.h            |   2 +-
- testcases/kernel/mem/ksm/ksm02.c              |   6 +-
- testcases/kernel/mem/ksm/ksm03.c              |   4 +-
- testcases/kernel/mem/ksm/ksm04.c              |   6 +-
- testcases/kernel/mem/lib/mem.c                |   8 +-
- testcases/kernel/mem/oom/oom03.c              |  18 +-
- testcases/kernel/mem/oom/oom04.c              |   8 +-
- testcases/kernel/mem/oom/oom05.c              |  24 +-
- .../sched/cfs-scheduler/cfs_bandwidth01.c     |  40 +--
- testcases/kernel/syscalls/madvise/madvise06.c |  16 +-
- 26 files changed, 561 insertions(+), 329 deletions(-)
- create mode 100644 testcases/kernel/controllers/memcg/memcontrol04.c
-
+diff --git a/lib/tst_cgroup.c b/lib/tst_cgroup.c
+index 93d374c56..4d326c730 100644
+--- a/lib/tst_cgroup.c
++++ b/lib/tst_cgroup.c
+@@ -159,6 +159,8 @@ static const struct cgroup_file cgroup_ctrl_files[] = {
+ 
+ static const struct cgroup_file memory_ctrl_files[] = {
+ 	{ "memory.current", "memory.usage_in_bytes", CTRL_MEMORY },
++	{ "memory.events", NULL, CTRL_MEMORY },
++	{ "memory.low", NULL, CTRL_MEMORY },
+ 	{ "memory.min", NULL, CTRL_MEMORY },
+ 	{ "memory.max", "memory.limit_in_bytes", CTRL_MEMORY },
+ 	{ "memory.stat", "memory.stat", CTRL_MEMORY },
 -- 
 2.34.1
 
