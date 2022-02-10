@@ -1,89 +1,93 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62E054B033B
-	for <lists+linux-ltp@lfdr.de>; Thu, 10 Feb 2022 03:20:19 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F6724B0405
+	for <lists+linux-ltp@lfdr.de>; Thu, 10 Feb 2022 04:41:16 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1AFCB3C9DAD
-	for <lists+linux-ltp@lfdr.de>; Thu, 10 Feb 2022 03:20:19 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id A69233C9DDF
+	for <lists+linux-ltp@lfdr.de>; Thu, 10 Feb 2022 04:41:15 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id B6B9B3C8FB5
- for <ltp@lists.linux.it>; Thu, 10 Feb 2022 03:20:17 +0100 (CET)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by picard.linux.it (Postfix) with ESMTPS id CA5093C9DDA
+ for <ltp@lists.linux.it>; Thu, 10 Feb 2022 04:41:03 +0100 (CET)
+Received: from mail1.bemta36.messagelabs.com (mail1.bemta36.messagelabs.com
+ [85.158.142.113])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id CACAF6008BD
- for <ltp@lists.linux.it>; Thu, 10 Feb 2022 03:20:16 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1644459615;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=cgwOerIBeWIG667UR0nYXJQGKv3pcIIK9bP2SRbdA/Q=;
- b=J8tXC8YiL8igCm0sRiWECYIq2zGQf6CYfvHWIe5jGu8PIl4UhNfE+S8kAMvaPwe6D1gC/v
- dWU49+DTiN8v63Tql9hco+OArhRUtbAKC0Ji0fpJZ9+PSI0mrnHV9gtV8L2/Y6t1ThnYFl
- X9QqrpWDLDpcnxHuWFnKNKYHFjmqGpQ=
-Received: from mail-yb1-f199.google.com (mail-yb1-f199.google.com
- [209.85.219.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-632-Saf6gkT_Pked7TMsAqcyQg-1; Wed, 09 Feb 2022 21:20:13 -0500
-X-MC-Unique: Saf6gkT_Pked7TMsAqcyQg-1
-Received: by mail-yb1-f199.google.com with SMTP id
- g205-20020a2552d6000000b0061e1843b8edso7913410ybb.18
- for <ltp@lists.linux.it>; Wed, 09 Feb 2022 18:20:13 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=cgwOerIBeWIG667UR0nYXJQGKv3pcIIK9bP2SRbdA/Q=;
- b=OmYzV/gdvWvOZXpqclQ1GETUjerCO3ZuP3R7PgraTziw3NSbL5Mr4kx52K882OIop/
- lCm+54ox3LQ3ihb2cMUxyRAH13vHlzo7GHhQwni7spHO+NS3Lflvp+Y8AL38foELqECU
- qwC9/KiqbPjYtRUd+Iih/VvJn016jkd73pZxTdhpbarAzeU9IKNStZh7lDlrdVR7eElk
- TouGSCuUL8v19sNbxyvsMnewJPAenxpJBrwxH9cHjjHfmUqeXnbHVSuLlrnM77X396Qm
- XPF3IK2opdvcfvDIXrz1ETdrUl79CD2+oHY7nLa0TRizv6Rmi+QrHY8jXLEBij7bck6F
- 1UkQ==
-X-Gm-Message-State: AOAM532LXm3ASvTNUzzlsFwRjqKCgt3CI5b0lZNHF/VVnrxwJb2y/ola
- Ci1GVwehqsaRbpg85qzf2AIjx+driz1pZ4sW59YhJBec1Mnk+qkVsy7WxOquiEjbM+RPNZZ9a2t
- rQCPL53BFGEROLS1uaK0Fex4XLxE=
-X-Received: by 2002:a25:45:: with SMTP id 66mr5163845yba.102.1644459613257;
- Wed, 09 Feb 2022 18:20:13 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJyY3fvx2l5Qjj7UlYGGYdICUPUg30W3rSXqBZQ2g/X6SQ+rglWFc7DOcqUOutExR80oQT9mDZkhaViNGIXB36Y=
-X-Received: by 2002:a25:45:: with SMTP id 66mr5163834yba.102.1644459613007;
- Wed, 09 Feb 2022 18:20:13 -0800 (PST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 514E7200059
+ for <ltp@lists.linux.it>; Thu, 10 Feb 2022 04:41:01 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fujitsu.com;
+ s=170520fj; t=1644464461; i=@fujitsu.com;
+ bh=AnF8V+2GwCMFXgAbP4lNeePxSuQkFdVlalMdduN8ohk=;
+ h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+ MIME-Version:Content-Type;
+ b=MwAE5/X/Iox6AQRXK3DOSWkh3wYJxfjLgSbjvyDlImKrnQM7TxwmwnW9BKf4I1yBT
+ QJI5k5pyIRH635wX+Tq2sr3I/LUqKhxbzcukQ9lauJAJaWtEY5GYKpM0QS2NhLL6Dc
+ qypMrMQTP4l8udhFQxm/2SiYbbnEz2vqn2y3Y4688s0PJicqf6keuBO1Arpr7sKFU6
+ RpHoj3z7Uixu2NtNgT6czKp8RAcxy7PMUGr/gCF9sGuzw3ed4rWqjqiS/P+LVn7F14
+ AK7p269F2lLLVSyky2vp7ofAOXFsPw8nYM9SnNOf7a5AyVOu1QBX+QJc+WfnfTX5zf
+ QHRRwz/bgtWEg==
+Received: from [100.115.69.41] (using TLSv1.2 with cipher
+ DHE-RSA-AES256-GCM-SHA384 (256 bits))
+ by server-4.bemta.az-a.eu-central-1.aws.ess.symcld.net id 04/E7-23802-D4984026;
+ Thu, 10 Feb 2022 03:41:01 +0000
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFtrMIsWRWlGSWpSXmKPExsViZ8MxRde3kyX
+ J4Mw7ZosV33cwOjB67Pu9jjWAMYo1My8pvyKBNaOp5wp7wRzNiqlXvrE0ML5Q6mLk4hASaGKS
+ aOu7zwLh7GGU6LuwnamLkZODTUBT4lnnAmYQW0RAQqKj4S07iM0soC6xfNIvoBoODmEBK4m1b
+ 2VAwiwCqhKfvu0Aa+UV8JS4efcJWKuEgILElIfvmUHKOYFqDk9iBQkLCahI/P5xghWiXFDi5M
+ wnLBDTJSQOvngB1aoocanjGyOEXSExa1Yb0wRG/llIWmYhaVnAyLSK0TapKDM9oyQ3MTNH19D
+ AQNfQ0FTXzELXyEQvsUo3US+1VDc5Na+kKBEoq5dYXqyXWlysV1yZm5yTopeXWrKJERiWKcUu
+ EjsYb/b91DvEKMnBpCTKq9nGkiTEl5SfUpmRWJwRX1Sak1p8iFGGg0NJgleiESgnWJSanlqRl
+ pkDjBGYtAQHj5II7/dWoDRvcUFibnFmOkTqFKOilDjvh3aghABIIqM0D64NFpeXGGWlhHkZGR
+ gYhHgKUotyM0tQ5V8xinMwKgnzKnQATeHJzCuBm/4KaDET0OJt05lAFpckIqSkGpis1O4yi0r
+ HfhdZJ/zILLhrLt/SILEaAYGYVwu9X+3RfXSeLc/Bp2ru73obx0fMs+ZnW59TdldL4pp6WH6n
+ tuT2W/+kbn0WV//8p/mg9q097nYrfeIdlvQ5fWxqbDvpcHVF55J7D5qMqvX4058eTnjtpJS41
+ 3B+/5F8x7wV7N4MOz2TLLO3ieXlzQ/+83Nl0IbpJyL29WudZ37wgP/tdL25e867S3Fw/vkQso
+ H1Lovm1zuuH5iyFkmuncu3/Kces0rLH8bSrwf0z/Fwzby88kUa/+FZi1ZsZlDamXjgo8DES8G
+ f9E+4h/H/fduoVZA3N2sfy9aC3rXLni9a9cUqKztm/Y0i8QePHmVJBWrpXP2kxFKckWioxVxU
+ nAgAx3TliUYDAAA=
+X-Env-Sender: xuyang2018.jy@fujitsu.com
+X-Msg-Ref: server-7.tower-532.messagelabs.com!1644464460!43085!1
+X-Originating-IP: [62.60.8.148]
+X-SYMC-ESS-Client-Auth: outbound-route-from=pass
+X-StarScan-Received: 
+X-StarScan-Version: 9.81.7; banners=-,-,-
+X-VirusChecked: Checked
+Received: (qmail 10429 invoked from network); 10 Feb 2022 03:41:01 -0000
+Received: from unknown (HELO mailhost1.uk.fujitsu.com) (62.60.8.148)
+ by server-7.tower-532.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
+ encrypted SMTP; 10 Feb 2022 03:41:01 -0000
+Received: from R01UKEXCASM126.r01.fujitsu.local ([10.183.43.178])
+ by mailhost1.uk.fujitsu.com (8.14.5/8.14.5) with ESMTP id 21A3erRt002560
+ (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256 verify=FAIL)
+ for <ltp@lists.linux.it>; Thu, 10 Feb 2022 03:41:00 GMT
+Received: from localhost.localdomain (10.167.220.84) by
+ R01UKEXCASM126.r01.fujitsu.local (10.183.43.178) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.28; Thu, 10 Feb 2022 03:40:51 +0000
+From: Yang Xu <xuyang2018.jy@fujitsu.com>
+To: <ltp@lists.linux.it>
+Date: Thu, 10 Feb 2022 11:41:16 +0800
+Message-ID: <1644464477-16644-1-git-send-email-xuyang2018.jy@fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
+In-Reply-To: <YgPNWHc+xwKCRcvv@pevik>
+References: <YgPNWHc+xwKCRcvv@pevik>
 MIME-Version: 1.0
-References: <20220127171455.9809-1-pvorel@suse.cz>
- <61F609C7.1080803@fujitsu.com> <YfeN6fG28AVNC44n@pevik>
- <CAEemH2fRtV+OqrW+x49RosgpyOYqCZ1ULxvZvqwypK8HQn6EQA@mail.gmail.com>
- <YflwND3aDJ1lg0ps@pevik>
- <CAEemH2dRwXdEN+eA5BhEyfK_cuvqhKu+mQFgJAtLJwWga1z+PQ@mail.gmail.com>
- <620095ED.1040808@fujitsu.com>
- <CAEemH2cs3-rBd+XTkh1A0ZtQxU-1WVx_pQtYGMyZX0zG48csew@mail.gmail.com>
- <YgO5XLFXQS+wxu4l@pevik>
-In-Reply-To: <YgO5XLFXQS+wxu4l@pevik>
-From: Li Wang <liwang@redhat.com>
-Date: Thu, 10 Feb 2022 10:19:58 +0800
-Message-ID: <CAEemH2cHe-Mc9g=ScTH5F0c5_WmrvsvHSObsDVy0aa-ayz76zA@mail.gmail.com>
-To: Petr Vorel <pvorel@suse.cz>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Originating-IP: [10.167.220.84]
+X-ClientProxiedBy: G08CNEXCHPEKD07.g08.fujitsu.local (10.167.33.80) To
+ R01UKEXCASM126.r01.fujitsu.local (10.183.43.178)
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [RFC PATCH 1/1] lib: Print in summary also tests not run
- at all
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 1/2] syscalls/pidfd_open: Simplify code
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,87 +99,199 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============0832096726=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0832096726==
-Content-Type: multipart/alternative; boundary="00000000000014c5f105d7a09710"
+1) make use of TST_EXP_FAIL2 or TST_EXP_FD_SILENT macros
+2) remove min_kver check and use pidfd_open_supported()
+3) Add docparse formatting
 
---00000000000014c5f105d7a09710
-Content-Type: text/plain; charset="UTF-8"
+Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
+Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
+---
+ include/lapi/pidfd_open.h                     |  8 +++--
+ .../kernel/syscalls/pidfd_open/pidfd_open01.c | 17 +++++-----
+ .../kernel/syscalls/pidfd_open/pidfd_open02.c | 34 +++++++------------
+ .../kernel/syscalls/pidfd_open/pidfd_open03.c | 11 +++---
+ 4 files changed, 34 insertions(+), 36 deletions(-)
 
-On Wed, Feb 9, 2022 at 8:53 PM Petr Vorel <pvorel@suse.cz> wrote:
-
-> Hi Li, Xu,
->
-> > > In fact, we don't have mandatory rules that TAPSS or TFAIL only can
-> > > occur one time. a example ie memcontrol02.c
->
-> > Right, that is my hesitant part for counting that.
-> > Seems many tests abuse the TPASS|TFAIL for defining test fail bound.
->
-> OK, while it'd be useful for some tests, it'd be confusing due this for
-> other.
-> I guess printing (tst_test->tcnt * test_variants) number can be confusing
-> either.
->
-
-Agree, so we might need more time coming up with a better solution.
-Or, we go another way to limit the abuse in TPASS|TFAIL in the test.
-
-But both sound not easy at this moment.
-
+diff --git a/include/lapi/pidfd_open.h b/include/lapi/pidfd_open.h
+index 9806c73d4..5cf10933e 100644
+--- a/include/lapi/pidfd_open.h
++++ b/include/lapi/pidfd_open.h
+@@ -9,11 +9,15 @@
+ 
+ #include <sys/syscall.h>
+ #include <sys/types.h>
+-
+ #include "lapi/syscalls.h"
+-
+ #include "config.h"
+ 
++static inline void pidfd_open_supported(void)
++{
++	/* allow the tests to fail early */
++	tst_syscall(__NR_pidfd_open);
++}
++
+ #ifndef HAVE_PIDFD_OPEN
+ static inline int pidfd_open(pid_t pid, unsigned int flags)
+ {
+diff --git a/testcases/kernel/syscalls/pidfd_open/pidfd_open01.c b/testcases/kernel/syscalls/pidfd_open/pidfd_open01.c
+index f40e9b624..c0e88647f 100644
+--- a/testcases/kernel/syscalls/pidfd_open/pidfd_open01.c
++++ b/testcases/kernel/syscalls/pidfd_open/pidfd_open01.c
+@@ -1,11 +1,15 @@
+ // SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+  * Copyright (c) 2020 Viresh Kumar <viresh.kumar@linaro.org>
++ */
++
++/*\
++ * [Description]
+  *
+- * Description:
+  * Basic pidfd_open() test:
+- * 1) Fetch the PID of the current process and try to get its file descriptor.
+- * 2) Check that the close-on-exec flag is set on the file descriptor.
++ *
++ * - Fetch the PID of the current process and try to get its file descriptor.
++ * - Check that the close-on-exec flag is set on the file descriptor.
+  */
+ 
+ #include <unistd.h>
+@@ -17,10 +21,7 @@ static void run(void)
+ {
+ 	int flag;
+ 
+-	TEST(pidfd_open(getpid(), 0));
+-
+-	if (TST_RET == -1)
+-		tst_brk(TFAIL | TTERRNO, "pidfd_open(getpid(), 0) failed");
++	TST_EXP_FD_SILENT(pidfd_open(getpid(), 0), "pidfd_open(getpid(), 0)");
+ 
+ 	flag = fcntl(TST_RET, F_GETFD);
+ 
+@@ -36,6 +37,6 @@ static void run(void)
+ }
+ 
+ static struct tst_test test = {
+-	.min_kver = "5.3",
++	.setup = pidfd_open_supported,
+ 	.test_all = run,
+ };
+diff --git a/testcases/kernel/syscalls/pidfd_open/pidfd_open02.c b/testcases/kernel/syscalls/pidfd_open/pidfd_open02.c
+index dc86cae7a..93a61a51d 100644
+--- a/testcases/kernel/syscalls/pidfd_open/pidfd_open02.c
++++ b/testcases/kernel/syscalls/pidfd_open/pidfd_open02.c
+@@ -1,14 +1,21 @@
+ // SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+  * Copyright (c) 2020 Viresh Kumar <viresh.kumar@linaro.org>
++ */
++
++/*\
++ * [Description]
++ *
++ * Tests basic error handling of the pidfd_open syscall.
+  *
+- * Description:
+- * Basic pidfd_open() test to test invalid arguments.
++ * - ESRCH the process specified by pid does not exist
++ * - EINVAL pid is not valid
++ * - EINVAL flags is not valid
+  */
+ #include "tst_test.h"
+ #include "lapi/pidfd_open.h"
+ 
+-pid_t expired_pid, my_pid, invalid_pid = -1;
++static pid_t expired_pid, my_pid, invalid_pid = -1;
+ 
+ static struct tcase {
+ 	char *name;
+@@ -23,6 +30,7 @@ static struct tcase {
+ 
+ static void setup(void)
+ {
++	pidfd_open_supported();
+ 	expired_pid = tst_get_unused_pid();
+ 	my_pid = getpid();
+ }
+@@ -31,27 +39,11 @@ static void run(unsigned int n)
+ {
+ 	struct tcase *tc = &tcases[n];
+ 
+-	TEST(pidfd_open(*tc->pid, tc->flags));
+-
+-	if (TST_RET != -1) {
+-		SAFE_CLOSE(TST_RET);
+-		tst_res(TFAIL, "%s: pidfd_open succeeded unexpectedly (index: %d)",
+-			tc->name, n);
+-		return;
+-	}
+-
+-	if (tc->exp_errno != TST_ERR) {
+-		tst_res(TFAIL | TTERRNO, "%s: pidfd_open() should fail with %s",
+-			tc->name, tst_strerrno(tc->exp_errno));
+-		return;
+-	}
+-
+-	tst_res(TPASS | TTERRNO, "%s: pidfd_open() failed as expected",
+-		tc->name);
++	TST_EXP_FAIL2(pidfd_open(*tc->pid, tc->flags), tc->exp_errno,
++			"pidfd_open with %s", tc->name);
+ }
+ 
+ static struct tst_test test = {
+-	.min_kver = "5.3",
+ 	.tcnt = ARRAY_SIZE(tcases),
+ 	.test = run,
+ 	.setup = setup,
+diff --git a/testcases/kernel/syscalls/pidfd_open/pidfd_open03.c b/testcases/kernel/syscalls/pidfd_open/pidfd_open03.c
+index 48470e5e1..7c7c75cb1 100644
+--- a/testcases/kernel/syscalls/pidfd_open/pidfd_open03.c
++++ b/testcases/kernel/syscalls/pidfd_open/pidfd_open03.c
+@@ -1,8 +1,11 @@
+ // SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+  * Copyright (c) 2020 Viresh Kumar <viresh.kumar@linaro.org>
++ */
++
++/*\
++ * [Description]
+  *
+- * Description:
+  * This program opens the PID file descriptor of the child process created with
+  * fork(). It then uses poll to monitor the file descriptor for process exit, as
+  * indicated by an EPOLLIN event.
+@@ -27,11 +30,9 @@ static void run(void)
+ 		exit(EXIT_SUCCESS);
+ 	}
+ 
+-	TEST(pidfd_open(pid, 0));
++	TST_EXP_FD_SILENT(pidfd_open(pid, 0), "pidfd_open(%d, 0)", pid);
+ 
+ 	fd = TST_RET;
+-	if (fd == -1)
+-		tst_brk(TFAIL | TTERRNO, "pidfd_open() failed");
+ 
+ 	TST_CHECKPOINT_WAKE(0);
+ 
+@@ -50,7 +51,7 @@ static void run(void)
+ }
+ 
+ static struct tst_test test = {
+-	.min_kver = "5.3",
++	.setup = pidfd_open_supported,
+ 	.test_all = run,
+ 	.forks_child = 1,
+ 	.needs_checkpoints = 1,
 -- 
-Regards,
-Li Wang
-
---00000000000014c5f105d7a09710
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Wed, Feb 9, 2022 at 8:53 PM Petr Vorel &lt;<a hr=
-ef=3D"mailto:pvorel@suse.cz">pvorel@suse.cz</a>&gt; wrote:<br></div><blockq=
-uote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1p=
-x solid rgb(204,204,204);padding-left:1ex">Hi Li, Xu,<br>
-<br>
-&gt; &gt; In fact, we don&#39;t have mandatory rules that TAPSS or TFAIL on=
-ly can<br>
-&gt; &gt; occur one time. a example ie memcontrol02.c<br>
-<br>
-&gt; Right, that is my hesitant part for counting that.<br>
-&gt; Seems many tests abuse the TPASS|TFAIL for defining test fail bound.<b=
-r>
-<br>
-OK, while it&#39;d be useful for some tests, it&#39;d be confusing due this=
- for other.<br>
-I guess printing (tst_test-&gt;tcnt * test_variants) number can be confusin=
-g<br>
-either.<br></blockquote><div><br></div><div class=3D"gmail_default" style=
-=3D"font-size:small">Agree, so we might need more time coming up with a bet=
-ter solution.</div><div class=3D"gmail_default" style=3D"font-size:small">O=
-r, we go another way to limit the abuse in TPASS|TFAIL in the=C2=A0test.</d=
-iv><div class=3D"gmail_default" style=3D"font-size:small"><br></div><div cl=
-ass=3D"gmail_default" style=3D"font-size:small">But both=C2=A0sound not eas=
-y at this moment.</div></div><div><br></div>-- <br><div dir=3D"ltr" class=
-=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<b=
-r></div></div></div></div>
-
---00000000000014c5f105d7a09710--
-
-
---===============0832096726==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+2.23.0
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============0832096726==--
-
