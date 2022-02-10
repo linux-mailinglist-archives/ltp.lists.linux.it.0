@@ -1,69 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5ADC34B12B4
-	for <lists+linux-ltp@lfdr.de>; Thu, 10 Feb 2022 17:27:47 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 88FE54B12B7
+	for <lists+linux-ltp@lfdr.de>; Thu, 10 Feb 2022 17:28:06 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 982493C9EA0
-	for <lists+linux-ltp@lfdr.de>; Thu, 10 Feb 2022 17:27:46 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 10D953C9EF6
+	for <lists+linux-ltp@lfdr.de>; Thu, 10 Feb 2022 17:28:06 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 14DF53C9C2E
+ by picard.linux.it (Postfix) with ESMTPS id 27E8D3C9E45
  for <ltp@lists.linux.it>; Thu, 10 Feb 2022 17:27:44 +0100 (CET)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 61747200935
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 639C1600F70
  for <ltp@lists.linux.it>; Thu, 10 Feb 2022 17:27:44 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 9108E1F391;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id E02F31F399;
  Thu, 10 Feb 2022 16:27:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1644510463; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=KJcG9JVDK5f69rnkhMYcMjpNX4I6dZYJvMst/3n62Jo=;
- b=NnG+nO60nDzMrcDI2Vr0VAArmZd2tkqDbqcej5rm1nhMOmEUVy6hAmiGVo7QJXt41VXaxB
- szqkSMinKxHoWXKVMTsnVxSnXxtk7BsNLl2yOiT+D0u2tobt+tJOQKPjFB0zPWQi8YyLZ9
- /F8orp/IbLz7puZVfJVaYM1ZUQPUrHM=
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=4BC9Iz6ON8XkX+j9vqBr89stuV43ZZGCbwDcetTtBuo=;
+ b=1V10vUqnzS17E4WSm+jK8r1pCF+D/UkmYx6fTxIc1Eb15PEr5KBT/8vZgvg83biZp3VU3V
+ lPtXZl3KjLonpJBJrqDScR5xuiDwxOQKPN4OX0GiOH4PGfRVZ9b+gLaPxT316vNL/DOkJ5
+ Xoy2/CNsaolQ4QjYPa437HXybu8PGtg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1644510463;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=KJcG9JVDK5f69rnkhMYcMjpNX4I6dZYJvMst/3n62Jo=;
- b=rYPqZ0scxYg3ZHXRO6FyR0YViN6AvFTY/E/8z8uoWxbZWeuhk1CqJ5t1OsR58/3LbpRsLn
- MCM205rC4tsMwrAA==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=4BC9Iz6ON8XkX+j9vqBr89stuV43ZZGCbwDcetTtBuo=;
+ b=f0XxdEYyNNNyuqpQmbHcgxZ1ulox3DQxTgEPVCup07Ud1kG2OpC9UjKhkSut8rW9fJZZcA
+ LmrpP4+h3liPafCw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4D79F13BC1;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9E46F13BC1;
  Thu, 10 Feb 2022 16:27:43 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id B4CdEP88BWJAMgAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id uDlEJP88BWJAMgAAMHmgww
  (envelope-from <pvorel@suse.cz>); Thu, 10 Feb 2022 16:27:43 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Thu, 10 Feb 2022 17:27:33 +0100
-Message-Id: <20220210162739.30159-1-pvorel@suse.cz>
+Date: Thu, 10 Feb 2022 17:27:34 +0100
+Message-Id: <20220210162739.30159-2-pvorel@suse.cz>
 X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220210162739.30159-1-pvorel@suse.cz>
+References: <20220210162739.30159-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 0/6] Add TST_FORMAT_DEVICE support
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 1/6] tst_test.sh: Properly init $TST_FS_TYPE
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,31 +85,83 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
+to sync with C API init $TST_FS_TYPE with $LTP_DEV_FS_TYPE, when
+defined. That's equivalent of the .dev_fs_type in the tst_test
+structure:
 
-changes v1->v2:
-* Replace $TST_DEFAULT_FS_TYPE with proper $TST_FS_TYPE initialization
-  (Cyril)
-* Redesing tst_mkfs() API (Cyril)
-  We now parse only fs_type, the rest we pass to mkfs.* the same way we
-  end up passing them on a command line.
+    if (tst_test->dev_fs_type)
+	    tdev.fs_type = tst_test->dev_fs_type;
+    else
+	    tdev.fs_type = tst_dev_fs_type();
 
-Petr Vorel (6):
-  tst_test.sh: Properly init $TST_FS_TYPE
-  tst_test.sh: Redesing tst_mkfs() API
-  tst_test.sh: Add $TST_FORMAT_DEVICE and related vars
-  df01.sh: Use TST_FORMAT_DEVICE=1
-  shell: Add test for TST_FORMAT_DEVICE=1
-  doc: Add missing shell variables
+    (And the tst_dev_fs_type() returns either $LTP_DEV_FS_TYPE or "ext2"
+    if it's not defined.)
 
- doc/shell-test-api.txt                      | 37 +++++++++++++++++++--
- lib/newlib_tests/shell/tst_format_device.sh | 24 +++++++++++++
- testcases/commands/df/df01.sh               |  5 +--
- testcases/commands/mkfs/mkfs01.sh           |  2 +-
- testcases/lib/tst_test.sh                   | 28 ++++++++++------
- 5 files changed, 79 insertions(+), 17 deletions(-)
- create mode 100755 lib/newlib_tests/shell/tst_format_device.sh
+Now, when $TST_FS_TYPE properly defined, tst_mkfs() can rely on it
+(thus define the check).
 
+Also use the variable in df01.sh, mkfs01.sh (the only shell tests which
+works with filesystems).
+
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+---
+ testcases/commands/df/df01.sh     | 2 --
+ testcases/commands/mkfs/mkfs01.sh | 2 +-
+ testcases/lib/tst_test.sh         | 8 ++++----
+ 3 files changed, 5 insertions(+), 7 deletions(-)
+
+diff --git a/testcases/commands/df/df01.sh b/testcases/commands/df/df01.sh
+index b821452e60..e70f33c9b0 100755
+--- a/testcases/commands/df/df01.sh
++++ b/testcases/commands/df/df01.sh
+@@ -28,8 +28,6 @@ OPTIONS
+ EOF
+ }
+ 
+-TST_FS_TYPE=ext2
+-
+ parse_args()
+ {
+ 	TST_FS_TYPE="$2"
+diff --git a/testcases/commands/mkfs/mkfs01.sh b/testcases/commands/mkfs/mkfs01.sh
+index 17c7fb9e4a..a3ff027a6d 100755
+--- a/testcases/commands/mkfs/mkfs01.sh
++++ b/testcases/commands/mkfs/mkfs01.sh
+@@ -45,7 +45,7 @@ setup()
+ mkfs_verify_type()
+ {
+ 	if [ -z "$1" ]; then
+-		blkid $2 -t TYPE="ext2" >/dev/null
++		blkid $2 -t TYPE="$TST_FS_TYPE" >/dev/null
+ 	else
+ 		if [ "$1" = "msdos" ]; then
+ 			blkid $2 -t TYPE="vfat" >/dev/null
+diff --git a/testcases/lib/tst_test.sh b/testcases/lib/tst_test.sh
+index 30614974c3..fa4c90f787 100644
+--- a/testcases/lib/tst_test.sh
++++ b/testcases/lib/tst_test.sh
+@@ -17,6 +17,10 @@ export TST_ITERATIONS=1
+ export TST_TMPDIR_RHOST=0
+ export TST_LIB_LOADED=1
+ 
++if [ -z "$TST_FS_TYPE" ]; then
++	export TST_FS_TYPE="${LTP_DEV_FS_TYPE:-ext2}"
++fi
++
+ . tst_ansi_color.sh
+ . tst_security.sh
+ 
+@@ -343,10 +347,6 @@ tst_mkfs()
+ 	[ $# -ge 1 ] && shift
+ 	local fs_opts="$@"
+ 
+-	if [ -z "$fs_type" ]; then
+-		tst_brk TBROK "No fs_type specified"
+-	fi
+-
+ 	if [ -z "$device" ]; then
+ 		tst_brk TBROK "No device specified"
+ 	fi
 -- 
 2.35.1
 
