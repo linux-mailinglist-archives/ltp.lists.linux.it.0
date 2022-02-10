@@ -1,95 +1,82 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id A21574B0404
-	for <lists+linux-ltp@lfdr.de>; Thu, 10 Feb 2022 04:41:05 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7534B4B063E
+	for <lists+linux-ltp@lfdr.de>; Thu, 10 Feb 2022 07:24:19 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 486413C9DB8
-	for <lists+linux-ltp@lfdr.de>; Thu, 10 Feb 2022 04:41:05 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 032BA3C9DB8
+	for <lists+linux-ltp@lfdr.de>; Thu, 10 Feb 2022 07:24:19 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 1D78B3C23B0
- for <ltp@lists.linux.it>; Thu, 10 Feb 2022 04:41:03 +0100 (CET)
-Received: from mail1.bemta34.messagelabs.com (mail1.bemta34.messagelabs.com
- [195.245.231.4])
+ by picard.linux.it (Postfix) with ESMTPS id E2A5B3C9AE7
+ for <ltp@lists.linux.it>; Thu, 10 Feb 2022 07:24:17 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 8781F1A00346
- for <ltp@lists.linux.it>; Thu, 10 Feb 2022 04:41:02 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fujitsu.com;
- s=170520fj; t=1644464461; i=@fujitsu.com;
- bh=GwQSD24YRgyzq0LLqQE7QjJMA5zUocS0g71FXMUb/N8=;
- h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
- MIME-Version:Content-Type;
- b=K4AoBHOU6Lyt+EHXJdwU1a2pfQVQLARfS5ovMyHRKg6AXf4zG6u4Xyp58edSj52Qi
- U1bMVcDavh81AItsteDHYLjIaCe8/Rp6jAiLVLiKl2Dd+yrLNuIFvK7+YJ3SagYFFY
- 4/loLZhH/Hf9hZFJ1O+yopGba8k2+Yr9eqT73g3jJrX+zkcnxN0BIIYHtHjfkv7ZWV
- CzeWQU83Dxc+Z+fAQ0QXc94lDc1Ge2MAXac02jsHBpPaaVQkvpvVZ03zYjsQ6iCR6J
- 57hz+NQJfp4Q1cBNc54kQibiDqwfNqMtkEt5BpBFMLH7g85rb3giN7O21dljKeat6R
- 6PWWjb+EhUanA==
-Received: from [100.115.37.210] (using TLSv1.2 with cipher
- DHE-RSA-AES256-GCM-SHA384 (256 bits))
- by server-4.bemta.az-a.eu-west-2.aws.ess.symcld.net id 66/A2-29321-D4984026;
- Thu, 10 Feb 2022 03:41:01 +0000
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFtrHIsWRWlGSWpSXmKPExsViZ8MxRdenkyX
- J4M5HC4sV33cwOjB67Pu9jjWAMYo1My8pvyKBNaPj4nP2gsnyFZsedTM1ML6R6mLk4hASaGKS
- mLVsKSOEs4dRYtWmFqYuRk4ONgFNiWedC5hBbBEBCYmOhrfsIDazgLrE8km/wGqEBUIktncsA
- 4uzCKhKHJjVyAJi8wp4SnzrWw1mSwgoSEx5+B5sDqeAl8SKc9NYuxg5gJYlS9zdFghRLihxcu
- YTFojxEhIHX7xghmhVlLjU8Y0Rwq6QmDWrjWkCI/8sJC2zkLQsYGRaxWidVJSZnlGSm5iZo2t
- oYKBraGiqa2ysa2huqZdYpZuol1qqW55aXKJrpJdYXqyXWlysV1yZm5yTopeXWrKJERiUKcWK
- m3cwTlz5U+8QoyQHk5Ior2YbS5IQX1J+SmVGYnFGfFFpTmrxIUYZDg4lCV6JRqCcYFFqempFW
- mYOMEJg0hIcPEoivN9bgdK8xQWJucWZ6RCpU4y6HDu3XN7LLMSSl5+XKiXO+6EdqEgApCijNA
- 9uBCxaLzHKSgnzMjIwMAjxFKQW5WaWoMq/YhTnYFQS5lXoAJrCk5lXArfpFdARTEBHbJvOBHJ
- ESSJCSqqBiTv+8VH22C1MM5VvvLnIs1JzGkfF8bW2nstWe31/cCD8ufHs6Q3TIjddYrp1/kL2
- vSfPfF1MsljkVYuSKjl3G/Bl+E89Uxqtnc96aNKpmD4bGcM/7fXNzl0Tb3J8aP3q8aHjqXlXe
- VWZ9O72ZiuDGokYTUXjxQvUK8O69104coTr4oeAKSXpare9L039EObRLczSvtX/KpNvh02i3W
- Lp+R8DM7zX9Wze4rv+b9D0NEkFY3nRp9PW1X/nDrokY1fefZNhpV/wbI3/Xbk6zC9/1T/x5+g
- x19n1irtJ28XxVbT6wQ03Vj1jPJZ14Max84pdzcflvglZ17d0+Edd/ZarVvnZO7GQ0aJliavQ
- z71KLMUZiYZazEXFiQBcWC5sUQMAAA==
-X-Env-Sender: xuyang2018.jy@fujitsu.com
-X-Msg-Ref: server-15.tower-571.messagelabs.com!1644464460!43071!1
-X-Originating-IP: [62.60.8.148]
-X-SYMC-ESS-Client-Auth: outbound-route-from=pass
-X-StarScan-Received: 
-X-StarScan-Version: 9.81.7; banners=-,-,-
-X-VirusChecked: Checked
-Received: (qmail 733 invoked from network); 10 Feb 2022 03:41:00 -0000
-Received: from unknown (HELO mailhost1.uk.fujitsu.com) (62.60.8.148)
- by server-15.tower-571.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
- encrypted SMTP; 10 Feb 2022 03:41:00 -0000
-Received: from R01UKEXCASM126.r01.fujitsu.local ([10.183.43.178])
- by mailhost1.uk.fujitsu.com (8.14.5/8.14.5) with ESMTP id 21A3erRu002560
- (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256 verify=FAIL)
- for <ltp@lists.linux.it>; Thu, 10 Feb 2022 03:41:00 GMT
-Received: from localhost.localdomain (10.167.220.84) by
- R01UKEXCASM126.r01.fujitsu.local (10.183.43.178) with Microsoft SMTP Server
- (TLS) id 15.0.1497.28; Thu, 10 Feb 2022 03:40:56 +0000
-From: Yang Xu <xuyang2018.jy@fujitsu.com>
-To: <ltp@lists.linux.it>
-Date: Thu, 10 Feb 2022 11:41:17 +0800
-Message-ID: <1644464477-16644-2-git-send-email-xuyang2018.jy@fujitsu.com>
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <1644464477-16644-1-git-send-email-xuyang2018.jy@fujitsu.com>
-References: <YgPNWHc+xwKCRcvv@pevik>
- <1644464477-16644-1-git-send-email-xuyang2018.jy@fujitsu.com>
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id BF7DA600E4F
+ for <ltp@lists.linux.it>; Thu, 10 Feb 2022 07:24:16 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1644474255;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=/0aiSNr8JOCuiAeclZZQ8rgsfM63rPiVqy6kbVlK+uM=;
+ b=DONoJPkX6Ss2kGCIpoBDdwG5fkd0pwGHypOJHQwiWePV6A6gIKKWNI1JXnSMrECBT78QG+
+ 0StT/UuFnDPPbhV2WKQy+KgAhLzFjeTJSoXGkeGQ+fwvZpXdcV+WibZOjIijN2OPOoWrB2
+ nwedFgjRQM7EficLgTYtmM/N/7DGxfo=
+Received: from mail-yb1-f199.google.com (mail-yb1-f199.google.com
+ [209.85.219.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-630-3krOQZozOTuUW9gAU77CyA-1; Thu, 10 Feb 2022 01:24:13 -0500
+X-MC-Unique: 3krOQZozOTuUW9gAU77CyA-1
+Received: by mail-yb1-f199.google.com with SMTP id
+ s73-20020a25aa4f000000b0061d764d3c13so10199690ybi.1
+ for <ltp@lists.linux.it>; Wed, 09 Feb 2022 22:24:13 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=VFgCeq1vaz/6H7KQy7lipsGDfLLdU5zH89rkGfZ7znw=;
+ b=akl2uE3OJmZaruN/YrK636V2HX+2sBZCkqrP3HQPAwenidDKFkSsmPvoXRhI1HrZVn
+ l9k8N0FKtikHTl3oPzTJ9xyaxEhTQI/1IEHucf7o57+R5QS3m+O0u2TF3+cDbuRJZVT3
+ pTEYijWVAFRXxsz2IryOVjg5KEVTHy9tXuTFQbaMTQjncwFy8CkQwaL+olfTu5AfRLEM
+ 7U4G1wMt47KC0bRpRNP+Q7JCdS+uycPGESYxAi7NRVtbkwVBsYhSgES4pS8OlCYbeXX1
+ VEcibnre+kDiZCYZ4gZogTVkN9peXLaBV8GLlQfNp1NvNUTn5a5PI3gjwajQIHPFRbgm
+ U0+g==
+X-Gm-Message-State: AOAM530Jpnms1Q5JKG2iRXJ+GUdraVWTwiPNhsFbcFgB8wwEQAEpKU/f
+ Y9TVrCDsAJ/o9AjuvVwOOaOUq+YbYPnxowkA3iPJ2hLhDv9Agq5GfPlyTWUYMFphXRUJZtn9dPP
+ 1tU+WBd0Sd5eJVjdW9ZK8fZ66fdk=
+X-Received: by 2002:a25:bf8b:: with SMTP id l11mr5767594ybk.248.1644474253006; 
+ Wed, 09 Feb 2022 22:24:13 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJwbLz5IuDkXxU04S5JtyynMM2mg+BgOWpxcmaOusrqDARbzfpzI6Sm4Qn3qNa2nC/CxGUK/qj4Q+A2A1F+EtFA=
+X-Received: by 2002:a25:bf8b:: with SMTP id l11mr5767587ybk.248.1644474252771; 
+ Wed, 09 Feb 2022 22:24:12 -0800 (PST)
 MIME-Version: 1.0
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD07.g08.fujitsu.local (10.167.33.80) To
- R01UKEXCASM126.r01.fujitsu.local (10.183.43.178)
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+References: <20220208140322.6842-1-rpalethorpe@suse.com>
+ <20220208140322.6842-4-rpalethorpe@suse.com>
+ <CAEemH2e2btUUYqj69nWGpXC4B43Dg7+y8-m2udsNCjtZr6s7Tg@mail.gmail.com>
+In-Reply-To: <CAEemH2e2btUUYqj69nWGpXC4B43Dg7+y8-m2udsNCjtZr6s7Tg@mail.gmail.com>
+From: Li Wang <liwang@redhat.com>
+Date: Thu, 10 Feb 2022 14:23:57 +0800
+Message-ID: <CAEemH2fQgURKROaVH7ZNszpBonGwZn6fNbN4XC8FPCH98J2+VA@mail.gmail.com>
+To: Richard Palethorpe <rpalethorpe@suse.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 2/2] syscalls/pidfd_open04: Add new test with
- PIDFD_NONBLOCK flag
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 3/3] memcontrol04: Copy from kselftest
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,154 +88,191 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============0452450573=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-As pidfd_open man-page said
-"PIDFD_NONBLOCK (since Linux 5.10)
-Return a nonblocking file descriptor.  If the process referred to by
-the file descriptor has not yet terminated, then an attempt to wait
-on the file descriptor using waitid(2) will immediately  return
-the error EAGAIN rather than blocking."
+--===============0452450573==
+Content-Type: multipart/alternative; boundary="000000000000add82405d7a3ffb8"
 
-Test this and also test whether set NONBLOCK flag in its pidfd.
+--000000000000add82405d7a3ffb8
+Content-Type: text/plain; charset="UTF-8"
 
-Noticed that, don't introduce lapi/pidfd.h because linux/pidfd.h uses
-kernel header fcntl.h but ltp api uses libc header. so it may
-exist redefinition error of 'struct flock'[1].
+On Wed, Feb 9, 2022 at 7:05 PM Li Wang <liwang@redhat.com> wrote:
 
-[1]https://github.com/golang/go/issues/48221
 
-Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
----
- runtest/syscalls                              |  1 +
- .../kernel/syscalls/pidfd_open/.gitignore     |  1 +
- .../kernel/syscalls/pidfd_open/pidfd_open04.c | 90 +++++++++++++++++++
- 3 files changed, 92 insertions(+)
- create mode 100644 testcases/kernel/syscalls/pidfd_open/pidfd_open04.c
+> Btw, there are some TFAILs from my manual run.
+> (I will look into that try to figure it out tomorrow)
+>
+> tst_test.c:1521: TINFO: Testing on ext4
+> tst_test.c:996: TINFO: Formatting /dev/loop0 with ext4 opts='' extra
+> opts=''
+> mke2fs 1.46.5 (30-Dec-2021)
+> tst_test.c:1452: TINFO: Timeout per run is 0h 05m 00s
+> memcontrol04.c:118: TINFO: Child 242775 in leaf_C: Allocating pagecache:
+> 52428800
+> memcontrol04.c:118: TINFO: Child 242776 in leaf_D: Allocating pagecache:
+> 52428800
+> memcontrol04.c:118: TINFO: Child 242777 in leaf_F: Allocating pagecache:
+> 52428800
+> memcontrol04.c:99: TINFO: Child 242778 in trunk_G: Allocating anon:
+> 155189248
+> memcontrol04.c:170: TPASS: Expect: (A/B memory.current=54181888) ~=
+> 52428800
+> memcontrol04.c:176: TPASS: Expect: (A/B/C memory.current=30957568) ~=
+> 34603008
+> memcontrol04.c:178: TPASS: Expect: (A/B/D memory.current=22282240) ~=
+> 17825792
+> memcontrol04.c:180: TPASS: Expect: (A/B/E memory.current=0) ~= 0
+> memcontrol04.c:99: TINFO: Child 242779 in trunk_G: Allocating anon:
+> 174063616
+> memcontrol04.c:193: TPASS: Expect: (oom events=0) == 0
+> memcontrol04.c:196: TPASS: Expect: (low events=373) > 0
+> memcontrol04.c:193: TPASS: Expect: (oom events=0) == 0
+> memcontrol04.c:196: TPASS: Expect: (low events=373) > 0
+> memcontrol04.c:193: TPASS: Expect: (oom events=0) == 0
+> memcontrol04.c:198: TPASS: Expect: (low events=0) == 0
+> memcontrol04.c:193: TPASS: Expect: (oom events=0) == 0
+> memcontrol04.c:198: TFAIL: Expect: (low events=370) == 0
+>
 
-diff --git a/runtest/syscalls b/runtest/syscalls
-index c3e037f72..ce6f89f88 100644
---- a/runtest/syscalls
-+++ b/runtest/syscalls
-@@ -954,6 +954,7 @@ personality02 personality02
- pidfd_open01 pidfd_open01
- pidfd_open02 pidfd_open02
- pidfd_open03 pidfd_open03
-+pidfd_open04 pidfd_open04
- 
- pidfd_send_signal01 pidfd_send_signal01
- pidfd_send_signal02 pidfd_send_signal02
-diff --git a/testcases/kernel/syscalls/pidfd_open/.gitignore b/testcases/kernel/syscalls/pidfd_open/.gitignore
-index e0b8900c1..cebdc624d 100644
---- a/testcases/kernel/syscalls/pidfd_open/.gitignore
-+++ b/testcases/kernel/syscalls/pidfd_open/.gitignore
-@@ -1,3 +1,4 @@
- pidfd_open01
- pidfd_open02
- pidfd_open03
-+pidfd_open04
-diff --git a/testcases/kernel/syscalls/pidfd_open/pidfd_open04.c b/testcases/kernel/syscalls/pidfd_open/pidfd_open04.c
-new file mode 100644
-index 000000000..91c7f26e1
---- /dev/null
-+++ b/testcases/kernel/syscalls/pidfd_open/pidfd_open04.c
-@@ -0,0 +1,90 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2022 FUJITSU LIMITED. All rights reserved.
-+ * Author: Yang Xu <xuyang2018.jy@fujitsu.com>
-+ */
-+
-+/*\
-+ * [Description]
-+ *
-+ * Verify that the PIDFD_NONBLOCK flag works with pidfd_open() and
-+ * that waitid() with a non-blocking pidfd returns EAGAIN.
-+ */
-+
-+#include <unistd.h>
-+#include <fcntl.h>
-+#include <sys/wait.h>
-+#include <stdlib.h>
-+#include "tst_test.h"
-+#include "lapi/pidfd_open.h"
-+
-+#ifndef PIDFD_NONBLOCK
-+#define PIDFD_NONBLOCK O_NONBLOCK
-+#endif
-+
-+#ifndef P_PIDFD
-+#define P_PIDFD  3
-+#endif
-+
-+static void run(void)
-+{
-+	int flag, pid, pidfd, ret;
-+	siginfo_t info;
-+
-+	pid = SAFE_FORK();
-+	if (!pid) {
-+		TST_CHECKPOINT_WAIT(0);
-+		exit(EXIT_SUCCESS);
-+	}
-+
-+	TST_EXP_FD_SILENT(pidfd_open(pid, PIDFD_NONBLOCK),
-+				"pidfd_open(%d,  PIDFD_NONBLOCK)", pid);
-+
-+	pidfd = TST_RET;
-+	flag = fcntl(pidfd, F_GETFL);
-+	if (flag == -1)
-+		tst_brk(TFAIL | TERRNO, "fcntl(F_GETFL) failed");
-+
-+	if (!(flag & O_NONBLOCK))
-+		tst_brk(TFAIL, "pidfd_open(%d, O_NONBLOCK) didn't set O_NONBLOCK flag", pid);
-+
-+	tst_res(TPASS, "pidfd_open(%d, O_NONBLOCK) sets O_NONBLOCK flag", pid);
-+
-+	TST_EXP_FAIL(waitid(P_PIDFD, pidfd, &info, WEXITED), EAGAIN,
-+			"waitid(P_PIDFD,...,WEXITED)");
-+
-+	TST_CHECKPOINT_WAKE(0);
-+
-+	ret = TST_RETRY_FUNC(waitid(P_PIDFD, pidfd, &info, WEXITED), TST_RETVAL_EQ0);
-+	if (ret == 0) {
-+		tst_res(TPASS, "waitid(P_PIDFD) succeeded after child process terminated");
-+	} else {
-+		tst_res(TFAIL, "waitid(P_PIDFD) failed after child process terminated");
-+		SAFE_WAIT(NULL);
-+	}
-+
-+	SAFE_CLOSE(pidfd);
-+}
-+
-+static void setup(void)
-+{
-+	pidfd_open_supported();
-+
-+	TEST(pidfd_open(getpid(), PIDFD_NONBLOCK));
-+	if (TST_RET == -1) {
-+		if (TST_ERR == EINVAL) {
-+			tst_brk(TCONF, "PIDFD_NONBLOCK was supported since linux 5.10");
-+			return;
-+		}
-+		tst_brk(TFAIL | TTERRNO,
-+			"pidfd_open(getpid(),PIDFD_NONBLOCK) failed unexpectedly");
-+	}
-+}
-+
-+static struct tst_test test = {
-+	.needs_root = 1,
-+	.forks_child = 1,
-+	.needs_checkpoints = 1,
-+	.setup = setup,
-+	.test_all = run,
-+};
+It looks like a logic issue here, as we do alloc_pagecache 50MB
+respectively in the leaf_cg[C, D, E, F] and only the 'memory.low'
+of leaf_cg[E] is large enough (500MB) to avoid triggering low event.
+The rest cgroups should all have low events, that kernel behavior
+is correct.
+
+This failure should be fix with:
+
+--- a/testcases/kernel/controllers/memcg/memcontrol04.c
++++ b/testcases/kernel/controllers/memcg/memcontrol04.c
+@@ -192,7 +192,7 @@ static void test_memcg_low(void)
+
+                TST_EXP_EXPR(oom == 0, "(oom events=%ld) == 0", oom);
+
+-               if (i < E)
++               if (i != E)
+                        TST_EXP_EXPR(low > 0, "(low events=%ld) > 0", low)
+                else
+                        TST_EXP_EXPR(low == 0, "(low events=%ld) == 0",
+low);
+
+
+And better to add "leaf_cg%d" print in the output:
+(to show the events from which cgroup)
+
+    TST_EXP_EXPR(oom == 0, "(leaf_cg%d: oom events=%ld) == 0", i, oom);
+
+    if (i != E)
+            TST_EXP_EXPR(low > 0, "(leaf_cg%d: low events=%ld) > 0", i,
+ low)
+    else
+             TST_EXP_EXPR(low == 0, "(leaf_cg%d: low events=%ld) == 0", i,
+low);
+
 -- 
-2.23.0
+Regards,
+Li Wang
+
+--000000000000add82405d7a3ffb8
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Wed, Feb 9, 2022 at 7:05 PM Li Wang &lt;<a href=
+=3D"mailto:liwang@redhat.com">liwang@redhat.com</a>&gt; wrote:<br></div><di=
+v>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px=
+ 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><div dir=3D=
+"ltr"><div class=3D"gmail_quote"><div style=3D"font-size:small"></div><div =
+style=3D"font-size:small">Btw, there are some TFAILs from my manual run.=C2=
+=A0</div><div style=3D"font-size:small">(I will look into that try to figur=
+e it out tomorrow)</div><div style=3D"font-size:small"><br></div><div style=
+=3D"font-size:small">tst_test.c:1521: TINFO: Testing on ext4<br>tst_test.c:=
+996: TINFO: Formatting /dev/loop0 with ext4 opts=3D&#39;&#39; extra opts=3D=
+&#39;&#39;<br>mke2fs 1.46.5 (30-Dec-2021)<br>tst_test.c:1452: TINFO: Timeou=
+t per run is 0h 05m 00s<br>memcontrol04.c:118: TINFO: Child 242775 in leaf_=
+C: Allocating pagecache: 52428800<br>memcontrol04.c:118: TINFO: Child 24277=
+6 in leaf_D: Allocating pagecache: 52428800<br>memcontrol04.c:118: TINFO: C=
+hild 242777 in leaf_F: Allocating pagecache: 52428800<br>memcontrol04.c:99:=
+ TINFO: Child 242778 in trunk_G: Allocating anon: 155189248<br>memcontrol04=
+.c:170: TPASS: Expect: (A/B memory.current=3D54181888) ~=3D 52428800<br>mem=
+control04.c:176: TPASS: Expect: (A/B/C memory.current=3D30957568) ~=3D 3460=
+3008<br>memcontrol04.c:178: TPASS: Expect: (A/B/D memory.current=3D22282240=
+) ~=3D 17825792<br>memcontrol04.c:180: TPASS: Expect: (A/B/E memory.current=
+=3D0) ~=3D 0<br>memcontrol04.c:99: TINFO: Child 242779 in trunk_G: Allocati=
+ng anon: 174063616<br>memcontrol04.c:193: TPASS: Expect: (oom events=3D0) =
+=3D=3D 0<br>memcontrol04.c:196: TPASS: Expect: (low events=3D373) &gt; 0<br=
+>memcontrol04.c:193: TPASS: Expect: (oom events=3D0) =3D=3D 0<br>memcontrol=
+04.c:196: TPASS: Expect: (low events=3D373) &gt; 0<br>memcontrol04.c:193: T=
+PASS: Expect: (oom events=3D0) =3D=3D 0<br>memcontrol04.c:198: TPASS: Expec=
+t: (low events=3D0) =3D=3D 0<br>memcontrol04.c:193: TPASS: Expect: (oom eve=
+nts=3D0) =3D=3D 0<br>memcontrol04.c:198: TFAIL: Expect: (low events=3D370) =
+=3D=3D 0<br></div></div></div></blockquote><div><br></div><div class=3D"gma=
+il_default" style=3D"font-size:small">It looks like a logic issue here, as =
+we do alloc_pagecache 50MB</div><div class=3D"gmail_default" style=3D"font-=
+size:small">respectively in the leaf_cg[C, D, E, F] and only the &#39;memor=
+y.low&#39;</div><div class=3D"gmail_default" style=3D"font-size:small">of l=
+eaf_cg[E] is large enough (500MB) to avoid triggering low event.</div><div =
+class=3D"gmail_default" style=3D"font-size:small">The rest cgroups should a=
+ll have low events, that kernel behavior</div><div class=3D"gmail_default" =
+style=3D"font-size:small">is correct.</div><div class=3D"gmail_default" sty=
+le=3D"font-size:small"><br></div><div class=3D"gmail_default" style=3D"font=
+-size:small">This failure should be fix with:</div><div class=3D"gmail_defa=
+ult" style=3D"font-size:small"><br></div><div class=3D"gmail_default" style=
+=3D"font-size:small">--- a/testcases/kernel/controllers/memcg/memcontrol04.=
+c<br>+++ b/testcases/kernel/controllers/memcg/memcontrol04.c<br>@@ -192,7 +=
+192,7 @@ static void test_memcg_low(void)<br>=C2=A0<br>=C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 TST_EXP_EXPR(oom =3D=3D 0, &quot;(oom e=
+vents=3D%ld) =3D=3D 0&quot;, oom);<br>=C2=A0<br>- =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 if (i &lt; E)<br>+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 if (i !=3D E)<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 TST_EXP_EXPR(low &gt; 0, &quo=
+t;(low events=3D%ld) &gt; 0&quot;, low)<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 else<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 TST_EXP_EXPR(low =3D=3D 0, &quot;=
+(low events=3D%ld) =3D=3D 0&quot;, low);<br></div></div><div><br></div><div=
+><br></div><div><div class=3D"gmail_default" style=3D"font-size:small">And =
+better to add &quot;leaf_cg%d&quot; print in the output:</div><div class=3D=
+"gmail_default" style=3D"font-size:small">(to show the events from which cg=
+roup)</div><div class=3D"gmail_default" style=3D"font-size:small"><br></div=
+><span class=3D"gmail_default" style=3D"font-size:small">=C2=A0 =C2=A0=C2=
+=A0</span>TST_EXP_EXPR(oom =3D=3D 0, &quot;(leaf_cg%d: oom events=3D%ld) =
+=3D=3D 0&quot;, i, oom);<br><br>=09=09<span class=3D"gmail_default" style=
+=3D"font-size:small"></span>=C2=A0 =C2=A0=C2=A0<span class=3D"gmail_default=
+"></span>if (i !=3D E)</div><div>=09=09=09<span class=3D"gmail_default" sty=
+le=3D"font-size:small"></span>=C2=A0 =C2=A0=C2=A0<span class=3D"gmail_defau=
+lt" style=3D"font-size:small"></span>=C2=A0 <span class=3D"gmail_default" s=
+tyle=3D"font-size:small"></span>=C2=A0 =C2=A0=C2=A0<span class=3D"gmail_def=
+ault"></span>=C2=A0=C2=A0<span class=3D"gmail_default"></span><span class=
+=3D"gmail_default"></span>TST_EXP_EXPR(low &gt; 0, &quot;(leaf_cg%d: low ev=
+ents=3D%ld) &gt; 0&quot;, i, =C2=A0low)</div><div>=09=09<span class=3D"gmai=
+l_default" style=3D"font-size:small"></span>=C2=A0 =C2=A0=C2=A0<span class=
+=3D"gmail_default"></span>else</div><div>=09=09=09<span class=3D"gmail_defa=
+ult" style=3D"font-size:small"></span>=C2=A0 =C2=A0=C2=A0<span class=3D"gma=
+il_default" style=3D"font-size:small"></span>=C2=A0 =C2=A0=C2=A0<span class=
+=3D"gmail_default" style=3D"font-size:small"></span>=C2=A0 =C2=A0=C2=A0<spa=
+n class=3D"gmail_default" style=3D"font-size:small"></span>=C2=A0<span clas=
+s=3D"gmail_default"></span><span class=3D"gmail_default"></span><span class=
+=3D"gmail_default"></span><span class=3D"gmail_default"></span>TST_EXP_EXPR=
+(low =3D=3D 0, &quot;(leaf_cg%d: low events=3D%ld) =3D=3D 0&quot;, i, low);=
+</div><div><br></div>-- <br><div dir=3D"ltr" class=3D"gmail_signature"><div=
+ dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div></div></div></div=
+>
+
+--000000000000add82405d7a3ffb8--
+
+
+--===============0452450573==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============0452450573==--
+
