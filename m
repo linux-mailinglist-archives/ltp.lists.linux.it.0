@@ -1,75 +1,67 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BCE14B0C28
-	for <lists+linux-ltp@lfdr.de>; Thu, 10 Feb 2022 12:19:30 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B20C4B0C69
+	for <lists+linux-ltp@lfdr.de>; Thu, 10 Feb 2022 12:33:16 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2DF943C9E97
-	for <lists+linux-ltp@lfdr.de>; Thu, 10 Feb 2022 12:19:30 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id F068E3C9E46
+	for <lists+linux-ltp@lfdr.de>; Thu, 10 Feb 2022 12:33:15 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 1ED203C6D9E
- for <ltp@lists.linux.it>; Thu, 10 Feb 2022 12:19:27 +0100 (CET)
-Received: from mail-pl1-x62c.google.com (mail-pl1-x62c.google.com
- [IPv6:2607:f8b0:4864:20::62c])
+ by picard.linux.it (Postfix) with ESMTPS id 1CC703C9B4F
+ for <ltp@lists.linux.it>; Thu, 10 Feb 2022 12:33:13 +0100 (CET)
+Received: from mail-pf1-x42c.google.com (mail-pf1-x42c.google.com
+ [IPv6:2607:f8b0:4864:20::42c])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 5B99F600830
- for <ltp@lists.linux.it>; Thu, 10 Feb 2022 12:19:27 +0100 (CET)
-Received: by mail-pl1-x62c.google.com with SMTP id w20so1522666plq.12
- for <ltp@lists.linux.it>; Thu, 10 Feb 2022 03:19:27 -0800 (PST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 679F460090B
+ for <ltp@lists.linux.it>; Thu, 10 Feb 2022 12:33:13 +0100 (CET)
+Received: by mail-pf1-x42c.google.com with SMTP id u16so4000483pfg.3
+ for <ltp@lists.linux.it>; Thu, 10 Feb 2022 03:33:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=uOh+tCxwu5YoVMDEis+lAnsAfLcNCjo4dliKJ0GAtpQ=;
- b=dvvdiCG2ZssQ6UuAtR8gerGoEpHsfElFTAfc+SO9KKA8YNXKn1Q6u52JomC1gpYrUA
- jEIVrTDwiCNSpZRwB/K7hqkUxQcTYAG7jTXwVPeUSpw6ql/MhwI4lnO4m31JrJ2m8GUZ
- H9mbmdbkWZXgwA2QSK28v2aQScTDypLd35xFxOXQtQ3+qteW9hViU0vOuDSROFCkbGDA
- qMT0AnRmP9Er53VP1ik4by16k+AmTxIzHGPG2qzMbV82e8i7G0CMBB62+OU58OrddxBW
- QBPQJ0Yg4WdSRjNn+a+ufa0JKKdOVS+7D7zPitccOU6zWrAqNjv2BbuWKlyPYDGZWdye
- NfsQ==
+ h=mime-version:from:date:message-id:subject:to;
+ bh=HI60bqkTmNL/tpVsm4trFFviZtQYmYvJpu+y8NkOsZs=;
+ b=qio8a1bdFPMwDDQomYWeaFNvCJGOi99IrNfpaSSt+dACFsmKyvLZ1ZkM/gYVE9/TTH
+ MJUa51/VmkW3m+9ZZ63c/HP8uplO/L9wUgNEB28JrTtdhR18EzoqbXL0J3TtTIPGLAuI
+ AFKHg162ebvf+4oTco74+/CtmlzJTeLiJFmP9MM1pQEaRHc0O9LxfuEOwbLnZm5tFulw
+ gKgroCGRZiHJ44Doptv+BT+dpoy5My8u7gwcSkeidliPVtqrtJVSEEN0iN5wdpYsPzRq
+ NWubDnWLTxgRIidAhcbfa3YEkpNX1VoOH8QUtaeAvRpqTAjhO3uhPgFFDBL7+d7jgDX1
+ UxOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=uOh+tCxwu5YoVMDEis+lAnsAfLcNCjo4dliKJ0GAtpQ=;
- b=EBCCXT6q4gmYAI+Uakl7Fid4bchfkZvC9UUqn7J7VTJhXu1gPF4EoYauNaTXGFUe25
- 1pAvjyWw//q+yH7MimjhOXIn4xzYG3T1LWwl7ARbksAB3DNW6+D9NpTLw/6l8hzmqaJ+
- NiJEKJd6JKiEiSJDEwvYfAZAbAMU72+bhBaDtJ6xh4Cl8ZOTLFADp7e63djBxPREHIqr
- FuRBVivNGlTM0ndxtm9F3uM4AyLRAGaVoRG2RgbRSvP+GatoS6TG4TcT7UTkNGj9U1l5
- MYW18KXFRcdQk+RiukKqBUyg4UaZ7l2MiuBHOGkimZGSuUC4rQ7sK2bxBAnXRyoxJiHC
- QGDA==
-X-Gm-Message-State: AOAM532gKs2dKAABoR9jtzebS1eu6yRcw1dahEGFfyRHUcxnEyO2emJg
- zTal68rq67Swmp1cHgmlw9SJ+E+qDH3Ezg==
-X-Google-Smtp-Source: ABdhPJzo3vHdg2FRQSweBMlpd+PxKdb0hfdcYMg/uZ6dGWBUj7738U+HQYdd1dS4rrdbXkFOzpdHDA==
-X-Received: by 2002:a17:90b:3a90:: with SMTP id
- om16mr2222376pjb.111.1644491965641; 
- Thu, 10 Feb 2022 03:19:25 -0800 (PST)
-Received: from localhost.localdomain ([2405:201:e030:88d9:c143:e4b1:355b:28be])
- by smtp.gmail.com with ESMTPSA id k26sm11632093pgl.46.2022.02.10.03.19.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 10 Feb 2022 03:19:25 -0800 (PST)
-From: Kushal Chand <kushalkataria5@gmail.com>
-To: ltp@lists.linux.it
-Date: Thu, 10 Feb 2022 16:48:28 +0530
-Message-Id: <20220210111828.39927-1-kushalkataria5@gmail.com>
-X-Mailer: git-send-email 2.25.1
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=HI60bqkTmNL/tpVsm4trFFviZtQYmYvJpu+y8NkOsZs=;
+ b=GpC8WcXdumR8HOy3Y2NNSPxAUQ3A8k2dgDKsCDkJrw5xqQnoktm8PZIwc+Xf4U9YNU
+ zxNuokimCXpv7cBIBnE7cvTbyxjEaM18RxbA9QBjl1iAlv8l8au5BKpVUMI+gyAd0sI8
+ 5eXh2XkhbAPzQ+TSjD4hwXKfCIxcRNRBrv1NoAR/Rzgy8hZ0ocoxP15o/emB019Y7GKu
+ iuyhoZ9kYuNIsvdPVkBilo8l1MriiIYMVZ5/wZZQDX4LhiPHAlf87QfyGRTJnQjacsWb
+ kKZKMZDIO5PS8Vp4c1iOxlAy7XjYlTnzqdCo3d8rYcr610wgoz+ldyH0YnShqHPiMXu+
+ hWIg==
+X-Gm-Message-State: AOAM533DN3VI2T+NIh9XwJYNbOPrMgOmTNxfTHfkFUuJKE6pwHQOrO+W
+ /kKwEd2I8DVuw8np9MvuwnOR93N6pGx4iq/2YWHNJezv
+X-Google-Smtp-Source: ABdhPJyW9eRcrptQylhJxCYm4QlPu6uuJc1XWdxDT87o5hxg4FOPyrdcB950J3iZbtrDHx4UKWoZGPi/zjFQM4IOw+w=
+X-Received: by 2002:a63:6847:: with SMTP id d68mr5868518pgc.273.1644492791867; 
+ Thu, 10 Feb 2022 03:33:11 -0800 (PST)
 MIME-Version: 1.0
+From: Kautuk Consul <kautuk.consul.80@gmail.com>
+Date: Thu, 10 Feb 2022 17:03:01 +0530
+Message-ID: <CAKWYkK03vnioG=XBmGOzAruwVo_XtZgn9k+dw8HPXyvTwfaVQQ@mail.gmail.com>
+To: ltp@lists.linux.it
 X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.3 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
- SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=disabled
- version=3.4.4
+ HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v3] fstat_02: Increase test coverage by creating hard
- link to file and validate using fstat
+Subject: [LTP] Open Question about KVM test-cases.
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,60 +73,46 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Kushal Chand <kushalkataria5@gmail.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============1629183194=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Please ignore patch v2, I think that is wrong.
+--===============1629183194==
+Content-Type: multipart/alternative; boundary="000000000000b1ed3005d7a850eb"
 
-Fix format specfiers and cast to correct type when printing.
-Implements: #517
----
- testcases/kernel/syscalls/fstat/fstat02.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+--000000000000b1ed3005d7a850eb
+Content-Type: text/plain; charset="UTF-8"
 
-diff --git a/testcases/kernel/syscalls/fstat/fstat02.c b/testcases/kernel/syscalls/fstat/fstat02.c
-index c0229de44..8084cd4c2 100644
---- a/testcases/kernel/syscalls/fstat/fstat02.c
-+++ b/testcases/kernel/syscalls/fstat/fstat02.c
-@@ -17,8 +17,10 @@
- #include "tst_safe_macros.h"
- 
- #define TESTFILE        "test_file"
-+#define LINK_TESTFILE   "link_test_file"
- #define FILE_SIZE       1024
- #define FILE_MODE	0644
-+#define NLINK	        2
- 
- static struct stat stat_buf;
- static uid_t user_id;
-@@ -61,6 +63,12 @@ static void run(void)
- 		fail++;
- 	}
- 
-+	if (stat_buf.st_nlink != NLINK) {
-+		tst_res(TFAIL, "stat_buf.st_nlink = %i expected %i",
-+			(int)stat_buf.st_nlink, NLINK);
-+		fail++;
-+	}
-+
- 	if (fail)
- 		return;
- 
-@@ -78,6 +86,8 @@ static void setup(void)
- 
- 	if (tst_fill_file(TESTFILE, 'a', FILE_SIZE, 1))
- 		tst_brk(TBROK, "Could not fill Testfile!");
-+
-+	SAFE_LINK(TESTFILE, LINK_TESTFILE);
- }
- 
- static void cleanup(void)
--- 
-2.25.1
+Hi,
+
+I just wanted to ask if there are any test-cases to test out the KVM
+hardware
+virtualization infrastructure in the Linux kernel ?
+
+If yes, then where can I access these test-cases from ?
+
+Thanks.
+
+--000000000000b1ed3005d7a850eb
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi,<div><br></div><div>I just wanted to ask if there are a=
+ny test-cases to test out the KVM hardware</div><div>virtualization infrast=
+ructure=C2=A0in the Linux kernel ?</div><div><br></div><div>If yes, then wh=
+ere can I access these test-cases from ?</div><div><br></div><div>Thanks.</=
+div></div>
+
+--000000000000b1ed3005d7a850eb--
+
+--===============1629183194==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============1629183194==--
