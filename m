@@ -2,67 +2,68 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73B884B2A28
-	for <lists+linux-ltp@lfdr.de>; Fri, 11 Feb 2022 17:24:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D09B4B2A2D
+	for <lists+linux-ltp@lfdr.de>; Fri, 11 Feb 2022 17:24:34 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D66443C9F2C
-	for <lists+linux-ltp@lfdr.de>; Fri, 11 Feb 2022 17:24:11 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id AEDD33C9F24
+	for <lists+linux-ltp@lfdr.de>; Fri, 11 Feb 2022 17:24:33 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 303FF3C0E63
- for <ltp@lists.linux.it>; Fri, 11 Feb 2022 17:24:07 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id C11913C0E63
+ for <ltp@lists.linux.it>; Fri, 11 Feb 2022 17:24:29 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 5C19A201120
- for <ltp@lists.linux.it>; Fri, 11 Feb 2022 17:24:07 +0100 (CET)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 4DEBB1A016D1
+ for <ltp@lists.linux.it>; Fri, 11 Feb 2022 17:24:29 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 9D420212B6;
- Fri, 11 Feb 2022 16:24:06 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id A06261F3A2;
+ Fri, 11 Feb 2022 16:24:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1644596646; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1644596668; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=WoKba+KTcCYlk3wJ+OON923Seuu68SUlDu8CLYXUraw=;
- b=j+fn0y/aZAi3L0CFvSGJ8xZBV0n944hvn1zq/2YyGNWm4MjWCCNoblI2LnprrJjYLtQNLm
- s1ZtjJzND49emuZzYhKLsIMRLZ8w0SYRDF0zlNdCL9waXVS61MB3Rk91jI1a0+eH37zVBp
- Fg7fOPpnMIIREQHmicjtxgZXW2+Nyzw=
+ bh=UBRoEZ1UAxQuNmCxYIBT1xix/vvHyircrUoIjaieyUM=;
+ b=JyYePdXXVcR+LS5lxim2JnQmR2sjKBmxcLNNum2e74wTHSyByA4lLd9ISnowhl/0KbHpSo
+ O4XnJIQX+HXOkkBZaUvZy/YXXCtvYC3X+Mu0bKwH839zL0AlC1LRrGJcJHwrwsITXp7aN3
+ s1CGGVNbYgrUJOBYlC6sbvVqjphKVYc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1644596646;
+ s=susede2_ed25519; t=1644596668;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=WoKba+KTcCYlk3wJ+OON923Seuu68SUlDu8CLYXUraw=;
- b=U9JrvEfaImpZiCQIuy12o/yzlu+bV/oXGvEMdico5TlALbegSCUiT4u6bH2XimlRCvg9c2
- 54bRzAAs2lh2OzDA==
+ bh=UBRoEZ1UAxQuNmCxYIBT1xix/vvHyircrUoIjaieyUM=;
+ b=NjI8vQWZa1bpM0L6awjOVTFm5w+bIE5asGTAJtepU1GMPrQUS4lTM2t1ZrdqUR7zSKZqoq
+ 2QNzxbvv3pYQYKCA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 684E013C9A;
- Fri, 11 Feb 2022 16:24:06 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6CB9D13C9A;
+ Fri, 11 Feb 2022 16:24:28 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id wZrmFqaNBmLWagAAMHmgww
- (envelope-from <blezhepekov@suse.de>); Fri, 11 Feb 2022 16:24:06 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id cuARGLyNBmL+agAAMHmgww
+ (envelope-from <blezhepekov@suse.de>); Fri, 11 Feb 2022 16:24:28 +0000
 From: Bogdan Lezhepekov <blezhepekov@suse.de>
 To: ltp@lists.linux.it
-Date: Fri, 11 Feb 2022 18:24:04 +0200
-Message-Id: <20220211162404.12193-1-blezhepekov@suse.de>
+Date: Fri, 11 Feb 2022 18:24:26 +0200
+Message-Id: <20220211162426.12284-1-blezhepekov@suse.de>
 X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH v1] lib/safe_file_ops.c: Fix resource leak
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH v1] syscalls/swapping01: Use .needs_kconfigs instead
+ of .setup
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,79 +80,40 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-safe_file_scanf and safe_file_vprintf suffered
-from resource leak, as opened file descriptor
-was not closed in case of error.
+needs_kconfigs is more beneficial for docparser
 
 Signed-off-by: Bogdan Lezhepekov <blezhepekov@suse.de>
 ---
- lib/safe_file_ops.c | 14 +++++++++-----
- 1 file changed, 9 insertions(+), 5 deletions(-)
+ testcases/kernel/mem/swapping/swapping01.c | 11 ++++-------
+ 1 file changed, 4 insertions(+), 7 deletions(-)
 
-diff --git a/lib/safe_file_ops.c b/lib/safe_file_ops.c
-index f803691d8..d7231df4d 100644
---- a/lib/safe_file_ops.c
-+++ b/lib/safe_file_ops.c
-@@ -130,7 +130,7 @@ void safe_file_scanf(const char *file, const int lineno,
- 	if (f == NULL) {
- 		tst_brkm_(file, lineno, TBROK | TERRNO, cleanup_fn,
- 			"Failed to open FILE '%s' for reading", path);
--		return;
-+		goto out;
- 	}
- 
- 	exp_convs = tst_count_scanf_conversions(fmt);
-@@ -142,14 +142,14 @@ void safe_file_scanf(const char *file, const int lineno,
- 	if (ret == EOF) {
- 		tst_brkm_(file, lineno, TBROK, cleanup_fn,
- 			"The FILE '%s' ended prematurely", path);
--		return;
-+		goto out;
- 	}
- 
- 	if (ret != exp_convs) {
- 		tst_brkm_(file, lineno, TBROK, cleanup_fn,
- 			"Expected %i conversions got %i FILE '%s'",
- 			exp_convs, ret, path);
--		return;
-+		goto out;
- 	}
- 
- 	if (fclose(f)) {
-@@ -157,6 +157,8 @@ void safe_file_scanf(const char *file, const int lineno,
- 			"Failed to close FILE '%s'", path);
- 		return;
- 	}
-+out:
-+	fclose(f);
+diff --git a/testcases/kernel/mem/swapping/swapping01.c b/testcases/kernel/mem/swapping/swapping01.c
+index 3b4f0a61a..f6133cc0d 100644
+--- a/testcases/kernel/mem/swapping/swapping01.c
++++ b/testcases/kernel/mem/swapping/swapping01.c
+@@ -155,18 +155,15 @@ static void check_swapping(void)
+ 	SAFE_WAITPID(pid, &status, 0);
  }
  
- 
-@@ -261,13 +263,13 @@ static void safe_file_vprintf(const char *file, const int lineno,
- 	if (f == NULL) {
- 		tst_brkm_(file, lineno, TBROK | TERRNO, cleanup_fn,
- 			"Failed to open FILE '%s' for writing", path);
--		return;
-+		goto out;
- 	}
- 
- 	if (vfprintf(f, fmt, va) < 0) {
- 		tst_brkm_(file, lineno, TBROK, cleanup_fn,
- 			"Failed to print to FILE '%s'", path);
--		return;
-+		goto out;
- 	}
- 
- 	if (fclose(f)) {
-@@ -275,6 +277,8 @@ static void safe_file_vprintf(const char *file, const int lineno,
- 			"Failed to close FILE '%s'", path);
- 		return;
- 	}
-+out:
-+	fclose(f);
- }
- 
- void safe_file_printf(const char *file, const int lineno,
+-static void setup(void)
+-{
+-	if (access("/proc/swaps", F_OK))
+-		tst_brk(TCONF, "swap not supported by kernel");
+-}
+-
+ static struct tst_test test = {
+ 	.needs_root = 1,
+ 	.forks_child = 1,
+ 	.min_mem_avail = 10,
+ 	.test_all = test_swapping,
+-	.setup = setup,
++	.needs_kconfigs = (const char *[]) {
++		"CONFIG_SWAP=y",
++		NULL
++	},
+ 	.tags = (const struct tst_tag[]) {
+ 		{"linux-git", "50a15981a1fa"},
+ 		{}
 -- 
 2.35.1
 
