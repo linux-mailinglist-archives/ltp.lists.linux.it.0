@@ -1,73 +1,68 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB19B4B6CEA
-	for <lists+linux-ltp@lfdr.de>; Tue, 15 Feb 2022 14:02:41 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 75CC94B6D7A
+	for <lists+linux-ltp@lfdr.de>; Tue, 15 Feb 2022 14:31:18 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 029C23CA066
-	for <lists+linux-ltp@lfdr.de>; Tue, 15 Feb 2022 14:02:41 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id DC1D13CA06B
+	for <lists+linux-ltp@lfdr.de>; Tue, 15 Feb 2022 14:31:17 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id D5DEC3C9FC4
- for <ltp@lists.linux.it>; Tue, 15 Feb 2022 14:02:37 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 5E8423CA00E
+ for <ltp@lists.linux.it>; Tue, 15 Feb 2022 14:31:14 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id D6415200DCC
- for <ltp@lists.linux.it>; Tue, 15 Feb 2022 14:02:36 +0100 (CET)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id C904B600783
+ for <ltp@lists.linux.it>; Tue, 15 Feb 2022 14:31:13 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 09EE01F38A;
- Tue, 15 Feb 2022 13:02:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1644930156; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=uO9mGjQCya9xFbHJAGO26S4pXcmyQUjYbr7YSuUq7Vg=;
- b=wkg+Gn/GNbjJbcxiWGLEF2dMdZbRU/ukkyOC1O8cWkKYLuV3vIydfvGotWWbXELjiPOou6
- I4ZBAuocKLyMbj6zxKA6URoVcl3AOn1LU0VyqvHOHurHRDneDOMThlLcyY6/o+Pg8rg0HE
- yn3DfbJiFUPadiC5KTlEgdBzzcd20Ns=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1644930156;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 09B5C210EE;
+ Tue, 15 Feb 2022 13:31:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1644931873; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=rV0eY6QdLcuiXvwa1ZS27DeKR8Ue8flIus6e+fWZemU=;
+ b=IfFzwBQlnvfdAz3noTEi6pRSES6vgjvciJ2F/+C/vMGu6nF7TbsGZb9NriS99Xllq4+VWu
+ d/3CByRWC1nzpx4y+XtzgWWj04dBInbTYtYVEIUA07a1l3Oa6vx4kP8ah1dOdJ+Nvn0ymk
+ 1CGnRV+WkR8f+xCm/3qmIGmOz5lQ/oY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1644931873;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=uO9mGjQCya9xFbHJAGO26S4pXcmyQUjYbr7YSuUq7Vg=;
- b=1PF4h6xBIf7AB2z73yACNXZo+AOUXApgNTiQw1Eua7f18YNbi+gGhAWN9uqrRa4ccxiSco
- hv/UVXeMYnVU/AAg==
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=rV0eY6QdLcuiXvwa1ZS27DeKR8Ue8flIus6e+fWZemU=;
+ b=btgY7tbL8CmYne5orycc5VPXbhf+tOaGLxavTPcQUiiuOZTdn2d/FgcKvxl51wfJ+zzdcs
+ tfKb69xB62A8PHBg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E953C13C75;
- Tue, 15 Feb 2022 13:02:35 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B825313C63;
+ Tue, 15 Feb 2022 13:31:12 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id BWOYN2ukC2IccgAAMHmgww
- (envelope-from <chrubis@suse.cz>); Tue, 15 Feb 2022 13:02:35 +0000
-Date: Tue, 15 Feb 2022 14:04:42 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Bogdan Lezhepekov <bogdan.lezhepekov@suse.com>
-Message-ID: <Yguk6nhRcd863ia+@yuki>
-References: <20220211152751.4651-1-bogdan.lezhepekov@suse.com>
+ by imap2.suse-dmz.suse.de with ESMTPSA id n3lzKiCrC2KrAwAAMHmgww
+ (envelope-from <blezhepekov@suse.de>); Tue, 15 Feb 2022 13:31:12 +0000
+From: Bogdan Lezhepekov <blezhepekov@suse.de>
+To: ltp@lists.linux.it
+Date: Tue, 15 Feb 2022 15:31:10 +0200
+Message-Id: <20220215133110.22021-1-blezhepekov@suse.de>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20220211152751.4651-1-bogdan.lezhepekov@suse.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v1] lib/tst_memutils.c: Fix resource leak
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH v2] lib/tst_memutils.c: Fix resource leak
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,41 +74,38 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> diff --git a/lib/tst_memutils.c b/lib/tst_memutils.c
-> index 4a4974761..2e6d7d5fd 100644
-> --- a/lib/tst_memutils.c
-> +++ b/lib/tst_memutils.c
-> @@ -122,7 +122,10 @@ static int write_score(const char *path, int score)
->  		return 1;
->  
->  	if (fprintf(f, "%d", score) <= 0)
-> +	{
-> +		fclose(f);
->  		return 1;
-> +	}
+File descriptor was not closed properly
+before return.
 
-The coding style is wrong. Please run 'make check' in the respective
-directory when the source code located and fix all warnings.
+Signed-off-by: Bogdan Lezhepekov <blezhepekov@suse.de>
+---
+ lib/tst_memutils.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
->  	if (fclose(f))
->  		return 1;
-> -- 
-> 2.35.1
-> 
-> 
-> -- 
-> Mailing list info: https://lists.linux.it/listinfo/ltp
-
+diff --git a/lib/tst_memutils.c b/lib/tst_memutils.c
+index 4a4974761..3741d6e6f 100644
+--- a/lib/tst_memutils.c
++++ b/lib/tst_memutils.c
+@@ -121,8 +121,10 @@ static int write_score(const char *path, int score)
+ 	if (!f)
+ 		return 1;
+ 
+-	if (fprintf(f, "%d", score) <= 0)
++	if (fprintf(f, "%d", score) <= 0) {
++		fclose(f);
+ 		return 1;
++	}
+ 
+ 	if (fclose(f))
+ 		return 1;
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+2.35.1
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
