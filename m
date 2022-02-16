@@ -1,68 +1,69 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 114424B839A
-	for <lists+linux-ltp@lfdr.de>; Wed, 16 Feb 2022 10:07:15 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 905584B839C
+	for <lists+linux-ltp@lfdr.de>; Wed, 16 Feb 2022 10:08:11 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id CA13E3CA073
-	for <lists+linux-ltp@lfdr.de>; Wed, 16 Feb 2022 10:07:14 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 017503CA073
+	for <lists+linux-ltp@lfdr.de>; Wed, 16 Feb 2022 10:08:11 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 0807F3C9564
- for <ltp@lists.linux.it>; Wed, 16 Feb 2022 10:07:12 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 628D83C9564
+ for <ltp@lists.linux.it>; Wed, 16 Feb 2022 10:08:08 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 357591000947
- for <ltp@lists.linux.it>; Wed, 16 Feb 2022 10:07:11 +0100 (CET)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 633B8201034
+ for <ltp@lists.linux.it>; Wed, 16 Feb 2022 10:08:06 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 64D401F383;
- Wed, 16 Feb 2022 09:07:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1645002431; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 44492212C5;
+ Wed, 16 Feb 2022 09:08:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1645002486; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=kHucTTzQSfyAnoB5BxZuEsXweg7lQr+r3nVxwZ0622c=;
- b=RmRvmiIzDDk23LLDqFzAS6h36+zYtm4/Y4i/cRMyW5j5c13Zy+6vWbgoDPhxD024OIqGjx
- iUgbMaXbutonMflOTKIkKkTa/FgVmyOZ8fdCfQ72UkRz3vpK7dEMtvhYbVDA+u61veA9w2
- 8GpP9NwJt7FWOH9vkgwdbnx07Leudt4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1645002431;
+ bh=fBawKUvorDfTqslYACgJfbcq5WmfnNCuKY/DNG+7qAg=;
+ b=1OoOy1M4uaIXMq+7fyBDb7cKBch3Kv5GnY+EhbFARVLv6Nd1mtfs4qYl/tJqhPDq/47zKa
+ RA6CIk0ktGINw2EzNbUnC7064I/M6qoV8wkN24HKArPAgdVWYtEj1ITFNzJgZEAwHicTyA
+ QGDZb00YCFRolbmBGHaa+M5LXpCcfGU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1645002486;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=kHucTTzQSfyAnoB5BxZuEsXweg7lQr+r3nVxwZ0622c=;
- b=D9E/j16/rET+MnCvu2v5SJKpCZPgMFMr/fSrr1kDR3YcV1SMT2JdR+SCSYow4AHocfr5BV
- qFMs9JDm9p2pisCQ==
+ bh=fBawKUvorDfTqslYACgJfbcq5WmfnNCuKY/DNG+7qAg=;
+ b=h1vJRMv6PTMdv/9U8HrWJcSKxvN3lxN/KoEh680NnXwz+pybrLoaGElC8nsMlHseYgl4QP
+ 7A57jaEcZwJjT3Ag==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1E0A213A95;
- Wed, 16 Feb 2022 09:07:11 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2144B13A95;
+ Wed, 16 Feb 2022 09:08:06 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id C/yyBL++DGJXYwAAMHmgww
- (envelope-from <blezhepekov@suse.de>); Wed, 16 Feb 2022 09:07:11 +0000
-From: Bogdan Lezhepekov <blezhepekov@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id 47MqBva+DGLRYwAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Wed, 16 Feb 2022 09:08:06 +0000
+From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Wed, 16 Feb 2022 11:07:08 +0200
-Message-Id: <20220216090708.29588-1-blezhepekov@suse.de>
+Date: Wed, 16 Feb 2022 10:08:01 +0100
+Message-Id: <20220216090801.31400-1-pvorel@suse.cz>
 X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH v1] ltpfs/main.c: Initialize return variable
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] [COMMITTED][PATCH 1/1] ustat: Add missing space in known-fail
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,27 +80,64 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-LTP_fs_open_block_device returned initialized local
-variable, when device handler is occupied.
+Although testinfo.pl in a7b6c94503 adds extra space for producing doc,
+space was missing when printing after test run:
 
-Signed-off-by: Bogdan Lezhepekov <blezhepekov@suse.de>
+$ ./ustat01
+...
+HINT: You _MAY_ be hit by known kernel failures:
+
+ustat() is known to fail with EINVAL on Btrfs, seehttps://lore.kernel.org/linux-btrfs/e7e867b8-b57a-7eb2-2432-1627bd3a88fb@toxicpanda.com/
+
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- testcases/kernel/fs/scsi/ltpfs/main.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+We might just remove the space from docparse/testinfo.pl which is now
+useless:
 
-diff --git a/testcases/kernel/fs/scsi/ltpfs/main.c b/testcases/kernel/fs/scsi/ltpfs/main.c
-index dc3e8f30c..2c67c7a47 100644
---- a/testcases/kernel/fs/scsi/ltpfs/main.c
-+++ b/testcases/kernel/fs/scsi/ltpfs/main.c
-@@ -391,7 +391,7 @@ int LTP_fs_open_block_device()
- {
- 	dev_t devt;
- 	struct stat statbuf;
--	int rc;
-+	int rc = 0;
+diff --git docparse/testinfo.pl docparse/testinfo.pl
+index 67e435d794..fa77b53cc5 100755
+--- docparse/testinfo.pl
++++ docparse/testinfo.pl
+@@ -456,7 +456,7 @@ sub content_all_tests
+ 			# tag value value can be split into more lines if too long
+ 			# i.e. URL in known-fail
+ 			for (@$tag[2 .. $#$tag]) {
+-				$v .= " $_";
++				$v .= $_;
+ 			}
  
- 	if (ltp_block_dev_handle == 0) {
- 
+ 			$content .= "\n|" . reference($k) . "\n|$v\n";
+
+ testcases/kernel/syscalls/ustat/ustat01.c | 2 +-
+ testcases/kernel/syscalls/ustat/ustat02.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/testcases/kernel/syscalls/ustat/ustat01.c b/testcases/kernel/syscalls/ustat/ustat01.c
+index 66dbc0b184..70a44adb46 100644
+--- a/testcases/kernel/syscalls/ustat/ustat01.c
++++ b/testcases/kernel/syscalls/ustat/ustat01.c
+@@ -45,7 +45,7 @@ static struct tst_test test = {
+ 	.test_all = run,
+ 	.setup = setup,
+ 	.tags = (const struct tst_tag[]) {
+-		{"known-fail", "ustat() is known to fail with EINVAL on Btrfs, see"
++		{"known-fail", "ustat() is known to fail with EINVAL on Btrfs, see "
+ 			"https://lore.kernel.org/linux-btrfs/e7e867b8-b57a-7eb2-2432-1627bd3a88fb@toxicpanda.com/"
+ 		},
+ 		{}
+diff --git a/testcases/kernel/syscalls/ustat/ustat02.c b/testcases/kernel/syscalls/ustat/ustat02.c
+index 55bdcaedf8..a5b0cc1b68 100644
+--- a/testcases/kernel/syscalls/ustat/ustat02.c
++++ b/testcases/kernel/syscalls/ustat/ustat02.c
+@@ -64,7 +64,7 @@ static struct tst_test test = {
+ 	.setup = setup,
+ 	.tcnt = ARRAY_SIZE(tc),
+ 	.tags = (const struct tst_tag[]) {
+-		{"known-fail", "ustat() is known to fail with EINVAL on Btrfs, see"
++		{"known-fail", "ustat() is known to fail with EINVAL on Btrfs, see "
+ 			"https://lore.kernel.org/linux-btrfs/e7e867b8-b57a-7eb2-2432-1627bd3a88fb@toxicpanda.com/"
+ 		},
+ 		{}
 -- 
 2.35.1
 
