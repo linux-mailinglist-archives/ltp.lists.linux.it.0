@@ -1,72 +1,73 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DE134BDAB5
-	for <lists+linux-ltp@lfdr.de>; Mon, 21 Feb 2022 16:58:27 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FA764BDAB8
+	for <lists+linux-ltp@lfdr.de>; Mon, 21 Feb 2022 16:59:26 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 088263CA170
-	for <lists+linux-ltp@lfdr.de>; Mon, 21 Feb 2022 16:58:27 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id CEED13CA170
+	for <lists+linux-ltp@lfdr.de>; Mon, 21 Feb 2022 16:59:25 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 06AC13C1041
- for <ltp@lists.linux.it>; Mon, 21 Feb 2022 16:58:18 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id 37A7D3C1041
+ for <ltp@lists.linux.it>; Mon, 21 Feb 2022 16:59:25 +0100 (CET)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 74D68600284
- for <ltp@lists.linux.it>; Mon, 21 Feb 2022 16:58:18 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id CA53B10011AF
+ for <ltp@lists.linux.it>; Mon, 21 Feb 2022 16:59:24 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id A10AF1F38E;
- Mon, 21 Feb 2022 15:58:17 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 27C981F390;
+ Mon, 21 Feb 2022 15:59:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1645459097; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1645459164; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=WBumtwbvUdr+vkvgI7YKsE8Bj92ajGrsdxko8h598TM=;
- b=M7ZYkKmUND6K79f/Brm17SPH8wUPsvZJNZ6atnvsgN+iA/+ZsChh/r7wMFUt4I3ZjdGjo/
- 49z3XmeNhXq9m5RpF07whpl1L6thxoD2QKmE0hqBzugxrL4VwejTsiBqfmLZMc6Qmu4bSC
- ARM9JTKwUbrcB8lagim3ENYr+sFRagI=
+ bh=zbh0BH3eGfu6uPoJbLvUKpf0X5WJ7Fxr2xzT/Gk+Wyw=;
+ b=S25TVrqVCyo9qo4g8Gtv39iC9bCxZK/O63NGjVe7ZymIDixeU7TktldS0DUyDRqHtkDdEo
+ XMEgm22n+jmlzW8kgEsdDr/fOskVwNgfziMbgJdv3FNBx/PkrC0ET0JJ0wsmDbxqfqL+I6
+ yjO9NZwFpX1PQlU2tgm8JAVVF7BzSgI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1645459097;
+ s=susede2_ed25519; t=1645459164;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=WBumtwbvUdr+vkvgI7YKsE8Bj92ajGrsdxko8h598TM=;
- b=nOQIVcCtXzUXXKper16z5A+1L/9yk1lB/IbepggjgxxkdCFixPDj6tk9N/9QGtbjUJmPGJ
- zNrIVdhBkHcQvrCA==
+ bh=zbh0BH3eGfu6uPoJbLvUKpf0X5WJ7Fxr2xzT/Gk+Wyw=;
+ b=Gq7VheQoBHNe9Zm6oYRZ7GDUudmV31Oka/Q/yBSy5imozIGcfIkvjfKxVhJNW6yM2Ns5Uk
+ yZWGWnEHOkEnWhDg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7E94B13B5B;
- Mon, 21 Feb 2022 15:58:17 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1646713B5B;
+ Mon, 21 Feb 2022 15:59:24 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id XiJeHZm2E2KZVwAAMHmgww
- (envelope-from <chrubis@suse.cz>); Mon, 21 Feb 2022 15:58:17 +0000
-Date: Mon, 21 Feb 2022 17:00:28 +0100
+ by imap2.suse-dmz.suse.de with ESMTPSA id jufoA9y2E2IUWAAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Mon, 21 Feb 2022 15:59:24 +0000
+Date: Mon, 21 Feb 2022 17:01:35 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <YhO3HEHLj8nGbFnh@yuki>
-References: <20220218103413.18540-1-chrubis@suse.cz> <Yg955rgC98bNE1w4@pevik>
+To: Andrea Cervesato <andrea.cervesato@suse.de>
+Message-ID: <YhO3X/HPaLaXS202@yuki>
+References: <20220217084552.21706-1-andrea.cervesato@suse.de>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <Yg955rgC98bNE1w4@pevik>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+In-Reply-To: <20220217084552.21706-1-andrea.cervesato@suse.de>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] tst_test_macros: Add TST_EXP_EQ_*() macros
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] Split waitid02.c test using new LTP API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,7 +86,9 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-I've added some docs to C API docs and pushed, thanks.
+Pushed, thanks.
+
+FYI: I've added bunch of fixes and cleanups in a follow up patch.
 
 -- 
 Cyril Hrubis
