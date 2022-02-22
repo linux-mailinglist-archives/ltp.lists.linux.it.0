@@ -1,83 +1,93 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id A13F34BF2A8
-	for <lists+linux-ltp@lfdr.de>; Tue, 22 Feb 2022 08:38:29 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 33EDA4BF3D7
+	for <lists+linux-ltp@lfdr.de>; Tue, 22 Feb 2022 09:41:50 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 579163CA194
-	for <lists+linux-ltp@lfdr.de>; Tue, 22 Feb 2022 08:38:29 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 01C953CA19F
+	for <lists+linux-ltp@lfdr.de>; Tue, 22 Feb 2022 09:41:50 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id C10193CA18C
- for <ltp@lists.linux.it>; Tue, 22 Feb 2022 08:38:27 +0100 (CET)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by picard.linux.it (Postfix) with ESMTPS id 02E673CA1BA
+ for <ltp@lists.linux.it>; Tue, 22 Feb 2022 09:41:25 +0100 (CET)
+Received: from mail1.bemta36.messagelabs.com (mail1.bemta36.messagelabs.com
+ [85.158.142.2])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id B1CAD2005E0
- for <ltp@lists.linux.it>; Tue, 22 Feb 2022 08:38:25 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1645515504;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=puA39ij6AUxd5EzWIEKnuoJoSmXPRIZZak5Vy9ysOe4=;
- b=EWknmTQrsK/rB6DkDMQAhhfTlIKG0g1QGj8cjrtiJTChHPGDN2JMBt4H0cDAC1XItLqRA6
- vSmvtMfSb17XHAFHT6GOmYqT5aow2/e1woBHpyIoozaXFwyRYV0ukoOePoJkcpHTTVlJ7+
- 6JtiLWUs9qHq5a12BGU7s4cK5eQ9rxY=
-Received: from mail-yb1-f197.google.com (mail-yb1-f197.google.com
- [209.85.219.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-446-9WLP8PdrMky0VwVSRU28uw-1; Tue, 22 Feb 2022 02:38:21 -0500
-X-MC-Unique: 9WLP8PdrMky0VwVSRU28uw-1
-Received: by mail-yb1-f197.google.com with SMTP id
- b64-20020a256743000000b0061e169a5f19so23341236ybc.11
- for <ltp@lists.linux.it>; Mon, 21 Feb 2022 23:38:21 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=puA39ij6AUxd5EzWIEKnuoJoSmXPRIZZak5Vy9ysOe4=;
- b=gqPw1Qogw1u6UqTk+NPk07ciLV4G+QQ0XltrH8L8MMUNRrLt0qD6olGZbNGGP5AB94
- k373iXwt5TICaYpO7z+fIjwjeoHy+f7SzlRw6Oksu05v9oKJc4zzcy+jTP89HAPRqOOG
- /MGcLrL+GyOGSs8o9F9yYlcgeFeOvl1TUyjjV2rzhVFbqyq3eJtOaC3MdrkwkMqyUqvg
- xROT3mMBoNHcs/ct+y/p/JVQDnlWYrzv/c8/VomNFha8csHzqQFLN+4xa1li1n32ool9
- gzjVuVUDGgHhD7kP1nNe2FPI5Cv7ATa5bItOCzfzVvsj2rBqNm1Edg11dOtzHzXBjWn3
- 85KQ==
-X-Gm-Message-State: AOAM533TBuz9XU5Szll13eWundfWX+9JZzoztDqEHeHjbvVfJb9ODYZ9
- AuCCTjY7Jbxxg1DBO06K7WYReedB9yOjPucmClwHJvhxR/+WRWVuRKzY9H2LIEmdmYToe0KAIgt
- 2+1PGuAInshXy57NkR2v+HD5P4B8=
-X-Received: by 2002:a25:b87:0:b0:61c:dc67:2c69 with SMTP id
- 129-20020a250b87000000b0061cdc672c69mr22404573ybl.161.1645515500902; 
- Mon, 21 Feb 2022 23:38:20 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJx3wmSiXc7rg1VxUBtWKUm45be5Ba37J/EGxkEiK8DxOGyO7UWc+TrkxSf09f/cr7VOFzp93B2j+qO4ABQyhnE=
-X-Received: by 2002:a25:b87:0:b0:61c:dc67:2c69 with SMTP id
- 129-20020a250b87000000b0061cdc672c69mr22404557ybl.161.1645515500586; Mon, 21
- Feb 2022 23:38:20 -0800 (PST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id ABACC20075C
+ for <ltp@lists.linux.it>; Tue, 22 Feb 2022 09:41:23 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fujitsu.com;
+ s=170520fj; t=1645519283; i=@fujitsu.com;
+ bh=sfkiSgRVEdumQ3d117BSxCiul1IAjxncLrRFxpPmxpo=;
+ h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type;
+ b=TyRT+C5GpRofKj3SuJH1Pn5qnd/pqJKd1makezUzc+yynKsLH2bWAiKzpswKsFbLt
+ espif7cHXF58gTFEC9cX1qK8LvfNbSgp65FioMlpMmbBldG0zIQ8JYY10RvcUPkAru
+ 80yx35FoL+Mf+fS07qgkv3rSq0m6h83CaVnzCKPoCGK9oXdRB6so19DkUp6E1qMjBn
+ 06SqriTyzWb84682k1UadgF4w8UYAY/JhYRiULib4NoVykwwIRgduV4YWhVgewHk+l
+ Q82jPpekwI398qjDLTF0rlGXsiR/oUOTbNpL7qmdJGY24eGjQS10odHPieD84axVgG
+ DhlZ171/+eGCA==
+Received: from [100.115.69.48] (using TLSv1.2 with cipher
+ DHE-RSA-AES256-GCM-SHA384 (256 bits))
+ by server-2.bemta.az-a.eu-central-1.aws.ess.symcld.net id 78/C2-30582-3B1A4126;
+ Tue, 22 Feb 2022 08:41:23 +0000
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFtrOIsWRWlGSWpSXmKPExsViZ8ORqLtyoUi
+ Swf2dkhYrvu9gdGD02Pd7HWsAYxRrZl5SfkUCa8bGfwtYC274VCxuusbUwPjauYuRi0NI4Cyj
+ xKJlR5khnJ1MEq0X/7JCOHsYJX6evsTWxcjJwSagKfGscwEziC0iICHR0fCWHcRmFlCXWD7pF
+ xOILSxgL/G98TpYnEVAVeLm6+9gvbwCHhIzp8xkBbElBBQkpjx8zwwRF5Q4OfMJC8QcCYmDL1
+ 4wQ9QoSlzq+MYIYVdIzJrVxgRhq0lcPbeJeQIj/ywk7bOQtC9gZFrFaJdUlJmeUZKbmJmja2h
+ goGtoaKprZqZraGqql1ilm6iXWqqbnJpXUpQIlNZLLC/WSy0u1iuuzE3OSdHLSy3ZxAgMz5Ri
+ p9k7GHf0/dQ7xCjJwaQkyvt1ikiSEF9SfkplRmJxRnxRaU5q8SFGGQ4OJQnepfOAcoJFqempF
+ WmZOcBYgUlLcPAoifBumQ2U5i0uSMwtzkyHSJ1iVJQS5xVYAJQQAElklObBtcHi8xKjrJQwLy
+ MDA4MQT0FqUW5mCar8K0ZxDkYlYd6w+UBTeDLzSuCmvwJazAS0eEqWEMjikkSElFQDk67Jqym
+ 2ez73M145e/JCfdTfp/sCfh8o7amJ+dMc/cA/TGvCiTN3JaR3Te1dLJYbz8i9Q9UjSvu6xhb1
+ 3ZFmR68cLRDctkZ05ga/2W+T9P7HlWWZlCwzSn9yc7/+ipC+v2bLp4W9Tbpe16t6tfUa96YN+
+ Sq7Vq0IPbtroZLLFGv79gPnl/v9/bjNt1hcKfnFjTXGk8I9eXY2LH3JxtMdsSru1CkO1eexe5
+ b3nTi9/BrXS6P8vVYW67Y4avgdeSev8KLwCEPr0in3+65H5lVLbPrg/fyiyLrTvzV2fFW/9vT
+ LZ/PeziPT1stut99cslzh+7M9Vxn4XHbPt7vicPY/vzXDPn/Gayvqb5Q/WuUyQ1FZiaU4I9FQ
+ i7moOBEAoypCe0oDAAA=
+X-Env-Sender: xuyang2018.jy@fujitsu.com
+X-Msg-Ref: server-13.tower-545.messagelabs.com!1645519273!2734!1
+X-Originating-IP: [62.60.8.97]
+X-SYMC-ESS-Client-Auth: outbound-route-from=pass
+X-StarScan-Received: 
+X-StarScan-Version: 9.81.7; banners=-,-,-
+X-VirusChecked: Checked
+Received: (qmail 10572 invoked from network); 22 Feb 2022 08:41:13 -0000
+Received: from unknown (HELO n03ukasimr01.n03.fujitsu.local) (62.60.8.97)
+ by server-13.tower-545.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
+ encrypted SMTP; 22 Feb 2022 08:41:13 -0000
+Received: from n03ukasimr01.n03.fujitsu.local (localhost [127.0.0.1])
+ by n03ukasimr01.n03.fujitsu.local (Postfix) with ESMTP id DE6EE100196
+ for <ltp@lists.linux.it>; Tue, 22 Feb 2022 08:41:12 +0000 (GMT)
+Received: from R01UKEXCASM126.r01.fujitsu.local (unknown [10.183.43.178])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by n03ukasimr01.n03.fujitsu.local (Postfix) with ESMTPS id DC11F100192
+ for <ltp@lists.linux.it>; Tue, 22 Feb 2022 08:41:12 +0000 (GMT)
+Received: from localhost.localdomain (10.167.220.84) by
+ R01UKEXCASM126.r01.fujitsu.local (10.183.43.178) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.28; Tue, 22 Feb 2022 08:40:50 +0000
+From: Yang Xu <xuyang2018.jy@fujitsu.com>
+To: <ltp@lists.linux.it>
+Date: Tue, 22 Feb 2022 16:41:06 +0800
+Message-ID: <1645519272-2733-1-git-send-email-xuyang2018.jy@fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
 MIME-Version: 1.0
-References: <b32ed0e56099520bc3e75455e2472841aa0b3020.1645096642.git.jstancek@redhat.com>
-In-Reply-To: <b32ed0e56099520bc3e75455e2472841aa0b3020.1645096642.git.jstancek@redhat.com>
-From: Li Wang <liwang@redhat.com>
-Date: Tue, 22 Feb 2022 15:38:04 +0800
-Message-ID: <CAEemH2cM9-qHgu2F1=H9W0sWZFkGu1BvWdNvGyREsf+s9kHSSQ@mail.gmail.com>
-To: Jan Stancek <jstancek@redhat.com>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+X-Originating-IP: [10.167.220.84]
+X-ClientProxiedBy: G08CNEXCHPEKD07.g08.fujitsu.local (10.167.33.80) To
+ R01UKEXCASM126.r01.fujitsu.local (10.183.43.178)
 X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/perf_event_open03: skip test on slower
- systems
+Subject: [LTP] [PATCH v3 1/7] Merge multiple pidfd*.h into one header
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,152 +99,335 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============0085150008=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0085150008==
-Content-Type: multipart/alternative; boundary="000000000000e2a4f905d8966ea4"
+Since pidfd_getfd.h/pidfd_send_signal.h/pidfd_open.h doesn't have own struct
+definition, it only about syscall wrapper. Kernel also doesn't have the same
+name headers.
 
---000000000000e2a4f905d8966ea4
-Content-Type: text/plain; charset="UTF-8"
+So use pidfd.h instead of own header. It is also convenient to add the safe
+macros or case uses multiple pidfd syscalls in the future.
 
-Jan Stancek <jstancek@redhat.com> wrote:
+Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
+---
+ include/lapi/pidfd.h                          | 58 +++++++++++++++++++
+ include/lapi/pidfd_getfd.h                    | 26 ---------
+ include/lapi/pidfd_open.h                     | 28 ---------
+ include/lapi/pidfd_send_signal.h              | 27 ---------
+ testcases/kernel/syscalls/clone3/clone301.c   |  2 +-
+ .../kernel/syscalls/fanotify/fanotify21.c     |  2 +-
+ .../kernel/syscalls/pidfd_open/pidfd_open01.c |  3 +-
+ .../kernel/syscalls/pidfd_open/pidfd_open02.c |  2 +-
+ .../kernel/syscalls/pidfd_open/pidfd_open03.c |  2 +-
+ .../kernel/syscalls/pidfd_open/pidfd_open04.c |  7 +--
+ .../pidfd_send_signal/pidfd_send_signal01.c   |  3 +-
+ .../pidfd_send_signal/pidfd_send_signal02.c   |  3 +-
+ .../pidfd_send_signal/pidfd_send_signal03.c   |  3 +-
+ 13 files changed, 70 insertions(+), 96 deletions(-)
+ create mode 100644 include/lapi/pidfd.h
+ delete mode 100644 include/lapi/pidfd_getfd.h
+ delete mode 100644 include/lapi/pidfd_open.h
+ delete mode 100644 include/lapi/pidfd_send_signal.h
 
-Some systems (specially with combination of -debug kernel
-> with KASAN enabled) have trouble completing this test
-> in specified timeout.
->
-> Lowering number of iterations would make the test condition
-> less accurate as it's based on global counter.
->
-> Instead, calculate the rate of iterations system can do in
-> first 5 seconds and used that to decide whether to continue
-> to run the test. If the rate is too slow, TCONF after 5
-> seconds.
->
-
-Generally, this method looks good, but maybe better to limit this
-check_progress() only perform on -debug kernel?  Otherwise,
-
-Reviewed-by: Li Wang <liwang@redhat.com>
-
-
-======= FYI ==========
-I'm seeking a fair way to make a global evaluation of the test
-system to reset timeout dynamically for the whole LTP.
-
-My original design thoughts:
-
-  Create the numbers of threads equal to CPUs and bind them to
-  the corresponding cpu for running. Use mutex lock to sync up
-  each thread launch at the same time to collect the basic data
-  for their CPU. Then we can compare the CPU state under the idle or
-  busy time to get a relatively stationary _value_ to measure the system
-  performance.
-
-But so far the test method is not stable&reliable as expected.
-
-  // do float computing + dirty 10*pagesz memory  in a limited times
-  one_unit_of_operation();
-
-  // count the CPU looping numbers with (type = idel, calcu)
-  // and call one_unit_opertaion() in 1 sec
-  cpu_1sec_looping(int type);
-
-  idlespeed_loops = cpu_1sec_looping(idel);
-  calculate_loops = cpu_1sec_looping(calcu);
-  ...
-  // count the _value_ from all CPU average loops
-  ratio = calculate_avg / idealspeed_avg;
-
+diff --git a/include/lapi/pidfd.h b/include/lapi/pidfd.h
+new file mode 100644
+index 000000000..244d3acaf
+--- /dev/null
++++ b/include/lapi/pidfd.h
+@@ -0,0 +1,58 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2022 FUJITSU LIMITED. All rights reserved.
++ * Author: Yang Xu <xuyang2018.jy@fujitsu.com>
++ */
++
++#ifndef LAPI_PIDFD_H__
++#define LAPI_PIDFD_H__
++
++#include <fcntl.h>
++#include "config.h"
++#include "lapi/syscalls.h"
++
++#ifndef PIDFD_NONBLOCK
++#define PIDFD_NONBLOCK O_NONBLOCK
++#endif
++
++static inline void pidfd_send_signal_supported(void)
++{
++	/* allow the tests to fail early */
++	tst_syscall(__NR_pidfd_send_signal);
++}
++
++#ifndef HAVE_PIDFD_SEND_SIGNAL
++static inline int pidfd_send_signal(int pidfd, int sig, siginfo_t *info,
++				    unsigned int flags)
++{
++	return tst_syscall(__NR_pidfd_send_signal, pidfd, sig, info, flags);
++}
++#endif
++
++static inline void pidfd_open_supported(void)
++{
++	/* allow the tests to fail early */
++	tst_syscall(__NR_pidfd_open);
++}
++
++#ifndef HAVE_PIDFD_OPEN
++static inline int pidfd_open(pid_t pid, unsigned int flags)
++{
++	return tst_syscall(__NR_pidfd_open, pid, flags);
++}
++#endif
++
++static inline void pidfd_getfd_supported(void)
++{
++	/* allow the tests to fail early */
++	tst_syscall(__NR_pidfd_getfd);
++}
++
++#ifndef HAVE_PIDFD_GETFD
++static inline int pidfd_getfd(int pidfd, int targetfd, unsigned int flags)
++{
++	return tst_syscall(__NR_pidfd_getfd, pidfd, targetfd, flags);
++}
++#endif
++
++#endif /* LAPI_PIDFD_H__ */
+diff --git a/include/lapi/pidfd_getfd.h b/include/lapi/pidfd_getfd.h
+deleted file mode 100644
+index c6778163d..000000000
+--- a/include/lapi/pidfd_getfd.h
++++ /dev/null
+@@ -1,26 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-or-later
+-/*
+- * Copyright (c) 2022 FUJITSU LIMITED. All rights reserved.
+- * Author: Yang Xu <xuyang2018.jy@fujitsu.com>
+- */
+-
+-#ifndef LAPI_PIDFD_GETFD_H__
+-#define LAPI_PIDFD_GETFD_H__
+-
+-#include "config.h"
+-#include "lapi/syscalls.h"
+-
+-static inline void pidfd_getfd_supported(void)
+-{
+-	/* allow the tests to fail early */
+-	tst_syscall(__NR_pidfd_getfd);
+-}
+-
+-#ifndef HAVE_PIDFD_GETFD
+-static inline int pidfd_getfd(int pidfd, int targetfd, unsigned int flags)
+-{
+-	return tst_syscall(__NR_pidfd_getfd, pidfd, targetfd, flags);
+-}
+-#endif
+-
+-#endif /* LAPI_PIDFD_GETFD_H__ */
+diff --git a/include/lapi/pidfd_open.h b/include/lapi/pidfd_open.h
+deleted file mode 100644
+index 5cf10933e..000000000
+--- a/include/lapi/pidfd_open.h
++++ /dev/null
+@@ -1,28 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-or-later
+-/*
+- * Copyright (c) 2020 Linaro Limited. All rights reserved.
+- * Author: Viresh Kumar <viresh.kumar@linaro.org>
+- */
+-
+-#ifndef LAPI_PIDFD_OPEN_H__
+-#define LAPI_PIDFD_OPEN_H__
+-
+-#include <sys/syscall.h>
+-#include <sys/types.h>
+-#include "lapi/syscalls.h"
+-#include "config.h"
+-
+-static inline void pidfd_open_supported(void)
+-{
+-	/* allow the tests to fail early */
+-	tst_syscall(__NR_pidfd_open);
+-}
+-
+-#ifndef HAVE_PIDFD_OPEN
+-static inline int pidfd_open(pid_t pid, unsigned int flags)
+-{
+-	return tst_syscall(__NR_pidfd_open, pid, flags);
+-}
+-#endif
+-
+-#endif /* LAPI_PIDFD_OPEN_H__ */
+diff --git a/include/lapi/pidfd_send_signal.h b/include/lapi/pidfd_send_signal.h
+deleted file mode 100644
+index 7426a91da..000000000
+--- a/include/lapi/pidfd_send_signal.h
++++ /dev/null
+@@ -1,27 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-or-later
+-/*
+- * Copyright (c) 2019 SUSE LLC
+- * Author: Christian Amann <camann@suse.com>
+- */
+-
+-#ifndef LAPI_PIDFD_SEND_SIGNAL_H__
+-#define LAPI_PIDFD_SEND_SIGNAL_H__
+-
+-#include "tst_test.h"
+-#include "lapi/syscalls.h"
+-
+-static inline void pidfd_send_signal_supported(void)
+-{
+-	/* allow the tests to fail early */
+-	tst_syscall(__NR_pidfd_send_signal);
+-}
+-
+-#ifndef HAVE_PIDFD_SEND_SIGNAL
+-static inline int pidfd_send_signal(int pidfd, int sig, siginfo_t *info,
+-                                    unsigned int flags)
+-{
+-	return tst_syscall(__NR_pidfd_send_signal, pidfd, sig, info, flags);
+-}
+-#endif /* HAVE_PIDFD_SEND_SIGNAL */
+-
+-#endif /* LAPI_PIDFD_SEND_SIGNAL_H__ */
+diff --git a/testcases/kernel/syscalls/clone3/clone301.c b/testcases/kernel/syscalls/clone3/clone301.c
+index 7ac4bb5a3..f7ef0b2d7 100644
+--- a/testcases/kernel/syscalls/clone3/clone301.c
++++ b/testcases/kernel/syscalls/clone3/clone301.c
+@@ -16,7 +16,7 @@
+ 
+ #include "tst_test.h"
+ #include "lapi/clone.h"
+-#include "lapi/pidfd_send_signal.h"
++#include "lapi/pidfd.h"
+ 
+ #define CHILD_SIGNAL	SIGUSR1
+ #define DATA	777
+diff --git a/testcases/kernel/syscalls/fanotify/fanotify21.c b/testcases/kernel/syscalls/fanotify/fanotify21.c
+index 6ae70c57e..bd6429ab5 100644
+--- a/testcases/kernel/syscalls/fanotify/fanotify21.c
++++ b/testcases/kernel/syscalls/fanotify/fanotify21.c
+@@ -23,7 +23,7 @@
+ #include <string.h>
+ #include "tst_test.h"
+ #include "tst_safe_stdio.h"
+-#include "lapi/pidfd_open.h"
++#include "lapi/pidfd.h"
+ 
+ #ifdef HAVE_SYS_FANOTIFY_H
+ #include "fanotify.h"
+diff --git a/testcases/kernel/syscalls/pidfd_open/pidfd_open01.c b/testcases/kernel/syscalls/pidfd_open/pidfd_open01.c
+index c0e88647f..6f1e95ba8 100644
+--- a/testcases/kernel/syscalls/pidfd_open/pidfd_open01.c
++++ b/testcases/kernel/syscalls/pidfd_open/pidfd_open01.c
+@@ -13,9 +13,8 @@
+  */
+ 
+ #include <unistd.h>
+-#include <fcntl.h>
+ #include "tst_test.h"
+-#include "lapi/pidfd_open.h"
++#include "lapi/pidfd.h"
+ 
+ static void run(void)
+ {
+diff --git a/testcases/kernel/syscalls/pidfd_open/pidfd_open02.c b/testcases/kernel/syscalls/pidfd_open/pidfd_open02.c
+index 93a61a51d..9d6c9321d 100644
+--- a/testcases/kernel/syscalls/pidfd_open/pidfd_open02.c
++++ b/testcases/kernel/syscalls/pidfd_open/pidfd_open02.c
+@@ -13,7 +13,7 @@
+  * - EINVAL flags is not valid
+  */
+ #include "tst_test.h"
+-#include "lapi/pidfd_open.h"
++#include "lapi/pidfd.h"
+ 
+ static pid_t expired_pid, my_pid, invalid_pid = -1;
+ 
+diff --git a/testcases/kernel/syscalls/pidfd_open/pidfd_open03.c b/testcases/kernel/syscalls/pidfd_open/pidfd_open03.c
+index 7c7c75cb1..16a8442f5 100644
+--- a/testcases/kernel/syscalls/pidfd_open/pidfd_open03.c
++++ b/testcases/kernel/syscalls/pidfd_open/pidfd_open03.c
+@@ -15,7 +15,7 @@
+ #include <stdlib.h>
+ 
+ #include "tst_test.h"
+-#include "lapi/pidfd_open.h"
++#include "lapi/pidfd.h"
+ 
+ static void run(void)
+ {
+diff --git a/testcases/kernel/syscalls/pidfd_open/pidfd_open04.c b/testcases/kernel/syscalls/pidfd_open/pidfd_open04.c
+index e94bb20db..60080c0c8 100644
+--- a/testcases/kernel/syscalls/pidfd_open/pidfd_open04.c
++++ b/testcases/kernel/syscalls/pidfd_open/pidfd_open04.c
+@@ -12,15 +12,10 @@
+  */
+ 
+ #include <unistd.h>
+-#include <fcntl.h>
+ #include <sys/wait.h>
+ #include <stdlib.h>
+ #include "tst_test.h"
+-#include "lapi/pidfd_open.h"
+-
+-#ifndef PIDFD_NONBLOCK
+-#define PIDFD_NONBLOCK O_NONBLOCK
+-#endif
++#include "lapi/pidfd.h"
+ 
+ #ifndef P_PIDFD
+ #define P_PIDFD  3
+diff --git a/testcases/kernel/syscalls/pidfd_send_signal/pidfd_send_signal01.c b/testcases/kernel/syscalls/pidfd_send_signal/pidfd_send_signal01.c
+index 4cb5df94c..3d201aa9d 100644
+--- a/testcases/kernel/syscalls/pidfd_send_signal/pidfd_send_signal01.c
++++ b/testcases/kernel/syscalls/pidfd_send_signal/pidfd_send_signal01.c
+@@ -12,7 +12,8 @@
+ #define _GNU_SOURCE
+ #include <signal.h>
+ #include <stdlib.h>
+-#include "lapi/pidfd_send_signal.h"
++#include "tst_test.h"
++#include "lapi/pidfd.h"
+ #include "tst_safe_pthread.h"
+ 
+ #define SIGNAL  SIGUSR1
+diff --git a/testcases/kernel/syscalls/pidfd_send_signal/pidfd_send_signal02.c b/testcases/kernel/syscalls/pidfd_send_signal/pidfd_send_signal02.c
+index 1e62b417f..9600fc2f9 100644
+--- a/testcases/kernel/syscalls/pidfd_send_signal/pidfd_send_signal02.c
++++ b/testcases/kernel/syscalls/pidfd_send_signal/pidfd_send_signal02.c
+@@ -24,7 +24,8 @@
+ #define _GNU_SOURCE
+ #include <pwd.h>
+ #include <signal.h>
+-#include "lapi/pidfd_send_signal.h"
++#include "tst_test.h"
++#include "lapi/pidfd.h"
+ #include "tst_safe_pthread.h"
+ 
+ #define CORRECT_SIGNAL		SIGUSR1
+diff --git a/testcases/kernel/syscalls/pidfd_send_signal/pidfd_send_signal03.c b/testcases/kernel/syscalls/pidfd_send_signal/pidfd_send_signal03.c
+index 0903d6707..fb61516d7 100644
+--- a/testcases/kernel/syscalls/pidfd_send_signal/pidfd_send_signal03.c
++++ b/testcases/kernel/syscalls/pidfd_send_signal/pidfd_send_signal03.c
+@@ -19,7 +19,8 @@
+ #include <signal.h>
+ #include <stdio.h>
+ #include <unistd.h>
+-#include "lapi/pidfd_send_signal.h"
++#include "tst_test.h"
++#include "lapi/pidfd.h"
+ #include "tst_safe_pthread.h"
+ 
+ #define PIDTRIES	3
 -- 
-Regards,
-Li Wang
-
---000000000000e2a4f905d8966ea4
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small">Jan Stancek &lt;<a href=3D"mailto:jstancek@redhat.com">jstanc=
-ek@redhat.com</a>&gt; wrote:<br></div><div class=3D"gmail_default" style=3D=
-"font-size:small"><br></div></div><div class=3D"gmail_quote"><blockquote cl=
-ass=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid=
- rgb(204,204,204);padding-left:1ex">Some systems (specially with combinatio=
-n of -debug kernel<br>
-with KASAN enabled) have trouble completing this test<br>
-in specified timeout.<br>
-<br>
-Lowering number of iterations would make the test condition<br>
-less accurate as it&#39;s based on global counter.<br>
-<br>
-Instead, calculate the rate of iterations system can do in<br>
-first 5 seconds and used that to decide whether to continue<br>
-to run the test. If the rate is too slow, TCONF after 5<br>
-seconds.<br></blockquote><div><br></div><div><div class=3D"gmail_default" s=
-tyle=3D"font-size:small">Generally, this method looks good, but maybe bette=
-r to limit this</div><div class=3D"gmail_default" style=3D"font-size:small"=
->check_progress() only perform on=C2=A0-debug kernel?=C2=A0 Otherwise,</div=
-><div class=3D"gmail_default" style=3D"font-size:small"><br></div><div clas=
-s=3D"gmail_default" style=3D"font-size:small">Reviewed-by: Li Wang &lt;<a h=
-ref=3D"mailto:liwang@redhat.com">liwang@redhat.com</a>&gt;<br></div><div cl=
-ass=3D"gmail_default" style=3D"font-size:small"><br></div><div class=3D"gma=
-il_default" style=3D"font-size:small"><br></div><div class=3D"gmail_default=
-" style=3D"font-size:small">=3D=3D=3D=3D=3D=3D=3D FYI =3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D</div><div class=3D"gmail_default" style=3D"font-size:small">I&#39=
-;m seeking a fair way to make a global evaluation of the test</div><div cla=
-ss=3D"gmail_default" style=3D"font-size:small">system to reset timeout dyna=
-mically for the whole LTP.</div><div class=3D"gmail_default" style=3D"font-=
-size:small"><br></div><div class=3D"gmail_default" style=3D"font-size:small=
-">My original design thoughts:</div><div class=3D"gmail_default" style=3D"f=
-ont-size:small"><br></div><div class=3D"gmail_default" style=3D"font-size:s=
-mall">=C2=A0 Create the numbers of threads equal to CPUs and bind them to</=
-div><div class=3D"gmail_default" style=3D"font-size:small">=C2=A0 the corre=
-sponding=C2=A0cpu=C2=A0for running. Use mutex lock to sync up</div><div cla=
-ss=3D"gmail_default" style=3D"font-size:small">=C2=A0 each thread launch at=
- the same time to collect the basic data</div><div class=3D"gmail_default" =
-style=3D"font-size:small">=C2=A0 for their CPU. Then we can compare the CPU=
- state under the idle or</div><div class=3D"gmail_default" style=3D"font-si=
-ze:small">=C2=A0 busy time to get a relatively stationary _value_ to measur=
-e the system</div><div class=3D"gmail_default" style=3D"font-size:small">=
-=C2=A0 performance.</div><div class=3D"gmail_default" style=3D"font-size:sm=
-all"><br></div><div class=3D"gmail_default" style=3D"font-size:small"><div =
-class=3D"gmail_default">But so far the test method is not stable&amp;reliab=
-le as expected.</div><div class=3D"gmail_default"><br></div><div class=3D"g=
-mail_default"></div></div><div class=3D"gmail_default" style=3D"font-size:s=
-mall">=C2=A0 // do float computing + dirty 10*pagesz memory=C2=A0 in a limi=
-ted times<br></div><div class=3D"gmail_default" style=3D"font-size:small">=
-=C2=A0 one_unit_of_operation();</div><div class=3D"gmail_default" style=3D"=
-font-size:small"><br></div><div class=3D"gmail_default" style=3D"font-size:=
-small">=C2=A0 // count the CPU looping numbers with (type =3D idel, calcu)<=
-/div><div class=3D"gmail_default" style=3D"font-size:small">=C2=A0 // and c=
-all one_unit_opertaion() in 1 sec</div><div class=3D"gmail_default" style=
-=3D"font-size:small">=C2=A0 cpu_1sec_looping(int type);<br></div><div class=
-=3D"gmail_default" style=3D"font-size:small"><br></div><div class=3D"gmail_=
-default" style=3D"font-size:small">=C2=A0 idlespeed_loops =3D cpu_1sec_loop=
-ing(idel);</div><div class=3D"gmail_default" style=3D"font-size:small">=C2=
-=A0 calculate_loops =3D cpu_1sec_looping(calcu);</div><div class=3D"gmail_d=
-efault" style=3D"font-size:small">=C2=A0 ...</div><div class=3D"gmail_defau=
-lt" style=3D"font-size:small">=C2=A0 // count the _value_ from all CPU aver=
-age loops</div><div class=3D"gmail_default" style=3D"font-size:small">=C2=
-=A0 ratio =3D calculate_avg / idealspeed_avg;</div></div></div><div><br></d=
-iv>-- <br><div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><div>=
-Regards,<br></div><div>Li Wang<br></div></div></div></div>
-
---000000000000e2a4f905d8966ea4--
-
-
---===============0085150008==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+2.31.1
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============0085150008==--
-
