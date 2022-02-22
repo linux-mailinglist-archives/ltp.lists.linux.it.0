@@ -1,73 +1,73 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5700B4BF844
-	for <lists+linux-ltp@lfdr.de>; Tue, 22 Feb 2022 13:44:15 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id DD5194BF9AB
+	for <lists+linux-ltp@lfdr.de>; Tue, 22 Feb 2022 14:43:08 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0E8603CA1A9
-	for <lists+linux-ltp@lfdr.de>; Tue, 22 Feb 2022 13:44:15 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 80BFD3CA1A8
+	for <lists+linux-ltp@lfdr.de>; Tue, 22 Feb 2022 14:43:08 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 52ED53C0512
- for <ltp@lists.linux.it>; Tue, 22 Feb 2022 13:44:12 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id 2F55D3C052F
+ for <ltp@lists.linux.it>; Tue, 22 Feb 2022 14:43:06 +0100 (CET)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 56C15200D34
- for <ltp@lists.linux.it>; Tue, 22 Feb 2022 13:44:11 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 553B9100046C
+ for <ltp@lists.linux.it>; Tue, 22 Feb 2022 14:43:05 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 29D2B1F39A;
- Tue, 22 Feb 2022 12:44:11 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 8678A1F39D;
+ Tue, 22 Feb 2022 13:43:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1645533851; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1645537385; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=mzEcgeyv4J9B4seIgFxHcBSDDy7pmprDMcKq2AADXAA=;
- b=3Vrlh5G1r+t4cq3yPtMrJlQpjql6WRog718VHpzd1bI7QYwHYbzpAoiHyg9LnF8ji8bJ0T
- 08GKI4k8g97m1AWpGp5PqMmnFdA2kWS5j8HwZGMEKV8E3o4pHjPHOHPwbYKqnbP3LM6OGQ
- 7F9C/K0CAeNYADDFNyFoVr8Qa8IDYP4=
+ bh=BWKCBsEveaJu2sva/W00Kby+Sml7lGjASPvuovWV718=;
+ b=dqDf5WI4cmppXe44IcLSDm7gXe5S56N0PXojH8dR7f1+GgjYb148L0lPiBpZgaBeV787mu
+ CBDfPT/9zyASfALtNTY/up9CFTeB9dSRCO4Jxg+8mFFZmYD/tcU32uFKJ9dhoV2Y5pO8u7
+ HrfJBfaU9Vyq8L5soaZ3/PpoJshsMXQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1645533851;
+ s=susede2_ed25519; t=1645537385;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=mzEcgeyv4J9B4seIgFxHcBSDDy7pmprDMcKq2AADXAA=;
- b=c0y0ZEu3P3c3rPYRycP6igX1X3eFfMJUeUsDDiHcdZnF9P8e/BuZl411yIsVztZxXGw7tc
- aVrbq0ZUT2BqlsDw==
+ bh=BWKCBsEveaJu2sva/W00Kby+Sml7lGjASPvuovWV718=;
+ b=J3Mpq0/a1wog6tjE+vkOBXCSo/LS0jUW6lG/9/L+KtzkVgIPj5No7f0tt/2kJJUz1ppoec
+ ytjpulCkRNI3gBDA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1372513C1E;
- Tue, 22 Feb 2022 12:44:11 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 656A513BA0;
+ Tue, 22 Feb 2022 13:43:05 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 3VJ3A5vaFGLvRwAAMHmgww
- (envelope-from <chrubis@suse.cz>); Tue, 22 Feb 2022 12:44:11 +0000
-Date: Tue, 22 Feb 2022 13:46:23 +0100
+ by imap2.suse-dmz.suse.de with ESMTPSA id mQL3FmnoFGImaQAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Tue, 22 Feb 2022 13:43:05 +0000
+Date: Tue, 22 Feb 2022 14:45:17 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Andrea Cervesato <andrea.cervesato@suse.de>
-Message-ID: <YhTbHxQMmeuse/Wf@yuki>
-References: <20220201091938.23362-1-andrea.cervesato@suse.de>
+To: Martin Doucha <mdoucha@suse.cz>
+Message-ID: <YhTo7ciP055V3Hex@yuki>
+References: <20220217122340.3916-1-mdoucha@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20220201091938.23362-1-andrea.cervesato@suse.de>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+In-Reply-To: <20220217122340.3916-1-mdoucha@suse.cz>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v4] Refactoring aiodio_sparse.c using LTP API
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] Add test for CVE 2021-22600
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,115 +79,18 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Cc: Marcos Paulo de Souza <mpdesouza@suse.com>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-Pushed with a few changes, thanks.
+Pushed with two minor changes, thanks.
 
-I've mainly added a few elements to the tst_test structure to match the
-fixes we did for dio_sparse.c and also removed a few obvious comments.
+* Reformatted the description comment so that it's picked up by docparser
 
-
-diff --git a/testcases/kernel/io/ltp-aiodio/aiodio_sparse.c b/testcases/kernel/io/ltp-aiodio/aiodio_sparse.c
-index 33a25a28c..2aa5662bb 100644
---- a/testcases/kernel/io/ltp-aiodio/aiodio_sparse.c
-+++ b/testcases/kernel/io/ltp-aiodio/aiodio_sparse.c
-@@ -35,10 +35,10 @@ static char *str_writesize;
- static char *str_filesize;
- static char *str_numaio;
- 
--static int numchildren = 1000;
-+static int numchildren = 16;
- static long long writesize = 1024;
- static long long filesize = 100 * 1024 * 1024;
--static long long alignment = 512;
-+static long long alignment;
- static int numaio = 16;
- 
- static void check_event(struct io_event event)
-@@ -76,9 +76,6 @@ static void aiodio_sparse(char *filename, long long align, long long ws,
- 	for (i = 0; i < naio; i++)
- 		iocbs[i] = iocb + i;
- 
--	/*
--	 * allocate the iocbs array and iocbs with buffers
--	 */
- 	offset = 0;
- 	for (i = 0; i < naio; i++) {
- 		void *bufptr;
-@@ -89,16 +86,10 @@ static void aiodio_sparse(char *filename, long long align, long long ws,
- 		offset += ws;
- 	}
- 
--	/*
--	 * start the 1st naio write requests
--	 */
- 	w = io_submit(myctx, naio, iocbs);
- 	if (w < 0)
- 		tst_brk(TBROK, "io_submit: %s", tst_strerrno(-w));
- 
--	/*
--	 * As AIO requests finish, keep issuing more AIO until done.
--	 */
- 	aio_inflight = naio;
- 
- 	while (offset < fs) {
-@@ -129,9 +120,6 @@ static void aiodio_sparse(char *filename, long long align, long long ws,
- 		aio_inflight++;
- 	}
- 
--	/*
--	 * wait for AIO requests in flight.
--	 */
- 	while (aio_inflight > 0) {
- 		int n;
- 
-@@ -175,8 +163,7 @@ static void setup(void)
- 	if ((numaio * writesize) > filesize) {
- 		numaio = filesize / writesize;
- 		tst_res(TINFO,
--			"Numbers of AIO have been reduced to %d so we fit "
--			"filesize",
-+			"Numbers of AIO have been reduced to %d so we fit filesize",
- 			numaio);
- 	}
- 
-@@ -192,8 +179,10 @@ static void setup(void)
- 
- static void cleanup(void)
- {
--	*run_child = 0;
--	SAFE_MUNMAP(run_child, sizeof(int));
-+	if (run_child) {
-+		*run_child = 0;
-+		SAFE_MUNMAP(run_child, sizeof(int));
-+	}
- }
- 
- static void run(void)
-@@ -230,12 +219,17 @@ static struct tst_test test = {
- 	.needs_tmpdir = 1,
- 	.forks_child = 1,
- 	.options = (struct tst_option[]) {
--		{"n:", &str_numchildren, "Number of threads (default 1000)"},
-+		{"n:", &str_numchildren, "Number of threads (default 16)"},
- 		{"w:", &str_writesize, "Size of writing blocks (default 1K)"},
- 		{"s:", &str_filesize, "Size of file (default 100M)"},
- 		{"o:", &str_numaio, "Number of AIO control blocks (default 16)"},
- 		{},
- 	},
-+	.skip_filesystems = (const char *[]) {
-+		"tmpfs",
-+		NULL
-+	},
-+	.timeout = 1800,
- };
- #else
- TST_TEST_TCONF("test requires libaio and its development packages");
+* Added a runtest entry to the cve runtest file as well
 
 -- 
 Cyril Hrubis
