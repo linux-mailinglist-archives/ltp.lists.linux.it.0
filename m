@@ -1,68 +1,51 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id CFEA24C891C
-	for <lists+linux-ltp@lfdr.de>; Tue,  1 Mar 2022 11:19:12 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id F3BDA4C8B97
+	for <lists+linux-ltp@lfdr.de>; Tue,  1 Mar 2022 13:29:30 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5E95A3CA2FB
-	for <lists+linux-ltp@lfdr.de>; Tue,  1 Mar 2022 11:19:12 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 6015C3CA2EF
+	for <lists+linux-ltp@lfdr.de>; Tue,  1 Mar 2022 13:29:30 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 920DF3C30BB
- for <ltp@lists.linux.it>; Tue,  1 Mar 2022 11:19:08 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id 937063C0487
+ for <ltp@lists.linux.it>; Tue,  1 Mar 2022 13:29:26 +0100 (CET)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 34A2F6009E5
- for <ltp@lists.linux.it>; Tue,  1 Mar 2022 11:19:07 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 6CFFE1F37D;
- Tue,  1 Mar 2022 10:19:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1646129947; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id D047214012A9
+ for <ltp@lists.linux.it>; Tue,  1 Mar 2022 13:29:25 +0100 (CET)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id E56751F39D;
+ Tue,  1 Mar 2022 12:29:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1646137764; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=hTJ7ULrOq6IgUSKV/4H0wYlsR0a6bG3lW6Zyf6P0j5M=;
- b=1ASYLzZDrTudeSDSWuMUeaZBFYJ9TY/7Z/ybzL4fHG3PwMob1CZLW1EXZ+Uzb7hTfBKZ8h
- 3uzll9aHuAh25wPYQJ4xB/m6F7h6FdoeFnJi2MSTqxR3hDqyZd++MdHCwS0L0oqCr9JclH
- /GJFYeU38vHZ8FHOjB98UGQ18gMxlrI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1646129947;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=hTJ7ULrOq6IgUSKV/4H0wYlsR0a6bG3lW6Zyf6P0j5M=;
- b=GM4L8KcJgxb5/X/7KkwfyVLKPp/C4kLQPXC9ICXKwHVGahbsWr7ScDFGZJYM3JrczMg3hR
- 8u92qyfU+UNNX/Dw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4318B139F9;
- Tue,  1 Mar 2022 10:19:07 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id m2/SDhvzHWJedQAAMHmgww
- (envelope-from <pvorel@suse.cz>); Tue, 01 Mar 2022 10:19:07 +0000
-From: Petr Vorel <pvorel@suse.cz>
+ bh=nlkGJzp2bkcGGWbHNKpWTL+K9sPifN3Dq1MELoeR4Bs=;
+ b=Bn52LHxMby2OW2a8Qr+DeRBWL0AvDlpcKrQ2i9e+jTu1RGh+1hNk+HgcW6s+OMsxJsl+0e
+ woutOsqB+DTxtYnPp/bPpDlRP/7SJmE0LUMWgtTE6WFYp7yR/ncqPWIk7NwSrPzTqF0KKr
+ 5fy45k6Wk1qf7QjbE6K2kOZfoA8NS1A=
+Received: from g78.suse.de (unknown [10.163.24.138])
+ by relay2.suse.de (Postfix) with ESMTP id 9D66FA3B85;
+ Tue,  1 Mar 2022 12:29:24 +0000 (UTC)
 To: ltp@lists.linux.it
-Date: Tue,  1 Mar 2022 11:19:03 +0100
-Message-Id: <20220301101903.22649-1-pvorel@suse.cz>
-X-Mailer: git-send-email 2.35.1
+Date: Tue,  1 Mar 2022 12:23:53 +0000
+Message-Id: <20220301122353.16137-1-rpalethorpe@suse.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.2 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,SUBJ_ALL_CAPS,
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH 1/1] TESTING PATCH
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH] API/cgroup: Try to mount V2 with memory_recursiveprot
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,34 +57,55 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+From: Richard Palethorpe via ltp <ltp@lists.linux.it>
+Reply-To: Richard Palethorpe <rpalethorpe@suse.com>
+Cc: Richard Palethorpe <rpalethorpe@suse.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-From: Cyril Hrubis <chrubis@suse.cz>
+Moving forwards system managers should always mount with
+memory_recursiveprot. So we should test with this by default when it
+is available.
 
-Testing only
+This change will only effect SUTs which do not already have CGroups
+mounted.
+
+Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
 ---
- testcases/kernel/mem/lib/mem.c | 3 +++
- 1 file changed, 3 insertions(+)
+ lib/tst_cgroup.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/testcases/kernel/mem/lib/mem.c b/testcases/kernel/mem/lib/mem.c
-index 39e3f1791c..ee9fc85b69 100644
---- a/testcases/kernel/mem/lib/mem.c
-+++ b/testcases/kernel/mem/lib/mem.c
-@@ -565,6 +565,9 @@ void test_ksm_merge_across_nodes(unsigned long nr_pages)
- #endif
+diff --git a/lib/tst_cgroup.c b/lib/tst_cgroup.c
+index dc090b70a..8cca0654d 100644
+--- a/lib/tst_cgroup.c
++++ b/lib/tst_cgroup.c
+@@ -471,6 +471,7 @@ void tst_cg_scan(void)
  
- 		memset(memory[i], 10, length);
+ static void cgroup_mount_v2(void)
+ {
++	int ret;
+ 	char mnt_path[PATH_MAX];
+ 
+ 	sprintf(mnt_path, "%s%s", cgroup_mount_ltp_prefix, cgroup_v2_ltp_mount);
+@@ -494,7 +495,13 @@ static void cgroup_mount_v2(void)
+ 	return;
+ 
+ mount:
+-	if (!mount("cgroup2", mnt_path, "cgroup2", 0, NULL)) {
++	ret = mount("cgroup2", mnt_path, "cgroup2",
++		    0, "memory_recursiveprot");
 +
-+		if (mlock(memory[i], length))
-+			tst_res(TWARN | TERRNO, "mlock() failed");
- 	}
- 
- 	SAFE_FILE_PRINTF(PATH_KSM "sleep_millisecs", "0");
++	if (ret && errno == EINVAL)
++		ret = mount("cgroup2", mnt_path, "cgroup2", 0, NULL);
++
++	if (!ret) {
+ 		tst_res(TINFO, "Mounted V2 CGroups on %s", mnt_path);
+ 		tst_cg_scan();
+ 		roots[0].we_mounted_it = 1;
 -- 
-2.35.1
+2.34.1
 
 
 -- 
