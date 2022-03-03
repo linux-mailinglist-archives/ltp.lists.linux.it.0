@@ -2,75 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id C339B4CBF11
-	for <lists+linux-ltp@lfdr.de>; Thu,  3 Mar 2022 14:44:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A6CE4CBF80
+	for <lists+linux-ltp@lfdr.de>; Thu,  3 Mar 2022 15:04:38 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DDBC23CA361
-	for <lists+linux-ltp@lfdr.de>; Thu,  3 Mar 2022 14:44:24 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 01A053CA32C
+	for <lists+linux-ltp@lfdr.de>; Thu,  3 Mar 2022 15:04:38 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 1C8643C93D2
- for <ltp@lists.linux.it>; Thu,  3 Mar 2022 14:44:21 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 7A75B3C08D0
+ for <ltp@lists.linux.it>; Thu,  3 Mar 2022 15:04:34 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 038F3600CC5
- for <ltp@lists.linux.it>; Thu,  3 Mar 2022 14:44:19 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 57FBB1000F10
+ for <ltp@lists.linux.it>; Thu,  3 Mar 2022 15:04:32 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 247E2218B8;
- Thu,  3 Mar 2022 13:44:19 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 745911F388;
+ Thu,  3 Mar 2022 14:04:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1646315059; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ t=1646316272;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=5h6PhZkZVkImb/Kg+DH+jKdsYSfBkNGMeRBt1kpBkV8=;
- b=Bqr+ROybMtA4eyr0QDUzYW5pvSAVq/F940uBuCZmlLDUqxNV1VLifKgE0isVXz/CGbEwRU
- OIKx+5bE62wGXCr3zIyZsRfcvjv+F6MuX3U8ZwqrCEgbYlX0h108njj+nnTRcQZOIunJHl
- H3AWVqr2zDJ8VuGLKm88Fy+X5dvjAXE=
+ bh=8OM9NqQDOEo0rUjnAnViTzC52L/KCX37Psjq7tEI4Mg=;
+ b=e81boYqJwZvQCV3ksI80IcFKcwXXPUvJ5jfPQKlkre+wZohj+8MNTBi0NIip2ceL16dkye
+ H98+uTJpQ/MC0VK19YNFOkK43WwS+8VfJshY0rFDg1NnTB/UlS33kQO3aak6rA2y8eQOMR
+ 4c24M5FTWTjkHf/IckTvLDdVBK4Ags4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1646315059;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ s=susede2_ed25519; t=1646316272;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=5h6PhZkZVkImb/Kg+DH+jKdsYSfBkNGMeRBt1kpBkV8=;
- b=NoASqYIbBUPHz7uELqT0BraHKB4xITt94tWFKXWXIbmLtxiGnCfrkGEwIQumQOy5TV6bxl
- hKbosJtydOvZOkCw==
+ bh=8OM9NqQDOEo0rUjnAnViTzC52L/KCX37Psjq7tEI4Mg=;
+ b=SvGgxHY01oeAVnNxsVQD5H9WMMBLEKAO1yQZz0l+xLbBrt9qYBbS84SiOstDM64exZPF8/
+ Pydi+6FlJaWdlpDg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id BD01113C23;
- Thu,  3 Mar 2022 13:44:18 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5187113C35;
+ Thu,  3 Mar 2022 14:04:32 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id JV6tLTLGIGICYwAAMHmgww
- (envelope-from <chrubis@suse.cz>); Thu, 03 Mar 2022 13:44:18 +0000
-Date: Thu, 3 Mar 2022 14:46:39 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <YiDGvzETiI/nxwW/@yuki>
-References: <20220223200731.1859670-1-yaelt@google.com> <Yh+S7JD2q8oalRoM@yuki>
- <YiBcyvtqTX1CerM4@pevik> <YiC4Pj1sH8UIHY7k@yuki>
- <YiDB7wO3Se/vN15+@pevik>
+ by imap2.suse-dmz.suse.de with ESMTPSA id hFskEvDKIGI4bQAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Thu, 03 Mar 2022 14:04:32 +0000
+Date: Thu, 3 Mar 2022 15:04:30 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: Yang Xu <xuyang2018.jy@fujitsu.com>
+Message-ID: <YiDK7g1pwLj2aXBD@pevik>
+References: <1646297678-2141-1-git-send-email-xuyang2018.jy@fujitsu.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <YiDB7wO3Se/vN15+@pevik>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+In-Reply-To: <1646297678-2141-1-git-send-email-xuyang2018.jy@fujitsu.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v4] syscalls/keyctl09: test encrypted keys with
- provided decrypted data.
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] syscalls/setsockopt09: Add another linux git
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,44 +80,29 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: linux-integrity@vger.kernel.org, Yael Tzur <yaelt@google.com>,
- ltp@lists.linux.it
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> > > > I this case I guess that in this case the change is so minimal that we
-> > > > can add this test into LTP once it reaches Linus tree.
-> > > Cyril, maybe we could finally merge our policy (waiting ack for you):
-> > > https://patchwork.ozlabs.org/project/ltp/patch/20220203101803.10204-1-rpalethorpe@suse.com/
-> > > and put keyctl09 into runtest/staging now.
-> 
-> > I guess that we still did not agree on exactly how this should be
-> > handled or did we?
-> 
-> Isn't it enough "Once a feature is part of the stable kernel ABI the associated
-> test must be moved out of staging." ?
+Hi Xu,
 
-The main problem is that someone has to make sure that it happens and
-the process would be prone to errors. What I proposed instead was a flag
-that would set a kernel version in which the ABI is going to be merged
-and put the test right into the final runtest files. Then we can simply
-skip the test on older kernels or do anything else we see as a
-reasonable solution. At the same time we can easily add automatic
-checker that would look for these flags in metadata into the CI which
-would, for instance, send email to the ML once the flag is supposed to
-be removed.
+> On centos7.9ga, I still hit another crash problem because of use-after-free in
+> prb_retire_rx_blk_timer_expired(). Since we free it when timer expired, so this
+> case will crash after we print TPASS info.
 
-In this case it does not actually matter, since the test is guarded by a
-kernel config option that is introduced by the patchset and the change
-is fairly miniminal, so I do not think that there would be any changes
-to the ABI anyways.
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
 
--- 
-Cyril Hrubis
-chrubis@suse.cz
+LGTM.
+I tested two old kernels, the one with patch survives, the other got reboot.
+
+BTW funny enough the affected system manages to print "TPASS: Nothing bad
+happened, probably" before reboot :).
+
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
