@@ -1,65 +1,65 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id E21354CC054
-	for <lists+linux-ltp@lfdr.de>; Thu,  3 Mar 2022 15:49:23 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id B8AE64CC055
+	for <lists+linux-ltp@lfdr.de>; Thu,  3 Mar 2022 15:49:31 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 981C23CA334
-	for <lists+linux-ltp@lfdr.de>; Thu,  3 Mar 2022 15:49:23 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 4D1273CA327
+	for <lists+linux-ltp@lfdr.de>; Thu,  3 Mar 2022 15:49:31 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 48DF33CA366
- for <ltp@lists.linux.it>; Thu,  3 Mar 2022 15:48:16 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id 52BC83CA367
+ for <ltp@lists.linux.it>; Thu,  3 Mar 2022 15:48:17 +0100 (CET)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 3C3FB10005ED
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id B0D2F100093A
  for <ltp@lists.linux.it>; Thu,  3 Mar 2022 15:48:16 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id BE3C4210FA
- for <ltp@lists.linux.it>; Thu,  3 Mar 2022 14:48:15 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 53E2E218A9
+ for <ltp@lists.linux.it>; Thu,  3 Mar 2022 14:48:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1646318895; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ t=1646318896; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=DNn6CcIjeWnX7BNwqT8E77YG8VnzqpEfPDqkvgq47l0=;
- b=qe1XNpChe9ucLwmBFacJLpzRpanMoO95MtqML0zWTBtFsDyLOyxNY4HIUIEY6aVTG/ZEfp
- xOhTr4Y0e/gRSNbTKvHQXa2mBAWWGvX1ruK+3bSsf22ngK/jEa95ckUD+7xljRY8XEtpgm
- 6tnHb8ku2BTyKIifA/7emUKDOmIFu2M=
+ bh=kwp+ljcUno/J/iTa0fw0s4BsQPCM6GZMpJi8wNH5TrM=;
+ b=fq3x6GAz3s24VfkHdqgUBxf79dHUtp9Hn/KdyUsTvaI5c/s/5PzG8uKwq3lat67NJBBSyH
+ 2GgySxMe/vqnRZXQK5LaEwqx9Rfs5Dy6SqPW28hHV6R1r1KHXDItjVa379jZRamPQiwGXn
+ gnclqFeb/rbrK/XKw+OEvWe6IWf85rw=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1646318895;
+ s=susede2_ed25519; t=1646318896;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=DNn6CcIjeWnX7BNwqT8E77YG8VnzqpEfPDqkvgq47l0=;
- b=TCc0Rz4W84zmD6yvmksDCrjjNa9VMLGzZJmQ/4siEEBJsa4aZNQi1gHMKorVFKFATw9vQB
- QArbVxwj4IxIrPAA==
+ bh=kwp+ljcUno/J/iTa0fw0s4BsQPCM6GZMpJi8wNH5TrM=;
+ b=dGYDsDpKhM+Ck+HOd4MWB9OJb635H5PFBhAXnhvdNoQixsaGFb96cDULcpRhPUl/P63awv
+ oHivwALtwmTxErCw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A9FD013AD9
- for <ltp@lists.linux.it>; Thu,  3 Mar 2022 14:48:15 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3B2C013AD9
+ for <ltp@lists.linux.it>; Thu,  3 Mar 2022 14:48:16 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id dE53KC/VIGICAwAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id m+iwCzDVIGIEAwAAMHmgww
  (envelope-from <chrubis@suse.cz>)
- for <ltp@lists.linux.it>; Thu, 03 Mar 2022 14:48:15 +0000
+ for <ltp@lists.linux.it>; Thu, 03 Mar 2022 14:48:16 +0000
 From: Cyril Hrubis <chrubis@suse.cz>
 To: ltp@lists.linux.it
-Date: Thu,  3 Mar 2022 15:50:31 +0100
-Message-Id: <20220303145032.21493-7-chrubis@suse.cz>
+Date: Thu,  3 Mar 2022 15:50:32 +0100
+Message-Id: <20220303145032.21493-8-chrubis@suse.cz>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220303145032.21493-1-chrubis@suse.cz>
 References: <20220303145032.21493-1-chrubis@suse.cz>
@@ -70,7 +70,7 @@ X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH 6/7] libs: libltpnuma: Fix free memory estimate
+Subject: [LTP] [PATCH 7/7] mem/ksm06: Make use of the new libltpnuma
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,48 +87,169 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On long running systems most of the memory would be consumed by a
-file page cache which is reclaimable. Because of that the numa test will
-be skipped even if the system has plenty of memory. To fix this this
-patch adds 90% of the memory used by the page cache to the free memory
-estimate.
+THe main benefit is that the new library also makes sure that memory
+nodes have enough memory for the test.
 
 Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
 ---
- libs/libltpnuma/tst_numa.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ testcases/kernel/mem/ksm/Makefile |  3 ++
+ testcases/kernel/mem/ksm/ksm06.c  | 72 ++++++++++++++-----------------
+ 2 files changed, 35 insertions(+), 40 deletions(-)
 
-diff --git a/libs/libltpnuma/tst_numa.c b/libs/libltpnuma/tst_numa.c
-index 417d98ced..7b8c4bc79 100644
---- a/libs/libltpnuma/tst_numa.c
-+++ b/libs/libltpnuma/tst_numa.c
-@@ -129,6 +129,7 @@ static int node_has_enough_memory(int node, size_t min_kb)
- 	char buf[1024];
- 	long mem_total = 0;
- 	long mem_used = 0;
-+	long file_pages = 0;
+diff --git a/testcases/kernel/mem/ksm/Makefile b/testcases/kernel/mem/ksm/Makefile
+index e8ea801bc..236625690 100644
+--- a/testcases/kernel/mem/ksm/Makefile
++++ b/testcases/kernel/mem/ksm/Makefile
+@@ -3,6 +3,9 @@
  
- 	/* Make sure there is some space for kernel upkeeping as well */
- 	min_kb += 4096;
-@@ -152,6 +153,9 @@ static int node_has_enough_memory(int node, size_t min_kb)
+ top_srcdir		?= ../../../..
  
- 		if (sscanf(buf, "%*s %*i MemUsed: %li", &val) == 1)
- 			mem_used = val;
++LTPLIBS = ltpnuma
++ksm06: LTPLDLIBS = -lltpnuma
 +
-+		if (sscanf(buf, "%*s %*i FilePages: %li", &val) == 1)
-+			file_pages = val;
+ include $(top_srcdir)/include/mk/testcases.mk
+ include $(top_srcdir)/testcases/kernel/mem/include/libmem.mk
+ include $(top_srcdir)/include/mk/generic_leaf_target.mk
+diff --git a/testcases/kernel/mem/ksm/ksm06.c b/testcases/kernel/mem/ksm/ksm06.c
+index f5f7319d7..80426bbb0 100644
+--- a/testcases/kernel/mem/ksm/ksm06.c
++++ b/testcases/kernel/mem/ksm/ksm06.c
+@@ -34,41 +34,30 @@
+ #include <limits.h>
+ 
+ #include "mem.h"
+-#include "numa_helper.h"
++#include "tst_numa.h"
+ 
+ #ifdef HAVE_NUMA_V2
+-#include <numaif.h>
++# include <numa.h>
++# include <numaif.h>
+ 
+ static unsigned long nr_pages = 100;
+-
+ static char *n_opt;
+ 
++static size_t page_size;
++static struct tst_nodemap *nodes;
++
+ static void test_ksm(void)
+ {
+ 	char **memory;
+-	int i, ret;
+-	int num_nodes, *nodes;
++	unsigned int i;
++	int ret;
+ 	unsigned long length;
+-	unsigned long pagesize;
+-
+-#ifdef HAVE_NUMA_V2
+-	unsigned long nmask[MAXNODES / BITS_PER_LONG] = { 0 };
+-#endif
+-
+-	ret = get_allowed_nodes_arr(NH_MEMS, &num_nodes, &nodes);
+-	if (ret != 0)
+-		tst_brk(TBROK|TERRNO, "get_allowed_nodes_arr");
+-	if (num_nodes < 2) {
+-		tst_res(TINFO, "need NUMA system support");
+-		free(nodes);
+-		return;
+-	}
++	struct bitmask *bm = numa_allocate_nodemask();
+ 
+-	pagesize = sysconf(_SC_PAGE_SIZE);
+-	length = nr_pages * pagesize;
++	length = nr_pages * page_size;
+ 
+-	memory = SAFE_MALLOC(num_nodes * sizeof(char *));
+-	for (i = 0; i < num_nodes; i++) {
++	memory = SAFE_MALLOC(nodes->cnt * sizeof(char *));
++	for (i = 0; i < nodes->cnt; i++) {
+ 		memory[i] = SAFE_MMAP(NULL, length, PROT_READ|PROT_WRITE,
+ 			    MAP_ANONYMOUS|MAP_PRIVATE, -1, 0);
+ #ifdef HAVE_DECL_MADV_MERGEABLE
+@@ -77,15 +66,13 @@ static void test_ksm(void)
+ #endif
+ 
+ #ifdef HAVE_NUMA_V2
+-		clean_node(nmask);
+-		set_node(nmask, nodes[i]);
+-		/*
+-		 * Use mbind() to make sure each node contains
+-		 * length size memory.
+-		 */
+-		ret = mbind(memory[i], length, MPOL_BIND, nmask, MAXNODES, 0);
++		numa_bitmask_setbit(bm, nodes->map[i]);
++
++		ret = mbind(memory[i], length, MPOL_BIND, bm->maskp, bm->size+1, 0);
+ 		if (ret == -1)
+ 			tst_brk(TBROK|TERRNO, "mbind");
++
++		numa_bitmask_clearbit(bm, nodes->map[i]);
+ #endif
+ 
+ 		memset(memory[i], 10, length);
+@@ -94,9 +81,11 @@ static void test_ksm(void)
+ 			tst_res(TWARN | TERRNO, "mlock() failed");
  	}
  
- 	fclose(fp);
-@@ -161,7 +165,7 @@ static int node_has_enough_memory(int node, size_t min_kb)
- 		return 0;
- 	}
++	numa_free_nodemask(bm);
++
+ 	SAFE_FILE_PRINTF(PATH_KSM "sleep_millisecs", "0");
+ 	SAFE_FILE_PRINTF(PATH_KSM "pages_to_scan", "%ld",
+-			 nr_pages * num_nodes);
++			 nr_pages * nodes->cnt);
+ 	/*
+ 	 * merge_across_nodes and max_page_sharing setting can be changed
+ 	 * only when there are no ksm shared pages in system, so set run 2
+@@ -106,23 +95,23 @@ static void test_ksm(void)
+ 	SAFE_FILE_PRINTF(PATH_KSM "run", "2");
+ 	if (access(PATH_KSM "max_page_sharing", F_OK) == 0)
+ 		SAFE_FILE_PRINTF(PATH_KSM "max_page_sharing",
+-			"%ld", nr_pages * num_nodes);
++			"%ld", nr_pages * nodes->cnt);
+ 	tst_res(TINFO, "Start to test KSM with merge_across_nodes=1");
+ 	SAFE_FILE_PRINTF(PATH_KSM "merge_across_nodes", "1");
+ 	SAFE_FILE_PRINTF(PATH_KSM "run", "1");
+-	ksm_group_check(1, 1, nr_pages * num_nodes - 1, 0, 0, 0,
+-			nr_pages * num_nodes);
++	ksm_group_check(1, 1, nr_pages * nodes->cnt - 1, 0, 0, 0,
++			nr_pages * nodes->cnt);
  
--	if (mem_total - mem_used < (long)min_kb) {
-+	if (mem_total - mem_used + (9 * file_pages)/10 < (long)min_kb) {
- 		tst_res(TINFO,
- 		        "Not enough free RAM on node %i, have %likB needs %zukB",
- 		        node, mem_total - mem_used, min_kb);
+ 	SAFE_FILE_PRINTF(PATH_KSM "run", "2");
+ 	tst_res(TINFO, "Start to test KSM with merge_across_nodes=0");
+ 	SAFE_FILE_PRINTF(PATH_KSM "merge_across_nodes", "0");
+ 	SAFE_FILE_PRINTF(PATH_KSM "run", "1");
+-	ksm_group_check(1, num_nodes, nr_pages * num_nodes - num_nodes,
+-			0, 0, 0, nr_pages * num_nodes);
++	ksm_group_check(1, nodes->cnt, nr_pages * nodes->cnt - nodes->cnt,
++			0, 0, 0, nr_pages * nodes->cnt);
+ 
+ 	SAFE_FILE_PRINTF(PATH_KSM "run", "2");
+ 
+-	for (i = 0; i < num_nodes; i++)
++	for (i = 0; i < nodes->cnt; i++)
+ 		SAFE_MUNMAP(memory[i], length);
+ 
+ 	free(memory);
+@@ -133,11 +122,14 @@ static void setup(void)
+ 	if (access(PATH_KSM "merge_across_nodes", F_OK) == -1)
+ 		tst_brk(TCONF, "no merge_across_nodes sysfs knob");
+ 
+-	if (!is_numa(NULL, NH_MEMS, 2))
+-		tst_brk(TCONF, "The case needs a NUMA system.");
+-
+ 	if (n_opt)
+ 		nr_pages = SAFE_STRTOUL(n_opt, 0, ULONG_MAX);
++
++	page_size = getpagesize();
++
++	nodes = tst_get_nodemap(TST_NUMA_MEM, nr_pages * page_size / 1024);
++	if (nodes->cnt <= 1)
++		tst_brk(TCONF, "Test requires at least two NUMA memory nodes");
+ }
+ 
+ static struct tst_test test = {
 -- 
 2.34.1
 
