@@ -1,80 +1,80 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9EA074CE0D3
-	for <lists+linux-ltp@lfdr.de>; Sat,  5 Mar 2022 00:18:40 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 394904CE0D7
+	for <lists+linux-ltp@lfdr.de>; Sat,  5 Mar 2022 00:19:26 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D19943CA3E5
-	for <lists+linux-ltp@lfdr.de>; Sat,  5 Mar 2022 00:18:39 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id D1C5A3CA3ED
+	for <lists+linux-ltp@lfdr.de>; Sat,  5 Mar 2022 00:19:25 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id CBCAE3C9628
- for <ltp@lists.linux.it>; Sat,  5 Mar 2022 00:18:35 +0100 (CET)
-Received: from smtp-relay-internal-1.canonical.com
- (smtp-relay-internal-1.canonical.com [185.125.188.123])
+ by picard.linux.it (Postfix) with ESMTPS id 52AB33CA40E
+ for <ltp@lists.linux.it>; Sat,  5 Mar 2022 00:18:41 +0100 (CET)
+Received: from smtp-relay-internal-0.canonical.com
+ (smtp-relay-internal-0.canonical.com [185.125.188.122])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 017C96011FB
- for <ltp@lists.linux.it>; Sat,  5 Mar 2022 00:18:34 +0100 (CET)
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
- [209.85.214.200])
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id DBA106011F6
+ for <ltp@lists.linux.it>; Sat,  5 Mar 2022 00:18:40 +0100 (CET)
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com
+ [209.85.210.200])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 4CBE83F5FB
- for <ltp@lists.linux.it>; Fri,  4 Mar 2022 23:18:34 +0000 (UTC)
+ by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id CDF7C3F615
+ for <ltp@lists.linux.it>; Fri,  4 Mar 2022 23:18:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1646435914;
- bh=geF/D2xcIfwYgA/pIy4Ytdw3WZjQiTCT8Ker9tmcYbQ=;
+ s=20210705; t=1646435916;
+ bh=7FLhQWfaTyAc6FEReU9cSn3eSEM5kpFVpfybQQdVxaE=;
  h=From:To:Subject:Date:Message-Id:In-Reply-To:References:
  MIME-Version;
- b=hTrYno+K7kdGmKBPgRmjRgD7EciCjOsldx1RrWvnbYz4tVrXtEKMMrWw3T8li82xW
- 4AmJ23sXzgAXNZUSnSYr6dRIahmWlRwTrAqx3ZsZif3kPpddF2V4nUd8U6nN0CDaY+
- HOHDB8eVYb2lUGMP/xz6g+YJs8DBRXKoXoLNpWSEhRv1h8JQIQ6dts5YI3utWq3eJT
- aRqhYCphxnPOu7TtBt/Z8ZMmfr2DgPzNbbnASNLllJ+KCQU9b4q8Sk361pzF4UWU8h
- Dum9MP0f26iQj51pF4ewn0J+LuCjk+GRTpiEgnL0zPZ20jQTS+ohYEdtwNqHBhS4xb
- qD2U0bEP6zgbA==
-Received: by mail-pl1-f200.google.com with SMTP id
- w13-20020a1709027b8d00b0014fb4f012d3so5343997pll.12
- for <ltp@lists.linux.it>; Fri, 04 Mar 2022 15:18:34 -0800 (PST)
+ b=Jd5pINk9giOr4bFBmRBJ13qYl8c8Rgw31VUcvEYmoDOdYlMcxTs9lQ4ehAdAlAwuA
+ YwVjP1O/9eq8IzBkYtzJ0cnaKRLpsCAbhH77+E1WEGBXXZNf0hL1kcdSB9yxvR9aZb
+ Rwd3YpQQVoe3VRGC47EBGC9NboppnFlVPKRN8xu0/6uHSOV0ieC5cmfA/Uf2jfLUER
+ 5uAFSxPeINOMv6FOIozvlIJm23Mq+Gi/boHm4ITjRkG/mAbziLsB37t7LuV3z8Kh6C
+ sGJOzJ2SwU04zHpahLX/luc2xs2IEGBMa2OPVRHWexywyePjkpd9nvX6CZ0LN8o3fq
+ XoV60HkXNIGIw==
+Received: by mail-pf1-f200.google.com with SMTP id
+ w68-20020a62dd47000000b004f6aa5e4824so2697156pff.4
+ for <ltp@lists.linux.it>; Fri, 04 Mar 2022 15:18:36 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=geF/D2xcIfwYgA/pIy4Ytdw3WZjQiTCT8Ker9tmcYbQ=;
- b=79h3cZCTiKmca+IkLTqTeJVyUxZ76wTEa4LCUfyEO7ucL9o8/hT+AYHEDMvRnJN9bS
- klghibyK+S+tUiBLozRlKs6lH1nM4GBLd+WX+WL5gZP/oL8KCWr/Bq7JNiBke0jX0rDL
- p0cCna1CJHMdF4+DPrBPH3f10GIwUySJCrGM4YS0AJ0YFtDycHXM/fQBmcZ4S/Q3Reqf
- XPsqAf7UuL2KnxqL7Wq4XBAgZHOk9IdkocHqHMWpBvRH5lTL+TRrSRm+OQPtJ2AFzAuD
- ETLtz7HmZq/0JaQSRu24uVTGIA2GRO7dfDiu4kgdxL6hoOEbAOviP1Rtd4U9YQGWyOiF
- PY5A==
-X-Gm-Message-State: AOAM5327rRoJQF6yxNyqXNnk/Kq68p6A7g8tDlDiiamusUvQoK4YdPkO
- 36pjI6seRS+E63J4ZhFSS4IvVsjgGsFVtCY6rr9zYOUSkBl9y+EbiPxXGTbst1so+cv9MXXfMGg
- 5+xtL0dvNL/2EFRqvn2YKy3GJJiFv
-X-Received: by 2002:a05:6a00:1310:b0:4ca:cc46:20c7 with SMTP id
- j16-20020a056a00131000b004cacc4620c7mr810678pfu.44.1646435912514; 
- Fri, 04 Mar 2022 15:18:32 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJzuDYLAA44W66Zkc6ptJiz+VLX8hM2S3+CU7Gavv4Zg4EJgo77H2AcpkhLN5Tv30Dai8jp+Kw==
-X-Received: by 2002:a05:6a00:1310:b0:4ca:cc46:20c7 with SMTP id
- j16-20020a056a00131000b004cacc4620c7mr810661pfu.44.1646435912223; 
- Fri, 04 Mar 2022 15:18:32 -0800 (PST)
+ bh=7FLhQWfaTyAc6FEReU9cSn3eSEM5kpFVpfybQQdVxaE=;
+ b=N6eoj7/TDOJ3VcoWXtnWllU1cRDzvMafatXNdQAiXYksEx9ze2o3ZNdIL5DtLZYZ88
+ U1YifilfKV10n5pCPIjLC/3G09kMHZPhpcTzgJ+frA+ES+1hltEvsW9T2P/LLJLzbPBH
+ GpkOV6EbCdVXHBsdut6f+GSlbexiQB8e2bRfj924vnaGPDPdtQfm2qgG8u/psPqL+5+t
+ nSmFfDTKUmwalZ/+/TAwbTxk0Hog6z0UduCQUY/gnMnVqlqXyMKwGTSaElXzZkjNQjCn
+ rg/AF9S00u6ClzLROMfVMMONF3rfmxypxtlXyP2LMQBLKaIV6j4UfzRb2jRHTeZ6Na2l
+ XOmg==
+X-Gm-Message-State: AOAM530vd4Qddz2yChXePwrSVX2/C/o4aN0EOg58LY3aJktRDGRwKDbW
+ +b6qMNsLeUtFA8/beWlCZt34zmJUEvGXCGCjSd11jXpqdYZyYqJYVbssxZCKfiFwvVCZReMvPEb
+ 40FsPKWXW4PcVQRy50nBYDik8SwDB
+X-Received: by 2002:a05:6a00:140f:b0:4e0:6995:9c48 with SMTP id
+ l15-20020a056a00140f00b004e069959c48mr781197pfu.59.1646435913840; 
+ Fri, 04 Mar 2022 15:18:33 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJwlUJA7/1fcVnTK24tT93lz36ZFDPkLhA6EtXeAitQvnT4foJ/qzYzdeY38kFGN+1VIqD8kEA==
+X-Received: by 2002:a05:6a00:140f:b0:4e0:6995:9c48 with SMTP id
+ l15-20020a056a00140f00b004e069959c48mr781185pfu.59.1646435913561; 
+ Fri, 04 Mar 2022 15:18:33 -0800 (PST)
 Received: from luke-ubuntu.. (cpe-66-27-118-101.san.res.rr.com.
  [66.27.118.101]) by smtp.gmail.com with ESMTPSA id
- h14-20020a63384e000000b00366ba5335e7sm5335760pgn.72.2022.03.04.15.18.30
+ h14-20020a63384e000000b00366ba5335e7sm5335760pgn.72.2022.03.04.15.18.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 04 Mar 2022 15:18:31 -0800 (PST)
+ Fri, 04 Mar 2022 15:18:32 -0800 (PST)
 From: Luke Nowakowski-Krijger <luke.nowakowskikrijger@canonical.com>
 To: ltp@lists.linux.it,
 	rpalethorpe@suse.de,
 	liwang@redhat.com
-Date: Fri,  4 Mar 2022 15:18:12 -0800
-Message-Id: <3f0ce0cd15392f011b3adfdd2bb568f0dd05ea81.1646434670.git.luke.nowakowskikrijger@canonical.com>
+Date: Fri,  4 Mar 2022 15:18:13 -0800
+Message-Id: <ca52734dc2309252ed5bf2abd5f030693697403f.1646434670.git.luke.nowakowskikrijger@canonical.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <cover.1646434670.git.luke.nowakowskikrijger@canonical.com>
 References: <cover.1646434670.git.luke.nowakowskikrijger@canonical.com>
@@ -85,8 +85,8 @@ X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH 02/16] API/cgroup: Add option for specific pid to
- tst_cg_opts
+Subject: [LTP] [PATCH v2 03/16] API/cgroup: Add cgroup_find_root helper
+ function
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,47 +103,40 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Add an option that would allow to create a test directory with a
-specified pid, as opposed to the calling processes pid.
+Add a helper function similar to cgroup_find_ctrl to make matching paths
+to roots more convenient.
 
 Signed-off-by: Luke Nowakowski-Krijger <luke.nowakowskikrijger@canonical.com>
 ---
- include/tst_cgroup.h | 4 ++++
- lib/tst_cgroup.c     | 6 +++++-
- 2 files changed, 9 insertions(+), 1 deletion(-)
+v2: Use the for_each_root() macro to properly loop over v1 roots
 
-diff --git a/include/tst_cgroup.h b/include/tst_cgroup.h
-index 6ba3727f3..87e55f4df 100644
---- a/include/tst_cgroup.h
-+++ b/include/tst_cgroup.h
-@@ -97,6 +97,10 @@ struct tst_cg_opts {
- 	 * version. Defautls to zero to accept any version.
- 	 */
- 	enum tst_cg_ver needs_ver;
-+	/* Pass in a specific pid to create and identify the test
-+	 * directory as opposed to the default pid of the calling process.
-+	 */
-+	int test_pid;
- };
- 
- /* A Control Group in LTP's aggregated hierarchy */
+ lib/tst_cgroup.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
+
 diff --git a/lib/tst_cgroup.c b/lib/tst_cgroup.c
-index 68f3609cf..66e7a81d9 100644
+index 66e7a81d9..8f95064b3 100644
 --- a/lib/tst_cgroup.c
 +++ b/lib/tst_cgroup.c
-@@ -698,7 +698,11 @@ mkdirs:
- 
- 	cgroup_dir_mk(&root->ltp_dir, cgroup_ltp_drain_dir, &root->drain_dir);
- 
--	sprintf(cgroup_test_dir, "test-%d", getpid());
-+	if (options->test_pid)
-+		sprintf(cgroup_test_dir, "test-%d", options->test_pid);
-+	else
-+		sprintf(cgroup_test_dir, "test-%d", getpid());
-+
- 	cgroup_dir_mk(&root->ltp_dir, cgroup_test_dir, &root->test_dir);
+@@ -354,6 +354,19 @@ static struct cgroup_ctrl *cgroup_find_ctrl(const char *const ctrl_name)
+ 	return NULL;
  }
  
++static struct cgroup_root *cgroup_find_root(const char *const mnt_path)
++{
++	struct cgroup_root *root;
++
++	for_each_root(root) {
++		if (!strcmp(root->mnt_path, mnt_path))
++			return root;
++	}
++
++	return NULL;
++}
++
++
+ /* Determine if a mounted cgroup hierarchy is unique and record it if so.
+  *
+  * For CGroups V2 this is very simple as there is only one
 -- 
 2.32.0
 
