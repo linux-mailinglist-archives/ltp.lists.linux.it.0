@@ -1,93 +1,92 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4931D4CE0E4
-	for <lists+linux-ltp@lfdr.de>; Sat,  5 Mar 2022 00:21:00 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 69A274CE0E8
+	for <lists+linux-ltp@lfdr.de>; Sat,  5 Mar 2022 00:21:44 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E74573CA3ED
-	for <lists+linux-ltp@lfdr.de>; Sat,  5 Mar 2022 00:20:59 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 33AB23CA3E4
+	for <lists+linux-ltp@lfdr.de>; Sat,  5 Mar 2022 00:21:44 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 761F33CA3F3
- for <ltp@lists.linux.it>; Sat,  5 Mar 2022 00:18:51 +0100 (CET)
-Received: from smtp-relay-internal-1.canonical.com
- (smtp-relay-internal-1.canonical.com [185.125.188.123])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 0D82510008F8
- for <ltp@lists.linux.it>; Sat,  5 Mar 2022 00:18:50 +0100 (CET)
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
- [209.85.214.199])
+ by picard.linux.it (Postfix) with ESMTPS id 71CDF3CA3FF
+ for <ltp@lists.linux.it>; Sat,  5 Mar 2022 00:18:58 +0100 (CET)
+Received: from smtp-relay-internal-0.canonical.com
+ (smtp-relay-internal-0.canonical.com [185.125.188.122])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 449E33F5F5
- for <ltp@lists.linux.it>; Fri,  4 Mar 2022 23:18:50 +0000 (UTC)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id E2478200923
+ for <ltp@lists.linux.it>; Sat,  5 Mar 2022 00:18:57 +0100 (CET)
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com
+ [209.85.215.197])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 921B43F613
+ for <ltp@lists.linux.it>; Fri,  4 Mar 2022 23:18:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1646435930;
- bh=K+1WzYajNsYz63ppTUg3LHQUfDFpmNmoE5gogShWq9E=;
+ s=20210705; t=1646435936;
+ bh=6i0BCxmqKwBl1nnGesFsEOkqSvj3sOrTD4e81md/lPw=;
  h=From:To:Subject:Date:Message-Id:In-Reply-To:References:
  MIME-Version;
- b=ULjEYeRwxpahM8BJOGJ1SDsqIQDVcFESxsKbhpwYOjAj9meUMJbPZHPgOll1tiUl/
- c6znwFWpJgeyx6mWrRbLfq8y7hXvMsXT5B1ctXbFjaqi5SsJgaM7UjL8aQIyCkqJ7O
- Ik7RFZZv3zEL57qWiMGvJSFb1m7cSn8lMLd++yUIVRColvtXAcK6G4PypFub8hLp5V
- S0MdoHQB3lA1cvvjMnB+IG6HVF7XkIUyPNHDhX6Uml6puk23XGfNW7fdBN3Z3btigh
- CEWa1oehi0tuR7DOBfh0ZqfooLGOLRsJAkrYThOh6IofeBOEJM4/0L088cQxPmddx0
- l8jmXvfBZuzNQ==
-Received: by mail-pl1-f199.google.com with SMTP id
- d4-20020a170902f14400b001518350e5c7so5346964plb.13
- for <ltp@lists.linux.it>; Fri, 04 Mar 2022 15:18:50 -0800 (PST)
+ b=kIQN1evuqfVGgAjauTkBQy7xl+xb/ivnMiEqMOYJ0ILmidcdgjeV2ENsiHcf/CasO
+ I8ID5HDCb8JjePPc5Me6YwNKHxQ8+q3RT3BMwJxKAFUyoK16AArm16yTDjUzSHNu7O
+ HdN4DcX59FtuyyPppnut6vRJXnxPsAFVGEPns7xCj1scqe3z3YltXW+5NdKSktMQJL
+ KZkt5ykb7EKQqjS6IsmOaSV4XR9E6PZZKGXMD6mVNaiCUk1z+hJnIkVzTUgd6T0x35
+ 7o6MUc5+6yHD/uJ0xy6s4mlhH0i2CiuTMo/vvtVzXzMyJZG7csCBC3cOhmz+GDDoZP
+ OdQA7mMu9RtoQ==
+Received: by mail-pg1-f197.google.com with SMTP id
+ o30-20020a634e5e000000b00373598b71d4so5214909pgl.21
+ for <ltp@lists.linux.it>; Fri, 04 Mar 2022 15:18:56 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=K+1WzYajNsYz63ppTUg3LHQUfDFpmNmoE5gogShWq9E=;
- b=J+lWqI6sinrbmOjokiPKeyYBiUgYbTfzzXmKqDP6bT/Am/+tzw1mOYMCNbWQDP4afB
- PATsNUuAGtFZYHUQ9knZM9fOpS9u0COChlgCG2nJSpJn08MsJEE8Srp1MsMztHuCwcqF
- 88g64fIVJxgpMiSAGjSVja6XDdXFFQdqLf4cqVcrE14UJV47Es4pRRM4L/wxxsfFFuDl
- 5UMXpti8TUR8bMVULTarp6EpnT3ACZ5w9gInPz5rergHTf8WjFMuDr5fn1mDsiWz1pXc
- 9Q+Moc8jBSu62QnOfqJke1La6Q9ZGaKCdBaTgK013HqQj7XL4yQv4TC3TlPV2t3eyF37
- aU5A==
-X-Gm-Message-State: AOAM530eXS2lgzMCpBu2Nx6fxSgqRf72WtQmMhJXBUkilU8ENuEtB6NF
- pT7g0y5+ArP53t0Bw+Ifh6HE1/mk9pcK3xIqTQx/65k1UgWoga3JQ4FGiri8uq0etk1mQXbKZAH
- jYVFYXYU7wE12p6idqzDka9xUEofD
-X-Received: by 2002:a17:902:cccc:b0:14e:e89c:c669 with SMTP id
- z12-20020a170902cccc00b0014ee89cc669mr700205ple.58.1646435928621; 
- Fri, 04 Mar 2022 15:18:48 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJzSBG/63XARLoW9QCmCaiv+VqmZPhohZ9XMRjHbzrMdHYh8iopEj2/2N1SUZUkJFIIAyz1tcQ==
-X-Received: by 2002:a17:902:cccc:b0:14e:e89c:c669 with SMTP id
- z12-20020a170902cccc00b0014ee89cc669mr700187ple.58.1646435928325; 
- Fri, 04 Mar 2022 15:18:48 -0800 (PST)
+ bh=6i0BCxmqKwBl1nnGesFsEOkqSvj3sOrTD4e81md/lPw=;
+ b=HEiPbLzouyoOWVACNCuBi0F+8ms5xxvYXTOmI42b2/ssWgH/6wxOtCuKqaunXHNZy/
+ HlaK0PnmmN0gxMnxQw/X5RVP3mSqSG7gX4ek6bUjLGg51t2dMTt62GLbvYsdA3+T4gee
+ S4+/Zui894nfnQ65xvnt5dtktJzKpjrjoUsN5VQ1E3TThhydtwHsVwunXGwfgvzyWZpY
+ GpckrbkWmM167wzzj4CZVNKG9ZOMnNiJ8XkW8VshW+t/qBUPfvWtrTt3ZfPoTOut77tt
+ sb1UkciTDFgbqyGl2WGFFVddd/mZ2sUzsKmvAptl/yZGejfNRJy0yTUgp8yl6WM3RfMv
+ w50A==
+X-Gm-Message-State: AOAM532S5g7TPrhdt1BP3no3GxagYrpFvGtrRkZcGxwlovLCYMMaZrKl
+ hYM77lwbbAyiyntp3H6jZU5FSZZgitwxKAUCCMeDURlpO7jME2h7Ulpi0cB+Gq9e4Dz/NhETcXm
+ ZeiZJDaqGqbD8QNvjaE7PFyysn7Zs
+X-Received: by 2002:a65:6c0d:0:b0:364:ae2e:9708 with SMTP id
+ y13-20020a656c0d000000b00364ae2e9708mr595042pgu.189.1646435929989; 
+ Fri, 04 Mar 2022 15:18:49 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJy5KaVA77lp0W7w7iRgUc+hzBXO8pSU1S/UGDNbFVwZaJ/gis7lKRYULVynQgb+G+0HxCnpzA==
+X-Received: by 2002:a65:6c0d:0:b0:364:ae2e:9708 with SMTP id
+ y13-20020a656c0d000000b00364ae2e9708mr595030pgu.189.1646435929733; 
+ Fri, 04 Mar 2022 15:18:49 -0800 (PST)
 Received: from luke-ubuntu.. (cpe-66-27-118-101.san.res.rr.com.
  [66.27.118.101]) by smtp.gmail.com with ESMTPSA id
- h14-20020a63384e000000b00366ba5335e7sm5335760pgn.72.2022.03.04.15.18.47
+ h14-20020a63384e000000b00366ba5335e7sm5335760pgn.72.2022.03.04.15.18.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 04 Mar 2022 15:18:47 -0800 (PST)
+ Fri, 04 Mar 2022 15:18:48 -0800 (PST)
 From: Luke Nowakowski-Krijger <luke.nowakowskikrijger@canonical.com>
 To: ltp@lists.linux.it,
 	rpalethorpe@suse.de,
 	liwang@redhat.com
-Date: Fri,  4 Mar 2022 15:18:24 -0800
-Message-Id: <42c4a457da1c50f344b58055692f754f2b0277e6.1646434670.git.luke.nowakowskikrijger@canonical.com>
+Date: Fri,  4 Mar 2022 15:18:25 -0800
+Message-Id: <1a1841553e6687d34701afd40ad0312dca5c54af.1646434670.git.luke.nowakowskikrijger@canonical.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <cover.1646434670.git.luke.nowakowskikrijger@canonical.com>
 References: <cover.1646434670.git.luke.nowakowskikrijger@canonical.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 14/16] controllers: Update pids.sh to use newer
- cgroup lib
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 15/16] controllers: update
+ cpuset_regression_test.sh to use newer cgroup lib
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,120 +103,62 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Updated to use the newer cgroup_lib to make mounting and cleanup
-nicer.
+Update the test to use the newer cgroup lib which handles mounting for
+v1 and v2 controllers enabling them both to be tested and cleaning up
+the mounting and cleanup process.
 
 Signed-off-by: Luke Nowakowski-Krijger <luke.nowakowskikrijger@canonical.com>
 ---
-v2: Use version number 2 instead of v2
+v2: Change variable cgroup_v to cgroup_version
 
- testcases/kernel/controllers/pids/pids.sh | 67 +++--------------------
- 1 file changed, 9 insertions(+), 58 deletions(-)
+ .../cpuset/cpuset_regression_test.sh          | 26 +++++--------------
+ 1 file changed, 7 insertions(+), 19 deletions(-)
 
-diff --git a/testcases/kernel/controllers/pids/pids.sh b/testcases/kernel/controllers/pids/pids.sh
-index a3d644eff..ffde41df0 100755
---- a/testcases/kernel/controllers/pids/pids.sh
-+++ b/testcases/kernel/controllers/pids/pids.sh
-@@ -13,7 +13,7 @@ TST_USAGE=usage
- TST_NEEDS_ROOT=1
- TST_NEEDS_CMDS="killall"
- 
--. tst_test.sh
-+. cgroup_lib.sh
- 
- caseno=$1
- max=$2
-@@ -38,66 +38,17 @@ cleanup()
- {
- 	killall -9 pids_task2 >/dev/null 2>&1
- 
--	tst_res TINFO "removing created directories"
--	rmdir $testpath
--	if [ "$mounted" -ne "1" ]; then
--		tst_res TINFO "Umounting pids"
--		umount $mount_point
--		rmdir $mount_point
--	fi
--}
--
--setup_cgroupv2()
--{
--	mount_point=$(grep -w cgroup2 /proc/mounts | cut -f 2 | cut -d " " -f2)
--	if ! grep -q pids "$mount_point"/cgroup.controllers; then
--		tst_res TINFO "pids not supported on cgroup v2."
--		return
--	fi
--
--	testpath="$mount_point/ltp_pids_$caseno"
--	ROD mkdir -p "$testpath"
--	task_list="cgroup.procs"
--	cgroup_v="v2"
--}
--
--setup_cgroupv1()
--{
--	exist=`grep -w pids /proc/cgroups | cut -f1`;
--	if [ "$exist" = "" ]; then
--		tst_brk TCONF NULL "pids not supported"
--	fi
--
--	mount_point=`grep -w pids /proc/mounts | cut -f 2 | cut -d " " -f2`
--
--	if [ "$mount_point" = "" ]; then
--		mounted=0
--		mount_point=/dev/cgroup
--	fi
--
--	testpath=$mount_point/ltp_pids_$caseno
--
--	if [ "$mounted" -eq "0" ]; then
--		ROD mkdir -p $mount_point
--		ROD mount -t cgroup -o pids none $mount_point
--	fi
--	ROD mkdir -p $testpath
--	task_list="tasks"
--	cgroup_v="v1"
-+	cgroup_cleanup
- }
+diff --git a/testcases/kernel/controllers/cpuset/cpuset_regression_test.sh b/testcases/kernel/controllers/cpuset/cpuset_regression_test.sh
+index a6806b7b0..67fed791a 100755
+--- a/testcases/kernel/controllers/cpuset/cpuset_regression_test.sh
++++ b/testcases/kernel/controllers/cpuset/cpuset_regression_test.sh
+@@ -123,18 +123,13 @@ cpuset_restore()
  
  setup()
  {
--	# If cgroup2 is mounted already, then let's
--	# try to start with cgroup v2.
--	if grep -q cgroup2 /proc/mounts; then
--		setup_cgroupv2
+-	if ! is_cgroup_subsystem_available_and_enabled "cpuset"; then
+-		tst_brk TCONF "Either kernel does not support cpuset controller or feature not enabled"
 -	fi
--	if [ -z "$cgroup_v" ]; then
--		setup_cgroupv1
--	fi
-+	cgroup_require "pids"
-+	cgroup_version=$(cgroup_get_version "pids")
-+	testpath=$(cgroup_get_test_path "pids")
-+	task_list=$(cgroup_get_task_list "pids")
+-
+-	# We need to mount cpuset if it is not found.
+-	root_cpuset_dir=$(get_cgroup_mountpoint cpuset)
+-	if [ -z "$root_cpuset_dir" ]; then
+-		root_cpuset_dir="$LOCAL_MOUNTPOINT"
++	cgroup_require "cpuset"
++	cgroup_version=$(cgroup_get_version "cpuset")
++	root_cpuset_dir=$(cgroup_get_mountpoint "cpuset")
++	testpath=$(cgroup_get_test_path "cpuset")
++	task_list=$(cgroup_get_task_list "cpuset")
  
--	tst_res TINFO "test starts with cgroup $cgroup_v"
+-		ROD_SILENT mkdir -p ${root_cpuset_dir}
+-		ROD_SILENT mount -t cpuset cpuset ${root_cpuset_dir}
+-	fi
 +	tst_res TINFO "test starts with cgroup version $cgroup_version"
+ 
+ 	if ! [ -f ${root_cpuset_dir}/${cpu_exclusive} ]; then
+ 		cpu_exclusive=cpu_exclusive
+@@ -181,14 +176,7 @@ cleanup()
+ 		echo ${old_cpu_exclusive_value} > ${root_cpuset_dir}/${cpu_exclusive}
+ 	fi
+ 
+-	if [ -d "$LOCAL_MOUNTPOINT" ]; then
+-		umount ${LOCAL_MOUNTPOINT}
+-		if [ $? -ne 0 ]; then
+-			tst_res TWARN "'umount ${LOCAL_MOUNTPOINT}' failed"
+-		fi
+-
+-		rmdir ${LOCAL_MOUNTPOINT}
+-	fi
++	cgroup_cleanup
  }
  
- start_pids_tasks2()
-@@ -298,7 +249,7 @@ case8()
- {
- 	tst_res TINFO "set child cgroup limit smaller than its parent limit"
- 	ROD echo $max \> $testpath/pids.max
--	if [ "$cgroup_v" = "v2" ]; then
-+	if [ "$cgroup_version" = "2" ]; then
- 		ROD echo +pids \> "$testpath"/cgroup.subtree_control
- 	fi
- 	mkdir $testpath/child
-@@ -328,7 +279,7 @@ case9()
- 	tst_res TINFO "migrate cgroup"
- 	lim=$((max - 1))
- 
--	if [ "$cgroup_v" = "v2" ]; then
-+	if [ "$cgroup_version" = "2" ]; then
- 		ROD echo +pids \> "$testpath"/cgroup.subtree_control
- 	fi
- 	for i in 1 2; do
+ test()
 -- 
 2.32.0
 
