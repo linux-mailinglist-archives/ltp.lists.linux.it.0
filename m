@@ -1,74 +1,89 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 038074CD86B
-	for <lists+linux-ltp@lfdr.de>; Fri,  4 Mar 2022 17:01:29 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id D80CC4CE0D5
+	for <lists+linux-ltp@lfdr.de>; Sat,  5 Mar 2022 00:19:01 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 864363CA3D8
-	for <lists+linux-ltp@lfdr.de>; Fri,  4 Mar 2022 17:01:28 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 932B33CA3FB
+	for <lists+linux-ltp@lfdr.de>; Sat,  5 Mar 2022 00:19:01 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 509473C0F5D
- for <ltp@lists.linux.it>; Fri,  4 Mar 2022 17:01:23 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id D49833CA3AC
+ for <ltp@lists.linux.it>; Sat,  5 Mar 2022 00:18:35 +0100 (CET)
+Received: from smtp-relay-internal-0.canonical.com
+ (smtp-relay-internal-0.canonical.com [185.125.188.122])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 59E571000B52
- for <ltp@lists.linux.it>; Fri,  4 Mar 2022 17:01:22 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 2D45E601D7E
+ for <ltp@lists.linux.it>; Sat,  5 Mar 2022 00:18:34 +0100 (CET)
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com
+ [209.85.210.200])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 34B9921124;
- Fri,  4 Mar 2022 16:01:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1646409682; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=NdMw5w2lkFlUVQL9x4tC8B/A0BYJEP8RBAaQ7ogwv6A=;
- b=UkhSqMiKMp/ZJkX4eQv1n8hkrFEIycRwkjYa7j6N35dO8z2gqn7zcrVHsIgJg4zeHNGv2d
- al8knKHvpfdCbLej1p3CrJ4M6vVDPpSWp67p002aXS7j4V8OhihY3wUod7uUsgs4sN7fGL
- OaBajj3yK7cOu1DRQJAr13m/c0HGRvo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1646409682;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=NdMw5w2lkFlUVQL9x4tC8B/A0BYJEP8RBAaQ7ogwv6A=;
- b=21auWOPRkjOJp3ZxYLTXrE3vQyZ5nkdwSmhTufnK1WdwowpUvSrpXy8v5y4Dz+znS67hi5
- yHUONi8kDjumZbBg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 07AC713B64;
- Fri,  4 Mar 2022 16:01:21 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id v8O0OtE3ImK1PgAAMHmgww
- (envelope-from <chrubis@suse.cz>); Fri, 04 Mar 2022 16:01:21 +0000
-Date: Fri, 4 Mar 2022 17:03:42 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <YiI4XgwISfrk1BdP@yuki>
-References: <20220303083429.3827302-1-liwang@redhat.com>
+ by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id CC7143F610
+ for <ltp@lists.linux.it>; Fri,  4 Mar 2022 23:18:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1646435911;
+ bh=+4lPdYfsBFhxB/RG6P6UoCTmDJkAo9fODjBlMEI8bRM=;
+ h=From:To:Subject:Date:Message-Id:MIME-Version;
+ b=Dw6O7tf7YCu8kTLv3bX7zwRqvgkH6ZTFgp4l5sqEBRM00arDlSWFG3LRRQ9d3HZw3
+ xwMV7E6DEbT3KfyW6Db0diChlJYn7ncJDxGoZUeuNkGIW5htoODoqiFfDUqe5XROQa
+ i0iIvw7XRnkh/aK4+BlAY2wf2RMAmKt42MzlTEFB7HOHC+pEQOQlSECMoUMngmiLxZ
+ XGc42g3uJfWL6b1BEYAltqjOq/XL7cskzdErlinJVKzJQXdc1F3wTRXidh403V6fnr
+ Y4wEBsVTNiSF0QIqbd6Aqv8giRwUFVwACC9h4zi0BeU1LQPTP+J2dhZuvKrDmRNzwv
+ pjXzeLqu4zvag==
+Received: by mail-pf1-f200.google.com with SMTP id
+ a200-20020a621ad1000000b004e191fdcb4dso5935254pfa.1
+ for <ltp@lists.linux.it>; Fri, 04 Mar 2022 15:18:31 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=+4lPdYfsBFhxB/RG6P6UoCTmDJkAo9fODjBlMEI8bRM=;
+ b=tUXhEXJBYqBXndVVm5yjPeOcL2Pu/R8fFx2qU8wpGu7tthCxAMPPbhuxvnvVHUotGD
+ amA/zLV+Nto3wWvQzwu6ctIK/SPEWZMvuWYy0YGfuBCBC7X1UowPQ5NF/Ko7vMU2EJu0
+ GbTEJq1c0juhHUOvxafatZr3SYhyW7qSFxSdd3P4QhEb130The5nZQBiC38QaQzVxf1u
+ Cr++WPPFlHctiCv+6Y+4n0MxwvKSQohmIHQwY26yUjFpikPc6JHOHJi+CQGvJsDWqi7p
+ +Fpf2jutkI0efnP4E34Z1/MfkDZmb5817hxQxOpN4UsQGNFaNKqBWd8MNbx9e6xJxyS8
+ avcA==
+X-Gm-Message-State: AOAM530F4dX77lBbFDoyzKetKuWtHx1ZefxvcLGCPfxG7jZhZz0X/A4o
+ 4Y6t3NKhgDjGVDNFHL5q8wh5KnDDfewZDGWj1uDkH+OBiypQa9bh+jtOZbvNjv9fKFXH7P244kY
+ DFX/eKyW/oU4IgKEfRtDTFh5Fimsh
+X-Received: by 2002:a05:6a00:1910:b0:4f3:aa39:1e17 with SMTP id
+ y16-20020a056a00191000b004f3aa391e17mr1081916pfi.54.1646435909859; 
+ Fri, 04 Mar 2022 15:18:29 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJweNKG+31zPcsPDGhWjJRk4tVrukiJgZ0hE1Y7fJBBtMQ9eBMSNo4mK1iN5GsaHLgNuMRGUQg==
+X-Received: by 2002:a05:6a00:1910:b0:4f3:aa39:1e17 with SMTP id
+ y16-20020a056a00191000b004f3aa391e17mr1081887pfi.54.1646435909450; 
+ Fri, 04 Mar 2022 15:18:29 -0800 (PST)
+Received: from luke-ubuntu.. (cpe-66-27-118-101.san.res.rr.com.
+ [66.27.118.101]) by smtp.gmail.com with ESMTPSA id
+ h14-20020a63384e000000b00366ba5335e7sm5335760pgn.72.2022.03.04.15.18.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 04 Mar 2022 15:18:27 -0800 (PST)
+From: Luke Nowakowski-Krijger <luke.nowakowskikrijger@canonical.com>
+To: ltp@lists.linux.it,
+	rpalethorpe@suse.de,
+	liwang@redhat.com
+Date: Fri,  4 Mar 2022 15:18:10 -0800
+Message-Id: <cover.1646434670.git.luke.nowakowskikrijger@canonical.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20220303083429.3827302-1-liwang@redhat.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] migrate_pages02: check file exist before opening
- it
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 00/16] Expand Cgroup lib and modify controller tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,62 +95,73 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: bgoncalv@redhat.com, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> This test reports a warning on some special kernel (with NUMA BALANCE
-> disabling). The main reason is that prefix '?' makes tst_sys_conf_save
-> only silent ignores non-exist paths. But seems we still open it in other
-> places (e.g. in setup function).
-> 
->   tst_sys_conf.c:58: TINFO: Path not found: '/proc/sys/kernel/numa_balancing'
->   tst_test.c:1365: TINFO: Timeout per run is 0h 05m 00s
->   migrate_pages02.c:279: TWARN: Failed to open FILE '/proc/sys/kernel/numa_balancing'
->   migrate_pages02.c:317: TINFO: Using nodes: 0 1
-> 
-> Signed-off-by: Li Wang <liwang@redhat.com>
-> ---
-> 
-> Notes:
->     Looks like we have many tests use the prefix '?' for knob save/restore,
->     but none of them check if the paths are valid when opening at other places,
->     by now, I just get informed that migrate_pages02 threw a warning.
->     
->     I'm thinking maybe we can keep the return value of tst_sys_conf_save
->     as a check condition before opening the file, but this is not fit for
->     test with many paths saving:
->     e.g.
->         add_key05.c-	"?/proc/sys/kernel/keys/gc_delay",
->         add_key05.c-	"?/proc/sys/kernel/keys/maxkeys",
+This patchset aims to expand the cgroup_lib shell library to simplify
+and centralize the whole mounting and cleanup process that can get
+rather confusing and redundant when writing cgroup controller tests from
+a shell environment. This is done by having the shell library make calls
+to the C cgroup API from a binary utility.
 
-Looking at the test we set these values to make the test run faster and
-the test works fine even without these knobs, right?
+In this patch set there are a few tests that have been extensively
+rewritten to work with the new test API and to use the new functionality
+from the cgroup lib. Because the test Cgroup lib handles mounting for v1
+and v2 controllers, some tests were modified to also work under cgroup
+v2. Some tests that were written for v1 controller also effictively test
+v2 controllers, while others were written to test v2 controllers in the
+spirit of the test or skipped outright.
 
-Maybe we just need to enhance the .save_restore with another parameter;
-a value to set the knob to if it does exists, so in add_key05.c it would
-look like:
+Luke Nowakowski-Krijger (16):
+  API/cgroup: Modify tst_cg_print_config for parsing and consumption
+  API/cgroup: Add option for specific pid to tst_cg_opts
+  API/cgroup: Add cgroup_find_root helper function
+  API/cgroup: Implement tst_cg_load_config
+  API/cgroup: Add more controllers to tst_cgroup
+  API/cgroup: refuse to mount blkio when io controller is mounted
+  testcases/lib: Implement tst_cgctl binary
+  controllers: Expand cgroup_lib shell library
+  controllers: Update cgroup_fj_* to use newer cgroup lib and test lib
+  controllers: Update memcg_control_test to newer test lib and cgroup
+    lib
+  controllers: Update memcg/regression/* to new test and cgroup lib
+  controllers: Update memcg_stress_test to use newer cgroup lib
+  controllers: update memcg/functional to use newer cgroup lib
+  controllers: Update pids.sh to use newer cgroup lib
+  controllers: update cpuset_regression_test.sh to use newer cgroup lib
+  controllers: update cgroup_regression_test to use newer cgroup lib
 
-struct tst_path_val {
-	const char *path;
-	const char *val;
-};
-
-        .save_restore = (const struct tst_path_val const[]) {
-                {"?/proc/sys/kernel/keys/gc_delay", "1"},
-                {"?/proc/sys/kernel/keys/maxkeys", "200"},
-                {"?/proc/sys/kernel/keys/maxbytes", "20000"}
-                NULL,
-        },
-
-And in cases we do not need to set value we would just pass NULL as val...
+ include/tst_cgroup.h                          |  17 +-
+ lib/tst_cgroup.c                              | 203 +++++++++++++++++-
+ .../cgroup/cgroup_regression_test.sh          |  17 +-
+ .../controllers/cgroup_fj/cgroup_fj_common.sh | 113 +++-------
+ .../cgroup_fj/cgroup_fj_function.sh           | 169 ++++++++-------
+ .../controllers/cgroup_fj/cgroup_fj_proc.c    |  24 +--
+ .../controllers/cgroup_fj/cgroup_fj_stress.sh | 168 +++++++--------
+ testcases/kernel/controllers/cgroup_lib.sh    | 129 +++++++++--
+ .../cpuset/cpuset_regression_test.sh          |  26 +--
+ .../controllers/memcg/control/mem_process.c   |  28 +--
+ .../memcg/control/memcg_control_test.sh       | 150 ++++---------
+ .../memcg/functional/memcg_force_empty.sh     |   2 +-
+ .../controllers/memcg/functional/memcg_lib.sh |  54 ++---
+ .../memcg/regression/memcg_regression_test.sh | 202 ++++++++---------
+ .../memcg/regression/memcg_test_1.c           |  40 ++--
+ .../memcg/regression/memcg_test_2.c           |  24 +--
+ .../memcg/regression/memcg_test_3.c           |  38 ++--
+ .../memcg/regression/memcg_test_4.c           |  24 +--
+ .../memcg/regression/memcg_test_4.sh          |  50 ++---
+ .../memcg/stress/memcg_stress_test.sh         |  32 ++-
+ testcases/kernel/controllers/pids/pids.sh     |  67 +-----
+ testcases/lib/Makefile                        |   2 +-
+ testcases/lib/tst_cgctl.c                     |  87 ++++++++
+ 23 files changed, 883 insertions(+), 783 deletions(-)
+ create mode 100644 testcases/lib/tst_cgctl.c
 
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+2.32.0
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
