@@ -2,92 +2,84 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id A324D4CE0E6
-	for <lists+linux-ltp@lfdr.de>; Sat,  5 Mar 2022 00:21:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F54F4CED42
+	for <lists+linux-ltp@lfdr.de>; Sun,  6 Mar 2022 19:51:50 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5ED1C3CA401
-	for <lists+linux-ltp@lfdr.de>; Sat,  5 Mar 2022 00:21:22 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 459D73C1B90
+	for <lists+linux-ltp@lfdr.de>; Sun,  6 Mar 2022 19:51:49 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 8BAF63CA3F5
- for <ltp@lists.linux.it>; Sat,  5 Mar 2022 00:18:54 +0100 (CET)
-Received: from smtp-relay-internal-1.canonical.com
- (smtp-relay-internal-1.canonical.com [185.125.188.123])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 2CC5D3C0653
+ for <ltp@lists.linux.it>; Sun,  6 Mar 2022 19:51:44 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id E178014002D3
- for <ltp@lists.linux.it>; Sat,  5 Mar 2022 00:18:53 +0100 (CET)
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com
- [209.85.210.197])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 35A873F1CB
- for <ltp@lists.linux.it>; Fri,  4 Mar 2022 23:18:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1646435933;
- bh=XwpC9ZVfZZsH2AJm2kDgAyRPML48N3lliDxvSVTWRIE=;
- h=From:To:Subject:Date:Message-Id:In-Reply-To:References:
- MIME-Version;
- b=YP5ufbo/vx5HdkeywJV7l0ChxSdSDjtgsiRy/31cwo/bAqdFJ526XWhNuMm8eSRJ+
- V6BUCDZ9K5ObM3+bcPyHtc6bR20/wy+2E3c24jRLnl2Eiw2Ac/JVYeiIvXMF5fQpmR
- 21NOWhGE8NPRgQgzgMeG6suKt7o9vzw/5/OLrutV+XIFZDk+ZjhAmf71wui9rRQ62k
- 2ICInzb7lPgrl33MLACK+Orlfxew2vfRYuR6SYK1ynvuZhJQ9SI2ZEtliLadPLlonM
- DP8gHGlBB3DOdN5GzONeGe7DPSBD/8yYy/XGSrzPcdWepHNAOICh9NVclZ92UUd1Cf
- 5vzYIeB86H7zA==
-Received: by mail-pf1-f197.google.com with SMTP id
- y2-20020a623202000000b004f6c2892ffeso1385193pfy.12
- for <ltp@lists.linux.it>; Fri, 04 Mar 2022 15:18:53 -0800 (PST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 16B4220009C
+ for <ltp@lists.linux.it>; Sun,  6 Mar 2022 19:51:42 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1646592701;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=PZn58zO0pL3KnoM5ZMC6Yiqd3coNEh9mIX9mutP0thk=;
+ b=ZDTqHBLhXyG3ca3cyLBNyhmhRK5BbQkiTnqjs2BXiSYFWS7maYMWQbyogjQGBUvR2a0vwG
+ 92BTt0hOthf6KvPkSEQ51bO6q2WJoYMY9rwR2U4esPetJRZPU0t0Mv6eLTz1PkNPNnDI/y
+ hF1etVSkmHPJRcemlhuAouPU1LafrHw=
+Received: from mail-lj1-f200.google.com (mail-lj1-f200.google.com
+ [209.85.208.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-296-tWaMcqHlOY6Q1bvpyCNVxQ-1; Sun, 06 Mar 2022 13:51:39 -0500
+X-MC-Unique: tWaMcqHlOY6Q1bvpyCNVxQ-1
+Received: by mail-lj1-f200.google.com with SMTP id
+ 6-20020a2eb946000000b002463d2915d2so5477856ljs.9
+ for <ltp@lists.linux.it>; Sun, 06 Mar 2022 10:51:39 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=XwpC9ZVfZZsH2AJm2kDgAyRPML48N3lliDxvSVTWRIE=;
- b=TlcKWkXRhrH2TRwYtYA2tR6De8lgHKY2zjRvFuwO8MuRUpnIPaj0YndEQUTolYWpCw
- yHWAm67W7EVQQh3KKEI85f4YrtVSUtDlhDEkvO+47k+QUZ1L0Uy2ZPf5Zm7hIRIyqIAw
- UEGOQILYyRdnZkQNweeqN05SfPWJ9EuvSHmtH3MGk13IWLUX9OtkzIvOoF5aX7yRUaVB
- JUeAnxfzV7V4eddTcXTMC3LqI9gug+Hhb9sj3wlPZkwjpjiNHKkrpci9j0taAvKIuh/2
- n2ID13nM9XwJZuO92YBJToskm9CsKE0ncA5jHO6dWH5sFV/H/2PNkqYI4sOWjlPuJb8M
- QRGg==
-X-Gm-Message-State: AOAM532+am/vSaYzPQw+9Obs4L7Ah1i66TsQfMS5w5wECJSRRgy0oKfK
- HEpxVJjUNrpMG9S63kNPpF/1XT9ObS8rgFD3FQElDsTFaSd8CNq1UQIzkkdoAdq4XMt67aTreYJ
- FYhYXfD3fkECfZBGdKHiaOmjG9+PM
-X-Received: by 2002:aa7:8d0f:0:b0:4e1:31de:9080 with SMTP id
- j15-20020aa78d0f000000b004e131de9080mr976292pfe.1.1646435931287; 
- Fri, 04 Mar 2022 15:18:51 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJxUq0R8bij8GqwXEy+U5VGPeA4PE6Z2kL2YbP/nLngDiNSzXWdHWDT2wHlE7vjqESfrbWCZow==
-X-Received: by 2002:aa7:8d0f:0:b0:4e1:31de:9080 with SMTP id
- j15-20020aa78d0f000000b004e131de9080mr976276pfe.1.1646435931019; 
- Fri, 04 Mar 2022 15:18:51 -0800 (PST)
-Received: from luke-ubuntu.. (cpe-66-27-118-101.san.res.rr.com.
- [66.27.118.101]) by smtp.gmail.com with ESMTPSA id
- h14-20020a63384e000000b00366ba5335e7sm5335760pgn.72.2022.03.04.15.18.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 04 Mar 2022 15:18:50 -0800 (PST)
-From: Luke Nowakowski-Krijger <luke.nowakowskikrijger@canonical.com>
-To: ltp@lists.linux.it,
-	rpalethorpe@suse.de,
-	liwang@redhat.com
-Date: Fri,  4 Mar 2022 15:18:26 -0800
-Message-Id: <6cefd04ee35cf06c9771a34d28dcd35015e49ded.1646434670.git.luke.nowakowskikrijger@canonical.com>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <cover.1646434670.git.luke.nowakowskikrijger@canonical.com>
-References: <cover.1646434670.git.luke.nowakowskikrijger@canonical.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=PZn58zO0pL3KnoM5ZMC6Yiqd3coNEh9mIX9mutP0thk=;
+ b=1cqCQYEMR3sK/M657Y3zLFLHG53Tpf+pURoAXMqw3hQMpP2F8LA/JBrhGEoD0AuzCZ
+ ucOSmn/xiUkdbQ+uHiq+xnB687mkd3T6neDVJmUFAIFMjmuok2WPHSwHZnoBRvkM66Ac
+ 9pISQyzOBTPtNcpGV9JTLBrbUIsHgcA6TQuzvLYJ568UExbwRidGAm5/lNkB1z2Q0WEB
+ HtXV6GUVNAV5uQgK+Plwb5OaSemg58lW6bbzVbrH6PHF4+KItsZH2O4nnJR4rKelUMeO
+ 4JOeu88paRD35fVfFncxmR4GJJyYzCoaI64800Vine03l7ewVfht++sVcVEMcs3Ws6Rs
+ 9tmg==
+X-Gm-Message-State: AOAM5338iDIV+HPxggNmv20EMWpO/Y0ONKYxdndwqny4k4IA1P8TKqJD
+ PUVerwBnASW88kvoDxb/T5P2qpoOnG27L3s0gKCdV8NkgPzrG6d4bM29fv9UBk/X/YuptUJ8eu6
+ QN5rnRcArOofH8LXu4P+QgdT7zZw=
+X-Received: by 2002:a05:651c:2cb:b0:23d:3168:915b with SMTP id
+ f11-20020a05651c02cb00b0023d3168915bmr5253614ljo.22.1646592698350; 
+ Sun, 06 Mar 2022 10:51:38 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJwaNtU2Wh+zjeOzK0tUUXZnVw2V6IDR+gWqUzW+59s+SirJUmfUTeDyEG4++pRGt9mmGu2MU+R9b0Pw3IB5Bws=
+X-Received: by 2002:a05:651c:2cb:b0:23d:3168:915b with SMTP id
+ f11-20020a05651c02cb00b0023d3168915bmr5253607ljo.22.1646592698143; Sun, 06
+ Mar 2022 10:51:38 -0800 (PST)
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+References: <20220303083429.3827302-1-liwang@redhat.com>
+ <YiI4XgwISfrk1BdP@yuki>
+In-Reply-To: <YiI4XgwISfrk1BdP@yuki>
+From: Jan Stancek <jstancek@redhat.com>
+Date: Sun, 6 Mar 2022 19:51:22 +0100
+Message-ID: <CAASaF6xyMDgn1_wCt0nbOhB2dZC901m260Ugdb0DaBOa9dV6OA@mail.gmail.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=jstancek@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH 16/16] controllers: update cgroup_regression_test to
- use newer cgroup lib
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] migrate_pages02: check file exist before opening
+ it
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,67 +91,36 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: LTP List <ltp@lists.linux.it>, Bruno Goncalves <bgoncalv@redhat.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-The older function in the cgroup lib 'get_cgroup_mountpoint' has been
-removed, so instead replace it with its old functionaility to get
-mountpoint.
+> +               "?NUMA_BALANCING",
+You probably meant "?"NUMA_BALANCING
 
-Also use the newer cgroup lib require operation to mount and cleanup a
-cpu controller.
+>
+> Maybe we just need to enhance the .save_restore with another parameter;
+> a value to set the knob to if it does exists, so in add_key05.c it would
+> look like:
+>
+> struct tst_path_val {
+>         const char *path;
+>         const char *val;
+> };
+>
+>         .save_restore = (const struct tst_path_val const[]) {
+>                 {"?/proc/sys/kernel/keys/gc_delay", "1"},
+>                 {"?/proc/sys/kernel/keys/maxkeys", "200"},
+>                 {"?/proc/sys/kernel/keys/maxbytes", "20000"}
+>                 NULL,
+>         },
+>
+> And in cases we do not need to set value we would just pass NULL as val...
 
-Signed-off-by: Luke Nowakowski-Krijger <luke.nowakowskikrijger@canonical.com>
----
- .../cgroup/cgroup_regression_test.sh            | 17 ++++-------------
- 1 file changed, 4 insertions(+), 13 deletions(-)
-
-diff --git a/testcases/kernel/controllers/cgroup/cgroup_regression_test.sh b/testcases/kernel/controllers/cgroup/cgroup_regression_test.sh
-index 592a1d3b1..2df216f43 100755
---- a/testcases/kernel/controllers/cgroup/cgroup_regression_test.sh
-+++ b/testcases/kernel/controllers/cgroup/cgroup_regression_test.sh
-@@ -170,17 +170,8 @@ test3()
- 		return
- 	fi
- 
--	cpu_subsys_path=$(get_cgroup_mountpoint "cpu")
--
--	# Run the test for 30 secs
--	if [ -z "$cpu_subsys_path" ]; then
--		mount -t cgroup -o cpu xxx cgroup/
--		if [ $? -ne 0 ]; then
--			tst_res TFAIL "Failed to mount cpu subsys"
--			return
--		fi
--		cpu_subsys_path=cgroup
--	fi
-+	cgroup_require "cpu"
-+	cpu_subsys_path=$(cgroup_get_mountpoint "cpu")
- 
- 	cgroup_regression_3_1.sh $cpu_subsys_path &
- 	pid1=$!
-@@ -193,7 +184,7 @@ test3()
- 	wait $pid2 2>/dev/null
- 
- 	rmdir $cpu_subsys_path/0 2> /dev/null
--	tst_umount $PWD/cgroup
-+	cgroup_cleanup
- 	check_kernel_bug
- }
- 
-@@ -310,7 +301,7 @@ test_7_1()
- 	# could be passed here as params and this will lead to ambiguity and
- 	# errors when grepping simply for 'debug' in /proc/mounts since we'll
- 	# find also /sys/kernel/debug. Helper takes care of this.
--	local subsys_path=$(get_cgroup_mountpoint $subsys)
-+	local subsys_path=$(grep cgroup /proc/mounts | grep -w $subsys | awk '{ print $2 }')
- 
- 	if [ -z "$subsys_path" ]; then
- 		mount -t cgroup -o $subsys xxx cgroup/
--- 
-2.32.0
+That should work for most testcases, I don't recall one where we need
+to cycle through more values.
 
 
 -- 
