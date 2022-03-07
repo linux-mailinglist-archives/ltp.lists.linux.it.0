@@ -2,77 +2,66 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8AFFE4CF421
-	for <lists+linux-ltp@lfdr.de>; Mon,  7 Mar 2022 09:56:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 752FD4CFBB4
+	for <lists+linux-ltp@lfdr.de>; Mon,  7 Mar 2022 11:43:52 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1CC4E3C1BDB
-	for <lists+linux-ltp@lfdr.de>; Mon,  7 Mar 2022 09:56:37 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id D503F3C1BDE
+	for <lists+linux-ltp@lfdr.de>; Mon,  7 Mar 2022 11:43:51 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 2BE453C1B90
- for <ltp@lists.linux.it>; Mon,  7 Mar 2022 09:56:31 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 4EE453C1A87
+ for <ltp@lists.linux.it>; Mon,  7 Mar 2022 11:43:47 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 4BB9A600048
- for <ltp@lists.linux.it>; Mon,  7 Mar 2022 09:56:30 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 5F19C1F37D;
- Mon,  7 Mar 2022 08:56:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1646643390; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 693D1600737
+ for <ltp@lists.linux.it>; Mon,  7 Mar 2022 11:43:46 +0100 (CET)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id ED209210FE;
+ Mon,  7 Mar 2022 10:43:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1646649824;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=HTQCj1dpg8HpOYNS/d/gLH1e2uyX1xYYLvD7PILsSic=;
- b=h9QlnAuJlh7ZeatnVV7uboG/XEir9e+9+gLep2RWVqe5Bthn/VGfwV/XIZ/rTBZCWyiLeC
- bGxjvA+xRYQzi87vXjFQXdHz0C+C5XBMVThlTFZqTR1pikWfB0UZLy+LElrgNgH6bKdRnM
- jh4VGuKbfo8czNiHg4Sz5SHa8WTeXjo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1646643390;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ bh=YYqq2T7KtAuK5LmluabuQhFWBa7kVWHx1KM720prglE=;
+ b=Mht7AiYrlRkajhuNxIGzVJZ+eNdGqjSCdty/WLSO9douFNFLs3776Y4v0Fp+TGySq/JBjP
+ uNnPT+2UnY1PBfytLCq5qEJgxIJQoeQQJUTr1t8pEA1usG1FM6Hm8XGjZRB16pPm+xzys3
+ SORBq6+srAvJsahYgodhjsC2/Zc4fIo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1646649824;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=HTQCj1dpg8HpOYNS/d/gLH1e2uyX1xYYLvD7PILsSic=;
- b=hjGyg4S8puWO2UiE8OnyjMhUR4uMpiHu0DjUW+uELIL6NGplRzNXuYDzWb9orcSH5VZ9mX
- lk9+POgVL13oaqDQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ bh=YYqq2T7KtAuK5LmluabuQhFWBa7kVWHx1KM720prglE=;
+ b=FMnLdHNrhetRmCY0X9XpgGcwXMI84GblGR1tmUF7GXccII304qdWJVrQzddQUmXXWoAyj6
+ 8dUdG2SrFwK7M6Ag==
+Received: from g78 (unknown [10.163.24.138])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4DA13132D4;
- Mon,  7 Mar 2022 08:56:30 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id BqYEEr7IJWIkewAAMHmgww
- (envelope-from <chrubis@suse.cz>); Mon, 07 Mar 2022 08:56:30 +0000
-Date: Mon, 7 Mar 2022 09:58:49 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <YiXJSYKsDC+SpDcT@yuki>
-References: <20220303145032.21493-1-chrubis@suse.cz>
- <20220303145032.21493-6-chrubis@suse.cz>
- <CAEemH2cnCNdUaoWqe=-dyuFq2Zc7gF79yi8XND8ieTvg8iEaRg@mail.gmail.com>
- <YiH/2240VRU1OlAe@yuki>
- <CAEemH2eEJ06UnKJujTjWksutiK2Lmk_HHAwa76nBjAZGpNcVzA@mail.gmail.com>
+ by relay2.suse.de (Postfix) with ESMTPS id 9C8E4A3B9C;
+ Mon,  7 Mar 2022 10:43:44 +0000 (UTC)
+References: <cover.1646434670.git.luke.nowakowskikrijger@canonical.com>
+ <baec527891fe83e75958f9db3634f1a0a828bf07.1646434670.git.luke.nowakowskikrijger@canonical.com>
+User-agent: mu4e 1.6.10; emacs 27.2
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Luke Nowakowski-Krijger <luke.nowakowskikrijger@canonical.com>
+Date: Mon, 07 Mar 2022 09:05:21 +0000
+In-reply-to: <baec527891fe83e75958f9db3634f1a0a828bf07.1646434670.git.luke.nowakowskikrijger@canonical.com>
+Message-ID: <871qzeniu7.fsf@suse.de>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAEemH2eEJ06UnKJujTjWksutiK2Lmk_HHAwa76nBjAZGpNcVzA@mail.gmail.com>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 5/7] mem/ksm06: Move ksm restoration into the
- tst_test struct
+Subject: Re: [LTP] [PATCH v3 04/16] API/cgroup: Implement tst_cg_load_config
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,115 +73,168 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
+Reply-To: rpalethorpe@suse.de
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> > > But for the two knobs(run, sleep_millisecs) that should exist unless
-> > > the kernel disables KSM. So here we'd better start with prefix '!' and
-> > > add .needs_kconfg for ???CONFIG_KSM=y' check.
-> > > (This also fit for other ksm tests)
-> >
-> > I guess that if we put ! before the merge_across_nodes that would cause
-> > TBROK on systems without CONFIG_NUMA or kernels without that feature.
-> >
-> > So what about just removing the question marks there and adding
-> > .need_kconfigs for KSM and NUMA?
-> >
-> 
-> Er, that's exactly what I meant in the last email, maybe you overlooked
-> the last sentence:).
-> 
-> i.e.
-> 
-> "
->   prefix ! for 'run' and 'sleep_milisecs'
->   no prefix for 'merge_across_nodes'
->   .need_kconfigs for KSM and NUMA
-> "
+Hello Luke,
 
-Ah, right, sorry. What about this:
+Really great work for the patch series in general! However see comments
+below.
 
-diff --git a/testcases/kernel/mem/ksm/ksm06.c b/testcases/kernel/mem/ksm/ksm06.c
-index 61507b2aa..e734786c1 100644
---- a/testcases/kernel/mem/ksm/ksm06.c
-+++ b/testcases/kernel/mem/ksm/ksm06.c
-@@ -39,9 +39,6 @@
- #ifdef HAVE_NUMA_V2
- #include <numaif.h>
+Luke Nowakowski-Krijger <luke.nowakowskikrijger@canonical.com> writes:
 
--static int run = -1;
--static int sleep_millisecs = -1;
--static int merge_across_nodes = -1;
- static unsigned long nr_pages = 100;
+> Implement tst_cg_load_config which consumes the state given by
+> tst_cg_print_config to update the internal test state to reflect
+> the given config.
+>
+> This allows for programs using the cgroup C API to load and reload
+> state, allowing functionality such as calling tst_cg_require and
+> tst_cg_cleanup to function properly between programs or between
+> invocations of a binary using the C API.
+>
+> Signed-off-by: Luke Nowakowski-Krijger <luke.nowakowskikrijger@canonical.com>
+> ---
+> v2: Add root null check in parse_root_config.
+>     Remove checking for ltp_drain_dir key from config as it was
+>     redundant.
+>     Remove unsued variable in parse_ctrl_config.
+>     Cleanup some compiler warnings.
+> v3: Rewrite to consume each line of the config with a scanf to make
+>     the parsing much simpler while using new config variables.
+>
+>  include/tst_cgroup.h |  7 +++++
+>  lib/tst_cgroup.c     | 62 ++++++++++++++++++++++++++++++++++++++++++++
+>  2 files changed, 69 insertions(+)
+>
+> diff --git a/include/tst_cgroup.h b/include/tst_cgroup.h
+> index 87e55f4df..9bad0d366 100644
+> --- a/include/tst_cgroup.h
+> +++ b/include/tst_cgroup.h
+> @@ -121,6 +121,13 @@ void tst_cg_scan(void);
+>   */
+>  void tst_cg_print_config(void);
+>  
+> +/* Load the config printed out by tst_cg_print_config and configure the internal
+> + * libary state to match the config. Used to allow tst_cg_cleanup to properly
+> + * cleanup mounts and directories created by tst_cg_require between program
+> + * invocations.
+> + */
+> +void tst_cg_load_config(const char *const config);
+> +
+>  /* Ensure the specified controller is available in the test's default
+>   * CGroup, mounting/enabling it if necessary. Usually this is not
+>   * necesary use tst_test.needs_cgroup_controllers instead.
+> diff --git a/lib/tst_cgroup.c b/lib/tst_cgroup.c
+> index 8f95064b3..90d91d94e 100644
+> --- a/lib/tst_cgroup.c
+> +++ b/lib/tst_cgroup.c
+> @@ -366,6 +366,68 @@ static struct cgroup_root *cgroup_find_root(const char *const mnt_path)
+>  	return NULL;
+>  }
+>  
+> +static void parse_config(const char *const config_entry)
 
- static char *n_opt;
-@@ -133,35 +130,11 @@ static void test_ksm(void)
+cgroup_parse_config_line perhaps? or cgroup_parse_ctrl?
 
- static void setup(void)
- {
--       if (access(PATH_KSM "merge_across_nodes", F_OK) == -1)
--               tst_brk(TCONF, "no merge_across_nodes sysfs knob");
--
-        if (!is_numa(NULL, NH_MEMS, 2))
-                tst_brk(TCONF, "The case needs a NUMA system.");
+> +{
+> +	const char ctrl_name[32], mnt_path[PATH_MAX],
+> test_dir_name[NAME_MAX + 1];
 
-        if (n_opt)
-                nr_pages = SAFE_STRTOUL(n_opt, 0, ULONG_MAX);
--
--       /* save the current value */
--       SAFE_FILE_SCANF(PATH_KSM "run", "%d", &run);
--       SAFE_FILE_SCANF(PATH_KSM "merge_across_nodes",
--                       "%d", &merge_across_nodes);
--       SAFE_FILE_SCANF(PATH_KSM "sleep_millisecs",
--                       "%d", &sleep_millisecs);
--}
--
--static void cleanup(void)
--{
--       if (merge_across_nodes != -1) {
--               FILE_PRINTF(PATH_KSM "merge_across_nodes",
--                           "%d", merge_across_nodes);
--       }
--
--       if (sleep_millisecs != -1)
--               FILE_PRINTF(PATH_KSM "sleep_millisecs", "%d", sleep_millisecs);
--
--       if (run != -1)
--               FILE_PRINTF(PATH_KSM "run", "%d", run);
- }
- 
- static struct tst_test test = {
-@@ -171,11 +144,18 @@ static struct tst_test test = {
-                {}
-        },
-        .setup = setup,
--       .cleanup = cleanup,
-        .save_restore = (const char * const[]) {
-                "?/sys/kernel/mm/ksm/max_page_sharing",
-+               "!/sys/kernel/mm/ksm/run",
-+               "!/sys/kernel/mm/ksm/sleep_millisecs",
-+               "/sys/kernel/mm/ksm/merge_across_nodes",
-                NULL,
-        },
-+       .needs_kconfigs = (const char *const[]){
-+               "CONFIG_KSM=y",
-+               "CONFIG_NUMA=y",
-+               NULL
-+       },
-        .test_all = test_ksm,
- };
+These buffers are not const.
 
+I have lsp and clangd setup in emacs which warns about this. It's easy
+to miss the warning in the compiler output.
 
-If we add merge_across_nodes without any prefix we can as well remove
-the check for the file existence in the test setup.
+> +	int ver, we_require_it, we_mounted_it, ltp_dir_we_created_it;
+> +	struct cgroup_root *root;
+> +	struct cgroup_ctrl *ctrl;
+> +
+> +	sscanf(config_entry, CONFIG_FORMAT,
+> +		ctrl_name, &ver, &we_require_it, mnt_path, &we_mounted_it,
+> +		&ltp_dir_we_created_it, test_dir_name);
+
+You need to run 'make check-tst_cgroup' in ltp/lib. The sscanf return
+value is not checked which could result in segfaults and other confusing
+errors if parsing fails.
+
+> +
+> +	if (!(ctrl = cgroup_find_ctrl(ctrl_name)))
+
+check_patch.pl forbids assignments in if statements (it makes static
+analysis difficult). Again this is caught with 'make check'.
+
+> +		tst_brk(TBROK, "Could not find ctrl from config. Ctrls changing between calls?");
+> +
+> +	ctrl->we_require_it = we_require_it;
+> +
+> +	if (!(root = cgroup_find_root(mnt_path)))
+> +		tst_brk(TBROK, "Could not find root from config. Config possibly malformed?");
+> +
+> +	if (we_mounted_it)
+> +		root->we_mounted_it = 1;
+> +
+> +	if (!root->ltp_dir.dir_name) {
+> +		cgroup_dir_mk(&root->mnt_dir, cgroup_ltp_dir, &root->ltp_dir);
+> +		cgroup_dir_mk(&root->ltp_dir, cgroup_ltp_drain_dir, &root->drain_dir);
+> +		if (ltp_dir_we_created_it) {
+> +			root->ltp_dir.we_created_it = 1;
+> +			root->drain_dir.we_created_it = 1;
+> +		}
+> +	}
+> +
+> +	if (!root->test_dir.dir_name && strcmp(test_dir_name, "NULL")) {
+> +		strncpy(cgroup_test_dir, test_dir_name, NAME_MAX);
+
+I think this could result in an unterminated string. strncpy does not
+add a null char after the string that was copied. Note also that the
+format string passed to sscanf does not limit the field width so it
+could overwrite root and ctrl on the stack if the input is long enough.
+
+> +		cgroup_dir_mk(&root->ltp_dir, cgroup_test_dir, &root->test_dir);
+> +		root->test_dir.we_created_it = 1;
+> +	}
+> +}
+> +
+> +/* Load the test state config provided by tst_cg_print_config
+> + *
+> + * This will reload some internal tst_cgroup state given by the config
+> + * that might otherwise have been lost between calls or between different
+> + * processes. In particular this is used by testcases/lib/tst_cgctl to
+> + * provide access to this C api to shell scripts.
+> + *
+> + * The config keeps track of the minimal state needed for tst_cg_cleanup
+> + * to cleanup mounts and directories created by tst_cg_require.
+> + */
+> +void tst_cg_load_config(const char *const config)
+> +{
+> +	char temp_config[BUFSIZ];
+> +	char *line;
+> +
+> +	if (strlen(config) >= BUFSIZ)
+> +		tst_brk(TBROK, "Config has exceeded buffer size?");
+> +	strncpy(temp_config, config, BUFSIZ);
+
+Again, this won't copy the null byte from config if strlen(config) ==
+BUFSIZ. You could use memcpy here anyway if you know the string length.
+
+> +
+> +	line = strtok(temp_config, "\n");
+> +	/* Make sure to consume the header. */
+> +	for (line = strtok(NULL, "\n"); line; line = strtok(NULL, "\n"))
+> +		parse_config(line);
+> +}
+>  
+>  /* Determine if a mounted cgroup hierarchy is unique and record it if so.
+>   *
+
 
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
