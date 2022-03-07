@@ -1,73 +1,69 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9E7B4CF569
-	for <lists+linux-ltp@lfdr.de>; Mon,  7 Mar 2022 10:28:55 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D7F04CFCA4
+	for <lists+linux-ltp@lfdr.de>; Mon,  7 Mar 2022 12:23:32 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3DBD93C1BC1
-	for <lists+linux-ltp@lfdr.de>; Mon,  7 Mar 2022 10:28:55 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 3C2713C1BC4
+	for <lists+linux-ltp@lfdr.de>; Mon,  7 Mar 2022 12:23:32 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id AA56E3C07C7
- for <ltp@lists.linux.it>; Mon,  7 Mar 2022 10:28:51 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id A83DE3C07BD
+ for <ltp@lists.linux.it>; Mon,  7 Mar 2022 12:23:30 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 23F1160085E
- for <ltp@lists.linux.it>; Mon,  7 Mar 2022 10:28:50 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 3C5801F37D;
- Mon,  7 Mar 2022 09:28:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1646645330; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id D21396008AE
+ for <ltp@lists.linux.it>; Mon,  7 Mar 2022 12:23:29 +0100 (CET)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 012F0210F4;
+ Mon,  7 Mar 2022 11:23:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1646652209;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=82hnUYKnD89VV0FkJ1CdJ4Xkg97Om6S5KugT5TrBJUo=;
- b=e0ufTBCxGs0qOdxlkP5aOgKCfGS8a990VdzMa8S6fcxoP+/hCP02m+2R6jvYQA+MqUSfr/
- fA1U0/QUjt1mLeeM2QwSuHpp+YRnghyAGikOfoqq2kdY5fkigkRcvmHGSSZEZDvgR6Khif
- 5ZK8zaLYftyVIM5WnRRN5V2GHfBzPH0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1646645330;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ bh=l+nz98s/Lu4dorb/xuxVhGsoWODuBHrL//Ss8th/DHo=;
+ b=AwTXxhulkmc2yHWLD6t4jd13iuizHiqsM1h6gpEe0jcSWkhbFa6h5fAnsvmRXlBEhZ/gCW
+ 7+RLLmlTUDwoHf4JsihTyQuBWSCbhlqhK6pOS4+WkH+OCNtshktIaHfTt8qpvFAL6XivPu
+ Ppu0rsjiMqp5I1mzftfJypBr3DnARbo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1646652209;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=82hnUYKnD89VV0FkJ1CdJ4Xkg97Om6S5KugT5TrBJUo=;
- b=aQSn1d/a3JMuXzKMW0MpYP1EMtAPPLGI3SF7vx1PgK6C4bj4WYFgysvddSq9ie6es+IfHH
- JoVMN55j38Hii4BQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ bh=l+nz98s/Lu4dorb/xuxVhGsoWODuBHrL//Ss8th/DHo=;
+ b=fLkD1Oq4y5hzAK4P+iUNFh0f5ZZhrImRfQ0vW2/WFaPa+0BK5iA0vFEg49PrzN9v6fWj1+
+ Wd2MR3H/wzra1tAQ==
+Received: from g78 (unknown [10.163.24.138])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 28B6B13A84;
- Mon,  7 Mar 2022 09:28:50 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id K+yjCVLQJWITDgAAMHmgww
- (envelope-from <chrubis@suse.cz>); Mon, 07 Mar 2022 09:28:50 +0000
-Date: Mon, 7 Mar 2022 10:31:09 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Andrea Cervesato <andrea.cervesato@suse.de>
-Message-ID: <YiXQ3XZJbP4/Gs1f@yuki>
-References: <20220201093954.1660-1-andrea.cervesato@suse.de>
+ by relay2.suse.de (Postfix) with ESMTPS id A21E1A3B81;
+ Mon,  7 Mar 2022 11:23:28 +0000 (UTC)
+References: <cover.1646434670.git.luke.nowakowskikrijger@canonical.com>
+ <ef5d94799195f00c6ab1fffe612e62bf1ee530a7.1646434670.git.luke.nowakowskikrijger@canonical.com>
+User-agent: mu4e 1.6.10; emacs 27.2
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Luke Nowakowski-Krijger <luke.nowakowskikrijger@canonical.com>
+Date: Mon, 07 Mar 2022 11:00:09 +0000
+In-reply-to: <ef5d94799195f00c6ab1fffe612e62bf1ee530a7.1646434670.git.luke.nowakowskikrijger@canonical.com>
+Message-ID: <87wnh6m2fp.fsf@suse.de>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20220201093954.1660-1-andrea.cervesato@suse.de>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] Check for maximum available pids in
- dio_sparse.c
+Subject: Re: [LTP] [PATCH v3 08/16] controllers: Expand cgroup_lib shell
+ library
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,67 +75,202 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: rpalethorpe@suse.de
 Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.de>
+Hello Luke,
+
+Luke Nowakowski-Krijger <luke.nowakowskikrijger@canonical.com> writes:
+
+> Expand the cgroup_lib library by using the tst_cgctl binary
+> utility to make calls to the Cgroup C API to simplify and centralize the
+> mounting and cleanup process of Cgroups
+>
+> Signed-off-by: Luke Nowakowski-Krijger <luke.nowakowskikrijger@canonical.com>
 > ---
-> In v2 setup message for children has been moved from TCONF to TINFO.
-> And other small fixes.
-
-Please send the small fixes in a separate patch.
-
->  testcases/kernel/io/ltp-aiodio/dio_sparse.c | 26 +++++++++++++++++----
->  1 file changed, 21 insertions(+), 5 deletions(-)
-> 
-> diff --git a/testcases/kernel/io/ltp-aiodio/dio_sparse.c b/testcases/kernel/io/ltp-aiodio/dio_sparse.c
-> index 0039daa8d..1da1ae37f 100644
-> --- a/testcases/kernel/io/ltp-aiodio/dio_sparse.c
-> +++ b/testcases/kernel/io/ltp-aiodio/dio_sparse.c
-> @@ -54,14 +54,29 @@ static void dio_sparse(int fd, int align, long long fs, int ws, long long off)
->  		w = SAFE_WRITE(0, fd, bufptr, ws);
->  		i += w;
->  	}
+> v2: Add "^" to propery grep the correct mountpoint.
+>     Removed is_cgroup_enabled_and_available function and put the check
+>     in cgroup_require().
+>     Check if /proc/cgroups exists in cgroup_require().
+>     Change to TCONF if controllers not available.
+> v3: Add copyright.
+>     Change awks to grab new config variables.
+>     Change version from v2 to just 2 to match config variables.
+>
+>  testcases/kernel/controllers/cgroup_lib.sh | 129 +++++++++++++++++----
+>  1 file changed, 109 insertions(+), 20 deletions(-)
+>
+> diff --git a/testcases/kernel/controllers/cgroup_lib.sh b/testcases/kernel/controllers/cgroup_lib.sh
+> index 7918b5636..ed8549c70 100644
+> --- a/testcases/kernel/controllers/cgroup_lib.sh
+> +++ b/testcases/kernel/controllers/cgroup_lib.sh
+> @@ -2,38 +2,127 @@
+>  # SPDX-License-Identifier: GPL-2.0-or-later
+>  # Copyright (c) 2019 Petr Vorel <pvorel@suse.cz>
+>  # Copyright (c) 2018-2019 ARM Ltd. All Rights Reserved.
+> +# Copyright (c) 2022 Canonical Ltd.
+>  
+>  . tst_test.sh
+>  
+> -# Find mountpoint to given subsystem
+> -# get_cgroup_mountpoint SUBSYSTEM
+> -# RETURN: 0 if mountpoint found, otherwise 1
+> -get_cgroup_mountpoint()
+> +_cgroup_state=
 > +
-> +	free(bufptr);
+> +# Find mountpoint of the given controller
+> +# USAGE: cgroup_get_mountpoint CONTROLLER
+> +# RETURNS: Prints the mountpoint of the given controller
+> +# Must call cgroup_require before calling
+> +cgroup_get_mountpoint()
+> +{
+> +	local ctrl=$1
+> +	local mountpoint
+> +
+> +	[ $# -eq 0 ] && tst_brk TBROK "cgroup_get_mountpoint: controller not defined"
+> +	[ "$_cgroup_state" = "" ] && tst_brk TBROK "cgroup_get_mountpoint: No previous state found. Forgot to call cgroup_require?"
+> +
+> +	mountpoint=$(echo "$_cgroup_state" | grep -w "^$ctrl" | awk '{ print $4 }')
+> +	echo "$mountpoint"
+> +
+> +	return 0
+> +}
+> +
+> +# Get the test path of a given controller that has been created by the cgroup C API
+> +# USAGE: cgroup_get_test_path CONTROLLER
+> +# RETURNS: Prints the path to the test direcory
+> +# Must call cgroup_require before calling
+> +cgroup_get_test_path()
+> +{
+> +	local ctrl="$1"
+> +	local mountpoint
+> +	local test_path
+> +
+> +	[ $# -eq 0 ] && tst_brk TBROK "cgroup_get_test_path: controller not defined"
+> +	[ "$_cgroup_state" = "" ] && tst_brk TBROK "cgroup_get_test_path: No previous state found. Forgot to call cgroup_require?"
+> +
+> +	mountpoint=$(cgroup_get_mountpoint "$ctrl")
+> +
+> +	test_path="$mountpoint/ltp/test-$$"
+> +
+> +	[ ! -e "$test_path" ] && tst_brk TBROK "cgroup_get_test_path: No test path found. Forgot to call cgroup_require?"
+> +
+> +	echo "$test_path"
+> +
+> +	return 0
+> +}
+> +
+> +# Gets the cgroup version of the given controller
+> +# USAGE: cgroup_get_version CONTROLLER
+> +# RETURNS: "1" if version 1 and "2" if version 2
+> +# Must call cgroup_require before calling
+> +cgroup_get_version()
+> +{
+> +	local ctrl="$1"
+> +	local version
+> +
+> +	[ $# -eq 0 ] && tst_brk TBROK "cgroup_get_version: controller not defined"
+> +	[ "$_cgroup_state" = "" ] && tst_brk TBROK "cgroup_get_version: No previous state found. Forgot to call cgroup_require?"
+> +
+> +	version=$(echo "$_cgroup_state" | grep -w "^$ctrl" | awk '{ print $2 }')
+> +	[ "$version" = "" ] && tst_brk TBROK "cgroup_get_version: Could not find controller $ctrl"
+> +
+> +	echo "$version"
+> +
+> +	return 0
+> +}
+> +
+> +# Cleans up any setup done by calling cgroup_require.
+> +# USAGE: cgroup_cleanup
+> +# Can be safely called even when no setup has been done
+> +cgroup_cleanup()
+>  {
+> -	local subsystem=$1
+> -	local mntpoint
+> +	[ "$_cgroup_state" = "" ] && return 0
+>  
+> -	[ $# -eq 0 ] && tst_brk TBROK "get_cgroup_mountpoint: subsystem not defined"
+> +	tst_cgctl cleanup "$_cgroup_state"
+>  
+> -	mntpoint=$(grep cgroup /proc/mounts | grep -w $subsystem | awk '{ print $2 }')
+> -	[ -z "$mntpoint" ] && return 1
+> +	_cgroup_state=""
+>  
+> -	echo $mntpoint
+>  	return 0
 >  }
 >  
->  static void setup(void)
+> -# Check if given subsystem is supported and enabled
+> -# is_cgroup_subsystem_available_and_enabled SUBSYSTEM
+> -# RETURN: 0 if subsystem supported and enabled, otherwise 1
+> -is_cgroup_subsystem_available_and_enabled()
+> +# Get the task list of the given controller
+> +# USAGE: cgroup_get_task_list CONTROLLER
+> +# RETURNS: prints out "cgroup.procs" if version 2 otherwise "tasks"
+> +# Must call cgroup_require before calling
+> +cgroup_get_task_list()
 >  {
->  	struct stat sb;
-> +	int max_pids;
+> -	local val
+> -	local subsystem=$1
+> +	local ctrl="$1"
+> +	local version
 > +
-> +	if (tst_parse_int(str_numchildren, &numchildren, 1, INT_MAX)) {
-> +		tst_brk(TBROK, "Invalid number of children '%s'",
-> +			str_numchildren);
-> +	}
+> +	[ $# -eq 0 ] && tst_brk TBROK "cgroup_get_task_list: controller not defined"
 >  
-> -	if (tst_parse_int(str_numchildren, &numchildren, 1, INT_MAX))
-> -		tst_brk(TBROK, "Invalid number of children '%s'", str_numchildren);
-> +	max_pids = tst_get_free_pids();
-> +	if (numchildren > max_pids) {
-> +		numchildren = max_pids;
+> -	[ $# -eq 0 ] && tst_brk TBROK "is_cgroup_subsystem_available_and_enabled: subsystem not defined"
+> +	version=$(cgroup_get_version "$ctrl")
+>  
+> -	val=$(grep -w $subsystem /proc/cgroups | awk '{ print $4 }')
+> -	[ "$val" = "1" ] && return 0
+> +	if [ "$version" = "2" ]; then
+> +		echo "cgroup.procs"
+> +	else
+> +		echo "tasks"
+> +	fi
+>  
+> -	return 1
+> +	return 0
+> +}
 > +
-> +		tst_res(TINFO,
-> +			"Number of children reduced to %d due to system "
-> +			"limitations",
-> +			numchildren);
-> +	}
+> +# Mounts and configures the given controller
+> +# USAGE: cgroup_require CONTROLLER
+> +cgroup_require()
+> +{
+> +	local ctrl="$1"
+> +	local exists
+> +
+> +	[ $# -eq 0 ] && tst_brk TBROK "cgroup_require: controller not defined"
+> +
+> +	[ ! -f /proc/cgroups ] && tst_brk TCONF "Kernel does not support
+> control groups"
 
-Can we put this piece of code into a some common place and use it in all
-the I/O tests?
+The tst_cgroup lib can handle this. Also is it guaranteed that
+/proc/cgroups exists if cgroups are enabled?
 
-I guess that we can as well add a function parse_numchildren() into
-common.h that would call tst_parse_int() and then apply the limits and
-use that in all the tests...
+> +
+> +	exists=$(grep -w $ctrl /proc/cgroups | awk '{ print $4 }')
+> +	[ "$exists" != "1" ] && tst_brk TCONF "cgroup_require:
+> Controller not available or not enabled"
+
+For some reason this fails on my VM where no cgroups are mounted
+already. Also it's redundant because tst_cgroup should handle it.
+
+> +
+> +	_cgroup_state=$(tst_cgctl require "$ctrl" $$)
+> +
+> +	[ "$_cgroup_state" = "" ] && tst_brk TBROK "cgroup_require: No state was set after call. Controller '$ctrl' maybe does not exist?"
+> +
+> +	return 0
+>  }
+
 
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
