@@ -1,79 +1,73 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id A809E4CF452
-	for <lists+linux-ltp@lfdr.de>; Mon,  7 Mar 2022 10:10:46 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id A9E7B4CF569
+	for <lists+linux-ltp@lfdr.de>; Mon,  7 Mar 2022 10:28:55 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D7D733C1BDA
-	for <lists+linux-ltp@lfdr.de>; Mon,  7 Mar 2022 10:10:45 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 3DBD93C1BC1
+	for <lists+linux-ltp@lfdr.de>; Mon,  7 Mar 2022 10:28:55 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 5D8843C1B77
- for <ltp@lists.linux.it>; Mon,  7 Mar 2022 10:10:42 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id AA56E3C07C7
+ for <ltp@lists.linux.it>; Mon,  7 Mar 2022 10:28:51 +0100 (CET)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id AFBAD200939
- for <ltp@lists.linux.it>; Mon,  7 Mar 2022 10:10:41 +0100 (CET)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 23F1160085E
+ for <ltp@lists.linux.it>; Mon,  7 Mar 2022 10:28:50 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id D81851F37D;
- Mon,  7 Mar 2022 09:10:40 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 3C5801F37D;
+ Mon,  7 Mar 2022 09:28:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1646644240; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1646645330; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=ncPrLkTb0ArtYS/GxAmfY/3VQMBhLXH+/WAYNbl43VA=;
- b=nYf+m1s8Lv6P0povQd7zayRijC9LRq+TKdKTQy5irVwFi4o9S0rbm6ZilF6olFRAwsDByu
- zqDbJrfC7fhAosGi9uv5SSBn8hHOa1kqZwqXdAAmkb4vnw1F2oXikJ6foc6MukOLq3AAkk
- cJ0+bRqITi9UEOYgLVeqtPX4umKeGIc=
+ bh=82hnUYKnD89VV0FkJ1CdJ4Xkg97Om6S5KugT5TrBJUo=;
+ b=e0ufTBCxGs0qOdxlkP5aOgKCfGS8a990VdzMa8S6fcxoP+/hCP02m+2R6jvYQA+MqUSfr/
+ fA1U0/QUjt1mLeeM2QwSuHpp+YRnghyAGikOfoqq2kdY5fkigkRcvmHGSSZEZDvgR6Khif
+ 5ZK8zaLYftyVIM5WnRRN5V2GHfBzPH0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1646644240;
+ s=susede2_ed25519; t=1646645330;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=ncPrLkTb0ArtYS/GxAmfY/3VQMBhLXH+/WAYNbl43VA=;
- b=AA9uLUal3TMqudK/bL6D/7AkShTYg/tGE8N6+zPvXKUeMB5qG6PPNDUH7ezgX4ZAs2zAvx
- HTUbFcrEeK/WdHBw==
+ bh=82hnUYKnD89VV0FkJ1CdJ4Xkg97Om6S5KugT5TrBJUo=;
+ b=aQSn1d/a3JMuXzKMW0MpYP1EMtAPPLGI3SF7vx1PgK6C4bj4WYFgysvddSq9ie6es+IfHH
+ JoVMN55j38Hii4BQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C5B4513A84;
- Mon,  7 Mar 2022 09:10:40 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 28B6B13A84;
+ Mon,  7 Mar 2022 09:28:50 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id kJc7LxDMJWL8BAAAMHmgww
- (envelope-from <chrubis@suse.cz>); Mon, 07 Mar 2022 09:10:40 +0000
-Date: Mon, 7 Mar 2022 10:13:00 +0100
+ by imap2.suse-dmz.suse.de with ESMTPSA id K+yjCVLQJWITDgAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Mon, 07 Mar 2022 09:28:50 +0000
+Date: Mon, 7 Mar 2022 10:31:09 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <YiXMnIT2EE05tB9x@yuki>
-References: <20220303145032.21493-1-chrubis@suse.cz>
- <20220303145032.21493-6-chrubis@suse.cz>
- <CAEemH2cnCNdUaoWqe=-dyuFq2Zc7gF79yi8XND8ieTvg8iEaRg@mail.gmail.com>
- <YiH/2240VRU1OlAe@yuki>
- <CAEemH2eEJ06UnKJujTjWksutiK2Lmk_HHAwa76nBjAZGpNcVzA@mail.gmail.com>
- <YiXJSYKsDC+SpDcT@yuki>
- <CAEemH2d_wRGiyLc1VKL4XJQ7A-gWA3sA_MoW9hqmTWBu+3-kLQ@mail.gmail.com>
+To: Andrea Cervesato <andrea.cervesato@suse.de>
+Message-ID: <YiXQ3XZJbP4/Gs1f@yuki>
+References: <20220201093954.1660-1-andrea.cervesato@suse.de>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CAEemH2d_wRGiyLc1VKL4XJQ7A-gWA3sA_MoW9hqmTWBu+3-kLQ@mail.gmail.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+In-Reply-To: <20220201093954.1660-1-andrea.cervesato@suse.de>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 5/7] mem/ksm06: Move ksm restoration into the
- tst_test struct
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] Check for maximum available pids in
+ dio_sparse.c
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,17 +79,63 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> ACK.
+> Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.de>
+> ---
+> In v2 setup message for children has been moved from TCONF to TINFO.
+> And other small fixes.
 
-Thanks I will push the patchset with the rest of the fixes you have
-suggested.
+Please send the small fixes in a separate patch.
+
+>  testcases/kernel/io/ltp-aiodio/dio_sparse.c | 26 +++++++++++++++++----
+>  1 file changed, 21 insertions(+), 5 deletions(-)
+> 
+> diff --git a/testcases/kernel/io/ltp-aiodio/dio_sparse.c b/testcases/kernel/io/ltp-aiodio/dio_sparse.c
+> index 0039daa8d..1da1ae37f 100644
+> --- a/testcases/kernel/io/ltp-aiodio/dio_sparse.c
+> +++ b/testcases/kernel/io/ltp-aiodio/dio_sparse.c
+> @@ -54,14 +54,29 @@ static void dio_sparse(int fd, int align, long long fs, int ws, long long off)
+>  		w = SAFE_WRITE(0, fd, bufptr, ws);
+>  		i += w;
+>  	}
+> +
+> +	free(bufptr);
+>  }
+>  
+>  static void setup(void)
+>  {
+>  	struct stat sb;
+> +	int max_pids;
+> +
+> +	if (tst_parse_int(str_numchildren, &numchildren, 1, INT_MAX)) {
+> +		tst_brk(TBROK, "Invalid number of children '%s'",
+> +			str_numchildren);
+> +	}
+>  
+> -	if (tst_parse_int(str_numchildren, &numchildren, 1, INT_MAX))
+> -		tst_brk(TBROK, "Invalid number of children '%s'", str_numchildren);
+> +	max_pids = tst_get_free_pids();
+> +	if (numchildren > max_pids) {
+> +		numchildren = max_pids;
+> +
+> +		tst_res(TINFO,
+> +			"Number of children reduced to %d due to system "
+> +			"limitations",
+> +			numchildren);
+> +	}
+
+Can we put this piece of code into a some common place and use it in all
+the I/O tests?
+
+I guess that we can as well add a function parse_numchildren() into
+common.h that would call tst_parse_int() and then apply the limits and
+use that in all the tests...
 
 -- 
 Cyril Hrubis
