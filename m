@@ -2,72 +2,72 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id BAD2F4D1AE9
-	for <lists+linux-ltp@lfdr.de>; Tue,  8 Mar 2022 15:45:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 639114D1AF3
+	for <lists+linux-ltp@lfdr.de>; Tue,  8 Mar 2022 15:49:47 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 546833C25EC
-	for <lists+linux-ltp@lfdr.de>; Tue,  8 Mar 2022 15:45:33 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id EBBC83C25FC
+	for <lists+linux-ltp@lfdr.de>; Tue,  8 Mar 2022 15:49:46 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id C2ED43C0FA8
- for <ltp@lists.linux.it>; Tue,  8 Mar 2022 15:45:28 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id CD8603C0FA8
+ for <ltp@lists.linux.it>; Tue,  8 Mar 2022 15:49:37 +0100 (CET)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 095301400444
- for <ltp@lists.linux.it>; Tue,  8 Mar 2022 15:45:27 +0100 (CET)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 307721400971
+ for <ltp@lists.linux.it>; Tue,  8 Mar 2022 15:49:36 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 62DBC210EF;
- Tue,  8 Mar 2022 14:45:27 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 3AD54210EF;
+ Tue,  8 Mar 2022 14:49:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1646750727; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1646750976; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=LAMnphrR7kbdtlY6JowImLWpvytBPss4M0g1e9ZWiNM=;
- b=kqrxHOrxT3ROZI06cPAED++MyN6zsUSuCADqWtk0bR5ZrRYO9bHrV8NqQqi+HKHQ+qxWFA
- nNZyfV+Ia6qfg3R5ZAjVA+L32aV2XazGGuaSP0A6JH+PkrJDWFQuqenoSjdnBuq4op82t6
- eJ/i7R2xa1g+AVF/zwVZ0jFZgI5c3LE=
+ bh=3LMKzAQWDeU97Y7wMSBKx/wZC/WyXJUg6a2eH6GiPpc=;
+ b=FGEmencwrOZ/9iQ7huibHtEVofAoWFudgEtIRj8+tLtQCHKzzppGZHx1lPOOkzp0rI8y4/
+ fvKhZ/+UDDBJSmalfrIhHHhfTODNtcGJJ7y7X7yyacy2dCQ0C++RKLzwWm2NgsOJK8pGQ0
+ ZG8zyyh8LOrWNSUsGM20yM/9BKc2q08=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1646750727;
+ s=susede2_ed25519; t=1646750976;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=LAMnphrR7kbdtlY6JowImLWpvytBPss4M0g1e9ZWiNM=;
- b=XBPFx2/qCU0bOcUOlOSCntPB+tdI3b+TP/H7lwgqQSQdplZh8m4574jbOlTPPi51hYT4qI
- 7/7pcgRgQB8IXoAg==
+ bh=3LMKzAQWDeU97Y7wMSBKx/wZC/WyXJUg6a2eH6GiPpc=;
+ b=xx0ULs7l5rNZur1bzvm4MzA5MQuEzdre3sA0++lJ8smK/FXOEideDedSERf+es+2DN29Ir
+ RkPgOWXw1jzkSjDw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4926013CC6;
- Tue,  8 Mar 2022 14:45:27 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0CB0F13CC6;
+ Tue,  8 Mar 2022 14:49:36 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id gdQDEAdsJ2JXQgAAMHmgww
- (envelope-from <chrubis@suse.cz>); Tue, 08 Mar 2022 14:45:27 +0000
-Date: Tue, 8 Mar 2022 15:47:46 +0100
+ by imap2.suse-dmz.suse.de with ESMTPSA id jaOKAQBtJ2IxRAAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Tue, 08 Mar 2022 14:49:36 +0000
+Date: Tue, 8 Mar 2022 15:51:55 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Andrea Cervesato <andrea.cervesato@suse.de>
-Message-ID: <YidskqrtEM1ZtxvB@yuki>
+Message-ID: <Yidti1RPZF1gsmp6@yuki>
 References: <20220208100948.22913-1-andrea.cervesato@suse.de>
- <20220208100948.22913-4-andrea.cervesato@suse.de>
+ <20220208100948.22913-5-andrea.cervesato@suse.de>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20220208100948.22913-4-andrea.cervesato@suse.de>
+In-Reply-To: <20220208100948.22913-5-andrea.cervesato@suse.de>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v1 3/9] Rewrite msg_comm.c using new LTP API
+Subject: Re: [LTP] [PATCH v1 4/9] Rewrite sem_comm.c using new LTP API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,227 +86,7 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-Similar here.
-
->  #define _GNU_SOURCE
-> +
->  #include <sys/ipc.h>
-> +#include <sys/wait.h>
->  #include <sys/msg.h>
->  #include <sys/types.h>
-> -#include <sys/wait.h>
-> -#include <stdio.h>
-> -#include <errno.h>
-> -#include "ipcns_helper.h"
-> -#include "test.h"
-> -#include "safe_macros.h"
-> +#include "tst_test.h"
-> +#include "common.h"
->  
->  #define TESTKEY 124426L
->  #define MSGSIZE 50
-> -char *TCID	= "msg_comm";
-> -int TST_TOTAL	= 1;
->  
->  struct sysv_msg {
->  	long mtype;
->  	char mtext[MSGSIZE];
->  };
->  
-> -static void cleanup(void)
-> +static int chld1_msg(LTP_ATTRIBUTE_UNUSED void *arg)
->  {
-> -	tst_rmdir();
-> -}
-> -
-> -static void setup(void)
-> -{
-> -	tst_require_root();
-> -	check_newipc();
-> -	tst_tmpdir();
-> -	TST_CHECKPOINT_INIT(tst_rmdir);
-> -}
-> -
-> -int chld1_msg(void *arg)
-> -{
-> -	int id, n, rval = 0;
-> +	int id, ret, rval = 0;
->  	struct sysv_msg m;
->  	struct sysv_msg rec;
->  
->  	id = msgget(TESTKEY, IPC_CREAT | 0600);
-> -	if (id == -1) {
-> -		perror("msgget");
-> -		return 2;
-> -	}
-> +	if (id < 0)
-> +		tst_brk(TBROK, "msgget: %s", tst_strerrno(-id));
->  
->  	m.mtype = 1;
->  	m.mtext[0] = 'A';
-> -	if (msgsnd(id, &m, sizeof(struct sysv_msg) - sizeof(long), 0) == -1) {
-> -		perror("msgsnd");
-> +
-> +	ret = msgsnd(id, &m, sizeof(struct sysv_msg) - sizeof(long), 0);
-> +	if (ret < 0) {
->  		msgctl(id, IPC_RMID, NULL);
-> -		return 2;
-> +		tst_brk(TBROK, "msgsnd: %s", tst_strerrno(-ret));
->  	}
->  
->  	/* wait for child2 to write into the message queue */
-> -	TST_SAFE_CHECKPOINT_WAIT(NULL, 0);
-> +	TST_CHECKPOINT_WAIT(0);
->  
->  	/* if child1 message queue has changed (by child2) report fail */
-> -	n = msgrcv(id, &rec, sizeof(struct sysv_msg) - sizeof(long),
-> -		   2, IPC_NOWAIT);
-> -	if (n == -1 && errno != ENOMSG) {
-> -		perror("msgrcv");
-> +	ret = msgrcv(id, &rec, sizeof(struct sysv_msg) - sizeof(long), 2,
-> +		     IPC_NOWAIT);
-> +	if (ret < 0 && errno != ENOMSG) {
->  		msgctl(id, IPC_RMID, NULL);
-> -		return 2;
-> +		tst_brk(TBROK, "msgrcv: %s", tst_strerrno(-ret));
-
-This is wrong in many places, the msg*() calls return -1 and set errno
-so you really just need to pass TERRNO along with the TBROK.
-
->  	}
-> +
->  	/* if mtype #2 was found in the message queue, it is fail */
-> -	if (n > 0) {
-> +	if (ret > 0)
->  		rval = 1;
-> -	}
->  
->  	/* tell child2 to continue */
-> -	TST_SAFE_CHECKPOINT_WAKE(NULL, 0);
-> +	TST_CHECKPOINT_WAKE(0);
->  
->  	msgctl(id, IPC_RMID, NULL);
-> +
->  	return rval;
->  }
->  
-> -int chld2_msg(void *arg)
-> +static int chld2_msg(LTP_ATTRIBUTE_UNUSED void *arg)
->  {
-> -	int id;
-> +	int id, ret;
->  	struct sysv_msg m;
->  
->  	id = msgget(TESTKEY, IPC_CREAT | 0600);
-> -	if (id == -1) {
-> -		perror("msgget");
-> -		return 2;
-> -	}
-> +	if (id < 0)
-> +		tst_brk(TBROK, "msgget: %s", tst_strerrno(-id));
->  
->  	m.mtype = 2;
->  	m.mtext[0] = 'B';
-> -	if (msgsnd(id, &m, sizeof(struct sysv_msg) - sizeof(long), 0) == -1) {
-> -		perror("msgsnd");
-> +
-> +	ret = msgsnd(id, &m, sizeof(struct sysv_msg) - sizeof(long), 0);
-> +	if (ret < 0) {
->  		msgctl(id, IPC_RMID, NULL);
-> -		return 2;
-> +		tst_brk(TBROK, "msgsnd: %s", tst_strerrno(-ret));
->  	}
->  
->  	/* tell child1 to continue and wait for it */
-> -	TST_SAFE_CHECKPOINT_WAKE_AND_WAIT(NULL, 0);
-> +	TST_CHECKPOINT_WAKE_AND_WAIT(0);
->  
->  	msgctl(id, IPC_RMID, NULL);
-> +
->  	return 0;
->  }
->  
-> -static void test(void)
-> +static void run(void)
->  {
->  	int status, ret = 0;
->  
-> -	ret = do_clone_unshare_test(T_CLONE, CLONE_NEWIPC, chld1_msg, NULL);
-> -	if (ret == -1)
-> -		tst_brkm(TBROK | TERRNO, cleanup, "clone failed");
-> -
-> -	ret = do_clone_unshare_test(T_CLONE, CLONE_NEWIPC, chld2_msg, NULL);
-> -	if (ret == -1)
-> -		tst_brkm(TBROK | TERRNO, cleanup, "clone failed");
-> -
-> +	clone_unshare_test(T_CLONE, CLONE_NEWIPC, chld1_msg, NULL);
-> +	clone_unshare_test(T_CLONE, CLONE_NEWIPC, chld2_msg, NULL);
->  
->  	while (wait(&status) > 0) {
->  		if (WIFEXITED(status) && WEXITSTATUS(status) == 1)
->  			ret = 1;
-> +
->  		if (WIFEXITED(status) && WEXITSTATUS(status) == 2)
-> -			tst_brkm(TBROK | TERRNO, cleanup, "error in child");
-> +			tst_brk(TBROK, "error in child");
-> +
->  		if (WIFSIGNALED(status)) {
-> -			tst_resm(TFAIL, "child was killed with signal %s",
-> -					tst_strsig(WTERMSIG(status)));
-> -			return;
-> +			tst_brk(TBROK, "child was killed with signal %s",
-> +				tst_strsig(WTERMSIG(status)));
->  		}
->  	}
->  
-> -	if (ret)
-> -		tst_resm(TFAIL, "SysV msg: communication with identical keys"
-> -				" between namespaces");
-> -	else
-> -		tst_resm(TPASS, "SysV msg: communication with identical keys"
-> -				" between namespaces");
-> +	if (ret) {
-> +		tst_res(TFAIL, "SysV msg: communication with identical keys"
-> +			       " between namespaces");
-> +	} else {
-> +		tst_res(TPASS, "SysV msg: communication with identical keys"
-> +			       " between namespaces");
-> +	}
-
-No need to propagate anything at all, just do the PASS/FAIL in the
-respective tests.
-
->  }
->  
-> -int main(int argc, char *argv[])
-> +static void setup(void)
->  {
-> -	int lc;
-> -
-> -	tst_parse_opts(argc, argv, NULL, NULL);
-> -
-> -	setup();
-> -
-> -	for (lc = 0; TEST_LOOPING(lc); lc++)
-> -		test();
-> -
-> -	cleanup();
-> -	tst_exit();
-> +	check_newipc();
->  }
-> +
-> +static struct tst_test test = {
-> +	.test_all = run,
-> +	.setup = setup,
-> +	.needs_root = 1,
-> +	.needs_checkpoints = 1,
-> +};
-> -- 
-> 2.35.1
-> 
-> 
-> -- 
-> Mailing list info: https://lists.linux.it/listinfo/ltp
+And same mistakes here, and in the rest of the patches.
 
 -- 
 Cyril Hrubis
