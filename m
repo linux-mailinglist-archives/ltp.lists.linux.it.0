@@ -2,70 +2,81 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3BC84D262F
-	for <lists+linux-ltp@lfdr.de>; Wed,  9 Mar 2022 04:05:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 081164D2AA2
+	for <lists+linux-ltp@lfdr.de>; Wed,  9 Mar 2022 09:29:19 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 909743C54F5
-	for <lists+linux-ltp@lfdr.de>; Wed,  9 Mar 2022 04:05:04 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id CBFFA3C5A9E
+	for <lists+linux-ltp@lfdr.de>; Wed,  9 Mar 2022 09:29:18 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A31CB3C627E
- for <ltp@lists.linux.it>; Wed,  9 Mar 2022 04:04:56 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id 7C8C93C1FF4
+ for <ltp@lists.linux.it>; Wed,  9 Mar 2022 09:29:17 +0100 (CET)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 295621000DED
- for <ltp@lists.linux.it>; Wed,  9 Mar 2022 04:04:54 +0100 (CET)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 39FB560065C
+ for <ltp@lists.linux.it>; Wed,  9 Mar 2022 09:29:15 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1646795093;
+ s=mimecast20190719; t=1646814554;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=BNYylut9BpsBwLb2XXYbMoBMFFfyluINLp+oQV0Pxq8=;
- b=OsJ89nm0KndKO+mkaoEYmgWh7cbtp5PY4jYxLATuiowDBFJPFmfTOtV/vrq0e0w6sRO0nl
- Nl/g+T7Sc1uU9ZFgQSZOzDoH9aXSvtBbt4PZXUCQRcjtpXkvoU7/lN/Z0tkmdAPZ3zPRzq
- EWJk2exbRlMHKrHkAHMQ6PFC/cInLHA=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=UxS+TbRe3qxpy8WhkRm/iSV6/Qor/m8czt7C7RQOujs=;
+ b=YVnuqFuc8Rfib8pydtsYpeI/o9n2HrgCDrETOAtm9G/PPyc7avKkiGCZOxaP+ZIsO3NXbt
+ I8HrV51cMFRf69D8X7Ovcwrtc4aOcFXeqvWv0Qnj6dfBii6e+xiGVSCEL/PTyLY4cmM/Ve
+ xoiJQmp6zvU6XAHrfrvaWDWlAkgD8cI=
+Received: from mail-yb1-f198.google.com (mail-yb1-f198.google.com
+ [209.85.219.198]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-62-qwMZpiN_NfuvZdShbix3TA-1; Tue, 08 Mar 2022 22:04:52 -0500
-X-MC-Unique: qwMZpiN_NfuvZdShbix3TA-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
- [10.5.11.11])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A591D1006AA5;
- Wed,  9 Mar 2022 03:04:51 +0000 (UTC)
-Received: from liwang-workstation.nay.redhat.com (unknown [10.66.81.187])
- by smtp.corp.redhat.com (Postfix) with ESMTP id A21C15DB84;
- Wed,  9 Mar 2022 03:04:50 +0000 (UTC)
-From: Li Wang <liwang@redhat.com>
-To: ltp@lists.linux.it
-Date: Wed,  9 Mar 2022 11:04:40 +0800
-Message-Id: <20220309030440.4166954-3-liwang@redhat.com>
-In-Reply-To: <20220309030440.4166954-1-liwang@redhat.com>
-References: <20220308073709.4125677-1-liwang@redhat.com>
- <20220309030440.4166954-1-liwang@redhat.com>
+ us-mta-646-aooyaSGEO-218K1-4aidow-1; Wed, 09 Mar 2022 03:29:12 -0500
+X-MC-Unique: aooyaSGEO-218K1-4aidow-1
+Received: by mail-yb1-f198.google.com with SMTP id
+ a3-20020a5b0ac3000000b006288f395b25so1174794ybr.18
+ for <ltp@lists.linux.it>; Wed, 09 Mar 2022 00:29:12 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=UxS+TbRe3qxpy8WhkRm/iSV6/Qor/m8czt7C7RQOujs=;
+ b=Yld0Qr3/rkDarWpznAqTEUw6Um9LNKDh4Njs5bki4NaAmBKxdrjKTedxcUQZgkkNWV
+ wo3nNe1jaMQjjULQT2O5FJ/VyXEEPyQ/lBqfjjy5LCjdLka8+C0GgrVLQtFowm93M2KC
+ ELvPM9GqBiOttB94MOAbnyQ6Bvd+EgGiiDNMF9ur7UIUo8xRRHC76y7CyRXBRaBuUfEs
+ NnvqCF7u2gzqgl5stA9WkbhNVx/CrK7R/DCf319/FsI35KjWcEA/9l2s0b0EPaRjfzLk
+ 82O4CB/vX3o7YrAvkpooyvMIevMUMhgpOLGuNpcM2HYKXGElgd7yeF5JTLcKmUxvlUcq
+ nncA==
+X-Gm-Message-State: AOAM531+5XXFpzfWYDNP2z2bVOd3RaeuzXORNeGW8qjohZ89t+Umn7q1
+ 4/19W6kUcZnqA7ROTUoxpVNBF0I4n+q+1M6tIVZQ0YqyT+myKpY8KItJlwUI7Lw901HPFFW3hWg
+ AUnzoVXEZO+xjUQ8VlFN6KDqUEnI=
+X-Received: by 2002:a25:2f83:0:b0:629:2551:2309 with SMTP id
+ v125-20020a252f83000000b0062925512309mr13895208ybv.211.1646814552484; 
+ Wed, 09 Mar 2022 00:29:12 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJyatSO8BsbPm7WgD7A3wgQ6Bdb5YbANtvint/XxW8sjNtu8M7SixK6EiIOjbccEHXs+giBbnnMbnI/XEAgOsss=
+X-Received: by 2002:a25:2f83:0:b0:629:2551:2309 with SMTP id
+ v125-20020a252f83000000b0062925512309mr13895195ybv.211.1646814552219; Wed, 09
+ Mar 2022 00:29:12 -0800 (PST)
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+References: <1646858946-1470-1-git-send-email-daisl.fnst@fujitsu.com>
+In-Reply-To: <1646858946-1470-1-git-send-email-daisl.fnst@fujitsu.com>
+From: Li Wang <liwang@redhat.com>
+Date: Wed, 9 Mar 2022 16:28:57 +0800
+Message-ID: <CAEemH2ckk=F_vOhGjN4QbVhrF621JT8yzEsOfy=pPoMtDCwN8A@mail.gmail.com>
+To: Dai Shili <daisl.fnst@fujitsu.com>
 Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwang@redhat.com
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 3/3] ksm: cleanup work and make use of .save_restore
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] runtest/syscalls: Add missing futex_waitv
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,293 +88,40 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============0763992167=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Li Wang <liwang@redhat.com>
-Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
----
+--===============0763992167==
+Content-Type: multipart/alternative; boundary="000000000000657cd005d9c4e427"
 
-Notes:
-    v1 --> v2
-        remove the code comments from ksm01.c
+--000000000000657cd005d9c4e427
+Content-Type: text/plain; charset="UTF-8"
 
- testcases/kernel/mem/ksm/ksm01.c      | 31 ++++++---------------------
- testcases/kernel/mem/ksm/ksm02.c      | 25 ++++++---------------
- testcases/kernel/mem/ksm/ksm03.c      | 25 ++++++---------------
- testcases/kernel/mem/ksm/ksm04.c      | 24 ++++++---------------
- testcases/kernel/mem/ksm/ksm05.c      | 29 +++++++------------------
- testcases/kernel/mem/ksm/ksm_common.h |  2 --
- 6 files changed, 36 insertions(+), 100 deletions(-)
+Good catch, pushed!
 
-diff --git a/testcases/kernel/mem/ksm/ksm01.c b/testcases/kernel/mem/ksm/ksm01.c
-index 0a81e2016..305bf30ea 100644
---- a/testcases/kernel/mem/ksm/ksm01.c
-+++ b/testcases/kernel/mem/ksm/ksm01.c
-@@ -66,30 +66,7 @@ static void verify_ksm(void)
- 
- static void setup(void)
- {
--	if (access(PATH_KSM, F_OK) == -1)
--		tst_brk(TCONF, "KSM configuration is not enabled");
--
- 	parse_ksm_options(opt_sizestr, &size, opt_numstr, &num, opt_unitstr, &unit);
--
--	/*
--	 * kernel commit 90bd6fd introduced a new KSM sysfs knob
--	 * /sys/kernel/mm/ksm/merge_across_nodes, setting it to '0'
--	 * will prevent KSM pages being merged across numa nodes,
--	 * which will cause the case fail, so we need to make sure
--	 * it is enabled before testing.
--	 */
--	if (access(PATH_KSM "merge_across_nodes", F_OK) == 0) {
--		SAFE_FILE_SCANF(PATH_KSM "merge_across_nodes",
--				"%d", &merge_across_nodes);
--		SAFE_FILE_PRINTF(PATH_KSM "merge_across_nodes", "1");
--	}
--}
--
--static void cleanup(void)
--{
--	if (access(PATH_KSM "merge_across_nodes", F_OK) == 0)
--		FILE_PRINTF(PATH_KSM "merge_across_nodes",
--				 "%d", merge_across_nodes);
- }
- 
- static struct tst_test test = {
-@@ -102,11 +79,17 @@ static struct tst_test test = {
- 		{}
- 	},
- 	.setup = setup,
--	.cleanup = cleanup,
- 	.save_restore = (const struct tst_path_val const[]) {
-+		{"!/sys/kernel/mm/ksm/run", NULL},
-+		{"!/sys/kernel/mm/ksm/sleep_millisecs", NULL},
- 		{"?/sys/kernel/mm/ksm/max_page_sharing", NULL},
-+		{"?/sys/kernel/mm/ksm/merge_across_nodes", "1"},
- 		NULL,
- 	},
-+	.needs_kconfigs = (const char *const[]){
-+		"CONFIG_KSM=y",
-+		NULL
-+	},
- 	.test_all = verify_ksm,
- 	.min_kver = "2.6.32",
- };
-diff --git a/testcases/kernel/mem/ksm/ksm02.c b/testcases/kernel/mem/ksm/ksm02.c
-index 6ba6ee868..6ad7bcadb 100644
---- a/testcases/kernel/mem/ksm/ksm02.c
-+++ b/testcases/kernel/mem/ksm/ksm02.c
-@@ -82,26 +82,9 @@ static void verify_ksm(void)
- 	SAFE_CG_PRINTF(tst_cg_drain, "cgroup.procs", "%d", getpid());
- }
- 
--static void cleanup(void)
--{
--	if (access(PATH_KSM "merge_across_nodes", F_OK) == 0) {
--		FILE_PRINTF(PATH_KSM "merge_across_nodes",
--				 "%d", merge_across_nodes);
--	}
--}
--
- static void setup(void)
- {
--	if (access(PATH_KSM, F_OK) == -1)
--		tst_brk(TCONF, "KSM configuration is not enabled");
--
- 	parse_ksm_options(opt_sizestr, &size, opt_numstr, &num, opt_unitstr, &unit);
--
--	if (access(PATH_KSM "merge_across_nodes", F_OK) == 0) {
--		SAFE_FILE_SCANF(PATH_KSM "merge_across_nodes",
--				"%d", &merge_across_nodes);
--		SAFE_FILE_PRINTF(PATH_KSM "merge_across_nodes", "1");
--	}
- }
- 
- static struct tst_test test = {
-@@ -114,11 +97,17 @@ static struct tst_test test = {
- 		{}
- 	},
- 	.setup = setup,
--	.cleanup = cleanup,
- 	.save_restore = (const struct tst_path_val const[]) {
-+		{"!/sys/kernel/mm/ksm/run", NULL},
-+		{"!/sys/kernel/mm/ksm/sleep_millisecs", NULL},
- 		{"?/sys/kernel/mm/ksm/max_page_sharing", NULL},
-+		{"?/sys/kernel/mm/ksm/merge_across_nodes", "1"},
- 		NULL,
- 	},
-+	.needs_kconfigs = (const char *const[]){
-+		"CONFIG_KSM=y",
-+		NULL
-+	},
- 	.test_all = verify_ksm,
- 	.min_kver = "2.6.32",
- 	.needs_cgroup_ctrls = (const char *const []){ "cpuset", NULL },
-diff --git a/testcases/kernel/mem/ksm/ksm03.c b/testcases/kernel/mem/ksm/ksm03.c
-index 71d2d8bd9..94223e332 100644
---- a/testcases/kernel/mem/ksm/ksm03.c
-+++ b/testcases/kernel/mem/ksm/ksm03.c
-@@ -66,29 +66,12 @@ static void verify_ksm(void)
- 
- static void setup(void)
- {
--	if (access(PATH_KSM, F_OK) == -1)
--		tst_brk(TCONF, "KSM configuration is not enabled");
--
--	if (access(PATH_KSM "merge_across_nodes", F_OK) == 0) {
--		SAFE_FILE_SCANF(PATH_KSM "merge_across_nodes",
--				"%d", &merge_across_nodes);
--		SAFE_FILE_PRINTF(PATH_KSM "merge_across_nodes", "1");
--	}
--
- 	parse_ksm_options(opt_sizestr, &size, opt_numstr, &num, opt_unitstr, &unit);
- 
- 	SAFE_CG_PRINTF(tst_cg, "cgroup.procs", "%d", getpid());
- 	SAFE_CG_PRINTF(tst_cg, "memory.max", "%lu", TESTMEM);
- }
- 
--static void cleanup(void)
--{
--	if (access(PATH_KSM "merge_across_nodes", F_OK) == 0) {
--		FILE_PRINTF(PATH_KSM "merge_across_nodes",
--				 "%d", merge_across_nodes);
--	}
--}
--
- static struct tst_test test = {
- 	.needs_root = 1,
- 	.forks_child = 1,
-@@ -99,11 +82,17 @@ static struct tst_test test = {
- 		{}
- 	},
- 	.setup = setup,
--	.cleanup = cleanup,
- 	.save_restore = (const struct tst_path_val const[]) {
-+		{"!/sys/kernel/mm/ksm/run", NULL},
-+		{"!/sys/kernel/mm/ksm/sleep_millisecs", NULL},
- 		{"?/sys/kernel/mm/ksm/max_page_sharing", NULL},
-+		{"?/sys/kernel/mm/ksm/merge_across_nodes", "1"},
- 		NULL,
- 	},
-+	.needs_kconfigs = (const char *const[]){
-+		"CONFIG_KSM=y",
-+		NULL
-+	},
- 	.test_all = verify_ksm,
- 	.min_kver = "2.6.32",
- 	.needs_cgroup_ctrls = (const char *const []){ "memory", NULL },
-diff --git a/testcases/kernel/mem/ksm/ksm04.c b/testcases/kernel/mem/ksm/ksm04.c
-index 8429f4843..3e8a77bec 100644
---- a/testcases/kernel/mem/ksm/ksm04.c
-+++ b/testcases/kernel/mem/ksm/ksm04.c
-@@ -82,24 +82,8 @@ static void verify_ksm(void)
- 	create_same_memory(size, num, unit);
- }
- 
--static void cleanup(void)
--{
--	if (access(PATH_KSM "merge_across_nodes", F_OK) == 0)
--		FILE_PRINTF(PATH_KSM "merge_across_nodes",
--				 "%d", merge_across_nodes);
--}
--
- static void setup(void)
- {
--	if (access(PATH_KSM, F_OK) == -1)
--		tst_brk(TCONF, "KSM configuration is not enabled");
--
--	if (access(PATH_KSM "merge_across_nodes", F_OK) == 0) {
--		SAFE_FILE_SCANF(PATH_KSM "merge_across_nodes",
--				"%d", &merge_across_nodes);
--		SAFE_FILE_PRINTF(PATH_KSM "merge_across_nodes", "1");
--	}
--
- 	parse_ksm_options(opt_sizestr, &size, opt_numstr, &num, opt_unitstr, &unit);
- 
- 	SAFE_CG_PRINTF(tst_cg, "cgroup.procs", "%d", getpid());
-@@ -115,11 +99,17 @@ static struct tst_test test = {
- 		{}
- 	},
- 	.setup = setup,
--	.cleanup = cleanup,
- 	.save_restore = (const struct tst_path_val const[]) {
-+		{"!/sys/kernel/mm/ksm/run", NULL},
-+		{"!/sys/kernel/mm/ksm/sleep_millisecs", NULL},
- 		{"?/sys/kernel/mm/ksm/max_page_sharing", NULL},
-+		{"?/sys/kernel/mm/ksm/merge_across_nodes", "1"},
- 		NULL,
- 	},
-+	.needs_kconfigs = (const char *const[]){
-+		"CONFIG_KSM=y",
-+		NULL
-+	},
- 	.test_all = verify_ksm,
- 	.min_kver = "2.6.32",
- 	.needs_cgroup_ctrls = (const char *const []){
-diff --git a/testcases/kernel/mem/ksm/ksm05.c b/testcases/kernel/mem/ksm/ksm05.c
-index 380bb0202..33721d388 100644
---- a/testcases/kernel/mem/ksm/ksm05.c
-+++ b/testcases/kernel/mem/ksm/ksm05.c
-@@ -83,32 +83,19 @@ static void sighandler(int sig)
- 	_exit((sig == SIGSEGV) ? 0 : sig);
- }
- 
--static void setup(void)
--{
--	if (access(PATH_KSM, F_OK) == -1)
--		tst_brk(TCONF, "KSM configuration is not enabled");
--
--	/* save original /sys/kernel/mm/ksm/run value */
--	SAFE_FILE_SCANF(PATH_KSM "run", "%d", &ksm_run_orig);
--
--	/* echo 1 > /sys/kernel/mm/ksm/run */
--	SAFE_FILE_PRINTF(PATH_KSM "run", "1");
--}
--
--static void cleanup(void)
--{
--	/* restore /sys/kernel/mm/ksm/run value */
--	if (ksm_run_orig > 0)
--		FILE_PRINTF(PATH_KSM "run", "%d", ksm_run_orig);
--}
--
- static struct tst_test test = {
- 	.needs_root = 1,
- 	.forks_child = 1,
--	.setup = setup,
--	.cleanup = cleanup,
- 	.test_all = test_ksm,
- 	.min_kver = "2.6.32",
-+	.save_restore = (const struct tst_path_val const[]) {
-+		{"!/sys/kernel/mm/ksm/run", "1"},
-+		NULL,
-+	},
-+	.needs_kconfigs = (const char *const[]){
-+		"CONFIG_KSM=y",
-+		NULL
-+	},
- };
- 
- #else
-diff --git a/testcases/kernel/mem/ksm/ksm_common.h b/testcases/kernel/mem/ksm/ksm_common.h
-index e6d5387c8..56faf01e4 100644
---- a/testcases/kernel/mem/ksm/ksm_common.h
-+++ b/testcases/kernel/mem/ksm/ksm_common.h
-@@ -9,8 +9,6 @@
- 
- #include "tst_test.h"
- 
--int merge_across_nodes;
--
- int size = 128, num = 3, unit = 1;
- char *opt_sizestr, *opt_numstr, *opt_unitstr;
- 
 -- 
-2.31.1
+Regards,
+Li Wang
+
+--000000000000657cd005d9c4e427
+Content-Type: text/html; charset="UTF-8"
+
+<div dir="ltr"><div dir="ltr"><div class="gmail_default" style="font-size:small">Good catch, pushed!</div></div><div><br></div>-- <br><div dir="ltr" class="gmail_signature"><div dir="ltr"><div>Regards,<br></div><div>Li Wang<br></div></div></div></div>
+
+--000000000000657cd005d9c4e427--
+
+
+--===============0763992167==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============0763992167==--
+
