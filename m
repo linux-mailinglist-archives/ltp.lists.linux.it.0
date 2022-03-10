@@ -2,90 +2,154 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08C0A4D41A9
-	for <lists+linux-ltp@lfdr.de>; Thu, 10 Mar 2022 08:20:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EDD24D4311
+	for <lists+linux-ltp@lfdr.de>; Thu, 10 Mar 2022 10:06:17 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7C9EA3C6D1E
-	for <lists+linux-ltp@lfdr.de>; Thu, 10 Mar 2022 08:20:45 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 1DA5E3C5594
+	for <lists+linux-ltp@lfdr.de>; Thu, 10 Mar 2022 10:06:17 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 1AD2F3C04D2
- for <ltp@lists.linux.it>; Thu, 10 Mar 2022 08:20:41 +0100 (CET)
-Received: from mail1.bemta34.messagelabs.com (mail1.bemta34.messagelabs.com
- [195.245.231.4])
+ by picard.linux.it (Postfix) with ESMTPS id 224C33C0209
+ for <ltp@lists.linux.it>; Thu, 10 Mar 2022 10:06:12 +0100 (CET)
+Received: from esa4.fujitsucc.c3s2.iphmx.com (esa4.fujitsucc.c3s2.iphmx.com
+ [68.232.151.214])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id EF306600438
- for <ltp@lists.linux.it>; Thu, 10 Mar 2022 08:20:40 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fujitsu.com;
- s=170520fj; t=1646896839; i=@fujitsu.com;
- bh=Mvvwf3zWxAs5qYnVwMyWnyY65YU3Qi0alGPG1pR1otI=;
- h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type;
- b=pEsoZTyHedM2TjpixWZ9wElaOEQM2cEi4ouvrtcu7pL7hRXLux6hxndm78otMWcH+
- Ersi6vbLidArS3fZ8gJ+LOdZ4i8ssn1xxLtePLJ/mNO2WRqrGsnY1glf5icr5XJWpA
- Pb3GeZNrf/O3ZN4aBoSudSorztZEsxHVZLMhT9sQq7yoyZlLD5z/KV3tBgiIDcJyf/
- kkSEv6ZGFiRZx1MKJ55WcWDJvfsIxkHD7q161RJZdr3xthfeeC/+k8RM1Ve7Mm4cYi
- YfLCwCj/gUeoTkx6Wzuht48GRat1cG0SZnw2g7Phn37B8VPCmcp3dClHJMceFqZh+H
- STcwJGhvRsjDA==
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFjrKIsWRWlGSWpSXmKPExsViZ8MxSff4Ms0
- kg9vnuC1WfN/B6MDose/3OtYAxijWzLyk/IoE1ozedQ3sBYv0K26vvc7awLhRo4uRi0NI4Cyj
- xPHZJ9ghnJ1MEkufLmaGcPYzStzu3MbYxcjJwSagIXHtcTsziC0iICHR0fCWHcRmFlCT2H31G
- BuILSzgIrFtzR9WEJtFQFXi5oepQDYHB6+Am8SRhbogYQkBBYkpD9+DjeEVEJQ4OfMJC8QYCY
- mDL14wQ9QoSuzfu5ERwq6QmDFjGxuErSZx9dwm5gmM/LOQtM9C0r6AkWkVo3VSUWZ6RkluYma
- OrqGBga6hoamusbmuoZmRXmKVbqJeaqlueWpxiS6QW16sl1pcrFdcmZuck6KXl1qyiREYlinF
- qot2MO5f9VPvEKMkB5OSKK/QAY0kIb6k/JTKjMTijPii0pzU4kOMMhwcShK8/5ZoJgkJFqWmp
- 1akZeYAYwQmLcHBoyTC+xgkzVtckJhbnJkOkTrFaMzxYOHevcwcfz/93cssxJKXn5cqJc77fi
- lQqQBIaUZpHtwgWOxeYpSVEuZlZGBgEOIpSC3KzSxBlX/FKM7BqCTM+wZkCk9mXgncvldApzA
- BnWJnpAZySkkiQkqqgala2fvYpgbn2xH6Sk5pPmsm+bxVlP9cNSdLxzksZ+XrZy4LvwY1XbW/
- e/bcin3Xmpefr8ifuM9xwWPpF+4LbKdqrsz4uzT0N7P+NstuN8e1Mxn/CE7UWXa5OLTiZuzGB
- 26JPOyGXuWmmd/lrlzWZeRYdfEjV2hlC/Pa57/7XP6y1HpOqtDT02rfy9jceXVlWGDUr4fc4j
- ZCjlPXdr+Kia/v03rGO/8gc8YisVUmE4/4X33vcmhj3dUjh95nMJ/4fsnQvEN83eMKoZLkFfe
- vNzc4/OHVXL7yB/9a8wM5+9u/nV16eKn2YuGFiwx8vvfo2m58vP3AFdX4MxMjVF8ZimTGx5uE
- Mk8/7BESfsrF9YsSS3FGoqEWc1FxIgCJ7RZ+WAMAAA==
-X-Env-Sender: daisl.fnst@fujitsu.com
-X-Msg-Ref: server-6.tower-571.messagelabs.com!1646896839!29055!1
-X-Originating-IP: [62.60.8.146]
-X-SYMC-ESS-Client-Auth: outbound-route-from=pass
-X-StarScan-Received: 
-X-StarScan-Version: 9.81.9; banners=-,-,-
-X-VirusChecked: Checked
-Received: (qmail 6058 invoked from network); 10 Mar 2022 07:20:39 -0000
-Received: from unknown (HELO n03ukasimr02.n03.fujitsu.local) (62.60.8.146)
- by server-6.tower-571.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
- encrypted SMTP; 10 Mar 2022 07:20:39 -0000
-Received: from n03ukasimr02.n03.fujitsu.local (localhost [127.0.0.1])
- by n03ukasimr02.n03.fujitsu.local (Postfix) with ESMTP id C8221100457
- for <ltp@lists.linux.it>; Thu, 10 Mar 2022 07:20:38 +0000 (GMT)
-Received: from R01UKEXCASM126.r01.fujitsu.local (unknown [10.183.43.178])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
- (No client certificate requested)
- by n03ukasimr02.n03.fujitsu.local (Postfix) with ESMTPS id BB40C100446
- for <ltp@lists.linux.it>; Thu, 10 Mar 2022 07:20:38 +0000 (GMT)
-Received: from rhel79.g08.fujitsu.local (10.167.225.51) by
- R01UKEXCASM126.r01.fujitsu.local (10.183.43.178) with Microsoft SMTP Server
- (TLS) id 15.0.1497.28; Thu, 10 Mar 2022 07:20:26 +0000
-From: Dai Shili <daisl.fnst@fujitsu.com>
-To: <ltp@lists.linux.it>
-Date: Thu, 10 Mar 2022 15:19:42 -0500
-Message-ID: <1646943582-13826-1-git-send-email-daisl.fnst@fujitsu.com>
-X-Mailer: git-send-email 1.8.3.1
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 94BE31A01230
+ for <ltp@lists.linux.it>; Thu, 10 Mar 2022 10:06:10 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj1;
+ t=1646903172; x=1678439172;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-id:content-transfer-encoding: mime-version;
+ bh=51dORHJqSIZo2q8kAM7EkpHuePoU2WoAZac8fIOLSF4=;
+ b=RRyHeCCGvZ+vep/9SdIm1CvFN4JlxYAGWpvruHHm27AzyrjGl5Ip5PFW
+ hvIsKpN2MEVZpjwdzPnHRDb+fkY9VMAkyIoH75eGxRHuYDFx0JsNiVOps
+ 91woJ2KZwkR8+goTs2GKUkTaw2aRglNJgpGWWuAfR0WJv35PLodWEKKRa
+ CpipVuZZ5NcCOj9YNHubGaoFPAuqHCJ3+/uNPLai9v121iNGpepnWT7TS
+ 3LxA3cfYHRC9kZYOSWA/IsHDUKbqKO3s5DnBJBDP7KlqJYGnsZoti7Jhm
+ P5e70WEGj/pSwWNj1AcL5g/Mr7jvwTbXLGvh6r7a57RMWCjzbUnf+Nn3I w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10281"; a="59320255"
+X-IronPort-AV: E=Sophos;i="5.90,169,1643641200"; d="scan'208";a="59320255"
+Received: from mail-tycjpn01lp2170.outbound.protection.outlook.com (HELO
+ JPN01-TYC-obe.outbound.protection.outlook.com) ([104.47.23.170])
+ by ob1.fujitsucc.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Mar 2022 18:06:09 +0900
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=cBijjrHwk2WTG+8iaLUt5P+wU5Tv/sWwx0fhFJt318I5P/erUqRWHvlLN0Dau/T+0zm3w/0DRF7jeq1VBXCszpahn9np/KOgQ8EKZbBgevOhrK2WXgYStpN2GmeEutYmbrFbSA6intN+OjD9v7T11z5fH/65/eZqH7Lb0f5r5Tg7kGCRqPzWIw8qwjME5dIeWRkdv7bW3NkHIvOLkTZ6C2W6PO8aKJ92gQncpcDAKrczA0O2F157SiEX5H3dgxEAm9+THwSY/ICZTiSAHcCLeBAoZ2ETh4M0kz8oto5CbDLun7APLRbj2avmbRrRbT5/LJy8yMCxAA/2Z3wcgxYUaw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=51dORHJqSIZo2q8kAM7EkpHuePoU2WoAZac8fIOLSF4=;
+ b=VpMBphtpbc4+ubfWhDAVX5wecgBi3RKUgEL3m/hL7BmTwTYv3GzMQZN22mk5x2/O0g5UUWIxPcxbzASw9VOhfY6+cEyTx0Ym/F1+UGMCZzG9vFpsMvx2Bj0+2JczqDYvhOnyoCOl4be13j8rI/uDpPc0rYFlGM/289EgCAQE7FMk1PuNOBKlkkSq4KhevxJbj3bWYsZl2PDtdskDOoKLb8xVdC/oLwSmXwbh0G/i7wXn4WYsGx3fs0bi+eyUzUzHw8oruFK9O26qNrp2UUeMaE+vyFlEQDpz8GZi+GcF1t522WRJjLgCzO9aTIwMNGjfsGoM/zQTTvYcEHieP+DhTw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=fujitsu.com; dmarc=pass action=none header.from=fujitsu.com;
+ dkim=pass header.d=fujitsu.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=fujitsu.onmicrosoft.com; s=selector2-fujitsu-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=51dORHJqSIZo2q8kAM7EkpHuePoU2WoAZac8fIOLSF4=;
+ b=l7qw50tMcNBssTO7rrsZY/BksH9Izk6SLYWnQHvu1bj2AkGiWY/tio8zo1mtOMryBHuDhp1yllkkQmlf0XI+9Frsqtj/diL12Hww3Qy8apr/+o3kTs+j7vc0CViQRGjcM88Z3SksMYFVR8LgzAj0M3a+UMxJdZnTm5+dLCJuV9k=
+Received: from TY2PR01MB4427.jpnprd01.prod.outlook.com (2603:1096:404:10d::20)
+ by OSZPR01MB8877.jpnprd01.prod.outlook.com (2603:1096:604:15e::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.14; Thu, 10 Mar
+ 2022 09:06:02 +0000
+Received: from TY2PR01MB4427.jpnprd01.prod.outlook.com
+ ([fe80::dd2e:e671:b3d5:d354]) by TY2PR01MB4427.jpnprd01.prod.outlook.com
+ ([fe80::dd2e:e671:b3d5:d354%5]) with mapi id 15.20.5038.027; Thu, 10 Mar 2022
+ 09:06:02 +0000
+From: "xuyang2018.jy@fujitsu.com" <xuyang2018.jy@fujitsu.com>
+To: Richard Palethorpe <rpalethorpe@suse.com>
+Thread-Topic: [LTP] [COMMITTED] save_restore: remove the duplicate 'const'
+ declaration
+Thread-Index: AQHYNFgSYIbYXI+N5kWF9T931P877ay4S/YAgAAHuIA=
+Date: Thu, 10 Mar 2022 09:06:02 +0000
+Message-ID: <6229BFAD.1060504@fujitsu.com>
+References: <20220310082251.13173-1-liwang@redhat.com>
+ <6229B934.9040606@fujitsu.com>
+In-Reply-To: <6229B934.9040606@fujitsu.com>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=fujitsu.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 0818e1d6-2f88-405b-cebf-08da0275337b
+x-ms-traffictypediagnostic: OSZPR01MB8877:EE_
+x-microsoft-antispam-prvs: <OSZPR01MB8877C190653BBF36DA517D03FD0B9@OSZPR01MB8877.jpnprd01.prod.outlook.com>
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: xCHT4sd+yGKLevceVd0wkMxc0ACZpDlJlU8C2R1bAI2gw3aGEU9VJt92k1/Tr8xFFBMpcLaxtYCWL2MvdKC7B4k5obO1nwuyrbfeooYlaThiNebaaYxboyLPJIEh55VM6g3WwxAJGYzZAeUIx8EA0qQ5VNFzrhiwBOm8hbxJgvYwXTBS9hLQmWZcnFLnsxTEU6R74xj25RD3tsReL8eI81CBDymmpIZyds5zPA2UzSMQcDCrassS04/9TlyejRgQXCWi7P1qFUtEH+Tjth9hqx+X5o2pv4tpgzZh0qkX5d7v3loWv6AdWAU7DnDjeogRDfBMfwg1RGt4E6oVCVv81eqt/SzCSfBaOoR4nWlJSEFS4Ke54jiz4yBofGI8tdOK7NXnBB+3GkbGCpGevUxlG1FPhVeqjY2+SkHGcT0eDRApOel6ecOie4LygpXsGdGttoN5gqVadsNxjS8LJToeIvLghF68Bf4KPp5xue9cjE7s5IFLhdY8A/hrYssRSt4fbNItJgBr/WTHYmvIYVxlmGqrql6Y7OWMt3bZxNVE2flsKHXdCuxLbUH2JudaZ9XFjbbZAdjbqwD8eYy8ax4pHqrtWRKWDW/+NBaeLitQjj+5e2VuR8fERBWv8cxxttP9gYr1fYZwqAjgg4XY8ecZkP0lkPwlOt44gZJh2eji3USMb23VsYdtEmea0TbQIcqaLeQy7+02SK/ySbhLHTiNHg==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TY2PR01MB4427.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(186003)(26005)(91956017)(83380400001)(508600001)(4744005)(2906002)(2616005)(6506007)(33656002)(87266011)(86362001)(66946007)(5660300002)(8936002)(36756003)(6512007)(76116006)(8676002)(64756008)(66446008)(66476007)(66556008)(4326008)(38070700005)(82960400001)(6916009)(85182001)(54906003)(71200400001)(122000001)(316002)(38100700002)(6486002);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?gb2312?B?aS9qZDdtcEJPZWhuVXJmSkxDdDduTm8wS3dqY0ZZV0F2cFI0d2FSUmFaYlpx?=
+ =?gb2312?B?eFNsWkgxdEh1SHEvTjIyazJmMUtCNzBoTCtyRHErMlZpdkw5bU0wTEhJWlBP?=
+ =?gb2312?B?eS8zckxtS0gxbklLVThIQ1lwVWdYbHlLWHRwQ295M0VlQzdtdyswSVVYRWll?=
+ =?gb2312?B?czdTSXN4aGhtUU1YaWRvdnczMWxTYkxzWVY5WkROb0Z0QVhVSEhxWmREUVRm?=
+ =?gb2312?B?Z09oRVFRa0xORmZlanVBVGlGTFRKSThLNFhhZDJDN3hNYWcwZllMekM1bDk3?=
+ =?gb2312?B?R0hINXFKaDg0K2oxWUJ3MHdxMzlKYTg1ZnZNRllDOW1tVGRpRkRhQnVkbW5D?=
+ =?gb2312?B?dTVETWZqVFA2ZEhNOVRjM1ZGODNjdjRCOW1mVDU1WG53UnNNYVdrZDVjWith?=
+ =?gb2312?B?bTZ2bVA2Y2IyUFBaeWJzV3dJNEVKQ1k5T01SUEFVS2Z6ZFh6N0k2U2hUc3l3?=
+ =?gb2312?B?TXlHTmJBdmNEQzJ1dW9vT1M5TEZQeEhyVG1TRXhxV0FjWXNpTEp5T0ZtbDkr?=
+ =?gb2312?B?QjFZVWJaUTVJQTA5VVVuRnRsU3R2Y3ZJdkdBYWtoQURrY0t3b1BQTzVjdUdW?=
+ =?gb2312?B?OGVUSlZnSUtUOHdBaklwTjVMbXBRZlgzbktnczVrQlE2VEtFb1lnNkVSYXZa?=
+ =?gb2312?B?UW1mN2JzWTRXVmJHVTdkQ3R6U1JoQ0xpdGcwUms5K29CdTFmSGNNTVU0dk9z?=
+ =?gb2312?B?T1FNQUVyOVBERHJDS2sxN1Fnb3B1NEFHbW1tOUxyeXlveFVIK3ZDVjl2SmxU?=
+ =?gb2312?B?YVFaRVdTKy9aWTU5TXplVmpkNDRGSytjbGIzUzVmb1JDblROMlhlckJQdm9m?=
+ =?gb2312?B?d0ZzUEJNaFh6di9xamZoT0xoRUxXLzZXOVd3N1lBZHovWFpnYjlTM0tETXM3?=
+ =?gb2312?B?K2xLaDJNU2lKOHRlQ0ZWQ1hqTlM0UGNISGtiSUp6YXpCeVk1WkdpYWgwQzRw?=
+ =?gb2312?B?WmJmL0hLa1JsR0RGOTN2NkxJUVdyRGYxVG1rd05mK2dYK2hUTExIbE9wYW13?=
+ =?gb2312?B?Y3hIalk3SWVOUDhsaHc3VnZVWW9aYUYzNDUyUWttenhqVDNWTFQySXhxb053?=
+ =?gb2312?B?aS9FMVRQNFVkcW9iTGJjZlRFcXN5dXBQWEEwV2xlcWxQWUFhendneW5TYlFC?=
+ =?gb2312?B?UHZoWEZtK0xTVmp0a2ZJVTBzK0ZIcHdrTjFBN21jUkgwR2VaWHJCbkRvUUxY?=
+ =?gb2312?B?MjFSMCtHcGlrZ2xBY0g3TnYrcVNNNk1oRGQyemZycTkzK0xHUkZ1MVE2Yjda?=
+ =?gb2312?B?RDEvVEhpSU9rby83Z1U2NVRqdDgwYXM2RDE2NjJRcjNXWEpQaUhYQnB0MXgx?=
+ =?gb2312?B?b0pQTDNjNmZUN3ViS09Sajg1bk1VcDJvYTlMRWU3TDl0b292dU8zaSt0Zk5O?=
+ =?gb2312?B?RWEzR0FVUS9ZemdpZ09CRTNJMExYdjI1NFpaV0lzTDZWbTI4MnRlWmdDOW9h?=
+ =?gb2312?B?b1ZrK1BXSDJOUm5BMW0wZys2R04rMmI0eU1hdEtyQThLR1pwcktHOXQzTmd2?=
+ =?gb2312?B?WWN1TDgwZzlIZDlweDdHWmhRZGlpNys5bzZDVkpNWGJFQ2NYcjF5a3drbWtJ?=
+ =?gb2312?B?SDdXNjAvOXJuYWlyQXdrYWRpUzlZQ2pnbjVlRWZPdmF4K29YTWNLcFB4M3RF?=
+ =?gb2312?B?S1NmMkE4MVdzUFJpZFhIY1M5bFJCVm0ycUNaeUFrRnFEYzc5emdBK1YvcE1k?=
+ =?gb2312?B?Rzcwand5RklneENwcDZrUnQ4RjRuc2V5bUpEZFVsMmR2ZHdDOHA4UjhZTWNZ?=
+ =?gb2312?B?OHNaZDZJZ0pUbWNqc1lnWGlRNklxcTJaUmZwaGRGbWdiMGoyQjhNdWJuQW0w?=
+ =?gb2312?B?dGJxRlNkSVgxS3FGbFRqdjA0WDMwRStlRW1QVkxud3htRHJ4bDJCTnFvNC9v?=
+ =?gb2312?B?NWREdHBlZjQ3THhlZkxrNlliZmdpRWhNODhDcHZYSkg4V3A3YUo2ZW1INSsv?=
+ =?gb2312?B?U1dmMFVWSGhmaHZLaFFhVW9XQ0Y0bW5YenRGUEo4NFJZdzBEckVDNVJIdlpP?=
+ =?gb2312?B?YnAxYU94SzVEME1pZFJZQTVXVHphTXlHc3NFSm9BTWdSaWF6WFhXa3EyaVJU?=
+ =?gb2312?B?dmZ3Q001MzJ2U3V2OW5oMEZ3TzlJeDF1bTZNY0k1aEUrSjhoeWdybkR4SExm?=
+ =?gb2312?B?a2R1bTBOdTZ3clJrWit4L093Q25YZDluSmZZWUJTTy9SZDRlZFlUVENjNEhS?=
+ =?gb2312?B?eTZMZ2FSK2RXTUo1amxDNHN6djQxVVk4Zk14WXpPdFVrSHd4MDlONTZWSzhu?=
+ =?gb2312?Q?3pY3KGzuRv3dgc12PX+oKpXg/9Tshk2LLJ2nZQ8FCw=3D?=
+Content-ID: <992AE23029A17547B774C6F91FFC39E2@jpnprd01.prod.outlook.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.167.225.51]
-X-ClientProxiedBy: G08CNEXCHPEKD09.g08.fujitsu.local (10.167.33.85) To
- R01UKEXCASM126.r01.fujitsu.local (10.183.43.178)
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-OriginatorOrg: fujitsu.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY2PR01MB4427.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0818e1d6-2f88-405b-cebf-08da0275337b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Mar 2022 09:06:02.3902 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: a19f121d-81e1-4858-a9d8-736e267fd4c7
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: CycdVhUBXOm2lRAsXv4G9kiQORgqoPbDM7V2F6pgyJJQfwaAwmF5633lqAb3LiQDw6MtuZNS/rJ0oIfial8qoXrG5cAPfcx1RvIg8MsKJ1s=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSZPR01MB8877
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=2.6 required=7.0 tests=DATE_IN_FUTURE_12_24,
- DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,
- SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Level: **
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH] syscalls/mount_setattr01: Add basic functional test
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
+ T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [COMMITTED] save_restore: remove the duplicate 'const'
+ declaration
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,219 +161,40 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-The mount_setattr() system call changes the mount properties of
-a mount or an entire mount tree. Here we check whether the mount
-attributes are set and cleared correctly.
+Hi Richard
+> Hi Li
+>> --- a/lib/newlib_tests/test19.c
+>> +++ b/lib/newlib_tests/test19.c
+>> @@ -23,7 +23,7 @@ static struct tst_test test = {
+>>    	.needs_root = 1,
+>>    	.test_all = run,
+>>    	.setup = setup,
+>> -	.save_restore = (const struct tst_path_val const[]) {
+>> +	.save_restore = (const struct tst_path_val[]) {
+>>    		{"?/proc/nonexistent", NULL},
+>>    		{"!/proc/sys/kernel/numa_balancing", NULL},
+>>    		{"/proc/sys/kernel/core_pattern", NULL},
+>
+> Since tst_path_val is a struct array, we should use {NULL, NULL} or {}
+> terminated instead of NULL terminated , otherwise it will report missing
+> braces warning.
+Since we have the following rule
+LTP-005 Array must terminate with a sentinel value (i.e. NULL or '{}')
 
-Signed-off-by: Dai Shili <daisl.fnst@fujitsu.com>
----
- include/lapi/fsmount.h                             |  29 ++++++
- runtest/syscalls                                   |   2 +
- testcases/kernel/syscalls/mount_setattr/.gitignore |   1 +
- testcases/kernel/syscalls/mount_setattr/Makefile   |   6 ++
- .../syscalls/mount_setattr/mount_setattr01.c       | 104 +++++++++++++++++++++
- 5 files changed, 142 insertions(+)
- create mode 100644 testcases/kernel/syscalls/mount_setattr/.gitignore
- create mode 100644 testcases/kernel/syscalls/mount_setattr/Makefile
- create mode 100644 testcases/kernel/syscalls/mount_setattr/mount_setattr01.c
+Can we check struct array whether use {} terminated instead of NULL?
 
-diff --git a/include/lapi/fsmount.h b/include/lapi/fsmount.h
-index fa25306..99d0a0a 100644
---- a/include/lapi/fsmount.h
-+++ b/include/lapi/fsmount.h
-@@ -15,6 +15,26 @@
- #include "lapi/fcntl.h"
- #include "lapi/syscalls.h"
- 
-+/*
-+ * Mount attributes.
-+ */
-+#define MOUNT_ATTR_RDONLY       0x00000001 /* Mount read-only */
-+#define MOUNT_ATTR_NOSUID       0x00000002 /* Ignore suid and sgid bits */
-+#define MOUNT_ATTR_NODEV        0x00000004 /* Disallow access to device special files */
-+#define MOUNT_ATTR_NOEXEC       0x00000008 /* Disallow program execution */
-+#define MOUNT_ATTR_NODIRATIME   0x00000080 /* Do not update directory access times */
-+#define MOUNT_ATTR_NOSYMFOLLOW  0x00200000 /* Do not follow symlinks */
-+
-+/*
-+ * mount_setattr()
-+ */
-+struct mount_attr {
-+	__u64 attr_set;
-+	__u64 attr_clr;
-+	__u64 propagation;
-+	__u64 userns_fd;
-+};
-+
- #ifndef HAVE_FSOPEN
- static inline int fsopen(const char *fsname, unsigned int flags)
- {
-@@ -61,6 +81,15 @@ static inline int open_tree(int dirfd, const char *pathname, unsigned int flags)
- }
- #endif /* HAVE_OPEN_TREE */
- 
-+#ifndef HAVE_MOUNT_SETATTR
-+static inline int mount_setattr(int dirfd, const char *from_pathname, unsigned int flags,
-+				struct mount_attr *attr, size_t size)
-+{
-+	return tst_syscall(__NR_mount_setattr, dirfd, from_pathname, flags,
-+			   attr, size);
-+}
-+#endif /* HAVE_MOUNT_SETATTR */
-+
- /*
-  * New headers added in kernel after 5.2 release, create them for old userspace.
- */
-diff --git a/runtest/syscalls b/runtest/syscalls
-index 6186bfc..1a47a2e 100644
---- a/runtest/syscalls
-+++ b/runtest/syscalls
-@@ -800,6 +800,8 @@ mount04 mount04
- mount05 mount05
- mount06 mount06
- 
-+mount_setattr01 mount_setattr01
-+
- move_mount01 move_mount01
- move_mount02 move_mount02
- 
-diff --git a/testcases/kernel/syscalls/mount_setattr/.gitignore b/testcases/kernel/syscalls/mount_setattr/.gitignore
-new file mode 100644
-index 0000000..52a77b9
---- /dev/null
-+++ b/testcases/kernel/syscalls/mount_setattr/.gitignore
-@@ -0,0 +1 @@
-+/mount_setattr01
-diff --git a/testcases/kernel/syscalls/mount_setattr/Makefile b/testcases/kernel/syscalls/mount_setattr/Makefile
-new file mode 100644
-index 0000000..5ea7d67
---- /dev/null
-+++ b/testcases/kernel/syscalls/mount_setattr/Makefile
-@@ -0,0 +1,6 @@
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+
-+top_srcdir		?= ../../../..
-+
-+include $(top_srcdir)/include/mk/testcases.mk
-+include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/kernel/syscalls/mount_setattr/mount_setattr01.c b/testcases/kernel/syscalls/mount_setattr/mount_setattr01.c
-new file mode 100644
-index 0000000..b4b1d85
---- /dev/null
-+++ b/testcases/kernel/syscalls/mount_setattr/mount_setattr01.c
-@@ -0,0 +1,104 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2022 FUJITSU LIMITED. All rights reserved.
-+ * Author: Dai Shili <daisl.fnst@fujitsu.com>
-+ */
-+
-+/*\
-+ * [Description]
-+ *
-+ * Basic mount_setattr() test.
-+ * Test whether the basic mount attributes are set and cleared correctly.
-+ *
-+ * Minimum Linux version required is v5.12.
-+ */
-+
-+#include "tst_test.h"
-+#include "lapi/fsmount.h"
-+#include "lapi/stat.h"
-+
-+#define MNTPOINT        "mntpoint"
-+#define OT_MNTPOINT     "ot_mntpoint"
-+#define TCASE_ENTRY(_mount_attrs)	{.name = #_mount_attrs, .mount_attrs = _mount_attrs}
-+
-+static int dir_created;
-+
-+static struct tcase {
-+	char *name;
-+	unsigned int mount_attrs;
-+} tcases[] = {
-+	TCASE_ENTRY(MOUNT_ATTR_RDONLY),
-+	TCASE_ENTRY(MOUNT_ATTR_NOSUID),
-+	TCASE_ENTRY(MOUNT_ATTR_NODEV),
-+	TCASE_ENTRY(MOUNT_ATTR_NOEXEC),
-+	TCASE_ENTRY(MOUNT_ATTR_NOSYMFOLLOW),
-+	TCASE_ENTRY(MOUNT_ATTR_NODIRATIME),
-+};
-+
-+static void cleanup(void)
-+{
-+	if (dir_created)
-+		SAFE_RMDIR(OT_MNTPOINT);
-+}
-+
-+static void setup(void)
-+{
-+	fsopen_supported_by_kernel();
-+	SAFE_MKDIR(OT_MNTPOINT, 0777);
-+	dir_created = 1;
-+}
-+
-+static void run(unsigned int n)
-+{
-+	int otfd;
-+	struct tcase *tc = &tcases[n];
-+	struct mount_attr attr = {
-+		.attr_set = tc->mount_attrs,
-+	};
-+
-+	TEST(otfd = open_tree(AT_FDCWD, MNTPOINT, AT_EMPTY_PATH |
-+		AT_SYMLINK_NOFOLLOW | OPEN_TREE_CLOEXEC | OPEN_TREE_CLONE));
-+	if (otfd == -1) {
-+		tst_res(TFAIL | TTERRNO, "open_tree() failed");
-+		return;
-+	}
-+
-+	TEST(mount_setattr(otfd, "", AT_EMPTY_PATH, &attr, sizeof(attr)));
-+	if (TST_RET == -1) {
-+		tst_res(TFAIL | TTERRNO, "mount_setattr() set attr %s failed.", tc->name);
-+		return;
-+	}
-+
-+	attr.attr_clr = tc->mount_attrs;
-+
-+	TEST(mount_setattr(otfd, "", AT_EMPTY_PATH, &attr, sizeof(attr)));
-+	if (TST_RET == -1) {
-+		tst_res(TFAIL | TTERRNO, "mount_setattr() clear attr %s failed.", tc->name);
-+		return;
-+	}
-+
-+	TEST(move_mount(otfd, "", AT_FDCWD, OT_MNTPOINT, MOVE_MOUNT_F_EMPTY_PATH));
-+	if (TST_RET == -1) {
-+		tst_res(TFAIL | TTERRNO, "move_mount() failed");
-+		return;
-+	}
-+
-+	SAFE_CLOSE(otfd);
-+
-+	if (tst_is_mounted_at_tmpdir(OT_MNTPOINT)) {
-+		SAFE_UMOUNT(OT_MNTPOINT);
-+		tst_res(TPASS, "mount_setattr() set and clear attr %s passed.", tc->name);
-+	}
-+}
-+
-+static struct tst_test test = {
-+	.tcnt = ARRAY_SIZE(tcases),
-+	.test = run,
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.needs_root = 1,
-+	.mount_device = 1,
-+	.mntpoint = MNTPOINT,
-+	.all_filesystems = 1,
-+	.skip_filesystems = (const char *const []){"fuse", NULL},
-+};
--- 
-1.8.3.1
-
+Best Regards
+Yang Xu
+>
+> Best Regards
+> Yang Xu
+>
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
