@@ -1,75 +1,76 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 907594D4543
-	for <lists+linux-ltp@lfdr.de>; Thu, 10 Mar 2022 12:00:50 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 540054D4547
+	for <lists+linux-ltp@lfdr.de>; Thu, 10 Mar 2022 12:01:10 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4A0433C1BF2
-	for <lists+linux-ltp@lfdr.de>; Thu, 10 Mar 2022 12:00:50 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 0CB7B3C0F3F
+	for <lists+linux-ltp@lfdr.de>; Thu, 10 Mar 2022 12:01:10 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id F24DC3C1BAE
- for <ltp@lists.linux.it>; Thu, 10 Mar 2022 11:59:23 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 3DA883C1BAE
+ for <ltp@lists.linux.it>; Thu, 10 Mar 2022 11:59:24 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 8D3BF600E39
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id B67A7601A80
  for <ltp@lists.linux.it>; Thu, 10 Mar 2022 11:59:23 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 287E21F381;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 5945D21119;
  Thu, 10 Mar 2022 10:59:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1646909963; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=YgZZfRuNwaWkyXn1kXDvw+UKSPHvnW0AhEgQf13kXZA=;
- b=MXxnXXYFs1xW3Q+IRc1kGOsZkqzk9myEHWIHaouzOWLgY71KPSk4PP+sTAfJnIOZm0YBzO
- g947Z6wLD1HHwiHox6lOXs0BVyrxPXC45mX1J2dUAYLepp2kI7TfSWIbWJ5XUlrUrMY60o
- oPJCfxDPj3TjZRMKlQ6IjjuzfIdk4nA=
+ bh=0w3Qyf5dcIQcXwt5zZqWtEJYXfBKD8QYgjyHujCFZe8=;
+ b=NseS2M30/6VMbE+MCNPfJEKR/CJbNWz+zLuXDkO7khWxjTuBljVoU5fu/oc3mL4mxxyLgH
+ LlmH1rrxY6gCyV7MrNo7jerp4vtZkSut/+MCYSSA6C5rERsQep3pr2kANnWY99hgD7rkUw
+ jzFz8WDTu3Vb9w//s7IDGFRkNUq3Z6A=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1646909963;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=YgZZfRuNwaWkyXn1kXDvw+UKSPHvnW0AhEgQf13kXZA=;
- b=FjGoNdZO4U9AFY0Gj2tw9W04/lDAkaJBahLRyceddi3d2cd1FCSzsaYyXgvJjcL7lIS5+d
- nrIh1cA+3YULlXDQ==
+ bh=0w3Qyf5dcIQcXwt5zZqWtEJYXfBKD8QYgjyHujCFZe8=;
+ b=qIX3sh7cfDkJID4fQxMAdZwxeHiu3tMu/ujECYlvxm+jRK1uAyNyAzTibe5+VvXXabeUPv
+ KXXdWJaC+Z4NUCBg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 02E5213FA5;
- Thu, 10 Mar 2022 10:59:22 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 33B5E13A3D;
+ Thu, 10 Mar 2022 10:59:23 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id eDBjOgraKWK8fgAAMHmgww
- (envelope-from <andrea.cervesato@suse.de>); Thu, 10 Mar 2022 10:59:22 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id kEiuCgvaKWK8fgAAMHmgww
+ (envelope-from <andrea.cervesato@suse.de>); Thu, 10 Mar 2022 10:59:23 +0000
 From: Andrea Cervesato <andrea.cervesato@suse.de>
 To: ltp@lists.linux.it
-Date: Thu, 10 Mar 2022 11:59:15 +0100
-Message-Id: <20220310105916.7960-10-andrea.cervesato@suse.de>
+Date: Thu, 10 Mar 2022 11:59:16 +0100
+Message-Id: <20220310105916.7960-11-andrea.cervesato@suse.de>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220310105916.7960-1-andrea.cervesato@suse.de>
 References: <20220310105916.7960-1-andrea.cervesato@suse.de>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 09/10] Remove libclone dependency from sysvipc
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 10/10] Delete obsolete ipcns_helper.h in sysvipc
+ suite
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,45 +89,57 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.de>
 ---
- testcases/kernel/containers/sysvipc/Makefile | 26 +++-----------------
- 1 file changed, 3 insertions(+), 23 deletions(-)
+ .../kernel/containers/sysvipc/ipcns_helper.h  | 41 -------------------
+ 1 file changed, 41 deletions(-)
+ delete mode 100644 testcases/kernel/containers/sysvipc/ipcns_helper.h
 
-diff --git a/testcases/kernel/containers/sysvipc/Makefile b/testcases/kernel/containers/sysvipc/Makefile
-index 00b537f6a..426fe5292 100644
---- a/testcases/kernel/containers/sysvipc/Makefile
-+++ b/testcases/kernel/containers/sysvipc/Makefile
-@@ -1,28 +1,8 @@
--################################################################################
--##                                                                            ##
--## Copyright (c) International Business Machines  Corp., 2007                 ##
--##                                                                            ##
--## This program is free software;  you can redistribute it and#or modify      ##
--## it under the terms of the GNU General Public License as published by       ##
--## the Free Software Foundation; either version 2 of the License, or          ##
--## (at your option) any later version.                                        ##
--##                                                                            ##
--## This program is distributed in the hope that it will be useful, but        ##
--## WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY ##
--## or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License   ##
--## for more details.                                                          ##
--##                                                                            ##
--## You should have received a copy of the GNU General Public License          ##
--## along with this program;  if not, write to the Free Software               ##
--## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA    ##
--##                                                                            ##
--################################################################################
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+# Copyright (c) International Business Machines  Corp., 2007
-+# Copyright (C) 2021 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
- 
- top_srcdir		?= ../../../..
- 
- include $(top_srcdir)/include/mk/testcases.mk
--include $(abs_srcdir)/../Makefile.inc
+diff --git a/testcases/kernel/containers/sysvipc/ipcns_helper.h b/testcases/kernel/containers/sysvipc/ipcns_helper.h
+deleted file mode 100644
+index 01ad0fff6..000000000
+--- a/testcases/kernel/containers/sysvipc/ipcns_helper.h
++++ /dev/null
+@@ -1,41 +0,0 @@
+-/*
+-* Copyright (c) International Business Machines Corp., 2007
+-* This program is free software; you can redistribute it and/or modify
+-* it under the terms of the GNU General Public License as published by
+-* the Free Software Foundation; either version 2 of the License, or
+-* (at your option) any later version.
+-*
+-* This program is distributed in the hope that it will be useful,
+-* but WITHOUT ANY WARRANTY; without even the implied warranty of
+-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
+-* the GNU General Public License for more details.
+-* You should have received a copy of the GNU General Public License
+-* along with this program; if not, write to the Free Software
+-* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+-*
+-* Author: Rishikesh K Rajak <risrajak@in.ibm.com>
+-***************************************************************************/
+-#include <sched.h>
+-#include "../libclone/libclone.h"
+-#include "test.h"
+-#include "safe_macros.h"
 -
--LDLIBS			:= -lclone $(LDLIBS)
+-static int dummy_child(void *v)
+-{
+-	(void) v;
+-	return 0;
+-}
 -
- include $(top_srcdir)/include/mk/generic_leaf_target.mk
+-static void check_newipc(void)
+-{
+-	int pid, status;
+-
+-	if (tst_kvercmp(2, 6, 19) < 0)
+-		tst_brkm(TCONF, NULL, "CLONE_NEWIPC not supported");
+-
+-	pid = do_clone_unshare_test(T_CLONE, CLONE_NEWIPC, dummy_child, NULL);
+-	if (pid == -1)
+-		tst_brkm(TCONF | TERRNO, NULL, "CLONE_NEWIPC not supported");
+-
+-	SAFE_WAIT(NULL, &status);
+-}
 -- 
 2.35.1
 
