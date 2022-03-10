@@ -1,86 +1,91 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90C0B4D42F0
-	for <lists+linux-ltp@lfdr.de>; Thu, 10 Mar 2022 09:58:35 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 08C0A4D41A9
+	for <lists+linux-ltp@lfdr.de>; Thu, 10 Mar 2022 08:20:46 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 616BF3C0CDF
-	for <lists+linux-ltp@lfdr.de>; Thu, 10 Mar 2022 09:58:35 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 7C9EA3C6D1E
+	for <lists+linux-ltp@lfdr.de>; Thu, 10 Mar 2022 08:20:45 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 2B4B73C010B
- for <ltp@lists.linux.it>; Thu, 10 Mar 2022 09:58:32 +0100 (CET)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by picard.linux.it (Postfix) with ESMTPS id 1AD2F3C04D2
+ for <ltp@lists.linux.it>; Thu, 10 Mar 2022 08:20:41 +0100 (CET)
+Received: from mail1.bemta34.messagelabs.com (mail1.bemta34.messagelabs.com
+ [195.245.231.4])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 0CC64200D2E
- for <ltp@lists.linux.it>; Thu, 10 Mar 2022 09:58:31 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1646902710;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=S0ngDcitqUCC1Rquv8l0JYKhxgPABp54eUb+hSNNBmc=;
- b=h6iS5btV8Y6zX5LVX/RiQjvRCyS9QEjKWeMR0yv9N5XaqrVgVhvuIMIQDEd4wlqobLiDmT
- YX3H4QMZE9CPjwEc/Q2mNRIP7u3EP4kAbeQx3mYWzNBkVXqXYBE41zAMcqDLHcpIYyFsCs
- Na2xGkIEWEF3IqeUbGPF0pfjt+wsu0s=
-Received: from mail-yb1-f198.google.com (mail-yb1-f198.google.com
- [209.85.219.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-106-Wli6qVuGNiiu6-outKRzSg-1; Thu, 10 Mar 2022 03:58:28 -0500
-X-MC-Unique: Wli6qVuGNiiu6-outKRzSg-1
-Received: by mail-yb1-f198.google.com with SMTP id
- j5-20020a056902020500b00628ab64be30so3872690ybs.16
- for <ltp@lists.linux.it>; Thu, 10 Mar 2022 00:58:28 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=S0ngDcitqUCC1Rquv8l0JYKhxgPABp54eUb+hSNNBmc=;
- b=G5LxYDrzZClRh6h+xRr0klpZlR/h8Qxdg9FJZIA85L1xf3oLMWJh78PHx4JZWw+4Jz
- LWGHgh9arHaSBr24KBXCYzDPTxZ0MZMXz9FNakIb7IzCpY7eO5hk85xp5TzNP9KXYjp5
- z6NbGe8aZkUsppzJ8exeCaKhCyLkCjWqFSTcox++uyV1N6A3qkjupzm7hFEQAb3XlkeO
- pj/PVYGA3wOlLaKXLht2aLhASUlH6LnHLqsKBg9tTWWGwev/quY/OkkW4e4/IvB2EUof
- xphso6VkIfET85cLo4iVOqcJMPHRNKrYSVuP5Ag/jaKKzCu92SurFflBPKBTTMuDiTzF
- iyMg==
-X-Gm-Message-State: AOAM533ER5kM9NCupgEY+y+sFRF9ag5zpTy8muxBpSpbCbdAj8Rj4b6E
- VlKE8OefuTyaGpe6JINx4PIgorsDW9DApp6mnxDwU5taPWqf/8pH69NChtuAn6R9EWAvBXSBf1C
- LJvQU+iGKzOVajKyZYNsRWKSAF58=
-X-Received: by 2002:a25:2f83:0:b0:629:2551:2309 with SMTP id
- v125-20020a252f83000000b0062925512309mr3100809ybv.211.1646902708130; 
- Thu, 10 Mar 2022 00:58:28 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJyOlECU9bMP5R24bl62q3OU2+aHMh/EdMJqnlZ1t4hyGr7sOPfA3a0BKXvZyJhkbBIJJR0LGdfB2ij4bscawKE=
-X-Received: by 2002:a25:2f83:0:b0:629:2551:2309 with SMTP id
- v125-20020a252f83000000b0062925512309mr3100802ybv.211.1646902707905; Thu, 10
- Mar 2022 00:58:27 -0800 (PST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id EF306600438
+ for <ltp@lists.linux.it>; Thu, 10 Mar 2022 08:20:40 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fujitsu.com;
+ s=170520fj; t=1646896839; i=@fujitsu.com;
+ bh=Mvvwf3zWxAs5qYnVwMyWnyY65YU3Qi0alGPG1pR1otI=;
+ h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type;
+ b=pEsoZTyHedM2TjpixWZ9wElaOEQM2cEi4ouvrtcu7pL7hRXLux6hxndm78otMWcH+
+ Ersi6vbLidArS3fZ8gJ+LOdZ4i8ssn1xxLtePLJ/mNO2WRqrGsnY1glf5icr5XJWpA
+ Pb3GeZNrf/O3ZN4aBoSudSorztZEsxHVZLMhT9sQq7yoyZlLD5z/KV3tBgiIDcJyf/
+ kkSEv6ZGFiRZx1MKJ55WcWDJvfsIxkHD7q161RJZdr3xthfeeC/+k8RM1Ve7Mm4cYi
+ YfLCwCj/gUeoTkx6Wzuht48GRat1cG0SZnw2g7Phn37B8VPCmcp3dClHJMceFqZh+H
+ STcwJGhvRsjDA==
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFjrKIsWRWlGSWpSXmKPExsViZ8MxSff4Ms0
+ kg9vnuC1WfN/B6MDose/3OtYAxijWzLyk/IoE1ozedQ3sBYv0K26vvc7awLhRo4uRi0NI4Cyj
+ xPHZJ9ghnJ1MEkufLmaGcPYzStzu3MbYxcjJwSagIXHtcTsziC0iICHR0fCWHcRmFlCT2H31G
+ BuILSzgIrFtzR9WEJtFQFXi5oepQDYHB6+Am8SRhbogYQkBBYkpD9+DjeEVEJQ4OfMJC8QYCY
+ mDL14wQ9QoSuzfu5ERwq6QmDFjGxuErSZx9dwm5gmM/LOQtM9C0r6AkWkVo3VSUWZ6RkluYma
+ OrqGBga6hoamusbmuoZmRXmKVbqJeaqlueWpxiS6QW16sl1pcrFdcmZuck6KXl1qyiREYlinF
+ qot2MO5f9VPvEKMkB5OSKK/QAY0kIb6k/JTKjMTijPii0pzU4kOMMhwcShK8/5ZoJgkJFqWmp
+ 1akZeYAYwQmLcHBoyTC+xgkzVtckJhbnJkOkTrFaMzxYOHevcwcfz/93cssxJKXn5cqJc77fi
+ lQqQBIaUZpHtwgWOxeYpSVEuZlZGBgEOIpSC3KzSxBlX/FKM7BqCTM+wZkCk9mXgncvldApzA
+ BnWJnpAZySkkiQkqqgala2fvYpgbn2xH6Sk5pPmsm+bxVlP9cNSdLxzksZ+XrZy4LvwY1XbW/
+ e/bcin3Xmpefr8ifuM9xwWPpF+4LbKdqrsz4uzT0N7P+NstuN8e1Mxn/CE7UWXa5OLTiZuzGB
+ 26JPOyGXuWmmd/lrlzWZeRYdfEjV2hlC/Pa57/7XP6y1HpOqtDT02rfy9jceXVlWGDUr4fc4j
+ ZCjlPXdr+Kia/v03rGO/8gc8YisVUmE4/4X33vcmhj3dUjh95nMJ/4fsnQvEN83eMKoZLkFfe
+ vNzc4/OHVXL7yB/9a8wM5+9u/nV16eKn2YuGFiwx8vvfo2m58vP3AFdX4MxMjVF8ZimTGx5uE
+ Mk8/7BESfsrF9YsSS3FGoqEWc1FxIgCJ7RZ+WAMAAA==
+X-Env-Sender: daisl.fnst@fujitsu.com
+X-Msg-Ref: server-6.tower-571.messagelabs.com!1646896839!29055!1
+X-Originating-IP: [62.60.8.146]
+X-SYMC-ESS-Client-Auth: outbound-route-from=pass
+X-StarScan-Received: 
+X-StarScan-Version: 9.81.9; banners=-,-,-
+X-VirusChecked: Checked
+Received: (qmail 6058 invoked from network); 10 Mar 2022 07:20:39 -0000
+Received: from unknown (HELO n03ukasimr02.n03.fujitsu.local) (62.60.8.146)
+ by server-6.tower-571.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
+ encrypted SMTP; 10 Mar 2022 07:20:39 -0000
+Received: from n03ukasimr02.n03.fujitsu.local (localhost [127.0.0.1])
+ by n03ukasimr02.n03.fujitsu.local (Postfix) with ESMTP id C8221100457
+ for <ltp@lists.linux.it>; Thu, 10 Mar 2022 07:20:38 +0000 (GMT)
+Received: from R01UKEXCASM126.r01.fujitsu.local (unknown [10.183.43.178])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by n03ukasimr02.n03.fujitsu.local (Postfix) with ESMTPS id BB40C100446
+ for <ltp@lists.linux.it>; Thu, 10 Mar 2022 07:20:38 +0000 (GMT)
+Received: from rhel79.g08.fujitsu.local (10.167.225.51) by
+ R01UKEXCASM126.r01.fujitsu.local (10.183.43.178) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.28; Thu, 10 Mar 2022 07:20:26 +0000
+From: Dai Shili <daisl.fnst@fujitsu.com>
+To: <ltp@lists.linux.it>
+Date: Thu, 10 Mar 2022 15:19:42 -0500
+Message-ID: <1646943582-13826-1-git-send-email-daisl.fnst@fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
 MIME-Version: 1.0
-References: <20220310082251.13173-1-liwang@redhat.com>
- <6229B934.9040606@fujitsu.com>
- <CAEemH2dwawam7iK+E7KnY8Qi0vwz9NWXEf4Bzo3o_9tz-75kjg@mail.gmail.com>
- <6229BCAF.1020502@fujitsu.com>
-In-Reply-To: <6229BCAF.1020502@fujitsu.com>
-From: Li Wang <liwang@redhat.com>
-Date: Thu, 10 Mar 2022 16:58:14 +0800
-Message-ID: <CAEemH2cUc6WQisKG0Zth9=PUG-8X4818McyVguvP4t3d+stZaQ@mail.gmail.com>
-To: "xuyang2018.jy@fujitsu.com" <xuyang2018.jy@fujitsu.com>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Originating-IP: [10.167.225.51]
+X-ClientProxiedBy: G08CNEXCHPEKD09.g08.fujitsu.local (10.167.33.85) To
+ R01UKEXCASM126.r01.fujitsu.local (10.183.43.178)
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [COMMITTED] save_restore: remove the duplicate 'const'
- declaration
+X-Spam-Status: No, score=2.6 required=7.0 tests=DATE_IN_FUTURE_12_24,
+ DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,
+ SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
+X-Spam-Level: **
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH] syscalls/mount_setattr01: Add basic functional test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,179 +97,219 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============0421230567=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============0421230567==
-Content-Type: multipart/alternative; boundary="000000000000e2772805d9d96a18"
+The mount_setattr() system call changes the mount properties of
+a mount or an entire mount tree. Here we check whether the mount
+attributes are set and cleared correctly.
 
---000000000000e2772805d9d96a18
-Content-Type: text/plain; charset="UTF-8"
+Signed-off-by: Dai Shili <daisl.fnst@fujitsu.com>
+---
+ include/lapi/fsmount.h                             |  29 ++++++
+ runtest/syscalls                                   |   2 +
+ testcases/kernel/syscalls/mount_setattr/.gitignore |   1 +
+ testcases/kernel/syscalls/mount_setattr/Makefile   |   6 ++
+ .../syscalls/mount_setattr/mount_setattr01.c       | 104 +++++++++++++++++++++
+ 5 files changed, 142 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/mount_setattr/.gitignore
+ create mode 100644 testcases/kernel/syscalls/mount_setattr/Makefile
+ create mode 100644 testcases/kernel/syscalls/mount_setattr/mount_setattr01.c
 
-On Thu, Mar 10, 2022 at 4:53 PM xuyang2018.jy@fujitsu.com <
-xuyang2018.jy@fujitsu.com> wrote:
-
-> Hi Li
-> >
-> >
-> > On Thu, Mar 10, 2022 at 4:38 PM xuyang2018.jy@fujitsu.com
-> > <mailto:xuyang2018.jy@fujitsu.com> <xuyang2018.jy@fujitsu.com
-> > <mailto:xuyang2018.jy@fujitsu.com>> wrote:
-> >
-> >     Hi Li
-> >      > --- a/lib/newlib_tests/test19.c
-> >      > +++ b/lib/newlib_tests/test19.c
-> >      > @@ -23,7 +23,7 @@ static struct tst_test test = {
-> >      > .needs_root = 1,
-> >      > .test_all = run,
-> >      > .setup = setup,
-> >      > - .save_restore = (const struct tst_path_val const[]) {
-> >      > + .save_restore = (const struct tst_path_val[]) {
-> >      > {"?/proc/nonexistent", NULL},
-> >      > {"!/proc/sys/kernel/numa_balancing", NULL},
-> >      > {"/proc/sys/kernel/core_pattern", NULL},
-> >
-> >     Since tst_path_val is a struct array, we should use {NULL, NULL} or
-> {}
-> >     terminated instead of NULL terminated , otherwise it will report
-> >     missing
-> >     braces warning.
-> >
-> > Ah, right. Sorry!!!
-> Never mind.
-> >
-> > Seems I was in so hurry to fix the const issue but overlook this.
-> I also think you can add a separate patch to fix this comment in doc or
-> in  tst_test.h for other struct pointers.
->
-
-You are right. I will go through the whole part to see if other places need
-updates.
-
-Thanks for finding this :).
-
-
-
->
->          /*
->           * NULL-terminated array to be allocated buffers.
->           */
->          struct tst_buffers *bufs;
->
->          /*
->           * NULL-terminated array of capability settings
->           */
->          struct tst_cap *caps;
->
-> Best Regards
-> Yang Xu
-> >
-> > --
-> > Regards,
-> > Li Wang
->
-
-
+diff --git a/include/lapi/fsmount.h b/include/lapi/fsmount.h
+index fa25306..99d0a0a 100644
+--- a/include/lapi/fsmount.h
++++ b/include/lapi/fsmount.h
+@@ -15,6 +15,26 @@
+ #include "lapi/fcntl.h"
+ #include "lapi/syscalls.h"
+ 
++/*
++ * Mount attributes.
++ */
++#define MOUNT_ATTR_RDONLY       0x00000001 /* Mount read-only */
++#define MOUNT_ATTR_NOSUID       0x00000002 /* Ignore suid and sgid bits */
++#define MOUNT_ATTR_NODEV        0x00000004 /* Disallow access to device special files */
++#define MOUNT_ATTR_NOEXEC       0x00000008 /* Disallow program execution */
++#define MOUNT_ATTR_NODIRATIME   0x00000080 /* Do not update directory access times */
++#define MOUNT_ATTR_NOSYMFOLLOW  0x00200000 /* Do not follow symlinks */
++
++/*
++ * mount_setattr()
++ */
++struct mount_attr {
++	__u64 attr_set;
++	__u64 attr_clr;
++	__u64 propagation;
++	__u64 userns_fd;
++};
++
+ #ifndef HAVE_FSOPEN
+ static inline int fsopen(const char *fsname, unsigned int flags)
+ {
+@@ -61,6 +81,15 @@ static inline int open_tree(int dirfd, const char *pathname, unsigned int flags)
+ }
+ #endif /* HAVE_OPEN_TREE */
+ 
++#ifndef HAVE_MOUNT_SETATTR
++static inline int mount_setattr(int dirfd, const char *from_pathname, unsigned int flags,
++				struct mount_attr *attr, size_t size)
++{
++	return tst_syscall(__NR_mount_setattr, dirfd, from_pathname, flags,
++			   attr, size);
++}
++#endif /* HAVE_MOUNT_SETATTR */
++
+ /*
+  * New headers added in kernel after 5.2 release, create them for old userspace.
+ */
+diff --git a/runtest/syscalls b/runtest/syscalls
+index 6186bfc..1a47a2e 100644
+--- a/runtest/syscalls
++++ b/runtest/syscalls
+@@ -800,6 +800,8 @@ mount04 mount04
+ mount05 mount05
+ mount06 mount06
+ 
++mount_setattr01 mount_setattr01
++
+ move_mount01 move_mount01
+ move_mount02 move_mount02
+ 
+diff --git a/testcases/kernel/syscalls/mount_setattr/.gitignore b/testcases/kernel/syscalls/mount_setattr/.gitignore
+new file mode 100644
+index 0000000..52a77b9
+--- /dev/null
++++ b/testcases/kernel/syscalls/mount_setattr/.gitignore
+@@ -0,0 +1 @@
++/mount_setattr01
+diff --git a/testcases/kernel/syscalls/mount_setattr/Makefile b/testcases/kernel/syscalls/mount_setattr/Makefile
+new file mode 100644
+index 0000000..5ea7d67
+--- /dev/null
++++ b/testcases/kernel/syscalls/mount_setattr/Makefile
+@@ -0,0 +1,6 @@
++# SPDX-License-Identifier: GPL-2.0-or-later
++
++top_srcdir		?= ../../../..
++
++include $(top_srcdir)/include/mk/testcases.mk
++include $(top_srcdir)/include/mk/generic_leaf_target.mk
+diff --git a/testcases/kernel/syscalls/mount_setattr/mount_setattr01.c b/testcases/kernel/syscalls/mount_setattr/mount_setattr01.c
+new file mode 100644
+index 0000000..b4b1d85
+--- /dev/null
++++ b/testcases/kernel/syscalls/mount_setattr/mount_setattr01.c
+@@ -0,0 +1,104 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2022 FUJITSU LIMITED. All rights reserved.
++ * Author: Dai Shili <daisl.fnst@fujitsu.com>
++ */
++
++/*\
++ * [Description]
++ *
++ * Basic mount_setattr() test.
++ * Test whether the basic mount attributes are set and cleared correctly.
++ *
++ * Minimum Linux version required is v5.12.
++ */
++
++#include "tst_test.h"
++#include "lapi/fsmount.h"
++#include "lapi/stat.h"
++
++#define MNTPOINT        "mntpoint"
++#define OT_MNTPOINT     "ot_mntpoint"
++#define TCASE_ENTRY(_mount_attrs)	{.name = #_mount_attrs, .mount_attrs = _mount_attrs}
++
++static int dir_created;
++
++static struct tcase {
++	char *name;
++	unsigned int mount_attrs;
++} tcases[] = {
++	TCASE_ENTRY(MOUNT_ATTR_RDONLY),
++	TCASE_ENTRY(MOUNT_ATTR_NOSUID),
++	TCASE_ENTRY(MOUNT_ATTR_NODEV),
++	TCASE_ENTRY(MOUNT_ATTR_NOEXEC),
++	TCASE_ENTRY(MOUNT_ATTR_NOSYMFOLLOW),
++	TCASE_ENTRY(MOUNT_ATTR_NODIRATIME),
++};
++
++static void cleanup(void)
++{
++	if (dir_created)
++		SAFE_RMDIR(OT_MNTPOINT);
++}
++
++static void setup(void)
++{
++	fsopen_supported_by_kernel();
++	SAFE_MKDIR(OT_MNTPOINT, 0777);
++	dir_created = 1;
++}
++
++static void run(unsigned int n)
++{
++	int otfd;
++	struct tcase *tc = &tcases[n];
++	struct mount_attr attr = {
++		.attr_set = tc->mount_attrs,
++	};
++
++	TEST(otfd = open_tree(AT_FDCWD, MNTPOINT, AT_EMPTY_PATH |
++		AT_SYMLINK_NOFOLLOW | OPEN_TREE_CLOEXEC | OPEN_TREE_CLONE));
++	if (otfd == -1) {
++		tst_res(TFAIL | TTERRNO, "open_tree() failed");
++		return;
++	}
++
++	TEST(mount_setattr(otfd, "", AT_EMPTY_PATH, &attr, sizeof(attr)));
++	if (TST_RET == -1) {
++		tst_res(TFAIL | TTERRNO, "mount_setattr() set attr %s failed.", tc->name);
++		return;
++	}
++
++	attr.attr_clr = tc->mount_attrs;
++
++	TEST(mount_setattr(otfd, "", AT_EMPTY_PATH, &attr, sizeof(attr)));
++	if (TST_RET == -1) {
++		tst_res(TFAIL | TTERRNO, "mount_setattr() clear attr %s failed.", tc->name);
++		return;
++	}
++
++	TEST(move_mount(otfd, "", AT_FDCWD, OT_MNTPOINT, MOVE_MOUNT_F_EMPTY_PATH));
++	if (TST_RET == -1) {
++		tst_res(TFAIL | TTERRNO, "move_mount() failed");
++		return;
++	}
++
++	SAFE_CLOSE(otfd);
++
++	if (tst_is_mounted_at_tmpdir(OT_MNTPOINT)) {
++		SAFE_UMOUNT(OT_MNTPOINT);
++		tst_res(TPASS, "mount_setattr() set and clear attr %s passed.", tc->name);
++	}
++}
++
++static struct tst_test test = {
++	.tcnt = ARRAY_SIZE(tcases),
++	.test = run,
++	.setup = setup,
++	.cleanup = cleanup,
++	.needs_root = 1,
++	.mount_device = 1,
++	.mntpoint = MNTPOINT,
++	.all_filesystems = 1,
++	.skip_filesystems = (const char *const []){"fuse", NULL},
++};
 -- 
-Regards,
-Li Wang
-
---000000000000e2772805d9d96a18
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Thu, Mar 10, 2022 at 4:53 PM <a href=3D"mailto:x=
-uyang2018.jy@fujitsu.com">xuyang2018.jy@fujitsu.com</a> &lt;<a href=3D"mail=
-to:xuyang2018.jy@fujitsu.com">xuyang2018.jy@fujitsu.com</a>&gt; wrote:<br><=
-/div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bo=
-rder-left:1px solid rgb(204,204,204);padding-left:1ex">Hi Li<br>
-&gt;<br>
-&gt;<br>
-&gt; On Thu, Mar 10, 2022 at 4:38 PM <a href=3D"mailto:xuyang2018.jy@fujits=
-u.com" target=3D"_blank">xuyang2018.jy@fujitsu.com</a><br>
-&gt; &lt;mailto:<a href=3D"mailto:xuyang2018.jy@fujitsu.com" target=3D"_bla=
-nk">xuyang2018.jy@fujitsu.com</a>&gt; &lt;<a href=3D"mailto:xuyang2018.jy@f=
-ujitsu.com" target=3D"_blank">xuyang2018.jy@fujitsu.com</a><br>
-&gt; &lt;mailto:<a href=3D"mailto:xuyang2018.jy@fujitsu.com" target=3D"_bla=
-nk">xuyang2018.jy@fujitsu.com</a>&gt;&gt; wrote:<br>
-&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0Hi Li<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt; --- a/lib/newlib_tests/test19.c<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt; +++ b/lib/newlib_tests/test19.c<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt; @@ -23,7 +23,7 @@ static struct tst_test test=
- =3D {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt; .needs_root =3D 1,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt; .test_all =3D run,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt; .setup =3D setup,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt; - .save_restore =3D (const struct tst_path_va=
-l const[]) {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt; + .save_restore =3D (const struct tst_path_va=
-l[]) {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt; {&quot;?/proc/nonexistent&quot;, NULL},<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt; {&quot;!/proc/sys/kernel/numa_balancing&quot;=
-, NULL},<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt; {&quot;/proc/sys/kernel/core_pattern&quot;, N=
-ULL},<br>
-&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0Since tst_path_val is a struct array, we should use=
- {NULL, NULL} or {}<br>
-&gt;=C2=A0 =C2=A0 =C2=A0terminated instead of NULL terminated , otherwise i=
-t will report<br>
-&gt;=C2=A0 =C2=A0 =C2=A0missing<br>
-&gt;=C2=A0 =C2=A0 =C2=A0braces warning.<br>
-&gt;<br>
-&gt; Ah, right. Sorry!!!<br>
-Never mind.<br>
-&gt;<br>
-&gt; Seems I was in so hurry to fix the const issue but overlook this.<br>
-I also think you can add a separate patch to fix this comment in doc or <br=
->
-in=C2=A0 tst_test.h for other struct pointers.<br></blockquote><div><br></d=
-iv><div><div class=3D"gmail_default" style=3D"font-size:small">You are righ=
-t. I will go through the whole part to see if other places need updates.</d=
-iv></div><div><br></div><div><div class=3D"gmail_default" style=3D"font-siz=
-e:small">Thanks for finding this :).</div><br></div><div>=C2=A0</div><block=
-quote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1=
-px solid rgb(204,204,204);padding-left:1ex">
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/*<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * NULL-terminated array to be allocated =
-buffers.<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 */<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct tst_buffers *bufs;<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/*<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * NULL-terminated array of capability se=
-ttings<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 */<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct tst_cap *caps;<br>
-<br>
-Best Regards<br>
-Yang Xu<br>
-&gt;<br>
-&gt; --<br>
-&gt; Regards,<br>
-&gt; Li Wang<br>
-</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
- class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li =
-Wang<br></div></div></div></div>
-
---000000000000e2772805d9d96a18--
-
-
---===============0421230567==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+1.8.3.1
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============0421230567==--
-
