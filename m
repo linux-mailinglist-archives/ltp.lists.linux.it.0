@@ -1,73 +1,85 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54FCA4D399F
-	for <lists+linux-ltp@lfdr.de>; Wed,  9 Mar 2022 20:13:41 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A4934D3EB8
+	for <lists+linux-ltp@lfdr.de>; Thu, 10 Mar 2022 02:27:24 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1D50E3C6355
-	for <lists+linux-ltp@lfdr.de>; Wed,  9 Mar 2022 20:13:41 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 2D9BE3C8972
+	for <lists+linux-ltp@lfdr.de>; Thu, 10 Mar 2022 02:27:24 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 6D41F3C1FE9
- for <ltp@lists.linux.it>; Wed,  9 Mar 2022 20:13:39 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id 12A043C1FE9
+ for <ltp@lists.linux.it>; Thu, 10 Mar 2022 02:27:19 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id C5693601374
- for <ltp@lists.linux.it>; Wed,  9 Mar 2022 20:13:38 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 966D11F381;
- Wed,  9 Mar 2022 19:13:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1646853217;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 16601601624
+ for <ltp@lists.linux.it>; Thu, 10 Mar 2022 02:27:18 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1646875637;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=3e79+EBgRlWhw7iT2v46YRI9Sa7+1A7+qSCWx1V9fdE=;
- b=nhTcynkpywaf4p0HQ30ENazFnq0mfKkZZPCKI7S+bq/2vt0Wbp8Vz2+HGC/EKGluF3kKqS
- t9812awwtBVUNiFv2WfHiYuuxbTwgnlRHBIg4f0pCqwFkIo8kXXoqC9dmU1ZJFoF41KK9I
- QMMSJmhl6YIxW/eRuJ+a3fiJmGSd9/8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1646853217;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=3e79+EBgRlWhw7iT2v46YRI9Sa7+1A7+qSCWx1V9fdE=;
- b=osq69i7KgUg+JG/ghe25gPi5BKjEG0tAEosO5FwIoNMcQWu1OCCMExd59qqKfgaXjRg0uP
- 07XC4dFS5tlP2jDA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6B27613D7C;
- Wed,  9 Mar 2022 19:13:37 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id Mz9hGGH8KGI4QAAAMHmgww
- (envelope-from <pvorel@suse.cz>); Wed, 09 Mar 2022 19:13:37 +0000
-Date: Wed, 9 Mar 2022 20:13:35 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <Yij8XwFjK3Ua+jYA@pevik>
-References: <20220309164954.23751-1-mdoucha@suse.cz>
+ bh=b/YQ9AUmasqWRO5fpB8aIuV6Mbzta25wTvFONALBK6g=;
+ b=TkxyM34oElGUHxZkl4NARxnPC3X9sQUJZjHdJOqrBe2TDBrQbErJj8ckX4wj/0g3dmO+vB
+ tpKLeYFsNiWyAwIsZ4abidJtW6FmF+n33ycT5AdYem23T/P8BAXC0e6UCCrtkkEwzoH3bB
+ lzOVCWpo++HCmDpnBlFOFNk8kuF0f1M=
+Received: from mail-yb1-f198.google.com (mail-yb1-f198.google.com
+ [209.85.219.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-226-T706WX8tNfmnyP7SKmyyJg-1; Wed, 09 Mar 2022 20:27:15 -0500
+X-MC-Unique: T706WX8tNfmnyP7SKmyyJg-1
+Received: by mail-yb1-f198.google.com with SMTP id
+ a3-20020a5b0ac3000000b006288f395b25so3143310ybr.18
+ for <ltp@lists.linux.it>; Wed, 09 Mar 2022 17:27:15 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=b/YQ9AUmasqWRO5fpB8aIuV6Mbzta25wTvFONALBK6g=;
+ b=X/2fblS9pX9vhjQ4hyicCF/3b4Tigz7x/a1Ge9l+ACV696uBPFRn9KdJuGD+Qi21Ye
+ Xdm0vcRkjiW1wmZGwbYBNibs9EepN/xy8lT2Hq0QaNcB+v5Tkpf71u5ALQ2K2BPa7ncN
+ dmPJ668nTT3Y/HlnNVFsnnS/YUMTx5rhQhWs+io0iVmSJNqCvNVNGYKYjjXUqqwkd/e4
+ E2KxhTRVn+lG4RIhom6WMVwO1JqW0xC6Gnu96k73aLRt1lxZrOQeZRJAoYdIVF5bRiao
+ +SWUQkPhhsc6Cx4zATvr6lu2hwpaUgU4yYbSb0M5cUwLeGUxOpWtw9YPFV1868wcLgMs
+ FgDQ==
+X-Gm-Message-State: AOAM531EkLT2M5U2Y2NLJqyCG4Pn8u2KYlEMCsbsS96byoBEbdU0S0y4
+ amdfHhvcJjPAypcKXVg8/67xvkE2WLholWWrfASMDCIGHDEsKLG2pAp/912kHWgDrFPI2UID9xU
+ ZBvd8CosEy3ifgqkwe3YA0ma8Jfo=
+X-Received: by 2002:a81:3744:0:b0:2dc:370:8a0e with SMTP id
+ e65-20020a813744000000b002dc03708a0emr2245950ywa.208.1646875635317; 
+ Wed, 09 Mar 2022 17:27:15 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJyLOgrJRVr0+PC/YH33cow7LKaPz1HPtrIqcE0p2BJPoeM9Y0BKkzM9f+zcVlymVDGi1z/WSCu97tC46p1uB5w=
+X-Received: by 2002:a81:3744:0:b0:2dc:370:8a0e with SMTP id
+ e65-20020a813744000000b002dc03708a0emr2245936ywa.208.1646875634982; Wed, 09
+ Mar 2022 17:27:14 -0800 (PST)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20220309164954.23751-1-mdoucha@suse.cz>
+References: <20220308073709.4125677-1-liwang@redhat.com>
+ <20220309030440.4166954-1-liwang@redhat.com>
+ <20220309030440.4166954-2-liwang@redhat.com> <Yih6yY81TPoiSFHm@yuki>
+In-Reply-To: <Yih6yY81TPoiSFHm@yuki>
+From: Li Wang <liwang@redhat.com>
+Date: Thu, 10 Mar 2022 09:26:52 +0800
+Message-ID: <CAEemH2cQAdb51RXoLU_fGSNhuXCrSyfP5OOXUJx1QWGy+ymwNQ@mail.gmail.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/2] KVM test infrastructure
+Subject: Re: [LTP] [PATCH v2 2/3] lib: enhance .save_restore to support set
+ expected value
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,27 +91,59 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Bruno Goncalves <bgoncalv@redhat.com>, LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============1083885333=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Martin,
+--===============1083885333==
+Content-Type: multipart/alternative; boundary="000000000000367b9105d9d31d23"
 
-this patchset looks really great.
+--000000000000367b9105d9d31d23
+Content-Type: text/plain; charset="UTF-8"
 
-Unfortunately there are some compilation time errors [1].
-Various Debian/Ubuntu versions (but not all) and Alpine have problem to compile it [1]:
-/usr/bin/ld: bootstrap_x86_64.o: relocation R_X86_64_16 against symbol `kvm_gdt32_desc' can not be used when making a PIE object; recompile with -fPIE
+On Wed, Mar 9, 2022 at 5:58 PM Cyril Hrubis <chrubis@suse.cz> wrote:
 
-Can you please have look into it?
+> Hi!
+> Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
+>
 
-Kind regards,
-Petr
+Patchset applied, thanks!
 
-[1] https://github.com/pevik/ltp/actions/runs/1959152447
+-- 
+Regards,
+Li Wang
+
+--000000000000367b9105d9d31d23
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Wed, Mar 9, 2022 at 5:58 PM Cyril Hrubis &lt;<a =
+href=3D"mailto:chrubis@suse.cz">chrubis@suse.cz</a>&gt; wrote:<br></div><bl=
+ockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-lef=
+t:1px solid rgb(204,204,204);padding-left:1ex">Hi!<br>
+Reviewed-by: Cyril Hrubis &lt;<a href=3D"mailto:chrubis@suse.cz" target=3D"=
+_blank">chrubis@suse.cz</a>&gt;<br></blockquote><div><br></div><div class=
+=3D"gmail_default" style=3D"font-size:small">Patchset applied, thanks!</div=
+><div class=3D"gmail_default" style=3D"font-size:small"><br></div><div clas=
+s=3D"gmail_default" style=3D"font-size:small"></div></div>-- <br><div dir=
+=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div>=
+<div>Li Wang<br></div></div></div></div>
+
+--000000000000367b9105d9d31d23--
+
+
+--===============1083885333==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============1083885333==--
+
