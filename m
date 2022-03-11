@@ -1,69 +1,83 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32BD94D5AC3
-	for <lists+linux-ltp@lfdr.de>; Fri, 11 Mar 2022 06:46:41 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F63C4D5DEE
+	for <lists+linux-ltp@lfdr.de>; Fri, 11 Mar 2022 09:52:45 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 05C333C8B75
-	for <lists+linux-ltp@lfdr.de>; Fri, 11 Mar 2022 06:46:41 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id A52013C8973
+	for <lists+linux-ltp@lfdr.de>; Fri, 11 Mar 2022 09:52:44 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 150083C8973
- for <ltp@lists.linux.it>; Fri, 11 Mar 2022 06:46:16 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id D62E53C61C9
+ for <ltp@lists.linux.it>; Fri, 11 Mar 2022 09:52:42 +0100 (CET)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 4DF4C600F58
- for <ltp@lists.linux.it>; Fri, 11 Mar 2022 06:46:15 +0100 (CET)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 686022000BC
+ for <ltp@lists.linux.it>; Fri, 11 Mar 2022 09:52:40 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1646977574;
+ s=mimecast20190719; t=1646988759;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=cAdnJs8knDel1Lnze0AzracHEl/w6k9QOd99gWXiyU0=;
- b=RUpJ8zxLIqU5IYS7THCcIfBLof7ZRGaoGrfyaI07PKtodeXFmGMjdSlaiLqa3ssFAquz6u
- EDWKrk9pF19bo5qVxiCfFJZf5WoFtAa5fKrEayuF81qkzPSEYqT+2SoVUEr1FzdCPoCuOC
- aOzha8ZxvOIk7ux6V2ZMXK7QFLnO7ZQ=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=VsAf4Yaxtofj1a/KoxsKbMYwIbOVI+i+JJEs3j3r5+g=;
+ b=i+Ro8H7vwm+sftaTgFbzo+MeI6fxFdoEnEFXaChEk5LPHOLYdvMK+H1/eEpJWOX1dVjCUG
+ USE61rhpd0EhEZDk/AahD7QLaBU3DEtOrg10bJ28iayIVwEiJ7lxbOUKo4/aCxQaT2AgoC
+ xhQX29G91zpNp7t355SPqo8u8yDfHwM=
+Received: from mail-yw1-f200.google.com (mail-yw1-f200.google.com
+ [209.85.128.200]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-357-0im3IlfUPqO3T6LoQWe4lg-1; Fri, 11 Mar 2022 00:46:12 -0500
-X-MC-Unique: 0im3IlfUPqO3T6LoQWe4lg-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
- [10.5.11.23])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0D2958145FA
- for <ltp@lists.linux.it>; Fri, 11 Mar 2022 05:46:12 +0000 (UTC)
-Received: from liwang-workstation.nay.redhat.com (unknown [10.66.81.187])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 46E33131C3
- for <ltp@lists.linux.it>; Fri, 11 Mar 2022 05:46:11 +0000 (UTC)
-From: Li Wang <liwang@redhat.com>
-To: ltp@lists.linux.it
-Date: Fri, 11 Mar 2022 13:46:03 +0800
-Message-Id: <20220311054603.57328-4-liwang@redhat.com>
-In-Reply-To: <20220311054603.57328-1-liwang@redhat.com>
-References: <20220311054603.57328-1-liwang@redhat.com>
+ us-mta-389-VBezS6xCM-OMGmaDmTw5iw-1; Fri, 11 Mar 2022 03:52:37 -0500
+X-MC-Unique: VBezS6xCM-OMGmaDmTw5iw-1
+Received: by mail-yw1-f200.google.com with SMTP id
+ 00721157ae682-2dc383ba34eso62847897b3.21
+ for <ltp@lists.linux.it>; Fri, 11 Mar 2022 00:52:37 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to;
+ bh=VsAf4Yaxtofj1a/KoxsKbMYwIbOVI+i+JJEs3j3r5+g=;
+ b=5hxqjn9DK5NkyU7CfGBfGo11VlsWy/8KxnervzEEttC4Rkd1AwVe7uhOX+KLxsajAM
+ wtUJjhN0QIhXZoO40TYUzwl36KKIIcqcniUQe9vSoq0Bd4eFhdLZcyxaUTEXggATeuBr
+ tfxK8WCzvYblN1wWycpc+zQ04FIZBQrs5y+ekq3PXHJgdhAFEEcAJnOXkDojR2oAPoe+
+ zsDeJoWUEYn0hhyc3LvzOv7T7CfGL6jPdTpbZJgmLJ10uAYrxhuYSpNlEh33uYCWe3Kg
+ N4Wh23Bw0Kh2eCYEeiBM5SnPQM1DYyTXe49Mejs8HdSPiGG10K38cOIsflD5CXgfQX0x
+ sDrQ==
+X-Gm-Message-State: AOAM531sk6lr3KeT6poEGDcPQfNreX01h26ftv9EYO/HQtrjble/DmGf
+ rOGT8u4uYQ9B2yawM7a5dyUbwJ1QXcIvoG+ctYIb5zYvvlGX0r5zNHcDXXIGZyKBOA7Pj2H5eYj
+ R1fd/vFv2NEDDTbXZgwXB0IPXWcM=
+X-Received: by 2002:a81:f20e:0:b0:2dc:56e1:918e with SMTP id
+ i14-20020a81f20e000000b002dc56e1918emr7362174ywm.19.1646988756138; 
+ Fri, 11 Mar 2022 00:52:36 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJynbBh9lgMw4lmJvrjAjSFv2olLsfuI0xgkCSy7glL4RMRrQKOeYyf7/g2RyBqN6HCHozVljgY3FSvZQS7Notw=
+X-Received: by 2002:a81:f20e:0:b0:2dc:56e1:918e with SMTP id
+ i14-20020a81f20e000000b002dc56e1918emr7362166ywm.19.1646988755772; Fri, 11
+ Mar 2022 00:52:35 -0800 (PST)
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+References: <20220311054603.57328-1-liwang@redhat.com>
+ <20220311054603.57328-4-liwang@redhat.com>
+In-Reply-To: <20220311054603.57328-4-liwang@redhat.com>
+From: Li Wang <liwang@redhat.com>
+Date: Fri, 11 Mar 2022 16:52:16 +0800
+Message-ID: <CAEemH2ctPgHvWHxY0kaBvb4ew37tO5D5CFimwCedhL4TSh6Ajw@mail.gmail.com>
+To: LTP List <ltp@lists.linux.it>
 Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwang@redhat.com
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH 3/3] minmax: ensure the comparison numbers have
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 3/3] minmax: ensure the comparison numbers have
  compatible type
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -76,94 +90,178 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============0316947930=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-To get rid of many compiler warnings.
+--===============0316947930==
+Content-Type: multipart/alternative; boundary="000000000000bcbce605d9ed737d"
 
-Signed-off-by: Li Wang <liwang@redhat.com>
----
- lib/tst_cgroup.c                                  | 2 +-
- lib/tst_memutils.c                                | 4 ++--
- lib/tst_timer_test.c                              | 4 ++--
- testcases/kernel/syscalls/fallocate/fallocate06.c | 2 +-
- 4 files changed, 6 insertions(+), 6 deletions(-)
+--000000000000bcbce605d9ed737d
+Content-Type: text/plain; charset="UTF-8"
 
-diff --git a/lib/tst_cgroup.c b/lib/tst_cgroup.c
-index 8cca0654d..57940ba09 100644
---- a/lib/tst_cgroup.c
-+++ b/lib/tst_cgroup.c
-@@ -1116,7 +1116,7 @@ ssize_t safe_cg_read(const char *const file, const int lineno,
- 		prev_len = MIN(sizeof(prev_buf), (size_t)read_ret);
- 	}
- 
--	out[MAX(read_ret, 0)] = '\0';
-+	out[MAX(read_ret, (ssize_t)0)] = '\0';
- 
- 	return read_ret;
- }
-diff --git a/lib/tst_memutils.c b/lib/tst_memutils.c
-index 3741d6e6f..d95d75e5d 100644
+On Fri, Mar 11, 2022 at 1:46 PM Li Wang <liwang@redhat.com> wrote:
+
+> To get rid of many compiler warnings.
+>
+> Signed-off-by: Li Wang <liwang@redhat.com>
+> ---
+>  lib/tst_cgroup.c                                  | 2 +-
+>  lib/tst_memutils.c                                | 4 ++--
+>  lib/tst_timer_test.c                              | 4 ++--
+>  testcases/kernel/syscalls/fallocate/fallocate06.c | 2 +-
+>  4 files changed, 6 insertions(+), 6 deletions(-)
+>
+> diff --git a/lib/tst_cgroup.c b/lib/tst_cgroup.c
+> index 8cca0654d..57940ba09 100644
+> --- a/lib/tst_cgroup.c
+> +++ b/lib/tst_cgroup.c
+> @@ -1116,7 +1116,7 @@ ssize_t safe_cg_read(const char *const file, const
+> int lineno,
+>                 prev_len = MIN(sizeof(prev_buf), (size_t)read_ret);
+>         }
+>
+> -       out[MAX(read_ret, 0)] = '\0';
+> +       out[MAX(read_ret, (ssize_t)0)] = '\0';
+>
+>         return read_ret;
+>  }
+> diff --git a/lib/tst_memutils.c b/lib/tst_memutils.c
+> index 3741d6e6f..d95d75e5d 100644
+> --- a/lib/tst_memutils.c
+> +++ b/lib/tst_memutils.c
+> @@ -30,7 +30,7 @@ void tst_pollute_memory(size_t maxsize, int fillchar)
+>         min_free += min_free / 10;
+>
+>         SAFE_SYSINFO(&info);
+> -       safety = MAX(4096 * SAFE_SYSCONF(_SC_PAGESIZE), 128 * 1024 * 1024);
+> +       safety = MAX(4096 * SAFE_SYSCONF(_SC_PAGESIZE), (long)128 * 1024 *
+> 1024);
+>
+
+This should be 128L. and tst_timer_test has the same issue.
+
 --- a/lib/tst_memutils.c
 +++ b/lib/tst_memutils.c
 @@ -30,7 +30,7 @@ void tst_pollute_memory(size_t maxsize, int fillchar)
- 	min_free += min_free / 10;
- 
- 	SAFE_SYSINFO(&info);
--	safety = MAX(4096 * SAFE_SYSCONF(_SC_PAGESIZE), 128 * 1024 * 1024);
-+	safety = MAX(4096 * SAFE_SYSCONF(_SC_PAGESIZE), (long)128 * 1024 * 1024);
- 	safety = MAX(safety, min_free);
- 	safety /= info.mem_unit;
- 
-@@ -44,7 +44,7 @@ void tst_pollute_memory(size_t maxsize, int fillchar)
- 	 * Use the lower value of both for pollutable memory. Usually this
- 	 * means we will not evict any caches.
- 	 */
--	freeram = MIN(info.freeram, (tst_available_mem() * 1024));
-+	freeram = MIN((long long)info.freeram, (tst_available_mem() * 1024));
- 
- 	/* Not enough free memory to avoid invoking OOM killer */
- 	if (freeram <= safety)
+        min_free += min_free / 10;
+
+        SAFE_SYSINFO(&info);
+-       safety = MAX(4096 * SAFE_SYSCONF(_SC_PAGESIZE), (long)128 * 1024 *
+1024);
++       safety = MAX(4096 * SAFE_SYSCONF(_SC_PAGESIZE), 128L * 1024 * 1024);
+        safety = MAX(safety, min_free);
+        safety /= info.mem_unit;
+
 diff --git a/lib/tst_timer_test.c b/lib/tst_timer_test.c
-index 3cd52fc9d..c0e3de3e7 100644
+index c0e3de3e7..32fa55c7c 100644
 --- a/lib/tst_timer_test.c
 +++ b/lib/tst_timer_test.c
-@@ -67,7 +67,7 @@ static const char *table_heading = " Time: us ";
-  */
- static unsigned int header_len(long long max_sample)
- {
--	unsigned int l = 1;
-+	size_t l = 1;
- 
- 	while (max_sample/=10)
- 		l++;
 @@ -184,7 +184,7 @@ static int cmp(const void *a, const void *b)
  static long long compute_threshold(long long requested_us,
- 				   unsigned int nsamples)
+                                   unsigned int nsamples)
  {
--	unsigned int slack_per_scall = MIN(100000, requested_us / 1000);
-+	unsigned int slack_per_scall = MIN((long long)100000, requested_us / 1000);
- 
- 	slack_per_scall = MAX(slack_per_scall, timerslack);
- 
-diff --git a/testcases/kernel/syscalls/fallocate/fallocate06.c b/testcases/kernel/syscalls/fallocate/fallocate06.c
-index bf0d24328..25b27e41d 100644
---- a/testcases/kernel/syscalls/fallocate/fallocate06.c
-+++ b/testcases/kernel/syscalls/fallocate/fallocate06.c
-@@ -95,7 +95,7 @@ static void setup(void)
- 	TEST(toggle_cow(fd, 0));
- 	SAFE_FSTAT(fd, &statbuf);
- 	blocksize = statbuf.st_blksize;
--	block_offset = MIN(blocksize / 2, 512);
-+	block_offset = MIN(blocksize / 2, (blksize_t)512);
- 	wbuf_size = MAX(WRITE_BLOCKS, FALLOCATE_BLOCKS) * blocksize;
- 	rbuf_size = (DEALLOCATE_BLOCKS + 1) * blocksize;
- 	SAFE_CLOSE(fd);
+-       unsigned int slack_per_scall = MIN((long long)100000, requested_us
+/ 1000);
++       unsigned int slack_per_scall = MIN(100000LL, requested_us / 1000);
+
+        slack_per_scall = MAX(slack_per_scall, timerslack);
+
+
 -- 
-2.31.1
+Regards,
+Li Wang
+
+--000000000000bcbce605d9ed737d
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Fri, Mar 11, 2022 at 1:46 PM Li Wang &lt;<a href=
+=3D"mailto:liwang@redhat.com">liwang@redhat.com</a>&gt; wrote:<br></div><bl=
+ockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-lef=
+t:1px solid rgb(204,204,204);padding-left:1ex">To get rid of many compiler =
+warnings.<br>
+<br>
+Signed-off-by: Li Wang &lt;<a href=3D"mailto:liwang@redhat.com" target=3D"_=
+blank">liwang@redhat.com</a>&gt;<br>
+---<br>
+=C2=A0lib/tst_cgroup.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 | 2 +-<b=
+r>
+=C2=A0lib/tst_memutils.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 | 4 ++--<br>
+=C2=A0lib/tst_timer_test.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 | 4 ++--<br>
+=C2=A0testcases/kernel/syscalls/fallocate/fallocate06.c | 2 +-<br>
+=C2=A04 files changed, 6 insertions(+), 6 deletions(-)<br>
+<br>
+diff --git a/lib/tst_cgroup.c b/lib/tst_cgroup.c<br>
+index 8cca0654d..57940ba09 100644<br>
+--- a/lib/tst_cgroup.c<br>
++++ b/lib/tst_cgroup.c<br>
+@@ -1116,7 +1116,7 @@ ssize_t safe_cg_read(const char *const file, const in=
+t lineno,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 prev_len =3D MIN(si=
+zeof(prev_buf), (size_t)read_ret);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
+<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0out[MAX(read_ret, 0)] =3D &#39;\0&#39;;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0out[MAX(read_ret, (ssize_t)0)] =3D &#39;\0&#39;=
+;<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 return read_ret;<br>
+=C2=A0}<br>
+diff --git a/lib/tst_memutils.c b/lib/tst_memutils.c<br>
+index 3741d6e6f..d95d75e5d 100644<br>
+--- a/lib/tst_memutils.c<br>
++++ b/lib/tst_memutils.c<br>
+@@ -30,7 +30,7 @@ void tst_pollute_memory(size_t maxsize, int fillchar)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 min_free +=3D min_free / 10;<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 SAFE_SYSINFO(&amp;info);<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0safety =3D MAX(4096 * SAFE_SYSCONF(_SC_PAGESIZE=
+), 128 * 1024 * 1024);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0safety =3D MAX(4096 * SAFE_SYSCONF(_SC_PAGESIZE=
+), (long)128 * 1024 * 1024);<br></blockquote><div><br></div><div class=3D"g=
+mail_default" style=3D"font-size:small">This should be 128L. and tst_timer_=
+test has the same issue.</div><div class=3D"gmail_default" style=3D"font-si=
+ze:small"><br></div>--- a/lib/tst_memutils.c<br>+++ b/lib/tst_memutils.c<br=
+>@@ -30,7 +30,7 @@ void tst_pollute_memory(size_t maxsize, int fillchar)<br=
+>=C2=A0 =C2=A0 =C2=A0 =C2=A0 min_free +=3D min_free / 10;<br>=C2=A0<br>=C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 SAFE_SYSINFO(&amp;info);<br>- =C2=A0 =C2=A0 =C2=A0=
+ safety =3D MAX(4096 * SAFE_SYSCONF(_SC_PAGESIZE), (long)128 * 1024 * 1024)=
+;<br>+ =C2=A0 =C2=A0 =C2=A0 safety =3D MAX(4096 * SAFE_SYSCONF(_SC_PAGESIZE=
+), 128L * 1024 * 1024);<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 safety =3D MAX(safet=
+y, min_free);<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 safety /=3D info.mem_unit;<br>=
+=C2=A0<br>diff --git a/lib/tst_timer_test.c b/lib/tst_timer_test.c<br>index=
+ c0e3de3e7..32fa55c7c 100644<br>--- a/lib/tst_timer_test.c<br>+++ b/lib/tst=
+_timer_test.c<br>@@ -184,7 +184,7 @@ static int cmp(const void *a, const vo=
+id *b)<br>=C2=A0static long long compute_threshold(long long requested_us,<=
+br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned int nsample=
+s)<br>=C2=A0{<br>- =C2=A0 =C2=A0 =C2=A0 unsigned int slack_per_scall =3D MI=
+N((long long)100000, requested_us / 1000);<br>+ =C2=A0 =C2=A0 =C2=A0 unsign=
+ed int slack_per_scall =3D MIN(100000LL, requested_us / 1000);<br>=C2=A0<br=
+>=C2=A0 =C2=A0 =C2=A0 =C2=A0 slack_per_scall =3D MAX(slack_per_scall, timer=
+slack);<br><div class=3D"gmail_default" style=3D"font-size:small"><br></div=
+></div><div><br></div>-- <br><div dir=3D"ltr" class=3D"gmail_signature"><di=
+v dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div></div></div></di=
+v>
+
+--000000000000bcbce605d9ed737d--
+
+
+--===============0316947930==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============0316947930==--
+
