@@ -1,74 +1,69 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 504164D5F14
-	for <lists+linux-ltp@lfdr.de>; Fri, 11 Mar 2022 11:04:12 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 74C904D6045
+	for <lists+linux-ltp@lfdr.de>; Fri, 11 Mar 2022 12:00:26 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id BF5EC3C8C8C
-	for <lists+linux-ltp@lfdr.de>; Fri, 11 Mar 2022 11:04:11 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 220D53C8CBD
+	for <lists+linux-ltp@lfdr.de>; Fri, 11 Mar 2022 12:00:26 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 4CAF93C61C8
- for <ltp@lists.linux.it>; Fri, 11 Mar 2022 11:04:08 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id 3245B3C80B1
+ for <ltp@lists.linux.it>; Fri, 11 Mar 2022 12:00:21 +0100 (CET)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id A7CDA100115E
- for <ltp@lists.linux.it>; Fri, 11 Mar 2022 11:04:07 +0100 (CET)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 742D260101B
+ for <ltp@lists.linux.it>; Fri, 11 Mar 2022 12:00:21 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id C0C84218FB;
- Fri, 11 Mar 2022 10:04:06 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 4268C210FB;
+ Fri, 11 Mar 2022 11:00:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1646993046; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=NRaVvXCQCEDeSh8NSWU8Rj0qgz/yJD9wpzKbO9cH48w=;
- b=ytm/bduJ+oBrXKaTEwTQVqMz/j/o0CROcVBVjB74CbNPfInQsE1k0RSFM7DtL17dLoS753
- bqC0igNg/rZ8/H3A2ZZgQKPw3yGP3mg1vIFZSYU7SohyWfuX1G7YuxTgtnltbkfkPJEbdF
- YZF6ISrltiKMgS7lYUE3bqMQGaO7Klc=
+ t=1646996420; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=LBwUI214Y7k9CX/DIXRYIJMNMYetv8yWNlhA6F8P5Ps=;
+ b=qtGOe+ysU9xa8cf1Hp0xqDVEz7sNKdfoVYroSxLSjnvwWLfV/oiY3G+XsnZwTybWoIsi4v
+ POwEaaNjsMc3Uepev5YHKZWB1hezPDxrg3kpTU9r/0uBP6DIBg5djXFZHF9qGRucOyDwim
+ P21GKo3N7tZRs+cfKoRomtr8CzGGo1M=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1646993046;
+ s=susede2_ed25519; t=1646996420;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=NRaVvXCQCEDeSh8NSWU8Rj0qgz/yJD9wpzKbO9cH48w=;
- b=f3VDGmPo6zDj3pzf3uOgyU6D8xjbX9P6U+JRu8n0hchDIarvUYHCRQjsY8uB1s+1QMbqGX
- YZINaXYLaUEAF/Aw==
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=LBwUI214Y7k9CX/DIXRYIJMNMYetv8yWNlhA6F8P5Ps=;
+ b=0Qdc/usELq1/xYhYBYHEAzelyfiteSS3+lQF8eWJ+EH01u9+fVIF8553zR0LiPbsYdblmS
+ wP5Cq62g/WUq7GBQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A540413A89;
- Fri, 11 Mar 2022 10:04:06 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 167D313A85;
+ Fri, 11 Mar 2022 11:00:20 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id vF3SJ5YeK2IOaAAAMHmgww
- (envelope-from <chrubis@suse.cz>); Fri, 11 Mar 2022 10:04:06 +0000
-Date: Fri, 11 Mar 2022 11:06:25 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <YisfIWsrgxVt8xc2@yuki>
-References: <20220311095101.10112-1-chrubis@suse.cz>
- <8378e9dd-31a5-b39e-36cc-f3d3a1d41345@suse.cz>
+ by imap2.suse-dmz.suse.de with ESMTPSA id VsmtA8QrK2IjBQAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Fri, 11 Mar 2022 11:00:20 +0000
+From: Petr Vorel <pvorel@suse.cz>
+To: ltp@lists.linux.it
+Date: Fri, 11 Mar 2022 12:00:15 +0100
+Message-Id: <20220311110015.20951-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <8378e9dd-31a5-b39e-36cc-f3d3a1d41345@suse.cz>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] pty/pty07: Restore active console after the
- testrun
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/1] nfs01_open_files: Fix pattern for deleted files
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,37 +75,46 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Cc: Neil Brown <neilb@suse.de>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> >  static void cleanup(void)
-> >  {
-> > -	tst_fzsync_pair_cleanup(&fzp);
-> > -	if (fd >= 0)
-> > +	if (fd >= 0) {
-> > +		tst_res(TINFO, "Restoring active console");
-> > +		SAFE_IOCTL(fd, VT_ACTIVATE, vt_active);
-> >  		SAFE_CLOSE(fd);
-> > +	}
-> > +
-> > +	tst_fzsync_pair_cleanup(&fzp);
-> 
-> If you move the fzsync cleanup to the end of cleanup(), you can end up
-> with the open_close() thread racing against fd cleanup.
+Fixes: 0989fe65f3 ("Corrected the export lines in nfs01 ...")
 
-Ah, right, looking closely at the fzsync, the thread B may be racing
-against the restoration in the case that something caused premature exit
-in the thread A.
+Reported-by: Neil Brown <neilb@suse.de>
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+---
+ testcases/network/nfs/nfs_stress/nfs01_open_files.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-Will move the call back to the start of the cleanup().
-
+diff --git a/testcases/network/nfs/nfs_stress/nfs01_open_files.c b/testcases/network/nfs/nfs_stress/nfs01_open_files.c
+index 9342f11ba9..c5627058dc 100644
+--- a/testcases/network/nfs/nfs_stress/nfs01_open_files.c
++++ b/testcases/network/nfs/nfs_stress/nfs01_open_files.c
+@@ -10,7 +10,8 @@
+ #include <sys/stat.h>
+ #include <unistd.h>
+ 
+-#define TEMPLATE "ltpXXXXXX"
++#define TEMPLATE_PREFIX "ltp"
++#define TEMPLATE TEMPLATE_PREFIX "XXXXXX"
+ 
+ int write_something(int);
+ void delete_files(void);
+@@ -101,7 +102,7 @@ void delete_files(void)
+ 
+ 	dirp = opendir(".");
+ 	for (entp = readdir(dirp); entp; entp = readdir(dirp))
+-		if (!strncmp(entp->d_name, "apt", 3)) {
++		if (!strncmp(entp->d_name, TEMPLATE_PREFIX, 3)) {
+ 			if (stat(entp->d_name, &stat_buffer))
+ 				abortx("stat() failed for \"%s\", errno = %d",
+ 				       entp->d_name, errno);
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+2.35.1
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
