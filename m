@@ -2,73 +2,68 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FAA44D9768
-	for <lists+linux-ltp@lfdr.de>; Tue, 15 Mar 2022 10:17:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 530BC4D980B
+	for <lists+linux-ltp@lfdr.de>; Tue, 15 Mar 2022 10:49:08 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E950D3C91F4
-	for <lists+linux-ltp@lfdr.de>; Tue, 15 Mar 2022 10:17:00 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 24F363C91F8
+	for <lists+linux-ltp@lfdr.de>; Tue, 15 Mar 2022 10:49:08 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id CA8F83C54F7
- for <ltp@lists.linux.it>; Tue, 15 Mar 2022 10:16:59 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 522343C54F7
+ for <ltp@lists.linux.it>; Tue, 15 Mar 2022 10:49:06 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 71EDF1A0011F
- for <ltp@lists.linux.it>; Tue, 15 Mar 2022 10:16:59 +0100 (CET)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 7BA43600A44
+ for <ltp@lists.linux.it>; Tue, 15 Mar 2022 10:49:05 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 9E7C31F391;
- Tue, 15 Mar 2022 09:16:58 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id A2B4821921;
+ Tue, 15 Mar 2022 09:49:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1647335818;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=EkCyHdqGZbmQ7/W9Re2JCv2XRK0SimXEyyXbazf665E=;
- b=dh4qeDDe303/5uzGlgqvgbffH0FTMK0yFc5H2EAk5l/FgUWupiEl1FiIhcdkq3zGgLKCeR
- e5sQF8tcNi8/J4xbr9Mh5bIC25Gr+YfkWPkP01yZNwaklGKWjKzUqIGS+NL2MVSUHQutet
- mhRXVpHZTf+N8b1vaCY/WGHssP2HMUc=
+ t=1647337744; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=b0fj+2Z4jYHYmXPPsmpP3tsy1BrZJvpLXmzaSPLhIgg=;
+ b=YkSM1GcJOWrBJxwcdEF5V190tQBqHTX9YQg7Vtv5+wAlK5ZatxPZMgQxBD/tU+sh4y8bKn
+ zyxZgkLiqm4nly//DqYvLrtaL4b97tXibJ1e7cwtYt3e7aVzAnIx3nni/iHmBIGdZVQLXg
+ g51q8r+fzkrk8h96LaXF8MtE/i0UtsA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1647335818;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=EkCyHdqGZbmQ7/W9Re2JCv2XRK0SimXEyyXbazf665E=;
- b=sIZm9yzBVCkLaLV90ZozJ/xlIQPOZBWO8fK736ZNM5+UAL17Vwv6C7hRTjo1vBAR6khIe4
- s5AU3WWNtuQQmTAw==
+ s=susede2_ed25519; t=1647337744;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=b0fj+2Z4jYHYmXPPsmpP3tsy1BrZJvpLXmzaSPLhIgg=;
+ b=CCmNht/2svj3ch829lSooNSr3syWWrKC1x/F/j4ew7zMBd8QeRMVYcRor4m5yjiukL4C0i
+ H4ULlQ0YdNfDg2Bw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3E35113B4E;
- Tue, 15 Mar 2022 09:16:58 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 695F413B59;
+ Tue, 15 Mar 2022 09:49:04 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id VI/fC4pZMGLGegAAMHmgww
- (envelope-from <pvorel@suse.cz>); Tue, 15 Mar 2022 09:16:58 +0000
-Date: Tue, 15 Mar 2022 10:16:55 +0100
+ by imap2.suse-dmz.suse.de with ESMTPSA id aglRGBBhMGJ4CgAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Tue, 15 Mar 2022 09:49:04 +0000
 From: Petr Vorel <pvorel@suse.cz>
-To: "xuyang2018.jy@fujitsu.com" <xuyang2018.jy@fujitsu.com>
-Message-ID: <YjBZh5htJOHDKcmR@pevik>
-References: <20220314130248.22869-1-pvorel@suse.cz>
- <622FEC88.1040502@fujitsu.com>
+To: ltp@lists.linux.it
+Date: Tue, 15 Mar 2022 10:49:01 +0100
+Message-Id: <20220315094901.5855-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <622FEC88.1040502@fujitsu.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/1] quotactl: Check for missing quota_v2 module
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 1/1] quotactl: Check for missing quota_v2 module
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,23 +75,111 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: Martin Doucha <martin.doucha@suse.com>,
- "ltp@lists.linux.it" <ltp@lists.linux.it>
+Cc: Martin Doucha <martin.doucha@suse.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Xu,
+openSUSE JeOS allowed installation without quota_v2 (they were in
+kernel-default, but by default kernel-default-base with smaller subset
+of kernel modules is installed).
 
-> Hi Petr
+Therefore check for the module for all tests which require CONFIG_QFMT_V2
+config and remove now redundant CONFIG_QFMT_V2 check.
 
-> If so, why not remove kconfig check for these cases?
-Good point, check for quota_v2 is enough, I'll remove CONFIG_QFMT_V2 in v2.
+Fixes: https://bugzilla.opensuse.org/show_bug.cgi?id=1196585
 
-Kind regards,
-Petr
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+---
+Changes v1->v2:
+* remove CONFIG_QFMT_V2 check
+
+ testcases/kernel/syscalls/quotactl/quotactl01.c | 4 ++--
+ testcases/kernel/syscalls/quotactl/quotactl04.c | 4 ++--
+ testcases/kernel/syscalls/quotactl/quotactl06.c | 4 ++--
+ testcases/kernel/syscalls/quotactl/quotactl08.c | 4 ++--
+ testcases/kernel/syscalls/quotactl/quotactl09.c | 4 ++--
+ 5 files changed, 10 insertions(+), 10 deletions(-)
+
+diff --git a/testcases/kernel/syscalls/quotactl/quotactl01.c b/testcases/kernel/syscalls/quotactl/quotactl01.c
+index 561e5030fe..63f6e9181c 100644
+--- a/testcases/kernel/syscalls/quotactl/quotactl01.c
++++ b/testcases/kernel/syscalls/quotactl/quotactl01.c
+@@ -213,8 +213,8 @@ static void verify_quota(unsigned int n)
+ 
+ static struct tst_test test = {
+ 	.needs_root = 1,
+-	.needs_kconfigs = (const char *[]) {
+-		"CONFIG_QFMT_V2",
++	.needs_drivers = (const char *const []) {
++		"quota_v2",
+ 		NULL
+ 	},
+ 	.test = verify_quota,
+diff --git a/testcases/kernel/syscalls/quotactl/quotactl04.c b/testcases/kernel/syscalls/quotactl/quotactl04.c
+index 55da282705..fdd1c9b502 100644
+--- a/testcases/kernel/syscalls/quotactl/quotactl04.c
++++ b/testcases/kernel/syscalls/quotactl/quotactl04.c
+@@ -162,8 +162,8 @@ static void verify_quota(unsigned int n)
+ 
+ static struct tst_test test = {
+ 	.needs_root = 1,
+-	.needs_kconfigs = (const char *[]) {
+-		"CONFIG_QFMT_V2",
++	.needs_drivers = (const char *const []) {
++		"quota_v2",
+ 		NULL
+ 	},
+ 	.min_kver = "4.10", /* commit 689c958cbe6b (ext4: add project quota support) */
+diff --git a/testcases/kernel/syscalls/quotactl/quotactl06.c b/testcases/kernel/syscalls/quotactl/quotactl06.c
+index 87715237f5..feb475022d 100644
+--- a/testcases/kernel/syscalls/quotactl/quotactl06.c
++++ b/testcases/kernel/syscalls/quotactl/quotactl06.c
+@@ -216,8 +216,8 @@ static void cleanup(void)
+ static struct tst_test test = {
+ 	.setup = setup,
+ 	.cleanup = cleanup,
+-	.needs_kconfigs = (const char *[]) {
+-		"CONFIG_QFMT_V2",
++	.needs_drivers = (const char *const []) {
++		"quota_v2",
+ 		NULL
+ 	},
+ 	.tcnt = ARRAY_SIZE(tcases),
+diff --git a/testcases/kernel/syscalls/quotactl/quotactl08.c b/testcases/kernel/syscalls/quotactl/quotactl08.c
+index 3793867f23..da1d62a32f 100644
+--- a/testcases/kernel/syscalls/quotactl/quotactl08.c
++++ b/testcases/kernel/syscalls/quotactl/quotactl08.c
+@@ -208,8 +208,8 @@ static void verify_quota(unsigned int n)
+ 
+ static struct tst_test test = {
+ 	.needs_root = 1,
+-	.needs_kconfigs = (const char *[]) {
+-		"CONFIG_QFMT_V2",
++	.needs_drivers = (const char *const []) {
++		"quota_v2",
+ 		NULL
+ 	},
+ 	.test = verify_quota,
+diff --git a/testcases/kernel/syscalls/quotactl/quotactl09.c b/testcases/kernel/syscalls/quotactl/quotactl09.c
+index 8b959909ca..9a03bff5f4 100644
+--- a/testcases/kernel/syscalls/quotactl/quotactl09.c
++++ b/testcases/kernel/syscalls/quotactl/quotactl09.c
+@@ -170,8 +170,8 @@ static void cleanup(void)
+ static struct tst_test test = {
+ 	.setup = setup,
+ 	.cleanup = cleanup,
+-	.needs_kconfigs = (const char *[]) {
+-		"CONFIG_QFMT_V2",
++	.needs_drivers = (const char *const []) {
++		"quota_v2",
+ 		NULL
+ 	},
+ 	.tcnt = ARRAY_SIZE(tcases),
+-- 
+2.35.1
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
