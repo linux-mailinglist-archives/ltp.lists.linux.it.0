@@ -2,65 +2,60 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FAD74D9B1C
-	for <lists+linux-ltp@lfdr.de>; Tue, 15 Mar 2022 13:24:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F36CC4D9B23
+	for <lists+linux-ltp@lfdr.de>; Tue, 15 Mar 2022 13:26:01 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5E1043C932B
-	for <lists+linux-ltp@lfdr.de>; Tue, 15 Mar 2022 13:24:55 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id AFD213C91EA
+	for <lists+linux-ltp@lfdr.de>; Tue, 15 Mar 2022 13:26:01 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 3E0FC3C91F4
- for <ltp@lists.linux.it>; Tue, 15 Mar 2022 13:23:56 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id A3FF83C934D
+ for <ltp@lists.linux.it>; Tue, 15 Mar 2022 13:25:21 +0100 (CET)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id D4C2860013B
- for <ltp@lists.linux.it>; Tue, 15 Mar 2022 13:23:55 +0100 (CET)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 3316F6010F5
+ for <ltp@lists.linux.it>; Tue, 15 Mar 2022 13:25:20 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 82AF11F397;
- Tue, 15 Mar 2022 12:23:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1647347035; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=P8u2SiozJ8TIVCkAsTrPr6Wd3+Mg9abl+dleKRk/o2A=;
- b=RP3au3mxY4E7HqzrZAFK72VTKAh4vOObMVvRVysYmMQsduoKWD958tof9RlmnicwBWodK4
- I659+6E3BSBOUhM9CTSOV2dGoWYtj7M2VmI69ulJEQc3Wu4l4pP6WAzuxBUPvVX6MFfHwN
- 1W5Pzy3aLngvEBzSedqlrN3h4gQdpnw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1647347035;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 4318A1F391;
+ Tue, 15 Mar 2022 12:25:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1647347120; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=hS6lkKCWO4gColtZvEWZ/Wnkn1UuTkS/TF4sWq9F+eE=;
+ b=0xzoIlNYiehel5eCRcAxtEbBDwJ7Nwq7pIQWUJu7HmBdvp1IhN7Hc0hv4AFqBynD86pxXq
+ bLVM6YbAY7sEOQ/2cfzBa4fXhib0cK8JgE9W05hL42t/Lqe1Y8KTZx1n2SWtY5bMN3Fmnv
+ mPhGdWEG7T8IsXU0jWfk9GxtRFcFPkA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1647347120;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=P8u2SiozJ8TIVCkAsTrPr6Wd3+Mg9abl+dleKRk/o2A=;
- b=I0cYi0/9bLkKBoeDtGfGbA1hCfglFha9XQkUgHAaeGsvehLmLJWWU9e5cSnMk04su5womu
- iDSYl0KcOQaTJDDw==
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=hS6lkKCWO4gColtZvEWZ/Wnkn1UuTkS/TF4sWq9F+eE=;
+ b=DJCBMbct1/7qvoesmXwypYVwv3ArcJ06oRdzcuHqVDxTJ/xGjw22MhEzKVGbBNfv7MUwI+
+ vm8py7wV1UX/I0Dg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5656513B59;
- Tue, 15 Mar 2022 12:23:55 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 04E7113B59;
+ Tue, 15 Mar 2022 12:25:19 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id EHknE1uFMGJ3UAAAMHmgww
- (envelope-from <andrea.cervesato@suse.de>); Tue, 15 Mar 2022 12:23:55 +0000
-From: Andrea Cervesato <andrea.cervesato@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id +s34Oq+FMGL6UAAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Tue, 15 Mar 2022 12:25:19 +0000
+From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Tue, 15 Mar 2022 13:23:51 +0100
-Message-Id: <20220315122351.8556-9-andrea.cervesato@suse.de>
+Date: Tue, 15 Mar 2022 13:25:14 +0100
+Message-Id: <20220315122516.3864-1-pvorel@suse.cz>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220315122351.8556-1-andrea.cervesato@suse.de>
-References: <20220315122351.8556-1-andrea.cervesato@suse.de>
 MIME-Version: 1.0
 X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
@@ -68,7 +63,7 @@ X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 8/8] Rewrite userns08.c using new LTP API
+Subject: [LTP] [PATCH 0/2] Fix tst_search_driver for x86-64 modules
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,73 +80,14 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.de>
----
- testcases/kernel/containers/userns/userns08.c | 17 ++++++-----------
- 1 file changed, 6 insertions(+), 11 deletions(-)
+Petr Vorel (2):
+  tst_kernel: Fix search for foo-x86-64 module
+  tst_check_driver.sh: Add test for x68_64 module
 
-diff --git a/testcases/kernel/containers/userns/userns08.c b/testcases/kernel/containers/userns/userns08.c
-index bde944f22..1180be494 100644
---- a/testcases/kernel/containers/userns/userns08.c
-+++ b/testcases/kernel/containers/userns/userns08.c
-@@ -17,6 +17,7 @@
-  * by (the real) root. So on the second level we reset dumpable to 1.
-  *
-  */
-+
- #define _GNU_SOURCE
- #include <stdio.h>
- #include <stdlib.h>
-@@ -30,16 +31,12 @@
- 
- static pid_t clone_newuser(void)
- {
--	const struct tst_clone_args cargs = {
--		CLONE_NEWUSER,
--		SIGCHLD
--	};
-+	const struct tst_clone_args cargs = { CLONE_NEWUSER, SIGCHLD };
- 
- 	return SAFE_CLONE(&cargs);
- }
- 
--static void write_mapping(const pid_t proc_in_ns,
--			  const char *const id_mapping)
-+static void write_mapping(const pid_t proc_in_ns, const char *const id_mapping)
- {
- 	char proc_path[PATH_MAX];
- 	int proc_dir;
-@@ -61,11 +58,11 @@ static void write_mapping(const pid_t proc_in_ns,
- static void ns_level2(void)
- {
- 	if (prctl(PR_SET_DUMPABLE, 1, 0, 0, 0))
--		tst_res(TINFO | TERRNO, "Failed to set dumpable flag");
-+		tst_brk(TBROK | TTERRNO, "Failed to set dumpable flag");
-+
- 	TST_CHECKPOINT_WAKE_AND_WAIT(1);
- 
--	TST_EXP_FAIL(open("restricted", O_WRONLY), EACCES,
--		     "Denied write access to ./restricted");
-+	TST_EXP_FAIL(open("restricted", O_WRONLY), EACCES, "Denied write access to ./restricted");
- 
- 	exit(0);
- }
-@@ -89,7 +86,6 @@ static void ns_level1(void)
- 	write_mapping(level2_proc, map_over_5);
- 
- 	TST_CHECKPOINT_WAKE(1);
--	tst_reap_children();
- 
- 	exit(0);
- }
-@@ -111,7 +107,6 @@ static void run(void)
- 	write_mapping(level1_proc, "0 100000 1000");
- 
- 	TST_CHECKPOINT_WAKE(0);
--	tst_reap_children();
- }
- 
- static void setup(void)
+ lib/newlib_tests/shell/tst_check_driver.sh | 16 ++++++++++++----
+ lib/tst_kernel.c                           |  5 +++++
+ 2 files changed, 17 insertions(+), 4 deletions(-)
+
 -- 
 2.35.1
 
