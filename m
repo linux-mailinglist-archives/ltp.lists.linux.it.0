@@ -1,74 +1,78 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id C49294DC227
-	for <lists+linux-ltp@lfdr.de>; Thu, 17 Mar 2022 10:00:54 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id E46D44DC22D
+	for <lists+linux-ltp@lfdr.de>; Thu, 17 Mar 2022 10:01:21 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 76EE23C93F5
-	for <lists+linux-ltp@lfdr.de>; Thu, 17 Mar 2022 10:00:54 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 9A5243C9425
+	for <lists+linux-ltp@lfdr.de>; Thu, 17 Mar 2022 10:01:21 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 027063C1B81
- for <ltp@lists.linux.it>; Thu, 17 Mar 2022 10:00:51 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id 657DB3C9425
+ for <ltp@lists.linux.it>; Thu, 17 Mar 2022 10:01:16 +0100 (CET)
 Received: from mail1.bemta34.messagelabs.com (mail1.bemta34.messagelabs.com
- [195.245.231.1])
+ [195.245.231.4])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id AA07A614AC2
- for <ltp@lists.linux.it>; Thu, 17 Mar 2022 10:00:50 +0100 (CET)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 0E78D61AA13
+ for <ltp@lists.linux.it>; Thu, 17 Mar 2022 10:01:12 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fujitsu.com;
- s=170520fj; t=1647507649; i=@fujitsu.com;
- bh=/Fl+oAif04MtVyL7O8bcWVp6TFKnnnBLpj2JU4txe+0=;
+ s=170520fj; t=1647507672; i=@fujitsu.com;
+ bh=BRgNq1O5/6D0Ex+RG4eipRXrV6aITipjAkQkqwglC7Q=;
  h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
  MIME-Version:Content-Type;
- b=mAK1fBlsE7w9P6RwhddR8aqOADDXtXaofI4Y7nRSEcBEpIsNs8JFIG504biZ0f7V8
- eiW++kL6QWtAec45wZCAVeO3IgOm/F2GHqmYYT38s5v2GneGnR4vYg0yYIi3+aNj4R
- PB5zKvGybAu6wa/GDRaeVNNIkYhQQ/7XBfjSDsXDLIvMdeZ6ofEsMQ7F6MSTxc25qv
- HPgZQwzkTcH98yZVYmrK26ZgX+cbUIaYxNDOfSf8ROCWEn7DoVp58BwWTeY3dSrF+A
- 7ABuyewWKeDi2+ZUORQqsOr8qRivKwcdSs2mw9/dj58BYghnrXF6ydcyk8mQ41867O
- w08sVxcCKb7qg==
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFtrEIsWRWlGSWpSXmKPExsViZ8MxRffgD6M
- kg093JCxWfN/B6MDose/3OtYAxijWzLyk/IoE1oxtm3eyFdyUrzh4bC5TA+MH6S5GLg4hgSYm
- iYU3brNDOPsZJY4/2s7axcjJwSagIXHtcTsziC0iIC+xd0IzmM0sYCOx7+oEMFtYQF/iSOcvR
- hCbRUBVon/yfDYQm1fAVWJrXws7iC0hoCAx5eF7oHoODk4BN4mX35lAwkICqRIdR+6wQpQLSp
- yc+YQFYryExMEXL5ghWhUl9u/dyAhhV0jMmLGNbQIj/ywkLbOQtCxgZFrFaJ1UlJmeUZKbmJm
- ja2hgoGtoaKprbKRraGGpl1ilm6iXWqpbnlpcomukl1herJdaXKxXXJmbnJOil5dasokRGJQp
- xQp7dzBeXvlT7xCjJAeTkijv2q9GSUJ8SfkplRmJxRnxRaU5qcWHGGU4OJQkeDd/B8oJFqWmp
- 1akZeYAIwQmLcHBoyTCa/wRKM1bXJCYW5yZDpE6xagoJc777j1QQgAkkVGaB9cGi8pLjLJSwr
- yMDAwMQjwFqUW5mSWo8q8YxTkYlYR5r4Fs58nMK4Gb/gpoMRPQ4kYBsMUliQgpqQam1O22NbV
- v3Kq7RKqfNR6/msmmc+P0rrMa2xRX10owK1QwNb5Rl/i56uBqudVyKVeVWRasWPI537tjlsx/
- /ndBCod2vb42ma10uYuklcLjU51vijUyAj5m7krdKltyhzdYbYH7LK0jJWpizSq8LUz7uWKr+
- c++WyfA3VV+2vLxkaqbNvMmcq6+nnjwjdxtk18TV/65oBlfdCrd6XNuRfznA//MCy9d0N57lz
- dpbWjKiQLDwE8ZIjxp31Z7mNfL+ptbbbsqoS0ZNqe1XfTSurr7m64oPxROjTRWlVO4+S/1meL
- 05R7NOfEbLnwPdF7J+LaP61ZqwUyJHREFL2z2JMhu4vvfmPalv0n95srlHxOUWIozEg21mIuK
- EwGwSHCvRQMAAA==
+ b=cstAu9WnUO/N1qey5J2cLk3Sn+WpHYWof/NCQBGrWmuzKdUcS9r56p/u3UneL0vrP
+ dJ2FMWzHdHoHp/LIQWAtor/xdeMrm4s4XTpg2ldfPH3wdPifVBgaF8WDv24GKqfNQD
+ jI94B7ocR0dagjmND5BSwpVQ2nlwLsaH25ZTNq3pM9JYEru/JoOIkEVxHqe0LwIwf4
+ CEP6Otpbv5H7ZBb93iLJxAAlMknRDw6FriAf6b9yx9vCZpT2C+wQDtv5ONpGbPCTdx
+ 9Db0DXtR9QLNA8jzlIdPhOzpLf9XAFbhmVBEf8FKYV1tgENikUmvh/iH0qNq5G8Nqm
+ g4s/fVD5SjMDg==
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFjrFIsWRWlGSWpSXmKPExsViZ8MxSff6D6M
+ kg8/PjSxWfN/B6MDose/3OtYAxijWzLyk/IoE1oyvn54xFjxMrtjW3MbcwDg5uIuRi0NI4Cyj
+ xPkXR9m7GDmBnJ1MEnN/+UMk9jNK9F66xwKSYBPQkLj2uJ0ZxBYRkJfYO6EZzGYWsJHYd3UCm
+ C0sECBx+PJMNhCbRUBV4nD/VLChvAKuEk3PLjCC2BICChJTHr4Hqufg4BRwk3j5nQlib6pEx5
+ E7rBDlghInZz5hgRgvIXHwxQtmiFZFif17N0KNqZCYMWMbG4StJnH13CbmCYyCs5C0z0LSvoC
+ RaRWjdVJRZnpGSW5iZo6uoYGBrqGhqa6xqa6hiaVeYpVuol5qqW55anGJrpFeYnmxXmpxsV5x
+ ZW5yTopeXmrJJkZgEKcUK0/dwXh61U+9Q4ySHExKorxrvxolCfEl5adUZiQWZ8QXleakFh9il
+ OHgUJLg3fwdKCdYlJqeWpGWmQOMKJi0BAePkgiv8UegNG9xQWJucWY6ROoUo6KUOO+790AJAZ
+ BERmkeXBssii8xykoJ8zIyMDAI8RSkFuVmlqDKv2IU52BUEua9BrKdJzOvBG76K6DFTECLGwX
+ AFpckIqSkGpicTj5l3bng808Hq6WRn2YqOxZLMOU8NgrcJ3jmYNahQ6YMD9xXT4m+2nBgsXll
+ 8I657C9PSDCWLzfOT3Ft/y6zjV1/Qq6WSOg/PsYmiX293lMEC0+v0d5+5Oiqou6Pu2Lcq1SXn
+ fDMvJb9RaF31tPY941sP49Oml634rGt4cYN36+brmt/kpJo9ptRwe7OWdtF+xa+E1rtsNpedN
+ +N1+XsB+ck/Mv6sWNS7UTXAk617Y1T649si/857+9N6WquW3zC2sJvGZsX3eUI/SK8Yur5Zcy
+ W/yTcXCwFzot9qOzXXXFd+9yhS6Zf6tZN+9en9NpX719FlmPWlXUSbk45C+0W77inxbuiLn+N
+ ++pUR195JZbijERDLeai4kQAxqK9j10DAAA=
 X-Env-Sender: daisl.fnst@fujitsu.com
-X-Msg-Ref: server-13.tower-548.messagelabs.com!1647507649!66699!1
-X-Originating-IP: [62.60.8.148]
+X-Msg-Ref: server-8.tower-565.messagelabs.com!1647507671!28051!1
+X-Originating-IP: [62.60.8.146]
 X-SYMC-ESS-Client-Auth: outbound-route-from=pass
 X-StarScan-Received: 
 X-StarScan-Version: 9.81.10; banners=-,-,-
 X-VirusChecked: Checked
-Received: (qmail 10550 invoked from network); 17 Mar 2022 09:00:49 -0000
-Received: from unknown (HELO mailhost1.uk.fujitsu.com) (62.60.8.148)
- by server-13.tower-548.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
- encrypted SMTP; 17 Mar 2022 09:00:49 -0000
-Received: from R01UKEXCASM126.r01.fujitsu.local ([10.183.43.178])
- by mailhost1.uk.fujitsu.com (8.14.5/8.14.5) with ESMTP id 22H90gl5016121
- (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256 verify=FAIL)
- for <ltp@lists.linux.it>; Thu, 17 Mar 2022 09:00:49 GMT
+Received: (qmail 1687 invoked from network); 17 Mar 2022 09:01:11 -0000
+Received: from unknown (HELO n03ukasimr02.n03.fujitsu.local) (62.60.8.146)
+ by server-8.tower-565.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
+ encrypted SMTP; 17 Mar 2022 09:01:11 -0000
+Received: from n03ukasimr02.n03.fujitsu.local (localhost [127.0.0.1])
+ by n03ukasimr02.n03.fujitsu.local (Postfix) with ESMTP id 5FAB1100459
+ for <ltp@lists.linux.it>; Thu, 17 Mar 2022 09:01:11 +0000 (GMT)
+Received: from R01UKEXCASM126.r01.fujitsu.local (unknown [10.183.43.178])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by n03ukasimr02.n03.fujitsu.local (Postfix) with ESMTPS id 52B88100451
+ for <ltp@lists.linux.it>; Thu, 17 Mar 2022 09:01:11 +0000 (GMT)
 Received: from rhel79.g08.fujitsu.local (10.167.225.51) by
  R01UKEXCASM126.r01.fujitsu.local (10.183.43.178) with Microsoft SMTP Server
- (TLS) id 15.0.1497.32; Thu, 17 Mar 2022 09:00:46 +0000
+ (TLS) id 15.0.1497.32; Thu, 17 Mar 2022 09:00:49 +0000
 From: Dai Shili <daisl.fnst@fujitsu.com>
 To: <xuyang2018.jy@fujitsu.com>
-Date: Thu, 17 Mar 2022 17:00:12 -0400
-Message-ID: <1647550813-1958-2-git-send-email-daisl.fnst@fujitsu.com>
+Date: Thu, 17 Mar 2022 17:00:13 -0400
+Message-ID: <1647550813-1958-3-git-send-email-daisl.fnst@fujitsu.com>
 X-Mailer: git-send-email 1.8.3.1
 In-Reply-To: <1647550813-1958-1-git-send-email-daisl.fnst@fujitsu.com>
 References: <622EE434.4000400@fujitsu.com>
@@ -83,7 +87,8 @@ X-Spam-Status: No, score=0.1 required=7.0 tests=DATE_IN_FUTURE_06_12,
  DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,
  SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 2/3] Make use of SAFE_ACCESS
+Subject: [LTP] [PATCH v2 3/3] syscalls/umount2: Convert to new API and use
+ SAFE_ACCESS
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,105 +106,492 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+1. use TST_EXP_FAIL and TST_EXP_PASS macro
+2. use SAFE macro
+3. simplify verify operations
+
 Signed-off-by: Dai Shili <daisl.fnst@fujitsu.com>
 ---
- testcases/kernel/mem/tunable/max_map_count.c    | 4 +---
- testcases/kernel/syscalls/fanotify/fanotify17.c | 3 +--
- testcases/kernel/syscalls/getxattr/getxattr05.c | 3 +--
- testcases/kernel/syscalls/madvise/madvise08.c   | 3 +--
- testcases/kernel/syscalls/quotactl/quotactl01.c | 6 ++----
- testcases/kernel/syscalls/quotactl/quotactl06.c | 3 +--
- 6 files changed, 7 insertions(+), 15 deletions(-)
+ testcases/kernel/syscalls/umount2/umount2.h    |   5 +-
+ testcases/kernel/syscalls/umount2/umount2_02.c | 194 +++++++------------------
+ testcases/kernel/syscalls/umount2/umount2_03.c | 167 +++++----------------
+ 3 files changed, 94 insertions(+), 272 deletions(-)
 
-diff --git a/testcases/kernel/mem/tunable/max_map_count.c b/testcases/kernel/mem/tunable/max_map_count.c
-index a4c3dbf..caf8972 100644
---- a/testcases/kernel/mem/tunable/max_map_count.c
-+++ b/testcases/kernel/mem/tunable/max_map_count.c
-@@ -58,9 +58,7 @@ static long old_overcommit = -1;
+diff --git a/testcases/kernel/syscalls/umount2/umount2.h b/testcases/kernel/syscalls/umount2/umount2.h
+index 65e4c24..d1e486e 100644
+--- a/testcases/kernel/syscalls/umount2/umount2.h
++++ b/testcases/kernel/syscalls/umount2/umount2.h
+@@ -1,3 +1,4 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+  * Copyright (c) 2016 Cyril Hrubis <chrubis@suse.cz>
+  *
+@@ -28,13 +29,13 @@ static inline int umount2_retry(const char *target, int flags)
+ 		if (ret == 0 || errno != EBUSY)
+ 			return ret;
  
- static void setup(void)
+-		tst_resm(TINFO, "umount('%s', %i) failed with EBUSY, try %2i...",
++		tst_res(TINFO, "umount('%s', %i) failed with EBUSY, try %2i...",
+ 			 target, flags, i);
+ 
+ 		usleep(100000);
+ 	}
+ 
+-	tst_resm(TWARN, "Failed to umount('%s', %i) after 50 retries",
++	tst_res(TWARN, "Failed to umount('%s', %i) after 50 retries",
+ 	         target, flags);
+ 
+ 	errno = EBUSY;
+diff --git a/testcases/kernel/syscalls/umount2/umount2_02.c b/testcases/kernel/syscalls/umount2/umount2_02.c
+index 7d558fa..39f1608 100644
+--- a/testcases/kernel/syscalls/umount2/umount2_02.c
++++ b/testcases/kernel/syscalls/umount2/umount2_02.c
+@@ -1,182 +1,90 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+- * Copyright (c) 2015 Fujitsu Ltd.
++ * Copyright (c) 2015-2022 FUJITSU LIMITED. All rights reserved
+  * Author: Guangwen Feng <fenggw-fnst@cn.fujitsu.com>
+- *
+- * This program is free software; you can redistribute it and/or modify it
+- * under the terms of version 2 of the GNU General Public License as
+- * published by the Free Software Foundation.
+- *
+- * This program is distributed in the hope that it would be useful, but
+- * WITHOUT ANY WARRANTY; without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+- *
+- * You should have received a copy of the GNU General Public License
+- * alone with this program.
+  */
+ 
+ /*
+- * DESCRIPTION
++ * [Description]
++ *
+  *  Test for feature MNT_EXPIRE of umount2().
+- *  "Mark the mount point as expired.If a mount point is not currently
+- *   in use, then an initial call to umount2() with this flag fails with
+- *   the error EAGAIN, but marks the mount point as expired. The mount
+- *   point remains expired as long as it isn't accessed by any process.
+- *   A second umount2() call specifying MNT_EXPIRE unmounts an expired
+- *   mount point. This flag cannot be specified with either MNT_FORCE or
+- *   MNT_DETACH. (fails with the error EINVAL)"
++ *
++ * - EINVAL when flag is specified with either MNT_FORCE or MNT_DETACH
++ * - EAGAIN when initial call to umount2(2) with MNT_EXPIRE
++ * - EAGAIN when umount2(2) with MNT_EXPIRE after access(2)
++ * - succeed when second call to umount2(2) with MNT_EXPIRE
+  */
+ 
+-#include <errno.h>
+ #include <sys/mount.h>
+-
+-#include "test.h"
+-#include "safe_macros.h"
+ #include "lapi/mount.h"
+-
++#include "tst_test.h"
+ #include "umount2.h"
+ 
+-#define DIR_MODE	(S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH)
+-#define MNTPOINT	"mntpoint"
+-
+-static void setup(void);
+-static void test_umount2(int i);
+-static void verify_failure(int i);
+-static void verify_success(int i);
+-static void cleanup(void);
+-
+-static const char *device;
+-static const char *fs_type;
++#define MNTPOINT        "mntpoint"
+ 
+ static int mount_flag;
+ 
+-static struct test_case_t {
++static struct tcase {
+ 	int flag;
+ 	int exp_errno;
+ 	int do_access;
+ 	const char *desc;
+-} test_cases[] = {
++} tcases[] = {
+ 	{MNT_EXPIRE | MNT_FORCE, EINVAL, 0,
+-		"umount2(2) with MNT_EXPIRE | MNT_FORCE expected EINVAL"},
++		"umount2() with MNT_EXPIRE | MNT_FORCE expected EINVAL"},
++
+ 	{MNT_EXPIRE | MNT_DETACH, EINVAL, 0,
+-		"umount2(2) with MNT_EXPIRE | MNT_DETACH expected EINVAL"},
++		"umount2() with MNT_EXPIRE | MNT_DETACH expected EINVAL"},
++
+ 	{MNT_EXPIRE, EAGAIN, 0,
+-		"initial call to umount2(2) with MNT_EXPIRE expected EAGAIN"},
++		"initial call to umount2() with MNT_EXPIRE expected EAGAIN"},
++
+ 	{MNT_EXPIRE, EAGAIN, 1,
+-		"umount2(2) with MNT_EXPIRE after access(2) expected EAGAIN"},
++		"umount2() with MNT_EXPIRE after access() expected EAGAIN"},
++
+ 	{MNT_EXPIRE, 0, 0,
+-		"second call to umount2(2) with MNT_EXPIRE expected success"},
++		"second call to umount2() with MNT_EXPIRE expected success"},
+ };
+ 
+-char *TCID = "umount2_02";
+-int TST_TOTAL = ARRAY_SIZE(test_cases);
+-
+-int main(int ac, char **av)
++static void test_umount2(unsigned int n)
  {
--	if (access(PATH_SYSVM "max_map_count", F_OK) != 0)
--		tst_brk(TBROK | TERRNO,
--			 "Can't support to test max_map_count");
-+	SAFE_ACCESS(PATH_SYSVM "max_map_count", F_OK);
+-	int lc;
+-	int tc;
++	struct tcase *tc = &tcases[n];
  
- 	old_max_map_count = get_sys_tune("max_map_count");
- 	old_overcommit = get_sys_tune("overcommit_memory");
-diff --git a/testcases/kernel/syscalls/fanotify/fanotify17.c b/testcases/kernel/syscalls/fanotify/fanotify17.c
-index 35beb53..7d74b25 100644
---- a/testcases/kernel/syscalls/fanotify/fanotify17.c
-+++ b/testcases/kernel/syscalls/fanotify/fanotify17.c
-@@ -159,8 +159,7 @@ static void do_unshare(int map_root)
- 		 * uid_map file should exist since Linux 3.8 because
- 		 * it is available on Linux 3.5
- 		 */
--		if (access(UID_MAP, F_OK))
--			tst_brk(TBROK, "file %s didn't exist", UID_MAP);
-+		SAFE_ACCESS(UID_MAP, F_OK);
- 
- 		SAFE_FILE_PRINTF(UID_MAP, "%d %d %d", 0, 0, 1);
+-	tst_parse_opts(ac, av, NULL, NULL);
+-
+-	setup();
+-
+-	for (lc = 0; TEST_LOOPING(lc); lc++) {
+-		tst_count = 0;
+-
+-		SAFE_MOUNT(cleanup, device, MNTPOINT, fs_type, 0, NULL);
++	if (!mount_flag) {
++		SAFE_MOUNT(tst_device->dev, MNTPOINT, tst_device->fs_type, 0, NULL);
+ 		mount_flag = 1;
+-
+-		for (tc = 0; tc < TST_TOTAL; tc++)
+-			test_umount2(tc);
+-
+-		if (mount_flag) {
+-			if (tst_umount(MNTPOINT))
+-				tst_brkm(TBROK, cleanup, "umount() failed");
+-			mount_flag = 0;
+-		}
  	}
-diff --git a/testcases/kernel/syscalls/getxattr/getxattr05.c b/testcases/kernel/syscalls/getxattr/getxattr05.c
-index c0d339f..3e73cc5 100644
---- a/testcases/kernel/syscalls/getxattr/getxattr05.c
-+++ b/testcases/kernel/syscalls/getxattr/getxattr05.c
-@@ -100,8 +100,7 @@ static void do_unshare(int map_root)
- 		/* uid_map file should exist since Linux 3.8 because
- 		 * it is available on Linux 3.5
- 		 */
--		if (access(UID_MAP, F_OK))
--			tst_brk(TBROK, "file %s didn't exist", UID_MAP);
-+		SAFE_ACCESS(UID_MAP, F_OK);
  
- 		SAFE_FILE_PRINTF(UID_MAP, "%d %d %d", 0, 0, 1);
+-	cleanup();
+-	tst_exit();
+-}
+-
+-static void setup(void)
+-{
+-	tst_require_root();
+-
+-	if ((tst_kvercmp(2, 6, 8)) < 0) {
+-		tst_brkm(TCONF, NULL, "This test can only run on kernels "
+-			 "that are 2.6.8 or higher");
+-	}
+-
+-	tst_sig(NOFORK, DEF_HANDLER, NULL);
+-
+-	tst_tmpdir();
++	tst_res(TINFO, "Testing %s", tc->desc);
+ 
+-	fs_type = tst_dev_fs_type();
+-	device = tst_acquire_device(cleanup);
++	if (tc->do_access)
++		SAFE_ACCESS(MNTPOINT, F_OK);
+ 
+-	if (!device)
+-		tst_brkm(TCONF, cleanup, "Failed to obtain block device");
+-
+-	tst_mkfs(cleanup, device, fs_type, NULL, NULL);
+-
+-	SAFE_MKDIR(cleanup, MNTPOINT, DIR_MODE);
+-
+-	TEST_PAUSE;
+-}
+-
+-static void test_umount2(int i)
+-{
+-	/* a new access removes the expired mark of the mount point */
+-	if (test_cases[i].do_access) {
+-		if (access(MNTPOINT, F_OK) == -1)
+-			tst_brkm(TBROK | TERRNO, cleanup, "access(2) failed");
+-	}
+-
+-	TEST(umount2_retry(MNTPOINT, test_cases[i].flag));
+-
+-	if (test_cases[i].exp_errno != 0)
+-		verify_failure(i);
+-	else
+-		verify_success(i);
+-}
+-
+-static void verify_failure(int i)
+-{
+-	if (TEST_RETURN == 0) {
+-		tst_resm(TFAIL, "%s passed unexpectedly", test_cases[i].desc);
+-		mount_flag = 0;
+-		return;
+-	}
+-
+-	if (TEST_ERRNO != test_cases[i].exp_errno) {
+-		tst_resm(TFAIL | TTERRNO, "%s failed unexpectedly",
+-			 test_cases[i].desc);
+-		return;
+-	}
+-
+-	tst_resm(TPASS | TTERRNO, "umount2(2) failed as expected");
+-}
+-
+-static void verify_success(int i)
+-{
+-	if (TEST_RETURN != 0) {
+-		tst_resm(TFAIL | TTERRNO, "%s failed unexpectedly",
+-			 test_cases[i].desc);
+-		return;
++	if (tc->exp_errno) {
++		TST_EXP_FAIL(umount2_retry(MNTPOINT, tc->flag), tc->exp_errno,
++			"umount2_retry(%s, %d)", MNTPOINT, tc->flag);
++		if (!TST_PASS)
++			mount_flag = 0;
++	} else {
++		TST_EXP_PASS(umount2_retry(MNTPOINT, tc->flag),
++			"umount2_retry(%s, %d)", MNTPOINT, tc->flag);
++		if (TST_PASS)
++			mount_flag = 0;
  	}
-diff --git a/testcases/kernel/syscalls/madvise/madvise08.c b/testcases/kernel/syscalls/madvise/madvise08.c
-index 30f3604..10549f4 100644
---- a/testcases/kernel/syscalls/madvise/madvise08.c
-+++ b/testcases/kernel/syscalls/madvise/madvise08.c
-@@ -110,8 +110,7 @@ static int find_sequence(int pid)
+-
+-	tst_resm(TPASS, "umount2(2) succeeded as expected");
+-	mount_flag = 0;
+ }
  
- 	snprintf(dumpname, 256, "dump-%d", pid);
- 	tst_res(TINFO, "Dump file should be %s", dumpname);
--	if (access(dumpname, F_OK))
--		tst_brk(TBROK | TERRNO, "Dump file was not found.");
-+	SAFE_ACCESS(dumpname, F_OK);
+ static void cleanup(void)
+ {
+-	if (mount_flag && tst_umount(MNTPOINT))
+-		tst_resm(TWARN | TERRNO, "Failed to unmount");
+-
+-	if (device)
+-		tst_release_device(device);
+-
+-	tst_rmdir();
++	if (mount_flag)
++		SAFE_UMOUNT(MNTPOINT);
+ }
++
++static struct tst_test test = {
++	.tcnt = ARRAY_SIZE(tcases),
++	.cleanup = cleanup,
++	.needs_root = 1,
++	.needs_device = 1,
++	.format_device = 1,
++	.mntpoint = MNTPOINT,
++	.test = test_umount2,
++};
+diff --git a/testcases/kernel/syscalls/umount2/umount2_03.c b/testcases/kernel/syscalls/umount2/umount2_03.c
+index a8fddf6..f44ff79 100644
+--- a/testcases/kernel/syscalls/umount2/umount2_03.c
++++ b/testcases/kernel/syscalls/umount2/umount2_03.c
+@@ -1,167 +1,80 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+- * Copyright (c) 2015 Fujitsu Ltd.
++ * Copyright (c) 2015-2022 FUJITSU LIMITED. All rights reserved
+  * Author: Guangwen Feng <fenggw-fnst@cn.fujitsu.com>
+- *
+- * This program is free software; you can redistribute it and/or modify it
+- * under the terms of version 2 of the GNU General Public License as
+- * published by the Free Software Foundation.
+- *
+- * This program is distributed in the hope that it would be useful, but
+- * WITHOUT ANY WARRANTY; without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+- *
+- * You should have received a copy of the GNU General Public License
+- * alone with this program.
+  */
  
- 	dfd = SAFE_OPEN(dumpname, O_RDONLY);
+ /*
+- * DESCRIPTION
++ * [Description]
++ *
+  *  Test for feature UMOUNT_NOFOLLOW of umount2().
+- *  "Don't dereference target if it is a symbolic link,
+- *   and fails with the error EINVAL."
++ *
++ * - EINVAL when target is a symbolic link
++ * - succeed when target is a mount point
+  */
  
-diff --git a/testcases/kernel/syscalls/quotactl/quotactl01.c b/testcases/kernel/syscalls/quotactl/quotactl01.c
-index 63f6e91..56c4f2f 100644
---- a/testcases/kernel/syscalls/quotactl/quotactl01.c
-+++ b/testcases/kernel/syscalls/quotactl/quotactl01.c
-@@ -160,11 +160,9 @@ static void setup(void)
- 	SAFE_CMD(cmd, NULL, NULL);
- 	fmt_id = var->fmt_id;
+-#include <errno.h>
+ #include <sys/mount.h>
+-
+-#include "test.h"
+-#include "safe_macros.h"
++#include "tst_test.h"
+ #include "lapi/mount.h"
+-
+ #include "umount2.h"
  
--	if (access(USRPATH, F_OK) == -1)
--		tst_brk(TFAIL | TERRNO, "user quotafile didn't exist");
-+	SAFE_ACCESS(USRPATH, F_OK);
+-#define DIR_MODE	(S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH)
+ #define MNTPOINT	"mntpoint"
+ #define SYMLINK	"symlink"
  
--	if (access(GRPPATH, F_OK) == -1)
--		tst_brk(TFAIL | TERRNO, "group quotafile didn't exist");
-+	SAFE_ACCESS(GRPPATH, F_OK);
+-static void setup(void);
+-static void test_umount2(int i);
+-static void verify_failure(int i);
+-static void verify_success(int i);
+-static void cleanup(void);
+-
+-static const char *device;
+-static const char *fs_type;
+-
+ static int mount_flag;
  
- 	tst_require_quota_support(tst_device->dev, fmt_id, usrpath);
+ static struct test_case_t {
+ 	const char *mntpoint;
+ 	int exp_errno;
+ 	const char *desc;
+-} test_cases[] = {
++} tcase[] = {
+ 	{SYMLINK, EINVAL,
+ 		"umount2('symlink', UMOUNT_NOFOLLOW) expected EINVAL"},
+ 	{MNTPOINT, 0,
+ 		"umount2('mntpoint', UMOUNT_NOFOLLOW) expected success"},
+ };
  
-diff --git a/testcases/kernel/syscalls/quotactl/quotactl06.c b/testcases/kernel/syscalls/quotactl/quotactl06.c
-index feb4750..0ac099b 100644
---- a/testcases/kernel/syscalls/quotactl/quotactl06.c
-+++ b/testcases/kernel/syscalls/quotactl/quotactl06.c
-@@ -186,8 +186,7 @@ static void setup(void)
- 	/* vfsv0 block limit 2^42, vfsv1 block limit 2^63 - 1 */
- 	set_dqmax.dqb_bsoftlimit = tst_variant ? 0x20000000000000 : 0x100000000;
+-char *TCID = "umount2_03";
+-int TST_TOTAL = ARRAY_SIZE(test_cases);
+-
+-int main(int ac, char **av)
++static void test_umount2(unsigned int n)
+ {
+-	int lc;
+-	int tc;
+-
+-	tst_parse_opts(ac, av, NULL, NULL);
+-
+-	setup();
++	struct test_case_t *tc = &tcase[n];
  
--	if (access(USRPATH, F_OK) == -1)
--		tst_brk(TBROK | TERRNO, "user quotafile didn't exist");
-+	SAFE_ACCESS(USRPATH, F_OK);
+-	for (lc = 0; TEST_LOOPING(lc); lc++) {
+-		tst_count = 0;
+-
+-		for (tc = 0; tc < TST_TOTAL; tc++)
+-			test_umount2(tc);
++	if (!mount_flag) {
++		SAFE_MOUNT(tst_device->dev, MNTPOINT, tst_device->fs_type, 0, NULL);
++		mount_flag = 1;
+ 	}
  
- 	tst_require_quota_support(tst_device->dev, fmt_id, usrpath);
+-	cleanup();
+-	tst_exit();
+-}
+-
+-static void setup(void)
+-{
+-	tst_require_root();
+-
+-	if ((tst_kvercmp(2, 6, 34)) < 0) {
+-		tst_brkm(TCONF, NULL, "This test can only run on kernels "
+-			 "that are 2.6.34 or higher");
+-	}
+-
+-	tst_sig(NOFORK, DEF_HANDLER, NULL);
+-
+-	tst_tmpdir();
+-
+-	fs_type = tst_dev_fs_type();
+-	device = tst_acquire_device(cleanup);
+-
+-	if (!device)
+-		tst_brkm(TCONF, cleanup, "Failed to obtain block device");
+-
+-	tst_mkfs(cleanup, device, fs_type, NULL, NULL);
+-
+-	SAFE_MKDIR(cleanup, MNTPOINT, DIR_MODE);
+-
+-	SAFE_SYMLINK(cleanup, MNTPOINT, SYMLINK);
+-
+-	TEST_PAUSE;
+-}
+-
+-static void test_umount2(int i)
+-{
+-	SAFE_MOUNT(cleanup, device, MNTPOINT, fs_type, 0, NULL);
+-	mount_flag = 1;
+-
+-	TEST(umount2_retry(test_cases[i].mntpoint, UMOUNT_NOFOLLOW));
+-
+-	if (test_cases[i].exp_errno != 0)
+-		verify_failure(i);
+-	else
+-		verify_success(i);
+-
+-	if (mount_flag) {
+-		if (tst_umount(MNTPOINT))
+-			tst_brkm(TBROK, cleanup, "umount() failed");
+-		mount_flag = 0;
++	tst_res(TINFO, "Testing %s", tc->desc);
++
++	if (tc->exp_errno) {
++		TST_EXP_FAIL(umount2_retry(tc->mntpoint, UMOUNT_NOFOLLOW), tc->exp_errno,
++			"umount2_retry(%s, %d)", tc->mntpoint, UMOUNT_NOFOLLOW);
++		if (!TST_PASS)
++			mount_flag = 0;
++	} else {
++		TST_EXP_PASS(umount2_retry(tc->mntpoint, UMOUNT_NOFOLLOW),
++			"umount2_retry(%s, %d)", tc->mntpoint, UMOUNT_NOFOLLOW);
++		if (TST_PASS)
++			mount_flag = 0;
+ 	}
+ }
  
+-static void verify_failure(int i)
+-{
+-	if (TEST_RETURN == 0) {
+-		tst_resm(TFAIL, "%s passed unexpectedly", test_cases[i].desc);
+-		mount_flag = 0;
+-		return;
+-	}
+-
+-	if (TEST_ERRNO != test_cases[i].exp_errno) {
+-		tst_resm(TFAIL | TTERRNO, "%s failed unexpectedly",
+-			 test_cases[i].desc);
+-		return;
+-	}
+-
+-	tst_resm(TPASS | TTERRNO, "umount2(2) failed as expected");
+-}
+-
+-static void verify_success(int i)
++static void setup(void)
+ {
+-	if (TEST_RETURN != 0) {
+-		tst_resm(TFAIL | TTERRNO, "%s failed unexpectedly",
+-			 test_cases[i].desc);
+-		return;
+-	}
+-
+-	tst_resm(TPASS, "umount2(2) succeeded as expected");
+-	mount_flag = 0;
++	SAFE_SYMLINK(MNTPOINT, SYMLINK);
+ }
+ 
+ static void cleanup(void)
+ {
+-	if (mount_flag && tst_umount(MNTPOINT))
+-		tst_resm(TWARN | TERRNO, "Failed to unmount");
+-
+-	if (device)
+-		tst_release_device(device);
+-
+-	tst_rmdir();
++	if (mount_flag)
++		SAFE_UMOUNT(MNTPOINT);
+ }
++
++static struct tst_test test = {
++	.tcnt = ARRAY_SIZE(tcase),
++	.needs_tmpdir = 1,
++	.setup = setup,
++	.cleanup = cleanup,
++	.format_device = 1,
++	.mntpoint = MNTPOINT,
++	.test = test_umount2,
++};
 -- 
 1.8.3.1
 
