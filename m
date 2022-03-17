@@ -1,61 +1,60 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F5854DC04B
-	for <lists+linux-ltp@lfdr.de>; Thu, 17 Mar 2022 08:40:26 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 457A34DC0DE
+	for <lists+linux-ltp@lfdr.de>; Thu, 17 Mar 2022 09:19:56 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 55E723C9431
-	for <lists+linux-ltp@lfdr.de>; Thu, 17 Mar 2022 08:40:25 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id E4A663C93F7
+	for <lists+linux-ltp@lfdr.de>; Thu, 17 Mar 2022 09:19:55 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A9EF83C1B7F
- for <ltp@lists.linux.it>; Thu, 17 Mar 2022 08:40:21 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 75BC33C91FC
+ for <ltp@lists.linux.it>; Thu, 17 Mar 2022 09:19:54 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id EF47712959C5
- for <ltp@lists.linux.it>; Thu, 17 Mar 2022 08:40:20 +0100 (CET)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id DC8AA1800AF1
+ for <ltp@lists.linux.it>; Thu, 17 Mar 2022 09:19:53 +0100 (CET)
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 15F2F1F44E
- for <ltp@lists.linux.it>; Thu, 17 Mar 2022 07:40:20 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 2780C21115
+ for <ltp@lists.linux.it>; Thu, 17 Mar 2022 08:19:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1647502820;
+ t=1647505193;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=9joAW7wf3xtsDsvHZ57kYS0QjJYgt6bre6NYtqFIH5I=;
- b=D6uQWCjaUtVJf8TKs6wrG3wKRqqC2p17DdjFv50XfPp1huSIERfu4khIlMw12jl/LKYfxF
- uhIL48vsnJ2bq0+IjLAknTTtjAm744WGwKb71kC3yX19Ol5ZqHwKmdTPeomdc2Tulfefu+
- R80xAvQ6L/i4GUmyuIgC9f6DWSfKRbo=
+ bh=xrk52GaizuktoB0Yat6mz7Hy6XTTe/tNVmx/O/x+wQs=;
+ b=bO6KDS32GNeuQFYZuKtlQNUX3rKO0bRAmRp723MaP35qoCqezaB9DJ0Ig1gZO+pw7YDidF
+ 2VWadPJBk92iMXr+wXY70X9n5RWs6m+DVJvyza+PlhPv3HFcM7A8yt/AbJcHL2LMamB7rb
+ tL7KgaB1xuywxbjkk2D3yoF9raEyGWA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1647502820;
+ s=susede2_ed25519; t=1647505193;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=9joAW7wf3xtsDsvHZ57kYS0QjJYgt6bre6NYtqFIH5I=;
- b=VWHxUDObUZC5962hgnTVmoh3jAe9wmHrQ4EzpS1rVPPV8+v2ZtIVeAc+Cs/5DzXMBjl1MC
- JWS0lH/cEgzKw+Bg==
+ bh=xrk52GaizuktoB0Yat6mz7Hy6XTTe/tNVmx/O/x+wQs=;
+ b=7pOJbhz5lZ0Y0nMH0zBNc9HIrmghe0s9WWTYz3vszhlM+4rqhzr5+6rTEoWfvNRbxpYhHL
+ qU4nMDkpIL72NLAA==
 Received: from g78 (unknown [10.163.24.182])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id D8D73A3BA4;
- Thu, 17 Mar 2022 07:40:19 +0000 (UTC)
+ by relay2.suse.de (Postfix) with ESMTPS id E8921A3B9D;
+ Thu, 17 Mar 2022 08:19:52 +0000 (UTC)
 References: <20220309164954.23751-1-mdoucha@suse.cz>
- <20220309164954.23751-2-mdoucha@suse.cz> <87o8275lbi.fsf@suse.de>
- <f7972d11-de50-d9bc-3abc-dcba53dc3936@suse.cz> <87fsnj5hi9.fsf@suse.de>
- <dd1485f7-1f0d-3360-451f-99656b0fbe9d@suse.cz>
+ <87k0cv5ij5.fsf@suse.de> <60ee7094-fc86-b06c-87e5-500018d9de29@suse.cz>
 User-agent: mu4e 1.6.10; emacs 27.2
 From: Richard Palethorpe <rpalethorpe@suse.de>
 To: Martin Doucha <mdoucha@suse.cz>
-Date: Thu, 17 Mar 2022 07:35:51 +0000
-In-reply-to: <dd1485f7-1f0d-3360-451f-99656b0fbe9d@suse.cz>
-Message-ID: <874k3x58nw.fsf@suse.de>
+Date: Thu, 17 Mar 2022 07:59:19 +0000
+In-reply-to: <60ee7094-fc86-b06c-87e5-500018d9de29@suse.cz>
+Message-ID: <87tubx3s9j.fsf@suse.de>
 MIME-Version: 1.0
 X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
@@ -63,7 +62,7 @@ X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 2/2] Add test for CVE 2021-38198
+Subject: Re: [LTP] [PATCH 1/2] KVM test infrastructure
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,24 +81,76 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello Martin,
+Hi,
 
 Martin Doucha <mdoucha@suse.cz> writes:
 
-> On 15. 03. 22 16:44, Richard Palethorpe wrote:
+> On 15. 03. 22 16:00, Richard Palethorpe wrote:
+>> Hi Martin,
+>> 
 >> Martin Doucha <mdoucha@suse.cz> writes:
->>> So somebody will have to revert the fix and run the test on
->>> custom kernel to answer that question.
+>>> +void tst_kvm_print_result(const struct tst_kvm_result *result)
+>>> +{
+>>> +	int ttype;
+>>> +
+>>> +	tst_kvm_validate_result(result->result);
+>>> +	ttype = TTYPE_RESULT(result->result);
+>>> +
+>>> +	if (ttype == TBROK)
+>>> +		tst_brk(ttype, "%s", result->message);
+>>> +	else
+>>> +		tst_res(ttype, "%s", result->message);
+>>> +}
 >> 
->> Did you reproduce the bug?
->> 
->> I could try this next week.
+>> Could you please pass the file and lineno from the test?
 >
-> Yes, I've verified the reproducer on older SLE-12SP5 and SLE-15SP3
-> kernels. But none of them currently have the tdp_mmu sysfile so the test
-> had to use the Intel/AMD KVM module reload fallback.
+> I've skipped that mainly because passing the filename would require an
+> extra string buffer in the result structure. But I guess I can pass just
+> a 64bit string address since the filename is a string constant and then
+> read the text from the VM memory buffer.
 
-I see, in that case I don't think it's important to check it.
+Either way sounds good to me.
+
+>
+>>> +void tst_kvm_create_instance(struct tst_kvm_instance *inst, size_t ram_size)
+>>> +{
+>>> +	int sys_fd;
+>>> +	size_t pagesize, result_pageaddr = KVM_RESULT_BASEADDR;
+>>> +	char *vm_result, *reset_ptr;
+>>> +	struct kvm_cpuid2 *cpuid_data;
+>>> +	const size_t payload_size = kvm_payload_end - kvm_payload_start;
+>>> +
+>>> +	memset(inst, 0, sizeof(struct tst_kvm_instance));
+>>> +	inst->vm_fd = -1;
+>>> +	inst->vcpu_fd = -1;
+>>> +	inst->vcpu_info = MAP_FAILED;
+>>> +
+>>> +	pagesize = SAFE_SYSCONF(_SC_PAGESIZE);
+>>> +	result_pageaddr -= result_pageaddr % pagesize;
+>>> +
+>>> +	if (payload_size + MIN_FREE_RAM > ram_size - VM_KERNEL_BASEADDR) {
+>>> +		ram_size = payload_size + MIN_FREE_RAM + VM_KERNEL_BASEADDR;
+>>> +		ram_size += 1024 * 1024 - 1;
+>>> +		ram_size -= ram_size % (1024 * 1024);
+>>> +		tst_res(TWARN, "RAM size increased to %zu bytes", ram_size);
+>>> +	}
+>>> +
+>>> +	if (ram_size > result_pageaddr) {
+>>> +		ram_size = result_pageaddr;
+>>> +		tst_res(TWARN, "RAM size truncated to %zu bytes", ram_size);
+>>> +	}
+>>> +
+>>> +	/* Create VM */
+>> 
+>> These comments are pretty redundant when we have ioctl's like
+>> KVM_CREATE_VM and KVM_CREATE_VCPU. There are much harder things to
+>> understand in this patchset.
+>
+> I know that the code is straightforward. But it's quite dense so I've
+> added the comments as section headers for easier navigation when you
+> need to change something.
+
+Makes sense. However the style guide forbids commenting the obvious.
 
 -- 
 Thank you,
