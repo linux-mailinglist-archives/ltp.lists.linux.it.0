@@ -1,69 +1,67 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id C67674E27BF
-	for <lists+linux-ltp@lfdr.de>; Mon, 21 Mar 2022 14:36:38 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6AFF54E2C1E
+	for <lists+linux-ltp@lfdr.de>; Mon, 21 Mar 2022 16:24:37 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 621983C6AE8
-	for <lists+linux-ltp@lfdr.de>; Mon, 21 Mar 2022 14:36:38 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 7F2263C6AE8
+	for <lists+linux-ltp@lfdr.de>; Mon, 21 Mar 2022 16:24:36 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 79D063C07B5
- for <ltp@lists.linux.it>; Mon, 21 Mar 2022 14:36:34 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 674EB3C061B
+ for <ltp@lists.linux.it>; Mon, 21 Mar 2022 16:24:32 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id D222D6008AF
- for <ltp@lists.linux.it>; Mon, 21 Mar 2022 14:36:33 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 8A38F6006EF
+ for <ltp@lists.linux.it>; Mon, 21 Mar 2022 16:24:31 +0100 (CET)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id B365F210EE
+ for <ltp@lists.linux.it>; Mon, 21 Mar 2022 15:24:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1647876270;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=pXQJTKCwtI3/LgiUs3YAA1nCYgbslMoQJAPyT/aecig=;
+ b=rKiQEbM9TvGPb1eAjXZ/KRlBB8OJ0EDFzh+dvwEgMaB2xjFZUhZ5v7tR0dnsSVRD/SaXy/
+ OcEFHqLp8HXywParbNqbW8gk9Jcf3Zb3C46Lnax5fJFzYuPzzQ6gXbffGgKWd4l4a2vuPh
+ JoWG4D2HjqU6Z8JBYphdzW+O681ZC+A=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1647876270;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=pXQJTKCwtI3/LgiUs3YAA1nCYgbslMoQJAPyT/aecig=;
+ b=rw5nWwYRKo1vugkb1RGfsVpuRJLKs7NtlhE/fPiXzqQcHyEx64v2dZapd+8YK2ZqFEGxLV
+ jpEbSX9tHZnkIKBw==
+Received: from g78 (unknown [10.163.24.182])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id BB7011F37C
- for <ltp@lists.linux.it>; Mon, 21 Mar 2022 13:36:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1647869792; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=3XIRuY1NoLCkvVriaBEmeq2mjmDHX/UbCV5bhmcekgo=;
- b=S16pC44oFCashLoDyShMAfDoz8vEBPyz0Ogtx+g/wSklvVLA6Qy9cQ76PPjRJ6guLv8JId
- yNWRfz+h7nfqdtnAOGpt78S8lp8W9ckyFKzBVen4hayhfxDS7trzauVbSYI5T834QT+cyl
- dgO0RrorvoJzn51PHjFWKcZt/SnAXho=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1647869792;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=3XIRuY1NoLCkvVriaBEmeq2mjmDHX/UbCV5bhmcekgo=;
- b=cGvFydbFI9R3ov1pbYEXMYiJVAtTXuUnMcmvjLtU/zAVGzg6jzBrV0dp9uvX+omo5sRZWK
- RatCS9RrOuKglpBg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A893013AD5
- for <ltp@lists.linux.it>; Mon, 21 Mar 2022 13:36:32 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id eABGKGB/OGLPWgAAMHmgww
- (envelope-from <chrubis@suse.cz>)
- for <ltp@lists.linux.it>; Mon, 21 Mar 2022 13:36:32 +0000
-From: Cyril Hrubis <chrubis@suse.cz>
-To: ltp@lists.linux.it
-Date: Mon, 21 Mar 2022 14:38:49 +0100
-Message-Id: <20220321133849.14924-1-chrubis@suse.cz>
-X-Mailer: git-send-email 2.34.1
+ by relay2.suse.de (Postfix) with ESMTPS id 8491DA3B9D;
+ Mon, 21 Mar 2022 15:24:30 +0000 (UTC)
+References: <20220321133849.14924-1-chrubis@suse.cz>
+User-agent: mu4e 1.6.10; emacs 27.2
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Cyril Hrubis <chrubis@suse.cz>
+Date: Mon, 21 Mar 2022 15:17:55 +0000
+In-reply-to: <20220321133849.14924-1-chrubis@suse.cz>
+Message-ID: <87ils7corb.fsf@suse.de>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH] waitid10: Fix when coredumps are piped
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] waitid10: Fix when coredumps are piped
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,50 +73,69 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: rpalethorpe@suse.de
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-When coredumps are piped into a stdin of a program (the core_pattern
-starts with '|') the RLIMIT_CORE limits are not enforced.
+Hello
 
-This fixes the test expectation in the corner case that rlim_cur and
-rlim_max for RLIMIT_CORE are both set to 0 but the core pattern is set
-to dump core into a pipe where we previously assumed the core wouldn't
-be dumped.
+Cyril Hrubis <chrubis@suse.cz> writes:
 
-Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
----
- testcases/kernel/syscalls/waitid/waitid10.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+> When coredumps are piped into a stdin of a program (the core_pattern
+> starts with '|') the RLIMIT_CORE limits are not enforced.
+>
+> This fixes the test expectation in the corner case that rlim_cur and
+> rlim_max for RLIMIT_CORE are both set to 0 but the core pattern is set
+> to dump core into a pipe where we previously assumed the core wouldn't
+> be dumped.
+>
+> Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
+> ---
+>  testcases/kernel/syscalls/waitid/waitid10.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+>
+> diff --git a/testcases/kernel/syscalls/waitid/waitid10.c b/testcases/kernel/syscalls/waitid/waitid10.c
+> index 869ef18bd..e75edd07e 100644
+> --- a/testcases/kernel/syscalls/waitid/waitid10.c
+> +++ b/testcases/kernel/syscalls/waitid/waitid10.c
+> @@ -45,14 +45,17 @@ static void run(void)
+>  static void setup(void)
+>  {
+>  	struct rlimit rlim;
+> +	char c;
+>  
+>  	SAFE_GETRLIMIT(RLIMIT_CORE, &rlim);
+> +	SAFE_FILE_SCANF("/proc/sys/kernel/core_pattern", "%c", &c);
+>  
+>  	if (rlim.rlim_cur)
+>  		return;
+>  
+>  	if (!rlim.rlim_max) {
+> -		core_dumps = 0;
+> +		if (c != '|')
+> +			core_dumps = 0;
+>  		return;
+>  	}
+>  
+> -- 
+> 2.34.1
 
-diff --git a/testcases/kernel/syscalls/waitid/waitid10.c b/testcases/kernel/syscalls/waitid/waitid10.c
-index 869ef18bd..e75edd07e 100644
---- a/testcases/kernel/syscalls/waitid/waitid10.c
-+++ b/testcases/kernel/syscalls/waitid/waitid10.c
-@@ -45,14 +45,17 @@ static void run(void)
- static void setup(void)
- {
- 	struct rlimit rlim;
-+	char c;
- 
- 	SAFE_GETRLIMIT(RLIMIT_CORE, &rlim);
-+	SAFE_FILE_SCANF("/proc/sys/kernel/core_pattern", "%c", &c);
- 
- 	if (rlim.rlim_cur)
- 		return;
- 
- 	if (!rlim.rlim_max) {
--		core_dumps = 0;
-+		if (c != '|')
-+			core_dumps = 0;
- 		return;
- 	}
- 
+Reviewed-by: Richard Palethorpe <rpalethorpe@suse.com>
+
+BTW I thought that division by zero actually just resulted in zero or
+INT_MAX on some platforms? (e.g. ARM)
+
+It's undefined behaviour, so I fail to see how this test has ever worked
+on some architectures. Perhaps we should dereference a null/invalid
+pointer instead?
+
+
 -- 
-2.34.1
-
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
