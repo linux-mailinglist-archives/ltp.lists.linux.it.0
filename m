@@ -1,81 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5BEB34E58F7
-	for <lists+linux-ltp@lfdr.de>; Wed, 23 Mar 2022 20:13:25 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DC6D4E5915
+	for <lists+linux-ltp@lfdr.de>; Wed, 23 Mar 2022 20:24:55 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9F2833C9814
-	for <lists+linux-ltp@lfdr.de>; Wed, 23 Mar 2022 20:13:24 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id A94933C9809
+	for <lists+linux-ltp@lfdr.de>; Wed, 23 Mar 2022 20:24:54 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 581B33C94CC
- for <ltp@lists.linux.it>; Wed, 23 Mar 2022 20:13:20 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id B50E03C1A87
+ for <ltp@lists.linux.it>; Wed, 23 Mar 2022 20:24:50 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 676A81000DD8
- for <ltp@lists.linux.it>; Wed, 23 Mar 2022 20:13:19 +0100 (CET)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id A39F7600878
+ for <ltp@lists.linux.it>; Wed, 23 Mar 2022 20:24:49 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 9FAC3210F6;
- Wed, 23 Mar 2022 19:13:18 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id A2D171F38D;
+ Wed, 23 Mar 2022 19:24:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1648062798;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
+ t=1648063488;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=Qy5rovrWeH5MKY2iGwrGdNPImDXcDkEinEYbDk9EM7Q=;
- b=oyE8VPCDrif3uIhyiQGPitnXU1UAMzNvT0mTwibCnsvRad+qDLY6qeLjEEqMYAbKffEu7r
- lps2XiY0nxMnR8cahAmaCfyMOtRsgO4S7n3y3YAHluUKurdzq12CVYHRsPQO6+3N351IMi
- rtQ8C9r6GVAegLjCnmQTknA7MR/K1JU=
+ bh=JAMpnfv+s/mk8jWPRcmf0NSEMOIbfAn70ftFaDenjtg=;
+ b=gp5RoD3K53cwyltG9EqA5MpJO4WdE63NYdplcJYAEPQt03lx2PrOWByBNvxkhwPLp8PSwo
+ bxe+aLRMw11wX5rr4z7gMbMdk8YB7Mtz6aXEVfrQmb61ezLo2Ki/hQ7jKywUmTEFgLTD7/
+ owmHS8RgDgzm+CvFhwVX9V00KR3Y3Ac=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1648062798;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
+ s=susede2_ed25519; t=1648063488;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=Qy5rovrWeH5MKY2iGwrGdNPImDXcDkEinEYbDk9EM7Q=;
- b=8cCIkESw0OyslUBBinNy4d6MdtwhxwU9qzF2BLt3sgGkbM0Y3/HbDcCbvS0vBfIenzIRen
- B6WoT0+b7h0eoxAA==
+ bh=JAMpnfv+s/mk8jWPRcmf0NSEMOIbfAn70ftFaDenjtg=;
+ b=zKmjbNf61WVJROqfNAhDbLrJkIn4GwDrNQdph+IUXXW7304iW6cK0kdy1fFZE/4dN/4YZj
+ ZBB55gmHtdtVVBAA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6ABF413302;
- Wed, 23 Mar 2022 19:13:18 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5F7D913302;
+ Wed, 23 Mar 2022 19:24:48 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 9dkTGE5xO2JuSgAAMHmgww
- (envelope-from <pvorel@suse.cz>); Wed, 23 Mar 2022 19:13:18 +0000
-Date: Wed, 23 Mar 2022 20:13:16 +0100
+ by imap2.suse-dmz.suse.de with ESMTPSA id bmWkEwB0O2JdTgAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Wed, 23 Mar 2022 19:24:48 +0000
+Date: Wed, 23 Mar 2022 20:24:46 +0100
 From: Petr Vorel <pvorel@suse.cz>
-To: Yael Tzur <yaelt@google.com>, linux-integrity@vger.kernel.org,
- ltp@lists.linux.it, Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <YjtxTJX91bwftEne@pevik>
-References: <20220223200731.1859670-1-yaelt@google.com> <Yh+S7JD2q8oalRoM@yuki>
- <YiBcyvtqTX1CerM4@pevik> <YiC4Pj1sH8UIHY7k@yuki>
- <YiDB7wO3Se/vN15+@pevik> <YiDGvzETiI/nxwW/@yuki>
- <YiDLn3GMNFu482XG@pevik>
- <CAKoutNsc-JWQd1MOTFk7Hd_MgsFKj=6qi=uusKez2HgatTNCdQ@mail.gmail.com>
- <YjOcRn1qx0LHlO/j@pevik>
+To: Dai Shili <daisl.fnst@fujitsu.com>
+Message-ID: <Yjtz/oUOMBarvd8t@pevik>
+References: <623414B7.6060004@fujitsu.com>
+ <1647629747-13405-1-git-send-email-daisl.fnst@fujitsu.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <YjOcRn1qx0LHlO/j@pevik>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+In-Reply-To: <1647629747-13405-1-git-send-email-daisl.fnst@fujitsu.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v4] syscalls/keyctl09: test encrypted keys with
- provided decrypted data.
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3 1/3] Add SAFE_ACCESS macro
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,31 +81,25 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi all,
+Hi Dai,
 
-> > Hi Petr and Cyril,
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
 
-> > I wanted to check whether there is pending action left on my end?
-> @Yael nothing needed from you.
+Also adding Xu tag from previous version (Dai you can dare to add it for next
+version if the patch does not change):
+https://lore.kernel.org/ltp/62340304.1000500@fujitsu.com/
+https://patchwork.ozlabs.org/project/ltp/patch/1647550813-1958-1-git-send-email-daisl.fnst@fujitsu.com/
 
-> @Cyril cd3bc044af48 ("KEYS: encrypted: Instantiate key with user-provided
-> decrypted data") is in Mimi Zohar's git tree and in next tree, going to be
-> merged in next merge window. Can we merge it now as is?
-
-@Cyril cd3bc044af48 is in the next tree. Are we going to wait till it reaches
-Linus' tree (in 5.18-rc1) or can I merge it now?
-https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?h=next-20220323&id=cd3bc044af483422cc81a93f23c78c20c978b17c
+Reviewed-by: Yang Xu <xuyang2018.jy@fujitsu.com>
 
 Kind regards,
 Petr
-
-> Kind regards,
-> Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
