@@ -1,73 +1,78 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3FE34E6421
-	for <lists+linux-ltp@lfdr.de>; Thu, 24 Mar 2022 14:32:55 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id E953E4E64F6
+	for <lists+linux-ltp@lfdr.de>; Thu, 24 Mar 2022 15:18:57 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 92C183C9B69
-	for <lists+linux-ltp@lfdr.de>; Thu, 24 Mar 2022 14:32:55 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 653E93C9B81
+	for <lists+linux-ltp@lfdr.de>; Thu, 24 Mar 2022 15:18:57 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 7DA893C91C2
- for <ltp@lists.linux.it>; Thu, 24 Mar 2022 14:32:51 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 9BE493C07BE
+ for <ltp@lists.linux.it>; Thu, 24 Mar 2022 15:18:53 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id E80711A01148
- for <ltp@lists.linux.it>; Thu, 24 Mar 2022 14:32:50 +0100 (CET)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 05D72200D13
+ for <ltp@lists.linux.it>; Thu, 24 Mar 2022 15:18:52 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 2FCE31F38D;
- Thu, 24 Mar 2022 13:32:50 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 43399210FD;
+ Thu, 24 Mar 2022 14:18:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1648128770; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ t=1648131532;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=/F5R5GpuFPnXnfvZfrijv7DtSyPwTeFWupVjdT03QvQ=;
- b=UULNB12ViBgRUcA5ER+lehws3GKjqzuj3lblD8DkqrvHgXdVN4m9sCLoBG7v+9zlnx2GUD
- sahamD7MrTUTsZkXetjYN4TUMZ8LhZ2ldFeCGjIuxV2WMAfSbbFfXxgPsOSRFh8uuxwIPM
- 3+UOcBGUqXscPjqg85+REVl706SuzCY=
+ bh=aRMsgusi90Uzx5uvsi4WRj2EgOPVK6Nn99ham3hX6vE=;
+ b=gtQN6DwFxsov/RvF64UI2fkiFvZxJOoUNTdC5F93mP2upYiIY8L2cWEz8p5FpDN023WUcz
+ EyGIblUTqO7p4VyvpkGGNED3VtrRZyvSBPG8BE5Zymqv3EURRuJSgoPcOZ8E7I+3+5ihLh
+ xwC0y1WbNDhJeSf6Xpm1ucihcrmRk/o=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1648128770;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ s=susede2_ed25519; t=1648131532;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=/F5R5GpuFPnXnfvZfrijv7DtSyPwTeFWupVjdT03QvQ=;
- b=lFzSCJHY/CMCHr32/6WuOMESnHmua5Uika30pTJZFCMsmJdBKd0T56tw5tSSLXFgTkBGhU
- L6d3yyIuxzqnpuDQ==
+ bh=aRMsgusi90Uzx5uvsi4WRj2EgOPVK6Nn99ham3hX6vE=;
+ b=cmzS5Foo72F3tNRPzEKzdu8Y6MjM9jQdOBeDq3TRbYvBfc2YlNI8ohuXIqDDYCz3yW+J82
+ v+64VXiWIohfYKBg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0A00612FF7;
- Thu, 24 Mar 2022 13:32:50 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1382312FF7;
+ Thu, 24 Mar 2022 14:18:52 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id QTYGAgJzPGKEbgAAMHmgww
- (envelope-from <chrubis@suse.cz>); Thu, 24 Mar 2022 13:32:50 +0000
-Date: Thu, 24 Mar 2022 14:35:09 +0100
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Yael Tzur <yaelt@google.com>
-Message-ID: <YjxzjWHS19sUCl7T@yuki>
-References: <20220223200731.1859670-1-yaelt@google.com>
+ by imap2.suse-dmz.suse.de with ESMTPSA id 1iwEA8x9PGKsAwAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Thu, 24 Mar 2022 14:18:52 +0000
+Date: Thu, 24 Mar 2022 15:18:50 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: Andrea Cervesato <andrea.cervesato@suse.com>
+Message-ID: <Yjx9ymQxh4khumLU@pevik>
+References: <20220315122351.8556-1-andrea.cervesato@suse.de>
+ <20220315122351.8556-9-andrea.cervesato@suse.de>
+ <YjrqO8Er3NqOG8uc@pevik> <YjrvSVaU2jkLgwPt@yuki>
+ <YjsYg2u82uLdxDTN@pevik>
+ <599d319f-0936-5aee-f140-39bac113baeb@suse.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20220223200731.1859670-1-yaelt@google.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+In-Reply-To: <599d319f-0936-5aee-f140-39bac113baeb@suse.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v4] syscalls/keyctl09: test encrypted keys with
- provided decrypted data.
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 8/8] Rewrite userns08.c using new LTP API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,18 +84,63 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: linux-integrity@vger.kernel.org, ltp@lists.linux.it
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-Applied, thanks.
+Hi Andrea,
 
--- 
-Cyril Hrubis
-chrubis@suse.cz
+> Hi Petr,
+
+> I can check it, but it will probably take some time because I'm not familiar
+> with that particular scenario. Can we go ahead with the patch-set anyway?
+
+OK, I'll implement the fix in the library.
+And for sure this is not a blocker for your patchset.
+I've just haven't finishing reviewing it.
+
+Kind regards,
+Petr
+
+> Andrea
+
+> On 3/23/22 13:54, Petr Vorel wrote:
+> > > Hi!
+> > > > ./userns08 -i50
+> > > > tst_kconfig.c:82: TINFO: Parsing kernel config '/proc/config.gz'
+> > > > tst_test.c:1456: TINFO: Timeout per run is 0h 05m 00s
+> > > > userns08.c:65: TPASS: Denied write access to ./restricted : EACCES (13)
+> > > > userns08.c:65: TPASS: Denied write access to ./restricted : EACCES (13)
+> > > > userns08.c:65: TPASS: Denied write access to ./restricted : EACCES (13)
+> > > > userns08.c:65: TPASS: Denied write access to ./restricted : EACCES (13)
+> > > > userns08.c:65: TPASS: Denied write access to ./restricted : EACCES (13)
+> > > > userns08.c:36: TBROK: clone3 failed: ENOSPC (28)
+> > > > Something needs to be closed after each run.
+> > > ENOSPC means that we created too many user namespaces. The problem is
+> > > likely that we are creating the namespaces faster than they are being
+> > > asynchronously cleaned up in the kernel. Adding sleep(1) to the
+> > > clone_newuser() function gives kernel enough time to clean the
+> > > namespaces and the test works with any -i. Also note that we get the
+> > > exact same failure if we execute the test a few times in a row, i.e.
+> > > for i in `seq 10`; do
+> > > 	./userns08
+> > > done
+> > +1
+
+> > > The original test fails in the same way, so while it should be fixed,
+> > > it's not really reason to block this patchset.
+> > Agree (I forget to write I suspected the problem wasn't new in this patchset).
+
+> > > And the only correct fix would be retrying the clone() on ENOSPC in the
+> > > SAFE_CLONE().
+> > +1. I suppose Andrea will have look into it (otherwise I'll do it).
+
+> > Kind regards,
+> > Petr
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
