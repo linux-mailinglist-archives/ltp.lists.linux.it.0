@@ -1,73 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8AED04E65C5
-	for <lists+linux-ltp@lfdr.de>; Thu, 24 Mar 2022 16:02:51 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5076C4E65D5
+	for <lists+linux-ltp@lfdr.de>; Thu, 24 Mar 2022 16:10:44 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4C9373C9BC6
-	for <lists+linux-ltp@lfdr.de>; Thu, 24 Mar 2022 16:02:51 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 638BB3C9AA2
+	for <lists+linux-ltp@lfdr.de>; Thu, 24 Mar 2022 16:10:43 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id DFE6C3C97EC
- for <ltp@lists.linux.it>; Thu, 24 Mar 2022 16:02:46 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id D20C43C97EC
+ for <ltp@lists.linux.it>; Thu, 24 Mar 2022 16:10:38 +0100 (CET)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 54ECD2000B2
- for <ltp@lists.linux.it>; Thu, 24 Mar 2022 16:02:45 +0100 (CET)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 2ADA71400751
+ for <ltp@lists.linux.it>; Thu, 24 Mar 2022 16:10:37 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 4691D1F7AB;
- Thu, 24 Mar 2022 15:02:45 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 697311F7AC;
+ Thu, 24 Mar 2022 15:10:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1648134165; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1648134637; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=djTicP3nCJofsMUrxuOdP23sH7xoLIYpWjjzdZTVQyM=;
- b=w8mOHSUa8NB9kgXUG3+No2jvvrwM7ZjzDPbLN2PTDNePjvIYJXm2MNIu9nBASWw2oJeFLn
- OP0mnFlXAKcipz6mntvUgt+YBnsXTOzchxA8JVnTDgJuV6M2+pgEGJWLd6U9aa2aXuo+b4
- 3IqBq9b2PmSMOYMrafyTaD+Wd3soMEM=
+ bh=B7NN/ls6nQ2BRmXidlGveegGxJ+gIG8+COlsL+5+3sM=;
+ b=SkjVZknR7pfHEEYjrQxipsOGUbNxvJNpzxsvnz9HbzX7Ty91F/X1q8A7hDFoIaOrSjveWh
+ 06hQr4ggMjYhnhhD0mJbfyYyKOzWNBYlHrvMvhpsUQm3ubZZRDafAoArziSZ5N/+lPlp7I
+ /DOVYNCjmcB9kwcJGLq/wZhk4Cmx8fE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1648134165;
+ s=susede2_ed25519; t=1648134637;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=djTicP3nCJofsMUrxuOdP23sH7xoLIYpWjjzdZTVQyM=;
- b=3oSVhODHPptWVTHxYomqrTi9UA98herqIfEBmcz+h1Ef0xrd6Q6JGZsvT0X0qFtY0MdvJY
- bhHrC8JvxIAsqcBQ==
+ bh=B7NN/ls6nQ2BRmXidlGveegGxJ+gIG8+COlsL+5+3sM=;
+ b=6wVrBbbX+BvpBJjnpz9hqPSNSq/VhYwUT+K6MeWFqTBVQLsH9ifdYgg0Oz50Rh2f9wxJUU
+ RTuXrl3OUIzTCzBA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 25F7A132E9;
- Thu, 24 Mar 2022 15:02:45 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 12395132E9;
+ Thu, 24 Mar 2022 15:10:37 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id IxwdCBWIPGL1GQAAMHmgww
- (envelope-from <chrubis@suse.cz>); Thu, 24 Mar 2022 15:02:45 +0000
-Date: Thu, 24 Mar 2022 16:04:59 +0100
+ by imap2.suse-dmz.suse.de with ESMTPSA id rpDgAu2JPGLKHQAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Thu, 24 Mar 2022 15:10:37 +0000
+Date: Thu, 24 Mar 2022 16:12:56 +0100
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Andrea Cervesato <andrea.cervesato@suse.de>
-Message-ID: <YjyImxbSuv6QZ6ep@yuki>
+Message-ID: <YjyKeIH9JdhD4QPt@yuki>
 References: <20220315103254.7185-1-andrea.cervesato@suse.de>
- <20220315103254.7185-4-andrea.cervesato@suse.de>
+ <20220315103254.7185-5-andrea.cervesato@suse.de>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20220315103254.7185-4-andrea.cervesato@suse.de>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+In-Reply-To: <20220315103254.7185-5-andrea.cervesato@suse.de>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3 03/10] Rewrite sem_comm.c using new LTP API
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3 04/10] Rewrite sem_nstest.c using new LTP API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,36 +87,8 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> +	TEST(semop(id, &sm, 1));
-> +	if (TST_RET < 0) {
-> +		if (TST_ERR != EAGAIN)
-> +			tst_brk(TBROK | TERRNO, "semop error");
-> +
-> +		tst_res(TFAIL, "can't lock semaphore between namespaces");
-
-The message is very confusing here. If we get here the semaphone was
-locked by the other child in a different namespace. We should print
-something as "semaphore decremented from different namespace"
-
-> +	} else {
-> +		tst_res(TPASS, "locked semaphore between namespaces");
-
-Here as well, confusing message.
-
->  	}
->  
->  	/* tell child1 to continue */
-> -	TST_SAFE_CHECKPOINT_WAKE(NULL, 0);
-> +	TST_CHECKPOINT_WAKE(0);
->  
->  	sm.sem_op = 1;
-> -	semop(id, &sm, 1);
-> +	SAFE_SEMOP(id, &sm, 1);
-
-I wonder if it's necessary to modify the semaphore value before the
-RMDID here. Can't we just remove it instead?
-
-> +	SAFE_SEMCTL(id, 0, IPC_RMID);
+Same problem here as in the msgq_nstest.c the global str_op must not be
+initialized otherwise the test throws a warning.
 
 -- 
 Cyril Hrubis
