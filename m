@@ -2,74 +2,88 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B2CD4E7156
-	for <lists+linux-ltp@lfdr.de>; Fri, 25 Mar 2022 11:35:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E0C14E6FF0
+	for <lists+linux-ltp@lfdr.de>; Fri, 25 Mar 2022 10:23:34 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1E5DD3C2EB0
-	for <lists+linux-ltp@lfdr.de>; Fri, 25 Mar 2022 11:35:02 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 4ECA53C61C4
+	for <lists+linux-ltp@lfdr.de>; Fri, 25 Mar 2022 10:23:34 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id C13CD3C0354
- for <ltp@lists.linux.it>; Fri, 25 Mar 2022 11:34:56 +0100 (CET)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id 0C87C3C012A
+ for <ltp@lists.linux.it>; Fri, 25 Mar 2022 10:23:32 +0100 (CET)
+Received: from mail1.bemta34.messagelabs.com (mail1.bemta34.messagelabs.com
+ [195.245.231.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 6C78720100D
- for <ltp@lists.linux.it>; Fri, 25 Mar 2022 11:34:56 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 0010B600F4F
+ for <ltp@lists.linux.it>; Fri, 25 Mar 2022 10:23:31 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fujitsu.com;
+ s=170520fj; t=1648200211; i=@fujitsu.com;
+ bh=jAhPLg8ty6OHqv0vYFQ1HRrfU7UvCraNUNbfeVmcv0s=;
+ h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type;
+ b=k2Hww2wm3DBgjf8VSyRU2TaSndgXwGK6CzTP54n/50f92XvnetHCeTcVo92hwv6Mg
+ orQD+h4l+PeZtkAoX6vf6PjUe2KQ/Qy4vNMaHYXulIEqE61XQioXPKLxNo7R8R10h8
+ CGum3WDbfNEyPs9zBy1liewe5uzLo/TxkvOkZxnblU6zkMaOGqIH8+GNwEIn78DxEV
+ mR5ZEp5r/g/uwoTiP3X1O/4XqNlD/Cp4QQbXTE3DW0LHRVql5hIf5/+VXxc3c0q4JH
+ cE4sjCcCcTvHdqcLc/h8JyLJcxRnGg9PFfD4va8QnrCXtxN+VZWCeN9bvgA8IHLm76
+ 3p2Qx/tRcSqPA==
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFtrMIsWRWlGSWpSXmKPExsViZ8MxSVeoyzb
+ J4MF1FYsV33cwOjB67Pu9jjWAMYo1My8pvyKBNePns2ssBZdYKi42HWVrYOxi6WLk4hASOMso
+ seZ0K3sXIyeQs5NJ4uhFeYjEfkaJtyvusIAk2AQ0JK49bmcGsUUEJCQ6Gt6CNTALqEnsvnqMD
+ cQWFnCX2DHjB1g9i4CqxKpeCJtXwFXiw9VbYPUSAgoSUx6+Z4aIC0qcnPmEBWKOhMTBFy+YIW
+ oUJfbv3cgIYVdIzJixjQ3CVpO4em4T8wRG/llI2mchaV/AyLSK0TqpKDM9oyQ3MTNH19DAQNf
+ Q0FTX2AjINNFLrNJN1Est1S1PLS7RNdJLLC/WSy0u1iuuzE3OSdHLSy3ZxAgMy5RihYwdjN9X
+ /tQ7xCjJwaQkyqvuY5skxJeUn1KZkVicEV9UmpNafIhRhoNDSYK3owIoJ1iUmp5akZaZA4wRm
+ LQEB4+SCG9TFVCat7ggMbc4Mx0idYpRUUqcV7ATKCEAksgozYNrg8XlJUZZKWFeRgYGBiGegt
+ Si3MwSVPlXjOIcjErCvIs7gKbwZOaVwE1/BbSYCWjx85+WIItLEhFSUg1Mymc1Jt5JWL/99Iy
+ ANqlFqk+ehX96rOsnp1EovjztQ++nDau/mtbdnmyoyCW6SVNNLPO9qQD/ukDHOCvNpN+7jbtc
+ qvx/fZcJZsh3ZrHdcdXFp4vTxiHFfJugRGpUn1Gpa/pdK7Z/lSrPrCdOFP4xM2PzTvcJounlb
+ 8O2MB2YxCHWtnbhmm2H1Ys8NHM/T919ImZZaN3jDNW2+uzQPdeao7lmXY8S1n36McQmYTezqv
+ +2y0sZtb1sG3d9s1nct1jpz4YlviVZB2/7H+xsCKk0fr/m8pwNq9LNikOfSMqt+aLp0fv0v62
+ NrCRjnJnMChn9+Ztz81k6F626ML/cX3L9jrMHKhaXvjj0N/jpt5VKLMUZiYZazEXFiQAIRMEF
+ RgMAAA==
+X-Env-Sender: daisl.fnst@fujitsu.com
+X-Msg-Ref: server-2.tower-571.messagelabs.com!1648200210!269177!1
+X-Originating-IP: [62.60.8.146]
+X-SYMC-ESS-Client-Auth: outbound-route-from=pass
+X-StarScan-Received: 
+X-StarScan-Version: 9.81.10; banners=-,-,-
+X-VirusChecked: Checked
+Received: (qmail 18403 invoked from network); 25 Mar 2022 09:23:30 -0000
+Received: from unknown (HELO n03ukasimr02.n03.fujitsu.local) (62.60.8.146)
+ by server-2.tower-571.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
+ encrypted SMTP; 25 Mar 2022 09:23:30 -0000
+Received: from n03ukasimr02.n03.fujitsu.local (localhost [127.0.0.1])
+ by n03ukasimr02.n03.fujitsu.local (Postfix) with ESMTP id 3CB9F100456
+ for <ltp@lists.linux.it>; Fri, 25 Mar 2022 09:23:30 +0000 (GMT)
+Received: from R01UKEXCASM126.r01.fujitsu.local (unknown [10.183.43.178])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id B59C01F745;
- Fri, 25 Mar 2022 10:34:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1648204495;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=QG3nrj0YBF0Ui2GFb4hNQd548mmrf2alSNpGgoj4oE0=;
- b=ANIK3aAbuRZWDWi9kKlhD7pvtMCcn3RlHCjSKsPXSKfi/X2qurrOLlZofAba4n3rydUENI
- grK8wqFUv/wuzx/29IwFOqdl7jIYQQSO6C8K1vY8c+GqYSSm7ZU5sjyvQDtjMYz3inDdwq
- KeiaigaiV5GvTT1nylnU1EADVkrkKLM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1648204495;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=QG3nrj0YBF0Ui2GFb4hNQd548mmrf2alSNpGgoj4oE0=;
- b=qaeRFmpqMMka1HtWdrrW93cMbK1/QOSa3XszLjrLqJhHKsGUIOFlrTDGoR5uoYEk6t3ikl
- ulMB0YS4/7ZdbfAQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 896CC1332D;
- Fri, 25 Mar 2022 10:34:55 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id UbriH8+aPWJ/IAAAMHmgww
- (envelope-from <pvorel@suse.cz>); Fri, 25 Mar 2022 10:34:55 +0000
-Date: Fri, 25 Mar 2022 11:34:53 +0100
-From: Petr Vorel <pvorel@suse.cz>
-To: Andrea Cervesato <andrea.cervesato@suse.de>
-Message-ID: <Yj2azbSl/xMNXAAW@pevik>
-References: <20220325093626.11114-1-andrea.cervesato@suse.de>
- <20220325093626.11114-10-andrea.cervesato@suse.de>
+ by n03ukasimr02.n03.fujitsu.local (Postfix) with ESMTPS id 2FC8A10032A
+ for <ltp@lists.linux.it>; Fri, 25 Mar 2022 09:23:30 +0000 (GMT)
+Received: from rhel79.g08.fujitsu.local (10.167.225.51) by
+ R01UKEXCASM126.r01.fujitsu.local (10.183.43.178) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.32; Fri, 25 Mar 2022 09:23:23 +0000
+From: Dai Shili <daisl.fnst@fujitsu.com>
+To: <ltp@lists.linux.it>
+Date: Fri, 25 Mar 2022 17:22:56 -0400
+Message-ID: <1648243376-5306-1-git-send-email-daisl.fnst@fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20220325093626.11114-10-andrea.cervesato@suse.de>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Originating-IP: [10.167.225.51]
+X-ClientProxiedBy: G08CNEXCHPEKD09.g08.fujitsu.local (10.167.33.85) To
+ R01UKEXCASM126.r01.fujitsu.local (10.183.43.178)
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3 9/9] Remove obsolete userns_helper.h from
- userns suite
+X-Spam-Status: No, score=0.1 required=7.0 tests=DATE_IN_FUTURE_06_12,
+ DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,
+ SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH] syscalls/umount2_02: remove useless TST_ERR assignment
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,14 +95,31 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
+Signed-off-by: Dai Shili <daisl.fnst@fujitsu.com>
+---
+ testcases/kernel/syscalls/umount2/umount2_02.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/testcases/kernel/syscalls/umount2/umount2_02.c b/testcases/kernel/syscalls/umount2/umount2_02.c
+index 4c3b30e..d1aed11 100644
+--- a/testcases/kernel/syscalls/umount2/umount2_02.c
++++ b/testcases/kernel/syscalls/umount2/umount2_02.c
+@@ -69,7 +69,6 @@ static int umount2_retry(const char *target, int flags)
+ 	tst_res(TWARN, "Failed to umount('%s', %i) after 50 retries",
+ 		target, flags);
+ 
+-	TST_ERR = EBUSY;
+ 	return -1;
+ }
+ 
+-- 
+1.8.3.1
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
