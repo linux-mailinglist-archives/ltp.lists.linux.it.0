@@ -2,75 +2,75 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 733674E7015
-	for <lists+linux-ltp@lfdr.de>; Fri, 25 Mar 2022 10:37:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B9524E708B
+	for <lists+linux-ltp@lfdr.de>; Fri, 25 Mar 2022 11:07:10 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 290043C887F
-	for <lists+linux-ltp@lfdr.de>; Fri, 25 Mar 2022 10:37:51 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 851813C7F3D
+	for <lists+linux-ltp@lfdr.de>; Fri, 25 Mar 2022 11:07:06 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 644A53C5A8A
- for <ltp@lists.linux.it>; Fri, 25 Mar 2022 10:36:31 +0100 (CET)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id C8D963C0354
+ for <ltp@lists.linux.it>; Fri, 25 Mar 2022 11:07:02 +0100 (CET)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 016C31001268
- for <ltp@lists.linux.it>; Fri, 25 Mar 2022 10:36:31 +0100 (CET)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 442D11A011DF
+ for <ltp@lists.linux.it>; Fri, 25 Mar 2022 11:07:01 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 8ED1321110;
- Fri, 25 Mar 2022 09:36:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1648200990; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 698981F7AC;
+ Fri, 25 Mar 2022 10:07:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1648202821;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=OERBM4ZwfNVTtN7b6cNOEaDKCXhNarmeDAB9OWCClzA=;
- b=Cne4aISw+ONmeK/sqRZ0P2GSO7q0O54hrO8kxyP8ZuJzO8qFliqLo4l/pV7MLcbQQC3Lsy
- zJgCTpRYROQIeQ8bx2dIoh20+NVzqk5C0uID2+TsuR4DmrSWiYkQHMosSLmJWBJzoyi85O
- 2px+nHIvJ59F9m8p4ZtUlT9s9sx0yko=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1648200990;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ bh=L7OLV1+nidTssVJIyUt/Y5J7Y1AMXyGX7WRpc20S4yU=;
+ b=lVktUEIKpGdYxJon9R4g/MVjUpW7ZwWnL9Eu/THzXUyHFhUnqMUBXoyWz8D5ZLJj+xaz+k
+ r9TSG9918Jc/TaQqmV/lg6I+8LcYqIrKRX6Z0F8qW5hYwWdUY70J27zvARzKki1hs8m3uJ
+ mIrWjUq5I9Ndsda2MUGfy79jNnC4EyM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1648202821;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=OERBM4ZwfNVTtN7b6cNOEaDKCXhNarmeDAB9OWCClzA=;
- b=GSrYgyEclv3e4PF1AwHPYjJ3HpUaxOdj6gOrjpj6INWLIAm4WflYPl4SAIbeEqYZbxqJkb
- dIdCUZjimTetESCw==
+ bh=L7OLV1+nidTssVJIyUt/Y5J7Y1AMXyGX7WRpc20S4yU=;
+ b=mM8VjhObmZBZlN8+uOqrIUFhIiVEICHKYZwDYFNQbBAGFy1lfqYJkupokWfHzYjMIUa0FK
+ 6I7ZE7v1PbG/4YBw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 594A2132E9;
- Fri, 25 Mar 2022 09:36:30 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 40FB613A30;
+ Fri, 25 Mar 2022 10:07:01 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id OPPUEx6NPWI1BQAAMHmgww
- (envelope-from <andrea.cervesato@suse.de>); Fri, 25 Mar 2022 09:36:30 +0000
-From: Andrea Cervesato <andrea.cervesato@suse.de>
-To: ltp@lists.linux.it
-Date: Fri, 25 Mar 2022 10:36:26 +0100
-Message-Id: <20220325093626.11114-10-andrea.cervesato@suse.de>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220325093626.11114-1-andrea.cervesato@suse.de>
-References: <20220325093626.11114-1-andrea.cervesato@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id wYz3DUWUPWKNEgAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Fri, 25 Mar 2022 10:07:01 +0000
+Date: Fri, 25 Mar 2022 11:06:59 +0100
+From: Petr Vorel <pvorel@suse.cz>
+To: Andrea Cervesato <andrea.cervesato@suse.com>
+Message-ID: <Yj2UQ8mM30UDHYb7@pevik>
+References: <20220315122351.8556-1-andrea.cervesato@suse.de>
+ <20220315122351.8556-2-andrea.cervesato@suse.de>
+ <YjzZnkrugQyEuWLe@pevik>
+ <dcc9e9e9-b729-dc6d-7319-45761ee4efe0@suse.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <dcc9e9e9-b729-dc6d-7319-45761ee4efe0@suse.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH v3 9/9] Remove obsolete userns_helper.h from userns
- suite
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 1/8] Rewrite userns01.c using new LTP API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,88 +82,25 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.de>
----
- .../kernel/containers/userns/userns_helper.h  | 62 -------------------
- 1 file changed, 62 deletions(-)
- delete mode 100644 testcases/kernel/containers/userns/userns_helper.h
+Hi Andrea,
 
-diff --git a/testcases/kernel/containers/userns/userns_helper.h b/testcases/kernel/containers/userns/userns_helper.h
-deleted file mode 100644
-index 12b491f62..000000000
---- a/testcases/kernel/containers/userns/userns_helper.h
-+++ /dev/null
-@@ -1,62 +0,0 @@
--/*
-- * Copyright (c) Huawei Technologies Co., Ltd., 2015
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License as published by
-- * the Free Software Foundation; either version 2 of the License, or
-- *  (at your option) any later version.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
-- * the GNU General Public License for more details.
-- */
--
--#include "../libclone/libclone.h"
--#include "test.h"
--#include "safe_macros.h"
--#include <stdbool.h>
--
--#define UID_MAP 0
--#define GID_MAP 1
--
--static int dummy_child(void *v)
--{
--	(void) v;
--	return 0;
--}
--
--static int check_newuser(void)
--{
--	int pid, status;
--
--	if (tst_kvercmp(3, 8, 0) < 0)
--		tst_brkm(TCONF, NULL, "CLONE_NEWUSER not supported");
--
--	pid = do_clone_unshare_test(T_CLONE, CLONE_NEWUSER, dummy_child, NULL);
--	if (pid == -1)
--		tst_brkm(TCONF | TERRNO, NULL, "CLONE_NEWUSER not supported");
--	SAFE_WAIT(NULL, &status);
--
--	return 0;
--}
--
--LTP_ATTRIBUTE_UNUSED static int updatemap(int cpid, bool type, int idnum,
--	int parentmappid, void (*cleanup)(void))
--{
--	char path[BUFSIZ];
--	char content[BUFSIZ];
--	int fd;
--
--	if (type == UID_MAP)
--		sprintf(path, "/proc/%d/uid_map", cpid);
--	else if (type == GID_MAP)
--		sprintf(path, "/proc/%d/gid_map", cpid);
--	else
--		tst_brkm(TBROK, cleanup, "invalid type parameter");
--
--	sprintf(content, "%d %d 1", idnum, parentmappid);
--	fd = SAFE_OPEN(cleanup, path, O_WRONLY, 0644);
--	SAFE_WRITE(cleanup, 1, fd, content, strlen(content));
--	SAFE_CLOSE(cleanup, fd);
--	return 0;
--}
--- 
-2.35.1
+> > > +static inline void updatemap(int cpid, bool type, int idnum, int parentmappid)
+> > nit: This header should #include <stdbool.h>, not all tests (they use UID_MAP,
+> > thus they don't need it).
+> I think this will be replaced with integer, according also with the if/else
+> statement which is below and use switch to check its value as well.
 
++1
+
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
