@@ -1,75 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18BD64E73CB
-	for <lists+linux-ltp@lfdr.de>; Fri, 25 Mar 2022 13:56:03 +0100 (CET)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 62D204E7820
+	for <lists+linux-ltp@lfdr.de>; Fri, 25 Mar 2022 16:41:44 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B4FCB3C86F2
-	for <lists+linux-ltp@lfdr.de>; Fri, 25 Mar 2022 13:56:02 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id 894D73C8C4A
+	for <lists+linux-ltp@lfdr.de>; Fri, 25 Mar 2022 16:41:43 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 91F9D3C6574
- for <ltp@lists.linux.it>; Fri, 25 Mar 2022 13:54:49 +0100 (CET)
+ by picard.linux.it (Postfix) with ESMTPS id 1B1223C5A8A
+ for <ltp@lists.linux.it>; Fri, 25 Mar 2022 16:41:40 +0100 (CET)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 32885601A71
- for <ltp@lists.linux.it>; Fri, 25 Mar 2022 13:54:49 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 6FDAE6019AD
+ for <ltp@lists.linux.it>; Fri, 25 Mar 2022 16:41:40 +0100 (CET)
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id D80B31F7AE;
- Fri, 25 Mar 2022 12:54:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1648212888; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 672FE1F38D;
+ Fri, 25 Mar 2022 15:41:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1648222899; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=0w3Qyf5dcIQcXwt5zZqWtEJYXfBKD8QYgjyHujCFZe8=;
- b=rKUgHKyYTr4DHFcXoZ1HNtBZLsJff41zazuTH85RgMKCh/wust10n29oULzDSnoNJrmv6n
- Tx88bZqR0/Rwyz9g8y+Czh4mFwovUguk3GHMa75nSoA+GUn11pqfi13I2feMbRALEV6w0C
- E0flyw9GSc3GlELuIWGACzb3X0xL0Xk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1648212888;
+ bh=4WDZf9c+Pr7c+xCTilgHXPiH1xx/qDrHXcfPfsgEVDs=;
+ b=XBx7o1QBT0FLV0rK4ebBMNEosxQL8bTmiYSy1n9XdXzdR70vjpf8PqMjj3CoP+8tgzjIsX
+ MjoLDg9El0kjamWJPkQw12UPz9jCmEAvM+Q1RLIwykiz7Qhx64zv8ngkVvFonjg+nKH46v
+ Ky36ly3i1d8I93FVQyalsABThe/b8v8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1648222899;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=0w3Qyf5dcIQcXwt5zZqWtEJYXfBKD8QYgjyHujCFZe8=;
- b=lR7g38O0IeYnWd5OtOFaUSUom7x8yI+w7pSeWSsyfO++2POsM87YR9GaHPKMp5r8qGxIAP
- Mz2HMiCXdO3FpTDA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ bh=4WDZf9c+Pr7c+xCTilgHXPiH1xx/qDrHXcfPfsgEVDs=;
+ b=VOAWmfVKvsDot3ZnVqM9llT46VW9UBWRL7ZhLHjUVt3Ai2UaO0c1PGZpItWif5WyLXS/P4
+ iI07BWDujz3fDQCQ==
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id AD8A71332D;
- Fri, 25 Mar 2022 12:54:48 +0000 (UTC)
+ by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 453A51339C;
+ Fri, 25 Mar 2022 15:41:39 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id MLd8KJi7PWKoZgAAMHmgww
- (envelope-from <andrea.cervesato@suse.de>); Fri, 25 Mar 2022 12:54:48 +0000
-From: Andrea Cervesato <andrea.cervesato@suse.de>
-To: ltp@lists.linux.it
-Date: Fri, 25 Mar 2022 13:54:45 +0100
-Message-Id: <20220325125445.11984-11-andrea.cervesato@suse.de>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220325125445.11984-1-andrea.cervesato@suse.de>
-References: <20220325125445.11984-1-andrea.cervesato@suse.de>
+ by imap1.suse-dmz.suse.de with ESMTPSA id HqGTD7PiPWK5IwAAGKfGzw
+ (envelope-from <chrubis@suse.cz>); Fri, 25 Mar 2022 15:41:39 +0000
+Date: Fri, 25 Mar 2022 16:43:59 +0100
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Andrea Cervesato <andrea.cervesato@suse.de>
+Message-ID: <Yj3jPw3KRwneB2Hr@yuki>
+References: <20220325093626.11114-1-andrea.cervesato@suse.de>
+ <20220325093626.11114-2-andrea.cervesato@suse.de>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20220325093626.11114-2-andrea.cervesato@suse.de>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v4 10/10] Delete ipcns_helper.h in the sysvipc test
- suite
+Subject: Re: [LTP] [PATCH v3 1/9] Rewrite userns01.c using new LTP API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,67 +80,39 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.de>
----
- .../kernel/containers/sysvipc/ipcns_helper.h  | 41 -------------------
- 1 file changed, 41 deletions(-)
- delete mode 100644 testcases/kernel/containers/sysvipc/ipcns_helper.h
+Hi!
+Pushed with one small change.
 
-diff --git a/testcases/kernel/containers/sysvipc/ipcns_helper.h b/testcases/kernel/containers/sysvipc/ipcns_helper.h
-deleted file mode 100644
-index 01ad0fff6..000000000
---- a/testcases/kernel/containers/sysvipc/ipcns_helper.h
-+++ /dev/null
-@@ -1,41 +0,0 @@
--/*
--* Copyright (c) International Business Machines Corp., 2007
--* This program is free software; you can redistribute it and/or modify
--* it under the terms of the GNU General Public License as published by
--* the Free Software Foundation; either version 2 of the License, or
--* (at your option) any later version.
--*
--* This program is distributed in the hope that it will be useful,
--* but WITHOUT ANY WARRANTY; without even the implied warranty of
--* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
--* the GNU General Public License for more details.
--* You should have received a copy of the GNU General Public License
--* along with this program; if not, write to the Free Software
--* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
--*
--* Author: Rishikesh K Rajak <risrajak@in.ibm.com>
--***************************************************************************/
--#include <sched.h>
--#include "../libclone/libclone.h"
--#include "test.h"
--#include "safe_macros.h"
--
--static int dummy_child(void *v)
--{
--	(void) v;
--	return 0;
--}
--
--static void check_newipc(void)
--{
--	int pid, status;
--
--	if (tst_kvercmp(2, 6, 19) < 0)
--		tst_brkm(TCONF, NULL, "CLONE_NEWIPC not supported");
--
--	pid = do_clone_unshare_test(T_CLONE, CLONE_NEWIPC, dummy_child, NULL);
--	if (pid == -1)
--		tst_brkm(TCONF | TERRNO, NULL, "CLONE_NEWIPC not supported");
--
--	SAFE_WAIT(NULL, &status);
--}
+diff --git a/testcases/kernel/containers/userns/userns01.c b/testcases/kernel/containers/userns/userns01.c
+index 460c20a8d..67708f10e 100644
+--- a/testcases/kernel/containers/userns/userns01.c
++++ b/testcases/kernel/containers/userns/userns01.c
+@@ -93,6 +93,10 @@ static struct tst_test test = {
+        .setup = setup,
+        .test_all = run,
+        .needs_root = 1,
++       .caps = (struct tst_cap []) {
++               TST_CAP(TST_CAP_DROP, CAP_NET_RAW),
++               {}
++       },
+        .needs_kconfigs = (const char *[]) {
+                "CONFIG_USER_NS",
+                NULL,
+
+This ensures that at least one capability is not set in the effective
+and permitted set before we call clone(). Otherwise we will have the
+full capability set before the clone() and we would inherit a full set
+of the capabilities regardless of the CLONE_NEWUSR.
+
 -- 
-2.35.1
-
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
