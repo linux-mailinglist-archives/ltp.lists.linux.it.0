@@ -1,73 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34F124E9A42
-	for <lists+linux-ltp@lfdr.de>; Mon, 28 Mar 2022 16:59:11 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 27BEB4EA026
+	for <lists+linux-ltp@lfdr.de>; Mon, 28 Mar 2022 21:48:33 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C30983C9B54
-	for <lists+linux-ltp@lfdr.de>; Mon, 28 Mar 2022 16:59:10 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E0C1E3C9AA2
+	for <lists+linux-ltp@lfdr.de>; Mon, 28 Mar 2022 21:48:32 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 52C923C97F1
- for <ltp@lists.linux.it>; Mon, 28 Mar 2022 16:59:07 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 234073C985F
+ for <ltp@lists.linux.it>; Mon, 28 Mar 2022 21:48:31 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id BBCD31400538
- for <ltp@lists.linux.it>; Mon, 28 Mar 2022 16:59:06 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 9CBC5100093A
+ for <ltp@lists.linux.it>; Mon, 28 Mar 2022 21:48:30 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id E912B210EA;
- Mon, 28 Mar 2022 14:59:05 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 988E81F858;
+ Mon, 28 Mar 2022 19:48:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1648479545; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ t=1648496909;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=W8vECuUMEME+LXoo1GZi0uMABi5nVTDkq80bXtoSlmo=;
- b=QZtZ1He5h/ZM926DlvbBcYuZm2QG1RS4Oj5GlTbbySUCMBzSjHpDK21tPnzAQcRYyVoaOm
- 0H4aL6iQEO+qGo76ziMuuinJrK4pBNpJtGe/hqFjGl7kiHSl8okHx7ksHDBrwkp/JFCNmj
- 6LRn4EFOLUe9TBc84LNtV1/hiGI6JEc=
+ bh=RgDWJnLiujkVyHGM8DsHindNGqg1Gwnyp1gUSJud0pE=;
+ b=CjFw/+uzm+OSBvVsioIEg839cZ+uw7w2YTIWG0ShAtCP752IEToptPhf4zIhlI4zmfv3j1
+ BRcQK65TDTEsJjmnBv70Di4AybER4eu7DFpkkUyVDFZyLWpdhWzfyCwmp0LYvd2Dwhh0we
+ HFDCE8QCQBSo0vhbOLI8qSz0gaELpmQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1648479545;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ s=susede2_ed25519; t=1648496909;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=W8vECuUMEME+LXoo1GZi0uMABi5nVTDkq80bXtoSlmo=;
- b=P9YFk5w4CmaBPL1LxeCGnScv+3WZWds5vOWo6ft1Y2jZt8IulIxP3zmVJB2xdfgafSDLnR
- MDNiyUv0uqF0e6Ag==
+ bh=RgDWJnLiujkVyHGM8DsHindNGqg1Gwnyp1gUSJud0pE=;
+ b=JqE1keGit/sCz0KOO2aQ/hnGCousLiQdf/2wCaO3jFCrEBjtkYHimyaj4F29Gg8/9PSBhM
+ wXf+MvqrRT5UhOBQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C8D4413215;
- Mon, 28 Mar 2022 14:59:05 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5667313215;
+ Mon, 28 Mar 2022 19:48:29 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id er3eLznNQWIiPwAAMHmgww
- (envelope-from <chrubis@suse.cz>); Mon, 28 Mar 2022 14:59:05 +0000
-Date: Mon, 28 Mar 2022 17:01:24 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Andrea Cervesato <andrea.cervesato@suse.de>
-Message-ID: <YkHNxNcEy/xHv5wz@yuki>
-References: <20220328123114.31881-1-andrea.cervesato@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id 2a9dEQ0RQmKfOwAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Mon, 28 Mar 2022 19:48:29 +0000
+Date: Mon, 28 Mar 2022 21:48:26 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <YkIRCiRp2p9lnrS+@pevik>
+References: <20220325184435.1206-1-pvorel@suse.cz>
+ <YkHL1zy02XSDL0C6@yuki>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20220328123114.31881-1-andrea.cervesato@suse.de>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+In-Reply-To: <YkHL1zy02XSDL0C6@yuki>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v1] Fix wqueue09 according with 5.17 kernel updates
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/1] lib: Retry safe_clone() on ENOSPC|EUSERS
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,65 +80,24 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> Kernel 5.17 introduced many changes in the watch_queue support. In
-> particular, commit 3b4c0371928c17af03e8397ac842346624017ce6 changes the
-> behaviour of IOC_WATCH_QUEUE_SET_SIZE and ioctl control over watch_queue
-> buffer size: now we need to generate more events than before. In
-> particular, more than the bitmap size to the number of notes.
-> 
-> Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.de>
-> ---
->  testcases/kernel/watchqueue/wqueue09.c | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
-> 
-> diff --git a/testcases/kernel/watchqueue/wqueue09.c b/testcases/kernel/watchqueue/wqueue09.c
-> index 55d567249..86feebf4a 100644
-> --- a/testcases/kernel/watchqueue/wqueue09.c
-> +++ b/testcases/kernel/watchqueue/wqueue09.c
-> @@ -29,14 +29,14 @@ static void saw_data_loss(struct watch_notification *n,
->  
->  static void run(void)
->  {
-> -	int fd;
-> +	int fd, i;
->  	key_serial_t key;
->  
-> -	fd = wqueue_watch(1, &wqueue_filter);
-> +	fd = wqueue_watch(32, &wqueue_filter);
+> Hi!
+> > +	/* too fast creating namespaces => retrying */
+> > +	if (pid < 0 && (errno == ENOSPC || errno == EUSERS)) {
+> > +		tst_res_(file, lineno, TINFO | TERRNO, "%s() failed => retrying",
+> > +				 pid == -2 ? "clone" : "clone3");
+> > +		usleep(100000);
+> > +		pid = tst_clone(args);
 
-We may as well keep the 1 here, kernel will rount it to smallest
-possible size anyways.
-
->  	key = wqueue_add_key(fd);
-> -	keyctl(KEYCTL_UPDATE, key, "b", 1);
-> -	keyctl(KEYCTL_REVOKE, key);
-> +	for (i = 0; i < 256; i++)
-> +		keyctl(KEYCTL_UPDATE, key, "b", 1);
-
-Have you tried this on any machine with 64k pages? If the minimal size
-is rounded to a PAGE_SIZE and we get 32 messages in 4k page that would
-mean that we would fit 512 messages in 64k page. So maybe we would need
-512 messages on 65k page size?
-
->  	data_lost = 0;
->  	while (!data_lost)
-> -- 
-> 2.35.1
-> 
-> 
-> -- 
-> Mailing list info: https://lists.linux.it/listinfo/ltp
-
--- 
-Cyril Hrubis
-chrubis@suse.cz
+> Wouldn't it make sense to use the exponential backof macro we have in
+> tst_common.h?
++1 => I'll send v2.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
