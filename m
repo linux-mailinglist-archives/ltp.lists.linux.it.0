@@ -1,69 +1,51 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 554844EA6CF
-	for <lists+linux-ltp@lfdr.de>; Tue, 29 Mar 2022 07:04:01 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 91AA84EA8A7
+	for <lists+linux-ltp@lfdr.de>; Tue, 29 Mar 2022 09:45:15 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0FA653C9AF8
-	for <lists+linux-ltp@lfdr.de>; Tue, 29 Mar 2022 07:04:01 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 5DF833C9EA3
+	for <lists+linux-ltp@lfdr.de>; Tue, 29 Mar 2022 09:45:15 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 000743C279F
- for <ltp@lists.linux.it>; Tue, 29 Mar 2022 07:03:59 +0200 (CEST)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 0CF373C9BD2
+ for <ltp@lists.linux.it>; Tue, 29 Mar 2022 09:44:49 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 968C2200AC2
- for <ltp@lists.linux.it>; Tue, 29 Mar 2022 07:03:58 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1648530237;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=sptwltsONWruAPWq9LDOKHjz1QQAyNWKh6M+V+9PjaU=;
- b=bHa+/CDupGbPBo1JwsjW6smTqhgyAnSmKSE4rskVSXfvB60AvjgVSEBS5mLgBzsIm4e/w5
- i5TKAmYJWEa4nJTuZKr+lCzjikBI/wEfAwENOlXZZv3ukOn7Motq7HwM6p6srhHwWdBVN8
- 2wg89Jfto2svK5JuMP8yqJQN/j/oajQ=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-612-dE_EDbztPyGqKwokHZQSyw-1; Tue, 29 Mar 2022 01:03:55 -0400
-X-MC-Unique: dE_EDbztPyGqKwokHZQSyw-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3633E3C14CDA;
- Tue, 29 Mar 2022 05:03:55 +0000 (UTC)
-Received: from liwang-workstation.nay.redhat.com
- (dhcp-66-81-187.nay.redhat.com [10.66.81.187])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 40388141DC28;
- Tue, 29 Mar 2022 05:03:52 +0000 (UTC)
-From: Li Wang <liwang@redhat.com>
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id AF0051A00E0F
+ for <ltp@lists.linux.it>; Tue, 29 Mar 2022 09:44:48 +0200 (CEST)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 9629D1F872;
+ Tue, 29 Mar 2022 07:44:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1648539887; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=HY9uFId2Q3x3FdFyezX1Mb88Ir/+paHSBTjAYPejBpA=;
+ b=SlG3JlchR7nKdV3vv6s7aZI9qAWRgOGO+DosSR8Zfte0mrPkcKxWXO48eEmZrNQEj/1jFr
+ 2rSl756Yv1lwBxXaLYWZcUAFlXsmU+6AeXbcMAjKMfsT3V6UJ05IoYmN6U0eGT5KZ3SLhC
+ HrVGrFqkSygXFtlKIGKH2jjzzNzjF8k=
+Received: from g78.suse.de (unknown [10.163.24.182])
+ by relay2.suse.de (Postfix) with ESMTP id 5CD35A3B83;
+ Tue, 29 Mar 2022 07:44:47 +0000 (UTC)
 To: ltp@lists.linux.it
-Date: Tue, 29 Mar 2022 13:03:51 +0800
-Message-Id: <20220329050351.688432-1-liwang@redhat.com>
+Date: Tue, 29 Mar 2022 08:44:38 +0100
+Message-Id: <20220329074440.26214-1-rpalethorpe@suse.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwang@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH v2] clock_gettime04: set threshold based on the clock
- resolution
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 1/3] API/cgroup: Add io controller
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,97 +57,61 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Viresh Kumar <viresh.kumar@linaro.org>, Eirik Fuller <efuller@redhat.com>,
- Waiman Long <llong@redhat.com>
+From: Richard Palethorpe via ltp <ltp@lists.linux.it>
+Reply-To: Richard Palethorpe <rpalethorpe@suse.com>
+Cc: Richard Palethorpe <rpalethorpe@suse.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This is to get rid of the intermittent failures in clock_gettime04,
-which are likely caused by different clock tick rates on platforms.
-Here give two thresholds (in milliseconds) for comparison, one for
-COARSE clock and one for the rest.
-
-Error log:
-  clock_gettime04.c:163: TFAIL: CLOCK_REALTIME_COARSE(syscall with old kernel spec):
-        Difference between successive readings greater than 5 ms (1): 10
-  clock_gettime04.c:163: TFAIL: CLOCK_MONOTONIC_COARSE(vDSO with old kernel spec):
-	Difference between successive readings greater than 5 ms (2): 10
-
-From Waiman Long:
-  That failure happens for CLOCK_REALTIME_COARSE which is a faster but less
-  precise version of CLOCK_REALTIME. The time resolution is actually a clock
-  tick. Since arm64 has a HZ rate of 100. That means each tick is 10ms. So a
-  CLOCK_REALTIME_COARSE threshold of 5ms is probably not enough. I would say
-  in the case of CLOCK_REALTIME_COARSE, we have to increase the threshold based
-  on the clock tick rate of the system. This is more a test failure than is
-  an inherent problem in the kernel.
-
-Fixes #898
-
-Reported-by: Eirik Fuller <efuller@redhat.com>
-Signed-off-by: Li Wang <liwang@redhat.com>
-Cc: Waiman Long <llong@redhat.com>
-Cc: Viresh Kumar <viresh.kumar@linaro.org>
+Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
 ---
 
-Notes:
-    v1 --> v2
-        * make use of clock_getres to get clock resolution
-        * involve separate coarse_delta for COARSE clock
-        * count delta as 'clock resolution + elapse (5ms)'
+V2:
+* Fix doc format
+* abstract reading io.stat
+* abstract stating the underlying device
 
- .../syscalls/clock_gettime/clock_gettime04.c   | 18 ++++++++++++++++--
- 1 file changed, 16 insertions(+), 2 deletions(-)
+ lib/tst_cgroup.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/testcases/kernel/syscalls/clock_gettime/clock_gettime04.c b/testcases/kernel/syscalls/clock_gettime/clock_gettime04.c
-index a8d2c5b38..c279da79e 100644
---- a/testcases/kernel/syscalls/clock_gettime/clock_gettime04.c
-+++ b/testcases/kernel/syscalls/clock_gettime/clock_gettime04.c
-@@ -35,7 +35,7 @@ clockid_t clks[] = {
+diff --git a/lib/tst_cgroup.c b/lib/tst_cgroup.c
+index 57940ba09..feb5b3d07 100644
+--- a/lib/tst_cgroup.c
++++ b/lib/tst_cgroup.c
+@@ -83,6 +83,7 @@ enum cgroup_ctrl_indx {
+ 	CTRL_MEMORY = 1,
+ 	CTRL_CPU,
+ 	CTRL_CPUSET,
++	CTRL_IO,
+ };
+ #define CTRLS_MAX CTRL_CPUSET
+ 
+@@ -191,6 +192,11 @@ static const struct cgroup_file cpuset_ctrl_files[] = {
+ 	{ }
  };
  
- static gettime_t ptr_vdso_gettime, ptr_vdso_gettime64;
--static long long delta = 5;
-+static long long delta, precise_delta, coarse_delta;
- 
- static inline int do_vdso_gettime(gettime_t vdso, clockid_t clk_id, void *ts)
- {
-@@ -92,9 +92,18 @@ static struct time64_variants variants[] = {
- 
- static void setup(void)
- {
-+	struct timespec res;
++static const struct cgroup_file io_ctrl_files[] = {
++	{ "io.stat", NULL, CTRL_IO },
++	{ }
++};
 +
-+	clock_getres(CLOCK_REALTIME, &res);
-+	precise_delta = 5 + res.tv_nsec / 1000000;
-+
-+	clock_getres(CLOCK_REALTIME_COARSE, &res);
-+	coarse_delta = 5 + res.tv_nsec / 1000000;
-+
- 	if (tst_is_virt(VIRT_ANY)) {
- 		tst_res(TINFO, "Running in a virtual machine, multiply the delta by 10.");
--		delta *= 10;
-+		precise_delta *= 10;
-+		coarse_delta *= 10;
- 	}
+ /* Lookup tree for item names. */
+ static struct cgroup_ctrl controllers[] = {
+ 	[0] = { "cgroup", cgroup_ctrl_files, 0, NULL, 0 },
+@@ -203,6 +209,9 @@ static struct cgroup_ctrl controllers[] = {
+ 	[CTRL_CPUSET] = {
+ 		"cpuset", cpuset_ctrl_files, CTRL_CPUSET, NULL, 0
+ 	},
++	[CTRL_IO] = {
++		"io", io_ctrl_files, CTRL_IO, NULL, 0
++	},
+ 	{ }
+ };
  
- 	find_clock_gettime_vdso(&ptr_vdso_gettime, &ptr_vdso_gettime64);
-@@ -108,6 +117,11 @@ static void run(unsigned int i)
- 	int count = 10000, ret;
- 	unsigned int j;
- 
-+	if (clks[i] == CLOCK_REALTIME_COARSE || clks[i] == CLOCK_MONOTONIC_COARSE)
-+		delta = coarse_delta;
-+	else
-+		delta = precise_delta;
-+
- 	do {
- 		for (j = 0; j < ARRAY_SIZE(variants); j++) {
- 			/* Refresh time in start */
 -- 
-2.31.1
+2.35.1
 
 
 -- 
