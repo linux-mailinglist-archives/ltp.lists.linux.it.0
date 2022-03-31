@@ -1,74 +1,69 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1488C4ED3D6
-	for <lists+linux-ltp@lfdr.de>; Thu, 31 Mar 2022 08:21:26 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D34B4ED7E2
+	for <lists+linux-ltp@lfdr.de>; Thu, 31 Mar 2022 12:41:42 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B243A3C9F37
-	for <lists+linux-ltp@lfdr.de>; Thu, 31 Mar 2022 08:21:25 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C63043C8713
+	for <lists+linux-ltp@lfdr.de>; Thu, 31 Mar 2022 12:41:41 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 29C3F3C9EB1
- for <ltp@lists.linux.it>; Thu, 31 Mar 2022 08:21:22 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 2D09A3C0711
+ for <ltp@lists.linux.it>; Thu, 31 Mar 2022 12:41:39 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 2EBEC60081B
- for <ltp@lists.linux.it>; Thu, 31 Mar 2022 08:21:21 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 05280218F0;
- Thu, 31 Mar 2022 06:21:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1648707681;
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 0DF5E1400C47
+ for <ltp@lists.linux.it>; Thu, 31 Mar 2022 12:41:38 +0200 (CEST)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id E2AAA1F37D
+ for <ltp@lists.linux.it>; Thu, 31 Mar 2022 10:41:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1648723297;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=/OKyz/RblzhEyVXTb2opK9Emedk3ShBgqMQsUkG+jF8=;
- b=juB/csVAjYPHNJIbWKlbsmivGp0Z6NDeaO6r2Wr/aHFvtiRW/0paOdFoA5G7rIKxYameyJ
- by3q1CkEzh6+yPwcJMkZ6WeygsBzjRqR8s99zu4StrKQKVStP2uFkHLRxRQ32XCXg6HUIM
- kU0LPmCWbZ6QmsHxWOwHdUmzjxX24Nw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1648707681;
+ bh=sH763GBQAJp27LyCJ9Cr1ngHofhlDthOd+/dS+D2pEI=;
+ b=DfbxAXqwm0J3fUOKqYIpKrLlWkUtaFGZjyqHf0J+YvTQ9orZcYQchGoAjFETgRukMiCppA
+ YwWnAgu7OhOxO0k/nh/nBUij7vHr7N9UneVfKXkir/pZ/Fz3qXDPMQt9XDkf1McieAkdOa
+ pVU32pgs10lhiTN0Aaf3SVP5msvKfXs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1648723297;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=/OKyz/RblzhEyVXTb2opK9Emedk3ShBgqMQsUkG+jF8=;
- b=0uO1FfihZfIZP4r0cy3s8nScEyAx6JB6IbpvJTuGy9ZXSZCCvTpx4TJp1LFqyjsHE27Nav
- 0+zDZ8qtDmSuDMDQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ bh=sH763GBQAJp27LyCJ9Cr1ngHofhlDthOd+/dS+D2pEI=;
+ b=KbypogModDmYtze/W+ZeKHTYrJH7U8jF8prMGezqiW8gvTFo/30Ql9/55+sbILaNkJNy3F
+ UywQxDbaOA78BbAg==
+Received: from g78 (unknown [10.163.24.182])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C7E5113B4C;
- Thu, 31 Mar 2022 06:21:20 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id gnktL2BIRWIEQwAAMHmgww
- (envelope-from <pvorel@suse.cz>); Thu, 31 Mar 2022 06:21:20 +0000
-Date: Thu, 31 Mar 2022 08:21:18 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: pvorel <pvorel@suse.de>
-Message-ID: <YkVIXjarbhum1eux@pevik>
-References: <20220330090817.21950-1-andrea.cervesato@suse.de>
- <1faf27214b18ef9d3237734388342308@suse.de>
+ by relay2.suse.de (Postfix) with ESMTPS id A95CAA3B8A;
+ Thu, 31 Mar 2022 10:41:37 +0000 (UTC)
+References: <20220310105533.3012-1-chrubis@suse.cz> <YinZzNWCiKalyWhd@yuki>
+ <87ee2vclsf.fsf@suse.de> <c9f5b441-2f3f-f2c3-2c3c-32dd3f9595ae@suse.cz>
+User-agent: mu4e 1.6.10; emacs 27.2
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Martin Doucha <mdoucha@suse.cz>
+Date: Thu, 31 Mar 2022 11:07:43 +0100
+In-reply-to: <c9f5b441-2f3f-f2c3-2c3c-32dd3f9595ae@suse.cz>
+Message-ID: <8735iyl7z8.fsf@suse.de>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1faf27214b18ef9d3237734388342308@suse.de>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] Fix wqueue09 according with 5.17 kernel updates
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] syscalls/waitid10: Fix on ARM,
+ PPC and possibly others
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,47 +75,38 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
+Reply-To: rpalethorpe@suse.de
 Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi all,
+Hello,
 
-> Hi Andrea,
+Martin Doucha <mdoucha@suse.cz> writes:
 
-> On 2022-03-30 11:08, Andrea Cervesato wrote:
+> On 21. 03. 22 16:48, Richard Palethorpe wrote:
+>> I'm wondering if we should branch on the architecture. If it's x86[_64]
+>> then we only do divide by zero as it's reasonable to think that if the
+>> signal is not raised then this is a bug.
+>
+> It's more likely to be a hardware bug/missing feature though. Do we
+> really care? I'd argue that removing the division altogether and just
+> calling raise(SIGFPE) in the child process is all we need in this
+> particular test.
 
-> > This patch fixes also the issue of loosing events on big number of
-> > iterations
-> > such as -i 1000.
+I suppose it depends on if there is a substantial difference in how the
+signal is raised between div by zero and raise. I guess there is some
+configuration to trap the faulting instruction and raise a
+signal.
 
-> Unfortunately when testing on machine with older kernel (older Tumbleweed
-> with
-> 5.9.1-1-default) it still blocks and then timeout:
+I don't have a strong opinion as, by definintion, testing undefined
+behaviour has uncertain results.
 
-> wqueue09.c:52: TPASS: Meta loss notification received
-> common.h:134: TINFO: Reading watch queue events
-
-FYI on long enough -i (513 in my case)
-buf_len = SAFE_READ(0, fd, buffer, sizeof(buffer));
-
-This is regardless kernel version (tested on Tumbleweed 5.17.0-3.g6cba016-default
-and SLES 5.14.21) => easily reproducible.
-
-NOTE: keyctl() return value is always 0.
-
-Also not sure why we are not revoking key any more (removed in this patchset).
-
-Kind regards,
-Petr
-
-> NOTE: I haven't tested it on 5.17 yet.
-
-> Kind regards,
-> Petr
+-- 
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
