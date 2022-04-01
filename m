@@ -1,75 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CF8D4EFC80
-	for <lists+linux-ltp@lfdr.de>; Sat,  2 Apr 2022 00:00:58 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id BDB1F4EFC85
+	for <lists+linux-ltp@lfdr.de>; Sat,  2 Apr 2022 00:04:16 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D9D3D3CA2F6
-	for <lists+linux-ltp@lfdr.de>; Sat,  2 Apr 2022 00:00:57 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 6DB473CA2DD
+	for <lists+linux-ltp@lfdr.de>; Sat,  2 Apr 2022 00:04:16 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A274D3C9794
- for <ltp@lists.linux.it>; Sat,  2 Apr 2022 00:00:41 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 401DC3C9794
+ for <ltp@lists.linux.it>; Sat,  2 Apr 2022 00:04:14 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id BC4C2600C06
- for <ltp@lists.linux.it>; Sat,  2 Apr 2022 00:00:40 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id AE097600280
+ for <ltp@lists.linux.it>; Sat,  2 Apr 2022 00:04:13 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 636841FD00;
- Fri,  1 Apr 2022 22:00:40 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id EA91C210E7;
+ Fri,  1 Apr 2022 22:04:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1648850440; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ t=1648850652;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=mUCW/xAAruP14iNx+RF6cvErxhW0QxXLMfhpteKY+74=;
- b=QvRrzme+zACk6vOAUS/rfkdiEyMmMbl9EeJtKrs1rAOwjVzzh7ahTV6s3wuK/o9J2hr28Z
- rAj5nlofRwgSmiaBxajafWdYiPHKkod2SWgmfBIgXxSgWzLcBiiVCsJhRE/8snmxyVhWd8
- iEJTEHAMNpKEIZFVrJvbFH5pzr8PHGU=
+ bh=nCLFZCkXAmt/Yf1gypHs4NtFPB3i9uuZHrEBnzQBJ9Y=;
+ b=pYzZyBzp+fhJR/o1Z0Q160E1u2vGdUTJsLOEg/RvJsvBR3DKgeb7bQRROMqTueJEv/eQq3
+ pym68uYqR7hcDRHIpJmVsbnDl39MH4pDUU26TbuptqLdMtdceKDIhC7sw/aUavlJJC6haa
+ 6BbLu6zLVZ7M6qTiR/4LqefEmwPeWko=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1648850440;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ s=susede2_ed25519; t=1648850652;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=mUCW/xAAruP14iNx+RF6cvErxhW0QxXLMfhpteKY+74=;
- b=Ad1YgCaZFktVLZakdJGqvlz1Hgm0R01HP5Lx6nfnHDDEOHGymwgfaFzAujLXneRSlNhyIU
- EycU4FkrcBzq7dBA==
+ bh=nCLFZCkXAmt/Yf1gypHs4NtFPB3i9uuZHrEBnzQBJ9Y=;
+ b=JpiTO+27kxdAzj4M/AeV6KXlheHL9d6NAwchKyB/aVBtLKawgr79M13Q701YHOxRGxzXYo
+ bkbVoG2hoyguBADQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0C03213A84;
- Fri,  1 Apr 2022 22:00:40 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B2E50132C1;
+ Fri,  1 Apr 2022 22:04:12 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id EDekAAh2R2JMKwAAMHmgww
- (envelope-from <pvorel@suse.cz>); Fri, 01 Apr 2022 22:00:40 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id am/vKNx2R2IpLAAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Fri, 01 Apr 2022 22:04:12 +0000
+Date: Sat, 2 Apr 2022 00:04:06 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Fri,  1 Apr 2022 23:59:51 +0200
-Message-Id: <20220401215951.13976-3-pvorel@suse.cz>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220401215951.13976-1-pvorel@suse.cz>
-References: <20220401215951.13976-1-pvorel@suse.cz>
+To: Martin Doucha <mdoucha@suse.cz>
+Message-ID: <Ykd21m4DE9Y+K4Gj@pevik>
+References: <20220331113324.14742-1-mdoucha@suse.cz>
+ <20220331113324.14742-2-mdoucha@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20220331113324.14742-2-mdoucha@suse.cz>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/2] doc: Update shell API examples
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 1/3] Add AX_CHECK_COMPILE_FLAG() autoconf macro
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,88 +80,20 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Martin Doucha <martin.doucha@suse.com>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
- doc/shell-test-api.txt | 8 ++++++++
- 1 file changed, 8 insertions(+)
+Hi Martin,
 
-diff --git a/doc/shell-test-api.txt b/doc/shell-test-api.txt
-index 4c16f36250..df5ebbdf0d 100644
---- a/doc/shell-test-api.txt
-+++ b/doc/shell-test-api.txt
-@@ -40,6 +40,7 @@ do_test()
- 	fi
- }
- 
-+. tst_test.sh
- tst_run
- -------------------------------------------------------------------------------
- 
-@@ -90,6 +91,7 @@ test2()
- 	tst_res TPASS "Test $1 passed"
- }
- 
-+. tst_test.sh
- tst_run
- # output:
- # foo 1 TPASS: Test 1 passed
-@@ -118,6 +120,7 @@ do_test()
- 	esac
- }
- 
-+. tst_test.sh
- tst_run
- # output:
- # foo 1 TPASS: Test 1 passed
-@@ -145,6 +148,7 @@ do_test()
- 	tst_res TPASS "Test $1 passed with data '$2'"
- }
- 
-+. tst_test.sh
- tst_run
- # output:
- # foo 1 TPASS: Test 1 passed with data 'foo'
-@@ -174,6 +178,7 @@ do_test()
- 	esac
- }
- 
-+. tst_test.sh
- tst_run
- # output:
- # foo 1 TPASS: Test 1 passed with data 'foo'
-@@ -278,6 +283,7 @@ do_test()
- 	...
- }
- 
-+. tst_test.sh
- tst_run
- -------------------------------------------------------------------------------
- 
-@@ -337,6 +343,7 @@ do_test()
- 	...
- }
- 
-+. tst_test.sh
- tst_run
- -------------------------------------------------------------------------------
- 
-@@ -379,6 +386,7 @@ do_test()
- 	...
- }
- 
-+. tst_test.sh
- tst_run
- -------------------------------------------------------------------------------
- 
--- 
-2.35.1
+obviously ok.
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
 
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
