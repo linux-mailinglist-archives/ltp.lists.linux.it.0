@@ -1,83 +1,84 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0332F4F8C01
-	for <lists+linux-ltp@lfdr.de>; Fri,  8 Apr 2022 04:57:10 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id F28034F8CE4
+	for <lists+linux-ltp@lfdr.de>; Fri,  8 Apr 2022 05:58:52 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 892F53CA4F2
-	for <lists+linux-ltp@lfdr.de>; Fri,  8 Apr 2022 04:57:09 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 412583CA504
+	for <lists+linux-ltp@lfdr.de>; Fri,  8 Apr 2022 05:58:52 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 61CF33CA488
- for <ltp@lists.linux.it>; Fri,  8 Apr 2022 04:57:05 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 08FB83C9A7E
+ for <ltp@lists.linux.it>; Fri,  8 Apr 2022 05:58:47 +0200 (CEST)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 7D42A200047
- for <ltp@lists.linux.it>; Fri,  8 Apr 2022 04:57:04 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id A04B76009AE
+ for <ltp@lists.linux.it>; Fri,  8 Apr 2022 05:58:46 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1649386622;
+ s=mimecast20190719; t=1649390325;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=Y2mOtEFnHAmT9r6+akt8bPjyzwr57Qn4DtEaGLS0pCE=;
- b=FJUNvH0rIZMOv11VdlDGZIU01gOPAHOgDtOhYaNckpEsfEVGeFZN/P84iySNaRDBrZKCz2
- /09fMkSyC8htZFIgK8dP37ifaCSBfXOkJgxfl+2tkbjqVSqEQu9zsMxszEZsZT8r5IkZtq
- SUvTMBXa8xzj36c+Sz3Lq3jkJNF47F0=
+ bh=6LUQG+fUx9QGqA/izdOt3MMiMkAu+9yC7+ALm/aGgRY=;
+ b=OCgN3HdnQl4lBRRiyhB492VG7qN5BgFdfSPIo/nZ99hR+TLID96mF6CCX2z/SXtJajJVYv
+ /wxohAG68qYCnEbFlSQgLi9FOcGibuxUnRmsvspYk5Wu7XKG597iE0Hjb5d+Y9WNg+y0HR
+ ZnJiGBmDpMLVnzAUvlPvBJpOxm3dbxs=
 Received: from mail-yw1-f200.google.com (mail-yw1-f200.google.com
  [209.85.128.200]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-167-WN8c5jK0Mz2igdSliOyHQw-1; Thu, 07 Apr 2022 22:56:59 -0400
-X-MC-Unique: WN8c5jK0Mz2igdSliOyHQw-1
+ us-mta-403-mr8oZcHePeSkz5LeXjH5AA-1; Thu, 07 Apr 2022 23:58:44 -0400
+X-MC-Unique: mr8oZcHePeSkz5LeXjH5AA-1
 Received: by mail-yw1-f200.google.com with SMTP id
- 00721157ae682-2dc7bdd666fso64711977b3.7
- for <ltp@lists.linux.it>; Thu, 07 Apr 2022 19:56:59 -0700 (PDT)
+ 00721157ae682-2e61c5a0eb7so65097007b3.22
+ for <ltp@lists.linux.it>; Thu, 07 Apr 2022 20:58:44 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=Y2mOtEFnHAmT9r6+akt8bPjyzwr57Qn4DtEaGLS0pCE=;
- b=2I5VmpRs53j9zwwlXWpq5sgq3K3fuHxTx7VprtaeVsV5kK4rwKMQtV2Ow0xLs44vPZ
- N5+ITctUbQmB+gVp5IKx12kkI7V1Z9XefEIFqMV0Czkd+S6Urxk8ydmU/ScUaN2et/O0
- R/01DbVQ+JRL78Q3p4zpxY5K56eOeN25NKtcunx8ZeJ8tPcgxxxafY5MPNyv6PgKhI2k
- BR5a67e77cpQcg4qFushbKoinX/cE2wj/ej6wS7LIIt5ysNbDItyVg5avfqfxx3/4db5
- iFtTzPy2jZXjTj1oJ/FRbtIuisaB3DYiGTgg8PYM3DNwYszD0PcMH2nnFwQI31WBLY5n
- N82w==
-X-Gm-Message-State: AOAM530Ecg9958IH502vkoSmEa38nCu0cJ1nkFJALQWz0rbd4Zhzh3gi
- Qr9IgEZmQUXOCcZmhoL4X+F35dhc9paHWMsay9wn8P67KiU5W14v1wc6nv9vqyTjLqZ/msfNAg2
- lURnZOzf9HC6rVnloN2Nefv7W8oc=
-X-Received: by 2002:a81:6e84:0:b0:2eb:99b6:6b80 with SMTP id
- j126-20020a816e84000000b002eb99b66b80mr14418612ywc.170.1649386618898; 
- Thu, 07 Apr 2022 19:56:58 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJybRuqMSNywe+JDFGhi0jZx1ilpH6zTT37MzhKxe7hfCWzyxAK2rycr/rL0+nEfb1O7Hqyl6LBVDERKXwALyxQ=
-X-Received: by 2002:a81:6e84:0:b0:2eb:99b6:6b80 with SMTP id
- j126-20020a816e84000000b002eb99b66b80mr14418602ywc.170.1649386618636; Thu, 07
- Apr 2022 19:56:58 -0700 (PDT)
+ bh=6LUQG+fUx9QGqA/izdOt3MMiMkAu+9yC7+ALm/aGgRY=;
+ b=TGJXAUPJSpUkDaxnc6ZxnXw5GF1Nr1N7642tfPFnQUHl/7ZZjebsFkin44DmEGq82B
+ pk9hjBkXSkFqSmuMstMcX5dh5VVPFeRDUejtV72fV+qeM5H+3HKG9DKPwQSe2uIx1rST
+ ZJ1wP2DZwQ5/EW7Fk87jXRSMChQLGwGrRgr/pDf66+jnE6mUQwTj38N8bHHiJqR/LO/a
+ BAm518+9Of7FwKxwkV9Vp3XrZzqR7h8M5W+JjGRFTtmMXndP6NPI8V1CT3OGYYAL5nU4
+ sLhcztO29vfnlaGcJaLjp+4xB1PgJvjeH6tSWTK9LeM8xJ9R1i/dZhrEwQiv7fIl95d9
+ Zbtg==
+X-Gm-Message-State: AOAM5313oSZs4UV68XpzDpnahqJGfW2h0+KS9F+JjoZ+6gCosmr3cMVz
+ 1qwxVcMLm66iQsMgw4tRbwnIKuIB9N1u4HxbSIfMMqmaMgllkjMMlwMbDRe31pp2pz74Idwm9+b
+ 8k70vhkgeN9WttdUZC1S8O9RLPMA=
+X-Received: by 2002:a25:780a:0:b0:633:ccea:3430 with SMTP id
+ t10-20020a25780a000000b00633ccea3430mr12489353ybc.26.1649390323557; 
+ Thu, 07 Apr 2022 20:58:43 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJygwX/FtIs5ycpjzL9AJLMwG+0TeSpN0K/8U8tIpdzOUVuiaisqyJ7eL2YWNhZq4D6foK1yt/pPLxs0ZXtZOlw=
+X-Received: by 2002:a25:780a:0:b0:633:ccea:3430 with SMTP id
+ t10-20020a25780a000000b00633ccea3430mr12489340ybc.26.1649390323277; Thu, 07
+ Apr 2022 20:58:43 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220406193650.15653-1-pvorel@suse.cz>
-In-Reply-To: <20220406193650.15653-1-pvorel@suse.cz>
+References: <20220328114921.182315-1-zhaogongyi@huawei.com>
+ <YkxNEjvaLAsWZSaq@pevik>
+In-Reply-To: <YkxNEjvaLAsWZSaq@pevik>
 From: Li Wang <liwang@redhat.com>
-Date: Fri, 8 Apr 2022 10:56:44 +0800
-Message-ID: <CAEemH2cN9EiOmcFq3wRDYcQzguduq_PUiqwiTKJ7UXEX51w8AA@mail.gmail.com>
+Date: Fri, 8 Apr 2022 11:58:31 +0800
+Message-ID: <CAEemH2e4WMF98j7auOJZd8+YhKk69bZ63+sLURFLNpq6qUeCRA@mail.gmail.com>
 To: Petr Vorel <pvorel@suse.cz>
 Authentication-Results: relay.mimecast.com;
  auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [RFC PATCH 1/1] Remove syslog shell tests
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] io_submit01/io_submit02: Bugfix for running with
+ the option "-i"
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,64 +90,110 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============2101763928=="
+Cc: Viresh Kumar <viresh.kumar@linaro.org>,
+ Martin Doucha <martin.doucha@suse.com>, LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============0498912977=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============2101763928==
-Content-Type: multipart/alternative; boundary="00000000000080616d05dc1bbff8"
+--===============0498912977==
+Content-Type: multipart/alternative; boundary="00000000000050c04205dc1c9c61"
 
---00000000000080616d05dc1bbff8
+--00000000000050c04205dc1c9c61
 Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Apr 7, 2022 at 3:37 AM Petr Vorel <pvorel@suse.cz> wrote:
+On Tue, Apr 5, 2022 at 10:08 PM Petr Vorel <pvorel@suse.cz> wrote:
 
-> They always had sporadic failures that were related to configuration
-> (rsyslog config, journald rate-limiting, etc.) and lot of sleep to
-> restart daemon dozens of times.
+> Hi all,
 >
-> + there are tests which cover syslog() syscall (kmsg01.c, syslog11.c,
->   syslog12.c)
+> > For io_submit01, add io_destroy before test return, or the test
+> > would fail and report EAGAIN.
+> > For io_submit02, move the io_destroy to the suitable location, or
+> > the test would fail and report EAGAIN.
+>
+> $ ./io_submit01 -i150
+> ...
+> io_submit01.c:122: TPASS: io_submit() with NULL iocb pointers failed with
+> EFAULT
+> io_submit01.c:127: TFAIL: io_submit() returned -11(EAGAIN/EWOULDBLOCK),
+> expected EBADF(-9)
+> io_submit01.c:127: TFAIL: io_submit() returned -11(EAGAIN/EWOULDBLOCK),
+> expected EBADF(-9)
+> io_submit01.c:127: TFAIL: io_submit() returned -11(EAGAIN/EWOULDBLOCK),
+> expected EBADF(-9)
+> io_submit01.c:127: TFAIL: io_submit() returned -11(EAGAIN/EWOULDBLOCK),
+> expected SUCCESS(1)
+>
+> $ ./io_submit02 -i150
+> ...
+> io_submit02.c:76: TPASS: io_submit() returns 0 if nr is zero
+> io_submit02.c:78: TFAIL: io_submit() returns -1, expected 1
+>
+> @Cyril, Li, Martin, Viresh: while this fix is valid using memset() (which
+> is required)
+> slows down testing a lot. Any idea whether this can be avoid to keep the
+> speed?
 >
 
+It would not be a serious problem if only execute the test once,
+I'm wondering if it really necessary to rerun many times(i.e. 150)?
 
-Agreed, as we have some covered it's fine to remove these outdated tests.
-Reviewed-by: Li Wang <liwang@redhat.com>
+BTW, the patch generally looks good to me.
 
 -- 
 Regards,
 Li Wang
 
---00000000000080616d05dc1bbff8
+--00000000000050c04205dc1c9c61
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 <div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
 t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Thu, Apr 7, 2022 at 3:37 AM Petr Vorel &lt;<a hr=
-ef=3D"mailto:pvorel@suse.cz">pvorel@suse.cz</a>&gt; wrote:<br></div><blockq=
-uote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1p=
-x solid rgb(204,204,204);padding-left:1ex">They always had sporadic failure=
-s that were related to configuration<br>
-(rsyslog config, journald rate-limiting, etc.) and lot of sleep to<br>
-restart daemon dozens of times.<br>
+r" class=3D"gmail_attr">On Tue, Apr 5, 2022 at 10:08 PM Petr Vorel &lt;<a h=
+ref=3D"mailto:pvorel@suse.cz">pvorel@suse.cz</a>&gt; wrote:<br></div><block=
+quote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1=
+px solid rgb(204,204,204);padding-left:1ex">Hi all,<br>
 <br>
-+ there are tests which cover syslog() syscall (kmsg01.c, syslog11.c,<br>
-=C2=A0 syslog12.c)<br></blockquote><div><br></div><div><br></div><div class=
-=3D"gmail_default" style=3D"font-size:small">Agreed, as we have some covere=
-d it&#39;s fine to remove these outdated tests.</div><div class=3D"gmail_de=
-fault" style=3D"font-size:small"></div></div><div><div class=3D"gmail_defau=
-lt" style=3D"font-size:small">Reviewed-by: Li Wang &lt;<a href=3D"mailto:li=
-wang@redhat.com">liwang@redhat.com</a>&gt;</div><div class=3D"gmail_default=
-" style=3D"font-size:small"></div><br></div>-- <br><div dir=3D"ltr" class=
-=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<b=
-r></div></div></div></div>
+&gt; For io_submit01, add io_destroy before test return, or the test<br>
+&gt; would fail and report EAGAIN.<br>
+&gt; For io_submit02, move the io_destroy to the suitable location, or<br>
+&gt; the test would fail and report EAGAIN.<br>
+<br>
+$ ./io_submit01 -i150<br>
+...<br>
+io_submit01.c:122: TPASS: io_submit() with NULL iocb pointers failed with E=
+FAULT<br>
+io_submit01.c:127: TFAIL: io_submit() returned -11(EAGAIN/EWOULDBLOCK), exp=
+ected EBADF(-9)<br>
+io_submit01.c:127: TFAIL: io_submit() returned -11(EAGAIN/EWOULDBLOCK), exp=
+ected EBADF(-9)<br>
+io_submit01.c:127: TFAIL: io_submit() returned -11(EAGAIN/EWOULDBLOCK), exp=
+ected EBADF(-9)<br>
+io_submit01.c:127: TFAIL: io_submit() returned -11(EAGAIN/EWOULDBLOCK), exp=
+ected SUCCESS(1)<br>
+<br>
+$ ./io_submit02 -i150<br>
+...<br>
+io_submit02.c:76: TPASS: io_submit() returns 0 if nr is zero<br>
+io_submit02.c:78: TFAIL: io_submit() returns -1, expected 1<br>
+<br>
+@Cyril, Li, Martin, Viresh: while this fix is valid using memset() (which i=
+s required)<br>
+slows down testing a lot. Any idea whether this can be avoid to keep the sp=
+eed?<br></blockquote><div><br></div><div><div class=3D"gmail_default" style=
+=3D"font-size:small">It would not be a serious problem if only execute the =
+test once,</div><div class=3D"gmail_default" style=3D"font-size:small">I&#3=
+9;m wondering if it really necessary to rerun many times(i.e. 150)?</div></=
+div></div><div><br></div><div><div class=3D"gmail_default" style=3D"font-si=
+ze:small">BTW, the patch generally looks good to me.</div></div><div><br></=
+div>-- <br><div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><div=
+>Regards,<br></div><div>Li Wang<br></div></div></div></div>
 
---00000000000080616d05dc1bbff8--
+--00000000000050c04205dc1c9c61--
 
 
---===============2101763928==
+--===============0498912977==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -156,5 +203,5 @@ Content-Disposition: inline
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
 
---===============2101763928==--
+--===============0498912977==--
 
