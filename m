@@ -2,55 +2,68 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F002509F70
-	for <lists+linux-ltp@lfdr.de>; Thu, 21 Apr 2022 14:14:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8662F509FB9
+	for <lists+linux-ltp@lfdr.de>; Thu, 21 Apr 2022 14:34:09 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2CF0F3CA6D1
-	for <lists+linux-ltp@lfdr.de>; Thu, 21 Apr 2022 14:14:40 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 3032F3CA6EE
+	for <lists+linux-ltp@lfdr.de>; Thu, 21 Apr 2022 14:34:09 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 57CC13CA6A9
- for <ltp@lists.linux.it>; Thu, 21 Apr 2022 14:14:38 +0200 (CEST)
-Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 405B23CA6F8
+ for <ltp@lists.linux.it>; Thu, 21 Apr 2022 14:33:57 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id A66B060084E
- for <ltp@lists.linux.it>; Thu, 21 Apr 2022 14:14:37 +0200 (CEST)
-Received: from canpemm500007.china.huawei.com (unknown [172.30.72.54])
- by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4Kkbxs3LTBzFqVG
- for <ltp@lists.linux.it>; Thu, 21 Apr 2022 20:12:01 +0800 (CST)
-Received: from canpemm500005.china.huawei.com (7.192.104.229) by
- canpemm500007.china.huawei.com (7.192.104.62) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.24; Thu, 21 Apr 2022 20:14:33 +0800
-Received: from canpemm500005.china.huawei.com ([7.192.104.229]) by
- canpemm500005.china.huawei.com ([7.192.104.229]) with mapi id 15.01.2375.024; 
- Thu, 21 Apr 2022 20:14:33 +0800
-To: Cyril Hrubis <chrubis@suse.cz>
-Thread-Topic: [LTP] [PATCH] syscalls/io_submit: Add TTERRNO/TERRNO when test
- fail
-Thread-Index: AdhVeP/hrM1nKnobTziHDdDLHwHM/g==
-Date: Thu, 21 Apr 2022 12:14:32 +0000
-Message-ID: <08dc2928b8de42b39a86789c2ff98dcd@huawei.com>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.67.110.209]
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id D7F336009E2
+ for <ltp@lists.linux.it>; Thu, 21 Apr 2022 14:33:52 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id E826821112
+ for <ltp@lists.linux.it>; Thu, 21 Apr 2022 12:33:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1650544431; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=FVJdIc4u8SMOTUhlLPlysYks10DilhXM9w9pyl/AkwU=;
+ b=DTNBvSWafcoyVqJUsKoCVK3Gqam0ap2BS4rzsjKHURMOyjWUSqpQt7rY8UEMCJP+nuZ4Y4
+ XPaVaLKpzkmU4hdChQXob1TFei+nhoJkvsrknOTbJyACnq0apx8m6bvHtT1h4eIvHfyDbd
+ N7wELV1BFLDicWgBe3k73FbsV61Rf/U=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1650544431;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=FVJdIc4u8SMOTUhlLPlysYks10DilhXM9w9pyl/AkwU=;
+ b=2K4pV4Byc1zjok5PBtN3CPTbPOQ4MxAZo0SYqrRtk5nxdBu2lvdhs42xa4tmNyrRNgYOB2
+ 42nXrFwo1PgKnsDQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D961513A84
+ for <ltp@lists.linux.it>; Thu, 21 Apr 2022 12:33:51 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id gHAwNC9PYWL/GgAAMHmgww
+ (envelope-from <mdoucha@suse.cz>)
+ for <ltp@lists.linux.it>; Thu, 21 Apr 2022 12:33:51 +0000
+From: Martin Doucha <mdoucha@suse.cz>
+To: ltp@lists.linux.it
+Date: Thu, 21 Apr 2022 14:33:49 +0200
+Message-Id: <20220421123351.17645-1-mdoucha@suse.cz>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-X-CFilter-Loop: Reflected
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/io_submit: Add TTERRNO/TERRNO when test
- fail
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH v3 0/2] KVM testing
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,79 +75,64 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: zhaogongyi via ltp <ltp@lists.linux.it>
-Reply-To: zhaogongyi <zhaogongyi@huawei.com>
-Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Cyril,
+Implement LTP infrastructure for tests which require executing a special
+program inside KVM virtual machine. Basic test for CVE 2021-38198 written
+using the KVM infrastrucutre (pagetable permission check bypass under software
+emulated MMU) is included.
 
-Thans for your review!
+Martin Doucha (2):
+  KVM test infrastructure
+  Add test for CVE 2021-38198
 
-I have resubmit a patch, please see: https://patchwork.ozlabs.org/project/ltp/patch/20220421121016.26958-1-zhaogongyi@huawei.com/
+ configure.ac                              |   3 +
+ include/mk/config.mk.in                   |   2 +
+ include/mk/env_post.mk                    |   1 +
+ include/mk/rules.mk                       |   8 +
+ runtest/kvm                               |   1 +
+ testcases/kernel/Makefile                 |   1 +
+ testcases/kernel/kvm/.gitignore           |   1 +
+ testcases/kernel/kvm/Makefile             |  62 +++
+ testcases/kernel/kvm/bootstrap_x86.S      | 368 ++++++++++++++++
+ testcases/kernel/kvm/bootstrap_x86_64.S   | 515 ++++++++++++++++++++++
+ testcases/kernel/kvm/include/kvm_common.h |  31 ++
+ testcases/kernel/kvm/include/kvm_guest.h  |  85 ++++
+ testcases/kernel/kvm/include/kvm_host.h   | 115 +++++
+ testcases/kernel/kvm/include/kvm_test.h   |  23 +
+ testcases/kernel/kvm/include/kvm_x86.h    | 157 +++++++
+ testcases/kernel/kvm/kvm_pagefault01.c    | 234 ++++++++++
+ testcases/kernel/kvm/lib_guest.c          | 179 ++++++++
+ testcases/kernel/kvm/lib_host.c           | 215 +++++++++
+ testcases/kernel/kvm/lib_x86.c            | 150 +++++++
+ testcases/kernel/kvm/linker/payload.lds   |  11 +
+ testcases/kernel/kvm/linker/x86.lds       |  74 ++++
+ testcases/kernel/kvm/linker/x86_64.lds    |  74 ++++
+ 22 files changed, 2310 insertions(+)
+ create mode 100644 runtest/kvm
+ create mode 100644 testcases/kernel/kvm/.gitignore
+ create mode 100644 testcases/kernel/kvm/Makefile
+ create mode 100644 testcases/kernel/kvm/bootstrap_x86.S
+ create mode 100644 testcases/kernel/kvm/bootstrap_x86_64.S
+ create mode 100644 testcases/kernel/kvm/include/kvm_common.h
+ create mode 100644 testcases/kernel/kvm/include/kvm_guest.h
+ create mode 100644 testcases/kernel/kvm/include/kvm_host.h
+ create mode 100644 testcases/kernel/kvm/include/kvm_test.h
+ create mode 100644 testcases/kernel/kvm/include/kvm_x86.h
+ create mode 100644 testcases/kernel/kvm/kvm_pagefault01.c
+ create mode 100644 testcases/kernel/kvm/lib_guest.c
+ create mode 100644 testcases/kernel/kvm/lib_host.c
+ create mode 100644 testcases/kernel/kvm/lib_x86.c
+ create mode 100644 testcases/kernel/kvm/linker/payload.lds
+ create mode 100644 testcases/kernel/kvm/linker/x86.lds
+ create mode 100644 testcases/kernel/kvm/linker/x86_64.lds
 
-Best wishes!
+-- 
+2.35.1
 
-Gongyi
-
- 
-> Hi!
-> > >
-> > > NACK.
-> > >
-> > > As far as I can tell the io_submit() calls returns negative error
-> > > instead of setting errno, at least that's what libaio documentation
-> states.
-> >
-> > Yes, according to linux manual, libaio interface don't set errno when
-> calling failed, so, do we also need to remove the TREENO here?
-> >
-> > 80         TEST(io_setup(1, &ctx));
-> > 81         if (TST_RET == -ENOSYS)
-> > 82                 tst_brk(TCONF | TRERRNO, "io_setup(): AIO not
-> supported by kernel");
-> > 83         else if (TST_RET)
-> > 84                 tst_brk(TBROK | TRERRNO, "io_setup() failed");
-> 
-> Yes please, this should be replaced by manually printing
-> tst_strerrno(-TST_RET).
-> 
-> > > > diff --git a/testcases/kernel/syscalls/io_submit/io_submit02.c
-> > > > b/testcases/kernel/syscalls/io_submit/io_submit02.c
-> > > > index 38b8555d8..6ba4d99a5 100644
-> > > > --- a/testcases/kernel/syscalls/io_submit/io_submit02.c
-> > > > +++ b/testcases/kernel/syscalls/io_submit/io_submit02.c
-> > > > @@ -79,7 +79,7 @@ static void run(unsigned int i)
-> > > >  	if (TST_RET == tc[i].nr)
-> > > >  		tst_res(TPASS, "io_submit() %s", tc[i].desc);
-> > > >  	else
-> > > > -		tst_res(TFAIL, "io_submit() returns %ld, expected %ld",
-> TST_RET,
-> > > tc[i].nr);
-> > > > +		tst_res(TFAIL | TTERRNO, "io_submit() returns %ld,
-> > > expected %ld",
-> > > > +TST_RET, tc[i].nr);
-> > >
-> > > The best we can do here is to use tst_strerrno() to print the error
-> > > as we do in the io_submit().
-> >
-> > According to linux manual, call io_submit through syscall, it will set
-> errno:
-> > 	"If the system call is invoked via syscall(2), then the return value
-> follows the usual conventions for indicating an error: -1, with  errno  set
-> to  a
-> >     (positive) value that indicates the error."
-> 
-> Ah right, as long as we use the syscall() wrapper the negative error return
-> value will be moved to the errno variable by the wrapper, so this part is
-> correct.
-> 
-> --
-> Cyril Hrubis
-> chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
