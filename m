@@ -1,69 +1,79 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id B111A509FDC
-	for <lists+linux-ltp@lfdr.de>; Thu, 21 Apr 2022 14:43:09 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A22B50A05F
+	for <lists+linux-ltp@lfdr.de>; Thu, 21 Apr 2022 15:08:36 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6CCE93CA6D4
-	for <lists+linux-ltp@lfdr.de>; Thu, 21 Apr 2022 14:43:09 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id ED89A3CA6D6
+	for <lists+linux-ltp@lfdr.de>; Thu, 21 Apr 2022 15:08:35 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 8AB403C5649
- for <ltp@lists.linux.it>; Thu, 21 Apr 2022 14:43:07 +0200 (CEST)
-Received: from mail-yw1-x1131.google.com (mail-yw1-x1131.google.com
- [IPv6:2607:f8b0:4864:20::1131])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ by picard.linux.it (Postfix) with ESMTPS id D951E3C5649
+ for <ltp@lists.linux.it>; Thu, 21 Apr 2022 14:46:10 +0200 (CEST)
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+ [66.111.4.26])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id CCE20100048B
- for <ltp@lists.linux.it>; Thu, 21 Apr 2022 14:43:06 +0200 (CEST)
-Received: by mail-yw1-x1131.google.com with SMTP id
- 00721157ae682-2ebf3746f87so50642777b3.6
- for <ltp@lists.linux.it>; Thu, 21 Apr 2022 05:43:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:from:date:message-id:subject:to:cc;
- bh=mIeaFctSEsoLR3nyyuA41iSSvZNBM5Q8wFrycCuIYd0=;
- b=KXYF894QW3BVp1KxCI27PWhMQYj4M4ylYYwG7Yf04NN9QxFYtaz2+8p7cG7Ji/55oc
- adAynaaeQi29SGnJQgiIPYmgYdUxtsXWgoBt9UchRFhL98aDuVkwMpc3sgIRRLr/NVG/
- a4vF+JUL24/l3aA5LFq3NkMY3wRZ95/TuQhYxHi1SH7WFMc+vShS/cqEL68p2290Jclr
- cezFVzxw3ESfictsSZs3mzFnxuv0xX8Ehyzq0lDF99IUtqHB5iNNxk09vhJ6jIpBVqgi
- LcE1s/BV4XSHrA8mJJxR/ZK7oc7oJ1YpToPiXlryVX9g0NVeipsi/5sZHt7ZaEYR1omr
- RE5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
- bh=mIeaFctSEsoLR3nyyuA41iSSvZNBM5Q8wFrycCuIYd0=;
- b=SJqrftmiGWNDbRaD5mFFcJhDBKzcrof7Wjr+9m9H40SiqzDqI4ryWB6lLA6KxgEuJL
- eKKPsPPXwH0sLX/mhoLeX4UTsnnkwA04jEL24Fj99OKpsJfN7DpPQb59s0pb5YKs7BKe
- mqPup/aVz486qunbqYMBa2R+kh7u0PFRzJ1P1kojnyMaSNmUlh/Qb+53JEzd51opdezo
- 7rR95CKKLcpy8ORIm/qW10wwQ6pBuTTG374+03x60v3GmNAhxN1ssN65BumHZFkd0jXA
- teS4lu06o9rUBsr0DNMug9OnOaoW4f85ULQ4NAWzpN3s9nvCzTv8qfQUlvAhYN0yaHml
- OFOw==
-X-Gm-Message-State: AOAM530ZoahaxVB4oK9inm2s23bgtrYEdQ2BY2o4HQA5VxCHNHfN7gMF
- 7MmMttqZLNGvQcNfD52V22VvfdKBFMmskiXXmOWzZD2V7wvAAB0O
-X-Google-Smtp-Source: ABdhPJyEfDDMcm+W2/EznDqS4w3LFcFNuK1bvTNWZkaZ4X2f6GD98Cqgg53dYwlqWQw5Zie9b1Lj+QH8A31CKOrXqoc=
-X-Received: by 2002:a81:478b:0:b0:2ea:da8c:5c21 with SMTP id
- u133-20020a81478b000000b002eada8c5c21mr26608137ywa.189.1650544984778; Thu, 21
- Apr 2022 05:43:04 -0700 (PDT)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 167CA1A00CB0
+ for <ltp@lists.linux.it>; Thu, 21 Apr 2022 14:46:09 +0200 (CEST)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailout.nyi.internal (Postfix) with ESMTP id 454FD5C018F;
+ Thu, 21 Apr 2022 08:46:08 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute5.internal (MEProxy); Thu, 21 Apr 2022 08:46:08 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:date:date:from:from
+ :in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1650545168; x=
+ 1650631568; bh=EF79PcQ0MfsAEfNLabjI/AemFrjtcYYPaqHYxL/eq64=; b=W
+ 6c359dwSyENwETz81qLRTB+g80cgYrKhSQaRHYo/3BB++4gIKnm9UU1yEj8odT5b
+ oVzQNvkoz3fRUip+EysuW/Y3dFeYVzC9S0BHUZDIhP2qDNfeS/LoqYzK0RjPu1vC
+ UjRNn24wlNroHQkMXIR95BDm7ezMJHYFuAmLepV5ZTuOUHOOS4RPD0xyvnIefiQe
+ VLUeigMYt9xV6wUuDvS2Ybjin6lncjywzKGu8eANiApJTx6qD/SK4JzoQPsTaIld
+ LK5ZM71wO72Vd7ll/oR6lMnhqV24vCsCRcjFA7NPKOAsLEfLuHL4Y/3qfpMPqLrK
+ CibUCG6MDpJ2h72MvgJgw==
+X-ME-Sender: <xms:D1JhYlbYfP5dYypUDbjqNuixwx-YemR40IyjR-PJQgRJsaCJuogy-Q>
+ <xme:D1JhYsZ8w9DWjFdxLm8Vv_OEkThiMD6WY3i4Z2Hr5I5VGUujrmW3gocFeT-hf0Ifv
+ 3o2bE_CrGUgt_c>
+X-ME-Received: <xmr:D1JhYn9cPjc0S9Vd2Pxa1CY9-hBDv023GQmKWeUAul_A_WBx-hXJHcaTsKDcj_47GiXfCAf7lLIK7JBdVRggI181Lq5idA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrtddvgdehgecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpeffhffvvefukfhfgggtuggjsehttdertddttddvnecuhfhrohhmpefkughoucfu
+ tghhihhmmhgvlhcuoehiughoshgthhesihguohhstghhrdhorhhgqeenucggtffrrghtth
+ gvrhhnpeejkefgieehvdfgieeufedtleekkeevueetfeelffeuvdelkeelfeeuledvgeeu
+ teenucffohhmrghinhepghhithhlrggsrdgtohhmpdhtuhigsghuihhlugdrtghomhdpkh
+ gvrhhnvghlrdhorhhgnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghi
+ lhhfrhhomhepihguohhstghhsehiughoshgthhdrohhrgh
+X-ME-Proxy: <xmx:D1JhYjronjhA2r-aKcAKwYSmOqMPS_PWzqpWuK7g_a-Nrfdi3lMnAw>
+ <xmx:D1JhYgrBCH5irM4hF0JFKQZ9_OH4KUYnGcUDYvPVpQK-Z-uLsGtdYQ>
+ <xmx:D1JhYpTJR6klHoS_vxc4i798NsHbE5gjaMqJjxm_8Fo8JY71Qb3aYQ>
+ <xmx:EFJhYtipqdrgSDpYgSi0qvmo6WObrQJW1ntKN2CxEMldFnNsjWVVYA>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 21 Apr 2022 08:46:06 -0400 (EDT)
+Date: Thu, 21 Apr 2022 15:46:02 +0300
+From: Ido Schimmel <idosch@idosch.org>
+To: Naresh Kamboju <naresh.kamboju@linaro.org>
+Message-ID: <YmFSCp2Bufy39GBD@shredder>
+References: <CA+G9fYvO5OERA0k-r=Q8gbGdUKm0VppL2KPJ9e-R0NreBESo_g@mail.gmail.com>
 MIME-Version: 1.0
-From: Naresh Kamboju <naresh.kamboju@linaro.org>
-Date: Thu, 21 Apr 2022 18:12:54 +0530
-Message-ID: <CA+G9fYvO5OERA0k-r=Q8gbGdUKm0VppL2KPJ9e-R0NreBESo_g@mail.gmail.com>
-To: LTP List <ltp@lists.linux.it>, 
- Linux-Next Mailing List <linux-next@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>, Netdev <netdev@vger.kernel.org>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <CA+G9fYvO5OERA0k-r=Q8gbGdUKm0VppL2KPJ9e-R0NreBESo_g@mail.gmail.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [next] LTP: netns_breakns: Command \"add\" is unknown,
+ SPF_HELO_PASS,SPF_NONE autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+X-Mailman-Approved-At: Thu, 21 Apr 2022 15:08:19 +0200
+Subject: Re: [LTP] [next] LTP: netns_breakns: Command \"add\" is unknown,
  try \"ip link help\".
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -77,63 +87,64 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Cc: Stephen Rothwell <sfr@canb.auug.org.au>,
- "vadimp@nvidia.com" <vadimp@nvidia.com>, idosch@nvidia.com,
- Raju.Lakkaraju@microchip.com, jiri@nvidia.com,
+ "vadimp@nvidia.com" <vadimp@nvidia.com>, Netdev <netdev@vger.kernel.org>,
+ jiri@nvidia.com, open list <linux-kernel@vger.kernel.org>,
+ Linux-Next Mailing List <linux-next@vger.kernel.org>,
+ Raju.Lakkaraju@microchip.com, idosch@nvidia.com,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>
+ "David S. Miller" <davem@davemloft.net>, LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Regressions found on all devices LTP containers test cases failed on
-Linux next-20220420. [1]
+On Thu, Apr 21, 2022 at 06:12:54PM +0530, Naresh Kamboju wrote:
+> Regressions found on all devices LTP containers test cases failed on
+> Linux next-20220420. [1]
+> 
+>   - ltp-containers-tests/netns_comm_ns_exec_ipv6_ioctl
+>   - ltp-containers-tests/netns_breakns_ns_exec_ipv6_netlink
+>   - ltp-containers-tests/netns_breakns_ip_ipv6_netlink
+>   - ltp-containers-tests/netns_breakns_ns_exec_ipv4_ioctl
+>   - ltp-containers-tests/netns_breakns_ip_ipv4_netlink
+>   - ltp-containers-tests/netns_comm_ip_ipv6_ioctl
+>   - ltp-containers-tests/netns_comm_ip_ipv4_netlink
+>   - ltp-containers-tests/netns_comm_ns_exec_ipv4_netlink
+>   - ltp-containers-tests/netns_breakns_ns_exec_ipv6_ioctl
+>   - ltp-containers-tests/netns_comm_ip_ipv6_netlink
+>   - ltp-containers-tests/netns_comm_ns_exec_ipv4_ioctl
+>   - ltp-containers-tests/netns_breakns_ns_exec_ipv4_netlink
+>   - ltp-containers-tests/netns_breakns_ip_ipv4_ioctl
+>   - ltp-containers-tests/netns_comm_ip_ipv4_ioctl
+>   - ltp-containers-tests/netns_breakns_ip_ipv6_ioctl
+>   - ltp-containers-tests/netns_comm_ns_exec_ipv6_netlink
+> 
+> 
+> Test log:
+> ---------
+> netns_breakns 1 TINFO: timeout per run is 0h 15m 0s
+> Command \"add\" is unknown, try \"ip link help\".
+> netns_breakns 1 TBROK: unable to create veth pair devices
+> Command \"delete\" is unknown, try \"ip link help\".
+> 
+> 
+> Reported-by: Linux Kernel Functional Testing <lkft@linaro.org>
+> 
+> metadata:
+>   git_ref: master
+>   git_repo: https://gitlab.com/Linaro/lkft/mirrors/next/linux-next
+>   git_sha: f1244c81da13009dbf61cb807f45881501c44789
+>   git_describe: next-20220420
+>   kernel_version: 5.18.0-rc3
+>   kernel-config: https://builds.tuxbuild.com/283Ot2o4P4hh7rNSH56BnbPbNba/config
+>   build-url: https://gitlab.com/Linaro/lkft/mirrors/next/linux-next/-/pipelines/520334286
+>   artifact-location: https://builds.tuxbuild.com/283Ot2o4P4hh7rNSH56BnbPbNba
+> 
+> I will bisect these failures.
 
-  - ltp-containers-tests/netns_comm_ns_exec_ipv6_ioctl
-  - ltp-containers-tests/netns_breakns_ns_exec_ipv6_netlink
-  - ltp-containers-tests/netns_breakns_ip_ipv6_netlink
-  - ltp-containers-tests/netns_breakns_ns_exec_ipv4_ioctl
-  - ltp-containers-tests/netns_breakns_ip_ipv4_netlink
-  - ltp-containers-tests/netns_comm_ip_ipv6_ioctl
-  - ltp-containers-tests/netns_comm_ip_ipv4_netlink
-  - ltp-containers-tests/netns_comm_ns_exec_ipv4_netlink
-  - ltp-containers-tests/netns_breakns_ns_exec_ipv6_ioctl
-  - ltp-containers-tests/netns_comm_ip_ipv6_netlink
-  - ltp-containers-tests/netns_comm_ns_exec_ipv4_ioctl
-  - ltp-containers-tests/netns_breakns_ns_exec_ipv4_netlink
-  - ltp-containers-tests/netns_breakns_ip_ipv4_ioctl
-  - ltp-containers-tests/netns_comm_ip_ipv4_ioctl
-  - ltp-containers-tests/netns_breakns_ip_ipv6_ioctl
-  - ltp-containers-tests/netns_comm_ns_exec_ipv6_netlink
+Should be fixed by:
 
-
-Test log:
----------
-netns_breakns 1 TINFO: timeout per run is 0h 15m 0s
-Command \"add\" is unknown, try \"ip link help\".
-netns_breakns 1 TBROK: unable to create veth pair devices
-Command \"delete\" is unknown, try \"ip link help\".
-
-
-Reported-by: Linux Kernel Functional Testing <lkft@linaro.org>
-
-metadata:
-  git_ref: master
-  git_repo: https://gitlab.com/Linaro/lkft/mirrors/next/linux-next
-  git_sha: f1244c81da13009dbf61cb807f45881501c44789
-  git_describe: next-20220420
-  kernel_version: 5.18.0-rc3
-  kernel-config: https://builds.tuxbuild.com/283Ot2o4P4hh7rNSH56BnbPbNba/config
-  build-url: https://gitlab.com/Linaro/lkft/mirrors/next/linux-next/-/pipelines/520334286
-  artifact-location: https://builds.tuxbuild.com/283Ot2o4P4hh7rNSH56BnbPbNba
-
-I will bisect these failures.
-
---
-Linaro LKFT
-https://lkft.linaro.org
-
-[1] https://lkft.validation.linaro.org/scheduler/job/4925635#L1272
+https://patchwork.kernel.org/project/netdevbpf/patch/20220419125151.15589-1-florent.fourcot@wifirst.fr/
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
