@@ -2,72 +2,52 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3ADB50A051
-	for <lists+linux-ltp@lfdr.de>; Thu, 21 Apr 2022 15:05:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CC5550AE8C
+	for <lists+linux-ltp@lfdr.de>; Fri, 22 Apr 2022 05:37:08 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3FA8A3CA6F5
-	for <lists+linux-ltp@lfdr.de>; Thu, 21 Apr 2022 15:05:37 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E52593CA6E2
+	for <lists+linux-ltp@lfdr.de>; Fri, 22 Apr 2022 05:37:07 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E7C8F3C217A
- for <ltp@lists.linux.it>; Thu, 21 Apr 2022 15:05:32 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id E40723CA581
+ for <ltp@lists.linux.it>; Fri, 22 Apr 2022 05:37:06 +0200 (CEST)
+Received: from szxga08-in.huawei.com (szxga08-in.huawei.com [45.249.212.255])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 8A6C11000A12
- for <ltp@lists.linux.it>; Thu, 21 Apr 2022 15:05:32 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id D09B921112;
- Thu, 21 Apr 2022 13:05:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1650546331; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=vuTer6G5eQKhQwYstR2ij54S+CYfAJyS5seBokSjqJM=;
- b=QFEI8tYpM8bL5NOZ+4+b+z6DqasVI6UUJq174cPEhSCoXA4Lmp4ZcxfsUBFr1L0DL8jnIU
- OkSILewx8iNIknfqrvrpVJgcPay3gq6xWHteDZdddwINwSVVOqJDe5VheFkIz31lchN+3V
- zYHJ4tn/oU5E90Elr+S9iMr94ZDWxe4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1650546331;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=vuTer6G5eQKhQwYstR2ij54S+CYfAJyS5seBokSjqJM=;
- b=hHsmmES7XSsXfAPTWi98xKQwa/ziKQr2jf8xkVQdtLfMFHJ1EtLKk0bNQPtaBWhLUvFITC
- 6E2rQ6Q+Mhio/JCA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B2A8613446;
- Thu, 21 Apr 2022 13:05:31 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id n7siKptWYWJlKQAAMHmgww
- (envelope-from <chrubis@suse.cz>); Thu, 21 Apr 2022 13:05:31 +0000
-Date: Thu, 21 Apr 2022 15:07:47 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <YmFXI1T9iaceCcCW@yuki>
-References: <20220421123351.17645-1-mdoucha@suse.cz>
- <20220421123351.17645-3-mdoucha@suse.cz>
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 5CD806005CE
+ for <ltp@lists.linux.it>; Fri, 22 Apr 2022 05:37:03 +0200 (CEST)
+Received: from dggpemm500022.china.huawei.com (unknown [172.30.72.57])
+ by szxga08-in.huawei.com (SkyGuard) with ESMTP id 4Kl0SD56G9z1J9vl
+ for <ltp@lists.linux.it>; Fri, 22 Apr 2022 11:36:12 +0800 (CST)
+Received: from dggpemm500002.china.huawei.com (7.185.36.229) by
+ dggpemm500022.china.huawei.com (7.185.36.162) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.24; Fri, 22 Apr 2022 11:36:59 +0800
+Received: from ubuntu1804.huawei.com (10.67.174.55) by
+ dggpemm500002.china.huawei.com (7.185.36.229) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.24; Fri, 22 Apr 2022 11:36:58 +0800
+To: <ltp@lists.linux.it>
+Date: Fri, 22 Apr 2022 11:35:52 +0800
+Message-ID: <20220422033552.257763-1-threefifteen.wangkunfeng@huawei.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20220421123351.17645-3-mdoucha@suse.cz>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Originating-IP: [10.67.174.55]
+X-ClientProxiedBy: dggems705-chm.china.huawei.com (10.3.19.182) To
+ dggpemm500002.china.huawei.com (7.185.36.229)
+X-CFilter-Loop: Reflected
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3 2/2] Add test for CVE 2021-38198
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH] kernel/hugemmap05.c: Skip test when default
+ Hugepagesize 1G
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,18 +59,49 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+From: Wang Kunfeng via ltp <ltp@lists.linux.it>
+Reply-To: Wang Kunfeng <threefifteen.wangkunfeng@huawei.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-Pushed, thanks.
+The kernel is not allow to change the file that
+/proc/sys/vm/nr_overcommit_hugepages,
+when default Hugepagesize 1G,so the testcase
+will be fail when close it.
 
--- 
-Cyril Hrubis
-chrubis@suse.cz
+Signen-off-by: Wang Kunfeng <threefifteen.wangkunfeng@huawei.com>
+---
+ testcases/kernel/mem/hugetlb/hugemmap/hugemmap05.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/testcases/kernel/mem/hugetlb/hugemmap/hugemmap05.c b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap05.c
+index 40d3bd8da..5c78d0635 100644
+--- a/testcases/kernel/mem/hugetlb/hugemmap/hugemmap05.c
++++ b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap05.c
+@@ -61,6 +61,7 @@ static int key = -1, shmid = -1, fd = -1;
+ static int mounted, restore_shmmax, restore_overcomm_hgpgs;
+ static long hugepagesize, nr_overcommit_hugepages;
+ static long size = NR_HPAGES, length = (NR_HPAGES + NR_HPAGES/2) * 2;
++static long default_hugepagesize = 1048576;
+
+ char *opt_sysfs;
+ char *opt_alloc;
+@@ -188,6 +189,10 @@ static void setup(void)
+ 	if (tst_hugepages != NR_HPAGES)
+ 		tst_brk(TCONF, "Not enough hugepages for testing!");
+
++	hugepagesize = SAFE_READ_MEMINFO("Hugepagesize:");
++	if (hugepagesize == default_hugepagesize)
++		tst_brk(TCONF, "system hugepagesize default 1G,the testcase not support!");
++
+ 	hugepagesize = SAFE_READ_MEMINFO("Hugepagesize:") * 1024;
+ 	init_sys_sz_paths();
+
+
+2.17.1
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
