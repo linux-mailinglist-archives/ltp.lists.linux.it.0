@@ -2,74 +2,75 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id D352250BA69
-	for <lists+linux-ltp@lfdr.de>; Fri, 22 Apr 2022 16:42:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BC0750D4EF
+	for <lists+linux-ltp@lfdr.de>; Sun, 24 Apr 2022 21:58:49 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9CF753CA71A
-	for <lists+linux-ltp@lfdr.de>; Fri, 22 Apr 2022 16:42:25 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 14C653CA76C
+	for <lists+linux-ltp@lfdr.de>; Sun, 24 Apr 2022 21:58:48 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 1A7FE3C8765
- for <ltp@lists.linux.it>; Fri, 22 Apr 2022 16:41:49 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ by picard.linux.it (Postfix) with ESMTPS id EBBAE3C0058
+ for <ltp@lists.linux.it>; Sun, 24 Apr 2022 21:58:43 +0200 (CEST)
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [IPv6:2a00:1450:4864:20::32f])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 9227E2009E6
- for <ltp@lists.linux.it>; Fri, 22 Apr 2022 16:41:48 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 1FE011F748;
- Fri, 22 Apr 2022 14:41:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1650638508; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=NwInHVsJ/9Alcj/MOU+5+Zx1qaT7tZ7Uw/ORGxZ4ccY=;
- b=HSExKRrPyo+4x6okDCa3BuCPj1+X8WKq030QmrxCMqB79l5i6Vq0vPrPc97JsTMCwz7zr/
- WNW0xdHOuSGSH6lGX0WAulbXMRS22zyXjGOtMlOiBlYhzxBhNFWmHC3ozwO2bVEwgiuRAu
- F9NAJtdvBtNbShdFUsY/QWCoXxQmAgc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1650638508;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=NwInHVsJ/9Alcj/MOU+5+Zx1qaT7tZ7Uw/ORGxZ4ccY=;
- b=4giUlGz4tRp4zeur1HaWex5rNBi5iWPlGTc8Y2CaxH0J8BqwPS3GjFIFV8ANPrl+sWI94j
- JqhxYyiRXn+dBDDA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D3C2113AEC;
- Fri, 22 Apr 2022 14:41:47 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 2HZbMqu+YmKUCwAAMHmgww
- (envelope-from <pvorel@suse.cz>); Fri, 22 Apr 2022 14:41:47 +0000
-From: Petr Vorel <pvorel@suse.cz>
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 1D21C200085
+ for <ltp@lists.linux.it>; Sun, 24 Apr 2022 21:58:43 +0200 (CEST)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ n32-20020a05600c3ba000b00393ea7192faso926844wms.2
+ for <ltp@lists.linux.it>; Sun, 24 Apr 2022 12:58:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=x5WWJ1Aj+tSYbSXlNs1x8rePxrAjdrRdveV9mKEKWC4=;
+ b=EEAxMB+YEX7KWrS3cmAWDSymD5o61zN25jZLUcpzBuECKIZPZU+MxOUHPt5EFebrkN
+ +vt0hQMePHzwgxGOpQaAvWyILCQhQ8wkaKCY0YYjLYmzlKDJ2AeV/PAz2UN9KpV4D+K3
+ TTKY0HkW70Zu64byhFW/nz689lCbeTB9pPULkowh0+mUXGDsuKk+W2krn+ZE7tB9ceaa
+ v8RuyKEIqKeTFS7A67FPybCTeVlmDMBtes+2QBBzb8Tyz5m2bLgW42gguYVDTLqL4Wuz
+ fzwNugW3rsLqIIO2FJcBeaH4yWqAiA2UlnYGCpyVDu6qu5Rc6plikpSBXnSTUox9JLt+
+ Wwfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=x5WWJ1Aj+tSYbSXlNs1x8rePxrAjdrRdveV9mKEKWC4=;
+ b=f8iTVR+Kkb1PNFCneqiIRJuku+sTNhUfMOrJgM3zZW/DT8ly1wuVD+vxN3K3Ygmd2+
+ 1tRjFg6SBXg/Aa0SGwbM137dvniZaLA3cYTFB6xlokWk6Arxja0lNiglgSkkf6NdpnLH
+ jeTGcq9RlLo1ZXOI1wCw1pD6BxzANtQ5VUmWHSLAh2TJIuvcY16IDqh+YFUe0zHeDzmU
+ Lp8i9Rys/ddCzh1NplUV5FMW5VK2IZwrc6zhbDnEB/tiYWWy9hDSMubja3bumY01v4WM
+ P2FPZJDMhTMkgLOJnOJp/iNGcE8BxpOmdSjDinwoa7wyhKxnkuGNjmvPyex+6D6cbadF
+ 5EEQ==
+X-Gm-Message-State: AOAM532ADcbyrnAyN1mRYNbr4aUCm8Blk3BlVPt0ITaWoUz07CpMlalc
+ 0We3hnXIMzVOyzwCJbs79+twiI9kmyI=
+X-Google-Smtp-Source: ABdhPJw7SPv67ZADSHKI/bM51jozAdhSuZofvCayHON3tWii+wXvkaYw+GqlyU+7+heNPVR6J/uFqA==
+X-Received: by 2002:a05:600c:1d8b:b0:392:ab4f:365d with SMTP id
+ p11-20020a05600c1d8b00b00392ab4f365dmr22132858wms.113.1650830322471; 
+ Sun, 24 Apr 2022 12:58:42 -0700 (PDT)
+Received: from kali.home (2a01cb088e0b5b002be75de2a1caa253.ipv6.abo.wanadoo.fr.
+ [2a01:cb08:8e0b:5b00:2be7:5de2:a1ca:a253])
+ by smtp.gmail.com with ESMTPSA id
+ m188-20020a1c26c5000000b0039187bb7e9asm9901117wmm.6.2022.04.24.12.58.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 24 Apr 2022 12:58:42 -0700 (PDT)
+From: Fabrice Fontaine <fontaine.fabrice@gmail.com>
 To: ltp@lists.linux.it
-Date: Fri, 22 Apr 2022 16:41:41 +0200
-Message-Id: <20220422144141.16848-5-pvorel@suse.cz>
-X-Mailer: git-send-email 2.35.3
-In-Reply-To: <20220422144141.16848-1-pvorel@suse.cz>
-References: <20220422144141.16848-1-pvorel@suse.cz>
+Date: Sun, 24 Apr 2022 21:56:36 +0200
+Message-Id: <20220424195636.842942-1-fontaine.fabrice@gmail.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
 X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 4/4] doc: Update shell API examples
+Subject: [LTP] [PATCH] testcases/kernel/fs: declare int openlog as static
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,120 +82,83 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Martin Doucha <martin.doucha@suse.com>
+Cc: Fabrice Fontaine <fontaine.fabrice@gmail.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
+Declare int openlog as static to avoid the following build failure when
+building statically (e.g. on buildroot):
+
+/nvmedata/autobuild/instance-15/output-1/per-package/ltp-testsuite/host/bin/../lib/gcc/mipsel-buildroot-linux-uclibc/10.3.0/../../../../mipsel-buildroot-linux-uclibc/bin/ld: /nvmedata/autobuild/instance-15/output-1/per-package/ltp-testsuite/host/bin/../mipsel-buildroot-linux-uclibc/sysroot/usr/lib/libc.a(syslog.os): in function `openlog':
+syslog.c:(.text+0x6b8): multiple definition of `openlog'; /tmp/ccvRnqfT.o:/nvmedata/autobuild/instance-15/output-1/build/ltp-testsuite-20220121/testcases/kernel/fs/fs-bench/random-access.c:14: first defined here
+
+Fixes:
+ - http://autobuild.buildroot.org/results/bfd0d906a05564a4f323db604f3b908abf552b20
+
+Signed-off-by: Fabrice Fontaine <fontaine.fabrice@gmail.com>
 ---
-Changes v1->v2:
-* Updates related to 1st and 2nd commit.
+ testcases/kernel/fs/fs-bench/random-access-del-create.c | 2 +-
+ testcases/kernel/fs/fs-bench/random-access.c            | 2 +-
+ testcases/kernel/fs/fs-bench/random-del-create.c        | 2 +-
+ testcases/kernel/fs/scsi/ltpfs/main.c                   | 2 +-
+ 4 files changed, 4 insertions(+), 4 deletions(-)
 
- doc/library-api-writing-guidelines.txt | 11 +++++++----
- doc/shell-test-api.txt                 |  8 ++++++++
- 2 files changed, 15 insertions(+), 4 deletions(-)
-
-diff --git a/doc/library-api-writing-guidelines.txt b/doc/library-api-writing-guidelines.txt
-index 9e926e9713..06b617e693 100644
---- a/doc/library-api-writing-guidelines.txt
-+++ b/doc/library-api-writing-guidelines.txt
-@@ -67,17 +67,20 @@ Changes in the shell API should not introduce uncommon dependencies
+diff --git a/testcases/kernel/fs/fs-bench/random-access-del-create.c b/testcases/kernel/fs/fs-bench/random-access-del-create.c
+index 1f62a76b5..8e21c7f74 100644
+--- a/testcases/kernel/fs/fs-bench/random-access-del-create.c
++++ b/testcases/kernel/fs/fs-bench/random-access-del-create.c
+@@ -11,7 +11,7 @@
+ #define FAIL 0
+ #define SUCCESS 1
  
- Besides shell API libraries in 'testcases/lib' it's worth to put common code
- for particular tests into shell library. The filename should end '_lib.sh',
--they should load 'tst_test.sh' or 'tst_net.sh'.
-+they should load 'tst_test.sh' or 'tst_net.sh' at the end of the file.
+-int openlog[2] = { 0, 0 };
++static int openlog[2] = { 0, 0 };
  
- Shell libraries should have conditional expansion for 'TST_SETUP' or 'TST_CLEANUP',
- to avoid surprises when test specific setup/cleanup function is redefined by
--shell library.
-+shell library. Although there is not an optimal general solution because
-+usually test which have specific setup/cleanup also needs to call library
-+setup/cleanup, but it's better not to require 'TST_SETUP' or 'TST_CLEANUP' to
-+be on specific place.
+ #define MAXNUM 0x100000
  
- [source,sh]
- -------------------------------------------------------------------------------
- # ipsec_lib.sh
- # SPDX-License-Identifier: GPL-2.0-or-later
--TST_SETUP=${TST_SETUP:-ipsec_lib_setup}
--. tst_test.sh
-+TST_SETUP="${TST_SETUP:-ipsec_lib_setup}"
- ...
-+. tst_test.sh
- -------------------------------------------------------------------------------
-diff --git a/doc/shell-test-api.txt b/doc/shell-test-api.txt
-index 4c16f36250..df5ebbdf0d 100644
---- a/doc/shell-test-api.txt
-+++ b/doc/shell-test-api.txt
-@@ -40,6 +40,7 @@ do_test()
- 	fi
- }
+diff --git a/testcases/kernel/fs/fs-bench/random-access.c b/testcases/kernel/fs/fs-bench/random-access.c
+index cf41d6e81..c2f32b86e 100644
+--- a/testcases/kernel/fs/fs-bench/random-access.c
++++ b/testcases/kernel/fs/fs-bench/random-access.c
+@@ -11,7 +11,7 @@
+ #define FAIL 0
+ #define SUCCESS 1
  
-+. tst_test.sh
- tst_run
- -------------------------------------------------------------------------------
+-int openlog[2] = { 0, 0 };
++static int openlog[2] = { 0, 0 };
  
-@@ -90,6 +91,7 @@ test2()
- 	tst_res TPASS "Test $1 passed"
- }
+ #define MAXNUM 0x100000
  
-+. tst_test.sh
- tst_run
- # output:
- # foo 1 TPASS: Test 1 passed
-@@ -118,6 +120,7 @@ do_test()
- 	esac
- }
+diff --git a/testcases/kernel/fs/fs-bench/random-del-create.c b/testcases/kernel/fs/fs-bench/random-del-create.c
+index 0a86f976f..345031f28 100644
+--- a/testcases/kernel/fs/fs-bench/random-del-create.c
++++ b/testcases/kernel/fs/fs-bench/random-del-create.c
+@@ -11,7 +11,7 @@
+ #define FAIL 0
+ #define SUCCESS 1
  
-+. tst_test.sh
- tst_run
- # output:
- # foo 1 TPASS: Test 1 passed
-@@ -145,6 +148,7 @@ do_test()
- 	tst_res TPASS "Test $1 passed with data '$2'"
- }
+-int openlog[2] = { 0, 0 };
++static int openlog[2] = { 0, 0 };
  
-+. tst_test.sh
- tst_run
- # output:
- # foo 1 TPASS: Test 1 passed with data 'foo'
-@@ -174,6 +178,7 @@ do_test()
- 	esac
- }
+ #define MAXNUM 0x100000
  
-+. tst_test.sh
- tst_run
- # output:
- # foo 1 TPASS: Test 1 passed with data 'foo'
-@@ -278,6 +283,7 @@ do_test()
- 	...
- }
+diff --git a/testcases/kernel/fs/scsi/ltpfs/main.c b/testcases/kernel/fs/scsi/ltpfs/main.c
+index 2c67c7a47..90a5531ac 100644
+--- a/testcases/kernel/fs/scsi/ltpfs/main.c
++++ b/testcases/kernel/fs/scsi/ltpfs/main.c
+@@ -38,7 +38,7 @@ int startc = 0;
+ int showchar[] = { 124, 47, 45, 92, 124, 47, 45, 92 };
  
-+. tst_test.sh
- tst_run
- -------------------------------------------------------------------------------
+ int nullFileHandle;
+-int openlog[2] = { 0, 0 };
++static int openlog[2] = { 0, 0 };
  
-@@ -337,6 +343,7 @@ do_test()
- 	...
- }
- 
-+. tst_test.sh
- tst_run
- -------------------------------------------------------------------------------
- 
-@@ -379,6 +386,7 @@ do_test()
- 	...
- }
- 
-+. tst_test.sh
- tst_run
- -------------------------------------------------------------------------------
- 
+ int cFileCount, dFileCount, errorCount;
+ static int disk_space_pool = 0;
 -- 
-2.35.3
+2.35.1
 
 
 -- 
