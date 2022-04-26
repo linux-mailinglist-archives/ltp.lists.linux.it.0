@@ -2,76 +2,66 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id C069F5100E1
-	for <lists+linux-ltp@lfdr.de>; Tue, 26 Apr 2022 16:48:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D4AC510236
+	for <lists+linux-ltp@lfdr.de>; Tue, 26 Apr 2022 17:51:43 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6FEEF3CA2D1
-	for <lists+linux-ltp@lfdr.de>; Tue, 26 Apr 2022 16:48:38 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 13BBF3CA452
+	for <lists+linux-ltp@lfdr.de>; Tue, 26 Apr 2022 17:51:43 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 906263C9817
- for <ltp@lists.linux.it>; Tue, 26 Apr 2022 16:48:36 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id C34553C9C87
+ for <ltp@lists.linux.it>; Tue, 26 Apr 2022 17:51:38 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id B415D1A00895
- for <ltp@lists.linux.it>; Tue, 26 Apr 2022 16:48:35 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id C38B2210F3;
- Tue, 26 Apr 2022 14:48:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1650984514; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 375DF600802
+ for <ltp@lists.linux.it>; Tue, 26 Apr 2022 17:51:37 +0200 (CEST)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 9B8CF1F388
+ for <ltp@lists.linux.it>; Tue, 26 Apr 2022 15:51:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1650988297;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=sCPBGzZ9FtRbio955/sN321UCx1vuPGox0cSEKD/MeA=;
- b=odVm4ohkoR4McdXMfK5cJIIUlVGxWF6hqmTTGC10DpWDE/pEcF0q4hVBE4jvtc1f1N4umG
- wHCuIuOyDnLomIDuuVj5qGogiOEcqXGCUd31PYX2Dnx+Mi0a/5k1UL7NXs7Jkb5Hkokx0d
- xulQSLN4mERMMdZ0BRTo2QnsGewSapk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1650984514;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
+ bh=Kud+ridNJdz+0oycyrUhQSOGddaYwqsBTHH7bFkoGC4=;
+ b=zCHo1pEK91wsSTueurN1q+qm7dWdk6/0GOHMyz7S8khQduUzL7xKxviwOSll2IC/IPiLJd
+ afFXh34ZrA+nLcHoU5cByoH6To1VxQ+aNLhfijYd1mmhDzl8MK3peoWDo/Hbrdbva0Cftn
+ 6CFIOuQUzysJvY1ibe0Lw0V33t/V9Kw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1650988297;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=sCPBGzZ9FtRbio955/sN321UCx1vuPGox0cSEKD/MeA=;
- b=NsJtrrHwunb+4mkTv5Eeuve+JQchkp+O8ttqYSjrrW3zuDVho6sLxs0drTqnMP7exqCCX0
- QNfwPZEOD/vVj0Ag==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ bh=Kud+ridNJdz+0oycyrUhQSOGddaYwqsBTHH7bFkoGC4=;
+ b=B/lKISiZMzcH2aJlW84A56xqVmGthP7j/vEian8R7hCZtDvLrPzmfbH3NRhDQ+NWg+EWH3
+ R2UXlz981cQrJyDw==
+Received: from g78 (unknown [10.163.24.182])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id AE4F413AD5;
- Tue, 26 Apr 2022 14:48:34 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id vyVMKUIGaGKHVAAAMHmgww
- (envelope-from <mdoucha@suse.cz>); Tue, 26 Apr 2022 14:48:34 +0000
-Message-ID: <904cab2b-df70-4c99-c975-b3132ff5a4c4@suse.cz>
-Date: Tue, 26 Apr 2022 16:48:34 +0200
+ by relay2.suse.de (Postfix) with ESMTPS id 5E91B2C141;
+ Tue, 26 Apr 2022 15:51:37 +0000 (UTC)
+References: <20220425133816.720-1-rpalethorpe@suse.com> <Ymfjm0mdVKacvDnq@yuki>
+User-agent: mu4e 1.6.10; emacs 28.1
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Cyril Hrubis <chrubis@suse.cz>
+Date: Tue, 26 Apr 2022 16:44:20 +0100
+In-reply-to: <Ymfjm0mdVKacvDnq@yuki>
+Message-ID: <87h76f9720.fsf@suse.de>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.1
-Content-Language: en-US
-To: Petr Vorel <pvorel@suse.cz>, ltp@lists.linux.it
-References: <20220422144141.16848-1-pvorel@suse.cz>
- <20220422144141.16848-5-pvorel@suse.cz>
-From: Martin Doucha <mdoucha@suse.cz>
-In-Reply-To: <20220422144141.16848-5-pvorel@suse.cz>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-1.8 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 4/4] doc: Update shell API examples
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] lapi/signal.h: rm references to _SC_SIGRT_* and
+ __SIGRT*
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,137 +73,87 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: rpalethorpe@suse.de
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
-looks good, small nit below.
+Hello,
 
-Reviewed-by: Martin Doucha <mdoucha@suse.cz>
+Cyril Hrubis <chrubis@suse.cz> writes:
 
-On 22. 04. 22 16:41, Petr Vorel wrote:
-> Signed-off-by: Petr Vorel <pvorel@suse.cz>
-> ---
-> Changes v1->v2:
-> * Updates related to 1st and 2nd commit.
-> 
->  doc/library-api-writing-guidelines.txt | 11 +++++++----
->  doc/shell-test-api.txt                 |  8 ++++++++
->  2 files changed, 15 insertions(+), 4 deletions(-)
-> 
-> diff --git a/doc/library-api-writing-guidelines.txt b/doc/library-api-writing-guidelines.txt
-> index 9e926e9713..06b617e693 100644
-> --- a/doc/library-api-writing-guidelines.txt
-> +++ b/doc/library-api-writing-guidelines.txt
-> @@ -67,17 +67,20 @@ Changes in the shell API should not introduce uncommon dependencies
->  
->  Besides shell API libraries in 'testcases/lib' it's worth to put common code
->  for particular tests into shell library. The filename should end '_lib.sh',
-> -they should load 'tst_test.sh' or 'tst_net.sh'.
-> +they should load 'tst_test.sh' or 'tst_net.sh' at the end of the file.
->  
->  Shell libraries should have conditional expansion for 'TST_SETUP' or 'TST_CLEANUP',
->  to avoid surprises when test specific setup/cleanup function is redefined by
-> -shell library.
-> +shell library. Although there is not an optimal general solution because
-> +usually test which have specific setup/cleanup also needs to call library
-> +setup/cleanup, but it's better not to require 'TST_SETUP' or 'TST_CLEANUP' to
-> +be on specific place.
+> Hi!
+>> The old API's tst_sig.c uses_SC_SIGRT_MIN/MAX are not extant and a
+>> quick internet search does not reveal much. It's assumed they meant
+>> the same thing as tst_sigrt{min,max}_kern.
+>> 
+>> The fallback using __SIGRT{MIN,MAX} is also replaced with
+>> tst_signal_is_reserved_rt. It says sigrtmin on HPPA is 37. However in
+>> the kernel all arches have it set to 32.
+>> 
+>> In all cases __SIGRT{MIN,MAX} is replaces with constants we define as
+>> we can not use __ variables. Two functions are introduced to make the
+>> meaning clear when using these constants to check if a signal is
+>> reserved and/or realtime.
+>> 
+>> Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
+>> Suggested-by: Petr Vorel <pvorel@suse.cz>
+>> Suggested-by: Cyril Hrubis <chrubis@suse.cz>
+>> ---
+>>  include/lapi/signal.h                         | 36 ++++++-------
+>>  lib/tst_sig.c                                 | 51 +------------------
+>>  testcases/kernel/syscalls/ptrace/ptrace05.c   |  2 +-
+>>  .../syscalls/rt_sigsuspend/rt_sigsuspend01.c  |  2 +-
+>>  testcases/kernel/syscalls/sighold/sighold02.c |  4 +-
+>>  5 files changed, 23 insertions(+), 72 deletions(-)
+>> 
+>> diff --git a/include/lapi/signal.h b/include/lapi/signal.h
+>> index 6f4a76881..aa185a5a6 100644
+>> --- a/include/lapi/signal.h
+>> +++ b/include/lapi/signal.h
+>> @@ -1,24 +1,24 @@
+>> -// SPDX-License-Identifier: GPL-2.0-or-later
+>> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+>
+> The style with "//" seems to be more common in LTP. If we want to unify
+> on the latter it should be done for all files and in a separate patch.
+>
+>>  /*
+>> - * Copyright (c) 2019 Linaro Limited. All rights reserved.
+>> - * Author: Daniel D??az <daniel.diaz@linaro.org>
+>> + * Copyright (c) 2022 SUSE LLC
+>>   */
+>> -
+>> -#ifndef LAPI_SIGNAL_H__
+>> -#define LAPI_SIGNAL_H__
+>
+> Why have you deleted the guards?
 
-When you've started the sentence with "although", the "but" doesn't
-belong there. On the last line, "at a specific position" would be better.
+Uff, I don't think I was paying attention when writing this patch!
 
->  
->  [source,sh]
->  -------------------------------------------------------------------------------
->  # ipsec_lib.sh
->  # SPDX-License-Identifier: GPL-2.0-or-later
-> -TST_SETUP=${TST_SETUP:-ipsec_lib_setup}
-> -. tst_test.sh
-> +TST_SETUP="${TST_SETUP:-ipsec_lib_setup}"
->  ...
-> +. tst_test.sh
->  -------------------------------------------------------------------------------
-> diff --git a/doc/shell-test-api.txt b/doc/shell-test-api.txt
-> index 4c16f36250..df5ebbdf0d 100644
-> --- a/doc/shell-test-api.txt
-> +++ b/doc/shell-test-api.txt
-> @@ -40,6 +40,7 @@ do_test()
->  	fi
->  }
->  
-> +. tst_test.sh
->  tst_run
->  -------------------------------------------------------------------------------
->  
-> @@ -90,6 +91,7 @@ test2()
->  	tst_res TPASS "Test $1 passed"
->  }
->  
-> +. tst_test.sh
->  tst_run
->  # output:
->  # foo 1 TPASS: Test 1 passed
-> @@ -118,6 +120,7 @@ do_test()
->  	esac
->  }
->  
-> +. tst_test.sh
->  tst_run
->  # output:
->  # foo 1 TPASS: Test 1 passed
-> @@ -145,6 +148,7 @@ do_test()
->  	tst_res TPASS "Test $1 passed with data '$2'"
->  }
->  
-> +. tst_test.sh
->  tst_run
->  # output:
->  # foo 1 TPASS: Test 1 passed with data 'foo'
-> @@ -174,6 +178,7 @@ do_test()
->  	esac
->  }
->  
-> +. tst_test.sh
->  tst_run
->  # output:
->  # foo 1 TPASS: Test 1 passed with data 'foo'
-> @@ -278,6 +283,7 @@ do_test()
->  	...
->  }
->  
-> +. tst_test.sh
->  tst_run
->  -------------------------------------------------------------------------------
->  
-> @@ -337,6 +343,7 @@ do_test()
->  	...
->  }
->  
-> +. tst_test.sh
->  tst_run
->  -------------------------------------------------------------------------------
->  
-> @@ -379,6 +386,7 @@ do_test()
->  	...
->  }
->  
-> +. tst_test.sh
->  tst_run
->  -------------------------------------------------------------------------------
->  
+>
+>>  #include <signal.h>
+>>  
+>> -/*
+>> - * Some libc implementations might differ in the definitions they include. This
+>> - * covers those differences for all tests to successfully build.
+>> - */
+>> +const int tst_sigrtmin_kern = 32;
+>> +const int tst_sigrtmax_kern = 64;
+>
+> I would go for macros here but I guess that either one works.
+>
 
+This at least is deliberate because constant variables work better with
+some tooling such as clangd. I'm not sure why, but it can't rename
+macros. Although thinking about it, I'm not sure if these should be
+static...
 
 -- 
-Martin Doucha   mdoucha@suse.cz
-QA Engineer for Software Maintenance
-SUSE LINUX, s.r.o.
-CORSO IIa
-Krizikova 148/34
-186 00 Prague 8
-Czech Republic
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
