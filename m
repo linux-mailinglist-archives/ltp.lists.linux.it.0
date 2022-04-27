@@ -1,74 +1,79 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 003D5511807
-	for <lists+linux-ltp@lfdr.de>; Wed, 27 Apr 2022 14:50:44 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2AD5F511897
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 Apr 2022 16:00:38 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id BCF373CA5AE
-	for <lists+linux-ltp@lfdr.de>; Wed, 27 Apr 2022 14:50:44 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 9D2673CA609
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 Apr 2022 16:00:37 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 4B2553C0677
- for <ltp@lists.linux.it>; Wed, 27 Apr 2022 14:50:09 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 777323C9482
+ for <ltp@lists.linux.it>; Wed, 27 Apr 2022 16:00:33 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id CACA1600810
- for <ltp@lists.linux.it>; Wed, 27 Apr 2022 14:50:08 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 940EB1A000A0
+ for <ltp@lists.linux.it>; Wed, 27 Apr 2022 16:00:32 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 7AF591F750;
- Wed, 27 Apr 2022 12:50:08 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id E046221118;
+ Wed, 27 Apr 2022 14:00:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1651063808; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
+ t=1651068031; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=yQ9SJ+Qf3Qw6pwrpKPny9eMlMH0dKOxxJ4iB69WyJxk=;
- b=KPZWKwnlNSd8wccU2moYe9MU06VHcZy9iHxYgS2W59e1Nt5hYXq/yDGnTk8U8HLWH+UQIp
- g2lwO7VLgdVVWjlqMQiuunPPqiR2XseMxvTYsZJqT7TLvXfMSn8HAHi2kmwhAQ931PFe62
- BWfR50vc6GGbt5UC+heU0IAovQl67EY=
+ bh=zBYPiXfB5e+e5N8W0V5gphHaWVDdFWQHdwjXRCwZWMM=;
+ b=a/RUCCJLHNU2iwCaCSHF+vV/A2n9IoK/s5G702m1Ui53mG5aOoYimHO6H2kMWUpTlyEH4+
+ E9f7fQf5VAzld8wGwP5RDoQEDXyo1bpV1oGaTPY49mfdui/iMtGCyt/IAPD0RNszXZ8dC/
+ 9MBBY6an8Q3t9EKTq6/PDUwB3Qq+ndE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1651063808;
+ s=susede2_ed25519; t=1651068031;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
+ mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=yQ9SJ+Qf3Qw6pwrpKPny9eMlMH0dKOxxJ4iB69WyJxk=;
- b=m/7NOcHlhwqNhfI7ltP/QhApP/JKsVJS+awgxFYrIa6cU/QkfGq7CAGabVI6zCt3qNDdnX
- QXELFtBqbgJY2sAg==
+ bh=zBYPiXfB5e+e5N8W0V5gphHaWVDdFWQHdwjXRCwZWMM=;
+ b=th7Rrs33IiqVK8tnSEBlEnBxerpZHE8GDPr76s7JmYoaTPqqdGk7SZxG4uruidXREwVgP1
+ LDLu7WxjBKgTSlCA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 43F2013AED;
- Wed, 27 Apr 2022 12:50:08 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C049813A39;
+ Wed, 27 Apr 2022 14:00:31 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 8PhwDwA8aWK5RgAAMHmgww
- (envelope-from <pvorel@suse.cz>); Wed, 27 Apr 2022 12:50:08 +0000
-From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Wed, 27 Apr 2022 14:50:03 +0200
-Message-Id: <20220427125003.20815-6-pvorel@suse.cz>
-X-Mailer: git-send-email 2.35.3
-In-Reply-To: <20220427125003.20815-1-pvorel@suse.cz>
-References: <20220427125003.20815-1-pvorel@suse.cz>
+ by imap2.suse-dmz.suse.de with ESMTPSA id DnXlLX9MaWK4aQAAMHmgww
+ (envelope-from <mdoucha@suse.cz>); Wed, 27 Apr 2022 14:00:31 +0000
+Message-ID: <12b407ae-c5c9-8d80-9feb-3daf6d116528@suse.cz>
+Date: Wed, 27 Apr 2022 16:00:31 +0200
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.1
+Content-Language: en-US
+To: Petr Vorel <pvorel@suse.cz>, ltp@lists.linux.it
+References: <20220427125003.20815-1-pvorel@suse.cz>
+ <20220427125003.20815-2-pvorel@suse.cz>
+From: Martin Doucha <mdoucha@suse.cz>
+In-Reply-To: <20220427125003.20815-2-pvorel@suse.cz>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH v3 5/5] doc: Update shell API examples
+X-Spam-Status: No, score=-1.8 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3 1/5] busy_poll_lib.sh: Mention setup/cleanup
+ defined in tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,107 +85,56 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Martin Doucha <martin.doucha@suse.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Reviewed-by: Martin Doucha <mdoucha@suse.cz>
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
-changes v2->v3:
-* remove last sentence from docs
+Hi,
 
- doc/library-api-writing-guidelines.txt | 4 ++--
- doc/shell-test-api.txt                 | 8 ++++++++
- 2 files changed, 10 insertions(+), 2 deletions(-)
+On 27. 04. 22 14:49, Petr Vorel wrote:
+> Signed-off-by: Petr Vorel <pvorel@suse.cz>
+> ---
+> New in v3
+> 
+>  testcases/network/busy_poll/busy_poll_lib.sh | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+> 
+> diff --git a/testcases/network/busy_poll/busy_poll_lib.sh b/testcases/network/busy_poll/busy_poll_lib.sh
+> index d17504466..69e590031 100755
+> --- a/testcases/network/busy_poll/busy_poll_lib.sh
+> +++ b/testcases/network/busy_poll/busy_poll_lib.sh
+> @@ -1,10 +1,14 @@
+>  #!/bin/sh
+>  # SPDX-License-Identifier: GPL-2.0-or-later
+> +# Copyright (c) Linux Test Project, 2016-2022
+>  # Copyright (c) 2016-2018 Oracle and/or its affiliates. All Rights Reserved.
+>  
+> -TST_SETUP="setup"
+>  TST_TESTFUNC="test"
+> +
+> +# setup and cleanup defined in tests using this library
 
-diff --git a/doc/library-api-writing-guidelines.txt b/doc/library-api-writing-guidelines.txt
-index 08468f2fc..3b8c1d97d 100644
---- a/doc/library-api-writing-guidelines.txt
-+++ b/doc/library-api-writing-guidelines.txt
-@@ -78,7 +78,7 @@ shell library.
- -------------------------------------------------------------------------------
- # ipsec_lib.sh
- # SPDX-License-Identifier: GPL-2.0-or-later
--TST_SETUP=${TST_SETUP:-ipsec_lib_setup}
--. tst_test.sh
-+TST_SETUP="${TST_SETUP:-ipsec_lib_setup}"
- ...
-+. tst_test.sh
- -------------------------------------------------------------------------------
-diff --git a/doc/shell-test-api.txt b/doc/shell-test-api.txt
-index 4c16f3625..df5ebbdf0 100644
---- a/doc/shell-test-api.txt
-+++ b/doc/shell-test-api.txt
-@@ -40,6 +40,7 @@ do_test()
- 	fi
- }
- 
-+. tst_test.sh
- tst_run
- -------------------------------------------------------------------------------
- 
-@@ -90,6 +91,7 @@ test2()
- 	tst_res TPASS "Test $1 passed"
- }
- 
-+. tst_test.sh
- tst_run
- # output:
- # foo 1 TPASS: Test 1 passed
-@@ -118,6 +120,7 @@ do_test()
- 	esac
- }
- 
-+. tst_test.sh
- tst_run
- # output:
- # foo 1 TPASS: Test 1 passed
-@@ -145,6 +148,7 @@ do_test()
- 	tst_res TPASS "Test $1 passed with data '$2'"
- }
- 
-+. tst_test.sh
- tst_run
- # output:
- # foo 1 TPASS: Test 1 passed with data 'foo'
-@@ -174,6 +178,7 @@ do_test()
- 	esac
- }
- 
-+. tst_test.sh
- tst_run
- # output:
- # foo 1 TPASS: Test 1 passed with data 'foo'
-@@ -278,6 +283,7 @@ do_test()
- 	...
- }
- 
-+. tst_test.sh
- tst_run
- -------------------------------------------------------------------------------
- 
-@@ -337,6 +343,7 @@ do_test()
- 	...
- }
- 
-+. tst_test.sh
- tst_run
- -------------------------------------------------------------------------------
- 
-@@ -379,6 +386,7 @@ do_test()
- 	...
- }
- 
-+. tst_test.sh
- tst_run
- -------------------------------------------------------------------------------
- 
+Hooking up callbacks on the reverse end of include is some seriously
+dirty code. I'd recommend dropping this patch and then making a separate
+patchset to move those TST_SETUP/TST_CLEANUP variables out of the library.
+
+> +TST_SETUP="setup"
+>  TST_CLEANUP="cleanup"
+> +
+>  TST_MIN_KVER="3.11"
+>  TST_NEEDS_TMPDIR=1
+>  TST_NEEDS_ROOT=1
+
+
 -- 
-2.35.3
-
+Martin Doucha   mdoucha@suse.cz
+QA Engineer for Software Maintenance
+SUSE LINUX, s.r.o.
+CORSO IIa
+Krizikova 148/34
+186 00 Prague 8
+Czech Republic
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
