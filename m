@@ -2,91 +2,84 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0035D510F99
-	for <lists+linux-ltp@lfdr.de>; Wed, 27 Apr 2022 05:38:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85DE6510F9F
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 Apr 2022 05:40:55 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 68F883CA5B6
-	for <lists+linux-ltp@lfdr.de>; Wed, 27 Apr 2022 05:38:34 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 470AF3CA475
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 Apr 2022 05:40:55 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 971A03C9E2C
- for <ltp@lists.linux.it>; Wed, 27 Apr 2022 05:38:30 +0200 (CEST)
-Received: from mail1.bemta36.messagelabs.com (mail1.bemta36.messagelabs.com
- [85.158.142.2])
+ by picard.linux.it (Postfix) with ESMTPS id 122993C9E2C
+ for <ltp@lists.linux.it>; Wed, 27 Apr 2022 05:40:53 +0200 (CEST)
+Received: from mail1.bemta32.messagelabs.com (mail1.bemta32.messagelabs.com
+ [195.245.230.66])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 01C9820035A
- for <ltp@lists.linux.it>; Wed, 27 Apr 2022 05:38:28 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id A308910006B2
+ for <ltp@lists.linux.it>; Wed, 27 Apr 2022 05:40:52 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fujitsu.com;
- s=170520fj; t=1651030707; i=@fujitsu.com;
- bh=53IjtsZqUuy2+X8oY7Ydp2iRdngr/C9kLle7a0kJh/s=;
- h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
- MIME-Version:Content-Type;
- b=PpgajvmXRzu+L0U+MaAWsxc8xPkXQJswqnsGOvgYyGOUPhgZWVQmp21jESy/E4ros
- EszIViIKKCxwJ6fMnGOZE0R7K7M289NK5jksxDQLoGK397wpOZLBhcNOdZowL3Klo5
- Z7gjJMIEcCDomsq2XT02e2YFPpjQhbztihUXM8PI3RF0G5AzlOH7V5scVlil8AILgT
- ohg1YEsNQ4iHn1L6cBqUetpa5/Hh8K2qTB40oqEXT+uWaJlTVkjOn+fB/2eXz7Lf9F
- iTfIeccrQxZdyc3WyORghN6MhURjkaYKvkLqTnhLnHNuJs2174tNUe89LI8ZmYu0Gb
- WcUJhjgLj9teA==
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFrrBIsWRWlGSWpSXmKPExsViZ8ORqLt5V0a
- Swfvb0hYrvu9gdGD02Pd7HWsAYxRrZl5SfkUCa8aP5WdYCz6pVyz/NYepgXGWQhcjJ4eQwFlG
- iecforsYuYDsnUwSu14vZodw9jBKtN76yQpSxSagKfGscwEziC0iICHR0fCWHcRmFvCT2Hf3K
- lCcg0NYwFri+TxpkDCLgKpE+7K5bCA2r4CnxKGtXWC2hICCxJSH78HGcAp4SbRPW8wEcYSnxI
- aNG1kg6gUlTs58wgIxXkLi4IsXzBC9ihKXOr4xQtgVErNmtTFB2GoSV89tYp7AKDgLSfssJO0
- LGJlWMdomFWWmZ5TkJmbm6BoaGOgaGprqmpnoGpvoJVbpJuqlluomp+aVFCUCZfUSy4v1UouL
- 9Yorc5NzUvTyUks2MQIDOaXYQWkH49m+n3qHGCU5mJREeZOnZiQJ8SXlp1RmJBZnxBeV5qQWH
- 2KU4eBQkuDt2AmUEyxKTU+tSMvMAUYVTFqCg0dJhHcySJq3uCAxtzgzHSJ1ilGXY8Hva3uZhV
- jy8vNSpcR5f64BKhIAKcoozYMbAYvwS4yyUsK8jAwMDEI8BalFuZklqPKvGMU5GJWEeTeBrOL
- JzCuB2/QK6AgmoCM+1aaCHFGSiJCSamCKSVQzLbNYpHXbuL5N79mdE5Yp1v0TW2esqj9/6l5D
- Unrv9hMaeimZoru/9vOf5Ul7uVHo5jamaCe72jW/OMPK5SY/N72zWP3q3olfyi6VO/Fk1C0Kc
- tF1Sf6ZusHfh4OP7dnpppqAt2/3vIt4vFIv74OIqvjuhu4p9pOzXIxm5/3JO7nGlPFx86K66s
- m/Zqn/8f7c4njPtjfvTefNqQo3xSbLffeQaZdIX2xV5+7FfIHd+5fastiz1rIX9fw+vZmkrFP
- nWPBNR4fn+OeXUvYesfc3MIYye35lMHpow+zwLFA7rIV1xx1WrnkHo9f/+n/zQeWSU2ahrL/P
- 8MqsNV8sOjGGa9ILvgP7u0pWflViKc5INNRiLipOBAAh/JPyawMAAA==
+ s=170520fj; t=1651030851; i=@fujitsu.com;
+ bh=a0NSFKWlk7yH1uGi5VqI+lPTrSITBHX60Pzei6vEzvU=;
+ h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type;
+ b=ycEI4doMjh5hpuWpQIPasgVUT3lKgOTExBPZV7Mwc88ywmdsIbxtqL5AW6nCdwrjk
+ vP3Oen28b4gwKMHjIwYcJ+NZAbWxwfe4+JCdY1v0gN8GWQvdJDCHFQxdT6mhPpdWgF
+ KMDbdrsCSTrI1RnL1XTc2mC8WzWGY6lJWE5QtDHV/ddaWMNnLEFCobQ6xVc3zPsv21
+ NrbhRSfXidNq05qEydcfTxqPFGdU3l8uM0irNj9rRpjGzq2Sk2kBMDrisZrSEbeHzv
+ gaRkGJOZ7K6GHKwMkRa66h4Y5mGpNU16VqzT8aoQVIKtdXsC9rNK1G0upAjCBeP0rA
+ 1GjshuLWNFfpw==
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFprBIsWRWlGSWpSXmKPExsViZ8MRouu0OyP
+ JoPOArMWK7zsYHRg99v1exxrAGMWamZeUX5HAmrFtygumgla9ijUnb7I1MP5S6WLk5BASaGGS
+ +L1TqIuRC8jewyixcW4nG0iCTUBT4lnnAmYQW0RAQqKj4S07iM0s4Cex7+5VsLiwgLnE96cPw
+ OIsAqoSKx9OBbI5OHgFPCW2n1AFCUsIKEhMefgerJxXQFDi5MwnLBBjJCQOvnjBDFGjKHGp4x
+ sjhF0hMWtWG9MERt5ZSFpmIWlZwMi0itEqqSgzPaMkNzEzR9fQwEDX0NBU11DXyNBcL7FKN1E
+ vtVS3PLW4RNdQL7G8WC+1uFivuDI3OSdFLy+1ZBMjMMBSihlv7mBs7fupd4hRkoNJSZQ3eWpG
+ khBfUn5KZUZicUZ8UWlOavEhRhkODiUJ3o6dQDnBotT01Iq0zBxgsMOkJTh4lER4J4OkeYsLE
+ nOLM9MhUqcYFaXEeX+uAUoIgCQySvPg2mARdolRVkqYl5GBgUGIpyC1KDezBFX+FaM4B6OSMO
+ 8mkPE8mXklcNNfAS1mAlr8qTYVZHFJIkJKqoHJ4NjPu8f+rZl1c9+GT9Yn043E7MQVqh7Y5wt
+ XTmBSXLt/8dH8KRkbIm2z/oYpf0w53sPwxaiCd26Yq/+Nyr9FSStMa8V2uxSnTi/knT53z6E9
+ 7++xtDmuTf0QeIFD/hzX/pQ5c0rk/vFemTdRUbb/5v1pDt9eJi0/nKtnO+fVpXeXTzhkbn794
+ SHbZL03dxaeUzU/vLRrt4NB3I2zX/jcPXKWPPc3y24Jvm+yV2xr+bNHwatSbuY9+PG3aEmabG
+ mhReiKwO46772Meg8e9vIe1p2ocGf5QkbWHczlU84o7rm4hO3Nsw/sc02TT8cqx/H4Mb97L9V
+ spjR36pVL0x8GHfJRat8mfsH408ZNFWtFnJVYijMSDbWYi4oTAcCeY64rAwAA
 X-Env-Sender: xuyang2018.jy@fujitsu.com
-X-Msg-Ref: server-4.tower-528.messagelabs.com!1651030707!27937!1
-X-Originating-IP: [62.60.8.97]
+X-Msg-Ref: server-6.tower-591.messagelabs.com!1651030850!58944!1
+X-Originating-IP: [62.60.8.84]
 X-SYMC-ESS-Client-Auth: outbound-route-from=pass
 X-StarScan-Received: 
 X-StarScan-Version: 9.85.8; banners=-,-,-
 X-VirusChecked: Checked
-Received: (qmail 7927 invoked from network); 27 Apr 2022 03:38:27 -0000
-Received: from unknown (HELO n03ukasimr01.n03.fujitsu.local) (62.60.8.97)
- by server-4.tower-528.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
- encrypted SMTP; 27 Apr 2022 03:38:27 -0000
-Received: from n03ukasimr01.n03.fujitsu.local (localhost [127.0.0.1])
- by n03ukasimr01.n03.fujitsu.local (Postfix) with ESMTP id E00B9100190
- for <ltp@lists.linux.it>; Wed, 27 Apr 2022 04:38:26 +0100 (BST)
-Received: from R01UKEXCASM126.r01.fujitsu.local (unknown [10.183.43.178])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
- (No client certificate requested)
- by n03ukasimr01.n03.fujitsu.local (Postfix) with ESMTPS id C320810018E
- for <ltp@lists.linux.it>; Wed, 27 Apr 2022 04:38:26 +0100 (BST)
+Received: (qmail 18221 invoked from network); 27 Apr 2022 03:40:50 -0000
+Received: from unknown (HELO mailhost3.uk.fujitsu.com) (62.60.8.84)
+ by server-6.tower-591.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
+ encrypted SMTP; 27 Apr 2022 03:40:50 -0000
+Received: from R01UKEXCASM126.r01.fujitsu.local ([10.183.43.178])
+ by mailhost3.uk.fujitsu.com (8.14.5/8.14.5) with ESMTP id 23R3egrN000320
+ (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256 verify=FAIL)
+ for <ltp@lists.linux.it>; Wed, 27 Apr 2022 04:40:50 +0100
 Received: from localhost.localdomain (10.167.220.84) by
  R01UKEXCASM126.r01.fujitsu.local (10.183.43.178) with Microsoft SMTP Server
- (TLS) id 15.0.1497.32; Wed, 27 Apr 2022 04:38:14 +0100
+ (TLS) id 15.0.1497.32; Wed, 27 Apr 2022 04:40:40 +0100
 From: Yang Xu <xuyang2018.jy@fujitsu.com>
 To: <ltp@lists.linux.it>
-Date: Wed, 27 Apr 2022 12:39:22 +0800
-Message-ID: <1651034362-18672-2-git-send-email-xuyang2018.jy@fujitsu.com>
+Date: Wed, 27 Apr 2022 12:42:04 +0800
+Message-ID: <1651034524-18799-1-git-send-email-xuyang2018.jy@fujitsu.com>
 X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <1651034362-18672-1-git-send-email-xuyang2018.jy@fujitsu.com>
-References: <1651034362-18672-1-git-send-email-xuyang2018.jy@fujitsu.com>
 MIME-Version: 1.0
 X-Originating-IP: [10.167.220.84]
 X-ClientProxiedBy: G08CNEXCHPEKD07.g08.fujitsu.local (10.167.33.80) To
  R01UKEXCASM126.r01.fujitsu.local (10.183.43.178)
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/2] syscalls/shmdt02: Convert into new api
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH] syscalls/fcntl05: Convert into new api
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,184 +99,231 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 Signed-off-by: Liao Huangjie <liaohj.jy@fujitsu.com>
 Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
 ---
- testcases/kernel/syscalls/ipc/shmdt/Makefile  |   7 +-
- testcases/kernel/syscalls/ipc/shmdt/shmdt02.c | 134 +++++-------------
- 2 files changed, 34 insertions(+), 107 deletions(-)
+ testcases/kernel/syscalls/fcntl/fcntl05.c | 186 ++++------------------
+ 1 file changed, 34 insertions(+), 152 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/ipc/shmdt/Makefile b/testcases/kernel/syscalls/ipc/shmdt/Makefile
-index a48dbf48f..6b2b26d05 100644
---- a/testcases/kernel/syscalls/ipc/shmdt/Makefile
-+++ b/testcases/kernel/syscalls/ipc/shmdt/Makefile
-@@ -3,13 +3,10 @@
- 
- top_srcdir              ?= ../../../../..
- 
--LTPLIBS = ltpipc ltpnewipc
-+LTPLIBS = ltpnewipc
- 
- include $(top_srcdir)/include/mk/testcases.mk
- 
--shmdt01: LTPLDLIBS = -lltpnewipc
--shmdt02: LTPLDLIBS = -lltpipc
--
--LTPLDLIBS  = -lltpipc ltpnewipc
-+LTPLDLIBS  = -lltpnewipc
- 
- include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/kernel/syscalls/ipc/shmdt/shmdt02.c b/testcases/kernel/syscalls/ipc/shmdt/shmdt02.c
-index 5cab2596b..782c6f488 100644
---- a/testcases/kernel/syscalls/ipc/shmdt/shmdt02.c
-+++ b/testcases/kernel/syscalls/ipc/shmdt/shmdt02.c
-@@ -1,118 +1,48 @@
+diff --git a/testcases/kernel/syscalls/fcntl/fcntl05.c b/testcases/kernel/syscalls/fcntl/fcntl05.c
+index fb4a0f9a8..33602d76f 100644
+--- a/testcases/kernel/syscalls/fcntl/fcntl05.c
++++ b/testcases/kernel/syscalls/fcntl/fcntl05.c
+@@ -1,25 +1,6 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
  /*
+- * Copyright (c) 2000 Silicon Graphics, Inc.  All Rights Reserved.
 - *
-- *   Copyright (c) International Business Machines  Corp., 2001
+- * This program is free software; you can redistribute it and/or modify it
+- * under the terms of version 2 of the GNU General Public License as
+- * published by the Free Software Foundation.
 - *
-- *   This program is free software;  you can redistribute it and/or modify
-- *   it under the terms of the GNU General Public License as published by
-- *   the Free Software Foundation; either version 2 of the License, or
-- *   (at your option) any later version.
+- * This program is distributed in the hope that it would be useful, but
+- * WITHOUT ANY WARRANTY; without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 - *
-- *   This program is distributed in the hope that it will be useful,
-- *   but WITHOUT ANY WARRANTY;  without even the implied warranty of
-- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
-- *   the GNU General Public License for more details.
+- * Further, this software is distributed without any warranty that it is
+- * free of the rightful claim of any third person regarding infringement
+- * or the like.  Any license provided herein, whether implied or
+- * otherwise, applies only to this software file.  Patent licenses, if
+- * any, provided herein do not apply to combinations of this program with
+- * other software, or any other product whatsoever.
 - *
-- *   You should have received a copy of the GNU General Public License
-- *   along with this program;  if not, write to the Free Software
-- *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
-+ * Copyright (c) International Business Machines Corp., 2001
+- * You should have received a copy of the GNU General Public License along
+- * with this program; if not, write the Free Software Foundation, Inc.,
+- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+- *
++ * Copyright (c) 2000 Silicon Graphics, Inc. All Rights Reserved.
+  * Contact information: Silicon Graphics, Inc., 1600 Amphitheatre Pkwy,
+  * Mountain View, CA  94043, or:
+  *
+@@ -29,158 +10,59 @@
+  *
+  * http://oss.sgi.com/projects/GenInfo/NoticeExplan/
+  *
++ * AUTHOR            : William Roske
++ * CO-PILOT          : Dave Fenner
   */
- 
--/*
-- * NAME
-- *	shmdt02.c
+-/* $Id: fcntl05.c,v 1.8 2009/11/02 13:57:16 subrata_modak Exp $ */
+-/**********************************************************
 - *
-- * DESCRIPTION
-- *	shmdt02 - check for EINVAL error
+- *    OS Test - Silicon Graphics, Inc.
 - *
-- * ALGORITHM
-- *	loop if that option was specified
-- *	  call shmdt() using an invalid shared memory address
-- *	  check the errno value
-- *	    issue a PASS message if we get EINVAL
-- *	  otherwise, the tests fails
-- *	    issue a FAIL message
-- *	call cleanup
+- *    TEST IDENTIFIER	: fcntl05
+- *
+- *    EXECUTED BY	: anyone
+- *
+- *    TEST TITLE	: Basic test for fcntl(2) using F_GETLK argument.
+- *
+- *    PARENT DOCUMENT	: usctpl01
+- *
+- *    TEST CASE TOTAL	: 1
+- *
+- *    WALL CLOCK TIME	: 1
+- *
+- *    CPU TYPES		: ALL
+- *
+- *    AUTHOR		: William Roske
+- *
+- *    CO-PILOT		: Dave Fenner
+- *
+- *    DATE STARTED	: 03/30/92
+- *
+- *    INITIAL RELEASE	: UNICOS 7.0
+- *
+- *    TEST CASES
+- *
+- *	1.) fcntl(2) returns...(See Description)
+- *
+- *    INPUT SPECIFICATIONS
+- *	The standard options for system call tests are accepted.
+- *	(See the parse_opts(3) man page).
+- *
+- *    OUTPUT SPECIFICATIONS
+- *
+- *    DURATION
+- *	Terminates - with frequency and infinite modes.
+- *
+- *    SIGNALS
+- *	Uses SIGUSR1 to pause before test if option set.
+- *	(See the parse_opts(3) man page).
+- *
+- *    RESOURCES
+- *	None
+- *
+- *    ENVIRONMENTAL NEEDS
+- *      No run-time environmental needs.
+- *
+- *    SPECIAL PROCEDURAL REQUIREMENTS
+- *	None
+- *
+- *    INTERCASE DEPENDENCIES
+- *	None
+- *
+- *    DETAILED DESCRIPTION
+- *	This is a Phase I test for the fcntl(2) system call.  It is intended
+- *	to provide a limited exposure of the system call, for now.  It
+- *	should/will be extended when full functional tests are written for
+- *	fcntl(2).
+- *
+- *	Setup:
+- *	  Setup signal handling.
+- *	  Pause for SIGUSR1 if option specified.
+- *
+- *	Test:
+- *	 Loop if the proper options are given.
+- *	  Execute system call
+- *	  Check return code, if system call failed (return=-1)
+- *		Log the errno and Issue a FAIL message.
+- *	  Otherwise, Issue a PASS message.
+- *
+- *	Cleanup:
+- *	  Print errno log and/or timing stats if options given
+- *
++
 +/*\
 + * [Description]
   *
-- * USAGE:  <for command-line>
-- *  shmdt02 [-c n] [-e] [-i n] [-I x] [-P x] [-t]
-- *     where,  -c n : Run n copies concurrently.
-- *             -e   : Turn on errno logging.
-- *	       -i n : Execute test n times.
-- *	       -I x : Execute test for x seconds.
-- *	       -P x : Pause for x seconds between iterations.
-- *	       -t   : Turn on syscall timing.
-+ * Tests basic error handing of the shmdt syscall.
-  *
-- * HISTORY
-- *	03/2001 - Written by Wayne Boyer
-- *
-- * RESTRICTIONS
-- *	none
-+ * -EINVAL there is no shared memory segment attached at shmaddr.
-+ * -EINVAL shmaddr is not aligned on a page boundary.
-  */
+- *#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#**/
++ * Basic test for fcntl(2) using F_GETLK argument.
++ */
  
--#include "ipcshm.h"
++#include <stdio.h>
+ #include <sys/types.h>
+ #include <fcntl.h>
+ #include <unistd.h>
+ #include <sys/stat.h>
+-#include <errno.h>
+-#include <string.h>
+-#include <signal.h>
+-#include "test.h"
 -
--char *TCID = "shmdt02";
+-void setup();
+-void cleanup();
+-
+-char *TCID = "fcntl05";
 -int TST_TOTAL = 1;
--
++#include "tst_test.h"
+ 
+-char fname[255];
+-int fd;
++static int fd = -1;
+ struct flock flocks;
+ 
 -int main(int ac, char **av)
--{
++static void verify_fcntl(void)
+ {
 -	int lc;
--	int unshared;		/* a local variable to use to produce *//* the error in the shmdt() call */
--
++	/* F_GETLK will change flock.l_type to F_UNLCK, so need to reset */
++	flocks.l_type = F_RDLCK;
+ 
 -	tst_parse_opts(ac, av, NULL, NULL);
 -
--	setup();		/* global setup */
+-	setup();
 -
--	/* The following loop checks looping state if -i option given */
-+#include <sys/types.h>
-+#include <sys/shm.h>
-+#include "tst_test.h"
-+#include "libnewipc.h"
- 
 -	for (lc = 0; TEST_LOOPING(lc); lc++) {
--		/* reset tst_count in case we are looping */
+-
 -		tst_count = 0;
-+static void *non_attched_addr;
-+static void *unaligned_addr;
- 
--		/*
--		 * make the call using the TEST() macro - attempt to
--		 * remove an invalid shared memory address
--		 */
-+struct tcase {
-+	void **addr;
-+	char *des;
-+} tcases[] = {
-+	{&non_attched_addr, "shmdt(non_attched_addr)"},
-+	{&unaligned_addr, "shmdt(unaligned_addr)"}
-+};
- 
--		TEST(shmdt(&unshared));
 -
--		if (TEST_RETURN != -1) {
--			tst_brkm(TFAIL, cleanup, "call succeeded unexpectedly");
+-		flocks.l_type = F_RDLCK;
+-		TEST(fcntl(fd, F_GETLK, &flocks));
+-
+-		if (TEST_RETURN == -1)
+-			tst_resm(TFAIL | TTERRNO, "fcntl failed");
+-		else {
+-			tst_resm(TPASS, "fcntl returned %ld",
+-				 TEST_RETURN);
 -		}
 -
--		switch (TEST_ERRNO) {
--		case EINVAL:
--			tst_resm(TPASS, "expected failure - errno = %d : %s",
--				 TEST_ERRNO, strerror(TEST_ERRNO));
--			break;
--		default:
--			tst_resm(TFAIL, "call failed with an unexpected error "
--				 "- %d : %s", TEST_ERRNO, strerror(TEST_ERRNO));
--
--		}
 -	}
 -
 -	cleanup();
--
 -	tst_exit();
--}
--
--/*
-- * setup() - performs all the ONE TIME setup for this test.
-- */
++	TST_EXP_PASS(fcntl(fd, F_GETLK, &flocks), "fcntl(%d, F_GETLK, &flocks)", fd);
+ }
+ 
 -void setup(void)
-+static void verify_shmdt(unsigned int n)
++static void setup(void)
  {
-+	struct tcase *tc = &tcases[n];
++	char fname[255];
++	int pid;
  
 -	tst_sig(NOFORK, DEF_HANDLER, cleanup);
 -
 -	TEST_PAUSE;
-+	TST_EXP_FAIL(shmdt(*tc->addr), EINVAL, "%s", tc->des);
+-
+-	tst_tmpdir();
++	pid = getpid();
+ 
+-	sprintf(fname, "tfile_%d", getpid());
+-	if ((fd = open(fname, O_RDWR | O_CREAT, 0700)) == -1)
+-		tst_brkm(TBROK | TERRNO, cleanup, "open failed");
++	sprintf(fname, "testfile_%d", pid);
++	fd = SAFE_OPEN(fname, O_RDWR | O_CREAT, 0700);
+ 
+-	/* set needed flags in the flocks structure */
+-	flocks.l_whence = 1;
++	flocks.l_whence = SEEK_CUR;
+ 	flocks.l_start = 0;
+ 	flocks.l_len = 0;
+-	flocks.l_pid = getpid();
++	flocks.l_pid = pid;
  }
  
--/*
-- * cleanup() - performs all the ONE TIME cleanup for this test at completion
-- * 	       or premature exit.
-- */
 -void cleanup(void)
-+static void setup(void)
++static void cleanup(void)
  {
+-	if (close(fd) == -1)
+-		tst_resm(TWARN | TERRNO, "close failed");
 -
-+	non_attched_addr = PROBE_FREE_ADDR();
-+	unaligned_addr = non_attched_addr + SHMLBA - 1;
+-	tst_rmdir();
+-
++	if (fd > -1)
++		SAFE_CLOSE(fd);
  }
 +
 +static struct tst_test test = {
++	.needs_tmpdir = 1,
++	.test_all = verify_fcntl,
 +	.setup = setup,
-+	.test = verify_shmdt,
-+	.tcnt = ARRAY_SIZE(tcases),
++	.cleanup = cleanup,
 +};
 -- 
 2.23.0
