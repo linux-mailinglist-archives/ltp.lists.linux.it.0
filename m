@@ -2,87 +2,91 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70A50513CB5
-	for <lists+linux-ltp@lfdr.de>; Thu, 28 Apr 2022 22:40:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A3A2513CB7
+	for <lists+linux-ltp@lfdr.de>; Thu, 28 Apr 2022 22:41:03 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 383C03CA74C
-	for <lists+linux-ltp@lfdr.de>; Thu, 28 Apr 2022 22:40:37 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id DE6F73CA75E
+	for <lists+linux-ltp@lfdr.de>; Thu, 28 Apr 2022 22:41:02 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 177663C8972
+ by picard.linux.it (Postfix) with ESMTPS id 945483C8972
+ for <ltp@lists.linux.it>; Thu, 28 Apr 2022 22:40:35 +0200 (CEST)
+Received: from smtp-relay-internal-0.canonical.com
+ (smtp-relay-internal-0.canonical.com [185.125.188.122])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 19C0E600462
  for <ltp@lists.linux.it>; Thu, 28 Apr 2022 22:40:34 +0200 (CEST)
-Received: from smtp-relay-internal-1.canonical.com
- (smtp-relay-internal-1.canonical.com [185.125.188.123])
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
+ [209.85.214.200])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 45771100094A
- for <ltp@lists.linux.it>; Thu, 28 Apr 2022 22:40:33 +0200 (CEST)
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com
- [209.85.210.200])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 25EFC3F21D
- for <ltp@lists.linux.it>; Thu, 28 Apr 2022 20:40:32 +0000 (UTC)
+ by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 9B8AC3F325
+ for <ltp@lists.linux.it>; Thu, 28 Apr 2022 20:40:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1651178432;
- bh=gsktzDsYP+1Oi7UicMKk9RGa/wOUGtylTdMJeF0RP9U=;
- h=From:To:Subject:Date:Message-Id:MIME-Version;
- b=lrafUPphh0YDNUOhQb8+UVU3VofN4Xkw7Ny0TexEhWEw2LuIuLVBBJL13H6HEmuij
- Lzb+jV9QL0IMdiL1EATFMa/1ICxel2Gd7ot3TElyLbiBMLyrQal1nsuR6kAFNdteP0
- pzhMdp15hZs1WN/DRR7Ceyj5S+nHmHst3BxSC5Bw+/SXZZ0bsrh2rbAzpxBl+r/LoZ
- DAp7UyKe9r7RMC5GlnsL0SvZeqVgOquJkBurLxbMqp1gNqTrfwkVk2RdEMzLE6JAnY
- 1Czi0cDd8hmbLjm+zoUmXScueY8O8uQLHWwN4wvWZ3mW2ORT4AxJQmhjL/zNAv/udh
- WQVQQY3HXx9EA==
-Received: by mail-pf1-f200.google.com with SMTP id
- d5-20020a62f805000000b0050566b4f4c0so3277327pfh.11
- for <ltp@lists.linux.it>; Thu, 28 Apr 2022 13:40:32 -0700 (PDT)
+ s=20210705; t=1651178433;
+ bh=dDpJvewNqnM25hwd5JWT4YYJuPvIQFEc3gqOUS8tpAw=;
+ h=From:To:Subject:Date:Message-Id:In-Reply-To:References:
+ MIME-Version;
+ b=t2AX6Iqd/nvc8NHBsrS/yPX35O6OneL04odMXGAJm6uxGSfGpIn/N6x05R/8Xr1oJ
+ ieCxGSWr1KJoAwX+21cNxOxFxW0QN5UlIR3/rdwLI256mdSRzTjrNPofVej86EtTxP
+ fRSehI3I4XiH3N+g66ZWT4MgmXqD7E3lTd9fG4jJcnPmILdadl1YZb+nAoPFnUucwG
+ cET6Qt4hDZh+O6BLGf5vc/BOeWK7QJaY0ldmPLGzDdzhiVLnd9XS5aiya9V5fRfMCQ
+ Nh3Mgy5BtDigqx9IV+bmUQFeZjYVce3sduUOTsqb4dZ45+m7fhKa+Wt4fDxaDBMcrP
+ JSC/z07073ipg==
+Received: by mail-pl1-f200.google.com with SMTP id
+ s2-20020a17090302c200b00158ea215fa2so3273021plk.3
+ for <ltp@lists.linux.it>; Thu, 28 Apr 2022 13:40:33 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=gsktzDsYP+1Oi7UicMKk9RGa/wOUGtylTdMJeF0RP9U=;
- b=v8X0jbvT3iEAVrxcCVSfqPRB6z7UEnhBtOErgWOa4hIDSuaHPtqa2OmYTOsmZC1OxP
- z8GCqeyq9ER/dpBM1flnfIHTHcvQEM2frn9RGmxdOtaRTb927PwvHGYQ20dD1skmk7Lg
- dBTLaLYnAo7q5l9ubQlmmqCPm9kTIUFrtXUstZiIFr6UmJ64RLAAuQ130VkhDaH+Evhe
- yCHSrKk4KgYS5U8sEKxYKjIMpl8YaYDyySt0pH2qbCDvjv7GyH5iq0WX0McXM5e9OEx4
- 7lDpIMqTfY5qDSzNIR+FNPwTNtghBN6cSDnDIM1Ilbi8SJHHcgb3WJOuPojd3hhKk53L
- lRyg==
-X-Gm-Message-State: AOAM532gitNmCGbaLjXe+db2z6z8SIjusJTSzZ/VODus18jRNnFQLm25
- Vis/7XP7BhwPbhNaPl397HG8hwfYYRnjrk7JQCYGvdSCvJYbV+3SG7yCDxxJqLbnwNxjWqZoeDL
- U4iYw0yEXMyQ+CLxMZPNTWRDvSyoO
-X-Received: by 2002:a17:902:b606:b0:158:f7d1:c085 with SMTP id
- b6-20020a170902b60600b00158f7d1c085mr35141998pls.12.1651178430269; 
- Thu, 28 Apr 2022 13:40:30 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJxbBVu+3nn3PMdOZ84il7ERBAdkPX1cTEG/Dw0LC52ug+vMlsrsT8ghP2ltGN2xlCMFzYltbw==
-X-Received: by 2002:a17:902:b606:b0:158:f7d1:c085 with SMTP id
- b6-20020a170902b60600b00158f7d1c085mr35141973pls.12.1651178429961; 
- Thu, 28 Apr 2022 13:40:29 -0700 (PDT)
+ h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=dDpJvewNqnM25hwd5JWT4YYJuPvIQFEc3gqOUS8tpAw=;
+ b=PcSyN3GLn+axxmEJcrK9FUQUtFGvaGOs5BLkNwcOJDXHZnmgPn09S0LQw9qFgnZ0SR
+ 2A5+WsWBKHv0G8JaP162eNql3QWO84+dG+zAv0n7m/HYY2LTAFevp0cTXlT1MFB8P0aL
+ 0IUGrU/a4B6/eajoRRZ1NW9pj5tmD2vDX3xLzaTinULa1X58tda+4LhZWWHRqY0uGM+D
+ WzrfWFmkICeIaD76HU3BQBOlw4WCsrXjg5YdpgYobbMUKUe0LIaM8llMC9gEQ8rBi3OS
+ k87E4GbBVWfvmOsb1GQwIb6Y0oaNp6eOkTDp+OxZOoXJQFWNkGafvfP5Jhdqi10NH6gj
+ ZQQw==
+X-Gm-Message-State: AOAM531d2LslAPgu58LGhFdBAXYEU+O9xH26b2sabItACPw3y6JPvfk0
+ 7NPUSpul1rt0VS+b3jg059p1s2Q2GsZmJBnGxzaTdYT+61GHr+7mB9ncJYoVqNdf+ymGv+nOSgT
+ Yua0E9X/mqnDQub1w7NsorygxbVtt
+X-Received: by 2002:a17:902:be13:b0:159:8e2:b72d with SMTP id
+ r19-20020a170902be1300b0015908e2b72dmr34859671pls.79.1651178431416; 
+ Thu, 28 Apr 2022 13:40:31 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwyJJZOAriJOovkBO7Pg3D9JQCSEaR6CXCYK7ut1t11btsoKsRyK8d7moU3JZHCa9cvNG4+2w==
+X-Received: by 2002:a17:902:be13:b0:159:8e2:b72d with SMTP id
+ r19-20020a170902be1300b0015908e2b72dmr34859650pls.79.1651178431122; 
+ Thu, 28 Apr 2022 13:40:31 -0700 (PDT)
 Received: from luke-ubuntu.buildd (cpe-66-27-118-101.san.res.rr.com.
  [66.27.118.101]) by smtp.gmail.com with ESMTPSA id
- f63-20020a62db42000000b0050d35bcdbc0sm659027pfg.181.2022.04.28.13.40.29
+ f63-20020a62db42000000b0050d35bcdbc0sm659027pfg.181.2022.04.28.13.40.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 28 Apr 2022 13:40:29 -0700 (PDT)
+ Thu, 28 Apr 2022 13:40:30 -0700 (PDT)
 From: Luke Nowakowski-Krijger <luke.nowakowskikrijger@canonical.com>
 To: ltp@lists.linux.it,
 	rpalethorpe@suse.de,
 	liwang@redhat.com
-Date: Thu, 28 Apr 2022 13:39:25 -0700
-Message-Id: <cover.1651176645.git.luke.nowakowskikrijger@canonical.com>
+Date: Thu, 28 Apr 2022 13:39:26 -0700
+Message-Id: <9a92c45342df4268ca810beb2a3bee5aac88aa9b.1651176646.git.luke.nowakowskikrijger@canonical.com>
 X-Mailer: git-send-email 2.32.0
+In-Reply-To: <cover.1651176645.git.luke.nowakowskikrijger@canonical.com>
+References: <cover.1651176645.git.luke.nowakowskikrijger@canonical.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH v4 00/19] Expand Cgroup lib and modify controller tests
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH v3 01/19] API/cgroup: Modify tst_cg_print_config for
+ parsing and consumption
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,70 +103,88 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This patchset aims to expand the cgroup_lib shell library to simplify
-and centralize the whole mounting and cleanup process that can get
-rather confusing and redundant when writing cgroup controller tests from
-a shell environment. This is done by having the shell library make calls
-to the C cgroup API from a binary utility.
+Modify tst_cg_print_config to be easily parsed by sscanf so that it can
+later be consumed by tst_cg_load_config.
 
-In this patch set there are a few tests that have been extensively
-rewritten to work with the new test API and to use the new functionality
-from the cgroup lib. Because the test Cgroup lib handles mounting for v1
-and v2 controllers, some tests were modified to also work under cgroup
-v2. Some tests that were written for v1 controller also effictively test
-v2 controllers, while others were written to test v2 controllers in the
-spirit of the test or skipped outright.
+Prints out root info of each controller found as well as the minimal
+associated state needed to cleanup mounts and dirs made my tst_cg_require.
 
-Luke Nowakowski-Krijger (19):
-  API/cgroup: Modify tst_cg_print_config for parsing and consumption
-  API/cgroup: Add option for specific pid to tst_cg_opts
-  API/cgroup: Add cgroup_find_root helper function
-  API/cgroup: Add CTRL_NAME_MAX define
-  tst_test_macros: Add TST_TOSTR macro
-  API/cgroup: Implement tst_cg_load_config
-  API/cgroup: Add more controllers to tst_cgroup
-  API/cgroup: refuse to mount blkio when io controller is mounted
-  testcases/lib: Implement tst_cgctl binary
-  testcases/lib: Add tst_flag2mask function
-  controllers: Expand cgroup_lib shell library
-  controllers: Update cgroup_fj_* to use newer cgroup lib and test lib
-  controllers: Update memcg_control_test to newer test lib and cgroup
-    lib
-  controllers: Update memcg/regression/* to new test and cgroup lib
-  controllers: Update memcg_stress_test to use newer cgroup lib
-  controllers: update memcg/functional to use newer cgroup lib
-  controllers: Update pids.sh to use newer cgroup lib
-  controllers: update cpuset_regression_test.sh to use newer cgroup lib
-  controllers: update cgroup_regression_test to use newer cgroup lib
+Signed-off-by: Luke Nowakowski-Krijger <luke.nowakowskikrijger@canonical.com>
+---
+v2: Remove "mounted_drain_dir" as mounting ltp dir and drain dir happen
+at the same time
+v3: Print config to be scanf friendly to be much easier to consume.
+Rename variables to reflect the variables used in the library for
+simplicity.
 
- include/tst_cgroup.h                          |  17 +-
- include/tst_test_macros.h                     |   3 +
- lib/tst_cgroup.c                              | 215 +++++++++++++++++-
- .../cgroup/cgroup_regression_test.sh          |  31 +--
- .../controllers/cgroup_fj/cgroup_fj_common.sh | 113 +++------
- .../cgroup_fj/cgroup_fj_function.sh           | 169 ++++++++------
- .../controllers/cgroup_fj/cgroup_fj_proc.c    |  24 +-
- .../controllers/cgroup_fj/cgroup_fj_stress.sh | 168 +++++++-------
- testcases/kernel/controllers/cgroup_lib.sh    | 141 ++++++++++--
- .../cpuset/cpuset_regression_test.sh          |  26 +--
- .../controllers/memcg/control/mem_process.c   |  28 +--
- .../memcg/control/memcg_control_test.sh       | 150 +++---------
- .../memcg/functional/memcg_force_empty.sh     |   2 +-
- .../controllers/memcg/functional/memcg_lib.sh |  54 +++--
- .../memcg/regression/memcg_regression_test.sh | 202 ++++++++--------
- .../memcg/regression/memcg_test_1.c           |  40 ++--
- .../memcg/regression/memcg_test_2.c           |  24 +-
- .../memcg/regression/memcg_test_3.c           |  38 ++--
- .../memcg/regression/memcg_test_4.c           |  24 +-
- .../memcg/regression/memcg_test_4.sh          |  50 ++--
- .../memcg/stress/memcg_stress_test.sh         |  32 +--
- testcases/kernel/controllers/pids/pids.sh     |  67 +-----
- testcases/lib/Makefile                        |   2 +-
- testcases/lib/tst_cgctl.c                     |  87 +++++++
- testcases/lib/tst_test.sh                     |  13 ++
- 25 files changed, 927 insertions(+), 793 deletions(-)
- create mode 100644 testcases/lib/tst_cgctl.c
+ include/tst_cgroup.h |  6 +++++-
+ lib/tst_cgroup.c     | 25 ++++++++++++++++++-------
+ 2 files changed, 23 insertions(+), 8 deletions(-)
 
+diff --git a/include/tst_cgroup.h b/include/tst_cgroup.h
+index d32d62399..6ba3727f3 100644
+--- a/include/tst_cgroup.h
++++ b/include/tst_cgroup.h
+@@ -110,7 +110,11 @@ extern const struct tst_cg_group *const tst_cg_drain;
+  * controllers. Called automatically by tst_cg_require.
+  */
+ void tst_cg_scan(void);
+-/* Print the config detected by tst_cg_scan */
++/* Print the config detected by tst_cg_scan and print the internal
++ * state associated with each controller. Output can be passed to
++ * tst_cg_load_config to configure the internal state to that of the
++ * config between program invocations.
++ */
+ void tst_cg_print_config(void);
+ 
+ /* Ensure the specified controller is available in the test's default
+diff --git a/lib/tst_cgroup.c b/lib/tst_cgroup.c
+index feb5b3d07..1abcbaf5a 100644
+--- a/lib/tst_cgroup.c
++++ b/lib/tst_cgroup.c
+@@ -318,24 +318,35 @@ opendir:
+ 				  O_PATH | O_DIRECTORY);
+ }
+ 
++#define CONFIG_HEADER "ctrl_name ver we_require_it mnt_path we_mounted_it ltp_dir.we_created_it test_dir.dir_name"
++#define CONFIG_FORMAT "%s\t%d\t%d\t%s\t%d\t%d\t%s"
++/* Prints out the state associated with each controller to be consumed by
++ * tst_cg_load_config.
++ *
++ * The config keeps track of the minimal state needed for tst_cg_cleanup
++ * to cleanup mounts and directories made by tst_cg_require.
++ */
+ void tst_cg_print_config(void)
+ {
+-	struct cgroup_root *root;
+ 	const struct cgroup_ctrl *ctrl;
+ 
+-	tst_res(TINFO, "Detected Controllers:");
++	printf("%s\n", CONFIG_HEADER);
+ 
+ 	for_each_ctrl(ctrl) {
+-		root = ctrl->ctrl_root;
++		struct cgroup_root *root = ctrl->ctrl_root;
+ 
+ 		if (!root)
+ 			continue;
+ 
+-		tst_res(TINFO, "\t%.10s %s @ %s:%s",
++		printf(CONFIG_FORMAT,
+ 			ctrl->ctrl_name,
+-			root->no_cpuset_prefix ? "[noprefix]" : "",
+-			root->ver == TST_CG_V1 ? "V1" : "V2",
+-			root->mnt_path);
++			root->ver,
++			ctrl->we_require_it,
++			root->mnt_path,
++			root->we_mounted_it,
++			root->ltp_dir.we_created_it,
++			root->test_dir.dir_name ? root->test_dir.dir_name : "NULL");
++		printf("\n");
+ 	}
+ }
+ 
 -- 
 2.32.0
 
