@@ -1,56 +1,55 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97A4E51351E
-	for <lists+linux-ltp@lfdr.de>; Thu, 28 Apr 2022 15:29:59 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 81E48513522
+	for <lists+linux-ltp@lfdr.de>; Thu, 28 Apr 2022 15:30:23 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 67F253CA6D9
-	for <lists+linux-ltp@lfdr.de>; Thu, 28 Apr 2022 15:29:59 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 2EE2F3CA6FB
+	for <lists+linux-ltp@lfdr.de>; Thu, 28 Apr 2022 15:30:23 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 2880B3C9802
- for <ltp@lists.linux.it>; Thu, 28 Apr 2022 15:29:57 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 4DD533CA727
+ for <ltp@lists.linux.it>; Thu, 28 Apr 2022 15:30:00 +0200 (CEST)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 3EE691001452
- for <ltp@lists.linux.it>; Thu, 28 Apr 2022 15:29:57 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 3F3321000417
+ for <ltp@lists.linux.it>; Thu, 28 Apr 2022 15:29:59 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1651152596;
+ s=mimecast20190719; t=1651152598;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=cvw+HMXFrXFF+eCky+3Xq731LnusWlIsAig+O3UTbsM=;
- b=hDIgFmHiwy5OvTDzE/u36+VXwIxIa2eMDNwdwLnrJNocflV5C5Dl5YxGVusuTGGKzZMMnv
- zrbJbDvAtNZZrKZhjOKJJ6XPny03TfOFLBlMA4sy8wVXXnt4/f+96WJEtwDAOl/fAxpVv2
- Av290fE3ry37MUapWVBIkVpuNLuRhU8=
+ bh=mGK19VKuionsTLi0dmPoLQ2M97EElCq0QfU4usvO9yI=;
+ b=aHXkgWutRkYkH+pCg7HyrTAzbvSChw0e2EwCSgrbMEHRS0Dw7sZBubPamez6h1Kd0/Xm21
+ 0v8hjL3iNuWzG2/+KWA0KQgg8xlob8RM5SF14w5sYJWeq7ZtFZy2gZ57RQJ76bH7P+0geE
+ PPiV8Cldj+/i79uiMJslPtnEUsU8H5o=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-656-f2P86nhGNZaC3DqFTYUs8A-1; Thu, 28 Apr 2022 09:29:54 -0400
-X-MC-Unique: f2P86nhGNZaC3DqFTYUs8A-1
+ us-mta-554-Hipy9hfrNvyxXBIuSsf9BA-1; Thu, 28 Apr 2022 09:29:56 -0400
+X-MC-Unique: Hipy9hfrNvyxXBIuSsf9BA-1
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
  [10.11.54.1])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A05D63804521
- for <ltp@lists.linux.it>; Thu, 28 Apr 2022 13:29:54 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 867A43C0E188
+ for <ltp@lists.linux.it>; Thu, 28 Apr 2022 13:29:56 +0000 (UTC)
 Received: from liwang-laptop.redhat.com (ovpn-12-133.pek2.redhat.com
  [10.72.12.133])
- by smtp.corp.redhat.com (Postfix) with ESMTP id AA98640F9D68
- for <ltp@lists.linux.it>; Thu, 28 Apr 2022 13:29:53 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 44CC440F9D6D
+ for <ltp@lists.linux.it>; Thu, 28 Apr 2022 13:29:54 +0000 (UTC)
 From: Li Wang <liwang@redhat.com>
 To: ltp@lists.linux.it
-Date: Thu, 28 Apr 2022 21:29:48 +0800
-Message-Id: <20220428132949.11719-2-liwang@redhat.com>
+Date: Thu, 28 Apr 2022 21:29:49 +0800
+Message-Id: <20220428132949.11719-3-liwang@redhat.com>
 In-Reply-To: <20220428132949.11719-1-liwang@redhat.com>
 References: <20220428132949.11719-1-liwang@redhat.com>
 MIME-Version: 1.0
@@ -65,8 +64,7 @@ X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [RFC PATCH 2/3] memfd_create03: make use of new
- .request_hugepages
+Subject: [LTP] [RFC PATCH 3/3] hugetlb: make use of new .request_hugepages
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,126 +81,395 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-To get rid of some failures like:
-
-  memfd_create03.c:179: TINFO: --TESTING PAGE SIZE OF CREATED FILE--
-  memfd_create03.c:184: TINFO: memfd_create() succeeded
-  memfd_create03.c:47: TBROK: mmap((nil),1048576,2,2,3,0) failed: ENOMEM (12)
-
 Signed-off-by: Li Wang <liwang@redhat.com>
 ---
- .../syscalls/memfd_create/memfd_create03.c    | 77 ++-----------------
- 1 file changed, 7 insertions(+), 70 deletions(-)
+ testcases/kernel/mem/hugetlb/hugemmap/hugemmap01.c   |  5 ++++-
+ testcases/kernel/mem/hugetlb/hugemmap/hugemmap02.c   |  5 ++++-
+ testcases/kernel/mem/hugetlb/hugemmap/hugemmap04.c   |  5 ++++-
+ testcases/kernel/mem/hugetlb/hugemmap/hugemmap05.c   |  8 ++++----
+ testcases/kernel/mem/hugetlb/hugemmap/hugemmap06.c   |  7 ++++---
+ testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat01.c |  5 ++++-
+ testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat02.c |  5 ++++-
+ testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat03.c |  5 ++++-
+ testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat04.c | 12 ++++++------
+ testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat05.c |  8 ++++----
+ .../kernel/mem/hugetlb/hugeshmctl/hugeshmctl01.c     |  5 ++++-
+ .../kernel/mem/hugetlb/hugeshmctl/hugeshmctl02.c     |  5 ++++-
+ .../kernel/mem/hugetlb/hugeshmctl/hugeshmctl03.c     |  5 ++++-
+ testcases/kernel/mem/hugetlb/hugeshmdt/hugeshmdt01.c |  5 ++++-
+ .../kernel/mem/hugetlb/hugeshmget/hugeshmget01.c     |  5 ++++-
+ .../kernel/mem/hugetlb/hugeshmget/hugeshmget02.c     |  5 ++++-
+ .../kernel/mem/hugetlb/hugeshmget/hugeshmget03.c     |  5 ++++-
+ .../kernel/mem/hugetlb/hugeshmget/hugeshmget05.c     |  5 ++++-
+ testcases/kernel/syscalls/futex/futex_wake04.c       |  8 ++++----
+ testcases/kernel/syscalls/ipc/shmget/shmget02.c      |  5 ++++-
+ testcases/kernel/syscalls/pkeys/pkey01.c             |  7 +++++--
+ 21 files changed, 87 insertions(+), 38 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/memfd_create/memfd_create03.c b/testcases/kernel/syscalls/memfd_create/memfd_create03.c
-index 036182f0a..400a56854 100644
---- a/testcases/kernel/syscalls/memfd_create/memfd_create03.c
-+++ b/testcases/kernel/syscalls/memfd_create/memfd_create03.c
-@@ -32,14 +32,6 @@
- #include <stdio.h>
- #include <errno.h>
- 
--#define TOTAL_HP_PATH "/proc/sys/vm/nr_hugepages"
--#define MEMINFO_PATH "/proc/meminfo"
--#define FREE_HP "HugePages_Free:\t%ld"
--#define DEFAULT_HPS "Hugepagesize:\t%ld kB"
--
--static int hugepages_allocated;
--static long og_total_pages;
--
- static void *check_huge_mmapable(int fd, unsigned long size)
+diff --git a/testcases/kernel/mem/hugetlb/hugemmap/hugemmap01.c b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap01.c
+index fcb4443f7..13b15924f 100644
+--- a/testcases/kernel/mem/hugetlb/hugemmap/hugemmap01.c
++++ b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap01.c
+@@ -98,5 +98,8 @@ static struct tst_test test = {
+ 	.setup = setup,
+ 	.cleanup = cleanup,
+ 	.test_all = test_hugemmap,
+-	.request_hugepages = 128,
++	.request_hugepages = (struct tst_hugepage []){
++		{128, TST_FLEXIBLE},
++		{}
++	},
+ };
+diff --git a/testcases/kernel/mem/hugetlb/hugemmap/hugemmap02.c b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap02.c
+index 3be68418a..c801d6ade 100644
+--- a/testcases/kernel/mem/hugetlb/hugemmap/hugemmap02.c
++++ b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap02.c
+@@ -145,5 +145,8 @@ static struct tst_test test = {
+ 	.setup = setup,
+ 	.cleanup = cleanup,
+ 	.test_all = test_hugemmap,
+-	.request_hugepages = 128,
++	.request_hugepages = (struct tst_hugepage []){
++		{128, TST_FLEXIBLE},
++		{}
++	},
+ };
+diff --git a/testcases/kernel/mem/hugetlb/hugemmap/hugemmap04.c b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap04.c
+index 236010fe0..2104528a0 100644
+--- a/testcases/kernel/mem/hugetlb/hugemmap/hugemmap04.c
++++ b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap04.c
+@@ -116,5 +116,8 @@ static struct tst_test test = {
+ 	.setup = setup,
+ 	.cleanup = cleanup,
+ 	.test_all = test_hugemmap,
+-	.request_hugepages = 128,
++	.request_hugepages = (struct tst_hugepage []){
++		{128, TST_FLEXIBLE},
++		{}
++	},
+ };
+diff --git a/testcases/kernel/mem/hugetlb/hugemmap/hugemmap05.c b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap05.c
+index 40d3bd8da..2d7cf87f0 100644
+--- a/testcases/kernel/mem/hugetlb/hugemmap/hugemmap05.c
++++ b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap05.c
+@@ -185,9 +185,6 @@ static void setup(void)
  {
- 	void *mem;
-@@ -88,7 +80,7 @@ static void test_def_pagesize(int fd)
- 	long hps;
- 	void *mem;
+ 	unsigned long hpages;
  
--	SAFE_FILE_LINES_SCANF(MEMINFO_PATH, DEFAULT_HPS, &hps);
-+	hps = SAFE_READ_MEMINFO("Hugepagesize:");
- 	hps = hps << 10;
- 	unmap_size = hps / 4;
- 	mem = check_huge_mmapable(fd, hps);
-@@ -128,8 +120,8 @@ static void test_max_hugepages(int fd)
- 	void *mem;
- 	void *new_mem;
+-	if (tst_hugepages != NR_HPAGES)
+-		tst_brk(TCONF, "Not enough hugepages for testing!");
+-
+ 	hugepagesize = SAFE_READ_MEMINFO("Hugepagesize:") * 1024;
+ 	init_sys_sz_paths();
  
--	SAFE_FILE_LINES_SCANF(MEMINFO_PATH, FREE_HP, &free_pages);
--	SAFE_FILE_LINES_SCANF(MEMINFO_PATH, DEFAULT_HPS, &hps);
-+	free_pages = SAFE_READ_MEMINFO("HugePages_Free:");
-+	hps = SAFE_READ_MEMINFO("Hugepagesize:");
- 	hps = hps << 10;
- 	mem = check_huge_mmapable(fd, free_pages * hps);
+@@ -307,5 +304,8 @@ static struct tst_test test = {
+ 	.setup = setup,
+ 	.cleanup = cleanup,
+ 	.test_all = test_overcommit,
+-	.request_hugepages = NR_HPAGES,
++	.request_hugepages = (struct tst_hugepage []){
++		{NR_HPAGES, TST_ENFORCED},
++		{}
++	},
+ };
+diff --git a/testcases/kernel/mem/hugetlb/hugemmap/hugemmap06.c b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap06.c
+index ab2ccc40b..f57470b39 100644
+--- a/testcases/kernel/mem/hugetlb/hugemmap/hugemmap06.c
++++ b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap06.c
+@@ -39,8 +39,6 @@ struct mp {
  
-@@ -188,68 +180,13 @@ static void memfd_huge_controller(unsigned int n)
- 	SAFE_CLOSE(fd);
+ static void setup(void)
+ {
+-	if (tst_hugepages != test.request_hugepages)
+-		tst_brk(TCONF, "System RAM is not enough to test.");
+ 	hpage_size = SAFE_READ_MEMINFO("Hugepagesize:") * 1024;
  }
  
--static void setup(void)
--{
--	char buf[8];
--	int fd;
--	long free_pages;
--	long total_pages;
+@@ -122,7 +120,10 @@ static struct tst_test test = {
+ 	.needs_tmpdir = 1,
+ 	.test = do_mmap,
+ 	.setup = setup,
+-	.request_hugepages = (ARSZ + 1) * LOOP,
++	.request_hugepages = (struct tst_hugepage []){
++		{(ARSZ + 1) * LOOP, TST_ENFORCED},
++		{}
++	},
+ 	.tags = (const struct tst_tag[]) {
+ 		{"linux-git", "f522c3ac00a4"},
+ 		{"linux-git", "9119a41e9091"},
+diff --git a/testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat01.c b/testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat01.c
+index 8273ede83..3258a3256 100644
+--- a/testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat01.c
++++ b/testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat01.c
+@@ -180,5 +180,8 @@ static struct tst_test test = {
+ 	.test = verify_hugeshmat,
+ 	.setup = setup,
+ 	.cleanup = cleanup,
+-	.request_hugepages = 128,
++	.request_hugepages = (struct tst_hugepage []){
++		{128, TST_FLEXIBLE},
++		{}
++	},
+ };
+diff --git a/testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat02.c b/testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat02.c
+index 11000a4f0..dc47769a7 100644
+--- a/testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat02.c
++++ b/testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat02.c
+@@ -107,5 +107,8 @@ static struct tst_test test = {
+ 	.test = verify_hugeshmat,
+ 	.setup = setup,
+ 	.cleanup = cleanup,
+-	.request_hugepages = 128,
++	.request_hugepages = (struct tst_hugepage []){
++		{128, TST_FLEXIBLE},
++		{}
++	},
+ };
+diff --git a/testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat03.c b/testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat03.c
+index 5aca7dab0..a170dd825 100644
+--- a/testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat03.c
++++ b/testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat03.c
+@@ -101,5 +101,8 @@ static struct tst_test test = {
+ 	.test_all = verify_hugeshmat,
+ 	.setup = setup,
+ 	.cleanup = cleanup,
+-	.request_hugepages = 128,
++	.request_hugepages = (struct tst_hugepage []){
++		{128, TST_FLEXIBLE},
++		{}
++	},
+ };
+diff --git a/testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat04.c b/testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat04.c
+index 128671051..d24a3b837 100644
+--- a/testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat04.c
++++ b/testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat04.c
+@@ -83,9 +83,6 @@ static void setup(void)
+ {
+ 	long hpage_size, orig_hugepages;
+ 
+-	if (tst_hugepages == 0)
+-		tst_brk(TCONF, "Not enough hugepages for testing.");
 -
--	if (access(MEMINFO_PATH, F_OK) ||
--	    access("/sys/kernel/mm/hugepages", F_OK) ||
--	    access(TOTAL_HP_PATH, F_OK))
--		tst_brk(TCONF, "Huge page is not supported");
--
--	SAFE_FILE_LINES_SCANF(MEMINFO_PATH, FREE_HP, &free_pages);
--	if (free_pages > 0)
--		return;
--
--	SAFE_FILE_LINES_SCANF(TOTAL_HP_PATH, "%ld", &og_total_pages);
--	sprintf(buf, "%ld", og_total_pages + 1);
--
--	fd = SAFE_OPEN(TOTAL_HP_PATH, O_RDWR | O_TRUNC);
--
--	if (write(fd, buf, strlen(buf)) == -1)
--		tst_brk(TCONF | TERRNO,
--			"write() fail: Hugepage allocation failed");
--
--	SAFE_CLOSE(fd);
--
--	SAFE_FILE_LINES_SCANF(TOTAL_HP_PATH, "%ld", &total_pages);
--	if (total_pages != (og_total_pages + 1))
--		tst_brk(TCONF, "Hugepage allocation failed");
--
--	hugepages_allocated = 1;
--}
--
--static void cleanup(void)
--{
--	char buf[8];
--	int fd;
--	long total_pages;
--
--	if (hugepages_allocated == 0)
--		return;
--
--	sprintf(buf, "%ld", og_total_pages);
--
--	fd = SAFE_OPEN(TOTAL_HP_PATH, O_RDWR | O_TRUNC);
--
--	if (write(fd, buf, strlen(buf)) == -1)
--		tst_brk(TCONF | TERRNO, "Clean-up failed: write() failed");
--
--	SAFE_CLOSE(fd);
--
--	SAFE_FILE_LINES_SCANF(TOTAL_HP_PATH, "%ld", &total_pages);
--	if (og_total_pages != total_pages)
--		tst_brk(TCONF, "Clean-up failed");
--}
--
- static struct tst_test test = {
--	.setup = setup,
- 	.test = memfd_huge_controller,
- 	.tcnt = ARRAY_SIZE(tcases),
- 	.needs_root = 1,
- 	.min_kver = "4.14",
--	.cleanup = cleanup,
+ 	orig_hugepages = get_sys_tune("nr_hugepages");
+ 	SAFE_FILE_SCANF(PATH_SHMMAX, "%ld", &orig_shmmax);
+ 	SAFE_FILE_PRINTF(PATH_SHMMAX, "%ld", (long)SIZE);
+@@ -96,8 +93,8 @@ static void setup(void)
+ 
+ 	hpage_size = SAFE_READ_MEMINFO("Hugepagesize:") * 1024;
+ 
+-	hugepages = orig_hugepages + SIZE / hpage_size;
+-	tst_request_hugepages(hugepages);
++	struct tst_hugepage hp = { orig_hugepages + SIZE / hpage_size, TST_FLEXIBLE };
++	tst_request_hugepages(&hp);
+ 	if (tst_hugepages != (unsigned long)hugepages)
+ 		tst_brk(TCONF, "No enough hugepages for testing.");
+ }
+@@ -121,5 +118,8 @@ static struct tst_test test = {
+ 	.min_mem_avail = 2048,
+ 	.setup = setup,
+ 	.cleanup = cleanup,
+-	.request_hugepages = 1,
 +	.request_hugepages = (struct tst_hugepage []){
 +		{1, TST_ENFORCED},
++		{}
++	},
+ };
+diff --git a/testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat05.c b/testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat05.c
+index 7152e3363..93f85646f 100644
+--- a/testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat05.c
++++ b/testcases/kernel/mem/hugetlb/hugeshmat/hugeshmat05.c
+@@ -35,9 +35,6 @@ static long hpage_size;
+ 
+ void setup(void)
+ {
+-	if (tst_hugepages != test.request_hugepages)
+-		tst_brk(TCONF, "Not enough hugepages for testing.");
+-
+ 	page_size = getpagesize();
+ 	hpage_size = SAFE_READ_MEMINFO("Hugepagesize:") * 1024;
+ }
+@@ -91,7 +88,10 @@ static struct tst_test test = {
+ 	.needs_tmpdir = 1,
+ 	.test_all = test_hugeshmat,
+ 	.setup = setup,
+-	.request_hugepages = N + 1,
++	.request_hugepages = (struct tst_hugepage []){
++		{N+1, TST_ENFORCED},
++		{}
++	},
+ 	.tags = (const struct tst_tag[]) {
+ 		{"linux-git", "091d0d55b286"},
+ 		{"linux-git", "af73e4d9506d"},
+diff --git a/testcases/kernel/mem/hugetlb/hugeshmctl/hugeshmctl01.c b/testcases/kernel/mem/hugetlb/hugeshmctl/hugeshmctl01.c
+index 56f3a73dd..17e75f1cb 100644
+--- a/testcases/kernel/mem/hugetlb/hugeshmctl/hugeshmctl01.c
++++ b/testcases/kernel/mem/hugetlb/hugeshmctl/hugeshmctl01.c
+@@ -310,5 +310,8 @@ static struct tst_test test = {
+ 	.cleanup = cleanup,
+ 	.test = test_hugeshmctl,
+ 	.needs_checkpoints = 1,
+-	.request_hugepages = 128,
++	.request_hugepages = (struct tst_hugepage []){
++		{128, TST_FLEXIBLE},
++		{}
++	},
+ };
+diff --git a/testcases/kernel/mem/hugetlb/hugeshmctl/hugeshmctl02.c b/testcases/kernel/mem/hugetlb/hugeshmctl/hugeshmctl02.c
+index 8a4c8bc2d..33c61d676 100644
+--- a/testcases/kernel/mem/hugetlb/hugeshmctl/hugeshmctl02.c
++++ b/testcases/kernel/mem/hugetlb/hugeshmctl/hugeshmctl02.c
+@@ -110,5 +110,8 @@ static struct tst_test test = {
+ 	},
+ 	.setup = setup,
+ 	.cleanup = cleanup,
+-	.request_hugepages = 128,
++	.request_hugepages = (struct tst_hugepage []){
++		{128, TST_FLEXIBLE},
++		{}
++	},
+ };
+diff --git a/testcases/kernel/mem/hugetlb/hugeshmctl/hugeshmctl03.c b/testcases/kernel/mem/hugetlb/hugeshmctl/hugeshmctl03.c
+index f7dd43452..6c8fbb729 100644
+--- a/testcases/kernel/mem/hugetlb/hugeshmctl/hugeshmctl03.c
++++ b/testcases/kernel/mem/hugetlb/hugeshmctl/hugeshmctl03.c
+@@ -134,5 +134,8 @@ static struct tst_test test = {
+ 	.setup = setup,
+ 	.cleanup = cleanup,
+ 	.test_all = test_hugeshmctl,
+-	.request_hugepages = 128,
++	.request_hugepages = (struct tst_hugepage []){
++		{128, TST_FLEXIBLE},
++		{}
++	},
+ };
+diff --git a/testcases/kernel/mem/hugetlb/hugeshmdt/hugeshmdt01.c b/testcases/kernel/mem/hugetlb/hugeshmdt/hugeshmdt01.c
+index 287e5990e..f5726c5f0 100644
+--- a/testcases/kernel/mem/hugetlb/hugeshmdt/hugeshmdt01.c
++++ b/testcases/kernel/mem/hugetlb/hugeshmdt/hugeshmdt01.c
+@@ -152,5 +152,8 @@ static struct tst_test test = {
+ 	.setup = setup,
+ 	.cleanup = cleanup,
+ 	.test_all = hugeshmdt_test,
+-	.request_hugepages = 128,
++	.request_hugepages = (struct tst_hugepage []){
++		{128, TST_FLEXIBLE},
++		{}
++	},
+ };
+diff --git a/testcases/kernel/mem/hugetlb/hugeshmget/hugeshmget01.c b/testcases/kernel/mem/hugetlb/hugeshmget/hugeshmget01.c
+index 2a440f79d..5fd019fb6 100644
+--- a/testcases/kernel/mem/hugetlb/hugeshmget/hugeshmget01.c
++++ b/testcases/kernel/mem/hugetlb/hugeshmget/hugeshmget01.c
+@@ -78,5 +78,8 @@ static struct tst_test test = {
+ 	.setup = setup,
+ 	.cleanup = cleanup,
+ 	.test_all = test_hugeshmget,
+-	.request_hugepages = 128,
++	.request_hugepages = (struct tst_hugepage []){
++		{128, TST_FLEXIBLE},
++		{}
++	},
+ };
+diff --git a/testcases/kernel/mem/hugetlb/hugeshmget/hugeshmget02.c b/testcases/kernel/mem/hugetlb/hugeshmget/hugeshmget02.c
+index 11497d150..fc25d2087 100644
+--- a/testcases/kernel/mem/hugetlb/hugeshmget/hugeshmget02.c
++++ b/testcases/kernel/mem/hugetlb/hugeshmget/hugeshmget02.c
+@@ -98,5 +98,8 @@ static struct tst_test test = {
+ 	.cleanup = cleanup,
+ 	.test = test_hugeshmget,
+ 	.tcnt = ARRAY_SIZE(tcases),
+-	.request_hugepages = 128,
++	.request_hugepages = (struct tst_hugepage []){
++		{128, TST_FLEXIBLE},
++		{}
++	},
+ };
+diff --git a/testcases/kernel/mem/hugetlb/hugeshmget/hugeshmget03.c b/testcases/kernel/mem/hugetlb/hugeshmget/hugeshmget03.c
+index 72d8701f4..8c4f93a44 100644
+--- a/testcases/kernel/mem/hugetlb/hugeshmget/hugeshmget03.c
++++ b/testcases/kernel/mem/hugetlb/hugeshmget/hugeshmget03.c
+@@ -96,5 +96,8 @@ static struct tst_test test = {
+ 	.setup = setup,
+ 	.cleanup = cleanup,
+ 	.test_all = test_hugeshmget,
+-	.request_hugepages = 128,
++	.request_hugepages = (struct tst_hugepage []){
++		{128, TST_FLEXIBLE},
++		{}
++	},
+ };
+diff --git a/testcases/kernel/mem/hugetlb/hugeshmget/hugeshmget05.c b/testcases/kernel/mem/hugetlb/hugeshmget/hugeshmget05.c
+index 91e30afa4..d0f9f6072 100644
+--- a/testcases/kernel/mem/hugetlb/hugeshmget/hugeshmget05.c
++++ b/testcases/kernel/mem/hugetlb/hugeshmget/hugeshmget05.c
+@@ -92,5 +92,8 @@ static struct tst_test test = {
+ 	.setup = setup,
+ 	.cleanup = cleanup,
+ 	.test_all = test_hugeshmget,
+-	.request_hugepages = 128,
++	.request_hugepages = (struct tst_hugepage []){
++		{128, TST_FLEXIBLE},
++		{}
++	},
+ };
+diff --git a/testcases/kernel/syscalls/futex/futex_wake04.c b/testcases/kernel/syscalls/futex/futex_wake04.c
+index 2260a3936..6c943d844 100644
+--- a/testcases/kernel/syscalls/futex/futex_wake04.c
++++ b/testcases/kernel/syscalls/futex/futex_wake04.c
+@@ -48,9 +48,6 @@ static struct futex_test_variants variants[] = {
+ 
+ static void setup(void)
+ {
+-	if (tst_hugepages == 0)
+-		tst_brk(TCONF, "No enough hugepages for testing.");
+-
+ 	struct futex_test_variants *tv = &variants[tst_variant];
+ 
+ 	tst_res(TINFO, "Testing variant: %s", tv->desc);
+@@ -135,5 +132,8 @@ static struct tst_test test = {
+ 	.needs_root = 1,
+ 	.min_kver = "2.6.32",
+ 	.needs_tmpdir = 1,
+-	.request_hugepages = 1,
++	.request_hugepages = (struct tst_hugepage []){
++		{1, TST_ENFORCED},
++		{}
++	},
+ };
+diff --git a/testcases/kernel/syscalls/ipc/shmget/shmget02.c b/testcases/kernel/syscalls/ipc/shmget/shmget02.c
+index 165a34456..30f829805 100644
+--- a/testcases/kernel/syscalls/ipc/shmget/shmget02.c
++++ b/testcases/kernel/syscalls/ipc/shmget/shmget02.c
+@@ -148,5 +148,8 @@ static struct tst_test test = {
+ 	.cleanup = cleanup,
+ 	.test = do_test,
+ 	.tcnt = ARRAY_SIZE(tcases),
+-	.request_hugepages = TST_NO_HUGEPAGES,
++	.request_hugepages = (struct tst_hugepage []){
++		{TST_NO_HUGEPAGES, TST_FLEXIBLE},
++		{}
++	},
+ };
+diff --git a/testcases/kernel/syscalls/pkeys/pkey01.c b/testcases/kernel/syscalls/pkeys/pkey01.c
+index 04f50924c..74eae0624 100644
+--- a/testcases/kernel/syscalls/pkeys/pkey01.c
++++ b/testcases/kernel/syscalls/pkeys/pkey01.c
+@@ -52,7 +52,7 @@ static void setup(void)
+ 
+ 	check_pkey_support();
+ 
+-	if (tst_hugepages == test.request_hugepages)
++	if (tst_hugepages == test.request_hugepages->number)
+ 		size = SAFE_READ_MEMINFO("Hugepagesize:") * 1024;
+ 	else
+ 		size = getpagesize();
+@@ -221,5 +221,8 @@ static struct tst_test test = {
+ 	.forks_child = 1,
+ 	.test = verify_pkey,
+ 	.setup = setup,
+-	.request_hugepages = 1,
++	.request_hugepages = (struct tst_hugepage []){
++		{1, TST_FLEXIBLE},
 +		{}
 +	},
  };
