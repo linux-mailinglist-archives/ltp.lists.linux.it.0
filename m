@@ -1,93 +1,93 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88B2F513CB6
-	for <lists+linux-ltp@lfdr.de>; Thu, 28 Apr 2022 22:40:54 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id A70EA513CBC
+	for <lists+linux-ltp@lfdr.de>; Thu, 28 Apr 2022 22:41:18 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 52F473CA751
-	for <lists+linux-ltp@lfdr.de>; Thu, 28 Apr 2022 22:40:54 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 4AE083CA775
+	for <lists+linux-ltp@lfdr.de>; Thu, 28 Apr 2022 22:41:18 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 4AD5F3C8972
- for <ltp@lists.linux.it>; Thu, 28 Apr 2022 22:40:34 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id C35683CA75E
+ for <ltp@lists.linux.it>; Thu, 28 Apr 2022 22:40:37 +0200 (CEST)
 Received: from smtp-relay-internal-1.canonical.com
  (smtp-relay-internal-1.canonical.com [185.125.188.123])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 985A46008F9
- for <ltp@lists.linux.it>; Thu, 28 Apr 2022 22:40:34 +0200 (CEST)
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
- [209.85.216.69])
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 27068100094A
+ for <ltp@lists.linux.it>; Thu, 28 Apr 2022 22:40:37 +0200 (CEST)
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
+ [209.85.216.70])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 34E743F316
- for <ltp@lists.linux.it>; Thu, 28 Apr 2022 20:40:34 +0000 (UTC)
+ by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 9C14F3F21D
+ for <ltp@lists.linux.it>; Thu, 28 Apr 2022 20:40:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1651178434;
- bh=lkMuQRaD9xqKXNPdAkrG/xWelk1VieZni6Pbeo32lp8=;
+ s=20210705; t=1651178436;
+ bh=GNpu6hlPNyBNSlFYZzZ7dXbXyZsY4gK2qu+4GrfLT7c=;
  h=From:To:Subject:Date:Message-Id:In-Reply-To:References:
  MIME-Version;
- b=UExyTpDZq0/7AVheZdye6oUYKsDmUqhUGWlLgqjJZBBR/ekMOBFnRIx+jfFXMWjrG
- 36674CETjTJS8n4KmFGZIZU6M+NSmjo6pP0QHp/MxjjwWPiFyFh5/N2Silb9YsrqMf
- Vf24YTR7ezoorv1SPSiPlLiPAOcnnRLv7T3hmFVfFMKepvvnwgnysUhftcWOQ1KED0
- hlPLpr+5v7wpxA+3eiWTijPz/UWd6oV1kSQRcHh4OHiArqAOEqBBDb4rBMoBXbWlI9
- x/8+fFEXVVJ/9F+MYqAJkhbak9KLM0v3wITenkullJtyqRgzo2NLBXXGDCezs6BVI3
- L/ucOx+wz/0uA==
-Received: by mail-pj1-f69.google.com with SMTP id
- s5-20020a17090aa10500b001d9a8e99e3aso3155544pjp.2
- for <ltp@lists.linux.it>; Thu, 28 Apr 2022 13:40:34 -0700 (PDT)
+ b=m9eILu4uIvitVSiCFcGqtCd/ovHeQZbNn/U9l5jVHYhcdvyqf9AysdPFxf95z17dW
+ nlL1tE6N2O1Pj4pCit8WiKAPAI9T/uFkQetUCWkQEhTy/zkrNVjuefuT0ISMTvCJvY
+ zLOJJAc3MRo4DmkLZtquc16nSIFBgtKfbTRdD8Pf6gZBBEyenJyOFuT2VPZUGczfnY
+ te7dfTmupCZvpTYbHXCruJDFwYrG/G+N4SxQYmIPAmgt+ZSyWzWSDsG1cRDaKjrjJd
+ eSJVBwRZenqED6cstKoM9ST3mg8nznwDjlJ7i0GSXkltADuFi4QT2BeQ3Obhy2Hr9u
+ Gndl2tifFRl0A==
+Received: by mail-pj1-f70.google.com with SMTP id
+ o16-20020a17090ab89000b001d84104fc2cso4103573pjr.1
+ for <ltp@lists.linux.it>; Thu, 28 Apr 2022 13:40:36 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=lkMuQRaD9xqKXNPdAkrG/xWelk1VieZni6Pbeo32lp8=;
- b=g0CwuNloPAG86h7fzgwOMfMR4OAOmxbnNZ5iMqUhLBKuM6gfK4+Laa6WAGhGKngnms
- y+WfU6HJV9VXLa+Gg+l+gwae+3SW1TR3bt3mdQXp7HRHLBxS+TGlCI3WztKSkFsCLp71
- PhI6N3oUgKhZ2VeZPvQ+SIQYbxoTrGgn0dXcYIX7AJ3HB/h19ix2GGjWrTWbm1JZvLle
- VmN74J8KWNVmi6GIHMeCHNTOg+mnW9fqvzJjoNLQZDrsai25lS7Xs7AJST2bkJKTYLLU
- DBueo6inXh5+Ag4XKNLckj7iPj7W/CGQkYk/ZuokWpKQuc0s3QqnQSNPh8ZGwskPgL8R
- vVHA==
-X-Gm-Message-State: AOAM533ObM9mK7siNTc1GXPnlidGNaPXKesOXc8iMmZq9vSggWT66VcU
- DBphnfYS3X39LuLn3zU0b6NqgsmWNZkr6fR+aT6wO054WSLxNsejZZAy+EY0anJWzXpREIZ4oZI
- cb26A+qIU9WRrDldDaBSRXG4UECF0
-X-Received: by 2002:a05:6a00:a12:b0:504:e93f:2dd9 with SMTP id
- p18-20020a056a000a1200b00504e93f2dd9mr36610323pfh.49.1651178432617; 
- Thu, 28 Apr 2022 13:40:32 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJyKeDcvXUYFpX+pRz43g9UFJmqNiCaD+4Omu8qv1tQaGh19a830Sk0oVkFGEI49FgSLUEEq8w==
-X-Received: by 2002:a05:6a00:a12:b0:504:e93f:2dd9 with SMTP id
- p18-20020a056a000a1200b00504e93f2dd9mr36610303pfh.49.1651178432374; 
- Thu, 28 Apr 2022 13:40:32 -0700 (PDT)
+ bh=GNpu6hlPNyBNSlFYZzZ7dXbXyZsY4gK2qu+4GrfLT7c=;
+ b=DGeXECPGrHzJ0cWgkDIzCS8jFaT07puq8OtC4eOzXOV5Vxf0cWj7pJ8ZgcliTQW+9q
+ 2J29sbLWpPfHLe7DpKRrFvjFQ80vxbHTSa2T/UaulE2ScIqXx22B0U+3emi4eJfFEEW/
+ YKd0bdturAVKc4MmTS6LAUBJ3WfQytow1AaKf9nIVxRhDjMRAOXXlg+LMoffwFyjF9FY
+ 7So3KRMCy0RF6piRx1bBBYPn6epiIDUBS+qu8irTGocrP+vN/gnbhHKnN0LacSiofAg4
+ Z/eUuqwIhKMWiIo57vYx0WoILsVGbJSM2QWwGEUMcym3f48JMgcJAOtF1PjphSekQDWe
+ AVJw==
+X-Gm-Message-State: AOAM530sXEgi19OR6cjV5SwLW5Hwjs58E2hh9pVqLKbzifFME+VAEISN
+ 3FvvRcTuIo6UsH6wwJOzt5tfHigsz3LZDBRofituhyFEAGmJsn+RxZKKivhwSK2/v1q6xdtaFhE
+ x1Pd0yopPA8Nf3C0ZGx7xK1k6xMey
+X-Received: by 2002:a05:6a00:140f:b0:4e0:6995:9c48 with SMTP id
+ l15-20020a056a00140f00b004e069959c48mr36286703pfu.59.1651178433825; 
+ Thu, 28 Apr 2022 13:40:33 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJxVsVorpg6UwCRnh0NlHYeMK/TlGXsDrt9rKjgyJHzKK97HDnZwX0CMWipz5nHk06rf6wQLlg==
+X-Received: by 2002:a05:6a00:140f:b0:4e0:6995:9c48 with SMTP id
+ l15-20020a056a00140f00b004e069959c48mr36286685pfu.59.1651178433533; 
+ Thu, 28 Apr 2022 13:40:33 -0700 (PDT)
 Received: from luke-ubuntu.buildd (cpe-66-27-118-101.san.res.rr.com.
  [66.27.118.101]) by smtp.gmail.com with ESMTPSA id
- f63-20020a62db42000000b0050d35bcdbc0sm659027pfg.181.2022.04.28.13.40.31
+ f63-20020a62db42000000b0050d35bcdbc0sm659027pfg.181.2022.04.28.13.40.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 28 Apr 2022 13:40:31 -0700 (PDT)
+ Thu, 28 Apr 2022 13:40:32 -0700 (PDT)
 From: Luke Nowakowski-Krijger <luke.nowakowskikrijger@canonical.com>
 To: ltp@lists.linux.it,
 	rpalethorpe@suse.de,
 	liwang@redhat.com
-Date: Thu, 28 Apr 2022 13:39:27 -0700
-Message-Id: <0d0d6c88542864c055779ff87f08b2230fb6b8a6.1651176646.git.luke.nowakowskikrijger@canonical.com>
+Date: Thu, 28 Apr 2022 13:39:28 -0700
+Message-Id: <964c70e902068685fad0bac4745ba1919994acb9.1651176646.git.luke.nowakowskikrijger@canonical.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <cover.1651176645.git.luke.nowakowskikrijger@canonical.com>
 References: <cover.1651176645.git.luke.nowakowskikrijger@canonical.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH 02/19] API/cgroup: Add option for specific pid to
- tst_cg_opts
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 03/19] API/cgroup: Add cgroup_find_root helper
+ function
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,47 +104,40 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Add an option that would allow to create a test directory with a
-specified pid, as opposed to the calling processes pid.
+Add a helper function similar to cgroup_find_ctrl to make matching paths
+to roots more convenient.
 
 Signed-off-by: Luke Nowakowski-Krijger <luke.nowakowskikrijger@canonical.com>
 ---
- include/tst_cgroup.h | 4 ++++
- lib/tst_cgroup.c     | 6 +++++-
- 2 files changed, 9 insertions(+), 1 deletion(-)
+v2: Use the for_each_root() macro to properly loop over v1 roots
 
-diff --git a/include/tst_cgroup.h b/include/tst_cgroup.h
-index 6ba3727f3..87e55f4df 100644
---- a/include/tst_cgroup.h
-+++ b/include/tst_cgroup.h
-@@ -97,6 +97,10 @@ struct tst_cg_opts {
- 	 * version. Defautls to zero to accept any version.
- 	 */
- 	enum tst_cg_ver needs_ver;
-+	/* Pass in a specific pid to create and identify the test
-+	 * directory as opposed to the default pid of the calling process.
-+	 */
-+	int test_pid;
- };
- 
- /* A Control Group in LTP's aggregated hierarchy */
+ lib/tst_cgroup.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
+
 diff --git a/lib/tst_cgroup.c b/lib/tst_cgroup.c
-index 1abcbaf5a..a3416f4df 100644
+index a3416f4df..b8632cdf3 100644
 --- a/lib/tst_cgroup.c
 +++ b/lib/tst_cgroup.c
-@@ -714,7 +714,11 @@ mkdirs:
- 
- 	cgroup_dir_mk(&root->ltp_dir, cgroup_ltp_drain_dir, &root->drain_dir);
- 
--	sprintf(cgroup_test_dir, "test-%d", getpid());
-+	if (options->test_pid)
-+		sprintf(cgroup_test_dir, "test-%d", options->test_pid);
-+	else
-+		sprintf(cgroup_test_dir, "test-%d", getpid());
-+
- 	cgroup_dir_mk(&root->ltp_dir, cgroup_test_dir, &root->test_dir);
+@@ -363,6 +363,19 @@ static struct cgroup_ctrl *cgroup_find_ctrl(const char *const ctrl_name)
+ 	return NULL;
  }
  
++static struct cgroup_root *cgroup_find_root(const char *const mnt_path)
++{
++	struct cgroup_root *root;
++
++	for_each_root(root) {
++		if (!strcmp(root->mnt_path, mnt_path))
++			return root;
++	}
++
++	return NULL;
++}
++
++
+ /* Determine if a mounted cgroup hierarchy is unique and record it if so.
+  *
+  * For CGroups V2 this is very simple as there is only one
 -- 
 2.32.0
 
