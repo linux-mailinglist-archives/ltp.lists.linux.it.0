@@ -1,81 +1,80 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B52F513CC2
-	for <lists+linux-ltp@lfdr.de>; Thu, 28 Apr 2022 22:42:21 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0123D513CC4
+	for <lists+linux-ltp@lfdr.de>; Thu, 28 Apr 2022 22:42:41 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 159833CA762
-	for <lists+linux-ltp@lfdr.de>; Thu, 28 Apr 2022 22:42:21 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C21A83CA756
+	for <lists+linux-ltp@lfdr.de>; Thu, 28 Apr 2022 22:42:40 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id ACD1B3CA749
- for <ltp@lists.linux.it>; Thu, 28 Apr 2022 22:40:45 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 09DC23CA75B
+ for <ltp@lists.linux.it>; Thu, 28 Apr 2022 22:40:47 +0200 (CEST)
 Received: from smtp-relay-internal-0.canonical.com
  (smtp-relay-internal-0.canonical.com [185.125.188.122])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id CF9D81400BD8
- for <ltp@lists.linux.it>; Thu, 28 Apr 2022 22:40:44 +0200 (CEST)
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
- [209.85.216.71])
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id F3C111400BD6
+ for <ltp@lists.linux.it>; Thu, 28 Apr 2022 22:40:45 +0200 (CEST)
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com
+ [209.85.215.198])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 2652A3F1A2
- for <ltp@lists.linux.it>; Thu, 28 Apr 2022 20:40:43 +0000 (UTC)
+ by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id BDE403F32C
+ for <ltp@lists.linux.it>; Thu, 28 Apr 2022 20:40:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1651178443;
- bh=72ZPFxrJcZtMHXbPzCdArrxPavpNaaMuzIXQRp0fos8=;
+ s=20210705; t=1651178444;
+ bh=GdoFZh0EKiN8DC4/gBuyTCwwxUwn5bFSu9gTnI+GmD8=;
  h=From:To:Subject:Date:Message-Id:In-Reply-To:References:
  MIME-Version;
- b=Ad//wUvUgMy6gMIdBBB1hlIFeaBWp0iWx652doMTHx4CY0MiFZ9kml1uXQRZK1dnj
- uaBiCvRLxQ5Ar/LyCp9MJjn/x6iiqsXHzgwHI0zt5imUvO/ZQv8AgJzUE7QjhL9RHa
- 99q3d9kdIvVOXPSVzfyatEGw47nWvukllm9iWU/c+QU06dX6dI1Dj6ukUUCAuAMpNN
- 3f3y4+mCsxbCTHmQqQuzDuVyaH9wgY0vWtQRxnGVtvbyynZAHjRy/EHfEuhKe8BDpo
- Nya93jprTjbdkLYI1T+LyigaYIQbkbX9qEFANt8qowm2B/chZxMoWynlz0ZLYqIv8J
- mPd2lAC5NAORQ==
-Received: by mail-pj1-f71.google.com with SMTP id
- q91-20020a17090a756400b001d951f4846cso5753591pjk.8
- for <ltp@lists.linux.it>; Thu, 28 Apr 2022 13:40:43 -0700 (PDT)
+ b=enFwXqdbB54lVAD/h9TIEA9HJNNfYVyK6vSaUv0vTxof79aCA0FyORfj2OqquQXdU
+ VMOC1UfuqEaHKjeXzFbZ8vue9562dwWWPOd2tQ9ztFKmMyPYLTyQ5DD2tUPX1tg/GP
+ JB1NYsbSzO+nF8ox/W4H604+PMWjbs8+wNEk2QKGAWwsFmClbOp67YEhN9lxdfGX9C
+ nzoTwVR/1HdvFZrenPlsJy1DM+7g4PWkITZxIYe6VSmemi1LqKFsqFpW/8HA9YMa67
+ VC+y4fpHgtA+fQKZVGRkOZhkvU8Us/0s1M9JGe2h6yxRn81WEHH+hpysX35uIiU1X7
+ DtoYXybf5YUTQ==
+Received: by mail-pg1-f198.google.com with SMTP id
+ bj12-20020a056a02018c00b003a9eebaad34so2930772pgb.10
+ for <ltp@lists.linux.it>; Thu, 28 Apr 2022 13:40:44 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=72ZPFxrJcZtMHXbPzCdArrxPavpNaaMuzIXQRp0fos8=;
- b=PHF2LI8KaxOX71Pc749dmW6NLRqEHO43fWlAhrKXowX+ob6n2hYgKbWAiYKSBcSKlS
- CIPFOsV2bGixI2IG9FSU9nymI1z1qMpQqjz8C9M+GCewwJjyCUZVbfdLCiCrW5/zdZQ4
- R+u/MdcGMehVt7CsMsFxcyTRDuUvtRzGk9FO0dRRkaGQdMX22uxcGUV5roj2vePlzITt
- wxNOG0dLchjs9Zd5bsAEQ5Tdp4tc4LkpkKm1MoLvh0picttGxUabssC4UVZpEyuulN/e
- K6zqBZ8HENlXaKRmNzI8sagjkZZtADl4K7pVMF4UZ0CYTDktSmzHq+lIo0SYAFJr6S/I
- jNrQ==
-X-Gm-Message-State: AOAM533lHQNBXOsevcxRNhQEep7S4u98Sszvwe+6Yq5eEdtON7jRoo9K
- hYNgilouv87S7NBAHxmAepW6OqZTcIfQ6WVoJEUboivuKaPweztQRdkbPFVtfY0lbxD/5nz4NiL
- DQRs9DpDtSVupS2rXOtSiTbXh9eX4
-X-Received: by 2002:a17:90b:388c:b0:1d9:49e7:98d0 with SMTP id
- mu12-20020a17090b388c00b001d949e798d0mr56581pjb.224.1651178441453; 
- Thu, 28 Apr 2022 13:40:41 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJzyeiaeo9ZlUunuCjKH7wbAJpPcbJEpT5xdHS5570MhGixG6P1/XHU7CyYV+kMUjLmE7g2npQ==
-X-Received: by 2002:a17:90b:388c:b0:1d9:49e7:98d0 with SMTP id
- mu12-20020a17090b388c00b001d949e798d0mr56551pjb.224.1651178441212; 
- Thu, 28 Apr 2022 13:40:41 -0700 (PDT)
+ bh=GdoFZh0EKiN8DC4/gBuyTCwwxUwn5bFSu9gTnI+GmD8=;
+ b=SXZyTPkiYBgL6u5l9p4J5ZPv9fV4yejlTDoNtjaHY5rruQG1DBjMKp+BIDdzmU8O7P
+ ryaZ0bpbd4RaqZ0SfBbNH4A0RmY3V4qtubD7py6L0lrXKw/+tJqXD4alcmDy0+2SZOMc
+ KArA5Yf87eKGaUGap5G/YLGdPXO/e25XJbrLH4M6JetAzq920shOwAwcC9vgP2k3Lgus
+ xwzfI32YxujzTEETkMQkp3h8KeWv2LCTlTbTsTSaiy6goYh9sVDJJ736ZA7w0gthugGV
+ unr+xSjwLq99o4vJJ4Wlqk6sVcX2U+54MviQTHEWgRzrX8IFUA/wCJ3m9V6Bot2ZJHSN
+ eOlw==
+X-Gm-Message-State: AOAM533XBnsBmqlvwbc+IVAtjkd9ncAZ4kqOFTTMsB38pUKDffL5m7e3
+ tdQyjrkB3pKXHyDmJ5DJAFFhxS7NUKDCwb1wET+Ohz0YIEfvFW8KGBELiGmP8GhChYptr8fODcs
+ YMlT0y2WlnbSnH7Nr11K39Ouc0xKf
+X-Received: by 2002:a17:90b:384a:b0:1d9:7835:8c with SMTP id
+ nl10-20020a17090b384a00b001d97835008cmr27256pjb.167.1651178442564; 
+ Thu, 28 Apr 2022 13:40:42 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJzlIL6psFbP/0zEBUTXpSkYFCb1edW1zX8Z0b3vH1GV41rs5cPGNsjK98jOPUssUjSyr/ExQw==
+X-Received: by 2002:a17:90b:384a:b0:1d9:7835:8c with SMTP id
+ nl10-20020a17090b384a00b001d97835008cmr27238pjb.167.1651178442349; 
+ Thu, 28 Apr 2022 13:40:42 -0700 (PDT)
 Received: from luke-ubuntu.buildd (cpe-66-27-118-101.san.res.rr.com.
  [66.27.118.101]) by smtp.gmail.com with ESMTPSA id
- f63-20020a62db42000000b0050d35bcdbc0sm659027pfg.181.2022.04.28.13.40.40
+ f63-20020a62db42000000b0050d35bcdbc0sm659027pfg.181.2022.04.28.13.40.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 28 Apr 2022 13:40:40 -0700 (PDT)
+ Thu, 28 Apr 2022 13:40:41 -0700 (PDT)
 From: Luke Nowakowski-Krijger <luke.nowakowskikrijger@canonical.com>
 To: ltp@lists.linux.it,
 	rpalethorpe@suse.de,
 	liwang@redhat.com
-Date: Thu, 28 Apr 2022 13:39:34 -0700
-Message-Id: <0284f1828a9d98b1b767769fb0582e62bd489e8c.1651176646.git.luke.nowakowskikrijger@canonical.com>
+Date: Thu, 28 Apr 2022 13:39:35 -0700
+Message-Id: <ce6c0683b6f053161fbb8b1469ad73e670e2d22f.1651176646.git.luke.nowakowskikrijger@canonical.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <cover.1651176645.git.luke.nowakowskikrijger@canonical.com>
 References: <cover.1651176645.git.luke.nowakowskikrijger@canonical.com>
@@ -86,7 +85,7 @@ X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 09/19] testcases/lib: Implement tst_cgctl binary
+Subject: [LTP] [PATCH 10/19] testcases/lib: Add tst_flag2mask function
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,129 +102,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Implement a binary utility that creates an interface to make calls to
-the cgroup C API.
-
-This will effectively allow shell scripts to make calls to the cgroup C
-api.
+This function exists in the older test.sh and should be added here so
+that easy access can be made to map the flag to return values by
+programs and vice versa.
 
 Signed-off-by: Luke Nowakowski-Krijger <luke.nowakowskikrijger@canonical.com>
 ---
-v2: Add license identifier and copyright.
-Reformat with tabs instead of spaces.
-Add help format message and help function.
-Add error gotos to streamline error messaging.
+ testcases/lib/tst_test.sh | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
- testcases/lib/Makefile    |  2 +-
- testcases/lib/tst_cgctl.c | 87 +++++++++++++++++++++++++++++++++++++++
- 2 files changed, 88 insertions(+), 1 deletion(-)
- create mode 100644 testcases/lib/tst_cgctl.c
-
-diff --git a/testcases/lib/Makefile b/testcases/lib/Makefile
-index f2de0c832..f4f8c8524 100644
---- a/testcases/lib/Makefile
-+++ b/testcases/lib/Makefile
-@@ -12,6 +12,6 @@ MAKE_TARGETS		:= tst_sleep tst_random tst_checkpoint tst_rod tst_kvcmp\
- 			   tst_device tst_net_iface_prefix tst_net_ip_prefix tst_net_vars\
- 			   tst_getconf tst_supported_fs tst_check_drivers tst_get_unused_port\
- 			   tst_get_median tst_hexdump tst_get_free_pids tst_timeout_kill\
--			   tst_check_kconfigs
-+			   tst_check_kconfigs tst_cgctl
+diff --git a/testcases/lib/tst_test.sh b/testcases/lib/tst_test.sh
+index d97df9ab4..245c78886 100644
+--- a/testcases/lib/tst_test.sh
++++ b/testcases/lib/tst_test.sh
+@@ -434,6 +434,19 @@ tst_require_kconfigs()
+ 	return 0
+ }
  
- include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/lib/tst_cgctl.c b/testcases/lib/tst_cgctl.c
-new file mode 100644
-index 000000000..4f4fe8542
---- /dev/null
-+++ b/testcases/lib/tst_cgctl.c
-@@ -0,0 +1,87 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2022 Canonical Ltd.
-+ */
-+
-+#include <stdio.h>
-+#include <string.h>
-+#include <stdlib.h>
-+#include <stdint.h>
-+#include <unistd.h>
-+#include "tst_cgroup.h"
-+
-+#define USAGE "Usage: tst_cgctl require [controller] [test_pid]\n\
-+	\t cleanup [config (output of tst_cg_print_config)]\n\
-+	\t print\n\
-+	\t help\n"
-+
-+static int cgctl_require(const char *ctrl, int test_pid)
++tst_flag2mask()
 +{
-+	struct tst_cg_opts opts;
-+
-+	memset(&opts, 0, sizeof(opts));
-+	opts.test_pid = test_pid;
-+
-+	tst_cg_require(ctrl, &opts);
-+	tst_cg_print_config();
-+
-+	return 0;
++	case "$1" in
++	TPASS) return 0;;
++	TFAIL) return 1;;
++	TBROK) return 2;;
++	TWARN) return 4;;
++	TINFO) return 16;;
++	TCONF) return 32;;
++	*) tst_brk TBROK "Invalid res type '$1'";;
++	esac
 +}
 +
-+static int cgctl_cleanup(const char *const config)
-+{
-+	tst_cg_scan();
-+	tst_cg_load_config(config);
-+	tst_cg_cleanup();
-+
-+	return 0;
-+}
-+
-+static int cgctl_print(void)
-+{
-+	tst_cg_scan();
-+	tst_cg_print_config();
-+
-+	return 0;
-+}
-+
-+int main(int argc, char *argv[])
-+{
-+	int test_pid;
-+	const char *cmd_name = argv[1];
-+
-+	if (argc < 2)
-+		goto error;
-+
-+	if (!strcmp(cmd_name, "require")) {
-+		if (argc != 4)
-+			goto arg_num_error;
-+		test_pid = atoi(argv[3]);
-+		if (!test_pid) {
-+			fprintf(stderr, "tst_cgctl: Invalid test_pid '%s' given\n",
-+				argv[3]);
-+			goto error;
-+		}
-+		return cgctl_require(argv[2], test_pid);
-+	} else if (!strcmp(cmd_name, "cleanup")) {
-+		if (argc != 3)
-+			goto arg_num_error;
-+		return cgctl_cleanup(argv[2]);
-+	} else if (!strcmp(cmd_name, "print")) {
-+		return cgctl_print();
-+	} else if (!strcmp(cmd_name, "help")) {
-+		printf(USAGE);
-+		return 0;
-+	}
-+
-+	fprintf(stderr, "tst_cgctl: Unknown command '%s' given\n", cmd_name);
-+	goto error;
-+
-+arg_num_error:
-+	fprintf(stderr,
-+		"tst_cgctl: Invalid number of arguments given for command '%s'\n",
-+		cmd_name);
-+error:
-+	fprintf(stderr, USAGE);
-+	return 1;
-+}
+ tst_is_int()
+ {
+ 	[ "$1" -eq "$1" ] 2>/dev/null
 -- 
 2.32.0
 
