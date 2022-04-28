@@ -1,69 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCB89513728
-	for <lists+linux-ltp@lfdr.de>; Thu, 28 Apr 2022 16:43:37 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id B248C513726
+	for <lists+linux-ltp@lfdr.de>; Thu, 28 Apr 2022 16:43:27 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 610F23CA6DD
-	for <lists+linux-ltp@lfdr.de>; Thu, 28 Apr 2022 16:43:37 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 9B4D73CA755
+	for <lists+linux-ltp@lfdr.de>; Thu, 28 Apr 2022 16:43:26 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 1408A3CA6CB
- for <ltp@lists.linux.it>; Thu, 28 Apr 2022 16:43:22 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 187323CA6CB
+ for <ltp@lists.linux.it>; Thu, 28 Apr 2022 16:43:21 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id D9088600BB5
- for <ltp@lists.linux.it>; Thu, 28 Apr 2022 16:43:20 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 54D3F6022A1
+ for <ltp@lists.linux.it>; Thu, 28 Apr 2022 16:43:21 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id C53541F745;
- Thu, 28 Apr 2022 14:43:19 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id AF21A210F3;
+ Thu, 28 Apr 2022 14:43:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1651156999; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=4ogX/PVHTgBnVY9bfomFQYpJAsCgJeGa3J6Zuu0Pixg=;
- b=jG1HWlbSDWdfX+6R84Y9G/sWp9p+No76xWpG7nBI5WWBgMUmyG2E7Z6TTCD7/yXOKrW1yB
- +e15ck+H/kMGHQpbq1zW55hmCVfB4NPE3DWItZCMF/2DMul61AU/TGaGZuveJkrf00NhMY
- kNGGE01JAbNzdyDsGLExVF0f//4aQZo=
+ t=1651157000; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=oZuiVnDhry/wkJk/1XP+/3oFsXyfnMnNd8SxslPpuVE=;
+ b=bQRTZBxVe9vjKJ4okG3U+5vRPdrXaNp5ueJZdSAiOiLoRDE7G9kGIylf+OkxC9juKKScIt
+ YGoZj/f+55/dYMLVvCRyFtIJGsKc6wZlw9gZgxin/XQQXvg0ysszX3Hkd+caNPALJyn/jI
+ PzQRlB5+EdnBlvAP6LC+zq01IyFRfQY=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1651156999;
+ s=susede2_ed25519; t=1651157000;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=4ogX/PVHTgBnVY9bfomFQYpJAsCgJeGa3J6Zuu0Pixg=;
- b=Z0hsrR9HSvQkQWF8gN8tXOkvPKNHdEGRK0+RmtjovlTktCO75R9dyLd2Y/QS+5gLqkOe8s
- bN47/Wrm8s1csTCw==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=oZuiVnDhry/wkJk/1XP+/3oFsXyfnMnNd8SxslPpuVE=;
+ b=/FTSwa41VqA8i4wT8oduHJt2gcxCowSxca2sXcBa0CSONIia3oDW6YXpzxNSIHelOV0xcv
+ T7FDLsrkeZllb+BQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id F0EE713AF8;
- Thu, 28 Apr 2022 14:43:18 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D8EAF13AF8;
+ Thu, 28 Apr 2022 14:43:19 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id /jOLOAaoamK9bwAAMHmgww
- (envelope-from <pvorel@suse.cz>); Thu, 28 Apr 2022 14:43:18 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id kML9MQeoamK9bwAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Thu, 28 Apr 2022 14:43:19 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Thu, 28 Apr 2022 16:43:05 +0200
-Message-Id: <20220428144308.32639-1-pvorel@suse.cz>
+Date: Thu, 28 Apr 2022 16:43:06 +0200
+Message-Id: <20220428144308.32639-2-pvorel@suse.cz>
 X-Mailer: git-send-email 2.35.3
+In-Reply-To: <20220428144308.32639-1-pvorel@suse.cz>
+References: <20220428144308.32639-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [RFC PATCH 0/3] Remove RPC rup and rusers tests
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [RFC PATCH 1/3] rpc: Remove rup01.sh test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,40 +89,128 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi all,
+rstatd is a RPC daemon which collects performance statistics from kernel
+on serving machine. On a client side there is rup (remote uptime display).
 
-IMHO safe to remove these two tests, but sending to broad audience in
-case anybody really want to have these 2 kept (they'd be rewritten to
-new LTP shell API).
+rstat client and server implementation for Linux had the latest release
+4.0.1 in 2005. Although it's still installable on Debian, IMHO whole
+technology is not used nowadays.
 
-BTW in long term I'd prefer to remove all RPC tests
-(testcases/network/rpc/ directory). IMHO they should be part of libtirpc
-(which has no tests), but these tests are old, messy and I'm not sure
-how relevant they are nowadays.
+As we have other RPC tests (both RPC/TI-RPC and RPC integration, i.e.
+NFS), we don't need to test this particular implementation. If this
+implementation is really useful, it should be moved into libtirpc
+project.
 
-Kind regards,
-Petr
-
-Petr Vorel (3):
-  rpc: Remove rup01.sh test
-  rpc: Remove rusers01.sh test
-  rpc: Move rest of RPC tests to runtest/net.rpc_tests
-
- runtest/net.rpc                               |  8 ---
- runtest/net.rpc_tests                         |  3 ++
- scenario_groups/network                       |  1 -
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+---
+ runtest/net.rpc                               |  1 -
  .../network/rpc/basic_tests/rup/Makefile      | 29 -----------
  .../network/rpc/basic_tests/rup/rup01.sh      | 50 -------------------
- .../network/rpc/basic_tests/rusers/Makefile   | 29 -----------
- .../rpc/basic_tests/rusers/rusers01.sh        | 50 -------------------
- testscripts/network.sh                        |  4 +-
- 8 files changed, 4 insertions(+), 170 deletions(-)
- delete mode 100644 runtest/net.rpc
+ 3 files changed, 80 deletions(-)
  delete mode 100644 testcases/network/rpc/basic_tests/rup/Makefile
  delete mode 100755 testcases/network/rpc/basic_tests/rup/rup01.sh
- delete mode 100644 testcases/network/rpc/basic_tests/rusers/Makefile
- delete mode 100755 testcases/network/rpc/basic_tests/rusers/rusers01.sh
 
+diff --git a/runtest/net.rpc b/runtest/net.rpc
+index fb0665fae..ccee1dda7 100644
+--- a/runtest/net.rpc
++++ b/runtest/net.rpc
+@@ -4,5 +4,4 @@
+ #
+ rpc01 rpc01.sh
+ rpcinfo rpcinfo01.sh
+-rup rup01.sh
+ rusers rusers01.sh
+diff --git a/testcases/network/rpc/basic_tests/rup/Makefile b/testcases/network/rpc/basic_tests/rup/Makefile
+deleted file mode 100644
+index e0ebaaa58..000000000
+--- a/testcases/network/rpc/basic_tests/rup/Makefile
++++ /dev/null
+@@ -1,29 +0,0 @@
+-#
+-#    network/rpc/basic_tests/rup test suite Makefile.
+-#
+-#    Copyright (C) 2009, Cisco Systems Inc.
+-#
+-#    This program is free software; you can redistribute it and/or modify
+-#    it under the terms of the GNU General Public License as published by
+-#    the Free Software Foundation; either version 2 of the License, or
+-#    (at your option) any later version.
+-#
+-#    This program is distributed in the hope that it will be useful,
+-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-#    GNU General Public License for more details.
+-#
+-#    You should have received a copy of the GNU General Public License along
+-#    with this program; if not, write to the Free Software Foundation, Inc.,
+-#    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+-#
+-# Ngie Cooper, July 2009
+-#
+-
+-top_srcdir		?= ../../../../..
+-
+-include $(top_srcdir)/include/mk/env_pre.mk
+-
+-INSTALL_TARGETS		:= rup01.sh
+-
+-include $(top_srcdir)/include/mk/generic_leaf_target.mk
+diff --git a/testcases/network/rpc/basic_tests/rup/rup01.sh b/testcases/network/rpc/basic_tests/rup/rup01.sh
+deleted file mode 100755
+index 44f0e73d2..000000000
+--- a/testcases/network/rpc/basic_tests/rup/rup01.sh
++++ /dev/null
+@@ -1,50 +0,0 @@
+-#!/bin/sh
+-# Copyright (c) 2017 Oracle and/or its affiliates. All Rights Reserved.
+-# Copyright (c) International Business Machines  Corp., 2000
+-#
+-# This program is free software; you can redistribute it and/or
+-# modify it under the terms of the GNU General Public License as
+-# published by the Free Software Foundation; either version 2 of
+-# the License, or (at your option) any later version.
+-#
+-# This program is distributed in the hope that it would be useful,
+-# but WITHOUT ANY WARRANTY; without even the implied warranty of
+-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-# GNU General Public License for more details.
+-#
+-# You should have received a copy of the GNU General Public License
+-# along with this program. If not, see <http://www.gnu.org/licenses/>.
+-
+-TCID="rup01"
+-TST_TOTAL=7
+-
+-TST_USE_LEGACY_API=1
+-. tst_net.sh
+-
+-do_setup()
+-{
+-	tst_resm TINFO "Checking for rstatd on $(tst_ipaddr)"
+-	rpcinfo -u $(tst_ipaddr) rstatd 3 > /dev/null 2>&1 || \
+-		tst_brkm TCONF "rstatd is inactive on $(tst_ipaddr)"
+-}
+-
+-do_test()
+-{
+-	tst_resm TINFO "Test rup with options set"
+-
+-	EXPECT_RHOST_PASS rup $(tst_ipaddr)
+-
+-	local opts="-d -h -l -t"
+-	for opt in $opts; do
+-		EXPECT_RHOST_PASS rup $opt $(tst_ipaddr)
+-	done
+-
+-	tst_resm TINFO "Test rup with bad options"
+-	EXPECT_RHOST_FAIL rup bogushost
+-	EXPECT_RHOST_FAIL rup -bogusflag $(tst_ipaddr)
+-}
+-
+-do_setup
+-do_test
+-
+-tst_exit
 -- 
 2.35.3
 
