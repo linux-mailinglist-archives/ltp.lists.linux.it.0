@@ -1,74 +1,75 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6246B518B77
-	for <lists+linux-ltp@lfdr.de>; Tue,  3 May 2022 19:48:49 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id E6793518B79
+	for <lists+linux-ltp@lfdr.de>; Tue,  3 May 2022 19:49:07 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 057793CAC63
-	for <lists+linux-ltp@lfdr.de>; Tue,  3 May 2022 19:48:49 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B75D43CACB6
+	for <lists+linux-ltp@lfdr.de>; Tue,  3 May 2022 19:49:07 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E99FE3CA983
- for <ltp@lists.linux.it>; Tue,  3 May 2022 19:45:13 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id D0FCE3CA992
+ for <ltp@lists.linux.it>; Tue,  3 May 2022 19:45:14 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 6E3381000953
- for <ltp@lists.linux.it>; Tue,  3 May 2022 19:45:13 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 5077D60081A
+ for <ltp@lists.linux.it>; Tue,  3 May 2022 19:45:14 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 27C11210F4;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id A83D01F74B;
  Tue,  3 May 2022 17:45:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1651599913; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=ctz5qRsk5gNtiljsXDaHJwYBqxm6gochu5uiRYOJhuQ=;
- b=NtGPTQJeouAGmyOH53LncI4iLUw7mecQAByAqVoX+gVz5QRgfUGhh79vUsinzbIelMRRE1
- Ls0aec1jj/uEUyL85sMeGXV5chr1eq8Cge4NoebfPpK1HsI2GZDiMhBNjS5GFJ2q/AlAdc
- VvjtjJWa6a/HBl24QfKnXMxeKxb+xH8=
+ bh=c5x1ZMY6dCn0plCwC7XC78GIE/Bdt5qXVG9/Bp6tEjY=;
+ b=enY+2QcFJbdJ0MStq7SnEUUobwOLi+4Cpe6hPpucwCV2/4DzmpODpKJE47AeO5TIAtScLh
+ KpkltFMIAfSaOO4GQlT57DbCD6bwlbWGkNaOWRqgvCipIPXmRYOYEYBCNOwW+KtorAIH11
+ 2+jqPym1MDM+HnaNAeJ85OB3rHezNL8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1651599913;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=ctz5qRsk5gNtiljsXDaHJwYBqxm6gochu5uiRYOJhuQ=;
- b=mGG01ykiUq2GBODagDrevPhtGLBOTbnnBU8ild914RHWeWcWocxaUotIZ2blK1uDYI54rT
- TxR08wVkaFGEVKAw==
+ bh=c5x1ZMY6dCn0plCwC7XC78GIE/Bdt5qXVG9/Bp6tEjY=;
+ b=rlozFPdLq+QJuhSE8nol+Mpi8IBgeKjaehdslxnc2BO6qDTk4qr8VLi8jjmyccyZUPUbD/
+ tgTYQNkx9mB5GXCw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1593713ABE;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 95A5713ABE;
  Tue,  3 May 2022 17:45:13 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id e7oMBClqcWIUPgAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id yUx3IylqcWIWPgAAMHmgww
  (envelope-from <chrubis@suse.cz>); Tue, 03 May 2022 17:45:13 +0000
 From: Cyril Hrubis <chrubis@suse.cz>
 To: ltp@lists.linux.it
-Date: Tue,  3 May 2022 19:47:08 +0200
-Message-Id: <20220503174718.21205-21-chrubis@suse.cz>
+Date: Tue,  3 May 2022 19:47:09 +0200
+Message-Id: <20220503174718.21205-22-chrubis@suse.cz>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220503174718.21205-1-chrubis@suse.cz>
 References: <20220503174718.21205-1-chrubis@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 20/30] mem/mallocstress: Convert to runtime
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 21/30] mem/{oom,
+ min_free_kbytes}: Convert to runtime
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,54 +87,97 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+This just sets the runtime to TST_UNLIMITED_RUNTIME which disables the
+timeout.
+
 Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
 ---
- testcases/kernel/mem/mtest07/mallocstress.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+ testcases/kernel/mem/oom/oom01.c               | 2 +-
+ testcases/kernel/mem/oom/oom02.c               | 2 +-
+ testcases/kernel/mem/oom/oom03.c               | 2 +-
+ testcases/kernel/mem/oom/oom04.c               | 2 +-
+ testcases/kernel/mem/oom/oom05.c               | 2 +-
+ testcases/kernel/mem/tunable/min_free_kbytes.c | 2 +-
+ 6 files changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/testcases/kernel/mem/mtest07/mallocstress.c b/testcases/kernel/mem/mtest07/mallocstress.c
-index fa7494e7d..089e42bc0 100644
---- a/testcases/kernel/mem/mtest07/mallocstress.c
-+++ b/testcases/kernel/mem/mtest07/mallocstress.c
-@@ -62,7 +62,7 @@ static void my_yield(void)
-  *  0: success
-  *  1: failure
-  */
--int allocate_free(int scheme)
-+int allocate_free(int scheme, int threadnum)
- {
- 	int loop;
- 	const int MAXPTRS = 50;	/* only 42 or so get used on 32 bit machine */
-@@ -127,6 +127,11 @@ int allocate_free(int scheme)
- 		}
- 
- 		my_yield();
-+
-+		if (!tst_remaining_runtime()) {
-+			tst_res(TINFO, "Thread [%d]: Test runtime is over, exitting", threadnum);
-+			break;
-+		}
- 	}
- 
- 	/* Success! */
-@@ -141,7 +146,7 @@ void *alloc_mem(void *threadnum)
- 	TST_CHECKPOINT_WAIT(0);
- 
- 	/* thread N will use growth scheme N mod 4 */
--	err = allocate_free(((uintptr_t)threadnum) % 4);
-+	err = allocate_free(((uintptr_t)threadnum) % 4, (uintptr_t)threadnum);
- 	tst_res(TINFO,
- 		"Thread [%d]: allocate_free() returned %d, %s.  Thread exiting.\n",
- 		(int)(uintptr_t)threadnum, err,
-@@ -189,7 +194,7 @@ static void cleanup(void)
- }
- 
+diff --git a/testcases/kernel/mem/oom/oom01.c b/testcases/kernel/mem/oom/oom01.c
+index 258bfd89e..c4dd55e63 100644
+--- a/testcases/kernel/mem/oom/oom01.c
++++ b/testcases/kernel/mem/oom/oom01.c
+@@ -63,7 +63,7 @@ static void cleanup(void)
  static struct tst_test test = {
--	.timeout = 600,
-+	.max_iteration_runtime = 600,
- 	.needs_checkpoints = 1,
+ 	.needs_root = 1,
+ 	.forks_child = 1,
+-	.timeout = -1,
++	.max_iteration_runtime = TST_UNLIMITED_RUNTIME,
  	.setup = setup,
  	.cleanup = cleanup,
+ 	.test_all = verify_oom,
+diff --git a/testcases/kernel/mem/oom/oom02.c b/testcases/kernel/mem/oom/oom02.c
+index 2b9bcb1b2..bc6f9c105 100644
+--- a/testcases/kernel/mem/oom/oom02.c
++++ b/testcases/kernel/mem/oom/oom02.c
+@@ -70,7 +70,7 @@ static void cleanup(void)
+ static struct tst_test test = {
+ 	.needs_root = 1,
+ 	.forks_child = 1,
+-	.timeout = -1,
++        .max_iteration_runtime = TST_UNLIMITED_RUNTIME,
+ 	.setup = setup,
+ 	.cleanup = cleanup,
+ 	.test_all = verify_oom,
+diff --git a/testcases/kernel/mem/oom/oom03.c b/testcases/kernel/mem/oom/oom03.c
+index 48a0f20b5..cfbcba615 100644
+--- a/testcases/kernel/mem/oom/oom03.c
++++ b/testcases/kernel/mem/oom/oom03.c
+@@ -95,7 +95,7 @@ static void cleanup(void)
+ static struct tst_test test = {
+ 	.needs_root = 1,
+ 	.forks_child = 1,
+-	.timeout = -1,
++	.max_iteration_runtime = TST_UNLIMITED_RUNTIME,
+ 	.setup = setup,
+ 	.cleanup = cleanup,
+ 	.test_all = verify_oom,
+diff --git a/testcases/kernel/mem/oom/oom04.c b/testcases/kernel/mem/oom/oom04.c
+index 6b65383a3..fb70a69ae 100644
+--- a/testcases/kernel/mem/oom/oom04.c
++++ b/testcases/kernel/mem/oom/oom04.c
+@@ -91,7 +91,7 @@ static void cleanup(void)
+ static struct tst_test test = {
+ 	.needs_root = 1,
+ 	.forks_child = 1,
+-	.timeout = -1,
++	.max_iteration_runtime = TST_UNLIMITED_RUNTIME,
+ 	.setup = setup,
+ 	.cleanup = cleanup,
+ 	.test_all = verify_oom,
+diff --git a/testcases/kernel/mem/oom/oom05.c b/testcases/kernel/mem/oom/oom05.c
+index 91c9bec83..6a8750353 100644
+--- a/testcases/kernel/mem/oom/oom05.c
++++ b/testcases/kernel/mem/oom/oom05.c
+@@ -113,7 +113,7 @@ void cleanup(void)
+ static struct tst_test test = {
+ 	.needs_root = 1,
+ 	.forks_child = 1,
+-	.timeout = -1,
++	.max_iteration_runtime = TST_UNLIMITED_RUNTIME,
+ 	.setup = setup,
+ 	.cleanup = cleanup,
+ 	.test_all = verify_oom,
+diff --git a/testcases/kernel/mem/tunable/min_free_kbytes.c b/testcases/kernel/mem/tunable/min_free_kbytes.c
+index 09741eea3..c9b766c2b 100644
+--- a/testcases/kernel/mem/tunable/min_free_kbytes.c
++++ b/testcases/kernel/mem/tunable/min_free_kbytes.c
+@@ -231,7 +231,7 @@ static void cleanup(void)
+ static struct tst_test test = {
+ 	.needs_root = 1,
+ 	.forks_child = 1,
+-	.timeout = -1,
++	.max_iteration_runtime = TST_UNLIMITED_RUNTIME,
+ 	.setup = setup,
+ 	.cleanup = cleanup,
+ 	.test_all = min_free_kbytes_test,
 -- 
 2.35.1
 
