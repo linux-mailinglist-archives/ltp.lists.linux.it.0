@@ -1,74 +1,75 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5797518B59
-	for <lists+linux-ltp@lfdr.de>; Tue,  3 May 2022 19:46:32 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D9FA518B58
+	for <lists+linux-ltp@lfdr.de>; Tue,  3 May 2022 19:46:19 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B09963CAAA0
-	for <lists+linux-ltp@lfdr.de>; Tue,  3 May 2022 19:46:32 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 3E9973CAA71
+	for <lists+linux-ltp@lfdr.de>; Tue,  3 May 2022 19:46:18 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 24C8B3CA967
+ by picard.linux.it (Postfix) with ESMTPS id 263433CA968
  for <ltp@lists.linux.it>; Tue,  3 May 2022 19:45:05 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 9E4DE1400437
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id C5D991000953
  for <ltp@lists.linux.it>; Tue,  3 May 2022 19:45:04 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id E543F1F74B;
- Tue,  3 May 2022 17:45:03 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 80483210DF;
+ Tue,  3 May 2022 17:45:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1651599903; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1651599904; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=+awJnqlgiXBg3aH31mI0oJlOg9I2JfIGTKc+hFISPNU=;
- b=PUbf1YgXV/5dcQ5dtC4eTYbj5smZz6Ux66B37RPO7JDPjbLG+UMJHsMn8vFoTuHs5VIFgd
- 6UbEUJri5xOAJe+Kd/i+kmxYAagD/k3QN8vCMwGrjYkyCWZc5zmIr9ccWfmsfR/PmpoQjW
- 0iu04DwLti1ajhCIOQKQbMKVV83i2r4=
+ bh=yXhvMotBIOFGO7U/GlwzFIRmAYspQvkKIkYMGb3rcsc=;
+ b=msoyD1Ne3GVFi7Rdys6s/w1iXDlQkxZNa5/Q6esWgFgPJLDkaOAfWEUb2D7tdFZ9hxXsdl
+ I/WPK0kCDgIUGmcEcthuQfjHN2/TBqFcH/1Hq8n+KnXRuUidWjNPAhUPDVworVl8itUsAr
+ wYVIJsYMQO7tMT8rFFAJf4PPerv4X5M=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1651599903;
+ s=susede2_ed25519; t=1651599904;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=+awJnqlgiXBg3aH31mI0oJlOg9I2JfIGTKc+hFISPNU=;
- b=H+B15FOUEnifLzWFh7wvOPmTbr0e0miOFiA5Lm0ntVTcjhyCiUA6J0cbXzD6ZatYUK2et6
- ttu9DK/v+QwlC7Dg==
+ bh=yXhvMotBIOFGO7U/GlwzFIRmAYspQvkKIkYMGb3rcsc=;
+ b=aMG8x0Zt+Ih+O4CkSISwbB0PnK44KroL5koGC78YT8Tn1SJKrBlEe3hEW+Wp4hHbxAJ3i4
+ yYoQAmuB5U03+UBw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C588A13ABE;
- Tue,  3 May 2022 17:45:03 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6DBCB13ABE;
+ Tue,  3 May 2022 17:45:04 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 0fPqLh9qcWLwPQAAMHmgww
- (envelope-from <chrubis@suse.cz>); Tue, 03 May 2022 17:45:03 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id lWyNGSBqcWLyPQAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Tue, 03 May 2022 17:45:04 +0000
 From: Cyril Hrubis <chrubis@suse.cz>
 To: ltp@lists.linux.it
-Date: Tue,  3 May 2022 19:46:54 +0200
-Message-Id: <20220503174718.21205-7-chrubis@suse.cz>
+Date: Tue,  3 May 2022 19:46:55 +0200
+Message-Id: <20220503174718.21205-8-chrubis@suse.cz>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220503174718.21205-1-chrubis@suse.cz>
 References: <20220503174718.21205-1-chrubis@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 06/30] crypto/af_alg02: Convert to runtime.
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 07/30] crypto/pcrypt_aead01: Convert to runtime
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,31 +89,30 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
 ---
- testcases/kernel/crypto/af_alg02.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ testcases/kernel/crypto/pcrypt_aead01.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/testcases/kernel/crypto/af_alg02.c b/testcases/kernel/crypto/af_alg02.c
-index 9894ffacd..b96b8b341 100644
---- a/testcases/kernel/crypto/af_alg02.c
-+++ b/testcases/kernel/crypto/af_alg02.c
-@@ -65,7 +65,7 @@ static void run(void)
- 	TST_CHECKPOINT_WAIT(0);
+diff --git a/testcases/kernel/crypto/pcrypt_aead01.c b/testcases/kernel/crypto/pcrypt_aead01.c
+index 0609af9f6..d10d744c5 100644
+--- a/testcases/kernel/crypto/pcrypt_aead01.c
++++ b/testcases/kernel/crypto/pcrypt_aead01.c
+@@ -55,7 +55,7 @@ void run(void)
+ 		if (TST_RET)
+ 			tst_brk(TBROK | TRERRNO, "del_alg");
  
- 	while (!completed) {
--		if (tst_timeout_remaining() <= 10) {
-+		if (tst_remaining_runtime()) {
- 			pthread_cancel(thr);
- 			tst_brk(TBROK,
- 				"Timed out while reading from request socket.");
-@@ -77,7 +77,7 @@ static void run(void)
- 
- static struct tst_test test = {
+-		if (tst_timeout_remaining() < 10) {
++		if (!tst_remaining_runtime()) {
+ 			tst_res(TINFO, "Time limit reached, stopping at "
+ 				"%d iterations", i);
+ 			break;
+@@ -75,6 +75,7 @@ static struct tst_test test = {
  	.test_all = run,
--	.timeout = 20,
-+	.runtime_per_iteration = 20,
- 	.needs_checkpoints = 1,
+ 	.cleanup = cleanup,
+ 	.needs_root = 1,
++	.max_iteration_runtime = 300,
  	.tags = (const struct tst_tag[]) {
- 		{"linux-git", "ecaaab564978"},
+ 		{"linux-git", "d76c68109f37"},
+ 		{"CVE", "2017-5754"},
 -- 
 2.35.1
 
