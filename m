@@ -2,69 +2,56 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2EE1524DCD
-	for <lists+linux-ltp@lfdr.de>; Thu, 12 May 2022 15:07:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52431524FA6
+	for <lists+linux-ltp@lfdr.de>; Thu, 12 May 2022 16:14:41 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9539D3CA9E3
-	for <lists+linux-ltp@lfdr.de>; Thu, 12 May 2022 15:07:55 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 75D9D3CA9D4
+	for <lists+linux-ltp@lfdr.de>; Thu, 12 May 2022 16:14:40 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 8B9E43CA9A2
- for <ltp@lists.linux.it>; Thu, 12 May 2022 15:07:50 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 705D33C9050
+ for <ltp@lists.linux.it>; Wed,  4 May 2022 09:29:21 +0200 (CEST)
+Received: from gnuweeb.org (gnuweeb.org [51.81.211.47])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 940671000B54
- for <ltp@lists.linux.it>; Thu, 12 May 2022 15:07:48 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 95C011F460
- for <ltp@lists.linux.it>; Thu, 12 May 2022 13:07:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1652360868; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=v7x6VmZZMlJFHSN33THTWZaLi8bH/8IzbTYK4HNDA/4=;
- b=pr1oVBfmO5yD3lYXDa35BiBlYhi8XR/f3epciy6sjyVBDnUW/OUWIsiBRhrT3MyQp479r2
- w2D2tFlrS3CJLKREeOzro5x9ionC8jZJwGB6PfJvJWBwSjUdKxJTAcFdHo430WPbllj/oa
- MOMUgkrHQQJWIhjBfsPvghvVGL9oW+k=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1652360868;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=v7x6VmZZMlJFHSN33THTWZaLi8bH/8IzbTYK4HNDA/4=;
- b=iEXXhAPaVCXPpjcPH5ftrgkmiaRcIbpGf07NmArMy0zB2UiqdQNgC142n0yaUzAMgPXgaa
- hdFbHTg97ip6PTCA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7AB5313ABE
- for <ltp@lists.linux.it>; Thu, 12 May 2022 13:07:48 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 5C+FHKQGfWITKwAAMHmgww
- (envelope-from <chrubis@suse.cz>)
- for <ltp@lists.linux.it>; Thu, 12 May 2022 13:07:48 +0000
-From: Cyril Hrubis <chrubis@suse.cz>
-To: ltp@lists.linux.it
-Date: Thu, 12 May 2022 15:10:02 +0200
-Message-Id: <20220512131002.26093-1-chrubis@suse.cz>
-X-Mailer: git-send-email 2.35.1
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 3B0ED1A00939
+ for <ltp@lists.linux.it>; Wed,  4 May 2022 09:29:19 +0200 (CEST)
+Received: from [192.168.83.80] (unknown [182.2.74.109])
+ by gnuweeb.org (Postfix) with ESMTPSA id 067C57E7DF;
+ Wed,  4 May 2022 07:29:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gnuweeb.org;
+ s=default; t=1651649357;
+ bh=0jCTxyJFrW91G2WoOFPhse6MeV195g1T/fnwYvdmDWI=;
+ h=Date:To:Cc:References:From:Subject:In-Reply-To:From;
+ b=TTUYmlWo7inPfQAC3SmM8ijAmdgEUu0mJXKlOZK3Dq/riHvkmEcDCfjVP7m7hc36o
+ HHxYmbTq3EkSlK4oJ00IhKUPSbZTN/8JHDC+0g8rR7/WgCEbfLvc1ciGhwS19Hzzrx
+ GWT2kvCSgeVF3bfZ+Wb7FL93sPl47FRNImLoOTIwigRiT72WtA5KlqFz3uhUr2Gytc
+ ojP6X0LuiUZxBvxCN/i5k+d3RFG67b+zcgTula8JcYXOOPmZW3Enn+nsD0aCmdnt11
+ pIUbNGBvia4M+QVXB3PkLvWNuKh23teGuaLEoFa2QmkRnoKkfoCH/A84470m/+KWG8
+ yKgMVWHgwkXzg==
+Message-ID: <64cbe8c1-a93f-1aad-2629-9feb6ee7a20e@gnuweeb.org>
+Date: Wed, 4 May 2022 14:29:10 +0700
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.1
+Content-Language: en-US
+To: kernel test robot <oliver.sang@intel.com>, Jens Axboe <axboe@kernel.dk>
+References: <20220504060305.GF30775@xsang-OptiPlex-9020>
+From: Ammar Faizi <ammarfaizi2@gnuweeb.org>
+In-Reply-To: <20220504060305.GF30775@xsang-OptiPlex-9020>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-2.4 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_PASS,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH v2] waitid10: raise SIGFPE directly
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+X-Mailman-Approved-At: Thu, 12 May 2022 16:14:36 +0200
+Subject: Re: [LTP] [net] 5aa32dd9bd: INFO:task_blocked_for_more_than#seconds
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,46 +63,57 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
+Cc: lkp@lists.01.org, lkp@intel.com, ltp@lists.linux.it,
+ LKML <linux-kernel@vger.kernel.org>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-The SIGFPE for division by zero is actually not send for quite a few
-architectures (ARM for instance) and even on x86 and x86_64 we need to
-work around compiler to make it generate code that actually triggers the
-condition.
+On 5/4/22 1:03 PM, kernel test robot wrote:
+> 
+> 
+> Greeting,
+> 
+> FYI, we noticed the following commit (built with gcc-11):
+> 
+> commit: 5aa32dd9bdb57e4a26143216df5e90f5e5c3dd2c ("net: add support for fast socket release")
+> https://github.com/ammarfaizi2/linux-block axboe/linux-block/sock-nolock.2
+> 
+> in testcase: ltp
+> version: ltp-x86_64-14c1f76-1_20220430
+> with following parameters:
+> 
+> 	test: cve
+> 	ucode: 0x28
+> 
+> test-description: The LTP testsuite contains a collection of tools for testing the Linux kernel and related features.
+> test-url: http://linux-test-project.github.io/
+> 
+> 
+> on test machine: 8 threads 1 sockets Intel(R) Core(TM) i7-4770 CPU @ 3.40GHz with 16G memory
+> 
+> caused below changes (please refer to attached dmesg/kmsg for entire log/backtrace):
 
-So this patch fixes the test in the simplest way possible. the child
-just directly raises SIGFPE instead.
+Hello,
 
-Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
----
- testcases/kernel/syscalls/waitid/waitid10.c | 8 ++------
- 1 file changed, 2 insertions(+), 6 deletions(-)
+Thank you for the testing effort. But it's an abandoned branch, please stop
+testing branch: axboe/linux-block/sock-nolock.2.
 
-diff --git a/testcases/kernel/syscalls/waitid/waitid10.c b/testcases/kernel/syscalls/waitid/waitid10.c
-index e75edd07e..388b31cc9 100644
---- a/testcases/kernel/syscalls/waitid/waitid10.c
-+++ b/testcases/kernel/syscalls/waitid/waitid10.c
-@@ -24,12 +24,8 @@ static void run(void)
- 	pid_t pidchild;
- 
- 	pidchild = SAFE_FORK();
--	if (!pidchild) {
--		volatile int a, zero = 0;
--
--		a = 1 / zero;
--		exit(a);
--	}
-+	if (!pidchild)
-+		raise(SIGFPE);
- 
- 	TST_EXP_PASS(waitid(P_ALL, 0, infop, WEXITED));
- 	TST_EXP_EQ_LI(infop->si_pid, pidchild);
+As Jens has said previously here:
+https://lore.kernel.org/lkml/f8de18da-e6ae-e82c-c6eb-6f4de6ce8e98@kernel.dk
+
+=========================================
+On Sat, 30 Apr 2022 at 08:58:21 -0600, Jens Axboe wrote:
+> 
+> Please just stop testing that branch, it's been abandoned.
+> 
+> -- 
+> Jens Axboe
+=========================================
+
 -- 
-2.35.1
-
+Ammar Faizi
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
