@@ -2,74 +2,74 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id E10D351B977
-	for <lists+linux-ltp@lfdr.de>; Thu,  5 May 2022 09:49:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51F8751B98D
+	for <lists+linux-ltp@lfdr.de>; Thu,  5 May 2022 10:01:40 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5E9C23CA8BC
-	for <lists+linux-ltp@lfdr.de>; Thu,  5 May 2022 09:49:36 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 03DEE3CA8AC
+	for <lists+linux-ltp@lfdr.de>; Thu,  5 May 2022 10:01:40 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 87C183CA74A
- for <ltp@lists.linux.it>; Thu,  5 May 2022 09:49:32 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 693943C9F5F
+ for <ltp@lists.linux.it>; Thu,  5 May 2022 10:01:36 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id B02C6600879
- for <ltp@lists.linux.it>; Thu,  5 May 2022 09:49:31 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 65472200A1B
+ for <ltp@lists.linux.it>; Thu,  5 May 2022 10:01:35 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id A7916210E6;
- Thu,  5 May 2022 07:49:30 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id AB1C01F45E;
+ Thu,  5 May 2022 08:01:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1651736970;
+ t=1651737694;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=P/36u3NyBkhZJ8Fm3/4yAhIOCLL75ZNURe37CJ+0XDo=;
- b=iBjclV21vDH1bzT9dNstcfE1012nM7mF90JbU0hl3+wSCuZJ2Tdpl4otHHuZR9PhsFjUVV
- JWs0fXAZeQ10+9OV9O9JibvelVwvPSKxifTkySVDbbbEB1sqTMslto7jRt89LL5il07ngk
- 90tVaOlU3BrSXZOl2SsaRDGGVc0x2Iw=
+ bh=jfv7dy4HyvO5BLqdgcCBrwR81HCpKT+uwWIl+/RZWTQ=;
+ b=qfT/Ei0UtR+Wi2aQL3gB6A9Za7xDtUkOD7oyu8jxkbe7ommzQwZTmcQ2PsEK+ffaIxls2c
+ bFjPoQDigk0epd6XhDf7MZYY+4zUhWIoQSHiTxbJPptcdOxF7U/QNJDHuPsCvtlhDv540e
+ hF6Pi4s44tTS4BLlu1IE1AnLKcvq3dI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1651736970;
+ s=susede2_ed25519; t=1651737694;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=P/36u3NyBkhZJ8Fm3/4yAhIOCLL75ZNURe37CJ+0XDo=;
- b=yH+nt7CCSETPkfKxiFg5rWNreZQa64/HC4OLbVgQs1pmWULHkYrCBBbp74JutKeXdaQ+/T
- nRIU9KadgCxmdgBQ==
+ bh=jfv7dy4HyvO5BLqdgcCBrwR81HCpKT+uwWIl+/RZWTQ=;
+ b=/eSgxlgMoaMrHUgDRnIwCx/Cm+2/Ovp1/MyMnsZRdr+SpRhoCTzE7MuMzn/3wpnUX2JRjW
+ B2/gqfhEHX6HWbAQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 69EA413A65;
- Thu,  5 May 2022 07:49:30 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7A53413A65;
+ Thu,  5 May 2022 08:01:34 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id S7i8FoqBc2L1eQAAMHmgww
- (envelope-from <pvorel@suse.cz>); Thu, 05 May 2022 07:49:30 +0000
-Date: Thu, 5 May 2022 09:49:28 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id 477FG16Ec2JkfwAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Thu, 05 May 2022 08:01:34 +0000
+Date: Thu, 5 May 2022 10:01:32 +0200
 From: Petr Vorel <pvorel@suse.cz>
 To: Luke Nowakowski-Krijger <luke.nowakowskikrijger@canonical.com>
-Message-ID: <YnOBiI6OgjhrAjr7@pevik>
+Message-ID: <YnOEXB/xDIZBHFZ5@pevik>
 References: <cover.1651176645.git.luke.nowakowskikrijger@canonical.com>
+ <ce6c0683b6f053161fbb8b1469ad73e670e2d22f.1651176646.git.luke.nowakowskikrijger@canonical.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <cover.1651176645.git.luke.nowakowskikrijger@canonical.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+In-Reply-To: <ce6c0683b6f053161fbb8b1469ad73e670e2d22f.1651176646.git.luke.nowakowskikrijger@canonical.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v4 00/19] Expand Cgroup lib and modify controller
- tests
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 10/19] testcases/lib: Add tst_flag2mask function
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,18 +90,15 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi Luke,
 
-I suppose this patchset supersedes your PR #933, thus I closed it.
+> This function exists in the older test.sh and should be added here so
+> that easy access can be made to map the flag to return values by
+> programs and vice versa.
 
-FYI If I remember correctly we intended to slowly rewrite all cgroups tests from
-shell to C (that's general approach due shell being fragile and less reliably,
-in long future shell API may disappear). But to add v2 support in a meanwhile
-should be ok. Richard, Li or Cyril are the experts for LTP cgroups tests to
-decide this.
+FYI we deliberately didn't add tst_flag2mask into new shell API.
+I'll post more comments on next patch where it is used.
 
 Kind regards,
 Petr
-
-[1] https://github.com/linux-test-project/ltp/pull/933
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
