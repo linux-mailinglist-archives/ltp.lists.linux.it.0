@@ -1,75 +1,68 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68C5751B9DA
-	for <lists+linux-ltp@lfdr.de>; Thu,  5 May 2022 10:16:43 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id A9C2D51BA98
+	for <lists+linux-ltp@lfdr.de>; Thu,  5 May 2022 10:35:00 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1F3C03CA8AE
-	for <lists+linux-ltp@lfdr.de>; Thu,  5 May 2022 10:16:43 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id CFEE63CA896
+	for <lists+linux-ltp@lfdr.de>; Thu,  5 May 2022 10:34:59 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 009DD3CA3BE
- for <ltp@lists.linux.it>; Thu,  5 May 2022 10:16:37 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 1FE0B3C9AC5
+ for <ltp@lists.linux.it>; Thu,  5 May 2022 10:34:56 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 7A3491000A22
- for <ltp@lists.linux.it>; Thu,  5 May 2022 10:16:37 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id A8972210DF;
- Thu,  5 May 2022 08:16:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1651738596;
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 9F722600915
+ for <ltp@lists.linux.it>; Thu,  5 May 2022 10:34:55 +0200 (CEST)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 0E0AD1F45E;
+ Thu,  5 May 2022 08:34:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1651739695;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=xAOTt3/QtTZnX8kocvvIddF95I3hLgmYCN+xgpPO52Q=;
- b=1ThxjackPVEJKyu7V68fJrk6eJpgJN7rY8EgBAo1/xJMTFNjaFbifR6hjGWbYUVsdQmC+y
- hzEEmvX/xjhw7KBTrXSVMVR4EB5iAgw4uA6DcOfgsR2aTiNkYeCWJmhx1cNaGNrFWHCC+p
- Wrip3ap4GVj2QeZuF8YEiRgN9rdNcLI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1651738596;
+ bh=+p7JwQ3AbuXG2P5c0tGDu9fk5hJLdiOXwwW8EfeoSU8=;
+ b=emorkP10VJBDYflwMQ26XzmEFJJIuRnfAbiIUDJZwBU5YOojhkScrXIWzyBhsqooGXx6au
+ x4KdYweebuObMu7vjguWKCCKgSP/pJijP8XJ/3SRgTAPjb3DZkFa48UuEMHdSJc1n+1ubS
+ ANQV38SSux+Oda0plQ9AJcTiiHfN09U=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1651739695;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=xAOTt3/QtTZnX8kocvvIddF95I3hLgmYCN+xgpPO52Q=;
- b=IO0OevK1epNz1VurLrK1lLg+Z0rUktcda9OrIs6kuBdtqI3/6/Cv60wBLS1sUSg46JIuP3
- TrQH9/8bSG1GrzBg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ bh=+p7JwQ3AbuXG2P5c0tGDu9fk5hJLdiOXwwW8EfeoSU8=;
+ b=ojPEPt+TWzTF5srT0I6vn85YH4rg0i7VQf2ECqvpNAEgYsHoRg/azZUJK4AjRhtiQ+edsJ
+ N4zZLGOdWr74D9BA==
+Received: from g78 (unknown [10.163.24.182])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7C68513B11;
- Thu,  5 May 2022 08:16:36 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 1W4UHeSHc2KkBwAAMHmgww
- (envelope-from <pvorel@suse.cz>); Thu, 05 May 2022 08:16:36 +0000
-Date: Thu, 5 May 2022 10:16:34 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Luke Nowakowski-Krijger <luke.nowakowskikrijger@canonical.com>
-Message-ID: <YnOH4h8rTbg1NzCO@pevik>
-References: <cover.1651176645.git.luke.nowakowskikrijger@canonical.com>
- <3d85635f6b87c73a2389627bc94c847c52165dc7.1651176646.git.luke.nowakowskikrijger@canonical.com>
+ by relay2.suse.de (Postfix) with ESMTPS id BEDD12C141;
+ Thu,  5 May 2022 08:34:54 +0000 (UTC)
+References: <20220503174718.21205-1-chrubis@suse.cz>
+ <20220503174718.21205-7-chrubis@suse.cz>
+User-agent: mu4e 1.6.10; emacs 28.1
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Cyril Hrubis <chrubis@suse.cz>
+Date: Thu, 05 May 2022 09:33:28 +0100
+In-reply-to: <20220503174718.21205-7-chrubis@suse.cz>
+Message-ID: <871qx8e5sh.fsf@suse.de>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <3d85635f6b87c73a2389627bc94c847c52165dc7.1651176646.git.luke.nowakowskikrijger@canonical.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v4 11/19] controllers: Expand cgroup_lib shell
- library
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [Automated-testing] [PATCH v2 06/30] crypto/af_alg02:
+ Convert to runtime.
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,60 +74,55 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
+Reply-To: rpalethorpe@suse.de
+Cc: ltp@lists.linux.it, automated-testing@lists.yoctoproject.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Luke,
+Hello,
 
-> diff --git a/testcases/kernel/controllers/cgroup_lib.sh b/testcases/kernel/controllers/cgroup_lib.sh
-...
-> +_cgroup_state=
-> +
-> +_cgroup_check_return()
-> +{
-> +	local ret="$1"
-> +	local msg="$2"
-> +
-> +	tst_flag2mask TBROK
-> +	[ "$ret" = "$?" ] && tst_brk TBROK "$msg"
-> +
-> +	tst_flag2mask TCONF
-> +	[ "$ret" = "$?" ] && tst_brk TCONF "$msg"
-> +}
-As I wrote in previous patch likely we can avoid tst_flag2mask in new API.
+"Cyril Hrubis" <chrubis@suse.cz> writes:
 
-In few cases where needed we hardwired numbers (IMHO POSIX shell does not
-support constants, which would be better than variables which can be changed).
+> Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
+> ---
+>  testcases/kernel/crypto/af_alg02.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/testcases/kernel/crypto/af_alg02.c b/testcases/kernel/crypto/af_alg02.c
+> index 9894ffacd..b96b8b341 100644
+> --- a/testcases/kernel/crypto/af_alg02.c
+> +++ b/testcases/kernel/crypto/af_alg02.c
+> @@ -65,7 +65,7 @@ static void run(void)
+>  	TST_CHECKPOINT_WAIT(0);
+>  
+>  	while (!completed) {
+> -		if (tst_timeout_remaining() <= 10) {
+> +		if (tst_remaining_runtime()) {
+>  			pthread_cancel(thr);
+>  			tst_brk(TBROK,
+>  				"Timed out while reading from request socket.");
+> @@ -77,7 +77,7 @@ static void run(void)
+>  
+>  static struct tst_test test = {
+>  	.test_all = run,
+> -	.timeout = 20,
+> +	.runtime_per_iteration = 20,
 
-In this case you could probably use ROD() or EXPECT_PASS_BRK().
-We use ROD() for external commands, thus support only TBROK on 0,
-but it should be probably safe to add TCONF on 32. If others consider it
-dangerous, we can add another function in tst_test.sh, e.g. ROD_LTP() which
-would expect LTP exit codes.
+Isn't this the argument name to a function to set the runtime not the
+tst_test member?
 
-...
-> +# Cleans up any setup done by calling cgroup_require.
-> +# USAGE: cgroup_cleanup
-> +# Can be safely called even when no setup has been done
-> +cgroup_cleanup()
-> +{
-> +	[ "$_cgroup_state" = "" ] && return 0
-> +
-> +	tst_cgctl cleanup "$_cgroup_state"
-> +
-> +	_cgroup_check_return "$?" "cgroup_cleanup: tst_cgctl cleanup exited"
-> +
-> +	_cgroup_state=""
-nit: can be just
-_cgroup_state=
+Probably they should be given the same name.
+
+>  	.needs_checkpoints = 1,
+>  	.tags = (const struct tst_tag[]) {
+>  		{"linux-git", "ecaaab564978"},
 
 
-Kind regards,
-Petr
+-- 
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
