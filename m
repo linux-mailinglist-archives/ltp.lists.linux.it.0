@@ -2,72 +2,74 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id B44F751FEFD
-	for <lists+linux-ltp@lfdr.de>; Mon,  9 May 2022 16:02:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DCD8951FEFF
+	for <lists+linux-ltp@lfdr.de>; Mon,  9 May 2022 16:03:35 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 525843CA947
-	for <lists+linux-ltp@lfdr.de>; Mon,  9 May 2022 16:02:37 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 7B4ED3CA95B
+	for <lists+linux-ltp@lfdr.de>; Mon,  9 May 2022 16:03:35 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 430CE3CA788
- for <ltp@lists.linux.it>; Mon,  9 May 2022 16:02:33 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id DA1CE3CA788
+ for <ltp@lists.linux.it>; Mon,  9 May 2022 16:03:31 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 3CDBA60068C
- for <ltp@lists.linux.it>; Mon,  9 May 2022 16:02:31 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id EBDE11400967
+ for <ltp@lists.linux.it>; Mon,  9 May 2022 16:03:30 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 928611FA23;
- Mon,  9 May 2022 14:02:31 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 41EEB21C1B;
+ Mon,  9 May 2022 14:03:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1652104951; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1652105010; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=XxRWK2oLMJHVhmIrUa3lPxeShEeePwAkjWAcCNV3WGs=;
- b=Fx1io6HlWK+LCf7edbj3Tc6wiFcRQ5yoEdUi1SB9rPIH3K8csQzSab6fpVBFHTAfuYhVjC
- h2f2VyvmXPclAuGWPtBqsKrOtsEPz8cSq2Wy5WFsagMg5ehn+R7NZa0Lbu+SfrqbD5sRz+
- o+P7keGj05MNU7nzkFgNxTKhX0qaHnI=
+ bh=0AdfJUyiEZ1ZwFJkDdojCyP13BIIKCHx7cuPEcdCJnI=;
+ b=GFGUUnkvWNsMY75T66U8jnp8iCcsqxQ4xqsheCv9GYak+d0vJArdMyxi10fGnfHqo9UWMX
+ LpDdSSG6SuZEIER6GKHtr6poXBTT4RMT09AOXCx76dIyS066xoPz1M0IVlncoVnGYnvvrF
+ zdGr9DHbPhD1YMaWIoMWck3y/Zhk2pQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1652104951;
+ s=susede2_ed25519; t=1652105010;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=XxRWK2oLMJHVhmIrUa3lPxeShEeePwAkjWAcCNV3WGs=;
- b=8iq68hRRtn9osxE/GJ3bxP4/CKMYB2YWbUNEkt0+i60g01Oq4TnTcbIsAiRctF7Yh3CmeG
- 77NsvRlAJooS6yAA==
+ bh=0AdfJUyiEZ1ZwFJkDdojCyP13BIIKCHx7cuPEcdCJnI=;
+ b=jIweB65GVlO5LvmEt3Z8qIWD+nMZHudakAJxh7tyIuKVrSBZqT3+L1lLwYP4WqesWCjFPs
+ 029CO27HJ7ZnqUDw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 73FD413AA5;
- Mon,  9 May 2022 14:02:31 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3101C13AA5;
+ Mon,  9 May 2022 14:03:30 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 9YSaG/ceeWJycgAAMHmgww
- (envelope-from <chrubis@suse.cz>); Mon, 09 May 2022 14:02:31 +0000
-Date: Mon, 9 May 2022 16:04:44 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id 0FXKCjIfeWIOcwAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Mon, 09 May 2022 14:03:30 +0000
+Date: Mon, 9 May 2022 16:05:43 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <YnkffBEnluZMDJ+s@yuki>
-References: <20220509094322.10959-1-pvorel@suse.cz>
+To: Martin Doucha <mdoucha@suse.cz>
+Message-ID: <Ynkftw55rbyVFXb0@yuki>
+References: <20220427125003.20815-1-pvorel@suse.cz>
+ <20220427125003.20815-5-pvorel@suse.cz> <YnU0XII0YSf0CUnb@yuki>
+ <d4552f0b-9f73-ec2b-0c81-3d86eeb36fc1@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20220509094322.10959-1-pvorel@suse.cz>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+In-Reply-To: <d4552f0b-9f73-ec2b-0c81-3d86eeb36fc1@suse.cz>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/1] if-mtu-change.sh: Fix using functions
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3 4/5] tst_test.sh: Cleanup getopts usage
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,16 +81,30 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Martin Doucha <martin.doucha@suse.com>, ltp@lists.linux.it
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-Looks good to me.
+> >> +. netns_helper.sh
+> >> +
+> >> +PROG=$1
+> >> +IP_VER=$2
+> >> +COM_TYPE=$3
+> > 
+> > Can't we just keep these at the top along with the rest of the
+> > variables? I do not see them redefined anywhere but maybe I miss
+> > something.
+> 
+> tst_test.sh has to process command line arguments before these variables
+> can be set. Otherwise you'd have to put all command line switches
+> *AFTER* the positional arguments.
 
-Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
+I did sleep on this and I guess that the cleanest solution for this is
+to pass the positional arguments to the test setup function instead.
+What do you think?
 
 -- 
 Cyril Hrubis
