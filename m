@@ -2,74 +2,67 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 724AB521B51
-	for <lists+linux-ltp@lfdr.de>; Tue, 10 May 2022 16:06:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B841752203D
+	for <lists+linux-ltp@lfdr.de>; Tue, 10 May 2022 17:55:11 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0E66A3CA969
-	for <lists+linux-ltp@lfdr.de>; Tue, 10 May 2022 16:06:53 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id F34EE3CA979
+	for <lists+linux-ltp@lfdr.de>; Tue, 10 May 2022 17:55:10 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 422A73CA508
- for <ltp@lists.linux.it>; Tue, 10 May 2022 16:06:43 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 04F753CA942
+ for <ltp@lists.linux.it>; Tue, 10 May 2022 17:54:43 +0200 (CEST)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 12B8E1A0068F
- for <ltp@lists.linux.it>; Tue, 10 May 2022 16:06:42 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 6C3B8600840
+ for <ltp@lists.linux.it>; Tue, 10 May 2022 17:54:42 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 46D5C219D8;
- Tue, 10 May 2022 14:06:42 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 867CA21BDC;
+ Tue, 10 May 2022 15:54:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1652191602; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=y2anrwzOlu/pDJDNp/mMVWk//tow+N3x486GqK0T3GQ=;
- b=dps+8eM0zbQNxRypTZ8ZTpjd2amBFO68g5z4cQoUPzLbaXORdK5tivYy/Mod0GXHv35HvM
- RWs80PEg1+bBvjIFVpvovE+kMslZaVMlvtEL4AxA7D7ZtYxyVnIt7sqtqSdjIhXswBU+h2
- QjNuwZ4BgGSHSrNXPgmufb7yDjv24N0=
+ t=1652198082; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=/2cV/n5wS2asqa+qRGX09A1/5WmYih0zkD3a15Lfi90=;
+ b=I0tMfC081xc96jGWm2crMQwXxrcLFvjlTjiIfhb7rIDBsFkGQcK1LYl9elTjJ5J2L3LS89
+ caB1fH3q702YB2pYqtO8q2eKC6Lw9WqKvwJFifb0MkACz5E70Ql77gp94urdDFRHBJPnBY
+ DDeTMiFGORynpj63olimrNZyWWjikBc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1652191602;
+ s=susede2_ed25519; t=1652198082;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=y2anrwzOlu/pDJDNp/mMVWk//tow+N3x486GqK0T3GQ=;
- b=B96NP7aHIBZ2+vPmWOxwN+3fw8mo3FWjLxBHRXIeEWm1tsXj6MQm92SRR3o9PNAnUvnDdD
- kRPp50THYzFP2mAQ==
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=/2cV/n5wS2asqa+qRGX09A1/5WmYih0zkD3a15Lfi90=;
+ b=H/OI9kEoxozQ/ckkmNOLG6dmnTVQnFgqmKZnRbozCB+c21uBMNvufxJ9N91QnzbFe2vX/Q
+ O7rLDdZxQASaJQCg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 327E513AA5;
- Tue, 10 May 2022 14:06:42 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5695113AA5;
+ Tue, 10 May 2022 15:54:42 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id eufoC3JxemJyPgAAMHmgww
- (envelope-from <chrubis@suse.cz>); Tue, 10 May 2022 14:06:42 +0000
-Date: Tue, 10 May 2022 16:08:54 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <Ynpx9suOjKrwggmy@yuki>
-References: <CAEemH2d-83ubH1LF3SotjvxwD_5C0BiLTTZ+yGtaYqv47n28AQ@mail.gmail.com>
- <20220508030524.2072035-1-liwang@redhat.com>
+ by imap2.suse-dmz.suse.de with ESMTPSA id p+ldE8KKemIScwAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Tue, 10 May 2022 15:54:42 +0000
+From: Petr Vorel <pvorel@suse.cz>
+To: ltp@lists.linux.it
+Date: Tue, 10 May 2022 17:54:34 +0200
+Message-Id: <20220510155438.15754-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.36.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20220508030524.2072035-1-liwang@redhat.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] rtc02: loosen the compare precision with few
- seconds
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 0/4] shell: Add $TST_MOUNT_DEVICE support
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,87 +74,34 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Eirik Fuller <efuller@redhat.com>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
->  static int rtc_tm_cmp(struct rtc_time *set_tm, struct rtc_time *read_tm)
->  {
-> -	return !((set_tm->tm_sec == read_tm->tm_sec)
-> -		&& (set_tm->tm_min == read_tm->tm_min)
-> -		&& (set_tm->tm_hour == read_tm->tm_hour)
-> -		&& (set_tm->tm_mday == read_tm->tm_mday)
-> +	long delta, seconds1, seconds2;
-> +
-> +	/*
-> +	 * Convert hour/min/sec into seconds to handle the normal
-> +	 * and special situations:
-> +	 * 1#
-> +	 *       set_tm:  2022-04-28 13:00:50
-> +	 *       read_tm: 2022-04-28 13:00:50
-> +	 * 2#
-> +	 *       set_tm:  2022-04-28 13:00:50
-> +	 *       read_tm: 2022-04-28 13:00:51
-> +	 * 3#
-> +	 *       set_tm:  2022-04-28 13:00:59
-> +	 *       read_tm: 2022-04-28 13:01:00
-> +	 * 4#
-> +	 *       set_tm:  2022-04-28 13:59:59
-> +	 *       read_tm: 2022-04-28 14:00:00
-> +	 *
-> +	 * Note: as we have avoided testing around the zero
-> +	 * clock, so it's impossible to hit situation 5#
-> +	 *       set_tm:  2022-04-28 23:59:59
-> +	 *       read_tm: 2022-04-29 00:00:00
-> +	 */
-> +	if (!(set_tm->tm_sec == read_tm->tm_sec)
-> +		|| !(set_tm->tm_min == read_tm->tm_min)
-> +		|| !(set_tm->tm_hour == read_tm->tm_hour)) {
-> +
-> +		seconds1 = (set_tm->tm_hour  * 3600) + (set_tm->tm_min  * 60) + set_tm->tm_sec;
-> +		seconds2 = (read_tm->tm_hour * 3600) + (read_tm->tm_min * 60) + read_tm->tm_sec;
-> +
-> +		delta = seconds2 - seconds1;
-> +
-> +		if (delta < 0 || delta > 3)
-> +			return 1;
-> +	}
-> +
-> +	return !((set_tm->tm_mday == read_tm->tm_mday)
->  		&& (set_tm->tm_mon == read_tm->tm_mon)
->  		&& (set_tm->tm_year == read_tm->tm_year));
->  }
+Hi,
 
-I would have done this a bit differently, first chek for day, mon, year
-then do the calculation as:
+this is a preparation for .all_filesystems equivalent for shell.
 
-	if (set_tm->tm_year != read_tm->tm_year)
-		return 1;
+changes v1->v2:
+rebased
 
-	if (set_tm->tm_mon != read_tm->tm_mon)
-		return 1;
+Petr Vorel (4):
+  tst_test.sh: Add $TST_MOUNT_DEVICE
+  df01.sh: Use TST_MOUNT_DEVICE=1
+  tst_test.sh: Improve pattern for allowed variables
+  shell: Add test for TST_MOUNT_DEVICE=1
 
-	if (set_tm->tm_mday != read_tm->tm_mday)
-		return 1;
-
-	seconds1 = ....
-	seconds2 = ....
-	delta = ...
-
-	if (delta < 0 || delta > 3)
-		return 1;
-
-	return 0;
-
-
-I find this a bit clearer to read.
+ doc/shell-test-api.txt                     |  2 ++
+ lib/newlib_tests/shell/tst_mount_device.sh | 21 +++++++++++++++++++++
+ testcases/commands/df/df01.sh              |  4 ++--
+ testcases/lib/tst_test.sh                  | 14 ++++++++++++--
+ 4 files changed, 37 insertions(+), 4 deletions(-)
+ create mode 100755 lib/newlib_tests/shell/tst_mount_device.sh
 
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+2.36.0
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
