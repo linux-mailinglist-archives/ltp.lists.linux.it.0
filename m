@@ -2,73 +2,81 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2E31520E21
-	for <lists+linux-ltp@lfdr.de>; Tue, 10 May 2022 08:51:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BEFD5520FC7
+	for <lists+linux-ltp@lfdr.de>; Tue, 10 May 2022 10:36:25 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 57BD63CA979
-	for <lists+linux-ltp@lfdr.de>; Tue, 10 May 2022 08:51:30 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 519D93CA94D
+	for <lists+linux-ltp@lfdr.de>; Tue, 10 May 2022 10:36:25 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E3FD03CA80D
- for <ltp@lists.linux.it>; Tue, 10 May 2022 08:51:14 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id 1D7BC3C1C59
+ for <ltp@lists.linux.it>; Tue, 10 May 2022 10:36:23 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 5B97C10008EC
- for <ltp@lists.linux.it>; Tue, 10 May 2022 08:51:14 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 0FB5F21C48;
- Tue, 10 May 2022 06:51:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1652165474; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id D43611A009A6
+ for <ltp@lists.linux.it>; Tue, 10 May 2022 10:36:21 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1652171780;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=j9ur3la4JojMO0jGleKzsD67RfJF6ctajiupaERmOTc=;
- b=q7L0zvn/KrBS0JZImdOSiLvWCMupkfyy3PxVAS2llHUfFZeCzBD5dh5GEN2hMucErgaf/S
- n0whTUqEbFyNoDk5plTL2iSb8MoJvuPZNy0S8LJPlJ8qrKR9HbVHPIn73hHNCH+HRKlRFS
- VlPy0qr0chFUo+58kyqsbztma32I4XQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1652165474;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=j9ur3la4JojMO0jGleKzsD67RfJF6ctajiupaERmOTc=;
- b=874rT4srttlDoW9soTzVGdXAvF2099eTk3c0MQlXchRZ+njtwI8Do5t4q54OS0YX/HFRMg
- MNRCXNSxUBM8zTCw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C9A6C13ACD;
- Tue, 10 May 2022 06:51:13 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id ePHtL2ELemIOZgAAMHmgww
- (envelope-from <pvorel@suse.cz>); Tue, 10 May 2022 06:51:13 +0000
-From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Tue, 10 May 2022 08:51:04 +0200
-Message-Id: <20220510065104.1199-4-pvorel@suse.cz>
-X-Mailer: git-send-email 2.36.0
-In-Reply-To: <20220510065104.1199-1-pvorel@suse.cz>
-References: <20220510065104.1199-1-pvorel@suse.cz>
+ bh=YhHQXLrvV2uRMNjxGQyaY/D+5IZjZ1A3zJzFLEI0ZMs=;
+ b=MtS0yXTe9FA/UuHKQF1R0fu4ZinMkryY11YRuE5G3/nBUyaG6ew722IPLzt1S2fNkm6Yb3
+ 5fvXeJopnJMdk9rs1adGeSZWZargEac7UzNhmE0Ca2IL6/M/ccdcXP72/utazPPXjMbFNQ
+ ytN8IxS/HIMTQYL545yowEKdNH7fuEU=
+Received: from mail-yb1-f199.google.com (mail-yb1-f199.google.com
+ [209.85.219.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-387-Uom6A_lWMR-99KWBysW5pQ-1; Tue, 10 May 2022 04:36:18 -0400
+X-MC-Unique: Uom6A_lWMR-99KWBysW5pQ-1
+Received: by mail-yb1-f199.google.com with SMTP id
+ d188-20020a25cdc5000000b00648429e5ab9so14280185ybf.13
+ for <ltp@lists.linux.it>; Tue, 10 May 2022 01:36:18 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=YhHQXLrvV2uRMNjxGQyaY/D+5IZjZ1A3zJzFLEI0ZMs=;
+ b=nUpylx1ZNzJ0/EXJ95+J5OnGhotQmNO/GPwu1DoV1rszPVHk80OL8urPei9HiTUgp2
+ wPB12eg6/mBw6PLgH6CFUouHcHkcaPBtlWzi8eIeXjUTFsDJ5iobJ3Tx7fiX0LoVEOAI
+ eK4hjqMtbSUPgwgVawiuLWRTyGuh53YlBoC3nIdK+9W7C99MTcPM6PsxFtvg6B/J0dh+
+ 7sHTmK7HLivVeJcsYB4VWKxpWVksF4kihUHcFMpSC58b4aEd5ykrpRGAVVu8AMbYFF7l
+ 3w3FODQw3+iTqPDdl17qQYICpezLicOjs/o6y4T/S/OGgTecKixsbH+Imy7tXro3i8xm
+ bz1Q==
+X-Gm-Message-State: AOAM533JeX5B+B8R0FakGjmy30N40yOfPTnOhp4KzUYse+ISMzfvXFn1
+ if7aP+Oh4/kcdVgxPh+Jo8clyKDrwnaStPjCNfZ+VMU/IprmBfEzuFkXRERRnE+IxUFgA7TdCls
+ JVCqf31xlwtgcHroljfmz+PlmTlo=
+X-Received: by 2002:a81:194d:0:b0:2f7:cb5d:eaa7 with SMTP id
+ 74-20020a81194d000000b002f7cb5deaa7mr18336653ywz.25.1652171778182; 
+ Tue, 10 May 2022 01:36:18 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJzv5UnLeXxfd+fEUlD9HWr0xcLjruEtO1osHEcDwhDlYIQTlb2clp/ENo10gLuiSm8LJqDln5H+VlnTgTA3ES8=
+X-Received: by 2002:a81:194d:0:b0:2f7:cb5d:eaa7 with SMTP id
+ 74-20020a81194d000000b002f7cb5deaa7mr18336637ywz.25.1652171777947; Tue, 10
+ May 2022 01:36:17 -0700 (PDT)
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+References: <YnkOEruIKIwEeC3M@yuki>
+In-Reply-To: <YnkOEruIKIwEeC3M@yuki>
+From: Li Wang <liwang@redhat.com>
+Date: Tue, 10 May 2022 16:36:06 +0800
+Message-ID: <CAEemH2cUXJ1BGL_yzN+Eakdo__knmrHajwLCmZo9+H4VxE+gNw@mail.gmail.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH v3 3/3] netns: Rename netns_helper.sh -> netns_lib.sh
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] LTP release preparations
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,53 +88,100 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Martin Doucha <martin.doucha@suse.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============1603463688=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-LTP shell libraries are called *_lib.sh.
+--===============1603463688==
+Content-Type: multipart/alternative; boundary="000000000000eed43805dea43779"
 
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
-New in v3
+--000000000000eed43805dea43779
+Content-Type: text/plain; charset="UTF-8"
 
- testcases/kernel/containers/netns/netns_breakns.sh              | 2 +-
- testcases/kernel/containers/netns/netns_comm.sh                 | 2 +-
- .../kernel/containers/netns/{netns_helper.sh => netns_lib.sh}   | 0
- 3 files changed, 2 insertions(+), 2 deletions(-)
- rename testcases/kernel/containers/netns/{netns_helper.sh => netns_lib.sh} (100%)
+On Mon, May 9, 2022 at 8:48 PM Cyril Hrubis <chrubis@suse.cz> wrote:
 
-diff --git a/testcases/kernel/containers/netns/netns_breakns.sh b/testcases/kernel/containers/netns/netns_breakns.sh
-index 0b2eb319c..a5cec0953 100755
---- a/testcases/kernel/containers/netns/netns_breakns.sh
-+++ b/testcases/kernel/containers/netns/netns_breakns.sh
-@@ -22,5 +22,5 @@ do_test()
- 	EXPECT_FAIL $NS_EXEC $NS_HANDLE0 $NS_TYPE ifconfig veth1 $IFCONF_IN6_ARG $IP1/$NETMASK
- }
- 
--. netns_helper.sh
-+. netns_lib.sh
- tst_run
-diff --git a/testcases/kernel/containers/netns/netns_comm.sh b/testcases/kernel/containers/netns/netns_comm.sh
-index 6570f386e..c7c2ae07a 100755
---- a/testcases/kernel/containers/netns/netns_comm.sh
-+++ b/testcases/kernel/containers/netns/netns_comm.sh
-@@ -34,5 +34,5 @@ do_test()
- 	EXPECT_PASS $NS_EXEC $NS_HANDLE0 $NS_TYPE $tping -q -c2 -I lo $ip_lo 1>/dev/null
- }
- 
--. netns_helper.sh
-+. netns_lib.sh
- tst_run
-diff --git a/testcases/kernel/containers/netns/netns_helper.sh b/testcases/kernel/containers/netns/netns_lib.sh
-similarity index 100%
-rename from testcases/kernel/containers/netns/netns_helper.sh
-rename to testcases/kernel/containers/netns/netns_lib.sh
+> Hi!
+> It's time to start working on pre-release preparations. As usually we
+> should start by considering patches that should be applied before we
+> freeze the git.
+>
+> As for me I would like to get the runtime patchset in if possible.
+>
+
++1, I will add my review ASAP.
+
+
+
+> What else should be considered for the release?
+>
+
+
+1628025 New          [v2] rtc02: loosen the compare precision with few
+seconds
+1625610 New          [1/2] lapi/mount.h: Remove <linux/mount.h>
+1625609 New          [2/2] Remove duplicate include of <sys/mount.h>
+
+also, I vote for adding expand Cgroup library from Luke's patchset, but
+if time is hurrying I'm fine without it as well.
+
+
+
 -- 
-2.36.0
+Regards,
+Li Wang
+
+--000000000000eed43805dea43779
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Mon, May 9, 2022 at 8:48 PM Cyril Hrubis &lt;<a =
+href=3D"mailto:chrubis@suse.cz" target=3D"_blank">chrubis@suse.cz</a>&gt; w=
+rote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0p=
+x 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Hi!<br>
+It&#39;s time to start working on pre-release preparations. As usually we<b=
+r>
+should start by considering patches that should be applied before we<br>
+freeze the git.<br>
+<br>
+As for me I would like to get the runtime patchset in if possible.<br></blo=
+ckquote><div><span class=3D"gmail_default" style=3D"font-size:small"><br></=
+span></div><div><span class=3D"gmail_default" style=3D"font-size:small">+1,=
+=C2=A0</span>I will add my=C2=A0review=C2=A0<span class=3D"gmail_default" s=
+tyle=3D"font-size:small">ASAP</span>.</div><div><span class=3D"gmail_defaul=
+t" style=3D"font-size:small"></span>=C2=A0</div><div><br></div><blockquote =
+class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px sol=
+id rgb(204,204,204);padding-left:1ex">
+<br>
+What else should be considered for the release?<br></blockquote><div><br></=
+div><div><br></div><div class=3D"gmail_default" style=3D"font-size:small">1=
+628025 New =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0[v2] rtc02: loosen the compare=
+ precision with few seconds</div></div><div class=3D"gmail_default" style=
+=3D"font-size:small">1625610 New =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0[1/2] la=
+pi/mount.h: Remove &lt;linux/mount.h&gt;</div>1625609 New =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0[2/2] Remove duplicate include of &lt;sys/mount.h&gt;<div>=
+<br><div class=3D"gmail_default" style=3D"font-size:small"></div>also, I vo=
+te for<span class=3D"gmail_default" style=3D"font-size:small"> adding expan=
+d Cgroup library from Luke&#39;s patchset, but</span></div><div><div class=
+=3D"gmail_default" style=3D"font-size:small">if time is hurrying I&#39;m fi=
+ne without it as well.</div><br><br clear=3D"all"><div><br></div>-- <br><di=
+v dir=3D"ltr"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div=
+></div></div></div></div>
+
+--000000000000eed43805dea43779--
+
+
+--===============1603463688==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============1603463688==--
+
