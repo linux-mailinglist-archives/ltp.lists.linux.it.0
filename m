@@ -1,75 +1,73 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AA7752171A
-	for <lists+linux-ltp@lfdr.de>; Tue, 10 May 2022 15:19:48 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 81209521A52
+	for <lists+linux-ltp@lfdr.de>; Tue, 10 May 2022 15:52:50 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4995F3CA96A
-	for <lists+linux-ltp@lfdr.de>; Tue, 10 May 2022 15:19:48 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 3774F3CA981
+	for <lists+linux-ltp@lfdr.de>; Tue, 10 May 2022 15:52:50 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id F1CCC3CA44E
- for <ltp@lists.linux.it>; Tue, 10 May 2022 15:19:44 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 229E63CA44E
+ for <ltp@lists.linux.it>; Tue, 10 May 2022 15:52:46 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 2DE1B600325
- for <ltp@lists.linux.it>; Tue, 10 May 2022 15:19:43 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 982882001CA
+ for <ltp@lists.linux.it>; Tue, 10 May 2022 15:52:45 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 6402A21BFE;
- Tue, 10 May 2022 13:19:43 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id B65991F8B5;
+ Tue, 10 May 2022 13:52:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1652188783; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1652190764; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=zVOCuqxkfz0fVKbyW+kEGtSy7ejSDYe3enmyE7WuPc0=;
- b=M1feliD/ga9ZCZ4WXMYfLdfzWqQOc4P3313AbU/KiLku4TqQ/gb8vf00OxR3xicO7EbxaN
- xuZ8WaNSh53h99M7M6uErYK4dIIouC7dcYgzd0oa1us3jTko7QxkoP4sl9nXSDTaKNjAQq
- uw6UE8Avz2h5o//4ex24LRgiI1RAH/g=
+ bh=0+ZezYm5Yql+8X1nKVfzh5SLhfreLHRurQDQfiY7x4I=;
+ b=0zQsS4BCdbBetx1o1V5+qh/ENNJ6HaWc03hFz+wQkjXLAk0VO3dmdLZcytXotsdBMtiVnd
+ mTy+q0AP1xX9aeNsDcYWjJmZ9Kz049cD2x0GSPAozRipWoO7+A8xaS29ET2wCplHYO5K/2
+ JGbzQzaaPzDryAFnVY6XtHlYYtU+rEM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1652188783;
+ s=susede2_ed25519; t=1652190764;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=zVOCuqxkfz0fVKbyW+kEGtSy7ejSDYe3enmyE7WuPc0=;
- b=A2jpQzWPIon72PmrksduSsQ74PptIiqXcSz6DKRcMm5tNKbmeE+q4Yx7snJnB2c1tCOkVw
- m31Wcq7qZtgmR+CQ==
+ bh=0+ZezYm5Yql+8X1nKVfzh5SLhfreLHRurQDQfiY7x4I=;
+ b=Cu65Skq6QeK3Gli7uAcHojUZtiprrZ/tiRap0P3zetgK6xZ7709R6jT/w50G6LxTEncvlc
+ gB8OtqpgzwrdCABA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5033613AC1;
- Tue, 10 May 2022 13:19:43 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A3C4A13AA5;
+ Tue, 10 May 2022 13:52:44 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id ufhBEm9memLnJAAAMHmgww
- (envelope-from <chrubis@suse.cz>); Tue, 10 May 2022 13:19:43 +0000
-Date: Tue, 10 May 2022 15:21:55 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id EAfQJixuemLrNgAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Tue, 10 May 2022 13:52:44 +0000
+Date: Tue, 10 May 2022 15:54:57 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <Ynpm8zmnkyi4rBik@yuki>
-References: <20220510065104.1199-1-pvorel@suse.cz>
- <20220510065104.1199-2-pvorel@suse.cz> <YnpXGnJyjjZhxuRN@yuki>
- <YnpjcH4i33YxyeFJ@pevik>
+To: Li Wang <liwang@redhat.com>
+Message-ID: <Ynpusft75BBrjsJ3@yuki>
+References: <YnkOEruIKIwEeC3M@yuki>
+ <CAEemH2cUXJ1BGL_yzN+Eakdo__knmrHajwLCmZo9+H4VxE+gNw@mail.gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <YnpjcH4i33YxyeFJ@pevik>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+In-Reply-To: <CAEemH2cUXJ1BGL_yzN+Eakdo__knmrHajwLCmZo9+H4VxE+gNw@mail.gmail.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3 1/3] tst_net.sh: Fix for disabled IPv6
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] LTP release preparations
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,40 +79,34 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Martin Doucha <martin.doucha@suse.com>, ltp@lists.linux.it
+Cc: LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> diff --git testcases/lib/tst_net.sh testcases/lib/tst_net.sh
-> index 29d80df89..48dd6e8eb 100644
-> --- testcases/lib/tst_net.sh
-> +++ testcases/lib/tst_net.sh
-> @@ -1008,7 +1008,7 @@ if [ -z "$_tst_net_parse_variables" ]; then
->         eval $(tst_net_ip_prefix $IPV4_LHOST || echo "exit $?")
->         eval $(tst_net_ip_prefix -r $IPV4_RHOST || echo "exit $?")
+> > As for me I would like to get the runtime patchset in if possible.
+> >
 > 
-> -       tst_net_detect_ipv6 rhost
-> +       [ "$TST_NET_IPV6_ENABLED" = 1 ] && tst_net_detect_ipv6 rhost
+> +1, I will add my review ASAP.
 
-That solves the case where lhost does not support ipv6 but rhost does,
-but there is still case where lhost does support it but rhost does not,
-to fix that we have to clear TST_NET_IPV6_ENABLED in the
-tst_net_detect_ipv6() as well.
+Thx.
 
-	if [ $ret -eq 0 ]; then
-		TST_NET_IPV6_ENABLED=1
-	else
-		TST_NET_IPV6_ENABLED=0
-		tst_res TINFO "IPv6 disabled on $type"
-	fi
-
->         if [ "$TST_NET_IPV6_ENABLED" = 1 ]; then
->                 eval $(tst_net_ip_prefix $IPV6_LHOST || echo "exit $?")
+> > What else should be considered for the release?
+> >
 > 
 > 
+> 1628025 New          [v2] rtc02: loosen the compare precision with few
+> seconds
+> 1625610 New          [1/2] lapi/mount.h: Remove <linux/mount.h>
+> 1625609 New          [2/2] Remove duplicate include of <sys/mount.h>
+> 
+> also, I vote for adding expand Cgroup library from Luke's patchset, but
+> if time is hurrying I'm fine without it as well.
+
+I would vote for getting the cgroup patchset in as well here, even if
+that would delay the release by a few days.
 
 -- 
 Cyril Hrubis
