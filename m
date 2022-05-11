@@ -1,74 +1,84 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9DFD52203B
-	for <lists+linux-ltp@lfdr.de>; Tue, 10 May 2022 17:54:56 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C0A0522939
+	for <lists+linux-ltp@lfdr.de>; Wed, 11 May 2022 03:54:39 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A31503CA97D
-	for <lists+linux-ltp@lfdr.de>; Tue, 10 May 2022 17:54:56 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 105963CA977
+	for <lists+linux-ltp@lfdr.de>; Wed, 11 May 2022 03:54:39 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E5BF03C9431
- for <ltp@lists.linux.it>; Tue, 10 May 2022 17:54:43 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id 95AD83CA963
+ for <ltp@lists.linux.it>; Wed, 11 May 2022 03:54:34 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 93CF4600797
- for <ltp@lists.linux.it>; Tue, 10 May 2022 17:54:43 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 511EC21BF6;
- Tue, 10 May 2022 15:54:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1652198083; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 6AE806008A7
+ for <ltp@lists.linux.it>; Wed, 11 May 2022 03:54:32 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1652234071;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=/rv8T588L55kGht1Tehnsay8Awe1CaIs1yEIAU3puu0=;
- b=cOWv6yEUiWtMysWztGUBLpKWhw0FWj3fjku6cGp0l+97LCT1JG4lXicXkMo+iHX/I4JKc6
- ytohis9SoZb8tQwgdlEvgGVH1PLNURfEGt4i0EL1ChrIH7YNczvw77TAm58bgIPIwpWO1z
- EOKburYjucE4E3iAWhIOEJuhmc4tZkc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1652198083;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=/rv8T588L55kGht1Tehnsay8Awe1CaIs1yEIAU3puu0=;
- b=nG9e3U1uSWmYHTEzPcjv7ZA2p2i0c7NiymS7VTsumdrW03sUQMQphFYo2+RbbVuqA1gkTn
- cw0mDMC5dAlbrGAA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2F83B13AA5;
- Tue, 10 May 2022 15:54:43 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id ABzpCcOKemIScwAAMHmgww
- (envelope-from <pvorel@suse.cz>); Tue, 10 May 2022 15:54:43 +0000
-From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Tue, 10 May 2022 17:54:38 +0200
-Message-Id: <20220510155438.15754-5-pvorel@suse.cz>
-X-Mailer: git-send-email 2.36.0
-In-Reply-To: <20220510155438.15754-1-pvorel@suse.cz>
-References: <20220510155438.15754-1-pvorel@suse.cz>
+ bh=4P3K/wHIuklDsfEZhI1cLqv7wpizTxJhbQ/yEtceeCQ=;
+ b=Xp66Yg2z3zU2q0YHb4QbjO3WFcc/VVDjp28zYEsegYveoF4Ajp6umSWcTZT3xOkob3FE+m
+ lL8dCpjXxTv3GrNmbrTRfwhpY/kFRBLKKewORyccXDt6Y7akjvehpQ5kFO4N95rBzYxQ25
+ +afmIkRVOOUBO3mKfRRxGNCusOZyNyQ=
+Received: from mail-yw1-f199.google.com (mail-yw1-f199.google.com
+ [209.85.128.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-157-9nP7PnpdNvKksmYscaxISA-1; Tue, 10 May 2022 21:54:30 -0400
+X-MC-Unique: 9nP7PnpdNvKksmYscaxISA-1
+Received: by mail-yw1-f199.google.com with SMTP id
+ 00721157ae682-2fb7cb07885so4797057b3.23
+ for <ltp@lists.linux.it>; Tue, 10 May 2022 18:54:30 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=4P3K/wHIuklDsfEZhI1cLqv7wpizTxJhbQ/yEtceeCQ=;
+ b=c84dddfbHQERi9wNxWxoV3N3axFEiK28lURJPWDm7oIsNEu9l1XUtwvRrXrJ+m/7O+
+ rLeN3SNOzt5ZH7FElGUXytGSrYBkpOQ8eGJLmSCyXgpm6ClbUJNLgzEbOXm/SaSlCEn2
+ PRZLxJ8izMJ24Z05U03fJNrMoJooMDqKzBlj1v07tjVfsr48bTyJDtIK5wt02O/2FQW3
+ RQTaGZWNkaSGaHrYbDPS8D3tuAkldbVR6NHZxLhXxDVyWv5Z+RWuVuvgw18aAkDjwsti
+ nk5JyMLJHFlU+dX4qXE4dLiqR0cu4kcmzSMh37ur5fHNMJA3Z6tFpEMQpca/BEVHiigl
+ L2Mw==
+X-Gm-Message-State: AOAM5332/xshXrxkDpcDuCRJbQs/9UvuH2nuc6NEaUYSSqOFN210h1Zx
+ qoxEp722VfUD8HErmhpS7hs7EYHcHmcvUEZ1CovKp1iSSdDG3Xs4FR8jCQYQ3tYVxUrQ6/JY5LL
+ xbl1ay7SuFfShMptSgo2LhyYWhXk=
+X-Received: by 2002:a25:59c4:0:b0:645:7d91:db7b with SMTP id
+ n187-20020a2559c4000000b006457d91db7bmr20398141ybb.273.1652234069668; 
+ Tue, 10 May 2022 18:54:29 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJzEfXziCQUjmcc0W8T+pa1ZVJzFiyJUd0Fmw8dBKdIebXiGbkqu3dU+LSC1E8U7NygU5JAaYlrDIVlcDQFi7UQ=
+X-Received: by 2002:a25:59c4:0:b0:645:7d91:db7b with SMTP id
+ n187-20020a2559c4000000b006457d91db7bmr20398128ybb.273.1652234069445; Tue, 10
+ May 2022 18:54:29 -0700 (PDT)
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+References: <CAEemH2d-83ubH1LF3SotjvxwD_5C0BiLTTZ+yGtaYqv47n28AQ@mail.gmail.com>
+ <20220508030524.2072035-1-liwang@redhat.com> <Ynpx9suOjKrwggmy@yuki>
+In-Reply-To: <Ynpx9suOjKrwggmy@yuki>
+From: Li Wang <liwang@redhat.com>
+Date: Wed, 11 May 2022 09:54:18 +0800
+Message-ID: <CAEemH2c0FmVXo2M3ovTRc_bkevEH=zSR9hiUg2w=OFngWN1yuw@mail.gmail.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 4/4] shell: Add test for TST_MOUNT_DEVICE=1
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] rtc02: loosen the compare precision with few
+ seconds
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,53 +90,135 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Eirik Fuller <efuller@redhat.com>, LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============1108535204=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Unfortunately GitHub Actions don't have loop devices, thus cannot be run
-in CI:
+--===============1108535204==
+Content-Type: multipart/alternative; boundary="000000000000cbaa5e05deb2b8a1"
 
-tst_format_device 1 TINFO: timeout per run is 0h 5m 0s
-/__w/ltp/ltp/lib/tst_device.c:139: TINFO: No free devices found
+--000000000000cbaa5e05deb2b8a1
+Content-Type: text/plain; charset="UTF-8"
 
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
- lib/newlib_tests/shell/tst_mount_device.sh | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
- create mode 100755 lib/newlib_tests/shell/tst_mount_device.sh
+Cyril Hrubis <chrubis@suse.cz> wrote:
 
-diff --git a/lib/newlib_tests/shell/tst_mount_device.sh b/lib/newlib_tests/shell/tst_mount_device.sh
-new file mode 100755
-index 000000000..a30f15bf6
---- /dev/null
-+++ b/lib/newlib_tests/shell/tst_mount_device.sh
-@@ -0,0 +1,21 @@
-+#!/bin/sh
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+# Copyright (c) 2022 Petr Vorel <pvorel@suse.cz>
-+
-+TST_MOUNT_DEVICE=1
-+TST_FS_TYPE=ext4
-+TST_TESTFUNC=test
-+TST_CNT=2
-+. tst_test.sh
-+
-+test1()
-+{
-+	tst_res TPASS "device formatted"
-+}
-+
-+test2()
-+{
-+	EXPECT_PASS "grep '$TST_MNTPOINT $TST_FS_TYPE' /proc/mounts"
-+}
-+
-+tst_run
+
+>
+> I would have done this a bit differently, first chek for day, mon, year
+> then do the calculation as:
+>
+>         if (set_tm->tm_year != read_tm->tm_year)
+>                 return 1;
+>
+>         if (set_tm->tm_mon != read_tm->tm_mon)
+>                 return 1;
+>
+>         if (set_tm->tm_mday != read_tm->tm_mday)
+>                 return 1;
+>
+>
+I slightly want to keep rtc_time comparison before converting
+into seconds here, because the time change rarely happens,
+we don't need to use seconds every time.
+
++       if ((set_tm->tm_sec != read_tm->tm_sec)
++               || (set_tm->tm_min != read_tm->tm_min)
++               || (set_tm->tm_hour != read_tm->tm_hour)) {
+
+
+>         seconds1 = ....
+>         seconds2 = ....
+>         delta = ...
+>
+>         if (delta < 0 || delta > 3)
+>                 return 1;
+>
+
++ }
+
+
+>
+>         return 0;
+>
+>
+> I find this a bit clearer to read.
+>
+
+Fair enough!
+
 -- 
-2.36.0
+Regards,
+Li Wang
+
+--000000000000cbaa5e05deb2b8a1
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small">Cyril Hrubis &lt;<a href=3D"mailto:chrubis@suse.cz" target=3D=
+"_blank">chrubis@suse.cz</a>&gt; wrote:<br></div></div><div class=3D"gmail_=
+quote"><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0=
+px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+<br>
+I would have done this a bit differently, first chek for day, mon, year<br>
+then do the calculation as:<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (set_tm-&gt;tm_year !=3D read_tm-&gt;tm_year=
+)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return 1;<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (set_tm-&gt;tm_mon !=3D read_tm-&gt;tm_mon)<=
+br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return 1;<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (set_tm-&gt;tm_mday !=3D read_tm-&gt;tm_mday=
+)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return 1;<br>
+<br></blockquote><div><br></div><div><div class=3D"gmail_default" style=3D"=
+font-size:small">I slightly=C2=A0want to keep rtc_time comparison before co=
+nverting</div><div class=3D"gmail_default" style=3D"font-size:small">into s=
+econds here, because the=C2=A0time change rarely happens,</div><div class=
+=3D"gmail_default" style=3D"font-size:small">we don&#39;t need to use=C2=A0=
+seconds every time.</div><div class=3D"gmail_default" style=3D"font-size:sm=
+all"><br></div>+ =C2=A0 =C2=A0 =C2=A0 if ((set_tm-&gt;tm_sec !=3D read_tm-&=
+gt;tm_sec)<br>+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 || (set_tm=
+-&gt;tm_min !=3D read_tm-&gt;tm_min)<br>+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 || (set_tm-&gt;tm_hour !=3D read_tm-&gt;tm_hour)) {<br><d=
+iv class=3D"gmail_default" style=3D"font-size:small"></div></div><div>=C2=
+=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8e=
+x;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 seconds1 =3D ....<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 seconds2 =3D ....<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 delta =3D ...<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (delta &lt; 0 || delta &gt; 3)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return 1;<br></bloc=
+kquote><div><br></div><div><div class=3D"gmail_default" style=3D"font-size:=
+small">+ }</div></div><div>=C2=A0</div><blockquote class=3D"gmail_quote" st=
+yle=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padd=
+ing-left:1ex">
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 return 0;<br>
+<br>
+<br>
+I find this a bit clearer to read.<br></blockquote><div><br></div><div clas=
+s=3D"gmail_default" style=3D"font-size:small">Fair enough!</div></div><div>=
+<br></div>-- <br><div dir=3D"ltr"><div dir=3D"ltr"><div>Regards,<br></div><=
+div>Li Wang<br></div></div></div></div>
+
+--000000000000cbaa5e05deb2b8a1--
+
+
+--===============1108535204==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============1108535204==--
+
