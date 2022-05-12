@@ -1,74 +1,75 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id BBC41524D06
-	for <lists+linux-ltp@lfdr.de>; Thu, 12 May 2022 14:36:31 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5ED1F524D0A
+	for <lists+linux-ltp@lfdr.de>; Thu, 12 May 2022 14:36:53 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 82AB13CA9C3
-	for <lists+linux-ltp@lfdr.de>; Thu, 12 May 2022 14:36:31 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 190623CA9D0
+	for <lists+linux-ltp@lfdr.de>; Thu, 12 May 2022 14:36:53 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 21D303C053F
+ by picard.linux.it (Postfix) with ESMTPS id 8520D3C70BF
  for <ltp@lists.linux.it>; Thu, 12 May 2022 14:36:05 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id A47451A010F3
- for <ltp@lists.linux.it>; Thu, 12 May 2022 14:36:04 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 25CFB1000A25
+ for <ltp@lists.linux.it>; Thu, 12 May 2022 14:36:05 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 52D161F460;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id CAA2021C82;
  Thu, 12 May 2022 12:36:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1652358964; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=JqBRt2iFXHkQ8EZ/Ae7BhSNTmNZVH/i2JwtWC/QldtI=;
- b=AV1+2WWPsx9EwbOjqcLf6zY4zgVEYCLg5tsAMxNquPFlLbA73JxecAgoSQJZV0apANbLwu
- uNWwFdXdmVO2aTqR8IsYunbOjS0nT9WN5WUeJy4XkclxpZYEnN1CIF+eckPETmT2ilHy3W
- qUrz6X8kVnOvH1WVTt6pkSnQ/0Fncqg=
+ bh=F6IutTJYH6iTilwV6wWLM9swwqBMKcgWI7LqPZ4JA1I=;
+ b=nMki40LNmG3FbZXBAhIk6DYJjDvoTVdaM+PasBPOHx44jYCIlZBwx6stAgCZO1AL0Dj5o5
+ kZeosOvtZ+cUGLXY98JpcmG7mDkm/NZPnXzfo452zoPA1Nd555ruG4teDEenXPl5DoAQ4o
+ Kw703wtx5MCEcbbQ3NaFlfW3DFMFOVQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1652358964;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=JqBRt2iFXHkQ8EZ/Ae7BhSNTmNZVH/i2JwtWC/QldtI=;
- b=1fxUJ3I5tcgpQEgAlXExg+TI2unHCB4/Xx3TEKeAUAIbgcSGgbGwzjxkNPD2BPUHsZYcCc
- aM+rTPren0tUM0DQ==
+ bh=F6IutTJYH6iTilwV6wWLM9swwqBMKcgWI7LqPZ4JA1I=;
+ b=jkIqCfYeQ/HTowtJgJZchc2F8oWpNunIwAFI51hu1b1yJptvj93hd/hti6q+E3kF0/itRV
+ 9JZ6pHnKdSzf1+Bg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3F35513ABE;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B787413ABE;
  Thu, 12 May 2022 12:36:04 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id DJctDjT/fGIQGgAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id xVqfKzT/fGITGgAAMHmgww
  (envelope-from <chrubis@suse.cz>); Thu, 12 May 2022 12:36:04 +0000
 From: Cyril Hrubis <chrubis@suse.cz>
 To: ltp@lists.linux.it
-Date: Thu, 12 May 2022 14:37:50 +0200
-Message-Id: <20220512123816.24399-4-chrubis@suse.cz>
+Date: Thu, 12 May 2022 14:37:51 +0200
+Message-Id: <20220512123816.24399-5-chrubis@suse.cz>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220512123816.24399-1-chrubis@suse.cz>
 References: <20220512123816.24399-1-chrubis@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH v3 03/29] mtest06/mmap3: Convert to runtime
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH v3 04/29] mtest01/mtest01: Convert to runtime
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,67 +89,68 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
 ---
- testcases/kernel/mem/mtest06/mmap3.c | 12 ++----------
- 1 file changed, 2 insertions(+), 10 deletions(-)
+ testcases/kernel/mem/mtest01/mtest01.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
 
-diff --git a/testcases/kernel/mem/mtest06/mmap3.c b/testcases/kernel/mem/mtest06/mmap3.c
-index 23609752f..6d47b01e7 100644
---- a/testcases/kernel/mem/mtest06/mmap3.c
-+++ b/testcases/kernel/mem/mtest06/mmap3.c
-@@ -23,11 +23,9 @@
- static char *str_loops;
- static char *str_threads;
- static char *map_private;
--static char *str_exec_time;
+diff --git a/testcases/kernel/mem/mtest01/mtest01.c b/testcases/kernel/mem/mtest01/mtest01.c
+index 20cb95191..fb991ce8b 100644
+--- a/testcases/kernel/mem/mtest01/mtest01.c
++++ b/testcases/kernel/mem/mtest01/mtest01.c
+@@ -41,8 +41,6 @@
+ #define ALLOC_THRESHOLD		(6*FIVE_HUNDRED_MB)
+ #endif
  
- static int loops = 1000;
- static int threads = 40;
--static float exec_time = 24;
- 
- static volatile int sig_caught;
- static int threads_running;
-@@ -109,7 +107,7 @@ static void test_mmap(void)
- 	long i;
- 	pthread_t thids[threads];
- 
--	alarm(exec_time * 3600);
-+	alarm(tst_remaining_runtime());
- 
- 	while (!sig_caught) {
- 		for (i = 0; i < threads; i++) {
-@@ -138,11 +136,6 @@ static void setup(void)
- 	if (tst_parse_int(str_threads, &threads, 1, INT_MAX))
- 		tst_brk(TBROK, "Invalid number of threads '%s'", str_threads);
- 
--	if (tst_parse_float(str_exec_time, &exec_time, 0.0005, 9000))
--		tst_brk(TBROK, "Invalid execution time '%s'", str_exec_time);
+-#define STOP_THRESHOLD 15	/* seconds remaining before reaching timeout */
 -
--	tst_set_timeout(exec_time * 3600 + 300);
--
- 	SAFE_SIGNAL(SIGALRM, sig_handler);
- 	SAFE_SIGNAL(SIGBUS, sig_handler);
- 	SAFE_SIGNAL(SIGSEGV, sig_handler);
-@@ -155,7 +148,6 @@ static void setup(void)
- 	tst_res(TINFO, "Number of loops %i", loops);
- 	tst_res(TINFO, "Number of threads %i", threads);
- 	tst_res(TINFO, "MAP_PRIVATE = %i", map_private ? 1 : 0);
--	tst_res(TINFO, "Execution time %fH", exec_time);
- }
+ static pid_t *pid_list;
+ static sig_atomic_t children_done;
+ static int max_pids;
+@@ -137,6 +135,7 @@ static void child_loop_alloc(unsigned long long alloc_bytes)
+ {
+ 	unsigned long bytecount = 0;
+ 	char *mem;
++	int runtime_rem;
  
- static void cleanup(void)
-@@ -184,11 +176,11 @@ static struct tst_test test = {
- 		{"l:", &str_loops, "Number of map-write-unmap loops"},
- 		{"n:", &str_threads, "Number of worker threads"},
- 		{"p", &map_private, "Turns on MAP_PRIVATE (default MAP_SHARED)"},
--		{"x:", &str_exec_time, "float Execution time in hours (default 24H)"},
+ 	tst_res(TINFO, "... child %d starting", getpid());
+ 
+@@ -153,12 +152,15 @@ static void child_loop_alloc(unsigned long long alloc_bytes)
+ 		if (bytecount >= alloc_bytes)
+ 			break;
+ 	}
++
++	runtime_rem = tst_remaining_runtime();
++
+ 	if (dowrite)
+ 		tst_res(TINFO, "... [t=%d] %lu bytes allocated and used in child %d",
+-				tst_timeout_remaining(), bytecount, getpid());
++				runtime_rem, bytecount, getpid());
+ 	else
+ 		tst_res(TINFO, "... [t=%d] %lu bytes allocated only in child %d",
+-				tst_timeout_remaining(), bytecount, getpid());
++				runtime_rem, bytecount, getpid());
+ 
+ 	kill(getppid(), SIGRTMIN);
+ 	raise(SIGSTOP);
+@@ -195,10 +197,9 @@ static void mem_test(void)
+ 
+ 	/* wait in the loop for all children finish allocating */
+ 	while (children_done < pid_cntr) {
+-		if (tst_timeout_remaining() < STOP_THRESHOLD) {
++		if (!tst_remaining_runtime()) {
+ 			tst_res(TWARN,
+ 				"the remaininig time is not enough for testing");
+-
+ 			break;
+ 		}
+ 
+@@ -234,6 +235,7 @@ static struct tst_test test = {
+ 		{"v",  &verbose,     	"Verbose"},
  		{}
  	},
- 	.needs_tmpdir = 1,
++	.max_runtime = 300,
  	.setup = setup,
  	.cleanup = cleanup,
- 	.test_all = test_mmap,
-+	.max_runtime = 86400,
- };
+ 	.test_all = mem_test,
 -- 
 2.35.1
 
