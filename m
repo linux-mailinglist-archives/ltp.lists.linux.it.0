@@ -1,72 +1,66 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1956D523B13
-	for <lists+linux-ltp@lfdr.de>; Wed, 11 May 2022 19:03:16 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id CD703524220
+	for <lists+linux-ltp@lfdr.de>; Thu, 12 May 2022 03:38:49 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id CC4963CA99B
-	for <lists+linux-ltp@lfdr.de>; Wed, 11 May 2022 19:03:15 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 187273CA9B1
+	for <lists+linux-ltp@lfdr.de>; Thu, 12 May 2022 03:38:49 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 851BC3CA863
- for <ltp@lists.linux.it>; Wed, 11 May 2022 19:03:14 +0200 (CEST)
-Received: from mail-yw1-x112f.google.com (mail-yw1-x112f.google.com
- [IPv6:2607:f8b0:4864:20::112f])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id 1F8C83CA9C9
+ for <ltp@lists.linux.it>; Thu, 12 May 2022 03:38:42 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 74E311A0048F
- for <ltp@lists.linux.it>; Wed, 11 May 2022 19:03:13 +0200 (CEST)
-Received: by mail-yw1-x112f.google.com with SMTP id
- 00721157ae682-2ebf4b91212so28453537b3.8
- for <ltp@lists.linux.it>; Wed, 11 May 2022 10:03:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:from:date:message-id:subject:to:cc;
- bh=IpFPdO/uhoos0ytjMYOded4nPoWVZB+GddWGBdrYbMs=;
- b=DftVrELHUbG6fAglpJBSkYraK/JxtyLTYij8BRwZtbKjUIRS9rXC3CRLLTATNg0yT6
- /BV+kAxtxbvLKnrVBCq0rp4iVtB/4xhip7cMbKBqncF40dKtWBU/O75l6+6mtUQuc9Jf
- 7OqdNr68dN+aTIx2kNYySQZF4SNazr9zk17XEMjMRw6dwpWf8ZA09XtvmjNzAv1U0y1d
- GEKn6XWp/zxkLAVu5hg1NlJ4KHcUSYtjiCCzmG5lBNHBzItUWlQVzKhpeEGOwAitnl8d
- uP2bBRoM5MySUSBzHeW1tUa+DBONyCkjwtBe+nX1wiLYnPvzR87oYgJ7gr9jdyn54zaf
- II6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
- bh=IpFPdO/uhoos0ytjMYOded4nPoWVZB+GddWGBdrYbMs=;
- b=IC1gwIK6J2u/npJUPui9bFbeMHjpSb0dmy8WKUQ7jmIsjWhW92t1kn+4/dou7Nl8Sy
- CTSZNn03rwSpexRlp+RewhDHZaST6V1ksQRq020Ybt2QIwPAhjKDlMJszX0Plf1iHmU1
- sKxggvz6gaQfwUnpYoJ/ETeogK8YX9tWBSQIe/uwbpBGT3cbcDEcotkIA7UQ7xEFPqIj
- P/Chc1BlwjPOknOOnIK1u3/m3NMkzg1ayIU2lKfsz0df+IhnHr8d0JdK/CDffBiBp0+O
- fqYb6QdFndbBozaRYZUaRpSx+PgcyrrEVtCRUgSwoU1MQhtJP5umKFRevQKFZIBNNbp5
- jvyg==
-X-Gm-Message-State: AOAM530Hf1E71d8+xQmg4lJxRZhXOB0Q9USTOn4/HxQcwd6sabACPk07
- roP7dA90kTmWezuRWtIJ461y+FQgmZKb/KhmdPvlVg==
-X-Google-Smtp-Source: ABdhPJwPNDG2qz9xm6hazjQfNV88Bgu3tDJb25KA7U+2Gg82o7sTH39Xql9UQcRPBTAYCAQHCh1Bu4zryk5beAVHzQY=
-X-Received: by 2002:a0d:d88c:0:b0:2f7:bb41:1bd0 with SMTP id
- a134-20020a0dd88c000000b002f7bb411bd0mr25670953ywe.199.1652288592004; Wed, 11
- May 2022 10:03:12 -0700 (PDT)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 791631400E1C
+ for <ltp@lists.linux.it>; Thu, 12 May 2022 03:38:41 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1652319520;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=xBEK/eujM2j6sku00fG5CpKRZFDMmP70WOz/CF0cDSk=;
+ b=RWbA7XSJZdn10braU1erXKQ+pe1MtToNPfAAJ7ap8td6DTc7tqYOY4j3OQQKMZxmOOqFZ0
+ tJsgbbvbAEBhy3A+dcTGovRpxt2ZZW1tIWo+V7nvhC3sYS1XghccvDMbJrzmP6O0bpMgOt
+ n6Y5CzHBFqN7ddbxL7n71K0QQZ8VomQ=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-317-haNmi_WWPdGxqoxJwgI-Sg-1; Wed, 11 May 2022 21:38:31 -0400
+X-MC-Unique: haNmi_WWPdGxqoxJwgI-Sg-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1702F811E84;
+ Thu, 12 May 2022 01:38:31 +0000 (UTC)
+Received: from mail (unknown [10.22.8.118])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id DE978150592B;
+ Thu, 12 May 2022 01:38:30 +0000 (UTC)
+From: Andrea Arcangeli <aarcange@redhat.com>
+To: ltp@lists.linux.it
+Date: Wed, 11 May 2022 21:38:29 -0400
+Message-Id: <20220512013830.8534-1-aarcange@redhat.com>
 MIME-Version: 1.0
-From: Naresh Kamboju <naresh.kamboju@linaro.org>
-Date: Wed, 11 May 2022 22:33:00 +0530
-Message-ID: <CA+G9fYtKJ_a2rLSvxsYFrkUjNHpGeTn_xsL8kyz=-pBoeA+eXA@mail.gmail.com>
-To: open list <linux-kernel@vger.kernel.org>, 
- Linux-Next Mailing List <linux-next@vger.kernel.org>,
- linux-mm <linux-mm@kvack.org>, 
- lkft-triage@lists.linaro.org, LTP List <ltp@lists.linux.it>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=aarcange@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [next] mm: overcommit_memory: failed - TFAIL: alloc passed,
- expected to fail
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH 0/1] ksm: fix occasional page_volatile false positives
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,67 +72,30 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Stephen Rothwell <sfr@canb.auug.org.au>, Michal Hocko <mhocko@suse.com>,
- Arnd Bergmann <arnd@arndb.de>, Ganesan Rajagopal <rganesan@arista.com>,
- Roman Gushchin <roman.gushchin@linux.dev>, Peter Xu <peterx@redhat.com>,
- Shakeel Butt <shakeelb@google.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Andrew Morton <akpm@linux-foundation.org>
+Cc: Eirik Fuller <efuller@redhat.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Following LTP test regressions were noticed on Linux next-20220511 tag on
-all the devices.
+Hello everyone,
 
-Reported-by: Linux Kernel Functional Testing <lkft@linaro.org>
+Some LTP KSM tests (ksm0[2-4]) occasionally reported some
+page_volatile elevated failure that turned out to be a false positive
+from LTP.
 
-Regressions found on x86 and arm64.
+This proposed fix has been verified by running the tests in a loop
+like this: "while ./ksm02; do : ; done".
 
-   ltp-mm-tests/overcommit_memory04
-   ltp-mm-tests/overcommit_memory06
-   ltp-mm-tests/overcommit_memory03
-   ltp-mm-tests/min_free_kbytes
-   ltp-mm-tests/overcommit_memory01
-   ltp-mm-tests/oom01
-   ltp-mm-tests/overcommit_memory05
+Thanks,
+Andrea
 
+Andrea Arcangeli (1):
+  ksm: fix occasional page_volatile false positives
 
-mem.c:154: TFAIL: victim signalled: (9) SIGKILL
-overcommit_memory.c:203: TFAIL: alloc passed, expected to fail
-overcommit_memory.c:176: TINFO: malloc 7102100 kB successfully
-overcommit_memory.c:203: TFAIL: alloc passed, expected to fail
-overcommit_memory.c:176: TINFO: malloc 3523530 kB successfully
+ testcases/kernel/mem/lib/mem.c | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-overcommit_memory.c:203: TFAIL: alloc passed, expected to fail
-overcommit_memory.c:176: TINFO: malloc 8456472 kB successfully
-overcommit_memory.c:203: TFAIL: alloc passed, expected to fail
-overcommit_memory.c:176: TINFO: malloc 4283276 kB successfully
-overcommit_memory.c:203: TFAIL: alloc passed, expected to fail
-overcommit_memory.c:176: TINFO: malloc 2114118 kB successfully
-
-
-metadata:
-  git_ref: master
-  git_repo: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
-  git_sha: 6107040c99d5dfc920721c198d45ed2d639b113a
-  git_describe: next-20220511
-  kernel_version: 5.18.0-rc6
-  kernel-config: https://builds.tuxbuild.com/291BWBU964yoppGqYfnVF8AJMg4/config
-  build-url: https://gitlab.com/Linaro/lkft/mirrors/next/linux-next/-/pipelines/536448964
-  artifact-location: https://builds.tuxbuild.com/291BWBU964yoppGqYfnVF8AJMg4
-  toolchain: gcc-11
-
-
-Full test log on x86:
-https://qa-reports.linaro.org/lkft/linux-next-master/build/next-20220511/testrun/9438084/suite/ltp-mm-tests/test/overcommit_memory01/log
-https://lkft.validation.linaro.org/scheduler/job/5012581#L10525
-
-
---
-Linaro LKFT
-https://lkft.linaro.org
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
