@@ -1,12 +1,12 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 083B95255B8
-	for <lists+linux-ltp@lfdr.de>; Thu, 12 May 2022 21:30:27 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4097D5255FC
+	for <lists+linux-ltp@lfdr.de>; Thu, 12 May 2022 21:46:23 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B82CF3CA9C5
-	for <lists+linux-ltp@lfdr.de>; Thu, 12 May 2022 21:30:26 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B64E73CA9B9
+	for <lists+linux-ltp@lfdr.de>; Thu, 12 May 2022 21:46:21 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
@@ -14,70 +14,56 @@ Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id B8FAE3CA8CA
- for <ltp@lists.linux.it>; Thu, 12 May 2022 21:30:25 +0200 (CEST)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 1A42D3C8CC3
+ for <ltp@lists.linux.it>; Thu, 12 May 2022 21:46:05 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id C9EFC1000489
- for <ltp@lists.linux.it>; Thu, 12 May 2022 21:30:24 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1652383823;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=peTLt77iCcMOXFi17DqDjqCPh6WC85vXuXPGeWiNqiI=;
- b=LGY00w2f2P6rEjFDWpzWOjEhSX59/0ohCsav+bLjq5zu+CoG4Ud0FmJ9t94rBVus2HoKEk
- vAoDGj1UuTsU66E3m/K9BXIExG4Jx2uG5TVXZKrbA3Xw/AJDyLyhQ75palQmkyQAgK6ZBL
- wMrJpRcL5ZPHdhsNHdqBLV8eliGsn8M=
-Received: from mail-lf1-f69.google.com (mail-lf1-f69.google.com
- [209.85.167.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-20-wZiPsgDXNdm38SNL1oMUEg-1; Thu, 12 May 2022 15:30:22 -0400
-X-MC-Unique: wZiPsgDXNdm38SNL1oMUEg-1
-Received: by mail-lf1-f69.google.com with SMTP id
- d16-20020a0565123d1000b004758e4b991dso808027lfv.12
- for <ltp@lists.linux.it>; Thu, 12 May 2022 12:30:21 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=peTLt77iCcMOXFi17DqDjqCPh6WC85vXuXPGeWiNqiI=;
- b=ysu9GOInikdF4VXVFfdI/uV7Y01OhENNmONFT98vYoenmiYhHyE9IOr2uHnO4USlWs
- 8biZaBzon8xCmu7QrB1fSSxdcdNbkw+cLkgNGB1lAWL+VUzsvX7XQ8eRUIj2SzdT0iML
- 0Y1PS9EnGxYqbFGLxrxlrzxOXwzdWyP9VsCaizfUzPncOV81O3pS05NeWegdU53nsS9p
- ZhzgHHzPfh7mLQJQM10lODkhVEO4ELvfYUy/FqD5+Bksyrz37qighN6b/QQYLtTAv58C
- EDUMjf6dz/VWaw+UDspr6ZvjH3yhBXDk45VWgr8AbnuCKy5dpvdvToo9R2Y76Rptndb7
- FjiQ==
-X-Gm-Message-State: AOAM533o+2YZbhS/Ba+8SdzHV4Kvql+shhU8BhOJZ2Y0I45EI2Kf8e9L
- G/Lfg1wTyCEv75ymiLWPME4r3jArij06oBf0nTfxJHEcM9KtXYti/SH/tLgKiCKVk2vCrmYmMrY
- Lruw67tMQlmfqXOGiJHchK5M3ufc=
-X-Received: by 2002:a19:c512:0:b0:472:1c9b:546a with SMTP id
- w18-20020a19c512000000b004721c9b546amr939970lfe.110.1652383820724; 
- Thu, 12 May 2022 12:30:20 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJwWM1QcWEqqXwMaBwytUdoqEO241nPs8/kwntePHgwQQVtbnx4LsU8s+/BHVhlbr1oI88ZvFiobH9hmLvC07mc=
-X-Received: by 2002:a19:c512:0:b0:472:1c9b:546a with SMTP id
- w18-20020a19c512000000b004721c9b546amr939961lfe.110.1652383820559; Thu, 12
- May 2022 12:30:20 -0700 (PDT)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 3316510000C6
+ for <ltp@lists.linux.it>; Thu, 12 May 2022 21:46:04 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id BDA501F8F8;
+ Thu, 12 May 2022 19:46:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1652384763; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=myawdEglr+7fIMhHUEww5MnyznaZlwkZQ4QO/08x8lk=;
+ b=ewDMIuAs2Fno5cTQ3xGxJFMA1MNKsS3yhtmGSbmkm07Rt3fGzInv7GTBKrpzkszrkPH8SX
+ B675ZSiZW9y1OTH6RxwFlV+1q8Pnoj1Um19s4jaBRf7+FRtNLlBI54F244797K1w7CZ7zF
+ dAIJW8sm0g8qghLJU4aQytdFudW/jSQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1652384763;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=myawdEglr+7fIMhHUEww5MnyznaZlwkZQ4QO/08x8lk=;
+ b=n1gIoQVWkgSYYdOaVrefKeMcFr8hbvHciztsF3xkwdRnNzi/TwcwPYj44Kb1hC/X3VoJD2
+ ppXs+jdN8M8Nx1Dw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1A9FE13ABE;
+ Thu, 12 May 2022 19:46:03 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id Dl6YBPtjfWIkVwAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Thu, 12 May 2022 19:46:03 +0000
+From: Petr Vorel <pvorel@suse.cz>
+To: ltp@lists.linux.it
+Date: Thu, 12 May 2022 21:45:49 +0200
+Message-Id: <20220512194557.30911-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.36.0
 MIME-Version: 1.0
-References: <20220512131002.26093-1-chrubis@suse.cz>
-In-Reply-To: <20220512131002.26093-1-chrubis@suse.cz>
-From: Jan Stancek <jstancek@redhat.com>
-Date: Thu, 12 May 2022 21:30:01 +0200
-Message-ID: <CAASaF6wSrroB1gcXgztHmntaRaW=bQTA2abua+O4qsO5UJ2ZHw@mail.gmail.com>
-To: Cyril Hrubis <chrubis@suse.cz>
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=jstancek@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
 X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] waitid10: raise SIGFPE directly
+Subject: [LTP] [PATCH 0/8] shell: $TST_ALL_FILESYSTEMS (.all_filesystems)
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,25 +75,51 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>
+Cc: Martin Doucha <martin.doucha@suse.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Thu, May 12, 2022 at 3:08 PM Cyril Hrubis <chrubis@suse.cz> wrote:
->
-> The SIGFPE for division by zero is actually not send for quite a few
-> architectures (ARM for instance) and even on x86 and x86_64 we need to
-> work around compiler to make it generate code that actually triggers the
-> condition.
->
-> So this patch fixes the test in the simplest way possible. the child
-> just directly raises SIGFPE instead.
->
-> Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
+Hi,
 
-Acked-by: Jan Stancek <jstancek@redhat.com>
+.all_filesystems implementation for shell.
+Motivation is to add .all_filesystems for shell NFS tests.
+Now added to nfs07.sh (fast test).
+
+It required to export tst_clear_device() for shell via tst_clear_device.c.
+TODO: doc
+NOTE: df01.sh and mkfs01.sh should probably be converted to use it.
+
+Kind regards,
+Petr
+
+Petr Vorel (8):
+  tst_test.sh: Add $TST_MOUNT_DEVICE
+  df01.sh: Use TST_MOUNT_DEVICE=1
+  tst_test.sh: Improve pattern for allowed variables
+  shell: Add test for TST_MOUNT_DEVICE=1
+  shell: Add tst_clear_device
+  tst_test.sh: Add $TST_ALL_FILESYSTEMS
+  shell: Add test for TST_ALL_FILESYSTEMS=1
+  nfs07.sh: Use TST_ALL_FILESYSTEMS=1
+
+ doc/shell-test-api.txt                        |   3 +
+ lib/newlib_tests/shell/tst_all_filesystems.sh |  27 +++++
+ lib/newlib_tests/shell/tst_mount_device.sh    |  21 ++++
+ testcases/commands/df/df01.sh                 |   5 +-
+ testcases/lib/.gitignore                      |   1 +
+ testcases/lib/Makefile                        |   2 +-
+ testcases/lib/tst_clear_device.c              |  47 ++++++++
+ testcases/lib/tst_test.sh                     | 104 ++++++++++++------
+ testcases/network/nfs/nfs_stress/nfs07.sh     |   2 +
+ 9 files changed, 176 insertions(+), 36 deletions(-)
+ create mode 100755 lib/newlib_tests/shell/tst_all_filesystems.sh
+ create mode 100755 lib/newlib_tests/shell/tst_mount_device.sh
+ create mode 100644 testcases/lib/tst_clear_device.c
+
+-- 
+2.36.0
 
 
 -- 
