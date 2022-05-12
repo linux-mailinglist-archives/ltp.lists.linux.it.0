@@ -2,69 +2,75 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 795B852421F
-	for <lists+linux-ltp@lfdr.de>; Thu, 12 May 2022 03:38:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0F7E524BF0
+	for <lists+linux-ltp@lfdr.de>; Thu, 12 May 2022 13:43:56 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3B82C3CA9A7
-	for <lists+linux-ltp@lfdr.de>; Thu, 12 May 2022 03:38:38 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 631B73CA9BF
+	for <lists+linux-ltp@lfdr.de>; Thu, 12 May 2022 13:43:56 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 6F01F3CA988
- for <ltp@lists.linux.it>; Thu, 12 May 2022 03:38:35 +0200 (CEST)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id D8D0B3C8CC3
+ for <ltp@lists.linux.it>; Thu, 12 May 2022 13:43:54 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id C1424600ACB
- for <ltp@lists.linux.it>; Thu, 12 May 2022 03:38:34 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1652319513;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id ED1B61000484
+ for <ltp@lists.linux.it>; Thu, 12 May 2022 13:43:53 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id DC9141F88F
+ for <ltp@lists.linux.it>; Thu, 12 May 2022 11:43:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1652355832;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=yDDabYY8a+Q5tBeqZKXMCQQBzWv/QKrca15NTrr/LYI=;
- b=bM5kQsa6DnycW366vdupXoAf+ua7Op4KQHIFEvdO3aKewCed0s8C/qa832MgkYFWD9o7/8
- ji89BOws0mbC2clgzhT4AhcSzvT6M8bVEdVtC3xlCPtplrkf8iYLlS/9qiGeFKOIY4gM4z
- Le2s2GMqr6xWWz7husRywnJWB4Vea/w=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-93-lQiHM-V2NY-IJfMIt3ddLg-1; Wed, 11 May 2022 21:38:31 -0400
-X-MC-Unique: lQiHM-V2NY-IJfMIt3ddLg-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ bh=fNa/64PsNmZ7Edbc3sLEV6Bi26OKqG2SwBedhVf3WJE=;
+ b=O8c8Ogo9uct3Sn4EO918m9UZ3JZ5Hp9VwJPEVEICoALOfTrvEsjJ18a/Q9CEveZwzzsj7h
+ u9VMasoiekjOIkydIlOIU2cjJK8RfhE7fSN56ZrkDcArR3AAl1+IiUBg4c9DJHzop+MUs5
+ 2UWaKZKrE84hOfCGkRKNUqa8bviFZEU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1652355832;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=fNa/64PsNmZ7Edbc3sLEV6Bi26OKqG2SwBedhVf3WJE=;
+ b=HWV7QLPGCSbe7KWCipd+B4CU7VczOXOFlkCRipXJsQV0acGb/aCULx9xXAiwEL/+iDrYlc
+ LjzYN/cwEYu77XAw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8A3AE100BAAC;
- Thu, 12 May 2022 01:38:31 +0000 (UTC)
-Received: from mail (unknown [10.22.8.118])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id DE8BAC28122;
- Thu, 12 May 2022 01:38:30 +0000 (UTC)
-From: Andrea Arcangeli <aarcange@redhat.com>
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B665113A84
+ for <ltp@lists.linux.it>; Thu, 12 May 2022 11:43:52 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 3z1/KfjyfGJOewAAMHmgww
+ (envelope-from <pvorel@suse.cz>)
+ for <ltp@lists.linux.it>; Thu, 12 May 2022 11:43:52 +0000
+Date: Thu, 12 May 2022 13:43:50 +0200
+From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Wed, 11 May 2022 21:38:30 -0400
-Message-Id: <20220512013830.8534-2-aarcange@redhat.com>
-In-Reply-To: <20220512013830.8534-1-aarcange@redhat.com>
-References: <20220512013830.8534-1-aarcange@redhat.com>
+Message-ID: <Ynzy9inZ9vsKA4sB@pevik>
+References: <20220510155438.15754-1-pvorel@suse.cz>
+ <20220510155438.15754-5-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=aarcange@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20220510155438.15754-5-pvorel@suse.cz>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH 1/1] ksm: fix occasional page_volatile false positives
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 4/4] shell: Add test for TST_MOUNT_DEVICE=1
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,72 +82,39 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Eirik Fuller <efuller@redhat.com>
+Reply-To: Petr Vorel <pvorel@suse.cz>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-The KSM scan keeps running while checking the KSM status in sysfs, but
-during the KSM scan the the rmap_items in the stale unstable tree of
-the old pass are removed from it and are later reinserted in the new
-unstable tree of the current pass, leading to some page_volatile
-false positives.
+Hi all,
 
-The fix is stop the KSM scan temporarily while the KSM status is being
-read from sysfs.
+> +++ b/lib/newlib_tests/shell/tst_mount_device.sh
+...
+> +TST_MOUNT_DEVICE=1
+> +TST_FS_TYPE=ext4
+> +TST_TESTFUNC=test
+> +TST_CNT=2
+> +. tst_test.sh
+Obviously loading should be later.
+> +
+> +test1()
+> +{
+> +	tst_res TPASS "device formatted"
+> +}
+> +
+> +test2()
+> +{
+> +	EXPECT_PASS "grep '$TST_MNTPOINT $TST_FS_TYPE' /proc/mounts"
+> +}
+> +
+Here.
+I'll fix it before merge (if it's the only change requested).
+> +tst_run
 
-For reference here's an instance of the fixed false positives:
-
-mem.c:255: TFAIL: pages_volatile is not 0 but 1.
-mem.c:255: TFAIL: pages_unshared is not 1 but 0.
-
-Reported-by: Eirik Fuller <efuller@redhat.com>
-Co-developed-by: Li Wang <liwan@redhat.com>
-Tested-by: Li Wang <liwan@redhat.com>
-Tested-by: Eirik Fuller <efuller@redhat.com>
-Signed-off-by: Andrea Arcangeli <aarcange@redhat.com>
----
- testcases/kernel/mem/lib/mem.c | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
-
-diff --git a/testcases/kernel/mem/lib/mem.c b/testcases/kernel/mem/lib/mem.c
-index 090569ebb..8ddd7adf7 100644
---- a/testcases/kernel/mem/lib/mem.c
-+++ b/testcases/kernel/mem/lib/mem.c
-@@ -261,14 +261,31 @@ static void final_group_check(int run, int pages_shared, int pages_sharing,
- 			  int pages_volatile, int pages_unshared,
- 			  int sleep_millisecs, int pages_to_scan)
- {
-+	int ksm_run_orig;
-+
- 	tst_res(TINFO, "check!");
- 	check("run", run);
-+
-+	/*
-+	 * Temporarily stop the KSM scan during the checks: during the
-+	 * KSM scan the rmap_items in the stale unstable tree of the
-+	 * old pass are removed from it and are later reinserted in
-+	 * the new unstable tree of the current pass. So if the checks
-+	 * run in the race window between removal and re-insertion, it
-+	 * can lead to unexpected false positives where page_volatile
-+	 * is elevated and page_unshared is recessed.
-+	 */
-+	SAFE_FILE_SCANF(PATH_KSM "run", "%d", &ksm_run_orig);
-+	SAFE_FILE_PRINTF(PATH_KSM "run", "0");
-+
- 	check("pages_shared", pages_shared);
- 	check("pages_sharing", pages_sharing);
- 	check("pages_volatile", pages_volatile);
- 	check("pages_unshared", pages_unshared);
- 	check("sleep_millisecs", sleep_millisecs);
- 	check("pages_to_scan", pages_to_scan);
-+
-+	SAFE_FILE_PRINTF(PATH_KSM "run", "%d", ksm_run_orig);
- }
- 
- void ksm_group_check(int run, int pages_shared, int pages_sharing,
-
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
