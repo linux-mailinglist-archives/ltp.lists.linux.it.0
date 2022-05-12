@@ -2,73 +2,74 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id C45C0524D1E
-	for <lists+linux-ltp@lfdr.de>; Thu, 12 May 2022 14:38:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36D94524D20
+	for <lists+linux-ltp@lfdr.de>; Thu, 12 May 2022 14:39:03 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E2E7C3CA9DE
-	for <lists+linux-ltp@lfdr.de>; Thu, 12 May 2022 14:38:51 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id D1D3A3CA9E2
+	for <lists+linux-ltp@lfdr.de>; Thu, 12 May 2022 14:39:02 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 5CDC43CA9DD
+ by picard.linux.it (Postfix) with ESMTPS id B20CE3CA9DD
  for <ltp@lists.linux.it>; Thu, 12 May 2022 14:36:11 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id F35FE1000A25
- for <ltp@lists.linux.it>; Thu, 12 May 2022 14:36:10 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 606401A010F0
+ for <ltp@lists.linux.it>; Thu, 12 May 2022 14:36:11 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 831FE1F460;
- Thu, 12 May 2022 12:36:10 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 1BF1521C70;
+ Thu, 12 May 2022 12:36:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1652358970; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1652358971; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=0I5KJ2ihHqCd/8vJAbL6VkOrnUpl9Qw8ty22c4pPOeY=;
- b=TM9azcpa2nfrPK8gO79bh2TvNuuSm8qxCywgvw/7rIK7axj5N1pmIb3sRIwu4Nxo9ENbmW
- zNUOuFKzd2MDBreMe3tdAZKq39O0JCNftUOvvDfFocbF2Qlx5TvNUqht7mUEvuoV8ZarM6
- Z9eRjoY8yv9KUco7xu57BsXKthUfnes=
+ bh=5Omw6uawwADSiWS/mYHtnWUzfXj0yP4/zmNjjySZ2sw=;
+ b=oDmEZazKtIG97kzYhPAbf3hl1k68BLEJvj2uPqzenJZZUj1hPw7X7K6toXKbcEev+2hAzH
+ tdEizpQw3e35yK4oYUGWjEnkBRg+juu+K7ll2/7Q82r86ESLBAspAgGo7XtLzwgz8byALy
+ CL1Ypn5XhJuv9YWZMl9E+Ra03ZbJbgE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1652358970;
+ s=susede2_ed25519; t=1652358971;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=0I5KJ2ihHqCd/8vJAbL6VkOrnUpl9Qw8ty22c4pPOeY=;
- b=kUAmr0Z7P5I19S3uYWyH70lwA1cE5NveGSyxrIJp/mmlp+22UXS/+YMHKks60L904w7wyP
- qEwwa9Q+u5A59lCA==
+ bh=5Omw6uawwADSiWS/mYHtnWUzfXj0yP4/zmNjjySZ2sw=;
+ b=sGBgAidzE5Vz8jaTCgJEKvDdAiIoBdiNzccRew5igELgSOmHGUDLwNPuVh1ImFrBN4Sscw
+ ZeAt3DKKU8nDZ6AA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 700A413ABE;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id EDAD013ABE;
  Thu, 12 May 2022 12:36:10 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id IvZ2GTr/fGJBGgAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id uZ0JOTr/fGJDGgAAMHmgww
  (envelope-from <chrubis@suse.cz>); Thu, 12 May 2022 12:36:10 +0000
 From: Cyril Hrubis <chrubis@suse.cz>
 To: ltp@lists.linux.it
-Date: Thu, 12 May 2022 14:38:02 +0200
-Message-Id: <20220512123816.24399-16-chrubis@suse.cz>
+Date: Thu, 12 May 2022 14:38:03 +0200
+Message-Id: <20220512123816.24399-17-chrubis@suse.cz>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220512123816.24399-1-chrubis@suse.cz>
 References: <20220512123816.24399-1-chrubis@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH v3 15/29] syscalls/tgkill03: Remove now unused timeout
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH v3 16/29] syscalls/setsockopt09: Remove now useless
+ timeout
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,19 +89,21 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
 ---
- testcases/kernel/syscalls/tgkill/tgkill03.c | 1 -
+ testcases/kernel/syscalls/setsockopt/setsockopt09.c | 1 -
  1 file changed, 1 deletion(-)
 
-diff --git a/testcases/kernel/syscalls/tgkill/tgkill03.c b/testcases/kernel/syscalls/tgkill/tgkill03.c
-index 0002f3278..e46e95f73 100644
---- a/testcases/kernel/syscalls/tgkill/tgkill03.c
-+++ b/testcases/kernel/syscalls/tgkill/tgkill03.c
-@@ -117,5 +117,4 @@ static struct tst_test test = {
+diff --git a/testcases/kernel/syscalls/setsockopt/setsockopt09.c b/testcases/kernel/syscalls/setsockopt/setsockopt09.c
+index 3047ec0ff..98f7fd00e 100644
+--- a/testcases/kernel/syscalls/setsockopt/setsockopt09.c
++++ b/testcases/kernel/syscalls/setsockopt/setsockopt09.c
+@@ -117,7 +117,6 @@ static struct tst_test test = {
+ 	.test_all = run,
  	.setup = setup,
  	.cleanup = cleanup,
- 	.test = run,
--	.timeout = 20,
- };
+-	.timeout = 5,
+ 	.taint_check = TST_TAINT_W | TST_TAINT_D,
+ 	.needs_kconfigs = (const char *[]) {
+ 		"CONFIG_USER_NS=y",
 -- 
 2.35.1
 
