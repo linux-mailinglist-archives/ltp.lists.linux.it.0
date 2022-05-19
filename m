@@ -1,80 +1,69 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id CEF0152D1ED
-	for <lists+linux-ltp@lfdr.de>; Thu, 19 May 2022 13:59:37 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 082B452D21C
+	for <lists+linux-ltp@lfdr.de>; Thu, 19 May 2022 14:11:10 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6120A3CAACF
-	for <lists+linux-ltp@lfdr.de>; Thu, 19 May 2022 13:59:28 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A289D3CAAD0
+	for <lists+linux-ltp@lfdr.de>; Thu, 19 May 2022 14:10:59 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E50F83C0894
- for <ltp@lists.linux.it>; Thu, 19 May 2022 13:59:26 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id A6C2F3CA62E
+ for <ltp@lists.linux.it>; Thu, 19 May 2022 14:10:57 +0200 (CEST)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 6FD992000D3
- for <ltp@lists.linux.it>; Thu, 19 May 2022 13:59:25 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 3A9A91A011DF
+ for <ltp@lists.linux.it>; Thu, 19 May 2022 14:10:56 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 9953D21B7C;
- Thu, 19 May 2022 11:59:25 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 9338A21B63
+ for <ltp@lists.linux.it>; Thu, 19 May 2022 12:10:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1652961565; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=7rgYwYQ1Y7YS41Fnzs+nwjuRNENh6355jWyYC9TorDM=;
- b=WVSHp6Z4qBI8BSNRedYQOgdoLUVUEgIiy8i7pn5q5AO0lF/647f7B44lBTAjshuoReFUF9
- /An4fyGfkNUBPn+1J6dEEOJc9Ryql4pf+1MZOSyWWKtSTlwG2AERvNyrLUvMqDVXtm37Cv
- feFnGB5+38i4Zw5lx/ifEUzGMW6Kur4=
+ t=1652962256; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=qzNZQgN0Dwf9UXxmZDWFHCenheYWjugBR0QZje76o10=;
+ b=kbq7rqKD80yCko/yI1db6vNHDoXbmzEg1QVH3df1QKupjPHu9k5rHkrJgjMHKQ05Bq/kBS
+ nhbywACA31MKpXxhs7oSY7n9fWyhNCd15X3mzA1SAOBLwFxRAXg65ao00YuEo/38QS/K5S
+ 61mEr+k+GFphhC4H5EFch2GRkAKsUXs=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1652961565;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=7rgYwYQ1Y7YS41Fnzs+nwjuRNENh6355jWyYC9TorDM=;
- b=a2TjQhUGWSFqktlBeZ9Cbh0Pf/HCYHJvy734f8rinljdfslODrKvXok58VEpm3zxH1/DR4
- 95PPyS8FOX5a22DQ==
+ s=susede2_ed25519; t=1652962256;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=qzNZQgN0Dwf9UXxmZDWFHCenheYWjugBR0QZje76o10=;
+ b=pKS0eQGt5ziEV+eij8kG5+DCAqVDpKmj4Vn9axnu6DRL8gRu1DX5zCfIOD06tRE2c62THM
+ gXK4ssQUyqWCg0Aw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 81D5B13456;
- Thu, 19 May 2022 11:59:25 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 827A913456
+ for <ltp@lists.linux.it>; Thu, 19 May 2022 12:10:56 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id Pe/VHR0xhmL4eAAAMHmgww
- (envelope-from <chrubis@suse.cz>); Thu, 19 May 2022 11:59:25 +0000
-Date: Thu, 19 May 2022 14:01:37 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <YoYxoXe5lIwuvZbP@yuki>
-References: <CAEemH2fHsa+JECK5dW64-coQBwdGR3W9W+jKex8zRmKzfLX1=w@mail.gmail.com>
- <Yn5prUjpZEUjoxbL@yuki> <875ym5di8f.fsf@suse.de>
- <YoN/W4wbow2fyOut@yuki>
- <CAEemH2cazgjqj4C1nuqPcRCC0dZoxwi-yiJymRgJxr0woXXFWw@mail.gmail.com>
- <CAEemH2dYwMczBhFj28yc9xDu0VBg50orjeQBK2s13-8BspK=WQ@mail.gmail.com>
- <YoYIVaJJDzryYNeg@yuki>
- <CAEemH2c50gr-G91_4nbdaDkCeGivCg3OQcYN4O0HTzyP2nf_jw@mail.gmail.com>
- <YoYbm487vwfD8Wne@yuki>
- <CAEemH2cRhznzW+mVZwSeWk_p9REvwd76t0H2mwJBQS_M7jn4CA@mail.gmail.com>
+ by imap2.suse-dmz.suse.de with ESMTPSA id jN78HtAzhmKhfgAAMHmgww
+ (envelope-from <mdoucha@suse.cz>)
+ for <ltp@lists.linux.it>; Thu, 19 May 2022 12:10:56 +0000
+From: Martin Doucha <mdoucha@suse.cz>
+To: ltp@lists.linux.it
+Date: Thu, 19 May 2022 14:10:55 +0200
+Message-Id: <20220519121056.1181-1-mdoucha@suse.cz>
+X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAEemH2cRhznzW+mVZwSeWk_p9REvwd76t0H2mwJBQS_M7jn4CA@mail.gmail.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3 22/29] fuzzy_sync: Convert to runtime
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/2] pty07: Resize console to the same size as before
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,25 +75,67 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: LTP List <ltp@lists.linux.it>, automated-testing@lists.yoctoproject.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> No need. You can push with this new patch adding,
-> then I will kick start release testing for the whole LTP
-> from our side.
+Resizing console to 1x1 breaks some QA automation systems. Keep the original
+console dimensions throughout the test.
 
-Great, please do so.
+Signed-off-by: Martin Doucha <mdoucha@suse.cz>
+---
+ testcases/kernel/pty/pty07.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-Andrea is going to send small fix to the aiodio tests that should be
-merged as well, otherwise these may fail rarely.
-
+diff --git a/testcases/kernel/pty/pty07.c b/testcases/kernel/pty/pty07.c
+index c63b71c89..ae600b692 100644
+--- a/testcases/kernel/pty/pty07.c
++++ b/testcases/kernel/pty/pty07.c
+@@ -40,6 +40,7 @@ static int test_tty_port = 8;
+ static int fd = -1;
+ static struct tst_fzsync_pair fzp;
+ 
++static struct vt_consize consize;
+ static unsigned short vt_active;
+ 
+ static void *open_close(void *unused)
+@@ -60,13 +61,12 @@ static void *open_close(void *unused)
+ 
+ static void do_test(void)
+ {
+-	struct vt_consize sz = { 0x1, 0x1, 0x1, 0x1, 0x1, 0x1 };
+ 
+ 	tst_fzsync_pair_reset(&fzp, open_close);
+ 
+ 	while (tst_fzsync_run_a(&fzp)) {
+ 		tst_fzsync_start_race_a(&fzp);
+-		ioctl(fd, VT_RESIZEX, &sz);
++		ioctl(fd, VT_RESIZEX, &consize);
+ 		tst_fzsync_end_race_a(&fzp);
+ 		if (tst_taint_check()) {
+ 			tst_res(TFAIL, "Kernel is buggy");
+@@ -79,6 +79,7 @@ static void do_test(void)
+ static void setup(void)
+ {
+ 	struct vt_stat stat;
++	struct winsize wsize;
+ 
+ 	sprintf(tty_path, "/dev/tty%d", test_tty_port);
+ 	if (access(tty_path, F_OK))
+@@ -90,6 +91,9 @@ static void setup(void)
+ 
+ 	tst_res(TINFO, "Saving active console %i", vt_active);
+ 
++	SAFE_IOCTL(fd, TIOCGWINSZ, &wsize);
++	consize.v_rows = wsize.ws_row;
++	consize.v_cols = wsize.ws_col;
+ 	tst_fzsync_pair_init(&fzp);
+ }
+ 
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+2.36.0
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
