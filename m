@@ -1,78 +1,68 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 005C2534DAA
-	for <lists+linux-ltp@lfdr.de>; Thu, 26 May 2022 13:01:49 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 758CE530E8E
+	for <lists+linux-ltp@lfdr.de>; Mon, 23 May 2022 13:14:52 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 8377D3C12D4
-	for <lists+linux-ltp@lfdr.de>; Thu, 26 May 2022 13:01:49 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C5D303CABDF
+	for <lists+linux-ltp@lfdr.de>; Mon, 23 May 2022 13:14:51 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 004A43C0895
- for <ltp@lists.linux.it>; Sat, 21 May 2022 15:28:02 +0200 (CEST)
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [IPv6:2a00:1450:4864:20::531])
+ by picard.linux.it (Postfix) with ESMTPS id 493B73C001D
+ for <ltp@lists.linux.it>; Mon, 23 May 2022 13:14:49 +0200 (CEST)
+Received: from mail-qt1-x82e.google.com (mail-qt1-x82e.google.com
+ [IPv6:2607:f8b0:4864:20::82e])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 3EEEF1A006ED
- for <ltp@lists.linux.it>; Sat, 21 May 2022 15:28:02 +0200 (CEST)
-Received: by mail-ed1-x531.google.com with SMTP id i40so13718428eda.7
- for <ltp@lists.linux.it>; Sat, 21 May 2022 06:28:02 -0700 (PDT)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 6FEBC600281
+ for <ltp@lists.linux.it>; Mon, 23 May 2022 13:14:49 +0200 (CEST)
+Received: by mail-qt1-x82e.google.com with SMTP id g3so12255101qtb.7
+ for <ltp@lists.linux.it>; Mon, 23 May 2022 04:14:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=LHdEu4ZU995J7e7P8vZlHXvL8OmJCeK71/sGJQrVuPo=;
- b=YGzXm2ja70dmMogsNVgf04DjY5GuwS27UFL6sthf/CfjXsgLzziwSmyQBz1W8hep8q
- WMTHTsuRC9virxBC2cGqTX1MGkGSOJgVoVpxFJ9pfs2WaHJt9o75HxMoTYnke0DGVCz1
- oG3gwJGAr0e4cgWeQRV5rkiv4lyltN+cIbznvA7ZtXC3XAxLvMLiM3ybexoFm4mePr5G
- 052MfnWJCDnTPq9ucEaWx5LuX2X5Ao8P/C7rr3dEhqYCBsCjgZYHyu/jwFFzouXvP2F2
- zI9sDy2vliTTyOIrVTLFZF7pk26kedney1JjSe49gVn1Snpu2p2ikdKsVZhPrNHgRpiG
- 5QmA==
+ h=mime-version:from:date:message-id:subject:to;
+ bh=ovM2IRDxyIFUmN5v6jZTkt7URejpITumS5NFMWXIjrM=;
+ b=dgjYvB4gxOhNZ+5B+XKDQBfLy5nSXsZQPoxqmTrAUIH7hD3VAYdzjjAWnWcYc8dTqo
+ 5j1a6nb1MBFkdqQrHG6T40W5KTXoJJNHo5fzaTgHW/ZpHsx+5CcpyK6mRGJZK2WLVDLH
+ y35ihoeAqKGQPnNAQDhauQ7lyz8PNTwafrmAqRi/bqCC5/piKp/2s+DzAld7VhyAlyA3
+ n+Sovz8uNbjnHRnWo0ZQNpmILU4gJb5jmPTc2+BUG3yoRkVugO5NBQuPt6ZOchMU+QCd
+ rWpElxOm4JErZSvhzEPXVihR+J0hwQazj699iL4eAbnpi0rFYxTnbJ1SHQMIX9ZNGglb
+ tbQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=LHdEu4ZU995J7e7P8vZlHXvL8OmJCeK71/sGJQrVuPo=;
- b=iB3XEke17eTzCtyMjaGoSmStKmHz0wyzPm1Q/UA3SvNZM+uy62wzOkmb6diiC1PbVl
- bcU7/TvFaJ3b/W7Ozp2PSPMk6ZD32BjYN8B3sSj2L5qPEV2tLyF7Dt50RX3ut8rKc7l0
- DgFJV0yycsiu08CGIIQrCZsevHLMaxoWGRGCJSsi+zRkjs3VHEHnEFflobmb+8DJnajM
- m+HyP0HoucdbLIAhMkzuofF0I6o19JWiw/cW1DR6oMMnfnHVRY1JTcfs6kCZt6zefn2r
- GAB90IlDui04kn4b6dBroebCRpXFL454jmyuNpcZ9Cr2A0jQNfozTy+ThwG5vQIOjc2X
- NfBA==
-X-Gm-Message-State: AOAM530JJFZgT4cvLwNz0gwxEOY+p94Y77tewjn4ATAX2pQen4gzMszN
- fNkwpiUSBbBfoTLsxb3DYOQ=
-X-Google-Smtp-Source: ABdhPJy3Yeg5Vy95815YTkSc6+BwO2tHNUyCBmBoUx7DISsQoCkJs2+QWRaPfyNDq7v+lFCaUuHOqA==
-X-Received: by 2002:a05:6402:10cc:b0:428:90ee:2572 with SMTP id
- p12-20020a05640210cc00b0042890ee2572mr15723314edu.103.1653139681753; 
- Sat, 21 May 2022 06:28:01 -0700 (PDT)
-Received: from mail (239.125-180-91.adsl-dyn.isp.belgacom.be. [91.180.125.239])
- by smtp.gmail.com with ESMTPSA id
- qz24-20020a170907681800b006fea43db5c1sm2039709ejc.21.2022.05.21.06.28.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 21 May 2022 06:28:01 -0700 (PDT)
-Date: Sat, 21 May 2022 15:28:00 +0200
-From: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To: Richard Palethorpe <rpalethorpe@suse.com>
-Message-ID: <20220521132800.52xlazjqktxz27b5@mail>
-References: <20220321112119.23308-1-rpalethorpe@suse.com>
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=ovM2IRDxyIFUmN5v6jZTkt7URejpITumS5NFMWXIjrM=;
+ b=WSP+GeOgc+ISrrjo60ImaHHTeDU/07qN5gYVuU1XrVcmlYG2o/nkn+swFBLlYTtMSe
+ sXeajfR4YrroqvN59QSgcGf8Zhf60p+Sd0A1f9YR8VKqRZMF5nwrszlDIjUDfpTe1YkT
+ VXCeTKFcnH0kii1/FIrwe+0EEm4JX999zP7xHkSOlFRhfA3aXgapJn7Mb6WNR1iW6oRF
+ 5DirS3gThxoXciWc+W14MyUdDTZcMSXsMCJ8TCmYqEMOnvXp44SXTLD3rwUCkanvm92J
+ AlzFCqkOKfwxUCHtpOafgQxY9ELTBZQs5OsBHlvH0Dy52wRnSNErveAp4gATiTKh6KtQ
+ Gv2g==
+X-Gm-Message-State: AOAM5325jTeqBrletZd2ZyEy8EVEt5fx7A8JzbZCKtBw148wiI152kq6
+ f3uaMhd24/2H8PtpIM05puEh/QSF92N3VFv+BuE32hd6k5S9cw==
+X-Google-Smtp-Source: ABdhPJywd6XFqYXZPc0RO814IX+uspptHbTZXczwRJvlS6TW9XP4tbdNlfUJqlOppSOlgwLaUbFq8usfJtdwOmoDWWU=
+X-Received: by 2002:a05:622a:6082:b0:2f1:1f9c:251e with SMTP id
+ hf2-20020a05622a608200b002f11f9c251emr15838202qtb.230.1653304487989; Mon, 23
+ May 2022 04:14:47 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20220321112119.23308-1-rpalethorpe@suse.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+From: samir mulani <samirmulani93@gmail.com>
+Date: Mon, 23 May 2022 16:44:37 +0530
+Message-ID: <CADqa+6zANC_gug=VZtsobF+CBuVyBO1umoEpx+9GCwUNK3iM1A@mail.gmail.com>
+To: ltp@lists.linux.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-X-Mailman-Approved-At: Thu, 26 May 2022 13:01:46 +0200
-Subject: Re: [LTP] [PATCH] sparse: Use offsetof macro to silence null ptr
- subtraction warning
+X-Spam-Status: No, score=0.3 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
+ HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: [LTP] LTP network test case failed.
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,19 +74,114 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: linux-sparse@vger.kernel.org, ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============1236710336=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Mon, Mar 21, 2022 at 11:21:19AM +0000, Richard Palethorpe wrote:
-> Subtracting (char *)0 is undefined behavior. Newer compilers warn
-> about this unless it is done in system headers.
+--===============1236710336==
+Content-Type: multipart/alternative; boundary="000000000000b655e005dfabf20e"
 
-Thanks you, pushed now.
+--000000000000b655e005dfabf20e
+Content-Type: text/plain; charset="UTF-8"
 
--- Luc 
+Hi Team,
+
+The following network-related test cases are failing. Could anyone help me
+to understand why they are failing?
+*Platform*: SUSE
+command used: Under /opt/ltp
+-> ./runltp -f net.features
+
+sctp01                                             FAIL       1
+Error: sctp01 2 TFAIL: performance result is -342% < threshold -200%
+sctp01_ipv6                                        FAIL       1
+Error: sctp01 1 TFAIL: performance result is -1887% < threshold -200%
+Error: sctp01 2 TFAIL: performance result is -347% < threshold -200%
+macsec01                                           FAIL       1
+macsec01 1 TFAIL: performance result is -309% < threshold -100%
+macsec01 1 TFAIL: performance result is -315% < threshold -100%
+macsec01 1 TFAIL: performance result is -298% < threshold -100%
+macsec01 1 TFAIL: performance result is -309% < threshold -100%
+macsec01 1 TFAIL: performance result is -288% < threshold -100%
+macsec01 1 TFAIL: performance result is -301% < threshold -100%
+
+ Following is a common observation for all three test cases:
+
+macsec01 2 TINFO: AppArmor enabled, this may affect test results
+macsec01 2 TINFO: it can be disabled with TST_DISABLE_APPARMOR=1 (requires
+super/root)
+macsec01 2 TINFO: loaded AppArmor profiles: none
+
+Is it correct that to pass the above three test cases, AppArmor needs to be
+disabled?
+There are a few error logs observed in AppArmor logs when the above three
+test cases are run,
+/org/opensuse/Network/Interface/252.getManagedObjects failed. Server
+responds:
+May 23 06:42:31 localhost wickedd-nanny[824]:
+org.freedesktop.DBus.Error.UnknownMethod: Method "GetManagedObjects" with
+signature "" on interface "org.freedesktop.DBus.ObjectManager" doesn't exist
+
+
+Thanks,
+Samir M.
+
+--000000000000b655e005dfabf20e
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi Team,<div><br></div><div>The following network-related =
+test cases are failing. Could anyone help me to understand why they are fai=
+ling?</div><div><b>Platform</b>: SUSE</div><div>command used: Under=C2=A0/o=
+pt/ltp </div><div>-&gt;=C2=A0./runltp -f net.features</div><div><br></div><=
+div>sctp01 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 FAIL =C2=A0 =C2=A0 =C2=A0 1=C2=A0 =C2=A0=C2=A0</div><div>=
+<span style=3D"background-color:rgb(255,0,0)">Error: sctp01 2 TFAIL: perfor=
+mance result is -342% &lt; threshold -200%</span><br>sctp01_ipv6 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0FAIL =C2=A0 =C2=A0 =
+=C2=A0 1=C2=A0=C2=A0</div><div><span style=3D"background-color:rgb(255,0,0)=
+">Error: sctp01 1 TFAIL: performance result is -1887% &lt; threshold -200%<=
+br></span></div><div><span style=3D"background-color:rgb(255,0,0)">Error: s=
+ctp01 2 TFAIL: performance result is -347% &lt; threshold -200%</span><br><=
+/div><div>macsec01 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 FAIL =C2=A0 =C2=A0 =C2=A0 1=C2=A0 =C2=A0=C2=A0</div><div>=
+<span style=3D"background-color:rgb(255,0,0)">macsec01 1 TFAIL: performance=
+ result is -309% &lt; threshold -100%<br>macsec01 1 TFAIL: performance resu=
+lt is -315% &lt; threshold -100%<br></span></div><div><span style=3D"backgr=
+ound-color:rgb(255,0,0)">macsec01 1 TFAIL: performance result is -298% &lt;=
+ threshold -100%<br>macsec01 1 TFAIL: performance result is -309% &lt; thre=
+shold -100%<br></span></div><div><span style=3D"background-color:rgb(255,0,=
+0)">macsec01 1 TFAIL: performance result is -288% &lt; threshold -100%<br>m=
+acsec01 1 TFAIL: performance result is -301% &lt; threshold -100%</span><br=
+></div><div><br></div><div>=C2=A0Following is a common observation for all =
+three test cases:<br></div><div><br></div><div><span style=3D"background-co=
+lor:rgb(147,196,125)">macsec01 2 TINFO: AppArmor enabled, this may affect t=
+est results<br>macsec01 2 TINFO: it can be disabled with TST_DISABLE_APPARM=
+OR=3D1 (requires super/root)<br>macsec01 2 TINFO: loaded AppArmor profiles:=
+ none<br></span></div><div><br></div><div>Is it correct that to pass the ab=
+ove three test cases, AppArmor needs to be disabled?=C2=A0</div><div>There =
+are a few error logs observed in AppArmor logs when the above three test ca=
+ses are run,</div><div><span style=3D"background-color:rgb(255,0,0)">/org/o=
+pensuse/Network/Interface/252.getManagedObjects failed. Server responds:<br=
+>May 23 06:42:31 localhost wickedd-nanny[824]: org.freedesktop.DBus.Error.U=
+nknownMethod: Method &quot;GetManagedObjects&quot; with signature &quot;&qu=
+ot; on interface &quot;org.freedesktop.DBus.ObjectManager&quot; doesn&#39;t=
+ exist</span><br></div><div><br></div><div><br></div><div>Thanks,</div><div=
+>Samir M.</div><div>=C2=A0<br></div></div>
+
+--000000000000b655e005dfabf20e--
+
+--===============1236710336==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============1236710336==--
