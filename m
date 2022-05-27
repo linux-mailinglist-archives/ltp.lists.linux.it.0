@@ -1,58 +1,69 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D302453932C
-	for <lists+linux-ltp@lfdr.de>; Tue, 31 May 2022 16:29:25 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id CD54D535D65
+	for <lists+linux-ltp@lfdr.de>; Fri, 27 May 2022 11:30:27 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DCC1A3C31FC
-	for <lists+linux-ltp@lfdr.de>; Tue, 31 May 2022 16:29:24 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 011CF3C1BB9
+	for <lists+linux-ltp@lfdr.de>; Fri, 27 May 2022 11:30:27 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 5469A3C12A6
- for <ltp@lists.linux.it>; Fri, 27 May 2022 09:21:29 +0200 (CEST)
-Received: from loongson.cn (mail.loongson.cn [114.242.206.163])
- by in-2.smtp.seeweb.it (Postfix) with ESMTP id 9F81A6012DC
- for <ltp@lists.linux.it>; Fri, 27 May 2022 09:21:26 +0200 (CEST)
-Received: from localhost.localdomain.localdomain (unknown [10.2.5.46])
- by mail.loongson.cn (Coremail) with SMTP id AQAAf9BxWeTwe5BiN8gDAA--.13116S2; 
- Fri, 27 May 2022 15:21:25 +0800 (CST)
-From: Hongchen Zhang <zhanghongchen@loongson.cn>
-To: Petr Vorel <pvorel@suse.cz>,
-	Li Wang <liwang@redhat.com>
-Date: Fri, 27 May 2022 15:21:17 +0800
-Message-Id: <1653636077-13606-1-git-send-email-zhanghongchen@loongson.cn>
-X-Mailer: git-send-email 1.8.3.1
-X-CM-TRANSID: AQAAf9BxWeTwe5BiN8gDAA--.13116S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrtw1UuryfuryrWryfCFykKrg_yoWkGrb_ZF
- 4xKF1S9wn8Aas2gFn7Jrs5JrnIyryUCFWrua48Gw4UGa4UArn7uryjy3y5AF15Gr4kZrWI
- g3ZrGFn5Jw4DAjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUIcSsGvfJTRUUUbs8FF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2IYs7xG
- 6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
- A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
- Gr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
- Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
- I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
- 4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AKxVWU
- AVWUtwCY02Avz4vE-syl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2
- IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v2
- 6r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2
- IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVW3JVWrJr1lIxAIcVC2z280
- aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43
- ZEXa7VUbhvttUUUUU==
-X-CM-SenderInfo: x2kd0w5krqwupkhqwqxorr0wxvrqhubq/
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+ by picard.linux.it (Postfix) with ESMTPS id 783703C0B90
+ for <ltp@lists.linux.it>; Fri, 27 May 2022 11:30:23 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 60E5C200AD0
+ for <ltp@lists.linux.it>; Fri, 27 May 2022 11:30:21 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id ED58C1F967;
+ Fri, 27 May 2022 09:30:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1653643820; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type;
+ bh=lChZ3kfPqOiQIGBbbKOf5O0euzOQVluYptAu5MuJjmI=;
+ b=Lo4mTgACrwbxXdGNT/W10C9bRQnbNP+3IlsK9S1gaGC4gYgwKOAGx7aJrbbO+XzDJUpEgJ
+ ESqo0OC2Rnax6bZ0QWWjN+IF5oWVwFL5TcHbEYoTJZWxMYFA57j6yRm0dIZhw2Lsb0bHyh
+ jhQuxFQ5wORG0yc3kjNZwgd2nTS99NI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1653643820;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type;
+ bh=lChZ3kfPqOiQIGBbbKOf5O0euzOQVluYptAu5MuJjmI=;
+ b=XpHwPSiLRvXuW5MIh3rkqaUQURfvmJ0ulgL1CAoHYh410ePKZcojrFZ037MTuqbAefw3rI
+ QQlIOqi+A5+pbUBg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9CA7F139C4;
+ Fri, 27 May 2022 09:30:20 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id QNCiJCyakGK1VAAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Fri, 27 May 2022 09:30:20 +0000
+Date: Fri, 27 May 2022 11:32:27 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: ltp@lists.linux.it, linux-kernel@vger.kernel.org, libc-alpha@sourceware.org
+Message-ID: <YpCaq7VEb6d5HPBF@yuki>
+MIME-Version: 1.0
+Content-Disposition: inline
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS,
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-X-Mailman-Approved-At: Tue, 31 May 2022 16:29:11 +0200
-Subject: [LTP] [PATCH] controllers/cpuset: default cpuset.sched_load_balance
- to 1
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] [ANNOUNCE] The Linux Test Project has been released for MAY
+ 2022
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,44 +75,194 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it, Hongchen Zhang <zhanghongchen@loongson.cn>
-MIME-Version: 1.0
+Cc: lwn@lwn.net, akpm@linux-foundation.org, torvalds@linux-foundation.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-when we exited between the cpuset test,we may leave /dev/cpuset
-not cleared. And we did the cpuset test again, we would set the
-cpuset.sched_load_balance to 0 as following:
-	setup()
-        if [ -e "$CPUSET" ]
-        cleanup
-	echo $SCHED_LB_VALUE > $SCHED_LB
-as the default value of cpuset.sched_load_balance is 1 at the time
-cpuset mounted, so it is reasonably to be set to 1.
+Good news everyone,
 
-Signed-off-by: Hongchen Zhang <zhanghongchen@loongson.cn>
----
- testcases/kernel/controllers/cpuset/cpuset_funcs.sh | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+the Linux Test Project test suite stable release for *May 2022* has been
+released.
 
-diff --git a/testcases/kernel/controllers/cpuset/cpuset_funcs.sh b/testcases/kernel/controllers/cpuset/cpuset_funcs.sh
-index 9939f13..3991475 100755
---- a/testcases/kernel/controllers/cpuset/cpuset_funcs.sh
-+++ b/testcases/kernel/controllers/cpuset/cpuset_funcs.sh
-@@ -61,7 +61,7 @@ CLONE_CHILDREN="/dev/cpuset/cgroup.clone_children"
- CHILDREN_VALUE="0"
- HOTPLUG_CPU="1"
- SCHED_LB="/dev/cpuset/cpuset.sched_load_balance"
--SCHED_LB_VALUE="0"
-+SCHED_LB_VALUE="1"
- 
- cpuset_log()
- {
+Since the last release 298 patches by 25 authors were merged.
+
+Patch review is what most of the projects struggle with and LTP is no
+different. If you can spare some effort helping with the patch review is more
+than welcomed.
+
+NOTABLE CHANGES
+===============
+
+* New tests
+  - kvm_pagefault01: aka CVE-2021-38198
+  - fcntl39: test for DN_RENAME (dnotify)
+  - io_control01: first cgroup IO controller test
+  - keyctl09: test encrypted keys with provided decrypted data
+  - memcontrol03, memcontrol04: tests that cgroup memory is partitioned correctly under pressure
+  - setsockopt09: regression test for use-after-free in prb_retire_rx_blk_timer_expired()
+  - setsockopt09: regression test for double free of rx_owner_map aka CVE-2021-22600
+  - pty07: regression test for use-after-free in vt_ioctl()
+  - pty06: regression test for VT_DISALLOCATE freeing in-use virtual console
+  - pidfd_getfd01 basic functional test
+  - pidfd_getfd02 basic error test
+  - pidfd_open04 test with PIDFD_NONBLOCK flag
+  - futex_waitv01 error tests
+  - futex_waitv02 basic functional test with private memory
+  - futex_waitv03 basic functional test with shared memory
+  - inotify11: test opening files after receiving IN_DELETE
+               regression test for a37d9a17f099 (fsnotify: invalidate dcache before IN_DELETE event)
+  - statx09 test for STATX_ATTR_VERITY
+  - wqueue09 tests WATCH_META_LOSS_NOTIFICATION event
+  - wqueue08 tests WATCH_META_REMOVAL_NOTIFICATION event
+  - wqueue07 tests NOTIFY_KEY_SETATTR event
+  - wqueue06 tests NOTIFY_KEY_CLEARED event
+  - wqueue05 tests NOTIFY_KEY_INVALIDATED event
+  - wqueue04 tests NOTIFY_KEY_LINKED event
+  - wqueue03 tests NOTIFY_KEY_REVOKED event
+  - wqueue02 tests NOTIFY_KEY_UNLINKED event
+  - wqueue01 tests NOTIFY_KEY_UPDATED event
+
+* Increased coverage
+  - fanotify14, fanotify16: Add tests for FAN_REPORT_TARGET_FID and FAN_RENAME
+  - futex_waitv01: Add test verifies EINVAL for invalid nr_futexes
+  - getcontext01: Test rewritten so that it actually jumps back
+  - fstat02: Validate st_nlink as well
+  - sched_get_priority_max01, sched_get_priority_min01: Add missing policies
+
+* KVM library was written for LTP
+  - a simple library that can spin up a VM and execute payload
+  - see also https://github.com/linux-test-project/ltp/wiki/KVM-Test-API
+
+* The concept of test runtime was introduced
+  - for details see https://people.kernel.org/metan/test-timeout-and-runtime
+
+* Removed tests
+  - syslog tests as these were testing mostly userspace syslog daemon
+    and were broken for most of the syslog daemon implementations
+
+* The test library was fixed to terminate all leftover processes in the case
+  that the main test process dies or exits
+
+* New sparse check for {} terminator for struct arrays in tst_test has been
+  implemented
+
+* Shell library improvements
+  - added support for $TST_FORMAT_DEVICE (.format_device in C API)
+  - preparations for shell API get support for testing on all filesystems (.all_filesystems in C API)
+  - getopts cleanup and changes how is the library sources,
+    which resulted in much simpler library code
+
+* Userns tests were rewritten into the new test API
+
+* Mountns tests were rewritten into the new test API
+
+* 33 tests were rewritten to the new library
+
++ The usual amount of fixes and cleanups
+
+WHAT IS IN THE QUEUE
+====================
+
+In-flight patches include:
+
+- CGroup shell test rewrite that should fix many problems
+
+
+NOTABLE CHANGES IN NETWORK TESTS
+================================
+brought to you by Petr Vorel
+
+* Several fixes (e.g. important nfs_lib: Fix fsid randomisation)
+
+* Ongoing discussion where should be SCTP testsuite home
+
+
+DOWNLOAD AND LINKS
+==================
+
+The latest version of the test-suite contains 3000+ tests for the Linux
+and can be downloaded at:
+
+https://github.com/linux-test-project/ltp/releases/tag/20220527
+
+The project pages as well as GIT repository are hosted on GitHub:
+
+https://github.com/linux-test-project/ltp
+http://linux-test-project.github.io/
+
+If you ever wondered how to write a LTP testcase, don't miss our developer
+documentation at:
+
+https://github.com/linux-test-project/ltp/wiki/Test-Writing-Guidelines
+
+https://github.com/linux-test-project/ltp/wiki/C-Test-API
+
+https://github.com/linux-test-project/ltp/wiki/C-Test-Network-API
+
+https://github.com/linux-test-project/ltp/wiki/Shell-Test-API
+
+https://github.com/linux-test-project/ltp/wiki/C-Test-Case-Tutorial
+
+https://github.com/linux-test-project/ltp/wiki/BuildSystem
+
+Patches, new tests, bugs, comments or questions should go to to our mailing
+list at ltp@lists.linux.it.
+
+CREDITS
+=======
+
+Many thanks to the people contributing to this release:
+
+git shortlog -s -e -n 20220121..
+
+    72  Petr Vorel <pvorel@suse.cz>
+    51  Cyril Hrubis <chrubis@suse.cz>
+    42  Andrea Cervesato <andrea.cervesato@suse.de>
+    22  Li Wang <liwang@redhat.com>
+    21  Richard Palethorpe <rpalethorpe@suse.com>
+    17  Martin Doucha <mdoucha@suse.cz>
+    15  Yang Xu <xuyang2018.jy@fujitsu.com>
+    10  Jan Stancek <jstancek@redhat.com>
+    10  Zhao Gongyi <zhaogongyi@huawei.com>
+     7  Amir Goldstein <amir73il@gmail.com>
+     6  Dai Shili <daisl.fnst@fujitsu.com>
+     6  Bogdan Lezhepekov <blezhepekov@suse.de>
+     4  tangmeng <tangmeng@uniontech.com>
+     2  Chunyu Hu <chuhu@redhat.com>
+     2  Kushal Chand <kushalkataria5@gmail.com>
+     2  xiaoshoukui <xiaoshoukui@ruijie.com.cn>
+     1  Alexander Ivanov <alexander.ivanov@virtuozzo.com>
+     1  Alexander Kanavin <alex@linutronix.de>
+     1  Andrea Arcangeli <aarcange@redhat.com>
+     1  Edward Liaw via ltp <ltp@lists.linux.it>
+     1  Fabrice Fontaine <fontaine.fabrice@gmail.com>
+     1  Pavel Tikhomirov <ptikhomirov@virtuozzo.com>
+     1  Wang Kunfeng via ltp <ltp@lists.linux.it>
+     1  Yael Tzur via ltp <ltp@lists.linux.it>
+     1  ihsinme <ihsinme@gmail.com>
+
+And also thanks to patch reviewers:
+
+git log 20220121.. | grep -Ei '(reviewed|acked)-by:' | sed 's/.*by: //' | sort | uniq -c | sort -n -r
+
+    148 Cyril Hrubis <chrubis@suse.cz>
+    105 Petr Vorel <pvorel@suse.cz>
+     73 Li Wang <liwang@redhat.com>
+     21 Yang Xu <xuyang2018.jy@fujitsu.com>
+     17 Richard Palethorpe <rpalethorpe@suse.com>
+     10 Martin Doucha <mdoucha@suse.cz>
+      6 Jan Stancek <jstancek@redhat.com>
+      1 Waiman Long <longman@redhat.com>
+      1 Jan Kara <jack@suse.cz>
+      1 Gabriel Krisman Bertazi <krisman@collabora.com>
+      1 Andrea Cervesato <andrea.cervesato@suse.de>
+      1 Alexey Kodanev <aleksei.kodanev@bell-sw.com>
+
 -- 
-1.8.3.1
-
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
