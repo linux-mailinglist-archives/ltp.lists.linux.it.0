@@ -2,53 +2,54 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 907CE536A2A
-	for <lists+linux-ltp@lfdr.de>; Sat, 28 May 2022 04:16:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 774D1536A2C
+	for <lists+linux-ltp@lfdr.de>; Sat, 28 May 2022 04:16:50 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 16A2C3C1BA3
-	for <lists+linux-ltp@lfdr.de>; Sat, 28 May 2022 04:16:33 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 47B1B3C1BC0
+	for <lists+linux-ltp@lfdr.de>; Sat, 28 May 2022 04:16:50 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 064B73C071D
- for <ltp@lists.linux.it>; Sat, 28 May 2022 04:16:29 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 07F7D3C05C3
+ for <ltp@lists.linux.it>; Sat, 28 May 2022 04:16:43 +0200 (CEST)
 Received: from a8-35.smtp-out.amazonses.com (a8-35.smtp-out.amazonses.com
  [54.240.8.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 3023C1A010F7
- for <ltp@lists.linux.it>; Sat, 28 May 2022 04:16:29 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 84F48200977
+ for <ltp@lists.linux.it>; Sat, 28 May 2022 04:16:42 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
- s=r5f3hr7pzmhv6xwu5spgpns3mj2fddpz; d=linaro.org; t=1653704187;
+ s=r5f3hr7pzmhv6xwu5spgpns3mj2fddpz; d=linaro.org; t=1653704201;
  h=From:To:Cc:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-ID:Date;
  bh=RmTEogULg9SMR4yGoz1S6g+hqRZoGEVR3fKJOPhZ39Y=;
- b=utm7CZMc+bklB65IhLTTpCTQCT4E+2rnwKMXxsC2BHc8hAq2dv1McPjaEVIlP18+
- G7ECQzTVqA1znlcdWljNXO+PyHxDhkHSSUH4DHhtL6/TieeetThI4zTc8WqSXub0S/T
- HHNKLe1AI44uQ5ZnjnNxuQAWhFWLPXLj45SitxiM=
+ b=E8BoBOlrAefJfabxHotOlviWivECGfSsuWvGHdiU4U0yTcKYF0liH6UBqbX94sf5
+ 4pHbsfurksK/1fIb3l/0nY4YtQEgn79KtwSxQVfFzYG3VlkipoACHPmp3/9t9eMwPq6
+ faGyTRXmGMJHFBBjh5WXgYvblturat5z45qNdgH8=
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
- s=6gbrjpgwjskckoa6a5zn6fwqkn67xbtw; d=amazonses.com; t=1653704187;
+ s=6gbrjpgwjskckoa6a5zn6fwqkn67xbtw; d=amazonses.com; t=1653704201;
  h=From:To:Cc:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-ID:Date:Feedback-ID;
  bh=RmTEogULg9SMR4yGoz1S6g+hqRZoGEVR3fKJOPhZ39Y=;
- b=ITrH0vG91ZnGfihkB+o3FOSEnTuiTDDTFt77Tsn9AoDO1Rg69TlZOSDNdRC83KqX
- tce8CXwcihWOP0QIAO9zIYgTkWLHiJrUjFJz/jL6lCa2DRfZQ54rUj0bBAhxDVdiq19
- 5KxFiUb59BdEtvzdFW8zaZneBZ4yZnCV1mw5QfFo=
+ b=Cu7nXU3gCfBArz3Fu61O51kIegOqUQ7EF6QgeurjOF+kpYfaE/g1j10T4YTAn4gq
+ XQFVMIu8nZEJpDKexy4yJZ4DAd09JxTUr2Rh3XFMaWD/UdET5xLc3vwlGBnWkznIfoM
+ D4VCGnyLO5vflZTxE5x9fdYX6AokoPLY7cMATPIc=
 From: lkft@linaro.org
 To: ltp@lists.linux.it
 MIME-Version: 1.0
-Message-ID: <0100018108735dd2-abe7c1b7-2b8a-454a-b33f-bc1a0d32241a-000000@email.amazonses.com>
-Date: Sat, 28 May 2022 02:16:27 +0000
+Message-ID: <010001810873927e-92d37afc-6a1c-4c24-b715-d01cf4fc9881-000000@email.amazonses.com>
+Date: Sat, 28 May 2022 02:16:40 +0000
 Feedback-ID: 1.us-east-1.MCLpz+6YeXzvh9aTd6J8upg22bI0XPzIkR2gghvgyqQ=:AmazonSES
 X-SES-Outgoing: 2022.05.28-54.240.8.35
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.3 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,HEADER_FROM_DIFFERENT_DOMAINS,
  SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
 Subject: [LTP] [REGRESSION] lkft ltp for 20220527
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
