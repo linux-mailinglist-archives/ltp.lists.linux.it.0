@@ -2,73 +2,72 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F6C15383CE
-	for <lists+linux-ltp@lfdr.de>; Mon, 30 May 2022 17:03:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E1B95383D9
+	for <lists+linux-ltp@lfdr.de>; Mon, 30 May 2022 17:10:07 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3BAE83C22AB
-	for <lists+linux-ltp@lfdr.de>; Mon, 30 May 2022 17:03:08 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 927D63C254D
+	for <lists+linux-ltp@lfdr.de>; Mon, 30 May 2022 17:10:06 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 75D3C3C02C2
- for <ltp@lists.linux.it>; Mon, 30 May 2022 17:03:03 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 30E673C02C2
+ for <ltp@lists.linux.it>; Mon, 30 May 2022 17:10:02 +0200 (CEST)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id C0183200961
- for <ltp@lists.linux.it>; Mon, 30 May 2022 17:03:02 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 98A0160081C
+ for <ltp@lists.linux.it>; Mon, 30 May 2022 17:10:01 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 0B2CE1F94B;
- Mon, 30 May 2022 15:03:02 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id C837E1F998;
+ Mon, 30 May 2022 15:10:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1653922982; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1653923400; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=RxPhyqPMrw0KExZv2M3gEjgCb9dF8I3s4DHEDaayNGE=;
- b=0R1ufM42Er2A29CXHkeO/4KXBTAA1zO5zoL0cDpRzk5cQ+G4SRJNfkVjoQN1LUQOlH339C
- 9ozxsmQgSw8vKKtd/JPpdnrYPxJxgYHAkbcUfvguDY2v+11yIZAPvJc08c59ZLRvu2vLxr
- DSPnVzMRHkNfkgV4H4h4YUpzVQYB78U=
+ bh=FoU6T+JorNv34nyssTojG4GWlmgM1Z7XOBEvo0aMuqk=;
+ b=JV7smREOGtsrYXxd0m1dtq3uip+Gu6Cjg8o4L+ji0o4y4RpX6mBevO3c9uSocsvKsh+4C6
+ Mnk/U5aMqPHeyy+95q0COGixaApFK50fejFiufzPAVk4XkqWPWaUROE0DhWNmEc+Cp4juA
+ pT3Ehf36+0CxYM81DzLoc/8gpK1QutQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1653922982;
+ s=susede2_ed25519; t=1653923400;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=RxPhyqPMrw0KExZv2M3gEjgCb9dF8I3s4DHEDaayNGE=;
- b=IWbUwcZPBTZfjwU8UMElWxvqAxMzXBK2wHMsEIUgtF6jZjiyC3PEaWAlOGCG4ysb+3soLx
- 2pCJ3/5eykARmLAA==
+ bh=FoU6T+JorNv34nyssTojG4GWlmgM1Z7XOBEvo0aMuqk=;
+ b=ihoDtUoG/gR4pPmb1ZPyKWUeCuyssJuGSPipktq7/BsGSH0x5QzxgnUVfFh6LELc2J68b4
+ Wkg/0nIJmos3FuBA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DEDC213AFD;
- Mon, 30 May 2022 15:03:01 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A286713AFD;
+ Mon, 30 May 2022 15:10:00 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id zPtfNaXclGJnZgAAMHmgww
- (envelope-from <chrubis@suse.cz>); Mon, 30 May 2022 15:03:01 +0000
-Date: Mon, 30 May 2022 17:05:07 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id qtIlJUjelGJKaQAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Mon, 30 May 2022 15:10:00 +0000
+Date: Mon, 30 May 2022 17:12:06 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <YpTdIywfIDhy/iZZ@yuki>
+Message-ID: <YpTexs/dQDZdxr4m@yuki>
 References: <20220512194557.30911-1-pvorel@suse.cz>
- <20220512194557.30911-5-pvorel@suse.cz>
+ <20220512194557.30911-6-pvorel@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20220512194557.30911-5-pvorel@suse.cz>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+In-Reply-To: <20220512194557.30911-6-pvorel@suse.cz>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 4/8] shell: Add test for TST_MOUNT_DEVICE=1
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 5/8] shell: Add tst_clear_device
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,9 +86,7 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-Looks good:
-
-Reviwed-by: Cyril Hrubis <chrubis@suse.cz>
+Can't we just add clear command to the tst_device.c instead?
 
 -- 
 Cyril Hrubis
