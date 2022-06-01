@@ -2,72 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06C4D53A8ED
-	for <lists+linux-ltp@lfdr.de>; Wed,  1 Jun 2022 16:17:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3983C53A926
+	for <lists+linux-ltp@lfdr.de>; Wed,  1 Jun 2022 16:27:43 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 956BB3C7028
-	for <lists+linux-ltp@lfdr.de>; Wed,  1 Jun 2022 16:17:47 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 0A2273C7028
+	for <lists+linux-ltp@lfdr.de>; Wed,  1 Jun 2022 16:27:43 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 189683C52FF
- for <ltp@lists.linux.it>; Wed,  1 Jun 2022 16:17:46 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id AEFBD3C641F
+ for <ltp@lists.linux.it>; Wed,  1 Jun 2022 16:27:41 +0200 (CEST)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 5B4441A000BB
- for <ltp@lists.linux.it>; Wed,  1 Jun 2022 16:17:45 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 290F02005F6
+ for <ltp@lists.linux.it>; Wed,  1 Jun 2022 16:27:40 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id D4A20219BF;
- Wed,  1 Jun 2022 14:17:44 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 43C8B21AB4;
+ Wed,  1 Jun 2022 14:27:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1654093064; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ t=1654093660;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=vuTer6G5eQKhQwYstR2ij54S+CYfAJyS5seBokSjqJM=;
- b=cb2R+XibGoMRHjl+oH1mS31Xeapw7koRRbnVhEae9PUasBDrQtrNYcxcwRLXOsXk9gQK5L
- AEZvhbcz2tZ5nKJ+fRIqTkE9ujGFup/UAvpw/mAbILzMif4dh+q81tYhKmTepZDDcBnRNR
- amcmmG3U2N2ZL3tF9Zz2+QS8nxR2CeM=
+ bh=CDWuwZmEEj+/S4aoCeGg3eqlqIkBwbYZVXK+BxMKlr8=;
+ b=WAooBeuIif2OvayOeYxzwbKZLuu8K9v7vIN+1EVDj9PVFR/loF0qOa+PEkT8l/IjRSCxff
+ RpN8Fg0yHQUQLqxowjj7zv4FDCrI6BrUFT9NNLcwHkJLBqEKzW4rzMHbWVN3iNcBJiuDYT
+ gFmobtfMa5kkfBpUBgm7q9XZKA8mBYc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1654093064;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ s=susede2_ed25519; t=1654093660;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=vuTer6G5eQKhQwYstR2ij54S+CYfAJyS5seBokSjqJM=;
- b=IDhrxCR9gCztxdPoQBzbrAOJ55CtbnIwfhYDLNmQQt/ltZ01xQH+Fs9Kwweie5lyNXwo+i
- vLMoEgzWpTWtR/Aw==
+ bh=CDWuwZmEEj+/S4aoCeGg3eqlqIkBwbYZVXK+BxMKlr8=;
+ b=ypd2kOgnXgFjOJTN8TlqP6Tp4D/3qpbyozOx7RaztRnQ6+zcDTF1iTV6Z9J8vsBqjKN5Ja
+ 124ljjRo6AzrIpDw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B883013A8F;
- Wed,  1 Jun 2022 14:17:44 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 13CCB13A8F;
+ Wed,  1 Jun 2022 14:27:40 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id v/DtKwh1l2J6EQAAMHmgww
- (envelope-from <chrubis@suse.cz>); Wed, 01 Jun 2022 14:17:44 +0000
-Date: Wed, 1 Jun 2022 16:19:52 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Yang Xu <xuyang2018.jy@fujitsu.com>
-Message-ID: <Ypd1iFueyQewomZl@yuki>
-References: <1651034362-18672-1-git-send-email-xuyang2018.jy@fujitsu.com>
- <1651034362-18672-2-git-send-email-xuyang2018.jy@fujitsu.com>
+ by imap2.suse-dmz.suse.de with ESMTPSA id y4qGAlx3l2IhFgAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Wed, 01 Jun 2022 14:27:40 +0000
+Date: Wed, 1 Jun 2022 16:27:37 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Martin Doucha <mdoucha@suse.cz>
+Message-ID: <Ypd3WaVd7iSHJplb@pevik>
+References: <20220601141634.1795-1-mdoucha@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <1651034362-18672-2-git-send-email-xuyang2018.jy@fujitsu.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+In-Reply-To: <20220601141634.1795-1-mdoucha@suse.cz>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 2/2] syscalls/shmdt02: Convert into new api
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] kvm: Fix stack access mode in KVM test ELF headers
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,18 +80,27 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: Fabian Vogt <fvogt@suse.com>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-Pushed, thanks.
+Hi Martin, Fabian,
 
--- 
-Cyril Hrubis
-chrubis@suse.cz
+> When the linker converts guest payload binary into a linkable resource
+> object file, it somehow defaults to requesting executable stack section
+> for the final test binary. This trips some build-time security checks
+> on newer systems. Add explicit linker option to make the stack
+> non-executable.
+
+LGTM, thanks!
+
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
+
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
