@@ -1,73 +1,75 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D41D553CA90
-	for <lists+linux-ltp@lfdr.de>; Fri,  3 Jun 2022 15:21:02 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 40F4353D1B4
+	for <lists+linux-ltp@lfdr.de>; Fri,  3 Jun 2022 20:44:43 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A76453C87B7
-	for <lists+linux-ltp@lfdr.de>; Fri,  3 Jun 2022 15:21:01 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 516553C87FE
+	for <lists+linux-ltp@lfdr.de>; Fri,  3 Jun 2022 20:44:42 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id ED9BC3C868B
- for <ltp@lists.linux.it>; Fri,  3 Jun 2022 15:20:56 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id AFB103C00D5
+ for <ltp@lists.linux.it>; Fri,  3 Jun 2022 20:44:37 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 58A3E200274
- for <ltp@lists.linux.it>; Fri,  3 Jun 2022 15:20:55 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 6D33F6017EE
+ for <ltp@lists.linux.it>; Fri,  3 Jun 2022 20:44:36 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 73EBE21A99;
- Fri,  3 Jun 2022 13:20:55 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 175041F8BE;
+ Fri,  3 Jun 2022 18:44:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1654262455; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ t=1654281876;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=lpe7vFjqiFVW6j3HOGJMJ0cxOfU6QvldNpih+3LkH0E=;
- b=YAFRa0e4rLX5qs3F3fmjwzaD7+tjxcVBOe31FgSibAxgWoO2CXa72k5iFDwRuxDloO5SAd
- 592VXWpcF1Fpu9DLv/Ku+tPOc7LAcdNJPIiL7jraXKOMyNqUDymYKZobtM6GNTkxrfhL8v
- sjkMOHlOHtptDJolt/NOFO5vZvB8Zw0=
+ bh=4SE1V31GJrNQNiNFkNxBG7QoRM5IKMmI8vAxlDHYXJo=;
+ b=OKDcXgbT5qIs5Cjk8ywBAo29oHgD8RbLrN3GnHQc4fZv3hIcqkx/fVOrK86Y2XPUZuFeD3
+ 1m3rhbLG8Rns4zRwVYjd5scKygX/CV7Ls0rTsa8qkBaZSA0/0K3rZPqGQqALjM2gLX3GAx
+ xrYd6zvQtE8H8ID0OS/1BJqEuu3lQW0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1654262455;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ s=susede2_ed25519; t=1654281876;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=lpe7vFjqiFVW6j3HOGJMJ0cxOfU6QvldNpih+3LkH0E=;
- b=+n38GTVTqY64KUadwS08ojRjSRhFHvzYrNBWINutC7GnYLu7pDKtKQmplrwqRQruZvOwfO
- TubsRHhzOStI49Dw==
+ bh=4SE1V31GJrNQNiNFkNxBG7QoRM5IKMmI8vAxlDHYXJo=;
+ b=FweQAoba/35MXSDM09dRY1m9fiLlNhSuVT9LJxZol3INDh9D5Hug+zpQoHxR3ugzce9lR3
+ /+EJjqt3S0wunIAQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5D05F13638;
- Fri,  3 Jun 2022 13:20:55 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C5BB413AA2;
+ Fri,  3 Jun 2022 18:44:35 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id EolHFbcKmmJCdgAAMHmgww
- (envelope-from <chrubis@suse.cz>); Fri, 03 Jun 2022 13:20:55 +0000
-Date: Fri, 3 Jun 2022 15:23:03 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <YpoLN+fBttUaBDym@yuki>
+ by imap2.suse-dmz.suse.de with ESMTPSA id gU0JLpNWmmKIcQAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Fri, 03 Jun 2022 18:44:35 +0000
+Date: Fri, 3 Jun 2022 20:44:34 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <YppWkk6G64E+hpT2@pevik>
 References: <20220512194557.30911-1-pvorel@suse.cz>
  <20220512194557.30911-4-pvorel@suse.cz> <YpTS99QLyFfSkrnl@rei>
- <Ypn9kQF7PTM3pA0n@pevik>
+ <Ypn9kQF7PTM3pA0n@pevik> <YpoLN+fBttUaBDym@yuki>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <Ypn9kQF7PTM3pA0n@pevik>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+In-Reply-To: <YpoLN+fBttUaBDym@yuki>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH 3/8] tst_test.sh: Improve pattern for allowed
  variables
 X-BeenThere: ltp@lists.linux.it
@@ -81,41 +83,46 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: Martin Doucha <martin.doucha@suse.com>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> > >  	if [ -n "$TST_TEST_PATH" ]; then
-> > > -		for _tst_i in $(grep '^[^#]*\bTST_' "$TST_TEST_PATH" | sed 's/.*TST_//; s/[="} \t\/:`].*//'); do
-> > > +		for _tst_i in $(grep '^[^#]*\bTST_' "$TST_TEST_PATH" | sed 's/.*TST_//; s/[="} \t\/:`'"'"'].*//'); do
-> >                                                                                            ^
-> > 											   Isn't
-> > 											   the
-> > 											   content
-> > 											   between
-> > 											   []
-> > 											   just
-> > 											   set?
-> 
-> > Shouldn't adding just ' between the [] suffice? The " is already there.
-> 
-> Well, '"'"' was my version of adding ' (quoted with " and ' at the start and end
-> were for ending previous '.
->
-> But this is shorter: '\'', therefore suggest
-> 
-> -		for _tst_i in $(grep '^[^#]*\bTST_' "$TST_TEST_PATH" | sed 's/.*TST_//; s/[="} \t\/:`].*//'); do
-> +		for _tst_i in $(grep '^[^#]*\bTST_' "$TST_TEST_PATH" | sed 's/.*TST_//; s/[='\''"} \t\/:`].*//'); do
+> Hi!
+> > > >  	if [ -n "$TST_TEST_PATH" ]; then
+> > > > -		for _tst_i in $(grep '^[^#]*\bTST_' "$TST_TEST_PATH" | sed 's/.*TST_//; s/[="} \t\/:`].*//'); do
+> > > > +		for _tst_i in $(grep '^[^#]*\bTST_' "$TST_TEST_PATH" | sed 's/.*TST_//; s/[="} \t\/:`'"'"'].*//'); do
+> > >                                                                                            ^
+> > > 											   Isn't
+> > > 											   the
+> > > 											   content
+> > > 											   between
+> > > 											   []
+> > > 											   just
+> > > 											   set?
 
-I would say that '\'' is stil insane, but I guess that we can't do
-better than that.
+> > > Shouldn't adding just ' between the [] suffice? The " is already there.
 
--- 
-Cyril Hrubis
-chrubis@suse.cz
+> > Well, '"'"' was my version of adding ' (quoted with " and ' at the start and end
+> > were for ending previous '.
+
+> > But this is shorter: '\'', therefore suggest
+
+> > -		for _tst_i in $(grep '^[^#]*\bTST_' "$TST_TEST_PATH" | sed 's/.*TST_//; s/[="} \t\/:`].*//'); do
+> > +		for _tst_i in $(grep '^[^#]*\bTST_' "$TST_TEST_PATH" | sed 's/.*TST_//; s/[='\''"} \t\/:`].*//'); do
+
+> I would say that '\'' is stil insane, but I guess that we can't do
+> better than that.
+IMHO better than using variable:
+local _tst_q="'"
+for _tst_i in $(grep '^[^#]*\bTST_' "$TST_TEST_PATH" | sed 's/.*TST_//; s/[='$_tst_q'"} \t\/:`].*//'); do
+
+insane: well, POSIX shell is insane :).
+
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
