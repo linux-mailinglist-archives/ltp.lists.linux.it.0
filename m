@@ -1,76 +1,77 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4351653EE01
-	for <lists+linux-ltp@lfdr.de>; Mon,  6 Jun 2022 20:43:45 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 53EBC53EE05
+	for <lists+linux-ltp@lfdr.de>; Mon,  6 Jun 2022 20:44:04 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C36323C8E74
-	for <lists+linux-ltp@lfdr.de>; Mon,  6 Jun 2022 20:43:44 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 1EE333C8F30
+	for <lists+linux-ltp@lfdr.de>; Mon,  6 Jun 2022 20:44:04 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 6277A3C01AA
- for <ltp@lists.linux.it>; Mon,  6 Jun 2022 20:43:40 +0200 (CEST)
-Received: from mail-qv1-xf2d.google.com (mail-qv1-xf2d.google.com
- [IPv6:2607:f8b0:4864:20::f2d])
+ by picard.linux.it (Postfix) with ESMTPS id 2179F3C8E4D
+ for <ltp@lists.linux.it>; Mon,  6 Jun 2022 20:43:44 +0200 (CEST)
+Received: from mail-qt1-x82d.google.com (mail-qt1-x82d.google.com
+ [IPv6:2607:f8b0:4864:20::82d])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id F15411A003D0
- for <ltp@lists.linux.it>; Mon,  6 Jun 2022 20:43:39 +0200 (CEST)
-Received: by mail-qv1-xf2d.google.com with SMTP id i19so10786418qvu.13
- for <ltp@lists.linux.it>; Mon, 06 Jun 2022 11:43:39 -0700 (PDT)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 96796140033D
+ for <ltp@lists.linux.it>; Mon,  6 Jun 2022 20:43:43 +0200 (CEST)
+Received: by mail-qt1-x82d.google.com with SMTP id j8so8252139qtn.13
+ for <ltp@lists.linux.it>; Mon, 06 Jun 2022 11:43:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=iqu941lzTAMX+oaALcJPphLtVNbm3omYD1fanuV+3bQ=;
- b=UodjcFvV2gT88Pd59oJsueHKUtddZZ4+1d6GaYSBAqRND/g6Tebt6flUgNZE3YQzSa
- F3A5VTAT4ipV3OC2X8abfr2sbYaazV/lj9+QiA12TMb0f8IE7a1M4ktkKHtSAOyznb/l
- 4peHVkEaeYnoZ2bbEIXTAux063xy0dGiSA99yBhf3BpGlTjxqrM1n5Xfdj4l5+kXZa1E
- ff2rWfcAqrvjJI0VXo0CscO1pyNrGb/zu1sf3Ig2mF4zQgbd0Q5gkBTwB0phkPpvNCbt
- YG8J6GaNA+jiy/oDKvuxpKLDYmk0C72RwLBS6xWWa+0vi/NejRJm7aBNFPJ2vJntcMdJ
- q+Bw==
+ bh=bo/fYMmC9rIuON8EeC29aSaS1+pSCBAD7nOrPlT5jIU=;
+ b=EJsWfr/JOunHHsiV+gSMdLmWRSxGv1fop2Aq3BzcRn15ieNL2TRFaax87Me4qDH/pJ
+ Hz/7BgQCmPTBHvQTXnEWvn/MUeF0VPvH2t453PSp87JaIzgBg/uIaMW/TCc992k7tSLX
+ PYgGkm0W0/kkFUChRVBwdLaSkIOA1wbtem5pAydVWG3/0vIDFxlC9ege6uh8xtyN6TlT
+ XWJv4U5HqZXYlJSkxfSXJyLUDp5G0Mr1d/Af1fny3VZa7N2B/PBrfm1zCco3c+9Fcl+o
+ w6k6KXS1R/ijCKXsM35SLQurALXa0lJth9siW6sgxKI6kwISG6WKL+YaSRZYa0d7ScS3
+ radA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=iqu941lzTAMX+oaALcJPphLtVNbm3omYD1fanuV+3bQ=;
- b=k21UYxwkCeMx5xKQ03AIjI360Yi4OuIbMjEJjJVg8VfQ39/TNKgRDiCXjjTnAxkg/Y
- EpUj1Vo2rKdYgRpKNa9/Pd1oZK9pVHi0YrZYqscw6OetsN2xck4QvCH5UtUunHY/qlB0
- CJXSA1eKq7fobXkQ+X1mSqS7Bd6Zzoh98nCUjC0YeDGkNZ3Wz0MMU6WPeg8ykYBWrVaX
- WqpYNy9oPV6mGoUeEteRnUJutySnSlLIRmZtQKa9qY1ZWqyTgB2GXsZG4v2MiOQq5PyP
- jVgqKz8itSBKZlsEU520hCvYXHh1pzAab/vGaBT31xx68LV8sxl+3MqI55RKHywNXXlF
- vmGw==
-X-Gm-Message-State: AOAM532zO+Vrl3DUCQBGH+FFzHOZzucvlIUqMVwTyeAJtAX82DR7sTyv
- UwSqPVlARC11QcTK+Zz5p182QN1c9vwghEkC
-X-Google-Smtp-Source: ABdhPJwoShGMRMlJYjLu9vRtMwQxGGavqGckxG4fAGiXtj7kpfhe/jvkIfvxjN9skw/is88lRlD7ng==
-X-Received: by 2002:ad4:49ac:0:b0:46a:effd:fbd0 with SMTP id
- u12-20020ad449ac000000b0046aeffdfbd0mr8605728qvx.13.1654541018754; 
- Mon, 06 Jun 2022 11:43:38 -0700 (PDT)
+ bh=bo/fYMmC9rIuON8EeC29aSaS1+pSCBAD7nOrPlT5jIU=;
+ b=uWKe4lL7JpuDAQtF262y33LEJS80q/bwMjK5isO0/T6s7fu+MWPh+PxgkgTRf8wJR5
+ LnataxuM3XwAROqCJsMWupyzJV3k6mazrtiwTX376XdAKA4/1ZufqihcSeAJl2sAFefF
+ KQ+w9RSLdE38+2fPxGXAlpGydbD8JQkGA6L12LCCCBniqJ2GR9zcvqXzIkheF7u6E2tJ
+ Q/vzY+9imLQT6c/mUDUPyIWDx3wkVyuf0QwqL4anT/KzU4d//6wSAd6cqpQ5KgJeOGKt
+ xPJ5tBbFE6fmrNioC7EY1P0pJO7QKHJtZxvFNSygGpyaSM18h+soykiLhumf732BLOsm
+ AEuA==
+X-Gm-Message-State: AOAM5320KEi3QidTEJ2y5/2PgPmIbNMEjSF+O5bQb4XRGS7X3s/xK/T1
+ jx+cy0zHq4jGGsgcVRmr4AC3bDFOfMB1TeX6
+X-Google-Smtp-Source: ABdhPJzwnoWrC0btaqCzezljmOf4hdBNLwVAb3X07pYV4J8QnEMs88qzpj8AY0x72L7SzrrdB0369g==
+X-Received: by 2002:a05:622a:134a:b0:304:e0e0:a946 with SMTP id
+ w10-20020a05622a134a00b00304e0e0a946mr13710124qtk.215.1654541022426; 
+ Mon, 06 Jun 2022 11:43:42 -0700 (PDT)
 Received: from dell5510.arch.suse.de (gw1.ms-free.net. [185.243.124.10])
  by smtp.gmail.com with ESMTPSA id
- m16-20020a05620a291000b006a6bb044740sm3584880qkp.66.2022.06.06.11.43.36
+ m16-20020a05620a291000b006a6bb044740sm3584880qkp.66.2022.06.06.11.43.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 Jun 2022 11:43:38 -0700 (PDT)
+ Mon, 06 Jun 2022 11:43:42 -0700 (PDT)
 From: Petr Vorel <petr.vorel@gmail.com>
 To: ltp@lists.linux.it
-Date: Mon,  6 Jun 2022 20:43:19 +0200
-Message-Id: <20220606184320.8210-2-petr.vorel@gmail.com>
+Date: Mon,  6 Jun 2022 20:43:20 +0200
+Message-Id: <20220606184320.8210-3-petr.vorel@gmail.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220606184320.8210-1-petr.vorel@gmail.com>
 References: <20220606184320.8210-1-petr.vorel@gmail.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH 1/2] kvm: Fix compilation on x86
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH 2/2] kvm: Fix undefined reference to __stack_chk_fail()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,36 +92,32 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Buildroot supports i386 pentium toolchains (br-i386-pentium-mmx-musl,
-br-i386-pentium4-full) which fail to compile because as is run without --32.
+Some x86_64 buildroot toolchains (bootlin-x86-64-glibc,
+bootlin-x86-64-musl) try to link to __stack_chk_fail().
+-nostdlib is not enough, it requires also -fstack-protector.
 
-Suggested-by: Martin Doucha <mdoucha@suse.cz>
+x86_64-buildroot-linux-gnu/bin/ld: /tmp/ccgBXEoR.o: in function `handle_page_fault':
+kvm_pagefault01.c:(.text+0x5d): undefined reference to `__stack_chk_fail'
+collect2: error: ld returned 1 exit status
+
 Signed-off-by: Petr Vorel <petr.vorel@gmail.com>
 ---
- testcases/kernel/kvm/Makefile | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ testcases/kernel/kvm/Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/testcases/kernel/kvm/Makefile b/testcases/kernel/kvm/Makefile
-index adab56952..8d5193d8e 100644
+index 8d5193d8e..bce1a4eb5 100644
 --- a/testcases/kernel/kvm/Makefile
 +++ b/testcases/kernel/kvm/Makefile
-@@ -17,11 +17,14 @@ FILTER_OUT_MAKE_TARGETS := lib_guest lib_host lib_x86
- ifeq ($(HOST_CPU),x86_64)
- 	ifneq (,$(findstring m32,$(CFLAGS)))
- 		HOST_CPU = x86
--		GUEST_CFLAGS += -m32
--		ASFLAGS += --32
- 	endif
- endif
+@@ -9,7 +9,7 @@ ASFLAGS =
+ CPPFLAGS += -I$(abs_srcdir)/include
+ GUEST_CPPFLAGS = $(CPPFLAGS) -DCOMPILE_PAYLOAD
+ GUEST_CFLAGS = -ffreestanding -O2 -Wall -fno-asynchronous-unwind-tables -mno-mmx -mno-sse
+-GUEST_LDFLAGS = -nostdlib -Wl,--build-id=none
++GUEST_LDFLAGS = -nostdlib -Wl,--build-id=none -fstack-protector
+ GUEST_LDLIBS =
  
-+ifeq ($(HOST_CPU),x86)
-+	GUEST_CFLAGS += -m32
-+	ASFLAGS += --32
-+endif
-+
- # Some distros enable -pie by default. That breaks KVM payload linking.
- ifdef LTP_CFLAGS_NOPIE
- 	GUEST_CFLAGS += -fno-pie
+ FILTER_OUT_MAKE_TARGETS := lib_guest lib_host lib_x86
 -- 
 2.36.1
 
