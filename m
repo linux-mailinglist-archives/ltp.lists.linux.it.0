@@ -1,75 +1,76 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB49F53EE2E
-	for <lists+linux-ltp@lfdr.de>; Mon,  6 Jun 2022 20:53:21 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 52E9253EF76
+	for <lists+linux-ltp@lfdr.de>; Mon,  6 Jun 2022 22:20:49 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7D8BA3C8E78
-	for <lists+linux-ltp@lfdr.de>; Mon,  6 Jun 2022 20:53:21 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 021CC3C8E92
+	for <lists+linux-ltp@lfdr.de>; Mon,  6 Jun 2022 22:20:48 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A12DA3C01AA
- for <ltp@lists.linux.it>; Mon,  6 Jun 2022 20:53:17 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 728EB3C051B
+ for <ltp@lists.linux.it>; Mon,  6 Jun 2022 22:20:42 +0200 (CEST)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id AD704600847
- for <ltp@lists.linux.it>; Mon,  6 Jun 2022 20:53:16 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 5EAA110006DB
+ for <ltp@lists.linux.it>; Mon,  6 Jun 2022 22:20:41 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 9B7431FAB3;
- Mon,  6 Jun 2022 18:53:15 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 8830E1F45B;
+ Mon,  6 Jun 2022 20:20:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1654541595;
+ t=1654546841;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=64aos9Kliqt7RQIxN4MXHys2ifXPFJMGeS+e/ljstYk=;
- b=CbjT3Q0TD43nbGARYfah4jwB7xSkSFejORiuVb0KAhTlQGpg3r9sLCoY7AhNsEaD+Q3U99
- DNzBmcAfe9wZ2ZaE1/tal2aUwetZHFEMb7NUeYrKxL+Rn4z1XQODqMy8BE0yxkUJ5glLxC
- mqUqKFSH6EvQhGqShp56SUaqKDoaE6k=
+ bh=IXXkgThpFeK0h1pAly7f481TOnNmRuO+IPizxSHpLr0=;
+ b=Ymdo2tY573GuCTNfiGnV6OkzkfLcyh4GXPDksC8VjraiO5/Mui+OtJvttW5vh6q6x5Jmy6
+ i3BRy+SHMULegu/BTOhJ/DBBpI6PQm93tBk7NMMkZVPCUskYVzTZVWgprFDzROlRtYTcZP
+ 2rtUkILSzW0t1YoKTZZKkVgDGxSU7b0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1654541595;
+ s=susede2_ed25519; t=1654546841;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=64aos9Kliqt7RQIxN4MXHys2ifXPFJMGeS+e/ljstYk=;
- b=6HUIEaLjY6QDF1+96YIA3ukml5zaNhKdG/BljvRKRuC17WbbbHpnihDTjJ0v6PKeSXVw06
- OHYmb+RmkkVaxvBQ==
+ bh=IXXkgThpFeK0h1pAly7f481TOnNmRuO+IPizxSHpLr0=;
+ b=ATTz4Z1nITM/9Rg8U8elIvFXqvmC7BziDcmpabrKAkTD3RdLdsb6uFNd7hIeUQtr/dCia5
+ 7LkD/tiJWX7lkiBA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 78EA113A5F;
- Mon,  6 Jun 2022 18:53:15 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 52A6413A5F;
+ Mon,  6 Jun 2022 20:20:41 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id NIXZGxtNnmJhNQAAMHmgww
- (envelope-from <pvorel@suse.cz>); Mon, 06 Jun 2022 18:53:15 +0000
-Date: Mon, 6 Jun 2022 20:53:13 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id O87gEZlhnmK8TAAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Mon, 06 Jun 2022 20:20:41 +0000
+Date: Mon, 6 Jun 2022 22:20:38 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: Zhao Gongyi <zhaogongyi@huawei.com>
-Message-ID: <Yp5NGYJpah3d/uBh@pevik>
-References: <20220606113649.41600-1-zhaogongyi@huawei.com>
+To: Li Wang <liwang@redhat.com>
+Message-ID: <Yp5hlrqtwtE0r4Bj@pevik>
+References: <20220606100034.169493-1-liwang@redhat.com>
+ <20220606100034.169493-2-liwang@redhat.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20220606113649.41600-1-zhaogongyi@huawei.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+In-Reply-To: <20220606100034.169493-2-liwang@redhat.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] tst_kvercmp.sh: strip '+' when $(EXTRAVERSION) is
- blank
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3 1/2] lib: extend .request_hugepages to
+ guarantee enough hpages
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,22 +89,22 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Zhao,
+Hi Li,
 
-> $(EXTRAVERSION) defines an even tinier sublevel for pre-patches
-> or additional patches. It is usually some non-numeric string
-> such as "-pre4", and is often blank. When $(EXTRAVERSION) is blank,
-> there may be a extra '+' which shoud be stripped.
+> diff --git a/lib/newlib_tests/test_zero_hugepage.c b/lib/newlib_tests/test_zero_hugepage.c
 ...
->  r3=${r3%%-*}
-> +r3=${r3%%+*}
+>  static struct tst_test test = {
+>  	.test_all = do_test,
+> -	.request_hugepages = TST_NO_HUGEPAGES,
+> +	.hugepages = {TST_NO_HUGEPAGES},
 
-Is that '+' on kernel which sources were modified without commit?
-This can be on version with non-blank EXTRAVERSION, but in that case it's
-already removed by r3=${r3%%-*}, right?
+Also comment at the top should be renamed:
 
-LGTM
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
+-Tests .request_hugepages = TST_NO_HUGEPAGES
++Tests .hugepages = {TST_NO_HUGEPAGES}
+
+Unrelated to this change:
+I wonder if we want to use docparse also for API tests.
 
 Kind regards,
 Petr
