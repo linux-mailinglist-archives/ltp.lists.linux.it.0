@@ -1,74 +1,77 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C4525432BA
-	for <lists+linux-ltp@lfdr.de>; Wed,  8 Jun 2022 16:37:46 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 165E05445B6
+	for <lists+linux-ltp@lfdr.de>; Thu,  9 Jun 2022 10:30:12 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9FCDD3C915A
-	for <lists+linux-ltp@lfdr.de>; Wed,  8 Jun 2022 16:37:44 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 911783C91DC
+	for <lists+linux-ltp@lfdr.de>; Thu,  9 Jun 2022 10:30:10 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 21C5B3C207C
- for <ltp@lists.linux.it>; Wed,  8 Jun 2022 16:37:40 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 680DF3C0895
+ for <ltp@lists.linux.it>; Wed,  8 Jun 2022 00:09:14 +0200 (CEST)
+Received: from mail-pf1-x431.google.com (mail-pf1-x431.google.com
+ [IPv6:2607:f8b0:4864:20::431])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id ACF601A006F0
- for <ltp@lists.linux.it>; Wed,  8 Jun 2022 16:37:39 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 24D171F962;
- Wed,  8 Jun 2022 14:37:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1654699059; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=OLg7lk1r8UNmseAf/y80yiqKvXAR1cNekHGn1dIn0DY=;
- b=qBZsC6x4oRinDLWatLij/LpWRfSxKB2/tbsS2jTfKx+3mAAHK6FS3LD/DTu7TbMuLKWoMT
- q1+iam72JUHzNk5VwpfME9LIczz8pQfA4rKvyExdkXp3ALxdp6Td3M8BR5X7EWoA90p7iL
- 79+OyyPPpJsw39RFQD5UW/cxHn5gDsk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1654699059;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=OLg7lk1r8UNmseAf/y80yiqKvXAR1cNekHGn1dIn0DY=;
- b=ic0dEIlGXi22awkDGuDzT3+vhLMeDMzdBhh5T8XNHLHA1Xote37LXJvYVgf9PVIkFaNJaa
- Cd/TqZ7j1U/Fm3Cg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1077613A15;
- Wed,  8 Jun 2022 14:37:39 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id zEubATO0oGLPfAAAMHmgww
- (envelope-from <chrubis@suse.cz>); Wed, 08 Jun 2022 14:37:39 +0000
-Date: Wed, 8 Jun 2022 16:39:45 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Petr Vorel <petr.vorel@gmail.com>
-Message-ID: <YqC0sSfMjolMEeKx@yuki>
-References: <20220606184320.8210-1-petr.vorel@gmail.com>
- <20220606184320.8210-2-petr.vorel@gmail.com>
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id E9F54600949
+ for <ltp@lists.linux.it>; Wed,  8 Jun 2022 00:09:13 +0200 (CEST)
+Received: by mail-pf1-x431.google.com with SMTP id c196so16708746pfb.1
+ for <ltp@lists.linux.it>; Tue, 07 Jun 2022 15:09:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=1QjWhYAIck0B+prMafRHntt3bLismQ6kOqKOMO119oY=;
+ b=P3uqCBCP3vl74plVRIMe3vomhE+kevTLvtbnTjVPWJstfLqsHc9oZFlA5CLCfh0ker
+ buHeIyV2+uWljEUYoy3ojnj+bL72cg7t8XzcmCYHn5YJjqqfmIl4X5OKTEuxAA4z3z8y
+ k77ON7eNjhlTeLAjVVzMjRkNkCB1Kx3vcwN9nrb+amVWWNrusvxw1I3SuMQcmqaldR2J
+ p20nBW1bN1+i4TjC5mymcvmuLrkM5PkLw0JacO2ckGjpv2L/ddNFPzQ7LuqNnGbSPBlF
+ 2Nkvut7iJVbS53hq+az9/8jPyYBqDHjevGOEfN56fOEI7EE4SSYRBOrPjDMHsIWuCU1n
+ j5vg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=1QjWhYAIck0B+prMafRHntt3bLismQ6kOqKOMO119oY=;
+ b=ai7Kf+/qVlJIQv2gZpf20ZelQUDjFZoJqyBXwF8MO0ilOgnJvc/Jjblcr6O64CJ9al
+ Ot5s17umbhsRLSR4vavxl97VxVhbxZugLTuyyDqbTVgfFrnhTOSBhx4ZmJrUxd3Tr7s2
+ LPbQpZ7E9/cZcntOw+PsIlaYi6VM1RqkUZWNMmb3s2DszIlOyqQEiXLF6ajM6blxI6J6
+ ZSZx3y1bd/AB0/NBT4YR0TyyYrzALZVlJ0FEkP0E6NXxrowjzULmAqmycrt1p0He04ES
+ tzvhebNWd+tSGeFbMhPL1eOwYn0hO4N8meiTLS0B/nXUwS9MarKc7s6jNZovfN5bTLDE
+ IuLw==
+X-Gm-Message-State: AOAM530QryN1DZh+id4PuNyfqApnci1Ta7eetbh8ut6RzadMT6JC2JYi
+ c/K4AJK9AxsiD3pKBP43E+apk07Y0P8=
+X-Google-Smtp-Source: ABdhPJzcXP/Y5crXVTr+ZFUi7YsKUWCLseRwQQGb6kqWzeIUvxHTy7r0FR70yCjghzTK4sNH/X3zgA==
+X-Received: by 2002:a65:6d16:0:b0:3c1:b056:5f5a with SMTP id
+ bf22-20020a656d16000000b003c1b0565f5amr27048626pgb.469.1654639751558; 
+ Tue, 07 Jun 2022 15:09:11 -0700 (PDT)
+Received: from ubuntu.localdomain (nat61-196.net.kcls.org. [206.188.61.196])
+ by smtp.gmail.com with ESMTPSA id
+ bb7-20020a170902bc8700b001624dab05edsm13067099plb.8.2022.06.07.15.09.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 07 Jun 2022 15:09:10 -0700 (PDT)
+From: shatur.linux@gmail.com
+X-Google-Original-From: sturlapati@vmware.com
+To: ltp@lists.linux.it
+Date: Tue,  7 Jun 2022 15:08:53 -0700
+Message-Id: <20220607220853.50868-1-sturlapati@vmware.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20220606184320.8210-2-petr.vorel@gmail.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/2] kvm: Fix compilation on x86
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+X-Mailman-Approved-At: Thu, 09 Jun 2022 10:30:07 +0200
+Subject: [LTP] [PATCH] run-posix-option-group-test.sh: Log and exit if one
+ attempts to run tests without compiling
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,60 +83,55 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- Buildroot Mailing List <buildroot@buildroot.org>,
- Fabrice Fontaine <fontaine.fabrice@gmail.com>,
- "Yann E. MORIN" <yann.morin.1998@free.fr>, ltp@lists.linux.it
+Cc: shatur.linux@gmail.com, sturlapati@vmware.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> Buildroot supports i386 pentium toolchains (br-i386-pentium-mmx-musl,
-> br-i386-pentium4-full) which fail to compile because as is run without --32.
+From: Sharan Turlapati <sturlapati@vmware.com>
 
-So we have a 32bit compiler but 64bit linker?
+Currently, run-posix-option-group-test.sh erroneously
+logs "***Tests Completed***" when no test has actually run if the script is invoked
+to run without actually compiling the tests.
 
-I guess that passing -m32 to 32bit compiler is harmless, so this can go
-in.
+Check if the .run-test files actually exist before attempting to run them.
+If not found, log a message indicating the problem and suggest to check if
+the tests were compiled. Exit the script without attempting to run other
+tests.
 
-Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
+Signed-off-by: Sharan Turlapati <sturlapati@vmware.com>
+---
+ .../bin/run-posix-option-group-test.sh              | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
-> Suggested-by: Martin Doucha <mdoucha@suse.cz>
-> Signed-off-by: Petr Vorel <petr.vorel@gmail.com>
-> ---
->  testcases/kernel/kvm/Makefile | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
-> 
-> diff --git a/testcases/kernel/kvm/Makefile b/testcases/kernel/kvm/Makefile
-> index adab56952..8d5193d8e 100644
-> --- a/testcases/kernel/kvm/Makefile
-> +++ b/testcases/kernel/kvm/Makefile
-> @@ -17,11 +17,14 @@ FILTER_OUT_MAKE_TARGETS := lib_guest lib_host lib_x86
->  ifeq ($(HOST_CPU),x86_64)
->  	ifneq (,$(findstring m32,$(CFLAGS)))
->  		HOST_CPU = x86
-> -		GUEST_CFLAGS += -m32
-> -		ASFLAGS += --32
->  	endif
->  endif
->  
-> +ifeq ($(HOST_CPU),x86)
-> +	GUEST_CFLAGS += -m32
-> +	ASFLAGS += --32
-> +endif
-> +
->  # Some distros enable -pie by default. That breaks KVM payload linking.
->  ifdef LTP_CFLAGS_NOPIE
->  	GUEST_CFLAGS += -fno-pie
-> -- 
-> 2.36.1
-> 
-
+diff --git a/testcases/open_posix_testsuite/bin/run-posix-option-group-test.sh b/testcases/open_posix_testsuite/bin/run-posix-option-group-test.sh
+index 0d4c9bd80..56773f0f0 100755
+--- a/testcases/open_posix_testsuite/bin/run-posix-option-group-test.sh
++++ b/testcases/open_posix_testsuite/bin/run-posix-option-group-test.sh
+@@ -22,9 +22,16 @@ EOF
+ 
+ run_option_group_tests()
+ {
+-	for test_script in $(find $1 -name '*.run-test' | sort); do
+-		(cd "$(dirname "$test_script")" && ./$(basename "$test_script"))
+-	done
++	list_of_tests=`find $1 -name '*.run-test' | sort`
++	if [[ -n $list_of_tests ]]
++	then
++		for test_script in $list_of_tests; do
++			(cd "$(dirname "$test_script")" && ./$(basename "$test_script"))
++		done
++	else
++		echo ".run-test files not found under $1. Were the tests compiled?"
++		exit 1
++	fi
+ }
+ 
+ case $1 in
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+2.19.0
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
