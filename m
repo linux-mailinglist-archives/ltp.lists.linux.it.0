@@ -1,79 +1,51 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id C86C65445AA
-	for <lists+linux-ltp@lfdr.de>; Thu,  9 Jun 2022 10:27:03 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 58AEA544A02
+	for <lists+linux-ltp@lfdr.de>; Thu,  9 Jun 2022 13:25:48 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 579BC3C91AF
-	for <lists+linux-ltp@lfdr.de>; Thu,  9 Jun 2022 10:27:02 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 1E73D3C9211
+	for <lists+linux-ltp@lfdr.de>; Thu,  9 Jun 2022 13:25:47 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 211F33C06E0
- for <ltp@lists.linux.it>; Thu,  9 Jun 2022 10:26:57 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id E82043C910C
+ for <ltp@lists.linux.it>; Thu,  9 Jun 2022 13:25:43 +0200 (CEST)
+Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 314921A00E32
- for <ltp@lists.linux.it>; Thu,  9 Jun 2022 10:26:56 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id AF40B21DE6;
- Thu,  9 Jun 2022 08:26:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1654763215; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=AfURaI2Jg4CFdxz54jkCHhfZs/Ryz2Gjr5WE33ou6vU=;
- b=bYlpgAX7cCQ58QbR11NqmIM3yZmcvX2wQGB1StTr8nDn1TCdtp1toZPkZJ6SDXtgjA1Prg
- TmfuE8OF+9mVe164tQurnmSyor7sChNbkxogpmclXAdB+t4UA2rff/UtI5SBgR/cXx7iRu
- SRNNUNc7cmW8We2eX23mhqjjv/WexI8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1654763215;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=AfURaI2Jg4CFdxz54jkCHhfZs/Ryz2Gjr5WE33ou6vU=;
- b=bxeWYkU4saYy6BUSuPL1dIRc0A4+3cXOSiGybRFnfGdi9lugEty/BjvcXRSsfI6JrTcQLS
- 5CBei+dZG5sZlNAw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7118413A8C;
- Thu,  9 Jun 2022 08:26:55 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id nScPGs+uoWKRTAAAMHmgww
- (envelope-from <mdoucha@suse.cz>); Thu, 09 Jun 2022 08:26:55 +0000
-Message-ID: <5d4a4e2b-4d1d-88d6-4905-67083c154775@suse.cz>
-Date: Thu, 9 Jun 2022 10:26:55 +0200
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id BF15B14004EC
+ for <ltp@lists.linux.it>; Thu,  9 Jun 2022 13:25:42 +0200 (CEST)
+Received: from [10.40.94.1] (unknown [37.24.96.116])
+ by mail.jv-coder.de (Postfix) with ESMTPSA id 5CEE69F6A4
+ for <ltp@lists.linux.it>; Thu,  9 Jun 2022 11:25:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
+ t=1654773941; bh=vT86ORW6pTYJqpwJxeRAbid7rwJdN4sN8dINOHI5eVo=;
+ h=Message-ID:Date:MIME-Version:To:From:Subject;
+ b=uSOIHqt7s5s0ifheA+l6aveHYJA7bcg5fU8ZlEcwWnp1SsYR92afB0XK4jDX9HvLI
+ PYw9cnSvUC9EGY4tSFOywnY5U20kA3DoxNqvwu3lD29Ned56AaxGs29ZxNeeBp8iug
+ ZZHA0HXIqYbzQvP+28ktl+gqUD44qDjO03q51S68=
+Message-ID: <3e9f91c4-b94b-21c4-4cfa-cb39af5e1110@jv-coder.de>
+Date: Thu, 9 Jun 2022 13:25:40 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
 Content-Language: en-US
-To: Petr Vorel <petr.vorel@gmail.com>, ltp@lists.linux.it
-References: <20220606184320.8210-1-petr.vorel@gmail.com>
- <20220606184320.8210-3-petr.vorel@gmail.com>
-From: Martin Doucha <mdoucha@suse.cz>
-In-Reply-To: <20220606184320.8210-3-petr.vorel@gmail.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
-X-Virus-Status: Clean
-X-Spam-Status: No, score=-1.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+To: LTP List <ltp@lists.linux.it>
+From: Joerg Vehlow <lkml@jv-coder.de>
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 2/2] kvm: Fix undefined reference to
- __stack_chk_fail()
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Status: Clean
+Subject: [LTP] [RFC] Open Posix Testsuite install layout
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,58 +57,86 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- "Yann E. MORIN" <yann.morin.1998@free.fr>,
- Buildroot Mailing List <buildroot@buildroot.org>,
- Fabrice Fontaine <fontaine.fabrice@gmail.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 06. 06. 22 20:43, Petr Vorel wrote:
-> Some x86_64 buildroot toolchains (bootlin-x86-64-glibc,
-> bootlin-x86-64-musl) try to link to __stack_chk_fail().
-> -nostdlib is not enough, it requires also -fstack-protector.
-> 
-> x86_64-buildroot-linux-gnu/bin/ld: /tmp/ccgBXEoR.o: in function `handle_page_fault':
-> kvm_pagefault01.c:(.text+0x5d): undefined reference to `__stack_chk_fail'
-> collect2: error: ld returned 1 exit status
-> 
-> Signed-off-by: Petr Vorel <petr.vorel@gmail.com>
-> ---
->  testcases/kernel/kvm/Makefile | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/testcases/kernel/kvm/Makefile b/testcases/kernel/kvm/Makefile
-> index 8d5193d8e..bce1a4eb5 100644
-> --- a/testcases/kernel/kvm/Makefile
-> +++ b/testcases/kernel/kvm/Makefile
-> @@ -9,7 +9,7 @@ ASFLAGS =
->  CPPFLAGS += -I$(abs_srcdir)/include
->  GUEST_CPPFLAGS = $(CPPFLAGS) -DCOMPILE_PAYLOAD
->  GUEST_CFLAGS = -ffreestanding -O2 -Wall -fno-asynchronous-unwind-tables -mno-mmx -mno-sse
-> -GUEST_LDFLAGS = -nostdlib -Wl,--build-id=none
-> +GUEST_LDFLAGS = -nostdlib -Wl,--build-id=none -fstack-protector
+Hi,
 
-We should use -fno-stack-protector here instead. Your patch probably
-enables linking of libssp despite -nostdlib which we don't want. The GCC
-stack protector may also break tests because bootstrap initializes stack
-manually instead of letting GCC handle it.
-
->  GUEST_LDLIBS =
->  
->  FILTER_OUT_MAKE_TARGETS := lib_guest lib_host lib_x86
+I am currently reviewing openembedded's recipe ([1]). It is currently
+installing the openposix testsuite twice: Once in
+/opt/ltp/testcases/open_posix_testsuite and also directly into
+/opt/ltp/. This is probably due to the fact, that the open posix
+testsuite had no install target until 20110606 and then it was installed
+into a different directory:
 
 
--- 
-Martin Doucha   mdoucha@suse.cz
-QA Engineer for Software Maintenance
-SUSE LINUX, s.r.o.
-CORSO IIa
-Krizikova 148/34
-186 00 Prague 8
-Czech Republic
+
+
+In 3b808b4 ("Add install target; shuffle around/cleanup code."), make
+install was added to open posix testsuite, but the install layout is a
+bit odd.
+
+It installs:
+
+/opt/ltp/bin/run-all-posix-option-group-tests.sh
+/opt/ltp/bin/t0
+/opt/ltp/bin/run-tests.sh
+/opt/ltp/bin/Makefile
+/opt/ltp/bin/run-posix-option-group-test.sh
+
+This is mostly ok, although run-tests.sh should be called
+run-posix-tests.sh, otherwise it looks like it would run "normal" ltp tests.
+And the scripts are structured a bit weird, at least
+run-all-posix-option-group-tests.sh and run-posix-option-group-test.sh
+could be merged into a single script. And
+run-all-posix-option-group-tests.sh does not execute all tests, but only
+(maybe not even all) conformance/interface tests. Based on the name of
+the script and the available documentation, this makes sense, but I
+don't see how these scripts are useful. Why would anyone want to only
+run tests for optional posix features, but not for other?
+
+The Makefile shouldn't be installed at all.
+
+
+But what is worth is the fact, that the open posix testsuites are
+installed directly into /opt/ltp
+
+/opt/ltp/stress
+/opt/ltp/conformance
+/opt/ltp/functional
+
+They should be installed into /opt/ltp/testcases/open_posix_testsuite or
+maybe /opt/ltp/open_posix_testsuite otherwise it is very confusing.
+This would of course require the shell scripts, that execute open posix
+tests to be changed during installation (currently they use "$(dirname
+"$0")/../conformance/interfaces"). Additionally all generated run.sh
+scripts would need adaption, as they use run-tests.sh.
+
+
+
+I would propose and volunteer to:
+1. Move testsuites to /opt/ltp/testcases/open_posix_testsuite
+2. Move run-tests.sh and t0 to /opt/ltp/testcases
+   /open_posix_testsuite/bin, because it is only used by run.sh scriptss
+   from the suites directories
+3. Fix paths in run-posix-option-group-test.sh during installation
+   (or drop them completely? Are they even used by anyone?)
+2. Remove the Makefile from /opt/ltp/bin
+
+
+
+For the future it would probably be a good idea to integrate the tests
+into the default ltp testrunner or at least provide something, that can
+execute the installed tests automatically. But to be honest, I don't
+care about this, because we are executing the tests with our own testrunner.
+
+
+Joerg
+
+[1]
+https://git.openembedded.org/openembedded-core/tree/meta/recipes-extended/ltp/ltp_20220527.bb
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
