@@ -2,75 +2,69 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03D7654B0A1
-	for <lists+linux-ltp@lfdr.de>; Tue, 14 Jun 2022 14:31:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9961954B1E3
+	for <lists+linux-ltp@lfdr.de>; Tue, 14 Jun 2022 15:04:20 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9B27F3C94F6
-	for <lists+linux-ltp@lfdr.de>; Tue, 14 Jun 2022 14:31:22 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 423CA3C9458
+	for <lists+linux-ltp@lfdr.de>; Tue, 14 Jun 2022 15:04:20 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 9E3113C8D8E
- for <ltp@lists.linux.it>; Tue, 14 Jun 2022 14:31:18 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id BD5233C006A
+ for <ltp@lists.linux.it>; Tue, 14 Jun 2022 15:04:15 +0200 (CEST)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 0EA6D1400DAA
- for <ltp@lists.linux.it>; Tue, 14 Jun 2022 14:31:17 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 426A01F8F1;
- Tue, 14 Jun 2022 12:31:17 +0000 (UTC)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 768A810009DA
+ for <ltp@lists.linux.it>; Tue, 14 Jun 2022 15:04:13 +0200 (CEST)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 8D9F91F8F1;
+ Tue, 14 Jun 2022 13:04:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1655209877;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
+ t=1655211853; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=XYGyBXxigWftuY0Wq21fAnxTS5JCSMu+QWEercAovuA=;
- b=W7l76TmIi3S5RoxaBM/sVeHGLYGyikr+/qdM7OiA34Tji2TBPI7euxzGL/QSFzoc1Xy7h8
- cE5iMaThjC9JcqcdK/TZ+2oHqoce8eudy8sqvPSWSNhmDb80oAl9SJtsACxWghODj4DkOZ
- 7WkDrGKj1aNEIH0Rl69lt8UDKZzOhD4=
+ bh=DBEFdT2uPOmU/7K+RMm6lhYrVkT4RyjNXWmiL3g9dIU=;
+ b=WMk+z2kna5TLlCt8SIDAzS/e7TW/kXHoLYKWo47ZZAeeY0IS4WglBptU2b/oB9NCtvYoGn
+ m1kKqfJJKNnYMLpm/2FoLbHuAtFh985MezneuCe0gUiyPuy8M3sh+5U4Ha8372NeQoFNC1
+ f+TXdmP+a3faQCRoFyjnUM10LKO0NbI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1655209877;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
+ s=susede2_ed25519; t=1655211853;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=XYGyBXxigWftuY0Wq21fAnxTS5JCSMu+QWEercAovuA=;
- b=mURErtDbix7fhmzrSo1BfZfiTZIu7pJk7gYdIDm8SDHsEP/ZJRd++aWaA/BHzTL7W4ZEkq
- 10bW9xrHHZULWPAA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ bh=DBEFdT2uPOmU/7K+RMm6lhYrVkT4RyjNXWmiL3g9dIU=;
+ b=7yMwfvPojYjbQcKh0o5Hu2jPrZmX9CL+/8CmATfN5iqvBk7/2PyQWSfP85A7K2eGLCTHcg
+ 4DvzjegvYj6/UGDQ==
+Received: from quack3.suse.cz (jack.udp.ovpn1.nue.suse.de [10.163.28.18])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DFE8F1361C;
- Tue, 14 Jun 2022 12:31:16 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 0ejMMZR/qGIzDwAAMHmgww
- (envelope-from <pvorel@suse.cz>); Tue, 14 Jun 2022 12:31:16 +0000
-Date: Tue, 14 Jun 2022 14:31:14 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: LTP List <ltp@lists.linux.it>
-Message-ID: <Yqh/kqJBv2xgV3O1@pevik>
-References: <YfPiW998P4/j7RWi@pevik>
- <20220203101803.10204-1-rpalethorpe@suse.com>
- <CAEemH2f6ka-vK+O33cxw1ewMWDYZQwtRZUQ3eKFMkynqB2+R3w@mail.gmail.com>
- <YiDDoly4t0N30kfo@pevik>
+ by relay2.suse.de (Postfix) with ESMTPS id 78A202C141;
+ Tue, 14 Jun 2022 13:04:13 +0000 (UTC)
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+ id 97BDEA062E; Tue, 14 Jun 2022 15:04:10 +0200 (CEST)
+Date: Tue, 14 Jun 2022 15:04:10 +0200
+From: Jan Kara <jack@suse.cz>
+To: Amir Goldstein <amir73il@gmail.com>
+Message-ID: <20220614130410.k5d4rhjd7ps2pkif@quack3.lan>
+References: <20220613143826.1328830-1-amir73il@gmail.com>
+ <20220613143826.1328830-6-amir73il@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <YiDDoly4t0N30kfo@pevik>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+In-Reply-To: <20220613143826.1328830-6-amir73il@gmail.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] Create policy for testing unstable kernel features
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 5/5] syscalls/fanotify10: Add test cases for
+ evictable ignore mark
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,44 +76,193 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: Xiao Yang <yangx.jy@cn.fujitsu.com>,
- Richard Palethorpe <rpalethorpe@suse.com>
+Cc: Jan Kara <jack@suse.cz>, ltp@lists.linux.it,
+ Matthew Bobrowski <repnop@google.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi all,
+On Mon 13-06-22 17:38:26, Amir Goldstein wrote:
+> Test multiple groups with evictable mark with ignore mask
+> 
+> Signed-off-by: Amir Goldstein <amir73il@gmail.com>
 
-as there is another set of fanotify tests for rc kernel, I'd really like to have
-some policy. Therefore I suggest to stick policy suggested by Richie in this
-patchset [1], i.e. adding tests into runtest/staging until mainline kernel with
-this functionality is released (feature is part of the stable kernel ABI).
-i.e. each kernel release content of this file must be revised and (ideally)
-moved to particular runtest file where it should belong or fixed (in rare
-situations when feature changed) or removed (feature was reverted).
+Looks good. Feel free to add:
 
-I volunteer to maintain runtest/staging.
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-This feature got already ack from Mike Frysinger, Li Wang, Jan Stancek (and me).
-I'll wait little longer for ack from others (Yang Xu, Cyril Hrubis).
+								Honza
 
-Anybody against it?
-
-"remove_after_release" solution [2] suggested by Cyril and Richie, which would
-keep kernel version could be quite easily implemented. But IMHO it's not worth
-with current number of tests which need it (< 5, often 1 or 0).
-
-Obviously I suggest to drop my original suggestion [2] (it didn't include
-runtest/staging).
-
-Kind regards,
-Petr
-
-[1] https://lore.kernel.org/ltp/20220203101803.10204-1-rpalethorpe@suse.com/
-[2] https://lore.kernel.org/ltp/YdW5WEXgrotentzM@yuki/
-[3] https://lore.kernel.org/ltp/20211210134556.26091-1-pvorel@suse.cz/
+> ---
+>  .../kernel/syscalls/fanotify/fanotify10.c     | 78 +++++++++++++++++++
+>  1 file changed, 78 insertions(+)
+> 
+> diff --git a/testcases/kernel/syscalls/fanotify/fanotify10.c b/testcases/kernel/syscalls/fanotify/fanotify10.c
+> index b9a50672d..52277d0b7 100644
+> --- a/testcases/kernel/syscalls/fanotify/fanotify10.c
+> +++ b/testcases/kernel/syscalls/fanotify/fanotify10.c
+> @@ -71,6 +71,7 @@ static char event_buf[EVENT_BUF_LEN];
+>  static int exec_events_unsupported;
+>  static int fan_report_dfid_unsupported;
+>  static int filesystem_mark_unsupported;
+> +static int evictable_mark_unsupported;
+>  
+>  #define MOUNT_PATH "fs_mnt"
+>  #define MNT2_PATH "mntpoint"
+> @@ -90,6 +91,10 @@ static int filesystem_mark_unsupported;
+>  #define FILE_EXEC_PATH2 MNT2_PATH"/"TEST_APP
+>  #define FILE2_EXEC_PATH2 MNT2_PATH"/"TEST_APP2
+>  
+> +#define DROP_CACHES_FILE "/proc/sys/vm/drop_caches"
+> +#define CACHE_PRESSURE_FILE "/proc/sys/vm/vfs_cache_pressure"
+> +
+> +static int old_cache_pressure;
+>  static pid_t child_pid;
+>  static int bind_mount_created;
+>  static unsigned int num_classes = NUM_CLASSES;
+> @@ -98,12 +103,14 @@ enum {
+>  	FANOTIFY_INODE,
+>  	FANOTIFY_MOUNT,
+>  	FANOTIFY_FILESYSTEM,
+> +	FANOTIFY_EVICTABLE,
+>  };
+>  
+>  static struct fanotify_mark_type fanotify_mark_types[] = {
+>  	INIT_FANOTIFY_MARK_TYPE(INODE),
+>  	INIT_FANOTIFY_MARK_TYPE(MOUNT),
+>  	INIT_FANOTIFY_MARK_TYPE(FILESYSTEM),
+> +	INIT_FANOTIFY_MARK_TYPE(EVICTABLE),
+>  };
+>  
+>  static struct tcase {
+> @@ -289,14 +296,59 @@ static struct tcase {
+>  		0,
+>  		FILE_PATH, FAN_OPEN, FAN_OPEN
+>  	},
+> +	/* Evictable ignore mark test cases */
+> +	{
+> +		"don't ignore mount events created on file with evicted ignore mark",
+> +		MOUNT_PATH, FANOTIFY_MOUNT,
+> +		FILE_PATH, FANOTIFY_EVICTABLE,
+> +		0,
+> +		FILE_PATH, FAN_OPEN, FAN_OPEN
+> +	},
+> +	{
+> +		"don't ignore fs events created on a file with evicted ignore mark",
+> +		MOUNT_PATH, FANOTIFY_FILESYSTEM,
+> +		FILE_PATH, FANOTIFY_EVICTABLE,
+> +		0,
+> +		FILE_PATH, FAN_OPEN, FAN_OPEN
+> +	},
+> +	{
+> +		"don't ignore mount events created inside a parent with evicted ignore mark",
+> +		MOUNT_PATH, FANOTIFY_MOUNT,
+> +		DIR_PATH, FANOTIFY_EVICTABLE,
+> +		FAN_EVENT_ON_CHILD,
+> +		FILE_PATH, FAN_OPEN, FAN_OPEN
+> +	},
+> +	{
+> +		"don't ignore fs events created inside a parent with evicted ignore mark",
+> +		MOUNT_PATH, FANOTIFY_FILESYSTEM,
+> +		DIR_PATH, FANOTIFY_EVICTABLE,
+> +		FAN_EVENT_ON_CHILD,
+> +		FILE_PATH, FAN_OPEN, FAN_OPEN
+> +	},
+>  };
+>  
+> +static void show_fanotify_marks(int fd)
+> +{
+> +	unsigned int mflags, mask, ignored_mask;
+> +	char procfdinfo[100];
+> +
+> +	sprintf(procfdinfo, "/proc/%d/fdinfo/%d", (int)getpid(), fd);
+> +	if (FILE_LINES_SCANF(procfdinfo, "fanotify ino:%*x sdev:%*x mflags: %x mask:%x ignored_mask:%x",
+> +				&mflags, &mask, &ignored_mask)) {
+> +		tst_res(TPASS, "No fanotify inode marks as expected");
+> +	} else {
+> +		tst_res(TFAIL, "Unexpected inode mark (mflags=%x, mask=%x ignored_mask=%x)",
+> +				mflags, mask, ignored_mask);
+> +	}
+> +}
+> +
+>  static int create_fanotify_groups(unsigned int n)
+>  {
+>  	struct tcase *tc = &tcases[n];
+>  	struct fanotify_mark_type *mark, *ignore_mark;
+>  	unsigned int mark_ignored, mask;
+>  	unsigned int p, i;
+> +	int evictable_ignored = (tc->ignore_mark_type == FANOTIFY_EVICTABLE);
+>  
+>  	mark = &fanotify_mark_types[tc->mark_type];
+>  	ignore_mark = &fanotify_mark_types[tc->ignore_mark_type];
+> @@ -345,6 +397,20 @@ add_mark:
+>  			}
+>  		}
+>  	}
+> +
+> +	/*
+> +	 * drop_caches should evict inode from cache and remove evictable marks
+> +	 */
+> +	if (evictable_ignored) {
+> +		SAFE_FILE_PRINTF(DROP_CACHES_FILE, "3");
+> +		for (p = 0; p < num_classes; p++) {
+> +			for (i = 0; i < GROUPS_PER_PRIO; i++) {
+> +				if (fd_notify[p][i] > 0)
+> +					show_fanotify_marks(fd_notify[p][i]);
+> +			}
+> +		}
+> +	}
+> +
+>  	return 0;
+>  }
+>  
+> @@ -439,6 +505,11 @@ static void test_fanotify(unsigned int n)
+>  		return;
+>  	}
+>  
+> +	if (evictable_mark_unsupported && tc->ignore_mark_type == FANOTIFY_EVICTABLE) {
+> +		tst_res(TCONF, "FAN_MARK_EVICTABLE not supported in kernel?");
+> +		return;
+> +	}
+> +
+>  	if (tc->ignored_onchild && tst_kvercmp(5, 9, 0) < 0) {
+>  		tst_res(TCONF, "ignored mask in combination with flag FAN_EVENT_ON_CHILD"
+>  				" has undefined behavior on kernel < 5.9");
+> @@ -527,6 +598,7 @@ static void setup(void)
+>  	exec_events_unsupported = fanotify_events_supported_by_kernel(FAN_OPEN_EXEC,
+>  								      FAN_CLASS_CONTENT, 0);
+>  	filesystem_mark_unsupported = fanotify_mark_supported_by_kernel(FAN_MARK_FILESYSTEM);
+> +	evictable_mark_unsupported = fanotify_mark_supported_by_kernel(FAN_MARK_EVICTABLE);
+>  	fan_report_dfid_unsupported = fanotify_init_flags_supported_on_fs(FAN_REPORT_DFID_NAME,
+>  									  MOUNT_PATH);
+>  	if (fan_report_dfid_unsupported) {
+> @@ -545,6 +617,10 @@ static void setup(void)
+>  	/* Create another bind mount at another path for generating events */
+>  	SAFE_MKDIR(MNT2_PATH, 0755);
+>  	mount_cycle();
+> +
+> +	SAFE_FILE_SCANF(CACHE_PRESSURE_FILE, "%d", &old_cache_pressure);
+> +	/* Set high priority for evicting inodes */
+> +	SAFE_FILE_PRINTF(CACHE_PRESSURE_FILE, "500");
+>  }
+>  
+>  static void cleanup(void)
+> @@ -553,6 +629,8 @@ static void cleanup(void)
+>  
+>  	if (bind_mount_created)
+>  		SAFE_UMOUNT(MNT2_PATH);
+> +
+> +	SAFE_FILE_PRINTF(CACHE_PRESSURE_FILE, "%d", old_cache_pressure);
+>  }
+>  
+>  static const char *const resource_files[] = {
+> -- 
+> 2.25.1
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
