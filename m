@@ -1,73 +1,76 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C9FA54B1E0
-	for <lists+linux-ltp@lfdr.de>; Tue, 14 Jun 2022 15:02:21 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F19A54B212
+	for <lists+linux-ltp@lfdr.de>; Tue, 14 Jun 2022 15:11:49 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 087723C94FA
-	for <lists+linux-ltp@lfdr.de>; Tue, 14 Jun 2022 15:02:21 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 8A89A3C9423
+	for <lists+linux-ltp@lfdr.de>; Tue, 14 Jun 2022 15:11:48 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 42DDD3C006A
- for <ltp@lists.linux.it>; Tue, 14 Jun 2022 15:02:15 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 2BC413C06E0
+ for <ltp@lists.linux.it>; Tue, 14 Jun 2022 15:11:44 +0200 (CEST)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 078061A009B3
- for <ltp@lists.linux.it>; Tue, 14 Jun 2022 15:02:14 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 4E57E6009D1
+ for <ltp@lists.linux.it>; Tue, 14 Jun 2022 15:11:42 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 517ED21AC2;
- Tue, 14 Jun 2022 13:02:14 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 8745421A82;
+ Tue, 14 Jun 2022 13:11:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1655211734; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1655212302; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=YXdQUEu9JVd5gLGofWmmSgh8D5w1Cyv0Lf66pMG4Doc=;
- b=fpT15RI2vXetbn74IvBipE509uGY/2yObZKiWtho237nsxZPYCHcEm2JykdxJD7p2QWsRp
- wX8Ne+cHmVhGg9jlRKqb0+H3Fg/Aa0bRhxKYF1UUMgUnbMUwFqV6ShEZ5oC3uR7WdVPlD9
- FYqn0O0HoD+GB8j2OoyAt90OmH206rs=
+ bh=MhCVamP4pmC0xEV6VmxrCMpdxe4VLaVErH0yxs3x4Lk=;
+ b=l9hMP78At1bkxUT0kuO0fd7TdmpNo/UFfYBWI2nxSKfSDigMhMxb+HodkzFKQO0yNWRb26
+ Nxbu6kD5abIVspKXca0BfH5LGwMKvpTi0UEkqpKdNQExAj9ZX8cOkx1a6s8Z6SKxCkScSY
+ 6yAzfjUON2MFFF3HDnY7GwKQLCqufAc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1655211734;
+ s=susede2_ed25519; t=1655212302;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=YXdQUEu9JVd5gLGofWmmSgh8D5w1Cyv0Lf66pMG4Doc=;
- b=mIeK+wQSg1DhTOfecOj3z4OL8Wz9EbR3gyD8ST6JthvjHwwqc1Y725gkDmZv4wdjUoKuvy
- uLeQ7j8lOu8XRADg==
+ bh=MhCVamP4pmC0xEV6VmxrCMpdxe4VLaVErH0yxs3x4Lk=;
+ b=9WndtGyVVUyyVIGoGb7yGUSfcm7ppttxMJBQgSPRxU0ppXXxkTtu0X9wHDXiRTmd2l7fqA
+ YtEVM4KaUh+GUtCg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3244F1361C;
- Tue, 14 Jun 2022 13:02:14 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 72CD31361C;
+ Tue, 14 Jun 2022 13:11:42 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id XElICdaGqGIrHQAAMHmgww
- (envelope-from <chrubis@suse.cz>); Tue, 14 Jun 2022 13:02:14 +0000
-Date: Tue, 14 Jun 2022 15:04:20 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id ZR2VGw6JqGKXIQAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Tue, 14 Jun 2022 13:11:42 +0000
+Date: Tue, 14 Jun 2022 15:13:49 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <YqiHVJhvhf16s2kL@yuki>
-References: <20220613125153.20423-1-chrubis@suse.cz> <YqdKVngCCGUfFDCZ@pevik>
+Message-ID: <YqiJjYVsrkPgk1fQ@yuki>
+References: <YfPiW998P4/j7RWi@pevik>
+ <20220203101803.10204-1-rpalethorpe@suse.com>
+ <CAEemH2f6ka-vK+O33cxw1ewMWDYZQwtRZUQ3eKFMkynqB2+R3w@mail.gmail.com>
+ <YiDDoly4t0N30kfo@pevik> <Yqh/kqJBv2xgV3O1@pevik>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <YqdKVngCCGUfFDCZ@pevik>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+In-Reply-To: <Yqh/kqJBv2xgV3O1@pevik>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/execve06: Add test for argv[0] = NULL
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] Create policy for testing unstable kernel features
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,97 +82,25 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Cc: Xiao Yang <yangx.jy@cn.fujitsu.com>,
+ Richard Palethorpe <rpalethorpe@suse.com>, LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> I wonder why this does not work:
-> 	.needs_cmds = (const char *[]) {
-> 		"execve06_child",
-> 		NULL
-> 	},
->
-> tst_test.c:1526: TINFO: Timeout per run is 0h 00m 30s
-> execve06.c:33: TFAIL: Failed to execute execl01_child: ENOENT (2)
-> tst_test.c:395: TBROK: Invalid child (23451) exit value 1
-
-The difference is because the test library adds current directory and
-test start directory into $PATH before a test is executed, see
-add_paths() in the tst_test.c.
-
-The .needs_cmds is for binaries installed on the system in /usr/bin/
-etc. so it does not make much sense to call the add_paths() before we
-process the array.
-
-> > +
-> > +	pid = SAFE_FORK();
-> > +	if (pid == 0) {
-> > +		execve(path, argv, envp);
-> > +		tst_brk(TFAIL | TERRNO, "Failed to execute execl01_child");
-> > +	}
-> > +}
-> > +
-> > +static struct tst_test test = {
-> > +	.forks_child = 1,
-> > +	.child_needs_reinit = 1,
-> > +	.test_all = verify_execve,
-> > +	.tags = (const struct tst_tag[]) {
-> > +		{"linux-git", "dcd46d897adb"},
-> > +		{"CVE", "2021-4034"},
-> > +		{}
-> > +	}
-> > +};
-> > diff --git a/testcases/kernel/syscalls/execve/execve06_child.c b/testcases/kernel/syscalls/execve/execve06_child.c
-> > new file mode 100644
-> > index 000000000..17280d58a
-> > --- /dev/null
-> > +++ b/testcases/kernel/syscalls/execve/execve06_child.c
-> > @@ -0,0 +1,27 @@
-> > +// SPDX-License-Identifier: GPL-2.0-or-later
-> > +/*
-> > + * Copyright (C) 2022 Cyril Hrubis chrubis@suse.cz
-> very nit: <chrubis@suse.cz> (missing < >)
-
-Will fix.
-
-> > + */
-> > +
-> > +#define TST_NO_DEFAULT_MAIN
-> > +#include <stdlib.h>
-> > +#include "tst_test.h"
-> > +
-> > +int main(int argc, char *argv[])
-> > +{
-> > +	tst_reinit();
-> > +
-> > +	if (argc != 1) {
-> > +		tst_res(TFAIL, "argc is %d, expected 1", argc);
-> > +		return 0;
-> > +	}
-> > +
-> > +	if (!argv[0]) {
-> > +		tst_res(TFAIL, "argv[0] == NULL");
-> > +		return 0;
-> > +	}
-> > +
-> > +	tst_res(TPASS, "argv[0] was filled in by kernel");
+> as there is another set of fanotify tests for rc kernel, I'd really like to have
+> some policy. Therefore I suggest to stick policy suggested by Richie in this
+> patchset [1], i.e. adding tests into runtest/staging until mainline kernel with
+> this functionality is released (feature is part of the stable kernel ABI).
+> i.e. each kernel release content of this file must be revised and (ideally)
+> moved to particular runtest file where it should belong or fixed (in rare
+> situations when feature changed) or removed (feature was reverted).
 > 
-> Testing matches the description from kernel commit.
-> Maybe also test for argv[0] being empty string (to make sure behavior does not
-> change, although unlikely it'd change)?
+> I volunteer to maintain runtest/staging.
 
-It should be safe either way but I decided to be less specific and only
-check that something have been added there.
-
-> I tested it on various kernels, works as expected.
-> 
-> Reviewed-by: Petr Vorel <pvorel@suse.cz>
-> Tested-by: Petr Vorel <pvorel@suse.cz>
-
-I will push it with the added runtest entries and fixed copyright then.
+As long as you commit to maintain the staging you have my ack as well.
 
 -- 
 Cyril Hrubis
