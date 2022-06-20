@@ -2,69 +2,75 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3F8B551413
-	for <lists+linux-ltp@lfdr.de>; Mon, 20 Jun 2022 11:19:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46442551417
+	for <lists+linux-ltp@lfdr.de>; Mon, 20 Jun 2022 11:19:59 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0CBDE3C920D
-	for <lists+linux-ltp@lfdr.de>; Mon, 20 Jun 2022 11:19:43 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E11423C92D0
+	for <lists+linux-ltp@lfdr.de>; Mon, 20 Jun 2022 11:19:58 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 6B4023C1B8F
+ by picard.linux.it (Postfix) with ESMTPS id 9C5E33C1B8F
  for <ltp@lists.linux.it>; Mon, 20 Jun 2022 11:19:41 +0200 (CEST)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id A468810005FB
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id C3C8F140005B
  for <ltp@lists.linux.it>; Mon, 20 Jun 2022 11:19:40 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id E08851FAC6
- for <ltp@lists.linux.it>; Mon, 20 Jun 2022 09:19:39 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 756351FB54
+ for <ltp@lists.linux.it>; Mon, 20 Jun 2022 09:19:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1655716779; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=Y/zNsa3EY7bijtsHhZLjENPYTVwErrCebhxrBXykFyE=;
- b=1OTjiW0gnfEzdjXt0FNSb6V45V4Rb3Fn4PFtG/jWoXIGZr9bXTgdyKaxg/y3JlrmMUg/Mw
- yhiODqXtqP77cO0GZPQ8UHV72FQXJNxGkJ3PfJIYUAmBKvf4anNeF6C8cwmA/jneaxxHO0
- UJE7eLgVlVMfWuZxR/FZ6+IiJVw2Jx4=
+ t=1655716780; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=C5uKp1SyCloJtkvjdL29jxY/oSXCOtYwUkPBR1nDDo4=;
+ b=josAqfpH8CKhUislqDqMJLixJCj+7B65eEhcmj3RxU3cpMu9h5ZcoO7GbeoE0yg3f8pgml
+ S7Vy0WahV3lx2qFHaRtrBlYTvmiGO07mpx8CFRfiZrB+ChFI1GaPMzLylyqg/gOKulOuvI
+ rFFufKZO1/OBJVwdJimEbYkxAMQY3zE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1655716779;
+ s=susede2_ed25519; t=1655716780;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=Y/zNsa3EY7bijtsHhZLjENPYTVwErrCebhxrBXykFyE=;
- b=oUxaKL3aZ/mLfIOqgP5M3jU20pZcgUjTi8uG9KTTzPlgQkfpC3hvneKGe3ayskGRNstGGj
- ispl4yPemImCZGAw==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=C5uKp1SyCloJtkvjdL29jxY/oSXCOtYwUkPBR1nDDo4=;
+ b=2gE0a5VwNQwFxexRwEQj9esot90ipbcCagZ+qBCSzQtPmfGtq1Ib4QEkCdY/jy/LyT4tVS
+ M0Rjx4+tQ+SUDCCg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CBC04134CA
- for <ltp@lists.linux.it>; Mon, 20 Jun 2022 09:19:39 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 61C7F134CA
+ for <ltp@lists.linux.it>; Mon, 20 Jun 2022 09:19:40 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id NydyMKs7sGJeQAAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id wKSCFqw7sGJgQAAAMHmgww
  (envelope-from <chrubis@suse.cz>)
- for <ltp@lists.linux.it>; Mon, 20 Jun 2022 09:19:39 +0000
+ for <ltp@lists.linux.it>; Mon, 20 Jun 2022 09:19:40 +0000
 From: Cyril Hrubis <chrubis@suse.cz>
 To: ltp@lists.linux.it
-Date: Mon, 20 Jun 2022 11:21:39 +0200
-Message-Id: <20220620092146.7604-1-chrubis@suse.cz>
+Date: Mon, 20 Jun 2022 11:21:40 +0200
+Message-Id: <20220620092146.7604-2-chrubis@suse.cz>
 X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220620092146.7604-1-chrubis@suse.cz>
+References: <20220620092146.7604-1-chrubis@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH 0/7] openposix: Fix 'no return in nonvoid function'
- warnings
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/7] openposix: pthread_rwlockattr_getpshared/2-1: Fix
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,30 +87,64 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Fixes LTP compilation in build systems where the 'no return in nonvoid
-function' warning is treated as error. More than half of the cases were
-actually a buggy tests, which only shows that maybe treating this
-warning as an error makes sense.
+Propagate a failure in child to the parent properly.
 
-Cyril Hrubis (7):
-  openposix: pthread_rwlockattr_getpshared/2-1: Fix
-  openposix: pthread_spin_init/{2-1,2-2}: Fix
-  openposix: sem_destroy/3-1: Fix
-  openposix: sem_timedwait/11-1: Fix
-  openposix: aio_h/2-1: Add return at the end of main()
-  openposix: mq_timedreceive: Silence warning
-  opeposix: pthread_barrierattr_getpshared/2-1: Simplify codeflow
+Signed-off-by: Cyril Hrubis <chrubis@suse.cz>
+---
+ .../pthread_rwlockattr_getpshared/2-1.c       | 20 +++++++++++++++++--
+ 1 file changed, 18 insertions(+), 2 deletions(-)
 
- .../conformance/definitions/aio_h/2-1.c       |  2 ++
- .../interfaces/mq_timedreceive/5-3.c          |  1 +
- .../pthread_barrierattr_getpshared/2-1.c      | 11 +++----
- .../pthread_rwlockattr_getpshared/2-1.c       | 20 ++++++++++--
- .../interfaces/pthread_spin_init/2-1.c        | 20 ++++++++++--
- .../interfaces/pthread_spin_init/2-2.c        | 20 ++++++++++--
- .../conformance/interfaces/sem_destroy/3-1.c  | 31 +++++++++++++------
- .../interfaces/sem_timedwait/11-1.c           |  9 +++---
- 8 files changed, 89 insertions(+), 25 deletions(-)
-
+diff --git a/testcases/open_posix_testsuite/conformance/interfaces/pthread_rwlockattr_getpshared/2-1.c b/testcases/open_posix_testsuite/conformance/interfaces/pthread_rwlockattr_getpshared/2-1.c
+index 3ffdc0cea..72c40f117 100644
+--- a/testcases/open_posix_testsuite/conformance/interfaces/pthread_rwlockattr_getpshared/2-1.c
++++ b/testcases/open_posix_testsuite/conformance/interfaces/pthread_rwlockattr_getpshared/2-1.c
+@@ -126,7 +126,11 @@ int main(void)
+ 	if (pid == -1) {
+ 		perror("Error at fork()");
+ 		return PTS_UNRESOLVED;
+-	} else if (pid > 0) {
++	}
++
++	if (pid > 0) {
++		int status;
++
+ 		/* Parent */
+ 		/* wait until child do wrlock */
+ 		while (rwlock_data->data == 0) {
+@@ -141,7 +145,7 @@ int main(void)
+ 		printf("Parent unlocked.\n");
+ 
+ 		/* Wait for child to end */
+-		wait(NULL);
++		wait(&status);
+ 
+ 		if ((shm_unlink(shm_name)) != 0) {
+ 			perror("Error at shm_unlink()");
+@@ -154,6 +158,16 @@ int main(void)
+ 			return PTS_FAIL;
+ 		}
+ 
++		if (!WIFEXITED(status)) {
++			printf("Parent: did not exit properly!\n");
++			return PTS_FAIL;
++		}
++
++		if (WEXITSTATUS(status)) {
++			printf("Parent: failure in child\n");
++			return WEXITSTATUS(status);
++		}
++
+ 		printf("Test PASSED\n");
+ 		return PTS_PASS;
+ 	} else {
+@@ -195,5 +209,7 @@ int main(void)
+ 			rwlock_data->data = -1;
+ 			return PTS_FAIL;
+ 		}
++
++		return PTS_PASS;
+ 	}
+ }
 -- 
 2.35.1
 
