@@ -2,69 +2,49 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0155355B93F
-	for <lists+linux-ltp@lfdr.de>; Mon, 27 Jun 2022 12:47:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B399555B99B
+	for <lists+linux-ltp@lfdr.de>; Mon, 27 Jun 2022 14:53:46 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C48EC3C9430
-	for <lists+linux-ltp@lfdr.de>; Mon, 27 Jun 2022 12:47:08 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 5643A3C9456
+	for <lists+linux-ltp@lfdr.de>; Mon, 27 Jun 2022 14:53:46 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id AE3AF3C1B7F
- for <ltp@lists.linux.it>; Mon, 27 Jun 2022 12:47:04 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 2F68A3C93B4
+ for <ltp@lists.linux.it>; Mon, 27 Jun 2022 14:53:30 +0200 (CEST)
+Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id DC1A560065F
- for <ltp@lists.linux.it>; Mon, 27 Jun 2022 12:47:03 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id B3F881FD7F
- for <ltp@lists.linux.it>; Mon, 27 Jun 2022 10:47:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1656326822; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type;
- bh=NFx3rCH8mEW3yL0p7n+jmJ0NCr+fciVnuK3CBNVj/Jw=;
- b=BbR5O3Wnr9TICtBlMmb0GP13g5HdzRyK80Wmj7AA6UQeXRB8go/QVKBUBoynRVUwackT+0
- DgD1fUMKDLbrFvzlFvQ+jKF8oXixX3asEPdUiXhDT80WfJD75c7GlEcm2PkEWqOx2KkeiM
- uh7xW2nXv/ET8s8+87FoKuHr4b/JWf8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1656326822;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type;
- bh=NFx3rCH8mEW3yL0p7n+jmJ0NCr+fciVnuK3CBNVj/Jw=;
- b=WVExpxfg+wi1tpuo4Onca0zLOpETxeTWpzKpvGwOIiVDwpbmJWEVqo/qjBd42zpFaJIysD
- gWPoNbjlg0KmEABg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 98AAC13AB2
- for <ltp@lists.linux.it>; Mon, 27 Jun 2022 10:47:02 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id qN7qI6aKuWKDTwAAMHmgww
- (envelope-from <chrubis@suse.cz>)
- for <ltp@lists.linux.it>; Mon, 27 Jun 2022 10:47:02 +0000
-Date: Mon, 27 Jun 2022 12:49:04 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: ltp@lists.linux.it
-Message-ID: <YrmLIEuvRRhqWS/d@yuki>
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 4471F600776
+ for <ltp@lists.linux.it>; Mon, 27 Jun 2022 14:53:29 +0200 (CEST)
+Received: from ubuntu.localdomain (unknown [37.24.96.116])
+ by mail.jv-coder.de (Postfix) with ESMTPSA id 085029FF8E;
+ Mon, 27 Jun 2022 12:53:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
+ t=1656334409; bh=D+CZFE7KImW1Gj5gfZhFvtvlvuHsSv+H4A8J/+jKirI=;
+ h=From:To:Subject:Date:Message-Id:MIME-Version;
+ b=nvegBixmOHeGlERDuZvjrtCQLMGlqeolZzOyowaPhfuHbQ00N82YN4gX+5MiiH2PG
+ lrrempysz1/pnexMLuneplTDNQFLG4oQ6lqnxmV0uRuOH7ypY/PfLzzfErU4KgdZ5O
+ bNR794BRVNCNzR6uZwvxw797PKOmwCeDseYH1pfg=
+From: Joerg Vehlow <lkml@jv-coder.de>
+To: ltp@lists.linux.it,
+	chrubis@suse.cz
+Date: Mon, 27 Jun 2022 14:53:18 +0200
+Message-Id: <20220627125321.1560677-1-lkml@jv-coder.de>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Disposition: inline
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
-X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] SUSE Hackweek
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Status: Clean
+Subject: [LTP] [0/3] openposix: Fix installation file layout
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,15 +61,20 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-Just FYI we do have a hackweek[1] this week in SUSE, hence most of the SUSE
-devs will not even read emails during the week.
+as described in my RFC, here is a first implementation of a fixed
+installation layout for open posix tests.
 
-[1] https://hackweek.opensuse.org/
+I implemented this using autoconf, to be able to specify the
+installation location of the tests.
 
--- 
-Cyril Hrubis
-chrubis@suse.cz
+If build standalone, the open posix tests are still installed to
+/opt/open_posix_testsuite/{conformance,functional,stress}, but when
+installed as part of ltp, they are installed to
+/opt/ltp/testcases/open_posix_testsuite/*
+
+Joerg
+
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
