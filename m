@@ -1,74 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03A7E565CA4
-	for <lists+linux-ltp@lfdr.de>; Mon,  4 Jul 2022 19:15:15 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3DB3A565D35
+	for <lists+linux-ltp@lfdr.de>; Mon,  4 Jul 2022 19:53:41 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 79B653CA086
-	for <lists+linux-ltp@lfdr.de>; Mon,  4 Jul 2022 19:15:14 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id CE74A3CA0EF
+	for <lists+linux-ltp@lfdr.de>; Mon,  4 Jul 2022 19:53:40 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id C099F3C97D1
- for <ltp@lists.linux.it>; Mon,  4 Jul 2022 19:15:11 +0200 (CEST)
-Received: from mail-il1-x12a.google.com (mail-il1-x12a.google.com
- [IPv6:2607:f8b0:4864:20::12a])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 0CE743C649E
+ for <ltp@lists.linux.it>; Mon,  4 Jul 2022 19:53:35 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 96AD86005F4
- for <ltp@lists.linux.it>; Mon,  4 Jul 2022 19:15:10 +0200 (CEST)
-Received: by mail-il1-x12a.google.com with SMTP id p13so5949264ilq.0
- for <ltp@lists.linux.it>; Mon, 04 Jul 2022 10:15:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=SrjLN5AARoW5APe4/kjYq4KPlHCbgUUhCrG4GZXeuYs=;
- b=XHqspk3iPbznRGRAGC35dqeQkskml4iS5i/1qp6qiFiHOBvK4Dm+hNK10gvwHHvxQw
- uCt2niOFvgd0G70wgHa98XBZOxEtc3wpXU0IBP1NrrQY4zsoFVYjTeXGs2o3o7jQN6Xu
- Rh5KxemRnCQbRz7P3oVQonH9HiI90cKjDtMU3grfC11j7lpZ7WgWkgEQJmMfwHw4yBve
- nDmaye1pmOu92OWwaxHy4I/OzCETE2Phg6WsGs2F0PWi13z6aqByPlMcViIutBqo22GN
- k0Uao8yWYeaMcZlxUmpRPb8q61uY4N9dM1sXX/RGJppP8/HH/HxAwRUFONh13nHjzAYI
- pFuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=SrjLN5AARoW5APe4/kjYq4KPlHCbgUUhCrG4GZXeuYs=;
- b=2LA6wjk95kWsAyzUKHBXvAZ6UULa9PcliSj1cc+I+AOFJ7es5vs+rTWzHwEPXetBix
- tAuP6D7MUUo+ysJgzZbcI+Bx+JfN6/LdTC2g4Bs0z6/pqSKhEsQ4zbz5XAgTs6R0aguX
- k7+2LGIUKdS5hpSo5MiPltEwiYgz9KBp2jSMXiOHgzB5AKYIWaLRgSsVOMiXtLxU2xQ8
- 75TPHI2HlbRtw6pGoEerxZnLOu+13me6psSsYMFVnMDz+1DNjl6Ua0FU/SufhwXLuMS0
- /zQPdHH3WVsXGNM4apL8BYfluKO5wDhH37p5hl2jMRJ/rHsW1G0K32oLR8cQKhcT+9cT
- Lljw==
-X-Gm-Message-State: AJIora/0d3qhTLSEWSXMSQK6yJGTsr7z/pJKyL6C86aKF1LbeWwiM3rx
- uxggbvuUg2QcDld8LU+YnHPH7T/eM8dB/0EHzFKZCg==
-X-Google-Smtp-Source: AGRyM1v+dNR4XAKHnXHhctboeigNfJC9zm3QJcSYtRaGLTsXhiOQPTWDBCR0k2uhRptNSE9SnF8nZ5fKrmlfj9eubJI=
-X-Received: by 2002:a05:6e02:1c27:b0:2d9:4d66:8541 with SMTP id
- m7-20020a056e021c2700b002d94d668541mr17395300ilh.176.1656954909236; Mon, 04
- Jul 2022 10:15:09 -0700 (PDT)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 4FB40600802
+ for <ltp@lists.linux.it>; Mon,  4 Jul 2022 19:53:34 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 44AD22258D;
+ Mon,  4 Jul 2022 17:53:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1656957214; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Uk4Q4ZaR+F5BbDy0z/yPhiAFMbo14aWzdYZk+6Gp2Ig=;
+ b=knuD818HLOoUw3+rCaATAt9xjmJYecDFByd9MtF2dT/ootjk0Zxfc4RcwXv3X7DnVQ1vOi
+ Xagskc0n9FUYOVvUIwLuyyQf0OxGpf2yjP5fwufbazeN0FDiVEcXGwGQh0PxYcge8/OML3
+ vXJ54zxTHqFxk4bTye/cQERpD9VYLhM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1656957214;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Uk4Q4ZaR+F5BbDy0z/yPhiAFMbo14aWzdYZk+6Gp2Ig=;
+ b=tVuzghTcN/s5xu0fwObt02r0LjXmZ26k+IYAKCNN4/J5iPL7sDPuIPIMmhODadjyJ73QX8
+ Owrgvki08i7uZrCA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2F4A81342C;
+ Mon,  4 Jul 2022 17:53:34 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id g8wwCh4pw2LOJwAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Mon, 04 Jul 2022 17:53:34 +0000
+Date: Mon, 4 Jul 2022 19:55:36 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: "Zhang, Cynthia X. (GSFC-710.0)[TELOPHASE CORP]" <cynthia.x.zhang@nasa.gov>
+Message-ID: <YsMpmLENCE42TgnA@yuki>
+References: <PH0PR09MB8537C12911766525158A7828D5BD9@PH0PR09MB8537.namprd09.prod.outlook.com>
 MIME-Version: 1.0
-References: <CA+G9fYtu1G4oGtKZQ_g5VJbQoET8c7hN_Ds-O1-1HD3PwV4wkQ@mail.gmail.com>
- <20220704112605.GB31553@willie-the-truck>
- <aa641b98-98ca-14d3-2a28-2c0aef96ed0d@arm.com>
- <20220704141945.GD31684@willie-the-truck>
-In-Reply-To: <20220704141945.GD31684@willie-the-truck>
-From: Naresh Kamboju <naresh.kamboju@linaro.org>
-Date: Mon, 4 Jul 2022 22:44:57 +0530
-Message-ID: <CA+G9fYsD2oTZkWqVrVgJ1Y2p_3dt623vmOnGE8NDbBEXfwm3PQ@mail.gmail.com>
-To: Will Deacon <will@kernel.org>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <PH0PR09MB8537C12911766525158A7828D5BD9@PH0PR09MB8537.namprd09.prod.outlook.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] 5.19.0-rc5 : Raspberry Pi 4 : Unable to handle kernel
- paging request at virtual address
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] Inquiry: Country of Origin for LCOV	Version 1.x
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,114 +80,38 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: brauner@kernel.org, Vincent Guittot <vincent.guittot@linaro.org>,
- regressions@lists.linux.dev, Linus Torvalds <torvalds@linux-foundation.org>,
- open list <linux-kernel@vger.kernel.org>, lkft-triage@lists.linaro.org,
- LTP List <ltp@lists.linux.it>, Catalin Marinas <catalin.marinas@arm.com>,
- Robin Murphy <robin.murphy@arm.com>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: oberpar@linux.ibm.com, "ltp@lists.linux.it" <ltp@lists.linux.it>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Mon, 4 Jul 2022 at 19:49, Will Deacon <will@kernel.org> wrote:
->
-> On Mon, Jul 04, 2022 at 02:37:52PM +0100, Robin Murphy wrote:
-> > On 2022-07-04 12:26, Will Deacon wrote:
-> > > On Mon, Jul 04, 2022 at 01:28:30PM +0530, Naresh Kamboju wrote:
-> > > > While running LTP controllers tests on arm64 Raspberry Pi 4 Model B
-> > > > the following kernel crash noticed.
-> > > >
-> > > > Reported-by: Linux Kernel Functional Testing <lkft@linaro.org>
-> > > >
-> > > > metadata:
-> > > >    git_ref: master
-> > > >    git_repo: https://gitlab.com/Linaro/lkft/mirrors/torvalds/linux-mainline
-> > > >    git_sha: 88084a3df1672e131ddc1b4e39eeacfd39864acf
-> > > >    kernel_version: 5.19.0-rc5
-> > > >    kernel-config: https://builds.tuxbuild.com/2BSEyt8Sb19HSj6SnBFiMo6kiQh/config
-> > > >    build-url: https://gitlab.com/Linaro/lkft/mirrors/torvalds/linux-mainline/-/pipelines/579007773
-> > > >    artifact-location: https://builds.tuxbuild.com/2BSEyt8Sb19HSj6SnBFiMo6kiQh
-> > > >    vmlinux.xz: https://builds.tuxbuild.com/2BSEyt8Sb19HSj6SnBFiMo6kiQh/vmlinux.xz
-> > > >    System.map: https://builds.tuxbuild.com/2BSEyt8Sb19HSj6SnBFiMo6kiQh/System.map
-> > > >    toolchain: gcc-11
-> > > >
-> > > > Steps to reproduce:
-> > > > -------------------
-> > > > ./runltp -p -q -f controllers
-> > > >
-> > > > Test log:
-> > > > ----------
-> > > > cgroup_fj_stress_blkio_4_4_each 1 TPASS: All done!
-> > > > cgroup_fj_stress_blkio_4_4_each 2 TINFO: Removing all ltp subgroups...
-> > > > cgroup_fj_stress_blkio_2_9_each 1 TINFO: Subsystem blkio is mounted at
-> > > > /sys/fs/cgroup/blkio
-> > > > cgroup_fj_stress_blkio_2_9_each 1 TINFO: Creating subgroups ...
-> > > > [ 2414.973441] Unable to handle kernel paging request at virtual
-> > > > address 00620000090336a0
-> > > > [ 2414.981581] Mem abort info:
-> > > > [ 2414.984480]   ESR = 0x0000000086000004
-> > > > [ 2414.988323]   EC = 0x21: IABT (current EL), IL = 32 bits
-> > > > [ 2414.993765]   SET = 0, FnV = 0
-> > > > [ 2414.996905]   EA = 0, S1PTW = 0
-> > > > [ 2415.000124]   FSC = 0x04: level 0 translation fault
-> > > > [ 2415.005118] [00620000090336a0] address between user and kernel address ranges
-> > > > [ 2415.012393] Internal error: Oops: 86000004 [#1] PREEMPT SMP
-> > > > [ 2415.018048] Modules linked in: btrfs blake2b_generic libcrc32c
-> > > > raid6_pq zstd_compress xhci_pci snd_soc_hdmi_codec xhci_pci_renesas
-> > > > raspberrypi_cpufreq hci_uart btqca brcmfmac brcmutil btbcm vc4
-> > > > bluetooth cfg80211 cec drm_display_helper drm_cma_helper rfkill
-> > > > clk_raspberrypi reset_raspberrypi drm_kms_helper crct10dif_ce
-> > > > raspberrypi_hwmon drm i2c_bcm2835 iproc_rng200 rng_core pwm_bcm2835
-> > > > bcm2711_thermal pcie_brcmstb fuse
-> > > > [ 2415.055725] CPU: 0 PID: 11626 Comm: cgroup_fj_stres Not taintedlinu#1
-> > > > [ 2415.062965] Hardware name: Raspberry Pi 4 Model B (DT)
-> > > > [ 2415.068175] pstate: 40000005 (nZcv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-> > > > [ 2415.075238] pc : 0x620000090336a0
-> > > > [ 2415.078600] lr : ktime_get+0x50/0xac
-> > > > [ 2415.082228] sp : ffff80000dfdbb90
-> > > > [ 2415.085585] x29: ffff80000dfdbb90 x28: 00000000ffffffff x27: ffff00006405e580
-> > > > [ 2415.092832] x26: ffff00006405e748 x25: 0000000001200000 x24: ffff00006405e180
-> > > > [ 2415.100076] x23: ffff80000dfdbd68 x22: 0000000000000000 x21: 000002321545f201
-> > > > [ 2415.107320] x20: 000000000012017e x19: ffff80000ae3b440 x18: ffff000000000000
-> > > > [ 2415.114564] x17: 0000000000000000 x16: 0000000000000000 x15: 00000000000000dc
-> > > > [ 2415.121809] x14: 0000000001200011 x13: 0000000060000000 x12: 0000ffffa7b6c1e8
-> > > > [ 2415.129052] x11: 0000000000000040 x10: ffff80000a96c5c0 x9 : ffff8000080990d4
-> > > > [ 2415.136295] x8 : 0000000000000000 x7 : 0000000000a9c84a x6 : 4480001ec1769752
-> > > > [ 2415.143538] x5 : 00ffbffeffffffff x4 : 0000000900000000 x3 : 0000000000000000
-> > > > [ 2415.150781] x2 : ffff80000a94e000 x1 : ffff8000090336a0 x0 : ffff80000ad102f0
-> > > > [ 2415.158025] Call trace:
-> > > > [ 2415.160498]  0x620000090336a0
-> > > > [ 2415.163505]  copy_process+0xe34/0x1534
-> > >
-> > > Do you have the disassembly (and source:line infor) around
-> > > copy_process+0xe34/0x1534? The faulting PC is like a messed up copy of x1
-> > > where the upper bits have been corrupted somehow.
-> >
-> > Even better, according to the vmlinux that LR value points right after a
-> > "blr x1". From the shape of it, looks like it's probably the tk_clock_read()
-> > call.
->
-> System.map has:
->
-> ffff8000090336a0 t arch_counter_read
->
-> so yes, it looks like we want to call that via:
->
->         clock->read(clock);
->
-> but the indirect branch goes wrong :/
->
-> Naresh -- do you see this repeatably and on more than just one board?
-
-I have been trying to reproduce this problem on a pool of Raspberry Pi 4 boards
-but have not been successful yet.
-
-- Naresh
-
->
-> Will
-
--- 
-Mailing list info: https://lists.linux.it/listinfo/ltp
+SGkhCj4gSGVsbG8sIG15IG5hbWUgaXPigK9DeW50aGlh4oCvYW5kIEkgYW0gYSBTdXBwbHkgQ2hh
+aW4gUmlzayBNYW5hZ2VtZW50Cj4gQW5hbHlzdCBhdCBOQVNBLiBOQVNBIGlzIGN1cnJlbnRseSBj
+b25kdWN0aW5nIGEgc3VwcGx5IGNoYWluCj4gYXNzZXNzbWVudCBvZiBMQ09WIFZlcnNpb24gMS54
+LiAgQXMgc3RhdGVkIGluIFNlY3Rpb25zIDIwOCBhbmQgNTE0IG9mCj4gdGhlIENvbnNvbGlkYXRl
+ZCBBcHByb3ByaWF0aW9ucyBBY3QsIDIwMjIsIFB1YmxpYyBMYXcgMTE3LTEwMywgZW5hY3RlZAo+
+IE1hcmNoIDE1LCAyMDIyLCBhIHJlcXVpcmVkIHN0ZXAgb2Ygb3VyIHByb2Nlc3MgaXMgdG8gdmVy
+aWZ5IHRoZQo+IENvdW50cnkgb2YgT3JpZ2luIChDb08pIGluZm9ybWF0aW9uIGZvciB0aGUgcHJv
+ZHVjdCAoaS5lLiwgdGhlIGNvdW50cnkKPiB3aGVyZSB0aGUgcHJvZHVjdHMgd2VyZSBkZXZlbG9w
+ZWQsIG1hbnVmYWN0dXJlZCwgYW5kIGFzc2VtYmxlZC4pIEFzCj4gTENPViBWZXJzaW9uIDEueCBp
+cyBvcGVuIHNvdXJjZSwgd2UgdW5kZXJzdGFuZCB0aGF0IHRoaXMgaW5xdWlyeSBpcwo+IG5vdCBk
+aXJlY3RseSBhcHBsaWNhYmxlLCBhcyBjb250cmlidXRpb25zIG1heSBiZSBtYWRlIGZyb20gaW5k
+aXZpZHVhbHMKPiBmcm9tIGFyb3VuZCB0aGUgd29ybGQuIEluIHRoaXMgY2FzZSwgTkFTQSBpcyBp
+bnRlcmVzdGVkIGluIGNvbmZpcm1pbmcKPiB0aGUgZm9sbG93aW5nIGluZm9ybWF0aW9uOgo+Cj4g
+ICAxLiAgSXMgdGhlcmUgYW4gb3JnYW5pemF0aW9uIHdoaWNoIHNwb25zb3JzL3B1Ymxpc2hlcyB0
+aGUgcHJvamVjdCwKPiAgICAgICBvciBhIHByaW1hcnkgZGV2ZWxvcGVyIHdobyBhdWRpdHMgdGhl
+IGNvZGUgZm9yIHBvdGVudGlhbAo+ICAgICAgIHZ1bG5lcmFiaWxpdGllcywgZXJyb3JzLCBvciBt
+YWxpY2lvdXMgY29kZT8gWS9OCj4KPiAgIDIuICBEb2VzIExDT1YgVmVyc2lvbiAxLnggaGF2ZSBh
+biBvdmVyc2VlaW5nIG9yZ2FuaXphdGlvbiBvcgo+ICAgICAgIGluZGl2aWR1YWwgYWxvbmcgdGhl
+c2UgbGluZXM/IFkvTgo+Cj4gICAxLiAgSWYgc28sIHBsZWFzZSBwcm92aWRlIHRoZSBuYW1lIG9m
+IHRoZSBvcmdhbml6YXRpb24gYW5kIGNvdW50cnkKPiAgIHRoZXkgYXJlIGVzdGFibGlzaGVkIGlu
+LiAgSWYgdGhlIGluZm9ybWF0aW9uIGFib3ZlIGlzIHVua25vd24gb3IKPiAgIGNhbm5vdCBiZSBw
+cm92aWRlZCwgd2UgcmVxdWVzdCB0aGF0IHlvdSBwcm92aWRlIHRoZSBjb3VudHJ5IG9yIGxpc3QK
+PiAgIG9mIGNvdW50cmllcyB3aGVyZSB0aGUgbWFqb3JpdHkgb2YgY29udHJpYnV0aW9ucyBvcmln
+aW5hdGUgZnJvbSB0bwo+ICAgc2F0aXNmeSBTZWN0aW9ucyAyMDggYW5kIDUxNCBvZiB0aGUgQ29u
+c29saWRhdGVkIEFwcHJvcHJpYXRpb25zIEFjdCwKPiAgIDIwMjIsIFB1YmxpYyBMYXcgMTE3LTEw
+MywgZW5hY3RlZCBNYXJjaCAxNSwgMjAyMi4KCkFzIGZhciBhcyBJIGNhbiB0ZWxsIExDT1YgaXMg
+bWFpbnRhaW5lZCBieSBQZXRlciBPYmVycGFybGVpdGVyIGZyb20gSUJNCihub3cgaW4gQ0MpLgoK
+LS0gCkN5cmlsIEhydWJpcwpjaHJ1YmlzQHN1c2UuY3oKCi0tIApNYWlsaW5nIGxpc3QgaW5mbzog
+aHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
