@@ -1,92 +1,55 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84F1556B04A
-	for <lists+linux-ltp@lfdr.de>; Fri,  8 Jul 2022 03:57:03 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id ECE1556B13B
+	for <lists+linux-ltp@lfdr.de>; Fri,  8 Jul 2022 06:05:51 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 8F5033CA2F6
-	for <lists+linux-ltp@lfdr.de>; Fri,  8 Jul 2022 03:57:02 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 280AC3CA325
+	for <lists+linux-ltp@lfdr.de>; Fri,  8 Jul 2022 06:05:51 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 0AAD13CA2C1
- for <ltp@lists.linux.it>; Fri,  8 Jul 2022 03:56:55 +0200 (CEST)
-Received: from mail1.bemta34.messagelabs.com (mail1.bemta34.messagelabs.com
- [195.245.231.2])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 4A9653CA105
+ for <ltp@lists.linux.it>; Fri,  8 Jul 2022 06:05:49 +0200 (CEST)
+Received: from a8-29.smtp-out.amazonses.com (a8-29.smtp-out.amazonses.com
+ [54.240.8.29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 2AC702003A8
- for <ltp@lists.linux.it>; Fri,  8 Jul 2022 03:56:53 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fujitsu.com;
- s=170520fj; t=1657245413; i=@fujitsu.com;
- bh=AwoZlN4HWZ3WLyc2Yazbd8eg7Q8NQr0j6VtPK3gFRpo=;
- h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type;
- b=HHL4aPddurFx63YJCac6AgtQ7EalaQ2JhymPjaFa7y9brArS7USUgO6TkVtQCqXVW
- /RThkF5TzT5NkekSF1JfjcPchxabvmq2tDcPVdMXSi7FTEouvJrkjNlgKxumRfjd4h
- 1t/Uwx7AkpnD+jd4hvQDAQSzAlF0hGCgV6ftpBo+TFqtGtMC07D7VLeUzeG6yEOoH5
- 8fsDgg3bhTQbF0AqHdeIhKUCo8Ok0tSuR130P5Y+4Gw3V5VOinEzTPWPXENNuQJvMA
- NbZ/SCUYBV/mR6hx+UgOzuIzL9K/uDr0r4optxQx3dS+dlx25/Usm3MDgE8TQdAUNe
- cdXEwgaKfaxAw==
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFtrIIsWRWlGSWpSXmKPExsViZ8ORqPuk73i
- SQXu2xYrvOxgdGD32/V7HGsAYxZqZl5RfkcCacWmpd0Efa8W7ng3MDYz7WLoYuTiEBM4ySkw4
- /4Sxi5ETyDnAJLFvUSREYjejxJGj58ESbAKaEs86FzCD2CICEhIdDW/ZQWxmAXWJ5ZN+MYHYw
- gK+En/PLgWLswioSGzasR8szivgKbHv2U6wORICChJTHr5nhogLSpyc+YQFYo6ExMEXL5ghah
- QlLnV8g6qvkHh9+BJUXE3i6rlNzBMY+WchaZ+FpH0BI9MqRuukosz0jJLcxMwcXUMDA11DQ1N
- dYwsgZaiXWKWbqJdaqlueWlyia6SXWF6sl1pcrFdcmZuck6KXl1qyiREYkinFavk7GP+u/Kl3
- iFGSg0lJlDen6XiSEF9SfkplRmJxRnxRaU5q8SFGGQ4OJQleLWCQCwkWpaanVqRl5gDjAyYtw
- cGjJMLL0giU5i0uSMwtzkyHSJ1iVJQS57UB6RMASWSU5sG1wWLyEqOslDAvIwMDgxBPQWpRbm
- YJqvwrRnEORiVhXpNuoCk8mXklcNNfAS1mAlq8LP8IyOKSRISUVAPTBP0rjPETlWtd3W8nLD5
- SueDct+erhZ9kvlkrFP+L/97zLWz7XBpnGf3sLnzyl+nvqiu7zlSUHzh8NuviSa83l3aU5Ip0
- 2jOXervHNs278lU2KHPlzzsVE6/oWcdpa3D1ab0/G8CyZfPbmWc0DzJ7Xdm6JWvSij2xQXe/1
- dV2xva6fLWcOmvblP6krhczc3412XpU7jtyKmrLr5PVs+8w6H7bb9w7ef2EfWdYa/Knrw0Ld9
- fWFVW4lrOJZXGDgY/iiYefJux5OEGrn/0V61fDzO6yD6/3lq2c9HZLRGZrnOq7A5wz9QwaFmw
- OcOqeP0HH+7pQ1ZsPlxilhLZabEmZ4hVYFCmvvJfJ+vKr+apmYkosxRmJhlrMRcWJANQOtyBE
- AwAA
-X-Env-Sender: xuyang2018.jy@fujitsu.com
-X-Msg-Ref: server-18.tower-548.messagelabs.com!1657245411!38425!1
-X-Originating-IP: [62.60.8.97]
-X-SYMC-ESS-Client-Auth: outbound-route-from=pass
-X-StarScan-Received: 
-X-StarScan-Version: 9.87.3; banners=-,-,-
-X-VirusChecked: Checked
-Received: (qmail 23391 invoked from network); 8 Jul 2022 01:56:52 -0000
-Received: from unknown (HELO n03ukasimr01.n03.fujitsu.local) (62.60.8.97)
- by server-18.tower-548.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
- encrypted SMTP; 8 Jul 2022 01:56:52 -0000
-Received: from n03ukasimr01.n03.fujitsu.local (localhost [127.0.0.1])
- by n03ukasimr01.n03.fujitsu.local (Postfix) with ESMTP id B4AC6100192
- for <ltp@lists.linux.it>; Fri,  8 Jul 2022 02:56:51 +0100 (BST)
-Received: from R01UKEXCASM126.r01.fujitsu.local (R01UKEXCASM126
- [10.183.43.178])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
- (No client certificate requested)
- by n03ukasimr01.n03.fujitsu.local (Postfix) with ESMTPS id A6928100043
- for <ltp@lists.linux.it>; Fri,  8 Jul 2022 02:56:51 +0100 (BST)
-Received: from localhost.localdomain (10.167.220.84) by
- R01UKEXCASM126.r01.fujitsu.local (10.183.43.178) with Microsoft SMTP Server
- (TLS) id 15.0.1497.32; Fri, 8 Jul 2022 02:56:49 +0100
-From: Yang Xu <xuyang2018.jy@fujitsu.com>
-To: <ltp@lists.linux.it>
-Date: Fri, 8 Jul 2022 10:57:42 +0800
-Message-ID: <1657249062-15678-1-git-send-email-xuyang2018.jy@fujitsu.com>
-X-Mailer: git-send-email 1.8.3.1
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 793AD6017D9
+ for <ltp@lists.linux.it>; Fri,  8 Jul 2022 06:05:48 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+ s=r5f3hr7pzmhv6xwu5spgpns3mj2fddpz; d=linaro.org; t=1657253146;
+ h=From:To:Cc:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-ID:Date;
+ bh=KSdqVCd0y6kTREzSfQDZJH7muHA48G39J2OYlYT5UtY=;
+ b=h88CF55Mzph3sDpAJTNOzdHO+zlYX40xIv5OvWm56Ym9AE6+F7hI2mG4EuVS34VO
+ BsFGg0MI6oaiB8JjBG0WGds7yjB5EeS8z3DtkYA5XPFrdJ/vHoX3Ya6huI0dmdWRuBn
+ dhOdGEDQs0+YNJuYdNe2q8VMe5Fd0TeR7RNA88KU=
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+ s=6gbrjpgwjskckoa6a5zn6fwqkn67xbtw; d=amazonses.com; t=1657253146;
+ h=From:To:Cc:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-ID:Date:Feedback-ID;
+ bh=KSdqVCd0y6kTREzSfQDZJH7muHA48G39J2OYlYT5UtY=;
+ b=TdgAtxv5ePlQRS5CcF6aebBmTYZQ0fTG/nDkqV8JJ/6FdZRTLTl8R7rf251Ulqox
+ FSwPit4hC20ZR5wmIpCSpTryDsoG7yaaGwJOIvN4pNz+ywrbQMS1glQRbn8GbU6ZLas
+ yIoEyPfO9I7Fd0QqEGsnqNF+Xu6pJUcVGrRffZIw=
+From: lkft@linaro.org
+To: ltp@lists.linux.it
 MIME-Version: 1.0
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD08.g08.fujitsu.local (10.167.33.83) To
- R01UKEXCASM126.r01.fujitsu.local (10.183.43.178)
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+Message-ID: <01000181dbfc2e74-1b8fc178-2c07-4cfa-81a4-f5d8b79556b5-000000@email.amazonses.com>
+Date: Fri, 8 Jul 2022 04:05:46 +0000
+Feedback-ID: 1.us-east-1.MCLpz+6YeXzvh9aTd6J8upg22bI0XPzIkR2gghvgyqQ=:AmazonSES
+X-SES-Outgoing: 2022.07.08-54.240.8.29
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [COMMITTED] mountns04: Use needs_tmpdir instead of
- needs_checkpoints
+X-Spam-Status: No, score=0.3 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [REGRESSION] lkft ltp for 6d4c834
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,32 +61,74 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: lkft-triage@lists.linaro.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-We don't use TST_CHECKPOINT_* api, so using needs_tmpdir is enough.
+## Build
+* kernel: 5.17.15
+* git: https://gitlab.com/Linaro/lkft/mirrors/stable/linux-stable-rc
+* git branch: linux-5.17.y
+* git commit: eed68052d2016d9f96d6656435099762608120e3
+* git describe: 6d4c834
+* test details: https://qa-reports.linaro.org/lkft/ltp/build/6d4c834
 
-Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
----
- testcases/kernel/containers/mountns/mountns04.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+## Test Regressions (compared to 7b3c5d5)
+* qemu_arm64, ltp-cve
+  - cve-2019-8912
 
-diff --git a/testcases/kernel/containers/mountns/mountns04.c b/testcases/kernel/containers/mountns/mountns04.c
-index 46937ddcd..fc392f1a7 100644
---- a/testcases/kernel/containers/mountns/mountns04.c
-+++ b/testcases/kernel/containers/mountns/mountns04.c
-@@ -60,5 +60,5 @@ static struct tst_test test = {
- 	.cleanup = cleanup,
- 	.test_all = run,
- 	.needs_root = 1,
--	.needs_checkpoints = 1,
-+	.needs_tmpdir = 1,
- };
--- 
-2.27.0
 
+## Metric Regressions (compared to 7b3c5d5)
+No metric regressions found.
+
+Reported-by: Linux Kernel Functional Testing <lkft@linaro.org>
+
+
+## Test Fixes (compared to 7b3c5d5)
+No test fixes found.
+
+## Metric Fixes (compared to 7b3c5d5)
+No metric fixes found.
+
+## Test result summary
+total: 12654, pass: 10652, fail: 63, skip: 1939, xfail: 0
+
+## Build Summary
+
+## Test suites summary
+* log-parser-boot
+* log-parser-test
+* ltp-cap_bounds
+* ltp-commands
+* ltp-containers
+* ltp-controllers
+* ltp-cpuhotplug
+* ltp-crypto
+* ltp-cve
+* ltp-dio
+* ltp-fcntl-locktests
+* ltp-filecaps
+* ltp-fs
+* ltp-fs_bind
+* ltp-fs_perms_simple
+* ltp-fsx
+* ltp-hugetlb
+* ltp-io
+* ltp-ipc
+* ltp-math
+* ltp-mm
+* ltp-nptl
+* ltp-pty
+* ltp-sched
+* ltp-securebits
+* ltp-syscalls
+* ltp-tracing
+
+--
+Linaro LKFT
+https://lkft.linaro.org
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
