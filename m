@@ -2,72 +2,66 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02F0856D4D1
-	for <lists+linux-ltp@lfdr.de>; Mon, 11 Jul 2022 08:41:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F36256D692
+	for <lists+linux-ltp@lfdr.de>; Mon, 11 Jul 2022 09:18:20 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6E8913CA6AF
-	for <lists+linux-ltp@lfdr.de>; Mon, 11 Jul 2022 08:41:05 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id BDE753CA68F
+	for <lists+linux-ltp@lfdr.de>; Mon, 11 Jul 2022 09:18:19 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 797DB3CA600
- for <ltp@lists.linux.it>; Mon, 11 Jul 2022 08:41:01 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id E08F83CA5CB
+ for <ltp@lists.linux.it>; Mon, 11 Jul 2022 09:18:14 +0200 (CEST)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 87E062005E5
- for <ltp@lists.linux.it>; Mon, 11 Jul 2022 08:41:00 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id CA1D12272B;
- Mon, 11 Jul 2022 06:40:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1657521659;
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 33D8B1000667
+ for <ltp@lists.linux.it>; Mon, 11 Jul 2022 09:18:13 +0200 (CEST)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 5809D226F6
+ for <ltp@lists.linux.it>; Mon, 11 Jul 2022 07:18:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1657523893;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=IV5rl2gSsN5U+u5uqusJ/VGg7E1AW0NOv+a5S77bUWY=;
- b=TPig+rc8sD/HHfxGroAaWjGb3zc4CfV/EzC6peoHWKSZ99yDLq7oywsRRJbQGqgTa1tLTx
- qj9Ql+PwfalzI4t+mknl8HwcI6FfdA5Ry5L4Jf6z4KPx1zC5AyZbAd/UsANdlB4tunCpwe
- /5x3gyD6fQCciTsZJeUjHZv5yNOAyv0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1657521659;
+ bh=wIpL3sOIvh2Ju8umvbMSaW6jIbKjWJ0vnIw0qIjJaYA=;
+ b=G1ym9/pgAWByi5amOS/8qMU8X7k9zdyMDnbpLXf0ezpl/2JnzCYvihZ74NrXqzkyleK63A
+ bQ9EP0rSdS1Ca+/q74rn26QbCeVzRTEftQaghHliLlzWnSN6gd6HjDmhQDCO8JVJqz7aIu
+ c22zC/CFhgyMamKNb0GwFJhoy/jJdBk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1657523893;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=IV5rl2gSsN5U+u5uqusJ/VGg7E1AW0NOv+a5S77bUWY=;
- b=fQb/lFja9qG329wgmlyxhgTOTXClq3WkfCoh+WEUVNahOjd6OzObLtOaSyRjgRyjA568Jl
- gBCMRkNTqBK2WCBA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ bh=wIpL3sOIvh2Ju8umvbMSaW6jIbKjWJ0vnIw0qIjJaYA=;
+ b=iCxuv71xoNkwU6VMznJfU2vEQXQYKNRu+jt1z3cLstI+P754E6b/R0AerlwD4CSxDQ4Cms
+ yqVoUW3G/yRxDSAw==
+Received: from g78 (unknown [10.163.24.226])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A44C513322;
- Mon, 11 Jul 2022 06:40:59 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id k2e+JvvFy2JEdwAAMHmgww
- (envelope-from <pvorel@suse.cz>); Mon, 11 Jul 2022 06:40:59 +0000
-Date: Mon, 11 Jul 2022 08:40:57 +0200
-From: Petr Vorel <pvorel@suse.cz>
+ by relay2.suse.de (Postfix) with ESMTPS id 094A82C141;
+ Mon, 11 Jul 2022 07:18:12 +0000 (UTC)
+References: <20220707110319.24665-1-akumar@suse.de>
+ <20220707110319.24665-10-akumar@suse.de>
+User-agent: mu4e 1.6.10; emacs 28.1
+From: Richard Palethorpe <rpalethorpe@suse.de>
 To: Avinesh Kumar <akumar@suse.de>
-Message-ID: <YsvF+aZqnjNB0G0j@pevik>
-References: <20220710104449.10387-1-akumar@suse.de>
+Date: Mon, 11 Jul 2022 07:50:55 +0100
+In-reply-to: <20220707110319.24665-10-akumar@suse.de>
+Message-ID: <871qusp16z.fsf@suse.de>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20220710104449.10387-1-akumar@suse.de>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] open08.c: Use TST_EXP_FAIL2() and SAFE_CLOSE()
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 9/9] Rewrite rename10.c using new LTP API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,75 +73,245 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
+Reply-To: rpalethorpe@suse.de
 Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Avinesh,
+Hello,
 
-> Make use of TST_EXP_FAIL2() macro with testcase descriptions
-+1
+Avinesh Kumar <akumar@suse.de> writes:
 
-Also +1 for static :).
+> Signed-off-by: Avinesh Kumar <akumar@suse.de>
+> ---
+>  testcases/kernel/syscalls/rename/rename10.c | 182 +++-----------------
+>  1 file changed, 22 insertions(+), 160 deletions(-)
+>
+> diff --git a/testcases/kernel/syscalls/rename/rename10.c b/testcases/kernel/syscalls/rename/rename10.c
+> index 4f0933320..6c14a7e28 100644
+> --- a/testcases/kernel/syscalls/rename/rename10.c
+> +++ b/testcases/kernel/syscalls/rename/rename10.c
+> @@ -1,175 +1,37 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+>  /*
+> - *
+> - *   Copyright (c) International Business Machines  Corp., 2001
+> - *
+> - *   This program is free software;  you can redistribute it and/or modify
+> - *   it under the terms of the GNU General Public License as published by
+> - *   the Free Software Foundation; either version 2 of the License, or
+> - *   (at your option) any later version.
+> - *
+> - *   This program is distributed in the hope that it will be useful,
+> - *   but WITHOUT ANY WARRANTY;  without even the implied warranty of
+> - *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
+> - *   the GNU General Public License for more details.
+> - *
+> - *   You should have received a copy of the GNU General Public License
+> - *   along with this program;  if not, write to the Free Software
+> - *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+> + * Copyright (c) International Business Machines  Corp., 2001
+> + *  07/2001 Ported by Wayne Boyer
+> + * Copyright (c) 2022 SUSE LLC Avinesh Kumar <avinesh.kumar@suse.com>
+>   */
+>  
+> -/*
+> - * NAME
+> - *	rename10
+> - *
+> - * DESCRIPTION
+> - *	This test will verify that rename(2) syscall fails with ENAMETOOLONG
+> - *      and ENOENT
+> - *
+> - * ALGORITHM
+> - *	Setup:
+> - *		Setup signal handling.
+> - *		Create temporary directory.
+> - *		Pause for SIGUSR1 if option specified.
+> - *              create the "old" file
+> - *
+> - *	Test:
+> - *		Loop if the proper options are given.
+> - *              1.  rename the "old" to the "new" file
+> - *                  verify rename() failed with error ENAMETOOLONG
+> - *
+> - *              2.  "new" path contains a directory that does not exist
+> - *                  rename the "old" to the "new"
+> - *                  verify rename() failed with error ENOENT
+> - *	Cleanup:
+> - *		Print errno log and/or timing stats if options given
+> - *		Delete the temporary directory created.*
+> - *
+> - * USAGE
+> - *	rename10 [-c n] [-e] [-i n] [-I x] [-P x] [-t]
+> - *	where,  -c n : Run n copies concurrently.
+> - *		-e   : Turn on errno logging.
+> - *		-i n : Execute test n times.
+> - *		-I x : Execute test for x seconds.
+> - *		-P x : Pause for x seconds between iterations.
+> - *		-t   : Turn on syscall timing.
+> +/*\
+> + * [Description]
+>   *
+> - * HISTORY
+> - *	07/2001 Ported by Wayne Boyer
+> - *
+> - * RESTRICTIONS
+> - *	None.
+> + * Verify that rename(2) fails with ENAMETOOLONG, when
+> + * oldpath or newpath is too long.
+>   */
+> -#include <sys/types.h>
+> -#include <fcntl.h>
+> -#include <unistd.h>
+> -#include <errno.h>
+> -
+> -#include "test.h"
+> -
+> -void setup();
+> -void cleanup();
+>  
+> -char *TCID = "rename10";
+> -int TST_TOTAL = 2;
+> +#include <stdio.h>
+> +#include "tst_test.h"
+>  
+> -char badmname[] =
+> -    "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstmnopqrstuvwxyzabcdefghijklmnopqrstmnopqrstuvwxyzabcdefghijklmnopqrstmnopqrstuvwxyzabcdefghijklmnopqrstmnopqrstuvwxyzabcdefghijklmnopqrstmnopqrstuvwxyzabcdefghijklmnopqrstmnopqrstuvwxyz";
+> +#define TEMP_FILE "tmpfile"
+>  
+> -int fd;
+> -char fname[255], mname[255];
+> -char mdir[255];
+> -
+> -struct test_case_t {
+> -	char *fd1;
+> -	char *fd2;
+> -	int error;
+> -} TC[] = {
+> -	/* badmname is too long for a file name - ENAMETOOLONG */
+> -	{
+> -	fname, badmname, ENAMETOOLONG},
+> -	    /* mname contains a directory component which does not exist - ENOENT */
+> -	{
+> -	fname, mname, ENOENT}
+> -};
+> +static char long_path[PATH_MAX + 2] = {[0 ... PATH_MAX + 1] = 'a'};
 
-...
-> +++ b/testcases/kernel/syscalls/open/open08.c
-> @@ -33,34 +33,20 @@ static struct test_case_t {
->  	char **fname;
->  	int flags;
->  	int error;
-> +	const char *desc;
->  } tcases[] = {
-> -	{&existing_fname, O_CREAT | O_EXCL, EEXIST},
-> -	{&dir_fname, O_RDWR, EISDIR},
-> -	{&existing_fname, O_DIRECTORY, ENOTDIR},
-> -	{&toolong_fname, O_RDWR, ENAMETOOLONG},
-> -	{&user2_fname, O_WRONLY, EACCES},
-> -	{&unmapped_fname, O_CREAT, EFAULT}
-> +	{&existing_fname, O_CREAT | O_EXCL, EEXIST, "open() existing file with 'O_CREAT | O_EXCL'"},
-> +	{&dir_fname, O_RDWR, EISDIR, "open() existing directory with write access"},
-> +	{&existing_fname, O_DIRECTORY, ENOTDIR, "open() non-directory pathname with O_DIRECTORY"},
-> +	{&toolong_fname, O_RDWR, ENAMETOOLONG, "open() too long pathname"},
-> +	{&user2_fname, O_WRONLY, EACCES, "open() file without requested access rights"},
-> +	{&unmapped_fname, O_CREAT, EFAULT, "open() pathname with bad address"}
->  };
+PATH_MAX is actually the minimum number of bytes the system is allowed
+to set as the maximum path length. Meaning it can accept more. However
+it seems what we are actually testing here is NAME_MAX which is only 255
+and can't be bigger than 255 according to POSIX.
 
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
+So I think we should be testing what happens when 256 chars are passed
+as a filename (not including null terminating char).
 
-Instead of text descriptions I'd just print flags:
+>  
+> -int main(int ac, char **av)
+> +static void setup(void)
+>  {
+> -	int lc;
+> -	int i;
+> -
+> -	/*
+> -	 * parse standard options
+> -	 */
+> -	tst_parse_opts(ac, av, NULL, NULL);
+> -
+> -	/*
+> -	 * perform global setup for test
+> -	 */
+> -	setup();
+> -
+> -	/*
+> -	 * check looping state if -i option given
+> -	 */
+> -	for (lc = 0; TEST_LOOPING(lc); lc++) {
+> -
+> -		tst_count = 0;
+> -
+> -		/* loop through the test cases */
+> -		for (i = 0; i < TST_TOTAL; i++) {
+> -
+> -			TEST(rename(TC[i].fd1, TC[i].fd2));
+> -
+> -			if (TEST_RETURN != -1) {
+> -				tst_resm(TFAIL, "call succeeded unexpectedly");
+> -				continue;
+> -			}
+> -
+> -			if (TEST_ERRNO == TC[i].error) {
+> -				tst_resm(TPASS, "expected failure - "
+> -					 "errno = %d : %s", TEST_ERRNO,
+> -					 strerror(TEST_ERRNO));
+> -			} else {
+> -				tst_resm(TFAIL, "unexpected error - %d : %s - "
+> -					 "expected %d", TEST_ERRNO,
+> -					 strerror(TEST_ERRNO), TC[i].error);
+> -			}
+> -		}
+> -	}
+> -
+> -	cleanup();
+> -	tst_exit();
+> -
+> +	SAFE_TOUCH(TEMP_FILE, 0700, NULL);
+>  }
+>  
+> -/*
+> - * setup() - performs all ONE TIME setup for this test.
+> - */
+> -void setup(void)
+> +static void run(void)
+>  {
+> -
+> -	tst_sig(NOFORK, DEF_HANDLER, cleanup);
+> -
+> -	TEST_PAUSE;
+> -
+> -	/* Create a temporary directory and make it current. */
+> -	tst_tmpdir();
+> -
+> -	sprintf(fname, "./tfile_%d", getpid());
+> -	sprintf(mdir, "./rndir_%d", getpid());
+> -	sprintf(mname, "%s/rnfile_%d", mdir, getpid());
+> -
+> -	SAFE_TOUCH(cleanup, fname, 0700, NULL);
+> +	TST_EXP_FAIL(rename(TEMP_FILE, long_path),
+> +				ENAMETOOLONG);
+>  }
+>  
+> -/*
+> - * cleanup() - performs all ONE TIME cleanup for this test at
+> - *             completion or premature exit.
+> - */
+> -void cleanup(void)
+> -{
+> -
+> -	/*
+> -	 * Remove the temporary directory.
+> -	 */
+> -	tst_rmdir();
+> -}
+> +static struct tst_test test = {
+> +	.setup = setup,
+> +	.test_all = run,
+> +	.needs_tmpdir = 1
+> +};
+> -- 
+> 2.36.1
 
-#define FLAGS_DESC(x) .flags = x, .desc = #x
+Like the rest of these tests this should be run on all filesystems as
+well. I guess if it fails on exFAT or something like that. Then we can
+filter out those filesystems because not every FS Linux supports may be
+POSIX compliant. However we probably want to make sure the main ones are
+(e.g. xfs, btrfs, ext4).
 
-static struct test_case_t {
-	char **fname;
-	int flags;
-	const char *desc;
-	int error;
-} tcases[] = {
-	{&existing_fname, FLAGS_DESC(O_CREAT | O_EXCL), EEXIST},
-	{&dir_fname, FLAGS_DESC(O_RDWR), EISDIR},
-	{&existing_fname, FLAGS_DESC(O_DIRECTORY), ENOTDIR},
-	{&toolong_fname, FLAGS_DESC(O_RDWR), ENAMETOOLONG},
-	{&user2_fname, FLAGS_DESC(O_WRONLY), EACCES},
-	{&unmapped_fname, FLAGS_DESC(O_CREAT), EFAULT},
-};
-
-# ./open08 
-tst_test.c:1526: TINFO: Timeout per run is 0h 00m 30s
-open08.c:52: TPASS: O_CREAT | O_EXCL : EEXIST (17)
-open08.c:52: TPASS: O_RDWR : EISDIR (21)
-open08.c:52: TPASS: O_DIRECTORY : ENOTDIR (20)
-open08.c:52: TPASS: O_RDWR : ENAMETOOLONG (36)
-open08.c:52: TPASS: O_WRONLY : EACCES (13)
-open08.c:52: TPASS: O_CREAT : EFAULT (14)
-
-If you agree, I can merge it with this change.
-
-Kind regards,
-Petr
+-- 
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
