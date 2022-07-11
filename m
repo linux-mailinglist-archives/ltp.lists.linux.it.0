@@ -1,67 +1,83 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F36256D692
-	for <lists+linux-ltp@lfdr.de>; Mon, 11 Jul 2022 09:18:20 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7346556D4FD
+	for <lists+linux-ltp@lfdr.de>; Mon, 11 Jul 2022 08:53:00 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id BDE753CA68F
-	for <lists+linux-ltp@lfdr.de>; Mon, 11 Jul 2022 09:18:19 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 3CC8D3CA5AE
+	for <lists+linux-ltp@lfdr.de>; Mon, 11 Jul 2022 08:53:00 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E08F83CA5CB
- for <ltp@lists.linux.it>; Mon, 11 Jul 2022 09:18:14 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 33D8B1000667
- for <ltp@lists.linux.it>; Mon, 11 Jul 2022 09:18:13 +0200 (CEST)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 5809D226F6
- for <ltp@lists.linux.it>; Mon, 11 Jul 2022 07:18:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1657523893;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=wIpL3sOIvh2Ju8umvbMSaW6jIbKjWJ0vnIw0qIjJaYA=;
- b=G1ym9/pgAWByi5amOS/8qMU8X7k9zdyMDnbpLXf0ezpl/2JnzCYvihZ74NrXqzkyleK63A
- bQ9EP0rSdS1Ca+/q74rn26QbCeVzRTEftQaghHliLlzWnSN6gd6HjDmhQDCO8JVJqz7aIu
- c22zC/CFhgyMamKNb0GwFJhoy/jJdBk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1657523893;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=wIpL3sOIvh2Ju8umvbMSaW6jIbKjWJ0vnIw0qIjJaYA=;
- b=iCxuv71xoNkwU6VMznJfU2vEQXQYKNRu+jt1z3cLstI+P754E6b/R0AerlwD4CSxDQ4Cms
- yqVoUW3G/yRxDSAw==
-Received: from g78 (unknown [10.163.24.226])
+ by picard.linux.it (Postfix) with ESMTPS id C6C113CA01F
+ for <ltp@lists.linux.it>; Mon, 11 Jul 2022 08:52:56 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id 094A82C141;
- Mon, 11 Jul 2022 07:18:12 +0000 (UTC)
-References: <20220707110319.24665-1-akumar@suse.de>
- <20220707110319.24665-10-akumar@suse.de>
-User-agent: mu4e 1.6.10; emacs 28.1
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Avinesh Kumar <akumar@suse.de>
-Date: Mon, 11 Jul 2022 07:50:55 +0100
-In-reply-to: <20220707110319.24665-10-akumar@suse.de>
-Message-ID: <871qusp16z.fsf@suse.de>
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 0D2D0600695
+ for <ltp@lists.linux.it>; Mon, 11 Jul 2022 08:52:55 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1657522374;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=6MU1D0hFGFjvXB4cB3ms8B9+bTRgPuGoIvaws5LKge4=;
+ b=aXWUi4r3CAm1WEKOrnb6aIIs/m6nrjamMzvZE0LPb9PyEKE/3C5gQFv72vwuoe+kILT1g1
+ /W/E+X61gGwpfebGK97rCavhG6xrnx3xdIRO/8/A6uyf7ttB0RybR8d0JIIK4qfga3NJUL
+ v73iQO5STbq4J+e1r7zKw5hkr7jXdiw=
+Received: from mail-yb1-f199.google.com (mail-yb1-f199.google.com
+ [209.85.219.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-624-XfGEq_VxOa6vVRNlMznMAQ-1; Mon, 11 Jul 2022 02:52:47 -0400
+X-MC-Unique: XfGEq_VxOa6vVRNlMznMAQ-1
+Received: by mail-yb1-f199.google.com with SMTP id
+ l6-20020a25bf86000000b00668c915a3f2so3134929ybk.4
+ for <ltp@lists.linux.it>; Sun, 10 Jul 2022 23:52:47 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=6MU1D0hFGFjvXB4cB3ms8B9+bTRgPuGoIvaws5LKge4=;
+ b=bLWEHawoSVJwkgc2SJmydxRq0MkaA4xAnhk4/JdTVV/6H2Cibz3At2sCNeiX8can6b
+ P3tdBkPw1cj8J9CQsr0RhkrTN6pU2OofLjmEPFB383dIBasctRCx6I0p1RsxK2Hknz7V
+ D0kaRi6e0X3rYQ9IwfNV7lJsDFMFFqnWFfnOZ6WWEonL5F8KS2tAvAhPlEciF2xiOT8S
+ +zwTBMymaV+B7o3vLjsDDwyWV1nAP0u8DfEvDSA9ux3QzQOthV6uWVQDPjzsWlGcvNN2
+ YvVCURQkR9eWwAt4I6tXYb8hxiPAkS7oh/Jwd9BTiCyUYRF9ABdminCiSrePYppvb9lO
+ ZADw==
+X-Gm-Message-State: AJIora9qJJW6QAmyK4i3S98F0B1LIF2KEFiIYrP7ryfx74cVLEbyadpj
+ N8sFwEhzwVMlHWAGGDd8ENrZVv6QgLfEOh2d58H53lPybOdYlhCcLZJeS8aytL2oKa0B8YddURA
+ QZTxoXyv1tKnh20M33sbFsRfAqdQ=
+X-Received: by 2002:a0d:f685:0:b0:31d:7685:8a90 with SMTP id
+ g127-20020a0df685000000b0031d76858a90mr4417648ywf.12.1657522366498; 
+ Sun, 10 Jul 2022 23:52:46 -0700 (PDT)
+X-Google-Smtp-Source: AGRyM1sx0aeEHnRXwzynKLSuQURIN8VEY8GxquGMdoEsiET3y1riazQAESuiVyDuD3V3ABStFyPG/XZsm5N6tTeLrNc=
+X-Received: by 2002:a0d:f685:0:b0:31d:7685:8a90 with SMTP id
+ g127-20020a0df685000000b0031d76858a90mr4417637ywf.12.1657522366267; Sun, 10
+ Jul 2022 23:52:46 -0700 (PDT)
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+References: <b30a6712179ead9c8a5556d82a4ac386904c9b4d.1657265564.git.jstancek@redhat.com>
+In-Reply-To: <b30a6712179ead9c8a5556d82a4ac386904c9b4d.1657265564.git.jstancek@redhat.com>
+From: Li Wang <liwang@redhat.com>
+Date: Mon, 11 Jul 2022 14:52:35 +0800
+Message-ID: <CAEemH2eLJRemb4JBqY9W70GNAaWY6E0F8RB1zWw+6FqAMbnmpA@mail.gmail.com>
+To: Jan Stancek <jstancek@redhat.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 9/9] Rewrite rename10.c using new LTP API
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] tst_find_backing_dev: fix logic in matching mount
+ point
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,245 +89,93 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============1979591544=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello,
+--===============1979591544==
+Content-Type: multipart/alternative; boundary="000000000000d9578a05e381ff37"
 
-Avinesh Kumar <akumar@suse.de> writes:
+--000000000000d9578a05e381ff37
+Content-Type: text/plain; charset="UTF-8"
 
-> Signed-off-by: Avinesh Kumar <akumar@suse.de>
-> ---
->  testcases/kernel/syscalls/rename/rename10.c | 182 +++-----------------
->  1 file changed, 22 insertions(+), 160 deletions(-)
+On Fri, Jul 8, 2022 at 3:33 PM Jan Stancek <jstancek@redhat.com> wrote:
+
+> If backing dev is btrfs root device, then starting best_match_len
+> from 1 creates an issue, because root (/) is never matched.
+> Also we should check that entire mount point string is present in
+> path we are matching against.
 >
-> diff --git a/testcases/kernel/syscalls/rename/rename10.c b/testcases/kernel/syscalls/rename/rename10.c
-> index 4f0933320..6c14a7e28 100644
-> --- a/testcases/kernel/syscalls/rename/rename10.c
-> +++ b/testcases/kernel/syscalls/rename/rename10.c
-> @@ -1,175 +1,37 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
->  /*
-> - *
-> - *   Copyright (c) International Business Machines  Corp., 2001
-> - *
-> - *   This program is free software;  you can redistribute it and/or modify
-> - *   it under the terms of the GNU General Public License as published by
-> - *   the Free Software Foundation; either version 2 of the License, or
-> - *   (at your option) any later version.
-> - *
-> - *   This program is distributed in the hope that it will be useful,
-> - *   but WITHOUT ANY WARRANTY;  without even the implied warranty of
-> - *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
-> - *   the GNU General Public License for more details.
-> - *
-> - *   You should have received a copy of the GNU General Public License
-> - *   along with this program;  if not, write to the Free Software
-> - *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
-> + * Copyright (c) International Business Machines  Corp., 2001
-> + *  07/2001 Ported by Wayne Boyer
-> + * Copyright (c) 2022 SUSE LLC Avinesh Kumar <avinesh.kumar@suse.com>
->   */
->  
-> -/*
-> - * NAME
-> - *	rename10
-> - *
-> - * DESCRIPTION
-> - *	This test will verify that rename(2) syscall fails with ENAMETOOLONG
-> - *      and ENOENT
-> - *
-> - * ALGORITHM
-> - *	Setup:
-> - *		Setup signal handling.
-> - *		Create temporary directory.
-> - *		Pause for SIGUSR1 if option specified.
-> - *              create the "old" file
-> - *
-> - *	Test:
-> - *		Loop if the proper options are given.
-> - *              1.  rename the "old" to the "new" file
-> - *                  verify rename() failed with error ENAMETOOLONG
-> - *
-> - *              2.  "new" path contains a directory that does not exist
-> - *                  rename the "old" to the "new"
-> - *                  verify rename() failed with error ENOENT
-> - *	Cleanup:
-> - *		Print errno log and/or timing stats if options given
-> - *		Delete the temporary directory created.*
-> - *
-> - * USAGE
-> - *	rename10 [-c n] [-e] [-i n] [-I x] [-P x] [-t]
-> - *	where,  -c n : Run n copies concurrently.
-> - *		-e   : Turn on errno logging.
-> - *		-i n : Execute test n times.
-> - *		-I x : Execute test for x seconds.
-> - *		-P x : Pause for x seconds between iterations.
-> - *		-t   : Turn on syscall timing.
-> +/*\
-> + * [Description]
->   *
-> - * HISTORY
-> - *	07/2001 Ported by Wayne Boyer
-> - *
-> - * RESTRICTIONS
-> - *	None.
-> + * Verify that rename(2) fails with ENAMETOOLONG, when
-> + * oldpath or newpath is too long.
->   */
-> -#include <sys/types.h>
-> -#include <fcntl.h>
-> -#include <unistd.h>
-> -#include <errno.h>
-> -
-> -#include "test.h"
-> -
-> -void setup();
-> -void cleanup();
->  
-> -char *TCID = "rename10";
-> -int TST_TOTAL = 2;
-> +#include <stdio.h>
-> +#include "tst_test.h"
->  
-> -char badmname[] =
-> -    "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstmnopqrstuvwxyzabcdefghijklmnopqrstmnopqrstuvwxyzabcdefghijklmnopqrstmnopqrstuvwxyzabcdefghijklmnopqrstmnopqrstuvwxyzabcdefghijklmnopqrstmnopqrstuvwxyzabcdefghijklmnopqrstmnopqrstuvwxyz";
-> +#define TEMP_FILE "tmpfile"
->  
-> -int fd;
-> -char fname[255], mname[255];
-> -char mdir[255];
-> -
-> -struct test_case_t {
-> -	char *fd1;
-> -	char *fd2;
-> -	int error;
-> -} TC[] = {
-> -	/* badmname is too long for a file name - ENAMETOOLONG */
-> -	{
-> -	fname, badmname, ENAMETOOLONG},
-> -	    /* mname contains a directory component which does not exist - ENOENT */
-> -	{
-> -	fname, mname, ENOENT}
-> -};
-> +static char long_path[PATH_MAX + 2] = {[0 ... PATH_MAX + 1] = 'a'};
+> In case there's error also dump /proc/self/mountinfo before tst_brk.
+>
+> This fixes test with following partition layout (TMPDIR is on /):
+>   # cat /proc/self/mountinfo  | grep btrfs
+>   59 1 0:29 /root / rw,relatime shared:1 - btrfs /dev/dasda2
+> rw,seclabel,compress=zstd:1,ssd,space_cache=v2,subvolid=257,subvol=/root
+>   93 59 0:29 /home /home rw,relatime shared:47 - btrfs /dev/dasda2
+> rw,seclabel,compress=zstd:1,ssd,space_cache=v2,subvolid=256,subvol=/home
+>
+> Signed-off-by: Jan Stancek <jstancek@redhat.com>
+>
 
-PATH_MAX is actually the minimum number of bytes the system is allowed
-to set as the maximum path length. Meaning it can accept more. However
-it seems what we are actually testing here is NAME_MAX which is only 255
-and can't be bigger than 255 according to POSIX.
+Make sense!
 
-So I think we should be testing what happens when 256 chars are passed
-as a filename (not including null terminating char).
+Reviewed-by: Li Wang <liwang@redhat.com>
 
->  
-> -int main(int ac, char **av)
-> +static void setup(void)
->  {
-> -	int lc;
-> -	int i;
-> -
-> -	/*
-> -	 * parse standard options
-> -	 */
-> -	tst_parse_opts(ac, av, NULL, NULL);
-> -
-> -	/*
-> -	 * perform global setup for test
-> -	 */
-> -	setup();
-> -
-> -	/*
-> -	 * check looping state if -i option given
-> -	 */
-> -	for (lc = 0; TEST_LOOPING(lc); lc++) {
-> -
-> -		tst_count = 0;
-> -
-> -		/* loop through the test cases */
-> -		for (i = 0; i < TST_TOTAL; i++) {
-> -
-> -			TEST(rename(TC[i].fd1, TC[i].fd2));
-> -
-> -			if (TEST_RETURN != -1) {
-> -				tst_resm(TFAIL, "call succeeded unexpectedly");
-> -				continue;
-> -			}
-> -
-> -			if (TEST_ERRNO == TC[i].error) {
-> -				tst_resm(TPASS, "expected failure - "
-> -					 "errno = %d : %s", TEST_ERRNO,
-> -					 strerror(TEST_ERRNO));
-> -			} else {
-> -				tst_resm(TFAIL, "unexpected error - %d : %s - "
-> -					 "expected %d", TEST_ERRNO,
-> -					 strerror(TEST_ERRNO), TC[i].error);
-> -			}
-> -		}
-> -	}
-> -
-> -	cleanup();
-> -	tst_exit();
-> -
-> +	SAFE_TOUCH(TEMP_FILE, 0700, NULL);
->  }
->  
-> -/*
-> - * setup() - performs all ONE TIME setup for this test.
-> - */
-> -void setup(void)
-> +static void run(void)
->  {
-> -
-> -	tst_sig(NOFORK, DEF_HANDLER, cleanup);
-> -
-> -	TEST_PAUSE;
-> -
-> -	/* Create a temporary directory and make it current. */
-> -	tst_tmpdir();
-> -
-> -	sprintf(fname, "./tfile_%d", getpid());
-> -	sprintf(mdir, "./rndir_%d", getpid());
-> -	sprintf(mname, "%s/rnfile_%d", mdir, getpid());
-> -
-> -	SAFE_TOUCH(cleanup, fname, 0700, NULL);
-> +	TST_EXP_FAIL(rename(TEMP_FILE, long_path),
-> +				ENAMETOOLONG);
->  }
->  
-> -/*
-> - * cleanup() - performs all ONE TIME cleanup for this test at
-> - *             completion or premature exit.
-> - */
-> -void cleanup(void)
-> -{
-> -
-> -	/*
-> -	 * Remove the temporary directory.
-> -	 */
-> -	tst_rmdir();
-> -}
-> +static struct tst_test test = {
-> +	.setup = setup,
-> +	.test_all = run,
-> +	.needs_tmpdir = 1
-> +};
-> -- 
-> 2.36.1
-
-Like the rest of these tests this should be run on all filesystems as
-well. I guess if it fails on exFAT or something like that. Then we can
-filter out those filesystems because not every FS Linux supports may be
-POSIX compliant. However we probably want to make sure the main ones are
-(e.g. xfs, btrfs, ext4).
 
 -- 
-Thank you,
-Richard.
+Regards,
+Li Wang
+
+--000000000000d9578a05e381ff37
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Fri, Jul 8, 2022 at 3:33 PM Jan Stancek &lt;<a h=
+ref=3D"mailto:jstancek@redhat.com">jstancek@redhat.com</a>&gt; wrote:<br></=
+div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bor=
+der-left:1px solid rgb(204,204,204);padding-left:1ex">If backing dev is btr=
+fs root device, then starting best_match_len<br>
+from 1 creates an issue, because root (/) is never matched.<br>
+Also we should check that entire mount point string is present in<br>
+path we are matching against.<br>
+<br>
+In case there&#39;s error also dump /proc/self/mountinfo before tst_brk.<br=
+>
+<br>
+This fixes test with following partition layout (TMPDIR is on /):<br>
+=C2=A0 # cat /proc/self/mountinfo=C2=A0 | grep btrfs<br>
+=C2=A0 59 1 0:29 /root / rw,relatime shared:1 - btrfs /dev/dasda2 rw,seclab=
+el,compress=3Dzstd:1,ssd,space_cache=3Dv2,subvolid=3D257,subvol=3D/root<br>
+=C2=A0 93 59 0:29 /home /home rw,relatime shared:47 - btrfs /dev/dasda2 rw,=
+seclabel,compress=3Dzstd:1,ssd,space_cache=3Dv2,subvolid=3D256,subvol=3D/ho=
+me<br>
+<br>
+Signed-off-by: Jan Stancek &lt;<a href=3D"mailto:jstancek@redhat.com" targe=
+t=3D"_blank">jstancek@redhat.com</a>&gt;<br></blockquote><div><br></div><di=
+v class=3D"gmail_default" style=3D"font-size:small">Make sense!</div><div c=
+lass=3D"gmail_default" style=3D"font-size:small"><br></div><div class=3D"gm=
+ail_default" style=3D"font-size:small">Reviewed-by: Li Wang &lt;<a href=3D"=
+mailto:liwang@redhat.com">liwang@redhat.com</a>&gt;<br></div><div class=3D"=
+gmail_default" style=3D"font-size:small"><br></div></div><div><br></div>-- =
+<br><div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><div>Regard=
+s,<br></div><div>Li Wang<br></div></div></div></div>
+
+--000000000000d9578a05e381ff37--
+
+
+--===============1979591544==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============1979591544==--
+
