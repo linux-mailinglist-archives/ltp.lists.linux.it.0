@@ -1,68 +1,82 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D92956D478
-	for <lists+linux-ltp@lfdr.de>; Mon, 11 Jul 2022 08:03:11 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1AB6656D456
+	for <lists+linux-ltp@lfdr.de>; Mon, 11 Jul 2022 07:38:58 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 177D73CA5F7
-	for <lists+linux-ltp@lfdr.de>; Mon, 11 Jul 2022 08:03:11 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id DB9C63CA575
+	for <lists+linux-ltp@lfdr.de>; Mon, 11 Jul 2022 07:38:57 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 0A0983C282E
- for <ltp@lists.linux.it>; Mon, 11 Jul 2022 08:03:06 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id DAF35140075D
- for <ltp@lists.linux.it>; Mon, 11 Jul 2022 08:03:05 +0200 (CEST)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 2903C1FE38
- for <ltp@lists.linux.it>; Mon, 11 Jul 2022 06:03:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1657519385;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=SyCy8GVyZg3UTlwaptyfO9JTUsAOJasyX+byT8QP4FE=;
- b=lA9kg1Kc8rUAD2OSh1+rLBgMMmj3mrcJt2XcmUx5aX99BSG3gU/X3ukMBFafBEL6NGN+9y
- /Jo8zx7HaVsYpfrFS3trdYyExCV8r2CZycJ6eu1+ZbL5CaTS70vH9947FD/IYsDqtHhm9I
- tjaBMYhEhu8+WtLH5GGKtU2vBkrFe3U=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1657519385;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=SyCy8GVyZg3UTlwaptyfO9JTUsAOJasyX+byT8QP4FE=;
- b=oyL8q4rkedOtUbcoNMUGHTfaviVAiWR9t0w20Dh94dklf76Zb36vmFQnqN9DKC98Y3rqma
- NlRZErW+eik2hcDQ==
-Received: from g78 (unknown [10.163.24.226])
+ by picard.linux.it (Postfix) with ESMTPS id 9CAD53CA552
+ for <ltp@lists.linux.it>; Mon, 11 Jul 2022 07:38:55 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id D866A2C141;
- Mon, 11 Jul 2022 06:03:04 +0000 (UTC)
-References: <20220707110319.24665-1-akumar@suse.de>
- <20220707110319.24665-2-akumar@suse.de>
-User-agent: mu4e 1.6.10; emacs 28.1
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Avinesh Kumar <akumar@suse.de>
-Date: Mon, 11 Jul 2022 06:30:20 +0100
-In-reply-to: <20220707110319.24665-2-akumar@suse.de>
-Message-ID: <87edysp4o7.fsf@suse.de>
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id A3031600671
+ for <ltp@lists.linux.it>; Mon, 11 Jul 2022 07:38:54 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1657517933;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Y7tgZCsRwR+Z5yqaORW5p6Z8ecoeIsglI1+xh6eMwxc=;
+ b=iqzJwM8UIpJpDYzDXOS16bjYsgFF3fcD+PoYPNWH3off/b5uC6guHOpYyzQ42Ig1UxrOeh
+ iXk8xYnhpH8h1yThWijTF1iseHrE09/s+0LeDbAEDTFZjF1oXe3rURFxSYfueyLX4IyE4W
+ oImPL2gRheYSbkuDJsxD0Rk35Tojyw0=
+Received: from mail-yb1-f199.google.com (mail-yb1-f199.google.com
+ [209.85.219.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-621-IE1zWaz8PFm82fVknkNakw-1; Mon, 11 Jul 2022 01:38:51 -0400
+X-MC-Unique: IE1zWaz8PFm82fVknkNakw-1
+Received: by mail-yb1-f199.google.com with SMTP id
+ u17-20020a258411000000b0066dfb22644eso3043553ybk.6
+ for <ltp@lists.linux.it>; Sun, 10 Jul 2022 22:38:51 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Y7tgZCsRwR+Z5yqaORW5p6Z8ecoeIsglI1+xh6eMwxc=;
+ b=XOPke+A94OSOAWOHF6e1OEi2QhPn7wRgJe6HPGsxVTVBFxrEUPXnu5HY07bQLLUzCN
+ 8CuSWTI3FreTmrdR5lsJwN3zDL0asKIYW9qMq7W2KqtWAn2mNpZhynNRLx3BmPjllevj
+ 7l/Hqzq3jOluK94S4CH5Iwftw+nX6xVM7mkR3e2vH8f1GAb+Fg4todgzemtu/qP9wQx5
+ wjjgO2vxa7vRLOnSwheYTG0R1Z3WarnK6e5fJZ+bsJRwGF6XlkgTpg14fXTP0/RUffKJ
+ gXO3bw/3ts01X9YLSMKXG/ADOUKPTSvDWf3k9dIhnTwIBOgqjieOB3x/OfKNC56NX9h4
+ 93Jw==
+X-Gm-Message-State: AJIora/0LVebiVKwb7KT+LO8AkXvPekYPzJpvSc8zx5HZrIvNFeQ+JAm
+ BBFRiJDEJ+kXOjZ0/WHGr+Ni3IHIX9lOpy7Fe7xQXfoLZgh2uj+fQayegMhEGKIqqwJPQP280Ed
+ lhQ58vyfNfU9hSxZkR1xfk5FSMtU=
+X-Received: by 2002:a0d:d58c:0:b0:31c:e04f:33e0 with SMTP id
+ x134-20020a0dd58c000000b0031ce04f33e0mr18749329ywd.86.1657517930689; 
+ Sun, 10 Jul 2022 22:38:50 -0700 (PDT)
+X-Google-Smtp-Source: AGRyM1uFbyaOis00SQH++YNKthbjK77mtxMybpwrR1Hy+8cv703mvJ8q01zgJwIckdffSEIT+tJsyaySEJ8LOvzhlPg=
+X-Received: by 2002:a0d:d58c:0:b0:31c:e04f:33e0 with SMTP id
+ x134-20020a0dd58c000000b0031ce04f33e0mr18749318ywd.86.1657517930480; Sun, 10
+ Jul 2022 22:38:50 -0700 (PDT)
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+References: <1657277348-2169-1-git-send-email-xuyang2018.jy@fujitsu.com>
+In-Reply-To: <1657277348-2169-1-git-send-email-xuyang2018.jy@fujitsu.com>
+From: Li Wang <liwang@redhat.com>
+Date: Mon, 11 Jul 2022 13:38:39 +0800
+Message-ID: <CAEemH2c1n2FEykXXuCthxENcRN1_R0ZahF3YVOviCJCW-yP3FA@mail.gmail.com>
+To: Yang Xu <xuyang2018.jy@fujitsu.com>
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=liwan@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 1/9] Rewrite rename01.c using new LTP API
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] tst_cgroup: Fix typo
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,146 +88,46 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: LTP List <ltp@lists.linux.it>
+Content-Type: multipart/mixed; boundary="===============1068688237=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello,
+--===============1068688237==
+Content-Type: multipart/alternative; boundary="00000000000074a29305e380f780"
 
-Avinesh Kumar <akumar@suse.de> writes:
+--00000000000074a29305e380f780
+Content-Type: text/plain; charset="UTF-8"
 
-> Signed-off-by: Avinesh Kumar <akumar@suse.de>
-> ---
->  testcases/kernel/syscalls/rename/rename01.c | 259 +++++---------------
->  1 file changed, 58 insertions(+), 201 deletions(-)
->
-> diff --git a/testcases/kernel/syscalls/rename/rename01.c b/testcases/kernel/syscalls/rename/rename01.c
-> index e7de18ff4..695d85c57 100644
-> --- a/testcases/kernel/syscalls/rename/rename01.c
-> +++ b/testcases/kernel/syscalls/rename/rename01.c
-> @@ -1,218 +1,75 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
->  /*
-> - *
-> - *   Copyright (c) International Business Machines  Corp., 2001
-> - *
-> - *   This program is free software;  you can redistribute it and/or modify
-> - *   it under the terms of the GNU General Public License as published by
-> - *   the Free Software Foundation; either version 2 of the License, or
-> - *   (at your option) any later version.
-> - *
-> - *   This program is distributed in the hope that it will be useful,
-> - *   but WITHOUT ANY WARRANTY;  without even the implied warranty of
-> - *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
-> - *   the GNU General Public License for more details.
-> - *
-> - *   You should have received a copy of the GNU General Public License
-> - *   along with this program;  if not, write to the Free Software
-> - *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
-> + * Copyright (c) International Business Machines  Corp., 2001
-> + *  07/2001 Ported by Wayne Boyer
-> + * Copyright (c) 2022 SUSE LLC Avinesh Kumar <avinesh.kumar@suse.com>
->   */
->  
-> -/*
-> - * NAME
-> - *	rename01
-> - *
-> - * DESCRIPTION
-> - *	This test will verify the rename(2) syscall basic functionality.
-> - *	Verify rename() works when the "new" file or directory does not exist.
-> +/*\
-> + * [Description]
->   *
-> - * ALGORITHM
-> - *	Setup:
-> - *		Setup signal handling.
-> - *		Create temporary directory.
-> - *		Pause for SIGUSR1 if option specified.
-> - *
-> - *	Test:
-> - *		Loop if the proper options are given.
-> - *              1.  "old" is plain file, new does not exists
-> - *                  create the "old" file, make sure the "new" file
-> - *                  dose not exist
-> - *                  rename the "old" to the "new" file
-> - *                  verify the "new" file points to the "old" file
-> - *                  verify the "old" file does not exist
-> - *
-> - *              2.  "old" is a directory,"new" does not exists
-> - *                  create the "old" directory, make sure "new"
-> - *                  dose not exist
-> - *                  rename the "old" to the "new"
-> - *                  verify the "new" points to the "old"
-> - *                  verify the "old" does not exist
-> - *	Cleanup:
-> - *		Print errno log and/or timing stats if options given
-> - *		Delete the temporary directory created.
-> - *
-> - * USAGE
-> - *	rename01 [-c n] [-f] [-i n] [-I x] [-P x] [-t]
-> - *	where,  -c n : Run n copies concurrently.
-> - *		-f   : Turn off functionality Testing.
-> - *		-i n : Execute test n times.
-> - *		-I x : Execute test for x seconds.
-> - *		-P x : Pause for x seconds between iterations.
-> - *		-t   : Turn on syscall timing.
-> - *
-> - * HISTORY
-> - *	07/2001 Ported by Wayne Boyer
-> - *
-> - * RESTRICTIONS
-> - *	None.
-> + * Verify rename() when the newpath file or directory does not exist.
->   */
-> -#include <sys/types.h>
-> -#include <fcntl.h>
-> -#include <sys/stat.h>
-> -#include <unistd.h>
-> -#include <errno.h>
->  
-> -#include "test.h"
-> -#include "safe_macros.h"
-> -
-> -void setup();
-> -void cleanup();
-> +#include <sys/stat.h>
-> +#include <stdio.h>
-> +#include "tst_test.h"
->  
-> -char *TCID = "rename01";
-> -int TST_TOTAL = 2;
-> +#define SWAP(a, b) do { \
-> +		const char *tmp__ = a; \
-> +		a = b; \
-> +		b = tmp__; \
-> +} while (0)
+Pushed, thanks!
 
-This doesn't need to be a macro (which don't have type or name collision
-checking and confuse some tooling etc.). It's actually the same number of
-lines to write it inline as well, i.e.
-
-char *tmp;
-
-tmp = a;
-a = b;
-b = tmp;
-
-tmp = c;
-c = d;
-d = tmp;
-
-However if you don't want to write it inline I'd prefer a function which
-takes const *const *char.
-
-Otherwise looks good.
 
 -- 
-Thank you,
-Richard.
+Regards,
+Li Wang
+
+--00000000000074a29305e380f780
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small">Pushed, thanks!</div></div><br><div class=3D"gmail_quote"><di=
+v dir=3D"ltr" class=3D"gmail_attr"><br></div></div>-- <br><div dir=3D"ltr" =
+class=3D"gmail_signature"><div dir=3D"ltr"><div>Regards,<br></div><div>Li W=
+ang<br></div></div></div></div>
+
+--00000000000074a29305e380f780--
+
+
+--===============1068688237==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============1068688237==--
+
