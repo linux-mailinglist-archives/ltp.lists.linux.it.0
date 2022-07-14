@@ -2,73 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id E555B5753DD
-	for <lists+linux-ltp@lfdr.de>; Thu, 14 Jul 2022 19:20:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA0805753FA
+	for <lists+linux-ltp@lfdr.de>; Thu, 14 Jul 2022 19:25:01 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 27B813CA304
-	for <lists+linux-ltp@lfdr.de>; Thu, 14 Jul 2022 19:20:15 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 3D46B3CAA54
+	for <lists+linux-ltp@lfdr.de>; Thu, 14 Jul 2022 19:25:01 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id B57F43CA19E
- for <ltp@lists.linux.it>; Thu, 14 Jul 2022 19:20:13 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id C20DD3CA478
+ for <ltp@lists.linux.it>; Thu, 14 Jul 2022 19:24:56 +0200 (CEST)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 2D7251401135
- for <ltp@lists.linux.it>; Thu, 14 Jul 2022 19:20:12 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id AA3FD600806
+ for <ltp@lists.linux.it>; Thu, 14 Jul 2022 19:24:55 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 560551F913;
- Thu, 14 Jul 2022 17:20:11 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id DF10C1F8C7;
+ Thu, 14 Jul 2022 17:24:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1657819211;
+ t=1657819494;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=UAZ+tn2V1SB9rhuyxRqVBcMZz7VLxQX812b2GhIGC7s=;
- b=tPDLRzOYKN88T4tdILiANeRchLbk09M0WLKqYA/XJmIa+cqQQjYRipX4uDV/D2SBxAl7Zu
- W3aQvvpK9twiRZu9KDT+Rq2cRl6joLYNZIBYz9KWYtt4Z62/dE9ZPAHgXc7sEuwUthmr4w
- WHfkjTN7m591TuoQu1nFCpGZfGP+9rc=
+ bh=7FG23WQK31OUTlDJfPNOeC9o4vfSL9y1u3YdpZ+ezbY=;
+ b=gDDnzwScNEwKvwaQueJmbzL79ht0T8N1LnDT/7UAvHNcewsIJHGJM5ugiAYu2eee7q/wIs
+ mjqX/LH/3I1kvTYGUh28z8I4OM5lDabj9lPFdotGA0SfCVAP15Nl+wntHa9Q6jiCQu5MmT
+ InppGGLQYgGcsKg4dd7AZGDOE5936s0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1657819211;
+ s=susede2_ed25519; t=1657819494;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=UAZ+tn2V1SB9rhuyxRqVBcMZz7VLxQX812b2GhIGC7s=;
- b=z5C3ASAZWbYQwwIh0XrryhG7U6h2G/JnV/NkaAufJvaAjxWZHSfRKM3aaMbUd7eJhtAqIZ
- UrvfbFQXyh/GgDCA==
+ bh=7FG23WQK31OUTlDJfPNOeC9o4vfSL9y1u3YdpZ+ezbY=;
+ b=wsHpVoB99jFqLVgkwqIsXo9uBMxJKRZg7vIcFyZcHCE8MCrlll7+Glb+O05UEqPNRxbYMz
+ /VA5TyR4JKSYpfCQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 20EAA13A61;
- Thu, 14 Jul 2022 17:20:11 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9CCA613A61;
+ Thu, 14 Jul 2022 17:24:54 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id BR6bBktQ0GJ9dgAAMHmgww
- (envelope-from <pvorel@suse.cz>); Thu, 14 Jul 2022 17:20:11 +0000
-Date: Thu, 14 Jul 2022 19:20:09 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id 8ypVJGZR0GILeAAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Thu, 14 Jul 2022 17:24:54 +0000
+Date: Thu, 14 Jul 2022 19:24:52 +0200
 From: Petr Vorel <pvorel@suse.cz>
-To: Avinesh Kumar <akumar@suse.de>
-Message-ID: <YtBQSTyIgcUPQxj4@pevik>
-References: <20220714152455.18050-1-akumar@suse.de>
+To: ltp@lists.linux.it
+Message-ID: <YtBRZCKfhA6b433J@pevik>
+References: <20220713124347.13593-1-pvorel@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20220714152455.18050-1-akumar@suse.de>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+In-Reply-To: <20220713124347.13593-1-pvorel@suse.cz>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] nice01/02/03/04: docparse comment
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/1] netstress: Restore runtime to 5m
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,17 +81,43 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
+Cc: linux-nfs@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Avinesh,
+Hi,
 
-merged (with slightly changed commit message).
+> netstress requires the previous default timeout 5m due longer timeout
+> for higher message sizes (e.g. 65535):
 
-Thanks!
+> ./sctp_ipsec.sh -6 -p comp -m transport -s 100:1000:65535:R65535
+...
+> sctp_ipsec 3 TINFO: run client 'netstress -l -T sctp -H fd00:1:1:1::1 -n 65535 -N 65535 -S fd00:1:1:1::2 -D ltp_ns_veth2 -a 2 -r 100 -d /tmp/LTP_sctp_ipsec.ARZbGkvjPa/tst_netload.res' 5 times
+> sctp_ipsec 3 TWARN: netstress failed, ret: 2
+> tst_test.c:1526: TINFO: Timeout per run is 0h 00m 30s
+> netstress.c:896: TINFO: IP_BIND_ADDRESS_NO_PORT is used
+> netstress.c:898: TINFO: connection: addr 'fd00:1:1:1::1', port '55097'
+> netstress.c:900: TINFO: client max req: 100
+> netstress.c:901: TINFO: clients num: 2
+> netstress.c:906: TINFO: client msg size: 65535
+> netstress.c:907: TINFO: server msg size: 65535
+> netstress.c:979: TINFO: SCTP client
+> netstress.c:475: TINFO: Running the test over IPv6
+> Test timeouted, sending SIGKILL!
+> tst_test.c:1577: TINFO: If you are running on slow machine, try exporting LTP_TIMEOUT_MUL > 1
+> tst_test.c:1579: TBROK: Test killed! (timeout?)
+
+> Converting netstress.c to use TST_NO_DEFAULT_MAIN (i.e. implementing main)
+> would require more changes, because it uses .forks_child, .needs_checkpoints,
+> cleanup function.
+Merged to get at least netstress timeout fixed.
+
+> NOTE: there is also needed to increase timeout for sctp_ipsec.sh.
+> At least on my VM 10 min wasn't enough. Trying to measure reasonable
+> time with TST_TIMEOUT=-1.
+Continue debugging this.
 
 Kind regards,
 Petr
