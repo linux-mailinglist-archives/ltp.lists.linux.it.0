@@ -1,73 +1,68 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB364577F1E
-	for <lists+linux-ltp@lfdr.de>; Mon, 18 Jul 2022 11:56:38 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 63E8E577FD3
+	for <lists+linux-ltp@lfdr.de>; Mon, 18 Jul 2022 12:37:42 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0C2943C96E0
-	for <lists+linux-ltp@lfdr.de>; Mon, 18 Jul 2022 11:56:38 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E26313C927B
+	for <lists+linux-ltp@lfdr.de>; Mon, 18 Jul 2022 12:37:41 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id DE9933C9408
- for <ltp@lists.linux.it>; Mon, 18 Jul 2022 11:56:33 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 8C4F73C90A6
+ for <ltp@lists.linux.it>; Mon, 18 Jul 2022 12:37:37 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 8E1D210007C0
- for <ltp@lists.linux.it>; Mon, 18 Jul 2022 11:56:32 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id C5C122098E;
- Mon, 18 Jul 2022 09:56:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1658138191; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id CE535600494
+ for <ltp@lists.linux.it>; Mon, 18 Jul 2022 12:37:36 +0200 (CEST)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 2EEC533895;
+ Mon, 18 Jul 2022 10:37:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1658140656;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=DKCDM+ITA+dnw3i+z0DGlv9SUUlrIm+MECaN6dovwqk=;
- b=RdXoOJB5YCLoL4aNFnay5ZQXVu3UTqv6/wsY/f0N5g7AVjlsH5ZsrNGTQmBgN0+UA0+slv
- BSj9GfDZzLXdmDjKXdJDmvAF5MWoA9Fh3/ncKfihpSyl1wcUue2vXiMX/kH3xD1t1v/u7b
- UB+pzvh4aEOFyA6BNx9LBoZSpAmKoo4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1658138191;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ bh=/ad2o1ZN0l95751BxxMU7SvYqdoQ/7wSF2+HTpfZjbQ=;
+ b=XBSQGZ63zH8iIrkDyUkzPbJwrfUyVpGewkKZeMn1PdbRvBxD0NDeGLDmZbTztJOrpCyR0g
+ 6CE2J6wTtSrTNwP6Iar/LfllT3XmWlONTElmvwE9c+CXDW70JMe1Om8jfGWfFl5fNuqIWr
+ udeO5dtGFmYRqI9aqSiTLAVPpPXTVUc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1658140656;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=DKCDM+ITA+dnw3i+z0DGlv9SUUlrIm+MECaN6dovwqk=;
- b=omv9UpB6tpr7zk5Gco0FvHScfv3fOZhwxYIII/nYIEQm6LXMHWPhhkchJZB7cWnrAdKb7Y
- nPlxDLCx3HnGtfBA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ bh=/ad2o1ZN0l95751BxxMU7SvYqdoQ/7wSF2+HTpfZjbQ=;
+ b=2tYDT6UZz4Io+VBS29ebNdpjgji3iUzLfVk+UeECLcXVA8XtswyFI0+IpPvdcHnJ3Ciy9B
+ pR3eGhnUHWz20mCQ==
+Received: from g78 (unknown [10.163.24.226])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B412013A37;
- Mon, 18 Jul 2022 09:56:31 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id gJWuKk8u1WKlPQAAMHmgww
- (envelope-from <chrubis@suse.cz>); Mon, 18 Jul 2022 09:56:31 +0000
-Date: Mon, 18 Jul 2022 11:58:26 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Zhao Gongyi <zhaogongyi@huawei.com>
-Message-ID: <YtUuwlgaFxufhSjY@yuki>
-References: <20220702024428.207153-1-zhaogongyi@huawei.com>
+ by relay2.suse.de (Postfix) with ESMTPS id D16072C141;
+ Mon, 18 Jul 2022 10:37:35 +0000 (UTC)
+References: <20220712124617.23139-1-rpalethorpe@suse.com>
+ <CAEemH2e=-8rt+N=VdiA27xO=-Z5zE4RPu+MCf2NDCuOTq6xcAw@mail.gmail.com>
+User-agent: mu4e 1.6.10; emacs 28.1
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Li Wang <liwang@redhat.com>
+Date: Mon, 18 Jul 2022 11:09:21 +0100
+In-reply-to: <CAEemH2e=-8rt+N=VdiA27xO=-Z5zE4RPu+MCf2NDCuOTq6xcAw@mail.gmail.com>
+Message-ID: <87pmi2iu4w.fsf@suse.de>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20220702024428.207153-1-zhaogongyi@huawei.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3] syscalls/nice05: Add testcase for nice()
- syscall
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/2] read_all: Add worker timeout
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,68 +74,96 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Reply-To: rpalethorpe@suse.de
+Cc: LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> +static void verify_nice(void)
-> +{
-> +	intptr_t nice_inc_high = -1;
-> +	intptr_t nice_inc_low = -2;
-> +	char buf[4096] = {0};
-> +	float sum_exec_runtime[2];
-> +	pthread_t nice_low, nice_high;
-> +	pid_t pid;
-> +
-> +	pid = SAFE_FORK();
-> +	if (!pid) {
-> +		TEST(pthread_barrier_init(&barrier, NULL, 3));
-> +		if (TST_RET != 0) {
-> +			tst_brk(TBROK | TTERRNO,
-> +				"pthread_barrier_init() failed");
-> +		}
-> +
-> +		SAFE_PTHREAD_CREATE(&nice_high, NULL, nice_high_thread,
-> +			(void *)nice_inc_high);
-> +		SAFE_PTHREAD_CREATE(&nice_low, NULL, nice_low_thread,
-> +			(void *)nice_inc_low);
-> +
-> +		TEST(pthread_barrier_wait(&barrier));
-> +		if (TST_RET != 0 && TST_RET != PTHREAD_BARRIER_SERIAL_THREAD) {
-> +			tst_brk(TBROK | TTERRNO,
-> +				"pthread_barrier_wait() failed");
-> +		}
-> +
-> +		while (1)
-> +			pause();
-> +	}
-> +
-> +	sleep(tst_remaining_runtime());
-> +	SAFE_KILL(pid, SIGSTOP);
-> +
-> +	sprintf(buf, "/proc/%d/sched", child_tid[0]);
-> +	SAFE_FILE_SCANF(buf, "%*s %*s %*s %*s %*s"
-> +			"%*s %*s %*f %*s %*s %*f %*s %*s %f",
-> +			&sum_exec_runtime[0]);
-> +
-> +	sprintf(buf, "/proc/%d/sched", child_tid[1]);
-> +	SAFE_FILE_SCANF(buf, "%*s %*s %*s %*s %*s"
-> +			"%*s %*s %*f %*s %*s %*f %*s %*s %f",
-> +			&sum_exec_runtime[1]);
+Hello Li,
 
-The /proc/$PID/sched file is unfortunatelly only present if
-CONFIG_SCHED_DEBUG was set in the kernel, which is not always the case,
-and the test TBROKs on some of my testing targets.
+Li Wang <liwang@redhat.com> writes:
 
-Thinking of alternatives we can probably do clock_getcpuclockid() for
-the threads and read the counters with clock_gettime().
+> Hi Richard,
+>
+> On Tue, Jul 12, 2022 at 8:46 PM Richard Palethorpe <rpalethorpe@suse.com> wrote:
+>
+>  Kill and restart workers that take too long to read a file. The
+>  default being one second. A custom time can be set with the new -t
+>  option.
+>
+>  This is to prevent a worker from blocking forever in a read. Currently
+>  when this happens the whole test times out and any remaining files in
+>  the worker's queue are not tested.
+>
+>  As a side effect we can now also set the timeout very low to cause
+>  partial reads.
+>
+> To restart workers which are blocked from reading files is a practical way.
+> My only concern is that restarted-worker is also slower reading on some
+> specific files so it will still be timed out again. Then the rest will fall into 
+> restart cycles. Here I'd suggest loosening the worker_timeout to 3000 ms
+> to accommodate systems of different IO speeds.
+
+I didn't observe any issues setting the timeout very low
+(<100ms). Worker's remove an item from the queue before trying to read
+it, so they shouldn't get stuck in a restart cycle on the same file (if
+thats what you meant).
+
+>
+> Though each worker at most takes 3secs, the max time would not
+> be overdue 45s (3 sec * max_works), unless tested sequentially
+> in the worst case. So bumping up max_runtime maybe also helpful.
+>
+> Anyway, I'd be happy to apply your patch first to see how things going.
+> Reviewed-by: Li Wang <liwang@redhat.com>
+>
+> --- a/testcases/kernel/fs/read_all/read_all.c
+> +++ b/testcases/kernel/fs/read_all/read_all.c
+> @@ -64,7 +64,7 @@ struct queue {
+>  struct worker {
+>         pid_t pid;
+>         struct queue *q;
+> -       int last_seen;
+> +       unsigned long long last_seen;
+>  };
+>  
+>  enum dent_action {
+> @@ -86,7 +86,7 @@ static long max_workers = 15;
+>  static struct worker *workers;
+>  static char *drop_privs;
+>  static char *str_worker_timeout;
+> -static int worker_timeout = 1000;
+> +static int worker_timeout = 3000;
+>  
+>  static char *blacklist[] = {
+>         NULL, /* reserved for -e parameter */
+> @@ -552,5 +552,6 @@ static struct tst_test test = {
+>         .cleanup = cleanup,
+>         .test_all = run,
+>         .forks_child = 1,
+> +       .max_runtime = 60,
+>  };
+
+I'm not sure if this is better or worse. In my sys folder there are
+approx 35K files. Obviously a timeout of even 1s is far too long to read
+all of them if they all timeout. In fact if we set the timeout as 100ms
+then they would still require about 58 mins.
+
+Of course most of them take a very short time on most systems. I guess
+that ideally the timeout needs to be adapted as the test runs so that
+all remaining files can be read. The issue with that though is that kill+wait+fork
+takes more time than most reads. Although that can be measured as
+well....
+
+This issue is quite a lot like the issues we have with fuzzy sync. I
+think it's maybe time to start dynamically adapting to system
+performance. That's probably best left to another patch series though.
 
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
