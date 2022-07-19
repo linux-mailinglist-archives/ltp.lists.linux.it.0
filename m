@@ -1,61 +1,56 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8D3F578345
-	for <lists+linux-ltp@lfdr.de>; Mon, 18 Jul 2022 15:11:32 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 34BF85790F8
+	for <lists+linux-ltp@lfdr.de>; Tue, 19 Jul 2022 04:41:17 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id F30DB3C91A6
-	for <lists+linux-ltp@lfdr.de>; Mon, 18 Jul 2022 15:11:31 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 7168E3C966D
+	for <lists+linux-ltp@lfdr.de>; Tue, 19 Jul 2022 04:41:15 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 83CEA3C91A6
- for <ltp@lists.linux.it>; Mon, 18 Jul 2022 15:11:27 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id B72693C9528
+ for <ltp@lists.linux.it>; Tue, 19 Jul 2022 04:41:11 +0200 (CEST)
 Received: from loongson.cn (mail.loongson.cn [114.242.206.163])
- by in-6.smtp.seeweb.it (Postfix) with ESMTP id 7F1CE1400066
- for <ltp@lists.linux.it>; Mon, 18 Jul 2022 15:11:24 +0200 (CEST)
-Received: from [10.180.13.185] (unknown [10.180.13.185])
- by mail.loongson.cn (Coremail) with SMTP id AQAAf9Dxf9P4W9Vi1MEmAA--.33492S3; 
- Mon, 18 Jul 2022 21:11:20 +0800 (CST)
-To: Cyril Hrubis <chrubis@suse.cz>
-References: <1656315600-22268-1-git-send-email-zhanghongchen@loongson.cn>
- <YtUiDXXLf+ob7Dm4@yuki>
+ by in-3.smtp.seeweb.it (Postfix) with ESMTP id 4EFC81A01550
+ for <ltp@lists.linux.it>; Tue, 19 Jul 2022 04:41:07 +0200 (CEST)
+Received: from localhost.localdomain.localdomain (unknown [10.2.5.46])
+ by mail.loongson.cn (Coremail) with SMTP id AQAAf9Dxf+O6GdZibrEnAA--.9838S2;
+ Tue, 19 Jul 2022 10:41:04 +0800 (CST)
 From: Hongchen Zhang <zhanghongchen@loongson.cn>
-Message-ID: <4ff01bbf-c288-5053-52da-fe6530eff1d2@loongson.cn>
-Date: Mon, 18 Jul 2022 21:11:20 +0800
-User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
-MIME-Version: 1.0
-In-Reply-To: <YtUiDXXLf+ob7Dm4@yuki>
-Content-Language: en-US
-X-CM-TRANSID: AQAAf9Dxf9P4W9Vi1MEmAA--.33492S3
-X-Coremail-Antispam: 1UD129KBjvJXoW7Kr4DJFWUCFW5ZrWkGrW5GFg_yoW8urW3pr
- n3GF1rtr4rJFyxGrWxWwn0qFWFvrn5tr15u3yjyw45Z3Z5JrZ5ZrsFqas8Gry0vrW0qrWF
- 9F4kZry3Krn0ya7anT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUvjb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
- A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
- jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
- A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
- w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMc
- vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwCYjI0SjxkI62AI1cAE67vIY487MxkI
- ecxEwVCm-wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F4
- 0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1l
- IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxV
- AFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6rW3Jr0E3s1lIxAIcVC2z280aVAFwI0_
- Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjxUgg
- _TUUUUU
+To: Cyril Hrubis <chrubis@suse.cz>,
+	Jan Stancek <jstancek@redhat.com>
+Date: Tue, 19 Jul 2022 10:40:56 +0800
+Message-Id: <1658198456-20565-1-git-send-email-zhanghongchen@loongson.cn>
+X-Mailer: git-send-email 1.8.3.1
+X-CM-TRANSID: AQAAf9Dxf+O6GdZibrEnAA--.9838S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3GF15tFW3CFykKF1kWF4xCrg_yoWxKrWUpF
+ yxGw48Kr4kJFy8Gr4xCws7Zr15GrsxGay5Wr40y3yFvwn8Aw1Uta1jvFy7AryUJrWvgFy3
+ Way0yrWrW3WUJr7anT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUkv14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+ JVWxJr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AKxV
+ WxJr0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
+ Yx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbV
+ WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc2xSY4AK6svP
+ MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr
+ 0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0E
+ wIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJV
+ W8JwCI42IY6xAIw20EY4v20xvaj40_WFyUJVCq3wCI42IY6I8E87Iv67AKxVWUJVW8JwCI
+ 42IY6I8E87Iv6xkF7I0E14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x0JUywZ7UUUUU=
 X-CM-SenderInfo: x2kd0w5krqwupkhqwqxorr0wxvrqhubq/
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=NICE_REPLY_A,SPF_HELO_PASS,
- SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syslog11: fix console loglevel changed after test
+X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_PASS,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH v2] syslog11: convert to new LTP API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,77 +62,275 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it, Lingling Li <lilingling@loongson.cn>
+Cc: Lingling Li <lilingling@loongson.cn>, ltp@lists.linux.it,
+ Hongchen Zhang <zhanghongchen@loongson.cn>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 2022/7/18 pm 5:04, Cyril Hrubis wrote:
-> Hi!
->> the console loglevel is force to be 7(LOGLEVEL_DEFAULT) after test,
->> which is not the desired behavior.So we reset the console loglevel
->> to its original value after the test body.The method what we take
->> is just same as commit:
->> a2ff1c2d141d ("kmsg01: set/restore console log level").
-> 
-> First of all the test is mess, it would be nice to clean it up first and
-> convert it to the new library.
-> 
-OK, I will change this test to new API and make a v2 patch.
->> Signed-off-by: Hongchen Zhang <zhanghongchen@loongson.cn>
->> Signed-off-by: Lingling Li <lilingling@loongson.cn>
->> ---
->>   testcases/kernel/syscalls/syslog/syslog11.c | 13 ++++++++++++-
->>   1 file changed, 12 insertions(+), 1 deletion(-)
->>
->> diff --git a/testcases/kernel/syscalls/syslog/syslog11.c b/testcases/kernel/syscalls/syslog/syslog11.c
->> index b9540ef..78a7cc4 100644
->> --- a/testcases/kernel/syscalls/syslog/syslog11.c
->> +++ b/testcases/kernel/syscalls/syslog/syslog11.c
->> @@ -84,6 +84,11 @@ struct test_case_t {		/* test case structure */
->>   	char *desc;		/* Test description */
->>   };
->>   
->> +#define PRINTK "/proc/sys/kernel/printk"
->> +#define CONSOLE_LOGLEVEL_QUIET   4
->> +
->> +static int console_loglevel = -1;
->> +
->>   char *TCID = "syslog11";
->>   static int testno;
->>   static char buf;
->> @@ -195,6 +200,11 @@ void setup(void)
->>   		tst_brkm(TBROK, NULL, "nobody user id doesn't exist");
->>   	}
->>   
->> +	if (access(PRINTK, F_OK) == 0) {
->> +		SAFE_FILE_SCANF(NULL, PRINTK, "%d", &console_loglevel);
->> +		SAFE_FILE_PRINTF(NULL, PRINTK, "%d", CONSOLE_LOGLEVEL_QUIET);
-> 
-> Do we need to set the loglevel at the start of the test here?
-> 
-OK, I will change to use .save_restore to do this
->> +	}
->> +
->>   	/* Pause if that option was specified
->>   	 * TEST_PAUSE contains the code to fork the test with the -c option.
->>   	 */
->> @@ -208,5 +218,6 @@ void setup(void)
->>    */
->>   void cleanup(void)
->>   {
->> -
->> +	if (console_loglevel != -1)
->> +		SAFE_FILE_PRINTF(NULL, PRINTK, "%d", console_loglevel);
->>   }
->> -- 
->> 1.8.3.1
->>
-> 
-Thanks.
+convert to use new LTP API for syslog11.
 
-Hongchen Zhang
+Signed-off-by: Hongchen Zhang <zhanghongchen@loongson.cn>
+Signed-off-by: Lingling Li <lilingling@loongson.cn>
+---
+ testcases/kernel/syscalls/syslog/syslog11.c | 215 +++++-----------------------
+ 1 file changed, 34 insertions(+), 181 deletions(-)
+
+diff --git a/testcases/kernel/syscalls/syslog/syslog11.c b/testcases/kernel/syscalls/syslog/syslog11.c
+index b9540ef..89f12f8 100644
+--- a/testcases/kernel/syscalls/syslog/syslog11.c
++++ b/testcases/kernel/syscalls/syslog/syslog11.c
+@@ -1,212 +1,65 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+- * Copyright (c) Wipro Technologies Ltd, 2002.  All Rights Reserved.
+- *
+- * This program is free software; you can redistribute it and/or modify it
+- * under the terms of version 2 of the GNU General Public License as
+- * published by the Free Software Foundation.
+- *
+- * This program is distributed in the hope that it would be useful, but
+- * WITHOUT ANY WARRANTY; without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+- *
+- * You should have received a copy of the GNU General Public License along
+- * with this program; if not, write the Free Software Foundation, Inc.,
+- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+- *
++ * Author: Madhu T L <madhu.tarikere@wipro.com>
+  */
+-/**********************************************************
+- *
+- *    TEST IDENTIFIER   : syslog11
+- *
+- *    EXECUTED BY       : root / superuser
+- *
+- *    TEST TITLE        : Basic tests for syslog(2)
+- *
+- *    TEST CASE TOTAL   : 11
+- *
+- *    AUTHOR            : Madhu T L <madhu.tarikere@wipro.com>
+- *
+- *    SIGNALS
+- *      Uses SIGUSR1 to pause before test if option set.
+- *      (See the parse_opts(3) man page).
+- *
+- *    DESCRIPTION
+- *	Verify that, syslog(2) is successful for type ranging from 1 to 8
+- *
+- *	Setup:
+- *	  Setup signal handling.
+- *	  Test caller is superuser
+- *	  Check existence of user nobody
+- *	  Pause for SIGUSR1 if option specified.
+- *
+- *	Test:
+- *	 Loop if the proper options are given.
+- *	  Execute system call
+- *	  Check return value, if not successful,
+- *		 Issue FAIL message
+- *	  Otherwise,
+- *		Issue PASS message
+- *
+- *	Cleanup:
+- *	  Print errno log and/or timing stats if options given
+- *
+- * USAGE:  <for command-line>
+- *  syslog11 [-c n] [-e] [-f] [-h] [-i n] [-I x] [-p] [-P x] [-t]
+- *		where,  -c n : Run n copies concurrently.
+- *			-e   : Turn on errno logging.
+- *			-f   : Turn off functional testing
+- *			-h   : Show help screen
+- *			-i n : Execute test n times.
+- *			-I x : Execute test for x seconds.
+- *			-p   : Pause for SIGUSR1 before starting
+- *			-P x : Pause for x seconds between iterations.
+- *			-t   : Turn on syscall timing.
++
++/*
++ * [Description]
++ * Verify that, syslog(2) is successful for type ranging from 1 to 8
+  *
+- ****************************************************************/
++ */
+ 
+ #include <errno.h>
+-#include <pwd.h>
+-#include <sys/types.h>
+-#include <unistd.h>
+-#include <linux/unistd.h>
+-#include <sys/syscall.h>
+-#include "test.h"
+-#include "safe_macros.h"
+ 
+-#define UNEXP_RET_VAL	-1
++#include "tst_test.h"
++#include "lapi/syscalls.h"
++#include "tst_safe_macros.h"
+ 
+-struct test_case_t {		/* test case structure */
++struct tcase {		/* test case structure */
+ 	int type;		/* 1st arg. */
+ 	char *buf;		/* 2nd arg. */
+ 	int len;		/* 3rd arg. */
+-	int (*setup) (void);	/* Individual setup routine */
+-	void (*cleanup) (void);	/* Individual cleanup routine */
+ 	char *desc;		/* Test description */
+ };
+ 
+-char *TCID = "syslog11";
+-static int testno;
+ static char buf;
+-static struct passwd *ltpuser;
+-
+-static void setup(void);
+-static void cleanup(void);
+-static int setup1(void);
+-static void cleanup1(void);
+ 
+-#define syslog(arg1, arg2, arg3) syscall(__NR_syslog, arg1, arg2, arg3)
++#define syslog(arg1, arg2, arg3) tst_syscall(__NR_syslog, arg1, arg2, arg3)
+ 
+-static struct test_case_t tdat[] = {
++static struct tcase tcases[] = {
+ 	/* Type 0 and 1 are currently not implemented, always returns success */
+ 	{0, &buf, 0, NULL, NULL, "type 0/Close the log"},
+ 	{1, &buf, 0, NULL, NULL, "type 1/Open the log"},
+ 	{2, &buf, 0, NULL, NULL, "type 2/Read from the log"},
+ 	{3, &buf, 0, NULL, NULL, "type 3/Read ring buffer"},
+-	{3, &buf, 0, setup1, cleanup1, "type 3/Read ring buffer for non-root "
+-	 "user"},
+-	/* Next two lines will clear dmesg. Uncomment if that is okay. -Robbie Williamson */
+-	/*    { 4, &buf, 0, NULL, NULL, "type 4/Read and clear ring buffer" },            */
+-	/*    { 5, &buf, 0, NULL, NULL, "type 5/Clear ring buffer" },                     */
+-
++	/*
++	 * Next two lines will clear dmesg.
++	 * Uncomment if that is okay. -Robbie Williamson
++	 */
++	/*
++	 * { 4, &buf, 0, NULL, NULL, "type 4/Read and clear ring buffer" },
++	 * { 5, &buf, 0, NULL, NULL, "type 5/Clear ring buffer" },
++	 */
+ 	{8, NULL, 1, NULL, NULL, "type 8/Set log level to 1"},
+ 	{8, NULL, 7, NULL, NULL, "type 8/Set log level to 7(default)"},
+ 	{6, NULL, 0, NULL, NULL, "type 6/Disable printk's to console"},
+ 	{7, NULL, 0, NULL, NULL, "type 7/Enable printk's to console"},
+ };
+ 
+-int TST_TOTAL = sizeof(tdat) / sizeof(tdat[0]);
+-
+-int main(int argc, char **argv)
++static void run(unsigned int n)
+ {
+-	int lc;
+-
+-	tst_parse_opts(argc, argv, NULL, NULL);
+-	setup();
+-
+-	for (lc = 0; TEST_LOOPING(lc); lc++) {
+-		/* reset tst_count in case we are looping */
+-		tst_count = 0;
+-
+-		for (testno = 0; testno < TST_TOTAL; ++testno) {
++	struct tcase *tc = &tcases[n];
+ 
+-			if (tdat[testno].setup && tdat[testno].setup()) {
+-				/* Setup failed, skip this testcase */
+-				continue;
+-			}
+-
+-			TEST(syslog(tdat[testno].type, tdat[testno].buf,
+-				    tdat[testno].len));
+-
+-			if (TEST_RETURN == UNEXP_RET_VAL) {
+-				if (TEST_ERRNO == EPERM && geteuid() != 0) {
+-					tst_resm(TPASS,
+-						 "syslog() passed for %s (non-root EPERM is OK)",
+-						 tdat[testno].desc);
+-				} else {
+-					tst_resm(TFAIL,
+-						 "syslog() failed for %s: errno "
+-						 "%d (%s)", tdat[testno].desc,
+-						 TEST_ERRNO, strerror(errno));
+-				}
+-			} else {
+-				tst_resm(TPASS, "syslog() successful for %s",
+-					 tdat[testno].desc);
+-			}
+-
+-			if (tdat[testno].cleanup) {
+-				tdat[testno].cleanup();
+-			}
+-		}
+-	}
+-	cleanup();
+-
+-	tst_exit();
+-}
+-
+-int setup1(void)
+-{
+-	/* Change effective user id to nodody */
+-	if (seteuid(ltpuser->pw_uid) == -1) {
+-		tst_resm(TBROK, "seteuid failed to set the effective"
+-			 " uid to %d", ltpuser->pw_uid);
+-		return 1;
+-	}
+-	return 0;
++	TST_EXP_PASS(syslog(tc->type, tc->buf, tc->len),
++			"syslog() with %s", tc->desc);
+ }
+ 
+-void cleanup1(void)
+-{
+-	/* Change effective user id to root */
+-	SAFE_SETEUID(NULL, 0);
+-}
+-
+-/*
+- * setup()
+- *	performs all ONE TIME setup for this test
+- */
+-void setup(void)
+-{
+-	tst_require_root();
+-
+-	tst_sig(NOFORK, DEF_HANDLER, cleanup);
+-
+-	/* Check for nobody_uid user id */
+-	if ((ltpuser = getpwnam("nobody")) == NULL) {
+-		tst_brkm(TBROK, NULL, "nobody user id doesn't exist");
+-	}
+-
+-	/* Pause if that option was specified
+-	 * TEST_PAUSE contains the code to fork the test with the -c option.
+-	 */
+-	TEST_PAUSE;
+-}
+-
+-/*
+- * cleanup()
+- *	performs all ONE TIME cleanup for this test at
+- *	completion or premature exit
+- */
+-void cleanup(void)
+-{
+-
+-}
++static struct tst_test test = {
++	.test = run,
++	.save_restore = (const struct tst_path_val[]) {
++		{"!/proc/sys/kernel/printk", NULL},
++		{NULL, NULL}
++	},
++	.needs_root = 1,
++	.tcnt = ARRAY_SIZE(tcases),
++};
+-- 
+1.8.3.1
 
 
 -- 
