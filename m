@@ -1,88 +1,91 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAE4F57D52B
-	for <lists+linux-ltp@lfdr.de>; Thu, 21 Jul 2022 22:53:40 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BD5057D528
+	for <lists+linux-ltp@lfdr.de>; Thu, 21 Jul 2022 22:53:15 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id F0E523C9F80
-	for <lists+linux-ltp@lfdr.de>; Thu, 21 Jul 2022 22:53:39 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B2ECA3C9AC2
+	for <lists+linux-ltp@lfdr.de>; Thu, 21 Jul 2022 22:53:13 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id C483D3C98CE
+ by picard.linux.it (Postfix) with ESMTPS id 8ED193C98C8
  for <ltp@lists.linux.it>; Thu, 21 Jul 2022 22:53:12 +0200 (CEST)
 Received: from smtp-relay-internal-0.canonical.com
  (smtp-relay-internal-0.canonical.com [185.125.188.122])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 8EB8C20004A
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id B9AC4140035C
  for <ltp@lists.linux.it>; Thu, 21 Jul 2022 22:53:11 +0200 (CEST)
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com
- [209.85.215.198])
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com
+ [209.85.210.199])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 47F5C3F12D
+ by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id EC7B03F12C
  for <ltp@lists.linux.it>; Thu, 21 Jul 2022 20:53:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
  s=20210705; t=1658436790;
- bh=pIJLWr7fr3oY/znYyHVM76bWkKK8D4f79ORIWbnwRIQ=;
- h=From:To:Subject:Date:Message-Id:MIME-Version;
- b=G3hj4bwXVidXOMXl7A5X9dBF010X7Lev7ZC6bio8Wumdrltj1llpZtW5s920g9ZH7
- drsgj4uv0rNlIclgwD68MJKHyjqYcym/5U8K1lrrhGeGWERN89n5L2Ir39TSYG+DNX
- 30xWvpMzQ/EgZMrHp3tChIsW/oqL9qg5/wpRLCrEWpyleH0hXKYGlebBlTtxztc2Se
- OolWIXgQbfFV9ztZlrpi/QVJc22PmCs22n0v3or9BCnautGZD3f3JTlyRC4ZotaGU8
- XZHGL63Hak8O2oR0N+KNtkcdXQ2oUOm+V3zhAA6JEgJmw6zNvA6/epkVnEX9oHIbMR
- EdeRNSWtBKqXQ==
-Received: by mail-pg1-f198.google.com with SMTP id
- h185-20020a636cc2000000b00419b8e7df69so1343031pgc.18
+ bh=pC5S+gXxN2HablN3p5AjAVngjsShIFfJM2azW3dv3cQ=;
+ h=From:To:Subject:Date:Message-Id:In-Reply-To:References:
+ MIME-Version;
+ b=YiAbNBxyMD+U3KVefr93xjggoOmseXgq4XmPJbxKnQSoMM8L8zWef293dE67xNDQK
+ 0+x3cZv0hsmoBTxn2opT47b8S3xTeWuRYvkD23bAz1DiT47JAs44SZwUYUSQ3jYrdx
+ 3htVIimH85WpJb9PACRI9dg2fSFiCZwi4gPodSNAj1pFmdM6qc0oyu3tJwCOrZorid
+ bnjcpkqmK5EopIPS0QtGSOiTOHtFqVj4CV0zvZT+huFZulvgXWkuKlOuZhRGZYQuu0
+ 6DnC8EU9VMOSMtZovpqBqJcUOYkWv8q+azBzKldVvL1ERvQminFdqm3JGFMyhg+5XT
+ CWOMtsSrn/lsA==
+Received: by mail-pf1-f199.google.com with SMTP id
+ r17-20020a056a00217100b0052ab8271e11so1115695pff.22
  for <ltp@lists.linux.it>; Thu, 21 Jul 2022 13:53:10 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=pIJLWr7fr3oY/znYyHVM76bWkKK8D4f79ORIWbnwRIQ=;
- b=Df2ViXzBVSBuWo6mslUZv5QE6PVz7QLjGJZKkg7hF8swmt0/nn2lO3XscWMAB3TjNV
- hJVPlQ7hac/kFbaZkCrNtvOYXE9eTidxjj0OQ6HucdIFkrxEgQa9QYBZUqMjNR8KOyqg
- Qv2GoZTM2C7m9OC9JXfNDN2F3oUvxzHaweJ+Im+4eZGw4nEoGBMvaUCMor4lyVk1+FzO
- nILcm9bm3GVXBnuUWk9IfMhIxKghcuWTVdzev4VZ2hpe5aEzuyaqr4uV4SoKADePGq/L
- IZXiYOiUw5xca6oAqpa78G+F72ZBpP16m9LJz08LPkcQ3SxE1ND960OygDd5oFt9Usns
- yaAg==
-X-Gm-Message-State: AJIora+ajnezV+P5FulkRRKfSxQuoXIPQigbbVDvFlcptvTaJ2MdV+XU
- pZqP9wmOIG4nSpRUDeoRUd2kQuEzkhiNg6VXCQOJVIm+Jq/M+FpS8hSSZrPEoHvPc30ahZ2FUex
- eC5vXE8KiwxMkUfnM44DINWzwtpcn
-X-Received: by 2002:a17:902:d2d1:b0:16d:37b3:f8b3 with SMTP id
- n17-20020a170902d2d100b0016d37b3f8b3mr154340plc.98.1658436787650; 
- Thu, 21 Jul 2022 13:53:07 -0700 (PDT)
-X-Google-Smtp-Source: AGRyM1um3K9r6CmLXCczDxpMI1rRncnwgnerdwMzjFkbjd2Ofx85OC3EeWnhMuoj/s3XJ58MLkEiVA==
-X-Received: by 2002:a17:902:d2d1:b0:16d:37b3:f8b3 with SMTP id
- n17-20020a170902d2d100b0016d37b3f8b3mr154310plc.98.1658436787306; 
- Thu, 21 Jul 2022 13:53:07 -0700 (PDT)
+ h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=pC5S+gXxN2HablN3p5AjAVngjsShIFfJM2azW3dv3cQ=;
+ b=mNEamImH8HX7kEM/B7IEEdDGIx8fNNfrhFlx2GK7CdYoF4yU8jFV7e1MfsTqNqvsxp
+ FBwBFskSFPaNPdWMCAriOJL5OW8O+OnOUlz/AvH8OnnNDFP4akLAAyOrRS7xTN/kqbQW
+ ComIrRp55DL6MNIWyX/G4L5O/zJzyFYiXB+8in0CqpDaTede7EokSG+Jg4fo49vps9uR
+ YwjG84rt7qM7wAxQpxST/r2AXYSgBXxqk2Vmi+nN2/BCc6h9zM9zfCkUlAWJphcBxvt6
+ c0vN9ODQsZ4IXzdKkzA5xAh63BYKe47k/nvUG5fI0JGH2kSQzEAFprPAiLlR1FWZ3Jzt
+ EzFg==
+X-Gm-Message-State: AJIora//P/KR/PP1+Kn1GN9t7LpiDoLUO/F3sAh2wTt4ykccunBejLp1
+ yFrdJ7PAa9pHdf4lsHpsbyyEEwRI1zH4ffBFX9E3LmeMCIbxTrcPwwrUf/j+LiyzYI+iaRpezWD
+ Q5S2Z6OBpU6e3EeIGQ/JK1Osuf0it
+X-Received: by 2002:a17:903:32c3:b0:16d:328f:8988 with SMTP id
+ i3-20020a17090332c300b0016d328f8988mr135227plr.108.1658436788877; 
+ Thu, 21 Jul 2022 13:53:08 -0700 (PDT)
+X-Google-Smtp-Source: AGRyM1ss9dSJpcI6IWkr5duigalJjzPq1+JfG36QmyHnArkajcxgstq4CQjX/GwjuEA5oBLHOZ/+8w==
+X-Received: by 2002:a17:903:32c3:b0:16d:328f:8988 with SMTP id
+ i3-20020a17090332c300b0016d328f8988mr135208plr.108.1658436788583; 
+ Thu, 21 Jul 2022 13:53:08 -0700 (PDT)
 Received: from luke-ubuntu.buildd (cpe-75-80-146-43.san.res.rr.com.
  [75.80.146.43]) by smtp.gmail.com with ESMTPSA id
- c6-20020a656746000000b0041a4d5e7e5fsm1916364pgu.47.2022.07.21.13.53.06
+ c6-20020a656746000000b0041a4d5e7e5fsm1916364pgu.47.2022.07.21.13.53.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 21 Jul 2022 13:53:06 -0700 (PDT)
+ Thu, 21 Jul 2022 13:53:08 -0700 (PDT)
 From: Luke Nowakowski-Krijger <luke.nowakowskikrijger@canonical.com>
 To: ltp@lists.linux.it, rpalethorpe@suse.de, liwang@redhat.com, pvorel@suse.cz,
  chrubis@suse.cz
-Date: Thu, 21 Jul 2022 13:52:10 -0700
-Message-Id: <cover.1658433280.git.luke.nowakowskikrijger@canonical.com>
+Date: Thu, 21 Jul 2022 13:52:11 -0700
+Message-Id: <9e49f9fb1660bb8687a6c3bacf38959a80726897.1658433280.git.luke.nowakowskikrijger@canonical.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <cover.1658433280.git.luke.nowakowskikrijger@canonical.com>
+References: <cover.1658433280.git.luke.nowakowskikrijger@canonical.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH v5 00/18] Expand Cgroup lib and modify controller tests
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH v3 01/18] API/cgroup: Modify tst_cg_print_config for
+ parsing and consumption
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,68 +102,88 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This patchset aims to expand the cgroup_lib shell library to simplify
-and centralize the whole mounting and cleanup process that can get
-rather confusing and redundant when writing cgroup controller tests from
-a shell environment. This is done by having the shell library make calls
-to the C cgroup API from a binary utility.
+Modify tst_cg_print_config to be easily parsed by sscanf so that it can
+later be consumed by tst_cg_load_config.
 
-In this patch set there are a few tests that have been extensively
-rewritten to work with the new test API and to use the new functionality
-from the cgroup lib. Because the test Cgroup lib handles mounting for v1
-and v2 controllers, some tests were modified to also work under cgroup
-v2. Some tests that were written for v1 controller also effictively test
-v2 controllers, while others were written to test v2 controllers in the
-spirit of the test or skipped outright.
+Prints out root info of each controller found as well as the minimal
+associated state needed to cleanup mounts and dirs made my tst_cg_require.
 
-Luke Nowakowski-Krijger (18):
-  API/cgroup: Modify tst_cg_print_config for parsing and consumption
-  API/cgroup: Add option for specific pid to tst_cg_opts
-  API/cgroup: Add cgroup_find_root helper function
-  API/cgroup: Add CTRL_NAME_MAX define
-  tst_test_macros: Add TST_TO_STR and TST_STR macro
-  API/cgroup: Implement tst_cg_load_config
-  API/cgroup: Add more controllers to tst_cgroup
-  API/cgroup: refuse to mount blkio when io controller is mounted
-  testcases/lib: Implement tst_cgctl binary
-  controllers: Expand cgroup_lib shell library
-  controllers: Update cgroup_fj_* to use newer cgroup lib and test lib
-  controllers: Update memcg_control_test to newer test lib and cgroup
-    lib
-  controllers: Update memcg/regression/* to new test and cgroup lib
-  controllers: Update memcg_stress_test to use newer cgroup lib
-  controllers: update memcg/functional to use newer cgroup lib
-  controllers: Update pids.sh to use newer cgroup lib
-  controllers: update cpuset_regression_test.sh to use newer cgroup lib
-  controllers: update cgroup_regression_test to use newer cgroup lib
+Signed-off-by: Luke Nowakowski-Krijger <luke.nowakowskikrijger@canonical.com>
+---
+v2: Remove "mounted_drain_dir" as mounting ltp dir and drain dir happen
+at the same time
+v3: Print config to be scanf friendly to be much easier to consume.
+Rename variables to reflect the variables used in the library for
+simplicity.
 
- include/tst_cgroup.h                          |  17 +-
- include/tst_test_macros.h                     |   3 +
- lib/tst_cgroup.c                              | 216 +++++++++++++++++-
- .../cgroup/cgroup_regression_test.sh          |  31 +--
- .../controllers/cgroup_fj/cgroup_fj_common.sh | 115 +++-------
- .../cgroup_fj/cgroup_fj_function.sh           | 172 ++++++++------
- .../controllers/cgroup_fj/cgroup_fj_proc.c    |  24 +-
- .../controllers/cgroup_fj/cgroup_fj_stress.sh | 171 +++++++-------
- testcases/kernel/controllers/cgroup_lib.sh    | 133 +++++++++--
- .../cpuset/cpuset_regression_test.sh          |  26 +--
- .../controllers/memcg/control/mem_process.c   |  28 +--
- .../memcg/control/memcg_control_test.sh       | 149 +++---------
- .../memcg/functional/memcg_force_empty.sh     |   2 +-
- .../controllers/memcg/functional/memcg_lib.sh |  54 +++--
- .../memcg/regression/memcg_regression_test.sh | 203 ++++++++--------
- .../memcg/regression/memcg_test_1.c           |  40 ++--
- .../memcg/regression/memcg_test_2.c           |  24 +-
- .../memcg/regression/memcg_test_3.c           |  38 ++-
- .../memcg/regression/memcg_test_4.c           |  24 +-
- .../memcg/regression/memcg_test_4.sh          |  50 ++--
- .../memcg/stress/memcg_stress_test.sh         |  32 +--
- testcases/kernel/controllers/pids/pids.sh     |  67 +-----
- testcases/lib/Makefile                        |   2 +-
- testcases/lib/tst_cgctl.c                     |  87 +++++++
- 24 files changed, 909 insertions(+), 799 deletions(-)
- create mode 100644 testcases/lib/tst_cgctl.c
+ include/tst_cgroup.h |  6 +++++-
+ lib/tst_cgroup.c     | 25 ++++++++++++++++++-------
+ 2 files changed, 23 insertions(+), 8 deletions(-)
 
+diff --git a/include/tst_cgroup.h b/include/tst_cgroup.h
+index c4bc7ae1c..7ebc2a624 100644
+--- a/include/tst_cgroup.h
++++ b/include/tst_cgroup.h
+@@ -110,7 +110,11 @@ extern const struct tst_cg_group *const tst_cg_drain;
+  * controllers. Called automatically by tst_cg_require.
+  */
+ void tst_cg_scan(void);
+-/* Print the config detected by tst_cg_scan */
++/* Print the config detected by tst_cg_scan and print the internal
++ * state associated with each controller. Output can be passed to
++ * tst_cg_load_config to configure the internal state to that of the
++ * config between program invocations.
++ */
+ void tst_cg_print_config(void);
+ 
+ /* Ensure the specified controller is available in the test's default
+diff --git a/lib/tst_cgroup.c b/lib/tst_cgroup.c
+index 081dfa9c6..c56a7c6b9 100644
+--- a/lib/tst_cgroup.c
++++ b/lib/tst_cgroup.c
+@@ -317,24 +317,35 @@ opendir:
+ 				  O_PATH | O_DIRECTORY);
+ }
+ 
++#define CONFIG_HEADER "ctrl_name ver we_require_it mnt_path we_mounted_it ltp_dir.we_created_it test_dir.dir_name"
++#define CONFIG_FORMAT "%s\t%d\t%d\t%s\t%d\t%d\t%s"
++/* Prints out the state associated with each controller to be consumed by
++ * tst_cg_load_config.
++ *
++ * The config keeps track of the minimal state needed for tst_cg_cleanup
++ * to cleanup mounts and directories made by tst_cg_require.
++ */
+ void tst_cg_print_config(void)
+ {
+-	struct cgroup_root *root;
+ 	const struct cgroup_ctrl *ctrl;
+ 
+-	tst_res(TINFO, "Detected Controllers:");
++	printf("%s\n", CONFIG_HEADER);
+ 
+ 	for_each_ctrl(ctrl) {
+-		root = ctrl->ctrl_root;
++		struct cgroup_root *root = ctrl->ctrl_root;
+ 
+ 		if (!root)
+ 			continue;
+ 
+-		tst_res(TINFO, "\t%.10s %s @ %s:%s",
++		printf(CONFIG_FORMAT,
+ 			ctrl->ctrl_name,
+-			root->no_cpuset_prefix ? "[noprefix]" : "",
+-			root->ver == TST_CG_V1 ? "V1" : "V2",
+-			root->mnt_path);
++			root->ver,
++			ctrl->we_require_it,
++			root->mnt_path,
++			root->we_mounted_it,
++			root->ltp_dir.we_created_it,
++			root->test_dir.dir_name ? root->test_dir.dir_name : "NULL");
++		printf("\n");
+ 	}
+ }
+ 
 -- 
 2.34.1
 
