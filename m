@@ -2,131 +2,90 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id B075E57DD7D
-	for <lists+linux-ltp@lfdr.de>; Fri, 22 Jul 2022 11:31:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63F8757DD78
+	for <lists+linux-ltp@lfdr.de>; Fri, 22 Jul 2022 11:27:32 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 56F373C9E93
-	for <lists+linux-ltp@lfdr.de>; Fri, 22 Jul 2022 11:31:58 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A61C53C9EA3
+	for <lists+linux-ltp@lfdr.de>; Fri, 22 Jul 2022 11:27:31 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 3EF5A3C9BA4
- for <ltp@lists.linux.it>; Fri, 22 Jul 2022 11:31:52 +0200 (CEST)
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on2063.outbound.protection.outlook.com [40.107.20.63])
+ by picard.linux.it (Postfix) with ESMTPS id 841D43C1BBF
+ for <ltp@lists.linux.it>; Fri, 22 Jul 2022 11:27:29 +0200 (CEST)
+Received: from mail1.bemta34.messagelabs.com (mail1.bemta34.messagelabs.com
+ [195.245.231.4])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 061F91400F22
- for <ltp@lists.linux.it>; Fri, 22 Jul 2022 11:31:51 +0200 (CEST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=F65PVWsVdMTIM2U2bgRmCQZKoQEZ7hHmorSjHZDBZXiM8Hcrpco10PXLKwCcYbi+eq00VRe+dEda2nYapNZtPFiKV61swjk9vfXUsz8X/r22Zh4AMq34PLL3qC5UISKFyejoE63eCtZhSz4bc3Prl0QeE9Jtt1Co5fi2YiYupDP84ovh4v29hIkgQRj8evDwfHRNdQR2f+CxSc+mmm+grtHPe77FMx5ta8behPSk5C6zd+moc5I9VNCWgK5+QOeO2eiFeC5pB/ssm8FEtMDXbx2VPsv7+owzyyysvYyguaab1klFTAG/1u8+rwUSGSOPu0PZ6BnXonHJqgSPpEN9Cw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RJ/7A0iwWnxWyweiFMlkmDk+FYVodvkAgPybOxERG6Y=;
- b=iwYY7UfZnv+zA7xNOGKrgkDx+dIlv2OuDwNpkn4Famz0PFhCVw0OwaHX2SKyU32iqAYBhM6+BCtJGtJClwFq0V39I/rFQ4quoEuQThnschLPHjEYID4O0qlfbgwcpR/wpnveZbrGjnkazcnUeHrQBbmRO4a9roXFwIqH0LsUSo3FOr78Jr2FPxKqVnH3AH0WTJKn6cNn3RhsZZue0GVSBDNiEyNq42fhoe3QSYN12seqp7rkuc5IejaceyeMdmeBDq+fwbwpz5A3MNfIjaxPqXQ5gvF21fTFX+71Fknvo2N0/MU+rotKLH9IThUc4Ojsa29gmN4rq7mi206rsJKiyQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RJ/7A0iwWnxWyweiFMlkmDk+FYVodvkAgPybOxERG6Y=;
- b=W5DdvNexSFysYs7Nh6wdxQ630uL4DuOBJ5S7l8VtXLSwwPqYK5Y5qEX7q6Evpcq1r7LdIyOSUiip3SlEkE5i5jUvJrxjQCmfCgDkQi40nq3NdV0DbAeCihiN5PnyXBbKET/1YKaponerOeAQKXoVZfz72nIdl8klvQmwzylMJnsrahAXlc80BtSYfzBwGP2k7iJwafYxXBSMH+YBHj1yKM1U6PA8D/bfT4Cp+RIMCTpUOAUnr9eD7nvqPr5BgRe9v2wplmVczGj4T3903P0Tnu57rnSdIUpMr5Xlhm7xDW/DIE/Kh5Ir8ChoTvTocn8U4lkTKTxE/tSgFCcmVbk6YQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Received: from VI1PR04MB6797.eurprd04.prod.outlook.com (2603:10a6:803:13e::13)
- by AS8PR04MB7767.eurprd04.prod.outlook.com (2603:10a6:20b:288::23)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.23; Fri, 22 Jul
- 2022 09:31:50 +0000
-Received: from VI1PR04MB6797.eurprd04.prod.outlook.com
- ([fe80::c3:d917:fe7a:451b]) by VI1PR04MB6797.eurprd04.prod.outlook.com
- ([fe80::c3:d917:fe7a:451b%5]) with mapi id 15.20.5438.023; Fri, 22 Jul 2022
- 09:31:50 +0000
-Message-ID: <aeddb36f-69db-0fae-cec4-df3956e2e6db@suse.com>
-Date: Fri, 22 Jul 2022 11:31:24 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Content-Language: en-US
-To: Petr Vorel <pvorel@suse.cz>, ltp@lists.linux.it
-References: <20220616140717.23708-1-andrea.cervesato@suse.com>
- <20220616140717.23708-2-andrea.cervesato@suse.com> <YqumDWnqP35qT0t0@pevik>
- <YqunUfT847rSDkLY@pevik>
-In-Reply-To: <YqunUfT847rSDkLY@pevik>
-X-ClientProxiedBy: FR3P281CA0161.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a2::20) To VI1PR04MB6797.eurprd04.prod.outlook.com
- (2603:10a6:803:13e::13)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 3F4A81000A30
+ for <ltp@lists.linux.it>; Fri, 22 Jul 2022 11:27:27 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fujitsu.com;
+ s=170520fj; t=1658482047; i=@fujitsu.com;
+ bh=ZHYpgQLd1JU7jUhNSh0J2zUjJ1vvTtf5pBOFRORD/II=;
+ h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type;
+ b=jzKJ78ojfI76z0Itup1UN6qUCeKJO7gT7g2E0j4DygQeMMqrF16IUGUMoM3wW2kU3
+ WJd/Qhxq6r4eHlgXDuOTXYQgzes/mmDKZSskV897ASQtf4DeVcddyRFIRhowEmzkUL
+ WF6fxJsw4hasdTKCeNFG9WogSOZpWwpFsP76Y0I6yhJcA8Co9Pw593xR3YENdCBrsy
+ cx3DuePKHjCaPSmkgvZFk6MvFFEYTwM13JFUlW0imyzMiWVZmWcmN2HAySXZzTrgUS
+ KHmM9zqmZ+Y2X2nNStzm73xZlkdpGwlBsEzc6msMSSnafYa9UHd0hbCCb2U6GBZpl9
+ Gtlp6v9dLURXg==
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFrrBIsWRWlGSWpSXmKPExsViZ8MxSbcu91a
+ Swf4z5havD39itFjxfQejxY9bN1gcmD02repk89j3ex2rx5kFR9gDmKNYM/OS8isSWDNe/ecq
+ 2CpUsXOaYQPjWv4uRi4OIYEtjBLvlr9mh3CWM0l8PXaSDcLZwyjx/vZ6IIeTg01AU+JZ5wJmE
+ FtEQEKio+EtO4jNLBAgcfPpIrC4sICtRMPRKawgNouAqsSkU+2MIDavgIfE/lkvmUBsCQEFiS
+ kP3zNDxAUlTs58wgIxR0Li4IsXzBA1ihKXOr4xQtgVEq8PX4KKq0lcPbeJeQIj/ywk7bOQtC9
+ gZFrFaJ1UlJmeUZKbmJmja2hgoGtoaKprbKRraGSml1ilm6iXWqpbnlpcomukl1herJdaXKxX
+ XJmbnJOil5dasokRGLwpxQp1Oxivrfypd4hRkoNJSZS3T/hWkhBfUn5KZUZicUZ8UWlOavEhR
+ hkODiUJ3s+ZQDnBotT01Iq0zBxgJMGkJTh4lER41XOA0rzFBYm5xZnpEKlTjMYcV69c2cvMsW
+ lf1wFmIZa8/LxUKXHeM9lApQIgpRmleXCDYBF+iVFWSpiXkYGBQYinILUoN7MEVf4VozgHo5I
+ wrxHIQp7MvBK4fa+ATmECOsXc/AbIKSWJCCmpBiah5GbPhM3ifelbShlbwq5MiTF50PF2Beu6
+ sGb17PNnGlbfbo/se/No7SQHuTOz1tXM3rmk3qf06YHow56iq19tC9mycEPoI8vvD318Z8ZLX
+ Vn5SMuF8UeiREaYb9/PtW16GQ/8ri6R3fN6u+4DzgDWef7bSp5MdDjnylD7L8Zqn16Z06mSNO
+ +Q/5eeu81lqbBYdWbOuvabRYE/RG/Lnq9ZbL6s6E7v+/OC+SYZ3ZJNrzZd/Vv3XMxBdK/qym7
+ F8/dFUtILfbf9/Pbh/oZNcWtmc037vyvGSKv+SAnXlAD9Wv64bxPOMVdM2zVRhkNNfMmkp6/l
+ UrKm/v+/jDPC/O7eH6bHf0z4zz3TI3qCmtsqJZbijERDLeai4kQAa2ITjWsDAAA=
+X-Env-Sender: xuyang2018.jy@fujitsu.com
+X-Msg-Ref: server-2.tower-565.messagelabs.com!1658482046!70496!1
+X-Originating-IP: [62.60.8.146]
+X-SYMC-ESS-Client-Auth: outbound-route-from=pass
+X-StarScan-Received: 
+X-StarScan-Version: 9.87.3; banners=-,-,-
+X-VirusChecked: Checked
+Received: (qmail 26576 invoked from network); 22 Jul 2022 09:27:26 -0000
+Received: from unknown (HELO n03ukasimr02.n03.fujitsu.local) (62.60.8.146)
+ by server-2.tower-565.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
+ encrypted SMTP; 22 Jul 2022 09:27:26 -0000
+Received: from n03ukasimr02.n03.fujitsu.local (localhost [127.0.0.1])
+ by n03ukasimr02.n03.fujitsu.local (Postfix) with ESMTP id 98A991000C2;
+ Fri, 22 Jul 2022 10:27:26 +0100 (BST)
+Received: from R01UKEXCASM126.r01.fujitsu.local (R01UKEXCASM126
+ [10.183.43.178])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by n03ukasimr02.n03.fujitsu.local (Postfix) with ESMTPS id 8B9D9100077;
+ Fri, 22 Jul 2022 10:27:26 +0100 (BST)
+Received: from localhost.localdomain (10.167.220.84) by
+ R01UKEXCASM126.r01.fujitsu.local (10.183.43.178) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.32; Fri, 22 Jul 2022 10:27:23 +0100
+From: Yang Xu <xuyang2018.jy@fujitsu.com>
+To: <ltp@lists.linux.it>
+Date: Fri, 22 Jul 2022 18:27:19 +0800
+Message-ID: <1658485640-2188-1-git-send-email-xuyang2018.jy@fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 1646e587-aa3d-4431-7640-08da6bc50143
-X-MS-TrafficTypeDiagnostic: AS8PR04MB7767:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: R1vHm/0Yd0nb5YkZ+Rl8qSMRL2m+TipGQhhS3LCmP3PQS590ZwNWS5x1ZUbMmgvqAC53Ysl5nxzKC3vwDRg2UfjhAdY/CE6EgluTWasL2a0UEruaeYa9u/Rq1SslSqs2qPiNixv9equJCjhjy3qcs8z3ZC7/Ku87pSqILr8JnFKTPJAKQgKoZqfXtPljE/YQelRo4uywpeaar9TGEEJV8meQt8l2haEpOJjV5Qa7l3KMq8PgHD5HDCDJu57f6tRKSuEG+N77UvzsJi5FIi2ySm1FGBQClYcmQv35pGnsLNdVCuY7Bg2gtwgXZ2zg6Zuve0SiYwczzYpKNC0sPGIO4D7cioPBLJkRg0iDmpRBfjBdVoJjbfV5VPKFjhRHJuv4LteX6oKg5+auAS0eD5omehn7zdl45FMGZ1HPKa7vD9I+ti4Qv5Doq29dT+gOqXZC32zo8xCFNafL0S8cREJm+ncHLyHrqmhFJ5cg5n5ZIwif5hXTUZZIgRxorbcP+2pyzB8wrTUX0zwOcLqirmx/VnqbCowSKHZYce+eRwLap1/UaU9p1Q/MtcHMwRkMmyb+nKtnqf1pb9iy5AzAbiADwoAAaNeATEexa0YwFm9R7ajmnHdpeWTkrKE43+maCllB+Oe05AJxodWeanhXYQ8docv3nTIcfj263QP1vggoFYuLaCMyaV+1xdLwhVEtwoN/MLCsLIH6WuOC6Q41tmZ+4nK3ds9j7W4W2Xj3j8OWE6p56d63gfnzLgjLgKEqgCas2PDzCmUsNb/6/dUkwqCc/0iW3vdVmeCLqteaypBs7rSaCVEtH38oOhCKmUEvrnDtBlSMxORBuE4uFoYKRNtUJg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:VI1PR04MB6797.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(39860400002)(136003)(346002)(376002)(366004)(396003)(6512007)(26005)(6666004)(4744005)(53546011)(41300700001)(44832011)(186003)(6486002)(6506007)(478600001)(2906002)(38100700002)(8936002)(66946007)(66556008)(5660300002)(8676002)(66476007)(83380400001)(31696002)(31686004)(2616005)(316002)(86362001)(36756003)(43740500002)(45980500001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ejlITDUyMjVkU2ZXQnBCVGhvejVBZHNscjVWUzR2ZnRHbzF6OG0wSmZyMHcx?=
- =?utf-8?B?QzR6c0tqZmlLcG1GaDFUTFpBckhxbUZ1YUFQNGhSeHEwbjFmM21SdHYweGxI?=
- =?utf-8?B?YzBnSFJWZ1N2SVE1ZmhndlRKS2t2Nlp1Vnh2TU56OFNUYkFqZ0xmVGdPL2d6?=
- =?utf-8?B?RWNBRStPUFFJSTAxVk91eVNoYW5URUZhMmZWbWVRcE5OS1RvV1dXb3RTNHlx?=
- =?utf-8?B?eFNpdjVkazc4cUJid25vWVgxMmQzTXRHSFNlYXhqYlZlU3ltdURVTVQxWlF0?=
- =?utf-8?B?d21BL1RNSWM1R2Y3RENCQ0JlSG5EWFVPeUphTzFhQzFtWS9sRndsN2ZiOVZs?=
- =?utf-8?B?VXRJOWI2b0RZSlJ2Mm80b3lRYURkWW96YVh5bGsvb012bG41YlJFZ2U4WEJ2?=
- =?utf-8?B?R200MzhRZ0s1a25lcmt4QWdmT0NVWC8xRG51Qjg2Z1EzaWNYaWtzSXU5NjQ1?=
- =?utf-8?B?NUJ1S2dWbWdqejZDMmNWUDF6OWNqNDRrVVpTUkNzVUlUOGErTGdQYzhhQWpS?=
- =?utf-8?B?b29HQTlyRS92OVpxZWtaUWFZZzM4UEMzK0Zhc01NL04zbGdEYlFpS0VJbUky?=
- =?utf-8?B?TDNGN1RRMEdFUE1qVWlUQkVLUWREZmJ0L051MEd4MFc5VWRsZzhsbHZycldW?=
- =?utf-8?B?c0lMRDh6OUJjSFlVL0VnM2dETlB1UXgrVmczd2U4aVliQm82UjFZbk1hSTdR?=
- =?utf-8?B?NnB4aEgreTVHUkVWcitpdkJGYkE4Nkh2dFFxRWgwbmdHbldrSlFKY2RRWWJC?=
- =?utf-8?B?RlhTenN1aGZyblJQeDBNVTRQUmlTVW5pVHRQZ0tScTEyYTA0dUdUQm9oRk5K?=
- =?utf-8?B?SzV1WloyOGxnbmJHcjV1ZmtSVjgzSk42YmZCb0ROUmt3WjV6NU9tcGsvcUlk?=
- =?utf-8?B?cVluV0s5OTM5ZjF0ZUdxeS9LWTBaSXlNUFdQNGcwc0h4Wi9vZjhXVmU5UzRj?=
- =?utf-8?B?Vld4d2xwbDdoZ2tMcG5TMnpiL1RWZlZXRE1Ta29FQ2JWejYvdTNER1V0bGhB?=
- =?utf-8?B?Nkh4S3pHYXVFOVZORjE2VUZxZ1A4TTdXZnJRY0Evb29LLzI1TXp6dEtBWFhu?=
- =?utf-8?B?ZENFV3Eyc0g4NG1UTzlsRmlLUFMrREN4QzhMMWlSeXNFbUYwWFVPb29oUFJU?=
- =?utf-8?B?Tnd1T0ZjN09PdG5RN2lFaEw1WGVJbEltZ3BIam41YTFhZ2dxQjRERHZzcEUy?=
- =?utf-8?B?dkVkUUhFOTlrR2xSSnkreXhSSTAyV21sQzNMSjA1RCtaMjFidVlRN1huSWxR?=
- =?utf-8?B?RGtIc0UzZ1F3bWJmRVVqNCtDdWppUUhoVkwyQ1JjZkUxQzN1azJEcjY1aTJz?=
- =?utf-8?B?R2g2OEU1RU1adUlKNDdjTGRLd1ZtREpGd0lhL29KTjZVckVXVEFkZW1aaENi?=
- =?utf-8?B?RkZVZWNnYVREWWlrVjdFbEQyM0wzeUxkNzB6c0xJV2pPbkNpSitUUDBKS1Z6?=
- =?utf-8?B?OVJBVTVRSUJCbTROTTAySnFacTRlNkQ4eHRoQWMwZEdVZnRpcWhtZEdKWjE2?=
- =?utf-8?B?ek5vYStXN2hOdTZ6VmJkbDV5NXUyS1NHQVJnbUZGRTF4ZEJmVHpOOUhlRmFy?=
- =?utf-8?B?MFZPVjF3NmFNRHg4TGgyT1ZucGdLT0tidzVWamtucnczbmpxdVpsZTZNVzcy?=
- =?utf-8?B?YjIrUVpjSTNPNDlxbFdmRmhUa3NMVm9ISTQ5ckY5OHY4cTdHdlJlM3dBWHlp?=
- =?utf-8?B?SVNyUVliWUFqekJsanJaNXpYb2F2Q3dKeUk2K285V2tQdUpCakVmWXFqMEk2?=
- =?utf-8?B?Qy9GKzFBNXp1eE1iYVhSVm9WL2VFc2VWT0c0SzNFR2lGVlNHQVI5eEpOMnR5?=
- =?utf-8?B?bE5Ba1dubVFkNWEvRjRYMWU3ZzNKUnkvNUo2bGtaclI0VnM5ejA0dFczOE05?=
- =?utf-8?B?S242Y2Nwa25VRmNza1lMNlNscU5TV0tab0JwZTNSZTFuRDFnbmpMWU4wMEpG?=
- =?utf-8?B?NGh4M0xSbEpTWWcwRlAzMERNa0l4MlQrL3hlL1lPWmV0dUp2ZTdNMDZWNkNa?=
- =?utf-8?B?RXV3TEF0ODdRQ0ROQk1rUXZxZWNlSEZjQjYrZjhkRWRpKzJtR05EdDRUSU5s?=
- =?utf-8?B?QkhuZnRzV2V0MWpEc3ZsQ2ZOVHM3UjZCaWkyNFdjanh4YlFsZWl0VHlDaG1l?=
- =?utf-8?B?dDEyeUNnWVhjalRPTExIWkI4a2k1UGltSHk2QmQ0L24wZThlUWVlbStjZWcx?=
- =?utf-8?B?M3c9PQ==?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1646e587-aa3d-4431-7640-08da6bc50143
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB6797.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2022 09:31:50.2773 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: x4lxE6olepA4EbtyLaF5DZS4qlGNbDro9rA9kZ/2ShT1OTjpHm3QZ9jSYOuEQn8fUsPmPOhlufMi4F6ld1yC8OLVFHUdk9+Afor8nq7oCxg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB7767
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Originating-IP: [10.167.220.84]
+X-ClientProxiedBy: G08CNEXCHPEKD08.g08.fujitsu.local (10.167.33.83) To
+ R01UKEXCASM126.r01.fujitsu.local (10.183.43.178)
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_PASS,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 1/7] Add more safe macros for mqueue API
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH v1 1/2] syscalls/creat09: Add umask condition
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,42 +97,99 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Andrea Cervesato via ltp <ltp@lists.linux.it>
-Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
+Cc: brauner@kernel.org
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
+A kernel patch set that fix setgid strip logic under umask(S_IXGRP) found by
+this case has been merged into Christian Brauner for-next branch[1].
 
-On 6/16/22 23:57, Petr Vorel wrote:
-> Hi Andrea,
->
-> ...
->>> +static inline int safe_mq_close(const char *file, const int lineno,
->>> +				mqd_t __mqdes)
->>> +{
->>> +	int rval;
->>> +
->>> +	rval = mq_close(__mqdes);
->>> +
->>> +	if (rval == -1) {
->>> +		tst_brk_(file, lineno, TBROK | TERRNO,
->>> +			"mq_close(%d) failed", __mqdes);
->>> +	}
->> How about check for invalid return value?
->> 	} else if (rval < 0) {
->> 		tst_brk_(file, lineno, TBROK | TERRNO,
->> 			"Invalid mq_close(%d) return value %d", __mqdes, rval);
->> 	}
-> Also safe_mq_open() could have check for invalid return value.
->
-It's already like that, Isn't it?
-> Kind regards,
-> Petr
+I guess it will be merged into linux-next branch.
 
-Andrea
+I will add acl and umask test[2][3] in xfstests because there is more suitable
+to do this.
+
+Here I just only add umask condition simply.
+
+[1]https://git.kernel.org/pub/scm/linux/kernel/git/brauner/linux.git/log/?h=for-next
+[2]https://www.spinics.net/lists/fstests/msg19554.html
+[3]https://www.spinics.net/lists/fstests/msg19555.html
+
+Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
+---
+ testcases/kernel/syscalls/creat/creat09.c | 27 +++++++++++++++++++++--
+ 1 file changed, 25 insertions(+), 2 deletions(-)
+
+diff --git a/testcases/kernel/syscalls/creat/creat09.c b/testcases/kernel/syscalls/creat/creat09.c
+index bed7bddb0..04bc98d11 100644
+--- a/testcases/kernel/syscalls/creat/creat09.c
++++ b/testcases/kernel/syscalls/creat/creat09.c
+@@ -28,6 +28,16 @@
+  *  Date:   Fri Jan 22 16:48:18 2021 -0800
+  *
+  *  xfs: fix up non-directory creation in SGID directories
++ *
++ * When use acl or umask, it still has bug.
++ *
++ * Fixed in:
++ *
++ *  commit 1639a49ccdce58ea248841ed9b23babcce6dbb0b
++ *  Author: Yang Xu <xuyang2018.jy@fujitsu.com>
++ *  Date:   Thu July 14 14:11:27 2022 +0800
++ *
++ *  fs: move S_ISGID stripping into the vfs_*() helpers
+  */
+ 
+ #include <stdlib.h>
+@@ -94,8 +104,19 @@ static void file_test(const char *name)
+ 		tst_res(TPASS, "%s: Setgid bit not set", name);
+ }
+ 
+-static void run(void)
++static void run(unsigned int n)
+ {
++	switch (n) {
++	case 0:
++		umask(0);
++		tst_res(TINFO, "under umask(0) situation");
++		break;
++	case 1:
++		umask(S_IXGRP);
++		tst_res(TINFO, "under umask(S_IXGRP) situation");
++		break;
++	}
++
+ 	fd = SAFE_CREAT(CREAT_FILE, MODE_SGID);
+ 	SAFE_CLOSE(fd);
+ 	file_test(CREAT_FILE);
+@@ -115,13 +136,14 @@ static void cleanup(void)
+ }
+ 
+ static struct tst_test test = {
+-	.test_all = run,
++	.test = run,
+ 	.setup = setup,
+ 	.cleanup = cleanup,
+ 	.needs_root = 1,
+ 	.all_filesystems = 1,
+ 	.mount_device = 1,
+ 	.mntpoint = MNTPOINT,
++	.tcnt = 2,
+ 	.skip_filesystems = (const char*[]) {
+ 		"exfat",
+ 		"ntfs",
+@@ -132,6 +154,7 @@ static struct tst_test test = {
+ 		{"linux-git", "0fa3ecd87848"},
+ 		{"CVE", "2018-13405"},
+ 		{"linux-git", "01ea173e103e"},
++		{"linux-git", "1639a49ccdce"},
+ 		{}
+ 	},
+ };
+-- 
+2.23.0
 
 
 -- 
