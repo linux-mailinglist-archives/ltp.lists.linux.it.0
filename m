@@ -1,142 +1,132 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id E38F657DC7D
-	for <lists+linux-ltp@lfdr.de>; Fri, 22 Jul 2022 10:35:47 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id B075E57DD7D
+	for <lists+linux-ltp@lfdr.de>; Fri, 22 Jul 2022 11:31:58 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 730B43CA0CA
-	for <lists+linux-ltp@lfdr.de>; Fri, 22 Jul 2022 10:35:46 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 56F373C9E93
+	for <lists+linux-ltp@lfdr.de>; Fri, 22 Jul 2022 11:31:58 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 9B0443C1BD8
- for <ltp@lists.linux.it>; Fri, 22 Jul 2022 10:35:38 +0200 (CEST)
-Received: from esa1.fujitsucc.c3s2.iphmx.com (esa1.fujitsucc.c3s2.iphmx.com
- [68.232.152.245])
+ by picard.linux.it (Postfix) with ESMTPS id 3EF5A3C9BA4
+ for <ltp@lists.linux.it>; Fri, 22 Jul 2022 11:31:52 +0200 (CEST)
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05on2063.outbound.protection.outlook.com [40.107.20.63])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 8C0681000A2D
- for <ltp@lists.linux.it>; Fri, 22 Jul 2022 10:35:37 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj1;
- t=1658478938; x=1690014938; h=from:to:subject:date:message-id:
- content-transfer-encoding:mime-version;
- bh=DWSnW989S+gz1auHlBWjMngI+SLrlr8uNs/6OlSTji8=;
- b=V9AlvB00b2q9Z3n0nJx5J+87lNxnnRqdahJMA3AzFQbkM/cwrNi4xMmS
- qA6Qkwmqa44s0KoMCmxcKfDCtOQI33qQuqWVd8MhaEYyKjURD6vgQF19x
- wq0ffpLHusVygAXlrRADA51GnjlCH6MVoBxMa6dP9wbu3kBLU1huh+QMK
- qsD3rob6uAznr3P4L70L+Ultcc2DcxoJ7DKkjYasYbBBGA8UzK3Nc8NJg
- VdNhoUAy/W0vT/jDtTiLJxsEwrWenmfz2Zh/svO453ibBChRwKV6J2L5t
- GRszWCRuOEr0ir+ZgDlxXcg83dZudicCva33cw3wjWN2vk8qWV3EEaeoT Q==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10415"; a="69222352"
-X-IronPort-AV: E=Sophos;i="5.93,185,1654527600"; d="scan'208";a="69222352"
-Received: from mail-os0jpn01lp2112.outbound.protection.outlook.com (HELO
- JPN01-OS0-obe.outbound.protection.outlook.com) ([104.47.23.112])
- by ob1.fujitsucc.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jul 2022 17:35:36 +0900
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 061F91400F22
+ for <ltp@lists.linux.it>; Fri, 22 Jul 2022 11:31:51 +0200 (CEST)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CumFFAvdIg+6m0KbEZm8O06mbdYKlVFDxNCDFf6ivvPoY4YnzYM6MHrl0vhxXcfH/vBcWAacFCE6/VCdYYwSEGBudtEYoNJFu7O7C8i1yy1ogCoZscK7WjGk9wFgGFrlHcXQ13ID/v5NTgfHZPFQp9up53X1fO0copFMsNnJx+E6RcjHkl5tRnx6vt54MdWuo0D3trIrza1x+PTbybNvntDnxrlAE/t/8KmuwDXHp+ay22hlwc9W8BEIltWJOLeElxlD4BaMWIYan+zQwnH5QcBRApsJHrzBVg613ulRW2Df2GW7Su5gBU8FscbsltvfYmf6uo5oEV7F3Ix7xcBUfw==
+ b=F65PVWsVdMTIM2U2bgRmCQZKoQEZ7hHmorSjHZDBZXiM8Hcrpco10PXLKwCcYbi+eq00VRe+dEda2nYapNZtPFiKV61swjk9vfXUsz8X/r22Zh4AMq34PLL3qC5UISKFyejoE63eCtZhSz4bc3Prl0QeE9Jtt1Co5fi2YiYupDP84ovh4v29hIkgQRj8evDwfHRNdQR2f+CxSc+mmm+grtHPe77FMx5ta8behPSk5C6zd+moc5I9VNCWgK5+QOeO2eiFeC5pB/ssm8FEtMDXbx2VPsv7+owzyyysvYyguaab1klFTAG/1u8+rwUSGSOPu0PZ6BnXonHJqgSPpEN9Cw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DWSnW989S+gz1auHlBWjMngI+SLrlr8uNs/6OlSTji8=;
- b=KPyS6UF4w3dNLeZnbXSVdLzOMqsAfMFFCN/YCittG/LVoq3VTAhtZpG2+XmkIg8vM4tExBWbs9rLldkKNHSxYa/kYSAx1290ETov23s8gzSJpYo6Nc1j7I6Z0wnWyRQriOCoAVtHwRi0aePeX3op/Z/sFtkXNhoddB+POcbD1dNznPOSqGV95jJYtYVj7HDOjko+CDJoCGBAH69AnXQrsskWl+wBnEqjLrQwAoov6phBamHmOA+2hAuGGW0qS5pfA1tygOgipRlN4U4P3VV/oXn57peEzqFKrTPWC0q+UlSMyI7sr1HqU39tVjJC47qv/KHU7vusF/xI5EWAyGl37A==
+ bh=RJ/7A0iwWnxWyweiFMlkmDk+FYVodvkAgPybOxERG6Y=;
+ b=iwYY7UfZnv+zA7xNOGKrgkDx+dIlv2OuDwNpkn4Famz0PFhCVw0OwaHX2SKyU32iqAYBhM6+BCtJGtJClwFq0V39I/rFQ4quoEuQThnschLPHjEYID4O0qlfbgwcpR/wpnveZbrGjnkazcnUeHrQBbmRO4a9roXFwIqH0LsUSo3FOr78Jr2FPxKqVnH3AH0WTJKn6cNn3RhsZZue0GVSBDNiEyNq42fhoe3QSYN12seqp7rkuc5IejaceyeMdmeBDq+fwbwpz5A3MNfIjaxPqXQ5gvF21fTFX+71Fknvo2N0/MU+rotKLH9IThUc4Ojsa29gmN4rq7mi206rsJKiyQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=fujitsu.com; dmarc=pass action=none header.from=fujitsu.com;
- dkim=pass header.d=fujitsu.com; arc=none
-Received: from OS3PR01MB8586.jpnprd01.prod.outlook.com (2603:1096:604:19d::6)
- by TYAPR01MB2221.jpnprd01.prod.outlook.com (2603:1096:404:5::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.19; Fri, 22 Jul
- 2022 08:35:32 +0000
-Received: from OS3PR01MB8586.jpnprd01.prod.outlook.com
- ([fe80::576:dca1:ffc6:de00]) by OS3PR01MB8586.jpnprd01.prod.outlook.com
- ([fe80::576:dca1:ffc6:de00%5]) with mapi id 15.20.5458.019; Fri, 22 Jul 2022
- 08:35:32 +0000
-From: "chenhx.fnst@fujitsu.com" <chenhx.fnst@fujitsu.com>
-To: "ltp@lists.linux.it" <ltp@lists.linux.it>
-Thread-Topic: [PATCH] resource_files: inline resource file for readable doc
-Thread-Index: AQHYnaYBa9trGiZeiUScYe62UuOMhw==
-Date: Fri, 22 Jul 2022 08:35:32 +0000
-Message-ID: <20220722083529.209-1-chenhx.fnst@fujitsu.com>
-Accept-Language: zh-CN, en-US
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RJ/7A0iwWnxWyweiFMlkmDk+FYVodvkAgPybOxERG6Y=;
+ b=W5DdvNexSFysYs7Nh6wdxQ630uL4DuOBJ5S7l8VtXLSwwPqYK5Y5qEX7q6Evpcq1r7LdIyOSUiip3SlEkE5i5jUvJrxjQCmfCgDkQi40nq3NdV0DbAeCihiN5PnyXBbKET/1YKaponerOeAQKXoVZfz72nIdl8klvQmwzylMJnsrahAXlc80BtSYfzBwGP2k7iJwafYxXBSMH+YBHj1yKM1U6PA8D/bfT4Cp+RIMCTpUOAUnr9eD7nvqPr5BgRe9v2wplmVczGj4T3903P0Tnu57rnSdIUpMr5Xlhm7xDW/DIE/Kh5Ir8ChoTvTocn8U4lkTKTxE/tSgFCcmVbk6YQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Received: from VI1PR04MB6797.eurprd04.prod.outlook.com (2603:10a6:803:13e::13)
+ by AS8PR04MB7767.eurprd04.prod.outlook.com (2603:10a6:20b:288::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.23; Fri, 22 Jul
+ 2022 09:31:50 +0000
+Received: from VI1PR04MB6797.eurprd04.prod.outlook.com
+ ([fe80::c3:d917:fe7a:451b]) by VI1PR04MB6797.eurprd04.prod.outlook.com
+ ([fe80::c3:d917:fe7a:451b%5]) with mapi id 15.20.5438.023; Fri, 22 Jul 2022
+ 09:31:50 +0000
+Message-ID: <aeddb36f-69db-0fae-cec4-df3956e2e6db@suse.com>
+Date: Fri, 22 Jul 2022 11:31:24 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
 Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=fujitsu.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 61c3a517-7004-4fba-a92c-08da6bbd23eb
-x-ms-traffictypediagnostic: TYAPR01MB2221:EE_
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: UDbwKuTlQVee1/LNKgu51mtXMeJUucNahoYRn5N1RRgSmgdORZr9FpdJrJWOHIVMMchWTfSPKdyTk7RDQ8QHOd3n6FUj2hc09vwULSGbAe3YXRRdt+NnNMu49odzUm95sT/tgcfcXob/tLTxaiq8x9FPT57RR6Rv77LtVZlC1O6VRSG05/a6VrLBVrzDCaWyJZ7z0SLFOfVu/C3EmjvQltFippTLguvS+kaHLjFYAm4V1Uou9tHL/EfE/JkHqWdepkJOdjS7mOQHNB3ED+cvErmk/sd+v3Yigt7Y915H7LfYLVipWV/VfDrUjgGXVzJDri04hMzgyS1rQplaZWWPe+/lk+TKAAflx6Y7g8/8W6hZQip+Wi/6IfXWYl5RWqElyw9zOw7LaMN0YlZyAis124KUFEBqJLGCUj8cbO9EPHaahT75UnUxgS7fK/PEHVd2HDM/2hAkx0TDK/hJQTaCqZYGZcXcz1joqxdueCLDhM2QAp3sBnQVWUuV5swQzkvHqYiiHkdou4ztMYNu1BM+YDZ5cPzUrlrS+n0wac6awDDRZf0DkW9KPYUICDKuSuiMIo6Wt53R4XyxyTeZjNHXrwsa9qs9FX9gz3Z+hlAPT4UK9XkuUSHXhPNZqIFl7w1xlQS0MDsknxJxLuDu8kV+3vFYsI8Spjg8NfoF4sLYXpKAejIbwPzDS1fplb95p7DhSNmdJQYKE5gjpvkBHvzyr3ERltMX7GYNZFIrCSOfboPBYKszGPsf0nyWhgCgpQod7/rCEpF6e66MFzfcKKbQsAMxjgE0qQL3haFX+x/ZzJPy/S4rgkxw3jDqcyw05vJx
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:OS3PR01MB8586.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(346002)(136003)(396003)(366004)(376002)(39860400002)(122000001)(38100700002)(82960400001)(66476007)(38070700005)(186003)(1076003)(64756008)(83380400001)(8936002)(5660300002)(66556008)(30864003)(66446008)(316002)(478600001)(2616005)(2906002)(6486002)(6916009)(41300700001)(6512007)(6506007)(66946007)(76116006)(91956017)(71200400001)(8676002)(36756003)(85182001)(86362001)(26005);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?gb2312?B?ZHNHMzlFL2FNWmsySmZaaG1wZzk5Y2hINldzeTZ2R0x1QlRrUklNWlVXQWtS?=
- =?gb2312?B?UFdSb0w5K3ZpTXZURkJjVTBrQ3RTdDNRV2d3c3hiaUl6TFhnQlBraVgvb3Fw?=
- =?gb2312?B?UDdkSHkrU3RSUStuclFJb1JQa2gyZ1J6ZFpuWFlycndrWmR3Y21Wd2c0aVVj?=
- =?gb2312?B?OTRvd0ZFbGJQajBaSkVTTWtObUpiU1k2OXY3V1V3OFlGSDM0Q1doVUNYNURK?=
- =?gb2312?B?cFdBQVpqQWVlUU5TM2k2KzAwN3Zwd3pqNHhEajRSN3RtazNiM29mVFFEckxD?=
- =?gb2312?B?amk3SlpuZGtZbFhLL21FZ2RZM0pza1czVG41UmNiRDlza0JQc0k2dVZqTWNh?=
- =?gb2312?B?WlNBVllER24wZGJLK1MrYU1kRE1FY1BIN2xyc3gxQTAwQWpjNHNmT0dlanBU?=
- =?gb2312?B?QndsSVMvZHRORGtHTk8yN2o0MmhCaThoTEtPcko0NDU2NHZwbTVMOXorNkRY?=
- =?gb2312?B?ZDBPVWI1M3RZdjhFMUZwMXFLM0U0QjFoTnQ2Q05uK0hScUdHd3BpZTE1MXNI?=
- =?gb2312?B?M2ZNazZCVnBWVFJRTUxrbURNMXczSi93ZnkxVWNMcWxnWGFVSHdJeTVxc2JP?=
- =?gb2312?B?YjcrUXBwTDJhODhITU9oVkNaZGZSQlVnOVZheWgrR2lhU0R0NTdNQ29sRTZn?=
- =?gb2312?B?S1BPWjdMQkpHNnIvaTlhREErT1FreDVZblFOYlJZdmZBMkQxdjNMT1ZJV2o4?=
- =?gb2312?B?WFMyWmp0N3lodSt1SmtUK0VHVTlRUlpjckE4MGRCSmdyRm5ST1FpeHZhWHpl?=
- =?gb2312?B?NnpCY0FsLzRsdTRzcGlmdno2N2RYaXIzakdEUGFXQ2JkNllrQzNxVkR0eDBl?=
- =?gb2312?B?OFdFV3VVMk5xR2czL0dsVXBUenZrckp4QXA2RmtsZmtPYllHaU9sSTk0NEEv?=
- =?gb2312?B?bmpwQk9FbnFMRXVGWFNuUmcrUnlvazF3NjRkNVk1Smx2SlBHVmdsMTFYOXJw?=
- =?gb2312?B?QjF4dGZqbkJkeFRoN1RpUnlkdG93enhBWHB5Uk5jZVpwdTNtN3VXWXBvbGJu?=
- =?gb2312?B?c2tRU2wzZjdsRWY3L0xhZFpaTVcxY05XdmFkZ2RHSGxueUtCbks3bmVuOWVU?=
- =?gb2312?B?U0Vkdkd4T3pxaG9TYW56Y2N4dElwdEhZdXltY3YrTnY2ZlNRZkIxMlZDeHJZ?=
- =?gb2312?B?OXFWK0lJT3ZvTVAvaTN3RWhWN0Zta3phaGQ0VFBpTkMrUnNKV3JVTTN6c3Fz?=
- =?gb2312?B?Qk1wdnNtb1hEcEhBWkZPMzYyWEhka0hPNUhRZmY5K0NBc1NxZWt3ZDlVVURr?=
- =?gb2312?B?V0NveXJMSWRuRFRxQVgxUnFGcEhjNjZ0elFwa0wzdmFrSjV1Q0RNNFZCN1Mr?=
- =?gb2312?B?RHNHQVpTNE9rN3NPUmc0MlVRc0J6VUowYjB1Wi9rT2wxTWwvOE0vZVI4bUdW?=
- =?gb2312?B?amhvTlFaS2N1UU9nYWRsTXNVYkxwTU5tVWZLaWJkRmhVdGhRTWhDY05JWUNR?=
- =?gb2312?B?cS92ZXpsdDFrVmhIN1lTd0tjY3FDZDE1YzdBck85MnAxdWRuakNUUERLOVVX?=
- =?gb2312?B?VGhRY1hPaytoQVJlaExJM3ZiYVpKZTNuUlg3QUw1emFUTjRtN2xVdTd6ems0?=
- =?gb2312?B?aDI2QjRuZ285SmRLVDJoZk1sK2xyaGZzWDQzcGYwTG5EUGt2a1lrK2M2cEZP?=
- =?gb2312?B?UERvdjEzUWpsWldPajFWNDhBMUd6VWFlWFdVYWtDNWFmZXRFWXZTUitCSWZp?=
- =?gb2312?B?TTNBaFNoSWo4M2l4OE5pVHQvQVRnNkJPc0Vjc1hwaWdKYlJ5dDd3L1E4Wi9P?=
- =?gb2312?B?SENTdkF3N2dybTErbXUzNWhtZDZHSENxVU5qdnMvVkNpZlJlanlzcHQzU09u?=
- =?gb2312?B?UktoYUExL1BMajUxTWFyUG1va3M3RVAvME1yQkU0cS9OMHN4d09vT2hYcFRy?=
- =?gb2312?B?VUdzR3Vuc3FzSTMwNS9wYjZTSFcyZGtGMk14b254c2Q3M0Vyc1Z1TEZoekNp?=
- =?gb2312?B?cU04dnFEWEJtT1dvbmdMbU03R1hmN2Vud2VnaGJUdzBTVTZRbHpzeEI4Kzl6?=
- =?gb2312?B?dHJlQmh6MnZxQzRyZUYzM1pQUXZwcGNYTVVIeXFwSkJpOHd3ZUZIY1Z6NTRl?=
- =?gb2312?B?c0JUbTJYV1BIVVlaVXJLdE9qdUwvamFPbG9RSTgvc0MwYXVqL1BRMGlsYUpr?=
- =?gb2312?B?SkZkdkdCY2FZYnlleTVOM09ON1lhTkNtRHFtSjAxajc5L3JVZy9vQVdiOFJu?=
- =?gb2312?B?Q1E9PQ==?=
+To: Petr Vorel <pvorel@suse.cz>, ltp@lists.linux.it
+References: <20220616140717.23708-1-andrea.cervesato@suse.com>
+ <20220616140717.23708-2-andrea.cervesato@suse.com> <YqumDWnqP35qT0t0@pevik>
+ <YqunUfT847rSDkLY@pevik>
+In-Reply-To: <YqunUfT847rSDkLY@pevik>
+X-ClientProxiedBy: FR3P281CA0161.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a2::20) To VI1PR04MB6797.eurprd04.prod.outlook.com
+ (2603:10a6:803:13e::13)
 MIME-Version: 1.0
-X-OriginatorOrg: fujitsu.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 1646e587-aa3d-4431-7640-08da6bc50143
+X-MS-TrafficTypeDiagnostic: AS8PR04MB7767:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: R1vHm/0Yd0nb5YkZ+Rl8qSMRL2m+TipGQhhS3LCmP3PQS590ZwNWS5x1ZUbMmgvqAC53Ysl5nxzKC3vwDRg2UfjhAdY/CE6EgluTWasL2a0UEruaeYa9u/Rq1SslSqs2qPiNixv9equJCjhjy3qcs8z3ZC7/Ku87pSqILr8JnFKTPJAKQgKoZqfXtPljE/YQelRo4uywpeaar9TGEEJV8meQt8l2haEpOJjV5Qa7l3KMq8PgHD5HDCDJu57f6tRKSuEG+N77UvzsJi5FIi2ySm1FGBQClYcmQv35pGnsLNdVCuY7Bg2gtwgXZ2zg6Zuve0SiYwczzYpKNC0sPGIO4D7cioPBLJkRg0iDmpRBfjBdVoJjbfV5VPKFjhRHJuv4LteX6oKg5+auAS0eD5omehn7zdl45FMGZ1HPKa7vD9I+ti4Qv5Doq29dT+gOqXZC32zo8xCFNafL0S8cREJm+ncHLyHrqmhFJ5cg5n5ZIwif5hXTUZZIgRxorbcP+2pyzB8wrTUX0zwOcLqirmx/VnqbCowSKHZYce+eRwLap1/UaU9p1Q/MtcHMwRkMmyb+nKtnqf1pb9iy5AzAbiADwoAAaNeATEexa0YwFm9R7ajmnHdpeWTkrKE43+maCllB+Oe05AJxodWeanhXYQ8docv3nTIcfj263QP1vggoFYuLaCMyaV+1xdLwhVEtwoN/MLCsLIH6WuOC6Q41tmZ+4nK3ds9j7W4W2Xj3j8OWE6p56d63gfnzLgjLgKEqgCas2PDzCmUsNb/6/dUkwqCc/0iW3vdVmeCLqteaypBs7rSaCVEtH38oOhCKmUEvrnDtBlSMxORBuE4uFoYKRNtUJg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:VI1PR04MB6797.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230016)(39860400002)(136003)(346002)(376002)(366004)(396003)(6512007)(26005)(6666004)(4744005)(53546011)(41300700001)(44832011)(186003)(6486002)(6506007)(478600001)(2906002)(38100700002)(8936002)(66946007)(66556008)(5660300002)(8676002)(66476007)(83380400001)(31696002)(31686004)(2616005)(316002)(86362001)(36756003)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ejlITDUyMjVkU2ZXQnBCVGhvejVBZHNscjVWUzR2ZnRHbzF6OG0wSmZyMHcx?=
+ =?utf-8?B?QzR6c0tqZmlLcG1GaDFUTFpBckhxbUZ1YUFQNGhSeHEwbjFmM21SdHYweGxI?=
+ =?utf-8?B?YzBnSFJWZ1N2SVE1ZmhndlRKS2t2Nlp1Vnh2TU56OFNUYkFqZ0xmVGdPL2d6?=
+ =?utf-8?B?RWNBRStPUFFJSTAxVk91eVNoYW5URUZhMmZWbWVRcE5OS1RvV1dXb3RTNHlx?=
+ =?utf-8?B?eFNpdjVkazc4cUJid25vWVgxMmQzTXRHSFNlYXhqYlZlU3ltdURVTVQxWlF0?=
+ =?utf-8?B?d21BL1RNSWM1R2Y3RENCQ0JlSG5EWFVPeUphTzFhQzFtWS9sRndsN2ZiOVZs?=
+ =?utf-8?B?VXRJOWI2b0RZSlJ2Mm80b3lRYURkWW96YVh5bGsvb012bG41YlJFZ2U4WEJ2?=
+ =?utf-8?B?R200MzhRZ0s1a25lcmt4QWdmT0NVWC8xRG51Qjg2Z1EzaWNYaWtzSXU5NjQ1?=
+ =?utf-8?B?NUJ1S2dWbWdqejZDMmNWUDF6OWNqNDRrVVpTUkNzVUlUOGErTGdQYzhhQWpS?=
+ =?utf-8?B?b29HQTlyRS92OVpxZWtaUWFZZzM4UEMzK0Zhc01NL04zbGdEYlFpS0VJbUky?=
+ =?utf-8?B?TDNGN1RRMEdFUE1qVWlUQkVLUWREZmJ0L051MEd4MFc5VWRsZzhsbHZycldW?=
+ =?utf-8?B?c0lMRDh6OUJjSFlVL0VnM2dETlB1UXgrVmczd2U4aVliQm82UjFZbk1hSTdR?=
+ =?utf-8?B?NnB4aEgreTVHUkVWcitpdkJGYkE4Nkh2dFFxRWgwbmdHbldrSlFKY2RRWWJC?=
+ =?utf-8?B?RlhTenN1aGZyblJQeDBNVTRQUmlTVW5pVHRQZ0tScTEyYTA0dUdUQm9oRk5K?=
+ =?utf-8?B?SzV1WloyOGxnbmJHcjV1ZmtSVjgzSk42YmZCb0ROUmt3WjV6NU9tcGsvcUlk?=
+ =?utf-8?B?cVluV0s5OTM5ZjF0ZUdxeS9LWTBaSXlNUFdQNGcwc0h4Wi9vZjhXVmU5UzRj?=
+ =?utf-8?B?Vld4d2xwbDdoZ2tMcG5TMnpiL1RWZlZXRE1Ta29FQ2JWejYvdTNER1V0bGhB?=
+ =?utf-8?B?Nkh4S3pHYXVFOVZORjE2VUZxZ1A4TTdXZnJRY0Evb29LLzI1TXp6dEtBWFhu?=
+ =?utf-8?B?ZENFV3Eyc0g4NG1UTzlsRmlLUFMrREN4QzhMMWlSeXNFbUYwWFVPb29oUFJU?=
+ =?utf-8?B?Tnd1T0ZjN09PdG5RN2lFaEw1WGVJbEltZ3BIam41YTFhZ2dxQjRERHZzcEUy?=
+ =?utf-8?B?dkVkUUhFOTlrR2xSSnkreXhSSTAyV21sQzNMSjA1RCtaMjFidVlRN1huSWxR?=
+ =?utf-8?B?RGtIc0UzZ1F3bWJmRVVqNCtDdWppUUhoVkwyQ1JjZkUxQzN1azJEcjY1aTJz?=
+ =?utf-8?B?R2g2OEU1RU1adUlKNDdjTGRLd1ZtREpGd0lhL29KTjZVckVXVEFkZW1aaENi?=
+ =?utf-8?B?RkZVZWNnYVREWWlrVjdFbEQyM0wzeUxkNzB6c0xJV2pPbkNpSitUUDBKS1Z6?=
+ =?utf-8?B?OVJBVTVRSUJCbTROTTAySnFacTRlNkQ4eHRoQWMwZEdVZnRpcWhtZEdKWjE2?=
+ =?utf-8?B?ek5vYStXN2hOdTZ6VmJkbDV5NXUyS1NHQVJnbUZGRTF4ZEJmVHpOOUhlRmFy?=
+ =?utf-8?B?MFZPVjF3NmFNRHg4TGgyT1ZucGdLT0tidzVWamtucnczbmpxdVpsZTZNVzcy?=
+ =?utf-8?B?YjIrUVpjSTNPNDlxbFdmRmhUa3NMVm9ISTQ5ckY5OHY4cTdHdlJlM3dBWHlp?=
+ =?utf-8?B?SVNyUVliWUFqekJsanJaNXpYb2F2Q3dKeUk2K285V2tQdUpCakVmWXFqMEk2?=
+ =?utf-8?B?Qy9GKzFBNXp1eE1iYVhSVm9WL2VFc2VWT0c0SzNFR2lGVlNHQVI5eEpOMnR5?=
+ =?utf-8?B?bE5Ba1dubVFkNWEvRjRYMWU3ZzNKUnkvNUo2bGtaclI0VnM5ejA0dFczOE05?=
+ =?utf-8?B?S242Y2Nwa25VRmNza1lMNlNscU5TV0tab0JwZTNSZTFuRDFnbmpMWU4wMEpG?=
+ =?utf-8?B?NGh4M0xSbEpTWWcwRlAzMERNa0l4MlQrL3hlL1lPWmV0dUp2ZTdNMDZWNkNa?=
+ =?utf-8?B?RXV3TEF0ODdRQ0ROQk1rUXZxZWNlSEZjQjYrZjhkRWRpKzJtR05EdDRUSU5s?=
+ =?utf-8?B?QkhuZnRzV2V0MWpEc3ZsQ2ZOVHM3UjZCaWkyNFdjanh4YlFsZWl0VHlDaG1l?=
+ =?utf-8?B?dDEyeUNnWVhjalRPTExIWkI4a2k1UGltSHk2QmQ0L24wZThlUWVlbStjZWcx?=
+ =?utf-8?B?M3c9PQ==?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1646e587-aa3d-4431-7640-08da6bc50143
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB6797.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB8586.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 61c3a517-7004-4fba-a92c-08da6bbd23eb
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Jul 2022 08:35:32.1515 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a19f121d-81e1-4858-a9d8-736e267fd4c7
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: CkmaQ8EH0jsSpJrBvmDC8GwaQpgqHinBQh4N/RW9F+bJsTRsSIdP3Ab9IwgKXHuh9rcLKtmLXkl0/DTk6hlUPg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYAPR01MB2221
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2022 09:31:50.2773 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: x4lxE6olepA4EbtyLaF5DZS4qlGNbDro9rA9kZ/2ShT1OTjpHm3QZ9jSYOuEQn8fUsPmPOhlufMi4F6ld1yC8OLVFHUdk9+Afor8nq7oCxg=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB7767
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH] resource_files: inline resource file for readable doc
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_PASS,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 1/7] Add more safe macros for mqueue API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,389 +138,43 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
+From: Andrea Cervesato via ltp <ltp@lists.linux.it>
+Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Currently from resource_files section of metadata doc, we usually get:
+Hi!
 
-.resource_files  TEST_APP
+On 6/16/22 23:57, Petr Vorel wrote:
+> Hi Andrea,
+>
+> ...
+>>> +static inline int safe_mq_close(const char *file, const int lineno,
+>>> +				mqd_t __mqdes)
+>>> +{
+>>> +	int rval;
+>>> +
+>>> +	rval = mq_close(__mqdes);
+>>> +
+>>> +	if (rval == -1) {
+>>> +		tst_brk_(file, lineno, TBROK | TERRNO,
+>>> +			"mq_close(%d) failed", __mqdes);
+>>> +	}
+>> How about check for invalid return value?
+>> 	} else if (rval < 0) {
+>> 		tst_brk_(file, lineno, TBROK | TERRNO,
+>> 			"Invalid mq_close(%d) return value %d", __mqdes, rval);
+>> 	}
+> Also safe_mq_open() could have check for invalid return value.
+>
+It's already like that, Isn't it?
+> Kind regards,
+> Petr
 
-or
+Andrea
 
-.resource_files  resource_files
-
-which do not help much.
-
-This patch will inline reource file with its real name.
-
-Signed-off-by: Chen Hanxiao <chenhx.fnst@fujitsu.com>
----
- testcases/kernel/containers/userns/userns06.c     |  2 +-
- testcases/kernel/syscalls/creat/creat07.c         | 10 ++++------
- testcases/kernel/syscalls/execve/execve02.c       | 10 ++++------
- testcases/kernel/syscalls/execve/execve04.c       | 10 ++++------
- testcases/kernel/syscalls/execve/execve05.c       | 10 ++++------
- testcases/kernel/syscalls/execveat/execveat01.c   | 10 ++++------
- testcases/kernel/syscalls/execveat/execveat02.c   | 10 ++++------
- testcases/kernel/syscalls/execveat/execveat03.c   | 10 ++++------
- testcases/kernel/syscalls/fanotify/fanotify03.c   | 10 ++++------
- testcases/kernel/syscalls/fanotify/fanotify10.c   | 10 ++++------
- testcases/kernel/syscalls/fanotify/fanotify12.c   | 10 ++++------
- testcases/kernel/syscalls/getrusage/getrusage03.c | 10 ++++------
- testcases/kernel/syscalls/pipe2/pipe2_02.c        | 10 ++++------
- testcases/kernel/syscalls/prctl/prctl06.c         | 10 ++++------
- 14 files changed, 53 insertions(+), 79 deletions(-)
-
-diff --git a/testcases/kernel/containers/userns/userns06.c b/testcases/kernel/containers/userns/userns06.c
-index 002c72907..9e900d94b 100644
---- a/testcases/kernel/containers/userns/userns06.c
-+++ b/testcases/kernel/containers/userns/userns06.c
-@@ -122,7 +122,7 @@ static struct tst_test test = {
- 	.needs_root = 1,
- 	.needs_checkpoints = 1,
- 	.resource_files = (const char *[]) {
--		TEST_APP,
-+		"userns06_capcheck",
- 		NULL,
- 	},
- 	.needs_kconfigs = (const char *[]) {
-diff --git a/testcases/kernel/syscalls/creat/creat07.c b/testcases/kernel/syscalls/creat/creat07.c
-index 1e9779476..327bd2ee3 100644
---- a/testcases/kernel/syscalls/creat/creat07.c
-+++ b/testcases/kernel/syscalls/creat/creat07.c
-@@ -47,14 +47,12 @@ static void verify_creat(void)
- 	SAFE_WAITPID(pid, NULL, 0);
- }
- 
--static const char *const resource_files[] = {
--	TEST_APP,
--	NULL,
--};
--
- static struct tst_test test = {
- 	.test_all = verify_creat,
- 	.needs_checkpoints = 1,
- 	.forks_child = 1,
--	.resource_files = resource_files,
-+	.resource_files = (const char *[]) {
-+		"creat07_child",
-+		NULL,
-+	},
- };
-diff --git a/testcases/kernel/syscalls/execve/execve02.c b/testcases/kernel/syscalls/execve/execve02.c
-index 0574f5c8b..4f43c8f0f 100644
---- a/testcases/kernel/syscalls/execve/execve02.c
-+++ b/testcases/kernel/syscalls/execve/execve02.c
-@@ -74,16 +74,14 @@ static void setup(void)
- 	nobody_uid = pwd->pw_uid;
- }
- 
--static const char *const resource_files[] = {
--	TEST_APP,
--	NULL,
--};
--
- static struct tst_test test = {
- 	.needs_root = 1,
- 	.forks_child = 1,
- 	.child_needs_reinit = 1,
- 	.setup = setup,
--	.resource_files = resource_files,
-+	.resource_files = (const char *[]) {
-+		"execve_child",
-+		NULL,
-+	},
- 	.test_all = verify_execve,
- };
-diff --git a/testcases/kernel/syscalls/execve/execve04.c b/testcases/kernel/syscalls/execve/execve04.c
-index c7b8c1614..c084af244 100644
---- a/testcases/kernel/syscalls/execve/execve04.c
-+++ b/testcases/kernel/syscalls/execve/execve04.c
-@@ -63,15 +63,13 @@ static void do_child(void)
- 	exit(0);
- }
- 
--static const char *const resource_files[] = {
--	TEST_APP,
--	NULL,
--};
--
- static struct tst_test test = {
- 	.test_all = verify_execve,
- 	.forks_child = 1,
- 	.child_needs_reinit = 1,
- 	.needs_checkpoints = 1,
--	.resource_files = resource_files,
-+	.resource_files = (const char *[]) {
-+		"execve_child",
-+		NULL,
-+	},
- };
-diff --git a/testcases/kernel/syscalls/execve/execve05.c b/testcases/kernel/syscalls/execve/execve05.c
-index 63bfb0fbd..252abb9c2 100644
---- a/testcases/kernel/syscalls/execve/execve05.c
-+++ b/testcases/kernel/syscalls/execve/execve05.c
-@@ -44,11 +44,6 @@ static int nchild = 8;
- 
- static char *opt_nchild;
- 
--static const char *const resource_files[] = {
--	TEST_APP,
--	NULL,
--};
--
- static void do_child(void)
- {
- 	char *argv[3] = {TEST_APP, "canary", NULL};
-@@ -86,6 +81,9 @@ static struct tst_test test = {
- 	.forks_child = 1,
- 	.child_needs_reinit = 1,
- 	.needs_checkpoints = 1,
--	.resource_files = resource_files,
-+	.resource_files = (const char *[]) {
-+		"execve_child",
-+		NULL,
-+	},
- 	.setup = setup,
- };
-diff --git a/testcases/kernel/syscalls/execveat/execveat01.c b/testcases/kernel/syscalls/execveat/execveat01.c
-index 16d27acf6..77fd0c68e 100644
---- a/testcases/kernel/syscalls/execveat/execveat01.c
-+++ b/testcases/kernel/syscalls/execveat/execveat01.c
-@@ -84,13 +84,11 @@ static void cleanup(void)
- 		SAFE_CLOSE(fd4);
- }
- 
--static const char *const resource_files[] = {
--	TEST_APP,
--	NULL,
--};
--
- static struct tst_test test = {
--	.resource_files = resource_files,
-+	.resource_files = (const char *[]) {
-+		"execveat_child",
-+		NULL,
-+	},
- 	.tcnt = ARRAY_SIZE(tcases),
- 	.test = verify_execveat,
- 	.child_needs_reinit = 1,
-diff --git a/testcases/kernel/syscalls/execveat/execveat02.c b/testcases/kernel/syscalls/execveat/execveat02.c
-index 9b08efb78..59c24efb3 100644
---- a/testcases/kernel/syscalls/execveat/execveat02.c
-+++ b/testcases/kernel/syscalls/execveat/execveat02.c
-@@ -85,11 +85,6 @@ static void setup(void)
- 	fd = SAFE_OPEN(TEST_REL_APP, O_PATH);
- }
- 
--static const char *const resource_files[] = {
--	TEST_APP,
--	NULL,
--};
--
- static void cleanup(void)
- {
- 	if (fd > 0)
-@@ -97,7 +92,10 @@ static void cleanup(void)
- }
- 
- static struct tst_test test = {
--	.resource_files = resource_files,
-+	.resource_files = (const char *[]) {
-+		"execveat_errno",
-+		NULL,
-+	},
- 	.tcnt = ARRAY_SIZE(tcases),
- 	.test = verify_execveat,
- 	.child_needs_reinit = 1,
-diff --git a/testcases/kernel/syscalls/execveat/execveat03.c b/testcases/kernel/syscalls/execveat/execveat03.c
-index 1900c076b..bf341007e 100644
---- a/testcases/kernel/syscalls/execveat/execveat03.c
-+++ b/testcases/kernel/syscalls/execveat/execveat03.c
-@@ -67,11 +67,6 @@ static void setup(void)
- 	check_execveat();
- }
- 
--static const char *const resource_files[] = {
--	TEST_APP,
--	NULL,
--};
--
- static struct tst_test test = {
- 	.needs_root = 1,
- 	.mount_device = 1,
-@@ -81,7 +76,10 @@ static struct tst_test test = {
- 	.child_needs_reinit = 1,
- 	.setup = setup,
- 	.test_all = verify_execveat,
--	.resource_files = resource_files,
-+	.resource_files = (const char *[]) {
-+		"execveat_child",
-+		NULL,
-+	},
- 	.tags = (const struct tst_tag[]) {
- 		{"linux-git", "8db6c34f1dbc"},
- 		{"linux-git", "355139a8dba4"},
-diff --git a/testcases/kernel/syscalls/fanotify/fanotify03.c b/testcases/kernel/syscalls/fanotify/fanotify03.c
-index a3b9d5c37..d663ebc32 100644
---- a/testcases/kernel/syscalls/fanotify/fanotify03.c
-+++ b/testcases/kernel/syscalls/fanotify/fanotify03.c
-@@ -337,11 +337,6 @@ static void cleanup(void)
- 		SAFE_CLOSE(fd_notify);
- }
- 
--static const char *const resource_files[] = {
--	TEST_APP,
--	NULL
--};
--
- static struct tst_test test = {
- 	.test = test_fanotify,
- 	.tcnt = ARRAY_SIZE(tcases),
-@@ -351,7 +346,10 @@ static struct tst_test test = {
- 	.needs_root = 1,
- 	.mount_device = 1,
- 	.mntpoint = MOUNT_PATH,
--	.resource_files = resource_files
-+	.resource_files = (const char *[]) {
-+		"fanotify_child",
-+		NULL,
-+	},
- };
- 
- #else
-diff --git a/testcases/kernel/syscalls/fanotify/fanotify10.c b/testcases/kernel/syscalls/fanotify/fanotify10.c
-index 52277d0b7..2ec28eaf6 100644
---- a/testcases/kernel/syscalls/fanotify/fanotify10.c
-+++ b/testcases/kernel/syscalls/fanotify/fanotify10.c
-@@ -633,11 +633,6 @@ static void cleanup(void)
- 	SAFE_FILE_PRINTF(CACHE_PRESSURE_FILE, "%d", old_cache_pressure);
- }
- 
--static const char *const resource_files[] = {
--	TEST_APP,
--	NULL
--};
--
- static struct tst_test test = {
- 	.test = test_fanotify,
- 	.tcnt = ARRAY_SIZE(tcases),
-@@ -647,7 +642,10 @@ static struct tst_test test = {
- 	.mntpoint = MOUNT_PATH,
- 	.needs_root = 1,
- 	.forks_child = 1,
--	.resource_files = resource_files,
-+	.resource_files = (const char *[]) {
-+		"fanotify_child",
-+		NULL,
-+	},
- 	.tags = (const struct tst_tag[]) {
- 		{"linux-git", "9bdda4e9cf2d"},
- 		{"linux-git", "2f02fd3fa13e"},
-diff --git a/testcases/kernel/syscalls/fanotify/fanotify12.c b/testcases/kernel/syscalls/fanotify/fanotify12.c
-index 52e728e2a..8ccc67a73 100644
---- a/testcases/kernel/syscalls/fanotify/fanotify12.c
-+++ b/testcases/kernel/syscalls/fanotify/fanotify12.c
-@@ -235,11 +235,6 @@ static void do_cleanup(void)
- 		SAFE_CLOSE(fd_notify);
- }
- 
--static const char *const resource_files[] = {
--	TEST_APP,
--	NULL
--};
--
- static struct tst_test test = {
- 	.setup = do_setup,
- 	.test = do_test,
-@@ -247,7 +242,10 @@ static struct tst_test test = {
- 	.cleanup = do_cleanup,
- 	.forks_child = 1,
- 	.needs_root = 1,
--	.resource_files = resource_files
-+	.resource_files = (const char *[]) {
-+		"fanotify_child",
-+		NULL,
-+	},
- };
- #else
- 	TST_TEST_TCONF("System does not contain required fanotify support");
-diff --git a/testcases/kernel/syscalls/getrusage/getrusage03.c b/testcases/kernel/syscalls/getrusage/getrusage03.c
-index 7e7a1f555..243d1b859 100644
---- a/testcases/kernel/syscalls/getrusage/getrusage03.c
-+++ b/testcases/kernel/syscalls/getrusage/getrusage03.c
-@@ -26,11 +26,6 @@
- static struct rusage ru;
- static long maxrss_init;
- 
--static const char *const resource[] = {
--	TESTBIN,
--	NULL,
--};
--
- static void inherit_fork1(void)
- {
- 	SAFE_GETRUSAGE(RUSAGE_SELF, &ru);
-@@ -176,7 +171,10 @@ static void run(unsigned int i)
- static struct tst_test test = {
- 	.forks_child = 1,
- 	.child_needs_reinit = 1,
--	.resource_files = resource,
-+	.resource_files = (const char *[]) {
-+		"getrusage03_child",
-+		NULL,
-+	},
- 	.min_kver = "2.6.32",
- 	.min_mem_avail = 512,
- 	.tags = (const struct tst_tag[]) {
-diff --git a/testcases/kernel/syscalls/pipe2/pipe2_02.c b/testcases/kernel/syscalls/pipe2/pipe2_02.c
-index 9ba69667b..953e4be9d 100644
---- a/testcases/kernel/syscalls/pipe2/pipe2_02.c
-+++ b/testcases/kernel/syscalls/pipe2/pipe2_02.c
-@@ -54,13 +54,11 @@ static void verify_pipe2(void)
- 	cleanup();
- }
- 
--static const char *const resfile[] = {
--	TESTBIN,
--	NULL,
--};
--
- static struct tst_test test = {
--	.resource_files = resfile,
-+	.resource_files = (const char *[]) {
-+		"pipe2_02_child",
-+		NULL,
-+	},
- 	.cleanup = cleanup,
- 	.forks_child = 1,
- 	.needs_root = 1,
-diff --git a/testcases/kernel/syscalls/prctl/prctl06.c b/testcases/kernel/syscalls/prctl/prctl06.c
-index 62c5a135b..f6b41b500 100644
---- a/testcases/kernel/syscalls/prctl/prctl06.c
-+++ b/testcases/kernel/syscalls/prctl/prctl06.c
-@@ -113,13 +113,11 @@ static void setup(void)
- 		"current environment doesn't permit PR_GET/SET_NO_NEW_PRIVS");
- }
- 
--static const char *const resfile[] = {
--	TESTBIN,
--	NULL,
--};
--
- static struct tst_test test = {
--	.resource_files = resfile,
-+	.resource_files = (const char *[]) {
-+		"prctl06_execve",
-+		NULL,
-+	},
- 	.setup = setup,
- 	.test_all = verify_prctl,
- 	.forks_child = 1,
--- 
-2.31.1
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
