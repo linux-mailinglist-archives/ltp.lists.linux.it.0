@@ -2,63 +2,64 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D60E357E142
-	for <lists+linux-ltp@lfdr.de>; Fri, 22 Jul 2022 14:06:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC05B57E140
+	for <lists+linux-ltp@lfdr.de>; Fri, 22 Jul 2022 14:06:34 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 8D0B83C9C23
-	for <lists+linux-ltp@lfdr.de>; Fri, 22 Jul 2022 14:06:55 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 7CCE63C9FEC
+	for <lists+linux-ltp@lfdr.de>; Fri, 22 Jul 2022 14:06:34 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 7831C3C9FDC
+ by picard.linux.it (Postfix) with ESMTPS id 5A3C83C9F80
  for <ltp@lists.linux.it>; Fri, 22 Jul 2022 14:05:38 +0200 (CEST)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 5FEF760020A
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id D52CE200B7B
  for <ltp@lists.linux.it>; Fri, 22 Jul 2022 14:05:37 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id DFC7E348BC;
- Fri, 22 Jul 2022 12:05:36 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 8218E348BE;
+ Fri, 22 Jul 2022 12:05:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1658491536; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1658491537; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=zoqEB9Ur/+4BQWmYueVHCM6+M13Byxi9CVKk5oZTlG8=;
- b=PnUvM8COll90SwAyOLaMVTKPMps7mJbjBoRX4mwACyeKzyCpDu1D8kp5gvRIDft0LiHR0H
- WF5C6qT8FhbS90Z95mOG9FPBzHaWPLgTkIPPxaYi/jS6w/KCs61PEkWEQqfNLWr+WQ0///
- JvrR2YCcDUDS4R0bS1PjdWFu31Nyk+w=
+ bh=MkgjROSg6sXfpjD0lPnV4Zg1oz6x7GkezZWCOLJMw4c=;
+ b=inM6Zsl+vDqbvpsteFvGjuY2T5K++OXO1SwUdG+fx8Qp/D2hpP3MRlf9B744bIRqVh5qTA
+ HuXoKldWoGacYeYzwbz8ajWqySQqCA4u3MBR7XVh62k35wZmdWFbn+HLAnCpeSRFqLH9nA
+ PKb0+VytMshuEa5oOvaNKespu7qiEzs=
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 78FBF134A9;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 17370134A9;
  Fri, 22 Jul 2022 12:05:36 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id IAK+GpCS2mJULwAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id uOpYO5CS2mJULwAAMHmgww
  (envelope-from <andrea.cervesato@suse.com>); Fri, 22 Jul 2022 12:05:36 +0000
 To: ltp@lists.linux.it
-Date: Fri, 22 Jul 2022 14:05:00 +0200
-Message-Id: <20220722120501.28670-7-andrea.cervesato@suse.com>
+Date: Fri, 22 Jul 2022 14:05:01 +0200
+Message-Id: <20220722120501.28670-8-andrea.cervesato@suse.com>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20220722120501.28670-1-andrea.cervesato@suse.com>
 References: <20220722120501.28670-1-andrea.cervesato@suse.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH v3 6/7] Delete deprecated mqns header files
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH v3 7/7] Rename common.h into mqns.h for mqns suite
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,131 +80,70 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
 ---
- testcases/kernel/containers/mqns/Makefile     | 27 ++-------
- testcases/kernel/containers/mqns/mqns.h       | 11 ----
- .../kernel/containers/mqns/mqns_helper.h      | 56 -------------------
- 3 files changed, 5 insertions(+), 89 deletions(-)
- delete mode 100644 testcases/kernel/containers/mqns/mqns.h
- delete mode 100644 testcases/kernel/containers/mqns/mqns_helper.h
+ testcases/kernel/containers/mqns/{common.h => mqns.h} | 0
+ testcases/kernel/containers/mqns/mqns_01.c            | 2 +-
+ testcases/kernel/containers/mqns/mqns_02.c            | 2 +-
+ testcases/kernel/containers/mqns/mqns_03.c            | 2 +-
+ testcases/kernel/containers/mqns/mqns_04.c            | 2 +-
+ 5 files changed, 4 insertions(+), 4 deletions(-)
+ rename testcases/kernel/containers/mqns/{common.h => mqns.h} (100%)
 
-diff --git a/testcases/kernel/containers/mqns/Makefile b/testcases/kernel/containers/mqns/Makefile
-index 64c3763ee..eb0f97c2b 100644
---- a/testcases/kernel/containers/mqns/Makefile
-+++ b/testcases/kernel/containers/mqns/Makefile
-@@ -1,29 +1,12 @@
--################################################################################
--##                                                                            ##
--## Copyright (c) International Business Machines  Corp., 2009                 ##
--## Copyright (c) Nadia Derbey, 2009                                           ##
--##                                                                            ##
--## This program is free software;  you can redistribute it and#or modify      ##
--## it under the terms of the GNU General Public License as published by       ##
--## the Free Software Foundation; either version 2 of the License, or          ##
--## (at your option) any later version.                                        ##
--##                                                                            ##
--## This program is distributed in the hope that it will be useful, but        ##
--## WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY ##
--## or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License   ##
--## for more details.                                                          ##
--##                                                                            ##
--## You should have received a copy of the GNU General Public License          ##
--## along with this program;  if not, write to the Free Software               ##
--## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA    ##
--##                                                                            ##
--################################################################################
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+# Copyright (c) International Business Machines  Corp., 2009
-+# Copyright (c) Nadia Derbey, 2009 
-+# Copyright (C) 2021 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
+diff --git a/testcases/kernel/containers/mqns/common.h b/testcases/kernel/containers/mqns/mqns.h
+similarity index 100%
+rename from testcases/kernel/containers/mqns/common.h
+rename to testcases/kernel/containers/mqns/mqns.h
+diff --git a/testcases/kernel/containers/mqns/mqns_01.c b/testcases/kernel/containers/mqns/mqns_01.c
+index a34dc4f66..7e62ab3d6 100644
+--- a/testcases/kernel/containers/mqns/mqns_01.c
++++ b/testcases/kernel/containers/mqns/mqns_01.c
+@@ -12,7 +12,7 @@
+  * the isolated/forked child namespace.
+  */
  
- top_srcdir		?= ../../../..
+-#include "common.h"
++#include "mqns.h"
  
- include $(top_srcdir)/include/mk/testcases.mk
--include $(abs_srcdir)/../Makefile.inc
+ #define MQNAME "/MQ1"
  
--LDLIBS			:= -lpthread -lrt -lclone $(LDLIBS)
-+LDLIBS			:= -lpthread -lrt $(LDLIBS)
+diff --git a/testcases/kernel/containers/mqns/mqns_02.c b/testcases/kernel/containers/mqns/mqns_02.c
+index 4383fef73..59d483be7 100644
+--- a/testcases/kernel/containers/mqns/mqns_02.c
++++ b/testcases/kernel/containers/mqns/mqns_02.c
+@@ -12,7 +12,7 @@
+  * then check namespace isolation.
+  */
  
- include $(top_srcdir)/include/mk/generic_leaf_target.mk
-diff --git a/testcases/kernel/containers/mqns/mqns.h b/testcases/kernel/containers/mqns/mqns.h
-deleted file mode 100644
-index 5a9056838..000000000
---- a/testcases/kernel/containers/mqns/mqns.h
-+++ /dev/null
-@@ -1,11 +0,0 @@
--#ifndef __MQNS_H
--#define __MQNS_H
--
--#define DEV_MQUEUE "/dev/mqueue"
--#define DEV_MQUEUE2 "/dev/mqueue2"
--#define SLASH_MQ1 "/MQ1"
--#define NOSLASH_MQ1 "MQ1"
--#define SLASH_MQ2 "/MQ2"
--#define NOSLASH_MQ2 "MQ2"
--
--#endif /* __MQNS_H */
-diff --git a/testcases/kernel/containers/mqns/mqns_helper.h b/testcases/kernel/containers/mqns/mqns_helper.h
-deleted file mode 100644
-index 605378d48..000000000
---- a/testcases/kernel/containers/mqns/mqns_helper.h
-+++ /dev/null
-@@ -1,56 +0,0 @@
--/*
-- * Copyright (c) International Business Machines Corp., 2009
-- * Copyright (c) Nadia Derbey, 2009
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License as published by
-- * the Free Software Foundation; either version 2 of the License, or
-- * (at your option) any later version.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
-- * the GNU General Public License for more details.
-- * You should have received a copy of the GNU General Public License
-- * along with this program; if not, write to the Free Software
-- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
-- *
-- * Author: Serge Hallyn <serue@us.ibm.com>
-- ***************************************************************************/
--#include <sys/mount.h>
--#include <sys/stat.h>
--#include <sys/types.h>
--#include <mqueue.h>
--#include "../libclone/libclone.h"
--#include "lapi/syscalls.h"
--#include "safe_macros.h"
--#include "test.h"
--
--static int dummy_child(void *v)
--{
--	(void) v;
--	return 0;
--}
--
--static void check_mqns(void)
--{
--	int pid, status;
--	mqd_t mqd;
--
--	if (tst_kvercmp(2, 6, 30) < 0)
--		tst_brkm(TCONF, NULL, "Kernel version is lower than expected");
--
--	mq_unlink("/checkmqnsenabled");
--	mqd =
--	    mq_open("/checkmqnsenabled", O_RDWR | O_CREAT | O_EXCL, 0777, NULL);
--	if (mqd == -1)
--		tst_brkm(TCONF, NULL, "mq_open check failed");
--
--	mq_close(mqd);
--	mq_unlink("/checkmqnsenabled");
--
--	pid = do_clone_unshare_test(T_CLONE, CLONE_NEWIPC, dummy_child, NULL);
--	if (pid == -1)
--		tst_brkm(TCONF | TERRNO, NULL, "CLONE_NEWIPC not supported");
--
--	SAFE_WAIT(NULL, &status);
--}
+-#include "common.h"
++#include "mqns.h"
+ 
+ #define MQNAME "/MQ1"
+ 
+diff --git a/testcases/kernel/containers/mqns/mqns_03.c b/testcases/kernel/containers/mqns/mqns_03.c
+index 5914a2a9b..54ba54304 100644
+--- a/testcases/kernel/containers/mqns/mqns_03.c
++++ b/testcases/kernel/containers/mqns/mqns_03.c
+@@ -25,7 +25,7 @@
+ #define _GNU_SOURCE
+ 
+ #include <stdio.h>
+-#include "common.h"
++#include "mqns.h"
+ #include "tst_safe_stdio.h"
+ 
+ #define MQNAME1 "/MQ1"
+diff --git a/testcases/kernel/containers/mqns/mqns_04.c b/testcases/kernel/containers/mqns/mqns_04.c
+index 95ff18ef2..b3f538592 100644
+--- a/testcases/kernel/containers/mqns/mqns_04.c
++++ b/testcases/kernel/containers/mqns/mqns_04.c
+@@ -24,7 +24,7 @@
+ #define _GNU_SOURCE
+ 
+ #include <stdio.h>
+-#include "common.h"
++#include "mqns.h"
+ #include "tst_safe_stdio.h"
+ 
+ #define CHECK_MQ_OPEN_RET(x) ((x) >= 0 || ((x) == -1 && errno != EMFILE))
 -- 
 2.35.3
 
