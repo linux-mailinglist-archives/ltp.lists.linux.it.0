@@ -2,79 +2,78 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2044581C07
-	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jul 2022 00:15:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02242581C09
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jul 2022 00:15:41 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B21A03C53F1
-	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jul 2022 00:15:15 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A8EE33C6D07
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jul 2022 00:15:40 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 5F3903C4FC3
- for <ltp@lists.linux.it>; Wed, 27 Jul 2022 00:14:17 +0200 (CEST)
-Received: from smtp-relay-internal-1.canonical.com
- (smtp-relay-internal-1.canonical.com [185.125.188.123])
+ by picard.linux.it (Postfix) with ESMTPS id BDDCD3C278D
+ for <ltp@lists.linux.it>; Wed, 27 Jul 2022 00:14:18 +0200 (CEST)
+Received: from smtp-relay-internal-0.canonical.com
+ (smtp-relay-internal-0.canonical.com [185.125.188.122])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id CD603601222
- for <ltp@lists.linux.it>; Wed, 27 Jul 2022 00:14:16 +0200 (CEST)
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
- [209.85.216.69])
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 511C6601091
+ for <ltp@lists.linux.it>; Wed, 27 Jul 2022 00:14:18 +0200 (CEST)
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
+ [209.85.216.71])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 4C71C3F12F
+ by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id E4E653F143
  for <ltp@lists.linux.it>; Tue, 26 Jul 2022 22:14:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
  s=20210705; t=1658873656;
- bh=uGNa8QdHMz0k2ooFiK8T8MMz532JCzb7s2Y8B8pZR2s=;
+ bh=jysWCjcxIAPk7IKTvtSbkugKMztdMLqt9NW8Rk4VPRU=;
  h=From:To:Subject:Date:Message-Id:In-Reply-To:References:
  MIME-Version;
- b=s5ZC6KKcXAJU+iqSCkOQUoiQi/wzxdr8dq5Yav3mjSKpOqe5NtVYtruGpSgr2SrpE
- 7uxYXm5xhWMLVi7d/2ZqxptNhNZbGHZi9NXzKGJf90BTpMpEiVwp1ikccfF/bD2rkU
- rUsuXdyxdvd+6KwMUxgqfeyknOlxVQEOB2yvAeC3FB/LEGoXSWRy3vCpePuV95Umy1
- lQZDGkq4JQUNj5FJ1P61eE/8KRbOO5DB7vYYP7KuqpR+/cRNbjPfxoGPwpi8yI5NBC
- n8Q4XkMZIRgRYDmX4EflIISRLH/dbO/V6EPJj7/agoJpnIo69n1rASasmwZQxENS2x
- oVYL9TtbndVVw==
-Received: by mail-pj1-f69.google.com with SMTP id
- d21-20020a17090ae29500b001f2042edb63so6334595pjz.8
+ b=mIndPrZJodsLJMwhHSn9lxp/L3FP7P69gdZCyVDmjzkgPNqEwcZhYvqR7+R14mNzy
+ yO+3/LtcQAEu1s9Zae8p0eMAxOFuWIyXK+tE0gcG/9Hdi8GxO4cMUC/xY43UXZsNAg
+ Kg4ebLTrH4Ytn6OngndDJgtq+64SscWBNlGvABOrjOdUH+xEe1Ipd2o41hRfJP4NEZ
+ 91g9C8Ux28aWC6z/mq1GsBB2MrzbJkoriMMC8TNboKRqN73nsXGdjGv90TUejtfuQd
+ 78uBgXHQAGHn5XloWgrVoQRothEGScbkTjvXZL07RaclWAT7nSn/hVp2d9Wz5SJaZ1
+ 2UdOHhyIWg/mw==
+Received: by mail-pj1-f71.google.com with SMTP id
+ o13-20020a17090ab88d00b001f1ef2109aaso131361pjr.2
  for <ltp@lists.linux.it>; Tue, 26 Jul 2022 15:14:16 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:x-gm-message-state:from:to:cc;
- bh=uGNa8QdHMz0k2ooFiK8T8MMz532JCzb7s2Y8B8pZR2s=;
- b=So6jheHk2AVFDaFl7aXgf2dWjG5rm6sLxazXtPB0FrbRXLjH2rmJlxda7hg/9lGh+y
- fjCxwCACAeLVsoDz8Bj0fMEX+9U4vmL+z6LMWc2ZNVXryJu7hW+S88YkyXjwFMxMmyE1
- TtEYlIK4ePQLXnN7mK/9R9bZN2IFLMu2N0QtqfjJRH4KiRi/9r5NR0Ubz+oIgrjPGspX
- IFjmzwFs/GtLjbtFwOHh2CpaPVOSfYRk1BpkveX4W676lCHeEi2SrfHkEclVWa75KgqZ
- SMIkQB1JKUkJbxDc7wGgPqa1DiyVQ1lZV3Qu+oY143R9A/Y/CrTtdbKJDdrU9Sv+rAjr
- dYhw==
-X-Gm-Message-State: AJIora+82LlJ9VnjjiewI7yKkc5rXaUrba3sdzRxXdemU3UqGZtxcan5
- KpnkzZoTXsA99iK6RqtJAjw99yO/9CDhEKxxCXM/jfw/HXe8Eu9JZVUsUOGajg5fPk68VmiMDUD
- OSxeTqhQwkS1YecOVik6Jgxv15Jng
-X-Received: by 2002:a05:6a00:10cf:b0:528:48c3:79e0 with SMTP id
- d15-20020a056a0010cf00b0052848c379e0mr18713334pfu.18.1658873653536; 
- Tue, 26 Jul 2022 15:14:13 -0700 (PDT)
-X-Google-Smtp-Source: AGRyM1teQkeMJzIHnNBKPwH/tUCuBK+rWQB7cb0Usy8KAiFrWnSVv/lQbEqzCkmH1rSYxgLjA85MbQ==
-X-Received: by 2002:a05:6a00:10cf:b0:528:48c3:79e0 with SMTP id
- d15-20020a056a0010cf00b0052848c379e0mr18713319pfu.18.1658873653177; 
- Tue, 26 Jul 2022 15:14:13 -0700 (PDT)
+ bh=jysWCjcxIAPk7IKTvtSbkugKMztdMLqt9NW8Rk4VPRU=;
+ b=p18QFqYa8KHZrabRlBPg5bWgG8I3RZmo2LaNeruo4OsPAhiooJCkAUxcBRYcVafH1d
+ xvHCLBc8VCvS39pN6VNC+lu9aX8e6pnmyVNS3neg3/lp90PN6TBt/Ek+ZvEhXjyY6bnl
+ z5mE1V3ix2ubgs0m7rGXVagIY18BrpSfDVris1W2v+Knu8OVcua8BjnaaSbCT/nm6qOL
+ ORwYSSgM2nuIjKkhPptDBs9vs1nfoI5sLL/8PsogtVV+Q6Cvj1eFoqL9pzrUtXGFVrqX
+ d7pOAiokeay/MO4nDHZ7CoYN7KyF2VSdHQv/k+1mq2T9pkG+/kHukJG1wtozJP26pfqR
+ C+hA==
+X-Gm-Message-State: AJIora9XGw+Ztg1swDa4y2COl3+UoZbQUwFINmOX9j4uS33Fxxwv6yo3
+ Qzc5Wz5JNFl+yb9YTmFkj2wyQ3LLOABscUU0K5+O/EWZXGWvKL19eJNnZpqBE8LkkEGZsk2aCzk
+ QqvosEwyxfLebi/VRtjdQ1oHAGN8f
+X-Received: by 2002:a05:6a00:24c6:b0:52b:ee89:eca9 with SMTP id
+ d6-20020a056a0024c600b0052bee89eca9mr14798666pfv.78.1658873654979; 
+ Tue, 26 Jul 2022 15:14:14 -0700 (PDT)
+X-Google-Smtp-Source: AGRyM1tbbG3NYV9vzD9AXXCnJ40rR5xdibJN0S2T5E1YIxpjkfS55jOiqjIKx6sOX9DQ4Ltiwc2e5g==
+X-Received: by 2002:a05:6a00:24c6:b0:52b:ee89:eca9 with SMTP id
+ d6-20020a056a0024c600b0052bee89eca9mr14798650pfv.78.1658873654643; 
+ Tue, 26 Jul 2022 15:14:14 -0700 (PDT)
 Received: from luke-ubuntu.buildd (cpe-75-80-146-43.san.res.rr.com.
  [75.80.146.43]) by smtp.gmail.com with ESMTPSA id
- a13-20020a1709027e4d00b0015e9f45c1f4sm12069308pln.186.2022.07.26.15.14.12
+ a13-20020a1709027e4d00b0015e9f45c1f4sm12069308pln.186.2022.07.26.15.14.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 26 Jul 2022 15:14:12 -0700 (PDT)
+ Tue, 26 Jul 2022 15:14:13 -0700 (PDT)
 From: Luke Nowakowski-Krijger <luke.nowakowskikrijger@canonical.com>
 To: ltp@lists.linux.it, rpalethorpe@suse.de, liwang@redhat.com, pvorel@suse.cz,
  chrubis@suse.cz
-Date: Tue, 26 Jul 2022 15:13:22 -0700
-Message-Id: <4688f4cff888ae1131c5dbab7cb52a3ac93d8a6e.1658872195.git.luke.nowakowskikrijger@canonical.com>
+Date: Tue, 26 Jul 2022 15:13:23 -0700
+Message-Id: <2c68a75ab8936690f007adbb398fd6d29f3cf529.1658872195.git.luke.nowakowskikrijger@canonical.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1658872195.git.luke.nowakowskikrijger@canonical.com>
 References: <cover.1658872195.git.luke.nowakowskikrijger@canonical.com>
@@ -85,7 +84,7 @@ X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v6 06/10] controllers: Update memcg_stress_test to use
+Subject: [LTP] [PATCH v6 07/10] controllers: update memcg/functional to use
  newer cgroup lib
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -103,90 +102,157 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Update the test to use the newer cgroup lib which enables the testing of
-both v1 and v2 memory controllers and makes the setup and cleanup much
-simpler.
+Update memcg_lib.sh to uses the newer cgroup lib to cleanup the mounting
+and checking of the memory controller.
+
+There are still some tests that make sense for v2 and should be modified
+in a future patch, but since most of the tests are testing specific v1
+memory controller features lets just skip it for now if v2 is mounted.
 
 Signed-off-by: Luke Nowakowski-Krijger <luke.nowakowskikrijger@canonical.com>
 ---
-v2->v6: None
+v2->v6: Fixed spelling mistakes reported by checkpatch
 
- .../memcg/stress/memcg_stress_test.sh         | 32 +++++++------------
- 1 file changed, 12 insertions(+), 20 deletions(-)
+ .../memcg/functional/memcg_force_empty.sh     |  2 +-
+ .../controllers/memcg/functional/memcg_lib.sh | 54 ++++++++++---------
+ 2 files changed, 30 insertions(+), 26 deletions(-)
 
-diff --git a/testcases/kernel/controllers/memcg/stress/memcg_stress_test.sh b/testcases/kernel/controllers/memcg/stress/memcg_stress_test.sh
-index fa0df3196..d38c650ea 100755
---- a/testcases/kernel/controllers/memcg/stress/memcg_stress_test.sh
-+++ b/testcases/kernel/controllers/memcg/stress/memcg_stress_test.sh
-@@ -21,10 +21,16 @@ TST_TIMEOUT=2100
+diff --git a/testcases/kernel/controllers/memcg/functional/memcg_force_empty.sh b/testcases/kernel/controllers/memcg/functional/memcg_force_empty.sh
+index 23a4bd04d..580468784 100755
+--- a/testcases/kernel/controllers/memcg/functional/memcg_force_empty.sh
++++ b/testcases/kernel/controllers/memcg/functional/memcg_force_empty.sh
+@@ -50,7 +50,7 @@ test6()
+ {
+ 	# writing to non-empty top mem cgroup's force_empty
+ 	# should return failure
+-	EXPECT_FAIL echo 1 \> /dev/memcg/memory.force_empty
++	EXPECT_FAIL echo 1 \> "$mount_point/memory.force_empty"
+ }
  
- setup()
+ . memcg_lib.sh
+diff --git a/testcases/kernel/controllers/memcg/functional/memcg_lib.sh b/testcases/kernel/controllers/memcg/functional/memcg_lib.sh
+index 96d26ef2d..a89e24485 100755
+--- a/testcases/kernel/controllers/memcg/functional/memcg_lib.sh
++++ b/testcases/kernel/controllers/memcg/functional/memcg_lib.sh
+@@ -16,20 +16,20 @@ TST_TESTFUNC=memcg_testfunc
+ 
+ memcg_require_memsw()
+ {
+-	if ! [ -e /dev/memcg/memory.limit_in_bytes ]; then
+-		tst_brk TBROK "/dev/memcg must be mounted before calling memcg_require_memsw"
++	if ! [ -e "$mount_point/memory.limit_in_bytes" ]; then
++		tst_brk TBROK "$mount_point must be mounted before calling memcg_require_memsw"
+ 	fi
+-	if ! [ -e /dev/memcg/memory.memsw.limit_in_bytes ]; then
++	if ! [ -e "$mount_point/memory.memsw.limit_in_bytes" ]; then
+ 		tst_brk TCONF "mem+swap is not enabled"
+ 	fi
+ }
+ 
+ memcg_require_hierarchy_disabled()
+ {
+-	if [ ! -e "/dev/memcg/memory.use_hierarchy" ]; then
+-		tst_brk TBROK "/dev/memcg must be mounted before calling memcg_require_hierarchy_disabled"
++	if [ ! -e "$mount_point/memory.use_hierarchy" ]; then
++		tst_brk TBROK "$mount_point must be mounted before calling memcg_require_hierarchy_disabled"
+ 	fi
+-	if [ $(cat /dev/memcg/memory.use_hierarchy) -eq 1 ]; then
++	if [ "$(cat "$mount_point/memory.use_hierarchy")" -eq 1 ]; then
+ 		tst_brk TCONF "Test requires root cgroup memory.use_hierarchy=0"
+ 	fi
+ }
+@@ -71,12 +71,19 @@ memcg_adjust_limit_for_kmem()
+ 
+ memcg_setup()
  {
 -	if ! is_cgroup_subsystem_available_and_enabled "memory"; then
 -		tst_brk TCONF "Either kernel does not support Memory Resource Controller or feature not enabled"
 +	cgroup_require "memory"
 +	cgroup_version=$(cgroup_get_version "memory")
-+	test_path=$(cgroup_get_test_path "memory")
-+	task_list=$(cgroup_get_task_list "memory")
++
++	# Most of the tests here are testing specific parts of the cgroup v1 memory interface that is
++	# not present for cgroup2, so if it is already mounted on a cgroup v2 hierarchy we should skip
++	# the test.
++	# Some tests still make sense in v2 and should be modified in a future patch
 +	if [ "$cgroup_version" = "2" ]; then
-+		ROD echo "+memory" > "$test_path/cgroup.subtree_control"
++		tst_brk TCONF "memory controller mounted on cgroup v2 hierarchy, skipping test."
  	fi
  
-+	tst_res TINFO "test starts with cgroup version $cgroup_version"
-+
- 	echo 3 > /proc/sys/vm/drop_caches
- 	sleep 2
- 	local mem_free=`cat /proc/meminfo | grep MemFree | awk '{ print $2 }'`
-@@ -41,18 +47,7 @@ setup()
+-	ROD mkdir /dev/memcg
+-	ROD mount -t cgroup -omemory memcg /dev/memcg
++	mount_point=$(cgroup_get_mountpoint "memory")
++	test_dir=$(cgroup_get_test_path "memory")
  
- cleanup()
- {
--	if [ -e /dev/memcg ]; then
--		EXPECT_PASS umount /dev/memcg
--		EXPECT_PASS rmdir /dev/memcg
+ 	# For kernels older than v5.11 the default value for
+ 	# memory.use_hierarchy is 0 and some of tests (memcg_stat_test.sh and
+@@ -89,15 +96,15 @@ memcg_setup()
+ 	# Starting with kernel v5.11, the non-hierarchical mode is not
+ 	# available. See Linux kernel commit bef8620cd8e0 ("mm: memcg:
+ 	# deprecate the non-hierarchical mode").
+-	orig_memory_use_hierarchy=$(cat /dev/memcg/memory.use_hierarchy)
++	orig_memory_use_hierarchy=$(cat "$mount_point/memory.use_hierarchy")
+ 	if [ -z "$orig_memory_use_hierarchy" ];then
+-		tst_res TINFO "cat /dev/memcg/ failed"
++		tst_res TINFO "cat $mount_point failed"
+ 	elif [ "$orig_memory_use_hierarchy" = "0" ];then
+ 		orig_memory_use_hierarchy=""
+ 	else
+-		echo 0 > /dev/memcg/memory.use_hierarchy 2>/dev/null
++		echo 0 > "$mount_point/memory.use_hierarchy" 2>/dev/null
+ 		if [ $? -ne 0 ];then
+-			tst_res TINFO "set /dev/memcg/memory.use_hierarchy to 0 failed"
++			tst_res TINFO "set $mount_point/memory.use_hierarchy to 0 failed"
+ 		fi
+ 	fi
+ 
+@@ -110,22 +117,19 @@ memcg_cleanup()
+ 
+ 	cd $TST_TMPDIR
+ 	# In order to remove all subgroups, we have to remove them recursively
+-	if [ -e /dev/memcg/ltp_$$ ]; then
+-		ROD find /dev/memcg/ltp_$$ -depth -type d -delete
++	if [ -e $test_dir ]; then
++		ROD find $test_dir -depth -type d -delete
+ 	fi
+ 
+ 	if [ -n "$orig_memory_use_hierarchy" ];then
+-		echo $orig_memory_use_hierarchy > /dev/memcg/memory.use_hierarchy
++		echo $orig_memory_use_hierarchy > $mount_point/memory.use_hierarchy
+ 		if [ $? -ne 0 ];then
+-			tst_res TINFO "restore /dev/memcg/memory.use_hierarchy failed"
++			tst_res TINFO "restore $mount_point/memory.use_hierarchy failed"
+ 		fi
+ 		orig_memory_use_hierarchy=""
+ 	fi
+ 
+-	if [ -e "/dev/memcg" ]; then
+-		umount /dev/memcg
+-		rmdir /dev/memcg
 -	fi
--}
--
--do_mount()
--{
--	cleanup
--
--	EXPECT_PASS mkdir /dev/memcg
--	EXPECT_PASS mount -t cgroup -omemory memcg /dev/memcg
 +	cgroup_cleanup
+ 
+ 	[ "$MEMCG_SHMMAX" = "1" ] && shmmax_cleanup
+ }
+@@ -369,8 +373,8 @@ test_limit_in_bytes()
+ 
+ memcg_testfunc()
+ {
+-	ROD mkdir /dev/memcg/ltp_$$
+-	cd /dev/memcg/ltp_$$
++	ROD mkdir $test_dir/ltp_$$
++	cd $test_dir/ltp_$$
+ 
+ 	if type ${MEMCG_TESTFUNC}1 > /dev/null 2>&1; then
+ 		${MEMCG_TESTFUNC}$1 $1 "$2"
+@@ -379,7 +383,7 @@ memcg_testfunc()
+ 	fi
+ 
+ 	cd $TST_TMPDIR
+-	ROD rmdir /dev/memcg/ltp_$$
++	ROD rmdir $test_dir/ltp_$$
  }
  
- # $1 Number of cgroups
-@@ -69,13 +64,11 @@ run_stress()
- 
- 	tst_res TINFO "Testing $cgroups cgroups, using $mem_size MB, interval $interval"
- 
--	do_mount
--
- 	tst_res TINFO "Starting cgroups"
- 	for i in $(seq 0 $(($cgroups-1))); do
--		mkdir /dev/memcg/$i 2> /dev/null
-+		ROD mkdir "$test_path/$i"
- 		memcg_process_stress $mem_size $interval &
--		echo $! > /dev/memcg/$i/tasks
-+		ROD echo $! > "$test_path/$i/$task_list"
- 		pids="$pids $!"
- 	done
- 
-@@ -91,12 +84,11 @@ run_stress()
- 	for pid in $pids; do
- 		kill -KILL $pid 2> /dev/null
- 		wait $pid 2> /dev/null
--		rmdir /dev/memcg/$i 2> /dev/null
-+		ROD rmdir "$test_path/$i"
- 		i=$((i+1))
- 	done
- 
- 	tst_res TPASS "Test passed"
--	cleanup
- }
- 
- test1()
+ memcg_no_testfunc()
 -- 
 2.34.1
 
