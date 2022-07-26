@@ -1,76 +1,67 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EE165813F3
-	for <lists+linux-ltp@lfdr.de>; Tue, 26 Jul 2022 15:12:30 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 526A358143B
+	for <lists+linux-ltp@lfdr.de>; Tue, 26 Jul 2022 15:33:29 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 59B4F3C98BA
-	for <lists+linux-ltp@lfdr.de>; Tue, 26 Jul 2022 15:12:30 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 5AEFD3C9876
+	for <lists+linux-ltp@lfdr.de>; Tue, 26 Jul 2022 15:33:28 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 8745F3C9427
- for <ltp@lists.linux.it>; Tue, 26 Jul 2022 15:12:29 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id ED2CA3C87C6
+ for <ltp@lists.linux.it>; Tue, 26 Jul 2022 15:33:26 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 1D9E76011AE
- for <ltp@lists.linux.it>; Tue, 26 Jul 2022 15:12:28 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 50CFA2009A0
+ for <ltp@lists.linux.it>; Tue, 26 Jul 2022 15:33:25 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1658842404;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=H/xEXpZKQSOWgowJwQGcTGwUSsyavwKAFWmIgYGKeeA=;
+ b=I/VVb6BEEfclFz9tYXbiyg8OYzXoLRj5Y/PoyUirvme9gPzVnJEcJApLs/+s1i1GyH2uPQ
+ jB+gOpsk9cMkguJjGEyAe0HWU8oZAIhQvxYsW23YNSa1ubxDOiqpt5nVgLcO14CLUPtY7J
+ v1Z9VAUV9joCSpKPLtnsgcogcWeGrJI=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-527-OmRw39-pMO2ZcM3Sv__uMw-1; Tue, 26 Jul 2022 09:33:23 -0400
+X-MC-Unique: OmRw39-pMO2ZcM3Sv__uMw-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 543111FBA0;
- Tue, 26 Jul 2022 13:12:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1658841148;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=mIV0TqFk+nGTbdOaeNXczfRH2L5f/06eNREkuEEpAfQ=;
- b=ZebgD1fk+Gv0AxgAj8N4t0gyZRBVay90FGt4TU3X5QAAhsFSdyB+z72w+ue8kZY6g1kLuL
- EpelpmmWHdjYYiHcLSUPqTZeS6fRd/XuZO0wfASzstDYEYvnY+hTpZ5VfQdthr24orc7AE
- yw2zpukTSRCIbfH0LIagaNy7F0tQeCY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1658841148;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=mIV0TqFk+nGTbdOaeNXczfRH2L5f/06eNREkuEEpAfQ=;
- b=I8yvRTSnBVMqnFimR528I3hbIXF8O73KxSfc7VVgfAZLXXI4FadYByoC39y9ibkOK02Q46
- 8KFThjup6Z89pkDQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 252C613A7C;
- Tue, 26 Jul 2022 13:12:28 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id U5+NBzzo32LVFgAAMHmgww
- (envelope-from <pvorel@suse.cz>); Tue, 26 Jul 2022 13:12:28 +0000
-Date: Tue, 26 Jul 2022 15:12:26 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Luke Nowakowski-Krijger <luke.nowakowskikrijger@canonical.com>
-Message-ID: <Yt/oOuaJU3ExV5f9@pevik>
-References: <cover.1658433280.git.luke.nowakowskikrijger@canonical.com>
- <d2355625a3b0bd7cac07fc2e80098ca2c59d10b1.1658433280.git.luke.nowakowskikrijger@canonical.com>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 193A43821C07
+ for <ltp@lists.linux.it>; Tue, 26 Jul 2022 13:33:23 +0000 (UTC)
+Received: from janakin.usersys.redhat.com (unknown [10.22.34.215])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id BCAB840E80E0
+ for <ltp@lists.linux.it>; Tue, 26 Jul 2022 13:33:22 +0000 (UTC)
+From: Jan Stancek <jstancek@redhat.com>
+To: ltp@lists.linux.it
+Date: Tue, 26 Jul 2022 15:33:15 +0200
+Message-Id: <6a56618714e577c437a489a6050e3d29c2236022.1658842322.git.jstancek@redhat.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <d2355625a3b0bd7cac07fc2e80098ca2c59d10b1.1658433280.git.luke.nowakowskikrijger@canonical.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=jstancek@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v5 10/18] controllers: Expand cgroup_lib shell
- library
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH] syscalls/accept4_01: don't hardcode port number for
+ test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,96 +73,64 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Luke,
+Leave it to bind() to pick a free port number.
 
-...
-> +# Gets the cgroup version of the given controller
-> +# USAGE: cgroup_get_version CONTROLLER
-> +# RETURNS: "1" if version 1 and "2" if version 2
-> +# Must call cgroup_require before calling
-> +cgroup_get_version()
->  {
-> -	local subsystem=$1
-> -	local mntpoint
-> +	local ctrl="$1"
-> +	local version
+Signed-off-by: Jan Stancek <jstancek@redhat.com>
+---
+ testcases/kernel/syscalls/accept4/accept4_01.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-> -	[ $# -eq 0 ] && tst_brk TBROK "get_cgroup_mountpoint: subsystem not defined"
-> +	[ $# -eq 0 ] && tst_brk TBROK "cgroup_get_version: controller not defined"
-NOTE: this will always pass, because you pass variable in ""
-(thus $1 = "" and $# = 1):
-cgroup_get_task_list()
-{
-	local ctrl="$1"
-	version=$(cgroup_get_version "$ctrl")
+diff --git a/testcases/kernel/syscalls/accept4/accept4_01.c b/testcases/kernel/syscalls/accept4/accept4_01.c
+index 58115ea43213..b2f785d0a6aa 100644
+--- a/testcases/kernel/syscalls/accept4/accept4_01.c
++++ b/testcases/kernel/syscalls/accept4/accept4_01.c
+@@ -22,8 +22,6 @@
+ #include "lapi/fcntl.h"
+ #include "lapi/syscalls.h"
+ 
+-#define PORT_NUM 33333
+-
+ static const char *variant_desc[] = {
+ 	"libc accept4()",
+ 	"__NR_accept4 syscall",
+@@ -54,7 +52,7 @@ static int create_listening_socket(void)
+ 	memset(&svaddr, 0, sizeof(struct sockaddr_in));
+ 	svaddr.sin_family = AF_INET;
+ 	svaddr.sin_addr.s_addr = htonl(INADDR_ANY);
+-	svaddr.sin_port = htons(PORT_NUM);
++	svaddr.sin_port = 0;
+ 
+ 	lfd = SAFE_SOCKET(AF_INET, SOCK_STREAM, 0);
+ 
+@@ -68,14 +66,16 @@ static int create_listening_socket(void)
+ 
+ static void setup(void)
+ {
++	socklen_t slen = sizeof(*conn_addr);
++
+ 	tst_res(TINFO, "Testing variant: %s", variant_desc[tst_variant]);
+ 
++	listening_fd = create_listening_socket();
++
+ 	memset(conn_addr, 0, sizeof(*conn_addr));
+-	conn_addr->sin_family = AF_INET;
++	SAFE_GETSOCKNAME(listening_fd, (struct sockaddr *)conn_addr, &slen);
+ 	conn_addr->sin_addr.s_addr = htonl(INADDR_LOOPBACK);
+-	conn_addr->sin_port = htons(PORT_NUM);
+-
+-	listening_fd = create_listening_socket();
++	tst_res(TINFO, "server listening on: %d", ntohs(conn_addr->sin_port));
+ }
+ 
+ static void cleanup(void)
+-- 
+2.27.0
 
-> +	[ "$_cgroup_state" = "" ] && tst_brk TBROK "cgroup_get_version: No previous state found. Forgot to call cgroup_require?"
-
-> -	mntpoint=$(grep cgroup /proc/mounts | grep -w $subsystem | awk '{ print $2 }')
-> -	[ -z "$mntpoint" ] && return 1
-> +	version=$(echo "$_cgroup_state" | grep -w "^$ctrl" | awk '{ print $2 }')
-> +	[ "$version" = "" ] && tst_brk TBROK "cgroup_get_version: Could not find controller $ctrl"
-> +
-> +	echo "$version"
-
-> -	echo $mntpoint
->  	return 0
->  }
-...
-
-> +# Mounts and configures the given controller
-> +# USAGE: cgroup_require CONTROLLER
-> +cgroup_require()
-> +{
-> +	local ctrl="$1"
-> +
-> +	[ $# -eq 0 ] && tst_brk TBROK "cgroup_require: controller not defined"
-> +
-> +	[ ! -f /proc/cgroups ] && tst_brk TCONF "Kernel does not support control groups"
-> +
-> +	_cgroup_state=$(tst_cgctl require "$ctrl" $$)
-> +
-> +	if [ $? -eq 32 ]; then
-> +		tst_brk TCONF "'tst_cgctl require' exited. Controller is probably not available?"
-> +	fi
-> +
-> +	if [ $? -ne 0 ]; then
-> +		tst_brk TBROK "'tst_cgctl require' exited."
-> +	fi
-FYI if cgroup_require is called from cleanup function tst_brk does not exit the
-code:
-
-tst_brk()
-{
-	local res=$1
-	shift
-
-	if [ "$TST_DO_EXIT" = 1 ]; then
-		tst_res TWARN "$@"
-		return
-	fi
-
-	tst_res "$res" "$@"
-	_tst_do_exit
-}
-
-IMHO that means that $? became 0 even it was previously 32.
-It's always safer to save $? into local variable if needed to store exit code
-(otherwise using if, e.g. "if ! foo; then" is preferred).
-
-NOTE: Maybe at this point it might be safer if you post next version
-where you do fixes yourself. I'll try to review the rest of the shell scripts
-today (C code looks correct to me).
-
-Kind regards,
-Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
