@@ -2,52 +2,56 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42DD2581F88
-	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jul 2022 07:34:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A72D2581F9C
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jul 2022 07:42:24 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0A8B03C1D8F
-	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jul 2022 07:34:34 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 6F8FA3C1CEB
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jul 2022 07:42:24 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id EFD9F3C03F6
- for <ltp@lists.linux.it>; Wed, 27 Jul 2022 07:34:11 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 7AF313C0211
+ for <ltp@lists.linux.it>; Wed, 27 Jul 2022 07:42:23 +0200 (CEST)
 Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 95CF3601256
- for <ltp@lists.linux.it>; Wed, 27 Jul 2022 07:34:11 +0200 (CEST)
-Received: from ubuntu.localdomain (unknown [91.26.40.236])
- by mail.jv-coder.de (Postfix) with ESMTPSA id A1EA59F650;
- Wed, 27 Jul 2022 05:34:10 +0000 (UTC)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 9A4F7600273
+ for <ltp@lists.linux.it>; Wed, 27 Jul 2022 07:42:22 +0200 (CEST)
+Received: from [10.40.94.2] (unknown [91.26.40.236])
+ by mail.jv-coder.de (Postfix) with ESMTPSA id 788809FE82;
+ Wed, 27 Jul 2022 05:42:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
- t=1658900051; bh=xftxJJOz0F4GZ1SGdbmGj2+L9UQB0hwbYKD7aIVPRnE=;
- h=From:To:Subject:Date:Message-Id:MIME-Version;
- b=pSToZHuPxyXyBe+wghHw75rPmw1Ry0JkU+baF23FCCEKf9OudQfTL5ooH2KpUsQGi
- 0ztqNR3/+OSe+hR2mSdUoZMXvBm0hhOu13Z/JOb8Ydz3YAUcujr3Y50e+kbS6A0aWO
- kn61I+yJctFVc482al3W5PbbCJSh5gZWLYK8loq8=
-From: Joerg Vehlow <lkml@jv-coder.de>
-To: ltp@lists.linux.it,
-	chrubis@suse.cz,
-	rpalethorpe@suse.de
-Date: Wed, 27 Jul 2022 07:33:07 +0200
-Message-Id: <20220727053307.3009235-4-lkml@jv-coder.de>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220727053307.3009235-1-lkml@jv-coder.de>
-References: <20220727053307.3009235-1-lkml@jv-coder.de>
+ t=1658900541; bh=BOeKwZK8LZSWlQ78eVCpqUuKNPEiod6poQ8VEe7dAfU=;
+ h=Message-ID:Date:MIME-Version:Subject:To:From;
+ b=Pm17EH2AdDOoXxKNVNWC/QCpuNZ4g+VF/qYsHdp52Haz8ufU8WbqM83rW6wncwKg7
+ Boy4zesOs7BShzgHyuyU6aBqkTjETaNJFyghmIe/3OcKO3/+RZ5mL4FR1rJXxjmUlY
+ il2z9jiQ47bB35MHRNi3bGm2VeSXHzVOZxcVgN2g=
+Message-ID: <cadd0a8c-51a3-0ced-f0d7-eeaf15999f98@jv-coder.de>
+Date: Wed, 27 Jul 2022 07:42:20 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Content-Language: en-US
+To: rpalethorpe@suse.de
+References: <20220627125321.1560677-1-lkml@jv-coder.de>
+ <20220627125321.1560677-3-lkml@jv-coder.de> <87czekrseu.fsf@suse.de>
+ <874jzwrrvg.fsf@suse.de> <b33360f5-96ba-f7c3-9e86-f7966c260eb9@jv-coder.de>
+ <87zghoq9km.fsf@suse.de>
+From: Joerg Vehlow <lkml@jv-coder.de>
+In-Reply-To: <87zghoq9km.fsf@suse.de>
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
 X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: [LTP] [PATCH v2 3/3] configure: Integrate open posix testsuite
- configure
+Subject: Re: [LTP] [PATCH 2/3] openposix: Setup autoconf and fix
+ installation layout
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,84 +63,35 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Joerg Vehlow <joerg.vehlow@aox.de>
+Cc: ltp@lists.linux.it, Joerg Vehlow <joerg.vehlow@aox.de>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-From: Joerg Vehlow <joerg.vehlow@aox.de>
+Hi Richard
 
-This changes the default installation location
-of the open posix testsuite from
-$prefix
-to
-$prefix/testcases/open_posix_testsuite
+Am 7/5/2022 um 9:37 AM schrieb Richard Palethorpe:
+> Hello Joerg,
+> 
+> Joerg Vehlow <lkml@jv-coder.de> writes:
+> 
+> OK, so things are being installed twice and it is generally a
+> mess. This looks like a good cleanup.
+> 
+> However this really needs to be explained in the patchset. There
+> needs to be a clear description of where things have moved from and
+> to. In particular what someone needs to do if this breaks their test
+> runner scripts. This can then be copied into the LTP release notes.
 
-Scripts for execution of the testsuite (run-all-posix-option-group-tests.sh,
-run-posix-option-group-test.sh) will still be installed under $prefix/bin.
+I think this is explained now in v2 in the commit message.
 
-To revert back to the old installation behavior, just use
-./configure -with-open-posix-testdir=.
+> BTW IIRC we generate runtest files for the open posix tests and the test
+> runner handles them almost like normal LTP tests. We don't use any of
+> those scripts either.
+I was not able to find anything like this.
 
-Signed-off-by: Joerg Vehlow <joerg.vehlow@aox.de>
----
- configure.ac           | 11 +++++++++++
- include/mk/automake.mk |  7 ++++++-
- 2 files changed, 17 insertions(+), 1 deletion(-)
-
-diff --git a/configure.ac b/configure.ac
-index 69b145b5f..4256b3113 100644
---- a/configure.ac
-+++ b/configure.ac
-@@ -334,8 +334,19 @@ AC_ARG_WITH([open-posix-testsuite],
-   [with_open_posix_testsuite=$withval],
-   [with_open_posix_testsuite=no]
- )
-+
-+# Allow setting the directoy, where the open posix testsuite is installed to.
-+# If nothing is defined, we have to pass our default value to submake
-+AC_ARG_WITH([open-posix-testdir],
-+  [AS_HELP_STRING([--with-open-posix-testdir=<dir>],
-+    [set the directory, where the open posix testsuite will be installed under prefix])],
-+  [],
-+  [ac_configure_args="$ac_configure_args --with-open-posix-testdir=testcases/open_posix_testsuite"]
-+)
-+
- if test "x$with_open_posix_testsuite" = xyes; then
-     AC_SUBST([WITH_OPEN_POSIX_TESTSUITE],["yes"])
-+    AC_CONFIG_SUBDIRS([testcases/open_posix_testsuite])
- else
-     AC_SUBST([WITH_OPEN_POSIX_TESTSUITE],["no"])
- fi
-diff --git a/include/mk/automake.mk b/include/mk/automake.mk
-index 219d015d0..ee3b7f1b8 100644
---- a/include/mk/automake.mk
-+++ b/include/mk/automake.mk
-@@ -27,7 +27,8 @@ AUTOHEADER	?= autoheader
- AUTOMAKE	?= automake
- 
- AUTOCONFED_SUBDIRS	= \
--			testcases/realtime
-+			testcases/realtime \
-+			testcases/open_posix_testsuite
- 
- # We want to run this every single time to ensure that all of the prereq files
- # are there.
-@@ -35,6 +36,10 @@ AUTOCONFED_SUBDIRS	= \
- testcases/realtime/configure:
- 	$(MAKE) -C $(@D) autotools
- 
-+.PHONY: testcases/open_posix_testsuite/configure
-+testcases/open_posix_testsuite/configure:
-+	$(MAKE) -C $(@D) autotools
-+
- .PHONY: autotools
- autotools: aclocal autoconf autoheader automake $(addsuffix /configure,$(AUTOCONFED_SUBDIRS))
- 
--- 
-2.25.1
-
+Joerg
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
