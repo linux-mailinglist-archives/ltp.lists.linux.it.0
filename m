@@ -1,57 +1,69 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id A72D2581F9C
-	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jul 2022 07:42:24 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id DB55C581FF5
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jul 2022 08:12:09 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6F8FA3C1CEB
-	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jul 2022 07:42:24 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id D6A5A3C2A24
+	for <lists+linux-ltp@lfdr.de>; Wed, 27 Jul 2022 08:12:08 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 7AF313C0211
- for <ltp@lists.linux.it>; Wed, 27 Jul 2022 07:42:23 +0200 (CEST)
-Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
+ by picard.linux.it (Postfix) with ESMTPS id 7F4F53C0FB0
+ for <ltp@lists.linux.it>; Wed, 27 Jul 2022 08:12:04 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 9A4F7600273
- for <ltp@lists.linux.it>; Wed, 27 Jul 2022 07:42:22 +0200 (CEST)
-Received: from [10.40.94.2] (unknown [91.26.40.236])
- by mail.jv-coder.de (Postfix) with ESMTPSA id 788809FE82;
- Wed, 27 Jul 2022 05:42:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
- t=1658900541; bh=BOeKwZK8LZSWlQ78eVCpqUuKNPEiod6poQ8VEe7dAfU=;
- h=Message-ID:Date:MIME-Version:Subject:To:From;
- b=Pm17EH2AdDOoXxKNVNWC/QCpuNZ4g+VF/qYsHdp52Haz8ufU8WbqM83rW6wncwKg7
- Boy4zesOs7BShzgHyuyU6aBqkTjETaNJFyghmIe/3OcKO3/+RZ5mL4FR1rJXxjmUlY
- il2z9jiQ47bB35MHRNi3bGm2VeSXHzVOZxcVgN2g=
-Message-ID: <cadd0a8c-51a3-0ced-f0d7-eeaf15999f98@jv-coder.de>
-Date: Wed, 27 Jul 2022 07:42:20 +0200
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id ECD0D1000603
+ for <ltp@lists.linux.it>; Wed, 27 Jul 2022 08:12:02 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id E523D2040D;
+ Wed, 27 Jul 2022 06:12:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1658902320; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=ywhE+VgSbbARBZ8EUTcC2kmUchX/eivyrXzmSugl69s=;
+ b=pi1SI+i/DTLyt4lXFp/ccmn7LEljgI2LfsiAGY+etlSeq7gofnaqDLGiZbpNA+C9MdHjMx
+ JBzoT2rbLBsdUBervaY2F1vMLgnTlSFmveMlwrG7ltUboDdhmopV9FcMj8stjSjJly7BvA
+ brrI8YZrbCXunMEC0ipL2IDzbCKW/vE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1658902320;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=ywhE+VgSbbARBZ8EUTcC2kmUchX/eivyrXzmSugl69s=;
+ b=wa8HqrfpwKn/jGUxA30KvF7lOiL9Cd39zMKFplpxEfD4C1+KjrXnLTDtXqu0W5PzsoEz5Y
+ DCoi5e2U67DXgyCg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5F32C13A8E;
+ Wed, 27 Jul 2022 06:12:00 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id j+7oBzDX4GJWdAAAMHmgww
+ (envelope-from <akumar@suse.de>); Wed, 27 Jul 2022 06:12:00 +0000
+From: Avinesh Kumar <akumar@suse.de>
+To: ltp@lists.linux.it
+Date: Wed, 27 Jul 2022 11:41:57 +0530
+Message-Id: <20220727061157.30554-1-akumar@suse.de>
+X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Content-Language: en-US
-To: rpalethorpe@suse.de
-References: <20220627125321.1560677-1-lkml@jv-coder.de>
- <20220627125321.1560677-3-lkml@jv-coder.de> <87czekrseu.fsf@suse.de>
- <874jzwrrvg.fsf@suse.de> <b33360f5-96ba-f7c3-9e86-f7966c260eb9@jv-coder.de>
- <87zghoq9km.fsf@suse.de>
-From: Joerg Vehlow <lkml@jv-coder.de>
-In-Reply-To: <87zghoq9km.fsf@suse.de>
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH 2/3] openposix: Setup autoconf and fix
- installation layout
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH v2] fstat02.c: simplify using TST_EXP_*() macros
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,35 +75,102 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it, Joerg Vehlow <joerg.vehlow@aox.de>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Richard
+Signed-off-by: Avinesh Kumar <akumar@suse.de>
+---
+ testcases/kernel/syscalls/fstat/fstat02.c | 60 ++++-------------------
+ 1 file changed, 10 insertions(+), 50 deletions(-)
 
-Am 7/5/2022 um 9:37 AM schrieb Richard Palethorpe:
-> Hello Joerg,
-> 
-> Joerg Vehlow <lkml@jv-coder.de> writes:
-> 
-> OK, so things are being installed twice and it is generally a
-> mess. This looks like a good cleanup.
-> 
-> However this really needs to be explained in the patchset. There
-> needs to be a clear description of where things have moved from and
-> to. In particular what someone needs to do if this breaks their test
-> runner scripts. This can then be copied into the LTP release notes.
+diff --git a/testcases/kernel/syscalls/fstat/fstat02.c b/testcases/kernel/syscalls/fstat/fstat02.c
+index 2f9632edf..09f8fef59 100644
+--- a/testcases/kernel/syscalls/fstat/fstat02.c
++++ b/testcases/kernel/syscalls/fstat/fstat02.c
+@@ -4,17 +4,15 @@
+  *  07/2001 Ported by Wayne Boyer
+  *  05/2019 Ported to new library: Christian Amann <camann@suse.com>
+  */
+-/*
++
++/*\
++ * [Description]
++ *
+  * Tests if fstat() returns correctly and reports correct file information
+  * using the stat structure.
+  */
+ 
+-#include <errno.h>
+-#include <unistd.h>
+-#include <sys/stat.h>
+-#include <sys/types.h>
+ #include "tst_test.h"
+-#include "tst_safe_macros.h"
+ 
+ #define TESTFILE        "test_file"
+ #define LINK_TESTFILE   "link_test_file"
+@@ -29,50 +27,12 @@ static int fildes;
+ 
+ static void run(void)
+ {
+-	int fail = 0;
+-
+-	TEST(fstat(fildes, &stat_buf));
+-
+-	if (TST_RET != 0) {
+-		tst_res(TFAIL | TTERRNO, "fstat() failed");
+-		return;
+-	}
+-
+-	fail = 0;
+-	if (stat_buf.st_uid != user_id) {
+-		tst_res(TFAIL, "stat_buf.st_uid = %i expected %i",
+-			stat_buf.st_uid, user_id);
+-		fail++;
+-	}
+-
+-	if (stat_buf.st_gid != group_id) {
+-		tst_res(TFAIL, "stat_buf.st_gid = %i expected %i",
+-			stat_buf.st_gid, group_id);
+-		fail++;
+-	}
+-
+-	if (stat_buf.st_size != FILE_SIZE) {
+-		tst_res(TFAIL, "stat_buf.st_size = %li expected %i",
+-			(long)stat_buf.st_size, FILE_SIZE);
+-		fail++;
+-	}
+-
+-	if ((stat_buf.st_mode & 0777) != FILE_MODE) {
+-		tst_res(TFAIL, "stat_buf.st_mode = %o expected %o",
+-			(stat_buf.st_mode & 0777), FILE_MODE);
+-		fail++;
+-	}
+-
+-	if (stat_buf.st_nlink != NLINK) {
+-		tst_res(TFAIL, "stat_buf.st_nlink = %li expected %i",
+-			(long)stat_buf.st_nlink, NLINK);
+-		fail++;
+-	}
+-
+-	if (fail)
+-		return;
+-
+-	tst_res(TPASS, "fstat() reported correct values.");
++	TST_EXP_PASS(fstat(fildes, &stat_buf));
++	TST_EXP_EQ_LU(stat_buf.st_uid, user_id);
++	TST_EXP_EQ_LU(stat_buf.st_gid, group_id);
++	TST_EXP_EQ_LI(stat_buf.st_size, FILE_SIZE);
++	TST_EXP_EQ_LU(stat_buf.st_mode & 0777, FILE_MODE);
++	TST_EXP_EQ_LU(stat_buf.st_nlink, NLINK);
+ }
+ 
+ static void setup(void)
+-- 
+2.36.1
 
-I think this is explained now in v2 in the commit message.
-
-> BTW IIRC we generate runtest files for the open posix tests and the test
-> runner handles them almost like normal LTP tests. We don't use any of
-> those scripts either.
-I was not able to find anything like this.
-
-Joerg
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
