@@ -1,76 +1,79 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17DEE583DE2
-	for <lists+linux-ltp@lfdr.de>; Thu, 28 Jul 2022 13:43:06 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id D153D583E07
+	for <lists+linux-ltp@lfdr.de>; Thu, 28 Jul 2022 13:49:23 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id AFF693C793C
-	for <lists+linux-ltp@lfdr.de>; Thu, 28 Jul 2022 13:43:05 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 9EE033C86E6
+	for <lists+linux-ltp@lfdr.de>; Thu, 28 Jul 2022 13:49:22 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 33A723C2A24
- for <ltp@lists.linux.it>; Thu, 28 Jul 2022 13:43:00 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 6A4513C2A24
+ for <ltp@lists.linux.it>; Thu, 28 Jul 2022 13:49:18 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id EBEA4200D26
- for <ltp@lists.linux.it>; Thu, 28 Jul 2022 13:42:59 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 99C1B600D2B
+ for <ltp@lists.linux.it>; Thu, 28 Jul 2022 13:49:16 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 466E933E21
- for <ltp@lists.linux.it>; Thu, 28 Jul 2022 11:42:59 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 7E33B33FB7
+ for <ltp@lists.linux.it>; Thu, 28 Jul 2022 11:49:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1659008579; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
+ t=1659008956; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=GD9m/7UGmoN2yp6bLvRX59mjXHHF1S9KLQcp4+GPdRk=;
- b=piOPLZ6trpbI2NCXthfqQIXuN6ffHIjQ2FZyHwgeBjo+TTzKciUS2qXtNHHMxbVxk1Zpog
- HPUWTJNyTbICptEtE2mzzdjKxNEAVaeSa8APstJR62WwsDQUeX4jB4xRakXJxfoFuREChS
- s8Jc5tZEq4gFKExy+8aXJyGcKs8AgfQ=
+ bh=vh6ipDw1zMPtK7VUZE4MjHMBCFk897r9GCDspKnulDo=;
+ b=mFOZY5bh7KFDIALAJ1OfqSB1j7GYRolNSJkvxpPnyaGWbXa4Nj4oJ48Qi7EA/FT2gzNdcx
+ 9pZQ74tefnlATWCt1YvE+B06Z3kqU4p+vXgUAuFV8GlZ6LwpLgcBP+lKcpwKJ3JTRjv2fl
+ wAKtEAl4jWXm6au1YA6jIx+/7bRYVlU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1659008579;
+ s=susede2_ed25519; t=1659008956;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
+ mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=GD9m/7UGmoN2yp6bLvRX59mjXHHF1S9KLQcp4+GPdRk=;
- b=oFVs5YD6tUB/8xvE2iHzws0BrAcXKGznyamqUm9rPhq1BY2Xn8IucOMkTrU1W5pNBJwATw
- znD76M4Ph4sq5wCw==
+ bh=vh6ipDw1zMPtK7VUZE4MjHMBCFk897r9GCDspKnulDo=;
+ b=b7UqGOuveg+f3+20OT7Zk9PcYFNpD4HsBrcUFmTVNHeY7Dq7EOZCvopR01bEARLovWqqzx
+ FBuT4q4oI5EKjkCw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3561E13B05
- for <ltp@lists.linux.it>; Thu, 28 Jul 2022 11:42:59 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6F82E13A7E
+ for <ltp@lists.linux.it>; Thu, 28 Jul 2022 11:49:16 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id uE4VDEN24mLTEgAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id 45o8Grx34mILFgAAMHmgww
  (envelope-from <mdoucha@suse.cz>)
- for <ltp@lists.linux.it>; Thu, 28 Jul 2022 11:42:59 +0000
+ for <ltp@lists.linux.it>; Thu, 28 Jul 2022 11:49:16 +0000
+Message-ID: <b2ff91ff-d65c-325c-c07e-18dcc5fe1805@suse.cz>
+Date: Thu, 28 Jul 2022 13:49:16 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Content-Language: en-US
 From: Martin Doucha <mdoucha@suse.cz>
 To: ltp@lists.linux.it
-Date: Thu, 28 Jul 2022 13:42:58 +0200
-Message-Id: <20220728114258.30832-2-mdoucha@suse.cz>
-X-Mailer: git-send-email 2.36.1
-In-Reply-To: <20220728114258.30832-1-mdoucha@suse.cz>
 References: <20220728114258.30832-1-mdoucha@suse.cz>
-MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+ <20220728114258.30832-2-mdoucha@suse.cz>
+In-Reply-To: <20220728114258.30832-2-mdoucha@suse.cz>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/2] tst_rod: Fail on directory change commands
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_SOFTFAIL
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 2/2] tst_rod: Fail on directory change commands
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,36 +90,26 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Using tst_rod to check directory change success doesn't work. The command
-gets executed in a subprocess and will have no effect on the parent
-shell where the directory change is desired.
+On 28. 07. 22 13:42, Martin Doucha wrote:
+> Using tst_rod to check directory change success doesn't work. The command
+> gets executed in a subprocess and will have no effect on the parent
+> shell where the directory change is desired.
+> 
+> Signed-off-by: Martin Doucha <mdoucha@suse.cz>
+> ---
 
-Signed-off-by: Martin Doucha <mdoucha@suse.cz>
----
- testcases/lib/tst_rod.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+Beware that this patch will cause a lot of broken shell tests to fail.
+Another patchset fixing the incorrect ROD usage in shell tests is needed
+before merging this patch.
 
-diff --git a/testcases/lib/tst_rod.c b/testcases/lib/tst_rod.c
-index 24c1fb668..362471fa9 100644
---- a/testcases/lib/tst_rod.c
-+++ b/testcases/lib/tst_rod.c
-@@ -77,6 +77,13 @@ int main(int argc, char *argv[])
- 
- 	args[pos] = NULL;
- 
-+	if (!strcmp(args[0], "cd") || !strcmp(args[0], "pushd") ||
-+		!strcmp(args[0], "popd")) {
-+		fprintf(stderr, "\"%s %s\" has no effect on parent shell\n",
-+			argv[0], args[0]);
-+		return 1;
-+	}
-+
- 	if (stdin_path) {
- 		if (close(0)) {
- 			fprintf(stderr, "%s: Failed to close stdin: %s\n",
 -- 
-2.36.1
-
+Martin Doucha   mdoucha@suse.cz
+QA Engineer for Software Maintenance
+SUSE LINUX, s.r.o.
+CORSO IIa
+Krizikova 148/34
+186 00 Prague 8
+Czech Republic
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
