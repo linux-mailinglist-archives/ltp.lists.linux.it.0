@@ -2,54 +2,72 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0C1758869E
-	for <lists+linux-ltp@lfdr.de>; Wed,  3 Aug 2022 06:46:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5BE958869F
+	for <lists+linux-ltp@lfdr.de>; Wed,  3 Aug 2022 06:48:01 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 34C883C935A
-	for <lists+linux-ltp@lfdr.de>; Wed,  3 Aug 2022 06:46:02 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 5F6943C93E4
+	for <lists+linux-ltp@lfdr.de>; Wed,  3 Aug 2022 06:48:01 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 41F413C875F
- for <ltp@lists.linux.it>; Wed,  3 Aug 2022 06:45:57 +0200 (CEST)
-Received: from mail.jv-coder.de (mail.jv-coder.de [5.9.79.73])
+ by picard.linux.it (Postfix) with ESMTPS id 9B9AC3C899B
+ for <ltp@lists.linux.it>; Wed,  3 Aug 2022 06:47:56 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 0D12F1400972
- for <ltp@lists.linux.it>; Wed,  3 Aug 2022 06:45:56 +0200 (CEST)
-Received: from [192.168.178.40] (unknown [188.192.100.83])
- by mail.jv-coder.de (Postfix) with ESMTPSA id 57750A344C;
- Wed,  3 Aug 2022 04:45:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jv-coder.de; s=dkim;
- t=1659501955; bh=8AB7I1D0/eRhrywnAQ6/my1bi4Oh2WADt1FcrniBbQs=;
- h=Message-ID:Date:MIME-Version:Subject:To:From;
- b=FKc32fAmfS8I80gmcSBjeamS7RnEWWq+YsRZz8xxlCbbTnuyBOupLixfjMvlq3on2
- xnvBKU8PbbILWA+g+3MNbvShUDOrRLNv6aOFrVwvhHydVG5pput0A+69J5pd/v1kea
- a6F6QNBr0G+xxaJKWxrlO/pf5zOQdrU2p6ez2iyQ=
-Message-ID: <d2dbca31-0ffd-d8d3-1c31-4c3740258f89@jv-coder.de>
-Date: Wed, 3 Aug 2022 06:45:56 +0200
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 291431A006EA
+ for <ltp@lists.linux.it>; Wed,  3 Aug 2022 06:47:55 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 8F3FA20A0B;
+ Wed,  3 Aug 2022 04:47:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1659502074;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=TgTBeaYD7/5eTKgch/k8hcud2N/o7GIyljVU2Kod9pg=;
+ b=WmSMx/jLl8Z7W9OZMifAdqEd8sCGl6vqjzkPQSKXAK3PpWCNeSp7aIeLt7dJ2XpX8axJ9D
+ I2VB0AASWSh6OoOYUE4UjP85JeKoFapVwBhJcqvwf0iSW7j5RymrlsR+53Ho/T5/DcnNcL
+ E526z15HHBESFmtHB8vPf7S6D9j78DY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1659502074;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=TgTBeaYD7/5eTKgch/k8hcud2N/o7GIyljVU2Kod9pg=;
+ b=p9aBdLSnRO0Hw/2wAaMYW2lfq4DZ8GzEbQfoB0pEa6BR/RMWKoZBfiruDNVZgNoLPfZCBy
+ 0J+q3r74gQUi/4AA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6008513A94;
+ Wed,  3 Aug 2022 04:47:54 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id d6ptFPr96WJwFwAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Wed, 03 Aug 2022 04:47:54 +0000
+Date: Wed, 3 Aug 2022 06:47:53 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Andrea Cervesato <andrea.cervesato@suse.com>
+Message-ID: <Yun9+XK5CKzd1Uys@pevik>
+References: <20220801151408.15947-1-andrea.cervesato@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Content-Language: en-US
-To: Petr Vorel <pvorel@suse.cz>
-References: <20220727053307.3009235-1-lkml@jv-coder.de>
- <20220727053307.3009235-4-lkml@jv-coder.de> <YuQXnCgSjBT1mGFH@pevik>
-From: Joerg Vehlow <lkml@jv-coder.de>
-In-Reply-To: <YuQXnCgSjBT1mGFH@pevik>
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20220801151408.15947-1-andrea.cervesato@suse.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-Subject: Re: [LTP] [PATCH v2 3/3] configure: Integrate open posix testsuite
- configure
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2] Refactor aiocp using new LTP API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,50 +79,29 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Joerg Vehlow <joerg.vehlow@aox.de>, ltp@lists.linux.it,
- automated-testing@lists.yoctoproject.org
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Petr,
+Hi Andrea,
 
-Am 7/29/2022 um 7:23 PM schrieb Petr Vorel:
-> Hi Joerg,
-> 
-> [ Cc automated-testing@lists.yoctoproject.org ]
-> 
->> From: Joerg Vehlow <joerg.vehlow@aox.de>
-> 
->> This changes the default installation location
->> of the open posix testsuite from
->> $prefix
->> to
->> $prefix/testcases/open_posix_testsuite
-> I need to have a deeper look on this patchset next week.
-> But it looks to me strange, that running LTP top level configure causes
-> installation into /opt/ltp/testcases/open_posix_testsuite/, but after running
-> ./configure in testcases/open_posix_testsuite make install goes by default to
-> /opt/openposix_testsuite.
-That is just keeping the old behavior and makes total sense imho. If it
-is installed standalone, it makes sense to not install it into ltp's prefix.
-If you install the realtime testsuite standalone, it will be installed
-under default prefix (/usr or /usr/local), so also different prefix
-depending on if it is installed as part of ltp or standalone.
+...
+> -AD303 aiocp -b 128k -n 32 -f CREAT -f DIRECT $TMPDIR/aiodio.$$/ff2 $TMPDIR/aiodio.$$/junkdir/ff2
+> -AD304 aiocp -b 128k -n 32 -f CREAT -f DIRECT $TMPDIR/aiodio.$$/ff3 $TMPDIR/aiodio.$$/junkdir/ff3
+> +AD001 time aiocp -b 1k -n 1 -f DIRECT
+Could we please get rid of time?
+That's something we don't want in runtest files.
 
-> Also openposix does not use LTP API, when we're touching it, wouldn't it make
-> more sense to put it into separate git repository? IMHO that would cause work
-> for other people (clone separate git, need to fix CI and tools which are using
-> it), but openposix embedded in LTP always looked strange to me.
-That is something else to discuss and I don't have a strong opinion
-about it.
-> 
-> Kind regards,
-> Petr
-> 
+> +AD002 time aiocp -b 1k -n 1 -f SYNC
+> +AD003 time aiocp -b 1k -n 2 -f DIRECT
+> +AD004 time aiocp -b 1k -n 2 -f SYNC
+...
 
-Joerg
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
