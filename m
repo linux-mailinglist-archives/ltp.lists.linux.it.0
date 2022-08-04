@@ -1,74 +1,60 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE7CC589B92
-	for <lists+linux-ltp@lfdr.de>; Thu,  4 Aug 2022 14:20:52 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id CE504589CB3
+	for <lists+linux-ltp@lfdr.de>; Thu,  4 Aug 2022 15:32:09 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id BB4BB3C93DB
-	for <lists+linux-ltp@lfdr.de>; Thu,  4 Aug 2022 14:20:52 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 2721D3C94B3
+	for <lists+linux-ltp@lfdr.de>; Thu,  4 Aug 2022 15:32:09 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 26DC83C9423
- for <ltp@lists.linux.it>; Thu,  4 Aug 2022 14:19:58 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by picard.linux.it (Postfix) with ESMTPS id BD4CE3C9468
+ for <ltp@lists.linux.it>; Thu,  4 Aug 2022 15:31:55 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 709681400995
- for <ltp@lists.linux.it>; Thu,  4 Aug 2022 14:19:57 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id CC41460071F
+ for <ltp@lists.linux.it>; Thu,  4 Aug 2022 15:31:54 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id EA41620FB0;
- Thu,  4 Aug 2022 12:19:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1659615596; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ganAk8Biqarzg14uiXeLH2Z9aMYAKLnAxtmJQDbKiyc=;
- b=DAX2VrjElcjJExZRMwZoWYMXR4EfqZNSzL5h6M7RJPhyNGqHeayYVKmLe5fUU6TL2/Nr3u
- hUqXx7AClrfJoHxA2LBzkDIowTklO2ccZ5LaT5sJTMSouqgpgFcYOp72jvspK12hF616jf
- 6rbEfroOYg1GQOSb8TMsZfGQ4jBHciA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1659615596;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ganAk8Biqarzg14uiXeLH2Z9aMYAKLnAxtmJQDbKiyc=;
- b=HPXpnSvxhmQF9GvLgJRX7+TvHpOLHow2RMX4ggTS8oI9fgFafkrKmdzOLFB86PiADCY1Eb
- CnN2ByW1SBLlHJDw==
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 7B60F37834;
+ Thu,  4 Aug 2022 13:30:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1659619850; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=GQfFo9f6IvPe8IBrXlAgpiOew6CDJDfRI2ogy6H4Qd0=;
+ b=VfC7Saoc1hmcYSAg/Z4ZbFRqQGPyqZPLNRuIGfWVipmTef5d0vr5Rw7TSmQ4HN3IJyZ2Ba
+ xZWg0r5MRfOocBB6Zd4t+rhARJZqtaAmdx+2sl4rpabX24ki3KL33PxmP3PZoXbGWuss+c
+ GN1Fls3Bj9Na418UQz9UHssdJJpeiIs=
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6FC2D13A94;
- Thu,  4 Aug 2022 12:19:56 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4DD9413434;
+ Thu,  4 Aug 2022 13:30:50 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id CI/IGGy562L2PQAAMHmgww
- (envelope-from <pvorel@suse.cz>); Thu, 04 Aug 2022 12:19:56 +0000
-From: Petr Vorel <pvorel@suse.cz>
+ by imap2.suse-dmz.suse.de with ESMTPSA id MzFTEArK62L3XQAAMHmgww
+ (envelope-from <andrea.cervesato@suse.com>); Thu, 04 Aug 2022 13:30:50 +0000
 To: ltp@lists.linux.it
-Date: Thu,  4 Aug 2022 14:19:46 +0200
-Message-Id: <20220804121946.19564-11-pvorel@suse.cz>
-X-Mailer: git-send-email 2.37.1
-In-Reply-To: <20220804121946.19564-1-pvorel@suse.cz>
-References: <20220804121946.19564-1-pvorel@suse.cz>
+Date: Thu,  4 Aug 2022 15:30:14 +0200
+Message-Id: <20220804133015.15150-1-andrea.cervesato@suse.com>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [RFC][PATCH v3 10/10] nfs: Use TST_ALL_FILESYSTEMS=1
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH v1 1/2] Refactor pidns03 test using new LTP API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,109 +66,187 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: "J . Bruce Fields" <bfields@fieldses.org>, linux-nfs@vger.kernel.org,
- NeilBrown <neilb@suse.de>, Chuck Lever <chuck.lever@oracle.com>,
- automated-testing@yoctoproject.org, Trond Myklebust <trondmy@hammerspace.com>
+From: Andrea Cervesato via ltp <ltp@lists.linux.it>
+Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
+Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
 ---
-Changes v2->v3:
-* restart_daemon nfs-server + tst_sleep 500ms
-  But still sometimes last test TCONF due server not being ready
-  (restart is not reliable) :(
-* Skip NTFS and vfat (NTFS is problematic, vfat IMHO does not make sense
-  to test).
+ testcases/kernel/containers/pidns/pidns03.c | 139 ++++++--------------
+ 1 file changed, 38 insertions(+), 101 deletions(-)
 
- testcases/network/nfs/nfs_stress/nfs_lib.sh | 28 +++++++++++++--------
- 1 file changed, 17 insertions(+), 11 deletions(-)
-
-diff --git a/testcases/network/nfs/nfs_stress/nfs_lib.sh b/testcases/network/nfs/nfs_stress/nfs_lib.sh
-index af7d46a21..b9872bb31 100644
---- a/testcases/network/nfs/nfs_stress/nfs_lib.sh
-+++ b/testcases/network/nfs/nfs_stress/nfs_lib.sh
-@@ -8,6 +8,7 @@ VERSION=${VERSION:=3}
- NFILES=${NFILES:=1000}
- SOCKET_TYPE="${SOCKET_TYPE:-udp}"
- NFS_TYPE=${NFS_TYPE:=nfs}
-+TST_SKIP_FILESYSTEMS="ntfs,vfat"
+diff --git a/testcases/kernel/containers/pidns/pidns03.c b/testcases/kernel/containers/pidns/pidns03.c
+index b735ab36b..b9b38b5d9 100644
+--- a/testcases/kernel/containers/pidns/pidns03.c
++++ b/testcases/kernel/containers/pidns/pidns03.c
+@@ -1,124 +1,61 @@
+-/* Copyright (c) 2014 Red Hat, Inc. All rights reserved.
+- *
+- * This program is free software: you can redistribute it and/or modify
+- * it under the terms of version 2 the GNU General Public License as
+- * published by the Free Software Foundation.
+- *
+- * This program is distributed in the hope that it will be useful,
+- * but WITHOUT ANY WARRANTY; without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+- * GNU General Public License for more details.
+- *
+- * You should have received a copy of the GNU General Public License
+- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+- ***********************************************************************
+- * File: pidns03.c
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (c) 2014 Red Hat, Inc. All rights reserved.
++ * Copyright (C) 2022 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
++ */
++
++/*\
++ * [Description]
+  *
+- * Description:
+- * Clones a new child process with CLONE_NEWPID flag - the new child
+- * process mounts procfs to a "proc" directory and checks if it belongs
+- * to a new pid namespace by:
+- * 1. reading value of "proc/self", which is symlink
+- *    to directory named after current pid number
+- * 2. comparing read value (PID) with "1"
++ * Clone a process with CLONE_NEWPID flag and check if procfs mounted folder
++ * belongs to the new pid namespace by looking at /proc/self .
+  */
  
- nfs_usage()
+-#define _GNU_SOURCE
+-#include <sys/wait.h>
+ #include <sys/mount.h>
+-#include <sys/types.h>
+-#include <stdio.h>
+-#include <string.h>
+-#include <unistd.h>
+-#include <errno.h>
+-#include "pidns_helper.h"
+-#include "test.h"
+-#include "safe_macros.h"
++#include "tst_test.h"
++#include "lapi/namespaces_constants.h"
+ 
+ #define PROCDIR "proc"
+-char *TCID = "pidns03";
+-int TST_TOTAL	= 1;
+-
+-
+-static void cleanup(void)
+-{
+-	tst_rmdir();
+-}
+-
+-static void setup(void)
+-{
+-	tst_require_root();
+-	check_newpid();
+-	tst_tmpdir();
+-	SAFE_MKDIR(cleanup, PROCDIR, 0555);
+-}
+ 
+-int child_func(void *arg)
++static int child_func(LTP_ATTRIBUTE_UNUSED void *arg)
  {
-@@ -28,7 +29,7 @@ NFS_PARSE_ARGS_CALLER="$TST_PARSE_ARGS"
- TST_OPTS="v:t:$TST_OPTS"
- TST_PARSE_ARGS=nfs_parse_args
- TST_USAGE=nfs_usage
--TST_NEEDS_TMPDIR=1
-+TST_ALL_FILESYSTEMS=1
- TST_NEEDS_ROOT=1
- TST_NEEDS_CMDS="$TST_NEEDS_CMDS mount exportfs mount.nfs"
- TST_SETUP="${TST_SETUP:-nfs_setup}"
-@@ -63,7 +64,7 @@ nfs_get_remote_path()
- 	done
+-	ssize_t r;
+-	char buf[10];
++	char proc_self[10];
  
- 	v=${1:-$v}
--	echo "$TST_TMPDIR/$v/$type"
-+	echo "$TST_MNTPOINT/$v/$type"
+-	if (mount("none", PROCDIR, "proc", MS_RDONLY, NULL) == -1) {
+-		perror("mount");
+-		return 1;
+-	}
++	SAFE_MOUNT("none", PROCDIR, "proc", MS_RDONLY, NULL);
+ 
+-	/* self is symlink to directory named after current pid number */
+-	r = readlink(PROCDIR"/self", buf, sizeof(buf)-1);
+-	if (r == -1) {
+-		perror("readlink");
+-		umount(PROCDIR);
+-		return 1;
+-	}
++	SAFE_READLINK(PROCDIR"/self", proc_self, sizeof(proc_self) - 1);
+ 
+-	buf[r] = '\0';
++	SAFE_UMOUNT(PROCDIR);
+ 
+-	umount(PROCDIR);
+-
+-	/* child should have PID 1 in a new pid namespace - if true
+-	 * procfs belongs to the new pid namespace */
+-	if (strcmp(buf, "1")) {
+-		fprintf(stderr, "%s contains: %s\n", PROCDIR"/self", buf);
+-		return 1;
+-	}
++	TST_EXP_PASS(strcmp(proc_self, "1"), PROCDIR"/self contains 1:");
+ 
+ 	return 0;
  }
  
- nfs_server_udp_enabled()
-@@ -162,8 +163,8 @@ nfs_setup()
- 			tst_brk TCONF "UDP support disabled on NFS server"
- 		fi
- 
--		local_dir="$TST_TMPDIR/$i/$n"
--		remote_dir="$TST_TMPDIR/$i/$type"
-+		local_dir="$TST_MNTPOINT/$i/$n"
-+		remote_dir="$TST_MNTPOINT/$i/$type"
- 		mkdir -p $local_dir
- 
- 		nfs_setup_server $(($$ + n))
-@@ -174,7 +175,7 @@ nfs_setup()
- 	done
- 
- 	if [ "$n" -eq 1 ]; then
--		cd ${VERSION}/0
-+		cd $TST_MNTPOINT/$VERSION/0
- 	fi
+-static void test(void)
++static void setup(void)
+ {
+-	int status;
+-
+-	if (do_clone_tests(CLONE_NEWPID, child_func, NULL, NULL, NULL) == -1)
+-		tst_brkm(TBROK | TERRNO, cleanup, "clone failed");
+-
+-	SAFE_WAIT(cleanup, &status);
+-
+-	if (WIFEXITED(status) && WEXITSTATUS(status) == 0) {
+-		tst_resm(TPASS, "mounting procfs in a new namespace");
+-		return;
+-	}
+-
+-	if (WIFSIGNALED(status)) {
+-		tst_resm(TFAIL, "child was killed with signal %s",
+-			 tst_strsig(WTERMSIG(status)));
+-		return;
+-	}
+-
+-	tst_resm(TFAIL, "mounting procfs in a new namespace");
++	SAFE_MKDIR(PROCDIR, 0555);
  }
  
-@@ -190,19 +191,24 @@ nfs_cleanup()
+-int main(int argc, char *argv[])
++static void cleanup(void)
+ {
+-	int lc;
+-
+-	tst_parse_opts(argc, argv, NULL, NULL);
+-
+-	setup();
++	if (tst_is_mounted_at_tmpdir(PROCDIR))
++		SAFE_UMOUNT(PROCDIR);
++}
  
- 	local n=0
- 	for i in $VERSION; do
--		local_dir="$TST_TMPDIR/$i/$n"
--		grep -q "$local_dir" /proc/mounts && umount $local_dir
-+		type=$(get_socket_type $n)
-+		remote_dir="$TST_MNTPOINT/$i/$type"
-+		tst_rhost_run -c "test -d $remote_dir && exportfs -u *:$remote_dir"
-+		tst_rhost_run -c "test -d $remote_dir && rm -rf $remote_dir"
- 		n=$(( n + 1 ))
- 	done
+-	for (lc = 0; TEST_LOOPING(lc); lc++)
+-		test();
++static void run(void)
++{
++	int ret;
  
- 	n=0
- 	for i in $VERSION; do
--		type=$(get_socket_type $n)
--		remote_dir="$TST_TMPDIR/$i/$type"
--		tst_rhost_run -c "test -d $remote_dir && exportfs -u *:$remote_dir"
--		tst_rhost_run -c "test -d $remote_dir && rm -rf $remote_dir"
-+		local_dir="$TST_MNTPOINT/$i/$n"
+-	cleanup();
+-	tst_exit();
++	ret = ltp_clone_quick(CLONE_NEWPID | SIGCHLD, child_func, NULL);
++	if (ret < 0)
++		tst_brk(TBROK | TERRNO, "clone failed");
+ }
 +
-+		grep -q "$local_dir" /proc/mounts && umount $local_dir
- 		n=$(( n + 1 ))
- 	done
-+
-+	restart_daemon nfs-server
-+	tst_sleep 500ms
- }
- 
-+. daemonlib.sh
- . tst_net.sh
++static struct tst_test test = {
++	.test_all = run,
++	.setup = setup,
++	.cleanup = cleanup,
++	.needs_root = 1,
++	.needs_tmpdir = 1,
++};
 -- 
-2.37.1
+2.35.3
 
 
 -- 
