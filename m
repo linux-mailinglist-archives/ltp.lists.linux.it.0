@@ -2,63 +2,76 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id BEBA9589CB1
-	for <lists+linux-ltp@lfdr.de>; Thu,  4 Aug 2022 15:31:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 988B2589EB5
+	for <lists+linux-ltp@lfdr.de>; Thu,  4 Aug 2022 17:33:28 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id DE3CF3C935A
-	for <lists+linux-ltp@lfdr.de>; Thu,  4 Aug 2022 15:31:55 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id F0A843C93F2
+	for <lists+linux-ltp@lfdr.de>; Thu,  4 Aug 2022 17:33:27 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 4901B3C4CA9
- for <ltp@lists.linux.it>; Thu,  4 Aug 2022 15:31:55 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 27C083C933F
+ for <ltp@lists.linux.it>; Thu,  4 Aug 2022 17:33:27 +0200 (CEST)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 86D901400F97
- for <ltp@lists.linux.it>; Thu,  4 Aug 2022 15:31:54 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 4ADF96019A5
+ for <ltp@lists.linux.it>; Thu,  4 Aug 2022 17:33:25 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id B6A123783E;
- Thu,  4 Aug 2022 13:30:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1659619850; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 684BC4E623;
+ Thu,  4 Aug 2022 15:33:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1659627205; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=ofaaUMk1ew3/5IfEXSJ/kpFylc0sFFATQ4Wb0nAcpjw=;
- b=blj+GKeQHQ1lgUZYR8Vb+tprDTLn75EpHRkr1ebPCxQMUpJeAOFfymV0+dBMRvgcDNa8QZ
- NQPLx8nu9MS8sR7qxFEEXHJYsfqgQYrT7eHxCCOvCTocp8uxmRj78oKCGZGvLEsCgHdSvZ
- In28liDD3jnk3+He1JLqq5fz4vewOU4=
+ bh=XgqAvDRGRKbyzelNP7eRPGBQHRHBDH17MuR91kEvAys=;
+ b=Gmly/p+Ar0ShQC6kWulggnRp4Lh0zyDvgHJB6pmzKZritUspzTw4+XwwMq2GeY2Pr1jWyK
+ myPWm2gzAbybog+IfNAjp392JvAjh8o3gvgkIn8hWYvlVNBar2QhAzdDzF1/TnLM/j/a4J
+ YTn8WCN2g3p7Q9JxjAliQLXO3PIrFBw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1659627205;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=XgqAvDRGRKbyzelNP7eRPGBQHRHBDH17MuR91kEvAys=;
+ b=lUhwujJL5Kflfa6QIGEfioQ0yn4lN90EhuJ78JdOyBGGF+J8CQULYclm8tOUwGICwC4qxl
+ 6ysdL2BAt5pH5xCw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 89FAF13434;
- Thu,  4 Aug 2022 13:30:50 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4765813A94;
+ Thu,  4 Aug 2022 15:33:25 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 6PxVHwrK62L3XQAAMHmgww
- (envelope-from <andrea.cervesato@suse.com>); Thu, 04 Aug 2022 13:30:50 +0000
-To: ltp@lists.linux.it
-Date: Thu,  4 Aug 2022 15:30:15 +0200
-Message-Id: <20220804133015.15150-2-andrea.cervesato@suse.com>
-X-Mailer: git-send-email 2.35.3
-In-Reply-To: <20220804133015.15150-1-andrea.cervesato@suse.com>
-References: <20220804133015.15150-1-andrea.cervesato@suse.com>
+ by imap2.suse-dmz.suse.de with ESMTPSA id rZRxEMXm62IlFAAAMHmgww
+ (envelope-from <mdoucha@suse.cz>); Thu, 04 Aug 2022 15:33:25 +0000
+Message-ID: <2fd92c3d-a67e-3cfc-aaf8-ca35176cf399@suse.cz>
+Date: Thu, 4 Aug 2022 17:33:24 +0200
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Content-Language: en-US
+To: Petr Vorel <pvorel@suse.cz>, ltp@lists.linux.it
+References: <20220803175752.19015-1-pvorel@suse.cz>
+From: Martin Doucha <mdoucha@suse.cz>
+In-Reply-To: <20220803175752.19015-1-pvorel@suse.cz>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH v1 2/2] Refactor pidns04 test using new LTP API
+ DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/1] generate_lvm_runfile.sh: Fix bashism
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,212 +83,51 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Andrea Cervesato via ltp <ltp@lists.linux.it>
-Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
+Cc: linux-nfs@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
----
- testcases/kernel/containers/pidns/pidns04.c | 171 +++++---------------
- 1 file changed, 36 insertions(+), 135 deletions(-)
+Hi,
+`trap ... EXIT` cannot be used to emulate `trap ... ERR`. The latter
+behaves as if every command/pipeline in the script (except conditions)
+were wrapped in ROD. So `trap ... ERR` will trigger exit on any failure,
+while `trap ... EXIT` will let the script continue after all errors and
+then check exit code of only the very last command. That's not what we
+want here.
 
-diff --git a/testcases/kernel/containers/pidns/pidns04.c b/testcases/kernel/containers/pidns/pidns04.c
-index 9ac0e5aca..02b3f12a2 100644
---- a/testcases/kernel/containers/pidns/pidns04.c
-+++ b/testcases/kernel/containers/pidns/pidns04.c
-@@ -1,150 +1,51 @@
-+// SPDX-License-Identifier: GPL-2.0
- /*
--* Copyright (c) International Business Machines Corp., 2007
--* This program is free software; you can redistribute it and/or modify
--* it under the terms of the GNU General Public License as published by
--* the Free Software Foundation; either version 2 of the License, or
--* (at your option) any later version.
--* This program is distributed in the hope that it will be useful,
--* but WITHOUT ANY WARRANTY; without even the implied warranty of
--* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
--* the GNU General Public License for more details.
--* You should have received a copy of the GNU General Public License
--* along with this program; if not, write to the Free Software
--* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
--*
--***************************************************************************
--
--* File: pidns04.c
--*
--* Description:
--*  The pidns04.c testcase builds into the ltp framework to verify
--*  the basic functionality of PID Namespace.
--*
--* Verify that:
--* 1. When parent clone a process with flag CLONE_NEWPID, the process ID of
--* child should be one.
--*
--* 2. When parent clone a process with flag CLONE_NEWPID, the parent process ID
--* of should be zero.
--*
--* 3. The container init process (one), should not get killed by the SIGKILL in
--* the childNS
--*
--* Total Tests:
--*
--* Test Name: pidns04
--*
--* Test Assertion & Strategy:
--*
--* From main() clone a new child process with passing the clone_flag as
--* CLONE_NEWPID.
--* The container init, should not get killed by the SIGKILL inside the child NS.
--* Usage: <for command-line>
--* pidns04
--*
--* History:
--*
--* FLAG DATE     	NAME	   			DESCRIPTION
--* 08/10/08      Veerendra C <vechandr@in.ibm.com> Verifies killing of cont init.
--*
--*******************************************************************************/
--#define _GNU_SOURCE 1
--#include <sys/wait.h>
--#include <assert.h>
--#include <stdio.h>
--#include <stdlib.h>
--#include <unistd.h>
--#include <string.h>
--#include <errno.h>
--#define CLEANUP cleanup
--#include "pidns_helper.h"
--#include "test.h"
--
--#define INIT_PID	1
--#define CHILD_PID       1
--#define PARENT_PID      0
--
--char *TCID = "pidns04";
--int TST_TOTAL = 1;
--int fd[2];
--
--/*
-- * child_fn1() - Inside container
--*/
--static int child_fn1(void *ttype)
-+ * Copyright (c) International Business Machines Corp., 2007
-+ *		08/10/08 Veerendra C <vechandr@in.ibm.com>
-+ * Copyright (C) 2022 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
-+ */
-+
-+/*\
-+ * [Description]
-+ *
-+ * Clone a process with CLONE_NEWPID flag and verify that is not possible to
-+ * kill init process by sending SIGKILL from child namespace.
-+ */
-+
-+#include "tst_test.h"
-+#include "lapi/namespaces_constants.h"
-+
-+static int child_func(LTP_ATTRIBUTE_UNUSED void *arg)
- {
--	int exit_val;
- 	pid_t cpid, ppid;
-+
- 	cpid = getpid();
- 	ppid = getppid();
--	char mesg[] = "I was not killed !";
--	/* Child process closes up read side of pipe */
--	close(fd[0]);
- 
--	/* Comparing the values to make sure pidns is created correctly */
--	if ((cpid == CHILD_PID) && (ppid == PARENT_PID)) {
--		printf("PIDNS test is running inside container\n");
--		kill(INIT_PID, SIGKILL);
--		/* Verifying whether the container init is not killed, "
--		   If so writing into the pipe created in the parent NS" */
--
--		/* Send "mesg" through the write side of pipe */
--		write(fd[1], mesg, (strlen(mesg) + 1));
--		exit_val = 0;
--	} else {
--		printf("got unexpected result of cpid=%d ppid=%d\n",
--		       cpid, ppid);
--		exit_val = 1;
-+	if (cpid != 1 || ppid != 0) {
-+		tst_res(TFAIL, "got unexpected result of cpid=%d ppid=%d", cpid, ppid);
-+		return 1;
- 	}
--	exit(exit_val);
--}
- 
--static void setup(void)
--{
--	tst_require_root();
--	check_newpid();
--}
-+	tst_res(TINFO, "Sending SIGKILL to container init process from child");
- 
--int main(void)
--{
--	int nbytes, status;
--	char readbuffer[80];
-+	SAFE_KILL(1, SIGKILL);
- 
--	setup();
--
--	pipe(fd);
--	TEST(do_clone_unshare_test(T_CLONE, CLONE_NEWPID, child_fn1, NULL));
--	if (TEST_RETURN == -1) {
--		tst_brkm(TFAIL | TTERRNO, CLEANUP, "clone failed");
--	} else if (wait(&status) == -1) {
--		tst_brkm(TFAIL | TERRNO, CLEANUP, "wait failed");
--	}
--
--	/* Parent process closes up write side of pipe */
--	close(fd[1]);
--	/* Read in a string from the pipe */
--	nbytes = read(fd[0], readbuffer, sizeof(readbuffer));
--
--	if (0 <= nbytes) {
--		tst_resm(TPASS, "Container init : %s", readbuffer);
--	} else {
--		tst_brkm(TFAIL, CLEANUP,
--			 "Container init is killed by SIGKILL !!!");
--	}
--
--	if (WIFEXITED(status) && WEXITSTATUS(status) != 0) {
--		tst_resm(TFAIL, "Container init pid exited abnormally");
--	} else if (WIFSIGNALED(status)) {
--		tst_resm(TFAIL, "Container init pid got killed by signal %d",
--			 WTERMSIG(status));
--	}
--	CLEANUP();
--
--	tst_exit();
-+	tst_res(TPASS, "Child namespace is still alive");
- 
-+	return 0;
- }
- 
--static void cleanup(void)
-+static void run(void)
- {
--	close(fd[0]);
-+	int ret;
-+
-+	ret = ltp_clone_quick(CLONE_NEWPID | SIGCHLD, child_func, NULL);
-+	if (ret < 0)
-+		tst_brk(TBROK | TERRNO, "clone failed");
- }
-+
-+static struct tst_test test = {
-+	.test_all = run,
-+	.needs_root = 1,
-+};
+On 03. 08. 22 19:57, Petr Vorel wrote:
+> ERR is not on dash (tested on 0.5.11).
+> 
+> Signed-off-by: Petr Vorel <pvorel@suse.cz>
+> ---
+>  testcases/misc/lvm/generate_lvm_runfile.sh | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/testcases/misc/lvm/generate_lvm_runfile.sh b/testcases/misc/lvm/generate_lvm_runfile.sh
+> index 72b286a69..5bf5d91d6 100755
+> --- a/testcases/misc/lvm/generate_lvm_runfile.sh
+> +++ b/testcases/misc/lvm/generate_lvm_runfile.sh
+> @@ -13,7 +13,7 @@ LVM_TMPDIR="$LVM_DIR/ltp/growfiles"
+>  
+>  generate_runfile()
+>  {
+> -	trap 'tst_brk TBROK "Cannot create LVM runfile"' ERR
+> +	trap '[ $? -eq 0 ] && exit 0 || tst_brk TBROK "Cannot create LVM runfile"' EXIT
+>  	INFILE="$LTPROOT/testcases/data/lvm/runfile.tpl"
+>  	OUTFILE="$LTPROOT/runtest/lvm.local"
+>  	FS_LIST=`tst_supported_fs`
+
+
 -- 
-2.35.3
-
+Martin Doucha   mdoucha@suse.cz
+QA Engineer for Software Maintenance
+SUSE LINUX, s.r.o.
+CORSO IIa
+Krizikova 148/34
+186 00 Prague 8
+Czech Republic
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
