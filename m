@@ -1,74 +1,76 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0289B589B90
-	for <lists+linux-ltp@lfdr.de>; Thu,  4 Aug 2022 14:20:32 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 75617589BA1
+	for <lists+linux-ltp@lfdr.de>; Thu,  4 Aug 2022 14:22:30 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 8A25B3C9423
-	for <lists+linux-ltp@lfdr.de>; Thu,  4 Aug 2022 14:20:31 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 389033C9428
+	for <lists+linux-ltp@lfdr.de>; Thu,  4 Aug 2022 14:22:30 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id C0C553C25DD
- for <ltp@lists.linux.it>; Thu,  4 Aug 2022 14:19:54 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 933FE3C885D
+ for <ltp@lists.linux.it>; Thu,  4 Aug 2022 14:21:55 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 46B95140075D
- for <ltp@lists.linux.it>; Thu,  4 Aug 2022 14:19:54 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id DA73D600634
+ for <ltp@lists.linux.it>; Thu,  4 Aug 2022 14:21:54 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id ECA5220FBF;
- Thu,  4 Aug 2022 12:19:53 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id E76BA33F39;
+ Thu,  4 Aug 2022 12:19:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1659615593; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1659615594; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=zmSCTFGsp+RLL0Eo1ZxitP5FtK3BFPrrS7SzZK6nwW8=;
- b=fA5K7Hgqss5Ilhx5P+2LbHWKeQkiolhuUjgb8W0ok1t4tgvdtAAu7kEGRJWpgLPRodv35U
- S69xarDE6OfrHt4MgSEzrhyrHZr9bd/foSUGx8rx9J6Nm1C9hShpN2a4dSh1LSUGTtGxT+
- KzA9/ikBdaH7xeJ6yWlxN0iav/CdXm0=
+ bh=6wTkL4sVOgFonza2ilqiafwUZP2ShFRVfW6fSFyrWIA=;
+ b=ieFcMMWfeqCLJ5k6wz3WF1DB72WLVmo4KFWGdjsA8vnbU1aU+NdiefWD2OIw5kIHUWaaw1
+ I2dTjAfkwJKPKkMq2UOn7RlgWIOdGSkUeLfC67GBN1IUVlJKmgaIt9sWSXMZgIN8BC+gvY
+ hOUcGn9Xvbv43aT5b3a8wJHqX7IPD40=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1659615593;
+ s=susede2_ed25519; t=1659615594;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=zmSCTFGsp+RLL0Eo1ZxitP5FtK3BFPrrS7SzZK6nwW8=;
- b=VhxsTDd4UqvbLoPwRBC8db9q/WdyfWrR+PSS+w2RB58Y9xSpXmkexdrUDx1CHQAIErX0kt
- TBngUe4kr3SJrfCQ==
+ bh=6wTkL4sVOgFonza2ilqiafwUZP2ShFRVfW6fSFyrWIA=;
+ b=WYNKf+Imx0d7VIH5X3sfhsJsBEk+Lj0IZs95Tq4qltu00gTHxWH/ZTPXRlAO3gZxqAnYdy
+ fZBsYkAH3R8f1VCg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A6E0113A94;
- Thu,  4 Aug 2022 12:19:53 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 11C9A13A94;
+ Thu,  4 Aug 2022 12:19:54 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 2A5bJ2m562L2PQAAMHmgww
- (envelope-from <pvorel@suse.cz>); Thu, 04 Aug 2022 12:19:53 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id SOJ/AGq562L2PQAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Thu, 04 Aug 2022 12:19:54 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Thu,  4 Aug 2022 14:19:41 +0200
-Message-Id: <20220804121946.19564-6-pvorel@suse.cz>
+Date: Thu,  4 Aug 2022 14:19:42 +0200
+Message-Id: <20220804121946.19564-7-pvorel@suse.cz>
 X-Mailer: git-send-email 2.37.1
 In-Reply-To: <20220804121946.19564-1-pvorel@suse.cz>
 References: <20220804121946.19564-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH v3 05/10] tst_supported_fs: Implement skip list
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH v3 06/10] tst_supported_fs: Support skip list when
+ query single fs
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,136 +88,78 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-as it will be needed for $ALL_FILESYSTEMS shell implementation in the
-next commit. Pass tmpfs to LVM scripts (as it was required there),
-but allow to use zram01.sh with tmpfs as it works with it.
-
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
 New in v3
 
- testcases/lib/tst_supported_fs.c           | 56 +++++++++++++++++-----
- testcases/misc/lvm/generate_lvm_runfile.sh |  2 +-
- testcases/misc/lvm/prepare_lvm.sh          |  2 +-
- 3 files changed, 46 insertions(+), 14 deletions(-)
+ include/tst_fs.h                 | 10 ++++++++++
+ lib/tst_supported_fs_types.c     | 18 ++++++++++++++++++
+ testcases/lib/tst_supported_fs.c |  2 +-
+ 3 files changed, 29 insertions(+), 1 deletion(-)
 
-diff --git a/testcases/lib/tst_supported_fs.c b/testcases/lib/tst_supported_fs.c
-index 43eac194f..87be2b759 100644
---- a/testcases/lib/tst_supported_fs.c
-+++ b/testcases/lib/tst_supported_fs.c
-@@ -5,42 +5,74 @@
+diff --git a/include/tst_fs.h b/include/tst_fs.h
+index 8159b99eb..2fe97f174 100644
+--- a/include/tst_fs.h
++++ b/include/tst_fs.h
+@@ -182,6 +182,16 @@ enum tst_fs_impl {
   */
+ enum tst_fs_impl tst_fs_is_supported(const char *fs_type);
  
- #include <stdio.h>
-+#include <stdlib.h>
- #include <string.h>
- 
-+#define SKIP_DELIMITER ','
++/*
++ * Check filesystem support (@see tst_fs_is_supported()), but consider also
++ * filesystems to skip.
++ *
++ * @fs_type A filesystem name to check the support for.
++ * @skiplist A NULL terminated array of filesystems to skip.
++ */
++enum tst_fs_impl tst_fs_is_supported_skiplist(const char *fs_type, const char
++					      *const *skiplist);
 +
- #define TST_NO_DEFAULT_MAIN
- #include "tst_test.h"
- #include "tst_fs.h"
- 
- static void usage(void)
- {
--	fprintf(stderr, "Usage: tst_supported_fs [fs_type]\n");
-+	fprintf(stderr, "Usage: tst_supported_fs [-s skip_list] [fs_type]\n");
- 	fprintf(stderr, "   If fs_type is supported, return 0\n");
- 	fprintf(stderr, "   If fs_type isn't supported, return 1\n");
- 	fprintf(stderr, "   If fs_type isn't specified, print the list of supported filesystems\n");
- 	fprintf(stderr, "   fs_type - a specified filesystem type\n");
-+	fprintf(stderr, "   skip_list - filesystems to skip, delimiter: '%c'\n",
-+			SKIP_DELIMITER);
+ /*
+  * Returns NULL-terminated array of kernel-supported filesystems.
+  *
+diff --git a/lib/tst_supported_fs_types.c b/lib/tst_supported_fs_types.c
+index 9726d193a..8c9379c1b 100644
+--- a/lib/tst_supported_fs_types.c
++++ b/lib/tst_supported_fs_types.c
+@@ -134,6 +134,24 @@ enum tst_fs_impl tst_fs_is_supported(const char *fs_type)
+ 	return TST_FS_UNSUPPORTED;
  }
  
- int main(int argc, char *argv[])
++enum tst_fs_impl tst_fs_is_supported_skiplist(const char *fs_type, const char
++					      *const *skiplist)
++{
++	int ret;
++
++	ret = tst_fs_is_supported(fs_type);
++
++	if (!ret)
++		return ret;
++
++	if (tst_fs_in_skiplist(fs_type, skiplist)) {
++		tst_brk(TCONF, "%s is not supported by the test",
++			fs_type);
++	}
++
++	return ret;
++}
++
+ const char **tst_get_supported_fs_types(const char *const *skiplist)
  {
--	const char *skiplist[] = {"tmpfs", NULL};
- 	const char *const *filesystems;
--	int i;
-+	int i, ret, cnt = 1;
-+	char **skiplist = NULL;
-+	char *fs;
- 
--	if (argc > 2) {
--		fprintf(stderr, "Can't specify multiple fs_type\n");
--		usage();
--		return 2;
-+	while ((ret = getopt(argc, argv, "hs:"))) {
-+		if (ret < 0)
-+			break;
-+
-+		switch (ret) {
-+		case '?':
-+			return 1;
-+
-+		case 'h':
-+			usage();
-+			return 0;
-+
-+		case 's':
-+			fs = optarg;
-+			for (i = 0; fs[i]; i++) {
-+				if (optarg[i] == SKIP_DELIMITER)
-+					cnt++;
-+			}
-+			skiplist = malloc(++cnt * sizeof(char *));
-+			if (!skiplist) {
-+				fprintf(stderr, "malloc() failed\n");
-+				return 1;
-+			}
-+
-+			fs = optarg;
-+			for (i = 0; i < cnt; i++)
-+				skiplist[i] = strtok_r(fs, TST_TO_STR(SKIP_DELIMITER), &fs);
-+			break;
-+		}
+ 	unsigned int i, j = 0;
+diff --git a/testcases/lib/tst_supported_fs.c b/testcases/lib/tst_supported_fs.c
+index 87be2b759..75945c809 100644
+--- a/testcases/lib/tst_supported_fs.c
++++ b/testcases/lib/tst_supported_fs.c
+@@ -70,7 +70,7 @@ int main(int argc, char *argv[])
  	}
  
--	if (argv[1] && !strcmp(argv[1], "-h")) {
-+	if (argc - optind > 1) {
-+		fprintf(stderr, "Can't specify multiple fs_type\n");
- 		usage();
--		return 0;
-+		return 2;
- 	}
+ 	if (optind < argc)
+-		return !tst_fs_is_supported(argv[optind]);
++		return !tst_fs_is_supported_skiplist(argv[optind], (const char * const*)skiplist);
  
--	if (argv[1])
--		return !tst_fs_is_supported(argv[1]);
-+	if (optind < argc)
-+		return !tst_fs_is_supported(argv[optind]);
- 
--	filesystems = tst_get_supported_fs_types(skiplist);
-+	filesystems = tst_get_supported_fs_types((const char * const*)skiplist);
+ 	filesystems = tst_get_supported_fs_types((const char * const*)skiplist);
  	for (i = 0; filesystems[i]; i++)
- 		printf("%s\n", filesystems[i]);
- 
-diff --git a/testcases/misc/lvm/generate_lvm_runfile.sh b/testcases/misc/lvm/generate_lvm_runfile.sh
-index 72b286a69..843dd6bb8 100755
---- a/testcases/misc/lvm/generate_lvm_runfile.sh
-+++ b/testcases/misc/lvm/generate_lvm_runfile.sh
-@@ -16,7 +16,7 @@ generate_runfile()
- 	trap 'tst_brk TBROK "Cannot create LVM runfile"' ERR
- 	INFILE="$LTPROOT/testcases/data/lvm/runfile.tpl"
- 	OUTFILE="$LTPROOT/runtest/lvm.local"
--	FS_LIST=`tst_supported_fs`
-+	FS_LIST=$(tst_supported_fs -s tmpfs)
- 	echo -n "" >"$OUTFILE"
- 
- 	for fsname in $FS_LIST; do
-diff --git a/testcases/misc/lvm/prepare_lvm.sh b/testcases/misc/lvm/prepare_lvm.sh
-index d3ae4b23f..29f386df8 100755
---- a/testcases/misc/lvm/prepare_lvm.sh
-+++ b/testcases/misc/lvm/prepare_lvm.sh
-@@ -70,7 +70,7 @@ prepare_mounts()
- 
- prepare_lvm()
- {
--	FS_LIST=`tst_supported_fs | sort -u`
-+	FS_LIST=$(tst_supported_fs -s tmpfs | sort -u)
- 	ROD mkdir -p "$LVM_TMPDIR"
- 	ROD mkdir -p "$LVM_IMGDIR"
- 	chmod 777 "$LVM_TMPDIR"
 -- 
 2.37.1
 
