@@ -1,65 +1,69 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F06358997B
-	for <lists+linux-ltp@lfdr.de>; Thu,  4 Aug 2022 10:48:56 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E1C1589A51
+	for <lists+linux-ltp@lfdr.de>; Thu,  4 Aug 2022 12:14:09 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1E1BA3C93EF
-	for <lists+linux-ltp@lfdr.de>; Thu,  4 Aug 2022 10:48:55 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 993C33C933F
+	for <lists+linux-ltp@lfdr.de>; Thu,  4 Aug 2022 12:14:08 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 27BCA3C5AA6
- for <ltp@lists.linux.it>; Thu,  4 Aug 2022 10:48:50 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id F1B223C4FC3
+ for <ltp@lists.linux.it>; Thu,  4 Aug 2022 12:14:06 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 45B291A011DF
- for <ltp@lists.linux.it>; Thu,  4 Aug 2022 10:48:50 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id A89F43760E;
- Thu,  4 Aug 2022 08:48:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1659602929; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 9AF84601BED
+ for <ltp@lists.linux.it>; Thu,  4 Aug 2022 12:14:04 +0200 (CEST)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 98DFB34A57;
+ Thu,  4 Aug 2022 10:14:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1659608043;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=Y1uXtKMRAJs4bIaU3a9HlmfzJu+IJ+1zdhYhpcXpu2M=;
- b=O1pDYnVndLqOPHz4RB07wU2MxfrPQaT2fwtziywHYHXc0YTqnr8D+0hDZPcJ/X0zDF9mwE
- MIYvHIfIxqHcEmuW3uzzWaX5PAKytMDPMyQwE1qipq5s1qJQGrfUr2VvTCa07017usPlmj
- uI5DwaxeX8pfKwNIIOJ3gUjMe5OTuzY=
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ bh=De/SpeZM8ZAa/P1RfxrkGpN/xnYAKkvsj0pZbWA5sRE=;
+ b=pHOMufDHb3mnlxISW+lhd0ShNl0t6QGnFH8RiEAxa/SgfrXSrcCAHo+R99+UjnlUrw4bPd
+ Qqa1AQRjGPwN1NwJouzb3PLYe3y1melmf/gPMmtYkNpeoqtLqZeRkCIZJfjxXt2Hh1paFI
+ x3jF8Wf1h4zVs396yTAKPtkoF8peRgA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1659608043;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=De/SpeZM8ZAa/P1RfxrkGpN/xnYAKkvsj0pZbWA5sRE=;
+ b=mezpDmo4vBgV4yqzR8xXt/oGqO9KSlKIYkuOEbI4Ny4o1WDWfJKWPLCct6ELFLNrFAz7ew
+ x1wtbZ7tP5fpWnDg==
+Received: from g78 (unknown [10.163.17.14])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3E6641348A;
- Thu,  4 Aug 2022 08:48:49 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 0AgyCfGH62IWPAAAMHmgww
- (envelope-from <andrea.cervesato@suse.com>); Thu, 04 Aug 2022 08:48:49 +0000
-To: ltp@lists.linux.it
-Date: Thu,  4 Aug 2022 10:48:12 +0200
-Message-Id: <20220804084812.22737-2-andrea.cervesato@suse.com>
-X-Mailer: git-send-email 2.35.3
-In-Reply-To: <20220804084812.22737-1-andrea.cervesato@suse.com>
-References: <20220804084812.22737-1-andrea.cervesato@suse.com>
+ by relay2.suse.de (Postfix) with ESMTPS id 392EB2C16E;
+ Thu,  4 Aug 2022 10:14:03 +0000 (UTC)
+References: <20220725100641.11625-1-rpalethorpe@suse.com>
+ <CAEemH2ck+baL4PA5F5OoL1VRCS+W=CJHpXJbx9-jUNVa9ofR0Q@mail.gmail.com>
+User-agent: mu4e 1.6.10; emacs 28.1
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Li Wang <liwang@redhat.com>
+Date: Thu, 04 Aug 2022 10:47:43 +0100
+In-reply-to: <CAEemH2ck+baL4PA5F5OoL1VRCS+W=CJHpXJbx9-jUNVa9ofR0Q@mail.gmail.com>
+Message-ID: <874jystixh.fsf@suse.de>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH v1 2/2] Refactor pidns02 test using new LTP API
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v2 1/4] read_all: Add worker timeout and rewrite
+ scheduling
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,170 +75,121 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Andrea Cervesato via ltp <ltp@lists.linux.it>
-Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
+Reply-To: rpalethorpe@suse.de
+Cc: LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
----
- testcases/kernel/containers/pidns/pidns02.c | 130 +++++---------------
- 1 file changed, 30 insertions(+), 100 deletions(-)
+Hello Li,
 
-diff --git a/testcases/kernel/containers/pidns/pidns02.c b/testcases/kernel/containers/pidns/pidns02.c
-index 2bc9035d8..a106ed8b7 100644
---- a/testcases/kernel/containers/pidns/pidns02.c
-+++ b/testcases/kernel/containers/pidns/pidns02.c
-@@ -1,114 +1,44 @@
-+// SPDX-License-Identifier: GPL-2.0
- /*
--* Copyright (c) International Business Machines Corp., 2007
--* This program is free software; you can redistribute it and/or modify
--* it under the terms of the GNU General Public License as published by
--* the Free Software Foundation; either version 2 of the License, or
--* (at your option) any later version.
--* This program is distributed in the hope that it will be useful,
--* but WITHOUT ANY WARRANTY; without even the implied warranty of
--* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
--* the GNU General Public License for more details.
--* You should have received a copy of the GNU General Public License
--* along with this program; if not, write to the Free Software
--* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
--*
--***************************************************************************
--
--* File: pidns02.c
--*
--* Description:
--*	The pidns02.c testcase builds into the ltp framework to verify
--*	the basic functionality of PID Namespace.
--*
--* Verify that:
--* 1. When parent clone a process with flag CLONE_NEWPID, the session ID of
--* child should be always one.
--*
--* 2. When parent clone a process with flag CLONE_NEWPID, the parent process group ID
--* should be always one.
--*
--* Total Tests
--*
--* Test Name: pidns02
--*
--* Test Assertion & Strategy:
--*
--* From main() clone a new child process with passing the clone_flag as CLONE_NEWPID,
--* Call the setid() inside container.
--* Inside the cloned pid check for the getsid(0) and getpgid(0)
--* Verify with global macro defined value for parent pid & child pid.
--*
--* Usage: <for command-line>
--* pidns02
--*/
--
--#define _GNU_SOURCE
--#include <sys/wait.h>
--#include <assert.h>
--#include <stdio.h>
--#include <stdlib.h>
--#include <unistd.h>
--#include <string.h>
--#include <errno.h>
--#include "pidns_helper.h"
--#include "test.h"
-+ * Copyright (c) International Business Machines Corp., 2007
-+ * Copyright (C) 2022 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
-+ */
- 
--char *TCID = "pidns02";
--int TST_TOTAL = 1;
-+/*\
-+ * [Description]
-+ *
-+ * Clone a process with CLONE_NEWPID flag and check:
-+ *
-+ * - child session ID must be 1
-+ * - parent process group ID must be 1
-+ */
- 
--#define PGID	1
--#define SID	1
-+#include "tst_test.h"
-+#include "lapi/namespaces_constants.h"
- 
--/*
-- * child_fn1() - Inside container
-- */
--int child_fn1(void *vtest)
-+static int child_func(LTP_ATTRIBUTE_UNUSED void *arg)
- {
--	pid_t pgid, sid;
-+	pid_t sid, pgid;
- 
--	setsid();
--
--	pgid = getpgid(0);
- 	sid = getsid(0);
-+	pgid = getpgid(0);
- 
--	printf("Checking session id & group id inside container\n");
--	if (pgid == PGID && sid == SID) {
--		printf("Success: Got Group ID = %d & Session ID = %d\n",
--		       pgid, sid);
--		exit(0);
--	} else {
--		printf("Got unexpected result of Group ID = %d & Session ID = "
--		       "%d\n", pgid, sid);
--		exit(1);
--	}
--}
-+	TST_EXP_PASS(sid == 1);
-+	TST_EXP_PASS(pgid == 1);
- 
--static void setup(void)
--{
--	tst_require_root();
--	check_newpid();
-+	return 0;
- }
- 
--int main(void)
-+static void run(void)
- {
--	int status;
--
--	setup();
--
--	TEST(do_clone_unshare_test(T_CLONE, CLONE_NEWPID, child_fn1, NULL));
--	if (TEST_RETURN == -1) {
--		tst_brkm(TFAIL | TTERRNO, NULL, "clone failed");
--	} else if ((wait(&status)) == -1) {
--		tst_brkm(TFAIL | TERRNO, NULL, "wait failed");
--	}
--
--	if (WIFEXITED(status) && WEXITSTATUS(status) != 0) {
--		tst_resm(TFAIL | TERRNO, "child exited abnormally");
--	} else if (WIFSIGNALED(status)) {
--		tst_resm(TFAIL | TERRNO, "child exited with signal %d",
--			 WTERMSIG(status));
--	}
--
--	tst_exit();
-+	int ret;
- 
-+	ret = ltp_clone_quick(CLONE_NEWNS | SIGCHLD, child_func, NULL);
-+	if (ret < 0)
-+		tst_brk(TBROK | TERRNO, "clone failed");
- }
-+
-+static struct tst_test test = {
-+	.test_all = run,
-+	.needs_root = 1,
-+};
+Li Wang <liwang@redhat.com> writes:
+
+> Hi Richard, All,
+>
+> On Mon, Jul 25, 2022 at 6:06 PM Richard Palethorpe <rpalethorpe@suse.com> wrote:
+>
+>  Kill and restart workers that take too long to read a file. The
+>  default being 10% of max_runtime. A custom time can be set with the
+>  new -t option.
+>
+>  This is to prevent a worker from blocking forever in a read. Currently
+>  when this happens the whole test times out and any remaining files in
+>  the worker's queue are not tested.
+>
+>  As a side effect we can now also set the timeout very low to cause
+>  partial reads. However setting it to less than the time it takes to
+>  start (fork) a new worker is treated as an error. Forking takes much
+>  longer than most reads.
+>
+>  A number of other possible issues were fixed as well as a side effect
+>  of changing the scheduling:
+>
+>  + The worker queues are now filled in a
+>    "round robin" way. Before this only happened when -r was large
+>    enough.
+>  + When testing is finished the main process waits on the child procs before
+>    destroying the semaphores and worker queues.
+>  + max_runtime is set to 100 secs. This is so that the worker timeout
+>    is a round number.
+>  + Files which don't implement O_NONBLOCK and may block, no longer need
+>    to be avoided. Even if they refuse to die immediately;
+>    although this may result in TBROK due to zombie processes.
+>
+>  Note that with a worker timeout of 1s, 2 to 3 files will usually timeout on
+>  my workstation. With 2s, none will. In any case testing completes in
+>  under 3s for proc, sys or dev.
+>
+>  This is much faster than many other machines. It's quite likely the
+>  worker timeout and max_runtime need to be increased on small and very
+>  large machines. This can be done manually by setting LTP_RUNTIME_MUL.
+>
+> Yes, apart from a bit of difficulty (at least for me) to comprehend the detailed
+> behavior of this scheduler :). 
+>
+> Thanks for your improvements! Just one tiny query below.
+>
+> Reviewed-by: Li Wang <liwang@redhat.com>
+
+Thanks!
+>
+>   
+>  --- a/testcases/kernel/fs/read_all/read_all.c
+>  +++ b/testcases/kernel/fs/read_all/read_all.c
+>  ...
+>
+>  +#include <signal.h>
+>   #include <sys/types.h>
+>   #include <sys/stat.h>
+>  +#include <sys/wait.h>
+>   #include <lapi/fnmatch.h>
+>   #include <stdlib.h>
+>   #include <stdio.h>
+>  @@ -43,7 +45,10 @@
+>   #include <pwd.h>
+>   #include <grp.h>
+>
+>  +#include "tst_atomic.h"
+>  +#include "tst_safe_clocks.h"
+>   #include "tst_test.h"
+>  +#include "tst_timer.h"
+>
+>   #define QUEUE_SIZE 16384
+>   #define BUFFER_SIZE 1024
+>  @@ -55,11 +60,15 @@ struct queue {
+>          int front;
+>          int back;
+>          char data[QUEUE_SIZE];
+>
+> I doubt whether we need to maintain a queue to store the paths.
+> During the test it seems only one path is being pushed in the q->data[],
+> so the rest of the space is wasted, right?
+>
+> By shrinking the QUEUE_SIZE to equal BUFFER_SIZE, the test
+> still works normally.
+
+The rest of the space should be being used unless it is buggy. It's a
+circle buffer with multiple (variable length) items delimited by \0.
+
+However it's a very good point you make. It's true that having a
+multi-item queue on each worker is not necessary.
+
+At most we need two buffers (or a flip buffer) on each worker, one
+containing the current path being worked on and one with the next path
+to be worked on.
+
+This would be much simpler than the circle buffer queue I originally
+implemented. It may mean the workers are more likely to starve while
+waiting for the main process. However the main process usually adds work
+far faster than the workers can consume it.
+
+So we should probably swap the queue for a flip buffer. I'll look into
+that and merge this patchset as it is for now.
+
 -- 
-2.35.3
-
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
