@@ -2,74 +2,74 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFE6C58C7A3
-	for <lists+linux-ltp@lfdr.de>; Mon,  8 Aug 2022 13:38:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 650E258C7A7
+	for <lists+linux-ltp@lfdr.de>; Mon,  8 Aug 2022 13:38:49 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 643703C955B
-	for <lists+linux-ltp@lfdr.de>; Mon,  8 Aug 2022 13:38:17 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 0BF6B3C94EA
+	for <lists+linux-ltp@lfdr.de>; Mon,  8 Aug 2022 13:38:49 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id BE1603C942D
+ by picard.linux.it (Postfix) with ESMTPS id 46E413C91F1
  for <ltp@lists.linux.it>; Mon,  8 Aug 2022 13:38:02 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id EBE7E140016D
- for <ltp@lists.linux.it>; Mon,  8 Aug 2022 13:38:01 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 7FE681A006E5
+ for <ltp@lists.linux.it>; Mon,  8 Aug 2022 13:38:02 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 81A2237985;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id BFA3420B80;
  Mon,  8 Aug 2022 11:38:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1659958681; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=/Vlm8yb9vXZ7SxOZ/n+iW/tOgTb2RMot1RLYIwkUde0=;
- b=K5YTIKbgzSR9yHNIWwNOwXZhZdNVh4QHuZsdkAQWsMSJh54q/OlGn32cBE3cz0UHX6Cc6O
- TXKWmLKby9oPQfjrYt4YH+4+IYGLxRyb3xX8Dovx7tGczouoke9Uh0j5hHUbCmuhQa4atJ
- 3mA2RPdllS6bCFCE4CXSFqjQZFLYyQw=
+ bh=qrhLa61ONw22s5/kObwaK1H71NTZoB5pwfM6+Z1heUQ=;
+ b=M5KhEjDhDAazUzg7UJLms8HxjehnLd0LMaYcg55dbWSkqJM4d+q3ViRR88UU3lEeef+Zs3
+ ouZohUhX5uMQFxgHft758mZxJ5CCkATKs6fmEwsMJfa5EtU1SsmLPDSPTkqSa1JPHfFAgm
+ DIGXteH89pVpgBRq7xoZEFKoMG6im94=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1659958681;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=/Vlm8yb9vXZ7SxOZ/n+iW/tOgTb2RMot1RLYIwkUde0=;
- b=dWJ4h93Ys9m520ojrrMStXuv4NxVL7C2PTX90PQI6+09Zw6b9TQ3CKZtcC1KDiIVLHOS6X
- ZJSci1LJOsAAU6Dw==
+ bh=qrhLa61ONw22s5/kObwaK1H71NTZoB5pwfM6+Z1heUQ=;
+ b=yatW2jG1HkrG+whGqLa7U4k6BilytXc9wcYfIeewhgR372YP3N5//FuhXWLWRBSGkp54GY
+ WWKoEx3+f1hxKMAg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5038F13AB3;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9092213AB3;
  Mon,  8 Aug 2022 11:38:01 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 0CfiEZn18GJ0LgAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id 8EO6IJn18GJ0LgAAMHmgww
  (envelope-from <pvorel@suse.cz>); Mon, 08 Aug 2022 11:38:01 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Mon,  8 Aug 2022 13:37:54 +0200
-Message-Id: <20220808113756.11582-3-pvorel@suse.cz>
+Date: Mon,  8 Aug 2022 13:37:55 +0200
+Message-Id: <20220808113756.11582-4-pvorel@suse.cz>
 X-Mailer: git-send-email 2.37.1
 In-Reply-To: <20220808113756.11582-1-pvorel@suse.cz>
 References: <20220808113756.11582-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH v4 2/4] tst_ansi_color.sh: Allow to run with set -e
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH v4 3/4] tst_test.sh: Fix _tst_cleanup_timer() on set -e
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,48 +86,53 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-set -e (or #!/bin/sh -e or set -o errexit) quits on any non-zero exit
-code, therefore any && must be turned into || (or if ...; then ..; fi).
-Fix hardens tst_res TINFO to be able to be used on scripts with errexit.
+If test exits on time (i.e. no timeout) kill in _tst_cleanup_timer()
+have nothing to kill therefore following wait exits 143.
+
+set -e (or #!/bin/sh -e or set -o errexit) quits on any non-zero exit code,
+fix hardens _tst_cleanup_timer() to be able to be used on scripts with it.
 
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
-changes v2->v3:
-* really fix it.
+I can use 'if ...; then ; fi' if you prefer:
 
- testcases/lib/tst_ansi_color.sh | 13 +++++++------
- 1 file changed, 7 insertions(+), 6 deletions(-)
+	if [ "$LTP_COLORIZE_OUTPUT" = "n" -o "$LTP_COLORIZE_OUTPUT" = "0" ]; then
+		return 0
+	fi
 
-diff --git a/testcases/lib/tst_ansi_color.sh b/testcases/lib/tst_ansi_color.sh
-index 703df1eb8..517b709d0 100644
---- a/testcases/lib/tst_ansi_color.sh
-+++ b/testcases/lib/tst_ansi_color.sh
-@@ -24,18 +24,19 @@ tst_flag2color()
- 
- tst_color_enabled()
+	if [ "$LTP_COLORIZE_OUTPUT" = "y" ] || [ "$LTP_COLORIZE_OUTPUT" = "1" ]; then
+		return 1
+	fi
+
+...
+	if [ "$color" = 1 ]; then
+		tst_flag2color "$1"
+	fi
+	printf "$2"
+	if [ "$color" = 1 ]; then
+		printf '\033[0m'
+	fi
+
+
+Kind regards,
+Petr
+
+ testcases/lib/tst_test.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/testcases/lib/tst_test.sh b/testcases/lib/tst_test.sh
+index 356af0106..1d2bf06cc 100644
+--- a/testcases/lib/tst_test.sh
++++ b/testcases/lib/tst_test.sh
+@@ -518,7 +518,7 @@ _tst_cleanup_timer()
  {
--	[ "$LTP_COLORIZE_OUTPUT" = "n" ] || [ "$LTP_COLORIZE_OUTPUT" = "0" ] && return 0
--	[ "$LTP_COLORIZE_OUTPUT" = "y" ] || [ "$LTP_COLORIZE_OUTPUT" = "1" ] && return 1
-+	[ "$LTP_COLORIZE_OUTPUT" = "n" -o "$LTP_COLORIZE_OUTPUT" = "0" ] || return 1
-+	[ "$LTP_COLORIZE_OUTPUT" = "y" -o "$LTP_COLORIZE_OUTPUT" = "1" ] || return 0
- 	[ -t 1 ] || return 0
- 	return 1
+ 	if [ -n "$_tst_setup_timer_pid" ]; then
+ 		kill -TERM $_tst_setup_timer_pid 2>/dev/null
+-		wait $_tst_setup_timer_pid 2>/dev/null
++		wait $_tst_setup_timer_pid 2>/dev/null || true
+ 	fi
  }
  
- tst_print_colored()
- {
--	tst_color_enabled
--	local color=$?
-+	local color=0
- 
--	[ "$color" = "1" ] && tst_flag2color "$1"
-+	tst_color_enabled || color=$?
-+
-+	[ "$color" != 1 ] || tst_flag2color "$1"
- 	printf "$2"
--	[ "$color" = "1" ] && printf '\033[0m'
-+	[ "$color" != 1 ] || printf '\033[0m'
- }
 -- 
 2.37.1
 
