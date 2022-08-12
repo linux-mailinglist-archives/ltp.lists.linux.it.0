@@ -1,60 +1,61 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id D53EC590CC2
-	for <lists+linux-ltp@lfdr.de>; Fri, 12 Aug 2022 09:44:46 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D06B590CDA
+	for <lists+linux-ltp@lfdr.de>; Fri, 12 Aug 2022 09:50:53 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id B0DB53C95B5
-	for <lists+linux-ltp@lfdr.de>; Fri, 12 Aug 2022 09:44:45 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 7917F3C95F3
+	for <lists+linux-ltp@lfdr.de>; Fri, 12 Aug 2022 09:50:52 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 125223C02C2
- for <ltp@lists.linux.it>; Fri, 12 Aug 2022 09:44:36 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id ED4E53C1BEA
+ for <ltp@lists.linux.it>; Fri, 12 Aug 2022 09:50:47 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 28D451400E64
- for <ltp@lists.linux.it>; Fri, 12 Aug 2022 09:44:35 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id E08F11A0069B
+ for <ltp@lists.linux.it>; Fri, 12 Aug 2022 09:50:46 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 1FD3A5D8EB;
- Fri, 12 Aug 2022 07:44:35 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id E487E5D906;
+ Fri, 12 Aug 2022 07:50:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1660290275; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1660290644; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=JL/DiKk1Sj/mb79Sovbqs5HuFCPj6mHa+t++nh8EG5A=;
- b=QFQStSpP37x1AK/r2QaaFzfyvq9VW20a5FNhyH7bJSGN3hUJPV3KpKZHhsx3or6KXoZQrO
- OXuGEKOg66DZEWxF5YeeB+CLWJrIpDgmuPKRjlrQS0pjseYxiKkks19959a8zxhXeGxvUt
- jydUu817PXV20BwM7sBqPjGWzh45fCU=
+ bh=obpBeH0qm012uxg7W9VB6vKss6KfYAHrsVtuyAfSlhQ=;
+ b=ko8Qq5PCwWAWdsOxuXJPWEKC8/Tdt0fdcW3T1yZVHkr1xULgOcfJDooqkg+zkTLRoueVQd
+ geJ0o0SSiAj4XmAaJ1m1G9T1LWnWorAbi9jJWrErRSd8XmA5qg6gM9iaJljitgBuriv/ZD
+ Ojxkf/5prkJS+34NwU4y2U9j5S6E8b0=
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DBDC413AAE;
- Fri, 12 Aug 2022 07:44:34 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B5F4313305;
+ Fri, 12 Aug 2022 07:50:44 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id K9OCM+IE9mKlEAAAMHmgww
- (envelope-from <andrea.cervesato@suse.com>); Fri, 12 Aug 2022 07:44:34 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id hGRZKlQG9mJrEwAAMHmgww
+ (envelope-from <andrea.cervesato@suse.com>); Fri, 12 Aug 2022 07:50:44 +0000
 To: ltp@lists.linux.it
-Date: Fri, 12 Aug 2022 09:43:55 +0200
-Message-Id: <20220812074355.15860-1-andrea.cervesato@suse.com>
+Date: Fri, 12 Aug 2022 09:50:05 +0200
+Message-Id: <20220812075005.16920-1-andrea.cervesato@suse.com>
 X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH v1] Refactor pidns30 test using new LTP API
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH v2] Refactor pidns30 test using new LTP API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,7 +80,7 @@ Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
  1 file changed, 72 insertions(+), 245 deletions(-)
 
 diff --git a/testcases/kernel/containers/pidns/pidns30.c b/testcases/kernel/containers/pidns/pidns30.c
-index c8b0806c0..0f01b0fb2 100644
+index c8b0806c0..2207f0206 100644
 --- a/testcases/kernel/containers/pidns/pidns30.c
 +++ b/testcases/kernel/containers/pidns/pidns30.c
 @@ -1,296 +1,123 @@
@@ -137,9 +138,9 @@ index c8b0806c0..0f01b0fb2 100644
 +/*\
 + * [Description]
 + *
-+ * Clone a process with CLONE_NEWPID flag and check if the si_pid is correctly
-+ * set when a process that has been registered for notification on a posix
-+ * mqueue.
++ * Clone a process with CLONE_NEWPID flag, register notification on a posix
++ * mqueue and send a mqueue message from the parent. Then check if signal
++ * notification contains si_pid of the parent.
 + */
 +
  #define _GNU_SOURCE 1
