@@ -1,69 +1,70 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F202595414
-	for <lists+linux-ltp@lfdr.de>; Tue, 16 Aug 2022 09:44:56 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 42A4F595415
+	for <lists+linux-ltp@lfdr.de>; Tue, 16 Aug 2022 09:45:06 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 59D7A3C97FA
-	for <lists+linux-ltp@lfdr.de>; Tue, 16 Aug 2022 09:44:55 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E622B3C9B4F
+	for <lists+linux-ltp@lfdr.de>; Tue, 16 Aug 2022 09:45:05 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 11E043C9737
- for <ltp@lists.linux.it>; Tue, 16 Aug 2022 09:44:53 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 1F1CB3C98CE
+ for <ltp@lists.linux.it>; Tue, 16 Aug 2022 09:44:57 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 63CCB600641
- for <ltp@lists.linux.it>; Tue, 16 Aug 2022 09:44:53 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 7779F1000362
+ for <ltp@lists.linux.it>; Tue, 16 Aug 2022 09:44:56 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 68E961F889
- for <ltp@lists.linux.it>; Tue, 16 Aug 2022 07:44:52 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id B849B33928
+ for <ltp@lists.linux.it>; Tue, 16 Aug 2022 07:44:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1660635892; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ t=1660635895; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=SipiCy7MBPixT1ZLKkfYdf8ctWCaQ0SNTIyop4EKmqY=;
- b=DaWzCnkHlC5Chu3SWDHOGMTFRJmdISR8E6pCvj3+H5/mtgpE8NT4cbubXRrh9+PjNI4CG9
- CC/U7tPi4SdjLRN5ORY/F5/YG+vqQzlxEj6GCpDmvr2362tDUByonRzBYAB2bXtDBceWVb
- 2BvVRrSVK8yR7Dm/P+CaKHAEFo4DVU4=
+ bh=XRwTZUJABvLttJNy3XCQAMBevJeAxqDTqpZPnCVzhVk=;
+ b=B7M2toa7D2E4pNzyhhTgKg+PA5e17kfeOlfxdNNFxyNgdH7a/Rui+R1hH8he0uWUarw46t
+ icZWYjgUy5AsuaZ3LXD9kSV04LPEy2lD+zfkhevTpDtwICrL0obw3rmKky/kE2EwqcMDGS
+ M1WJco8jOiL6oVN6bsFiAk5fY3EU7uY=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1660635892;
+ s=susede2_ed25519; t=1660635895;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=SipiCy7MBPixT1ZLKkfYdf8ctWCaQ0SNTIyop4EKmqY=;
- b=QEdtYeP2rCrgqcH5hycllCEiQKx3ZlXi5ykUXCeig+wyt/TovqyIe1e5ADlJACnoCe17wf
- 1Sbz6Q+TZpY1R7Dg==
+ bh=XRwTZUJABvLttJNy3XCQAMBevJeAxqDTqpZPnCVzhVk=;
+ b=daMGnvsGXIAz3guz9/xBCaC+oVwONGcP7V2oAldXREreGAvm4FaeX5iAaYf+xlZzinT1+v
+ lCUumZjNM9I4JNCQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E09501345B
- for <ltp@lists.linux.it>; Tue, 16 Aug 2022 07:44:51 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3B9CE1345B
+ for <ltp@lists.linux.it>; Tue, 16 Aug 2022 07:44:55 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id HXSuKPNK+2J3SwAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id 7G9vAPdK+2KBSwAAMHmgww
  (envelope-from <akumar@suse.de>)
- for <ltp@lists.linux.it>; Tue, 16 Aug 2022 07:44:51 +0000
+ for <ltp@lists.linux.it>; Tue, 16 Aug 2022 07:44:55 +0000
 From: Avinesh Kumar <akumar@suse.de>
 To: ltp@lists.linux.it
-Date: Tue, 16 Aug 2022 13:14:48 +0530
-Message-Id: <20220816074449.30861-1-akumar@suse.de>
+Date: Tue, 16 Aug 2022 13:14:49 +0530
+Message-Id: <20220816074449.30861-2-akumar@suse.de>
 X-Mailer: git-send-email 2.37.1
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH] stat01: cleanup, use TST_EXP macros
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH] stat03: cleanup, use TST_EXP_FAIL macro
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,19 +84,19 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 - update copyright
 - turn comment into docparse format
 - remove redundant headers
-- make check fixes: static vars
-- use TST_EXP_* macros
+- make check fix: change to static
+- use TST_EXP_FAIL with expected errno code
 
 Signed-off-by: Avinesh Kumar <akumar@suse.de>
 ---
- testcases/kernel/syscalls/stat/stat01.c | 60 ++++++-------------------
- 1 file changed, 14 insertions(+), 46 deletions(-)
+ testcases/kernel/syscalls/stat/stat03.c | 25 +++++++------------------
+ 1 file changed, 7 insertions(+), 18 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/stat/stat01.c b/testcases/kernel/syscalls/stat/stat01.c
-index 0f5c1dcc2..e0dbfbf2f 100644
---- a/testcases/kernel/syscalls/stat/stat01.c
-+++ b/testcases/kernel/syscalls/stat/stat01.c
-@@ -2,16 +2,17 @@
+diff --git a/testcases/kernel/syscalls/stat/stat03.c b/testcases/kernel/syscalls/stat/stat03.c
+index 20d4c772f..369e6d79f 100644
+--- a/testcases/kernel/syscalls/stat/stat03.c
++++ b/testcases/kernel/syscalls/stat/stat03.c
+@@ -2,15 +2,16 @@
  /* Copyright (c) International Business Machines  Corp., 2001
   *	07/2001 John George
   *		-Ported
@@ -105,82 +106,44 @@ index 0f5c1dcc2..e0dbfbf2f 100644
 +/*\
 + * [Description]
   *
-  *  Verify that, stat(2) succeeds to get the status of a file and fills the
-  *  stat structure elements regardless of whether process has or doesn't
-  *  have read access to the file.
+  * check stat() with various error conditions that should produce
+  * EACCES, EFAULT, ENAMETOOLONG,  ENOENT, ENOTDIR, ELOOP
   */
  
--#include <sys/types.h>
 -#include <fcntl.h>
--#include <sys/stat.h>
 -#include <errno.h>
+-#include <sys/types.h>
+-#include <sys/stat.h>
  #include <pwd.h>
  #include "tst_test.h"
  
-@@ -22,9 +23,9 @@
- #define NEW_MODE         0222
- #define MASK             0777
+@@ -23,7 +24,7 @@
+ #define MODE_RW	        0666
+ #define DIR_MODE        0755
  
--uid_t user_id;
--gid_t group_id;
 -struct passwd *ltpuser;
-+static uid_t user_id;
-+static gid_t group_id;
 +static struct passwd *ltpuser;
  
- static struct tcase{
- 	char *pathname;
-@@ -38,47 +39,14 @@ static void verify_stat(unsigned int n)
- {
+ static char long_dir[PATH_MAX + 2] = {[0 ... PATH_MAX + 1] = 'a'};
+ static char loop_dir[PATH_MAX] = ".";
+@@ -45,19 +46,7 @@ static void verify_stat(unsigned int n)
  	struct tcase *tc = TC + n;
  	struct stat stat_buf;
--	int fail = 0;
--
+ 
 -	TEST(stat(tc->pathname, &stat_buf));
--
--	if (TST_RET == -1) {
--		tst_res(TFAIL | TTERRNO, "stat(%s) failed", tc->pathname);
+-	if (TST_RET != -1) {
+-		tst_res(TFAIL, "stat() succeeded unexpectedly");
 -		return;
 -	}
 -
--	if (stat_buf.st_uid != user_id) {
--		tst_res(TFAIL, "stat_buf.st_uid = %i expected %i",
--			stat_buf.st_uid, user_id);
--		fail++;
+-	if (TST_ERR == tc->exp_errno) {
+-		tst_res(TPASS | TTERRNO, "stat() failed as expected");
+-	} else {
+-		tst_res(TFAIL | TTERRNO,
+-			"stat() failed unexpectedly; expected: %d - %s",
+-			tc->exp_errno, tst_strerrno(tc->exp_errno));
 -	}
- 
--	if (stat_buf.st_gid != group_id) {
--		tst_res(TFAIL, "stat_buf.st_gid = %i expected %i",
--			stat_buf.st_gid, group_id);
--		fail++;
--	}
--
--	if (stat_buf.st_size != FILE_SIZE) {
--		tst_res(TFAIL, "stat_buf.st_size = %li expected %i",
--			(long)stat_buf.st_size, FILE_SIZE);
--		fail++;
--	}
--
--	if ((stat_buf.st_mode & MASK) != tc->mode) {
--		tst_res(TFAIL, "stat_buf.st_mode = %o expected %o",
--			(stat_buf.st_mode & MASK), tc->mode);
--		fail++;
--	}
--
--	if (stat_buf.st_nlink != 1) {
--		tst_res(TFAIL, "stat_buf.st_nlink = %lu expected 1",
--			stat_buf.st_nlink);
--		fail++;
--	}
-+	TST_EXP_PASS(stat(tc->pathname, &stat_buf));
- 
--	if (!fail)
--		tst_res(TPASS, "stat(%s)", tc->pathname);
-+	TST_EXP_EQ_LU(stat_buf.st_uid, user_id);
-+	TST_EXP_EQ_LU(stat_buf.st_gid, group_id);
-+	TST_EXP_EQ_LI(stat_buf.st_size, FILE_SIZE);
-+	TST_EXP_EQ_LU(stat_buf.st_mode & MASK, tc->mode);
-+	TST_EXP_EQ_LU(stat_buf.st_nlink, 1);
++	TST_EXP_FAIL(stat(tc->pathname, &stat_buf), tc->exp_errno);
  }
  
  static void setup(void)
