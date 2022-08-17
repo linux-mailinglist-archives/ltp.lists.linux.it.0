@@ -1,45 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id A18F6596FEF
-	for <lists+linux-ltp@lfdr.de>; Wed, 17 Aug 2022 15:39:35 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 282AB59705C
+	for <lists+linux-ltp@lfdr.de>; Wed, 17 Aug 2022 16:07:20 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 77E953C9CF4
-	for <lists+linux-ltp@lfdr.de>; Wed, 17 Aug 2022 15:39:35 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 5E7513C9F03
+	for <lists+linux-ltp@lfdr.de>; Wed, 17 Aug 2022 16:07:19 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 849C93C9FD5
- for <ltp@lists.linux.it>; Wed, 17 Aug 2022 15:38:50 +0200 (CEST)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by in-3.smtp.seeweb.it (Postfix) with ESMTP id 8A2531A002EA
- for <ltp@lists.linux.it>; Wed, 17 Aug 2022 15:38:49 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 65D93113E;
- Wed, 17 Aug 2022 06:38:48 -0700 (PDT)
-Received: from e129169.arm.com (usa-sjc-imap-foss1.foss.arm.com
- [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0D4CA3F67D;
- Wed, 17 Aug 2022 06:38:46 -0700 (PDT)
-From: Tudor Cretu <tudor.cretu@arm.com>
-To: ltp@lists.linux.it
-Date: Wed, 17 Aug 2022 14:39:46 +0100
-Message-Id: <20220817133946.234985-5-tudor.cretu@arm.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220817133946.234985-1-tudor.cretu@arm.com>
-References: <20220817133946.234985-1-tudor.cretu@arm.com>
+ by picard.linux.it (Postfix) with ESMTPS id B09E73C88EB
+ for <ltp@lists.linux.it>; Wed, 17 Aug 2022 16:07:14 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 968EB1A009B7
+ for <ltp@lists.linux.it>; Wed, 17 Aug 2022 16:07:12 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 2F7B0200B0;
+ Wed, 17 Aug 2022 14:07:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1660745232; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=5Q7fVJygqo6XQYqS2d743bQysPz4xLTXHvyqrecRFBU=;
+ b=F8YSdOYsSXJpZqAnO6itLpoTFWxwW0notxsTNAKiw9a+JHbW6/cXHO0bj98NszU64HQFtt
+ Ap+1yMwF7y49+tErON37MR4itRcpi5RJEdnKAHDvFFT51T9Zur75og5SnjR5+2MvwMUjLN
+ sleVccezG4ixOClQ1tOq7J+O3MWZYjw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1660745232;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=5Q7fVJygqo6XQYqS2d743bQysPz4xLTXHvyqrecRFBU=;
+ b=ou7/jlxFMgxXmjtteNQn80fzore2dFyYdia0j1kbT/ixAEDe0ZYS2wS39Z2YZRDuU/PFbR
+ QXkBt8tregCo84AA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1A3CF13A8E;
+ Wed, 17 Aug 2022 14:07:12 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id F3D6BBD2/GLLawAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Wed, 17 Aug 2022 14:07:12 +0000
+Date: Wed, 17 Aug 2022 16:09:09 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Tudor Cretu <tudor.cretu@arm.com>
+Message-ID: <Yvz2hT0VGNZrcArJ@yuki>
+References: <20220817133929.234873-1-tudor.cretu@arm.com>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20220817133929.234873-1-tudor.cretu@arm.com>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH 4/4] syscalls/statfs: Avoid dereferencing invalid buf
- in libc
+Subject: Re: [LTP] [PATCH 0/2] utils/compat_16: Allow build.sh to disable
+ the compat_16 tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,83 +80,29 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-The [f]statfs02 testsuites check that [f]statfs returns EFUALT when the
-provided buf parameter is invalid. There are cases in which the supported
-libcs don't exhibit this behaviour.
+Hi!
+> The option that allows disabling the compat_16 tests has been erroneously
+> removed in a previous change, so re-add it. Also, enable build.sh to use
+> make options such as TST_NEWER_64_SYSCALL or TST_COMPAT_16_SYSCALL.
 
-glibc versions newer than 2.34 and on systems that support [f]statfs64,
-call the syscall with a local struct statfs and then copy the result
-into buf. This throws a segfault for an invalid buf. musl dereferences buf
-before the syscall is called and, similarly, throws a segfault.
+It does not seem to be removed erroneously. What problem are you trying
+to solve?
 
-To avoid dereferencing an invalid buf in libc, bypass the [f]statfs wrapper
-and call the syscall directly. Consistently with the libc wrappers,
-choose [f]statfs64 instead of [f]statfs if the target supports it.
+Generally we rather produce tests that then return with TCONF (skipped)
+status than disable them from compilation.
 
-Signed-off-by: Tudor Cretu <tudor.cretu@arm.com>
----
- testcases/kernel/syscalls/fstatfs/fstatfs02.c | 7 ++++++-
- testcases/kernel/syscalls/statfs/statfs02.c   | 7 ++++++-
- 2 files changed, 12 insertions(+), 2 deletions(-)
+If you want to skip them at runtime you can filter them out from the
+rutnest files.
 
-diff --git a/testcases/kernel/syscalls/fstatfs/fstatfs02.c b/testcases/kernel/syscalls/fstatfs/fstatfs02.c
-index db2230f82..c1af07070 100644
---- a/testcases/kernel/syscalls/fstatfs/fstatfs02.c
-+++ b/testcases/kernel/syscalls/fstatfs/fstatfs02.c
-@@ -25,6 +25,7 @@
- #include <sys/types.h>
- #include <sys/statfs.h>
- #include <errno.h>
-+#include "lapi/syscalls.h"
- #include "test.h"
- #include "safe_macros.h"
- 
-@@ -68,7 +69,11 @@ int main(int ac, char **av)
- 
- 		for (i = 0; i < TST_TOTAL; i++) {
- 
--			TEST(fstatfs(TC[i].fd, TC[i].sbuf));
-+#if __NR_fstatfs64 != __LTP__NR_INVALID_SYSCALL
-+			TEST(tst_syscall(__NR_fstatfs64, TC[i].fd, TC[i].sbuf));
-+#else
-+			TEST(tst_syscall(__NR_fstatfs, TC[i].fd, TC[i].sbuf));
-+#endif
- 
- 			if (TEST_RETURN != -1) {
- 				tst_resm(TFAIL, "call succeeded unexpectedly");
-diff --git a/testcases/kernel/syscalls/statfs/statfs02.c b/testcases/kernel/syscalls/statfs/statfs02.c
-index 279665f86..e1afbda39 100644
---- a/testcases/kernel/syscalls/statfs/statfs02.c
-+++ b/testcases/kernel/syscalls/statfs/statfs02.c
-@@ -39,6 +39,7 @@
- #include <sys/vfs.h>
- #include <sys/mman.h>
- #include <errno.h>
-+#include "lapi/syscalls.h"
- #include "test.h"
- #include "safe_macros.h"
- 
-@@ -116,7 +117,11 @@ static void setup(void)
- 
- static void statfs_verify(const struct test_case_t *test)
- {
--	TEST(statfs(test->path, test->buf));
-+#if __NR_statfs64 != __LTP__NR_INVALID_SYSCALL
-+	TEST(tst_syscall(__NR_statfs64, test->path, test->buf));
-+#else
-+	TEST(tst_syscall(__NR_statfs, test->path, test->buf));
-+#endif
- 
- 	if (TEST_RETURN != -1) {
- 		tst_resm(TFAIL, "call succeeded unexpectedly");
 -- 
-2.25.1
-
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
