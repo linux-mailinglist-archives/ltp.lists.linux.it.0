@@ -1,73 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 568DE5970AE
-	for <lists+linux-ltp@lfdr.de>; Wed, 17 Aug 2022 16:12:08 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3EF7059710B
+	for <lists+linux-ltp@lfdr.de>; Wed, 17 Aug 2022 16:27:57 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 13FB03C9F03
-	for <lists+linux-ltp@lfdr.de>; Wed, 17 Aug 2022 16:12:08 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B77AC3C9F0A
+	for <lists+linux-ltp@lfdr.de>; Wed, 17 Aug 2022 16:27:56 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 1B54A3C88EB
- for <ltp@lists.linux.it>; Wed, 17 Aug 2022 16:12:04 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 018F53C9B66
+ for <ltp@lists.linux.it>; Wed, 17 Aug 2022 16:27:52 +0200 (CEST)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 66AA56009E1
- for <ltp@lists.linux.it>; Wed, 17 Aug 2022 16:12:03 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 570E91A00916
+ for <ltp@lists.linux.it>; Wed, 17 Aug 2022 16:27:51 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id B72DB37DCC;
- Wed, 17 Aug 2022 14:12:02 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 922CC37C5B;
+ Wed, 17 Aug 2022 14:27:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1660745522; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1660746471; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=udInvNKLtt+RLHlNBzrwd+oIylTOfw8wLdVoAU5VYSE=;
- b=Yh0dOwzIVUneZUglGf0CV18u5JlU0PcPUqaXd5PBCCcUjjmv+mWZx0977k1diz3lVRLoj9
- tA3glJ2XW0KKuhUC627YJ59Mw/nvlEpNFnz0Fzm4DClYNb6ATiazUvVpOfVVsuWvEtnnic
- 5HqbbADltjlt2iXpYe4G0nK3qczUrIE=
+ bh=1Zky7ArJtl9WTrWA2VcSVLps48llmYbXHlAqaukp/3s=;
+ b=RUCkG72mRnrBYH7Bos0Q2U2HXBpqwKFH1mbl4v4/CdGLRANEWrumb2FGIjQ2pcSkKhwq1K
+ 8QKW1Psn9/QOUrv1ggYHsETnJ8E2KXTrW8YSNWSvD7HkcBzavnR3dvMR3aomoe2inLinNz
+ CFK3ZvUBQdNNdGAnFGh2gs1wIP5F1a4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1660745522;
+ s=susede2_ed25519; t=1660746471;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=udInvNKLtt+RLHlNBzrwd+oIylTOfw8wLdVoAU5VYSE=;
- b=TReTWlnYoCgPyISnjNdLuCYj2Sdp712B5YFgLSTQVA6hNTcxvP1zO3tVMu2tGb3uPwMETt
- UGg0C4+SfDGIgEBA==
+ bh=1Zky7ArJtl9WTrWA2VcSVLps48llmYbXHlAqaukp/3s=;
+ b=AfjI+U7iIiabr3TkLNJTUJ5lgmGFIk+b8uowdVmFQTni/6yih69aHqvzwlMjuEO0s49EVd
+ B8z0TYGtxb2GGSBg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A2C8213A8E;
- Wed, 17 Aug 2022 14:12:02 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7097913A8E;
+ Wed, 17 Aug 2022 14:27:51 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id iCb4JjL3/GLNbQAAMHmgww
- (envelope-from <chrubis@suse.cz>); Wed, 17 Aug 2022 14:12:02 +0000
-Date: Wed, 17 Aug 2022 16:13:59 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id gZL6Gef6/GKfdAAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Wed, 17 Aug 2022 14:27:51 +0000
+Date: Wed, 17 Aug 2022 16:29:48 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Tudor Cretu <tudor.cretu@arm.com>
-Message-ID: <Yvz3p3AD1YHDKdPh@yuki>
+Message-ID: <Yvz7XPqVb/acIi6P@yuki>
 References: <20220817133946.234985-1-tudor.cretu@arm.com>
- <20220817133946.234985-2-tudor.cretu@arm.com>
+ <20220817133946.234985-3-tudor.cretu@arm.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20220817133946.234985-2-tudor.cretu@arm.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+In-Reply-To: <20220817133946.234985-3-tudor.cretu@arm.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/4] lib: Fix initialization of recursive mutex
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 2/4] syscalls/mprotect01: Invoke the syscall
+ directly instead of the libc wrapper
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,55 +87,53 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
+> per POSIX: The mprotect() function shall change the access protections
+> to be that specified by prot for those whole pages containing any part
+> of the address space of the process starting at address addr and
+> continuing for len bytes.
+> 
+> Issue 6 of POSIX introduces: The implementation may require that addr
+> be a multiple of the page size as returned by sysconf().
+> 
+> Therefore it's not strictly required that addr is a multiple of the page
+> size. Some libcs (e.g. Musl) indeed don't have this requirement, so calling
+> the C standard library function doesn't fail in their case. As the
+> testsuite focuses on mprotect(2), the testcases should call the syscall
+> directly instead of the libc function.
+
+So Musl mproctect() does clear a few bits of the start and rounds the
+len. That sounds like a dangerous thing to do to be honest, since you
+end up with a different region than you requested.
+
+I guess that this patch is reasonable solution since the glibc
+mprotect() seems to be just wrapper for the syscall.
+
 > Signed-off-by: Tudor Cretu <tudor.cretu@arm.com>
 > ---
->  lib/tst_res.c | 25 +++++++++++++++++--------
->  1 file changed, 17 insertions(+), 8 deletions(-)
+>  testcases/kernel/syscalls/mprotect/mprotect01.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
 > 
-> diff --git a/lib/tst_res.c b/lib/tst_res.c
-> index 8d86b48a4..2f66ec40c 100644
-> --- a/lib/tst_res.c
-> +++ b/lib/tst_res.c
-> @@ -82,17 +82,27 @@ void *TST_RET_PTR;
->  	assert(strlen(buf) > 0);		\
->  } while (0)
+> diff --git a/testcases/kernel/syscalls/mprotect/mprotect01.c b/testcases/kernel/syscalls/mprotect/mprotect01.c
+> index be4d982ea..aa4685258 100644
+> --- a/testcases/kernel/syscalls/mprotect/mprotect01.c
+> +++ b/testcases/kernel/syscalls/mprotect/mprotect01.c
+> @@ -43,6 +43,7 @@
+>  #include <stdlib.h>
+>  #include <unistd.h>
+>  #include "test.h"
+> +#include "lapi/syscalls.h"
+>  #include "safe_macros.h"
 >  
-> -#ifndef PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP
-> -# ifdef __ANDROID__
-> -#  define PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP \
-> -	PTHREAD_RECURSIVE_MUTEX_INITIALIZER
-> -# else
-> -/* MUSL: http://www.openwall.com/lists/musl/2017/02/20/5 */
-> -#  define PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP  { {PTHREAD_MUTEX_RECURSIVE} }
-> -# endif
-> +#if !defined(PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP) && defined(__ANDROID__)
-> +#define PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP PTHREAD_RECURSIVE_MUTEX_INITIALIZER
->  #endif
+>  char *TCID = "mprotect01";
+> @@ -97,7 +98,7 @@ int main(int ac, char **av)
+>  			if (TC[i].setupfunc != NULL)
+>  				TC[i].setupfunc(&TC[i]);
 >  
-> +#ifdef PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP
->  static pthread_mutex_t tmutex = PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP;
-> +#else
-> +/* MUSL: http://www.openwall.com/lists/musl/2017/02/20/5 */
-
-I would have put this URL to the commit message instead, otherwise the
-change looks good.
-
-> +static pthread_mutex_t tmutex;
-> +
-> +__attribute__((constructor))
-> +static void init_tmutex(void)
-> +{
-> +	pthread_mutexattr_t mutattr = {0};
-> +
-> +	pthread_mutexattr_init(&mutattr);
-> +	pthread_mutexattr_settype(&mutattr, PTHREAD_MUTEX_RECURSIVE);
-> +	pthread_mutex_init(&tmutex, &mutattr);
-> +	pthread_mutexattr_destroy(&mutattr);
-> +}
-> +#endif
+> -			TEST(mprotect(TC[i].addr, TC[i].len, TC[i].prot));
+> +			TEST(tst_syscall(__NR_mprotect, TC[i].addr, TC[i].len, TC[i].prot));
 >  
->  static void check_env(void);
->  static void tst_condense(int tnum, int ttype, const char *tmesg);
+>  			if (TEST_RETURN != -1) {
+>  				tst_resm(TFAIL, "call succeeded unexpectedly");
 > -- 
 > 2.25.1
 > 
