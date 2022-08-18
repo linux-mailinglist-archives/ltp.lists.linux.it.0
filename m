@@ -1,82 +1,72 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E7D659812D
-	for <lists+linux-ltp@lfdr.de>; Thu, 18 Aug 2022 11:59:23 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B363598174
+	for <lists+linux-ltp@lfdr.de>; Thu, 18 Aug 2022 12:28:55 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1EB053CA227
-	for <lists+linux-ltp@lfdr.de>; Thu, 18 Aug 2022 11:59:23 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 8BC8F3CA1A3
+	for <lists+linux-ltp@lfdr.de>; Thu, 18 Aug 2022 12:28:54 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E8A1B3C87EF
- for <ltp@lists.linux.it>; Thu, 18 Aug 2022 11:59:18 +0200 (CEST)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by picard.linux.it (Postfix) with ESMTPS id 31AA33CA15B
+ for <ltp@lists.linux.it>; Thu, 18 Aug 2022 12:28:53 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 9DF491A006EA
+ for <ltp@lists.linux.it>; Thu, 18 Aug 2022 12:28:52 +0200 (CEST)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id F24AB2219E;
+ Thu, 18 Aug 2022 10:28:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1660818527;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=+lK3bWCN5ZmJJfM3tr+TJ26fz5iFwIDvH93BUOznihY=;
+ b=h7jlTyone7c/xVChHGlabxeGzYx9AYXUJj4Ta3ogTGAHc/tZMyhLFQ5fhWR8qr+KUHdDmz
+ ChI/ITlcbrwaxrMUjwVA1VsJ9cxcPewAumQMtJrsd4f9aG+fzU6yfG3xKP13F9KDLE5MkP
+ 41/aKUx3zeD4w/qzUGxgFkzmvZ92jZ0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1660818528;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=+lK3bWCN5ZmJJfM3tr+TJ26fz5iFwIDvH93BUOznihY=;
+ b=PSF4tH+o1FzJa9QH6QPC6BOr3/fFMlV73GGeaxt3UDWex1kNaqN7lSLvJGQtru0kH3JI4Q
+ cAA+dargPRU3DMBg==
+Received: from g78 (unknown [10.163.24.226])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 44EC41000601
- for <ltp@lists.linux.it>; Thu, 18 Aug 2022 11:59:17 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1660816756;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=GuDCp/S+Xd+m/kGSYfynWG+uVGmM0um0b7MdcigIrm0=;
- b=QUfY3iGnu4cyDjR1qHiGTNf+/zCIkttJ7ffQnleBwD33ByA8e03FNR+Om1Yy7maAyMHYrr
- b1qM44u6AZfDvMUsilJs2NkfqRJQ8G8LcrbchMi3kx4AG36jBa2dzeEVUPC8rL/xYrkZew
- FLHsuqJ0bTbtN5WIuCg7ejbQGf5IIt4=
-Received: from mail-yw1-f198.google.com (mail-yw1-f198.google.com
- [209.85.128.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-227-LpdLMr9CNOu-ddnUmB9jbg-1; Thu, 18 Aug 2022 05:59:15 -0400
-X-MC-Unique: LpdLMr9CNOu-ddnUmB9jbg-1
-Received: by mail-yw1-f198.google.com with SMTP id
- 00721157ae682-334228502a8so19080347b3.20
- for <ltp@lists.linux.it>; Thu, 18 Aug 2022 02:59:15 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc;
- bh=GuDCp/S+Xd+m/kGSYfynWG+uVGmM0um0b7MdcigIrm0=;
- b=jpEjZor4agLMKQCDBuoWRhPdefTidRLGpYYa9NH1Ug+KlL7OTarTY/c1FUuYANkB39
- xitjpN2gHX1T26zt3brH8zw+ZNkDMlEg4m6jwAnKVa4f2WqhyBRn2VHIYeXaJ+4IC8lp
- 9LkzS1aMFf5pHU3aGT7NeyZRPOGSYwRROpJkm+ak5UfNbRssL/jGwzpNWbvXK0B0mXQK
- p4KgApAeDYMG7DIW1dTRk4oAAhZZss8XwDA9TQz7T1xamL9mkjHzpjlyeLf/6Ti7aXqh
- db4ZK60kCmDmQjThCn0JMMDddzrLdPOeMl+ZKO0AS/aT8AvGFdCK1KAkNNW5CwbZ1759
- vXYQ==
-X-Gm-Message-State: ACgBeo3ovEycwxOgv9z1FraZgh1XK/ts4FZibpgYyr3Ds4flrOMLNKXa
- sRapNRk0Xa5tEH+XQMV2LFSCZaiznyt5NwHzC6NXVPx1PnfZBR4eu76GNxleGg7ikIO/wG0PMNl
- CYWhdVRPQQpvZg4Z31J2bhgcd9nE=
-X-Received: by 2002:a25:a2c2:0:b0:683:daca:540d with SMTP id
- c2-20020a25a2c2000000b00683daca540dmr2061696ybn.301.1660816754783; 
- Thu, 18 Aug 2022 02:59:14 -0700 (PDT)
-X-Google-Smtp-Source: AA6agR4pASXpNcTedlBe/4NuVlo36V7p7QO+4dFJQ0Kmk7zv5oeZNuzQjqWLlcqY4Ojf+C8LthUm1OW/5Kn+pQ9Lp/Q=
-X-Received: by 2002:a25:a2c2:0:b0:683:daca:540d with SMTP id
- c2-20020a25a2c2000000b00683daca540dmr2061680ybn.301.1660816754429; Thu, 18
- Aug 2022 02:59:14 -0700 (PDT)
-MIME-Version: 1.0
-References: <20220818095030.1964355-1-liwang@redhat.com>
- <da253a0e-d082-9329-3392-aacee81e6c8d@fujitsu.com>
-In-Reply-To: <da253a0e-d082-9329-3392-aacee81e6c8d@fujitsu.com>
-From: Li Wang <liwang@redhat.com>
-Date: Thu, 18 Aug 2022 17:59:03 +0800
-Message-ID: <CAEemH2cipQ-k1J7WEoNecqGJvDfXD2iz7zZOX+B9rv6oMkU5JQ@mail.gmail.com>
+ by relay2.suse.de (Postfix) with ESMTPS id 3E8592C184;
+ Thu, 18 Aug 2022 10:28:43 +0000 (UTC)
+References: <1659521981-2241-1-git-send-email-xuyang2018.jy@fujitsu.com>
+ <1659521981-2241-2-git-send-email-xuyang2018.jy@fujitsu.com>
+ <87zggks3pe.fsf@suse.de>
+ <031f32b2-70fd-8b6d-e2ec-f1d3d1bdcaa5@fujitsu.com>
+ <87fshwlh5t.fsf@suse.de>
+ <dd62e1fa-0b53-e45a-83fc-21a7a2105419@fujitsu.com>
+User-agent: mu4e 1.6.10; emacs 28.1
+From: Richard Palethorpe <rpalethorpe@suse.de>
 To: "xuyang2018.jy@fujitsu.com" <xuyang2018.jy@fujitsu.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+Date: Thu, 18 Aug 2022 10:03:37 +0100
+In-reply-to: <dd62e1fa-0b53-e45a-83fc-21a7a2105419@fujitsu.com>
+Message-ID: <87edxdkfq8.fsf@suse.de>
+MIME-Version: 1.0
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] statx04: mask STATX_ATTR_COMPRESSED on tmpfs
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v1 2/3] tst_cgroup: Add safe_cg_open and
+ safe_cg_fchown functions
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,96 +78,141 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: rpalethorpe@suse.de
 Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
-Content-Type: multipart/mixed; boundary="===============1801158799=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
---===============1801158799==
-Content-Type: multipart/alternative; boundary="000000000000af69e205e68108bf"
+Hello,
 
---000000000000af69e205e68108bf
-Content-Type: text/plain; charset="UTF-8"
+OK, I see the new patches. However I just realised these tests are part
+of test_cgcore. These are not related to memcontrol. They should go in
+controllers/cgroup/core01.c.
 
-On Thu, Aug 18, 2022 at 5:55 PM xuyang2018.jy@fujitsu.com <
-xuyang2018.jy@fujitsu.com> wrote:
+Let's start at the beginning and look at the original selftest.
 
-> Hi Li
->
-> > Recently a new kernel commit (e408e695f) introduces the inode attributes
-> > being supported in tmpfs, which is like other Linux file systems. But
-> that
-> > caused statx04 to throw an unsupported error in STATX_ATTR_COMPRESSED.
-> >
-> > This patch help masks it just like what we did for XFS.
->
-> Looks good to me,
->
+static int test_cgcore_lesser_euid_open(const char *root)
+{
+	const uid_t test_euid = 65534;	/* usually nobody, any !root is fine */
+	int ret = KSFT_FAIL;
+	char *cg_test_a = NULL, *cg_test_b = NULL;
+	char *cg_test_a_procs = NULL, *cg_test_b_procs = NULL;
+	int cg_test_b_procs_fd = -1;
+	uid_t saved_uid;
 
-Thanks, I suddenly realized that we need to add the commit info into .tag
-as well.
+	cg_test_a = cg_name(root, "cg_test_a");
+	cg_test_b = cg_name(root, "cg_test_b");
 
-@@ -132,6 +139,7 @@ static struct tst_test test = {
-                {"linux-git", "99652ea56a41"},
-                {"linux-git", "04a87e347282"},
-                {"linux-git", "5f955f26f3d4"},
-+               {"linux-git", "e408e695f5f1"},
-                {}
-        },
+	if (!cg_test_a || !cg_test_b)
+		goto cleanup;
+
+	cg_test_a_procs = cg_name(cg_test_a, "cgroup.procs");
+	cg_test_b_procs = cg_name(cg_test_b, "cgroup.procs");
+
+	if (!cg_test_a_procs || !cg_test_b_procs)
+		goto cleanup;
+
+	if (cg_create(cg_test_a) || cg_create(cg_test_b))
+		goto cleanup;
+
+So we create two subgroups this translates to
+
+cg_child_a = tst_cg_group_mk(tst_cg, 'a');
+cg_child_b = tst_cg_group_mk(tst_cg, 'b');
+
+
+	if (cg_enter_current(cg_test_a))
+		goto cleanup;
+
+This writes "0" to the cgroup.procs file which I guess is a shortcut for
+writing the current processes PID. We have to be careful here incase
+this behaviour is different on V1. Probably this translates to
+
+SAFE_CG_PRINT(cg_child_a, "cgroup.procs", "0");
+
+It's not clear why the current PID is moved to this CG. It may be to
+ensure we have permission to move to a sibling CGroup and to eliminate
+other possible reasons for getting EACCES later on.
+
+	if (chown(cg_test_a_procs, test_euid, -1) ||
+	    chown(cg_test_b_procs, test_euid, -1))
+		goto cleanup;
+
+Then the procs files are chowned to nobody. I see no reason this
+function can not be implemented in the same way safe_cg_printf is. We
+don't need to check which controller the file belongs to, just chown all
+of them.
+
+	saved_uid = geteuid();
+	if (seteuid(test_euid))
+		goto cleanup;
+
+Then the current procs effective uid is changed. We need to make sure to
+set this back before doing cleanup (or fork like you did originally).
+
+	cg_test_b_procs_fd = open(cg_test_b_procs, O_RDWR);
+
+	if (seteuid(saved_uid))
+		goto cleanup;
+
+Then the file is opened and the euid set back
+
+	if (cg_test_b_procs_fd < 0)
+		goto cleanup;
+
+	if (write(cg_test_b_procs_fd, "0", 1) >= 0 || errno != EACCES)
+		goto cleanup;
+
+Then we try to move to CG B and expect to get EACCES (because of the
+permissions present when opening the file).
+
+	ret = KSFT_PASS;
+...
+
+
+Probably we want to run this test on any controllers which are
+available. Currently the API doesn't support that. We need some way of
+specifying that the test will use any available controllers in
+tst_cg_require and/or tst_test.
+
+Then we need to handle setting the euid between open and writing which
+stops us from using safe_cg_printf.
+
+Probably the API shouldn't try to handle stuff this wierd. Instead we
+can create a function like
+
+int n = tst_cg_group_dirfds(int *dirfds)
+
+which copies tst_cgroup_group.dirs[i].dir_fd into dirfds (which can be
+statically allocated in the test code if we export CTRLS_MAX).
+
+Then we can do
+
+seteuid(nobody);
+
+for (i = 0; i < n; i++) {
+    procfds[i] = openat(dirfds[i], "cgroup.procs")
+}
+
+seteuid(saved_euid);
+
+for (i = 0; i < n; i++) {
+    ret = write(procfds[i], "0", 1);
+    if (ret >= 0)
+       tst_res(TFAIL...)
+    ...
+
+    close(procfds[i]);
+}
+
+and whatever else is required by tests which are doing something unusual
+with the CG hierarchy.
 
 -- 
-Regards,
-Li Wang
-
---000000000000af69e205e68108bf
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Thu, Aug 18, 2022 at 5:55 PM <a href=3D"mailto:x=
-uyang2018.jy@fujitsu.com">xuyang2018.jy@fujitsu.com</a> &lt;<a href=3D"mail=
-to:xuyang2018.jy@fujitsu.com">xuyang2018.jy@fujitsu.com</a>&gt; wrote:<br><=
-/div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bo=
-rder-left:1px solid rgb(204,204,204);padding-left:1ex">Hi Li<br>
-<br>
-&gt; Recently a new kernel commit (e408e695f) introduces the inode attribut=
-es<br>
-&gt; being supported in tmpfs, which is like other Linux file systems. But =
-that<br>
-&gt; caused statx04 to throw an unsupported error in STATX_ATTR_COMPRESSED.=
-<br>
-&gt; <br>
-&gt; This patch help masks it just like what we did for XFS.<br>
-<br>
-Looks good to me,<br></blockquote><div><br></div><div class=3D"gmail_defaul=
-t" style=3D"font-size:small">Thanks, I suddenly realized that we need to ad=
-d the commit info into .tag as well.</div><div class=3D"gmail_default" styl=
-e=3D"font-size:small"><br></div>@@ -132,6 +139,7 @@ static struct tst_test =
-test =3D {<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 {&quo=
-t;linux-git&quot;, &quot;99652ea56a41&quot;},<br>=C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 {&quot;linux-git&quot;, &quot;04a87e347282&=
-quot;},<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 {&quot;l=
-inux-git&quot;, &quot;5f955f26f3d4&quot;},<br>+ =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 {&quot;linux-git&quot;, &quot;e408e695f5f1&quot;},<br=
->=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 {}<br>=C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 },<br><div class=3D"gmail_default" style=3D"font-size:sma=
-ll"></div></div><div><br></div>-- <br><div dir=3D"ltr" class=3D"gmail_signa=
-ture"><div dir=3D"ltr"><div>Regards,<br></div><div>Li Wang<br></div></div><=
-/div></div>
-
---000000000000af69e205e68108bf--
-
-
---===============1801158799==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
-
---===============1801158799==--
-
