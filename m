@@ -1,70 +1,91 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D3FA59F4C3
-	for <lists+linux-ltp@lfdr.de>; Wed, 24 Aug 2022 10:09:54 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id B03C859F4DF
+	for <lists+linux-ltp@lfdr.de>; Wed, 24 Aug 2022 10:17:47 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9A20B3CA36D
-	for <lists+linux-ltp@lfdr.de>; Wed, 24 Aug 2022 10:09:53 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 81B413CA37D
+	for <lists+linux-ltp@lfdr.de>; Wed, 24 Aug 2022 10:17:47 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 56FFF3C9AEA
- for <ltp@lists.linux.it>; Wed, 24 Aug 2022 10:09:52 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id 06C083CA346
+ for <ltp@lists.linux.it>; Wed, 24 Aug 2022 10:17:45 +0200 (CEST)
+Received: from mail1.bemta37.messagelabs.com (mail1.bemta37.messagelabs.com
+ [85.158.142.2])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id CC4CF2009F6
- for <ltp@lists.linux.it>; Wed, 24 Aug 2022 10:09:51 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id A4CEA60087F
+ for <ltp@lists.linux.it>; Wed, 24 Aug 2022 10:17:44 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fujitsu.com;
+ s=170520fj; t=1661329063; i=@fujitsu.com;
+ bh=L981LaKFkef0JsYAL06oLpCueQmtT0QxJkH/mBoxA7c=;
+ h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type;
+ b=jPW5ITr3iRh1zk4eMKVwKt2LuBfVT7snkzJKYgpQo6ZWf03hYmPAejVc7OqZMdCGU
+ nnetgLfoDjcUHRdoxhPvxQcTw+rLuV1UkkP3UI+vpe4FI0FeHtMuLUZ9436tRzHIEN
+ xx/h1vQ6yVRYptQ6OpHUkKcE7HPwHgSBckT/ylYr/hbfmX4oSTQhejgY3OsuY30e+i
+ /gMj4kAEXJ+eiTXR5An9sWNgRUrUKg1hE/j/WyY6kFAebOK09EI4fw68JpwVwFuBwN
+ ggIzmGdYkdLo5WCBxtQKRWYcx20NtG/0LXPpSx9ND+LI6Nkh3uibv1u1svH1LSaELv
+ 8zTCad0yl7Zyg==
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFtrMIsWRWlGSWpSXmKPExsViZ8ORpLv8Hmu
+ yQWsHh8WK7zsYHRg99v1exxrAGMWamZeUX5HAmrF0wxSWgqdiFYeXTmRtYPwr1MXIxSEkcIpR
+ 4vaGdSwQzj4miXMTTzNDODsYJW40LQNyODnYBLQl7vTMYASxRQQkJDoa3rKD2MwCmhL3rhwGi
+ wsLmEs82/UEyObgYBFQlZj7QQkkzCvgKtFxZwobiC0hoCAx5eF7Zoi4oMTJmU9YIMZISBx88Y
+ IZokZR4urpvawgYyQEKiVuPE6FCKtJXD23iXkCI/8sJN2zkHQvYGRaxWiTVJSZnlGSm5iZo2t
+ oYKBraGgKpA11jQ30Eqt0E/VSS3Xz8otKMnQN9RLLi/VSi4v1iitzk3NS9PJSSzYxAsMypThV
+ bgfjgX2/9A4xSnIwKYny3jzDmizEl5SfUpmRWJwRX1Sak1p8iFGGg0NJgjfwLlBOsCg1PbUiL
+ TMHGCMwaQkOHiURXgmQVt7igsTc4sx0iNQpRkUpcd7FIH0CIImM0jy4NlhcXmKUlRLmZWRgYB
+ DiKUgtys0sQZV/xSjOwagkzFtzB2gKT2ZeCdz0V0CLmYAWB+1mBllckoiQkmpgml1+61QYu7r
+ G50r7H9e4djRnrG+cdDgu+oLe/otMrpeO/n5g6z7Raj+TdP77D0eZHdnSD0pzeE22vfkvcn2p
+ urWhjacMc0/mvgX+LNyv/NKi+P532oUyzlPxMTgpeLZp8teu229k1s7xeh+yunPaiqDXi2b4/
+ Nv+t3rX+8KX1r/UnL3ifTb8Pb/nsf6u4rv78zbcCZm0W/bbr0m/nin9sfufOe1toDR/Hve/kI
+ lG/pM9NxQdC1OczL+w7s1cv+Bv+648iHOpeFSX0GE7i6n0nvn+9i+7TGLff/a2uxI55VlawZk
+ PQdf5DnTzZ5YXmZvYxF27l/CTQerCdK5XDFO//f74bVrI0W+71rTV5G5S7VFiKc5INNRiLipO
+ BAAhMLyTRgMAAA==
+X-Env-Sender: liaohj.jy@fujitsu.com
+X-Msg-Ref: server-16.tower-728.messagelabs.com!1661329062!126751!1
+X-Originating-IP: [62.60.8.98]
+X-SYMC-ESS-Client-Auth: outbound-route-from=pass
+X-StarScan-Received: 
+X-StarScan-Version: 9.87.3; banners=-,-,-
+X-VirusChecked: Checked
+Received: (qmail 13144 invoked from network); 24 Aug 2022 08:17:43 -0000
+Received: from unknown (HELO n03ukasimr03.n03.fujitsu.local) (62.60.8.98)
+ by server-16.tower-728.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
+ encrypted SMTP; 24 Aug 2022 08:17:43 -0000
+Received: from n03ukasimr03.n03.fujitsu.local (localhost [127.0.0.1])
+ by n03ukasimr03.n03.fujitsu.local (Postfix) with ESMTP id 83A931AF
+ for <ltp@lists.linux.it>; Wed, 24 Aug 2022 09:17:42 +0100 (BST)
+Received: from R01UKEXCASM223.r01.fujitsu.local (R01UKEXCASM223
+ [10.182.185.121])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 2E8CC33D12
- for <ltp@lists.linux.it>; Wed, 24 Aug 2022 08:09:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1661328591; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=VaV7xglJxgIAwSq2DX1Va2ny4/U8k25wkwjQRfJHzR4=;
- b=gU+WBlg834w62SvV++ZMSZIAwMEf+lRNduqQhif75OOrMVQQUK6B6awCBmb8ZyCR8SQf8w
- Q9DSn8fCBXXHL9JaJm/pHpUdQEPWlYdSH7czlH/9phxe+6b7QYrv+Ox/WykwuQXtaaq3yn
- gJhSYaRoa8GSPFg9+j9jN2kMUJNDyjo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1661328591;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=VaV7xglJxgIAwSq2DX1Va2ny4/U8k25wkwjQRfJHzR4=;
- b=AwKY4Ls/viKwkEQFGiCPI9OBIj1KrkSiKNpRSJAg1CJzxdA311J/kHGtRZ74jGeQVZQcIK
- PG6u48lwV2e5f6CQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A0DA813AC0
- for <ltp@lists.linux.it>; Wed, 24 Aug 2022 08:09:50 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id VaRaGM7cBWNqXgAAMHmgww
- (envelope-from <akumar@suse.de>)
- for <ltp@lists.linux.it>; Wed, 24 Aug 2022 08:09:50 +0000
-From: Avinesh Kumar <akumar@suse.de>
-To: ltp@lists.linux.it
-Date: Wed, 24 Aug 2022 13:39:47 +0530
-Message-Id: <20220824080947.9414-1-akumar@suse.de>
-X-Mailer: git-send-email 2.37.1
+ by n03ukasimr03.n03.fujitsu.local (Postfix) with ESMTPS id 7829F1AE
+ for <ltp@lists.linux.it>; Wed, 24 Aug 2022 09:17:42 +0100 (BST)
+Received: from rhel-server--7.5 (10.167.215.42) by
+ R01UKEXCASM223.r01.fujitsu.local (10.182.185.121) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.32; Wed, 24 Aug 2022 09:17:40 +0100
+From: Liao Huangjie <liaohj.jy@fujitsu.com>
+To: <ltp@lists.linux.it>
+Date: Wed, 24 Aug 2022 16:17:29 +0800
+Message-ID: <1661329049-14309-1-git-send-email-liaohj.jy@fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Originating-IP: [10.167.215.42]
+X-ClientProxiedBy: G08CNEXCHPEKD08.g08.fujitsu.local (10.167.33.83) To
+ R01UKEXCASM223.r01.fujitsu.local (10.182.185.121)
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH] statx04: skip test on ntfs filesystem
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH] syscalls/read04:add multiple read size
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,28 +102,113 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Fixes: #956
+From: Huangjie Liao <liaohj.jy@fujitsu.com>
 
-Reported-by: pragat220
-Signed-off-by: Avinesh Kumar <akumar@suse.de>
+Signed-off-by: Huangjie Liao <liaohj.jy@fujitsu.com>
 ---
- testcases/kernel/syscalls/statx/statx04.c | 1 +
- 1 file changed, 1 insertion(+)
+ testcases/kernel/syscalls/read/read04.c | 59 ++++++++++++++++++++++++---------
+ 1 file changed, 43 insertions(+), 16 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/statx/statx04.c b/testcases/kernel/syscalls/statx/statx04.c
-index 98f9a6315..3923b7f8e 100644
---- a/testcases/kernel/syscalls/statx/statx04.c
-+++ b/testcases/kernel/syscalls/statx/statx04.c
-@@ -132,6 +132,7 @@ static struct tst_test test = {
- 	.min_kver = "4.11",
- 	.skip_filesystems = (const char *const[]) {
- 		"fuse",
-+		"ntfs",
- 		NULL
- 	},
- 	.tags = (const struct tst_tag[]) {
+diff --git a/testcases/kernel/syscalls/read/read04.c b/testcases/kernel/syscalls/read/read04.c
+index 47875c0..37c670f 100644
+--- a/testcases/kernel/syscalls/read/read04.c
++++ b/testcases/kernel/syscalls/read/read04.c
+@@ -6,36 +6,49 @@
+ /*\
+  * [Description]
+  *
+- * Testcase to check if read() returns the number of bytes read correctly.
++ * Testcase to check if read() returns the correct number of bytes 
++ * when using multip sizes [0, 1/2*page_size, 3/2*page_size, 2*page_size].
+  */
+ 
+ #include <sys/types.h>
+ #include <sys/stat.h>
+ #include <stdio.h>
+ #include <fcntl.h>
++#include <unistd.h>
+ #include "tst_test.h"
+ 
++#define MNT_POINT "mntpoint"
++static int page_size;
+ static const char *fname = "test_file";
+-static const char palfa[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+-#define PALFA_LEN (sizeof(palfa)-1)
++static char *write_buf[2], *read_buf;
+ 
+-static void verify_read(void)
++static void verify_read(unsigned int n)
+ {
+ 	int fd;
+-	char prbuf[BUFSIZ];
+-
++	int size = n * page_size / 2;
+ 	fd = SAFE_OPEN(fname, O_RDONLY);
+-	TEST(read(fd, prbuf, BUFSIZ));
++	TEST(read(fd, read_buf, size));
+ 
+-	if (TST_RET != PALFA_LEN) {
+-		tst_res(TFAIL, "Bad read count - got %ld - expected %zu",
+-				TST_RET, PALFA_LEN);
++	if (TST_RET != size) {
++		tst_res(TFAIL, "Bad read count - got %ld - expected %d",
++				TST_RET, size);
+ 		goto out;
+ 	}
+ 
+-	if (memcmp(palfa, prbuf, PALFA_LEN)) {
+-		tst_res(TFAIL, "read buffer not equal to write buffer");
+-		goto out;
++	if (n <= 2) {
++		if (memcmp(read_buf, write_buf[0], size)) {
++			tst_res(TFAIL, "read buffer not equal to write buffer1");
++			goto out;
++		}
++	} else {
++		if (memcmp(read_buf, write_buf[0], page_size)) {
++			tst_res(TFAIL, "read buffer not equal to write buffer2");
++			goto out;
++		}
++		if (memcmp(read_buf + page_size, write_buf[1], size - page_size)) {
++			tst_res(TFAIL, "read buffer not equal to write buffer3");
++			goto out;
++		}
+ 	}
+ 
+ 	tst_res(TPASS, "read() data correctly");
+@@ -48,13 +61,27 @@ static void setup(void)
+ {
+ 	int fd;
+ 
++	page_size = getpagesize();
++	write_buf[0] = tst_alloc(page_size);
++	write_buf[1] = tst_alloc(page_size);
++	read_buf = tst_alloc(2 * page_size);
++
++	memset(write_buf[0], 'A', page_size);
++	memset(write_buf[1], 'B', page_size);
++	memset(read_buf, 0, 2 * page_size);
++	
+ 	fd = SAFE_CREAT(fname, 0777);
+-	SAFE_WRITE(1, fd, palfa, PALFA_LEN);
++	SAFE_WRITE(1, fd, write_buf[0], page_size);
++	SAFE_WRITE(1, fd, write_buf[1], page_size);
+ 	SAFE_CLOSE(fd);
++	
+ }
+ 
+ static struct tst_test test = {
+-	.needs_tmpdir = 1,
+ 	.setup = setup,
+-	.test_all = verify_read,
++	.test = verify_read,
++	.tcnt = 5,
++	.mount_device = 1,
++	.mntpoint = MNT_POINT,
++	.all_filesystems = 1,
+ };
 -- 
-2.37.1
+1.8.3.1
 
 
 -- 
