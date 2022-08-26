@@ -2,146 +2,92 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1D345A1F43
-	for <lists+linux-ltp@lfdr.de>; Fri, 26 Aug 2022 05:08:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32E505A1F25
+	for <lists+linux-ltp@lfdr.de>; Fri, 26 Aug 2022 04:59:01 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3BCA73CA44B
-	for <lists+linux-ltp@lfdr.de>; Fri, 26 Aug 2022 05:08:38 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 3337A3CA49E
+	for <lists+linux-ltp@lfdr.de>; Fri, 26 Aug 2022 04:59:00 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 6D9243C0D04
- for <ltp@lists.linux.it>; Fri, 26 Aug 2022 05:08:32 +0200 (CEST)
-Received: from esa13.fujitsucc.c3s2.iphmx.com (esa13.fujitsucc.c3s2.iphmx.com
- [68.232.156.96])
+ by picard.linux.it (Postfix) with ESMTPS id C71CA3C8CA7
+ for <ltp@lists.linux.it>; Fri, 26 Aug 2022 04:58:55 +0200 (CEST)
+Received: from mail1.bemta32.messagelabs.com (mail1.bemta32.messagelabs.com
+ [195.245.230.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 2884E600132
- for <ltp@lists.linux.it>; Fri, 26 Aug 2022 05:08:31 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj1;
- t=1661483312; x=1693019312;
- h=from:to:subject:date:message-id:references:in-reply-to:
- content-id:content-transfer-encoding:mime-version;
- bh=aHryKCjHZNOS6bzCkyOoudXw6XL2pSKHD2q7dsAiJFE=;
- b=tuIXttnVa73us7ngU1jgpldzt2p7OfBGaJtYM9ej0PKASM+2yUQOrzl8
- XpXG6ZIySKt60Z6PQRqhrIdQ1JkOODPl+Jj8HBuiODoZmVb3xgCiSb6s6
- F+Q6/PV8SyfyrF6JFVYY70ijQbY0/+RMcuAjQ6F6jT1buITI+MHQp0HcI
- V2IdbL/UsNtmJ/S+tYQX5ooFzlOyjSjF3Pjc4vfLFXEVYwPstai998xM2
- oLWmC49lwqEA40wT+trKoYc3v79Y63U+0r39jYe0nVf/Sfn9CmYconMNp
- 9+ikSgOCDQJsEMuzpdnp/2B1YTGasDgmsxoKDkav1jnUEPEbdTjYwGlWb A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10450"; a="63362780"
-X-IronPort-AV: E=Sophos;i="5.93,264,1654527600"; d="scan'208";a="63362780"
-Received: from mail-os0jpn01lp2109.outbound.protection.outlook.com (HELO
- JPN01-OS0-obe.outbound.protection.outlook.com) ([104.47.23.109])
- by ob1.fujitsucc.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Aug 2022 12:08:29 +0900
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=g1rWA2hbzw3mqlaaZolrxKRtGCUvF2raGCRfnMDAjBt0hvsc7gvtAAgx2mHiUWsn1rXkU6OVsbc/b8fBJuOTREKOX6uyNogP8uS5wBLqFTa3k0E0DRGijIgU/S4TazD93F0nungHmJBS5PYawnHxx1tOHp2IUJtloqP2THFEsVFRI13gnpdTVKYQV8esUvK96WBaXR1/ZSlqMXgQMnxyMsQ169p/DJY1v9PDvPuOUAJcXA6SUcuVKK0mQ/0+LZ0nf/3GlZXl0ryBw0pPWJtpRnXaqglQFR/vaNXCdIISllMtU0hbxaw8G82Gny28cxujO1wLgf6C7eOLdQ33AAcUAw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aHryKCjHZNOS6bzCkyOoudXw6XL2pSKHD2q7dsAiJFE=;
- b=Xjc6CrkZjrPdYErPqVN6tFFFHP6dM5GqbS15pEa0+zpNzdvgdXeYN9RB8s07ZW9EiAll/flq1PH8eqwmcvhxTDdQUT+8O0eBvU0zU3k2l+E0zYNDB5JnZZMSHeJ7nbOqFa2hAqxd/jG7cFZEiYQx9wQOaqRFpS8eYHe1XO2m9hQDVNai5oRPeXzmBYCCVvkr33nmFygwgshD69nUOAK4QaRkJvNsZHg7NCHVG26nX4yznreimA0VOLda0L2SC1Pa9HuapT+P4JLbUvLvXe5aT8D2zTvRoKQ4SicOyLFUiQF/UAh6e4FhY/gMtFydzloNS8nMftOTIFH59uRJiahZ9A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=fujitsu.com; dmarc=pass action=none header.from=fujitsu.com;
- dkim=pass header.d=fujitsu.com; arc=none
-Received: from TY2PR01MB4427.jpnprd01.prod.outlook.com (2603:1096:404:10d::20)
- by TYCPR01MB5999.jpnprd01.prod.outlook.com (2603:1096:400:4a::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5566.15; Fri, 26 Aug
- 2022 03:08:25 +0000
-Received: from TY2PR01MB4427.jpnprd01.prod.outlook.com
- ([fe80::2440:60cd:7bc9:5d48]) by TY2PR01MB4427.jpnprd01.prod.outlook.com
- ([fe80::2440:60cd:7bc9:5d48%2]) with mapi id 15.20.5546.022; Fri, 26 Aug 2022
- 03:08:25 +0000
-From: "xuyang2018.jy@fujitsu.com" <xuyang2018.jy@fujitsu.com>
-To: "liaohj.jy@fujitsu.com" <liaohj.jy@fujitsu.com>, "ltp@lists.linux.it"
- <ltp@lists.linux.it>
-Thread-Topic: [LTP] [PATCH] syscalls/read04:add multiple read size
-Thread-Index: AQHYt5IFeib29khKTUmKT5ObRchmVa3AlAsA
-Date: Fri, 26 Aug 2022 03:08:25 +0000
-Message-ID: <513ac9b7-fffc-66dc-110e-b7bac7aa50a3@fujitsu.com>
-References: <1661329049-14309-1-git-send-email-liaohj.jy@fujitsu.com>
-In-Reply-To: <1661329049-14309-1-git-send-email-liaohj.jy@fujitsu.com>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=fujitsu.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: e2423c8c-886b-4b6e-a30f-08da87103dfc
-x-ms-traffictypediagnostic: TYCPR01MB5999:EE_
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: OyLMjPVYu/+KHM8yzLjuLPVUWfWN/VRce+A7UfFq5dVrYzzFSOG2FoVaBUezvfjEa2JgHZBQ0XgrsP/l6+ddmXNG7thZrJFsPyJTsRq4PJhu+HSmRXWxdfIAtt/4hLOZ5xS83b3Bf2+CXcmSrc4PKPrsWeX3wMindeK+CVfOQndRX8422Xr7E0rDhTaM0Mc+jdgr2GV0joMKpe4WO3Intuy9thZXSnI5EWLd+vRBOdXeMaeDMf0jg2o3j5Y5LP0EZRNLBPTvTVRxm0QUCe1rKGE8KHXVuspKyXf7re8Lu5ylCqOAlNBxchyn8KeswDW9AkFCEX+GO5ixJ+gB5WrcqP7sh4iwi1uq+uIfoYgOYAwLrHdZpzxU3m4eaDzdYbakIPpKQ/psAOao5fSN2tF3FBpnF/luyP3dZR42T+feQnbia0Zw2+GGXN/rfNykrv4H2YsbYmbx5riXkH0cWyr+b2F69wvRTdx53Q7xinR2KJpTZuir5tGRf/390RGNkQGOLw2HMg9PNIBaO/MUSMdyt3GVX4iPWyYAZ7FOA/opFux3FslSElPDfvG0BZUtr2/7QvIF4QWbBdgUijvR76LmjRREfLaefEaxLTGHP7lW+wqeY42vgwHFsPuOWtPhkC7KuGi9LTBsHwLlaQgcKWMVirBMCnWwwXlW6GM/1i0CSbi5lReY44T6Fw/WSElEViPzgKJtSQkrVBeuX+dxu0fz/2rgmKWcm7ORaw7TXxe/BGn9y2hIkpgdnxdIwOV2NSSXCT/J6I67UBAR4Rk3kBYAG/oBlY8b/xd8qZaTbwnPcA+Horwyi2xY6LTl/H5m6g0rnxNWd3NaBt10qrv5RPaqGA==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TY2PR01MB4427.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(366004)(396003)(39860400002)(346002)(376002)(136003)(1590799006)(26005)(82960400001)(8936002)(66446008)(316002)(86362001)(66476007)(64756008)(8676002)(66946007)(91956017)(76116006)(31696002)(110136005)(66556008)(1580799003)(2616005)(186003)(478600001)(6486002)(38100700002)(71200400001)(122000001)(6506007)(6512007)(5660300002)(38070700005)(2906002)(83380400001)(41300700001)(31686004)(85182001)(36756003)(45980500001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?UGRLSUZROUhBY09VZTRuSHhKR3QySCtLZXpyZUM2cmpqWGRqeDZOWWNzZzMy?=
- =?utf-8?B?M1ZQdE1xcDRZRmdUS3cySjQ3UDdwSkRPM2RyTGpkaHlDYWlPcUJkSEdSMThp?=
- =?utf-8?B?U1BZY3YvMXJ2K2Iza3pPeTh0dW56RTlOYkZVZy9IQnJxdHZ6ODVmLzU4d2Jr?=
- =?utf-8?B?ZEk0QlNVd1JvcThZRlJkZ1I4QTBGdFVpd3pydHZHcGc3VUQvSzQ0bko3b1RT?=
- =?utf-8?B?YjlEZ3FLQ0thZC9tZzNWdmlFVE1NcU1tbWo0MmNCY3pybzVlK09jbHh3ZTE2?=
- =?utf-8?B?clhaSFVaaFQ3VEVLVS8reVd5Y1RGY0NwZkZvT05WcFJTdkRZREdIYWtoQW84?=
- =?utf-8?B?a28xTWVQV3pwd1FLWjRibjVYYmJLeUVmZXh1K3UwUkxmS3g5bDJTZkZvT3g4?=
- =?utf-8?B?eXU1S2l5cmNKdzJwU3FRejh4WDNpTC9oRHh4akxjQkNrYjNOZUFlQ21wK1JY?=
- =?utf-8?B?aTdqVmRoVE40YldGN0hIWTFMc1hwMGJFWlh4SGZWdXBpcmlmQkx2RGYrOC9l?=
- =?utf-8?B?bFYyTW4rSDQ3UkE0SkhITHJITzhteCtReGxDc2JiSFlEY2M0a0RpNDRmR0FU?=
- =?utf-8?B?Vk0zb3BaT2JMZ0JPOWdVSlBaWWp3U1R5L1B4MkM2RmJpMno1b1ZCKzh0T3dw?=
- =?utf-8?B?QkJtcjczSFZNV2pKRFVOd0dtTUpiODBJNmlaNXZjSVRuV2wwQkxGWGpZOUxp?=
- =?utf-8?B?Q3VBOS9Ya3psRXhxak9rQ2VRTDJ4TGVVRkZhbGIwTHg2S3hLZG9ta3E0eFR4?=
- =?utf-8?B?ZUlDN3NNZktzVkptSVp4S1dKTW8rYlhPbTVLQXVqY2Q0Z0h4bStqUUUvclNo?=
- =?utf-8?B?NzNZaEd2QStnaG5KamdoY0xHTGtsempXL3RhYWljVVdUZ3BJQXhKcERQZGpt?=
- =?utf-8?B?amM4N0RKWjNRZHBDTXZ3QVpmcWUveURSK3c0UG0wRWJQdDg4WnYwN2dwZFJz?=
- =?utf-8?B?SXZqaWlCM3lSdzBHRWYvSFdpUTRGaXpkM0hoM0prbTN1ZHpSaWRxUHgva1U1?=
- =?utf-8?B?SWtIdHpad29pNUErYlVYMXBXb3JSV3ZyMnRKT0FyK05naWZOZnBoNmtHQVJ6?=
- =?utf-8?B?WkErN21xK3RIZlgwWlF1MGJSdHVHUzc5Si9WRmFYcS9zaWREMGVBS3liMVZx?=
- =?utf-8?B?SVJMRXpGZTFJMHBKM21CMEJpcnF1NDZwVXJnaEdtSkg2OGVyaWFUOGJobytu?=
- =?utf-8?B?YlJ3d21vWmtvT3huOU9LeWxvcDd3VGk0UGNIVnhvQ3ZRdVJUaHd0NzRXS3J4?=
- =?utf-8?B?STVmenlXNmptMUFuSjY4ZFUvUTFPNE1jUVl2aXBabGJxTHFrSWRrdldPUTZG?=
- =?utf-8?B?aUpIUVdyMkpkVE5pUk42cFN4YnhyWlp2UlEzTXB5dUEyZXc0Q0x6dXFqNU5q?=
- =?utf-8?B?TlQxaUgwNThYelZ0Wnh2MmQvU3lTQmErUjJWUHBSR1RPMm9RYlNBZzlXeUxK?=
- =?utf-8?B?NHh0NTdZTzR4TVFFZTZScjI0K1JxQy93aUV6L0h6L1pvMlBxakVzL3phTEs3?=
- =?utf-8?B?ZEZCT0xWNnI2SUx0ZFdEQjFMb0g0K0theUtsYi9NQ1NHcTcyNkhiM1p4N3dJ?=
- =?utf-8?B?V0k3MWl0bS9zRGZGRWgyMnY2TDhEcmZlSC95elFxU01NOW1EOWRiVmhLNndP?=
- =?utf-8?B?T0Myb0VacHZ1RFY3VDdIZnBXbHNPVDY5UUwyYnh6Sy9qR2t2ck9DSXpEYm9t?=
- =?utf-8?B?TmYrdVU0c2VXZExtTldTanhyb2JwOWZUeFJWbHRPcjY2NW1wS2llbGFXWkFD?=
- =?utf-8?B?SDd0YnRXKytTTThURXY5VzUwaWJEZXNDSVRBaUZFTlMrQVE0ZzBuUjNEVHZu?=
- =?utf-8?B?S2tDYWNFOFNmeTk4U21hc3VhVm8vc3ZyRHNROVcwYUZiREhkNjNZeDRobUYw?=
- =?utf-8?B?ZnU5Z0ppbUEzWlNKVS8rWUx3S1lzb3QwcjdjbHJjQWNiT1pDdUhlbk5SUnQ4?=
- =?utf-8?B?V205c3c4cnJ5TCtBWWNBalBzSk14RkJiQ3M5ajRqdUdrb3hJUHlBeTdsazcr?=
- =?utf-8?B?RUdOb09CdXlMQ1RkUEh2S0lKLzc0dnZNaGdBbHRudXpmUGNtZmFWdVcrZUcr?=
- =?utf-8?B?aURaamZNNlRHNDhwd1VNSEwxT1ZxODRDRWxCOGxyNDA3UEJndGl3dlRVUzU1?=
- =?utf-8?B?RlBnYlJOcDE0SkVsVzVPY1BEb0JyNnJ4R0crZHRid0duaE9qRGlGY2hmWlR4?=
- =?utf-8?B?blE9PQ==?=
-Content-ID: <77BEFD3B388A88458192045C8DF14BF8@jpnprd01.prod.outlook.com>
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 130A0600701
+ for <ltp@lists.linux.it>; Fri, 26 Aug 2022 04:58:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fujitsu.com;
+ s=170520fj; t=1661482733; i=@fujitsu.com;
+ bh=P6LMdMVfD5/3mSdmkiUTMgOii5TeQaHsnCC0u1CAkeI=;
+ h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+ MIME-Version:Content-Type;
+ b=PAJV0o1vo99lzI0eVtMBvAUwppyagSS40VrI5g6CXx2dir6P7dAQ+YDRL+dLt1yDD
+ zBjSSPpCV4vXlyqAnf+8x+KeRqYM0xLF0bKWB4oKZyNVhAGlWq0XzMC5rWLenZH99F
+ gLKi35kIBV/BnKIZpkjBsQU5K5Wy/aMU7B2P9WS929X2zXC/WI/pgIYCWl4RVovuf9
+ ySXpwN7AIxZWurZ7H22UD30MOE29sgXeZcoB28cNFEoOAAG5j3foGy927qvxaOZkFF
+ +24DCTm43y0q+ZJN4KuQsUGXlFm8PbObFlETXf42/67IeP21IVlfSE08UZnHcN7jWx
+ PxFqJDLblel3Q==
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFjrFIsWRWlGSWpSXmKPExsViZ8MxSfeNGUe
+ ywdf7ihYrvu9gdGD02Pd7HWsAYxRrZl5SfkUCa8bba7NZC17zVzQv38rewLiQt4uRi0NI4Cyj
+ xP9dbYwQzkEmieX9p1khnL2MEh+uL2TpYuTkYBPQlHjWuYAZxBYRkJDoaHjLDmIzC6hLLJ/0i
+ wnEFhZwlLi2ciFYDYuAqkRLSxdYL6+Ah8Sq6/MZQWwJAQWJKQ/fg9VwAtWcX3sXbI6QgIrE3x
+ /boeoFJU7OfMICMV9C4uCLF8wQvYoSlzq+Ac3hALIrJW48ToUIq0lcPbeJeQKj4Cwk3bOQdC9
+ gZFrFaJVUlJmeUZKbmJmja2hgoGtoaKpromtkbKmXWKWbqJdaqlueWlyia6iXWF6sl1pcrFdc
+ mZuck6KXl1qyiREYxCnFLO93MDb1/dQ7xCjJwaQkyqv/jD1ZiC8pP6UyI7E4I76oNCe1+BCjD
+ AeHkgSvmglHspBgUWp6akVaZg4womDSEhw8SiK80qJAad7igsTc4sx0iNQpRkUpcd6LpkAJAZ
+ BERmkeXBssii8xykoJ8zIyMDAI8RSkFuVmlqDKv2IU52BUEua9CzKFJzOvBG76K6DFTECLpTa
+ wgywuSURISTUwedgb38t/l/Iy+sqhHxIb/ae29f2bu8OMSeaM90H39fzT1mnlN1563yD9viVg
+ Gc9yCw57DpVHjy04/99vrfQxS596LeL4M+8XXH+1ql+n9HyxudsxPeHlPLYXk22VVWr/z9W8L
+ nZ7/R7Xk/5Xak1m/5n/P+X94dtLfK/y2eiwNWUzzm1pDX1xZF/811Un9qfztB2q/y7eHvO+d6
+ XidAa12isvV5fuYf4XFqHWdsvQUu7Zoe9taaxFWxVt9NxU2mO6Gi9vaBadYFW84Mtb5tQK7aL
+ orEmzWVUFDGQNpqXpLDrOy/EzYcca6Znv/wil7P1dKLi/i09on96ZvilJGnFtnKvYKuVYjpw+
+ vlBMY/kjJZbijERDLeai4kQAASGUKF0DAAA=
+X-Env-Sender: xuyang2018.jy@fujitsu.com
+X-Msg-Ref: server-5.tower-587.messagelabs.com!1661482732!47538!1
+X-Originating-IP: [62.60.8.146]
+X-SYMC-ESS-Client-Auth: outbound-route-from=pass
+X-StarScan-Received: 
+X-StarScan-Version: 9.87.3; banners=-,-,-
+X-VirusChecked: Checked
+Received: (qmail 29897 invoked from network); 26 Aug 2022 02:58:52 -0000
+Received: from unknown (HELO n03ukasimr02.n03.fujitsu.local) (62.60.8.146)
+ by server-5.tower-587.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
+ encrypted SMTP; 26 Aug 2022 02:58:52 -0000
+Received: from n03ukasimr02.n03.fujitsu.local (localhost [127.0.0.1])
+ by n03ukasimr02.n03.fujitsu.local (Postfix) with ESMTP id 2F0421000CC
+ for <ltp@lists.linux.it>; Fri, 26 Aug 2022 03:58:52 +0100 (BST)
+Received: from R01UKEXCASM223.r01.fujitsu.local (R01UKEXCASM223
+ [10.182.185.121])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by n03ukasimr02.n03.fujitsu.local (Postfix) with ESMTPS id 22BB81000C1
+ for <ltp@lists.linux.it>; Fri, 26 Aug 2022 03:58:52 +0100 (BST)
+Received: from localhost.localdomain (10.167.220.84) by
+ R01UKEXCASM223.r01.fujitsu.local (10.182.185.121) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.32; Fri, 26 Aug 2022 03:58:50 +0100
+From: Yang Xu <xuyang2018.jy@fujitsu.com>
+To: <ltp@lists.linux.it>
+Date: Fri, 26 Aug 2022 11:59:23 +0800
+Message-ID: <1661486365-2361-1-git-send-email-xuyang2018.jy@fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
+In-Reply-To: <871qt42tev.fsf@suse.de>
+References: <871qt42tev.fsf@suse.de>
 MIME-Version: 1.0
-X-OriginatorOrg: fujitsu.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY2PR01MB4427.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e2423c8c-886b-4b6e-a30f-08da87103dfc
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Aug 2022 03:08:25.5071 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a19f121d-81e1-4858-a9d8-736e267fd4c7
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: pvsE6LosZuJO+rCtlBT10sDDWG9cPT2NLQnrrNaeiW8OHDFPPFgyRU73NE8vlwBG734OvSOTz4mJgSqXZ3kFQWLUnNlFVviTaWQcqYH4q5E=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB5999
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Originating-IP: [10.167.220.84]
+X-ClientProxiedBy: G08CNEXCHPEKD08.g08.fujitsu.local (10.167.33.83) To
+ R01UKEXCASM223.r01.fujitsu.local (10.182.185.121)
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/read04:add multiple read size
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH v4 1/3] tst_safe_file_at: Add SAFE_FCHOWNAT macro
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -158,122 +104,69 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Liao
+Reviewed-by: Richard Palethorpe <rpalethorpe@suse.com>
+Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
+---
+ include/tst_safe_file_at.h |  9 +++++++++
+ lib/tst_safe_file_at.c     | 20 ++++++++++++++++++++
+ 2 files changed, 29 insertions(+)
 
-It improves test coverage a lot, thanks!
+diff --git a/include/tst_safe_file_at.h b/include/tst_safe_file_at.h
+index 8df34227f..e253198e6 100644
+--- a/include/tst_safe_file_at.h
++++ b/include/tst_safe_file_at.h
+@@ -25,6 +25,10 @@
+ #define SAFE_UNLINKAT(dirfd, path, flags)				\
+ 	safe_unlinkat(__FILE__, __LINE__, (dirfd), (path), (flags))
+ 
++#define SAFE_FCHOWNAT(dirfd, path, owner, group, flags)			\
++	safe_fchownat(__FILE__, __LINE__,				\
++			(dirfd), (path), (owner), (group), (flags))
++
+ const char *tst_decode_fd(const int fd)
+ 			  __attribute__((warn_unused_result));
+ 
+@@ -58,4 +62,9 @@ int safe_unlinkat(const char *const file, const int lineno,
+ 		  const int dirfd, const char *const path, const int flags)
+ 		  __attribute__ ((nonnull));
+ 
++int safe_fchownat(const char *const file, const int lineno,
++		  const int dirfd, const char *const path, uid_t owner,
++		  gid_t group, int flags)
++		  __attribute__ ((nonnull));
++
+ #endif
+diff --git a/lib/tst_safe_file_at.c b/lib/tst_safe_file_at.c
+index ca8ef2f68..6370a68e5 100644
+--- a/lib/tst_safe_file_at.c
++++ b/lib/tst_safe_file_at.c
+@@ -195,3 +195,23 @@ int safe_unlinkat(const char *const file, const int lineno,
+ 
+ 	return rval;
+ }
++
++int safe_fchownat(const char *const file, const int lineno,
++		  const int dirfd, const char *const path, uid_t owner, gid_t group, int flags)
++{
++	int rval;
++
++	rval = fchownat(dirfd, path, owner, group, flags);
++
++	if (rval == -1) {
++		tst_brk_(file, lineno, TBROK | TERRNO,
++			 "fchownat(%d<%s>, '%s', %d, %d, %d) failed", dirfd,
++			 tst_decode_fd(dirfd), path, owner, group, flags);
++	} else if (rval) {
++		tst_brk_(file, lineno, TBROK | TERRNO,
++			 "Invalid fchownat(%d<%s>, '%s', %d, %d, %d) return value %d",
++			 dirfd, tst_decode_fd(dirfd), path, owner, group, flags, rval);
++	}
++
++	return rval;
++}
+-- 
+2.27.0
 
-LGTM,
-
-Reviewed-by: Yang Xu <xuyang2018.jy@fujitsu.com>
-
-Best Regards
-Yang Xu
-
-> From: Huangjie Liao <liaohj.jy@fujitsu.com>
-> 
-> Signed-off-by: Huangjie Liao <liaohj.jy@fujitsu.com>
-> ---
->   testcases/kernel/syscalls/read/read04.c | 59 ++++++++++++++++++++++++---------
->   1 file changed, 43 insertions(+), 16 deletions(-)
-> 
-> diff --git a/testcases/kernel/syscalls/read/read04.c b/testcases/kernel/syscalls/read/read04.c
-> index 47875c0..37c670f 100644
-> --- a/testcases/kernel/syscalls/read/read04.c
-> +++ b/testcases/kernel/syscalls/read/read04.c
-> @@ -6,36 +6,49 @@
->   /*\
->    * [Description]
->    *
-> - * Testcase to check if read() returns the number of bytes read correctly.
-> + * Testcase to check if read() returns the correct number of bytes
-> + * when using multip sizes [0, 1/2*page_size, 3/2*page_size, 2*page_size].
->    */
->   
->   #include <sys/types.h>
->   #include <sys/stat.h>
->   #include <stdio.h>
->   #include <fcntl.h>
-> +#include <unistd.h>
->   #include "tst_test.h"
->   
-> +#define MNT_POINT "mntpoint"
-> +static int page_size;
->   static const char *fname = "test_file";
-> -static const char palfa[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-> -#define PALFA_LEN (sizeof(palfa)-1)
-> +static char *write_buf[2], *read_buf;
->   
-> -static void verify_read(void)
-> +static void verify_read(unsigned int n)
->   {
->   	int fd;
-> -	char prbuf[BUFSIZ];
-> -
-> +	int size = n * page_size / 2;
->   	fd = SAFE_OPEN(fname, O_RDONLY);
-> -	TEST(read(fd, prbuf, BUFSIZ));
-> +	TEST(read(fd, read_buf, size));
->   
-> -	if (TST_RET != PALFA_LEN) {
-> -		tst_res(TFAIL, "Bad read count - got %ld - expected %zu",
-> -				TST_RET, PALFA_LEN);
-> +	if (TST_RET != size) {
-> +		tst_res(TFAIL, "Bad read count - got %ld - expected %d",
-> +				TST_RET, size);
->   		goto out;
->   	}
->   
-> -	if (memcmp(palfa, prbuf, PALFA_LEN)) {
-> -		tst_res(TFAIL, "read buffer not equal to write buffer");
-> -		goto out;
-> +	if (n <= 2) {
-> +		if (memcmp(read_buf, write_buf[0], size)) {
-> +			tst_res(TFAIL, "read buffer not equal to write buffer1");
-> +			goto out;
-> +		}
-> +	} else {
-> +		if (memcmp(read_buf, write_buf[0], page_size)) {
-> +			tst_res(TFAIL, "read buffer not equal to write buffer2");
-> +			goto out;
-> +		}
-> +		if (memcmp(read_buf + page_size, write_buf[1], size - page_size)) {
-> +			tst_res(TFAIL, "read buffer not equal to write buffer3");
-> +			goto out;
-> +		}
->   	}
->   
->   	tst_res(TPASS, "read() data correctly");
-> @@ -48,13 +61,27 @@ static void setup(void)
->   {
->   	int fd;
->   
-> +	page_size = getpagesize();
-> +	write_buf[0] = tst_alloc(page_size);
-> +	write_buf[1] = tst_alloc(page_size);
-> +	read_buf = tst_alloc(2 * page_size);
-> +
-> +	memset(write_buf[0], 'A', page_size);
-> +	memset(write_buf[1], 'B', page_size);
-> +	memset(read_buf, 0, 2 * page_size);
-> +	
->   	fd = SAFE_CREAT(fname, 0777);
-> -	SAFE_WRITE(1, fd, palfa, PALFA_LEN);
-> +	SAFE_WRITE(1, fd, write_buf[0], page_size);
-> +	SAFE_WRITE(1, fd, write_buf[1], page_size);
->   	SAFE_CLOSE(fd);
-> +	
->   }
->   
->   static struct tst_test test = {
-> -	.needs_tmpdir = 1,
->   	.setup = setup,
-> -	.test_all = verify_read,
-> +	.test = verify_read,
-> +	.tcnt = 5,
-> +	.mount_device = 1,
-> +	.mntpoint = MNT_POINT,
-> +	.all_filesystems = 1,
->   };
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
