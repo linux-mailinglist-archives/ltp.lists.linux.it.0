@@ -1,12 +1,12 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA65A5A31B8
-	for <lists+linux-ltp@lfdr.de>; Sat, 27 Aug 2022 00:09:13 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 288A65A331D
+	for <lists+linux-ltp@lfdr.de>; Sat, 27 Aug 2022 02:28:39 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6CC8A3CA499
-	for <lists+linux-ltp@lfdr.de>; Sat, 27 Aug 2022 00:09:07 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A1E393CA4DF
+	for <lists+linux-ltp@lfdr.de>; Sat, 27 Aug 2022 02:28:38 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
@@ -14,64 +14,56 @@ Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id B44D83CA2E6
- for <ltp@lists.linux.it>; Sat, 27 Aug 2022 00:09:05 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id DBBE93C8765
+ for <ltp@lists.linux.it>; Sat, 27 Aug 2022 02:28:22 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id E0088100037E
- for <ltp@lists.linux.it>; Sat, 27 Aug 2022 00:09:04 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 5E2461000654
+ for <ltp@lists.linux.it>; Sat, 27 Aug 2022 02:28:21 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 40DCC1F900;
- Fri, 26 Aug 2022 22:09:03 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 459F2224BB;
+ Sat, 27 Aug 2022 00:28:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1661551743;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=kEIHuVe5htPig9Nu4OXIo3m7tnpV/vAo8UuUZKrtqUI=;
- b=JisLRtD2kUTRlhtIyrUuAZILXI8LOvgdL3EkYU/qqID0fycl535ujoy7oqPhXIYXY811P+
- iSJBma36qvB9tt/spwrlw9pD3kZTffs0MaTI0eogBucIb8aBdEYfEX7sZeJb7XAFdinxvJ
- MYonpb7jGo3igK0KN1ibDcp0o+TxyTk=
+ t=1661560100; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=9ST8LofRZYc1z+00Wxb2byBNzMQnqeGppp7Jwc2HHlg=;
+ b=WdJlQzHt862MQ8WvJ/NAIrPi3WNmFJjmOng/DJWSJhd3JGmz9ExyIAoA390uhq0KKWTgJu
+ zJmXiRgOGh1MXqFh2kjAyT/OPbRmAVRiuU7bJKW+WtB/1rixXX9qxtDyLX4FpRuW0TFTGS
+ czXjPjwTYiNzKhaDCjkcbgfg8inKdxQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1661551743;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=kEIHuVe5htPig9Nu4OXIo3m7tnpV/vAo8UuUZKrtqUI=;
- b=eAnacFSuLqlp3LJHBn7HXJZMWeO2De6+8VBqa1PxaCEz9nZUzdftMzgqoxKFMi88W2EQlJ
- fg6O1txijnRLAtCA==
+ s=susede2_ed25519; t=1661560100;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=9ST8LofRZYc1z+00Wxb2byBNzMQnqeGppp7Jwc2HHlg=;
+ b=ECDvLpx0ooIMsFFzvuPKJW5XTdEgDFOL1/6yvLsxw8OEJ4OCQYjeDkr7qqDFyf73Erm3ua
+ e6uNMuMc4socJGBA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id F0D9C13A7E;
- Fri, 26 Aug 2022 22:09:02 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DBD0A133A6;
+ Sat, 27 Aug 2022 00:28:19 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 5FfCOH5ECWPRXwAAMHmgww
- (envelope-from <pvorel@suse.cz>); Fri, 26 Aug 2022 22:09:02 +0000
-Date: Sat, 27 Aug 2022 00:09:01 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id W8KOMyNlCWNQCgAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Sat, 27 Aug 2022 00:28:19 +0000
 From: Petr Vorel <pvorel@suse.cz>
-To: Amir Goldstein <amir73il@gmail.com>
-Message-ID: <YwlEfZ7FuU2jIPKC@pevik>
-References: <20220825140306.7150-1-jack@suse.cz> <YwjGrvqYEv4cn+/A@pevik>
- <20220826141933.fiy7mohz4ca6s5se@quack3>
- <CAOQ4uxgH+Q+R=YdnjkBAytB3GLwCEZzg3MYuqpwTyAuShBnw2g@mail.gmail.com>
+To: ltp@lists.linux.it
+Date: Sat, 27 Aug 2022 02:28:09 +0200
+Message-Id: <20220827002815.19116-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.37.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAOQ4uxgH+Q+R=YdnjkBAytB3GLwCEZzg3MYuqpwTyAuShBnw2g@mail.gmail.com>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/fanotify10: Make evictable marks test
- more reliable
+Subject: [LTP] [PATCH 0/6] Track minimal size per filesystem
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,58 +75,87 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: Matthew Bobrowski <repnop@google.com>,
- Dominique Leuenberger <dimstar@opensuse.org>, Jan Kara <jack@suse.cz>,
- LTP List <ltp@lists.linux.it>
+Cc: Richard Palethorpe <rpalethorpe@suse.com>,
+ Joerg Vehlow <joerg.vehlow@aox-tech.de>, linux-fsdevel@vger.kernel.org,
+ automated-testing@lists.yoctoproject.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-> On Fri, Aug 26, 2022 at 5:19 PM Jan Kara <jack@suse.cz> wrote:
+Hi all,
 
-> > On Fri 26-08-22 15:12:14, Petr Vorel wrote:
-> > > Hi Jan, all,
+This patchset require to be on the top of:
 
-> > > > In some setups evictable marks tests are failing because the inode with
-> > > > evictable mark does not get evicted. Make sure we sync the filesystem
-> > > > before we try to drop caches to increase likelyhood the inode will get
-> > > > evicted.
+[RFC,1/1] API: Allow to use xfs filesystems < 300 MB
+https://lore.kernel.org/ltp/20220817204015.31420-1-pvorel@suse.cz/
+https://patchwork.ozlabs.org/project/ltp/patch/20220817204015.31420-1-pvorel@suse.cz/
 
-> > > Merged with minor changes to keep checkpatch.pl happy.
+It replaces previous effort to just increase loop device size to 300 MB
+https://lore.kernel.org/ltp/20220818100945.7935-1-pvorel@suse.cz/
+https://patchwork.ozlabs.org/project/ltp/list/?series=314303&state=*
 
-> > Thanks!
+This patchset tracks minimal filesystem requirements as we agreed.
+It fixes both C and shell API.
 
-> > > Given on previous discussion the behavior on ext2 vs. xfs:
-> > > would it make sense to transform the test to use .all_filesystems = 1 ?
+** Please test the patchset in your setup. **
 
-> On the contrary.
-> We want the inode reclaim to be as predictable as possible.
-> That is why I suggested to force the test to use ext2
-> because xfs has some specialized inode reclaim
+I tried to find all tests with problems, but likely I missed some.
 
-Ah right! Could you please send a patch with .dev_fs_type = "ext2"
-That should be enough I guess.
+I have no idea why sendfile09 fails:
 
+tst_test.c:1540: TINFO: Timeout per run is 0h 00m 30s
+sendfile09.c:88: TPASS: sendfile() with offset at 0
+Test timeouted, sending SIGKILL!
+tst_test.c:1590: TINFO: If you are running on slow machine, try
+exporting LTP_TIMEOUT_MUL > 1
+tst_test.c:1591: TBROK: Test killed! (timeout?)
 
-> > Well, I don't think it would improve test coverage in any interesting way.
-> > This test tests stuff in fsnotify layer & VFS. The differences in
-> > filesystem inode reclaim are not target of this test - we are just trying
-> > to check that fsnotify does not block inode reclaim by holding inode
-> > references and for that any filesystem works. Or did you mean something
-> > else?
+Summary:
+passed   1
+failed   0
+broken   1
+skipped  0
+warnings 0
 
+df01.sh and mkfs01.sh (except -f exfat) are shell tests which use loop
+device. mkfs01.sh -t exfat fails (not yet in the runtest file).
 
-> Agree. I see no reason to change that.
-
-Thank you both for info!
+If applied, "v3 shell: nfs: $TST_ALL_FILESYSTEMS (.all_filesystems)"
+patchset will need to be rebased (not a problem, I'd just like to get
+both into LTP release in September)
+https://patchwork.ozlabs.org/project/ltp/list/?series=312567&state=*
+https://lore.kernel.org/ltp/20220804121946.19564-1-pvorel@suse.cz/
 
 Kind regards,
 Petr
 
-> Thanks,
-> Amir.
+Petr Vorel (6):
+  tst_fs_type: Add nsfs, vfat, squashfs to tst_fs_type_name()
+  API: tst_device: Track minimal size per filesystem
+  tst_test: Use 16 MB also for tmpfs
+  tst_device: Use getopts
+  tst_device: Add support -f filesystem
+  tst_test.sh: Pass used filesystem to tst_device
+
+ include/old/old_device.h                      |  6 +-
+ include/tst_fs.h                              | 21 ++++-
+ lib/tst_device.c                              | 36 +++++++--
+ lib/tst_fs_type.c                             | 34 ++++++++
+ lib/tst_test.c                                |  9 ++-
+ testcases/kernel/fs/squashfs/squashfs01.c     |  1 +
+ .../kernel/syscalls/fanotify/fanotify05.c     |  1 +
+ testcases/kernel/syscalls/preadv2/preadv203.c |  1 +
+ .../kernel/syscalls/readahead/readahead02.c   |  1 +
+ testcases/lib/tst_device.c                    | 81 ++++++++++++-------
+ testcases/lib/tst_test.sh                     |  4 +-
+ testcases/misc/lvm/cleanup_lvm.sh             |  2 +-
+ testcases/misc/lvm/prepare_lvm.sh             |  8 +-
+ 13 files changed, 157 insertions(+), 48 deletions(-)
+
+-- 
+2.37.2
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
