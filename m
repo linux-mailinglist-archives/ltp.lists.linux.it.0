@@ -2,11 +2,11 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 288A65A331D
-	for <lists+linux-ltp@lfdr.de>; Sat, 27 Aug 2022 02:28:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5D7C5A331F
+	for <lists+linux-ltp@lfdr.de>; Sat, 27 Aug 2022 02:29:00 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A1E393CA4DF
-	for <lists+linux-ltp@lfdr.de>; Sat, 27 Aug 2022 02:28:38 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A3A6C3CA4D8
+	for <lists+linux-ltp@lfdr.de>; Sat, 27 Aug 2022 02:29:00 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
@@ -14,56 +14,63 @@ Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id DBBE93C8765
- for <ltp@lists.linux.it>; Sat, 27 Aug 2022 02:28:22 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 82A813C136F
+ for <ltp@lists.linux.it>; Sat, 27 Aug 2022 02:28:23 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 5E2461000654
- for <ltp@lists.linux.it>; Sat, 27 Aug 2022 02:28:21 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id EC3691000654
+ for <ltp@lists.linux.it>; Sat, 27 Aug 2022 02:28:22 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 459F2224BB;
- Sat, 27 Aug 2022 00:28:20 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 3641F1F9AC;
+ Sat, 27 Aug 2022 00:28:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1661560100; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=9ST8LofRZYc1z+00Wxb2byBNzMQnqeGppp7Jwc2HHlg=;
- b=WdJlQzHt862MQ8WvJ/NAIrPi3WNmFJjmOng/DJWSJhd3JGmz9ExyIAoA390uhq0KKWTgJu
- zJmXiRgOGh1MXqFh2kjAyT/OPbRmAVRiuU7bJKW+WtB/1rixXX9qxtDyLX4FpRuW0TFTGS
- czXjPjwTYiNzKhaDCjkcbgfg8inKdxQ=
+ t=1661560101; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=PkHOMCgteBaqkUHJLwtS9lLMQwIPe7zjThZ34GlLVjg=;
+ b=pFtCjH88UuGgZVI98KBXwDTablD3NbxKYy0efxWzPjBOOrHy2q1BfJ9cBKoZlINMya2EuY
+ OVYQh+p7pGccJW8A5yB/QGVcapS9YkU+Z8j9uhwbznrQEbEKFy6mlCPG4TmuDhZm+LgmwV
+ e0D1di1OEoFaTtxMh71afwj9THcLBRg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1661560100;
+ s=susede2_ed25519; t=1661560101;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=9ST8LofRZYc1z+00Wxb2byBNzMQnqeGppp7Jwc2HHlg=;
- b=ECDvLpx0ooIMsFFzvuPKJW5XTdEgDFOL1/6yvLsxw8OEJ4OCQYjeDkr7qqDFyf73Erm3ua
- e6uNMuMc4socJGBA==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=PkHOMCgteBaqkUHJLwtS9lLMQwIPe7zjThZ34GlLVjg=;
+ b=sn4D/Kks/d2bW/pVeOvdSpcDwye2zZSfsCAhXEa6My+hAOvkGt1WH3UqmOlJJoR6ZZE+RL
+ jd/qwXfqoYJXBPBQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DBD0A133A6;
- Sat, 27 Aug 2022 00:28:19 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4E363133A6;
+ Sat, 27 Aug 2022 00:28:20 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id W8KOMyNlCWNQCgAAMHmgww
- (envelope-from <pvorel@suse.cz>); Sat, 27 Aug 2022 00:28:19 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id MHjSESRlCWNQCgAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Sat, 27 Aug 2022 00:28:20 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Sat, 27 Aug 2022 02:28:09 +0200
-Message-Id: <20220827002815.19116-1-pvorel@suse.cz>
+Date: Sat, 27 Aug 2022 02:28:10 +0200
+Message-Id: <20220827002815.19116-2-pvorel@suse.cz>
 X-Mailer: git-send-email 2.37.2
+In-Reply-To: <20220827002815.19116-1-pvorel@suse.cz>
+References: <20220827002815.19116-1-pvorel@suse.cz>
 MIME-Version: 1.0
 X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH 0/6] Track minimal size per filesystem
+Subject: [LTP] [PATCH 1/6] tst_fs_type: Add nsfs, vfat,
+ squashfs to tst_fs_type_name()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,76 +90,52 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi all,
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+---
+ include/tst_fs.h  | 5 ++++-
+ lib/tst_fs_type.c | 6 ++++++
+ 2 files changed, 10 insertions(+), 1 deletion(-)
 
-This patchset require to be on the top of:
-
-[RFC,1/1] API: Allow to use xfs filesystems < 300 MB
-https://lore.kernel.org/ltp/20220817204015.31420-1-pvorel@suse.cz/
-https://patchwork.ozlabs.org/project/ltp/patch/20220817204015.31420-1-pvorel@suse.cz/
-
-It replaces previous effort to just increase loop device size to 300 MB
-https://lore.kernel.org/ltp/20220818100945.7935-1-pvorel@suse.cz/
-https://patchwork.ozlabs.org/project/ltp/list/?series=314303&state=*
-
-This patchset tracks minimal filesystem requirements as we agreed.
-It fixes both C and shell API.
-
-** Please test the patchset in your setup. **
-
-I tried to find all tests with problems, but likely I missed some.
-
-I have no idea why sendfile09 fails:
-
-tst_test.c:1540: TINFO: Timeout per run is 0h 00m 30s
-sendfile09.c:88: TPASS: sendfile() with offset at 0
-Test timeouted, sending SIGKILL!
-tst_test.c:1590: TINFO: If you are running on slow machine, try
-exporting LTP_TIMEOUT_MUL > 1
-tst_test.c:1591: TBROK: Test killed! (timeout?)
-
-Summary:
-passed   1
-failed   0
-broken   1
-skipped  0
-warnings 0
-
-df01.sh and mkfs01.sh (except -f exfat) are shell tests which use loop
-device. mkfs01.sh -t exfat fails (not yet in the runtest file).
-
-If applied, "v3 shell: nfs: $TST_ALL_FILESYSTEMS (.all_filesystems)"
-patchset will need to be rebased (not a problem, I'd just like to get
-both into LTP release in September)
-https://patchwork.ozlabs.org/project/ltp/list/?series=312567&state=*
-https://lore.kernel.org/ltp/20220804121946.19564-1-pvorel@suse.cz/
-
-Kind regards,
-Petr
-
-Petr Vorel (6):
-  tst_fs_type: Add nsfs, vfat, squashfs to tst_fs_type_name()
-  API: tst_device: Track minimal size per filesystem
-  tst_test: Use 16 MB also for tmpfs
-  tst_device: Use getopts
-  tst_device: Add support -f filesystem
-  tst_test.sh: Pass used filesystem to tst_device
-
- include/old/old_device.h                      |  6 +-
- include/tst_fs.h                              | 21 ++++-
- lib/tst_device.c                              | 36 +++++++--
- lib/tst_fs_type.c                             | 34 ++++++++
- lib/tst_test.c                                |  9 ++-
- testcases/kernel/fs/squashfs/squashfs01.c     |  1 +
- .../kernel/syscalls/fanotify/fanotify05.c     |  1 +
- testcases/kernel/syscalls/preadv2/preadv203.c |  1 +
- .../kernel/syscalls/readahead/readahead02.c   |  1 +
- testcases/lib/tst_device.c                    | 81 ++++++++++++-------
- testcases/lib/tst_test.sh                     |  4 +-
- testcases/misc/lvm/cleanup_lvm.sh             |  2 +-
- testcases/misc/lvm/prepare_lvm.sh             |  8 +-
- 13 files changed, 157 insertions(+), 48 deletions(-)
-
+diff --git a/include/tst_fs.h b/include/tst_fs.h
+index 8159b99eb..a6f934b0f 100644
+--- a/include/tst_fs.h
++++ b/include/tst_fs.h
+@@ -5,7 +5,7 @@
+ #ifndef TST_FS_H__
+ #define TST_FS_H__
+ 
+-/* man 2 statfs or kernel-source/include/linux/magic.h */
++/* man 2 statfs or kernel-source/include/uapi/linux/magic.h */
+ #define TST_BTRFS_MAGIC    0x9123683E
+ #define TST_NFS_MAGIC      0x6969
+ #define TST_RAMFS_MAGIC    0x858458f6
+@@ -32,6 +32,9 @@
+ #define TST_FUSE_MAGIC     0x65735546
+ #define TST_VFAT_MAGIC     0x4d44 /* AKA MSDOS */
+ #define TST_EXFAT_MAGIC    0x2011BAB0UL
++#define TST_SQUASHFS_MAGIC 0x73717368
++/* kernel-source/fs/ntfs/ntfs.h */
++#define TST_NTFS_MAGIC     0x5346544e
+ 
+ enum {
+ 	TST_BYTES = 1,
+diff --git a/lib/tst_fs_type.c b/lib/tst_fs_type.c
+index 9de80224b..de4facef5 100644
+--- a/lib/tst_fs_type.c
++++ b/lib/tst_fs_type.c
+@@ -88,6 +88,12 @@ const char *tst_fs_type_name(long f_type)
+ 		return "fuse";
+ 	case TST_EXFAT_MAGIC:
+ 		return "exfat";
++	case TST_NTFS_MAGIC:
++		return "ntfs";
++	case TST_SQUASHFS_MAGIC:
++		return "squashfs";
++	case TST_VFAT_MAGIC:
++		return "vfat";
+ 	default:
+ 		return "unknown";
+ 	}
 -- 
 2.37.2
 
