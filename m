@@ -2,73 +2,74 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id A62F05A3322
-	for <lists+linux-ltp@lfdr.de>; Sat, 27 Aug 2022 02:29:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 238465A3320
+	for <lists+linux-ltp@lfdr.de>; Sat, 27 Aug 2022 02:29:12 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 678AA3CA50C
-	for <lists+linux-ltp@lfdr.de>; Sat, 27 Aug 2022 02:29:36 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id CEDB13CA4EC
+	for <lists+linux-ltp@lfdr.de>; Sat, 27 Aug 2022 02:29:11 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 712EA3CA4DB
+ by picard.linux.it (Postfix) with ESMTPS id D42C13C136F
  for <ltp@lists.linux.it>; Sat, 27 Aug 2022 02:28:23 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 2CBA4200042
- for <ltp@lists.linux.it>; Sat, 27 Aug 2022 02:28:22 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 1067A600657
+ for <ltp@lists.linux.it>; Sat, 27 Aug 2022 02:28:23 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 7079533723;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id BFF521F96A;
  Sat, 27 Aug 2022 00:28:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1661560102; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Uykqtwmkv+fLywCXyI1nNcmh4AHu6L98HBfpxVTzaP0=;
- b=PfHLWG8aA8uHGObo7YOtYpnbBL0QeAEiEecXXQ1wqIJTvpFLR/XcAdXzYKvbfkhiqAPGXn
- 4r0DplKSguS07dci4K3zto1FtnnXwGjYBTWqbFmLoUXCxDuopPuVA2nhGplYuE90CQP/17
- gSGGu2wVH2LBNKSIcKaovlmQ3VtyjVw=
+ bh=BiPrbC61jRbbbHVM4aWPbRDbZ7+fsYA0rYNJpsLJCCI=;
+ b=I0NoaKubnuhpIAlj1KkFSRLGWorBaYGpx19TQ9kBYRVs6kN1BBrHQQqCYdKs1XcagfO8kC
+ g7JZBi8MPqg4fghUNb4quEjNUh/htaj3dGnXPwBPsUbRNilTlYP1h4MIAZJl9MRj23boju
+ E5I6w15ugD51nCzNeeUkEjJA3XHo+3o=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1661560102;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Uykqtwmkv+fLywCXyI1nNcmh4AHu6L98HBfpxVTzaP0=;
- b=9BgtU/w+GKNCIESiC8SsCKgvAN+rlMfOMmYj9Co4ATZlxHL8yyK35koTroxrhpRUcZroYD
- xw+M0CfkmFxNvqBQ==
+ bh=BiPrbC61jRbbbHVM4aWPbRDbZ7+fsYA0rYNJpsLJCCI=;
+ b=wTCL109pNoi8fX6pcTp5csJiQ/FMORUntp/dFktYdATD3xx+rWm3T87BHEi67a8agqYo09
+ ZBLrhzrsodO3DSDA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1E91113ADC;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7847F133A6;
  Sat, 27 Aug 2022 00:28:22 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id oLE+BiZlCWNQCgAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id CJsxHCZlCWNQCgAAMHmgww
  (envelope-from <pvorel@suse.cz>); Sat, 27 Aug 2022 00:28:22 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Sat, 27 Aug 2022 02:28:13 +0200
-Message-Id: <20220827002815.19116-5-pvorel@suse.cz>
+Date: Sat, 27 Aug 2022 02:28:14 +0200
+Message-Id: <20220827002815.19116-6-pvorel@suse.cz>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220827002815.19116-1-pvorel@suse.cz>
 References: <20220827002815.19116-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH 4/6] tst_device: Use getopts
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH 5/6] tst_device: Add support -f filesystem
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,190 +89,80 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-size and filesystems are passed by -s and -f flags.
-That will help to pass used filesystem.
-
-When it, add also -h.
+Useful to get smaller minimal required size.
 
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- testcases/lib/tst_device.c        | 71 +++++++++++++++++++------------
- testcases/lib/tst_test.sh         |  2 +-
- testcases/misc/lvm/cleanup_lvm.sh |  2 +-
- testcases/misc/lvm/prepare_lvm.sh |  8 ++--
- 4 files changed, 49 insertions(+), 34 deletions(-)
+ testcases/lib/tst_device.c | 18 +++++++++++++-----
+ 1 file changed, 13 insertions(+), 5 deletions(-)
 
 diff --git a/testcases/lib/tst_device.c b/testcases/lib/tst_device.c
-index b76abf52b..b672202e2 100644
+index b672202e2..a161fb069 100644
 --- a/testcases/lib/tst_device.c
 +++ b/testcases/lib/tst_device.c
-@@ -18,30 +18,18 @@ static struct tst_test test = {
- 
+@@ -19,19 +19,19 @@ static struct tst_test test = {
  static void print_help(void)
  {
--	fprintf(stderr, "\nUsage: tst_device acquire [size [filename]]\n");
--	fprintf(stderr, "   or: tst_device release /path/to/device\n\n");
-+	fprintf(stderr, "\nUsage:\n");
-+	fprintf(stderr, "tst_device [-s size [-d /path/to/device]] acquire\n");
-+	fprintf(stderr, "tst_device -d /path/to/device release\n");
-+	fprintf(stderr, "tst_device -h\n\n");
+ 	fprintf(stderr, "\nUsage:\n");
+-	fprintf(stderr, "tst_device [-s size [-d /path/to/device]] acquire\n");
++	fprintf(stderr, "tst_device [-f filesystem] [-s size [-d /path/to/device]] acquire\n");
+ 	fprintf(stderr, "tst_device -d /path/to/device release\n");
+ 	fprintf(stderr, "tst_device -h\n\n");
  }
  
--static int acquire_device(int argc, char *argv[])
-+static int acquire_device(const char *device_path, unsigned int size)
+-static int acquire_device(const char *device_path, unsigned int size)
++static int acquire_device(const char *device_path, unsigned int size, long f_type)
  {
--	unsigned int size = 0;
  	const char *device;
  
--	if (argc > 4)
--		return 1;
--
--	if (argc >= 3) {
--		size = atoi(argv[2]);
--
--		if (!size) {
--			fprintf(stderr, "ERROR: Invalid device size '%s'",
--				argv[2]);
--			return 1;
--		}
--	}
--
--	if (argc >= 4)
--		device = tst_acquire_loop_device(size, argv[3]);
-+	if (device_path)
-+		device = tst_acquire_loop_device(size, device_path);
+ 	if (device_path)
+ 		device = tst_acquire_loop_device(size, device_path);
  	else
- 		device = tst_acquire_device__(size, TST_ALL_FILESYSTEMS);
+-		device = tst_acquire_device__(size, TST_ALL_FILESYSTEMS);
++		device = tst_acquire_device__(size, f_type);
  
-@@ -58,10 +46,12 @@ static int acquire_device(int argc, char *argv[])
- 	return 0;
- }
- 
--static int release_device(int argc, char *argv[])
-+static int release_device(const char *device_path)
- {
--	if (argc != 3)
-+	if (!device_path) {
-+		fprintf(stderr, "ERROR: Missing /path/to/device\n");
+ 	if (!device)
  		return 1;
-+	}
- 
- 	/*
- 	 * tst_acquire_[loop_]device() was called in a different process.
-@@ -69,11 +59,15 @@ static int release_device(int argc, char *argv[])
- 	 * and do nothing. Call tst_detach_device() directly to bypass
- 	 * the check.
- 	 */
--	return tst_detach_device(argv[2]);
-+	return tst_detach_device(device_path);
- }
- 
- int main(int argc, char *argv[])
+@@ -66,6 +66,7 @@ int main(int argc, char *argv[])
  {
-+	char *device_path = NULL;
-+	unsigned int size = 0;
-+	int ret;
-+
+ 	char *device_path = NULL;
+ 	unsigned int size = 0;
++	long f_type = TST_ALL_FILESYSTEMS;
+ 	int ret;
+ 
  	/*
- 	 * Force messages to be printed from the new library i.e. tst_test.c
- 	 *
-@@ -85,17 +79,38 @@ int main(int argc, char *argv[])
+@@ -79,7 +80,7 @@ int main(int argc, char *argv[])
  	 */
  	tst_test = &test;
  
--	if (argc < 2)
-+	while ((ret = getopt(argc, argv, "d:hs:"))) {
-+		if (ret < 0)
-+			break;
-+
-+		switch (ret) {
-+		case 'd':
-+			device_path = optarg;
-+			break;
-+		case 'h':
-+			print_help();
-+			return 0;
-+		case 's':
-+			size = atoi(optarg);
-+			if (!size) {
-+				fprintf(stderr, "ERROR: Invalid device size '%s'", optarg);
+-	while ((ret = getopt(argc, argv, "d:hs:"))) {
++	while ((ret = getopt(argc, argv, "d:f:hs:"))) {
+ 		if (ret < 0)
+ 			break;
+ 
+@@ -87,6 +88,13 @@ int main(int argc, char *argv[])
+ 		case 'd':
+ 			device_path = optarg;
+ 			break;
++		case 'f':
++			f_type = tst_fs_name_type(optarg);
++			if (f_type == -1) {
++				fprintf(stderr, "ERROR: Unsupported filesystem '%s'", optarg);
 +				return 1;
 +			}
 +			break;
-+		}
-+	}
-+
-+	if (argc - optind < 1)
+ 		case 'h':
+ 			print_help();
+ 			return 0;
+@@ -104,7 +112,7 @@ int main(int argc, char *argv[])
  		goto help;
  
--	if (!strcmp(argv[1], "acquire")) {
--		if (acquire_device(argc, argv))
-+	if (!strcmp(argv[optind], "acquire")) {
-+		if (acquire_device(device_path, size))
+ 	if (!strcmp(argv[optind], "acquire")) {
+-		if (acquire_device(device_path, size))
++		if (acquire_device(device_path, size, f_type))
  			goto help;
--	} else if (!strcmp(argv[1], "release")) {
--		if (release_device(argc, argv))
-+	} else if (!strcmp(argv[optind], "release")) {
-+		if (release_device(device_path))
- 			goto help;
- 	} else {
--		fprintf(stderr, "ERROR: Invalid COMMAND '%s'\n", argv[1]);
-+		fprintf(stderr, "ERROR: Invalid COMMAND '%s'\n", argv[optind]);
- 		goto help;
- 	}
- 
-diff --git a/testcases/lib/tst_test.sh b/testcases/lib/tst_test.sh
-index b42e54ca1..7aea9ee5f 100644
---- a/testcases/lib/tst_test.sh
-+++ b/testcases/lib/tst_test.sh
-@@ -46,7 +46,7 @@ _tst_do_exit()
- 	fi
- 
- 	if [ "$TST_NEEDS_DEVICE" = 1 -a "$TST_DEVICE_FLAG" = 1 ]; then
--		if ! tst_device release "$TST_DEVICE"; then
-+		if ! tst_device -d "$TST_DEVICE" release; then
- 			tst_res TWARN "Failed to release device '$TST_DEVICE'"
- 		fi
- 	fi
-diff --git a/testcases/misc/lvm/cleanup_lvm.sh b/testcases/misc/lvm/cleanup_lvm.sh
-index f05289f00..c876b4bbf 100755
---- a/testcases/misc/lvm/cleanup_lvm.sh
-+++ b/testcases/misc/lvm/cleanup_lvm.sh
-@@ -24,7 +24,7 @@ cleanup_lvm()
- 	ROD vgremove -y ltp_test_vg2
- 
- 	for devname in $DEVLIST; do
--		ROD tst_device release $devname
-+		ROD tst_device -d $devname release
- 	done
- 
- 	rm -rf $LVM_DIR/ltp
-diff --git a/testcases/misc/lvm/prepare_lvm.sh b/testcases/misc/lvm/prepare_lvm.sh
-index d3ae4b23f..dbf1e3157 100755
---- a/testcases/misc/lvm/prepare_lvm.sh
-+++ b/testcases/misc/lvm/prepare_lvm.sh
-@@ -43,17 +43,17 @@ prepare_mounts()
- 	FSNAME1=$1
- 	FSNAME2=$2
- 	shift 2
--	LVM_DEV1=`tst_device acquire 1040 "$LVM_IMGDIR/lvm_pv1.img"`
-+	LVM_DEV1=`tst_device -s 1040 -d "$LVM_IMGDIR/lvm_pv1.img" acquire`
- 	error_check
--	LVM_DEV2=`tst_device acquire 1040 "$LVM_IMGDIR/lvm_pv2.img"`
-+	LVM_DEV2=`tst_device -s 1040 -d "$LVM_IMGDIR/lvm_pv2.img" acquire`
- 	error_check
- 
- 	# DEVSIZE=($# * 1GB / 2) + 16MB. The extra 16MB is for LVM physical
- 	# volume headers
- 	DEVSIZE=$(( $# * 512 + 16 ))
--	LVM_DEV3=`tst_device acquire $DEVSIZE "$LVM_IMGDIR/lvm_pv3.img"`
-+	LVM_DEV3=`tst_device -s $DEVSIZE -d "$LVM_IMGDIR/lvm_pv3.img" acquire`
- 	error_check
--	LVM_DEV4=`tst_device acquire $DEVSIZE "$LVM_IMGDIR/lvm_pv4.img"`
-+	LVM_DEV4=`tst_device -s $DEVSIZE -d "$LVM_IMGDIR/lvm_pv4.img" acquire`
- 	error_check
- 	ROD pvcreate $LVM_DEV1 $LVM_DEV2 $LVM_DEV3 $LVM_DEV4
- 	ROD vgcreate ltp_test_vg1 $LVM_DEV1 $LVM_DEV2
+ 	} else if (!strcmp(argv[optind], "release")) {
+ 		if (release_device(device_path))
 -- 
 2.37.2
 
