@@ -1,76 +1,76 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74B405A6587
-	for <lists+linux-ltp@lfdr.de>; Tue, 30 Aug 2022 15:50:57 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 067BA5A658B
+	for <lists+linux-ltp@lfdr.de>; Tue, 30 Aug 2022 15:51:17 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3244E3CA6AA
-	for <lists+linux-ltp@lfdr.de>; Tue, 30 Aug 2022 15:50:57 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B10383CA6B3
+	for <lists+linux-ltp@lfdr.de>; Tue, 30 Aug 2022 15:51:16 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 2C0083CA69B
- for <ltp@lists.linux.it>; Tue, 30 Aug 2022 15:50:09 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 708AA3CA5C7
+ for <ltp@lists.linux.it>; Tue, 30 Aug 2022 15:50:10 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 43E4114001E9
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id BB758200111
  for <ltp@lists.linux.it>; Tue, 30 Aug 2022 15:50:09 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id D0870221B4
- for <ltp@lists.linux.it>; Tue, 30 Aug 2022 13:50:08 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 331AA1FAA4
+ for <ltp@lists.linux.it>; Tue, 30 Aug 2022 13:50:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1661867408; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ t=1661867409; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=pVfy5uJ9mqD253/5jb72LKt1BO5D24FLhh73WBn2PRQ=;
- b=2XhUCNqvq5pmtWeG0Jnb0vivmmYo5X2DBtN5PesbDFbVWgjscOhYUErv4IjC/4lTsEnzI6
- xQfC5cF/udMdfe4ZQAERU9n1vOJ9QD3IRBg917JS7ZXNYu+ke2F4SChmkoINciC5Iuzq99
- c0nE4K5FZ3qrEtOpeG7u2J0CUe68/0w=
+ bh=PCnpjdC46UedN7NzunjuvHrBDmwD3o4L5VFFxlt/ex0=;
+ b=QQJotz5EaEAKSCRxU/C19/4YrzqNH1MHd9jurmlW4V63rsFyXObF3eE5lmXEQlsErTHP2m
+ cSjmaXLa2KrUaFHXTUtcYx35KDg6uasoIP5gENNnxAVt4gQ8XYjGdAs3Go0E49v0hbXKm7
+ 7LXgkrIr1xxR7cEKUEql3Ucqhmx/Nk4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1661867408;
+ s=susede2_ed25519; t=1661867409;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=pVfy5uJ9mqD253/5jb72LKt1BO5D24FLhh73WBn2PRQ=;
- b=5MLZ2W++a1oZxI/zFYWFeMRXVO+6E119v12lYD2tpctsqAXc/eBSK51YpXihkmET3a7p8R
- lbQ1JLCsRNe3WZAQ==
+ bh=PCnpjdC46UedN7NzunjuvHrBDmwD3o4L5VFFxlt/ex0=;
+ b=aRfKegRRA8evoylLEj9tRTA9Aiq5BoGwMOneBiH6/qAYGTAHtDKMWnm12oLleoWaEuFqzE
+ 7dHH7W1K0gSbHRDA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B26B013ACF
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 166D813ACF
  for <ltp@lists.linux.it>; Tue, 30 Aug 2022 13:50:08 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id aCZWKpAVDmOfDAAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id yHYQM5AVDmOfDAAAMHmgww
  (envelope-from <mdoucha@suse.cz>)
  for <ltp@lists.linux.it>; Tue, 30 Aug 2022 13:50:08 +0000
 From: Martin Doucha <mdoucha@suse.cz>
 To: ltp@lists.linux.it
-Date: Tue, 30 Aug 2022 15:50:02 +0200
-Message-Id: <20220830135007.16818-6-mdoucha@suse.cz>
+Date: Tue, 30 Aug 2022 15:50:03 +0200
+Message-Id: <20220830135007.16818-7-mdoucha@suse.cz>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220830135007.16818-1-mdoucha@suse.cz>
 References: <20220830135007.16818-1-mdoucha@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH 05/10] csf_bandwidth01: Add max_runtime
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH 06/10] copy_file_range01: Add max_runtime
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,21 +89,19 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Signed-off-by: Martin Doucha <mdoucha@suse.cz>
 ---
- testcases/kernel/sched/cfs-scheduler/cfs_bandwidth01.c | 1 +
+ testcases/kernel/syscalls/copy_file_range/copy_file_range01.c | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/testcases/kernel/sched/cfs-scheduler/cfs_bandwidth01.c b/testcases/kernel/sched/cfs-scheduler/cfs_bandwidth01.c
-index a24dccc4e..8f2da4493 100644
---- a/testcases/kernel/sched/cfs-scheduler/cfs_bandwidth01.c
-+++ b/testcases/kernel/sched/cfs-scheduler/cfs_bandwidth01.c
-@@ -170,6 +170,7 @@ static struct tst_test test = {
- 	.cleanup = cleanup,
- 	.forks_child = 1,
- 	.needs_checkpoints = 1,
-+	.max_runtime = 20,
- 	.taint_check = TST_TAINT_W | TST_TAINT_D,
- 	.needs_kconfigs = (const char *[]) {
- 		"CONFIG_CFS_BANDWIDTH",
+diff --git a/testcases/kernel/syscalls/copy_file_range/copy_file_range01.c b/testcases/kernel/syscalls/copy_file_range/copy_file_range01.c
+index 7d27007a3..23a5ec501 100644
+--- a/testcases/kernel/syscalls/copy_file_range/copy_file_range01.c
++++ b/testcases/kernel/syscalls/copy_file_range/copy_file_range01.c
+@@ -232,4 +232,5 @@ static struct tst_test test = {
+ 	.all_filesystems = 1,
+ 	.test = copy_file_range_verify,
+ 	.test_variants = TEST_VARIANTS,
++	.max_runtime = 20
+ };
 -- 
 2.37.2
 
