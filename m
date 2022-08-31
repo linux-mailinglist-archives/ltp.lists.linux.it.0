@@ -1,74 +1,75 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 913725A78E3
-	for <lists+linux-ltp@lfdr.de>; Wed, 31 Aug 2022 10:21:35 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 843085A78F8
+	for <lists+linux-ltp@lfdr.de>; Wed, 31 Aug 2022 10:24:11 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3F7353CA5AD
-	for <lists+linux-ltp@lfdr.de>; Wed, 31 Aug 2022 10:21:35 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id D40113CA6AF
+	for <lists+linux-ltp@lfdr.de>; Wed, 31 Aug 2022 10:24:10 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 586243C65EB
- for <ltp@lists.linux.it>; Wed, 31 Aug 2022 10:21:32 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 0B6363C65EB
+ for <ltp@lists.linux.it>; Wed, 31 Aug 2022 10:24:08 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 2DA53200AE7
- for <ltp@lists.linux.it>; Wed, 31 Aug 2022 10:21:31 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 4AEA01000A4A
+ for <ltp@lists.linux.it>; Wed, 31 Aug 2022 10:24:07 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 62D9821DCA;
- Wed, 31 Aug 2022 08:21:31 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id DDADD2221C;
+ Wed, 31 Aug 2022 08:24:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1661934091;
+ t=1661934245;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=3BYFNy5BuqmUY9YNGaUdP12KRlzfVgSAyFNEMe1UDAk=;
- b=X1ur/sct6OnQkoOpE9C1nG9cQySG1c3BCKrlROy01dVXdxPe2evyaUbOHb3ChfH8YMMqua
- FMwmdpC703RvFo9oLPGxN0P+pfxLyoAWQNmd5fLYuBuNAMI8o0A7hYZMNCaXkv9IDyc2pi
- qprOhhZwTy+iwaHj4mdhXD39vlbEW8o=
+ bh=Qel0zAoiCF51myRaX4ulaDOSARYxeX0wbGHp9AVuUzI=;
+ b=N3QAbbB85ReFeLXmNHpvmDt+x93NvRLAHrnH5uCC4ATniJ+ZrwymXdOg/hGXxQg05rGHax
+ C0xOYr/q7vOcnImF9zNw2ff2aNoBJ6Z6O1jcim/cqHNYcPMIEIMYyy0KR5ltXbfV7aqql/
+ eBvY899mAQ3BtcEbsdXwhsv18dhObGU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1661934091;
+ s=susede2_ed25519; t=1661934245;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=3BYFNy5BuqmUY9YNGaUdP12KRlzfVgSAyFNEMe1UDAk=;
- b=dV9DobgepVp/6LesZdLXKpalCR9hlAUEC2bWaIrj2XQ/xliBIOxIDdQw5cx+aNvLk/uNML
- AenoTe5c5HB9jCDw==
+ bh=Qel0zAoiCF51myRaX4ulaDOSARYxeX0wbGHp9AVuUzI=;
+ b=tbd8V1KD9KSClMCa5pcHEzu8tzQFfXL1DVnDJNhIoS3M21vJ0rP/tbZTGTsQ6TyqJm3Plw
+ 6g9Rqxv//opJ/jAQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 19ABE13A7C;
- Wed, 31 Aug 2022 08:21:31 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id AE39D13A7C;
+ Wed, 31 Aug 2022 08:24:05 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id wQuXAwsaD2MGJwAAMHmgww
- (envelope-from <pvorel@suse.cz>); Wed, 31 Aug 2022 08:21:31 +0000
-Date: Wed, 31 Aug 2022 10:21:24 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id /9X+KKUaD2MaKAAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Wed, 31 Aug 2022 08:24:05 +0000
+Date: Wed, 31 Aug 2022 10:23:58 +0200
 From: Petr Vorel <pvorel@suse.cz>
 To: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <Yw8aBE5SNZmY+mrd@pevik>
+Message-ID: <Yw8ankU9pHASTMF5@pevik>
 References: <20220830135007.16818-1-mdoucha@suse.cz>
- <20220830135007.16818-7-mdoucha@suse.cz>
+ <20220830135007.16818-8-mdoucha@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20220830135007.16818-7-mdoucha@suse.cz>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+In-Reply-To: <20220830135007.16818-8-mdoucha@suse.cz>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 06/10] copy_file_range01: Add max_runtime
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 07/10] perf_event_open02: Add max_runtime
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,9 +88,7 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Martin,
-
-LGTM (test uses all_filesystems, but 20 for all possible filesystems should be OK).
+Hi,
 
 Reviewed-by: Petr Vorel <pvorel@suse.cz>
 
