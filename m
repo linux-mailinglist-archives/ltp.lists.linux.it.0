@@ -2,73 +2,50 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC8D95A7AEF
-	for <lists+linux-ltp@lfdr.de>; Wed, 31 Aug 2022 12:05:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D6DA5A7C2E
+	for <lists+linux-ltp@lfdr.de>; Wed, 31 Aug 2022 13:30:53 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 5176B3CA6F9
-	for <lists+linux-ltp@lfdr.de>; Wed, 31 Aug 2022 12:05:53 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B1CB03CA6D4
+	for <lists+linux-ltp@lfdr.de>; Wed, 31 Aug 2022 13:30:52 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 5D0EE3C98BB
- for <ltp@lists.linux.it>; Wed, 31 Aug 2022 12:05:47 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id B1DE23C98BB
+ for <ltp@lists.linux.it>; Wed, 31 Aug 2022 13:30:48 +0200 (CEST)
+Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id DE0CC140019D
- for <ltp@lists.linux.it>; Wed, 31 Aug 2022 12:05:46 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 18DFB2223C;
- Wed, 31 Aug 2022 10:05:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1661940346; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=jmuppRcdwGRATK4OlQWofm7s97WlD/upnQE6USXDp2s=;
- b=p89Y2fCwbyilZ+7LAC02+cANXiFSlwejjTQ0I86sj/G3ZVhMCQf1fq2ivDmTNKvRobtmn5
- IxYvvfw7RJyoOdraCkBsfVPUrALjQBpCaTERdZny1kcev481H2KXZyOpZZRKpE4wluReBZ
- qrNcCM4qIzEZylWpqxPNxGdvU0UKvQU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1661940346;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=jmuppRcdwGRATK4OlQWofm7s97WlD/upnQE6USXDp2s=;
- b=BJyKTn8Xycn1LoQlnGz2VlumrG9bukPQMvcel9bJC18j14xPmaq5pVk+8cRDzFgXR58FEg
- XObrn1bR4GjONGBA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id F11C21332D;
- Wed, 31 Aug 2022 10:05:45 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id lS6iOnkyD2PtWAAAMHmgww
- (envelope-from <chrubis@suse.cz>); Wed, 31 Aug 2022 10:05:45 +0000
-Date: Wed, 31 Aug 2022 12:07:45 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <Yw8y8TPKbdAAsOPi@yuki>
-References: <20220830135007.16818-1-mdoucha@suse.cz>
- <20220830135007.16818-8-mdoucha@suse.cz>
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 993056007B8
+ for <ltp@lists.linux.it>; Wed, 31 Aug 2022 13:30:45 +0200 (CEST)
+Received: from dggpeml500024.china.huawei.com (unknown [172.30.72.55])
+ by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4MHhjH6wvszlWH3
+ for <ltp@lists.linux.it>; Wed, 31 Aug 2022 19:27:15 +0800 (CST)
+Received: from ubuntu1804.huawei.com (10.67.174.155) by
+ dggpeml500024.china.huawei.com (7.185.36.10) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.24; Wed, 31 Aug 2022 19:30:40 +0800
+To: <ltp@lists.linux.it>
+Date: Wed, 31 Aug 2022 19:26:20 +0800
+Message-ID: <20220831112620.54251-1-luoxiaoyu9@huawei.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20220830135007.16818-8-mdoucha@suse.cz>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Originating-IP: [10.67.174.155]
+X-ClientProxiedBy: dggems704-chm.china.huawei.com (10.3.19.181) To
+ dggpeml500024.china.huawei.com (7.185.36.10)
+X-CFilter-Loop: Reflected
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 07/10] perf_event_open02: Add max_runtime
+X-Spam-Status: No, score=2.0 required=7.0 tests=HK_RANDOM_ENVFROM,
+ HK_RANDOM_FROM,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+ autolearn=disabled version=3.4.4
+X-Spam-Level: *
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: [LTP] [PATCH] syscalls/open04.c: Rewrite open04.c using new LTP API
+ --------------------
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,46 +57,175 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+From: Luo xiaoyu via ltp <ltp@lists.linux.it>
+Reply-To: Luo xiaoyu <luoxiaoyu9@huawei.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> Signed-off-by: Martin Doucha <mdoucha@suse.cz>
-> ---
->  testcases/kernel/syscalls/perf_event_open/perf_event_open02.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/testcases/kernel/syscalls/perf_event_open/perf_event_open02.c b/testcases/kernel/syscalls/perf_event_open/perf_event_open02.c
-> index 618a27016..b96578369 100644
-> --- a/testcases/kernel/syscalls/perf_event_open/perf_event_open02.c
-> +++ b/testcases/kernel/syscalls/perf_event_open/perf_event_open02.c
-> @@ -334,4 +334,5 @@ static struct tst_test test = {
->  	},
->  	.test_all = verify,
->  	.needs_root = 1,
-> +	.max_runtime = 15
->  };
+Signed-off-by: Luo xiaoyu <luoxiaoyu9@huawei.com>
+---
+ testcases/kernel/syscalls/open/open04.c | 121 ++++++------------------
+ 1 file changed, 30 insertions(+), 91 deletions(-)
 
-We do spend significant part of the runtime in the setup while we count
-hardware counters so if we are going to add .setup_max_runtime this
-should something as:
+diff --git a/testcases/kernel/syscalls/open/open04.c b/testcases/kernel/syscalls/open/open04.c
+index 7b3b5eb6f..3058ca1a9 100644
+--- a/testcases/kernel/syscalls/open/open04.c
++++ b/testcases/kernel/syscalls/open/open04.c
+@@ -1,115 +1,51 @@
+-/*
+- *
+- *   Copyright (c) International Business Machines  Corp., 2001
+- *
+- *   This program is free software;  you can redistribute it and/or modify
+- *   it under the terms of the GNU General Public License as published by
+- *   the Free Software Foundation; either version 2 of the License, or
+- *   (at your option) any later version.
+- *
+- *   This program is distributed in the hope that it will be useful,
+- *   but WITHOUT ANY WARRANTY;  without even the implied warranty of
+- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
+- *   the GNU General Public License for more details.
+- *
+- *   You should have received a copy of the GNU General Public License
+- *   along with this program;  if not, write to the Free Software
+- *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+- */
++// SPDX-License-Identifier: GPL-2.0-or-later
+-/*
+- * DESCRIPTION
+- *	Testcase to check that open(2) sets EMFILE if a process opens files
+- *	more than its descriptor size
++/*\
++ * [Description]
+  *
+- * ALGORITHM
+- *	First get the file descriptor table size which is set for a process.
+- *	Use open(2) for creating files till the descriptor table becomes full.
+- *	These open(2)s should succeed. Finally use open(2) to open another
+- *	file. This attempt should fail with EMFILE.
++ * Testcase to check that open(2) sets EMFILE if a process opens files
++ * more than its descriptor size.
+  */
++
++#include <stdlib.h>
+ #include <stdio.h>
+-#include <errno.h>
+-#include <fcntl.h>
+-#include <unistd.h>
+-#include "test.h"
++#include "tst_test.h"
+-char *TCID = "open04";
+-int TST_TOTAL = 1;
++#define BUF_SIZE 256
+-static int fd, ifile, mypid, first;
++static int ifile, mypid, first;
+ static int nfile;
+ static int *buf;
+-static char fname[40];
++static char fname[BUF_SIZE];
+-static void setup(void);
+-static void cleanup(void);
+-
+-int main(int ac, char **av)
++static void  verify_open(void)
+ {
+-	int lc;
+-
+-	tst_parse_opts(ac, av, NULL, NULL);
+-
+-	setup();
+-
+-	for (lc = 0; TEST_LOOPING(lc); lc++) {
+-		tst_count = 0;
+-
+-		TEST(open(fname, O_RDWR | O_CREAT, 0777));
+-
+-		if (TEST_RETURN != -1) {
+-			tst_resm(TFAIL, "call succeeded unexpectedly");
+-			continue;
+-		}
+-
+-		if (TEST_ERRNO != EMFILE)
+-			tst_resm(TFAIL, "Expected EMFILE, got %d", TEST_ERRNO);
+-		else
+-			tst_resm(TPASS, "call returned expected EMFILE error");
+-	}
+-
+-	close(first);
+-	close(fd);
+-	cleanup();
+-	tst_exit();
++	TST_EXP_FAIL(open(fname, O_RDWR | O_CREAT, 0777), EMFILE);
+ }
+ static void setup(void)
+ {
+-	tst_sig(NOFORK, DEF_HANDLER, cleanup);
+-
+-	TEST_PAUSE;
+-
+-	/* make a temporary directory and cd to it */
+-	tst_tmpdir();
++	int fd;
+ 	mypid = getpid();
+ 	nfile = getdtablesize();
+ 	sprintf(fname, "open04.%d", mypid);
+-	first = fd = open(fname, O_RDWR | O_CREAT, 0777);
+-	if (first == -1)
+-		tst_brkm(TBROK, cleanup, "Cannot open first file");
++	first = fd = SAFE_OPEN(fname, O_RDWR | O_CREAT, 0777);
+-	close(fd);
+-	close(first);
+-	unlink(fname);
++	SAFE_CLOSE(fd);
++	SAFE_UNLINK(fname);
+ 	/* Allocate memory for stat and ustat structure variables */
+-	buf = malloc(sizeof(int) * nfile - first);
+-	if (buf == NULL)
+-		tst_brkm(TBROK, NULL, "Failed to allocate Memory");
++	buf = SAFE_MALLOC(sizeof(int) * (nfile - first));
+ 	for (ifile = first; ifile <= nfile; ifile++) {
+ 		sprintf(fname, "open04.%d.%d", ifile, mypid);
+ 		fd = open(fname, O_RDWR | O_CREAT, 0777);
+ 		if (fd == -1) {
+-			if (errno != EMFILE) {
+-				tst_brkm(TBROK, cleanup, "Expected EMFILE got "
+-					 "%d", errno);
+-			}
++			if (errno != EMFILE)
++				tst_brk(TBROK | TERRNO, "Expected EMFILE");
+ 			break;
+ 		}
+ 		buf[ifile - first] = fd;
+@@ -118,16 +54,19 @@ static void setup(void)
+ static void cleanup(void)
+ {
+-	close(first);
+-
+ 	for (ifile = first; ifile < nfile; ifile++) {
+ 		sprintf(fname, "open04.%d.%d", ifile, mypid);
+-		close(buf[ifile - first]);
+-		unlink(fname);
++		SAFE_CLOSE(buf[ifile - first]);
++		SAFE_UNLINK(fname);
+ 	}
+ 	free(buf);
+-
+-	/* delete the test directory created in setup() */
+-	tst_rmdir();
+ }
++
++static struct tst_test test = {
++	.needs_tmpdir = 1,
++	.setup = setup,
++	.cleanup = cleanup,
++	.test_all = verify_open,
++};
++
+--
+2.17.1
 
-..
-	.setup_max_runtime = 64,
-	.max_runtime = 8,
-...
-
-
-Technically the maximal time the setup can run is MAX_CTRS * 2 but I do
-not think that we will see hardware with more than 32 hardware counters
-anytime soon if ever.
-
--- 
-Cyril Hrubis
-chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
