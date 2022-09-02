@@ -1,76 +1,75 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1308E5AB1A1
-	for <lists+linux-ltp@lfdr.de>; Fri,  2 Sep 2022 15:37:39 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id F25885AB1AB
+	for <lists+linux-ltp@lfdr.de>; Fri,  2 Sep 2022 15:38:03 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A7A7A3CA8C8
-	for <lists+linux-ltp@lfdr.de>; Fri,  2 Sep 2022 15:37:38 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id B7A4A3CA91D
+	for <lists+linux-ltp@lfdr.de>; Fri,  2 Sep 2022 15:38:03 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 606123C65EB
+ by picard.linux.it (Postfix) with ESMTPS id 9F3223CA844
  for <ltp@lists.linux.it>; Fri,  2 Sep 2022 15:37:17 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id F08FE1000F4F
- for <ltp@lists.linux.it>; Fri,  2 Sep 2022 15:37:16 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 2C70C1A0113C
+ for <ltp@lists.linux.it>; Fri,  2 Sep 2022 15:37:17 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 8ED4C5BF1D;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id C347C3469A;
  Fri,  2 Sep 2022 13:37:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1662125836; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=bUug+Lkk1PgvulyCtvlR+u8U9Y1cn2xLZp7bwvnsjoM=;
- b=ghUnjWBq5dRpr394ejb9IN8hFul9Jo4eXpivnmRU0mDAPIn2TD0i4UtOX4TbWKZFuyGaPS
- 9yj0gy70m5rOqd+S881abamDiBZT00u4kvOksOdqX+1YvQ55nHOufv6NMIvNIvmvG3DiBV
- vJn+hX1c3oSvo4QlX8+CUmujp3i9diU=
+ bh=x9YEo/McE2zWJxYOXbqCv+rSf2wMr8Ti5bkS2bRG3sA=;
+ b=JyIMRBLG86i45Qrl72VqyEJyL4x7ZRQoiJ3Lm/pxyxC44esn4m8RbPL0g+OTsrYstohOKv
+ lpJT/LcdRigOfmMJfCEPcMfVMEWKwrcLk0xMy69iAloNjb7OluQjL9Eg2nqMopCNDbfDEB
+ IcEO/caY1od6jaD6MJGSzd/3NxzRncM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1662125836;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=bUug+Lkk1PgvulyCtvlR+u8U9Y1cn2xLZp7bwvnsjoM=;
- b=7lrdOvv+bb3qeF9DDb6fK7mlpIpivX99a/NbdwmtCv07d3bP5Equy/B6b2s9zhtSsVDh55
- OnpDGPBkrK/LKKAA==
+ bh=x9YEo/McE2zWJxYOXbqCv+rSf2wMr8Ti5bkS2bRG3sA=;
+ b=HHW1n3A5ua0V8TczW4KVgl7nReY3PO092CHW2YOPws+FZU19ARe1naWIIxhetgBsn4//b7
+ UJbDP9XTxgmmQjBg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4252E1330E;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8BFBE13498;
  Fri,  2 Sep 2022 13:37:16 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id AMlGDgwHEmObBgAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id UD7iIAwHEmObBgAAMHmgww
  (envelope-from <pvorel@suse.cz>); Fri, 02 Sep 2022 13:37:16 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Fri,  2 Sep 2022 15:37:05 +0200
-Message-Id: <20220902133710.1785-5-pvorel@suse.cz>
+Date: Fri,  2 Sep 2022 15:37:06 +0200
+Message-Id: <20220902133710.1785-6-pvorel@suse.cz>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220902133710.1785-1-pvorel@suse.cz>
 References: <20220902133710.1785-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH v4 4/9] tst_supported_fs: Support skip list when query
- single fs
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH v4 5/9] shell: Add $TST_SKIP_FILESYSTEMS + tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,77 +87,130 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+C API struct tst_test skip_filesystems member equivalent.
+
+Now only running on single filesystem (will be improved in the next
+commit)
+
 Acked-by: Richard Palethorpe <rpalethorpe@suse.com>
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- include/tst_fs.h                 | 10 ++++++++++
- lib/tst_supported_fs_types.c     | 18 ++++++++++++++++++
- testcases/lib/tst_supported_fs.c |  2 +-
- 3 files changed, 29 insertions(+), 1 deletion(-)
+ doc/shell-test-api.txt                        |  2 ++
+ .../shell/tst_skip_filesystems.sh             | 35 +++++++++++++++++++
+ .../shell/tst_skip_filesystems_skip.sh        | 17 +++++++++
+ testcases/lib/tst_test.sh                     |  6 ++++
+ 4 files changed, 60 insertions(+)
+ create mode 100755 lib/newlib_tests/shell/tst_skip_filesystems.sh
+ create mode 100755 lib/newlib_tests/shell/tst_skip_filesystems_skip.sh
 
-diff --git a/include/tst_fs.h b/include/tst_fs.h
-index cc6d9b547..e399aef54 100644
---- a/include/tst_fs.h
-+++ b/include/tst_fs.h
-@@ -183,6 +183,16 @@ enum tst_fs_impl {
-  */
- enum tst_fs_impl tst_fs_is_supported(const char *fs_type);
- 
-+/*
-+ * Check filesystem support (@see tst_fs_is_supported()), but consider also
-+ * filesystems to skip.
-+ *
-+ * @fs_type A filesystem name to check the support for.
-+ * @skiplist A NULL terminated array of filesystems to skip.
-+ */
-+enum tst_fs_impl tst_fs_is_supported_skiplist(const char *fs_type, const char
-+					      *const *skiplist);
+diff --git a/doc/shell-test-api.txt b/doc/shell-test-api.txt
+index 65444541e..18ed144a9 100644
+--- a/doc/shell-test-api.txt
++++ b/doc/shell-test-api.txt
+@@ -229,6 +229,8 @@ simply by setting right '$TST_FOO'.
+ | 'TST_NEEDS_KCONFIGS'     | Checks kernel kconfigs support for the test (see below).
+ | 'TST_NEEDS_KCONFIGS_IFS' | Used for splitting '$TST_NEEDS_KCONFIGS' variable,
+                              default value is comma, it only supports single character.
++| 'TST_SKIP_FILESYSTEMS'   | Comma separated list of filesystems on which test will be skipped
++                             (tst_test.skip_filesystems equivalent).
+ | 'TST_TIMEOUT'            | Maximum timeout set for the test in sec. Must be int >= 1,
+                              or -1 (special value to disable timeout), default is 300.
+                              Variable is meant be set in tests, not by user.
+diff --git a/lib/newlib_tests/shell/tst_skip_filesystems.sh b/lib/newlib_tests/shell/tst_skip_filesystems.sh
+new file mode 100755
+index 000000000..d7ce1c202
+--- /dev/null
++++ b/lib/newlib_tests/shell/tst_skip_filesystems.sh
+@@ -0,0 +1,35 @@
++#!/bin/sh
++# SPDX-License-Identifier: GPL-2.0-or-later
++# Copyright (c) 2022 Petr Vorel <pvorel@suse.cz>
 +
- /*
-  * Returns NULL-terminated array of kernel-supported filesystems.
-  *
-diff --git a/lib/tst_supported_fs_types.c b/lib/tst_supported_fs_types.c
-index 9726d193a..8c9379c1b 100644
---- a/lib/tst_supported_fs_types.c
-+++ b/lib/tst_supported_fs_types.c
-@@ -134,6 +134,24 @@ enum tst_fs_impl tst_fs_is_supported(const char *fs_type)
- 	return TST_FS_UNSUPPORTED;
- }
- 
-+enum tst_fs_impl tst_fs_is_supported_skiplist(const char *fs_type, const char
-+					      *const *skiplist)
++TST_MOUNT_DEVICE=1
++TST_NEEDS_ROOT=1
++TST_FS_TYPE=ext4
++TST_TESTFUNC=test
++TST_SKIP_FILESYSTEMS="btrfs,ext2,ext3,xfs,vfat,exfat,ntfs,tmpfs"
++TST_CNT=3
++
++test1()
 +{
-+	int ret;
-+
-+	ret = tst_fs_is_supported(fs_type);
-+
-+	if (!ret)
-+		return ret;
-+
-+	if (tst_fs_in_skiplist(fs_type, skiplist)) {
-+		tst_brk(TCONF, "%s is not supported by the test",
-+			fs_type);
-+	}
-+
-+	return ret;
++	EXPECT_PASS "cd $TST_MNTPOINT"
 +}
 +
- const char **tst_get_supported_fs_types(const char *const *skiplist)
- {
- 	unsigned int i, j = 0;
-diff --git a/testcases/lib/tst_supported_fs.c b/testcases/lib/tst_supported_fs.c
-index 87be2b759..75945c809 100644
---- a/testcases/lib/tst_supported_fs.c
-+++ b/testcases/lib/tst_supported_fs.c
-@@ -70,7 +70,7 @@ int main(int argc, char *argv[])
- 	}
++test2()
++{
++	EXPECT_PASS "grep '$TST_MNTPOINT $TST_FS_TYPE' /proc/mounts"
++}
++
++test3()
++{
++	local fs fs_skip
++
++	fs=$(grep "$TST_MNTPOINT $TST_FS_TYPE" /proc/mounts | cut -d ' ' -f3)
++	EXPECT_PASS "[ '$fs' = '$TST_FS_TYPE' ]"
++
++	for fs_skip in $TST_SKIP_FILESYSTEMS; do
++		EXPECT_FAIL "[ $fs = $fs_skip ]"
++	done
++}
++
++. tst_test.sh
++tst_run
+diff --git a/lib/newlib_tests/shell/tst_skip_filesystems_skip.sh b/lib/newlib_tests/shell/tst_skip_filesystems_skip.sh
+new file mode 100755
+index 000000000..6748d021d
+--- /dev/null
++++ b/lib/newlib_tests/shell/tst_skip_filesystems_skip.sh
+@@ -0,0 +1,17 @@
++#!/bin/sh
++# SPDX-License-Identifier: GPL-2.0-or-later
++# Copyright (c) 2022 Petr Vorel <pvorel@suse.cz>
++
++TST_MOUNT_DEVICE=1
++TST_NEEDS_ROOT=1
++TST_FS_TYPE=ext4
++TST_TESTFUNC=test
++TST_SKIP_FILESYSTEMS="ext4"
++
++test()
++{
++	tst_res TFAIL "test should be skipped with TCONF"
++}
++
++. tst_test.sh
++tst_run
+diff --git a/testcases/lib/tst_test.sh b/testcases/lib/tst_test.sh
+index 7c97b69fe..2937bd80c 100644
+--- a/testcases/lib/tst_test.sh
++++ b/testcases/lib/tst_test.sh
+@@ -626,6 +626,7 @@ tst_run()
+ 	local _tst_max
+ 	local _tst_name
+ 	local _tst_pattern='[='\''"} \t\/:`$\;].*'
++	local ret
  
- 	if (optind < argc)
--		return !tst_fs_is_supported(argv[optind]);
-+		return !tst_fs_is_supported_skiplist(argv[optind], (const char * const*)skiplist);
+ 	if [ -n "$TST_TEST_PATH" ]; then
+ 		for _tst_i in $(grep '^[^#]*\bTST_' "$TST_TEST_PATH" | sed "s/.*TST_//; s/$_tst_pattern//"); do
+@@ -644,6 +645,7 @@ tst_run()
+ 			CHECKPOINT_WAIT|CHECKPOINT_WAKE);;
+ 			CHECKPOINT_WAKE2|CHECKPOINT_WAKE_AND_WAIT);;
+ 			DEV_EXTRA_OPTS|DEV_FS_OPTS|FORMAT_DEVICE|MOUNT_DEVICE);;
++			SKIP_FILESYSTEMS);;
+ 			*) tst_res TWARN "Reserved variable TST_$_tst_i used!";;
+ 			esac
+ 		done
+@@ -675,6 +677,10 @@ tst_run()
+ 			tst_brk TCONF "test requires kernel $TST_MIN_KVER+"
+ 	fi
  
- 	filesystems = tst_get_supported_fs_types((const char * const*)skiplist);
- 	for (i = 0; filesystems[i]; i++)
++	tst_supported_fs -s "$TST_SKIP_FILESYSTEMS" $TST_FS_TYPE
++	ret=$?
++	[ $ret -ne 0 ] && return $ret
++
+ 	_tst_setup_timer
+ 
+ 	[ "$TST_MOUNT_DEVICE" = 1 ] && TST_FORMAT_DEVICE=1
 -- 
 2.37.2
 
