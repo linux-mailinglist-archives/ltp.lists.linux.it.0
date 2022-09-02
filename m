@@ -1,75 +1,69 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 006215AACB7
-	for <lists+linux-ltp@lfdr.de>; Fri,  2 Sep 2022 12:46:15 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id DC17D5AB1AE
+	for <lists+linux-ltp@lfdr.de>; Fri,  2 Sep 2022 15:38:24 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 733153CA867
-	for <lists+linux-ltp@lfdr.de>; Fri,  2 Sep 2022 12:46:14 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 94F123CA921
+	for <lists+linux-ltp@lfdr.de>; Fri,  2 Sep 2022 15:38:24 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 9ED2B3CA6DA
- for <ltp@lists.linux.it>; Fri,  2 Sep 2022 12:46:13 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 63E7B3CA8A3
+ for <ltp@lists.linux.it>; Fri,  2 Sep 2022 15:37:17 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id D988F1A010F8
- for <ltp@lists.linux.it>; Fri,  2 Sep 2022 12:46:12 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 8DACB600855
+ for <ltp@lists.linux.it>; Fri,  2 Sep 2022 15:37:15 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 3214721087;
- Fri,  2 Sep 2022 10:46:12 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 58E5C5BF1B;
+ Fri,  2 Sep 2022 13:37:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1662115572;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=PA0gr8fuc13o05opNi99bHbSmo6lD1QIJXPGmfB+8Ho=;
- b=R0VGezTRA+FPR1XacQ4t/LaX8yDBKt7Poa8+k1NO+wpxr/2Ygx87LiW1br0zfJZmK+jgvF
- vhIR0dJCBBqv48+pDwbn1dXWhIPmqDMzeVUSFh3dldA02PZU2houjsIfGTzuGTRuHeESbx
- VLqw8994qb5X5KuV18gBnVgxRyEebN8=
+ t=1662125835; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=ia5+1sia3rjWJukq5mA1el2Kp5s5aetYqgR/8wiohj0=;
+ b=N3qiE3yFpBYO8TPgVSoZjel2dvSdJv1puMve5HQlz/ae1JM28BrOE1yMSdj+SlbxNDNOlA
+ BEwuZaXG0vU0tkZHgxfFdEgGqykSvDLOhF1GQ/hTZjmPxGyp+tZSVCoy+fAFH2hhKFqaPG
+ BOkNDLm5/G0CzscXjr7ieLzH9oDV4rk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1662115572;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=PA0gr8fuc13o05opNi99bHbSmo6lD1QIJXPGmfB+8Ho=;
- b=XC9ifhdY6JV7f0woDGaVYu9btUw2jPeOjXlmWh8zOMgtC5S8wN+wxu4VnYS82p0TcjIyaa
- VGEtxl52pSc1/9Dw==
+ s=susede2_ed25519; t=1662125835;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=ia5+1sia3rjWJukq5mA1el2Kp5s5aetYqgR/8wiohj0=;
+ b=XunIS5UvFiTNjvoSPeNZgYKafwkoAGBYfgXOMMWjrgT/lOLIS5keGYqet7mSTNb7eLElmR
+ ZFzEzCYFLIa6IzBw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E81001330E;
- Fri,  2 Sep 2022 10:46:11 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0FC3C1330E;
+ Fri,  2 Sep 2022 13:37:15 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id SB7dNfPeEWO4NAAAMHmgww
- (envelope-from <pvorel@suse.cz>); Fri, 02 Sep 2022 10:46:11 +0000
-Date: Fri, 2 Sep 2022 12:46:09 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id hD1uAgsHEmObBgAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Fri, 02 Sep 2022 13:37:15 +0000
 From: Petr Vorel <pvorel@suse.cz>
-To: Li Wang <liwang@redhat.com>
-Message-ID: <YxHe8WasYr+moLam@pevik>
-References: <20220831075447.8803-1-pvorel@suse.cz>
- <CAEemH2f1bKB0psaxgKMw7WXXykJHhANzniVWb0W+Z+fXOOju5Q@mail.gmail.com>
+To: ltp@lists.linux.it
+Date: Fri,  2 Sep 2022 15:37:01 +0200
+Message-Id: <20220902133710.1785-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.37.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAEemH2f1bKB0psaxgKMw7WXXykJHhANzniVWb0W+Z+fXOOju5Q@mail.gmail.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/1] tst_test: Add === marks to "Testing
- filesystem" message
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH v4 0/9] shell: df01.sh: $TST_ALL_FILESYSTEMS
+ (.all_filesystems)
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,19 +75,72 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: LTP List <ltp@lists.linux.it>
+Cc: Richard Palethorpe <rpalethorpe@suse.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Li,
+Hi,
 
-thanks for your review, merged!
+Note, I'm not sure if changes in commit "tst_supported_fs: Implement
+skip list" in tst_supported_fs.c will not be heavily rewritten due
+tracking minimal filesystem usage. But if the commit looks ok, it'd be
+nice to get this merged first.
 
 Kind regards,
 Petr
+
+change v3->v4:
+* dropped NFS tests change for now (plan to get to this soon, as that
+  is the motivation for whole work)
+* convert df01.sh (to at least something is using it)
+* new variable $TST_FS_TYPE_FUSE
+* rebased (some commits were merged)
+
+new commits
+worth to review
+* df01.sh: Convert to TST_ALL_FILESYSTEMS=1
+* tst_test.sh: Introduce TST_FS_TYPE_FUSE
+some minor cleanup
+* shell: Print mount command in tst_mount()
+* shell API/tests: Require root for TST_{FORMAT,MOUNT}_DEVICE
+
+Petr Vorel (9):
+  shell: Print mount command in tst_mount()
+  shell API/tests: Require root for TST_{FORMAT,MOUNT}_DEVICE
+  tst_supported_fs: Implement skip list
+  tst_supported_fs: Support skip list when query single fs
+  shell: Add $TST_SKIP_FILESYSTEMS + tests
+  tst_test.sh: Introduce TST_FS_TYPE_FUSE
+  tst_test.sh: Add $TST_ALL_FILESYSTEMS
+  shell: Add test for TST_ALL_FILESYSTEMS=1
+  df01.sh: Convert to TST_ALL_FILESYSTEMS=1
+
+ doc/shell-test-api.txt                        |  13 +-
+ include/tst_fs.h                              |  10 ++
+ lib/newlib_tests/shell/tst_all_filesystems.sh |  27 ++++
+ lib/newlib_tests/shell/tst_format_device.sh   |   1 +
+ lib/newlib_tests/shell/tst_mount_device.sh    |   1 +
+ .../shell/tst_mount_device_tmpfs.sh           |   1 +
+ .../shell/tst_skip_filesystems.sh             |  35 +++++
+ .../shell/tst_skip_filesystems_skip.sh        |  17 ++
+ lib/tst_supported_fs_types.c                  |  18 +++
+ runtest/commands                              |   8 +-
+ runtest/smoketest                             |   2 +-
+ testcases/commands/df/df01.sh                 |  32 ++--
+ testcases/lib/tst_supported_fs.c              |  56 +++++--
+ testcases/lib/tst_test.sh                     | 147 ++++++++++++------
+ testcases/misc/lvm/generate_lvm_runfile.sh    |   2 +-
+ testcases/misc/lvm/prepare_lvm.sh             |   2 +-
+ 16 files changed, 282 insertions(+), 90 deletions(-)
+ create mode 100755 lib/newlib_tests/shell/tst_all_filesystems.sh
+ create mode 100755 lib/newlib_tests/shell/tst_skip_filesystems.sh
+ create mode 100755 lib/newlib_tests/shell/tst_skip_filesystems_skip.sh
+
+-- 
+2.37.2
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
