@@ -1,80 +1,79 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id A43515AD6C6
-	for <lists+linux-ltp@lfdr.de>; Mon,  5 Sep 2022 17:44:03 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id E7D845AD6CB
+	for <lists+linux-ltp@lfdr.de>; Mon,  5 Sep 2022 17:44:27 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3EB5D3CA96F
-	for <lists+linux-ltp@lfdr.de>; Mon,  5 Sep 2022 17:44:03 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id AA2D93CA97F
+	for <lists+linux-ltp@lfdr.de>; Mon,  5 Sep 2022 17:44:27 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 293F83CA9AD
- for <ltp@lists.linux.it>; Mon,  5 Sep 2022 17:42:57 +0200 (CEST)
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [IPv6:2a00:1450:4864:20::32d])
+ by picard.linux.it (Postfix) with ESMTPS id B192C3CA952
+ for <ltp@lists.linux.it>; Mon,  5 Sep 2022 17:42:58 +0200 (CEST)
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [IPv6:2a00:1450:4864:20::435])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 0BC441400DF6
- for <ltp@lists.linux.it>; Mon,  5 Sep 2022 17:42:54 +0200 (CEST)
-Received: by mail-wm1-x32d.google.com with SMTP id
- az24-20020a05600c601800b003a842e4983cso5935203wmb.0
- for <ltp@lists.linux.it>; Mon, 05 Sep 2022 08:42:54 -0700 (PDT)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 30FA11A00A3E
+ for <ltp@lists.linux.it>; Mon,  5 Sep 2022 17:42:55 +0200 (CEST)
+Received: by mail-wr1-x435.google.com with SMTP id t7so6829312wrm.10
+ for <ltp@lists.linux.it>; Mon, 05 Sep 2022 08:42:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
- bh=Kcedx62aIqvD+JaY6xfm6pl3oWjRMCAVSSTW2aJxUkE=;
- b=not7efgmUSAwM+lvw3EAgHMoDCR6uGA4rsvLSfnUrOzRumsOpN8JGY61cUTQ02NzYG
- kUV3zB4/Om/GGojdwJ+NflAuax9erFyzOg6A7ay4wqviilMyqCXc+AFmb6PvNzepNUeN
- fKBSu6gozj4FzZHgu5GAjRcHb6AKYiji6rkd+MB1UC6WNTAPrPiN7iLxMJkzxRGljR2f
- mHpyH5Tty/ShITF4xr+DJn0+6pAlKKBswTmX0MzpgqVfDMOk6XZKj3k1ZcG9ADHcpiU/
- VMGqEgBSbwGSgBJZBWtdXezoBBJVnFIeVmLjnaweJdq6RVlOGr2+fJtlO1ngNgPXR+1r
- ukBA==
+ bh=SUKK3/lEm4yM+FKMNoMR65cnxytjb5+VkL/IWRsDcyA=;
+ b=FcjNf3ihFs/88okbpSd8PCTqXdKSl6/qczUhJXCCmZotClU7h4HzeRdofYxO1XGB3G
+ qZmtAtHQAJCQI0/SM5rDRbHFqM9GhgpiHJyMpDJWPC92p60W2g/51ObVVcUW/Mi/VPAY
+ MUOd4Id0OHLU12WzUtTO5hAy55DvZOtVnpbWa1ErQuzw5iS3KM0sVU21bxN2LtZ/mz7R
+ Cy937n9SVjttMF3Gv0Gvg44Se8x33vulpmJwcN5BFQV5NGHxLu4APaM96pSM3S9xe3KH
+ 1uIbdHXzoouiS4uQ39ljoPat3R3+k64khihc7tkw+AcJ5vR3Ri62WlCAAmTZbleCib2M
+ LKIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date;
- bh=Kcedx62aIqvD+JaY6xfm6pl3oWjRMCAVSSTW2aJxUkE=;
- b=IFTb4w1MA6UR3PwxtQbdAyIGYONn6BkMthP6U+nqHUP0NN5DWO4z44e2YtZz6LSnHT
- s6FEeYVmTOO9o2hfjM89+CbeICeDpYp0r1Tlh/VJMrzi9Z1BfQWxFb0dkgULXMIiOpe+
- I7do6922uhwr4kHLfPf+4sGaOXS4/0t/oCcv14PrF6889oG7pHkqQoFailjO2TbmyDw+
- airgvAxcl8a5RK+LXOZDpQ5RBmoLxt1qrbYS6C2A9h4pDdxjAPdAy6EM0CadJemb49sx
- SgxCdDfeE1FmcBZWZimc+74SEzdmzdR1R1jy4yRS3QDwfz3axyvj44ghRod/dXRQ2ZfT
- p98Q==
-X-Gm-Message-State: ACgBeo2PIE+wEJ9zrOqAKd6O+DM4v0V+uqkm/s+qR7fTdzmV/8bdn8Dh
- wviag80ZyvOk/SSTHK4wZUk=
-X-Google-Smtp-Source: AA6agR4zxvU0LL9DMRThFM+NXNfPQ/tMDB1G5Bq/1EL9T9hfzwF0ZEEgZiopxej7k+Gf/9cbsWdceg==
-X-Received: by 2002:a05:600c:502c:b0:3a8:41e9:cd32 with SMTP id
- n44-20020a05600c502c00b003a841e9cd32mr10971946wmr.177.1662392573615; 
- Mon, 05 Sep 2022 08:42:53 -0700 (PDT)
+ bh=SUKK3/lEm4yM+FKMNoMR65cnxytjb5+VkL/IWRsDcyA=;
+ b=e+pxBnoK+piebPrIcaK3GhqxdpcyKkbB3M4Y7wdBp3CcWGyIGn2rzOIARpfw+Z/3f4
+ zhNYWRBcy5FyR0xp5Z/7gjX1e4z9G3AoWGAnPRx4C53Qr0oJYu5YOUnNat+5HJbyVP7A
+ l+ZV32+DRVqmzTVTQaho2KIhHCRVJ4HCMul+HcIVgF85wOF1zMncvUyoXHtXpbZWnp6l
+ 5pd42xaERKlJ+KiAKawdYRy8RLxDIqoSF9XBJFTD1rmPrKfCKZwZ2PkXlaaWnSnQjVnq
+ s3sGqBHb/UGcYHW+CNu+M7+kJfxuqONlqf2LqApGLxK76nYJrpfrrrnIYOknMp+JCSfl
+ f8+A==
+X-Gm-Message-State: ACgBeo3NAwTBQKxYoYqrugcfl8aT0Yfo05xPWGgU9QHlgGC5ncev9ekF
+ MiWuw6vwdeTToUu33OCUUBqPWv1Mfls=
+X-Google-Smtp-Source: AA6agR5N+huQCQb5DyrsLByIOjWaG94jdNTszb3aZLMR4fyvRidjY/TY67sCKEYBjCrwvksEcGLm1w==
+X-Received: by 2002:adf:f4cc:0:b0:228:ab76:fa13 with SMTP id
+ h12-20020adff4cc000000b00228ab76fa13mr2148890wrp.110.1662392574729; 
+ Mon, 05 Sep 2022 08:42:54 -0700 (PDT)
 Received: from amir-ThinkPad-T480.ctera.local
  (bzq-166-168-31-246.red.bezeqint.net. [31.168.166.246])
  by smtp.gmail.com with ESMTPSA id
- e5-20020adfe7c5000000b0022862e037e3sm5790023wrn.38.2022.09.05.08.42.52
+ e5-20020adfe7c5000000b0022862e037e3sm5790023wrn.38.2022.09.05.08.42.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 05 Sep 2022 08:42:53 -0700 (PDT)
+ Mon, 05 Sep 2022 08:42:54 -0700 (PDT)
 From: Amir Goldstein <amir73il@gmail.com>
 To: Petr Vorel <pvorel@suse.cz>
-Date: Mon,  5 Sep 2022 18:42:36 +0300
-Message-Id: <20220905154239.2652169-7-amir73il@gmail.com>
+Date: Mon,  5 Sep 2022 18:42:37 +0300
+Message-Id: <20220905154239.2652169-8-amir73il@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220905154239.2652169-1-amir73il@gmail.com>
 References: <20220905154239.2652169-1-amir73il@gmail.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH 6/9] syscalls/fanotify10: Use dedicated mark type for
- inode mark on parent
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH 7/9] syscalls/fanotify10: Run tests with two ignore
+ mask variants
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,119 +92,119 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-This highlights the test cases that use a directory inode mark on parent
-in contrast to the test cases that use non-dir inode marks.
+Run test with legacy FAN_MARK_IGNORED_MASK variant and new
+FAN_MARK_IGNORE variant if kernel supports it.
 
-One test case that uses DIR_MNT2 for no reason (there are no mount marks
-in this test case) was changed to use the standard DIR_PATH.
+When running the new variant, do not need to use the hack of
+setting events and flags in both mask and ignored mask.
 
 Signed-off-by: Amir Goldstein <amir73il@gmail.com>
 ---
- testcases/kernel/syscalls/fanotify/fanotify.h |  3 +++
- .../kernel/syscalls/fanotify/fanotify10.c     | 20 ++++++++++---------
- 2 files changed, 14 insertions(+), 9 deletions(-)
+ testcases/kernel/syscalls/fanotify/fanotify.h |  3 ++
+ .../kernel/syscalls/fanotify/fanotify10.c     | 34 ++++++++++++++-----
+ 2 files changed, 28 insertions(+), 9 deletions(-)
 
 diff --git a/testcases/kernel/syscalls/fanotify/fanotify.h b/testcases/kernel/syscalls/fanotify/fanotify.h
-index 810a48e81..936d6787e 100644
+index 936d6787e..6fbd96d11 100644
 --- a/testcases/kernel/syscalls/fanotify/fanotify.h
 +++ b/testcases/kernel/syscalls/fanotify/fanotify.h
 @@ -113,6 +113,9 @@ static inline int safe_fanotify_mark(const char *file, const int lineno,
  #define FAN_MARK_IGNORE_SURV	(FAN_MARK_IGNORE | FAN_MARK_IGNORED_SURV_MODIFY)
  #endif
  /* Non-uapi convenience macros */
-+#ifndef FAN_MARK_PARENT
-+#define FAN_MARK_PARENT		FAN_MARK_ONLYDIR
++#ifndef FAN_MARK_IGNORED_SURV
++#define FAN_MARK_IGNORED_SURV	(FAN_MARK_IGNORED_MASK | FAN_MARK_IGNORED_SURV_MODIFY)
 +#endif
- #ifndef FAN_MARK_TYPES
- #define FAN_MARK_TYPES (FAN_MARK_INODE | FAN_MARK_MOUNT | FAN_MARK_FILESYSTEM)
+ #ifndef FAN_MARK_PARENT
+ #define FAN_MARK_PARENT		FAN_MARK_ONLYDIR
  #endif
 diff --git a/testcases/kernel/syscalls/fanotify/fanotify10.c b/testcases/kernel/syscalls/fanotify/fanotify10.c
-index ea05e4ff0..5d7b90e58 100644
+index 5d7b90e58..96c63c4ba 100644
 --- a/testcases/kernel/syscalls/fanotify/fanotify10.c
 +++ b/testcases/kernel/syscalls/fanotify/fanotify10.c
-@@ -102,6 +102,7 @@ static unsigned int num_classes = NUM_CLASSES;
+@@ -73,6 +73,7 @@ static int exec_events_unsupported;
+ static int fan_report_dfid_unsupported;
+ static int filesystem_mark_unsupported;
+ static int evictable_mark_unsupported;
++static int ignore_mark_unsupported;
  
- enum {
- 	FANOTIFY_INODE,
-+	FANOTIFY_PARENT,
- 	FANOTIFY_MOUNT,
- 	FANOTIFY_FILESYSTEM,
- 	FANOTIFY_EVICTABLE,
-@@ -109,6 +110,7 @@ enum {
+ #define MOUNT_PATH "fs_mnt"
+ #define MNT2_PATH "mntpoint"
+@@ -393,24 +394,27 @@ static int create_fanotify_groups(unsigned int n)
+ 			if (p == 0)
+ 				continue;
  
- static struct fanotify_mark_type fanotify_mark_types[] = {
- 	INIT_FANOTIFY_MARK_TYPE(INODE),
-+	INIT_FANOTIFY_MARK_TYPE(PARENT),
- 	INIT_FANOTIFY_MARK_TYPE(MOUNT),
- 	INIT_FANOTIFY_MARK_TYPE(FILESYSTEM),
- 	INIT_FANOTIFY_MARK_TYPE(EVICTABLE),
-@@ -243,57 +245,57 @@ static struct tcase {
- 	},
- 	{
- 		"ignore child exec events created on a specific mount point",
--		MOUNT_PATH, FANOTIFY_INODE,
-+		MOUNT_PATH, FANOTIFY_PARENT,
- 		MOUNT_PATH, FANOTIFY_MOUNT,
- 		0,
- 		FILE_EXEC_PATH, FAN_OPEN_EXEC, FAN_OPEN | FAN_OPEN_EXEC
- 	},
- 	{
- 		"ignore events on children of directory created on a specific file",
--		DIR_MNT2, FANOTIFY_INODE,
--		DIR_PATH, FANOTIFY_INODE,
-+		DIR_PATH, FANOTIFY_PARENT,
-+		DIR_PATH, FANOTIFY_PARENT,
- 		FAN_EVENT_ON_CHILD,
- 		FILE_PATH, 0, FAN_OPEN
- 	},
- 	{
- 		"ignore events on file created inside a parent watching children",
- 		FILE_PATH, FANOTIFY_INODE,
--		DIR_PATH, FANOTIFY_INODE,
-+		DIR_PATH, FANOTIFY_PARENT,
- 		FAN_EVENT_ON_CHILD,
- 		FILE_PATH, 0, FAN_OPEN
- 	},
- 	{
- 		"don't ignore events on file created inside a parent not watching children",
- 		FILE_PATH, FANOTIFY_INODE,
--		DIR_PATH, FANOTIFY_INODE,
-+		DIR_PATH, FANOTIFY_PARENT,
- 		0,
- 		FILE_PATH, FAN_OPEN, FAN_OPEN
- 	},
- 	{
- 		"ignore mount events created inside a parent watching children",
- 		FILE_PATH, FANOTIFY_MOUNT,
--		DIR_PATH, FANOTIFY_INODE,
-+		DIR_PATH, FANOTIFY_PARENT,
- 		FAN_EVENT_ON_CHILD,
- 		FILE_PATH, 0, FAN_OPEN
- 	},
- 	{
- 		"don't ignore mount events created inside a parent not watching children",
- 		FILE_PATH, FANOTIFY_MOUNT,
--		DIR_PATH, FANOTIFY_INODE,
-+		DIR_PATH, FANOTIFY_PARENT,
- 		0,
- 		FILE_PATH, FAN_OPEN, FAN_OPEN
- 	},
- 	{
- 		"ignore fs events created inside a parent watching children",
- 		FILE_PATH, FANOTIFY_FILESYSTEM,
--		DIR_PATH, FANOTIFY_INODE,
-+		DIR_PATH, FANOTIFY_PARENT,
- 		FAN_EVENT_ON_CHILD,
- 		FILE_PATH, 0, FAN_OPEN
- 	},
- 	{
- 		"don't ignore fs events created inside a parent not watching children",
- 		FILE_PATH, FANOTIFY_FILESYSTEM,
--		DIR_PATH, FANOTIFY_INODE,
-+		DIR_PATH, FANOTIFY_PARENT,
- 		0,
- 		FILE_PATH, FAN_OPEN, FAN_OPEN
- 	},
+-			mask = FAN_OPEN;
+-			mark_ignored = FAN_MARK_IGNORED_MASK |
+-					FAN_MARK_IGNORED_SURV_MODIFY;
++			/*
++			 * Run tests in two variants:
++			 * 1. Legacy FAN_MARK_IGNORED_MASK
++			 * 2. FAN_MARK_IGNORE
++			 */
++			mark_ignored = tst_variant ? FAN_MARK_IGNORE_SURV : FAN_MARK_IGNORED_SURV;
++			mask = FAN_OPEN | tc->ignored_onchild;
+ add_mark:
+ 			SAFE_FANOTIFY_MARK(fd_notify[p][i],
+ 					    FAN_MARK_ADD | ignore_mark->flag | mark_ignored,
+ 					    mask, AT_FDCWD, tc->ignore_path);
+ 
+ 			/*
+-			 * If ignored mask is on a parent watching children,
+-			 * also set the flag FAN_EVENT_ON_CHILD in mark mask.
++			 * FAN_MARK_IGNORE respects FAN_EVENT_ON_CHILD flag, but legacy
++			 * FAN_MARK_IGNORED_MASK does not. When using legacy ignore mask,
++			 * if ignored mask is on a parent watching children, we need to
++			 * also set the event and flag FAN_EVENT_ON_CHILD in mark mask.
+ 			 * This is needed to indicate that parent ignored mask
+ 			 * should be applied to events on children.
+ 			 */
+-			if (tc->ignored_onchild && mark_ignored) {
+-				mask = tc->ignored_onchild;
+-				/* XXX: temporary hack may be removed in the future */
+-				mask |= FAN_OPEN;
++			if (tc->ignored_onchild && mark_ignored & FAN_MARK_IGNORED_MASK) {
+ 				mark_ignored = 0;
+ 				goto add_mark;
+ 			}
+@@ -535,6 +539,11 @@ static void test_fanotify(unsigned int n)
+ 		return;
+ 	}
+ 
++	if (ignore_mark_unsupported && tst_variant) {
++		tst_res(TCONF, "FAN_MARK_IGNORE not supported in kernel?");
++		return;
++	}
++
+ 	if (tc->ignored_onchild && tst_kvercmp(5, 9, 0) < 0) {
+ 		tst_res(TCONF, "ignored mask in combination with flag FAN_EVENT_ON_CHILD"
+ 				" has undefined behavior on kernel < 5.9");
+@@ -628,6 +637,7 @@ static void setup(void)
+ 								      FAN_CLASS_CONTENT, 0);
+ 	filesystem_mark_unsupported = fanotify_mark_supported_by_kernel(FAN_MARK_FILESYSTEM);
+ 	evictable_mark_unsupported = fanotify_mark_supported_by_kernel(FAN_MARK_EVICTABLE);
++	ignore_mark_unsupported = fanotify_mark_supported_by_kernel(FAN_MARK_IGNORE_SURV);
+ 	fan_report_dfid_unsupported = fanotify_init_flags_supported_on_fs(FAN_REPORT_DFID_NAME,
+ 									  MOUNT_PATH);
+ 	if (fan_report_dfid_unsupported) {
+@@ -660,11 +670,17 @@ static void cleanup(void)
+ 		SAFE_UMOUNT(MNT2_PATH);
+ 
+ 	SAFE_FILE_PRINTF(CACHE_PRESSURE_FILE, "%d", old_cache_pressure);
++
++	SAFE_UNLINK(FILE_PATH);
++	SAFE_UNLINK(FILE2_PATH);
++	SAFE_RMDIR(DIR_PATH);
++	SAFE_RMDIR(MNT2_PATH);
+ }
+ 
+ static struct tst_test test = {
+ 	.test = test_fanotify,
+ 	.tcnt = ARRAY_SIZE(tcases),
++	.test_variants = 2,
+ 	.setup = setup,
+ 	.cleanup = cleanup,
+ 	.mount_device = 1,
 -- 
 2.25.1
 
