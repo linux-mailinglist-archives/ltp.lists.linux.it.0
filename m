@@ -2,75 +2,67 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0AE15AE3D1
-	for <lists+linux-ltp@lfdr.de>; Tue,  6 Sep 2022 11:05:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A463C5AE418
+	for <lists+linux-ltp@lfdr.de>; Tue,  6 Sep 2022 11:26:43 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 215423CA503
-	for <lists+linux-ltp@lfdr.de>; Tue,  6 Sep 2022 11:05:49 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id ED19A3CA717
+	for <lists+linux-ltp@lfdr.de>; Tue,  6 Sep 2022 11:26:42 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 685583C06D3
- for <ltp@lists.linux.it>; Tue,  6 Sep 2022 11:05:47 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 66EB33C285E
+ for <ltp@lists.linux.it>; Tue,  6 Sep 2022 11:26:22 +0200 (CEST)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id B760F1A01163
- for <ltp@lists.linux.it>; Tue,  6 Sep 2022 11:05:45 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 50B451A00E1A
+ for <ltp@lists.linux.it>; Tue,  6 Sep 2022 11:26:20 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 10BF433781;
- Tue,  6 Sep 2022 09:05:45 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 2AA4A33B8A;
+ Tue,  6 Sep 2022 09:26:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1662455145;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=EaE2y6hiEqWB/prOU8HM2juxaxlB2i6dDfCBIlzMcX0=;
- b=F8Nykqbd5f+vyYWR2zfT4iRKDF40SwDaJ+DgDOAXmo7/ts7MLmzzgUaiUV2WguV/VeUKtV
- X86pL7buYAz/Aarcn6pAB5SnUdU2gOcqu7vOzE7M3f5mMSOxZFLFbVV0nuihGNI3TavamH
- kf6fu+074FKvdYiWCv97+y2Y9/eNv6Y=
+ t=1662456380; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=fWWG+sF3qN8pghQuQc/pO95cf6GxZSSH+gxxk9D43UA=;
+ b=m8nUnuqdtninODes6SGH1zwOIYwhTyKs9ynJ7gWPDplfg5yvearh4kpJx0Egj+MrB9cn2V
+ rqrgWEgYGe2fBFLBsg3T3nbsLVNjzAIsiSvFBklxK/ID0SYE0OC6tgx7KRaH22QNYriyXs
+ u4O9QrllEfImsBMR1EjGJlaXXwr4QNg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1662455145;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=EaE2y6hiEqWB/prOU8HM2juxaxlB2i6dDfCBIlzMcX0=;
- b=A+0zf9GbvIepL+F8aaNw6tXUsOegeQZ6XAQXlO7po7Dc6x5sdOxIWFHBLVpSuKIQEaVxxB
- eG2FHNt5muDSuPCA==
+ s=susede2_ed25519; t=1662456380;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=fWWG+sF3qN8pghQuQc/pO95cf6GxZSSH+gxxk9D43UA=;
+ b=SPTMO5MApD9F9iEvQkS+yyvG+05L6EXdeGZMEJ1XiJ/epN9w0hJfXpOC8sauRdylQvOkNL
+ d9QkAc7PkEj6GOAg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CAB3213A19;
- Tue,  6 Sep 2022 09:05:44 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DE2E113A93;
+ Tue,  6 Sep 2022 09:26:19 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id lU/aL2gNF2NiYgAAMHmgww
- (envelope-from <pvorel@suse.cz>); Tue, 06 Sep 2022 09:05:44 +0000
-Date: Tue, 6 Sep 2022 11:05:43 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id wsRnMzsSF2NTawAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Tue, 06 Sep 2022 09:26:19 +0000
 From: Petr Vorel <pvorel@suse.cz>
-To: Amir Goldstein <amir73il@gmail.com>
-Message-ID: <YxcNZ5RulHRZ7hao@pevik>
-References: <20220905154239.2652169-1-amir73il@gmail.com>
- <20220905154239.2652169-4-amir73il@gmail.com>
+To: ltp@lists.linux.it
+Date: Tue,  6 Sep 2022 11:26:12 +0200
+Message-Id: <20220906092615.15116-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.37.3
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20220905154239.2652169-4-amir73il@gmail.com>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 3/9] syscalls/fanotify14: Add test cases for
- FAN_MARK_IGNORE
+Subject: [LTP] [PATCH 0/3] fanotify{14,20}: cleanup
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,20 +74,43 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: Matthew Bobrowski <repnop@google.com>, Jan Kara <jack@suse.cz>,
- ltp@lists.linux.it
+Cc: Jan Kara <jack@suse.cz>, Matthew Bobrowski <repnop@google.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Amir, all,
+Hi,
 
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
+just an example how to further cleanup fanotify tests by using test macros
+from include/tst_test_macros.h. This can wait till Amir's FAN_MARK_IGNORE
+patchset [1] is merged (unless there is going to be v2).
+
+fanotify20 is an example what I'd address in the code, fanotify14 just
+uses newly added TST_EXP_FD_ERRNO() (more cleanup here and actually in
+other tests could be done).
+
+I also admit code in include/tst_test_macros.h is a bit hard to read due
+being macro. We should probably add some documentation to it.
 
 Kind regards,
 Petr
+
+[1] https://lore.kernel.org/ltp/20220905154239.2652169-1-amir73il@gmail.com/
+
+Petr Vorel (3):
+  tst_test_macros: Add TST_EXP_FD_ERRNO
+  fanotify20: Simplify code
+  fanotify14: Use TST_EXP_FD_ERRNO()
+
+ include/tst_test_macros.h                     |  10 ++
+ .../kernel/syscalls/fanotify/fanotify14.c     | 118 +++++-------------
+ .../kernel/syscalls/fanotify/fanotify20.c     |  81 +++---------
+ 3 files changed, 62 insertions(+), 147 deletions(-)
+
+-- 
+2.37.3
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
