@@ -1,68 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id A463C5AE418
-	for <lists+linux-ltp@lfdr.de>; Tue,  6 Sep 2022 11:26:43 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 84BE55AE416
+	for <lists+linux-ltp@lfdr.de>; Tue,  6 Sep 2022 11:26:24 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id ED19A3CA717
-	for <lists+linux-ltp@lfdr.de>; Tue,  6 Sep 2022 11:26:42 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 063733CA50B
+	for <lists+linux-ltp@lfdr.de>; Tue,  6 Sep 2022 11:26:24 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 66EB33C285E
- for <ltp@lists.linux.it>; Tue,  6 Sep 2022 11:26:22 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ by picard.linux.it (Postfix) with ESMTPS id 1B34F3C93EF
+ for <ltp@lists.linux.it>; Tue,  6 Sep 2022 11:26:21 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 50B451A00E1A
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 115FE1001169
  for <ltp@lists.linux.it>; Tue,  6 Sep 2022 11:26:20 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 2AA4A33B8A;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 689331F9B7;
  Tue,  6 Sep 2022 09:26:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1662456380; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=fWWG+sF3qN8pghQuQc/pO95cf6GxZSSH+gxxk9D43UA=;
- b=m8nUnuqdtninODes6SGH1zwOIYwhTyKs9ynJ7gWPDplfg5yvearh4kpJx0Egj+MrB9cn2V
- rqrgWEgYGe2fBFLBsg3T3nbsLVNjzAIsiSvFBklxK/ID0SYE0OC6tgx7KRaH22QNYriyXs
- u4O9QrllEfImsBMR1EjGJlaXXwr4QNg=
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=rH8KUEbLq3ibqMYMQQJxjZ/H5aA+IpDVRf58vriGRXQ=;
+ b=D5k5HYvZDpLJ2Fwu8EN1xdNYE6cfVBtM/u7/8pxksv78hmmMnrAWSW74/vZq3QTuCPNBlA
+ 9jtxBb8q1rKP7amVb97UdX5N1wPiYTM20wTvbt0dn3kSU/kSDzSergSppHWeun9dvKBvwp
+ xyzNgKEdtLBJhSd1F4iMqQmkIFJotcc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1662456380;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=fWWG+sF3qN8pghQuQc/pO95cf6GxZSSH+gxxk9D43UA=;
- b=SPTMO5MApD9F9iEvQkS+yyvG+05L6EXdeGZMEJ1XiJ/epN9w0hJfXpOC8sauRdylQvOkNL
- d9QkAc7PkEj6GOAg==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=rH8KUEbLq3ibqMYMQQJxjZ/H5aA+IpDVRf58vriGRXQ=;
+ b=PXThTQ3+z4//M6JSBh3V0xhRq8/IeuaxhJGKXtPUbXaqq0O55C1we/uRaWP8ZcUo2T9XBW
+ Tc38qCC4D4XHURBg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DE2E113A93;
- Tue,  6 Sep 2022 09:26:19 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3486513A93;
+ Tue,  6 Sep 2022 09:26:20 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id wsRnMzsSF2NTawAAMHmgww
- (envelope-from <pvorel@suse.cz>); Tue, 06 Sep 2022 09:26:19 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id eJ5HCzwSF2NTawAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Tue, 06 Sep 2022 09:26:20 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Tue,  6 Sep 2022 11:26:12 +0200
-Message-Id: <20220906092615.15116-1-pvorel@suse.cz>
+Date: Tue,  6 Sep 2022 11:26:13 +0200
+Message-Id: <20220906092615.15116-2-pvorel@suse.cz>
 X-Mailer: git-send-email 2.37.3
+In-Reply-To: <20220906092615.15116-1-pvorel@suse.cz>
+References: <20220906092615.15116-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH 0/3] fanotify{14,20}: cleanup
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/3] tst_test_macros: Add TST_EXP_FD_ERRNO
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,34 +86,41 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
+Combine TST_EXP_FD() and TST_EXP_FAIL().
 
-just an example how to further cleanup fanotify tests by using test macros
-from include/tst_test_macros.h. This can wait till Amir's FAN_MARK_IGNORE
-patchset [1] is merged (unless there is going to be v2).
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+---
+ include/tst_test_macros.h | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-fanotify20 is an example what I'd address in the code, fanotify14 just
-uses newly added TST_EXP_FD_ERRNO() (more cleanup here and actually in
-other tests could be done).
-
-I also admit code in include/tst_test_macros.h is a bit hard to read due
-being macro. We should probably add some documentation to it.
-
-Kind regards,
-Petr
-
-[1] https://lore.kernel.org/ltp/20220905154239.2652169-1-amir73il@gmail.com/
-
-Petr Vorel (3):
-  tst_test_macros: Add TST_EXP_FD_ERRNO
-  fanotify20: Simplify code
-  fanotify14: Use TST_EXP_FD_ERRNO()
-
- include/tst_test_macros.h                     |  10 ++
- .../kernel/syscalls/fanotify/fanotify14.c     | 118 +++++-------------
- .../kernel/syscalls/fanotify/fanotify20.c     |  81 +++---------
- 3 files changed, 62 insertions(+), 147 deletions(-)
-
+diff --git a/include/tst_test_macros.h b/include/tst_test_macros.h
+index 2e7b7871c..a2dfaac13 100644
+--- a/include/tst_test_macros.h
++++ b/include/tst_test_macros.h
+@@ -1,6 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+  * Copyright (c) 2015-2020 Cyril Hrubis <chrubis@suse.cz>
++ * Copyright (c) Linux Test Project, 2021-2022
+  */
+ 
+ #ifndef TST_TEST_MACROS_H__
+@@ -93,6 +94,15 @@ extern void *TST_RET_PTR;
+ 				#SCALL, ##__VA_ARGS__);                        \
+ 	} while (0)
+ 
++#define TST_EXP_FD_ERRNO(SCALL, ERRNO, ...)                                    \
++	do {                                                                   \
++		if (ERRNO)                                                     \
++			TST_EXP_FAIL(SCALL, ERRNO, ##__VA_ARGS__);             \
++		else                                                           \
++			TST_EXP_FD(SCALL, ##__VA_ARGS__);                      \
++		                                                               \
++	} while (0)
++
+ #define TST_EXP_PID_SILENT(SCALL, ...)	TST_EXP_POSITIVE_(SCALL, #SCALL, ##__VA_ARGS__)
+ 
+ #define TST_EXP_PID(SCALL, ...)                                                \
 -- 
 2.37.3
 
