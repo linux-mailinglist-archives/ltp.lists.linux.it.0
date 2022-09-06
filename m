@@ -2,73 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id EED155AE417
-	for <lists+linux-ltp@lfdr.de>; Tue,  6 Sep 2022 11:26:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 565115AE419
+	for <lists+linux-ltp@lfdr.de>; Tue,  6 Sep 2022 11:26:54 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id BC29F3CA776
-	for <lists+linux-ltp@lfdr.de>; Tue,  6 Sep 2022 11:26:35 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 10DAB3CA96F
+	for <lists+linux-ltp@lfdr.de>; Tue,  6 Sep 2022 11:26:54 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 1025D3C285E
- for <ltp@lists.linux.it>; Tue,  6 Sep 2022 11:26:21 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by picard.linux.it (Postfix) with ESMTPS id 1BA323C285E
+ for <ltp@lists.linux.it>; Tue,  6 Sep 2022 11:26:22 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 56A82200B8C
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 589A4600B2D
  for <ltp@lists.linux.it>; Tue,  6 Sep 2022 11:26:21 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id AB9661F8AF;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id EA12833BB8;
  Tue,  6 Sep 2022 09:26:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1662456380; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=YRBXw2EIOf+YTeJKZ1vvmA0dT9Dv8BSSmCnZdXK66cY=;
- b=k6rhf4ZMfeFMEZgRYYFUkKTiYRU0OAcMbC/E8x/B622/ncQuWQHgxi23Lu616WDgOB1bHy
- w7cn+C7Cx/26VMabQPcPEQMO3mNklAmQRgAOQYn1PYWBYUYwjq/1kzp8I365MAW4hUq0hx
- +RzsToGtI2+G7jLy/YdtM61B9gT3ZAI=
+ bh=0FvaZ9Au7YlCn1dzaaT5H5pXOK5wM2JHJ4MBDyMtvkU=;
+ b=wlxXgob6qz8OWfU2CuZiKgSRaxYiCUlfRPrjS3sNuAiRVFWefyVcrAfDsbrsCxorZWgSCc
+ nkH4/32tfz3PaalQ49CAlWQjLjwzRbDZDYVnmieF/rzsq30sOpggw5QE/GtOlUnv4Y/q4/
+ RDgBXuQb47DRlTHDs1rZqkCk//ubnKc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1662456380;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=YRBXw2EIOf+YTeJKZ1vvmA0dT9Dv8BSSmCnZdXK66cY=;
- b=0ECM+m3/HXYS/rxcsuzqs4GNaR7ZnC7TpgW2FdI360BpDfHZ4uZWxxx6o7h+t5H9zDLnap
- 5HlMT8byx9YyoEDA==
+ bh=0FvaZ9Au7YlCn1dzaaT5H5pXOK5wM2JHJ4MBDyMtvkU=;
+ b=9CIvUsS0BJlTcTWIMUjmVhxNZ9ECF6OYVhaEYO1R5icaD2f8/jYiCSUyhNG/BxwaW8pl+J
+ InI/cibz8nZnMeAA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7534013A93;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B979513A93;
  Tue,  6 Sep 2022 09:26:20 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id cOSkGjwSF2NTawAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id OMS6KjwSF2NTawAAMHmgww
  (envelope-from <pvorel@suse.cz>); Tue, 06 Sep 2022 09:26:20 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Tue,  6 Sep 2022 11:26:14 +0200
-Message-Id: <20220906092615.15116-3-pvorel@suse.cz>
+Date: Tue,  6 Sep 2022 11:26:15 +0200
+Message-Id: <20220906092615.15116-4-pvorel@suse.cz>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20220906092615.15116-1-pvorel@suse.cz>
 References: <20220906092615.15116-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/3] fanotify20: Simplify code
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH 3/3] fanotify14: Use TST_EXP_FD_ERRNO()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,138 +86,174 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-* replace do_test() content with TST_EXP_FD_ERRNO() macro
-* rename variables (shorten, use LTP common names)
-* remove tc->want_err (not needed)
-* add macro FLAGS_DESC (stringify)
-* don't print number of tests (not needed for just 2 tests)
+That greatly simplifies the code.
 
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- .../kernel/syscalls/fanotify/fanotify20.c     | 81 +++++--------------
- 1 file changed, 19 insertions(+), 62 deletions(-)
+ .../kernel/syscalls/fanotify/fanotify14.c     | 118 +++++-------------
+ 1 file changed, 33 insertions(+), 85 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/fanotify/fanotify20.c b/testcases/kernel/syscalls/fanotify/fanotify20.c
-index de0fdb782..badc4c369 100644
---- a/testcases/kernel/syscalls/fanotify/fanotify20.c
-+++ b/testcases/kernel/syscalls/fanotify/fanotify20.c
+diff --git a/testcases/kernel/syscalls/fanotify/fanotify14.c b/testcases/kernel/syscalls/fanotify/fanotify14.c
+index aa4db586e..47d013c9f 100644
+--- a/testcases/kernel/syscalls/fanotify/fanotify14.c
++++ b/testcases/kernel/syscalls/fanotify/fanotify14.c
 @@ -1,6 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0-or-later
+ // SPDX-License-Identifier: GPL-2.0
  /*
-  * Copyright (c) 2021 Google. All Rights Reserved.
-+ * Copyright (c) 2022 Petr Vorel <pvorel@suse.cz>
+  * Copyright (c) 2018 Matthew Bobrowski. All Rights Reserved.
++ * Copyright (c) Linux Test Project, 2020-2022
   *
-  * Started by Matthew Bobrowski <repnop@google.com>
+  * Started by Matthew Bobrowski <mbobrowski@mbobrowski.org>
   */
-@@ -25,26 +26,21 @@
- #include "fanotify.h"
- 
- #define MOUNT_PATH	"fs_mnt"
-+#define FLAGS_DESC(x) .flags = x, .desc = #x
- 
--static int fanotify_fd;
-+static int fd;
- 
+@@ -48,6 +49,7 @@ static int fan_report_target_fid_unsupported;
  static struct test_case_t {
--	char *name;
--	unsigned int init_flags;
--	int want_err;
--	int want_errno;
-+	unsigned int flags;
-+	char *desc;
-+	int exp_errno;
+ 	unsigned int init_flags;
+ 	unsigned int mark_flags;
++	/* zero mask expects to fail on fanotify_init() */
+ 	unsigned long long mask;
+ 	int expected_errno;
  } test_cases[] = {
- 	{
--		"fail on FAN_REPORT_PIDFD | FAN_REPORT_TID",
--		FAN_REPORT_PIDFD | FAN_REPORT_TID,
--		1,
--		EINVAL,
-+		FLAGS_DESC(FAN_REPORT_PIDFD | FAN_REPORT_TID),
-+		.exp_errno = EINVAL,
- 	},
- 	{
--		"pass on FAN_REPORT_PIDFD | FAN_REPORT_FID | FAN_REPORT_DFID_NAME",
--		FAN_REPORT_PIDFD | FAN_REPORT_FID | FAN_REPORT_DFID_NAME,
--		0,
--		0,
-+		FLAGS_DESC(FAN_REPORT_PIDFD | FAN_REPORT_FID | FAN_REPORT_DFID_NAME),
- 	},
- };
+@@ -111,7 +113,6 @@ static struct test_case_t {
  
-@@ -57,63 +53,24 @@ static void do_setup(void)
- 	REQUIRE_FANOTIFY_INIT_FLAGS_SUPPORTED_BY_KERNEL(FAN_REPORT_PIDFD);
- }
- 
--static void do_test(unsigned int num)
-+static void do_test(unsigned int i)
+ static void do_test(unsigned int number)
  {
--	struct test_case_t *tc = &test_cases[num];
-+	struct test_case_t *tc = &test_cases[i];
+-	int ret;
+ 	struct test_case_t *tc = &test_cases[number];
  
--	tst_res(TINFO, "Test #%d: %s", num, tc->name);
-+	tst_res(TINFO, "Test %s on %s", tc->exp_errno ? "fail" : "pass",
-+		tc->desc);
+ 	if (fan_report_target_fid_unsupported && tc->init_flags & FAN_REPORT_TARGET_FID) {
+@@ -120,101 +121,48 @@ static void do_test(unsigned int number)
+ 		return;
+ 	}
  
 -	fanotify_fd = fanotify_init(tc->init_flags, O_RDONLY);
 -	if (fanotify_fd < 0) {
--		if (!tc->want_err) {
--			tst_res(TFAIL,
+-		if (errno == tc->expected_errno) {
+-			tst_res(TPASS,
 -				"fanotify_fd=%d, fanotify_init(%x, O_RDONLY) "
--				"failed with error -%d but wanted success",
--				fanotify_fd, tc->init_flags, errno);
+-				"failed with error %d as expected",
+-				fanotify_fd,
+-				tc->init_flags, tc->expected_errno);
 -			return;
 -		}
-+	TST_EXP_FD_ERRNO(fd = fanotify_init(tc->flags, O_RDONLY),
-+			 tc->exp_errno);
- 
--		if (errno != tc->want_errno) {
--			tst_res(TFAIL,
--				"fanotify_fd=%d, fanotify_init(%x, O_RDONLY) "
--				"failed with an unexpected error code -%d but "
--				"wanted -%d",
--				fanotify_fd, tc->init_flags,
--				errno, tc->want_errno);
--			return;
--		}
--
--		tst_res(TPASS,
--			"fanotify_fd=%d, fanotify_init(%x, O_RDONLY) "
--			"failed with error -%d as expected",
--			fanotify_fd, tc->init_flags, errno);
--		return;
+-		tst_brk(TBROK | TERRNO,
+-			"fanotify_fd=%d, fanotify_init(%x, O_RDONLY) failed",
+-			fanotify_fd,
+-			tc->init_flags);
 -	}
--
++	TST_EXP_FD_ERRNO(fanotify_fd = fanotify_init(tc->init_flags, O_RDONLY),
++			 !tc->mask && tc->expected_errno ? tc->expected_errno : 0);
+ 
 -	/*
--	 * Catch test cases that had expected to receive an error upon calling
--	 * fanotify_init() but had unexpectedly resulted in a success.
+-	 * A test case with a mask set to zero indicate that they've been
+-	 * specifically designed to test and fail on the fanotify_init()
+-	 * system call.
 -	 */
--	if (tc->want_err) {
+-	if (tc->mask == 0) {
 -		tst_res(TFAIL,
--			"fanotify_fd=%d, fanotify_init(%x, O_RDONLY) "
--			"unexpectedly returned successfully, wanted error -%d",
--			fanotify_fd, tc->init_flags, tc->want_errno);
--		return;
+-			"fanotify_fd=%d fanotify_init(%x, O_RDONLY) "
+-			"unexpectedly succeeded when tests with mask 0 are "
+-			"expected to fail when calling fanotify_init()",
+-			fanotify_fd,
+-			tc->init_flags);
++	if (fanotify_fd < 0)
++		return;
++
++	if (!tc->mask)
+ 		goto out;
 -	}
--
--	tst_res(TPASS,
--		"fanotify_fd=%d, fanotify_init(%x, O_RDONLY) "
--		"successfully initialized notification group",
--		fanotify_fd, tc->init_flags);
--
+ 
+ 	/* Set mark on non-dir only when expecting error ENOTDIR */
+ 	const char *path = tc->expected_errno == ENOTDIR ? FILE1 : MNTPOINT;
+ 
+-	ret = fanotify_mark(fanotify_fd, FAN_MARK_ADD | tc->mark_flags,
+-				tc->mask, AT_FDCWD, path);
+-	if (ret < 0) {
+-		if (errno == tc->expected_errno) {
+-			tst_res(TPASS,
+-				"ret=%d, fanotify_mark(%d, FAN_MARK_ADD | %x, "
+-				"%llx, AT_FDCWD, %s) failed with error %d "
+-				"as expected",
+-				ret,
+-				fanotify_fd,
+-				tc->mark_flags,
+-				tc->mask,
+-				path, tc->expected_errno);
+-			/*
+-			 * ENOTDIR are errors for events/flags not allowed on a non-dir inode.
+-			 * Try to set an inode mark on a directory and it should succeed.
+-			 * Try to set directory events in filesystem mark mask on non-dir
+-			 * and it should succeed.
+-			 */
+-			if (tc->expected_errno == ENOTDIR) {
+-				SAFE_FANOTIFY_MARK(fanotify_fd, FAN_MARK_ADD | tc->mark_flags,
+-						   tc->mask, AT_FDCWD, MNTPOINT);
+-				tst_res(TPASS,
+-					"Adding an inode mark on directory did not fail with "
+-					"ENOTDIR error as on non-dir inode");
+-			}
+-			if (tc->expected_errno == ENOTDIR &&
+-			    !(tc->mark_flags & FAN_MARK_ONLYDIR)) {
+-				SAFE_FANOTIFY_MARK(fanotify_fd, FAN_MARK_ADD | tc->mark_flags |
+-						   FAN_MARK_FILESYSTEM, tc->mask,
+-						   AT_FDCWD, FILE1);
+-				tst_res(TPASS,
+-					"Adding a filesystem mark on non-dir did not fail with "
+-					"ENOTDIR error as with an inode mark");
+-			}
++	TST_EXP_FD_ERRNO(fanotify_mark(fanotify_fd, FAN_MARK_ADD | tc->mark_flags,
++								   tc->mask, AT_FDCWD, path),
++					 tc->expected_errno);
+ 
+-			goto out;
++	/*
++	 * ENOTDIR are errors for events/flags not allowed on a non-dir inode.
++	 * Try to set an inode mark on a directory and it should succeed.
++	 * Try to set directory events in filesystem mark mask on non-dir
++	 * and it should succeed.
++	 */
++	if (TST_PASS && tc->expected_errno == ENOTDIR) {
++		SAFE_FANOTIFY_MARK(fanotify_fd, FAN_MARK_ADD | tc->mark_flags,
++				   tc->mask, AT_FDCWD, MNTPOINT);
++		tst_res(TPASS,
++			"Adding an inode mark on directory did not fail with "
++			"ENOTDIR error as on non-dir inode");
++
++		if (!(tc->mark_flags & FAN_MARK_ONLYDIR)) {
++			SAFE_FANOTIFY_MARK(fanotify_fd, FAN_MARK_ADD | tc->mark_flags |
++					   FAN_MARK_FILESYSTEM, tc->mask,
++					   AT_FDCWD, FILE1);
++			tst_res(TPASS,
++				"Adding a filesystem mark on non-dir did not fail with "
++				"ENOTDIR error as with an inode mark");
+ 		}
+-		tst_brk(TBROK | TERRNO,
+-			"ret=%d, fanotify_mark(%d, FAN_MARK_ADD | %x, %llx, "
+-			"AT_FDCWD, %s) failed",
+-			ret,
+-			fanotify_fd,
+-			tc->mark_flags,
+-			tc->mask,
+-			FILE1);
+ 	}
+ 
+-	tst_res(TFAIL,
+-		"fanotify_fd=%d, ret=%d, fanotify_init(%x, O_RDONLY) and "
+-		"fanotify_mark(%d, FAN_MARK_ADD | %x, %llx, AT_FDCWD, %s) did "
+-		"not return any errors as expected",
+-		fanotify_fd,
+-		ret,
+-		tc->init_flags,
+-		fanotify_fd,
+-		tc->mark_flags,
+-		tc->mask,
+-		FILE1);
+ out:
 -	SAFE_CLOSE(fanotify_fd);
-+	if (fd > 0)
-+		SAFE_CLOSE(fd);
++	if (fanotify_fd > 0)
++		SAFE_CLOSE(fanotify_fd);
  }
  
- static void do_cleanup(void)
- {
--	if (fanotify_fd >= 0)
--		SAFE_CLOSE(fanotify_fd);
-+	if (fd > 0)
-+		SAFE_CLOSE(fd);
- }
- 
- static struct tst_test test = {
+ static void do_setup(void)
 -- 
 2.37.3
 
