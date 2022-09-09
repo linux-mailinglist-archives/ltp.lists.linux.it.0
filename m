@@ -2,73 +2,75 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 556505B3A8B
-	for <lists+linux-ltp@lfdr.de>; Fri,  9 Sep 2022 16:19:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B4695B3A88
+	for <lists+linux-ltp@lfdr.de>; Fri,  9 Sep 2022 16:19:03 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id ED8013CAA8B
-	for <lists+linux-ltp@lfdr.de>; Fri,  9 Sep 2022 16:19:32 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 6BD7A3CAA86
+	for <lists+linux-ltp@lfdr.de>; Fri,  9 Sep 2022 16:19:02 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id BCB393CAA10
+ by picard.linux.it (Postfix) with ESMTPS id 9A1E83CA9C9
  for <ltp@lists.linux.it>; Fri,  9 Sep 2022 16:18:47 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id DEC1D200FEE
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id DEF066018AD
  for <ltp@lists.linux.it>; Fri,  9 Sep 2022 16:18:46 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 5566221F3F;
- Fri,  9 Sep 2022 14:18:45 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 233F01F8E8;
+ Fri,  9 Sep 2022 14:18:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1662733125; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1662733126; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=VhzZHOFaji3bmpn4xAcyi2YRAYB8ORCaXrvafyfj9xo=;
- b=cj+D4RbPdcRUCxbC1W2sGbr9Cyb34DUEMnen2fK+FGufpRDCy/tnqjhk0vjr9Ykm8L+GF1
- IydOkJth2/3c0tW+3doV3//SaE5ls4OVz0V0O5xUdVY4Ff7F3imGOTdBeTOlJpiuDYZTG9
- vXHjyZSFCWVJqiqXJ8LaZEGWqbwOSV8=
+ bh=HNQgUBRWsqtV3vQXwuFg2/KhGXIoZ7hKLl4tSVGILvU=;
+ b=qSO0Fwrivv4HWoxv0YLh5XjxFCGDZ4K33zWLGPMsnnazzllSVFtZfCg0ylfhG96yWp/J27
+ 7wRSMhsF+U7SOjQ2Oy3ap5aRSRwBnx60FPKyP83TUM5HjTaRyyuKpAVFZ/WrYqc1LdsEqM
+ avFABHm5CRAo3LKjvOTTSobR7vubZWw=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1662733125;
+ s=susede2_ed25519; t=1662733126;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=VhzZHOFaji3bmpn4xAcyi2YRAYB8ORCaXrvafyfj9xo=;
- b=KLsRRW6WDjnfYJvUWikUi4gYtDWOrgL29005y4yuYl+QKL1Z98EeGWGEtyUqn/0h47JoUf
- bQp1xjuLxXqApLDg==
+ bh=HNQgUBRWsqtV3vQXwuFg2/KhGXIoZ7hKLl4tSVGILvU=;
+ b=D5kJwWfL+MhWVnt+cuqQKfT6um3t8FQuEe64hcgJZDbSjbFDNee93KGBLPeY2nI4mrIPNx
+ hYLrWnqHEU7mkkDA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C41AB13A93;
- Fri,  9 Sep 2022 14:18:44 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7049413A93;
+ Fri,  9 Sep 2022 14:18:45 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id iLy1LURLG2NmWAAAMHmgww
- (envelope-from <pvorel@suse.cz>); Fri, 09 Sep 2022 14:18:44 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id mOZ9F0VLG2NmWAAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Fri, 09 Sep 2022 14:18:45 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Fri,  9 Sep 2022 16:18:31 +0200
-Message-Id: <20220909141840.18327-2-pvorel@suse.cz>
+Date: Fri,  9 Sep 2022 16:18:32 +0200
+Message-Id: <20220909141840.18327-3-pvorel@suse.cz>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20220909141840.18327-1-pvorel@suse.cz>
 References: <20220909141840.18327-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH v5 01/10] shell: Print mount command in tst_mount()
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH v5 02/10] shell API/tests: Require root for
+ format/mount tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,31 +88,61 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+i.e. for TST_{FORMAT,MOUNT}_DEVICE=1.
+
+Although the warning is quite obvious:
+tst_device.c:101: TINFO: Not allowed to open /dev/loop-control. Are you root?: EACCES (13)
+tst_device.c:140: TINFO: No free devices found
+TBROK: Failed to acquire device
+
+It's safer to expect root to get valid result.
+
 Reviewed-by: Li Wang <liwang@redhat.com>
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
 The same as in v4
 
- testcases/lib/tst_test.sh | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ lib/newlib_tests/shell/tst_format_device.sh      | 1 +
+ lib/newlib_tests/shell/tst_mount_device.sh       | 1 +
+ lib/newlib_tests/shell/tst_mount_device_tmpfs.sh | 1 +
+ 3 files changed, 3 insertions(+)
 
-diff --git a/testcases/lib/tst_test.sh b/testcases/lib/tst_test.sh
-index f884a278d..7c97b69fe 100644
---- a/testcases/lib/tst_test.sh
-+++ b/testcases/lib/tst_test.sh
-@@ -293,9 +293,11 @@ tst_mount()
- 		mnt_opt="-t $TST_FS_TYPE"
- 		mnt_err=" $TST_FS_TYPE type"
- 	fi
-+	local cmd="mount $mnt_opt $TST_DEVICE $TST_MNTPOINT $TST_MNT_PARAMS"
+diff --git a/lib/newlib_tests/shell/tst_format_device.sh b/lib/newlib_tests/shell/tst_format_device.sh
+index 73a919086..dbe4ea9e7 100755
+--- a/lib/newlib_tests/shell/tst_format_device.sh
++++ b/lib/newlib_tests/shell/tst_format_device.sh
+@@ -3,6 +3,7 @@
+ # Copyright (c) 2022 Petr Vorel <pvorel@suse.cz>
  
- 	ROD_SILENT mkdir -p $TST_MNTPOINT
--	mount $mnt_opt $TST_DEVICE $TST_MNTPOINT $TST_MNT_PARAMS
-+	tst_res TINFO "Mounting device: $cmd"
-+	$cmd
- 	local ret=$?
+ TST_FORMAT_DEVICE=1
++TST_NEEDS_ROOT=1
+ TST_TESTFUNC=test
+ TST_CNT=2
+ TST_DEV_FS_OPTS="-b 1024"
+diff --git a/lib/newlib_tests/shell/tst_mount_device.sh b/lib/newlib_tests/shell/tst_mount_device.sh
+index 561f878d2..70f80f84a 100755
+--- a/lib/newlib_tests/shell/tst_mount_device.sh
++++ b/lib/newlib_tests/shell/tst_mount_device.sh
+@@ -3,6 +3,7 @@
+ # Copyright (c) 2022 Petr Vorel <pvorel@suse.cz>
  
- 	if [ $ret -eq 32 ]; then
+ TST_MOUNT_DEVICE=1
++TST_NEEDS_ROOT=1
+ TST_FS_TYPE=ext4
+ TST_TESTFUNC=test
+ TST_CNT=3
+diff --git a/lib/newlib_tests/shell/tst_mount_device_tmpfs.sh b/lib/newlib_tests/shell/tst_mount_device_tmpfs.sh
+index 36a78bc85..ed2ba8c50 100755
+--- a/lib/newlib_tests/shell/tst_mount_device_tmpfs.sh
++++ b/lib/newlib_tests/shell/tst_mount_device_tmpfs.sh
+@@ -3,6 +3,7 @@
+ # Copyright (c) 2022 Petr Vorel <pvorel@suse.cz>
+ 
+ TST_MOUNT_DEVICE=1
++TST_NEEDS_ROOT=1
+ TST_FS_TYPE=tmpfs
+ TST_TESTFUNC=test
+ 
 -- 
 2.37.3
 
