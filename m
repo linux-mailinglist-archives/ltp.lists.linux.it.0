@@ -2,78 +2,68 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 420425B3A77
-	for <lists+linux-ltp@lfdr.de>; Fri,  9 Sep 2022 16:15:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BED85B3A86
+	for <lists+linux-ltp@lfdr.de>; Fri,  9 Sep 2022 16:18:51 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 6CE153CAA7F
-	for <lists+linux-ltp@lfdr.de>; Fri,  9 Sep 2022 16:15:51 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E314E3CAA6B
+	for <lists+linux-ltp@lfdr.de>; Fri,  9 Sep 2022 16:18:50 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 90E9F3CA9C9
- for <ltp@lists.linux.it>; Fri,  9 Sep 2022 16:15:47 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 1A63F3CA9C9
+ for <ltp@lists.linux.it>; Fri,  9 Sep 2022 16:18:46 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 5F5C660048B
- for <ltp@lists.linux.it>; Fri,  9 Sep 2022 16:15:45 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 6A90C10011B2
+ for <ltp@lists.linux.it>; Fri,  9 Sep 2022 16:18:45 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 5E1EE1F891;
- Fri,  9 Sep 2022 14:15:45 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id BC60821F3E;
+ Fri,  9 Sep 2022 14:18:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1662732945; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=1w+BEz25wvx2APxQRVlHDtWh5sAnzeYCqAh+MMmuNfg=;
- b=h4K4zti/EQ95QOn3PVh9mB13FlO2KiTMaV1ky63FUFLmxHHUffuOATBWKUOQWIz49xuHmO
- NXH3Uy1D010uju0AG6fOoe+KtXb2zH7207eYjuaaEi31QZR5kpiECPHt7y9pktb5jjLJH8
- GjkOjESt1tHImwnsfuTXXz6e82ZnmFo=
+ t=1662733124; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=b/+TypTTsaKJN+xUVOC0L/pC9PMuZU5gkN+N4n/H6j8=;
+ b=Qjh4j3kkofIWzcfFD6hH1DVi9j0l5jtUqfUbLIMIAMZ6RHZ4BZMErRUyTLxS5enLtoj0Kh
+ yod4VrL4nP3GXqIiw3GAwaEkff/E7XXKSKLBHxeLMOGiZYAMLweZmlOVDV5F4tzZAykhzt
+ Ua81Depg7aJ3//5NjJ3KqJGyWZ7gu/g=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1662732945;
+ s=susede2_ed25519; t=1662733124;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=1w+BEz25wvx2APxQRVlHDtWh5sAnzeYCqAh+MMmuNfg=;
- b=puG/fji1l4Q+/01vEL3y9GAKVLUjBLGKpu5xtKSVOzWzwUmMwEqArBKxZSwLC5vI+5kNKL
- yIjel8BbfcfXiWCg==
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=b/+TypTTsaKJN+xUVOC0L/pC9PMuZU5gkN+N4n/H6j8=;
+ b=1+q/ag3d4q9y/UmP6y4KdfD/hyeeQBWbbnjbxU/C1fPcx3Mvc1tnkzYxsub+CUTvLqdoSO
+ v0PnfrsJPqbtGbDg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 391AE13A93;
- Fri,  9 Sep 2022 14:15:45 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 619D313A93;
+ Fri,  9 Sep 2022 14:18:44 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id vyvNDJFKG2P9VgAAMHmgww
- (envelope-from <mdoucha@suse.cz>); Fri, 09 Sep 2022 14:15:45 +0000
-Message-ID: <70df29e7-0097-c698-b6ba-e3f87da3893f@suse.cz>
-Date: Fri, 9 Sep 2022 16:15:44 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id EryOFkRLG2NmWAAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Fri, 09 Sep 2022 14:18:44 +0000
+From: Petr Vorel <pvorel@suse.cz>
+To: ltp@lists.linux.it
+Date: Fri,  9 Sep 2022 16:18:30 +0200
+Message-Id: <20220909141840.18327-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.37.3
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.0
-To: Petr Vorel <pvorel@suse.cz>, Cyril Hrubis <chrubis@suse.cz>
-References: <20220902133710.1785-1-pvorel@suse.cz>
- <20220902133710.1785-5-pvorel@suse.cz> <YxsKz9j1mVHIhcfw@yuki>
- <Yxsbtrcv+FEMvBfH@pevik> <Yxsgg8f7vOFdXV3q@yuki> <YxskoojodIaNuI6G@pevik>
-Content-Language: en-US
-From: Martin Doucha <mdoucha@suse.cz>
-In-Reply-To: <YxskoojodIaNuI6G@pevik>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-2.0 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v4 4/9] tst_supported_fs: Support skip list when
- query single fs
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH v5 00/10] shell: df01.sh: $TST_ALL_FILESYSTEMS
+ (.all_filesystems)
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,78 +75,67 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Richard Palethorpe <rpalethorpe@suse.com>, ltp@lists.linux.it
+Cc: Richard Palethorpe <rpalethorpe@suse.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 09. 09. 22 13:33, Petr Vorel wrote:
->> Hi!
->>>>> +++ b/lib/tst_supported_fs_types.c
->>>>> @@ -134,6 +134,24 @@ enum tst_fs_impl tst_fs_is_supported(const char *fs_type)
->>>>>   	return TST_FS_UNSUPPORTED;
->>>>>   }
-> 
->>>>> +enum tst_fs_impl tst_fs_is_supported_skiplist(const char *fs_type, const char
->>>>> +					      *const *skiplist)
->>>>> +{
->>>>> +	int ret;
->>>>> +
->>>>> +	ret = tst_fs_is_supported(fs_type);
->>>>> +
->>>>> +	if (!ret)
->>>>> +		return ret;
->>>>> +
->>>>> +	if (tst_fs_in_skiplist(fs_type, skiplist)) {
->>>>> +		tst_brk(TCONF, "%s is not supported by the test",
->>>>> +			fs_type);
-> 
->>>> I would expect to return TST_FS_UNSUPPORTED here. It's a bit hacky
->>>> solution to exit a library call with tst_brk(TCONF, "");
+Hi,
 
-I agree with that. Return a status code from 
-tst_fs_is_supported_skiplist() and raise TCONF somewhere higher in the 
-call chain.
+changes v4->v5:
+* tst_fs_is_supported_skiplist() returns TST_FS_UNSUPPORTED,
+  errors handled in testcases/lib/tst_supported_fs.c (Cyril)
+* testcases/lib/tst_supported_fs.c: put parsing code to separate
+  function parse_skiplist() (Cyril)
+* testcases/lib/tst_supported_fs.c: Print usage on getopts error (Cyril)
+* print TCONF when filesystem is not supported
+* tst_test.sh: fix quiting test when no filesystem supported
+* zram01.sh: use -f tmpfs in tst_supported_fs call
+* new test lib/newlib_tests/shell/tst_all_filesystems_skip.sh
+* add fuse to lib/newlib_tests/shell/tst_skip_filesystems.sh
 
->>> +++ b/include/tst_fs.h
->>> @@ -171,7 +171,8 @@ int tst_fill_file(const char *path, char pattern, size_t bs, size_t bcount);
->>>   int tst_prealloc_file(const char *path, size_t bs, size_t bcount);
-> 
->>>   enum tst_fs_impl {
->>> -       TST_FS_UNSUPPORTED = 0,
->>> +       TST_FS_UNSUPPORTED = -2,
->>> +       TST_FS_SKIPPED_BY_TEST = -1,
-> 
->> Maybe just TST_FS_SKIPPED
-> 
->>>          TST_FS_KERNEL = 1,
->>>          TST_FS_FUSE = 2,
->>>   };
-> 
->> I wonder though if we really care about the difference between
->> unsupported and skipped. Maybe just print TINFO message in case of the
->> skipped filesystem and return zero in both cases? And maybe rename
->> TST_FS_UNSUPPORTED to TST_FSNOT_USED.
-> 
-> I thought being precise why there is TCONF would help, but users will just read
-> previous TINFO messages.
-> 
-> Having just single "error" enum constant, I'm OK to keep TST_FS_UNSUPPORTED
-> (unless anybody really think renaming it to TST_FS_NOT_USED would be better).
+new commits:
+*  tst_supported_fs: Print TCONF if no filesystem supported
 
-I'd like to see why exactly a filesystem was skipped so I prefer two 
-enum values. Though I'd name them TST_FS_UNAVAILABLE (missing mkfs or 
-kernel support) and TST_FS_UNSUPPORTED (disabled by test skiplist).
+Petr Vorel (10):
+  shell: Print mount command in tst_mount()
+  shell API/tests: Require root for format/mount tests
+  tst_supported_fs: Print TCONF if no filesystem supported
+  tst_supported_fs: Implement skip list
+  tst_supported_fs: Support skip list when query single fs
+  shell: Add $TST_SKIP_FILESYSTEMS + tests
+  tst_test.sh: Introduce TST_FS_TYPE_FUSE
+  tst_test.sh: Add $TST_ALL_FILESYSTEMS
+  shell: Add tests for TST_ALL_FILESYSTEMS=1
+  df01.sh: Convert to TST_ALL_FILESYSTEMS=1
+
+ doc/shell-test-api.txt                        |  13 +-
+ include/tst_fs.h                              |  10 ++
+ lib/newlib_tests/shell/tst_all_filesystems.sh |  27 +++
+ .../shell/tst_all_filesystems_skip.sh         |  16 ++
+ lib/newlib_tests/shell/tst_format_device.sh   |   1 +
+ lib/newlib_tests/shell/tst_mount_device.sh    |   1 +
+ .../shell/tst_mount_device_tmpfs.sh           |   1 +
+ .../shell/tst_skip_filesystems.sh             |  35 ++++
+ .../shell/tst_skip_filesystems_skip.sh        |  17 ++
+ lib/tst_supported_fs_types.c                  |  17 ++
+ runtest/commands                              |   8 +-
+ runtest/smoketest                             |   2 +-
+ testcases/commands/df/df01.sh                 |  32 +---
+ .../kernel/device-drivers/zram/zram01.sh      |   3 +-
+ testcases/lib/tst_supported_fs.c              |  74 +++++++--
+ testcases/lib/tst_test.sh                     | 155 +++++++++++++-----
+ testcases/misc/lvm/generate_lvm_runfile.sh    |   2 +-
+ testcases/misc/lvm/prepare_lvm.sh             |   2 +-
+ 18 files changed, 326 insertions(+), 90 deletions(-)
+ create mode 100755 lib/newlib_tests/shell/tst_all_filesystems.sh
+ create mode 100755 lib/newlib_tests/shell/tst_all_filesystems_skip.sh
+ create mode 100755 lib/newlib_tests/shell/tst_skip_filesystems.sh
+ create mode 100755 lib/newlib_tests/shell/tst_skip_filesystems_skip.sh
 
 -- 
-Martin Doucha   mdoucha@suse.cz
-QA Engineer for Software Maintenance
-SUSE LINUX, s.r.o.
-CORSO IIa
-Krizikova 148/34
-186 00 Prague 8
-Czech Republic
+2.37.3
 
 
 -- 
