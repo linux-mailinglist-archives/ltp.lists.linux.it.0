@@ -1,75 +1,75 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D6E65B3A91
-	for <lists+linux-ltp@lfdr.de>; Fri,  9 Sep 2022 16:20:18 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 477CD5B3A94
+	for <lists+linux-ltp@lfdr.de>; Fri,  9 Sep 2022 16:20:40 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 3F3E13CAA6F
-	for <lists+linux-ltp@lfdr.de>; Fri,  9 Sep 2022 16:20:18 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id EA4CA3CAA8C
+	for <lists+linux-ltp@lfdr.de>; Fri,  9 Sep 2022 16:20:39 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 6E7C63CAA15
- for <ltp@lists.linux.it>; Fri,  9 Sep 2022 16:18:54 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by picard.linux.it (Postfix) with ESMTPS id B2B013CAA89
+ for <ltp@lists.linux.it>; Fri,  9 Sep 2022 16:18:55 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id C86521400994
- for <ltp@lists.linux.it>; Fri,  9 Sep 2022 16:18:53 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 5EEAF100119F
+ for <ltp@lists.linux.it>; Fri,  9 Sep 2022 16:18:54 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 3A39B1F8BA;
- Fri,  9 Sep 2022 14:18:53 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 08AB21F943;
+ Fri,  9 Sep 2022 14:18:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1662733133; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1662733134; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=dkwSYAoqX3GkqDJxSsCQPSw9q5eycxn9+APy307Pc0c=;
- b=Nl5aiNUXxqFqRXSPKAnBVIc5FNBfJ1Pae9riMijNrJpZrPnsZqvHoQqj2H7p4F9cuz0ZCy
- 8VdoppXmAc4oq4BvCrPH17oZswXcV2T6mbouxFT0WAsKwwr5CNjUw0eIZmc9DFaxYH5IRu
- RThl7Peo7xEAdpdr8GDFepnb2Cv0WdE=
+ bh=XUyjrMghggyvhcASm6/GN83YNPeS5wEjrIL6nGsTYyk=;
+ b=Z6fw5kzNKXOUs05IifZV1fJgjOc0arEjlNudEAgWA5I9MIAVsGXOWywnGtFs4jUtvMQNEq
+ g8LObkw8QVBkqG3yZFmS5EceHCFq6P8wbmnNCGPyP4xZe3go/OdF0wPZM6DX7LI44IBp4B
+ MljLrRnBkCsAu5fuZnHa9tACOEJHzao=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1662733133;
+ s=susede2_ed25519; t=1662733134;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=dkwSYAoqX3GkqDJxSsCQPSw9q5eycxn9+APy307Pc0c=;
- b=ndVNmDcoy9gu7yh+zNQp+u3EtcMxs/IoTNUpECjMaQJ4Yl1e4YVPnspgdqi0Ec9zbWDekf
- e6E2rncY8mtyhNCA==
+ bh=XUyjrMghggyvhcASm6/GN83YNPeS5wEjrIL6nGsTYyk=;
+ b=zJdl+rCaW74oP/tavc3A95CUibvXjhKRd3LdFy21z4VLoHgwntOdQQiHDng1tJ3xpDZOrm
+ IgOUmsuQi2aUSjCQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4AEC413A93;
- Fri,  9 Sep 2022 14:18:52 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5CA5113A93;
+ Fri,  9 Sep 2022 14:18:53 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id SHT8CkxLG2NmWAAAMHmgww
- (envelope-from <pvorel@suse.cz>); Fri, 09 Sep 2022 14:18:52 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id EFaPFE1LG2NmWAAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Fri, 09 Sep 2022 14:18:53 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Fri,  9 Sep 2022 16:18:39 +0200
-Message-Id: <20220909141840.18327-10-pvorel@suse.cz>
+Date: Fri,  9 Sep 2022 16:18:40 +0200
+Message-Id: <20220909141840.18327-11-pvorel@suse.cz>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20220909141840.18327-1-pvorel@suse.cz>
 References: <20220909141840.18327-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH v5 09/10] shell: Add tests for TST_ALL_FILESYSTEMS=1
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH v5 10/10] df01.sh: Convert to TST_ALL_FILESYSTEMS=1
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,95 +87,105 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Unfortunately GitHub Actions don't have loop devices, thus cannot be run
-in CI:
-
-tst_format_device 1 TINFO: timeout per run is 0h 5m 0s
-/__w/ltp/ltp/lib/tst_device.c:139: TINFO: No free devices found
-
-Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
 Reviewed-by: Li Wang <liwang@redhat.com>
-Acked-by: Richard Palethorpe <rpalethorpe@suse.com>
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
-changes v4->v5:
-* new test lib/newlib_tests/shell/tst_all_filesystems_skip.sh
+The same as in v4
 
- lib/newlib_tests/shell/tst_all_filesystems.sh | 27 +++++++++++++++++++
- .../shell/tst_all_filesystems_skip.sh         | 16 +++++++++++
- lib/tst_supported_fs_types.c                  |  2 +-
- 3 files changed, 44 insertions(+), 1 deletion(-)
- create mode 100755 lib/newlib_tests/shell/tst_all_filesystems.sh
- create mode 100755 lib/newlib_tests/shell/tst_all_filesystems_skip.sh
+ runtest/commands              |  8 +-------
+ runtest/smoketest             |  2 +-
+ testcases/commands/df/df01.sh | 32 +++++++++-----------------------
+ 3 files changed, 11 insertions(+), 31 deletions(-)
 
-diff --git a/lib/newlib_tests/shell/tst_all_filesystems.sh b/lib/newlib_tests/shell/tst_all_filesystems.sh
-new file mode 100755
-index 000000000..0ee1ab240
---- /dev/null
-+++ b/lib/newlib_tests/shell/tst_all_filesystems.sh
-@@ -0,0 +1,27 @@
-+#!/bin/sh
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+# Copyright (c) 2022 Petr Vorel <pvorel@suse.cz>
-+
+diff --git a/runtest/commands b/runtest/commands
+index 8cfad0449..5ec2c3b69 100644
+--- a/runtest/commands
++++ b/runtest/commands
+@@ -14,13 +14,7 @@ ln01_sh ln_tests.sh
+ mkdir01_sh mkdir_tests.sh
+ mv01_sh mv_tests.sh
+ du01_sh du01.sh
+-df01_ext2_sh df01.sh -f ext2
+-df01_ext3_sh df01.sh -f ext3
+-df01_ext4_sh df01.sh -f ext4
+-df01_xfs_sh df01.sh -f xfs
+-df01_vfat_sh df01.sh -f vfat
+-df01_exfat_sh df01.sh -f exfat
+-df01_ntfs_sh df01.sh -f ntfs
++df01_sh df01.sh
+ mkfs01_sh mkfs01.sh
+ mkfs01_ext2_sh mkfs01.sh -f ext2
+ mkfs01_ext3_sh mkfs01.sh -f ext3
+diff --git a/runtest/smoketest b/runtest/smoketest
+index 485f211fb..83eebfe7b 100644
+--- a/runtest/smoketest
++++ b/runtest/smoketest
+@@ -12,7 +12,7 @@ stat04 symlink01 -T stat04
+ utime01A symlink01 -T utime01
+ rename01A symlink01 -T rename01
+ splice02 splice02 -s 20
+-df01_ext4_sh df01.sh -f ext4
++df01_sh df01.sh
+ shell_test01 echo "SUCCESS" | shell_pipe01.sh
+ ping602 ping02.sh -6
+ macsec02 macsec02.sh
+diff --git a/testcases/commands/df/df01.sh b/testcases/commands/df/df01.sh
+index 1e86d1c40..ddfa9d9a7 100755
+--- a/testcases/commands/df/df01.sh
++++ b/testcases/commands/df/df01.sh
+@@ -6,35 +6,19 @@
+ #
+ # Test df command with some basic options.
+ 
 +TST_ALL_FILESYSTEMS=1
-+TST_NEEDS_ROOT=1
-+TST_TESTFUNC=test
-+TST_CNT=2
-+
-+test1()
-+{
-+	tst_res TPASS "device using filesystem"
-+}
-+
-+test2()
-+{
-+	local pattern="$TST_FS_TYPE"
+ TST_CNT=12
+ TST_SETUP=setup
+ TST_TESTFUNC=test
+-TST_OPTS="f:"
+-TST_USAGE=usage
+-TST_PARSE_ARGS=parse_args
+ TST_NEEDS_ROOT=1
+-TST_MOUNT_DEVICE=1
+-
+-usage()
+-{
+-	cat << EOF
+-usage: $0 [-f <ext2|ext3|ext4|vfat|...>]
+-
+-OPTIONS
+--f	Specify the type of filesystem to be built.  If not
+-	specified, the default filesystem type (currently ext2)
+-	is used.
+-EOF
+-}
+-
+-parse_args()
+-{
+-	TST_FS_TYPE="$2"
+-}
+ 
+ setup()
+ {
+-	DF_FS_TYPE=$(mount | grep "$TST_DEVICE" | awk 'NR==1{print $5}')
++	DF_FS_TYPE="$TST_FS_TYPE"
 +
 +	if [ "$TST_FS_TYPE_FUSE" = 1 ]; then
-+		pattern="fuseblk"
++		DF_FS_TYPE="fuseblk"
 +	fi
-+
-+	EXPECT_PASS "grep -E '$TST_MNTPOINT ($pattern)' /proc/mounts"
-+}
-+
-+. tst_test.sh
-+tst_run
-diff --git a/lib/newlib_tests/shell/tst_all_filesystems_skip.sh b/lib/newlib_tests/shell/tst_all_filesystems_skip.sh
-new file mode 100755
-index 000000000..c2e0ba9ff
---- /dev/null
-+++ b/lib/newlib_tests/shell/tst_all_filesystems_skip.sh
-@@ -0,0 +1,16 @@
-+#!/bin/sh
-+# SPDX-License-Identifier: GPL-2.0-or-later
-+# Copyright (c) 2022 Petr Vorel <pvorel@suse.cz>
-+
-+TST_ALL_FILESYSTEMS=1
-+TST_NEEDS_ROOT=1
-+TST_TESTFUNC=test
-+TST_SKIP_FILESYSTEMS="btrfs,exfat,ext2,ext3,ext4,fuse,ntfs,vfat,tmpfs,xfs"
-+
-+test1()
-+{
-+	tst_res TFAIL "test should be skipped with TCONF"
-+}
-+
-+. tst_test.sh
-+tst_run
-diff --git a/lib/tst_supported_fs_types.c b/lib/tst_supported_fs_types.c
-index 41d9bcd27..35ec82071 100644
---- a/lib/tst_supported_fs_types.c
-+++ b/lib/tst_supported_fs_types.c
-@@ -14,7 +14,7 @@
- #include "tst_test.h"
- #include "tst_fs.h"
+ }
  
--/* NOTE: new filesystem should be also added to tst_skip_filesystems.sh */
-+/* NOTE: new filesystem should be also added to tst_*skip*.sh */
- static const char *const fs_type_whitelist[] = {
- 	"ext2",
- 	"ext3",
+ df_test()
+@@ -180,7 +164,9 @@ test11()
+ 
+ test12()
+ {
+-	local cmd="df -x $DF_FS_TYPE -P"
++	local fs="$DF_FS_TYPE"
++
++	local cmd="df -x $fs -P"
+ 
+ 	df_verify $cmd
+ 	if [ $? -ne 0 ]; then
 -- 
 2.37.3
 
