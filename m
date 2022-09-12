@@ -1,76 +1,69 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A49E5B57F3
-	for <lists+linux-ltp@lfdr.de>; Mon, 12 Sep 2022 12:12:57 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 103225B5814
+	for <lists+linux-ltp@lfdr.de>; Mon, 12 Sep 2022 12:19:58 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1C4EA3CAABB
-	for <lists+linux-ltp@lfdr.de>; Mon, 12 Sep 2022 12:12:57 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 713613CAAC7
+	for <lists+linux-ltp@lfdr.de>; Mon, 12 Sep 2022 12:19:57 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 3DB013CAAA3
- for <ltp@lists.linux.it>; Mon, 12 Sep 2022 12:12:52 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ by picard.linux.it (Postfix) with ESMTPS id 3A85D3CAAA7
+ for <ltp@lists.linux.it>; Mon, 12 Sep 2022 12:19:54 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 5A6C41000640
- for <ltp@lists.linux.it>; Mon, 12 Sep 2022 12:12:51 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 80CB5200761
+ for <ltp@lists.linux.it>; Mon, 12 Sep 2022 12:19:53 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 5327A22689;
- Mon, 12 Sep 2022 10:12:51 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id D081222B2A;
+ Mon, 12 Sep 2022 10:19:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1662977571;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=3yFQC4pwjLkgqCrMF5C96shcH7GVOy/ZoWCcoClz55E=;
- b=v5tjIF9bHF0mYQzts9a+CxNs11g1pPM1+WIknCvm3Cfp7ZqQLjOaYwOKwaDL+pAjgVkuJ+
- 05sIIWGhRcwZX/wB+7YzHJhTQ64Z3YxedtnL85/rZxKVB4/P1bkvvL/ki80MeCXxFI1J2z
- LA91Ef4XgnBLEQ88+Di1H+Ufi8FvoGE=
+ t=1662977992; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=ou/ZFcGAfwb1shReolhkxgvd4nWgOUpv06n8/pzSUiE=;
+ b=euEi9p5Kw4XJjtLH6KxDgjheoHZWw414gFdsaLOOD6trV4uC0WMbpzm73mUkoolrFYuYzd
+ uFkDWEB07EP8MeOlIOMexUgZk+Gvipo+QOtol2EALld6sAK4bXeSAIfHL9+U+uWJKCYLn5
+ rxWasyWhffE30PC9FNKbUuTdcG+DQfM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1662977571;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=3yFQC4pwjLkgqCrMF5C96shcH7GVOy/ZoWCcoClz55E=;
- b=9O8x+YquD6DKRSFgoBHbTHZXJc+Kz+xuL9fpSKVQrq9iSw6GDR9buKMHVUidGuj/dlZpz+
- 4W4vN7WRBAXBm9CQ==
+ s=susede2_ed25519; t=1662977992;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=ou/ZFcGAfwb1shReolhkxgvd4nWgOUpv06n8/pzSUiE=;
+ b=3lYFzVGzSoILtf+TWcSJpync1TqhT/rw/NdMvuyPOvQ6PiV6cfK4+5LCdQpHAsD1+LsVaV
+ TX5Szn9ehMd+PoAw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A297B139C8;
- Mon, 12 Sep 2022 10:12:50 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 95995139C8;
+ Mon, 12 Sep 2022 10:19:52 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id KvVMJiIGH2MuWQAAMHmgww
- (envelope-from <pvorel@suse.cz>); Mon, 12 Sep 2022 10:12:50 +0000
-Date: Mon, 12 Sep 2022 12:12:49 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id N+/AIsgHH2OxWwAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Mon, 12 Sep 2022 10:19:52 +0000
 From: Petr Vorel <pvorel@suse.cz>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <Yx8GIUos8bZNja1D@pevik>
-References: <20220909141840.18327-1-pvorel@suse.cz>
- <20220909141840.18327-3-pvorel@suse.cz> <Yx8EDrF0P9fhbC3O@yuki>
+To: ltp@lists.linux.it
+Date: Mon, 12 Sep 2022 12:19:48 +0200
+Message-Id: <20220912101948.4425-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.37.3
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <Yx8EDrF0P9fhbC3O@yuki>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v5 02/10] shell API/tests: Require root for
- format/mount tests
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/1] doc/user-guide: LTP_RUNTIME_MUL is only for C API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,39 +75,40 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: Richard Palethorpe <rpalethorpe@suse.com>, ltp@lists.linux.it
+Cc: Richard Palethorpe <rpalethorpe@suse.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-> Hi!
-> > Although the warning is quite obvious:
-> > tst_device.c:101: TINFO: Not allowed to open /dev/loop-control. Are you root?: EACCES (13)
-> > tst_device.c:140: TINFO: No free devices found
-> > TBROK: Failed to acquire device
+Not yet implemented in shell API.
++ fix indent.
 
-> > It's safer to expect root to get valid result.
+Fixes: 0f72d519a ("Introduce a concept of max runtime")
 
-> Another option would actually be to make the TST_NEED_DEVICE flag imply
-> TST_NEEDS_ROOT flag, but I do not think that we have that for the C
-> library either.
-No, it does not imply in C API either. Yes, that would make sense for both API.
-But I'd keep it as it is now and I'll do this change after the release,
-Because I have other small fixes on API I'd like to post before the release.
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+---
+ doc/user-guide.txt | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-BTW I always wondered why it was not done from the start, I thought there is a
-reason for that (i.e. some special user with approved permissions).
+diff --git a/doc/user-guide.txt b/doc/user-guide.txt
+index 0dc0c958e..fdd74ca41 100644
+--- a/doc/user-guide.txt
++++ b/doc/user-guide.txt
+@@ -27,8 +27,8 @@ For running LTP network tests see `testcases/network/README.md`.
+                           Variable is also used in shell tests, but ceiled to int.
+ | 'LTP_RUNTIME_MUL'     | Multiplies maximal test iteration runtime. Tests
+                           that run for more than a second or two are capped on
+-			  runtime. You can scale the default runtime both up
+-			  and down with this multiplier.
++                          runtime. You can scale the default runtime both up
++                          and down with this multiplier. NOTE: only for C API.
+ | 'LTP_VIRT_OVERRIDE'   | Overrides virtual machine detection in the test
+                           library. Setting it to empty string tell the library
+                           that system is not a virtual machine. Other possible
+-- 
+2.37.3
 
-> Either way this is fine as well:
-
-> Reviwed-by: Cyril Hrubis <chrubis@suse.cz>
-
-Thanks!
-
-Kind regards,
-Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
