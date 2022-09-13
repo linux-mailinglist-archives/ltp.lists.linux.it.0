@@ -2,74 +2,70 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id E38F55B73DA
-	for <lists+linux-ltp@lfdr.de>; Tue, 13 Sep 2022 17:19:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A60A55B7C33
+	for <lists+linux-ltp@lfdr.de>; Tue, 13 Sep 2022 22:28:53 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 779B43CABAD
-	for <lists+linux-ltp@lfdr.de>; Tue, 13 Sep 2022 17:19:15 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 99D6A3CABF5
+	for <lists+linux-ltp@lfdr.de>; Tue, 13 Sep 2022 22:28:52 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E0EEE3CA900
- for <ltp@lists.linux.it>; Tue, 13 Sep 2022 17:19:09 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ by picard.linux.it (Postfix) with ESMTPS id 2CADD3C94DB
+ for <ltp@lists.linux.it>; Tue, 13 Sep 2022 22:28:48 +0200 (CEST)
+Received: from mail-pg1-x549.google.com (mail-pg1-x549.google.com
+ [IPv6:2607:f8b0:4864:20::549])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id DAD13200C99
- for <ltp@lists.linux.it>; Tue, 13 Sep 2022 17:19:08 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 4FDE35C2C8
- for <ltp@lists.linux.it>; Tue, 13 Sep 2022 15:19:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1663082348; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=fR4CzkOJxumNP8axwiQJIojE1zvZsTFZ0BpHvJt9R08=;
- b=KHeiVujBIJmcPSiR9k9T1Vh35AY08Ihq03I1ID86zZTSIviEWEXfeYLJQ729GKcT00GvHt
- eBSsbD8q0CqFjwdzH6RjQ76hFOAzz6qFy7YQC9YCB4dvnOQsXsmdcrsaUUSea5dn/Bw3Od
- Q+J4tElbnBMN8svO8cBx//aSjwSPVK8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1663082348;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=fR4CzkOJxumNP8axwiQJIojE1zvZsTFZ0BpHvJt9R08=;
- b=zBkLMq/S8atFwtiSnWer1RlMu83QGpAHusipW3s/+d7uul+uNTYKeUuz/07K3Bj16+Day5
- eSDEv5jKsiInCmBA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 40FDB13AE9
- for <ltp@lists.linux.it>; Tue, 13 Sep 2022 15:19:08 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 0PYQD2yfIGPtUQAAMHmgww
- (envelope-from <mdoucha@suse.cz>)
- for <ltp@lists.linux.it>; Tue, 13 Sep 2022 15:19:08 +0000
-From: Martin Doucha <mdoucha@suse.cz>
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 732C61000954
+ for <ltp@lists.linux.it>; Tue, 13 Sep 2022 22:28:48 +0200 (CEST)
+Received: by mail-pg1-x549.google.com with SMTP id
+ h5-20020a636c05000000b00429fa12cb65so6310375pgc.21
+ for <ltp@lists.linux.it>; Tue, 13 Sep 2022 13:28:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
+ h=cc:to:from:subject:message-id:mime-version:date:from:to:cc:subject
+ :date; bh=/wPJiMxThlF6nh0/KlglOdtzG0eIBw4hAcIWI097RXU=;
+ b=YDqa92/UJ9uYyFkeD8Tj1+sMx/AV8/kWiU7DskzwG/EQNmT5ZdT/n1BG8jrdDLW7vQ
+ tgzQOicKJ6yY6K4NYL+mu6+lIOO5xGOgR4hmbQJ341p14LP728ZqkVsV3O+y3QhujHSp
+ 0ddhtnVkR3q6BU7k4CpvZ4rYdtLHpNjN+6LqZS2O4uE+J6brHUPBWgPKOS9138a01db+
+ Ayu7K8u6WDUW78N74Zt9ZXeYki56xId6l7gH+J0sk3So2uG8ei3YK1n342vS2ASsIvc7
+ kSKLWM9h00oUnrAcZ3y2Vc5XBFpKlVIXLJvXNylLaHpS2M6j4BCOxAjK1Hcf9gugb/13
+ B8ag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:from:subject:message-id:mime-version:date:x-gm-message-state
+ :from:to:cc:subject:date;
+ bh=/wPJiMxThlF6nh0/KlglOdtzG0eIBw4hAcIWI097RXU=;
+ b=6hN1yz1zF8NcjtEfgG2qSOprnvZtq4kuO8tqbKKX304AoW9YCvIOT0thErnAfjakd0
+ T0mQVQoEi0nDrmhwxXZK0WnD2EJ5rLTBih50Eh4hWD4WvtuOkLQlcSiMPIgbhcd9tcWr
+ n2q0hej7njwnbYmFbDwYbDgDjaz5w5rA9lur3ZFaGt8Jn0uDG1HWScCtgDOiazLm8qNL
+ FcmQedwM+jfcwgdDCRJz0FId9B0a3Im8T6zp1BUY5qIPMEz+UfSVb3OCL7tG6sptvkda
+ POmpSAIpdyerfGqueGJQ40VUDK9gM+p7XlN6IJ5v79YUImoFDvymsNkoOAWyCtEuzaFn
+ AhyQ==
+X-Gm-Message-State: ACgBeo380Mv+FQu6waJ1EdidJrmpiNo+KeRXLma4v73tVhgJ95jMNDYX
+ r+XsGQVzZPpUNW+BLQMebfq8WOMKoEOLykzTMhTrn85kqwnz6C4cos9Kv3WlDBnIdr0q0zRCnQe
+ XZn4CyBQw9AiYQef7lEdOKL0rw3x7fvqDGoCcoq0Gttyp6ifff2l/tbhw
+X-Google-Smtp-Source: AA6agR4C4OPI9EZrDEKT0/9hBvIYeh+qDFXTb45awRSIyFzumAKP8cIthGnRsf5O0EgsQ6EoCnzSN0eCD1A=
+X-Received: from edliaw.c.googlers.com ([fda3:e722:ac3:cc00:24:72f4:c0a8:305d])
+ (user=edliaw job=sendgmr) by 2002:a05:6a00:168e:b0:53b:3f2c:3213 with SMTP id
+ k14-20020a056a00168e00b0053b3f2c3213mr34295521pfc.56.1663100926409; Tue, 13
+ Sep 2022 13:28:46 -0700 (PDT)
+Date: Tue, 13 Sep 2022 20:28:39 +0000
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.37.2.789.g6183377224-goog
+Message-ID: <20220913202839.1807979-1-edliaw@google.com>
 To: ltp@lists.linux.it
-Date: Tue, 13 Sep 2022 17:19:07 +0200
-Message-Id: <20220913151907.26763-4-mdoucha@suse.cz>
-X-Mailer: git-send-email 2.37.2
-In-Reply-To: <20220913151907.26763-1-mdoucha@suse.cz>
-References: <20220913151907.26763-1-mdoucha@suse.cz>
-MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+X-Spam-Status: No, score=-7.4 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
- T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH 3/3] dio_sparse: Fix child exit code
+ T_SCC_BODY_TEXT_LINE,USER_IN_DEF_DKIM_WL autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH v1] minmax: fix type warnings
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,37 +77,96 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+From: Edward Liaw via ltp <ltp@lists.linux.it>
+Reply-To: Edward Liaw <edliaw@google.com>
+Cc: kernel-team@android.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-dio_sparse currently ignores all child failures because children never
-exit with non-zero code. Fix child exit status.
+Several min/max comparisons are missing type conversions.
 
-Signed-off-by: Martin Doucha <mdoucha@suse.cz>
+Signed-off-by: Edward Liaw <edliaw@google.com>
 ---
- testcases/kernel/io/ltp-aiodio/common.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ lib/tst_memutils.c                               | 2 +-
+ testcases/kernel/mem/mmapstress/mmapstress01.c   | 2 +-
+ testcases/kernel/mem/mmapstress/mmapstress10.c   | 2 +-
+ testcases/kernel/mem/tunable/overcommit_memory.c | 6 +++---
+ testcases/kernel/syscalls/mprotect/mprotect02.c  | 2 +-
+ 5 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/testcases/kernel/io/ltp-aiodio/common.h b/testcases/kernel/io/ltp-aiodio/common.h
-index 68465dc54..6265831af 100644
---- a/testcases/kernel/io/ltp-aiodio/common.h
-+++ b/testcases/kernel/io/ltp-aiodio/common.h
-@@ -78,9 +78,9 @@ static inline void io_read(const char *filename, int filesize, volatile int *run
- 			if (r > 0) {
- 				bufoff = check_zero(buff, r);
- 				if (bufoff) {
--					tst_res(TINFO, "non-zero read at offset %zu",
-+					tst_brk(TBROK,
-+						"non-zero read at offset %zu",
- 						offset + (bufoff - buff));
--					break;
- 				}
- 				offset += r;
- 			}
+diff --git a/lib/tst_memutils.c b/lib/tst_memutils.c
+index 0d20bb17c..c6696437d 100644
+--- a/lib/tst_memutils.c
++++ b/lib/tst_memutils.c
+@@ -31,7 +31,7 @@ void tst_pollute_memory(size_t maxsize, int fillchar)
+ 
+ 	SAFE_SYSINFO(&info);
+ 	safety = MAX(4096 * SAFE_SYSCONF(_SC_PAGESIZE), 128L * 1024 * 1024);
+-	safety = MAX(safety, min_free);
++	safety = MAX(safety, (size_t)min_free);
+ 	safety /= info.mem_unit;
+ 
+ 	if (info.freeswap > safety)
+diff --git a/testcases/kernel/mem/mmapstress/mmapstress01.c b/testcases/kernel/mem/mmapstress/mmapstress01.c
+index c16b50a6d..f425c223d 100644
+--- a/testcases/kernel/mem/mmapstress/mmapstress01.c
++++ b/testcases/kernel/mem/mmapstress/mmapstress01.c
+@@ -310,7 +310,7 @@ int main(int argc, char *argv[])
+ 		anyfail();
+ 	}
+ 	for (bytes_left = filesize; bytes_left; bytes_left -= c) {
+-		write_cnt = MIN(pagesize, bytes_left);
++		write_cnt = MIN(pagesize, (int)bytes_left);
+ 		if ((c = write(fd, buf, write_cnt)) != write_cnt) {
+ 			if (c == -1) {
+ 				perror("write error");
+diff --git a/testcases/kernel/mem/mmapstress/mmapstress10.c b/testcases/kernel/mem/mmapstress/mmapstress10.c
+index 28b4f1e91..53f02c1f6 100644
+--- a/testcases/kernel/mem/mmapstress/mmapstress10.c
++++ b/testcases/kernel/mem/mmapstress/mmapstress10.c
+@@ -360,7 +360,7 @@ int main(int argc, char *argv[])
+ 	}
+ 
+ 	for (bytes_left = filesize; bytes_left; bytes_left -= c) {
+-		write_cnt = MIN(pagesize, bytes_left);
++		write_cnt = MIN(pagesize, (int)bytes_left);
+ 		if ((c = write(fd, (char *)buf, write_cnt)) != write_cnt) {
+ 			if (c == -1) {
+ 				perror("write error");
+diff --git a/testcases/kernel/mem/tunable/overcommit_memory.c b/testcases/kernel/mem/tunable/overcommit_memory.c
+index 20151ebb0..7fe8fe14c 100644
+--- a/testcases/kernel/mem/tunable/overcommit_memory.c
++++ b/testcases/kernel/mem/tunable/overcommit_memory.c
+@@ -248,9 +248,9 @@ static void calculate_total_batch_size(void)
+ 	SAFE_SYSINFO(&info);
+ 
+ 	/* see linux source mm/mm_init.c mm_compute_batch() (This is in pages) */
+-	long batch_size = MAX(ncpus * 2,
+-	                      MAX(32,
+-	                          MIN(INT32_MAX,
++	long batch_size = MAX(ncpus * 2L,
++	                      MAX(32L,
++	                          MIN((long)INT32_MAX,
+ 	                              (long)(info.totalram / pagesize) / ncpus / 256
+ 	                          )
+ 	                      )
+diff --git a/testcases/kernel/syscalls/mprotect/mprotect02.c b/testcases/kernel/syscalls/mprotect/mprotect02.c
+index de9b4ea00..da445d442 100644
+--- a/testcases/kernel/syscalls/mprotect/mprotect02.c
++++ b/testcases/kernel/syscalls/mprotect/mprotect02.c
+@@ -77,7 +77,7 @@ int main(int ac, char **av)
+ 
+ 		do {
+ 
+-			bytes_to_write = MIN(strlen(buf), num_bytes);
++			bytes_to_write = MIN((unsigned int)strlen(buf), num_bytes);
+ 
+ 			num_bytes -=
+ 			    SAFE_WRITE(cleanup, 1, fd, buf, bytes_to_write);
 -- 
-2.37.2
+2.37.2.789.g6183377224-goog
 
 
 -- 
