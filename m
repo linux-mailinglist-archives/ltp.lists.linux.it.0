@@ -2,64 +2,63 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDF785B73F0
-	for <lists+linux-ltp@lfdr.de>; Tue, 13 Sep 2022 17:19:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E38F55B73DA
+	for <lists+linux-ltp@lfdr.de>; Tue, 13 Sep 2022 17:19:16 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 764CC3CAB84
-	for <lists+linux-ltp@lfdr.de>; Tue, 13 Sep 2022 17:19:46 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 779B43CABAD
+	for <lists+linux-ltp@lfdr.de>; Tue, 13 Sep 2022 17:19:15 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 5FD3B3CAAD5
- for <ltp@lists.linux.it>; Tue, 13 Sep 2022 17:19:10 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ by picard.linux.it (Postfix) with ESMTPS id E0EEE3CA900
+ for <ltp@lists.linux.it>; Tue, 13 Sep 2022 17:19:09 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 3C6DF200C2D
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id DAD13200C99
  for <ltp@lists.linux.it>; Tue, 13 Sep 2022 17:19:08 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 3E42934BE9
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 4FDE35C2C8
  for <ltp@lists.linux.it>; Tue, 13 Sep 2022 15:19:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1663082348; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=H/pLo+rtNII3y0B71GKlt5W76F+hNLznOH2GGhoWapA=;
- b=LCWkaUvPPz4eFO7RvO5strhAsGQn1A7bpVRkqDinLyToh+Cd+bKEXtyJIFKGpReV8Z/u/m
- p1kqq/uUT6MsIp5WMn6lDwx7wnfmkAAuM24VpbiDcMjQ/z64Au5tw8xrCQR4++i0gsFsgQ
- I7Z3UUDtKmVGrI0N9rUqG88uCZe3A88=
+ bh=fR4CzkOJxumNP8axwiQJIojE1zvZsTFZ0BpHvJt9R08=;
+ b=KHeiVujBIJmcPSiR9k9T1Vh35AY08Ihq03I1ID86zZTSIviEWEXfeYLJQ729GKcT00GvHt
+ eBSsbD8q0CqFjwdzH6RjQ76hFOAzz6qFy7YQC9YCB4dvnOQsXsmdcrsaUUSea5dn/Bw3Od
+ Q+J4tElbnBMN8svO8cBx//aSjwSPVK8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1663082348;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=H/pLo+rtNII3y0B71GKlt5W76F+hNLznOH2GGhoWapA=;
- b=E5GnOJKi7Y+LCFBIA5jy6QGI+ZymU2Q14gb2Ee+kcFMnk2zBHyvZej/92GZ7UHBpDiVNm3
- wYGHlJwQMyF/xIAQ==
+ bh=fR4CzkOJxumNP8axwiQJIojE1zvZsTFZ0BpHvJt9R08=;
+ b=zBkLMq/S8atFwtiSnWer1RlMu83QGpAHusipW3s/+d7uul+uNTYKeUuz/07K3Bj16+Day5
+ eSDEv5jKsiInCmBA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2EF9F139B3
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 40FDB13AE9
  for <ltp@lists.linux.it>; Tue, 13 Sep 2022 15:19:08 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id gGOjCmyfIGPtUQAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id 0PYQD2yfIGPtUQAAMHmgww
  (envelope-from <mdoucha@suse.cz>)
  for <ltp@lists.linux.it>; Tue, 13 Sep 2022 15:19:08 +0000
 From: Martin Doucha <mdoucha@suse.cz>
 To: ltp@lists.linux.it
-Date: Tue, 13 Sep 2022 17:19:06 +0200
-Message-Id: <20220913151907.26763-3-mdoucha@suse.cz>
+Date: Tue, 13 Sep 2022 17:19:07 +0200
+Message-Id: <20220913151907.26763-4-mdoucha@suse.cz>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20220913151907.26763-1-mdoucha@suse.cz>
 References: <20220913151907.26763-1-mdoucha@suse.cz>
@@ -67,10 +66,10 @@ MIME-Version: 1.0
 X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/3] Make io_read() runtime-aware
+Subject: [LTP] [PATCH 3/3] dio_sparse: Fix child exit code
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,86 +86,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Running dio_sparse with too many children can cause test timeouts
-due to severe system overload. Make the children runtime aware and
-switch to exit code validation.
+dio_sparse currently ignores all child failures because children never
+exit with non-zero code. Fix child exit status.
 
 Signed-off-by: Martin Doucha <mdoucha@suse.cz>
 ---
- testcases/kernel/io/ltp-aiodio/aiodio_sparse.c | 9 +++------
- testcases/kernel/io/ltp-aiodio/common.h        | 2 +-
- testcases/kernel/io/ltp-aiodio/dio_sparse.c    | 8 ++------
- 3 files changed, 6 insertions(+), 13 deletions(-)
+ testcases/kernel/io/ltp-aiodio/common.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/testcases/kernel/io/ltp-aiodio/aiodio_sparse.c b/testcases/kernel/io/ltp-aiodio/aiodio_sparse.c
-index 88aec7952..595c76226 100644
---- a/testcases/kernel/io/ltp-aiodio/aiodio_sparse.c
-+++ b/testcases/kernel/io/ltp-aiodio/aiodio_sparse.c
-@@ -188,7 +188,6 @@ static void cleanup(void)
- static void run(void)
- {
- 	char *filename = "file.bin";
--	int status;
- 	int i, pid;
- 
- 	*run_child = 1;
-@@ -222,12 +221,10 @@ static void run(void)
- 		}
- 	}
- 
--	if (SAFE_WAITPID(-1, &status, WNOHANG))
--		tst_res(TFAIL, "Non zero bytes read");
--	else
--		tst_res(TPASS, "All bytes read were zeroed");
--
- 	*run_child = 0;
-+
-+	if (!tst_validate_children(numchildren))
-+		tst_res(TPASS, "All bytes read were zeroed");
- }
- 
- static struct tst_test test = {
 diff --git a/testcases/kernel/io/ltp-aiodio/common.h b/testcases/kernel/io/ltp-aiodio/common.h
-index d9cbd8611..68465dc54 100644
+index 68465dc54..6265831af 100644
 --- a/testcases/kernel/io/ltp-aiodio/common.h
 +++ b/testcases/kernel/io/ltp-aiodio/common.h
-@@ -85,7 +85,7 @@ static inline void io_read(const char *filename, int filesize, volatile int *run
+@@ -78,9 +78,9 @@ static inline void io_read(const char *filename, int filesize, volatile int *run
+ 			if (r > 0) {
+ 				bufoff = check_zero(buff, r);
+ 				if (bufoff) {
+-					tst_res(TINFO, "non-zero read at offset %zu",
++					tst_brk(TBROK,
++						"non-zero read at offset %zu",
+ 						offset + (bufoff - buff));
+-					break;
+ 				}
  				offset += r;
  			}
- 
--			if (!*run_child)
-+			if (!*run_child || !tst_remaining_runtime())
- 				goto exit;
- 		}
- 	}
-diff --git a/testcases/kernel/io/ltp-aiodio/dio_sparse.c b/testcases/kernel/io/ltp-aiodio/dio_sparse.c
-index b08d2ea1e..1b5834ed4 100644
---- a/testcases/kernel/io/ltp-aiodio/dio_sparse.c
-+++ b/testcases/kernel/io/ltp-aiodio/dio_sparse.c
-@@ -96,7 +96,6 @@ static void cleanup(void)
- static void run(void)
- {
- 	char *filename = "dio_sparse";
--	int status;
- 	int fd;
- 	int i;
- 
-@@ -113,13 +112,10 @@ static void run(void)
- 	}
- 
- 	dio_sparse(fd, alignment, filesize, writesize, offset);
-+	*run_child = 0;
- 
--	if (SAFE_WAITPID(-1, &status, WNOHANG))
--		tst_res(TFAIL, "Non zero bytes read");
--	else
-+	if (!tst_validate_children(numchildren))
- 		tst_res(TPASS, "All bytes read were zeroed");
--
--	*run_child = 0;
- }
- 
- static struct tst_test test = {
 -- 
 2.37.2
 
