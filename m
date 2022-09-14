@@ -2,75 +2,71 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDC7E5B8116
-	for <lists+linux-ltp@lfdr.de>; Wed, 14 Sep 2022 07:49:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 337845B822E
+	for <lists+linux-ltp@lfdr.de>; Wed, 14 Sep 2022 09:49:51 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2FB823CABCB
-	for <lists+linux-ltp@lfdr.de>; Wed, 14 Sep 2022 07:49:22 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 92C0B3CAB98
+	for <lists+linux-ltp@lfdr.de>; Wed, 14 Sep 2022 09:49:49 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 12E4F3CA900
- for <ltp@lists.linux.it>; Wed, 14 Sep 2022 07:49:16 +0200 (CEST)
-Received: from esa8.fujitsucc.c3s2.iphmx.com (esa8.fujitsucc.c3s2.iphmx.com
- [68.232.159.88])
+ by picard.linux.it (Postfix) with ESMTPS id 403503C958F
+ for <ltp@lists.linux.it>; Wed, 14 Sep 2022 09:49:45 +0200 (CEST)
+Received: from esa15.fujitsucc.c3s2.iphmx.com (esa15.fujitsucc.c3s2.iphmx.com
+ [68.232.156.107])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 19719601D0E
- for <ltp@lists.linux.it>; Wed, 14 Sep 2022 07:49:14 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 347011A004A4
+ for <ltp@lists.linux.it>; Wed, 14 Sep 2022 09:49:43 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
  d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj1;
- t=1663134554; x=1694670554;
+ t=1663141784; x=1694677784;
  h=from:to:cc:subject:date:message-id:references:
  in-reply-to:content-id:content-transfer-encoding: mime-version;
- bh=2w4XZyznrrEgAVa4y9a72Rd+9bUJVL2+WshhDfZ7uPU=;
- b=EgWrX1nmHTH1wD6jc7sEZP4+sEGdpUnVibBwIMEyrDMVvVse5kyqK3R7
- QwwaX+aigPg7FVon8A3qMmS6bdlaBUV2tgxUleNcw55Oci4qViQ2qZig8
- 16cdNGeYuhcsb9PN9WrONDok8X0K91kQfJXhV5Rpa7D0U3OO7F2DwenQG
- p5Q5M+9anUcKHhXVl4gfqqwx0uQiW9S0fyvwPM4Sl4BA4Acr+oVrWpAXi
- 70o4VcKljKHpZR8m6drPlFZZj3El2u9nm5e/qc7T/TvfW7qvRQzIGkQiP
- 4pyaKyCvh4z53XJaorkgWxWO6AXXZ5BedXT5d/QRK6dM3yGmG7zgti/HL w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10469"; a="65042428"
-X-IronPort-AV: E=Sophos;i="5.93,313,1654527600"; d="scan'208";a="65042428"
-Received: from mail-tycjpn01lp2168.outbound.protection.outlook.com (HELO
- JPN01-TYC-obe.outbound.protection.outlook.com) ([104.47.23.168])
+ bh=ui1ZzXz74fCoTY8dg3GGoscUNK3HI/zoBc+41Wvlc2Y=;
+ b=VfNBnh1K5yLSHRYez78zN1R3KF43o15MNpu/ca+rBwj4RJZ4Qhe0Xuse
+ C/XqxOwjCTRuhil0WRaGNLo9CX2JTsLrbqZ0scDX4YZhnBLN7O0Q2vfpE
+ fY5BzeFPYHQb4k/eu0FJMjyboBXjsnpC0g7eZh4VDy1UbbBAlPVxb1Lzh
+ tC7oZGlb6pu3ucB9VtFVsQ9wU6WpeOhC641V781ftknsYLZLn0nhnCT8p
+ gIjBouPE22q3b2cIv5e7xQ7IgrZXlojCM5MdV7NDwMVTmQT3NCMZDmPQi
+ zwRMr6d6OrUiBwYx4ywbBgLUDHCwu85PXp5Lf1wdVua7+4LWJ4rS63cxB A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10469"; a="65076428"
+X-IronPort-AV: E=Sophos;i="5.93,313,1654527600"; d="scan'208";a="65076428"
+Received: from mail-os0jpn01lp2108.outbound.protection.outlook.com (HELO
+ JPN01-OS0-obe.outbound.protection.outlook.com) ([104.47.23.108])
  by ob1.fujitsucc.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2022 14:49:11 +0900
+ 14 Sep 2022 16:49:41 +0900
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DKSRwhq9bAxOCX8j5ZOTQvsFYnxO+taBT0WaHe0RC0R1lMvb8UexlwW7X486+s9JAaQ7YIL69lvjiGVpPydKDGWB6jONOLbphwBE3gt6tQEAH5bVCVcbSWaYJRHaztAB2I5fboB5MMVQxq9NKNncS2atgf5zYYVdIOzupUA0yW2KvZi9+TAawSfGMQPTVHYNSrDVntyizCxA81KglCCUF828sKLTC3BKFtdQ4GJy+BBp+R4W8NgIGYV+VKaB0kP3BzOdhrF7amW0OU0JyJJ5FXjXW5xNDx47A0ri+Ec1m6V481GfyhG9bjHPTon3sKcqUm8/KK6cW3pVgp3g7oSb7w==
+ b=hTJJg61cMZoPIPe75Rs6ZVsJToQm5IdqEa8xQip2X/Xgctogwh9IQYWdtnr36LGf3nRl/HfsfMadC6CPbgej9txp6hajUDZ/E5YM0Dnu8eTiA6RqF9PI2MCMa/Fbkdh1HGNyMpBVT+Hc9b6+jDli0OrAqRM2Af0VrmBzZ80WsGink5RTITZ+iRZd4Fij+wVEB7oHQ81Y/BVqxSCTHvxO97Q4mM5ThI2bccvERiVXmJAmEEBqRnjEUXSXtExqWldEUqsINfv05alqJarZwqbNGy70UGiXDowxMjBQcIKP+VO98FUpJ+MC7UMYRT9jBAwkYRHjIBRmAW4tsPTOuDAwTw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2w4XZyznrrEgAVa4y9a72Rd+9bUJVL2+WshhDfZ7uPU=;
- b=Eo1cEl+gBBKUDZZeLQ4v6DwakAQcvN+RewyJufU5q3TtdCfO50UFzUYP2zhAnhHrwhGCKMFhSdzicFBDIPtndj6sJg3HkgnxJJW3cUIc4l7IHv3lGJdeXMLjGHbn28EdA8XJtmycbzi/aZyWoyKOqBnoYtnPqN0RstOhjiBHbmbGW8sExOaPIkRSSDTvs+qb7fnYqqY0IuoK9APtF2t/zH1Xf3xjD9Nnc0l0T56HGfKwi2462uz9KPRCfu9Rxw0FW0XSPgeoNbuC1GBmvLd9yHasRH+wXrFP1A6sOFgVRsnFl29n43VQI9HelKSO5+WYomGuozGDEd5m4xEOhZcyOQ==
+ bh=ui1ZzXz74fCoTY8dg3GGoscUNK3HI/zoBc+41Wvlc2Y=;
+ b=M2H9WFUQ1TcQSjV257lAuvx+Cr34P/gJBoHLI7O4JRi0k8A99/aebNZGzRyKNJhmp18d6AO4Udk6Sa+vNw3oVJzVao5B9RKoXRnZDowtmq4t1qm+FUcmoK2O9YR2hAV5y7c5uclaTrYKtDRYR+fZFTbxnYU7W0BzyhK0JnC1wDOzZraBVkKRkQi/GU6Mdse0r8xnG/bpbbLuqXgMiYUHu2yR3s1epC1DEUiJ3Inrtm1FaM61AtSH93FzVcLd8c7JC9oIu9X1qDHpu/zi0sj0eWg87Cf4ekXXMoXDkTCqGL5p8gZtPH8Q2UiF9cQ9kJDUNHtsku3RAombUbU5HDocHQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=fujitsu.com; dmarc=pass action=none header.from=fujitsu.com;
  dkim=pass header.d=fujitsu.com; arc=none
 Received: from TY2PR01MB4427.jpnprd01.prod.outlook.com (2603:1096:404:10d::20)
- by TY3PR01MB10236.jpnprd01.prod.outlook.com (2603:1096:400:1da::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.22; Wed, 14 Sep
- 2022 05:49:08 +0000
+ by OSYPR01MB5526.jpnprd01.prod.outlook.com (2603:1096:604:90::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.19; Wed, 14 Sep
+ 2022 07:49:38 +0000
 Received: from TY2PR01MB4427.jpnprd01.prod.outlook.com
  ([fe80::a9fe:6054:eadc:7ef8]) by TY2PR01MB4427.jpnprd01.prod.outlook.com
  ([fe80::a9fe:6054:eadc:7ef8%5]) with mapi id 15.20.5612.022; Wed, 14 Sep 2022
- 05:49:08 +0000
+ 07:49:38 +0000
 From: "xuyang2018.jy@fujitsu.com" <xuyang2018.jy@fujitsu.com>
-To: Cyril Hrubis <chrubis@suse.cz>
-Thread-Topic: [LTP] [PATCH v3 2/2] syscalls/openat: Add new regression test
- when using open(O_TMPFILE) under umask
-Thread-Index: AQHYsIC9C/1bZJ6Qz0CEwNYjtTvTs63dat+AgAFAhQA=
-Date: Wed, 14 Sep 2022 05:49:08 +0000
-Message-ID: <7478857d-b46d-2146-5cd9-8631f7909aa2@fujitsu.com>
-References: <c266e389-c6f4-502f-523d-6d51fbf3ed58@suse.cz>
- <1660555627-2269-1-git-send-email-xuyang2018.jy@fujitsu.com>
- <1660555627-2269-2-git-send-email-xuyang2018.jy@fujitsu.com>
- <YyBstRuPEtZNp887@yuki>
-In-Reply-To: <YyBstRuPEtZNp887@yuki>
+To: "ltp@lists.linux.it" <ltp@lists.linux.it>
+Thread-Topic: [PATCH v4 1/3] syscalls/creat09: Add umask test condition
+Thread-Index: AQHYyAlTrUVCU8c+IUqnRmjYm3bjvK3enf4A
+Date: Wed, 14 Sep 2022 07:49:38 +0000
+Message-ID: <e045de45-d68b-4bc0-6ee4-ba476adc5c85@fujitsu.com>
+References: <1663143142-2283-1-git-send-email-xuyang2018.jy@fujitsu.com>
+In-Reply-To: <1663143142-2283-1-git-send-email-xuyang2018.jy@fujitsu.com>
 Accept-Language: zh-CN, en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
@@ -78,74 +74,73 @@ X-MS-TNEF-Correlator:
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=fujitsu.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY2PR01MB4427:EE_|TY3PR01MB10236:EE_
-x-ms-office365-filtering-correlation-id: f69705d4-d3b6-4e4d-5ca8-08da9614d799
+x-ms-traffictypediagnostic: TY2PR01MB4427:EE_|OSYPR01MB5526:EE_
+x-ms-office365-filtering-correlation-id: d79ccb7c-9b75-48e1-b0c0-08da9625acd7
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: tMS8Nj1RBTcXy0G9YI7rkIobUf/1E8gJds+SgDdQznGsb+g5znThCNdwIZaTbRMxEOs/159tR2iq/+mCA+y5qSNvjBll8bufY+ouSOT9E1jiU3aqivqUJdobLy7bvmVfPsgND3WCzmxmxS//cDT2lKhce6RL/wgIMF8BuvQCj3e8Uhd28Bu48BZ02GR3I9OoshjPa30EeXiFf+IeVCy82AIJ3l61nppZdfjj5uza3ovsFHcRHX09Et+ZRT5nMbNe3T8WxMojI0o8fXw2n1S4dyBiv3EDJFdagQ0kl4SAcvSWQO7IETvKMTeOUYrlmsJqNcLeul1yPuD0bPM1BlOENWzCxppdyXWWaOVPSofaXSsegqrr+mAYYpfvy8u1OWlX4YJvAiHLPsHHZk1reptdKl46S/oS/cUB9aHdbDrR3NdtOPAJXXe/M6K69EZvju8vel3G8PM+LCh4GwWu5PcfPHoAVM8VtHGtRL4EgTfWFpty1CfCMWfgJFSyqLIWw+oPntqMl/6lCW+ND3VZHMihTv3UcVoRAJhv93xMVSIQsS1wCLrjQxnxiyHFX1lsYeGNsGHpqAW5tArGpmS8aM8t9fQpPrv6clRo2Kl3jOTeY5gsOzeSaTTFI5VKw20tiArCfP/H6vNJxlzhRvxCacZpt1VN6wv0fht0hnrm80aAxA0UVlA3Fg/6TO9UoNQPn8/oN7fVQi6u767jG8x0HpGmNviVGWJ962657tIF5dlo9XWqd+ThSKgKF/BZ0c0zuu23Q4BiCCl3+Iu+PqPyegkR63invEDrsFBXxfT2xP5CZU6uyETi5oCpp/Mq5FNLB0wQfdB2MujqisS5HPWHrCww73EeEFv1nPRDoCWfniYL35E=
+x-microsoft-antispam-message-info: GVumj4jE1QqGxJNqfiiqiNBjlGBIJRT0wrf7OhRNV+R0TE5wznE2DQJW8b4WWC5+yroYLWT6c8T9ojm0lMxYY6ULBWAYb+jqiVvLevg6l5iat/taCQfRnJXRi1DKUSgiYly9YDox//77WULB98BbC89/z2YIzWgZ+RUUhu39CI2y25q7brOMwX1s0UgPsRpy9oYUKVdjnCGM9DA7i/AuPlmbN3Rzs4nilEWbSAzBuHctT4LGgTlQeBYr3U87cpbKQ66gAskyH1vUWl17sZmkhe5MbVNnikKT26btzFv6W07mwaNcEp494wnZ5SXoJwccL5wc/ECH0NIXhDFjmxhD60OlPhvxCO00Is7Gj5VOW3E4+1uoQlU1ScumlWyFPCwyMhScEruHm5egwfusSget05Kb4tY/G2lq3Oe+Uq3GJ5nhfomY8x0gYGkfiwj4qmormV3Bkvl6FkjcJUjo8un0J7P8QoN34LotjPQpgbo8VdNmtDcfbUEtgLaTo8P1xX5d4ukjvrMFlrSfqcHo2Xcrl8ZErvdJ3P2jDBnWO9d1ZzigcUai8beAJQNOOfktLa3hZW2XjodX2NEFSKaR/rhGWo80L6lU3xeLfzLYMJgKMG1SAOCvNFvBhPfPg4tvYuRmE2IrUfVkq0M9QEZnz1OFpXskZks1mtw0rNjKA+C2AQD+Aw2v+1nlweDj/F8FGfCEiFtB6E0SEX8IYpc+0tf4uNuk12PAvKBAqkO9Nlbfc9zxsNGdTrfhfj2WwttUxrQIYIDkS0yzCTW0gik09vw5+dbioyd2Y14VAw6ivLxAjGXmA1x8WLsnBtc6H0FRpgvPVZkLh9kDw17eqtkgBkvzL8Zz+ttQgcIpDYCYwtzYX5U+zQshaHTOXILEKVUjvDumS5lDa5kqE5DlXBTwDZcyPg==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:TY2PR01MB4427.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(136003)(346002)(396003)(39860400002)(366004)(376002)(1590799012)(451199015)(2906002)(66556008)(38070700005)(36756003)(478600001)(31686004)(316002)(41300700001)(85182001)(66476007)(5660300002)(76116006)(6486002)(6506007)(966005)(66946007)(31696002)(2616005)(122000001)(8936002)(38100700002)(83380400001)(71200400001)(8676002)(186003)(82960400001)(91956017)(54906003)(26005)(6512007)(86362001)(66446008)(64756008)(4326008)(6916009)(1580799009)(45980500001);
+ SFS:(13230022)(4636009)(396003)(366004)(39860400002)(376002)(136003)(346002)(451199015)(1590799012)(8936002)(2616005)(86362001)(1580799009)(316002)(66946007)(122000001)(8676002)(5660300002)(478600001)(64756008)(4326008)(82960400001)(26005)(38070700005)(186003)(6916009)(85182001)(2906002)(66446008)(6506007)(6486002)(45080400002)(71200400001)(31696002)(31686004)(41300700001)(54906003)(38100700002)(66556008)(36756003)(6512007)(66476007)(91956017)(83380400001)(76116006)(45980500001);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?TWI1MU5WM090My84NWxUMEtMZ2ZNZTVMelJYblIxZmt4dVFBWTlpcGc5SlBn?=
- =?utf-8?B?b1FvN1ZoRVpIWFBGVHpLQXlEYmdraW1Mbm1VY09hZ3QyUXJOemJBUVlNTFIx?=
- =?utf-8?B?WWMwMjJpWnBVcUNHMUlUNElhSWhnc3BSMmpKZ21oclBKYnZialBseDhjL3RG?=
- =?utf-8?B?UEFTWlMyanUxSEF4bnZLSFp5aVdqandXRHo0Tkp4VW1mcUZwck8wRllsUHJQ?=
- =?utf-8?B?NnlXYXBrWFYrei9DMktJYS80YnhvV2lhMlN3Und5enZobmErVjhBVkd1M1Bk?=
- =?utf-8?B?NE5yZzVnbFZnazV3R2NBT085Tmo0cVdrVlIwOUhQbURuaVhMeG9HTERkTTlC?=
- =?utf-8?B?dWdJYWdUaW5qY2w2UDA4eUJsd2FRdXNyaEw0MkdUaXloblZNbmZCTDJiQ3Bz?=
- =?utf-8?B?bDlMTDBreHpsTGg5WE9pN2F0bzhOTjFTVEUwWE5PM3VmZzNjV0F3SXozM25z?=
- =?utf-8?B?d1NmQ3RQRHdIcGE0bkc5bHpqWWJ5UU1TNzhZemE4VHRIZjVDYXFpMmdveEpw?=
- =?utf-8?B?K2h3b2pBbjd2WHorWmtrUU53UXE3SGtHNHdSbFQ3YWJSUFVrakpVZGMwWnA1?=
- =?utf-8?B?RFg2ZC91NzhwUlZZTG02NzAxNkZSNWxXNkczVUxsNTZFaHFtUkgwYk5qeDFr?=
- =?utf-8?B?NzByNnpRV205WHVnQVhLSUphQ2VXNnM3SWFrQmVldzR2YkZhN2VtWnRWaXB6?=
- =?utf-8?B?c3hDaE42eU9LTjBaUDJpa0dMV2dPaWt2Vk1CSklBejlMbmRvVU1RakpRRDUv?=
- =?utf-8?B?allpSFZPZFYyZExLMjJITG5XVU84bWVDSlNaQW10dERvcXFBSUFHSTdPbnZr?=
- =?utf-8?B?ZEY1RjRFaVlKRUF3WTZhZjVYY090TlRsQ2tTbTdpRHJnVHBRY1pFRlJpOUl4?=
- =?utf-8?B?MkdoOWNWbVBlUTM4NDQzNXVjbHF3MnNEdVZoM1JmSWUvWjlZTTVXS2hjTkpD?=
- =?utf-8?B?MGpQZW82cytoTzNuTWJNSi9FVzhpUU5YNmo0VU9VVTQ1NUhZTHNGWldOOEZh?=
- =?utf-8?B?MnpTa0xnMlRsb0dWMXFKTXU2WDdZUW1pZ0luR1BQK2FFcjgvVFQ5QVdXd1V2?=
- =?utf-8?B?WUY5d2ZPcjFGU0h0d3BsTGlscDd1Mll5dkphL1JlS3RjRytyY3hRMkE0VHo4?=
- =?utf-8?B?YXEySmR2UFRUai9JZnVHSGd1UGlaMDdVMUVNdkhVeGVvaE91b3JIb1lqVlEr?=
- =?utf-8?B?VXpTVnZXb0wrWDJHUVdyUmRVTWhmZkR5VittelFieHN3cXI2UVV5aStpakEy?=
- =?utf-8?B?OW9jdkJZNzhtL3czVVF1R1VwcDUreDZEbFRGSFpKamJWaW5MVkFVdVZnc3I3?=
- =?utf-8?B?RkQyZGlCV2N5T2taQXRwSzMxVllqaGhRTFVzVFBqSERDVCtLSGttbkh2dWJD?=
- =?utf-8?B?WTJVaXoyMkZzTVpTUTVxWG5iYnlESFRENEJ1Y3pta1F0OU9iTGdrT0VYOWJH?=
- =?utf-8?B?V3Jzajg1dCt0UXJ4dm5EWmVUaE1XVWhSam4renJtV2srS3A4Tnl5RFlwTmcr?=
- =?utf-8?B?L3N6YldmdUpqQmprOTNlMDJHNWZqMEYvcHlEV3BPMGpKRkJ3dzJtMFBuVnZU?=
- =?utf-8?B?Q0RWZHE4a1d6R0NzQStJS0R0QnVJSXJ1ZDNZUnRFVVBlOS9IdUc0aWtnb2lt?=
- =?utf-8?B?UUJOem0yU1dudkFiWkVoeXRscGRxYTg5djBtQWpxczlqWU1tM004Z0dZYnhr?=
- =?utf-8?B?MmNvWjkybG44TDQ4M2lONmJJUlA2amVXeEZoZGp6azIvS1VjN1hZK1kwRE1D?=
- =?utf-8?B?bnQrUGhLQkpISHp5cWV0bDd3ZDdkcjVEVVZjUHhEZzI2R0c5MElPaUhXV1dj?=
- =?utf-8?B?VmFzWm5YTE5GcDNEeGh0VjhPcVp1V2Q4bksrWS9lRjFkTnppaitQSlpwU2ho?=
- =?utf-8?B?b043aDVFRGwrdjdXT3BORlhtTnZsczdnRmxKQzNXcDZtM3Job0YrU0lFOTZJ?=
- =?utf-8?B?eE5jOUEwdnNtQm5JRWlGQi85MndneGg0M1NGMElWZGdLY3dQMUZ5RGtIQ2xM?=
- =?utf-8?B?dCtuRzhXM0RmeGM5SGFaRWxzUHByVTB5STRtOStoZDVxRUxCUlZXL3pQRFlP?=
- =?utf-8?B?UEMySTdqeUdUOVZLdi84TjdiWkY0RlJoTGVYMzNRMHV1K1dBbDZOU2RHeUVU?=
- =?utf-8?B?d09LTUJJZHFqTW8wY0hDTXAxb1pHKzdPVnhBMkRWd2FENUp6ZjFVYVhxUmdX?=
- =?utf-8?B?ckE9PQ==?=
-Content-ID: <0DBEC68A6B36844E9AF0CC48AE4BB5A1@jpnprd01.prod.outlook.com>
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?MWZHdmYzc2o5TUVZaEEvTlZsNVF4N1IxdE5CY1c1NmxNZlRKOVgwV2Q0ZFdu?=
+ =?utf-8?B?bnQ3U1BRMGk4ZDM4bGtkT2ZEREVqT0RNWnZUdEJEVUIxQ3A3OElONjhUdHhM?=
+ =?utf-8?B?VnQyVm1yZnJYTnNWbXVnYXlnR1Q1bjFMODZud2h6VHlDeUpSdUt1QnVYNkZI?=
+ =?utf-8?B?QzgwM01xSDdUSFFReVRuRlJZSHNhSEJjLys5UXJCWkhnSWVIdmxMNWxXTndW?=
+ =?utf-8?B?SGxTUXZ3TFdBSDNEVFV5SmlDUmEyQ1lONU9ueXhiVkc0WU11YkdrRlNFaUFX?=
+ =?utf-8?B?SEZIY1hVMFlIMTBPdE5wM3ZweGJ4UVNmSXpwaWZValROOUxhSXE2ZTRRWVBS?=
+ =?utf-8?B?aXNGT2I4UWhXNDdIMHMxdldIYmFkRVJ1MHFzUGRBZ1IvV2FxUEVnaExLYmZB?=
+ =?utf-8?B?VWdkSzRnR2xpOVVhY3YwN0ZWeUlybXhIdFFqRGxPWVlxL1IyWVY5bVBxNXEr?=
+ =?utf-8?B?UVRrR3llNDRDc082VUx4N3plMW9YRncrdnZEMFFIdjZCUDg5eHJLYk9tMjdj?=
+ =?utf-8?B?VTJwMHFlMmRIVGhBZ2NKVHJ4UlpyMUF1RCtPbVJtT2JoUzlBSUhhRkgxVFlY?=
+ =?utf-8?B?ZEhDazR6RTVUKzh1WEVDWm1Qc1MvWG9vdGxEcUV3TUxIL3BBUUdCRStaUUlL?=
+ =?utf-8?B?bE9KRDZaWFQ4aFc4VGk0M3c2b0U5NEpVWGxmUmoxNzJzMVlLU1gwMnJOcWNI?=
+ =?utf-8?B?bDZDTms0d3V3dWsxOGdhaFBxOEtRdHcxUTFheVhWS2JRMXR2SitSTy80WHdp?=
+ =?utf-8?B?d201RFFscTJRb3FsU1RUWGxrdFpXZXlkZ2tpd2JVZExwQzE4bExKbDRMM0Y0?=
+ =?utf-8?B?dlRTZEhLcStBUk5VUGtXODNOOEhmSEJTcnN1VnNvZTY0REF0by9zSzBETFZp?=
+ =?utf-8?B?a0dUVFNURWdra1RKc2FpQjEyTHp6dHZxK1JHcEhVM3ZyUXFQZndHQTI0NjdL?=
+ =?utf-8?B?cEtMc0VtdlBCc2ZxY3c2NUNVQ3ZmYUV1Q0R6SUpCZjZMaFZVL0pYV1VzbTJC?=
+ =?utf-8?B?ZFdWMjhDMDlncmlGVFBxOU44S29HOG1iNTZ2R0FlTFN3MTJaRXM1MTlzbHBq?=
+ =?utf-8?B?akhyN0tjYko3ajRzRXNWM0xKVmV1eVRtUXlhNUowWTE3amFSUnVGMXpiVmI3?=
+ =?utf-8?B?WmtMWXlkZG1WdHNoZjk2dmp4SHZnT2FCUUJ3OGxXRjNNN3ByM0c0aEcxWEll?=
+ =?utf-8?B?aFpZd2RLa2hiTjdvL2psUUswV0c1bElCWjFpaWUrYWZFaHZQUTFtVjA3Q3BK?=
+ =?utf-8?B?TENrSW9ZcmcxRlA5S1hnY01pRHkrWUFXVDVuc0VKSGlhdVpHcW1CaGo2ZmhE?=
+ =?utf-8?B?UXptRzlZMlk5TFVkNDVZR3ZZc3FkUGwvdTArd0tGeGt4QktsWm5mK2FKQ1di?=
+ =?utf-8?B?YTIvbkQvUnRIUkQ1cXdseXdXMTNGV2pXQlgvNlpTeWtrT0RxSDBoQUYrREsy?=
+ =?utf-8?B?eU1Gak1XTzhZMVhkTW4vbVFMSEdpbnpqeGd0WnRVTDRVOEwrNm8rbTBiRDlQ?=
+ =?utf-8?B?YVpHdGFzbGNXNzI4L0ovRmZ2eGh3NW1yaTJTUnNTSTVkMExGR0FpRTRKdVI1?=
+ =?utf-8?B?QzVrRFNjMHNXaExuWnp3dFVLREdYV0JoMFAvdFdwUmdsQ1VOL0M4QWFoY2Rw?=
+ =?utf-8?B?OERHUGNtVlhSNjRqNDhPdFdjVThwZ042ZnUvNHdZTSt1QzdKYjllbEwzM2l6?=
+ =?utf-8?B?Z2JWR2JiMXg3VC9oRW8vWG1BQmxyTGhJYnV2OGl3eHM4ci9ycWJmRFFqVkdX?=
+ =?utf-8?B?TjJVRjNqSFF6SnRVQVNEK3pLcEpScmo4MTFUSUNvYzVTM0tJTlJMbWNoNkR4?=
+ =?utf-8?B?NEVGK3dkcEppMG1LZWdZOG9VQlFhay9RUzBaN1I4WFRMZGt2V21CK1FkMmV1?=
+ =?utf-8?B?Ykh3emhzNWhuajFDQk9jMUU0WG01eXIwd1B3S3o2b2VydmZ5MFZISmFDOTZP?=
+ =?utf-8?B?NzFhZzZYQmlFVEE0bURsOEpWRTFYWmptbkpValpsUEN2ZjNaSVpPZ2FkQW9m?=
+ =?utf-8?B?cGNrOUNLQm9LY3NDWTYrb05BTm9zc0s1SkRKcDBQb09pOG1HdWVKRkNGTW82?=
+ =?utf-8?B?MUhVTnc2TUhlK3ZHa2ExTFNVYU9LYkFXdThzT1Q0VVdWeC9zTWU5M1dNYnM3?=
+ =?utf-8?B?d05zREZFQ0tuQ000cjNCYk00Rlh0VmltNENOVUd3KzlPOWNQcEZVNmZkakhR?=
+ =?utf-8?B?QkE9PQ==?=
+Content-ID: <1A121531E63AFB46A12927D55C1614D5@jpnprd01.prod.outlook.com>
 MIME-Version: 1.0
 X-OriginatorOrg: fujitsu.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: TY2PR01MB4427.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f69705d4-d3b6-4e4d-5ca8-08da9614d799
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Sep 2022 05:49:08.6698 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d79ccb7c-9b75-48e1-b0c0-08da9625acd7
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Sep 2022 07:49:38.3494 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: a19f121d-81e1-4858-a9d8-736e267fd4c7
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: KdI8F3216Mz1kF40eS4BsCFgY7EmyfuWBCCE1ajeSbzjZ3ariNQa8ylY86K9N12Lk6Aqk9Vpn6soIRhjetP9/jnTQK0DXQJpNI84f8nAW20=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY3PR01MB10236
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-MS-Exchange-CrossTenant-userprincipalname: selJX6K/XWpH7zuNp/jGIgKkVkROtbhKaZRCbryPUw8Eqw0S9+g2IW5/mU/vvablRiOwnBTMsXonYsJH/sDwqx2+9gbbXyjuxcTHwgb7tp0=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSYPR01MB5526
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
  T_SCC_BODY_TEXT_LINE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v3 2/2] syscalls/openat: Add new regression test
- when using open(O_TMPFILE) under umask
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v4 1/3] syscalls/creat09: Add umask test condition
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,251 +152,118 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: "brauner@kernel.org" <brauner@kernel.org>,
- "ltp@lists.linux.it" <ltp@lists.linux.it>
+Cc: "brauner@kernel.org" <brauner@kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Cyril
 
+Hi All
 
-> Hi!
->> +// SPDX-License-Identifier: GPL-2.0-or-later
->> +/*
->> + * Copyright (c) 2022 FUJITSU LIMITED. All rights reserved.
->> + * Author: Yang Xu <xuyang2018.jy@fujitsu.com>
->> + */
->> +
->> +/*\
->> + * [Description]
->> + *
->> + * Check setgid strip logic whether works correctly when creating tmpfile under
->> + * filesystem without posix acl supported(by using noacl mount option). Test it
->                             ^
-> 			   POSIX ACL
+> A kernel patch set that fix setgid strip logic under umask(S_IXGRP) found by
+> this case has been merged into 6.0-rc1 kernel[1].
 > 
-> Both of these are acronyms and should be spelled with uppercase.
+> I will add acl and umask test[2] in xfstests because there is more suitable
+> to do this.
+> 
+> Here I just only add umask test condition simply.
+> 
+> [1]https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=1639a49c
+> [2]https://patchwork.kernel.org/project/fstests/list/?series=662984
 
-Yes.
-> 
->> + * with umask S_IXGRP and also check file mode whether has filtered S_IXGRP.
->> + *
->> + * Fixed in:
->> + *
->> + *  commit ac6800e279a22b28f4fc21439843025a0d5bf03e
->> + *  Author: Yang Xu <xuyang2018.jy@fujitsu.com>
->> + *  Date:   Thu July 14 14:11:26 2022 +0800
->> + *
->> + *  fs: Add missing umask strip in vfs_tmpfile
->> + *
->> + * The most code is pasted form creat09.c.
->> + */
->> +
->> +#define _GNU_SOURCE
->> +#include <stdlib.h>
->> +#include <sys/types.h>
->> +#include <pwd.h>
->> +#include <sys/mount.h>
->> +#include <fcntl.h>
->> +#include <unistd.h>
->> +#include <stdio.h>
->> +#include "tst_test.h"
->> +#include "tst_uid.h"
->> +#include "tst_safe_file_at.h"
->> +
->> +#define MODE_RWX        0777
->> +#define MODE_SGID       (S_ISGID|0777)
->> +#define MNTPOINT	"mntpoint"
->> +#define WORKDIR		MNTPOINT "/testdir"
->> +#define OPEN_FILE	"open.tmp"
->> +
->> +static gid_t free_gid;
->> +static int tmpfile_fd = -1, dir_fd = -1, mount_flag;
->> +static struct passwd *ltpuser;
->> +
->> +static void do_mount(const char *source, const char *target,
->> +	const char *filesystemtype, unsigned long mountflags,
->> +	const void *data)
->> +{
->> +	TEST(mount(source, target, filesystemtype, mountflags, data));
->> +
->> +	if (TST_RET == -1 && TST_ERR == EINVAL)
->> +		tst_brk(TCONF, "Kernel does not support noacl feature");
->> +
->> +	if (TST_RET == -1) {
->> +		tst_brk(TBROK | TTERRNO, "mount(%s, %s, %s, %lu, %p) failed",
->> +			source, target, filesystemtype, mountflags, data);
->> +	} else if (TST_RET) {
-> 
-> There is no need for else if we do tst_brk() in the previous if ()
+I Should update the [2] url because the corresponding patch is in 
+xfstest for-next branch.
 
-Yes.
+[2]https://git.kernel.org/pub/scm/fs/xfs/xfstests-dev.git/commit/?h=for-next&id=c875434286737e792d200cda2eb679e2a8441837
 
-> 
->> +		tst_brk(TBROK, "Invalid return value %ld", TST_RET);
->> +	}
->> +
->> +	mount_flag = 1;
->> +}
->> +
->> +static void open_tmpfile_supported(int dirfd)
->> +{
->> +	TEST(openat(dirfd, ".", O_TMPFILE | O_RDWR, S_IXGRP | S_ISGID));
->> +
->> +	if (TST_RET == -1) {
->> +		if (errno == ENOTSUP)
->> +			tst_brk(TCONF, "fs doesn't support O_TMPFILE");
->> +		else
->> +			tst_brk(TBROK | TTERRNO, "open(%d, O_TMPFILE) failed", dirfd);
->                                                        ^
-> 						      openat
->> +	} else if (TST_RET < 0) {
-> 
-> Here as well.
-> 
->> +		tst_brk(TBROK, "Invalid return value %ld", TST_RET);
->                                         ^
-> 				       openat()
-
-Yes, Will add.
-
->> +	}
->> +
->> +	SAFE_CLOSE(TST_RET);
->> +}
->> +
->> +static void setup(void)
->> +{
->> +	struct stat buf;
->> +
->> +	ltpuser = SAFE_GETPWNAM("nobody");
->> +
->> +	do_mount(tst_device->dev, MNTPOINT, tst_device->fs_type, 0, "noacl");
->> +
->> +	tst_res(TINFO, "User nobody: uid = %d, gid = %d", (int)ltpuser->pw_uid,
->> +		(int)ltpuser->pw_gid);
->> +	free_gid = tst_get_free_gid(ltpuser->pw_gid);
->> +
->> +	/* Create directories and set permissions */
->> +	SAFE_MKDIR(WORKDIR, MODE_RWX);
->> +	dir_fd = SAFE_OPEN(WORKDIR, O_RDONLY, O_DIRECTORY);
->> +	open_tmpfile_supported(dir_fd);
->> +
->> +	SAFE_CHOWN(WORKDIR, ltpuser->pw_uid, free_gid);
->> +	SAFE_CHMOD(WORKDIR, MODE_SGID);
->> +	SAFE_STAT(WORKDIR, &buf);
->> +
->> +	if (!(buf.st_mode & S_ISGID))
->> +		tst_brk(TBROK, "%s: Setgid bit not set", WORKDIR);
->> +
->> +	if (buf.st_gid != free_gid) {
->> +		tst_brk(TBROK, "%s: Incorrect group, %u != %u", WORKDIR,
->> +			buf.st_gid, free_gid);
->> +	}
->> +
->> +	/* Switch user */
->> +	SAFE_SETGID(ltpuser->pw_gid);
->> +	SAFE_SETREUID(-1, ltpuser->pw_uid);
->> +}
->> +
->> +static void file_test(int dfd, const char *path, int flags)
->> +{
->> +	struct stat buf;
->> +
->> +	TST_EXP_PASS_SILENT(fstatat(dfd, path, &buf, flags));
->> +	if (!TST_PASS) {
->> +		tst_res(TFAIL, "fstat failed");
->> +		return;
->> +	}
-> 
-> If nothing else this part is really ugly, it's a misuse of the
-> TST_EXP_PASS_SILENT() macro and you even print the TFAIL message
-> manually for the second time.
-> 
-> This should really be replaced with SAFE_FSTATAT() after a patch that
-> adds SAFE_FSTATAT() to the test library.
-
-Will add this SAFE macro.
-> 
->> +	if (buf.st_gid != free_gid) {
->> +		tst_res(TFAIL, "%s: Incorrect group, %u != %u", path,
->> +			buf.st_gid, free_gid);
->> +	} else {
->> +		tst_res(TPASS, "%s: Owned by correct group", path);
->> +	}
-> 
-> TST_EXP_EQ_LI(buf.st_gid, free_gid);
-
-Yes.
+Also miss Acked-by: Christian Brauner (Microsoft) <brauner@kernel.org> tag.
 
 Best Regards
 Yang Xu
 > 
->> +	if (buf.st_mode & S_ISGID)
->> +		tst_res(TFAIL, "%s: Setgid bit is set", path);
->> +	else
->> +		tst_res(TPASS, "%s: Setgid bit not set", path);
->> +
->> +	if (buf.st_mode & S_IXGRP)
->> +		tst_res(TFAIL, "%s: S_IXGRP bit is set", path);
->> +	else
->> +		tst_res(TPASS, "%s: S_IXGRP bit is not set", path);
->> +}
->> +
->> +static void run(void)
->> +{
->> +	char path[PATH_MAX];
->> +
->> +	umask(S_IXGRP);
->> +	tmpfile_fd = SAFE_OPENAT(dir_fd, ".", O_TMPFILE | O_RDWR, MODE_SGID);
->> +	snprintf(path, PATH_MAX, "/proc/self/fd/%d", tmpfile_fd);
->> +	SAFE_LINKAT(AT_FDCWD, path, dir_fd, OPEN_FILE, AT_SYMLINK_FOLLOW);
->> +	file_test(dir_fd, OPEN_FILE, 0);
->> +	SAFE_CLOSE(tmpfile_fd);
->> +	/* Cleanup between loops */
->> +	tst_purge_dir(WORKDIR);
->> +}
->> +
->> +static void cleanup(void)
->> +{
->> +	SAFE_SETREUID(-1, 0);
->> +
->> +	if (tmpfile_fd >= 0)
->> +		SAFE_CLOSE(tmpfile_fd);
->> +	if (dir_fd >= 0)
->> +		SAFE_CLOSE(dir_fd);
->> +	if (mount_flag && tst_umount(MNTPOINT))
->> +		tst_res(TWARN | TERRNO, "umount(%s)", MNTPOINT);
->> +}
->> +
->> +static struct tst_test test = {
->> +	.test_all = run,
->> +	.setup = setup,
->> +	.cleanup = cleanup,
->> +	.needs_root = 1,
->> +	.all_filesystems = 1,
->> +	.format_device = 1,
->> +	.mntpoint = MNTPOINT,
->> +	.skip_filesystems = (const char*[]) {
->> +		"exfat",
->> +		"ntfs",
->> +		"vfat",
->> +		NULL
->> +	},
->> +	.tags = (const struct tst_tag[]) {
->> +		{"linux-git", "ac6800e279a2"},
->> +		{}
->> +	},
->> +};
->> -- 
->> 2.23.0
->>
->>
->> -- 
->> Mailing list info: https://lists.linux.it/listinfo/ltp
+> Reviewed-by: Petr Vorel <pvorel@suse.cz>
+> Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
+> ---
+>   testcases/kernel/syscalls/creat/creat09.c | 30 +++++++++++++++++++++--
+>   1 file changed, 28 insertions(+), 2 deletions(-)
 > 
+> diff --git a/testcases/kernel/syscalls/creat/creat09.c b/testcases/kernel/syscalls/creat/creat09.c
+> index bed7bddb0..d583cceca 100644
+> --- a/testcases/kernel/syscalls/creat/creat09.c
+> +++ b/testcases/kernel/syscalls/creat/creat09.c
+> @@ -28,6 +28,16 @@
+>    *  Date:   Fri Jan 22 16:48:18 2021 -0800
+>    *
+>    *  xfs: fix up non-directory creation in SGID directories
+> + *
+> + * When use acl or umask, it still has bug.
+> + *
+> + * Fixed in:
+> + *
+> + *  commit 1639a49ccdce58ea248841ed9b23babcce6dbb0b
+> + *  Author: Yang Xu <xuyang2018.jy@fujitsu.com>
+> + *  Date:   Thu July 14 14:11:27 2022 +0800
+> + *
+> + *  fs: move S_ISGID stripping into the vfs_*() helpers
+>    */
+>   
+>   #include <stdlib.h>
+> @@ -47,6 +57,14 @@
+>   static gid_t free_gid;
+>   static int fd = -1;
+>   
+> +static struct tcase {
+> +	const char *msg;
+> +	int mask;
+> +} tcases[] = {
+> +	{"under umask(0) situation", 0},
+> +	{"under umask(S_IXGRP) situation", S_IXGRP}
+> +};
+> +
+>   static void setup(void)
+>   {
+>   	struct stat buf;
+> @@ -94,8 +112,14 @@ static void file_test(const char *name)
+>   		tst_res(TPASS, "%s: Setgid bit not set", name);
+>   }
+>   
+> -static void run(void)
+> +static void run(unsigned int n)
+>   {
+> +	struct tcase *tc = &tcases[n];
+> +
+> +	umask(tc->mask);
+> +	tst_res(TINFO, "Testing setgid behaviour when creating file %s",
+> +			tc->msg);
+> +
+>   	fd = SAFE_CREAT(CREAT_FILE, MODE_SGID);
+>   	SAFE_CLOSE(fd);
+>   	file_test(CREAT_FILE);
+> @@ -115,13 +139,14 @@ static void cleanup(void)
+>   }
+>   
+>   static struct tst_test test = {
+> -	.test_all = run,
+> +	.test = run,
+>   	.setup = setup,
+>   	.cleanup = cleanup,
+>   	.needs_root = 1,
+>   	.all_filesystems = 1,
+>   	.mount_device = 1,
+>   	.mntpoint = MNTPOINT,
+> +	.tcnt = ARRAY_SIZE(tcases),
+>   	.skip_filesystems = (const char*[]) {
+>   		"exfat",
+>   		"ntfs",
+> @@ -132,6 +157,7 @@ static struct tst_test test = {
+>   		{"linux-git", "0fa3ecd87848"},
+>   		{"CVE", "2018-13405"},
+>   		{"linux-git", "01ea173e103e"},
+> +		{"linux-git", "1639a49ccdce"},
+>   		{}
+>   	},
+>   };
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
