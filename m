@@ -1,35 +1,35 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BC385B9478
-	for <lists+linux-ltp@lfdr.de>; Thu, 15 Sep 2022 08:31:16 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 79F765B9479
+	for <lists+linux-ltp@lfdr.de>; Thu, 15 Sep 2022 08:31:24 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id CA5463CAC2E
-	for <lists+linux-ltp@lfdr.de>; Thu, 15 Sep 2022 08:31:15 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id BBAE13CABFA
+	for <lists+linux-ltp@lfdr.de>; Thu, 15 Sep 2022 08:31:23 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 5F7D93CAA07
- for <ltp@lists.linux.it>; Thu, 15 Sep 2022 08:30:59 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id C4AC43CAC16
+ for <ltp@lists.linux.it>; Thu, 15 Sep 2022 08:31:07 +0200 (CEST)
 Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 4211C60092B
- for <ltp@lists.linux.it>; Thu, 15 Sep 2022 08:30:59 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 255E31001277
+ for <ltp@lists.linux.it>; Thu, 15 Sep 2022 08:31:06 +0200 (CEST)
 Received: from canpemm500005.china.huawei.com (unknown [172.30.72.53])
- by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4MSnK66G9xzNmFB
- for <ltp@lists.linux.it>; Thu, 15 Sep 2022 14:26:18 +0800 (CST)
+ by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4MSnKB5LXQzNmG2
+ for <ltp@lists.linux.it>; Thu, 15 Sep 2022 14:26:22 +0800 (CST)
 Received: from ubuntu1804.huawei.com (10.67.174.63) by
  canpemm500005.china.huawei.com (7.192.104.229) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Thu, 15 Sep 2022 14:30:55 +0800
+ 15.1.2375.31; Thu, 15 Sep 2022 14:30:56 +0800
 To: <ltp@lists.linux.it>
-Date: Thu, 15 Sep 2022 14:27:14 +0800
-Message-ID: <20220915062715.233884-2-zhaogongyi@huawei.com>
+Date: Thu, 15 Sep 2022 14:27:15 +0800
+Message-ID: <20220915062715.233884-3-zhaogongyi@huawei.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20220915062715.233884-1-zhaogongyi@huawei.com>
 References: <20220915062715.233884-1-zhaogongyi@huawei.com>
@@ -38,12 +38,13 @@ X-Originating-IP: [10.67.174.63]
 X-ClientProxiedBy: dggems704-chm.china.huawei.com (10.3.19.181) To
  canpemm500005.china.huawei.com (7.192.104.229)
 X-CFilter-Loop: Reflected
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH 1/2] syscalls/io_uring: Add .needs_kconfigs
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH 2/2] io_uring.h: Remove
+ io_uring_setup_supported_by_kernel()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,44 +63,64 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Add .needs_kconfigs for io_uring01.c/io_uring02.c.
+There is a kernel config CONFIG_IO_URING to control whether
+io_uring is supported, so checking of the kernel version seems
+redundant.
 
 Signed-off-by: Zhao Gongyi <zhaogongyi@huawei.com>
 ---
- testcases/kernel/syscalls/io_uring/io_uring01.c | 4 ++++
- testcases/kernel/syscalls/io_uring/io_uring02.c | 4 ++++
- 2 files changed, 8 insertions(+)
+ include/lapi/io_uring.h                         | 13 -------------
+ testcases/kernel/syscalls/io_uring/io_uring01.c |  1 -
+ testcases/kernel/syscalls/io_uring/io_uring02.c |  2 --
+ 3 files changed, 16 deletions(-)
 
+diff --git a/include/lapi/io_uring.h b/include/lapi/io_uring.h
+index 397324511..8f1dfd64c 100644
+--- a/include/lapi/io_uring.h
++++ b/include/lapi/io_uring.h
+@@ -294,17 +294,4 @@ static inline int io_uring_enter(int fd, unsigned int to_submit,
+ }
+ #endif /* HAVE_IO_URING_ENTER */
+
+-static inline void io_uring_setup_supported_by_kernel(void)
+-{
+-	long ret;
+-	if ((tst_kvercmp(5, 1, 0)) < 0) {
+-		ret = syscall(__NR_io_uring_setup, NULL, 0);
+-		if (ret != -1)
+-			SAFE_CLOSE(ret);
+-		else if (errno == ENOSYS)
+-			tst_brk(TCONF,
+-				"Test not supported on kernel version < v5.1");
+-	}
+-}
+-
+ #endif /* LAPI_IO_URING_H__ */
 diff --git a/testcases/kernel/syscalls/io_uring/io_uring01.c b/testcases/kernel/syscalls/io_uring/io_uring01.c
-index 70151bb85..cb1cabcb7 100644
+index cb1cabcb7..41aa05da0 100644
 --- a/testcases/kernel/syscalls/io_uring/io_uring01.c
 +++ b/testcases/kernel/syscalls/io_uring/io_uring01.c
-@@ -261,6 +261,10 @@ static struct tst_test test = {
- 	.test = run,
- 	.needs_tmpdir = 1,
- 	.tcnt = ARRAY_SIZE(tcases),
-+	.needs_kconfigs = (const char *const[]){
-+		"CONFIG_IO_URING=y",
-+		NULL
-+	},
- 	.bufs = (struct tst_buffers []) {
- 		{&iov, .iov_sizes = (int[]){BLOCK_SZ, -1}},
- 		{}
+@@ -252,7 +252,6 @@ static void run(unsigned int n)
+
+ static void setup(void)
+ {
+-	io_uring_setup_supported_by_kernel();
+ 	tst_fill_file(TEST_FILE, 'a', 1024, 1);
+ }
+
 diff --git a/testcases/kernel/syscalls/io_uring/io_uring02.c b/testcases/kernel/syscalls/io_uring/io_uring02.c
-index c5c770074..c7ea87ae5 100644
+index c7ea87ae5..a04e759f8 100644
 --- a/testcases/kernel/syscalls/io_uring/io_uring02.c
 +++ b/testcases/kernel/syscalls/io_uring/io_uring02.c
-@@ -255,6 +255,10 @@ static struct tst_test test = {
- 		TST_CAP(TST_CAP_REQ, CAP_SYS_CHROOT),
- 		{}
- 	},
-+	.needs_kconfigs = (const char *const[]){
-+		"CONFIG_IO_URING=y",
-+		NULL
-+	},
- 	.tags = (const struct tst_tag[]) {
- 		{"linux-git", "9392a27d88b9"},
- 		{"linux-git", "ff002b30181d"},
+@@ -75,8 +75,6 @@ static void setup(void)
+ 	if (ret >= (int)sizeof(addr.sun_path))
+ 		tst_brk(TBROK, "Tempdir path is too long");
+
+-	io_uring_setup_supported_by_kernel();
+-
+ 	sendsock = SAFE_SOCKET(AF_UNIX, SOCK_DGRAM, 0);
+ 	recvsock = SAFE_SOCKET(AF_UNIX, SOCK_DGRAM, 0);
+ 	SAFE_BIND(recvsock, (struct sockaddr *)&addr, sizeof(addr));
 --
 2.17.1
 
