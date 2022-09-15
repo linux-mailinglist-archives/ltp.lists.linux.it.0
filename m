@@ -1,74 +1,76 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E4DB5B9792
-	for <lists+linux-ltp@lfdr.de>; Thu, 15 Sep 2022 11:37:14 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 659B75B9791
+	for <lists+linux-ltp@lfdr.de>; Thu, 15 Sep 2022 11:37:02 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 48D093CAC2A
-	for <lists+linux-ltp@lfdr.de>; Thu, 15 Sep 2022 11:37:14 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 8CAC43CAC39
+	for <lists+linux-ltp@lfdr.de>; Thu, 15 Sep 2022 11:37:01 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id F1BE03CABA8
+ by picard.linux.it (Postfix) with ESMTPS id CA2823CABA8
  for <ltp@lists.linux.it>; Thu, 15 Sep 2022 11:36:47 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 7645160028E
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 4A2B56002DF
  for <ltp@lists.linux.it>; Thu, 15 Sep 2022 11:36:47 +0200 (CEST)
 Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 408E02052D;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id B6C6A33732;
  Thu, 15 Sep 2022 09:36:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
  t=1663234606; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=BJm5k+8/mnGKf7mhaSwRBZEIiL7wB0g/21d8ROhubT8=;
- b=DMBPrmtaGXQrdNc3fnsEGDlvmZ0OwFUS+BiUIdP4sZ0TG+6OFkKVu0bQmgDqaJuQEQj1MF
- rYADDM7SUzPiJUHJjw1KLdHAT8K5MZ5epg7Q3JGVodG8lMwgBGpj5zIDdn85B7/E+9BECG
- vEY0iM0CvJNNfvyDwE38a0Lihfv1/pk=
+ bh=2n2H7HYmzQGtnAso7xfCgXg/k0Qv5joQmtd/TP2Yknw=;
+ b=kFeHK83ujM8cXXlV99tC2TE3SUlLgmiefzZfoEtAbF5wCL4mfGzTFai7MKSNIGaiNfB3Qi
+ mEr/HD0AI0SCNCCdXVPexJOKAqbJsMT9xRThGXtulgXLvCrEBXZIVpg+F72bMGNfZFaU3h
+ Egl80xUmviEuwu3HisziTarON/XVhiA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
  s=susede2_ed25519; t=1663234606;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=BJm5k+8/mnGKf7mhaSwRBZEIiL7wB0g/21d8ROhubT8=;
- b=1A/ztnyODjqeM6fFckzE40cAAVA4fkm/pZFmdjAu3ybLzkQ1NGZtUDohcwXMFg+ojC2np/
- K607CfjOFF3r/aAg==
+ bh=2n2H7HYmzQGtnAso7xfCgXg/k0Qv5joQmtd/TP2Yknw=;
+ b=xiplRtwoA7WPQj0W1aMqTANEisF5O+KIpFoLHhhRtnyLqikpdh8tduM8wlG8YAHtG/NWno
+ qSEa1WxHrVS35AAg==
 Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id CDF7413310;
- Thu, 15 Sep 2022 09:36:45 +0000 (UTC)
+ by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 5243A13310;
+ Thu, 15 Sep 2022 09:36:46 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id 4DavLy3yImPGIgAAGKfGzw
- (envelope-from <pvorel@suse.cz>); Thu, 15 Sep 2022 09:36:45 +0000
+ by imap1.suse-dmz.suse.de with ESMTPSA id qG59ES7yImPGIgAAGKfGzw
+ (envelope-from <pvorel@suse.cz>); Thu, 15 Sep 2022 09:36:46 +0000
 From: Petr Vorel <pvorel@suse.cz>
 To: ltp@lists.linux.it
-Date: Thu, 15 Sep 2022 11:36:33 +0200
-Message-Id: <20220915093639.2261-3-pvorel@suse.cz>
+Date: Thu, 15 Sep 2022 11:36:34 +0200
+Message-Id: <20220915093639.2261-4-pvorel@suse.cz>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20220915093639.2261-1-pvorel@suse.cz>
 References: <20220915093639.2261-1-pvorel@suse.cz>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH v6 2/8] zram01.sh: Use tst_supported_fs -s tmpfs
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH v6 3/8] tst_supported_fs: Support skip list when query
+ single fs
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,25 +88,45 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
+And use this feature in zram01.sh.
+
+Also print TINFO if test it supported by the test, quit with TCONF
+otherwise (code from do_test_setup() tst_test.c).
+
+Acked-by: Richard Palethorpe <rpalethorpe@suse.com>
+Reviewed-by: Li Wang <liwang@redhat.com>
 Signed-off-by: Petr Vorel <pvorel@suse.cz>
 ---
- testcases/kernel/device-drivers/zram/zram01.sh | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ testcases/lib/tst_supported_fs.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
-diff --git a/testcases/kernel/device-drivers/zram/zram01.sh b/testcases/kernel/device-drivers/zram/zram01.sh
-index ad01291bf..8b92b699f 100755
---- a/testcases/kernel/device-drivers/zram/zram01.sh
-+++ b/testcases/kernel/device-drivers/zram/zram01.sh
-@@ -38,8 +38,7 @@ initialize_vars()
- 	local fs limit size stream=-1
- 	dev_num=0
+diff --git a/testcases/lib/tst_supported_fs.c b/testcases/lib/tst_supported_fs.c
+index 2b42d5bb3..e2261244d 100644
+--- a/testcases/lib/tst_supported_fs.c
++++ b/testcases/lib/tst_supported_fs.c
+@@ -80,14 +80,19 @@ int main(int argc, char *argv[])
+ 		return 2;
+ 	}
  
--	for fs in $(tst_supported_fs); do
--		[ "$fs" = "tmpfs" ] && continue
-+	for fs in $(tst_supported_fs -s tmpfs); do
- 		size="26214400"
- 		limit="25M"
- 		if [ "$fs" = "btrfs" ]; then
+-	if (optind < argc)
+-		return !tst_fs_is_supported(argv[optind]);
++	if (optind < argc) {
++		if (tst_fs_in_skiplist(argv[optind], (const char * const*)skiplist))
++			tst_brk(TCONF, "%s is not supported by the test", argv[optind]);
+ 
++		tst_res(TINFO, "%s is supported by the test", argv[optind]);
++
++		return 0;
++	}
+ 
+ 	filesystems = tst_get_supported_fs_types((const char * const*)skiplist);
+ 
+ 	if (!filesystems[0])
+-		tst_brk(TCONF, "There are no supported filesystems");
++		tst_brk(TCONF, "There are no supported filesystems or all skipped");
+ 
+ 	for (i = 0; filesystems[i]; i++)
+ 		printf("%s\n", filesystems[i]);
 -- 
 2.37.3
 
