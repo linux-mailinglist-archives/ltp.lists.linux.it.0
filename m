@@ -2,53 +2,72 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA72A5B986D
-	for <lists+linux-ltp@lfdr.de>; Thu, 15 Sep 2022 12:03:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15A105B9873
+	for <lists+linux-ltp@lfdr.de>; Thu, 15 Sep 2022 12:04:58 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A2B573CAC03
-	for <lists+linux-ltp@lfdr.de>; Thu, 15 Sep 2022 12:03:52 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id DBE8F3CAC02
+	for <lists+linux-ltp@lfdr.de>; Thu, 15 Sep 2022 12:04:57 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 450A83C9111
- for <ltp@lists.linux.it>; Thu, 15 Sep 2022 12:03:49 +0200 (CEST)
-Received: from Atcsqr.andestech.com (60-248-80-70.hinet-ip.hinet.net
- [60.248.80.70])
+ by picard.linux.it (Postfix) with ESMTPS id C2A7E3C9111
+ for <ltp@lists.linux.it>; Thu, 15 Sep 2022 12:04:56 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 86C26600786
- for <ltp@lists.linux.it>; Thu, 15 Sep 2022 12:03:46 +0200 (CEST)
-Received: from mail.andestech.com (ATCPCS16.andestech.com [10.0.1.222])
- by Atcsqr.andestech.com with ESMTP id 28FA3YBV036283;
- Thu, 15 Sep 2022 18:03:34 +0800 (+08)
- (envelope-from dylan@andestech.com)
-Received: from atcsi01 (10.0.15.167) by ATCPCS16.andestech.com (10.0.1.222)
- with Microsoft SMTP Server id 14.3.498.0; Thu, 15 Sep 2022 18:03:30 +0800
-Date: Thu, 15 Sep 2022 18:03:30 +0800
-From: Dylan Jhong <dylan@andestech.com>
-To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <YyL4cqTctXZ4TMmt@atcsi01>
-References: <20220914131950.1783054-1-dylan@andestech.com>
- <YyLpUMPMlGoXjwls@yuki>
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id CB4961000999
+ for <ltp@lists.linux.it>; Thu, 15 Sep 2022 12:04:55 +0200 (CEST)
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 1A8BF22A93;
+ Thu, 15 Sep 2022 10:04:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1663236295; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=MhDKZvB3QtPeJ9ETBzopOL9a5tUz8M+voGA/GiFUgaE=;
+ b=wVt+MSezSXISnsI1YFYuS1uigtNSsgLZh5HQ5yzd7p7IYUy4fMXhmfWh+FXclNKbflJeSd
+ PPP7kblDaj3UP8o5llYoMJTps5ws8ko8MLDPQeepUdUV/OkMSUeFNoHFqSUhqRHfkz4QMi
+ qX6d36J2Po+W+7Ue47W8u/JK6lcAyFc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1663236295;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=MhDKZvB3QtPeJ9ETBzopOL9a5tUz8M+voGA/GiFUgaE=;
+ b=YI/Vf7ZNSNsMNTKoil4IQSL+24ZfgEgz3SbVMIJv0oKnedlupR+JNkyQtEpwl4R3gbXumo
+ +xIIh+cezYdYVJDQ==
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 09FDC13310;
+ Thu, 15 Sep 2022 10:04:55 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap1.suse-dmz.suse.de with ESMTPSA id tSs4Acf4ImNaLwAAGKfGzw
+ (envelope-from <chrubis@suse.cz>); Thu, 15 Sep 2022 10:04:55 +0000
+Date: Thu, 15 Sep 2022 12:06:52 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Zhao Gongyi <zhaogongyi@huawei.com>
+Message-ID: <YyL5PL30zWQKxqfE@yuki>
+References: <20220915041035.211822-1-zhaogongyi@huawei.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <YyLpUMPMlGoXjwls@yuki>
-User-Agent: Mutt/2.2.1 (2022-02-19)
-X-Originating-IP: [10.0.15.167]
-X-DNSRBL: 
-X-MAIL: Atcsqr.andestech.com 28FA3YBV036283
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+In-Reply-To: <20220915041035.211822-1-zhaogongyi@huawei.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.4 required=7.0 tests=RDNS_DYNAMIC,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] kernel/uevent: Adjust the number of uevents
- dynamically in uevent02
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] lib: Add checking of setup params in kernel
+ command line
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,167 +79,133 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: "Mina Hui-Min Chou\(\(\(\(\(\(\(\)" <minachou@andestech.com>,
- "x5710999x@gmail.com" <x5710999x@gmail.com>,
- "Charles Ci-Jyun Wu\(\(\(\(\(\(\(\)" <dminus@andestech.com>,
- "Alan Quey-Liang Kao\(\(\(\(\(\(\(\)" <alankao@andestech.com>,
- "ltp@lists.linux.it" <ltp@lists.linux.it>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Thu, Sep 15, 2022 at 04:58:56PM +0800, Cyril Hrubis wrote:
-Hi Cyril,
+Hi!
+> There are some test cases that need to check the configuration
+> of setup params, so we add tst_kernel_cmdline_check() to check it
+> in do_setup().
 
-Thanks for reviewing this patch.
+Can you elaborate on that? Which tests and what for?
 
-> Hi!
-> > Signed-off-by: Dylan Jhong <dylan@andestech.com>
-> > ---
-> >  testcases/kernel/uevents/uevent02.c | 146 ++++++++++++++--------------
-> >  1 file changed, 73 insertions(+), 73 deletions(-)
-> > 
-> > diff --git a/testcases/kernel/uevents/uevent02.c b/testcases/kernel/uevents/uevent02.c
-> > index ce0cf757d..059320f1c 100644
-> > --- a/testcases/kernel/uevents/uevent02.c
-> > +++ b/testcases/kernel/uevents/uevent02.c
-> > @@ -19,11 +19,71 @@
-> >  #include <linux/if_tun.h>
-> >  
-> >  #include "tst_test.h"
-> > +#include "tst_private.h"
+> Signed-off-by: Zhao Gongyi <zhaogongyi@huawei.com>
+> ---
+>  include/tst_kernel.h |  9 +++++++++
+>  include/tst_test.h   |  3 +++
+>  lib/tst_kernel.c     | 21 +++++++++++++++++++++
+>  lib/tst_test.c       |  9 +++++++++
+>  4 files changed, 42 insertions(+)
 > 
-> This header is called private for a reason, the tst_kconfig_get() is not
-> meant to be used from tests, you are supposed to call tst_config_read()
-> as it's done in shmget02.c for example.
+> diff --git a/include/tst_kernel.h b/include/tst_kernel.h
+> index 9e17bb71e..874ec3bf4 100644
+> --- a/include/tst_kernel.h
+> +++ b/include/tst_kernel.h
+> @@ -20,4 +20,13 @@ int tst_kernel_bits(void);
+>   */
+>  int tst_check_driver(const char *driver);
 > 
-
-Thanks. I will fix this in v2 patch.
-
-> >  #include "uevent.h"
-> >  
-> >  #define TUN_PATH "/dev/net/tun"
-> >  
-> > +#define MAX_UEVENT 7
-> > +
-> > +struct uevent_desc add = {
-> > +	.msg = "add@/devices/virtual/net/ltp-tun0",
-> > +	.value_cnt = 4,
-> > +	.values = (const char*[]) {
-> > +		"ACTION=add",
-> > +		"DEVPATH=/devices/virtual/net/ltp-tun0",
-> > +		"SUBSYSTEM=net",
-> > +		"INTERFACE=ltp-tun0",
-> > +	}
-> > +};
-> > +struct uevent_desc add_rx = {
-> > +	.msg = "add@/devices/virtual/net/ltp-tun0/queues/rx-0",
-> > +	.value_cnt = 3,
-> > +	.values = (const char*[]) {
-> > +		"ACTION=add",
-> > +		"DEVPATH=/devices/virtual/net/ltp-tun0/queues/rx-0",
-> > +		"SUBSYSTEM=queues",
-> > +	}
-> > +};
-> > +struct uevent_desc add_tx = {
-> > +	.msg = "add@/devices/virtual/net/ltp-tun0/queues/tx-0",
-> > +	.value_cnt = 3,
-> > +	.values = (const char*[]) {
-> > +		"ACTION=add",
-> > +		"DEVPATH=/devices/virtual/net/ltp-tun0/queues/tx-0",
-> > +		"SUBSYSTEM=queues",
-> > +	}
-> > +};
-> > +struct uevent_desc rem_rx = {
-> > +	.msg = "remove@/devices/virtual/net/ltp-tun0/queues/rx-0",
-> > +	.value_cnt = 3,
-> > +	.values = (const char*[]) {
-> > +		"ACTION=remove",
-> > +		"DEVPATH=/devices/virtual/net/ltp-tun0/queues/rx-0",
-> > +		"SUBSYSTEM=queues",
-> > +	}
-> > +};
-> > +struct uevent_desc rem_tx = {
-> > +	.msg = "remove@/devices/virtual/net/ltp-tun0/queues/tx-0",
-> > +	.value_cnt = 3,
-> > +	.values = (const char*[]) {
-> > +		"ACTION=remove",
-> > +		"DEVPATH=/devices/virtual/net/ltp-tun0/queues/tx-0",
-> > +		"SUBSYSTEM=queues",
-> > +	}
-> > +};
-> > +struct uevent_desc rem = {
-> > +	.msg = "remove@/devices/virtual/net/ltp-tun0",
-> > +	.value_cnt = 4,
-> > +	.values = (const char*[]) {
-> > +		"ACTION=remove",
-> > +		"DEVPATH=/devices/virtual/net/ltp-tun0",
-> > +		"SUBSYSTEM=net",
-> > +		"INTERFACE=ltp-tun0",
-> > +	}
-> > +};
+> +/*
+> + * Checks if there is a configuration in the kernel command line.
+> + *
+> + * @param cmd The setup param that need to be checked in command line.
+> + * @return Returns 0 if the kernel configured the setup param in command line.
+> + * -1 when the setup param is not configured.
+> + */
+> +int tst_kernel_cmdline_check(const char *cmd);
+> +
+>  #endif	/* TST_KERNEL_H__ */
+> diff --git a/include/tst_test.h b/include/tst_test.h
+> index ac52f268c..ba7d538b7 100644
+> --- a/include/tst_test.h
+> +++ b/include/tst_test.h
+> @@ -312,6 +312,9 @@ struct tst_test {
 > 
-> Why do we have to move these outside of the function? I do not see a
-> single reason to do so.
+>  	/* {} terminated array of required CGroup controllers */
+>  	const char *const *needs_cgroup_ctrls;
+> +
+> +	/* NULL terminated array of required kernel cmdlines. */
+> +	const char *const *needs_kernel_cmdlines;
+>  };
 > 
-
-I think separating the declaration of uevents and dynamic adding uevents 
-will make the program easier to read.
-This part is open to discussion, I'm just giving my thoughts.
-if everyone think it's a bad idea, I'll change it back in v2 patch.
-
-declaration
-----------------------------
-struct uevent_desc rem_tx = {}
-struct uevent_desc add_rx = {}
-struct uevent_desc add_tx = {}
-.....
-
-dynamically adding uevent:
---------------------------
-uevents[i++] = &add;
-if (has_RPS)
-        uevents[i++] = &add_rx;
-uevents[i++] = &add_tx;
-if (has_RPS)
-        uevents[i++] = &rem_rx;
-uevents[i++] = &rem_tx;
-uevents[i++] = &rem;
-uevents[i++] = NULL;
-
-> > +	const struct uevent_desc *uevents[MAX_UEVENT];
-> > +	int pid, fd, i = 0;
-> > +	int has_RPS = tst_kconfig_get("CONFIG_RPS");
+>  /*
+> diff --git a/lib/tst_kernel.c b/lib/tst_kernel.c
+> index ecf4b917e..1e6d18e55 100644
+> --- a/lib/tst_kernel.c
+> +++ b/lib/tst_kernel.c
+> @@ -24,6 +24,8 @@
+>  #include "tst_kernel.h"
+>  #include "old_safe_stdio.h"
 > 
-> Getting the flag should be done once in the test setup, otherwise kernel
-> config will be parsed in each iteration of the test.
+> +#define COMMAND_LINE_SIZE 4096
+> +
+>  static int get_kernel_bits_from_uname(struct utsname *buf)
+>  {
+>  	if (uname(buf)) {
+> @@ -189,3 +191,22 @@ int tst_check_driver(const char *driver)
 > 
+>  	return ret;
+>  }
+> +
+> +int tst_kernel_cmdline_check(const char *cmd)
+> +{
+> +	char cmdline[COMMAND_LINE_SIZE];
+> +
+> +	FILE *f = fopen("/proc/cmdline", "r");
+> +	if (f == NULL) {
+> +		tst_brkm(TBROK | TERRNO, NULL, "Open /proc/cmdline failed");
+> +		return -1;
+> +	}
+> +
+> +	while (fscanf(f, "%s", cmdline) > 0) {
+> +		if (!strcmp(cmdline, cmd))
+> +			return 0;
+> +	}
+> +
+> +	tst_brkm(TCONF, NULL, "Setup param '%s' is not configured", cmd);
+> +	return -1;
+> +}
 
-If we parse the kernel configuration during test setup, we will block all 
-images without CONFIG_RPS from executing this testcase. This is not my 
-intention, in this patch I designed to continue executing uevent02 even 
-without CONFIG_RPS. Just adjusting uevents can pass this test. So I think 
-parsing the kernel config in test_all() should be the correct way.
+If nothing else this call should really take the NULL terminated array
+as parameter and check for all flags so that we don't have to parse the
+file eac time we check for a flag.
 
-Best,
-Dylan
+Also there is no point in doing return from a function that calls
+tst_brkm(). The function should just return void in this case.
 
-> > +	uevents[i++] = &add;
-> > +	if (has_RPS)
-> > +		uevents[i++] = &add_rx;
-> > +	uevents[i++] = &add_tx;
-> > +	if (has_RPS)
-> > +		uevents[i++] = &rem_rx;
-> > +	uevents[i++] = &rem_tx;
-> > +	uevents[i++] = &rem;
-> > +	uevents[i++] = NULL;
+> diff --git a/lib/tst_test.c b/lib/tst_test.c
+> index 8ccde1629..7a842c5ae 100644
+> --- a/lib/tst_test.c
+> +++ b/lib/tst_test.c
+> @@ -1125,6 +1125,15 @@ static void do_setup(int argc, char *argv[])
+>  	if (tst_test->min_kver)
+>  		check_kver();
 > 
+> +	if (tst_test->needs_kernel_cmdlines)
+> +	{
+> +		const char *cmd;
+> +		int i;
+> +
+> +		for (i = 0; (cmd = tst_test->needs_kernel_cmdlines[i]); ++i)
+> +			tst_kernel_cmdline_check(cmd);
+> +	}
+> +
+>  	if (tst_test->supported_archs && !tst_is_on_arch(tst_test->supported_archs))
+>  		tst_brk(TCONF, "This arch '%s' is not supported for test!", tst_arch.name);
+> 
+> --
+> 2.17.1
 > 
 > 
 > -- 
-> Cyril Hrubis
-> chrubis@suse.cz
+> Mailing list info: https://lists.linux.it/listinfo/ltp
+
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
