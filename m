@@ -1,72 +1,76 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41A2F5B9865
-	for <lists+linux-ltp@lfdr.de>; Thu, 15 Sep 2022 12:00:22 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A53B5B9869
+	for <lists+linux-ltp@lfdr.de>; Thu, 15 Sep 2022 12:01:36 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0FEEA3CAC02
-	for <lists+linux-ltp@lfdr.de>; Thu, 15 Sep 2022 12:00:22 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id E96383CAC02
+	for <lists+linux-ltp@lfdr.de>; Thu, 15 Sep 2022 12:01:35 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id BFC183C9111
- for <ltp@lists.linux.it>; Thu, 15 Sep 2022 12:00:20 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 743213C9111
+ for <ltp@lists.linux.it>; Thu, 15 Sep 2022 12:01:34 +0200 (CEST)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 57C37602346
- for <ltp@lists.linux.it>; Thu, 15 Sep 2022 12:00:19 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id BE2031A00448
+ for <ltp@lists.linux.it>; Thu, 15 Sep 2022 12:01:33 +0200 (CEST)
 Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 9A0532096C;
- Thu, 15 Sep 2022 10:00:19 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id F41A62097C;
+ Thu, 15 Sep 2022 10:01:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1663236019; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1663236093; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=0RaL1UxJ9OfB6YroCkTopA3dnFN5wTLS7NwRp0dNwlU=;
- b=rrYVPxYMhElz8UzxNT4z3Z2WYD6aJf3WV90KYvQls9yIFe/YAFb60UMTANG1pLPJfD3Gph
- yKRSg9s01XjFmpUTC1UYqY43vn+z1wV4FP9WH9+QhRYx1eT7uU9i1zEqG3M004ksl3tYUe
- o57yT4TDP+8+jFSV7buy9zAg6JVIrGc=
+ bh=ZWKFdhAjSK4QsfaQUHNSrubcgk/gsC/Eb4gSuF2fR0c=;
+ b=qCY3S7cn7WTRgTyB9RqbHm9cZCqimGftZULDO/Nm5nGLcTCTgWlh3D27dpgqvN+sZi6yNr
+ HE9OD6sQYH9YU5wE3brUEbSFOyonqcemOQwYOOxQzWNS5Btf4IREahSscewP/zJDqQ7xgV
+ +7lkSGI85X1NilXgyA7OHItRafMwwXI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1663236019;
+ s=susede2_ed25519; t=1663236093;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=0RaL1UxJ9OfB6YroCkTopA3dnFN5wTLS7NwRp0dNwlU=;
- b=yumJhI6V6SXJLQyp1AoMVsHNy42N4iApjgGKxVkNxMsBVX+r2+RcxD0fVOZNEeryJXAUz8
- rHzUYYs59SyTNbCw==
+ bh=ZWKFdhAjSK4QsfaQUHNSrubcgk/gsC/Eb4gSuF2fR0c=;
+ b=pFsORC9zG0S6+6+a4NeQdSHb/wiHJFyAJJ4DJkKRyBK1nV3KLj2BIdVoKWwql5eV0YauGz
+ QhMkUmxVymw9ZMBg==
 Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 7C45713310;
- Thu, 15 Sep 2022 10:00:19 +0000 (UTC)
+ by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id DEE6213310;
+ Thu, 15 Sep 2022 10:01:32 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id 6IFWHbP3ImOHLQAAGKfGzw
- (envelope-from <chrubis@suse.cz>); Thu, 15 Sep 2022 10:00:19 +0000
-Date: Thu, 15 Sep 2022 12:02:16 +0200
+ by imap1.suse-dmz.suse.de with ESMTPSA id XWQKNfz3ImMRLgAAGKfGzw
+ (envelope-from <chrubis@suse.cz>); Thu, 15 Sep 2022 10:01:32 +0000
+Date: Thu, 15 Sep 2022 12:03:29 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
-To: zhaogongyi <zhaogongyi@huawei.com>
-Message-ID: <YyL4KPNva76/4l7w@yuki>
-References: <47adc06460ed44c58b68f2555e941f68@huawei.com>
+To: Zhao Gongyi <zhaogongyi@huawei.com>
+Message-ID: <YyL4cbX95X4DxL8A@yuki>
+References: <20220915062715.233884-1-zhaogongyi@huawei.com>
+ <20220915062715.233884-3-zhaogongyi@huawei.com>
+ <YyL37oKstZnbFORf@yuki>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <47adc06460ed44c58b68f2555e941f68@huawei.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+In-Reply-To: <YyL37oKstZnbFORf@yuki>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/2] syscalls/io_uring: Add .needs_kconfigs
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 2/2] io_uring.h: Remove
+ io_uring_setup_supported_by_kernel()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,21 +82,53 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> The test broken on my system that kernel version is 5.10, and report:
-> 
-> io_uring01.c:82: TFAIL: io_uring_setup() failed: EOPNOTSUPP (95)
-> 
-> Maybe we can add checking of kconfig to report TCONF at first.
+> diff --git a/include/lapi/io_uring.h b/include/lapi/io_uring.h
+> index 397324511..43d28f74a 100644
+> --- a/include/lapi/io_uring.h
+> +++ b/include/lapi/io_uring.h
+> @@ -297,14 +297,22 @@ static inline int io_uring_enter(int fd, unsigned int to_submit,
+>  static inline void io_uring_setup_supported_by_kernel(void)
+>  {
+>         long ret;
+> +
+> +       ret = syscall(__NR_io_uring_setup, NULL, 0);
+> +
+> +       if (ret != -1) {
+> +               SAFE_CLOSE(ret);
+> +               return;
+> +       }
+> +
+>         if ((tst_kvercmp(5, 1, 0)) < 0) {
+> -               ret = syscall(__NR_io_uring_setup, NULL, 0);
+> -               if (ret != -1)
+> -                       SAFE_CLOSE(ret);
+> -               else if (errno == ENOSYS)
+> +               if (errno == ENOSYS)
+>                         tst_brk(TCONF,
+>                                 "Test not supported on kernel version < v5.1");
+>         }
+> +
+> +       if (errno == ENOSYS)
 
-I would avoid checking kconfig as long as we can just check return
-values and errno, see my other reply.
+Based on your latest reply this should be EOPNOTSUPP.
+
+> +               tst_brk(TCONF, "CONFIG_IO_URING not set?");
+>  }
+> 
+> 
+> -- 
+> Cyril Hrubis
+> chrubis@suse.cz
+> 
+> -- 
+> Mailing list info: https://lists.linux.it/listinfo/ltp
 
 -- 
 Cyril Hrubis
