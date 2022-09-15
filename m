@@ -1,72 +1,53 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CF165B987B
-	for <lists+linux-ltp@lfdr.de>; Thu, 15 Sep 2022 12:07:17 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 787485B98D6
+	for <lists+linux-ltp@lfdr.de>; Thu, 15 Sep 2022 12:32:56 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E4F573CAC32
-	for <lists+linux-ltp@lfdr.de>; Thu, 15 Sep 2022 12:07:16 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 91A6E3CAC15
+	for <lists+linux-ltp@lfdr.de>; Thu, 15 Sep 2022 12:32:55 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 3AE663C9111
- for <ltp@lists.linux.it>; Thu, 15 Sep 2022 12:07:12 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id BA4453C0475
+ for <ltp@lists.linux.it>; Thu, 15 Sep 2022 12:32:51 +0200 (CEST)
+Received: from Atcsqr.andestech.com (60-248-80-70.hinet-ip.hinet.net
+ [60.248.80.70])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 76E226023CE
- for <ltp@lists.linux.it>; Thu, 15 Sep 2022 12:07:11 +0200 (CEST)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id B34343388D;
- Thu, 15 Sep 2022 10:07:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1663236430; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=C1pYkcbJRUax48pNODVGhs92HFzkixMPe0j8llRVAbI=;
- b=p+CagastRYWyg8J9NMd45RcfEjuIHCPGF9WeexT5Z9lJfEemiFNg2/DPDWAF6EziJoWE3V
- NUN6EGu+xZFqpS0YH6ARh7nvdo+23iEPJsbUsyV4oxPgV4shFH5+2E3kwedPimoRi00yer
- COsAww6bbM3DyQub2Ju6fKPAhzdAYZg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1663236430;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=C1pYkcbJRUax48pNODVGhs92HFzkixMPe0j8llRVAbI=;
- b=SnMN1hv16+74X26+DOelaEm7IkmHl2kKes7+/u9Bzd7Id6xGu25tJFCro/UgYHBFoLy2HW
- HI9Z0uJUo0JslnCA==
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id A137F132BD;
- Thu, 15 Sep 2022 10:07:10 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id B8P8JU75ImNKMAAAGKfGzw
- (envelope-from <chrubis@suse.cz>); Thu, 15 Sep 2022 10:07:10 +0000
-Date: Thu, 15 Sep 2022 12:09:07 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Dylan Jhong <dylan@andestech.com>
-Message-ID: <YyL5w+DzuI7U06Td@yuki>
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id D27FE600298
+ for <ltp@lists.linux.it>; Thu, 15 Sep 2022 12:32:47 +0200 (CEST)
+Received: from mail.andestech.com (ATCPCS16.andestech.com [10.0.1.222])
+ by Atcsqr.andestech.com with ESMTP id 28FAWaZi042458;
+ Thu, 15 Sep 2022 18:32:36 +0800 (+08)
+ (envelope-from dylan@andestech.com)
+Received: from atcsi01 (10.0.15.167) by ATCPCS16.andestech.com (10.0.1.222)
+ with Microsoft SMTP Server id 14.3.498.0; Thu, 15 Sep 2022 18:32:35 +0800
+Date: Thu, 15 Sep 2022 18:32:35 +0800
+From: Dylan Jhong <dylan@andestech.com>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <YyL/QxV+D0ei0vGX@atcsi01>
 References: <20220914131950.1783054-1-dylan@andestech.com>
  <YyLpUMPMlGoXjwls@yuki> <YyL4cqTctXZ4TMmt@atcsi01>
+ <YyL5w+DzuI7U06Td@yuki>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <YyL4cqTctXZ4TMmt@atcsi01>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+In-Reply-To: <YyL5w+DzuI7U06Td@yuki>
+User-Agent: Mutt/2.2.1 (2022-02-19)
+X-Originating-IP: [10.0.15.167]
+X-DNSRBL: 
+X-MAIL: Atcsqr.andestech.com 28FAWaZi042458
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+X-Spam-Status: No, score=0.4 required=7.0 tests=RDNS_DYNAMIC,SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH] kernel/uevent: Adjust the number of uevents
  dynamically in uevent02
 X-BeenThere: ltp@lists.linux.it
@@ -90,121 +71,134 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> > >  #include "uevent.h"
-> > >  
-> > >  #define TUN_PATH "/dev/net/tun"
-> > >  
-> > > +#define MAX_UEVENT 7
-> > > +
-> > > +struct uevent_desc add = {
-> > > +	.msg = "add@/devices/virtual/net/ltp-tun0",
-> > > +	.value_cnt = 4,
-> > > +	.values = (const char*[]) {
-> > > +		"ACTION=add",
-> > > +		"DEVPATH=/devices/virtual/net/ltp-tun0",
-> > > +		"SUBSYSTEM=net",
-> > > +		"INTERFACE=ltp-tun0",
-> > > +	}
-> > > +};
-> > > +struct uevent_desc add_rx = {
-> > > +	.msg = "add@/devices/virtual/net/ltp-tun0/queues/rx-0",
-> > > +	.value_cnt = 3,
-> > > +	.values = (const char*[]) {
-> > > +		"ACTION=add",
-> > > +		"DEVPATH=/devices/virtual/net/ltp-tun0/queues/rx-0",
-> > > +		"SUBSYSTEM=queues",
-> > > +	}
-> > > +};
-> > > +struct uevent_desc add_tx = {
-> > > +	.msg = "add@/devices/virtual/net/ltp-tun0/queues/tx-0",
-> > > +	.value_cnt = 3,
-> > > +	.values = (const char*[]) {
-> > > +		"ACTION=add",
-> > > +		"DEVPATH=/devices/virtual/net/ltp-tun0/queues/tx-0",
-> > > +		"SUBSYSTEM=queues",
-> > > +	}
-> > > +};
-> > > +struct uevent_desc rem_rx = {
-> > > +	.msg = "remove@/devices/virtual/net/ltp-tun0/queues/rx-0",
-> > > +	.value_cnt = 3,
-> > > +	.values = (const char*[]) {
-> > > +		"ACTION=remove",
-> > > +		"DEVPATH=/devices/virtual/net/ltp-tun0/queues/rx-0",
-> > > +		"SUBSYSTEM=queues",
-> > > +	}
-> > > +};
-> > > +struct uevent_desc rem_tx = {
-> > > +	.msg = "remove@/devices/virtual/net/ltp-tun0/queues/tx-0",
-> > > +	.value_cnt = 3,
-> > > +	.values = (const char*[]) {
-> > > +		"ACTION=remove",
-> > > +		"DEVPATH=/devices/virtual/net/ltp-tun0/queues/tx-0",
-> > > +		"SUBSYSTEM=queues",
-> > > +	}
-> > > +};
-> > > +struct uevent_desc rem = {
-> > > +	.msg = "remove@/devices/virtual/net/ltp-tun0",
-> > > +	.value_cnt = 4,
-> > > +	.values = (const char*[]) {
-> > > +		"ACTION=remove",
-> > > +		"DEVPATH=/devices/virtual/net/ltp-tun0",
-> > > +		"SUBSYSTEM=net",
-> > > +		"INTERFACE=ltp-tun0",
-> > > +	}
-> > > +};
-> > 
-> > Why do we have to move these outside of the function? I do not see a
-> > single reason to do so.
-> > 
-> 
-> I think separating the declaration of uevents and dynamic adding uevents 
-> will make the program easier to read.
-> This part is open to discussion, I'm just giving my thoughts.
-> if everyone think it's a bad idea, I'll change it back in v2 patch.
-> 
-> declaration
-> ----------------------------
-> struct uevent_desc rem_tx = {}
-> struct uevent_desc add_rx = {}
-> struct uevent_desc add_tx = {}
-> .....
-> 
-> dynamically adding uevent:
-> --------------------------
-> uevents[i++] = &add;
-> if (has_RPS)
->         uevents[i++] = &add_rx;
-> uevents[i++] = &add_tx;
-> if (has_RPS)
->         uevents[i++] = &rem_rx;
-> uevents[i++] = &rem_tx;
-> uevents[i++] = &rem;
-> uevents[i++] = NULL;
-> 
-> > > +	const struct uevent_desc *uevents[MAX_UEVENT];
-> > > +	int pid, fd, i = 0;
-> > > +	int has_RPS = tst_kconfig_get("CONFIG_RPS");
-> > 
-> > Getting the flag should be done once in the test setup, otherwise kernel
-> > config will be parsed in each iteration of the test.
-> > 
-> 
-> If we parse the kernel configuration during test setup, we will block all 
-> images without CONFIG_RPS from executing this testcase. This is not my 
-> intention, in this patch I designed to continue executing uevent02 even 
-> without CONFIG_RPS. Just adjusting uevents can pass this test. So I think 
-> parsing the kernel config in test_all() should be the correct way.
+Hi Cyril,
 
-I do not think that we understand each other here. What I proposed is to
-call the function that parses kernel config in the test setup and
-initialize the has_RPS flag there so that it's not called on each
-interation of the run() function (e.g. when test is passed -i 100 on
-command line).
+Oh, i got it!!! Sorry for the misunderstanding.
+I thought this was talking about adding the .needs_kconfigs property.
+I will add setup() function in v2 patch.
 
--- 
-Cyril Hrubis
-chrubis@suse.cz
+And about the adjustment of uevent declaration, any comments that I can
+do in v2 patch?
+
+Best,
+Dylan
+
+On Thu, Sep 15, 2022 at 06:09:07PM +0800, Cyril Hrubis wrote:
+> Hi!
+> > > >  #include "uevent.h"
+> > > >  
+> > > >  #define TUN_PATH "/dev/net/tun"
+> > > >  
+> > > > +#define MAX_UEVENT 7
+> > > > +
+> > > > +struct uevent_desc add = {
+> > > > +	.msg = "add@/devices/virtual/net/ltp-tun0",
+> > > > +	.value_cnt = 4,
+> > > > +	.values = (const char*[]) {
+> > > > +		"ACTION=add",
+> > > > +		"DEVPATH=/devices/virtual/net/ltp-tun0",
+> > > > +		"SUBSYSTEM=net",
+> > > > +		"INTERFACE=ltp-tun0",
+> > > > +	}
+> > > > +};
+> > > > +struct uevent_desc add_rx = {
+> > > > +	.msg = "add@/devices/virtual/net/ltp-tun0/queues/rx-0",
+> > > > +	.value_cnt = 3,
+> > > > +	.values = (const char*[]) {
+> > > > +		"ACTION=add",
+> > > > +		"DEVPATH=/devices/virtual/net/ltp-tun0/queues/rx-0",
+> > > > +		"SUBSYSTEM=queues",
+> > > > +	}
+> > > > +};
+> > > > +struct uevent_desc add_tx = {
+> > > > +	.msg = "add@/devices/virtual/net/ltp-tun0/queues/tx-0",
+> > > > +	.value_cnt = 3,
+> > > > +	.values = (const char*[]) {
+> > > > +		"ACTION=add",
+> > > > +		"DEVPATH=/devices/virtual/net/ltp-tun0/queues/tx-0",
+> > > > +		"SUBSYSTEM=queues",
+> > > > +	}
+> > > > +};
+> > > > +struct uevent_desc rem_rx = {
+> > > > +	.msg = "remove@/devices/virtual/net/ltp-tun0/queues/rx-0",
+> > > > +	.value_cnt = 3,
+> > > > +	.values = (const char*[]) {
+> > > > +		"ACTION=remove",
+> > > > +		"DEVPATH=/devices/virtual/net/ltp-tun0/queues/rx-0",
+> > > > +		"SUBSYSTEM=queues",
+> > > > +	}
+> > > > +};
+> > > > +struct uevent_desc rem_tx = {
+> > > > +	.msg = "remove@/devices/virtual/net/ltp-tun0/queues/tx-0",
+> > > > +	.value_cnt = 3,
+> > > > +	.values = (const char*[]) {
+> > > > +		"ACTION=remove",
+> > > > +		"DEVPATH=/devices/virtual/net/ltp-tun0/queues/tx-0",
+> > > > +		"SUBSYSTEM=queues",
+> > > > +	}
+> > > > +};
+> > > > +struct uevent_desc rem = {
+> > > > +	.msg = "remove@/devices/virtual/net/ltp-tun0",
+> > > > +	.value_cnt = 4,
+> > > > +	.values = (const char*[]) {
+> > > > +		"ACTION=remove",
+> > > > +		"DEVPATH=/devices/virtual/net/ltp-tun0",
+> > > > +		"SUBSYSTEM=net",
+> > > > +		"INTERFACE=ltp-tun0",
+> > > > +	}
+> > > > +};
+> > > 
+> > > Why do we have to move these outside of the function? I do not see a
+> > > single reason to do so.
+> > > 
+> > 
+> > I think separating the declaration of uevents and dynamic adding uevents 
+> > will make the program easier to read.
+> > This part is open to discussion, I'm just giving my thoughts.
+> > if everyone think it's a bad idea, I'll change it back in v2 patch.
+> > 
+> > declaration
+> > ----------------------------
+> > struct uevent_desc rem_tx = {}
+> > struct uevent_desc add_rx = {}
+> > struct uevent_desc add_tx = {}
+> > .....
+> > 
+> > dynamically adding uevent:
+> > --------------------------
+> > uevents[i++] = &add;
+> > if (has_RPS)
+> >         uevents[i++] = &add_rx;
+> > uevents[i++] = &add_tx;
+> > if (has_RPS)
+> >         uevents[i++] = &rem_rx;
+> > uevents[i++] = &rem_tx;
+> > uevents[i++] = &rem;
+> > uevents[i++] = NULL;
+> > 
+> > > > +	const struct uevent_desc *uevents[MAX_UEVENT];
+> > > > +	int pid, fd, i = 0;
+> > > > +	int has_RPS = tst_kconfig_get("CONFIG_RPS");
+> > > 
+> > > Getting the flag should be done once in the test setup, otherwise kernel
+> > > config will be parsed in each iteration of the test.
+> > > 
+> > 
+> > If we parse the kernel configuration during test setup, we will block all 
+> > images without CONFIG_RPS from executing this testcase. This is not my 
+> > intention, in this patch I designed to continue executing uevent02 even 
+> > without CONFIG_RPS. Just adjusting uevents can pass this test. So I think 
+> > parsing the kernel config in test_all() should be the correct way.
+> 
+> I do not think that we understand each other here. What I proposed is to
+> call the function that parses kernel config in the test setup and
+> initialize the has_RPS flag there so that it's not called on each
+> interation of the run() function (e.g. when test is passed -i 100 on
+> command line).
+> 
+> -- 
+> Cyril Hrubis
+> chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
