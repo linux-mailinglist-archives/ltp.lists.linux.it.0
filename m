@@ -2,74 +2,72 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81DAC5BA86E
-	for <lists+linux-ltp@lfdr.de>; Fri, 16 Sep 2022 10:46:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F7155BA8C4
+	for <lists+linux-ltp@lfdr.de>; Fri, 16 Sep 2022 10:59:12 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 85A6D3CAC58
-	for <lists+linux-ltp@lfdr.de>; Fri, 16 Sep 2022 10:46:05 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A07DE3CAC58
+	for <lists+linux-ltp@lfdr.de>; Fri, 16 Sep 2022 10:59:10 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E54D83CAC3A
- for <ltp@lists.linux.it>; Fri, 16 Sep 2022 10:46:03 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id E6DEC3CAA2F
+ for <ltp@lists.linux.it>; Fri, 16 Sep 2022 10:59:08 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 6089C602C02
- for <ltp@lists.linux.it>; Fri, 16 Sep 2022 10:46:03 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id E25E4602F55
+ for <ltp@lists.linux.it>; Fri, 16 Sep 2022 10:59:07 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 7ECF42002E;
- Fri, 16 Sep 2022 08:46:02 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 56B40200E7;
+ Fri, 16 Sep 2022 08:59:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1663317962; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1663318746; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=MTO/+js9U+gPj4mCnymTjkg6S8xR/TXYqDEkxUpo9io=;
- b=SjtsfohkBcVm9BftG2VDHn8santiSgHh218rYg92PsZst2wt21EK/i1LPwbzd9z1dLNvMe
- 7o+wrNgIjlqPZrtPPQ+MwhXfqOCJwV2Od5mpX10fW3ltW/3lfKBtxkioLTkw8tx8o9tUmJ
- +ZbUU5EcNA2pLHhelPpF3WcKuCbHNHQ=
+ bh=5hJ0vcZAX7XAEx1PyM0d3lIbNbCScGHAn700qvbAWug=;
+ b=EojrGERcyyTGORButoMR5XbKuxQtoWSJ7eA+suxBVCupiwUvkeMZTJSKOR4gXR+8FuDXfS
+ DFTm0UADXNpDZwpUYaJHUHShyi2J/PHk8gYiPLvNGVRCcKN33U5CojF1NzsxsF6ib1F5HM
+ asSxbexnY4RwG1GC/9d/6UVXvJ7FqcQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1663317962;
+ s=susede2_ed25519; t=1663318746;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=MTO/+js9U+gPj4mCnymTjkg6S8xR/TXYqDEkxUpo9io=;
- b=XRkw08juRpgiwSGnVe0uLNiblQPLFadpyTvXRuxlSJGzmEFbohbU2c7Z2ughp8P262RxCh
- /rBOmOyZqbWPZSDA==
+ bh=5hJ0vcZAX7XAEx1PyM0d3lIbNbCScGHAn700qvbAWug=;
+ b=uCvlzv5/zyiUYfEgvd9dNWYNARTZLrwj0+JKVNL7djCgmzZSIlW4OUdxqcg6HJ3+IEwaCX
+ ogrfFVmMBkvwCpBA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 614BB1346B;
- Fri, 16 Sep 2022 08:46:02 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3A74C1346B;
+ Fri, 16 Sep 2022 08:59:06 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id E7kxFso3JGN6SQAAMHmgww
- (envelope-from <chrubis@suse.cz>); Fri, 16 Sep 2022 08:46:02 +0000
-Date: Fri, 16 Sep 2022 10:47:59 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id 0ab/DNo6JGOJTgAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Fri, 16 Sep 2022 08:59:06 +0000
+Date: Fri, 16 Sep 2022 11:01:03 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
 To: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <YyQ4P2PEcatH4mmw@yuki>
-References: <20220914161930.27681-1-mdoucha@suse.cz>
- <20220914161930.27681-5-mdoucha@suse.cz> <YyMuR7825dIOUC6R@yuki>
- <4bfb03f3-d508-84c4-d7dd-d10234bc0e98@suse.cz>
+Message-ID: <YyQ7TwLFUu2dhp7m@yuki>
+References: <20220915160343.21773-1-mdoucha@suse.cz> <YyQ2i0t6JEL0ksib@yuki>
+ <98b89722-1cbe-5617-381b-df78d04f9d31@suse.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <4bfb03f3-d508-84c4-d7dd-d10234bc0e98@suse.cz>
+In-Reply-To: <98b89722-1cbe-5617-381b-df78d04f9d31@suse.cz>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL
+ autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 4/5] readahead02: Add max_runtime
+Subject: Re: [LTP] [PATCH v2] ksm: Add max_runtime to tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,10 +86,12 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> I'm planning to go back to ULP and KVM tests after release so feel free 
-> to open a new ticket for the other suggested improvements.
+> Yes, that's a leftover, ksm05 gets executed for a fixed period of time 
+> via the -I parameter in runfile so it doesn't need static max_runtime. 
+> Otherwise the test finishes almost instantly. I forgot to remove the 
+> mention in commit message, sorry about that.
 
-Done in: https://github.com/linux-test-project/ltp/issues/972
+I've fixed the commit message and pushed, thanks.
 
 -- 
 Cyril Hrubis
