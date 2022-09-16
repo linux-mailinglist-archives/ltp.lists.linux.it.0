@@ -1,73 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E6D35BADD5
-	for <lists+linux-ltp@lfdr.de>; Fri, 16 Sep 2022 15:09:31 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id C70065BADDC
+	for <lists+linux-ltp@lfdr.de>; Fri, 16 Sep 2022 15:12:30 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 351FD3CAC98
-	for <lists+linux-ltp@lfdr.de>; Fri, 16 Sep 2022 15:09:31 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 4F0B83CAC80
+	for <lists+linux-ltp@lfdr.de>; Fri, 16 Sep 2022 15:12:30 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 335003CAC18
- for <ltp@lists.linux.it>; Fri, 16 Sep 2022 15:09:26 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by picard.linux.it (Postfix) with ESMTPS id A54B43CAC18
+ for <ltp@lists.linux.it>; Fri, 16 Sep 2022 15:12:22 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 783B81402F9C
- for <ltp@lists.linux.it>; Fri, 16 Sep 2022 15:09:25 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id B24B3200B76
+ for <ltp@lists.linux.it>; Fri, 16 Sep 2022 15:12:21 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 557781F9CC;
- Fri, 16 Sep 2022 13:09:25 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 1250521AD6;
+ Fri, 16 Sep 2022 13:12:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1663333765; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ t=1663333941;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=7lzDhwp40Ln56DpZvuavQ+2kb9Z9x6mrTttZ1+nKeow=;
- b=1zKhQjdrOwkjXh0y3UgVADk/Ln0ydvJLfvl+8/+iK1NYOPX4ZNCtyNjQ+f5jU/EfCIgjQ6
- rnn5ONlCcJYcjkbB+9o9nbP3zf52hHO8TLIlyq+Rl4LASjtbry8IPfde8ntiiBECOk9zG3
- TR4NucKOGHQ7L9Oym3JruBZ26aXxPuQ=
+ bh=rCP9aQEpzFp926/2mnMG1RaHgcC9Mr08+rUjj02Kvak=;
+ b=u0eGwEyS7mJx8YipZrkplJEtWia/zDnAyDbZ7HLE93BYP33r1HMwiEbBzFhjtgB64dDTkO
+ lafyXmDM6kRR07rAgMGPAlcJuG829KS11MTqChKZrsgKTl/qUN7KstjJZ0f7MUr6xc/xFD
+ qjTVfiLajwEJ9/Se1c4g+u5QDQOgBQM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1663333765;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ s=susede2_ed25519; t=1663333941;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=7lzDhwp40Ln56DpZvuavQ+2kb9Z9x6mrTttZ1+nKeow=;
- b=iuKopeJxsrrrlDmvfEtSqsKZjnQxIc5CrRiA68gFKtMbBVlBTwrSKH4FBx6QdMgaeglkBU
- KT17aFl8p+37c2AA==
+ bh=rCP9aQEpzFp926/2mnMG1RaHgcC9Mr08+rUjj02Kvak=;
+ b=QBd27ovGdpMPFEdTJkxW1CIPgELKe1MwQ20b2W4EusP0IV+5oKWWhwuM6+zxw5AO1ag+DY
+ 2Zo+0aJVc2xdaRCQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 37A971346B;
- Fri, 16 Sep 2022 13:09:25 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C38821346B;
+ Fri, 16 Sep 2022 13:12:20 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id olInC4V1JGNiOQAAMHmgww
- (envelope-from <chrubis@suse.cz>); Fri, 16 Sep 2022 13:09:25 +0000
-Date: Fri, 16 Sep 2022 15:11:22 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <YyR1+tIX++0gnhr5@yuki>
+ by imap2.suse-dmz.suse.de with ESMTPSA id 9QZxKzR2JGOOOgAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Fri, 16 Sep 2022 13:12:20 +0000
+Date: Fri, 16 Sep 2022 15:12:18 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <YyR2Mh258FmVnwoR@pevik>
 References: <20220915093639.2261-1-pvorel@suse.cz>
  <20220915093639.2261-9-pvorel@suse.cz> <YyR1xD+Ks8ZntZxZ@yuki>
 MIME-Version: 1.0
 Content-Disposition: inline
 In-Reply-To: <YyR1xD+Ks8ZntZxZ@yuki>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH v6 8/8] df01.sh: Convert to TST_ALL_FILESYSTEMS=1
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -80,13 +81,14 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: Richard Palethorpe <rpalethorpe@suse.com>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
+> Hi!
 > > +TST_ALL_FILESYSTEMS=1
 > >  TST_CNT=12
 > >  TST_SETUP=setup
@@ -96,20 +98,17 @@ Hi!
 > > -TST_PARSE_ARGS=parse_args
 > >  TST_NEEDS_ROOT=1
 > > -TST_MOUNT_DEVICE=1
-> 
+
 > Just looking at this made me realize that for C API ALL_FILESYTEMST does
 > not imply TST_MOUNT_DEVICE since these functionalities are orthogonal. I
 > think that it would be better if we had the C API and shell API as close
 > as possible, hence ALL_FILESYSTEMS should imply only NEEDS_DEVICE and
 > the MOUNT_DEVICE would stay here.
 
-Also with that change:
+OK, I'll keep MOUNT_DEVICE=1 here and we can change it later for both.
 
-Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
-
--- 
-Cyril Hrubis
-chrubis@suse.cz
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
