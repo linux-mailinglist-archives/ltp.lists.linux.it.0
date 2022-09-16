@@ -2,76 +2,75 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C8A95BB0E3
-	for <lists+linux-ltp@lfdr.de>; Fri, 16 Sep 2022 18:07:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD61E5BB29B
+	for <lists+linux-ltp@lfdr.de>; Fri, 16 Sep 2022 21:04:49 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 866313CAC7F
-	for <lists+linux-ltp@lfdr.de>; Fri, 16 Sep 2022 18:07:44 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 9B2FA3CACB4
+	for <lists+linux-ltp@lfdr.de>; Fri, 16 Sep 2022 21:04:48 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 9B0373CA7AF
- for <ltp@lists.linux.it>; Fri, 16 Sep 2022 18:07:29 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by picard.linux.it (Postfix) with ESMTPS id 295253CAC18
+ for <ltp@lists.linux.it>; Fri, 16 Sep 2022 21:04:39 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 2D68914044CD
- for <ltp@lists.linux.it>; Fri, 16 Sep 2022 18:07:28 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 3372910005BB
+ for <ltp@lists.linux.it>; Fri, 16 Sep 2022 21:04:38 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id DF5C020905
- for <ltp@lists.linux.it>; Fri, 16 Sep 2022 16:07:27 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 0650233BF8;
+ Fri, 16 Sep 2022 19:04:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1663344447; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ t=1663355078;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=2Hnr7rAi7Y2IZySmX5Igk1FhGLQ1UKDItw/UsDESMec=;
- b=h9PGEstzNUr5LWMBML/TDRDROYtTy74gNv7rZ8as1D5uVlbv5ULvcZaBDgyiEcVsNv8c40
- vCQclrSxfZcrh3HdcvPECHpbVQbHOmPagTLCz3T419a4HqfbRMnKdUV8TEhUMWu1uS25Py
- yx1tq+STSXT94bTgeucIsgZHf4Mu4Tg=
+ bh=PDCuwY34+2cjc7Q8DrMuhwnndfhc8G8OwFV5/7Tubk0=;
+ b=hIBB0gmJkIAjnbg01f3nL2NTY5r2vjL3Lu8xRJm2BZS6DZKvbpNCHn9y6id18KOAorfDop
+ wzRTBoNDXnFIpQRAT4YESkk5TMb1PF0HKJ47WLQEg0B99o3iC/ALFDpZ/cH1PEpkvntc6O
+ l75oJJ3o8TRTktHyKMhphtD+nqD7lvU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1663344447;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ s=susede2_ed25519; t=1663355078;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=2Hnr7rAi7Y2IZySmX5Igk1FhGLQ1UKDItw/UsDESMec=;
- b=ocgi8qnWhKJWTVjWM/5bZTePQnKIqtLeFMmHbnlH9aFr/B1OiDza9ICQv/gKPqjXErjnXl
- YsN+tXFNZ/XanDCQ==
+ bh=PDCuwY34+2cjc7Q8DrMuhwnndfhc8G8OwFV5/7Tubk0=;
+ b=H21lHtUjguKHea8iQPWNA+AwoZKWLUuSWV2BPZTl9G5YnERFh2SSpDXB1Bb1QD5bl4hoDS
+ buI4GnmUTz8fgRAg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CDB891346B
- for <ltp@lists.linux.it>; Fri, 16 Sep 2022 16:07:27 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 00C561332E;
+ Fri, 16 Sep 2022 19:04:36 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id kEhBMT+fJGNGfQAAMHmgww
- (envelope-from <mdoucha@suse.cz>)
- for <ltp@lists.linux.it>; Fri, 16 Sep 2022 16:07:27 +0000
-From: Martin Doucha <mdoucha@suse.cz>
-To: ltp@lists.linux.it
-Date: Fri, 16 Sep 2022 18:07:26 +0200
-Message-Id: <20220916160726.12797-3-mdoucha@suse.cz>
-X-Mailer: git-send-email 2.37.3
-In-Reply-To: <20220916160726.12797-1-mdoucha@suse.cz>
-References: <20220916160726.12797-1-mdoucha@suse.cz>
+ by imap2.suse-dmz.suse.de with ESMTPSA id +IYaNcTIJGMhNgAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Fri, 16 Sep 2022 19:04:36 +0000
+Date: Fri, 16 Sep 2022 21:04:28 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <YyTIvPWfkkEoUflB@pevik>
+References: <20220906054612.9790-1-pvorel@suse.cz>
+ <YySDWP9I46TDIgEK@yuki>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <YySDWP9I46TDIgEK@yuki>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH 3/3] request_key03: Add max_runtime and make children
- runtime-aware
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/1] checkpatch: Ignore warnings irrelevant in
+ userspace
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,56 +82,50 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: Richard Palethorpe <rpalethorpe@suse.com>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Martin Doucha <mdoucha@suse.cz>
----
- .../kernel/syscalls/request_key/request_key03.c      | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+> Hi!
+> > * EMBEDDED_FILENAME
+> > fanotify.h:15: WARNING: It's generally not useful to have the filename in the file
+> > on #include <sys/fanotify.h> in fanotify.h
 
-diff --git a/testcases/kernel/syscalls/request_key/request_key03.c b/testcases/kernel/syscalls/request_key/request_key03.c
-index cb256f41e..464fcd8a4 100644
---- a/testcases/kernel/syscalls/request_key/request_key03.c
-+++ b/testcases/kernel/syscalls/request_key/request_key03.c
-@@ -100,6 +100,11 @@ static void run_child_add(const char *type, const char *payload, int effort)
- 
- 		if (TST_RET < 0)
- 			tst_brk(TBROK | TTERRNO, "unable to clear keyring");
-+
-+		if (!tst_remaining_runtime()) {
-+			tst_res(TINFO, "add_key() process runtime exceeded");
-+			break;
-+		}
- 	}
- }
- 
-@@ -116,6 +121,12 @@ static void run_child_request(const char *type, int effort)
- 				"unexpected error requesting key of type '%s'",
- 				type);
- 		}
-+
-+		if (!tst_remaining_runtime()) {
-+			tst_res(TINFO,
-+				"request_key() process runtime exceeded");
-+			break;
-+		}
- 	}
- }
- 
-@@ -201,6 +212,7 @@ static struct tst_test test = {
- 	.test = do_test,
- 	.tcnt = ARRAY_SIZE(testcase_list),
- 	.forks_child = 1,
-+	.max_runtime = 20,
- 	.options = (struct tst_option[]) {
- 		{"b:", &opt_bug,  "Bug to test for (cve-2017-15299 or cve-2017-15951; default is both)"},
- 		{}
--- 
-2.37.3
+> > * ENOSYS
+> > fanotify.h:26: WARNING: ENOSYS means 'invalid syscall nr' and nothing else
+> > on if (errno == ENOSYS)
 
+> > * NEW_TYPEDEFS
+> > fanotify.h:180: WARNING: do not add new typedefs
+> > on typedef struct {
+
+> I'm not 100% sure about the NEW_TYPEDEFS check, that one is mostly
+> right. The later two are fine.
+
+FYI the error is from fanotify.h (kind of lapi file for fanotify:
+
+#ifndef __kernel_fsid_t
+typedef struct {
+	int	val[2];
+} lapi_fsid_t;
+#define __kernel_fsid_t lapi_fsid_t
+#endif /* __kernel_fsid_t */
+
+which we added in b8aebc835 ("fanotify: Fix missing __kernel_fsid_t definition")
+"Instead of including <asm/posix_types.h> where it's defined we just
+define the missing bit." (fix for musl).
+
+But if you prefer to keep this check, I'm ok to merge it without it.
+
+The long term solution could be to add variable to Makefile to pass extra
+parameters, e.g.:
+check_fanotify.h: CHECKPATCH_IGNORE += NEW_TYPEDEFS
+
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
