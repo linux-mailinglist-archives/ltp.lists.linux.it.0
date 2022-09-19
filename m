@@ -2,76 +2,59 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id F02815BCE58
-	for <lists+linux-ltp@lfdr.de>; Mon, 19 Sep 2022 16:16:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B5525BCF59
+	for <lists+linux-ltp@lfdr.de>; Mon, 19 Sep 2022 16:43:01 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 1CCA73CACD0
-	for <lists+linux-ltp@lfdr.de>; Mon, 19 Sep 2022 16:16:46 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id EF65D3CACCF
+	for <lists+linux-ltp@lfdr.de>; Mon, 19 Sep 2022 16:42:59 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 4478A3C8D45
- for <ltp@lists.linux.it>; Mon, 19 Sep 2022 16:16:44 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 937093C91A6
+ for <ltp@lists.linux.it>; Mon, 19 Sep 2022 16:42:58 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 6CD63600642
- for <ltp@lists.linux.it>; Mon, 19 Sep 2022 16:16:42 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 214001400991
+ for <ltp@lists.linux.it>; Mon, 19 Sep 2022 16:42:57 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 6FCD7220F9;
- Mon, 19 Sep 2022 14:16:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1663597002; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ZyS1OAEGvr8pbkfK8uYy+aNbuqlI/u2E+OgR5evoMFI=;
- b=a4+sWV/cSs0p9eg885UoSMBFyEFmBX4tLzll+aveMYjU4+1wuEbw5mcgijPqcsQFGntab9
- aZKgGK4F5nvGHRYHOCiyjM8yf6T9eVStu2S4206zX6bpdqjEzepNRjfcDNXvnUC02sek7N
- f0x/AJe3KAMjFt8cxR6Th9szDz7UG6E=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1663597002;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ZyS1OAEGvr8pbkfK8uYy+aNbuqlI/u2E+OgR5evoMFI=;
- b=AHoTAdI3hike4JIMoj9HUOswimduZaPj65iJw2/NIZthVhjTrmzO5Nii+uKQgTmvkQI5TH
- 2uTiXVSXQUlazFBg==
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 2036321F82;
+ Mon, 19 Sep 2022 14:42:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1663598577; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=8q+JSfGs0o5s5dxkLKapNpZSSyHllGfNWIopPQEXGPo=;
+ b=JkCfknqG1qMuOZOMQ77dyOdJhQ0yGO/2gWnGF081YJFuoq0H5Zm8rnFeObIaEBwms1oq28
+ uAShLYtp0hALl29K7WgJuE2aTBmdpYy7AtkgSTo2Nfz39VewmIxhtraDvNWk2wVuoVphX4
+ rszaG/Z9x/Xy7XSqBQ9HWkQHecc8Cvw=
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 58FC313ABD;
- Mon, 19 Sep 2022 14:16:42 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 774CC13ABD;
+ Mon, 19 Sep 2022 14:42:56 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 8NReFMp5KGNPXAAAMHmgww
- (envelope-from <mdoucha@suse.cz>); Mon, 19 Sep 2022 14:16:42 +0000
-Message-ID: <0304d088-900d-9224-28c2-df4e4fde12b5@suse.cz>
-Date: Mon, 19 Sep 2022 16:16:41 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id WBAbF/B/KGO3ZgAAMHmgww
+ (envelope-from <andrea.cervesato@suse.com>); Mon, 19 Sep 2022 14:42:56 +0000
+To: ltp@lists.linux.it
+Date: Mon, 19 Sep 2022 16:41:54 +0200
+Message-Id: <20220919144154.20623-1-andrea.cervesato@suse.com>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
-Content-Language: en-US
-To: lkft@linaro.org, ltp@lists.linux.it
-References: <0100018355b1edc0-de081137-73fa-4649-80be-4c68e9432534-000000@email.amazonses.com>
-From: Martin Doucha <mdoucha@suse.cz>
-In-Reply-To: <0100018355b1edc0-de081137-73fa-4649-80be-4c68e9432534-000000@email.amazonses.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.9 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [REGRESSION] lkft ltp for 8ff3f5f
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: [LTP] [PATCH v1] Remove obsolete LTPROOT usage in math runtest file
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,40 +66,41 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: lkft-triage@lists.linaro.org
+From: Andrea Cervesato via ltp <ltp@lists.linux.it>
+Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On 19. 09. 22 14:21, lkft@linaro.org wrote:
-> ## Build
-> * kernel: 5.18.19
-> * git: https://gitlab.com/Linaro/lkft/mirrors/stable/linux-stable-rc
-> * git branch: linux-5.18.y
-> * git commit: 22a992953741ad79c07890d3f4104585e52ef26b
-> * git describe: 8ff3f5f
-> * test details: https://qa-reports.linaro.org/lkft/ltp/build/8ff3f5f
+Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
+---
+ runtest/math | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-Looking at the syscalls log through test details link above, it appears 
-that the test is running the latest stable release (20220527) instead of 
-the commit reported by git describe (8ff3f5f).
-
-- commit beedc4211b2afddabf2469668b4f32f06a91f12c is clearly present 
-because preadv203 timeout is 2m30s (LTP_TIMEOUT_MUL=3)
-- commit e0c6fbec7f4d5e8df7ef2c3d86cf5ab8a9de6fe5 is missing because 
-there's not mention of mount_setattr01 in the syscalls log.
-
-https://qa-reports.linaro.org/lkft/ltp/build/8ff3f5f/testrun/11965314/suite/ltp-syscalls/test/mq_timedreceive01/log
-
+diff --git a/runtest/math b/runtest/math
+index 110c41e73..6915ebe05 100644
+--- a/runtest/math
++++ b/runtest/math
+@@ -3,11 +3,11 @@ abs01 abs01
+ 
+ atof01 atof01
+ 
+-float_bessel cd $LTPROOT/testcases/bin; float_bessel -v
+-float_exp_log cd $LTPROOT/testcases/bin; float_exp_log -v
+-float_iperb cd $LTPROOT/testcases/bin; float_iperb -v
+-float_power cd $LTPROOT/testcases/bin; float_power -v
+-float_trigo cd $LTPROOT/testcases/bin; float_trigo -v
++float_bessel float_bessel -v
++float_exp_log float_exp_log -v
++float_iperb float_iperb -v
++float_power float_power -v
++float_trigo float_trigo -v
+ 
+ fptest01 fptest01
+ fptest02 fptest02
 -- 
-Martin Doucha   mdoucha@suse.cz
-QA Engineer for Software Maintenance
-SUSE LINUX, s.r.o.
-CORSO IIa
-Krizikova 148/34
-186 00 Prague 8
-Czech Republic
+2.35.3
 
 
 -- 
