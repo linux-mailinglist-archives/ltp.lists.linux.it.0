@@ -2,75 +2,72 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A9D05BFF47
-	for <lists+linux-ltp@lfdr.de>; Wed, 21 Sep 2022 15:54:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC5145C004A
+	for <lists+linux-ltp@lfdr.de>; Wed, 21 Sep 2022 16:51:51 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4F2743CAD53
-	for <lists+linux-ltp@lfdr.de>; Wed, 21 Sep 2022 15:54:06 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 252C83CAD58
+	for <lists+linux-ltp@lfdr.de>; Wed, 21 Sep 2022 16:51:50 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 158943CAC37
- for <ltp@lists.linux.it>; Wed, 21 Sep 2022 15:54:01 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by picard.linux.it (Postfix) with ESMTPS id 63BDB3CAC60
+ for <ltp@lists.linux.it>; Wed, 21 Sep 2022 16:51:46 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 5D7ED2009F4
- for <ltp@lists.linux.it>; Wed, 21 Sep 2022 15:54:00 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id BB7A8600855
+ for <ltp@lists.linux.it>; Wed, 21 Sep 2022 16:51:44 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 837CA1F85D;
- Wed, 21 Sep 2022 13:53:59 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 7424D21AF8;
+ Wed, 21 Sep 2022 14:51:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1663768439; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1663771904; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=rHdmP3paBAgAVz2/he8Xn8ex0RA53yeRqQkp1qC7zqI=;
- b=XiKU9U/5sF3yQHDqrLaYktIUCTROEX6zf4J5mq28jOmBDtaXbCxmsH72LCNtZyyokPfnur
- SnxX7rVWkzLuCPnXBFCQ6r2CB8LN1ESWk8ffnSTVjRVEmZatgnw0cHY0JdBjz+930JP6WU
- xKUF2ZPNY/k00GFI5XHMnUMURqhCJ3A=
+ bh=vuTer6G5eQKhQwYstR2ij54S+CYfAJyS5seBokSjqJM=;
+ b=GyR/VPfo8Nt8C00ZeygI6VDWUqXMmOzU7HdVSrjqekZeIg2SsEbFYT7cLNtXWBf1CXNtBe
+ xD8wZzNT03cAJWKyMOwcvR4qwpaTCYEZcXaIlOdX9DHMoXgWjvH2DkLKI2S4rDam5pb2to
+ B47QkRrJHqzpBAHVAkg5whSZmf90p/k=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1663768439;
+ s=susede2_ed25519; t=1663771904;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=rHdmP3paBAgAVz2/he8Xn8ex0RA53yeRqQkp1qC7zqI=;
- b=REvSjphhH4kCc+4aOi8tEL8DwyoXjCzkJybGFQ+KGgJe5IUspQgMxRW1MGKya/zpb6SgHJ
- Bv6ooLurQnXHkzAQ==
+ bh=vuTer6G5eQKhQwYstR2ij54S+CYfAJyS5seBokSjqJM=;
+ b=XDZQX74pLntmMsDCQOxeBb36KbNLlCwOcESQR32bKXdbzP7tijB7bAV8iXlvsQMEwfEQtt
+ 2RS11sdmbAH9uQDg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6A81313A00;
- Wed, 21 Sep 2022 13:53:59 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 51C8413A89;
+ Wed, 21 Sep 2022 14:51:44 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id i7uZGHcXK2OzRwAAMHmgww
- (envelope-from <chrubis@suse.cz>); Wed, 21 Sep 2022 13:53:59 +0000
-Date: Wed, 21 Sep 2022 15:55:56 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id Tsg0EgAlK2N3YAAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Wed, 21 Sep 2022 14:51:44 +0000
+Date: Wed, 21 Sep 2022 16:53:41 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
-To: "xuyang2018.jy@fujitsu.com" <xuyang2018.jy@fujitsu.com>
-Message-ID: <YysX7FVAHO6HkLLZ@yuki>
-References: <1663143142-2283-1-git-send-email-xuyang2018.jy@fujitsu.com>
- <YyG61JHO7iDAfJ1N@yuki>
- <bd50a9da-0b32-2318-31ec-67a78155cc25@fujitsu.com>
- <12eff5a1-bf6b-59bf-bfca-7a1d4f3ca009@fujitsu.com>
+To: Zhao Gongyi <zhaogongyi@huawei.com>
+Message-ID: <Yysldb7abF8541rd@yuki>
+References: <20220825125054.1074-1-zhaogongyi@huawei.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <12eff5a1-bf6b-59bf-bfca-7a1d4f3ca009@fujitsu.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+In-Reply-To: <20220825125054.1074-1-zhaogongyi@huawei.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v4 1/3] syscalls/creat09: Add umask test condition
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] syscalls/nice: Adjust the expected priority after
+ calling nice()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,43 +79,14 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: "brauner@kernel.org" <brauner@kernel.org>,
- "ltp@lists.linux.it" <ltp@lists.linux.it>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> > Yes.  Please apply it with fix the messages. Thanks.
-> 
-> I guess you miss this patchset. so ping again.
-
-Sorry for the delay.
-
-I just did quick test and I got failures on XFS on kernel 5.19, wasn't
-this supposed to be fixed in 5.19?
-
-...
-creat09.c:106: TPASS: mntpoint/testdir/creat.tmp: Owned by correct group
-creat09.c:112: TPASS: mntpoint/testdir/creat.tmp: Setgid bit not set
-creat09.c:106: TPASS: mntpoint/testdir/open.tmp: Owned by correct group
-creat09.c:112: TPASS: mntpoint/testdir/open.tmp: Setgid bit not set
-creat09.c:120: TINFO: File created with umask(S_IXGRP)
-creat09.c:106: TPASS: mntpoint/testdir/creat.tmp: Owned by correct group
-creat09.c:110: TFAIL: mntpoint/testdir/creat.tmp: Setgid bit is set
-creat09.c:106: TPASS: mntpoint/testdir/open.tmp: Owned by correct group
-creat09.c:110: TFAIL: mntpoint/testdir/open.tmp: Setgid bit is set
-...
-
-$ uname -r
-5.19.0
-
-$ git describe 1639a49ccdce
-v5.19-rc7-3-g1639a49ccdce
-
-
-Is there any in-flight patch for v6.0 that fixes this for XFS?
+Pushed, thanks.
 
 -- 
 Cyril Hrubis
