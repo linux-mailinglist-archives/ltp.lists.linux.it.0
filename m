@@ -1,74 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13F565E7A18
-	for <lists+linux-ltp@lfdr.de>; Fri, 23 Sep 2022 14:03:21 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id EF9A55E7A4B
+	for <lists+linux-ltp@lfdr.de>; Fri, 23 Sep 2022 14:16:44 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 2D9613CAD94
-	for <lists+linux-ltp@lfdr.de>; Fri, 23 Sep 2022 14:03:20 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 756A73CAD90
+	for <lists+linux-ltp@lfdr.de>; Fri, 23 Sep 2022 14:16:44 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 876B73CAC98
- for <ltp@lists.linux.it>; Fri, 23 Sep 2022 14:03:15 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by picard.linux.it (Postfix) with ESMTPS id 8D96C3CAC98
+ for <ltp@lists.linux.it>; Fri, 23 Sep 2022 14:16:40 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id B5FAA20109E
- for <ltp@lists.linux.it>; Fri, 23 Sep 2022 14:03:14 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id DF072201099
+ for <ltp@lists.linux.it>; Fri, 23 Sep 2022 14:16:38 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id A06651F947;
- Fri, 23 Sep 2022 12:03:13 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 7931321A38;
+ Fri, 23 Sep 2022 12:16:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1663934593; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ t=1663935398;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=eQuDWh+q6fq+JmQWa7X1AdSBlqLe1ZSfTQaTwjZsevs=;
- b=0rGk1W6Xpz+R1vuT0bfegWbMd0suVb4p1i2z1lO/DWjToOsdiZdAAkY3kYwEZVC1DQkVEC
- AUZMptPQwClPxOyUDOGMzOd5nW4HITgjZ1dB6NIOTn1FXvQATT/hMZry4LUJWXPrDndLvL
- coTtytwsBATcjWQswY0tvzVns63UcB0=
+ bh=4HvFXN037gtv5nzciOHsRHbkLsa+jbXYFzw5HbQmV74=;
+ b=RGP8Dnt/WdRHJ79ZyKspwS08qNbtrlNtNcIlX8KOJ9Ltypd2noDtWIrqn8zJbHuKlz0oDd
+ fgiBS5OuNVxBrDvvL0RJ/ox1jKpIRqscjIQtpMGMBnKaCCZddrRyczsMg/Y01gBr5jqTIJ
+ Kl7z+SdOZsa+1JoDTkN5mSZ8djvITuI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1663934593;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ s=susede2_ed25519; t=1663935398;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=eQuDWh+q6fq+JmQWa7X1AdSBlqLe1ZSfTQaTwjZsevs=;
- b=zBjoafsFFyxQDnRzsX4NOCLz1dyQUHjAAqZXq0dF1g6WZ6ftjAOHIPhl8qwBbgC3BR1Svh
- 9TCqwf02UtjNtrBg==
+ bh=4HvFXN037gtv5nzciOHsRHbkLsa+jbXYFzw5HbQmV74=;
+ b=nIxesl6Q51+ePABXlGnvZtGhTnTnyZBmH8J1vfWyU2S8QgaapZgMXrxs5BhSSwCFqTB2T5
+ Fzr2z+V1lVWRc8Bg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 89AEE13A00;
- Fri, 23 Sep 2022 12:03:13 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5178713A00;
+ Fri, 23 Sep 2022 12:16:38 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id LR9eIIGgLWO3aQAAMHmgww
- (envelope-from <chrubis@suse.cz>); Fri, 23 Sep 2022 12:03:13 +0000
-Date: Fri, 23 Sep 2022 14:05:10 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <Yy2g9mGQJcc9d4oN@yuki>
-References: <20220923105554.28942-1-pvorel@suse.cz>
- <20220923105554.28942-2-pvorel@suse.cz>
+ by imap2.suse-dmz.suse.de with ESMTPSA id eR6hEaajLWMocAAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Fri, 23 Sep 2022 12:16:38 +0000
+Date: Fri, 23 Sep 2022 14:16:36 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <Yy2jpHOAu0J7MXVF@pevik>
+References: <Yxr+EpKTnKQbKXTb@yuki> <YyiLZoSRWPgs8Cfh@pevik>
+ <Yy2SGpSyfDeApR5o@pevik> <Yy2fle1RVT/P+mJa@yuki>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20220923105554.28942-2-pvorel@suse.cz>
+In-Reply-To: <Yy2fle1RVT/P+mJa@yuki>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL
  autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/3] tst_test.sh: cd to $LTPROOT before umount
+Subject: Re: [LTP] September LTP release
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,43 +80,35 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: LTP List <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> It's safer not to expect tests go away from the mountpoint
-> before trying to unmount it, because tests can cd to $TST_MNTPOINT
-> if they use TST_MOUNT_DEVICE=1. Also better to handle it in the library
-> than in all tests which may need it.
-> 
-> This fix ima_keys.sh and other following IMA/EVM tests which fail on
-> systems with tmpfs on $TMPDIR since 1f6bd6e66:
-> 
->         ima_keys 1 TCONF: IMA policy does not specify '^measure.*func=KEY_CHECK'
->         tst_device.c:255: TWARN: ioctl(/dev/loop0, LOOP_CLR_FD, 0) no ENXIO for too long
-> 
->         Usage:
->         tst_device acquire [size [filename]]
->         tst_device release /path/to/device
->         tst_device clear /path/to/device
-> 
->         ima_keys 1 TWARN: Failed to release device '/dev/loop0'
->         rm: cannot remove '/tmp/LTP_ima_keys.YArl935DCg/mntpoint': Device or resource busy
-> 
-> Fixme: 1f6bd6e66 ("tst_test.sh: Add $TST_ALL_FILESYSTEMS")
-  ^
-  Fixes?
+> Hi!
+> > > ima_keys 1 TINFO: $TMPDIR is on tmpfs => run on loop device
+> > > ima_keys 1 TINFO: Formatting ext3 with opts='/dev/loop0'
+> > > ima_keys 1 TINFO: Mounting device: mount -t ext3 /dev/loop0 /tmp/LTP_ima_keys.YArl935DCg/mntpoint
+> > > ima_keys 1 TCONF: IMA policy does not specify '^measure.*func=KEY_CHECK'
+> > > tst_device.c:255: TWARN: ioctl(/dev/loop0, LOOP_CLR_FD, 0) no ENXIO for too long
 
-Otherwise:
+> > FYI I've fixed this in patchset "IMA + shell API fixes on umount" [1] [2]
+> > which depends on 2 other patchsets.
 
-Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
+> Will have a look.
 
--- 
-Cyril Hrubis
-chrubis@suse.cz
+> I've tried to merge several smaller fixes during the week. Is there
+> anything else to consider for inclusion?
+
+I wonder, if we want to document in C/shell API docs, that for skipping ext[2-4]
+on tests which run on single filesystem we one needs to specify "ext2/ext3/ext4.
+It has not been needed so far, thus may not be needed. I understood we're not
+going to change this.
+
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
