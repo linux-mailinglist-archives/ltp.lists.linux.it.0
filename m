@@ -2,74 +2,75 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 416295E7FD6
-	for <lists+linux-ltp@lfdr.de>; Fri, 23 Sep 2022 18:31:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 782D85E7FF3
+	for <lists+linux-ltp@lfdr.de>; Fri, 23 Sep 2022 18:36:52 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 8E7B13CADB8
-	for <lists+linux-ltp@lfdr.de>; Fri, 23 Sep 2022 18:31:34 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id C0F253CADB9
+	for <lists+linux-ltp@lfdr.de>; Fri, 23 Sep 2022 18:36:51 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 1A04F3CAA78
- for <ltp@lists.linux.it>; Fri, 23 Sep 2022 18:31:30 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 5200D3CA756
+ for <ltp@lists.linux.it>; Fri, 23 Sep 2022 18:36:46 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 4534B10013BA
- for <ltp@lists.linux.it>; Fri, 23 Sep 2022 18:31:29 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id E059C140052D
+ for <ltp@lists.linux.it>; Fri, 23 Sep 2022 18:36:45 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 6685F1F88D;
- Fri, 23 Sep 2022 16:31:28 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id EAAF11F8D3;
+ Fri, 23 Sep 2022 16:36:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1663950688;
+ t=1663951004;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=RWJ6tMlapgC+LI4PcNkjBVj0JAHRbKOk5NUdcizLo9I=;
- b=nc1MR62Q37jO2Hx3JHhYMAkTTlsYBLDjLfpYG5EwhRg7T07lhCbdVOLH2t5oIHMMEbHB0X
- CoSTt46/bf6ikrmII+Kko5viumB8BwYYik035VDVyKowN0WnYlWXauKsvNhEYCjpj0jmay
- K551PS8F5UJqBx6yQU5tvMKTl7YwyIM=
+ bh=stoR12bFdT8zcy3jTnmxfXufjK+q89/3aRz3s9vEpEE=;
+ b=vfgNV/DY4Q3k28bsmnUImEOww/5QS2oA6Itam70K2rbmaS+zym/2oThO37odDOMultE7bG
+ grI77Gtk1YtmjY5m4jwX2JlaCJE1O5/eElbUj+SYRF5zapw8zUZ5lpcbt56NxTafibH/Oz
+ zaTyrIw/EtT5Mj+ILIl06gz3SvcooYk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1663950688;
+ s=susede2_ed25519; t=1663951004;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=RWJ6tMlapgC+LI4PcNkjBVj0JAHRbKOk5NUdcizLo9I=;
- b=AFxPK4prqgKP8b90Uf/BeLGNFnCud2EIqaR0YsOPoBUd619+I6P/4FtIB0MHhRQUvJqDMF
- 0xz3SFD5bCx8+LDw==
+ bh=stoR12bFdT8zcy3jTnmxfXufjK+q89/3aRz3s9vEpEE=;
+ b=gCrtLudRixoB+Yjx7OrpNAkhhg39GAZV8OQw462+tykbgPZW47795J+8tJMAIZzfKSkgSN
+ ZDX8WWfdceL+bTCg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2D02613A00;
- Fri, 23 Sep 2022 16:31:28 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8F23C13A00;
+ Fri, 23 Sep 2022 16:36:44 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id MxRGCWDfLWOxUwAAMHmgww
- (envelope-from <pvorel@suse.cz>); Fri, 23 Sep 2022 16:31:28 +0000
-Date: Fri, 23 Sep 2022 18:31:26 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id S8UzIJzgLWN5VQAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Fri, 23 Sep 2022 16:36:44 +0000
+Date: Fri, 23 Sep 2022 18:36:42 +0200
 From: Petr Vorel <pvorel@suse.cz>
 To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <Yy3fXtq8NZEs9tl/@pevik>
+Message-ID: <Yy3gmoOYDOTLxfwh@pevik>
 References: <20220922210931.23982-1-pvorel@suse.cz>
- <20220922210931.23982-2-pvorel@suse.cz> <Yy3PVQCjVuVJjqwt@yuki>
+ <20220922210931.23982-4-pvorel@suse.cz> <Yy3QzoD5kRFdVzVR@yuki>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <Yy3PVQCjVuVJjqwt@yuki>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+In-Reply-To: <Yy3QzoD5kRFdVzVR@yuki>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/3 v2] tst_supported_fs: Unify messaging
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 3/3 v2] tst_test.sh: Fix filesystem support
+ detection
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,40 +90,47 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 > Hi!
-> > +#define err(...) ({ \
-> > +	fprintf(stderr, __VA_ARGS__); \
-> > +	fprintf(stderr, "\n"); \
-> > +	usage(); \
-> > +	return 2; })
->            ^
-> This should rather be exit(2);
+> > Fixes: 1f6bd6e66 ("tst_test.sh: Add $TST_ALL_FILESYSTEMS")
 
-Thanks! I thought that just after sending that.
+> > Reported-by: Martin Doucha <mdoucha@suse.cz>
+> > Signed-off-by: Petr Vorel <pvorel@suse.cz>
 
-> It's only matter of time until someone uses that in a function outside
-> of main.
+> Looks like this is the only real fix in the series, right?
 
-> > +#define fail(...) ({ \
-> > +	fprintf(stderr, __VA_ARGS__); \
-> > +	fprintf(stderr, "\n"); \
-> > +	return 1; })
+> The actual change looks good, but I do wonder what exactly has been
+> broken, git grpe TST_SKIP_FILESYSTEMS does not show any real tests
+> that would use that variable.
 
-> Here as well.
+Broken were actually all shell tests which did not use TST_SKIP_FILESYSTEMS:
+e.g. all tests in net_stress.ipsec_* did run whole filesystem check:
 
-> > +#define info(...) ({ \
-> > +	fprintf(stderr, __VA_ARGS__); \
-> > +	fprintf(stderr, "\n"); \
-> > +	return 0; })
+tst_supported_fs_types.c:93: TINFO: Kernel supports ext2
+tst_supported_fs_types.c:55: TINFO: mkfs.ext2 does exist
+tst_supported_fs_types.c:93: TINFO: Kernel supports ext3
+tst_supported_fs_types.c:55: TINFO: mkfs.ext3 does exist
+tst_supported_fs_types.c:93: TINFO: Kernel supports ext4
+tst_supported_fs_types.c:55: TINFO: mkfs.ext4 does exist
+tst_supported_fs_types.c:93: TINFO: Kernel supports xfs
+tst_supported_fs_types.c:55: TINFO: mkfs.xfs does exist
+tst_supported_fs_types.c:93: TINFO: Kernel supports btrfs
+tst_supported_fs_types.c:55: TINFO: mkfs.btrfs does exist
+tst_supported_fs_types.c:93: TINFO: Kernel supports vfat
+tst_supported_fs_types.c:55: TINFO: mkfs.vfat does exist
+tst_supported_fs_types.c:93: TINFO: Kernel supports exfat
+tst_supported_fs_types.c:55: TINFO: mkfs.exfat does exist
+tst_supported_fs_types.c:123: TINFO: FUSE does support ntfs
+tst_supported_fs_types.c:55: TINFO: mkfs.ntfs does exist
+tst_supported_fs_types.c:93: TINFO: Kernel supports tmpfs
+tst_supported_fs_types.c:42: TINFO: mkfs is not needed for tmpfs
+sctp_ipsec 1 TINFO: timeout per run is 0h 5m 0s
+sctp_ipsec 1 TINFO: IPsec[ah/transport]
+sctp_ipsec 1 TINFO: run server 'netstress -T sctp -S 10.0.0.1 -D ltp_ns_veth1 -R 500000 -B /tmp/LTP_sctp_ipsec.hC471AeJ9L'
+...
 
-> The naming here is a bit of strange, I wouldn't expect that function
-> called info() would exit the process.
+instead checking just filesystem in TMPDIR due empty $TST_FS_TYPE (I should have
+quoted it).
 
-> Maybe these three should include exit in the function name such as
-> info_exit(), err_exit() and fail_exit().
-+1
-
-I'll fix it in another version or fix it before merge (if all changes are
-trivial).
++ there are IMA tests had this + specific problem.
 
 Kind regards,
 Petr
