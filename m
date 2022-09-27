@@ -1,56 +1,55 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 725465EC932
-	for <lists+linux-ltp@lfdr.de>; Tue, 27 Sep 2022 18:14:34 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 693A25EC93B
+	for <lists+linux-ltp@lfdr.de>; Tue, 27 Sep 2022 18:15:39 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 37F053C916D
-	for <lists+linux-ltp@lfdr.de>; Tue, 27 Sep 2022 18:14:34 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 26ECF3C66A2
+	for <lists+linux-ltp@lfdr.de>; Tue, 27 Sep 2022 18:15:39 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 9781F3C0FA6
- for <ltp@lists.linux.it>; Tue, 27 Sep 2022 18:14:20 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by picard.linux.it (Postfix) with ESMTPS id 4123E3C87C9
+ for <ltp@lists.linux.it>; Tue, 27 Sep 2022 18:14:21 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id D09801A00912
- for <ltp@lists.linux.it>; Tue, 27 Sep 2022 18:14:19 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id A0EEC1000D43
+ for <ltp@lists.linux.it>; Tue, 27 Sep 2022 18:14:20 +0200 (CEST)
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 6F1461F8A6;
- Tue, 27 Sep 2022 16:14:19 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 1AA6E21E95;
+ Tue, 27 Sep 2022 16:14:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1664295259; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1664295260; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=O82NFjYBB7a4AZJbmjCjcsDHefq1jbZVhOm2bCpTTTE=;
- b=ibP95rqa2LGhke9tlEDlKbjQ5AE2fO+DtSBo15tWc8p+CkujcozERqKJw8IjihQ/WUSg9O
- Z9Tu5z0gbgvWIVIt8+p2POsAtjyvV3ztGgUA3ri0pQEdC4vBwbhESFwjnbXNxrsLh9g5GY
- I8jRJlT3IkeOJ0AlQ1XgIX7xzi/EAAY=
+ bh=Fd47GhO37EQRQPpWoTsMwGW1kEsvyFVi73M5E7RB3A8=;
+ b=AruJhxjxeoHKUVBNvRuzjUhkAVy4wgq0KLxEN3rPhITiN5oAo5uEK0CvRV65m/Vz7/mnI/
+ GJFsxkj4GD06PQD2Tt6j28VbFTWUTIsWXqRytWdczJAQf/ExH98/KwhIT0PhwTHWAfdLdI
+ UA3NPJIEGJUdXqRncp7BrcyXaU4mL74=
 Received: from g78.suse.de (unknown [10.163.24.90])
- by relay2.suse.de (Postfix) with ESMTP id B8BAC2C172;
- Tue, 27 Sep 2022 16:14:18 +0000 (UTC)
+ by relay2.suse.de (Postfix) with ESMTP id B47772C16D;
+ Tue, 27 Sep 2022 16:14:19 +0000 (UTC)
 To: ltp@lists.linux.it
-Date: Tue, 27 Sep 2022 17:14:03 +0100
-Message-Id: <20220927161408.23743-2-rpalethorpe@suse.com>
+Date: Tue, 27 Sep 2022 17:14:04 +0100
+Message-Id: <20220927161408.23743-3-rpalethorpe@suse.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220927161408.23743-1-rpalethorpe@suse.com>
 References: <20220927161408.23743-1-rpalethorpe@suse.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH 1/6] api/epoll: Add safe epoll functions
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH 2/6] api/evloop: Add helpers for creating an event loop
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,64 +69,72 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Probably safe to use it over (p)select/(p)poll now.
+Puts some of the boiler plate for creating an "event loop", into an
+API. Useful for asynchronous or evented I/O.
+
+This uses epoll and signalfd which are very widely supported on
+Linux. I also think epoll is a better interface than ppoll and
+pselect.
+
+The tst_epoll_event_data struct (added in the previous commit) can be
+used to add callbacks on particular FD events.
+
+There is also a special callback for the signlfd and on_cont which is
+called at the end of each loop. Returning 0 from these will cause the
+loop to exit.
 
 Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
 ---
- include/tst_epoll.h | 36 ++++++++++++++++++++
- lib/tst_epoll.c     | 81 +++++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 117 insertions(+)
- create mode 100644 include/tst_epoll.h
- create mode 100644 lib/tst_epoll.c
+ include/tst_evloop.h |  32 ++++++++++++++
+ lib/tst_evloop.c     | 102 +++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 134 insertions(+)
+ create mode 100644 include/tst_evloop.h
+ create mode 100644 lib/tst_evloop.c
 
-diff --git a/include/tst_epoll.h b/include/tst_epoll.h
+diff --git a/include/tst_evloop.h b/include/tst_evloop.h
 new file mode 100644
-index 000000000..c5ffc07e3
+index 000000000..bdab2d6f7
 --- /dev/null
-+++ b/include/tst_epoll.h
-@@ -0,0 +1,36 @@
++++ b/include/tst_evloop.h
+@@ -0,0 +1,32 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
 +/*
 + * Copyright (c) 2022 SUSE LLC <rpalethorpe@suse.com>
 + */
 +
-+#include <sys/epoll.h>
++#include "inttypes.h"
++#include "sys/signalfd.h"
 +
-+#ifndef TST_EPOLL_H
-+#define TST_EPOLL_H
++#include "tst_epoll.h"
 +
-+typedef int (*tst_on_epoll_fn)(void *, uint32_t);
-+struct tst_epoll_event_data {
-+	tst_on_epoll_fn on_epoll;
-+	void *self;
++#ifndef TST_EVLOOP_H
++#define TST_EVLOOP_H
++
++struct tst_evloop {
++	int epollfd;
++	int signalfd;
++	struct tst_epoll_event_data signalfd_evdata;
++	int timeout;
++
++	void *priv;
++	int (*on_cont)(struct tst_evloop *self);
++	int (*on_signal)(struct tst_evloop *self, struct signalfd_siginfo *si);
 +};
 +
-+int safe_epoll_create1(const char *const file, const int lineno,
-+		       const int flags);
-+
-+#define SAFE_EPOLL_CREATE1(flags) \
-+	safe_epoll_create1(__FILE__, __LINE__, (flags))
-+
-+int safe_epoll_ctl(const char *const file, const int lineno,
-+		   int epfd, int op, int fd, struct epoll_event *ev);
-+
-+#define SAFE_EPOLL_CTL(epfd, op, fd, ev) \
-+	safe_epoll_ctl(__FILE__, __LINE__, epfd, op, fd, ev)
-+
-+int safe_epoll_wait(const char *const file, const int lineno,
-+		    int epfd, struct epoll_event *events,
-+		    int maxevents, int timeout);
-+
-+#define SAFE_EPOLL_WAIT(epfd, events, maxevents, timeout)\
-+	safe_epoll_wait(__FILE__, __LINE__, epfd, events, maxevents, timeout)
++void tst_evloop_setup(struct tst_evloop *self);
++void tst_evloop_run(struct tst_evloop *self);
++void tst_evloop_add(struct tst_evloop *self,
++		    struct tst_epoll_event_data *evdata,
++		    int fd, uint32_t events);
++void tst_evloop_cleanup(struct tst_evloop *self);
 +
 +#endif
-diff --git a/lib/tst_epoll.c b/lib/tst_epoll.c
+diff --git a/lib/tst_evloop.c b/lib/tst_evloop.c
 new file mode 100644
-index 000000000..556b3bdab
+index 000000000..66d74ce58
 --- /dev/null
-+++ b/lib/tst_epoll.c
-@@ -0,0 +1,81 @@
++++ b/lib/tst_evloop.c
+@@ -0,0 +1,102 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
 +/*
 + * Copyright (c) 2022 SUSE LLC <rpalethorpe@suse.com>
@@ -136,79 +143,100 @@ index 000000000..556b3bdab
 +#define TST_NO_DEFAULT_MAIN
 +
 +#include "tst_test.h"
-+#include "tst_epoll.h"
++#include "tst_evloop.h"
 +
-+int safe_epoll_create1(const char *const file, const int lineno,
-+		       const int flags)
++static void handle_epoll_event(struct epoll_event *event)
 +{
-+	const char *flags_str;
-+	int ret = epoll_create1(flags);
++	struct tst_epoll_event_data *data = event->data.ptr;
 +
-+	switch (flags) {
-+	case EPOLL_CLOEXEC:
-+		flags_str = "EPOLL_CLOEXEC";
-+		break;
-+	case 0:
-+		flags_str = "";
-+		break;
-+	default:
-+		flags_str = "???";
-+	}
-+
-+	if (ret == -1) {
-+		tst_brk_(file, lineno,
-+			 TBROK | TERRNO, "epoll_create1(%s)", flags_str);
-+	}
-+
-+	return ret;
++	data->on_epoll(data->self, event->events);
 +}
 +
-+int safe_epoll_ctl(const char *const file, const int lineno,
-+		   int epfd, int op, int fd, struct epoll_event *ev)
++static int evloop_on_signal(struct tst_evloop *self, uint32_t events)
 +{
-+	const char *op_str;
-+	int ret;
++	int i, n;
++	struct signalfd_siginfo si[16];
 +
-+	switch (op) {
-+	case EPOLL_CTL_ADD:
-+		op_str = "EPOLL_CTL_ADD";
-+		break;
-+	case EPOLL_CTL_DEL:
-+		op_str = "EPOLL_CTL_DEL";
-+		break;
-+	case EPOLL_CTL_MOD:
-+		op_str = "EPOLL_CTL_MOD";
-+		break;
-+	default:
-+		op_str = "???";
++	if (events ^ EPOLLIN) {
++		tst_brk(TBROK, "Unexpected event on signalfd");
++		return 1;
 +	}
 +
-+	ret = epoll_ctl(epfd, op, fd, ev);
++	n = SAFE_READ(0, self->signalfd, si, sizeof(si));
 +
-+	if (ret == -1) {
-+		tst_brk_(file, lineno,
-+			 TBROK | TERRNO,
-+			 "epoll_ctl(%d, %s, %d, ...", epfd, op_str, fd);
++	if (!n)
++		tst_brk(TBROK, "Got EPOLLIN on signalfd, but no signal read from fd");
++
++	for (i = 0; i < n/(int)sizeof(si[0]); i++) {
++		if (!self->on_signal(self, si + i))
++			return 0;
 +	}
 +
-+	return ret;
++	return 1;
 +}
 +
-+int safe_epoll_wait(const char *const file, const int lineno,
-+		    int epfd, struct epoll_event *events,
-+		    int maxevents, int timeout)
++void tst_evloop_add(struct tst_evloop *self,
++		       struct tst_epoll_event_data *evdata,
++		       int fd, uint32_t events)
 +{
-+	int ret = epoll_wait(epfd, events, maxevents, timeout);
++	struct epoll_event ev = {
++		.events = events,
++		.data.ptr = evdata,
++	};
 +
-+	if (ret == -1) {
-+		tst_brk_(file, lineno, TBROK | TERRNO,
-+			 "epoll_wait(%d, ..., %d, %d)",
-+			 epfd, maxevents, timeout);
-+	}
-+
-+	return ret;
++	SAFE_EPOLL_CTL(self->epollfd, EPOLL_CTL_ADD, fd, &ev);
 +}
 +
++void tst_evloop_setup(struct tst_evloop *self)
++{
++
++	sigset_t mask;
++
++	self->epollfd = SAFE_EPOLL_CREATE1(EPOLL_CLOEXEC);
++
++	sigfillset(&mask);
++	SAFE_SIGPROCMASK(SIG_BLOCK, &mask, NULL);
++	self->signalfd = signalfd(-1, &mask, SFD_CLOEXEC);
++
++	self->signalfd_evdata.self = self;
++	self->signalfd_evdata.on_epoll = (tst_on_epoll_fn)evloop_on_signal;
++
++	tst_evloop_add(self, &self->signalfd_evdata, self->signalfd, EPOLLIN);
++}
++
++void tst_evloop_run(struct tst_evloop *self)
++{
++	static int saturated_warn;
++	const int maxevents = 128;
++	struct epoll_event events[maxevents];
++
++	for (;;) {
++		const int ev_num = SAFE_EPOLL_WAIT(self->epollfd, events,
++						   maxevents, self->timeout);
++
++		for (int i = 0; i < ev_num; i++)
++			handle_epoll_event(events + i);
++
++		if (ev_num == maxevents) {
++			if (!saturated_warn)
++				tst_res(TINFO, "Event loop saturated");
++
++			saturated_warn = 1;
++			continue;
++		}
++
++		if (!self->on_cont(self))
++			break;
++	}
++}
++
++void tst_evloop_cleanup(struct tst_evloop *self)
++{
++	if (self->epollfd > 0)
++		SAFE_CLOSE(self->epollfd);
++	if (self->signalfd > 0)
++		SAFE_CLOSE(self->signalfd);
++}
 -- 
 2.36.1
 
