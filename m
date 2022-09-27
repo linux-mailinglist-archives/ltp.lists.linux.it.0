@@ -1,55 +1,55 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 693A25EC93B
-	for <lists+linux-ltp@lfdr.de>; Tue, 27 Sep 2022 18:15:39 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 36B7B5EC933
+	for <lists+linux-ltp@lfdr.de>; Tue, 27 Sep 2022 18:14:48 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 26ECF3C66A2
-	for <lists+linux-ltp@lfdr.de>; Tue, 27 Sep 2022 18:15:39 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id DE6BB3C9478
+	for <lists+linux-ltp@lfdr.de>; Tue, 27 Sep 2022 18:14:47 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 4123E3C87C9
- for <ltp@lists.linux.it>; Tue, 27 Sep 2022 18:14:21 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 1C6753C67D6
+ for <ltp@lists.linux.it>; Tue, 27 Sep 2022 18:14:22 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id A0EEC1000D43
- for <ltp@lists.linux.it>; Tue, 27 Sep 2022 18:14:20 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 6D0C6600293
+ for <ltp@lists.linux.it>; Tue, 27 Sep 2022 18:14:21 +0200 (CEST)
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 1AA6E21E95;
+ by smtp-out2.suse.de (Postfix) with ESMTP id C33521F8A6;
  Tue, 27 Sep 2022 16:14:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
  t=1664295260; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Fd47GhO37EQRQPpWoTsMwGW1kEsvyFVi73M5E7RB3A8=;
- b=AruJhxjxeoHKUVBNvRuzjUhkAVy4wgq0KLxEN3rPhITiN5oAo5uEK0CvRV65m/Vz7/mnI/
- GJFsxkj4GD06PQD2Tt6j28VbFTWUTIsWXqRytWdczJAQf/ExH98/KwhIT0PhwTHWAfdLdI
- UA3NPJIEGJUdXqRncp7BrcyXaU4mL74=
+ bh=3TX8XZ3AV+MhGwrpenWey2hHRYTnvWKaHNtamChkoek=;
+ b=mEta0ag4J744HvFvYH/PuqSBDER/BG05RnVLGzsPaLBtQlILfLgAo1PR6btsWvrupFkgDZ
+ ArQHQLhWE1UWRhIoCE2yJ/B5j6SulFl/cin1tQZ7U/NVoZHNRjQNPLGNfuwlMwV75eZLGx
+ ndUOZ4IXOtYTOlFlNARk+xCXRK9WyiA=
 Received: from g78.suse.de (unknown [10.163.24.90])
- by relay2.suse.de (Postfix) with ESMTP id B47772C16D;
- Tue, 27 Sep 2022 16:14:19 +0000 (UTC)
+ by relay2.suse.de (Postfix) with ESMTP id 3D1E02C16B;
+ Tue, 27 Sep 2022 16:14:20 +0000 (UTC)
 To: ltp@lists.linux.it
-Date: Tue, 27 Sep 2022 17:14:04 +0100
-Message-Id: <20220927161408.23743-3-rpalethorpe@suse.com>
+Date: Tue, 27 Sep 2022 17:14:05 +0100
+Message-Id: <20220927161408.23743-4-rpalethorpe@suse.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220927161408.23743-1-rpalethorpe@suse.com>
 References: <20220927161408.23743-1-rpalethorpe@suse.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/6] api/evloop: Add helpers for creating an event loop
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH 3/6] api/state_machine: Add validating state machines
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,173 +69,183 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Puts some of the boiler plate for creating an "event loop", into an
-API. Useful for asynchronous or evented I/O.
+Allows creating state machines where the state transitions are
+validated. Also one can assert which states a line of code expects to
+be executed in.
 
-This uses epoll and signalfd which are very widely supported on
-Linux. I also think epoll is a better interface than ppoll and
-pselect.
+This is useful for verifying implicit or explicit state machines used
+to process I/O events or data.
 
-The tst_epoll_event_data struct (added in the previous commit) can be
-used to add callbacks on particular FD events.
-
-There is also a special callback for the signlfd and on_cont which is
-called at the end of each loop. Returning 0 from these will cause the
-loop to exit.
+When a state violation is found a trace of previous state transitions
+is printed.
 
 Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
 ---
- include/tst_evloop.h |  32 ++++++++++++++
- lib/tst_evloop.c     | 102 +++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 134 insertions(+)
- create mode 100644 include/tst_evloop.h
- create mode 100644 lib/tst_evloop.c
+ include/tst_state_machine.h | 50 +++++++++++++++++++
+ lib/tst_state_machine.c     | 98 +++++++++++++++++++++++++++++++++++++
+ 2 files changed, 148 insertions(+)
+ create mode 100644 include/tst_state_machine.h
+ create mode 100644 lib/tst_state_machine.c
 
-diff --git a/include/tst_evloop.h b/include/tst_evloop.h
+diff --git a/include/tst_state_machine.h b/include/tst_state_machine.h
 new file mode 100644
-index 000000000..bdab2d6f7
+index 000000000..2e86535c6
 --- /dev/null
-+++ b/include/tst_evloop.h
-@@ -0,0 +1,32 @@
++++ b/include/tst_state_machine.h
+@@ -0,0 +1,50 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
 +/*
 + * Copyright (c) 2022 SUSE LLC <rpalethorpe@suse.com>
 + */
 +
 +#include "inttypes.h"
-+#include "sys/signalfd.h"
 +
-+#include "tst_epoll.h"
++#ifndef TST_STATE_MACHINE_H
++#define TST_STATE_MACHINE_H
 +
-+#ifndef TST_EVLOOP_H
-+#define TST_EVLOOP_H
++#define TST_STATE_ANY (~(uint64_t)0)
 +
-+struct tst_evloop {
-+	int epollfd;
-+	int signalfd;
-+	struct tst_epoll_event_data signalfd_evdata;
-+	int timeout;
-+
-+	void *priv;
-+	int (*on_cont)(struct tst_evloop *self);
-+	int (*on_signal)(struct tst_evloop *self, struct signalfd_siginfo *si);
++struct tst_state_matrix {
++	char *names[64];
++	uint64_t states[64];
 +};
 +
-+void tst_evloop_setup(struct tst_evloop *self);
-+void tst_evloop_run(struct tst_evloop *self);
-+void tst_evloop_add(struct tst_evloop *self,
-+		    struct tst_epoll_event_data *evdata,
-+		    int fd, uint32_t events);
-+void tst_evloop_cleanup(struct tst_evloop *self);
++struct tst_state_trace {
++	const char *file;
++	int line;
++	unsigned from;
++	unsigned to;
++};
++
++struct tst_state_mach {
++	const struct tst_state_matrix *mat;
++
++	unsigned top;
++	struct tst_state_trace ring[8];
++};
++
++#define TST_STATE_SET(mach, to) \
++	tst_state_set(__FILE__, __LINE__, mach, to)
++
++void tst_state_set(const char *const file, const int lineno,
++		  struct tst_state_mach *mach, unsigned to);
++
++#define TST_STATE_EXP(mach, mask) \
++	tst_state_exp(__FILE__, __LINE__, mach, mask)
++
++void tst_state_exp(const char *const file, const int lineno,
++		   struct tst_state_mach *mach, uint64_t mask);
++
++#define TST_STATE_GET(mach, mask) \
++	tst_state_get(__FILE__, __LINE__, mach, mask)
++
++unsigned tst_state_get(const char *const file, const int lineno,
++		       struct tst_state_mach *mach, uint64_t mask);
 +
 +#endif
-diff --git a/lib/tst_evloop.c b/lib/tst_evloop.c
+diff --git a/lib/tst_state_machine.c b/lib/tst_state_machine.c
 new file mode 100644
-index 000000000..66d74ce58
+index 000000000..cb8ed79c4
 --- /dev/null
-+++ b/lib/tst_evloop.c
-@@ -0,0 +1,102 @@
++++ b/lib/tst_state_machine.c
+@@ -0,0 +1,98 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
 +/*
 + * Copyright (c) 2022 SUSE LLC <rpalethorpe@suse.com>
 + */
++
 +#define _GNU_SOURCE
 +#define TST_NO_DEFAULT_MAIN
 +
++#include <unistd.h>
++#include "stdio.h"
++
 +#include "tst_test.h"
-+#include "tst_evloop.h"
++#include "tst_state_machine.h"
 +
-+static void handle_epoll_event(struct epoll_event *event)
++static const char *state_trace(struct tst_state_mach *mach)
 +{
-+	struct tst_epoll_event_data *data = event->data.ptr;
++	static char buf[4096];
++	char *const *const names = mach->mat->names;
++	size_t off = 1;
++	unsigned c = 0, i;
 +
-+	data->on_epoll(data->self, event->events);
-+}
++	buf[0] = '\n';
 +
-+static int evloop_on_signal(struct tst_evloop *self, uint32_t events)
-+{
-+	int i, n;
-+	struct signalfd_siginfo si[16];
++	for (i = mach->top; c < 8; c++) {
++		const struct tst_state_trace *t = mach->ring + i;
 +
-+	if (events ^ EPOLLIN) {
-+		tst_brk(TBROK, "Unexpected event on signalfd");
-+		return 1;
-+	}
-+
-+	n = SAFE_READ(0, self->signalfd, si, sizeof(si));
-+
-+	if (!n)
-+		tst_brk(TBROK, "Got EPOLLIN on signalfd, but no signal read from fd");
-+
-+	for (i = 0; i < n/(int)sizeof(si[0]); i++) {
-+		if (!self->on_signal(self, si + i))
-+			return 0;
-+	}
-+
-+	return 1;
-+}
-+
-+void tst_evloop_add(struct tst_evloop *self,
-+		       struct tst_epoll_event_data *evdata,
-+		       int fd, uint32_t events)
-+{
-+	struct epoll_event ev = {
-+		.events = events,
-+		.data.ptr = evdata,
-+	};
-+
-+	SAFE_EPOLL_CTL(self->epollfd, EPOLL_CTL_ADD, fd, &ev);
-+}
-+
-+void tst_evloop_setup(struct tst_evloop *self)
-+{
-+
-+	sigset_t mask;
-+
-+	self->epollfd = SAFE_EPOLL_CREATE1(EPOLL_CLOEXEC);
-+
-+	sigfillset(&mask);
-+	SAFE_SIGPROCMASK(SIG_BLOCK, &mask, NULL);
-+	self->signalfd = signalfd(-1, &mask, SFD_CLOEXEC);
-+
-+	self->signalfd_evdata.self = self;
-+	self->signalfd_evdata.on_epoll = (tst_on_epoll_fn)evloop_on_signal;
-+
-+	tst_evloop_add(self, &self->signalfd_evdata, self->signalfd, EPOLLIN);
-+}
-+
-+void tst_evloop_run(struct tst_evloop *self)
-+{
-+	static int saturated_warn;
-+	const int maxevents = 128;
-+	struct epoll_event events[maxevents];
-+
-+	for (;;) {
-+		const int ev_num = SAFE_EPOLL_WAIT(self->epollfd, events,
-+						   maxevents, self->timeout);
-+
-+		for (int i = 0; i < ev_num; i++)
-+			handle_epoll_event(events + i);
-+
-+		if (ev_num == maxevents) {
-+			if (!saturated_warn)
-+				tst_res(TINFO, "Event loop saturated");
-+
-+			saturated_warn = 1;
-+			continue;
-+		}
-+
-+		if (!self->on_cont(self))
++		if (!t->file)
 +			break;
++
++		if (off >= sizeof(buf))
++			break;
++
++		off += snprintf(buf + off,
++				sizeof(buf) - off - 1,
++				"\t%s:%d %s (%u) -> %s (%u)\n",
++				t->file, t->line,
++				names[t->from], t->from,
++				names[t->to], t->to);
++
++		if (!i)
++			i = 7;
++		else
++			i--;
 +	}
++
++	return buf;
 +}
 +
-+void tst_evloop_cleanup(struct tst_evloop *self)
++static void state_trace_set(const char *const file, const int lineno,
++			    struct tst_state_trace *trace, unsigned from, unsigned to)
 +{
-+	if (self->epollfd > 0)
-+		SAFE_CLOSE(self->epollfd);
-+	if (self->signalfd > 0)
-+		SAFE_CLOSE(self->signalfd);
++	trace->file = file;
++	trace->line = lineno;
++	trace->from = from;
++	trace->to = to;
++}
++
++void tst_state_set(const char *const file, const int lineno,
++		   struct tst_state_mach *mach, unsigned to)
++{
++	char *const *const names = mach->mat->names;
++	const unsigned cur = mach->ring[mach->top].to;
++
++	if (cur > 63)
++		tst_brk_(file, lineno, TBROK, "Attempting to transition from an invalid state: %u: %s", cur, state_trace(mach));
++
++	if (to > 63)
++		tst_brk_(file, lineno, TBROK, "Attempting to transition to invalid state: %u: %s", to, state_trace(mach));
++
++	if (!(mach->mat->states[cur] & (1 << to)))
++		tst_brk_(file, lineno, TBROK, "Invalid transition: %s (%u) -> %s (%u): %s", names[cur], cur, names[to], to, state_trace(mach));
++
++	if (++(mach->top) == 8)
++		mach->top = 0;
++
++	state_trace_set(file, lineno, &mach->ring[mach->top], cur, to);
++}
++
++unsigned tst_state_get(const char *const file, const int lineno,
++		       struct tst_state_mach *mach, uint64_t mask)
++{
++	char *const *const names = mach->mat->names;
++	const unsigned cur = mach->ring[mach->top].to;
++
++	if (mask & (1 << cur))
++		return cur;
++
++	tst_brk_(file, lineno, TBROK, "Should not reach here while in state: %s (%u): %s",
++		 names[cur], cur, state_trace(mach));
++
++	return cur;
++}
++
++void tst_state_exp(const char *const file, const int lineno,
++		   struct tst_state_mach *mach, uint64_t mask)
++{
++	tst_state_get(file, lineno, mach, mask);
 +}
 -- 
 2.36.1
