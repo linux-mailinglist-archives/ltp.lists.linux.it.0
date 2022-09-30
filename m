@@ -1,72 +1,73 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F3F35F076A
-	for <lists+linux-ltp@lfdr.de>; Fri, 30 Sep 2022 11:19:22 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id BE2635F078B
+	for <lists+linux-ltp@lfdr.de>; Fri, 30 Sep 2022 11:27:50 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4E76E3CA571
-	for <lists+linux-ltp@lfdr.de>; Fri, 30 Sep 2022 11:19:21 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 20D533CA4FF
+	for <lists+linux-ltp@lfdr.de>; Fri, 30 Sep 2022 11:27:50 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 7AFCF3C0B82
- for <ltp@lists.linux.it>; Fri, 30 Sep 2022 11:19:19 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 44B6B3C0726
+ for <ltp@lists.linux.it>; Fri, 30 Sep 2022 11:27:48 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 000EF1401345
- for <ltp@lists.linux.it>; Fri, 30 Sep 2022 11:19:18 +0200 (CEST)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 84C53600C6F
+ for <ltp@lists.linux.it>; Fri, 30 Sep 2022 11:27:46 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 6CE632188B;
- Fri, 30 Sep 2022 09:19:18 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 65BA11F8CE;
+ Fri, 30 Sep 2022 09:27:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1664529558; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ t=1664530066;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=Ucwjb/hc2NP2GhGuam7qCccHgKtStSpubI4XxjyaEAE=;
- b=UYInDOtMQ4k1ld9H4013xfK3bL++u4MA8XXdbmjNSOIeSjqM4+NXZwxvRA7Cv46q+cpLGs
- ysv/ZAApx15TjVGeKyBbyqJ8BwPE0WkzypkgKueXG/bgmPV4ugESp3rK4dQbBHub5jqnzu
- +DpJqh7vKDBiv4e97hhT0oKFsQJL3rE=
+ bh=RWUMqq+SUQGpx8v7CPIdpmNwd+SLj5U/EFgjb7p/Wd8=;
+ b=kFgFxbpa4qxmFwtkgpkJN2RWRaK4s3nfd68wIujkfxtQq3bndIo2zxdyuqpvUuCfMpLxO/
+ Cd8evnIdV1y+KWYGI2Lee+9Vk2s3gvcUNWWSKCnr52m0ZUL/HG7IpWU2+TWn/ujVFim9ZR
+ ZK7semtmH7p8cQ9hNw1/MpSitFpM8cg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1664529558;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ s=susede2_ed25519; t=1664530066;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=Ucwjb/hc2NP2GhGuam7qCccHgKtStSpubI4XxjyaEAE=;
- b=v47SVV8OKMeAeQuIn8SfFxqclnNYO6eZKGoDNFikjIU35qc9Dikw7FDw+naEzcbuWYzxQf
- afwHrMdgtt7QAXCQ==
+ bh=RWUMqq+SUQGpx8v7CPIdpmNwd+SLj5U/EFgjb7p/Wd8=;
+ b=K85/5ecgtgtmUpHNrCpmwYgO+mkOwtaUwjPTI5kGn9tWoBoFKTqQBPpsomjtd8LQ7+uUKM
+ yd8lxBdapCyHBPCw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4B2DD13677;
- Fri, 30 Sep 2022 09:19:18 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 30E9313677;
+ Fri, 30 Sep 2022 09:27:46 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id aMj2EJa0NmO8WQAAMHmgww
- (envelope-from <chrubis@suse.cz>); Fri, 30 Sep 2022 09:19:18 +0000
-Date: Fri, 30 Sep 2022 11:21:11 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Petr Vorel <pvorel@suse.cz>
-Message-ID: <Yza1B8t2LOueCVUC@yuki>
+ by imap2.suse-dmz.suse.de with ESMTPSA id TNrjCJK2NmNGXQAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Fri, 30 Sep 2022 09:27:46 +0000
+Date: Fri, 30 Sep 2022 11:27:43 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <Yza2jwpow0uhaLHu@pevik>
 References: <20220930091208.5688-1-pvorel@suse.cz>
+ <Yza1B8t2LOueCVUC@yuki>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20220930091208.5688-1-pvorel@suse.cz>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+In-Reply-To: <Yza1B8t2LOueCVUC@yuki>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH v2 1/1] zram01.sh: Fix minimal size for XFS on
  kernel 5.19
 X-BeenThere: ltp@lists.linux.it
@@ -80,24 +81,27 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-Looks good to me. Please make sure that this gets tested fairly before
-pushing.
+> Hi!
+> Looks good to me. Please make sure that this gets tested fairly before
+> pushing.
++1. I've tested it on Tumbleweed, kernel 6.0.0-rc7-1.g74aafe0-default,
+mkfs.xfs 5.19.0.
 
-Also Li if you can please double check since we are very late in the
-release process.
+> Also Li if you can please double check since we are very late in the
+> release process.
++1
+I can merge it tonight, or wait for Li on next week.
 
-Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
+Thanks for your review!
 
--- 
-Cyril Hrubis
-chrubis@suse.cz
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
