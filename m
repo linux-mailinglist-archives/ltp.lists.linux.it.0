@@ -1,74 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id D06155F0728
-	for <lists+linux-ltp@lfdr.de>; Fri, 30 Sep 2022 11:05:00 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id C54635F072B
+	for <lists+linux-ltp@lfdr.de>; Fri, 30 Sep 2022 11:07:03 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 76F873CA571
-	for <lists+linux-ltp@lfdr.de>; Fri, 30 Sep 2022 11:05:00 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 24BA13CA68B
+	for <lists+linux-ltp@lfdr.de>; Fri, 30 Sep 2022 11:07:03 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id CA6103C0B82
- for <ltp@lists.linux.it>; Fri, 30 Sep 2022 11:04:58 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 34BDD3CA55B
+ for <ltp@lists.linux.it>; Fri, 30 Sep 2022 11:07:01 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id D3A8060220E
- for <ltp@lists.linux.it>; Fri, 30 Sep 2022 11:04:57 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id C7E341A01727
+ for <ltp@lists.linux.it>; Fri, 30 Sep 2022 11:07:00 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 20C6A1F747;
- Fri, 30 Sep 2022 09:04:57 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id BA36E21882;
+ Fri, 30 Sep 2022 09:06:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1664528697;
+ t=1664528818;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=3+8k/YoQhQ36scsTZQ6EtgPeBC3TMGV11mJRw8nQfd8=;
- b=Gph3VcoJLoRlCyUoR03ytzIPGF7w4cRNfxm6CJLvE2085KzJwxiyDMSejgFfq+8MtwV6gz
- 74VGefYpaSN/kSTVQS7Ty9hp/+P8ZIyKa6oeHm1l/QEtY2KjB1ncvhah0AcyHukLBNUsVY
- S5l1vqBsC0cnk0pNvqYwUiE6GaiTQ3c=
+ bh=Y+TJVPucdbWzfkpefeSUetjyN61t9JlBWyVCHsrPWQQ=;
+ b=gBm/3TGxyKQg0QCOqnjHZyNTi6tzvM1LtELvT10uTbEIhifymiDCq4fRZOOvT6dtEmm1y7
+ Wt3D4Lv4+vss6lk9m0hpfl3TU2GUYibHJSFe0qkOUeW4wXUjUig2nBv0Ryqh6WwFpqh7b5
+ vBfjbVW4BsaoHR3XaANDyNaLmctJHL8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1664528697;
+ s=susede2_ed25519; t=1664528818;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=3+8k/YoQhQ36scsTZQ6EtgPeBC3TMGV11mJRw8nQfd8=;
- b=pUn2pVw3PsKUU4X2mnaci/QY74iMxFHkF0a992UYHfffzrYb2nnnCQ+Ee/eTs1D1GgsNcr
- OhCuT8XrOx+9PiBw==
+ bh=Y+TJVPucdbWzfkpefeSUetjyN61t9JlBWyVCHsrPWQQ=;
+ b=d4uz1HjnsShUwI6SRVw73lLVf5MbaJ6Q0C176g15ecje65g1IMYMPc2G00pXdHqfKupDiW
+ oTugA37duHfz3HBA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CB45213776;
- Fri, 30 Sep 2022 09:04:56 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9444513776;
+ Fri, 30 Sep 2022 09:06:58 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id plGdLzixNmPuUwAAMHmgww
- (envelope-from <pvorel@suse.cz>); Fri, 30 Sep 2022 09:04:56 +0000
-Date: Fri, 30 Sep 2022 11:04:54 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id w+IJIrKxNmO8VAAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Fri, 30 Sep 2022 09:06:58 +0000
+Date: Fri, 30 Sep 2022 11:06:56 +0200
 From: Petr Vorel <pvorel@suse.cz>
 To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <YzaxNm+uuCrng6a9@pevik>
+Message-ID: <YzaxsM95JXaJPn6p@pevik>
 References: <20220929192047.22125-1-pvorel@suse.cz>
  <YzaxFda/gGg1TIBR@yuki>
 MIME-Version: 1.0
 Content-Disposition: inline
 In-Reply-To: <YzaxFda/gGg1TIBR@yuki>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH 1/1] zram01.sh: Fix minimal size for XFS on kernel
  5.19
 X-BeenThere: ltp@lists.linux.it
@@ -107,9 +107,11 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 > I would say that we should really do the same for xfs, i.e. rename the
 > check_space_for_brtfs to check_space_for_fs and pass the fs in the first
 > argument so that it can appear in the tst_res message.
+BTW I even had originally this version prepared, thus this v1 is wrong due this
+left over:
 
-I understood the concern, just wasn't sure if it were Btrfs specific.
-Makes sense to use this for XFS, I'll send v2 shortly.
+-                       check_space_for_btrfs || continue
++                       check_space_for_btrfs "$fs" || continue
 
 Kind regards,
 Petr
