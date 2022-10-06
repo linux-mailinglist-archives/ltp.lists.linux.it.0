@@ -2,66 +2,40 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 989C75F9E24
-	for <lists+linux-ltp@lfdr.de>; Mon, 10 Oct 2022 13:57:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B2BB5F9EB2
+	for <lists+linux-ltp@lfdr.de>; Mon, 10 Oct 2022 14:25:38 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 763153CAE8B
-	for <lists+linux-ltp@lfdr.de>; Mon, 10 Oct 2022 13:57:36 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 15DE33CAE90
+	for <lists+linux-ltp@lfdr.de>; Mon, 10 Oct 2022 14:25:37 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 7F6823C1841
- for <ltp@lists.linux.it>; Mon, 10 Oct 2022 13:57:33 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by picard.linux.it (Postfix) with ESMTPS id AFB0D3C0726
+ for <ltp@lists.linux.it>; Thu,  6 Oct 2022 10:17:15 +0200 (CEST)
+Received: from mail.steuer-voss.de (mail.steuer-voss.de [85.183.69.95])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id C55C4600242
- for <ltp@lists.linux.it>; Mon, 10 Oct 2022 13:57:32 +0200 (CEST)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 4C7341F8E8
- for <ltp@lists.linux.it>; Mon, 10 Oct 2022 11:57:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1665403051;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=5ec5EsDBU7fItGHUgJHYSiCVNbmw1a4hlp2GUs+Ty4k=;
- b=bUsGeqo2Pi6sd+uzf7gljdAkNN9+9g19TBJWWMW5hsrbggKIUP1+Zv5ZNOEaTV5K+EidgG
- 0yoX8XAA5Nig9/Ztw5wlI5vhXOsNcvB/kQSy24Sb59uAhwQQIIy4qdq7RuiTk/8kdqKRap
- 3n94kKmCo5CQv8em/ESRjUsQMVg6MZ8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1665403051;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=5ec5EsDBU7fItGHUgJHYSiCVNbmw1a4hlp2GUs+Ty4k=;
- b=GUeQwiDsfNFnw92XN1Og5llnSVW0SZK1YSkJuikBWcYd9erpKIl6hHHC8j6Zk3JlcImZ9V
- jQSHDzNF+USZAYBw==
-Received: from g78 (unknown [10.100.228.202])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id B03962C141;
- Mon, 10 Oct 2022 11:57:30 +0000 (UTC)
-References: <20220704114523.10409-1-mdoucha@suse.cz>
-User-agent: mu4e 1.6.10; emacs 28.1
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Martin Doucha <mdoucha@suse.cz>
-Date: Mon, 10 Oct 2022 12:57:03 +0100
-In-reply-to: <20220704114523.10409-1-mdoucha@suse.cz>
-Message-ID: <87edvfao2e.fsf@suse.de>
-MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 7BF132001B4
+ for <ltp@lists.linux.it>; Thu,  6 Oct 2022 10:17:14 +0200 (CEST)
+Received: by mail.steuer-voss.de (Postfix, from userid 1000)
+ id 92303897; Thu,  6 Oct 2022 10:17:09 +0200 (CEST)
+From: Nikolaus Voss <nv@vosn.de>
+To: Yael Tzur <yaelt@google.com>, Cyril Hrubis <chrubis@suse.cz>,
+ Mimi Zohar <zohar@linux.ibm.com>, Jarkko Sakkinen <jarkko@kernel.org>
+Date: Thu, 6 Oct 2022 08:15:55 +0200
+Message-Id: <20221006081709.92303897@mail.steuer-voss.de>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] msgget03: Set custom queue limit
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+X-Mailman-Approved-At: Mon, 10 Oct 2022 14:25:33 +0200
+Subject: [LTP] [PATCH] syscalls/keyctl/keyctl09.c: fix test encrypted key
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,60 +47,100 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
 Cc: ltp@lists.linux.it
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello,
+This commit fixes the test for adding encrypted keys with unencrypted data.
+Unencryted data must be provided hex-ascii encoding. Due to a kernel
+bug, the unencypted data was not decoded to binary thus the length of
+the key was only half the specified key size. This patch doubles the key
+size and adds a test with a wrong key size to trigger a corresponding
+error.
 
-Merged!
+This patch must be used with the kernel fix
+https://lore.kernel.org/lkml/20220919072317.E41421357@mail.steuer-voss.de
 
-Martin Doucha <mdoucha@suse.cz> writes:
+test output:
+~ # ./keyctl09
+tst_kconfig.c:82: TINFO: Parsing kernel config '/proc/config.gz'
+tst_test.c:1526: TINFO: Timeout per run is 0h 00m 30s
+keyctl09.c:28: TPASS: add_key("user", "user:masterkey", "foo", 3, KEY_SPEC_PROCESS_KEYRING) returned 837616982
+keyctl09.c:34: TPASS: add_key("encrypted", "ltptestkey1", ENCRYPTED_KEY_PREAMBLE HEXASCII_UNENCRYPTED_DATA, strlen(ENCRYPTED_KEY_PREAMBLE HEXASCII_UNENCRYPTED_DATA), KEY_SPEC_PROCESS_KEYRING) returned 449585633
+keyctl09.c:44: TPASS: keyctl(KEYCTL_READ, TST_RET, buffer, sizeof(buffer)) returned 186
+[ 3031.280283] trusted_key: encrypted key: decrypted data provided must contain only hexadecimal characters
+keyctl09.c:50: TPASS: add_key("encrypted", "ltptestkey2", ENCRYPTED_KEY_PREAMBLE ASCII_UNENCRYPTED_DATA, strlen(ENCRYPTED_KEY_PREAMBLE ASCII_UNENCRYPTED_DATA), KEY_SPEC_PROCESS_KEYRING) : EINVAL (22)
+[ 3031.284871] trusted_key: encrypted key: decrypted data provided does not match decrypted data length provided
+keyctl09.c:58: TPASS: add_key("encrypted", "ltptestkey3", ENCRYPTED_KEY_PREAMBLE SHORT_HEXASC_UNENCRYPTED_DATA, strlen(ENCRYPTED_KEY_PREAMBLE SHORT_HEXASC_UNENCRYPTED_DATA), KEY_SPEC_PROCESS_KEYRING) : EINVAL (22)
 
-> The runtime limit patchset has reduced default test timeout to 30 seconds
-> which is not enough for msgget03 on some archs. Set custom queue count
-> limit to make the test faster.
->
-> Signed-off-by: Martin Doucha <mdoucha@suse.cz>
-> ---
->  testcases/kernel/syscalls/ipc/msgget/msgget03.c | 9 +++++++--
->  1 file changed, 7 insertions(+), 2 deletions(-)
->
-> diff --git a/testcases/kernel/syscalls/ipc/msgget/msgget03.c b/testcases/kernel/syscalls/ipc/msgget/msgget03.c
-> index 711886e17..2257ae0f9 100644
-> --- a/testcases/kernel/syscalls/ipc/msgget/msgget03.c
-> +++ b/testcases/kernel/syscalls/ipc/msgget/msgget03.c
-> @@ -41,7 +41,8 @@ static void setup(void)
->  	tst_res(TINFO, "Current environment %d message queues are already in use",
->  		used_cnt);
->  
-> -	SAFE_FILE_SCANF("/proc/sys/kernel/msgmni", "%i", &maxmsgs);
-> +	maxmsgs = used_cnt + 32;
-> +	SAFE_FILE_PRINTF("/proc/sys/kernel/msgmni", "%i", maxmsgs);
->  
->  	queues = SAFE_MALLOC((maxmsgs - used_cnt) * sizeof(int));
->  
-> @@ -73,5 +74,9 @@ static struct tst_test test = {
->  	.needs_tmpdir = 1,
->  	.setup = setup,
->  	.cleanup = cleanup,
-> -	.test_all = verify_msgget
-> +	.test_all = verify_msgget,
-> +	.save_restore = (const struct tst_path_val[]){
-> +		{"/proc/sys/kernel/msgmni", NULL},
-> +		{}
-> +	}
->  };
-> -- 
-> 2.36.1
+Fixes: 342e7a0dd ("syscalls/keyctl09: test encrypted keys with provided decrypted data.")
+Signed-off-by: Nikolaus Voss <nikolaus.voss@haag-streit.com>
+---
+ testcases/kernel/syscalls/keyctl/keyctl09.c | 30 +++++++++++++++++----
+ 1 file changed, 25 insertions(+), 5 deletions(-)
 
-
+diff --git a/testcases/kernel/syscalls/keyctl/keyctl09.c b/testcases/kernel/syscalls/keyctl/keyctl09.c
+index c88c481b9..c5165a280 100644
+--- a/testcases/kernel/syscalls/keyctl/keyctl09.c
++++ b/testcases/kernel/syscalls/keyctl/keyctl09.c
+@@ -13,8 +13,13 @@
+ #include "tst_test.h"
+ #include "lapi/keyctl.h"
+ 
+-#define ENCRYPTED_KEY_VALID_PAYLOAD	"new enc32 user:masterkey 32 abcdefABCDEF1234567890aaaaaaaaaa"
+-#define ENCRYPTED_KEY_INVALID_PAYLOAD	"new enc32 user:masterkey 32 plaintext123@123!123@123!123@123"
++#define ENCRYPTED_KEY_PREAMBLE		"new enc32 user:masterkey 32 "
++#define SHORT_HEXASC_UNENCRYPTED_DATA	"abcdefABCDEF1234567890aaaaaaaaaa"
++#define HEXASCII_UNENCRYPTED_DATA	SHORT_HEXASC_UNENCRYPTED_DATA \
++					SHORT_HEXASC_UNENCRYPTED_DATA
++#define SHORT_ASCII_UNENCRYPTED_DATA	"plaintext123@123!123@123!123@123"
++#define ASCII_UNENCRYPTED_DATA		SHORT_ASCII_UNENCRYPTED_DATA \
++					SHORT_ASCII_UNENCRYPTED_DATA
+ 
+ static void do_test(void)
+ {
+@@ -27,8 +32,11 @@ static void do_test(void)
+ 		return;
+ 
+ 	TST_EXP_POSITIVE(add_key("encrypted", "ltptestkey1",
+-			    ENCRYPTED_KEY_VALID_PAYLOAD,
+-			    60, KEY_SPEC_PROCESS_KEYRING));
++			    ENCRYPTED_KEY_PREAMBLE
++			    HEXASCII_UNENCRYPTED_DATA,
++			    strlen(ENCRYPTED_KEY_PREAMBLE
++				   HEXASCII_UNENCRYPTED_DATA),
++			    KEY_SPEC_PROCESS_KEYRING));
+ 
+ 	if (!TST_PASS)
+ 		return;
+@@ -38,8 +46,20 @@ static void do_test(void)
+ 	if (!TST_PASS)
+ 		return;
+ 
++	/* key not hex-ascii encoded */
+ 	TST_EXP_FAIL2(add_key("encrypted", "ltptestkey2",
+-			    ENCRYPTED_KEY_INVALID_PAYLOAD, 60,
++			    ENCRYPTED_KEY_PREAMBLE
++			    ASCII_UNENCRYPTED_DATA,
++			    strlen(ENCRYPTED_KEY_PREAMBLE
++				   ASCII_UNENCRYPTED_DATA),
++			    KEY_SPEC_PROCESS_KEYRING), EINVAL);
++
++	/* key size mismatch */
++	TST_EXP_FAIL2(add_key("encrypted", "ltptestkey3",
++			    ENCRYPTED_KEY_PREAMBLE
++			    SHORT_HEXASC_UNENCRYPTED_DATA,
++			    strlen(ENCRYPTED_KEY_PREAMBLE
++				   SHORT_HEXASC_UNENCRYPTED_DATA),
+ 			    KEY_SPEC_PROCESS_KEYRING), EINVAL);
+ 
+ 	keyctl(KEYCTL_CLEAR, KEY_SPEC_PROCESS_KEYRING);
 -- 
-Thank you,
-Richard.
+2.34.1
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
