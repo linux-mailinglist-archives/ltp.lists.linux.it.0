@@ -2,84 +2,59 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id EEEF65F749A
-	for <lists+linux-ltp@lfdr.de>; Fri,  7 Oct 2022 09:13:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74C8B5F755C
+	for <lists+linux-ltp@lfdr.de>; Fri,  7 Oct 2022 10:35:28 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E16943CAE1D
-	for <lists+linux-ltp@lfdr.de>; Fri,  7 Oct 2022 09:13:16 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 82BA13CAE26
+	for <lists+linux-ltp@lfdr.de>; Fri,  7 Oct 2022 10:35:27 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 2CCFA3C0796
- for <ltp@lists.linux.it>; Fri,  7 Oct 2022 09:13:11 +0200 (CEST)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ by picard.linux.it (Postfix) with ESMTPS id B83233C4C32
+ for <ltp@lists.linux.it>; Fri,  7 Oct 2022 10:35:21 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 9FF781000F02
- for <ltp@lists.linux.it>; Fri,  7 Oct 2022 09:13:10 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1665126789;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=8e7tP58pMw6stG3xOSzRR/XPi3eBQmDYv3RgkeRmik0=;
- b=jRGqGloN9vgATK8gmzKbFDxUvzFncwa5RLvTWnExNQYzPDZJeIhJ7kUGAu1hZNnBlFIhkH
- NlPkf1X+JodJM3b7fKcKs7/vyO5aQ+D0H5w46PwJfWAp0eWPSQl7dUGnvHEjNdVfdUeQl5
- EsEZM3VgTYZ3rY+9OVrCgNB11KqIf4Y=
-Received: from mail-ua1-f69.google.com (mail-ua1-f69.google.com
- [209.85.222.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-25-dMChDRMjMV-OM8Y78G7_hg-1; Fri, 07 Oct 2022 03:13:07 -0400
-X-MC-Unique: dMChDRMjMV-OM8Y78G7_hg-1
-Received: by mail-ua1-f69.google.com with SMTP id
- n33-20020ab013e4000000b0039f1bede4c9so1493030uae.4
- for <ltp@lists.linux.it>; Fri, 07 Oct 2022 00:13:07 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=8e7tP58pMw6stG3xOSzRR/XPi3eBQmDYv3RgkeRmik0=;
- b=fgxPaHHBpBaa7P0PfOoXhWzcIFbzi/kIR5a/SJnUfoc8oytQTxE2sdexEzFck6Y7pT
- NEIHpWg5dLT/ulDaqD5JHUxn0NcgRbYOzheheSWGMyoUBbpJkdnslGLAHZApGuhNL3vX
- yDFkSGrlEaBWxbWvVuuFZKlyNzXAGIPAliLbFmzlBZfVt3/MzOMZRI0XajvatQzW6uJu
- Vdf5FzHk6awNQe1fwop2315wkkFUcLGzjvqfI83DIdCjXxdkzVcGCQnW1Uix9GGADlZu
- BUlwGRYa5X5Fs+FaxSICdB0UQMd0ZgvY183W063p8YXoWXinMZ+g6qRGU+amdL2/92iT
- IKWQ==
-X-Gm-Message-State: ACrzQf1lg0ec/u5Y8xA6ASyrbcKHdGRBm1e0Hxis2Cnkuc70YU3/dU8V
- vgNANGF3yjwg2j/c775ThEQfEEl9WZBI9LHMkxsxwTCgQZC/zOgekUWGmx5vkaSf8dv3h99yYVG
- ipv4PhIYAfx4lRofj9n3bwWDytBc=
-X-Received: by 2002:ab0:7c7c:0:b0:3d9:d475:29fe with SMTP id
- h28-20020ab07c7c000000b003d9d47529femr2267547uax.4.1665126787004; 
- Fri, 07 Oct 2022 00:13:07 -0700 (PDT)
-X-Google-Smtp-Source: AMsMyM7Lwiw454y8W2NjBiuSOWoQyVcwQ+0agipUFwoiah6irHKGEkoyP30+6sJcbG2HuWHwnxFLRfqLCqQGx+Mn5+w=
-X-Received: by 2002:ab0:7c7c:0:b0:3d9:d475:29fe with SMTP id
- h28-20020ab07c7c000000b003d9d47529femr2267539uax.4.1665126786693; Fri, 07 Oct
- 2022 00:13:06 -0700 (PDT)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id A698C6019A1
+ for <ltp@lists.linux.it>; Fri,  7 Oct 2022 10:35:20 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id CF8DD21902;
+ Fri,  7 Oct 2022 08:35:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1665131719; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=GPwTX883rc2as2C9THnhz/kB0oRpo+5f7mfh7gvzHd0=;
+ b=eISQSlEvqNaqwmUda+fsMLioS3qvvsyNMf5O92F7YQofU+FgZ7lS2CRqS8oT8YEP0ndtQK
+ 4BNg9KvmBDe/Wzln4K3CZgRyLwq9pEPBZxjKHzrJWrU3H+otkpqxMor1xJji7iWgYHURUm
+ VbzSaRoE1i+Zzlu4sJU0ND5OiZse24Q=
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9985B13A3D;
+ Fri,  7 Oct 2022 08:35:19 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 4MBvI8fkP2NJeQAAMHmgww
+ (envelope-from <andrea.cervesato@suse.com>); Fri, 07 Oct 2022 08:35:19 +0000
+To: ltp@lists.linux.it
+Date: Fri,  7 Oct 2022 10:34:06 +0200
+Message-Id: <20221007083406.16036-1-andrea.cervesato@suse.com>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-References: <cf13ddfffdb08e0771be253ac6911febb96a47c4.1664979933.git.jstancek@redhat.com>
- <75b528baa58724ff96ad47fa0ed84b4b801266d5.1664979933.git.jstancek@redhat.com>
- <Yz2qPOv3HFHmYFSf@yuki>
-In-Reply-To: <Yz2qPOv3HFHmYFSf@yuki>
-From: Jan Stancek <jstancek@redhat.com>
-Date: Fri, 7 Oct 2022 09:12:48 +0200
-Message-ID: <CAASaF6wRRV1cyF4vmo7Nq6A=yBYnRqtU=SDpLODRrF96zN6ewg@mail.gmail.com>
-To: Cyril Hrubis <chrubis@suse.cz>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 4/4] update all call sites of SAFE_WRITE()
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: [LTP] [PATCH v1] Add epoll_create1_03 test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,18 +66,64 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
+From: Andrea Cervesato via ltp <ltp@lists.linux.it>
+Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Wed, Oct 5, 2022 at 5:59 PM Cyril Hrubis <chrubis@suse.cz> wrote:
->
-> Hi!
-> Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
+The test verifies epoll_create1 will raises EMFILE when
+/proc/sys/fs/epoll/max_user_watches is reached.
 
-Pushed.
+Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
+---
+ .../syscalls/epoll_create1/epoll_create1_03.c | 34 +++++++++++++++++++
+ 1 file changed, 34 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/epoll_create1/epoll_create1_03.c
+
+diff --git a/testcases/kernel/syscalls/epoll_create1/epoll_create1_03.c b/testcases/kernel/syscalls/epoll_create1/epoll_create1_03.c
+new file mode 100644
+index 000000000..7f51edf7a
+--- /dev/null
++++ b/testcases/kernel/syscalls/epoll_create1/epoll_create1_03.c
+@@ -0,0 +1,34 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (C) 2022 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
++ */
++
++/*\
++ * [Description]
++ *
++ * Verify that epoll_create1 returns -1 and set errno to EMFILE when maximum
++ * number of epoll watchers is reached.
++ */
++
++#include <sys/epoll.h>
++
++#include "tst_test.h"
++#include "lapi/epoll.h"
++#include "lapi/syscalls.h"
++
++static void run(void)
++{
++	int i, max_inst;
++
++	SAFE_FILE_LINES_SCANF("/proc/sys/fs/epoll/max_user_watches", "%d", &max_inst);
++
++	for (i = 0; i < max_inst; i++)
++		TST_EXP_PASS_SILENT(epoll_create1(0) == 0);
++
++	TST_EXP_FAIL(epoll_create1(0), EMFILE);
++}
++
++static struct tst_test test = {
++	.min_kver = "2.6.27",
++	.test_all = run,
++};
+-- 
+2.35.3
 
 
 -- 
