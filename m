@@ -2,75 +2,59 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id B34C45FA08B
-	for <lists+linux-ltp@lfdr.de>; Mon, 10 Oct 2022 16:53:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DD535FA0B5
+	for <lists+linux-ltp@lfdr.de>; Mon, 10 Oct 2022 16:56:53 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 03CC73CAE71
-	for <lists+linux-ltp@lfdr.de>; Mon, 10 Oct 2022 16:53:55 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 3EA1E3CAE71
+	for <lists+linux-ltp@lfdr.de>; Mon, 10 Oct 2022 16:56:53 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 5F8293CAE54
- for <ltp@lists.linux.it>; Mon, 10 Oct 2022 16:53:53 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 8912F3CAE54
+ for <ltp@lists.linux.it>; Mon, 10 Oct 2022 16:56:52 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 825CF1400B89
- for <ltp@lists.linux.it>; Mon, 10 Oct 2022 16:53:51 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 24D281400B80
+ for <ltp@lists.linux.it>; Mon, 10 Oct 2022 16:56:51 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 5DE641F8AC;
- Mon, 10 Oct 2022 14:53:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1665413631;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=r5DawTXa+l7lkPqNNCnPV5ZofSautF+l+kSR/Vi7SjY=;
- b=NodEQAfk+JNuzMN2b9FTZii+uMrnTkMQSqkyqKhAZMGitddZ2uxax74Bqv4fBEBsdlzIQ9
- NzSMq+NKGjaR0Z2iDiwEbMqcMiJdE7gSInfZajW9c9fGjWjBifAZtrxrn6BfGqKNDzJzTB
- ZK5eFAXdAeIFIIMjO8t/Nso+o7NO49E=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1665413631;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=r5DawTXa+l7lkPqNNCnPV5ZofSautF+l+kSR/Vi7SjY=;
- b=aIn1FQTtVARMYPF2RGeOfS6wNG1HG8WcAi1bGiIn2GAjXbSs31XDsE8sOVFIsp9hTbY8XO
- 0r8o3xA4DbbmhuAA==
+ by smtp-out1.suse.de (Postfix) with ESMTPS id EE2EE21979;
+ Mon, 10 Oct 2022 14:56:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1665413810; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=3WfTT3XrMRQy5N+3/4TY/CO7fg85gF0m11+Tg1MBiy8=;
+ b=g6sBpDqnJNu/xMK9fvVdVS4cn6PjYH7UZ5I+rVjJNir0exhDVS/89QqUBaChZZ4FE2YmMR
+ kouAD7ZKdy+WR3pgWup54qbYZcTbd1OIzKUq59pl/q9WybYgc4KrHWkToT6QtOZYIoVGmx
+ UqbwTalFyRXQ+IUhQHTwkKtpmpy+CQg=
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1921913ACA;
- Mon, 10 Oct 2022 14:53:51 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5CA1713ACA;
+ Mon, 10 Oct 2022 14:56:50 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 3lU+A/8xRGPCJwAAMHmgww
- (envelope-from <pvorel@suse.cz>); Mon, 10 Oct 2022 14:53:51 +0000
-Date: Mon, 10 Oct 2022 16:53:49 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Jan Stancek <jstancek@redhat.com>
-Message-ID: <Y0Qx/dUX3f/TbZ5R@pevik>
-References: <adf3a4e338625d85401a7d5ec94b33f86a277c18.1665385670.git.jstancek@redhat.com>
- <Y0QVyF43F3ngrU3r@pevik>
- <CAASaF6wx-zFhbFG6TQ28hj5g9fwwciJQiZ-TXvPDOkDH-+9+Dg@mail.gmail.com>
+ by imap2.suse-dmz.suse.de with ESMTPSA id DvUGDbIyRGNiKQAAMHmgww
+ (envelope-from <andrea.cervesato@suse.com>); Mon, 10 Oct 2022 14:56:50 +0000
+To: ltp@lists.linux.it
+Date: Mon, 10 Oct 2022 16:55:34 +0200
+Message-Id: <20221010145534.4857-1-andrea.cervesato@suse.com>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAASaF6wx-zFhbFG6TQ28hj5g9fwwciJQiZ-TXvPDOkDH-+9+Dg@mail.gmail.com>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] syscalls/ioctl03: add IFF_NO_CARRIER feature flag
+Subject: [LTP] [PATCH v2] Add epoll_wait06 test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,38 +66,136 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it, Sven Schnelle <svens@linux.ibm.com>
+From: Andrea Cervesato via ltp <ltp@lists.linux.it>
+Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-> On Mon, Oct 10, 2022 at 2:53 PM Petr Vorel <pvorel@suse.cz> wrote:
+This test verifies EPOLLET functionality.
 
-> > Hi Jan,
+Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
+---
+ .../kernel/syscalls/epoll_wait/.gitignore     |  1 +
+ .../kernel/syscalls/epoll_wait/epoll_wait06.c | 97 +++++++++++++++++++
+ 2 files changed, 98 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/epoll_wait/epoll_wait06.c
 
-> > thanks for fixing this. Sven was faster [1], thus merged his commit
-> > with also your Signed-off-by:
-
-> Thanks Petr, I haven't seen his email - I received it only hour ago to
-> my mailbox.
-
-I'm sorry, I didn't know it was in ML quarantine (Cyril noticed).
-Anyway, thank you.
-
-@Sven it's not a good idea to post to ML without being subscribed,
-please subscribe next time before posting.
-
-Kind regards,
-Petr
-
-
-> > Kind regards,
-> > Petr
-
-> > [1] https://lore.kernel.org/ltp/20221007105727.2303349-1-svens@linux.ibm.com/
-
+diff --git a/testcases/kernel/syscalls/epoll_wait/.gitignore b/testcases/kernel/syscalls/epoll_wait/.gitignore
+index ab5a9c010..8c5ed7c5c 100644
+--- a/testcases/kernel/syscalls/epoll_wait/.gitignore
++++ b/testcases/kernel/syscalls/epoll_wait/.gitignore
+@@ -3,3 +3,4 @@ epoll_wait02
+ epoll_wait03
+ epoll_wait04
+ epoll_wait05
++epoll_wait06
+diff --git a/testcases/kernel/syscalls/epoll_wait/epoll_wait06.c b/testcases/kernel/syscalls/epoll_wait/epoll_wait06.c
+new file mode 100644
+index 000000000..20f6233c9
+--- /dev/null
++++ b/testcases/kernel/syscalls/epoll_wait/epoll_wait06.c
+@@ -0,0 +1,97 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (C) 2022 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
++ */
++
++/*\
++ * [Description]
++ *
++ * Verify that edge triggered behavior is correctly handled by epoll.
++ *
++ * [Algorithm]
++ *
++ * 1. The file descriptor that represents the read side of a pipe (rfd) is
++ *    registered on the epoll instance.
++ * 2. A pipe writer writes 2 kB of data on the write side of the pipe.
++ * 3. A call to epoll_wait(2) is done that will return rfd as a ready file
++ *    descriptor.
++ * 4. The pipe reader reads 1 kB of data from rfd.
++ * 5. A call to epoll_wait(2) should fail because there's data left to read.
++ */
++
++#include <poll.h>
++#include <sys/epoll.h>
++#include "tst_test.h"
++
++#define WRITE_SIZE 2048
++#define READ_SIZE (WRITE_SIZE / 2)
++
++static int fds[2];
++static int epfd;
++
++static void cleanup(void)
++{
++	if (epfd > 0)
++		SAFE_CLOSE(epfd);
++
++	if (fds[0] > 0)
++		SAFE_CLOSE(fds[0]);
++
++	if (fds[1] > 0)
++		SAFE_CLOSE(fds[1]);
++}
++
++static void run(void)
++{
++	int res;
++	char buff[WRITE_SIZE];
++	struct epoll_event evt_receive;
++	struct epoll_event evt_request;
++
++	SAFE_PIPE(fds);
++
++	evt_request.events = EPOLLIN | EPOLLET;
++	evt_request.data.fd = fds[0];
++
++	epfd = epoll_create(2);
++	if (epfd == -1)
++		tst_brk(TBROK | TERRNO, "fail to create epoll instance");
++
++	tst_res(TINFO, "Polling channel with EPOLLET");
++
++	res = epoll_ctl(epfd, EPOLL_CTL_ADD, fds[0], &evt_request);
++	if (res == -1)
++		tst_brk(TBROK | TERRNO, "epoll_ctl failure");
++
++	tst_res(TINFO, "Write bytes on channel");
++
++	memset(buff, 'a', WRITE_SIZE);
++	SAFE_WRITE(0, fds[1], buff, WRITE_SIZE);
++
++	res = epoll_wait(epfd, &evt_receive, 1, 2000);
++	if (res <= 0) {
++		tst_res(TFAIL | TERRNO, "epoll_wait() returned %i", res);
++		goto close;
++	}
++
++	if ((evt_receive.events & EPOLLIN) == 0) {
++		tst_res(TFAIL, "No data received");
++		goto close;
++	}
++
++	tst_res(TINFO, "Received EPOLLIN event. Read half bytes from channel");
++
++	memset(buff, 0, READ_SIZE);
++	SAFE_READ(1, evt_receive.data.fd, buff, READ_SIZE);
++
++	TST_EXP_EQ_LI(epoll_wait(epfd, &evt_receive, 1, 10), 0);
++
++close:
++	SAFE_CLOSE(fds[0]);
++	SAFE_CLOSE(fds[1]);
++}
++
++static struct tst_test test = {
++	.cleanup = cleanup,
++	.test_all = run,
++};
+-- 
+2.35.3
 
 
 -- 
