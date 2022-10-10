@@ -2,74 +2,59 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id B853F5FA050
-	for <lists+linux-ltp@lfdr.de>; Mon, 10 Oct 2022 16:40:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B32A5FA08F
+	for <lists+linux-ltp@lfdr.de>; Mon, 10 Oct 2022 16:54:06 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id BC93E3CAE71
-	for <lists+linux-ltp@lfdr.de>; Mon, 10 Oct 2022 16:40:49 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 1B6873CAE85
+	for <lists+linux-ltp@lfdr.de>; Mon, 10 Oct 2022 16:54:05 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E7A9A3CAE54
- for <ltp@lists.linux.it>; Mon, 10 Oct 2022 16:40:48 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ by picard.linux.it (Postfix) with ESMTPS id D9D0E3CAE90
+ for <ltp@lists.linux.it>; Mon, 10 Oct 2022 16:54:00 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id C8C4E1000374
- for <ltp@lists.linux.it>; Mon, 10 Oct 2022 16:40:47 +0200 (CEST)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id BD669200975
+ for <ltp@lists.linux.it>; Mon, 10 Oct 2022 16:53:59 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 90D6E219C7;
- Mon, 10 Oct 2022 14:40:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1665412846;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=j7AIXaJQFOQh7omPOagH6nGRUMkLdt3RDcg9CXw9ik8=;
- b=gNjXBGOmwenCvkvJjeEcYFu6/oS/NVKEztzr3MZflsvMk8WVerfT+gXBfglKXP9vsv/78V
- 04VWJCnxvPpWJOG7Xwgi3Oj8GmyN2rdp91/y0Nr9vpXGhpLkB18kRWSbKbCNZzeal1DL+x
- CXi1FJHdUANq9l4sVIZBxyJNDJZ65D8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1665412846;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=j7AIXaJQFOQh7omPOagH6nGRUMkLdt3RDcg9CXw9ik8=;
- b=qskf/4xSa32VhQ+byzaZ9VgD3t37JsRmfG52oA3Ai6asETe6QqB8DHUQfgnwoJbOWvsGbt
- 1pioZlPYCa4YAqDw==
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 0CD522188A;
+ Mon, 10 Oct 2022 14:53:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1665413639; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=tLMF9i4T5/WXOIiOYkSnW+tcN1ey0QTiX9T1eBXVqL0=;
+ b=B6Q4cxL+qBcuFwlhou5SdnM33iz71/mhCmZ+ktMu3TFWjqruYu2F/b8pB9zcLzHMDSzmiU
+ yYOXFbFMT2fD6d0IGC3qO1p3ZSby5B4SlIVoVBVY2NWfmlHKcYoEC64py3PatVXk3KRmBf
+ qQBK4cmAlhuryFQ3cNBbM2++NCUE4+o=
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5052813479;
- Mon, 10 Oct 2022 14:40:46 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id AE72C13ACA;
+ Mon, 10 Oct 2022 14:53:58 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id qPhVEe4uRGPoIQAAMHmgww
- (envelope-from <pvorel@suse.cz>); Mon, 10 Oct 2022 14:40:46 +0000
-Date: Mon, 10 Oct 2022 16:40:44 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Richard Palethorpe <rpalethorpe@suse.de>
-Message-ID: <Y0Qu7IEihZcYK46i@pevik>
-References: <Ysu+mbkO8eUP4A2+@pevik>
- <1657608229-6189-1-git-send-email-zhanghongchen@loongson.cn>
- <871qrfak22.fsf@suse.de>
+ by imap2.suse-dmz.suse.de with ESMTPSA id AuqYKAYyRGPQJwAAMHmgww
+ (envelope-from <andrea.cervesato@suse.com>); Mon, 10 Oct 2022 14:53:58 +0000
+To: ltp@lists.linux.it
+Date: Mon, 10 Oct 2022 16:52:43 +0200
+Message-Id: <20221010145243.3133-1-andrea.cervesato@suse.com>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <871qrfak22.fsf@suse.de>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] rpc01: fix variable not initialized
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: [LTP] [PATCH v1] Add epoll_wait07 test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,109 +66,126 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it, Steve Dickson <steved@redhat.com>,
- libtirpc-devel@lists.sourceforge.net,
- Hongchen Zhang <zhanghongchen@loongson.cn>
+From: Andrea Cervesato via ltp <ltp@lists.linux.it>
+Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Richie,
+This test verifies EPOLLONESHOT functionality.
 
+Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
+---
+ .../kernel/syscalls/epoll_wait/.gitignore     |  1 +
+ .../kernel/syscalls/epoll_wait/epoll_wait07.c | 86 +++++++++++++++++++
+ 2 files changed, 87 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/epoll_wait/epoll_wait07.c
 
-> Hello,
+diff --git a/testcases/kernel/syscalls/epoll_wait/.gitignore b/testcases/kernel/syscalls/epoll_wait/.gitignore
+index 8c5ed7c5c..66ac18ae2 100644
+--- a/testcases/kernel/syscalls/epoll_wait/.gitignore
++++ b/testcases/kernel/syscalls/epoll_wait/.gitignore
+@@ -4,3 +4,4 @@ epoll_wait03
+ epoll_wait04
+ epoll_wait05
+ epoll_wait06
++epoll_wait07
+diff --git a/testcases/kernel/syscalls/epoll_wait/epoll_wait07.c b/testcases/kernel/syscalls/epoll_wait/epoll_wait07.c
+new file mode 100644
+index 000000000..760ab6c10
+--- /dev/null
++++ b/testcases/kernel/syscalls/epoll_wait/epoll_wait07.c
+@@ -0,0 +1,86 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (C) 2022 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
++ */
++
++/*\
++ * [Description]
++ *
++ * Verify that EPOLLONESHOT is correctly handled by epoll_wait.
++ * We open a channel, write on it multiple times and we verify that EPOLLOUT
++ * has been received only once.
++ */
++
++#include <poll.h>
++#include <sys/epoll.h>
++#include "tst_test.h"
++
++#define WRITE_SIZE 2048
++
++static int fds[2];
++static int epfd;
++
++static void cleanup(void)
++{
++	if (epfd > 0)
++		SAFE_CLOSE(epfd);
++
++	if (fds[0] > 0)
++		SAFE_CLOSE(fds[0]);
++
++	if (fds[1] > 0)
++		SAFE_CLOSE(fds[1]);
++}
++
++static void run(void)
++{
++	int res;
++	char buff[WRITE_SIZE];
++	struct epoll_event evt_receive;
++	struct epoll_event evt_request;
++
++	SAFE_PIPE(fds);
++
++	evt_request.events = EPOLLOUT | EPOLLONESHOT;
++	evt_request.data.fd = fds[1];
++
++	epfd = epoll_create(2);
++	if (epfd == -1)
++		tst_brk(TBROK | TERRNO, "fail to create epoll instance");
++
++	tst_res(TINFO, "Polling channel with EPOLLONESHOT");
++
++	res = epoll_ctl(epfd, EPOLL_CTL_ADD, fds[1], &evt_request);
++	if (res == -1)
++		tst_brk(TBROK | TERRNO, "epoll_ctl failure");
++
++	tst_res(TINFO, "Write on channel multiple times");
++
++	memset(buff, 'a', WRITE_SIZE);
++	SAFE_WRITE(0, fds[1], buff, WRITE_SIZE);
++	SAFE_WRITE(0, fds[1], buff, WRITE_SIZE);
++
++	res = epoll_wait(epfd, &evt_receive, 1, 2000);
++	if (res <= 0) {
++		tst_res(TFAIL | TERRNO, "epoll_wait() returned %i", res);
++		goto close;
++	}
++
++	if ((evt_receive.events & EPOLLOUT) == 0) {
++		tst_res(TFAIL, "No EPOLLOUT received");
++		goto close;
++	}
++
++	tst_res(TINFO, "Received first EPOLLOUT event");
++
++	TST_EXP_EQ_LI(epoll_wait(epfd, &evt_receive, 1, 0), 0);
++
++close:
++	SAFE_CLOSE(fds[0]);
++	SAFE_CLOSE(fds[1]);
++}
++
++static struct tst_test test = {
++	.cleanup = cleanup,
++	.test_all = run,
++};
+-- 
+2.35.3
 
-> Looks OK to me, Petr?
-
-> Acked-by: Richard Palethorpe <rpalethorpe@suse.com>
-
-I replied at ML at v1 [1] with a question to use rc for verification.
-I'm not sure whether it was me who marked the question as superseded.
-
-@Hongchen you sent v1 twice, v2 twice. Duplicate send without your reply does
-not speedup things. Please next time reply with ping (but if you don't reply to
-the question, ball is on your side).
-
-Kind regards,
-Petr
-
-[1] https://lore.kernel.org/ltp/Ysu+mbkO8eUP4A2+@pevik/
-[2] https://patchwork.ozlabs.org/project/ltp/list/?submitter=84160&state=*
-
-> Hongchen Zhang <zhanghongchen@loongson.cn> writes:
-
-> > when error occurred in function callrpc/clnt_call, return_buffer may
-> > be leaved not initialized.
-> > As Petr said, we should check the return value before retrieve the
-> > return_buffer->data. Change do_compare's parameter from char * to
-> > struct data * to fix it.
-
-> > Signed-off-by: Hongchen Zhang <zhanghongchen@loongson.cn>
-> > ---
-> >  testcases/network/rpc/basic_tests/rpc01/rpc1.c | 14 ++++++++------
-> >  1 file changed, 8 insertions(+), 6 deletions(-)
-
-> > diff --git a/testcases/network/rpc/basic_tests/rpc01/rpc1.c b/testcases/network/rpc/basic_tests/rpc01/rpc1.c
-> > index bc9f35b..6b8619d 100644
-> > --- a/testcases/network/rpc/basic_tests/rpc01/rpc1.c
-> > +++ b/testcases/network/rpc/basic_tests/rpc01/rpc1.c
-> > @@ -18,7 +18,8 @@ char *file_name = NULL;
-> >  char host_name[100];
-> >  long host_address;
-
-> > -void do_compare(int, char *, struct data *, char *);
-> > +void do_compare(int rpc_rc, char *msg, struct data *buffer,
-> > +			struct data *ret_buffer)
-> >  void usage_error(char *program_name);
-
-> >  int main(int argc, char *argv[])
-> > @@ -128,7 +129,7 @@ int main(int argc, char *argv[])
-> >  	rc = callrpc(server, program, version, 1, (xdrproc_t)xdr_send_data,
-> >  			(char *)&buffer, (xdrproc_t)xdr_receive_data,
-> >  			(char *)&return_buffer);
-> > -	do_compare(rc, "callrpc", &buffer, return_buffer->data);
-> > +	do_compare(rc, "callrpc", &buffer, return_buffer);
-
-> >  	server_sin.sin_port = 0;
-> >  	sock = RPC_ANYSOCK;
-> > @@ -145,7 +146,7 @@ int main(int argc, char *argv[])
-> >  				(char *)&buffer, (xdrproc_t)xdr_receive_data,
-> >  				(char *)&return_buffer, timeout);
-> >  	clnt_destroy(clnt);
-> > -	do_compare(rc, "udp transport", &buffer, return_buffer->data);
-> > +	do_compare(rc, "udp transport", &buffer, return_buffer);
-
-> >  	server_sin.sin_port = 0;
-> >  	sock = RPC_ANYSOCK;
-> > @@ -160,12 +161,13 @@ int main(int argc, char *argv[])
-> >  				(char *)&buffer, (xdrproc_t)xdr_receive_data,
-> >  				(char *)&return_buffer, timeout);
-> >  	clnt_destroy(clnt);
-> > -	do_compare(rc, "tcp transport", &buffer, return_buffer->data);
-> > +	do_compare(rc, "tcp transport", &buffer, return_buffer);
-
-> >  	exit(0);
-> >  }
-
-> > -void do_compare(int rpc_rc, char *msg, struct data *buffer, char *ret_data)
-> > +void do_compare(int rpc_rc, char *msg, struct data *buffer,
-> > +			struct data *ret_buffer)
-> >  {
-> >  	int rc;
-
-> > @@ -175,7 +177,7 @@ void do_compare(int rpc_rc, char *msg, struct data *buffer, char *ret_data)
-> >  		printf("\n");
-> >  		exit(1);
-> >  	}
-> > -	rc = memcmp(buffer->data, ret_data, buffer->data_length);
-> > +	rc = memcmp(buffer->data, ret_buffer->data, buffer->data_length);
-> >  	if (rc) {
-> >  		printf("Data compare for %s returned %d\n", msg, rc);
-> >  		exit(1);
-> > -- 
-> > 1.8.3.1
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
