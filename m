@@ -2,74 +2,55 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BD135FB22F
-	for <lists+linux-ltp@lfdr.de>; Tue, 11 Oct 2022 14:17:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D6325FB258
+	for <lists+linux-ltp@lfdr.de>; Tue, 11 Oct 2022 14:23:24 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 52CB53CAEB2
-	for <lists+linux-ltp@lfdr.de>; Tue, 11 Oct 2022 14:17:14 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 13A813CAEA2
+	for <lists+linux-ltp@lfdr.de>; Tue, 11 Oct 2022 14:23:24 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 5D5123CAE72
- for <ltp@lists.linux.it>; Tue, 11 Oct 2022 14:17:10 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id 9120B3C1769
+ for <ltp@lists.linux.it>; Tue, 11 Oct 2022 14:23:19 +0200 (CEST)
+Received: from szxga03-in.huawei.com (szxga03-in.huawei.com [45.249.212.189])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id C6D50600AA2
- for <ltp@lists.linux.it>; Tue, 11 Oct 2022 14:17:09 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id BBABE1FA43;
- Tue, 11 Oct 2022 12:17:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1665490628;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=I4/nZUozEpVQfble0EqHUtPVfax6iwvm24DhBDmy0UQ=;
- b=TZHMt1Rp6Jb55UG5Q8oAIpsWmnqGw8bfaDMlHsoqJK3JGaHzo8KdAXEvcri5GQSBL3OVJ3
- XlKlMfkNf0MxQ682e862xWiDP7MlTNgvkLA5LupbZX1/U2Dv0HthuK+TZ+tTFbyvKqfpkr
- is1Is/Z+PWmg4GjK6DuQZphLhkvbvmI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1665490628;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=I4/nZUozEpVQfble0EqHUtPVfax6iwvm24DhBDmy0UQ=;
- b=6YWnhlamDz3JUJvdfI3Y0v1q/zSwjfkNj3rEz6R4m29pYsski3RiFdNqTKP2ecwSfj7SEo
- pVufS7lq/5IcsrBA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6E01E139ED;
- Tue, 11 Oct 2022 12:17:08 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id baQpGcReRWMMSwAAMHmgww
- (envelope-from <pvorel@suse.cz>); Tue, 11 Oct 2022 12:17:08 +0000
-Date: Tue, 11 Oct 2022 14:17:06 +0200
-From: Petr Vorel <pvorel@suse.cz>
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id D6402600A36
+ for <ltp@lists.linux.it>; Tue, 11 Oct 2022 14:23:17 +0200 (CEST)
+Received: from canpemm100008.china.huawei.com (unknown [172.30.72.56])
+ by szxga03-in.huawei.com (SkyGuard) with ESMTP id 4Mmvxs4YqQz1CF1N
+ for <ltp@lists.linux.it>; Tue, 11 Oct 2022 20:20:33 +0800 (CST)
+Received: from canpemm500005.china.huawei.com (7.192.104.229) by
+ canpemm100008.china.huawei.com (7.192.104.152) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31; Tue, 11 Oct 2022 20:23:04 +0800
+Received: from canpemm500005.china.huawei.com ([7.192.104.229]) by
+ canpemm500005.china.huawei.com ([7.192.104.229]) with mapi id 15.01.2375.031; 
+ Tue, 11 Oct 2022 20:23:04 +0800
 To: Cyril Hrubis <chrubis@suse.cz>
-Message-ID: <Y0VewooZbHVB9b9i@pevik>
-References: <20221010085944.26814-1-pvorel@suse.cz>
- <Y0U+LCnGarwR90ly@yuki>
+Thread-Topic: [LTP] [PATCH] syscalls/madvise11: new test for
+ madvise(MADV_DONTNEED)
+Thread-Index: Adjda+2+bjpIBhBzlUuykcW35hngVw==
+Date: Tue, 11 Oct 2022 12:23:04 +0000
+Message-ID: <42461c3ae7f843fa90ad602463799983@huawei.com>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.67.110.209]
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <Y0U+LCnGarwR90ly@yuki>
+X-CFilter-Loop: Reflected
 X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 1/1] tst_test.sh: Create (again) loop device in
- $TST_TMPDIR
+Subject: Re: [LTP] [PATCH] syscalls/madvise11: new test for
+ madvise(MADV_DONTNEED)
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,19 +62,186 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
+From: zhaogongyi via ltp <ltp@lists.linux.it>
+Reply-To: zhaogongyi <zhaogongyi@huawei.com>
+Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi all,
+Hi Cyril,
 
-thanks for your review, merged.
+I have submit a new version patches as your suggestions, pleas see:
+https://patchwork.ozlabs.org/project/ltp/patch/20221011121607.55575-2-zhaogongyi@huawei.com/
+https://patchwork.ozlabs.org/project/ltp/patch/20221011121607.55575-3-zhaogongyi@huawei.com/
+https://patchwork.ozlabs.org/project/ltp/patch/20221011121607.55575-4-zhaogongyi@huawei.com/
 
-Kind regards,
-Petr
+Thanks,
+Gongyi
+
+
+> 
+> Hi!
+> > Test cases for madvise(2) system call, advise value as
+> "MADV_MADV_DONTNEED":
+> > 1. After a successful MADV_DONTNEED operation, it will result in
+> > zero-fill-on-demand pages for anonymous private mappings 2.
+> > MADV_DONTNEED cannot be applied to Huge TLB pages
+> >
+> > Signed-off-by: Zhao Gongyi <zhaogongyi@huawei.com>
+> > ---
+> >  runtest/syscalls                              |  1 +
+> >  testcases/kernel/syscalls/madvise/.gitignore  |  1 +
+> > testcases/kernel/syscalls/madvise/madvise11.c | 87
+> +++++++++++++++++++
+> 
+> At the moment we do not have madvise03.c and madvise04.c, why don't
+> we use them first?
+> 
+> >  3 files changed, 89 insertions(+)
+> >  create mode 100644 testcases/kernel/syscalls/madvise/madvise11.c
+> >
+> > diff --git a/runtest/syscalls b/runtest/syscalls index
+> > 61a7b7677..a8ed9d65e 100644
+> > --- a/runtest/syscalls
+> > +++ b/runtest/syscalls
+> > @@ -946,6 +946,7 @@ madvise07 madvise07
+> >  madvise08 madvise08
+> >  madvise09 madvise09
+> >  madvise10 madvise10
+> > +madvise11 madvise11
+> >
+> >  newuname01 newuname01
+> >
+> > diff --git a/testcases/kernel/syscalls/madvise/.gitignore
+> > b/testcases/kernel/syscalls/madvise/.gitignore
+> > index 002d8e5d9..6e5b92ab7 100644
+> > --- a/testcases/kernel/syscalls/madvise/.gitignore
+> > +++ b/testcases/kernel/syscalls/madvise/.gitignore
+> > @@ -6,3 +6,4 @@
+> >  /madvise08
+> >  /madvise09
+> >  /madvise10
+> > +/madvise11
+> > diff --git a/testcases/kernel/syscalls/madvise/madvise11.c
+> > b/testcases/kernel/syscalls/madvise/madvise11.c
+> > new file mode 100644
+> > index 000000000..358c07d3a
+> > --- /dev/null
+> > +++ b/testcases/kernel/syscalls/madvise/madvise11.c
+> > @@ -0,0 +1,87 @@
+> > +// SPDX-License-Identifier: GPL-2.0-or-later
+> > +/*
+> > + * Copyright (c) Huawei Technologies Co., Ltd. 2022. All rights reserved.
+> > + * Author: Zhao Gongyi <zhaogongyi@huawei.com>  */
+> > +
+> > +/*\
+> > + * [Description]
+> > + *
+> > + * Test cases for madvise(2) system call, advise value as
+> "MADV_MADV_DONTNEED":
+> > + * 1. After a successful MADV_DONTNEED operation, it will result in
+> > + *    zero-fill-on-demand pages for anonymous private mappings
+> > + * 2. MADV_DONTNEED cannot be applied to Huge TLB pages  */
+> > +
+> > +#include "tst_test.h"
+> > +
+> > +#define MAP_SIZE (8 * 1024)
+> > +
+> > +static char *addr;
+> 
+> There is no need for this to be a global variable.
+> 
+> > +static void test_madvise01(void)
+> > +{
+> > +	int i;
+> > +
+> > +	addr = SAFE_MMAP(NULL, MAP_SIZE,
+> > +			PROT_READ | PROT_WRITE,
+> > +			MAP_PRIVATE | MAP_ANONYMOUS,
+> > +			-1, 0);
+> > +	memset(addr, 1, MAP_SIZE);
+> > +
+> > +	TEST(madvise(addr, MAP_SIZE, MADV_DONTNEED));
+> > +	if (TST_RET == -1) {
+> > +		tst_brk(TBROK | TTERRNO, "madvise(%p, %d, 0x%x) failed",
+> > +			addr, MAP_SIZE, MADV_DONTNEED);
+> > +	}
+> > +
+> > +	for (i = 0; i < MAP_SIZE; i++) {
+> > +		if (addr[i]) {
+> > +			tst_res(TFAIL,
+> > +				"There are no zero-fill-on-demand pages "
+> > +				"for anonymous private mappings");
+> > +			break;
+> 
+> I would do goto ret; here insetad and point ret just before the unmap at
+> the end, that way there would be no reason to add the if (i == MAP_SIZE)
+> before the TPASS message.
+> 
+> > +		}
+> > +	}
+> > +
+> > +	if (i == MAP_SIZE) {
+> > +		tst_res(TPASS,
+> > +			"There are zero-fill-on-demand pages "
+> > +			"for anonymous private mappings");
+> > +	}
+> > +
+> > +	SAFE_MUNMAP(addr, MAP_SIZE);
+> > +}
+> > +
+> > +static void test_madvise02(void)
+> > +{
+> > +	int mapsz = tst_get_hugepage_size();
+> > +
+> > +	addr = SAFE_MMAP(NULL, mapsz,
+> > +			PROT_READ | PROT_WRITE,
+> > +			MAP_PRIVATE | MAP_ANONYMOUS | MAP_HUGETLB,
+> > +			-1, 0);
+> > +
+> > +	TEST(madvise(addr, mapsz, MADV_DONTNEED));
+> > +	if (TST_RET != -1) {
+> > +		tst_res(TFAIL, "madvise(%p, %d, 0x%x) succeed unexpectedly",
+> > +			addr, mapsz, MADV_DONTNEED);
+> > +	} else {
+> > +		tst_res(TPASS, "madvise test for 'MADV_DONTNEED' passed");
+> > +	}
+> 
+> Please make use of TST_EXP_FAIL()
+> 
+> > +	SAFE_MUNMAP(addr, mapsz);
+> > +}
+> > +
+> > +static void test_madvise(void)
+> > +{
+> > +	test_madvise01();
+> > +	test_madvise02();
+> > +}
+> > +
+> > +static struct tst_test test = {
+> > +	.test_all = test_madvise,
+> > +	.needs_root = 1,
+> > +	.hugepages = {1, TST_NEEDS},
+> 
+> This would mean that the first case would be skipped in case where
+> hugepages are not supported or if the allocation failed. The best option
+> here would be splitting the test into two so that the functional test is not
+> disabled when hugepages are not supported.
+> 
+> > +};
+> > +
+> > --
+> > 2.17.1
+> >
+> >
+> > --
+> > Mailing list info: https://lists.linux.it/listinfo/ltp
+> 
+> --
+> Cyril Hrubis
+> chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
