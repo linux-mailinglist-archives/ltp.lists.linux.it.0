@@ -1,67 +1,48 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id BDDDF5FB1A3
-	for <lists+linux-ltp@lfdr.de>; Tue, 11 Oct 2022 13:40:51 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DAF85FB248
+	for <lists+linux-ltp@lfdr.de>; Tue, 11 Oct 2022 14:19:52 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A159E3CAE91
-	for <lists+linux-ltp@lfdr.de>; Tue, 11 Oct 2022 13:40:50 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 1666F3CAE98
+	for <lists+linux-ltp@lfdr.de>; Tue, 11 Oct 2022 14:19:52 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 40C053C7319
- for <ltp@lists.linux.it>; Tue, 11 Oct 2022 13:40:45 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id DE4EE3CAE72
+ for <ltp@lists.linux.it>; Tue, 11 Oct 2022 14:19:47 +0200 (CEST)
+Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 409DD2003A6
- for <ltp@lists.linux.it>; Tue, 11 Oct 2022 13:40:44 +0200 (CEST)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 838681FA49
- for <ltp@lists.linux.it>; Tue, 11 Oct 2022 11:40:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1665488444;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=D/SQivAzs1fPUHchzdbvf/RpEfv7LNoy2Dwk7cqI5M8=;
- b=u1Pp3Y/Xshohk5cap8UoweCVfoI5wrgG800MltQGWyLzUKa1c8JsxYWzmYBx0QRhbhdRkV
- pxgc2RLtrcRq50L1Iyco+WP7iNAhGiHfS8TRYvob7W2AiF3o/PsCvhL7Qf4M1h0/lExdu3
- ydXe3M39+2VPLzfUVsQ+DE7DjtI1YEY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1665488444;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=D/SQivAzs1fPUHchzdbvf/RpEfv7LNoy2Dwk7cqI5M8=;
- b=HjnPQHPAXpglQooa8dW8SaXZQCXT6GdVB/dLntjY6NiqRxy68pGjMYAWZDl6FfxLa4lQxH
- 8szWVYQEfpU4z1CA==
-Received: from g78 (unknown [10.100.228.202])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id E42592C141;
- Tue, 11 Oct 2022 11:40:43 +0000 (UTC)
-References: <20220816074449.30861-1-akumar@suse.de>
-User-agent: mu4e 1.6.10; emacs 28.1
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Avinesh Kumar <akumar@suse.de>
-Date: Tue, 11 Oct 2022 12:36:20 +0100
-In-reply-to: <20220816074449.30861-1-akumar@suse.de>
-Message-ID: <875ygq7fm0.fsf@suse.de>
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 204B41A00279
+ for <ltp@lists.linux.it>; Tue, 11 Oct 2022 14:19:45 +0200 (CEST)
+Received: from canpemm500005.china.huawei.com (unknown [172.30.72.54])
+ by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4Mmvq64CxczHtsm
+ for <ltp@lists.linux.it>; Tue, 11 Oct 2022 20:14:42 +0800 (CST)
+Received: from ubuntu1804.huawei.com (10.67.174.63) by
+ canpemm500005.china.huawei.com (7.192.104.229) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31; Tue, 11 Oct 2022 20:19:41 +0800
+To: <ltp@lists.linux.it>
+Date: Tue, 11 Oct 2022 20:16:04 +0800
+Message-ID: <20221011121607.55575-1-zhaogongyi@huawei.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Originating-IP: [10.67.174.63]
+X-ClientProxiedBy: dggems703-chm.china.huawei.com (10.3.19.180) To
+ canpemm500005.china.huawei.com (7.192.104.229)
+X-CFilter-Loop: Reflected
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] stat01: cleanup, use TST_EXP macros
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 0/3] new test for madvise(MADV_DONTNEED)
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,130 +54,43 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
-Cc: ltp@lists.linux.it
+From: Zhao Gongyi via ltp <ltp@lists.linux.it>
+Reply-To: Zhao Gongyi <zhaogongyi@huawei.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello,
+1. verify that after a successful MADV_DONTNEED operation, it will
+   result in zero-fill-on-demand pages for anonymous private mappings.
+2. Test cases for madvise(2) system call, verify that MADV_DONTNEED
+   cannot be applied to Huge TLB pages.
+3. Verify that when MADV_DONTNEED applied to shared mappings, it will
+   lead to the resident set size(RSS) of the calling process reduced
+   immediately.
 
-Merged!
+Changes in v2:
+  - Modify the test adn split the test into two as suggestion
+  - Add a new test for madvise
 
-Avinesh Kumar <akumar@suse.de> writes:
+Zhao Gongyi (3):
+  syscalls/madvise03: new test for madvise(MADV_DONTNEED)
+  syscalls/madvise04: new test for madvise(MADV_DONTNEED)
+  syscalls/madvise11: new test for madvise(MADV_DONTNEED)
 
-> - update copyright
-> - turn comment into docparse format
-> - remove redundant headers
-> - make check fixes: static vars
-> - use TST_EXP_* macros
->
-> Signed-off-by: Avinesh Kumar <akumar@suse.de>
-> ---
->  testcases/kernel/syscalls/stat/stat01.c | 60 ++++++-------------------
->  1 file changed, 14 insertions(+), 46 deletions(-)
->
-> diff --git a/testcases/kernel/syscalls/stat/stat01.c b/testcases/kernel/syscalls/stat/stat01.c
-> index 0f5c1dcc2..e0dbfbf2f 100644
-> --- a/testcases/kernel/syscalls/stat/stat01.c
-> +++ b/testcases/kernel/syscalls/stat/stat01.c
-> @@ -2,16 +2,17 @@
->  /* Copyright (c) International Business Machines  Corp., 2001
->   *	07/2001 John George
->   *		-Ported
-> + * Copyright (c) Linux Test Project, 2002-2022
-> + */
-> +
-> +/*\
-> + * [Description]
->   *
->   *  Verify that, stat(2) succeeds to get the status of a file and fills the
->   *  stat structure elements regardless of whether process has or doesn't
->   *  have read access to the file.
->   */
->  
-> -#include <sys/types.h>
-> -#include <fcntl.h>
-> -#include <sys/stat.h>
-> -#include <errno.h>
->  #include <pwd.h>
->  #include "tst_test.h"
->  
-> @@ -22,9 +23,9 @@
->  #define NEW_MODE         0222
->  #define MASK             0777
->  
-> -uid_t user_id;
-> -gid_t group_id;
-> -struct passwd *ltpuser;
-> +static uid_t user_id;
-> +static gid_t group_id;
-> +static struct passwd *ltpuser;
->  
->  static struct tcase{
->  	char *pathname;
-> @@ -38,47 +39,14 @@ static void verify_stat(unsigned int n)
->  {
->  	struct tcase *tc = TC + n;
->  	struct stat stat_buf;
-> -	int fail = 0;
-> -
-> -	TEST(stat(tc->pathname, &stat_buf));
-> -
-> -	if (TST_RET == -1) {
-> -		tst_res(TFAIL | TTERRNO, "stat(%s) failed", tc->pathname);
-> -		return;
-> -	}
-> -
-> -	if (stat_buf.st_uid != user_id) {
-> -		tst_res(TFAIL, "stat_buf.st_uid = %i expected %i",
-> -			stat_buf.st_uid, user_id);
-> -		fail++;
-> -	}
->  
-> -	if (stat_buf.st_gid != group_id) {
-> -		tst_res(TFAIL, "stat_buf.st_gid = %i expected %i",
-> -			stat_buf.st_gid, group_id);
-> -		fail++;
-> -	}
-> -
-> -	if (stat_buf.st_size != FILE_SIZE) {
-> -		tst_res(TFAIL, "stat_buf.st_size = %li expected %i",
-> -			(long)stat_buf.st_size, FILE_SIZE);
-> -		fail++;
-> -	}
-> -
-> -	if ((stat_buf.st_mode & MASK) != tc->mode) {
-> -		tst_res(TFAIL, "stat_buf.st_mode = %o expected %o",
-> -			(stat_buf.st_mode & MASK), tc->mode);
-> -		fail++;
-> -	}
-> -
-> -	if (stat_buf.st_nlink != 1) {
-> -		tst_res(TFAIL, "stat_buf.st_nlink = %lu expected 1",
-> -			stat_buf.st_nlink);
-> -		fail++;
-> -	}
-> +	TST_EXP_PASS(stat(tc->pathname, &stat_buf));
->  
-> -	if (!fail)
-> -		tst_res(TPASS, "stat(%s)", tc->pathname);
-> +	TST_EXP_EQ_LU(stat_buf.st_uid, user_id);
-> +	TST_EXP_EQ_LU(stat_buf.st_gid, group_id);
-> +	TST_EXP_EQ_LI(stat_buf.st_size, FILE_SIZE);
-> +	TST_EXP_EQ_LU(stat_buf.st_mode & MASK, tc->mode);
-> +	TST_EXP_EQ_LU(stat_buf.st_nlink, 1);
->  }
->  
->  static void setup(void)
-> -- 
-> 2.37.1
+ runtest/syscalls                              |  3 +
+ testcases/kernel/syscalls/madvise/.gitignore  |  3 +
+ testcases/kernel/syscalls/madvise/madvise03.c | 69 ++++++++++++++++
+ testcases/kernel/syscalls/madvise/madvise04.c | 48 ++++++++++++
+ testcases/kernel/syscalls/madvise/madvise11.c | 78 +++++++++++++++++++
+ 5 files changed, 201 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/madvise/madvise03.c
+ create mode 100644 testcases/kernel/syscalls/madvise/madvise04.c
+ create mode 100644 testcases/kernel/syscalls/madvise/madvise11.c
 
+--
+2.17.1
 
--- 
-Thank you,
-Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
