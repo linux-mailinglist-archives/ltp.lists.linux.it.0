@@ -1,74 +1,69 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 144C25FB483
-	for <lists+linux-ltp@lfdr.de>; Tue, 11 Oct 2022 16:27:51 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 383455FB4E4
+	for <lists+linux-ltp@lfdr.de>; Tue, 11 Oct 2022 16:47:50 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 870B53CAE9F
-	for <lists+linux-ltp@lfdr.de>; Tue, 11 Oct 2022 16:27:50 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 2DBE03CAE9C
+	for <lists+linux-ltp@lfdr.de>; Tue, 11 Oct 2022 16:47:49 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id E615D3C07B4
- for <ltp@lists.linux.it>; Tue, 11 Oct 2022 16:27:44 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by picard.linux.it (Postfix) with ESMTPS id 217103C07B4
+ for <ltp@lists.linux.it>; Tue, 11 Oct 2022 16:47:42 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 5B40E2005D0
- for <ltp@lists.linux.it>; Tue, 11 Oct 2022 16:27:43 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 44DF91F8D2;
- Tue, 11 Oct 2022 14:27:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1665498463; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 332C1100061F
+ for <ltp@lists.linux.it>; Tue, 11 Oct 2022 16:47:41 +0200 (CEST)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 7FA8533DB7;
+ Tue, 11 Oct 2022 14:47:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1665499661;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=woWLOHkUwYan8fnqg/Bnnty8m6pm865uzU8r7bSVhkU=;
- b=HjVv1dvalkR8FMP8d39WElcwWgtrDVbA/4cw3xZKTF5GWaDMbtMxsiuKoRAu+D3TT5utRd
- BGIl1yeIAMxtVCNsnj1Xh5YfVlR4WTpfIk8R4NRhLwOhTq4zYz8a8Shm77yYL1L8slDrN4
- 0LIrcL6StP/X9gvq9qXd6ftazy/Q9ts=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1665498463;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ bh=o7/8QU7dwxvwQD1UAbqaFdWR4zxgS4WSsPeCRNrweG0=;
+ b=0/pBIg0MsglJdTP44KSNiYBJQk0L0tesOqQQ5JOu9T0Q6ZUmlM9CDG9GHDxctEodGO2Bjd
+ GuxuNosV1C0O6QgjlVdicjxEL+UMeUA+uzYsRiZjg62qwudT+3v6EqOG4oEZnyE2LiY4gL
+ ichNEu3Ym8CUSGn339UBuQGkOrXhMfw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1665499661;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=woWLOHkUwYan8fnqg/Bnnty8m6pm865uzU8r7bSVhkU=;
- b=2CO5GnKLJ1J44+uS3nm7j20dJ87I8s8zGSfIxiT9yJ/poY/8mnEbQ3uN4GuMk9zkEGMEDM
- TH6Gs4t9wIZFlUAw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ bh=o7/8QU7dwxvwQD1UAbqaFdWR4zxgS4WSsPeCRNrweG0=;
+ b=LOCeODjusL/jUaZBJnyGTnoZRVcaoaGFDrs2HYZaHum14rIntPQ20WhuO3KJUzRIKcVX5s
+ odKe0SR3ikAKHECA==
+Received: from g78 (unknown [10.100.228.202])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 21B44139ED;
- Tue, 11 Oct 2022 14:27:43 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id r60SCF99RWOLKAAAMHmgww
- (envelope-from <chrubis@suse.cz>); Tue, 11 Oct 2022 14:27:43 +0000
-Date: Tue, 11 Oct 2022 16:29:29 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Zhao Gongyi <zhaogongyi@huawei.com>
-Message-ID: <Y0V9yZfYbu97qEbZ@yuki>
-References: <20221011121607.55575-1-zhaogongyi@huawei.com>
- <20221011121607.55575-3-zhaogongyi@huawei.com>
+ by relay2.suse.de (Postfix) with ESMTPS id BD5AD2C141;
+ Tue, 11 Oct 2022 14:47:40 +0000 (UTC)
+References: <20220817133929.234873-1-tudor.cretu@arm.com>
+ <20220817133929.234873-3-tudor.cretu@arm.com>
+User-agent: mu4e 1.6.10; emacs 28.1
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Tudor Cretu <tudor.cretu@arm.com>
+Date: Tue, 11 Oct 2022 15:43:16 +0100
+In-reply-to: <20220817133929.234873-3-tudor.cretu@arm.com>
+Message-ID: <87o7ui5se0.fsf@suse.de>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20221011121607.55575-3-zhaogongyi@huawei.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 2/3] syscalls/madvise04: new test for
- madvise(MADV_DONTNEED)
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 2/2] build.sh: Allow specifying additional make
+ options
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,27 +75,54 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: rpalethorpe@suse.de
 Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-The MADV_DONTNEED has been implemented for hugepages since:
+Hello,
 
-commit 90e7e7f5ef3f712da992d505aee2d921797c3f96
-Author: Mike Kravetz <mike.kravetz@oracle.com>
-Date:   Thu Mar 24 18:13:18 2022 -0700
+Tudor Cretu <tudor.cretu@arm.com> writes:
 
-    mm: enable MADV_DONTNEED for hugetlb mappings
+> This enables build.sh to use make options such as TST_NEWER_64_SYSCALL or
+> TST_COMPAT_16_SYSCALL, e.g.:
+>
+> MAKE_OPTS="TST_NEWER_64_SYSCALL=no TST_COMPAT_16_SYSCALL=no"
+> ./build.sh ...
 
-So for newer kernels this actually works fine. I guess that we should
-change the test to expect the call to pass for v5.18 and newer.
+I'm not sure if you still want this one or not after the other patch was
+dropped. In any case Petr seems to favor command line args (with docs)
+over env variables. So it would be best to stick to the existing style
+of this script.
+
+>
+> Signed-off-by: Tudor Cretu <tudor.cretu@arm.com>
+> ---
+>  build.sh | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/build.sh b/build.sh
+> index 1767cc21b..42c89ad97 100755
+> --- a/build.sh
+> +++ b/build.sh
+> @@ -18,7 +18,7 @@ CONFIGURE_OPTS_OUT_TREE="--with-realtime-testsuite $CONFIGURE_OPT_EXTRA"
+>  SRC_DIR="$(cd $(dirname $0); pwd)"
+>  BUILD_DIR="$SRC_DIR/../ltp-build"
+>  
+> -MAKE_OPTS="-j$(getconf _NPROCESSORS_ONLN)"
+> +MAKE_OPTS="-j$(getconf _NPROCESSORS_ONLN) $MAKE_OPTS"
+>  MAKE_OPTS_OUT_TREE="$MAKE_OPTS -C $BUILD_DIR -f $SRC_DIR/Makefile top_srcdir=$SRC_DIR top_builddir=$BUILD_DIR"
+>  
+>  run_configure()
+> -- 
+> 2.25.1
+
 
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
