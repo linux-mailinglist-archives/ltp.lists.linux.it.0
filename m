@@ -2,149 +2,66 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5BBAD5FAF31
-	for <lists+linux-ltp@lfdr.de>; Tue, 11 Oct 2022 11:19:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 008335FAF52
+	for <lists+linux-ltp@lfdr.de>; Tue, 11 Oct 2022 11:28:20 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 641A73CAE89
-	for <lists+linux-ltp@lfdr.de>; Tue, 11 Oct 2022 11:19:41 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 6C7663CAE89
+	for <lists+linux-ltp@lfdr.de>; Tue, 11 Oct 2022 11:28:20 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 7CF783CAE81
- for <ltp@lists.linux.it>; Tue, 11 Oct 2022 11:19:39 +0200 (CEST)
-Received: from esa20.fujitsucc.c3s2.iphmx.com (esa20.fujitsucc.c3s2.iphmx.com
- [216.71.158.65])
+ by picard.linux.it (Postfix) with ESMTPS id 3CCA93CAE81
+ for <ltp@lists.linux.it>; Tue, 11 Oct 2022 11:28:19 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id A2D13600158
+ for <ltp@lists.linux.it>; Tue, 11 Oct 2022 11:28:18 +0200 (CEST)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id B1B401F86C
+ for <ltp@lists.linux.it>; Tue, 11 Oct 2022 09:28:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1665480497;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=lAwUEgYrnw+dzGd4crv+RdPGZjDse+I3v3h8J8tAnbQ=;
+ b=pxXt2PH/sCz46N7SZspU5c0GO5BZQp5Y/aJSYdIFIBE6xeAaYndN2olo2gc9wH0dFVx73v
+ pz96FtLg1dT2LssI83dQg9eMhjC+LHs0d5CgQFjiD+3LkBmFN2o2eX+k3Q/LJrYEI6Qdfo
+ j/ttUTz4YBvK8i6Ao0P0KViJ0vkDWdc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1665480497;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=lAwUEgYrnw+dzGd4crv+RdPGZjDse+I3v3h8J8tAnbQ=;
+ b=eaFTCTfhLhJkojNeCX2SjZdxUaqAhH7YbE0UGJWFQ99R/0kG1hbh9V+2ToVzQZiwv/+Wp4
+ h75LwgGuBJGh4YCA==
+Received: from g78 (unknown [10.100.228.202])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 8F6911A0098C
- for <ltp@lists.linux.it>; Tue, 11 Oct 2022 11:19:38 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj1;
- t=1665479978; x=1697015978;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-id:content-transfer-encoding: mime-version;
- bh=mJIkmmJ+DRaz3nBmJU3XSN0nPX8a2uIMadmI+GnlO4c=;
- b=RwxZuIMxrd47an086Eu+TZen9OQ4VEh+Lx983p9kZ55wiDcQXJw3scbt
- zwpHfHzdwNEaHV+FqcZ1+IYbOHTSJPFsEL9dwNKbt3+5TPnEHjFIns2ls
- 1fhu5jEFGSEzvC7nzgP294zN+Gpzy3LCKFBPHtNMzLqeDRNyYG7fMx4dT
- XQZDB0F+QijciH70n3kVJA3NoHMcGdHHdehen0L0CRGpUQiOpHmE9orfk
- gZ/35AR7Yucwoj828F+DJ0vJxl6WP2q7mb6j46GxJKPABGQPf5QlzePy4
- G3PT8ltLEWnf+yE27pht3nHM8SmxUNPjd/vZiULGJSSMd8KobrtiVgFFR A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10496"; a="67144476"
-X-IronPort-AV: E=Sophos;i="5.95,176,1661785200"; d="scan'208";a="67144476"
-Received: from mail-tycjpn01lp2177.outbound.protection.outlook.com (HELO
- JPN01-TYC-obe.outbound.protection.outlook.com) ([104.47.23.177])
- by ob1.fujitsucc.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2022 18:19:36 +0900
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=OUzze1fREgWC0drHG6e8rQ43qDewALO1oc9lF+lnflRcEEiL1/4oOGMOsH7ulfT/bPHWYwDtCJ4LNw6PlX2MsFIyugSGABfe88duRgSdCHiJjrbra12fsqS2JZ+c/cmu3/0tLCsTE5S5OPoSoenxldagFXocsj0PCmrYRinbS1khwghl0PNRKqW1v7Q9CkXs8W3RvzwaNmh2KLZ16VuaBL65cLZDUw75c4Xqnzr5H7KTiNT8LlvOgKTr2Sv2PD5A1dxf6iK7W3rdNKJ8nnqbpf5sKj+mm95Yd9ZBxrbXie/W8brNWJ3nJVhK5l+MxkHJgVy92U40FSIS2+d/SWXWSw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mJIkmmJ+DRaz3nBmJU3XSN0nPX8a2uIMadmI+GnlO4c=;
- b=ecbKrCztxGDl3sP4Ng6Kf+6hEdM04SjHtc5k+eLBOIDrLGrFgFbQVVcUQbnK5K7W3z3l/UG4Ptjb9s8LNkU52xIkATWHI8pRVB0IZdqmBC0qH+MyTl5RI0fnukJr7bmZj1jfqOs0Hi5Ho19q1f0K/NGkSyix/TTl9cQCBEKJ3aEUaMJQCaV1srAgeimbOyPDosYNqmE47sjI82f3OZrm/YRL0nGqIibg1H/vY8TLGC11m395nQlwA0ZCP2pNnRXnUTasRig8vym35rC6mjIPAsxmJ5nMBlB+jy1+/5BftOxjdQH4DXj4x4oc0BCRFMJFfsqMa7AxjIbFuLrY3yH4TQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=fujitsu.com; dmarc=pass action=none header.from=fujitsu.com;
- dkim=pass header.d=fujitsu.com; arc=none
-Received: from TY2PR01MB4427.jpnprd01.prod.outlook.com (2603:1096:404:10d::20)
- by TYBPR01MB5390.jpnprd01.prod.outlook.com (2603:1096:404:801c::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5709.15; Tue, 11 Oct
- 2022 09:19:34 +0000
-Received: from TY2PR01MB4427.jpnprd01.prod.outlook.com
- ([fe80::c4fe:de8c:66e8:5c93]) by TY2PR01MB4427.jpnprd01.prod.outlook.com
- ([fe80::c4fe:de8c:66e8:5c93%6]) with mapi id 15.20.5709.015; Tue, 11 Oct 2022
- 09:19:33 +0000
-From: "xuyang2018.jy@fujitsu.com" <xuyang2018.jy@fujitsu.com>
-To: "rpalethorpe@suse.de" <rpalethorpe@suse.de>
-Thread-Topic: [PATCH v2] syscalls/prctl10: Add basic test for PR_SET/GET_TSC
-Thread-Index: AQHY3TGcgMthCOzBKkeSYQs7/GoiFq4IznyAgAAiYoD///FYgIAABV+AgAAUI4A=
-Date: Tue, 11 Oct 2022 09:19:33 +0000
-Message-ID: <40ec15ce-43d4-7757-ee3a-710d42df5905@fujitsu.com>
-References: <87a663als4.fsf@suse.de>
- <1665469442-2051-1-git-send-email-xuyang2018.jy@fujitsu.com>
- <87wn9692zk.fsf@suse.de> <e797b6d1-c42e-46df-df5f-d1e96470ed1b@fujitsu.com>
- <87o7ui923l.fsf@suse.de> <87k056914y.fsf@suse.de>
-In-Reply-To: <87k056914y.fsf@suse.de>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=fujitsu.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY2PR01MB4427:EE_|TYBPR01MB5390:EE_
-x-ms-office365-filtering-correlation-id: 9caad17f-5642-4715-3fb7-08daab69b5ec
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: fo0Sao61PKeTY5f2S3UlFJesrI2EjQWITWtID9IY/2VL5/WKv2NizLDaVfw1LwFBPHkujSmtrlKFEyxL8T+vTtA6lD8mGMVA4C5aTJdo7rp65jW1jsKHw9ndXreExhq10YDiDGV305D/1Y8KnhTAeV9fmcpUxCb9LPc0FubtVHbT2Y8ucug6lyy2DijO0MuvxV0Xx1edGwa4FIy7i5wZsl4k9OcwDRGgq+Xa/dl63lXDjDqm5H7J9ZTQFRoNv1kBuPaKyGkw8BTZuV9MEo+7HanVKBUc7kOu3wsIjBp8m2+tiOzI08J68AcobsFgn4TBm1fctdehXa4AVGBJd/HA9U3Eh6eX88NY8mIazTGlUH4utPM2q2blL8v6z2mEzQQjqWKrNfD3hj858D2uMOIwjWekTNpXNOIvuXW6/l1ZFh/bIRkcNDXWfSnLc6ebYr+WtIK4jpXBQDPgJjmK9UYnws9MiarMM2lK94CBIWz/SYM++cNGI4oDz33ijV017yUmBt0buzTEDxzHtbjhjvtuS/XfRFa9MfJbE6C6iq3FO9vuNw4v+YbHxKvdYWqmAhqKc2QWovS2KljpkjehnsZR/8N/rlerHcmzm4aHhzk75HhpUSoM168BwOS22cSVPOGEdLP2dqltRj6myJSKFMjoyG6kBKmwU4GaUL8ic6p/8gEfGaR/jnYD2DzmcFmOlvEQBnxtyb9XVT0cnCoo/1D+W38A22yEMhaKsjIyKlMxc/KQ6cQxfM1alSZ+TUA5W6yfDdh+PXLDQrS6OcJuKJ+hybJ30I64s1xVG7CI0twEx/ZSnx/Qh+xwtmGL28sUt4YTOK0lppLLIoC8Cbnhhv/Rqw==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TY2PR01MB4427.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(376002)(39860400002)(396003)(366004)(346002)(136003)(451199015)(1590799012)(2616005)(38100700002)(122000001)(31696002)(86362001)(558084003)(36756003)(85182001)(82960400001)(38070700005)(316002)(6486002)(71200400001)(478600001)(8936002)(5660300002)(66556008)(91956017)(66446008)(64756008)(8676002)(6916009)(2906002)(41300700001)(66946007)(76116006)(66476007)(4326008)(26005)(6506007)(186003)(1580799009)(6512007)(31686004)(45980500001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?a3laUmFlVURZd2FmK2RWKytlNVZuMlNiNmRrdXZ3V2haUlM2STREc2pCeGY0?=
- =?utf-8?B?T0syS29iRWt2eVY2VEZ1YUVLcFZ2SURRZWpkNTlOQWhRaHhEdlVvZUM2WUx3?=
- =?utf-8?B?V2gwKzJmRGdDY2MxeWtYeDFXdEVIdE9vbmlpamdPcnZQVTNyV3BGZE5Xak50?=
- =?utf-8?B?SU52NXVWZkMvemhLTUg1M0RlYUk3aE0vVWY0cnFBdEZSUW5LT0V6MERTUXRW?=
- =?utf-8?B?TER6bFBuSm9wL0dvUXExaVcvZE11RVBWOW9WNVp3VnpTL2R0aVFIYkl4a2pj?=
- =?utf-8?B?RWc2cWJ6U2VZZjZyOVhCM0lWR0NjY2M1cUM0L0JJK0tpekNkUGdxaFhHS2JE?=
- =?utf-8?B?ZmxjcTNId1UrQTJXREJaM0crTmRWYjBVSi8yUmpZeEw5UlRwNXZZYWhJRkor?=
- =?utf-8?B?bEZMS0JKajNOU2hsbVZYdkpSeldjQWtKdzU5U1NvWG9kZDVWckt2NmdSU2Jj?=
- =?utf-8?B?QWJ6V3RtczJ0NVZTc29STldkTWJmZmtZaWpoWUZJQ1U4L3phZkgycUF5WStM?=
- =?utf-8?B?QWQyZkJDOVBZMitBMVJmV0tNYkMzNDVmZVp4VmxFU2VCeTZjbVJCa2o4Vlk2?=
- =?utf-8?B?dXZaUnpjZXM2WmtGQ2FXMENNRjhsVnU4OGZvbUNzcVRVWENGWmNYb1lWcDBZ?=
- =?utf-8?B?eGtwRHN5c25UTDZEd1NXckJydC9RN214THUveC9tejIvc2ZGb05oMFVBamVo?=
- =?utf-8?B?SG41d2lINXl2NGNJTG04KytDc3puK0szWStHYWdsSnJMRkp1NkRJN3hsNXI2?=
- =?utf-8?B?bHl1N0syVzZmenI5dU16b1duMHBXVGJFWjJXTUlJVG1IbUtoNUpWZ0NFVXN1?=
- =?utf-8?B?Wm10cDdyTmZ4bnZKL09uU2FxOVF6alo1d01iMjJRdHBBYXZtQkpxZ1MyWUpO?=
- =?utf-8?B?R0EzditHeVZNbS9YbmhPd2FDMENkbTg3bUZ6dzh1bkZHQ0c2bjBWdkdzZ0kr?=
- =?utf-8?B?S3Jwdkt0T2w0MHNzdE16aWFnVmhMVGFsVWtPQ2JuZkI1QTVjS3gyNVQxeTJT?=
- =?utf-8?B?dE15L1I5cDdqa2FkSFdUN0xoMFFCRm4zMkdTWmRQdGtWTDZocXVNUlozQ2lQ?=
- =?utf-8?B?bi9WL08xY2REL0Vnc3FLN3dsT2JwY2RLMWJoLzRnMmN3NElYaktNdk1CeGRp?=
- =?utf-8?B?SmtTSjN2WmwrR2c1dDRrTHpTTXplaHlFWlZYY0F1Umt5cGJvMnlSZkZqaUh0?=
- =?utf-8?B?ci9SS1U5VGZibHN1bndqVGY4R0lVN3U0UW41c2MxMDdrSWc5eWpWRksyeG5o?=
- =?utf-8?B?NURWMXVoSTc2VVFlZVBORWUxNUdkV2lIVmlMZzFMU0hSZklidFowUkVjSmJx?=
- =?utf-8?B?d3lqYXE5Z1RMMUtPQnQ0WjcrQ3RyUkhNdzlNMWFLRFhhaUtRakIvVG94ZUpo?=
- =?utf-8?B?QmtoTkNCRFRuQ0JQbWZ3Mk55S25vY3RkWjVZbTNvaGJWbFcxbHFHejF2SFZN?=
- =?utf-8?B?RG5KcTdGaWwvdlQvRmNObVB0K2FQUlZOSEdwRC9JOHdXeVZWdmVxUnpRdGQ1?=
- =?utf-8?B?d3N6aVRsdit6eUpQT3QwQ1FhRDh2RlEwcnQvMEZtdzJVYWdsMlVycUs5Q0d5?=
- =?utf-8?B?Mi9pWHNQNVRwWTRRQmdzZVlTNnl5eXlnZi9SMldMdDMyZnByRG4ycVloYnZP?=
- =?utf-8?B?VVJXeXozQmdDUWw4MHVVaFU0QlJyOWpPQk1KaUQ3RUtpdVJ4TnBOdTE5YTRn?=
- =?utf-8?B?Y3dyNWtkdit3NzlVekNOby9oVUpvK3lvaEVLbkQ3RDhNc21YS093TlRPUGFn?=
- =?utf-8?B?OE9CM3dIeWNtSno1WkRIaE1XRHVmeHc4U2UrWEZzY0RuNEQvUDl1Y2hrVXBG?=
- =?utf-8?B?YjBBbWlVaTNqZStyUnBlcHZhaWIwM2dJS1F0Y3hIMFZSNzFoOFBURnNVYnZV?=
- =?utf-8?B?cWNqTkozYlk0YkJlQ3MyTUJwS1lVRFF2K1hRVTl3RTh2VUZUTFJZZlZhMTJB?=
- =?utf-8?B?aW1TYlg2N0hwL2ZPYVF3M3lmNDQyejBiS2EyQlREZHNSYXhsNTRCVnloZklN?=
- =?utf-8?B?cTFNcWJ5bCttbnhwaWtTUnd3MEVFS1F0S1YyZWxNTVJ1ZDNiYmFNcEhRTWZv?=
- =?utf-8?B?cjA0a2p6elY2VzRJd1I3NFVHSzMrTjRMVWltVmZ6cDZCdHNBV1g5RFFRTEJ5?=
- =?utf-8?B?Ny8rWUtpZWw0Rms0TSsyaE4xdnV2QTRWdlFqWDFyTzFURnI5d09jU1BPWXFu?=
- =?utf-8?B?WlE9PQ==?=
-Content-ID: <6A73ED1D3DEB5F42A917D26EDA41B915@jpnprd01.prod.outlook.com>
+ by relay2.suse.de (Postfix) with ESMTPS id 489A92C142;
+ Tue, 11 Oct 2022 09:28:17 +0000 (UTC)
+References: <20220727151657.2242-1-pvorel@suse.cz> <874jxq14ay.fsf@suse.de>
+User-agent: mu4e 1.6.10; emacs 28.1
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: rpalethorpe@suse.de
+Date: Tue, 11 Oct 2022 10:26:57 +0100
+In-reply-to: <874jxq14ay.fsf@suse.de>
+Message-ID: <878rlm90b3.fsf@suse.de>
 MIME-Version: 1.0
-X-OriginatorOrg: fujitsu.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY2PR01MB4427.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9caad17f-5642-4715-3fb7-08daab69b5ec
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Oct 2022 09:19:33.7796 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a19f121d-81e1-4858-a9d8-736e267fd4c7
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 9oSZ2zva2HD7AMuO5c66qzjK5mQwkveRoaDC0rfosFZgrzgqUogC2uPw5PKJmcAUOU8TkSgug8vscerpGdOP0zwFa2CkoNuhH8BEER9e6Po=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYBPR01MB5390
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS autolearn=disabled
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] syscalls/prctl10: Add basic test for
- PR_SET/GET_TSC
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/1] lib: Add ROD shell API test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,25 +73,76 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
+Reply-To: rpalethorpe@suse.de
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Richard
+Hello,
 
-> 
-> Hi,
-> 
-> Merged also with a preprocessor statement wrapping the asm so that it is
-> not compiled on non-x86 arches.
+Richard Palethorpe <rpalethorpe@suse.de> writes:
 
-Nice catch, thanks for your review!
+> Hello,
+>
+> Petr Vorel <pvorel@suse.cz> writes:
+>
+>> Signed-off-by: Petr Vorel <pvorel@suse.cz>
+>> ---
+>>  lib/newlib_tests/runtest.sh   |  2 +-
+>>  lib/newlib_tests/shell/rod.sh | 30 ++++++++++++++++++++++++++++++
+>>  2 files changed, 31 insertions(+), 1 deletion(-)
+>>  create mode 100755 lib/newlib_tests/shell/rod.sh
+>>
+>> diff --git a/lib/newlib_tests/runtest.sh b/lib/newlib_tests/runtest.sh
+>> index f136bcb88..5b75fe2c7 100755
+>> --- a/lib/newlib_tests/runtest.sh
+>> +++ b/lib/newlib_tests/runtest.sh
+>> @@ -8,7 +8,7 @@ tst_fuzzy_sync03 test_zero_hugepage.sh test_kconfig.sh
+>>  test_children_cleanup.sh}"
+>>  
+>>  LTP_SHELL_API_TESTS="${LTP_SHELL_API_TESTS:-shell/tst_check_driver.sh
+>> -shell/tst_check_kconfig0[1-5].sh shell/net/*.sh}"
+>> +shell/tst_check_kconfig0[1-5].sh shell/rod.sh shell/net/*.sh}"
+>>  
+>>  cd $(dirname $0)
+>>  PATH="$PWD/../../testcases/lib/:$PATH"
+>> diff --git a/lib/newlib_tests/shell/rod.sh b/lib/newlib_tests/shell/rod.sh
+>> new file mode 100755
+>> index 000000000..e05516d0b
+>> --- /dev/null
+>> +++ b/lib/newlib_tests/shell/rod.sh
+>> @@ -0,0 +1,30 @@
+>> +#!/bin/sh
+>> +# SPDX-License-Identifier: GPL-2.0-or-later
+>> +# Copyright (c) 2022 Petr Vorel <pvorel@suse.cz>
+>> +
+>> +TST_TESTFUNC="test"
+>> +TST_NEEDS_TMPDIR=1
+>> +TST_CNT=3
+>> +
+>> +test1()
+>> +{
+>> +	ROD cd /
+>> +	EXPECT_PASS [ "$PWD" != "/" ]
+>> +}
+>> +
+>> +test2()
+>> +{
+>> +	ROD echo foo > /nonexisting-file
+>
+> If we are running as root then this will succeed?
+>
+> I suppose we don't usually run the lib tests as root, but wouldn't it be
+> better to create a file and write protect it, then try redirecting to
+> it?
 
-Best Regards
-Yang Xu
-> 
+Marking as "changes requested", to remove it from the queue.
+
+-- 
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
