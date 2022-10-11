@@ -1,50 +1,75 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 571905FB24D
-	for <lists+linux-ltp@lfdr.de>; Tue, 11 Oct 2022 14:20:22 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BD135FB22F
+	for <lists+linux-ltp@lfdr.de>; Tue, 11 Oct 2022 14:17:16 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 206723CAEA5
-	for <lists+linux-ltp@lfdr.de>; Tue, 11 Oct 2022 14:20:22 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 52CB53CAEB2
+	for <lists+linux-ltp@lfdr.de>; Tue, 11 Oct 2022 14:17:14 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 5D3B23CAEA1
- for <ltp@lists.linux.it>; Tue, 11 Oct 2022 14:19:50 +0200 (CEST)
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 5D5123CAE72
+ for <ltp@lists.linux.it>; Tue, 11 Oct 2022 14:17:10 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 8F4C61400DCF
- for <ltp@lists.linux.it>; Tue, 11 Oct 2022 14:19:48 +0200 (CEST)
-Received: from canpemm500005.china.huawei.com (unknown [172.30.72.53])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4MmvsH2r0qzpVXR
- for <ltp@lists.linux.it>; Tue, 11 Oct 2022 20:16:35 +0800 (CST)
-Received: from ubuntu1804.huawei.com (10.67.174.63) by
- canpemm500005.china.huawei.com (7.192.104.229) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Tue, 11 Oct 2022 20:19:45 +0800
-To: <ltp@lists.linux.it>
-Date: Tue, 11 Oct 2022 20:16:07 +0800
-Message-ID: <20221011121607.55575-4-zhaogongyi@huawei.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20221011121607.55575-1-zhaogongyi@huawei.com>
-References: <20221011121607.55575-1-zhaogongyi@huawei.com>
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id C6D50600AA2
+ for <ltp@lists.linux.it>; Tue, 11 Oct 2022 14:17:09 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id BBABE1FA43;
+ Tue, 11 Oct 2022 12:17:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1665490628;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=I4/nZUozEpVQfble0EqHUtPVfax6iwvm24DhBDmy0UQ=;
+ b=TZHMt1Rp6Jb55UG5Q8oAIpsWmnqGw8bfaDMlHsoqJK3JGaHzo8KdAXEvcri5GQSBL3OVJ3
+ XlKlMfkNf0MxQ682e862xWiDP7MlTNgvkLA5LupbZX1/U2Dv0HthuK+TZ+tTFbyvKqfpkr
+ is1Is/Z+PWmg4GjK6DuQZphLhkvbvmI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1665490628;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=I4/nZUozEpVQfble0EqHUtPVfax6iwvm24DhBDmy0UQ=;
+ b=6YWnhlamDz3JUJvdfI3Y0v1q/zSwjfkNj3rEz6R4m29pYsski3RiFdNqTKP2ecwSfj7SEo
+ pVufS7lq/5IcsrBA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6E01E139ED;
+ Tue, 11 Oct 2022 12:17:08 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id baQpGcReRWMMSwAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Tue, 11 Oct 2022 12:17:08 +0000
+Date: Tue, 11 Oct 2022 14:17:06 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Cyril Hrubis <chrubis@suse.cz>
+Message-ID: <Y0VewooZbHVB9b9i@pevik>
+References: <20221010085944.26814-1-pvorel@suse.cz>
+ <Y0U+LCnGarwR90ly@yuki>
 MIME-Version: 1.0
-X-Originating-IP: [10.67.174.63]
-X-ClientProxiedBy: dggems703-chm.china.huawei.com (10.3.19.180) To
- canpemm500005.china.huawei.com (7.192.104.229)
-X-CFilter-Loop: Reflected
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <Y0U+LCnGarwR90ly@yuki>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 3/3] syscalls/madvise11: new test for
- madvise(MADV_DONTNEED)
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/1] tst_test.sh: Create (again) loop device in
+ $TST_TMPDIR
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,133 +81,19 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Zhao Gongyi via ltp <ltp@lists.linux.it>
-Reply-To: Zhao Gongyi <zhaogongyi@huawei.com>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Test cases for madvise(2) system call, verify that when MADV_DONTNEED
-applied to shared mappings, it will lead to the resident set size(RSS)
-of the calling process reduced immediately.
+Hi all,
 
-Signed-off-by: Zhao Gongyi <zhaogongyi@huawei.com>
----
- runtest/syscalls                              |  1 +
- testcases/kernel/syscalls/madvise/.gitignore  |  1 +
- testcases/kernel/syscalls/madvise/madvise11.c | 78 +++++++++++++++++++
- 3 files changed, 80 insertions(+)
- create mode 100644 testcases/kernel/syscalls/madvise/madvise11.c
+thanks for your review, merged.
 
-diff --git a/runtest/syscalls b/runtest/syscalls
-index eb1910cec..296af9f9d 100644
---- a/runtest/syscalls
-+++ b/runtest/syscalls
-@@ -948,6 +948,7 @@ madvise07 madvise07
- madvise08 madvise08
- madvise09 madvise09
- madvise10 madvise10
-+madvise11 madvise11
-
- newuname01 newuname01
-
-diff --git a/testcases/kernel/syscalls/madvise/.gitignore b/testcases/kernel/syscalls/madvise/.gitignore
-index db8ce47c1..ffd8823d1 100644
---- a/testcases/kernel/syscalls/madvise/.gitignore
-+++ b/testcases/kernel/syscalls/madvise/.gitignore
-@@ -8,3 +8,4 @@
- /madvise08
- /madvise09
- /madvise10
-+/madvise11
-diff --git a/testcases/kernel/syscalls/madvise/madvise11.c b/testcases/kernel/syscalls/madvise/madvise11.c
-new file mode 100644
-index 000000000..77f0b91ac
---- /dev/null
-+++ b/testcases/kernel/syscalls/madvise/madvise11.c
-@@ -0,0 +1,78 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) Huawei Technologies Co., Ltd. 2022. All rights reserved.
-+ * Author: Zhao Gongyi <zhaogongyi@huawei.com>
-+ */
-+
-+/*\
-+ * [Description]
-+ *
-+ * Test cases for madvise(2) system call, advise value as "MADV_MADV_DONTNEED":
-+ *   When MADV_DONTNEED applied to shared mappings, it will lead to the
-+ *   resident set size(RSS) of the calling process reduced immediately.
-+ */
-+
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include "tst_test.h"
-+
-+#define MAP_SIZE (8 * 1024)
-+#define BUF_SIZE 1024
-+
-+static FILE *fp;
-+static char *addr;
-+
-+static void run(void)
-+{
-+	char cmd[BUF_SIZE];
-+	char line[BUF_SIZE];
-+	char vm_area_addr[128];
-+
-+	TEST(madvise(addr, MAP_SIZE, MADV_DONTNEED));
-+	if (TST_RET == -1) {
-+		tst_brk(TBROK | TTERRNO, "madvise(%p, %d, 0x%x)",
-+			addr, MAP_SIZE, MADV_DONTNEED);
-+	}
-+
-+	sprintf(vm_area_addr, "%p", addr);
-+	sprintf(cmd,
-+		"cat /proc/%d/smaps | grep %s -A 4 | grep Rss: | grep '0 kB'",
-+		getpid(), &(vm_area_addr[2]));
-+
-+	fp = popen(cmd, "r");
-+	if (!fp)
-+		tst_brk(TBROK, "popen failed");
-+
-+	if (fgets(line, sizeof(line), fp) != NULL) {
-+		if (strstr(line, " 0 kB"))
-+			tst_res(TPASS, "RSS is released");
-+		else
-+			tst_res(TFAIL, "RSS is not released");
-+
-+	} else
-+		tst_brk(TBROK, "There is no 'Rss:' in smaps?");
-+}
-+
-+static void setup(void)
-+{
-+	addr = SAFE_MMAP(NULL, MAP_SIZE,
-+			PROT_READ | PROT_WRITE,
-+			MAP_PRIVATE | MAP_ANONYMOUS,
-+			-1, 0);
-+	memset(addr, 1, MAP_SIZE);
-+}
-+
-+static void cleanup(void)
-+{
-+	if (addr)
-+		SAFE_MUNMAP(addr, MAP_SIZE);
-+	if (fp)
-+		pclose(fp);
-+}
-+
-+static struct tst_test test = {
-+	.test_all = run,
-+	.setup = setup,
-+	.cleanup = cleanup,
-+};
-+
---
-2.17.1
-
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
