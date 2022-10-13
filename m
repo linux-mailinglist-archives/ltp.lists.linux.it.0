@@ -2,63 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA1575FD61B
-	for <lists+linux-ltp@lfdr.de>; Thu, 13 Oct 2022 10:23:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A57C35FD6AC
+	for <lists+linux-ltp@lfdr.de>; Thu, 13 Oct 2022 11:11:23 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 9A5813CAEE8
-	for <lists+linux-ltp@lfdr.de>; Thu, 13 Oct 2022 10:23:07 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 6220C3CAEDA
+	for <lists+linux-ltp@lfdr.de>; Thu, 13 Oct 2022 11:11:22 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 307CE3C04D1
- for <ltp@lists.linux.it>; Thu, 13 Oct 2022 10:23:03 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id BD6FB3C6DE4
+ for <ltp@lists.linux.it>; Thu, 13 Oct 2022 11:11:14 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id B9DAD601476
- for <ltp@lists.linux.it>; Thu, 13 Oct 2022 10:23:02 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 736151A01127
+ for <ltp@lists.linux.it>; Thu, 13 Oct 2022 11:11:12 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 764132208F;
- Thu, 13 Oct 2022 08:23:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1665649382; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 042BE21CA9;
+ Thu, 13 Oct 2022 09:11:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1665652272;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=ahxKkf+bJF2XSuBbb2OaWY3OcobSYzRRqO5vc74FPx8=;
- b=Foa1pgIWMP+tPWS0xgQx3a/MIg8OeBq/7la6vBZzUQEjWPScIkhMYiFszCaVCAK5YLRQP+
- JE3BiD7i4eWkJrnbEGeHH8/FVM0vYqeo4Mg4ijw9i0V5Au6X2AruGxDa9bJTilMA3g7SEG
- TboU+xOKZ2M7o9iW+r4/of5hJRulCJ8=
+ bh=qWxmrVUWZR6RgAtNGl5Gr+OVeAqzmvjsaZkbXdEh1s0=;
+ b=H8B0ewFfwgc5C4RJIThX6ViQ/tQTmuFnlbDYOITGgKrfiF5VwmtNgCjbRAbUcSRTTt4j+1
+ Ezq6AWOs5oO2tquDN21r9/jiBZuhCwAGYle2MBv4gd93Rp2mACLoi1/YLWfXzs1csfMz5P
+ YqBn0+5W94eSBh3u/jnuRa9yY1vEH84=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1665652272;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=qWxmrVUWZR6RgAtNGl5Gr+OVeAqzmvjsaZkbXdEh1s0=;
+ b=o+3whGselQrw7SzGfPnFBuzRe6wiPsXQREAwgb06EOq3BwQFldxO8RFzZLnI9FWz1n/UtU
+ XVraydoGVyT83KAA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 37D7A13AAA;
- Thu, 13 Oct 2022 08:23:02 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 82CBB13AAA;
+ Thu, 13 Oct 2022 09:11:11 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id +I/CCubKR2POZQAAMHmgww
- (envelope-from <andrea.cervesato@suse.com>); Thu, 13 Oct 2022 08:23:02 +0000
-To: ltp@lists.linux.it
-Date: Thu, 13 Oct 2022 10:21:46 +0200
-Message-Id: <20221013082146.14581-4-andrea.cervesato@suse.com>
-X-Mailer: git-send-email 2.35.3
-In-Reply-To: <20221013082146.14581-1-andrea.cervesato@suse.com>
-References: <20221013082146.14581-1-andrea.cervesato@suse.com>
+ by imap2.suse-dmz.suse.de with ESMTPSA id oV1nHS/WR2NhBQAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Thu, 13 Oct 2022 09:11:11 +0000
+Date: Thu, 13 Oct 2022 11:11:09 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: zhaogongyi <zhaogongyi@huawei.com>
+Message-ID: <Y0fWLY7XQWjS4Err@pevik>
+References: <43b06441d7be49e6b3c06303abb3b41f@huawei.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <43b06441d7be49e6b3c06303abb3b41f@huawei.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH v8 2/2] Merge ltp-aio-stress part2 with part1
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/2] lib: Add checking of needs_root
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,59 +80,30 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Andrea Cervesato via ltp <ltp@lists.linux.it>
-Reply-To: Andrea Cervesato <andrea.cervesato@suse.com>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-ltp-aio-stress.part[12] have been merged due to tests duplication and
-new ltp-aio-stress test rewrite that doesn't require $TMPDIR parameter
-anymore.
+> Hi petr,
 
-Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
----
- runtest/{ltp-aio-stress.part1 => ltp-aio-stress} |  3 +++
- runtest/ltp-aio-stress.part2                     | 11 -----------
- 2 files changed, 3 insertions(+), 11 deletions(-)
- rename runtest/{ltp-aio-stress.part1 => ltp-aio-stress} (94%)
- delete mode 100644 runtest/ltp-aio-stress.part2
+> The testcases referenced mount_device and needs_device are more than 88 in kernel/syscalls:
 
-diff --git a/runtest/ltp-aio-stress.part1 b/runtest/ltp-aio-stress
-similarity index 94%
-rename from runtest/ltp-aio-stress.part1
-rename to runtest/ltp-aio-stress
-index c389a039d..4b0b81ce2 100644
---- a/runtest/ltp-aio-stress.part1
-+++ b/runtest/ltp-aio-stress
-@@ -50,3 +50,6 @@ ADS1047 aio-stress -o1 -O -r32 -t8 -f8
- ADS1048 aio-stress -o1 -O -r64 -t8 -f8
- ADS1049 aio-stress -o1 -O -r128 -t8 -f8
- ADS1050 aio-stress -o1 -O -r256 -t2 -f2
-+ADS1051 aio-stress -o3 -r8 -t2 -f2
-+ADS1052 aio-stress -o3 -r16 -t2 -f2
-+ADS1053 aio-stress -o3 -r32 -t4 -f4
-diff --git a/runtest/ltp-aio-stress.part2 b/runtest/ltp-aio-stress.part2
-deleted file mode 100644
-index e8ac60743..000000000
---- a/runtest/ltp-aio-stress.part2
-+++ /dev/null
-@@ -1,11 +0,0 @@
--# ltp A-sync IO Stress IO tests
--# ADS2001 aio-stress -o2 -r32 -t2 -f2
--ADS2002 aio-stress -o3 -r8 -t2 -f2
--ADS2003 aio-stress -o3 -r16 -t2 -f2
--ADS2004 aio-stress -o3 -r32 -t4 -f4
--# ADS2005 aio-stress -o3 -r64 -t4 -f4
--# ADS2006 aio-stress -o2 -O -r32 -t2 -f2
--# ADS2007 aio-stress -o3 -O -r8 -t2 -f2
--# ADS2008 aio-stress -o3 -O -r16 -t2 -f2
--# ADS2009 aio-stress -o3 -O -r32 -t4 -f4
--# ADS2010 aio-stress -o3 -O -r64 -t4 -f4
--- 
-2.35.3
+FYI I asked about the number of tests which need needs_rootgroup.
+https://lore.kernel.org/ltp/Y0fAgGH6R8uEbcqh@pevik/
 
+I thought these tests are somehow special (use root GID).
+But if needs_rootgroup was meant for mount_device and needs_device I don't get
+the point why (needs_root would be enough, but as Tim wrote that might be strict
+for some people, thus we'd need the cyril's solution mentioned at
+https://lore.kernel.org/ltp/Yx8I0ponDUIFC8le@yuki/
+
+Or am I missing something obvious?
+
+Kind regards,
+Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
