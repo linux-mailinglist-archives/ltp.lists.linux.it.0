@@ -2,48 +2,79 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9617B5FE7D2
-	for <lists+linux-ltp@lfdr.de>; Fri, 14 Oct 2022 06:00:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 889BD5FE974
+	for <lists+linux-ltp@lfdr.de>; Fri, 14 Oct 2022 09:24:05 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0EB593CAF0D
-	for <lists+linux-ltp@lfdr.de>; Fri, 14 Oct 2022 06:00:00 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 223823CAF09
+	for <lists+linux-ltp@lfdr.de>; Fri, 14 Oct 2022 09:24:05 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 8D2D33CA9C7
- for <ltp@lists.linux.it>; Fri, 14 Oct 2022 05:59:54 +0200 (CEST)
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id A072E3CAB0D
+ for <ltp@lists.linux.it>; Thu, 13 Oct 2022 23:49:13 +0200 (CEST)
+Received: from mail-pg1-x52c.google.com (mail-pg1-x52c.google.com
+ [IPv6:2607:f8b0:4864:20::52c])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 5024414004FE
- for <ltp@lists.linux.it>; Fri, 14 Oct 2022 05:59:52 +0200 (CEST)
-Received: from canpemm500005.china.huawei.com (unknown [172.30.72.53])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4MpXd03jMqzpVxm
- for <ltp@lists.linux.it>; Fri, 14 Oct 2022 11:56:36 +0800 (CST)
-Received: from ubuntu1804.huawei.com (10.67.174.63) by
- canpemm500005.china.huawei.com (7.192.104.229) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Fri, 14 Oct 2022 11:59:49 +0800
-To: <ltp@lists.linux.it>
-Date: Fri, 14 Oct 2022 11:56:15 +0800
-Message-ID: <20221014035615.185057-2-zhaogongyi@huawei.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20221014035615.185057-1-zhaogongyi@huawei.com>
-References: <20221014035615.185057-1-zhaogongyi@huawei.com>
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 6C6A8600C89
+ for <ltp@lists.linux.it>; Thu, 13 Oct 2022 23:49:12 +0200 (CEST)
+Received: by mail-pg1-x52c.google.com with SMTP id s196so1381846pgs.3
+ for <ltp@lists.linux.it>; Thu, 13 Oct 2022 14:49:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=rivosinc-com.20210112.gappssmtp.com; s=20210112;
+ h=to:from:cc:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:to:cc:subject:date:message-id:reply-to;
+ bh=J5mjwMGu2qk5bP3hjRC2Gj2D7aOEOgPLH90aVWzBSuE=;
+ b=XPvm2Eg+Chky+3e450NOaAV2UIYc7ESS3vD/9UeYZ5M4LrmS1Hf8OwPSl3u75HfXLC
+ x3FJ1Ky317rOZYN+DPoEKoGUuS6zwKZi4xJhmzYXsWQ975GXGeRcNvzloZh0jOHOEryh
+ sPySJJA/wq6Gytkx0xezdVJ4LgFdGZ1UW3Tq8GcATRic5/Lo9D8Nhn4Y8wadwIkOxcpC
+ rvU0Wy075n7cfKESfZkVe/fo4Um5uiSfHHeyog5ZMxSE5LZ6td+GYJYhiwOwHmrBr6od
+ 7okf40/bn71z1astTaD4KyEi/Og6spyIWQkIOx0mMSsgvG4qNBz6+ZUuIY1Bem2bkH/M
+ Kf/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=to:from:cc:content-transfer-encoding:mime-version:message-id:date
+ :subject:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=J5mjwMGu2qk5bP3hjRC2Gj2D7aOEOgPLH90aVWzBSuE=;
+ b=jKrdNFAEyjBZ27WCViK1YO2ICVKPYNesXEQs/jV7a4Wau+6wBUTNCG551cNKdTaCd4
+ spHqwSt93xl8yFSLu7AKw7en0c+JZP3/g/u76elaAGwq6mELLMM0deNgozSxPzgaZ1Lw
+ OSFpL9SJCHwHCLiMCm7eOyBu/ZYcgMBjS2F5Azv2IRdm8MrSYzzu2FuljbtNWSJjH0Os
+ rQOLOaF+IReHOzzcgGOcKIzBxUFTj/ByXOzl4mG9/PVv+gp3ny2uGAib7t5PxoUIfVqr
+ XGon8ZuGf282zWDhTa5Jlu0m/ILQnGGRVTlSZObpdXdr7oHzmflGpxV9WFKnD3Bgi2Yk
+ 7dBA==
+X-Gm-Message-State: ACrzQf0LfsCD/mz+oPxwnUhyw1SN62lWfNvTe+PYEJo+O7MWqgpO4LF9
+ wNFVUPH0S7ujyChZNiuOz5/t3w==
+X-Google-Smtp-Source: AMsMyM6mvmMMRIFn+fboyuZWimGbL12CxiIDTmDavT+W16uZk9STafGUskTVP2CF6z1gw3ZQUCiRtg==
+X-Received: by 2002:a05:6a00:804:b0:563:264a:f5e5 with SMTP id
+ m4-20020a056a00080400b00563264af5e5mr1795424pfk.62.1665697750534; 
+ Thu, 13 Oct 2022 14:49:10 -0700 (PDT)
+Received: from localhost ([50.221.140.188]) by smtp.gmail.com with ESMTPSA id
+ o63-20020a62cd42000000b0056258a3606csm149495pfg.215.2022.10.13.14.49.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 13 Oct 2022 14:49:10 -0700 (PDT)
+Date: Thu, 13 Oct 2022 14:46:38 -0700
+Message-Id: <20221013214638.30953-1-palmer@rivosinc.com>
+X-Mailer: git-send-email 2.38.0
 MIME-Version: 1.0
-X-Originating-IP: [10.67.174.63]
-X-ClientProxiedBy: dggems704-chm.china.huawei.com (10.3.19.181) To
- canpemm500005.china.huawei.com (7.192.104.229)
-X-CFilter-Loop: Reflected
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+From: Palmer Dabbelt <palmer@rivosinc.com>
+To: vapier@gentoo.org, chrubis@suse.cz, wanlong.gao@gmail.com,
+ jstancek@redhat.com, 
+ stanislav.kholmanskikh@oracle.com, alexey.kodanev@oracle.com,
+ ltp@lists.linux.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/2] syscalls/nice06: new test for nice()
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+X-Mailman-Approved-At: Fri, 14 Oct 2022 09:24:00 +0200
+Subject: [LTP] [PATCH] MAINTAINERS: git://github -> https://github.com for
+ linux-test-project
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,99 +86,42 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Zhao Gongyi via ltp <ltp@lists.linux.it>
-Reply-To: Zhao Gongyi <zhaogongyi@huawei.com>
+Cc: Conor Dooley <conor.dooley@microchip.com>, linux-kernel@vger.kernel.org,
+ Palmer Dabbelt <palmer@rivosinc.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Verify that the errno is nonzero when callling of nice
-legitimately return -1.
+Github deprecated the git:// links about a year ago, so let's move to
+the https:// URLs instead.
 
-Signed-off-by: Zhao Gongyi <zhaogongyi@huawei.com>
+Reported-by: Conor Dooley <conor.dooley@microchip.com>
+Link: https://github.blog/2021-09-01-improving-git-protocol-security-github/
+Signed-off-by: Palmer Dabbelt <palmer@rivosinc.com>
 ---
- runtest/syscalls                          |  1 +
- testcases/kernel/syscalls/nice/.gitignore |  1 +
- testcases/kernel/syscalls/nice/nice06.c   | 46 +++++++++++++++++++++++
- 3 files changed, 48 insertions(+)
- create mode 100644 testcases/kernel/syscalls/nice/nice06.c
+I've split these up by github username so folks can take them
+independently, as some of these repos have been renamed at github and
+thus need more than just a sed to fix them.
+---
+ MAINTAINERS | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/runtest/syscalls b/runtest/syscalls
-index 7db399375..12bf94bff 100644
---- a/runtest/syscalls
-+++ b/runtest/syscalls
-@@ -903,6 +903,7 @@ nice02 nice02
- nice03 nice03
- nice04 nice04
- nice05 nice05
-+nice06 nice06
-
- open01 open01
- open01A symlink01 -T open01
-diff --git a/testcases/kernel/syscalls/nice/.gitignore b/testcases/kernel/syscalls/nice/.gitignore
-index 58d64779e..c96064cdf 100644
---- a/testcases/kernel/syscalls/nice/.gitignore
-+++ b/testcases/kernel/syscalls/nice/.gitignore
-@@ -3,3 +3,4 @@
- /nice03
- /nice04
- /nice05
-+/nice06
-diff --git a/testcases/kernel/syscalls/nice/nice06.c b/testcases/kernel/syscalls/nice/nice06.c
-new file mode 100644
-index 000000000..b4a6fb446
---- /dev/null
-+++ b/testcases/kernel/syscalls/nice/nice06.c
-@@ -0,0 +1,46 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright(c) 2022 Huawei Technologies Co., Ltd
-+ * Author: Zhao Gongyi <zhaogongyi@huawei.com>
-+ */
-+
-+/*\
-+ * [Description]
-+ *
-+ * Verify that the errno is nonzero when callling of nice
-+ * legitimately return -1.
-+ */
-+#include <unistd.h>
-+#include "tst_test.h"
-+
-+static void verify_nice(void)
-+{
-+	int orig_nice;
-+	int niceinc;
-+
-+	orig_nice = SAFE_GETPRIORITY(PRIO_PROCESS, 0);
-+	niceinc = -1 - orig_nice;
-+
-+	TEST(nice(niceinc));
-+	if (TST_RET != -1) {
-+		tst_res(TFAIL | TTERRNO,
-+			"nice(%d) returned %ld", niceinc, TST_RET);
-+		return;
-+	}
-+
-+	if (TST_ERR) {
-+		tst_res(TFAIL | TTERRNO, "nice(%d) failed", niceinc);
-+		return;
-+	}
-+
-+	tst_res(TPASS, "nice(%d) passed", niceinc);
-+
-+	TEST(nice(-niceinc));
-+	if (TST_ERR)
-+		tst_brk(TBROK | TTERRNO, "nice(%d) failed", -niceinc);
-+}
-+
-+static struct tst_test test = {
-+	.test_all = verify_nice,
-+	.needs_root = 1,
-+};
---
-2.17.1
+diff --git a/MAINTAINERS b/MAINTAINERS
+index d103b44fb40c..d118acdce8b8 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -11972,7 +11972,7 @@ M:	Alexey Kodanev <alexey.kodanev@oracle.com>
+ L:	ltp@lists.linux.it (subscribers-only)
+ S:	Maintained
+ W:	http://linux-test-project.github.io/
+-T:	git git://github.com/linux-test-project/ltp.git
++T:	git https://github.com/linux-test-project/ltp.git
+ 
+ LYNX 28G SERDES PHY DRIVER
+ M:	Ioana Ciornei <ioana.ciornei@nxp.com>
+-- 
+2.38.0
 
 
 -- 
