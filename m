@@ -1,74 +1,53 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5BBBF5FD5A5
-	for <lists+linux-ltp@lfdr.de>; Thu, 13 Oct 2022 09:41:44 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 673745FD5B4
+	for <lists+linux-ltp@lfdr.de>; Thu, 13 Oct 2022 09:46:01 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 984B53CAEE5
-	for <lists+linux-ltp@lfdr.de>; Thu, 13 Oct 2022 09:41:43 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A03D43CAED0
+	for <lists+linux-ltp@lfdr.de>; Thu, 13 Oct 2022 09:46:00 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id EF6D83CA9C7
- for <ltp@lists.linux.it>; Thu, 13 Oct 2022 09:41:39 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id 57E723CA9C7
+ for <ltp@lists.linux.it>; Thu, 13 Oct 2022 09:45:56 +0200 (CEST)
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 83F54600D21
- for <ltp@lists.linux.it>; Thu, 13 Oct 2022 09:41:39 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id BDE521F38A;
- Thu, 13 Oct 2022 07:41:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1665646898;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=kt548TUKVXVMb/Ob5Gm8YteplvYMwfIcRq8yJDxckEg=;
- b=JQJ5c0eK4uMce8fk5ciR9QccGuxP8iZi1xW/0WS4WjuKtCHI5FeJenFxgautBU0HY6+GlI
- 7AKnEmnCagGgsHoXRgFYRm0zX++GUV/sgqMH2KdeucGH1da2f8sfsLlobKcBWWiuaOM+pE
- jruKKy/6Mxw52B66juzuTUdlpwNHpUg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1665646898;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=kt548TUKVXVMb/Ob5Gm8YteplvYMwfIcRq8yJDxckEg=;
- b=nXRf8Eu2jTaAwAvaeTyAGIC/n4O4LVTkF0BbXNXTQmWdNf6SBOMWgsXvNmEA9A41D9PGzh
- hDb8CmPq2FkB0TAQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 857CE139F3;
- Thu, 13 Oct 2022 07:41:38 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id e9eYHjLBR2MkTgAAMHmgww
- (envelope-from <pvorel@suse.cz>); Thu, 13 Oct 2022 07:41:38 +0000
-Date: Thu, 13 Oct 2022 09:41:36 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Zhao Gongyi <zhaogongyi@huawei.com>
-Message-ID: <Y0fBMGxUQpZhz0AE@pevik>
-References: <20221012091526.35373-1-zhaogongyi@huawei.com>
- <20221012091526.35373-3-zhaogongyi@huawei.com>
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id A9DEB600713
+ for <ltp@lists.linux.it>; Thu, 13 Oct 2022 09:45:54 +0200 (CEST)
+Received: from canpemm500006.china.huawei.com (unknown [172.30.72.55])
+ by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4Mp1fc38fqzmV5w
+ for <ltp@lists.linux.it>; Thu, 13 Oct 2022 15:41:12 +0800 (CST)
+Received: from canpemm500005.china.huawei.com (7.192.104.229) by
+ canpemm500006.china.huawei.com (7.192.105.130) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31; Thu, 13 Oct 2022 15:45:48 +0800
+Received: from canpemm500005.china.huawei.com ([7.192.104.229]) by
+ canpemm500005.china.huawei.com ([7.192.104.229]) with mapi id 15.01.2375.031; 
+ Thu, 13 Oct 2022 15:45:48 +0800
+To: Petr Vorel <pvorel@suse.cz>
+Thread-Topic: [LTP] [PATCH 2/2] needs_root: Add setting of needs_root
+Thread-Index: Adje14jwnnXUZkrLTke9bcwq+JEUKQ==
+Date: Thu, 13 Oct 2022 07:45:48 +0000
+Message-ID: <04dbdaf51ae940289775353f0535c4a4@huawei.com>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.67.110.209]
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20221012091526.35373-3-zhaogongyi@huawei.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-CFilter-Loop: Reflected
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH 2/2] needs_root: Add setting of needs_root
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
@@ -81,62 +60,84 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
+From: zhaogongyi via ltp <ltp@lists.linux.it>
+Reply-To: zhaogongyi <zhaogongyi@huawei.com>
+Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Zhao,
+Hi Petr,
 
-> Add setting of  needs_root, otherwise run the test without root
-> will fail and report EACCESS or EPERM.
-...
->  testcases/kernel/syscalls/bind/bind06.c                       | 1 +
->  testcases/kernel/syscalls/cma/process_vm_readv02.c            | 1 +
->  testcases/kernel/syscalls/cma/process_vm_readv03.c            | 1 +
->  testcases/kernel/syscalls/cma/process_vm_writev02.c           | 1 +
->  testcases/kernel/syscalls/copy_file_range/copy_file_range01.c | 1 +
->  testcases/kernel/syscalls/ipc/msgget/msgget03.c               | 1 +
->  testcases/kernel/syscalls/preadv/preadv03.c                   | 1 +
->  testcases/kernel/syscalls/pwritev/pwritev03.c                 | 1 +
->  testcases/kernel/syscalls/sendto/sendto03.c                   | 1 +
->  testcases/kernel/syscalls/setsockopt/setsockopt05.c           | 1 +
->  testcases/kernel/syscalls/setsockopt/setsockopt06.c           | 1 +
->  testcases/kernel/syscalls/setsockopt/setsockopt07.c           | 1 +
->  testcases/kernel/syscalls/setsockopt/setsockopt08.c           | 1 +
->  testcases/kernel/syscalls/setsockopt/setsockopt09.c           | 1 +
->  testcases/kernel/syscalls/swapon/swapon01.c                   | 1 +
->  15 files changed, 15 insertions(+)
-...
-> +++ b/testcases/kernel/syscalls/ipc/msgget/msgget03.c
-> @@ -72,6 +72,7 @@ static void cleanup(void)
+It is failed on my system:
 
->  static struct tst_test test = {
->  	.needs_tmpdir = 1,
-> +	.needs_root = 1,
->  	.setup = setup,
->  	.cleanup = cleanup,
->  	.test_all = verify_msgget,
-
-At least this one is working without root:
-
-$ ./testcases/kernel/syscalls/ipc/msgget/msgget03
-tst_test.c:1526: TINFO: Timeout per run is 0h 00m 30s
-msgget03.c:41: TINFO: Current environment 0 message queues are already in use
-msgget03.c:55: TINFO: The maximum number of message queues (32000) reached
-msgget03.c:30: TPASS: msgget(1629588886, 1536) : ENOSPC (28)
+sh-4.4$ ./msgget03
+tst_test.c:1535: TINFO: Timeout per run is 0h 00m 30s
+msgget03.c:42: TINFO: Current environment 0 message queues are already in use
+msgget03.c:45: TBROK: Failed to open FILE '/proc/sys/kernel/msgmni' for writing: EACCES (13)
 
 Summary:
-passed   1
+passed   0
 failed   0
-broken   0
+broken   1
 skipped  0
 warnings 0
+tst_sys_conf.c:118: TWARN: Failed to open FILE '/proc/sys/kernel/msgmni'
 
-Kind regards,
-Petr
+> > Add setting of  needs_root, otherwise run the test without root will
+> > fail and report EACCESS or EPERM.
+> ...
+> >  testcases/kernel/syscalls/bind/bind06.c                       | 1 +
+> >  testcases/kernel/syscalls/cma/process_vm_readv02.c            | 1
+> +
+> >  testcases/kernel/syscalls/cma/process_vm_readv03.c            | 1
+> +
+> >  testcases/kernel/syscalls/cma/process_vm_writev02.c           | 1
+> +
+> >  testcases/kernel/syscalls/copy_file_range/copy_file_range01.c | 1 +
+> >  testcases/kernel/syscalls/ipc/msgget/msgget03.c               | 1 +
+> >  testcases/kernel/syscalls/preadv/preadv03.c                   | 1 +
+> >  testcases/kernel/syscalls/pwritev/pwritev03.c                 | 1 +
+> >  testcases/kernel/syscalls/sendto/sendto03.c                   | 1 +
+> >  testcases/kernel/syscalls/setsockopt/setsockopt05.c           | 1 +
+> >  testcases/kernel/syscalls/setsockopt/setsockopt06.c           | 1 +
+> >  testcases/kernel/syscalls/setsockopt/setsockopt07.c           | 1 +
+> >  testcases/kernel/syscalls/setsockopt/setsockopt08.c           | 1 +
+> >  testcases/kernel/syscalls/setsockopt/setsockopt09.c           | 1 +
+> >  testcases/kernel/syscalls/swapon/swapon01.c                   | 1
+> +
+> >  15 files changed, 15 insertions(+)
+> ...
+> > +++ b/testcases/kernel/syscalls/ipc/msgget/msgget03.c
+> > @@ -72,6 +72,7 @@ static void cleanup(void)
+> 
+> >  static struct tst_test test = {
+> >  	.needs_tmpdir = 1,
+> > +	.needs_root = 1,
+> >  	.setup = setup,
+> >  	.cleanup = cleanup,
+> >  	.test_all = verify_msgget,
+> 
+> At least this one is working without root:
+> 
+> $ ./testcases/kernel/syscalls/ipc/msgget/msgget03
+> tst_test.c:1526: TINFO: Timeout per run is 0h 00m 30s
+> msgget03.c:41: TINFO: Current environment 0 message queues are
+> already in use
+> msgget03.c:55: TINFO: The maximum number of message queues (32000)
+> reached
+> msgget03.c:30: TPASS: msgget(1629588886, 1536) : ENOSPC (28)
+> 
+> Summary:
+> passed   1
+> failed   0
+> broken   0
+> skipped  0
+> warnings 0
+> 
+> Kind regards,
+> Petr
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
