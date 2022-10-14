@@ -2,53 +2,46 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 050835FE6C2
-	for <lists+linux-ltp@lfdr.de>; Fri, 14 Oct 2022 04:01:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B55A5FE7D4
+	for <lists+linux-ltp@lfdr.de>; Fri, 14 Oct 2022 06:00:12 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id D8E343CAF1B
-	for <lists+linux-ltp@lfdr.de>; Fri, 14 Oct 2022 04:01:24 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id CAFAC3CAF21
+	for <lists+linux-ltp@lfdr.de>; Fri, 14 Oct 2022 06:00:11 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id C0BF43C9586
- for <ltp@lists.linux.it>; Fri, 14 Oct 2022 04:01:20 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id DFE0C3CAEE7
+ for <ltp@lists.linux.it>; Fri, 14 Oct 2022 05:59:54 +0200 (CEST)
 Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id CF42A601CC6
- for <ltp@lists.linux.it>; Fri, 14 Oct 2022 04:01:16 +0200 (CEST)
-Received: from canpemm500005.china.huawei.com (unknown [172.30.72.53])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4MpTzT6QH7zpVsF
- for <ltp@lists.linux.it>; Fri, 14 Oct 2022 09:57:25 +0800 (CST)
-Received: from canpemm500005.china.huawei.com (7.192.104.229) by
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 4CB001A0081B
+ for <ltp@lists.linux.it>; Fri, 14 Oct 2022 05:59:51 +0200 (CEST)
+Received: from canpemm500005.china.huawei.com (unknown [172.30.72.56])
+ by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4MpXbM2CWCzmVMX
+ for <ltp@lists.linux.it>; Fri, 14 Oct 2022 11:55:11 +0800 (CST)
+Received: from ubuntu1804.huawei.com (10.67.174.63) by
  canpemm500005.china.huawei.com (7.192.104.229) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Fri, 14 Oct 2022 10:00:38 +0800
-Received: from canpemm500005.china.huawei.com ([7.192.104.229]) by
- canpemm500005.china.huawei.com ([7.192.104.229]) with mapi id 15.01.2375.031; 
- Fri, 14 Oct 2022 10:00:38 +0800
-To: Petr Vorel <pvorel@suse.cz>
-Thread-Topic: [LTP] [PATCH 2/2] needs_root: Add setting of needs_root
-Thread-Index: Adjfbx+oGBWt4wJITsKsr4wxJodqjg==
-Date: Fri, 14 Oct 2022 02:00:38 +0000
-Message-ID: <5eebb471e7dc4cc18758462a918d0596@huawei.com>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.67.110.209]
+ 15.1.2375.31; Fri, 14 Oct 2022 11:59:48 +0800
+To: <ltp@lists.linux.it>
+Date: Fri, 14 Oct 2022 11:56:14 +0800
+Message-ID: <20221014035615.185057-1-zhaogongyi@huawei.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
+X-Originating-IP: [10.67.174.63]
+X-ClientProxiedBy: dggems704-chm.china.huawei.com (10.3.19.181) To
+ canpemm500005.china.huawei.com (7.192.104.229)
 X-CFilter-Loop: Reflected
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 2/2] needs_root: Add setting of needs_root
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH 1/2] syscalls/nice05: new test for nice()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,206 +53,109 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: zhaogongyi via ltp <ltp@lists.linux.it>
-Reply-To: zhaogongyi <zhaogongyi@huawei.com>
-Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
+From: Zhao Gongyi via ltp <ltp@lists.linux.it>
+Reply-To: Zhao Gongyi <zhaogongyi@huawei.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi,
+Verify that user of root can decrease the nice value of
+the process successfully by passing a lower increment
+value (< min. applicable limits) to nice() system call.
 
-> 
-> > > > Hi Petr,
-> 
-> > > > It is failed on my system:
-> 
-> > > > sh-4.4$ ./msgget03
-> > > > tst_test.c:1535: TINFO: Timeout per run is 0h 00m 30s
-> > > > msgget03.c:42: TINFO: Current environment 0 message queues are
-> > > already
-> > > > in use
-> > > > msgget03.c:45: TBROK: Failed to open FILE
-> '/proc/sys/kernel/msgmni'
-> > > > for writing: EACCES (13)
-> 
-> > > Ah, b740bfac5 ("msgget03: Set custom queue limit") causes the need
-> > > for root. IMHO this one is valid.
-> 
-> > > I'd suggest to remove needs_root for needs_device and
-> mount_device
-> > > now (i.e. send v2).
-> 
-> > Just remove the patch 1 and keep adding needs_root in patch 2?
-> 
-> If you haven't added it to any test which would have needs_device or
-> mount_device, then v2 can be kept.
-> 
-> But process_vm_readv02 works for me (on master, on Debian) without
-> root:
-> 
-> $ ./process_vm_readv02
-> tst_test.c:1526: TINFO: Timeout per run is 0h 00m 30s
-> process_vm_readv02.c:32: TINFO: child 0: memory allocated and
-> initialized
-> process_vm_readv02.c:49: TINFO: child 1: reading string from same
-> memory location
-> process_vm_readv02.c:61: TPASS: expected string received
-> 
-> Summary:
-> passed   1
-> failed   0
-> broken   0
-> skipped  0
-> warnings 0
-> 
-> Also process_vm_readv03, process_vm_writev02 (I stopped checking
-> now).
-> 
-> Why you need it?
-> 
+Signed-off-by: Zhao Gongyi <zhaogongyi@huawei.com>
+---
+ runtest/syscalls                          |  1 +
+ testcases/kernel/syscalls/nice/.gitignore |  1 +
+ testcases/kernel/syscalls/nice/nice05.c   | 54 +++++++++++++++++++++++
+ 3 files changed, 56 insertions(+)
+ create mode 100644 testcases/kernel/syscalls/nice/nice05.c
 
+diff --git a/runtest/syscalls b/runtest/syscalls
+index bd74373a4..7db399375 100644
+--- a/runtest/syscalls
++++ b/runtest/syscalls
+@@ -902,6 +902,7 @@ nice01 nice01
+ nice02 nice02
+ nice03 nice03
+ nice04 nice04
++nice05 nice05
 
-On my system, these testcases failed and report EPERM:
+ open01 open01
+ open01A symlink01 -T open01
+diff --git a/testcases/kernel/syscalls/nice/.gitignore b/testcases/kernel/syscalls/nice/.gitignore
+index 9d7a1bb43..58d64779e 100644
+--- a/testcases/kernel/syscalls/nice/.gitignore
++++ b/testcases/kernel/syscalls/nice/.gitignore
+@@ -2,3 +2,4 @@
+ /nice02
+ /nice03
+ /nice04
++/nice05
+diff --git a/testcases/kernel/syscalls/nice/nice05.c b/testcases/kernel/syscalls/nice/nice05.c
+new file mode 100644
+index 000000000..85f10fadf
+--- /dev/null
++++ b/testcases/kernel/syscalls/nice/nice05.c
+@@ -0,0 +1,54 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright(c) 2022 Huawei Technologies Co., Ltd
++ * Author: Zhao Gongyi <zhaogongyi@huawei.com>
++ */
++
++/*\
++ * [Description]
++ *
++ * Verify that user of root can decrease the nice value of
++ * the process successfully by passing a lower increment
++ * value (< min. applicable limits) to nice() system call.
++ */
++#include <unistd.h>
++#include "tst_test.h"
++
++#define	NICEINC -50
++#define MIN_PRIO  -20
++#define DEFAULT_PRIO 0
++
++static void verify_nice(void)
++{
++	int new_nice;
++
++	TEST(nice(NICEINC));
++	if (TST_RET == -1) {
++		tst_res(TFAIL | TTERRNO, "nice(%d) returned -1", NICEINC);
++		return;
++	}
++
++	if (TST_ERR) {
++		tst_res(TFAIL | TTERRNO, "nice(%d) failed", NICEINC);
++		return;
++	}
++
++	new_nice = SAFE_GETPRIORITY(PRIO_PROCESS, 0);
++
++	if (new_nice != MIN_PRIO) {
++		tst_res(TFAIL,
++			"Process priority %i, expected %i", new_nice, MIN_PRIO);
++		return;
++	}
++
++	tst_res(TPASS, "nice(%d) passed", NICEINC);
++
++	TEST(nice(DEFAULT_PRIO));
++	if (TST_ERR)
++		tst_brk(TBROK | TTERRNO, "nice(%d) failed", DEFAULT_PRIO);
++}
++
++static struct tst_test test = {
++	.test_all = verify_nice,
++	.needs_root = 1,
++};
+--
+2.17.1
 
-sh-4.4$ ./process_vm_readv02
-tst_test.c:1528: TINFO: Timeout per run is 0h 00m 30s
-process_vm_readv02.c:32: TINFO: child 0: memory allocated and initialized
-process_vm_readv02.c:49: TINFO: child 1: reading string from same memory location
-process_vm_readv02.c:55: TBROK: process_vm_readv: EPERM
-process_vm_readv02.c:107: TFAIL: child 1: exited with 2
-
-Summary:
-passed   0
-failed   1
-broken   1
-skipped  0
-warnings 0
-
-sh-4.4$ ./process_vm_readv03
-tst_test.c:1528: TINFO: Timeout per run is 0h 00m 30s
-process_vm_readv03.c:165: TINFO: bufsize=1024, remote_iovecs=1024, local_iovecs=8
-process_vm_readv03.c:83: TINFO: child_alloc: memory allocated and initialized
-process_vm_readv03.c:110: TINFO: child_read: reading string from same memory location
-process_vm_readv03.c:114: TFAIL: process_vm_read() failed: EPERM (1)
-process_vm_readv03.c:118: TBROK: process_vm_readv: expected 1024 bytes but got -1
-process_vm_readv03.c:185: TFAIL: child_read: exited with 2
-process_vm_readv03.c:165: TINFO: bufsize=1024, remote_iovecs=512, local_iovecs=16
-process_vm_readv03.c:83: TINFO: child_alloc: memory allocated and initialized
-process_vm_readv03.c:110: TINFO: child_read: reading string from same memory location
-process_vm_readv03.c:114: TFAIL: process_vm_read() failed: EPERM (1)
-process_vm_readv03.c:118: TBROK: process_vm_readv: expected 1024 bytes but got -1
-process_vm_readv03.c:185: TFAIL: child_read: exited with 2
-process_vm_readv03.c:165: TINFO: bufsize=1024, remote_iovecs=256, local_iovecs=32
-process_vm_readv03.c:83: TINFO: child_alloc: memory allocated and initialized
-process_vm_readv03.c:110: TINFO: child_read: reading string from same memory location
-process_vm_readv03.c:114: TFAIL: process_vm_read() failed: EPERM (1)
-process_vm_readv03.c:118: TBROK: process_vm_readv: expected 1024 bytes but got -1
-process_vm_readv03.c:185: TFAIL: child_read: exited with 2
-process_vm_readv03.c:165: TINFO: bufsize=1024, remote_iovecs=128, local_iovecs=64
-process_vm_readv03.c:83: TINFO: child_alloc: memory allocated and initialized
-process_vm_readv03.c:110: TINFO: child_read: reading string from same memory location
-process_vm_readv03.c:114: TFAIL: process_vm_read() failed: EPERM (1)
-process_vm_readv03.c:118: TBROK: process_vm_readv: expected 1024 bytes but got -1
-process_vm_readv03.c:185: TFAIL: child_read: exited with 2
-process_vm_readv03.c:165: TINFO: bufsize=1024, remote_iovecs=64, local_iovecs=128
-process_vm_readv03.c:83: TINFO: child_alloc: memory allocated and initialized
-process_vm_readv03.c:110: TINFO: child_read: reading string from same memory location
-process_vm_readv03.c:114: TFAIL: process_vm_read() failed: EPERM (1)
-process_vm_readv03.c:118: TBROK: process_vm_readv: expected 1024 bytes but got -1
-process_vm_readv03.c:185: TFAIL: child_read: exited with 2
-process_vm_readv03.c:165: TINFO: bufsize=1024, remote_iovecs=32, local_iovecs=256
-process_vm_readv03.c:83: TINFO: child_alloc: memory allocated and initialized
-process_vm_readv03.c:110: TINFO: child_read: reading string from same memory location
-process_vm_readv03.c:114: TFAIL: process_vm_read() failed: EPERM (1)
-process_vm_readv03.c:118: TBROK: process_vm_readv: expected 1024 bytes but got -1
-process_vm_readv03.c:185: TFAIL: child_read: exited with 2
-process_vm_readv03.c:165: TINFO: bufsize=1024, remote_iovecs=16, local_iovecs=512
-process_vm_readv03.c:83: TINFO: child_alloc: memory allocated and initialized
-process_vm_readv03.c:110: TINFO: child_read: reading string from same memory location
-process_vm_readv03.c:114: TFAIL: process_vm_read() failed: EPERM (1)
-process_vm_readv03.c:118: TBROK: process_vm_readv: expected 1024 bytes but got -1
-process_vm_readv03.c:185: TFAIL: child_read: exited with 2
-process_vm_readv03.c:165: TINFO: bufsize=1024, remote_iovecs=8, local_iovecs=1024
-process_vm_readv03.c:83: TINFO: child_alloc: memory allocated and initialized
-process_vm_readv03.c:110: TINFO: child_read: reading string from same memory location
-process_vm_readv03.c:114: TFAIL: process_vm_read() failed: EPERM (1)
-process_vm_readv03.c:118: TBROK: process_vm_readv: expected 1024 bytes but got -1
-process_vm_readv03.c:185: TFAIL: child_read: exited with 2
-process_vm_readv03.c:165: TINFO: bufsize=131072, remote_iovecs=1024, local_iovecs=8
-process_vm_readv03.c:83: TINFO: child_alloc: memory allocated and initialized
-process_vm_readv03.c:110: TINFO: child_read: reading string from same memory location
-process_vm_readv03.c:114: TFAIL: process_vm_read() failed: EPERM (1)
-process_vm_readv03.c:118: TBROK: process_vm_readv: expected 131072 bytes but got -1
-process_vm_readv03.c:185: TFAIL: child_read: exited with 2
-process_vm_readv03.c:165: TINFO: bufsize=131072, remote_iovecs=512, local_iovecs=16
-process_vm_readv03.c:83: TINFO: child_alloc: memory allocated and initialized
-process_vm_readv03.c:110: TINFO: child_read: reading string from same memory location
-process_vm_readv03.c:114: TFAIL: process_vm_read() failed: EPERM (1)
-process_vm_readv03.c:118: TBROK: process_vm_readv: expected 131072 bytes but got -1
-process_vm_readv03.c:185: TFAIL: child_read: exited with 2
-process_vm_readv03.c:165: TINFO: bufsize=131072, remote_iovecs=256, local_iovecs=32
-process_vm_readv03.c:83: TINFO: child_alloc: memory allocated and initialized
-process_vm_readv03.c:110: TINFO: child_read: reading string from same memory location
-process_vm_readv03.c:114: TFAIL: process_vm_read() failed: EPERM (1)
-process_vm_readv03.c:118: TBROK: process_vm_readv: expected 131072 bytes but got -1
-process_vm_readv03.c:185: TFAIL: child_read: exited with 2
-process_vm_readv03.c:165: TINFO: bufsize=131072, remote_iovecs=128, local_iovecs=64
-process_vm_readv03.c:83: TINFO: child_alloc: memory allocated and initialized
-process_vm_readv03.c:110: TINFO: child_read: reading string from same memory location
-process_vm_readv03.c:114: TFAIL: process_vm_read() failed: EPERM (1)
-process_vm_readv03.c:118: TBROK: process_vm_readv: expected 131072 bytes but got -1
-process_vm_readv03.c:185: TFAIL: child_read: exited with 2
-process_vm_readv03.c:165: TINFO: bufsize=131072, remote_iovecs=64, local_iovecs=128
-process_vm_readv03.c:83: TINFO: child_alloc: memory allocated and initialized
-process_vm_readv03.c:110: TINFO: child_read: reading string from same memory location
-process_vm_readv03.c:114: TFAIL: process_vm_read() failed: EPERM (1)
-process_vm_readv03.c:118: TBROK: process_vm_readv: expected 131072 bytes but got -1
-process_vm_readv03.c:185: TFAIL: child_read: exited with 2
-process_vm_readv03.c:165: TINFO: bufsize=131072, remote_iovecs=32, local_iovecs=256
-process_vm_readv03.c:83: TINFO: child_alloc: memory allocated and initialized
-process_vm_readv03.c:110: TINFO: child_read: reading string from same memory location
-process_vm_readv03.c:114: TFAIL: process_vm_read() failed: EPERM (1)
-process_vm_readv03.c:118: TBROK: process_vm_readv: expected 131072 bytes but got -1
-process_vm_readv03.c:185: TFAIL: child_read: exited with 2
-process_vm_readv03.c:165: TINFO: bufsize=131072, remote_iovecs=16, local_iovecs=512
-process_vm_readv03.c:83: TINFO: child_alloc: memory allocated and initialized
-process_vm_readv03.c:110: TINFO: child_read: reading string from same memory location
-process_vm_readv03.c:114: TFAIL: process_vm_read() failed: EPERM (1)
-process_vm_readv03.c:118: TBROK: process_vm_readv: expected 131072 bytes but got -1
-process_vm_readv03.c:185: TFAIL: child_read: exited with 2
-process_vm_readv03.c:165: TINFO: bufsize=131072, remote_iovecs=8, local_iovecs=1024
-process_vm_readv03.c:83: TINFO: child_alloc: memory allocated and initialized
-process_vm_readv03.c:110: TINFO: child_read: reading string from same memory location
-process_vm_readv03.c:114: TFAIL: process_vm_read() failed: EPERM (1)
-process_vm_readv03.c:118: TBROK: process_vm_readv: expected 131072 bytes but got -1
-process_vm_readv03.c:185: TFAIL: child_read: exited with 2
-
-Summary:
-passed   0
-failed   32
-broken   16
-skipped  0
-warnings 0
-
-
-
-sh-4.4$ ./process_vm_writev02
-tst_test.c:1528: TINFO: Timeout per run is 0h 00m 30s
-process_vm_writev02.c:32: TINFO: child 0: allocate memory
-process_vm_writev02.c:55: TINFO: child 1: write to the same memory location
-process_vm_writev02.c:65: TFAIL: tst_syscall(__NR_process_vm_writev, pid_alloc, &local, 1UL, &remote, 1UL, 0UL) failed: EPERM (1)
-process_vm_writev02.c:69: TBROK: process_vm_writev: expected 100000 bytes but got -1
-process_vm_writev02.c:112: TFAIL: write child: exited with 2
-process_vm_writev02.c:45: TFAIL: child 0: found 100000 differences from expected data
-
-Summary:
-passed   0
-failed   3
-broken   1
-skipped  0
-warnings 0
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
