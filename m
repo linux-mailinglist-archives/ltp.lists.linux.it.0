@@ -1,54 +1,74 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44B495FE927
-	for <lists+linux-ltp@lfdr.de>; Fri, 14 Oct 2022 09:02:55 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id CE1E25FEB4F
+	for <lists+linux-ltp@lfdr.de>; Fri, 14 Oct 2022 11:04:54 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A515A3CAF0F
-	for <lists+linux-ltp@lfdr.de>; Fri, 14 Oct 2022 09:02:54 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id AD9273CAF3A
+	for <lists+linux-ltp@lfdr.de>; Fri, 14 Oct 2022 11:04:53 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 39AA03CADA7
- for <ltp@lists.linux.it>; Fri, 14 Oct 2022 09:02:51 +0200 (CEST)
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 7BEF43CADF2
+ for <ltp@lists.linux.it>; Fri, 14 Oct 2022 11:04:50 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 49946200DBB
- for <ltp@lists.linux.it>; Fri, 14 Oct 2022 09:02:48 +0200 (CEST)
-Received: from canpemm500008.china.huawei.com (unknown [172.30.72.53])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4Mpch425qzzpVyP;
- Fri, 14 Oct 2022 14:59:32 +0800 (CST)
-Received: from canpemm500005.china.huawei.com (7.192.104.229) by
- canpemm500008.china.huawei.com (7.192.105.151) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Fri, 14 Oct 2022 15:02:45 +0800
-Received: from canpemm500005.china.huawei.com ([7.192.104.229]) by
- canpemm500005.china.huawei.com ([7.192.104.229]) with mapi id 15.01.2375.031; 
- Fri, 14 Oct 2022 15:02:45 +0800
-To: Petr Vorel <pvorel@suse.cz>
-Thread-Topic: [LTP] [PATCH 2/2] needs_root: Add setting of needs_root
-Thread-Index: Adjfmu2xGBWt4wJITsKsr4wxJodqjg==
-Date: Fri, 14 Oct 2022 07:02:45 +0000
-Message-ID: <d495451fa949461d80df25e7274bab51@huawei.com>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.67.110.209]
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 9F50D600F83
+ for <ltp@lists.linux.it>; Fri, 14 Oct 2022 11:04:48 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 11FE71F385;
+ Fri, 14 Oct 2022 09:04:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1665738288; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=+qEjuQevZqyO6CweEJ3yMgcImI5q9b4HueNFxukrWBY=;
+ b=XD30HJYu8Zxvfw0lppcSsVQmNo2npD8F/gYupZiGxF9Knhn71vioSCxhCN5ao1kIKqLlpJ
+ 0oJHekyNptvIv+TlywQLsOc1n4Qyvh4W6O4YcUsZktET34itnnoMKh+8VsxvM5jg76eLkp
+ BoEDhFE5i7eyui00f3GxF9OhNUfUsL8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1665738288;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=+qEjuQevZqyO6CweEJ3yMgcImI5q9b4HueNFxukrWBY=;
+ b=2PLzHIJyEB1IJ9kdSR0k7Zu60kVAJ3oUsmoONBUriXaZo+8RoNpXWMuz2Wz5sQ/Qt3JyXj
+ qanXBPb3gJjht5Bw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id BEABF13451;
+ Fri, 14 Oct 2022 09:04:47 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id j/J/Li8mSWM5EwAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Fri, 14 Oct 2022 09:04:47 +0000
+Date: Fri, 14 Oct 2022 11:05:12 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Palmer Dabbelt <palmer@rivosinc.com>
+Message-ID: <Y0kmSOoP08DgY8Oz@rei>
+References: <20221013214638.30953-1-palmer@rivosinc.com>
 MIME-Version: 1.0
-X-CFilter-Loop: Reflected
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <20221013214638.30953-1-palmer@rivosinc.com>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.0 required=7.0 tests=SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL
  autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 2/2] needs_root: Add setting of needs_root
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] MAINTAINERS: git://github -> https://github.com
+ for linux-test-project
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,88 +80,20 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: zhaogongyi via ltp <ltp@lists.linux.it>
-Reply-To: zhaogongyi <zhaogongyi@huawei.com>
-Cc: Richard Palethorpe <rpalethorpe@suse.com>,
- "ltp@lists.linux.it" <ltp@lists.linux.it>, Martin
- Doucha <martin.doucha@suse.com>
+Cc: alexey.kodanev@oracle.com, vapier@gentoo.org, linux-kernel@vger.kernel.org,
+ Conor Dooley <conor.dooley@microchip.com>, ltp@lists.linux.it,
+ stanislav.kholmanskikh@oracle.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Petr,
+Hi!
+Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
 
-> Hi all,
-> 
-> > Hi,
-> 
-> 
-> > > > > > Hi Petr,
-> 
-> > > > > > It is failed on my system:
-> 
-> > > > > > sh-4.4$ ./msgget03
-> > > > > > tst_test.c:1535: TINFO: Timeout per run is 0h 00m 30s
-> > > > > > msgget03.c:42: TINFO: Current environment 0 message queues
-> are
-> > > > > already
-> > > > > > in use
-> > > > > > msgget03.c:45: TBROK: Failed to open FILE
-> > > '/proc/sys/kernel/msgmni'
-> > > > > > for writing: EACCES (13)
-> 
-> > > > > Ah, b740bfac5 ("msgget03: Set custom queue limit") causes the
-> > > > > need for root. IMHO this one is valid.
-> 
-> > > > > I'd suggest to remove needs_root for needs_device and
-> > > mount_device
-> > > > > now (i.e. send v2).
-> 
-> > > > Just remove the patch 1 and keep adding needs_root in patch 2?
-> 
-> > > If you haven't added it to any test which would have needs_device or
-> > > mount_device, then v2 can be kept.
-> 
-> > > But process_vm_readv02 works for me (on master, on Debian) without
-> > > root:
-> 
-> > > $ ./process_vm_readv02
-> > > tst_test.c:1526: TINFO: Timeout per run is 0h 00m 30s
-> > > process_vm_readv02.c:32: TINFO: child 0: memory allocated and
-> > > initialized
-> > > process_vm_readv02.c:49: TINFO: child 1: reading string from same
-> > > memory location
-> > > process_vm_readv02.c:61: TPASS: expected string received
-> 
-> > > Summary:
-> > > passed   1
-> > > failed   0
-> > > broken   0
-> > > skipped  0
-> > > warnings 0
-> 
-> > > Also process_vm_readv03, process_vm_writev02 (I stopped checking
-> > > now).
-> 
-> > > Why you need it?
-> 
-> 
-> 
-> > On my system, these testcases failed and report EPERM:
-> 
-> > sh-4.4$ ./process_vm_readv02
-> OK, your system is Alpine (it can shorten our discussion next time if you
-> report you have problems on musl - i.e. which kernel and libc + versions
-> you use).
-
-My system is base on kernel version 4.15.0 and glibc 2.27.
-
-When I run the test on the kernel version 6.0 system with non-root, it is passed.
-
-Regards,
-Gongyi
- 
+-- 
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
