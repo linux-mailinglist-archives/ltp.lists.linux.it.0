@@ -1,76 +1,91 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D984C5FF227
-	for <lists+linux-ltp@lfdr.de>; Fri, 14 Oct 2022 18:20:16 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 034045FFF50
+	for <lists+linux-ltp@lfdr.de>; Sun, 16 Oct 2022 14:58:55 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 89AD83CAF3B
-	for <lists+linux-ltp@lfdr.de>; Fri, 14 Oct 2022 18:20:16 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id A35B83CAFA5
+	for <lists+linux-ltp@lfdr.de>; Sun, 16 Oct 2022 14:58:54 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 5259F3CAF35
- for <ltp@lists.linux.it>; Fri, 14 Oct 2022 18:20:15 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ by picard.linux.it (Postfix) with ESMTPS id 18F953CAFAA
+ for <ltp@lists.linux.it>; Sun, 16 Oct 2022 14:58:38 +0200 (CEST)
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id EEBDF601D1C
- for <ltp@lists.linux.it>; Fri, 14 Oct 2022 18:20:14 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 5A2EE21ED9;
- Fri, 14 Oct 2022 16:20:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1665764414;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=MAnb7Tt1/ouEziJoyLvnur4qe6Vf84WeUVap+9YbLkg=;
- b=FoUFWRlZO3go00RaE+tn+y6f0rzYjIEcDxWtLNWnqbKSGpOOmKPV5sAz5lM3hWPmfWUejI
- RtyAzySJEYcrE7nzB+38PtlyO5KmW6aE+vt+QAfl6F0qw/7yu4en08vW9VoMjd/sv5wraD
- o++Fx2OwZzGD3u+q+8HxzP0xMKpjFOg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1665764414;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=MAnb7Tt1/ouEziJoyLvnur4qe6Vf84WeUVap+9YbLkg=;
- b=usgaF531pld3AdmQQ6hOxTsXA8fK01B0KNzpU2gx6qkvP4MuJZGIS3vKvarn+9AdwtkkcT
- dfjQdQwt9IA1JcDw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 043B413451;
- Fri, 14 Oct 2022 16:20:13 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id ma2nOT2MSWPMCwAAMHmgww
- (envelope-from <pvorel@suse.cz>); Fri, 14 Oct 2022 16:20:13 +0000
-Date: Fri, 14 Oct 2022 18:20:11 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <Y0mMO0YkXIbG8GFu@pevik>
-References: <20221013154935.20461-1-mdoucha@suse.cz>
- <20221013154935.20461-3-mdoucha@suse.cz> <Y0iMQEXsQbkNMwWf@pevik>
- <6e5e878a-d4ff-f8a5-8dc7-4bd2b99ad5a5@suse.cz>
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 6E8211000463
+ for <ltp@lists.linux.it>; Sun, 16 Oct 2022 14:58:36 +0200 (CEST)
+Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 29G9Yv3x016911
+ for <ltp@lists.linux.it>; Sun, 16 Oct 2022 12:58:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
+ h=from : to : cc : subject
+ : date : message-id : content-transfer-encoding : mime-version; s=pp1;
+ bh=y7YcpuYow2T0HK6Em8BRk82zKdzrz6GP1C0onZOSDR4=;
+ b=Bs7Pwn88AbOV3EGwYwcXB0OBe9VSVgsqtymvq1Bm9zH7SJ+A3VomyAWjML07QwPTZthu
+ B8cFyACKUgwe0yYxNJlz0B67P66+FRQGpAkGMGc8Xcvsmwatt7R4AM2a9u3vbIlDZ8M0
+ rHrZUHS1dicb9asn+898pcygnGGQeiCxKNfAenqbDKugr+oRZkKHUw3rpc9zcEzfMV5S
+ 9+DSCn0gzrOkiid3qBIe9LQ8eb6QiX+K1GdAAhDjcHikyexuKKRmpnfJsdRUw918TzJB
+ n5yAUebUZmIcEO/5YMLC8FdOknSNZ11BkdJqkFIzhWdVA738JR8bEPVDxIi0degeWRxB yQ== 
+Received: from ppma04ams.nl.ibm.com (63.31.33a9.ip4.static.sl-reverse.com
+ [169.51.49.99])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3k86hjmk28-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <ltp@lists.linux.it>; Sun, 16 Oct 2022 12:58:34 +0000
+Received: from pps.filterd (ppma04ams.nl.ibm.com [127.0.0.1])
+ by ppma04ams.nl.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 29GCpCEA010004
+ for <ltp@lists.linux.it>; Sun, 16 Oct 2022 12:58:33 GMT
+Received: from b06cxnps3074.portsmouth.uk.ibm.com
+ (d06relay09.portsmouth.uk.ibm.com [9.149.109.194])
+ by ppma04ams.nl.ibm.com with ESMTP id 3k7mg91kjx-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <ltp@lists.linux.it>; Sun, 16 Oct 2022 12:58:32 +0000
+Received: from d06av25.portsmouth.uk.ibm.com (d06av25.portsmouth.uk.ibm.com
+ [9.149.105.61])
+ by b06cxnps3074.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 29GCwTBG8585802
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Sun, 16 Oct 2022 12:58:29 GMT
+Received: from d06av25.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 79A4E11C04C;
+ Sun, 16 Oct 2022 12:58:29 +0000 (GMT)
+Received: from d06av25.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 9C11D11C04A;
+ Sun, 16 Oct 2022 12:58:27 +0000 (GMT)
+Received: from tarunpc.ibmuc.com (unknown [9.43.63.52])
+ by d06av25.portsmouth.uk.ibm.com (Postfix) with ESMTP;
+ Sun, 16 Oct 2022 12:58:27 +0000 (GMT)
+From: Tarun Sahu <tsahu@linux.ibm.com>
+To: ltp@lists.linux.it
+Date: Sun, 16 Oct 2022 18:27:02 +0530
+Message-Id: <20221016125731.249078-1-tsahu@linux.ibm.com>
+X-Mailer: git-send-email 2.31.1
+X-TM-AS-GCONF: 00
+X-Proofpoint-GUID: CyMgiSLpOVxX4P_r9vdK-aI8ASHGtnpA
+X-Proofpoint-ORIG-GUID: CyMgiSLpOVxX4P_r9vdK-aI8ASHGtnpA
+X-Proofpoint-UnRewURL: 0 URL was un-rewritten
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <6e5e878a-d4ff-f8a5-8dc7-4bd2b99ad5a5@suse.cz>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2022-10-16_09,2022-10-14_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0
+ mlxlogscore=790 impostorscore=0 bulkscore=0 malwarescore=0
+ lowpriorityscore=0 priorityscore=1501 adultscore=0 spamscore=0
+ clxscore=1015 mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2209130000 definitions=main-2210160070
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 2/4] Move fanotify fallback constants and structs
- to LAPI header
+ DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH 00/29] Hugetlb: Migrating libhugetlbfs tests
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,22 +97,127 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-Cc: ltp@lists.linux.it
+Cc: aneesh.kumar@linux.ibm.com, sbhat@linux.ibm.com, vaibhav@linux.ibm.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Martin, all,
+Hi,
+Libhugetlbfs is not being maintained actively, and some distro is dropping
+support for it. There are some tests that are good for testing hugetlb
+functionality in kernel.
 
-> OK, please update the copyright header. This patch doesn't depend on the
-> first one so you can merge it right away.
+As per previous dicussion in RFC[1], Here, this patch series consists
+of hugetlb tests taken from libhugetlbfs modified to work in ltp
+environment. This series do not include all the tests, I
+will post another series for the remaining tests soon.
 
-Merged this one, thanks!
+ref:
+1: https://lore.kernel.org/all/20220908173947.17956-1-tsahu@linux.ibm.com/
 
-Kind regards,
-Petr
+Tarun Sahu (29):
+  Hugetlb: Migrating libhugetlbfs brk_near_huge
+  Hugetlb: Migrating libhugetlbfs chunk-overcommit
+  Hugetlb: Migrating libhugetlbfs corrupt-by-cow-opt
+  Hugetlb: Migrating libhugetlbfs counters
+  Hugetlb: Migrating libhugetlbfs directio
+  Hugetlb: Migrating libhugetlbfs fadvise_reserve
+  Hugetlb: Migrating libhugetlbfs fallocate_align
+  Hugetlb: Migrating libhugetlbfs fallocate_basic
+  Hugetlb: Migrating libhugetlbfs fork-cow
+  Hugetlb: Migrating libhugetlbfs huge_at_4GB_normal_below
+  Hugetlb: Migrating libhugetlbfs huge_below_4GB_normal_above
+  Hugetlb: Migrating libhugetlbfs icache-hygiene
+  Hugetlb: Migrating libhugetlbfs madvise_reserve
+  Hugetlb: Migrating libhugetlbfs map_high_truncate_2
+  Hugetlb: Migrating libhugetlbfs misalign
+  Hugetlb: Migrating libhugetlbfs misaligned_offset
+  Hugetlb: Migrating libhugetlbfs mlock
+  Hugetlb: Migrating libhugetlbfs mmap-cow
+  Hugetlb: Migrating libhugetlbfs mmap-gettest
+  Hugetlb: Migrating libhugetlbfs mprotect
+  Hugetlb: Migrating libhugetlbfs mremap-fixed-huge-near-normal
+  Hugetlb: Migrating libhugetlbfs mremap-fixed-normal-near-huge
+  Hugetlb: Migrating libhugetlbfs noresv-reserve-resv-page
+  Hugetlb: Migrating libhugetlbfs noresv-regarded-as-resv
+  Hugetlb: Migrating libhugetlbfs private
+  Hugetlb: Migrating libhugetlbfs readahead_reserve
+  Hugetlb: Migrating libhugetlbfs readback
+  Hugetlb: Migrating libhugetlbfs shared
+  Hugetlb: Migrating libhugetlbfs shm-fork
+
+ runtest/hugetlb                               |  31 ++
+ testcases/kernel/mem/.gitignore               |  29 ++
+ .../kernel/mem/hugetlb/hugefallocate/Makefile |  10 +
+ .../hugetlb/hugefallocate/hugefallocate01.c   | 187 +++++++
+ .../hugetlb/hugefallocate/hugefallocate02.c   | 116 +++++
+ .../kernel/mem/hugetlb/hugefork/Makefile      |  10 +
+ .../kernel/mem/hugetlb/hugefork/hugefork01.c  | 220 ++++++++
+ .../kernel/mem/hugetlb/hugefork/hugefork02.c  | 196 ++++++++
+ .../kernel/mem/hugetlb/hugemmap/hugemmap07.c  | 163 ++++++
+ .../kernel/mem/hugetlb/hugemmap/hugemmap08.c  | 173 +++++++
+ .../kernel/mem/hugetlb/hugemmap/hugemmap09.c  | 102 ++++
+ .../kernel/mem/hugetlb/hugemmap/hugemmap10.c  | 475 ++++++++++++++++++
+ .../kernel/mem/hugetlb/hugemmap/hugemmap11.c  | 111 ++++
+ .../kernel/mem/hugetlb/hugemmap/hugemmap12.c  | 114 +++++
+ .../kernel/mem/hugetlb/hugemmap/hugemmap13.c  | 160 ++++++
+ .../kernel/mem/hugetlb/hugemmap/hugemmap14.c  | 204 ++++++++
+ .../kernel/mem/hugetlb/hugemmap/hugemmap15.c  | 250 +++++++++
+ .../kernel/mem/hugetlb/hugemmap/hugemmap16.c  | 112 +++++
+ .../kernel/mem/hugetlb/hugemmap/hugemmap17.c  | 126 +++++
+ .../kernel/mem/hugetlb/hugemmap/hugemmap18.c  | 173 +++++++
+ .../kernel/mem/hugetlb/hugemmap/hugemmap19.c  | 166 ++++++
+ .../kernel/mem/hugetlb/hugemmap/hugemmap20.c  | 108 ++++
+ .../kernel/mem/hugetlb/hugemmap/hugemmap21.c  | 222 ++++++++
+ .../kernel/mem/hugetlb/hugemmap/hugemmap22.c  | 170 +++++++
+ .../kernel/mem/hugetlb/hugemmap/hugemmap23.c  | 283 +++++++++++
+ .../kernel/mem/hugetlb/hugemmap/hugemmap25.c  | 168 +++++++
+ .../kernel/mem/hugetlb/hugemmap/hugemmap26.c  | 148 ++++++
+ .../kernel/mem/hugetlb/hugemmap/hugemmap27.c  | 166 ++++++
+ .../kernel/mem/hugetlb/hugemmap/hugemmap28.c  | 107 ++++
+ .../kernel/mem/hugetlb/hugemmap/hugemmap29.c  | 129 +++++
+ .../kernel/mem/hugetlb/hugemmap/hugemmap30.c  | 120 +++++
+ .../kernel/mem/hugetlb/hugemmap/hugemmap31.c  |  98 ++++
+ .../kernel/mem/hugetlb/hugemmap/hugemmap32.c  | 104 ++++
+ testcases/kernel/mem/hugetlb/lib/hugetlb.c    |  75 +++
+ testcases/kernel/mem/hugetlb/lib/hugetlb.h    |   5 +
+ 35 files changed, 5031 insertions(+)
+ create mode 100644 testcases/kernel/mem/hugetlb/hugefallocate/Makefile
+ create mode 100644 testcases/kernel/mem/hugetlb/hugefallocate/hugefallocate01.c
+ create mode 100644 testcases/kernel/mem/hugetlb/hugefallocate/hugefallocate02.c
+ create mode 100644 testcases/kernel/mem/hugetlb/hugefork/Makefile
+ create mode 100644 testcases/kernel/mem/hugetlb/hugefork/hugefork01.c
+ create mode 100644 testcases/kernel/mem/hugetlb/hugefork/hugefork02.c
+ create mode 100644 testcases/kernel/mem/hugetlb/hugemmap/hugemmap07.c
+ create mode 100644 testcases/kernel/mem/hugetlb/hugemmap/hugemmap08.c
+ create mode 100644 testcases/kernel/mem/hugetlb/hugemmap/hugemmap09.c
+ create mode 100644 testcases/kernel/mem/hugetlb/hugemmap/hugemmap10.c
+ create mode 100644 testcases/kernel/mem/hugetlb/hugemmap/hugemmap11.c
+ create mode 100644 testcases/kernel/mem/hugetlb/hugemmap/hugemmap12.c
+ create mode 100644 testcases/kernel/mem/hugetlb/hugemmap/hugemmap13.c
+ create mode 100644 testcases/kernel/mem/hugetlb/hugemmap/hugemmap14.c
+ create mode 100644 testcases/kernel/mem/hugetlb/hugemmap/hugemmap15.c
+ create mode 100644 testcases/kernel/mem/hugetlb/hugemmap/hugemmap16.c
+ create mode 100644 testcases/kernel/mem/hugetlb/hugemmap/hugemmap17.c
+ create mode 100644 testcases/kernel/mem/hugetlb/hugemmap/hugemmap18.c
+ create mode 100644 testcases/kernel/mem/hugetlb/hugemmap/hugemmap19.c
+ create mode 100644 testcases/kernel/mem/hugetlb/hugemmap/hugemmap20.c
+ create mode 100644 testcases/kernel/mem/hugetlb/hugemmap/hugemmap21.c
+ create mode 100644 testcases/kernel/mem/hugetlb/hugemmap/hugemmap22.c
+ create mode 100644 testcases/kernel/mem/hugetlb/hugemmap/hugemmap23.c
+ create mode 100644 testcases/kernel/mem/hugetlb/hugemmap/hugemmap25.c
+ create mode 100644 testcases/kernel/mem/hugetlb/hugemmap/hugemmap26.c
+ create mode 100644 testcases/kernel/mem/hugetlb/hugemmap/hugemmap27.c
+ create mode 100644 testcases/kernel/mem/hugetlb/hugemmap/hugemmap28.c
+ create mode 100644 testcases/kernel/mem/hugetlb/hugemmap/hugemmap29.c
+ create mode 100644 testcases/kernel/mem/hugetlb/hugemmap/hugemmap30.c
+ create mode 100644 testcases/kernel/mem/hugetlb/hugemmap/hugemmap31.c
+ create mode 100644 testcases/kernel/mem/hugetlb/hugemmap/hugemmap32.c
+
+-- 
+2.31.1
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
