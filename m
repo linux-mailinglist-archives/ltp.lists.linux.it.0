@@ -2,74 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21C14600F3A
-	for <lists+linux-ltp@lfdr.de>; Mon, 17 Oct 2022 14:33:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A336E600F58
+	for <lists+linux-ltp@lfdr.de>; Mon, 17 Oct 2022 14:43:56 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 530B73CAFEE
-	for <lists+linux-ltp@lfdr.de>; Mon, 17 Oct 2022 14:33:27 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 17DA73CAFFB
+	for <lists+linux-ltp@lfdr.de>; Mon, 17 Oct 2022 14:43:56 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id DB1303CAEA5
- for <ltp@lists.linux.it>; Mon, 17 Oct 2022 14:33:22 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by picard.linux.it (Postfix) with ESMTPS id DD55C3C4CCC
+ for <ltp@lists.linux.it>; Mon, 17 Oct 2022 14:43:51 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 6EC891A003D6
- for <ltp@lists.linux.it>; Mon, 17 Oct 2022 14:33:20 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id CE50D1A002C6
+ for <ltp@lists.linux.it>; Mon, 17 Oct 2022 14:43:50 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 5FB6F20372;
- Mon, 17 Oct 2022 12:33:20 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 121CF33B67;
+ Mon, 17 Oct 2022 12:43:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1666010000; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1666010630; h=from:from:reply-to:date:date:message-id:message-id:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=YSdzhC+lKtkgNTYr4mUxq/XzbwwA7o23sMCmrH/aBbc=;
- b=x8GzBCuw2/dS8cPk09UpYr5rG6fWIHRXN7AjFbt+UnZaLt6BSeUR2Pl/DfOiUQu7OQ1qVC
- 6kW5bmde7+vc8XmDH6Bycm1Eu7oGuNiAwrcRJM4n1ln3S4mS4gxnFCFNAKeSvF6S2IcrzW
- oBrN9aaQl7Q6UsHGH4mA7jzPHjRJu6k=
+ bh=bZEjHViQXwXXtrCsWlfIgjNQlXhyMNGQNDUSgql6uHc=;
+ b=AU0mjxYhJXo4nU5/uAKQ2taEcu2is0diG/yDWVo6ahHgPkHdDyXLUp+mIGeCzdEIfGHGOW
+ txqJP72AEU1q7zFwYxc8xCmrL8/FkhyvCh8Aavo0zQro18WIVCXvE99E/c0Yem2D8IIZ0c
+ D+LxvZTbLd2BAGzaeBI4pOsRh3FnVi4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1666010000;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ s=susede2_ed25519; t=1666010630;
+ h=from:from:reply-to:date:date:message-id:message-id:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=YSdzhC+lKtkgNTYr4mUxq/XzbwwA7o23sMCmrH/aBbc=;
- b=L9obIpOzaI7Y5HqoaWi5dsNZfRbP4jwdoKMa8CyffG1BW4vExsTO1RGukA4IlLD7NAqs+l
- 1M7wfa4uXOA35zCg==
+ bh=bZEjHViQXwXXtrCsWlfIgjNQlXhyMNGQNDUSgql6uHc=;
+ b=z7mwJB668HN4jy0R58k8pfsi2GfoUpV1fQEAOT48pgyTg08WIF9BpjcWN+9aoN+oJfJ6pM
+ iKGBZ+7fVrltjlCA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4CA9A13ABE;
- Mon, 17 Oct 2022 12:33:20 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D966C13ABE;
+ Mon, 17 Oct 2022 12:43:49 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id LHOaEpBLTWPiNgAAMHmgww
- (envelope-from <chrubis@suse.cz>); Mon, 17 Oct 2022 12:33:20 +0000
-Date: Mon, 17 Oct 2022 14:35:02 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id qHzbMgVOTWPLPAAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Mon, 17 Oct 2022 12:43:49 +0000
+Date: Mon, 17 Oct 2022 14:45:32 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Tarun Sahu <tsahu@linux.ibm.com>
-Message-ID: <Y01L9saNNLWfUMiO@yuki>
+Message-ID: <Y01ObLfLcwG5nw+9@yuki>
 References: <20221016125731.249078-1-tsahu@linux.ibm.com>
- <20221016125731.249078-7-tsahu@linux.ibm.com>
+ <20221016125731.249078-8-tsahu@linux.ibm.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20221016125731.249078-7-tsahu@linux.ibm.com>
+In-Reply-To: <20221016125731.249078-8-tsahu@linux.ibm.com>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL
+X-Spam-Status: No, score=1.3 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,MISSING_HEADERS,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.4
+X-Spam-Level: *
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 06/29] Hugetlb: Migrating libhugetlbfs
- fadvise_reserve
+Subject: Re: [LTP] [PATCH 07/29] Hugetlb: Migrating libhugetlbfs
+ fallocate_align
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,199 +88,7 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> Test Description: fadvise() on some kernels can cause the reservation
-> counter to get corrupted. The problem is that the patches are allocated for
-> the reservation but not faulted in at the time of allocation. The counters
-> do not get updated and effectively "leak". This test identifies whether the
-> kernel is vulnerable to the problem or not. It's fixed in kernel by 'commit
-> f2deae9d4e70 ("Remove implementation of readpage from the hugetlbfs_aops")'
-> 
-> Signed-off-by: Tarun Sahu <tsahu@linux.ibm.com>
-> ---
->  runtest/hugetlb                               |   1 +
->  testcases/kernel/mem/.gitignore               |   1 +
->  .../kernel/mem/hugetlb/hugemmap/hugemmap12.c  | 114 ++++++++++++++++++
->  3 files changed, 116 insertions(+)
->  create mode 100644 testcases/kernel/mem/hugetlb/hugemmap/hugemmap12.c
-> 
-> diff --git a/runtest/hugetlb b/runtest/hugetlb
-> index b9ee7227d..b019c4195 100644
-> --- a/runtest/hugetlb
-> +++ b/runtest/hugetlb
-> @@ -8,6 +8,7 @@ hugemmap08 hugemmap08
->  hugemmap09 hugemmap09
->  hugemmap10 hugemmap10
->  hugemmap11 hugemmap11
-> +hugemmap12 hugemmap12
->  hugemmap05_1 hugemmap05 -m
->  hugemmap05_2 hugemmap05 -s
->  hugemmap05_3 hugemmap05 -s -m
-> diff --git a/testcases/kernel/mem/.gitignore b/testcases/kernel/mem/.gitignore
-> index 3e64b67be..ec250592d 100644
-> --- a/testcases/kernel/mem/.gitignore
-> +++ b/testcases/kernel/mem/.gitignore
-> @@ -9,6 +9,7 @@
->  /hugetlb/hugemmap/hugemmap09
->  /hugetlb/hugemmap/hugemmap10
->  /hugetlb/hugemmap/hugemmap11
-> +/hugetlb/hugemmap/hugemmap12
->  /hugetlb/hugeshmat/hugeshmat01
->  /hugetlb/hugeshmat/hugeshmat02
->  /hugetlb/hugeshmat/hugeshmat03
-> diff --git a/testcases/kernel/mem/hugetlb/hugemmap/hugemmap12.c b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap12.c
-> new file mode 100644
-> index 000000000..9773199ca
-> --- /dev/null
-> +++ b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap12.c
-> @@ -0,0 +1,114 @@
-> +// SPDX-License-Identifier: LGPL-2.1-or-later
-> +/*
-> + * Copyright (C) 2005-2006 IBM Corporation.
-> + *
-> + * Test Name: fadvise_reserve
-> + *
-> + * Test Description: fadvise() on some kernels can cause the reservation
-> + * counter to get corrupted. The problem is that the patches are allocated for
-> + * the reservation but not faulted in at the time of allocation. The counters
-> + * do not get updated and effectively "leak". This test identifies whether the
-> + * kernel is vulnerable to the problem or not. It's fixed in kernel by commit
-
-Here as well.
-
-> + * f2deae9d4e70793568ef9e85d227abb7bef5b622.
-
-This hash should be added into .tags in the tst_test structure instead.
-
-> + * HISTORY
-> + *  Written by Mel Gorman
-> + */
-> +
-> +#define _GNU_SOURCE
-> +#include <stdio.h>
-> +#include <sys/mount.h>
-> +#include <limits.h>
-> +#include <sys/param.h>
-> +#include <sys/types.h>
-> +
-> +#include "hugetlb.h"
-> +
-> +static long hpage_size;
-> +static int  fd = -1;
-> +static char hfile[MAXPATHLEN];
-> +static char *verbose;
-> +
-> +static void run_test(void)
-> +{
-> +	void *p;
-> +	unsigned long initial_rsvd, map_rsvd, fadvise_rsvd, end_rsvd;
-> +
-> +	fd = SAFE_OPEN(hfile, O_RDWR | O_CREAT, 0600);
-> +	SAFE_UNLINK(hfile);
-> +
-> +	initial_rsvd = SAFE_READ_MEMINFO("HugePages_Rsvd:");
-> +	if (verbose)
-> +		tst_res(TINFO, "Reserve count before map: %lu", initial_rsvd);
-
-Here as well, not keen on the verbose flag.
-
-> +	/* mmap a region and record reservations */
-
-Here as well, no useless comments.
-
-> +	p = SAFE_MMAP(NULL, hpage_size, PROT_READ|PROT_WRITE, MAP_SHARED,
-> +		 fd, 0);
-> +	map_rsvd = SAFE_READ_MEMINFO("HugePages_Rsvd:");
-> +	if (verbose)
-> +		tst_res(TINFO, "Reserve count after map: %lu", map_rsvd);
-> +
-> +	/* fadvise the region and record reservations */
-> +	if (posix_fadvise(fd, 0, hpage_size, POSIX_FADV_WILLNEED) == -1) {
-> +		tst_res(TFAIL|TERRNO, "fadvise()");
-> +		goto fail;
-> +	}
-> +	fadvise_rsvd = SAFE_READ_MEMINFO("HugePages_Rsvd:");
-> +	if (verbose)
-> +		tst_res(TINFO, "Reserve count after fadvise: %lu", fadvise_rsvd);
-> +
-> +	/* Write the region */
-
-Here as well.
-
-> +	memset(p, 1, hpage_size);
-> +
-> +	/* Free region */
-
-And here as well.
-
-> +	SAFE_MUNMAP(p, hpage_size);
-> +	SAFE_CLOSE(fd);
-> +	end_rsvd = SAFE_READ_MEMINFO("HugePages_Rsvd:");
-> +	if (verbose)
-> +		tst_res(TINFO, "Reserve count after close: %lu", end_rsvd);
-> +
-> +	/* Reserve count should match initial reserve count */
-
-And here.
-
-> +	if (end_rsvd != initial_rsvd) {
-> +		tst_res(TFAIL, "Reserve leaked: %lu != %lu", end_rsvd, initial_rsvd);
-> +		goto fail;
-> +	}
-> +	tst_res(TPASS, "Successful");
-
-Just TST_EXP_EQ_LU(end_rsvd, initial_rsvd);
-
-> +	return;
-> +fail:
-> +	tst_brk(TBROK, "Once failed, No point in continuing the test");
-
-Here as well, no tst_brk() like this.
-
-> +}
-> +
-> +static void setup(void)
-> +{
-> +	if (tst_hugepages < 1)
-> +		tst_brk(TCONF, "Not enough hugepages for testing.");
-> +
-> +	if (!Hopt)
-> +		Hopt = tst_get_tmpdir();
-> +	SAFE_MOUNT("none", Hopt, "hugetlbfs", 0, NULL);
-> +
-> +	snprintf(hfile, sizeof(hfile), "%s/ltp_hugetlbfile%d", Hopt, getpid());
-> +	hpage_size = SAFE_READ_MEMINFO("Hugepagesize:")*1024;
-> +}
-> +
-> +static void cleanup(void)
-> +{
-> +	if (fd >= 0)
-> +		SAFE_CLOSE(fd);
-> +	umount2(Hopt, MNT_DETACH);
-
-Here as well.
-
-> +}
-> +
-> +static struct tst_test test = {
-> +	.needs_root = 1,
-> +	.needs_tmpdir = 1,
-> +	.options = (struct tst_option[]) {
-> +		{"v", &verbose, "Turns on verbose mode"},
-> +		{"H:", &Hopt,   "Location of hugetlbfs, i.e.  -H /var/hugetlbfs"},
-> +		{"s:", &nr_opt, "Set the number of the been allocated hugepages"},
-> +		{}
-> +	},
-> +	.setup = setup,
-> +	.cleanup = cleanup,
-> +	.test_all = run_test,
-> +	.hugepages = {1, TST_REQUEST},
-> +};
-> -- 
-> 2.31.1
-> 
-> 
-> -- 
-> Mailing list info: https://lists.linux.it/listinfo/ltp
+The same comments apply for this test as well.
 
 -- 
 Cyril Hrubis
