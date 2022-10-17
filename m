@@ -1,12 +1,12 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93D466004EF
-	for <lists+linux-ltp@lfdr.de>; Mon, 17 Oct 2022 03:47:40 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id EDC4B6004EE
+	for <lists+linux-ltp@lfdr.de>; Mon, 17 Oct 2022 03:47:27 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4653E3CAFCA
-	for <lists+linux-ltp@lfdr.de>; Mon, 17 Oct 2022 03:47:40 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 61AE43CAFC3
+	for <lists+linux-ltp@lfdr.de>; Mon, 17 Oct 2022 03:47:27 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
@@ -14,23 +14,23 @@ Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 330B23CAFCF
- for <ltp@lists.linux.it>; Mon, 17 Oct 2022 03:47:12 +0200 (CEST)
-Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
+ by picard.linux.it (Postfix) with ESMTPS id 2D6853CAFCD
+ for <ltp@lists.linux.it>; Mon, 17 Oct 2022 03:47:13 +0200 (CEST)
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id DBE1B1400549
- for <ltp@lists.linux.it>; Mon, 17 Oct 2022 03:47:10 +0200 (CEST)
-Received: from dggpeml500024.china.huawei.com (unknown [172.30.72.56])
- by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4MrKVx4SfWzVjGY
- for <ltp@lists.linux.it>; Mon, 17 Oct 2022 09:42:33 +0800 (CST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 2BC671400553
+ for <ltp@lists.linux.it>; Mon, 17 Oct 2022 03:47:12 +0200 (CEST)
+Received: from dggpeml500024.china.huawei.com (unknown [172.30.72.57])
+ by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4MrKVr2YbgzmVC5
+ for <ltp@lists.linux.it>; Mon, 17 Oct 2022 09:42:28 +0800 (CST)
 Received: from ubuntu1804.huawei.com (10.67.174.155) by
  dggpeml500024.china.huawei.com (7.185.36.10) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Mon, 17 Oct 2022 09:47:07 +0800
+ 15.1.2375.31; Mon, 17 Oct 2022 09:47:09 +0800
 To: <ltp@lists.linux.it>
-Date: Mon, 17 Oct 2022 09:43:29 +0800
-Message-ID: <20221017014333.42180-2-luoxiaoyu9@huawei.com>
+Date: Mon, 17 Oct 2022 09:43:30 +0800
+Message-ID: <20221017014333.42180-3-luoxiaoyu9@huawei.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20221017014333.42180-1-luoxiaoyu9@huawei.com>
 References: <20221017014333.42180-1-luoxiaoyu9@huawei.com>
@@ -45,7 +45,7 @@ X-Spam-Status: No, score=1.8 required=7.0 tests=HK_RANDOM_ENVFROM,
  HK_RANDOM_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
 X-Spam-Level: *
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH 1/5] signal01.c: Rewrite using new LTP API
+Subject: [LTP] [PATCH 2/5] signal02.c: Rewrite using new LTP API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,247 +64,171 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Rewrite using new LTP API and remove the UCLinux support.
+Rewrite using new LTP API.
 
 Signed-off-by: Luo xiaoyu <luoxiaoyu9@huawei.com>
 ---
- testcases/kernel/syscalls/signal/signal01.c | 197 +++++---------------
- 1 file changed, 43 insertions(+), 154 deletions(-)
+ testcases/kernel/syscalls/signal/signal02.c | 144 ++------------------
+ 1 file changed, 13 insertions(+), 131 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/signal/signal01.c b/testcases/kernel/syscalls/signal/signal01.c
-index d99e35cb7..c39190a73 100644
---- a/testcases/kernel/syscalls/signal/signal01.c
-+++ b/testcases/kernel/syscalls/signal/signal01.c
-@@ -1,67 +1,30 @@
+diff --git a/testcases/kernel/syscalls/signal/signal02.c b/testcases/kernel/syscalls/signal/signal02.c
+index 8eb95b52b..54948646f 100644
+--- a/testcases/kernel/syscalls/signal/signal02.c
++++ b/testcases/kernel/syscalls/signal/signal02.c
+@@ -1,142 +1,24 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
  /*
-  * Copyright (c) 2000 Silicon Graphics, Inc.  All Rights Reserved.
-- *  AUTHOR           :  Dave Baumgartner
-- *                   :  Rewrote 12/92 by Richard Logan
-- *  CO-PILOT         :  Barrie Kletscher
-- *  DATE STARTED     :  10/17/85
-  * Copyright (C) 2015 Cyril Hrubis <chrubis@suse.cz>
 - *
-- * This program is free software; you can redistribute it and/or modify it
-- * under the terms of version 2 of the GNU General Public License as
-- * published by the Free Software Foundation.
+- *   Copyright (c) International Business Machines  Corp., 2001
 - *
-- * This program is distributed in the hope that it would be useful, but
-- * WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+- *   This program is free software;  you can redistribute it and/or modify
+- *   it under the terms of the GNU General Public License as published by
+- *   the Free Software Foundation; either version 2 of the License, or
+- *   (at your option) any later version.
 - *
-- * Further, this software is distributed without any warranty that it is
-- * free of the rightful claim of any third person regarding infringement
-- * or the like.  Any license provided herein, whether implied or
-- * otherwise, applies only to this software file.  Patent licenses, if
-- * any, provided herein do not apply to combinations of this program with
-- * other software, or any other product whatsoever.
+- *   This program is distributed in the hope that it will be useful,
+- *   but WITHOUT ANY WARRANTY;  without even the implied warranty of
+- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
+- *   the GNU General Public License for more details.
 - *
-- * You should have received a copy of the GNU General Public License along
-- * with this program; if not, write the Free Software Foundation, Inc.,
-- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-- *
-- * Contact information: Silicon Graphics, Inc., 1600 Amphitheatre Pkwy,
-- * Mountain View, CA  94043, or:
-- *
-- * http://www.sgi.com
-- *
-- * For further information regarding this notice, see:
-- *
-- * http://oss.sgi.com/projects/GenInfo/NoticeExplan/
-- *
-+ * AUTHOR	: Dave Baumgartner
-+ * CO-PILOT	: Barrie Kletscher
+- *   You should have received a copy of the GNU General Public License
+- *   along with this program;  if not, write to the Free Software
+- *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
++ * Copyright (c) International Business Machines  Corp., 2001
   */
+
 -/*
-- * TEST ITEMS
-+
+- * NAME
+- *	signal02.c
+- *
+- * DESCRIPTION
+- *	signal02 - Test that we get an error using illegal signals
+- *
+- * ALGORITHM
+- *	loop if that option was specified
+- *	issue the system call
+- *	check the return value
+- *	  if return value != -1
+- *	    issue a FAIL message, break remaining tests and cleanup
+- *	  if we get an EINVAL
+- *	    issue a PASS message
+- *	  else
+- *	    issue a FAIL message, break remaining tests and cleanup
+- *	call cleanup
+- *
+- * USAGE:  <for command-line>
+- *  signal02 [-c n] [-e] [-i n] [-I x] [-p x] [-t]
+- *	where,  -c n : Run n copies concurrently.
+- *		-e   : Turn on error logging.
+- *		-i n : Execute test n times.
+- *		-I x : Execute test for x seconds.
+- *		-P x : Pause for x seconds between iterations.
+- *		-t   : Turn on syscall timing.
+- *
+- * History
+- *	07/2001 John George
+- *		-Ported
 +/*\
 + * [Description]
   *
-- *	1. SIGKILL can not be set to be caught, errno:EINVAL (POSIX).
-- *	2. SIGKILL can not be caught.
-- *	3. SIGKILL can not be set to be ignored, errno:EINVAL (POSIX).
-+ * Test SIGKILL for these items:
-+ *	1. SIGKILL can not be set to be ignored, errno:EINVAL (POSIX).
-+ *	2. SIGKILL can not be reset to default, errno:EINVAL (POSIX).
-+ *	3. SIGKILL can not be set to be caught, errno:EINVAL (POSIX).
-  *	4. SIGKILL can not be ignored.
-- *	5. SIGKILL can not be reset to default, errno:EINVAL (POSIX).
-+ *	5. SIGKILL is reset to default failed but processed by default.
-+ *	6. SIGKILL can not be caught.
+- * Restrictions
+- *	none
++ * Test that we get an error using illegal signals.
   */
--#include <signal.h>
--#include <errno.h>
--#include <unistd.h>
--#include <fcntl.h>
--#include <string.h>
--#include <stdlib.h>
--#include <sys/wait.h>
 
 -#include "test.h"
--#include "safe_macros.h"
-+#include <stdlib.h>
+-
+-#include <errno.h>
+-#include <signal.h>
+-
+-void cleanup(void);
+-void setup(void);
+-
+-char *TCID = "signal02";
+-int TST_TOTAL = 3;
+-
+-typedef void (*sighandler_t) (int);
+-
+-sighandler_t Tret;
+-int sigs[] = { _NSIG + 1, SIGKILL, SIGSTOP };
+-
+-int main(int ac, char **av)
+-{
+-	int lc;
+-	int i;
+-
+-	tst_parse_opts(ac, av, NULL, NULL);
+-
+-	setup();		/* global setup */
 +#include "tst_test.h"
 
--static void setup(void);
--static void do_test(int tc);
--static void do_child(void);
- static void catchsig(int sig);
+-	/* The following loop checks looping state if -i option given */
++static int sigs[] = { _NSIG + 1, SIGKILL, SIGSTOP };
 
- static struct tcase {
--	void (*sighandler)(int);
-+	void (*sighandler)(int i);
- 	int kill;
- } tcases[] = {
- 	{SIG_IGN, 0},
-@@ -72,71 +35,37 @@ static struct tcase {
- 	{catchsig, 1},
- };
-
--char *TCID = "signal01";
--int TST_TOTAL = ARRAY_SIZE(tcases);
--
--static int tcase;
--
--int main(int argc, char *argv[])
--{
--	int lc, i;
--
--	tst_parse_opts(argc, argv, NULL, NULL);
--
--#ifdef UCLINUX
--	maybe_run_child(&do_child, "d", &tcase);
--#endif
--
--	setup();
--
 -	for (lc = 0; TEST_LOOPING(lc); lc++) {
--		for (i = 0; i < TST_TOTAL; i++)
--			do_test(i);
+-		/* reset tst_count in case we are looping */
+-		tst_count = 0;
+-
+-		/*
+-		 * There are three cases where we should get an EINVAL
+-		 */
+-		for (i = 0; i < TST_TOTAL; i++) {
+-
+-			errno = 0;
+-			Tret = signal(sigs[i], SIG_IGN);
+-			TEST_ERRNO = errno;
+-
+-			if (Tret != SIG_ERR) {
+-				tst_brkm(TFAIL, cleanup, "%s call failed - "
+-					 "errno = %d : %s", TCID, TEST_ERRNO,
+-					 strerror(TEST_ERRNO));
+-			}
+-
+-			switch (TEST_ERRNO) {
+-			case EINVAL:
+-				tst_resm(TPASS, "expected failure - errno = "
+-					 "%d - %s", TEST_ERRNO,
+-					 strerror(TEST_ERRNO));
+-				break;
+-			default:
+-				tst_resm(TFAIL, "call failed to produce "
+-					 "expected error - errno = %d "
+-					 "- %s", TEST_ERRNO,
+-					 strerror(TEST_ERRNO));
+-			}
+-		}
+-		tst_count++;	/* incr. TEST_LOOP counter */
 -	}
 -
+-	cleanup();
+-
 -	tst_exit();
+-
 -}
 -
--static void do_test(int tc)
+-/*
+- * setup() - performs all the ONE TIME setup for this test.
+- */
+-void setup(void)
 +static void do_test(unsigned int n)
  {
- 	pid_t pid;
- 	int res;
--	pid = FORK_OR_VFORK();
-+
-+	struct tcase *tc = &tcases[n];
-+
-+	pid = SAFE_FORK();
-
- 	switch (pid) {
- 	case 0:
--#ifdef UCLINUX
--		if (self_exec(argv0, "d", tc) < 0)
--			tst_brkm(TBROK | TERRNO, NULL, "self_exec() failed");
--#else
--		tcase = tc;
--		do_child();
--#endif
--	break;
--	case -1:
--		tst_resm(TBROK | TERRNO, "fork() failed");
-+		if (tc->kill) {
-+			signal(SIGKILL, tc->sighandler);
-+			pause();
-+		}
-+
-+		TST_EXP_FAIL2((long)signal(SIGKILL, tc->sighandler), EINVAL);
-+		return;
- 	break;
- 	default:
--		if (tcases[tc].kill) {
--			TST_PROCESS_STATE_WAIT(NULL, pid, 'S');
 -
--			SAFE_KILL(NULL, pid, SIGKILL);
--
--			SAFE_WAITPID(NULL, pid, &res, 0);
--
--			if (WIFSIGNALED(res)) {
--				if (WTERMSIG(res) == SIGKILL) {
--					tst_resm(TPASS, "Child killed with SIGKILL");
--				} else {
--					tst_resm(TFAIL, "Child killed with %s",
--					         tst_strsig(WTERMSIG(res)));
--				}
--			} else {
--				tst_resm(TFAIL, "Child not killed by signal");
--			}
--		} else {
--			tst_record_childstatus(NULL, pid);
--		}
-+		if (tc->kill) {
-+			TST_PROCESS_STATE_WAIT(pid, 'S', 0);
-+			SAFE_KILL(pid, SIGKILL);
-+			SAFE_WAITPID(pid, &res, 0);
-+
-+			if (WIFSIGNALED(res))
-+				TST_EXP_EQ_SSZ(WTERMSIG(res), SIGKILL);
-+			else
-+				tst_res(TFAIL, "Child not killed by signal");
-+		} else
-+			SAFE_WAITPID(pid, &res, 0);
- 	break;
- 	}
- }
-@@ -146,48 +75,8 @@ static void catchsig(int sig)
- 	(void)sig;
- }
-
--static const char *strhandler(void *sighandler)
--{
--	switch ((long)sighandler) {
--	case (long)SIG_DFL:
--		return "SIG_DFL";
--	case (long)SIG_IGN:
--		return "SIG_IGN";
--	default:
--		return "catchsig()";
--	}
--}
--
--static void do_child(void)
--{
--	void *ret;
--	void (*sighandler)(int) = tcases[tcase].sighandler;
--
--	ret = signal(SIGKILL, sighandler);
--
--	if (tcases[tcase].kill)
--		pause();
--
--	if (ret == SIG_ERR || errno == EINVAL) {
--		tst_resm(TPASS, "signal(SIGKILL, %p(%s)) failed with EINVAL",
--		         sighandler, strhandler(sighandler));
--	} else {
--		if (ret != SIG_ERR) {
--			tst_resm(TFAIL, "signal(SIGKILL, %p(%s)) didn't fail",
--			         sighandler, strhandler(sighandler));
--		} else {
--			tst_resm(TFAIL | TERRNO,
--			         "signal(SIGKILL, %p(%s)) should fail with EINVAL",
--			          sighandler, strhandler(sighandler));
--		}
--	}
--
--	tst_exit();
--}
--
--static void setup(void)
--{
--	tst_sig(FORK, DEF_HANDLER, NULL);
+-	tst_sig(NOFORK, DEF_HANDLER, cleanup);
 -
 -	TEST_PAUSE;
++	TST_EXP_FAIL2((long)signal(sigs[n], SIG_IGN), EINVAL);
+ }
+
+-/*
+- * cleanup() - performs all the ONE TIME cleanup for this test at completion
+- * 	       or premature exit.
+- */
+-void cleanup(void)
+-{
+-
 -}
 +static struct tst_test test = {
-+	.tcnt = ARRAY_SIZE(tcases),
-+	.forks_child = 1,
++	.tcnt = ARRAY_SIZE(sigs),
 +	.test = do_test,
 +};
 --
