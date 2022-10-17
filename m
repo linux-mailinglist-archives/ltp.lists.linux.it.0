@@ -2,49 +2,65 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E76E6004F2
-	for <lists+linux-ltp@lfdr.de>; Mon, 17 Oct 2022 03:48:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5EFDB60083F
+	for <lists+linux-ltp@lfdr.de>; Mon, 17 Oct 2022 10:01:40 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 02B7B3CAFE9
-	for <lists+linux-ltp@lfdr.de>; Mon, 17 Oct 2022 03:48:10 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id F27053CAFE7
+	for <lists+linux-ltp@lfdr.de>; Mon, 17 Oct 2022 10:01:39 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id C3AC53CAFC1
- for <ltp@lists.linux.it>; Mon, 17 Oct 2022 03:47:19 +0200 (CEST)
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 3A9913CAD6A
+ for <ltp@lists.linux.it>; Mon, 17 Oct 2022 10:01:36 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id CDC4F200343
- for <ltp@lists.linux.it>; Mon, 17 Oct 2022 03:47:17 +0200 (CEST)
-Received: from dggpeml500024.china.huawei.com (unknown [172.30.72.56])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4MrKVy0ffXzmVC5
- for <ltp@lists.linux.it>; Mon, 17 Oct 2022 09:42:34 +0800 (CST)
-Received: from ubuntu1804.huawei.com (10.67.174.155) by
- dggpeml500024.china.huawei.com (7.185.36.10) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Mon, 17 Oct 2022 09:47:14 +0800
-To: <ltp@lists.linux.it>
-Date: Mon, 17 Oct 2022 09:43:33 +0800
-Message-ID: <20221017014333.42180-6-luoxiaoyu9@huawei.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20221017014333.42180-1-luoxiaoyu9@huawei.com>
-References: <20221017014333.42180-1-luoxiaoyu9@huawei.com>
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 805DE60075A
+ for <ltp@lists.linux.it>; Mon, 17 Oct 2022 10:01:34 +0200 (CEST)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 7E25422D24
+ for <ltp@lists.linux.it>; Mon, 17 Oct 2022 08:01:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1665993694;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=fvaIRs/2/LEIuNHiB30j3C30WW4oLXXA6tIxwudG6VM=;
+ b=prvDaDwQpvWL5xcJq68CCWF9VTai9joJpLTJHzJviJ6PY1Bfc9f0sKTKp7+zkDn0wZe1hr
+ UqicPhiDG24pwmjSSoEAIXzmQMTLhlYeJzAdBNUQpfx1Gh3fy6gXnPLRKbMcWRDWT+VRE2
+ Cd3udgrfpbbchOzCKWHHenHTLzgow1U=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1665993694;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=fvaIRs/2/LEIuNHiB30j3C30WW4oLXXA6tIxwudG6VM=;
+ b=9h0PstsmaU4jNIBhGuDmprUFUVaGAWC3RbxTg562EKCqqaiaaLgJtRd3GYoHOMEx2RMvUJ
+ hB9YUm3uayPNQWDw==
+Received: from g78 (unknown [10.100.228.202])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by relay2.suse.de (Postfix) with ESMTPS id 19F5F2C141;
+ Mon, 17 Oct 2022 08:01:33 +0000 (UTC)
+References: <20220823095116.369-1-akumar@suse.de>
+User-agent: mu4e 1.6.10; emacs 28.1
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Avinesh Kumar <akumar@suse.de>
+Date: Mon, 17 Oct 2022 09:01:17 +0100
+In-reply-to: <20220823095116.369-1-akumar@suse.de>
+Message-ID: <87ilkiq3oj.fsf@suse.de>
 MIME-Version: 1.0
-X-Originating-IP: [10.67.174.155]
-X-ClientProxiedBy: dggems704-chm.china.huawei.com (10.3.19.181) To
- dggpeml500024.china.huawei.com (7.185.36.10)
-X-CFilter-Loop: Reflected
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=1.8 required=7.0 tests=HK_RANDOM_ENVFROM,
- HK_RANDOM_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Level: *
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH 5/5] signal05.c: Rewrite using new LTP API
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] setegid02.c: Rewrite using new LTP API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,213 +72,144 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-From: Luo xiaoyu via ltp <ltp@lists.linux.it>
-Reply-To: Luo xiaoyu <luoxiaoyu9@huawei.com>
+Reply-To: rpalethorpe@suse.de
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Rewrite using new LTP API.
+Hello,
 
-Signed-off-by: Luo xiaoyu <luoxiaoyu9@huawei.com>
----
- testcases/kernel/syscalls/signal/signal05.c | 159 +++-----------------
- 1 file changed, 20 insertions(+), 139 deletions(-)
+Merged! Thanks
 
-diff --git a/testcases/kernel/syscalls/signal/signal05.c b/testcases/kernel/syscalls/signal/signal05.c
-index 2a2894161..b191b9ae1 100644
---- a/testcases/kernel/syscalls/signal/signal05.c
-+++ b/testcases/kernel/syscalls/signal/signal05.c
-@@ -1,70 +1,19 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
- /*
-- *
-- *   Copyright (c) International Business Machines  Corp., 2001
-- *
-- *   This program is free software;  you can redistribute it and/or modify
-- *   it under the terms of the GNU General Public License as published by
-- *   the Free Software Foundation; either version 2 of the License, or
-- *   (at your option) any later version.
-- *
-- *   This program is distributed in the hope that it will be useful,
-- *   but WITHOUT ANY WARRANTY;  without even the implied warranty of
-- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
-- *   the GNU General Public License for more details.
-- *
-- *   You should have received a copy of the GNU General Public License
-- *   along with this program;  if not, write to the Free Software
-- *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
-+ * Copyright (c) International Business Machines  Corp., 2001
-  */
+Avinesh Kumar <akumar@suse.de> writes:
 
--/*
-- * NAME
-- *	signal05.c
-- *
-- * DESCRIPTION
-- *	signal05 - set the signal handler to our own function
-- *
-- * ALGORITHM
-- *	loop if that option was specified
-- *	issue the system call
-- *	check the return value
-- *	  if return value == -1
-- *	    issue a FAIL message, break remaining tests and cleanup
-- *	  if we are doing functional testing
-- *	    send the signal with kill()
-- *	    if we catch the signal in the signal handler
-- *	      issue a PASS message
-- *	    else
-- *	      issue a FAIL message
-- *	call cleanup
-- *
-- * USAGE:  <for command-line>
-- *  signal05 [-c n] [-f] [-i n] [-I x] [-p x] [-t]
-- *     where,  -c n : Run n copies concurrently.
-- *             -f   : Turn off functionality Testing.
-- *	       -i n : Execute test n times.
-- *	       -I x : Execute test for x seconds.
-- *	       -P x : Pause for x seconds between iterations.
-- *	       -t   : Turn on syscall timing.
-- *
-- * History
-- *	07/2001 John George
-- *		-Ported
-+/*\
-+ * [Description]
-  *
-- * Restrictions
-- *	none
-+ * Set the signal handler to our own function.
-  */
+> Signed-off-by: Avinesh Kumar <akumar@suse.de>
+> ---
+>  testcases/kernel/syscalls/setegid/setegid02.c | 90 +++++--------------
+>  1 file changed, 21 insertions(+), 69 deletions(-)
+>
+> diff --git a/testcases/kernel/syscalls/setegid/setegid02.c b/testcases/kernel/syscalls/setegid/setegid02.c
+> index 7c60a9cf5..66a8a07fb 100644
+> --- a/testcases/kernel/syscalls/setegid/setegid02.c
+> +++ b/testcases/kernel/syscalls/setegid/setegid02.c
+> @@ -1,87 +1,39 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+>  /*
+>   * Copyright (c) 2014 Fujitsu Ltd.
+>   * Author: Zeng Linggang <zenglg.jy@cn.fujitsu.com>
+> - *
+> - * This program is free software; you can redistribute it and/or modify it
+> - * under the terms of version 2 of the GNU General Public License as
+> - * published by the Free Software Foundation.
+> - *
+> - * This program is distributed in the hope that it would be useful, but
+> - * WITHOUT ANY WARRANTY; without even the implied warranty of
+> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+> - *
+> - * You should have received a copy of the GNU General Public License along
+> - * with this program; if not, write the Free Software Foundation, Inc.,
+> - * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+> + * Copyright (c) 2022 SUSE LLC Avinesh Kumar <avinesh.kumar@suse.com>
+>   */
+> -/*
+> - * DESCRIPTION
+> - *	The calling process is not privileged and euid is not appropriate,
+> - *	EPERM should return.
+> +
+> +/*\
+> + * [Description]
+> + *
+> + * Verify that setegid() fails with EPERM when the calling process is not
+> + * privileged and egid does not match the current real group ID,
+> + * current effective group ID, or current saved set-group-ID.
+>   */
+>  
+> -#include <errno.h>
+>  #include <pwd.h>
+> -#include "test.h"
+> -#include "safe_macros.h"
+> -
+> -char *TCID = "setegid02";
+> -int TST_TOTAL = 1;
+> -static void setup(void);
+> -static void setegid_verify(void);
+> -static void cleanup(void);
+> +#include "tst_test.h"
+>  
+>  static struct passwd *ltpuser;
+>  
+> -int main(int argc, char *argv[])
+> -{
+> -	int lc;
+> -
+> -	tst_parse_opts(argc, argv, NULL, NULL);
+> -
+> -	setup();
+> -
+> -	for (lc = 0; TEST_LOOPING(lc); lc++) {
+> -		tst_count = 0;
+> -		setegid_verify();
+> -	}
+> -
+> -	cleanup();
+> -	tst_exit();
+> -}
+> -
+>  static void setup(void)
+>  {
+> -	tst_require_root();
+> -
+> -	tst_sig(NOFORK, DEF_HANDLER, cleanup);
+> -
+> -	TEST_PAUSE;
+> -
+> -	ltpuser = SAFE_GETPWNAM(cleanup, "nobody");
+> -
+> -	SAFE_SETEUID(cleanup, ltpuser->pw_uid);
+> +	ltpuser = SAFE_GETPWNAM("nobody");
+> +	SAFE_SETEUID(ltpuser->pw_uid);
+>  }
+>  
+>  static void setegid_verify(void)
+>  {
+> -	TEST(setegid(ltpuser->pw_gid));
+> -
+> -	if (TEST_RETURN != -1) {
+> -		tst_resm(TFAIL, "setegid(%d) succeeded unexpectedly",
+> -			 ltpuser->pw_gid);
+> -		return;
+> -	}
+> -
+> -	if (TEST_ERRNO == EPERM) {
+> -		tst_resm(TPASS | TTERRNO, "setegid failed as expected");
+> -	} else {
+> -		tst_resm(TFAIL | TTERRNO,
+> -			 "setegid failed unexpectedly; expected: %d - %s",
+> -			 EPERM, strerror(EPERM));
+> -	}
+> +	TST_EXP_FAIL(setegid(ltpuser->pw_gid),
+> +				EPERM,
+> +				"setegid(%d)",
+> +				ltpuser->pw_gid);
+>  }
+>  
+> -static void cleanup(void)
+> -{
+> -}
+> +static struct tst_test test = {
+> +	.setup = setup,
+> +	.test_all = setegid_verify,
+> +	.needs_root = 1
+> +};
+> -- 
+> 2.37.1
 
--#include "test.h"
-+#include "tst_test.h"
 
--#include <errno.h>
--#include <signal.h>
-+static void sighandler(int);
-
--void cleanup(void);
--void setup(void);
--void sighandler(int);
--
--int siglist[] = { SIGHUP, SIGINT, SIGQUIT, SIGILL, SIGTRAP, SIGABRT, SIGIOT,
-+static int siglist[] = { SIGHUP, SIGINT, SIGQUIT, SIGILL, SIGTRAP, SIGABRT, SIGIOT,
- 	SIGBUS, SIGFPE, SIGUSR1, SIGSEGV, SIGUSR2, SIGPIPE, SIGALRM,
- 	SIGTERM,
- #ifdef SIGSTKFLT
-@@ -78,94 +27,26 @@ int siglist[] = { SIGHUP, SIGINT, SIGQUIT, SIGILL, SIGTRAP, SIGABRT, SIGIOT,
- #endif
- };
-
--char *TCID = "signal05";
--int TST_TOTAL = ARRAY_SIZE(siglist);
--
--typedef void (*sighandler_t) (int);
--
--sighandler_t Tret;
--
--int pass = 0;
-+static int sig_pass;
-
--int main(int ac, char **av)
-+static void do_test(unsigned int n)
- {
--	int lc;
- 	pid_t pid;
--	int i, rval;
--
--	tst_parse_opts(ac, av, NULL, NULL);
--
--	setup();		/* global setup */
--
--	/* The following loop checks looping state if -i option given */
--
--	for (lc = 0; TEST_LOOPING(lc); lc++) {
--		/* reset tst_count in case we are looping */
--		tst_count = 0;
-
--		/*
--		 * loop through the list of signals and test each one
--		 */
--		for (i = 0; i < TST_TOTAL; i++) {
-+	SAFE_SIGNAL(siglist[n], &sighandler);
-
--			errno = 0;
--			Tret = signal(siglist[i], &sighandler);
--			TEST_ERRNO = errno;
-+	pid = getpid();
-
--			if (Tret == SIG_ERR) {
--				tst_resm(TFAIL, "%s call failed - errno = %d "
--					 ": %s", TCID, TEST_ERRNO,
--					 strerror(TEST_ERRNO));
--				continue;
--			}
--
--			/*
--			 * Send the signals and make sure they are
--			 * handled in our handler.
--			 */
--			pid = getpid();
--
--			if ((rval = kill(pid, siglist[i])) != 0) {
--				tst_brkm(TBROK, cleanup,
--					 "call to kill failed");
--			}
--
--			if (siglist[i] == pass) {
--				tst_resm(TPASS,
--					 "%s call succeeded", TCID);
--			} else {
--				tst_resm(TFAIL,
--					 "received unexpected signal");
--			}
--		}
--	}
--
--	cleanup();
--	tst_exit();
-+	SAFE_KILL(pid, siglist[n]);
-+	TST_EXP_EQ_SSZ(siglist[n], sig_pass);
- }
-
--/*
-- * sighandler() - handle the signals
-- */
--void sighandler(int sig)
-+static void sighandler(int sig)
- {
--	/* set the global pass variable = sig */
--	pass = sig;
-+	sig_pass = sig;
- }
-
--/*
-- * setup() - performs all the ONE TIME setup for this test.
-- */
--void setup(void)
--{
--	TEST_PAUSE;
--}
--
--/*
-- * cleanup() - performs all the ONE TIME cleanup for this test at completion
-- * 	       or premature exit.
-- */
--void cleanup(void)
--{
--
--}
-+static struct tst_test test = {
-+	.tcnt = ARRAY_SIZE(siglist),
-+	.test = do_test,
-+};
---
-2.17.1
-
+-- 
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
