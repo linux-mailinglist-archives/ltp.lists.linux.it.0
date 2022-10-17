@@ -1,36 +1,35 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDC4B6004EE
-	for <lists+linux-ltp@lfdr.de>; Mon, 17 Oct 2022 03:47:27 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id E039B6004F0
+	for <lists+linux-ltp@lfdr.de>; Mon, 17 Oct 2022 03:47:49 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 61AE43CAFC3
-	for <lists+linux-ltp@lfdr.de>; Mon, 17 Oct 2022 03:47:27 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id AD9873CAFD7
+	for <lists+linux-ltp@lfdr.de>; Mon, 17 Oct 2022 03:47:49 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::6])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 2D6853CAFCD
- for <ltp@lists.linux.it>; Mon, 17 Oct 2022 03:47:13 +0200 (CEST)
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+ by picard.linux.it (Postfix) with ESMTPS id E4CF93CAFC2
+ for <ltp@lists.linux.it>; Mon, 17 Oct 2022 03:47:17 +0200 (CEST)
+Received: from szxga08-in.huawei.com (szxga08-in.huawei.com [45.249.212.255])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 2BC671400553
- for <ltp@lists.linux.it>; Mon, 17 Oct 2022 03:47:12 +0200 (CEST)
-Received: from dggpeml500024.china.huawei.com (unknown [172.30.72.57])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4MrKVr2YbgzmVC5
- for <ltp@lists.linux.it>; Mon, 17 Oct 2022 09:42:28 +0800 (CST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 2F2A410005E3
+ for <ltp@lists.linux.it>; Mon, 17 Oct 2022 03:47:15 +0200 (CEST)
+Received: from dggpeml500024.china.huawei.com (unknown [172.30.72.56])
+ by szxga08-in.huawei.com (SkyGuard) with ESMTP id 4MrKVt53N2z1P7Xv
+ for <ltp@lists.linux.it>; Mon, 17 Oct 2022 09:42:30 +0800 (CST)
 Received: from ubuntu1804.huawei.com (10.67.174.155) by
  dggpeml500024.china.huawei.com (7.185.36.10) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Mon, 17 Oct 2022 09:47:09 +0800
+ 15.1.2375.31; Mon, 17 Oct 2022 09:47:11 +0800
 To: <ltp@lists.linux.it>
-Date: Mon, 17 Oct 2022 09:43:30 +0800
-Message-ID: <20221017014333.42180-3-luoxiaoyu9@huawei.com>
+Date: Mon, 17 Oct 2022 09:43:31 +0800
+Message-ID: <20221017014333.42180-4-luoxiaoyu9@huawei.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20221017014333.42180-1-luoxiaoyu9@huawei.com>
 References: <20221017014333.42180-1-luoxiaoyu9@huawei.com>
@@ -39,13 +38,13 @@ X-Originating-IP: [10.67.174.155]
 X-ClientProxiedBy: dggems704-chm.china.huawei.com (10.3.19.181) To
  dggpeml500024.china.huawei.com (7.185.36.10)
 X-CFilter-Loop: Reflected
-X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=1.8 required=7.0 tests=HK_RANDOM_ENVFROM,
  HK_RANDOM_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
 X-Spam-Level: *
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/5] signal02.c: Rewrite using new LTP API
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH 3/5] signal03.c: Rewrite using new LTP API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,18 +67,18 @@ Rewrite using new LTP API.
 
 Signed-off-by: Luo xiaoyu <luoxiaoyu9@huawei.com>
 ---
- testcases/kernel/syscalls/signal/signal02.c | 144 ++------------------
- 1 file changed, 13 insertions(+), 131 deletions(-)
+ testcases/kernel/syscalls/signal/signal03.c | 161 +++-----------------
+ 1 file changed, 20 insertions(+), 141 deletions(-)
 
-diff --git a/testcases/kernel/syscalls/signal/signal02.c b/testcases/kernel/syscalls/signal/signal02.c
-index 8eb95b52b..54948646f 100644
---- a/testcases/kernel/syscalls/signal/signal02.c
-+++ b/testcases/kernel/syscalls/signal/signal02.c
-@@ -1,142 +1,24 @@
+diff --git a/testcases/kernel/syscalls/signal/signal03.c b/testcases/kernel/syscalls/signal/signal03.c
+index 7975c770d..ad4c565ab 100644
+--- a/testcases/kernel/syscalls/signal/signal03.c
++++ b/testcases/kernel/syscalls/signal/signal03.c
+@@ -1,70 +1,19 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
  /*
 - *
-- *   Copyright (c) International Business Machines  Corp., 2001
+  *   Copyright (c) International Business Machines  Corp., 2001
 - *
 - *   This program is free software;  you can redistribute it and/or modify
 - *   it under the terms of the GNU General Public License as published by
@@ -94,32 +93,33 @@ index 8eb95b52b..54948646f 100644
 - *   You should have received a copy of the GNU General Public License
 - *   along with this program;  if not, write to the Free Software
 - *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
-+ * Copyright (c) International Business Machines  Corp., 2001
   */
 
 -/*
 - * NAME
-- *	signal02.c
+- *	signal03.c
 - *
 - * DESCRIPTION
-- *	signal02 - Test that we get an error using illegal signals
+- *	signal03 - set signals to be ignored
 - *
 - * ALGORITHM
 - *	loop if that option was specified
 - *	issue the system call
 - *	check the return value
-- *	  if return value != -1
+- *	  if return value == -1
 - *	    issue a FAIL message, break remaining tests and cleanup
-- *	  if we get an EINVAL
-- *	    issue a PASS message
-- *	  else
-- *	    issue a FAIL message, break remaining tests and cleanup
+- *	  if we are doing functional testing
+- *	    send the signal with kill()
+- *	    if we catch the signal
+- *	      issue a FAIL message
+- *	    else
+- *	      issue a PASS message
 - *	call cleanup
 - *
 - * USAGE:  <for command-line>
-- *  signal02 [-c n] [-e] [-i n] [-I x] [-p x] [-t]
+- *  signal01 [-c n] [-f] [-i n] [-I x] [-p x] [-t]
 - *	where,  -c n : Run n copies concurrently.
-- *		-e   : Turn on error logging.
+- *		-f   : Turn off functionality Testing.
 - *		-i n : Execute test n times.
 - *		-I x : Execute test for x seconds.
 - *		-P x : Pause for x seconds between iterations.
@@ -133,92 +133,124 @@ index 8eb95b52b..54948646f 100644
   *
 - * Restrictions
 - *	none
-+ * Test that we get an error using illegal signals.
++ * Set signals to be ignored.
   */
 
 -#include "test.h"
--
++#include "tst_test.h"
+
 -#include <errno.h>
 -#include <signal.h>
--
++static void sighandler(int);
+
 -void cleanup(void);
 -void setup(void);
+-void sighandler(int);
 -
--char *TCID = "signal02";
--int TST_TOTAL = 3;
+-int siglist[] = { SIGHUP, SIGINT, SIGQUIT, SIGILL, SIGTRAP, SIGABRT, SIGIOT,
++static int siglist[] = { SIGHUP, SIGINT, SIGQUIT, SIGILL, SIGTRAP, SIGABRT, SIGIOT,
+ 	SIGBUS, SIGFPE, SIGUSR1, SIGSEGV, SIGUSR2, SIGPIPE, SIGALRM,
+ 	SIGTERM,
+ #ifdef SIGSTKFLT
+@@ -78,97 +27,27 @@ int siglist[] = { SIGHUP, SIGINT, SIGQUIT, SIGILL, SIGTRAP, SIGABRT, SIGIOT,
+ #endif
+ };
+
+-char *TCID = "signal03";
+-int TST_TOTAL = ARRAY_SIZE(siglist);
 -
 -typedef void (*sighandler_t) (int);
 -
 -sighandler_t Tret;
--int sigs[] = { _NSIG + 1, SIGKILL, SIGSTOP };
++static int ign_handler;
+
+-int fail = 0;
 -
 -int main(int ac, char **av)
--{
++static void do_test(unsigned int n)
+ {
 -	int lc;
--	int i;
+ 	pid_t pid;
+-	int i, rval;
 -
 -	tst_parse_opts(ac, av, NULL, NULL);
 -
 -	setup();		/* global setup */
-+#include "tst_test.h"
-
+-
 -	/* The following loop checks looping state if -i option given */
-+static int sigs[] = { _NSIG + 1, SIGKILL, SIGSTOP };
-
+-
 -	for (lc = 0; TEST_LOOPING(lc); lc++) {
 -		/* reset tst_count in case we are looping */
 -		tst_count = 0;
 -
 -		/*
--		 * There are three cases where we should get an EINVAL
+-		 * loop through the list of signals and test each one
 -		 */
 -		for (i = 0; i < TST_TOTAL; i++) {
--
+
 -			errno = 0;
--			Tret = signal(sigs[i], SIG_IGN);
+-			Tret = signal(siglist[i], SIG_IGN);
 -			TEST_ERRNO = errno;
--
--			if (Tret != SIG_ERR) {
++	SAFE_SIGNAL(siglist[n], sighandler);
++	SAFE_SIGNAL(siglist[n], SIG_IGN);
+
+-			if (Tret == SIG_ERR) {
 -				tst_brkm(TFAIL, cleanup, "%s call failed - "
--					 "errno = %d : %s", TCID, TEST_ERRNO,
--					 strerror(TEST_ERRNO));
+-					 "errno = %d : %s", TCID,
+-					 TEST_ERRNO, strerror(TEST_ERRNO));
+-			}
++	pid = getpid();
+
+-			/*
+-			 * Send the signal.  If the signal is truly set
+-			 * to be ignored, then the signal handler will
+-			 * never be invoked and the test will pass.
+-			 */
+-			pid = getpid();
+-
+-			if ((rval = kill(pid, siglist[i])) != 0) {
+-				tst_brkm(TBROK, cleanup, "call to "
+-					 "kill failed");
 -			}
 -
--			switch (TEST_ERRNO) {
--			case EINVAL:
--				tst_resm(TPASS, "expected failure - errno = "
--					 "%d - %s", TEST_ERRNO,
--					 strerror(TEST_ERRNO));
--				break;
--			default:
--				tst_resm(TFAIL, "call failed to produce "
--					 "expected error - errno = %d "
--					 "- %s", TEST_ERRNO,
--					 strerror(TEST_ERRNO));
+-			if (fail == 0) {
+-				tst_resm(TPASS, "%s call succeeded",
+-					 TCID);
+-			} else {
+-				/* the signal was caught so we fail */
+-				tst_resm(TFAIL, "signal caught when "
+-					 "suppose to be ignored");
 -			}
 -		}
--		tst_count++;	/* incr. TEST_LOOP counter */
 -	}
 -
 -	cleanup();
--
 -	tst_exit();
--
--}
--
++	SAFE_KILL(pid, siglist[n]);
++	TST_EXP_EQ_SSZ(ign_handler, 0);
+ }
+
+-/*
+- * sighandler() - the test fails if we ever get here.
+- */
+-void sighandler(int sig LTP_ATTRIBUTE_UNUSED)
++static void sighandler(int sig LTP_ATTRIBUTE_UNUSED)
+ {
+-	fail = 1;
++	ign_handler = 1;
+ }
+
 -/*
 - * setup() - performs all the ONE TIME setup for this test.
 - */
 -void setup(void)
-+static void do_test(unsigned int n)
- {
--
--	tst_sig(NOFORK, DEF_HANDLER, cleanup);
+-{
+-	/* capture signals in our own handler */
+-	tst_sig(NOFORK, sighandler, cleanup);
 -
 -	TEST_PAUSE;
-+	TST_EXP_FAIL2((long)signal(sigs[n], SIG_IGN), EINVAL);
- }
-
+-}
+-
 -/*
 - * cleanup() - performs all the ONE TIME cleanup for this test at completion
 - * 	       or premature exit.
@@ -228,7 +260,7 @@ index 8eb95b52b..54948646f 100644
 -
 -}
 +static struct tst_test test = {
-+	.tcnt = ARRAY_SIZE(sigs),
++	.tcnt = ARRAY_SIZE(siglist),
 +	.test = do_test,
 +};
 --
