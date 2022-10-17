@@ -2,94 +2,65 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id B080D60080B
-	for <lists+linux-ltp@lfdr.de>; Mon, 17 Oct 2022 09:49:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7322600859
+	for <lists+linux-ltp@lfdr.de>; Mon, 17 Oct 2022 10:07:52 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0BFEE3CAFF1
-	for <lists+linux-ltp@lfdr.de>; Mon, 17 Oct 2022 09:49:39 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 2046D3CAFC0
+	for <lists+linux-ltp@lfdr.de>; Mon, 17 Oct 2022 10:07:52 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 16B583CAFEA
- for <ltp@lists.linux.it>; Mon, 17 Oct 2022 09:49:27 +0200 (CEST)
-Received: from mail1.bemta37.messagelabs.com (mail1.bemta37.messagelabs.com
- [85.158.142.1])
+ by picard.linux.it (Postfix) with ESMTPS id BF4AC3CAD6A
+ for <ltp@lists.linux.it>; Mon, 17 Oct 2022 10:07:47 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id CFE2A200907
+ for <ltp@lists.linux.it>; Mon, 17 Oct 2022 10:07:46 +0200 (CEST)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 44BFB20243
+ for <ltp@lists.linux.it>; Mon, 17 Oct 2022 08:07:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1665994065;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=9ZcEzaSzmFBfKCRx8fY5N7DcwTCpkITy8dpE4g5Ub3E=;
+ b=Jw01VFKeu+yF4E5B07cV1svW6wigJLXKN0IpcjzIpA3IkJnjqt5EhavoH9A5Z8ZZAQhpRj
+ vmP+b7v6HPi5zk/IzMGVY5vjPvz4yRZENfxb2Ga7k7bBcBkTdwyLDbpxtNaIFceYzMqvmd
+ tf8OcMmuKYeXsov6pINuvSt+XOMNIt0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1665994065;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=9ZcEzaSzmFBfKCRx8fY5N7DcwTCpkITy8dpE4g5Ub3E=;
+ b=g5/VUi8dz7aYgaylbTxy7zEAt+JiutBNkzM7/g2N9Csu8CjNHzd2ShQw+E4r5HIKuePVw/
+ /DaO5dYzgvQyDnCA==
+Received: from g78 (unknown [10.100.228.202])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 5341C1A006F2
- for <ltp@lists.linux.it>; Mon, 17 Oct 2022 09:49:25 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fujitsu.com;
- s=170520fj; t=1665992965; i=@fujitsu.com;
- bh=S1ahXPbpWmy79DE27Q/k+sgLBna1/XPLIAroyCRnSSY=;
- h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
- MIME-Version:Content-Type;
- b=g+ZrhRMxWQJNZGKchLo1JUcc3TrbuUs1XgXXNf9TymFCkqh0wjT3qVaSaFvwkbsmI
- L/GIb+eJiqwGbCjkFaFgNNH/8rD4TRonADfNMo0lMt76F5LZIGb/+LiLG0oGS6PKLc
- yrfyWAXkyuN/DG00JoT9bftp2JT47zLeGBrU9Sik6ZHCaKFic2LWoBgyq21+cqguL5
- 0LS9MzRTsp9uozwc46PslC4myLS2QQD6xliBZzrLwhvjKSl1ImUVGFjvHxjG6tswEr
- l6fGDbpywN8CMm7b89mcW7D1QN5+JdDp+1RWCsq8KgZgRsnBA8zYwmmhHZIA4fdA3D
- d7merUpMPhlHA==
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFrrFIsWRWlGSWpSXmKPExsViZ8ORpMvC6Zt
- s0HvH0OL14U+MFtNfHGWzWPF9B6MDs8emVZ1sHvt+r2P1OLPgCHsAcxRrZl5SfkUCa8bVGZ1M
- BZ91K7Ze/sDcwPhfrYuRi0NIYCOjxIUNd1khnCVMEoe3rmGDcPYwSvR3zmHsYuTkYBPQlHjWu
- YAZxBYREJX4PP0cmM0sECIx4dEeJhBbWCBd4u21h2wgNouAqsSRX8dZQGxeAQ+Jmxv+gs2REF
- CQmPLwPVAvBwengKfE0oOZIGEhoJKrlw4xQpQLSpyc+YQFYryExMEXL5ghWhUlLnV8gxpTITF
- rVhsThK0mcfXcJuYJjIKzkLTPQtK+gJFpFaNZcWpRWWqRrqVeUlFmekZJbmJmjl5ilW6iXmqp
- bl5+UUmGrqFeYnmxXmpxsV5xZW5yTopeXmrJJkZgkKcUp+fuYLy07I/eIUZJDiYlUd5Zf32Sh
- fiS8lMqMxKLM+KLSnNSiw8xynBwKEnwHgLJCRalpqdWpGXmACMOJi3BwaMkwuvI6pssxFtckJ
- hbnJkOkTrFqCglzuvCAZQQAElklObBtcGi/BKjrJQwLyMDA4MQT0FqUW5mCar8K0ZxDkYlYV5
- RkCk8mXklcNNfAS1mAlqcsd8LZHFJIkJKqoGpisPHKcXIdWZZ9KmD/XIiJqW+qVuv9Pc9i6vR
- 2Ll1p/i0RXNv8W9zmfN63cT+I8YZadM0muZw7r/A7h7L+dLB8N2ZB/6rmsIbWdpLN98SL12/z
- +Xdk5SY9mNdGZGfNs34W3z0yJ8Vuf/CM7ZMer859QDjwl1JiZendX/VfCiRZ793unXcsqsX1O
- 1yHq3p7nl+K2F3IU/0ssLzRnIVejdv7FjH4cD6yt9Fa+atuL2Hw67fMttZeKPtf4LuGRWV+79
- fsXdfPT1lnsQVzYbVyY3iR5raODfe332Yf/Pp71d3yprn//R0PDB32fdLvCyBW5IOv+x4a2Wz
- xvXqx9fZX47/Ocklto3h0u1HJ3repu7sfaTEUpyRaKjFXFScCABwgqfObQMAAA==
-X-Env-Sender: xuyang2018.jy@fujitsu.com
-X-Msg-Ref: server-16.tower-728.messagelabs.com!1665992964!156268!1
-X-Originating-IP: [62.60.8.98]
-X-SYMC-ESS-Client-Auth: outbound-route-from=pass
-X-StarScan-Received: 
-X-StarScan-Version: 9.87.3; banners=-,-,-
-X-VirusChecked: Checked
-Received: (qmail 25880 invoked from network); 17 Oct 2022 07:49:24 -0000
-Received: from unknown (HELO n03ukasimr03.n03.fujitsu.local) (62.60.8.98)
- by server-16.tower-728.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
- encrypted SMTP; 17 Oct 2022 07:49:24 -0000
-Received: from n03ukasimr03.n03.fujitsu.local (localhost [127.0.0.1])
- by n03ukasimr03.n03.fujitsu.local (Postfix) with ESMTP id 32E8E1B2;
- Mon, 17 Oct 2022 08:49:24 +0100 (BST)
-Received: from R01UKEXCASM126.r01.fujitsu.local (R01UKEXCASM126
- [10.183.43.178])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
- (No client certificate requested)
- by n03ukasimr03.n03.fujitsu.local (Postfix) with ESMTPS id 213311B1;
- Mon, 17 Oct 2022 08:49:24 +0100 (BST)
-Received: from localhost.localdomain (10.167.220.84) by
- R01UKEXCASM126.r01.fujitsu.local (10.183.43.178) with Microsoft SMTP Server
- (TLS) id 15.0.1497.32; Mon, 17 Oct 2022 08:49:21 +0100
-From: Yang Xu <xuyang2018.jy@fujitsu.com>
-To: <chrubis@suse.cz>
-Date: Mon, 17 Oct 2022 16:49:59 +0800
-Message-ID: <1665996599-6420-2-git-send-email-xuyang2018.jy@fujitsu.com>
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <1665996599-6420-1-git-send-email-xuyang2018.jy@fujitsu.com>
-References: <1665996599-6420-1-git-send-email-xuyang2018.jy@fujitsu.com>
+ by relay2.suse.de (Postfix) with ESMTPS id B06AC2C141;
+ Mon, 17 Oct 2022 08:07:44 +0000 (UTC)
+References: <20220823145213.24375-1-akumar@suse.de>
+User-agent: mu4e 1.6.10; emacs 28.1
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Avinesh Kumar <akumar@suse.de>
+Date: Mon, 17 Oct 2022 09:07:33 +0100
+In-reply-to: <20220823145213.24375-1-akumar@suse.de>
+Message-ID: <87edv6q3e8.fsf@suse.de>
 MIME-Version: 1.0
-X-Originating-IP: [10.167.220.84]
-X-ClientProxiedBy: G08CNEXCHPEKD07.g08.fujitsu.local (10.167.33.80) To
- R01UKEXCASM126.r01.fujitsu.local (10.183.43.178)
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: [LTP] [PATCH v5 2/2] syscalls/openat: Add new regression test when
- using open(O_TMPFILE) under umask
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] setfsuid01.c: Rewrite using new LTP API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,237 +72,152 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: brauner@kernel.org, ltp@lists.linux.it
+Reply-To: rpalethorpe@suse.de
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
----
-v4->v5: add 426b4ca2d6a5 to the test tag
- runtest/syscalls                            |   2 +-
- testcases/kernel/syscalls/openat/.gitignore |   1 +
- testcases/kernel/syscalls/openat/openat04.c | 182 ++++++++++++++++++++
- 3 files changed, 184 insertions(+), 1 deletion(-)
- create mode 100644 testcases/kernel/syscalls/openat/openat04.c
+Merged! Thanks
 
-diff --git a/runtest/syscalls b/runtest/syscalls
-index c81764df4..776a121f0 100644
---- a/runtest/syscalls
-+++ b/runtest/syscalls
-@@ -918,10 +918,10 @@ open12 open12
- open13 open13
- open14 open14
- 
--#openat test cases
- openat01 openat01
- openat02 openat02
- openat03 openat03
-+openat04 openat04
- 
- openat201 openat201
- openat202 openat202
-diff --git a/testcases/kernel/syscalls/openat/.gitignore b/testcases/kernel/syscalls/openat/.gitignore
-index 2928dae22..2d15872ab 100644
---- a/testcases/kernel/syscalls/openat/.gitignore
-+++ b/testcases/kernel/syscalls/openat/.gitignore
-@@ -2,3 +2,4 @@
- /openat02
- /openat02_child
- /openat03
-+/openat04
-diff --git a/testcases/kernel/syscalls/openat/openat04.c b/testcases/kernel/syscalls/openat/openat04.c
-new file mode 100644
-index 000000000..f99911d25
---- /dev/null
-+++ b/testcases/kernel/syscalls/openat/openat04.c
-@@ -0,0 +1,182 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2022 FUJITSU LIMITED. All rights reserved.
-+ * Author: Yang Xu <xuyang2018.jy@fujitsu.com>
-+ */
-+
-+/*\
-+ * [Description]
-+ *
-+ * Check setgid strip logic whether works correctly when creating tmpfile under
-+ * filesystem without POSIX ACL supported(by using noacl mount option). Test it
-+ * with umask S_IXGRP and also check file mode whether has filtered S_IXGRP.
-+ *
-+ * Fixed in:
-+ *
-+ *  commit ac6800e279a22b28f4fc21439843025a0d5bf03e
-+ *  Author: Yang Xu <xuyang2018.jy@fujitsu.com>
-+ *  Date:   Thu July 14 14:11:26 2022 +0800
-+ *
-+ *  fs: Add missing umask strip in vfs_tmpfile
-+ *
-+ * The most code is pasted form creat09.c.
-+ */
-+
-+#define _GNU_SOURCE
-+#include <stdlib.h>
-+#include <sys/types.h>
-+#include <pwd.h>
-+#include <sys/mount.h>
-+#include <fcntl.h>
-+#include <unistd.h>
-+#include <stdio.h>
-+#include "tst_test.h"
-+#include "tst_uid.h"
-+#include "tst_safe_file_at.h"
-+
-+#define MODE_RWX        0777
-+#define MODE_SGID       (S_ISGID|0777)
-+#define MNTPOINT	"mntpoint"
-+#define WORKDIR		MNTPOINT "/testdir"
-+#define OPEN_FILE	"open.tmp"
-+
-+static gid_t free_gid;
-+static int tmpfile_fd = -1, dir_fd = -1, mount_flag;
-+static struct passwd *ltpuser;
-+
-+static void do_mount(const char *source, const char *target,
-+	const char *filesystemtype, unsigned long mountflags,
-+	const void *data)
-+{
-+	TEST(mount(source, target, filesystemtype, mountflags, data));
-+
-+	if (TST_RET == -1 && TST_ERR == EINVAL)
-+		tst_brk(TCONF, "Kernel does not support noacl feature");
-+
-+	if (TST_RET == -1) {
-+		tst_brk(TBROK | TTERRNO, "mount(%s, %s, %s, %lu, %p) failed",
-+			source, target, filesystemtype, mountflags, data);
-+	}
-+
-+	if (TST_RET)
-+		tst_brk(TBROK, "Invalid mount return value %ld", TST_RET);
-+
-+	mount_flag = 1;
-+}
-+
-+static void open_tmpfile_supported(int dirfd)
-+{
-+	TEST(openat(dirfd, ".", O_TMPFILE | O_RDWR, S_IXGRP | S_ISGID));
-+
-+	if (TST_RET == -1) {
-+		if (errno == ENOTSUP)
-+			tst_brk(TCONF, "fs doesn't support O_TMPFILE");
-+		else
-+			tst_brk(TBROK | TTERRNO, "openat(%d, O_TMPFILE) failed", dirfd);
-+	}
-+
-+	if (TST_RET < 0)
-+		tst_brk(TBROK, "Invalid openat return value %ld", TST_RET);
-+
-+	SAFE_CLOSE(TST_RET);
-+}
-+
-+static void setup(void)
-+{
-+	struct stat buf;
-+
-+	ltpuser = SAFE_GETPWNAM("nobody");
-+
-+	do_mount(tst_device->dev, MNTPOINT, tst_device->fs_type, 0, "noacl");
-+
-+	tst_res(TINFO, "User nobody: uid = %d, gid = %d", (int)ltpuser->pw_uid,
-+		(int)ltpuser->pw_gid);
-+	free_gid = tst_get_free_gid(ltpuser->pw_gid);
-+
-+	/* Create directories and set permissions */
-+	SAFE_MKDIR(WORKDIR, MODE_RWX);
-+	dir_fd = SAFE_OPEN(WORKDIR, O_RDONLY, O_DIRECTORY);
-+	open_tmpfile_supported(dir_fd);
-+
-+	SAFE_CHOWN(WORKDIR, ltpuser->pw_uid, free_gid);
-+	SAFE_CHMOD(WORKDIR, MODE_SGID);
-+	SAFE_STAT(WORKDIR, &buf);
-+
-+	if (!(buf.st_mode & S_ISGID))
-+		tst_brk(TBROK, "%s: Setgid bit not set", WORKDIR);
-+
-+	if (buf.st_gid != free_gid) {
-+		tst_brk(TBROK, "%s: Incorrect group, %u != %u", WORKDIR,
-+			buf.st_gid, free_gid);
-+	}
-+
-+	/* Switch user */
-+	SAFE_SETGID(ltpuser->pw_gid);
-+	SAFE_SETREUID(-1, ltpuser->pw_uid);
-+}
-+
-+static void file_test(int dfd, const char *path, int flags)
-+{
-+	struct stat buf;
-+
-+	SAFE_FSTATAT(dfd, path, &buf, flags);
-+
-+	TST_EXP_EQ_LI(buf.st_gid, free_gid);
-+
-+	if (buf.st_mode & S_ISGID)
-+		tst_res(TFAIL, "%s: Setgid bit is set", path);
-+	else
-+		tst_res(TPASS, "%s: Setgid bit not set", path);
-+
-+	if (buf.st_mode & S_IXGRP)
-+		tst_res(TFAIL, "%s: S_IXGRP bit is set", path);
-+	else
-+		tst_res(TPASS, "%s: S_IXGRP bit is not set", path);
-+}
-+
-+static void run(void)
-+{
-+	char path[PATH_MAX];
-+
-+	umask(S_IXGRP);
-+	tmpfile_fd = SAFE_OPENAT(dir_fd, ".", O_TMPFILE | O_RDWR, MODE_SGID);
-+	snprintf(path, PATH_MAX, "/proc/self/fd/%d", tmpfile_fd);
-+	SAFE_LINKAT(AT_FDCWD, path, dir_fd, OPEN_FILE, AT_SYMLINK_FOLLOW);
-+	file_test(dir_fd, OPEN_FILE, 0);
-+	SAFE_CLOSE(tmpfile_fd);
-+	/* Cleanup between loops */
-+	tst_purge_dir(WORKDIR);
-+}
-+
-+static void cleanup(void)
-+{
-+	SAFE_SETREUID(-1, 0);
-+
-+	if (tmpfile_fd >= 0)
-+		SAFE_CLOSE(tmpfile_fd);
-+	if (dir_fd >= 0)
-+		SAFE_CLOSE(dir_fd);
-+	if (mount_flag && tst_umount(MNTPOINT))
-+		tst_res(TWARN | TERRNO, "umount(%s)", MNTPOINT);
-+}
-+
-+static struct tst_test test = {
-+	.test_all = run,
-+	.setup = setup,
-+	.cleanup = cleanup,
-+	.needs_root = 1,
-+	.all_filesystems = 1,
-+	.format_device = 1,
-+	.mntpoint = MNTPOINT,
-+	.skip_filesystems = (const char*[]) {
-+		"exfat",
-+		"ntfs",
-+		"vfat",
-+		NULL
-+	},
-+	.tags = (const struct tst_tag[]) {
-+		{"linux-git", "ac6800e279a2"},
-+		{"linux-git", "426b4ca2d6a5"},
-+		{}
-+	},
-+};
+Avinesh Kumar <akumar@suse.de> writes:
+
+> Rewrite with new API and add test to verify that filesystem user ID was
+> correctly updated by calling setfsuid(-1) which will always fail but
+> will return the previous filesystem user ID.
+>
+> Signed-off-by: Avinesh Kumar <akumar@suse.de>
+> ---
+>  .../kernel/syscalls/setfsuid/setfsuid01.c     | 96 ++++++-------------
+>  1 file changed, 27 insertions(+), 69 deletions(-)
+>
+> diff --git a/testcases/kernel/syscalls/setfsuid/setfsuid01.c b/testcases/kernel/syscalls/setfsuid/setfsuid01.c
+> index 63f9f5dd8..0cbf101ee 100644
+> --- a/testcases/kernel/syscalls/setfsuid/setfsuid01.c
+> +++ b/testcases/kernel/syscalls/setfsuid/setfsuid01.c
+> @@ -1,87 +1,45 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+>  /*
+>   * Copyright (c) International Business Machines  Corp., 2001
+>   * Ported by Wayne Boyer
+> - *
+> - * This program is free software;  you can redistribute it and/or modify
+> - * it under the terms of the GNU General Public License as published by
+> - * the Free Software Foundation; either version 2 of the License, or
+> - * (at your option) any later version.
+> - *
+> - * This program is distributed in the hope that it will be useful,
+> - * but WITHOUT ANY WARRANTY;  without even the implied warranty of
+> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See
+> - * the GNU General Public License for more details.
+> - *
+> - * You should have received a copy of the GNU General Public License
+> - * along with this program;  if not, write to the Free Software
+> - * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+> + * Copyright (c) 2022 SUSE LLC Avinesh Kumar <avinesh.kumar@suse.com>
+>   */
+>  
+> -/*
+> - * Testcase to test the basic functionality of the setfsuid(2) system call.
+> +/*\
+> + * [Description]
+> + *
+> + * Verify that setfsuid() correctly updates the filesystem user ID
+> + * to the value given in fsuid argument.
+>   */
+>  
+> -#include <sys/types.h>
+> -#include <sys/fsuid.h>
+> -#include <stdio.h>
+> -#include <unistd.h>
+> -#include <errno.h>
+> +#include <pwd.h>
+> +#include "tst_test.h"
+> +#include "compat_tst_16.h"
+>  
+> -#include "test.h"
+> -#include "compat_16.h"
+> +static uid_t nobody_uid;
+>  
+> -static void setup(void);
+> -static void cleanup(void);
+> +static void setup(void)
+> +{
+> +	struct passwd *nobody;
+>  
+> -TCID_DEFINE(setfsuid01);
+> -int TST_TOTAL = 1;
+> +	nobody = SAFE_GETPWNAM("nobody");
+> +	nobody_uid = nobody->pw_uid;
+> +}
+>  
+> -int main(int ac, char **av)
+> +static void run(void)
+>  {
+> -	int lc;
+> -
+>  	uid_t uid;
+>  
+> -	tst_parse_opts(ac, av, NULL, NULL);
+> -
+> -	setup();
+> -
+>  	uid = geteuid();
+> -	UID16_CHECK(uid, setfsuid, cleanup);
+> -
+> -	for (lc = 0; TEST_LOOPING(lc); lc++) {
+> +	UID16_CHECK(uid, setfsuid);
+>  
+> -		tst_count = 0;
+> -
+> -		TEST(SETFSUID(cleanup, uid));
+> -
+> -		if (TEST_RETURN == -1) {
+> -			tst_resm(TFAIL | TTERRNO,
+> -				"setfsuid() failed unexpectedly");
+> -			continue;
+> -		}
+> -
+> -		if (TEST_RETURN != uid) {
+> -			tst_resm(TFAIL, "setfsuid() returned %ld, expected %d",
+> -				 TEST_RETURN, uid);
+> -		} else {
+> -			tst_resm(TPASS,
+> -				"setfsuid() returned expected value : %ld",
+> -				TEST_RETURN);
+> -		}
+> -	}
+> -
+> -	cleanup();
+> -	tst_exit();
+> +	SAFE_SETEUID(0);
+> +	TST_EXP_VAL(setfsuid(nobody_uid), uid, "setfsuid(%d)", nobody_uid);
+> +	TST_EXP_VAL(setfsuid(-1), nobody_uid);
+>  }
+>  
+> -static void setup(void)
+> -{
+> -	tst_sig(NOFORK, DEF_HANDLER, cleanup);
+> -
+> -	TEST_PAUSE;
+> -}
+> -
+> -static void cleanup(void)
+> -{
+> -}
+> +static struct tst_test test = {
+> +	.setup = setup,
+> +	.test_all = run,
+> +	.needs_root = 1
+> +};
+> -- 
+> 2.37.1
+
+
 -- 
-2.23.0
-
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
