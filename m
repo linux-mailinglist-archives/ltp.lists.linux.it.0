@@ -1,74 +1,67 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6C66600E69
-	for <lists+linux-ltp@lfdr.de>; Mon, 17 Oct 2022 14:00:28 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E862600F49
+	for <lists+linux-ltp@lfdr.de>; Mon, 17 Oct 2022 14:36:28 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id EA6DE3CAFCA
-	for <lists+linux-ltp@lfdr.de>; Mon, 17 Oct 2022 14:00:27 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 1F8E93CAFF2
+	for <lists+linux-ltp@lfdr.de>; Mon, 17 Oct 2022 14:36:28 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::3])
+Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 38CA93CAFCA
- for <ltp@lists.linux.it>; Mon, 17 Oct 2022 14:00:23 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 483483C4CCC
+ for <ltp@lists.linux.it>; Mon, 17 Oct 2022 14:36:23 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 918441A00252
- for <ltp@lists.linux.it>; Mon, 17 Oct 2022 14:00:22 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id BB9ED205EA;
- Mon, 17 Oct 2022 12:00:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1666008021; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 953102005D2
+ for <ltp@lists.linux.it>; Mon, 17 Oct 2022 14:36:22 +0200 (CEST)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id CDFBB20607;
+ Mon, 17 Oct 2022 12:36:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1666010181;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=pOnjf+BdGCVQ3HC3RO0qZu6OPmdZA+JIiPuDUPFfBAM=;
- b=L2/q7HX/I44nhzbGKr2P7bnk5SrhSVih82az9v3n3Oa2SnVGtndH2Iiweau/ovFos++Svc
- nAtoFz2GIlEKOpuQPFfT7CQK0YBCO/ESOSt0X/ztoleZgU1wB9rrHseKz7bHMFBaaxyahU
- B4HoGyCFSdEmdQu3CXa8PLd4v7hUYE8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1666008021;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ bh=vrsNap5cJwQEe4djF1taADrYZdEVOhH9m85l6DjNfH8=;
+ b=hRUnfL9sd/eSEQaa0CGfpWq7YABlVBRDAGN57O1dStYYV/JiW3dbJMLDiJskdkMuc4hCWF
+ LfPuPEcVDrw1ddeXBHdDOlrc4aafrHuvm2Kr1jEGzIID/9XdSirynxL3CEDO/uj0wSF2Dv
+ J9ReI9KRHs/Gqg4ttw/W03Jg6v6tG48=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1666010181;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=pOnjf+BdGCVQ3HC3RO0qZu6OPmdZA+JIiPuDUPFfBAM=;
- b=KBZGwjHtk0Zw4ix7tk7waes6rEwvjpPDYThknuVXRk5z1t7B2rSz9dEVf6RsX9vIeBNxu/
- 1d29v3nL1bDTvPBw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ bh=vrsNap5cJwQEe4djF1taADrYZdEVOhH9m85l6DjNfH8=;
+ b=KroYN/aYBWWWz4NzSJuTobPWwn6q6+HUZZ94aPtNjr4g8Fdu6a61gW26SpODZ6ZJ4QMNA1
+ JAVptAK+5Ys/5dAg==
+Received: from g78 (unknown [10.100.228.202])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5B63913398;
- Mon, 17 Oct 2022 12:00:21 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id zgCaDtVDTWN7IwAAMHmgww
- (envelope-from <chrubis@suse.cz>); Mon, 17 Oct 2022 12:00:21 +0000
-Date: Mon, 17 Oct 2022 14:02:03 +0200
-From: Cyril Hrubis <chrubis@suse.cz>
-To: Tarun Sahu <tsahu@linux.ibm.com>
-Message-ID: <Y01EOw44z65j+quq@yuki>
-References: <20221016125731.249078-1-tsahu@linux.ibm.com>
- <20221016125731.249078-5-tsahu@linux.ibm.com>
+ by relay2.suse.de (Postfix) with ESMTPS id C84922C141;
+ Mon, 17 Oct 2022 12:36:20 +0000 (UTC)
+References: <1663204902-4185-1-git-send-email-liaohj.jy@fujitsu.com>
+User-agent: mu4e 1.6.10; emacs 28.1
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Liao Huangjie <liaohj.jy@fujitsu.com>
+Date: Mon, 17 Oct 2022 13:08:08 +0100
+In-reply-to: <1663204902-4185-1-git-send-email-liaohj.jy@fujitsu.com>
+Message-ID: <87h702oce4.fsf@suse.de>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20221016125731.249078-5-tsahu@linux.ibm.com>
-X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH 04/29] Hugetlb: Migrating libhugetlbfs counters
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] syscalls/fork01:Convert into new api
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,595 +73,355 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: aneesh.kumar@linux.ibm.com, sbhat@linux.ibm.com, ltp@lists.linux.it,
- vaibhav@linux.ibm.com
+Reply-To: rpalethorpe@suse.de
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi!
-> Signed-off-by: Tarun Sahu <tsahu@linux.ibm.com>
+Hello,
+
+Liao Huangjie <liaohj.jy@fujitsu.com> writes:
+
+> From: Huangjie Liao <liaohj.jy@fujitsu.com>
+>
+> Signed-off-by: Huangjie Liao <liaohj.jy@fujitsu.com>
 > ---
->  runtest/hugetlb                               |   1 +
->  testcases/kernel/mem/.gitignore               |   1 +
->  .../kernel/mem/hugetlb/hugemmap/hugemmap10.c  | 475 ++++++++++++++++++
->  3 files changed, 477 insertions(+)
->  create mode 100644 testcases/kernel/mem/hugetlb/hugemmap/hugemmap10.c
-> 
-> diff --git a/runtest/hugetlb b/runtest/hugetlb
-> index e2ada7a97..8a56d52a3 100644
-> --- a/runtest/hugetlb
-> +++ b/runtest/hugetlb
-> @@ -6,6 +6,7 @@ hugemmap06 hugemmap06
->  hugemmap07 hugemmap07
->  hugemmap08 hugemmap08
->  hugemmap09 hugemmap09
-> +hugemmap10 hugemmap10
->  hugemmap05_1 hugemmap05 -m
->  hugemmap05_2 hugemmap05 -s
->  hugemmap05_3 hugemmap05 -s -m
-> diff --git a/testcases/kernel/mem/.gitignore b/testcases/kernel/mem/.gitignore
-> index 1a242ffe0..e7def68cb 100644
-> --- a/testcases/kernel/mem/.gitignore
-> +++ b/testcases/kernel/mem/.gitignore
-> @@ -7,6 +7,7 @@
->  /hugetlb/hugemmap/hugemmap07
->  /hugetlb/hugemmap/hugemmap08
->  /hugetlb/hugemmap/hugemmap09
-> +/hugetlb/hugemmap/hugemmap10
->  /hugetlb/hugeshmat/hugeshmat01
->  /hugetlb/hugeshmat/hugeshmat02
->  /hugetlb/hugeshmat/hugeshmat03
-> diff --git a/testcases/kernel/mem/hugetlb/hugemmap/hugemmap10.c b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap10.c
-> new file mode 100644
-> index 000000000..107add669
-> --- /dev/null
-> +++ b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap10.c
-> @@ -0,0 +1,475 @@
-> +// SPDX-License-Identifier: LGPL-2.1-or-later
-> +/*
-> + * Copyright (C) 2005-2007 David Gibson & Adam Litke, IBM Corporation.
-> + *
-> + * Test Name: Counters
-> + *
-> + * Test Description: This Test perform mmap and unmap and write operation on
-> + * hugetlb file based mapping. Mapping can be shared or private. and it checks
-> + * for Hugetlb counter (Total, Free, Reserve, Surplus) in /proc/meminfo and
-> + * compare them with expected (calculated) value. if all checks are successful,
-> + * the test passes.
-
-Here as well.
-
-> + * HISTORY
-> + *  Written by David Gibson & Adam Litke
-> + *
+>  testcases/kernel/syscalls/fork/fork01.c | 253 ++++++------------------
+>  1 file changed, 55 insertions(+), 198 deletions(-)
+>
+> diff --git a/testcases/kernel/syscalls/fork/fork01.c b/testcases/kernel/syscalls/fork/fork01.c
+> index 00d7c45c4..8ba712805 100644
+> --- a/testcases/kernel/syscalls/fork/fork01.c
+> +++ b/testcases/kernel/syscalls/fork/fork01.c
+> @@ -1,91 +1,17 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+>  /*
+>   * Copyright (c) 2000 Silicon Graphics, Inc.  All Rights Reserved.
+> + * Author: Kathy Olmsted
+> + * Co-Pilot: Steve Shaw
 > + */
 > +
+> +/*\
+> + *[Description]
+>   *
+> - * This program is free software; you can redistribute it and/or modify it
+> - * under the terms of version 2 of the GNU General Public License as
+> - * published by the Free Software Foundation.
+> - *
+> - * This program is distributed in the hope that it would be useful, but
+> - * WITHOUT ANY WARRANTY; without even the implied warranty of
+> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+> - *
+> - * Further, this software is distributed without any warranty that it is
+> - * free of the rightful claim of any third person regarding infringement
+> - * or the like.  Any license provided herein, whether implied or
+> - * otherwise, applies only to this software file.  Patent licenses, if
+> - * any, provided herein do not apply to combinations of this program with
+> - * other software, or any other product whatsoever.
+> - *
+> - * You should have received a copy of the GNU General Public License along
+> - * with this program; if not, write the Free Software Foundation, Inc.,
+> - * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+> - *
+> - * Contact information: Silicon Graphics, Inc., 1600 Amphitheatre Pkwy,
+> - * Mountain View, CA  94043, or:
+> - *
+> - * http://www.sgi.com
+> - *
+> - * For further information regarding this notice, see:
+> - *
+> - * http://oss.sgi.com/projects/GenInfo/NoticeExplan/
+> - *
+> - *
+> - *    OS Test - Silicon Graphics, Inc.
+> - *    TEST IDENTIFIER	: fork01
+> - *    EXECUTED BY	: anyone
+> - *    TEST TITLE	: Basic test for fork(2)
+> - *    PARENT DOCUMENT	: frktds02
+> - *    TEST CASE TOTAL	: 2
+> - *    WALL CLOCK TIME	: 1
+> - *    CPU TYPES		: ALL
+> - *    AUTHOR		: Kathy Olmsted
+> - *    CO-PILOT		: Steve Shaw
+> - *    DATE STARTED	: 06/17/92
+> - *    INITIAL RELEASE	: UNICOS 7.0
+> - *    TEST CASES
+> - *	1.) fork returns without error
+> - *	2.) fork returns the pid of the child
+> - *    INPUT SPECIFICATIONS
+> - *	The standard options for system call tests are accepted.
+> - *	(See the parse_opts(3) man page).
+> - *    OUTPUT SPECIFICATIONS
+> - *    DURATION
+> - *	Terminates - with frequency and infinite modes.
+> - *    SIGNALS
+> - *	Uses SIGUSR1 to pause before test if option set.
+> - *	(See the parse_opts(3) man page).
+> - *    RESOURCES
+> - *	None
+> - *    ENVIRONMENTAL NEEDS
+> - *      No run-time environmental needs.
+> - *    SPECIAL PROCEDURAL REQUIREMENTS
+> - *	None
+> - *    INTERCASE DEPENDENCIES
+> - *	None
+> - *    DETAILED DESCRIPTION
+> - *	Setup:
+> - *	Setup signal handling.
+> - *	  Pause for SIGUSR1 if option specified.
+> - *	Test:
+> - *	 Loop if the proper options are given.
+> - *        fork()
+> - *	  Check return code, if system call failed (return=-1)
+> - *		Log the errno and Issue a FAIL message.
+> - *	  Otherwise, Issue a PASS message.
+> - *        CHILD:
+> - *           determine PID
+> - *           write to PID to a file and close the file
+> - *           exit
+> - *        PARENT:
+> - *           wait for child to exit
+> - *           read child PID from file
+> - *           compare child PID to fork() return code and report
+> - *           results
+> - *
+> - *	  Cleanup:
+> - *           Print errno log and/or timing stats if options given
+> + * This case tests fork()'s basic function.
+
+The original descrption had more info than this. In particular:
+
+> - *	1.) fork returns without error
+> - *	2.) fork returns the pid of the child
+
+
+>   */
+>  
 > +#define _GNU_SOURCE
+>  #include <errno.h>
+>  #include <string.h>
+>  #include <signal.h>
+> @@ -93,142 +19,73 @@
+>  #include <stdlib.h>
+>  #include <sys/types.h>
+>  #include <sys/wait.h>
+> -#include "test.h"
 > +#include <unistd.h>
 > +#include <stdio.h>
-> +#include <sys/mount.h>
-> +#include <limits.h>
-> +#include <sys/param.h>
-> +#include <sys/types.h>
-> +
-> +#include "hugetlb.h"
-> +
-> +
-> +/* Global test configuration */
+> +#include "tst_test.h"
+>  
+>  #define	KIDEXIT	42
+> -static void setup();
+> -static void cleanup();
+> -
+>  #define LINE_SZ	20
+>  #define FILENAME "childpid"
+>  
+> -char *TCID = "fork01";
+> -int TST_TOTAL = 2;
+> +static char buf[LINE_SZ];
 
-Please no useless comments like this one.
+This doesn't need to be a global var. In fact we don't need it at all
+(see below).
 
-> +#define PROC_NR_HUGEPAGES "/proc/sys/vm/nr_hugepages"
-> +#define PROC_OVERCOMMIT "/proc/sys/vm/nr_overcommit_hugepages"
-> +static long saved_nr_hugepages = -1;
-> +static long saved_oc_hugepages = -1;
-
-The two proc files should be saved and restored by the .save_restore
-array in the tst_test structure.
-
-> +static long hpage_size;
-> +static int private_resv;
-> +static char *verbose;
-> +
-> +/* State arrays for our mmaps */
-> +#define NR_SLOTS	2
-> +#define SL_SETUP	0
-> +#define SL_TEST		1
-> +static char hfile[NR_SLOTS][MAXPATHLEN];
-> +static int map_fd[NR_SLOTS];
-> +static char *map_addr[NR_SLOTS];
-> +static unsigned long map_size[NR_SLOTS];
-> +static unsigned int touched[NR_SLOTS];
-> +
-> +/* Keep track of expected counter values */
-> +static long prev_total;
-> +static long prev_free;
-> +static long prev_resv;
-> +static long prev_surp;
-> +
-> +#define min(a, b) (((a) < (b)) ? (a) : (b))
-> +#define max(a, b) (((a) > (b)) ? (a) : (b))
-
-We already have MIN() and MAX() defined in LTP, use them, do not
-reinvent the wheel.
-
-> +static void read_meminfo_huge(long *total, long *free, long *resv, long *surp)
-> +{
-> +	*total = SAFE_READ_MEMINFO("HugePages_Total:");
-> +	*free = SAFE_READ_MEMINFO("HugePages_Free:");
-> +	*resv = SAFE_READ_MEMINFO("HugePages_Rsvd:");
-> +	*surp = SAFE_READ_MEMINFO("HugePages_Surp:");
-> +}
-> +
-> +static int kernel_has_private_reservations(void)
-> +{
+>  
+> -/*
+> - * child_pid - the child side of the test
+> - *             determine the PID and write to a file
+> - */
+> -static void child_pid(void)
+> +static void do_child(void)
+>  {
 > +	int fd;
-> +	long t, f, r, s;
-> +	long nt, nf, nr, ns;
-> +	void *map;
-> +
-> +	/* Read pool counters */
-
-Here again, useless comment.
-
-> +	read_meminfo_huge(&t, &f, &r, &s);
-> +
-> +	fd = SAFE_OPEN(hfile[0], O_RDWR | O_CREAT, 0600);
-> +	SAFE_UNLINK(hfile[0]);
-> +	map = SAFE_MMAP(NULL, hpage_size, PROT_READ|PROT_WRITE, MAP_PRIVATE, fd, 0);
-> +
-> +	/* Recheck the counters */
-
-And here too.
-
-> +	read_meminfo_huge(&nt, &nf, &nr, &ns);
-> +
-> +	SAFE_MUNMAP(map, hpage_size);
+>  
+> -	int fildes;
+> -	char tmp_line[LINE_SZ];
+> -
+> -	fildes = creat(FILENAME, 0700);
+> -	sprintf(tmp_line, "%d\n", getpid());
+> -	write(fildes, tmp_line, LINE_SZ);
+> -	close(fildes);
+> -
+> +	fd = creat(FILENAME, 0700);
+> +	sprintf(buf, "%d\n", getpid());
+> +	SAFE_WRITE(1, fd, buf, LINE_SZ);
 > +	SAFE_CLOSE(fd);
-> +
-> +	/*
-> +	 * There are only three valid cases:
-> +	 * 1) If a surplus page was allocated to create a reservation, all
-> +	 *    four pool counters increment
-> +	 * 2) All counters remain the same except for Hugepages_Rsvd, then
-> +	 *    a reservation was created using an existing pool page.
-> +	 * 3) All counters remain the same, indicates that no reservation has
-> +	 *    been created
-> +	 */
-> +	if ((nt == t + 1) && (nf == f + 1) && (ns == s + 1) && (nr == r + 1)) {
-> +		return 1;
-> +	} else if ((nt == t) && (nf == f) && (ns == s)) {
-> +		if (nr == r + 1)
-> +			return 1;
-> +		else if (nr == r)
-> +			return 0;
-> +	} else {
-> +		tst_brk(TCONF, "%s: bad counter state - "
-> +		      "T:%li F:%li R:%li S:%li -> T:%li F:%li R:%li S:%li\n",
-> +			__func__, t, f, r, s, nt, nf, nr, ns);
+>  }
 
-There is absolutely no reason to print __func__ all the tst_* reporting
-function print filename and linenumber already.
+This whole function can be replaced with SAFE_FILE_PRINTF i.e
+SAFE_FILE_PRINTF(FILENAME, "%d", getpid());
 
+>  
+> -/*
+> - * parent_pid - the parent side of the test
+> - *              read the value determined by the child
+> - *              compare and report results
+> - */
+> -static void parent_pid(void)
+> +static void check_child_pid(int pid)
+>  {
+> +	int fd;
+> +	pid_t child_pid;
+>  
+> -	int fildes;
+> -	char tmp_line[LINE_SZ];
+> -	pid_t child_id;
+> +	fd = SAFE_OPEN(FILENAME, O_RDWR);
+> +	SAFE_READ(1, fd, buf, LINE_SZ);
+
+This can be replaced with SAFE_FILE_SCANF(FILENAME, "%d", &child_pid);
+
+>  
+> -	fildes = open(FILENAME, O_RDWR);
+> -	if (fildes == -1) {
+> -		tst_brkm(TBROK, cleanup,
+> -			 "parent open failed. errno: %d (%s)\n",
+> -			 errno, strerror(errno));
+> +	child_pid = atoi(buf);
+> +	if (child_pid != pid) {
+> +		tst_res(TFAIL, "child reported a pid of %d. parent received %d from fork()",
+> +				child_pid, pid);
+
+This can be replaced with TST_EXP_EQ_LI(child_pid, pid).
+
+>  	} else {
+> -		if (read(fildes, tmp_line, LINE_SZ) == 0) {
+> -			tst_brkm(TBROK, cleanup,
+> -				 "fork(): parent failed to read PID from file errno: %d (%s)",
+> -				 errno, strerror(errno));
+> -		} else {
+> -			child_id = atoi(tmp_line);
+> -			if (TEST_RETURN != child_id) {
+> -				tst_resm(TFAIL,
+> -					 "child reported a pid of %d. parent received %ld from fork()",
+> -					 child_id, TEST_RETURN);
+> -			} else {
+> -				tst_resm(TPASS,
+> -					 "child pid and fork() return agree: %d",
+> -					 child_id);
+> -			}
+> -		}
+> -		close(fildes);
+> -	}
+> -}
+> -
+> -int main(int ac, char **av)
+> -{
+> -	int lc;
+> -	int fails;
+> -	int kid_status, wait_status;
+> -
+> -	tst_parse_opts(ac, av, NULL, NULL);
+> -
+> -	setup();
+> -
+> -	for (lc = 0; TEST_LOOPING(lc); lc++) {
+> -		tst_count = 0;
+> -		fails = 0;
+> -
+> -		TEST(fork());
+> -		if (TEST_RETURN == -1) {
+> -			tst_resm(TFAIL, "fork() Failed, errno=%d : %s",
+> -				 TEST_ERRNO, strerror(TEST_ERRNO));
+> -			tst_resm(TBROK, "unable to continue");
+> -		}
+> -		if (TEST_RETURN == 0) {
+> -			/* child */
+> -			child_pid();
+> -			exit(KIDEXIT);
+> -		} else {
+> -			/* parent */
+> -			tst_resm(TPASS, "fork() returned %ld",
+> -				 TEST_RETURN);
+> -			/* wait for the child to complete */
+> -			wait_status = waitpid(TEST_RETURN, &kid_status, 0);
+> -
+> -			if (wait_status == TEST_RETURN) {
+> -				if (kid_status != KIDEXIT << 8) {
+> -					tst_resm(TBROK,
+> -						 "incorrect child status returned on wait(): %d",
+> -						 kid_status);
+> -					fails++;
+> -				}
+> -			} else {
+> -				tst_resm(TBROK,
+> -					 "wait() for child status failed with %d errno: %d : %s",
+> -					 wait_status, errno,
+> -					 strerror(errno));
+> -				fails++;
+> -			}
+> -			if (fails == 0) {
+> -				/* verification tests */
+> -				parent_pid();
+> -			}
+> -		}		/* TEST_RETURN */
+> +		tst_res(TPASS, "child pid and fork() return agree: %d", pid);
+>  	}
+>  
+> -	cleanup();
+> -	tst_exit();
+> +	SAFE_CLOSE(fd);
+>  }
+>  
+> -static void setup(void)
+> +static void verify_fork(void)
+>  {
+> +	int kid_status, term_pid, pid;
+>  
+> -	tst_sig(FORK, DEF_HANDLER, cleanup);
+> -
+> -	TEST_PAUSE;
+> -
+> -	tst_tmpdir();
+> -}
+> +	pid = SAFE_FORK();
+> +	if (!pid) {
+> +		do_child();
+> +		exit(KIDEXIT);
 > +	}
-> +	return -1;
-> +}
-> +
-> +static void bad_value(int line, const char *name, long expect, long actual)
-> +{
-> +	tst_res(TFAIL, "Failure Line %i: Bad %s: expected %li, actual %li",
-> +			line, name, expect, actual);
-> +	tst_brk(TBROK, "Breaking.. as once one of counter is not expected, "
-> +			"it will cause other failure anyway");
-> +}
-
-Never ever create wrappers around result reporting functions like this.
-This break the best feature these function have, i.e. they print file
-and line number where the problem has happenend.
-
-> +static void verify_counters(int line, long et, long ef, long er, long es)
-> +{
-> +	long t, f, r, s;
-> +
-> +	/* Read pool counters */
-> +	read_meminfo_huge(&t, &f, &r, &s);
-> +
-> +	if (f < r)
-> +		tst_res(TWARN, "HugePages_Free < HugePages_Rsvd");
-
-Why exactly do we warn here?
-
-> +	/* Check actual values against expected values */
-> +	if (t != et)
-> +		bad_value(line, "HugePages_Total", et, t);
-> +
-> +	if (f != ef)
-> +		bad_value(line, "HugePages_Free", ef, f);
-> +
-> +	if (r != er)
-> +		bad_value(line, "HugePages_Rsvd", er, r);
-> +
-> +	if (s != es)
-> +		bad_value(line, "HugePages_Surp", es, s);
-
-We do have rather nice macros exactly for this TST_EXP_EQ_LI() that
-would work nicely as long as you name the variables with something more
-reasonable than a single character.
-
-
-> +	/* Everything's good.  Update counters */
-> +	prev_total = t;
-> +	prev_free = f;
-> +	prev_resv = r;
-> +	prev_surp = s;
-> +}
-> +
-> +/* Memory operations:
-> + * Each of these has a predefined effect on the counters
-> + */
-> +#define persistent_huge_pages (et - es)
-
-Just NO. Argument-less macros that use local variables like this are
-nightmare.
-
-> +static void _set_nr_hugepages(long count, int line)
-
-Identifiers starting with underscore are reserved in C, don't use them.
-
-> +{
-> +	long min_size;
-> +	long et, ef, er, es;
-> +
-> +	SAFE_FILE_PRINTF(PROC_NR_HUGEPAGES, "%lu", count);
-> +
-> +	/* The code below is based on set_max_huge_pages in mm/hugetlb.c */
-> +	es = prev_surp;
-> +	et = prev_total;
-> +	ef = prev_free;
-> +	er = prev_resv;
-> +
-> +	/*
-> +	 * Increase the pool size
-> +	 * First take pages out of surplus state.  Then make up the
-> +	 * remaining difference by allocating fresh huge pages.
-> +	 */
-> +	while (es && count > persistent_huge_pages)
-> +		es--;
-> +	while (count > persistent_huge_pages) {
-> +		et++;
-> +		ef++;
-> +	}
-> +	if (count >= persistent_huge_pages)
-> +		goto out;
-> +
-> +	/*
-> +	 * Decrease the pool size
-> +	 * First return free pages to the buddy allocator (being careful
-> +	 * to keep enough around to satisfy reservations).  Then place
-> +	 * pages into surplus state as needed so the pool will shrink
-> +	 * to the desired size as pages become free.
-> +	 */
-> +	min_size = MAX(count, er + et - ef);
-> +	while (min_size < persistent_huge_pages) {
-> +		ef--;
-> +		et--;
-> +	}
-> +	while (count < persistent_huge_pages)
-> +		es++;
-> +
-> +out:
-> +	verify_counters(line, et, ef, er, es);
-> +}
-> +#define set_nr_hugepages(c) _set_nr_hugepages(c, __LINE__)
-> +
-> +static void _map(int s, int hpages, int flags, int line)
-
-Here ase well.
-
-> +{
-> +	long et, ef, er, es;
-> +
-> +	map_fd[s] = SAFE_OPEN(hfile[s], O_RDWR | O_CREAT, 0600);
-> +	SAFE_UNLINK(hfile[s]);
-> +	map_size[s] = hpages * hpage_size;
-> +	map_addr[s] = SAFE_MMAP(NULL, map_size[s], PROT_READ|PROT_WRITE, flags,
-> +				map_fd[s], 0);
-> +	touched[s] = 0;
-> +
-> +	et = prev_total;
-> +	ef = prev_free;
-> +	er = prev_resv;
-> +	es = prev_surp;
-> +
-> +	/*
-> +	 * When using MAP_SHARED, a reservation will be created to guarantee
-> +	 * pages to the process.  If not enough pages are available to
-> +	 * satisfy the reservation, surplus pages are added to the pool.
-> +	 * NOTE: This code assumes that the whole mapping needs to be
-> +	 * reserved and hence, will not work with partial reservations.
-> +	 *
-> +	 * If the kernel supports private reservations, then MAP_PRIVATE
-> +	 * mappings behave like MAP_SHARED at mmap time.  Otherwise,
-> +	 * no counter updates will occur.
-> +	 */
-> +	if ((flags & MAP_SHARED) || private_resv) {
-> +		unsigned long shortfall = 0;
-> +
-> +		if (hpages + prev_resv > prev_free)
-> +			shortfall = hpages - prev_free + prev_resv;
-> +		et += shortfall;
-> +		ef = prev_free + shortfall;
-> +		er = prev_resv + hpages;
-> +		es = prev_surp + shortfall;
-> +	}
-> +
-> +	verify_counters(line, et, ef, er, es);
-> +}
-> +#define map(s, h, f) _map(s, h, f, __LINE__)
-> +
-> +static void _unmap(int s, int hpages, int flags, int line)
-
-And here.
-
-> +{
-> +	long et, ef, er, es;
-> +	unsigned long i;
-> +
-> +	SAFE_MUNMAP(map_addr[s], map_size[s]);
-> +	SAFE_CLOSE(map_fd[s]);
-> +	map_addr[s] = NULL;
-> +	map_size[s] = 0;
-> +
-> +	et = prev_total;
-> +	ef = prev_free;
-> +	er = prev_resv;
-> +	es = prev_surp;
-> +
-> +	/*
-> +	 * When a VMA is unmapped, the instantiated (touched) pages are
-> +	 * freed.  If the pool is in a surplus state, pages are freed to the
-> +	 * buddy allocator, otherwise they go back into the hugetlb pool.
-> +	 * NOTE: This code assumes touched pages have only one user.
-> +	 */
-> +	for (i = 0; i < touched[s]; i++) {
-> +		if (es) {
-> +			et--;
-> +			es--;
-> +		} else
-> +			ef++;
-> +	}
-> +
-> +	/*
-> +	 * mmap may have created some surplus pages to accommodate a
-> +	 * reservation.  If those pages were not touched, then they will
-> +	 * not have been freed by the code above.  Free them here.
-> +	 */
-> +	if ((flags & MAP_SHARED) || private_resv) {
-> +		int unused_surplus = MIN(hpages - touched[s], es);
-> +
-> +		et -= unused_surplus;
-> +		ef -= unused_surplus;
-> +		er -= hpages - touched[s];
-> +		es -= unused_surplus;
-> +	}
-> +
-> +	verify_counters(line, et, ef, er, es);
-> +}
-> +#define unmap(s, h, f) _unmap(s, h, f, __LINE__)
-> +
-> +static void _touch(int s, int hpages, int flags, int line)
-
-And here.
-
-> +{
-> +	long et, ef, er, es;
-> +	int nr;
-> +	char *c;
-> +
-> +	for (c = map_addr[s], nr = hpages;
-> +			hpages && c < map_addr[s] + map_size[s];
-> +			c += hpage_size, nr--)
-> +		*c = (char) (nr % 2);
-> +	/*
-> +	 * Keep track of how many pages were touched since we can't easily
-> +	 * detect that from user space.
-> +	 * NOTE: Calling this function more than once for a mmap may yield
-> +	 * results you don't expect.  Be careful :)
-> +	 */
-> +	touched[s] = MAX(touched[s], hpages);
-> +
-> +	/*
-> +	 * Shared (and private when supported) mappings and consume resv pages
-> +	 * that were previously allocated. Also deduct them from the free count.
-> +	 *
-> +	 * Unreserved private mappings may need to allocate surplus pages to
-> +	 * satisfy the fault.  The surplus pages become part of the pool
-> +	 * which could elevate total, free, and surplus counts.  resv is
-> +	 * unchanged but free must be decreased.
-> +	 */
-> +	if (flags & MAP_SHARED || private_resv) {
-> +		et = prev_total;
-> +		ef = prev_free - hpages;
-> +		er = prev_resv - hpages;
-> +		es = prev_surp;
-> +	} else {
-> +		if (hpages + prev_resv > prev_free)
-> +			et = prev_total + (hpages - prev_free + prev_resv);
+>  
+> -static void cleanup(void)
+> -{
+> +	term_pid = SAFE_WAITPID(pid, &kid_status, 0);
+> +	if (term_pid == pid) {
+> +		if (kid_status != KIDEXIT << 8)
+> +			tst_res(TFAIL, "incorrect child status returned %d", kid_status);
 > +		else
-> +			et = prev_total;
-> +		er = prev_resv;
-> +		es = prev_surp + et - prev_total;
-> +		ef = prev_free - hpages + et - prev_total;
+> +			tst_res(TPASS, "correct child status returned
+> %d", kid_status);
+
+The original test is not strictly correct. We should check if the child
+exited with WIFEXITED and use the WEXITSTATUS macro to get the exit
+status.
+
+>  
+> -	tst_rmdir();
+> +		check_child_pid(pid);
+> +	} else {
+> +		tst_res(TFAIL, "waitpid() returns %d instead of  expected pid %d", term_pid, pid);
 > +	}
-> +	verify_counters(line, et, ef, er, es);
-> +}
-> +#define touch(s, h, f) _touch(s, h, f, __LINE__)
-> +
-> +static void test_counters(char *desc, int base_nr)
-> +{
-> +	if (verbose)
-> +		tst_res(TINFO, "%s...", desc);
-> +	set_nr_hugepages(base_nr);
-> +
-> +	/* untouched, shared mmap */
-> +	map(SL_TEST, 1, MAP_SHARED);
-> +	unmap(SL_TEST, 1, MAP_SHARED);
-> +
-> +	/* untouched, private mmap */
-> +	map(SL_TEST, 1, MAP_PRIVATE);
-> +	unmap(SL_TEST, 1, MAP_PRIVATE);
-> +
-> +	/* touched, shared mmap */
-> +	map(SL_TEST, 1, MAP_SHARED);
-> +	touch(SL_TEST, 1, MAP_SHARED);
-> +	unmap(SL_TEST, 1, MAP_SHARED);
-> +
-> +	/* touched, private mmap */
-> +	map(SL_TEST, 1, MAP_PRIVATE);
-> +	touch(SL_TEST, 1, MAP_PRIVATE);
-> +	unmap(SL_TEST, 1, MAP_PRIVATE);
-> +
-> +	/* Explicit resizing during outstanding surplus */
-> +	/* Consume surplus when growing pool */
-> +	map(SL_TEST, 2, MAP_SHARED);
-> +	set_nr_hugepages(max(base_nr, 1));
-> +
-> +	/* Add pages once surplus is consumed */
-> +	set_nr_hugepages(max(base_nr, 3));
-> +
-> +	/* Release free huge pages first */
-> +	set_nr_hugepages(max(base_nr, 2));
-> +
-> +	/* When shrinking beyond committed level, increase surplus */
-> +	set_nr_hugepages(base_nr);
-> +
-> +	/* Upon releasing the reservation, reduce surplus counts */
-> +	unmap(SL_TEST, 2, MAP_SHARED);
-> +	if (verbose)
-> +		tst_res(TINFO, "OK");
-> +}
-> +
-> +static void per_iteration_cleanup(void)
-> +{
-> +	for (int nr = 0; nr < NR_SLOTS; nr++) {
-> +		if (map_fd[nr] >= 0)
-> +			SAFE_CLOSE(map_fd[nr]);
-> +	}
-> +	if (hpage_size <= 0)
-> +		return;
-> +	if (saved_nr_hugepages >= 0)
-> +		SAFE_FILE_PRINTF(PROC_NR_HUGEPAGES, "%ld", saved_nr_hugepages);
-> +	if (saved_oc_hugepages >= 0)
-> +		SAFE_FILE_PRINTF(PROC_OVERCOMMIT, "%ld", saved_oc_hugepages);
-> +}
-> +
-> +static void run_test(void)
-> +{
-> +	int base_nr = 0;
-> +
-> +	saved_nr_hugepages = SAFE_READ_MEMINFO("HugePages_Total:");
-> +
-> +	/* Verify Dynamic Pool support */
-> +	SAFE_FILE_LINES_SCANF(PROC_OVERCOMMIT, "%ld", &saved_oc_hugepages);
-> +	if (saved_oc_hugepages < 0)
-> +		tst_brk(TCONF, "Kernel appears to lack dynamic hugetlb pool support");
-
-Again, this cannot happen at all.
-
-> +	SAFE_FILE_PRINTF(PROC_OVERCOMMIT, "%d", 3);
-> +
-> +	private_resv = kernel_has_private_reservations();
-> +	/*
-> +	 * This test case should require a maximum of 3 huge pages.
-> +	 * Run through the battery of tests multiple times, with an increasing
-> +	 * base pool size.  This alters the circumstances under which surplus
-> +	 * pages need to be allocated and increases the corner cases tested.
-> +	 */
-
-Any verbose description like this should rather be part of the
-documentaiton comment.
-
-> +	for (base_nr = 0; base_nr <= 3; base_nr++) {
-> +		if (verbose)
-> +			tst_res(TINFO, "Base pool size: %i", base_nr);
-
-Again not very keen on the verbose flag.
-
-> +		/* Run the tests with a clean slate */
-> +		test_counters("Clean", base_nr);
-> +
-> +		/* Now with a pre-existing untouched, shared mmap */
-> +		map(SL_SETUP, 1, MAP_SHARED);
-> +		test_counters("Untouched, shared", base_nr);
-> +		unmap(SL_SETUP, 1, MAP_SHARED);
-> +
-> +		/* Now with a pre-existing untouched, private mmap */
-> +		map(SL_SETUP, 1, MAP_PRIVATE);
-> +		test_counters("Untouched, private", base_nr);
-> +		unmap(SL_SETUP, 1, MAP_PRIVATE);
-> +
-> +		/* Now with a pre-existing touched, shared mmap */
-> +		map(SL_SETUP, 1, MAP_SHARED);
-> +		touch(SL_SETUP, 1, MAP_SHARED);
-> +		test_counters("Touched, shared", base_nr);
-> +		unmap(SL_SETUP, 1, MAP_SHARED);
-> +
-> +		/* Now with a pre-existing touched, private mmap */
-> +		map(SL_SETUP, 1, MAP_PRIVATE);
-> +		touch(SL_SETUP, 1, MAP_PRIVATE);
-> +		test_counters("Touched, private", base_nr);
-> +		unmap(SL_SETUP, 1, MAP_PRIVATE);
-> +	}
-> +	tst_res(TPASS, "Hugepages Counters works as expected.");
-> +	per_iteration_cleanup();
-> +}
-> +
-> +static void setup(void)
-> +{
-> +	if (!Hopt)
-> +		Hopt = tst_get_tmpdir();
-> +	SAFE_MOUNT("none", Hopt, "hugetlbfs", 0, NULL);
-> +	for (int nr = 0; nr < NR_SLOTS; nr++) {
-> +		snprintf(hfile[nr], sizeof(hfile[nr]), "%s/ltp_hugetlbfile%d_%d",
-> +				Hopt, getpid(), nr);
-> +	}
-> +
-> +	hpage_size = SAFE_READ_MEMINFO("Hugepagesize:")*1024;
-> +}
-> +
-> +static void cleanup(void)
-> +{
-> +	per_iteration_cleanup();
-> +	umount2(Hopt, MNT_DETACH);
-> +}
+>  
+> +	tst_reap_children();
+>  }
 > +
 > +static struct tst_test test = {
-> +	.needs_root = 1,
 > +	.needs_tmpdir = 1,
-> +	.options = (struct tst_option[]) {
-> +		{"v", &verbose, "Turns on verbose mode"},
-> +		{"H:", &Hopt,   "Location of hugetlbfs, i.e.  -H /var/hugetlbfs"},
-> +		{"s:", &nr_opt, "Set the number of the been allocated hugepages"},
-> +		{}
-> +	},
-> +	.setup = setup,
-> +	.cleanup = cleanup,
-> +	.test_all = run_test,
-> +	.hugepages = {0, TST_REQUEST},
+> +	.needs_root = 1,
+
+It doesn't need root.
+
+> +	.forks_child = 1,
+> +	.test_all = verify_fork,
 > +};
-> +
 > -- 
-> 2.31.1
-> 
-> 
-> -- 
-> Mailing list info: https://lists.linux.it/listinfo/ltp
+> 2.27.0
+
 
 -- 
-Cyril Hrubis
-chrubis@suse.cz
+Thank you,
+Richard.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
