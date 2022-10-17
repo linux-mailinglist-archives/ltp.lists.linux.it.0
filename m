@@ -2,65 +2,90 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5EFDB60083F
-	for <lists+linux-ltp@lfdr.de>; Mon, 17 Oct 2022 10:01:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1D5560080A
+	for <lists+linux-ltp@lfdr.de>; Mon, 17 Oct 2022 09:49:27 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id F27053CAFE7
-	for <lists+linux-ltp@lfdr.de>; Mon, 17 Oct 2022 10:01:39 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 70F4E3CAFE7
+	for <lists+linux-ltp@lfdr.de>; Mon, 17 Oct 2022 09:49:27 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 3A9913CAD6A
- for <ltp@lists.linux.it>; Mon, 17 Oct 2022 10:01:36 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 805DE60075A
- for <ltp@lists.linux.it>; Mon, 17 Oct 2022 10:01:34 +0200 (CEST)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 7E25422D24
- for <ltp@lists.linux.it>; Mon, 17 Oct 2022 08:01:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1665993694;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=fvaIRs/2/LEIuNHiB30j3C30WW4oLXXA6tIxwudG6VM=;
- b=prvDaDwQpvWL5xcJq68CCWF9VTai9joJpLTJHzJviJ6PY1Bfc9f0sKTKp7+zkDn0wZe1hr
- UqicPhiDG24pwmjSSoEAIXzmQMTLhlYeJzAdBNUQpfx1Gh3fy6gXnPLRKbMcWRDWT+VRE2
- Cd3udgrfpbbchOzCKWHHenHTLzgow1U=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1665993694;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=fvaIRs/2/LEIuNHiB30j3C30WW4oLXXA6tIxwudG6VM=;
- b=9h0PstsmaU4jNIBhGuDmprUFUVaGAWC3RbxTg562EKCqqaiaaLgJtRd3GYoHOMEx2RMvUJ
- hB9YUm3uayPNQWDw==
-Received: from g78 (unknown [10.100.228.202])
+ by picard.linux.it (Postfix) with ESMTPS id 5D9113C9179
+ for <ltp@lists.linux.it>; Mon, 17 Oct 2022 09:49:23 +0200 (CEST)
+Received: from mail1.bemta34.messagelabs.com (mail1.bemta34.messagelabs.com
+ [195.245.231.4])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id 19F5F2C141;
- Mon, 17 Oct 2022 08:01:33 +0000 (UTC)
-References: <20220823095116.369-1-akumar@suse.de>
-User-agent: mu4e 1.6.10; emacs 28.1
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Avinesh Kumar <akumar@suse.de>
-Date: Mon, 17 Oct 2022 09:01:17 +0100
-In-reply-to: <20220823095116.369-1-akumar@suse.de>
-Message-ID: <87ilkiq3oj.fsf@suse.de>
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 4FE8B1A006F2
+ for <ltp@lists.linux.it>; Mon, 17 Oct 2022 09:49:21 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fujitsu.com;
+ s=170520fj; t=1665992961; i=@fujitsu.com;
+ bh=Tj1wbgztHy2YTa1Rpm/74K7AphUW20OtRUZKR4RmUB4=;
+ h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type;
+ b=Pdp+nQjAsKvGn2omi9d86pDdjFiJGowf1KiRsNsz4HXsaCmf/cdNnbtMky6+pjR93
+ ZKyPN6Z49AvnJ+ktP/y13ZQwNkUOcktoDvlXpJ6zSDdMX2MtBIOlZqoBiQabdwO3D0
+ i99Vwp1NL24pM/hww17hgszzKYtpX/cUXL9u0rPnZat06XEFx5iof0Kjv4ns0otd/I
+ FyiNRy3Vn5Ol1KQE2Swb8Q1G6EW97q3m2zNgpXbEm76DC4QB8h4cmSQmPLpahhs0fX
+ i6lFwXtdyh5ggHTPMGfbEcxb2UIR37pHU0HDsb/q4nGhDH23JM7O/CbnpVsc5SrEDY
+ PsFC1sSFuT1GQ==
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFjrIIsWRWlGSWpSXmKPExsViZ8ORqMvI6Zt
+ s8MbM4vXhT4wW018cZbNY8X0HowOzx6ZVnWwe+36vY/U4s+AIewBzFGtmXlJ+RQJrxoLPc1gK
+ nvJVXPszka2BcStPFyMXh5DAFkaJ708esUM4y5kknm6+yATh7GGUaD6+nLGLkZODTUBT4lnnA
+ mYQW0RAVOLz9HNgNrNAiMSER3uYQGxhAQeJhh17WEBsFgFVifcX+8BqeAU8JA4fegU2R0JAQW
+ LKw/dQcUGJkzOfsEDMkZA4+OIFM0SNosSljm9Q9RUSs2a1MUHYahJXz21insDIPwtJ+ywk7Qs
+ YmVYxmhanFpWlFuma6iUVZaZnlOQmZuboJVbpJuqlluqWpxaX6BrpJZYX66UWF+sVV+Ym56To
+ 5aWWbGIEhmxKsVLfDsauZX/0DjFKcjApifLO+uuTLMSXlJ9SmZFYnBFfVJqTWnyIUYaDQ0mC9
+ xBITrAoNT21Ii0zBxg/MGkJDh4lEV5HVt9kId7igsTc4sx0iNQpRkUpcV4XDqCEAEgiozQPrg
+ 0Ws5cYZaWEeRkZGBiEeApSi3IzS1DlXzGKczAqCfOKgkzhycwrgZv+CmgxE9DijP1eIItLEhF
+ SUg1MPkp3XmfWvd/y5vTHN+EtUsv3n7y8S1D2yv3oZUZXMwJddku5Nud9vsLG7n34P+8TyeAr
+ 5UFtb2bOsOk5ldYbsGn2xBmROZsFH8gILTNf3z3leJ5DZ6dQSfLiOWLpB33/HCk394zSqjjem
+ fvbRkH1yVyXia7Lfx2aYvDi7Z3lH+6/jMq5GCD+UvV+51PdMpHw5xo6zH/bl506PP/lS9fQ2q
+ Tuvd8dVq7t/y7hzfPxrdYFpYu/ZKuP/S27v0Pmgmi2h/6uA8Zutx7nP77aX3zXmt2sZM97K3e
+ feWd9N6x+d72t1aP5Qo6bh6/vJp7CJN0/d9XUk8/WP1CLXJ+alR2j4flTboqP0TeDuqWTzXxc
+ lViKMxINtZiLihMBZOuzRVQDAAA=
+X-Env-Sender: xuyang2018.jy@fujitsu.com
+X-Msg-Ref: server-7.tower-565.messagelabs.com!1665992960!187652!1
+X-Originating-IP: [62.60.8.97]
+X-SYMC-ESS-Client-Auth: outbound-route-from=pass
+X-StarScan-Received: 
+X-StarScan-Version: 9.87.3; banners=-,-,-
+X-VirusChecked: Checked
+Received: (qmail 12201 invoked from network); 17 Oct 2022 07:49:21 -0000
+Received: from unknown (HELO n03ukasimr01.n03.fujitsu.local) (62.60.8.97)
+ by server-7.tower-565.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
+ encrypted SMTP; 17 Oct 2022 07:49:20 -0000
+Received: from n03ukasimr01.n03.fujitsu.local (localhost [127.0.0.1])
+ by n03ukasimr01.n03.fujitsu.local (Postfix) with ESMTP id A9416100195;
+ Mon, 17 Oct 2022 08:49:20 +0100 (BST)
+Received: from R01UKEXCASM126.r01.fujitsu.local (R01UKEXCASM126
+ [10.183.43.178])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by n03ukasimr01.n03.fujitsu.local (Postfix) with ESMTPS id 9CE0710018D;
+ Mon, 17 Oct 2022 08:49:20 +0100 (BST)
+Received: from localhost.localdomain (10.167.220.84) by
+ R01UKEXCASM126.r01.fujitsu.local (10.183.43.178) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.32; Mon, 17 Oct 2022 08:49:18 +0100
+From: Yang Xu <xuyang2018.jy@fujitsu.com>
+To: <chrubis@suse.cz>
+Date: Mon, 17 Oct 2022 16:49:58 +0800
+Message-ID: <1665996599-6420-1-git-send-email-xuyang2018.jy@fujitsu.com>
+X-Mailer: git-send-email 1.8.3.1
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Originating-IP: [10.167.220.84]
+X-ClientProxiedBy: G08CNEXCHPEKD07.g08.fujitsu.local (10.167.33.80) To
+ R01UKEXCASM126.r01.fujitsu.local (10.183.43.178)
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH] setegid02.c: Rewrite using new LTP API
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH v5 1/2] tst_safe_file_at: Add SAFE_FSTATAT macro
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,144 +97,73 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
-Cc: ltp@lists.linux.it
+Cc: brauner@kernel.org, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello,
+Reviewed-by: Cyril Hrubis <chrubis@suse.cz>
+Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
+---
+ include/tst_safe_file_at.h |  7 +++++++
+ lib/tst_safe_file_at.c     | 20 ++++++++++++++++++++
+ 2 files changed, 27 insertions(+)
 
-Merged! Thanks
-
-Avinesh Kumar <akumar@suse.de> writes:
-
-> Signed-off-by: Avinesh Kumar <akumar@suse.de>
-> ---
->  testcases/kernel/syscalls/setegid/setegid02.c | 90 +++++--------------
->  1 file changed, 21 insertions(+), 69 deletions(-)
->
-> diff --git a/testcases/kernel/syscalls/setegid/setegid02.c b/testcases/kernel/syscalls/setegid/setegid02.c
-> index 7c60a9cf5..66a8a07fb 100644
-> --- a/testcases/kernel/syscalls/setegid/setegid02.c
-> +++ b/testcases/kernel/syscalls/setegid/setegid02.c
-> @@ -1,87 +1,39 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
->  /*
->   * Copyright (c) 2014 Fujitsu Ltd.
->   * Author: Zeng Linggang <zenglg.jy@cn.fujitsu.com>
-> - *
-> - * This program is free software; you can redistribute it and/or modify it
-> - * under the terms of version 2 of the GNU General Public License as
-> - * published by the Free Software Foundation.
-> - *
-> - * This program is distributed in the hope that it would be useful, but
-> - * WITHOUT ANY WARRANTY; without even the implied warranty of
-> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-> - *
-> - * You should have received a copy of the GNU General Public License along
-> - * with this program; if not, write the Free Software Foundation, Inc.,
-> - * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-> + * Copyright (c) 2022 SUSE LLC Avinesh Kumar <avinesh.kumar@suse.com>
->   */
-> -/*
-> - * DESCRIPTION
-> - *	The calling process is not privileged and euid is not appropriate,
-> - *	EPERM should return.
-> +
-> +/*\
-> + * [Description]
-> + *
-> + * Verify that setegid() fails with EPERM when the calling process is not
-> + * privileged and egid does not match the current real group ID,
-> + * current effective group ID, or current saved set-group-ID.
->   */
->  
-> -#include <errno.h>
->  #include <pwd.h>
-> -#include "test.h"
-> -#include "safe_macros.h"
-> -
-> -char *TCID = "setegid02";
-> -int TST_TOTAL = 1;
-> -static void setup(void);
-> -static void setegid_verify(void);
-> -static void cleanup(void);
-> +#include "tst_test.h"
->  
->  static struct passwd *ltpuser;
->  
-> -int main(int argc, char *argv[])
-> -{
-> -	int lc;
-> -
-> -	tst_parse_opts(argc, argv, NULL, NULL);
-> -
-> -	setup();
-> -
-> -	for (lc = 0; TEST_LOOPING(lc); lc++) {
-> -		tst_count = 0;
-> -		setegid_verify();
-> -	}
-> -
-> -	cleanup();
-> -	tst_exit();
-> -}
-> -
->  static void setup(void)
->  {
-> -	tst_require_root();
-> -
-> -	tst_sig(NOFORK, DEF_HANDLER, cleanup);
-> -
-> -	TEST_PAUSE;
-> -
-> -	ltpuser = SAFE_GETPWNAM(cleanup, "nobody");
-> -
-> -	SAFE_SETEUID(cleanup, ltpuser->pw_uid);
-> +	ltpuser = SAFE_GETPWNAM("nobody");
-> +	SAFE_SETEUID(ltpuser->pw_uid);
->  }
->  
->  static void setegid_verify(void)
->  {
-> -	TEST(setegid(ltpuser->pw_gid));
-> -
-> -	if (TEST_RETURN != -1) {
-> -		tst_resm(TFAIL, "setegid(%d) succeeded unexpectedly",
-> -			 ltpuser->pw_gid);
-> -		return;
-> -	}
-> -
-> -	if (TEST_ERRNO == EPERM) {
-> -		tst_resm(TPASS | TTERRNO, "setegid failed as expected");
-> -	} else {
-> -		tst_resm(TFAIL | TTERRNO,
-> -			 "setegid failed unexpectedly; expected: %d - %s",
-> -			 EPERM, strerror(EPERM));
-> -	}
-> +	TST_EXP_FAIL(setegid(ltpuser->pw_gid),
-> +				EPERM,
-> +				"setegid(%d)",
-> +				ltpuser->pw_gid);
->  }
->  
-> -static void cleanup(void)
-> -{
-> -}
-> +static struct tst_test test = {
-> +	.setup = setup,
-> +	.test_all = setegid_verify,
-> +	.needs_root = 1
-> +};
-> -- 
-> 2.37.1
-
-
+diff --git a/include/tst_safe_file_at.h b/include/tst_safe_file_at.h
+index e253198e6..082a5acd9 100644
+--- a/include/tst_safe_file_at.h
++++ b/include/tst_safe_file_at.h
+@@ -29,6 +29,9 @@
+ 	safe_fchownat(__FILE__, __LINE__,				\
+ 			(dirfd), (path), (owner), (group), (flags))
+ 
++#define SAFE_FSTATAT(dirfd, path, statbuf, flags)			\
++	safe_fstatat(__FILE__, __LINE__, (dirfd), (path), (statbuf), (flags))
++
+ const char *tst_decode_fd(const int fd)
+ 			  __attribute__((warn_unused_result));
+ 
+@@ -67,4 +70,8 @@ int safe_fchownat(const char *const file, const int lineno,
+ 		  gid_t group, int flags)
+ 		  __attribute__ ((nonnull));
+ 
++int safe_fstatat(const char *const file, const int lineno,
++		 const int dirfd, const char *const path, struct stat *statbuf,
++		 int flags)
++		 __attribute__ ((nonnull));
+ #endif
+diff --git a/lib/tst_safe_file_at.c b/lib/tst_safe_file_at.c
+index 6370a68e5..f530dc349 100644
+--- a/lib/tst_safe_file_at.c
++++ b/lib/tst_safe_file_at.c
+@@ -215,3 +215,23 @@ int safe_fchownat(const char *const file, const int lineno,
+ 
+ 	return rval;
+ }
++
++int safe_fstatat(const char *const file, const int lineno,
++		 const int dirfd, const char *const path, struct stat *statbuf, int flags)
++{
++	int rval;
++
++	rval = fstatat(dirfd, path, statbuf, flags);
++
++	if (rval == -1) {
++		tst_brk_(file, lineno, TBROK | TERRNO,
++			 "fstatat(%d<%s>, '%s', %p, %d) failed", dirfd,
++			 tst_decode_fd(dirfd), path, statbuf, flags);
++	} else if (rval) {
++		tst_brk_(file, lineno, TBROK | TERRNO,
++			 "Invalid fstatat(%d<%s>, '%s', %p, %d) return value %d",
++			 dirfd, tst_decode_fd(dirfd), path, statbuf, flags, rval);
++	}
++
++	return rval;
++}
 -- 
-Thank you,
-Richard.
+2.23.0
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
