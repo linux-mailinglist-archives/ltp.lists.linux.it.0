@@ -1,12 +1,12 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78B2C600CD6
-	for <lists+linux-ltp@lfdr.de>; Mon, 17 Oct 2022 12:49:21 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E1C5600D72
+	for <lists+linux-ltp@lfdr.de>; Mon, 17 Oct 2022 13:10:03 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 336723CAFCF
-	for <lists+linux-ltp@lfdr.de>; Mon, 17 Oct 2022 12:49:21 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 201A13CAFDB
+	for <lists+linux-ltp@lfdr.de>; Mon, 17 Oct 2022 13:10:03 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
@@ -14,48 +14,63 @@ Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id BA49D3CAD6A
- for <ltp@lists.linux.it>; Mon, 17 Oct 2022 12:49:19 +0200 (CEST)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id 4D1873CAFC3
+ for <ltp@lists.linux.it>; Mon, 17 Oct 2022 13:09:57 +0200 (CEST)
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [IPv6:2a00:1450:4864:20::632])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 5D9986006F5
- for <ltp@lists.linux.it>; Mon, 17 Oct 2022 12:49:17 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 13F0F6102D;
- Mon, 17 Oct 2022 10:49:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EBF9C433C1;
- Mon, 17 Oct 2022 10:49:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1666003754;
- bh=hE1O72YfBfVtyXUSVk937ndAupFCSM8WNCJ0WPRvyV4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=FReNFLZRWqyKX/BECMf5L8XNmowYwy9LcR6zYNEK8YYio8g+ul+eS2cydom0UhZ96
- rumlEyELzsxhd5EP8qM2or8hy9bSMFP7TtjuNX4C3xuvrNbANgCprNx7zBluw9DEzZ
- 8FdWibrjEaP3SLpxmyBPrUK/DGjVoW4YRm6m5+n/zllnPXw6y4s5haAIPdHBgSGw7U
- LFN4oV16kk9aaP8pAldZilZf/7GFpRoDYkZLUFJPEdocBeacE8j3i2uoKnJW//owUN
- E6WxhSA/GAXW2QN3GScplft7ocRrUngWUD+fff6dJ+qDlVMByB/fy13zHVEiHETyc8
- +hv+Pf+XT5SFA==
-Date: Mon, 17 Oct 2022 12:49:10 +0200
-From: Christian Brauner <brauner@kernel.org>
-To: Yang Xu <xuyang2018.jy@fujitsu.com>
-Message-ID: <20221017104910.owc6adviigultcmg@wittgenstein>
-References: <1665996599-6420-1-git-send-email-xuyang2018.jy@fujitsu.com>
- <1665996599-6420-2-git-send-email-xuyang2018.jy@fujitsu.com>
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 9426F60047F
+ for <ltp@lists.linux.it>; Mon, 17 Oct 2022 13:09:57 +0200 (CEST)
+Received: by mail-ej1-x632.google.com with SMTP id a26so24070250ejc.4
+ for <ltp@lists.linux.it>; Mon, 17 Oct 2022 04:09:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-disposition:mime-version:message-id:subject:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=QM9KJohxcxqiRIkBW+GT3SMbWrmzYoa19OC5P56R4zY=;
+ b=GbN5A/YQdR85aNps3MRTUAt+CR3ddjev9qKTRQuThFqwXi4uO4756vUSO5LwIbmcOK
+ UFk5zibeIBbDONxEWiaqylnQlTQPZ7RvJql8yh0FrNUrOJsFiDLNreM0Ke6YH19XpZoe
+ Ld6STeu65slwMCsUfXpNnwMVV9D5oUYN/9d5OaJz3r2xPfLsejfaTkJPat/KxdqQwx+Y
+ 61iPDpTN0SIUBxgMNbuYmtwCOVMeH4qYbukog46/uMxesftSy7Exs4pRwzbwbtUinuFz
+ jdjCxympdw782q/5J5jfMkulob4YrZfk4tlABHtZzOsRaQSgMhPeDkv4ZRamnyp+VDLe
+ iXxw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-disposition:mime-version:message-id:subject:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=QM9KJohxcxqiRIkBW+GT3SMbWrmzYoa19OC5P56R4zY=;
+ b=0N0E2uiR/JXm0I2gfoplv5V21F+hUee9fCMNLSD9ecsMzK5KTGqLq4GSrH/yv6Nwoy
+ SODB22uAGiWs9IYxENII1FDzIJYm0A4AxvTtrNC7spIVldGOPmG/aua2jYTqMujOeN1P
+ UTwwGcFWx2SdOehUXnGRtMHTJy74LDNiF5sEPsQOpKX1OI8j8z4spV2l486VYjxfNlNK
+ ctiKTheaaUw4ReHXqNhGnCiiA77uouaBMdo7aqs6D5e/ifDMKh6Q6BlKzLERAHC/MjdU
+ Iil3BaqsBE/QwHmD/gzb6YYTco2p9nBboZF+TtN/m5Wrrcuu9I0DV3vR+X7gwMFuBeES
+ R6Zw==
+X-Gm-Message-State: ACrzQf0p2oWgTuGzIRUYPDPyLGJimSCAtUD3bZVQHhwE1EIwkqx9V6pQ
+ Jh5eNZbCEGcd0OxP4J7HX0LE8pcqcdk=
+X-Google-Smtp-Source: AMsMyM5DcHyv04BZlMW6KUaY5CEB7GmcL6P9qoHOexCxP0EuF/bYW8vW7bWNprKDujklqqZI4ncESQ==
+X-Received: by 2002:a17:907:75dc:b0:78b:339:63c7 with SMTP id
+ jl28-20020a17090775dc00b0078b033963c7mr8359370ejc.480.1666004996742; 
+ Mon, 17 Oct 2022 04:09:56 -0700 (PDT)
+Received: from lab.hqhome163.com ([194.183.10.152])
+ by smtp.gmail.com with ESMTPSA id
+ o3-20020a170906288300b007826c0a05ecsm5766535ejd.209.2022.10.17.04.09.55
+ for <ltp@lists.linux.it>
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 17 Oct 2022 04:09:56 -0700 (PDT)
+Date: Mon, 17 Oct 2022 11:05:00 +0000
+From: Alessandro Carminati <alessandro.carminati@gmail.com>
+To: ltp@lists.linux.it
+Message-ID: <Y0023HcAOlhfAcJw@lab.hqhome163.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <1665996599-6420-2-git-send-email-xuyang2018.jy@fujitsu.com>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
+ DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v5 2/2] syscalls/openat: Add new regression test
- when using open(O_TMPFILE) under umask
+Subject: [LTP] [PATCH] Fix tst_find_backing_dev when no initramfs
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,20 +82,68 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Mon, Oct 17, 2022 at 04:49:59PM +0800, Yang Xu wrote:
-> Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
-> ---
+mount_root() is the kernel function responsible for mounting the primary
+rootfs.
+A dynamic there, prevents the /dev/root device node in the not yet mounted
+files system. For this reason, in the embedded system that starts without
+an initramfs, or however a proper initscript, the /dev/root device appears
+into the mount table in the / line.
+The test tries to open this /dev/root and fails with a warning.
+This patch aims to fix this situation.
 
-The test logic looks good to me,
-Reviewed-by: Christian Brauner (Microsoft) <brauner@kernel.org>
+Signed-off-by: Alessandro Carminati <alessandro.carminati@gmail.com>
 
-Thanks for writing all these tests, Yang.
+typo fixes
+---
+ lib/tst_device.c | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
+
+diff --git a/lib/tst_device.c b/lib/tst_device.c
+index 8419b80c3..c3427eb31 100644
+--- a/lib/tst_device.c
++++ b/lib/tst_device.c
+@@ -526,6 +526,8 @@ void tst_find_backing_dev(const char *path, char *dev)
+ 	unsigned int dev_major, dev_minor, line_mjr, line_mnr;
+ 	unsigned int len, best_match_len = 1;
+ 	char mnt_point[PATH_MAX];
++	char tmpbuf1[PATH_MAX];
++	char tmpbuf2[PATH_MAX];
+ 
+ 	if (stat(path, &buf) < 0)
+ 		tst_brkm(TWARN | TERRNO, NULL, "stat() failed");
+@@ -562,6 +564,24 @@ void tst_find_backing_dev(const char *path, char *dev)
+ 	if (!*dev)
+ 		tst_brkm(TBROK, NULL, "Cannot find block device for %s", path);
+ 
++	if (stat(dev, &buf) < 0) {
++		if (strcmp("/dev/root", dev) != 0) {
++			tst_brkm(TWARN | TERRNO, NULL, "stat(%s) failed", dev);
++		} else {
++			sprintf(tmpbuf1, "/sys/dev/block/%d:%d/uevent", dev_major, dev_minor);
++			file = SAFE_FOPEN(NULL, tmpbuf1, "r");
++			while (fgets(line, sizeof(line), file)) {
++				if (sscanf(line, "%[^=]=%s", tmpbuf1, tmpbuf2) != 2)
++					continue;
++				if (strcmp("DEVNAME", tmpbuf1) == 0) {
++					sprintf(dev, "/dev/%s", tmpbuf2);
++					break;
++				}
++			}
++			SAFE_FCLOSE(NULL, file);
++		}
++	}
++
+ 	if (stat(dev, &buf) < 0)
+ 		tst_brkm(TWARN | TERRNO, NULL, "stat(%s) failed", dev);
+ 
+-- 
+2.34.1
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
