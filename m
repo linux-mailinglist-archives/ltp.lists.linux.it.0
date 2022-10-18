@@ -2,66 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id B44A8602C13
-	for <lists+linux-ltp@lfdr.de>; Tue, 18 Oct 2022 14:48:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC048602C01
+	for <lists+linux-ltp@lfdr.de>; Tue, 18 Oct 2022 14:45:14 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 7A5713CB06F
-	for <lists+linux-ltp@lfdr.de>; Tue, 18 Oct 2022 14:48:39 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 3F94B3CB084
+	for <lists+linux-ltp@lfdr.de>; Tue, 18 Oct 2022 14:45:14 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 776203CA7C2
- for <ltp@lists.linux.it>; Tue, 18 Oct 2022 14:48:35 +0200 (CEST)
+ by picard.linux.it (Postfix) with ESMTPS id 229533CA7C2
+ for <ltp@lists.linux.it>; Tue, 18 Oct 2022 14:45:09 +0200 (CEST)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id C45626006E7
- for <ltp@lists.linux.it>; Tue, 18 Oct 2022 14:48:34 +0200 (CEST)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 0E2C020803;
- Tue, 18 Oct 2022 12:48:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1666097314;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=sSgWOVF01BYCkGwH7umYcV4dd+b4CopfI9SlKwcGztI=;
- b=Q+lgsvqd7tqfnPmY/AtvAj5hd2z9DWMz5vkO5bLoqKS8yIDHMjwQhbAt9PTkbe+O9IjFwJ
- cA9S7kns3cQM/mSn9yDM2OwzqLA0Qid6VJxurr2gbqXt+X+sKKH8PGbi18ZfwIbDVC7swh
- GKNlWltyfPWSp089kh/dDVPbJHtIMok=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1666097314;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=sSgWOVF01BYCkGwH7umYcV4dd+b4CopfI9SlKwcGztI=;
- b=hhbampYQJb2hT8ceMNf6T1ba+EoMgCrYHtT++SRzYA9Do4rukvYLKB4EGrVgfJLBGmFvBf
- m70gDDuzFALE+wDg==
-Received: from g78 (unknown [10.100.228.202])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 6ABD31000944
+ for <ltp@lists.linux.it>; Tue, 18 Oct 2022 14:45:08 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id C13232C141;
- Tue, 18 Oct 2022 12:48:32 +0000 (UTC)
-References: <20221006110642.12410-1-andrea.cervesato@suse.com>
- <20221006110642.12410-5-andrea.cervesato@suse.com>
-User-agent: mu4e 1.6.10; emacs 28.1
-From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Andrea Cervesato <andrea.cervesato@suse.com>
-Date: Tue, 18 Oct 2022 13:29:15 +0100
-In-reply-to: <20221006110642.12410-5-andrea.cervesato@suse.com>
-Message-ID: <875yghjo11.fsf@suse.de>
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 23AB5205DC;
+ Tue, 18 Oct 2022 12:45:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1666097108;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=aK4CScra7xcTe4Lnue49fjUzOgQd1DrOxHN9d+C6jkM=;
+ b=2JEOIpnUPlWjq7zKBi4+Ej72fwunNesJVTWcE405fTQNdlYJAvqQ0UCfj8FegRrJqyRD8A
+ AqBrV8HEnp6DbiIsXPXbRU7oW+bgxocDLSMPSDyHsBsQYPR8tvpIPKNu40byExmQtzF7yq
+ gs4bqv7wbufQb2yHEKAbpnwijkTKsEo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1666097108;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=aK4CScra7xcTe4Lnue49fjUzOgQd1DrOxHN9d+C6jkM=;
+ b=2TcMn49X6hmUTJSygfeC3g8tnE4bL3CbwCJ4D+xv4zlzLiHZmoKgdGbwCE6/YJDQbiu1bU
+ CrOv9tqPlqBq1sBg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C0E4C139D2;
+ Tue, 18 Oct 2022 12:45:07 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id oXRkKNOfTmODfAAAMHmgww
+ (envelope-from <pvorel@suse.cz>); Tue, 18 Oct 2022 12:45:07 +0000
+Date: Tue, 18 Oct 2022 14:45:05 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Richard Palethorpe <rpalethorpe@suse.de>
+Message-ID: <Y06f0WK4CeabqTIi@pevik>
+References: <20221018032203.3429895-1-liwang@redhat.com>
+ <87bkq9mryj.fsf@suse.de>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <87bkq9mryj.fsf@suse.de>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v1 3/3] Add process_madvise03 test
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] pthread_barrier_init: remove the restrict limit
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,122 +80,53 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Reply-To: rpalethorpe@suse.de
+Reply-To: Petr Vorel <pvorel@suse.cz>
 Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hello,
+Hi,
 
-Andrea Cervesato via ltp <ltp@lists.linux.it> writes:
+Acked-by: Petr Vorel <pvorel@suse.cz>
 
-> Test for checking MADV_PAGEOUT functionality over memory-mapped file
-> in process_madvise syscall.
+> Hello,
 
-So this one doesn't need swap, but it has some other issues.
+> Li Wang <liwang@redhat.com> writes:
 
->
-> Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
-> ---
->  testcases/kernel/syscalls/cma/.gitignore      |   1 +
->  .../kernel/syscalls/cma/process_madvise03.c   | 139 ++++++++++++++++++
->  2 files changed, 140 insertions(+)
->  create mode 100644 testcases/kernel/syscalls/cma/process_madvise03.c
->
-> diff --git a/testcases/kernel/syscalls/cma/.gitignore b/testcases/kernel/syscalls/cma/.gitignore
-> index 47ae3e445..147b03c48 100644
-> --- a/testcases/kernel/syscalls/cma/.gitignore
-> +++ b/testcases/kernel/syscalls/cma/.gitignore
-> @@ -4,3 +4,4 @@
->  /process_vm_writev02
->  /process_madvise01
->  /process_madvise02
-> +/process_madvise03
-> diff --git a/testcases/kernel/syscalls/cma/process_madvise03.c b/testcases/kernel/syscalls/cma/process_madvise03.c
-> new file mode 100644
-> index 000000000..3f12ef530
-> --- /dev/null
-> +++ b/testcases/kernel/syscalls/cma/process_madvise03.c
-> @@ -0,0 +1,139 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * Copyright (C) 2022 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
-> + */
-> +
-> +/*\
-> + * [Description]
-> + *
-> + * Spawn child inside cgroup and set max memory. Allocate file-backed memory
-> + * pages inside child and reclaim it with MADV_PAGEOUT. Then check if memory
-> + * pages have been written back to the backing storage.
-> + *
-> + * The advice might be ignored for some pages in the range when it is
-> + * not applicable, so test passes if pages mapped in RAM decrease after
-> + * reclaiming memory with MADV_PAGEOUT and RAM doesn't contain
-> + * reclaimed memory anymore.
-> + */
-> +
-> +#define _GNU_SOURCE
-> +
-> +#include <sys/mman.h>
-> +#include "tst_test.h"
-> +#include "lapi/mmap.h"
-> +#include "lapi/syscalls.h"
-> +#include "cma.h"
-> +
-> +#define MEM_CHILD	(10 * 1024 * 1024)
-> +
-> +static char *filename = "file.bin";
-> +static void **data_ptr;
-> +
-> +static void child_alloc(void)
-> +{
-> +	int fd;
-> +	char *ptr;
-> +	int freed = 1;
-> +	struct addr_mapping map_before;
-> +	struct addr_mapping map_after;
-> +
-> +	tst_res(TINFO, "Allocate file-backed memory");
-> +
-> +	fd = SAFE_OPEN(filename, O_CREAT | O_RDWR);
-> +	SAFE_FTRUNCATE(fd, MEM_CHILD);
-> +
-> +	*data_ptr = SAFE_MMAP(NULL, MEM_CHILD,
-> +			PROT_READ | PROT_WRITE,
-> +			MAP_SHARED, fd, 0);
-> +
-> +	tst_res(TINFO, "Dirty memory");
-> +	memset(*data_ptr, 'a', MEM_CHILD);
-> +
-> +	read_address_mapping((unsigned long)*data_ptr, &map_before);
-> +
-> +	TST_CHECKPOINT_WAKE_AND_WAIT(0);
-> +
-> +	for (ptr = *data_ptr; *ptr != '\0'; ptr++) {
-> +		if (*ptr == 'a') {
-> +			freed = 0;
-> +			break;
-> +		}
-> +	}
+> > The restrict keyword tells the compiler that a given pointer
+> > does not alias any other pointer in the same context. But this
+> > is only supported by C99.
 
-This will loop once, or?
+> > To make older platforms compilinng LTP successful, we have to cancel
+> > that limitation in function definition.
 
-> +
-> +	if (freed) {
-> +		tst_res(TFAIL, "Memory has been freed");
+> > Fix error: https://github.com/linux-test-project/ltp/actions/runs/3263823142/jobs/5363481739
 
-We'll probably get a segfault or sigbus if its unmapped somehow. I guess
-you could do a memcmp on the range to test that it didn't randomly
-change though.
+Fixes: f55cb14ca ("syscalls/nice05: Add testcase for nice() syscall")
 
-Otherwise this one looks good.
+...
+> > Notes:
+> >       I also considering adding "-std=gun99" for compiling the whole library,
+> >       but not sure if this could bring a bigger potential impact on
+> > LTP.
 
--- 
-Thank you,
-Richard.
+> It would be nice to at least use C99, but I guess we can wait a bit
+> longer until centos7 is EOL.
+
+Exactly.
+Also LTP is used by others on embedded, which might still have old toolchain
+(although C99 as the default is since gcc 5.x [1], I'm not sure if anybody
+really uses gcc 4.9.x [2], we could ask on automated-testing ML after 2024-06 -
+CentOS 7 EOL).
+
+Kind regards,
+Petr
+
+[1] https://gcc.gnu.org/onlinedocs/gcc-5.5.0/gcc/Standards.html
+[2] https://gcc.gnu.org/onlinedocs/gcc-4.9.4/gcc/Standards.html
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
