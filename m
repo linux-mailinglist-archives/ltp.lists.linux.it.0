@@ -2,66 +2,66 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E926602BAB
-	for <lists+linux-ltp@lfdr.de>; Tue, 18 Oct 2022 14:26:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B44A8602C13
+	for <lists+linux-ltp@lfdr.de>; Tue, 18 Oct 2022 14:48:39 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id C50143CB084
-	for <lists+linux-ltp@lfdr.de>; Tue, 18 Oct 2022 14:26:20 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 7A5713CB06F
+	for <lists+linux-ltp@lfdr.de>; Tue, 18 Oct 2022 14:48:39 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it [217.194.8.5])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 8EEDE3C2CAE
- for <ltp@lists.linux.it>; Tue, 18 Oct 2022 14:26:17 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 776203CA7C2
+ for <ltp@lists.linux.it>; Tue, 18 Oct 2022 14:48:35 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 07AE12009C6
- for <ltp@lists.linux.it>; Tue, 18 Oct 2022 14:26:16 +0200 (CEST)
+ by in-5.smtp.seeweb.it (Postfix) with ESMTPS id C45626006E7
+ for <ltp@lists.linux.it>; Tue, 18 Oct 2022 14:48:34 +0200 (CEST)
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 3843A205E2;
- Tue, 18 Oct 2022 12:26:16 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id 0E2C020803;
+ Tue, 18 Oct 2022 12:48:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1666095976;
+ t=1666097314;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=dKtvo/8px3O2OAOTNUzo+2+dSbdJypskQ+JDcY4pRnI=;
- b=dnuTDowCCS0ltu5mDbecclE8JRzEJKkr0V4kRzP2W8QhAav7cDszQdi6TeqIU74/KVV6ix
- 7LnRVbfdab4an5/SetKeuMXTAW78KZYTrxwJIUkhWKIomtYrV0Olb3OSTlqMsqq/Hv8b7B
- 2uSnnjCLEttx9XXpx9DC61jxDazGjkM=
+ bh=sSgWOVF01BYCkGwH7umYcV4dd+b4CopfI9SlKwcGztI=;
+ b=Q+lgsvqd7tqfnPmY/AtvAj5hd2z9DWMz5vkO5bLoqKS8yIDHMjwQhbAt9PTkbe+O9IjFwJ
+ cA9S7kns3cQM/mSn9yDM2OwzqLA0Qid6VJxurr2gbqXt+X+sKKH8PGbi18ZfwIbDVC7swh
+ GKNlWltyfPWSp089kh/dDVPbJHtIMok=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1666095976;
+ s=susede2_ed25519; t=1666097314;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=dKtvo/8px3O2OAOTNUzo+2+dSbdJypskQ+JDcY4pRnI=;
- b=hiu6Yx4dQ+8fK9Cxy94cI4+Jye/kFMc/hErbTvLRZoCwJHP7SQ48IBTmLGgAacYQZQ2Crk
- Rv5lIIu4CdMidrDQ==
+ bh=sSgWOVF01BYCkGwH7umYcV4dd+b4CopfI9SlKwcGztI=;
+ b=hhbampYQJb2hT8ceMNf6T1ba+EoMgCrYHtT++SRzYA9Do4rukvYLKB4EGrVgfJLBGmFvBf
+ m70gDDuzFALE+wDg==
 Received: from g78 (unknown [10.100.228.202])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id 860FE2C141;
- Tue, 18 Oct 2022 12:26:15 +0000 (UTC)
+ by relay2.suse.de (Postfix) with ESMTPS id C13232C141;
+ Tue, 18 Oct 2022 12:48:32 +0000 (UTC)
 References: <20221006110642.12410-1-andrea.cervesato@suse.com>
- <20221006110642.12410-4-andrea.cervesato@suse.com>
+ <20221006110642.12410-5-andrea.cervesato@suse.com>
 User-agent: mu4e 1.6.10; emacs 28.1
 From: Richard Palethorpe <rpalethorpe@suse.de>
 To: Andrea Cervesato <andrea.cervesato@suse.com>
-Date: Tue, 18 Oct 2022 13:24:18 +0100
-In-reply-to: <20221006110642.12410-4-andrea.cervesato@suse.com>
-Message-ID: <87a65tjp22.fsf@suse.de>
+Date: Tue, 18 Oct 2022 13:29:15 +0100
+In-reply-to: <20221006110642.12410-5-andrea.cervesato@suse.com>
+Message-ID: <875yghjo11.fsf@suse.de>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v1 2/3] Add process_madvise02 test
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v1 3/3] Add process_madvise03 test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,37 +82,36 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hello,
 
-Looks like largely the same problems as with the previous test. Let's
-get that one merged then lessons learned from that can be applied to
-this.
-
 Andrea Cervesato via ltp <ltp@lists.linux.it> writes:
 
-> Test for checking MADV_PAGEOUT functionality over anonymous memory in
-> process_madvise syscall.
+> Test for checking MADV_PAGEOUT functionality over memory-mapped file
+> in process_madvise syscall.
+
+So this one doesn't need swap, but it has some other issues.
+
 >
 > Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
 > ---
 >  testcases/kernel/syscalls/cma/.gitignore      |   1 +
->  .../kernel/syscalls/cma/process_madvise02.c   | 128 ++++++++++++++++++
->  2 files changed, 129 insertions(+)
->  create mode 100644 testcases/kernel/syscalls/cma/process_madvise02.c
+>  .../kernel/syscalls/cma/process_madvise03.c   | 139 ++++++++++++++++++
+>  2 files changed, 140 insertions(+)
+>  create mode 100644 testcases/kernel/syscalls/cma/process_madvise03.c
 >
 > diff --git a/testcases/kernel/syscalls/cma/.gitignore b/testcases/kernel/syscalls/cma/.gitignore
-> index 846704294..47ae3e445 100644
+> index 47ae3e445..147b03c48 100644
 > --- a/testcases/kernel/syscalls/cma/.gitignore
 > +++ b/testcases/kernel/syscalls/cma/.gitignore
-> @@ -3,3 +3,4 @@
->  /process_vm_readv03
+> @@ -4,3 +4,4 @@
 >  /process_vm_writev02
 >  /process_madvise01
-> +/process_madvise02
-> diff --git a/testcases/kernel/syscalls/cma/process_madvise02.c b/testcases/kernel/syscalls/cma/process_madvise02.c
+>  /process_madvise02
+> +/process_madvise03
+> diff --git a/testcases/kernel/syscalls/cma/process_madvise03.c b/testcases/kernel/syscalls/cma/process_madvise03.c
 > new file mode 100644
-> index 000000000..9f42dd48a
+> index 000000000..3f12ef530
 > --- /dev/null
-> +++ b/testcases/kernel/syscalls/cma/process_madvise02.c
-> @@ -0,0 +1,128 @@
+> +++ b/testcases/kernel/syscalls/cma/process_madvise03.c
+> @@ -0,0 +1,139 @@
 > +// SPDX-License-Identifier: GPL-2.0-or-later
 > +/*
 > + * Copyright (C) 2022 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
@@ -121,13 +120,14 @@ Andrea Cervesato via ltp <ltp@lists.linux.it> writes:
 > +/*\
 > + * [Description]
 > + *
-> + * Spawn child inside cgroup and set max memory. Allocate anonymous memory
+> + * Spawn child inside cgroup and set max memory. Allocate file-backed memory
 > + * pages inside child and reclaim it with MADV_PAGEOUT. Then check if memory
-> + * pages have been swapped out.
+> + * pages have been written back to the backing storage.
 > + *
 > + * The advice might be ignored for some pages in the range when it is
-> + * not applicable, so test passes if swap memory increases after
-> + * reclaiming memory with MADV_PAGEOUT.
+> + * not applicable, so test passes if pages mapped in RAM decrease after
+> + * reclaiming memory with MADV_PAGEOUT and RAM doesn't contain
+> + * reclaimed memory anymore.
 > + */
 > +
 > +#define _GNU_SOURCE
@@ -140,20 +140,27 @@ Andrea Cervesato via ltp <ltp@lists.linux.it> writes:
 > +
 > +#define MEM_CHILD	(10 * 1024 * 1024)
 > +
+> +static char *filename = "file.bin";
 > +static void **data_ptr;
 > +
 > +static void child_alloc(void)
 > +{
+> +	int fd;
 > +	char *ptr;
 > +	int freed = 1;
 > +	struct addr_mapping map_before;
 > +	struct addr_mapping map_after;
 > +
-> +	tst_res(TINFO, "Allocate memory");
+> +	tst_res(TINFO, "Allocate file-backed memory");
+> +
+> +	fd = SAFE_OPEN(filename, O_CREAT | O_RDWR);
+> +	SAFE_FTRUNCATE(fd, MEM_CHILD);
 > +
 > +	*data_ptr = SAFE_MMAP(NULL, MEM_CHILD,
 > +			PROT_READ | PROT_WRITE,
-> +			MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+> +			MAP_SHARED, fd, 0);
+> +
+> +	tst_res(TINFO, "Dirty memory");
 > +	memset(*data_ptr, 'a', MEM_CHILD);
 > +
 > +	read_address_mapping((unsigned long)*data_ptr, &map_before);
@@ -166,84 +173,18 @@ Andrea Cervesato via ltp <ltp@lists.linux.it> writes:
 > +			break;
 > +		}
 > +	}
+
+This will loop once, or?
+
 > +
 > +	if (freed) {
 > +		tst_res(TFAIL, "Memory has been freed");
-> +		return;
-> +	}
-> +
-> +	read_address_mapping((unsigned long)*data_ptr, &map_after);
-> +
-> +	SAFE_MUNMAP(*data_ptr, MEM_CHILD);
-> +	*data_ptr = NULL;
-> +
-> +	if (map_before.swap < map_after.swap)
-> +		tst_res(TPASS, "Memory has been swapped out");
-> +	else
-> +		tst_res(TFAIL, "Swap memory has decreased");
-> +}
-> +
-> +static void setup(void)
-> +{
-> +	data_ptr = SAFE_MMAP(NULL, sizeof(void *),
-> +			PROT_READ | PROT_WRITE,
-> +			MAP_SHARED | MAP_ANONYMOUS, -1, 0);
-> +}
-> +
-> +static void cleanup(void)
-> +{
-> +	if (*data_ptr)
-> +		SAFE_MUNMAP(*data_ptr, MEM_CHILD);
-> +
-> +	if (data_ptr)
-> +		SAFE_MUNMAP(data_ptr, sizeof(void *));
-> +}
-> +
-> +static void run(void)
-> +{
-> +	int ret;
-> +	int pidfd;
-> +	pid_t pid_alloc;
-> +	struct iovec vec;
-> +
-> +	pid_alloc = SAFE_FORK();
-> +	if (!pid_alloc) {
-> +		child_alloc();
-> +		return;
-> +	}
-> +
-> +	TST_CHECKPOINT_WAIT(0);
-> +
-> +	tst_res(TINFO, "Apply MADV_PAGEOUT advise rule");
-> +
-> +	pidfd = SAFE_PIDFD_OPEN(pid_alloc, 0);
-> +
-> +	vec.iov_base = *data_ptr;
-> +	vec.iov_len = MEM_CHILD;
-> +
-> +	ret = tst_syscall(__NR_process_madvise, pidfd, &vec, 1UL,
-> +			MADV_PAGEOUT, 0UL);
-> +
-> +	if (ret == -1)
-> +		tst_brk(TBROK | TERRNO, "process_madvise failed");
-> +
-> +	if (ret != MEM_CHILD)
-> +		tst_brk(TBROK, "process_madvise reclaimed only %d bytes", ret);
-> +
-> +	TST_CHECKPOINT_WAKE(0);
-> +}
-> +
-> +static struct tst_test test = {
-> +	.setup = setup,
-> +	.cleanup = cleanup,
-> +	.test_all = run,
-> +	.forks_child = 1,
-> +	.min_kver = "5.10",
-> +	.needs_checkpoints = 1,
-> +};
-> -- 
-> 2.35.3
 
+We'll probably get a segfault or sigbus if its unmapped somehow. I guess
+you could do a memcmp on the range to test that it didn't randomly
+change though.
+
+Otherwise this one looks good.
 
 -- 
 Thank you,
