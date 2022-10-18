@@ -1,70 +1,66 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B29E602766
-	for <lists+linux-ltp@lfdr.de>; Tue, 18 Oct 2022 10:46:09 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [213.254.12.146])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3748960279F
+	for <lists+linux-ltp@lfdr.de>; Tue, 18 Oct 2022 10:55:20 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id E47213CB034
-	for <lists+linux-ltp@lfdr.de>; Tue, 18 Oct 2022 10:46:08 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 043113CB032
+	for <lists+linux-ltp@lfdr.de>; Tue, 18 Oct 2022 10:55:20 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 8AD4E3C93EF
- for <ltp@lists.linux.it>; Tue, 18 Oct 2022 10:46:07 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ by picard.linux.it (Postfix) with ESMTPS id B2D5D3C93EF
+ for <ltp@lists.linux.it>; Tue, 18 Oct 2022 10:55:18 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id DC77B1000944
- for <ltp@lists.linux.it>; Tue, 18 Oct 2022 10:46:06 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 1169D1400BDF
+ for <ltp@lists.linux.it>; Tue, 18 Oct 2022 10:55:17 +0200 (CEST)
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 5316B33E78;
- Tue, 18 Oct 2022 08:46:05 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 74B5033E89;
+ Tue, 18 Oct 2022 08:55:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1666082765;
+ t=1666083317;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=lGs0lFH9m0TMWyR+jNJvrG22U4rMxaYDnHGrt1Goy7o=;
- b=SsusZb8yiz6giA9fH6h+qqOKi13UmjKQkdef6OhkVWXL8hjvIk9Dv/tkIhrfEmceGktKqy
- N+8tvnGTSUSR9aDDC+obvF2t4p3t/2R7HunCA0N0b7SByfXR3Kc7bs6WOqSouDrUPTiaBp
- XMsVC5aTowv2J1SgbTtWt8FmWQU+kiY=
+ bh=eMB/t3MFVJIf3CAzB3yyDox+AKzgwPoQcndWQjiepAg=;
+ b=JEMSLkaIjeAoTRsOZzzAu2qW0XJ3Z4LmNrBptaxqzBZZfNQRIuDI3302KWIhyM32Xwc1O1
+ dZTN9VgQPMd1oSAZNALhLuFXFp7TbY+eFBRitIxn3abob6M7uQlWn/k3jtUSnvmLaq7TkB
+ /5J5lcKlhafSaFJqlfTxGrAcqjyMvfc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1666082765;
+ s=susede2_ed25519; t=1666083317;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=lGs0lFH9m0TMWyR+jNJvrG22U4rMxaYDnHGrt1Goy7o=;
- b=kbO4HijK7t43ybwG+UimRwNirNrQmJf56k7pzwZ0l4sqIDjKAtNRgd3SKovwygMILPf3A2
- u7Dq5TUuCeL2DSDg==
+ bh=eMB/t3MFVJIf3CAzB3yyDox+AKzgwPoQcndWQjiepAg=;
+ b=LklXwJTFA4Ddk7DIjyGgQ4OXpXk/ueqqXnIH931mkAFFJmbfKioSHrr37pf5t0reMT1kTb
+ bl2/nOeSVTiZjkBQ==
 Received: from g78 (unknown [10.100.228.202])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id 658C82C141;
- Tue, 18 Oct 2022 08:46:04 +0000 (UTC)
-References: <20220822155413.24814-1-pvorel@suse.cz> <YwO3qbIO32hvryjw@pevik>
- <bc8d2cb9-e5d9-3284-13e2-acfea09725c2@fujitsu.com>
- <87y1tkx84j.fsf@suse.de>
- <8305046c-8a3d-fe6d-f587-67e8b2c172b5@fujitsu.com>
+ by relay2.suse.de (Postfix) with ESMTPS id 0449B2C141;
+ Tue, 18 Oct 2022 08:55:16 +0000 (UTC)
+References: <20221018032203.3429895-1-liwang@redhat.com>
 User-agent: mu4e 1.6.10; emacs 28.1
 From: Richard Palethorpe <rpalethorpe@suse.de>
-To: "xuyang2018.jy@fujitsu.com" <xuyang2018.jy@fujitsu.com>
-Date: Tue, 18 Oct 2022 09:44:45 +0100
-In-reply-to: <8305046c-8a3d-fe6d-f587-67e8b2c172b5@fujitsu.com>
-Message-ID: <87fsflmsdx.fsf@suse.de>
+To: Li Wang <liwang@redhat.com>
+Date: Tue, 18 Oct 2022 09:48:06 +0100
+In-reply-to: <20221018032203.3429895-1-liwang@redhat.com>
+Message-ID: <87bkq9mryj.fsf@suse.de>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v4 1/1] mount03: Convert to new API
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH] pthread_barrier_init: remove the restrict limit
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,7 +73,7 @@ List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
 Reply-To: rpalethorpe@suse.de
-Cc: "ltp@lists.linux.it" <ltp@lists.linux.it>
+Cc: ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
@@ -85,142 +81,70 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hello,
 
-"xuyang2018.jy@fujitsu.com" <xuyang2018.jy@fujitsu.com> writes:
+Li Wang <liwang@redhat.com> writes:
 
-> Hi Richard, Petr
+> The restrict keyword tells the compiler that a given pointer
+> does not alias any other pointer in the same context. But this
+> is only supported by C99.
 >
->> 
->> "xuyang2018.jy@fujitsu.com" <xuyang2018.jy@fujitsu.com> writes:
->> 
->>> Hi Petr
->>>
->>>> Hi all,
->>>>
->>>> when running in loop, I sometimes still get error:
->>>>
->>>> i=0; while true; do i=$((i+1)); echo "== $i =="; ./mount03  || break; done
->>>> ...
->>>> === 100 ===
->>>> ...
->>>> tst_device.c:434: TINFO: No device is mounted at mntpoint
->>>> tst_test.c:1599: TINFO: Testing on ext4
->>>> tst_test.c:1065: TINFO: Formatting /dev/loop0 with ext4 opts='' extra opts=''
->>>> mke2fs 1.46.5 (30-Dec-2021)
->>>> mount03.c:150: TINFO: Testing flag MS_RDONLY
->>>> mount03.c:48: TPASS: otfd = open(file, O_CREAT | O_RDWR, 0700) : EROFS (30)
->>>> mount03.c:150: TINFO: Testing flag MS_NODEV
->>>> mount03.c:153: TFAIL: mount(tst_device->dev, MNTPOINT, tst_device->fs_type, tc->flag, NULL) failed: EINVAL (22)
->>>> mount03.c:150: TINFO: Testing flag MS_NOEXEC
->>>> mount03.c:153: TFAIL: mount(tst_device->dev, MNTPOINT, tst_device->fs_type, tc->flag, NULL) failed: EINVAL (22)
->>>> mount03.c:150: TINFO: Testing flag MS_RDONLY
->>>> mount03.c:153: TFAIL: mount(tst_device->dev, MNTPOINT, tst_device->fs_type, tc->flag, NULL) failed: EINVAL (22)
->>>> mount03.c:150: TINFO: Testing flag MS_NOSUID
->>>> mount03.c:153: TFAIL: mount(tst_device->dev, MNTPOINT, tst_device->fs_type, tc->flag, NULL) failed: EINVAL (22)
->>>> mount03.c:150: TINFO: Testing flag MS_NOATIME
->>>> mount03.c:111: TPASS: st.st_atime == atime (1661183501)
->>>
->>> I also meet nosuid work not as expected.
->>>
->>> st_test.c:1599: TINFO: Testing on ext4
->>> tst_test.c:1064: TINFO: Formatting /dev/loop0 with ext4 opts='' extra
->>> opts=''
->>> mke2fs 1.46.5 (30-Dec-2021)
->>> mount03.c:151: TINFO: Testing flag MS_RDONLY
->>> mount03.c:48: TPASS: otfd = open(file, O_CREAT | O_RDWR, 0700) : EROFS (30)
->>> mount03.c:151: TINFO: Testing flag MS_NODEV
->>> mount03.c:55: TPASS: otfd = open(file, O_RDWR, 0700) : EACCES (13)
->>> mount03.c:151: TINFO: Testing flag MS_NOEXEC
->>> mount03.c:63: TPASS: execlp(file, basename(file), NULL) : EACCES (13)
->>> mount03.c:151: TINFO: Testing flag MS_RDONLY
->>> mount03.c:70: TPASS: otfd = open(file, O_CREAT | O_RDWR, 0700) returned fd 3
->>> mount03.c:151: TINFO: Testing flag MS_NOSUID
->>> mount03_suid_child.c:22: TFAIL: setreuid(getuid(), 0) succeeded
->>> mount03.c:151: TINFO: Testing flag MS_NOATIME
->>> mount03.c:112: TPASS: st.st_atime == atime (1661280863)
->>> tst_device.c:434: TINFO: No device is mounted at mntpoint
->>>
->> 
->> I added some more debug info:
->> 
->> @@ -86,7 +89,20 @@ static void test_nosuid(void)
->>   		if (st.st_mode != SUID_MODE)
->>   			SAFE_CHMOD(BIN_PATH, SUID_MODE);
->>   
->> -		SAFE_SETREUID(nobody_uid, nobody_uid);
->> +		tst_res(TINFO, "dev %d:%d, rdev: %d:%d",
->> +			major(st.st_dev), minor(st.st_dev), major(st.st_rdev), minor(st.st_rdev));
->> +		SAFE_SETRESGID(nobody_gid, nobody_gid, nobody_gid);
->> +		SAFE_SETRESUID(nobody_uid, nobody_uid, nobody_uid);
->> +
->> +		uid_t uid, gid, euid, egid, suid, sgid;
->> +
->> +		getresuid(&uid, &euid, &suid);
->> +		getresgid(&gid, &egid, &sgid);
->> +		tst_res(TINFO, "uid: %d, gid: %d, euid: %d, egid: %d, suid: %d, sgid: %d",
->> +			uid, gid, euid, egid, suid, sgid);
->> +
->> +		tst_system("pwd");
->> +		tst_system("ls -l " MNTPOINT);
->>   		SAFE_EXECL(BIN_PATH, BIN_PATH, NULL);
->>   		tst_brk(TFAIL | TTERRNO, "Failed to execute %s", BIN_PATH);
->> 
->> and in the child
->> 
->>   int main(void)
->>   {
->> +	uid_t uid, gid, euid, egid, suid, sgid;
->>   	tst_reinit();
->>   
->> +	getresuid(&uid, &euid, &suid);
->> +	getresgid(&gid, &egid, &sgid);
->> +	tst_res(TINFO, "uid: %d, gid: %d, euid: %d, egid: %d, suid: %d, sgid: %d",
->> +		uid, gid, euid, egid, suid, sgid);
->> +
->>   	TST_EXP_FAIL(setreuid(getuid(), 0), EPERM);
->>   
->> 
->> This shows that BIN_PATH is being accessed from the wrong device AFAICT
->> 
->> mount03.c:166: TINFO: Testing flag MS_NOSUID
->> 
->> ...
->> 
->> 30 1 0:26 / /tmp rw,relatime - tmpfs ltp rw,size=512000k,inode64
->> 31 30 0:27 / /tmp/mouLkSN2v/mntpoint rw,nosuid,relatime - tmpfs /dev/loop0 rw,inode64
->> mount03.c:92: TINFO: dev 0:26, rdev: 0:0
->> mount03.c:101: TINFO: uid: 65534, gid: 65534, euid: 65534, egid: 65534, suid: 65534, sgid: 65534
->> /tmp/mouLkSN2v
->> total 688
->> -r-s--x--x 1 root 0 702952 Oct 13 11:29 mount03_suid_child
->> mount03_suid_child.c:25: TINFO: uid: 65534, gid: 65534, euid: 0, egid: 65534, suid: 0, sgid: 65534
->> mount03_suid_child.c:28: TFAIL: setreuid(getuid(), 0) succeeded
->> 
->> The device should be 0:27 not 0:26.
->> 
->> Indeed if I remove SAFE_CHMOD then the euid and suid are set to
->> nobody. Also if I mount /tmp as nosuid then the test passes. Possibly we
->> need to use absoute paths to ensure we are going through the mount
->> point.
+> To make older platforms compilinng LTP successful, we have to cancel
+> that limitation in function definition.
 >
-> I use statfs struct f_flags member to debug, then found the mounted 
-> filesystem doesn't have nosuid flag.
+> Fix error: https://github.com/linux-test-project/ltp/actions/runs/3263823142/jobs/5363481739
 >
-> It seems parent has umounted this dev and so child doesn't have nosuid 
-> flag, so this case failed.
->
-> --- a/testcases/kernel/syscalls/mount/mount03.c
-> +++ b/testcases/kernel/syscalls/mount/mount03.c
-> @@ -90,6 +90,7 @@ static void test_nosuid(void)
->                  SAFE_EXECL(BIN_PATH, BIN_PATH, NULL);
->                  tst_brk(TFAIL | TTERRNO, "Failed to execute %s", BIN_PATH);
->          }
-> +       tst_reap_children();
->   }
->
->
-> After this change, this case can pass when I run with -i 10.
+> Signed-off-by: Li Wang <liwang@redhat.com>
 
-Good catch; merged with this fix and a couple of others.
+Sure, we don't care about this optimization. If it were a safety feature
+I would suggest adding macros with an empty fallback.
+
+Acked-by: Richard Palethorpe <rpalethorpe@suse.com>
+
+> ---
+>
+> Notes:
+>       I also considering adding "-std=gun99" for compiling the whole library,
+>       but not sure if this could bring a bigger potential impact on
+> LTP.
+
+It would be nice to at least use C99, but I guess we can wait a bit
+longer until centos7 is EOL.
+
+>
+>  include/tst_safe_pthread.h | 4 ++--
+>  lib/safe_pthread.c         | 4 ++--
+>  2 files changed, 4 insertions(+), 4 deletions(-)
+>
+> diff --git a/include/tst_safe_pthread.h b/include/tst_safe_pthread.h
+> index cc6da2de8..8fb553929 100644
+> --- a/include/tst_safe_pthread.h
+> +++ b/include/tst_safe_pthread.h
+> @@ -41,8 +41,8 @@ int safe_pthread_barrier_destroy(const char *file, const int lineno,
+>  	safe_pthread_barrier_destroy(__FILE__, __LINE__, barrier);
+>  
+>  int safe_pthread_barrier_init(const char *file, const int lineno,
+> -			      pthread_barrier_t *restrict barrier,
+> -			      const pthread_barrierattr_t *restrict attr,
+> +			      pthread_barrier_t *barrier,
+> +			      const pthread_barrierattr_t *attr,
+>  			      unsigned count);
+>  #define SAFE_PTHREAD_BARRIER_INIT(barrier, attr, count) \
+>  	safe_pthread_barrier_init(__FILE__, __LINE__, barrier, attr, count);
+> diff --git a/lib/safe_pthread.c b/lib/safe_pthread.c
+> index d7bfee4cc..d70bb8707 100644
+> --- a/lib/safe_pthread.c
+> +++ b/lib/safe_pthread.c
+> @@ -90,8 +90,8 @@ int safe_pthread_cancel(const char *file, const int lineno,
+>  }
+>  
+>  int safe_pthread_barrier_init(const char *file, const int lineno,
+> -			      pthread_barrier_t *restrict barrier,
+> -			      const pthread_barrierattr_t *restrict attr,
+> +			      pthread_barrier_t *barrier,
+> +			      const pthread_barrierattr_t *attr,
+>  			      unsigned count)
+>  {
+>  	int rval;
+
 
 -- 
 Thank you,
