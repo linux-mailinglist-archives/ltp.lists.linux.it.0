@@ -2,58 +2,59 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1AE30602A64
-	for <lists+linux-ltp@lfdr.de>; Tue, 18 Oct 2022 13:40:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 342BA602BA5
+	for <lists+linux-ltp@lfdr.de>; Tue, 18 Oct 2022 14:23:38 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 0070F3CB06D
-	for <lists+linux-ltp@lfdr.de>; Tue, 18 Oct 2022 13:40:28 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 967C03CB07F
+	for <lists+linux-ltp@lfdr.de>; Tue, 18 Oct 2022 14:23:37 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it
  [IPv6:2001:4b78:1:20::6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 423A83CB03F
- for <ltp@lists.linux.it>; Tue, 18 Oct 2022 13:40:18 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by picard.linux.it (Postfix) with ESMTPS id 3108E3CA7C2
+ for <ltp@lists.linux.it>; Tue, 18 Oct 2022 14:23:32 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 74F69140098B
- for <ltp@lists.linux.it>; Tue, 18 Oct 2022 13:40:13 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 992CC1400B70
+ for <ltp@lists.linux.it>; Tue, 18 Oct 2022 14:23:31 +0200 (CEST)
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id E48061F9BC;
- Tue, 18 Oct 2022 11:40:12 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTP id C8D342078A;
+ Tue, 18 Oct 2022 12:23:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1666093212;
+ t=1666095810;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=u1JgJ1WkoT9/paCxGX3qZLJa/SKII0KyP8AsO1fX9qo=;
- b=B1Q4iAGbjBR43NCVYRQ4SiRXcB7qZVjqkRzc1LfdkJV18zv5uMzcrF/TiKrTPzHMA17cOz
- 7XXgaiFQVRHi51/lKmnejvAsVPqt8JCTLrfRe8JOqhOsi+lvgzXnr1Wlqm8vfB+F/RgIaq
- pf6GmFK5H++RRwgxTkPXxu20C4u6RJ0=
+ bh=/70uBPh8tLHoJ0zVe+pw0sllUwKK7T+H9bSdkdxtwgk=;
+ b=s83D7Z3MY9X+yulXgMzrXWv3WECco6K+F/Bn1MKR3eDMa2o7sR32+XPX4mctiIFLFIrRyG
+ Q8T6asGzK7z1r+mJf2uab504FxdFNj2JTDbNxLm0JMIW1TE5Ml3zbNGTJB6069aA321JpN
+ 2ZbkVErhsLyA9j9vXyj0sAAdqisEgfU=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1666093212;
+ s=susede2_ed25519; t=1666095810;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=u1JgJ1WkoT9/paCxGX3qZLJa/SKII0KyP8AsO1fX9qo=;
- b=mTmq7TiDkbmSOar5/z70zjRzxSOxk7xO1icVF2RPNnLDqjAIV/wWakrl6iYMnfCKlYTLZO
- vRh1kv0FFdes2cCw==
+ bh=/70uBPh8tLHoJ0zVe+pw0sllUwKK7T+H9bSdkdxtwgk=;
+ b=d3B9f4CuC/93S/8WjIuLpoi5yJSR907zhAC8+zHAqxtBElOKv7nlDUM8RtW4CT3IM5Y/hk
+ s5Th2WMEGgOoe4CA==
 Received: from g78 (unknown [10.100.228.202])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id 4B3B92C141;
- Tue, 18 Oct 2022 11:40:12 +0000 (UTC)
-References: <1666089855-7282-1-git-send-email-xuyang2018.jy@fujitsu.com>
+ by relay2.suse.de (Postfix) with ESMTPS id 222832C141;
+ Tue, 18 Oct 2022 12:23:30 +0000 (UTC)
+References: <20221006110642.12410-1-andrea.cervesato@suse.com>
+ <20221006110642.12410-2-andrea.cervesato@suse.com>
 User-agent: mu4e 1.6.10; emacs 28.1
 From: Richard Palethorpe <rpalethorpe@suse.de>
-To: Yang Xu <xuyang2018.jy@fujitsu.com>
-Date: Tue, 18 Oct 2022 12:38:02 +0100
-In-reply-to: <1666089855-7282-1-git-send-email-xuyang2018.jy@fujitsu.com>
-Message-ID: <87ilkhjr6w.fsf@suse.de>
+To: Andrea Cervesato <andrea.cervesato@suse.com>
+Date: Tue, 18 Oct 2022 12:51:53 +0100
+In-reply-to: <20221006110642.12410-2-andrea.cervesato@suse.com>
+Message-ID: <87edv5jp6m.fsf@suse.de>
 MIME-Version: 1.0
 X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
@@ -61,7 +62,7 @@ X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2] syscalls/fork01: Convert into new api
+Subject: Re: [LTP] [PATCH v1 1/3] Add process_madvise01 test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,303 +83,321 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hello,
 
-Merged, thanks!
+Andrea Cervesato via ltp <ltp@lists.linux.it> writes:
 
-Yang Xu <xuyang2018.jy@fujitsu.com> writes:
-
-> Signed-off-by: Huangjie Liao <liaohj.jy@fujitsu.com>
-> Signed-off-by: Yang Xu <xuyang2018.jy@fujitsu.com>
-> ---
->  testcases/kernel/syscalls/fork/fork01.c | 249 +++++-------------------
->  1 file changed, 46 insertions(+), 203 deletions(-)
+> Test for checking MADV_COLD support in process_madvise syscall.
 >
-> diff --git a/testcases/kernel/syscalls/fork/fork01.c b/testcases/kernel/syscalls/fork/fork01.c
-> index 00d7c45c4..31ec5d4c1 100644
-> --- a/testcases/kernel/syscalls/fork/fork01.c
-> +++ b/testcases/kernel/syscalls/fork/fork01.c
-> @@ -1,234 +1,77 @@
+> Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
+> ---
+>  testcases/kernel/syscalls/cma/.gitignore      |   1 +
+>  testcases/kernel/syscalls/cma/cma.h           | 101 ++++++++++++
+>  .../kernel/syscalls/cma/process_madvise01.c   | 153
+> ++++++++++++++++++
+
+Needs to be added to a runtest file
+
+>  3 files changed, 255 insertions(+)
+>  create mode 100644 testcases/kernel/syscalls/cma/cma.h
+>  create mode 100644 testcases/kernel/syscalls/cma/process_madvise01.c
+>
+> diff --git a/testcases/kernel/syscalls/cma/.gitignore b/testcases/kernel/syscalls/cma/.gitignore
+> index 1ee39d93e..846704294 100644
+> --- a/testcases/kernel/syscalls/cma/.gitignore
+> +++ b/testcases/kernel/syscalls/cma/.gitignore
+> @@ -2,3 +2,4 @@
+>  /process_vm_readv02
+>  /process_vm_readv03
+>  /process_vm_writev02
+> +/process_madvise01
+> diff --git a/testcases/kernel/syscalls/cma/cma.h b/testcases/kernel/syscalls/cma/cma.h
+> new file mode 100644
+> index 000000000..08a0d9319
+> --- /dev/null
+> +++ b/testcases/kernel/syscalls/cma/cma.h
+> @@ -0,0 +1,101 @@
 > +// SPDX-License-Identifier: GPL-2.0-or-later
->  /*
->   * Copyright (c) 2000 Silicon Graphics, Inc.  All Rights Reserved.
-> + * Author: Kathy Olmsted
-> + * Co-Pilot: Steve Shaw
+> +/*
+> + * Copyright (C) 2022 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
+> + */
+> +
+> +#ifndef CMA_H__
+> +#define CMA_H__
+> +
+> +#include <stdio.h>
+> +#include <stdlib.h>
+> +#include <string.h>
+> +#include <unistd.h>
+> +#include "tst_safe_stdio.h"
+> +
+> +struct addr_mapping {
+> +	int size;
+> +	int rss;
+> +	int pss;
+> +	int shared_clean;
+> +	int shared_dirty;
+> +	int private_clean;
+> +	int private_dirty;
+> +	int referenced;
+> +	int anonymous;
+> +	int anon_huge_pages;
+> +	int shmem_huge_pages;
+> +	int shmem_pmd_mapped;
+> +	int swap;
+> +	int kernel_page_size;
+> +	int mmu_page_size;
+> +	int locked;
+> +	int protection_key;
+> +};
+> +
+> +static inline void read_address_mapping(unsigned long address, struct addr_mapping *mapping)
+> +{
+> +	FILE *f;
+> +	int found = 0;
+> +	char label[BUFSIZ];
+> +	char line[BUFSIZ];
+> +	char smaps[BUFSIZ];
+> +	char ptr_str[BUFSIZ];
+> +	int value;
+> +
+> +	snprintf(smaps, BUFSIZ, "/proc/%i/smaps", getpid());
+> +	snprintf(ptr_str, BUFSIZ, "%lx", address);
+> +
+> +	f = SAFE_FOPEN(smaps, "r");
+> +
+> +	while (fgets(line, BUFSIZ, f) != NULL) {
+> +		if (strncmp(ptr_str, line, strlen(ptr_str)) == 0)
+> +			found = 1;
+> +
+> +		if (!found)
+> +			continue;
+> +
+> +		if (found && strcmp(line, "VmFlags") >= 0)
+> +			break;
+> +
+> +		if (sscanf(line, "%31[^:]: %d", label, &value) > 0) {
+> +			if (strcmp(label, "Size") == 0)
+> +				mapping->size = value;
+> +			else if (strcmp(label, "Rss") == 0)
+> +				mapping->rss = value;
+> +			else if (strcmp(label, "Pss") == 0)
+> +				mapping->pss = value;
+> +			else if (strcmp(label, "Shared_Clean") == 0)
+> +				mapping->shared_clean = value;
+> +			else if (strcmp(label, "Shared_Dirty") == 0)
+> +				mapping->shared_dirty = value;
+> +			else if (strcmp(label, "Private_Clean") == 0)
+> +				mapping->private_clean = value;
+> +			else if (strcmp(label, "Private_Dirty") == 0)
+> +				mapping->private_dirty = value;
+> +			else if (strcmp(label, "Referenced") == 0)
+> +				mapping->referenced = value;
+> +			else if (strcmp(label, "Anonymous") == 0)
+> +				mapping->anonymous = value;
+> +			else if (strcmp(label, "AnonHugePages") == 0)
+> +				mapping->anon_huge_pages = value;
+> +			else if (strcmp(label, "ShmemHugePages") == 0)
+> +				mapping->shmem_huge_pages = value;
+> +			else if (strcmp(label, "ShmemPmdMapped") == 0)
+> +				mapping->shmem_pmd_mapped = value;
+> +			else if (strcmp(label, "Swap") == 0)
+> +				mapping->swap = value;
+> +			else if (strcmp(label, "KernelPageSize") == 0)
+> +				mapping->kernel_page_size = value;
+> +			else if (strcmp(label, "MMUPageSize") == 0)
+> +				mapping->mmu_page_size = value;
+> +			else if (strcmp(label, "Locked") == 0)
+> +				mapping->locked = value;
+> +			else if (strcmp(label, "ProtectionKey") == 0)
+> +				mapping->protection_key = value;
+> +		}
+> +	}
+> +
+> +	SAFE_FCLOSE(f);
+> +}
+> +
+> +#endif
+> diff --git a/testcases/kernel/syscalls/cma/process_madvise01.c b/testcases/kernel/syscalls/cma/process_madvise01.c
+> new file mode 100644
+> index 000000000..d907d982c
+> --- /dev/null
+> +++ b/testcases/kernel/syscalls/cma/process_madvise01.c
+> @@ -0,0 +1,153 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Copyright (C) 2022 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
 > + */
 > +
 > +/*\
-> + *[Description]
->   *
-> - * This program is free software; you can redistribute it and/or modify it
-> - * under the terms of version 2 of the GNU General Public License as
-> - * published by the Free Software Foundation.
-> - *
-> - * This program is distributed in the hope that it would be useful, but
-> - * WITHOUT ANY WARRANTY; without even the implied warranty of
-> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-> - *
-> - * Further, this software is distributed without any warranty that it is
-> - * free of the rightful claim of any third person regarding infringement
-> - * or the like.  Any license provided herein, whether implied or
-> - * otherwise, applies only to this software file.  Patent licenses, if
-> - * any, provided herein do not apply to combinations of this program with
-> - * other software, or any other product whatsoever.
-> - *
-> - * You should have received a copy of the GNU General Public License along
-> - * with this program; if not, write the Free Software Foundation, Inc.,
-> - * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-> - *
-> - * Contact information: Silicon Graphics, Inc., 1600 Amphitheatre Pkwy,
-> - * Mountain View, CA  94043, or:
-> - *
-> - * http://www.sgi.com
-> - *
-> - * For further information regarding this notice, see:
-> - *
-> - * http://oss.sgi.com/projects/GenInfo/NoticeExplan/
-> - *
-> - *
-> - *    OS Test - Silicon Graphics, Inc.
-> - *    TEST IDENTIFIER	: fork01
-> - *    EXECUTED BY	: anyone
-> - *    TEST TITLE	: Basic test for fork(2)
-> - *    PARENT DOCUMENT	: frktds02
-> - *    TEST CASE TOTAL	: 2
-> - *    WALL CLOCK TIME	: 1
-> - *    CPU TYPES		: ALL
-> - *    AUTHOR		: Kathy Olmsted
-> - *    CO-PILOT		: Steve Shaw
-> - *    DATE STARTED	: 06/17/92
-> - *    INITIAL RELEASE	: UNICOS 7.0
-> - *    TEST CASES
-> - *	1.) fork returns without error
-> - *	2.) fork returns the pid of the child
-> - *    INPUT SPECIFICATIONS
-> - *	The standard options for system call tests are accepted.
-> - *	(See the parse_opts(3) man page).
-> - *    OUTPUT SPECIFICATIONS
-> - *    DURATION
-> - *	Terminates - with frequency and infinite modes.
-> - *    SIGNALS
-> - *	Uses SIGUSR1 to pause before test if option set.
-> - *	(See the parse_opts(3) man page).
-> - *    RESOURCES
-> - *	None
-> - *    ENVIRONMENTAL NEEDS
-> - *      No run-time environmental needs.
-> - *    SPECIAL PROCEDURAL REQUIREMENTS
-> - *	None
-> - *    INTERCASE DEPENDENCIES
-> - *	None
-> - *    DETAILED DESCRIPTION
-> - *	Setup:
-> - *	Setup signal handling.
-> - *	  Pause for SIGUSR1 if option specified.
-> - *	Test:
-> - *	 Loop if the proper options are given.
-> - *        fork()
-> - *	  Check return code, if system call failed (return=-1)
-> - *		Log the errno and Issue a FAIL message.
-> - *	  Otherwise, Issue a PASS message.
-> - *        CHILD:
-> - *           determine PID
-> - *           write to PID to a file and close the file
-> - *           exit
-> - *        PARENT:
-> - *           wait for child to exit
-> - *           read child PID from file
-> - *           compare child PID to fork() return code and report
-> - *           results
-> - *
-> - *	  Cleanup:
-> - *           Print errno log and/or timing stats if options given
-> + * - fork returns without error
-> + * - fork returns the pid of the child
->   */
->  
->  #include <errno.h>
->  #include <string.h>
-> -#include <signal.h>
-> -#include <fcntl.h>
->  #include <stdlib.h>
->  #include <sys/types.h>
->  #include <sys/wait.h>
-> -#include "test.h"
-> +#include "tst_test.h"
->  
->  #define	KIDEXIT	42
-> -static void setup();
-> -static void cleanup();
-> -
-> -#define LINE_SZ	20
->  #define FILENAME "childpid"
->  
-> -char *TCID = "fork01";
-> -int TST_TOTAL = 2;
-> -
-> -/*
-> - * child_pid - the child side of the test
-> - *             determine the PID and write to a file
-> - */
-> -static void child_pid(void)
-> -{
-> -
-> -	int fildes;
-> -	char tmp_line[LINE_SZ];
-> -
-> -	fildes = creat(FILENAME, 0700);
-> -	sprintf(tmp_line, "%d\n", getpid());
-> -	write(fildes, tmp_line, LINE_SZ);
-> -	close(fildes);
-> -
-> -}
-> +static int fd = -1;
->  
-> -/*
-> - * parent_pid - the parent side of the test
-> - *              read the value determined by the child
-> - *              compare and report results
-> - */
-> -static void parent_pid(void)
-> +static void verify_fork(void)
->  {
-> +	int kid_status, term_pid, child_pid, pid, ret;
->  
-> -	int fildes;
-> -	char tmp_line[LINE_SZ];
-> -	pid_t child_id;
-> -
-> -	fildes = open(FILENAME, O_RDWR);
-> -	if (fildes == -1) {
-> -		tst_brkm(TBROK, cleanup,
-> -			 "parent open failed. errno: %d (%s)\n",
-> -			 errno, strerror(errno));
-> -	} else {
-> -		if (read(fildes, tmp_line, LINE_SZ) == 0) {
-> -			tst_brkm(TBROK, cleanup,
-> -				 "fork(): parent failed to read PID from file errno: %d (%s)",
-> -				 errno, strerror(errno));
-> -		} else {
-> -			child_id = atoi(tmp_line);
-> -			if (TEST_RETURN != child_id) {
-> -				tst_resm(TFAIL,
-> -					 "child reported a pid of %d. parent received %ld from fork()",
-> -					 child_id, TEST_RETURN);
-> -			} else {
-> -				tst_resm(TPASS,
-> -					 "child pid and fork() return agree: %d",
-> -					 child_id);
-> -			}
-> -		}
-> -		close(fildes);
-> +	pid = SAFE_FORK();
-> +	if (!pid) {
-> +		SAFE_FILE_PRINTF(FILENAME, "%d", getpid());
-> +		exit(KIDEXIT);
->  	}
-> -}
-> -
-> -int main(int ac, char **av)
-> -{
-> -	int lc;
-> -	int fails;
-> -	int kid_status, wait_status;
-> -
-> -	tst_parse_opts(ac, av, NULL, NULL);
->  
-> -	setup();
-> -
-> -	for (lc = 0; TEST_LOOPING(lc); lc++) {
-> -		tst_count = 0;
-> -		fails = 0;
-> -
-> -		TEST(fork());
-> -		if (TEST_RETURN == -1) {
-> -			tst_resm(TFAIL, "fork() Failed, errno=%d : %s",
-> -				 TEST_ERRNO, strerror(TEST_ERRNO));
-> -			tst_resm(TBROK, "unable to continue");
-> +	term_pid = SAFE_WAITPID(pid, &kid_status, 0);
-> +	if (term_pid == pid) {
-> +		if (!WIFEXITED(kid_status)) {
-> +			tst_res(TFAIL, "child exited abnormally");
-> +			return;
->  		}
-> -		if (TEST_RETURN == 0) {
-> -			/* child */
-> -			child_pid();
-> -			exit(KIDEXIT);
-> -		} else {
-> -			/* parent */
-> -			tst_resm(TPASS, "fork() returned %ld",
-> -				 TEST_RETURN);
-> -			/* wait for the child to complete */
-> -			wait_status = waitpid(TEST_RETURN, &kid_status, 0);
-> -
-> -			if (wait_status == TEST_RETURN) {
-> -				if (kid_status != KIDEXIT << 8) {
-> -					tst_resm(TBROK,
-> -						 "incorrect child status returned on wait(): %d",
-> -						 kid_status);
-> -					fails++;
-> -				}
-> -			} else {
-> -				tst_resm(TBROK,
-> -					 "wait() for child status failed with %d errno: %d : %s",
-> -					 wait_status, errno,
-> -					 strerror(errno));
-> -				fails++;
-> -			}
-> -			if (fails == 0) {
-> -				/* verification tests */
-> -				parent_pid();
-> -			}
-> -		}		/* TEST_RETURN */
-> +		ret = WEXITSTATUS(kid_status);
-> +		if (ret != KIDEXIT)
-> +			tst_res(TFAIL, "incorrect child status returned %d", ret);
-> +		else
-> +			tst_res(TPASS, "correct child status returned %d", ret);
+> + * [Description]
+> + *
+> + * Spawn child inside cgroup and set max memory. Allocate anonymous memory
+> + * pages inside child and deactivate them with MADV_COLD. Then apply memory
+> + * pressure and check if memory pages have been swapped out.
+> + *
+> + * The advice might be ignored for some pages in the range when it is
+> + * not applicable, so test passes if swap memory increases after
+> + * reclaiming memory with MADV_COLD.
+> + */
 > +
-> +		SAFE_FILE_SCANF(FILENAME, "%d", &child_pid);
-> +		TST_EXP_EQ_LI(child_pid, pid);
-> +	} else {
-> +		tst_res(TFAIL, "waitpid() returns %d instead of expected pid %d",
-> +				term_pid, pid);
->  	}
->  
-> -	cleanup();
-> -	tst_exit();
-> +	tst_reap_children();
->  }
->  
->  static void setup(void)
->  {
-> -
-> -	tst_sig(FORK, DEF_HANDLER, cleanup);
-> -
-> -	TEST_PAUSE;
-> -
-> -	tst_tmpdir();
-> +	fd = SAFE_CREAT(FILENAME, 0700);
-> +	SAFE_CLOSE(fd);
->  }
->  
->  static void cleanup(void)
->  {
-> -
-> -	tst_rmdir();
-> -
-> +	if (fd > -1)
-> +		SAFE_CLOSE(fd);
->  }
+> +#define _GNU_SOURCE
+> +
+> +#include <sys/mman.h>
+> +#include "tst_test.h"
+> +#include "lapi/mmap.h"
+> +#include "lapi/syscalls.h"
+> +#include "cma.h"
+> +
+> +#define MEM_LIMIT	(50 * 1024 * 1024)
+> +#define MEM_CHILD	(10 * 1024 * 1024)
+> +#define MEM_PRESS	MEM_LIMIT
+> +
+> +static void **data_ptr;
+> +
+> +static void child_alloc(void)
+> +{
+> +	char *ptr;
+> +	char *data;
+> +	size_t cmem;
+> +	size_t cswap;
+> +	int freed = 1;
+> +	struct addr_mapping map_before;
+> +	struct addr_mapping map_after;
+> +
+> +	tst_res(TINFO, "Set memory limit");
+> +
+> +	SAFE_CG_PRINTF(tst_cg, "cgroup.procs", "%d", getpid());
+> +	SAFE_CG_PRINTF(tst_cg, "memory.max", "%d", MEM_LIMIT);
+
+This is a hard limit, memory.high would probably be better (for V1 that
+could be mapped to soft_limit_in_bytes).
+
+> +
+> +	tst_res(TINFO, "Allocate memory");
+> +
+> +	*data_ptr = SAFE_MMAP(NULL, MEM_CHILD,
+> +			PROT_READ | PROT_WRITE,
+> +			MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+> +	memset(*data_ptr, 'a', MEM_CHILD);
+> +
+> +	read_address_mapping((unsigned long)*data_ptr, &map_before);
+> +
+> +	SAFE_CG_SCANF(tst_cg, "memory.current", "%zu", &cmem);
+> +	tst_res(TINFO, "Allocated %lu / %d bytes", cmem, MEM_LIMIT);
+> +
+> +	TST_CHECKPOINT_WAKE_AND_WAIT(0);
+> +
+> +	tst_res(TINFO, "Apply memory pressure");
+> +
+> +	data = SAFE_MMAP(NULL, MEM_PRESS,
+> +			PROT_READ | PROT_WRITE,
+> +			MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+
+This should cause swap to increase in any case. On a system with no swap
+it causes the process to be killed by OOM (Unless we use memory.high).
+
+Thinking about it, it may be better to create two mappings, one with the
+advice and one without. Then check that the one with the advice is
+swapped more than the one without (after applying pressure).
+
+However we shouldn't use more than memory.high in any case.
+
+> +	memset(data, 'b', MEM_PRESS);
+> +	SAFE_MUNMAP(data, MEM_PRESS);
+> +
+> +	SAFE_CG_SCANF(tst_cg, "memory.swap.current", "%zu", &cswap);
+> +	tst_res(TINFO, "Swap now contains %lu bytes", cswap);
+> +
+> +	for (ptr = *data_ptr; *ptr != '\0'; ptr++) {
+> +		if (*ptr == 'a') {
+> +			freed = 0;
+> +			break;
+> +		}
+> +	}
+> +
+> +	if (freed) {
+> +		tst_res(TFAIL, "Memory has been freed");
+> +		return;
+> +	}
+> +
+> +	read_address_mapping((unsigned long)*data_ptr, &map_after);
+> +
+> +	SAFE_MUNMAP(*data_ptr, MEM_CHILD);
+> +
+> +	if (map_before.swap < map_after.swap)
+> +		tst_res(TPASS, "Memory has been swapped out");
+> +	else
+> +		tst_res(TFAIL, "Swap memory has decreased");
+> +}
+> +
+> +static void setup(void)
+> +{
+
+We need to check if the system has swap available here (see madvise06)
+and/or create a device to use as swap (see swapon test/syscall).
+
+I suppose this could be useful for other tests and metadata so could be
+added to the test struct.
+
+> +	data_ptr = SAFE_MMAP(NULL, sizeof(void *),
+> +			PROT_READ | PROT_WRITE,
+> +			MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+> +}
+> +
+> +static void cleanup(void)
+> +{
+> +	if (*data_ptr)
+> +		SAFE_MUNMAP(*data_ptr, MEM_CHILD);
+> +
+> +	if (data_ptr)
+> +		SAFE_MUNMAP(data_ptr, sizeof(void *));
+> +}
+> +
+> +static void run(void)
+> +{
+> +	int ret;
+> +	int pidfd;
+> +	pid_t pid_alloc;
+> +	struct iovec vec;
+> +
+> +	pid_alloc = SAFE_FORK();
+> +	if (!pid_alloc) {
+> +		child_alloc();
+> +		return;
+> +	}
+> +
+> +	TST_CHECKPOINT_WAIT(0);
+> +
+> +	tst_res(TINFO, "Apply MADV_COLD advise rule");
+> +
+> +	pidfd = SAFE_PIDFD_OPEN(pid_alloc, 0);
+> +
+> +	vec.iov_base = *data_ptr;
+> +	vec.iov_len = MEM_CHILD;
+> +
+> +	ret = tst_syscall(__NR_process_madvise, pidfd, &vec, 1UL,
+> +			MADV_COLD, 0UL);
+> +
+> +	if (ret == -1)
+> +		tst_brk(TBROK | TERRNO, "process_madvise failed");
+> +
+> +	if (ret != MEM_CHILD)
+> +		tst_brk(TBROK, "process_madvise reclaimed only %d bytes", ret);
+> +
+> +	TST_CHECKPOINT_WAKE(0);
+> +}
 > +
 > +static struct tst_test test = {
 > +	.setup = setup,
 > +	.cleanup = cleanup,
-> +	.needs_tmpdir = 1,
+> +	.test_all = run,
 > +	.forks_child = 1,
-> +	.test_all = verify_fork,
+> +	.min_kver = "5.10",
+> +	.needs_checkpoints = 1,
+> +	.needs_cgroup_ver = TST_CG_V2,
+> +	.needs_cgroup_ctrls = (const char *const []){ "memory", NULL },
 > +};
 > -- 
-> 2.27.0
+> 2.35.3
 
 
 -- 
