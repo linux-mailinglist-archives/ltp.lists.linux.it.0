@@ -2,93 +2,94 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17C73604FE6
-	for <lists+linux-ltp@lfdr.de>; Wed, 19 Oct 2022 20:49:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70CDE604FE8
+	for <lists+linux-ltp@lfdr.de>; Wed, 19 Oct 2022 20:49:41 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 60A573CB11D
-	for <lists+linux-ltp@lfdr.de>; Wed, 19 Oct 2022 20:49:22 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 33A713CB130
+	for <lists+linux-ltp@lfdr.de>; Wed, 19 Oct 2022 20:49:41 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::7])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 3E7823CAF3A
- for <ltp@lists.linux.it>; Wed, 19 Oct 2022 20:49:04 +0200 (CEST)
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
+ by picard.linux.it (Postfix) with ESMTPS id B0B2E3CB13B
+ for <ltp@lists.linux.it>; Wed, 19 Oct 2022 20:49:10 +0200 (CEST)
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 845BD200B86
- for <ltp@lists.linux.it>; Wed, 19 Oct 2022 20:49:03 +0200 (CEST)
-Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 29JIYFS7028732
- for <ltp@lists.linux.it>; Wed, 19 Oct 2022 18:49:02 GMT
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 6DFEE1A00937
+ for <ltp@lists.linux.it>; Wed, 19 Oct 2022 20:49:08 +0200 (CEST)
+Received: from pps.filterd (m0098399.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 29JIclH0004122
+ for <ltp@lists.linux.it>; Wed, 19 Oct 2022 18:49:07 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
  h=from : to : cc : subject
  : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding; s=pp1;
- bh=KLUaE0o2GY39npRfCqXlPJO1wO+kY2xvUMPqMCVOdAw=;
- b=F2cNxuFQfE9vp+z0BkMm6+BfSNFIzb5BDejpiLU5q47VKxJWqC25iXNiqb7jQZYn3kjL
- 3Vsdhpt4rkiGEcrznMPIDpyZMHWj86E8aRjWPLqzRxaP8+UYQsfdeVI5fQXSYBhYm3U7
- 8UDMy+rNu98xKnleLH/3TDsWs2eP4B5A/hQgUIJ15T4ZKoz3HrUl9+bB2pyXxTPj+r91
- f6mvd9ieFE9msAp1p/Jmxz/yh+at23bpkyW5keb+R61Bla/XFmqK/joNLf26cQptYU8b
- liWcQzyUt9SXWTBLDua/eQUl8N5F0gulemWSDyzcwg5fvXczNDhc+hUSAq8fntkIBTsS qQ== 
-Received: from ppma03ams.nl.ibm.com (62.31.33a9.ip4.static.sl-reverse.com
- [169.51.49.98])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3kan7e37x8-1
+ bh=O4eTBZPluSIsiyvRKKC71A4bH6zWrZ7T0NCyp2GBMwI=;
+ b=WW77sn5x3hLf/KKarjYD0sAmtsjhwgF5GRgyM3ATSI0Ng0PU71Z40+/mSKA+JNsPonzU
+ 4sNXPUdq0BfU4SsfUw1BeVAqV2WI0GxFPsRYyxJpe2Cdx6HGWosW8Ii6k9be5P2V5ZqQ
+ 7+bvDx5xhq/Dn4GqRqV5HwZECvAI9Vl2wX/yA//Nkeoq7/Ili8DpWBUCR6z++hSgKDEJ
+ 8WTUyD0+BVt3M855v+XLQJSXzq8MY25QOP3z7YcPdACN+vwSGAUGcxwKbmICeqE0VsUT
+ cO6KIH2YSeU0Ba7IYY+Lb7BKP9NcZy0YPJ4ogYcHSQg9Y1rKRsccBiFlViKmSAaAsUnV Jg== 
+Received: from ppma04ams.nl.ibm.com (63.31.33a9.ip4.static.sl-reverse.com
+ [169.51.49.99])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3kanu822e4-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <ltp@lists.linux.it>; Wed, 19 Oct 2022 18:49:01 +0000
-Received: from pps.filterd (ppma03ams.nl.ibm.com [127.0.0.1])
- by ppma03ams.nl.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 29JIZSxe020605
- for <ltp@lists.linux.it>; Wed, 19 Oct 2022 18:49:00 GMT
-Received: from b06avi18626390.portsmouth.uk.ibm.com
- (b06avi18626390.portsmouth.uk.ibm.com [9.149.26.192])
- by ppma03ams.nl.ibm.com with ESMTP id 3k7mg97m3w-1
+ for <ltp@lists.linux.it>; Wed, 19 Oct 2022 18:49:07 +0000
+Received: from pps.filterd (ppma04ams.nl.ibm.com [127.0.0.1])
+ by ppma04ams.nl.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 29JIZp5G029000
+ for <ltp@lists.linux.it>; Wed, 19 Oct 2022 18:49:04 GMT
+Received: from b06cxnps4076.portsmouth.uk.ibm.com
+ (d06relay13.portsmouth.uk.ibm.com [9.149.109.198])
+ by ppma04ams.nl.ibm.com with ESMTP id 3k7mg97h4v-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <ltp@lists.linux.it>; Wed, 19 Oct 2022 18:48:59 +0000
+ for <ltp@lists.linux.it>; Wed, 19 Oct 2022 18:49:04 +0000
 Received: from d06av22.portsmouth.uk.ibm.com (d06av22.portsmouth.uk.ibm.com
  [9.149.105.58])
- by b06avi18626390.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP
- id 29JIhuFu40632788
+ by b06cxnps4076.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 29JIn1vA3408558
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 19 Oct 2022 18:43:56 GMT
+ Wed, 19 Oct 2022 18:49:01 GMT
 Received: from d06av22.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id BE4004C040;
- Wed, 19 Oct 2022 18:48:56 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id 66C284C040;
+ Wed, 19 Oct 2022 18:49:01 +0000 (GMT)
 Received: from d06av22.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 3C6484C044;
- Wed, 19 Oct 2022 18:48:54 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id C46FC4C044;
+ Wed, 19 Oct 2022 18:48:57 +0000 (GMT)
 Received: from tarunpc.ibmuc.com (unknown [9.43.100.225])
  by d06av22.portsmouth.uk.ibm.com (Postfix) with ESMTP;
- Wed, 19 Oct 2022 18:48:53 +0000 (GMT)
+ Wed, 19 Oct 2022 18:48:57 +0000 (GMT)
 From: Tarun Sahu <tsahu@linux.ibm.com>
 To: ltp@lists.linux.it
-Date: Thu, 20 Oct 2022 00:18:44 +0530
-Message-Id: <20221019184846.89318-2-tsahu@linux.ibm.com>
+Date: Thu, 20 Oct 2022 00:18:45 +0530
+Message-Id: <20221019184846.89318-3-tsahu@linux.ibm.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20221019184846.89318-1-tsahu@linux.ibm.com>
 References: <20221019184846.89318-1-tsahu@linux.ibm.com>
 MIME-Version: 1.0
 X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: cueTyRSwljQKL971KBmhKUoA5kwt0sRX
-X-Proofpoint-ORIG-GUID: cueTyRSwljQKL971KBmhKUoA5kwt0sRX
+X-Proofpoint-GUID: yvg4mfSCQEC3K8-gieS3zHcicPv17noF
+X-Proofpoint-ORIG-GUID: yvg4mfSCQEC3K8-gieS3zHcicPv17noF
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
  definitions=2022-10-19_11,2022-10-19_04,2022-06-22_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- phishscore=0 priorityscore=1501 adultscore=0 clxscore=1015 mlxlogscore=999
- mlxscore=0 suspectscore=0 impostorscore=0 spamscore=0 bulkscore=0
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2209130000 definitions=main-2210190105
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+ adultscore=0
+ lowpriorityscore=0 suspectscore=0 clxscore=1015 impostorscore=0
+ malwarescore=0 phishscore=0 priorityscore=1501 mlxscore=0 spamscore=0
+ bulkscore=0 mlxlogscore=999 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.12.0-2209130000 definitions=main-2210190105
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: [LTP] [PATCH v2 1/3] Hugetlb: Migrating libhugetlbfs brk_near_huge
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: [LTP] [PATCH v2 2/3] Hugetlb: Migrating libhugetlbfs
+ chunk-overcommit
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,53 +107,56 @@ Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Migrating the libhugetlbfs/testcases/brk_near_huge.c test
+Migrating the libhugetlbfs/testcases/chunk-overcommit.c test
 
-Test Description:
-Certain kernels have a bug where brk() does not perform the same
-checks that a MAP_FIXED mmap() will, allowing brk() to create a
-normal page VMA in a hugepage only address region. This can lead
-to oopses or other badness.
+Test Description: Some kernel versions after hugepage demand allocation was
+added used a dubious heuristic to check if there was enough hugepage space
+available for a given mapping.  The number of not-already-instantiated
+pages in the mapping was compared against the total hugepage free pool. It
+was very easy to confuse this heuristic into overcommitting by allocating
+hugepage memory in chunks, each less than the total available pool size but
+together more than available.  This would generally lead to OOM SIGKILLs of
+one process or another when it tried to instantiate pages beyond the
+available pool.
 
 Signed-off-by: Tarun Sahu <tsahu@linux.ibm.com>
 ---
  runtest/hugetlb                               |   1 +
  testcases/kernel/mem/.gitignore               |   1 +
- .../kernel/mem/hugetlb/hugemmap/hugemmap07.c  | 156 ++++++++++++++++++
- testcases/kernel/mem/hugetlb/lib/hugetlb.h    |   3 +
- 4 files changed, 161 insertions(+)
- create mode 100644 testcases/kernel/mem/hugetlb/hugemmap/hugemmap07.c
+ .../kernel/mem/hugetlb/hugemmap/hugemmap08.c  | 166 ++++++++++++++++++
+ 3 files changed, 168 insertions(+)
+ create mode 100644 testcases/kernel/mem/hugetlb/hugemmap/hugemmap08.c
 
 diff --git a/runtest/hugetlb b/runtest/hugetlb
-index f719217ab..f7ff81cb3 100644
+index f7ff81cb3..664f18827 100644
 --- a/runtest/hugetlb
 +++ b/runtest/hugetlb
-@@ -3,6 +3,7 @@ hugemmap02 hugemmap02
- hugemmap04 hugemmap04
+@@ -4,6 +4,7 @@ hugemmap04 hugemmap04
  hugemmap05 hugemmap05
  hugemmap06 hugemmap06
-+hugemmap07 hugemmap07
+ hugemmap07 hugemmap07
++hugemmap08 hugemmap08
  hugemmap05_1 hugemmap05 -m
  hugemmap05_2 hugemmap05 -s
  hugemmap05_3 hugemmap05 -s -m
 diff --git a/testcases/kernel/mem/.gitignore b/testcases/kernel/mem/.gitignore
-index ff2910533..df5256ec8 100644
+index df5256ec8..003ce422b 100644
 --- a/testcases/kernel/mem/.gitignore
 +++ b/testcases/kernel/mem/.gitignore
-@@ -4,6 +4,7 @@
- /hugetlb/hugemmap/hugemmap04
+@@ -5,6 +5,7 @@
  /hugetlb/hugemmap/hugemmap05
  /hugetlb/hugemmap/hugemmap06
-+/hugetlb/hugemmap/hugemmap07
+ /hugetlb/hugemmap/hugemmap07
++/hugetlb/hugemmap/hugemmap08
  /hugetlb/hugeshmat/hugeshmat01
  /hugetlb/hugeshmat/hugeshmat02
  /hugetlb/hugeshmat/hugeshmat03
-diff --git a/testcases/kernel/mem/hugetlb/hugemmap/hugemmap07.c b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap07.c
+diff --git a/testcases/kernel/mem/hugetlb/hugemmap/hugemmap08.c b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap08.c
 new file mode 100644
-index 000000000..bd33d9816
+index 000000000..2fbda0fcb
 --- /dev/null
-+++ b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap07.c
-@@ -0,0 +1,156 @@
++++ b/testcases/kernel/mem/hugetlb/hugemmap/hugemmap08.c
+@@ -0,0 +1,166 @@
 +// SPDX-License-Identifier: LGPL-2.1-or-later
 +/*
 + * Copyright (C) 2005-2006 David Gibson & Adam Litke, IBM Corporation.
@@ -160,120 +164,126 @@ index 000000000..bd33d9816
 + */
 +
 +/*\
-+ *
 + * [Description]
 + *
-+ * brk() near hugepage:
-+ * Certain kernels have a bug where brk() does not perform the same
-+ * checks that a MAP_FIXED mmap() will, allowing brk() to create a
-+ * normal page VMA in a hugepage only address region. This can lead
-+ * to oopses or other badness.
++ * Chunk Overcommit:
++ * Some kernel versions after hugepage demand allocation was added used a
++ * dubious heuristic to check if there was enough hugepage space available
++ * for a given mapping.  The number of not-already-instantiated pages in
++ * the mapping was compared against the total hugepage free pool. It was
++ * very easy to confuse this heuristic into overcommitting by allocating
++ * hugepage memory in chunks, each less than the total available pool size
++ * but together more than available.  This would generally lead to OOM
++ * SIGKILLs of one process or another when it tried to instantiate pages
++ * beyond the available pool.
++ *
++ * HISTORY
++ *
 + */
 +
 +#define _GNU_SOURCE
 +#include <stdio.h>
++#include <stdlib.h>
 +#include <sys/mount.h>
 +#include <limits.h>
 +#include <sys/param.h>
 +#include <sys/types.h>
++#include <sys/wait.h>
++#include <signal.h>
 +
 +#include "hugetlb.h"
-+#include "tst_safe_stdio.h"
 +
-+static int  fd = -1;
++#define PROC_OVERCOMMIT "/proc/sys/vm/nr_overcommit_hugepages"
++#define WITH_OVERCOMMIT 0
++#define WITHOUT_OVERCOMMIT 1
++
 +static char hfile[MAXPATHLEN];
++static int fd = -1;
 +static long hpage_size;
 +
-+static int arch_has_slice_support(void)
++static void test_chunk_overcommit(void)
 +{
-+#ifdef __powerpc64__
-+	char mmu_type[16];
-+	FILE *fp;
-+	int ret;
++	unsigned long totpages, chunk1, chunk2;
++	void *p, *q;
++	pid_t child;
++	int status;
 +
-+	fp = SAFE_POPEN("cat /proc/cpuinfo | grep MMU | awk '{ print $3}'", "r");
-+	ret = fscanf(fp, "%s", mmu_type);
-+	pclose(fp);
++	fd = SAFE_OPEN(hfile, O_RDWR | O_CREAT, 0600);
++	SAFE_UNLINK(hfile);
 +
-+	if (ret < 0)
-+		tst_brk(TBROK, "Failed to determine MMU type");
++	totpages = SAFE_READ_MEMINFO("HugePages_Free:");
 +
-+	return strcmp(mmu_type, "Hash") == 0;
-+#elif defined(__powerpc__) && !defined(PPC_NO_SEGMENTS)
-+	return 1;
-+#else
-+	return 0;
-+#endif
-+}
++	chunk1 = (totpages / 2) + 1;
++	chunk2 = totpages - chunk1 + 1;
 +
-+#ifdef __powerpc64__
-+static void *next_chunk(void *addr)
-+{
-+	if (!arch_has_slice_support())
-+		return PALIGN(addr, SAFE_READ_MEMINFO("Hugepagesize:")*1024);
++	tst_res(TINFO, "Free: %ld hugepages available: "
++	       "chunk1=%ld chunk2=%ld", totpages, chunk1, chunk2);
 +
-+	if ((unsigned long)addr < 0x100000000UL)
-+		/* 256M segments below 4G */
-+		return PALIGN(addr, 0x10000000UL);
-+	/* 1TB segments above */
-+	return PALIGN(addr, 0x10000000000UL);
-+}
-+#elif defined(__powerpc__) && !defined(PPC_NO_SEGMENTS)
-+static void *next_chunk(void *addr)
-+{
-+	return PALIGN(addr, 0x10000000UL);
-+}
-+#elif defined(__ia64__)
-+static void *next_chunk(void *addr)
-+{
-+	return PALIGN(addr, 0x8000000000000000UL);
-+}
-+#else
-+static void *next_chunk(void *addr)
-+{
-+	return PALIGN(addr, SAFE_READ_MEMINFO("Hugepagesize:")*1024);
-+}
-+#endif
++	p = SAFE_MMAP(NULL, chunk1*hpage_size, PROT_READ|PROT_WRITE, MAP_SHARED,
++		 fd, 0);
 +
-+static void run_test(void)
-+{
-+	void *brk0, *hugemap_addr, *newbrk;
-+	char *p;
-+	int err;
-+
-+	brk0 = sbrk(0);
-+	tst_res(TINFO, "Initial break at %p", brk0);
-+
-+	hugemap_addr = next_chunk(brk0) + hpage_size;
-+
-+	p = SAFE_MMAP(hugemap_addr, hpage_size, PROT_READ|PROT_WRITE,
-+			MAP_PRIVATE|MAP_FIXED, fd, 0);
-+	if (p != hugemap_addr) {
-+		tst_res(TFAIL, "mmap() at unexpected address %p instead of %p\n", p,
-+		     hugemap_addr);
-+		goto cleanup;
++	q = mmap(NULL, chunk2*hpage_size, PROT_READ|PROT_WRITE, MAP_SHARED,
++		 fd, chunk1*hpage_size);
++	if (q == MAP_FAILED) {
++		if (errno != ENOMEM) {
++			tst_res(TFAIL | TERRNO, "mmap() chunk2");
++			goto cleanup1;
++		} else {
++			tst_res(TPASS, "Successful without overcommit pages");
++			goto cleanup1;
++		}
 +	}
 +
-+	newbrk = next_chunk(brk0) + getpagesize();
-+	err = brk((void *)newbrk);
-+	if (err == -1) {
-+		/* Failing the brk() is an acceptable kernel response */
-+		tst_res(TPASS, "Failing the brk is an acceptable response");
-+	} else {
-+		/* Suceeding the brk() is acceptable iff the new memory is
-+		 * properly accesible and we don't have a kernel blow up when
-+		 * we touch it.
-+		 */
-+		tst_res(TINFO, "New break at %p", newbrk);
-+		memset(brk0, 0, newbrk-brk0);
-+		tst_res(TPASS, "memory is accessible, hence successful brk() is "
-+				"an acceptable response");
++	tst_res(TINFO, "Looks like we've overcommitted, testing...");
++	/* Looks like we're overcommited, but we need to confirm that
++	 * this is bad.  We touch it all in a child process because an
++	 * overcommit will generally lead to a SIGKILL which we can't
++	 * handle, of course.
++	 */
++	child = SAFE_FORK();
++
++	if (child == 0) {
++		memset(p, 0, chunk1*hpage_size);
++		memset(q, 0, chunk2*hpage_size);
++		exit(0);
 +	}
-+cleanup:
-+	SAFE_MUNMAP(p, hpage_size);
-+	err = brk(brk0);
-+	if (err == -1)
-+		tst_brk(TBROK, "Failed to set break at the original position");
++
++	SAFE_WAITPID(child, &status, 0);
++
++	if (WIFSIGNALED(status)) {
++		tst_res(TFAIL, "Killed by signal '%s' due to overcommit",
++		     tst_strsig(WTERMSIG(status)));
++		goto cleanup2;
++	}
++
++	tst_res(TPASS, "Successful with overcommit pages");
++
++cleanup2:
++	SAFE_MUNMAP(q, chunk2*hpage_size);
++
++cleanup1:
++	SAFE_MUNMAP(p, chunk1*hpage_size);
++	SAFE_CLOSE(fd);
++}
++
++static void run_test(unsigned int test_type)
++{
++	unsigned long saved_oc_hugepages;
++
++	SAFE_FILE_SCANF(PROC_OVERCOMMIT, "%ld", &saved_oc_hugepages);
++	switch (test_type) {
++	case WITHOUT_OVERCOMMIT:
++		tst_res(TINFO, "Without overcommit testing...");
++		if (saved_oc_hugepages > 0)
++			SAFE_FILE_PRINTF(PROC_OVERCOMMIT, "%d", 0);
++		break;
++	case WITH_OVERCOMMIT:
++		tst_res(TINFO, "With overcommit testing...");
++		if (saved_oc_hugepages == 0)
++			SAFE_FILE_PRINTF(PROC_OVERCOMMIT, "%d", 2);
++		break;
++	}
++	test_chunk_overcommit();
 +}
 +
 +static void setup(void)
@@ -282,11 +292,8 @@ index 000000000..bd33d9816
 +		Hopt = tst_get_tmpdir();
 +	SAFE_MOUNT("none", Hopt, "hugetlbfs", 0, NULL);
 +
-+	snprintf(hfile, sizeof(hfile), "%s/ltp_hugetlbfile%d", Hopt, getpid());
++	snprintf(hfile, sizeof(hfile), "%s/ltp_huetlbfile%d", Hopt, getpid());
 +	hpage_size = SAFE_READ_MEMINFO("Hugepagesize:")*1024;
-+
-+	fd = SAFE_OPEN(hfile, O_RDWR | O_CREAT, 0600);
-+	SAFE_UNLINK(hfile);
 +}
 +
 +static void cleanup(void)
@@ -299,30 +306,23 @@ index 000000000..bd33d9816
 +static struct tst_test test = {
 +	.needs_root = 1,
 +	.needs_tmpdir = 1,
++	.forks_child = 1,
 +	.options = (struct tst_option[]) {
 +		{"H:", &Hopt,   "Location of hugetlbfs, i.e.  -H /var/hugetlbfs"},
 +		{"s:", &nr_opt, "Set the number of the been allocated hugepages"},
 +		{}
 +	},
++	.save_restore = (const struct tst_path_val[]) {
++		{PROC_OVERCOMMIT, NULL},
++		{}
++	},
++	.tcnt = 2,
 +	.setup = setup,
 +	.cleanup = cleanup,
-+	.test_all = run_test,
-+	.hugepages = {1, TST_NEEDS},
++	.test = run_test,
++	.hugepages = {3, TST_NEEDS},
 +};
-diff --git a/testcases/kernel/mem/hugetlb/lib/hugetlb.h b/testcases/kernel/mem/hugetlb/lib/hugetlb.h
-index f75109f3e..1cfeca95a 100644
---- a/testcases/kernel/mem/hugetlb/lib/hugetlb.h
-+++ b/testcases/kernel/mem/hugetlb/lib/hugetlb.h
-@@ -20,6 +20,9 @@
- #include "old_tmpdir.h"
- #include "mem.h"
- 
-+#define ALIGN(x, a)	(((x) + (a) - 1) & ~((a) - 1))
-+#define PALIGN(p, a) ((void *)ALIGN((unsigned long)(p), (a)))
 +
- #define SHM_RD	0400
- #define SHM_WR	0200
- #define SHM_RW	(SHM_RD|SHM_WR)
 -- 
 2.31.1
 
