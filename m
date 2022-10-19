@@ -2,151 +2,83 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C1EC603798
-	for <lists+linux-ltp@lfdr.de>; Wed, 19 Oct 2022 03:40:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E00B8603857
+	for <lists+linux-ltp@lfdr.de>; Wed, 19 Oct 2022 05:00:25 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id CE8933CB0FD
-	for <lists+linux-ltp@lfdr.de>; Wed, 19 Oct 2022 03:40:26 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 605A83CB102
+	for <lists+linux-ltp@lfdr.de>; Wed, 19 Oct 2022 05:00:25 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 3898C3C010A
- for <ltp@lists.linux.it>; Wed, 19 Oct 2022 03:40:22 +0200 (CEST)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ by picard.linux.it (Postfix) with ESMTPS id BC4C53CAC43
+ for <ltp@lists.linux.it>; Wed, 19 Oct 2022 05:00:15 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 3D8ED2003B0
- for <ltp@lists.linux.it>; Wed, 19 Oct 2022 03:40:18 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1666143619; x=1697679619;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=xrE+vAKl/mtyn/8JBWxos9mZRfexLdW1Z8xSxfZX/Qk=;
- b=HmSfaIHssidNSehQ/iiKaOZctB4LtMyd9vDrJAR30C6yaTGSkYZT4q/Y
- MjXgJyuxlDnOhVrrgzb+CPNcx8SPGSAgGFljOqQhHEZ5WJWpBNwqYOlEd
- E1B0qdVzSN9ljmmw8ZVbwR72eNBezfIowYkl1/fFSybumFkrZoB08Gp3q
- B0BoaYfBDazgXMhJsXAAJECLcPesBJxulqaiaPawcCWGFEnQF99YzKzrd
- aFcpHjs/hhZiU89W/przhzGPC7+bnyFgHg2ryIY4FQ75lr37xeaHFNDUk
- Rl+xvF9aPrKD8IFSAyLv1ntOBwBNVLW/BncN9mNnTWwOsdWAPWemhoD8L w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10504"; a="293676043"
-X-IronPort-AV: E=Sophos;i="5.95,194,1661842800"; d="scan'208";a="293676043"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Oct 2022 18:40:15 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10504"; a="804047723"
-X-IronPort-AV: E=Sophos;i="5.95,194,1661842800"; d="scan'208";a="804047723"
-Received: from orsmsx602.amr.corp.intel.com ([10.22.229.15])
- by orsmga005.jf.intel.com with ESMTP; 18 Oct 2022 18:40:15 -0700
-Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
- ORSMSX602.amr.corp.intel.com (10.22.229.15) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Tue, 18 Oct 2022 18:40:14 -0700
-Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
- ORSMSX610.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Tue, 18 Oct 2022 18:40:14 -0700
-Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
- orsmsx610.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31 via Frontend Transport; Tue, 18 Oct 2022 18:40:14 -0700
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com (104.47.58.169)
- by edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2375.31; Tue, 18 Oct 2022 18:40:14 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cSgAw7e4Soo7vLeydbcF5ThswHfnitX7kHWc8ryNzz4EB788o6W9zlFD80jzT8euFH5JHNFr3khOPJdV2LZjhFIWBzg4HT9xrEqFZqTTIxwOZhFz+Z5f9ZxGnnmDNVyzzdVz2GSj4b3AJVxZENBZFRjrHUl8FYR2sLgweDo9UPZqh/TNpXoOlyyqyEsNDJM9N5tZQvwjCdcQPgZ167hTaFQFUHwO6bzAiiwXzs2zOEduBp7wLkKkljCSjSGtMidPit1n99TcE/8r6xzc122umRRUaiuYNy4cgkNyAXa9fKb9flGnsByC1kLPMuScD/GHlp+vtyB2UuMgLNivd/a+lg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hcAi0Y3qg0WoUoXHEkMe+LPxqsATYGkvw9F/GsECXAw=;
- b=VFtZ3VC9TKNJUi7y5JA3/LLC9QSsA1ctJrvmUremXwMTEOo29v84FyjIIM6yk7I+Iw5Vw1GMd1RiFshntOC+SgYEhQ4n3GsOW9NckdfssY42HH+3PIxl5q8h1+sLZMRuNeUVylX3L02gM1e72TtnUXU/SDbyho0hyz5kzLSgnQtqnxb1x8F4jrHKUAvaoGVCViAc8x+OKHXMfAqclARLxXcb8tYyAfe/jIxY69EGZc4iLAzLVwNiq1nif5t1N94Km3uuy0xfjsB+H8lcSNCA9KXd+ESP9VIFqcrWofoNqeX/dCybq8eQkI1MG6l+lKPh/HvM29Pn9IY3XvQAC2aYzg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH0PR11MB4839.namprd11.prod.outlook.com (2603:10b6:510:42::18)
- by MW4PR11MB6839.namprd11.prod.outlook.com (2603:10b6:303:220::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.30; Wed, 19 Oct
- 2022 01:40:12 +0000
-Received: from PH0PR11MB4839.namprd11.prod.outlook.com
- ([fe80::84b8:ae06:56d7:f7ea]) by PH0PR11MB4839.namprd11.prod.outlook.com
- ([fe80::84b8:ae06:56d7:f7ea%3]) with mapi id 15.20.5723.033; Wed, 19 Oct 2022
- 01:40:11 +0000
-Date: Wed, 19 Oct 2022 09:40:15 +0800
-From: Pengfei Xu <pengfei.xu@intel.com>
-To: Richard Palethorpe <rpalethorpe@suse.com>
-Message-ID: <Y09Vf7XnoXeEcxJH@xpf.sh.intel.com>
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id A6F12600A4D
+ for <ltp@lists.linux.it>; Wed, 19 Oct 2022 05:00:14 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1666148412;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=t1QgIp7WuhISQl7cByTduolMEMpyCaUcWYv8v8xkv4Y=;
+ b=EHn+zdR+i94GRSWpU78b70eZIrzR6GI5LlEilNlR2iDn5BiGR7XjMhsfSOP09v+ANINDeb
+ QxURYdB0qCg336+qAK0U0L2JpJV3fKmG0a4kLno61kEmYFXl8AjXViDAO2iexSe9zGpLLC
+ n8Bez5i0wk+Xra4HSLFef14GH5NjlSM=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-655-xxmynI9WMYCtABkar04VmA-1; Tue, 18 Oct 2022 23:00:10 -0400
+X-MC-Unique: xxmynI9WMYCtABkar04VmA-1
+Received: by mail-wm1-f70.google.com with SMTP id
+ r81-20020a1c4454000000b003c41e9ae97dso12222559wma.6
+ for <ltp@lists.linux.it>; Tue, 18 Oct 2022 20:00:09 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=t1QgIp7WuhISQl7cByTduolMEMpyCaUcWYv8v8xkv4Y=;
+ b=8GdRVJw/oHi/NCy9Ucub61lxo+arL9DMYp+lPOOQIUMXsai0sic9SCYHN6J06TR5oz
+ V0QOFfLAJFyxJSKUj7dbZY1sS9fWZW5UdH6fYLCKH6w8283Qla5rZQZ3x2TF/jCbObbs
+ hfjDjxxNa+1vrRKjUstIpQN/OR2K72SgWpHQzjszPEpTzS0oA1tFUznmCS6YPhBTEJnd
+ LmfbMGLTzn2YQYrITFzF3eLskxl7oWVnrNMIACEoNfUlJsbQOsB9YLHU9eJ61XtxVAqW
+ y7VG8OxvIAHx14oRtG00m7wm0rJwQlmeKnJFGWg/Aw9bt4l0IHHzvZmJyAIxgV7zTJmU
+ 6zxA==
+X-Gm-Message-State: ACrzQf3H2DTp8n7CgdDQKrmGB6Jk8UIbEuHBSSmbY6skXMf0XsNeUX2J
+ 7nH6iOBl5sx6rpUsPbwMRXHBPwlb1iXr/gaHnmZLe5VjKUxt5W2XaxEKcTiMVVOq4k84k1buZNe
+ 9AHyb1n5aEUMvXEQHGbAolwr+MS8=
+X-Received: by 2002:a05:6000:912:b0:230:9113:1a09 with SMTP id
+ bz18-20020a056000091200b0023091131a09mr3542902wrb.707.1666148409107; 
+ Tue, 18 Oct 2022 20:00:09 -0700 (PDT)
+X-Google-Smtp-Source: AMsMyM7cZRrS7CF2cEcN7ymLj+mbcRmo+InagSvq3pGc9keXMmZAavhkDrvPqPhCpupOOnOe840YdRS/jZPgv03S/0w=
+X-Received: by 2002:a05:6000:912:b0:230:9113:1a09 with SMTP id
+ bz18-20020a056000091200b0023091131a09mr3542888wrb.707.1666148408834; Tue, 18
+ Oct 2022 20:00:08 -0700 (PDT)
+MIME-Version: 1.0
 References: <20221018152527.4636-1-rpalethorpe@suse.com>
  <20221018152527.4636-2-rpalethorpe@suse.com>
-Content-Disposition: inline
-In-Reply-To: <20221018152527.4636-2-rpalethorpe@suse.com>
-X-ClientProxiedBy: SG2PR06CA0206.apcprd06.prod.outlook.com
- (2603:1096:4:68::14) To PH0PR11MB4839.namprd11.prod.outlook.com
- (2603:10b6:510:42::18)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR11MB4839:EE_|MW4PR11MB6839:EE_
-X-MS-Office365-Filtering-Correlation-Id: d93a4818-3b5e-494a-1075-08dab172dcf5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: yIe+VtKzb//j6UNcZJSyfyxaWAGr8rxZtn5JglMcqPdPhlPtvRZF4COGVu+fn2B1XzgNfY/r6tYAnvrxCpzfwFCBMutoJTazl+8VafYTbh+xlKGHvz1c6dgfhP9WKgojeGPIJ/Bf7k0anP9tzOlhmmV+NJjJJTaUfmABUH/nFophAZoMaoZogpw7GqiAB58/4gDl1Lt7POx6OE1RQX06fDdm/WBnmgb84p8KntuEO30GZk6OKBWaGfCfwxVFy2jhGpbU0ydklidYBsMBjCjEL+Quf4DStQgiNLPFBpBdGBjQXJMJ1ZE5IUICQ2ioywOPcQcZkfbZ5AHChkyzIIv5t6rPa3AblvWVA+fuRm2G7lQ/ltpVVmHiyrrV81eIDP0v34TRsvPkbHKfuIC/5nHwmCTtvDHHCd46bgf/5eTYVyaiLmV1Ixx1r3ZuwNtQ2vSVz+WbUSAJAlzC0HYe4uj4+DVgIC7dj4Uiq//uUfVoFEdi7q8n1FCGPVqFBRjLR6LIXx0Ag8TOP7M2/2OfIvigDOsTH2+foMcnx2fcoV2o3mMOI6V7KNJ7hGaIISm6ofMSylnh12HEeS7P+ATYWTwG8OS5/xEWllFvdg9pU8I/ZneLBXPc7BXVQKZFMhyVvunL4kS/IQEfIENJU0VtD0VBnLMgwChMFUaJPN8dtdQcjjdhXuSbje0CMDRRVV3/+SdiZRcok1U16Du+P0ReJgcqYg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH0PR11MB4839.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(136003)(396003)(39860400002)(346002)(376002)(366004)(451199015)(6512007)(6506007)(66946007)(38100700002)(86362001)(66556008)(8676002)(44832011)(6916009)(2906002)(82960400001)(66476007)(26005)(83380400001)(186003)(53546011)(6486002)(4326008)(316002)(4001150100001)(478600001)(8936002)(41300700001)(5660300002);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?v2N0/F4Ul40bojlxEbDFNU1fIm1Vz5RWNJyUMMngxmmbVm5Bs3hlkyDRuU2Z?=
- =?us-ascii?Q?zqt7vwdnU3+F9L0iJkJsllM+6nsKGlcSe8jQi/TBGacp5KDG1tn8BdUL0Tog?=
- =?us-ascii?Q?r3XaT2AJ2l/qMthKHLsd0WqMQDUDWmxJbDz/WCtpFIVImN30iRArDWPN4vuk?=
- =?us-ascii?Q?V7E+ZSSz3XLA8fLVP8HEt9UZBfIjgeziTeQeHIYm4L0s9BpCWCmo9cjmEZqQ?=
- =?us-ascii?Q?LwPI6k7EdMgjqoNYcMwwgiEI5+bu+t7xX617mmZebUE7xRqEmvgRMu3IeiGL?=
- =?us-ascii?Q?TYwQ9YX+2Trirg1h4sw2Fh3GVECpUbCcJcpTt7M8emF18NawI+sm0qOg0fPu?=
- =?us-ascii?Q?ea/IyDT2GDKNVVIVWib7gUF0CLuedJucRd34ZXoL1iOqba8jPdtRWdZBgAMU?=
- =?us-ascii?Q?PLXcRR8oZCeN8R+kH3pw+XyDr5ySB/e0vWwEdsfl41MwTszEjFppV3wpQboi?=
- =?us-ascii?Q?szJ629L7F5ygksXQAZXQEsxn1QFAGizc0bdJCtAYBuA+tKf/oQW59nRNiTn9?=
- =?us-ascii?Q?fDzUDTcGnkfsmFUdTzToC75eZyhQzOYpUlc+DVleemz9OrdmOx9axeBJEAI8?=
- =?us-ascii?Q?0h+zzEPUW5Ez3gcd2t0D7gdHYyFZXC718cBHbHSeZ6DVBYh3GFBP5oc7UXVY?=
- =?us-ascii?Q?tFoJSrBFe5qwS6R9h1NyTEb5QLf+eyyJEanpiNHM4HBRF65d2TxAGnINIM3B?=
- =?us-ascii?Q?o3g19nW+m+iFxO8TppbGHyvo4Bbh102IrCQcQY2pQnyvCQBu/DE6eOZaNY20?=
- =?us-ascii?Q?hHTRAFrSyq4iqmtUjeprokwRLR4GXpiY0+Su6GuQABtGNPjeK+nrto/OiyWP?=
- =?us-ascii?Q?csMiIOh42HAiTH6g/eKlUBiOEGo2ng5kmMYmglK/8UvXPb/1mYDrrvmmbxBA?=
- =?us-ascii?Q?1yXdIPf+u3dHml8FmgHgsKTiDXquBe6k5GhcEZT66gQuz+qrshUP1XVFrjhN?=
- =?us-ascii?Q?2TLzxVll4JZ4Pr9CCmXpgUgDTO3WZjgT2lBG0tB/Vx+W0fl8rNdPsGlZX8dI?=
- =?us-ascii?Q?Msd7h0oJRZKLgluBQW6gW2AADxH4tKhJIMk9lrmNIzMPrz+KnjV3duQnppZv?=
- =?us-ascii?Q?jLkoQACmsb/IQ+uqx2Ty3Yw6aKmJyeg6OfsaXvRnKSdTQB/FfoaMfMbUqTYi?=
- =?us-ascii?Q?/lTksfZCUBTyQNbolKEsTClITL21GgKiHhVSa3IxZkNceW+5a5WyTArXBUBq?=
- =?us-ascii?Q?9HDYZfoND95w4vdArN88FVJ2uVLJdMlKBqVaJwLdstKLC9yJU2JJLyelL1w0?=
- =?us-ascii?Q?0ma3Qx8S2GgRh+SYDyRDtOFjBAls56B8oIupJ/Yry5Lq6hdudHXdoO9GF+Ev?=
- =?us-ascii?Q?AoRfnRTwx7l/j4gZOAj8wgwYqdaQp3JNyNRzbxLoqm8NUTzhoPlP9Ta/nrVQ?=
- =?us-ascii?Q?iu9ZWztkHm9P+vOauDidJUybxME/ESHybRYSixfkW33XJri08pCR/5NA6mGE?=
- =?us-ascii?Q?7JcnXrQUeh51IbesMIlakMJy1CnKbafYXaR8JJuxpoQ7/jKnoCol2lqkILU4?=
- =?us-ascii?Q?k0gFeq3UaLO5SmC3L7ZvtQ/x3mboL0/lzI/yzDnoNez2YlSblcyBQRHYZ6yO?=
- =?us-ascii?Q?2UbQ3dFbbpaepgiZ1Kc1X6x76tonDGya+kLV8fyMlzZLkMcCXl1I4vouOEC9?=
- =?us-ascii?Q?AQ=3D=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: d93a4818-3b5e-494a-1075-08dab172dcf5
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB4839.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2022 01:40:11.9176 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bBsIRKPeg3BKOYdoGhSBxwCNK1hxBnvlrY2RwHZTTe3nUxWMhYv2gNjxnqOIyBEeNw+to+wK3odCPSRx7f7/6w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR11MB6839
-X-OriginatorOrg: intel.com
-X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
+ <Y09Vf7XnoXeEcxJH@xpf.sh.intel.com>
+In-Reply-To: <Y09Vf7XnoXeEcxJH@xpf.sh.intel.com>
+From: Li Wang <liwang@redhat.com>
+Date: Wed, 19 Oct 2022 10:59:54 +0800
+Message-ID: <CAEemH2f3jrhXj7x5p7XkcTwDf3M=DK0yOyt6kBHfknSzkXJSPQ@mail.gmail.com>
+To: Pengfei Xu <pengfei.xu@intel.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
+ DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH 2/2] ptrace07: Fix compilation by avoiding
  aligned_alloc
 X-BeenThere: ltp@lists.linux.it
@@ -160,68 +92,154 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: ltp@lists.linux.it
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Richard Palethorpe <rpalethorpe@suse.com>, ltp@lists.linux.it
+Content-Type: multipart/mixed; boundary="===============1199380667=="
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Hi Richard,
+--===============1199380667==
+Content-Type: multipart/alternative; boundary="0000000000000d55b705eb5a68f4"
 
-On 2022-10-18 at 16:25:27 +0100, Richard Palethorpe wrote:
-> Use memalign instead because we live in the past.
-> 
-> Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
-> Cc: Pengfei Xu <pengfei.xu@intel.com>
-> ---
->  testcases/kernel/syscalls/ptrace/ptrace07.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/testcases/kernel/syscalls/ptrace/ptrace07.c b/testcases/kernel/syscalls/ptrace/ptrace07.c
-> index 6bd2b1062..a60c2a49e 100644
-> --- a/testcases/kernel/syscalls/ptrace/ptrace07.c
-> +++ b/testcases/kernel/syscalls/ptrace/ptrace07.c
-> @@ -35,6 +35,7 @@
->  #include "config.h"
->  #include "ptrace.h"
->  #include "tst_test.h"
-> +#include "tst_safe_macros.h"
->  #include "lapi/cpuid.h"
->  
->  #ifndef PTRACE_GETREGSET
-> @@ -95,7 +96,7 @@ static void do_test(void)
->  	 * of the XSAVE/XRSTOR save area) required by enabled features in XCR0.
->  	 */
->  	__cpuid_count(CPUID_LEAF_XSTATE, ecx, eax, ebx, ecx, edx);
-> -	xstate = aligned_alloc(64, ebx);
-> +	xstate = SAFE_MEMALIGN(64, ebx);
->  	struct iovec iov = { .iov_base = xstate, .iov_len = ebx };
->  	int status;
->  	bool okay;
+--0000000000000d55b705eb5a68f4
+Content-Type: text/plain; charset="UTF-8"
 
-Yes, it's better for LTP compilation. Thanks for the patch!
+On Wed, Oct 19, 2022 at 9:40 AM Pengfei Xu <pengfei.xu@intel.com> wrote:
 
-I checked SAFE_MEMALIGN(), it will verify that the buffer is NULL or not.
-"
-	rval = memalign(alignment, size);
+> Hi Richard,
+>
+> On 2022-10-18 at 16:25:27 +0100, Richard Palethorpe wrote:
+> > Use memalign instead because we live in the past.
+> >
+> > Signed-off-by: Richard Palethorpe <rpalethorpe@suse.com>
+> > Cc: Pengfei Xu <pengfei.xu@intel.com>
+> > ---
+> >  testcases/kernel/syscalls/ptrace/ptrace07.c | 3 ++-
+> >  1 file changed, 2 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/testcases/kernel/syscalls/ptrace/ptrace07.c
+> b/testcases/kernel/syscalls/ptrace/ptrace07.c
+> > index 6bd2b1062..a60c2a49e 100644
+> > --- a/testcases/kernel/syscalls/ptrace/ptrace07.c
+> > +++ b/testcases/kernel/syscalls/ptrace/ptrace07.c
+> > @@ -35,6 +35,7 @@
+> >  #include "config.h"
+> >  #include "ptrace.h"
+> >  #include "tst_test.h"
+> > +#include "tst_safe_macros.h"
+> >  #include "lapi/cpuid.h"
+> >
+> >  #ifndef PTRACE_GETREGSET
+> > @@ -95,7 +96,7 @@ static void do_test(void)
+> >        * of the XSAVE/XRSTOR save area) required by enabled features in
+> XCR0.
+> >        */
+> >       __cpuid_count(CPUID_LEAF_XSTATE, ecx, eax, ebx, ecx, edx);
+> > -     xstate = aligned_alloc(64, ebx);
+> > +     xstate = SAFE_MEMALIGN(64, ebx);
+> >       struct iovec iov = { .iov_base = xstate, .iov_len = ebx };
+> >       int status;
+> >       bool okay;
+>
+> Yes, it's better for LTP compilation. Thanks for the patch!
+>
+> I checked SAFE_MEMALIGN(), it will verify that the buffer is NULL or not.
+> "
+>         rval = memalign(alignment, size);
+>
+>         if (rval == NULL) {
+>                 tst_brkm_(file, lineno, TBROK | TERRNO, cleanup_fn,
+>                         "memalign() failed");
+>         }
+> "
+> So could you remove below unnecessary lines in ptrace07.c, thanks.
+>
 
-	if (rval == NULL) {
-		tst_brkm_(file, lineno, TBROK | TERRNO, cleanup_fn,
-			"memalign() failed");
-	}
-"
-So could you remove below unnecessary lines in ptrace07.c, thanks.
-"
--	if (!xstate)
--		tst_brk(TBROK, "aligned_alloc() failed for xstate buffer");
-"
+I helped modify this and pushed it, thanks!
 
-Thanks!
-BR.
+-- 
+Regards,
+Li Wang
 
-> -- 
-> 2.36.1
-> 
+--0000000000000d55b705eb5a68f4
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Wed, Oct 19, 2022 at 9:40 AM Pengfei Xu &lt;<a h=
+ref=3D"mailto:pengfei.xu@intel.com">pengfei.xu@intel.com</a>&gt; wrote:<br>=
+</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;b=
+order-left:1px solid rgb(204,204,204);padding-left:1ex">Hi Richard,<br>
+<br>
+On 2022-10-18 at 16:25:27 +0100, Richard Palethorpe wrote:<br>
+&gt; Use memalign instead because we live in the past.<br>
+&gt; <br>
+&gt; Signed-off-by: Richard Palethorpe &lt;<a href=3D"mailto:rpalethorpe@su=
+se.com" target=3D"_blank">rpalethorpe@suse.com</a>&gt;<br>
+&gt; Cc: Pengfei Xu &lt;<a href=3D"mailto:pengfei.xu@intel.com" target=3D"_=
+blank">pengfei.xu@intel.com</a>&gt;<br>
+&gt; ---<br>
+&gt;=C2=A0 testcases/kernel/syscalls/ptrace/ptrace07.c | 3 ++-<br>
+&gt;=C2=A0 1 file changed, 2 insertions(+), 1 deletion(-)<br>
+&gt; <br>
+&gt; diff --git a/testcases/kernel/syscalls/ptrace/ptrace07.c b/testcases/k=
+ernel/syscalls/ptrace/ptrace07.c<br>
+&gt; index 6bd2b1062..a60c2a49e 100644<br>
+&gt; --- a/testcases/kernel/syscalls/ptrace/ptrace07.c<br>
+&gt; +++ b/testcases/kernel/syscalls/ptrace/ptrace07.c<br>
+&gt; @@ -35,6 +35,7 @@<br>
+&gt;=C2=A0 #include &quot;config.h&quot;<br>
+&gt;=C2=A0 #include &quot;ptrace.h&quot;<br>
+&gt;=C2=A0 #include &quot;tst_test.h&quot;<br>
+&gt; +#include &quot;tst_safe_macros.h&quot;<br>
+&gt;=C2=A0 #include &quot;lapi/cpuid.h&quot;<br>
+&gt;=C2=A0 <br>
+&gt;=C2=A0 #ifndef PTRACE_GETREGSET<br>
+&gt; @@ -95,7 +96,7 @@ static void do_test(void)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 * of the XSAVE/XRSTOR save area) required b=
+y enabled features in XCR0.<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 */<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0__cpuid_count(CPUID_LEAF_XSTATE, ecx, eax, e=
+bx, ecx, edx);<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0xstate =3D aligned_alloc(64, ebx);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0xstate =3D SAFE_MEMALIGN(64, ebx);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0struct iovec iov =3D { .iov_base =3D xstate,=
+ .iov_len =3D ebx };<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0int status;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0bool okay;<br>
+<br>
+Yes, it&#39;s better for LTP compilation. Thanks for the patch!<br>
+<br>
+I checked SAFE_MEMALIGN(), it will verify that the buffer is NULL or not.<b=
+r>
+&quot;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 rval =3D memalign(alignment, size);<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (rval =3D=3D NULL) {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 tst_brkm_(file, lin=
+eno, TBROK | TERRNO, cleanup_fn,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 &quot;memalign() failed&quot;);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
+&quot;<br>
+So could you remove below unnecessary lines in ptrace07.c, thanks.<br></blo=
+ckquote><div><br></div><div class=3D"gmail_default" style=3D"font-size:smal=
+l">I helped modify this and pushed it, thanks!</div></div><div><br></div>--=
+ <br><div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><div>Regar=
+ds,<br></div><div>Li Wang<br></div></div></div></div>
+
+--0000000000000d55b705eb5a68f4--
+
+
+--===============1199380667==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
+
+--===============1199380667==--
+
