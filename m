@@ -2,79 +2,78 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66750605FC3
-	for <lists+linux-ltp@lfdr.de>; Thu, 20 Oct 2022 14:08:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7739605FBF
+	for <lists+linux-ltp@lfdr.de>; Thu, 20 Oct 2022 14:08:13 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 274E53CB187
-	for <lists+linux-ltp@lfdr.de>; Thu, 20 Oct 2022 14:08:57 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 7B4103CB19D
+	for <lists+linux-ltp@lfdr.de>; Thu, 20 Oct 2022 14:08:13 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-5.smtp.seeweb.it (in-5.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::5])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
+ [IPv6:2001:4b78:1:20::4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384))
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id DDF863CB191
- for <ltp@lists.linux.it>; Thu, 20 Oct 2022 14:08:09 +0200 (CEST)
-Received: from mail-oa1-x31.google.com (mail-oa1-x31.google.com
- [IPv6:2001:4860:4864:20::31])
+ by picard.linux.it (Postfix) with ESMTPS id BA7D03CB19B
+ for <ltp@lists.linux.it>; Thu, 20 Oct 2022 14:08:02 +0200 (CEST)
+Received: from mail-pf1-x42d.google.com (mail-pf1-x42d.google.com
+ [IPv6:2607:f8b0:4864:20::42d])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-5.smtp.seeweb.it (Postfix) with ESMTPS id 1E4D360069F
- for <ltp@lists.linux.it>; Thu, 20 Oct 2022 14:08:09 +0200 (CEST)
-Received: by mail-oa1-x31.google.com with SMTP id
- 586e51a60fabf-136b5dd6655so24291652fac.3
- for <ltp@lists.linux.it>; Thu, 20 Oct 2022 05:08:09 -0700 (PDT)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 2893C1000466
+ for <ltp@lists.linux.it>; Thu, 20 Oct 2022 14:08:01 +0200 (CEST)
+Received: by mail-pf1-x42d.google.com with SMTP id y1so20074582pfr.3
+ for <ltp@lists.linux.it>; Thu, 20 Oct 2022 05:08:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=daynix-com.20210112.gappssmtp.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=lX6D5NTw9Tl/Zw5lEQs2/tiJvWxUJ6H8AougPEH/Ow8=;
- b=T4UggdU22Yn04kRg8yfyWMav56eiRUXImeFGN+yiAD+6TAw2srwsvMPKaNYuMrFP+e
- zjdO2AAzttouV9vUfjZOBuNK4GEhXK6cJqZmjgHpDYRChj6XJNsDb3LNAWIfRoEj1m3m
- NfMU16An2el4U4GoAZb3YzKYP1Ei4zQa2QwlDng90PJ1yPWj2pHLIBhOCUZwzkFyV90B
- ++TB9yf0NqfhGP8FonjZyd4+F8mM38Z4bBAL5ZL/tbz80WCIFy1ZbPQxpkjOqv6U2zom
- emeoYwzR4aENHw4RIYAE23f5Lb/oWydi6QkkCF85aUrQ/1qjapt6XLTKvvOZNKlDZD2e
- As5Q==
+ bh=/ae0yhJSINWSuQswycdp0xgfUq3qQ8JORRsbYicGiEA=;
+ b=AU81/39XghjAuVnKffZPSyhU8od/eNabwPizN3WwxDo502zhhTPwTl2e9e8ZZ16h3G
+ 30DZR/DFkRFVAQewYgtGD+3jirox73EoADwgtjjzpI5q/0tneEP+NLyGriJQZaGQXvBk
+ g6up2MGyA3a63lgSCCXNU7UFgrIuRDe6jAurM0fIAAd99NhM/hg7BdBZyghwNi80aYrM
+ pUxIIP+8ZFN8/E3dWUnVKvTEJSxUkKwC0LKtNEN0+crssALKxM5D4c/eW8eSy4w6dCEC
+ h0BnUQPwCaHBMaAn34TMr0rSoJa+obZ6DfivEZn9b1h5B8nHbO8H7OjX5Zk2Y8pcqG4S
+ zPOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=lX6D5NTw9Tl/Zw5lEQs2/tiJvWxUJ6H8AougPEH/Ow8=;
- b=EYRxHLp8CTnxvPrclFRaE6DyzizrpoPi512XDCqs78gcDfkmpvOGH+3q6izJ5AFaOH
- LUNnppusC8L4VwUFhY52iuRCLKBM2g3QXLZWAj6uhF1vv2XCNeMuqCbUQyLfrKrxvW4H
- rcHTXUBxva1GE/h1myFarMLDmQGUwijrNKE3X2cxZhDAns0/7UBI6TTKJuorddIqUXw7
- F8t+brxO1puGceabtiSQ9mModK0fVzILCPe9ye4DMonWb1ht1NuBEvGcRvuBoLw3YqL+
- 6PLyYFqJkR/BPW63mqfutC1E3bZhU+Lf4yhXF8Yx64KQeAVIwA5G4XKKzxcL4pDSd8bk
- JHIQ==
-X-Gm-Message-State: ACrzQf3U3nIZJ9jTDUmRkxCdo01+P/rHYKcnkq8dc5iVuJFiVzDZ8exe
- dlvxJJm8kTjM4/H1oDmhd5bJAE4uo9CRKYqC
-X-Google-Smtp-Source: AMsMyM6nKz208xIr8Cpzjq1jABT+Y1sMnZUPU+CuxDpvnujZrsihuQvuR3XDm51I7l1c54LIlpP08g==
-X-Received: by 2002:a17:90a:e387:b0:211:2d90:675 with SMTP id
- b7-20020a17090ae38700b002112d900675mr5225555pjz.66.1666267677543; 
- Thu, 20 Oct 2022 05:07:57 -0700 (PDT)
+ bh=/ae0yhJSINWSuQswycdp0xgfUq3qQ8JORRsbYicGiEA=;
+ b=MnD6DClmcHmKGwzPFh0ERJa47V4y408UBFZ/GGbmYA1OSd+Ognl3jgZWRoC0mUsJzm
+ sazEqxD7FnPEfmiLtP9rsOiQMQ+uwp0M/sLFRBDvkstx0qq1u9YPeKy4MffheaZBuXOR
+ Aq2OFfuMPCMTFDQgE8Gk4fcj1nYQbRs9pfny6slLmgjvpBMYIitvEguiFH4DEzvHgz1s
+ H938K8OsuwKF5EGYt6atOdugSCbArK8gMgSRUYph6p5ErDxCc5WX04+3wNpOAJeDFXqG
+ VkUEQaSZp0/MN51UhPspSb5/dMuDMCQJ3SjTLiEXciCejlwJpbYrQj2El/E7F9r/h5Rr
+ 9bYg==
+X-Gm-Message-State: ACrzQf2jmCfiJYfE/HBXrc7joi2JUF7rAMt1Ct7w4NN9Ukl0f/KLzGZS
+ kgUJwsespl3Bpb2rgn0/DCBZkpCsDEE6Gzpa
+X-Google-Smtp-Source: AMsMyM5pNZ+jc/6WJrR0d8WXzgbE0uuVNaetWihygjDOGRkWonFxf/OW0EswOkYL/hFRNB4X7b+NpQ==
+X-Received: by 2002:a63:e22:0:b0:458:cfe7:958 with SMTP id
+ d34-20020a630e22000000b00458cfe70958mr11365363pgl.449.1666267679731; 
+ Thu, 20 Oct 2022 05:07:59 -0700 (PDT)
 Received: from fedora.flets-east.jp ([2400:4050:c360:8200:8ae8:3c4:c0da:7419])
  by smtp.gmail.com with ESMTPSA id
- r27-20020aa79edb000000b005403b8f4bacsm13078947pfq.137.2022.10.20.05.07.55
+ r27-20020aa79edb000000b005403b8f4bacsm13078947pfq.137.2022.10.20.05.07.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Oct 2022 05:07:57 -0700 (PDT)
+ Thu, 20 Oct 2022 05:07:59 -0700 (PDT)
 From: Akihiko Odaki <akihiko.odaki@daynix.com>
 To: Petr Vorel <pvorel@suse.cz>
-Date: Thu, 20 Oct 2022 21:07:37 +0900
-Message-Id: <20221020120741.212671-2-akihiko.odaki@daynix.com>
+Date: Thu, 20 Oct 2022 21:07:38 +0900
+Message-Id: <20221020120741.212671-3-akihiko.odaki@daynix.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20221020120741.212671-1-akihiko.odaki@daynix.com>
 References: <20221020120741.212671-1-akihiko.odaki@daynix.com>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-5.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-5.smtp.seeweb.it
-Subject: [LTP] [PATCH 2/6] ftp/ftp01: Remove verbose comments
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
+Subject: [LTP] [PATCH 3/6] ftp/ftp01: Remove old-style command substitution
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,54 +95,35 @@ Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 Suggested-by: Petr Vorel <pvorel@suse.cz>
 Signed-off-by: Akihiko Odaki <akihiko.odaki@daynix.com>
 ---
- testcases/network/tcp_cmds/ftp/ftp01.sh | 20 --------------------
- 1 file changed, 20 deletions(-)
+ testcases/network/tcp_cmds/ftp/ftp01.sh | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/testcases/network/tcp_cmds/ftp/ftp01.sh b/testcases/network/tcp_cmds/ftp/ftp01.sh
-index a78d8adc0..2d61377b3 100755
+index 2d61377b3..f8a3c98e8 100755
 --- a/testcases/network/tcp_cmds/ftp/ftp01.sh
 +++ b/testcases/network/tcp_cmds/ftp/ftp01.sh
-@@ -45,12 +45,6 @@ TST_SETUP=do_setup
- TST_NEEDS_CMDS='awk ftp'
- TST_NEEDS_TMPDIR=1
+@@ -79,8 +79,8 @@ do_test()
+                         echo $a $j
+                         echo quit
+                     } | ftp -nv $RHOST
+-                    SUM1=`ls -l $j  | awk '{print $5}'`
+-                    SUM2=`ls -l $TST_NET_DATAROOT/$j | awk '{print $5}'`
++                    SUM1="$(ls -l $j  | awk '{print $5}')"
++                    SUM2="$(ls -l $TST_NET_DATAROOT/$j | awk '{print $5}')"
+                     rm -f $j
+                 else
+                     {
+@@ -91,8 +91,8 @@ do_test()
+                         echo $a $j
+                         echo quit
+                     } | ftp -nv $RHOST
+-                    SUM1=`tst_rhost_run -c "sum $TST_TMPDIR/$j" -s | awk '{print $1}'`
+-                    SUM2=`sum $TST_NET_DATAROOT/$j | awk '{print $1}'`
++                    SUM1="$(tst_rhost_run -c "sum $TST_TMPDIR/$j" -s | awk '{print $1}')"
++                    SUM2="$(sum $TST_NET_DATAROOT/$j | awk '{print $1}')"
+                     tst_rhost_run -c "rm -f $TST_TMPDIR/$j"
+                 fi
  
--#-----------------------------------------------------------------------
--#
--# FUNCTION:  do_setup
--#
--#-----------------------------------------------------------------------
--
- do_setup()
- {
- 
-@@ -63,12 +57,6 @@ do_setup()
- 
- }
- 
--#-----------------------------------------------------------------------
--#
--# FUNCTION:  do_test
--#
--#-----------------------------------------------------------------------
--
- do_test()
- {
- 
-@@ -115,14 +103,6 @@ do_test()
-     done
- }
- 
--#----------------------------------------------------------------------
--# FUNCTION: MAIN
--# PURPOSE:  To invoke the functions to perform the tasks described in
--#           the prologue.
--# INPUT:    None.
--# OUTPUT:   A testcase run log with the results of the execution of this
--#           test.
--#----------------------------------------------------------------------
- . tst_net.sh
- 
- tst_run
 -- 
 2.37.3
 
