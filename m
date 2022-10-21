@@ -2,73 +2,73 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88771607683
-	for <lists+linux-ltp@lfdr.de>; Fri, 21 Oct 2022 13:53:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 171B860771D
+	for <lists+linux-ltp@lfdr.de>; Fri, 21 Oct 2022 14:41:12 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 4BB763CB22B
-	for <lists+linux-ltp@lfdr.de>; Fri, 21 Oct 2022 13:53:55 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id DEA1A3CB1D3
+	for <lists+linux-ltp@lfdr.de>; Fri, 21 Oct 2022 14:41:11 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
+Received: from in-3.smtp.seeweb.it (in-3.smtp.seeweb.it [217.194.8.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id A9B553C6E8B
- for <ltp@lists.linux.it>; Fri, 21 Oct 2022 13:53:40 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 40BA33CAFAC
+ for <ltp@lists.linux.it>; Fri, 21 Oct 2022 14:41:11 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id EF6306010F5
- for <ltp@lists.linux.it>; Fri, 21 Oct 2022 13:53:39 +0200 (CEST)
+ by in-3.smtp.seeweb.it (Postfix) with ESMTPS id 6B3F81A01149
+ for <ltp@lists.linux.it>; Fri, 21 Oct 2022 14:41:09 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id ABFC01F8ED;
- Fri, 21 Oct 2022 11:53:39 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id DA1481F8E9;
+ Fri, 21 Oct 2022 12:41:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1666353219; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ t=1666356068; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=ZQGdygcN5Jfm3y6HWQukHk+fFBquPKZn6TIxfHhA3gM=;
- b=sCmxW+sVQW45dLHsqWTNc4btdO2fRNwA9He405zLoeX3naFDGf5Ze2e9DBSaYpKwaH1jQq
- V0b01bkHvwB+Ak8b+NdBqd45nrZCGd9t61hzeCTsx2iGsMAZImCSEdlOs43lInT2AYzRqH
- /tl4uxWm8V6WChrTw3b4ExNpszM+XAs=
+ bh=5kpfm1hnRUEyxuLmpaCdrMRHewzcXlwQeFuGdP8smyI=;
+ b=wSkL2Tq8M0fC8cO/BfvmYK5E87h80qMpqEXyIPBLxOFI6sqZNqdM2yVX6+c16Py84hw8Ck
+ 7XTS7q9AeN017bCwdalx13qrLvBCXmenIXVjpCTIa3ba1w+wiGYgUvg36XdgM6jI0wCFXa
+ 5thLrqJwX4GJiOq5CAmhwyBvv0VAexk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1666353219;
+ s=susede2_ed25519; t=1666356068;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
+ mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=ZQGdygcN5Jfm3y6HWQukHk+fFBquPKZn6TIxfHhA3gM=;
- b=Sdbo6TDYpV9vKbISPYUOcCYGTjh738KZiB0lxLs4Hr+ZcHyTXcmT3jNwBU6bCxBLRmSPMT
- tao4qlZ8G9wEuQBg==
+ bh=5kpfm1hnRUEyxuLmpaCdrMRHewzcXlwQeFuGdP8smyI=;
+ b=fkzp+jd2f3TBhsmgeWAokMcE23QVWobbsFO/oQwFlnSyGLVbTQXw5QeKMQy+lPy/wcphrO
+ xNqpiZHcGoGbfdBA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7DCA713A0E;
- Fri, 21 Oct 2022 11:53:39 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C760313A0E;
+ Fri, 21 Oct 2022 12:41:08 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id GGZkHUOIUmOdTAAAMHmgww
- (envelope-from <pvorel@suse.cz>); Fri, 21 Oct 2022 11:53:39 +0000
-From: Petr Vorel <pvorel@suse.cz>
-To: ltp@lists.linux.it
-Date: Fri, 21 Oct 2022 13:53:33 +0200
-Message-Id: <20221021115333.13725-4-pvorel@suse.cz>
-X-Mailer: git-send-email 2.38.0
-In-Reply-To: <20221021115333.13725-1-pvorel@suse.cz>
-References: <20221021115333.13725-1-pvorel@suse.cz>
+ by imap2.suse-dmz.suse.de with ESMTPSA id c3qqMGSTUmMVZwAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Fri, 21 Oct 2022 12:41:08 +0000
+Date: Fri, 21 Oct 2022 14:42:50 +0200
+From: Cyril Hrubis <chrubis@suse.cz>
+To: Petr Vorel <pvorel@suse.cz>
+Message-ID: <Y1KTyn/9pv5lvbhj@yuki>
+References: <20221020133715.256521-1-akihiko.odaki@daynix.com>
+ <Y1GFvU/ixieqDSq6@pevik> <Y1JiQSWlxVSkhuoq@yuki>
+ <Y1KBzfdqbibHmAa3@pevik>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
+Content-Disposition: inline
+In-Reply-To: <Y1KBzfdqbibHmAa3@pevik>
+X-Virus-Scanned: clamav-milter 0.102.4 at in-3.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: [LTP] [PATCH 3/3] doc: Remove mini-howto-building-ltp-from-git.txt
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL
+ autolearn=disabled version=3.4.4
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-3.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH v3] tst_test.sh: Normalize the locale
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,96 +80,67 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Cc: Yan Vugenfirer <yan@daynix.com>,
+ Yuri Benditovich <yuri.benditovich@daynix.com>, ltp@lists.linux.it
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-Document is not linked into our wiki, there is "Quick guide to running
-the tests" section in README.md visible from web and CI scripts in
-ci/*.sh and build.sh, which describe what to install and how to build.
+Hi!
+> > > > diff --git a/testcases/lib/tst_test.sh b/testcases/lib/tst_test.sh
+> > > > index 28b7d12ba..5ebbe1d25 100644
+> > > > --- a/testcases/lib/tst_test.sh
+> > > > +++ b/testcases/lib/tst_test.sh
+> > > > @@ -831,3 +831,5 @@ if [ -z "$TST_NO_DEFAULT_RUN" ]; then
+> > > >  		fi
+> > > >  	fi
+> > > >  fi
+> > > > +
+> > > > +export LC_ALL=C
+> 
+> > > Thinking about it twice this might have impact on other tests.
+> > > Li, Cyril, any idea about it?
+> 
+> > Actually I think that we should have put this into the tst_test.sh from
+> > the start. We do have this as a workaround in du01.sh and telnet01.sh
+> > already.
+> 
+> > The plus side is that all possible bugreports from users will have all
+> > messages in english which would make debugging easier.
+> 
+> Thanks for acking this.
+> 
+> I suppose Akihiko is correct that we don't have to put it via setlocale()
+> in C API, right?
 
-Signed-off-by: Petr Vorel <pvorel@suse.cz>
----
-Do we want any of these move to "Quick guide to running the tests"
-section in README.md?
+I do not think so. It's not entirely clear from documentation how this
+is supposed to work. However it seems that in bash the effect is
+immediate, if you export new locale and then type nonexisting command
+name to bash prompt to get a message from bash it's in the new locale.
+So either setlocale() is not needed or bash calls it if it detects that
+one of the LC_ variables has been changed and calls it.
 
+For dash it does not seem that it has been translated at all, it
+produces messages in english either way, so we do not have to care.
 
- doc/mini-howto-building-ltp-from-git.txt | 62 ------------------------
- 1 file changed, 62 deletions(-)
- delete mode 100644 doc/mini-howto-building-ltp-from-git.txt
+And all localized programs that we start from the shell after the export
+do call setlocale() at the start of the main(). That is actually
+required to enable locale support to begin with.
 
-diff --git a/doc/mini-howto-building-ltp-from-git.txt b/doc/mini-howto-building-ltp-from-git.txt
-deleted file mode 100644
-index 28825c20f..000000000
---- a/doc/mini-howto-building-ltp-from-git.txt
-+++ /dev/null
-@@ -1,62 +0,0 @@
--Mini-Howto: Building LTP from Git
--=================================
--
--******************************************************************************
--The following document briefly describes the single steps to build LTP from
--the Git repository located at GitHub.
--The instructions here were tested on a Ubuntu/precise Linux system (feel free
--to adapt to your distribution).
--
--Changelog:
-- * Initial version: Sedat Dilek <sedat.dilek@gmail.com>
-- * Embedded comments from Cyril Hrubis <chrubis@suse.cz>
--******************************************************************************
--
--# Export language settings
--
--export LANG=C
--export LC_ALL=C
--
--# Set some useful variables (adapt if you dislike)
--
--WORKING_DIR="$HOME/src/ltp"
--
--PREFIX="/opt/ltp"
--
--GIT_URL="https://github.com/linux-test-project/ltp.git"
--
--MAKE_JOBS=$(getconf _NPROCESSORS_ONLN)
--
--BUILD_LOG_FILE="build-log.txt"
--INSTALL_LOG_FILE="install-log.txt"
--
--# PREREQS on Ubuntu (package-list is incomplete and may vary for other distros)
--
--sudo apt-get install build-essential
--sudo apt-get install autoconf automake autotools-dev m4
--sudo apt-get install git
--sudo apt-get install linux-headers-$(uname -r)
--sudo apt-get install libaio-dev libattr1-dev libcap-dev
--
--# Working directory
--
--mkdir -p $WORKING_DIR
--cd $WORKING_DIR
--
--# Get the LTP source
--
--git clone $GIT_URL ltp-git
--
--# Configure LTP
--
--cd ltp-git/
--make autotools
--./configure --prefix=$PREFIX
--
--# Start building LTP
--
--make -j$MAKE_JOBS 2>&1 | tee ../$BUILD_LOG_FILE
--
--# Install LTP (requires superuser privileges)
--
--sudo make install 2>&1 | tee ../$INSTALL_LOG_FILE
+> Also I guess you prefer this version (LC_ALL=C). I suggested unset LC_ALL;
+> export LC_COLLATE=C; export LC_NUMERIC=C as it's used in kernel's Makefile (they
+> have more there, but IMHO only this is relevant for us).
+
+I do not think that LC_COLLATE and LC_NUMERIC is enough, we want actuall
+messages in english. If we do not want to use LC_ALL, which is probably
+the easiest we should use at least LC_MESSAGES and LC_NUMERIC but
+possibly LC_TIME too since date and time can be part of the messages we
+do parse as well.
+
 -- 
-2.38.0
-
+Cyril Hrubis
+chrubis@suse.cz
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
