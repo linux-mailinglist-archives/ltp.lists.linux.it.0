@@ -2,68 +2,65 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F33E609FA8
-	for <lists+linux-ltp@lfdr.de>; Mon, 24 Oct 2022 13:02:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C459060A00F
+	for <lists+linux-ltp@lfdr.de>; Mon, 24 Oct 2022 13:18:21 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 68EC73C98BA
-	for <lists+linux-ltp@lfdr.de>; Mon, 24 Oct 2022 13:02:24 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 1E89E3C98BA
+	for <lists+linux-ltp@lfdr.de>; Mon, 24 Oct 2022 13:18:21 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-6.smtp.seeweb.it (in-6.smtp.seeweb.it [217.194.8.6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 134513C8867
- for <ltp@lists.linux.it>; Mon, 24 Oct 2022 13:02:19 +0200 (CEST)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by picard.linux.it (Postfix) with ESMTPS id 147A53C0475
+ for <ltp@lists.linux.it>; Mon, 24 Oct 2022 13:18:15 +0200 (CEST)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 71B8B10007AC
- for <ltp@lists.linux.it>; Mon, 24 Oct 2022 13:02:19 +0200 (CEST)
+ by in-6.smtp.seeweb.it (Postfix) with ESMTPS id 259891400752
+ for <ltp@lists.linux.it>; Mon, 24 Oct 2022 13:18:14 +0200 (CEST)
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id B98EE1FD59;
- Mon, 24 Oct 2022 11:02:18 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTP id 0EA2322169;
+ Mon, 24 Oct 2022 11:18:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1666609338;
+ t=1666610294;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=A1+dw4OyWLlSppajjJXG5djuMaQDyGpSclLiOe/x3k0=;
- b=JOVcQRqSVCaNQiQ5jFCLq375gOYAzpy/m95cLxPdxzyvVXrajMRnM4V6n0HThu2W48UHJ/
- TnSo2IC9vJ5MEetf8WZVMfzwvCTGujFVfW69OXeQy0t9jPq99X1YhAXSVduk4xf7nQwxOs
- bAwrDJt5OQKraT1uTGXmrOnK0C3Rdec=
+ bh=B5G6E1Hg9uPTGH8+EE6+zQFrzTKLEcWW2BfcxOg0nws=;
+ b=KT5JutrEquXSIA3utzvxhoeQeyfE8aT02Zf1iEea0YGpyS5peU4qfeBpYOQ24yC+0pwj7P
+ RYiOJiwufae06kPH7NDFflZewdNJ6ayq826wkW86/zKVmWvK0ecXUHlh6KJyoPeO+1ejL8
+ Aow65mAQsSDxGXDRv1tWZNXrcMIK9fM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1666609338;
+ s=susede2_ed25519; t=1666610294;
  h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
  cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=A1+dw4OyWLlSppajjJXG5djuMaQDyGpSclLiOe/x3k0=;
- b=yGP5fqoxBirFHIxiCe91cWaE8YiL7B7qI4yy72LXtBkKknEkr7tfG0C1+rbtg9kKtOGAs3
- lopGVaOajTLJI3Ag==
+ bh=B5G6E1Hg9uPTGH8+EE6+zQFrzTKLEcWW2BfcxOg0nws=;
+ b=tTqyhqUofeaE4d4JLFrIvHzHMKN9t93x/9hPGKrJnudOmPK5VE9nhRpZi5THdD5Y4UsGIh
+ fqH75Mm2VSghEnBA==
 Received: from g78 (unknown [10.163.28.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id 7ADA22C141;
- Mon, 24 Oct 2022 11:02:18 +0000 (UTC)
-References: <20221013134728.49609-1-zhaogongyi@huawei.com>
- <20221013134728.49609-6-zhaogongyi@huawei.com>
+ by relay2.suse.de (Postfix) with ESMTPS id 8B8882C142;
+ Mon, 24 Oct 2022 11:18:13 +0000 (UTC)
+References: <20221014035615.185057-1-zhaogongyi@huawei.com>
 User-agent: mu4e 1.6.10; emacs 28.1
 From: Richard Palethorpe <rpalethorpe@suse.de>
 To: Zhao Gongyi <zhaogongyi@huawei.com>
-Date: Mon, 24 Oct 2022 12:01:10 +0100
-In-reply-to: <20221013134728.49609-6-zhaogongyi@huawei.com>
-Message-ID: <87mt9lzdqj.fsf@suse.de>
+Date: Mon, 24 Oct 2022 12:07:13 +0100
+In-reply-to: <20221014035615.185057-1-zhaogongyi@huawei.com>
+Message-ID: <87ilk9zd01.fsf@suse.de>
 MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
+X-Virus-Scanned: clamav-milter 0.102.4 at in-6.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.4
-X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v4 4/4] syscalls/madvise13: new test for
- madvise(MADV_REMOVE)
+X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-6.smtp.seeweb.it
+Subject: Re: [LTP] [PATCH 1/2] syscalls/nice05: new test for nice()
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,14 +83,113 @@ Hello,
 
 Zhao Gongyi via ltp <ltp@lists.linux.it> writes:
 
-> Check that the specified address range must be mapped shared and writable
-> and this flag cannot be applied to locked pages.
+> Verify that user of root can decrease the nice value of
+> the process successfully by passing a lower increment
+> value (< min. applicable limits) to nice() system call.
 >
 > Signed-off-by: Zhao Gongyi <zhaogongyi@huawei.com>
+> ---
+>  runtest/syscalls                          |  1 +
+>  testcases/kernel/syscalls/nice/.gitignore |  1 +
+>  testcases/kernel/syscalls/nice/nice05.c   | 54 +++++++++++++++++++++++
+>  3 files changed, 56 insertions(+)
+>  create mode 100644 testcases/kernel/syscalls/nice/nice05.c
+>
+> diff --git a/runtest/syscalls b/runtest/syscalls
+> index bd74373a4..7db399375 100644
+> --- a/runtest/syscalls
+> +++ b/runtest/syscalls
+> @@ -902,6 +902,7 @@ nice01 nice01
+>  nice02 nice02
+>  nice03 nice03
+>  nice04 nice04
+> +nice05 nice05
 
-Looks good!
+05 has already been taken. Also this test is very similar to
+nice01. Maybe it could be added to that?
 
-Reviewed-by: Richard Palethorpe <rpalethorpe@suse.com>
+>
+>  open01 open01
+>  open01A symlink01 -T open01
+> diff --git a/testcases/kernel/syscalls/nice/.gitignore b/testcases/kernel/syscalls/nice/.gitignore
+> index 9d7a1bb43..58d64779e 100644
+> --- a/testcases/kernel/syscalls/nice/.gitignore
+> +++ b/testcases/kernel/syscalls/nice/.gitignore
+> @@ -2,3 +2,4 @@
+>  /nice02
+>  /nice03
+>  /nice04
+> +/nice05
+> diff --git a/testcases/kernel/syscalls/nice/nice05.c b/testcases/kernel/syscalls/nice/nice05.c
+> new file mode 100644
+> index 000000000..85f10fadf
+> --- /dev/null
+> +++ b/testcases/kernel/syscalls/nice/nice05.c
+> @@ -0,0 +1,54 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Copyright(c) 2022 Huawei Technologies Co., Ltd
+> + * Author: Zhao Gongyi <zhaogongyi@huawei.com>
+> + */
+> +
+> +/*\
+> + * [Description]
+> + *
+> + * Verify that user of root can decrease the nice value of
+> + * the process successfully by passing a lower increment
+> + * value (< min. applicable limits) to nice() system call.
+> + */
+> +#include <unistd.h>
+> +#include "tst_test.h"
+> +
+> +#define	NICEINC -50
+> +#define MIN_PRIO  -20
+> +#define DEFAULT_PRIO 0
+> +
+> +static void verify_nice(void)
+> +{
+> +	int new_nice;
+> +
+> +	TEST(nice(NICEINC));
+
+Why not use one of the TST_EXP* macros?
+
+> +	if (TST_RET == -1) {
+> +		tst_res(TFAIL | TTERRNO, "nice(%d) returned -1", NICEINC);
+> +		return;
+> +	}
+> +
+> +	if (TST_ERR) {
+> +		tst_res(TFAIL | TTERRNO, "nice(%d) failed", NICEINC);
+> +		return;
+> +	}
+> +
+> +	new_nice = SAFE_GETPRIORITY(PRIO_PROCESS, 0);
+> +
+> +	if (new_nice != MIN_PRIO) {
+> +		tst_res(TFAIL,
+> +			"Process priority %i, expected %i", new_nice, MIN_PRIO);
+> +		return;
+> +	}
+> +
+> +	tst_res(TPASS, "nice(%d) passed", NICEINC);
+> +
+> +	TEST(nice(DEFAULT_PRIO));
+> +	if (TST_ERR)
+> +		tst_brk(TBROK | TTERRNO, "nice(%d) failed",
+> DEFAULT_PRIO);
+
+Again, could use TST_EXP* macro. Also just checking TST_ERR is not
+strictly correct.
+
+> +}
+> +
+> +static struct tst_test test = {
+> +	.test_all = verify_nice,
+> +	.needs_root = 1,
+> +};
+> --
+> 2.17.1
 
 -- 
 Thank you,
