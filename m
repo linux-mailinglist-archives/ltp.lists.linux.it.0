@@ -1,84 +1,66 @@
 Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
-Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51E4460CAAB
-	for <lists+linux-ltp@lfdr.de>; Tue, 25 Oct 2022 13:11:39 +0200 (CEST)
+Received: from picard.linux.it (picard.linux.it [IPv6:2001:1418:10:5::2])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B0B560CBA6
+	for <lists+linux-ltp@lfdr.de>; Tue, 25 Oct 2022 14:19:13 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 16BE43CA32E
-	for <lists+linux-ltp@lfdr.de>; Tue, 25 Oct 2022 13:11:39 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id F26733CA31C
+	for <lists+linux-ltp@lfdr.de>; Tue, 25 Oct 2022 14:19:12 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::2])
+Received: from in-2.smtp.seeweb.it (in-2.smtp.seeweb.it [217.194.8.2])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id 25D923C86C5
- for <ltp@lists.linux.it>; Tue, 25 Oct 2022 13:11:37 +0200 (CEST)
-Received: from mail-ua1-x92e.google.com (mail-ua1-x92e.google.com
- [IPv6:2607:f8b0:4864:20::92e])
+ by picard.linux.it (Postfix) with ESMTPS id 575F63C0134
+ for <ltp@lists.linux.it>; Tue, 25 Oct 2022 14:19:11 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-2.smtp.seeweb.it (Postfix) with ESMTPS id 4CA5F60085F
- for <ltp@lists.linux.it>; Tue, 25 Oct 2022 13:11:37 +0200 (CEST)
-Received: by mail-ua1-x92e.google.com with SMTP id e26so1330082uaa.7
- for <ltp@lists.linux.it>; Tue, 25 Oct 2022 04:11:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=VJ+Lf1KnG2ZEHy+vtehJ67+0Ydv0T44t/tpyWwADdLo=;
- b=UAk9qHeB/zcK0o3R8tRvY022dpRGylWIe079JcNnj2M22Qu2WwNC5+1X9F7xisJqdG
- 7QAN7rqAkZsOI6aM/qqBIpObij12aPJ0iT45eCx/ziw7NlqHsJ9cpOR+MME4/bzWgVeJ
- ndXAbwfJwkzOeQrEvnS6SrjRiqWokLj0R/wtvLQDEEBUckcOGI/Xo8EAk+xXJvsjctdu
- lJ9KFlzF6L6E+E70yEG8H4E4TyUxeqX7jaoeaXrUx9rhTXH01TvcMQNHBsPv5e076WyP
- 2jop02HDhDjbHJ6OD7nyFGd+CiS+gi4c0ugPvz8kmjdDqza4Mje2rhgvh1KZ7O80T+YC
- n3Uw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=VJ+Lf1KnG2ZEHy+vtehJ67+0Ydv0T44t/tpyWwADdLo=;
- b=0pYV4Bs15uYrJ+lvmaZurBjNhJcmipUMDUhA+pmnC/AjEP0npMLh9JSG7KlHkL9SFo
- cMn6KH36Y+P8ojOhhDtKW5KEqW0mZjbC9b0LJN1uR1d3qDJeS3uYKXHu45jEEJ/3q52A
- r0MsF5P9D4pU+A1JBMgo9ZoxfaLTyJocv07bKsNlxTsR5I5FMsDBZD2ME76WUHn/0eky
- LaPkPg1yrdlOCh6gpB5YO24O8XHCeKoPWarbqYfd9DYQXVDP/lzoNJsq3FgSnP63sY38
- 7jCW5/1/1RDpkt6IlbJ4XyTbarCNrIZfULbDHi5YwbCbjshKLQG3Vj9VhYfDnqOM4MQ4
- K2bg==
-X-Gm-Message-State: ACrzQf2v15N7EloveH2eEyJzBDiTVXEpzXhFjWpJlx6Bys+jXxXBpbJY
- bkGbshORwlKe9Enle7J899XPSW3isS0+gZGXH00=
-X-Google-Smtp-Source: AMsMyM4v7b6dAW9OyIigVMDuPovbe3hpD0jvUf57qALcS0rBMk9nN6KLRrHMe1P54wdrjqi+YzgkPdBaC8CKF0IvdSI=
-X-Received: by 2002:ab0:4715:0:b0:3ea:d249:de4c with SMTP id
- h21-20020ab04715000000b003ead249de4cmr22307877uac.80.1666696296081; Tue, 25
- Oct 2022 04:11:36 -0700 (PDT)
+ by in-2.smtp.seeweb.it (Postfix) with ESMTPS id C61E86002EC
+ for <ltp@lists.linux.it>; Tue, 25 Oct 2022 14:19:10 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1666700349;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=4gjALZ7jpKfCj7hC7PxTU5WNQtTjMTdyebbq+UlSKbA=;
+ b=WRAPgWvOJFJ1DYxCFA1O6ThtuHO8pwfzXhw8WGPJ5Ii8VKbvlHT0wwDsFpUyU62MR+DfIT
+ wfxb3/PVo9pdgo1tAFrn+g1KoUAtyQSHPK1HT8F3tafO+QgL0d2P3+O5fDiFquij9sKcb5
+ wsOz9z/bcMjiYwfD3Z5O/qrubshkZkM=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-644-fdTUj_8XMEOLK4PEKnq5wA-1; Tue, 25 Oct 2022 08:19:07 -0400
+X-MC-Unique: fdTUj_8XMEOLK4PEKnq5wA-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 96082833AEF
+ for <ltp@lists.linux.it>; Tue, 25 Oct 2022 12:19:01 +0000 (UTC)
+Received: from liwang-workstation.nay.redhat.com
+ (dhcp-66-81-187.nay.redhat.com [10.66.81.187])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id A7C18C15BAB
+ for <ltp@lists.linux.it>; Tue, 25 Oct 2022 12:18:57 +0000 (UTC)
+From: Li Wang <liwang@redhat.com>
+To: ltp@lists.linux.it
+Date: Tue, 25 Oct 2022 20:18:52 +0800
+Message-Id: <20221025121853.3590372-1-liwang@redhat.com>
 MIME-Version: 1.0
-References: <20221020130843.15147-1-mdoucha@suse.cz>
- <20221020130843.15147-3-mdoucha@suse.cz>
- <CAOQ4uxi=3aS+ROZ_kcQbVK9C4qiW76M1junEz2J+fdai5xjnAQ@mail.gmail.com>
- <b3443f46-37fc-3c15-76d6-0985e6da0535@suse.cz>
- <CAOQ4uxianp4e7gykk_N-yPKPPsK4xYu2HnH5d=N93+gAM60c=Q@mail.gmail.com>
- <9b1164dd-68fa-0335-0b38-f820e3d303be@suse.cz>
- <CAOQ4uxizXrthqR7G8Tx7kq+bz6kPTUxTSYs1BfireEXRpiNw4w@mail.gmail.com>
- <ea4fd7d6-0985-2983-d0ce-489a32a2f6dc@suse.cz>
- <CAOQ4uxib_vxncQa3RiObKYwQg0CQvPXLH+nyRckO9FVg=ihERQ@mail.gmail.com>
- <d80e2e12-899d-f0d2-27c2-f4a92f1b2be4@suse.cz>
- <CAOQ4uxgUXZS4D1VDToGLqXV2nDuPFqUHWqwoY8V=u=iUcQFruw@mail.gmail.com>
- <ab0f73ef-9e6d-5e7e-4ee1-8aa31ef2802e@suse.cz>
-In-Reply-To: <ab0f73ef-9e6d-5e7e-4ee1-8aa31ef2802e@suse.cz>
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Tue, 25 Oct 2022 14:11:24 +0300
-Message-ID: <CAOQ4uxjKgPzmU3eNJ5Z284rzuLd-ct55p1nY917f6CemDiQg-Q@mail.gmail.com>
-To: Martin Doucha <mdoucha@suse.cz>
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 X-Virus-Scanned: clamav-milter 0.102.4 at in-2.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.4
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-2.smtp.seeweb.it
-Subject: Re: [LTP] [PATCH v2 2/3] Add fanotify_get_supported_init_flags()
- helper function
+Subject: [LTP] [PATCH 1/2] setitimer01: add interval timer test
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,78 +72,119 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
-Cc: Jan Kara <jack@suse.cz>, LTP List <ltp@lists.linux.it>,
- Matthew Bobrowski <repnop@google.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-On Tue, Oct 25, 2022 at 11:51 AM Martin Doucha <mdoucha@suse.cz> wrote:
->
-> On 24. 10. 22 18:18, Amir Goldstein wrote:
-> > Show me how this could hide a real bug.
-> > Give an example.
-> > It does not need to be a specific kernel
-> > use an example with imaginary kernel with a backported feature if you like.
-> >
-> > fanotify14 is not about making sure that flag combinations are allowed
-> > it is about making sure that flag combinations are not allowed.
-> >
-> > If the test case is testing illegal init flags, the outcome must be
-> > fanotify_init
-> > EINVAL.
-> >
-> > If the test case is testing illegal mark flags, the outcome of fanotify_init
-> > may be EINVAL meaning that this test case will be skipped.
-> > It does not matter which specific init flag or init flag combination
-> > causes this EINVAL.
-> >
-> > I am ready to be proven wrong, but with examples,
-> > like the one you provided with test case #8 and kernel 5.3.
-> > hand waving and talking about vague "real bugs" won't convince me.
->
-> Imagine two init flags, A and B (doesn't matter which ones) that are not
-> supposed to conflict in any way according to documentation. And we'll
-> add 3 fanotify14 test cases with the following init calls:
-> - fanotify_init(A)
-> - fanotify_init(B)
-> - fanotify_init(A|B)
->
-> All 3 init calls are supposed to pass and then fanotify_mark() is
-> supposed to fail. Now imagine that we have a buggy kernel where both
-> flags are implemented but fanotify_init(A|B) hits a weird corner case
-> and returns EINVAL.
-> In your version of the code, the test will assume
-> that it's due to a missing feature and report the test case as skipped.
-> In my version of the code, the test will report a bug because it knows
-> that all the required features are present.
->
+First, split checking the return ovalue from testing the
+signal is delivered. The benefit is that we could use a
+long timeout value for verifying.
 
-It is a valid test case to assert that the support for two flags is
-independent,
-but this is not the job of fanotify14.
-fanotify14 checks for *illegal* flag combinations.
+Second, add an interval timer test by handling the signal
+at least 10 times. After that recover the signal behavior
+to default and do deliver-signal checking.
 
-If you feel that there should be a test that verifies that
-support of flag A is independent of support of flag B,
-then please write a different test for that.
+Signed-off-by: Li Wang <liwang@redhat.com>
+---
+ .../kernel/syscalls/setitimer/setitimer01.c   | 56 ++++++++++++-------
+ 1 file changed, 36 insertions(+), 20 deletions(-)
 
-But then would you test all possible permutations of flags?
-Not only flags that are used in fanotify14?
-Not only flag pairs? but more concurrent flags?
-I don't know if other APIs have such rigorous tests (except API fuzzers).
+diff --git a/testcases/kernel/syscalls/setitimer/setitimer01.c b/testcases/kernel/syscalls/setitimer/setitimer01.c
+index f04cb5a69..a59a9af1b 100644
+--- a/testcases/kernel/syscalls/setitimer/setitimer01.c
++++ b/testcases/kernel/syscalls/setitimer/setitimer01.c
+@@ -18,9 +18,11 @@
+ #include "tst_test.h"
+ #include "lapi/syscalls.h"
+ 
+-#define USEC1	10000
+-#define USEC2	20000
++#define SEC1	300
++#define SEC2	600
++#define USEC	100
+ 
++static volatile unsigned long sigcnt;
+ static struct itimerval *value, *ovalue;
+ 
+ static struct tcase {
+@@ -38,17 +40,17 @@ static int sys_setitimer(int which, void *new_value, void *old_value)
+ 	return tst_syscall(__NR_setitimer, which, new_value, old_value);
+ }
+ 
+-static void set_setitimer_value(int usec, int o_usec)
++static void sig_routine(int signo LTP_ATTRIBUTE_UNUSED)
+ {
+-	value->it_value.tv_sec = 0;
+-	value->it_value.tv_usec = usec;
+-	value->it_interval.tv_sec = 0;
+-	value->it_interval.tv_usec = 0;
++	sigcnt++;
++}
+ 
+-	ovalue->it_value.tv_sec = o_usec;
+-	ovalue->it_value.tv_usec = o_usec;
+-	ovalue->it_interval.tv_sec = 0;
+-	ovalue->it_interval.tv_usec = 0;
++static void set_setitimer_value(int sec, int usec)
++{
++	value->it_value.tv_sec = sec;
++	value->it_value.tv_usec = usec;
++	value->it_interval.tv_sec = sec;
++	value->it_interval.tv_usec = usec;
+ }
+ 
+ static void verify_setitimer(unsigned int i)
+@@ -57,23 +59,37 @@ static void verify_setitimer(unsigned int i)
+ 	int status;
+ 	struct tcase *tc = &tcases[i];
+ 
+-	pid = SAFE_FORK();
++	tst_res(TINFO, "tc->which = %s", tc->des);
+ 
+-	if (pid == 0) {
+-		tst_res(TINFO, "tc->which = %s", tc->des);
++	set_setitimer_value(SEC1, USEC);
++	TST_EXP_PASS_SILENT(sys_setitimer(tc->which, value, NULL));
++
++	set_setitimer_value(SEC2, USEC);
++	TST_EXP_PASS_SILENT(sys_setitimer(tc->which, value, ovalue));
+ 
++	TST_EXP_EQ_LI(ovalue->it_interval.tv_sec, SEC1);
++	TST_EXP_EQ_LI(ovalue->it_interval.tv_usec, USEC);
++
++	if (ovalue->it_value.tv_sec + ovalue->it_value.tv_usec/1000000 <= SEC1)
++		tst_res(TPASS, "old timer value is within the expected range");
++	else
++		tst_res(TFAIL, "old timer value is not within the expected range");
++
++	pid = SAFE_FORK();
++	if (pid == 0) {
+ 		tst_no_corefile(0);
+ 
+-		set_setitimer_value(USEC1, 0);
++		SAFE_SIGNAL(tc->signo, sig_routine);
++
++		set_setitimer_value(0, USEC);
+ 		TST_EXP_PASS(sys_setitimer(tc->which, value, NULL));
+ 
+-		set_setitimer_value(USEC2, USEC2);
+-		TST_EXP_PASS(sys_setitimer(tc->which, value, ovalue));
++		while (sigcnt <= 10UL)
++			;
+ 
+-		if (ovalue->it_value.tv_sec != 0 || ovalue->it_value.tv_usec >= USEC2)
+-			tst_brk(TFAIL, "old timer value is not within the expected range");
++		SAFE_SIGNAL(tc->signo, SIG_DFL);
+ 
+-		for (;;)
++		while (1)
+ 			;
+ 	}
+ 
+-- 
+2.35.3
 
-I agree with Jan that the value of such a test would be questionable,
-but it does have a value, so I won't object to having this test, as
-long as it does not blindly check for all the known fanotify init bits
-are independent.
-
-Asserting flag combination independence should be opt-in by the test
-not out-out like you did with REPORT_FID and REPORT_NAME.
-
-Thanks,
-Amir.
 
 -- 
 Mailing list info: https://lists.linux.it/listinfo/ltp
