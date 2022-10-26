@@ -2,72 +2,72 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6A8760E175
-	for <lists+linux-ltp@lfdr.de>; Wed, 26 Oct 2022 15:06:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA89360E19E
+	for <lists+linux-ltp@lfdr.de>; Wed, 26 Oct 2022 15:08:51 +0200 (CEST)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id 15A2B3CA727
-	for <lists+linux-ltp@lfdr.de>; Wed, 26 Oct 2022 15:06:26 +0200 (CEST)
+	by picard.linux.it (Postfix) with ESMTP id 67E883CA7C6
+	for <lists+linux-ltp@lfdr.de>; Wed, 26 Oct 2022 15:08:51 +0200 (CEST)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
-Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it
- [IPv6:2001:4b78:1:20::4])
+Received: from in-4.smtp.seeweb.it (in-4.smtp.seeweb.it [217.194.8.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id EBF3F3C4FA0
- for <ltp@lists.linux.it>; Wed, 26 Oct 2022 15:06:21 +0200 (CEST)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by picard.linux.it (Postfix) with ESMTPS id 4D7D03C9FF2
+ for <ltp@lists.linux.it>; Wed, 26 Oct 2022 15:08:47 +0200 (CEST)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by in-4.smtp.seeweb.it (Postfix) with ESMTPS id 1A8BC1000A66
- for <ltp@lists.linux.it>; Wed, 26 Oct 2022 15:06:20 +0200 (CEST)
+ by in-4.smtp.seeweb.it (Postfix) with ESMTPS id EE2AA1000AE9
+ for <ltp@lists.linux.it>; Wed, 26 Oct 2022 15:08:46 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 1E0F72205B;
- Wed, 26 Oct 2022 13:06:20 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 938DE1F8BE;
+ Wed, 26 Oct 2022 13:08:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1666789580; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1666789724; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=l5YFxhw0534MTHkNJVEwQC8q0h0acpKZLSmKzkBNIcI=;
- b=DTYyN8jgSkM0V3ivwjTgPp+FR5SXM9V7RfpNnHUYojmA/yFxeqYtjgNXUsll+nYhPWouAi
- PTV7xzEfjdfb5rXCgeXZgXqegijI7a9e2d5pCuO4jVCAFxKEtD77TelVHESu+a0SBb31+t
- CVYERLZ35mCAXi1osvC0hozfbqIs364=
+ bh=+XZwvQaKwjTK+LB6PwPquBqyVcuwk/Ttis23sLuxULc=;
+ b=3CYSChQ1hCMAt9Rn/KLsF1jdkkOWBHlb3GIZUB8WCGcbanq+l7SAGlkvmbZrV8zMe8dpqR
+ /wZdnARL+Fxnypr0gvHnvF6Drft0SvgvzYRJqOUXhyqiE9pSIwLXBY4d2Z29bWr3biSbiW
+ xgFBsAJJErFubzv+2hq/OmkCmZeh9U4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1666789580;
+ s=susede2_ed25519; t=1666789724;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=l5YFxhw0534MTHkNJVEwQC8q0h0acpKZLSmKzkBNIcI=;
- b=xRJW5RtVFnBhfXtnU4kK4hhTqazEhbVXPPPpIS+4twmiZY2MfTCaalk9Y26mOQFyzc1/wD
- 3esewr+8ZwYXkcCA==
+ bh=+XZwvQaKwjTK+LB6PwPquBqyVcuwk/Ttis23sLuxULc=;
+ b=jVhiOCnifOlNqYbMlk1XDY7k3isHL+i7yzVkCFsLDzVtNC567ZNFRqvTpW9rKBhoxmU3Dw
+ 5Rxtok0PAMtbEbDA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0287813A77;
- Wed, 26 Oct 2022 13:06:19 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7E40913A77;
+ Wed, 26 Oct 2022 13:08:44 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id zt6BO8swWWPwVgAAMHmgww
- (envelope-from <chrubis@suse.cz>); Wed, 26 Oct 2022 13:06:19 +0000
-Date: Wed, 26 Oct 2022 15:08:00 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id THGIHVwxWWMJWAAAMHmgww
+ (envelope-from <chrubis@suse.cz>); Wed, 26 Oct 2022 13:08:44 +0000
+Date: Wed, 26 Oct 2022 15:10:25 +0200
 From: Cyril Hrubis <chrubis@suse.cz>
-To: Martin Doucha <mdoucha@suse.cz>
-Message-ID: <Y1kxMHBpEhb4SvUb@yuki>
+To: Jan Stancek <jstancek@redhat.com>
+Message-ID: <Y1kxwfYPNZ/g5MEl@yuki>
 References: <20221021155740.8339-1-mdoucha@suse.cz> <Y1MCbP1yjLOuoPLb@pevik>
  <CAASaF6ySEcVE=b-7nGy+FeLyg_6dNMjL6J_bivjZ6JYzSx5b=w@mail.gmail.com>
  <3f3dca4e-79d9-9e5b-293f-f27c6644dec8@suse.cz>
+ <CAASaF6xHrcko8Wcq_UAaLY9hscYZAGrSSJe=P07HYoOFXaoTyw@mail.gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <3f3dca4e-79d9-9e5b-293f-f27c6644dec8@suse.cz>
+In-Reply-To: <CAASaF6xHrcko8Wcq_UAaLY9hscYZAGrSSJe=P07HYoOFXaoTyw@mail.gmail.com>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-4.smtp.seeweb.it
 X-Virus-Status: Clean
 X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.4
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_SOFTFAIL
+ autolearn=disabled version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-4.smtp.seeweb.it
 Subject: Re: [LTP] [PATCH] save_restore: Check whether path is writable
 X-BeenThere: ltp@lists.linux.it
@@ -88,34 +88,22 @@ Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
 Hi!
-> > For optional path, if test can't read/write it (b/o of no root privileges),
-> > I think library shouldn't try to save it - then that would also skip
-> > attempt to restore it.
+> The case 2) looks like it could apply to non-optional paths too. So maybe
+> best option would be to drop "!" and "?" prefixes and turn them into flags/enums
+> which can be then combined together.
 > 
-> There are be two different kinds of optional paths, though:
-> 1) paths that sometimes don't exist but must be written to if they do
-> 2) paths that may be left alone if they exist and already contain the 
-> right value (otherwise TCONF)
+> "/proc/sys/kernel/pid_max", 0, val // TCONF if path doesn't exist
+> "/proc/sys/kernel/pid_max", SR_MUST_EXIST, val // TBROK if path doesn't exist
+> "/proc/sys/kernel/pid_max", SR_MAY_EXIST, val // if exists, save it
+> "/proc/sys/kernel/pid_max", SR_CONST_VAL, val // if already has val,
+> skip saving it
+> "/proc/sys/kernel/pid_max", SR_MAY_EXIST | SR_CONST_VAL, val // if
+> exists check it already has val, otherwise save it
+> 
+> What do you think? Would that make it easier to represent/implement all cases?
 
-Alternatively we can cleanup the interface, we moved from a single
-string to a structure so we can add more fields, what about adding flags
-that would describe one single attribute of the file instead of
-clobbering several different characteristics of the file into a single
-character?
-
-We can then do something as:
-
-struct tst_save_restore {
-	const char *path;
-	const char *val;
-	/* the test needs the file to exist -> TCONF on missing */
-	int required:1;
-	/* write the value even if the file already contains it */
-	int rewrite:1;
-	...
-};
-
-This makes the inteface orthogonal and much easier to reason about.
+Ah Jan already proposed something similar to what I had in mind. I agree
+with moving the attributes from the path to a separate field too.
 
 -- 
 Cyril Hrubis
