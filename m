@@ -2,48 +2,66 @@ Return-Path: <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 X-Original-To: lists+linux-ltp@lfdr.de
 Delivered-To: lists+linux-ltp@lfdr.de
 Received: from picard.linux.it (picard.linux.it [213.254.12.146])
-	by mail.lfdr.de (Postfix) with ESMTPS id D216661477E
-	for <lists+linux-ltp@lfdr.de>; Tue,  1 Nov 2022 11:09:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 521436147BB
+	for <lists+linux-ltp@lfdr.de>; Tue,  1 Nov 2022 11:32:51 +0100 (CET)
 Received: from picard.linux.it (localhost [IPv6:::1])
-	by picard.linux.it (Postfix) with ESMTP id A3E873CAD3E
-	for <lists+linux-ltp@lfdr.de>; Tue,  1 Nov 2022 11:09:24 +0100 (CET)
+	by picard.linux.it (Postfix) with ESMTP id BB40C3CAD0D
+	for <lists+linux-ltp@lfdr.de>; Tue,  1 Nov 2022 11:32:50 +0100 (CET)
 X-Original-To: ltp@lists.linux.it
 Delivered-To: ltp@picard.linux.it
 Received: from in-7.smtp.seeweb.it (in-7.smtp.seeweb.it [217.194.8.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-384))
  (No client certificate requested)
- by picard.linux.it (Postfix) with ESMTPS id BDA9A3CAC41
- for <ltp@lists.linux.it>; Tue,  1 Nov 2022 11:09:16 +0100 (CET)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by in-7.smtp.seeweb.it (Postfix) with ESMTP id B02F120090F
- for <ltp@lists.linux.it>; Tue,  1 Nov 2022 11:09:15 +0100 (CET)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A823D1FB;
- Tue,  1 Nov 2022 03:09:19 -0700 (PDT)
-Received: from [10.1.26.44] (e126380.cambridge.arm.com [10.1.26.44])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BC63F3F5A1;
- Tue,  1 Nov 2022 03:09:12 -0700 (PDT)
-Message-ID: <119655bb-9534-7f83-6203-d6ce260622d6@arm.com>
-Date: Tue, 1 Nov 2022 10:09:07 +0000
+ by picard.linux.it (Postfix) with ESMTPS id C2A723CAC14
+ for <ltp@lists.linux.it>; Tue,  1 Nov 2022 11:32:46 +0100 (CET)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by in-7.smtp.seeweb.it (Postfix) with ESMTPS id 09AB1200915
+ for <ltp@lists.linux.it>; Tue,  1 Nov 2022 11:32:45 +0100 (CET)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 51608338F7;
+ Tue,  1 Nov 2022 10:32:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1667298765;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=KucHhAsju8yRC+RUxzJcjnPfCaEfSdz/rIstuhy9YeY=;
+ b=xtN9Qfqm/qhWPi3ZYAI/00Xl2o1uVQ6Y+ZL6pZoVJkZ66X4YdQGm4U62xYLqQ2FU0PJTg8
+ 570QhoX+shxnmmKoFweHigG9F/lle7zZ2Bzd29ApUUIyVF9v1kDLRg9hbl/e8z8j8XVADe
+ WG286i3qYx8AXEsRIfTJMMbSI+9o3rE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1667298765;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=KucHhAsju8yRC+RUxzJcjnPfCaEfSdz/rIstuhy9YeY=;
+ b=wjSi10ONgFAYLyLwXknU+ieR7/ndWa1mfjEvrHdwDivghoycvbth+ZpYQEptmic1G55N/G
+ KcJYOmGNEuScAWDQ==
+Received: from UNKNOWN (unknown [10.163.28.198])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by relay2.suse.de (Postfix) with ESMTPS id 036A12C141;
+ Tue,  1 Nov 2022 10:32:44 +0000 (UTC)
+References: <20220808081501.21395-1-andrea.cervesato@suse.com>
+User-agent: mu4e 1.8.11; emacs 28.1
+From: Richard Palethorpe <rpalethorpe@suse.de>
+To: Andrea Cervesato <andrea.cervesato@suse.com>
+Date: Tue, 01 Nov 2022 10:31:16 +0000
+Organization: Linux Private Site
+In-reply-to: <20220808081501.21395-1-andrea.cervesato@suse.com>
+Message-ID: <87h6zj9d83.fsf@suse.de>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.3
-To: Cyril Hrubis <chrubis@suse.cz>
-References: <20221027163654.414017-1-teo.coupriediaz@arm.com>
- <20221027163654.414017-2-teo.coupriediaz@arm.com> <Y1/Oh4VCUiUSFIvK@yuki>
- <99c55c0c-1f51-5282-6198-dbcb6d919ea3@arm.com> <Y2AItxvngzUPG8U1@yuki>
-Content-Language: en-US
-From: Teo Couprie Diaz <teo.coupriediaz@arm.com>
-Organization: Arm Ltd.
-In-Reply-To: <Y2AItxvngzUPG8U1@yuki>
 X-Virus-Scanned: clamav-milter 0.102.4 at in-7.smtp.seeweb.it
 X-Virus-Status: Clean
-X-Spam-Status: No, score=-0.0 required=7.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.4
+X-Spam-Status: No, score=0.1 required=7.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.4
 X-Spam-Checker-Version: SpamAssassin 3.4.4 (2020-01-24) on in-7.smtp.seeweb.it
-Subject: Re: [LTP] [RFC PATCH 1/1] regen.sh: Use intptr_t for tst_syscall
- return
+Subject: Re: [LTP] [PATCH v1] Refactor pidns12 test using new LTP API
 X-BeenThere: ltp@lists.linux.it
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,24 +73,39 @@ List-Post: <mailto:ltp@lists.linux.it>
 List-Help: <mailto:ltp-request@lists.linux.it?subject=help>
 List-Subscribe: <https://lists.linux.it/listinfo/ltp>,
  <mailto:ltp-request@lists.linux.it?subject=subscribe>
+Reply-To: rpalethorpe@suse.de
 Cc: ltp@lists.linux.it
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it
 Sender: "ltp" <ltp-bounces+lists+linux-ltp=lfdr.de@lists.linux.it>
 
-SGksCj4gSGkhCj4+IEkgYWdyZWUsIEkgd291bGRuJ3Qgd2FudCB0byBtZXJnZSBpdC4KPj4gQXMg
-bWVudGlvbmVkIGluIHRoZSBjb3ZlciwgSSB3YW50ZWQgdG8gc2hhcmUgdGhlIGxpc3Qgb2YgdGVz
-dHMgSSBoYXZlCj4+IHRlc3RlZCB0aGUgcGF0Y2ggd2l0aCwKPj4gYm90aCBmb3IgcGVvcGxlIHRv
-IHRlc3QgdGhlbXNlbHZlcyBpZiB0aGV5IHdhbnQgdG8gYW5kIGFzIGEgd2F5IHRvIGFzawo+PiBp
-ZiB0aGVyZSB3YXMgYW55dGhpbmcgSSBtaXNzZWQKPj4gd2hpbGUgdGVzdGluZyB3aXRoIHRoYXQu
-Cj4+IEkgZGlkbid0IHJlYWxseSBrbm93IGhvdyB0byBzaGFyZSB0aGlzLCBzbyBJIGFkZGVkIGl0
-IGFzIHBhcnQgb2YgdGhlCj4+IGNvbW1pdCBmb3IgdGhlIFJGQy4gTWF5YmUgaXQgd291bGQKPj4g
-Zml0IGJldHRlciBhcyBwYXJ0IG9mIHRoZSBjb3ZlciBsZXR0ZXIgPyBPciBhZnRlciB0aGUgY29t
-bWl0IGRlc2NyaXB0aW9uCj4+IHdpdGggdGhlIHNob3J0bG9nID8KPj4gSXQgbWlnaHQgYmUgYmV0
-dGVyIHJlbW92ZWQgYWx0b2dldGhlciBhbmQgcGVvcGxlIGNhbiB0ZXN0IHdpdGggYSBsYXJnZXIK
-Pj4gc2NvcGUgYW55d2F5ICEKPiBNYXliZSBqdXN0IGEgc2VwYXJhdGUgcGF0Y2ggd2l0aCBbRE8g
-Tk9UIE1FUkdFXSBpbiB0aGUgdGl0dGxlPwoKVGhhdCBkb2VzIG1ha2Ugc2Vuc2UsIEkgd2lsbCBz
-cGxpdCBpdCBhcyBzdWNoIHdoZW4gc2VuZGluZyB0aGUgbm9uLVJGQyAKdmVyc2lvbi4KClRoYW5r
-cyBmb3IgdGhlIGd1aWRhbmNlICEKQmVzdCByZWdhcmRzLApUw6lvIENvdXByaWUgRGlhegoKCi0t
-IApNYWlsaW5nIGxpc3QgaW5mbzogaHR0cHM6Ly9saXN0cy5saW51eC5pdC9saXN0aW5mby9sdHAK
+Hello,
+
+Pushed!
+
+With changes to use TST_EXP_EQ* macro.
+
+i.e.
+
+...
+static void child_signal_handler(LTP_ATTRIBUTE_UNUSED int sig, siginfo_t *si, LTP_ATTRIBUTE_UNUSED void *unused)
+{
+	TST_EXP_EQ_LI(si->si_pid, 0);
+}
+
+static int child_func(LTP_ATTRIBUTE_UNUSED void *arg)
+{
+	struct sigaction sa;
+
+	TST_EXP_EQ_LI(getpid(), 1);
+	TST_EXP_EQ_LI(getppid(), 0);
+...
+
+-- 
+
+Thank you,
+Richard.
+
+-- 
+Mailing list info: https://lists.linux.it/listinfo/ltp
